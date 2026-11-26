@@ -397,8 +397,8 @@ return {
 	["West through the {area:2277} to {area:2627}: fill the {item:15042} at the big termite mounds, and kill the Frenzied Plaguehounds and the Carrion Devourers on the way.\nCareful: the Frenzied Plaguehounds are 57-58: pull them one at a time."] = "Al oeste cruzando {area:2277} hasta {area:2627}: llena el {item:15042} en los grandes termiteros y mata a los canes de peste demenciados y a los devoradores carroñeros en el camino.\nCuidado: los canes de peste demenciados son de nivel 57-58: atráelos de uno en uno.",
 
 	-- Step 73: Augustus the Touched
-	-- {npc:12384} Augustus the Touched · {area:2627} Terrordale · {npc:11140} Egan
-	["{npc:12384} lives in the ruined hut in {area:2627}, and his receipt book lies in the ruined inn nearby. {npc:11140} stands by {npc:12384}' hut."] = "{npc:12384} vive en la choza en ruinas de {area:2627}, y su libro de recibos está en la posada en ruinas cercana. {npc:11140} está junto a la choza de {npc:12384}.",
+	-- {npc:12384} Augustus the Touched · {area:2627} Terrordale · {npc:11140} Egan · {npc:16184} Nerubian Overseer · {area:2626} Terrorweb Tunnel
+	["{npc:12384} lives in the ruined hut in {area:2627}, and his receipt book lies in the ruined inn nearby. {npc:11140} stands by {npc:12384}' hut.\nCareful: a {npc:16184} (60, elite) walks {area:2627} and the {area:2626} south-west of it. Look for him before you ride in, and wait for him to pass."] = "",
 
 	-- Step 75: Tirion Fordring
 	-- {npc:1855} Tirion Fordring · {area:2627} Terrordale · {area:2626} Terrorweb Tunnel
@@ -637,6 +637,7 @@ return {
 	-- ["{npc:11616}: the termites come later, in {area:2627}"] = "{npc:11616}: las termitas vienen después, en {area:2627}",
 	-- ["{npc:11741} walks around here: look inside the circle on the map"] = "{npc:11741} recorre esta zona: busca dentro del círculo del mapa",
 	-- ["{npc:11886} is elite: grouping up is advised"] = "{npc:11886} es élite: se recomienda ir en grupo",
+	-- ["{npc:12384} lives in the ruined hut in {area:2627}, and his receipt book lies in the ruined inn nearby. {npc:11140} stands by {npc:12384}' hut."] = "{npc:12384} vive en la choza en ruinas de {area:2627}, y su libro de recibos está en la posada en ruinas cercana. {npc:11140} está junto a la choza de {npc:12384}.",
 	-- ["{npc:15189}'s and {npc:15191}'s next tasks (the Stonelash scorpids and the Dredge Crushers) wait for the {zone:1451} guide's {area:3425} stop: take them then."] = "Las siguientes tareas de {npc:15189} y {npc:15191} (los escórpidos Latigazo de piedra y los Trituradores deslizantes) esperan a la parada en {area:3425} de la guía de {zone:1451}: acéptalas entonces.",
 	-- ["{npc:16256}: the last guide binds here, so this usually ticks at once"] = "{npc:16256}: la guía anterior te vincula aquí, así que esto suele marcarse de inmediato",
 	-- ["{npc:17082}, at the Alliance tents"] = "{npc:17082}, en las tiendas de la Alianza",

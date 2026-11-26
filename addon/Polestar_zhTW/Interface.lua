@@ -730,6 +730,9 @@ L["Kept for %s"] = "保留給 %s"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "把 %s 繳交給 %s，此人在附近走動：在地圖上的圓圈裡找"
 L["A quest you carry that the route does not work here: its work is nearby."] = "你身上的一個任務，路線不在這裡做：它的目標就在附近。"
 L["%s at %s"] = "%2$s 處的 %1$s"
+-- L["Buy a rune at %s"] = ""
+-- L["Buy a rune and cast %s to save about %s"] = ""
+-- L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "選擇一項獎勵以完成繳交。"
@@ -2339,6 +2342,7 @@ L["Suggested"] = "推薦"
 L["The guides window only. Click to pick a size; right-click to reset."] = "僅限指南視窗。點擊選擇大小；右鍵點擊重設。"
 L["Quests in"] = "任務地區"
 L["Passes through"] = "途經"
+-- L["%s: optional class quests"] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "小寵物"
@@ -2577,6 +2581,8 @@ L["Use %s beside %s"] = "在 %2$s 旁使用 %1$s"
 L["All attunements and keys"] = "所有副本鑰匙任務和鑰匙"
 L["Every attunement and key, with how far you are"] = "每項副本鑰匙任務和鑰匙，以及你的進度"
 L["Not open on Forever yet"] = "Forever 上尚未開放"
+-- L["A guide to the items 1 quest in your log needs from where it is given, ending at the entrance."] = ""
+-- L["A guide to the items %d quests in your log need from where they are given, ending at the entrance."] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "就在這裡"
@@ -3197,6 +3203,7 @@ L["General"] = "一般"
 L["The language Polestar shows."] = "Polestar 顯示的語言。"
 L["Say when I've outlevelled a guide"] = "我的等級超過指南時提醒"
 L["A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is."] = "當你的等級超過指南的等級時，在指南視窗顯示提醒，每個指南每次登入一次，並附上適合你等級的指南。關閉：不提醒；指南保持不變。"
+-- L["For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "團隊警告"
@@ -4104,6 +4111,8 @@ L["Every quest in your log is part of your route."] = "任務日誌中的所有�
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "路線中沒有任何指南會接取、完成或繳交這些任務。保留你想要的；「放棄」會先在遊戲本身的視窗中確認。"
 L["Finished: no guide of your route hands it in"] = "已完成：路線中沒有指南會繳交它"
 L["Not in any guide of your route"] = "不在你路線中的任何指南裡"
+-- L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = ""
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = ""
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "新技能"
@@ -5003,6 +5012,8 @@ L["On the window's edge"] = "視窗邊緣"
 L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."] = "在步驟下方為路線之外仍需完成或繳交的任務顯示列：指南更新後落在你身後的任務，以及之後沒有指南會繳交的已完成任務。關閉後，指南視窗選單仍會在「繳交已完成的任務」下列出已完成的任務。"
 L["XP line"] = "經驗列"
 L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "步驟下方的一行：每小時經驗、升級時間和你的節奏。加強休息保留自己的一行。"
+-- L["Quest log notices"] = ""
+-- L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = ""
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "警示列"
@@ -5644,6 +5655,23 @@ L["(your current)"] = "（你目前的）"
 L["kept for %s"] = "保留給 %s"
 L["kept"] = "保留"
 L["Kept for %s: the route hands it in there."] = "保留給 %s：路線會在那裡繳交。"
+
+-- Lookup/Handins.lua
+-- L["No quests in your log are ready to hand in."] = ""
+-- L["Wait until combat ends to load the quest data."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Handins addon is installed and enabled."] = ""
+
+-- UI/QuestLinks.lua
+-- L["Start quest guide"] = ""
+-- L["Click to show quest guide actions."] = ""
+
+-- Handins.lua
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐頁重新設定 Polestar。每項選擇立即生效。"

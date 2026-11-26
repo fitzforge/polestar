@@ -146,6 +146,7 @@ local function tooltip(owner)
 		tip:AddDoubleLine(L["XP after turn-ins"], format("%d / %d (%.1f%%)", projected, QuestXP.limit, projected / QuestXP.limit * 100), SAGE_R, SAGE_G, SAGE_B, SAGE_R, SAGE_G, SAGE_B)
 		tip:AddDoubleLine(L["XP remaining after turn-ins"], format("%d", QuestXP.limit - projected))
 	end
+	if ns.Theme and ns.Theme.TipDots then ns.Theme.TipDots(tip) end
 	tip:Show()
 end
 

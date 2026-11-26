@@ -51,8 +51,9 @@ return {
 	-- Step 8: Tailoring 75-150: vendor goods
 	-- {skill:197} Tailoring
 	["{skill:197} 75-150: vendor goods"] = "{skill:197} 75–150：商人材料",
-	-- {item:2321} Fine Thread · {item:2324} Bleach · {item:2604} Red Dye · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 108 {item:2321} (1g 8s), 34 {item:2324} (8s 50c) and 98 {item:2604} (49s); about 1g 65s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "一次买齐这个技能阶段所需的物资：108 个 {item:2321}（1 金 8 银）、34 个 {item:2324}（8 银 50 铜）和 98 个 {item:2604}（49 银币）；总计约 1 金 65 银 50 铜。箭头会选择本阵营最近的商人（{zone:1453}：{npc:1347}、{npc:1286} 和 {npc:5565}；{zone:1454}：{npc:3364}、菲利卡和 {npc:5817}）。",
+	-- {item:2321} Fine Thread · {item:2324} Bleach · {item:2604} Red Dye · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
+	-- was: ["Buy the whole bracket's share in one go: 108 {item:2321} (1g 8s), 34 {item:2324} (8s 50c) and 98 {item:2604} (49s); about 1g 65s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "一次买齐这个技能阶段所需的物资：108 个 {item:2321}（1 金 8 银）、34 个 {item:2324}（8 银 50 铜）和 98 个 {item:2604}（49 银币）；总计约 1 金 65 银 50 铜。箭头会选择本阵营最近的商人（{zone:1453}：{npc:1347}、{npc:1286} 和 {npc:5565}；{zone:1454}：{npc:3364}、菲利卡和 {npc:5817}）。"
+	["Buy the whole bracket's share in one go: 108 {item:2321} (1g 8s), 34 {item:2324} (8s 50c) and 98 {item:2604} (49s); about 1g 65s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347} and {npc:1286}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "",
 
 	-- Step 9: Get Wool Cloth
 	-- {item:2592} Wool Cloth
@@ -100,7 +101,7 @@ return {
 	-- {skill:197} Tailoring
 	["{skill:197} 150-225: vendor goods"] = "{skill:197} 150–225：商人材料",
 	-- {item:2321} Fine Thread · {item:4291} Silken Thread · {item:6260} Blue Dye · {item:8343} Heavy Silken Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 44 {item:2321} (44s), 90 {item:4291} (4g 50s), 44 {item:6260} (22s) and 80 {item:8343} (16g); about 21g 16s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "一次买齐本阶段的用量：44根 {item:2321}（44银币）、90根 {item:4291}（4金币50银币）、44份 {item:6260}（22银币）和80根 {item:8343}（16金币）；总计约21金币16银币。箭头会指向本阵营最近的商人（{zone:1453}：{npc:1347}、{npc:1286} 和 {npc:5565}；{zone:1454}：{npc:3364}、菲利卡和 {npc:5817}）。",
+	["Buy the whole bracket's share in one go: 44 {item:2321} (44s), 108 {item:4291} (5g 40s), 44 {item:6260} (22s) and 74 {item:8343} (14g 80s); about 20g 86s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "",
 
 	-- Step 17: Pattern: Azure Silk Cloak
 	-- {item:7089} Pattern: Azure Silk Cloak · {item:7053} Azure Silk Cloak · {skill:197} Tailoring · {npc:6576} Brienna Starglow · {zone:1444} Feralas · {npc:251997} Norvin Alderman · {zone:1416} Alterac Mountains · {npc:6574} Jun'ha · {zone:1417} Arathi Highlands
@@ -114,13 +115,14 @@ return {
 	-- {item:4338} Mageweave Cloth
 	["Get {item:4338}"] = "",
 	-- {item:4338} Mageweave Cloth · {skill:197} Tailoring · {item:9998} Black Mageweave Vest · {item:10024} Black Mageweave Headband
-	["You need 900 {item:4338} for {skill:197} 150-225: {item:9998} and {item:10024}. Humanoids of level 35-50 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4338} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 915 {item:4338} for {skill:197} 150-225: {item:9998} and {item:10024}. Humanoids of level 35-50 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4338} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
 	-- Step 20: Expert Tailoring
 	-- {skill:197} Tailoring
 	["Expert {skill:197}"] = "高级{skill:197}",
 	-- {skill:197} Tailoring · {npc:1346} Georgio Bolero · {zone:1453} Stormwind City · {npc:4576} Josef Gregorian · {zone:1458} Undercity · {spell:3865} Bolt of Mageweave · {item:4306} Silk Cloth · {item:4338} Mageweave Cloth · {item:9998} Black Mageweave Vest · {item:10024} Black Mageweave Headband
-	["Expert raises the cap from 150 to 225; it needs {skill:197} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:1346} ({zone:1453}); Horde {npc:4576} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3865} (from 140). 150-225 takes about 15s of recipes and 21g 16s of vendor goods, plus 264 {item:4306} and 900 {item:4338} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9998} (from 170), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 2. {item:10024} (from 190) takes a second trip, to other trainers (below)."] = "高级将上限从150提高到225；需要{skill:197}125、角色20级，因此达到125后每次路过都可学习。只有少数训练师教授：联盟为{npc:1346}（{zone:1453}）；部落为{npc:4576}（{zone:1458}）。箭头会选择本阵营最近的一位。现在学习：{spell:3865}（140起）。150-225约需15银学习配方、21金16银购买商人物品，另需收集或购买264个{item:4306}和900个{item:4338}。来之前把材料全部放进背包（按上面的步骤准备，其余从拍卖行购买）：这些训练师也教授{item:9998}（170起），而制作无需工作台，因此可以就在这里制作，达到所需技能时就学新配方。原本要跑 2 趟的事，现在一趟即可完成。{item:10024}（190起）需要再跑一趟，去找其他训练师（见下文）。",
+	-- was: ["Expert raises the cap from 150 to 225; it needs {skill:197} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:1346} ({zone:1453}); Horde {npc:4576} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3865} (from 140). 150-225 takes about 15s of recipes and 21g 16s of vendor goods, plus 264 {item:4306} and 900 {item:4338} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9998} (from 170), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 2. {item:10024} (from 190) takes a second trip, to other trainers (below)."] = "高级将上限从150提高到225；需要{skill:197}125、角色20级，因此达到125后每次路过都可学习。只有少数训练师教授：联盟为{npc:1346}（{zone:1453}）；部落为{npc:4576}（{zone:1458}）。箭头会选择本阵营最近的一位。现在学习：{spell:3865}（140起）。150-225约需15银学习配方、21金16银购买商人物品，另需收集或购买264个{item:4306}和900个{item:4338}。来之前把材料全部放进背包（按上面的步骤准备，其余从拍卖行购买）：这些训练师也教授{item:9998}（170起），而制作无需工作台，因此可以就在这里制作，达到所需技能时就学新配方。原本要跑 2 趟的事，现在一趟即可完成。{item:10024}（190起）需要再跑一趟，去找其他训练师（见下文）。"
+	["Expert raises the cap from 150 to 225; it needs {skill:197} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:1346} ({zone:1453}); Horde {npc:4576} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3865} (from 140). 150-225 takes about 15s of recipes and 20g 86s of vendor goods, plus 264 {item:4306} and 915 {item:4338} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9998} (from 170), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 2. {item:10024} (from 200) takes a second trip, to other trainers (below)."] = "",
 
 	-- Step 21: Azure Silk Cloak to 170
 	-- {item:7053} Azure Silk Cloak
@@ -135,23 +137,25 @@ return {
 	-- {spell:12048} Black Mageweave Vest
 	["Still at the Expert trainer: {spell:12048} (from 170)."] = "继续在高级训练师处学习{spell:12048}（技能 170 起可学）。",
 
-	-- Step 23: Black Mageweave Vest to 197
+	-- Step 23: Black Mageweave Vest to 200
 	-- {item:9998} Black Mageweave Vest
-	["{item:9998} to 197"] = "制作{item:9998}，提升至 197",
+	["{item:9998} to 200"] = "",
 	-- {item:9998} Black Mageweave Vest · {spell:3865} Bolt of Mageweave · {item:4291} Silken Thread
-	["{item:9998} is orange at 170 (yellow 185, green 200, grey 215): about 30 crafts to 197. Each takes 2 {spell:3865} and 3 {item:4291}. Make the 60 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "{item:9998} 在技能170时为橙色（185变黄，200变绿，215变灰）：大约制作30次升到197。每次需要2卷 {spell:3865} 和3根 {item:4291}。先制作60卷 {spell:3865}。训练师可教授此配方，按数据，这是这一阶段最省钱的冲点方式。",
+	-- was: ["{item:9998} is orange at 170 (yellow 185, green 200, grey 215): about 30 crafts to 197. Each takes 2 {spell:3865} and 3 {item:4291}. Make the 60 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "{item:9998} 在技能170时为橙色（185变黄，200变绿，215变灰）：大约制作30次升到197。每次需要2卷 {spell:3865} 和3根 {item:4291}。先制作60卷 {spell:3865}。训练师可教授此配方，按数据，这是这一阶段最省钱的冲点方式。"
+	["{item:9998} is orange at 170 (yellow 185, green 200, grey 215): about 36 crafts to 200. Each takes 2 {spell:3865} and 3 {item:4291}. Make the 72 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "",
 
-	-- Step 24: Tailoring recipes at 197
+	-- Step 24: Tailoring recipes at 200
 	-- {skill:197} Tailoring
-	["{skill:197} recipes at 197"] = "{skill:197}：技能 197 时学习的配方",
-	-- {spell:12072} Black Mageweave Headband · {npc:11052} Timothy Worthington · {zone:1445} Dustwallow Marsh · {npc:2399} Daryl Stack · {zone:1424} Hillsbrad Foothills
-	["{spell:12072} (from 190) is taught only by the Artisan trainers: Alliance {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424})."] = "{spell:12072}（190起）只有大师级训练师教授：联盟{npc:11052}（{zone:1445}）；部落{npc:2399}（{zone:1424}）。",
+	["{skill:197} recipes at 200"] = "",
+	-- {spell:12072} Black Mageweave Headband · {npc:11052} Timothy Worthington · {zone:1445} Dustwallow Marsh · {npc:2399} Daryl Stack · {zone:1424} Hillsbrad Foothills · {skill:197} Tailoring
+	["{spell:12072} (from 200) is taught only by the Artisan trainers: Alliance {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424}). You can train Artisan there now if you are level 35 (it needs {skill:197} 200), which saves the trip at 225."] = "",
 
 	-- Step 25: Black Mageweave Headband to 225
 	-- {item:10024} Black Mageweave Headband
 	["{item:10024} to 225"] = "将{item:10024}做到 225",
 	-- {item:10024} Black Mageweave Headband · {spell:3865} Bolt of Mageweave · {item:8343} Heavy Silken Thread · {skill:197} Tailoring
-	["{item:10024} is orange at 197 (yellow 205, green 220, grey 235): about 40 crafts to 225. Each takes 3 {spell:3865} and 2 {item:8343}. Make the 120 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data. {skill:197} 225 is a Legacy System milestone."] = "{item:10024}在技能197时为橙色（205变黄，220变绿，235变灰）：约制作40次可到225。每次需要3个{spell:3865}和2个{item:8343}。先制作120个{spell:3865}。此配方向训练师学习，是数据中度过这段技能点最便宜的方式。{skill:197}225是传承系统的一个里程碑。",
+	-- was: ["{item:10024} is orange at 197 (yellow 205, green 220, grey 235): about 40 crafts to 225. Each takes 3 {spell:3865} and 2 {item:8343}. Make the 120 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data. {skill:197} 225 is a Legacy System milestone."] = "{item:10024}在技能197时为橙色（205变黄，220变绿，235变灰）：约制作40次可到225。每次需要3个{spell:3865}和2个{item:8343}。先制作120个{spell:3865}。此配方向训练师学习，是数据中度过这段技能点最便宜的方式。{skill:197}225是传承系统的一个里程碑。"
+	["{item:10024} is orange at 200 (yellow 205, green 220, grey 235): about 37 crafts to 225. Each takes 3 {spell:3865} and 2 {item:8343}. Make the 111 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data. {skill:197} 225 is a Legacy System milestone."] = "",
 
 	-- Step 26: Artisan Tailoring
 	-- {skill:197} Tailoring
@@ -162,8 +166,9 @@ return {
 	-- Step 27: Tailoring 225-300: vendor goods
 	-- {skill:197} Tailoring
 	["{skill:197} 225-300: vendor goods"] = "{skill:197} 225–300：商人材料",
-	-- {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 116 {item:14341} (58g); about 58g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "一次买齐整个阶段的用量：116个{item:14341}（58金币）；合计约58金币。箭头会选择本阵营最近的商人（{zone:1453}：{npc:1347}、{npc:1286}和{npc:5565}；{zone:1454}：{npc:3364}、菲利卡和{npc:5817}）。",
+	-- {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya
+	-- was: ["Buy the whole bracket's share in one go: 116 {item:14341} (58g); about 58g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "一次买齐整个阶段的用量：116个{item:14341}（58金币）；合计约58金币。箭头会选择本阵营最近的商人（{zone:1453}：{npc:1347}、{npc:1286}和{npc:5565}；{zone:1454}：{npc:3364}、{npc:3367}和{npc:5817}）。"
+	["Buy the whole bracket's share in one go: 116 {item:14341} (58g); about 58g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347} and {npc:5565}; {zone:1454}: {npc:3364} and Tamar)."] = "",
 
 	-- Step 28: Pattern: Runecloth Gloves
 	-- {item:14481} Pattern: Runecloth Gloves · {item:13863} Runecloth Gloves · {skill:197} Tailoring · {npc:11189} Qia · {zone:1452} Winterspring
@@ -193,8 +198,8 @@ return {
 	-- Step 32: Get Ironweb Spider Silk
 	-- {item:14227} Ironweb Spider Silk
 	["Get {item:14227}"] = "",
-	-- {item:14227} Ironweb Spider Silk · {skill:197} Tailoring · {item:13867} Runecloth Shoulders · {npc:1822} Venom Mist Lurker · {npc:8762} Timberweb Recluse · {npc:5857} Searing Lava Spider
-	["You need 124 {item:14227} for {skill:197} 225-300: {item:13867}. {item:14227} drops most from {npc:1822}, {npc:8762} and {npc:5857}, among others. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14227} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- {item:14227} Ironweb Spider Silk · {skill:197} Tailoring · {item:13867} Runecloth Shoulders · {npc:1824} Plague Lurker · {npc:11739} Rock Stalker · {npc:5857} Searing Lava Spider
+	["You need 124 {item:14227} for {skill:197} 225-300: {item:13867}. {item:14227} drops most from {npc:1824}, {npc:11739} and {npc:5857}, among others. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14227} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
 	-- Step 33: Tailoring 225-300: Auction House
 	-- {skill:197} Tailoring
@@ -253,12 +258,16 @@ return {
 	-- ["Back to a {skill:197} trainer: {spell:3852} is taught from {skill:197} 125."] = "回到{skill:197}训练师处：{spell:3852}在{skill:197} 125 时可学。",
 	-- ["Back to a {skill:197} trainer: {spell:8776} is taught from {skill:197} 50."] = "回到{skill:197}训练师处：{spell:8776}在{skill:197} 50 时可学。",
 	-- ["Back to a {skill:197} trainer: {spell:8799} is taught from {skill:197} 180."] = "回到{skill:197}训练师处：{spell:8799}在{skill:197} 180 时可学。",
+	-- ["Buy the whole bracket's share in one go: 108 {item:2321} (1g 8s), 34 {item:2324} (8s 50c) and 98 {item:2604} (49s); about 1g 65s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "一次买齐这个技能阶段所需的物资：108 个 {item:2321}（1 金 8 银）、34 个 {item:2324}（8 银 50 铜）和 98 个 {item:2604}（49 银币）；总计约 1 金 65 银 50 铜。箭头会选择本阵营最近的商人（{zone:1453}：{npc:1347}、{npc:1286} 和 {npc:5565}；{zone:1454}：{npc:3364}、菲利卡和 {npc:5817}）。",
 	-- ["Buy the whole bracket's share in one go: 108 {item:2321} (1g 8s), 34 {item:2324} (8s 50c) and 98 {item:2604} (49s); about 1g 65s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "一次买齐这个技能阶段所需的物资：108 个 {item:2321}（1 金 8 银）、34 个 {item:2324}（8 银 50 铜）和 98 个 {item:2604}（49 银币）；总计约 1 金 65 银 50 铜。箭头会选择本阵营最近的商人（{zone:1453}：{npc:1347}、{npc:1286} 和 {npc:5565}；{zone:1454}：{npc:3364}、{npc:3367} 和 {npc:5817}）。",
+	-- ["Buy the whole bracket's share in one go: 116 {item:14341} (58g); about 58g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "一次买齐整个阶段的用量：116个{item:14341}（58金币）；合计约58金币。箭头会选择本阵营最近的商人（{zone:1453}：{npc:1347}、{npc:1286}和{npc:5565}；{zone:1454}：{npc:3364}、菲利卡和{npc:5817}）。",
 	-- ["Buy the whole bracket's share in one go: 116 {item:14341} (58g); about 58g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "一次买齐整个阶段的用量：116个{item:14341}（58金币）；合计约58金币。箭头会选择本阵营最近的商人（{zone:1453}：{npc:1347}、{npc:1286}和{npc:5565}；{zone:1454}：{npc:3364}、{npc:3367}和{npc:5817}）。",
+	-- ["Buy the whole bracket's share in one go: 44 {item:2321} (44s), 90 {item:4291} (4g 50s), 44 {item:6260} (22s) and 80 {item:8343} (16g); about 21g 16s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "一次买齐本阶段的用量：44根 {item:2321}（44银币）、90根 {item:4291}（4金币50银币）、44份 {item:6260}（22银币）和80根 {item:8343}（16金币）；总计约21金币16银币。箭头会指向本阵营最近的商人（{zone:1453}：{npc:1347}、{npc:1286} 和 {npc:5565}；{zone:1454}：{npc:3364}、菲利卡和 {npc:5817}）。",
 	-- ["Buy the whole bracket's share in one go: 44 {item:2321} (44s), 90 {item:4291} (4g 50s), 44 {item:6260} (22s) and 80 {item:8343} (16g); about 21g 16s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "一次买齐本阶段的用量：44根 {item:2321}（44银币）、90根 {item:4291}（4金币50银币）、44份 {item:6260}（22银币）和80根 {item:8343}（16金币）；总计约21金币16银币。箭头会指向本阵营最近的商人（{zone:1453}：{npc:1347}、{npc:1286} 和 {npc:5565}；{zone:1454}：{npc:3364}、{npc:3367} 和 {npc:5817}）。",
 	-- ["Buy the whole bracket's share in one go: 72 {item:2320} (7s 20c); about 7s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "一次买齐整个阶段的用量：72个{item:2320}（7银20铜）；合计约7银20铜。箭头会选择本阵营最近的商人（{zone:1453}：{npc:1347}、{npc:1286}和{npc:5565}；{zone:1454}：{npc:3364}、{npc:3367}和{npc:5817}）。",
 	-- ["Expert needs character level 20 and {skill:197} 125; it raises the cap to 225. Materials for 150-225 are worth about 135g in all."] = "高级需要角色等级 20 且{skill:197}达到 125；会将上限提高到 225。150-225 的材料总价约 135 金币。",
 	-- ["Expert raises the cap from 150 to 225; it needs {skill:197} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:1346} ({zone:1453}) and {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424}) and {npc:4576} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3865} (from 140). 150-225 takes about 15s of recipes and 21g 16s of vendor goods, plus 264 {item:4306} and 900 {item:4338} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9998} (from 170) and {item:10024} (from 190), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "高级将上限从150提高到225；需要{skill:197}125、角色20级，因此达到125后每次路过都可学习。只有少数训练师教授：联盟为{npc:1346}（{zone:1453}）和{npc:11052}（{zone:1445}）；部落为{npc:2399}（{zone:1424}）和{npc:4576}（{zone:1458}）。箭头会选择本阵营最近的一位。现在学习：{spell:3865}（140起）。150-225约需15银学习配方、21金16银购买商人物品，另需收集或购买264个{item:4306}和900个{item:4338}。来之前把材料全部放进背包（按上面的步骤准备，其余从拍卖行购买）：这些训练师也教授{item:9998}（170起）和{item:10024}（190起），而制作无需工作台，因此可以就在这里制作，达到所需技能时就学新配方。原本要跑 3 趟的事，现在一趟即可完成。",
+	-- ["Expert raises the cap from 150 to 225; it needs {skill:197} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:1346} ({zone:1453}); Horde {npc:4576} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3865} (from 140). 150-225 takes about 15s of recipes and 21g 16s of vendor goods, plus 264 {item:4306} and 900 {item:4338} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9998} (from 170), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 2. {item:10024} (from 190) takes a second trip, to other trainers (below)."] = "高级将上限从150提高到225；需要{skill:197}125、角色20级，因此达到125后每次路过都可学习。只有少数训练师教授：联盟为{npc:1346}（{zone:1453}）；部落为{npc:4576}（{zone:1458}）。箭头会选择本阵营最近的一位。现在学习：{spell:3865}（140起）。150-225约需15银学习配方、21金16银购买商人物品，另需收集或购买264个{item:4306}和900个{item:4338}。来之前把材料全部放进背包（按上面的步骤准备，其余从拍卖行购买）：这些训练师也教授{item:9998}（170起），而制作无需工作台，因此可以就在这里制作，达到所需技能时就学新配方。原本要跑 2 趟的事，现在一趟即可完成。{item:10024}（190起）需要再跑一趟，去找其他训练师（见下文）。",
 	-- ["Journeyman needs character level 10 and {skill:197} 50; it raises the cap to 150. Materials for 75-150 are worth about 17g in all."] = "中级需要角色等级 10 且{skill:197}达到 50；会将上限提高到 150。75-150 的材料总价约 17 金币。",
 	-- ["Journeyman raises the cap from 75 to 150 for 5s; it needs {skill:197} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:197} trainer teaches it: Alliance {npc:1346} ({zone:1453}), {npc:2627} ({zone:1434}), {npc:5153} ({zone:1455}), {npc:4159} ({zone:1457}), {npc:252380} (Zephras Isle), Sellandus ({zone:1453}), {npc:251991} (Zephras Isle) and {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424}), {npc:2627} ({zone:1434}), {npc:4576} ({zone:1458}), {npc:3363} ({zone:1454}), {npc:3704} ({zone:1413}), {npc:252380} (Zephras Isle), {npc:11049} ({zone:1458}), {npc:251991} (Zephras Isle) and Tepa ({zone:1456}). The arrow picks the nearest of your faction. Learn now: {spell:2964} (from 55, 1s) and {spell:2402} (from 55, 2s 50c). Also learn {spell:1229504} (1s): Forever's {skill:197} camp item, a {spell:2963} and a {item:2320}; each faction has its own. The Camping 101: {skill:197} quest from your starting area's camping guide (after The Great Outdoors) sends you to a tailoring trainer who teaches it free. 75-150 takes about 11s of recipes and 1g 65s 50c of vendor goods, plus 567 {item:2592} and 204 {item:4306} to gather or buy."] = "中级裁缝可将上限从75提高到150，费用5银；需要{skill:197} 50及角色10级，因此技能达到50后，任意一次拜访都可学习。并非所有{skill:197}训练师都教：联盟有{npc:1346}（{zone:1453}）、{npc:2627}（{zone:1434}）、{npc:5153}（{zone:1455}）、{npc:4159}（{zone:1457}）、{npc:252380}（Zephras Isle）、Sellandus（{zone:1453}）、{npc:251991}（Zephras Isle）和{npc:11052}（{zone:1445}）；部落有{npc:2399}（{zone:1424}）、{npc:2627}（{zone:1434}）、{npc:4576}（{zone:1458}）、{npc:3363}（{zone:1454}）、{npc:3704}（{zone:1413}）、{npc:252380}（Zephras Isle）、{npc:11049}（{zone:1458}）、{npc:251991}（Zephras Isle）和Tepa（{zone:1456}）。箭头会选择你阵营最近的训练师。现在学习：{spell:2964}（55起可学，1银）和{spell:2402}（55起可学，2银50铜）。再学{spell:1229504}（1银）：这是无限服的{skill:197}露营物品，需要一份{spell:2963}和一根{item:2320}，每个阵营各有自己的版本。起始地区露营向导提供的Camping 101: {skill:197}任务（完成The Great Outdoors后）会引导你去找可免费教授此技能的裁缝训练师。75-150大约需要11银学习配方、1金65银50铜购买商人物资，另需收集或购买567份{item:2592}和204份{item:4306}。",
 	-- ["Kill the mobs that drop it at the farm spot Polestar picks for your level and faction. The Auction House works too."] = "在 Polestar 按你的等级和阵营选出的刷材料地点击杀掉落它的怪物。也可以去拍卖行购买。",
@@ -287,6 +296,7 @@ return {
 	-- ["Yellow until 67, green until 85: not every craft gives a point."] = "67 前为黄色，85 前为绿色：不是每次制造都加点。",
 	-- ["Yellow until 67, green until 85: not every craft gives a point. 75 is the Apprentice cap."] = "67 前为黄色，85 前为绿色：不是每次制造都加点。75 是初级上限。",
 	-- ["Yellow until 97, green until 115: not every craft gives a point."] = "97 前为黄色，115 前为绿色：不是每次制造都加点。",
+	-- ["{item:10024} is orange at 197 (yellow 205, green 220, grey 235): about 40 crafts to 225. Each takes 3 {spell:3865} and 2 {item:8343}. Make the 120 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data. {skill:197} 225 is a Legacy System milestone."] = "{item:10024}在技能197时为橙色（205变黄，220变绿，235变灰）：约制作40次可到225。每次需要3个{spell:3865}和2个{item:8343}。先制作120个{spell:3865}。此配方向训练师学习，是数据中度过这段技能点最便宜的方式。{skill:197}225是传承系统的一个里程碑。",
 	-- ["{item:10045} to 50"] = "将{item:10045}做到 50",
 	-- ["{item:13856} to 236"] = "将{item:13856}做到 236",
 	-- ["{item:13863} to 251"] = "将{item:13863}做到 251",
@@ -307,6 +317,8 @@ return {
 	-- ["{item:7062} to 185"] = "将{item:7062}做到 185",
 	-- ["{item:8170} (Alliance)"] = "{item:8170}（联盟）",
 	-- ["{item:8170} (Horde)"] = "{item:8170}（部落）",
+	-- ["{item:9998} is orange at 170 (yellow 185, green 200, grey 215): about 30 crafts to 197. Each takes 2 {spell:3865} and 3 {item:4291}. Make the 60 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "{item:9998} 在技能170时为橙色（185变黄，200变绿，215变灰）：大约制作30次升到197。每次需要2卷 {spell:3865} 和3根 {item:4291}。先制作60卷 {spell:3865}。训练师可教授此配方，按数据，这是这一阶段最省钱的冲点方式。",
+	-- ["{item:9998} to 197"] = "制作{item:9998}，提升至 197",
 	-- ["{item:9998} to 205"] = "将{item:9998}做到 205",
 	-- ["{npc:11739} (level 57-59) drop it here. The Auction House works too."] = "这里的{npc:11739}（等级 57-59）会掉落它。也可以去拍卖行购买。",
 	-- ["{npc:1824} (level 54-55) drop it here. The Auction House works too."] = "这里的{npc:1824}（等级 54-55）会掉落它。也可以去拍卖行购买。",
@@ -325,10 +337,12 @@ return {
 	-- ["{skill:197} recipes at 125"] = "{skill:197} 125 级配方",
 	-- ["{skill:197} recipes at 180"] = "{skill:197} 180 级配方",
 	-- ["{skill:197} recipes at 185"] = "{skill:197} 185 级配方",
+	-- ["{skill:197} recipes at 197"] = "{skill:197}：技能 197 时学习的配方",
 	-- ["{skill:197} recipes at 205"] = "{skill:197} 205 级配方",
 	-- ["{skill:197} recipes at 50"] = "{skill:197} 50 级配方",
 	-- ["{skill:197} recipes at 80"] = "{skill:197} 80 级配方",
 	-- ["{skill:197} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 1g 8s in all."] = "{skill:197}可以边升级边练。Forever 的传承系统会在制造专业技能达到 150、225 和 300（中级、高级和专家级的上限）时给予奖励，所以每个节点都很重要。1-75 的材料总价约 1 金币 8 银币。",
+	-- ["{spell:12072} (from 190) is taught only by the Artisan trainers: Alliance {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424})."] = "{spell:12072}（190起）只有大师级训练师教授：联盟{npc:11052}（{zone:1445}）；部落{npc:2399}（{zone:1424}）。",
 	-- ["{spell:2402} to 110"] = "将{spell:2402}做到 110",
 	-- ["{spell:3848} to 125"] = "将{spell:3848}做到 125",
 	-- ["{spell:3852} to 150"] = "将{spell:3852}做到 150",

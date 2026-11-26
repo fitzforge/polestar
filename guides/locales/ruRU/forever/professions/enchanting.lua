@@ -15,8 +15,9 @@ return {
 	-- Step 2: Enchanting 1-75: vendor goods
 	-- {skill:333} Enchanting
 	["{skill:333} 1-75: vendor goods"] = "{skill:333} 1-75: товары торговцев",
-	-- {item:6217} Copper Rod · {item:247786} Mote of Magic · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1318} Jessara Cordell · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3346} Kithas · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "Купите сразу все для этого этапа: {item:6217} 1 (1с 24м) и {item:247786} 32 (3с 20м); всего около 4с 44м. Стрелка выбирает ближайшего продавца вашей фракции ({zone:1453}: {npc:1286} и {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} и {npc:5817}).",
+	-- {item:6217} Copper Rod · {item:247786} Mote of Magic · {zone:1453} Stormwind City · {npc:1318} Jessara Cordell · {zone:1454} Orgrimmar · {npc:3346} Kithas
+	-- was: ["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "Купите сразу все для этого этапа: {item:6217} 1 (1с 24м) и {item:247786} 32 (3с 20м); всего около 4с 44м. Стрелка выбирает ближайшего продавца вашей фракции ({zone:1453}: {npc:1286} и {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} и {npc:5817})."
+	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1318}; {zone:1454}: {npc:3346})."] = "",
 
 	-- Step 3: Get Strange Dust
 	-- {item:10940} Strange Dust
@@ -276,6 +277,7 @@ return {
 	-- ["Back to an {skill:333} trainer: {spell:13948} is taught from {skill:333} 270."] = "Вернитесь к учителю ({skill:333}): {spell:13948} – с навыка {skill:333} 270.",
 	-- ["Back to an {skill:333} trainer: {spell:7426} is taught from {skill:333} 90."] = "Вернитесь к учителю ({skill:333}): {spell:7426} – с навыка {skill:333} 90.",
 	-- ["Back to an {skill:333} trainer: {spell:7788} is taught from {skill:333} 120."] = "Вернитесь к учителю ({skill:333}): {spell:7788} – с навыка {skill:333} 120.",
+	-- ["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "Купите сразу все для этого этапа: {item:6217} 1 (1с 24м) и {item:247786} 32 (3с 20м); всего около 4с 44м. Стрелка выбирает ближайшего продавца вашей фракции ({zone:1453}: {npc:1286} и {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} и {npc:5817}).",
 	-- ["Expert needs character level 20 and {skill:333} 125; it raises the cap to 225. Materials for 150-225 are worth about 13s in all."] = "Ранг «Умелец» требует уровня персонажа 20 и навыка {skill:333} 125; предел становится 225. Материалы на 150-225 стоят всего около 13с.",
 	-- ["Journeyman needs character level 10 and {skill:333} 50; it raises the cap to 150. Materials for 75-150 are worth about 7g 51s in all."] = "Ранг «Подмастерье» требует уровня персонажа 10 и навыка {skill:333} 50; предел становится 150. Материалы на 75-150 стоят всего около 7з 51с.",
 	-- ["Open Giant Clams here. The Auction House works too."] = "Открывайте здесь: {object:2744}. Подойдет и аукцион.",

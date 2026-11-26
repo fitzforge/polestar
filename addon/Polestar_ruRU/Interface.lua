@@ -713,6 +713,9 @@ L["Kept for %s"] = "Оставлено для «%s»"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "Сдайте «%s»: %s ходит поблизости, ищите внутри круга на карте"
 L["A quest you carry that the route does not work here: its work is nearby."] = "Задание из вашего журнала, которое маршрут здесь не выполняет: его цель рядом."
 L["%s at %s"] = "%s у %s"
+-- L["Buy a rune at %s"] = ""
+-- L["Buy a rune and cast %s to save about %s"] = ""
+-- L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Выберите награду, чтобы сдать задание."
@@ -2323,6 +2326,7 @@ L["Suggested"] = "Рекомендуемый"
 L["The guides window only. Click to pick a size; right-click to reset."] = "Только окно гайдов. Нажмите, чтобы выбрать размер; правый клик — сброс."
 L["Quests in"] = "Задания в"
 L["Passes through"] = "Проходит через"
+-- L["%s: optional class quests"] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "Питомец"
@@ -2561,6 +2565,8 @@ L["Use %s beside %s"] = "Используйте %s рядом с %s"
 L["All attunements and keys"] = "Все допуски и ключи"
 L["Every attunement and key, with how far you are"] = "Каждый допуск и ключ с вашим прогрессом"
 L["Not open on Forever yet"] = "На Forever пока не открыто"
+-- L["A guide to the items 1 quest in your log needs from where it is given, ending at the entrance."] = ""
+-- L["A guide to the items %d quests in your log need from where they are given, ending at the entrance."] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "Прямо здесь"
@@ -3181,6 +3187,7 @@ L["General"] = "Общие"
 L["The language Polestar shows."] = "Язык, который показывает Polestar."
 L["Say when I've outlevelled a guide"] = "Сообщать, когда я перерос гайд"
 L["A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is."] = "Уведомление в окне гайда, раз за сессию для каждого гайда, когда ваш уровень выше уровня гайда, с гайдом под ваш уровень. Выкл.: без уведомления; гайд остается как есть."
+-- L["For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
@@ -4088,6 +4095,8 @@ L["Every quest in your log is part of your route."] = "Все задания в 
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "Ни один гайд вашего маршрута их не берет, не выполняет и не сдает. Оставьте нужные; «Отказаться» сначала спросит в окне самой игры."
 L["Finished: no guide of your route hands it in"] = "Выполнено: ни один гайд вашего маршрута его не сдает"
 L["Not in any guide of your route"] = "Нет ни в одном гайде вашего маршрута"
+-- L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = ""
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = ""
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "НОВАЯ СПОСОБНОСТЬ"
@@ -4987,6 +4996,8 @@ L["On the window's edge"] = "У края окна"
 L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."] = "Строки под шагом для заданий, которые вам еще нужно выполнить или сдать вне маршрута: оставленных позади обновлением гайда и выполненных, которые не сдает ни один следующий гайд. Выкл.: меню окна гайда по-прежнему перечисляет выполненные в пункте Сдать выполненные задания."
 L["XP line"] = "Строка опыта"
 L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "Строка под шагами: опыт в час, время до уровня и ваш темп. У Улучшенного отдыха своя строка."
+-- L["Quest log notices"] = ""
+-- L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = ""
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "Стопка оповещений"
@@ -5627,6 +5638,23 @@ L["(your current)"] = "(ваша текущая)"
 L["kept for %s"] = "оставлено для «%s»"
 L["kept"] = "оставлено"
 L["Kept for %s: the route hands it in there."] = "Оставлено для «%s»: маршрут сдает его там."
+
+-- Lookup/Handins.lua
+-- L["No quests in your log are ready to hand in."] = ""
+-- L["Wait until combat ends to load the quest data."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Handins addon is installed and enabled."] = ""
+
+-- UI/QuestLinks.lua
+-- L["Start quest guide"] = ""
+-- L["Click to show quest guide actions."] = ""
+
+-- Handins.lua
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Заново настроить Polestar, страница за страницей. Каждый выбор действует сразу."

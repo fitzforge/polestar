@@ -823,7 +823,10 @@ fn the_route_line_draws_the_walks_sketch_while_its_search_is_still_out() {
 // continents): a journey to the other continent searches and measures only the walks on the player's own, so only its
 // part of Polestar_Nav loads (Polestar_Nav_EK in Brill, its regions inside it, unpacked as its walks touch them); the
 // walk at the far end keeps the planner's straight estimate. The other part loads once the player is there
-// (Nav/Walk.lua canSearch, Path.Resident). No other addon loads: 0.4.2's region addons are gone (#3396).
+// (Nav/Walk.lua canSearch, Path.Resident). No other walking-map addon loads: 0.4.2's region addons are gone (#3396).
+// Only Polestar_Nav's parts are counted: the level-up to 20 runs the dungeon card's check (UI/DungeonToast.lua), which
+// loads the Codex by design once no class quest card holds the level-up (#3940 made the Warrior's level-20 chain
+// optional, so nothing does any more).
 #[test]
 fn a_journey_to_the_other_continent_loads_only_the_players_continents_walking_maps_the_other_part_on_arrival() {
 	skip_unless_ready!();
@@ -837,7 +840,7 @@ fn a_journey_to_the_other_continent_loads_only_the_players_continents_walking_ma
 		w.faction = "Horde"
 		local loads, asked = {}, {}
 		local load = C_AddOns.LoadAddOn
-		C_AddOns.LoadAddOn = function(name) loads[#loads + 1] = name return load(name) end
+		C_AddOns.LoadAddOn = function(name) if name:find("^Polestar_Nav") then loads[#loads + 1] = name end return load(name) end
 		for _, name in ipairs({ "FindMany", "FindCoarse", "FindCost" }) do
 			local real = E[name]
 			E[name] = function(map, ...) asked[map] = (asked[map] or 0) + 1 return real(map, ...) end
@@ -2110,6 +2113,39 @@ fn t_1784_floor_walked_onto_silverpines_covered_bridge_from_the_south_bank_the_w
 	assert!((f(&out["z"]) - 56.0).abs() <= 3.0, "the walk starts on the deck ({})", out["z"]);
 	assert!(f(&out["south"]) >= 838.0, "and never turns back south off the bridge ({})", out["south"]);
 	assert!(f(&out["top"]) <= 59.0, "nor stands on the roof ({})", out["top"]);
+}
+
+// Menethil Harbor's long pier (its deck at 6-8, the sea at 0 in every cell under it). With the floor unknown on the
+// deck (standing still while the ship came in, then a step), seed took the lowest surface: the sea under the pier.
+// The arrow's walk to the dock's board point then swam out to the shore and walked the pier back to the player, and
+// the minimap drew that loop. Out of the water (IsSwimming false) the sea is no floor where the deck lies over it.
+fn floor_pier(swimming: bool) -> Value {
+	let script = r#"
+		Polestar.Set("nav.travel", false)
+		w.setLevel(30)
+		w.faction = "Alliance"
+		IsSwimming = function() return @SWIM end
+		N.SetTarget(1437, 20, 50, "Inland")
+		place(1437, -3755, -637, 0)
+		stub.advance(3)
+		aim()
+		walkTo(1437, { { -3735, -608 } })
+		local f = walkFor(1437, -3717.7, -584.4, "Boat to Auberdine", 4.9)
+		emit({ z = f.from[3] or false, yards = floor(length(f.points or {})) })"#
+		.replace("@SWIM", if swimming { "true" } else { "false" });
+	run(&format!("{FLOOR_WALK}{script}"), true)
+}
+
+#[test]
+fn floor_on_menethils_pier_out_of_the_water_the_walk_to_the_board_point_starts_on_the_deck_not_the_sea_under_it() {
+	skip_unless_ready!();
+	let out = floor_pier(false);
+	eprintln!("on the deck: from z {}, {} yd", out["z"], out["yards"]);
+	assert!((f(&out["z"]) - 6.0).abs() <= 3.0, "searched from the deck ({})", out["z"]);
+	assert!(f(&out["yards"]) < 40.0, "straight along the deck, not out to the shore and back ({} yd)", out["yards"]);
+	let out = floor_pier(true);
+	eprintln!("swimming: from z {}, {} yd", out["z"], out["yards"]);
+	assert!(f(&out["z"]).abs() <= 1.0, "swimming under the pier, the sea is the floor ({})", out["z"]);
 }
 
 // The pattern sweep's worst Undercity start (hop|forever/class/rogue/plundering-the-plunderers|17, real z -62.2, its

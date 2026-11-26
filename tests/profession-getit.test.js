@@ -42,7 +42,7 @@ const lua = (s) => JSON.stringify(String(s));
 
 // The real Engine picks one of the item's compiled farm spots for a character standing at `at`.
 // -> { name, map, lvl, farm, picks: [after each `then` level] }
-function pick(item, count, who, at, thenLevels = []) {
+function pick(item, count, who, at, thenLevels = [], navStub = '') {
 	const { data, frames } = world();
 	const spots = spotsOf(item);
 	const maps = new Set([at.map, ...spots.map((s) => s.map)]);
@@ -79,6 +79,7 @@ ${cands}
 } })
 E = Polestar.Engine
 local w = stub.world
+${navStub}
 stub.login()
 E.SetGuide("test/getit")
 stub.advance(0.6)
@@ -137,8 +138,14 @@ test('compiled farm spots: every starting area keeps a Linen Cloth camp of its l
 		assert.ok(spots.length <= 64, `${item}: at most 32 per continent`);
 	}
 	// Items per kill: Linen Cloth drops one to three at a time (the recordings' yield 1.53 times the chance).
-	const thug = linen.find((s) => s.npcName === 'Kobold Tunneler');
-	assert.ok(thug && thug.rate > 0.4 && thug.rate < 0.5, JSON.stringify(thug));
+	const elwynn = linen.filter((s) => s.map === 1429);
+	assert.ok(elwynn.length && elwynn.every((s) => s.rate > 0.3 && s.rate < 0.7), JSON.stringify(elwynn));
+	// A camp counts every dropper standing in it, every spawn: The Barrens' Venture Co. camps are camps of 15+.
+	assert.ok(linen.some((s) => s.map === 1413 && s.spawns >= 15), JSON.stringify(linen.filter((s) => s.map === 1413)));
+	// Named for the kind most of the camp is, not the one named mob among them.
+	assert.ok(!linen.some((s) => /^(Gazz'uz|Gorehoof the Black)$/.test(s.npcName)), JSON.stringify(linen.map((s) => s.npcName)));
+	// A mob tagged for the Alliance (Hillsbrad's farmers and miners) is the Horde's farm, in a contested zone.
+	assert.ok(spotsOf(WOOL).some((s) => s.map === 1424 && s.faction === 'H'), JSON.stringify(spotsOf(WOOL).filter((s) => s.map === 1424)));
 });
 
 // A continent's maps (the era frames' `c`).
@@ -251,4 +258,36 @@ test('Iron Bar: one Get it step whose Mining loops give Iron Ore in zones of eac
 		assert.deepEqual([...sides].sort(), ['A', 'H'], 'a loop for each faction');
 		assert.match(g.lines.at(-1), /^ {2}auction 3575 x\d+$/);
 	}
+});
+
+test('a crafting guide\'s herb or ore that grows in one zone only has a Get it loop there (Icecap: Winterspring)', { skip }, () => {
+	const { ZONES } = require('../tools/lib/professions/gathering/tables');
+	const nodes = require('../tools/lib/professions/gathering/gathering-nodes.json');
+	const { data } = world();
+	const zonesOf = (kind) => Object.keys(nodes.maps).filter((m) => ZONES[m] && nodes.maps[m].kinds[kind]).map((m) => ZONES[m].name);
+	let checked = 0;
+	const missing = [];
+	for (const name of ['alchemy', 'blacksmithing', 'enchanting', 'engineering', 'leatherworking', 'tailoring']) {
+		const text = fs.readFileSync(path.join(__dirname, '..', 'guides/forever/professions', `${name}.guide`), 'utf8');
+		for (const block of text.split('\n\n').filter((b) => b.startsWith('step Get '))) {
+			const m = block.match(/^ {2}collect (\d+) x\d+.* gather (Herbalism|Mining) \d+$/m);
+			if (!m) continue;
+			const mat = (data.professionNamed(m[2]).materials || {})[m[1]];
+			const ids = mat && mat.gather ? Object.values(mat.gather).flat() : [];
+			const kinds = [...new Set(ids.map((id) => (data.objects[id] || {}).name).filter(Boolean))];
+			const zones = [...new Set(kinds.flatMap(zonesOf))];
+			checked++;
+			if (zones.length === 1 && !block.includes(`\n  loop ${zones[0]} `)) missing.push(`${name}: ${block.split('\n')[0]} needs a loop in ${zones[0]}`);
+		}
+	}
+	assert.ok(checked > 20, `${checked} gathered Get it steps`);
+	assert.deepEqual(missing, []);
+});
+
+test('the farm is ranked by the travel planner from where the player stands (flights, Hearthstone), not from a point', { skip }, () => {
+	// The planner says only the Westfall camp is close by its own way (a flight, the Hearthstone), and only when asked
+	// for the player's own trip (no `from`): that camp wins over the camps a straight line puts nearer.
+	const nav = `Polestar.Nav = { EstimateTravel = function(from, to) if from == nil and to.map == 1436 then return 1 end return 100000 end }`;
+	const out = pick(LINEN, 60, { ...HUMAN, level: 12 }, at(1429, 42.1, 65.9), [], nav);
+	assert.equal(out.map, 1436, JSON.stringify(out));
 });

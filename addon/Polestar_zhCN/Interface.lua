@@ -7,17 +7,11 @@
 -- reworded that this file still showed in English, translated by an AI model (Claude Opus 5.5)
 -- in this file's own wording, and waiting for a native speaker's check. Reviewing one: keep or
 -- fix its line below, and take its key off this list.
---   Requires level %d: the guide comes back for it then
 --   Requires level %d: kept for a later guide
---   A guide later on your route takes this quest here: taken now, its step is done when you get there.
 --   Arrived underwater
---   Another character named %s was saved before Forever's client stopped giving addons the realm name. Polestar can't tell whether it is this one, so it stays listed as it was; forget it if it is.
---   %d characters named %s were saved on different realms before Forever's client stopped giving addons the realm name. Polestar can't tell which one you are playing, so they stay listed as they were and this character has a new entry; forget the old one that was this character.
---   Rares met on %d realms are kept apart: Forever's client no longer gives addons the realm name, so Polestar can't tell which of them this is. Rares lists what you meet from now on.
 --   %s · at level %d
 --   %s (level %d)
 --   %s takes these once you reach their level: %s
---   Waiting for your level, taken where a later guide passes the giver: %s
 --
 -- Machine-translated, to be reviewed (0.4.3 guide titles, 24 Nov 2026): translated by an AI model
 -- (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing
@@ -623,9 +617,9 @@ L["No Hearthstone in your bags: ride to the inn"] = "背包中没有炉石：请
 L["Hearthstone ready in %s: ride to the inn, or wait for it"] = "炉石将在 %s 后就绪：可自行前往旅店，或等待冷却结束"
 L["Ride to %s"] = "前往 %s"
 L["Ride to the flight master"] = "前往飞行管理员处"
-L["Requires level %d: the guide comes back for it then"] = "需要%d级：届时指南会回来接取"
+L["Requires level %d: the guide comes back for it then"] = "需要%d级：到时会回来接"
 L["Requires level %d: kept for a later guide"] = "需要%d级：留给后续的指南"
-L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = "你路线上后面的某个指南会在这里接受此任务：现在接受的话，到达该步骤时它就已完成。"
+L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = "这是后续路线的任务，可以提前接。"
 L["For %s, later on your route."] = "用于路线后面的 %s。"
 L["kill %s as you meet them"] = "遇到 %s 时顺手击杀"
 L["Escort, about %d min"] = "护送，约 %d 分钟"
@@ -636,6 +630,9 @@ L["Kept for %s"] = "留给 %s"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "把 %s 交还给 %s，此人在附近走动：在地图上的圆圈里找"
 L["A quest you carry that the route does not work here: its work is nearby."] = "你身上的一个任务，路线不在这里做：它的目标就在附近。"
 L["%s at %s"] = "%2$s 处的 %1$s"
+-- L["Buy a rune at %s"] = ""
+-- L["Buy a rune and cast %s to save about %s"] = ""
+-- L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "选择一个奖励以完成交还。"
@@ -1371,8 +1368,8 @@ L["Right-click for its settings. Shift-drag to move."] = "右键点击打开设�
 L["Right-click for its settings. Drag to move."] = "右键点击打开设置。拖动以移动。"
 L["Targets the first name in the list that is close. Click a name to target that one."] = "选中列表中附近的第一个名字。点击名字即可选中该目标。"
 L["Dragging the Polestar mark in combat places the buttons after the fight."] = "战斗中拖动 Polestar 标记，按钮会在战斗结束后移到新位置。"
-L["Press to equip"] = "按键装备"
-L["Press to equip it."] = "点击装备"
+L["Press to equip"] = "按下装备"
+L["Press to equip it."] = "按下即可装备"
 
 -- QoL/XP.lua
 L["Level %d"] = "等级 %d"
@@ -2246,6 +2243,7 @@ L["Suggested"] = "推荐"
 L["The guides window only. Click to pick a size; right-click to reset."] = "仅限指南窗口。点击选择大小；右键点击重置。"
 L["Quests in"] = "任务地区"
 L["Passes through"] = "途经"
+-- L["%s: optional class quests"] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "小伙伴"
@@ -2484,6 +2482,8 @@ L["Use %s beside %s"] = "在 %2$s 旁使用 %1$s"
 L["All attunements and keys"] = "所有进入资格和钥匙"
 L["Every attunement and key, with how far you are"] = "每项进入资格和钥匙，以及你的进度"
 L["Not open on Forever yet"] = "Forever 上尚未开放"
+-- L["A guide to the items 1 quest in your log needs from where it is given, ending at the entrance."] = ""
+-- L["A guide to the items %d quests in your log need from where they are given, ending at the entrance."] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "就在这里"
@@ -3104,6 +3104,7 @@ L["The language Polestar shows."] = "Polestar 显示的语言。"
 L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags, unless a talent does away with it (Reagent Economy)."] = "如果更快，路线可以从你会的传送法术开始：法师的城市传送、德鲁伊的月光林地，或萨满的星界传送（相当于第二块炉石）。城市传送需要背包里有传送符文，除非有天赋免除它（材料节约）。"
 L["Say when I've outlevelled a guide"] = "我的等级超过指南时提醒"
 L["A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is."] = "当你的等级超过指南的等级时，在指南窗口显示提醒，每个指南每次登录一次，并附上适合你等级的指南。关闭：不提醒；指南保持不变。"
+-- L["For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"
@@ -3934,9 +3935,9 @@ L["1 character"] = "1个角色"
 L["1 character · each as of their last logout"] = "1个角色 · 为其上次登出时的数据"
 L["%d characters · each as of their last logout"] = "%d个角色 · 均为各自上次登出时的数据"
 L["Forget %s"] = "忘记 %s"
-L["Another character named %s was saved before Forever's client stopped giving addons the realm name. Polestar can't tell whether it is this one, so it stays listed as it was; forget it if it is."] = "另一个名为%s的角色是在 Forever 客户端停止向插件提供服务器名称之前保存的。Polestar 无法判断它是否就是这个角色，因此保持原样列出；如果是，请忘记它。"
-L["%d characters named %s were saved on different realms before Forever's client stopped giving addons the realm name. Polestar can't tell which one you are playing, so they stay listed as they were and this character has a new entry; forget the old one that was this character."] = "%d 个名为%s的角色在 Forever 客户端停止向插件提供服务器名称之前保存在不同的服务器上。Polestar 无法判断你正在玩哪一个，因此它们保持原样列出，此角色有了一个新条目；请忘记原本属于此角色的旧条目。"
-L["Rares met on %d realms are kept apart: Forever's client no longer gives addons the realm name, so Polestar can't tell which of them this is. Rares lists what you meet from now on."] = "在 %d 个服务器上遇到的稀有怪物分开保存：Forever 客户端不再向插件提供服务器名称，因此 Polestar 无法判断当前是其中哪一个。“稀有”将列出你从现在起遇到的稀有怪物。"
+L["Another character named %s was saved before Forever's client stopped giving addons the realm name. Polestar can't tell whether it is this one, so it stays listed as it was; forget it if it is."] = "另一个名为%s的角色是在无限服客户端停止向插件提供服务器名称之前保存的。Polestar 无法判断它是否就是这个角色，因此保持原样列出；如果是，请忘记它。"
+L["%d characters named %s were saved on different realms before Forever's client stopped giving addons the realm name. Polestar can't tell which one you are playing, so they stay listed as they were and this character has a new entry; forget the old one that was this character."] = "%d 个名为%s的角色在无限服客户端停止向插件提供服务器名称之前保存在不同的服务器上。Polestar 无法判断你正在玩哪一个，因此它们保持原样列出，此角色有了一个新条目；请忘记原本属于此角色的旧条目。"
+L["Rares met on %d realms are kept apart: Forever's client no longer gives addons the realm name, so Polestar can't tell which of them this is. Rares lists what you meet from now on."] = "在 %d 个服务器上遇到的稀有怪物分开保存：无限服客户端不再向插件提供服务器名称，因此 Polestar 无法判断当前是其中哪一个。“稀有”将列出你从现在起遇到的稀有怪物。"
 L["Characters is turned off. Turn it on under Settings > Discovery > Lookup."] = "“角色”功能已关闭。请在“设置 > 发现 > 查询”中开启。"
 
 -- QoL/Keep.lua
@@ -4011,6 +4012,8 @@ L["Every quest in your log is part of your route."] = "任务日志中的所有�
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "路线中没有任何指南会接取、完成或交还这些任务。保留你想要的；“放弃”会先在游戏自身的窗口中确认。"
 L["Finished: no guide of your route hands it in"] = "已完成：路线中没有指南会交还它"
 L["Not in any guide of your route"] = "不在你路线中的任何指南里"
+-- L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = ""
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = ""
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "新技能"
@@ -4910,6 +4913,8 @@ L["On the window's edge"] = "窗口边缘"
 L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."] = "在步骤下方为路线之外仍需完成或交还的任务显示行：指南更新后落在你身后的任务，以及之后没有指南会交还的已完成任务。关闭后，指南窗口菜单仍会在“交还已完成的任务”下列出已完成的任务。"
 L["XP line"] = "经验行"
 L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "步骤下方的一行：每小时经验、升级时间和你的节奏。强化休息保留自己的一行。"
+-- L["Quest log notices"] = ""
+-- L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = ""
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "提醒队列"
@@ -5207,7 +5212,7 @@ L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danit
 L["Equip it"] = "装备"
 L["%s (level %d)"] = "%s（%d级）"
 L["%s takes these once you reach their level: %s"] = "达到所需等级后，%s会接受这些任务：%s"
-L["Waiting for your level, taken where a later guide passes the giver: %s"] = "等待你的等级，在后续指南经过任务给予者时接受：%s"
+L["Waiting for your level, taken where a later guide passes the giver: %s"] = "等级达标后，后续路线经过任务发布者时接取：%s"
 L["Looking ahead."] = "向前看。"
 L["Looking back."] = "向后看。"
 L["On the way to your map point (%s)."] = "正在前往你的地图点（%s）。"
@@ -5550,6 +5555,23 @@ L["(your current)"] = "（你当前的）"
 L["kept for %s"] = "留给 %s"
 L["kept"] = "保留"
 L["Kept for %s: the route hands it in there."] = "留给 %s：路线会在那里交还。"
+
+-- Lookup/Handins.lua
+-- L["No quests in your log are ready to hand in."] = ""
+-- L["Wait until combat ends to load the quest data."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Handins addon is installed and enabled."] = ""
+
+-- UI/QuestLinks.lua
+-- L["Start quest guide"] = ""
+-- L["Click to show quest guide actions."] = ""
+
+-- Handins.lua
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐页重新设置 Polestar。每项选择立即生效。"

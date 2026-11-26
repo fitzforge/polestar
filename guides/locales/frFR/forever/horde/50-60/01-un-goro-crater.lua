@@ -347,8 +347,9 @@ return {
 	["{quest:2995}'s work is not in this guide: burn the {object:144073}, Notes and Records in the elves' camps around {area:350}, in {zone:1425} & {zone:1419} (its Highvale step). Load that guide for the arrows."] = "Le travail de {quest:2995} n'est pas dans ce guide : brûlez {object:144073}, les notes et les registres dans les camps elfes autour de {area:350}, dans le guide {zone:1425} & {zone:1419} (son étape Haut-val). Chargez ce guide pour les flèches.",
 
 	-- Step 75: Undercity
-	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
-	["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "{npc:8390}, l'Apothicarium : les fioles se remplissent plus tard en {zone:1447}",
+	-- {npc:8390} Chemist Cuely · {item:10695} Box of Empty Vials · {zone:1447} Azshara
+	-- plural, as words: Empty Vials = {item:3371} Empty Vial
+	["{npc:8390}, the Apothecarium: a {item:10695} comes with the quest. Keep four bag slots free and open it for Empty Vials Labeled #1 to #4, filled in {zone:1447} later"] = "",
 	-- {npc:5204} Apothecary Zinge
 	["{npc:5204}, near Cuely in the Apothecarium"] = "{npc:5204}, près de Cuely dans l'Apothicarium",
 
@@ -479,6 +480,7 @@ return {
 	-- ["{npc:12250} lurks just west of {area:2262}."] = "{npc:12250} rôde juste à l'ouest de {area:2262}.",
 	-- ["{npc:6511} on the way"] = "{npc:6511} en chemin",
 	-- ["{npc:6522}, the {object:36073}"] = "{npc:6522}, {object:36073}",
+	-- ["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "{npc:8390}, l'Apothicarium : les fioles se remplissent plus tard en {zone:1447}",
 	-- ["{npc:8390}, the {object:36072}: the vials fill in {zone:1447} later"] = "{npc:8390}, {object:36072} : les fioles se remplissent plus tard en {zone:1447}",
 	-- ["{npc:9117}, at the back of the cave"] = "{npc:9117}, au fond de la grotte",
 	-- ["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "{npc:9619} demande maintenant la fourrure d'{npc:9622}, dans la grotte du nord-est : passez-la.",

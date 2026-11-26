@@ -648,6 +648,9 @@ L["Kept for %s"] = "Guardada para %s"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "Entregue %s para %s, que anda por aqui: procure dentro do círculo no mapa"
 L["A quest you carry that the route does not work here: its work is nearby."] = "Uma missão que você carrega e que a rota não faz aqui: o objetivo dela está perto."
 L["%s at %s"] = "%s em %s"
+-- L["Buy a rune at %s"] = ""
+-- L["Buy a rune and cast %s to save about %s"] = ""
+-- L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Escolha uma recompensa para concluir a entrega."
@@ -2258,6 +2261,7 @@ L["Suggested"] = "Sugerido"
 L["The guides window only. Click to pick a size; right-click to reset."] = "Somente a janela de guias. Clique para escolher um tamanho; clique com o botão direito para redefinir."
 L["Quests in"] = "Missões em"
 L["Passes through"] = "Passa por"
+-- L["%s: optional class quests"] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "Mascote"
@@ -2496,6 +2500,8 @@ L["Use %s beside %s"] = "Use %s ao lado de %s"
 L["All attunements and keys"] = "Todas as sintonizações e chaves"
 L["Every attunement and key, with how far you are"] = "Cada sintonização e chave, com o quanto você já avançou"
 L["Not open on Forever yet"] = "Ainda não aberto no Forever"
+-- L["A guide to the items 1 quest in your log needs from where it is given, ending at the entrance."] = ""
+-- L["A guide to the items %d quests in your log need from where they are given, ending at the entrance."] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "Bem aqui"
@@ -3116,6 +3122,7 @@ L["General"] = "Geral"
 L["The language Polestar shows."] = "O idioma que o Polestar mostra."
 L["Say when I've outlevelled a guide"] = "Avisar quando eu passar do nível de um guia"
 L["A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is."] = "Um aviso na janela do guia, uma vez por guia a cada sessão, quando seu nível passa do nível do guia, com um guia que combina com seu nível. Desligado: sem aviso; o guia continua como está."
+-- L["For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso do raide"
@@ -4023,6 +4030,8 @@ L["Every quest in your log is part of your route."] = "Todas as missões do seu 
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "Nenhum guia da sua rota as aceita, faz ou entrega. Mantenha as que quiser; Abandonar pergunta antes na janela do próprio jogo."
 L["Finished: no guide of your route hands it in"] = "Concluída: nenhum guia da sua rota a entrega"
 L["Not in any guide of your route"] = "Não está em nenhum guia da sua rota"
+-- L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = ""
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = ""
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "NOVA HABILIDADE"
@@ -4922,6 +4931,8 @@ L["On the window's edge"] = "Na borda da janela"
 L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."] = "Linhas abaixo da etapa para missões que você ainda precisa concluir ou entregar fora da rota: as que uma atualização do guia deixou para trás e as missões concluídas que nenhum guia à frente entrega. Desligado, o menu da janela do guia ainda lista as concluídas em Entregar missões concluídas."
 L["XP line"] = "Linha de EXP"
 L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "A linha abaixo das etapas: EXP por hora, tempo para subir de nível e seu ritmo. O Descanso Melhorado mantém a própria linha."
+-- L["Quest log notices"] = ""
+-- L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = ""
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "Fila de alertas"
@@ -5562,6 +5573,23 @@ L["(your current)"] = "(o seu atual)"
 L["kept for %s"] = "guardada para %s"
 L["kept"] = "guardada"
 L["Kept for %s: the route hands it in there."] = "Guardada para %s: a rota a entrega lá."
+
+-- Lookup/Handins.lua
+-- L["No quests in your log are ready to hand in."] = ""
+-- L["Wait until combat ends to load the quest data."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Handins addon is installed and enabled."] = ""
+
+-- UI/QuestLinks.lua
+-- L["Start quest guide"] = ""
+-- L["Click to show quest guide actions."] = ""
+
+-- Handins.lua
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Configurar o Polestar de novo, uma página por vez. Cada escolha vale na hora."

@@ -40,7 +40,7 @@ return {
 
 	-- Step 7: Journeyman Cooking
 	-- {skill:185} Cooking
-	["Journeyman {skill:185}"] = "",
+	["Journeyman {skill:185}"] = "{skill:185}: Подмастерье",
 	-- {skill:185} Cooking
 	["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and no character level, and costs 5s. The arrow picks the nearest {skill:185} trainer of your faction."] = "",
 
@@ -130,7 +130,7 @@ return {
 
 	-- Step 50: Journeyman Fishing
 	-- {skill:356} Fishing
-	["Journeyman {skill:356}"] = "",
+	["Journeyman {skill:356}"] = "{skill:356}: Подмастерье",
 	-- {skill:356} Fishing
 	["Journeyman {skill:356} raises the cap to 150; it needs skill 50 and character level 10 (Forever's trainer lists ask for that level), and costs 5s. The arrow picks the nearest {skill:356} trainer of your faction."] = "",
 
@@ -176,19 +176,19 @@ return {
 
 	-- Step 63: Expert Fishing
 	-- {skill:356} Fishing
-	["Expert {skill:356}"] = "",
+	["Expert {skill:356}"] = "{skill:356}: Умелец",
 	-- {skill:356} Fishing · {item:16083} Expert Fishing - The Bass and You · {npc:2626} Old Man Heming · {zone:1434} Stranglethorn Vale · {area:35} Booty Bay · {area:392} Ratchet · {zone:1413} The Barrens · {item:6532} Bright Baubles · {item:279965} Fishing Rack · {area:2797} Blackfathom Deeps
 	["Expert {skill:356} (cap 225) is a book, not a trainer rank: {item:16083} (1g), {npc:2626} ({zone:1434}) sells it to both factions. Buy it and read it; it needs skill 125 and level 20. At level 20 the safe way to {area:35} is the boat from {area:392} in {zone:1413}. {npc:2626} also sells {item:6532} (+75 from skill 100, 2s 50c each), the lure for harder water. Forever's {item:279965} (a camping item, from {skill:356} 140) is a blueprint that drops from Gelihast in {area:2797}."] = "",
 	-- {item:16083} Expert Fishing - The Bass and You · {skill:356} Fishing
-	["Buy and read {item:16083} (Expert {skill:356})"] = "",
+	["Buy and read {item:16083} (Expert {skill:356})"] = "Купите и прочитайте: {item:16083} ({skill:356}, «Умелец»)",
 
 	-- Step 64: Expert Cooking
 	-- {skill:185} Cooking
-	["Expert {skill:185}"] = "",
+	["Expert {skill:185}"] = "{skill:185}: Умелец",
 	-- {skill:185} Cooking · {item:16072} Expert Cookbook · {npc:3955} Shandrina · {zone:1440} Ashenvale · {npc:12033} Wulan · {zone:1443} Desolace
 	["Expert {skill:185} (cap 225) is a book, not a trainer rank: {item:16072} (1g), sold by {npc:3955} ({zone:1440}) for the Alliance and {npc:12033} ({zone:1443}) for the Horde. Buy it and read it; it needs skill 125 and level 20."] = "",
 	-- {item:16072} Expert Cookbook · {skill:185} Cooking
-	["Buy and read {item:16072} (Expert {skill:185})"] = "",
+	["Buy and read {item:16072} (Expert {skill:185})"] = "Купите и прочитайте: {item:16072} ({skill:185}, «Умелец»)",
 
 	-- Step 65: Lures for Fishing 150-190
 	-- {skill:356} Fishing
@@ -250,15 +250,15 @@ return {
 
 	-- Step 83: Nat Pagle, Angler Extreme
 	-- {skill:356} Fishing · {npc:12919} Nat Pagle · {zone:1445} Dustwallow Marsh · {zone:1455} Ironforge
-	["Artisan {skill:356} (cap 300) comes from {npc:12919} in {zone:1445}. The fishing trainer in {zone:1455} sends you to him; the quest needs skill 225 and level 35."] = "",
+	["Artisan {skill:356} (cap 300) comes from {npc:12919} in {zone:1445}. The fishing trainer in {zone:1455} sends you to him; the quest needs skill 225 and level 35."] = "{skill:356}, ранг «Искусник» (предел 300): {npc:12919} – {zone:1445}. К нему направляет учитель рыбной ловли (город {zone:1455}); для задания нужен навык 225 и уровень 35.",
 
 	-- Step 84: Nat Pagle, Angler Extreme
 	-- {skill:356} Fishing · {npc:12919} Nat Pagle · {zone:1445} Dustwallow Marsh · {zone:1454} Orgrimmar
-	["Artisan {skill:356} (cap 300) comes from {npc:12919} in {zone:1445}. The fishing trainer in {zone:1454} sends you to him; the quest needs skill 225 and level 35."] = "",
+	["Artisan {skill:356} (cap 300) comes from {npc:12919} in {zone:1445}. The fishing trainer in {zone:1454} sends you to him; the quest needs skill 225 and level 35."] = "{skill:356}, ранг «Искусник» (предел 300): {npc:12919} – {zone:1445}. К нему направляет учитель рыбной ловли (город {zone:1454}); для задания нужен навык 225 и уровень 35.",
 
 	-- Step 85: Nat Pagle
 	-- {npc:12919} Nat Pagle
-	["{npc:12919} fishes from the shore of a small island off the east coast, south of Theramore; swim over from the coast."] = "",
+	["{npc:12919} fishes from the shore of a small island off the east coast, south of Theramore; swim over from the coast."] = "{npc:12919} рыбачит с берега небольшого острова у восточного побережья, к югу от Терамора; доплывите туда с берега.",
 
 	-- Step 86: Sar'theris Striker
 	-- {zone:1443} Desolace · {area:598} Sar'theris Strand · {area:2408} Shadowprey Village · {item:16968} Sar'theris Striker
@@ -278,19 +278,19 @@ return {
 
 	-- Step 92: Nat Pagle
 	-- {skill:356} Fishing
-	["Artisan {skill:356}"] = "",
+	["Artisan {skill:356}"] = "{skill:356}: Искусник",
 
 	-- Step 93: Dirge Quikcleave
 	-- {skill:185} Cooking · {npc:8125} Dirge Quikcleave · {area:976} Gadgetzan · {zone:1446} Tanaris · {zone:1455} Ironforge
-	["Artisan {skill:185} comes from {npc:8125} in {area:976} ({zone:1446}). The cooking trainer in {zone:1455} sends you; it needs skill 225 and level 35."] = "",
+	["Artisan {skill:185} comes from {npc:8125} in {area:976} ({zone:1446}). The cooking trainer in {zone:1455} sends you; it needs skill 225 and level 35."] = "{skill:185}, ранг «Искусник»: {npc:8125} – {area:976} ({zone:1446}). Туда направляет учитель кулинарии (город {zone:1455}); нужен навык 225 и уровень 35.",
 
 	-- Step 94: Dirge Quikcleave
 	-- {skill:185} Cooking · {npc:8125} Dirge Quikcleave · {area:976} Gadgetzan · {zone:1446} Tanaris · {zone:1454} Orgrimmar
-	["Artisan {skill:185} comes from {npc:8125} in {area:976} ({zone:1446}). The cooking trainer in {zone:1454} sends you; it needs skill 225 and level 35."] = "",
+	["Artisan {skill:185} comes from {npc:8125} in {area:976} ({zone:1446}). The cooking trainer in {zone:1454} sends you; it needs skill 225 and level 35."] = "{skill:185}, ранг «Искусник»: {npc:8125} – {area:976} ({zone:1446}). Туда направляет учитель кулинарии (город {zone:1454}); нужен навык 225 и уровень 35.",
 
 	-- Step 95: Giant Eggs
 	-- plural, as words: Giant Eggs = {item:12207} Giant Egg
-	["Giant Eggs"] = "",
+	["Giant Eggs"] = "Гигантские яйца ({item:12207})",
 	-- {quest:6610} Clamlette Surprise · {item:7974} Zesty Clam Meat · {item:8932} Alterac Swiss · {zone:1446} Tanaris · {zone:1425} The Hinterlands · {npc:2929} Savage Owlbeast
 	-- plural, as words: Giant Eggs = {item:12207} Giant Egg
 	["{quest:6610} asks for 12 Giant Eggs, 10 {item:7974} and 20 {item:8932}: bring all three before you go to {zone:1446}, so you make the trip once. Giant Eggs drop from the owlbeasts of {zone:1425}: {npc:2929} (54%)."] = "",
@@ -306,7 +306,7 @@ return {
 
 	-- Step 98: Clamlette Surprise
 	-- {skill:185} Cooking
-	["Artisan {skill:185}"] = "",
+	["Artisan {skill:185}"] = "{skill:185}: Искусник",
 
 	-- Step 99: Recipes for Fishing 225-300 (Cooking to 300)
 	-- {skill:356} Fishing · {skill:185} Cooking

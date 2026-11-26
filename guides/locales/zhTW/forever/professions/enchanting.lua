@@ -15,8 +15,9 @@ return {
 	-- Step 2: Enchanting 1-75: vendor goods
 	-- {skill:333} Enchanting
 	["{skill:333} 1-75: vendor goods"] = "{skill:333} 1-75：商人貨物",
-	-- {item:6217} Copper Rod · {item:247786} Mote of Magic · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1318} Jessara Cordell · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3346} Kithas · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "一次買齊這一段所需的全部：1個{item:6217}（1銀24銅）和32個{item:247786}（3銀20銅）；總共約4銀44銅。箭頭會指向本陣營最近的賣家（{zone:1453}：{npc:1286}和{npc:1318}；{zone:1454}：{npc:3367}、{npc:3346}和{npc:5817}）。",
+	-- {item:6217} Copper Rod · {item:247786} Mote of Magic · {zone:1453} Stormwind City · {npc:1318} Jessara Cordell · {zone:1454} Orgrimmar · {npc:3346} Kithas
+	-- was: ["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "一次買齊這一段所需的全部：1個{item:6217}（1銀24銅）和32個{item:247786}（3銀20銅）；總共約4銀44銅。箭頭會指向本陣營最近的賣家（{zone:1453}：{npc:1286}和{npc:1318}；{zone:1454}：{npc:3367}、{npc:3346}和{npc:5817}）。"
+	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1318}; {zone:1454}: {npc:3346})."] = "",
 
 	-- Step 3: Get Strange Dust
 	-- {item:10940} Strange Dust
@@ -276,6 +277,7 @@ return {
 	-- ["Back to an {skill:333} trainer: {spell:13948} is taught from {skill:333} 270."] = "回到{skill:333}訓練師那裡：{spell:13948}在{skill:333}270點時可學。",
 	-- ["Back to an {skill:333} trainer: {spell:7426} is taught from {skill:333} 90."] = "回到{skill:333}訓練師那裡：{spell:7426}在{skill:333}90點時可學。",
 	-- ["Back to an {skill:333} trainer: {spell:7788} is taught from {skill:333} 120."] = "回到{skill:333}訓練師那裡：{spell:7788}在{skill:333}120點時可學。",
+	-- ["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "一次買齊這一段所需的全部：1個{item:6217}（1銀24銅）和32個{item:247786}（3銀20銅）；總共約4銀44銅。箭頭會指向本陣營最近的賣家（{zone:1453}：{npc:1286}和{npc:1318}；{zone:1454}：{npc:3367}、{npc:3346}和{npc:5817}）。",
 	-- ["Expert needs character level 20 and {skill:333} 125; it raises the cap to 225. Materials for 150-225 are worth about 13s in all."] = "高級需要角色等級20且{skill:333}125點；上限提高到225。150-225所需材料總價約13銀。",
 	-- ["Journeyman needs character level 10 and {skill:333} 50; it raises the cap to 150. Materials for 75-150 are worth about 7g 51s in all."] = "中級需要角色等級10且{skill:333}50點；上限提高到150。75-150所需材料總價約7金51銀。",
 	-- ["Open Giant Clams here. The Auction House works too."] = "在這裡打開巨型蚌殼。拍賣場也買得到。",

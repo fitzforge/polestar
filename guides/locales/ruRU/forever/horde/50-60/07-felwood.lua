@@ -33,12 +33,8 @@ return {
 	["{quest:4084}'s {item:11172} and {item:11173} come from {area:1767} on this guide's ride north; {npc:9116} takes them at the end of the guide, back here."] = "",
 
 	-- Step 7: Rakaiah
-	-- {npc:11019} Jessir Moonbow · {npc:9518} Rakaiah · {item:13140} Blood Red Key · {area:1763} Jaedenar
-	["Only if {npc:11019} sent you after {npc:9518} (the {item:13140}'s chain): on the ride north, turn west into {area:1763}. {npc:9518} (56) stands by the remains of Trey Lightforge at the edge of the camp, well under you now; Trey's remains go back to {npc:11019} at the end of this guide."] = "",
-
-	-- Step 8: Remains of Trey Lightforge
-	-- {area:1763} Jaedenar · {npc:11019} Jessir Moonbow
-	["Trey Lightforge's remains lie at the edge of the {area:1763} camp, west of the road: they go back to {npc:11019} at the end of this guide."] = "Останки Трея Лайтфорджа лежат у края лагеря ({area:1763}) к западу от дороги: они возвращаются к NPC {npc:11019} в конце этого гайда.",
+	-- {npc:11019} Jessir Moonbow · {npc:9518} Rakaiah · {item:13140} Blood Red Key · {area:1763} Jaedenar · {area:1770} Shadow Hold
+	["Only if {npc:11019} sent you after {npc:9518} (the {item:13140}'s chain): on the ride north, turn west into {area:1763} and go into {area:1770}, the cave at the back of the camp. {npc:9518} (56) and the remains of Trey Lightforge are inside: kill her first, then the remains take her quest and give the next, which goes back to {npc:11019} at the end of this guide."] = "",
 
 	-- Step 9: Trull Failbane
 	-- {area:1763} Jaedenar · {area:1997} Bloodvenom Post
@@ -220,6 +216,7 @@ return {
 	-- ["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {area:618}, south of the road from {area:2255}."] = "Задания здесь заканчиваются. Бешеные щербозубы рыщут здесь: {area:2249}, юг зоны {area:618}, к югу от дороги из места {area:2255}.",
 	-- ["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {zone:1452}, south of the road from {area:2255}."] = "Задания здесь заканчиваются. Бешеные щербозубы рыщут здесь: {area:2249}, юг зоны {zone:1452}, к югу от дороги из места {area:2255}.",
 	-- ["Through the Timbermaw tunnel to {area:493}. {npc:11939} reads in a house in {area:2361}."] = "Через туннель Древобрюхов в {area:493}. {npc:11939} читает в доме здесь: {area:2361}.",
+	-- ["Trey Lightforge's remains lie at the edge of the {area:1763} camp, west of the road: they go back to {npc:11019} at the end of this guide."] = "Останки Трея Лайтфорджа лежат у края лагеря ({area:1763}) к западу от дороги: они возвращаются к NPC {npc:11019} в конце этого гайда.",
 	-- ["Zeppelin to {zone:1454}"] = "Дирижабль: {zone:1454}",
 	-- ["grind on {npc:7446} at {area:2249}, {area:618}"] = "гринд: {npc:7446}, {area:2249}, {area:618}",
 	-- ["grind on {npc:7446} at {area:2249}, {zone:1452}"] = "гринд: {npc:7446}, {area:2249}, {zone:1452}",

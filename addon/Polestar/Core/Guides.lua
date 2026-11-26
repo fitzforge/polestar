@@ -153,12 +153,17 @@ local function directTravelCost(from, to)
 end
 ns.DirectTravelCost = directTravelCost
 
+-- `from` nil: the player where they stand, the way the arrow would take them:
+-- flights they know from here and the Hearthstone or a teleport when it pays
+-- (Nav.EstimateTravel's own player estimate); a point never counts those.
 function ns.TravelCost(from, to)
 	local nav = ns.Nav
 	if nav and nav.EstimateTravel then
 		local ok, s = pcall(nav.EstimateTravel, from, to)
 		if ok and type(s) == "number" then return s end
 	end
+	from = from or ns.PlayerPoint()
+	if not from then return nil end
 	return directTravelCost(from, to)
 end
 
@@ -527,6 +532,7 @@ local function checkGoal(goal)
 		return "bad gather"
 	end
 	if goal.text ~= nil and type(goal.text) ~= "string" then return "bad text" end
+	if goal.currentLog ~= nil and (goal.currentLog ~= true or goal.t ~= "turnin") then return "bad currentLog" end
 	if goal.t == "rep" and (goal.standing < 1 or goal.standing > 8) then return "standing outside 1-8" end
 	-- `either` (format 11): one of its step's set.
 	if goal.either ~= nil and goal.either ~= true then return "bad either" end
@@ -1691,16 +1697,6 @@ local function registering(fn)
 	return true
 end
 
--- Loads both faction parts of every pack that has them. Never in combat
--- (Data.Pack; a later call loads them).
-function Own.loadFactions()
-	for _, r in ipairs(records) do
-		if r.addon and loaded[r.addon] and accepted(r) then
-			for _, f in ipairs(FACTIONS) do ns.Data.Pack(r.addon .. "_" .. f) end
-		end
-	end
-end
-
 -- Whether `next` option `id` of guide `from` is the other side's guide in
 -- its pack's faction part this character does not load: the pack keeps each
 -- faction's guides in a part and loads the player's (loadParts), and a guide
@@ -2144,20 +2140,57 @@ function Guides.DropImported(id)
 end
 
 -- Guide ids a cutover retired (Polestar.RetireGuides(packId, ids), from a
--- pack's retired.json): a saved tab of one opens its successor, that pack's
--- leveling guide for the player now (Guides.Successor), so a character keeps
--- a guide across the cutover; its progress is read again from the quest log.
+-- pack's retired.json): a saved tab of one opens its successor, the guide it
+-- became when retired.json names one (`ids["<old id>"] = "<new id>"`), else
+-- that pack's leveling guide for the player now (Guides.Successor), so a
+-- character keeps a guide across the cutover; its progress is read again
+-- from the quest log.
 local retired = {} -- id -> pack id
+local retiredTo = {} -- id -> the guide it became
 
 function ns.RetireGuides(packId, list)
 	if type(packId) ~= "string" or type(list) ~= "table" then return end
 	for _, id in ipairs(list) do
 		if type(id) == "string" then retired[id] = packId end
 	end
+	for id, to in pairs(list) do
+		if type(id) == "string" and type(to) == "string" and retired[id] == packId then retiredTo[id] = to end
+	end
 end
 
 function Guides.IsRetired(id)
 	return retired[id] ~= nil
+end
+
+-- The guide ids each faction part of a pack registers (Polestar.PartGuides(
+-- packId, { [key] = "\n<id>\n<id>\n" }), written into Polestar's own pack's
+-- Guides.lua): key "<faction>" for every race, "<faction>_<race file>" for one
+-- race. A saved tab loads the other faction's part only for an id its key for
+-- the character lists (Own.loadForSaved, #3924).
+local partGuides = {} -- pack id -> { [key] = string }
+
+function ns.PartGuides(packId, index)
+	if type(packId) ~= "string" or type(index) ~= "table" then return end
+	local kept = {}
+	for k, ids in pairs(index) do
+		if type(k) == "string" and type(ids) == "string" then kept[k] = ids end
+	end
+	partGuides[packId] = kept
+end
+
+-- Whether faction part `faction` of pack `packId` registers guide `id` for a
+-- player of race `race` (a race file; nil: unknown, any race).
+function Own.partHas(packId, faction, id, race)
+	local index = partGuides[packId]
+	if not index then return false end
+	local line = "\n" .. id .. "\n"
+	local all = index[faction]
+	if all and all:find(line, 1, true) then return true end
+	for k, ids in pairs(index) do
+		local f, r = k:match("^([^_]+)_(.+)$")
+		if f == faction and (race == nil or r == race) and ids:find(line, 1, true) then return true end
+	end
+	return false
 end
 
 -- Baked legs (pack format 7; docs/PACK_FORMAT.md, "Format 7"): a race part's
@@ -2192,12 +2225,16 @@ function Guides.Legs(id)
 	return bakedLegs[id]
 end
 
--- The successor of a retired guide id: its pack's best leveling guide for
--- the player at their level (as Suggestions ranks a pack's). nil for an id that is
--- not retired, or a guide still registered under it.
+-- The successor of a retired guide id: the guide it became when that one is
+-- registered and not the other faction's, else its pack's best leveling
+-- guide for the player at their level (as Suggestions ranks a pack's). nil
+-- for an id that is not retired, or a guide still registered under it.
 function Guides.Successor(id)
 	if not retired[id] or guides[id] then return nil end
-	local fitting, best = rank(retired[id], ns.Compat.GetPlayerInfo(), ns.PlayerPoint(), ns.Compat.GetZoneText())
+	local player = ns.Compat.GetPlayerInfo()
+	local to = retiredTo[id]
+	if to and guides[to] and not Guides.OtherFaction(guides[to], player) then return to end
+	local fitting, best = rank(retired[id], player, ns.PlayerPoint(), ns.Compat.GetZoneText())
 	return fitting[1] or best
 end
 
@@ -2254,23 +2291,38 @@ function Guides.FirstGuide()
 	return fitting[1]
 end
 
--- A saved tab of a guide no part has brought in (the other faction's, from
--- before the guide menu listed only the character's side): the parts of both
--- factions come in, so the tab is back where it was when the Engine restores
+-- A saved tab of a guide no part has brought in: the other faction's part of
+-- its pack comes in when that part has the guide for this character (the
+-- pack's PartGuides index; a tab from before the guide menu listed only the
+-- character's side), so the tab is back where it was when the Engine restores
 -- the tabs; it says whose guide it is and is not routed (Engine.OtherFaction).
+-- A tab of a guide no part has (renamed or taken out, and not retired) loads
+-- nothing: it waits as an absent tab (#3924: such a tab loaded both faction
+-- parts at every login).
 function Own.loadForSaved()
 	local s = ns.CharState and ns.CharState()
 	if type(s) ~= "table" then return end
-	local function absent(id)
-		if type(id) ~= "string" or guides[id] or retired[id] then return false end
+	local mine = ns.Compat.GetPlayerFaction()
+	local race = UnitRace and ns.Compat.Readable((select(2, UnitRace("player"))))
+	if type(race) ~= "string" or race == "" then race = nil end
+	local want, names = {}, {}
+	local function need(id)
+		if type(id) ~= "string" or guides[id] or retired[id] then return end
 		for _, r in ipairs(records) do
-			if r.addon and accepted(r) and ownsId(r.id, id) then return true end
+			if r.addon and loaded[r.addon] and accepted(r) and ownsId(r.id, id) then
+				for _, f in ipairs(FACTIONS) do
+					local name = r.addon .. "_" .. f
+					if f ~= mine and not want[name] and Own.partHas(r.id, f, id, race) then
+						want[name] = true
+						names[#names + 1] = name
+					end
+				end
+			end
 		end
-		return false
 	end
-	local missing = absent(s.guide)
-	for _, id in ipairs(type(s.tabs) == "table" and s.tabs or {}) do missing = missing or absent(id) end
-	if missing then Own.loadFactions() end
+	need(s.guide)
+	for _, id in ipairs(type(s.tabs) == "table" and s.tabs or {}) do need(id) end
+	for _, name in ipairs(names) do ns.Data.Pack(name) end
 end
 
 ns.OnLogin(function()

@@ -20,6 +20,7 @@
 	<Script file="TravelData.lua"/>
 	<Script file="Journey.lua"/>
 	<Script file="Nearby.lua"/>
+	<Script file="RuneStop.lua"/>
 	<Script file="Prompts.lua"/>
 	<Script file="Alerts.lua"/>
 	<Script file="Handoff.lua"/>

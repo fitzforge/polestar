@@ -40,7 +40,7 @@ return {
 
 	-- Step 7: Journeyman Cooking
 	-- {skill:185} Cooking
-	["Journeyman {skill:185}"] = "",
+	["Journeyman {skill:185}"] = "수습 {skill:185}",
 	-- {skill:185} Cooking
 	["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and no character level, and costs 5s. The arrow picks the nearest {skill:185} trainer of your faction."] = "",
 
@@ -130,7 +130,7 @@ return {
 
 	-- Step 50: Journeyman Fishing
 	-- {skill:356} Fishing
-	["Journeyman {skill:356}"] = "",
+	["Journeyman {skill:356}"] = "수습 {skill:356}",
 	-- {skill:356} Fishing
 	["Journeyman {skill:356} raises the cap to 150; it needs skill 50 and character level 10 (Forever's trainer lists ask for that level), and costs 5s. The arrow picks the nearest {skill:356} trainer of your faction."] = "",
 
@@ -176,19 +176,19 @@ return {
 
 	-- Step 63: Expert Fishing
 	-- {skill:356} Fishing
-	["Expert {skill:356}"] = "",
+	["Expert {skill:356}"] = "숙련 {skill:356}",
 	-- {skill:356} Fishing · {item:16083} Expert Fishing - The Bass and You · {npc:2626} Old Man Heming · {zone:1434} Stranglethorn Vale · {area:35} Booty Bay · {area:392} Ratchet · {zone:1413} The Barrens · {item:6532} Bright Baubles · {item:279965} Fishing Rack · {area:2797} Blackfathom Deeps
 	["Expert {skill:356} (cap 225) is a book, not a trainer rank: {item:16083} (1g), {npc:2626} ({zone:1434}) sells it to both factions. Buy it and read it; it needs skill 125 and level 20. At level 20 the safe way to {area:35} is the boat from {area:392} in {zone:1413}. {npc:2626} also sells {item:6532} (+75 from skill 100, 2s 50c each), the lure for harder water. Forever's {item:279965} (a camping item, from {skill:356} 140) is a blueprint that drops from Gelihast in {area:2797}."] = "",
 	-- {item:16083} Expert Fishing - The Bass and You · {skill:356} Fishing
-	["Buy and read {item:16083} (Expert {skill:356})"] = "",
+	["Buy and read {item:16083} (Expert {skill:356})"] = "{item:16083} 사서 읽기 (숙련 {skill:356})",
 
 	-- Step 64: Expert Cooking
 	-- {skill:185} Cooking
-	["Expert {skill:185}"] = "",
+	["Expert {skill:185}"] = "숙련 {skill:185}",
 	-- {skill:185} Cooking · {item:16072} Expert Cookbook · {npc:3955} Shandrina · {zone:1440} Ashenvale · {npc:12033} Wulan · {zone:1443} Desolace
 	["Expert {skill:185} (cap 225) is a book, not a trainer rank: {item:16072} (1g), sold by {npc:3955} ({zone:1440}) for the Alliance and {npc:12033} ({zone:1443}) for the Horde. Buy it and read it; it needs skill 125 and level 20."] = "",
 	-- {item:16072} Expert Cookbook · {skill:185} Cooking
-	["Buy and read {item:16072} (Expert {skill:185})"] = "",
+	["Buy and read {item:16072} (Expert {skill:185})"] = "{item:16072} 사서 읽기 (숙련 {skill:185})",
 
 	-- Step 65: Lures for Fishing 150-190
 	-- {skill:356} Fishing
@@ -250,63 +250,63 @@ return {
 
 	-- Step 83: Nat Pagle, Angler Extreme
 	-- {skill:356} Fishing · {npc:12919} Nat Pagle · {zone:1445} Dustwallow Marsh · {zone:1455} Ironforge
-	["Artisan {skill:356} (cap 300) comes from {npc:12919} in {zone:1445}. The fishing trainer in {zone:1455} sends you to him; the quest needs skill 225 and level 35."] = "",
+	["Artisan {skill:356} (cap 300) comes from {npc:12919} in {zone:1445}. The fishing trainer in {zone:1455} sends you to him; the quest needs skill 225 and level 35."] = "전문 {skill:356}(최대 300)은(는) {zone:1445}의 {npc:12919}에게서 배웁니다. {zone:1455}의 낚시 상급자가 그에게 보내 줍니다. 퀘스트에는 숙련도 225, 레벨 35가 필요합니다.",
 
 	-- Step 84: Nat Pagle, Angler Extreme
 	-- {skill:356} Fishing · {npc:12919} Nat Pagle · {zone:1445} Dustwallow Marsh · {zone:1454} Orgrimmar
-	["Artisan {skill:356} (cap 300) comes from {npc:12919} in {zone:1445}. The fishing trainer in {zone:1454} sends you to him; the quest needs skill 225 and level 35."] = "",
+	["Artisan {skill:356} (cap 300) comes from {npc:12919} in {zone:1445}. The fishing trainer in {zone:1454} sends you to him; the quest needs skill 225 and level 35."] = "전문 {skill:356}(최대 300)은(는) {zone:1445}의 {npc:12919}에게서 배웁니다. {zone:1454}의 낚시 상급자가 그에게 보내 줍니다. 퀘스트에는 숙련도 225, 레벨 35가 필요합니다.",
 
 	-- Step 85: Nat Pagle
 	-- {npc:12919} Nat Pagle
-	["{npc:12919} fishes from the shore of a small island off the east coast, south of Theramore; swim over from the coast."] = "",
+	["{npc:12919} fishes from the shore of a small island off the east coast, south of Theramore; swim over from the coast."] = "{npc:12919}은(는) 테라모어 섬 남쪽, 동쪽 해안 앞바다의 작은 섬 물가에서 낚시하고 있습니다. 해안에서 헤엄쳐 건너가세요.",
 
 	-- Step 86: Sar'theris Striker
 	-- {zone:1443} Desolace · {area:598} Sar'theris Strand · {area:2408} Shadowprey Village · {item:16968} Sar'theris Striker
-	["Fish along the coast of {zone:1443} ({area:598} in the north-west, or the shore west of {area:2408}) until you catch a {item:16968}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "",
+	["Fish along the coast of {zone:1443} ({area:598} in the north-west, or the shore west of {area:2408}) until you catch a {item:16968}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "{zone:1443} 해안을 따라 낚아 {item:16968}을(를) 낚을 때까지 하세요({area:598}는 북서쪽, 또는 {area:2408} 서쪽 해안). 여기서는 다섯 마리 중 한 마리에서 숙련도가 오르고, 다른 곳에서는 물지 않습니다. 숙련도 225에서는 여기서 아무것도 도망가지 않습니다.",
 
 	-- Step 88: Feralas Ahi
 	-- {area:2521} Verdantis River · {zone:1444} Feralas · {area:2577} Dire Maul · {item:16967} Feralas Ahi · {item:6532} Bright Baubles
-	["Fish along the {area:2521} in {zone:1444} (south-east of {area:2577}) until you catch a {item:16967}: about one catch in five there brings it up, and it bites nowhere else. This water loses fish below skill 300: at 225 most get away, so put {item:6532} (+75) on the pole first."] = "",
+	["Fish along the {area:2521} in {zone:1444} (south-east of {area:2577}) until you catch a {item:16967}: about one catch in five there brings it up, and it bites nowhere else. This water loses fish below skill 300: at 225 most get away, so put {item:6532} (+75) on the pole first."] = "{zone:1444}의 {area:2521}({area:2577} 남동쪽)을 따라 낚아 {item:16967}을(를) 낚을 때까지 하세요. 여기서는 다섯 마리 중 한 마리에서 숙련도가 오르고, 다른 곳에서는 물지 않습니다. 이 물은 숙련도 300 아래에서 물고기를 잃습니다. 225에서는 대부분 도망가니 먼저 {item:6532}(+75)를(을) 낚싯대에 달세요.",
 
 	-- Step 89: Savage Coast Blue Sailfin
 	-- {zone:1434} Stranglethorn Vale · {area:301} Savage Coast · {item:16969} Savage Coast Blue Sailfin
-	["Fish along {zone:1434}'s {area:301} (the west shore) until you catch a {item:16969}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "",
+	["Fish along {zone:1434}'s {area:301} (the west shore) until you catch a {item:16969}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "{zone:1434}의 {area:301}(서쪽 해안)을 따라 낚아 {item:16969}을(를) 낚을 때까지 하세요. 여기서는 다섯 마리 중 한 마리에서 숙련도가 오르고, 다른 곳에서는 물지 않습니다. 숙련도 225에서는 여기서 아무것도 도망가지 않습니다.",
 
 	-- Step 91: Misty Reed Mahi Mahi
 	-- {area:300} Misty Reed Strand · {zone:1435} Swamp of Sorrows · {item:16970} Misty Reed Mahi Mahi
-	["Fish along the {area:300} (the east shore of {zone:1435}) until you catch a {item:16970}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "",
+	["Fish along the {area:300} (the east shore of {zone:1435}) until you catch a {item:16970}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "{area:300}({zone:1435}의 동쪽 해안)을 따라 낚아 {item:16970}을(를) 낚을 때까지 하세요. 여기서는 다섯 마리 중 한 마리에서 숙련도가 오르고, 다른 곳에서는 물지 않습니다. 숙련도 225에서는 여기서 아무것도 도망가지 않습니다.",
 
 	-- Step 92: Nat Pagle
 	-- {skill:356} Fishing
-	["Artisan {skill:356}"] = "",
+	["Artisan {skill:356}"] = "전문 {skill:356}",
 
 	-- Step 93: Dirge Quikcleave
 	-- {skill:185} Cooking · {npc:8125} Dirge Quikcleave · {area:976} Gadgetzan · {zone:1446} Tanaris · {zone:1455} Ironforge
-	["Artisan {skill:185} comes from {npc:8125} in {area:976} ({zone:1446}). The cooking trainer in {zone:1455} sends you; it needs skill 225 and level 35."] = "",
+	["Artisan {skill:185} comes from {npc:8125} in {area:976} ({zone:1446}). The cooking trainer in {zone:1455} sends you; it needs skill 225 and level 35."] = "전문 {skill:185}은(는) {area:976}({zone:1446})의 {npc:8125}에게 배웁니다. {zone:1455}의 요리 상급자가 보내 줍니다. 숙련도 225, 레벨 35가 필요합니다.",
 
 	-- Step 94: Dirge Quikcleave
 	-- {skill:185} Cooking · {npc:8125} Dirge Quikcleave · {area:976} Gadgetzan · {zone:1446} Tanaris · {zone:1454} Orgrimmar
-	["Artisan {skill:185} comes from {npc:8125} in {area:976} ({zone:1446}). The cooking trainer in {zone:1454} sends you; it needs skill 225 and level 35."] = "",
+	["Artisan {skill:185} comes from {npc:8125} in {area:976} ({zone:1446}). The cooking trainer in {zone:1454} sends you; it needs skill 225 and level 35."] = "전문 {skill:185}은(는) {area:976}({zone:1446})의 {npc:8125}에게 배웁니다. {zone:1454}의 요리 상급자가 보내 줍니다. 숙련도 225, 레벨 35가 필요합니다.",
 
 	-- Step 95: Giant Eggs
 	-- plural, as words: Giant Eggs = {item:12207} Giant Egg
-	["Giant Eggs"] = "",
+	["Giant Eggs"] = "거대한 알",
 	-- {quest:6610} Clamlette Surprise · {item:7974} Zesty Clam Meat · {item:8932} Alterac Swiss · {zone:1446} Tanaris · {zone:1425} The Hinterlands · {npc:2929} Savage Owlbeast
 	-- plural, as words: Giant Eggs = {item:12207} Giant Egg
 	["{quest:6610} asks for 12 Giant Eggs, 10 {item:7974} and 20 {item:8932}: bring all three before you go to {zone:1446}, so you make the trip once. Giant Eggs drop from the owlbeasts of {zone:1425}: {npc:2929} (54%)."] = "",
 
 	-- Step 96: Alterac Swiss
 	-- {item:8932} Alterac Swiss
-	["Innkeepers and food vendors sell {item:8932}; the arrow picks the nearest."] = "",
+	["Innkeepers and food vendors sell {item:8932}; the arrow picks the nearest."] = "여관주인과 음식 상인이 {item:8932}을(를) 팝니다. 화살표가 가장 가까운 이를 가리킵니다.",
 
 	-- Step 97: Zesty Clam Meat
 	-- {item:7974} Zesty Clam Meat · {zone:1445} Dustwallow Marsh · {zone:1446} Tanaris
 	-- plural, as words: Big-mouth Clams = {item:7973} Big-mouth Clam · Steeljaw Snappers = {npc:14123} Steeljaw Snapper
-	["{item:7974} comes from Big-mouth Clams: open each one, every clam holds one. The Muckshell crabs on the {zone:1445} coast south-west of Theramore drop a clam about seven kills in ten, so ten clams take about fifteen kills, on your way to {zone:1446}. The Steeljaw Snappers on {zone:1446}'s east coast drop them about one kill in three."] = "",
+	["{item:7974} comes from Big-mouth Clams: open each one, every clam holds one. The Muckshell crabs on the {zone:1445} coast south-west of Theramore drop a clam about seven kills in ten, so ten clams take about fifteen kills, on your way to {zone:1446}. The Steeljaw Snappers on {zone:1446}'s east coast drop them about one kill in three."] = "{item:7974}은(는) 큰입조개에게서 나옵니다. 하나씩 열으세요. 모든 조개가 하나씩 담고 있습니다. 테라모어 남서쪽 {zone:1445} 해안의 먹물집게는 열 마리 중 일곱 마리에서 조개를 떨어뜨리니 열 개는 약 열다섯 마리를 잡는 것으로, {zone:1446}에 가는 길에 하세요. {zone:1446} 동쪽 해안의 강철 무쇠턱거북은 세 마리 중 한 마리에서 떨어뜨립니다.",
 
 	-- Step 98: Clamlette Surprise
 	-- {skill:185} Cooking
-	["Artisan {skill:185}"] = "",
+	["Artisan {skill:185}"] = "전문 {skill:185}",
 
 	-- Step 99: Recipes for Fishing 225-300 (Cooking to 300)
 	-- {skill:356} Fishing · {skill:185} Cooking

@@ -346,8 +346,9 @@ return {
 	["{quest:2995}'s work is not in this guide: burn the {object:144073}, Notes and Records in the elves' camps around {area:350}, in {zone:1425} & {zone:1419} (its Highvale step). Load that guide for the arrows."] = "{quest:2995}的任務不在本指南中：在{area:350}周圍精靈營地裡燒掉{object:144073}、筆記和記錄，在{zone:1425}和{zone:1419}指南中（它的高原精靈步驟）。載入那份指南以取得箭頭。",
 
 	-- Step 75: Undercity
-	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
-	["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "{npc:8390}，皇家藥劑師協會：瓶子稍後在{zone:1447}裝滿",
+	-- {npc:8390} Chemist Cuely · {item:10695} Box of Empty Vials · {zone:1447} Azshara
+	-- plural, as words: Empty Vials = {item:3371} Empty Vial
+	["{npc:8390}, the Apothecarium: a {item:10695} comes with the quest. Keep four bag slots free and open it for Empty Vials Labeled #1 to #4, filled in {zone:1447} later"] = "",
 	-- {npc:5204} Apothecary Zinge
 	["{npc:5204}, near Cuely in the Apothecarium"] = "{npc:5204}，在藥劑區的庫利旁",
 
@@ -445,6 +446,7 @@ return {
 	-- ["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "{npc:10926}的鬼魂站在西南方的{area:2262}廢墟中。",
 	-- ["{npc:12250} lurks just west of {area:2262}."] = "{npc:12250}潛伏在{area:2262}西邊。",
 	-- ["{npc:6522}, the {object:36073}"] = "{npc:6522}，{object:36073}",
+	-- ["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "{npc:8390}，皇家藥劑師協會：瓶子稍後在{zone:1447}裝滿",
 	-- ["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "{npc:9619}現在要{npc:9622}的毛皮，在東北方的洞穴裡：跳過。",
 	-- ["{npc:9623} then wants a {item:10561}, an {skill:202} item. Skip it unless you have one."] = "{npc:9623}接著會要一個{item:10561}，這是{skill:202}物品。除非你有，否則跳過。",
 	-- ["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "{npc:9684}的巢穴就在水晶塔南邊。在那裡使用{npc:9619}的誘餌；{npc:9684}是56級且攻擊力強，滿血再開始。",

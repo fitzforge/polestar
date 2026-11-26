@@ -67,6 +67,7 @@ step Glittering Dust
 step Archmage Xylem
   tip Back to Sanath Lim-yo, who teleports you up to the tower.
   level 51
+  goto 28.1,50.1 "Sanath Lim-yo"
   turnin 8251                                 -- Archmage Xylem
   accept 8252
 
@@ -78,6 +79,7 @@ step Enchanted Coral
 step Archmage Xylem again
   tip Back to Sanath Lim-yo and up to the tower.
   level 51
+  goto 28.1,50.1 "Sanath Lim-yo"
   turnin 8252                                 -- Archmage Xylem
   accept 8253
 
@@ -90,4 +92,5 @@ step Morphaz
 step The Arcane Shard
   zone Azshara
   tip Back to Azshara, Sanath Lim-yo and the tower. Look at the reward window before you hand in: Classic offered the Arcane Crystal Pendant, the Fire Ruby or the Glacial Spike, and Forever's notes say the choice may be gone.
+  goto 28.1,50.1 "Sanath Lim-yo"
   turnin 8253                                 -- Archmage Xylem

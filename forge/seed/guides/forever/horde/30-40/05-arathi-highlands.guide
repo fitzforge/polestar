@@ -144,6 +144,7 @@ step Tarren Mill
   accept 545
 
 step Alterac Mountains
+  when onquest 503
   zone Alterac Mountains
   goto 60.0,43.7 "Gol'dir"
 

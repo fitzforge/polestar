@@ -21,7 +21,6 @@ return {
 	-- Step 3: Donova Snowden
 	-- {npc:9298} Donova Snowden · {area:2246} Frostfire Hot Springs
 	["Ride south from the tunnel: {npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "從隧道向南騎：{npc:9298}在山谷西部{area:2246}冒著蒸氣的池塘之間紮營。",
-	["Linken's letter"] = "林克的信",
 	-- {quest:980} The New Springs
 	["{quest:980}, from Krakle in Un'Goro"] = "",
 	-- {quest:3909} The Videre Elixir · {npc:7775} Gregan Brewspewer · {zone:1444} Feralas · {npc:9298} Donova Snowden · {area:2256} Darkwhisper Gorge · {zone:1452} Winterspring
@@ -135,8 +134,8 @@ return {
 	["{area:1997} flight master"] = "",
 
 	-- Step 25: Evoroot
-	-- {item:11242} Evoroot · {npc:7775} Gregan Brewspewer · {area:1114} Ruins of Ravenwind
-	["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall."] = "{item:11242}生長在{npc:7775}營地北邊、鷹身人的{area:1114}東邊一棟廢墟建築裡：從牆壁的破損處爬進去。",
+	-- {item:11242} Evoroot · {npc:7775} Gregan Brewspewer · {area:1114} Ruins of Ravenwind · {npc:9467} Miblon Snarltooth
+	["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall.\nOr the front door: {npc:9467} guards it, and the Bait Gregan sells draws him off when you use it beside him. Half the players in our recordings went in that way, half through the wall."] = "",
 
 	-- Step 26: The Videre Elixir
 	-- {npc:7775} Gregan Brewspewer · {area:976} Gadgetzan
@@ -152,7 +151,8 @@ return {
 
 	-- Step 29: Bluff Runner Windstrider
 	-- {npc:10881} Bluff Runner Windstrider · {npc:14728} Rumstag Proudstrider · {area:1641} Hunter Rise
-	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{npc:10881}和{npc:14728}站在{area:1641}。魯姆斯塔格的每次捐獻都要從揹包裡拿出六十份毛料、絲綢或魔紋布：身上有就交，沒有就跳過。",
+	-- was: ["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{npc:10881}和{npc:14728}站在{area:1641}。魯姆斯塔格的每次捐獻都要從揹包裡拿出六十份毛料、絲綢或魔紋布：身上有就交，沒有就跳過。"
+	["{npc:10881} and {npc:14728} stand on the central rise, not on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
 
 	-- Step 30: Ghede
 	-- {npc:9076} Ghede · {area:1639} Elder Rise
@@ -165,8 +165,8 @@ return {
 	["{quest:1123} waits in {zone:1450}: keep it for later."] = "{quest:1123}在{zone:1450}等著：保留到稍後。",
 
 	-- Step 32: Bashana Runetotem
-	-- {npc:9087} Bashana Runetotem · {item:11040} Morrowgrain · {quest:3761} Un'Goro Soil · {quest:3782} Morrowgrain Research · {item:11020} Evergreen Pouch
-	["{npc:9087} buys {item:11040} grown from your {quest:3761}. {quest:3782} wants ten, and the {item:11020} gives one try every ten minutes: take it only if you already have the grain."] = "{npc:9087}收購你用{quest:3761}種出的{item:11040}。{quest:3782}需要十個，而{item:11020}每十分鐘只能試一次：只有在你已經帶著穀物時才去接。",
+	-- {npc:9087} Bashana Runetotem · {item:11103} Seed Voucher · {quest:3782} Morrowgrain Research · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {item:11040} Morrowgrain
+	["Hand {npc:9087} the {item:11103} for her packets of Tharlendris Seeds. {quest:3782} gives you the {item:11020}: use it with a seed packet and two {quest:3761} in your bags to grow a random herb, sometimes {item:11040}, once every ten minutes. She wants ten, so the quest is optional: take it if you have spare {quest:3761} and want to keep growing it over the next guides."] = "",
 
 	-- Step 34: Magatha Grimtotem
 	-- {npc:4046} Magatha Grimtotem · {area:1639} Elder Rise
@@ -193,6 +193,7 @@ return {
 	-- ["In the {object:172958}."] = "在{object:172958}。",
 	-- ["In the {object:172961}."] = "在{object:172961}。",
 	-- ["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "在{object:172961}。每項捐獻從你揹包中消耗六十張毛料、絲綢或魔紋布：身上帶著的就交，其餘跳過。",
+	-- ["Linken's letter"] = "林克的信",
 	-- ["Matriarchs and Patriarchs hit hard: pull them one at a time."] = "雪人女王和雪人王打得很痛：一次拉一隻。",
 	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "冬泉探路者、冬泉巢穴守衛和冬泉圖騰師共同佔據溫泉周圍的熊怪營地；蓬毛梟獸在營地之間的山坡上遊蕩。先殺圖騰師。把你拾取的每一份{item:14047}都留給梅羅什。",
 	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "冬泉探路者、冬泉巢穴守衛和冬泉圖騰師共同佔據溫泉周圍的熊怪營地；蓬毛梟獸在營地之間的山坡上遊蕩。先殺圖騰師。把你拾取的每一份{item:14047}都留給梅羅什。\n小心：巢穴守衛最高56級：一次拉一隻，並遠離營地的圖騰。",
@@ -205,16 +206,19 @@ return {
 	-- ["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} in the cave at the back is elite: stay out."] = "熊怪村莊佔據{area:2255}東北方的山谷。先殺冬泉薩滿；他們會治療。後方洞穴裡的{npc:10738}是精英：不要進去。",
 	-- ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "雪人山丘從{area:2255}東南方不遠處開始。每隻雪人都會掉落毛皮：打冰薊雪人（55-56級），別碰冰薊雪人女王和冰薊雪人王（56-58級），牠們的角之後再來收集。",
 	-- ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "雪人山丘從{area:2255}東南方不遠處開始。每隻雪人都會掉落毛皮；只有冰薊雪人女王和冰薊雪人王會掉落角，所以把角留到繳交之後再收集。",
+	-- ["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall."] = "{item:11242}生長在{npc:7775}營地北邊、鷹身人的{area:1114}東邊一棟廢墟建築裡：從牆壁的破損處爬進去。",
 	-- ["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. The Ice Thistle Yetis (55-56) are the lowest here; the Matriarchs and Patriarchs (56-58) hit harder. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "先在這裡刷到55.04級，再去{area:2255}繳交任務，交完會升到56級。冰薊雪人（55-56級）是這裡等級最低的；冰薊雪人女王和冰薊雪人王（56-58級）打得更痛。或者，組隊去打{area:1584}地城或{area:1583}地城（下層）。",
 	-- ["Umi's third prank targets goblins in {area:976} and Un'Goro: keep it for later."] = "烏米的第三個惡作劇目標是{area:976}和安戈洛的哥布林：保留到稍後。",
 	-- ["Umi: keep it, the Pristine Yeti Horns come on the {zone:1423} guide's {area:2255} stop at about 57"] = "烏米：先留著，完美的雪人角會在{zone:1423}指南約57級時的{area:2255}停留點收集",
 	-- ["grind on {npc:7440} at {area:2244}, {zone:1452}"] = "在{zone:1452}的{area:2244}擊殺{npc:7440}練等",
 	-- ["{item:12771}, a rare drop from the Winterfall furbolgs"] = "{item:12771}，冬泉熊怪的稀有掉落",
 	-- ["{npc:10307}, beside him"] = "{npc:10307}，在他旁邊",
+	-- ["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{npc:10881}和{npc:14728}站在{area:1641}。魯姆斯塔格的每次捐獻都要從揹包裡拿出六十份毛料、絲綢或魔紋布：身上有就交，沒有就跳過。",
 	-- ["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118}：上一份指南在這裡綁定爐石，所以這一步通常會立即完成",
 	-- ["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}. He brews the {item:11243} only from an {item:11242} you bring him."] = "矮人{npc:7775}在{area:1099}西北方的{area:1137}紮營。他只會用你帶來的{item:11242}釀製{item:11243}。",
 	-- ["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}; he has the elixir."] = "矮人{npc:7775}在{area:1099}西北方的{area:1137}紮營；他有這種藥劑。",
 	-- ["{npc:9087} buys {item:11040} grown from your {quest:3761}."] = "{npc:9087}收購用你的{quest:3761}種出來的{item:11040}。",
+	-- ["{npc:9087} buys {item:11040} grown from your {quest:3761}. {quest:3782} wants ten, and the {item:11020} gives one try every ten minutes: take it only if you already have the grain."] = "{npc:9087}收購你用{quest:3761}種出的{item:11040}。{quest:3782}需要十個，而{item:11020}每十分鐘只能試一次：只有在你已經帶著穀物時才去接。",
 	-- ["{quest:3909} comes from {npc:7775} in {zone:1444}, later in this guide."] = "{quest:3909}來自{zone:1444}的{npc:7775}，在本指南稍後。",
 	-- ["{zone:1456} flight master"] = "{zone:1456}飛行管理員",
 }

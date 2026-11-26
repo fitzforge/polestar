@@ -68,8 +68,8 @@ return {
 	["Inside"] = "在里面",
 
 	-- Step 16: Mulgris Deepriver
-	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
-	["{npc:10739} camps by the {area:202}, beside the cauldron; his bears roam the hills north and east of it."] = "",
+	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {zone:1423} Eastern Plaguelands
+	["{npc:10739} waits inside the farmhouse at the {area:202}, by the cauldron; his bears roam the hills north and east of it, towards the {zone:1423}."] = "",
 
 	-- Step 17: Diseased Grizzlies
 	["Diseased Grizzlies"] = "生病的灰熊",
@@ -165,8 +165,11 @@ return {
 	-- Step 38: Eastern Plaguelands: kill these as you meet them
 	-- {zone:1423} Eastern Plaguelands
 	["{zone:1423}: kill these as you meet them"] = "{zone:1423}：沿途击杀以下目标",
+	-- {item:12957} Shattered Sword of Marduk · {area:2264} Corin's Crossing
 	-- plural, as words: Plaguehounds = {npc:8597} Plaguehound · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub
-	["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground. Careful: the biggest Plaguehounds are 56, pull them one at a time.\nThe shattered sword lies on the ground north-west of the lake."] = "瘟疫犬和瘟疫犬幼崽在礼拜堂西南方的湖岸游荡，瘟疫蝙蝠和腐肉虫也在同一带活动。小心：最大的瘟疫犬是56级，一次引一只。\n破碎的剑在湖泊西北方的地面上。",
+	["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground. The {item:12957} lies at the bottom of the gorge west of {area:2264}. Careful: the biggest Plaguehounds are 56, pull them one at a time."] = "",
+	-- {area:2264} Corin's Crossing
+	["At the bottom of the gorge west of {area:2264}"] = "",
 
 	-- Step 39: Nathanos Blightcaller
 	-- {npc:15193} The Banshee Queen · {area:2260} Marris Stead · {area:2261} Undercroft
@@ -178,9 +181,10 @@ return {
 	["Plaguehound Runts and Plaguebats roam the hills north of the {area:2260}, Carrion Grubs crawl among them; work north toward {area:2627}."] = "瘟疫幼犬和瘟疫蝙蝠在{area:2260}北边的山丘上游荡，腐肉虫在它们中间爬行；一路向北朝{area:2627}推进。",
 
 	-- Step 41: Egan
-	-- {npc:11140} Egan · {area:2627} Terrordale · {npc:12384} Augustus the Touched
+	-- {npc:11140} Egan · {area:2627} Terrordale · {npc:12384} Augustus the Touched · {npc:16184} Nerubian Overseer · {area:2626} Terrorweb Tunnel
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit · Crypt Horrors = {npc:8557} Crypt Horror · Crypt Walkers = {npc:8556} Crypt Walker
-	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut.\nCareful: Terrordale Spirits (59-60) drift through the north-west corner just north of {npc:11140}'s hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time."] = "幽灵{npc:11140}站在{area:2627}西北角的一间小屋旁；{npc:12384}坐在小屋里。\n小心：恐惧谷之魂（{npc:14564}，59-60）在{npc:11140}的小屋以北的西北角飘荡，墓穴恐魔（{npc:8557}，57-58）和墓穴行者（{npc:8556}，55-56）站在周围；其中一些会定身你。慢慢走进去，一次拉一只。",
+	-- was: ["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut.\nCareful: Terrordale Spirits (59-60) drift through the north-west corner just north of {npc:11140}'s hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time."] = "幽灵{npc:11140}站在{area:2627}西北角的一间小屋旁；{npc:12384}坐在小屋里。\n小心：恐惧谷之魂（{npc:14564}，59-60）在{npc:11140}的小屋以北的西北角飘荡，墓穴恐魔（{npc:8557}，57-58）和墓穴行者（{npc:8556}，55-56）站在周围；其中一些会定身你。慢慢走进去，一次拉一只。"
+	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut.\nCareful: Terrordale Spirits (59-60) drift through the north-west corner just north of {npc:11140}'s hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time.\nCareful: a {npc:16184} (60, elite) walks {area:2627} and the {area:2626} south-west of it. Look for him before you ride in, and wait for him to pass."] = "",
 	-- {npc:12384} Augustus the Touched
 	["{npc:12384}, inside"] = "{npc:12384}，在屋内",
 
@@ -261,8 +265,8 @@ return {
 
 	-- Step 58: Scarlet Crusade
 	["Scarlet Crusade"] = "血色十字军",
-	-- {area:192} Northridge Lumber Camp · {npc:11615} Mickey Levine · {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
-	["Back north-east to the {area:192}: knights and magi work the camp, the medics and hunters camp south of it. Set {npc:11615}'s termite barrel down in the middle of the lumber mill while you are there.\nCareful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}: give it room."] = "",
+	-- {area:192} Northridge Lumber Camp · {npc:11615} Mickey Levine · {item:15044} Barrel of Plagueland Termites · {object:177491} Termite Barrel · {quest:5902} A Plague Upon Thee · {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
+	["Back north-east to the {area:192}: knights and magi work the camp, the medics and hunters camp south of it. In the middle of the lumber mill, stand by the crate and use {npc:11615}'s {item:15044} from your bags to set it on top; then click the {object:177491} that appears: it finishes {quest:5902} and gives the next part for {npc:11615}. Careful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}: give it room."] = "",
 
 	-- Step 60: Radley and Durgen
 	["Radley and Durgen"] = "",
@@ -337,15 +341,16 @@ return {
 	["{npc:10922}: the Cleansed Water from Islen in the {zone:1413}"] = "",
 
 	-- Step 75: Dousing the Flames of Protection
-	-- {area:1763} Jaedenar
-	["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in linked groups, many with stuns: pull them one group at a time."] = "",
+	-- {area:1763} Jaedenar · {area:1770} Shadow Hold · {item:12906} Purified Moonwell Water
+	["Ride north-west to {area:1763} and go down into {area:1770}, the cave in its north: the four braziers stand inside. Use Greta's {item:12906} from your bags on each one. Careful: Shadow Council mobs of level 53-55 fill the cave and often come in linked groups, many with stuns: pull them one group at a time."] = "",
 
 	-- Step 76: Greta Mosshoof
 	["Back south to the Sanctuary, a short ride."] = "向南回到翡翠圣地，路程很短。",
 
 	-- Step 77: A Final Blow
-	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {area:1763} Jaedenar
-	["{npc:9861}, {npc:9860} and {npc:9517} (57) wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "",
+	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {area:1763} Jaedenar · {npc:9529} Maybess Riverbreeze · {item:11511} Cenarion Beacon
+	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
+	["{npc:9861}, {npc:9860} and {npc:9517} (57) wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go. Careful: the three bosses fight as a group: kill the nearby mobs first so you don't pull extra enemies. The cultists' Corrupted Soul Shards show only while you carry {npc:9529}'s {item:11511} (from Cleansing Felwood): without it, skip them."] = "",
 	-- {npc:9529} Maybess Riverbreeze
 	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
 	["Corrupted Soul Shards from the cultists, for {npc:9529}' Salve via Hunting"] = "",
@@ -363,7 +368,7 @@ return {
 
 	-- Step 80: Rescue From Jaedenar
 	-- {npc:11018} Arko'narin · {npc:11019} Jessir Moonbow · {area:2479} Emerald Sanctuary
-	["Lead {npc:11018} out through the cave: she fights beside you, and the cultists you didn't clear on the way in come at you both. {npc:11019} takes her report at the {area:2479}, next."] = "",
+	["Escort {npc:11018}: she first goes to where Lightforge and her gear are held, then out through the cave. Keep her alive: she fights beside you, and the cultists you didn't clear on the way in come at you both. {npc:11019} takes her report at the {area:2479}, next."] = "",
 	-- {area:1770} Shadow Hold
 	["out of {area:1770}, at its mouth"] = "",
 
@@ -456,6 +461,7 @@ return {
 	-- ["Only if you still carry {quest:2741}: ride south from {area:1099}; the hippogryph nests are in the south of {zone:1444}, each holds an egg for the Egg-O-Matic."] = "仅当你还带着{quest:2741}时：从{area:1099}向南骑行；角鹰兽的巢在{zone:1444}南部，每个巢里都有一个蛋，用于超级蛋蛋机。",
 	-- ["Plaguehounds and their runts roam the shores of the lake south-west of the chapel."] = "瘟疫犬和瘟疫幼犬在教堂西南的湖岸上游荡。",
 	-- ["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground.\nThe shattered sword lies on the ground north-west of the lake."] = "瘟疫犬和瘟疫犬幼崽在礼拜堂西南方的湖岸游荡，瘟疫蝙蝠和腐肉虫也在同一带活动。\n破碎的剑在湖泊西北方的地面上。",
+	-- ["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground. Careful: the biggest Plaguehounds are 56, pull them one at a time.\nThe shattered sword lies on the ground north-west of the lake."] = "瘟疫犬和瘟疫犬幼崽在礼拜堂西南方的湖岸游荡，瘟疫蝙蝠和腐肉虫也在同一带活动。小心：最大的瘟疫犬是56级，一次引一只。\n破碎的剑在湖泊西北方的地面上。",
 	-- ["Ride east out of the {area:1497} along the road; the {area:152} guards the way into the {area:28}."] = "沿道路向东骑出{area:1497}；{area:152}守卫着进入{area:28}的通道。",
 	-- ["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Pull them one at a time.\nCareful: Hailspite, level 60 elites, gather in the snowfields south-east of {area:2255}, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town."] = "向东骑往{area:2255}，再从那里向北出去；月光枭兽在{area:2241}南坡的山丘上游荡。一次引一只。\n小心：60级精英Hailspite聚集在{area:2255}东南方的雪原上，那里也有少量月光枭兽游荡：待在镇子北边的山坡上。",
 	-- ["Ride north up the road. The cauldron stands in {area:1762}, just south-west of {area:1769}; the Deadwood furbolgs there are hostile."] = "沿路向北骑行。大锅在{area:1769}西南不远处的{area:1762}；那里的死木熊怪是敌对的。",
@@ -496,6 +502,7 @@ return {
 	-- ["{npc:10880}: for {npc:7776} at {quest:7492}, at the end of this guide"] = "{npc:10880}：交给{quest:7492}的{npc:7776}，在本指南末尾",
 	-- ["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner."] = "鬼魂{npc:11140}站在西北角{area:2627}的一间小屋旁。",
 	-- ["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut."] = "鬼魂{npc:11140}站在西北角{area:2627}的一间小屋旁；{npc:12384}坐在小屋里。",
+	-- ["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut.\nCareful: Terrordale Spirits (59-60) drift through the north-west corner just north of {npc:11140}'s hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time."] = "幽灵{npc:11140}站在{area:2627}西北角的一间小屋旁；{npc:12384}坐在小屋里。\n小心：恐惧谷之魂（{npc:14564}，59-60）在{npc:11140}的小屋以北的西北角飘荡，墓穴恐魔（{npc:8557}，57-58）和墓穴行者（{npc:8556}，55-56）站在周围；其中一些会定身你。慢慢走进去，一次拉一只。",
 	-- ["{npc:15193}'s champion holds the {area:2260} farmhouse, north of the {area:2261}."] = "{npc:15193}的勇士占据着{area:2261}北边{area:2260}的农舍。",
 	-- ["{npc:15193}'s champion holds the {area:2260} farmhouse, north of the {area:2261}. His {npc:8564} hunt, in the north of the zone, waits for the next guide's Plaguelands trip."] = "{npc:15193}的勇士占据着{area:2261}北边{area:2260}的农舍。他的{npc:8564}狩猎任务在本地区北部，留到下一份指南再来瘟疫之地时完成。",
 	-- ["{npc:15193}'s champion holds the {area:2260} farmhouse."] = "{npc:15193}的勇士占据着{area:2260}的农舍。",

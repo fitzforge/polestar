@@ -33,12 +33,8 @@ return {
 	["{quest:4084}'s {item:11172} and {item:11173} come from {area:1767} on this guide's ride north; {npc:9116} takes them at the end of the guide, back here."] = "",
 
 	-- Step 7: Rakaiah
-	-- {npc:11019} Jessir Moonbow · {npc:9518} Rakaiah · {item:13140} Blood Red Key · {area:1763} Jaedenar
-	["Only if {npc:11019} sent you after {npc:9518} (the {item:13140}'s chain): on the ride north, turn west into {area:1763}. {npc:9518} (56) stands by the remains of Trey Lightforge at the edge of the camp, well under you now; Trey's remains go back to {npc:11019} at the end of this guide."] = "",
-
-	-- Step 8: Remains of Trey Lightforge
-	-- {area:1763} Jaedenar · {npc:11019} Jessir Moonbow
-	["Trey Lightforge's remains lie at the edge of the {area:1763} camp, west of the road: they go back to {npc:11019} at the end of this guide."] = "特雷·萊特弗格的遺骸在{area:1763}營地邊緣、道路以西：它們會在本指南結束時回到{npc:11019}那裡。",
+	-- {npc:11019} Jessir Moonbow · {npc:9518} Rakaiah · {item:13140} Blood Red Key · {area:1763} Jaedenar · {area:1770} Shadow Hold
+	["Only if {npc:11019} sent you after {npc:9518} (the {item:13140}'s chain): on the ride north, turn west into {area:1763} and go into {area:1770}, the cave at the back of the camp. {npc:9518} (56) and the remains of Trey Lightforge are inside: kill her first, then the remains take her quest and give the next, which goes back to {npc:11019} at the end of this guide."] = "",
 
 	-- Step 9: Trull Failbane
 	-- {area:1763} Jaedenar · {area:1997} Bloodvenom Post
@@ -226,6 +222,7 @@ return {
 	-- ["The zeppelin towers"] = "飛艇塔",
 	-- ["Through the Timbermaw tunnel to {area:493}. {npc:11939} reads in a house in {area:2361}."] = "穿過木喉隧道前往{area:493}。{npc:11939}在{area:2361}的一間房子裡看書。",
 	-- ["Top up here to level 59.9 before the hand-ins at {zone:1452}: they take you to level 60. The Rabid Shardtooths (59) of {area:2249}, just north of the strange source, give far more experience than the furbolgs by {area:1769}. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "在{zone:1452}交任務之前，在這裡補到59.9級：那些任務會把你帶到60級。{area:2249}的狂怒碎牙（59級）就在奇異源頭以北，經驗比{area:1769}邊的熊怪高得多。或者組隊去刷{area:2057}地城或{area:2279}地城。",
+	-- ["Trey Lightforge's remains lie at the edge of the {area:1763} camp, west of the road: they go back to {npc:11019} at the end of this guide."] = "特雷·萊特弗格的遺骸在{area:1763}營地邊緣、道路以西：它們會在本指南結束時回到{npc:11019}那裡。",
 	-- ["Zeppelin to {zone:1454}"] = "搭飛艇前往{zone:1454}",
 	-- ["grind on {npc:7446} at {area:2249}, {area:618}"] = "在{area:618}的{area:2249}擊殺{npc:7446}練等",
 	-- ["grind on {npc:7446} at {area:2249}, {zone:1452}"] = "在{zone:1452}的{area:2249}擊殺{npc:7446}練等",
