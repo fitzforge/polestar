@@ -728,6 +728,12 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 			warnings.push(format!("the learned layer disagrees with {} corrected value(s), corrections kept: {}", back.len(), back.join("; ")));
 		}
 	}
+	// A quest no recording had shown on Forever (a correction's `unseen`: the Nightmare Incursion missions) loses the
+	// flag once one does, after the corrections were put back above: the recordings are the last word on it.
+	let seen = crate::recordings::drop_unseen_recorded(&norm.quests);
+	if !seen.is_empty() {
+		log(&format!("unseen quests: {} now shown by recordings, mark dropped ({})", seen.len(), seen.join(", ")));
+	}
 	lap("recordings");
 	// Forever's gathering nodes from the TDB's sniffs that our sources lack (Zephras Isle, nodes Forever
 	// moved): a normal input, so the public data has them; the knowledge base reads the same extract.

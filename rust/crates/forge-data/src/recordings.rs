@@ -516,6 +516,24 @@ pub(crate) fn tag_field(rec: &V, field: &str, trusted: bool) {
 	add_source(rec, &format!("{}:{field}", if trusted { "recorder" } else { "recorder-gap" }));
 }
 
+/// Drops the `unseen` flag (a correction's: no recording or report had shown the quest on Forever) from every quest a
+/// recording now shows, one whose `source` carries a recorder tag (`recorder`, `recorder:<field>`,
+/// `recorder-gap:<field>`), so Lookup's "Not seen on Forever yet" goes with it. Returns those quests' ids.
+pub fn drop_unseen_recorded(quests: &Obj) -> Vec<String> {
+	let mut seen = Vec::new();
+	for (id, q) in quests.entries() {
+		if !q.get("unseen").truthy() {
+			continue;
+		}
+		let recorded = q.get("source").items().iter().filter_map(|s| s.as_str().map(str::to_string)).any(|s| s == "recorder" || s.starts_with("recorder:") || s.starts_with("recorder-gap:"));
+		if recorded {
+			q.as_obj().unwrap().delete("unseen");
+			seen.push(id.to_string());
+		}
+	}
+	seen
+}
+
 fn canonical(e: &V, keys: &[&str]) -> V {
 	let src = e.as_obj().unwrap();
 	let out = Obj::new();
@@ -3938,5 +3956,21 @@ mod tests {
 		let stats = t.apply(&[session("a", A, "enUS", &cult(true)), session("b", B, "enUS", &other)]);
 		assert_eq!(j(&t.quest("96897").get("objectives")), j(&obj(TIMES).get("96897").get("objectives")));
 		assert_eq!(stats.objective_conflicts, vec![96897]);
+	}
+
+	// The Nightmare Incursion missions: marked unseen until a recording shows them, then the mark goes.
+	#[test]
+	fn a_recorded_quest_loses_its_unseen_flag() {
+		let quests = parse_json(
+			r#"{ "1": { "id": 1, "unseen": true, "source": ["questie-forever", "polestar-correction"] },
+			"2": { "id": 2, "unseen": true, "source": ["questie-forever", "polestar-correction", "recorder-gap:objectives"] },
+			"3": { "id": 3, "unseen": true, "source": ["questie-forever", "recorder:title"] },
+			"4": { "id": 4, "source": ["recorder"] } }"#,
+		)
+		.unwrap();
+		let q = quests.as_obj().unwrap();
+		assert_eq!(drop_unseen_recorded(q), vec!["2".to_string(), "3".to_string()]);
+		assert!(q.get("1").get("unseen").truthy(), "no recording shows 1: still unseen");
+		assert!(!q.get("2").has("unseen") && !q.get("3").has("unseen"));
 	}
 }

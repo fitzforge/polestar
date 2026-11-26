@@ -489,6 +489,11 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 	if rot.truthy() {
 		parts.push(format!("v{}", esc(&rot)));
 	}
+	// No recording has shown it on Forever yet (quests.json `unseen`: the Nightmare Incursion missions): `n`. An older
+	// reader skips it (no objective kind is n).
+	if rec.get("unseen").truthy() {
+		parts.push("n".into());
+	}
 	Ok(parts.join(";"))
 }
 
@@ -1046,5 +1051,17 @@ mod tests {
 		)
 		.unwrap();
 		assert!(encode_quest(&rec).unwrap().ends_with(";vpix-weekly"), "{}", encode_quest(&rec).unwrap());
+	}
+
+	#[test]
+	fn a_quest_no_recording_has_shown_carries_n() {
+		let quest = |extra: &str| {
+			forge_guide::js::parse_json(&format!(
+				r#"{{ "id": 81786, "level": 52, "minLevel": 47, "faction": null, "races": null, "classes": null, "zone": 1425, "start": {{ "npc": [221479], "object": [], "item": [] }}, "end": {{ "npc": [221479], "object": [] }}, "pre": [], "rewards": [], "choices": [], "preAny": [], "objectives": []{extra} }}"#
+			))
+			.unwrap()
+		};
+		assert!(encode_quest(&quest(r#", "unseen": true"#)).unwrap().ends_with(";n"));
+		assert!(!encode_quest(&quest("")).unwrap().split(';').any(|f| f == "n"));
 	}
 }

@@ -2319,6 +2319,11 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			if rot.as_str().is_some_and(|s| !s.trim().is_empty()) {
 				o.set("rotation", rot);
 			}
+			// No recording has shown it on Forever yet (quests.json `unseen`, dropped by the data build once one does):
+			// Lookup marks it "Not seen on Forever yet".
+			if q.get("unseen").truthy() {
+				o.set("unseen", true);
+			}
 			if int(&q.get("xp")).is_some_and(|x| x > 0.0) {
 				o.set("xp", int(&q.get("xp")).unwrap());
 			}
