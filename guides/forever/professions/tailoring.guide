@@ -243,8 +243,8 @@ step Get Runecloth
   auction 14047 x3195
 
 step Get Ironweb Spider Silk
-  tip You need 124 Ironweb Spider Silk for Tailoring 225-300: Runecloth Shoulders. Ironweb Spider Silk drops most from Venom Mist Lurker, Timberweb Recluse and Searing Lava Spider, among others. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Ironweb Spider Silk per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
-  collect 14227 x124 nearest gather levels 45-51
+  tip You need 124 Ironweb Spider Silk for Tailoring 225-300: Runecloth Shoulders. Ironweb Spider Silk drops most from Plague Lurker, Rock Stalker and Searing Lava Spider, among others. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Ironweb Spider Silk per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
+  collect 14227 x124 nearest gather levels 45-59
   auction 14227 x124
 
 step Tailoring 225-300: Auction House
