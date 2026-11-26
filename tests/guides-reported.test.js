@@ -12850,6 +12850,10 @@ for (const [guide, quests] of Object.entries(ALLIANCE_5060_VOLUME)) test(`${guid
 	for (const q of quests) assert.ok(here.some(({ goal }) => goal.t === 'turnin' && goal.quest === q && !goal.optional), `turnin ${q} is in ${guide}, not optional`);
 });
 
+// A level goal on the Plaguelands guide other than the level 55 gate right before Scholomance's accept (#3974: its
+// minimum level, about 0.07 of a level for the model there) counts as a top-up.
+const topUp04 = ({ goal }, i, list) => goal.t === 'level' && !(goal.level === 55 && !goal.grind && list[i + 1]?.goal.t === 'accept' && list[i + 1].goal.quest === 5533);
+
 // (0.4.3 fix round: Flint and the Marris Stead are on the Plaguelands sweep at about 56-57; the top-up to 59.85 that
 // left the Chillwind hand-ins their XP is gone, and Flint takes the agents' insignia on the last Chillwind stop.)
 test('Alliance 50-60: The Eastern Plagues is taken with Flint Shadowmore and the last top-up stops short of 60 for the Chillwind hand-ins', { skip }, () => {
@@ -12860,7 +12864,7 @@ test('Alliance 50-60: The Eastern Plagues is taken with Flint Shadowmore and the
 	const work = at(g, 'complete 6185', (x) => x.t === 'complete' && x.quest === 6185);
 	const hand = at(g, 'turnin 6185', is('turnin', 6185));
 	assert.ok(take < work && work < hand, 'accept, the Marris Stead, then the hand-in');
-	assert.ok(!g.some(({ goal }) => goal.t === 'level'), 'no top-up on the Plaguelands guide');
+	assert.ok(!g.some(topUp04), 'no top-up on the Plaguelands guide (only Scholomance\'s level 55 gate)');
 });
 
 // --- Alliance 40-60 quest volume, 0.3.7 (2026-11-09) ---
@@ -17154,7 +17158,7 @@ test('Alliance 50-60: danger warnings at Dreadmaul Rock, the Blackrock camps, Ku
 // Mount Hyjal: no top-up on either guide (the level model ends Silithus at about 59.5; 06 ends with one dungeon step,
 // no mob camp, for a player still under 60).
 test('Alliance 50-60/06: the last top-up right after Egan, before the Marris Stead', { skip }, () => {
-	assert.ok(!goals('forever/alliance/50-60/04-western-plaguelands.guide').some(({ goal }) => goal.t === 'level'), '04: no top-up');
+	assert.ok(!goals('forever/alliance/50-60/04-western-plaguelands.guide').some(topUp04), '04: no top-up (only Scholomance\'s level 55 gate)');
 	const six = goals('forever/alliance/50-60/06-silithus.guide').filter(({ goal }) => goal.t === 'level');
 	assert.ok(six.every(({ goal }) => !goal.grind && goal.level === 60), '06: only the level-60 dungeon step, no grind camp');
 	const g = goals('forever/alliance/50-60/04-western-plaguelands.guide');

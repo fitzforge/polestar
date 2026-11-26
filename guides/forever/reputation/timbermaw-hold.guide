@@ -147,6 +147,7 @@ step Ekkal
 step The Legashi Encampment
   when onquest 86746
   zone Azshara
+  level 52
   kill 6200 quest 86746.1             -- Legashi Satyr
   kill 6201 quest 86746.2             -- Legashi Rogue
   kill 6202 quest 86746.3             -- Legashi Hellcaller
@@ -182,6 +183,7 @@ step The Legashi Cauldron
 step The Legashi Encampment
   when onquest 86925
   zone Azshara
+  level 52
   tip Any of the encampment's satyrs may carry the recipe.
   collect 235645 quest 86925.1        -- Legashi Firewater Recipe
 
@@ -216,6 +218,7 @@ step Graal
 step The Legashi Stronghold: kill these as you meet them
   when onquest 86792
   zone Azshara
+  level 53
   tip The Hellraisers, Soulstealers and Blackguards (53-54) hold the stronghold. Careful: Prince Halanox (55, elite) stands at its north-east end, around 67,19: leave him be.
   kill 236874 quest 86792.1           -- Legashi Hellraiser
   kill 236867 quest 86792.2           -- Legashi Soulstealer
@@ -224,6 +227,7 @@ step The Legashi Stronghold: kill these as you meet them
 step Master Feardred
   when onquest 86777
   zone Azshara
+  level 52
   tip Master Feardred (53) walks the stronghold's south side; the Fel Mote floats nearby.
   collect 235334 quest 86777.1        -- Feardred's Amulet
   collect 235471 quest 86926.2        -- Fel Mote
@@ -291,6 +295,7 @@ step Gorn One Eye
 step Chieftain Bloodmaw
   when onquest 87346
   zone Felwood
+  level 55
   tip Chieftain Bloodmaw (55-56) leads the Deadwood of Felpaw Village, just west of the tunnel.
   collect 236631 quest 87346.1        -- Bloodmaw's Basher
 

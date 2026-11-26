@@ -150,7 +150,7 @@ return {
 
 	-- Step 32: Mosshoof Coursers
 	-- plural, as words: Mosshoof Coursers = {npc:8761} Mosshoof Courser
-	["Mosshoof Coursers"] = "",
+	["Mosshoof Coursers"] = "Trotadores Pezuñamusgo",
 	-- {area:1225} Ursolan · {item:221199} Satyrweed Tincture
 	-- plural, as words: Mosshoof Coursers = {npc:8761} Mosshoof Courser · Thunderhead Skystormers = {npc:6378} Thunderhead Skystormer
 	["The Mosshoof Coursers (52-53) and Thunderhead Skystormers (50-52) graze just east of {area:1225}: bring one low, then use the {item:221199} on it. Three times."] = "",
