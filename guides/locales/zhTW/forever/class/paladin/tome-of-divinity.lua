@@ -28,9 +28,9 @@ return {
 
 	-- Step 5: The Tome of Divinity
 	-- {npc:6171} Duthorian Rall · {quest:2998} Tome of Divinity · {item:2589} Linen Cloth
-	["{npc:6171} stands inside the Cathedral of Light. He hands you the {quest:2998}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6171} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "",
+	["{npc:6171} stands inside the Cathedral of Light. He hands you the {quest:2998}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6171} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "{npc:6171} 站在聖光大教堂內。他會給你 {quest:2998}：在揹包中右鍵點選，開始下一個任務。如果書提示任務已經完成，銷燬它，再找 {npc:6171} 要一本新的。如果手頭有10塊 {item:2589}，帶上以備下一步使用。",
 	-- {quest:2998} Tome of Divinity
-	["Right-click the {quest:2998}"] = "",
+	["Right-click the {quest:2998}"] = "右鍵點選{quest:2998}",
 
 	-- Step 6: Stephanie Turner
 	-- {npc:6174} Stephanie Turner · {object:2096} Trade District · {item:2589} Linen Cloth · {zone:1436} Westfall
@@ -71,14 +71,14 @@ return {
 
 	-- Step 14: The Tome of Divinity
 	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries · {object:32362} Mystic Ward · {quest:2997} Tome of Divinity · {item:2589} Linen Cloth
-	["{npc:6179} stands upstairs in the {object:32386}, in the {object:32362}: take the ramp at the back of the hall. She hands you the {quest:2997}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6179} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "",
+	["{npc:6179} stands upstairs in the {object:32386}, in the {object:32362}: take the ramp at the back of the hall. She hands you the {quest:2997}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6179} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "{npc:6179} 位於 {object:32362} 的 {object:32386} 樓上：走大廳後面的斜坡上去。她會給你 {quest:2997}：在揹包裡右鍵點選它，開始下一個任務。如果書提示任務已經完成，就摧毀它，再向 {npc:6179} 要一本。有的話，帶上 10 個 {item:2589}，下一步要用。",
 	-- {quest:2997} Tome of Divinity
-	["Right-click the {quest:2997}"] = "",
+	["Right-click the {quest:2997}"] = "右鍵點選{quest:2997}",
 
 	-- Step 15: John Turner
 	-- {npc:6175} John Turner · {item:2589} Linen Cloth · {zone:1432} Loch Modan
 	-- plural, as words: Dark Iron Ambushers = {npc:1981} Dark Iron Ambusher
-	["{npc:6175} walks the outer ring of the Commons, past the front gate, the bank and the Auction House. He wants 10 {item:2589}: humanoids drop it (in {zone:1432} the Dark Iron Ambushers, Tunnel Rat kobolds and Stonesplinter troggs about two kills in five), or buy it at the Auction House on his ring."] = "",
+	["{npc:6175} walks the outer ring of the Commons, past the front gate, the bank and the Auction House. He wants 10 {item:2589}: humanoids drop it (in {zone:1432} the Dark Iron Ambushers, Tunnel Rat kobolds and Stonesplinter troggs about two kills in five), or buy it at the Auction House on his ring."] = "{npc:6175} 在平民區外圈行走，會經過前門、銀行和拍賣行。他需要 10 個 {item:2589}：人型生物會掉落（在 {zone:1432}，黑鐵伏擊者、坑道鼠狗頭人和碎石穴居人大約每擊殺五隻掉落兩次），也可以在他行走路線上的拍賣行購買。",
 
 	-- Step 16: The Symbol of Life
 	-- {object:32386} Hall of Mysteries · {npc:6179} Tiza Battleforge · {item:6866} Symbol of Life · {npc:6178} Muiredon Battleforge · {npc:6177} Narm Faulk

@@ -138,12 +138,10 @@ return {
 	["Theramore"] = "Theramore",
 	-- {npc:4944} Captain Garran Vimes
 	["{npc:4944}, on the top floor"] = "{npc:4944}, im obersten Stockwerk",
+
+	-- Step 31: Morgan Stern
 	-- {npc:4794} Morgan Stern
 	["{npc:4794}, inside"] = "{npc:4794}, drinnen",
-
-	-- Step 31: Cortello's Riddle
-	-- {area:498} Bloodfen Burrow
-	["Inside {area:498}"] = "In {area:498}",
 
 	-- Step 32: Mudsprocket
 	["Mudsprocket"] = "Morastwinkel",
@@ -173,6 +171,7 @@ return {
 	-- ["Blue Pearls from Stranglethorn"] = "Blaue Perlen aus dem Schlingendorntal",
 	-- ["Fly to {area:392}; {npc:6251} teaches in the house by the bank. Fly back to Theramore afterwards."] = "Flieg nach {area:392}; {npc:6251} lehrt im Haus bei der Bank. Flieg danach zurück nach Theramore.",
 	-- ["Fly to {area:608}, ride south through {zone:1443} into {zone:1444} and follow the road to the dock on the {area:1108}; the boat crosses to {area:1116}, where the next guide starts."] = "Flieg nach {area:608}, reite nach Süden durch {zone:1443} nach {zone:1444} und folge der Straße zum Steg an der {area:1108}; das Schiff fährt hinüber zur {area:1116}, wo der nächste Guide beginnt.",
+	-- ["Inside {area:498}"] = "In {area:498}",
 	-- ["On to Feathermoon"] = "Weiter nach Feathermoon",
 	-- ["Ride north to {area:144} and fly to {area:271}. {npc:3980} preaches by the inn."] = "Reite nach Norden nach {area:144} und flieg nach {area:271}. {npc:3980} predigt beim Gasthaus.",
 	-- ["Ride north-east out of {area:271} on the road into the {area:47}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Reite auf der Straße nach Nordosten aus {area:271} ins {area:47}; {area:348} liegt gleich hinter der Grenze. {npc:5635} hält oben Hof, {quest:1450} kümmert sich um den Greifenhorst und {npc:7884} steht beim Gasthaus.",

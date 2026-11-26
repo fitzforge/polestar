@@ -33,6 +33,7 @@ pub mod gate;
 pub mod generated;
 pub mod lead_in;
 pub mod ledger;
+pub mod legacy_steps;
 pub mod pack;
 /// The route planner's sources as a hash (build.rs embeds it as PLANNER_HASH).
 pub mod planner_src;
@@ -44,7 +45,8 @@ use std::time::Instant;
 
 /// Bump a stage's version when its code changes what it writes.
 /// data-4: Forever transmogrifier NPC flag adds a service role.
-pub const DATA_VERSION: &str = "data-4";
+/// data-5: travel crossing areas can identify a named subzone.
+pub const DATA_VERSION: &str = "data-5";
 pub const GRID_VERSION: &str = "grid-1";
 pub const PREPARE_VERSION: &str = "prepare-2";
 /// world-6: vendor buys for item objectives; world-7: the graveyard table (World::graveyards, the

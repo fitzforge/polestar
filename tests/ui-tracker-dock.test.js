@@ -66,7 +66,7 @@ test('docking affects only the live guide, leaving settings preview copies indep
 	GF.dock.available=80;GF.Layout();copy.Draw()
 	emit({independent=copy.frame:GetParent()==original and original~=GF.dock.pane,
 		copyBottom=copy.BarsBottom(),liveBottom=GF.BarsBottom(),sameCap=math.abs(copy.CapHeight()-cap)<0.01,
-		docked=GF.frame:GetParent()==GF.dock.pane})`);
+		docked=GF.frame:GetParent()==GF.dock.content})`);
 	assert.deepEqual(out,{independent:true,copyBottom:true,liveBottom:false,sameCap:true,docked:true});
 });
 
@@ -131,7 +131,7 @@ test('docked guide follows tracker bounds, keeps floating settings, and hides it
 	adapter:Layout(ObjectiveTrackerFrame,false,false)
 	GF.ApplyLock();GF.ApplyPosition();GF.ApplyScale();GF.SavePosition()
 	local point,rel=GF.frame:GetPoint()
-	emit({attached=GF.frame:GetParent()==adapter.pane,positioned=point=="TOPLEFT" and rel==adapter.pane,
+	emit({attached=GF.frame:GetParent()==adapter.content,positioned=point=="TOPLEFT" and rel==adapter.content,
 		grip=GF.grip:IsShown(),pos=Polestar.Get("ui.pos"),scale=Polestar.Get("ui.scale"),
 		grow=Polestar.Get("ui.growUp"),maxHeight=Polestar.Get("ui.maxHeight"),
 		cap=GF.CapHeight()*GF.frame:GetEffectiveScale()/adapter.holder:GetEffectiveScale(),
@@ -333,8 +333,8 @@ test('a saved configuration with docking and hide-tracker enabled keeps a visibl
 test('hiding the tracker switches docking off and waits for reload before hiding its guide',()=>{
 	const [out]=run(`
 	Polestar.UI.ShowOptions("qualityoflife")
-	Polestar.UI.Options.Select("qualityoflife","Quests")
-	local control=Polestar.UI.Options.Controls("qualityoflife","Quests")["qol.hideQuestTracker"]
+	Polestar.UI.Options.Select("qualityoflife","Game")
+	local control=Polestar.UI.Options.Controls("qualityoflife","Game")["qol.hideQuestTracker"]
 	assert(control and control:IsEnabled())
 	assert(not rawget(control,"HelpNotice"))
 	control:Click()
@@ -559,7 +559,7 @@ test('shared reminder cards render above the tracker column without joining the 
 	assert.deepEqual(out,{shown:true,strata:'MEDIUM',above:true,outside:true});
 });
 
-test('the guide menu offers Dock and Undock between Transparent and Lock window',()=>{
+test('the guide menu offers Dock and Undock above Settings and keeps the toggle bar',()=>{
 	for(const enabled of [false,true]) {
 		const [out]=run(`
 local opened
@@ -570,7 +570,9 @@ for _,row in ipairs(PolestarMenu.rows) do if row:IsShown() and row.psItem then i
 local action,count,index
 count=0
 for i,item in ipairs(items) do if item.icon=='dock' or item.icon=='undock' then action=item;index=i;count=count+1 end end
-assert(count==1 and items[index-1].icon=='layers' and items[index+1].icon=='lock')
+assert(count==1 and items[index+1].icon=='sliders')
+local bar=PolestarMenu.psItems[1].bar
+assert(bar[2].icon=='layers' and bar[3].icon=='lock')
 local parent=GF.frame:GetParent()
 action.onClick()
 emit({label=action.text,setting=Polestar.Get('ui.trackerDock'),opened=opened,sameParent=GF.frame:GetParent()==parent})`,{enabled});
@@ -643,4 +645,23 @@ assert(strip:GetHeight()==42 and strip:GetScale()==${headerScale})
 local _,original=strip:GetPoint(1);assert(original==ObjectiveTrackerFrame.Header.Background)
 emit({ok=true})`);
  assert.deepEqual(out,{ok:true});
+});
+
+test('changing the docked tab style keeps the optional-section scroll offset in range', () => {
+	const [out] = run(`
+	local d=GF.dock
+	d:SetSelected(true,true)
+	local original=GF.Layout
+	GF.Layout=function() GF.frame:SetHeight(1200) end
+	d:Layout(ObjectiveTrackerFrame,false)
+	assert(d.overflow>100)
+	d.pane:SetVerticalScroll(d.overflow)
+	Polestar.Set('guideWindow.tabStyle','strip')
+	GF.Layout=function() GF.frame:SetHeight(1000) end
+	d:Layout(ObjectiveTrackerFrame,false)
+	assert(d.overflow>0)
+	local inRange=d.pane:GetVerticalScroll()==d.overflow
+	GF.Layout=original
+	emit({inRange=inRange,canvas=d.content:GetHeight()==GF.frame:GetHeight()*GF.frame:GetScale()})`);
+	assert.deepEqual(out,{inRange:true,canvas:true});
 });

@@ -46,6 +46,32 @@ fn run(script: &str) -> Vec<Value> {
 const NO_PAD: &str = "stub.pad.enabled = false";
 
 #[test]
+fn tetris_window_receives_gamepad_navigation_buttons() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua", "stub_gamepad.lua"],
+		// Maps for the Arcade the window registers with.
+		addons: vec![
+			Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml", "Maps/Maps.xml", "UI/UI.xml"]),
+			Addon::files("Polestar_Arcade", &["games/tetris/Engine.lua", "games/tetris/Window.lua"]),
+		],
+		script: r#"
+			uistub.install()
+			stub.login()
+			Polestar.Set("gamepad.withMouse", true)
+			PolestarTetrisAPI.Open()
+			local g = PolestarTetris.Run()
+			local x = g.piece.x
+			local handled = stub.press("PADDLEFT")
+			emit({handled=handled, moved=g.piece.x == x - 1,
+				owner=Polestar.Gamepad.owner == PolestarTetrisFrame})
+		"#
+		.into(),
+		..Default::default()
+	});
+	assert_eq!(out[0], json!({"handled":"frame","moved":true,"owner":true}));
+}
+
+#[test]
 fn the_guide_window_never_takes_a_button_from_the_game_while_it_is_merely_shown() {
 	let out = run(r#"
 		uistub.setGuide(uistub.elwynn, 3)
@@ -672,6 +698,46 @@ fn with_the_gamepad_interface_no_chord_is_bound_unasked_and_a_chord_on_lb_or_rb_
 		true,
 	);
 	assert_eq!(out[0], json!({ "chord": false, "rb": "gamepad", "lb": "gamepad", "face": "gamepad", "lt": false }));
+}
+
+// Bruatel (#4240): with the gamepad interface and Polestar hidden, What's new opened by itself after an update,
+// shown but out of sight under Polestar's hidden layer, and took the gamepad: A, B, X, Y, the D-pad and the
+// shoulders did nothing in the game until Polestar was shown. A window holds the gamepad only while it is on
+// screen: hidden, the buttons stay the game's; shown, What's new takes them on Got it; hidden again, they go back.
+#[test]
+fn with_polestar_hidden_a_window_that_opens_out_of_sight_takes_no_button_and_takes_the_gamepad_once_polestar_shows() {
+	let out = run_with(
+		r#"
+		stub.advance(4)
+		local W = PolestarWhatsNew
+		emit({ hidden = Polestar.Hidden(), shown = W ~= nil and W:IsShown(), visible = W ~= nil and W:IsVisible(), owner = G.owner ~= nil,
+			input = PolestarPadInput ~= nil and PolestarPadInput:IsShown() or false, a = stub.press("PAD1"), up = stub.press("PADDUP"), y = stub.press("PAD4") })
+		Polestar.SetHidden(false)
+		stub.advance(0.3)
+		emit({ visible = W:IsVisible(), owner = G.owner == W, gotIt = G.Focused(W) == W.GotIt })
+		Polestar.SetHidden(true)
+		stub.advance(0.3)
+		emit({ owner = G.owner ~= nil, a = stub.press("PAD1"), still = W:IsShown() })
+		Polestar.SetHidden(false)
+		stub.advance(0.3)
+		local owner = G.owner == W
+		local a = stub.press("PAD1")
+		emit({ owner = owner, a = a, closed = not W:IsShown(), after = G.owner ~= nil, next = stub.press("PAD1") })
+	"#,
+		GAMEPAD_UI,
+		r#"stub.cascadeVisibility = true
+		Polestar.DB().whatsNewSeen = "0.4.0"
+		Polestar.SetHidden(true)"#,
+		true,
+	);
+	assert_eq!(
+		out[0],
+		json!({ "hidden": true, "shown": true, "visible": false, "owner": false, "input": false, "a": "game", "up": "game", "y": "game" }),
+		"out of sight, What's new leaves every button to the game"
+	);
+	assert_eq!(out[1], json!({ "visible": true, "owner": true, "gotIt": true }), "Polestar shown: What's new holds the gamepad on Got it");
+	assert_eq!(out[2], json!({ "owner": false, "a": "game", "still": true }), "hidden again: the buttons go back to the game");
+	assert_eq!(out[3], json!({ "owner": true, "a": "frame", "closed": true, "after": false, "next": "game" }), "A on Got it closes it and gives the gamepad back");
 }
 
 // olidammara (#688): with the gamepad interface on, a quest button bound on the Gamepad page went into the default

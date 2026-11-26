@@ -28,8 +28,9 @@
 -- left for later levels or at least MIN_OPEN to take, and whose quests to
 -- take now are worth MIN_WORTH of a level or more to the character
 -- (Levels.Run; not judged when one's XP is unknown). Its "Pick up the
--- quests" opens the guide by the same rule; the dungeon's page still picks
--- up everything the game gives. At a level-up, after
+-- quests" opens the guide as the dungeon's page does, with every quest the
+-- game gives now: the player chose the run, so a quest two levels up comes
+-- along (Fitz, #3063); the button counts the guide's. At a level-up, after
 -- DELAY seconds so the class quest heads-up goes first; at login, only for a
 -- dungeon that came due (its best-at level and its first quest's offer level
 -- were reached) within LOGIN_LEVELS levels, after the class
@@ -46,7 +47,7 @@
 --   UI.DungeonToast.Candidates(level, mode, questId)
 --       mode "levelup" | "login" | "turnin" (questId handed in) | "any"
 --   UI.DungeonToast.Check(level, mode, questId)  show the first candidate
---   UI.DungeonToast.Show(candidate), .Model(candidate), .PickUp(key, all), .SeePage(key)
+--   UI.DungeonToast.Show(candidate), .Model(candidate), .PickUp(key), .SeePage(key)
 --   /polestar dungeontoast [dungeon]         show it again
 --
 -- Under the same settings, the guide window's dungeon line under a step that
@@ -170,8 +171,10 @@ function DT.Candidates(level, mode, questId)
 				end
 				due = math.max(best, due or best)
 				if mode ~= "login" or level - due <= LOGIN_LEVELS then
-					out[#out + 1] = { key = d.key, name = d.name, zoneName = d.zoneName, minLevel = min, maxLevel = max, best = best, take = take, level = level,
-						due = due, pickLabel = Dg.PickupLabel and Dg.PickupLabel(plan) or nil }
+					-- What the button opens: the pick-up guide's plan, every quest the game gives now (#3063).
+					local guide = Dg.PickupPlan(d.key) or plan
+					out[#out + 1] = { key = d.key, name = d.name, zoneName = d.zoneName, minLevel = min, maxLevel = max, best = best, take = #guide.take, level = level,
+						due = due, pickLabel = Dg.PickupLabel and Dg.PickupLabel(guide) or nil }
 				end
 			end
 		end
@@ -206,7 +209,7 @@ function DT.Model(c)
 	local LT = UI.LevelTip
 	local xs = Dg.QuestXP and Dg.QuestXP(c.key)
 	if xs and not xs.maxed and (xs.levels or 0) > 0 and LT and LT.Text then m.badge = ns.Upper(LT.Text(xs.levels)) end
-	local pick = { label = c.pickLabel or L["Pick up the quests"], run = function() return DT.PickUp(c.key, c.all) end }
+	local pick = { label = c.pickLabel or L["Pick up the quests"], run = function() return DT.PickUp(c.key) end }
 	local page = { label = L["Open in Dungeons"], run = function() return DT.SeePage(c.key) end }
 	if enemy then m.act, m.more = page, pick else m.act, m.more = pick, page end
 	m.off = { label = L["Turn these off"], run = DT.TurnOff }
@@ -260,10 +263,10 @@ function DT.SeePage(key)
 end
 
 -- "Pick up the quests": the dungeon's pickup guide in a new tab, as its page's
--- button does, by the offer rule unless `all` (Dungeons.PickUp).
-function DT.PickUp(key, all)
+-- button does (Dungeons.PickUp).
+function DT.PickUp(key)
 	local Dg = D()
-	local gid, reason = Dg.PickUp(key, not all)
+	local gid, reason = Dg.PickUp(key)
 	if gid then
 		ns.Set("ui.shown", true)
 		CT().Hide()
@@ -281,7 +284,7 @@ end
 
 function DT.TurnOff()
 	ns.Set("dungeons.headsUp", false)
-	ns.Print(L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Lookup."])
+	ns.Print(L["Dungeon heads-ups are off. Turn them back on under Settings > Discovery > Lookup."])
 end
 
 -- The checks that have to wait (combat, another heads-up on the card), in
@@ -312,6 +315,62 @@ function DT.Check(level, mode, questId)
 	return c ~= nil and DT.Show(c) or false
 end
 
+-- Whether DT.Check would work out its candidates now (not off, not waiting
+-- for the Codex, combat or another heads-up).
+local function checkable(mode)
+	if not on() or (NO_LOAD[mode] and not codexLoaded()) then return false end
+	local C, T = ns.Compat, CT()
+	return not ((C.InCombat and C.InCombat()) or (T and T.current))
+end
+
+-- A check prices the quests' givers and enders from where the player stands
+-- (Dungeons.PickupPlan -> ns.TravelCost -> Nav.EstimateTravel): each answer
+-- Nav's cache lacks is a whole route plan, and a level-up empties the cache
+-- (the walk's danger is the level's). Ragefire Chasm's at 15 was 12 plans in
+-- one frame, 12-21 ms, 1.5 s after the level-up. So a check first works its
+-- candidates out with at most PLANS_PER_FRAME new plans a frame (the others
+-- answer nil and the pass is thrown away), a frame at a time, until a pass
+-- needs none; then DT.Check runs as before on the cached answers and finds
+-- the same card (Nav keeps them CACHE_SECONDS, 5 s). Without Nav (straight
+-- lines, no plans) or after MAX_PASSES, DT.Check at once.
+local PLANS_PER_FRAME, MAX_PASSES = 2, 30
+
+-- One pass: true when it needed no plan past the frame's share.
+local function warmPass(level, mode, questId)
+	local Nav, real = ns.Nav, ns.TravelCost
+	if not (Nav and Nav.EstimateKnown and Nav.EstimateTravel and real) then return true end
+	local planned, short = 0, false
+	ns.TravelCost = function(from, to)
+		if not Nav.EstimateKnown(from, to) then
+			if planned >= PLANS_PER_FRAME then
+				short = true
+				return nil
+			end
+			planned = planned + 1
+		end
+		return real(from, to)
+	end
+	local ok, err = pcall(DT.Candidates, level, mode, questId)
+	ns.TravelCost = real
+	if not ok then error(err, 0) end
+	return not short
+end
+
+-- DT.Check after its plans are made, a few a frame; done(shown) after it.
+local function checkSoon(level, mode, questId, done)
+	local passes = 0
+	local function pass()
+		passes = passes + 1
+		if passes < MAX_PASSES and checkable(mode) and not warmPass(level, mode, questId) then
+			ns.After(0, pass)
+			return
+		end
+		local shown = DT.Check(level, mode, questId)
+		if done then done(shown) end
+	end
+	pass()
+end
+
 -- Runs the waiting checks until one shows a card (the rest are dropped, as
 -- at a level-up only one dungeon is told); one still blocked waits again.
 local function retry()
@@ -320,9 +379,14 @@ local function retry()
 	ns.After(0.5, function()
 		if pending ~= waiting then return end
 		pending = {}
-		for _, p in ipairs(waiting) do
-			if DT.Check(p[1], p[2], p[3]) then return end
+		local i = 0
+		local function nextCheck(shown)
+			if shown then return end
+			i = i + 1
+			local p = waiting[i]
+			if p then checkSoon(p[1], p[2], p[3], nextCheck) end
 		end
+		nextCheck(false)
 	end)
 end
 
@@ -532,7 +596,7 @@ ns.RegisterEvent("PLAYER_ENTERING_WORLD", function()
 	loggedIn = true
 	ns.After(4, function()
 		if codexLoaded() then
-			DT.Check(nil, "login")
+			checkSoon(nil, "login")
 		else
 			loginDue = true
 		end
@@ -542,7 +606,7 @@ end)
 ns.On("CODEX_LOADED", function()
 	if not loginDue then return end
 	loginDue = false
-	ns.After(DELAY, function() DT.Check(nil, "login") end)
+	ns.After(DELAY, function() checkSoon(nil, "login") end)
 end)
 
 -- A level-up's check covers a login check still due.
@@ -550,13 +614,13 @@ ns.RegisterEvent("PLAYER_LEVEL_UP", function(_, level)
 	local n = tonumber(level)
 	if not n then return end
 	loginDue = false
-	ns.After(DELAY, function() DT.Check(n, "levelup") end)
+	ns.After(DELAY, function() checkSoon(n, "levelup") end)
 end)
 
 -- A quest of a dungeon's page handed in may open its follow-ups there.
 ns.RegisterEvent("QUEST_TURNED_IN", function(_, questID)
 	local id = tonumber(questID)
-	if id then ns.After(DELAY, function() DT.Check(nil, "turnin", id) end) end
+	if id then ns.After(DELAY, function() checkSoon(nil, "turnin", id) end) end
 end)
 
 ns.RegisterEvent("PLAYER_REGEN_ENABLED", retry)
@@ -574,7 +638,7 @@ ns.RegisterCommand("dungeontoast", function(rest)
 		local take, level = plan and #plan.take or 0, player().level
 		if take == 0 then return ns.Print(L["Nothing to pick up"]) end
 		if type(level) == "number" then
-			c = { key = key, name = d.name, zoneName = d.zoneName, minLevel = d.minLevel, maxLevel = d.maxLevel, take = take, level = level, all = true }
+			c = { key = key, name = d.name, zoneName = d.zoneName, minLevel = d.minLevel, maxLevel = d.maxLevel, take = take, level = level }
 		end
 	end
 	if not (c and DT.Show(c)) then ns.Print(L["No dungeon has opened up for this character."]) end

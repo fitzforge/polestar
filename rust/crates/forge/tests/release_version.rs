@@ -95,7 +95,7 @@ fn version_names_a_manifest_that_disagrees_and_refuses_one_without_a_version() {
 	assert!(read(&root, "addon/Polestar/Polestar.toc").contains("\n## Version: 0.1.0\n"));
 }
 
-/// Polestar's experimental pack (experimental/pack.json, built into Polestar_Experimental) follows the
+/// Polestar's experimental pack (experimental/pack.json, built into Polestar/Experimental) follows the
 /// release's version as our guides' manifest does.
 #[test]
 fn version_sets_and_checks_the_experimental_pack_json_too() {
@@ -116,7 +116,7 @@ fn version_sets_and_checks_the_experimental_pack_json_too() {
 
 /// The checkout: every addon TOC, guides/pack.json (compile writes its version into Polestar_Guides.toc)
 /// and, when the checkout has the experimental guides, experimental/pack.json (into
-/// Polestar_Experimental.toc) carry package.json's version.
+/// Polestar/Experimental/Pack.lua) carry package.json's version.
 #[test]
 fn the_checkout_carries_one_version_everywhere() {
 	let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../..").canonicalize().unwrap();

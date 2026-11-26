@@ -42,7 +42,7 @@ local ticker
 -- A slot holding a grey item, or one marked as junk, worth money that no
 -- keep mark or later step protects (Marks.Protected covers QoL.Kept), no quest
 -- needs, and that is no quest's item or quest starter: itemID, stack count,
--- price per item.
+-- what a merchant pays for each (Client.SlotSellPrice: less when damaged).
 local function junkAt(bag, slot)
 	local info = Client.SlotInfo(bag, slot)
 	if not info or info.isLocked or info.hasNoValue then return nil end
@@ -54,7 +54,7 @@ local function junkAt(bag, slot)
 	if Q and Q.IsItemNeeded and Q.IsItemNeeded(id) then return nil end -- a quest still needs it
 	if Client.SlotQuest(bag, slot) then return nil end -- a quest's item or a quest starter (#1557)
 	if info.quality ~= Client.QUALITY_POOR and not Marks.Junk(id) then return nil end
-	local price = Client.SellPrice(id)
+	local price = Client.SlotSellPrice(bag, slot, id, info.stackCount or 1)
 	if not price or price <= 0 then return nil end
 	return id, info.stackCount or 1, price
 end
@@ -87,13 +87,13 @@ local function repair()
 		return
 	end
 	RepairAllItems(plan == "guild")
-	ns.Print(format(plan == "guild" and L["Repaired for %s, guild bank first."] or L["Repaired for %s."], QoL.Money(cost)))
+	ns.Notice(format(plan == "guild" and L["Repaired for %s, guild bank first."] or L["Repaired for %s."], QoL.Money(cost)))
 end
 
 local function finish()
 	stop()
 	if sold > 0 then
-		ns.Print(format(sold == 1 and L["Sold %d grey item for %s."] or L["Sold %d grey items for %s."], sold, QoL.Money(earned)))
+		ns.Notice(format(sold == 1 and L["Sold %d grey item for %s."] or L["Sold %d grey items for %s."], sold, QoL.Money(earned)))
 	end
 	sold, earned = 0, 0
 	qi, qn = 1, 0

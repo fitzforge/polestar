@@ -50,7 +50,7 @@ return {
 	["{item:275635}, in the southern tower"] = "{item:275635}，在南面的塔楼中",
 
 	-- Step 7: A Way In
-	-- {area:324} Stromgarde Keep · {area:313} Northfold Manor · {object:656157} Syndicate Footlocker (no name in this language: may be words) · {quest:96783} A Way In
+	-- {area:324} Stromgarde Keep · {area:313} Northfold Manor · {object:656157} Syndicate Footlocker · {quest:96783} A Way In
 	["{area:324} in western Arathi is a Syndicate stronghold; to get in you need a uniform. {area:313}, in north-western Arathi, is held by Syndicate Highwaymen, Pathstalkers and Mercenaries (level 30-32): find the {object:656157} there and take the uniform; that ends {quest:96783}."] = "阿拉希西部的 {area:324} 是辛迪加的据点；要进去，需要一套制服。阿拉希西北部的 {area:313} 被辛迪加路霸、巡路者和雇佣兵（30-32 级）占据：在那里找到 {object:656157}，取走制服，即可完成 {quest:96783}。",
 	-- {quest:96784} Master of Disguise · {item:275706} Syndicate Uniform
 	["{quest:96784}: the {item:275706}"] = "{quest:96784}：{item:275706}",
@@ -63,8 +63,6 @@ return {
 	-- Step 9: Ain't No Telling
 	-- {item:275709} Stolen Funds
 	["She will not talk without something to bargain with. Her stash is upstairs in a house close to the keep: take the {item:275709}. If it is already open, wait for it to come back."] = "没有可供交换的东西，她就不愿交谈。她藏的东西在城堡附近一座房子的楼上：拿走 {item:275709}。如果已经被打开，就等它刷新。",
-	-- {item:275709} Stolen Funds
-	["{item:275709}: Anastasia's Stash"] = "{item:275709}：她的藏匿处",
 
 	-- Step 10: The Syndicate Sting
 	-- {area:1057} Thoradin's Wall · {area:287} Hillsbrad · {item:275882} Intercepted Shipment · {item:275706} Syndicate Uniform · {npc:13085} Myrokos Silentform
@@ -84,6 +82,7 @@ return {
 	-- ["Rite of Cunning"] = "狡诈仪式",
 	-- ["one emblem each time, 100 reputation"] = "每次一枚徽记，100点声望",
 	-- ["{item:275482}: pickpocket Barton"] = "{item:275482}：对巴顿搜索",
+	-- ["{item:275709}: Anastasia's Stash"] = "{item:275709}：她的藏匿处",
 	-- ["{npc:266216} is inside {area:275}, the Syndicate fortress in eastern {area:287}, south of the manor. Quick and quiet, says {npc:13085}."] = "{npc:266216}在{area:275}内，即{area:287}东部、庄园南边的辛迪加要塞。{npc:13085}说：要快，要安静。",
 	-- ["{npc:6766}: {quest:6701}, repeatable"] = "{npc:6766}：{quest:6701}，可重复",
 }

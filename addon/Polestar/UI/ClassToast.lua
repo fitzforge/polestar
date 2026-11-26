@@ -17,7 +17,7 @@
 -- are the player's (Options > Alerts & toasts, UI/Looks/Toasts.lua), and so
 -- is where it goes (toasts.headsup.place: "above" the window, the default;
 -- "below" it, flipping above when the screen has no room below; or "free",
--- a spot of its own, toasts.headsup.pos, moved with Move frames) and its
+-- a spot of its own, toasts.headsup.pos, moved with Move frames or by dragging the card) and its
 -- compact style (toasts.headsup.compact, off by default: one line, its icon,
 -- its title and its action, the rest in a tooltip and a menu). The class
 -- quest card is one of the heads-ups this card carries (CT.ShowCard): the
@@ -29,8 +29,10 @@
 -- a level-1 chain (learned at the start), opening at the new level
 -- (PLAYER_LEVEL_UP) or within the last two levels (login), its reward not
 -- known or owned (IsPlayerSpell / IsSpellKnown; GetItemCount with the bank),
--- no quest of its chain done or in the log, once per chain per character
--- (CharState().classToastSeen). The chime follows ui.classCardSound.
+-- no quest of its chain done or in the log, not an optional chain (its Class
+-- guide listed optional in Core/ClassQuestList.lua, #3925: CT.Optional),
+-- once per chain per character (CharState().classToastSeen). The chime
+-- follows ui.classCardSound.
 --
 --   UI.ClassToast.Candidates(level, mode)  mode "levelup" | "login" | "any"
 --   UI.ClassToast.Check(level, mode)       show the best candidate
@@ -114,10 +116,18 @@ function CT.ChainTaken(q)
 	return false
 end
 
-local function spellKnown(id)
+-- The reward's spell known: by its id, else by its name in the spellbook
+-- (Compat.KnowsSpellNamed): a chain of another race teaches the same ability
+-- under another id, and the card came back for a Highborne hunter who knew
+-- Tame Beast (#3020) and a Skyborne druid with Bear Form (#1935).
+local function spellKnown(id, english)
 	if IsPlayerSpell and IsPlayerSpell(id) then return true end
 	if IsSpellKnown and IsSpellKnown(id) then return true end
-	return false
+	local C = ns.Compat
+	if not (C and C.KnowsSpellNamed) then return false end
+	local name = C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(id)
+	if type(name) ~= "string" or name == "" then name = english end
+	return C.KnowsSpellNamed(name) and true or false
 end
 
 local function itemOwned(id)
@@ -131,7 +141,7 @@ end
 -- too) known, or one of the items in the bags, the bank or worn.
 function CT.RewardKnown(reward)
 	if not reward then return false end
-	if reward.spell and spellKnown(reward.spell) then return true end
+	if reward.spell and spellKnown(reward.spell, reward.spellName) then return true end
 	for _, id in ipairs(reward.items or {}) do
 		if itemOwned(id) then return true end
 	end
@@ -239,6 +249,8 @@ end
 
 -- The chain's own Class guide for this character: one that takes quest q,
 -- else one that takes another quest of its chain. -> guide id | nil
+-- A side-shelf guide's steps are read in for the search and given back
+-- (Guides.Peek).
 function CT.ClassGuide(q)
 	local G, C = ns.Guides, CC()
 	local p = C and C.Player()
@@ -246,13 +258,16 @@ function CT.ClassGuide(q)
 	local chain, other = C.ChainOf(q), nil
 	for _, h in ipairs(G.List()) do
 		if h.category == "Class" and (not G.GuideMatches or G.GuideMatches(h, p)) then
-			local g = G.Get(h.id)
-			for _, step in ipairs(g and g.steps or {}) do
+			local steps, fresh = G.Peek(h.id)
+			local takes = false
+			for _, step in ipairs(steps or {}) do
 				for _, goal in ipairs(step.goals or {}) do
-					if goal.quest == q then return h.id end
+					if goal.quest == q then takes = true end
 					if not other and ofChain(goal, q, chain) then other = h.id end
 				end
 			end
+			G.Unpeek(h.id, fresh)
+			if takes then return h.id end
 		end
 	end
 	return other
@@ -327,10 +342,30 @@ function CT.Model(q)
 	return m
 end
 
+-- Whether the chain of quest q is an optional one (Core/ClassQuestList.lua,
+-- #3925): its Class guide (CT.ClassGuide) is listed optional, or it has no
+-- Class guide and gives only an item (no spell, pet or mount: the reward's
+-- kind in UI/ClassRewards.lua). No heads-up tells of it; the guide menu
+-- lists the guided ones under "Optional class quests".
+function CT.Optional(q, guideId)
+	local list = ns.ClassQuestList
+	if not (list and list.OptionalGuide) then return false end
+	if guideId == nil then guideId = CT.ClassGuide(q) end
+	if guideId == nil then
+		local d = data()
+		local e = d and d.quests and d.quests[q]
+		local reward = e and e[3] > 0 and d.rewards[e[3]] or nil
+		local kind = reward and reward.kind
+		return kind ~= "ability" and kind ~= "pet" and kind ~= "mount"
+	end
+	return list.OptionalGuide(guideId)
+end
+
 -- The chain starts to tell the character about now, best first: the highest
 -- level, then one the loaded guide takes, then the lowest quest id. mode
 -- "levelup": opening at `level`; "login": opened within the last
--- LOGIN_LEVELS levels; "any": any reached, seen ones too. -> { quest, ... }
+-- LOGIN_LEVELS levels; "any": any reached, seen ones too. An optional chain
+-- (CT.Optional) never. -> { quest, ... }
 function CT.Candidates(level, mode)
 	local d, C = data(), CC()
 	local p = C and C.Player()
@@ -344,9 +379,12 @@ function CT.Candidates(level, mode)
 		local due = (mode == "levelup" and at == level) or (mode == "login" and at <= level and at >= level - LOGIN_LEVELS)
 			or (mode == "any" and at <= level)
 		if due and at > 1 and e and e[3] > 0 and hasBit(e[1], cbit) and giverFor(s, p) and (mode == "any" or not done[q])
-			and not CT.RewardKnown(d.rewards[e[3]]) and not CT.ChainTaken(q) and CT.Model(q) then
-			out[#out + 1] = q
-			onRoute[q] = routeStep(q, C.ChainOf(q), p) ~= nil
+			and not CT.RewardKnown(d.rewards[e[3]]) and not CT.ChainTaken(q) then
+			local m = CT.Model(q)
+			if m and not CT.Optional(q, m.guideId) then
+				out[#out + 1] = q
+				onRoute[q] = routeStep(q, C.ChainOf(q), p) ~= nil
+			end
 		end
 	end
 	table.sort(out, function(a, b)
@@ -476,6 +514,18 @@ end
 local function build()
 	f = newCard(ns.UIParent, "PolestarClassToast")
 	f:Hide()
+	f:SetMovable(true)
+	ns.DragWindow(f, f, {
+		locked = function() return ns.DragLocked() end,
+		onStop = function(self)
+			local p = ns.Get("toasts.headsup.pos")
+			local point = type(p) == "table" and type(p[1]) == "string" and p[1] or CT.FREE_AT[1]
+			local x, y = ns.PointOffsets(self, point)
+			ns.Set("toasts.headsup.place", "free")
+			ns.Set("toasts.headsup.pos", { point, floor(x + 0.5), floor(y + 0.5) })
+			CT.Place(false)
+		end,
+	})
 	CT.frame = f
 
 	local w = window()
@@ -501,6 +551,9 @@ end
 -- placing measures the window, its look's reach and the screen. On its own
 -- spot (free) the card never minds them.
 local placedCovers -- Buttons.Covers() as CT.Place last read it (nil: it read none)
+-- The room the card took above or below the edge it sits on, gap included,
+-- in the edge's units, as CT.Place last placed it (0: free or beside it).
+local placedRoom = 0
 local function sameCovers(a, b)
 	if #a ~= #b then return false end
 	for i = 1, #a do
@@ -907,20 +960,29 @@ function CT.Place(animate)
 	if place == "free" then
 		local p = ns.Get("toasts.headsup.pos")
 		if type(p) ~= "table" or type(p[1]) ~= "string" then p = CT.FREE_AT end
-		CT.side, placedCovers = "free", nil
+		CT.side, placedCovers, placedRoom = "free", nil, 0
 		f:SetClampedToScreen(true)
 		Anim.Anchor(f, p[1], UIParent, p[1], tonumber(p[2]) or 0, tonumber(p[3]) or 0)
 		dy = 18
 	else
 		f:SetClampedToScreen(false)
 		-- A skin's own frame around the window (its cards above it: Skin API 2,
-		-- hooks.guideAnchor) is the edge the card sits on instead.
+		-- hooks.guideAnchor) is the edge the card sits on instead; under the
+		-- window it is always the window's own foot. Under the skin's cards
+		-- the card lay on the window, behind it, its buttons out of reach
+		-- (#4212: Atlas's stack, the window near the screen's top).
 		local ran, own = Theme.SkinHookValue("guideAnchor")
 		local edge = ran and type(own) == "table" and own.GetTop and own or w
 		-- The gaps in the edge's units; the card's anchors take them in its own (k).
 		local r = reach(edge)
-		local gap = { above = r.top + GAP, below = r.bottom + GAP, left = r.left + GAP, right = r.right + GAP }
-		local top, bottom, left, right = edge:GetTop(), edge:GetBottom(), edge:GetLeft(), edge:GetRight()
+		local rw = edge == w and r or reach(w)
+		-- The window's own parts past its edges (the edge tab style's tabs).
+		if edge == w then
+			r.top = math.max(r.top, tonumber(w.psTopReach) or 0)
+		end
+		local under = math.max(rw.bottom, tonumber(w.psBottomReach) or 0)
+		local gap = { above = r.top + GAP, below = under + GAP, left = r.left + GAP, right = r.right + GAP }
+		local top, bottom, left, right = edge:GetTop(), w:GetBottom(), edge:GetLeft(), edge:GetRight()
 		local s, us = w:GetEffectiveScale() or 1, UIParent:GetEffectiveScale() or 1
 		local sw, sh = UIParent:GetRight(), UIParent:GetTop()
 		local cw = f:GetWidth() * k
@@ -963,6 +1025,7 @@ function CT.Place(animate)
 		end
 		local side = pick(clear) or pick(function() return true end) or "below"
 		CT.side = side
+		placedRoom = (side == "above" or side == "below") and hk + gap[side] or 0
 		-- Beside the window, nothing of it is under the card however the screen
 		-- moves it, so the screen keeps the card whole (a window reaching past
 		-- the screen's top would take a top-aligned card with it).
@@ -972,7 +1035,7 @@ function CT.Place(animate)
 			Anim.Anchor(f, "BOTTOMLEFT", edge, "TOPLEFT", 0, g)
 			dy = -(h + g)
 		elseif side == "below" then
-			Anim.Anchor(f, "TOPLEFT", edge, "BOTTOMLEFT", 0, -g)
+			Anim.Anchor(f, "TOPLEFT", w, "BOTTOMLEFT", 0, -g)
 			dy = h + g
 		elseif side == "left" then
 			Anim.Anchor(f, "TOPRIGHT", edge, "TOPLEFT", -g, 0)
@@ -995,6 +1058,33 @@ function CT.Place(animate)
 	end
 end
 
+-- The height the card takes above or below the window while it shows there,
+-- gap included (the edge's reach and GAP, as CT.Place placed it), in the
+-- window's units. The guide window keeps window and card within ui.maxHeight
+-- together (GuideFrameLayout); free or beside it, none.
+function CT.Reserved()
+	if not (f and CT.current and f:IsShown()) then return 0 end
+	if CT.side ~= "above" and CT.side ~= "below" then return 0 end
+	return placedRoom
+end
+
+-- The window makes room for the card, or takes it back: only when the room
+-- the card takes changed and the window is held by its cap or would be with
+-- the card (a layout redraws the whole window; a card beside it, free, or
+-- over a window with room to spare changes nothing).
+local laidRoom = 0
+local function relayout()
+	local room = CT.Reserved()
+	if room == laidRoom then return end
+	laidRoom = room
+	local G = UI.GuideFrame
+	if not (G and G.Layout and G.frame) then return end
+	local goals = G.parts and G.parts.goals
+	local capped = goals and goals.psOver
+	if not capped and G.CapHeight and G.frame:GetHeight() + room <= G.CapHeight() + 0.5 then return end
+	G.Layout()
+end
+
 -- The compact card's tooltip: what its one line leaves out.
 function CT.CompactTip(c)
 	local m = c.psModel
@@ -1005,6 +1095,7 @@ function CT.CompactTip(c)
 	if m.badge then lines[#lines + 1] = { m.badge, Theme.Accent() } end
 	if m.giver then lines[#lines + 1] = m.giver end
 	if m.route then lines[#lines + 1] = m.route end
+	lines[#lines + 1] = ns.Get("ui.lockHud") and L["Shift-drag to move."] or L["Drag to move."]
 	W.Tooltip(c, CT.side == "below" and "ANCHOR_BOTTOM" or "ANCHOR_TOP", m.title or "", lines)
 end
 
@@ -1129,6 +1220,7 @@ function CT.ShowCard(m)
 	CT.current = m
 	fillCard(f, m)
 	CT.Place(not wasShown)
+	relayout()
 	if not wasShown and f:IsShown() and not m.quiet then
 		local C = CC()
 		if ns.Get("ui.classCardSound") and C.GameSoundOn() then
@@ -1249,6 +1341,7 @@ function CT.Hide()
 	local was = CT.current
 	CT.current = nil
 	if f then f:Hide() end
+	relayout()
 	if was and ns.Fire then ns.Fire("HEADS_UP_HIDDEN", was) end
 end
 
@@ -1336,6 +1429,24 @@ ns.RegisterEvent("PLAYER_ENTERING_WORLD", function()
 	if loggedIn then return end
 	loggedIn = true
 	ns.After(2, function() CT.Check(nil, "login") end)
+end)
+
+-- A reward item the client had not cached showed as "#20083" (#3727): once
+-- it arrives, the card on screen names it.
+ns.RegisterEvent("GET_ITEM_INFO_RECEIVED", function(_, itemID)
+	local m = CT.current
+	local items = m and m.reward and m.reward.items
+	if not (items and f and f:IsShown() and f.psModel == m) then return end
+	for _, id in ipairs(items) do
+		if id == itemID then
+			local name = CC().RewardName(m.reward)
+			if name then
+				m.title = format(L["%s ready"], CT.ShortName(name))
+				f.Title:SetText(m.title)
+			end
+			return
+		end
+	end
 end)
 
 ns.RegisterCommand("classtoast", function(rest)

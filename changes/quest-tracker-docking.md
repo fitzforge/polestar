@@ -33,7 +33,8 @@ section: players
   screen releases the guide safely. Standalone 1.0.6's Daylight host retains
   ownership when present, using the native docking setting and adapter.
   The guide menu offers Dock to quest tracker / Undock from quest tracker
-  between Transparent and Lock window, opening the existing integration
+  above Quick settings, opening the existing integration
   setting and Reload UI control. Combat and tracker/gamepad restrictions apply.
-  Long guide menus leave the game-look scrollbar and arrow buttons fully
-  clickable, including after the docking action makes the menu scroll.
+  Guide tab styles follow the selected layout, including side tabs outside
+  the tracker width. Edge tabs fit below the host headings within the height
+  limit; changing the style updates the dock without a reload.

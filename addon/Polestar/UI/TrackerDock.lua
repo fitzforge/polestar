@@ -105,12 +105,14 @@ local function Paint()
 			leftExtension = math.max(0, artLeft - panelLeft * panelScale + OBJECTIVES_HEADER_LEFT_INSET)
 		end
 	end
-	if strip.tabAnchor ~= tabAnchor or strip.leftExtension ~= leftExtension then
+	local topExtension = guideFrame and select(1, Skin.PolestarGuide().TopReach()) or 0
+	if strip.tabAnchor ~= tabAnchor or strip.leftExtension ~= leftExtension or strip.topExtension ~= topExtension then
 		strip:ClearAllPoints()
-		strip:SetPoint("BOTTOMLEFT", tabAnchor, "TOPLEFT", -leftExtension, 2)
-		strip:SetPoint("BOTTOMRIGHT", tabAnchor, "TOPRIGHT", 0, 2)
+		strip:SetPoint("BOTTOMLEFT", tabAnchor, "TOPLEFT", -leftExtension, 2 + topExtension)
+		strip:SetPoint("BOTTOMRIGHT", tabAnchor, "TOPRIGHT", 0, 2 + topExtension)
 		strip.tabAnchor = tabAnchor
 		strip.leftExtension = leftExtension
+		strip.topExtension = topExtension
 	end
 	local cfg = themed and TrackerConfig() or {}
 	local r, g, b = 1, 0.82, 0

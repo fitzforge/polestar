@@ -72,7 +72,7 @@ return {
 	-- {npc:10811} Archivist Galford
 	["{npc:10811}, Scarlet side"] = "{npc:10811}, lado Escarlate",
 	-- {object:176245} Scarlet Archive
-	["the {object:176245}: burn it, Scarlet side"] = "",
+	["the {object:176245}: burn it, Scarlet side"] = "o {object:176245}: queime-o, lado Escarlate",
 
 	-- Step 7: Scholomance
 	-- {area:2057} Scholomance · {area:2298} Caer Darrow · {zone:1422} Western Plaguelands · {item:13704} Skeleton Key · {faction:529} Argent Dawn · {quest:5508} Corruptor's Scourgestones · {npc:10508} Ras Frostwhisper · {npc:1853} Darkmaster Gandling
@@ -89,12 +89,12 @@ return {
 	-- Step 9: Friendly to Honored: stones and named Scourge
 	["Friendly to Honored: stones and named Scourge"] = "De Amigável a Honrado: pedras e Flagelo nomeado",
 	-- {npc:10826} Lord Darkscythe · {npc:10821} Hed'mush the Rotting · {npc:10825} Gish the Unmoving · {area:2057} Scholomance · {area:2279} Stratholme · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {area:3197} Chillwind Camp · {area:152} Bulwark · {item:12844} Argent Dawn Valor Token · {quest:5509} Invader's Scourgestones · {area:2272} Northdale · {item:12843} Corruptor's Scourgestone · {npc:1850} Putridius
-	-- plural, as words: Dark Adepts = {npc:8546} Dark Adept · Shadowmages = {npc:8550} Shadowmage · Dread Weavers = {npc:8528} Dread Weaver · Scourge Champions = {npc:8529} Scourge Champion · Enriched Manna Biscuits = {item:13724} Enriched Manna Biscuit
+	-- plural, as words: Dark Adepts = {npc:8546} Dark Adept · Dread Weavers = {npc:8528} Dread Weaver · Scourge Champions = {npc:8529} Scourge Champion · Enriched Manna Biscuits = {item:13724} Enriched Manna Biscuit
 	["Normal Scourge outside the dungeons stop giving reputation halfway through Friendly (3,000 of 6,000); {npc:10826}, {npc:10821} and {npc:10825} stop at the end of Friendly. After that only Araj, the {area:2057} and {area:2279} mobs, the cauldron deliveries and Scourgestones count. Now turn in the stones you saved: {npc:11039} at {area:2268} takes all three kinds, and so do the officers at {area:3197} and the {area:152}. Every turn-in pays 25 and an {item:12844}: keep 35 tokens for the mantles at Revered and Exalted. {quest:5509} are worth twice as much per stone: the Dark Adepts, Shadowmages, Dread Weavers and Scourge Champions (level 58-60) at {area:2272}, just north of {area:2268}, drop them about a third of the time or more, next to the turn-in. The named Scourge below drop a {item:12843} half the time or more ({npc:1850} two times in three, Araj and {npc:10821} half the time) and give 15 a kill, Araj until Exalted; {npc:1850} gives no reputation, only the stone. Friendly opens the Enriched Manna Biscuits (60 silver) at the quartermasters."] = "O Flagelo comum fora das masmorras para de dar reputação no meio de Amigável (3.000 de 6.000); {npc:10826}, {npc:10821} e {npc:10825} param no fim de Amigável. Depois disso só contam Araj, os monstros de {area:2057} e {area:2279}, as entregas dos caldeirões e as Pedras do Flagelo. Agora entregue as pedras que guardou: {npc:11039} em {area:2268} aceita os três tipos, e os oficiais em {area:3197} e {area:152} também. Cada entrega paga 25 e um {item:12844}: guarde 35 símbolos para os mantos em Reverenciado e Exaltado. {quest:5509} valem o dobro por pedra: os Adeptos das Trevas, Umbramantes, Tecemedos e Campeões do Flagelo (nível 58-60) em {area:2272}, logo ao norte de {area:2268}, as soltam cerca de um terço das vezes ou mais, ao lado da entrega. O Flagelo nomeado abaixo solta {item:12843} metade das vezes ou mais ({npc:1850} duas em três, Araj e {npc:10821} metade das vezes) e dá 15 por morte, Araj até Exaltado; {npc:1850} não dá reputação, só a pedra. Amigável libera os Biscoitos de Maná Enriquecidos (60 pratas) com os intendentes.",
 	-- {item:12843} Corruptor's Scourgestone
 	["{item:12843}: the named Scourge below, and dungeon bosses"] = "{item:12843}: o Flagelo nomeado abaixo e os chefes de masmorra",
 	-- {area:2272} Northdale
-	-- plural, as words: Dark Adepts = {npc:8546} Dark Adept · Shadowmages = {npc:8550} Shadowmage
+	-- plural, as words: Dark Adepts = {npc:8546} Dark Adept
 	["Dark Adepts and Shadowmages at {area:2272}"] = "Adeptos das Trevas e Umbramantes em {area:2272}",
 	-- {npc:1852} Araj the Summoner
 	["{npc:1852}, Andorhal"] = "{npc:1852}, Andorhal",

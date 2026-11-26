@@ -15,47 +15,64 @@ return {
 	-- Step 2: Engineering 1-75: vendor goods
 	-- {skill:202} Engineering
 	["{skill:202} 1-75: vendor goods"] = "{skill:202} 1-75: Händlerwaren",
-	-- {item:2880} Weak Flux · {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:5514} Brooke Stonebraid · {npc:1286} Edna Mullby
-	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "Kauf den Bedarf für den ganzen Bereich auf einmal: 18 {item:2880} (18s) und {item:5956} (ein Werkzeug: einer, in deinen Taschen aufbewahrt, 18c); insgesamt etwa 18s 18c. Der Pfeil wählt den nächsten Händler deiner Fraktion ({zone:1453}: {npc:5519}, {npc:5514} und {npc:1286}).",
+	-- {item:2880} Weak Flux · {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:1286} Edna Mullby · {npc:5512} Kaita Deepforge
+	-- was: ["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "Kauf den Bedarf für den ganzen Bereich auf einmal: 18 {item:2880} (18s) und {item:5956} (ein Werkzeug: einer, in deinen Taschen aufbewahrt, 18c); insgesamt etwa 18s 18c. Der Pfeil wählt den nächsten Händler deiner Fraktion ({zone:1453}: {npc:5519}, {npc:5514} und {npc:1286})."
+	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:1286} and {npc:5512})."] = "",
 	["a tool, keep it in your bags"] = "ein Werkzeug, behalte es in deinen Taschen",
 
-	-- Step 3: Engineering 1-75: Auction House
-	-- {skill:202} Engineering
-	["{skill:202} 1-75: Auction House"] = "{skill:202} 1-75: Auktionshaus",
-	-- {item:2835} Rough Stone · {item:2840} Copper Bar
-	["What 1-75 takes that the Auction House sells: 46 {item:2835} and 75 {item:2840}. The counts drop by what your bags, bank and mail hold."] = "Was du für 1-75 brauchst und das Auktionshaus verkauft: 46 {item:2835} und 75 {item:2840}. Die Zahlen sinken um das, was du schon in Taschen, Bank und Post hast.",
+	-- Step 3: Get Rough Stone (Elwynn Forest)
+	-- {item:2835} Rough Stone · {zone:1429} Elwynn Forest
+	["Get {item:2835} ({zone:1429})"] = "",
+	-- {item:2835} Rough Stone · {skill:202} Engineering · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1429} Elwynn Forest
+	["You need 46 {item:2835} for {skill:202} 1-75: {spell:3918}. {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1429} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 4: Rough Stone (Elwynn Forest)
-	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1429} Elwynn Forest
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1429} is marked."] = "46 {item:2835} für {spell:3918}: {skill:186}: {object:1731} (Fertigkeit 1). Das dichteste Vorkommen von {object:1731} in {zone:1429} ist markiert.",
+	-- Step 4: Get Rough Stone (Dun Morogh)
+	-- {item:2835} Rough Stone · {zone:1426} Dun Morogh
+	["Get {item:2835} ({zone:1426})"] = "",
+	-- {item:2835} Rough Stone · {skill:202} Engineering · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1426} Dun Morogh
+	["You need 46 {item:2835} for {skill:202} 1-75: {spell:3918}. {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1426} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 5: Rough Stone (Dun Morogh)
-	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1426} Dun Morogh
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1426} is marked."] = "46 {item:2835} für {spell:3918}: {skill:186}: {object:1731} (Fertigkeit 1). Das dichteste Vorkommen von {object:1731} in {zone:1426} ist markiert.",
+	-- Step 5: Get Rough Stone (Darkshore)
+	-- {item:2835} Rough Stone · {zone:1439} Darkshore
+	["Get {item:2835} ({zone:1439})"] = "",
+	-- {item:2835} Rough Stone · {skill:202} Engineering · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1439} Darkshore
+	["You need 46 {item:2835} for {skill:202} 1-75: {spell:3918}. {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1439} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 6: Rough Stone (Darkshore)
-	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1439} Darkshore
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1439} is marked."] = "46 {item:2835} für {spell:3918}: {skill:186}: {object:1731} (Fertigkeit 1). Das dichteste Vorkommen von {object:1731} in {zone:1439} ist markiert.",
+	-- Step 6: Get Rough Stone (Zephras Isle)
+	-- {item:2835} Rough Stone · {zone:2521} Zephras Isle
+	["Get {item:2835} ({zone:2521})"] = "",
+	-- {item:2835} Rough Stone · {skill:202} Engineering · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:2521} Zephras Isle
+	["You need 46 {item:2835} for {skill:202} 1-75: {spell:3918}. {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:2521} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 7: Rough Stone (Zephras Isle)
-	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:2521} Zephras Isle
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:2521} is marked."] = "46 {item:2835} für {spell:3918}: {skill:186}: {object:1731} (Fertigkeit 1). Das dichteste Vorkommen von {object:1731} in {zone:2521} ist markiert.",
+	-- Step 7: Get Rough Stone (Durotar)
+	-- {item:2835} Rough Stone · {zone:1411} Durotar
+	["Get {item:2835} ({zone:1411})"] = "",
+	-- {item:2835} Rough Stone · {skill:202} Engineering · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1411} Durotar
+	["You need 46 {item:2835} for {skill:202} 1-75: {spell:3918}. {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1411} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 8: Rough Stone (Durotar)
-	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1411} Durotar
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1411} is marked."] = "46 {item:2835} für {spell:3918}: {skill:186}: {object:1731} (Fertigkeit 1). Das dichteste Vorkommen von {object:1731} in {zone:1411} ist markiert.",
+	-- Step 8: Get Rough Stone (Mulgore)
+	-- {item:2835} Rough Stone · {zone:1412} Mulgore
+	["Get {item:2835} ({zone:1412})"] = "",
+	-- {item:2835} Rough Stone · {skill:202} Engineering · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1412} Mulgore
+	["You need 46 {item:2835} for {skill:202} 1-75: {spell:3918}. {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1412} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 9: Rough Stone (Mulgore)
-	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1412} Mulgore
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1412} is marked."] = "46 {item:2835} für {spell:3918}: {skill:186}: {object:1731} (Fertigkeit 1). Das dichteste Vorkommen von {object:1731} in {zone:1412} ist markiert.",
+	-- Step 9: Get Rough Stone (Tirisfal Glades)
+	-- {item:2835} Rough Stone · {zone:1420} Tirisfal Glades
+	["Get {item:2835} ({zone:1420})"] = "",
+	-- {item:2835} Rough Stone · {skill:202} Engineering · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1420} Tirisfal Glades
+	["You need 46 {item:2835} for {skill:202} 1-75: {spell:3918}. {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1420} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 10: Rough Stone (Tirisfal Glades)
-	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1420} Tirisfal Glades
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1420} is marked."] = "46 {item:2835} für {spell:3918}: {skill:186}: {object:1731} (Fertigkeit 1). Das dichteste Vorkommen von {object:1731} in {zone:1420} ist markiert.",
+	-- Step 10: Get Copper Bar (Alliance)
+	-- {item:2840} Copper Bar
+	["Get {item:2840} (Alliance)"] = "",
+	-- {item:2840} Copper Bar · {skill:202} Engineering · {spell:3922} Handful of Copper Bolts · {item:6219} Arclight Spanner · {spell:3924} Copper Tube · {object:1731} Copper Vein · {skill:186} Mining · {item:2770} Copper Ore · {zone:1426} Dun Morogh
+	["You need 75 {item:2840} for {skill:202} 1-75: {spell:3922}, {item:6219} and {spell:3924}. Mine {object:1731} ({skill:186} 1) for {item:2770} and smelt it at a forge ({skill:186} 1). The densest cluster of {object:1731} in {zone:1426} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 11: Copper Bar
-	-- {item:2840} Copper Bar · {spell:3922} Handful of Copper Bolts · {item:6219} Arclight Spanner · {spell:3924} Copper Tube · {skill:186} Mining · {item:2770} Copper Ore
-	["75 {item:2840} for {spell:3922}, {item:6219} and {spell:3924}: {skill:186}: smelt {item:2770}."] = "75 {item:2840} für {spell:3922}, {item:6219} und {spell:3924}: {skill:186}: {item:2770} schmelzen.",
+	-- Step 11: Get Copper Bar (Horde)
+	-- {item:2840} Copper Bar
+	["Get {item:2840} (Horde)"] = "",
+	-- {item:2840} Copper Bar · {skill:202} Engineering · {spell:3922} Handful of Copper Bolts · {item:6219} Arclight Spanner · {spell:3924} Copper Tube · {object:1731} Copper Vein · {skill:186} Mining · {item:2770} Copper Ore · {zone:1411} Durotar
+	["You need 75 {item:2840} for {skill:202} 1-75: {spell:3922}, {item:6219} and {spell:3924}. Mine {object:1731} ({skill:186} 1) for {item:2770} and smelt it at a forge ({skill:186} 1). The densest cluster of {object:1731} in {zone:1411} is marked. Or buy them at the Auction House."] = "",
 
 	-- Step 12: Rough Blasting Powder to 35
 	-- {spell:3918} Rough Blasting Powder
@@ -103,55 +120,73 @@ return {
 	-- {item:2880} Weak Flux · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:5514} Brooke Stonebraid · {npc:1286} Edna Mullby
 	["Buy the whole bracket's share in one go: 45 {item:2880} (45s); about 45s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "Kauf den Bedarf für den ganzen Bereich auf einmal: 45 {item:2880} (45s); insgesamt etwa 45s. Der Pfeil wählt den nächsten Händler deiner Fraktion ({zone:1453}: {npc:5519}, {npc:5514} und {npc:1286}).",
 
-	-- Step 19: Engineering 75-150: Auction House
-	-- {skill:202} Engineering
-	["{skill:202} 75-150: Auction House"] = "{skill:202} 75-150: Auktionshaus",
-	-- {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2840} Copper Bar · {item:2841} Bronze Bar · {item:2842} Silver Bar
-	["What 75-150 takes that the Auction House sells: 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842}. The counts drop by what your bags, bank and mail hold."] = "Was du für 75-150 brauchst und das Auktionshaus verkauft: 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} und 2 {item:2842}. Die Zahlen sinken um das, was du schon in Taschen, Bank und Post hast.",
+	-- Step 19: Get Coarse Stone (Westfall)
+	-- {item:2836} Coarse Stone · {zone:1436} Westfall
+	["Get {item:2836} ({zone:1436})"] = "",
+	-- {item:2836} Coarse Stone · {skill:202} Engineering · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1436} Westfall
+	["You need 15 {item:2836} for {skill:202} 75-150: {spell:3930}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1436} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 20: Coarse Stone (Westfall)
-	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1436} Westfall
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1436} is marked."] = "15 {item:2836} für {spell:3930}: {skill:186}: {object:1732} (Fertigkeit 65). Das dichteste Vorkommen von {object:1732} in {zone:1436} ist markiert.",
+	-- Step 20: Get Coarse Stone (Loch Modan)
+	-- {item:2836} Coarse Stone · {zone:1432} Loch Modan
+	["Get {item:2836} ({zone:1432})"] = "",
+	-- {item:2836} Coarse Stone · {skill:202} Engineering · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1432} Loch Modan
+	["You need 15 {item:2836} for {skill:202} 75-150: {spell:3930}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1432} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 21: Coarse Stone (Loch Modan)
-	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1432} Loch Modan
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1432} is marked."] = "15 {item:2836} für {spell:3930}: {skill:186}: {object:1732} (Fertigkeit 65). Das dichteste Vorkommen von {object:1732} in {zone:1432} ist markiert.",
+	-- Step 21: Get Coarse Stone (Darkshore)
+	-- {item:2836} Coarse Stone · {zone:1439} Darkshore
+	["Get {item:2836} ({zone:1439})"] = "",
+	-- {item:2836} Coarse Stone · {skill:202} Engineering · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1439} Darkshore
+	["You need 15 {item:2836} for {skill:202} 75-150: {spell:3930}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1439} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 22: Coarse Stone (Darkshore)
-	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1439} Darkshore
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1439} is marked."] = "15 {item:2836} für {spell:3930}: {skill:186}: {object:1732} (Fertigkeit 65). Das dichteste Vorkommen von {object:1732} in {zone:1439} ist markiert.",
+	-- Step 22: Get Coarse Stone (The Barrens)
+	-- {item:2836} Coarse Stone · {zone:1413} The Barrens
+	["Get {item:2836} ({zone:1413})"] = "",
+	-- {item:2836} Coarse Stone · {skill:202} Engineering · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens
+	["You need 15 {item:2836} for {skill:202} 75-150: {spell:3930}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1413} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 23: Coarse Stone (The Barrens)
-	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1413} is marked."] = "15 {item:2836} für {spell:3930}: {skill:186}: {object:1732} (Fertigkeit 65). Das dichteste Vorkommen von {object:1732} in {zone:1413} ist markiert.",
+	-- Step 23: Get Coarse Stone (Silverpine Forest)
+	-- {item:2836} Coarse Stone · {zone:1421} Silverpine Forest
+	["Get {item:2836} ({zone:1421})"] = "",
+	-- {item:2836} Coarse Stone · {skill:202} Engineering · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1421} Silverpine Forest
+	["You need 15 {item:2836} for {skill:202} 75-150: {spell:3930}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1421} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 24: Coarse Stone (Silverpine Forest)
-	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1421} Silverpine Forest
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1421} is marked."] = "15 {item:2836} für {spell:3930}: {skill:186}: {object:1732} (Fertigkeit 65). Das dichteste Vorkommen von {object:1732} in {zone:1421} ist markiert.",
+	-- Step 24: Get Heavy Stone (Arathi Highlands)
+	-- {item:2838} Heavy Stone · {zone:1417} Arathi Highlands
+	["Get {item:2838} ({zone:1417})"] = "",
+	-- {item:2838} Heavy Stone · {skill:202} Engineering · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands
+	["You need 27 {item:2838} for {skill:202} 75-150: {spell:3945}. {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1417} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 25: Heavy Stone (Arathi Highlands)
-	-- {item:2838} Heavy Stone · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands
-	["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1417} is marked."] = "27 {item:2838} für {spell:3945}: {skill:186}: {object:1735} (Fertigkeit 125). Das dichteste Vorkommen von {object:1735} in {zone:1417} ist markiert.",
+	-- Step 25: Get Heavy Stone (Ashenvale)
+	-- {item:2838} Heavy Stone · {zone:1440} Ashenvale
+	["Get {item:2838} ({zone:1440})"] = "",
+	-- {item:2838} Heavy Stone · {skill:202} Engineering · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1440} Ashenvale
+	["You need 27 {item:2838} for {skill:202} 75-150: {spell:3945}. {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1440} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 26: Heavy Stone (Ashenvale)
-	-- {item:2838} Heavy Stone · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1440} Ashenvale
-	["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1440} is marked."] = "27 {item:2838} für {spell:3945}: {skill:186}: {object:1735} (Fertigkeit 125). Das dichteste Vorkommen von {object:1735} in {zone:1440} ist markiert.",
+	-- Step 26: Get Heavy Stone (The Barrens)
+	-- {item:2838} Heavy Stone · {zone:1413} The Barrens
+	["Get {item:2838} ({zone:1413})"] = "",
+	-- {item:2838} Heavy Stone · {skill:202} Engineering · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1413} The Barrens
+	["You need 27 {item:2838} for {skill:202} 75-150: {spell:3945}. {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1413} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 27: Heavy Stone (The Barrens)
-	-- {item:2838} Heavy Stone · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1413} The Barrens
-	["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1413} is marked."] = "27 {item:2838} für {spell:3945}: {skill:186}: {object:1735} (Fertigkeit 125). Das dichteste Vorkommen von {object:1735} in {zone:1413} ist markiert.",
+	-- Step 28: Get Copper Bar (Alliance)
+	-- {item:2840} Copper Bar · {skill:202} Engineering · {spell:3930} Crafted Heavy Shot · {spell:3924} Copper Tube · {item:6712} Practice Lock · {object:1731} Copper Vein · {skill:186} Mining · {item:2770} Copper Ore · {zone:1426} Dun Morogh
+	["You need 72 {item:2840} for {skill:202} 75-150: {spell:3930}, {spell:3924} and {item:6712}. Mine {object:1731} ({skill:186} 1) for {item:2770} and smelt it at a forge ({skill:186} 1). The densest cluster of {object:1731} in {zone:1426} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 29: Copper Bar
-	-- {item:2840} Copper Bar · {spell:3930} Crafted Heavy Shot · {spell:3924} Copper Tube · {item:6712} Practice Lock · {skill:186} Mining · {item:2770} Copper Ore
-	["72 {item:2840} for {spell:3930}, {spell:3924} and {item:6712}: {skill:186}: smelt {item:2770}."] = "72 {item:2840} für {spell:3930}, {spell:3924} und {item:6712}: {skill:186}: {item:2770} schmelzen.",
+	-- Step 29: Get Copper Bar (Horde)
+	-- {item:2840} Copper Bar · {skill:202} Engineering · {spell:3930} Crafted Heavy Shot · {spell:3924} Copper Tube · {item:6712} Practice Lock · {object:1731} Copper Vein · {skill:186} Mining · {item:2770} Copper Ore · {zone:1411} Durotar
+	["You need 72 {item:2840} for {skill:202} 75-150: {spell:3930}, {spell:3924} and {item:6712}. Mine {object:1731} ({skill:186} 1) for {item:2770} and smelt it at a forge ({skill:186} 1). The densest cluster of {object:1731} in {zone:1411} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 30: Bronze Bar
-	-- {item:2841} Bronze Bar · {item:6712} Practice Lock · {spell:3950} Big Bronze Bomb · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
-	["61 {item:2841} for {item:6712} and {spell:3950}: {skill:186}: smelt {item:2840} and {item:3576}."] = "61 {item:2841} für {item:6712} und {spell:3950}: {skill:186}: {item:2840} und {item:3576} schmelzen.",
+	-- Step 30: Get Bronze Bar
+	-- {item:2841} Bronze Bar
+	["Get {item:2841}"] = "",
+	-- {item:2841} Bronze Bar · {skill:202} Engineering · {item:6712} Practice Lock · {spell:3950} Big Bronze Bomb · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
+	["You need 61 {item:2841} for {skill:202} 75-150: {item:6712} and {spell:3950}. {skill:186}: smelt {item:2840} and {item:3576}. Or buy them at the Auction House."] = "",
 
-	-- Step 31: Silver Bar
-	-- {item:2842} Silver Bar · {spell:3950} Big Bronze Bomb · {skill:186} Mining · {item:2775} Silver Ore
-	["2 {item:2842} for {spell:3950}: {skill:186}: smelt {item:2775}."] = "2 {item:2842} für {spell:3950}: {skill:186}: {item:2775} schmelzen.",
+	-- Step 31: Get Silver Bar
+	-- {item:2842} Silver Bar
+	["Get {item:2842}"] = "",
+	-- {item:2842} Silver Bar · {skill:202} Engineering · {spell:3950} Big Bronze Bomb · {skill:186} Mining · {item:2775} Silver Ore
+	["You need 2 {item:2842} for {skill:202} 75-150: {spell:3950}. {skill:186}: smelt {item:2775}. Or buy them at the Auction House."] = "",
 
 	-- Step 32: Crafted Heavy Shot to 94
 	-- {spell:3930} Crafted Heavy Shot
@@ -164,7 +199,7 @@ return {
 	["{spell:3924} to 100"] = "{spell:3924} bis 100",
 	-- {spell:3924} Copper Tube · {item:2840} Copper Bar · {item:2880} Weak Flux
 	-- plural, as words: Copper Bars = {item:2840} Copper Bar
-	["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby."] = "{spell:3924} ist bei 94 gelb (gelb 80, grün 95, grau 110): etwa 14 Herstellungen bis 100. Jede benötigt 2 {item:2840} und 1 {item:2880}. Zwei Kupferbarren und ein {item:2880} pro Herstellung (Schmiedekunst- und Ingenieurskunsthändler). Braucht einen Amboss in der Nähe.",
+	["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. If you got here without learning {spell:3924}, learn it now: an earlier step teaches it."] = "{spell:3924} ist bei Level 94 gelb (gelb 80, grün 95, grau 110): etwa 14 Künste bis 100. Jedes nimmt 2 {item:2840} und 1 {item:2880}. Zwei Kupferbarren und ein {item:2880} pro Kunst (Schmiedehandwerker und Ingenieurhandwerker von Lieferanten). Benötigt eine Amboss in der Nähe. Falls du hier noch {spell:3924} nicht beherrschst: lern es jetzt; ein früherer Schritt vermittelt es.",
 
 	-- Step 34: Engineering recipes at 100
 	-- {skill:202} Engineering
@@ -177,7 +212,7 @@ return {
 	["{item:6712} to 125"] = "{item:6712} bis 125",
 	-- {item:6712} Practice Lock · {item:2841} Bronze Bar · {spell:3922} Handful of Copper Bolts · {item:2880} Weak Flux
 	-- plural, as words: Practice Locks = {item:6712} Practice Lock
-	["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby."] = "{item:6712} ist bei 100 orange (gelb 115, grün 122, grau 130): etwa 31 Herstellungen bis 125. Jede benötigt 1 {item:2841}, 2 {spell:3922} und 1 {item:2880}. Stell zuerst die 29 {spell:3922} her. Nutz die 33 {spell:3922}, die du früher hergestellt hast; die Zahlen oben lassen sie weg. Practice Locks verkaufen sich an Schurken, oder öffne sie selbst. Braucht einen Amboss in der Nähe.",
+	["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby. If you got here without learning {spell:3922}, learn it now: an earlier step teaches it."] = "{item:6712} ist bei Level 100 orange (gelb 115, grün 122, grau 130): etwa 31 Künste bis 125. Jedes nimmt 1 {item:2841}, 2 {spell:3922} und 1 {item:2880}. Mache zuerst die 29 {spell:3922}. Nutze die 33 {spell:3922}, die du vorher hergestellt hast; die obigen Zählungen lassen sie entfallen. Übungs-Schloss lässt sich Meuchelmördern verkaufen oder man öffnet sie selbst. Benötigt eine Amboss in der Nähe. Falls du hier noch {spell:3922} nicht beherrschst: lern es jetzt; ein früherer Schritt vermittelt es.",
 
 	-- Step 36: Engineering recipes at 125
 	-- {skill:202} Engineering
@@ -216,191 +251,229 @@ return {
 	-- {item:6530} Nightcrawlers · {zone:1453} Stormwind City · {npc:5494} Catherine Leland · {npc:1286} Edna Mullby
 	["Buy the whole bracket's share in one go: 31 {item:6530} (31s); about 31s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5494} and {npc:1286})."] = "Kauf den Bedarf für den ganzen Bereich auf einmal: 31 {item:6530} (31s); insgesamt etwa 31s. Der Pfeil wählt den nächsten Händler deiner Fraktion ({zone:1453}: {npc:5494} und {npc:1286}).",
 
-	-- Step 42: Engineering 150-225: Auction House
-	-- {skill:202} Engineering
-	["{skill:202} 150-225: Auction House"] = "{skill:202} 150-225: Auktionshaus",
-	-- {item:2319} Medium Leather · {item:2592} Wool Cloth · {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2841} Bronze Bar · {item:2842} Silver Bar · {item:3575} Iron Bar · {item:3860} Mithril Bar · {item:7912} Solid Stone
-	["What 150-225 takes that the Auction House sells: 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} and 62 {item:7912}. The counts drop by what your bags, bank and mail hold."] = "Was du für 150-225 brauchst und das Auktionshaus verkauft: 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} und 62 {item:7912}. Die Zahlen sinken um das, was du schon in Taschen, Bank und Post hast.",
-
-	-- Step 43: Medium Leather (Alliance)
+	-- Step 42: Get Medium Leather (Alliance)
 	-- {item:2319} Medium Leather
-	["{item:2319} (Alliance)"] = "{item:2319} (Allianz)",
-	-- {item:2319} Medium Leather · {spell:3953} Bronze Framework · {skill:393} Skinning · {npc:2248} Cave Yeti · {npc:2356} Elder Gray Bear · {npc:2385} Feral Mountain Lion · {npc:2351} Gray Bear · {npc:2384} Starving Mountain Lion · {npc:2354} Vicious Gray Bear
-	["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "19 {item:2319} für {spell:3953}: {skill:393}: Tiere der Stufe 18-30. Häute hier {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} und {npc:2354} ab (Stufe 18-30); der {skill:393}-Guide plant das ein.",
+	-- was: ["{item:2319} (Alliance)"] = "{item:2319} (Allianz)"
+	["Get {item:2319} (Alliance)"] = "",
+	-- {item:2319} Medium Leather · {skill:202} Engineering · {spell:3953} Bronze Framework · {skill:393} Skinning · {npc:2248} Cave Yeti · {npc:2356} Elder Gray Bear · {npc:2385} Feral Mountain Lion · {npc:2351} Gray Bear · {npc:2384} Starving Mountain Lion · {npc:2354} Vicious Gray Bear
+	-- was: ["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "19 {item:2319} für {spell:3953}: {skill:393}: Tiere der Stufe 18-30. Häute hier {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} und {npc:2354} ab (Stufe 18-30); der {skill:393}-Guide plant das ein."
+	["You need 19 {item:2319} for {skill:202} 150-225: {spell:3953}. {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this. Or buy them at the Auction House."] = "",
 
-	-- Step 44: Medium Leather (Horde)
+	-- Step 43: Get Medium Leather (Horde)
 	-- {item:2319} Medium Leather
-	["{item:2319} (Horde)"] = "{item:2319} (Horde)",
-	-- {item:2319} Medium Leather · {spell:3953} Bronze Framework · {skill:393} Skinning · {npc:3809} Ashenvale Bear · {npc:3810} Elder Ashenvale Bear · {npc:3818} Elder Shadowhorn Stag · {npc:3823} Ghostpaw Runner · {npc:3811} Giant Ashenvale Bear · {npc:3817} Shadowhorn Stag
-	["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} and {npc:3817} here (level 18-30); the {skill:393} guide routes this."] = "19 {item:2319} für {spell:3953}: {skill:393}: Tiere der Stufe 18-30. Häute hier {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} und {npc:3817} ab (Stufe 18-30); der {skill:393}-Guide plant das ein.",
+	-- was: ["{item:2319} (Horde)"] = "{item:2319} (Horde)"
+	["Get {item:2319} (Horde)"] = "",
+	-- {item:2319} Medium Leather · {skill:202} Engineering · {spell:3953} Bronze Framework · {skill:393} Skinning · {npc:3809} Ashenvale Bear · {npc:3810} Elder Ashenvale Bear · {npc:3818} Elder Shadowhorn Stag · {npc:3823} Ghostpaw Runner · {npc:3811} Giant Ashenvale Bear · {npc:3817} Shadowhorn Stag
+	-- was: ["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} and {npc:3817} here (level 18-30); the {skill:393} guide routes this."] = "19 {item:2319} für {spell:3953}: {skill:393}: Tiere der Stufe 18-30. Häute hier {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} und {npc:3817} ab (Stufe 18-30); der {skill:393}-Guide plant das ein."
+	["You need 19 {item:2319} for {skill:202} 150-225: {spell:3953}. {skill:393}: beasts of level 18-30. Skin {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} and {npc:3817} here (level 18-30); the {skill:393} guide routes this. Or buy them at the Auction House."] = "",
 
-	-- Step 45: Wool Cloth
-	-- {item:2592} Wool Cloth · {spell:3953} Bronze Framework
-	["19 {item:2592} for {spell:3953}: humanoids of level 15-30 drop it. Keep what you loot as you level, or take it from your bank."] = "19 {item:2592} für {spell:3953}: Beute von Humanoiden der Stufen 15-30. Behalte, was du beim Leveln erbeutest oder hol es aus deiner Bank.",
+	-- Step 44: Get Wool Cloth
+	-- {item:2592} Wool Cloth
+	["Get {item:2592}"] = "",
+	-- {item:2592} Wool Cloth · {skill:202} Engineering · {spell:3953} Bronze Framework
+	["You need 19 {item:2592} for {skill:202} 150-225: {spell:3953}. Humanoids of level 15-30 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
-	-- Step 46: Coarse Stone (Alliance)
+	-- Step 45: Get Coarse Stone (Alliance)
 	-- {item:2836} Coarse Stone
-	["{item:2836} (Alliance)"] = "{item:2836} (Allianz)",
-	-- {item:2836} Coarse Stone · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1432} Loch Modan · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
-	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1432} (10-20), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1432} is marked."] = "31 {item:2836} für {item:6533}: {skill:186}: {object:1732} (Fertigkeit 65) in {zone:1432} (10-20), {zone:1440} (18-30) und {zone:1424} (20-30). Das dichteste Vorkommen von {object:1732} in {zone:1432} ist markiert.",
+	-- was: ["{item:2836} (Alliance)"] = "{item:2836} (Allianz)"
+	["Get {item:2836} (Alliance)"] = "",
+	-- {item:2836} Coarse Stone · {skill:202} Engineering · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1432} Loch Modan · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
+	-- was: ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1432} (10-20), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1432} is marked."] = "31 {item:2836} für {item:6533}: {skill:186}: {object:1732} (Fertigkeit 65) in {zone:1432} (10-20), {zone:1440} (18-30) und {zone:1424} (20-30). Das dichteste Vorkommen von {object:1732} in {zone:1432} ist markiert."
+	["You need 31 {item:2836} for {skill:202} 150-225: {item:6533}. {skill:186}: {object:1732} (skill 65) in {zone:1432} (10-20), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1432} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 47: Coarse Stone (Horde)
+	-- Step 46: Get Coarse Stone (Horde)
 	-- {item:2836} Coarse Stone
-	["{item:2836} (Horde)"] = "{item:2836} (Horde)",
-	-- {item:2836} Coarse Stone · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
-	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "31 {item:2836} für {item:6533}: {skill:186}: {object:1732} (Fertigkeit 65) in {zone:1413} (10-25), {zone:1440} (18-30) und {zone:1424} (20-30). Das dichteste Vorkommen von {object:1732} in {zone:1440} ist markiert.",
+	-- was: ["{item:2836} (Horde)"] = "{item:2836} (Horde)"
+	["Get {item:2836} (Horde)"] = "",
+	-- {item:2836} Coarse Stone · {skill:202} Engineering · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
+	-- was: ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1413} is marked."] = "31 {item:2836} für {item:6533}: {skill:186}: {object:1732} (Fertigkeit 65) in {zone:1413} (10-25), {zone:1440} (18-30) und {zone:1424} (20-30). Die dichteste Gruppe von {object:1732} in {zone:1413} ist markiert."
+	["You need 31 {item:2836} for {skill:202} 150-225: {item:6533}. {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1413} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 48: Heavy Stone (Alliance)
+	-- Step 47: Get Heavy Stone (Alliance)
 	-- {item:2838} Heavy Stone
-	["{item:2838} (Alliance)"] = "{item:2838} (Allianz)",
-	-- {item:2838} Heavy Stone · {spell:3967} Big Iron Bomb · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {zone:1443} Desolace
-	["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked."] = "74 {item:2838} für {spell:3967}: {skill:186}: {object:1735} (Fertigkeit 125) in {zone:1417} (30-40), {zone:1434} (30-45) und {zone:1443} (30-40). Das dichteste Vorkommen von {object:1735} in {zone:1417} ist markiert.",
+	-- was: ["{item:2838} (Alliance)"] = "{item:2838} (Allianz)"
+	["Get {item:2838} (Alliance)"] = "",
+	-- {item:2838} Heavy Stone · {skill:202} Engineering · {spell:3967} Big Iron Bomb · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {zone:1443} Desolace
+	-- was: ["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked."] = "74 {item:2838} für {spell:3967}: {skill:186}: {object:1735} (Fertigkeit 125) in {zone:1417} (30-40), {zone:1434} (30-45) und {zone:1443} (30-40). Das dichteste Vorkommen von {object:1735} in {zone:1417} ist markiert."
+	["You need 74 {item:2838} for {skill:202} 150-225: {spell:3967}. {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 49: Heavy Stone (Horde)
+	-- Step 48: Get Heavy Stone (Horde)
 	-- {item:2838} Heavy Stone
-	["{item:2838} (Horde)"] = "{item:2838} (Horde)",
-	-- {item:2838} Heavy Stone · {spell:3967} Big Iron Bomb · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1441} Thousand Needles · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
-	["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked."] = "74 {item:2838} für {spell:3967}: {skill:186}: {object:1735} (Fertigkeit 125) in {zone:1441} (25-35), {zone:1417} (30-40) und {zone:1434} (30-45). Das dichteste Vorkommen von {object:1735} in {zone:1441} ist markiert.",
+	-- was: ["{item:2838} (Horde)"] = "{item:2838} (Horde)"
+	["Get {item:2838} (Horde)"] = "",
+	-- {item:2838} Heavy Stone · {skill:202} Engineering · {spell:3967} Big Iron Bomb · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1441} Thousand Needles · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
+	-- was: ["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked."] = "74 {item:2838} für {spell:3967}: {skill:186}: {object:1735} (Fertigkeit 125) in {zone:1441} (25-35), {zone:1417} (30-40) und {zone:1434} (30-45). Das dichteste Vorkommen von {object:1735} in {zone:1441} ist markiert."
+	["You need 74 {item:2838} for {skill:202} 150-225: {spell:3967}. {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 50: Bronze Bar
-	-- {item:2841} Bronze Bar · {item:6533} Aquadynamic Fish Attractor · {spell:3953} Bronze Framework · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
-	["100 {item:2841} for {item:6533} and {spell:3953}: {skill:186}: smelt {item:2840} and {item:3576}."] = "100 {item:2841} für {item:6533} und {spell:3953}: {skill:186}: {item:2840} und {item:3576} schmelzen.",
+	-- Step 49: Get Bronze Bar
+	-- {item:2841} Bronze Bar · {skill:202} Engineering · {item:6533} Aquadynamic Fish Attractor · {spell:3953} Bronze Framework · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
+	["You need 100 {item:2841} for {skill:202} 150-225: {item:6533} and {spell:3953}. {skill:186}: smelt {item:2840} and {item:3576}. Or buy them at the Auction House."] = "",
 
-	-- Step 51: Silver Bar
-	-- {item:2842} Silver Bar · {spell:3967} Big Iron Bomb · {skill:186} Mining · {item:2775} Silver Ore
-	["6 {item:2842} for {spell:3967}: {skill:186}: smelt {item:2775}."] = "6 {item:2842} für {spell:3967}: {skill:186}: {item:2775} schmelzen.",
+	-- Step 50: Get Silver Bar
+	-- {item:2842} Silver Bar · {skill:202} Engineering · {spell:3967} Big Iron Bomb · {skill:186} Mining · {item:2775} Silver Ore
+	["You need 6 {item:2842} for {skill:202} 150-225: {spell:3967}. {skill:186}: smelt {item:2775}. Or buy them at the Auction House."] = "",
 
-	-- Step 52: Iron Bar
-	-- {item:3575} Iron Bar · {spell:3967} Big Iron Bomb · {skill:186} Mining · {item:2772} Iron Ore
-	["81 {item:3575} for {spell:3967}: {skill:186}: smelt {item:2772}."] = "81 {item:3575} für {spell:3967}: {skill:186}: {item:2772} schmelzen.",
+	-- Step 51: Get Iron Bar (Alliance)
+	-- {item:3575} Iron Bar
+	["Get {item:3575} (Alliance)"] = "",
+	-- {item:3575} Iron Bar · {skill:202} Engineering · {spell:3967} Big Iron Bomb · {object:1735} Iron Deposit · {skill:186} Mining · {item:2772} Iron Ore · {zone:1417} Arathi Highlands
+	["You need 81 {item:3575} for {skill:202} 150-225: {spell:3967}. Mine {object:1735} ({skill:186} 125) for {item:2772} and smelt it at a forge ({skill:186} 125). The densest cluster of {object:1735} in {zone:1417} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 53: Mithril Bar
-	-- {item:3860} Mithril Bar · {item:10512} Hi-Impact Mithril Slugs · {skill:186} Mining · {item:3858} Mithril Ore
-	["19 {item:3860} for {item:10512}: {skill:186}: smelt {item:3858}."] = "19 {item:3860} für {item:10512}: {skill:186}: {item:3858} schmelzen.",
+	-- Step 52: Get Iron Bar (Horde)
+	-- {item:3575} Iron Bar
+	["Get {item:3575} (Horde)"] = "",
+	-- {item:3575} Iron Bar · {skill:202} Engineering · {spell:3967} Big Iron Bomb · {object:1735} Iron Deposit · {skill:186} Mining · {item:2772} Iron Ore · {zone:1441} Thousand Needles
+	["You need 81 {item:3575} for {skill:202} 150-225: {spell:3967}. Mine {object:1735} ({skill:186} 125) for {item:2772} and smelt it at a forge ({skill:186} 125). The densest cluster of {object:1735} in {zone:1441} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 54: Solid Stone (Alliance)
+	-- Step 53: Get Mithril Bar (Alliance)
+	-- {item:3860} Mithril Bar
+	["Get {item:3860} (Alliance)"] = "",
+	-- {item:3860} Mithril Bar · {skill:202} Engineering · {item:10512} Hi-Impact Mithril Slugs · {object:2040} Mithril Deposit · {skill:186} Mining · {item:3858} Mithril Ore · {zone:1434} Stranglethorn Vale
+	["You need 19 {item:3860} for {skill:202} 150-225: {item:10512}. Mine {object:2040} ({skill:186} 175) for {item:3858} and smelt it at a forge ({skill:186} 175). The densest cluster of {object:2040} in {zone:1434} is marked. Or buy them at the Auction House."] = "",
+
+	-- Step 54: Get Mithril Bar (Horde)
+	-- {item:3860} Mithril Bar
+	["Get {item:3860} (Horde)"] = "",
+	-- {item:3860} Mithril Bar · {skill:202} Engineering · {item:10512} Hi-Impact Mithril Slugs · {object:2040} Mithril Deposit · {skill:186} Mining · {item:3858} Mithril Ore · {zone:1443} Desolace
+	["You need 19 {item:3860} for {skill:202} 150-225: {item:10512}. Mine {object:2040} ({skill:186} 175) for {item:3858} and smelt it at a forge ({skill:186} 175). The densest cluster of {object:2040} in {zone:1443} is marked. Or buy them at the Auction House."] = "",
+
+	-- Step 55: Get Solid Stone (Alliance)
 	-- {item:7912} Solid Stone
-	["{item:7912} (Alliance)"] = "{item:7912} (Allianz)",
-	-- {item:7912} Solid Stone · {item:10505} Solid Blasting Powder · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked."] = "62 {item:7912} für {item:10505}: {skill:186}: {object:2040} (Fertigkeit 175) in {zone:1434} (30-45), {zone:1425} (40-50) und {zone:1444} (40-50). Das dichteste Vorkommen von {object:2040} in {zone:1434} ist markiert.",
+	-- was: ["{item:7912} (Alliance)"] = "{item:7912} (Allianz)"
+	["Get {item:7912} (Alliance)"] = "",
+	-- {item:7912} Solid Stone · {skill:202} Engineering · {item:10505} Solid Blasting Powder · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands · {zone:1444} Feralas
+	-- was: ["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked."] = "62 {item:7912} für {item:10505}: {skill:186}: {object:2040} (Fertigkeit 175) in {zone:1434} (30-45), {zone:1425} (40-50) und {zone:1444} (40-50). Das dichteste Vorkommen von {object:2040} in {zone:1434} ist markiert."
+	["You need 62 {item:7912} for {skill:202} 150-225: {item:10505}. {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 55: Solid Stone (Horde)
+	-- Step 56: Get Solid Stone (Horde)
 	-- {item:7912} Solid Stone
-	["{item:7912} (Horde)"] = "{item:7912} (Horde)",
-	-- {item:7912} Solid Stone · {item:10505} Solid Blasting Powder · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "62 {item:7912} für {item:10505}: {skill:186}: {object:2040} (Fertigkeit 175) in {zone:1443} (30-40), {zone:1425} (40-50) und {zone:1444} (40-50). Das dichteste Vorkommen von {object:2040} in {zone:1443} ist markiert.",
+	-- was: ["{item:7912} (Horde)"] = "{item:7912} (Horde)"
+	["Get {item:7912} (Horde)"] = "",
+	-- {item:7912} Solid Stone · {skill:202} Engineering · {item:10505} Solid Blasting Powder · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
+	-- was: ["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "62 {item:7912} für {item:10505}: {skill:186}: {object:2040} (Fertigkeit 175) in {zone:1443} (30-40), {zone:1425} (40-50) und {zone:1444} (40-50). Das dichteste Vorkommen von {object:2040} in {zone:1443} ist markiert."
+	["You need 62 {item:7912} for {skill:202} 150-225: {item:10505}. {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 56: Aquadynamic Fish Attractor to 166
+	-- Step 57: Aquadynamic Fish Attractor to 166
 	-- {item:6533} Aquadynamic Fish Attractor
 	["{item:6533} to 166"] = "{item:6533} bis 166",
 	-- {item:6533} Aquadynamic Fish Attractor · {item:2841} Bronze Bar · {item:6530} Nightcrawlers · {spell:3929} Coarse Blasting Powder
-	["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen."] = "{item:6533} ist bei 150 gelb (gelb 150, grün 160, grau 170): etwa 31 Herstellungen bis 166. Jede benötigt 2 {item:2841}, 1 {item:6530} und 1 {spell:3929} und ergibt 3. Stell zuerst die 31 {spell:3929} her. {item:6530} gibt es bei Handwerkswaren- und Anglerhändlern; die Lockstoffe verkaufen sich an Fischer.",
+	["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen. If you got here without learning {spell:3929}, learn it now: an earlier step teaches it."] = "{item:6533} ist bei Level 150 gelb (gelb 150, grün 160, grau 170): etwa 31 Künste bis 166. Jedes nimmt 2 {item:2841}, 1 {item:6530} und 1 {spell:3929} und liefert 3. Mache zuerst die 31 {spell:3929}. {item:6530} kommen von Handels- und Fischerei-Lieferanten; die Lockmittel verkaufen an Fischfänger. Falls du hier noch {spell:3929} nicht beherrschst: lern es jetzt; ein früherer Schritt vermittelt es.",
 
-	-- Step 57: Bronze Framework to 175
+	-- Step 58: Bronze Framework to 175
 	-- {spell:3953} Bronze Framework
 	["{spell:3953} to 175"] = "{spell:3953} bis 175",
 	-- {spell:3953} Bronze Framework · {item:2841} Bronze Bar · {item:2319} Medium Leather · {item:2592} Wool Cloth
 	-- plural, as words: Bronze Frameworks = {spell:3953} Bronze Framework
 	["{spell:3953} is yellow at 166 (yellow 145, green 170, grey 195): about 19 crafts to 175. Each takes 2 {item:2841}, 1 {item:2319} and 1 {item:2592}. Bronze Frameworks are parts for later gadgets; the extras sell to vendors."] = "{spell:3953} ist bei 166 gelb (gelb 145, grün 170, grau 195): etwa 19 Herstellungen bis 175. Jede benötigt 2 {item:2841}, 1 {item:2319} und 1 {item:2592}. Bronzegerüste sind Teile für spätere Gadgets; die überzähligen verkaufst du an Händler.",
 
-	-- Step 58: Engineering recipes at 175
+	-- Step 59: Engineering recipes at 175
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 175"] = "Rezepte für {skill:202} bei 175",
 	-- {skill:202} Engineering · {spell:12585} Solid Blasting Powder
 	["Back to an {skill:202} trainer: {spell:12585} (from 175)."] = "Zurück zu einem {skill:202}-Lehrer: {spell:12585} (ab 175).",
 
-	-- Step 59: Solid Blasting Powder to 191
+	-- Step 60: Solid Blasting Powder to 191
 	-- {item:10505} Solid Blasting Powder
 	["{item:10505} to 191"] = "{item:10505} bis 191",
 	-- {item:10505} Solid Blasting Powder · {item:7912} Solid Stone
 	-- plural, as words: Mithril Deposits = {object:2040} Mithril Deposit
 	["{item:10505} is yellow at 175 (yellow 175, green 185, grey 195): about 31 crafts to 191. Each takes 2 {item:7912}. Two {item:7912} a craft (Mithril Deposits). Make plenty: the triggers, slugs and Gyro-Shot all use it."] = "{item:10505} ist bei 175 gelb (gelb 175, grün 185, grau 195): etwa 31 Herstellungen bis 191. Jede benötigt 2 {item:7912}. Zwei {item:7912} pro Herstellung (Mithrilvorkommen). Stell reichlich her: Die Abzüge, die Geschosse und das Gyro-Shot brauchen es alle.",
 
-	-- Step 60: Engineering recipes at 191
+	-- Step 61: Engineering recipes at 191
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 191"] = "{skill:202}-Rezepte bei 191",
 	-- {skill:202} Engineering · {spell:3967} Big Iron Bomb
 	["Back to an {skill:202} trainer: {spell:3967} (from 190)."] = "Zurück zu einem {skill:202}-Lehrer: {spell:3967} (ab 190).",
 
-	-- Step 61: Big Iron Bomb to 210
+	-- Step 62: Big Iron Bomb to 210
 	-- {spell:3967} Big Iron Bomb
 	["{spell:3967} to 210"] = "{spell:3967} bis 210",
 	-- {spell:3967} Big Iron Bomb · {item:3575} Iron Bar · {spell:3945} Heavy Blasting Powder · {spell:3973} Silver Contact · {item:2842} Silver Bar · {item:2838} Heavy Stone · {npc:5174} Springspindle Fizzlegear · {zone:1455} Ironforge · {npc:5518} Lilliam Sparkspindle · {zone:1453} Stormwind City · {npc:4586} Graham Van Talen · {zone:1458} Undercity · {area:392} Ratchet · {spell:20220} Gnomish Engineering · {npc:7944} Tinkmaster Overspark · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay · {item:4407} Accurate Scope · {npc:8126} Nixx Sprocketspring · {area:976} Gadgetzan · {item:10507} Solid Dynamite · {npc:2675} Explosive Sheep
 	-- plural, as words: Silver Contacts = {spell:3973} Silver Contact · Mithril Tubes = {item:10559} Mithril Tube · Big Iron Bombs = {spell:3967} Big Iron Bomb
-	["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby."] = "{spell:3967} ist bei 191 gelb (gelb 190, grün 210, grau 230): etwa 27 Herstellungen bis 210. Jede benötigt 3 {item:3575}, 3 {spell:3945} und 1 {spell:3973} und ergibt 2. Stell zuerst die 74 {spell:3945} und 30 {spell:3973} (6 Herstellungen) her. Verwende die 7 {spell:3945}, die du früher hergestellt hast; die Zahlen oben lassen sie weg. Ein {item:2842} ergibt fünf Silver Contacts (inzwischen grau: keine Punkte, aber auch kein Weg zu einem Händler); das {spell:3945} stammt aus {item:2838}. Jede Herstellung ergibt zwei Bomben. Spezialisierung (optional): Bei 200 und Charakterstufe 30 schicken dich {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) oder Tinkerwiz ({area:392}) zu {spell:20220} ({npc:7944}, {zone:1455}, oder {npc:7406}, {area:35}: 6 Mithril Tubes, ein {item:4407} und 2 Advanced Target Dummies) oder zur Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} und 5 {npc:2675}). Das Schema für den {item:4407} wird jetzt beim Aufheben gebunden, aber die Quest nimmt ein Zielfernrohr, das jemand anderes hergestellt hat. Die Mitgliedskarte gilt 14 Spieltage; die Verlängerung kostet 2g. Du kannst nur eine nehmen; für 300 braucht man keine von beiden, und die Beta hat sie nie getestet (sie endete bei Stufe 30). Braucht einen Amboss in der Nähe.",
+	["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby. If you got here without learning {spell:3945} and {spell:3973}, learn them now: an earlier step teaches them."] = "{spell:3967} ist bei Level 191 gelb (gelb 190, grün 210, grau 230): etwa 27 Künste bis 210. Jedes nimmt 3 {item:3575}, 3 {spell:3945} und 1 {spell:3973} und liefert 2. Mache zuerst die 74 {spell:3945} und 30 {spell:3973} (6 Künste). Nutze die 7 {spell:3945}, die du vorher hergestellt hast; die obigen Zählungen lassen sie entfallen. Ein {item:2842} ergibt fünf Silberkontakte (grau jetzt: keine Punkte, aber auch kein Strafreisekostenkonto). Das {spell:3945} kommt von {item:2838}. Jeder Kunst liefern zwei Bomben. Spezialisierung (optional): bei 200 Charakterebene nimmt {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) oder Tinkerwiz ({area:392}) dich zu {spell:20220} ({npc:7944}, {zone:1455}, oder {npc:7406}, {area:35}: 6 Mithril-Rohre, ein {item:4407} und 2 Advanced-Ziel-Dummys) oder Goblin-Ingenieurswesen ({npc:8126}, {area:976}: 20 Big-Iron-Bomben, 20 {item:10507} und 5 {npc:2675}) ab. Das {item:4407}-Skript bindet jetzt, sobald es aufgehoben wird, aber der Quest nimmt ein Scope eines anderen her. Die Mitgliederkarte hält 14 Spieldage; die Verlängerung kostet 2 Golds. Du kannst nur einen nehmen; keiner ist für 300 nötig, und die Beta hat sie nie getestet (es stoppte auf Level 30). Benötigt eine Amboss in der Nähe. Falls du hier noch {spell:3945} und {spell:3973} nicht beherrschst: lern es jetzt; ein früherer Schritt vermittelt es.",
 
-	-- Step 62: Engineering recipes at 210
+	-- Step 63: Engineering recipes at 210
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 210"] = "Rezepte für {skill:202} bei 210",
 	-- {skill:202} Engineering · {spell:12596} Hi-Impact Mithril Slugs
 	["Back to an {skill:202} trainer: {spell:12596} (from 210)."] = "Zurück zu einem {skill:202}-Lehrer: {spell:12596} (ab 210).",
 
-	-- Step 63: Hi-Impact Mithril Slugs to 225
+	-- Step 64: Hi-Impact Mithril Slugs to 225
 	-- {item:10512} Hi-Impact Mithril Slugs
 	["{item:10512} to 225"] = "{item:10512} bis 225",
 	-- {item:10512} Hi-Impact Mithril Slugs · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder · {skill:202} Engineering
 	["{item:10512} is yellow at 210 (yellow 210, green 230, grey 250): about 19 crafts to 225. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Use the 19 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. {skill:202} 225 is a Legacy System milestone."] = "{item:10512} ist bei 210 gelb (gelb 210, grün 230, grau 250): etwa 19 Herstellungen bis 225. Jede benötigt 1 {item:3860} und 1 {item:10505} und ergibt 200. Nutz die 19 {item:10505}, die du früher hergestellt hast; die Zahlen oben lassen sie weg. Ein {item:3860} und ein {item:10505} pro Herstellung; Jäger kaufen die Geschosse. Braucht einen Amboss in der Nähe. {skill:202} 225 ist ein Meilenstein des Vermächtnissystems.",
 
-	-- Step 64: Artisan Engineering
+	-- Step 65: Artisan Engineering
 	-- {skill:202} Engineering
 	["Artisan {skill:202}"] = "{skill:202} (Fachmann)",
 	-- {skill:202} Engineering · {npc:8736} Buzzek Bracketswing · {zone:1446} Tanaris · {item:3860} Mithril Bar · {item:7912} Solid Stone · {item:12359} Thorium Bar · {item:14047} Runecloth
 	["Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:8736} ({zone:1446}); Horde {npc:8736} ({zone:1446}). The arrow picks the nearest of your faction. 225-300 takes about 2g 80s of recipes, plus 118 {item:3860}, 212 {item:7912}, 156 {item:12359} and 24 {item:14047} to gather or buy."] = "Die Meisterstufe erhöht das Limit von 225 auf 300 für 4g 50s (Preis aus Classic; der von Forever liegt nicht in den Daten); sie erfordert {skill:202} 200 und Charakterstufe 35, du kannst sie also bei jedem Besuch ab 200 nehmen. Nur wenige Lehrer bringen sie bei: Allianz {npc:8736} ({zone:1446}); Horde {npc:8736} ({zone:1446}). Der Pfeil wählt den nächsten deiner Fraktion. 225-300 kostet etwa 2g 80s an Rezepten, dazu 118 {item:3860}, 212 {item:7912}, 156 {item:12359} und 24 {item:14047} zum Sammeln oder Kaufen.",
 
-	-- Step 65: Schematic: Thorium Widget
+	-- Step 66: Schematic: Thorium Widget
 	-- {item:16042} Schematic: Thorium Widget · {item:15994} Thorium Widget · {skill:202} Engineering · {npc:5175} Gearcutter Cogspinner · {zone:1455} Ironforge · {npc:3413} Sovik · {zone:1454} Orgrimmar
 	["{item:16042} teaches {item:15994} ({skill:202} 260) for 1g 20s. Sold by Alliance: {npc:5175} ({zone:1455}), limited stock; Horde: {npc:3413} ({zone:1454}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; the Auction House often has it too."] = "{item:16042} bringt dir {item:15994} ({skill:202} 260) für 1g 20s bei. Verkauft von Allianz: {npc:5175} ({zone:1455}), begrenzter Vorrat; Horde: {npc:3413} ({zone:1454}), begrenzter Vorrat. Die Händler haben ein oder zwei auf Lager, die einige Zeit nach einem Verkauf wiederkommen; auch das Auktionshaus hat es oft.",
 
-	-- Step 66: Schematic: Thorium Tube
+	-- Step 67: Schematic: Thorium Tube
 	-- {item:16047} Schematic: Thorium Tube · {item:16000} Thorium Tube · {skill:202} Engineering · {npc:260565} Kor'gar · {zone:2548} Riverglades · {npc:11185} Xizzer Fizzbolt · {zone:1452} Winterspring
 	["{item:16047} teaches {item:16000} ({skill:202} 275) for 1g 60s. Sold by {npc:260565} ({zone:2548}) and {npc:11185} ({zone:1452}), limited stock."] = "{item:16047} bringt dir {item:16000} ({skill:202} 275) für 1g 60s bei. Verkauft von {npc:260565} ({zone:2548}) und {npc:11185} ({zone:1452}), begrenzter Vorrat.",
 
-	-- Step 67: Engineering 225-300: Auction House
-	-- {skill:202} Engineering
-	["{skill:202} 225-300: Auction House"] = "{skill:202} 225-300: Auktionshaus",
-	-- {item:3860} Mithril Bar · {item:7912} Solid Stone · {item:12359} Thorium Bar · {item:14047} Runecloth
-	["What 225-300 takes that the Auction House sells: 118 {item:3860}, 212 {item:7912}, 156 {item:12359} and 24 {item:14047}. The counts drop by what your bags, bank and mail hold."] = "Was du für 225-300 brauchst und das Auktionshaus verkauft: 118 {item:3860}, 212 {item:7912}, 156 {item:12359} und 24 {item:14047}. Die Zahlen sinken um das, was du schon in Taschen, Bank und Post hast.",
+	-- Step 68: Get Mithril Bar (Alliance)
+	-- {item:3860} Mithril Bar · {skill:202} Engineering · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {object:2040} Mithril Deposit · {skill:186} Mining · {item:3858} Mithril Ore · {zone:1425} The Hinterlands
+	["You need 118 {item:3860} for {skill:202} 225-300: {item:10512} and {item:10513}. Mine {object:2040} ({skill:186} 175) for {item:3858} and smelt it at a forge ({skill:186} 175). The densest cluster of {object:2040} in {zone:1425} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 68: Mithril Bar
-	-- {item:3860} Mithril Bar · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {item:3858} Mithril Ore
-	["118 {item:3860} for {item:10512} and {item:10513}: {skill:186}: smelt {item:3858}."] = "118 {item:3860} für {item:10512} und {item:10513}: {skill:186}: {item:3858} schmelzen.",
+	-- Step 69: Get Mithril Bar (Horde)
+	-- {item:3860} Mithril Bar · {skill:202} Engineering · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {object:2040} Mithril Deposit · {skill:186} Mining · {item:3858} Mithril Ore · {zone:1443} Desolace
+	["You need 118 {item:3860} for {skill:202} 225-300: {item:10512} and {item:10513}. Mine {object:2040} ({skill:186} 175) for {item:3858} and smelt it at a forge ({skill:186} 175). The densest cluster of {object:2040} in {zone:1443} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 69: Solid Stone (Alliance)
-	-- {item:7912} Solid Stone · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest cluster of {object:2040} in {zone:1425} is marked."] = "212 {item:7912} für {item:10512} und {item:10513}: {skill:186}: {object:2040} (Fertigkeit 175) in {zone:1425} (40-50), {zone:1444} (40-50) und {zone:1447} (45-55). Das dichteste Vorkommen von {object:2040} in {zone:1425} ist markiert.",
+	-- Step 70: Get Solid Stone (Alliance)
+	-- {item:7912} Solid Stone · {skill:202} Engineering · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
+	-- was: ["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest cluster of {object:2040} in {zone:1425} is marked."] = "212 {item:7912} für {item:10512} und {item:10513}: {skill:186}: {object:2040} (Fertigkeit 175) in {zone:1425} (40-50), {zone:1444} (40-50) und {zone:1447} (45-55). Das dichteste Vorkommen von {object:2040} in {zone:1425} ist markiert."
+	["You need 212 {item:7912} for {skill:202} 225-300: {item:10512} and {item:10513}. {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest cluster of {object:2040} in {zone:1425} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 70: Solid Stone (Horde)
-	-- {item:7912} Solid Stone · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "212 {item:7912} für {item:10512} und {item:10513}: {skill:186}: {object:2040} (Fertigkeit 175) in {zone:1443} (30-40), {zone:1425} (40-50) und {zone:1444} (40-50). Das dichteste Vorkommen von {object:2040} in {zone:1443} ist markiert.",
+	-- Step 71: Get Solid Stone (Horde)
+	-- {item:7912} Solid Stone · {skill:202} Engineering · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
+	-- was: ["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "212 {item:7912} für {item:10512} und {item:10513}: {skill:186}: {object:2040} (Fertigkeit 175) in {zone:1443} (30-40), {zone:1425} (40-50) und {zone:1444} (40-50). Das dichteste Vorkommen von {object:2040} in {zone:1443} ist markiert."
+	["You need 212 {item:7912} for {skill:202} 225-300: {item:10512} and {item:10513}. {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 71: Thorium Bar
-	-- {item:12359} Thorium Bar · {item:15994} Thorium Widget · {item:16000} Thorium Tube · {skill:186} Mining · {item:10620} Thorium Ore
-	["156 {item:12359} for {item:15994} and {item:16000}: {skill:186}: smelt {item:10620}."] = "156 {item:12359} für {item:15994} und {item:16000}: {skill:186}: {item:10620} schmelzen.",
+	-- Step 72: Get Thorium Bar (Alliance)
+	-- {item:12359} Thorium Bar
+	["Get {item:12359} (Alliance)"] = "",
+	-- {item:12359} Thorium Bar · {skill:202} Engineering · {item:15994} Thorium Widget · {item:16000} Thorium Tube · {object:324} Small Thorium Vein · {skill:186} Mining · {item:10620} Thorium Ore · {zone:1419} Blasted Lands
+	["You need 156 {item:12359} for {skill:202} 225-300: {item:15994} and {item:16000}. Mine {object:324} ({skill:186} 245) for {item:10620} and smelt it at a forge ({skill:186} 250). The densest cluster of {object:324} in {zone:1419} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 72: Runecloth
-	-- {item:14047} Runecloth · {item:15994} Thorium Widget
-	["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it. Keep what you loot as you level, or take it from your bank."] = "24 {item:14047} für {item:15994}: Beute von Humanoiden der Stufen 45-60. Behalte, was du beim Leveln erbeutest oder hol es aus deiner Bank.",
+	-- Step 73: Get Thorium Bar (Horde)
+	-- {item:12359} Thorium Bar
+	["Get {item:12359} (Horde)"] = "",
+	-- {item:12359} Thorium Bar · {skill:202} Engineering · {item:15994} Thorium Widget · {item:16000} Thorium Tube · {object:324} Small Thorium Vein · {skill:186} Mining · {item:10620} Thorium Ore · {zone:1448} Felwood
+	["You need 156 {item:12359} for {skill:202} 225-300: {item:15994} and {item:16000}. Mine {object:324} ({skill:186} 245) for {item:10620} and smelt it at a forge ({skill:186} 250). The densest cluster of {object:324} in {zone:1448} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 73: Hi-Impact Mithril Slugs to 245
+	-- Step 74: Get Runecloth
+	-- {item:14047} Runecloth
+	["Get {item:14047}"] = "",
+	-- {item:14047} Runecloth · {skill:202} Engineering · {item:15994} Thorium Widget
+	["You need 24 {item:14047} for {skill:202} 225-300: {item:15994}. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+
+	-- Step 75: Hi-Impact Mithril Slugs to 245
 	-- {item:10512} Hi-Impact Mithril Slugs
 	["{item:10512} to 245"] = "{item:10512} bis 245",
 	-- {item:10512} Hi-Impact Mithril Slugs · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder
-	["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby."] = "{item:10512} ist bei 225 gelb (gelb 210, grün 230, grau 250): etwa 62 Herstellungen bis 245. Jede braucht 1 {item:3860} und 1 {item:10505} und ergibt 200 Stück. Stelle zuerst die 50 {item:10505} her. Nutze die 12 {item:10505}, die du vorher hergestellt hast; die Zahlen oben lassen sie weg. Pro Herstellung ein {item:3860} und ein {item:10505}; Jäger kaufen die Slugs. Braucht einen Amboss in der Nähe.",
+	["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. If you got here without learning {item:10505} and {item:10512}, learn them now: an earlier step teaches them."] = "{item:10512} ist bei Level 225 gelb (gelb 210, grün 230, grau 250): etwa 62 Künste bis 245. Jedes nimmt 1 {item:3860} und 1 {item:10505} und liefert 200. Mache zuerst die 50 {item:10505}. Nutze die 12 {item:10505}, die du vorher hergestellt hast; die obigen Zählungen lassen sie entfallen. Ein {item:3860} und ein {item:10505} pro Kunst; Jäger kaufen die Kugeln. Benötigt eine Amboss in der Nähe. Falls du hier noch {item:10505} und {item:10512} nicht beherrschst: lern es jetzt; ein früherer Schritt vermittelt es.",
 
-	-- Step 74: Engineering recipes at 245
+	-- Step 76: Engineering recipes at 245
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 245"] = "Rezepte für {skill:202} bei 245",
 	-- {skill:202} Engineering · {spell:12621} Mithril Gyro-Shot
 	["Back to an {skill:202} trainer: {spell:12621} (from 245)."] = "Zurück zu einem {skill:202}-Lehrer: {spell:12621} (ab 245).",
 
-	-- Step 75: Mithril Gyro-Shot to 265
+	-- Step 77: Mithril Gyro-Shot to 265
 	-- {item:10513} Mithril Gyro-Shot
 	["{item:10513} to 265"] = "{item:10513} bis 265",
 	-- {item:10513} Mithril Gyro-Shot · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder
 	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
-	["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby."] = "{item:10513} ist bei 245 gelb (gelb 245, grün 265, grau 285): etwa 28 Herstellungen bis 265. Jede braucht 2 {item:3860} und 2 {item:10505} und ergibt 200 Stück. Stelle zuerst die 56 {item:10505} her. Zwei Mithrilbarren und zwei {item:10505} pro Herstellung. Braucht einen Amboss in der Nähe.",
+	["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby. If you got here without learning {item:10505}, learn it now: an earlier step teaches it."] = "{item:10513} ist bei Level 245 gelb (gelb 245, grün 265, grau 285): etwa 28 Künste bis 265. Jedes nimmt 2 {item:3860} und 2 {item:10505} und liefert 200. Mache zuerst die 56 {item:10505}. Zwei Mithril-Barren und zwei {item:10505} pro Kunst. Benötigt eine Amboss in der Nähe. Falls du hier noch {item:10505} nicht beherrschst: lern es jetzt; ein früherer Schritt vermittelt es.",
 
-	-- Step 76: Thorium Widget to 287
+	-- Step 78: Thorium Widget to 287
 	-- {item:15994} Thorium Widget
 	["{item:15994} to 287"] = "{item:15994} bis 287",
 	-- {item:15994} Thorium Widget · {item:12359} Thorium Bar · {item:14047} Runecloth
@@ -408,7 +481,7 @@ return {
 	["{item:15994} is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287. Each takes 3 {item:12359} and 1 {item:14047}. Three Thorium Bars and a {item:14047} a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby."] = "{item:15994} ist bei 265 orange (gelb 280, grün 290, grau 300): etwa 24 Herstellungen bis 287. Jede braucht 3 {item:12359} und 1 {item:14047}. Drei Thoriumbarren und ein {item:14047} pro Herstellung; die Widgets sind Teile für die späteren Thorium-Gadgets. Braucht einen Amboss in der Nähe.",
 	["from the recipe in your bags"] = "aus dem Rezept in deinen Taschen",
 
-	-- Step 77: Thorium Tube to 300
+	-- Step 79: Thorium Tube to 300
 	-- {item:16000} Thorium Tube
 	["{item:16000} to 300"] = "{item:16000} bis 300",
 	-- {item:16000} Thorium Tube · {item:12359} Thorium Bar · {skill:202} Engineering
@@ -416,9 +489,47 @@ return {
 	["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "{item:16000} ist bei 287 orange (gelb 295, grün 305, grau 315): etwa 14 Herstellungen bis 300. Jede braucht 6 {item:12359}. Das Schema wird beim Aufheben gebunden; sechs Thoriumbarren pro Herstellung. Braucht einen Amboss in der Nähe. {skill:202} 300 ist ein Meilenstein des Vermächtnissystems.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["100 {item:2841} for {item:6533} and {spell:3953}: {skill:186}: smelt {item:2840} and {item:3576}."] = "100 {item:2841} für {item:6533} und {spell:3953}: {skill:186}: {item:2840} und {item:3576} schmelzen.",
+	-- ["118 {item:3860} for {item:10512} and {item:10513}: {skill:186}: smelt {item:3858}."] = "118 {item:3860} für {item:10512} und {item:10513}: {skill:186}: {item:3858} schmelzen.",
+	-- ["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1413} is marked."] = "15 {item:2836} für {spell:3930}: {skill:186}: {object:1732} (Fertigkeit 65). Das dichteste Vorkommen von {object:1732} in {zone:1413} ist markiert.",
+	-- ["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1421} is marked."] = "15 {item:2836} für {spell:3930}: {skill:186}: {object:1732} (Fertigkeit 65). Das dichteste Vorkommen von {object:1732} in {zone:1421} ist markiert.",
+	-- ["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1432} is marked."] = "15 {item:2836} für {spell:3930}: {skill:186}: {object:1732} (Fertigkeit 65). Das dichteste Vorkommen von {object:1732} in {zone:1432} ist markiert.",
+	-- ["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1436} is marked."] = "15 {item:2836} für {spell:3930}: {skill:186}: {object:1732} (Fertigkeit 65). Das dichteste Vorkommen von {object:1732} in {zone:1436} ist markiert.",
+	-- ["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1439} is marked."] = "15 {item:2836} für {spell:3930}: {skill:186}: {object:1732} (Fertigkeit 65). Das dichteste Vorkommen von {object:1732} in {zone:1439} ist markiert.",
+	-- ["156 {item:12359} for {item:15994} and {item:16000}: {skill:186}: smelt {item:10620}."] = "156 {item:12359} für {item:15994} und {item:16000}: {skill:186}: {item:10620} schmelzen.",
+	-- ["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "19 {item:2319} für {spell:3953}: {skill:393}: Tiere der Stufe 18-30. Häute hier {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} und {npc:2354} ab (Stufe 18-30); der {skill:393}-Guide plant das ein.",
+	-- ["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} and {npc:3817} here (level 18-30); the {skill:393} guide routes this."] = "19 {item:2319} für {spell:3953}: {skill:393}: Tiere der Stufe 18-30. Häute hier {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} und {npc:3817} ab (Stufe 18-30); der {skill:393}-Guide plant das ein.",
+	-- ["19 {item:2592} for {spell:3953}: humanoids of level 15-30 drop it. Keep what you loot as you level, or take it from your bank."] = "19 {item:2592} für {spell:3953}: Beute von Humanoiden der Stufen 15-30. Behalte, was du beim Leveln erbeutest oder hol es aus deiner Bank.",
 	-- ["19 {item:2592} for {spell:3953}: humanoids of level 15-30 drop it; or the Auction House. The arrow picks a farm spot for your level and faction."] = "19 {item:2592} für {spell:3953}: Beute von Humanoiden der Stufen 15-30; oder im Auktionshaus. Der Pfeil wählt einen Farmplatz für deine Stufe und Fraktion.",
+	-- ["19 {item:3860} for {item:10512}: {skill:186}: smelt {item:3858}."] = "19 {item:3860} für {item:10512}: {skill:186}: {item:3858} schmelzen.",
+	-- ["2 {item:2842} for {spell:3950}: {skill:186}: smelt {item:2775}."] = "2 {item:2842} für {spell:3950}: {skill:186}: {item:2775} schmelzen.",
+	-- ["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest cluster of {object:2040} in {zone:1425} is marked."] = "212 {item:7912} für {item:10512} und {item:10513}: {skill:186}: {object:2040} (Fertigkeit 175) in {zone:1425} (40-50), {zone:1444} (40-50) und {zone:1447} (45-55). Das dichteste Vorkommen von {object:2040} in {zone:1425} ist markiert.",
+	-- ["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "212 {item:7912} für {item:10512} und {item:10513}: {skill:186}: {object:2040} (Fertigkeit 175) in {zone:1443} (30-40), {zone:1425} (40-50) und {zone:1444} (40-50). Das dichteste Vorkommen von {object:2040} in {zone:1443} ist markiert.",
+	-- ["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it. Keep what you loot as you level, or take it from your bank."] = "24 {item:14047} für {item:15994}: Beute von Humanoiden der Stufen 45-60. Behalte, was du beim Leveln erbeutest oder hol es aus deiner Bank.",
 	-- ["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:11880} (level 57-59) here."] = "24 {item:14047} für {item:15994}: Droppt bei Humanoiden der Stufen 45-60; oder im Auktionshaus. Droppt hier bei {npc:11880} (Stufe 57-59).",
 	-- ["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:7027} (level 56-57) here."] = "24 {item:14047} für {item:15994}: Beute von Humanoiden der Stufen 45-60; oder im Auktionshaus. Hier ist es Beute von {npc:7027} (Stufe 56-57).",
+	-- ["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1413} is marked."] = "27 {item:2838} für {spell:3945}: {skill:186}: {object:1735} (Fertigkeit 125). Das dichteste Vorkommen von {object:1735} in {zone:1413} ist markiert.",
+	-- ["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1417} is marked."] = "27 {item:2838} für {spell:3945}: {skill:186}: {object:1735} (Fertigkeit 125). Das dichteste Vorkommen von {object:1735} in {zone:1417} ist markiert.",
+	-- ["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1440} is marked."] = "27 {item:2838} für {spell:3945}: {skill:186}: {object:1735} (Fertigkeit 125). Das dichteste Vorkommen von {object:1735} in {zone:1440} ist markiert.",
+	-- ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1413} is marked."] = "31 {item:2836} für {item:6533}: {skill:186}: {object:1732} (Fertigkeit 65) in {zone:1413} (10-25), {zone:1440} (18-30) und {zone:1424} (20-30). Die dichteste Gruppe von {object:1732} in {zone:1413} ist markiert.",
+	-- ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "31 {item:2836} für {item:6533}: {skill:186}: {object:1732} (Fertigkeit 65) in {zone:1413} (10-25), {zone:1440} (18-30) und {zone:1424} (20-30). Das dichteste Vorkommen von {object:1732} in {zone:1440} ist markiert.",
+	-- ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1432} (10-20), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1432} is marked."] = "31 {item:2836} für {item:6533}: {skill:186}: {object:1732} (Fertigkeit 65) in {zone:1432} (10-20), {zone:1440} (18-30) und {zone:1424} (20-30). Das dichteste Vorkommen von {object:1732} in {zone:1432} ist markiert.",
+	-- ["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1411} is marked."] = "46 {item:2835} für {spell:3918}: {skill:186}: {object:1731} (Fertigkeit 1). Das dichteste Vorkommen von {object:1731} in {zone:1411} ist markiert.",
+	-- ["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1412} is marked."] = "46 {item:2835} für {spell:3918}: {skill:186}: {object:1731} (Fertigkeit 1). Das dichteste Vorkommen von {object:1731} in {zone:1412} ist markiert.",
+	-- ["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1420} is marked."] = "46 {item:2835} für {spell:3918}: {skill:186}: {object:1731} (Fertigkeit 1). Das dichteste Vorkommen von {object:1731} in {zone:1420} ist markiert.",
+	-- ["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1426} is marked."] = "46 {item:2835} für {spell:3918}: {skill:186}: {object:1731} (Fertigkeit 1). Das dichteste Vorkommen von {object:1731} in {zone:1426} ist markiert.",
+	-- ["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1429} is marked."] = "46 {item:2835} für {spell:3918}: {skill:186}: {object:1731} (Fertigkeit 1). Das dichteste Vorkommen von {object:1731} in {zone:1429} ist markiert.",
+	-- ["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1439} is marked."] = "46 {item:2835} für {spell:3918}: {skill:186}: {object:1731} (Fertigkeit 1). Das dichteste Vorkommen von {object:1731} in {zone:1439} ist markiert.",
+	-- ["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:2521} is marked."] = "46 {item:2835} für {spell:3918}: {skill:186}: {object:1731} (Fertigkeit 1). Das dichteste Vorkommen von {object:1731} in {zone:2521} ist markiert.",
+	-- ["6 {item:2842} for {spell:3967}: {skill:186}: smelt {item:2775}."] = "6 {item:2842} für {spell:3967}: {skill:186}: {item:2775} schmelzen.",
+	-- ["61 {item:2841} for {item:6712} and {spell:3950}: {skill:186}: smelt {item:2840} and {item:3576}."] = "61 {item:2841} für {item:6712} und {spell:3950}: {skill:186}: {item:2840} und {item:3576} schmelzen.",
+	-- ["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked."] = "62 {item:7912} für {item:10505}: {skill:186}: {object:2040} (Fertigkeit 175) in {zone:1434} (30-45), {zone:1425} (40-50) und {zone:1444} (40-50). Das dichteste Vorkommen von {object:2040} in {zone:1434} ist markiert.",
+	-- ["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "62 {item:7912} für {item:10505}: {skill:186}: {object:2040} (Fertigkeit 175) in {zone:1443} (30-40), {zone:1425} (40-50) und {zone:1444} (40-50). Das dichteste Vorkommen von {object:2040} in {zone:1443} ist markiert.",
+	-- ["72 {item:2840} for {spell:3930}, {spell:3924} and {item:6712}: {skill:186}: smelt {item:2770}."] = "72 {item:2840} für {spell:3930}, {spell:3924} und {item:6712}: {skill:186}: {item:2770} schmelzen.",
+	-- ["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked."] = "74 {item:2838} für {spell:3967}: {skill:186}: {object:1735} (Fertigkeit 125) in {zone:1417} (30-40), {zone:1434} (30-45) und {zone:1443} (30-40). Das dichteste Vorkommen von {object:1735} in {zone:1417} ist markiert.",
+	-- ["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked."] = "74 {item:2838} für {spell:3967}: {skill:186}: {object:1735} (Fertigkeit 125) in {zone:1441} (25-35), {zone:1417} (30-40) und {zone:1434} (30-45). Das dichteste Vorkommen von {object:1735} in {zone:1441} ist markiert.",
+	-- ["75 {item:2840} for {spell:3922}, {item:6219} and {spell:3924}: {skill:186}: smelt {item:2770}."] = "75 {item:2840} für {spell:3922}, {item:6219} und {spell:3924}: {skill:186}: {item:2770} schmelzen.",
+	-- ["81 {item:3575} for {spell:3967}: {skill:186}: smelt {item:2772}."] = "81 {item:3575} für {spell:3967}: {skill:186}: {item:2772} schmelzen.",
 	-- ["Apprentice {skill:202}"] = "{skill:202} (Lehrling)",
 	-- ["Artisan needs character level 35 and {skill:202} 200; it raises the cap to 300. Materials for 225-300 are worth about 67g in all."] = "Fachmann erfordert Charakterstufe 35 und {skill:202} 200; damit steigt die Obergrenze auf 300. Die Materialien für 225-300 sind insgesamt etwa 67g wert.",
 	-- ["Back to an {skill:202} trainer: {spell:12585}, {spell:12596} are taught from {skill:202} 210."] = "Zurück zu einem Lehrer für {skill:202}: {spell:12585}, {spell:12596} werden ab {skill:202} 210 gelehrt.",
@@ -432,6 +543,7 @@ return {
 	-- ["Back to an {skill:202} trainer: {spell:3937} is taught from {skill:202} 105."] = "Zurück zu einem Lehrer für {skill:202}: {spell:3937} wird ab {skill:202} 105 gelehrt.",
 	-- ["Back to an {skill:202} trainer: {spell:3942} is taught from {skill:202} 125."] = "Zurück zu einem Lehrer für {skill:202}: {spell:3942} wird ab {skill:202} 125 gelehrt.",
 	-- ["Back to an {skill:202} trainer: {spell:3945} is taught from {skill:202} 125."] = "Zurück zu einem Lehrer für {skill:202}: {spell:3945} wird ab {skill:202} 125 gelehrt.",
+	-- ["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "Kauf den Bedarf für den ganzen Bereich auf einmal: 18 {item:2880} (18s) und {item:5956} (ein Werkzeug: einer, in deinen Taschen aufbewahrt, 18c); insgesamt etwa 18s 18c. Der Pfeil wählt den nächsten Händler deiner Fraktion ({zone:1453}: {npc:5519}, {npc:5514} und {npc:1286}).",
 	-- ["Expert needs character level 20 and {skill:202} 125; it raises the cap to 225. Materials for 150-225 are worth about 15g in all."] = "Experte erfordert Charakterstufe 20 und {skill:202} 125; damit steigt die Obergrenze auf 225. Die Materialien für 150-225 sind insgesamt etwa 15g wert.",
 	-- ["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:8736} ({zone:1446}) and {npc:5174} ({zone:1455}); Horde {npc:8736} ({zone:1446}) and Roxxik ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:9271} (from 150) and {spell:3953} (from 145). 150-225 takes about 31s of vendor goods, plus 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} and 62 {item:7912} to gather or buy."] = "Die Expertenstufe erhöht das Limit von 150 auf 225 für 50s (Preis aus Classic; der von Forever liegt nicht in den Daten); sie erfordert {skill:202} 125 und Charakterstufe 20, du kannst sie also bei jedem Besuch ab 125 nehmen. Nur wenige Lehrer bringen sie bei: Allianz {npc:8736} ({zone:1446}) und {npc:5174} ({zone:1455}); Horde {npc:8736} ({zone:1446}) und Roxxik ({zone:1454}). Der Pfeil wählt den nächsten deiner Fraktion. Lerne jetzt: {spell:9271} (ab 150) und {spell:3953} (ab 145). 150-225 kostet etwa 31s an Händlerwaren, dazu 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} und 62 {item:7912} zum Sammeln oder Kaufen.",
 	-- ["Journeyman needs character level 10 and {skill:202} 50; it raises the cap to 150. Materials for 75-150 are worth about 3g 23s in all."] = "Geselle erfordert Charakterstufe 10 und {skill:202} 50; damit steigt die Obergrenze auf 150. Die Materialien für 75-150 sind insgesamt etwa 3g 23s wert.",
@@ -445,6 +557,10 @@ return {
 	-- ["Skinned, disenchanted or crafted by another profession: gather them yourself or buy them on the Auction House."] = "Gehäutet, entzaubert oder von einem anderen Beruf hergestellt: Sammle sie selbst oder kauf sie im Auktionshaus.",
 	-- ["Teaches {item:15994} (needs {skill:202} 260). Vendors sell it in limited stock that restocks; the Auction House often has it too."] = "Lehrt {item:15994} (erfordert {skill:202} 260). Händler verkaufen es in begrenzter Stückzahl, die wieder aufgefüllt wird; das Auktionshaus hat es oft auch.",
 	-- ["Teaches {item:16000} (needs {skill:202} 275). Vendors sell it in limited stock that restocks."] = "Lehrt {item:16000} (erfordert {skill:202} 275). Händler verkaufen es in begrenzter Stückzahl, die wieder aufgefüllt wird.",
+	-- ["What 1-75 takes that the Auction House sells: 46 {item:2835} and 75 {item:2840}. The counts drop by what your bags, bank and mail hold."] = "Was du für 1-75 brauchst und das Auktionshaus verkauft: 46 {item:2835} und 75 {item:2840}. Die Zahlen sinken um das, was du schon in Taschen, Bank und Post hast.",
+	-- ["What 150-225 takes that the Auction House sells: 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} and 62 {item:7912}. The counts drop by what your bags, bank and mail hold."] = "Was du für 150-225 brauchst und das Auktionshaus verkauft: 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} und 62 {item:7912}. Die Zahlen sinken um das, was du schon in Taschen, Bank und Post hast.",
+	-- ["What 225-300 takes that the Auction House sells: 118 {item:3860}, 212 {item:7912}, 156 {item:12359} and 24 {item:14047}. The counts drop by what your bags, bank and mail hold."] = "Was du für 225-300 brauchst und das Auktionshaus verkauft: 118 {item:3860}, 212 {item:7912}, 156 {item:12359} und 24 {item:14047}. Die Zahlen sinken um das, was du schon in Taschen, Bank und Post hast.",
+	-- ["What 75-150 takes that the Auction House sells: 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842}. The counts drop by what your bags, bank and mail hold."] = "Was du für 75-150 brauchst und das Auktionshaus verkauft: 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} und 2 {item:2842}. Die Zahlen sinken um das, was du schon in Taschen, Bank und Post hast.",
 	-- ["Yellow until 110, green until 125: not every craft gives a point. Needs an anvil nearby."] = "Gelb bis 110, grün bis 125: Nicht jede Herstellung bringt einen Punkt. Erfordert einen Amboss in der Nähe.",
 	-- ["Yellow until 130, green until 155: not every craft gives a point. Needs an anvil nearby."] = "Gelb bis 130, grün bis 155: Nicht jede Herstellung bringt einen Punkt. Erfordert einen Amboss in der Nähe.",
 	-- ["Yellow until 135, green until 145: not every craft gives a point."] = "Gelb bis 135, grün bis 145: Nicht jede Herstellung bringt einen Punkt.",
@@ -461,19 +577,31 @@ return {
 	-- ["Yellow until 90, green until 95: not every craft gives a point."] = "Gelb bis 90, grün bis 95: Nicht jede Herstellung bringt einen Punkt.",
 	-- ["Yellow until 95, green until 110: not every craft gives a point. Needs an anvil nearby."] = "Gelb bis 95, grün bis 110: Nicht jede Herstellung bringt einen Punkt. Erfordert einen Amboss in der Nähe.",
 	-- ["{item:10498} to 210"] = "{item:10498} bis 210",
+	-- ["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby."] = "{item:10512} ist bei 225 gelb (gelb 210, grün 230, grau 250): etwa 62 Herstellungen bis 245. Jede braucht 1 {item:3860} und 1 {item:10505} und ergibt 200 Stück. Stelle zuerst die 50 {item:10505} her. Nutze die 12 {item:10505}, die du vorher hergestellt hast; die Zahlen oben lassen sie weg. Pro Herstellung ein {item:3860} und ein {item:10505}; Jäger kaufen die Slugs. Braucht einen Amboss in der Nähe.",
+	-- ["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby."] = "{item:10513} ist bei 245 gelb (gelb 245, grün 265, grau 285): etwa 28 Herstellungen bis 265. Jede braucht 2 {item:3860} und 2 {item:10505} und ergibt 200 Stück. Stelle zuerst die 56 {item:10505} her. Zwei Mithrilbarren und zwei {item:10505} pro Herstellung. Braucht einen Amboss in der Nähe.",
 	-- ["{item:10513} to 264"] = "{item:10513} bis 264",
 	-- ["{item:14047} (Alliance)"] = "{item:14047} (Allianz)",
 	-- ["{item:14047} (Horde)"] = "{item:14047} (Horde)",
 	-- ["{item:15994} to 288"] = "{item:15994} bis 288",
 	-- ["{item:16047} teaches {item:16000} ({skill:202} 275) for 1g 60s. Sold by Alliance: {npc:260565} ({zone:2548}) and {npc:11185} ({zone:1452}), limited stock; Horde: {npc:11185} ({zone:1452}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "{item:16047} bringt dir {item:16000} ({skill:202} 275) für 1g 60s bei. Verkauft von Allianz: {npc:260565} ({zone:2548}) und {npc:11185} ({zone:1452}), begrenzter Vorrat; Horde: {npc:11185} ({zone:1452}), begrenzter Vorrat. Die Händler haben ein oder zwei auf Lager, die einige Zeit nach einem Verkauf wiederkommen; es ist beim Aufheben gebunden, das Auktionshaus hat es also nie.",
+	-- ["{item:2319} (Alliance)"] = "{item:2319} (Allianz)",
+	-- ["{item:2319} (Horde)"] = "{item:2319} (Horde)",
 	-- ["{item:2592} (Alliance)"] = "{item:2592} (Allianz)",
 	-- ["{item:2592} (Horde)"] = "{item:2592} (Horde)",
 	-- ["{item:2835} (Alliance)"] = "{item:2835} (Allianz)",
 	-- ["{item:2835} (Horde)"] = "{item:2835} (Horde)",
 	-- ["{item:2835} comes from {object:1731} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:2835} stammt aus Vorkommen von {object:1731} ({skill:186}); das ist die dichteste Ansammlung in den Daten. Das Auktionshaus geht auch.",
+	-- ["{item:2836} (Alliance)"] = "{item:2836} (Allianz)",
+	-- ["{item:2836} (Horde)"] = "{item:2836} (Horde)",
 	-- ["{item:2836} comes from {object:1732} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:2836} stammt aus Vorkommen von {object:1732} ({skill:186}); das ist die dichteste Ansammlung in den Daten. Das Auktionshaus geht auch.",
+	-- ["{item:2838} (Alliance)"] = "{item:2838} (Allianz)",
+	-- ["{item:2838} (Horde)"] = "{item:2838} (Horde)",
 	-- ["{item:2838} comes from {object:1735} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:2838} stammt aus Vorkommen von {object:1735} ({skill:186}); das ist die dichteste Ansammlung in den Daten. Das Auktionshaus geht auch.",
 	-- ["{item:5956}: a tool, keep it in your bags"] = "{item:5956}: ein Werkzeug, behalte es in deinen Taschen",
+	-- ["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen."] = "{item:6533} ist bei 150 gelb (gelb 150, grün 160, grau 170): etwa 31 Herstellungen bis 166. Jede benötigt 2 {item:2841}, 1 {item:6530} und 1 {spell:3929} und ergibt 3. Stell zuerst die 31 {spell:3929} her. {item:6530} gibt es bei Handwerkswaren- und Anglerhändlern; die Lockstoffe verkaufen sich an Fischer.",
+	-- ["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby."] = "{item:6712} ist bei 100 orange (gelb 115, grün 122, grau 130): etwa 31 Herstellungen bis 125. Jede benötigt 1 {item:2841}, 2 {spell:3922} und 1 {item:2880}. Stell zuerst die 29 {spell:3922} her. Nutz die 33 {spell:3922}, die du früher hergestellt hast; die Zahlen oben lassen sie weg. Practice Locks verkaufen sich an Schurken, oder öffne sie selbst. Braucht einen Amboss in der Nähe.",
+	-- ["{item:7912} (Alliance)"] = "{item:7912} (Allianz)",
+	-- ["{item:7912} (Horde)"] = "{item:7912} (Horde)",
 	-- ["{item:7912} comes from {object:2040} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:7912} stammt aus Vorkommen von {object:2040} ({skill:186}); das ist die dichteste Ansammlung in den Daten. Das Auktionshaus geht auch.",
 	-- ["{npc:3263} (level 19-20) drop it here. The Auction House works too."] = "Hier fällt es von {npc:3263} (Stufe 19-20). Das Auktionshaus geht auch.",
 	-- ["{npc:6189} (level 51-52) drop it here. The Auction House works too."] = "Hier fällt es von {npc:6189} (Stufe 51-52). Das Auktionshaus geht auch.",
@@ -484,6 +612,10 @@ return {
 	-- ["{skill:186}: smelt {item:2840} (or the Auction House)"] = "{skill:186}: {item:2840} verhütten (oder das Auktionshaus)",
 	-- ["{skill:186}: smelt {item:3575} (or the Auction House)"] = "{skill:186}: {item:3575} verhütten (oder das Auktionshaus)",
 	-- ["{skill:186}: smelt {item:3858} (or the Auction House)"] = "{skill:186}: {item:3858} verhütten (oder das Auktionshaus)",
+	-- ["{skill:202} 1-75: Auction House"] = "{skill:202} 1-75: Auktionshaus",
+	-- ["{skill:202} 150-225: Auction House"] = "{skill:202} 150-225: Auktionshaus",
+	-- ["{skill:202} 225-300: Auction House"] = "{skill:202} 225-300: Auktionshaus",
+	-- ["{skill:202} 75-150: Auction House"] = "{skill:202} 75-150: Auktionshaus",
 	-- ["{skill:202} materials for 1-75"] = "Materialien für {skill:202} 1-75",
 	-- ["{skill:202} materials for 150-225"] = "Materialien für {skill:202} 150-225",
 	-- ["{skill:202} materials for 225-300"] = "Materialien für {skill:202} 225-300",
@@ -501,11 +633,13 @@ return {
 	-- ["{spell:3922} to 60"] = "{spell:3922} bis 60",
 	-- ["{spell:3923} to 75"] = "{spell:3923} bis 75",
 	-- ["{spell:3923} to 80"] = "{spell:3923} bis 80",
+	-- ["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby."] = "{spell:3924} ist bei 94 gelb (gelb 80, grün 95, grau 110): etwa 14 Herstellungen bis 100. Jede benötigt 2 {item:2840} und 1 {item:2880}. Zwei Kupferbarren und ein {item:2880} pro Herstellung (Schmiedekunst- und Ingenieurskunsthändler). Braucht einen Amboss in der Nähe.",
 	-- ["{spell:3924} to 85"] = "{spell:3924} bis 85",
 	-- ["{spell:3926} to 111"] = "{spell:3926} bis 111",
 	-- ["{spell:3929} to 95"] = "{spell:3929} bis 95",
 	-- ["{spell:3937} to 125"] = "{spell:3937} bis 125",
 	-- ["{spell:3942} to 150"] = "{spell:3942} bis 150",
 	-- ["{spell:3945} to 139"] = "{spell:3945} bis 139",
+	-- ["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby."] = "{spell:3967} ist bei 191 gelb (gelb 190, grün 210, grau 230): etwa 27 Herstellungen bis 210. Jede benötigt 3 {item:3575}, 3 {spell:3945} und 1 {spell:3973} und ergibt 2. Stell zuerst die 74 {spell:3945} und 30 {spell:3973} (6 Herstellungen) her. Verwende die 7 {spell:3945}, die du früher hergestellt hast; die Zahlen oben lassen sie weg. Ein {item:2842} ergibt fünf Silver Contacts (inzwischen grau: keine Punkte, aber auch kein Weg zu einem Händler); das {spell:3945} stammt aus {item:2838}. Jede Herstellung ergibt zwei Bomben. Spezialisierung (optional): Bei 200 und Charakterstufe 30 schicken dich {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) oder Tinkerwiz ({area:392}) zu {spell:20220} ({npc:7944}, {zone:1455}, oder {npc:7406}, {area:35}: 6 Mithril Tubes, ein {item:4407} und 2 Advanced Target Dummies) oder zur Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} und 5 {npc:2675}). Das Schema für den {item:4407} wird jetzt beim Aufheben gebunden, aber die Quest nimmt ein Zielfernrohr, das jemand anderes hergestellt hat. Die Mitgliedskarte gilt 14 Spieltage; die Verlängerung kostet 2g. Du kannst nur eine nehmen; für 300 braucht man keine von beiden, und die Beta hat sie nie getestet (sie endete bei Stufe 30). Braucht einen Amboss in der Nähe.",
 	-- ["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby. {item:2842} (6 for 150-225): {skill:186}: smelt {item:2775}; or the Auction House. {item:3575} (81 for 150-225): {skill:186}: smelt {item:2772}; or the Auction House."] = "{spell:3967} ist bei 191 gelb (gelb 190, grün 210, grau 230): etwa 27 Herstellungen bis 210. Jede benötigt 3 {item:3575}, 3 {spell:3945} und 1 {spell:3973} und ergibt 2. Stell zuerst die 74 {spell:3945} und 30 {spell:3973} (6 Herstellungen) her. Nutz die 7 {spell:3945}, die du früher hergestellt hast; die Zahlen oben lassen sie weg. Aus einem {item:2842} entstehen fünf Silver Contacts (inzwischen grau: keine Punkte, aber auch kein Weg zu einem Händler); das {spell:3945} stammt aus {item:2838}. Jede Herstellung ergibt zwei Bomben. Spezialisierung (optional): Bei 200 und Charakterstufe 30 schickt dich {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) oder Tinkerwiz ({area:392}) zu {spell:20220} ({npc:7944}, {zone:1455}, oder {npc:7406}, {area:35}: 6 Mithril Tubes, ein {item:4407} und 2 Advanced Target Dummies) oder zu Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} und 5 {npc:2675}). Das Schema für {item:4407} ist inzwischen beim Aufheben gebunden, aber die Quest verlangt ein Zielfernrohr, das jemand anderes hergestellt hat. Die Mitgliedskarte gilt 14 Spieltage; die Verlängerung kostet 2g. Du kannst nur eine nehmen; für 300 braucht man keine von beiden, und die Beta hat sie nie getestet (sie endete bei Stufe 30). Braucht einen Amboss in der Nähe. {item:2842} (6 für 150-225): {skill:186}: {item:2775} schmelzen; oder im Auktionshaus. {item:3575} (81 für 150-225): {skill:186}: {item:2772} schmelzen; oder im Auktionshaus.",
 }

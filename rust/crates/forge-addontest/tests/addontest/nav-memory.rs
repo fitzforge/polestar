@@ -2,7 +2,8 @@
 //! costs, under Lua 5.1 as the client counts it (collectgarbage("count")). The client's decoder
 //! (C_EncodingUtil) is tests/lua/stub_encoding.lua here, a decoder in Lua: its own scratch is counted out,
 //! so the figures are Polestar_Nav's own (the client decodes in C). Each figure fails the test when it grows
-//! past its budget: lower a budget when a change lowers the figure, never raise one to make a change pass.
+//! past its budget: the figure measured at the release's code freeze plus 3 %, moved only then (docs/CI.md,
+//! "Memory budgets").
 //!
 //!   load resident   after loading the maps and two full collects
 //!   load peak       the heap grown while loading, with the collector stopped
@@ -45,10 +46,27 @@ use forge_addontest::{emitted, Addon, RunAddon};
 /// two (Path.restTrees). Eastern Kingdoms, 0.4.0's maps: live 55,826 -> 43,739, allocated 65,487 -> 61,633, rest
 /// 51,022 -> 37,339, idle 19,728 -> 19,729; Kalimdor live 29,052 -> 28,172, allocated 7,887 -> 7,005, rest 29,044 ->
 /// 26,242. Budgets lowered: live 57,500 -> 44,500, allocated 66,000 -> 62,000, rest 53,000 -> 38,000.
+/// 2026-11-18 (#2916, the capitals' step joins): Kalimdor's load peak reads 24,950 here and 25,080 to 25,101 on CI
+/// runners (about 150 more), at the 25,100 budget; load peak raised to 25,400 (the CI figure + ~1%).
 /// 0.4.1.1 (2026-11-18): at rest the newest start's endpoint tree goes to the pool (still two trees held) and the next
 /// search's first connection fills it. Eastern Kingdoms allocated 61,867 -> 61,465 (budget lowered 62,000 -> 61,600);
 /// live 43,746 -> 43,747, rest 37,346 -> 37,347; Kalimdor unchanged.
-const BUDGET: [(&str, f64); 6] = [("loadResident", 22500.0), ("loadPeak", 25100.0), ("live", 44500.0), ("allocated", 61600.0), ("rest", 38000.0), ("idle", 22500.0)];
+/// 0.4.2.1 (#3396; Fitz chose the three folders over the 127 region addons, accepting the memory): each region is one
+/// string in its continent's part, loaded with it and unpacked into its pages on first use, so `load` counts every
+/// region's compressed string and the later figures carry the regions not yet walked. Eastern Kingdoms / Kalimdor
+/// against 0.4.2's region addons: loadResident 11,529 -> 30,121 / 13,625 -> 38,830; loadPeak 14,113 -> 32,774 /
+/// 16,340 -> 41,625; live 40,694 -> 54,573 / 19,923 -> 43,986; allocated 59,184 -> 58,641 / 7,401 -> 7,166; rest
+/// 34,356 -> 48,235 / 18,624 -> 42,687; idle 17,963 -> 31,842 / 14,921 -> 38,984. Budgets raised to the new figures
+/// and about 1%: loadResident 22,500 -> 39,300, loadPeak 25,400 -> 42,100, live 44,500 -> 55,200, rest 38,000 ->
+/// 48,800, idle 22,500 -> 39,400; allocated unchanged.
+/// 0.4.3 (#3641, the straightener: past a blocked turn the line reaches the path's next turns beyond it): Eastern
+/// Kingdoms rest 48,235 -> 48,549, allocated 61,465 -> 61,253 (Fitz's +16 KiB raise for #3732's first version is no
+/// longer needed); budgets back to 48,800 and 61,600. The other figures unchanged.
+/// Measured on next f5bd74406e (2026-11-26, #4143; three runs reading the same, the highest of a local run and one at
+/// the post-merge runner's checkout path, which reads up to 5 KiB more), Eastern Kingdoms / Kalimdor: loadResident
+/// 30,214 / 38,893, loadPeak 32,903 / 41,728, live 54,980 / 44,049, allocated 61,047 / 7,170, rest 48,615 / 42,750,
+/// idle 31,928 / 39,046. Each budget is the higher continent's figure plus 3 % (docs/CI.md, "Memory budgets").
+const BUDGET: [(&str, f64); 6] = [("loadResident", 40100.0), ("loadPeak", 43000.0), ("live", 56700.0), ("allocated", 62900.0), ("rest", 50100.0), ("idle", 40300.0)];
 /// Milliseconds the searches' clock (Path.clock) moves at each read. The searches slice under Path.budget (3 ms) as
 /// in the client, but on this clock rather than the machine's CPU time, which made about 600 KiB of "allocated" (each
 /// slice's garbage) depend on the machine: a slower CI runner read 66,091 KiB where the same searches give 65,654 on

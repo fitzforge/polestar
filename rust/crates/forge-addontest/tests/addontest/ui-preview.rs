@@ -111,10 +111,16 @@ fn the_guide_window_band_crops_a_window_taller_than_its_room_and_fades_it_out_at
 // Every band is as tall as its element and its parts: 20 + [the dropdown 28 + 14] + the element at its fit + [Play
 // under it, 8 + 22, on a band too narrow to hang it beside] + [its labels 10 + 15] + [the hint line 10 + 15] + 20,
 // never over 55% of the body, and the slot is the band's height. Every element is at its real size where it fits
-// (Theme's three, side by side, are the one too wide for the default window).
+// (Theme's three, side by side, are the one too wide for the default window; the guide window, taller than the room,
+// is scaled down to fit, to 60%).
 #[test]
 fn every_band_is_as_tall_as_its_element_and_its_parts_and_never_over_55_percent() {
 	let out = run(r#"
+		-- The window draws at 0.92 (W.SETTINGS_SCALE_BASE): 1141 tall is the most the 1080-pixel screen holds, room
+		-- for every band but Theme's at its real size.
+		Polestar.Set("ui.optionsSize", { 1680, 1141 })
+		stub.advance(0.2)
+		O.Relayout()
 		local out, win = {}, PolestarOptions
 		local room = win:GetHeight() - 112 - 40 - 56
 		for _, at in ipairs(lookTabs()) do
@@ -135,7 +141,10 @@ fn every_band_is_as_tall_as_its_element_and_its_parts_and_never_over_55_percent(
 		assert!((h - want).abs() <= 1.0, "{at}: {h} tall, its parts make {want}: {b}");
 		assert!((b["slot"].as_f64().unwrap() - h).abs() <= 0.5, "{at}: the slot is the band's height: {b}");
 		assert!(h <= b["cap"].as_f64().unwrap() + 0.5, "{at}: within 55% of the body: {b}");
-		if !at.starts_with("theme/") || at == "theme/Names" {
+		if at.starts_with("guidewindow/") {
+			// The window, taller than the band's room, is scaled down to fit, to 60% at the least (UI/Looks/GuideWindow.lua).
+			assert!(b["fit"].as_f64().unwrap() >= 0.6, "{at}: the window fits at 60% or more: {b}");
+		} else if !at.starts_with("theme/") || at == "theme/Names" {
 			assert_eq!(b["fit"], 1, "{at}: at its real size where it fits: {b}");
 		}
 	}
@@ -200,11 +209,12 @@ fn a_band_holds_its_element_alone_at_its_real_size_centred_its_strings_12_px_or_
 	}
 }
 
-// Theme at the default window (1300 x 946): its three are too wide for the band at their real size, so all three
-// are drawn alike at 80-86% on the stage's one line, the cards on whole pixels, and the hint line stays the
-// preview's own (the stage says no "Shown at N% to fit"); in a window wide enough, at their real size.
+// Theme at the default window (1680 x 946, drawn at 0.92): its three are too big for the band at their real size, so
+// all three are drawn alike at 90-95% on the stage's one line, the cards on whole pixels, and the hint line stays the
+// preview's own (the stage says no "Shown at N% to fit"); in a window big enough (1800 x 1141, the screen's height),
+// at their real size.
 #[test]
-fn theme_s_three_fit_the_default_window_at_80_to_86_percent_without_a_fit_note_and_a_wide_one_draws_them_whole() {
+fn theme_s_three_fit_the_default_window_at_90_to_95_percent_without_a_fit_note_and_a_wide_one_draws_them_whole() {
 	let out = run(r#"
 		local function whole(fr)
 			local _, _, _, x, y = fr:GetPoint(1)
@@ -212,13 +222,13 @@ fn theme_s_three_fit_the_default_window_at_80_to_86_percent_without_a_fit_note_a
 		end
 		local f = shown("theme", "Essentials")
 		local default = { fit = f.psFit, hint = f.Hint:IsShown() and f.Hint:GetText() or false, whole = whole(f.Heads) and whole(f.Toast) }
-		Polestar.Set("ui.optionsSize", { 1800, 946 })
+		Polestar.Set("ui.optionsSize", { 1800, 1141 })
 		stub.advance(0.2)
 		O.Relayout()
 		f = shown("theme", "Essentials")
 		emit({ default = default, wide = { fit = f.psFit, note = f.Hint:IsShown() and f.Hint:GetText():find("to fit", 1, true) ~= nil } })"#);
 	let fit = out["default"]["fit"].as_f64().unwrap();
-	assert!((0.80..=0.86).contains(&fit), "{out}");
+	assert!((0.90..=0.95).contains(&fit), "{out}");
 	assert_eq!(out["default"]["hint"], json!("Click a part of the preview to find its settings."), "{out}");
 	assert_eq!(out["default"]["whole"], true, "on whole pixels: {out}");
 	assert_eq!(out["wide"], json!({ "fit": 1, "note": false }), "{out}");
@@ -263,11 +273,16 @@ fn hovering_a_row_lights_the_parts_of_the_preview_its_setting_changes_and_leavin
 
 // Every setting on a Look page shows what it changes: the pointer on its row (or on the switch or swatch beside it)
 // lights at least one part of that tab's preview, a hotspot or a part the page lights for it (f:Light). Exempt: the
-// game menu's button, which lives in the game's own menu and draws nothing on a preview.
+// game menu's button, which lives in the game's own menu and draws nothing on a preview; and the rows Guide window >
+// Window holds beside the window's own that draw nothing on it: the floating and minimap buttons (the Buttons page's
+// preview draws them), the lock for the arrow and buttons, Move frames' grid and snap, and Chat messages (lines in
+// the chat frame, not on the window).
 #[test]
 fn every_look_page_setting_lights_a_part_of_its_tab_s_preview() {
 	let out = run(r#"
 		local EXEMPT = { ["ui.gameMenuButton"] = true }
+		local OFF_WINDOW = { ["ui.launcher"] = true, ["maps.minimapButton"] = true, ["ui.lockHud"] = true, ["movers.grid"] = true,
+			["movers.gridSize"] = true, ["movers.snap"] = true, ["ui.chatMessages"] = true }
 		local dark, seen = {}, 0
 		for _, p in ipairs(O.Pages()) do
 			if p.group == "look" then
@@ -283,7 +298,8 @@ fn every_look_page_setting_lights_a_part_of_its_tab_s_preview() {
 							end
 							for _, key in pairs(keys) do
 								seen = seen + 1
-								if not (map[key] and #map[key] > 0) and not EXEMPT[key] then dark[#dark + 1] = p.key .. "/" .. tab .. ": " .. key end
+								local exempt = EXEMPT[key] or (p.key == "guidewindow" and OFF_WINDOW[key])
+								if not (map[key] and #map[key] > 0) and not exempt then dark[#dark + 1] = p.key .. "/" .. tab .. ": " .. key end
 							end
 						end
 					end
@@ -403,8 +419,13 @@ fn the_hearthstone_s_two_buttons_sit_side_by_side_each_lights_its_own_and_a_sear
 		end
 		out.lights = { hearth = lights("qol.hearthButton", faces.hearth), hearthNotTravel = not lights("qol.hearthButton", travel),
 			travel = lights("nav.castPrompt", travel), travelNotHearth = not lights("nav.castPrompt", faces.hearth) }
+		-- Search finds a setting at its home: the two buttons' switches sit together on Questing > Buttons (the Buttons
+		-- page shows references to them). The first card that holds the Hearthstone's.
 		for _, q in ipairs({ "hearth", "HS", "hearthstone" }) do
-			local first = (O.Search(q))[1]
+			local first
+			for _, g in ipairs(O.Search(q)) do
+				for _, c in ipairs(g.controls) do if c.key == "qol.hearthButton" then first = first or g end end
+			end
 			local keys = {}
 			for _, c in ipairs(first and first.controls or {}) do keys[#keys + 1] = c.key end
 			out.search[q] = { title = first and first.title, keys = table.concat(keys, " ") }
@@ -415,9 +436,9 @@ fn the_hearthstone_s_two_buttons_sit_side_by_side_each_lights_its_own_and_a_sear
 	assert_eq!(out["lights"], json!({ "hearth": true, "hearthNotTravel": true, "travel": true, "travelNotHearth": true }));
 	for q in ["hearth", "HS", "hearthstone"] {
 		let s = &out["search"][q];
-		assert_eq!(s["title"], "Buttons  \u{b7}  Action buttons  \u{b7}  Buttons", "{q}: the Buttons page first: {s}");
+		assert_eq!(s["title"], "Questing  \u{b7}  Buttons  \u{b7}  Action buttons", "{q}: their home: {s}");
 		let keys = s["keys"].as_str().unwrap();
-		assert!(keys.contains("buttons.hearthSize") && keys.contains("nav.castPrompt"), "{q}: both in it: {keys}");
+		assert!(keys.contains("qol.hearthButton") && keys.contains("nav.castPrompt"), "{q}: both in it: {keys}");
 	}
 }
 

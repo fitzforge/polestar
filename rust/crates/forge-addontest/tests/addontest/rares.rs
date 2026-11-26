@@ -830,7 +830,7 @@ end
 
 #[test]
 fn rare_card_target_button_targets_the_rare_by_its_full_name_and_pings_it_where_the_client_has_ping() {
-	let plain = "/cleartarget [nocombat]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]";
+	let plain = "/cleartarget [nocombat][dead]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]";
 	let out = run_card("SLASH_PING1 = \"/ping\"", &format!("{SPOT_THUROS}emit(card())\nemit(R.Toast.TargetMacro({{ kind = \"rare\", name = \"Bad\\n/run X()\" }}) or false)"));
 	assert_eq!(out[0], json!({ "shown": true, "enabled": true, "secure": true, "over": true, "tip": false, "macro": format!("{plain}\n/ping [@target]\n/tm [@target,harm,nodead] !8") }));
 	assert_eq!(out[1], json!(false), "a name with a line break never becomes a macro");
@@ -863,7 +863,7 @@ R.Toast.Show(R.AlertOf({{ source = "nameplate", kind = "rare", id = 61, name = "
 emit(card().macro)"#
 		),
 	);
-	let ping = "/cleartarget [nocombat]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]\n/ping [@target]";
+	let ping = "/cleartarget [nocombat][dead]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]\n/ping [@target]";
 	assert_eq!(out[0], json!(format!("{ping}\n/tm [@target,harm,nodead] !8")), "marking is on by default");
 	assert_eq!(out[1], json!(format!("{ping}\n/tm [@target,harm,nodead] !8")));
 	assert_eq!(out[2], json!(format!("{ping}\n/tm [@target,harm,nodead] ~8")));
@@ -896,8 +896,8 @@ emit(card().tip)"#
 		),
 	);
 	// Mark target is on by default: the skull follows the ping.
-	let thuros = "/cleartarget [nocombat]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8";
-	let narg = "/cleartarget [nocombat]\n/targetexact Narg the Taskmaster\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8";
+	let thuros = "/cleartarget [nocombat][dead]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8";
+	let narg = "/cleartarget [nocombat][dead]\n/targetexact Narg the Taskmaster\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8";
 	let keyed = "The card can't target during a fight. Use the rare button or its key (sT).";
 	assert_eq!(out[0], json!({ "shown": true, "enabled": false, "secure": false, "over": false, "points": 0, "macro": thuros, "tip": keyed }));
 	assert_eq!(out[1], json!({ "shown": true, "enabled": false, "secure": false, "over": false, "macro": thuros, "tip": keyed }), "a card that appears in a fight keeps the old macro, unarmed");
@@ -1096,7 +1096,7 @@ end
 emit(out)"#
 		),
 	);
-	let macro_ = "/cleartarget [nocombat]\n/targetexact Rocklance\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8";
+	let macro_ = "/cleartarget [nocombat][dead]\n/targetexact Rocklance\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8";
 	for (i, case) in out[0].as_array().unwrap().iter().enumerate() {
 		assert_eq!(case["first"], true, "case {i}: the click lands on the secure overlay where the card's Target button shows");
 		assert_eq!(case["moved"], true, "case {i}: and still after the card moved");
@@ -1615,4 +1615,48 @@ emit({ all = all, found = found, chest = chest, again = counts() })"#
 	assert_eq!(out["found"], json!({ "rare": 1, "treasure": 0, "seen": 0 }));
 	assert_eq!(out["chest"], json!({ "rare": 0, "treasure": 1, "seen": 0 }));
 	assert_eq!(out["again"], out["all"]);
+}
+
+// #3158 (Vesper): "Boss whisper" never sounded, Play included: Forever's SoundKit table plays kit 37666 at 1% volume.
+// The third choice plays the boss emote warning (12197, at 40%); its saved value is unchanged.
+#[test]
+fn the_third_alert_sound_is_one_the_client_plays_aloud_3158() {
+	let out = run(r#"
+local R = Polestar.Rares
+SOUNDKIT = nil
+local kits = {}
+for _, s in ipairs(R.SOUNDS) do
+	stub.sounds = {}
+	R.PlaySoundOf(s.value)
+	kits[#kits + 1] = { value = s.value, played = stub.sounds[1] or false }
+end
+emit(kits)"#);
+	assert_eq!(out[0], json!([{ "value": "raid", "played": 8959 }, { "value": "ready", "played": 8960 }, { "value": "whisper", "played": 12197 }]), "never the silent 37666");
+}
+
+// #3424: the sidebar said Rares 397 · Treasures 196 while the lists held 378 and 150: it counted every record of the
+// Codex, the lists only what they can show. A treasure with no spot is in no list; a rare with none is, under
+// "Dungeons and unplaced". The sidebar counts what each list shows.
+#[test]
+fn the_rares_sidebar_counts_what_the_lists_show_never_a_treasure_with_no_spot_3424() {
+	let mut codex = sample_codex();
+	codex["objects"]["2844"] = json!({ "id": 2844, "name": "Lost Chest", "treasure": true, "loot": [1179], "spawns": [] });
+	codex["npcs"]["62"] = json!({ "id": 62, "name": "Hidden Rare", "level": 30, "levelMax": null, "faction": null, "rare": true,
+		"elite": false, "boss": false, "instance": null, "roles": [], "loot": [], "spawns": [] });
+	let pack = write_codex_pack(&codex, &CodexOpts { ..Default::default() });
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_rares.lua"],
+		before: pack.stub_lua.clone(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml", "Lookup/Lookup.xml", "UI/UI.xml", "Rares/Rares.xml"])],
+		login: true,
+		script: r#"Polestar.Codex.Load()
+local RV, R = Polestar.UI.RaresSection, Polestar.Rares
+local out = {}
+for _, it in ipairs((RV.Nav())) do out[it.key] = it.count end
+out.placed = { rare = #R.ListOf("rare"), treasure = #R.ListOf("treasure") }
+emit(out)"#
+			.into(),
+		..Default::default()
+	});
+	assert_eq!(out[0], json!({ "rare": 2, "treasure": 1, "seen": 0, "placed": { "rare": 1, "treasure": 1 } }), "the unplaced rare is listed, the chest with no spot is not");
 }

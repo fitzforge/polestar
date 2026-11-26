@@ -160,6 +160,18 @@ test('planner: a vendor recipe whose only seller has no faction is left out (Pex
 	assert.ok(!planProfession(prof, data, { to: 75 }).excluded.some((e) => e.spell === 2));
 });
 
+test('planner: a vendor recipe only a rare spawn sells is left out (Pexmit\'s Supple Scorpid Vest in Mount Hyjal)', () => {
+	const { prof, data } = smallProfession([rec(1, 1, 40, 60, 10), rec(2, 1, 70, 90, 10, { source: 'vendor', recipeItem: 50, cost: 100 })]);
+	prof.materials[50] = { name: 'Pattern: Vest', buy: 100, buyCount: 1, sell: 25, quality: 1, vendors: { Alliance: [9], Horde: [9] } };
+	data.npcs = { 9: { id: 9, name: 'Pexmit', faction: 'AH', rank: 4, roles: ['rare', 'vendor'] } };
+	assert.ok(planProfession(prof, data, { to: 75 }).excluded.some((e) => e.spell === 2 && /rare spawn/.test(e.why)));
+	// A standing seller beside the rare one: the recipe stays.
+	prof.materials[50].vendors.Alliance.push(10);
+	prof.materials[50].vendors.Horde.push(10);
+	data.npcs[10] = { id: 10, name: 'Vendor', faction: 'AH', roles: ['vendor'] };
+	assert.ok(!planProfession(prof, data, { to: 75 }).excluded.some((e) => e.spell === 2));
+});
+
 test('planner: a faction-less vendor Classic knows serves both sides (Kania\'s Formula: Lesser Mana Oil in Cenarion Hold)', () => {
 	const { prof, data } = smallProfession([rec(1, 1, 40, 60, 10), rec(2, 1, 70, 90, 10, { source: 'vendor', recipeItem: 50, cost: 100 })]);
 	prof.materials[50] = { name: 'Formula: Oil', buy: 100, buyCount: 1, sell: 25, quality: 1, vendors: { Alliance: [9], Horde: [9] } };
@@ -281,7 +293,7 @@ test('planner: a world-drop pattern that does not bind is bought at the Auction 
 	assert.match(text, /Its pattern \(Pattern: Traded\) drops from mobs all over the world and does not bind: buy it at the Auction House\./);
 	assert.match(text, /\n {2}learn 2 -- from the pattern bought at the Auction House\n {2}craft 2 until 75\n/);
 	// The pattern is the bracket's Auction House buy (no gather way: always bought).
-	assert.match(text, /\nstep Tailoring 1-75: Auction House\n {2}tip What 1-75 takes that the Auction House sells: a Pattern: Traded\. [^\n]+\n {2}auction 60 x1\n/);
+	assert.match(text, /\nstep Tailoring 1-75: Auction House\n {2}tip What 1-75 takes that the Auction House sells and no step above farms: a Pattern: Traded\. [^\n]+\n {2}auction 60 x1\n/);
 	assert.doesNotMatch(text, /auction 61 /);
 });
 
@@ -373,10 +385,21 @@ test('draft: a rank only a few trainers teach comes after the shopping, and its 
 	assert.ok(steps.indexOf('step Journeyman Tailoring') < steps.indexOf('step Tailoring 75-150: vendor goods'));
 });
 
+test('draft: the first recipes at a rank visit use their own trainers (#3136)', () => {
+	const { prof, data } = smallProfession([rec(1, 1, 70, 75, 10), rec(2, 75, 90, 100, 10)]);
+	prof.ranks = [
+		{ name: 'Apprentice', max: 75, minSkill: 0, minLevel: 1 },
+		{ name: 'Journeyman', max: 150, minSkill: 50, minLevel: 10, trainers: { Alliance: [7], Horde: [8] } },
+	];
+	const { text } = draftGuide('Tailoring', data, { to: 90, spec: { taughtBy: { 2: 'Journeyman' } } });
+	const visit = text.split('\nstep Journeyman Tailoring\n')[1].split('\nstep ')[0];
+	assert.deepEqual(visit.split('\n').filter((l) => l.startsWith('  learn 2')), ['  learn 2 npc 7 only Alliance', '  learn 2 npc 8 only Horde']);
+});
+
 test('draft: a learn pinned to a later rank\'s trainers keeps its own trip after a one-visit bracket (Rugged Leather at Drakk Stonehand)', () => {
 	// Expert Leatherworking: Telonis or Una teach Thick Leather (160) too, so
-	// one visit; Rugged Leather (195) only Drakk or Hahrana teach.
-	const { prof, data } = smallProfession([rec(1, 1, 140, 170, 10), rec(2, 160, 190, 200, 10), rec(3, 195, 220, 240, 10)]);
+	// one visit; Rugged Leather (200 here) only Drakk or Hahrana teach.
+	const { prof, data } = smallProfession([rec(1, 1, 140, 170, 10), rec(2, 160, 190, 200, 10), rec(3, 200, 220, 240, 10)]);
 	const at = (map, x) => ({ [map]: { f: 'e', pts: [[x, 50]] } });
 	data.npcs = { 3: { id: 3, name: 'Jay', faction: 'A', spawns: at(1453, 40) }, 4: { id: 4, name: 'Kay', faction: 'H', spawns: at(1454, 40) }, 5: { id: 5, name: 'Telonis', faction: 'A', spawns: at(1457, 40) }, 6: { id: 6, name: 'Una', faction: 'H', spawns: at(1456, 40) }, 7: { id: 7, name: 'Drakk', faction: 'A', spawns: at(1425, 40) }, 8: { id: 8, name: 'Hahrana', faction: 'H', spawns: at(1444, 40) } };
 	data.zones = { 1453: { name: 'Stormwind City' }, 1454: { name: 'Orgrimmar' }, 1457: { name: 'Darnassus' }, 1456: { name: 'Thunder Bluff' }, 1425: { name: 'The Hinterlands' }, 1444: { name: 'Feralas' } };
@@ -387,14 +410,14 @@ test('draft: a learn pinned to a later rank\'s trainers keeps its own trip after
 		{ name: 'Artisan', max: 300, minSkill: 200, minLevel: 35, trainers: { Alliance: [7], Horde: [8] } },
 	];
 	const { text } = draftGuide('Tailoring', data, { to: 225, spec: { taughtBy: { 3: 'Artisan' } } });
-	assert.match(text, /these trainers also teach R2 \(from 160\), and the crafts need no station, so craft right here and learn each recipe as you reach its skill\. One trip instead of 2\. R3 \(from 195\) takes a second trip, to other trainers \(below\)\./);
+	assert.match(text, /these trainers also teach R2 \(from 160\), and the crafts need no station, so craft right here and learn each recipe as you reach its skill\. One trip instead of 2\. R3 \(from 200\) takes a second trip, to other trainers \(below\)\./);
 	assert.match(text, /\n {2}tip Still at the Expert trainer: R2 \(from 160\)\.\n {2}learn 2\n/);
-	assert.match(text, /R3 \(from 195\) is taught only by the Artisan trainers: Alliance Drakk \(The Hinterlands\); Horde Hahrana \(Feralas\)\./);
+	assert.match(text, /R3 \(from 200\) is taught only by the Artisan trainers: Alliance Drakk \(The Hinterlands\); Horde Hahrana \(Feralas\)\./);
 	assert.match(text, /\n {2}learn 3 npc 7 only Alliance\n {2}learn 3 npc 8 only Horde\n/);
 });
 
 test('draft: a pinned trainer the data spawns at one spot on two maps is pinned to the map the tip names (Drakk Stonehand, also on Hillsbrad\'s corner)', () => {
-	const { prof, data } = smallProfession([rec(1, 1, 140, 170, 10), rec(2, 160, 190, 200, 10), rec(3, 195, 220, 240, 10)]);
+	const { prof, data } = smallProfession([rec(1, 1, 140, 170, 10), rec(2, 160, 190, 200, 10), rec(3, 200, 220, 240, 10)]);
 	const at = (map, x) => ({ [map]: { f: 'e', pts: [[x, 50]] } });
 	data.npcs = { 3: { id: 3, name: 'Jay', faction: 'A', spawns: at(1453, 40) }, 4: { id: 4, name: 'Kay', faction: 'H', spawns: at(1454, 40) }, 5: { id: 5, name: 'Telonis', faction: 'A', spawns: at(1457, 40) }, 6: { id: 6, name: 'Una', faction: 'H', spawns: at(1456, 40) }, 8: { id: 8, name: 'Hahrana', faction: 'H', spawns: at(1444, 40) } };
 	// Aerie Peak, and the same spot on Hillsbrad Foothills' map, whose lower map id the compiler would take.
@@ -407,8 +430,51 @@ test('draft: a pinned trainer the data spawns at one spot on two maps is pinned 
 		{ name: 'Artisan', max: 300, minSkill: 200, minLevel: 35, trainers: { Alliance: [7], Horde: [8] } },
 	];
 	const { text } = draftGuide('Tailoring', data, { to: 225, spec: { taughtBy: { 3: 'Artisan' } } });
-	assert.match(text, /R3 \(from 195\) is taught only by the Artisan trainers: Alliance Drakk \(The Hinterlands\); Horde Hahrana \(Feralas\)\./);
+	assert.match(text, /R3 \(from 200\) is taught only by the Artisan trainers: Alliance Drakk \(The Hinterlands\); Horde Hahrana \(Feralas\)\./);
 	assert.match(text, /\n {2}learn 3 npc 7 only Alliance map 1425\n {2}learn 3 npc 8 only Horde\n/);
+});
+
+// Dima (#3923) and divo2000 (#3708): the Tailoring guide sent players to Timothy Worthington or Daryl Stack for Black
+// Mageweave Headband at 197, its learn skill by Classic's list (190); the Artisan trainers teach nothing below 200.
+// A recipe only a rank's trainers teach is learned, and crafted, from that rank's skill at the earliest.
+test('draft: a recipe only the Artisan trainers teach is learned from Artisan\'s skill, not its own lower one (#3708, #3923)', () => {
+	const { prof, data } = smallProfession([rec(1, 1, 140, 170, 10), rec(2, 160, 190, 215, 10), rec(3, 190, 205, 235, 10)]);
+	const at = (map, x) => ({ [map]: { f: 'e', pts: [[x, 50]] } });
+	data.npcs = { 5: { id: 5, name: 'Georgio', faction: 'A', spawns: at(1453, 40) }, 6: { id: 6, name: 'Josef', faction: 'H', spawns: at(1458, 40) }, 7: { id: 7, name: 'Timothy', faction: 'A', spawns: at(1445, 40) }, 8: { id: 8, name: 'Daryl', faction: 'H', spawns: at(1424, 40) } };
+	data.zones = { 1453: { name: 'Stormwind City' }, 1458: { name: 'Undercity' }, 1445: { name: 'Dustwallow Marsh' }, 1424: { name: 'Hillsbrad Foothills' } };
+	prof.ranks = [
+		{ name: 'Apprentice', max: 75, minSkill: 0, minLevel: 1, trainers: { Alliance: [5, 7], Horde: [6, 8] } },
+		{ name: 'Journeyman', max: 150, minSkill: 50, minLevel: 10, trainers: { Alliance: [5, 7], Horde: [6, 8] } },
+		{ name: 'Expert', max: 225, minSkill: 125, minLevel: 20, trainers: { Alliance: [5, 7], Horde: [6, 8] } },
+		{ name: 'Artisan', max: 300, minSkill: 200, minLevel: 35, trainers: { Alliance: [7], Horde: [8] } },
+	];
+	const { text } = draftGuide('Tailoring', data, { to: 225, spec: { taughtBy: { 3: 'Artisan' } } });
+	assert.match(text, /R3 \(from 200\) is taught only by the Artisan trainers: Alliance Timothy \(Dustwallow Marsh\); Horde Daryl \(Hillsbrad Foothills\)\./);
+	assert.doesNotMatch(text, /from 190/);
+	const craft = text.match(/\nstep R3 to 225\n {2}tip R3 is \w+ at (\d+) /);
+	assert.ok(craft, 'R3 levels to 225');
+	assert.ok(Number(craft[1]) >= 200, `R3 is crafted from ${craft[1]}, not before 200`);
+	assert.ok(/\nstep R2 to 200\n/.test(text), 'R2 carries the skill to 200');
+	// The data's recipe is left as it was: only the guide's plan reads the floor.
+	assert.equal(prof.recipes[2].learnedAt, 190);
+});
+
+// Type1Insulin (#4040): Leatherworking's 225-300 shopping (Black Dye and Rune Thread) named Edna Mullby, who sells the
+// dye but never the thread. The tip names the town's sellers of every item of the step, else the most of them first.
+test('draft: the shopping tip names the town\'s sellers of all the step\'s goods, not a seller of only one (#4040)', () => {
+	const R = rec(1, 1, 70, 90, 10);
+	R.reagents = [{ item: 10, count: 1 }, { item: 20, count: 1 }];
+	const { prof, data } = smallProfession([R]);
+	const sw = (x) => ({ 1453: { f: 'e', pts: [[x, 50]] } });
+	const og = (x) => ({ 1454: { f: 'e', pts: [[x, 50]] } });
+	data.npcs = { 1: { id: 1, name: 'Alexandra', faction: 'A', spawns: sw(40) }, 3: { id: 3, name: 'Edna', faction: 'A', spawns: sw(60) }, 2: { id: 2, name: 'Borya', faction: 'H', spawns: og(40) }, 4: { id: 4, name: 'Felika', faction: 'H', spawns: og(60) }, 7: { id: 7, name: 'Trainer', faction: 'A', spawns: sw(50) }, 8: { id: 8, name: 'Trainer', faction: 'H', spawns: og(50) } };
+	data.zones = { 1453: { name: 'Stormwind City' }, 1454: { name: 'Orgrimmar' } };
+	prof.mainTrainer = { Alliance: 7, Horde: 8 };
+	// Cheap Thread (10) from all four; Pricey Thread (20) only from Alexandra and Borya.
+	prof.materials[10].vendors = { Alliance: [1, 3], Horde: [2, 4] };
+	prof.materials[20].vendors = { Alliance: [1], Horde: [2] };
+	const { text } = draftGuide('Tailoring', data, { to: 75, spec: {} });
+	assert.match(text, /The arrow picks the nearest seller of your faction \(Stormwind City: Alexandra; Orgrimmar: Borya\)\./);
 });
 
 test('planner: a recipe held back to a skill neither levels nor makes an intermediate before it (Tailoring\'s Runecloth to Artisan)', () => {
@@ -439,8 +505,8 @@ test('draft: specs add the camp recipe per faction, notes at a skill, a stop and
 	assert.match(text, /\n {2}learn 2\n {2}learn 900 only Alliance\n {2}learn 901 only Horde\n/);
 	assert.match(text, /A note at 30\./);
 	// Strange Dust: bought at the Auction House or disenchanted (Enchanting), one way at a time.
-	assert.match(text, /\nstep Tailoring 1-75: Auction House\n {2}tip What 1-75 takes that the Auction House sells: 10 Strange Dust\. The counts drop by what your bags, bank and mail hold\.\n {2}auction 70 x10\n/);
-	assert.match(text, /\nstep Strange Dust\n {2}tip 10 Strange Dust for R2: Enchanting: disenchant green items of item level 5-20\.\n {2}collect 70 x10 anywhere gather Enchanting 1\n/);
+	assert.match(text, /\nstep Get Strange Dust\n {2}tip You need 10 Strange Dust for Tailoring 1-75: R2\. Enchanting: disenchant green items of item level 5-20\. Or buy them at the Auction House\.\n {2}collect 70 x10 anywhere gather Enchanting 1\n {2}auction 70 x10\n/);
+	assert.doesNotMatch(text, /^step Tailoring 1-75: Auction House$/m);
 	assert.match(text, /^# {4}70-75 nothing cheap \(see the last step\)$/m);
 	assert.match(text, /\nstep Tailoring 70-75\n {2}tip The last points come from elsewhere\.\n {2}skill Tailoring 75\n$/);
 	assert.doesNotMatch(text, /Strange Dust \(\d+ for/);
@@ -508,8 +574,8 @@ test('draft: a deterministic guide with smart trainers and vendors, per-faction 
 	has(/^ {2}only Alliance$/);
 	has(/^ {2}collect 2589 x\d+ @50,40 era gather levels \d+-\d+$/);
 	has(/^ {2}collect 2589 x\d+ @40,40 era gather levels \d+-\d+$/);
-	// The bracket's Auction House step buys the cloth the steps above gather.
-	has(/^step Tailoring 1-75: Auction House$/);
+	// Each Get it step ends with the Auction House buy of what it gathers.
+	has(/^step Get Linen Cloth \((Alliance|Horde)\)$/);
 	has(/^ {2}auction 2589 x\d+$/);
 	// No faction branches for trainers or vendors, and no race branches at all.
 	assert.ok(!/^ {2}(train|buy|learn) .* only (Alliance|Horde)/m.test(a.text));
@@ -620,7 +686,7 @@ test('an NPC listed on two maps stands on its interior map; a capital beats its 
 	assert.equal(homeMap({ spawns: {} }), null);
 });
 
-test('draft: cloth is counted in the bags, from humanoids as you level or the Auction House, never a farm trip', () => {
+test('draft: cloth is a Get it step: what the band needs, the farm the arrow picks for your level, the Auction House last (#3661)', () => {
 	const { prof, data } = smallProfession([rec(1, 1, 70, 90, 2589)]);
 	prof.materials[2589] = { name: 'Linen Cloth', buy: 55, buyCount: 1, sell: 13, quality: 1, dropCount: 40, drops: [{ npc: 3, chance: 30 }] };
 	data.npcs = { 3: { id: 3, name: 'Defias Thug', level: 9, faction: null, spawns: { 1429: { f: 'e', pts: [[50, 40]] } } } };
@@ -628,12 +694,22 @@ test('draft: cloth is counted in the bags, from humanoids as you level or the Au
 	data.mapFrames = { era: { 1429: { c: 0 } } };
 	data.items = {};
 	const { text } = draftGuide('Tailoring', { ...data, farmable: () => ({ Alliance: 9, Horde: 9 }) }, { to: 75, spec: {} });
-	assert.match(text, /\n {2}tip \d+ Linen Cloth for [^\n]*: humanoids of level 5-20 drop it\. Keep what you loot as you level, or take it from your bank\.\n {2}collect 2589 x\d+ anywhere gather levels 5-20\n/);
-	assert.match(text, /\n {2}auction 2589 x\d+\n/);
-	assert.doesNotMatch(text, /collect 2589 x\d+ (nearest|@)/);
+	const get = text.split('\n\n').find((b) => b.startsWith('step Get Linen Cloth'));
+	assert.match(
+		get,
+		/^step Get Linen Cloth\n {2}tip You need (\d+) Linen Cloth for Tailoring 1-75: R1\. Humanoids of level 5-20 drop it, and what you loot as you level counts\. The arrow takes you to the best farm for your level: [^\n]+ Or buy them at the Auction House\.\n {2}collect 2589 x\1 nearest gather levels 5-20\n {2}auction 2589 x\1$/,
+	);
+	// The Auction House is the Get it step's last line: no Auction House step of its own for the cloth.
+	assert.doesNotMatch(text, /^step Tailoring 1-75: Auction House$/m);
+	// What the Get it steps ask for, per bracket, for the gathering guides' band tips.
+	const { materials } = draftGuide('Tailoring', { ...data, farmable: () => ({ Alliance: 9, Horde: 9 }) }, { to: 75, spec: {} });
+	assert.deepEqual(materials, [{ from: 1, cap: 75, items: [{ item: 2589, name: 'Linen Cloth', count: Number(get.match(/x(\d+)/)[1]), uses: ['R1'] }] }]);
+	// No farm spot in the data: the cloth is counted in the bags as you level, the Auction House still last.
+	const bare = draftGuide('Tailoring', data, { to: 75, spec: {} }).text;
+	assert.match(bare, /\n {2}tip You need \d+ Linen Cloth for Tailoring 1-75: R1\. Humanoids of level 5-20 drop it: keep what you loot as you level, or take it from your bank\. Or buy them at the Auction House\.\n {2}collect 2589 x\d+ anywhere gather levels 5-20\n {2}auction 2589 x\d+\n/);
 });
 
-test('draft: mob drops the compiler can place become one `collect … nearest` step', async () => {
+test('draft: mob drops the compiler can place become one `collect … nearest` Get it step', async () => {
 	const base = {
 		professions: JSON.parse(fs.readFileSync(PROFESSIONS, 'utf8')),
 		npcs: readJson('npcs'),
@@ -643,20 +719,18 @@ test('draft: mob drops the compiler can place become one `collect … nearest` s
 		mapFrames: readJson('map-frames'),
 	};
 	const both = draftGuide('Tailoring', { ...base, farmable: () => ({ Alliance: 3, Horde: 5 }) }, { to: 75, spec: {} }).text;
-	assert.match(both, /^step Linen Cloth\n {2}tip [^\n]+\n {2}collect 2589 x\d+ nearest gather levels 3-5$/m);
+	assert.match(both, /^step Get Linen Cloth\n {2}tip [^\n]+\n {2}collect 2589 x(\d+) nearest gather levels 3-5\n {2}auction 2589 x\1$/m);
 	assert.ok(!/^ {2}only (Alliance|Horde)$/m.test(both));
 	assert.ok(!/@\d/.test(both));
-	// A side without a farm spot, or whose lowest spot is 3+ levels above the
-	// level the guide has asked for (5 here), keeps the per-faction farming steps.
-	for (const farmable of [() => ({ Alliance: 3, Horde: null }), () => ({ Alliance: 3, Horde: 8 })]) {
-		const one = draftGuide('Tailoring', { ...base, farmable }, { to: 75, spec: {} }).text;
-		assert.doesNotMatch(one, /collect 2589 x\d+ nearest/);
-		assert.match(one, /collect 2589 x\d+ @40,40 era/);
-	}
-	assert.match(draftGuide('Tailoring', { ...base, farmable: () => ({ Alliance: 7, Horde: 7 }) }, { to: 75, spec: {} }).text, /collect 2589 x\d+ nearest/);
+	// A side without a farm spot keeps the per-faction farming steps. One whose spots are all above the level the
+	// guide has asked for (5 here) still farms by `nearest`: the engine takes the nearest above and says so.
+	const one = draftGuide('Tailoring', { ...base, farmable: () => ({ Alliance: 3, Horde: null }) }, { to: 75, spec: {} }).text;
+	assert.doesNotMatch(one, /collect 2589 x\d+ nearest/);
+	assert.match(one, /collect 2589 x\d+ @40,40 era/);
+	assert.match(draftGuide('Tailoring', { ...base, farmable: () => ({ Alliance: 3, Horde: 8 }) }, { to: 75, spec: {} }).text, /collect 2589 x\d+ nearest/);
 });
 
-test('draft: each bracket buys at the Auction House what it sells, after the vendor goods, and each gather collect says what gathering takes', () => {
+test('draft: each bracket gets its materials in Get it steps after the vendor goods, each ending at the Auction House, and each gather collect says what gathering takes', () => {
 	const { prof, data } = smallProfession([rec(1, 1, 70, 90, 2589, { reagents: [{ item: 2589, count: 1 }, { item: 10, count: 1 }, { item: 72, count: 1 }, { item: 4234, count: 1 }] })]);
 	prof.materials[2589] = { name: 'Linen Cloth', buy: 55, buyCount: 1, sell: 13, quality: 1, dropCount: 40, drops: [{ npc: 3, chance: 30 }] };
 	// A rare drop that binds when picked up: no farm spot, never an Auction House buy.
@@ -671,11 +745,11 @@ test('draft: each bracket buys at the Auction House what it sells, after the ven
 	const { text } = draftGuide('Tailoring', data, { to: 75, spec: {} });
 	const lines = text.split('\n');
 	const at = (re) => lines.findIndex((l) => re.test(l));
-	const order = [at(/^step Tailoring 1-75: vendor goods$/), at(/^step Tailoring 1-75: Auction House$/), at(/^step Linen Cloth$/), at(/^step R1 to 75$/)];
-	assert.ok(order[0] >= 0 && order.every((v, i) => i === 0 || v > order[i - 1]), `vendor goods, Auction House, cloth, crafts: ${order}`);
-	// Every material it can sell, for the whole bracket; no vendor good, nothing that binds when picked up.
-	const ah = text.split('\n\n').find((b) => b.startsWith('step Tailoring 1-75: Auction House'));
-	assert.match(ah, /\n {2}tip What 1-75 takes that the Auction House sells: 75 Linen Cloth and 75 Medium Leather\. [^\n]+\n {2}auction 2589 x75\n {2}auction 4234 x75$/);
+	const order = [at(/^step Tailoring 1-75: vendor goods$/), at(/^step Get Linen Cloth$/), at(/^step Get Medium Leather/), at(/^step R1 to 75$/)];
+	assert.ok(order[0] >= 0 && order.every((v, i) => i === 0 || v > order[i - 1]), `vendor goods, cloth, leather, crafts: ${order}`);
+	// Every material the Auction House sells ends its own Get it step; no vendor good, nothing that binds when picked up.
+	for (const b of text.split('\n\n').filter((s) => s.startsWith('step Get '))) assert.match(b, /\n {2}auction (2589|4234) x75$/, b);
+	assert.doesNotMatch(text, /^step Tailoring 1-75: Auction House$/m);
 	// Cloth: its humanoids' levels; leather: the skill its beasts' lowest level asks (18: 80).
 	assert.match(text, /\n {2}collect 2589 x75 anywhere gather levels 5-20\n/);
 	const skins = text.match(/^ {2}collect 4234 .*$/gm) || [];
@@ -789,20 +863,22 @@ test('draft: starting-area herbs per race to Journeyman, rare node finds are a b
 		nodeAbundance: {}, // no spawn-pool tables: the points decide
 	};
 	const { text } = draftGuide('Alchemy', data, { to: 75, spec: {} });
-	assert.match(text, /^step Silverleaf \(Teldrassil\)\n {2}only NightElf\n/m);
-	assert.match(text, /^step Silverleaf \(Elwynn Forest\)\n {2}only Human\n/m);
+	assert.match(text, /^step Get Silverleaf \(Teldrassil\)\n {2}only NightElf\n/m);
+	assert.match(text, /^step Get Silverleaf \(Elwynn Forest\)\n {2}only Human\n/m);
 	// Zephras Isle is one step for the Skyborne of both sides, in the live frame.
-	assert.match(text, /^step Silverleaf \(Zephras Isle\)\n {2}only Skyborne\n(?: {2}[^\n]+\n)* {2}collect 765 x\d+ @[\d.]+,[\d.]+ live gather Herbalism 1$/m);
+	assert.match(text, /^step Get Silverleaf \(Zephras Isle\)\n {2}only Skyborne\n(?: {2}[^\n]+\n)* {2}collect 765 x\d+ @[\d.]+,[\d.]+ live gather Herbalism 1$/m);
 	// Three Silverleaf in Durotar are no patch: Orcs and Trolls go on to The Barrens.
-	assert.match(text, /^step Silverleaf \(The Barrens\)\n {2}only Orc,Troll/m);
+	assert.match(text, /^step Get Silverleaf \(The Barrens\)\n {2}only Orc,Troll/m);
 	assert.doesNotMatch(text, /Silverleaf \(Durotar\)/);
 	// The starting-area step names no other zones.
 	assert.match(text, /Herbalism: Silverleaf \(skill 1\)\. The densest patch of Silverleaf in Teldrassil is marked\./);
 	// Black Pearl (0.2%) gets no spot and is bought; Shadowgem (one vein in a hundred) is kept
 	// while mining or bought, and the rod's gem is "for Tonic Rod".
 	assert.doesNotMatch(text, /^ {2}collect 7971 /m);
-	assert.match(text, /\nstep Shadowgem\n(?: {2}zone Azeroth\n)? {2}tip 1 Shadowgem for Tonic Rod: Shadowgem turns up in about one Copper Vein in 100: keep the ones you find while mining\.\n {2}collect 1210 x1 anywhere gather Mining 1\n/);
-	assert.match(text, /\n {2}auction 765 x\d+\n {2}auction 1210 x1\n {2}auction 7971 x\d+\n/);
+	assert.match(text, /\nstep Get Shadowgem\n(?: {2}zone Azeroth\n)? {2}tip You need 1 Shadowgem for Alchemy 1-75: Tonic Rod\. Shadowgem turns up in about one Copper Vein in 100: keep the ones you find while mining\. Or buy it at the Auction House\.\n {2}collect 1210 x1 anywhere gather Mining 1\n {2}auction 1210 x1\n/);
+	// Each Get it step ends with its Auction House line; the Black Pearl, with no farm, is the Auction House step's.
+	assert.match(text, /\n {2}collect 765 x(\d+) @[^\n]+\n {2}auction 765 x\1\n/);
+	assert.match(text, /\nstep Alchemy 1-75: Auction House\n(?: {2}zone Azeroth\n)? {2}tip [^\n]+\n {2}auction 7971 x\d+\n/);
 	assert.match(text, /Black Pearl is a rare drop \(no mob gives it one time in 50\)/);
 	assert.match(text, /Make the Tonic Rod first: the recipe needs it in your bags/);
 });

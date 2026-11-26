@@ -1,9 +1,10 @@
 guide forever/horde/50-60/05-eastern-plaguelands
-title Eastern Plaguelands, Winterspring & Tanaris
+title Western & Eastern Plaguelands & Felwood
 faction Horde
-levels 56-58
+levels 55-56
 zone Eastern Plaguelands
-next forever/horde/50-60/06-silithus
+next forever/50-60/mount-hyjal
+pitch The Bulwark and both Plaguelands, then Felwood and Winterspring.
 # Built from the playthrough simulator's consensus route (Horde, visits
 # 86-93) and machine-checked with lint; not play-tested on Forever yet.
 #
@@ -71,13 +72,13 @@ step Light's Hope Chapel
 # ---------------------------------------------------------------- The south
 
 step Lake Mereldar
-  tip Plaguehounds and their runts roam the shores of the lake south-west of the chapel.
+  tip Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground. The Shattered Sword of Marduk lies at the bottom of the gorge west of Corin's Crossing. Careful: the biggest Plaguehounds are 56, pull them one at a time.
   kill 8596 quest 5542.1
   kill 8597 quest 5542.2
 
 step Sword of Marduk
   tip The shattered sword lies on the ground north-west of the lake.
-  collect 12957 quest 5181.2
+  collect 12957 quest 5181.2 -- At the bottom of the gorge west of Corin's Crossing
 
 step The Pestilent Scar
   tip The skull sits in the Pestilent Scar, among Blighted Horrors and Plague Monstrosities.
@@ -103,6 +104,8 @@ step The western hills
 
 step Egan
   tip Egan the ghost stands by a hut in Terrordale, in the north-west corner.
+  tip Careful: Terrordale Spirits (59-60) drift through the north-west corner just north of Egan's hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time.
+  tip Careful: a Nerubian Overseer (60, elite) walks Terrordale and the Terrorweb Tunnel south-west of it. Look for him before you ride in, and wait for him to pass.
   turnin 5281
 
 # ---------------------------------------------------------------- The north
@@ -132,6 +135,9 @@ step Corin's Crossing
   tip With Defenders of Darrowshire in your log (from Carlin at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the Living Rot.
   goto 52.3,58.2 "Corin's Crossing" live
   talk 11064 quest 5211.1 "Free Darrowshire Spirits: talk to them"
+  kill 8530 optional                  -- Cannibal Ghoul: a Darrowshire Spirit rises where one dies
+  kill 8531 optional                  -- Gibbering Ghoul: leaves a spirit too
+  kill 8532 optional                  -- Diseased Flayer: leaves a spirit too
   collect 15447 x7
   complete 6022
 
@@ -180,7 +186,8 @@ step Kernda
 step Rabine Saturna
   zone Moonglade
   tip Go through Timbermaw Hold and take the Moonglade branch of the tunnel. Rabine is in Nighthaven.
-  accept 5527
+  tip Rabine offers A Reliquary of Purity only after you have been inside Dire Maul once: if he doesn't offer it, carry on without it.
+  accept 5527 optional
   turnin 1123
   accept 1124
   note Both quests lead to Silithus: keep them.
@@ -215,7 +222,7 @@ step Sprinkle
 
 step Gaeriyan
   when onquest 3912
-  tip Drink the Videre Elixir at the graveyard just east of Gadgetzan: it kills you, and only as a ghost can you see Gaeriyan, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard.
+  tip Alive again, go to A Conspicuous Gravestone in the graveyard just east of Gadgetzan and use it: it takes the quest. Linken's sword goes back to Linken in Un'Goro: keep it.
   use 11243 @54.0,28.7 map 1446         -- Videre Elixir
   turnin 3912
   accept 3913
@@ -230,6 +237,8 @@ step Marvon Rivetseeker
 # ---------------------------------------------------------------- On to Silithus
 
 step On to Silithus
+# Older notes from the export, kept for its history; where they differ from the steps above (Tirion's hunts are
+# handed in on this guide, the bind and hearth are no longer as described), the steps hold.
   zone Un'Goro Crater
   tip Fly to Marshal's Refuge, then ride south-west through Un'Goro to the pass into Silithus. The next guide opens at Valor's Rest, where the pass comes out.
   fly "Marshal's Refuge"

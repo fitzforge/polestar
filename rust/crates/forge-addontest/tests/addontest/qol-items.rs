@@ -230,6 +230,32 @@ fn a_grey_quest_starter_or_quest_item_is_never_sold() {
 	assert_eq!(out[0], json!({ "cudgel": 0, "bone": 0, "fangs": 1, "shell": 1 }), "the quest items stay, the other greys sell");
 }
 
+// #3997 (Liquidor): a worn Frayed Robe sells for 2c, not its 4c vendor price, as its tooltip says. Bag space priced
+// it at 4c, so the shell (3c) was the cheapest junk, and the merchant's line counted 4c for it.
+#[test]
+fn a_damaged_item_is_priced_at_what_the_merchant_pays_for_it_3997() {
+	let out = run(&[
+		BAGS,
+		r#"
+		local S = QoL.Space
+		q.items[6] = { name = "Frayed Robe", quality = 0, price = 4 }
+		fill(3)
+		q.addItem(0, 14, 6, 1)
+		q.bags[0].slots[14].worn = 2
+		bagsChanged()
+		local j = S.Junk()
+		emit({ junk = j and j.id or false, value = j and j.value or false })
+		q.money = 0
+		q.openMerchant()
+		stub.advance(3)
+		emit({ money = q.money, said = printed("Sold 4 grey items for 19c") })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "junk": 6, "value": 2 }), "the worn robe (2c) is cheaper than the shell (3c)");
+	assert_eq!(out[1], json!({ "money": 19, "said": true }), "two fangs (14c), the shell (3c) and the worn robe (2c)");
+}
+
 #[test]
 fn marks_ctrl_alt_click_cycles_junk_keep_and_clear_junk_is_sold_kept_greys_are_not_and_never_deleted() {
 	let out = run(&[
@@ -582,6 +608,46 @@ fn wear_offers_new_gear_from_loot_puts_it_on_only_when_taken_and_remembers_a_no(
 	assert_eq!(out[6], true, "Gear advice off: no offers");
 }
 
+#[test]
+fn wear_uses_the_clients_required_level_when_itemdb_is_out_of_date() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_qol.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Gear/Gear.xml", "QoL/QoL.xml"])],
+		before: r#"
+		stub.qol.level = 37
+		UnitClass = function() return "Warlock", "WARLOCK", 9 end
+		"#
+		.into(),
+		login: true,
+		script: format!(
+			"{PRELUDE}{}",
+			r#"
+		Polestar.ItemDB.Register({ schema = 1, build = "test" }, {
+			[5608] = "1 40 35 2 4 1 sta11 spi10 armor43",
+			[4491] = "1 1 20 1 12 0 uniq1", -- Simulate a stale positive requirement for the goggles.
+		})
+		q.items[5608] = { name = "Living Cowl", equipLoc = "INVTYPE_HEAD", minLevel = 39 }
+		q.items[4491] = { name = "Goggles of Gem Hunting", equipLoc = "INVTYPE_HEAD", minLevel = 0 }
+		q.addItem(0, 1, 5608, 1); bagsChanged()
+		local link = C_Container.GetContainerItemInfo(0, 1).hyperlink
+		emit({ Polestar.Gear.CompareToEquipped(link).minLevel, QoL.Wear.Offer() ~= nil })
+
+		q.bags[0].slots[1] = nil; bagsChanged()
+		q.level = 39
+		stub.fire("PLAYER_LEVEL_UP", q.level)
+		q.addItem(0, 1, 5608, 1); bagsChanged()
+		local offer = QoL.Wear.Offer()
+		emit(offer and offer.id or false)
+		emit(Polestar.Gear.GetItemInfo(4491).req)
+	"#
+		),
+		..Default::default()
+	});
+	assert_eq!(out[0], json!([39, false]), "the client requires level 39 and the player is level 37");
+	assert_eq!(out[1], 5608, "a fresh copy is offered at the required level");
+	assert_eq!(out[2], 0, "a client requirement of zero still wins over ItemDB");
+}
+
 // A level 20 character with a gun: water at three levels, bread, shot, arrows and a reagent for sale.
 const GOODS: &str = r#"
 	q.level = 20
@@ -789,4 +855,64 @@ fn banner_gear_offer_wear_it_or_not_this_one() {
 	);
 	assert_eq!(out[0], json!({ "text": "Upgrade: [Ridge Helm]  \u{b7}  +10%  \u{b7}  Head", "jump": "Wear it", "later": "Not this one" }));
 	assert_eq!(out[1], json!({ "shown": false, "log": ["take", "decline"] }));
+}
+
+// #3726 (imp), #3563: "Not this one" took several clicks. Every redraw hid the second link and showed it again,
+// and a click pressed across a redraw was lost. It stays shown while the notice keeps it; a notice without it hides it.
+#[test]
+fn banner_the_second_link_stays_shown_across_redraws_and_hides_only_when_the_notice_drops_it() {
+	let out = run_ui(
+		r#"
+		offer = { id = 14, link = "[Ridge Helm]", slot = 1, pct = 10 }
+		Polestar.Fire("WEAR_OFFER")
+		local hides = 0
+		B.Later:HookScript("OnHide", function() hides = hides + 1 end)
+		for _ = 1, 5 do
+			Polestar.Fire("WEAR_OFFER")
+			uistub.update()
+		end
+		local kept = { shown = B.Later:IsShown(), hides = hides, label = B.Later.Label:GetText() }
+		offer = nil
+		bags = { free = 0, junk = { id = 2, count = 2, value = 14, link = "[Broken Fang]" }, armed = false }
+		Polestar.Fire("WEAR_OFFER")
+		Polestar.Fire("BAG_SPACE")
+		emit({ kept = kept, after = { jump = B.Jump.Label:GetText(), later = B.Later:IsShown() } })
+	"#,
+	);
+	assert_eq!(out[0]["kept"], json!({ "shown": true, "hides": 0, "label": "Not this one" }), "never hidden while the offer shows");
+	assert_eq!(out[0]["after"], json!({ "jump": "Delete it", "later": false }), "the bags notice has one link");
+}
+
+// #2826: the item a banner names shows the game's tooltip for that copy, and a modified click links it.
+#[test]
+fn banner_item_shows_its_tooltip_on_hover_and_links_on_a_modified_click() {
+	let out = run_ui(
+		r#"
+		local links, handled, modified = {}, {}, false
+		GameTooltip.SetHyperlink = function(self, link) links[#links + 1] = link end
+		IsModifiedClick = function() return modified end
+		HandleModifiedItemClick = function(link) handled[#handled + 1] = link end
+		local function hover()
+			GameTooltip.owner, links = nil, {}
+			stub.RunScript(B.Item, "OnEnter")
+			local r = { shown = B.Item:IsShown(), owner = GameTooltip:GetOwner() == B.Item, link = links[#links] or false }
+			stub.RunScript(B.Item, "OnLeave")
+			return r
+		end
+		offer = { id = 14, link = "|Hitem:14::::::1184|h[Ridge Helm of the Bear]|h", slot = 1, pct = 10 }
+		Polestar.Fire("WEAR_OFFER")
+		local wear = hover()
+		B.Item:Click()
+		modified = true
+		B.Item:Click()
+		offer = nil
+		bags = { free = 0, junk = { id = 2, count = 2, value = 14, link = "[Broken Fang]" }, armed = false }
+		Polestar.Fire("BAG_SPACE")
+		local junk = hover()
+		emit({ wear = wear, junk = junk, handled = handled })
+	"#,
+	);
+	assert_eq!(out[0]["wear"], json!({ "shown": true, "owner": true, "link": "|Hitem:14::::::1184|h[Ridge Helm of the Bear]|h" }), "the offered copy's own link, suffix and all");
+	assert_eq!(out[0]["junk"], json!({ "shown": true, "owner": true, "link": "[Broken Fang]" }));
+	assert_eq!(out[0]["handled"], json!(["|Hitem:14::::::1184|h[Ridge Helm of the Bear]|h"]), "only the modified click goes to the client");
 }

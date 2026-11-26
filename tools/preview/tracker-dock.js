@@ -20,14 +20,14 @@ ObjectiveTrackerFrame:SetPoint('TOPLEFT',UIParent,'TOPLEFT',120,-110)
 ObjectiveTrackerFrame:SetFrameStrata('LOW')
 ObjectiveTrackerFrame.HeaderMenu=false;ObjectiveTrackerFrame.Header=false
 `;
-function dump(look, scale, prelude) {
+function dump(look, scale, prelude, tabStyle) {
 	const files = [...P.FILES];
 	if (look.addon) files.splice(2, 0, 'Nav/Nav.xml', 'Maps/FlightPaths.lua', 'Maps/RouteStrokes.lua', 'Maps/RouteSparkle.lua', 'Maps/RouteLines.lua');
 	const { emitted } = runAddon({
 		stubs: ['stub_ui.lua'],
 		before: `${P.panelBefore({}, prelude)}\nlocal previewEmit=emit\ndofile(${JSON.stringify(path.join(ROOT, 'tools/play/driver.lua'))})\nemit=previewEmit\n${TRACKER}`,
 		addons: [{ name: 'Polestar', files }, ...(look.addon ? [look.addon] : [])],
-		saved: { Polestar: `PolestarDB={schema=1,welcomeSeen=99,settings={ui={skin=${JSON.stringify(look.id)},trackerDock=true,shown=true}}};PolestarCharDB={trackerDockTab='polestar'}` },
+		saved: { Polestar: `PolestarDB={schema=1,welcomeSeen=99,settings={ui={skin=${JSON.stringify(look.id)},trackerDock=true,shown=true},guideWindow={tabStyle=${tabStyle ? JSON.stringify(tabStyle) : 'nil'}}}};PolestarCharDB={trackerDockTab='polestar'}` },
 		script: `
 UIParent:SetScale(${scale})
 uistub.install();stub.login();stub.advance(0.5)
@@ -47,19 +47,21 @@ function render(outDir = path.join(ROOT, 'docs/preview/tracker-dock')) {
 	const prelude = P.metricsLua(fonts);
 	const textures = new TextureCache(path.join(ROOT, 'addon/Polestar/Media/UI'));
 	const findings = [];
-	for (const look of LOOKS) {
+	const scenes = [...LOOKS.map(look => ({look, name:look.id, title:look.name})),
+		...['underline','switcher','edge','strip'].map(tabStyle => ({look:LOOKS[0], tabStyle, name:`tabs-${tabStyle}`, title:`Polestar tabs: ${tabStyle}`}))];
+	for (const {look, tabStyle, name, title} of scenes) {
 		const shared = {glyphs:new Set(),defs:[]};
 		const panels = SCALES.map((scale, index) => {
-			const scene = dump(look, scale, prelude);
-			for (const finding of fit.audit(scene, ROOTS, fonts, ['word', 'window', 'overlap'])) findings.push({look:look.id,scale,...finding});
+			const scene = dump(look, scale, prelude, tabStyle);
+			for (const finding of fit.audit(scene, ROOTS, fonts, ['word', 'window', 'overlap'])) findings.push({look:look.id,tabStyle,scale,...finding});
 			return svg(scene, {fonts,textures,roots:ROOTS,prefix:`s${index}`,shared});
 		});
-		fs.writeFileSync(path.join(outDir, `${look.id}.svg`), HEADER+"\n"+compose(panels, {shared,title:`${look.name}: docked at UI scales 0.64, 1.0, 1.5 (left to right)`}));
-		console.log(`${look.id}: ${SCALES.join(', ')}`);
+		fs.writeFileSync(path.join(outDir, `${name}.svg`), HEADER+"\n"+compose(panels, {shared,title:`${title}: docked at UI scales 0.64, 1.0, 1.5 (left to right)`}));
+		console.log(`${name}: ${SCALES.join(', ')}`);
 	}
-	fs.writeFileSync(path.join(outDir, 'README.md'), `# Docked guide review renders\n\nGenerated from real addon Lua with \`node tools/preview/tracker-dock.js\`.\nEach image shows UI scales **0.64, 1.0 and 1.5**, from left to right.\nThese are preview renders, not in-game screenshots. Client-owned game textures\nare omitted when unavailable to the renderer; no client artwork is redistributed.\n\n${LOOKS.map(l=>`- [${l.name}](${l.id}.svg)`).join('\n')}\n`);
+	fs.writeFileSync(path.join(outDir, 'README.md'), `# Docked guide review renders\n\nGenerated from real addon Lua with \`node tools/preview/tracker-dock.js\`.\nEach image shows UI scales **0.64, 1.0 and 1.5**, from left to right.\nThe tab-style images also exercise all four guide-tab placements.\nThese are preview renders, not in-game screenshots. Client-owned game textures\nare omitted when unavailable to the renderer; no client artwork is redistributed.\n\n${scenes.map(s=>`- [${s.title}](${s.name}.svg)`).join('\n')}\n`);
 	fs.writeFileSync(path.join(outDir, 'fit.json'), JSON.stringify(findings, null, 2)+'\n');
-	console.log(`${LOOKS.length*SCALES.length} renders; ${findings.length} text-fit findings`);
+	console.log(`${scenes.length*SCALES.length} renders; ${findings.length} text-fit findings`);
 	return findings;
 }
 module.exports = { dump, render, ROOTS };

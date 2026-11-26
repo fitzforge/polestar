@@ -15,6 +15,10 @@
 //   exclude: { spell: reason }      recipes the planner must not use
 //   noLevel: { spell: reason }      recipes made only as parts or tools
 //   tips:    { spell: text }        why this recipe (replaces the generic line)
+//   sellerNotes: { npc: { text, optional } }
+//                                   what a recipe seller needs before he can be found, added to
+//                                   the recipe's buy step; `optional` on every seller of a recipe
+//                                   makes the buy never hold its step
 //   taughtBy: { spell: rank }       recipes only that rank's trainers teach: the
 //                                   learn is pinned to them, and the rank is
 //                                   offered there when the skill allows it
@@ -89,7 +93,8 @@ const SPECS = {
 		// Brikk Keencraft (1002836) only, never at Bengus Deepforge or Saru Steelfury (1004258/1003355). Forever
 		// moved the plans 25 points down but not off the Artisan list: at 205 Saru teaches no Heavy Mithril
 		// Breastplate (#1956, the reporter's trainer window).
-		taughtBy: { 9959: 'Artisan', 9961: 'Artisan', 9968: 'Artisan', 10001: 'Artisan' },
+		// Brikk also teaches the three Dense Stone recipes at 225; Bengus does not (#3136).
+		taughtBy: { 9959: 'Artisan', 9961: 'Artisan', 9968: 'Artisan', 10001: 'Artisan', 16639: 'Artisan', 16640: 'Artisan', 16641: 'Artisan' },
 		// Expert 50s (a Forever beta guide tested to 225; Classic's list asks 45s), Artisan 5g (Classic's list).
 		rankCost: { Expert: 5000, Artisan: 50000 },
 		assumed: [
@@ -112,8 +117,11 @@ const SPECS = {
 			9968: 'Mithril Bars from Mithril Deposits; Thick Leather from skinners or the Auction House.',
 			10001: 'Only about 11 crafts to bridge 247-250, but each wants four Shadowgems (about one Tin Vein in a hundred) and a Black Pearl: buy those at the Auction House unless your bags already hold them.',
 			16969: 'Large Opal turns up in about one Thorium vein in 130: buy the ten at the Auction House. Five crafts only, until the battleaxe plans can be used at 255.',
-			16971: 'Plans from Magnus Frostwake (Caer Darrow, Western Plaguelands), unlimited stock, but they bind when picked up. Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the Imperial Plate Boots take over. Other ways through: world-drop plans from the Auction House (the Radiant pieces: about 820 Thorium Bars and 190 Hearts of Fire for the Radiant route) or the Merchant\'s Favor sets.',
+			16971: 'Plans from Magnus Frostwake in Caer Darrow (Western Plaguelands): he is a ghost you see only with the Spectral Essence trinket on (put it on inside Caer Darrow), the reward of Eva Sarkhoff\'s Scholomance chain that ends with Kirtonos the Herald (level 55, a dungeon group). Unlimited stock, but the plans bind when picked up. Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the Imperial Plate Boots take over. Without the trinket, the other ways through: world-drop plans from the Auction House (the Radiant pieces: about 820 Thorium Bars and 190 Hearts of Fire for the Radiant route) or the Merchant\'s Favor sets.',
 			16657: 'About 34 Thorium Bars a craft against the battleaxe\'s 40 and its grinding stones, orange to 290. Below character level 50 Derotain has no quest for you: keep making Huge Thorium Battleaxes to 300 instead (yellow to 292, grey at 305: about twice the Thorium Bars).',
+		},
+		sellerNotes: {
+			11278: { text: 'Magnus is a ghost: you see him only with the Spectral Essence on (from Eva Sarkhoff\'s Scholomance chain, level 55, a group), so skip this without it.', optional: true },
 		},
 		notes: [
 			{

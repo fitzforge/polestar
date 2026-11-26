@@ -1,0 +1,514 @@
+guide forever/class/druid/dungeon-set-2
+title Feralheart Raiment (Dungeon Set 2)
+category Class
+class Druid
+folder Druid
+levels 58-60
+zone Ironforge
+keywords Dungeon Set 2, Tier 0.5, T0.5, Feralheart Raiment, Wildheart Raiment, Dungeon Set 1, Deliana, Mokvar, An Earnest Proposition, A Supernatural Device, Mux Manascrambler, Ectoplasmic Distiller, Extra-Dimensional Ghost Revealer, Just Compensation, Anthion Harmon, Dead Man's Plea, Ysida Harmon, Falrin Treeshaper, The Challenge, Theldren, Anthion's Parting Words, Bodley, Three Kings of Flame, Lord Valthalak, Brazier of Beckoning, Saving the Best for Last, Stratholme, Dire Maul, Blackrock Depths, Blackrock Spire, Scholomance
+reward text Feralheart Raiment: your class's Dungeon Set 2, eight pieces, each traded for its Wildheart Raiment piece
+why The level 60 upgrade of your Wildheart Raiment: a long chain, most of it dungeon runs for a group.
+
+# The Dungeon Set 2 chain, Forever's copies for this class on each side (data/forever quests.json with
+# forever-db/corrections): An Earnest Proposition, A Supernatural Device (8922/8923), The Ectoplasmic
+# Distiller (8921), Hunting for Ectoplasm (8924), A Portable Power Source (8925), A Shifty Merchant (8928),
+# Return to Deliana/Mokvar (8977/8978), Just Compensation, In Search of Anthion (8929/8930), Dead Man's Plea
+# (8945), Proof of Life (8946), Anthion's Strange Request (8947), Anthion's Old Friend (8948), Falrin's
+# Vendetta (8949), The Instigator's Enchantment (8950), The Challenge (9015), Anthion's Parting Words,
+# Bodley's Unfortunate Fate (8960/9032), Three Kings of Flame (8961), the class group's Components of
+# Importance, Left Piece, More Components of Importance and Right Piece, I See Alcaz Island In Your
+# Future... (8970), Final Preparations (8994), Mea Culpa, Lord Valthalak (8995), Return to Bodley (8996),
+# Back to the Beginning (8997/8998), Saving the Best for Last.
+# Costs: 20 gold (An Earnest Proposition's text), 40 gold (The Ectoplasmic Distiller), the Fel Elemental
+# Rod 40 gold and the Hallowed Brazier 133g 33s 33c before reputation discounts, Honored with the Argent
+# Dawn to buy it (the client's item tables). Quest drops are quest-only loot, so nothing is gathered early
+# but what can be bought or crafted.
+# Group content: every quest whose work is a dungeon, a summoned boss or elites asks first (`when group`).
+
+step Deliana
+  only Alliance
+  zone Ironforge
+  tip What the chain asks, so you can plan: about 30 quests from Tanaris to Blackrock Mountain. The first part is solo (Gadgetzan, the Burning Steppes, Silithus, Winterspring, the Eastern Plaguelands). Then come runs of Stratholme, Dire Maul, Blackrock Depths, Lower and Upper Blackrock Spire and Scholomance, a summoned Duke in Silithus, two bosses your class's brazier calls, Lord Valthalak, and elites in the open world: that part needs a group, and the guide asks before each quest of it. Deliana stands in the High Seat, King Magni's throne room.
+  note Before you start, gather what can be bought or crafted, so you never ride back for it: a Delicate Arcanite Converter (engineers make it), 4 Greater Eternal Essence, 10 Stonescale Oil (alchemists make it), a stack of Goblin Rocket Fuel, 3 Dark Iron Bars, 20 Enchanted Leather, 3 Mooncloth, 4 Cured Rugged Hides, 4 Dark Runes, 8 Large Brilliant Shards and a Flask of Supreme Power. Gold: 20, then 40, then 40 for the Fel Elemental Rod, and about 120-133 for the Hallowed Brazier, which needs Honored with the Argent Dawn.
+  note Your eight Wildheart Raiment pieces are handed in along the way (bracers first, then belt and gloves, then boots, legs and shoulders, then helm and chest): bank spares, a hand-in takes the one in your bags. Where a hand-in offers a choice of pieces, each is cut for a different spec: take the one you play.
+  level 59
+  accept 84147
+
+step Mokvar
+  only Horde
+  zone Orgrimmar
+  tip What the chain asks, so you can plan: about 30 quests from Tanaris to Blackrock Mountain. The first part is solo (Gadgetzan, the Burning Steppes, Silithus, Winterspring, the Eastern Plaguelands). Then come runs of Stratholme, Dire Maul, Blackrock Depths, Lower and Upper Blackrock Spire and Scholomance, a summoned Duke in Silithus, two bosses your class's brazier calls, Lord Valthalak, and elites in the open world: that part needs a group, and the guide asks before each quest of it. Mokvar stands in Grommash Hold, in the Valley of Wisdom.
+  note Before you start, gather what can be bought or crafted, so you never ride back for it: a Delicate Arcanite Converter (engineers make it), 4 Greater Eternal Essence, 10 Stonescale Oil (alchemists make it), a stack of Goblin Rocket Fuel, 3 Dark Iron Bars, 20 Enchanted Leather, 3 Mooncloth, 4 Cured Rugged Hides, 4 Dark Runes, 8 Large Brilliant Shards and a Flask of Supreme Power. Gold: 20, then 40, then 40 for the Fel Elemental Rod, and about 120-133 for the Hallowed Brazier, which needs Honored with the Argent Dawn.
+  note Your eight Wildheart Raiment pieces are handed in along the way (bracers first, then belt and gloves, then boots, legs and shoulders, then helm and chest): bank spares, a hand-in takes the one in your bags. Where a hand-in offers a choice of pieces, each is cut for a different spec: take the one you play.
+  level 59
+  accept 84155
+
+step Winterspring Blood Samples
+  only Alliance
+  zone Winterspring
+  tip The Frostsabers and Shardtooth bears of northern Winterspring, north of Everlook, drop the samples (level 53-60, not elite: at 58 leave the level 60 Frostsaber Stalkers, Pride Watchers and Rabid Shardtooths alone). Fly to Everlook.
+  level 59
+  collect 21928 quest 84147.1
+
+step Silithus Venom Samples
+  only Horde
+  zone Silithus
+  tip The Stonelash scorpids, Sand Skitterers and Rock Stalkers of Silithus drop the samples (level 54-59, not elite). Fly to Cenarion Hold.
+  level 59
+  collect 22381 quest 84155.1
+
+step Deliana: A Supernatural Device
+  only Alliance
+  zone Ironforge
+  tip Bring the samples, 20 gold and your Wildheart Bracers: a rare drop from the mobs of Stratholme and Scholomance, or the auction house. She gives you a Sealed Blood Container for Mux in Gadgetzan.
+  level 59
+  collect 16714 quest 84147.2 @43.6,52.7  -- Wildheart Bracers
+  turnin 84147
+  accept 8922 npc 230319
+
+step Mokvar: A Supernatural Device
+  only Horde
+  zone Orgrimmar
+  tip Bring the samples, 20 gold and your Wildheart Bracers: a rare drop from the mobs of Stratholme and Scholomance, or the auction house. He gives you a Sealed Blood Container for Mux in Gadgetzan.
+  level 59
+  collect 16714 quest 84155.2 @34.7,38.1 live  -- Wildheart Bracers
+  turnin 84155
+  accept 8923 npc 230317
+
+step Mux Manascrambler
+  zone Tanaris
+  tip Mux works in the north-eastern hut of Gadgetzan, the engineers' hut. He builds the Ectoplasmic Distiller for 40 gold and the parts on your shopping list, plus 25 Volcanic Ash from the Burning Steppes.
+  level 59
+  turnin 8922 only Alliance
+  turnin 8923 only Horde
+  accept 8921
+
+step Volcanic Ash
+  zone Burning Steppes
+  tip Click the ash piles along the lava river in the west and centre of the Burning Steppes: each gives a few. They only drop while you have the quest.
+  level 59
+  collect 22338 quest 8921.4
+
+step Mux Manascrambler: the Distiller
+  zone Tanaris
+  tip Hand in the parts and pay 40 gold: Mux pays you with Mux's Quality Goods, a bag holding 8 Goblin Rocket Fuel, and Hunting for Ectoplasm hands you the Ectoplasmic Distiller. Each placement of the distiller uses one fuel, so carry spares.
+  level 59
+  collect 16006 quest 8921.1 @52.4,27.3 live  -- Delicate Arcanite Converter
+  collect 16203 quest 8921.2 @52.4,27.3 live  -- Greater Eternal Essence
+  collect 13423 quest 8921.3 @52.4,27.3 live  -- Stonescale Oil
+  turnin 8921
+  accept 8924
+
+step Scorched Ectoplasm
+  zone Silithus
+  tip The Tortured Druids and Sentinels haunt Southwind Village in Silithus (level 55-57, not elite; silithid can join when they die). Place the Ectoplasmic Distiller among the ghosts, pull them into its glow and kill them there, standing in it yourself: ectoplasm only drops from a ghost that dies inside the glow. It lasts a few minutes, then place it again.
+  level 59
+  collect 21937 quest 8924.1
+
+step Frozen Ectoplasm and the Fel Elemental Rod
+  zone Winterspring
+  tip The Suffering and Anguished Highborne drift around Lake Kel'Theril in Winterspring (level 54-56, not elite). Place the Ectoplasmic Distiller among the ghosts, pull them into its glow and kill them there, standing in it yourself: ectoplasm only drops from a ghost that dies inside the glow. It lasts a few minutes, then place it again. While you are in Winterspring, buy the Fel Elemental Rod (40 gold) from Vi'el, an imp in the cave at the mouth of Darkwhisper Gorge in the far south: keep to the right-hand wall to slip past the elite demons in the gorge. A Shifty Merchant asks for it later, and this saves the trip back.
+  level 59
+  collect 21936 quest 8924.2
+  buy 21939 npc 16015  -- Fel Elemental Rod
+
+step Stable Ectoplasm
+  zone Eastern Plaguelands
+  tip The ghosts and banshees of the Eastern Plaguelands (Unseen Servants, Eyeless Watchers, Death Singers, Hate Shriekers; level 55-59, not elite) drop it; Northdale in the north-east is a good spot. The shriekers fear: fight close to the distiller. Place the Ectoplasmic Distiller among the ghosts, pull them into its glow and kill them there, standing in it yourself: ectoplasm only drops from a ghost that dies inside the glow. It lasts a few minutes, then place it again.
+  level 59
+  collect 21935 quest 8924.3
+
+step Mux Manascrambler: Magma Lord Bokk
+  zone Tanaris
+  tip Bring the distiller back with the ectoplasm: it is handed in too.
+  level 59
+  turnin 8924
+  accept 8925
+
+step Magma Lord Bokk
+  zone Burning Steppes
+  tip Magma Lord Bokk (level 58-60, not elite) stands in a lava pool in the south-west of the Burning Steppes. His earth shock hits for about 600 and knocks you back; pull him away from the lava. Careful: elite dragonkin patrol nearby.
+  level 59
+  kill 16043
+  collect 21938 quest 8925.1
+
+step Mux Manascrambler: the Ghost Revealer
+  zone Tanaris
+  tip Mux takes the Magma Core, then asks for the Fel Elemental Rod you already have, and gives you the Extra-Dimensional Ghost Revealer. Keep the Revealer to the end: it is the only way to see Anthion and Bodley.
+  level 59
+  turnin 8925
+  accept 8928
+  turnin 8928
+  accept 8977 only Alliance
+  accept 8978 only Horde
+
+step Deliana: Just Compensation
+  only Alliance
+  zone Ironforge
+  tip Just Compensation takes your Wildheart Belt: a rare drop from the mobs of Scholomance, Blackrock Spire and Stratholme, or the auction house, and your Wildheart Gloves: a rare drop from the mobs of Stratholme and Blackrock Spire, or the auction house.
+  level 59
+  turnin 8977 npc 230319
+  accept 84163
+  collect 16716 quest 84163.1 @43.6,52.7  -- Wildheart Belt
+  collect 16717 quest 84163.2 @43.6,52.7  -- Wildheart Gloves
+  turnin 84163
+  accept 8929 npc 230319
+
+step Mokvar: Just Compensation
+  only Horde
+  zone Orgrimmar
+  tip Just Compensation takes your Wildheart Belt: a rare drop from the mobs of Scholomance, Blackrock Spire and Stratholme, or the auction house, and your Wildheart Gloves: a rare drop from the mobs of Stratholme and Blackrock Spire, or the auction house.
+  level 59
+  turnin 8978 npc 230317
+  accept 84171
+  collect 16716 quest 84171.1 @34.7,38.1 live  -- Wildheart Belt
+  collect 16717 quest 84171.2 @34.7,38.1 live  -- Wildheart Gloves
+  turnin 84171
+  accept 8930 npc 230317
+
+step Anthion Harmon
+  zone Eastern Plaguelands
+  tip Anthion's ghost waits on the bridge before Stratholme's main gate, at the north end of the Eastern Plaguelands. Use the Extra-Dimensional Ghost Revealer there to see him.
+  turnin 8929 only Alliance
+  turnin 8930 only Horde
+
+step Dead Man's Plea
+  when group 8945
+  zone Eastern Plaguelands
+  tip From here the chain is group content. Dead Man's Plea: save Anthion's wife Ysida from Baron Rivendare in Stratholme with a group of five.
+  level 59
+  accept 8945
+
+step Stratholme: the Baron in 45 minutes
+  when group 8945
+  zone Eastern Plaguelands
+  tip Go in by the service entrance (the undead side). The gate behind it starts a 45-minute clock: kill the three ziggurat bosses, Ramstein and the waves after him, and start the fight with Baron Rivendare before the clock runs out (you only need to pull him in time). Then Ysida stands free in his room: talk to her there. The Baron also drops the Wildheart Kilt you need later.
+  level 59
+  complete 8945 @26.5,10.4 live group 5  -- Ysida Freed
+  turnin 8945 @26.5,10.4 live  -- Ysida Harmon, in the Baron's room
+  accept 8946 @26.5,10.4 live  -- she gives you her locket
+
+step Lhara
+  when group 8945
+  only Alliance
+  when !turnedin 8947
+  when !has 12810 x20
+  zone Elwynn Forest
+  tip Anthion's Strange Request takes 20 Enchanted Leather. Enchanters make it and the auction house has it; Lhara sells it at the Darkmoon Faire, which stands in Elwynn Forest or Mulgore in turn: go to the one where it is now.
+  buy 12810 x20 npc 14846 @41.2,69.7 live  -- Enchanted Leather
+
+step Lhara
+  when group 8945
+  only Horde
+  when !turnedin 8947
+  when !has 12810 x20
+  zone Mulgore
+  tip Anthion's Strange Request takes 20 Enchanted Leather. Enchanters make it and the auction house has it; Lhara sells it at the Darkmoon Faire, which stands in Elwynn Forest or Mulgore in turn: go to the one where it is now.
+  buy 12810 x20 npc 14846 @37.4,44.9 live  -- Enchanted Leather
+
+step Anthion Harmon: Anthion's Strange Request
+  when group 8945
+  zone Eastern Plaguelands
+  tip Back at the bridge (Ghost Revealer again). His Strange Request is the cloth and leather on your shopping list: 3 Dark Iron Bars, 20 Enchanted Leather, 3 Mooncloth and 4 Cured Rugged Hides; Lhara at the Darkmoon Faire sells Enchanted Leather.
+  level 59
+  turnin 8946
+  accept 8947
+  collect 11371 quest 8947.1 @26.1,11.3 live  -- Dark Iron Bar
+  collect 12810 quest 8947.2 @26.1,11.3 live  -- Enchanted Leather
+  collect 14342 quest 8947.3 @26.1,11.3 live  -- Mooncloth
+  collect 15407 quest 8947.4 @26.1,11.3 live  -- Cured Rugged Hide
+  turnin 8947
+
+step Anthion's Old Friend
+  when group 8948
+  zone Eastern Plaguelands
+  tip Anthion sends his incomplete Banner of Provocation to Falrin Treeshaper in the Athenaeum of Dire Maul West, a dungeon for a group of five.
+  accept 8948
+
+step Falrin Treeshaper
+  when group 8948
+  zone Feralas
+  tip Dire Maul is in the High Wilderness of central Feralas. Falrin waits in the Athenaeum, the library at the far end of Dire Maul West: the West door needs the Crescent Key (Pusillin in Dire Maul East drops it) or a rogue's lockpicking. Falrin's Vendetta: 25 Ogre Warbeads from the Gordok ogres of Dire Maul North (a full run, not a tribute run, pays best; the Spirestone ogres of Lower Blackrock Spire drop them too, less often). They only drop while you have the quest.
+  turnin 8948 @59.2,45.1 live group 5  -- Falrin Treeshaper, in the Athenaeum
+
+step Falrin's Vendetta
+  when group 8949
+  zone Feralas
+  level 59
+  accept 8949 @59.2,45.1 live
+
+step Ogre Warbeads
+  when group 8949
+  zone Feralas
+  tip A Dire Maul North run with a group of five: kill every Gordok ogre on the way to King Gordok.
+  level 59
+  collect 21982 quest 8949.1 @59.2,45.1 live group 5
+  turnin 8949 @59.2,45.1 live  -- Falrin Treeshaper: choose your reward
+
+step The Instigator's Enchantment
+  when group 8950
+  zone Feralas
+  tip Falrin wants a Jeering Spectre's Essence (the Eldreth ghosts of Dire Maul West, best the Eldreth Seethers, and the invisible spectres around Immol'thar's prison), 4 Dark Runes (the necromancers and summoners of Scholomance, whose gate opens to a Skeleton Key: one in the group is enough; or the auction house) and 8 Large Brilliant Shards (enchanters, or the auction house).
+  level 59
+  accept 8950 @59.2,45.1 live
+  collect 22224 quest 8950.1 @59.2,45.1 live group 5  -- Jeering Spectre's Essence
+  collect 20520 quest 8950.2 @59.2,45.1 live  -- Dark Rune
+  collect 14344 quest 8950.3 @59.2,45.1 live  -- Large Brilliant Shard
+  turnin 8950 @59.2,45.1 live
+
+step The Challenge
+  when group 9015
+  zone Feralas
+  tip Falrin finishes the Banner of Provocation: plant it in the Ring of Law in Blackrock Depths.
+  level 59
+  accept 9015 @59.2,45.1 live
+
+step Blackrock Depths: the Ring of Law
+  when group 9015
+  zone Searing Gorge
+  tip Blackrock Depths is the dungeon inside Blackrock Mountain, between the Searing Gorge and the Burning Steppes; a group of five. Walk into the Ring of Law so High Justice Grimstone sentences you, and while he reads the sentence plant the Banner of Provocation in the middle of the ring. After the first wave, Theldren and his gladiators come instead of the usual boss: five elites who fight like players (crowd control, dispels, no taunts). Kill them all; Theldren drops the Top Piece of Lord Valthalak's Amulet.
+  level 59
+  use 21986 @34.8,85.3 live group 5  -- Banner of Provocation, in the ring
+  kill 16059 quest 9015.1 @34.8,85.3 live group 5  -- Theldren
+  collect 22047 quest 9015.2 @34.8,85.3 live  -- Top Piece of Lord Valthalak's Amulet
+
+step Anthion Harmon: Anthion's Parting Words
+  when group 9015
+  zone Eastern Plaguelands
+  tip Back to Anthion at Stratholme's gate (Ghost Revealer). Anthion's Parting Words takes your Wildheart Boots: Mother Smolderweb in Lower Blackrock Spire (about 16%), your Wildheart Kilt: Baron Rivendare in Stratholme (about 10%), and your Wildheart Spaulders: Gizrul the Slavener in Lower Blackrock Spire (about 18%).
+  level 59
+  turnin 9015
+  accept 84179 only Alliance
+  accept 84187 only Horde
+
+step Deliana: Bodley's Unfortunate Fate
+  when group 9015
+  only Alliance
+  zone Ironforge
+  level 60
+  collect 16715 quest 84179.1 @43.6,52.7  -- Wildheart Boots
+  collect 16719 quest 84179.2 @43.6,52.7  -- Wildheart Kilt
+  collect 16718 quest 84179.3 @43.6,52.7  -- Wildheart Spaulders
+  turnin 84179
+  accept 8960 npc 230319
+
+step Mokvar: Bodley's Unfortunate Fate
+  when group 9015
+  only Horde
+  zone Orgrimmar
+  level 60
+  collect 16715 quest 84187.1 @34.7,38.1 live  -- Wildheart Boots
+  collect 16719 quest 84187.2 @34.7,38.1 live  -- Wildheart Kilt
+  collect 16718 quest 84187.3 @34.7,38.1 live  -- Wildheart Spaulders
+  turnin 84187
+  accept 9032
+
+step Bodley
+  when group 9015
+  zone Burning Steppes
+  tip Bodley's ghost stands on the ledge before the Blackrock Spire portal, high inside Blackrock Mountain: use the Ghost Revealer there. Three Kings of Flame wants the Incendicite of Incendius (Lord Incendius in Blackrock Depths), the Ember of Emberseer (Pyroguard Emberseer in Upper Blackrock Spire), the Cinder of Cynders (the Duke of Cynders in Silithus) and a Hallowed Brazier from the Argent Dawn.
+  turnin 8960 only Alliance
+  turnin 9032 only Horde
+
+step Three Kings of Flame
+  when group 8961
+  zone Burning Steppes
+  level 59
+  accept 8961
+
+step Honored with the Argent Dawn
+  when onquest 8961
+  when !rep "Argent Dawn" Honored
+  zone Eastern Plaguelands
+  tip The Hallowed Brazier is sold only to Honored. Take the Argent Dawn Commission (Argent Officer Pureheart at Chillwind Camp, Argent Officer Garush at the Bulwark, or Duke Nicholas Zverenhoff at Light's Hope Chapel) and wear it: Scourgestones then drop from the Scourge, and the Argent officers take them back for reputation. Every Scourge kill in the Plaguelands counts, Stratholme's and Scholomance's undead give 5 each up to Honored, and Light's Hope Chapel's dungeon quests give 100-200 each. Polestar's Argent Dawn Reputation guide (Reputation) walks it step by step.
+  rep 529 Honored
+
+step Hallowed Brazier
+  when onquest 8961
+  zone Eastern Plaguelands
+  tip The Argent Dawn quartermasters (Light's Hope Chapel, Chillwind Camp, the Bulwark) sell it: 133 gold 33 silver, less with your reputation discount.
+  buy 22014 nearest
+
+step Blackrock Depths and Upper Blackrock Spire
+  when group 8961
+  zone Searing Gorge
+  tip Lord Incendius guards the Black Anvil in Blackrock Depths (a group of five). Pyroguard Emberseer is the first boss of Upper Blackrock Spire, a group of up to ten. Each player with the quest loots their own.
+  level 59
+  kill 9017 @34.8,85.3 live group 5  -- Lord Incendius, Blackrock Depths
+  collect 21987 quest 8961.1 @34.8,85.3 live
+  kill 9816 @34.8,85.3 live group 10  -- Pyroguard Emberseer, Upper Blackrock Spire
+  collect 21988 quest 8961.2 @34.8,85.3 live
+
+step The Duke of Cynders
+  when group 8961
+  zone Silithus
+  tip The Duke (level 62 elite, bring a group of five) only comes when someone summons him at one of the Twilight's Greater Wind Stones in Silithus: the summoner wears the full Twilight Cultist set (Cowl, Mantle and Robe, from the Twilight cultists of the Silithus camps), carries a Twilight Cultist Medallion of Station (Aurel Goldleaf at Cenarion Hold: three Abyssal Crests from summoned Templars and a Large Brilliant Shard) and a Signet of Beckoning: Fire, which calls the Duke of Cynders rather than a random Duke. Joining someone else's summon is the quick way: every player with the quest loots their own Cinder.
+  level 60
+  kill 15206 group 5  -- The Duke of Cynders
+  collect 21989 quest 8961.3
+
+step Bodley: Components of Importance
+  when group 8961
+  zone Burning Steppes
+  tip Bodley's next task depends on your class: the piece the summoning brazier needs.
+  level 59
+  collect 22014 quest 8961.4 @32.2,25.8  -- Hallowed Brazier
+  turnin 8961
+
+step Components of Importance
+  when group 8963
+  zone Burning Steppes
+  level 59
+  accept 8963
+
+step Components of Importance: Starbreeze Village Relic
+  when group 8963
+  zone Winterspring
+  tip At the Frostmaul giants' gorge in southern Winterspring, south of Everlook, Frostmaul Giants and Frostmaul Preservers (level 59-60 elites) drop the Starbreeze Village Relic (a rare drop: it can take dozens of kills). They are elites: bring a friend or two unless your gear is good. It drops only while you have the quest; everyone in the group with it can loot one.
+  level 59
+  collect 22227 quest 8963.1 group 3  -- Starbreeze Village Relic
+
+step Bodley: The Left Piece of Lord Valthalak's Amulet
+  when group 8963
+  zone Burning Steppes
+  turnin 8963
+
+step The Left Piece of Lord Valthalak's Amulet
+  when group 8967
+  zone Burning Steppes
+  tip Bodley gives you a Brazier of Beckoning.
+  level 59
+  accept 8967
+
+step The Left Piece of Lord Valthalak's Amulet: Isalien
+  when group 8967
+  zone Feralas
+  tip A dungeon run for a group of five. Bodley's Brazier of Beckoning calls Isalien to the shrine by Alzzin the Wildshaper at the end of Dire Maul East: clear the area first. Use the brazier there, kill Isalien and loot the piece. She is an elite priestess spirit with a hippogryph at her side and strong heals: interrupt her or drain her mana. Keep the brazier: Bodley wants it back with the piece.
+  level 59
+  use 22050 @59.2,45.1 live group 5  -- Brazier of Beckoning: summons Isalien
+  kill 16097 quest 8967.1 @59.2,45.1 live group 5  -- Isalien
+  collect 21984 quest 8967.2 @59.2,45.1 live  -- Left Piece of Lord Valthalak's Amulet
+
+step Bodley: I See Alcaz Island In Your Future...
+  when group 8967
+  zone Burning Steppes
+  turnin 8967
+
+step I See Alcaz Island In Your Future...
+  when group 8970
+  zone Burning Steppes
+  level 59
+  accept 8970
+
+step Bloodkelp
+  when group 8970
+  zone Dustwallow Marsh
+  tip The Strashaz naga of Alcaz Island, off the north-east coast of Dustwallow Marsh, carry it (level 59-61 elites, and Tidelord Rrurgaz at 62): bring a friend or two. The Baskets of Bloodkelp on the island give 1 to 3 each without a fight. Swim over from the coast north of Theramore; elite hydras roam the water.
+  level 59
+  collect 22094 quest 8970.1 group 3
+
+step Bodley: More Components of Importance
+  when group 8970
+  zone Burning Steppes
+  turnin 8970
+
+step More Components of Importance
+  when group 8986
+  zone Burning Steppes
+  level 59
+  accept 8986
+
+step More Components of Importance: Druidical Remains
+  when group 8986
+  zone Silithus
+  tip At Hive'Regal, the silithid hive in south-eastern Silithus, the Hive'Regal silithid (level 59-61 elites) drop the Druidical Remains (players report anything from 5 to 50 kills). They are elites: bring a friend or two unless your gear is good. It drops only while you have the quest; everyone in the group with it can loot one.
+  level 59
+  collect 22226 quest 8986.1 group 3  -- Druidical Remains
+
+step Bodley: The Right Piece of Lord Valthalak's Amulet
+  when group 8986
+  zone Burning Steppes
+  turnin 8986
+
+step The Right Piece of Lord Valthalak's Amulet
+  when group 8989
+  zone Burning Steppes
+  level 59
+  accept 8989
+
+step The Right Piece of Lord Valthalak's Amulet: Mor Grayhoof
+  when group 8989
+  when group 8970
+  zone Searing Gorge
+  tip A dungeon run for a group of five. Bodley's Brazier of Beckoning calls Mor Grayhoof to War Master Voone's room in Lower Blackrock Spire, in Blackrock Mountain: clear the room and Voone first. Use the brazier there, kill Mor Grayhoof and loot the piece. He is an elite druid spirit: interrupt his heals and step out of his storm. Keep the brazier: Bodley wants it back with the piece. Then use the Left Piece of Lord Valthalak's Amulet (Bodley gave it back to you) to join the pieces into Lord Valthalak's Amulet.
+  level 59
+  use 22049 @34.8,85.3 live group 5  -- Brazier of Beckoning: summons Mor Grayhoof
+  kill 16080 quest 8989.1 @34.8,85.3 live group 5  -- Mor Grayhoof
+  collect 22046 @34.8,85.3 live group 5  -- Right Piece of Lord Valthalak's Amulet
+  use 21984 quest 8989.2 @34.8,85.3 live  -- Left Piece of Lord Valthalak's Amulet: joins the pieces
+  collect 22048 quest 8989.2 @34.8,85.3 live  -- Lord Valthalak's Amulet
+
+step Bodley: Final Preparations
+  when group 8989
+  zone Burning Steppes
+  turnin 8989
+
+step Final Preparations
+  when group 8994
+  zone Burning Steppes
+  tip 40 Blackrock Bracers from the Blackrock orcs of Blackrock Spire (the Scarshield Grunts in the mountain's halls outside the portal, level 53-54 elites, drop them most often; Upper Blackrock Spire's orcs better than Lower's), only while you have the quest, and a Flask of Supreme Power (alchemists make it at an alchemy lab; or the auction house).
+  level 59
+  accept 8994
+  collect 22138 quest 8994.1 group 3
+  collect 13512 quest 8994.2 @32.2,25.8  -- Flask of Supreme Power
+  turnin 8994
+
+step Mea Culpa, Lord Valthalak
+  when group 8995
+  zone Burning Steppes
+  level 59
+  accept 8995
+
+step Upper Blackrock Spire: Lord Valthalak
+  when group 8995
+  when group 8994
+  zone Searing Gorge
+  tip A raid of up to ten in Upper Blackrock Spire. Clear to The Beast's room and kill The Beast, then use the Brazier of Beckoning there to call Lord Valthalak (level 63 boss). Kill his shades quickly; in his last phase he hits the whole room hard. Use Lord Valthalak's Amulet on his corpse: his spirit appears. Give him the amulet, then take Return to Bodley from him.
+  level 60
+  use 22056 @34.8,85.3 live group 10  -- Brazier of Beckoning, in The Beast's room
+  kill 16042 quest 8995.1 @34.8,85.3 live group 10  -- Lord Valthalak
+  use 22048 @34.8,85.3 live  -- Lord Valthalak's Amulet, on his corpse
+  turnin 8995 @34.8,85.3 live  -- Spirit of Lord Valthalak
+  accept 8996 @34.8,85.3 live
+
+step Bodley: Back to the Beginning
+  when group 8995
+  zone Burning Steppes
+  tip Hand Bodley the Brazier of Beckoning.
+  turnin 8996
+  accept 8997 only Alliance
+  accept 8998 only Horde
+
+step Deliana: Saving the Best for Last
+  when group 8995
+  only Alliance
+  zone Ironforge
+  tip Saving the Best for Last takes your Wildheart Cowl: Darkmaster Gandling in Scholomance (about 11%), and your Wildheart Vest: General Drakkisath in Upper Blackrock Spire (about 12%).
+  level 60
+  turnin 8997 npc 230319
+  accept 84195
+  collect 16720 quest 84195.1 @43.6,52.7  -- Wildheart Cowl
+  collect 16706 quest 84195.2 @43.6,52.7  -- Wildheart Vest
+  turnin 84195
+
+step Mokvar: Saving the Best for Last
+  when group 8995
+  only Horde
+  zone Orgrimmar
+  tip Saving the Best for Last takes your Wildheart Cowl: Darkmaster Gandling in Scholomance (about 11%), and your Wildheart Vest: General Drakkisath in Upper Blackrock Spire (about 12%).
+  level 60
+  turnin 8998 npc 230317
+  accept 84203
+  collect 16720 quest 84203.1 @34.7,38.1 live  -- Wildheart Cowl
+  collect 16706 quest 84203.2 @34.7,38.1 live  -- Wildheart Vest
+  turnin 84203

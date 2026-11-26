@@ -806,6 +806,7 @@ fn build_from(opts: &Options, inputs: &Inputs, t0: Instant, log: &dyn Fn(&str)) 
 			spells: &V::Obj(m.spells.clone()),
 			meta: &meta_v,
 			frames: &V::Obj(m.frames.clone()),
+			professions: &V::Obj(m.professions.clone()),
 		},
 		&version,
 		&meta.get("build"),
@@ -827,7 +828,7 @@ fn build_from(opts: &Options, inputs: &Inputs, t0: Instant, log: &dyn Fn(&str)) 
 	p.set("loadMs", mem.as_ref().map(|m| V::Num(opts.load_ms.unwrap_or(m.load_ms))).unwrap_or(V::Null));
 	meta.set("pack", V::Obj(p));
 
-	let outs: [(&str, V); 11] = [
+	let outs: [(&str, V); 12] = [
 		("meta", meta_v.clone()),
 		("items", jc.items.clone()),
 		("npcs", jc.npcs.clone()),
@@ -839,6 +840,7 @@ fn build_from(opts: &Options, inputs: &Inputs, t0: Instant, log: &dyn Fn(&str)) 
 		("spells", V::Obj(m.spells.clone())),
 		("frames", V::Obj(m.frames.clone())),
 		("journal", journal.clone()),
+		("professions", V::Obj(m.professions.clone())),
 	];
 	let json: Vec<(String, String)> = outs.iter().map(|(n, v)| (format!("{n}.json"), format!("{}\n", stringify(&sort_keys_deep(v), Some("\t"))))).collect();
 

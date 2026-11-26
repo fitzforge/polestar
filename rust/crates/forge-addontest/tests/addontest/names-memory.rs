@@ -2,8 +2,8 @@
 //! under Lua 5.1 as the client counts it (collectgarbage("count")), on a client of that language with
 //! Polestar.Names reading it (addon/Polestar/Core/Names.lua: the names stay LuaChunks text, cut out when
 //! asked). deDE and ruRU (the largest pack); the folder's Subzones.lua (the walking maps' subzone names,
-//! #2244) alike. Each figure fails the test when it grows past its budget: lower a budget when a change
-//! lowers the figure, never raise one to make a change pass.
+//! #2244) alike. Each figure fails the test when it grows past its budget: the figure measured at the
+//! release's code freeze plus 3 %, moved only then (docs/CI.md, "Memory budgets").
 //!
 //!   resident      after loading the file and two full collects
 //!   peak          the heap grown while loading it, with the collector stopped
@@ -14,17 +14,19 @@ use forge_addontest::{emitted, Addon, RunAddon};
 /// KiB (Lua 5.1, 64-bit), measured here on the committed packs on 2026-10-24 (deDE 34,534 names, ruRU 38,223):
 /// deDE resident 1,022, peak 1,041; ruRU resident 1,789, peak 1,818. The packs of Names.Add tables cost deDE
 /// 3,199 resident and 9,385 at the peak, ruRU 4,364 and 10,867 (namesequal.lua, lua5.1).
-/// 0.4.0 (2026-11-15): more zones and the web quest database's names back (deDE 36,562 names, ruRU 40,269):
-/// deDE resident 1,097, peak 1,127; ruRU resident 1,911, peak 1,941. Size budgets may grow for 0.4.0 (Fitz): the
-/// budgets are those figures and about 1 %.
-const BUDGET: [(&str, f64, f64); 2] = [("deDE", 1108.0, 1138.0), ("ruRU", 1930.0, 1960.0)];
+/// 0.4.0 (2026-11-15): more zones and the web quest database's names back (deDE 36,562 names, ruRU 40,269).
+/// Measured on next f5bd74406e (2026-11-26, #4143; three runs reading the same): deDE resident 1,098, peak 1,128;
+/// ruRU resident 1,913, peak 1,943. Each budget is that figure plus 3 % (docs/CI.md, "Memory budgets").
+const BUDGET: [(&str, f64, f64); 2] = [("deDE", 1131.0, 1162.0), ("ruRU", 1971.0, 2002.0)];
 
 /// KiB, as BUDGET, measured here on the committed Subzones.lua on 2026-11-14 (built at 1.60.1.70888; deDE 2,665
-/// areas, ruRU 3,073): deDE resident 65, peak 69; ruRU resident 109, peak 113. The budgets are those and about 5 %.
+/// areas, ruRU 3,073): deDE resident 65, peak 69; ruRU resident 109, peak 113. The budgets are those and about 5 %;
+/// 2026-11-26 (#4143) read deDE 64 / 68, ruRU 107 / 112, within 3 to 10 % of them, so they stay (docs/CI.md,
+/// "Memory budgets").
 const SUBZONE_BUDGET: [(&str, f64, f64); 2] = [("deDE", 68.0, 73.0), ("ruRU", 115.0, 119.0)];
 /// KiB a German client holds at login for its folder's Subzones.lua (the whole addon at login with the folder
 /// and without that file), measured here on 2026-11-14: 15,946 with it, 15,881 without, +66; the budget is that
-/// and about 5 %.
+/// and about 5 % (+64 on 2026-11-26, #4143: it stays).
 const SUBZONE_LOGIN: f64 = 70.0;
 
 /// Loads the committed `file` of locale's language folder on a client of that language, as its TOC does, and

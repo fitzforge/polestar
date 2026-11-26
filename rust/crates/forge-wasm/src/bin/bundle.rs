@@ -100,7 +100,7 @@ fn run() -> Result<(), String> {
 		let manifest_text = read("pack.json").ok_or_else(|| format!("{}: no pack.json", dir.display()))?;
 		let manifest = forge_guide::js::parse_json(&manifest_text).map_err(|e| format!("{}/pack.json: {e}", dir.display()))?;
 		let project = forge_guide::project::compile_project(dir, &manifest, &data, forge_guide::diag::Diagnostics::new(), false, None);
-		let tr = forge_guide::i18n_guides::pack_translations(dir, &manifest, &project.guides)?;
+		let tr = forge_guide::i18n_guides::pack_translations(&root, dir, &manifest, &project.guides)?;
 		let doc = serde_json::json!({
 			"files": files,
 			"pack": {

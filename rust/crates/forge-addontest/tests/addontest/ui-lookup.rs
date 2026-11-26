@@ -611,9 +611,9 @@ fn lookup_turned_off_in_options_guides_only_the_section_says_where_to_turn_it_on
 		Polestar.Lookup.Show(nil, "mount", 8631)
 		emit({ idle = idle, none = none, loads = loads })"#);
 	assert_eq!(out["idle"]["title"], "Lookup is turned off");
-	assert!(is_match(text(&out["idle"]["note"]), r"Options > Discovery > Lookup"));
+	assert!(is_match(text(&out["idle"]["note"]), r"Settings > Discovery > Lookup"));
 	assert_eq!(out["idle"]["codex"], "Lookup is off: searching guides only");
-	assert!(is_match(text(&out["none"]), r"Nothing matches .saber.\. Lookup is turned off in Options > Discovery > Lookup"));
+	assert!(is_match(text(&out["none"]), r"Nothing matches .saber.\. Lookup is turned off in Settings > Discovery > Lookup"));
 	assert_eq!(out["loads"], 0);
 }
 
@@ -685,6 +685,64 @@ fn a_quest_in_a_chain_shows_its_step_each_quest_s_state_and_its_branches_and_a_r
 	assert_eq!(f["clickHere"], false, "the quest's own row opens nothing");
 	assert_eq!(out["sel"], json!({ "kind": "quest", "id": 4970 }), "a row opens that quest's page");
 	assert_eq!(out["after"], false, "a quest standing alone has no chain");
+}
+
+// #3370 (Zack: a level 57 went to Pix Xizzix for In Demand, which the game offers from level 60): a quest's page says
+// which level it requires, in the warning colour, while the character is below it; its level alone read as a quest
+// to take. At that level the line goes.
+#[test]
+fn a_quest_s_page_says_the_level_it_requires_in_the_warning_colour_while_the_character_is_below_it_3370() {
+	let out = run(r#"
+		lookupstub.entity["quest:4970"] = { id = 4970, title = "Frostsaber Provisions", level = 60, minLevel = 60, faction = "A" }
+		uistub.player.level = 57
+		Polestar.Lookup.Show(nil, "quest", 4970)
+		local below = LK.detail.facts
+		local r, g, b = LK.details.Facts[2].Value:GetTextColor()
+		local wr, wg, wb = Polestar.Theme.Color("warning")
+		local warning = r == wr and g == wg and b == wb
+		LK.Select(nil)
+		uistub.player.level = 60
+		Polestar.Lookup.Show(nil, "quest", 4970)
+		emit({ below = below, warning = warning, at = LK.detail.facts })"#);
+	assert_eq!(out["below"], json!([["Level", "60"], ["Requires", "Level 60"], ["Faction", "Alliance"], ["Places", "None known"]]));
+	assert_eq!(out["warning"], true, "the requirement in the warning colour");
+	assert_eq!(out["at"], json!([["Level", "60"], ["Faction", "Alliance"], ["Places", "None known"]]), "at level 60: no line");
+}
+
+// The Nightmare Incursion missions: quests our data keeps that no recording or report has shown on Forever yet. The
+// Codex packs the data's `unseen` as `n`, and the quest's page says "Not seen on Forever yet" in the warning colour,
+// through the real Codex runtime; a quest without the flag has no such line.
+#[test]
+fn a_quest_no_recording_has_shown_says_not_seen_on_forever_yet_on_its_page() {
+	let mut codex = sample_codex();
+	codex["quests"]["176"]["unseen"] = json!(true);
+	let pack = write_codex_pack(&codex, &CodexOpts { ..Default::default() });
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		before: pack.stub_lua.clone(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Lookup/Lookup.xml", "UI/UI.xml"])],
+		script: r#"uistub.install()
+stub.login()
+local LK = Polestar.UI.Lookup
+local function status()
+	for i, f in ipairs(LK.detail.facts) do if f[1] == "Status" then return f[2], i end end
+end
+Polestar.Lookup.Show(nil, "quest", 176)
+local line, i = status()
+local r, g, b = LK.details.Facts[i or 1].Value:GetTextColor()
+local wr, wg, wb = Polestar.Theme.Color("warning")
+local unseen = { line = line or false, warning = r == wr and g == wg and b == wb, flag = Polestar.Codex.Quest(176).unseen or false }
+LK.Select(nil)
+Polestar.Lookup.Show(nil, "quest", 33)
+emit({ unseen = unseen, seen = status() or false, flag = Polestar.Codex.Quest(33).unseen or false })"#
+			.into(),
+		..Default::default()
+	});
+	let out = &out[0];
+	assert_eq!(out["unseen"], json!({ "line": "Not seen on Forever yet", "warning": true, "flag": true }), "{out}");
+	assert_eq!(out["seen"], false, "a quest without the flag has no Status line");
+	assert_eq!(out["flag"], false);
+	drop(pack);
 }
 
 #[test]

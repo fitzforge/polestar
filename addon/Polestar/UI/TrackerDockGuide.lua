@@ -10,16 +10,21 @@ function Skin.AttachPolestar(holder, openTab, closeTab)
 	if not (gf and gf.frame) or gf.dock then return nil end
 	local frame = gf.frame
 	local pane = CreateFrame("ScrollFrame", "PolestarTrackerDockPane", holder)
-	pane:SetAllPoints(holder)
+	pane:SetPoint("TOPLEFT", holder, "TOPLEFT")
+	pane:SetPoint("BOTTOMRIGHT", holder, "BOTTOMRIGHT")
 	pane:Hide()
-	frame:SetParent(pane)
-	pane:SetScrollChild(frame)
+	-- Scroll children start at the viewport origin. A canvas lets the guide
+	-- keep its inset while the native tabs extend into the extra clip room.
+	local content = CreateFrame("Frame", nil, pane)
+	content:SetSize(1, 1)
+	pane:SetScrollChild(content)
+	frame:SetParent(content)
 	frame:SetClampedToScreen(false)
 	frame:SetMovable(false)
 	frame:SetFrameStrata(holder:GetFrameStrata())
 	frame:SetFrameLevel(holder:GetFrameLevel() + 1)
 
-	local adapter = {frame = frame, pane = pane, holder = holder, overflow = 0}
+	local adapter = {frame = frame, pane = pane, content = content, holder = holder, overflow = 0}
 	local toast = ns.UI.ClassToast
 	local strataOrder = { BACKGROUND = 1, LOW = 2, MEDIUM = 3, HIGH = 4, DIALOG = 5,
 		FULLSCREEN = 6, FULLSCREEN_DIALOG = 7, TOOLTIP = 8 }
@@ -57,21 +62,36 @@ function Skin.AttachPolestar(holder, openTab, closeTab)
 		if InCombatLockdown() then return end
 		local scale = math.max(1, holder:GetWidth()) / math.max(1, frame:GetWidth())
 		frame:SetScale(scale)
+		-- Side tabs belong to the guide, not the quest tracker's width. Widen
+		-- only the clipping viewport to the left; the guide stays host-width.
+		-- Edge tabs take room above/below the guide inside the height limit.
+		local left, edge = gf.TabsOutside()
+		local top, bottom = gf.BarsBottom() and 0 or edge, gf.BarsBottom() and edge or 0
+		self.tabTop, self.tabBottom = top * scale, bottom * scale
+		pane:ClearAllPoints()
+		pane:SetPoint("TOPLEFT", holder, "TOPLEFT", -left * scale, 0)
+		pane:SetPoint("BOTTOMRIGHT", holder, "BOTTOMRIGHT")
+		content:SetWidth(holder:GetWidth() + left * scale)
 		frame:ClearAllPoints()
-		frame:SetPoint("TOPLEFT", pane, "TOPLEFT")
+		frame:SetPoint("TOPLEFT", content, "TOPLEFT", left, -top)
 	end
 	function adapter:Layout(tracker, custom)
 		if InCombatLockdown() then return end
 		self.available = Skin.DockAvailableHeight(holder, tracker, custom)
 		self:Place()
 		gf.Layout()
-		local natural = frame:GetHeight() * frame:GetScale()
+		self:Place()
+		local natural = frame:GetHeight() * frame:GetScale() + self.tabTop + self.tabBottom
+		local styles = gf.TabStyleFrames()
+		local side = styles and styles.side
+		if side and side:IsShown() then natural = math.max(natural, side:GetHeight() * frame:GetScale()) end
+		content:SetHeight(natural)
 		local height = self.available and math.min(natural, self.available) or natural
 		-- Polestar scrolls its goals. The outer pane handles optional sections
 		-- when they alone exceed the available height.
 		self.overflow = math.max(0, natural - height)
 		pane:EnableMouseWheel(self.overflow > 0.5)
-		if self.overflow <= 0.5 then pane:SetVerticalScroll(0) end
+		pane:SetVerticalScroll(math.min(pane:GetVerticalScroll() or 0, self.overflow))
 		holder:SetHeight(height)
 		Skin.UpdateForeverColumn()
 		RaiseReminder()

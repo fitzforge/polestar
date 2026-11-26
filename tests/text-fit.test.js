@@ -25,7 +25,7 @@ const { resolve, wrap } = require('../tools/preview/render');
 const { LOCALES } = require('../tools/lib/i18n/locales');
 
 const SLACK = 1.15;
-const WINDOWS = new Set(['PolestarGuideFrame', 'PolestarOptions', 'PolestarPicker', 'PolestarWelcome', 'PolestarWhatsNew', 'PolestarRouteChoice', 'PolestarMenu', 'PolestarRareToast', 'PolestarAlert', 'PolestarReport', 'PolestarCopy']);
+const WINDOWS = new Set(['PolestarGuideFrame', 'PolestarOptions', 'PolestarPicker', 'PolestarWelcome', 'PolestarWhatsNew', 'PolestarRouteChoice', 'PolestarMenu', 'PolestarRareToast', 'PolestarAlert', 'PolestarReport', 'PolestarCopy', 'PolestarTetrisFrame']);
 
 // The preview's fonts, every advance SLACK times wider.
 const fonts = fontsFor(SLACK);
@@ -48,13 +48,24 @@ function auditPanels(label, panels) {
 
 const windowed = P.SCENES.filter((s) => s.panels.every((p) => p.roots.every((r) => WINDOWS.has(r))));
 
-test('the audit covers the hub, Options, the guide window and the welcome', () => {
+test('the audit covers the hub, Options, the guide window, the welcome and Tetris', () => {
 	const roots = new Set(windowed.flatMap((s) => s.panels.flatMap((p) => p.roots)));
-	for (const r of ['PolestarGuideFrame', 'PolestarOptions', 'PolestarPicker', 'PolestarWelcome']) assert.ok(roots.has(r), r);
+	for (const r of ['PolestarGuideFrame', 'PolestarOptions', 'PolestarPicker', 'PolestarWelcome', 'PolestarTetrisFrame']) assert.ok(roots.has(r), r);
+	assert.equal(P.SCENES.find((s) => s.file === 'tetris.svg').panels.length, 3, 'active, paused and game over');
 	const scripts = windowed.flatMap((s) => s.panels.map((p) => p.script)).join('\n');
 	for (const section of ['Polestar.Lookup.Show', 'Polestar.Dungeons.Open', 'Polestar.Rares.Show', 'Polestar.UI.ShowPicker', '"guidepacks"']) {
 		assert.ok(scripts.includes(section), section);
 	}
+});
+
+test('the Tetris preview shows active, paused and game-over states', () => {
+	const scene = P.SCENES.find((s) => s.file === 'tetris.svg');
+	const labels = scene.panels.map((panel) => P.dumpPanel(panel, prelude).objects
+		.filter((o) => o.kind === 'FontString' && o.shown)
+		.map((o) => o.text));
+	assert.ok(!labels[0].some((s) => s.includes('Paused') || s.includes('Game over')));
+	assert.ok(labels[1].includes('Paused — press P or Start'));
+	assert.ok(labels[2].includes('Game over — New game'));
 });
 
 for (const scene of windowed) {
@@ -92,7 +103,7 @@ test("text fits: What's new in every language, each note's line on two lines at 
 	} finally {
 		P.cleanupPacks();
 	}
-	assert.equal(notes, 10 * 3 * (1 + Object.keys(LOCALES).length), 'ten notes, in every language and font');
+	assert.equal(notes, 8 * 3 * (1 + Object.keys(LOCALES).length), 'eight notes, in every language and font');
 	assert.deepEqual(found, [], `What's new does not fit:\n${found.join('\n')}`);
 });
 

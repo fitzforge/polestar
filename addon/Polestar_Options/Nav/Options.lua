@@ -1,13 +1,13 @@
 -- The Nav modules' rows (docs/ARCHITECTURE.md, "Options registry"), in the
 -- modules' order (Nav/Nav.xml): Journey, Nearby, Alerts, Handoff.
 -- Guide > Arrow & routes (Routes, Along the route, Getting around), their
--- doubles on Quality of Life > Travel > Hearth and travel, and Integrations
+-- references on Quality of Life > Travel > Hearth and travel, and Integrations
 -- (TomTom, Shortest Path Forever). The travel button (Prompts) sits beside
 -- the action set's Hearthstone, on the Buttons page, Questing > Buttons and
 -- Hearth and travel (QoL/Options.lua). Part of
 -- the settings' addon: none of it is in memory before the settings open.
--- One setting may show on two pages: a fresh control per page (the registry
--- keeps per-control state).
+-- One setting has one home row; another page shows a reference to it
+-- (UI.Options.Ref).
 
 local ns = Polestar
 local Nav = ns.Nav
@@ -18,6 +18,7 @@ local L = ns.L
 if not (Nav and Nav.HandoffOption and ns.RegisterOptions) then return end
 
 local H = Nav.HandoffOption
+local Ref = ns.Widgets.Ref
 
 local function register(spec)
 	local ok, err = ns.RegisterOptions(spec)
@@ -30,7 +31,7 @@ if Nav.journey then
 	register({
 		page = L["Guide"], tab = L["Arrow & routes"], section = L["Routes"],
 		controls = {
-			H({ kind = "dropdown", key = "nav.routeStyle", label = L["Route style"],
+			H({ kind = "dropdown", key = "nav.routeStyle", label = L["Which way to walk"],
 				help = L["Fastest: the shortest walk, over hills and across fields. Balanced: roads that aren't much longer, and round hills. Roads: stays on roads even when they're longer; the safest way, not the quickest."],
 				choices = { { value = "fastest", label = L["Fastest"] }, { value = "balanced", label = L["Balanced"] }, { value = "roads", label = L["Roads"] } } }),
 		},
@@ -53,9 +54,20 @@ if Nav.journey then
 		},
 	})
 end
+-- The waypoint mirror and its arrow, with the other waypoint addon's other
+-- settings (they were on Guide > Arrow & routes > Other waypoints).
+register({
+	page = L["Integrations"], section = "TomTom",
+	controls = {
+		H({ kind = "toggle", key = "nav.tomtom", label = L["Mirror to TomTom"], help = L["Adds the target as a TomTom waypoint when TomTom is loaded."], search = "waypoints, tomtom",
+			children = {
+				H({ kind = "toggle", key = "nav.useTomTomArrow", label = L["Use TomTom's arrow"], help = L["Hides Polestar's arrow in favour of TomTom's, except on the way to another continent, where TomTom's arrow cannot point."] }),
+			} }),
+	},
+})
 
--- Nearby (Nav/Nearby.lua): Guide > Arrow & routes > Getting around, and
--- Quality of Life > Travel > Hearth and travel.
+-- Nearby (Nav/Nearby.lua): Guide > Arrow & routes > Getting around, and a
+-- reference on Quality of Life > Travel > Hearth and travel.
 if Nav.nearby then
 	local function controls()
 		return {
@@ -68,35 +80,25 @@ if Nav.nearby then
 		}
 	end
 	register({ page = L["Guide"], tab = L["Arrow & routes"], section = L["Getting around"], controls = controls() })
-	register({ page = L["Quality of Life"], tab = L["Travel"], section = L["Hearth and travel"], controls = controls() })
+	register({ page = L["Quality of Life"], tab = L["Travel"], section = L["Hearth and travel"],
+		controls = { Ref("toggle", "nav.nearbyMenu"), Ref("toggle", "nav.nearbyButton") } })
 end
 
--- Alerts (Nav/Alerts.lua): Guide > Arrow & routes > Along the route; the
--- alerts' switch also on Quality of Life > Travel > Hearth and travel.
+-- Alerts (Nav/Alerts.lua): their home is Alerts > Transport alert
+-- (UI/Looks/Toasts.lua); Guide > Arrow & routes > Along the route shows a
+-- reference to the switch, and the sample.
 local Alerts = Nav.alerts
 if Alerts then
 	local function off() return not ns.Get("nav.alerts") end
-	local function alerts()
-		return H({ kind = "toggle", key = "nav.alerts", label = L["Transport alerts"],
-			search = "boat, ship, zeppelin, tram, transport, departure, arrival, warning",
-			help = L["Before your boat, zeppelin or tram comes in: 30 seconds ahead at the dock, 20 before the next stop on board. Never for lifts or in combat."] })
-	end
 	register({
 		page = L["Guide"], tab = L["Arrow & routes"], section = L["Along the route"],
 		controls = {
-			alerts(),
-			H({ kind = "toggle", key = "nav.alertBanner", label = L["Show a banner"], disabled = off, move = "transportAlert",
-				help = L["A small card near the top of the screen with a countdown. Click it to dismiss."] }),
-			H({ kind = "toggle", key = "nav.alertSound", label = L["Play the transport's sound"], disabled = off,
-				help = L["The ship's bell, the zeppelin's horn or the tram, on the Master channel so you hear it with the game in the background."] }),
-			H({ kind = "toggle", key = "nav.alertFlash", label = L["Flash the taskbar icon"], disabled = off,
-				help = L["The game's icon flashes while the game is in the background."] }),
+			Ref("toggle", "nav.alerts"),
 			{ kind = "button", button = L["Show"], label = L["Show a sample alert"], disabled = off,
 				help = L["See the banner and hear the boat's bell."],
 				onClick = function() Alerts.ShowSample() end },
 		},
 	})
-	register({ page = L["Quality of Life"], tab = L["Travel"], section = L["Hearth and travel"], controls = { alerts() } })
 end
 
 -- Handoff (Nav/Handoff.lua): Integrations > Shortest Path Forever.

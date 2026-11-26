@@ -142,7 +142,7 @@ fn a_new_file_has_every_key_commented_out_filled_ones_translated_unknown_ones_re
 	let retire = V::Obj(forge_guide::obj! { "Old" => "Vieux" });
 	let out = new_locale_text("frFR", &keys.by_file(), &fill, &retire, "Polestar's interface strings", true).unwrap();
 	assert!(
-		out.text.contains("\nlocal ns = Polestar\nif not (ns and GetLocale and GetLocale() == \"frFR\") then return end\nlocal L = ns.L\n"),
+		out.text.contains("\nlocal ns = Polestar\nif not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == \"frFR\") then return end\nlocal L = ns.L\n"),
 		"Polestar_frFR is an addon of its own: Polestar's namespace is the global\n{}",
 		out.text
 	);
@@ -182,6 +182,21 @@ fn the_reader_takes_polestars_layout_dings_add_translations_and_a_returned_table
 	for x in &r {
 		assert_eq!(x.strings.get("Accept").to_js_string(), "Accepter");
 		assert_eq!(x.strings.keys().len(), 1);
+	}
+}
+
+#[test]
+fn the_reader_reads_a_pack_of_many_files_in_batches_each_file_its_own_result_in_order() {
+	// Polestar's own pack translates 2,394 files; read in one Lua state they passed its memory cap.
+	let t = forge_addontest::tmp::TempDir::new("polestar-i18n-many-");
+	let entries: Vec<(String, String)> =
+		(0..1000).map(|i| (write(t.path(), &format!("g{i}.lua"), &format!("return {{ [\"Accept {i}\"] = \"Accepter {i}\" }}\n")).to_string_lossy().into_owned(), "frFR".to_string())).collect();
+	let r = read_locale_files(&entries).unwrap();
+	assert_eq!(r.len(), 1000);
+	for (i, x) in r.iter().enumerate() {
+		assert!(x.ok, "{i}: {:?}", x.error);
+		assert_eq!(x.file, entries[i].0);
+		assert_eq!(x.strings.get(&format!("Accept {i}")).to_js_string(), format!("Accepter {i}"));
 	}
 }
 

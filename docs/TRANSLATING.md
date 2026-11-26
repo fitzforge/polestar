@@ -30,16 +30,18 @@ Spain's and Latin America's clients use different words for game terms
 ## The file
 
 Each language has one file, `Interface.lua` in its language folder
-`addon/Polestar_<locale>` (only a client in that language loads the folder),
-and one for the optional Recorder's few chat lines,
+`addon/Polestar_<locale>` (Polestar loads the folder of the language it shows:
+the client's, or the one chosen with `/polestar language`), and one for the
+optional Recorder's few chat lines,
 `addon/Polestar_Recorder/Locales/<locale>.lua`, written the same way (the
-Recorder's starts with `local _, ns = ...` and the plain locale check):
+Recorder's starts with `local _, ns = ...` and checks the client's locale,
+`GetLocale()`):
 
 ```lua
 -- German (deDE). ...
 
 local ns = Polestar
-if not (ns and GetLocale and GetLocale() == "deDE") then return end
+if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "deDE") then return end
 local L = ns.L
 
 -- Core/Commands.lua
@@ -316,6 +318,43 @@ docs/ARCHITECTURE.md, "Names", has the details.
   entry in the release list (`tools/lib/dsl/project.js` takes every locale of
   `locales.js`).
 
+### Capture missing NPC names in the client
+
+The optional contributor addon in `tools/dev/PolestarNpcNameCapture` queries
+NPC tooltips in your Forever client's language. It queries only missing
+Codex NPC names and only runs when you start it.
+
+1. Build the Codex with `forge data codex` or place its `npcs.json` from a
+   reference-data checkout under `data/local/`. From the repository root,
+   generate the target file for your client locale. The optional final
+   argument is the path to a different Codex NPC file in this checkout.
+
+   ```sh
+   node tools/dev/npc-name-capture.js targets deDE > Targets.lua
+   ```
+
+2. Copy the `PolestarNpcNameCapture` folder to Forever's `Interface/AddOns/`
+   and put `Targets.lua` in that folder. Enable the addon and reload. Run
+   `/psnpcname start`. Use `/psnpcname status` for progress and
+   `/psnpcname stop` to pause. Start again to resume missing lookups on
+   the same client build. Reload after a run or stop to save the names.
+
+3. Copy `PolestarNpcNameCapture.lua` from your account's `SavedVariables`
+   directory (under `WTF/Account/`) to `data/local/` in the checkout.
+   Use the same Codex file for export and supply the issue or PR number
+   for the new records. For example, for issue 1234 and a German capture:
+
+   ```sh
+   node tools/dev/npc-name-capture.js export data/local/PolestarNpcNameCapture.lua 1234 > data/local/deDE.json
+   ```
+
+The export includes the existing observations. It keeps the client text,
+build and source-file hash for each new record, and lists unresolved IDs
+on stderr. Results equal to the English name are left out. Review the
+export before replacing `data/i18n/names-observed/<locale>.json`; contribute
+the reviewed JSON. The capture addon is installed manually for contributions.
+
+
 ## The AddOns list
 
 The game's AddOns list shows each addon's title and notes in the client's
@@ -324,9 +363,7 @@ Polestar addon's are written once in `rust/crates/forge-guide/src/toc.rs`, and i
 Codex stay as they are); the generated TOCs take them from there, the
 hand-written ones (Polestar, Polestar_Nav, Polestar_ItemDB,
 Polestar_Recorder) carry the same lines, and the forge-i18n tests check
-that every TOC under `addon/` has all nine and that they match. Our guides'
-race parts (`Polestar_Guides_<race>`, class chains and baked legs) fill one
-title and notes with the race's name as the interface files (`addon/Polestar_<locale>/Interface.lua`) have it.
+that every TOC under `addon/` has all nine and that they match.
 
 ## Guide texts
 

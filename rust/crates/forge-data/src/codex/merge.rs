@@ -430,7 +430,7 @@ fn finalize_sources(cands: &[&Cand], npc_level: &dyn Fn(&V) -> Option<(f64, f64)
 	kept
 }
 
-fn objective_of(o: &V, escort: bool, tame: bool, use_item: Option<f64>, summon_item: Option<(f64, Vec<f64>)>) -> V {
+fn objective_of(o: &V, escort: bool, tame: bool, use_item: Option<f64>, summon_item: Option<(f64, Vec<f64>)>, made_from: &[f64]) -> V {
 	let out = Obj::new();
 	out.set("type", o.get("type"));
 	let nn = |v: V| if v.is_nullish() { V::Null } else { v };
@@ -453,6 +453,11 @@ fn objective_of(o: &V, escort: bool, tame: bool, use_item: Option<f64>, summon_i
 				out.set("summonOn", nums(&on));
 			}
 		}
+	}
+	// The items an item objective is made from that the quest needs (made_from_items, #4148: the Filled Egg of
+	// Hakkar, from the Essence of Hakkar that drops inside the Sunken Temple).
+	if o.get("type").as_str() == Some("item") && !made_from.is_empty() {
+		out.set("madeFrom", nums(made_from));
 	}
 	let fin = |v: V| matches!(v, V::Num(n) if n.is_finite());
 	if o.get("type").as_str() == Some("event") && !escort && int(&o.get("map")).is_some_and(|m| m != 0.0) && fin(o.get("x")) && fin(o.get("y")) {
@@ -550,6 +555,33 @@ fn summon_item_for(mechanics: &V, quest_id: f64, npc: Option<f64>) -> Option<(f6
 	Some((item, p.get("on").items().iter().filter_map(whole_id).collect()))
 }
 
+/// The items an item objective is made from (#4148): the reagents of a driving `crafted` params entry for that
+/// item (the server's spell: Fill the Egg of Hakkar uses the Egg and the Essence of Hakkar) that are also among the
+/// quest's `requiredItems` (the server's items the quest needs that drop: the Essence, not the Egg the giver hands
+/// over). Empty for anything else: a Darkmoon deck's eight cards are no quest's required items.
+fn made_from_items(mechanics: &V, q: &V, item: Option<f64>) -> Vec<f64> {
+	let Some(item) = item.filter(|n| *n > 0.0 && n.fract() == 0.0) else { return Vec::new() };
+	let needed: Vec<f64> = q.get("requiredItems").items().iter().filter_map(whole_id).collect();
+	if needed.is_empty() {
+		return Vec::new();
+	}
+	let e = mechanics_entry(mechanics, q.get("id").num());
+	let mut out = Vec::new();
+	for p in e.get("params").items() {
+		if p.get("kind").as_str() != Some("crafted") || !p.get("drives").truthy() || whole_id(&p.get("item")) != Some(item) {
+			continue;
+		}
+		for r in p.get("reagents").items() {
+			if let Some(id) = whole_id(&r.at(0)) {
+				if needed.contains(&id) && !out.contains(&id) {
+					out.push(id);
+				}
+			}
+		}
+	}
+	out
+}
+
 pub struct Merged {
 	pub items: Obj,
 	pub npcs: Obj,
@@ -560,6 +592,8 @@ pub struct Merged {
 	pub factions: Obj,
 	pub spells: Obj,
 	pub frames: Obj,
+	/// Each profession's per-rank trainers and its trainerSkill gates (#3784).
+	pub professions: Obj,
 	/// evidence.noPvp, evidence.cut.{drop, rare, treasure} (parity's).
 	pub no_pvp: Vec<f64>,
 	pub cut_drop: Obj,
@@ -584,6 +618,14 @@ impl OSet {
 	fn delete(&mut self, s: &str) {
 		self.0.retain(|x| x != s);
 	}
+}
+
+/// An object a gathering skill opens: a herb, an ore vein or a fishing pool (data/forever's `herb`, `mine`,
+/// `fishing` roles: the sources' node lists, and players' loot windows after a gathering cast). The Codex's
+/// treasures are the objects with the `chest` role that are none of these: a node is never a treasure, whatever
+/// gave it the chest role and whatever the player's professions (docs/forge/data.md, "Treasures").
+fn gathering_node(o: &V) -> bool {
+	o.get("roles").items().iter().any(|r| matches!(r.as_str(), Some("herb" | "mine" | "fishing")))
 }
 
 pub fn merge_codex(inputs: &Inputs) -> Merged {
@@ -662,6 +704,14 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		o.set("instance", V::Null);
 		o.set("roles", V::arr());
 		o.set("spawns", spawns_v(&spawns_of(&n.get("spawns"), zones_in, frames_in, false)));
+		// Seen only by a dead character (npcs.json `ghostOnly`, a correction's: Franclorn Forgewright, #558).
+		if n.get("ghostOnly").truthy() {
+			o.set("ghostOnly", true);
+		}
+		// Sells only once this quest is handed in (npcs.json `vendorAfter`: Zorbin Fandazzle after Zapped Giants, #3138).
+		if let Some(q) = int(&n.get("vendorAfter")).filter(|q| *q > 0.0) {
+			o.set("vendorAfter", q);
+		}
 		npcs.set(&id, V::Obj(o));
 		let mut set = OSet::default();
 		for r in roles.items() {
@@ -762,8 +812,42 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		Some(e) => e.1 = v,
 		None => m.push((name.to_string(), v)),
 	};
+	let professions = Obj::new();
 	for (id, p) in oentries(&fv.professions) {
 		set_skill(&mut skill_line_of, &p.get("name").to_js_string(), str_to_num(&id));
+		// The per-rank trainer lists and trainerSkill (#3784): secondary professions (First Aid, Cooking,
+		// Fishing) have no trainers object on Expert and Artisan, so they get no record.
+		let ranks = p.get("ranks").items();
+		let sided = |r: &V| r.get("trainers").is_obj() && (r.get("trainers").has("Alliance") || r.get("trainers").has("Horde"));
+		if ranks.len() == 4 && ranks.iter().all(sided) {
+			let ids_of = |r: &V, side: &str| {
+				let mut v: Vec<f64> = r.get("trainers").get(side).items().iter().filter_map(int).collect();
+				v.sort_by(|a, b| by_num(*a, *b));
+				v.dedup();
+				V::Arr(forge_guide::js::Arr::from_vec(v.into_iter().map(V::Num).collect()))
+			};
+			let rank_vs: Vec<V> = ranks
+				.iter()
+				.map(|r| {
+					let o = Obj::new();
+					let nn = |v: V| if v.is_nullish() { V::Num(0.0) } else { v };
+					o.set("minSkill", nn(r.get("minSkill")));
+					o.set("max", nn(r.get("max")));
+					let t = Obj::new();
+					t.set("Alliance", ids_of(r, "Alliance"));
+					t.set("Horde", ids_of(r, "Horde"));
+					o.set("trainers", V::Obj(t));
+					V::Obj(o)
+				})
+				.collect();
+			let rec = Obj::new();
+			rec.set("id", str_to_num(&id));
+			rec.set("name", p.get("name"));
+			rec.set("ranks", V::Arr(forge_guide::js::Arr::from_vec(rank_vs)));
+			let gates = p.get("trainerSkill");
+			rec.set("trainerSkill", if gates.is_obj() { gates } else { V::obj() });
+			professions.set(&id, V::Obj(rec));
+		}
 		let mut trainers: Vec<V> = Vec::new();
 		let mut push = |t: V| {
 			if !trainers.iter().any(|x| x.strict_eq(&t)) {
@@ -1160,6 +1244,17 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		if n.truthy() && n.get("rare").truthy() && k.truthy() && !rare_loot.iter().any(|x| *x.0 == *npc) && n.get("spawns").items().is_empty() {
 			n.set("rare", false);
 			if let Some(&i) = role_ix.get(&*npc) {
+				npc_roles[i].1.delete("rare");
+			}
+		}
+	}
+	// An NPC on a player faction's side is never a rare (the data-diff gate's `friendly-rare`): a rank,
+	// a source's rare list or a sighting can name one (faction leaders in 0.4.1, #2929 #2942), and the
+	// rare alert, pins and list read this flag.
+	for (id, n) in npcs.entries() {
+		if n.get("rare").truthy() && matches!(n.get("faction").as_str(), Some("A" | "H" | "AH")) {
+			n.set("rare", false);
+			if let Some(&i) = role_ix.get(&*id) {
 				npc_roles[i].1.delete("rare");
 			}
 		}
@@ -2014,12 +2109,18 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 	}
 	for (id, o) in oentries(&fv.objects) {
 		let roles = o.get("roles").items();
-		let treasure = roles.iter().any(|r| r.as_str() == Some("chest"));
+		let treasure = roles.iter().any(|r| r.as_str() == Some("chest")) && !gathering_node(&o);
 		let mailbox = roles.iter().any(|r| r.as_str() == Some("mailbox"));
 		if !treasure && !mailbox && !want_objects.contains(&str_to_num(&id).to_bits()) {
 			continue;
 		}
-		let name = o.get("name");
+		let mut name = o.get("name");
+		if !name.truthy() && want_objects.contains(&str_to_num(&id).to_bits()) {
+			// An object an item, quest or boss points at that the data has no name for (QuestieDB 1.1.5's 7983211, a
+			// source of Flintfire's Shipment) keeps its page and pins under a fallback name.
+			warnings.push(format!("object {id} has no name; its page reads \"{}\"", crate::questdb::UNNAMED_OBJECT));
+			name = V::str(crate::questdb::UNNAMED_OBJECT);
+		}
 		if !name.truthy() || junk(&name.to_js_string()) {
 			continue;
 		}
@@ -2042,7 +2143,7 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 	let mut treasure_loot: Vec<(String, Vec<f64>)> = Vec::new();
 	for t in rs.map(|r| r.get("treasures").items()).unwrap_or_default() {
 		let obj = t.get("object");
-		if !obj.truthy() || !zones_in.get(&t.get("map").to_js_string()).truthy() {
+		if !obj.truthy() || !zones_in.get(&t.get("map").to_js_string()).truthy() || gathering_node(&fv.objects.get(&kstr(&obj))) {
 			continue;
 		}
 		let id = kstr(&obj);
@@ -2159,7 +2260,8 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 					let kill = !tame && o.get("type").as_str() == Some("kill");
 					let use_item = if kill { use_item_on(&inputs.mechanics, idf, int(&o.get("id"))) } else { None };
 					let summon_item = if kill { summon_item_for(&inputs.mechanics, idf, int(&o.get("id"))) } else { None };
-					objective_of(o, escort, tame, use_item, summon_item)
+					let made_from = if o.get("type").as_str() == Some("item") { made_from_items(&inputs.mechanics, &q, int(&o.get("id"))) } else { Vec::new() };
+					objective_of(o, escort, tame, use_item, summon_item, &made_from)
 				})
 				.collect();
 			if learned.truthy() {
@@ -2211,6 +2313,16 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			// the hand-in guides never take it as an accept.
 			if q.get("direct").truthy() {
 				o.set("direct", true);
+			}
+			// One of a set the game offers one at a time (quests.json `rotation`: Pix's weekly In Demand quests, #3601).
+			let rot = q.get("rotation");
+			if rot.as_str().is_some_and(|s| !s.trim().is_empty()) {
+				o.set("rotation", rot);
+			}
+			// No recording has shown it on Forever yet (quests.json `unseen`, dropped by the data build once one does):
+			// Lookup marks it "Not seen on Forever yet".
+			if q.get("unseen").truthy() {
+				o.set("unseen", true);
 			}
 			if int(&q.get("xp")).is_some_and(|x| x > 0.0) {
 				o.set("xp", int(&q.get("xp")).unwrap());
@@ -2440,7 +2552,7 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			want(&e.get("map"), &e.get("f"));
 		}
 	}
-	Merged { items, npcs, objects, quests, instances, zones, factions, spells, frames, no_pvp, cut_drop, cut_rare, cut_treasure, warnings }
+	Merged { items, npcs, objects, quests, instances, zones, factions, spells, frames, professions, no_pvp, cut_drop, cut_rare, cut_treasure, warnings }
 }
 
 fn nn_or_null(v: V) -> V {
@@ -2544,6 +2656,29 @@ mod tests {
 		assert!(obj("88004").get("useItem").is_nullish(), "the kind names no item");
 	}
 
+	// #2929 #2942: an NPC on a player faction's side is never a rare in the Codex, whatever made it one (a
+	// rare rank, the source's rare role); a hostile rare stays one.
+	#[test]
+	fn an_npc_on_a_player_faction_s_side_is_no_rare_2929_2942() {
+		let mut inp = inputs("{}", "{}");
+		inp.forever.npcs = parse_json(
+			r#"{
+			"4949": { "id": 4949, "name": "Thrall", "faction": "H", "rank": 3, "roles": ["rare"], "spawns": {} },
+			"5797": { "id": 5797, "name": "Aean Swiftriver", "faction": "A", "rank": 4, "spawns": {} },
+			"266901": { "id": 266901, "name": "Pexmit", "faction": "AH", "rank": 2, "roles": ["rare", "vendor"], "spawns": {} },
+			"61": { "id": 61, "name": "Thuros Lightfingers", "rank": 4, "roles": ["rare"], "spawns": {} }
+		}"#,
+		)
+		.unwrap();
+		let codex = merge_codex(&inp);
+		let rare = |id: &str| (codex.npcs.get(id).get("rare").truthy(), codex.npcs.get(id).get("roles").items().iter().any(|r| r.as_str() == Some("rare")));
+		assert_eq!(rare("4949"), (false, false), "a faction leader");
+		assert_eq!(rare("5797"), (false, false), "a rare-ranked NPC of the Alliance");
+		assert_eq!(rare("266901"), (false, false), "an NPC both sides deal with");
+		assert!(codex.npcs.get("266901").get("roles").items().iter().any(|r| r.as_str() == Some("vendor")), "its other roles stay");
+		assert_eq!(rare("61"), (true, true), "a hostile rare stays a rare");
+	}
+
 	// #2326: Screecher Spirits' target rises only from Yeh'kinya's Bramble (a summon-by-item the mechanics drive,
 	// with its params' item and NPC): the kill objective keeps summonItem, and summonOn the creatures the params
 	// say the item is used on (#2578: the Vale Screechers); a kind that does not drive, or params for another NPC,
@@ -2567,6 +2702,29 @@ mod tests {
 		assert!(obj("88005").get("summonOn").is_nullish() && obj("88006").get("summonOn").is_nullish());
 		assert!(obj("88005").get("summonItem").is_nullish(), "a kind that does not drive");
 		assert!(obj("88006").get("summonItem").is_nullish(), "the item calls up another NPC");
+	}
+
+	// #4148: The God Hakkar's Filled Egg of Hakkar has no source; the server's spell fills the Egg with the Essence
+	// of Hakkar, which the quest needs (its requiredItems) and which drops inside the Sunken Temple. The item
+	// objective keeps madeFrom: the reagents the quest needs, not the Egg it hands over; a deck made of cards no quest
+	// needs, or a params entry for another item, gets none.
+	#[test]
+	fn an_item_objective_made_from_an_item_the_quest_needs_keeps_made_from_4148_the_god_hakkar() {
+		let quests = r#"{
+			"3528": { "id": 3528, "title": "The God Hakkar", "requiredItems": [10663], "objectives": [{ "type": "item", "id": 10662, "count": 1, "text": "Filled Egg of Hakkar" }] },
+			"88007": { "id": 88007, "title": "Deck", "objectives": [{ "type": "item", "id": 19228, "count": 1 }] },
+			"88008": { "id": 88008, "title": "Other item", "requiredItems": [10663], "objectives": [{ "type": "item", "id": 5, "count": 1 }] }
+		}"#;
+		let mechanics = r#"{ "quests": {
+			"3528": { "params": [{ "kind": "crafted", "item": 10662, "spell": 12735, "reagents": [[10465, 1], [10663, 1]], "drives": true }] },
+			"88007": { "params": [{ "kind": "crafted", "item": 19228, "reagents": [[19227, 1], [19230, 1]], "drives": true }] },
+			"88008": { "params": [{ "kind": "crafted", "item": 10662, "reagents": [[10663, 1]], "drives": true }] }
+		} }"#;
+		let codex = merge_codex(&inputs(quests, mechanics));
+		let made = |id: &str| codex.quests.get(id).get("objectives").at(0).get("madeFrom");
+		assert_eq!(made("3528").items().iter().map(V::num).collect::<Vec<_>>(), vec![10663.0], "the Essence, not the Egg");
+		assert!(made("88007").is_nullish(), "cards no quest needs");
+		assert!(made("88008").is_nullish(), "the params are for another item");
 	}
 
 	// #2719: Red Dye has 101 sellers in the data; the Codex kept the ten lowest ids (none in Ironforge) and Lookup
@@ -2628,6 +2786,59 @@ mod tests {
 		assert!(q.get("how").as_str().is_some_and(|h| h.contains("Makeshift Bandages")), "{:?}", q.get("how"));
 	}
 
+	// #4046 (Soffish): Get the Scoop's "Plucky" Johnson is a chicken until a /beckon turns him human, and Lookup's
+	// Scarlet Monastery pick-up list only said to talk to him. The shipped public mechanics give the quest its how,
+	// which Lookup's step note leads with.
+	#[test]
+	fn get_the_scoop_says_to_beckon_plucky_from_the_shipped_public_mechanics_4046() {
+		let public = include_str!("../../../../../data/mechanics-public.json");
+		let quests = r#"{ "1950": { "id": 1950, "title": "Get the Scoop", "objectives": [{ "type": "talk", "id": 6626, "count": 1, "text": "\"Plucky\" Johnson" }] } }"#;
+		let mut i = inputs(quests, public);
+		i.mechanics_public = parse_json(public).unwrap();
+		let codex = merge_codex(&i);
+		assert!(codex.quests.get("1950").get("how").as_str().is_some_and(|h| h.contains("/beckon")), "{:?}", codex.quests.get("1950").get("how"));
+	}
+
+	// #4046's check: a quest done with an emote (a step of the merged mechanics, data/forever/mechanics.json, with
+	// action `emote`) has the emote in our public words too, or Lookup's steps for it never say it: the private
+	// layers' text never ships. Needs the built data; skipped without it.
+	#[test]
+	fn every_quest_done_with_an_emote_says_it_in_the_public_mechanics_4046() {
+		let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../..");
+		let Ok(text) = std::fs::read_to_string(root.join("data/forever/mechanics.json")) else {
+			eprintln!("skipped: data/forever not built");
+			return;
+		};
+		let merged = parse_json(&text).unwrap();
+		let public = parse_json(include_str!("../../../../../data/mechanics-public.json")).unwrap();
+		let emote = |e: &V| e.get("steps").items().iter().any(|s| s.get("action").as_str() == Some("emote"));
+		let quests = merged.get("quests");
+		let quests = if quests.as_obj().is_some() { quests } else { merged };
+		let missing: Vec<String> = quests.entries().into_iter().filter(|(id, e)| emote(e) && !emote(&public.get("quests").get(id))).map(|(id, _)| id.to_string()).collect();
+		assert!(missing.is_empty(), "quests done with an emote that data/mechanics-public.json does not explain: {missing:?}");
+	}
+
+	// A herb, an ore vein or a fishing pool is never a treasure, whatever else gave it the chest role: Copper Vein
+	// (1731) and Forever's Briarthorn (657385) got it from players' loot windows the Recorder did not see as a
+	// gather, and the Rares window and the world map listed them as treasures.
+	#[test]
+	fn a_gathering_node_is_never_a_treasure() {
+		let mut inp = inputs("{}", "{}");
+		inp.forever.objects = parse_json(
+			r#"{
+			"1731": { "id": 1731, "name": "Copper Vein", "roles": ["chest", "mine"], "spawns": {} },
+			"657385": { "id": 657385, "name": "Briarthorn", "roles": ["chest", "herb"], "spawns": {} },
+			"180582": { "id": 180582, "name": "Oily Blackmouth School", "roles": ["chest", "fishing"], "spawns": {} },
+			"2843": { "id": 2843, "name": "Battered Chest", "roles": ["chest"], "spawns": {} }
+		}"#,
+		)
+		.unwrap();
+		let codex = merge_codex(&inp);
+		let treasure = |id: &str| codex.objects.get(id).get("treasure").truthy();
+		assert_eq!((treasure("1731"), treasure("657385"), treasure("180582")), (false, false, false));
+		assert!(treasure("2843"), "a chest stays a treasure");
+	}
+
 	#[test]
 	fn words_and_standings() {
 		assert!(has_word("warrior trainer", "warrior"));
@@ -2635,5 +2846,19 @@ mod tests {
 		assert!(has_word("use the taming rod to tame a beast", "taming rod to tame"));
 		assert_eq!(standing_of(3000.0), 5.0);
 		assert_eq!(standing_of(-100.0), 3.0);
+	}
+
+	// QuestieDB 1.1.5 lists object 7983211, which has no name, as a source of Flintfire's Shipment: it stays a source
+	// and gets a page with a fallback name, so Lookup can pin it.
+	#[test]
+	fn a_nameless_object_source_reads_a_fallback_name() {
+		let mut i = inputs("{}", "{}");
+		i.forever.items = parse_json(r#"{ "280413": { "id": 280413, "name": "Flintfire's Shipment", "drops": { "npc": {}, "object": { "672508": 100, "7983211": null } }, "vendors": [] } }"#).unwrap();
+		i.forever.objects = parse_json(r#"{ "672508": { "id": 672508, "name": "Flintfire's Shipment", "spawns": {} }, "7983211": { "id": 7983211, "name": null, "spawns": {} } }"#).unwrap();
+		let codex = merge_codex(&i);
+		let objects: Vec<f64> = codex.items.get("280413").get("sources").items().iter().map(|s| s.get("object").num()).collect();
+		assert_eq!(objects, vec![672508.0, 7983211.0]);
+		assert_eq!(codex.objects.get("7983211").get("name").as_str(), Some("Unnamed object"));
+		assert!(codex.warnings.iter().any(|w| w.contains("object 7983211") && w.contains("no name")), "{:?}", codex.warnings);
 	}
 }

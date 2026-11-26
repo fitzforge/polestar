@@ -62,16 +62,16 @@ fn spawn_areas_on_a_forever_only_map_cover_the_camp_in_that_maps_own_yards() {
 fn farm_spots_on_a_forever_only_zone_of_eastern_kingdoms_contested_clustered_in_that_maps_yards() {
 	// Riverglades: Eastern Kingdoms (continent 0), 4850 yd east-west, 48.5 yd per x %.
 	let riverglades = 2548;
-	// Two camps 2% apart: 97 yd, two spots at the 70 yd cluster radius (60 yd and one spot in a 3000 yd zone).
+	// Two camps of three 2% apart: 97 yd, two clusters at the 70 yd cluster radius (60 yd and one cluster in a 3000 yd
+	// zone); the zone keeps its best camp for the level band, the western one on a tie.
 	let dir = data_dir_with("fm-farm", &data_dir(), |raw| {
 		raw.get_mut("map-frames.json").unwrap()["forever"] = json!({ "2548": { "c": 0, "left": -1891.666, "right": -6741.666, "top": -6466.666, "bottom": -9700 } });
 		raw.get_mut("zones.json").unwrap()["2548"] = json!({ "areaId": 16591, "id": 2548, "name": "Riverglades", "parent": 1415, "type": 3 });
-		raw.get_mut("npcs.json").unwrap()["92001"] =
-			json!({ "faction": null, "id": 92001, "level": 30, "name": "Glade Lurker", "spawns": { "2548": { "f": "l", "pts": [[40, 50], [40.2, 50.2], [42, 50], [42.2, 50.2]] } } });
+		raw.get_mut("npcs.json").unwrap()["92001"] = json!({ "faction": null, "id": 92001, "level": 30, "name": "Glade Lurker", "spawns": { "2548": { "f": "l", "pts": [[40, 50], [40.2, 50.2], [40.1, 50.4], [42, 50], [42.2, 50.2], [42.1, 50.4]] } } });
 		raw.get_mut("items.json").unwrap()["4306"]["drops"]["npc"]["92001"] = json!(30);
 	});
 	let data = load_data(&dir).unwrap();
 	let spots: Vec<Value> = plain(&forge_guide::farmspots::farm_spots(&data, &V::from(4306))).as_array().unwrap().iter().filter(|s| s["map"] == riverglades).cloned().collect();
 	let got: Vec<Value> = spots.iter().map(|s| json!([s["faction"], s.get("f"), s["x"], s["y"], s["spawns"]])).collect();
-	assert_eq!(got, [json!(["AH", null, 40.1, 50.1, 2]), json!(["AH", null, 42.1, 50.1, 2])]);
+	assert_eq!(got, [json!(["AH", null, 40.1, 50.2, 3])]);
 }

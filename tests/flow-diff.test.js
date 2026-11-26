@@ -7,7 +7,10 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { Proj } = require('../tools/lib/flow/data');
 const { measure, compare, narrow, renderMd, tripsOf, stopsOf, placed, travel } = require('../tools/lib/flowdiff/analyse');
-const { traced, branchesOf } = require('../tools/lib/flowdiff/play');
+const { traced, branchesOf, playKey } = require('../tools/lib/flowdiff/play');
+const { levelOffsetLua, parseLevelOffset } = require('../tools/lib/playtest-level');
+const flowDiff = require('../tools/commands/flow-diff');
+const { quiet } = require('./helpers/cli');
 
 // Two zones side by side on one continent, 10 yd per map percent: map 1 "West" from x 0 to 1,000 yd, map 2 "East"
 // from 1,000 to 2,000. A place is [continent, the frame's top-to-bottom yards, left-to-right yards].
@@ -160,6 +163,22 @@ test('the play traces SIMULATE through its own act() and skips quests first', ()
 	assert.throws(() => traced('local function act(i, g, r)\nend\n', [533]), /can't skip/);
 });
 
+test('--level-offset: an offset play has a cache key of its own, a plain play keeps its key; the value is a whole number', async () => {
+	const g = { id: 'x/a', steps: [], _ast: { source: 'x/a.guide' } };
+	const persona = { race: 'Orc', faction: 'Horde', cls: 'WARRIOR' };
+	const plain = playKey('e', g, persona, '', 'sim');
+	assert.equal(playKey('e', g, persona, '', 'sim', 0), plain);
+	assert.notEqual(playKey('e', g, persona, '', 'sim', 1), plain);
+	assert.notEqual(playKey('e', g, persona, '', 'sim', 1), playKey('e', g, persona, '', 'sim', 2));
+	assert.equal(levelOffsetLua(0), '');
+	assert.match(levelOffsetLua(-2), /w\.level = math\.min\(60, math\.max\(1, w\.level \+ off\)\)/);
+	assert.deepEqual([parseLevelOffset(undefined), parseLevelOffset('3'), parseLevelOffset('-1')], [0, 3, -1]);
+	assert.match(parseLevelOffset('1.5').error, /whole number/);
+	const bad = await quiet(() => flowDiff.run(['--base', 'origin/next', '--level-offset', 'x']));
+	assert.equal(bad.result, 2);
+	assert.match(bad.out, /--level-offset takes a whole number/);
+});
+
 test('branches: each start race down its guides\' default `next`, experimental choices left out', () => {
 	const g = (id, extra) => ({ id, category: 'Leveling', faction: 'Horde', ...extra });
 	const guides = [
@@ -174,4 +193,34 @@ test('branches: each start race down its guides\' default `next`, experimental c
 			['Troll', 'h/orc > h/barrens > h/stv'],
 		],
 	);
+});
+
+// #3826: the weekly run compiled the last release's guides (v0.4.2.2) on today's data, which had dropped quests those
+// guides name, so the base did not compile and nothing was compared. --base-data gives the base tree the data its
+// release shipped with: a checked-out tree links it as its data/forever, with the sources beside it.
+test('--base-data: the base tree plays on its own reference data; missing data is a usage error naming it', async () => {
+	const fs = require('node:fs');
+	const os = require('node:os');
+	const path = require('node:path');
+	const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'flow-diff-base-data-'));
+	try {
+		const now = path.join(tmp, 'now', 'forever');
+		const release = path.join(tmp, 'releases', 'v1', 'forever');
+		for (const d of [now, release]) {
+			fs.mkdirSync(d, { recursive: true });
+			fs.writeFileSync(path.join(d, 'quests.json'), '{}');
+		}
+		fs.mkdirSync(path.join(tmp, 'releases', 'v1', 'sources'));
+		const tree = path.join(tmp, 'tree');
+		fs.mkdirSync(tree);
+		flowDiff.link(tree, release);
+		assert.equal(fs.realpathSync(path.join(tree, 'data', 'forever')), fs.realpathSync(release));
+		assert.equal(fs.realpathSync(path.join(tree, 'data', 'sources')), fs.realpathSync(path.join(tmp, 'releases', 'v1', 'sources')));
+		const missing = path.join(tmp, 'releases', 'v0', 'forever');
+		const bad = await quiet(() => flowDiff.run(['--base', 'v0', '--data', now, '--base-data', missing]));
+		assert.equal(bad.result, 2);
+		assert.ok(bad.out.includes(`no reference data in ${missing}`), bad.out);
+	} finally {
+		fs.rmSync(tmp, { recursive: true, force: true });
+	}
 });

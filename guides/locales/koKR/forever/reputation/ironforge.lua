@@ -54,9 +54,9 @@ return {
 	-- {area:131} Kharanos
 	["Coldridge: on to {area:131}"] = "",
 	-- {npc:1252} Senir Whitebeard · {area:131} Kharanos
-	["{npc:1252}, in {area:131}"] = "",
+	["{npc:1252}, in {area:131}"] = "{npc:1252}, {area:131}",
 	-- {npc:6806} Tannok Frosthammer
-	["{npc:6806}, in the inn"] = "",
+	["{npc:6806}, in the inn"] = "{npc:6806}, 여관 안",
 
 	-- Step 8: Kharanos
 	-- {area:131} Kharanos · {area:133} Gnomeregan · {area:2102} Thunderbrew Distillery · {area:189} Steelgrill's Depot

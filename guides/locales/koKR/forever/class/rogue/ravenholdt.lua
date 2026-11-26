@@ -53,7 +53,7 @@ return {
 	-- {area:324} Stromgarde Keep · {area:313} Northfold Manor · {object:656157} Syndicate Footlocker · {quest:96783} A Way In
 	["{area:324} in western Arathi is a Syndicate stronghold; to get in you need a uniform. {area:313}, in north-western Arathi, is held by Syndicate Highwaymen, Pathstalkers and Mercenaries (level 30-32): find the {object:656157} there and take the uniform; that ends {quest:96783}."] = "",
 	-- {quest:96784} Master of Disguise · {item:275706} Syndicate Uniform
-	["{quest:96784}: the {item:275706}"] = "",
+	["{quest:96784}: the {item:275706}"] = "{quest:96784}: {item:275706}",
 
 	-- Step 8: Anastasia Miller
 	-- {item:275706} Syndicate Uniform · {quest:96784} Master of Disguise · {quest:96785} Ain't No Telling · {npc:266847} Anastasia Miller
@@ -63,8 +63,6 @@ return {
 	-- Step 9: Ain't No Telling
 	-- {item:275709} Stolen Funds
 	["She will not talk without something to bargain with. Her stash is upstairs in a house close to the keep: take the {item:275709}. If it is already open, wait for it to come back."] = "",
-	-- {item:275709} Stolen Funds
-	["{item:275709}: Anastasia's Stash"] = "",
 
 	-- Step 10: The Syndicate Sting
 	-- {area:1057} Thoradin's Wall · {area:287} Hillsbrad · {item:275882} Intercepted Shipment · {item:275706} Syndicate Uniform · {npc:13085} Myrokos Silentform

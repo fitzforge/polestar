@@ -36,6 +36,11 @@ const MAX_NAMED_SOURCES = 8;
 // an unknown chance (0), the data's drop list is no guide to where to farm it.
 const FEW_SOURCES_BAR = 20;
 
+// A rare that tops an item's droppers gives way to the normal ones (rareLeads)
+// when one of them drops it at this percentage or more: the common mobs are
+// where it is farmed (#3578).
+const COMMON_SOURCE_BAR = 5;
+
 // `fromNpcs` on a collect: the mobs its point and spots belong to, for the
 // target button, which cycles at most this many names.
 const MAX_SOURCE_NPCS = 5;
@@ -151,7 +156,8 @@ function pickSpawn(data, candidates, zoneMap, prev, opts = {}) {
 // An item only elites drop here keeps them. With `rares` (see rareLeads) a
 // rare (isRare) is passed over the same way. With `qlvl` (a collect's quest
 // level), droppers ABOVE_QUEST_LEVELS or more above it are passed over where
-// they would crowd out the droppers nearer its level (levelSplit).
+// they would crowd out the droppers nearer its level, or would be named beside
+// them (levelSplit).
 //
 // Sources with a drop chance: only the likely ones count (at least half the
 // best chance here; sub-1% drops only when nothing better drops here).
@@ -274,6 +280,53 @@ function packSpotNpcs(initial, mobs, at) {
 	return { list, packed, missingSources: left.length > 0 };
 }
 
+// A `loop` collect's target names: the droppers at each of the author's points
+// (#1616), not the map's best ones the arrow would otherwise pick from (Kolkar
+// Village's search named Gelkis and Magram centaurs from across Desolace once
+// recorded chances reordered them). The likely droppers on the map (onMap's)
+// that spawn within a point's radius lead, the most spawns first; a point none
+// of them spawns at names every dropper spawning there, so a camp whose mobs a
+// better chance elsewhere passed over still has its targets; a point no
+// dropper spawns at names the loop's others. Points that all name the same mobs,
+// five at most, share the plain list; otherwise each has its own (`fromNpcsAt`). With no
+// dropper at any point, the goal keeps the map's.
+function loopNpcs(data, goal, drops, map, f) {
+	const spots = goal.spots || [];
+	if (!spots.length || !data.mapSize(map)) return;
+	const mobsOf = (list) => list
+		.filter((s) => s && s.kind === 'npc')
+		.map((s) => ({ id: s.id, name: nameOf(data, 'npc', s.id), pts: spawnPointsOf(data, [s], map, f) }))
+		.filter((m) => m.name && m.pts.length);
+	const likely = mobsOf(drops.likely);
+	const every = mobsOf(drops.all);
+	const at = (mobs, spot) => mobs
+		.map((m) => ({ m, n: m.pts.filter((p) => distance(data, map, p[0], p[1], spot.x, spot.y) <= spot.r + 1).length }))
+		.filter((x) => x.n > 0)
+		.sort((a, b) => b.n - a.n)
+		.map((x) => x.m);
+	const per = spots.map((spot) => {
+		const own = at(likely, spot);
+		return own.length ? own : at(every, spot);
+	});
+	const list = [];
+	for (const here of per) for (const m of here) if (!list.some((n) => n.npc === m.id)) list.push({ npc: m.id, npcName: m.name });
+	if (!list.length) return;
+	const ids = per.map((here) => (here.length ? here.map((m) => m.id) : list.map((n) => n.npc)));
+	delete goal.fromNpcsAt;
+	if (list.length <= MAX_SOURCE_NPCS && ids.every((l) => l.length === list.length)) {
+		goal.fromNpcs = list.slice(0, MAX_SOURCE_NPCS);
+		return;
+	}
+	const kept = list.slice(0, MAX_SPOT_NPCS);
+	const packed = ids.map((l) => l.map((id) => kept.findIndex((n) => n.npc === id) + 1).filter((k) => k > 0).join(',')).join(';');
+	if (packed.length > MAX_SPOT_NPCS_TEXT) {
+		goal.fromNpcs = list.slice(0, MAX_SOURCE_NPCS);
+		return;
+	}
+	goal.fromNpcs = kept;
+	goal.fromNpcsAt = packed;
+}
+
 // The quests that hand item `item` over when taken (their `sourceItem`), by
 // quest id; the index is built once per data object.
 const handedOver = new WeakMap();
@@ -359,9 +412,13 @@ function eliteSplit(data, cands, sides, rares = false) {
 // out droppers near a quest's level `qlvl` only because an npc whose lowest
 // level is ABOVE_QUEST_LEVELS or more above it drops it at a higher chance:
 // `near`, the likely ones among the droppers near the quest's level (their
-// own best chance sets the bar), `above`, those far above it.
+// own best chance sets the bar), `above`, those far above it. A far-above
+// dropper likely beside the near ones is passed over too (#2744: the Elder
+// Timberling, level 10, at 100% beside the level 5 Timberlings' 53% for the
+// level 5 Timberling Seeds named the Elder on the goal).
 // -> { near, above } | null (no quest level, no chances, nothing near the
-// quest's level drops it at 1% while something does, or none crowded out)
+// quest's level drops it at 1% while something does, or no far-above dropper
+// among the likely ones and none near crowded out)
 function levelSplit(data, cands, qlvl) {
 	if (!(qlvl > 0) || !cands.some((c) => typeof c.chance === 'number')) return null;
 	const chanceOf = (c) => c.chance || 0;
@@ -378,19 +435,21 @@ function levelSplit(data, cands, qlvl) {
 	if (Math.max(...rest.map(chanceOf)) < 1 && Math.max(...cands.map(chanceOf)) >= 1) return null;
 	const all = likely(cands);
 	const near = likely(rest);
-	return near.some((c) => !all.includes(c)) ? { near, above } : null;
+	return near.some((c) => !all.includes(c)) || above.some((c) => all.includes(c)) ? { near, above } : null;
 }
 
 // Whether a rare drops the item at the highest chance while normal sources
-// drop it at 50% or more (the `fromAlso` bar): the goal would read "Kill
-// <rare> or <normal>", and the arrow would lead to the rare's spawns, which
-// are the camps of other mobs (Ribchaser stands among the Redridge Mongrels,
-// who drop nothing). Not for an item that drops all over the world.
+// drop it at COMMON_SOURCE_BAR% or more: the goal would name the rare ("Kill
+// <rare>", or "Kill <rare> or <normal>"), and the arrow would lead to the
+// rare's spawns, which are the camps of other mobs (Ribchaser stands among the
+// Redridge Mongrels, who drop nothing) or a spot the rare is often away from
+// (Alshirr Banebreath, 80%, while every Jadefire satyr drops the Felbind at
+// 23%: #3578). Not for an item that drops all over the world.
 function rareLeads(data, cands, sides) {
 	const top = cands.reduce((a, b) => (b.chance > a.chance ? b : a), cands[0] || { chance: 0 });
 	const n = top.kind === 'npc' ? data.npc(top.id) : null;
 	if (!n || !isRare(n.rank, n.faction, sides)) return false;
-	return cands.some((c) => c.chance >= 50 && normalSource(data, c, sides, true));
+	return cands.some((c) => c.chance >= COMMON_SOURCE_BAR && normalSource(data, c, sides, true));
 }
 
 function eliteSource(data, cand, sides, rares) {
@@ -702,15 +761,20 @@ function handSpots(data, sources, map, f, x, y, near, altSources = sources) {
 }
 
 // A `loop` step (docs/GUIDE_FORMAT.md, "Spawn areas"): its `goto` points, in
-// order, are the places to search. Each kill, collect, interact or skill goal
-// the author did not place (`@x,y`) and that picks no place at runtime gets
-// them as its spawn areas, searched one after another (`spread`), its point
+// order, are the places to search. Each eligible goal the author did not
+// place (`@x,y`) and that picks no place at runtime gets them as its spawn
+// areas, searched one after another (`spread`), its point
 // at the first; the gotos leave the step. A spot's radius is its goto's `r`,
 // else LOOP_RADIUS yards.
 const LOOP_RADIUS = 30;
 // `skill`: a gathering round. The herbs or veins that raise the skill are
 // found by walking the points, and nothing in the data places a skill.
 const LOOP_VERBS = new Set(['kill', 'collect', 'interact', 'skill']);
+// A quest item follows the circuit while its objective is open. A one-off
+// item use beside a search is not itself a target of the search.
+function loopTarget(g) {
+	return LOOP_VERBS.has(g.t) || (g.t === 'use' && g.quest !== undefined && g.oi !== undefined);
+}
 // A step with none of those: the loop is where to look for someone who walks,
 // the NPC of its accept, turnin and talk goals (a quest giver on a patrol).
 const LOOP_NPC_VERBS = new Set(['accept', 'turnin', 'talk']);
@@ -724,11 +788,10 @@ function applyLoop(step, s, data, err) {
 	if (gotos.some((g) => g.f !== first.f)) return err(ln, '`loop` points must all be in one map frame: all Era, or all `live`');
 	const own = gotos.find((g) => g.only || g.optional);
 	if (own) return err(own._line, 'a `loop` point cannot be `optional` or have `only`: every goal of the loop searches it');
-	const placeable = (verbs) => step.goals.filter((g, i) => verbs.has(g.t) && !s.goals[i].explicitCoords && !s.goals[i].anywhere && !g.candidates);
-	let targets = placeable(LOOP_VERBS);
-	if (!targets.length && !step.goals.some((g) => LOOP_VERBS.has(g.t))) targets = placeable(LOOP_NPC_VERBS);
+	const searches = step.goals.some(loopTarget) ? loopTarget : (g) => LOOP_NPC_VERBS.has(g.t);
+	const targets = step.goals.filter((g, i) => searches(g) && !s.goals[i].explicitCoords && !s.goals[i].anywhere && !g.candidates);
 	if (!targets.length) {
-		return err(ln, '`loop` needs a kill, collect, interact or skill goal without its own `@x,y`, or with none of those an accept, turnin or talk', 'a goal placed with `@x,y` keeps its point; drop `loop` to walk the gotos as a path');
+		return err(ln, '`loop` needs an unpinned kill, collect, interact, skill or `use … quest Q.O` goal, or with none of those an accept, turnin or talk', 'a goal placed with `@x,y` keeps its point; drop `loop` to walk the gotos as a path');
 	}
 	for (const goal of targets) {
 		goal.map = first.map;
@@ -741,6 +804,7 @@ function applyLoop(step, s, data, err) {
 		delete goal.z;
 		setIf(goal, 'z', goalHeight(data, goal));
 		for (const p of goal.spots) setIf(p, 'z', spotHeight(data, goal, p));
+		if (goal.t === 'collect' && goal._drops) loopNpcs(data, goal, goal._drops, first.map, first.f);
 	}
 	step.goals = step.goals.filter((g) => g.t !== 'goto');
 }
@@ -1052,7 +1116,10 @@ function resolveGuide(ast, data, diag, opts = {}) {
 			}
 			// A `skill … nearest` step's gotos are its places, each on its own map: no zone to match.
 			const nearestPlace = g.verb === 'goto' && s.goals.some((x) => x.verb === 'skill' && x.nearest);
-			if (goal.map !== undefined && zoneId !== null && goal.map !== zoneId && !zonesSet.has(goal.map) && !nearestPlace) {
+			// A step on the world map (`zone Azeroth`: a profession guide's trainer visit, which pins each faction
+			// to its teacher in another zone) spans every zone.
+			const worldStep = zoneId !== null && ((data.zone(zoneId) || {}).type ?? 3) <= 1;
+			if (goal.map !== undefined && zoneId !== null && goal.map !== zoneId && !zonesSet.has(goal.map) && !nearestPlace && !worldStep) {
 				const name = (id) => {
 					const z = data.zone(id);
 					return z && z.name ? `${id} (${z.name})` : String(id);
@@ -2322,8 +2389,10 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			// An authored `npc` already names the one creature to target.
 			if (v === 'collect' && goal.npc === undefined) {
 				setIf(goal, 'fromNpcs', sourceNpcs(data, c, picked.sources));
-				// A `loop` step's goals take its gotos as their spots (applyLoop).
-				if (!ctx.loop) spotNpcs(data, goal, area ? picked.sources || [c] : [c], picked.map, picked.f);
+				// A `loop` step's goals take its gotos as their spots, and the droppers there as their targets
+				// (applyLoop, loopNpcs).
+				if (ctx.loop) hidden(goal, '_drops', { likely: picked.sources || [c], all: candidates });
+				else spotNpcs(data, goal, area ? picked.sources || [c] : [c], picked.map, picked.f);
 			}
 		} else if (g.explicitCoords && goal.x !== undefined) {
 			// Hand-placed: the sources known to give the item (a drop chance, or a
@@ -2404,8 +2473,8 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 	setIf(goal, 'area', goalArea(data, goal));
 	setIf(goal, 'node', goalNode(data, goal, smartSides(ctx.sides, applicable(ctx.layers || []))));
 
-	// A `loop` step's gotos place its kill, collect and interact goals (applyLoop).
-	if ((v === 'kill' || v === 'collect' || v === 'interact' || v === 'use') && goal.x === undefined && !goal.candidates && !g.nearest && !g.anywhere && !(ctx.loop && LOOP_VERBS.has(v))) {
+	// An authored search will place its targets after all its gotos are resolved.
+	if ((v === 'kill' || v === 'collect' || v === 'interact' || v === 'use') && goal.x === undefined && !goal.candidates && !g.nearest && !g.anywhere && !(ctx.loop && loopTarget(goal))) {
 		warn(ln, `\`${v}\` has no coordinates (no known spawns; add @x,y)`, 'add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there');
 	}
 	if (goal.grind !== undefined && goal.x === undefined) warn(ln, `\`grind ${goal.grind}\` has no known spawns here: the arrow keeps the step's goto`);
