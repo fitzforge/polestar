@@ -9205,6 +9205,7 @@ t.guides["forever/reputation/timbermaw-hold"] = (function() return {
 		["Back to {npc:15395}"] = "Вернитесь: {npc:15395}",
 		["Friendly to Honored"] = "«Дружелюбие» — «Уважение»",
 		["Honored to Revered"] = "«Уважение» — «Почтение»",
+		["Mosshoof Coursers"] = "Мохоногие олени",
 		["Neutral to Friendly"] = "«Равнодушие» — «Дружелюбие»",
 		["Recipes for Leatherworkers, Tailors, Enchanters and Alchemists from Friendly to Revered"] = "Рецепты для кожевников, портных, зачарователей и алхимиков от дружелюбия до почтения",
 		["Revered to Exalted"] = "От «Почтения» до «Превознесения»",

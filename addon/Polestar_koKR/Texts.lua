@@ -9454,6 +9454,7 @@ t.guides["forever/reputation/timbermaw-hold"] = (function() return {
 		["Back to {npc:15395}"] = "{npc:15395}에게 돌아가기",
 		["Friendly to Honored"] = "우호적에서 존경",
 		["Honored to Revered"] = "존경에서 평판 우호",
+		["Mosshoof Coursers"] = "{npc:8761}",
 		["Neutral to Friendly"] = "중립에서 우호적",
 		["Revered to Exalted"] = "평판 우호에서 확고",
 		["The northern Deadwood (level 53-55) camp just south of the tunnel. They drop feathers about half the time: the best feather spot. {npc:9462} gives 15 until Exalted."] = "북쪽의 마른가지일족(레벨 53-55)이 동굴 바로 남쪽에 야영하고 있습니다. 약 절반의 확률로 깃털을 떨어뜨리며, 깃털을 모으기에 가장 좋은 곳입니다. {npc:9462}은(는) 확고한 동맹까지 15를 줍니다.",
