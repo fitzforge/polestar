@@ -151,7 +151,7 @@ fn the_close_button_and_escape_put_the_setup_back_key_for_key() {
 	}
 }
 
-// #4191: after Atlas, Standard or the ✕ gives the live guide window back every part it showed. Atlas kept the step
+// #4184: after Atlas, Standard or the ✕ gives the live guide window back every part it showed. Atlas kept the step
 // count's anchor (Polestar's ‹ button in it) in its own store, which leaving hides whole, so the ‹ stayed hidden
 // until a reload. Every frame of the window's parts, two levels down, shows as it did before Atlas.
 #[test]
