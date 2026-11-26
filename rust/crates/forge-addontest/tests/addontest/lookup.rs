@@ -1574,14 +1574,14 @@ fn options_the_lookup_tab_of_discovery_and_its_defaults() {
 			end
 		end
 		emit(out)
-		emit({ Polestar.Get("lookup.enabled"), Polestar.Get("lookup.tooltip"), Polestar.Get("lookup.altClick"), Polestar.Get("lookup.mounts") })
+		emit({ Polestar.Get("lookup.enabled"), Polestar.Get("lookup.tooltip"), Polestar.Get("lookup.altClick"), Polestar.Get("lookup.ctrlAltClick"), Polestar.Get("lookup.mounts") })
 	"#,
 		&Opts { files: &["Core/Core.xml", "Theme/Theme.xml", "Lookup/Lookup.xml", "../Polestar_Options/Lookup/Options.lua"], ..Default::default() },
 	));
 	let keys: Vec<Value> = arr(&controls).iter().map(|c| c["key"].clone()).collect();
-	assert_eq!(keys, ["lookup.enabled", "lookup.tooltip", "lookup.altClick", "lookup.mounts"]);
+	assert_eq!(keys, ["lookup.enabled", "lookup.tooltip", "lookup.altClick", "lookup.ctrlAltClick", "lookup.mounts"]);
 	assert!(arr(&controls).iter().all(|c| c["kind"] == "toggle" && truthy(&c["label"]) && truthy(&c["help"])));
-	assert_eq!(defaults, json!([true, true, true, true]));
+	assert_eq!(defaults, json!([true, true, true, false, true]));
 }
 
 // Mokii's report (#2943): Tirion Fordring has a spawn on Western Plaguelands' map from the Classic data (Era frame)

@@ -14,6 +14,16 @@ end
 local function tabOf(id)
 	for i, t in ipairs(Polestar.Engine.GetTabs()) do if t.guideId == id then return i end end
 end
+-- Click an item link and check whether its guide opens. Close it for the next probe.
+local function clickGuide(ctrl)
+	stub.keys.alt, stub.keys.ctrl = true, ctrl
+	lookuprt.clickItem(link(8004))
+	stub.keys.alt, stub.keys.ctrl = false, false
+	stub.advance(0.1)
+	local i = tabOf("lookup/item/8004")
+	if i then Polestar.Engine.CloseTab(i, true) end
+	return i ~= nil
+end
 return {
 	setup = function()
 		w = stub.world
@@ -29,16 +39,8 @@ return {
 	probes = {
 		["lookup.enabled"] = itemTip,
 		["lookup.tooltip"] = itemTip,
-		-- Alt-click an item link: a guide that gets it opens in a tab (closed again after).
-		["lookup.altClick"] = function()
-			stub.keys.alt = true
-			lookuprt.clickItem(link(8004))
-			stub.keys.alt = false
-			stub.advance(0.1)
-			local i = tabOf("lookup/item/8004")
-			if i then Polestar.Engine.CloseTab(i, true) end
-			return i ~= nil
-		end,
+		["lookup.altClick"] = function() return clickGuide(false) end,
+		["lookup.ctrlAltClick"] = function() return clickGuide(true) end,
 		-- Hovering the mounted player: the mount and where it comes from.
 		["lookup.mounts"] = function()
 			GameTooltip:SetOwner(UIParent)
