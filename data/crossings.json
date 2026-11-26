@@ -112,8 +112,9 @@
 			"id": "carbonite-felwood--moonglade",
 			"a": {
 				"map": 1448,
-				"x": 64.97,
-				"y": 8.36,
+				"x": 65.4,
+				"y": 1.1,
+				"z": 581,
 				"radius": 30
 			},
 			"b": {
@@ -121,14 +122,16 @@
 				"x": 35.77,
 				"y": 72.2,
 				"radius": 30
-			}
+			},
+			"source": "The Felwood end stands inside Timbermaw Hold's tunnel on its way north to Moonglade (the walking maps' tunnel floor, height 581), past where it leaves the way to Winterspring, not at the tunnel's Felwood mouth (64.97, 8.36): the tunnel is the crossing's way, and a player past the mouth was sent back to it (#4186)"
 		},
 		{
 			"id": "carbonite-felwood--winterspring",
 			"a": {
 				"map": 1448,
-				"x": 64.97,
-				"y": 8.36,
+				"x": 67.93,
+				"y": 4.7,
+				"z": 590,
 				"radius": 30
 			},
 			"b": {
@@ -136,7 +139,8 @@
 				"x": 27.96,
 				"y": 34.56,
 				"radius": 30
-			}
+			},
+			"source": "The Felwood end stands inside Timbermaw Hold's tunnel by its Winterspring exit (the walking maps' tunnel floor, height 590), not at its Felwood mouth (64.97, 8.36): the tunnel is the crossing's way, and a player past the mouth was sent back to it (#4186). The walk from Felwood to this end goes through the tunnel"
 		},
 		{
 			"id": "carbonite-durotar--orgrimmar",

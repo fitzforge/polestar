@@ -4917,3 +4917,57 @@ fn t_4035_from_the_badlands_the_route_to_the_uldaman_dig_s_magenta_caps_goes_in_
 		assert_eq!(out[from]["mouth"], true, "from {from}: the route goes in by the dig's mouth: {out}");
 	}
 }
+
+/// #4186 (Meta, Scourge Paladin 55, 0.4.2.2): bound for Winterspring through Timbermaw Hold, the arrow and the minimap
+/// line pointed back to the tunnel's Felwood mouth the whole way through, until the player stood by the Winterspring
+/// exit. The crossing joined Felwood to Winterspring at the mouth, so a player past it, inside the tunnel (still
+/// Felwood), was routed back to it. The crossings to Winterspring and to Moonglade now take their Felwood end inside
+/// the tunnel, past where the ways part. Walking the tunnel from the mouth to the exit, no route leads back to the mouth.
+#[test]
+fn t_4186_walking_timbermaw_hold_s_tunnel_to_winterspring_the_route_never_leads_back_to_the_felwood_mouth() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Horde"
+		w.race, w.raceName = "Scourge", "Undead"
+		w.setLevel(55)
+		local MOUTH = { 6812.9, -2094.1 } -- the tunnel's Felwood mouth, Felwood 64.97, 8.36
+		local _, a = C_Map.GetWorldPosFromMapPos(1448, CreateVector2D(0.6300, 0.0900))
+		local _, b = C_Map.GetWorldPosFromMapPos(1448, CreateVector2D(0.6813, 0.0539))
+		local pts
+		Polestar_NavEngine.Find(1, { x = a.x, y = a.y }, { x = b.x, y = b.y, z = 590 }, function(p) pts = p end, { profile = "Horde" })
+		for _ = 1, 400 do if pts then break end stub.advance(0.05) end
+		place(1448, a.x, a.y, 0)
+		stub.fire("ZONE_CHANGED_NEW_AREA")
+		stub.advance(1)
+		N.Sample()
+		N.SetTarget(1452, 28.00, 34.60, "Into Winterspring", "e")
+		for _ = 1, 100 do N.Sample(); stub.advance(0.05) end
+		local r = { points = pts and #pts or 0, back = {}, inside = 0 }
+		local x, y, passed = a.x, a.y, false
+		for i = 2, #(pts or {}) do
+			local p = pts[i]
+			local n = math.max(1, math.ceil(dist(x, y, p.x, p.y) / 1.4))
+			for k = 1, n do
+				local px, py = x + (p.x - x) * k / n, y + (p.y - y) * k / n
+				place(N.danger.ZoneAt(1, px, py) or 1448, px, py, 0)
+				N.Sample()
+				stub.advance(0.2)
+			end
+			x, y = p.x, p.y
+			if dist(x, y, MOUTH[1], MOUTH[2]) < 30 then passed = true end
+			if passed and dist(x, y, MOUTH[1], MOUTH[2]) > 60 then
+				r.inside = r.inside + 1
+				local legs, ci = N.GetRoute()
+				local l = legs and legs[ci or 1]
+				if l and l.to and l.to.wx and dist(l.to.wx, l.to.wy, MOUTH[1], MOUTH[2]) < 30 then r.back[#r.back + 1] = i end
+			end
+		end
+		r.backs, r.back = #r.back, table.concat(r.back, ",")
+		emit(r)"#,
+		true,
+	);
+	assert!(f(&out["points"]) > 10.0, "the tunnel's walk is found: {out}");
+	assert!(f(&out["inside"]) > 10.0, "the walk passes the mouth and goes on inside: {out}");
+	assert_eq!(f(&out["backs"]), 0.0, "inside the tunnel, no route leads back to the Felwood mouth: {out}");
+}
