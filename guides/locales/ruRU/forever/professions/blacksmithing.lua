@@ -361,7 +361,7 @@ return {
 	-- {item:12416} Radiant Belt · {item:12359} Thorium Bar · {item:7077} Heart of Fire · {item:12685} Plans: Radiant Belt
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
 	["{item:12416} is orange at 250 (yellow 255, green 265, grey 275): about 19 crafts to 265, up to 22 for 9 players in 10 (the gathered materials above count that many). Each takes 10 {item:12359} and 2 {item:7077}. Its pattern ({item:12685}) drops from mobs all over the world and does not bind: buy it at the Auction House. Ten Thorium Bars and two Hearts of Fire a craft; orange to 255. Needs an anvil nearby."] = "",
-	["from the pattern bought at the Auction House"] = "",
+	["from the pattern bought at the Auction House"] = "из выкройки, купленной на аукционе",
 
 	-- Step 57: Radiant Boots to 291
 	-- {item:12419} Radiant Boots

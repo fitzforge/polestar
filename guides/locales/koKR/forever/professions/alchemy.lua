@@ -18,7 +18,7 @@ return {
 	["{skill:171} 1-75: vendor goods"] = "{skill:171} 1-75: 상인 재료",
 	-- {item:3371} Empty Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
 	-- was: ["Buy the whole bracket's share in one go: 82 {item:3371} (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:3371} 82개(3실버 28코퍼). 모두 약 3실버 28코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1286}, {npc:5503}, {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348}, {npc:3334})."
-	["Buy the whole bracket's share in one go: 82 {item:3371} (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Buy the whole bracket's share in one go: 82 {item:3371} (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:3371} 82개(3실버 28코퍼). 모두 약 3실버 28코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1286}, {npc:5503}, {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348}, {npc:3334}).",
 
 	-- Step 3: Get Silverleaf
 	-- {item:765} Silverleaf
@@ -112,7 +112,7 @@ return {
 	["{skill:171} 150-225: vendor goods"] = "{skill:171} 150-225: 상인 재료",
 	-- {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
 	-- was: ["Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:3372} 83개(33실버 20코퍼). 모두 약 33실버 20코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1286}, {npc:5503}, {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348}, {npc:3334})."
-	["Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:3372} 83개(33실버 20코퍼). 모두 약 33실버 20코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1286}, {npc:5503}, {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348}, {npc:3334}).",
 
 	-- Step 18: Get Wild Steelbloom
 	-- {object:1623} Wild Steelbloom
@@ -183,7 +183,7 @@ return {
 	["{skill:171} 225-300: vendor goods"] = "{skill:171} 225-300: 상인 재료",
 	-- {item:3372} Leaded Vial · {item:8925} Crystal Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
 	-- was: ["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:3372} 51개(20실버 40코퍼)와(과) {item:8925} 86개(4골드 30실버). 모두 약 4골드 50실버 40코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1286}, {npc:5503}, {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348}, {npc:3334})."
-	["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:3372} 51개(20실버 40코퍼)와(과) {item:8925} 86개(4골드 30실버). 모두 약 4골드 50실버 40코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1286}, {npc:5503}, {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348}, {npc:3334}).",
 
 	-- Step 29: Recipe: Elixir of Superior Defense
 	-- {item:13478} Recipe: Elixir of Superior Defense · {item:13445} Elixir of Greater Defense · {skill:171} Alchemy · {npc:5178} Soolie Berryfizz · {zone:1455} Ironforge · {npc:3348} Kor'geld · {zone:1454} Orgrimmar

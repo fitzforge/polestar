@@ -18,7 +18,7 @@ return {
 	["{skill:171} 1-75: vendor goods"] = "{skill:171} 1-75：商人貨物",
 	-- {item:3371} Empty Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
 	-- was: ["Buy the whole bracket's share in one go: 82 {item:3371} (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "一次買齊本階段的用量：82個 {item:3371}（3銀28銅）；總計約3銀28銅。箭頭會指向本陣營最近的商人（{zone:1453}：{npc:1286}、{npc:5503} 和 {npc:1325}；{zone:1454}：{npc:3367}、{npc:3348} 和 {npc:3334}）。"
-	["Buy the whole bracket's share in one go: 82 {item:3371} (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Buy the whole bracket's share in one go: 82 {item:3371} (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "一次買齊本階段的用量：82個 {item:3371}（3銀28銅）；總計約3銀28銅。箭頭會指向本陣營最近的商人（{zone:1453}：{npc:1286}、{npc:5503} 和 {npc:1325}；{zone:1454}：{npc:3367}、{npc:3348} 和 {npc:3334}）。",
 
 	-- Step 3: Get Silverleaf
 	-- {item:765} Silverleaf
@@ -112,7 +112,7 @@ return {
 	["{skill:171} 150-225: vendor goods"] = "{skill:171} 150-225：商人貨物",
 	-- {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
 	-- was: ["Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "一次買齊本階段所需：83個{item:3372}（33銀20銅）；總計約33銀20銅。箭頭指向本陣營最近的出售者（{zone:1453}：{npc:1286}、{npc:5503}和{npc:1325}；{zone:1454}：{npc:3367}、{npc:3348}和{npc:3334}）。"
-	["Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "一次買齊本階段所需：83個{item:3372}（33銀20銅）；總計約33銀20銅。箭頭指向本陣營最近的出售者（{zone:1453}：{npc:1286}、{npc:5503}和{npc:1325}；{zone:1454}：{npc:3367}、{npc:3348}和{npc:3334}）。",
 
 	-- Step 18: Get Wild Steelbloom
 	-- {object:1623} Wild Steelbloom
@@ -183,7 +183,7 @@ return {
 	["{skill:171} 225-300: vendor goods"] = "{skill:171} 225-300：商人貨物",
 	-- {item:3372} Leaded Vial · {item:8925} Crystal Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
 	-- was: ["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "一次買齊整個階段的用量：51個{item:3372}（20銀40銅）和86個{item:8925}（4金30銀）；合計約4金50銀40銅。箭頭會選擇本陣營最近的商人（{zone:1453}：{npc:1286}、{npc:5503}和{npc:1325}；{zone:1454}：{npc:3367}、{npc:3348}和{npc:3334}）。"
-	["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "一次買齊整個階段的用量：51個{item:3372}（20銀40銅）和86個{item:8925}（4金30銀）；合計約4金50銀40銅。箭頭會選擇本陣營最近的商人（{zone:1453}：{npc:1286}、{npc:5503}和{npc:1325}；{zone:1454}：{npc:3367}、{npc:3348}和{npc:3334}）。",
 
 	-- Step 29: Recipe: Elixir of Superior Defense
 	-- {item:13478} Recipe: Elixir of Superior Defense · {item:13445} Elixir of Greater Defense · {skill:171} Alchemy · {npc:5178} Soolie Berryfizz · {zone:1455} Ironforge · {npc:3348} Kor'geld · {zone:1454} Orgrimmar
