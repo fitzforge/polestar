@@ -340,6 +340,13 @@ ns.UI.GuideFrame.Part(function(GF)
 			other:SetPoint("TOP", empty, "TOP", 0, y)
 			y = y - 20
 		end
+		-- "Or follow your own quests: Free mode" (Lookup/Free.lua), last.
+		local free = rawget(empty, "FreeLink")
+		if free and free:IsShown() then
+			empty.FreeLink:ClearAllPoints()
+			empty.FreeLink:SetPoint("TOP", empty, "TOP", 0, y - 10)
+			y = y - 10 - 20
+		end
 		y = y - 24
 		empty:SetHeight(-y)
 		return -y

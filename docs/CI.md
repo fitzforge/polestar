@@ -364,13 +364,16 @@ together.
 | Guide lint | a lint error, leveling or experimental guides |
 | Addon tests | any of forge-addontest's tests, all of them (the cached test binaries) |
 | Playtest | a guide stuck or failing, leveling or experimental |
-| Route speed | a time to the arrow's first walking route over 5 s in its 7 cases, or a settled route that differs from 0.4.2's |
+| Route speed | a time to the arrow's first walking route over 5 s in its 10 cases, a settled route that differs from 0.4.2's, or a case whose Lua interpreter dies on all of its runs (a "lua5.1 died" row: a case that dies is run again, up to 5 times, and a death that a rerun clears is listed under the table, not counted) |
 | Arrow corner cadence | a case whose corner lag is worse than 0.4.1.1's (mean over 3 degrees worse and 6 or more, max over 45 and 10 worse), 24 cases |
 | Arrow stretches | a guide stretch the arrow does not walk to its end; the table compares with 0.4.2's runs |
 
 The route-speed, cadence and stretch gates' harnesses and baselines come
 from the release gates and live with the runner (`$POLESTAR_GATES`), not in
-the repository. A gate that cannot run (no data, no harness) fails like one
+the repository. Their Lua is the kit's own Lua 5.1.5 built from lua.org's source
+(`$POLESTAR_GATES/lua51/lua`, set as `LUA` by `run.sh`; the distro's `lua5.1`
+segfaulted on the runner in the route-speed `:reload` cases on 26 Nov 2026),
+and the distro's binary is the fallback when the kit has none. A gate that cannot run (no data, no harness) fails like one
 that finds something: nothing is skipped quietly.
 
 Each gate runs whatever the others did; the run's summary has a row per
