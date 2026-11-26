@@ -12,6 +12,7 @@
 	"behavior.guideEnd",
 	"behavior.lostQuests",
 	"behavior.offerClassQuests",
+	"behavior.rareDrops",
 	"behavior.routeChoice",
 	"behavior.skipGrey",
 	"behavior.spokenDelay",

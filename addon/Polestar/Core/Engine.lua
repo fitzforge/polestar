@@ -42,6 +42,7 @@ ns.RegisterDefaults("behavior", {
 	offerClassQuests = true, -- offer a Class guide in a tab when it opens for the character (QoL/ClassQuests.lua)
 	groupQuests = "ask", -- "ask" | "do" | "skip": the answer at a group quest (`when group`) the player has not answered (Own.groupAnswer)
 	dungeons = "skip", -- "skip" | "ask" | "run": "Dungeons in my route", the answer for a dungeon (`when dungeon`) the character has not answered one by one (Own.dungeonAnswer)
+	rareDrops = "optional", -- "optional" | "chase" | "hide": the quests an item starts, optional in the guides (Own.itemStart): leave as written, lead the arrow to the drop, or leave out until the item drops (Own.rareHidden, Own.chased)
 	lostQuests = "ask", -- "ask" | "back" | "skip": a quest the route had passed that leaves the log (abandoned, failed): the window asks, or the guide goes back for it or skips it at once (Own.holdLost)
 	suggestFrom = "guides", -- pack id the suggestions come from (Guides.SuggestSource); ours fill in
 	whileHere = true, -- "While you're here": a quick objective of a later step close by, as one line under the step (Own.hereBuild)
@@ -1829,11 +1830,87 @@ function Own.alongWork(q)
 	return out
 end
 
+-- The shape of the two goals that start a quest from an item: its optional
+-- accept (the item for its giver: no NPC, no object) and the optional collect
+-- of that item (no quest of its own). An optional start is one the guides
+-- mark for a rare drop or a side trip.
+local function itemStarterShape(goal)
+	return goal.optional and goal.item and ((goal.t == "accept" and not goal.npc and not goal.object)
+		or (goal.t == "collect" and not goal.quest)) and true or false
+end
+
+-- The optional item-start accept that goal belongs to: the accept itself, or
+-- the collect of its item in the same step; nil for any other goal. Cached
+-- per goal (guides do not change).
+local itemStarts = setmetatable({}, { __mode = "k" })
+function Own.itemStart(step, goal)
+	local known = itemStarts[goal]
+	if known ~= nil then return known or nil end
+	local found
+	if itemStarterShape(goal) then
+		if goal.t == "accept" then
+			found = goal
+		else
+			for _, other in ipairs(step.goals) do
+				if other.t == "accept" and other.item == goal.item and itemStarterShape(other) then
+					found = other
+					break
+				end
+			end
+		end
+	end
+	itemStarts[goal] = found or false
+	return found
+end
+
+-- behavior.rareDrops: how the guide treats the quests an item starts (Own.itemStart).
+-- "optional" (default): optional goals, as the guides write them. "chase": the arrow
+-- leads to the item's drop spots with the rest of the step (Own.chased); the step
+-- still never waits for it. "hide": the start, its item and the quest's other
+-- optional goals are out of the way (Own.rareHidden) until the item is in the bags.
+local RARE_MODES = { optional = true, chase = true, hide = true }
+local function rareMode()
+	local mode = ns.Get("behavior.rareDrops")
+	return RARE_MODES[mode] and mode or "optional"
+end
+
+-- Whether goal g of step s is an item start the player chose to chase.
+-- Only the collect has a place for the arrow to lead to.
+function Own.chased(s, g)
+	local step = guide.steps[s]
+	local goal = step and step.goals[g]
+	return goal ~= nil and goal.t == "collect" and rareMode() == "chase" and Own.itemStart(step, goal) ~= nil
+end
+
+-- Whether behavior.rareDrops hides goal g of step s: an optional item start,
+-- or an optional goal of the quest it starts (its hand-in), while the quest
+-- is not in the log or done and the item is not in the bags. An item that
+-- dropped brings the start back at once (take the quest, hand it in).
+function Own.rareHidden(s, g)
+	local step = guide.steps[s]
+	local goal = step and step.goals[g]
+	if not (goal and goal.optional) or rareMode() ~= "hide" then return false end
+	local a = Own.itemStart(step, goal)
+	if not a and goal.quest then
+		local first = (layoutOf(guide).accepts[goal.quest] or NONE)[1]
+		a = first and Own.itemStart(first.step, first.goal)
+	end
+	if not a then return false end
+	local C = Compat()
+	return not (C.IsOnQuest(a.quest) or questDone(a.quest) or (C.GetItemCount(a.item) or 0) > 0)
+end
+
 -- An optional goal the player skipped: CharState().skipped[guideId]["s:g"]
 -- (next to the step skips, which use the step number).
-function Own.goalSkipped(s, g)
+function Own.goalDismissed(s, g)
 	local sk = ns.CharState().skipped[guide.id]
 	return sk ~= nil and sk[Own.key(s, g)] and true or false
+end
+
+-- A goal the route leaves alone: one the player skipped, or one the
+-- rare-drop setting hides (Own.rareHidden).
+function Own.goalSkipped(s, g)
+	return Own.goalDismissed(s, g) or Own.rareHidden(s, g)
 end
 
 -- Prerequisites during play. An accept is unavailable before any visit
@@ -6039,7 +6116,7 @@ local function nextApplicable(from)
 end
 
 local function goalStatus(s, g, goal, stepIsCurrent)
-	if not goalApplies(goal) then return "na" end
+	if not goalApplies(goal) or Own.rareHidden(s, g) then return "na" end
 	local done, cur, max, label, kind = goalDone(s, g, goal)
 	if done then return "done", cur, max, label, kind end
 	if unavailableFor(goal) or Own.goalSkipped(s, g) or Own.lostGoal(goal) then return "skipped", cur, max, label, kind end
@@ -6742,7 +6819,7 @@ local function goalView(s, g, goal, stepStatus, group)
 		-- skipped (SkipGoal), status "skipped".
 		tickable = goal.t ~= "note" and status ~= "na",
 		ticked = checked(s, g),
-		dismissed = Own.goalSkipped(s, g) or nil,
+		dismissed = Own.goalDismissed(s, g) or nil,
 		optional = goal.optional and true or false,
 		-- A vendor check-off beside other work: it does not hold the step
 		-- (Own.sideVendor).
@@ -7066,7 +7143,7 @@ function Own.currentGoal(s, groups, focus)
 			and not goalDone(s, g, goal) then
 			if Own.isHeader(step, goal, grp) then
 				header = header or g
-			elseif not goal.optional then
+			elseif not goal.optional or Own.chased(s, g) then
 				first = first or g
 				if Own.isField(goal) and not barrier then
 					fields = fields or {}
@@ -18039,11 +18116,9 @@ function Engine.SkipGoal(stepIndex, goalIndex)
 	if not (goal and goal.optional) then return false end
 	local sk = skippedFor(guide.id, true)
 	local on = not sk[stepIndex .. ":" .. goalIndex] or nil
-	local starter = goal.item and ((goal.t == "accept" and not goal.npc and not goal.object) or (goal.t == "collect" and not goal.quest))
+	local starter = itemStarterShape(goal)
 	for g, other in ipairs(step.goals) do
-		local partner = starter and other ~= goal and other.item == goal.item and other.optional
-			and ((other.t == "accept" and not other.npc and not other.object) or (other.t == "collect" and not other.quest))
-			and other.t ~= goal.t
+		local partner = starter and other ~= goal and other.item == goal.item and itemStarterShape(other) and other.t ~= goal.t
 		if g == goalIndex or partner then
 			sk[stepIndex .. ":" .. g] = on
 			if aim == other then aim = nil end

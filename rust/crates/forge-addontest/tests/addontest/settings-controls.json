@@ -218,6 +218,14 @@
    ]
   },
   {
+   "id": "behavior.rareDrops",
+   "kind": "dropdown",
+   "label": "Quests started by a rare drop",
+   "at": [
+    "Guide > Automation > Quests"
+   ]
+  },
+  {
    "id": "behavior.routeChoice",
    "kind": "dropdown",
    "label": "Where to level next",

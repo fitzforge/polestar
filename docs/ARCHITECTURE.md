@@ -1847,6 +1847,10 @@ Polestar.Engine.AwayStart(id) -> away | nil -- another race's starting zone the 
 Polestar.Engine.GoalDone(stepIndex, goalIndex) -> bool     -- the goal is done (live state, arrival or check-off); Nav/Walk.lua's FollowsGoto asks it of a guide `goto`
 Polestar.Engine.ToggleGoal(stepIndex, goalIndex) -> bool   -- tick any goal but a note done, or clear its check-off
 Polestar.Engine.SkipGoal(stepIndex, goalIndex) -> bool     -- skip an optional goal, or bring it back
+-- behavior.rareDrops ("optional" | "chase" | "hide"): the optional item-start accept and the collect of its item
+-- (Own.itemStart). "chase": Own.chased puts the collect among the goals the arrow leads to. "hide": Own.rareHidden
+-- makes Own.goalSkipped true for them and the quest's other optional goals, and goalStatus reads "na", while the
+-- item is not in the bags and the quest is neither in the log nor done.
 Polestar.Engine.SkipQuest(questID, on) -> bool               -- skip a quest and what follows from it, in every guide; on = false brings it back
 Polestar.Engine.IsQuestSkipped(questID) -> bool
 Polestar.Engine.SkipLoses(questID?) -> { { id, title }, ... } | nil   -- the open accepts of this guide (other quests, other steps) that skipping questID, or with none the live step, would leave out; tried on the saved state and put back (see "Quests the player skipped")

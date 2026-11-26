@@ -1980,6 +1980,18 @@ the way. An elite in a Leveling guide belongs here, with the tip
   kill 299 x8 optional
 ```
 
+A quest an item starts is an `accept` with an `item` and no giver, plus the
+`collect` of that item in the same step. If its drop is rare, mark both
+`optional`. The player's setting `behavior.rareDrops` (Guide, Automation,
+Quests) decides what Polestar does with them:
+
+- `optional` (default): both goals show as written.
+- `chase`: the arrow also leads to the item's spots with the rest of the
+  step. The step still never waits for the drop.
+- `hide`: Polestar leaves out the start, the item and the quest's other
+  optional goals. If the item is in the bags or the quest is in the log, the
+  goals come back.
+
 ### Handing over to our guides
 
 A pack's guide may end by handing over to any of Polestar's guides. Pick one

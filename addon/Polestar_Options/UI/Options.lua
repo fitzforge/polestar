@@ -417,6 +417,12 @@ local BUILTIN = {
 			search = "missable, exclusive quests, breadcrumb, warning" },
 		{ kind = "toggle", key = "behavior.skipGrey", label = L["Skip grey quests"], help = L["Leaves out grey quests, and quests behind you that pay less than full XP when going back for them costs more time than they give. A quest still paying full XP stays, and so does one a later quest needs. The guide window says what it left out."],
 			search = "gray quests, low level quests, trivial, skip easy quests, green quests, reduced xp, left out" },
+		-- The quests an item starts, optional in the guides (Engine Own.itemStart): leave
+		-- them optional, lead the arrow to the drop, or leave them out until it drops.
+		{ kind = "dropdown", key = "behavior.rareDrops", label = L["Quests started by a rare drop"], new = "0.4.4",
+			help = L["Quests that start from an item a mob may drop. Optional: the guide lists them as optional and never waits for them. Chase: the arrow also leads you to the item with the rest of the step; the guide still never waits for it. Hide: the guide leaves them out until the item is in your bags."],
+			choices = { { value = "optional", label = L["Optional"] }, { value = "chase", label = L["Chase them"] }, { value = "hide", label = L["Hide them"] } },
+			search = "rare drop, item starts quest, optional quests, drop quest, farm, skip drop quests" },
 		-- A quest the route had passed that leaves the log (Engine Own.holdLost,
 		-- #1365): the guide window asks, or the answer is always the same.
 		{ kind = "dropdown", key = "behavior.lostQuests", label = L["When you abandon a guide quest"],

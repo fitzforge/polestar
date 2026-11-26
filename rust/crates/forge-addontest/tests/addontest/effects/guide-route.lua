@@ -46,6 +46,14 @@ return {
 			{ title = "Deathskip to Sen'jin Village", goals = { { t = "die", location = "Sen'jin Village", map = 1411, x = 57.2, y = 73.3, f = "e" } } },
 			{ title = "Razor Hill", goals = { { t = "accept", quest = 840, title = "Conscript of the Horde", npc = 3336, npcName = "Takrin Pathseeker", map = 1411, x = 50.8, y = 43.6 } } },
 		} })
+		-- A quest an item starts (engine-rare-drops.rs): the book's spot is nearer than the kobolds.
+		Polestar.RegisterGuide({ id = "test/drops", pack = "test", title = "Drops", minLevel = 1, maxLevel = 30, steps = {
+			{ title = "Woods", goals = {
+				{ t = "kill", target = "Kobold Vermin", npc = 6, count = 10, map = 1429, x = 47.6, y = 35.1 },
+				{ t = "collect", item = 2794, itemName = "An Old History Book", count = 1, optional = true, map = 1429, x = 48.5, y = 40.5 },
+				{ t = "accept", quest = 337, title = "An Old History Book", item = 2794, itemName = "An Old History Book", optional = true },
+			} },
+		} })
 		Polestar.RegisterGuide({ id = "test/reset", pack = "test", title = "Reset", minLevel = 1, maxLevel = 10, steps = {
 			{ goals = { { t = "accept", quest = 201, title = "First" } } },
 			{ goals = { { t = "accept", quest = 202, title = "Second" } } },
@@ -75,6 +83,11 @@ return {
 			if q then E.AnswerLost(q, "back"); flush() end
 			w.onQuest(7, {}); stub.fire("QUEST_LOG_UPDATE"); flush()
 			return out
+		end },
+		-- The book's start: optional as written, the arrow leads to the book, or the start is left out.
+		["behavior.rareDrops"] = { prepare = function() open("test/drops") end, probe = function()
+			local v = E.GetStepView(1)
+			return { current = v.current, book = v.goals[2].status, accept = v.goals[3].status }
 		end },
 		-- Kobold Camp Cleanup marked for a group: the guide waits and asks, or takes it with a group, or the solo way.
 		["behavior.groupQuests"] = { prepare = function()
