@@ -3734,7 +3734,7 @@ test(`${TELDRASSIL}: Pynte's report: Zenn's Bidding is taken on the walk down to
 
 const BADLANDS = 'forever/alliance/30-40/06-badlands.guide';
 const DESOLACE_SOUTH = 'forever/alliance/30-40/06b-desolace.guide';
-test('Alliance Badlands: Safety Checks can be handed in on the first ride out if ready', { skip }, () => {
+test('Alliance Badlands: Safety Checks can be handed in on the first ride out if ready', () => {
 	const early = fs.readFileSync(path.join(OFFICIAL_DIR, BADLANDS), 'utf8');
 	const late = fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/alliance/40-50/02-badlands.guide'), 'utf8');
 	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
@@ -3746,24 +3746,38 @@ test('Alliance Badlands: Safety Checks can be handed in on the first ride out if
 		when: 'complete 97617',
 	});
 
-	// Play the copy from the record until Forge has written it into the checked-in guide.
+	// Exercise the exit in the engine with fixed quest data. The public CI
+	// cache can be older than the full Badlands guide.
+	const exit = early.match(/^step To Stoutlager Inn\r?\n(?:[ \t]+[^\r\n]*\r?\n)+/m)[0];
+	const lotwil = early.match(/^step Lotwil Veriatus\r?\n  turnin 711[^\r\n]*\r?\n/m)[0];
 	const dorgaron = late.match(/^step Dorgaron\r?\n(?:[ \t]+[^\r\n]*\r?\n)+/m)[0];
 	const guarded = dorgaron.replace(/^(  zone Badlands\r?\n)/m, `$1  when ${record.step.when}\n`);
-	const text = /^  turnin 97617\b/m.test(early) ? early : early.replace(/^(  turnin 711\r?\n)/m, `$1\n${guarded}`);
+	const text = `guide ${record.step.guide}\ntitle Badlands\nfaction Alliance\nlevels 37-38\nzone Badlands\n\n${lotwil}\n${guarded}\n${exit}`;
+	const quest = (id, title, npc) => ({ id, title, level: 39, minLevel: 35, end: { npc: [npc] }, objectives: [] });
+	const npc = (id, name, x, y) => ({ id, name, spawns: { 1418: { f: 'e', pts: [[x, y]] } } });
+	const fixture = new Data({
+		quests: {
+			711: quest(711, 'Study of the Elements: Rock', 2921),
+			97617: quest(97617, 'Safety Checks', 269577),
+		},
+		npcs: {
+			2921: npc(2921, 'Lotwil Veriatus', 25.92, 45.12),
+			269577: npc(269577, 'Dorgaron', 54.49, 12.92),
+		},
+		zones: {
+			1418: { id: 1418, name: 'Badlands', parent: 1415, type: 3 },
+			1432: { id: 1432, name: 'Loch Modan', parent: 1415, type: 3 },
+		},
+	});
 	const who = { race: 'Human', raceName: 'Human', faction: 'Alliance', cls: 'WARLOCK', className: 'Warlock', level: 39 };
 	const view = (state, continueAfterHandIn = '') => engineRun(BADLANDS, who, {
 		text,
+		data: fixture,
 		before: `w.moveTo(1418, 25.92, 45.12)
-			w.complete({710}); w.onQuest(711, {})
+			w.onQuest(711, {})
 			${state}`,
-		after: `local w, lotwil = stub.world
-			for i, step in ipairs(E.GetGuide().steps) do
-				for _, goal in ipairs(step.goals) do
-					if goal.t == "turnin" and goal.quest == 711 then lotwil = i end
-				end
-			end
-			E.SkipUpTo(assert(lotwil))
-			assert(E.GetLiveStep() == lotwil)
+		after: `local w = stub.world
+			assert(E.GetLiveStep() == 1)
 			w.turnIn(711)
 			${continueAfterHandIn}`,
 		script: `local step = E.GetGuide().steps[assert(E.GetLiveStep())]
