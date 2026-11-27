@@ -88,7 +88,6 @@ return {
 	["{quest:3362}: kill these as you meet them"] = "{quest:3362}：沿途击杀以下目标",
 	-- {zone:1446} Tanaris · {quest:2864} Tran'rek · {area:1938} Broken Pillar
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
-	-- was: ["West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave {quest:2864}'s Gnarled Thistleshrubs and Rootshapers for the {area:1938} ride into Un'Goro at about 51."] = "营地西侧的山谷遍布仙人掌般的生物；只有露水收集者（47-48级）携带露腺。{zone:1446}的大多数怪物都有极低概率掉落OOX-17/TN的求救信标：看见就留着。\n小心：此地其他灌木怪为48-50级，四处游荡，很容易额外引怪：在山谷边缘打露水收集者，{quest:2864}要的长瘤的灌木兽和塑根者留到约51级经{area:1938}前往安戈洛时再打。"
 	["West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave {quest:2864}'s Gnarled Thistleshrubs and Rootshapers (49-50) for the {area:1938} ride into Un'Goro at about 51."] = "营地西侧的山谷遍布仙人掌般的生物，只有灌木露水收集者（47-48级）携带露水腺。{zone:1446}的大多数怪物都有很低的概率掉落OOX-17/TN定位器，捡到了就留着。\n小心，这里其他灌木怪为48-50级，经常四处游荡，很容易多引怪。在山谷边缘打灌木露水收集者。{quest:2864}要打的长瘤的灌木兽和灌木塑根者（49-50级），留到约51级经{area:1938}前往安戈洛环形山时再打。",
 	-- {item:8623} OOX-17/TN Distress Beacon
 	["{item:8623}, a rare drop"] = "{item:8623}，稀有掉落",
@@ -117,7 +116,6 @@ return {
 
 	-- Step 25: Gadgetzan
 	-- {quest:2864} Tran'rek · {quest:3362} Thistleshrub Valley · {area:1938} Broken Pillar
-	-- was: ["Keep {quest:2864}'s {quest:3362}: its Rootshapers (49-50) come with the {area:983} at the {area:1938}, on the way into Un'Goro at about 51."] = "保留{quest:2864}的{quest:3362}：其中的塑根者（49-50级）和{area:983}一起，在约51级经{area:1938}前往安戈洛时完成。"
 	["Keep {quest:2864}'s {quest:3362}: its Rootshapers (49-50) come at the {area:1938}, on the way into Un'Goro at about 51."] = "先留着{quest:2864}给的{quest:3362}。任务要打的灌木塑根者（49-50级），留到约51级经{area:1938}前往安戈洛环形山时再打。",
 	-- {item:8526} Violet Tragan · {zone:1425} Hinterlands
 	["the {item:8526} grows in the {zone:1425}, around level 48"] = "{item:8526}生长在{zone:1425}，大约48级时",
@@ -163,7 +161,6 @@ return {
 	-- Step 34: The Grimesilt Dig Site
 	-- {area:16727} Powderfuse Port · {zone:1427} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth · {area:976} Gadgetzan
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
-	-- was: ["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "从 {area:16727} 骑行，经东侧山口进入 {zone:1427}，再向西到挖掘场。{object:173265} 在挖掘场南端；黑铁地质学家就在它北边不远处挖掘。带上 15 个 {item:4306}（拍卖行有售）。"
 	["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring the 15 {item:4306} from {area:976}'s Auction House: the Geologists drop it only now and then."] = "从{area:16727}骑行，经东侧山口进入{zone:1427}，再向西到挖掘场。{object:173265}在挖掘场南端，黑铁地质学家就在它北边不远处挖掘。带上15块{item:4306}，从{area:976}的拍卖行购买。黑铁地质学家偶尔才会掉落。",
 	-- {object:173265} Wooden Outhouse
 	["the {object:173265}"] = "{object:173265}",

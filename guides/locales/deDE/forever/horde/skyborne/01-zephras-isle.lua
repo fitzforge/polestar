@@ -486,7 +486,6 @@ return {
 
 	-- Step 108: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form · {zone:1413} Barrens
-	-- was: ["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033} bildet Druiden auf der {area:1639} aus. Er lehrt dich {spell:18960}; der Willkommensgruß von {npc:11802} wartet etwa mit 21 auf deine Reise für {spell:499} (forever/horde/02-the-barrens)."
 	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21, in the {zone:1413} guide."] = "{npc:3033} bildet Druiden auf {area:1639} aus. Er lehrt dich {spell:18960}; das Willkommensgeschenk von {npc:11802} wartet auf deine {spell:499}-Reise bei etwa Stufe 21 im {zone:1413}-Guide.",
 
 	-- Step 109: Hunter Rise

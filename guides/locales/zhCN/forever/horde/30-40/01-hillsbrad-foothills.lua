@@ -98,7 +98,6 @@ return {
 
 	-- Step 17: High Executor Darthalia
 	-- {area:287} Hillsbrad · {quest:527} Battle of Hillsbrad
-	-- was: ["You missed Darthalia's first errands, from the 22-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "你错过了22-25级{area:287}指南中达萨利亚最早的几个差事：现在先做这些。它们比你低几级，很快就能完成，还会开启本指南中{quest:527}的后续任务。"
 	["You missed Darthalia's first errands, from the 23-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "如果你没做23–25级{area:287}指南里达萨利亚最初的几项任务，就先补做。这些任务比你低几级，很快就能做完。完成后可开启本指南中的{quest:527}后续任务。",
 
 	-- Step 18: Krusk
@@ -140,7 +139,6 @@ return {
 	-- {area:272} Tarren Mill
 	["The river south of {area:272}: kill these as you meet them"] = "{area:272}南边的河：遇到就杀",
 	-- {area:272} Tarren Mill · {area:271} Southshore · {item:3712} Turtle Meat
-	-- was: ["South from {area:272} along the river: Snapjaws (29) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "从{area:272}沿河向南：钳嘴龟（29级）一路在河岸上晒太阳，直到{area:271}上方的山丘。其中一些身上有{item:3712}。"
 	["South from {area:272} along the river: Snapjaws (29-31) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "从{area:272}沿河向南，一直到{area:271}上方的山丘，河岸上都有晒太阳的钳嘴龟（29–31级）。其中一些会掉落{item:3712}。",
 	-- {item:3712} Turtle Meat
 	["{item:3712}, from the Snapjaws"] = "{item:3712}，从钳嘴龟身上获取",
@@ -179,7 +177,6 @@ return {
 	-- Step 32: Town hall
 	["Town hall"] = "市政厅",
 	-- {area:287} Hillsbrad · {npc:2335} Magistrate Burnside · {npc:2448} Clerk Horrace Whitesteed
-	-- was: ["On to {area:287} town, south-west of the yeti caves. The town hall is on the town's west side: {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "继续前往雪人洞穴西南边的{area:287}镇。市政厅在镇子西侧：{npc:2335}（30级）和{npc:2448}在里面，旁边是城镇登记簿；公告就贴在它旁边。议员们在镇上走动。"
 	["On to {area:287} town, south-west of the yeti caves. The town hall is on the town's west side: {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town. Every {area:287} human you kill from here on can drop a skull for Samsa: keep them."] = "前往雪人洞穴西南边的{area:287}镇。市政厅在镇西，{npc:2335}（30级）、{npc:2448}和希尔斯布莱德城镇文档都在里面，希尔斯布莱德宣言就贴在文档旁边。镇上有议员巡逻。接下来在{area:287}击杀人类时都可能掉落颅骨，记得留给沙穆萨。",
 	-- {object:1761} Hillsbrad Proclamation
 	["{object:1761}, inside"] = "{object:1761}，在里面",

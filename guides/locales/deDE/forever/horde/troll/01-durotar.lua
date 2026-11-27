@@ -267,7 +267,6 @@ return {
 	-- Step 57: Level 10
 	["Level 10"] = "Stufe 10",
 	-- {area:362} Razor Hill · {quest:96825} This Fruit Could Bite Back
-	-- was: ["Top up here to level 10: {quest:840}, at {area:362}, needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "Hol hier Stufe 10 auf: {quest:840} in {area:362} braucht Stufe 10.\nDie Kaktusfeigen für {quest:96825} wachsen bei diesen Hütten: Sammle sie beim Grinden."
 	["Top up here to level 10: your class quest at {area:362} needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "Hol hier den Rest bis Stufe 10: Deine Klassenquest bei {area:362} benötigt Stufe 10.\nDie Kaktusfeigen für {quest:96825} wachsen bei diesen Hütten: Sammle sie beim Grinden auf.",
 	-- {npc:3111} Razormane Quilboar
 	["grind on {npc:3111}"] = "grinde {npc:3111}",
@@ -448,7 +447,6 @@ return {
 
 	-- Step 105: Ormak Grimshot
 	-- {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor
-	-- was: ["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Folge der Straße von {area:379} nach Norden zum Haupttor von {zone:1454}, direkt westlich von {area:817}. {npc:3352} steht bei den Jägerlehrern im {object:172958}."
 	["Head to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Geh zum Haupttor von {zone:1454}, direkt westlich von {area:817}. {npc:3352} steht bei den Jägertrainern im {object:172958}.",
 
 	-- Step 106: Hanashi
@@ -459,7 +457,6 @@ return {
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "Nach {zone:1454}",
 	-- {zone:1454} Orgrimmar · {area:817} Skull Rock · {area:379} Far Watch Post · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
-	-- was: ["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "Folge der Straße von {area:379} nach Norden zum Haupttor von {zone:1454}. Der nächste Guide beginnt in {zone:1454}: {quest:829} nimmt die Quest der Kultisten an, die Lehrer bringen dir deine neuen Ränge bei, und der Zeppelin nach {zone:1420} und {zone:1421} fährt von den Türmen vor dem Tor ab. {zone:1413} kommt nach Silverpine."
 	["Head to {zone:1454}'s main gate, just west of {area:817} (Warriors: north along the road from {area:379}). The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "Geh zum Haupttor von {zone:1454}, direkt westlich von {area:817} (Krieger: nach Norden entlang der Straße von {area:379}). Der nächste Guide beginnt in {zone:1454}: {quest:829} nimmt die Quest der Kultisten an, die Lehrer bringen dir deine neuen Ränge bei, und das Zeppelin fährt von den Türmen vor dem Tor nach {zone:1420} und {zone:1421}. {zone:1413} kommt nach Silverpine.",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "{object:172982} von {zone:1454}",

@@ -228,7 +228,6 @@ return {
 	-- {area:340} Kargath
 	["{area:340}'s poster"] = "{area:340}的通缉告示",
 	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {area:340} Kargath
-	-- was: ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "为接下来途经{area:254}的{area:1584}之行做准备：{area:340}的{object:164867}告示要你削减副本内铁怒矮人的数量。"
 	["For your {area:1584} run, next, on the way through {area:254}: the WANTED poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "接下来打{area:1584}时会经过{area:254}。{area:340}的通缉告示要求击杀副本里的铁怒矮人。",
 
 	-- Step 48: Thunderheart
@@ -270,7 +269,6 @@ return {
 	-- {area:254} Blackrock Mountain
 	["Into {area:254}"] = "进入{area:254}",
 	-- {area:254} Blackrock Mountain
-	-- was: ["Take the pass out of {area:340}'s west side into the {zone:1427}, then ride south across the gorge to the long bridge into {area:254}. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals."] = "从{area:340}西侧的山口进入{zone:1427}，然后向南穿过峡谷，走上通往{area:254}的长桥。进去后沿着铁链走道往下走，从南边的出口离开；别走通往地下城传送门的路。"
 	["Ride south across the gorge to the long bridge into {area:254}. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals."] = "向南骑行穿过峡谷，走上通往{area:254}的长桥。进去后沿铁链走道向下，从南边的出口离开。别走通往副本入口的岔路。",
 	-- {area:254} Blackrock Mountain
 	["Bridge into {area:254}"] = "通往{area:254}的桥",
@@ -314,7 +312,6 @@ return {
 	["{area:250}: kill these as you meet them"] = "{area:250}：沿途击杀以下目标",
 	-- {quest:4296} Tablet of the Seven · {area:251} Flame Crest · {npc:10267} Tinkee Steamboil · {item:12284} Draco-Incarcinatrix 900 · {npc:7040} Black Dragonspawn · {npc:7044} Black Drake
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
-	-- was: ["Ride west to the dig site. The {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence.\nCareful: a {npc:7040} and a {npc:7044}, elites of 50-53, wander the same hills: pull the broodlings away from them, or bring a group."] = "向西骑往挖掘场。{quest:4296}矗立在挖掘场中央的索瑞森矮人之间。拓印它。\n黑色小龙在{area:251}正东的山丘中筑巢。将小龙打到濒死后，对它使用{npc:10267}的{item:12284}，捕获其精华。\n小心：一只{npc:7040}和一只{npc:7044}（50-53级精英）在同一片山丘游荡：把小龙拉离它们，或者组队前来。"
 	["Ride west to the dig site. The {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence.\nCareful: a {npc:7040} and a {npc:7044}, elites of 50-53, wander the same hills, and Volchan (60, a rare fire elemental) roams them too: pull the broodlings away from them, or bring a group."] = "向西骑到挖掘场。{quest:4296}立在挖掘场中央，周围是索瑞森矮人。拓印石板。\n黑色小龙在{area:251}正东的山丘上筑巢。等小龙濒死时，对它使用{npc:10267}的{item:12284}，捕获它的精华。\n小心，一只{npc:7040}和一只{npc:7044}（50-53级精英）在同一片山丘游荡，沃尔查（60级稀有火元素）也在这里。把黑色小龙引到远离它们的地方再打，或者组队前来。",
 
 	-- Step 66: Flame Crest

@@ -181,12 +181,10 @@ return {
 	-- Step 35: Sar'theris Strand
 	-- {area:598} Sar'theris Strand
 	-- plural, as words: Slitherblade Myrmidons = {npc:4714} Slitherblade Myrmidon
-	-- was: ["West from the fortress to the coast at {area:598}: the Slitherblade Myrmidons, Naga and Sorceresses hold the beach. Pull them one at a time; the Sea Witches and Oracles (34-36) cast from range."] = "从要塞向西到{area:598}的海岸：滑刃侍从、纳迦和女巫占据着海滩。一次只拉一个；海妖和神谕者（34-36级）会远程施法。"
 	["West past the fortress to the coast at {area:598}: the Slitherblade Myrmidons, Naga and Sorceresses hold the beach. Pull them one at a time; the Sea Witches and Oracles (34-36) cast from range."] = "向西经过要塞，到{area:598}的海岸。滑刃侍从、滑刃纳迦和滑刃巫师守着海滩，一次只拉一只。滑刃海巫和滑刃智者（34-36级）会远程施法。",
 
 	-- Step 36: Shadowprey Village
 	-- {npc:268705} Aka'rai · {npc:11624} Taiga Wisemane · {area:602} Mannoroc Coven · {npc:12340} Drulzegar Skraghook
-	-- was: ["South down the coast to Shadowprey: {npc:11624} takes the box and sends you to {area:602} with it; {npc:12340} takes the naga."] = "沿海岸向南回到葬影村：{npc:11624}收下盒子，并让你带着它去{area:602}；纳迦的任务交给{npc:12340}。"
 	["South down the coast to Shadowprey: {npc:268705} first, on the path into the village; {npc:11624} takes the box and sends you to {area:602} with it; {npc:12340} takes the naga."] = "沿海岸向南到葬影村。先找进村路上的{npc:268705}，再把盒子交给{npc:11624}，他会让你带着盒子去{area:602}。纳迦的任务交给{npc:12340}。",
 
 	-- Step 37: Portals of the Legion

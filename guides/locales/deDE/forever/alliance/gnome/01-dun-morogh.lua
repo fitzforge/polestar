@@ -303,7 +303,6 @@ return {
 	-- Step 51: Frostmane Hold
 	-- {area:135} Frostmane Hold · {area:137} Brewnall Village
 	-- plural, as words: Frostmane Hideskinners = {npc:1122} Frostmane Hideskinner
-	-- was: ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} ist die Trollhöhle in den Hügeln südwestlich von {area:137}. Töte Kopfjäger an ihrem Eingang und geh bis zu ihrem hinteren Ende durch.\nVorsicht: Die Balgabzieher der Frostmane in der Höhle sind Stufe 9-10 und stehen paarweise: Zieh sie einzeln zurück zum Eingang."
 	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth, then walk through the cave to its far end: Fully explore {area:135} ticks only in there, not on the hill above it.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} ist die Trollhöhle in den Hügeln südwestlich von {area:137}. Töte Headhunters am Eingang, dann geh durch die Höhle bis zum anderen Ende: 'Vollständig erkunden: {area:135}' zählt nur drinnen, nicht auf dem Hügel darüber.\nVorsicht: Die Balgabzieher der Frostmane im Hold sind Stufe 9-10 und stehen paarweise: Ziehe sie einzeln zum Eingang zurück.",
 	-- {npc:1123} Frostmane Headhunter
 	["{npc:1123}, below ground"] = "{npc:1123}, unterirdisch",

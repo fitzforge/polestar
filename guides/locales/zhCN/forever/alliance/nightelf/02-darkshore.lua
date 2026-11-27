@@ -51,7 +51,6 @@ return {
 	["Bears and the Blackwood camp"] = "熊和黑木营地",
 	-- {area:442} Auberdine · {quest:2139} Tharnariun's Hope
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	-- was: ["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "狂暴蓟熊在{area:442}南边的山丘上游荡：对其中一只使用{item:7586}将其捕获。然后走到它们东边不远处的熊怪营地：暂时无需击杀任何怪物。"
 	["Rabid Thistle Bears roam the hills south of {area:442}: use {quest:2139} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "狂暴蓟熊在{area:442}南边的山丘上游荡。对其中一只使用{quest:2139}将它捕获，再走到它们东边不远的熊怪营地。现在还不用杀怪。",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
@@ -75,7 +74,6 @@ return {
 	-- Step 12: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
 	-- plural, as words: Wild Grells = {npc:2190} Wild Grell · Vile Sprites = {npc:2189} Vile Sprite · Deth'ryll Satyrs = {npc:2212} Deth'ryll Satyr
-	-- was: ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {object:17183} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "沿山丘向北，{npc:3650}在{quest:954}废墟内等候。野生劣魔和恶灵劣魔遍布废墟，戴瑟雷萨特在东缘活动。{object:17183}位于废墟西侧路边，前去途中，海岸上还有一处{quest:4723}。"
 	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road north-north-west of {npc:3650}; a {quest:4723} lies on the shore on the way to him."] = "沿山丘向北。{npc:3650}在{quest:954}的废墟里等候，废墟里满是野生劣魔和恶灵劣魔，东缘有戴瑟雷萨特。{quest:1001}在{npc:3650}西北偏北方向的路旁，去找他的路上，岸边有一只{quest:4723}。",
 	-- plural, as words: Grell Earrings = {item:5336} Grell Earring
 	["Grell Earrings"] = "{item:5336}",
@@ -123,7 +121,6 @@ return {
 	["Blackwood furbolgs"] = "黑木熊怪",
 	-- {area:442} Auberdine
 	-- plural, as words: Blackwood Pathfinders = {npc:2167} Blackwood Pathfinder · Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	-- was: ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "黑木探路者和黑木风语者占据着{area:442}东南方的营地。\n小心：风语者（13-14级）会远程施法，熊怪成对站着：一次拉一只。"
 	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}; Rabid Thistle Bears roam the hills around it.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "黑木探路者和黑木风语者占据着{area:442}东南边的营地，周围的山丘上有狂暴蓟熊游荡。\n小心：黑木风语者（13-14级）会远程施法，熊怪两两站在一起。每次只引一只。",
 
 	-- Step 20: The southern beaches
@@ -201,7 +198,6 @@ return {
 
 	-- Step 35: Cerellean Whiteclaw
 	-- {npc:3644} Cerellean Whiteclaw
-	-- was: ["{npc:3644}, where the pier meets the shore, on the way to the boat"] = "{npc:3644}，在码头与岸边相接处，去坐船时顺路经过"
 	["{npc:3644} waits where the pier meets the shore, on the way to the boat."] = "{npc:3644}就在码头和岸边相接处，去坐船时会经过。",
 
 	-- Step 36: Boat to Stormwind Harbor
@@ -222,7 +218,6 @@ return {
 
 	-- Step 39: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:2096} Trade District · {zone:1436} Westfall · {npc:3649} Thundris Windweaver · {area:442} Auberdine
-	-- was: ["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way."] = "{npc:1646}站在{object:2096}西边的{object:2098}。他的罗盘在{zone:1436}的旧居里，途中会经过。"
 	["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way. His reply to {npc:3649} goes back to {area:442} with you."] = "{npc:1646}在{object:2098}，位于{object:2096}西边。他的罗盘在{zone:1436}的旧居里，顺路去取。把他给{npc:3649}的回信带回{area:442}。",
 	-- {npc:1646} Baros Alexston · {npc:3649} Thundris Windweaver
 	["{npc:1646}: {npc:3649}'s letter"] = "{npc:1646}：交{npc:3649}的信",

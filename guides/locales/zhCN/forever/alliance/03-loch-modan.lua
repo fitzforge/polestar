@@ -263,7 +263,6 @@ return {
 	-- {zone:1453} Stormwind
 	["{zone:1453}'s gate"] = "{zone:1453}的城门",
 	-- {npc:234} Gryan Stoutmantle · {zone:1436} Westfall · {area:87} Goldshire · {zone:1453} Stormwind · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:69} Lakeshire · {area:1617} Valley of Heroes
-	-- was: ["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "不要从威利那里接「迪菲亚兄弟会」（它由{zone:1436}里{npc:234}的信开启）：跳过{zone:1436}。从{area:87}沿大路向北到{zone:1453}：{npc:466}骑着马守在城门里大桥的尽头。然后去{object:2096}的狮鹫处，飞回{area:69}。"
 	["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}.\nIf {npc:466} isn't at the arrow, he is walking his horse along the {area:1617} nearby: look along the avenue or wait a moment."] = "如果没从黑衣威利那里接到「迪菲亚兄弟会」（任务线从{zone:1436}的{npc:234}那封信开始），就跳过{zone:1436}。从{area:87}沿大路向北到{zone:1453}，{npc:466}骑马停在城门外大桥的远端。然后去{object:2096}乘狮鹫飞回{area:69}。\n如果箭头指的位置找不到{npc:466}，他就在附近的{area:1617}骑马慢行。沿大道找找，或原地等一会儿。",
 	-- {npc:466} General Marcus Jonathan
 	["{npc:466}, outside the main gate"] = "{npc:466}，在城门里",
@@ -286,7 +285,6 @@ return {
 
 	-- Step 51: Stormwind
 	-- {npc:332} Master Mathias Shaw · {object:2100} Old Town · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:1617} Valley of Heroes
-	-- was: ["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}."] = "{npc:332}在{object:2100}的军情七处（SI:7）大楼楼上：楼梯起初不太显眼。{npc:466}骑着马守在城门里大桥的尽头；之后返回{object:2096}的狮鹫处。"
 	["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}.\nIf {npc:466} isn't at the arrow, he is walking his horse along the {area:1617} nearby: look along the avenue or wait a moment."] = "{npc:332}在{object:2100}的军情七处大楼楼上，楼梯不太显眼。{npc:466}骑马停在城门外大桥的远端，之后回{object:2096}的狮鹫飞行点。\n如果箭头指的位置找不到{npc:466}，他就在附近的{area:1617}骑马慢行。沿大道找找，或原地等一会儿。",
 	-- {npc:332} Master Mathias Shaw
 	["{npc:332}, SI:7; upstairs"] = "{npc:332}，军情七处（SI:7）；楼上",

@@ -239,7 +239,6 @@ return {
 	-- Step 46: Khan Dez'hepah
 	-- {area:609} Kolkar Village · {quest:1365} Khan Dez'hepah
 	-- plural, as words: Kolkar Battle Lords = {npc:4636} Kolkar Battle Lord
-	-- was: ["South to {area:609}. {quest:1365} (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.\nCareful: Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health."] = "向南到{area:609}。{quest:1365}（35）带着一两名科卡尔队长（32-33）在东侧帐篷间游荡。先清理周围，再以满血状态单独引他。\n小心：科卡尔队长生命值降至20%时，会呼叫30码内的盟友。"
 	["South to {area:609}. {quest:1365} (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.\nCareful: {quest:1365} is level 35, about two levels over you here, and Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health."] = "向南到{area:609}。{quest:1365}（35级）带着一两名科卡尔队长（32-33级）在东侧帐篷间游荡。先清理周围，再以满血状态单独引他。\n小心，{quest:1365}是35级，在这里比你高约两级。科卡尔队长会呼叫30码内的盟友支援，生命值降至20%时就会触发。",
 
 	-- Step 47: Ghost Walker Post
@@ -312,7 +311,6 @@ return {
 
 	-- Step 57: Sar'theris Strand
 	-- {area:598} Sar'theris Strand · {item:15881} Rackmore's Golden Key · {zone:1443} Desolace
-	-- was: ["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second {zone:1443} visit, at 38."] = "继续向北前往{area:598}获取{item:15881}：任何滑刃纳迦都可能掉落。\n小心：海滩北半部有侍从（34-35级）以及海巫和神谕者（34-36级，施法者），在33级时最多比你高两级：先在南半部打纳迦和女巫（32-33级）直到钥匙掉落，北边留到38级第二次来{zone:1443}时再去。"
 	["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second {zone:1443} visit, at about 37."] = "继续北上到{area:598}找{item:15881}，任意滑刃纳迦都有可能掉落。\n小心，滑刃侍从（34-35级）和会施法的滑刃海巫、滑刃智者（34-36级）守着海滩北半部，你33级时它们最多高出你两级。先在南半部打滑刃纳迦和滑刃巫师（32-33级），直到拿到钥匙。北半部留到约37级第二次来{zone:1443}时再去。",
 	-- {item:15881} Rackmore's Golden Key
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881}，击杀滑刃纳迦获取",

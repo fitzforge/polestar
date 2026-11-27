@@ -98,7 +98,6 @@ return {
 
 	-- Step 17: High Executor Darthalia
 	-- {area:287} Hillsbrad · {quest:527} Battle of Hillsbrad
-	-- was: ["You missed Darthalia's first errands, from the 22-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "Du hast Darthalias erste Aufträge aus dem Guide {area:287} 22-25 verpasst: Sie kommen jetzt zuerst. Sie liegen ein paar Stufen unter dir, gehen schnell und öffnen den Rest von {quest:527} in diesem Guide."
 	["You missed Darthalia's first errands, from the 23-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "Du hast Darthalias erste Aufträge aus dem {area:287}-Guide für 23-25 verpasst: Sie kommen jetzt zuerst. Sie sind ein paar Stufen unter dir und schnell erledigt, und sie öffnen den Rest der {quest:527} in diesem Guide.",
 
 	-- Step 18: Krusk

@@ -122,7 +122,6 @@ return {
 	["{area:301}: kill these as you meet them"] = "{area:301}：沿途击杀以下目标",
 	-- {npc:729} Sin'Dall
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
-	-- was: ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "向西经过营地，晶背蜥蜴（34-35级）就在岩石上；再往前村子里的每只血顶巨魔都可能掉落耳朵。\n营地西南山顶上的37级老虎{npc:729}先别管：他比你高两级，40-50级荆棘谷指南会再回来找他。\n小心：迅猛龙巢里有幼龙，攻击成年迅猛龙时，它们也会加入战斗。"
 	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and this guide comes back to him at its end, from level 36.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "向西经过营地，晶背蜥蜴（34-35级）就在岩石上。再往前的村子里，每只血顶巨魔都可能掉落耳朵。\n先别打营地西南山顶上的37级老虎{npc:729}。它现在比你高两级，本指南最后会回来打它，36级起可做。\n小心，迅猛龙巢里有幼年迅猛龙，攻击成年迅猛龙时，它们也会加入战斗。",
 
 	-- Step 20: Zimmix Sputterspark
@@ -217,14 +216,12 @@ return {
 	-- {npc:2497} Nimboya · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
 	["{npc:2497}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "约40级走{zone:1434}与{zone:1435}路线时，再做{npc:2497}的任务。",
 	-- {npc:729} Sin'Dall · {zone:1454} Orgrimmar
-	-- was: ["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "下一份指南会从营地西侧的塔楼乘飞艇前往{zone:1454}。"
 	["After {npc:729}, back here: the next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "打完{npc:729}后回到这里。下一份指南会从营地西侧的塔楼乘飞艇前往{zone:1454}。",
 
 	-- Step 35: Level 36
 	["Level 36"] = "等级 36",
 	-- {npc:729} Sin'Dall · {object:3202} Grom'gol
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
-	-- was: ["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36, then walk back to the zeppelin tower. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "尘泥沼泽的任务为35-38级。交还{object:3202}的任务后还不到36级？钳嘴鳄鱼（35-36级）分布在营地正东、莫什奥格山丘下方的河边：杀到36级，然后走回飞艇塔。别碰上方的莫什奥格食人魔（36-37级）。"
 	["Dustwallow's quests are 35-38, and {npc:729} (37) is next. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "尘泥沼泽的任务是35-38级，接下来还要打{npc:729}（37级）。在{object:3202}交完任务还不到36级？钳嘴鳄鱼（35-36级）就在营地正东的河边、莫什奥格山丘下方，刷到36级再走。别打上方的莫什奥格食人魔（36-37级）。",
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks"] = "钳嘴鳄鱼",

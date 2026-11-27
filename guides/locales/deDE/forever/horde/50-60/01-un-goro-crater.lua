@@ -228,7 +228,6 @@ return {
 	-- {area:340} Kargath
 	["{area:340}'s poster"] = "{area:340}'s Poster",
 	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {area:340} Kargath
-	-- was: ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Für deinen Run durch {area:1584}, als Nächstes, auf dem Weg durch {area:254}: Das Plakat {object:164867} in {area:340} will, dass die Anvilrage-Zwerge drinnen dezimiert werden."
 	["For your {area:1584} run, next, on the way through {area:254}: the WANTED poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Für deinen nächsten {area:1584}-Durchlauf, auf dem Weg durch {area:254}: Das WANTED-Plakat in {area:340} verlangt, die Anvilrage-Zwerge drinnen zu dezimieren.",
 
 	-- Step 48: Thunderheart
@@ -270,7 +269,6 @@ return {
 	-- {area:254} Blackrock Mountain
 	["Into {area:254}"] = "Nach {area:254}",
 	-- {area:254} Blackrock Mountain
-	-- was: ["Take the pass out of {area:340}'s west side into the {zone:1427}, then ride south across the gorge to the long bridge into {area:254}. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals."] = "Nimm den Pass an der Westseite von {area:340} in die {zone:1427} und reite dann nach Süden durch die Schlucht zur langen Brücke in den Berg ({area:254}). Folge drinnen den Kettenstegen nach unten und verlass ihn durch den Südausgang; bleib von den Wegen zu den Dungeonportalen fern."
 	["Ride south across the gorge to the long bridge into {area:254}. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals."] = "Reite nach Süden über die Schlucht zur langen Brücke in {area:254}. Folge drinnen den Kettenstegen nach unten und geh durch den Südausgang heraus; bleib von den Wegen zu den Dungeonportalen fern.",
 	-- {area:254} Blackrock Mountain
 	["Bridge into {area:254}"] = "Brücke in den Berg ({area:254})",
@@ -314,7 +312,6 @@ return {
 	["{area:250}: kill these as you meet them"] = "{area:250}: Töte sie, wenn du ihnen begegnest",
 	-- {quest:4296} Tablet of the Seven · {area:251} Flame Crest · {npc:10267} Tinkee Steamboil · {item:12284} Draco-Incarcinatrix 900 · {npc:7040} Black Dragonspawn · {npc:7044} Black Drake
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
-	-- was: ["Ride west to the dig site. The {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence.\nCareful: a {npc:7040} and a {npc:7044}, elites of 50-53, wander the same hills: pull the broodlings away from them, or bring a group."] = "Reite nach Westen zur Ausgrabungsstätte. {quest:4296} steht in ihrer Mitte zwischen den Thaurissan-Zwergen. Kopiere sie.\nSchwarze Brutlinge nisten in den Hügeln direkt östlich von {area:251}. Benutze {item:12284} von {npc:10267} an einem Brutling, wenn er fast tot ist, um seine Essenz einzufangen.\nVorsicht: Eine {npc:7040} und ein {npc:7044}, Elites der Stufe 50-53, wandern durch dieselben Hügel: Zieh die Brutlinge von ihnen weg oder nimm eine Gruppe mit."
 	["Ride west to the dig site. The {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence.\nCareful: a {npc:7040} and a {npc:7044}, elites of 50-53, wander the same hills, and Volchan (60, a rare fire elemental) roams them too: pull the broodlings away from them, or bring a group."] = "Reite nach Westen zur Ausgrabungsstätte. {quest:4296} steht in ihrer Mitte unter den Thaurissan-Zwergen. Kopiere es.\nBlack Broodlings nisten in den Hügeln direkt östlich von {area:251}. Benutze {npc:10267}s {item:12284} auf einen Broodling, wenn er fast tot ist, um seine Essenz zu fangen.\nVorsicht: Ein {npc:7040} und ein {npc:7044}, Elites der Stufen 50-53, wandern durch dieselben Hügel, und Volchan (60, ein seltenes Feuerelementar) streift dort ebenfalls umher: Zieh die Broodlings von ihnen weg oder bring eine Gruppe mit.",
 
 	-- Step 66: Flame Crest

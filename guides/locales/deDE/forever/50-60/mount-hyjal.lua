@@ -84,7 +84,6 @@ return {
 	["The shrub field"] = "Das Strauchfeld",
 	-- {npc:248395} Tainted Shrubbery · {quest:91923} Celastrus the Bitter · {npc:248709} Sunderbark
 	-- plural, as words: Scarlet Dart Tubers = {item:267289} Scarlet Dart Tuber
-	-- was: ["North into the shrub field: the {npc:248395} drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. The ruined ballista stands at the field's north-eastern edge: plant the last seed there. Keep clear of {quest:91923} and {npc:248709}, the field's elites."] = "Nach Norden in das Strauchfeld: Die {npc:248395} lassen die Blätter fallen, und die Scharlachroten Dartknollen wachsen auf der offenen Fläche, die meisten in der westlichen Hälfte des Felds. Die zerstörte Balliste steht am nordöstlichen Rand des Felds: Pflanze den letzten Samen dort. Halte dich von {quest:91923} und {npc:248709} fern, den Eliten des Felds."
 	["North into the shrub field: the {npc:248395} drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. Keep clear of {quest:91923} and {npc:248709}, the field's elites."] = "Nach Norden in das Buschfeld: Die {npc:248395} lassen die Blätter fallen, und die Scharlachroten Wurmknollen wachsen im offenen Gelände, die meisten in der westlichen Hälfte des Feldes. Halte dich von {quest:91923} und {npc:248709} fern, den Elites des Feldes.",
 
 	-- Step 13: Celastrus the Bitter
@@ -292,7 +291,6 @@ return {
 	-- Step 64: Bear berries
 	["Bear berries"] = "Bärenbeeren",
 	-- {npc:256978} Brerufa
-	-- was: ["The bear berries grow on the slopes around the burrow: a few on the hill north of {npc:256978}, most of them east of the burrow.\nCareful: Grimmwurzel, an elite treant (level 60), walks the slopes west of the burrow, around 16-20,58-66: give him room."] = "Die Bärenbeeren wachsen auf den Hängen um den Bau: einige am Hügel nördlich von {npc:256978}, die meisten östlich des Baus.\nVorsicht: Grimmwurzel, ein Treant (Elite, Stufe 60), läuft die Hänge westlich des Baus entlang, um 16-20,58-66: Lass ihm Raum."
 	["The bear berries grow on the slopes around the burrow: a few on the hill north of {npc:256978}, most of them east of the burrow.\nCareful: Grimroot, an elite treant (level 60), walks the slopes west of the burrow, around 16-20,58-66: give him room."] = "Die Bärenbeeren wachsen auf den Hängen um den Bau: einige am Hügel nördlich von {npc:256978}, die meisten östlich des Baus.\nVorsicht: Grimroot, ein Treant (Elite, Stufe 60), läuft die Hänge westlich des Baus entlang, um 16-20,58-66: Lass ihn in Ruhe.",
 
 	-- Step 65: Barkskin Burrow
@@ -344,7 +342,6 @@ return {
 	["Owl feathers"] = "Eulenschwingen",
 	-- {npc:264089} Eluneth · {area:16848} Elderwild
 	-- plural, as words: Hyjal Owls = {npc:249053} Hyjal Owl · Death Wailers = {npc:249226} Death Wailer
-	-- was: ["The Hyjal Owls roost on the slopes between {npc:264089} and Barkskin Burrow: their feathers are for {area:16848}.\nCareful: Death Wailers (61, rare elites) drift over the western slopes: give them a wide berth.\nCareful: Grimmwurzel, the elite treant (level 60), walks the western slopes here: pull the owls away from his path."] = "Die Hyjal-Eulen rasten auf den Hängen zwischen {npc:264089} und der Barkskin-Höhle: Ihre Schwingen sind für {area:16848}.\nVorsicht: Todesheuler (61, seltene Elite) treiben über die westlichen Hänge: Lass sie weit hinter dir.\nVorsicht: Grimmwurzel, der Treant (Elite, Stufe 60), läuft hier die westlichen Hänge entlang: Zieh die Eulen von seinem Weg weg."
 	["The Hyjal Owls roost on the slopes between {npc:264089} and Barkskin Burrow: their feathers are for {area:16848}.\nCareful: Death Wailers (61, rare elites) drift over the western slopes: give them a wide berth.\nCareful: Grimroot, an elite treant (level 60), walks the slopes beside {npc:264089}. He leaves you alone unless you hit him: don't, and pull the owls away from his path."] = "Die Hyjal-Eulen nisten an den Hängen zwischen {npc:264089} und Barkskin Burrow: ihre Federn sind für {area:16848}.\nVorsicht: Todesheuler (61, seltene Elites) ziehen über die westlichen Hänge: geh ihnen aus dem Weg.\nVorsicht: Grimroot, ein Elite-Treant (Stufe 60), läuft an den Hängen neben {npc:264089} umher. Er lässt dich in Ruhe, solange du ihn nicht angreifst: tu es nicht und locke die Eulen von seinem Weg weg.",
 
 	-- Step 77: Unmarked Grave
@@ -355,7 +352,6 @@ return {
 	-- Step 78: Mourning's Rest
 	-- {area:16868} Mourning's Rest · {area:16848} Elderwild
 	-- plural, as words: Fleshflay Raveners = {npc:249228} Fleshflay Ravener · Forgotten Soldiers = {npc:249247} Forgotten Soldier · Death Wailers = {npc:249226} Death Wailer
-	-- was: ["The Scourge hold the ruins of {area:16868}, east of {area:16848}: Fleshflay Raveners and Forgotten Soldiers everywhere, Eternal Sentries among them.\nCareful: Death Wailers (61, rare elites) drift over {area:16868}: keep out of their way.\nCareful: Grimmwurzel, the elite treant (level 60), walks the slopes on the way in: give him room."] = "Die Geißel hält die Ruinen von {area:16868}, östlich von {area:16848}: Fleischschinderräuber und Vergessene Soldaten überall, ewige Wächter unter ihnen.\nVorsicht: Todesheuler (61, seltene Elite) treiben über {area:16868}: Weiche ihnen aus.\nVorsicht: Grimmwurzel, der Treant (Elite, Stufe 60), läuft die Hänge auf dem Weg hinein entlang: Lass ihm Raum."
 	["The Scourge hold the ruins of {area:16868}, east of {area:16848}: Fleshflay Raveners and Forgotten Soldiers everywhere, Eternal Sentries among them.\nCareful: Death Wailers (61, rare elites) drift over {area:16868}: keep out of their way.\nCareful: Grimroot, the elite treant (level 60), walks the slopes on the way in. He leaves you alone unless you hit him: give him room."] = "Die Scourge halten die Ruinen von {area:16868}, östlich von {area:16848}: Fleischschinderräuber und Vergessene Soldaten überall, Eternal Sentries darunter.\nVorsicht: Todesheuler (61, seltene Eliten) ziehen über {area:16868}: Geh ihnen aus dem Weg.\nVorsicht: Grimroot, der Elite-Treant (Stufe 60), läuft auf den Hängen auf dem Weg dorthin umher. Er lässt dich in Ruhe, es sei denn, du greifst ihn an: Gib ihm Raum.",
 
 	-- Step 79: Final Death

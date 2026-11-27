@@ -197,7 +197,6 @@ return {
 	-- plural, as words: Razormaw Incisors = {item:280103} Razormaw Incisor · Fen Creepers = {npc:1040} Fen Creeper
 	["Razormaw Incisors: from the raptors by the {area:1038}, after the Fen Creepers"] = "打完沼泽爬行者后，去{area:1038}附近击杀迅猛龙，收集刺喉龙门牙。",
 	-- {quest:98246} Trying Times
-	-- was: ["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}：同一趟路线上的刺喉龙蛋"
 	["{quest:98246}: the Razormaw eggs, on the same walk"] = "{quest:98246}：这趟路上顺手拾取刺喉龙蛋",
 
 	-- Step 37: Einar Stonegrip
@@ -295,7 +294,6 @@ return {
 
 	-- Step 53: Captain Stoutfist
 	-- {area:150} Menethil Harbor · {area:2104} Deepwater Tavern · {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep · {npc:2094} James Halloran
-	-- was: ["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks on the way to the boat."] = "若已在{area:2104}绑定炉石，就用炉石返回{area:150}；否则沿道路向西步行。{npc:2104}在{area:2103}的顶层，{npc:2094}在前往乘船处途中的码头旁。"
 	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks."] = "若已在{area:2104}绑定炉石，可以用炉石返回{area:150}。也可以沿路向西步行。{npc:2104}在{area:2103}顶层，{npc:2094}在码头旁。",
 	["On the top floor"] = "在最顶层",
 	-- {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
@@ -568,7 +566,6 @@ return {
 
 	-- Step 107: Astranaar
 	-- {area:413} Maestra's Post · {area:415} Astranaar · {npc:3691} Raene Wolfrunner
-	-- was: ["South-east along the road to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "沿路向东南前往{area:415}：{npc:3691}在旅店里，飞行管理员在西端。"
 	["Back east along the road from {area:413} to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "从{area:413}沿路向东返回{area:415}。{npc:3691}在旅店里，飞行管理员在镇子西端。",
 
 	-- Step 108: Fly to Auberdine

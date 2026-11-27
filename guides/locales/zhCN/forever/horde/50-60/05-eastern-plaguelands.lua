@@ -183,7 +183,6 @@ return {
 	-- Step 41: Egan
 	-- {npc:11140} Egan · {area:2627} Terrordale · {npc:12384} Augustus the Touched · {npc:16184} Nerubian Overseer · {area:2626} Terrorweb Tunnel
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit · Crypt Horrors = {npc:8557} Crypt Horror · Crypt Walkers = {npc:8556} Crypt Walker
-	-- was: ["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut.\nCareful: Terrordale Spirits (59-60) drift through the north-west corner just north of {npc:11140}'s hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time."] = "幽灵{npc:11140}站在{area:2627}西北角的一间小屋旁；{npc:12384}坐在小屋里。\n小心：恐惧谷之魂（{npc:14564}，59-60）在{npc:11140}的小屋以北的西北角飘荡，墓穴恐魔（{npc:8557}，57-58）和墓穴行者（{npc:8556}，55-56）站在周围；其中一些会定身你。慢慢走进去，一次拉一只。"
 	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut.\nCareful: Terrordale Spirits (59-60) drift through the north-west corner just north of {npc:11140}'s hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time.\nCareful: a {npc:16184} (60, elite) walks {area:2627} and the {area:2626} south-west of it. Look for him before you ride in, and wait for him to pass."] = "幽灵{npc:11140}站在{area:2627}西北角的一间小屋旁，{npc:12384}坐在屋里。\n小心，恐惧谷的灵魂（59-60级）在{npc:11140}的小屋北边不远处的西北角游荡。屋子周围有地穴恐魔（57-58级）和地穴巡逻者（55-56级），其中有些会定身。慢慢走进去，一次只引一只。\n小心，{npc:16184}（60级精英）在{area:2627}和其西南方的{area:2626}巡逻。进来前先看清它的位置，等它走过去。",
 	-- {npc:12384} Augustus the Touched
 	["{npc:12384}, inside"] = "{npc:12384}，在屋内",
@@ -384,7 +383,6 @@ return {
 
 	-- Step 84: Deadwood Cauldron
 	-- {zone:1448} Felwood · {area:1997} Bloodvenom Post · {area:1762} Felpaw Village · {area:1769} Timbermaw Hold
-	-- was: ["Ride north up the road. The cauldron stands in {area:1762}, just south-west of {area:1769}; the Deadwood furbolgs there are hostile."] = "沿路向北骑行。大锅在{area:1769}西南不远处的{area:1762}；那里的死木熊怪是敌对的。"
 	["Ride north up the whole {zone:1448} road, past {area:1997}. The cauldron stands in {area:1762}, just south-west of {area:1769}; the Deadwood furbolgs there are hostile."] = "沿{zone:1448}的道路一路向北，经过{area:1997}。大锅在{area:1762}，就在{area:1769}西南不远处。那里的死木熊怪会主动攻击。",
 
 	-- Step 85: Kernda

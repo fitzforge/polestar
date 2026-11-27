@@ -177,7 +177,6 @@ return {
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
 	["Sprite Darters"] = "小精龙",
 	-- {item:9589} Encrusted Minerals
-	-- was: ["The faerie dragons flit around the woods just west of the camp. Use the vessel on each one you kill."] = "精灵龙在营地正西的树林里飞来飞去。对你杀死的每一只使用容器。"
 	["The faerie dragons flit around the woods just west of the camp. Use the vessel on each one you kill; they carry the {item:9589} too."] = "精灵龙在营地正西的树林里飞来飞去。每杀一只，就对尸体使用容器。它们也会掉落{item:9589}。",
 
 	-- Step 45: Wandering Forest Walkers
@@ -209,7 +208,6 @@ return {
 	["{area:1108}: the giants' hills"] = "{area:1108}：巨人所在的山丘",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant · Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray
-	-- was: ["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "海元素和巨型海元素沿着码头周围的海岸活动。\n大地行者和峭壁巨人在码头北面的山丘游荡。先对每个巨人使用{item:18904}：缩小后，它们就不再是精英。每个被缩小的巨人都会掉落残渣；还要对尸体使用山岭巨人灵魂精华容器。"
 	["The Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too.\nThe Sea Elementals and Sea Sprays along the shore have the last cores."] = "大地行者和峭壁巨人在码头北面的山丘上游荡。先对每个巨人使用{item:18904}，缩小后它们就不再是精英。每个被缩小的巨人都会掉落残渣，还要对它的尸体使用山岭巨人灵魂精华容器。\n岸边的海元素和巨型海元素会掉落剩下所需的核心。",
 
 	-- Step 52: Northspring harpies
@@ -272,7 +270,6 @@ return {
 	-- Step 66: Thistleshrub Valley
 	-- {quest:3362} Thistleshrub Valley · {npc:7876} Tran'rek · {zone:1446} Tanaris · {area:976} Gadgetzan
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
-	-- was: ["West from the compound, on the way to Un'Goro's ramp: {quest:3362}'s Gnarled Thistleshrubs and Rootshapers (48-50) are {npc:7876}'s, carried from your first {zone:1446} visit. They wander a lot: pull them one at a time. {npc:7876} takes them on the next guide's {area:976} stop, with {npc:11758}'s."] = "从营地向西，前往安戈洛斜坡的路上：{quest:3362}的长瘤的灌木兽和塑根者（48-50）是{npc:7876}的任务，从你第一次来{zone:1446}时就带着。它们到处游荡：一次只拉一只。{npc:7876}会在下一个指南的{area:976}停留时连同{npc:11758}的任务一起交还。"
 	["West from the compound, on the way to Un'Goro's ramp: {quest:3362}'s Gnarled Thistleshrubs and Rootshapers (49-50) are {npc:7876}'s, carried from your second {zone:1446} visit. They wander a lot: pull them one at a time. {npc:7876} takes them on the next guide's {area:976} stop."] = "从营地往西，在去安戈洛环形山入口斜坡的路上做{quest:3362}。目标是长瘤的灌木兽和灌木塑根者(49-50级)，任务是第二次去{zone:1446}时从{npc:7876}处接的。它们游荡范围很大，一次只引一只。下一份指南到{area:976}时交给{npc:7876}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

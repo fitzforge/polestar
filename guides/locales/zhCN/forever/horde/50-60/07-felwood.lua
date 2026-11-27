@@ -48,7 +48,6 @@ return {
 	-- Step 11: Toxic Horrors
 	-- {zone:1448} Felwood · {area:1767} Irontree Woods · {quest:5086} Toxic Horrors · {npc:9116} Eridan Bluewind · {item:11173} Irontree Heart · {item:11172} Silvery Claws · {npc:14524} Vartrus the Ancient
 	-- plural, as words: Irontree Wanderers = {npc:7138} Irontree Wanderer · Ancient Irontree Walkers = {npc:235912} Ancient Irontree Walker
-	-- was: ["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "沿{zone:1448}的道路向北骑往{area:1767}；{quest:5086}在树木之间蠕动，大多数都会掉落一份液滴。\n小心：59级精英远古铁木行者在{quest:5086}之间走动，{npc:14524}（63级，精英）在树林中游荡：在{area:1767}的最北端一次打一只。"
 	["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet. The Irontree Wanderers and Stompers (52-53) there carry {npc:9116}'s {item:11173}, the Angerclaw bears and Felpaw wolves his {item:11172}.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "沿{zone:1448}的道路向北骑到{area:1767}。{quest:5086}的软泥怪在树间蠕动，多数会掉落一份液滴。这里的铁木游荡者和铁木践踏者（52-53级）携带{npc:9116}要的{item:11173}，怒爪熊和魔爪狼携带他要的{item:11172}。\n小心59级精英 远古铁木漫步者，它们在{quest:5086}的任务怪之间走动。{npc:14524}（63级精英）也在林中游荡。到{area:1767}最北端打软泥怪，一次只打一只。",
 
 	-- Step 13: Umber
@@ -94,7 +93,6 @@ return {
 
 	-- Step 26: Darkwhisper Gorge
 	-- {area:2249} Frostwhisper Gorge · {area:2256} Darkwhisper Gorge
-	-- was: ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "向东骑行，然后向南下到{area:2249}。那里的霜槌巨人是59级精英：走在中间，保持移动。奇怪的源头在南端{area:2256}的入口处。"
 	["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59-60: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "向东骑行，再沿{area:2249}向南下行。那里的霜槌巨人是59-60级精英，走中间，一直往前。奇怪的源头在南端{area:2256}的入口处。",
 
 	-- Step 27: Frostmaul Shards
@@ -128,7 +126,6 @@ return {
 
 	-- Step 33: Winterfall Village
 	-- {area:2255} Everlook · {quest:5121} High Chief Winterfall
-	-- was: ["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} (59, elite) and Xandivious (62) are in the cave at the back: stay out."] = "熊怪村庄占满了{area:2255}东北的山谷。先杀萨满，他们会治疗。{npc:10738}（59级，精英）和山迪维斯（62级）在后面的洞里：别进去。"
 	["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {quest:5121} (59, elite) and Xandivious (62) are in the cave at the back: stay out."] = "熊怪村庄坐落在{area:2255}东北的山谷里。先打冬泉萨满祭司，他们会治疗。{quest:5121}（59级精英）和沙迪维尔斯（62级）在村子后方的洞里，别进洞。",
 
 	-- Step 34: Berserk Owlbeasts

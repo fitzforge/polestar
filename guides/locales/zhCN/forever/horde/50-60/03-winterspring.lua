@@ -52,7 +52,6 @@ return {
 	-- Step 8: Everlook
 	-- {zone:1423} Eastern Plaguelands · {area:2255} Everlook
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
-	-- was: ["Umi: keep it, the Pristine Yeti Horns come on the {zone:1423} guide's {area:2255} stop at about 57"] = "乌米：先留着，完美的雪人角安排在{zone:1423}指南约57级时的{area:2255}一站"
 	["Umi: keep it, the Pristine Yeti Horns come on the {zone:1423} guide's {area:2255} stop at about 56"] = "乌米：先留着任务，约56级按{zone:1423}指南到{area:2255}时再收集完美的雪人角",
 	["The Matriarchs and Patriarchs that carry Umi's horns are 56-58: leave them for that later stop."] = "携带乌米所需雪人角的冰蓟雪人女王和冰蓟雪人王有56-58级：留到之后那一站再打。",
 
@@ -61,7 +60,6 @@ return {
 	["Raging Owlbeasts"] = "狂暴的枭兽",
 	-- {area:2251} Lake Kel'Theril · {area:2255} Everlook · {area:2246} Frostfire Hot Springs
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
-	-- was: ["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "狂怒的枭兽出没于{area:2251}北面的山丘，就在{area:2246}与{area:2255}之间的路旁。小心：最强的有56级：一次引一只。"
 	["Ride back west: Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2255} and {area:2246}. Careful: the biggest are level 56: pull them one at a time."] = "向西返回。狂怒的枭兽在{area:2251}北边的丘陵游荡，靠近{area:2255}和{area:2246}之间的道路。小心，最高有56级，一次只引一只。",
 
 	-- Step 10: Frostfire Hot Springs: kill these as you meet them
@@ -69,7 +67,6 @@ return {
 	["{area:2246}: kill these as you meet them"] = "{area:2246}：沿途击杀以下目标",
 	-- {item:14047} Runecloth
 	-- plural, as words: Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
-	-- was: ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "冬泉探路者、冬泉巢穴守卫和冬泉图腾师共处于温泉周围的熊怪营地；蓬毛枭兽在营地之间的山坡上游荡。先杀冬泉图腾师。把拾取到的每一块{item:14047}都留给梅罗什。\n小心：冬泉巢穴守卫最高56级：一次引一只，并远离营地的图腾。"
 	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers are 55-56: pull the 55s, one at a time, and keep clear of the camps' totems."] = "冬泉探路者、冬泉巢穴守卫和冬泉图腾师都在温泉附近的熊怪营地。蓬毛枭兽在营地之间的山坡上游荡。先杀冬泉图腾师。捡到的{item:14047}全都留给梅罗什。\n小心，冬泉巢穴守卫是55-56级，一次只引一只55级的，避开营地里的图腾。",
 	-- {item:12771} Empty Firewater Flask
 	["{item:12771}: about one Winterfall furbolg in ten carries one; keep killing them until it drops"] = "{item:12771}：冬泉熊怪约每十只掉一个，继续击杀直到掉落",
@@ -151,7 +148,6 @@ return {
 
 	-- Step 29: Bluff Runner Windstrider
 	-- {npc:10881} Bluff Runner Windstrider · {npc:14728} Rumstag Proudstrider · {area:1641} Hunter Rise
-	-- was: ["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{npc:10881}和{npc:14728}站在{area:1641}。拉姆斯塔格的每项捐献都需要背包中六十份毛料、丝绸或魔纹布：带了什么就交什么，其余跳过。"
 	["{npc:10881} and {npc:14728} stand on the central rise, not on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "到中央高地找{npc:10881}和{npc:14728}，别往{area:1641}找。拉姆斯塔格的每项捐献都需要背包里有60块对应的布料（毛料、丝绸或魔纹布）。有够数的就交，缺的跳过。",
 
 	-- Step 30: Ghede

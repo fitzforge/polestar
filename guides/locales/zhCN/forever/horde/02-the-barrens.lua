@@ -122,7 +122,6 @@ return {
 
 	-- Step 30: Ratchet
 	-- {area:392} Ratchet · {npc:3391} Gazlowe · {npc:7161} Wrenix the Wretched · {npc:3442} Sputtervalve · {npc:16227} Bragok · {npc:3446} Mebok Mizzyrix · {quest:1492} Wharfmaster Dizzywig
-	-- was: ["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "沿路向东南前往海岸的{area:392}：镇子北端找{npc:3391}和{npc:7161}，然后是{npc:3442}和{npc:16227}、{npc:3446}和{object:3972}告示，最后向南离开时在码头找{quest:1492}。"
 	["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the WANTED poster, then {quest:1492} on the dock on the way out south."] = "沿路向东南前往海边的{area:392}。先在镇北端找{npc:3391}和{npc:7161}，再找{npc:3442}和{npc:16227}，然后找{npc:3446}和通缉告示。最后往南离开时，在码头找{quest:1492}。",
 	-- {npc:3391} Gazlowe
 	["{npc:3391}, upstairs"] = "{npc:3391}：在楼上",
@@ -131,10 +130,8 @@ return {
 	-- {npc:16227} Bragok · {npc:3442} Sputtervalve
 	["{npc:16227}, beside {npc:3442}"] = "{npc:16227}，在{npc:3442}旁边",
 	-- {npc:3446} Mebok Mizzyrix · {area:392} Ratchet
-	-- was: ["{npc:3446}, beside the {object:3972} poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "{object:3972}告示旁的{npc:3446}：赤鳞迅猛龙留到下一次来{area:392}时（18级）再做"
 	["{npc:3446}, beside the WANTED poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "{npc:3446}在通缉告示旁。赤鳞迅猛龙的任务留到18级，再回{area:392}时做",
 	-- {npc:3467} Baron Longshore · {area:392} Ratchet
-	-- was: ["The {object:3972} poster: {npc:3467} comes on the next {area:392} stop too"] = "{object:3972}告示：{npc:3467}也留到下一次来{area:392}时再做"
 	["The WANTED poster: {npc:3467} comes on the next {area:392} stop too"] = "通缉告示：{npc:3467}也留到下次来{area:392}时再打",
 	-- {quest:1492} Wharfmaster Dizzywig
 	["{quest:1492}, on the dock"] = "{quest:1492}，在码头上",
@@ -535,7 +532,6 @@ return {
 	-- {area:392} Ratchet · {area:718} Wailing Caverns
 	["{area:392}: {area:718} quests"] = "{area:392}：{area:718}任务",
 	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix · {npc:3665} Crane Operator Bigglefuzz · {npc:3396} Hezrul Bloodmark
-	-- was: ["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the {object:3972} poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "你的{area:718}任务，如果还没接：{object:3972}告示旁的{npc:3446}，以及飞行管理员旁码头上的{npc:3665}。地下城之行在本指南稍后，在{npc:3396}之后。"
 	["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the WANTED poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "如果还没接{area:718}的任务，就去找通缉告示旁的{npc:3446}，以及飞行管理员旁边码头上的{npc:3665}。本指南稍后会安排打副本，在{npc:3396}之后。",
 
 	-- Step 121: Islen Waterseer

@@ -263,7 +263,6 @@ return {
 	-- Step 56: Level 10
 	["Level 10"] = "等级 10",
 	-- {area:362} Razor Hill · {quest:96825} This Fruit Could Bite Back
-	-- was: ["Top up here to level 10: {quest:840}, at {area:362}, needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "在这里补足经验到10级：{area:362}的{quest:840}需要10级。\n{quest:96825}所需的仙人掌果长在这些小屋旁：刷怪时顺手采集。"
 	["Top up here to level 10: your class quest at {area:362} needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "在这里刷怪升到10级，{area:362}的职业任务需要10级才能接。\n{quest:96825}需要的仙人掌果长在小屋旁，刷怪时顺手采集。",
 	-- {npc:3111} Razormane Quilboar
 	["grind on {npc:3111}"] = "击杀{npc:3111}刷经验",
@@ -442,7 +441,6 @@ return {
 
 	-- Step 104: Ormak Grimshot
 	-- {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor
-	-- was: ["Follow the road north from {area:362} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "沿道路从{area:362}向北到{zone:1454}的正门，就在{area:817}西边。{npc:3352}和猎人训练师一起站在{object:172958}。"
 	["Head to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "前往{zone:1454}正门，就在{area:817}西边。{npc:3352}和其他猎人训练师在{object:172958}。",
 
 	-- Step 105: Hanashi
@@ -453,7 +451,6 @@ return {
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "前往{zone:1454}",
 	-- {zone:1454} Orgrimmar · {area:817} Skull Rock · {area:379} Far Watch Post · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
-	-- was: ["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "从 {area:379} 沿路向北到 {zone:1454} 正门。下一篇指南从 {zone:1454} 开始：将邪教徒任务交给 {quest:829}，向训练师学习新等级技能，再从城门外的飞艇塔乘飞艇前往 {zone:1420} 和 {zone:1421}。银松森林之后再去 {zone:1413}。"
 	["Head to {zone:1454}'s main gate, just west of {area:817} (Warriors: north along the road from {area:379}). The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "前往{zone:1454}正门，就在{area:817}西边（战士从{area:379}沿路向北）。下一段路线从{zone:1454}开始：把邪教徒任务交给{quest:829}，找训练师学习新等级的技能，再到城门外的飞艇塔乘飞艇前往{zone:1420}和{zone:1421}。做完银松森林的路线再去{zone:1413}。",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "{zone:1454}的{object:172982}",

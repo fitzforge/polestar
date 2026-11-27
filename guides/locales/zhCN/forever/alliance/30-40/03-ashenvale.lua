@@ -120,7 +120,6 @@ return {
 	["{area:2240}: kill these as you meet them"] = "{area:2240}：沿途击杀以下目标",
 	-- {object:19868} Rocket Car Rubble · {npc:5935} Ironeye the Invincible
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Gazers = {npc:4150} Saltstone Gazer · Scorpid Terrors = {npc:4139} Scorpid Terror
-	-- was: ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "{object:19868}散落在整片盐滩上。恐蝎劫掠者和盐湖食腐鹫在北半部游荡，盐壳龟（30-31级）在盐滩中部：猎杀它们获取龟壳。注意：盐壳钳嘴龟（34-35级）在整片盐滩游荡，盐石凝视者（34-35级）和恐蝎（33-34级）占据最南端：别惹它们，待在北半部。"
 	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half.\nCareful: {npc:5935} (37, rare) roams the south-east of the flats, around 83-88,71-84: leave it be."] = "{object:19868}散落在整片盐滩上。恐蝎劫掠者和盐湖食腐鹫在北半部游荡，盐壳龟（30–31）在盐滩中部：猎杀它们获取龟壳。注意：盐壳钳嘴龟（34–35）在整片盐滩游荡，盐石凝视者（34–35）和恐蝎（33–34）占据最南端：别惹它们，待在北半部。\n注意：{npc:5935}（37，稀有）在盐滩东南部约 83–88，71–84 一带游荡：别招惹它。",
 	-- {item:5795} Hardened Tortoise Shell
 	-- plural, as words: Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise
@@ -160,7 +159,6 @@ return {
 
 	-- Step 27: Ratchet
 	-- {zone:1413} Barrens · {area:392} Ratchet · {area:35} Booty Bay · {npc:3391} Gazlowe · {quest:1111} Wharfmaster Dizzywig
-	-- was: ["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock."] = "从塞拉摩沿路向西北穿过沼泽进入{zone:1413}，再沿海岸北上到{area:392}：荆棘谷从海对面的{area:35}开始。{area:392}的狮鹫管理员站在码头上方。"
 	["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock; {npc:3391} is upstairs in the house above it; {quest:1111} waits on the dock by the boat."] = "从塞拉摩沿路向西北穿过沼泽进入{zone:1413}，再沿海岸北上到{area:392}：荆棘谷从海对面的{area:35}开始。{area:392}的狮鹫管理员站在码头上方；{npc:3391}在他上方屋子的楼上；{quest:1111}在码头边船旁等着。",
 	-- {npc:3391} Gazlowe · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	["{npc:3391}: for {npc:4631}, on {area:35}'s dock where the boat lands"] = "{npc:3391}：交给{npc:4631}，在{area:35}船靠岸的码头上",

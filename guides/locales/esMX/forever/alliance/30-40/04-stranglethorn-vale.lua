@@ -13,8 +13,9 @@ return {
 	["The boat from {area:392}'s dock crosses to {area:35}, on Stranglethorn's southern cape."] = "El barco del muelle de {area:392} cruza hasta {area:35}, en la punta sur de Stranglethorn.",
 
 	-- Step 2: Booty Bay
-	-- {npc:4631} Wharfmaster Lozgil
-	["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "{npc:4631} está en el muelle donde llega el barco. Vincula tu piedra de hogar en la posada: es tu forma de volver aquí desde el norte de la jungla al final del circuito.",
+	-- {npc:4631} Wharfmaster Lozgil · {zone:1443} Desolace
+	-- was: ["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "{npc:4631} está en el muelle donde llega el barco. Vincula tu piedra de hogar en la posada: es tu forma de volver aquí desde el norte de la jungla al final del circuito."
+	["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of this loop, and again at the end of the second loop, after {zone:1443}."] = "",
 	-- {npc:4631} Wharfmaster Lozgil
 	["{npc:4631}, on the dock"] = "{npc:4631}, en el muelle",
 	-- {npc:4631} Wharfmaster Lozgil · {npc:2496} Baron Revilgaz
@@ -255,6 +256,7 @@ return {
 	-- ["{npc:2495}, by the bank"] = "{npc:2495}, junto al banco",
 	-- ["{npc:2832}, in the {object:56910}"] = "{npc:2832}, en la {object:56910}",
 	-- ["{npc:2859}, on the top floor by the docks"] = "{npc:2859}, en el piso superior junto a los muelles",
+	-- ["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "{npc:4631} está en el muelle donde llega el barco. Vincula tu piedra de hogar en la posada: es tu forma de volver aquí desde el norte de la jungla al final del circuito.",
 	-- ["{npc:729} and the Lashtail raptors"] = "{npc:729} y los raptores colazote",
 	-- ["{npc:729}, the great tiger, lairs on the hilltop south-west of the camp; Lashtail Raptors run south of it, along the way to {area:35}."] = "{npc:729}, el gran tigre, tiene su guarida en la cima de la colina al suroeste del campamento; los raptores colazote corren al sur de ella, por el camino a {area:35}.",
 	-- ["{npc:737}, upstairs"] = "{npc:737}, en el piso de arriba",

@@ -16,7 +16,6 @@ return {
 	-- {skill:333} Enchanting
 	["{skill:333} 1-75: vendor goods"] = "{skill:333} 1-75: Händlerwaren",
 	-- {item:6217} Copper Rod · {item:247786} Mote of Magic · {zone:1453} Stormwind City · {npc:1318} Jessara Cordell · {zone:1454} Orgrimmar · {npc:3346} Kithas
-	-- was: ["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "Kauf den Bedarf für den ganzen Bereich auf einmal: 1 {item:6217} (1s 24c) und 32 {item:247786} (3s 20c); insgesamt etwa 4s 44c. Der Pfeil wählt den nächsten Händler deiner Fraktion ({zone:1453}: {npc:1286} und {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} und {npc:5817})."
 	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1318}; {zone:1454}: {npc:3346})."] = "Kauf den Bedarf für den ganzen Bereich auf einmal: 1 {item:6217} (1s 24c) und 32 {item:247786} (3s 20c); insgesamt etwa 4s 44c. Der Pfeil wählt den nächsten Händler deiner Fraktion ({zone:1453}: {npc:1318}; {zone:1454}: {npc:3346}).",
 
 	-- Step 3: Get Strange Dust
@@ -110,7 +109,6 @@ return {
 
 	-- Step 18: Get Iridescent Pearl (Alliance)
 	-- {item:5500} Iridescent Pearl
-	-- was: ["{item:5500} (Alliance)"] = "{item:5500} (Allianz)"
 	["Get {item:5500} (Alliance)"] = "Sammle {item:5500} (Allianz)",
 	-- {item:5500} Iridescent Pearl · {skill:333} Enchanting · {item:11130} Runed Golden Rod
 	-- plural, as words: Giant Clams = {object:2744} Giant Clam
@@ -118,7 +116,6 @@ return {
 
 	-- Step 19: Get Iridescent Pearl (Horde)
 	-- {item:5500} Iridescent Pearl
-	-- was: ["{item:5500} (Horde)"] = "{item:5500} (Horde)"
 	["Get {item:5500} (Horde)"] = "Sammle {item:5500} (Horde)",
 
 	-- Step 20: Get Greater Astral Essence
@@ -219,18 +216,14 @@ return {
 
 	-- Step 37: Get Purple Lotus (Alliance)
 	-- {item:8831} Purple Lotus
-	-- was: ["{item:8831} (Alliance)"] = "{item:8831} (Allianz)"
 	["Get {item:8831} (Alliance)"] = "Sammle {item:8831} (Allianz)",
 	-- {item:8831} Purple Lotus · {skill:333} Enchanting · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	-- was: ["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1425} is marked."] = "34 {item:8831} für {item:20747}: {skill:182}: {item:8831} (Fertigkeit 210) in {zone:1425} (40-50), {zone:1444} (40-50) und {zone:1447} (45-55). Das dichteste Vorkommen von {item:8831} in {zone:1425} ist markiert."
 	["You need 34 {item:8831} for {skill:333} 225-300: {item:20747}. {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1425} is marked. Or buy them at the Auction House."] = "Du brauchst 34 {item:8831} für {skill:333} 225-300: {item:20747}. {skill:182}: {item:8831} (Fertigkeit 210) in {zone:1425} (40-50), {zone:1444} (40-50) und {zone:1447} (45-55). Das dichteste Vorkommen von {item:8831} in {zone:1425} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 38: Get Purple Lotus (Horde)
 	-- {item:8831} Purple Lotus
-	-- was: ["{item:8831} (Horde)"] = "{item:8831} (Horde)"
 	["Get {item:8831} (Horde)"] = "Sammle {item:8831} (Horde)",
 	-- {item:8831} Purple Lotus · {skill:333} Enchanting · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	-- was: ["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1444} is marked."] = "34 {item:8831} für {item:20747}: {skill:182}: {item:8831} (Fertigkeit 210) in {zone:1425} (40-50), {zone:1444} (40-50) und {zone:1447} (45-55). Das dichteste Vorkommen von {item:8831} in {zone:1444} ist markiert."
 	["You need 34 {item:8831} for {skill:333} 225-300: {item:20747}. {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1444} is marked. Or buy them at the Auction House."] = "Du brauchst 34 {item:8831} für {skill:333} 225-300: {item:20747}. {skill:182}: {item:8831} (Fertigkeit 210) in {zone:1425} (40-50), {zone:1444} (40-50) und {zone:1447} (45-55). Das dichteste Vorkommen von {item:8831} in {zone:1444} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 39: Get Vision Dust

@@ -177,7 +177,6 @@ return {
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
 	["Sprite Darters"] = "Grimmlingflitzer",
 	-- {item:9589} Encrusted Minerals
-	-- was: ["The faerie dragons flit around the woods just west of the camp. Use the vessel on each one you kill."] = "Die Feendrachen schwirren durch den Wald gleich westlich des Lagers. Benutze das Gefäß an jedem, den du tötest."
 	["The faerie dragons flit around the woods just west of the camp. Use the vessel on each one you kill; they carry the {item:9589} too."] = "Die Feendrachen flattern im Wald direkt westlich des Lagers umher. Benutze das Gefäß bei jedem, den du tötest; sie tragen auch den {item:9589}.",
 
 	-- Step 45: Wandering Forest Walkers
@@ -209,7 +208,6 @@ return {
 	["{area:1108}: the giants' hills"] = "{area:1108}: die Riesenberge",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant · Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray
-	-- was: ["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "Die Sea Elementals und Sea Sprays werden rund um das Dock an den Strand gespült.\nDie Land Walkers und Cliff Giants streifen durch die Hügel nördlich des Docks. Zappe jeden zuerst mit {item:18904}: Geschrumpft sind sie keine Elite mehr. Jeder gezappte Riese lässt Rückstände fallen; benutze das Muisek Vessel auch an seinem Körper."
 	["The Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too.\nThe Sea Elementals and Sea Sprays along the shore have the last cores."] = "Die Landgänger und Klippenriesen streifen durch die Hügel nördlich des Docks. Schockiere jeden zuerst mit {item:18904}: Geschrumpft sind sie nicht mehr elite. Jeder geschockte Riese lässt Rückstand fallen; benutze das Muisek-Gefäß auch auf seinen Körper.\nDie Meereselementare und Meeresschauer entlang der Küste haben die letzten Kerne.",
 
 	-- Step 52: Northspring harpies
@@ -272,7 +270,6 @@ return {
 	-- Step 66: Thistleshrub Valley
 	-- {quest:3362} Thistleshrub Valley · {npc:7876} Tran'rek · {zone:1446} Tanaris · {area:976} Gadgetzan
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
-	-- was: ["West from the compound, on the way to Un'Goro's ramp: {quest:3362}'s Gnarled Thistleshrubs and Rootshapers (48-50) are {npc:7876}'s, carried from your first {zone:1446} visit. They wander a lot: pull them one at a time. {npc:7876} takes them on the next guide's {area:976} stop, with {npc:11758}'s."] = "Westlich des Lagers, auf dem Weg zur Rampe nach Un'Goro: Die Knorrigen Distelwandler und Wurzelformer (48-50) für {quest:3362} gehören zu {npc:7876}, mitgebracht von deinem ersten Besuch in {zone:1446}. Sie wandern viel umher: Zieh sie einzeln. {npc:7876} nimmt sie beim Halt in {area:976} im nächsten Guide entgegen, zusammen mit der von {npc:11758}."
 	["West from the compound, on the way to Un'Goro's ramp: {quest:3362}'s Gnarled Thistleshrubs and Rootshapers (49-50) are {npc:7876}'s, carried from your second {zone:1446} visit. They wander a lot: pull them one at a time. {npc:7876} takes them on the next guide's {area:976} stop."] = "Westlich des Lagers, auf dem Weg zur Rampe nach Un'Goro: {quest:3362}'s Knorrige Distelwandler und Rootshapers (49-50) sind für {npc:7876}, die du vom zweiten {zone:1446}-Besuch mitbringst. Sie wandern viel: ziehe sie einzeln. {npc:7876} nimmt sie beim {area:976}-Stopp des nächsten Guides an.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

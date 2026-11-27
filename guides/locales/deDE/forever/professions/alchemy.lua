@@ -255,60 +255,50 @@ return {
 
 	-- Step 42: Get Wild Steelbloom (Alliance)
 	-- {object:1623} Wild Steelbloom
-	-- was: ["{item:3355} (Alliance)"] = "{item:3355} (Allianz)"
 	["Get {object:1623} (Alliance)"] = "Sammle {object:1623} (Allianz)",
 	-- {object:1623} Wild Steelbloom · {skill:171} Alchemy · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1442} Stonetalon Mountains · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
-	-- was: ["40 {object:1623} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1434} is marked."] = "40 {object:1623} für {item:8951} (8 davon für 225-300: hol sie dir jetzt alle): {skill:182}: {object:1623} (Fertigkeit 115) in {zone:1442} (15-27), {zone:1417} (30-40) und {zone:1434} (30-45). Das dichteste Vorkommen von {object:1623} in {zone:1434} ist markiert."
 	["You need 40 {object:1623} for {skill:171} 150-225: {item:8951} (8 of them for 225-300: get them all now). {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1434} is marked. Or buy them at the Auction House."] = "Du brauchst 40 {object:1623} für {skill:171} 150-225: {item:8951} (8 davon für 225-300: hol sie dir jetzt alle). {skill:182}: {object:1623} (Fertigkeit 115) in {zone:1442} (15-27), {zone:1417} (30-40) und {zone:1434} (30-45). Das dichteste Vorkommen von {object:1623} in {zone:1434} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 43: Get Wild Steelbloom (Horde)
 	-- {object:1623} Wild Steelbloom
-	-- was: ["{item:3355} (Horde)"] = "{item:3355} (Horde)"
 	["Get {object:1623} (Horde)"] = "Sammle {object:1623} (Horde)",
 	-- {object:1623} Wild Steelbloom · {skill:171} Alchemy · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1442} Stonetalon Mountains · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
-	-- was: ["40 {object:1623} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1442} is marked."] = "40 {object:1623} für {item:8951} (8 davon für 225-300: sammle sie jetzt alle): {skill:182}: {object:1623} (Fertigkeit 115) in {zone:1442} (15-27), {zone:1417} (30-40) und {zone:1434} (30-45). Das dichteste Vorkommen von {object:1623} in {zone:1442} ist markiert."
 	["You need 40 {object:1623} for {skill:171} 150-225: {item:8951} (8 of them for 225-300: get them all now). {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1442} is marked. Or buy them at the Auction House."] = "Du brauchst 40 {object:1623} für {skill:171} 150-225: {item:8951} (8 davon für 225-300: hol sie dir jetzt alle). {skill:182}: {object:1623} (Fertigkeit 115) in {zone:1442} (15-27), {zone:1417} (30-40) und {zone:1434} (30-45). Das dichteste Vorkommen von {object:1623} in {zone:1442} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 44: Get Kingsblood (Alliance)
 	-- {item:3356} Kingsblood
 	["Get {item:3356} (Alliance)"] = "Sammle {item:3356} (Allianz)",
 	-- {item:3356} Kingsblood · {skill:171} Alchemy · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1440} Ashenvale · {zone:1437} Wetlands · {zone:1434} Stranglethorn Vale
-	-- was: ["39 {item:3356} for {spell:3452}: {skill:182}: {item:3356} (skill 125) in {zone:1440} (18-30), {zone:1437} (20-30) and {zone:1434} (30-45). The densest patch of {item:3356} in {zone:1434} is marked."] = "39 {item:3356} für {spell:3452}: {skill:182}: {item:3356} (Fertigkeit 125) in {zone:1440} (18-30), {zone:1437} (20-30) und {zone:1434} (30-45). Das dichteste Vorkommen von {item:3356} in {zone:1434} ist markiert."
 	["You need 39 {item:3356} for {skill:171} 150-225: {spell:3452}. {skill:182}: {item:3356} (skill 125) in {zone:1440} (18-30), {zone:1437} (20-30) and {zone:1434} (30-45). The densest patch of {item:3356} in {zone:1434} is marked. Or buy them at the Auction House."] = "Du brauchst 39 {item:3356} für {skill:171} 150-225: {spell:3452}. {skill:182}: {item:3356} (Fertigkeit 125) in {zone:1440} (18-30), {zone:1437} (20-30) und {zone:1434} (30-45). Das dichteste Vorkommen von {item:3356} in {zone:1434} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 45: Get Kingsblood (Horde)
 	-- {item:3356} Kingsblood
 	["Get {item:3356} (Horde)"] = "Sammle {item:3356} (Horde)",
 	-- {item:3356} Kingsblood · {skill:171} Alchemy · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1413} The Barrens · {zone:1440} Ashenvale · {zone:1434} Stranglethorn Vale
-	-- was: ["39 {item:3356} for {spell:3452}: {skill:182}: {item:3356} (skill 125) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1434} (30-45). The densest patch of {item:3356} in {zone:1413} is marked."] = "39 {item:3356} für {spell:3452}: {skill:182}: {item:3356} (Fertigkeit 125) in {zone:1413} (10-25), {zone:1440} (18-30) und {zone:1434} (30-45). Das dichteste Vorkommen von {item:3356} in {zone:1413} ist markiert."
 	["You need 39 {item:3356} for {skill:171} 150-225: {spell:3452}. {skill:182}: {item:3356} (skill 125) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1434} (30-45). The densest patch of {item:3356} in {zone:1413} is marked. Or buy them at the Auction House."] = "Du brauchst 39 {item:3356} für {skill:171} 150-225: {spell:3452}. {skill:182}: {item:3356} (Fertigkeit 125) in {zone:1413} (10-25), {zone:1440} (18-30) und {zone:1434} (30-45). Das dichteste Vorkommen von {item:3356} in {zone:1413} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 46: Get Stranglekelp (Alliance)
 	-- {object:2045} Stranglekelp
 	["Get {object:2045} (Alliance)"] = "Sammle {object:2045} (Allianz)",
 	-- {object:2045} Stranglekelp · {skill:171} Alchemy · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1437} Wetlands · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands
-	-- was: ["39 {object:2045} for {spell:3452}: {skill:182}: {object:2045} (skill 85) in {zone:1437} (20-30), {zone:1434} (30-45) and {zone:1425} (40-50). The densest patch of {object:2045} in {zone:1434} is marked."] = "39 {object:2045} für {spell:3452}: {skill:182}: {object:2045} (Fertigkeit 85) in {zone:1437} (20-30), {zone:1434} (30-45) und {zone:1425} (40-50). Das dichteste Vorkommen von {object:2045} in {zone:1434} ist markiert."
 	["You need 39 {object:2045} for {skill:171} 150-225: {spell:3452}. {skill:182}: {object:2045} (skill 85) in {zone:1437} (20-30), {zone:1434} (30-45) and {zone:1425} (40-50). The densest patch of {object:2045} in {zone:1434} is marked. Or buy them at the Auction House."] = "Du brauchst 39 {object:2045} für {skill:171} 150-225: {spell:3452}. {skill:182}: {object:2045} (Fertigkeit 85) in {zone:1437} (20-30), {zone:1434} (30-45) und {zone:1425} (40-50). Das dichteste Vorkommen von {object:2045} in {zone:1434} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 47: Get Stranglekelp (Horde)
 	-- {object:2045} Stranglekelp
 	["Get {object:2045} (Horde)"] = "Sammle {object:2045} (Horde)",
 	-- {object:2045} Stranglekelp · {skill:171} Alchemy · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1413} The Barrens · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands
-	-- was: ["39 {object:2045} for {spell:3452}: {skill:182}: {object:2045} (skill 85) in {zone:1413} (10-25), {zone:1434} (30-45) and {zone:1425} (40-50). The densest patch of {object:2045} in {zone:1413} is marked."] = "39 {object:2045} für {spell:3452}: {skill:182}: {object:2045} (Fertigkeit 85) in {zone:1413} (10-25), {zone:1434} (30-45) und {zone:1425} (40-50). Das dichteste Vorkommen von {object:2045} in {zone:1413} ist markiert."
 	["You need 39 {object:2045} for {skill:171} 150-225: {spell:3452}. {skill:182}: {object:2045} (skill 85) in {zone:1413} (10-25), {zone:1434} (30-45) and {zone:1425} (40-50). The densest patch of {object:2045} in {zone:1413} is marked. Or buy them at the Auction House."] = "Du brauchst 39 {object:2045} für {skill:171} 150-225: {spell:3452}. {skill:182}: {object:2045} (Fertigkeit 85) in {zone:1413} (10-25), {zone:1434} (30-45) und {zone:1425} (40-50). Das dichteste Vorkommen von {object:2045} in {zone:1413} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 48: Get Goldthorn (Alliance)
 	-- {object:2046} Goldthorn
 	["Get {object:2046} (Alliance)"] = "Sammle {object:2046} (Allianz)",
 	-- {object:2046} Goldthorn · {skill:171} Alchemy · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1417} Arathi Highlands · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	-- was: ["40 {object:2046} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:2046} (skill 170) in {zone:1417} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest patch of {object:2046} in {zone:1417} is marked."] = "40 {object:2046} für {item:8951} (8 davon für 225-300: sammle sie jetzt alle): {skill:182}: {object:2046} (Fertigkeit 170) in {zone:1417} (30-40), {zone:1425} (40-50) und {zone:1444} (40-50). Das dichteste Vorkommen von {object:2046} in {zone:1417} ist markiert."
 	["You need 40 {object:2046} for {skill:171} 150-225: {item:8951} (8 of them for 225-300: get them all now). {skill:182}: {object:2046} (skill 170) in {zone:1417} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest patch of {object:2046} in {zone:1417} is marked. Or buy them at the Auction House."] = "Du brauchst 40 {object:2046} für {skill:171} 150-225: {item:8951} (8 davon für 225-300: hol sie dir jetzt alle). {skill:182}: {object:2046} (Fertigkeit 170) in {zone:1417} (30-40), {zone:1425} (40-50) und {zone:1444} (40-50). Das dichteste Vorkommen von {object:2046} in {zone:1417} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 49: Get Goldthorn (Horde)
 	-- {object:2046} Goldthorn
 	["Get {object:2046} (Horde)"] = "Sammle {object:2046} (Horde)",
 	-- {object:2046} Goldthorn · {skill:171} Alchemy · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1417} Arathi Highlands · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	-- was: ["40 {object:2046} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:2046} (skill 170) in {zone:1417} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest patch of {object:2046} in {zone:1444} is marked."] = "40 {object:2046} für {item:8951} (8 davon für 225-300: hol sie dir jetzt alle): {skill:182}: {object:2046} (Fertigkeit 170) in {zone:1417} (30-40), {zone:1425} (40-50) und {zone:1444} (40-50). Das dichteste Vorkommen von {object:2046} in {zone:1444} ist markiert."
 	["You need 40 {object:2046} for {skill:171} 150-225: {item:8951} (8 of them for 225-300: get them all now). {skill:182}: {object:2046} (skill 170) in {zone:1417} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest patch of {object:2046} in {zone:1444} is marked. Or buy them at the Auction House."] = "Du brauchst 40 {object:2046} für {skill:171} 150-225: {item:8951} (8 davon für 225-300: hol sie dir jetzt alle). {skill:182}: {object:2046} (Fertigkeit 170) in {zone:1417} (30-40), {zone:1425} (40-50) und {zone:1444} (40-50). Das dichteste Vorkommen von {object:2046} in {zone:1444} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 50: Expert Alchemy
@@ -359,44 +349,36 @@ return {
 
 	-- Step 58: Get Arthas' Tears (Alliance)
 	-- {item:8836} Arthas' Tears
-	-- was: ["{item:8836} (Alliance)"] = "{item:8836} (Allianz)"
 	["Get {item:8836} (Alliance)"] = "Sammle {item:8836} (Allianz)",
 	-- {item:8836} Arthas' Tears · {skill:171} Alchemy · {item:9154} Draught of Detect Undead · {skill:182} Herbalism · {zone:1448} Felwood · {zone:1422} Western Plaguelands · {zone:1423} Eastern Plaguelands
-	-- was: ["43 {item:8836} for {item:9154}: {skill:182}: {item:8836} (skill 220) in {zone:1448} (48-55), {zone:1422} (51-58) and {zone:1423} (53-60). The densest patch of {item:8836} in {zone:1422} is marked."] = "43 {item:8836} für {item:9154}: {skill:182}: {item:8836} (Fertigkeit 220) in {zone:1448} (48-55), {zone:1422} (51-58) und {zone:1423} (53-60). Das dichteste Vorkommen von {item:8836} in {zone:1422} ist markiert."
 	["You need 43 {item:8836} for {skill:171} 225-300: {item:9154}. {skill:182}: {item:8836} (skill 220) in {zone:1448} (48-55), {zone:1422} (51-58) and {zone:1423} (53-60). The densest patch of {item:8836} in {zone:1422} is marked. Or buy them at the Auction House."] = "Du brauchst 43 {item:8836} für {skill:171} 225-300: {item:9154}. {skill:182}: {item:8836} (Fertigkeit 220) in {zone:1448} (48-55), {zone:1422} (51-58) und {zone:1423} (53-60). Das dichteste Vorkommen von {item:8836} in {zone:1422} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 59: Get Arthas' Tears (Horde)
 	-- {item:8836} Arthas' Tears
-	-- was: ["{item:8836} (Horde)"] = "{item:8836} (Horde)"
 	["Get {item:8836} (Horde)"] = "Sammle {item:8836} (Horde)",
 	-- {item:8836} Arthas' Tears · {skill:171} Alchemy · {item:9154} Draught of Detect Undead · {skill:182} Herbalism · {zone:1448} Felwood · {zone:1422} Western Plaguelands · {zone:1423} Eastern Plaguelands
-	-- was: ["43 {item:8836} for {item:9154}: {skill:182}: {item:8836} (skill 220) in {zone:1448} (48-55), {zone:1422} (51-58) and {zone:1423} (53-60). The densest patch of {item:8836} in {zone:1448} is marked."] = "43 {item:8836} für {item:9154}: {skill:182}: {item:8836} (Fertigkeit 220) in {zone:1448} (48-55), {zone:1422} (51-58) und {zone:1423} (53-60). Das dichteste Vorkommen von {item:8836} in {zone:1448} ist markiert."
 	["You need 43 {item:8836} for {skill:171} 225-300: {item:9154}. {skill:182}: {item:8836} (skill 220) in {zone:1448} (48-55), {zone:1422} (51-58) and {zone:1423} (53-60). The densest patch of {item:8836} in {zone:1448} is marked. Or buy them at the Auction House."] = "Du brauchst 43 {item:8836} für {skill:171} 225-300: {item:9154}. {skill:182}: {item:8836} (Fertigkeit 220) in {zone:1448} (48-55), {zone:1422} (51-58) und {zone:1423} (53-60). Das dichteste Vorkommen von {item:8836} in {zone:1448} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 60: Get Sungrass (Alliance)
 	-- {item:8838} Sungrass
 	["Get {item:8838} (Alliance)"] = "Sammle {item:8838} (Allianz)",
 	-- {item:8838} Sungrass · {skill:171} Alchemy · {item:13445} Elixir of Greater Defense · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	-- was: ["43 {item:8838} for {item:13445}: {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8838} in {zone:1425} is marked."] = "43 {item:8838} für {item:13445}: {skill:182}: {item:8838} (Fertigkeit 230) in {zone:1425} (40-50), {zone:1444} (40-50) und {zone:1447} (45-55). Das dichteste Vorkommen von {item:8838} in {zone:1425} ist markiert."
 	["You need 43 {item:8838} for {skill:171} 225-300: {item:13445}. {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8838} in {zone:1425} is marked. Or buy them at the Auction House."] = "Du brauchst 43 {item:8838} für {skill:171} 225-300: {item:13445}. {skill:182}: {item:8838} (Fertigkeit 230) in {zone:1425} (40-50), {zone:1444} (40-50) und {zone:1447} (45-55). Das dichteste Vorkommen von {item:8838} in {zone:1425} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 61: Get Sungrass (Horde)
 	-- {item:8838} Sungrass
 	["Get {item:8838} (Horde)"] = "Sammle {item:8838} (Horde)",
 	-- {item:8838} Sungrass · {skill:171} Alchemy · {item:13445} Elixir of Greater Defense · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	-- was: ["43 {item:8838} for {item:13445}: {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8838} in {zone:1444} is marked."] = "43 {item:8838} für {item:13445}: {skill:182}: {item:8838} (Fertigkeit 230) in {zone:1425} (40-50), {zone:1444} (40-50) und {zone:1447} (45-55). Das dichteste Vorkommen von {item:8838} in {zone:1444} ist markiert."
 	["You need 43 {item:8838} for {skill:171} 225-300: {item:13445}. {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8838} in {zone:1444} is marked. Or buy them at the Auction House."] = "Du brauchst 43 {item:8838} für {skill:171} 225-300: {item:13445}. {skill:182}: {item:8838} (Fertigkeit 230) in {zone:1425} (40-50), {zone:1444} (40-50) und {zone:1447} (45-55). Das dichteste Vorkommen von {item:8838} in {zone:1444} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 62: Get Stonescale Eel (Alliance)
 	-- {item:13422} Stonescale Eel
-	-- was: ["{item:13422} (Alliance)"] = "{item:13422} (Allianz)"
 	["Get {item:13422} (Alliance)"] = "Sammle {item:13422} (Allianz)",
 	-- {item:13422} Stonescale Eel · {skill:171} Alchemy · {item:13445} Elixir of Greater Defense · {object:180712} Stonescale Eel Swarm
 	["You need 43 {item:13422} for {skill:171} 225-300: {item:13445}. Fish them from the {object:180712} pools at the marked spot. Or buy them at the Auction House."] = "Du brauchst 43 {item:13422} für {skill:171} 225-300: {item:13445}. Angel sie aus den Schwärmen von {object:180712} an der markierten Stelle. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 63: Get Stonescale Eel (Horde)
 	-- {item:13422} Stonescale Eel
-	-- was: ["{item:13422} (Horde)"] = "{item:13422} (Horde)"
 	["Get {item:13422} (Horde)"] = "Sammle {item:13422} (Horde)",
 
 	-- Step 64: Artisan Alchemy

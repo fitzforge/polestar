@@ -13,9 +13,9 @@ return {
 	["The boat from {area:392}'s dock crosses to {area:35}, on Stranglethorn's southern cape."] = "{area:392}码头的船横渡到荆棘谷南角的{area:35}。",
 
 	-- Step 2: Booty Bay
-	-- {npc:4631} Wharfmaster Lozgil
-	-- was: ["Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "在旅店绑定炉石：路线末尾从丛林北边返回这里就靠它。"
-	["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "{npc:4631}站在船靠岸的码头上。在旅店绑定炉石：这条路线最后从丛林北边返回时，就靠它回到这里。",
+	-- {npc:4631} Wharfmaster Lozgil · {zone:1443} Desolace
+	-- was: ["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "{npc:4631}站在船靠岸的码头上。在旅店绑定炉石：这条路线最后从丛林北边返回时，就靠它回到这里。"
+	["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of this loop, and again at the end of the second loop, after {zone:1443}."] = "",
 	-- {npc:4631} Wharfmaster Lozgil
 	["{npc:4631}, on the dock"] = "{npc:4631}，在码头上",
 	-- {npc:4631} Wharfmaster Lozgil · {npc:2496} Baron Revilgaz
@@ -257,6 +257,7 @@ return {
 	-- ["{npc:2495}, by the bank"] = "{npc:2495}，在银行旁",
 	-- ["{npc:2832}, in the {object:56910}"] = "{npc:2832}，在{object:56910}",
 	-- ["{npc:2859}, on the top floor by the docks"] = "{npc:2859}，在码头旁的顶楼",
+	-- ["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "{npc:4631}站在船靠岸的码头上。在旅店绑定炉石：这条路线最后从丛林北边返回时，就靠它回到这里。",
 	-- ["{npc:469}: {quest:200}'s records, on the northern loop (04b)"] = "{npc:469}：{quest:200}的记录，北部路线会去取（04b）",
 	-- ["{npc:729} and the Lashtail raptors"] = "{npc:729}和鞭尾迅猛龙",
 	-- ["{npc:729}, the great tiger, lairs on the hilltop south-west of the camp; Lashtail Raptors run south of it, along the way to {area:35}."] = "大老虎{npc:729}的巢穴在营地西南方的山顶；鞭尾迅猛龙在其南边、通往{area:35}的路上奔跑。",

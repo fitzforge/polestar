@@ -14754,7 +14754,7 @@
 				"quest": 575,
 				"goal": "accept"
 			},
-			"tip": "Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop.",
+			"tip": "Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of this loop, and again at the end of the second loop, after Desolace.",
 			"note": "#2419 (Onrevax): 30-40/04-stranglethorn-vale walked the length of the jungle from Nesingwary's camp to Booty Bay for its flight point and quests, flew to Sentinel Hill and walked back in to work them in the north. Since 0.4.1 the guide starts at Booty Bay: 30-40/03-ashenvale ends in Theramore, so it goes on to Ratchet (flight point) and its boat, takes Booty Bay's quests and the inn bind first, walks north once, and the hearthstone brings the player back at the end of the loop (route-fixes deliberate.pairs). Level model (rested, 28 Alliance branches): 15 minutes less in this guide, 13 minutes less to 60, no level and no over-level spot moved.",
 			"source": [
 				{
@@ -14767,6 +14767,25 @@
 				}
 			],
 			"issue": 2419
+		},
+		{
+			"id": "4479-stranglethorn-04b-hearth-back",
+			"faction": "Alliance",
+			"at": {
+				"quest": 577,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/30-40/04b-stranglethorn-vale"
+			},
+			"tip": "Then hearth back to Booty Bay: the hearthstone is still bound there from the first loop.",
+			"note": "#4479: the second Stranglethorn loop ends with the walk from the north of the jungle down to Booty Bay (about 8 minutes on foot on the walking grid from the Snapjaw Crocolisks). 30-40/02-desolace no longer binds at Nijel's Point, so the Booty Bay bind of the first loop (30-40/04) still stands and the addon's planner takes the Hearthstone there; the step says so.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings, 0.4.x: on 30-40/04b, 10 people walked from the north of the jungle to Booty Bay, 9 of them bound at Nijel's Point with the Hearthstone ready; 2 hearthed"
+				}
+			],
+			"pr": 4479
 		},
 		{
 			"id": "dun-morogh-gnomeregan-road-careful",

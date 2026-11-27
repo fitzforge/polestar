@@ -22,7 +22,6 @@ return {
 
 	-- Step 6: Astranaar
 	-- {area:413} Maestra's Post · {npc:3845} Shindrell Swiftfire · {npc:4079} Sentinel Thenysil · {npc:3996} Faldreas Goeth'Shael · {npc:3691} Raene Wolfrunner · {npc:3894} Pelturas Whitemoon
-	-- was: ["The road from {area:413} comes in by the flight master: {npc:3845} and {npc:4079} stand there, {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "从{area:413}过来的道路通向飞行管理员旁：{npc:3845}和{npc:4079}站在那里，{npc:3691}在旅店，{npc:3894}在旅店后方的建筑内。"
 	["The road from {area:413} comes in by the flight master: {npc:3845} and {npc:4079} stand there, {npc:3996} just east of them, {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "从{area:413}沿路进镇，就到飞行管理员旁。{npc:3845}和{npc:4079}就在那里，{npc:3996}在他们东边不远，{npc:3691}在旅店里，{npc:3894}在旅店后方的建筑内。",
 	-- {npc:3996} Faldreas Goeth'Shael · {npc:3994} Keeper Albagorm · {area:467} Stonetalon Peak
 	["{npc:3996}: for {npc:3994} at {area:467}, at the end of the Stonetalon trip"] = "{npc:3996}：石爪山脉这趟行程的最后一站，在{area:467}交给{npc:3994}。",
@@ -58,14 +57,12 @@ return {
 
 	-- Step 12: Teronis' Corpse
 	-- {area:441} Lake Falathim · {item:5463} Glowing Gem
-	-- was: ["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "向西前往{area:441}岸边。泰洛尼斯躺在盐沫鱼人之间，任意鱼人均有几率掉落{item:5463}。"
 	["North again to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "继续向北到{area:441}岸边。泰洛尼斯躺在盐沫鱼人中间，这里的鱼人都有可能掉落{item:5463}。",
 
 	-- Step 13: Maestra's Post
 	-- {area:413} Maestra's Post
 	["North-east from the lake to {area:413}."] = "从湖边向东北走到{area:413}。",
 	-- {npc:3663} Delgren the Purifier · {zone:1440} Ashenvale
-	-- was: ["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "{npc:3663}：法阵留到下次来{zone:1440}时处理，约28级"
 	["{npc:3663}: its circles are for your next {zone:1440} visit, at about 30"] = "{npc:3663}：法阵留到下次来{zone:1440}时处理，约30级。",
 
 	-- Step 14: The Zoram Strand
@@ -259,7 +256,6 @@ return {
 
 	-- Step 47: Ormer Ironbraid
 	-- {npc:1078} Ormer Ironbraid · {zone:1437} Wetlands
-	-- was: ["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 27"] = "{npc:1078}：挖掘场西边山谷里的较大迅猛龙，留到下次来{zone:1437}时击杀，约27级"
 	["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 29"] = "{npc:1078}：挖掘场西边山谷里的大迅猛龙，留到约29级、下次来{zone:1437}时再打",
 
 	-- Step 48: The Green Belt

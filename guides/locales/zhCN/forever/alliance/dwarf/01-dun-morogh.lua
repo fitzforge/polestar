@@ -240,7 +240,6 @@ return {
 
 	-- Step 39: Dun Morogh: kill these as you meet them
 	-- {area:1} Dun Morogh
-	-- was: ["{zone:1426}: kill these as you meet them"] = "{zone:1426}：沿途遇到就击杀"
 	["{area:1}: kill these as you meet them"] = "{area:1}：沿途遇到就击杀",
 	-- {area:131} Kharanos
 	-- plural, as words: Crag Boars = {npc:1125} Crag Boar · Young Black Bears = {npc:1128} Young Black Bear
@@ -324,7 +323,6 @@ return {
 	-- Step 53: Frostmane Hold
 	-- {area:135} Frostmane Hold · {area:137} Brewnall Village
 	-- plural, as words: Frostmane Hideskinners = {npc:1122} Frostmane Hideskinner
-	-- was: ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135}是{area:137}西南边山丘里的巨魔洞穴。先击杀洞口的猎头者，再穿过洞穴走到另一端。\n小心：要塞里的霜鬃剥皮者是9-10级，两两成对站着：一次引一只，拉回洞口。"
 	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth, then walk through the cave to its far end: Fully explore {area:135} ticks only in there, not on the hill above it.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135}是{area:137}西南边山丘里的巨魔洞穴。先击杀洞口的霜鬃猎头者，再走到洞穴尽头。只有到那里才算完全探索{area:135}，在洞穴上方的山丘上不算。\n小心：要塞里的霜鬃剥皮者是9-10级，两两成对站着。一次引一只，拉回洞口。",
 	-- {npc:1123} Frostmane Headhunter
 	["{npc:1123}, below ground"] = "{npc:1123}：在地下",
@@ -348,7 +346,6 @@ return {
 
 	-- Step 56: Steelgrill's Depot
 	-- {area:131} Kharanos · {area:1} Dun Morogh
-	-- was: ["Follow the road north-east from {area:131} to the depot: the whole east of {zone:1426} is one sweep from here."] = "从{area:131}沿路向东北前往补给站，从这里开始一轮走完{zone:1426}整个东部。"
 	["Follow the road north-east from {area:131} to the depot: the whole east of {area:1} is one sweep from here."] = "从{area:131}沿路向东北前往补给站。从这里出发，可以一圈走完{area:1}的整个东部。",
 	-- {npc:1377} Pilot Stonegear
 	["{npc:1377}, beside him"] = "{npc:1377}，在他旁边",
@@ -424,7 +421,6 @@ return {
 
 	-- Step 81: Protecting the Herd
 	-- {npc:1388} Vagash · {area:38} Loch Modan
-	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {zone:1432} quests ahead make up the experience."] = "这些是精英怪：建议组队，找人一起做。{npc:1388}是12级精英：组队去打。单人就跳过：前方{zone:1432}的任务能补回经验。"
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {area:38} quests ahead make up the experience."] = "这些是精英怪，建议找人组队。{npc:1388}是12级精英，组队再打。单人就跳过，后面{area:38}的任务能补回经验。",
 	["Below ground"] = "在地下",
 
@@ -446,13 +442,11 @@ return {
 
 	-- Step 88: Braldir Ashmantle
 	-- {area:38} Loch Modan · {npc:257808} Braldir Ashmantle
-	-- was: ["Go through the tunnel into {zone:1432}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "穿过隧道进入 {zone:1432}。刚出隧道，路右侧就有一条以石块标记的小径，沿它向北上山，前往 {npc:257808} 的营地。"
 	["Go through the tunnel into {area:38}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "穿过隧道进入{area:38}。刚出隧道，路右边就有一条用石块标记的小径，沿它向北上山，到{npc:257808}的营地。",
 
 	-- Step 89: The tunnel post
 	["The tunnel post"] = "隧道哨站",
 	-- {area:38} Loch Modan · {npc:1089} Mountaineer Cobbleflint · {npc:1092} Captain Rugelfuss
-	-- was: ["East through the South Gate tunnel into {zone:1432}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "向东穿过南门隧道，进入 {zone:1432}。{npc:1089} 和 {npc:1092} 站在隧道出口附近的矮人哨站。"
 	["East through the South Gate tunnel into {area:38}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "向东穿过南门隧道进入{area:38}。{npc:1089}和{npc:1092}在刚出隧道的矮人哨站。",
 
 	-- Step 90: Stonesplinter troggs
@@ -659,7 +653,6 @@ return {
 	["Tram to {zone:1453}"] = "乘地铁前往{zone:1453}",
 	-- {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:12997} Monty · {item:17117} Rat Catcher's Flute · {npc:13018} Nipsy · {zone:1453} Stormwind
 	-- plural, as words: Deeprun Rats = {npc:13016} Deeprun Rat
-	-- was: ["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end."] = "在 {area:2257} 的 {zone:1455} 站台，{npc:12997} 请你帮忙抓老鼠：对站台周围的矿道老鼠使用他的 {item:17117}，交任务后，再将信带给 {zone:1453} 端的兄弟 {npc:13018}。"
 	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end. The tram has no map inside. The city markers show the entrances, not the two brothers."] = "在{area:2257}的{zone:1455}站台，{npc:12997}请你帮忙抓老鼠。对站台周围的矿道老鼠使用他的{item:17117}，交还老鼠后，再把信送给他在{zone:1453}那头的兄弟{npc:13018}。地铁内没有地图。城里的标记只显示地铁入口，两兄弟的位置不会标出。",
 	-- {npc:12997} Monty · {zone:1455} Ironforge
 	["{npc:12997}, on the {zone:1455} platform"] = "{npc:12997}，在 {zone:1455} 站台",

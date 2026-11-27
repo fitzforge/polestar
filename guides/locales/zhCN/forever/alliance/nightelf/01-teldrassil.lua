@@ -479,7 +479,6 @@ return {
 
 	-- Step 76: Into Darnassus
 	-- {area:1657} Darnassus
-	-- was: ["Into {zone:1457}"] = "进入{zone:1457}"
 	["Into {area:1657}"] = "进入{area:1657}",
 	-- {npc:4241} Mydrannul · {area:1659} Craftsmen's Terrace
 	["{npc:4241}, on the {area:1659} just inside the city"] = "{npc:4241}，在刚进城的{area:1659}上",
@@ -496,7 +495,6 @@ return {
 
 	-- Step 81: Darnassus
 	-- {area:1657} Darnassus · {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace · {area:3425} Cenarion Hold · {npc:4241} Mydrannul · {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave · {quest:922} Rellian Greenspyre · {npc:4092} Lariia · {npc:7999} Tyrande Whisperwind · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade
-	-- was: ["Follow the road west into {zone:1457} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "沿路向西进入{zone:1457}，在{area:1659}的旅店和{area:3425}下方的隧道口使用{item:279378}，找到最后两只猫头鹰。{npc:4241}站在刚进城的{area:1659}。{npc:3516}在城北端的{area:1658}，{quest:922}就在其南边不远；{npc:4092}、{npc:7999}、{npc:7313}和{npc:8396}都在城南端的月神殿。"
 	["Follow the road west into {area:1657} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "沿路向西进入{area:1657}，在{area:1659}的旅店和{area:3425}下方的隧道口使用{item:279378}，找到最后两只猫头鹰。{npc:4241}站在刚进城的{area:1659}。{npc:3516}在城北端的{area:1658}，{quest:922}就在其南边不远。{npc:4092}、{npc:7999}、{npc:7313}和{npc:8396}都在城南端的月神殿。",
 	-- {npc:4088} Elanaria · {area:1660} Warrior's Terrace · {spell:71} Defensive Stance
 	["{npc:4088}, on the {area:1660}: {spell:71}"] = "{npc:4088}，位于{area:1660}：{spell:71}",

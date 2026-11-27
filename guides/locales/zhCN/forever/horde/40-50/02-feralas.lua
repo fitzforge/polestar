@@ -24,7 +24,6 @@ return {
 
 	-- Step 3: Grom'gol Base Camp
 	-- {object:3202} Grom'gol · {area:35} Booty Bay · {npc:1514} Mokk the Savage · {zone:1435} Swamp of Sorrows · {zone:1458} Undercity · {object:2076} Bubbling Cauldron
-	-- was: ["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the zeppelin to {zone:1454}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "飞行路线降落在{object:3202}。你第一次来时接下的荆棘谷较难的任务现在适合你了：碎颅部落首领、赞吉尔的营地、{area:35}的海盗、娜迦海岸和{npc:1514}，之后再乘飞艇前往{zone:1454}。尼姆布亚旁边的{object:2076}有碎颅部落首领的任务。"
 	["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the {zone:1435} and the {zone:1458}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "飞到{object:3202}后，第一次来荆棘谷时留下的较难任务，现在可以做了，包括劈颅巨魔首领、赞吉尔营地、{area:35}的海盗、海岸边的纳迦和{npc:1514}。做完再去{zone:1435}和{zone:1458}。劈颅巨魔首领的任务从尼姆布亚旁边的{object:2076}接。",
 	-- {object:2076} Bubbling Cauldron · {quest:586} Speaking with Gan'zulah
 	["the {object:2076}: {quest:586}"] = "{object:2076}：{quest:586}",
@@ -62,7 +61,6 @@ return {
 	["Pirate ghosts and Zanzil's camps"] = "海盗鬼魂和赞吉尔的营地",
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2537} Chucky "Ten Thumbs" · {npc:2534} Zanzil the Outcast
 	-- plural, as words: Zanzil Witch Doctors = {npc:1490} Zanzil Witch Doctor
-	-- was: ["On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. {npc:2535} and {npc:2536} stand together, {npc:2537} further east. Every one of Zanzil's followers can carry the mixture.\nCareful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. {npc:2534} (46) himself stands in the southern camp around 39.6,58.6, a few steps from {npc:2537}'s ghost: pull {npc:2537} out to the north or east before you fight him."] = "继续向西南前往薄雾谷东北的丛林：三个海盗鬼魂在赞吉尔的营地旁出没。{npc:2535}和{npc:2536}站在一起，{npc:2537}在更东边。赞吉尔的每个追随者都可能携带混合物。\n小心：赞吉尔巫医（44级）会施法，而且营地里怪很密：从边缘一只一只地拉。{npc:2534}（46级）本人站在南边营地39.6,58.6附近，离{npc:2537}的鬼魂只有几步：先把{npc:2537}向北或向东拉出来再打。"
 	["On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. {npc:2535} and Jon-Jon stand together, {npc:2537} further east. Every one of Zanzil's followers can carry the mixture.\nCareful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. {npc:2534} (46) himself stands in the southern camp around 39.6,58.6, a few steps from {npc:2537}'s ghost: pull {npc:2537} out to the north or east before you fight him."] = "继续向西南前往迷雾谷东北的丛林。三个海盗鬼魂在赞吉尔的营地旁出没。{npc:2535}和火柴棍乔乔站在一起，{npc:2537}在更东边。赞吉尔的追随者都可能掉落药剂。\n小心，赞吉尔巫医（44级）会施法，营地里的怪也很密。从边缘一次拉一只。{npc:2534}（46级）就在南边营地的39.6,58.6附近，离{npc:2537}的鬼魂只有几步。先把{npc:2537}往北或往东引出来再打。",
 
 	-- Step 10: Witch Doctor Unbagwa
@@ -328,7 +326,6 @@ return {
 	["{area:1937}: kill these as you meet them"] = "{area:1937}：沿途击杀以下目标",
 	-- {area:976} Gadgetzan
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
-	-- was: ["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "强盗和盗贼在{area:976}东侧沙丘扎营。所有废土游荡者部族的敌人都可能携带水袋：鲁格伦克需要五个。\n小心：废土游荡者（43-44级）会潜行移动，可能悄悄靠近。"
 	["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five, and Bilgewhizzle five more.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "强盗和盗贼在{area:976}东边的沙丘上扎营。废土游荡者一伙都可能掉落水袋。鲁格伦克要五个，比格维兹还要五个。\n小心，废土游荡者（43-44级）会潜行，可能悄悄靠近。",
 
 	-- Step 82: Gadgetzan
@@ -350,7 +347,6 @@ return {
 	-- {area:1336} Lost Rigger Cove
 	["{area:1336}: kill these as you meet them"] = "{area:1336}：沿途击杀以下目标",
 	-- {npc:7883} Andre Firebeard · {item:9276} Pirate's Footlocker · {item:9250} Ship Schedule · {area:977} Steamwheedle Port
-	-- was: ["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883} (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first."] = "沿海岸向南，南海海盗占据着海湾。{npc:7883}和失窃货物位于海湾最里面的码头上。任何海盗都有可能掉帽子，绑匪的掉率最高。\n小心：{npc:7883}（45级）身旁有两三名海盗，开战后镇内还会有更多海盗加入：先把他的护卫从他身边引开。"
 	["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883} (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first.\nThe cove's pirates sometimes drop a {item:9276}: open it, and if it holds a {item:9250}, read it to start a quest for the Security Chief in {area:977}."] = "沿海岸向南，南海海盗占着海湾。{npc:7883}和失窃的货物就在海湾最里面的码头上。任何海盗都可能掉帽子，绑匪最容易掉。\n小心，{npc:7883}（45级）身边有两三名海盗。开打后，镇里还会有更多海盗加入。先把护卫从他身边引开。\n海湾里的海盗有时会掉落{item:9276}。打开后如果有{item:9250}，阅读它就能开启去{area:977}找安全主管的任务。",
 	["Upstairs"] = "在楼上",
 	-- {item:9250} Ship Schedule · {item:9276} Pirate's Footlocker
@@ -381,14 +377,12 @@ return {
 	-- {npc:8115} Witch Doctor Uzer'i · {npc:263190} Tan'jani · {zone:2548} Riverglades
 	["{npc:8115}: {npc:263190}'s errand from the {zone:2548}, if you carry it"] = "{npc:8115}：如果你带着{npc:263190}从{zone:2548}托付的差事，交给他",
 	-- {npc:8115} Witch Doctor Uzer'i · {zone:1454} Orgrimmar
-	-- was: ["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}：交给{zone:1454}，大约45级时"
 	["{npc:8115}: for {zone:1454}, around level 47"] = "找{npc:8115}接任务，留到大约47级去{zone:1454}时交",
 	-- {npc:7854} Jangdor Swiftstrider
 	["{npc:7854}, inside"] = "{npc:7854}：在屋内",
 
 	-- Step 91: Gordunni Outpost
 	-- {npc:222233} Ohk'zi · {item:9466} Orwin's Shovel · {object:144064} Gordunni Dirt Mound
-	-- was: ["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him."] = "在豺狼人北边，食人魔占据着一座山顶前哨站；把食人魔法师引到你身边来打。戈杜尼钴矿石在前哨站周围的土堆里，戈杜尼卷轴就在前哨站里的地上。\n小心：{npc:222233}（43级，精英）站在前哨站里：把食人魔引出来，远离他。"
 	["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him.\nUse {item:9466} on each {object:144064} around the outpost: the arrow goes from mound to mound."] = "豺狼人北边的山顶前哨站被食人魔占据。把食人魔法师拉过来打。戈杜尼钴矿石在前哨站周围的土堆里，戈杜尼卷轴在哨站里面的地上。\n小心，{npc:222233}（43级精英）在前哨站里，把食人魔拉出来，离他远点。\n用{item:9466}挖前哨站周围的每个{object:144064}。箭头会依次指向各个土堆。",
 
 	-- Step 92: Woodpaw north camp

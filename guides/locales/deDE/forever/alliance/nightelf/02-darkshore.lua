@@ -51,7 +51,6 @@ return {
 	["Bears and the Blackwood camp"] = "Bären und das Lager der Schwarzfelle",
 	-- {area:442} Auberdine · {quest:2139} Tharnariun's Hope
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	-- was: ["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "Rabid Thistle Bears streifen durch die Hügel südlich von {area:442}: Benutze {item:7586} an einem, um ihn einzufangen. Geh dann zum Furbolg-Lager direkt östlich von ihnen: Noch ist nichts zu töten."
 	["Rabid Thistle Bears roam the hills south of {area:442}: use {quest:2139} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "Tollwütige Distelbären streifen durch die Hügel südlich von {area:442}: Benutze {quest:2139} auf einen, um ihn zu fangen. Geh dann zum Furbolg-Lager direkt östlich von ihnen: Hier gibt es noch nichts zu töten.",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
@@ -75,7 +74,6 @@ return {
 	-- Step 12: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
 	-- plural, as words: Wild Grells = {npc:2190} Wild Grell · Vile Sprites = {npc:2189} Vile Sprite · Deth'ryll Satyrs = {npc:2212} Deth'ryll Satyr
-	-- was: ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {object:17183} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "Nördlich an den Hügeln entlang. {npc:3650} wartet in den Ruinen von {quest:954}; Wild Grells und Vile Sprites bevölkern sie, Deth'ryll Satyrs den Ostrand. {object:17183} steht an der Straße westlich der Ruinen; ein {quest:4723} liegt auf dem Weg zu ihm am Ufer."
 	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road north-north-west of {npc:3650}; a {quest:4723} lies on the shore on the way to him."] = "Nördlich an den Hügeln entlang. {npc:3650} wartet in den Ruinen von {quest:954}; Wilde Grells und Üble Grimmlinge bevölkern sie, Satyrn der Deth'ryll den Ostrand. {quest:1001} steht an der Straße nordnordwestlich von {npc:3650}; auf dem Weg zu ihm liegt ein {quest:4723} am Ufer.",
 	-- plural, as words: Grell Earrings = {item:5336} Grell Earring
 	["Grell Earrings"] = "Grell-Ohrringe",
@@ -123,7 +121,6 @@ return {
 	["Blackwood furbolgs"] = "Furbolgs der Schwarzfelle",
 	-- {area:442} Auberdine
 	-- plural, as words: Blackwood Pathfinders = {npc:2167} Blackwood Pathfinder · Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	-- was: ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "Pfadfinder und Windsprecher der Schwarzfelle halten das Lager südöstlich von {area:442}.\nVorsicht: Die Windsprecher (13-14) wirken aus der Ferne und die Furbolgs stehen paarweise: Zieh sie einzeln."
 	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}; Rabid Thistle Bears roam the hills around it.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "Pfadfinder der Schwarzfelle und Windtalkers halten das Lager südöstlich von {area:442}; Tollwütige Distelbären streifen durch die Hügel ringsum.\nVorsicht: Die Windtalkers (13-14) wirken aus der Ferne und die Furbolgs stehen paarweise: Ziehe sie einzeln.",
 
 	-- Step 20: The southern beaches
@@ -201,7 +198,6 @@ return {
 
 	-- Step 35: Cerellean Whiteclaw
 	-- {npc:3644} Cerellean Whiteclaw
-	-- was: ["{npc:3644}, where the pier meets the shore, on the way to the boat"] = "{npc:3644}, wo der Steg auf das Ufer trifft, auf dem Weg zum Boot"
 	["{npc:3644} waits where the pier meets the shore, on the way to the boat."] = "{npc:3644} wartet dort, wo der Steg ans Ufer trifft, auf dem Weg zum Boot.",
 
 	-- Step 36: Boat to Stormwind Harbor
@@ -222,7 +218,6 @@ return {
 
 	-- Step 39: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:2096} Trade District · {zone:1436} Westfall · {npc:3649} Thundris Windweaver · {area:442} Auberdine
-	-- was: ["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way."] = "{npc:1646} steht in {object:2098}, westlich von {object:2096}: Sein Kompass liegt in seinem alten Haus in {zone:1436}, auf dem Weg."
 	["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way. His reply to {npc:3649} goes back to {area:442} with you."] = "{npc:1646} steht in {object:2098}, westlich von {object:2096}: Sein Kompass ist in seinem alten Haus in {zone:1436}, auf dem Weg. Seine Antwort an {npc:3649} nimmt dich zurück nach {area:442}.",
 	-- {npc:1646} Baros Alexston · {npc:3649} Thundris Windweaver
 	["{npc:1646}: {npc:3649}'s letter"] = "{npc:1646}: {npc:3649}s Brief",

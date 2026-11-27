@@ -479,7 +479,6 @@ return {
 
 	-- Step 76: Into Darnassus
 	-- {area:1657} Darnassus
-	-- was: ["Into {zone:1457}"] = "Hinein nach {zone:1457}"
 	["Into {area:1657}"] = "Hinein in {area:1657}",
 	-- {npc:4241} Mydrannul · {area:1659} Craftsmen's Terrace
 	["{npc:4241}, on the {area:1659} just inside the city"] = "{npc:4241}, auf {area:1659} direkt hinter dem Stadteingang",
@@ -496,7 +495,6 @@ return {
 
 	-- Step 81: Darnassus
 	-- {area:1657} Darnassus · {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace · {area:3425} Cenarion Hold · {npc:4241} Mydrannul · {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave · {quest:922} Rellian Greenspyre · {npc:4092} Lariia · {npc:7999} Tyrande Whisperwind · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade
-	-- was: ["Follow the road west into {zone:1457} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "Folge der Straße nach Westen nach {zone:1457} und benutze {item:279378} im Gasthaus auf {area:1659} und am Tunneleingang unterhalb von {area:3425} für die letzten beiden Eulen. {npc:4241} steht auf {area:1659} direkt hinter dem Stadteingang. {npc:3516} ist in {area:1658} am Nordende der Stadt, {quest:922} gleich südlich davon; {npc:4092}, {npc:7999}, {npc:7313} und {npc:8396} sind im Tempel des Mondes am Südende."
 	["Follow the road west into {area:1657} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "Folge der Straße nach Westen in {area:1657} und benutze den {item:279378} im Gasthaus am {area:1659} und am Tunnelmund unterhalb von {area:3425} für die letzten beiden Eulen. {npc:4241} steht am {area:1659} direkt in der Stadt. {npc:3516} ist im {area:1658} am Nordende der Stadt, {quest:922} direkt südlich davon; {npc:4092}, {npc:7999}, {npc:7313} und {npc:8396} sind im Tempel des Mondes am Südende.",
 	-- {npc:4088} Elanaria · {area:1660} Warrior's Terrace · {spell:71} Defensive Stance
 	["{npc:4088}, on the {area:1660}: {spell:71}"] = "{npc:4088}, auf {area:1660}: {spell:71}",

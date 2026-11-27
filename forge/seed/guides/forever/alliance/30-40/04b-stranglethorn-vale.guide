@@ -28,6 +28,8 @@ pitch For characters of 35 to 36, but several quests here are level 37-38: on pu
 # on the last stop, with his Cherry for Your Thoughts? (79236: a Cherry Grog from Nixxrax Fillamug in the tavern).
 # The Caravan Road (2026-11-20 round): The Caravan Road (1041) and The Carevin Family (1042) go in on the Darkshire
 # landing, which gives The Scythe of Elune (1043) for 30-40/05's Swamp of Sorrows leg.
+# Hearthstone (#4479): the first loop's Booty Bay bind stands through Desolace (30-40/02 no longer binds at Nijel's
+# Point), so the walk from the Snapjaw Crocolisks down to Booty Bay, about 8 minutes on foot, goes by Hearthstone.
 
 step Collin Mauren
   when complete 1078
@@ -171,7 +173,7 @@ step Rebel Camp
 # ---------------------------------------------------------------- South
 
 step Snapjaw Crocolisks
-  tip Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to Booty Bay.
+  tip Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to Booty Bay. Then hearth back to Booty Bay: the hearthstone is still bound there from the first loop.
   collect 4104 quest 577              -- Snapjaw Crocolisk Skin
 
 # ---------------------------------------------------------------- Booty Bay

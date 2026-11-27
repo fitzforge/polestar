@@ -65,7 +65,6 @@ return {
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "{npc:9117}：在地下",
 	-- {quest:3942} Linken's Memory · {npc:9116} Eridan Bluewind · {area:2479} Emerald Sanctuary · {zone:1448} Felwood
-	-- was: ["Keep {quest:3942}: {npc:9116} is at the {area:2479}, on the next guide's way through {zone:1448}."] = "留着{quest:3942}：{npc:9116}在{area:2479}，下一个指南穿过{zone:1448}时会经过。"
 	["Keep {quest:3942}: {npc:9116} is at the {area:2479}, on the last guide's way through {zone:1448}."] = "留着{quest:3942}。{npc:9116}在{area:2479}，最后一篇指南穿过{zone:1448}时会经过那里。",
 	-- {item:12928} Umi's Mechanical Yeti · {npc:10977} Quixxil
 	["Use {item:12928} on {npc:10977}"] = "对{npc:10977}使用{item:12928}",
@@ -82,7 +81,6 @@ return {
 
 	-- Step 16: Cenarion Hold
 	-- {area:3077} Valor's Rest · {npc:15189} Beetix Ficklespragg
-	-- was: ["Ride west to the walled hold in the middle of the desert. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "向西骑往沙漠中央有城墙环绕的要塞。{npc:15189}站在他那座建筑的楼上：从里面上楼，箭头分不清楼层。"
 	["Ride west from {area:3077} to the walled hold in the middle of the desert. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "从{area:3077}向西骑到沙漠中央有城墙的要塞。{npc:15189}在他所在建筑的楼上。从室内上楼，导航箭头分不清楼层。",
 
 	-- Step 17: Calandrath
@@ -97,7 +95,6 @@ return {
 
 	-- Step 19: Twilight Base Camp
 	-- plural, as words: Dust Stormers = {npc:11744} Dust Stormer · Desert Rumblers = {npc:11746} Desert Rumbler · Whirling Invaders = {npc:14455} Whirling Invader
-	-- was: ["The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too. Careful: the biggest Rumblers and the Whirling Invaders are 58: pull them one at a time."] = "发光的石板碎片散落在遥远西北的暮光营地周围；那里的灰尘风暴和沙漠奔行者也会掉落碎片。小心：最大的沙漠奔行者和旋风入侵者是58级：一次引一只。"
 	["The glowing tablet fragments lie on the ground around the Twilight camp in the far north-west: pick them up. The Dust Stormers and Desert Rumblers there may carry them too. Careful: the biggest Rumblers and the Whirling Invaders are 58: pull them one at a time."] = "在最西北边的暮光营地周围，从地上拾取发光的石板碎片。那里的灰尘风暴和沙漠奔行者也可能掉落碎片。小心，等级最高的沙漠奔行者和旋风入侵者是58级，一次只引一只。",
 
 	-- Step 20: Cenarion Hold
@@ -175,7 +172,6 @@ return {
 
 	-- Step 35: Noggle's Lost Satchel
 	-- {npc:15196} Deathclasp
-	-- was: ["The satchel lies in the mountains of the far south, past Bronzebeard's Encampment. Deathclasp, an elite scorpid, patrols near it: grab it while he is away."] = "诺格的背包在遥远南方的山里，过了铜须营地。精英蝎子死亡弯钩在附近巡逻：趁它走开时拿走背包。"
 	["The satchel lies in the mountains of the far south, past Bronzebeard's Encampment. {npc:15196}, an elite scorpid, patrols near it: grab it while he is away."] = "背包在最南边的山里，要经过铜须营地。精英蝎子{npc:15196}在附近巡逻，趁它走开时拿走背包。",
 
 	-- Step 36: Deathclasp
@@ -216,7 +212,6 @@ return {
 
 	-- Step 45: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock
-	-- was: ["Through the pass and east along the northern cliffs to {area:541}. {npc:9997} stands beside the flight master."] = "穿过山口，沿北侧峭壁向东前往{area:541}。{npc:9997}站在飞行管理员旁。"
 	["You missed this on the Un'Goro guide's loop: through the pass and east along the northern cliffs to {area:541}. {npc:9997} stands beside the flight master."] = "你在安戈洛环形山的环线里漏了这一步。穿过山口，沿北侧峭壁向东前往{area:541}。{npc:9997}站在飞行管理员旁。",
 
 	-- Step 46: Krakle
@@ -269,7 +264,6 @@ return {
 
 	-- Step 59: Gadgetzan
 	-- {quest:2741} The Super Egg-O-Matic · {area:976} Gadgetzan
-	-- was: ["Fly to {area:976}. Still carrying {quest:2741}? The machine stands in the middle of town."] = "飞往{area:976}。还带着{quest:2741}吗？机器立在镇中央。"
 	["Still carrying {quest:2741}? The machine stands in the middle of {area:976}."] = "还留着{quest:2741}吗？机器就在{area:976}中央。",
 
 	-- Step 62: Fly to Orgrimmar

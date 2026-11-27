@@ -133,7 +133,6 @@ return {
 
 	-- Step 23: Nijel's Point
 	-- {npc:5638} Kreldig Ungor · {zone:1443} Desolace
-	-- was: ["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it"] = "{npc:5638}: Die Tasche liegt vor der Nordwestküste, auf der Südschleife am Ende von 30-40 (06-badlands): Behalte sie"
 	["{npc:5638}: the satchel lies off the north-west coast, on {zone:1443}'s south loop at the end of 30-40: keep it"] = "{npc:5638}: Die Tasche liegt vor der Nordwestküste, auf der Südschleife von {zone:1443} am Ende von 30-40: Behalte sie",
 
 	-- Step 24: Fly to Auberdine

@@ -181,12 +181,10 @@ return {
 	-- Step 35: Sar'theris Strand
 	-- {area:598} Sar'theris Strand
 	-- plural, as words: Slitherblade Myrmidons = {npc:4714} Slitherblade Myrmidon
-	-- was: ["West from the fortress to the coast at {area:598}: the Slitherblade Myrmidons, Naga and Sorceresses hold the beach. Pull them one at a time; the Sea Witches and Oracles (34-36) cast from range."] = "Geh von der Festung nach Westen zur Küste am {area:598}: Die Myrmidonen, Naga und Zauberinnen der Zackenkämme halten den Strand. Zieh sie einzeln; die Seehexen und Orakel (34-36) zaubern aus der Ferne."
 	["West past the fortress to the coast at {area:598}: the Slitherblade Myrmidons, Naga and Sorceresses hold the beach. Pull them one at a time; the Sea Witches and Oracles (34-36) cast from range."] = "Nach Westen an der Festung vorbei zur Küste bei {area:598}: die Myrmidonen, Naga und Zauberinnen der Schlitterklingen halten den Strand. Zieh sie einzeln; die Meereshexen und Orakel (34-36) zaubern aus der Ferne.",
 
 	-- Step 36: Shadowprey Village
 	-- {npc:268705} Aka'rai · {npc:11624} Taiga Wisemane · {area:602} Mannoroc Coven · {npc:12340} Drulzegar Skraghook
-	-- was: ["South down the coast to Shadowprey: {npc:11624} takes the box and sends you to {area:602} with it; {npc:12340} takes the naga."] = "Geh die Küste nach Süden hinunter nach Schattenflucht: {npc:11624} nimmt den Kasten und schickt dich damit zum {area:602}; {npc:12340} nimmt die Naga."
 	["South down the coast to Shadowprey: {npc:268705} first, on the path into the village; {npc:11624} takes the box and sends you to {area:602} with it; {npc:12340} takes the naga."] = "Nach Süden die Küste hinab nach Shadowprey: Zuerst {npc:268705}, auf dem Weg ins Dorf; {npc:11624} nimmt die Kiste und schickt dich damit nach {area:602}; {npc:12340} nimmt die Naga.",
 
 	-- Step 37: Portals of the Legion

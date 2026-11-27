@@ -24,7 +24,6 @@ return {
 	-- {npc:6986} Dran Droffers
 	["{npc:6986}, the Drag"] = "{npc:6986}，在暗巷区",
 	-- {zone:1425} Hinterlands
-	-- was: ["for the {zone:1425}, around level 50"] = "留到{zone:1425}，大约50级时"
 	["for the {zone:1425}, around level 49"] = "留到去{zone:1425}时再做，大约49级",
 
 	-- Step 3: Fly to Thunder Bluff
@@ -47,7 +46,6 @@ return {
 
 	-- Step 7: Camp Mojache
 	-- {zone:1425} Hinterlands
-	-- was: ["for the {zone:1425} owlbeasts, around level 48"] = "交给{zone:1425}的枭兽任务，大约48级时"
 	["for the {zone:1425} owlbeasts, around level 49"] = "留到去{zone:1425}打枭兽时再做，大约49级",
 
 	-- Step 8: Fly to Brackenwall Village

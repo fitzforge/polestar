@@ -141,7 +141,6 @@ return {
 
 	-- Step 29: Master Mathias Shaw
 	-- {area:1519} Stormwind · {object:2100} Old Town
-	-- was: ["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "Geh durch Elwynn nach Norden nach {zone:1453}; Mathias Shaw ist bei SI:7 in der {object:2100}."
 	["Head north through Elwynn to {area:1519}; Mathias Shaw is at SI:7 in {object:2100}."] = "Geh nach Norden durch Elwynn nach {area:1519}; Mathias Shaw ist bei SI:7 in {object:2100}.",
 	-- {npc:332} Master Mathias Shaw · {item:18160} Recipe: Thistle Tea
 	["{npc:332}: Poisons, and {item:18160}"] = "{npc:332}: Gifte und {item:18160}",

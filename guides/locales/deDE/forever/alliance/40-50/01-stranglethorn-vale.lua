@@ -26,7 +26,6 @@ return {
 	-- Step 2: Sentry Point
 	-- {area:503} Sentry Point · {quest:1265} The Missing Diplomat · {npc:4967} Archmage Tervosh
 	-- plural, as words: Mudrock Burrowers = {npc:4398} Mudrock Burrower
-	-- was: ["Follow the road north-west out of Theramore to the watchtower at {area:503}. Mudrock Burrowers roam the marsh around it.\n{npc:4967} waits at the foot of the tower: once you have looked around, hand the quest in to him there, not in Theramore."] = "Folge der Straße nach Nordwesten aus Theramore hinaus zum Wachturm bei {area:503}. Schlammpanzereinbuddler streifen durch den Sumpf darum herum.\n{npc:4967} wartet am Fuß des Turms: Sobald du dich umgesehen hast, gib die Quest dort bei ihm ab, nicht in Theramore."
 	["Follow the road north-west out of Theramore to the watchtower at {area:503}. Mudrock Burrowers roam the marsh around it.\nIf {quest:1265} isn't done yet: {npc:4967} waits at the foot of the tower once you have looked around. Hand the quest in to him there, not in Theramore, and take his next errand on the spot."] = "Folge der Straße nach Nordwesten aus Theramore bis zum Wachturm bei {area:503}. Schlammpanzereinbuddler streifen durch den Sumpf darum herum.\nFalls {quest:1265} noch nicht gemacht ist: {npc:4967} wartet am Fuß des Turms, sobald du dich umgesehen hast. Gib die Quest dort bei ihm ab, nicht in Theramore, und nimm seinen nächsten Auftrag gleich dort an.",
 	-- {npc:4967} Archmage Tervosh
 	["{npc:4967}, at the tower"] = "{npc:4967}, am Turm",
@@ -105,7 +104,6 @@ return {
 
 	-- Step 20: The Affray
 	-- {area:720} Fray Island · {area:391} Merchant Coast · {area:392} Ratchet · {npc:6236} Klannoc Macleod · {npc:6238} Big Will
-	-- was: ["On the ride north to {area:392}, {area:720} lies off the {area:391} south of the town: wade over the sand bar shallows. {npc:6236} sends four challengers and then {npc:6238} (level 33) at you, one at a time."] = "Auf dem Ritt nach Norden nach {area:392} liegt {area:720} vor der {area:391} südlich des Orts: Wate über die Untiefen der Sandbank. {npc:6236} schickt dir nacheinander vier Herausforderer und dann {npc:6238} (Stufe 33) entgegen."
 	["{area:720} lies off the {area:391} just south of {area:392}: wade over the sand bar shallows. {npc:6236} sends four challengers and then {npc:6238} (level 33) at you, one at a time."] = "{area:720} liegt vor der {area:391} gleich südlich von {area:392}: Wate über die Untiefen der Sandbank. {npc:6236} schickt dir nacheinander vier Herausforderer und dann {npc:6238} (Stufe 33) entgegen.",
 	-- {npc:6238} Big Will
 	["Defeat the challengers and {npc:6238}"] = "Besiege die Herausforderer und {npc:6238}",
@@ -208,7 +206,6 @@ return {
 	-- Step 37: Bloodsail pirates: kill these as you meet them
 	["Bloodsail pirates: kill these as you meet them"] = "Blutsegelbukaniere: Töte diese, sobald sie dir begegnen",
 	-- {npc:2493} Dizzy One-Eye · {area:43} Wild Shore
-	-- was: ["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "Jeder Blutsegelbukanier lässt Schnupftabak fallen, und einer von ihnen trägt das Auge von {npc:2493}: Hol sie dir von den Plünderern und Magiern (39-41) im Lager der Blutsegelbukaniere am Strand direkt nördlich des Ortes, wo du den Brief gefunden hast. Spar dir das Lager an der {area:43} südlich des Ortes (Hexenmeister und Swashbuckler 41-43) für den Besuch auf Stufe 48 auf."
 	["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit.\nCareful: Rippa (44, a rare crocolisk) swims the shore beside the camp: stay out of the water."] = "Jeder Blutsegel lässt Schnupftabak fallen und einer von ihnen trägt {npc:2493}s Auge: nimm sie von den Räubern und Magiern (39-41) im Blutsegel-Lager am Strand nördlich der Stadt, wo du den Brief gefunden hast. Lass das Lager in {area:43} südlich der Stadt (Hexenmeister und Haudegen 41-43) für den Besuch auf Stufe 48.\nVorsicht: Rippa (44, ein seltenes Krokodil) schwimmt entlang des Ufers neben dem Lager: bleib aus dem Wasser.",
 
 	-- Step 38: Gorilla hills

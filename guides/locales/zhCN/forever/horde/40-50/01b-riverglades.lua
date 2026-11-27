@@ -384,7 +384,6 @@ return {
 	-- Step 81: The pirates' ships
 	["The pirates' ships"] = "海盗船",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
-	-- was: ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "再次前往海盗的悬崖。从南到北在营地下方停泊的三艘船上安放威兹巴兹的炸药；{quest:95124}站在中间那艘船旁，身边有她的战利品箱。路上留意{npc:259758}。\n小心：{quest:95124}为45级，比你高一两级：先清理她周围的甲板，满血再上。"
 	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "再次前往海盗营地所在的悬崖。按从南到北的顺序，把维兹巴兹的炸药安放在营地下方停泊的三艘船上。{quest:95124}在中间那艘船的顶层甲板上走动，她的战利品箱在甲板下方。路上留意{npc:259758}。\n小心，{quest:95124}是45级，比你高一两级。先清掉她周围甲板上的敌人，满血再上。",
 	["on board, at the arrow"] = "在船上，箭头处",
 	-- {item:268505} Remote Explosive Charge
@@ -443,7 +442,6 @@ return {
 
 	-- Step 92: Rog'mar
 	-- {area:16743} Rog'mar · {area:16726} Bolder'ok · {npc:256418} Krom'rosh · {npc:255829} Clugfist · {npc:258570} Da'grosh
-	-- was: ["Back to {area:16743} from the port, where your Hearthstone is set. {npc:256418} in the middle of the fort: {npc:255829}'s word sends him looking for {npc:258570}, his warrior in the west."] = "从港口返回{area:16743}，你的炉石绑定在那里。{npc:256418}在要塞中央：{npc:255829}的消息让他去寻找他在西边的战士{npc:258570}。"
 	["Back to {area:16743}: from {area:16726} south-west down the river, or from the port, where your Hearthstone is set. {npc:256418} in the middle of the fort: {npc:255829}'s word sends him looking for {npc:258570}, his warrior in the west."] = "返回{area:16743}。从{area:16726}出发就沿河往西南走，从港口出发就用绑定在要塞的炉石。{npc:256418}在要塞中央。听到{npc:255829}捎来的消息后，他要去找在西边的部下{npc:258570}。",
 	-- {quest:94744} The Wayward Warrior · {npc:258570} Da'grosh · {area:16723} Sunnyglade
 	["{quest:94744}: for {npc:258570}, west of {area:16723}"] = "{quest:94744}：交给{area:16723}西边的{npc:258570}",
@@ -464,7 +462,6 @@ return {
 	["The Twilight camps"] = "暮光营地",
 	-- {npc:258570} Da'grosh · {item:265821} Twilight Key · {npc:257450} Rog'mar Scout · {npc:256881} Overlord Kilgar · {npc:256891} Executioner Morg · {npc:258023} Sergeant Riftan
 	-- plural, as words: Twilight Champions = {npc:256799} Twilight Champion · Twilight Enforcers = {npc:256800} Twilight Enforcer · Farholde Lookouts = {npc:258686} Farholde Lookout
-	-- was: ["The cult's camps fill the valley south and west of {npc:258570}. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it."] = "暮光教派的营地遍布{npc:258570}南边和西边的山谷。沿途遇到被俘的洛格玛斥候就把他们救出来。暮光执行者（精英，45级）在营地间巡逻：每次拉怪前先看清它们的路线。{npc:256881}和{npc:256891}（精英，46级）据守山谷尽头的堡垒：把教徒从他们身边拉开。{npc:258023}的联盟营地位于山谷南端，那里的法霍德瞭望者（46级）会攻击部落：待在营地北边。"
 	["The cult's camps fill the valley south and west of {npc:258570}. Twilight Champions drop the {item:265821} that frees a captive {npc:257450}: free them as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it."] = "暮光教派的营地遍布{npc:258570}南边和西边的山谷。暮光勇士会掉落{item:265821}，用它解救被俘的{npc:257450}，沿途遇到就救。暮光执行者（45级精英）在营地间巡逻，每次拉怪前先看清它们的路线。{npc:256881}和{npc:256891}（46级精英）据守山谷尽头的堡垒，把教徒拉离他们再打。{npc:258023}的联盟营地在山谷南端，那里的法霍德瞭望者（46级）会攻击部落玩家，留在营地北边。",
 	-- plural, as words: Rog'mar Scouts = {npc:257450} Rog'mar Scout
 	["free five captive Rog'mar Scouts"] = "救出五名被俘的洛格玛斥候",

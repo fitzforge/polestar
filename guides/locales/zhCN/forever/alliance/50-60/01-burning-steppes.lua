@@ -14,7 +14,6 @@ return {
 	-- {zone:1455} Ironforge
 	["To {zone:1455}"] = "前往{zone:1455}",
 	-- {zone:1455} Ironforge · {zone:1425} Hinterlands
-	-- was: ["Your Hearthstone is set at {zone:1455} (the {zone:1425} guide binds it there): hearth back to the inn."] = "你的炉石绑定在{zone:1455}（{zone:1425}指南会把它绑在那里）：用炉石回到旅店。"
 	["Your Hearthstone is set at {zone:1455} (the {zone:1425} guide binds it there): hearth back to the inn from Un'Goro."] = "炉石已绑定在{zone:1455}(按{zone:1425}指南绑定)。在安戈洛环形山用炉石回旅店。",
 	-- {zone:1455} Ironforge
 	["{zone:1455} inn"] = "{zone:1455}旅店",
@@ -79,7 +78,6 @@ return {
 	["{area:197}: kill these as you meet them"] = "{area:197}：沿途击杀以下目标",
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul · Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
-	-- was: ["Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones.\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.\nCareful: The {npc:10411} (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts."] = "骷髅剥皮者和被奴役的食尸鬼在营地北侧田野活动，这里的天灾亡灵都会掉落天灾石。\n注意：这些亡灵的警戒距离很远，拉到一只时，周围亡灵也会参战。\n注意：{npc:10411}有三个刷新点，每 15 分钟刷新一次，非战斗时会隐形，开战后召唤石翼石像鬼。"
 	["Skeletal Flayers and Slavering Ghouls (50) roam the fields north of the camp; all the Scourge here drop Scourgestones.\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.\nCareful: The {npc:10411} (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts."] = "骷髅剥皮者和被奴役的食尸鬼(50级)在营地北面的田野活动，这里的天灾亡灵都会掉落天灾石。\n小心，这些亡灵的警戒距离很远，引到一只时，附近的亡灵也会参战。\n小心，{npc:10411}(3个刷新点，15分钟刷新)在非战斗时会隐形，开战后召来石翼石像鬼。",
 
 	-- Step 16: Chillwind Camp
@@ -127,7 +125,6 @@ return {
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "{area:250}：沿途击杀以下目标",
 	-- {item:12284} Draco-Incarcinatrix 900 · {npc:7047} Black Broodling · {area:251} Flame Crest · {npc:8981} Malfunctioning Reaver · {npc:7040} Black Dragonspawn
-	-- was: ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "在{area:251}东侧山坡，将{npc:7047}打到濒死时对它使用{item:12284}，再拾取留下的精华。\n注意：一只{npc:8981}（56级，稀有）在小龙附近的山坡上走动，周围的{npc:7040}和龙人都是精英：在边缘对一只小龙使用龙灵采集器，每次拉怪前先观察四周。"
 	["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, Volchan (60, a rare fire elemental) roams the hills east of {area:251}, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "在{area:251}东侧的山坡上，把一只{npc:7047}打到濒死，对它使用{item:12284}，再拾取它留下的精华。\n小心，一只{npc:8981}(56级稀有)在小龙附近的山坡上走动，沃尔查(60级稀有火元素)在{area:251}以东的山丘上游荡，周围的{npc:7040}和龙族都是精英。挑边缘的小龙使用龙灵采集器，每次引怪前先观察四周。",
 
 	-- Step 25: Ruins of Thaurissan
@@ -148,7 +145,6 @@ return {
 
 	-- Step 29: A Taste of Flame
 	-- {npc:9461} Frenzied Black Drake
-	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:9461} is a level 54 elite: most classes solo it at level 56, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:9461}是 54 级精英，多数职业到 56 级可以尝试单独击败，但可能仍需帮助。独自一人时可跳过，路线会安排刷怪补回经验。"
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:9461} is a level 54 elite: most classes solo it at level 56, but you may need help. Skip it if you are alone."] = "这里都是精英怪，建议找人组队。{npc:9461}是54级精英，多数职业到56级能单挑，但也可能需要帮忙。只有一个人就跳过。",
 
 	-- Step 31: Morgan's Vigil
@@ -309,13 +305,11 @@ return {
 	-- {area:1221} Ruins of Eldarath
 	["The {area:1221}"] = "{area:1221}",
 	-- {area:1221} Ruins of Eldarath · {item:13815} Some Rune · {item:10445} Drawing Kit
-	-- was: ["The Spitelash naga of the {area:1221} carry {item:13815}. {npc:8507}'s four runes stand among the ruins: use his {item:10445} on each."] = "{area:1221}的恶鞭纳迦携带{item:13815}。{npc:8507}的四个符文立在废墟中：对每个使用他的{item:10445}。"
 	["The Spitelash naga of the {area:1221} carry {item:13815}. Tymor's runes stand among the ruins: use his {item:10445} on each."] = "{area:1221}的恶鞭纳迦身上有{item:13815}。泰摩尔的符文就在废墟里，用他的{item:10445}逐个描下来。",
 
 	-- Step 67: Lord Sarthiss
 	-- {npc:239939} Lord Sarthiss
 	-- plural, as words: Eldarath Relics = {item:280608} Eldarath Relic
-	-- was: ["The Spitelash naga of these ruins drop Truesong's Eldarath Relics, top-up or not. {npc:239939} (52) stands in the ruins of Eldarath, south-west of the Myrmidons: pull him alone."] = "无论是否在补经验，这片废墟的恶鞭纳迦都会掉落埃达拉斯圣物。{npc:239939}（52级）站在埃达拉斯废墟中，恶鞭侍从的西南方：单独把他拉出来。"
 	["The Spitelash naga of these ruins drop Truesong's Eldarath Relics. {npc:239939} (52) stands in the ruins of Eldarath, south-west of the Myrmidons: pull him alone."] = "这片废墟的恶鞭纳迦会掉落真歌要的埃达拉斯圣物。{npc:239939}(52级)在埃达拉斯废墟里，位于恶鞭侍从的西南边。单独把他引出来。",
 
 	-- Step 68: Ekkal
@@ -327,7 +321,6 @@ return {
 	["Mosshoof Coursers"] = "苔蹄快步者",
 	-- {area:1224} Bear's Head · {area:1219} Legashi Encampment
 	-- plural, as words: Mosshoof Coursers = {npc:8761} Mosshoof Courser
-	-- was: ["The nearest Mosshoof Coursers graze the hills north-east of the {area:1224}, toward the {area:1219}; a larger herd roams the open ground to the south.\nCareful: the Mosshoof Coursers are 52-53, a level or two over you here: pull them one at a time from the herd's edge."] = "最近的苔蹄快步者在{area:1224}东北方的山丘上吃草，朝{area:1219}方向；更大的一群在南边的开阔地游荡。\n注意：苔蹄快步者是52-53级，比你高一两级：从兽群边缘一只一只地拉。"
 	["The nearest Mosshoof Coursers graze the hills north-east of the {area:1224}, toward the {area:1219}; a larger herd roams the open ground to the south.\nCareful: the Mosshoof Coursers are 52-53: pull them one at a time from the herd's edge."] = "最近的苔蹄快步者在{area:1224}东北边、朝{area:1219}方向的山丘上吃草。更大的一群在南边的开阔地游荡。\n小心，苔蹄快步者是52-53级，从兽群边缘一次引一只。",
 
 	-- Step 72: Kim'jael

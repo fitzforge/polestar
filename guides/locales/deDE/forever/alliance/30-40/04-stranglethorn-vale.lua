@@ -13,9 +13,9 @@ return {
 	["The boat from {area:392}'s dock crosses to {area:35}, on Stranglethorn's southern cape."] = "Das Boot vom Steg von {area:392} fährt nach {area:35}, auf Schlingendorntals südlicher Landspitze.",
 
 	-- Step 2: Booty Bay
-	-- {npc:4631} Wharfmaster Lozgil
-	-- was: ["Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "Binde deinen Ruhestein im Gasthaus: Er ist dein Weg hierher zurück aus dem Norden des Dschungels am Ende der Runde."
-	["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "{npc:4631} steht am Steg, wo das Boot anlegt. Binde deinen Ruhestein im Gasthaus: so kommst du am Ende der Schleife vom Norden des Dschungels hierher zurück.",
+	-- {npc:4631} Wharfmaster Lozgil · {zone:1443} Desolace
+	-- was: ["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "{npc:4631} steht am Steg, wo das Boot anlegt. Binde deinen Ruhestein im Gasthaus: so kommst du am Ende der Schleife vom Norden des Dschungels hierher zurück."
+	["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of this loop, and again at the end of the second loop, after {zone:1443}."] = "",
 	-- {npc:4631} Wharfmaster Lozgil
 	["{npc:4631}, on the dock"] = "{npc:4631}, am Steg",
 	-- {npc:4631} Wharfmaster Lozgil · {npc:2496} Baron Revilgaz
@@ -256,6 +256,7 @@ return {
 	-- ["{npc:2495}, by the bank"] = "{npc:2495}, bei der Bank",
 	-- ["{npc:2832}, in the {object:56910}"] = "{npc:2832}, in der {object:56910}",
 	-- ["{npc:2859}, on the top floor by the docks"] = "{npc:2859}, im obersten Stockwerk bei den Docks",
+	-- ["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "{npc:4631} steht am Steg, wo das Boot anlegt. Binde deinen Ruhestein im Gasthaus: so kommst du am Ende der Schleife vom Norden des Dschungels hierher zurück.",
 	-- ["{npc:729} and the Lashtail raptors"] = "{npc:729} und die Schmetterschwänze",
 	-- ["{npc:729}, the great tiger, lairs on the hilltop south-west of the camp; Lashtail Raptors run south of it, along the way to {area:35}."] = "{npc:729}, der große Tiger, haust auf der Hügelkuppe südwestlich des Lagers; Schmetterschwänze laufen südlich davon, auf dem Weg nach {area:35}.",
 	-- ["{npc:737}, upstairs"] = "{npc:737}, oben",

@@ -96,7 +96,6 @@ return {
 	-- {quest:87494} Microcrystal Contamination
 	["{quest:87494}, if a ravasaur dropped the scale"] = "{quest:87494}, falls ein Ravasaurus die Schuppe gedroppt hat",
 	-- {area:1943} Ironstone Plateau
-	-- was: ["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 56"] = "Die Gorillas auf dem {area:1943} tragen die Felle: Behalte es für den zweiten Besuch im Un'Goro, etwa auf Stufe 56"
 	["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 54"] = "Die Gorillas auf {area:1943} tragen die Felle: Behalte es für den zweiten Besuch in Un'Goro, mit etwa 54",
 
 	-- Step 22: Lar'korwi Mates and the raft
@@ -124,7 +123,6 @@ return {
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}, hinten in der Höhle; unter der Erde",
 	-- {npc:9272} Spark Nilminer · {npc:9271} Hol'anyee Marshal · {npc:9270} Williden Marshal · {npc:9618} Karna Remtravel
-	-- was: ["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56."] = "{npc:9272}, {npc:9271}, {npc:9270} und {npc:9618} haben Quests bei Mobs der Stufe 51-55: Heb sie dir für den späteren Besuch im Un'Goro auf, etwa auf Stufe 56."
 	["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 54."] = "{npc:9272}, {npc:9271}, {npc:9270} und {npc:9618} haben Quests bei Mobs der Stufe 51-55: Heb sie dir für den späteren Un'Goro-Besuch auf, bei etwa Stufe 54.",
 
 	-- Step 25: Fire Plume Ridge and the eastern jungle

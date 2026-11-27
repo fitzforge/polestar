@@ -88,7 +88,6 @@ return {
 	-- Step 13: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
 	-- plural, as words: Wild Grells = {npc:2190} Wild Grell · Vile Sprites = {npc:2189} Vile Sprite · Deth'ryll Satyrs = {npc:2212} Deth'ryll Satyr
-	-- was: ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "沿山丘向北。{npc:3650}在{quest:954}的废墟中等候；废墟里满是野生劣魔和恶灵劣魔，东缘是戴瑟雷萨特。{quest:1001}立在废墟西边的路旁；去找它的路上，岸边躺着一只{quest:4723}。"
 	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road north-north-west of {npc:3650}; a {quest:4723} lies on the shore on the way to him."] = "沿山丘向北。{npc:3650}在{quest:954}的废墟里等候，废墟里满是野生劣魔和恶灵劣魔，东缘有戴瑟雷萨特。{quest:1001}在{npc:3650}西北偏北方向的路旁，去找他的路上，岸边有一只{quest:4723}。",
 	-- plural, as words: Grell Earrings = {item:5336} Grell Earring
 	["Grell Earrings"] = "{item:5336}",

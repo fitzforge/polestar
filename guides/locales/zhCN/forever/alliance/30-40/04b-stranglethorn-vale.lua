@@ -136,7 +136,7 @@ return {
 	["Snapjaw Crocolisks"] = "钳嘴鳄鱼",
 	-- {area:35} Booty Bay
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
-	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}."] = "钳嘴鳄鱼在丛林中央河流两侧晒太阳，向南前往{area:35}时会经过。",
+	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}. Then hearth back to {area:35}: the hearthstone is still bound there from the first loop."] = "",
 
 	-- Step 21: Tokal
 	-- {npc:215643} Tokal · {object:56910} Salty Sailor Tavern · {item:4600} Cherry Grog · {npc:2832} Nixxrax Fillamug
@@ -178,6 +178,7 @@ return {
 	-- ["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}, then lead him out of the ruins. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "沿海岸向北前往山丘上的废墟：最后两块石板在那里。地精{npc:268992}被关在第三块石板旁的笼子里：任何血顶巨魔都可能掉落他的{item:277957}，之后护送他离开废墟。被盗的货物在废墟东边缘。掉落《荆棘谷的青山》书页时记得拾取。\n小心：血顶狂战士、猎头者和巫医（36-37级）占据废墟中心：一次拉一个。",
 	-- ["Skullsplitter trolls"] = "劈颅巨魔",
 	-- ["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to the Skullsplitter ruins."] = "钳嘴鳄鱼在丛林中央河流两侧晒太阳，向南前往劈颅废墟时会经过。",
+	-- ["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}."] = "钳嘴鳄鱼在丛林中央河流两侧晒太阳，向南前往{area:35}时会经过。",
 	-- ["South along the road: the hunters' tents stand just west of it."] = "沿路向南：猎人的帐篷就在道路西侧。",
 	-- ["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, and the Shadowmaw Panthers prowl stealthed in the jungle south and east of it."] = "从营地向南前往{area:37}：湖岸营地中的风险投资公司地质学家携带打磨过的水晶，深喉猎豹潜行在湖南边和东边的丛林中。",
 	-- ["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals. Careful: Venture Co. Agents (39) walk among them: take the Geologists on the camps' edges, one at a time. Shadowmaw Panthers (37-38) prowl stealthed in the jungle south and east of the lake: keep to the shore camps."] = "从营地向南前往{area:37}：湖岸营地中的风险投资公司地质学家携带打磨过的水晶。小心：风险投资公司特工（39级）在他们中间走动：一次只打营地边缘的一个地质学家。深喉猎豹（37-38级）潜行在湖南边和东边的丛林中：沿湖岸营地行动。",

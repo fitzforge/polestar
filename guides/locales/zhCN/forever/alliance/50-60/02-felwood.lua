@@ -33,7 +33,6 @@ return {
 	-- Step 4: Deadwood Village
 	-- {npc:11554} Grazle · {npc:15395} Nafien
 	-- plural, as words: Deadwood Headdress Feathers = {item:21377} Deadwood Headdress Feather
-	-- was: ["The Deadwood furbolgs live in the village just south-west of {npc:11554}; keep the Deadwood Headdress Feathers they drop."] = "死木熊怪住在{npc:11554}西南方不远的村子里；保留它们掉落的死木头饰羽毛。"
 	["The Deadwood furbolgs live in the village just south-west of {npc:11554}; keep the Deadwood Headdress Feathers they drop: {npc:11554} and {npc:15395} each take five."] = "死木熊怪住在{npc:11554}西南方不远的村子里。留好它们掉落的死木头饰羽毛，{npc:11554}和{npc:15395}各要五根。",
 
 	-- Step 5: Grazle
@@ -103,7 +102,6 @@ return {
 
 	-- Step 18: Felpaw Village
 	-- {area:1762} Felpaw Village
-	-- was: ["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. The Avengers can drop a {quest:8470}.\nCareful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "死木熊怪占据{area:1762}洞穴以西的山丘，复仇者有几率掉落{quest:8470}。\n注意：巢穴看守者为 53–54 级，生命值低于 50% 时会呼叫 25 码内的盟友，低于 15% 时逃跑求援。"
 	["The Deadwood furbolgs of {area:1762} fill the hills west of the cave.\nCareful: Den Watchers are level 53-54 and the Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "{area:1762}的死木熊怪遍布洞穴以西的山丘。\n小心，死木守卫是53-54级，死木复仇者是54-55级。生命值低于50%时，它们会呼叫25码内的同伴，低于15%时会逃跑求援。",
 
 	-- Step 19: Deadwood Ritual Totem
@@ -112,7 +110,6 @@ return {
 
 	-- Step 20: Nafien
 	-- {npc:11556} Salfa · {zone:1452} Winterspring
-	-- was: ["Salfa stands at the {zone:1452} end of the tunnel: keep it"] = "萨尔法站在隧道的{zone:1452}一端：留着"
 	["{npc:11556} stands at the {zone:1452} end of the tunnel"] = "{npc:11556}在隧道通往{zone:1452}的那一头",
 
 	-- Step 22: Timbermaw Hold

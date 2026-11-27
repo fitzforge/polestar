@@ -117,7 +117,6 @@ return {
 
 	-- Step 27: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
-	-- was: ["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "Die Farm von {npc:10778} ist die erste östlich von {area:152}. Jabbering Ghouls auf der Farm tragen die andere Hälfte ihres Amuletts; {npc:11075} bewacht den Kessel auf dem Feld.\nVorsicht: Ein oder zwei Untote kämpfen meist an seiner Seite, und nachdem du den Kessel benutzt hast, können weitere Cauldron Lords angreifen."
 	["{npc:10778}'s farm is the first one east of the {area:152}. {npc:11075} guards the cauldron in the field. Careful: one or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "Die Farm von {npc:10778} ist die erste östlich von {area:152}. {npc:11075} bewacht den Kessel auf dem Feld. Vorsicht: Ein oder zwei Untote kämpfen meist an seiner Seite, und nachdem du den Kessel benutzt hast, können weitere Kessellords angreifen.",
 
 	-- Step 28: Janice Felstone

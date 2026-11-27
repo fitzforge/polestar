@@ -117,7 +117,6 @@ return {
 	-- Step 22: Chillwind Camp
 	["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "纯心、杜玛、瓦罗菲斯特和麦克唐奈站在营地中央附近，飞行管理员旁边。",
 	-- {npc:11616} Nathaniel Dumah · {area:2277} Plaguewood
-	-- was: ["{npc:11616}: the termites come later, in {area:2627}"] = "{npc:11616}：白蚁之后在{area:2627}收集"
 	["{npc:11616}: the termites come later, in the {area:2277}"] = "{npc:11616}：白蚁之后在{area:2277}收集",
 	-- {npc:10838} Commander Ashlam Valorfist · {area:199} Felstone Field
 	["{npc:10838}: the watchtowers stand around Andorhal, on the way to {area:199}"] = "{npc:10838}：哨塔分布在安多哈尔周边，去{area:199}时会顺路经过",
@@ -130,7 +129,6 @@ return {
 	["The Andorhal watchtowers"] = "安多哈尔瞭望塔",
 	-- {item:12815} Beacon Torch · {area:199} Felstone Field · {npc:7572} Fallen Hero of the Horde
 	-- plural, as words: Skeletal Warlords = {npc:1788} Skeletal Warlord · Flesh Golems = {npc:1805} Flesh Golem
-	-- was: ["Use the {item:12815} at the foot of each of the four watchtowers around the edge of Andorhal, north of the camp.\nCareful: Skeletal Warlords and Flesh Golems (57, elites) walk Andorhal's streets, and the {npc:7572} (59, elite) wanders between Andorhal and Northridge: keep to the towers at the town's edge and let them pass."] = "在营地以北、安多哈尔外围四座哨塔的塔脚各使用一次{item:12815}。\n注意：骷髅军官和血肉傀儡（57级，精英）在安多哈尔街道巡逻，{npc:7572}（59级，精英）在安多哈尔和北谷之间游荡：沿镇边的哨塔走，让它们过去。"
 	["Use the {item:12815} at the foot of each of the four watchtowers around the edge of Andorhal, north of the camp, on the way to {area:199}.\nCareful: Skeletal Warlords and Flesh Golems (57, elites) walk Andorhal's streets, and the {npc:7572} (59, elite) wanders between Andorhal and Northridge: keep to the towers at the town's edge and let them pass."] = "在安多哈尔外围的四座哨塔脚下各用一次{item:12815}。哨塔在营地北边，去{area:199}时会经过。\n小心，骷髅军官和血肉傀儡（57级精英）在安多哈尔街上巡逻，{npc:7572}（59级精英）在安多哈尔和北山伐木场之间游荡。沿镇边的哨塔走，等它们过去。",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
 	["Mark {npc:10902} with the {item:12815}"] = "用{item:12815}标记{npc:10902}",
@@ -268,14 +266,12 @@ return {
 	["{quest:5210}, at {area:2268}: keep it"] = "{quest:5210}，在{area:2268}：先留着",
 
 	-- Step 47: Sorrow Hill: kill these as you meet them
-	-- was: ["{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal.\nSmall lockboxes lie in the rubble all over Andorhal; each holds a watch.\nCareful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "{npc:1852}是精英，建议组队。他在安多哈尔中央守卫自己的护命匣。\n安多哈尔各处废墟中散落着小保险箱，每个箱子里有一只怀表。\n注意：食尸鬼和骷髅通常就在箱子旁，接近时会攻击。灼热食尸鬼还会伤害附近所有人，打破潜行。"
 	["Small lockboxes lie in the rubble all over Andorhal; each holds a watch.\nCareful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "安多哈尔各处废墟中散落着小保险箱，每个箱子里有一只怀表。\n注意：食尸鬼和骷髅通常就在箱子旁，接近时会攻击。灼热的食尸鬼还会伤害附近所有人，打破潜行。",
 
 	-- Step 49: Writhing Haunt cauldron
 	-- {area:202} Writhing Haunt
 	["{area:202} cauldron"] = "{area:202}的大锅",
 	-- {area:202} Writhing Haunt · {npc:10739} Mulgris Deepriver
-	-- was: ["The cauldron sits at the {area:202}, by {npc:10739}' farm."] = "大锅在{area:202}，{npc:10739}的农场旁。"
 	["The cauldron sits at the {area:202}, by {npc:10739}' farm, east of Andorhal."] = "大锅在安多哈尔以东的{area:202}，就在{npc:10739}的农场旁。",
 
 	-- Step 50: Chillwind Camp
@@ -329,10 +325,8 @@ return {
 	["The Scarlet Medics, Hunters, Knights and Mages patrol the lumber camp and the road toward {area:190}."] = "{npc:10605}、血色猎人、血色骑士和血色法师在伐木场和通往{area:190}的道路上巡逻。",
 
 	-- Step 59: Radley and Durgen
-	-- was: ["Radley and Durgen"] = "猎人莱德雷和骑士杜尔根"
 	["Radley and Durgen"] = "猎人莱德雷和骑士杜尔根",
 	-- {npc:11613} Huntsman Radley · {npc:11610} Kirsta Deepshadow · {npc:11611} Cavalier Durgen · {area:190} Hearthglen
-	-- was: ["{npc:11613} walks the Northridge camp east of {npc:11610}; {npc:11611} guards the tower at {area:190}'s southern approach.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "{npc:11613}在{npc:11610}东边的北山营地内走动；{npc:11611}看守着{area:190}南部入口处的塔楼。\n小心：塔楼底部有守卫，另有一名绕塔巡逻。与杜根·挽锤交战前先清理这些守卫，免得他们加入战斗。"
 	["{npc:11613} (56) walks the Northridge camp east of {npc:11610}; {npc:11611} (57) guards the tower at {area:190}'s southern approach.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "{npc:11613}（56级）在{npc:11610}东边的北山伐木场巡逻。{npc:11611}（57级）守着{area:190}南侧入口的塔楼。\n小心，塔楼下有守卫，另有一名绕塔巡逻。先清掉这些守卫，再打骑士杜尔根，以免他们加入战斗。",
 
 	-- Step 60: Kirsta Deepshadow
