@@ -391,7 +391,7 @@ fn api_version_and_capabilities_say_what_this_polestar_offers() {
 		for _, c in ipairs({ "skins", "schemes", "surfaces.window", "surfaces.toast", "surfaces.arrow", "surfaces.pin", "fonts", "preset",
 			"lightSchemes", "surfaces.guideTitle", "variants", "resolve", "shadow", "artTint", "media.dart", "guideParts",
 			"surfaces.card", "surfaces.actionButton", "surfaces.guideRow", "surfaces.guideLayout", "surfaces.guideRender",
-			"surfaces.guideProgress", "surfaces.guideAnchor", "surfaces.guideTakes", "surfaces.guidePerson", "surfaces.guideInset", "surfaces.guideUpRow", "surfaces.guideShows", "surfaces.guideSpace", "media.pins", "arrow.parts", "pin.parts", "tokens.accent2", "tokens.glow",
+			"surfaces.guideProgress", "surfaces.guideAnchor", "surfaces.guideTakes", "surfaces.guidePerson", "surfaces.guideInset", "surfaces.guideUpRow", "surfaces.guideShows", "surfaces.guideSpace", "surfaces.guideKindRow", "surfaces.guideMeter", "media.pins", "arrow.parts", "pin.parts", "tokens.accent2", "tokens.glow",
 			"tokens.pins", "skins.installed", "theme.functions", "kit.color", "kit.glow", "kit.tintArt" }) do
 			if not T.HasCapability(c) then caps[#caps + 1] = c end
 		end
@@ -409,8 +409,10 @@ fn api_version_and_capabilities_say_what_this_polestar_offers() {
 			"card",
 			"guideAnchor",
 			"guideInset",
+			"guideKindRow",
 			"guideLayout",
 			"guideMenu",
+			"guideMeter",
 			"guidePerson",
 			"guidePlace",
 			"guideProgress",
@@ -821,12 +823,15 @@ local T, E, GF = Polestar.Theme, Polestar.Engine, Polestar.UI.GuideFrame
 -- Which hooks ran (a hook that ran answers true), for which kind of card, toast, button and pin, and the frame
 -- each kind was handed in.
 local fired, kinds, byKind = {}, { card = {}, toast = {}, actionButton = {}, pin = {} }, {}
+-- The last row and meter a guide kind's region handed the skin.
+local handed = {}
 local hook, hookValue = T.SkinHook, T.SkinHookValue
 T.SkinHook = function(surface, ...)
 	local ran = hook(surface, ...)
 	if ran then
 		fired[surface] = true
 		local frame, b, c = ...
+		if surface == "guideKindRow" or surface == "guideMeter" then handed[surface] = frame end
 		local kind = tostring(surface == "pin" and c or b)
 		if kinds[surface] then
 			kinds[surface][kind] = true
@@ -884,6 +889,34 @@ end
 local shadowed = stepPin.text.shadowColor ~= nil
 local shown, missing = {}, {}
 for k, t in pairs(pieces) do
+	if t then shown[k] = t:IsShown() else missing[#missing + 1] = k end
+end
+-- A profession guide (Tailoring 87: its materials' rows and its skill meter, UI/GuideFrameKindCraft.lua), by the
+-- guide kinds' own regions.
+Polestar.RegisterGuide({ id = "test/craft", pack = "test", title = "Tailoring 1-300", minLevel = 5, maxLevel = 60, category = "Professions",
+	sections = { { skill = "Tailoring", skillLine = 197, from = 75, to = 150 } },
+	steps = {
+		{ title = "Get Wool Cloth", section = 1, goals = {
+			{ t = "collect", item = 2592, itemName = "Wool Cloth", count = 288, gather = { min = 15, max = 30 } },
+			{ t = "auction", item = 2592, itemName = "Wool Cloth", count = 288 } } },
+		{ title = "Woolen Cape to 100", section = 1, goals = { { t = "craft", spell = 2402, spellName = "Woolen Cape", item = 2584, itemName = "Woolen Cape",
+			skillLine = 197, untilSkill = 100, yellow = 80, grey = 115, reagents = { { item = 2592, itemName = "Wool Cloth", count = 3 } } } } },
+	} })
+Polestar.Compat.GetSkillRank = function(line) if line == 197 or line == "Tailoring" then return 87, 150 end return nil end
+stub.world.items[2592] = 9
+E.SetGuide("test/craft"); stub.advance(1)
+-- The craft step's shopping list, opened (its materials' rows).
+E.Goto(2); stub.advance(0.5)
+GF.Render(); GF.Layout()
+local shopping = GF.RegionFrame("shopping")
+if shopping and not shopping.psOpen then
+	shopping.Head:GetScript("OnClick")(shopping.Head)
+	stub.advance(0.5)
+	GF.Render(); GF.Layout()
+end
+for k, key in pairs({ kindRow = "guideKindRow", meter = "guideMeter" }) do
+	local t = own(handed[key], "moon")
+	pieces[k] = t
 	if t then shown[k] = t:IsShown() else missing[#missing + 1] = k end
 end
 table.sort(missing)
