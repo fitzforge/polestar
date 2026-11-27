@@ -1348,7 +1348,8 @@ builders.quest = function(ctx, row)
 	local steps, err = questSteps(row.src.quest, ctx.player, ctx.from)
 	if not steps then return nil, err end
 	local last = steps[#steps]
-	last.goals[#last.goals + 1] = { t = "collect", item = ctx.id, itemName = ctx.name, count = 1 }
+	-- The reward waits with its quest (`rewardOf`, Engine's unavailableFor, #4505).
+	last.goals[#last.goals + 1] = { t = "collect", item = ctx.id, itemName = ctx.name, count = 1, rewardOf = row.src.quest }
 	if row.src.choice then
 		last.note = L["Choose this reward:"] .. " " .. ctx.name
 	end

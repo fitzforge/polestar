@@ -1205,3 +1205,35 @@ test('Kodo Roundup (5561) is a use of the Kodo Kombobulator on the kodos, then a
 	assert.deepEqual(m.steps.map((s) => s.action), ['use-item', 'talk']);
 	assert.match(m.steps[0].fact, /Don't kill it/);
 });
+
+// imp (#4454): Watch Yer Back has a quest-log line, "Speak with Sully", that ticks at Sully McCleary's window before
+// the hand-in to him; with no objective in our data the Alcaz Prison pick-up guide only said to hand it in.
+test('Watch Yer Back (95196) is a talk with Sully McCleary before the hand-in (#4454)', () => {
+	const objs = corrections.quests[95196].set.objectives;
+	assert.equal(objs.length, 1, 'one objective');
+	assert.deepEqual([objs[0].type, objs[0].id, objs[0].count], ['talk', 260271, 1]);
+});
+
+// imp (#4455): The Return of the King?'s eavesdropping is done in the SI:7 Disguise Kit, relieving the guard at the
+// Theramore Mage Tower; the pick-up guide said nothing of either.
+test('The Return of the King? (95198) says to use the SI:7 Disguise Kit and relieve the guard (#4455)', () => {
+	const m = require('../data/mechanics-public.json').quests[95198];
+	assert.deepEqual(m.steps.map((s) => s.action), ['use-item', 'talk']);
+	assert.equal(m.steps[0].item.id, 269000);
+	assert.match(m.steps[1].fact, /Theramore Guard/);
+});
+
+// Pooker (#4508): Anastasia Hartwell refuses Tabetha's Task to a player who has taken Stinglasher (7731), which the
+// Horde route takes at Camp Mojache; Lookup's Zul'Farrak pick-up guide still sent such a player to her.
+test("Tabetha's Task (2861) is closed for good once Stinglasher (7731) is taken (#4508)", () => {
+	assert.deepEqual(corrections.quests[2861].set.excl, [7731]);
+	assert.ok(closedByOf(2861, { 2861: { id: 2861, breadcrumbFor: 2846, excl: [7731] } }).includes(7731), 'Lookup reads it as closing the lead-in');
+});
+
+// #4454's sweep: the Horde's Alcaz Prison chain has the same kind of quest. Right Place, Wrong Time's one line,
+// "Speak with Sergeant Ulka", ticks at his window before the hand-in to him (25 people in players' recordings).
+test('Right Place, Wrong Time (95285) is a talk with Sergeant Ulka before the hand-in (#4454)', () => {
+	const objs = corrections.quests[95285].set.objectives;
+	assert.equal(objs.length, 1, 'one objective');
+	assert.deepEqual([objs[0].type, objs[0].id, objs[0].count], ['talk', 260383, 1]);
+});

@@ -1141,6 +1141,32 @@
 				{ "n": 2, "action": "talk", "target": { "type": "npc", "id": 4700 }, "fact": "Walk the tamed kodo back to Smeed's camp and talk to it there: that counts it. Five kodos, one at a time.", "place": { "map": 1443, "x": 60.6, "y": 61.6, "f": "l" }, "confidence": "high" }
 			],
 			"note": "Kodo Roundup (5561): the five kodos are tamed with the Kodo Kombobulator (13892, given with the quest) and each counts once talked to at Smeed Scrabblescrew's camp; the game stores the objective as a kill credit (Aged, Dying or Ancient Kodo), so Lookup's quest guide said \"Kill Aged Kodo\" (#4188). Source: players' in-game recordings to 2026-11-10: 8 people ran it and the line ticked as they talked to a tamed Aged (13 times), Dying (19) or Ancient Kodo (9), never on a kill (correction 5561, #1614)."
+		},
+		"95198": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "use-item",
+					"item": {
+						"id": 269000
+					},
+					"fact": "Use the SI:7 Disguise Kit before you go up to the Theramore Mage Tower.",
+					"confidence": "medium"
+				},
+				{
+					"n": 2,
+					"action": "talk",
+					"fact": "In disguise, talk to the Theramore Guard at the tower's door to take his place and listen in on Jaina and her inner circle.",
+					"place": {
+						"map": 1445,
+						"x": 66.3,
+						"y": 49,
+						"f": "e"
+					},
+					"confidence": "medium"
+				}
+			],
+			"note": "The Return of the King? (95198, Sully McCleary in Theramore, the Alliance's Alcaz Prison chain): the eavesdropping is done in the SI:7 Disguise Kit (269000), relieving the guard at the Theramore Mage Tower. Lookup's pick-up guide only showed the objective's line and place, with no word on the kit or the guard (#4455). Source: the quest's own text (\"Use the SI:7 Disguise Kit to eavesdrop on Jaina and her inner circle at the Theramore Mage Tower\"); the in-game report #4455 (imp, 0.4.3.1: the Theramore Guard is relieved in the disguise); players' in-game recordings to 2026-11-27: 40 people ticked the line 1/1 before handing the quest in to Sully (correction 95198, #3739)."
 		}
 	}
 }

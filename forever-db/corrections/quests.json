@@ -1729,13 +1729,26 @@
 				],
 				"object": [],
 				"item": []
+			},
+			"excl": [
+				7731
+			]
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			},
+			{
+				"kind": "recording",
+				"ref": "rec.py offers 4568 / quest 7731 (2026-11-27): Anastasia Hartwell refused Tabetha's Task to the 3 people who had taken Stinglasher (7731) before her window (taken at 45, 46 and 47; refused at 45 with it in the log, and at 48 and 49 afterwards); the 14 people she offered it to had not taken Stinglasher yet"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#4508 (Pooker, 0.4.3.1): a level 48 Horde shaman on the Horde route, which takes Stinglasher at Camp Mojache, could not take Tabetha's Task from Anastasia Hartwell"
 			}
-		},
-		"source": {
-			"kind": "factoruide",
-			"ref": "Factoruide row sources: questie"
-		},
-		"note": "Tabetha's Task: starts with Anastasia Hartwell (npc 4568), Bink (npc 5144), Jennea Cannon (npc 5497) and Deino (npc 5885); as its giver the merged data also listed Ursyn Ghull (npc 3048)."
+		],
+		"note": "Tabetha's Task: starts with Anastasia Hartwell (npc 4568), Bink (npc 5144), Jennea Cannon (npc 5497) and Deino (npc 5885); as its giver the merged data also listed Ursyn Ghull (npc 3048). Taking Stinglasher (7731, Hadoken Swiftstrider in Feralas) closes it for good, so Lookup's Zul'Farrak pick-up guide passes this lead-in once Stinglasher is taken and sends the player straight to Tabetha for Tiara of the Deep (2846), which needs no lead-in (#4508). The other way it is only while it is in the log: Hadoken offers Stinglasher once Tabetha's Task is handed in or abandoned (guide-fixes 4487-stinglasher-tabethas-task-tip)."
 	},
 	"2924": {
 		"set": {
@@ -22213,6 +22226,38 @@
 			}
 		],
 		"note": "A Paladin's Steed (94971, Danitha Morr at Bandarion Keep, the Forsaken paladins' warhorse) needs no earlier quest: Report to Danitha (97022, from Garen Largo, the Undercity's paladin trainer) only sends the player to her. The merged data had 97022 as its prerequisite, from players taking the two in a row, so a paladin who went straight to Danitha would have been told to fetch the errand first (#2898)."
+	},
+	"95196": {
+		"set": {
+			"objectives": [
+				{ "type": "talk", "id": 260271, "count": 1, "text": "Speak with Sully" }
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-27: 40 people (32 established) took Watch Yer Back from Sully McCleary (260146) in Theramore; at accept their quest log had one line, x1 \"Speak with Sully\" (French \"Parler à Sully\", German \"Sprecht mit Sully\"), and every one ticked it 1/1 at the window of Sully McCleary (260271, 1445 63.38,42.34), then handed the quest in to him"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#4454 (imp, 0.4.3.1): Sully has to be spoken to before the quest can be handed in"
+			}
+		],
+		"note": "Watch Yer Back (Theramore, the start of the Alliance's Alcaz Prison chain) has one quest-log line: speak with Sully McCleary (260271), then hand the quest in to him. Our data had no objective, so the Alcaz Prison pick-up guide only said to hand it in (#4454)."
+	},
+	"95285": {
+		"set": {
+			"objectives": [
+				{ "type": "talk", "id": 260383, "count": 1, "text": "Speak with Sergeant Ulka" }
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-27: 25 people (21 established) took Right Place, Wrong Time; at accept their quest log had one line, x1 \"Speak with Sergeant Ulka\" (German \"Sprecht mit Sergeant Ulka\"), ticked 1/1 at the window of Sergeant Ulka (260383, 1445 70.27,18.94) by 24 of them, all of whom handed it in to him"
+			}
+		],
+		"note": "Right Place, Wrong Time (the Horde's Alcaz Prison chain, Sergeant Ulka in Dustwallow Marsh) has one quest-log line: speak with Sergeant Ulka, then hand the quest in to him. Our data had no objective, so the Alcaz Prison pick-up guide only said to hand it in: the Horde side of #4454 (Watch Yer Back)."
 	},
 	"95198": {
 		"set": {

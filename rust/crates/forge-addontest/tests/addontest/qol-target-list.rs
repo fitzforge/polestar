@@ -2207,3 +2207,22 @@ fn target_list_a_fight_s_health_ticks_and_refreshes_with_the_same_counts_repaint
 	// refreshes; with the rows left alone, 60 and 250 (the rest of the buttons' own work).
 	assert!(health <= 120 && refresh <= 400, "widget calls: 60 health ticks {health} (at most 120), 10 refreshes with the same counts {refresh} (at most 400)");
 }
+
+// imp (#4500): Alcaz Prison's hand-in guide gives More Valuable Than Gold's event line, "Find Mason Connery's
+// Treasure", as a kill on the quest-log line (`logLine`, as Lookup's placed events and the compiled placeholder
+// credits are). The target list offered that text as a creature to target and kill; a quest-log line with no NPC of
+// its own now names nothing, and the step's other names stay.
+#[test]
+fn target_list_a_quest_log_line_names_no_creature_4500() {
+	let out = run(r#"
+		set("guideNameTarget", true)
+		local line = { t = "kill", target = "Find Mason Connery's Treasure", logLine = true, quest = 96337, oi = 1, count = 1 }
+		q.step({ line, { t = "kill", target = "Kobold Vermin", npc = 6, quest = 7, oi = 1 } })
+		local names = {}
+		for i, n in ipairs(B.TargetNames()) do names[i] = n end
+		emit(names)
+		emit({ B.GuideNameMacro(line) or false, (B.GuideNameMacro({ t = "kill", target = "Kobold Vermin", npc = 6 })) ~= nil })
+	"#);
+	assert_eq!(out[0], json!(["Kobold Vermin"]), "only the creature: the quest-log line names none");
+	assert_eq!(out[1], json!([false, true]), "a click on the line's name targets nothing; a creature's still does");
+}

@@ -408,6 +408,8 @@ return {
 	["The battle map lies in the Woodpaw camp south of Mojache."] = "木爪作战地图在莫沙彻营地南边的木爪营地里。",
 
 	-- Step 98: Camp Mojache
+	-- {npc:7875} Hadoken Swiftstrider · {quest:7731} Stinglasher · {zone:1445} Dustwallow Marsh
+	["Carrying Tabetha's Task? {npc:7875} doesn't offer {quest:7731} while it is in your quest log: hand it in to Tabetha in {zone:1445} or abandon it first."] = "",
 	-- {zone:1454} Orgrimmar
 	["for {zone:1454}, around level 47"] = "留到大约47级去{zone:1454}时交",
 

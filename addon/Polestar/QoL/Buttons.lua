@@ -3395,7 +3395,8 @@ function Buttons.GuideNameMacro(goal, raw)
 	name = (npc and N and N.Npc and N.Npc(npc)) or name
 	if chosen and not name and t ~= "kill" then return nil end
 	if not name then
-		if t == "kill" then
+		-- A quest-log line names no creature (#4500, as in addGoalNames).
+		if t == "kill" and not (raw.logLine or goal.logLine) then
 			name = goal.subject or raw.target
 		elseif t == "collect" then
 			local source = goal.source

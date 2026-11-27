@@ -19113,6 +19113,18 @@
 				{ "kind": "in-game-check", "ref": "#4430 (Oscure3, 0.4.3.1): no carapace without The Swarm Grows chain up to its kill part" }
 			],
 			"issue": 4430
+		},
+		{
+			"id": "4487-stinglasher-tabethas-task-tip",
+			"faction": "Horde",
+			"at": { "quest": 7731, "goal": "accept", "guide": "forever/horde/40-50/02-feralas" },
+			"tip": "Carrying Tabetha's Task? Hadoken doesn't offer Stinglasher while it is in your quest log: hand it in to Tabetha in Dustwallow Marsh or abandon it first.",
+			"note": "#4435, #4487, #4491: Hadoken Swiftstrider refuses Stinglasher (7731) while Tabetha's Task (2861) is in the quest log, in the same window that offers Zukk'ash Infestation (7730), which has the same prerequisite; once Tabetha's Task is handed in or abandoned he offers it. Tabetha's Task comes from Lookup's Zul'Farrak pick-up guide or the mage guide, never from this route, so the step says what to do.",
+			"source": [
+				{ "kind": "recording", "ref": "rec.py offers 7875 (2026-11-27): of the 34 people Hadoken offered Zukk'ash Infestation (7730), the 31 without Tabetha's Task (2861) in the log were offered Stinglasher in the same window and the 3 with it were not. rec.py quest 2861 / 7731: one of the three abandoned 2861 and took 7731 at the same level, the two others handed 2861 in to Tabetha and then took 7731" },
+				{ "kind": "in-game-check", "ref": "#4435 (foggel, 0.4.3.1): handing in Tabetha's Task in Dustwallow Marsh made Hadoken offer Stinglasher; #4487 (Akuma) and #4491 (ArcticWildWolf): the accept was not offered" }
+			],
+			"issue": 4487
 		}
 	]
 }
