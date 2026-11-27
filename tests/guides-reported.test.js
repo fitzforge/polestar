@@ -17888,27 +17888,14 @@ test('#190, #297, #1958, #1808: profession guides craft and learn what Forever\'
 
 // Encrypt512bit (#3140) and Sylliad (#3272): Magnus Frostwake's house in Caer Darrow was empty. He is a ghost: the
 // server gives him the Caer Darrow Ghosts invisibility aura, seen through only with the Spectral Essence on, the reward
-// of a level 55 Scholomance chain. His two plans are optional buys that say so; their learns and the Dense Grinding
-// Stones they take never hold a step, and the skill reaches 285 by any recipe. Since the 0.4.4 profession fixes both
-// plans are bought on the step where Blacksmithing 250 forks: the steps for players without them (`when !knows`) go on
-// with Auction House plans.
-test('#3140, #3272: Blacksmithing: Magnus Frostwake\'s plans are optional and name the Spectral Essence', { skip }, () => {
+// of a level 55 Scholomance chain. Since the 0.4.4 profession fixes the route takes no plans of his at all: Derotain
+// Mudsipper's Imperial Plate plans (Gadgetzan, from Blacksmithing 240) and the Radiant plans from the Auction House
+// take fewer Thorium Bars than his battleaxe, so no step sends a player to look for him.
+test('#3140, #3272: Blacksmithing: no step sends a player to Magnus Frostwake for plans', { skip }, () => {
 	const bs = goals('forever/professions/blacksmithing.guide');
-	for (const item of [12819, 12823]) {
-		const { goal, step } = bs[at(bs, `buy ${item}`, (g) => g.t === 'buy' && g.item === item)];
-		assert.ok(goal.optional, `buy ${item} is optional`);
-		assert.ok(step.goals.every((g) => g.optional || g.t === 'tip' || g.t === 'note'), `nothing on the ${item} step holds it`);
-	}
-	const tips = fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/professions/blacksmithing.guide'), 'utf8').split('\n\n').filter((b) => /\n {2}buy 12823 nearest optional/.test(b));
-	assert.equal(tips.length, 1, 'one step buys both plans');
-	assert.match(tips[0], /Magnus Frostwake .*he is a ghost you see only with the Spectral Essence on/);
-	assert.match(tips[0], /\n {2}buy 12819 nearest optional/);
-	for (const spell of [16969, 16971]) {
-		const { goal, s } = bs[at(bs, `learn ${spell}`, (g) => g.t === 'learn' && g.spell === spell)];
-		assert.ok(goal.optional, `learn ${spell} is optional`);
-		const held = bs.filter((e) => e.s === s && !e.goal.optional && e.goal.t === 'craft' && !e.goal.untilSkill).map(({ goal: g }) => `craft ${g.spell}`);
-		assert.deepEqual(held, [], `only the skill holds the ${spell} step`);
-	}
+	for (const item of [12819, 12823]) assert.ok(!bs.some(({ goal }) => goal.t === 'buy' && goal.item === item), `no buy ${item}`);
+	for (const spell of [16969, 16971]) assert.ok(!bs.some(({ goal }) => (goal.t === 'learn' || goal.t === 'craft') && goal.spell === spell), `no learn or craft ${spell}`);
+	assert.ok(!fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/professions/blacksmithing.guide'), 'utf8').split('\n').some((l) => /^ {2}tip .*Magnus Frostwake/.test(l)), 'no step tip names him');
 });
 
 // #2563 (Kiber_Mazai, 0.4.0): Harlo Barnaby stops offering Fall of Dun Modr (472) once A Grim Task (304) is handed

@@ -204,6 +204,32 @@ test('planner and draft: a quest-reward plan is usable from the quest\'s skill a
 	assert.match(text, /\(quest, 4 Gold Thread\)/);
 });
 
+// Derotain Mudsipper hands over the Imperial Plate Belt plans (240) and the bracers plans (245) for 20 Thorium
+// Bars each: both come on one visit at 240, not a trip back at 245; and a plan made from a fork's skill (path B
+// from 265 goes on with the bracers) does not pay the bracers hand-in a second time.
+test('draft and planner: a giver\'s later plans come on the first visit; a fork plan past the hand-in pays none again', () => {
+	const plans = { source: 'item' };
+	const { prof, data } = smallProfession([rec(1, 1, 40, 60, 10), rec(2, 30, 45, 70, 10, { ...plans, recipeItem: 77 }), rec(3, 45, 70, 90, 10, { ...plans, recipeItem: 78 })]);
+	prof.materials[77] = { name: 'Plans: Belt', sell: 1, buy: 4, quality: 2, bop: true };
+	prof.materials[78] = { name: 'Plans: Bracers', sell: 1, buy: 4, quality: 2, bop: true };
+	data.quests = {
+		7652: { id: 7652, title: 'A Bargain', objectives: [], start: { npc: [5] }, minLevel: 50, skillLevel: 30 },
+		7653: { id: 7653, title: 'Belt', objectives: [{ type: 'item', id: 30, count: 4 }], start: { npc: [5] }, minLevel: 50, skillLevel: 30, preAny: [7652] },
+		7655: { id: 7655, title: 'Bracer', objectives: [{ type: 'item', id: 30, count: 4 }], start: { npc: [5] }, minLevel: 50, skillLevel: 30, preAny: [7652] },
+	};
+	data.npcs = { 5: { id: 5, name: 'Derotain Mudsipper', faction: 'AH', spawns: { 1446: { pts: [[51, 28]] } } } };
+	data.zones = { 1446: { name: 'Tanaris' } };
+	const spec = { questRecipes: { 2: 7653, 3: 7655 }, use: [{ spell: 2, from: 30, to: 45 }, { spell: 3, from: 45, to: 75 }] };
+	const { text } = draftGuide('Tailoring', data, { to: 75, spec });
+	assert.match(text, /\nstep Plans: Belt and Plans: Bracers\n {2}zone Tanaris\n {2}tip Derotain Mudsipper \(Tanaris\) trades Plans: Belt \(Tailoring 30\) for 4 Gold Thread in Belt and Plans: Bracers \(Tailoring 45\) for 4 Gold Thread in Bracer, which need Tailoring 30 and character level 50; take A Bargain first \(it asks for nothing\)\. The plans bind when picked up\. Take the Plans: Bracers now too: they wait in your bags until 45 for R3, and it saves a trip back\.\n {2}level 50\n {2}accept 7652\n {2}turnin 7652\n {2}accept 7653\n {2}turnin 7653\n {2}accept 7655\n {2}turnin 7655\n/);
+	assert.equal(text.match(/accept 7655/g).length, 1, 'one visit');
+	assert.match(text, /\n {2}learn 3 -- from the recipe in your bags\n {2}craft 3 until 75\n/);
+	const opts = { from: 50, to: 75, questRecipes: spec.questRecipes };
+	const hand = (p) => (p.segments[0].need.find((n) => n.item === 30) || { count: 0 }).count;
+	assert.equal(hand(planProfession(prof, data, opts)), 4, 'a plan from 50 alone pays the hand-in');
+	assert.equal(hand(planProfession(prof, data, { ...opts, quests: [7655] })), 0, 'not once it is handed in');
+});
+
 test('planner: a good sold only far from the capitals is crafted when the profession can (Wizzle Brassbolts\' blasting powder)', () => {
 	const powder = { spell: 50, name: 'Powder', item: 40, itemCount: 1, reagents: [{ item: 20, count: 1 }], source: 'trainer', learnedAt: 1, yellow: 25, grey: 50, green: 37 };
 	const bomb = { spell: 51, name: 'Bomb', item: 41, itemCount: 1, reagents: [{ item: 40, count: 1 }], source: 'trainer', learnedAt: 1, yellow: 70, grey: 90, green: 80 };

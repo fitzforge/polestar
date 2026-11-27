@@ -486,8 +486,9 @@ function draftGuide(name, data, opts = {}) {
 	// spec.fork: from `at` the route splits in two (docs in specs.js). Path A is the plan above, path B a
 	// plan from `at` without the fork's key recipes; each path's steps carry their `when`.
 	const fork = spec.fork && (opts.from || 1) < spec.fork.at ? spec.fork : null;
+	const before = fork ? plan.segments.filter((s) => s.from < fork.at) : [];
 	const alt = fork
-		? planProfession(prof, data, { ...planOpts, exclude: { ...planOpts.exclude, ...fork.other.exclude }, auction: fork.other.auction || {}, use: fork.other.use || [], from: fork.at, to: planTo, tools: plan.segments.filter((s) => s.from < spec.fork.at).flatMap((s) => s.tools.map((t) => t.item)) })
+		? planProfession(prof, data, { ...planOpts, exclude: { ...planOpts.exclude, ...fork.other.exclude }, auction: fork.other.auction || {}, use: fork.other.use || [], from: fork.at, to: planTo, tools: before.flatMap((s) => s.tools.map((t) => t.item)), quests: before.filter((s) => s.recipe.source === 'quest').map((s) => s.recipe.quest.id) })
 		: null;
 	if (fork && !plan.segments.some((s) => s.from === fork.at)) throw new Error(`${found.name}: no segment starts at the fork (${fork.at})`);
 	const forkWhen = fork ? { A: `knows ${fork.key}`, B: `!knows ${fork.key}` } : {};
@@ -1412,37 +1413,45 @@ function draftGuide(name, data, opts = {}) {
 				for (const r of late) learned.add(r.spell);
 			}
 			const r = seg.recipe;
-			if (r.source === 'quest' && !learned.has(r.spell)) {
+			if (r.source === 'quest' && !learned.has(r.spell) && !questsTaken.has(r.quest.id)) {
 				// A quest hands over the plans (Derotain Mudsipper's Imperial Plate plans for Thorium Bars).
-				const q = r.quest;
+				// The bracket's later plans from the same giver that he offers already come on this visit
+				// (the bracers plans with the belt's at 240): one trip to him, not one per plan.
 				const qs = data.quests || {};
-				const giver = ((qs[q.id] || {}).start || {}).npc || [];
+				const giverOf = (x) => ((qs[x.quest.id] || {}).start || {}).npc || [];
+				const giver = giverOf(r);
 				const who = giver.length ? D.npcPlace(data, giver[0]) : null;
-				const m = mats[r.recipeItem] || {};
-				const plans = m.name || `the plans for ${r.name}`;
-				const pre = q.pre.filter((id) => !questsTaken.has(id) && qs[id]);
+				const plansOf = (x) => (mats[x.recipeItem] || {}).name || `the plans for ${x.name}`;
+				const along = b.segments.slice(b.segments.indexOf(seg) + 1).map((s) => s.recipe).filter((x, i, all) => x.source === 'quest' && all.indexOf(x) === i && x.spell !== r.spell && !learned.has(x.spell) && !questsTaken.has(x.quest.id) && x.quest.skill <= seg.from && x.quest.level <= r.quest.level && giver.length && giverOf(x)[0] === giver[0]);
+				const all = [r, ...along];
+				const pre = [...new Set(all.flatMap((x) => x.quest.pre))].filter((id) => !questsTaken.has(id) && qs[id] && !all.some((x) => x.quest.id === id));
 				const preText = pre.map((id) => `${qs[id].title || `quest ${id}`} first${(qs[id].objectives || []).length ? '' : ' (it asks for nothing)'}`);
+				const trade = (x) => `${plansOf(x)} (${P} ${x.learnedAt}) for ${D.list(x.quest.items.map((g) => `${g.count} ${matName(g.item)}`))} in ${x.quest.title}`;
+				const skills = [...new Set(all.map((x) => x.quest.skill))];
 				line('');
-				line(`step ${plans}`);
+				line(`step ${D.list(all.map(plansOf))}`);
 				// The quests' goals sit in the giver's zone (Derotain in Gadgetzan, Tanaris).
 				const gmap = giver.length ? homeMap(npcs[giver[0]]) : null;
 				if (gmap && zoneName(gmap)) {
 					line(`  zone ${zoneName(gmap)}`);
 					curZone = zoneName(gmap);
 				} else world();
-				line(`  tip ${who || 'A quest giver'} trades ${plans} (${P} ${r.learnedAt}) for ${D.list(q.items.map((g) => `${g.count} ${matName(g.item)}`))} in ${q.title}, which needs ${P} ${q.skill} and character level ${q.level}${preText.length ? `; take ${D.list(preText)}` : ''}.${m.bop ? ' The plans bind when picked up.' : ''}`);
-				if (q.level > gate) {
-					line(`  level ${q.level}`);
-					gate = q.level;
+				const later = along.length ? ` Take ${along.length > 1 ? 'the later plans' : `the ${plansOf(along[0])}`} now too: they wait in your bags until ${D.list(along.map((x) => `${x.learnedAt} for ${x.name}`))}, and it saves a trip back.` : '';
+				line(`  tip ${who || 'A quest giver'} trades ${D.list(all.map(trade))}, which ${all.length > 1 ? 'need' : 'needs'} ${P} ${skills.join(' or ')} and character level ${r.quest.level}${preText.length ? `; take ${D.list(preText)}` : ''}.${all.some((x) => (mats[x.recipeItem] || {}).bop) ? ' The plans bind when picked up.' : ''}${later}`);
+				if (r.quest.level > gate) {
+					line(`  level ${r.quest.level}`);
+					gate = r.quest.level;
 				}
 				for (const id of pre) {
 					line(`  accept ${id}`);
 					line(`  turnin ${id}`);
 					questsTaken.add(id);
 				}
-				line(`  accept ${q.id}`);
-				line(`  turnin ${q.id}`);
-				questsTaken.add(q.id);
+				for (const x of all) {
+					line(`  accept ${x.quest.id}`);
+					line(`  turnin ${x.quest.id}`);
+					questsTaken.add(x.quest.id);
+				}
 			}
 			line('');
 			line(`step ${r.name} to ${seg.to}`);
