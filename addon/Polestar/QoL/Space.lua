@@ -5,12 +5,11 @@
 --   * the bag button (QoL/Buttons.lua, bindable) comes up, showing the free
 --     slots and the cheapest junk in all the bags, the reagent bag too: a
 --     grey item, or one marked as junk (QoL/Marks.lua) of common quality or
---     below; never one marked to keep, one a later step needs, or a quest's
---     item or one that begins a quest (Client.SlotQuest). Its worth
---     is what a merchant pays for the stack (Client.SlotSellPrice: less for a
---     damaged item, #3997; an item without a price is worth
---     nothing; one whose price the client
---     has not loaded yet goes last).
+--     below, with grey items first. It skips quest items, quest starters,
+--     and items marked to keep or needed by the guide. Within each quality,
+--     the cheapest stack at a vendor comes first. Damaged items can sell
+--     for less (#3997), items with no sell value are worth nothing, and
+--     items with unknown prices go last within their quality.
 --   * while the live step has an open collect goal, the guide window's
 --     banner says so and offers the same delete (Space.Banner).
 --   * a spare bag comes first (qol.spareBag, off by default; #2369): when a
@@ -47,7 +46,8 @@ local ARM = 5 -- seconds the first press keeps an item armed
 local free, total = 0, 0
 local junk         -- { bag, slot, id, count, value, link }: the cheapest junk, or nil
 local spare        -- { bag, slot, id, link, into }: a bag to equip, or nil
-local armed        -- { bag, slot, id, at }
+local armed
+local pendingPrices = {}
 local dismissed = false
 local sig
 
@@ -74,8 +74,8 @@ local function candidate(info, bag, slot)
 end
 
 -- The cheapest junk in the bags: { bag, slot, id, count, value, link } or nil.
-function Space.Cheapest()
-	local best, bestValue
+function Space.Cheapest(pending)
+	local best, bestQuality
 	for bag = 0, Client.NumBags() do
 		for slot = 1, Client.NumSlots(bag) do
 			local info = Client.SlotInfo(bag, slot)
@@ -85,12 +85,14 @@ function Space.Cheapest()
 				if info.hasNoValue then
 					value = 0
 				else
-					local price = Client.SlotSellPrice(bag, slot, info.itemID, count)
+					local price = Client.SlotSellPrice(bag, slot, info.hyperlink or info.itemID, count)
+					if price == nil and pending then pending[info.itemID] = true end
 					value = price and price * count or huge
 				end
-				if not best or value < bestValue then
+				local quality = info.quality
+				if not best or quality < bestQuality or (quality == bestQuality and value < best.value) then
 					best = { bag = bag, slot = slot, id = info.itemID, count = count, value = value, link = info.hyperlink }
-					bestValue = value
+					bestQuality = quality
 				end
 			end
 		end
@@ -141,11 +143,12 @@ function Space.Spare() return spare end
 -- The armed item is the cheapest junk still.
 function Space.Armed()
 	return armed ~= nil and junk ~= nil and armed.bag == junk.bag and armed.slot == junk.slot and armed.id == junk.id
+		and armed.count == junk.count and armed.value == junk.value
 end
 
 local function signature()
 	local j, b = junk, spare
-	return free .. ":" .. total .. ":" .. (j and (j.bag .. "/" .. j.slot .. "/" .. j.id .. "/" .. j.count) or "-")
+	return free .. ":" .. total .. ":" .. (j and (j.bag .. "/" .. j.slot .. "/" .. j.id .. "/" .. j.count .. "/" .. j.value) or "-")
 		.. ":" .. (b and (b.bag .. "/" .. b.slot .. "/" .. b.id .. ">" .. b.into) or "-")
 		.. ":" .. (Space.Armed() and "armed" or "") .. ":" .. (Space.Low() and "low" or "") .. ":" .. (dismissed and "d" or "")
 end
@@ -154,7 +157,8 @@ end
 function Space.Refresh()
 	free, total = Space.Count()
 	spare = Space.Low() and QoL.On("spareBag") and Space.SpareBag() or nil
-	junk = Space.Low() and Space.Cheapest() or nil
+	pendingPrices = {}
+	junk = Space.Low() and Space.Cheapest(pendingPrices) or nil
 	if not Space.Low() then dismissed = false end
 	local s = signature()
 	if s ~= sig then
@@ -170,6 +174,10 @@ local function itemText(j)
 	return name
 end
 Space.ItemText = itemText
+
+function Space.ValueText(j, withIcons)
+	return j.value < huge and QoL.Money(j.value, withIcons) or "?"
+end
 
 -- The one press: equip a spare bag when there is one; else arm the cheapest
 -- junk, or delete it when it is armed already. -> "equipped", "armed",
@@ -207,7 +215,7 @@ function Space.Press()
 		Space.Refresh()
 		return result
 	end
-	local this = { bag = j.bag, slot = j.slot, id = j.id, at = now }
+	local this = { bag = j.bag, slot = j.slot, id = j.id, count = j.count, value = j.value, at = now }
 	armed = this
 	if C_Timer and C_Timer.After then
 		ns.After(ARM, function()
@@ -246,6 +254,11 @@ end
 
 ns.OnLogin(Space.Refresh)
 ns.RegisterEvent("BAG_UPDATE_DELAYED", refreshSoon)
+ns.RegisterEvent("GET_ITEM_INFO_RECEIVED", function(_, id, success)
+	if success == false or not pendingPrices[id] then return end
+	pendingPrices[id] = nil
+	refreshSoon()
+end)
 ns.On("ITEM_MARKS", refreshSoon)
 ns.On("SETTING_CHANGED", function(path)
 	if path == "" or path == "qol" or path == "qol.bagSpace" or path == "qol.bagsLow" or path == "qol.spareBag" then refreshSoon() end
@@ -260,7 +273,7 @@ if ns.RegisterCommand then
 		if b then ns.Print(format(L["Spare bag: %s"], b.link or (L["Item"] .. " " .. b.id))) end
 		local j = Space.Cheapest()
 		if j then
-			ns.Print(format(L["Cheapest junk: %s (%s)"], itemText(j), j.value < huge and QoL.Money(j.value) or "?"))
+			ns.Print(format(L["Cheapest junk: %s (%s)"], itemText(j), Space.ValueText(j)))
 		end
 	end, L["Free bag slots and the cheapest junk"], true)
 end

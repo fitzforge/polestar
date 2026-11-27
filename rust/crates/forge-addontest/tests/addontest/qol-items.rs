@@ -81,6 +81,54 @@ fn bag_space_counts_free_slots_of_ordinary_bags_only_and_the_bag_button_comes_up
 }
 
 #[test]
+fn bag_space_prefers_grey_junk_and_compares_the_value_of_each_whole_stack() {
+	let out = run(&[
+		BAGS,
+		r#"
+		local S, M = QoL.Space, QoL.Marks
+		q.items[2].price = 10
+		q.items[3].price = 1
+		M.Set(3, "junk")
+		fill(0)
+		bagsChanged()
+		emit({ id = S.Junk().id, value = S.Junk().value })
+
+		M.Set(1, "keep")
+		M.Set(2, "keep")
+		stub.advance(0.1)
+		emit({ id = S.Junk().id, value = S.Junk().value })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "id": 2, "value": 10 }), "the grey shell (10c) is chosen ahead of two grey fangs (14c) and marked linen (1c)");
+	assert_eq!(out[1], json!({ "id": 3, "value": 1 }), "marked common junk remains eligible when no grey junk can be deleted");
+}
+
+#[test]
+fn bag_button_tooltip_refreshes_with_coin_icons_when_the_stack_price_loads() {
+	let out = run(&[
+		BAGS,
+		r#"
+		local b = QoL.Buttons.bag
+		q.items[1].price, q.items[1].uncached = 5117, true
+		fill(0)
+		QoL.Marks.Set(2, "keep")
+		bagsChanged()
+		stub.RunScript(b, "OnEnter")
+		emit(GameTooltip.lines[4])
+
+		q.items[1].uncached = false
+		stub.fire("GET_ITEM_INFO_RECEIVED", 1, true)
+		stub.advance(0.1)
+		emit(GameTooltip.lines[4])
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], "Vendor price | ?", "the vendor price is unknown while item info loads");
+	assert_eq!(out[1], r"Vendor price | 1 |TInterface\MoneyFrame\UI-GoldIcon:12:12|t 2 |TInterface\MoneyFrame\UI-SilverIcon:12:12|t 34 |TInterface\MoneyFrame\UI-CopperIcon:12:12|t", "the open tooltip shows the value of both fangs after the event");
+}
+
+#[test]
 fn bag_button_deletes_only_on_a_second_press_within_five_seconds_and_only_the_item_it_armed() {
 	let out = run(&[
 		BAGS,
@@ -772,10 +820,10 @@ uistub.openTabs({ { uistub.elwynn, 3 } }, 1)
 local log = {}
 local bags, offer
 Polestar.QoL = {
-	Money = function(c) return c .. "c" end,
 	Space = {
 		Banner = function() return bags end,
 		ItemText = function(j) return j.link .. " x" .. j.count end,
+		ValueText = function(j, icons) return j.value .. (icons and [[ |TInterface\MoneyFrame\UI-CopperIcon:12:12|t]] or "c") end,
 		Press = function() log[#log + 1] = "press"; if bags then bags.armed = true end end,
 		Dismiss = function() log[#log + 1] = "dismiss"; bags = nil end,
 	},
@@ -800,6 +848,9 @@ fn banner_bags_full_offers_the_two_click_delete_and_close_dismisses_it() {
 		bags = { free = 0, junk = { id = 2, count = 2, value = 14, link = "[Broken Fang]" }, armed = false }
 		Polestar.Fire("BAG_SPACE")
 		emit({ shown = B:IsShown(), text = B.Text:GetText(), jump = B.Jump.Label:GetText(), close = B.Close:IsShown() })
+		stub.RunScript(B.Jump, "OnEnter")
+		emit(GameTooltip.lines[2])
+		stub.RunScript(B.Jump, "OnLeave")
 		B.Jump:Click()
 		emit(B.Jump.Label:GetText())
 		B.Close:Click()
@@ -807,8 +858,9 @@ fn banner_bags_full_offers_the_two_click_delete_and_close_dismisses_it() {
 	"#,
 	);
 	assert_eq!(out[0], json!({ "shown": true, "text": "Your bags are full.  ·  Cheapest junk: [Broken Fang] x2 (14c)", "jump": "Delete it", "close": true }));
-	assert_eq!(out[1], "Click again to delete it");
-	assert_eq!(out[2], json!({ "shown": false, "log": ["press", "dismiss"] }));
+	assert_eq!(out[1], r"Vendor price | 14 |TInterface\MoneyFrame\UI-CopperIcon:12:12|t");
+	assert_eq!(out[2], "Click again to delete it");
+	assert_eq!(out[3], json!({ "shown": false, "log": ["press", "dismiss"] }));
 }
 
 // #4314 (Shuurajou, Atlas): with the action on the right (guideWindow.bannerLinks "right", Atlas's), the armed

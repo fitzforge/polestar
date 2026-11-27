@@ -3317,6 +3317,24 @@ end
 -- Bag button (QoL/Space.lua)
 ---------------------------------------------------------------------------
 
+local function bagTooltip(b, tip)
+	local Space = QoL.Space
+	local j = b.junk
+	local f, t = Space.Free()
+	tip:SetText(L["Bag space"])
+	tip:AddLine(string.format(L["Free slots: %d of %d"], f, t), 1, 1, 1)
+	local s = b.spare
+	if s then
+		tip:AddLine(string.format(L["Spare bag: %s"], s.link or (L["Item"] .. " " .. s.id)), 1, 1, 1)
+		tip:AddLine(L["Press to equip it."], 0.6, 0.6, 0.6)
+	elseif j then
+		tip:AddLine(Space.ItemText(j), 1, 1, 1)
+		tip:AddDoubleLine(L["Vendor price"], Space.ValueText(j, true), 1, 1, 1, 1, 1, 1)
+		tip:AddLine(L["Press twice to delete it."], 0.6, 0.6, 0.6)
+	end
+	tip:AddLine(ns.Get("ui.lockHud") and L["Shift-drag to move."] or L["Drag to move."], 0.6, 0.6, 0.6)
+end
+
 local function applyBag(b)
 	local Space = QoL.Space
 	local low = ns.GuideShown() and Space and Space.Low()
@@ -3338,23 +3356,15 @@ local function applyBag(b)
 	QoL.Secure("bag", function()
 		if b.spare or b.junk then b:Show() else b:Hide() end
 	end)
-end
-
-local function bagTooltip(b, tip)
-	local Space = QoL.Space
-	local j = b.junk
-	local f, t = Space.Free()
-	tip:SetText(L["Bag space"])
-	tip:AddLine(string.format(L["Free slots: %d of %d"], f, t), 1, 1, 1)
-	local s = b.spare
-	if s then
-		tip:AddLine(string.format(L["Spare bag: %s"], s.link or (L["Item"] .. " " .. s.id)), 1, 1, 1)
-		tip:AddLine(L["Press to equip it."], 0.6, 0.6, 0.6)
-	elseif j then
-		tip:AddLine(string.format(L["Cheapest junk: %s (%s)"], Space.ItemText(j), j.value < math.huge and QoL.Money(j.value) or "?"), 1, 1, 1)
-		tip:AddLine(L["Press twice to delete it."], 0.6, 0.6, 0.6)
+	if GameTooltip and GameTooltip:GetOwner() == b then
+		if s or j then
+			GameTooltip:ClearLines()
+			bagTooltip(b, GameTooltip)
+			GameTooltip:Show()
+		else
+			GameTooltip:Hide()
+		end
 	end
-	tip:AddLine(ns.Get("ui.lockHud") and L["Shift-drag to move."] or L["Drag to move."], 0.6, 0.6, 0.6)
 end
 
 ---------------------------------------------------------------------------
