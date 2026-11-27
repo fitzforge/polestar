@@ -107,6 +107,23 @@ fn make_room_and_the_finished_list_keep_to_a_1366x768_screen_at_ui_scale_1() {
 }
 
 #[test]
+fn the_switch_is_a_framed_secondary_button_in_both_lists() {
+	let out = run(
+		768,
+		r#"measure()
+local function framed() return F.Switch.psTextButton == true and not F.Switch.psGhost and not F.Switch.psPrimary end
+local room = { F.Switch.Label:GetText(), framed() }
+F.Switch:Click()
+local carried = { F.Switch.Label:GetText(), framed() }
+F.Switch:Click()
+emit({ room = room, carried = carried, back = F.Title:GetText() })"#,
+	);
+	assert_eq!(out["room"], json!(["Finished quests you're still carrying (6)", true]), "{out}");
+	assert_eq!(out["carried"], json!(["Make room in your quest log", true]), "{out}");
+	assert_eq!(out["back"], "Make room in your quest log", "{out}");
+}
+
+#[test]
 fn a_title_or_second_line_cut_short_reads_whole_in_its_tooltip() {
 	let out = run(
 		1080,

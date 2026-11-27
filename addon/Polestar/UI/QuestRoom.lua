@@ -115,7 +115,7 @@ local function build()
 	-- Between the two lists: the finished quests while Make room is shown, and back.
 	F.Switch = W.Button(F, "", function()
 		UI.ShowQuestRoom(F.psMode ~= "carried" and F.psMode ~= "elsewhere" and "carried" or nil)
-	end, { ghost = true, height = 28 })
+	end, { height = BUTTON_H })
 	F.Switch:Hide()
 
 	F.rows = {}
@@ -344,7 +344,7 @@ function UI.LayoutQuestRoom()
 	if switch then
 		W.SetButtonText(F.Switch, carried and L["Make room in your quest log"] or L["Finished quests you're still carrying (%d)"]:format(#finished))
 		F.Switch:ClearAllPoints()
-		F.Switch:SetPoint("TOPLEFT", F, "TOPLEFT", PAD - 8, -under)
+		F.Switch:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -under)
 	end
 	F.Switch:SetShown(switch)
 	F:SetHeight(under + foot + PAD - 6)
