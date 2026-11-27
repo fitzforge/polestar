@@ -41,6 +41,21 @@
 	<Binding name="POLESTAR_MARK_KEEP" category="Polestar">
 		Polestar.Bindings.MarkKeep()
 	</Binding>
+	<Binding name="POLESTAR_GF_SEARCH" category="Polestar">
+		Polestar.GroupFinder.Search()
+	</Binding>
+	<Binding name="POLESTAR_GF_PANEL" category="Polestar">
+		Polestar.GroupFinder.Toggle()
+	</Binding>
+	<Binding name="POLESTAR_GF_ANNOUNCE" category="Polestar">
+		Polestar.GroupFinder.Announce()
+	</Binding>
+	<Binding name="POLESTAR_GF_HELLO" category="Polestar">
+		Polestar.GroupFinder.Hello()
+	</Binding>
+	<Binding name="POLESTAR_GF_GOODBYE" category="Polestar">
+		Polestar.GroupFinder.Goodbye()
+	</Binding>
 	<Binding name="CLICK PolestarQuestItemButton:LeftButton" category="Polestar"/>
 	<Binding name="CLICK PolestarTargetButton:LeftButton" category="Polestar"/>
 	<Binding name="CLICK PolestarRareButton:LeftButton" category="Polestar"/>

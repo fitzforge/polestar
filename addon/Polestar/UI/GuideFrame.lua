@@ -862,6 +862,17 @@ GF.Part(function(GF)
 			GF.HoverIn()
 		end
 		r.Alt:Hide()
+		-- The group finder's "players on this quest" (Quests/GroupFinder.lua, RowWanted): while it is loaded
+		-- and on, on an open kill, collect or complete goal of a quest; it opens its panel and searches.
+		r.Finder = W.IconButton(r, "icon-group", 20, nil, function()
+			local G, goal = ns.GroupFinder, r.psGoal
+			if G and goal and goal.quest then G.FindFor(goal.quest) end
+		end, 11)
+		r.Finder.psOnEnter = function(b)
+			W.Tooltip(b, "ANCHOR_TOP", L["Find players on this quest"], { L["Opens the group finder and searches for players on this quest."] })
+			GF.HoverIn()
+		end
+		r.Finder:Hide()
 		r:SetScript("OnClick", rowClick)
 		r:SetScript("OnEnter", rowEnter)
 		r:SetScript("OnLeave", rowLeave)
@@ -945,6 +956,7 @@ GF.Part(function(GF)
 		local alts = type(goal.alternatives) == "number" and goal.alternatives > 0 and Engine() and Engine().CycleCandidate
 		local spots = type(goal.spots) == "number" and goal.spots > 1 and Engine() and Engine().CycleSpot
 		r.Alt:SetShown((alts or spots) and not done and not skipped and true or false)
+		r.Finder:SetShown(ns.GroupFinder ~= nil and ns.GroupFinder.RowWanted(goal) or false)
 		local frac, label = UI.GoalBar(goal)
 		if frac and not skipped then
 			local b = rowBar(r)
@@ -1018,7 +1030,7 @@ GF.Part(function(GF)
 
 	-- Measure a row at a width; returns its height.
 	local function measureRow(r, width)
-		-- Right edge, outside in: the tick, an optional goal's Skip, "Other".
+		-- Right edge, outside in: the tick, an optional goal's Skip, "Other", the group finder's button.
 		local right = PAD
 		if r.Check:IsShown() then right = right + CHECK + 4 + CHECK_IN end
 		if r.Skip:IsShown() then
@@ -1034,6 +1046,11 @@ GF.Part(function(GF)
 		if r.Alt:IsShown() then
 			r.Alt:ClearAllPoints()
 			r.Alt:SetPoint("TOPRIGHT", r, "TOPRIGHT", -(right - 4), -2 - ROW_PAD)
+			right = right + 20
+		end
+		if r.Finder:IsShown() then
+			r.Finder:ClearAllPoints()
+			r.Finder:SetPoint("TOPRIGHT", r, "TOPRIGHT", -(right - 4), -2 - ROW_PAD)
 			right = right + 20
 		end
 		-- A skin that puts its own column at the edge (Atlas's count) asks

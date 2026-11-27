@@ -120,13 +120,14 @@ end
 -- there (Polestar_FreeMode, the quest-log modes, and Polestar_Options load on demand but are part
 -- of every release); our skins and layouts (Polestar_Skins: a player on none
 -- of them never loads it), the walking routes (Polestar_Nav), Freedoom Arcade
--- (Polestar_Arcade: without it there is no game to offer), quest and item
+-- (Polestar_Arcade: without it there is no game to offer), the group finder
+-- (Polestar_GroupFinder: without it the finder can't be turned on), quest and item
 -- packs and the language folder of the client's language (Names.PackName(),
 -- none in English) are optional (the arrow falls back to straight lines, the
 -- interface, names and guide texts to English; a
 -- source install may not build the packs), but when present they must be the
 -- same version.
-local COMPANIONS = { "Polestar_Guides", "Polestar_Codex", "Polestar_FreeMode", "Polestar_Options", "Polestar_Skins", "Polestar_Nav", "Polestar_Arcade", "Polestar_QuestDB", "Polestar_ItemDB" }
+local COMPANIONS = { "Polestar_Guides", "Polestar_Codex", "Polestar_FreeMode", "Polestar_Options", "Polestar_Skins", "Polestar_Nav", "Polestar_Arcade", "Polestar_GroupFinder", "Polestar_QuestDB", "Polestar_ItemDB" }
 local REQUIRED = { Polestar_Guides = true, Polestar_Codex = true, Polestar_FreeMode = true, Polestar_Options = true }
 
 -- The folders 0.4.3 folded into others (#3507): the game's looks, the Skin

@@ -1384,6 +1384,13 @@ local function markRow(row)
 	-- card) that puts this one setting back (W.ResetSetting: the window's
 	-- Undo hears it). The gamepad's reset on the row (Y) does the same, so
 	-- the button is no stop of its own. Newness is the section's New pill.
+	-- A row that says nothing of its default (psNoReset: a module's quick settings): its label in text, no
+	-- reset, no dot.
+	if row.psNoReset then
+		W.Color(row.Label, row.psOff and "textMuted" or "text")
+		row.ModDot:Hide()
+		return
+	end
 	local mod = W.Modified(row.psPath)
 	row.psModified = mod
 	W.Color(row.Label, row.psOff and "textMuted" or mod and "text" or "textDim")
@@ -5323,7 +5330,10 @@ end })
 -- binding: a key binding row (UI/GamepadGuide.lua): { kind = "binding", action = "POLESTAR_NEXT", label, help }.
 -- cards: picture cards, choices = { { value, label, draw = function(card, value) end } }.
 -- font: a font face list, each name drawn in its face (choices as a dropdown's, each with `font` = the file path).
-local CONTROL_KINDS = { toggle = true, slider = true, dropdown = true, color = true, button = true, binding = true, cards = true, font = true }
+-- text: a line the player types, on a whole row ({ kind = "text", key, label, help, tip = fn(text) -> lines? }:
+-- saved on Enter or when the box loses focus; tip adds lines under the help in the box's tooltip, read again as
+-- the player types, the group finder's messages' preview).
+local CONTROL_KINDS = { toggle = true, slider = true, dropdown = true, color = true, button = true, binding = true, cards = true, font = true, text = true }
 
 -- spec = { page, key, icon, order, tab, section, toggle, controls = { { kind, key, label, help, search, ... } } }
 -- page is the title as shown, key (optional) the page's stable key; a
@@ -5339,8 +5349,8 @@ local function checkControl(page, i, c, what)
 	if type(c) ~= "table" or not CONTROL_KINDS[c.kind] then
 		return ("RegisterOptions(%s): %s %d has unknown kind %s"):format(page, what, i, tostring(c and c.kind))
 	end
-	-- A toggle, slider, dropdown or cards may hold state that is no setting: get/set and no key.
-	local state = (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and c.key == nil and type(c.get) == "function" and type(c.set) == "function"
+	-- A toggle, slider, dropdown, cards or text may hold state that is no setting: get/set and no key.
+	local state = (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards" or c.kind == "text") and c.key == nil and type(c.get) == "function" and type(c.set) == "function"
 	if c.kind ~= "button" and c.kind ~= "binding" and not state and type(c.key) ~= "string" then
 		return ("RegisterOptions(%s): %s %d needs a settings key"):format(page, what, i)
 	end

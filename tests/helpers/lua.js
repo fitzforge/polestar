@@ -34,8 +34,8 @@ const ADDONS = process.env.POLESTAR_ADDON_DIR ? path.resolve(process.env.POLESTA
 const STUBS = path.join(ROOT, 'tests', 'lua');
 // Polestar's load-on-demand addons runAddon loads when the addon asks (C_AddOns.LoadAddOn): the quest-log
 // modes (Polestar_FreeMode: Free mode, the hand-in planner), settings window (Polestar_Options), our skins and layouts (Polestar_Skins) and Freedoom Arcade (Polestar_Arcade: the
-// first Play).
-const LOAD_ON_DEMAND = ['Polestar_FreeMode', 'Polestar_Options', 'Polestar_Skins', 'Polestar_Arcade'];
+// first Play) and the group finder (Polestar_GroupFinder: on at login, or turned on).
+const LOAD_ON_DEMAND = ['Polestar_FreeMode', 'Polestar_Options', 'Polestar_Skins', 'Polestar_Arcade', 'Polestar_GroupFinder'];
 
 function norm(p) {
 	return p.replace(/\\/g, '/');

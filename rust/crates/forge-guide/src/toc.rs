@@ -180,6 +180,22 @@ static TEXT: &[(&str, [&str; 9], [&str; 9])] = &[
 			"Polestar 的一部分：自由模式（把你自己的任務當作指南）和繳交已完成任務的指南。開啟其中之一時載入。",
 		],
 	),
+	// The group finder: players on the same quests, loaded while it is on.
+	(
+		"Polestar_GroupFinder",
+		["Polestar-Gruppensuche", "Polestar: buscador de grupo", "Polestar: buscador de grupo", "Polestar : recherche de groupe", "Polestar 파티 찾기", "Polestar: localizador de grupo", "Polestar: поиск группы", "Polestar 队伍查找", "Polestar 隊伍搜尋"],
+		[
+			"Teil von Polestar: findet Spieler, die es nutzen und an deinen Quests sind, um mit ihnen eine Gruppe zu bilden. Wird geladen, solange es eingeschaltet ist.",
+			"Parte de Polestar: encuentra a los jugadores que lo usan y hacen tus misiones, para agruparte con ellos. Se carga mientras está activado.",
+			"Parte de Polestar: encuentra a los jugadores que lo usan y hacen tus misiones, para agruparte con ellos. Se carga mientras está activado.",
+			"Fait partie de Polestar : trouve les joueurs qui l'utilisent et font vos quêtes, pour grouper avec eux. Chargé tant qu'il est activé.",
+			"Polestar의 일부: 같은 퀘스트를 하는 Polestar 사용자를 찾아 함께 파티를 맺습니다. 켜져 있는 동안 불러옵니다.",
+			"Parte do Polestar: encontra os jogadores que o usam e fazem suas missões, para formar grupo com eles. Carregado enquanto estiver ativado.",
+			"Часть Polestar: находит игроков с Polestar на ваших заданиях, чтобы собраться с ними в группу. Загружается, пока включён.",
+			"Polestar 的组成部分：寻找正在做你的任务、同样使用它的玩家，与他们组队。开启时加载。",
+			"Polestar 的一部分：尋找正在做你的任務、同樣使用它的玩家，與他們組隊。開啟時載入。",
+		],
+	),
 	// Polestar's ten skins and the Atlas layout (one folder since 0.4.3, #3507): loaded with the first one used or
 	// listed.
 	(

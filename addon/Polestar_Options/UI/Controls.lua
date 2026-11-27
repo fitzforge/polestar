@@ -876,6 +876,90 @@ local function actionRowRefresh(self)
 	if on then self.Button:Enable() else self.Button:Disable() end
 end
 
+-- A line of text the player types, the box from the label to the row's end
+-- (a text control is always a whole row). Enter or leaving the box saves it
+-- (opts.set(text), else the setting at `path`); Escape puts the saved text
+-- back; right-click on the row, its default. opts.get reads the text
+-- (else the setting). opts.tip(text) -> lines: more lines for the box's
+-- tooltip under the help, read again as the player types.
+local TEXT_LABEL_W = 150
+
+local function textValue(row)
+	if row.psGet then return tostring(row.psGet() or "") end
+	return tostring(ns.Get(row.psPath) or "")
+end
+
+local function textSave(row)
+	local e = row.Box
+	if not W.Enabled(row) then return row:Refresh() end
+	local text = e:GetText() or ""
+	if text == textValue(row) then return end
+	if row.psSet then row.psSet(text) else ns.Set(row.psPath, text) end
+	row:Refresh()
+end
+
+local function textTip(e)
+	local row = e.psRow
+	local lines = {}
+	if row.psDesc then lines[1] = row.psDesc end
+	if row.psTipMore then
+		local ok, more = pcall(row.psTipMore, e:GetText() or "")
+		if ok and type(more) == "table" then for _, l in ipairs(more) do lines[#lines + 1] = l end end
+	end
+	W.Tooltip(e, "ANCHOR_TOP", row.psLabel, lines)
+end
+
+local function textRefresh(self)
+	local e = self.Box
+	if not e:HasFocus() then e:SetText(textValue(self)) end
+	local on = W.Enabled(self)
+	e:EnableMouse(on)
+	e:SetAlpha(on and 1 or 0.5)
+	if not on and e:HasFocus() then e:ClearFocus() end
+	dimRow(self, on)
+end
+
+function W.TextRow(parent, label, path, desc, opts)
+	opts = opts or {}
+	local row = settingRow(parent, label, desc)
+	row.psGet, row.psSet, row.psTipMore = opts.get, opts.set, opts.tip
+	local e = CreateFrame("EditBox", nil, row)
+	e:SetAutoFocus(false)
+	e:SetHeight(26)
+	e:SetMaxLetters(255)
+	e:SetTextInsets(8, 8, 0, 0)
+	e:SetPoint("LEFT", row, "LEFT", 12 + TEXT_LABEL_W, 0)
+	e:SetPoint("RIGHT", row, "RIGHT", -12, 0)
+	Theme.Font(e, "label")
+	W.Color(e, "text")
+	Theme.Skin(e, "editbox")
+	e.psRow = row
+	row.Box = e
+	fitLabel(row, e, function() return 12 + (row:GetWidth() - 12 - TEXT_LABEL_W - 12) + 10 end)
+	e:SetScript("OnEditFocusGained", function(self) Theme.SetFocused(self, true) end)
+	e:SetScript("OnEditFocusLost", function(self) Theme.SetFocused(self, false); textSave(row) end)
+	e:SetScript("OnEscapePressed", function(self)
+		self:SetText(textValue(row))
+		self:ClearFocus()
+	end)
+	e:SetScript("OnEnterPressed", function(self) self:ClearFocus() end)
+	e:SetScript("OnTextChanged", function(self, typing)
+		if typing and GameTooltip:IsOwned(self) then textTip(self) end
+	end)
+	e:SetScript("OnEnter", textTip)
+	e:SetScript("OnLeave", hideTip)
+	row:RegisterForClicks("RightButtonUp")
+	row:SetScript("OnClick", function(self, button)
+		if button ~= "RightButton" or not W.Enabled(self) then return end
+		if self.psSet then self.psSet(nil) else W.ResetSetting(self.psPath) end
+		self:Refresh()
+	end)
+	row:SetScript("OnEnter", rowEnter)
+	row:SetScript("OnLeave", hideTip)
+	row.Refresh = textRefresh
+	return W.Bind(row, path)
+end
+
 function W.ActionRow(parent, label, desc, text, onClick, opts)
 	opts = opts or {}
 	local row = settingRow(parent, label, desc)

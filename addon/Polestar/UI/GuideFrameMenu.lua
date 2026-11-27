@@ -102,6 +102,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		else
 			add({ text = L["Quest log is clean"], icon = "cross", disabled = true })
 		end
+		-- The group finder (Quests/GroupFinder.lua): its panel.
+		for _, it in ipairs(ns.GroupFinder and ns.GroupFinder.MenuItems() or {}) do add(it) end
 		-- The quest items to buy at the auction house (UI/AuctionBuys.lua), while there are any.
 		local ah = UI.AuctionBuys and UI.AuctionBuys.MenuItem()
 		if ah then add(ah) end

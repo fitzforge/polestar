@@ -95,6 +95,7 @@ const GROUPS: &[Group] = &[
 	Group { name: "pins_world", src: include_str!("effects/pins-world.lua") },
 	Group { name: "pins_spawns", src: include_str!("effects/pins-spawns.lua") },
 	Group { name: "pause", src: include_str!("effects/pause.lua") },
+	Group { name: "groupfinder", src: include_str!("effects/groupfinder.lua") },
 ];
 
 // A guide whose first step is Marshal McBride's Kobold Camp Cleanup and every later step a dungeon's (`when dungeon`,
@@ -207,6 +208,8 @@ local function other(c, cur)
 		if type(cur) == "table" and cur[1] == 1 and (cur[2] or 0) == 0 then return { 0, 1, 0, 1 } end
 		return { 1, 0, 0, 1 }
 	end
+	-- A line typed (the group finder's messages): another line than the one it holds.
+	if c.kind == "text" then return cur == "A line" and "B line" or "A line" end
 end
 local function write(c, v)
 	if c.set then c.set(v) elseif c.key then Polestar.Set(c.key, v) end
@@ -806,6 +809,11 @@ fn pins_spawns() {
 #[test]
 fn pause() {
 	check("pause");
+}
+
+#[test]
+fn groupfinder() {
+	check("groupfinder");
 }
 
 // Every control of the settings window has an effect check, and every check is a registered control's. A later

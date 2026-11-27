@@ -1,0 +1,51 @@
+## Interface: 16001
+## Title: Polestar Group Finder
+## Notes: Part of Polestar: finds the players on your quests who run it, to group with them. Loaded while it is on.
+## Title-deDE: Polestar-Gruppensuche
+## Notes-deDE: Teil von Polestar: findet Spieler, die es nutzen und an deinen Quests sind, um mit ihnen eine Gruppe zu bilden. Wird geladen, solange es eingeschaltet ist.
+## Title-esES: Polestar: buscador de grupo
+## Notes-esES: Parte de Polestar: encuentra a los jugadores que lo usan y hacen tus misiones, para agruparte con ellos. Se carga mientras está activado.
+## Title-esMX: Polestar: buscador de grupo
+## Notes-esMX: Parte de Polestar: encuentra a los jugadores que lo usan y hacen tus misiones, para agruparte con ellos. Se carga mientras está activado.
+## Title-frFR: Polestar : recherche de groupe
+## Notes-frFR: Fait partie de Polestar : trouve les joueurs qui l'utilisent et font vos quêtes, pour grouper avec eux. Chargé tant qu'il est activé.
+## Title-koKR: Polestar 파티 찾기
+## Notes-koKR: Polestar의 일부: 같은 퀘스트를 하는 Polestar 사용자를 찾아 함께 파티를 맺습니다. 켜져 있는 동안 불러옵니다.
+## Title-ptBR: Polestar: localizador de grupo
+## Notes-ptBR: Parte do Polestar: encontra os jogadores que o usam e fazem suas missões, para formar grupo com eles. Carregado enquanto estiver ativado.
+## Title-ruRU: Polestar: поиск группы
+## Notes-ruRU: Часть Polestar: находит игроков с Polestar на ваших заданиях, чтобы собраться с ними в группу. Загружается, пока включён.
+## Title-zhCN: Polestar 队伍查找
+## Notes-zhCN: Polestar 的组成部分：寻找正在做你的任务、同样使用它的玩家，与他们组队。开启时加载。
+## Title-zhTW: Polestar 隊伍搜尋
+## Notes-zhTW: Polestar 的一部分：尋找正在做你的任務、同樣使用它的玩家，與他們組隊。開啟時載入。
+## Author: Polestar
+## Version: 0.4.3.1
+## Category: Polestar
+## Group: Polestar
+## LoadOnDemand: 1
+## Dependencies: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+
+Core.lua
+Lang.lua
+Throttle.lua
+Quests.lua
+Session.lua
+Protocol.lua
+Channels.lua
+ChatFilter.lua
+Comm.lua
+Matcher.lua
+Group.lua
+Messages.lua
+Leave.lua
+Announce.lua
+Step.lua
+UI\Widgets.lua
+UI\Panel.lua
+UI\PartyBox.lua
+Dock.lua
+Nearby.lua
+Door.lua

@@ -73,6 +73,9 @@ G.TREE = {
 		pages = { "guide", "questing", "map", "discovery" } },
 	{ key = "qol", label = L["Quality of Life"], iconPage = "qualityoflife",
 		pages = { "qualityoflife" } },
+	-- The group finder (Polestar_Options/Quests/GroupFinder.lua), right under Quality of Life.
+	{ key = "groupfinder", label = L["Group Finder"], iconPage = "groupfinder",
+		pages = { "groupfinder" } },
 	{ key = "look", label = L["Look"], iconPage = "theme",
 		pages = { "guidewindow", "theme", "arrow", "mappins", "routelines", "buttons", "alerts", "trackers" } },
 	{ key = "setup", label = L["Setup"], iconPage = "profiles",

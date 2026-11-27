@@ -157,6 +157,7 @@ const ALLOWED: &[(&str, usize, &str)] = &[
 	("Polestar/UI/OptionsLoader.lua", 2, "closing the game's Settings panel, never with the gamepad interface or in combat"),
 	("Polestar/UI/Gamepad.lua", 3, "a window's override bindings, only with the keyboard and mouse interface; the gamepad interface's focused window only read (a field, never a call)"),
 	("Polestar/QoL/Buttons.lua", 4, "the step key's interact stage binds its keys over, never with the gamepad interface; Buttons.PingLine only reads the client's /ping word (SLASH_PING1, a string) for a macro the player's own click runs"),
+	("Polestar_GroupFinder/Group.lua", 1, "the invitation popup closed once auto-group's invitation is accepted, never with the gamepad interface (its focus owns the dialogs; the player answers it)"),
 	("Polestar_Recorder/Commands.lua", 3, "/psrec, not with the gamepad interface"),
 	("Polestar_Recorder/Panel.lua", 1, "the Recorder window's Escape entry, not with the gamepad interface"),
 ];

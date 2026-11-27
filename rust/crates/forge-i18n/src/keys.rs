@@ -159,8 +159,8 @@ fn lua_files(dir: &Path, skip: &Path, out: &mut Vec<PathBuf>) -> Result<(), Stri
 /// the games to play on a flight, loaded on the first Play (Freedoom Arcade has no strings of Polestar's; the other
 /// games use Polestar's). Polestar_FreeMode holds the quest-log modes, Free mode and the finished-quest guide's
 /// planner, loaded when one of them opens. Polestar_Skins holds the looks and their layouts (Atlas), which show
-/// Polestar's texts through Core.tr.
-pub const PARTS: &[(&str, &[&str])] = &[("Polestar", &["Polestar_Options", "Polestar_Arcade", "Polestar_FreeMode", "Polestar_Skins"])];
+/// Polestar's texts through Core.tr. Polestar_GroupFinder is the group finder, loaded while it is on.
+pub const PARTS: &[(&str, &[&str])] = &[("Polestar", &["Polestar_Options", "Polestar_Arcade", "Polestar_FreeMode", "Polestar_Skins", "Polestar_GroupFinder"])];
 
 /// The keys of the .lua files under `dir` (its `Locales` folder skipped) into `keys`, each use under its
 /// path inside `dir`, in the order the folder loads them (TOC, XML manifests; a folder without a TOC, a
