@@ -995,3 +995,58 @@ fn feralas_the_walk_to_the_woodpaw_alphas_camp_does_not_ride_up_the_ridges_rock_
 		}
 	}
 }
+
+// #4366 (ScottJ), Azshara: Archmage Xylem's tower stands on a plateau players reach by Sanath Lim-yo's teleport (28.11,
+// 50.09 to 26.33, 46.25). The walking maps climbed the plateau's cliffs from Sanath's side (146 to 250 yd up), so the
+// arrow led up them instead of to Sanath; players who try come back down. The faces are cut now: no walk goes up them,
+// while the walk from the teleport's landing to Xylem and the walk back down are kept.
+#[test]
+fn azshara_no_walk_climbs_the_cliffs_to_archmage_xylems_tower_the_teleport_is_the_way_up_4366() {
+	let sanath = Pt { c: 1, x: 3648.0, y: -4702.5, z: Some(121.1) };
+	let landing = Pt { c: 1, x: 3778.0, y: -4612.0, z: Some(227.3) };
+	let xylem = Pt { c: 1, x: 3980.4, y: -4761.3, z: Some(304.8) };
+	assert!(!truthy(&walk(sanath, xylem, Some("Horde"))), "no walk up the cliffs from Sanath Lim-yo to Xylem");
+	joined_both_ways(landing, xylem, Some("Horde"), "the plateau from the teleport's landing");
+	let down = walk(xylem, sanath, Some("Horde"));
+	assert!(truthy(&down), "the walk down from Xylem's tower to Sanath Lim-yo is kept");
+}
+
+// Guide goals with a height the walking maps did not reach (the sweep after #4229, every compiled goal walked at its
+// height). Each is a grid join now, along the way the recorded players walk, both ways.
+
+// Westfall, Sentinel Hill: Scout Riell stands on top of the tower (56.64, 47.26, height 95.8); 99 recorded players
+// walk up to him. The walking maps had no way up the tower's stair.
+#[test]
+fn westfall_the_walk_to_scout_riell_goes_up_sentinel_hills_tower() {
+	let foot = Pt { c: 0, x: -10508.1, y: 1042.3, z: None };
+	let riell = Pt { c: 0, x: -10504.8, y: 1033.3, z: Some(95.8) };
+	joined_both_ways(foot, riell, Some("Alliance"), "Sentinel Hill's tower");
+}
+
+// Elwynn Forest, Northshire Abbey: Brother Neals stands in the bell tower (49.41, 41.38, height 113.2); 106 recorded
+// players walk to him. The walking maps went up to the first floor (northshire-abbey-stair, #3495) and no further.
+#[test]
+fn elwynn_the_walk_to_brother_neals_goes_up_northshire_abbeys_bell_tower() {
+	let front = Pt { c: 0, x: -8913.3, y: -136.4, z: None };
+	let neals = Pt { c: 0, x: -8902.1, y: -181.6, z: Some(113.2) };
+	joined_both_ways(front, neals, Some("Alliance"), "Northshire Abbey's bell tower");
+}
+
+// The Barrens: Nalpak stands in the cave above Wailing Caverns' mouth (45.99, 35.66, height 96.8); 120 recorded players
+// walk down into it from the slope above. The walking maps had no way in.
+#[test]
+fn barrens_the_walk_to_nalpak_goes_down_into_his_cave_above_wailing_caverns() {
+	let slope = Pt { c: 1, x: -801.3, y: -2054.6, z: None };
+	let nalpak = Pt { c: 1, x: -796.8, y: -2037.1, z: Some(96.8) };
+	joined_both_ways(slope, nalpak, Some("Horde"), "Nalpak's cave");
+}
+
+// Felwood, Jaedenar: the cultists, adepts and hounds the guides send players to kill stand inside Shadow Hold (38.2 to
+// 38.7, 61.1 to 61.9); 38 recorded players walk in by the mouth at 39.05, 59.5. Neither map joined the mouth to the
+// hold, so no walk reached them inside and the arrow ended on the hill above.
+#[test]
+fn felwood_the_walk_into_shadow_hold_goes_in_by_its_mouth() {
+	let outside = Pt { c: 1, x: 4867.4, y: -615.8, z: None };
+	let hall = Pt { c: 1, x: 4793.8, y: -558.9, z: Some(299.1) };
+	joined_both_ways(outside, hall, Some("Horde"), "Shadow Hold");
+}
