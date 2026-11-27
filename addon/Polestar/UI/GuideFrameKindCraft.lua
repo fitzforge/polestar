@@ -163,12 +163,24 @@ ns.UI.GuideFrame.Part(function(GF)
 		if GF.UpdateTargets then GF.UpdateTargets() end
 	end
 
-	-- A region's button at a goal row's right edge, on the text's first line; the row's text wraps clear of it.
+	-- A goal row of a region (GF.NewGoalRow). Its first few units take no mouse: side tabs stand over the window's
+	-- left edge (UI/TabStyles), and a step's rows here sit high in the window, beside them.
+	local EDGE = 4
+	local function regionRow(f)
+		local r = GF.NewGoalRow(f)
+		r:SetHitRectInsets(EDGE, 0, 0, 0)
+		return r
+	end
+
+	-- A region's button at a goal row's right edge, in the middle of the row, with room above and below it (a look's
+	-- button may take the mouse a little past its edges); the row's text wraps clear of it.
 	local function rowButton(row, b, width)
 		b:ClearAllPoints()
-		b:SetPoint("TOPRIGHT", row, "TOPRIGHT", -PAD, -3)
-		row.psRightMin = PAD + (b:IsShown() and b:GetWidth() + 8 or 0)
-		return GF.MeasureRow(row, width)
+		b:SetPoint("RIGHT", row, "RIGHT", -PAD, 0)
+		local shown = b:IsShown()
+		row.psRightMin = PAD + (shown and b:GetWidth() + 8 or 0)
+		local h = GF.MeasureRow(row, width)
+		return shown and max(h, floor(b:GetHeight() + 16 + 0.5)) or h
 	end
 
 	---------------------------------------------------------------------------
@@ -399,7 +411,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	GF.RegisterRegion("stretch", {
 		build = function(parent)
 			local f = CreateFrame("Frame", nil, parent)
-			f.Row = GF.NewGoalRow(f)
+			f.Row = regionRow(f)
 			f.Row.psOpen = openSlot(f.Row)
 			f.Row.psGoal = {}
 			return f
@@ -541,14 +553,14 @@ ns.UI.GuideFrame.Part(function(GF)
 
 	-- The item's row: a goal row as the step's own (a click leads the arrow to the goal that applies).
 	local function itemRow(f, i)
-		f.Items[i] = f.Items[i] or GF.NewGoalRow(f)
+		f.Items[i] = f.Items[i] or regionRow(f)
 		return f.Items[i]
 	end
 	-- A way's row: a click picks it; its button leads the arrow there ("Guide me") or puts it on the buy list.
 	local function wayRow(f, i)
 		local r = f.Ways[i]
 		if r then return r end
-		r = GF.NewGoalRow(f)
+		r = regionRow(f)
 		r:SetScript("OnClick", pick)
 		r.psPadLabel = L["Guide me"]
 		r.psButton = W.Button(r, "", function()
@@ -661,6 +673,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			local f = CreateFrame("Frame", nil, parent)
 			f.Rule = W.Divider(f)
 			f.Head = CreateFrame("Button", nil, f)
+			f.Head:SetHitRectInsets(EDGE, 0, 0, 0)
 			W.Hover(f.Head, 0.6)
 			f.Head.Chev = f.Head:CreateTexture(nil, "ARTWORK")
 			f.Head.Chev:SetSize(10, 10)
