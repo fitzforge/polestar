@@ -570,6 +570,16 @@
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
 --   Profession routes: based on the guides by Peter at WoW-Professions.com.
+-- Machine-translated, to be reviewed (#2576 auction house prices, 27 Nov 2026): translated by an AI model (Claude Opus 5.5)
+-- and waiting for a native speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   Optional: buy at the auction house (/polestar ah)
+--   Auctionator estimate: %s
+--   %s (%d still unpriced)
+--   The auction house is unavailable to Self-Found characters.
+--   No cached price
+--   No cached prices for the remaining quest items.
+--   Partial estimate for remaining quest items: %s
+--   Estimated total for remaining quest items: %s
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "koKR") then return end
@@ -2034,6 +2044,7 @@ L["about %d kills, %d min"] = "약 %d마리, %d분"
 L["about %d kills"] = "약 %d마리"
 L["or %s (%s)"] = "또는 %s (%s)"
 L["or %s"] = "또는 %s"
+L["Optional: buy at the auction house (/polestar ah)"] = "선택: 경매장에서 구매 (/polestar ah)"
 
 -- UI/GuideFrame.lua
 L["Location"] = "위치"
@@ -5471,6 +5482,13 @@ L["MATERIALS FOR %s"] = "%s 재료"
 L["%s held"] = "%s개 보유"
 L["Tracking is on"] = "추적 켜짐"
 L["Tracking is on: your minimap shows the ones that are up."] = "추적 켜짐: 미니맵에 지금 있는 것이 표시됩니다."
+L["Auctionator estimate: %s"] = "Auctionator 예상가: %s"
+L["%s (%d still unpriced)"] = "%s (%d개 아직 가격 없음)"
+L["The auction house is unavailable to Self-Found characters."] = "자수성가 캐릭터는 경매장을 이용할 수 없습니다."
+L["No cached price"] = "저장된 가격 없음"
+L["No cached prices for the remaining quest items."] = "남은 퀘스트 아이템의 저장된 가격이 없습니다."
+L["Partial estimate for remaining quest items: %s"] = "남은 퀘스트 아이템의 부분 예상가: %s"
+L["Estimated total for remaining quest items: %s"] = "남은 퀘스트 아이템의 예상 합계: %s"
 
 -- UI/Materials.lua
 L["Your choice"] = "직접 선택"

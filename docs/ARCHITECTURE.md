@@ -6893,12 +6893,13 @@ Polestar.Nav.nearby.Near(kind, yards) -> place, yards | nil, reason   -- the nea
 Polestar.Compat.ItemKind(itemID) -> classID, subclassID ; ItemBinding(itemID) -> bindType | nil (not cached)
 ```
 
-What is asked for: every `collect` goal of the running guide that is for
-this character (`Engine.Applies`) and serves a quest, from the live step on,
-and before it while its quest is in the log (the hand-in is still ahead).
+What is asked for: applicable `collect`, `complete` and `turnin` goals
+of the running guide, from the live step on and before it while their quest
+is in the log. Complete and turn-in goals use the quest's item objectives
+from the quest database. Self-Found characters have no auction buys.
 The quest is the goal's own, else the first quest within 40 steps whose
-objectives ask for the item. Optional goals, goals naming the NPC who hands
-the item over, quests done or skipped, and quests that hand the item over
+objectives ask for the item. Optional goals and steps, goals naming the NPC
+who hands the item over, quests done or skipped, and quests that hand the item over
 themselves are left out. Scope `all` adds the item objectives of the other
 quests in the log, but not of a quest whose every goal in the running guide
 is optional (an `optional` goal or step, #2553: the guide takes it only when
@@ -6910,14 +6911,13 @@ bags, the bank, the mail and what was bought and is on its way;
 The rule. An item is an auction house buy when it is all of:
 
 1. **Tradeable**: the client says it is no Quest item (class 12) and binds
-   neither when picked up nor as a quest item (bindType 1 or 4). An item the
-   client has not cached is asked for (`GET_ITEM_INFO_RECEIVED`) and judged
-   when it arrives. Bind on equip and bind on use items trade.
+   only on equip or use, if at all. An item the client has not cached is
+   asked for (`GET_ITEM_INFO_RECEIVED`) and judged when it arrives.
 2. **Sold by no merchant**: the guide has no `buy` goal for it (the route
    buys it there, `QoL/Buy.lua`; Restock tops up the rest), and the quest
    database names no vendor for it, whatever the vendor's side or stock.
-3. **Not got on the way**: the whole count takes 20 kills or loots or more on
-   average (count / drop chance; `LONG_FARM`), or nothing drops it. The
+3. **Not obtained on the way**: the whole count takes 20 kills or loots or
+   more on average (count / drop chance; `LONG_FARM`), or nothing drops it. The
    chance is the best of the goal's own sources (`fromNpcs`, else `fromId`)
    in the quest database's drop table, which keeps an item's 8 best
    droppers: a creature past them drops it at most at the 8th's chance. A
@@ -6926,18 +6926,21 @@ The rule. An item is an auction house buy when it is all of:
    and ore nodes (trade goods subclasses 9 and 7) only for a character with
    Herbalism or Mining; without the skill an item only nodes give is listed
    (`gather`). Chests and crates below that chance do not count. A chance
-   the data does not know (0) leaves the item out. An item the quest
-   database knows no source for is judged by the Codex (loaded for it, never
+   the data does not know (0) is left out. An item the quest database knows no
+   source for is judged by the Codex (loaded for it, never
    in combat): listed when a profession makes it (`made`) or when the guide's
    goal for it stands within 40 yards of an auctioneer (`ah`: the guide
    already sends the player there); left out otherwise (a container, a quest
    or a gift the guide knows a way to).
 
+Cached auction prices only supply estimates and totals; they never make
+an item eligible.
+
 The quest database loads for it (`QuestDB.IsWanted` counts
 `qol.auctionBuys`). The lists are built when asked, in two layers: the
 judgement (what the quests want and which of it the rule lists) is kept
 until a step, the guide, the log, a skill, the Codex, an item the client
-sent or the setting changes; the counts are taken again when only the bags
+sent, the setting changes, or a price cache updates; the counts are taken again when only the bags
 change (`BAG_UPDATE_DELAYED`, `MATERIALS_COUNTS`), so a merchant's or a
 mailbox's run of bag updates costs a count, never the rule. A pass decodes
 each quest's objectives once. `AUCTION_BUYS_CHANGED(arrived)` fires once
@@ -6968,8 +6971,9 @@ to be dismissed:
   (`Engine.EscortRunning`), while Polestar or the guide window is hidden.
   The Codex is loaded for it only in a rest area with something to buy.
 - **The list** (`PolestarAuctionBuys`, built on first use, registered with
-  the gamepad, Escape closes it): a row per item, its icon, "12 Silk Cloth",
-  "For Caught! · About 152 kills to farm · 3 in your bags and bank", and Show
+  the gamepad, Escape closes it): a scrolling row per item with its icon, remaining count, quests, and cached
+  quote. The quest total flags incomplete quotes or quantities. Open guide
+  rows for eligible item objectives offer the list as an optional purchase. Show
   me the auction house. Under them, headed "MATERIALS FOR TAILORING 1-300",
   the running profession guide's materials to buy (`Materials.BuyRows`: their
   way is Buy and some is still to get), "47 Wool Cloth", "Tailoring 75-150 ·
@@ -6978,9 +6982,9 @@ to be dismissed:
   house buys (N)" while there are any) and `/polestar ah`. At the Auction
   House (`AUCTION_HOUSE_SHOW`) it opens beside the game's window while either
   group has something to buy, and goes with it (`AUCTION_HOUSE_CLOSED`); each
-  row then has a Search (`Materials.Search`: the game's own buy view of the
-  item, the count filled in; the player presses Buy), and Show me the auction
-  house goes.
+  row offers a search when supported. `Materials.Search` opens the native
+  buy view or an exact Auctionator search with the missing quantity. Show me
+  the auction house goes while the Auction House is open.
 
 The heads-up card itself is registered with the gamepad as a window that
 showed on its own: it waits for the focus binding, then the D-pad walks its
