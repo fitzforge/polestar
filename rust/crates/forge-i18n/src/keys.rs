@@ -66,11 +66,8 @@ pub fn keys_in_source(src: &str, file: &str) -> Result<Vec<(String, usize)>, Str
 		if t[i].0 != "name" {
 			continue;
 		}
-		if t[i].1 == "L" && is(i + 1, "[") && is(i + 3, "]") {
-			if let Some(s) = string(i + 2) {
-				out.push((s.1.clone(), s.2));
-			}
-		} else if t[i].1 == "tr" && is(i + 1, "(") && is(i + 3, ")") {
+		let lookup = (t[i].1 == "L" && is(i + 1, "[") && is(i + 3, "]")) || (t[i].1 == "tr" && is(i + 1, "(") && is(i + 3, ")"));
+		if lookup {
 			if let Some(s) = string(i + 2) {
 				out.push((s.1.clone(), s.2));
 			}
