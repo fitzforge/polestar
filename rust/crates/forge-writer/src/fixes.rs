@@ -1231,6 +1231,36 @@ fn apply_levels(lines: &mut [String], found: &[usize], r: &Value) -> Vec<usize> 
 	changed
 }
 
+/// A `rows` record: its goal lines right before (`before`) and right after (`after`) the anchored goal line,
+/// in the anchor's own step (an along step's copy keeps its lines unless the goal has no other), at the
+/// anchor's indent; a line the step already holds (its code, the note aside) is not added again. The
+/// action a tip used to describe as a goal of its own: Tanaris Field Sampling's untested samples looted
+/// and used before each sample count. -> the changed lines.
+fn apply_rows(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> {
+	let list = |k: &str| -> Vec<String> { r["rows"][k].as_array().into_iter().flatten().filter_map(|v| v.as_str()).map(|s| trim(s).to_string()).filter(|s| !s.is_empty()).collect() };
+	let (before, after) = (list("before"), list("after"));
+	let own: Vec<usize> = found.iter().copied().filter(|&i| !step_of(lines, i).is_some_and(|s| along_step(lines, s))).collect();
+	let found = if own.is_empty() { found.to_vec() } else { own };
+	let mut changed = Vec::new();
+	for &i in found.iter().rev() {
+		let Some(step) = step_of(lines, i) else { continue };
+		let ind = lines[i][..lines[i].len() - lines[i].trim_start().len()].to_string();
+		let held: Vec<String> = (step.0 + 1..step.1).map(|k| trim(split_comment(&lines[k]).0).to_string()).collect();
+		let new = |rows: &[String]| -> Vec<String> { rows.iter().filter(|l| !held.iter().any(|h| *h == trim(split_comment(l).0))).map(|l| format!("{ind}{l}")).collect() };
+		let (b, a) = (new(&before), new(&after));
+		let (nb, na) = (b.len(), a.len());
+		for (k, l) in a.into_iter().enumerate() {
+			lines.insert(i + 1 + k, l);
+		}
+		for (k, l) in b.into_iter().enumerate() {
+			lines.insert(i + k, l);
+		}
+		changed.extend(i..i + nb);
+		changed.extend(i + nb + 1..i + nb + 1 + na);
+	}
+	changed
+}
+
 /// A line apply_fix drops once every found line is done.
 const GONE: &str = "\u{0}";
 
@@ -1362,6 +1392,8 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			"way"
 		} else if r.get("levels").is_some() {
 			"levels"
+		} else if r.get("rows").is_some() {
+			"rows"
 		} else {
 			"level"
 		};
@@ -1372,7 +1404,7 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			r,
 			slot: format!("{anchor:?} {kind}{}{to}", r["at"]["guide"].as_str().map_or(String::new(), |g| format!(" in {g}"))),
 			want: format!(
-				"{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}",
+				"{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}",
 				r["tip"],
 				r["level"],
 				r["only"],
@@ -1387,7 +1419,8 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 				r["split"],
 				r["step"],
 				r["way"],
-				r["levels"]
+				r["levels"],
+				r["rows"]
 			),
 			anchor,
 		});
@@ -1475,6 +1508,8 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 				apply_way(&mut lines, &found, x.r)
 			} else if x.r.get("levels").is_some() {
 				apply_levels(&mut lines, &found, x.r)
+			} else if x.r.get("rows").is_some() {
+				apply_rows(&mut lines, &found, x.r)
 			} else {
 				apply_fix(&mut lines, &found, x.r)
 			};
@@ -1751,6 +1786,26 @@ mod tests {
 		let line = out.lines().find(|l| l.starts_with("  turnin 98463 ")).unwrap();
 		assert!(line.ends_with("-- Nixxrax Fillamug, at the bar on the Salty Sailor's main floor, one floor below Krazek and Kebok"), "{line}");
 		assert_eq!(rows[0].state, "applied");
+	}
+
+	#[test]
+	fn a_rows_fix_adds_its_goal_lines_around_the_anchor_once() {
+		// Tanaris Field Sampling: each untested sample is looted and used before its acceptable sample's count.
+		let seed = "step Tanaris Field Sampling\n  tip Old tip.\n  accept 654\n  collect 9441 quest 654.2 @50.2,31.6 map 1446\n  collect 9440 quest 654.1 @49.4,31.0 map 1446\n\nstep Gadgetzan\n  turnin 654\n";
+		let fixes = json!({ "fixes": [
+			{ "id": "hyena", "at": { "quest": 654, "goal": "objective", "objective": 2 }, "rows": { "before": ["collect 9439 @50.2,31.6 map 1446", "use 9439 quest 654.2 @50.2,31.6 map 1446 -- Untested Hyena Sample"] } },
+			{ "id": "kit", "at": { "quest": 654, "goal": "turnin" }, "rows": { "after": ["note The kit goes back."] } }
+		] });
+		let (out, rows) = run(seed, json!({}), fixes.clone(), &[654]);
+		assert!(
+			out.contains("  accept 654\n  collect 9439 @50.2,31.6 map 1446\n  use 9439 quest 654.2 @50.2,31.6 map 1446 -- Untested Hyena Sample\n  collect 9441 quest 654.2 @50.2,31.6 map 1446\n  collect 9440 quest 654.1"),
+			"{out}"
+		);
+		assert!(out.contains("  turnin 654\n  note The kit goes back.\n"), "{out}");
+		assert!(rows.iter().all(|r| r.state == "applied"), "{rows:?}");
+		let (again, rows) = run(&out, json!({}), fixes, &[654]);
+		assert_eq!(again, out, "each line once");
+		assert!(rows.iter().all(|r| r.state == "redundant"), "{rows:?}");
 	}
 
 	#[test]
