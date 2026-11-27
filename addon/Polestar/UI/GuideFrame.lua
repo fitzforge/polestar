@@ -1021,6 +1021,9 @@ GF.Part(function(GF)
 		-- Right edge, outside in: the tick, an optional goal's Skip, "Other".
 		local right = PAD
 		if r.Check:IsShown() then right = right + CHECK + 4 + CHECK_IN end
+		-- A skin's own column at the edge (r.psRightMin, Atlas's count) comes
+		-- before Skip and Share, so they sit left of it, not on it.
+		if r.psRightMin and r.psRightMin > right and (r.Skip:IsShown() or r.Share:IsShown()) then right = r.psRightMin end
 		if r.Skip:IsShown() then
 			r.Skip:ClearAllPoints()
 			r.Skip:SetPoint("TOPRIGHT", r, "TOPRIGHT", -(right - 4), -3 - ROW_PAD)

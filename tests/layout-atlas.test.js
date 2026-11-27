@@ -1717,3 +1717,52 @@ emit(out)`,
 	assert.equal(out['200'].count, '108');
 	assert.deepEqual(out.back, out['900'], 'widening again gives everything back');
 });
+
+// Atlas moves a goal's count to a column at the row's right edge; an optional
+// goal's Skip (and Share) stands left of that column, never on the count.
+test("under Atlas an optional goal's Skip stands left of its count", () => {
+	const [out] = runAddon({
+		stubs: ['stub_world.lua'],
+		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
+		script: `${GUIDE}
+local T, GF, E = Polestar.Theme, Polestar.UI.GuideFrame, Polestar.Engine
+Polestar.Set("ui.shown", true)
+T.SetLayout("atlas")
+-- The row stays in the window, as it does when the Optional card does not take it.
+local hookValue = T.SkinHookValue
+T.SkinHookValue = function(name, ...)
+	if name == "guideTakes" then return false end
+	return hookValue(name, ...)
+end
+local view = E.GetStepView
+E.GetStepView = function(index, ...)
+	local v = view(index, ...)
+	if not v or v.index ~= E.GetStepIndex() then return v end
+	local copy = {}
+	for k, x in pairs(v) do copy[k] = x end
+	-- The step's one goal: a group of its own, not a summary line under another giver.
+	copy.goals = { { index = 1, optional = true, status = "active", t = "loot",
+		text = "Collect Murloc Fin |cffffffff3/10|r", progress = { cur = 3, max = 10 } } }
+	return copy
+end
+GF.Layout(); if GF.Render then GF.Render() end; stub.advance(1); GF.Layout(); stub.advance(1)
+local out = false
+for _, row in ipairs(T.GuideParts().rows or {}) do
+	if row:IsShown() and (row.Text:GetText() or ""):find("Murloc Fin", 1, true) then
+		local count
+		for _, r in ipairs({ row:GetRegions() }) do
+			if r.GetText and r ~= row.Text and r:IsShown() and r:GetText() == "3/10" then count = r end
+		end
+		local _, _, _, sx = row.Skip:GetPoint(1)
+		local cx = 0
+		if count then cx = select(4, count:GetPoint(2)) end
+		out = { skip = row.Skip:IsShown(), count = count ~= nil, skipRight = -sx,
+			countLeft = count and (-cx + count:GetUnboundedStringWidth()) or false }
+	end
+end
+emit(out)`,
+	}).emitted;
+	assert.ok(out, 'the optional row is drawn');
+	assert.ok(out.skip && out.count, `Skip and the count both show (${JSON.stringify(out)})`);
+	assert.ok(out.skipRight >= out.countLeft, `Skip ends at ${out.skipRight} from the edge, left of the count at ${out.countLeft}`);
+});
