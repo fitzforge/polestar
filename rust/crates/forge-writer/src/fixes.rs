@@ -27,6 +27,7 @@
 //!   `at: { guide, goal: "fly", fly }` anchors on a flight step instead (`fly "<fly>"` in the guide
 //!   whose `guide` line is `guide`; #1676): a `when` there shows the flight only while it holds
 //!   (`when onquest 1094,874`: the trip is for those quests).
+//!   `at: { goal: "sethome", sethome, guide? }` anchors a `goalNote` on binds at that inn.
 //!   `races` sets who a goal is for by race: the race part of each anchored goal line's own `only`
 //!   list (`"all"`: every race, so the race part goes; `"Dwarf,Gnome"`: those races; classes stay). A
 //!   line with no race in its own `only` keeps none: its step's `only` decides. `at: { quest, goal:
@@ -100,6 +101,8 @@ enum Anchor {
 	Quest(u32),
 	/// A `fly "<place>"` step (in the record's `at.guide` only).
 	Fly(String),
+	/// A hearthstone bind at the named inn.
+	SetHome(String),
 	/// The guide's header `levels` line (a `levels` record, in its `at.guide`).
 	Levels,
 }
@@ -109,7 +112,7 @@ impl Anchor {
 	fn quest(&self) -> Option<u32> {
 		match *self {
 			Anchor::Collect(q, _) | Anchor::Giver(q) | Anchor::Ender(q) | Anchor::Complete(q) | Anchor::Objective(q, _) | Anchor::Quest(q) => Some(q),
-			Anchor::Fly(_) | Anchor::Levels => None,
+			Anchor::Fly(_) | Anchor::SetHome(_) | Anchor::Levels => None,
 		}
 	}
 	fn describe(&self) -> String {
@@ -121,6 +124,7 @@ impl Anchor {
 			Anchor::Objective(q, n) => format!("objective {q}.{n}"),
 			Anchor::Quest(q) => format!("quest {q}"),
 			Anchor::Fly(p) => format!("fly \"{p}\""),
+			Anchor::SetHome(p) => format!("sethome \"{p}\""),
 			Anchor::Levels => "levels".into(),
 		}
 	}
@@ -147,6 +151,9 @@ fn fix_anchor(r: &Value) -> Option<Anchor> {
 	let at = &r["at"];
 	if at["goal"].as_str() == Some("fly") {
 		return at["fly"].as_str().filter(|p| !p.is_empty()).map(|p| Anchor::Fly(p.to_string()));
+	}
+	if at["goal"].as_str() == Some("sethome") {
+		return at["sethome"].as_str().filter(|p| !p.is_empty()).map(|p| Anchor::SetHome(p.to_string()));
 	}
 	if at["goal"].as_str() == Some("levels") {
 		return at["guide"].as_str().filter(|g| !g.is_empty()).map(|_| Anchor::Levels);
@@ -181,6 +188,7 @@ fn anchor_lines(lines: &[String], a: &Anchor) -> Vec<usize> {
 		Anchor::Ender(q) => find(&|c| re!(r"^\s+turnin\s+(\d+)(?:\s|$)").captures(c).is_some_and(|m| m[1] == *q.to_string())),
 		Anchor::Complete(q) => find(&|c| re!(r"^\s+complete\s+(\d+)(?:\.\d+)?(?:\s|$)").captures(c).is_some_and(|m| m[1] == *q.to_string())),
 		Anchor::Fly(p) => find(&|c| re!(r#"^\s+fly\s+"([^"]*)""#).captures(c).is_some_and(|m| m[1] == **p)),
+		Anchor::SetHome(p) => find(&|c| re!(r#"^\s+sethome\s+"([^"]*)"(?:\s|$)"#).captures(c).is_some_and(|m| m[1] == **p)),
 		Anchor::Levels => lines.iter().take_while(|l| !is_step(l.as_str())).position(|l| l.starts_with("levels ")).into_iter().collect(),
 		&Anchor::Quest(q) => find(&|c| crate::guide::is_goal(c) && crate::apply::quest_of(c) == Some(q)),
 		&Anchor::Objective(q, n) => {
@@ -1475,12 +1483,11 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 				tree.insert(f.clone(), lines.join("\n"));
 			}
 		}
-		// No line to anchor on: stale when the route takes the quest (a flight step: when its guide is
-		// written), else not this start's (a line the written guides keep, a class quest's say, is fixed
-		// whether the route counts it or not).
+		// A missing anchor is stale when its quest is in the route or its named guide was written.
+		// An inn without a named guide can be absent from a start that binds elsewhere.
 		let in_route = match anchor.quest() {
 			Some(q) => quests.is_empty() || quests.contains(&q),
-			None => guide_here,
+			None => guide_here && x.r["at"]["guide"].is_string(),
 		};
 		row.state = if !found_any && !in_route {
 			"not for this start"
@@ -1495,7 +1502,7 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 		if !found_any && !in_route {
 			row.detail = match anchor.quest() {
 				Some(q) => format!("quest {q} is not in the route"),
-				None => format!("guide {} is not written here", x.r["at"]["guide"].as_str().unwrap_or("?")),
+				None => x.r["at"]["guide"].as_str().map_or_else(|| format!("{} is not in this start", anchor.describe()), |guide| format!("guide {guide} is not written here")),
 			};
 		} else if !found_any {
 			row.detail = format!("the written guides have no {} line", anchor.describe());
@@ -1712,6 +1719,38 @@ mod tests {
 		let (again, rows) = run(&out, json!({}), fixes, &[627]);
 		assert_eq!(again, out);
 		assert_eq!(rows[0].state, "redundant");
+	}
+
+	#[test]
+	fn booty_bay_bind_goals_point_downstairs() {
+		let all: Value = serde_json::from_str(include_str!("../../../../data/guide-fixes.json")).unwrap();
+		let record = all["fixes"].as_array().unwrap().iter().find(|r| r["id"] == "booty-bay-innkeeper-floor").unwrap();
+		let fixes = json!({ "fixes": [record] });
+		for seed in [
+			include_str!("../../../../forge/seed/guides/forever/alliance/30-40/04-stranglethorn-vale.guide"),
+			include_str!("../../../../forge/seed/guides/forever/alliance/40-50/01-stranglethorn-vale.guide"),
+		] {
+			let (out, rows) = run(seed, json!({}), fixes.clone(), &[]);
+			let old = seed.lines().find(|l| l.starts_with("  sethome \"Booty Bay\"")).unwrap();
+			let new = "  sethome \"Booty Bay\" -- Innkeeper Skindle, at the bar on the Salty Sailor's main floor, one floor below Krazek and Kebok";
+			assert_eq!(out, seed.replace(old, new));
+			assert_eq!(rows[0].state, "applied");
+		}
+		let seed = "step On the docks\n  getfp \"Booty Bay\"\n  sethome \"Ratchet\" only Human -- At the inn\n";
+		let (out, rows) = run(seed, json!({}), fixes, &[]);
+		assert_eq!(out, seed);
+		assert_eq!(rows[0].state, "not for this start");
+	}
+
+	#[test]
+	fn booty_bay_hand_in_note_names_the_main_floor() {
+		let all: Value = serde_json::from_str(include_str!("../../../../data/guide-fixes.json")).unwrap();
+		let record = all["fixes"].as_array().unwrap().iter().find(|r| r["id"] == "booty-bay-nixxrax-floor").unwrap();
+		let seed = include_str!("../../../../forge/seed/guides/forever/alliance/30-40/04-stranglethorn-vale.guide");
+		let (out, rows) = run(seed, json!({}), json!({ "fixes": [record] }), &[]);
+		let line = out.lines().find(|l| l.starts_with("  turnin 98463 ")).unwrap();
+		assert!(line.ends_with("-- Nixxrax Fillamug, at the bar on the Salty Sailor's main floor, one floor below Krazek and Kebok"), "{line}");
+		assert_eq!(rows[0].state, "applied");
 	}
 
 	#[test]
