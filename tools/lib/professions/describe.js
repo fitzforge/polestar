@@ -87,11 +87,12 @@ const HIDE_LEVELS = [
 	{ re: /^Rugged (Leather|Hide)$/, min: 48, max: 60 },
 ];
 
-// Disenchanting an uncommon (green) item of these item levels gives the
-// material (Classic's table; shards come mostly from rare items).
+// Disenchanting an uncommon (green) armour piece gives the material when the piece asks for these character
+// levels (its "Requires Level" line, which the game shows; Forever's server data by item level, disenchant.json,
+// is about five above it). Shards come mostly from rare items.
 const DISENCHANT_LEVELS = [
-	{ re: /^Strange Dust$/, min: 5, max: 20 },
-	{ re: /^(Lesser|Greater) Magic Essence$/, min: 5, max: 15 },
+	{ re: /^Strange Dust$/, min: 1, max: 20 },
+	{ re: /^(Lesser|Greater) Magic Essence$/, min: 1, max: 15 },
 	{ re: /^(Lesser|Greater) Astral Essence$/, min: 16, max: 25 },
 	{ re: /^Soul Dust$/, min: 21, max: 30 },
 	{ re: /^(Lesser|Greater) Mystic Essence$/, min: 26, max: 35 },
@@ -100,7 +101,7 @@ const DISENCHANT_LEVELS = [
 	{ re: /^Dream Dust$/, min: 41, max: 50 },
 	{ re: /^(Lesser|Greater) Eternal Essence$/, min: 46, max: 60 },
 	{ re: /^Illusion Dust$/, min: 51, max: 60 },
-	{ re: /^Small Glimmering Shard$/, min: 16, max: 20 },
+	{ re: /^Small Glimmering Shard$/, min: 11, max: 20 },
 	{ re: /^Large Glimmering Shard$/, min: 21, max: 25 },
 	{ re: /^Small Glowing Shard$/, min: 26, max: 30 },
 	{ re: /^Large Glowing Shard$/, min: 31, max: 35 },
@@ -208,7 +209,7 @@ function sourceText(data, item, m, src, side, { zones: withZones = true, marked 
 		}
 		case 'disenchant': {
 			const t = DISENCHANT_LEVELS.find((h) => h.re.test(name));
-			return `Enchanting: disenchant green items${t ? ` of item level ${t.min}-${t.max}` : ''}${ah}`;
+			return `Enchanting: disenchant green armour${t ? ` that requires level ${t.min}-${t.max}` : ''}${ah}`;
 		}
 		case 'fishing':
 			return `Fishing${ah}`;

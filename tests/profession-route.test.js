@@ -1,0 +1,129 @@
+'use strict';
+// Profession guides built from a curated route (tools/lib/professions/routes/<profession>.json, route.js;
+// docs/forge/professions.md, "Route files"): the facts are checked against the data, and every step of the
+// committed guide is one action a first-timer can follow on its own. Each step answers four things without
+// its tip: what (one action), where (a place the arrow can lead to, or any station with the nearest pinned),
+// how many (a count where it applies) and done when (a goal that finishes it). Tips are one short line of why
+// or a heads-up, never an instruction. The route rules: every band's recipe is learnable where it is crafted
+// (a learn step before it, or known with the rank), each craft's materials come from a get step (or parts
+// crafted) before it, tools before their first use, a station before its first need.
+
+const { test } = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+
+const ROOT = path.join(__dirname, '..');
+const DATA = path.join(ROOT, 'data', 'forever');
+const skip = !fs.existsSync(path.join(DATA, 'professions.json')) && 'needs data/forever';
+const { loadRoute, checkRoute, TIP_MAX, IMPERATIVE } = require('../tools/lib/professions/route');
+
+// The guides a route builds: the crafting guide and the paired guide on top of it.
+const ROUTED = ['blacksmithing', 'mining-blacksmithing'];
+const read = (name) => fs.readFileSync(path.join(ROOT, 'guides', 'forever', 'professions', `${name}.guide`), 'utf8');
+const exists = (name) => fs.existsSync(path.join(ROOT, 'guides', 'forever', 'professions', `${name}.guide`));
+
+// The guide's steps: { title, when: [...], tip, goals: [{ verb, rest }], line }.
+function stepsOf(text) {
+	const out = [];
+	let cur = null;
+	text.split('\n').forEach((l, i) => {
+		if (l.startsWith('step ')) {
+			cur = { title: l.slice(5), when: [], tip: null, goals: [], line: i + 1 };
+			out.push(cur);
+		} else if (/^\S/.test(l)) cur = null;
+		else if (cur && /^ {2}\S/.test(l)) {
+			const [, verb, rest = ''] = /^ {2}(\S+)\s*(.*)$/.exec(l);
+			if (verb === 'when') cur.when.push(rest);
+			else if (verb === 'tip') cur.tip = rest;
+			else if (verb !== 'loop' && verb !== 'zone' && verb !== 'only') cur.goals.push({ verb, rest });
+		}
+	});
+	return out;
+}
+
+let data = null;
+const loadData = () => {
+	if (!data) data = require('../tools/lib/professions/guide').draftData(DATA);
+	return data;
+};
+
+test('tips are one short line, never an instruction', () => {
+	for (const name of ROUTED.filter(exists)) {
+		for (const s of stepsOf(read(name))) {
+			if (!s.tip) continue;
+			assert.ok(s.tip.length <= TIP_MAX, `${name}:${s.line} ${s.title}: a tip of ${s.tip.length} characters (at most ${TIP_MAX}): ${s.tip}`);
+			assert.doesNotMatch(s.tip, IMPERATIVE, `${name}:${s.line} ${s.title}: the tip tells the player to do something; make it a step: ${s.tip}`);
+		}
+	}
+});
+
+test('every step says what, where, how many and when it is done, on its own', () => {
+	// Goals that lead somewhere (the arrow): a smart target, a place, a loop or farm, a trainer list.
+	const placed = (g) => /^(train|buy|auction|turnin|accept|vendor)$/.test(g.verb) || (g.verb === 'learn') || (g.verb === 'goto') || (g.verb === 'collect' && /\b(gather|nearest|@)/.test(g.rest)) || (g.verb === 'skill');
+	// Goals that may sit anywhere: a craft (its station step comes before when it needs one), a level, a task.
+	const anywhere = (g) => /^(craft|level|task|skill)$/.test(g.verb);
+	// A craft until a skill says its count in the title ("Craft 30 Rough Sharpening Stones until 25").
+	const counted = (g, s) => (g.verb === 'craft' && /\buntil \d+/.test(g.rest) ? /^Craft \d+ /.test(s.title) : !/^(buy|auction|collect|craft)$/.test(g.verb) || /\bx\d+\b/.test(g.rest));
+	for (const name of ROUTED.filter(exists)) {
+		for (const s of stepsOf(read(name))) {
+			const at = `${name}:${s.line} ${s.title}`;
+			const goals = s.goals.filter((g) => g.verb !== 'note');
+			assert.ok(goals.length, `${at}: no goal (what is done?)`);
+			assert.ok(goals.some((g) => !/\boptional\b/.test(g.rest)), `${at}: only optional goals (nothing finishes the step)`);
+			assert.ok(goals.every((g) => placed(g) || anywhere(g)), `${at}: a goal with no place: ${goals.map((g) => g.verb).join(', ')}`);
+			assert.ok(goals.every((g) => counted(g, s)), `${at}: a material or craft without a count`);
+			// One action: the goals of a step are one verb (a get's ways are its choice rows: collect and auction).
+			const verbs = new Set(goals.map((g) => (g.verb === 'auction' || g.verb === 'collect' || g.verb === 'task' ? 'get' : g.verb === 'buy' && goals.some((x) => x.verb === 'collect') ? 'get' : g.verb)));
+			assert.ok(verbs.size === 1, `${at}: more than one action (${[...verbs].join(', ')})`);
+		}
+	}
+});
+
+test('the route rules: recipe learnable, materials got, tools and stations before their first need', { skip }, () => {
+	const d = loadData();
+	for (const name of ROUTED.filter(exists)) {
+		const steps = stepsOf(read(name));
+		const prof = Object.values(d.professions).find((p) => name.endsWith(p.name.toLowerCase()) && p.recipes && p.kind !== 'secondary');
+		const recipes = new Map(prof.recipes.map((r) => [r.spell, r]));
+		const known = new Set(prof.recipes.filter((r) => Number(r.learnedAt) <= 1 && !r.cost && r.source === 'trainer').map((r) => r.spell));
+		const got = new Set();
+		const tools = new Set();
+		let station = null;
+		for (const s of steps) {
+			const at = `${name}:${s.line} ${s.title}`;
+			for (const g of s.goals) {
+				const id = Number(g.rest.split(' ')[0]);
+				if (g.verb === 'learn') known.add(id);
+				if (g.verb === 'collect' || g.verb === 'auction' || g.verb === 'buy') {
+					got.add(id);
+					tools.add(id);
+				}
+				if (g.verb === 'goto' && / nearest\b/.test(g.rest)) station = /"([^"]+)"/.exec(g.rest)[1];
+				if (g.verb === 'craft') {
+					const r = recipes.get(id);
+					if (!r) continue; // the other profession of a pair
+					assert.ok(known.has(id), `${at}: crafts ${r.name} before any step learns it`);
+					for (const rg of r.reagents) {
+						const part = prof.recipes.some((x) => x.item === rg.item);
+						assert.ok(got.has(rg.item) || part, `${at}: ${r.name} needs item ${rg.item}, which no step before it gets`);
+					}
+					for (const t of r.tools || []) assert.ok(tools.has(t), `${at}: ${r.name} needs tool ${t}, bought by no step before it`);
+					if (r.focus) assert.equal(station, r.focus, `${at}: ${r.name} needs ${r.focus}; the step before it goes to ${station || 'none'}`);
+				}
+			}
+			if (s.goals.some((g) => g.verb !== 'craft' && g.verb !== 'goto')) station = s.goals.some((g) => g.verb === 'goto') ? station : null;
+		}
+	}
+});
+
+test('a route whose counts the data does not bear out fails the build, naming the band', { skip }, () => {
+	const d = loadData();
+	const route = JSON.parse(JSON.stringify(loadRoute('Blacksmithing')));
+	route.sections[0].route[0].mats['2835'] = 31;
+	const prof = d.professions[164];
+	assert.throws(() => checkRoute(route, prof, d), /1-25 Rough Sharpening Stone: 30 crafts take 30 of item 2835, the route says 31/);
+	const wrong = JSON.parse(JSON.stringify(loadRoute('Blacksmithing')));
+	wrong.sections[1].teachers.Alliance.push(3355);
+	assert.throws(() => checkRoute(wrong, prof, d), /Saru Steelfury does not serve the Alliance/);
+});
