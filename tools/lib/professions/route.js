@@ -417,17 +417,36 @@ function routeGuide(name, data, opts = {}) {
 		bought.add(r.recipeItem);
 		sellerSteps('recipe', r.recipeItem, by, { tip: by.note || null, also: [`!knows ${r.spell}`] });
 	};
+	// Where each recipe was first learned ({ sec, skill, lines }) and the section a repeat of it is in: a player
+	// who loads the guide past that section never saw the learn, so a later section that crafts the recipe
+	// repeats it (done at once for everyone else; #3401).
+	const taughtAt = new Map();
+	const again = new Map();
+	const sectionNo = () => blocks.filter((b) => b.kind === 'section').length;
 	const learnStep = (band, sec) => {
 		const r = recipes.get(band.recipe || band.make);
-		if (learned.has(r.spell)) return;
+		if (learned.has(r.spell)) {
+			const first = taughtAt.get(r.spell);
+			const here = sectionNo();
+			if (first && first.sec !== here && again.get(r.spell) !== here) {
+				again.set(r.spell, here);
+				step('learn', `Learn ${r.name}`, { tip: `Taught at ${first.skill}; done at once if you learned it then.`, lines: first.lines });
+			}
+			return;
+		}
 		learned.add(r.spell);
 		if (r.recipeItem && !taught(r)) {
 			recipeBuy(r);
-			step('learn', `Learn ${r.name}`, { tip: `From the ${itemKind(r.recipeItem)} in your bags.`, lines: [`  learn ${r.spell}`] });
+			// A recipe vendors sell: until it is in the bags the learn leads to the nearest seller (#3823).
+			const lines = [`  learn ${r.spell}${(route.recipes || {})[r.recipeItem] ? ' nearest' : ''}`];
+			taughtAt.set(r.spell, { sec: sectionNo(), skill: band.make ? skill : band.from, lines });
+			step('learn', `Learn ${r.name}`, { tip: `From the ${itemKind(r.recipeItem)} in your bags.`, lines });
 			return;
 		}
 		const ids = [...new Set(SIDES.flatMap((s) => sec.teachers[s] || []))];
-		step('learn', `Learn ${r.name}`, { lines: [`  learn ${r.spell} npc ${ids.join(',')}`] });
+		const lines = [`  learn ${r.spell} npc ${ids.join(',')}`];
+		taughtAt.set(r.spell, { sec: sectionNo(), skill: band.make ? skill : band.from, lines });
+		step('learn', `Learn ${r.name}`, { lines });
 		// On the same visit, every recipe a later band of this rank uses that the skill already allows.
 		const list = secBands.get(sec);
 		const i = list.indexOf(band);
@@ -438,7 +457,9 @@ function routeGuide(name, data, opts = {}) {
 			if (!x || learned.has(x.spell) || (x.recipeItem && !taught(x)) || Number(x.learnedAt) > now) continue;
 			learned.add(x.spell);
 			const use = b.make ? `For the ${D.crafts(b.count, x.name)} later` : `For ${b.from}-${b.to}`;
-			step('learn', `Learn ${x.name}`, { tip: `${use}: taught here now, so no second trip.`, lines: [`  learn ${x.spell} npc ${ids.join(',')}`] });
+			const xl = [`  learn ${x.spell} npc ${ids.join(',')}`];
+			taughtAt.set(x.spell, { sec: sectionNo(), skill: now, lines: xl });
+			step('learn', `Learn ${x.name}`, { tip: `${use}: taught here now, so no second trip.`, lines: xl });
 		}
 	};
 	const craftStep = (band, sec) => {
