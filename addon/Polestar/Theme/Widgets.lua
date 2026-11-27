@@ -539,9 +539,13 @@ local function hideTip(self) self.psHover = nil; W.HideTooltip(self); W.TipHide(
 W.SimpleTip, W.HideTip = simpleTip, hideTip
 
 -- The game's own item and spell tooltips on Polestar's buttons (reward
--- tiles, loot tiles, gear picks, rare drops), and their modified clicks.
+-- tiles, loot tiles, gear picks, rare drops, a profession guide's recipes),
+-- and their modified clicks.
 --   W.ItemTip(owner, item, extra?, place?)     -- extra(tooltip): lines after the game's
 --   W.SpellTip(owner, spellID, extra?, place?) -- place(tooltip): anchors it (default: right of owner)
+--   W.RecipeTip(owner, spellID, extra?, place?) -- a profession recipe with no item of its own (an
+--                                      enchant, a smelt, a transmute): the client's recipe tooltip
+--                                      (the enchant: link), the spell's where it has none
 --   W.ItemClick(item) -> handled       -- Shift links, Ctrl tries on, Alt guides
 --   W.SpellClick(spellID) -> handled   -- Shift links
 --   W.PrefetchItem(itemID), W.PrefetchSpell(spellID)
@@ -560,7 +564,7 @@ local function setGameTip(owner, kind, id, extra, place)
 	local C = ns.Compat
 	if kind == "item" then
 		if not link and C.RequestItem then C.RequestItem(id) end
-	elseif not tip.SetSpellByID then
+	elseif not (tip.SetSpellByID or (kind == "recipe" and tip.SetHyperlink)) then
 		return
 	elseif C.RequestSpell then
 		C.RequestSpell(id)
@@ -573,7 +577,16 @@ local function setGameTip(owner, kind, id, extra, place)
 		tip:ClearAllPoints()
 		place(tip)
 	end
-	if kind == "item" then tip:SetHyperlink(link or ("item:" .. id)) else tip:SetSpellByID(id) end
+	if kind == "item" then
+		tip:SetHyperlink(link or ("item:" .. id))
+	elseif kind == "recipe" then
+		-- The enchant: link is what a chat link of a recipe opens (reagents and all); a spell it does not know
+		-- (yet) leaves the tooltip empty: the spell's own.
+		if tip.SetHyperlink then tip:SetHyperlink("enchant:" .. id) end
+		if tip.SetSpellByID and not (tip.NumLines and (tip:NumLines() or 0) > 0) then tip:SetSpellByID(id) end
+	else
+		tip:SetSpellByID(id)
+	end
 	if extra then extra(tip) end
 	Theme.TipDots(tip)
 	tip:Show()
@@ -582,6 +595,7 @@ end
 
 function W.ItemTip(owner, itemID, extra, place) setGameTip(owner, "item", itemID, extra, place) end
 function W.SpellTip(owner, spellID, extra, place) setGameTip(owner, "spell", spellID, extra, place) end
+function W.RecipeTip(owner, spellID, extra, place) setGameTip(owner, "recipe", spellID, extra, place) end
 
 local function owns(owner)
 	local tip = GameTooltip
@@ -592,10 +606,10 @@ end
 
 local function arrived(kind, id)
 	local g = gameTip
-	if not (g and g.kind == kind and (id == nil or id == g.id)) then return end
+	if not (g and (g.kind == kind or (kind == "spell" and g.kind == "recipe")) and (id == nil or id == g.id)) then return end
 	if GameTooltip and GameTooltip.IsShown and not GameTooltip:IsShown() then gameTip = nil return end
 	if not owns(g.owner) then gameTip = nil return end
-	setGameTip(g.owner, kind, g.id, g.extra, g.place)
+	setGameTip(g.owner, g.kind, g.id, g.extra, g.place)
 end
 
 if ns.RegisterEvent then

@@ -964,9 +964,9 @@ function Compat.ItemIcon(itemID)
 	return nil
 end
 
--- A spell's icon from its id, or nil.
+-- A spell's icon from its id (or, for a spell the player knows, its name: a profession's), or nil.
 function Compat.SpellIcon(spellID)
-	local fn = type(spellID) == "number" and ((C_Spell and C_Spell.GetSpellTexture) or GetSpellTexture)
+	local fn = (type(spellID) == "number" or (type(spellID) == "string" and spellID ~= "")) and ((C_Spell and C_Spell.GetSpellTexture) or GetSpellTexture)
 	if not fn then return nil end
 	local ok, icon = pcall(fn, spellID)
 	if ok and icon and not isSecret(icon) then return icon end

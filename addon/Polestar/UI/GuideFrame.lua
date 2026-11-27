@@ -537,6 +537,40 @@ GF.Part(function(GF)
 	end
 	GF.TooltipAnchor = tooltipAnchor
 
+	-- The spell a craft goal, or a learn goal of a profession guide, stands for: the recipe's spell, whose icon and
+	-- tooltip the row shows when the recipe makes no item (an enchant, a smelt, a transmute).
+	function GF.RecipeSpell(goal)
+		local spell = goal and goal.spell
+		if type(spell) ~= "number" then return nil end
+		if goal.t == "craft" then return spell end
+		if goal.t == "learn" then
+			local E = Engine()
+			return E and E.GuideKind and E.GuideKind() == "profession" and spell or nil
+		end
+		return nil
+	end
+
+	-- The icon a goal row wears in place of its verb's glyph (the game's own art), or nil for the glyph: a craft's item
+	-- or, with none, its recipe's spell; a learn step's spell; a profession guide's materials (collect, buy, the
+	-- Auction House) their item. The glyph stays only where the client gives nothing.
+	function GF.GoalIcon(goal)
+		local C = ns.Compat
+		if not goal then return nil end
+		local item = type(goal.item) == "number" and goal.item or nil
+		if goal.t == "craft" then
+			return (item and C.ItemIcon and C.ItemIcon(item)) or (goal.spell and C.SpellIcon and C.SpellIcon(goal.spell)) or nil
+		end
+		if goal.t == "learn" then
+			local spell = GF.RecipeSpell(goal)
+			return spell and C.SpellIcon and C.SpellIcon(spell) or nil
+		end
+		if item and (goal.t == "collect" or goal.t == "buy" or goal.t == "auction") then
+			local E = Engine()
+			return E and E.GuideKind and E.GuideKind() == "profession" and C.ItemIcon and C.ItemIcon(item) or nil
+		end
+		return nil
+	end
+
 	local function goalTooltip(row)
 		local goal = row.psGoal
 		if not goal then return end
@@ -562,7 +596,9 @@ GF.Part(function(GF)
 			lines[#lines + 1] = { left = L["NPC"], right = name and (name .. id .. goal.npc .. "|r") or ("#" .. goal.npc) }
 		end
 		-- An item goal shows the game's tooltip of its item, the guide's lines under it.
-		local itemTip = goal.item and goal.subjectKind == "item" and W.ItemTip and W.TooltipLines
+		local itemTip = goal.item and (goal.subjectKind == "item" or goal.t == "craft") and W.ItemTip and W.TooltipLines
+		-- A recipe with no item of its own: the recipe's tooltip.
+		local recipe = not itemTip and W.RecipeTip and W.TooltipLines and GF.RecipeSpell(goal) or nil
 		if goal.item and not itemTip then
 			lines[#lines + 1] = { left = L["Item"], right = "#" .. goal.item }
 		end
@@ -598,7 +634,7 @@ GF.Part(function(GF)
 			local text = UI.GoalProgress(goal)
 			if text then lines[#lines + 1] = { left = L["Progress"], right = text } end
 		end
-		if goal.spell then lines[#lines + 1] = { left = L["Spell"], right = "#" .. goal.spell } end
+		if goal.spell and not recipe then lines[#lines + 1] = { left = L["Spell"], right = "#" .. goal.spell } end
 		if goal.achievement then
 			lines[#lines + 1] = { left = L["Achievement"], right = "#" .. goal.achievement .. (goal.criteria and ("  \194\183  " .. L["criterion"] .. " " .. goal.criteria) or "") }
 		end
@@ -630,6 +666,14 @@ GF.Part(function(GF)
 		end
 		if itemTip then
 			W.ItemTip(row, goal.item, function(tip)
+				tip:AddLine(" ")
+				tip:AddLine(goal.text or "", 1, 1, 1, true)
+				W.TooltipLines(tip, lines)
+			end, tooltipAnchor())
+			return
+		end
+		if recipe then
+			W.RecipeTip(row, recipe, function(tip)
 				tip:AddLine(" ")
 				tip:AddLine(goal.text or "", 1, 1, 1, true)
 				W.TooltipLines(tip, lines)
@@ -937,12 +981,22 @@ GF.Part(function(GF)
 		local status = goal.status
 		local done = status == "done"
 		local skipped = status == "skipped"
-		r.Icon:SetTexture(done and Theme.Media("check") or (goal.dismissed and Theme.Media("skip")) or Theme.VerbIcon(goal.t))
-		if skipped then
-			W.Color(r.Icon, "textMuted", 0.8)
+		-- A recipe's or a material's own art where the client has it (GF.GoalIcon), the verb's glyph otherwise.
+		local art = not (done or skipped or goal.dismissed) and GF.GoalIcon(goal) or nil
+		if art then
+			r.Icon:SetTexture(art)
+			r.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+			W.Uncolor(r.Icon)
+			r.Icon:SetVertexColor(1, 1, 1, 1)
 		else
-			-- Gold is the live goal's alone; a goal at rest is dim.
-			W.Color(r.Icon, done and "success" or (current and "accent" or "textDim"))
+			r.Icon:SetTexture(done and Theme.Media("check") or (goal.dismissed and Theme.Media("skip")) or Theme.VerbIcon(goal.t))
+			r.Icon:SetTexCoord(0, 1, 0, 1)
+			if skipped then
+				W.Color(r.Icon, "textMuted", 0.8)
+			else
+				-- Gold is the live goal's alone; a goal at rest is dim.
+				W.Color(r.Icon, done and "success" or (current and "accent" or "textDim"))
+			end
 		end
 		-- The game's looks light the goal to do now with their own art.
 		r.psKitLit = Theme.KitRowLit(r, current and not done and not skipped and not transparent(), nil, GF.LookSpace("litInset", Theme.Metric("guideLitInset", 4))) or nil

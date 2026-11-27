@@ -38,7 +38,18 @@ local M = stub.Methods
 ---------------------------------------------------------------------------
 
 C_Spell = C_Spell or {}
-local function S(id) return D.spells[tonumber(id) or -1] end
+-- By id, or by name (the client answers a spell's icon by its name for a spell the player knows: a profession's).
+local byName
+local function S(id)
+	local n = tonumber(id)
+	if n then return D.spells[n] end
+	if type(id) ~= "string" then return nil end
+	if not byName then
+		byName = {}
+		for _, s in pairs(D.spells) do byName[s.name] = byName[s.name] or s end
+	end
+	return byName[id]
+end
 C_Spell.GetSpellName = function(id) local s = S(id); return s and s.name end
 C_Spell.GetSpellTexture = function(id) local s = S(id); return s and s.icon end
 C_Spell.GetSpellSubtext = function(id) local s = S(id); return s and s.sub ~= "" and s.sub or nil end
@@ -233,7 +244,8 @@ local function installTips(tt)
 	tt.SetHyperlink = function(self, l)
 		local id = type(l) == "string" and tonumber(l:match("item:(%d+)"))
 		if id and I(id) then return self:SetItemByID(id) end
-		local sid = type(l) == "string" and tonumber(l:match("spell:(%d+)"))
+		-- A recipe's link (a chat link of a recipe is enchant:<spell>): the stand-in shows the spell's lines.
+		local sid = type(l) == "string" and tonumber(l:match("^spell:(%d+)") or l:match("^enchant:(%d+)"))
 		if sid and S(sid) then return self:SetSpellByID(sid) end
 		return setHyperlink(self, l)
 	end

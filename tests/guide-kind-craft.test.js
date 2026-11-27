@@ -27,13 +27,13 @@ const PROFESSION = `{ id = "test/craft", pack = "test", title = "Tailoring 1-300
 			{ t = "auction", item = 10940, itemName = "Strange Dust", count = 25 } } },
 	} }`;
 
-const script = (setup, body) => `
+const script = (setup, body, guide = PROFESSION, id = 'test/craft') => `
 w = stub.world
 w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
 w.moveTo(1429, 48, 42)
 w.setLevel(24)
 Polestar.RegisterPack({ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" })
-Polestar.RegisterGuide(${PROFESSION})
+Polestar.RegisterGuide(${guide})
 stub.login()
 stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)
 Polestar.Set("ui.shown", true)
@@ -47,14 +47,14 @@ local E = Polestar.Engine
 E.KindAccess.farm = function(goal) if goal.item == 2592 then return { minutes = 200, kills = 1652 } end end
 E.KindAccess.chosen = function(goal) if goal.item == 2592 and goal.t == "collect" then return { npc = 436, npcName = "Blackrock Grunt", map = 1429 } end end
 ${setup}
-E.SetGuide("test/craft")
+E.SetGuide(${JSON.stringify(id)})
 stub.advance(1)
 local GF = Polestar.UI.GuideFrame
 local function at(n) E.Goto(n); stub.advance(0.5) end
 local function plain(s) return s and (s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("\\194\\160", " ")) or s end
 ${body}`;
 
-const run = (setup, body) => runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar'], script: script(setup, body) }).emitted[0];
+const run = (setup, body, guide, id) => runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar'], script: script(setup, body, guide, id) }).emitted[0];
 
 // The get region's rows as the window shows them: the item's, then its ways.
 const GET_ROWS = `
@@ -579,4 +579,135 @@ emit({ name = meter.Name:GetText(), right = turnin.LineRight:GetText(), person =
 GF.Layout(); stub.advance(1)
 emit({ right = GF.RegionFrame("turnin").LineRight:GetText() })`);
 	assert.equal(short.right, '40 more');
+});
+
+// Icons and tooltips of what the guide's recipes are: the item's where a recipe makes one, else the recipe's own
+// spell (an enchant, a smelt, a transmute makes no item); the verb's glyph only where the client gives nothing.
+const ENCHANTING = `{ id = "test/enchant", pack = "test", title = "Enchanting 1-300", minLevel = 5, maxLevel = 60, category = "Professions",
+	sections = { { skill = "Enchanting", skillLine = 333, from = 1, to = 75 } },
+	steps = {
+		{ title = "Enchanting recipes at 25", section = 1, goals = { { t = "learn", spell = 7420, spellName = "Enchant Chest - Inferior Stamina", skillLine = 333, npc = 3606, npcName = "Alanna Raveneye" } } },
+		{ title = "Vendor goods", section = 1, goals = { { t = "buy", item = 247786, itemName = "Mote of Magic", count = 32, npc = 1250, npcName = "Jessara Cordell" } } },
+		{ title = "Runed Copper Rod", section = 1, goals = { { t = "craft", spell = 7421, spellName = "Runed Copper Rod", item = 6218, itemName = "Runed Copper Rod", count = 1, skillLine = 333,
+			reagents = { { item = 6217, itemName = "Copper Rod", count = 1 }, { item = 247786, itemName = "Mote of Magic", count = 1 } } } } },
+		{ title = "Enchant Bracer - Inferior Stamina to 25", section = 1, goals = { { t = "craft", spell = 7418, spellName = "Enchant Bracer - Inferior Stamina", skillLine = 333,
+			untilSkill = 25, yellow = 20, grey = 25, reagents = { { item = 247786, itemName = "Mote of Magic", count = 1 } } } } },
+	} }`;
+// The client as the tests need it: icons of the spells and items, and a game tooltip that remembers what it was set
+// to (an enchant: link it knows, the spell it was asked for).
+const ICONS = `
+C_Spell = C_Spell or {}
+local SPELL_ICON = { [7418] = 135913, [7420] = 135914, [2402] = 999, Tailoring = 136249 }
+C_Spell.GetSpellTexture = function(id) return SPELL_ICON[id] end
+w.itemInfo[2580] = { name = "Woolen Cape", icon = 133001 }
+w.itemInfo[6218] = { name = "Runed Copper Rod", icon = 133002 }
+w.itemInfo[247786] = { name = "Mote of Magic", icon = 133003 }
+local KNOWN = { [7418] = true, [7420] = true }
+function GameTooltip.SetOwner(self, owner, anchor) self.owner, self.anchor, self.lines, self.link, self.spellID = owner, anchor, {}, nil, nil end
+function GameTooltip.SetHyperlink(self, link)
+	local id = tonumber(link:match("^enchant:(%d+)$") or "")
+	if id and not KNOWN[id] then return end
+	self.link = link
+end
+function GameTooltip.SetSpellByID(self, id) self.spellID = id end
+function GameTooltip.NumLines(self) return self.link and 1 or 0 end`;
+const ENCHANTER = `
+C.GetSkillRank = function(line) if line == 333 or line == "Enchanting" then return 12, 75 end return nil end
+C.GetSkillLineName = function(line) return line == 333 and "Enchanting" or nil end`;
+const ROW_OF = `
+local function rowOf(t) for _, r in ipairs(GF.rows) do if r:IsShown() and r.psGoal and r.psGoal.t == t then return r end end end
+local function hover(r) r:GetScript("OnEnter")(r)
+	return { link = GameTooltip.link or false, spell = GameTooltip.spellID or false, owner = GameTooltip:GetOwner() == r, shown = GameTooltip:IsShown() } end`;
+const enchant = (body, setup = '') => run(`${ICONS}\n${ENCHANTER}\n${setup}`, `${ROW_OF}\n${body}`, ENCHANTING, 'test/enchant');
+
+test('an enchant craft row wears its spell\'s icon and hovers as the recipe (the enchant: link): no item to show', () => {
+	const out = enchant(`
+at(4); GF.Layout(); stub.advance(1)
+local r = GF.RegionFrame("stretch").Row
+emit({ text = plain(r.Text:GetText()), icon = r.Icon:GetTexture(), coord = r.Icon.texCoord, tip = hover(r) })`);
+	assert.match(out.text, /^Craft Enchant Bracer - Inferior Stamina until 25/);
+	assert.equal(out.icon, 135913, 'the spell\'s texture, not the anvil');
+	assert.deepEqual(out.coord, [0.08, 0.92, 0.08, 0.92]);
+	assert.deepEqual(out.tip, { link: 'enchant:7418', spell: false, owner: true, shown: true });
+});
+
+test('a recipe the client has no enchant: link for hovers as its spell\'s own tooltip', () => {
+	const out = enchant(`
+at(4); GF.Layout(); stub.advance(1)
+local r = GF.RegionFrame("stretch").Row
+emit({ tip = hover(r) })`, 'KNOWN[7418] = nil');
+	assert.deepEqual(out.tip, { link: false, spell: 7418, owner: true, shown: true });
+});
+
+test('an item craft row wears its item\'s icon and the item tooltip, never the spell\'s', () => {
+	const out = run(ICONS, `${ROW_OF}
+at(4); GF.Layout(); stub.advance(1)
+local r = GF.RegionFrame("stretch").Row
+emit({ icon = r.Icon:GetTexture(), tip = hover(r) })`);
+	assert.equal(out.icon, 133001, 'the cape\'s icon, the spell\'s 999 is not used');
+	assert.deepEqual(out.tip, { link: 'item:2580', spell: false, owner: true, shown: true });
+});
+
+test('a craft x1 of an item (the tool first) is an ordinary row: the item\'s icon and tooltip', () => {
+	const out = enchant(`
+at(3); GF.Layout(); stub.advance(1)
+local r = rowOf("craft")
+emit({ icon = r.Icon:GetTexture(), tip = hover(r) })`);
+	assert.equal(out.icon, 133002);
+	assert.deepEqual(out.tip, { link: 'item:6218', spell: false, owner: true, shown: true });
+});
+
+test('a learn step wears the spell\'s icon and hovers as its recipe', () => {
+	const out = enchant(`
+at(1); GF.Layout(); stub.advance(1)
+local r = rowOf("learn")
+emit({ text = plain(r.Text:GetText()), icon = r.Icon:GetTexture(), tip = hover(r) })`);
+	assert.match(out.text, /Enchant Chest - Inferior Stamina/);
+	assert.equal(out.icon, 135914);
+	assert.deepEqual(out.tip, { link: 'enchant:7420', spell: false, owner: true, shown: true });
+});
+
+test('a material\'s row (Get N Mote of Magic) wears the item\'s icon and the item tooltip', () => {
+	const out = enchant(`
+at(2); GF.Layout(); stub.advance(1)
+local r = GF.RegionFrame("get").List[1]
+emit({ text = plain(r.Text:GetText()), icon = r.Icon:GetTexture(), tip = hover(r) })`);
+	assert.match(out.text, /^Get \d+ Mote of Magic/);
+	assert.equal(out.icon, 133003);
+	assert.deepEqual(out.tip, { link: 'item:247786', spell: false, owner: true, shown: true });
+});
+
+test('where the client gives no icon at all, the verb\'s glyph stays (the last resort)', () => {
+	const out = enchant(`
+SPELL_ICON[7418] = nil
+at(4); GF.Layout(); stub.advance(1)
+local r = GF.RegionFrame("stretch").Row
+emit({ live = r.Icon:GetTexture(), glyph = Polestar.Theme.VerbIcon("craft"), coord = r.Icon.texCoord })`);
+	assert.equal(out.live, out.glyph);
+	assert.deepEqual(out.coord, [0, 1, 0, 1]);
+});
+
+test('a leveling guide keeps its glyphs: learn and collect goals get no recipe art outside a profession guide', () => {
+	const out = run(ICONS, `
+local goal = { t = "learn", spell = 7420, spellName = "Frostbolt", skillLine = 8 }
+E.GuideKind = function() return "leveling" end
+emit({ learn = GF.GoalIcon(goal) or false, spell = GF.RecipeSpell(goal) or false, collect = GF.GoalIcon({ t = "collect", item = 2592 }) or false })`);
+	assert.deepEqual(out, { learn: false, spell: false, collect: false });
+});
+
+test('Open <Profession> without its words (compact) wears the profession\'s own icon and says what it opens on hover; the anvil only where the client has none', () => {
+	const body = `${ROW_OF}
+at(4); GF.Layout(); stub.advance(1)
+local slot = GF.RegionFrame("stretch").Row.psOpen
+slot:GetScript("OnUpdate")(slot, 1)
+local b = _G.PolestarOpenProfession
+b:GetScript("OnEnter")(b)
+emit({ words = slot.Label:IsShown(), icon = slot.Icon:GetTexture(), tip = GameTooltip:IsShown() and GameTooltip:GetOwner() == b and GameTooltip.lines[1] or false,
+	glyph = Polestar.Theme.VerbIcon("craft") })`;
+	const out = run(`${ICONS}\nPolestar.Set("ui.compact", true)`, body);
+	assert.equal(out.words, false);
+	assert.equal(out.icon, 136249);
+	assert.equal(out.tip, 'Open Tailoring');
+	const none = run(`${ICONS}\nSPELL_ICON.Tailoring = nil; Polestar.Set("ui.compact", true)`, body);
+	assert.equal(none.icon, none.glyph, 'the anvil is the last resort');
 });
