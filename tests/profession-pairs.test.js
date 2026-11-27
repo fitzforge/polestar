@@ -20,6 +20,10 @@ const PAIRS = [
 	['tailoring-enchanting', 'Tailoring', 'Enchanting'],
 ];
 const skip = needs('professions.json', 'items.json');
+// A pair whose crafting guide is built from a route file (route.js) is written in single steps: a step may hold
+// several `when` lines (a fork way and its plans), and the way a step is on shows in its whole `when` set.
+const { loadRoute } = require('../tools/lib/professions/route');
+const routed = (craft) => !!loadRoute(craft);
 
 const read = (name) => fs.readFileSync(path.join(GUIDES, `${name}.guide`), 'utf8');
 const json = (name) => JSON.parse(fs.readFileSync(path.join(DATA, `${name}.json`), 'utf8'));
@@ -36,7 +40,7 @@ function steps(text) {
 		else if (out.length && /^ {2}\S/.test(l)) {
 			const s = out[out.length - 1];
 			s.lines.push(l.trim());
-			if (/^when /.test(l.trim())) s.when = l.trim();
+			if (/^when /.test(l.trim())) s.when = s.when ? `${s.when} & ${l.trim()}` : l.trim();
 		}
 	}
 	return out;
@@ -60,6 +64,13 @@ test('every paired guide is a profession guide naming both skills, gathering (or
 test('each pair reaches 300 in both skills on every path, or its last step says what is left', { skip }, () => {
 	for (const [file, a, b] of PAIRS) {
 		const all = steps(read(file));
+		if (routed(b)) {
+			// Every way ends crafting to 300, the gathering skill raised to 300 on that way before it.
+			const ends = all.filter((s) => s.lines.some((l) => /^craft \d+ until 300$/.test(l)));
+			assert.ok(ends.length, `${file}: a craft to 300`);
+			for (const c of ends) assert.ok(all.slice(0, all.indexOf(c)).some((s) => s.when === c.when && s.lines.includes(`skill ${a} 300`)), `${file} ${c.title} (${c.when || 'every way'}): ${a} 300 before it`);
+			continue;
+		}
 		for (const w of paths(all)) {
 			const on = all.filter((s) => s.when === null || s.when === w);
 			for (const skill of [a, b]) {
@@ -71,7 +82,7 @@ test('each pair reaches 300 in both skills on every path, or its last step says 
 });
 
 test('the gathering skill reaches 300 before the last crafting stretch (a passed section is done)', { skip }, () => {
-	for (const [file, a, b] of PAIRS.filter((p) => p[1] !== 'Tailoring')) {
+	for (const [file, a, b] of PAIRS.filter((p) => p[1] !== 'Tailoring' && !routed(p[2]))) {
 		const all = steps(read(file));
 		for (const w of paths(all)) {
 			const on = all.filter((s) => s.when === null || s.when === w);
@@ -111,9 +122,12 @@ test('no crafting step asks for a material no step before it gathers, buys or cr
 	for (const [file] of PAIRS) {
 		const bad = [];
 		const all = steps(read(file));
-		for (const w of paths(all)) {
+		const every = routed(file.split('-')[1].replace(/^./, (c) => c.toUpperCase()));
+		// A routed pair's ways share their gets in a fork section: what any step before gets counts (the route's
+		// own rule, tests/profession-route.test.js, checks each way's order).
+		for (const w of every ? [null] : paths(all)) {
 			const supplied = new Set(); // what any step before gets, buys or makes
-			for (const s of all.filter((x) => x.when === null || x.when === w)) {
+			for (const s of every ? all : all.filter((x) => x.when === null || x.when === w)) {
 				for (const l of s.lines) {
 					const got = /^(?:collect|buy|auction) (\d+)/.exec(l);
 					if (got) supplied.add(Number(got[1]));
@@ -134,11 +148,15 @@ test('no crafting step asks for a material no step before it gathers, buys or cr
 test('every gathering step leads with its count and what it is for', { skip }, () => {
 	for (const [file, g, c] of PAIRS.filter((p) => p[1] !== 'Tailoring')) {
 		const verb = { Herbalism: 'Pick', Mining: 'Mine', Skinning: 'Skin' }[g];
-		const gathers = steps(read(file)).filter((s) => s.title.startsWith(`${verb} `));
+		const gathers = steps(read(file)).filter((s) => s.title.startsWith(`${verb} `) && !/ until /.test(s.title));
 		assert.ok(gathers.length >= 5, `${file}: ${gathers.length} gathering steps`);
 		for (const s of gathers) {
 			const tip = s.lines.find((l) => /^tip /.test(l)) || '';
-			assert.match(tip, new RegExp(`^tip \\d+ .+? for ${c} \\d+-\\d+: [^.]+\\.`), `${file} ${s.title}`);
+			if (routed(c)) {
+				// One action: the count in the title, one short line of what it is for.
+				assert.match(s.title, new RegExp(`^${verb}(?: and smelt)? \\d+ `), `${file} ${s.title}`);
+				assert.match(tip, /^tip For .{1,116}$/, `${file} ${s.title}`);
+			} else assert.match(tip, new RegExp(`^tip \\d+ .+? for ${c} \\d+-\\d+: [^.]+\\.`), `${file} ${s.title}`);
 			assert.ok(s.lines.some((l) => /^loop /.test(l)), `${file} ${s.title}: its loops`);
 		}
 	}
