@@ -6163,11 +6163,15 @@ none.
 column nearest the height of what stands there, within 10 yd, by the same
 region and open rules. That height is the Deeprun Tram's AreaTrigger in
 Stormwind and Ironforge, a portal's AreaTrigger and its classic-db
-destination, or the spawn of the dock NPC an end is placed at (zeppelin
-masters, wharfmasters: `data/forever/spawnz.json`, within 15 yd of the
-end); never a ship's stop (the ship's origin: a zeppelin's lies about 17 yd
-above its tower). Without it the walk ended on the cheapest surface of the
-cell: the roof above the tram's entrance, 417 yd round by the Keep where
+destination, or the spawn of the dock NPC an end is placed at (the zeppelin
+masters on their towers, the airships' dock NPCs on their platforms:
+`data/forever/spawnz.json`, within 15 yd of the end); never a ship's stop
+(the ship's origin: a zeppelin's lies about 17 yd above its tower). A boat's
+wharfmaster stands on the quay, away from where the boat lies (the
+Riverglades boat's two 68 and 83 yd, #4344), so a boat's end stays at its
+stop and the wharfmaster only checks it. Without a height the walk ended on
+the cheapest surface of the cell: the roof above the tram's entrance, 417
+yd round by the Keep where
 the entrance is 131 yd away (#338), or the foot of Orgrimmar's zeppelin
 tower. travel.json carries it as the end's `z`, TravelData.lua as the
 end's tenth field (a number, where a board point is a table); an end with
