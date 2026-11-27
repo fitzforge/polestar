@@ -19029,6 +19029,18 @@
 				{ "kind": "in-game-check", "ref": "#4231 (Pokey): the jars in the bags are used on the ooze's corpse to fill them" }
 			],
 			"issue": 4231
+		},
+		{
+			"id": "4238-azurelode-mine-mouth",
+			"faction": "Horde",
+			"at": { "quest": 539, "goal": "objective", "objective": 2, "guide": "forever/horde/30-40/01-hillsbrad-foothills" },
+			"tip": "Head south-west past Hillsbrad town to the Azurelode Mine. The miners work inside the Azurelode Mine, below the hill: go in at its mouth on the west side, where the arrow leads first. Miners (26-27) work the tunnels; Foreman Bonds (30) and Miner Hackett (29) are deep inside. Keep killing Miners until Samsa's thirty skulls are in your bags: most Hillsbrad humans drop one.",
+			"note": "Battle of Hillsbrad (539): the Hillsbrad Miners work in the Azurelode Mine's tunnels under the hill. The step's first point was 28.5,55.0 (#3642), which lies over the tunnel: the arrow could still end on the hill above the miners (#4238). The guide's goto (forge/seed) is the mine's south-west mouth at 27.6,59.6, where players walk in; from there the walk goes along the tunnel to them.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#4238 (Darius): the right spot is the mine's entrance, 27.54,59.38; #3642 (Degen G.): left on the hill about 20 yards above the miners" },
+				{ "kind": "recording", "ref": "players' recordings to 2026-11-27: of 108 people's walks in the 3 minutes before their first Hillsbrad Miner kill, 98 pass within one map unit of 27.6,59.6 (86 within 0.6)" }
+			],
+			"issue": 4238
 		}
 	]
 }

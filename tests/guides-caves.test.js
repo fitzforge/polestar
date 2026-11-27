@@ -89,10 +89,12 @@ const CASES = [
 	},
 	{
 		// Degen G. (#3642): the mine's mouth was only in the step before; past it, the arrow pointed straight at the
-		// miners inside and left him on the hill over the tunnels (his report: about 20 yards above them).
+		// miners inside and left him on the hill over the tunnels (his report: about 20 yards above them). Darius
+		// (#4238): the step's point then lay over the tunnel (28.5,55.0), and the arrow still left him on the hill; it
+		// is the south-west mouth now, where players' recorded walks to the miners go in.
 		guide: 'forever/horde/30-40/01-hillsbrad-foothills.guide',
 		target: (g) => g.t === 'kill' && g.npc === 2269 && g.quest === 539, // Hillsbrad Miner, the mine step's first kill
-		mouth: { map: 1424, x: 28.5, y: 55 }, // the mine's west mouth, where the route's walk goes in
+		mouth: { map: 1424, x: 27.6, y: 59.6 }, // the mine's south-west mouth
 		tip: /inside the Azurelode Mine, below the hill: go in at its mouth/,
 	},
 ];
@@ -134,10 +136,11 @@ const FLOORS = [
 		z: -70.5, // the Ancient Brazier's spawn (spawnz.json), the object the Cloven Hoof comes out of
 	},
 	{
-		// Redrett (#1786): "Azurelode Mine" leads to the Hillsbrad Miners inside, not onto the hill over the tunnels.
+		// Redrett (#1786): "Azurelode Mine" leads to the Hillsbrad Miners inside, not onto the hill over the tunnels:
+		// past the mouth (#4238), the first miner's goal is on the tunnel's floor.
 		guide: 'forever/horde/30-40/01-hillsbrad-foothills.guide',
-		target: (g) => g.t === 'goto' && g.area === 288 && g.x === 28.5 && g.y === 55,
-		z: 21.3, // the miners' kill goal it leads to
+		target: (g) => g.t === 'kill' && g.npc === 2269 && g.quest === 539,
+		z: 7.1, // the nearest Hillsbrad Miner spawn's height (spawnz.json)
 	},
 	{
 		// dloyd (#1945): the arrow led straight over the hill above the Vul'Gol Ogre Mound to Zzarc' Vul, below ground.
