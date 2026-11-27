@@ -7157,6 +7157,16 @@ Polestar.Compat.SenderName(sender) / SenderIsUnit(sender, unit) / SenderIsMe(sen
   moves only the member's XP percent fires instead (the same 0.5 s delay):
   the XP shows only here, so the guide window and the engine skip that
   update; a "2U|" that changes nothing fires neither.
+  The guide window's party line (`Party.StepLine`, drawn by
+  `GF.UpdateParty`) leaves the window while the panel is open, in every
+  layout: the panel shows who is on which step, and `StepLine(true)` keeps
+  only "Waiting on Ana", with "Go on without them", which the panel doesn't
+  say. `PARTY_PANEL_TOGGLED` (the panel shown or hidden) repaints it. Under
+  the Atlas layout the line is a card: closed with its ×, it stays closed
+  (kept for the session) until the group's members change or the line gains
+  a state it didn't hold then: a wait, or a member ahead, behind or on
+  another guide (`StepLine`'s third value, `{ who, marks }`); "With" and
+  "Everyone's ready" never bring it back.
 - Loot (UI/PartyLoot.lua, `party.lootNeeds`): on `LOOT_OPENED` and
   `START_LOOT_ROLL`, a line per item a member's counts are short of while
   yours are not (the item's log line from the active guide's collect goals,
