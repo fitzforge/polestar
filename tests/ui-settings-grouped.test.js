@@ -202,12 +202,12 @@ test("at 860 wide the longest page breadcrumb reads whole in German and Russian"
 // Each tab of Guide window names its sections once, so none reads as "Tab ›
 // Section"; a map entry's `title` renames a section there and keeps its rows,
 // the ones registered in it.
-test("a long tab's index lights its last sections at the end, and folds what doesn't fit under More", () => {
+test("a long tab shows no section index under its tabs, and no empty run past its last section", () => {
 	const [out] = run(`
 		local G = O.Grouped
 		Polestar.UI.ShowOptions("guide")
 		G.SetOn(true)
-		-- A tab of many sections: 36 rows, over the index's 30.
+		-- A tab of many sections: 36 rows.
 		for i = 1, 12 do
 			local rows = {}
 			for j = 1, 3 do rows[j] = { kind = "button", button = "Go", label = "Row " .. j, onClick = function() end } end
@@ -218,40 +218,13 @@ test("a long tab's index lights its last sections at the end, and folds what doe
 		local last
 		for _, c in ipairs(O.view.cards) do if c:IsShown() and (not last or (c.psTop or 0) > (last.psTop or 0)) then last = c end end
 		local range = math.max(0, (sf.psContent or 0) - (sf.psView or 0))
-		local function links()
-			local lit, final, n = nil, nil, 0
-			for _, s in ipairs({ Polestar.Widgets.ShellPreviewSlot(O.frame):GetChildren() }) do
-				if rawget(s, "Count") then
-					for _, l in ipairs({ s:GetChildren() }) do
-						if l:IsShown() and rawget(l, "psOn") ~= nil then
-							n = n + 1
-							final = l.Label:GetText()
-							if l.psOn then lit = l.Label:GetText() end
-						end
-					end
-				end
-			end
-			return { lit = lit, final = final, n = n }
+		local shownSlot = 0
+		for _, s in ipairs({ Polestar.Widgets.ShellPreviewSlot(O.frame):GetChildren() }) do
+			if s:IsShown() then shownSlot = shownSlot + 1 end
 		end
-		Polestar.Widgets.ScrollTo(sf, range)
-		local atEnd = links()
-		Polestar.Widgets.ScrollTo(sf, 0)
-		local atTop = links()
-		-- A narrow window: the links fold under More.
-		O.frame:SetWidth(860)
-		O.Select("long")
-		Polestar.Widgets.ScrollTo(sf, math.max(0, (sf.psContent or 0) - (sf.psView or 0)))
-		local narrow = links()
-		narrow.entries = #Polestar.UI.Options.Grouped._entries()
-		emit({ top = last.psTop or 0, bottom = (last.psTop or 0) + last:GetHeight(), range = range, view = sf.psView or 0,
-			lastName = last.psSection and last.psSection.name, atEnd = atEnd, atTop = atTop, narrow = narrow, more = Polestar.L["More"] })`);
-	assert.ok(out.atEnd.n > 2, `the tab has an index (${out.atEnd.n} links)`);
+		emit({ bottom = (last.psTop or 0) + last:GetHeight(), range = range, view = sf.psView or 0, slot = shownSlot })`);
+	assert.equal(out.slot, 0, 'nothing stands in the slot under the tabs');
 	assert.ok(out.range + out.view <= out.bottom + 64, `no empty run past the last section (${out.range} + ${out.view} vs ${out.bottom})`);
-	assert.equal(out.atEnd.lit, out.atEnd.final, 'scrolled to the end, the last link is lit');
-	assert.notEqual(out.atTop.lit, out.atEnd.lit, 'at the top another one is');
-	assert.ok(out.narrow.n < out.narrow.entries, `narrow: More stands for the folded ones (${out.narrow.n} links of ${out.narrow.entries})`);
-	assert.equal(out.narrow.lit, out.narrow.final, 'narrow: More, last, is lit');
-	assert.notEqual(out.narrow.final, out.more, 'and takes the lit section\'s name');
 });
 
 // Closing the window after a Guide window or Look setting changed offers a
