@@ -307,6 +307,12 @@ function UI.GuideWindowScene(band)
 		hot(P.tip, "guideWindow.noteSize")
 		hot(up, "guideWindow.upSize")
 		hot(foot, "guideWindow.progressHeight")
+		-- The Journey's sample route (GF.journeySample: made on the copy's
+		-- first draw with the Journey on), in the window or on a layout's
+		-- card joined under it (Atlas: folded).
+		local js = G.journeySample
+		local journey = js and js.frame
+		hot(journey, "guideWindow.journeyStyle")
 		local rows, texts, subs, icons, checks, marks = {}, {}, { person.Where }, { person.Icon }, {}, {}
 		for i, r in ipairs(G.rows) do
 			rows[i], texts[i], checks[i], marks[i] = r, r.Text, r.Check, r.Mark
@@ -349,14 +355,13 @@ function UI.GuideWindowScene(band)
 			["guideWindow.checkSize"] = checks, ["guideWindow.targetBar"] = marks, ["guideWindow.targetBarWidth"] = marks,
 			["guideWindow.targetBarColor"] = marks, ["guideWindow.noteSize"] = { P.tip }, ["ui.showNotes"] = { P.tip },
 			["ui.upcoming"] = { up }, ["guideWindow.upSize"] = { up }, ["guideWindow.progress"] = { foot },
+			["guideWindow.journeyStyle"] = { journey }, ["nav.journeySteps"] = { journey },
 			["guideWindow.progressHeight"] = { foot }, ["guideWindow.progressColor"] = { foot.Line }, ["guideWindow.progressPct"] = { foot.Pct },
 			["guideWindow.pace"] = { G.xp }, ["guideWindow.xpLine"] = { G.xp }, ["guideWindow.stillToDo"] = { P.along },
 			["guideWindow.questLogNotices"] = { G.lines[1] or person, P.along },
 			-- The window itself shown and held in place; the step's goals, whole or one person's; the tip and Up next open.
 			["ui.shown"] = window, ["ui.locked"] = window, ["ui.wholeStep"] = moving, ["ui.notesOpen"] = { P.tip },
 			["ui.upcomingOpen"] = { up },
-			-- The sample Journey (made with the first layout that shows it).
-			["guideWindow.journeyStyle"] = { G.journeySample and G.journeySample.frame },
 		}) do
 			light(key, parts)
 		end
