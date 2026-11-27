@@ -19029,6 +19029,29 @@
 				{ "kind": "in-game-check", "ref": "#4231 (Pokey): the jars in the bags are used on the ooze's corpse to fill them" }
 			],
 			"issue": 4231
+		},
+		{
+			"id": "4343-a-little-luck-optional",
+			"faction": "Horde",
+			"at": { "quest": 6606, "goal": "accept", "guide": "forever/horde/50-60/07-felwood" },
+			"optional": true,
+			"note": "#4343: A Little Luck (6606, Harlo Wigglesworth in Everlook) only sends the player to Witch Doctor Mau'ari, who gives Luck Be With You (969) without it. A player who took 969 straight from Mau'ari was held at Harlo's accept with no way on. The lead-in is optional: the step is done once 969 is taken.",
+			"source": [
+				{ "kind": "recording", "ref": "players' recordings: Luck Be With You (969) accepted at Witch Doctor Mau'ari (10307) by 15 people, A Little Luck (6606) by none (0 runs)" },
+				{ "kind": "in-game-check", "ref": "#4343 (Sekyno, 0.4.3.1): a level 59 Horde warrior with Luck Be With You taken was stuck on Harlo's accept, which could not be ticked off" }
+			],
+			"issue": 4343
+		},
+		{
+			"id": "4343-a-little-luck-turnin-optional",
+			"faction": "Horde",
+			"at": { "quest": 6606, "goal": "turnin", "guide": "forever/horde/50-60/07-felwood" },
+			"optional": true,
+			"note": "#4343: the hand-in of the optional lead-in A Little Luck (6606) at Witch Doctor Mau'ari goes with its accept (4343-a-little-luck-optional).",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#4343 (Sekyno, 0.4.3.1)" }
+			],
+			"issue": 4343
 		}
 	]
 }

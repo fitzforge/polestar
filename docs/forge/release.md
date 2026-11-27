@@ -101,6 +101,42 @@ entries), `dist/notes-curseforge-0.2.0.md` (players') and `dist/notes-discord-0.
 most 2,000 characters). Each paragraph and list item is joined onto one line, since GitHub shows every
 line break of a release's notes, and each file starts with a `[[REPLACE ...]]` line for the intro.
 
+The GitHub notes end with a `## Contributors` section, "Thanks to everyone who made 0.2.0: @a, @b, @c.",
+every GitHub login that contributed to THIS release, alphabetical ignoring case: GitHub lists everyone
+@mentioned in a release's notes as a contributor on it (and notifies them when it is published).
+`forge release notes` needs `gh` logged in for it, builds the list for the range from the previous
+release tag to the release ref (`--since <tag>`, default the newest `vX.Y.Z[.N]` tag below the version;
+`--release-ref <ref>`, default the tag `v<version>` when it exists, else `HEAD`), and prints each login
+with why. What the previous release already carried under another id is not in the range: a commit
+whose change a commit only the previous tag has also makes (a hotfix branch not merged back), and, when
+the previous release is a hotfix (`vX.Y.Z.N`) merged back, a commit with the same author, author date
+and subject as one of its picks (`git cherry-pick` keeps all three). The release after a hotfix does
+not thank it again for what the hotfix fixed either: an issue a pick names, or that only a pull request
+shared with the picks (a maintainer's batch pull request gives the hotfix some commits and the next
+release the rest) closes, is the hotfix's. The rules are the Guiding Stars page's
+([The credits](#the-credits)), cut down to the range:
+
+- the author of a pull request merged into the range: GitHub ties a commit of the range that carries
+  work (not a merge commit), or the commit a hotfix pick was cherry-picked from (`git cherry-pick -x`),
+  to its pull request; the author of a closed pull request folded into the range with its authorship
+  kept, and of an open one whose head commit is in the range;
+- the accounts GitHub resolves for the `Co-authored-by` trailers of a range commit (a tool's no-reply
+  trailer, such as an assistant's, is no one; the git author is the pull request's author);
+- the reporter of an issue the release closes whose report counts (`useful_report`, as for the page):
+  closed by a pull request of the range, named by a range commit (`(#123)` in its subject, or
+  `Fixes #123` in its body), or open and closed by an open pull request folded into the range. A report
+  the Discord bot relayed (filed under the maintainer's account) counts only when
+  `data/credits.json` `github` maps its Discord name to a login (`"github": { "Pip": "PipGH" }`,
+  names matched ignoring case, for a player who told us their login); otherwise it stays on the
+  Guiding Stars page only;
+- the people whose `ideas` entry's pull request or issue is in the range, when their name is a login
+  GitHub knows from the repository's pull requests and issues (a name that merely looks like a login is
+  never tagged). A translator is tagged like any author, through their pull request or co-authored
+  commit; a locale file that changed without them (new keys synced by the maintainer) tags no one;
+- never the maintainer, bots, or anyone in `exclude` (or shown under a name `exclude` lists).
+
+A hotfix gets the same section from its picks. The CurseForge and Discord notes have no such section.
+
 ## The credits
 
 `forge release credits` rewrites `addon/Polestar/Core/Credits.lua` from `data/credits.json` (the

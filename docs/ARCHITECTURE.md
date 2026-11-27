@@ -3022,9 +3022,16 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   is part of the step signature, so arriving re-renders the window and lifts
   it, and once a quest of it is taken it does not come back. In such a guide
   a goal whose quest the character can never take (the quest database's race,
-  class or faction: the Human class letters for a Night Elf Warrior) does not
-  apply, like another class's (`Own.barred`, in `goalApplies` and the
-  orphaned turn-in check; without the database those goals stay); steps for
+  class or faction: the Human class letters for a Night Elf Warrior, the Night
+  Elf druids' Body and Heart for a Skyborne druid) does not apply, like
+  another class's (`Own.barred`, in `goalApplies` and the orphaned turn-in
+  check; without the database those goals stay). So do the goals that only
+  serve such quests: in a step whose quest goals are all barred, the travel
+  and item goals without a quest (`Own.SERVES`: goto, fly, use, enter, hearth,
+  kill, collect, interact, talk, level, cast), so the Moonkin Stone step's
+  flight to Auberdine and its Cenarion Moondust go with Body and Heart; a
+  step with one quest the character can take keeps all its goals, and a goal
+  that stands alone (train, vendor, getfp, sethome) stays. Steps for
   the guide's race only (`only Human`) never applied. No class steps are made
   for classes the guide's race does not play. Its `next` hand-off is unchanged:
   the shared route it leads to fits every race of the faction.
@@ -5341,7 +5348,11 @@ else the flight master within 60 yd of where the flight left;
 60 yd of it, one that never got away), a boat's, zeppelin's, tram's or
 portal's transport once it has arrived. So a plan made later on the way
 never goes back: from Stormwind the route flew to Sentinel Hill and on
-landing planned the flight back, over and over (#1890). A crossing's near
+landing planned the flight back, over and over (#1890). A flight master left
+behind counts again once the player is back at it: landed there, or standing
+within 60 yd of it (from Southshore a flight to Menethil Harbor and back left
+Southshore out, and the route rode round into the Hinterlands instead of
+flying to Aerie Peak, #4227); a flight leg the player skipped stays out. A crossing's near
 end reached (the walk to it, or the far end on the crossing's own walk or on
 the walk on to it from a start on it) is passed the same way a skipped one is
 (`passCrossing`): a plan from within the ends' distance of the far end walks on
@@ -6157,11 +6168,15 @@ none.
 column nearest the height of what stands there, within 10 yd, by the same
 region and open rules. That height is the Deeprun Tram's AreaTrigger in
 Stormwind and Ironforge, a portal's AreaTrigger and its classic-db
-destination, or the spawn of the dock NPC an end is placed at (zeppelin
-masters, wharfmasters: `data/forever/spawnz.json`, within 15 yd of the
-end); never a ship's stop (the ship's origin: a zeppelin's lies about 17 yd
-above its tower). Without it the walk ended on the cheapest surface of the
-cell: the roof above the tram's entrance, 417 yd round by the Keep where
+destination, or the spawn of the dock NPC an end is placed at (the zeppelin
+masters on their towers, the airships' dock NPCs on their platforms:
+`data/forever/spawnz.json`, within 15 yd of the end); never a ship's stop
+(the ship's origin: a zeppelin's lies about 17 yd above its tower). A boat's
+wharfmaster stands on the quay, away from where the boat lies (the
+Riverglades boat's two 68 and 83 yd, #4344), so a boat's end stays at its
+stop and the wharfmaster only checks it. Without a height the walk ended on
+the cheapest surface of the cell: the roof above the tram's entrance, 417
+yd round by the Keep where
 the entrance is 131 yd away (#338), or the foot of Orgrimmar's zeppelin
 tower. travel.json carries it as the end's `z`, TravelData.lua as the
 end's tenth field (a number, where a board point is a table); an end with

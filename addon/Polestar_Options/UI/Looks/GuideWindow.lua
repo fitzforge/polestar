@@ -448,6 +448,10 @@ end
 
 local function accentNow() return Theme.Color("accent") end
 local function accentSource() return L["Accent"] end
+-- Polestar's own progress line, which the game's looks (Theme.GameSkin) swap for the game's status bar: its
+-- thickness, colour and percent are off there, and say why (#4317: Thickness did nothing in WoW Forever).
+local function gameBar() return Theme.GameSkin() and true or false end
+local function gameBarWhy() return L["The game's looks keep their own bar."] end
 
 -- A row's `disabled` while a guide window setting is off (look(key) == false).
 -- The rows under their parent are children now; other branches' rows (Tab style)
@@ -777,12 +781,12 @@ local SPECS = {
 			children = {
 				{ kind = "slider", key = "guideWindow.progressHeight", label = L["Thickness"], min = 1, max = 12, step = 1, format = px, new = NEW,
 					help = L["The guide's progress at the bottom of the window: its thickness. The game's looks keep their own bar."],
-					search = "progress, progress bar, bar, footer, completion, thickness, height, thicker, thinner, progress line" },
+					search = "progress, progress bar, bar, footer, completion, thickness, height, thicker, thinner, progress line", disabled = gameBar, offWhy = gameBarWhy },
 				{ kind = "color", key = "guideWindow.progressColor", label = L["Colour"], new = NEW,
 					help = L["Its own colour; unset, the accent."],
-					search = "progress colour, fill colour, bar colour", shown = accentNow, source = accentSource },
+					search = "progress colour, fill colour, bar colour", shown = accentNow, source = accentSource, disabled = gameBar, offWhy = gameBarWhy },
 				{ kind = "toggle", key = "guideWindow.progressPct", label = L["Percent"], new = NEW,
-					help = L["The percent beside the progress bar."], search = "percent, number, percentage" },
+					help = L["The percent beside the progress bar."], search = "percent, number, percentage", disabled = gameBar, offWhy = gameBarWhy },
 			} },
 		{ kind = "toggle", key = "guideWindow.xpLine", label = L["XP line"], new = "0.4.3",
 			help = L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."],
