@@ -960,20 +960,20 @@ end
 -- The guide window's rows (UI/GuideFrameMenu.lua, UI/GuideFrame.lua)
 ---------------------------------------------------------------------------
 
--- The guide window menu's rows. Off: start it. On: its page, the way back
--- (Back to <guide>, else Stop), the three orders with the one in use
--- checked, and the quests left out.
+-- The guide window menu's rows. Off: Turn on Free mode. On: its Your quests
+-- page, Turn off Free mode (the guide it goes back to in its tooltip), the
+-- three orders with the one in use checked, and the quests left out.
 function Free.MenuItems()
 	if not Free.IsOn() then
-		return { { text = L["Free mode"], icon = "icon-freemode", checked = false, tip = L["Your own quests, planned for you: pick up what you like, Polestar orders them and the arrow leads."],
+		return { { text = L["Turn on Free mode"], icon = "icon-freemode", tip = L["Your own quests, planned for you: pick up what you like, Polestar orders them and the arrow leads."],
 			onClick = function() Free.Toggle() end } }
 	end
 	local items = {}
-	items[1] = { text = L["Free mode page"], icon = "icon-freemode", tip = L["Your route, the order and the quests left out."],
-		onClick = function() if ns.UI.ShowFreeMode then ns.UI.ShowFreeMode() end end }
+	items[1] = { text = L["Free mode page"], icon = "icon-freemode", tip = L["Your quests in Free mode's order, which quest first and the quests left out."],
+		onClick = function() if ns.UI.ShowFreeMode then ns.UI.ShowFreeMode("quests") end end }
 	local back = Free.ReturnTitle()
-	items[2] = back and { text = format(L["Back to %s"], back), icon = "chevron-left", onClick = Free.Stop }
-		or { text = L["Stop Free mode"], icon = "close", onClick = Free.Stop }
+	items[2] = { text = L["Turn off Free mode"], icon = "close", onClick = Free.Stop,
+		tip = back and format(L["Takes you back to %s"], back) or L["Leaves you with no guide open: pick one under Guides."] }
 	local rule = Free.Pick()
 	local ORDER_ROW = { balanced = L["Order: balanced"], near = L["Order: nearest first"], xp = L["Order: most XP a minute first"] }
 	for _, r in ipairs(Free.ORDERS) do

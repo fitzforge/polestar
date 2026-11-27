@@ -21,9 +21,9 @@
 --   Free.IsBackTarget(guideId) -> bool                -- a guide of a pack, not one Polestar builds
 --
 -- The way back: while any tab is active, the last guide of a pack the player
--- had in front is CharState().free.from, so Free mode's "Back to <guide>"
--- never names a tab Polestar built (the hand-in route, a dungeon's pick-up
--- run, a Lookup "Guide me").
+-- had in front is CharState().free.from, so turning Free mode off never goes
+-- back to (or names) a tab Polestar built (the hand-in route, a dungeon's
+-- pick-up run, a Lookup "Guide me").
 
 local ADDON, ns = ...
 
@@ -116,7 +116,7 @@ function door.Pin(q, on) return via("Pin", q, on) end
 function door.RowItems() return nil end
 function door.Why() return nil end
 function door.MenuItems()
-	return { { text = L["Free mode"], icon = "icon-freemode", checked = false, tip = L["Your own quests, planned for you: pick up what you like, Polestar orders them and the arrow leads."],
+	return { { text = L["Turn on Free mode"], icon = "icon-freemode", tip = L["Your own quests, planned for you: pick up what you like, Polestar orders them and the arrow leads."],
 		onClick = function() Free.Toggle() end } }
 end
 for k, fn in pairs(door) do Free[k] = fn end
