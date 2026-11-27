@@ -176,19 +176,7 @@ pub fn build_logged(opts: &Options, log: &dyn Fn(&str)) -> Result<Output, String
 	fc.set(
 		"hotfixes",
 		match &t.hotfix_dir {
-			Some(_) => V::Arr(Arr::from_vec(
-				t.applied
-					.iter()
-					.map(|a| {
-						let o = Obj::new();
-						o.set("table", V::str(&a.table));
-						o.set("replaced", V::Num(a.replaced as f64));
-						o.set("added", V::Num(a.added as f64));
-						o.set("deleted", V::Num(a.deleted as f64));
-						V::Obj(o)
-					})
-					.collect(),
-			)),
+			Some(_) => V::Arr(Arr::from_vec(t.applied.iter().map(client::Applied::to_v).collect())),
 			None => V::Null,
 		},
 	);

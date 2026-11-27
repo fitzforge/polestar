@@ -54,6 +54,70 @@ fn loot_source_requirements_survive_the_codex_build_and_pack() {
 	assert!(out.pack.iter().any(|(_, text)| text.contains("o30,50,p,6563%2C6564")));
 }
 
+fn csv_field(v: &str) -> String {
+	if v.contains([',', '"', '\n']) {
+		format!("\"{}\"", v.replace('"', "\"\""))
+	} else {
+		v.to_string()
+	}
+}
+
+// Vest of Elements (16666) has no ItemSparse row in the slice's Forever build, so the Codex took
+// Classic Era's level 58 and rarity 3. The server's hotfix row for it is what the game shows.
+#[test]
+fn an_items_hotfix_row_comes_before_classic_era() {
+	let (root, data) = setup("codex-item-hotfix");
+	let sources = root.join("sources");
+	common::copy_tree(&common::golden("codex").join("input/sources"), &sources);
+	let build = "1.60.1.70450";
+	let header = std::fs::read_to_string(sources.join("wago").join(build).join("ItemSparse.csv")).unwrap();
+	let header: Vec<String> = header.lines().next().unwrap().split(',').map(str::to_string).collect();
+	let era = std::fs::read_to_string(sources.join("wago/1.15.9.70003/ItemSparse.csv")).unwrap();
+	let era = forge_data::tables::parse_csv(&era).unwrap();
+	let vest = era.iter().find(|r| r["ID"] == "16666").unwrap();
+	let mut lines = vec![format!("RecordID,Status,PushID,{}", header.join(","))];
+	let fields = |level: &str, quality: &str| -> String {
+		header
+			.iter()
+			.map(|k| match k.as_str() {
+				"RequiredLevel" => level.to_string(),
+				"OverallQualityID" => quality.to_string(),
+				_ => csv_field(vest.get(k).map_or("0", String::as_str)),
+			})
+			.collect::<Vec<_>>()
+			.join(",")
+	};
+	// An older push loses to the newer one.
+	lines.push(format!("16666,1,10,{}", fields("40", "2")));
+	lines.push(format!("16666,1,20,{}", fields("50", "4")));
+	// Green Iron Bracers (3835) ships in the slice's Forever build (quality 2; Classic Era's is 1).
+	// The server deleted its row, so Classic Era's must not come back for it. data/forever still lists
+	// it, so it stays in Lookup with its name and no client facts: a blank level, not a missing item.
+	lines.push(format!("3835,2,30,{}", header.iter().map(|_| "0").collect::<Vec<_>>().join(",")));
+	let hot = sources.join("hotfix").join(build);
+	std::fs::create_dir_all(&hot).unwrap();
+	std::fs::write(hot.join("ItemSparse.csv"), lines.join("\n") + "\n").unwrap();
+	let mut o = options(&root, &data);
+	o.sources_dir = sources;
+	let logged = std::cell::RefCell::new(Vec::new());
+	let out = codex::build_logged(&o, &|l| logged.borrow_mut().push(l.to_string())).unwrap();
+	let items: serde_json::Value = serde_json::from_str(&out.json.iter().find(|(n, _)| n == "items.json").unwrap().1).unwrap();
+	assert_eq!(items["16666"]["reqLevel"], 50);
+	assert_eq!(items["16666"]["quality"], 4);
+	assert_eq!(items["16667"]["reqLevel"], 57, "items without a hotfix row keep Classic Era's level");
+	assert_eq!(items["3835"]["name"], "Green Iron Bracers", "an item data/forever lists stays in Lookup after its row is deleted");
+	assert_eq!((&items["3835"]["quality"], &items["3835"]["reqLevel"]), (&serde_json::Value::Null, &serde_json::Value::Null), "a deleted item: {}", items["3835"]);
+	assert!(out.pack.iter().any(|(_, text)| text.contains("Green Iron Bracers")), "the pack offers the deleted item in Lookup");
+	let logged = logged.into_inner();
+	assert!(logged.iter().any(|l| l.contains("hotfixes ItemSparse: 0 replaced, 1 added, 1 deleted")), "{logged:?}");
+	let src = out.meta.get("sources").items().into_iter().find(|s| s.get("name").to_js_string().contains("hotfix")).expect("a hotfix source in meta.json");
+	assert_eq!(src.get("version").to_js_string(), build);
+	let applied = src.get("applied").items();
+	assert_eq!(applied.len(), 1);
+	assert_eq!(applied[0].get("table").to_js_string(), "ItemSparse");
+	assert_eq!((applied[0].get("replaced").to_js_string(), applied[0].get("added").to_js_string(), applied[0].get("deleted").to_js_string()), ("0".into(), "1".into(), "1".into()));
+}
+
 #[test]
 fn exact_recipe_teachers_survive_the_codex_build_and_pack_4214() {
 	let (root, data) = setup("codex-recipe-teachers");

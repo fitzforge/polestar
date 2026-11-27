@@ -8,6 +8,7 @@
 
 use std::path::{Path, PathBuf};
 
+use forge_guide::js::{Obj, V};
 use rustc_hash::FxHashMap;
 
 use crate::jsv::{Row, Rows};
@@ -44,7 +45,20 @@ pub struct Applied {
 	pub table: String,
 	pub replaced: usize,
 	pub added: usize,
-	pub deleted: usize,
+	/// The ids of the shipped rows a deleted (2) row removed, in id order.
+	pub deleted: Vec<i64>,
+}
+
+impl Applied {
+	/// `{table, replaced, added, deleted}` (counts), as the gear report and the Codex's meta.json list them.
+	pub fn to_v(&self) -> V {
+		let o = Obj::new();
+		o.set("table", V::str(&self.table));
+		o.set("replaced", V::Num(self.replaced as f64));
+		o.set("added", V::Num(self.added as f64));
+		o.set("deleted", V::Num(self.deleted.len() as f64));
+		V::Obj(o)
+	}
 }
 
 pub struct Tables {
@@ -105,7 +119,7 @@ pub fn apply_hotfixes(table: &str, rows: &mut Rows, hot: &Rows) -> Applied {
 			2 => {
 				if let Some(&i) = at.get(&id) {
 					gone.push(i);
-					out.deleted += 1;
+					out.deleted.push(id);
 				}
 			}
 			_ => {}
@@ -139,18 +153,25 @@ pub fn load(sources: &Path, build: Option<&str>, hotfix_dir: Option<&Path>, offl
 		if !d.is_dir() {
 			return Err(format!("{}: no such hotfix folder", d.display()));
 		}
-		for &t in &names {
-			let f = d.join(format!("{t}.csv"));
-			if !f.exists() {
-				continue;
-			}
-			let text = std::fs::read_to_string(&f).map_err(|e| format!("{}: {e}", f.display()))?;
-			let hot = crate::tables::parse_csv(&text)?;
-			let rows = tables.get_mut(t).ok_or_else(|| format!("{t}: not loaded"))?;
-			applied.push(apply_hotfixes(t, rows, &hot));
-		}
+		applied = apply_hotfix_dir(d, &names, &mut tables)?;
 	}
 	Ok(Tables { build, tables, hotfix_dir: dir, applied, warnings })
+}
+
+/// Applies `<dir>/<table>.csv`, for each of `names` that has one, to that table's rows, in `names` order.
+pub fn apply_hotfix_dir(dir: &Path, names: &[&'static str], tables: &mut FxHashMap<&'static str, Rows>) -> Result<Vec<Applied>, String> {
+	let mut applied = Vec::new();
+	for &t in names {
+		let f = dir.join(format!("{t}.csv"));
+		if !f.exists() {
+			continue;
+		}
+		let text = std::fs::read_to_string(&f).map_err(|e| format!("{}: {e}", f.display()))?;
+		let hot = crate::tables::parse_csv(&text)?;
+		let rows = tables.get_mut(t).ok_or_else(|| format!("{t}: not loaded"))?;
+		applied.push(apply_hotfixes(t, rows, &hot));
+	}
+	Ok(applied)
 }
 
 #[cfg(test)]
@@ -172,7 +193,7 @@ mod tests {
 			row(&[("RecordID", "7"), ("Status", "1"), ("PushID", "4"), ("ID", "0"), ("X", "added")]),
 		];
 		let a = apply_hotfixes("T", &mut rows, &hot);
-		assert_eq!(a, Applied { table: "T".into(), replaced: 1, added: 1, deleted: 1 });
+		assert_eq!(a, Applied { table: "T".into(), replaced: 1, added: 1, deleted: vec![2] });
 		let got: Vec<(String, String)> = rows.iter().map(|r| (r["ID"].clone(), r["X"].clone())).collect();
 		assert_eq!(got, vec![("1".into(), "new".into()), ("3".into(), "c".into()), ("7".into(), "added".into())]);
 	}
