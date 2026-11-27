@@ -704,14 +704,7 @@ fn a_target_a_floor_above_or_below_is_not_arrived_at_and_the_arrow_shows_up_or_d
 		emit(seen)"#);
 	assert_eq!(
 		out,
-		json!([
-			["unmapped", "up", true, false, "5 yd", false, 0],
-			["unmapped", "down"],
-			["unmapped", false, false, 0],
-			["arrived", true, false, true, 1],
-			["arrived", true, 1],
-			["arrived", true, 1]
-		])
+		json!([["unmapped", "up", true, false, "5 yd", false, 0], ["unmapped", "down"], ["unmapped", false, false, 0], ["arrived", true, false, true, 1], ["arrived", true, 1], ["arrived", true, 1]])
 	);
 }
 
