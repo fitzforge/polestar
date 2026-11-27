@@ -127,11 +127,7 @@ Polestar.RegisterGuide({ id = "test/jadefire", pack = "test", title = "Felwood",
 
 #[test]
 fn the_kills_under_the_arrow_leave_out_the_mob_its_item_comes_from_4268() {
-	let out = run(
-		JADEFIRE,
-		"w.level = 54; w.onQuest(4906, { 8, 8, 8, 1 }); w.moveTo(1429, 50, 50)",
-		r#"E.SetGuide("test/jadefire"); flush(); emit({ at = at(50), note = label() })"#,
-	);
+	let out = run(JADEFIRE, "w.level = 54; w.onQuest(4906, { 8, 8, 8, 1 }); w.moveTo(1429, 50, 50)", r#"E.SetGuide("test/jadefire"); flush(); emit({ at = at(50), note = label() })"#);
 	assert_eq!(out["at"], json!([3, 60]), "the flute leads: {out}");
 	assert_eq!(out["note"], json!("Kill Xavaric for Flute of Xavaric · kill Jadefire Trickster as you meet them"), "{out}");
 }
