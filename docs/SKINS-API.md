@@ -133,7 +133,8 @@ Polestar.Theme.RegisterLayout("ledger", {
 
 - **Hooks**: only the structure hooks (`guideLayout`, `guideRender`,
   `guidePlace`, `guideAnchor`, `guideTakes`, `guidePerson`, `guideInset`,
-  `guideUpRow`, `guideShows`, `guideSpace`, `guideTitle`, `guideRow`, `guideProgress`),
+  `guideUpRow`, `guideShows`, `guideSpace`, `guideTitle`, `guideRow`, `guideProgress`,
+  `guideKindRow`, `guideMeter`),
   with the same arguments a skin's get. Their colours are the skin's
   tokens.
   Any other field or hook is refused.
