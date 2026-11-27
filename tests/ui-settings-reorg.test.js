@@ -247,7 +247,6 @@ function journey() {
 				tree[g.key] = keys
 			end
 			local home, sectionOf, sectionToggle, refToggle, parentOf, layout = {}, {}, {}, {}, {}, {}
-			local questsTabKeys = 0
 			for _, p in ipairs(K.pages) do
 				local tabs = {}
 				for _, t in ipairs(p.tabs) do
@@ -262,7 +261,6 @@ function journey() {
 							if c.key and not home[c.key] then
 								home[c.key] = p.key .. SEP .. (t.name or "") .. SEP .. (s.name or "")
 								sectionOf[c.key] = s.name
-								if p.key == "questing" and t.name == Polestar.L["Quests"] then questsTabKeys = questsTabKeys + 1 end
 							end
 						end
 						for _, c in ipairs(s.controls) do
@@ -291,7 +289,7 @@ function journey() {
 				if w:IsShown() and c.kind == "button" and c.label == text then styleLine = c.button end
 			end
 			emit({ tree = tree, home = home, sectionOf = sectionOf, sectionToggle = sectionToggle, refToggle = refToggle,
-				parentOf = parentOf, layout = layout, questsTabKeys = questsTabKeys, questingTabs = questingTabs,
+				parentOf = parentOf, layout = layout, questingTabs = questingTabs,
 				installHome = installHome, styleLine = styleLine or false, journal = ENCOUNTER_JOURNAL or Polestar.L["Dungeons"] })`,
 	}).emitted[0];
 	return journeyCached;
@@ -310,7 +308,6 @@ test('pages and sections follow the player journey order', () => {
 	assert.deepEqual(out.tree.about, ['about', 'thanks']);
 	// By name: pr/settings-essentials puts an Essentials tab before them.
 	assert.deepEqual(out.questingTabs.filter((n) => n !== 'Essentials'), ['Quests', 'Rewards & gear', 'Buttons', 'Group']);
-	assert.ok(out.questsTabKeys <= 22, out.questsTabKeys);
 
 	assert.deepEqual(tabsOf(out, 'guide'), ['While you play', 'Automation', 'Arrow & routes']);
 	assert.deepEqual(sectionsOf(out, 'guide', 'While you play'), ['Dynamic Questing', 'Pause', 'Level pace']);

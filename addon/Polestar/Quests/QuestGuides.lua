@@ -359,6 +359,7 @@ local function onEnter(frame)
 		QG.AddLines(GameTooltip, q)
 		ownTip[frame] = true
 	end
+	ns.Theme.TipDots(GameTooltip)
 	GameTooltip:Show()
 end
 
@@ -370,7 +371,7 @@ local function onLeave(frame)
 end
 
 local function hoverable(frame, get)
-	if not (frame and frame.HookScript) then return end
+	if type(frame) ~= "table" or not frame.HookScript then return end
 	if not hovered[frame] then
 		frame:HookScript("OnEnter", onEnter)
 		frame:HookScript("OnLeave", onLeave)
@@ -469,7 +470,9 @@ local function onTrackerUpdate(module, quest)
 	local block = module:GetExistingBlock(q)
 	if not block then return end
 	if block.HeaderText then mark(block.HeaderText, q) end
-	hoverable(block.HeaderButton or block, trackerQuest)
+	-- The header's own button when the tracker has one (a frame), else the block.
+	local header = block.HeaderButton
+	hoverable(type(header) == "table" and header or block, trackerQuest)
 end
 
 local function onLogEnter(button)
