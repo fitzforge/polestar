@@ -132,11 +132,11 @@ return {
 	["Gelkis: the heart of the valley"] = "Gelkis: das Herz des Tals",
 	-- {npc:253177} Nerlokh · {npc:253446} Haggard Bones · {item:256061} Uthek's Draenethyst Staff
 	-- plural, as words: Gelkis Captives = {npc:253431} Gelkis Captive · Magram Necrokhans = {npc:253274} Magram Necrokhan
-	["From the quest data: east of {npc:253177}, in the heart of the valley, the Magram hold Gelkis Captives: free five. Among them lie {npc:253446}, failed summons stuck in the ground: lay eight to rest with {item:256061}, which the quest gives you. Corpsefeeders and Magram Necrokhans, elite and level 45, walk the valley and attack a friend of the Gelkis: let them pass before you pull."] = "Aus den Questdaten: Östlich von {npc:253177}, im Herzen des Tals, halten die Magram Gelkis Captives fest: Befreie fünf. Zwischen ihnen liegen {npc:253446}, misslungene Beschwörungen, die im Boden feststecken: Bring acht mit {item:256061}, den dir die Quest gibt, zur Ruhe. Leichenfresser und Nekrokhane der Magram (Elite, Stufe 45) laufen durch das Tal und greifen einen Freund der Gelkis an: Lass sie vorbeiziehen, bevor du pullst.",
+	["From the quest data: east of {npc:253177}, in the heart of the valley, the Magram hold Gelkis Captives: free five. Among them lie {npc:253446}, failed summons stuck in the ground: lay eight to rest with {item:256061}, which the quest gives you. Corpsefeeders and Magram Necrokhans, elite and level 45, walk the valley and attack a friend of the Gelkis: let them pass before you pull."] = "Aus den Questdaten: Östlich von {npc:253177}, im Herzen des Tals, halten die Magram Gefangene der Gelkis fest: Befreie fünf. Zwischen ihnen liegen {npc:253446}, misslungene Beschwörungen, die im Boden feststecken: Bring acht mit {item:256061}, den dir die Quest gibt, zur Ruhe. Leichenfresser und Nekrokhane der Magram (Elite, Stufe 45) laufen durch das Tal und greifen einen Freund der Gelkis an: Lass sie vorbeiziehen, bevor du pullst.",
 	-- {npc:253446} Haggard Bones
 	["Lay {npc:253446} to rest"] = "Bring {npc:253446} zur Ruhe",
 	-- plural, as words: Gelkis Captives = {npc:253431} Gelkis Captive
-	["free five Gelkis Captives"] = "Befreie fünf Gelkis Captives",
+	["free five Gelkis Captives"] = "Befreie fünf Gefangene der Gelkis",
 
 	-- Step 18: Gelkis: Checking Things Out
 	-- {quest:93122} Checking Things Out
@@ -231,7 +231,7 @@ return {
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager
 	["From the quest data: the Undead Ravagers and the {quest:92846} fill the valley from {npc:253136} south-west to {npc:253177}'s post at its western mouth; players have met them all along it. {npc:253177} is a Gelkis scout. Corpsefeeders, elite and level 45, walk the valley and attack anyone."] = "Aus den Questdaten: Die Untoten Verwüster und {quest:92846} füllen das Tal von {npc:253136} nach Südwesten bis zum Posten von {npc:253177} an seinem westlichen Eingang; Spieler haben sie überall auf dem Weg angetroffen. {npc:253177} ist ein Späher der Gelkis. Leichenfresser (Elite, Stufe 45) laufen durch das Tal und greifen jeden an.",
 	-- plural, as words: Gently Cursed Bones = {item:254663} Gently Cursed Bone · Undead Ravagers = {npc:11561} Undead Ravager
-	["Gently Cursed Bones: Undead Ravagers"] = "Gently Cursed Bones: Untote Verwüster",
+	["Gently Cursed Bones: Undead Ravagers"] = "Sanft verfluchte Knochen: Untote Verwüster",
 
 	-- Step 32: Magram: Corrupting Tears
 	-- {quest:92847} Corrupting Tears
@@ -246,9 +246,9 @@ return {
 	["Magram: {quest:92873}"] = "Magram: {quest:92873}",
 	-- {npc:253136} Orgrul · {item:254870} Rudimentary Necromancy Staff
 	-- plural, as words: Nascent Undead Ravagers = {npc:253360} Nascent Undead Ravager · Well Cursed Bones = {item:254842} Well Cursed Bone
-	["From the quest data: {npc:253136} gives you a {item:254870}. He laid out two skeletons on the hill just east of his post: put the staff to use there, and the Nascent Undead Ravagers give the Well Cursed Bones."] = "Aus den Questdaten: {npc:253136} gibt dir {item:254870}. Er hat auf dem Hügel gleich östlich seines Postens zwei Skelette ausgelegt: Setz den Stab dort ein, und die Nascent Undead Ravagers geben die Well Cursed Bones.",
+	["From the quest data: {npc:253136} gives you a {item:254870}. He laid out two skeletons on the hill just east of his post: put the staff to use there, and the Nascent Undead Ravagers give the Well Cursed Bones."] = "Aus den Questdaten: {npc:253136} gibt dir {item:254870}. Er hat auf dem Hügel gleich östlich seines Postens zwei Skelette ausgelegt: Setz den Stab dort ein, und die Nascent Undead Ravagers geben die gut verfluchten Knochen.",
 	-- plural, as words: Well Cursed Bones = {item:254842} Well Cursed Bone · Nascent Undead Ravagers = {npc:253360} Nascent Undead Ravager
-	["Well Cursed Bones: Nascent Undead Ravagers"] = "Well Cursed Bones: Nascent Undead Ravagers",
+	["Well Cursed Bones: Nascent Undead Ravagers"] = "Gut verfluchte Knochen: Nascent Undead Ravagers",
 
 	-- Step 34: Magram: Orgrul's next tasks
 	-- {npc:253136} Orgrul
@@ -260,7 +260,7 @@ return {
 	["Magram: the heart of the valley"] = "Magram: das Herz des Tals",
 	-- {npc:253136} Orgrul · {npc:253446} Haggard Bones
 	-- plural, as words: Gelkis Captives = {npc:253431} Gelkis Captive · Magram Necrokhans = {npc:253274} Magram Necrokhan
-	["From the quest data: south-east of {npc:253136}, in the heart of the valley, the Magram keep Gelkis Captives: kill five. The {npc:253446} there are failed summons stuck in the ground: raise ten with the Enhanced Necromancy Staff Orgrul gave you, and kill the ones that fight back. Corpsefeeders, elite and level 45, walk the valley and attack anyone; the Magram Necrokhans, elite too, leave a friend of the Magram alone."] = "Aus den Questdaten: Südöstlich von {npc:253136}, im Herzen des Tals, halten die Magram Gelkis Captives fest: Töte fünf. Die {npc:253446} dort sind misslungene Beschwörungen, die im Boden feststecken: Erwecke zehn mit dem Enhanced Necromancy Staff, den Orgrul dir gegeben hat, und töte die, die sich wehren. Leichenfresser (Elite, Stufe 45) laufen durch das Tal und greifen jeden an; die Nekrokhane der Magram, ebenfalls Elite, lassen einen Freund der Magram in Ruhe.",
+	["From the quest data: south-east of {npc:253136}, in the heart of the valley, the Magram keep Gelkis Captives: kill five. The {npc:253446} there are failed summons stuck in the ground: raise ten with the Enhanced Necromancy Staff Orgrul gave you, and kill the ones that fight back. Corpsefeeders, elite and level 45, walk the valley and attack anyone; the Magram Necrokhans, elite too, leave a friend of the Magram alone."] = "Aus den Questdaten: Südöstlich von {npc:253136}, im Herzen des Tals, halten die Magram Gefangene der Gelkis fest: Töte fünf. Die {npc:253446} dort sind misslungene Beschwörungen, die im Boden feststecken: Erwecke zehn mit dem Enhanced Necromancy Staff, den Orgrul dir gegeben hat, und töte die, die sich wehren. Leichenfresser (Elite, Stufe 45) laufen durch das Tal und greifen jeden an; die Nekrokhane der Magram, ebenfalls Elite, lassen einen Freund der Magram in Ruhe.",
 	-- {npc:253446} Haggard Bones
 	["Raise or slay {npc:253446}"] = "Erwecke oder töte {npc:253446}",
 
