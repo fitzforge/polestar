@@ -356,6 +356,7 @@ fn the_map_page_gathers_every_map_setting_from_its_modules_into_the_declared_tab
 	assert_eq!(
 		out["keys"]["Guide & quests"],
 		json!([
+			"nav.hidePinsWithGuide",
 			"nav.minimapPins",
 			"nav.minimapRoute",
 			"nav.upcomingPins",

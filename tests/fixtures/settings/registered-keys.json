@@ -223,6 +223,7 @@
 	"nav.flightDash",
 	"nav.followTomTom",
 	"nav.hideArrowWithGuide",
+	"nav.hidePinsWithGuide",
 	"nav.journeySteps",
 	"nav.laterAlpha",
 	"nav.lineOutline",
