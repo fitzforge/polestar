@@ -19978,3 +19978,14 @@ test("forever/alliance/50-60/03-winterspring.guide: nepyanbin's report: Eridan's
 	assert.ok(note, "the note on Eridan's next task is in the guide");
 	assert.match(note.goal.text, /next task, \{quest:4261\},/, note.goal.text);
 });
+
+// #4430 (Oscure3, 0.4.3.1): the Cracked Silithid Carapace that starts Parts of the Swarm (1148) drops only for a player
+// on The Swarm Grows (1147): in players' recordings all 96 accepts of 1148 came with 1147 in the log. The dig site's
+// step asked a player without 1147 to kill silithid for a carapace that never dropped; it shows only with 1147 now
+// (guide-fixes 4430-parts-of-the-swarm-carapace-gate).
+test("forever/horde/30-40/02-thousand-needles.guide: Oscure3's report: the carapace for Parts of the Swarm is asked only on The Swarm Grows (#4430)", { skip }, () => {
+	const list = goals('forever/horde/30-40/02-thousand-needles.guide');
+	const carapace = list[at(list, 'collect 5877 (Cracked Silithid Carapace)', (g) => g.t === 'collect' && g.item === 5877)];
+	const take = list[at(list, 'accept 1148 (Parts of the Swarm)', is('accept', 1148))];
+	for (const { step } of [carapace, take]) assert.ok(holdsQuest(step, 1147), `${step.title}: only with The Swarm Grows (1147) in the log`);
+});

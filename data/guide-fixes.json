@@ -19071,6 +19071,18 @@
 				{ "kind": "in-game-check", "ref": "#4343 (Sekyno, 0.4.3.1)" }
 			],
 			"issue": 4343
+		},
+		{
+			"id": "4430-parts-of-the-swarm-carapace-gate",
+			"faction": "Horde",
+			"at": { "quest": 1148, "goal": "accept", "guide": "forever/horde/30-40/02-thousand-needles" },
+			"when": "onquest 1147",
+			"note": "#4430: the Cracked Silithid Carapace that starts Parts of the Swarm (1148) drops only for a player on The Swarm Grows (1147). The dig site's step (1147's kills, the carapace and 1148's accept) showed to a player without 1147, who killed silithid for a carapace that never dropped. It shows only with 1147 in the log.",
+			"source": [
+				{ "kind": "recording", "ref": "players' recordings to 2026-11-27: 96 accepts of Parts of the Swarm (1148), every one by a character with The Swarm Grows (1147) in the log or ticking its kills before" },
+				{ "kind": "in-game-check", "ref": "#4430 (Oscure3, 0.4.3.1): no carapace without The Swarm Grows chain up to its kill part" }
+			],
+			"issue": 4430
 		}
 	]
 }
