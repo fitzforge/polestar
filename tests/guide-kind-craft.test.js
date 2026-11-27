@@ -364,3 +364,14 @@ stub.advance(0.1)
 emit({ itemOn = itemOn, itemAfter = itemAfter, tipOn = tipOn, tipAfter = tipAfter, ownerHidden = tipShown() })`);
 	assert.deepEqual(out, { itemOn: true, itemAfter: false, tipOn: true, tipAfter: false, ownerHidden: false });
 });
+
+test('the split\'s columns centre what they hold: the lines under the title, the button at its own width', () => {
+	const out = run('', `
+GF.Layout(); stub.advance(1)
+local sup = GF.RegionFrame("supplies")
+local B, Fm = sup.Buy, sup.Farm
+local function pt(r) return (r:GetPoint(1)) end
+emit({ well = sup.Well:IsShown(), big = pt(B.Big), small = pt(B.Small1), justify = B.Big:GetJustifyH(), button = pt(B.Button),
+	ownWidth = B.Button:GetWidth() < B:GetWidth() - 20, farmBig = pt(Fm.Big), farmButton = Fm.Button:IsShown() and pt(Fm.Button) or false })`);
+	assert.deepEqual(out, { well: true, big: 'TOP', small: 'TOP', justify: 'CENTER', button: 'TOP', ownWidth: true, farmBig: 'TOP', farmButton: 'TOP' });
+});

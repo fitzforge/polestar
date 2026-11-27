@@ -824,29 +824,34 @@ ns.UI.GuideFrame.Part(function(GF)
 		c.Button.psPrimary = lit or nil
 		W.RepaintButton(c.Button)
 	end
+	-- Everything in a column is centred in it: the glyph and title as one line, the lines under them (wrapped lines
+	-- centred each), the button at its own width.
 	local function layoutColumn(c, x, w, top, h)
 		c:ClearAllPoints()
 		c:SetPoint("TOPLEFT", c:GetParent(), "TOPLEFT", x, -top)
 		c:SetSize(w, h)
 		local ix = 10
+		local room = max(20, w - ix * 2)
+		c.Title:SetWidth(max(20, room - 19))
+		local tw = min(room - 19, c.Title:GetUnboundedStringWidth())
+		c.Title:SetWidth(max(1, tw))
+		local gx = floor((w - (19 + tw)) / 2 + 0.5)
 		c.Glyph:ClearAllPoints()
-		c.Glyph:SetPoint("TOPLEFT", c, "TOPLEFT", ix, -11)
+		c.Glyph:SetPoint("TOPLEFT", c, "TOPLEFT", max(ix, gx), -11)
 		c.Title:ClearAllPoints()
-		c.Title:SetPoint("TOPLEFT", c, "TOPLEFT", ix + 19, -10)
-		c.Title:SetWidth(max(20, w - ix * 2 - 19))
+		c.Title:SetPoint("TOPLEFT", c, "TOPLEFT", max(ix, gx) + 19, -10)
 		local y = 10 + c.Title:GetStringHeight() + 5
 		for _, fs in ipairs({ c.Big, c.Small1, c.Small2 }) do
 			fs:ClearAllPoints()
-			fs:SetPoint("TOPLEFT", c, "TOPLEFT", ix, -y)
+			fs:SetJustifyH("CENTER")
 			local text = fs:GetText() or ""
 			local lv = fs == c.Small2 and c.psLevel
 			local both, only = c.psLevelBoth or "", c.psLevelOnly or ""
 			local extra = 0
 			if lv then
-				-- The place line: the zone, then "· lvl 19–23" after it; where both do not fit the column's width the
-				-- level takes the line under it. The zone is cut at its end only when it alone is too long; the
-				-- level never is.
-				local room = w - ix * 2
+				-- The place line: the zone, then "· lvl 19–23" after it, the two centred as one; where both do not fit
+				-- the column's width the level takes the line under it, centred too. The zone is cut at its end only
+				-- when it alone is too long; the level never is.
 				fs:SetWordWrap(false)
 				local zw = text ~= "" and fs:GetUnboundedStringWidth() or 0
 				local shown = text ~= "" and both or only
@@ -856,18 +861,23 @@ ns.UI.GuideFrame.Part(function(GF)
 					lv:SetText(only)
 					extra = lv:GetStringHeight() + 2
 				end
-				fs:SetWidth(max(20, min(zw, room)))
+				local fw = max(20, min(zw, room))
+				fs:SetWidth(fw)
+				local lw = lv:GetUnboundedStringWidth()
 				lv:ClearAllPoints()
 				if text == "" then
-					lv:SetPoint("TOPLEFT", c, "TOPLEFT", ix, -y)
+					lv:SetPoint("TOP", c, "TOP", 0, -y)
 				elseif under then
-					lv:SetPoint("TOPLEFT", fs, "BOTTOMLEFT", 0, -2)
+					fs:SetPoint("TOP", c, "TOP", 0, -y)
+					lv:SetPoint("TOP", fs, "BOTTOM", 0, -2)
 				else
+					fs:SetPoint("TOPLEFT", c, "TOPLEFT", max(ix, floor((w - fw - (shown ~= "" and lw or 0)) / 2 + 0.5)), -y)
 					lv:SetPoint("TOPLEFT", fs, "TOPRIGHT", 0, 0)
 				end
 				lv:SetShown(shown ~= "")
 			else
-				fs:SetWidth(max(20, w - ix * 2))
+				fs:SetWidth(room)
+				fs:SetPoint("TOP", c, "TOP", 0, -y)
 			end
 			if text ~= "" or (lv and only ~= "") then
 				fs:SetShown(text ~= "")
@@ -879,9 +889,11 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		y = y + 8
 		if c.Button:IsShown() then
+			-- Its own width (W.SetButtonText's), never wider than the column.
+			local bw = c.Button.psOwnWidth or c.Button:GetWidth()
+			c.Button:SetWidth(min(bw, room))
 			c.Button:ClearAllPoints()
-			c.Button:SetPoint("TOPLEFT", c, "TOPLEFT", ix, -y)
-			c.Button:SetPoint("TOPRIGHT", c, "TOPRIGHT", -ix, -y)
+			c.Button:SetPoint("TOP", c, "TOP", 0, -y)
 			y = y + 24
 		end
 		return y + 10
@@ -922,6 +934,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		local atAH = M() and M().AuctionOpen and M().AuctionOpen()
 		W.SetButtonText(B.Button, atAH and L["Search"] or L["Add to buy list"])
+		B.Button.psOwnWidth = B.Button:GetWidth()
 		-- Farm
 		Fm.Title:SetText(format(L["Farm %d"], r.toGet))
 		if not farm then
@@ -953,6 +966,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			Fm.psLevelBoth, Fm.psLevelOnly = lv and ((where and DOT or "") .. lv) or "", lv or ""
 			Fm.Button:SetShown(farm.step ~= nil)
 			W.SetButtonText(Fm.Button, L["Guide me"])
+			Fm.Button.psOwnWidth = Fm.Button:GetWidth()
 		end
 		paintColumn(B, r.way == "buy" and buy ~= false)
 		paintColumn(Fm, r.way ~= "buy")
