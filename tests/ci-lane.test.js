@@ -42,7 +42,7 @@ test('documentation alone takes the docs lane; guides, Lua, data and fragments t
 	for (const files of [
 		['rust/crates/forge/src/main.rs'],
 		['tests/fixtures/dsl/x.guide'],
-		['tools/discord-bot/README.md'],
+		['tools/discord-bot/README.md', 'tools/lib/public-text.json'],
 		['skills/polestar-triage/SKILL.md'],
 		['tests/fixtures/discord/elwynn-trainer.md'],
 		['.github/workflows/ci.yml'],
@@ -54,6 +54,19 @@ test('documentation alone takes the docs lane; guides, Lua, data and fragments t
 		assert.equal(r.lane, 'full', `${files.join(', ') || '(none)'}: ${r.reasons.join('; ')}`);
 		assert.deepEqual(r.tests, []);
 	}
+});
+
+test('the Discord bot alone takes the bot lane: its own tests and the every-file checks, the forge lane skips', () => {
+	const files = ['tools/discord-bot/index.js', 'tests/discord-chat.test.js', 'tests/helpers/discord-fakes.js', 'changes/discord-bot-x.md', '.github/workflows/discord-issue-sync.yml'];
+	const r = lane(files);
+	assert.equal(r.lane, 'bot', r.reasons.join('; '));
+	for (const t of [...DOCS_TESTS, 'tests/discord-bot.test.js', 'tests/discord-suggest.test.js']) assert.ok(r.tests.includes(t), t);
+	assert.ok(r.tests.every((t) => DOCS_TESTS.includes(t) || /^tests\/discord-[\w-]+\.test\.js$/.test(t)), r.tests.join(' '));
+	assert.equal(forgeLane(files).forge, 'skip');
+	// One path outside the bot's files, or a bot path beside a shared one, leaves the lane.
+	assert.notEqual(lane([...files, 'addon/Polestar/Core/Core.lua']).lane, 'bot');
+	assert.equal(lane(['tools/discord-bot/index.js', 'tests/helpers/cli.js']).lane, 'full');
+	assert.equal(lane(['changes/some-fix.md']).lane, 'part');
 });
 
 test("the part lane runs the Node tests its changes can break: a guide's the guide suites, the addon's those loading it", () => {
@@ -112,10 +125,10 @@ test("ci.yml's Tests job: the lane step decides, and every step after it runs in
 	assert.ok(at > 0, `a step with id lane: ${JSON.stringify(steps)}`);
 	assert.equal(steps.slice(0, at).filter((s) => s.if).length, 0, 'the steps before the lane run in every lane');
 	const after = steps.slice(at + 1);
-	for (const want of ["steps.lane.outputs.lane == 'docs'", "steps.lane.outputs.lane == 'part'", "steps.lane.outputs.lane == 'full'"]) {
+	for (const want of ["steps.lane.outputs.lane == 'docs'", "steps.lane.outputs.lane == 'bot'", "steps.lane.outputs.lane == 'part'", "steps.lane.outputs.lane == 'full'"]) {
 		assert.ok(after.some((s) => s.if === want), `a step for ${want}`);
 	}
-	for (const s of after) assert.match(s.if || '', /^steps\.lane\.outputs\.lane [!=]= '(docs|part|full)'/, `${s.name}: runs by the lane (if: ${s.if})`);
+	for (const s of after) assert.match(s.if || '', /^steps\.lane\.outputs\.lane [!=]= '(docs|bot|part|full)'/, `${s.name}: runs by the lane (if: ${s.if})`);
 	assert.match(text, /node "\$base\/tools\/ci-lane\.js" --github/, "the lane comes from the base's copy of the script");
 });
 
