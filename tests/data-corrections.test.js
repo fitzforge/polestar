@@ -70,6 +70,14 @@ test('Burbik Gearspanner sells no Fishing Pole: off its vendor list (#3037)', ()
 	assert.deepEqual(corrections.items[6256].removeVendors, [5163]);
 });
 
+test('Child of Nature starts only with Alfina Nightgaze, and each A Thief\'s Reward only with its own side\'s festival NPC (#4225 sweep)', () => {
+	const q = corrections.quests;
+	assert.deepEqual(q[94912].set.start.npc, [270459], 'Child of Nature: Alfina Nightgaze, not Archmage Ansirem Runeweaver (2543)');
+	assert.deepEqual([q[9339].set.start.npc, q[9339].set.end.npc, q[9339].set.races], [[16817], [16817], 4294967373], 'Alliance: Festival Loremaster');
+	assert.deepEqual([q[9365].set.start.npc, q[9365].set.end.npc, q[9365].set.races], [[16818], [16818], 8589934770], 'Horde: Festival Talespinner');
+	assert.ok([].concat(q[94912].source).some((s) => s.kind === 'recording'), 'Child of Nature: the recordings');
+});
+
 test('Damp Note requires The Essence of Aku\'Mai on the recorded Priestess drop, not on its follow-up quest (#1923)', () => {
 	assert.deepEqual(corrections.items[16790].dropRequires, { npc: { 4802: [6563] } });
 	assert.match(corrections.items[16790].source.ref, /#1923.*6820003090/);
