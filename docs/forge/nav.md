@@ -771,6 +771,18 @@ forge nav layers hubs --dir data/local/nav4
   the client's FactionTemplate table and named by the AreaTable area under them (the grid's area
   ids; the tables cached for the grid's build under `data/sources/wago`). It writes
   `nav-layers/hubs.json`.
+
+  A **road passage** (`rust/crates/forge-nav/src/hub-passages.json`, compiled in) is a hostile post the
+  only road between two parts of a continent runs through. Every hub of the passage's side whose disks
+  its `road` line crosses is written with `"passage": true`: it stays listed (a walk through it still
+  reads "Hostile town" in the journey), but its disks price no walk, in the walking maps' hub bits
+  (`forge nav pack`) and in the walk graphs (`forge nav prepare`), so the walk keeps to the road
+  instead of going round many times as far. Add one only for the only road through a hostile post:
+  the sweep of guide walks near hostile hubs, routed with the side's price and with none, shows walks
+  many times their hub-free length that all go round that post, and there is no other way through. A
+  post with a way round, however long, is no passage. The one passage: the Dun Algaz pass (Alliance
+  posts on the road from the Wetlands into Loch Modan), the Horde's only road between the Eastern
+  Kingdoms' north and south, which they walked round by the coast past Stormwind.
 - Both are ports of the Node layers (tools/lib/nav/layers): byte-identical on
   rust/tests/golden/nav-layers, and `hubs.json` on the 1.60.1.70425 grid.
 

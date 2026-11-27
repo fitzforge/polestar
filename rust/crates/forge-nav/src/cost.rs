@@ -97,6 +97,10 @@ impl Ground {
 						Some("Horde") => 1,
 						_ => continue,
 					};
+					// A road passage's hub (hubs.rs Passage) prices no walk.
+					if hub["passage"] == true {
+						continue;
+					}
 					let v = disks[side].entry(c).or_default();
 					for d in hub["disks"].as_array().into_iter().flatten() {
 						v.extend([d[0].as_f64().unwrap_or(0.0), d[1].as_f64().unwrap_or(0.0), d[2].as_f64().unwrap_or(0.0)]);

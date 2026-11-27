@@ -22,9 +22,9 @@
 				"closedSteps": 151,
 				"areaSurfaces": 310532,
 				"hubBits": {
-					"nodes": 101464,
-					"clusters": 114,
-					"edges": 22882
+					"nodes": 97511,
+					"clusters": 113,
+					"edges": 23010
 				},
 				"joins": {
 					"ways": 270,
@@ -51,8 +51,8 @@
 			"components": 2665,
 			"clampedCosts": 0,
 			"maxDegree": 63,
-			"rawBytes": 40903139,
-			"packedBytes": 20845727,
+			"rawBytes": 40902058,
+			"packedBytes": 20843947,
 			"files": 42,
 			"hubs": 111,
 			"roads": {
@@ -66,7 +66,7 @@
 			},
 			"areas": 1894,
 			"occupiedFloor": {
-				"sourceManifestSha256": "baebcb9390ef28030af0201d79ba68faca9fcb5973656cf920015ca650bff2d1",
+				"sourceManifestSha256": "c9e097f3f594cd67a789f0b2dba335c93d37b940cacaa21f9faa4888216a87ca",
 				"cluster": 471,
 				"cell": 15594,
 				"layer": 1,
@@ -324,8 +324,8 @@
 		"Polestar_Nav_EK/Nav0_19.lua": "b1f45a6c2f8e13ceea20d697db7f6d0af546bfd70ed955bf5573b990104a1841",
 		"Polestar_Nav_EK/Nav0_20.lua": "8e7ce47db5c1c2f3801b2955053439aa70700f9493e23d7cf17b48650cb3fad5",
 		"Polestar_Nav_EK/Nav0_21.lua": "73a6b9fe1cb82749c9d29881c6466e0d37732436949fffb1ce966f93e1d0cc21",
-		"Polestar_Nav_EK/Nav0_22.lua": "f58cd51ff3b435ea290793cdb9a4153d62d91fa0d8a6dcd66860b0ddab9b511c",
-		"Polestar_Nav_EK/Nav0_23.lua": "f482266f852c20a857ba7b68ea932a3e88a7aa0ed630f228a3f3b0306f7e9d1e",
+		"Polestar_Nav_EK/Nav0_22.lua": "1cb8e3cbf9a1af570757a5333b8adb7b7638a88bab5e5c279b18c08ab313ec90",
+		"Polestar_Nav_EK/Nav0_23.lua": "697df38386718d84ffdafb2bc8730b48390eabbe7cb07af69c83ac48eb32195a",
 		"Polestar_Nav_EK/Nav0_24.lua": "a054ebab9e63cb8ef9614d39c23c0d97eec46161910084e6fd75d718b83b1559",
 		"Polestar_Nav_EK/Nav0_25.lua": "9e0b16085680de89c695cfe870b4121d3af9ed012b786dec356ca97ce7203442",
 		"Polestar_Nav_EK/Nav0_26.lua": "234a0cd4984da7d3e7fdff9ed702112f821e629b46376225743c51cf0989be92",
@@ -535,7 +535,7 @@
 	},
 	"import": {
 		"command": "node tools/lib/nav/import-regions.js",
-		"manifestSha256": "2517c1d6771f0bc311be697d623034773622e803f94444b2531ba136b6c33cf5",
+		"manifestSha256": "d63dcda09d5dde26eeee4dd6e8f962ea22c6adec9304a83253d9f6e69861c747",
 		"terminalSha256": {
 			"0": "38288a037e6fb2397f1cd26f36cd9f8bfa74a743508c3408e12db62ff40cff7a",
 			"1": "823b7365bf07629fc79c187decf2921f18e6dd518255b9ad1266d5814e842a75",
@@ -550,7 +550,7 @@
 			"grid/aids.json": "5a9622d56df6ec7d55ff5d861233e1dbe54bb9bd91bb9e46e7502b0ba0d7c7a2",
 			"grid/areas.json": "0ca4375dc9b8c4c756214cf84b5ad7d45061ff8f33fb9c145f18a5e450caef51",
 			"grid/lifts.json": "1c60811ed31ccb9ae36ed86c0b1db37cda2e41e8e74605eb68737b2dac6482ae",
-			"layers/hubs.json": "1c5df0bd0714ad6b74d662ac82efaa6fd8fc366b6357aa72433f018efdd4540f",
+			"layers/hubs.json": "09e671d38ab631d127f88e88bc1b3f218743934d9055d885c3a51ec525c1d796",
 			"layers/roads/index.json": "d4fc608aaa978ede94fd5bca621442f83aedd60687e2455c7b5c7c82580d4cf0",
 			"data/forever/zones.json": "673cff30379593a4a3cf9b6ca218c7884c4a9c5a6c9f44c85aea250dbefc28b7",
 			"data/forever/map-frames.json": "f8878dcac7c4553e9213afe481a781be0b8d1c993d38bc45f193b546207fe0d4",
@@ -560,7 +560,7 @@
 			"data/crossings.json": "f6f5ba01fd539c351bb7f26de4c16021d6d44f12358eb0e084c5ffe131f7e85e",
 			"joins.json": "db1438cb703da808e93d132d57d2ebc1b188e6ee31a34d50c8a5cfeda1211e6e"
 		},
-		"packManifestSha256": "131901f0c4e5568faa4a8a6c3311686b45f68995dd8f7896b8647f189a1d9e9e",
+		"packManifestSha256": "067474701552291e3aa0f92f6468118808a07cc5c6c1b76072afeb9316ebb190",
 		"graft": {
 			"baseManifestSha256": "bcbe88bbe5a93e8d483150433273ca606721c35d84570d8c8525825f2bec3088",
 			"plainManifestSha256": "03b28056dafa3619f6241105d73b2a42a18ff454cd3fa54720b04242572db1db",
@@ -570,7 +570,7 @@
 				"Polestar_Nav_Kalimdor/TerminalGround.lua"
 			]
 		},
-		"derivedManifestSha256": "baebcb9390ef28030af0201d79ba68faca9fcb5973656cf920015ca650bff2d1",
-		"rebuiltManifestSha256": "2517c1d6771f0bc311be697d623034773622e803f94444b2531ba136b6c33cf5"
+		"derivedManifestSha256": "c9e097f3f594cd67a789f0b2dba335c93d37b940cacaa21f9faa4888216a87ca",
+		"rebuiltManifestSha256": "d63dcda09d5dde26eeee4dd6e8f962ea22c6adec9304a83253d9f6e69861c747"
 	}
 }

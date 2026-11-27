@@ -292,8 +292,11 @@ function readHubs(hubs) {
 		for (const hub of list) {
 			const m = disks.get(hub.side);
 			if (!m) continue;
-			if (!m.has(Number(c))) m.set(Number(c), []);
-			m.get(Number(c)).push(...hub.disks);
+			// A road passage's hub (hubs.rs Passage: the only road through a hostile post) is listed but prices no walk.
+			if (!hub.passage) {
+				if (!m.has(Number(c))) m.set(Number(c), []);
+				m.get(Number(c)).push(...hub.disks);
+			}
 			if (!byC.has(Number(c))) byC.set(Number(c), []);
 			byC.get(Number(c)).push(hub);
 		}
