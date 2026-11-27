@@ -617,7 +617,7 @@ emit({ icons = icons, header = UI.GuideGlyph() or false, leveling = UI.GuideGlyp
 fn the_running_figure_is_one_32_px_glyph_wherever_free_mode_shows() {
 	// The texture: drawn in tools/media/ui.js, 32×32 (a power of two), 32-bit, white and tinted at runtime; the dotted
 	// route it replaces is gone.
-	let media = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../../addon/Polestar/Media/UI");
+	let media = forge_addontest::run::root().join("addon/Polestar/Media/UI");
 	let tga = std::fs::read(media.join("icon-freemode.tga")).expect("icon-freemode.tga");
 	let (w, h, bpp) = (u16::from_le_bytes([tga[12], tga[13]]), u16::from_le_bytes([tga[14], tga[15]]), tga[16]);
 	assert_eq!((w, h, bpp), (32, 32, 32));
