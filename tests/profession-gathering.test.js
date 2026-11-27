@@ -385,18 +385,6 @@ test('an ingredient held in a container (clam meat in clams) is farmed as the co
 	assert.deepEqual(d.mobs, ['Murloc (40%)']);
 });
 
-test('a recipe is limited stock only when a faction has no unlimited vendor for it', () => {
-	const { learnNote } = require('../tools/lib/professions/gathering/secondary');
-	const ctx = { data: { item: (id) => ({ name: `Recipe ${id}` }) } };
-	const recipe = { recipeItem: 1, cost: 5000 };
-	const P = { skill: 'Cooking', materials: { 1: { buy: 5000, vendors: { Alliance: [10], Horde: [] }, limitedVendors: { Alliance: [12], Horde: [12] } } } };
-	// Roast Raptor: plenty of unlimited sellers beside one limited one.
-	assert.doesNotMatch(learnNote(ctx, P, recipe, { learn: 'vendor', who: { faction: 'Alliance' } }), /limited stock/);
-	// A side whose only seller is limited.
-	assert.match(learnNote(ctx, P, recipe, { learn: 'vendor', who: { faction: 'Horde' } }), /limited stock/);
-	assert.match(learnNote(ctx, P, recipe, { learn: 'vendor', who: {} }), /limited stock/);
-});
-
 test('generated profession guides are up to date and compile', { skip: hasData ? false : 'data/forever not built' }, () => {
 	const { buildAll } = require('../tools/lib/professions/gathering/build');
 	const { context, OUT_DIR } = require('../tools/lib/professions/gathering/common');

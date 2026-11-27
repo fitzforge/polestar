@@ -4,9 +4,10 @@ Polestar's profession guides (`guides/forever/professions/`) are generated, neve
 
 | Guides | Built by | From |
 |---|---|---|
-| Blacksmithing | `node tools/polestar.js profession draft Blacksmithing --out` | its route file, `tools/lib/professions/routes/blacksmithing.json`, through `route.js` (see "Route files") |
-| Alchemy, Enchanting, Engineering, Leatherworking, Tailoring (until each has a route file) | `node tools/polestar.js profession draft <Profession> --out` | `tools/lib/professions/` (plan.js, guide.js, specs.js) |
-| Mining, Herbalism, Skinning, Fishing, Cooking, First Aid | `node tools/polestar.js profession gathering build` | `tools/lib/professions/gathering/` |
+| Blacksmithing, Enchanting, Engineering | `node tools/polestar.js profession draft <Profession> --out` | its route file, `tools/lib/professions/routes/<profession>.json`, through `route.js` (see "Route files") |
+| Alchemy, Leatherworking, Tailoring (until each has a route file) | `node tools/polestar.js profession draft <Profession> --out` | `tools/lib/professions/` (plan.js, guide.js, specs.js) |
+| Cooking, First Aid | `node tools/polestar.js profession gathering build` | their route files through `route.js`, like the crafting professions |
+| Mining, Herbalism, Skinning, Fishing | `node tools/polestar.js profession gathering build` | `tools/lib/professions/gathering/` |
 | Herbalism + Alchemy, Mining + Blacksmithing, Mining + Engineering, Skinning + Leatherworking, Fishing + Cooking, Tailoring + Enchanting | `node tools/polestar.js profession gathering build` | `tools/lib/professions/pairs.js` over the two above (Fishing + Cooking: `pair-fishing.js` over `gathering/fish-rounds.js`) |
 
 Every rule below is held by a test (`tests/profession-route.test.js`, `tests/profession-audit.test.js`,
@@ -37,8 +38,10 @@ one, so no step could lead a player to it), a rank book or quest the data does n
 | band | `{ from, to, recipe, count, mats, keep?, note?, quests?, alternative? }`: craft `count` of `recipe` from `from` to `to`; `mats` is item -> count (checked); `keep` and `note` are its one-line tip; `quests` hand over its plans (their items join the get); `alternative` is another recipe for the same points, kept for reference |
 | make | `{ make, count, mats, for }`: parts crafted for a later band (no skill points) |
 | fork | `{ fork, ways: [{ name, plans?, why?, route }] }`: from here the route goes one of several ways; a way with `plans` (world drops) is taken when the player buys them at the Auction House, the last way is the one that always works |
-| `materials` | item -> its ways in order: `gather` (the gathering guides' loops; a bar: its ore's), `drop` (farm spots), `disenchant`, `vendor`, `auction` |
+| `materials` | item -> its ways in order: `gather` (the gathering guides' loops; a bar: its ore's), `drop` (farm spots), `disenchant`, `vendor`, `auction`. A material listed here is got, never treated as one of the route's parts even when a recipe of the profession makes it (Mote of Magic) |
 | `vendors`, `smelt`, `colours` | Who sells a vendor good (checked); a bar's smelting extras (Coal for Steel, from a Mining skill); a recipe's grey where recordings show the client table is wrong, with the evidence |
+| `taught` | Recipes the data marks as from an item that trainers teach (Enchant Boots - Minor Stamina): learned from the section's teachers |
+| disenchant band | `{ disenchant: true, from, to }` (Enchanting): disenchanting the green items in the bags first, since each gives a point below 20 and fewer up to 60; the crafts after it carry on from wherever it leaves the skill |
 
 The steps, one action each, each answering on its own what to do, where (a place the arrow and the map
 pin lead to, or any station with the nearest pinned), how many, and what finishes it:
@@ -63,7 +66,9 @@ pin lead to, or any station with the nearest pinned), how many, and what finishe
   **Learn <recipe>** from the pattern in the bags.
 - **Go to an anvil** (`goto … nearest` over the stations of the recipe's spell focus, `stations.json`, in
   towns with a trainer or tool seller), before a craft that needs one unless the step before was a craft
-  there; the engine finishes it on arrival at any of them.
+  there; the engine finishes it on arrival at any of them. A cooking fire's step is also finished by placing a
+  Basic Campfire Kit (`use 279981 either` beside the fires, each `either`).
+- **Disenchant your green items until N** (`skill … either` beside `task "No green items left to break" either`).
 - **Craft N <recipe> until <skill>**; **Craft N <part>** for parts, and for a tool the profession makes.
 - **Buy <plans> at the Auction House** (`auction … either` beside a "none listed" task; plans two ways share
   are bought once), **Hand in <quest>**. A fork way holds while all its plans are known (or, learned later,
@@ -150,10 +155,14 @@ professions' ranks trained on one visit when both are due.
   faction's towns and guards (an NPC of a side at level 50 or more with three spawns on the map) and boat
   docks; a loop's lap adds 20 s for each hostile creature by a stand that is not grey to the loop's level
   and three minutes for each death recorded within 30 yd of a stand, per catch, so the quieter water wins
-  a close call. Its draft is the cooking plan (vendor recipes whose fish the band gives), cut into the
-  Cooking ranks' sections; where the starting areas' fish differ, each group's stretches are a variant
-  (`variant <only>`: the same state for each, the least of what they leave after). Fishing's ranks are
-  their own steps (Journeyman at a trainer from level 10, Expert from its book, Artisan from Nat Pagle).
+  a close call. Its draft is each band's `cook` stretches (per stretch the first of its recipes whose fish
+  the band's water gives or the bags hold: Brilliant Smallfish or Slitherskin Mackerel to 50 in the starting
+  areas, Longjaw Mud Snapper to 100 in the capitals to Fishing 130, Bristle Whisker Catfish to 175 on catfish
+  water to 205, Mithril Headed Trout to 225 on trout water after Nat Pagle, then in Feralas to 300 the kept
+  trout to 250, Filet of Redgill to 285 and Nightfin Soup), cut into the Cooking ranks' sections; where the
+  starting areas' fish differ, each group's stretches are a variant (`variant <only>`: the same state for
+  each, the least of what they leave after). Fishing's ranks are their own steps (Journeyman at a trainer
+  from level 10, Expert from its book, Artisan from Nat Pagle). It has no skill floor steps between bands.
 - **Header.** `kind profession` and `skills <Gathering>, <Crafting>`; a paired guide's sections alternate
   between its two skills, each rising in order (lint checks each profession's order on its own).
 - **The Materials way.** A material a paired guide gathers itself (`collect … gather` beside an

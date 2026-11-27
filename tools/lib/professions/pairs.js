@@ -40,7 +40,7 @@ const PAIRS = [
 	{ file: 'mining-blacksmithing', gather: 'Mining', craft: 'Blacksmithing', verb: 'Mine', doing: 'mining', zone: 'Ironforge' },
 	{ file: 'mining-engineering', gather: 'Mining', craft: 'Engineering', verb: 'Mine', doing: 'mining', zone: 'Ironforge' },
 	{ file: 'skinning-leatherworking', gather: 'Skinning', craft: 'Leatherworking', verb: 'Skin', doing: 'skinning', zone: 'Orgrimmar' },
-	{ file: 'fishing-cooking', gather: 'Fishing', craft: 'Cooking', verb: 'Fish', doing: 'fishing', zone: 'Ironforge', side: fishingSide },
+	{ file: 'fishing-cooking', gather: 'Fishing', craft: 'Cooking', verb: 'Fish', doing: 'fishing', zone: 'Ironforge', side: fishingSide, guards: false },
 ];
 
 // A share of a stretch's material below this many is not worth a step of its own: the next step's loop
@@ -281,9 +281,15 @@ function renderPair(ctx, pair) {
 		st.floor = Math.max(st.floor, to);
 		st.sinceTrainer = true;
 	};
-	// Keep the skill at or above band e's start: the loops of e need it (a step most players find done).
+	// Keep the skill at or above band e's start: the loops of e need it (a step most players find done). Fishing
+	// + Cooking has none (`guards: false`): its fishing steps already end at each band's start, and a step that
+	// completes as it appears only adds a row.
 	const floorFor = (e) => {
 		if (st.floor >= e.from) return;
+		if (pair.guards === false) {
+			st.floor = e.from;
+			return;
+		}
 		const prev = [...track.slice(0, st.ptr)].reverse().find((x) => x.kind === 'band' && visible(x));
 		if (prev) skillStep(prev, Math.floor(st.floor), e.from, routed ? `The next loops need ${G} ${e.from}; most players are past it.` : `${G} ${e.from} first: the next loops need it. Most players are past it already from the steps above, and then this step is done.`);
 		st.floor = Math.max(st.floor, e.from);

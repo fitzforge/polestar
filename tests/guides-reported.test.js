@@ -18863,31 +18863,40 @@ test('#3277: Grim Message plants Nimboya\'s Laden Pike inside Hiri\'watha (31.9,
 
 // #3405 (Cip1337, 0.4.2): Heavy Silk Bandage (7929) and Mageweave Bandage (10840) are learned from manuals the Expert
 // First Aid step has the player buy; their steps' learn lines have no place, and nothing said to read the manual.
-// Each such step says so, and where to buy it otherwise.
-test('forever/professions/first-aid.guide: the manual bandages say to read the manual bought with Expert First Aid (#3405)', { skip }, () => {
+// Since the routed guide (0.4.4), the manual is bought in a step of its own at its seller (with the book, on the same
+// visit), and the learn step after it says the recipe comes from the manual in the bags.
+test('forever/professions/first-aid.guide: the manual bandages are bought, then read from the bags (#3405)', { skip }, () => {
 	const list = goals('forever/professions/first-aid.guide');
-	for (const [spell, manual] of [[7929, 'Manual: Heavy Silk Bandage'], [10840, 'Manual: Mageweave Bandage']]) {
-		const { step } = list[at(list, `learn ${spell}`, (g) => g.t === 'learn' && g.spell === spell)];
-		assert.ok((step.note || '').includes(`Read the ${manual} you bought with Expert First Aid`), `${spell}: ${step.note}`);
+	for (const [spell, manual] of [[7929, 16112], [10840, 16113]]) {
+		const i = at(list, `learn ${spell}`, (g) => g.t === 'learn' && g.spell === spell);
+		assert.ok(list.slice(0, i).some(({ goal }) => goal.t === 'buy' && goal.item === manual), `${spell}: a step before its learn buys manual ${manual}`);
+		assert.match(list[i].step.note || '', /manual in your bags/, `${spell}: ${list[i].step.note}`);
 	}
 });
 
 // #3401 (Cip1337, 0.4.2): Heavy Wool Bandage is learned in the 115-125 step; a player who reached 125 on Wool Bandages
 // had that section passed, so its learn never showed, and the 125-150 step only asked to craft. Every profession guide:
-// a craft step whose recipe (or a part it makes first) an earlier section teaches repeats that learn in its own step.
+// a craft whose recipe an earlier section teaches has its learn again in its own section, in its own step or (a guide
+// of one action per step, built from a route file) a step before it in that section.
 test('forever/professions: a recipe taught in an earlier section is learned again where a later section crafts it (#3401)', { skip }, () => {
+	const learnedHere = (list, i, spell) => {
+		const { step } = list[i];
+		if (step.goals.some((g) => g.t === 'learn' && g.spell === spell)) return true;
+		for (let j = i - 1; j >= 0 && list[j].step.section === step.section; j--) if (list[j].goal.t === 'learn' && list[j].goal.spell === spell) return true;
+		return false;
+	};
 	for (const guide of allGuides().filter((g) => g.startsWith('forever/professions/'))) {
 		const list = goals(guide);
 		const taught = new Map(); // spell -> section of its first learn
 		for (const { step, goal } of list) if (goal.t === 'learn' && goal.spell && !taught.has(goal.spell)) taught.set(goal.spell, step.section);
-		for (const { step, goal, s } of list) {
-			if (goal.t !== 'craft' || !taught.has(goal.spell) || taught.get(goal.spell) === step.section) continue;
-			assert.ok(step.goals.some((g) => g.t === 'learn' && g.spell === goal.spell), `${guide} step ${s}: craft ${goal.spell} has its learn`);
-		}
+		list.forEach(({ step, goal, s }, i) => {
+			if (goal.t !== 'craft' || !taught.has(goal.spell) || taught.get(goal.spell) === step.section) return;
+			assert.ok(learnedHere(list, i, goal.spell), `${guide} step ${s}: craft ${goal.spell} has its learn in its section`);
+		});
 	}
 	const fa = goals('forever/professions/first-aid.guide');
-	const late = fa.find(({ goal, step }) => goal.t === 'craft' && goal.spell === 3278 && step.goals.some((g) => g.t === 'craft' && g.untilSkill === 150));
-	assert.ok(late && late.step.goals.some((g) => g.t === 'learn' && g.spell === 3278), 'Heavy Wool Bandage 125-150 learns it');
+	const i = fa.findIndex(({ goal }) => goal.t === 'craft' && goal.spell === 3278 && goal.untilSkill === 150);
+	assert.ok(i >= 0 && learnedHere(fa, i, 3278), 'Heavy Wool Bandage to 150 learns it in its section');
 });
 
 // #3365 (0.4.1.1, Felwood): the Corrupted Sabers line read only "Complete Corrupted Sabers" while the arrow led to
@@ -19519,7 +19528,8 @@ test('#3731 See Ya, Scallywags!: each charge line names its ship', { skip }, () 
 // #3823 (charlesketchup): Cooking 1-300, step 63 "Hot Lion Chops (130-175)": `learn 3398` waits for the recipe in
 // the bags but had no place, so the arrow had nowhere to go once the shopping step three steps earlier was passed
 // without the recipe. Until the recipe is in the bags or known, the learn leads to the recipe's vendor, the same one
-// the shopping step's `buy 3735 nearest` picks; with the recipe in the bags it has no place again. The release data
+// the shopping step's `buy … nearest` picks; with the recipe in the bags it has no place again. The routed guide
+// (0.4.4) buys Recipe: Roast Raptor (12228) for Roast Raptor (15855) the same way. The release data
 // only: the public data has no professions.json (its trainer lists are not public), so the guide's learn and craft
 // lines do not resolve and the pack has no Cooking guide to open.
 test('#3823 Cooking 1-300: a recipe\'s learn leads to its vendor until the recipe is in the bags', { skip: skip || needs('professions.json') }, () => {
@@ -19551,11 +19561,11 @@ test('#3823 Cooking 1-300: a recipe\'s learn leads to its vendor until the recip
 					end
 				end
 				local function at(v) return v and v.map and { v.map, v.x, v.y } or false end
-				local ls, learn = find("learn", "spell", 3398)
-				local bs, buy = find("buy", "item", 3735)
+				local ls, learn = find("learn", "spell", 15855)
+				local bs, buy = find("buy", "item", 12228)
 				local out = { step = ls, shopping = bs, learn = at(learn), buy = at(buy) }
-				stub.world.addItem(3735, 1); stub.advance(0.5)
-				out.inBags = at(select(2, find("learn", "spell", 3398)))
+				stub.world.addItem(12228, 1); stub.advance(0.5)
+				out.inBags = at(select(2, find("learn", "spell", 15855)))
 				emit(out)`,
 		});
 		const out = emitted[0];

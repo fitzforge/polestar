@@ -1,0 +1,95 @@
+{
+	"_about": "Cooking 1-300: the curated route the profession guide is generated from (tools/lib/professions/route.js; rules: docs/forge/professions.md, \"Route files\"). Every recipe, count, trainer, vendor, cookbook and quest is checked against data/forever when the guide is built.",
+	"profession": "Cooking",
+	"intro": [
+		"Cooking turns fish and meat into food that heals and buffs. It takes no profession slot. Most recipes here use fish, bought at the Auction House; to catch them yourself as well, the Fishing + Cooking guide levels both together.",
+		"Cooking needs a fire: most towns have one beside the Cooking trainer, and in Forever every cook also knows Basic Campfire, a kit made from Simple Wood with Flint and Tinder that lights a fire anywhere.",
+		"Ranks: Apprentice and Journeyman at any level from any Cooking trainer; Expert from the Expert Cookbook (Cooking 125), sold by Shandrina at Mystral Lake in Ashenvale and Wulan at Shadowprey Village in Desolace; Artisan from the Clamlette Surprise quest (Cooking 225, level 35) from Dirge Quikcleave in Gadgetzan."
+	],
+	"sections": [
+		{
+			"rank": "Apprentice",
+			"from": 1,
+			"to": 50,
+			"level": 1,
+			"teachers": {
+				"Alliance": [5482, 5159, 4210, 1430, 1699, 1355, 6286, 251905, 257006],
+				"Horde": [3399, 4552, 3026, 3191, 3067, 265944, 251905, 257006]
+			},
+			"route": [
+				{ "from": 1, "to": 50, "recipe": 7751, "count": 55, "mats": { "6291": 55 }, "alternative": { "recipe": 7752, "count": 55, "mats": { "6303": 55 }, "why": "price" } }
+			]
+		},
+		{
+			"rank": "Journeyman",
+			"from": 50,
+			"to": 150,
+			"level": 1,
+			"teachers": {
+				"Alliance": [5482, 5159, 4210, 1430, 1699, 1355, 6286, 251905, 257006],
+				"Horde": [3399, 4552, 3026, 3191, 3067, 265944, 251905, 257006]
+			},
+			"route": [
+				{ "from": 50, "to": 100, "recipe": 7753, "count": 55, "mats": { "6289": 55 }, "alternative": { "recipe": 7827, "count": 55, "mats": { "6361": 55 }, "why": "price" } },
+				{ "from": 100, "to": 150, "recipe": 7755, "count": 53, "mats": { "6308": 53 } }
+			]
+		},
+		{
+			"rank": "Expert",
+			"from": 150,
+			"to": 225,
+			"level": 1,
+			"by": { "book": 16072, "vendors": { "Alliance": [3955], "Horde": [12033] } },
+			"teachers": {
+				"Alliance": [5482, 5159, 4210, 1430, 1699, 1355, 6286, 251905, 257006],
+				"Horde": [3399, 4552, 3026, 3191, 3067, 265944, 251905, 257006]
+			},
+			"route": [
+				{ "from": 150, "to": 175, "recipe": 6500, "count": 28, "mats": { "5504": 28, "2692": 28 } },
+				{ "from": 175, "to": 225, "recipe": 15855, "count": 55, "mats": { "12184": 55, "2692": 55 }, "alternative": { "recipe": 20916, "count": 55, "mats": { "8365": 55 }, "why": "price" } }
+			]
+		},
+		{
+			"rank": "Artisan",
+			"from": 225,
+			"to": 300,
+			"level": 35,
+			"by": { "quest": { "Alliance": 6610, "Horde": 6610 } },
+			"teachers": {
+				"Alliance": [8125],
+				"Horde": [8125]
+			},
+			"route": [
+				{ "from": 225, "to": 285, "recipe": 18238, "count": 72, "mats": { "4603": 72 }, "alternative": { "recipe": 18241, "count": 72, "mats": { "13758": 72 }, "why": "price" } },
+				{ "from": 285, "to": 300, "recipe": 18243, "count": 18, "mats": { "13759": 18, "159": 18 } }
+			]
+		}
+	],
+	"materials": {
+		"6291": ["auction"],
+		"6289": ["auction"],
+		"6308": ["auction"],
+		"4603": ["auction"],
+		"13759": ["auction"],
+		"12184": ["drop", "auction"],
+		"5504": ["drop", "auction"],
+		"12207": ["drop", "auction"],
+		"7974": ["auction"],
+		"2692": ["vendor"],
+		"8932": ["vendor"],
+		"159": ["vendor"]
+	},
+	"vendors": {
+		"2692": { "Alliance": [5160, 4223], "Horde": [3400, 3027, 4553] },
+		"8932": { "Alliance": [4981, 4891], "Horde": [11116, 11106] },
+		"159": { "Alliance": [295, 1247], "Horde": [11116, 11106] }
+	},
+	"recipes": {
+		"6325": { "Alliance": [66, 5494, 4265, 8508, 1684], "Horde": [3029, 4574, 5940, 3550] },
+		"6328": { "Alliance": [66, 5162, 1684, 4265, 257006], "Horde": [3027, 4574, 5940, 5748, 257006] },
+		"6330": { "Alliance": [5494, 2383, 3497, 260487], "Horde": [3027, 4553, 2397, 3029, 3497, 260487] },
+		"12228": { "Alliance": [2810, 4897, 734, 12245], "Horde": [2821, 4879, 1148, 12245] },
+		"13939": { "Alliance": [8137], "Horde": [8137] },
+		"13945": { "Alliance": [8137], "Horde": [8137] }
+	}
+}

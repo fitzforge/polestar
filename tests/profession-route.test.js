@@ -19,7 +19,10 @@ const skip = !fs.existsSync(path.join(DATA, 'professions.json')) && 'needs data/
 const { loadRoute, checkRoute, TIP_MAX, IMPERATIVE } = require('../tools/lib/professions/route');
 
 // The guides a route builds: the crafting guide and the paired guide on top of it.
-const ROUTED = ['blacksmithing', 'mining-blacksmithing', 'alchemy', 'herbalism-alchemy', 'tailoring', 'leatherworking', 'skinning-leatherworking', 'tailoring-enchanting'];
+const ROUTED = ['blacksmithing', 'mining-blacksmithing', 'alchemy', 'herbalism-alchemy', 'tailoring', 'leatherworking', 'skinning-leatherworking', 'tailoring-enchanting', 'enchanting', 'engineering', 'mining-engineering', 'first-aid', 'cooking'];
+const slugOf = (name) => String(name).toLowerCase().replace(/[^a-z0-9]+/g, '-');
+// The profession a routed guide levels by its route: the crafting one of a pair (its file name ends with it).
+const profOf = (d, name) => Object.values(d.professions).find((p) => p && p.recipes && name.endsWith(slugOf(p.name)) && (p.kind !== 'secondary' || name === slugOf(p.name)));
 const read = (name) => fs.readFileSync(path.join(ROOT, 'guides', 'forever', 'professions', `${name}.guide`), 'utf8');
 const exists = (name) => fs.existsSync(path.join(ROOT, 'guides', 'forever', 'professions', `${name}.guide`));
 
@@ -62,7 +65,7 @@ test('every step says what, where, how many and when it is done, on its own', ()
 	// Goals that lead somewhere (the arrow): a smart target, a place, a loop or farm, a trainer list.
 	const placed = (g) => /^(train|buy|auction|turnin|accept|complete|vendor)$/.test(g.verb) || (g.verb === 'learn') || (g.verb === 'goto') || (g.verb === 'collect' && /\b(gather|nearest|@)/.test(g.rest)) || (g.verb === 'skill');
 	// Goals that may sit anywhere: a craft (its station step comes before when it needs one), a level, a task.
-	const anywhere = (g) => /^(craft|level|task|skill)$/.test(g.verb);
+	const anywhere = (g) => /^(craft|level|task|skill)$/.test(g.verb) || (g.verb === 'use' && /\beither\b/.test(g.rest));
 	// A craft until a skill says its count in the title ("Craft 30 Rough Sharpening Stones until 25").
 	const counted = (g, s) => (g.verb === 'craft' && /\buntil \d+/.test(g.rest) ? /^Craft \d+ /.test(s.title) : !/^(buy|auction|collect|craft)$/.test(g.verb) || /\bx\d+\b/.test(g.rest));
 	for (const name of ROUTED.filter(exists)) {
@@ -74,7 +77,10 @@ test('every step says what, where, how many and when it is done, on its own', ()
 			assert.ok(goals.every((g) => placed(g) || anywhere(g)), `${at}: a goal with no place: ${goals.map((g) => g.verb).join(', ')}`);
 			assert.ok(goals.every((g) => counted(g, s)), `${at}: a material or craft without a count`);
 			// One action: the goals of a step are one verb (a get's ways are its choice rows: collect and auction).
-			const verbs = new Set(goals.map((g) => (g.verb === 'auction' || g.verb === 'collect' || g.verb === 'task' ? 'get' : g.verb === 'buy' && goals.some((x) => x.verb === 'collect') ? 'get' : g.verb)));
+			// An `either` task or kit beside the action is its other way out ("No green items left to break", a
+			// Basic Campfire Kit beside the cooking fires), not a second action.
+			const main = goals.filter((g) => !(/^(task|use)$/.test(g.verb) && /\beither\b/.test(g.rest)));
+			const verbs = new Set((main.length ? main : goals).map((g) => (g.verb === 'auction' || g.verb === 'collect' || g.verb === 'task' ? 'get' : g.verb === 'buy' && goals.some((x) => x.verb === 'collect') ? 'get' : g.verb)));
 			assert.ok(verbs.size === 1, `${at}: more than one action (${[...verbs].join(', ')})`);
 		}
 	}
@@ -84,7 +90,7 @@ test('the route rules: recipe learnable, materials got, tools and stations befor
 	const d = loadData();
 	for (const name of ROUTED.filter(exists)) {
 		const steps = stepsOf(read(name));
-		const prof = Object.values(d.professions).find((p) => name.endsWith(p.name.toLowerCase()) && p.recipes && p.kind !== 'secondary');
+		const prof = profOf(d, name);
 		const recipes = new Map(prof.recipes.map((r) => [r.spell, r]));
 		const known = new Set(prof.recipes.filter((r) => Number(r.learnedAt) <= 1 && !r.cost && r.source === 'trainer').map((r) => r.spell));
 		const got = new Set();
@@ -121,7 +127,7 @@ test('the route rules: recipe learnable, materials got, tools and stations befor
 test('a trainer visit learns every recipe of the rank the skill already allows: no second trip', { skip }, () => {
 	const d = loadData();
 	for (const name of ROUTED.filter(exists)) {
-		const prof = Object.values(d.professions).find((p) => name.endsWith(p.name.toLowerCase()) && p.recipes && p.kind !== 'secondary');
+		const prof = profOf(d, name);
 		const recipes = new Map(prof.recipes.map((r) => [r.spell, r]));
 		let skill = 1;
 		const visits = []; // trainer visits outside fork ways: { npcs, skill }

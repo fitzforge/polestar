@@ -2,8 +2,8 @@
 // Fishing + Cooking as a paired guide (pairs.js renderPair, like the other pairs). The gathering side is the
 // Fishing bands and the waters each fishes (gathering/fish-rounds.js: per band and faction, the stand rounds
 // of every water of the side that gives the band's fish, one farming loop each); the crafting side is the
-// cooking those bands' fish carry (fish-rounds.js plan: per band, the vendor recipes with the best skill-up
-// chance among those whose fish the band's water gives), cut at the Cooking ranks' caps into sections. The
+// cooking those bands' fish carry (fish-rounds.js plan: per band, its `cook` stretches, each the first of
+// its recipes whose fish the band's water gives or the bags hold), cut at the Cooking ranks' caps into sections. The
 // blend is pairs.js's: before each cooking stretch a fishing step sized to the fish it still needs (its loops
 // the band's waters, the arrow taking the one that gets the player the fish soonest), then the cooking.
 //
@@ -112,7 +112,7 @@ function fishingSide(ctx) {
 	for (const band of FR.BANDS) {
 		if (band.key === 'city') track.push(rankEntry(ctx, 'Journeyman', FR.rankSteps(ctx, 'Fishing', 'Journeyman')));
 		if (band.key === 'catfish') track.push(rankEntry(ctx, 'Expert', FR.rankSteps(ctx, 'Fishing', 'Expert')));
-		if (band.key === 'late') {
+		if (band.key === 'trout') {
 			const steps = [];
 			fishing.pagleSteps(ctx, (title, lines) => steps.push([title, lines]));
 			track.push(rankEntry(ctx, 'Artisan', steps));
@@ -265,7 +265,7 @@ function fishingSide(ctx) {
 		gatherNote: 'At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy.',
 		header: [
 			'Fishing and Cooking 1-300 together, for both factions: each Cooking stretch starts with a Fishing step sized to the fish that stretch still needs, which also raises Fishing, and the cooking follows with the fish in your bags. Spares carry to the next stretch, and when a stretch needs a fish Fishing cannot catch yet, Fishing catches up first. Fishing reaches 300 before the last Cooking stretch.',
-			"Each Fishing step offers its band's waters as farming loops: a round of stands, the places players stood when they caught the band's fish (Polestar_Recorder sessions, three or more players each), leaving out stands near creatures more than a level above the band's level (an elite counts three levels higher), near the other faction's towns and guards, and boat docks. The arrow takes the one water that gets you the fish soonest from where you are, travel included, and walks its stands; a water's lap counts the hostile creatures by its stands and the deaths players' recordings show there, so the quieter water wins a close call. Starting areas to 75, the capitals and other Longjaw Mud Snapper and catfish water to 150, catfish water to 190, Mithril Head Trout water to 225, Nat Pagle for Artisan, then Spotted Yellowtail water to 300.",
+			"Each Fishing step offers its band's waters as farming loops: a round of stands, the places players stood when they caught the band's fish (Polestar_Recorder sessions, three or more players each), leaving out stands near creatures more than a level above the band's level (an elite counts three levels higher), near the other faction's towns and guards, and boat docks. The arrow takes the one water that gets you the fish soonest from where you are, travel included, and walks its stands; a water's lap counts the hostile creatures by its stands and the deaths players' recordings show there, so the quieter water wins a close call. Starting areas to 75, the capitals and other Longjaw Mud Snapper water to 130, catfish water to 205, Mithril Head Trout water to 225, Nat Pagle for Artisan, trout water to 255, then Feralas to 300 for Redgill and Nightfin Snapper.",
 			"What bites at a water: the recorded catches at its stands (100 or more), else the zone's fishing loot from Forever's server data; when a water loses no fish: its base fishing skill + 95 (Forever's server data). Recipes, their skill colours, prices and sellers are the data's (professions.json, Cooking). The fish can be bought at the Auction House instead of caught (Gather, Buy or Mix).",
 			"ASSUMED: catches per point follow Classic's rate (every catch below 75, then one in (skill - 50) / 25), averaged over each band; cooking skill-ups the Classic chance; a loop's lap is its walk at 7 yards a second, five casts of 12 seconds at each stand, 20 seconds for each hostile creature by a stand and three minutes for each death recorded there, per catch.",
 			'Not routed: the Ravaged Fishing Pole (one source, no loot row in the server data), Recipe: Plated Armorfish (one source), the Winter Frontier Fishery quests (Winter Squid only bites in winter).',

@@ -45,6 +45,8 @@ const IMPERATIVE = /\b(buy|go to|learn|talk to|train|travel to|head to|visit|pic
 const TOWN_YARDS = 120;
 // One station per this many yards (a town has one candidate).
 const STATION_SPREAD = 250;
+// Forever's Basic Campfire Kit: placed from the bags, it lights a cooking fire.
+const CAMPFIRE_KIT = 279981;
 // Stations only a camp has (a player's or a friend's, from a blueprint), never a town: a recipe that needs one
 // cannot be pinned for a first-timer, so a route never crafts it.
 const CAMP_STATIONS = ['Spinning Wheel', 'Loom', 'Tanning Rack', 'Sewing Machine'];
@@ -153,7 +155,7 @@ function checkRoute(route, prof, data) {
 	const plans = new Set(bandsOf(route).filter((x) => x.fork).flatMap((x) => x.fork.ways.flatMap((w) => w.plans || [])));
 	const tools = new Set((route.tools || []).map((t) => t.item));
 	const byQuest = new Set(bandsOf(route).filter((x) => (x.band.quests || []).length).map((x) => x.band.recipe || x.band.make));
-	for (const { band } of bandsOf(route)) {
+	for (const { band } of bandsOf(route).filter((x) => !x.band.disenchant)) {
 		const spell = band.recipe || band.make;
 		const r = recipes.get(spell);
 		const at = band.make ? `make ${spell}` : `${band.from}-${band.to}`;
@@ -172,7 +174,7 @@ function checkRoute(route, prof, data) {
 		if (r.focus && CAMP_STATIONS.includes(r.focus)) errs.push(`${at} ${r.name}: needs a ${r.focus}, which only a camp has (no town has one), so no step can lead a player to it`);
 		for (const t of r.tools || []) if (!tools.has(t)) errs.push(`${at} ${r.name}: needs tool ${t}, which \`tools\` does not list`);
 		const item = Number(r.recipeItem) || 0;
-		if (item && !(route.recipes || {})[item] && !plans.has(item) && !byQuest.has(spell)) errs.push(`${at} ${r.name}: taught by item ${item}; list its vendors in \`recipes\`, its quest in the band, or the plans in a fork`);
+		if (item && !(route.recipes || {})[item] && !plans.has(item) && !byQuest.has(spell) && !(route.taught || []).includes(spell)) errs.push(`${at} ${r.name}: taught by item ${item}; list its vendors in \`recipes\`, its quest in the band, the plans in a fork, or the spell in \`taught\``);
 		for (const q of band.quests || []) if (!quests[q]) errs.push(`${at}: quest ${q} is not in quests.json`);
 		for (const k of Object.keys(got)) {
 			const ways = (route.materials || {})[k];
@@ -189,8 +191,10 @@ function insideOnly(npc) {
 	return !!npc && (npc.instances || []).length > 0 && !Object.keys(npc.spawns || {}).length;
 }
 
-// The recipe of this profession that makes `item` (a grinding stone), or undefined.
-function madeHere(prof, item) {
+// The recipe of this profession that makes `item` (a grinding stone), or undefined. A material the route gets
+// (`materials`: Mote of Magic, which Dust to Motes could make) is not one of its parts.
+function madeHere(prof, item, route) {
+	if (route && (route.materials || {})[item]) return undefined;
 	const r = (prof.recipes || []).find((x) => x.item === item);
 	return r ? r.spell : undefined;
 }
@@ -260,6 +264,8 @@ function routeGuide(name, data, opts = {}) {
 	const recipeName = (spell) => recipes.get(spell).name;
 	const quests = data.quests || {};
 	const mines = (profs[186] || {}).recipes || [];
+	// A recipe the data marks as from an item that trainers teach (`taught`).
+	const taught = (r) => (route.taught || []).includes(r.spell);
 	const tipOf = (text) => {
 		if (!text) return null;
 		if (text.length > TIP_MAX) throw new Error(`${P}: a tip over ${TIP_MAX} characters: "${text}"`);
@@ -388,7 +394,7 @@ function routeGuide(name, data, opts = {}) {
 	let level = 1;
 	let skill = 1; // the skill the route has reached
 	// Each section's bands outside forks, in order (learns are batched over them).
-	const secBands = new Map(route.sections.map((s) => [s, bandsOf({ sections: [s] }).filter((x) => x.way === null).map((x) => x.band)]));
+	const secBands = new Map(route.sections.map((s) => [s, bandsOf({ sections: [s] }).filter((x) => x.way === null && !x.band.disenchant).map((x) => x.band)]));
 	const npcName = (id) => ((data.npcs || {})[id] || {}).name || `NPC ${id}`;
 	const orList = (xs) => (xs.length <= 1 ? xs.join('') : `${xs.slice(0, -1).join(', ')} or ${xs[xs.length - 1]}`);
 	// "plans", "pattern", "recipe", "formula", "schematic", "manual": what a recipe item is called.
@@ -411,16 +417,35 @@ function routeGuide(name, data, opts = {}) {
 		bought.add(r.recipeItem);
 		sellerSteps('recipe', r.recipeItem, by, { tip: by.note || null, also: [`!knows ${r.spell}`] });
 	};
+	// Where each recipe was first learned ({ sec, skill, lines }) and the section a repeat of it is in: a player
+	// who loads the guide past that section never saw the learn, so a later section that crafts the recipe
+	// repeats it (done at once for everyone else; #3401).
+	const taughtAt = new Map();
+	const again = new Map();
+	const sectionNo = () => blocks.filter((b) => b.kind === 'section').length;
 	const learnStep = (band, sec) => {
 		const r = recipes.get(band.recipe || band.make);
-		if (learned.has(r.spell)) return;
-		learned.add(r.spell);
-		if (r.recipeItem) {
-			recipeBuy(r);
-			step('learn', `Learn ${r.name}`, { tip: `From the ${itemKind(r.recipeItem)} in your bags.`, lines: [`  learn ${r.spell}`] });
+		if (learned.has(r.spell)) {
+			const first = taughtAt.get(r.spell);
+			const here = sectionNo();
+			if (first && first.sec !== here && again.get(r.spell) !== here) {
+				again.set(r.spell, here);
+				step('learn', `Learn ${r.name}`, { tip: `Taught at ${first.skill}; done at once if you learned it then.`, lines: first.lines });
+			}
 			return;
 		}
-		step('learn', `Learn ${r.name}`, { lines: [`  learn ${r.spell} npc ${teacherIds(sec).join(',')}`] });
+		learned.add(r.spell);
+		if (r.recipeItem && !taught(r)) {
+			recipeBuy(r);
+			// A recipe vendors sell: until it is in the bags the learn leads to the nearest seller (#3823).
+			const lines = [`  learn ${r.spell}${(route.recipes || {})[r.recipeItem] ? ' nearest' : ''}`];
+			taughtAt.set(r.spell, { sec: sectionNo(), skill: band.make ? skill : band.from, lines });
+			step('learn', `Learn ${r.name}`, { tip: `From the ${itemKind(r.recipeItem)} in your bags.`, lines });
+			return;
+		}
+		const lines = [`  learn ${r.spell} npc ${teacherIds(sec).join(',')}`];
+		taughtAt.set(r.spell, { sec: sectionNo(), skill: band.make ? skill : band.from, lines });
+		step('learn', `Learn ${r.name}`, { lines });
 		learnAhead(sec, band, band.make ? skill : band.from, false);
 	};
 	const teacherIds = (sec) => [...new Set(SIDES.flatMap((s) => sec.teachers[s] || []))];
@@ -432,20 +457,26 @@ function routeGuide(name, data, opts = {}) {
 		if (curWay || i < 0) return;
 		for (const b of list.slice(self ? i : i + 1)) {
 			const x = recipes.get(b.recipe || b.make);
-			if (learned.has(x.spell) || x.recipeItem || Number(x.learnedAt) > now) continue;
+			if (!x || learned.has(x.spell) || (x.recipeItem && !taught(x)) || Number(x.learnedAt) > now) continue;
 			learned.add(x.spell);
 			const use = b.make ? `For the ${D.crafts(b.count, x.name)} later` : `For ${b.from}-${b.to}`;
-			step('learn', `Learn ${x.name}`, { tip: b === band ? null : `${use}: taught here now, so no second trip.`, lines: [`  learn ${x.spell} npc ${teacherIds(sec).join(',')}`] });
+			const xl = [`  learn ${x.spell} npc ${teacherIds(sec).join(',')}`];
+			taughtAt.set(x.spell, { sec: sectionNo(), skill: now, lines: xl });
+			step('learn', `Learn ${x.name}`, { tip: b === band ? null : `${use}: taught here now, so no second trip.`, lines: xl });
 		}
 	};
 	const craftStep = (band, sec) => {
 		const r = recipes.get(band.recipe || band.make);
 		for (const t of r.tools || []) if (!tools.has(t)) throw new Error(`${P}: ${r.name} needs ${itemName(t)}, which no step before it buys or crafts`);
 		if (r.focus && !(lastKind === 'craft' && lastFocus === r.focus) && !(lastKind === 'station' && lastFocus === r.focus)) {
-			step('station', `Go to ${article(r.focus)} ${r.focus.toLowerCase()}`, { lines: stationLines(r.focus) });
+			// A cooking fire: a town's, or one the player lights from a Basic Campfire Kit (Forever).
+			const camp = r.focus === 'Cooking Fire';
+			const lines = camp ? [...stationLines(r.focus).map((l) => `${l} either`), `  use ${CAMPFIRE_KIT} either`] : stationLines(r.focus);
+			step('station', `Go to ${article(r.focus)} ${r.focus.toLowerCase()}`, { tip: camp ? 'A Basic Campfire Kit placed from your bags counts too.' : null, lines });
 			lastFocus = r.focus;
 		}
 		for (const [k, n] of Object.entries(band.mats)) {
+			// Every crafted item the band uses comes off the bags' stock (a material also got: what is there).
 			if (madeHere(prof, Number(k)) === undefined) continue;
 			const have = stock.get(Number(k)) || 0;
 			// A part that is also got (Light Leather: crafted for points, then gathered or bought): the bags'
@@ -455,14 +486,14 @@ function routeGuide(name, data, opts = {}) {
 		}
 		// The craft's count for the window ("about N crafts"), then its keep or heads-up line when both fit.
 		const tool = (route.tools || []).some((t) => t.at === 'craft' && t.item === r.item) && !tools.has(r.item);
-		const about = band.make ? null : `About ${band.count} crafts.`;
+		const about = band.make || band.count < 2 ? null : `About ${band.count} crafts.`;
 		const own = band.keep || band.note || (tool ? 'A tool: it stays in your bags, and later recipes need it.' : band.make ? `Parts for ${band.for}; no skill points from these.` : null);
 		const tip = about && own ? (`${about} ${own}`.length <= TIP_MAX ? `${about} ${own}` : own) : about || own;
 		if (band.make) {
 			step('make', `Craft ${D.crafts(band.count, r.name)}`, { tip, lines: [`  craft ${r.spell} x${band.count}`], extra: { band } });
 		} else {
 			step('craft', `Craft ${D.crafts(band.count, r.name)} until ${band.to}`, { tip, lines: [`  craft ${r.spell} until ${band.to}`], extra: { band } });
-			segments.push({ from: band.from, to: band.to, recipe: r, count: band.count, count90: band.count, need: Object.entries(band.mats).filter(([k]) => madeHere(prof, Number(k)) === undefined).map(([k, n]) => ({ item: Number(k), count: n })), make: [], tools: [], when: when.slice() });
+			segments.push({ from: band.from, to: band.to, recipe: r, count: band.count, count90: band.count, need: Object.entries(band.mats).filter(([k]) => madeHere(prof, Number(k), route) === undefined).map(([k, n]) => ({ item: Number(k), count: n })), make: [], tools: [], when: when.slice() });
 			skill = Math.max(skill, band.to);
 		}
 		lastFocus = r.focus || null;
@@ -524,7 +555,7 @@ function routeGuide(name, data, opts = {}) {
 	// A get's why line: the crafts it is for (each recipe once), and the plans a quest hands over for it.
 	const forWhat = (group, item, bar) => {
 		const by = new Map();
-		for (const b of group) if (b.mats[item]) by.set(b.recipe || b.make, (by.get(b.recipe || b.make) || 0) + b.count);
+		for (const b of group) if ((b.mats || {})[item]) by.set(b.recipe || b.make, (by.get(b.recipe || b.make) || 0) + b.count);
 		const uses = [...by].map(([spell, n]) => D.crafts(n, recipeName(spell)));
 		const quest = group.some((b) => (b.quests || []).some((q) => (quests[q].objectives || []).some((o) => o.id === item)));
 		let text = `For ${D.list([...uses, ...(quest ? ['the plans'] : [])])}.`;
@@ -535,8 +566,17 @@ function routeGuide(name, data, opts = {}) {
 	// A list's vendor goods, bought at one stop before its first craft.
 	const vendorSteps = (list) => {
 		const need = new Map();
-		for (const b of list) for (const [k, n] of Object.entries(b.mats)) if (vendorOnly(k)) need.set(Number(k), (need.get(Number(k)) || 0) + n);
+		for (const b of list) for (const [k, n] of Object.entries(b.mats || {})) if (vendorOnly(k)) need.set(Number(k), (need.get(Number(k)) || 0) + n);
 		for (const [item, n] of need) step('buy', `Buy ${n} ${itemName(item)}`, { tip: forWhat(list, item, false), lines: [`  buy ${item} x${n} nearest`] });
+	};
+	// Disenchanting raises Enchanting too (players' recordings: a point for nearly every item below 20, fewer
+	// after, none from 60): the green items in the bags go first, so the crafts after it need fewer materials.
+	// Done at the band's top or when the player says nothing is left to break.
+	const disenchantStep = (b) => {
+		step('disenchant', `Disenchant your green items until ${b.to}`, {
+			tip: 'Disenchant is in the Enchanting window, not the spellbook. Nearly every item gives a point below 20.',
+			lines: [`  skill ${pq} ${b.to} either`, '  task "No green items left to break" either'],
+		});
 	};
 	// Bands into groups that share one get: consecutive bands whose gathered material is one and the same, and
 	// parts crafted for a band (`make`) with that band.
@@ -545,13 +585,17 @@ function routeGuide(name, data, opts = {}) {
 		const out2 = [];
 		let parts = [];
 		for (const b of list) {
+			if (b.disenchant) {
+				out2.push([b]);
+				continue;
+			}
 			if (b.make) {
 				parts.push(b);
 				continue;
 			}
 			const g = out2[out2.length - 1];
 			const a = gathered(b);
-			if (!parts.length && g && !(b.quests || []).length && !a.includes(',') && g.every((x) => !x.make && gathered(x) === a)) g.push(b);
+			if (!parts.length && g && !(b.quests || []).length && !a.includes(',') && g.every((x) => !x.make && !x.disenchant && gathered(x) === a)) g.push(b);
 			else out2.push([...parts, b]);
 			parts = [];
 		}
@@ -578,10 +622,26 @@ function routeGuide(name, data, opts = {}) {
 				step('tool', `Buy ${article(itemName(t.item))} ${itemName(t.item)}`, { tip: 'A tool: it stays in your bags, and most recipes need it.', lines: [`  buy ${t.item} x1 nearest`] });
 			}
 		} else if (sec.by && sec.by.book) {
-			// A rank from a book: bought from its sellers, then read (the rank is learned from the bags).
+			// A rank from a book: bought from its sellers, then read (the rank is learned from the bags). The
+			// section's recipes the trainers already teach at its start (Silk Bandage at 150) are learned first, on
+			// the trainer visit before the trip; the recipes the book's sellers also sell come on the same visit.
+			const list = secBands.get(sec) || [];
+			const ids = [...new Set(SIDES.flatMap((s) => sec.teachers[s] || []))];
+			for (const b of list) {
+				const x = recipes.get(b.recipe || b.make);
+				if (!x || learned.has(x.spell) || (x.recipeItem && !taught(x)) || Number(x.learnedAt) > sec.from) continue;
+				learned.add(x.spell);
+				step('learn', `Learn ${x.name}`, { tip: `For ${b.from}-${b.to}: the trainers teach it, not the book's seller.`, lines: [`  learn ${x.spell} npc ${ids.join(',')}`] });
+			}
 			const needs = sec.level > level ? `Needs level ${sec.level} to read.` : null;
 			sellerSteps('buy', sec.by.book, sec.by.vendors, { tip: needs });
 			step('train', `Read ${itemName(sec.by.book)}`, { tip: `It teaches ${sec.rank} ${P} from your bags.`, lines: [`  train ${pq} ${sec.rank}`] });
+			const seller = new Set(SIDES.flatMap((s) => sec.by.vendors[s] || []));
+			for (const b of list) {
+				const x = recipes.get(b.recipe || b.make);
+				const by = x && x.recipeItem && (route.recipes || {})[x.recipeItem];
+				if (by && SIDES.every((s) => (by[s] || []).some((v) => seller.has(v)))) recipeBuy(x);
+			}
 		} else if (sec.by && sec.by.quest) {
 			// A rank from a quest: its items got first, the feeder the side's trainer hands out (the data
 			// hides the quest without it), then the quest taken, done and handed in; one set per side where the
@@ -638,7 +698,7 @@ function routeGuide(name, data, opts = {}) {
 				const door = (inst.entrances || []).slice().sort((a, b) => b.n - a.n)[0];
 				if (!door) throw new Error(`${P}: ${sec.rank}: no entrance of ${where} in instances.json`);
 				step('goto', `Go to ${where}`, { tip: `${needs}${npc.name}, the only ${sec.rank} trainer, is inside this dungeon.`, lines: [`  goto ${door.x},${door.y} "${where}" map ${door.map}`] });
-				step('train', `Train ${sec.rank} ${P} · ${npc.name}`, { tip: `${where} is a dungeon: grouping up is advised.`, lines: [`  train ${pq} ${sec.rank}`] });
+				step('train', `Train ${sec.rank} ${P} · ${npc.name}`, { tip: sec.dungeonTip || `${where} is a dungeon: grouping up is advised.`, lines: [`  train ${pq} ${sec.rank}`] });
 				ahead();
 			}
 		} else {
@@ -658,6 +718,7 @@ function routeGuide(name, data, opts = {}) {
 			if (real.length) section(real[0].from, real[real.length - 1].to);
 			if (!trained.has(sec.rank) && sec.rank === 'Apprentice') trainStep(sec);
 			if (i === 0) vendorSteps(list);
+			if (g[0].disenchant) return disenchantStep(g[0]);
 			getSteps(g);
 			if (!trained.has(sec.rank)) trainStep(sec, g[0]);
 			for (const b of g) bandSteps(b, sec);
@@ -765,12 +826,12 @@ function routeGuide(name, data, opts = {}) {
 	for (const sec of route.sections) {
 		const list = bandsOf({ sections: [sec] }).filter((x) => x.way === null || x.way === 0).map((x) => x.band);
 		const tally = new Map();
-		for (const b of list) for (const [k, n] of Object.entries(b.mats)) if (madeHere(prof, Number(k)) === undefined) tally.set(Number(k), (tally.get(Number(k)) || 0) + n);
+		for (const b of list) for (const [k, n] of Object.entries(b.mats || {})) if (madeHere(prof, Number(k), route) === undefined) tally.set(Number(k), (tally.get(Number(k)) || 0) + n);
 		materials.push({ from: sec.from, cap: sec.to, items: [...tally].filter(([k]) => !(route.materials[k].length === 1 && route.materials[k][0] === 'vendor')).map(([item, count]) => ({ item, name: itemName(item), count, uses: [] })) });
 	}
 	const { header } = require('../generated');
 	const head = [
-		header('guide', `profession draft ${P} --out`, `tools/lib/professions/routes/${slug(P)}.json and data/forever`),
+		header('guide', opts.command || `profession draft ${P} --out`, `tools/lib/professions/routes/${slug(P)}.json and data/forever`),
 		`guide forever/professions/${slug(P)}`,
 		`title ${P} 1-300`,
 		'category Professions',
@@ -790,6 +851,7 @@ function routeGuide(name, data, opts = {}) {
 function routeTable(route, recipes, itemName) {
 	const lines = ['# The route (crafts are about what it takes; yellow and green recipes can take a few more):'];
 	const band = (b, pad) => {
+		if (b.disenchant) return `#${pad}  ${String(b.from).padStart(3)}-${String(b.to).padEnd(3)} disenchant green items (a point for nearly each)`;
 		const r = recipes.get(b.recipe || b.make);
 		const mats = Object.entries(b.mats).map(([k, n]) => `${n} ${itemName(k)}`).join(', ');
 		return b.make ? `#${pad}  make ${b.count} ${r.name}: ${mats}` : `#${pad}  ${String(b.from).padStart(3)}-${String(b.to).padEnd(3)} ${b.count} ${r.name}: ${mats}`;

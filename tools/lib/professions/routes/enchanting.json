@@ -1,0 +1,136 @@
+{
+	"_about": "Enchanting 1-300: the curated route the profession guide is generated from (tools/lib/professions/route.js; rules: docs/forge/professions.md, \"Route files\"). Every recipe, count, trainer, vendor and formula is checked against data/forever when the guide is built.",
+	"profession": "Enchanting",
+	"intro": [
+		"Enchanting puts lasting magic on gear and makes oils and wands. Its materials come from breaking green items with Disenchant, which Enchanting teaches, or from the Auction House; no gathering profession is needed. Tailoring is a good partner: its green cloth items break into dust.",
+		"Disenchanting gives skill too: a point for nearly every item up to 20, fewer after that, none from 60. Every enchant goes onto an item, worn or in the bags, and one item takes them all.",
+		"Ranks: Apprentice at any level from any Enchanting trainer (the first trainer teaches recipes only up to 70); Journeyman from level 10 at the city trainers; Expert from level 20 at Kitta Firewind or Hgarth; Artisan from level 35 at Annora, inside Uldaman, the only trainer of that rank."
+	],
+	"tools": [
+		{ "item": 6218, "at": "craft" },
+		{ "item": 6339, "at": "craft" },
+		{ "item": 11130, "at": "craft" },
+		{ "item": 11145, "at": "craft" }
+	],
+	"taught": [7863],
+	"sections": [
+		{
+			"rank": "Apprentice",
+			"from": 1,
+			"to": 70,
+			"level": 1,
+			"teachers": {
+				"Alliance": [11068, 11065, 11070, 3606, 1317, 5157, 4213, 257004, 257020],
+				"Horde": [11066, 11067, 11071, 266881, 5695, 3345, 4616, 3011, 257004, 257020]
+			},
+			"route": [
+				{ "from": 1, "to": 2, "recipe": 7421, "count": 1, "mats": { "6217": 1, "247786": 1 }, "keep": "A tool: it stays in your bags, and every enchant needs it." },
+				{ "disenchant": true, "from": 2, "to": 20 },
+				{ "from": 2, "to": 20, "recipe": 7418, "count": 18, "mats": { "247786": 18 }, "note": "Any bracer you wear or carry takes them all, one over the last." },
+				{ "from": 20, "to": 70, "recipe": 7420, "count": 50, "mats": { "10940": 50 }, "note": "Any chest piece you wear or carry takes them all." }
+			]
+		},
+		{
+			"rank": "Journeyman",
+			"from": 70,
+			"to": 150,
+			"level": 10,
+			"teachers": {
+				"Alliance": [1317, 5157, 4213],
+				"Horde": [3345, 4616, 3011]
+			},
+			"route": [
+				{ "from": 70, "to": 85, "recipe": 7420, "count": 21, "mats": { "10940": 21 } },
+				{ "from": 85, "to": 100, "recipe": 7457, "count": 15, "mats": { "10940": 30 } },
+				{ "from": 100, "to": 109, "recipe": 7771, "count": 9, "mats": { "10940": 18 }, "note": "Any cloak you wear or carry takes them all." },
+				{ "from": 109, "to": 110, "recipe": 7795, "count": 1, "mats": { "6338": 1, "10940": 3, "10938": 4, "1210": 1 }, "keep": "A tool: the enchants from 130 need this rod in your bags." },
+				{ "from": 110, "to": 130, "recipe": 7771, "count": 29, "mats": { "10940": 58 }, "note": "Short of 130 after these? The boots next carry on from where you are." },
+				{ "from": 130, "to": 150, "recipe": 7863, "count": 20, "mats": { "10940": 80 }, "note": "Any boots you wear or carry take them all.", "alternative": { "recipe": 13501, "count": 20, "mats": { "11083": 20 }, "why": "price" } }
+			]
+		},
+		{
+			"rank": "Expert",
+			"from": 150,
+			"to": 225,
+			"level": 20,
+			"cost": 5000,
+			"teachers": {
+				"Alliance": [11072],
+				"Horde": [11074]
+			},
+			"route": [
+				{ "from": 150, "to": 151, "recipe": 13628, "count": 1, "mats": { "11128": 1, "5500": 1, "11082": 1, "11083": 1 }, "keep": "A tool: the enchants from 160 need this rod in your bags." },
+				{ "from": 151, "to": 165, "recipe": 25125, "count": 16, "mats": { "11083": 16, "17034": 32, "3372": 16 } },
+				{ "from": 165, "to": 200, "recipe": 13637, "count": 44, "mats": { "11083": 44 }, "note": "Yellow from 180: short of 200? A few more do it.", "alternative": { "recipe": 13661, "count": 15, "mats": { "11137": 15 }, "why": "price" } },
+				{ "from": 200, "to": 201, "recipe": 13702, "count": 1, "mats": { "11144": 1, "7971": 1, "11135": 1, "11137": 1 }, "keep": "A tool: the enchants from 205 need this rod in your bags." },
+				{ "from": 201, "to": 220, "recipe": 25126, "count": 25, "mats": { "11137": 25, "17035": 50, "3372": 25 } },
+				{ "from": 220, "to": 225, "recipe": 13746, "count": 5, "mats": { "11137": 5 } }
+			]
+		},
+		{
+			"rank": "Artisan",
+			"from": 225,
+			"to": 300,
+			"level": 35,
+			"dungeon": "Uldaman",
+			"dungeonTip": "She appears only once every creature in her room is dead: a group is advised.",
+			"teachers": {
+				"Alliance": [11073],
+				"Horde": [11073]
+			},
+			"route": [
+				{ "from": 225, "to": 250, "recipe": 13815, "count": 34, "mats": { "11137": 34 }, "note": "Yellow from 230: short of 250? A few more do it." },
+				{ "from": 250, "to": 270, "recipe": 25127, "count": 26, "mats": { "11176": 26, "8831": 26, "8925": 26 } },
+				{ "from": 270, "to": 275, "recipe": 20017, "count": 5, "mats": { "11176": 30 }, "note": "Any shield you carry takes them all; they come back at 295." },
+				{ "from": 275, "to": 295, "recipe": 25128, "count": 26, "mats": { "16204": 78, "4625": 52, "8925": 26 } },
+				{ "from": 295, "to": 299, "recipe": 20017, "count": 8, "mats": { "11176": 48 }, "note": "No use for the rod yet? One more shield gives the last point." },
+				{ "from": 299, "to": 300, "recipe": 20051, "count": 1, "mats": { "16206": 1, "13926": 1, "16204": 10, "16203": 4, "14343": 4, "14344": 2 }, "keep": "A tool: many enchants at 300 need this rod." }
+			]
+		}
+	],
+	"materials": {
+		"10940": ["disenchant", "auction"],
+		"10938": ["disenchant", "auction"],
+		"11083": ["disenchant", "auction"],
+		"11137": ["disenchant", "auction"],
+		"11176": ["disenchant", "auction"],
+		"16204": ["disenchant", "auction"],
+		"11082": ["disenchant", "auction"],
+		"11135": ["disenchant", "auction"],
+		"16203": ["disenchant", "auction"],
+		"14343": ["disenchant", "auction"],
+		"14344": ["disenchant", "auction"],
+		"6338": ["auction"],
+		"11128": ["auction"],
+		"11144": ["auction"],
+		"16206": ["auction"],
+		"1210": ["auction"],
+		"5500": ["auction"],
+		"7971": ["auction"],
+		"13926": ["auction"],
+		"8831": ["gather", "auction"],
+		"4625": ["gather", "auction"],
+		"6217": ["vendor"],
+		"247786": ["vendor"],
+		"17034": ["vendor"],
+		"17035": ["vendor"],
+		"3372": ["vendor"],
+		"8925": ["vendor"]
+	},
+	"vendors": {
+		"6217": { "Alliance": [1318, 4228, 5158, 257004, 257020], "Horde": [3346, 3012, 4617, 5758, 257004, 257020] },
+		"247786": { "Alliance": [1318, 4228, 5158, 257004, 257020], "Horde": [3346, 3012, 4617, 5758, 257004, 257020] },
+		"17034": { "Alliance": [958, 252040], "Horde": [4083] },
+		"17035": { "Alliance": [958, 252040], "Horde": [4083] },
+		"3372": { "Alliance": [958, 252020], "Horde": [12043] },
+		"8925": { "Alliance": [15179, 958, 252020], "Horde": [15179] }
+	},
+	"recipes": {
+		"20752": { "Alliance": [1318, 4228, 5158, 15419, 257020], "Horde": [3346, 3012, 4617, 5757, 5758, 15419, 257020] },
+		"20753": { "Alliance": [1318, 4228, 5158, 15419, 257020], "Horde": [3346, 3012, 4617, 5757, 5758, 15419, 257020] },
+		"20754": { "Alliance": [15419], "Horde": [15419] },
+		"20755": { "Alliance": [15419], "Horde": [15419] },
+		"16217": { "Alliance": [4229], "Horde": [4561] },
+		"16243": { "Alliance": [12022], "Horde": [12022] }
+	}
+}
