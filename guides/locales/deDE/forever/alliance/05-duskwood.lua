@@ -47,7 +47,7 @@ return {
 
 	-- Step 8: Gooey Spider Legs
 	-- plural, as words: Gooey Spider Legs = {item:2251} Gooey Spider Leg
-	["Gooey Spider Legs"] = "Gooey Spider Legs",
+	["Gooey Spider Legs"] = "Klebriges Spinnenbein",
 	-- {npc:311} Sven Yorgen
 	-- plural, as words: Carrion Recluses = {npc:949} Carrion Recluse · Venom Web Spiders = {npc:217} Venom Web Spider · Pygmy Venom Web Spiders = {npc:539} Pygmy Venom Web Spider · Green Recluses = {npc:569} Green Recluse
 	["Carrion Recluses lurk in the woods on the way west, and Venom Web Spiders, Pygmy Venom Web Spiders and Green Recluses crawl just south of {npc:311}'s camp: each can drop a leg."] = "Carrion Recluses lauern in den Wäldern auf dem Weg nach Westen, und Venom Web Spiders, Pygmy Venom Web Spiders und Green Recluses krabbeln direkt südlich vom Lager von {npc:311}: Jede kann ein Bein fallen lassen.",

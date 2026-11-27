@@ -196,7 +196,7 @@ return {
 	-- plural, as words: Highlands Bandits = {npc:251918} Highlands Bandit
 	["The Highlands Bandits camp north-east of the village. \"Badwind\" Bennic waits at the far north end of their camp.\nCareful: the bandits stand in close groups and players often died in this camp: pull them one at a time from the edge."] = "Die Hochlandbanditen lagern nordöstlich des Dorfes. „Übelwind“ Bennic wartet am äußersten Nordende ihres Lagers.\nVorsicht: Die Banditen stehen in dichten Gruppen und Spieler sind in diesem Lager oft gestorben: Zieh sie einzeln vom Rand weg.",
 	-- plural, as words: Highlands Bandits = {npc:251918} Highlands Bandit
-	["Highlands Bandits"] = "Highlands Bandits",
+	["Highlands Bandits"] = "Hochlandbandit",
 	["\"Badwind\" Bennic, below ground"] = "„Badwind“ Bennic, unter der Erde",
 
 	-- Step 43: Shen'dar turn-ins
