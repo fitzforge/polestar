@@ -144,6 +144,55 @@ fn maraudon_lists_rot_and_regret_with_its_existing_quest_facts() {
 	}
 }
 
+#[test]
+fn gnomeregan_lists_the_ring_follow_ups_for_both_sides() {
+	// #4279: Gnome Improvement (Alliance) and Nogg's Ring Redo (Horde) follow Return of the Ring,
+	// whose ring comes from Gnomeregan's Sparklematic; their givers, enders and objectives are in
+	// Ironforge and Orgrimmar, so no rule places them and the hand-in guide left them out.
+	// Facts from Forever's quest data (2947-2950).
+	let mut c = codex();
+	c["instances"]["gnomeregan"] = json!({ "name": "Gnomeregan", "map": 90 });
+	c["quests"]["2948"] = json!({
+		"title": "Gnome Improvement", "level": 35, "pre": [2947],
+		"start": { "npc": [6826] }, "end": { "npc": [6826] },
+		"objectives": [{ "type": "item", "id": 2842 }, { "type": "item", "id": 1206 }]
+	});
+	c["quests"]["2947"] = json!({
+		"title": "Return of the Ring", "level": 34, "pre": [2945],
+		"start": { "object": [142487] }, "end": { "npc": [6826] }
+	});
+	c["quests"]["2950"] = json!({
+		"title": "Nogg's Ring Redo", "level": 35, "pre": [2949],
+		"start": { "npc": [3412] }, "end": { "npc": [3412] },
+		"objectives": [{ "type": "item", "id": 2842 }, { "type": "item", "id": 1206 }]
+	});
+	c["quests"]["2949"] = json!({
+		"title": "Return of the Ring", "level": 34, "pre": [2945],
+		"start": { "object": [142487] }, "end": { "npc": [3412] }
+	});
+	c["npcs"]["6826"] = json!({ "name": "Talvash del Kissel" });
+	c["npcs"]["3412"] = json!({ "name": "Nogg" });
+	c["items"]["2842"] = json!({ "name": "Silver Bar" });
+	c["items"]["1206"] = json!({ "name": "Moss Agate" });
+	let mut i = inputs();
+	let before = journal_json(&i, &c);
+	assert_eq!(ids(&before["dungeons"]["gnomeregan"]["quests"]), json!([]));
+	let table: Value = serde_json::from_str(&std::fs::read_to_string(forge_addontest::run::root().join("data/codex/journal-quests.json")).unwrap()).unwrap();
+	i["journalQuests"] = table["quests"].clone();
+	let after = journal_json(&i, &c);
+	let page = &after["dungeons"]["gnomeregan"];
+	assert_eq!(ids(&page["quests"]), json!([2948, 2950]));
+	for (id, giver, pre) in [(2948, 6826, 2947), (2950, 3412, 2949)] {
+		let q = page_quest(page, id);
+		assert_eq!(q["start"]["id"], giver, "giver of {id}");
+		assert_eq!(q["finish"]["id"], giver, "ender of {id}");
+		assert_eq!(q["chain"], json!([pre]), "lead-in of {id}");
+	}
+	for key in before["dungeons"].as_object().unwrap().keys().filter(|k| *k != "gnomeregan") {
+		assert_eq!(after["dungeons"][key], before["dungeons"][key], "unrelated page {key}");
+	}
+}
+
 fn num(x: f64) -> Value {
 	if x.fract() == 0.0 && x.abs() < 1e15 {
 		json!(x as i64)

@@ -8,6 +8,18 @@
 			"note": "Rot and Regret: Forever's quest text sends the player into Maraudon for a Vial of Earth Song Water, then back to Woodwyrd at the Forlorn Gardens in Desolace. The outdoor giver and ender do not identify the dungeon; this association keeps the quest listed when its objective data has no instance link (checked 2026-11-15, #2430)."
 		},
 		{
+			"quest": 2948,
+			"instance": "gnomeregan",
+			"source": { "edition": "forever", "kind": "quest", "id": 2948 },
+			"note": "Gnome Improvement (Alliance, level 35): the follow-up of Return of the Ring (2947), Gnomeregan's Sparklematic ring, handed back to Talvash del Kissel in Ironforge with a Silver Bar and a Moss Agate. Giver, ender and objectives are all outside, so no rule places it, and the Gnomeregan hand-in guide left it out (#4279)."
+		},
+		{
+			"quest": 2950,
+			"instance": "gnomeregan",
+			"source": { "edition": "forever", "kind": "quest", "id": 2950 },
+			"note": "Nogg's Ring Redo (Horde, level 35): the follow-up of Return of the Ring (2949), Gnomeregan's Sparklematic ring, handed back to Nogg in Orgrimmar with a Silver Bar and a Moss Agate. Giver, ender and objectives are all outside, so no rule places it (#4279, the Horde side of the report)."
+		},
+		{
 			"quest": 5526,
 			"instance": "dire-maul",
 			"source": { "edition": "forever", "kind": "quest", "id": 5526 },
