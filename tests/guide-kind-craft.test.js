@@ -341,3 +341,26 @@ while p do if p == GF.frame then under = true end p = p:GetParent() end
 emit({ shown = slot:IsShown(), text = slot.Label:GetText(), secure = b ~= nil, under = under, spell = b and b:GetAttribute("spell") or false })`);
 	assert.deepEqual(out, { shown: true, text: 'Open Tailoring', secure: true, under: false, spell: 'Tailoring' });
 });
+
+test('a tooltip goes the moment the cursor leaves: the game\'s item tooltip on a tile, the tip on the chip, a tip whose owner hides', () => {
+	const out = run('', `
+GF.Layout(); stub.advance(1)
+local st, sup = GF.RegionFrame("stretch"), GF.RegionFrame("supplies")
+local function gameOwned(o) return GameTooltip:IsShown() and GameTooltip:GetOwner() == o or false end
+local function tipShown() return _G.PolestarTip and _G.PolestarTip:IsShown() or false end
+local tile = sup.Rows[1].Tile
+tile:GetScript("OnEnter")(tile)
+local itemOn = gameOwned(tile)
+tile:GetScript("OnLeave")(tile)
+local itemAfter = gameOwned(tile)
+local chip = st.Chip
+chip:GetScript("OnEnter")(chip)
+local tipOn = tipShown()
+chip:GetScript("OnLeave")(chip)
+local tipAfter = tipShown()
+chip:GetScript("OnEnter")(chip)
+st:Hide()
+stub.advance(0.1)
+emit({ itemOn = itemOn, itemAfter = itemAfter, tipOn = tipOn, tipAfter = tipAfter, ownerHidden = tipShown() })`);
+	assert.deepEqual(out, { itemOn: true, itemAfter: false, tipOn: true, tipAfter: false, ownerHidden: false });
+});
