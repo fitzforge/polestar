@@ -351,7 +351,7 @@ function UI.GuideWindowScene(band)
 			["ui.upcoming"] = { up }, ["guideWindow.upSize"] = { up }, ["guideWindow.progress"] = { foot },
 			["guideWindow.progressHeight"] = { foot }, ["guideWindow.progressColor"] = { foot.Line }, ["guideWindow.progressPct"] = { foot.Pct },
 			["guideWindow.pace"] = { G.xp }, ["guideWindow.xpLine"] = { G.xp }, ["guideWindow.stillToDo"] = { P.along },
-			["guideWindow.questLogNotices"] = { G.lines[1] or person, P.along },
+			["guideWindow.questLogNotices"] = { G.lines[1] or person, P.along }, ["guideWindow.offRouteDungeons"] = { G.lines[1] or person },
 			-- The window itself shown and held in place; the step's goals, whole or one person's; the tip and Up next open.
 			["ui.shown"] = window, ["ui.locked"] = window, ["ui.wholeStep"] = moving, ["ui.notesOpen"] = { P.tip },
 			["ui.upcomingOpen"] = { up },
@@ -770,7 +770,12 @@ local SPECS = {
 	{ page = PAGE, tab = L["Parts"], section = L["Quest log notices"], controls = {
 		{ kind = "toggle", key = "guideWindow.questLogNotices", label = L["Quest log notices"], new = "0.4.4",
 			help = L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."],
-			search = "quest log notices, quest log, clean up, cleanup, aren't part of your route, off route, finished quests, carried, hand in elsewhere, hide notices" },
+			search = "quest log notices, quest log, clean up, cleanup, aren't part of your route, off route, finished quests, carried, hand in elsewhere, hide notices",
+			children = {
+				{ kind = "toggle", key = "guideWindow.offRouteDungeons", label = L["Count dungeon quests"], new = "0.4.4",
+					help = L["Dungeon quests, and the quests that lead to them, count among the quests that aren't part of your route. Off, they are left out of that line and its list: kept for a later run."],
+					search = "dungeon quests, dungeons, off route, aren't part of your route, ignore dungeon quests, clean up, keep" },
+			} },
 	} },
 	{ page = PAGE, tab = L["Parts"], section = L["Progress & pace"], controls = {
 		{ kind = "toggle", key = "guideWindow.progress", label = L["Progress bar"], new = NEW,

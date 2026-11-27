@@ -335,6 +335,9 @@ GF.Part(function(GF)
 		-- quests' row, the end card's off-route line, all off at once; the
 		-- guide menu keeps their lists.
 		questLogNotices = true,
+		-- Dungeon quests in the off-route count (#4288); off, they are kept
+		-- for a later run (RoutePlan.OffRoute).
+		offRouteDungeons = true,
 		bgColor = false, bgOpacity = false, border = true, idleAlpha = 1, combatAlpha = 0.35, veil = 0.68, shade = 0.2,
 		stepAnim = true, animSpeed = 1, foldAnim = true, rules = true, hideTaxi = false, leftOut = true, lastSteps = 0,
 		-- The step card's gaps, each its whole size in px (GF.Gap); false: the
