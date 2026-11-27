@@ -67,7 +67,7 @@
 --   %s. Optional: the route doesn't need it.
 --   Kept for %s
 --   Hand in %s to %s, who walks around here: look inside the circle on the map
---   A quest you carry that the route does not work here: its work is nearby.
+--   A quest in your log with an objective nearby that the route doesn't do here.
 --   %s at %s
 --   Only visible while dead: die nearby and talk to them as a ghost.
 --   Under water nearby: swim down to it
@@ -723,7 +723,7 @@ L["%s; 1 in %d runs fails"] = "%s; 1 em cada %d tentativas falha"
 L["%s. Optional: the route doesn't need it."] = "%s. Opcional: a rota não precisa dela."
 L["Kept for %s"] = "Guardada para %s"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "Entregue %s para %s, que anda por aqui: procure dentro do círculo no mapa"
-L["A quest you carry that the route does not work here: its work is nearby."] = "Uma missão que você carrega e que a rota não faz aqui: o objetivo dela está perto."
+L["A quest in your log with an objective nearby that the route doesn't do here."] = "Uma missão que você carrega e que a rota não faz aqui: o objetivo dela está perto."
 L["%s at %s"] = "%s em %s"
 L["Buy a rune at %s"] = "Comprar uma runa com %s"
 L["Buy a rune and cast %s to save about %s"] = "Compre uma runa e lance %s para economizar cerca de %s"
@@ -5666,6 +5666,13 @@ L["Kept for %s: the route hands it in there."] = "Guardada para %s: a rota a ent
 L["No quests in your log are ready to hand in."] = "Nenhuma missão no seu registro está pronta para entregar."
 L["Wait until combat ends to load the quest data."] = "Espere o combate acabar para carregar os dados das missões."
 L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "O guia de entregas não pôde carregar. Verifique se o addon Polestar_FreeMode está instalado e ativado."
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["None of these has a known place to hand it in."] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
 
 -- Lookup/Free.lua
 L["Free mode starts after combat."] = "O modo livre começa depois do combate."
@@ -5677,6 +5684,33 @@ L["Free mode: follow your own quests (on, off, nearest, xp)"] = "Modo livre: sig
 -- UI/QuestLinks.lua
 L["Start quest guide"] = "Iniciar guia de missão"
 L["Click to show quest guide actions."] = "Clique para mostrar as ações do guia de missão."
+
+-- Free.lua
+-- L["Low drop rate: %s"] = ""
+-- L["1 quest for your level: %s gives it."] = ""
+-- L["%d quests for your level, all here."] = ""
+-- L["%d quests for your level, %d of them here."] = ""
+-- L["Quests for your level"] = ""
+-- L["About %s XP a minute"] = ""
+-- L["Order: nearest first"] = ""
+-- L["Order: most XP a minute first"] = ""
+-- L["Bring back left-out quests (%d)"] = ""
+-- L["Unpin"] = ""
+-- L["Pin to the top"] = ""
+-- L["Free mode takes this quest first, whatever the order."] = ""
+-- L["Leave out of Free mode"] = ""
+-- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = ""
+
+-- Layouts/Atlas/Atlas.lua
+-- L["Get ahead, if possible"] = ""
+-- L["Still open from steps you have passed"] = ""
+-- L["1 quest off-guide"] = ""
+-- L["%d quests off-guide"] = ""
+-- L["View"] = ""
+-- L["Training due"] = ""
+-- L["New spells at your class trainer"] = ""
+-- L["Optional objectives during this step"] = ""
+-- L["Class quest"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Configurar o Polestar de novo, uma página por vez. Cada escolha vale na hora."

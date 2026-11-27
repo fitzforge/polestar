@@ -161,7 +161,7 @@
 --   %s. Optional: the route doesn't need it.
 --   Kept for %s
 --   Hand in %s to %s, who walks around here: look inside the circle on the map
---   A quest you carry that the route does not work here: its work is nearby.
+--   A quest in your log with an objective nearby that the route doesn't do here.
 --   %s at %s
 --   Only visible while dead: die nearby and talk to them as a ghost.
 --   Under water nearby: swim down to it
@@ -817,7 +817,7 @@ L["%s; 1 in %d runs fails"] = "%s ; 1 tentative sur %d échoue"
 L["%s. Optional: the route doesn't need it."] = "%s. Facultative : l'itinéraire n'en a pas besoin."
 L["Kept for %s"] = "Gardée pour %s"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "Rendez %s à %s, qui se promène par ici : cherchez dans le cercle sur la carte"
-L["A quest you carry that the route does not work here: its work is nearby."] = "Une quête que vous avez et que l'itinéraire ne fait pas ici : son objectif est tout près."
+L["A quest in your log with an objective nearby that the route doesn't do here."] = "Une quête que vous avez et que l'itinéraire ne fait pas ici : son objectif est tout près."
 L["%s at %s"] = "%s à %s"
 L["Buy a rune at %s"] = "Acheter une rune auprès de %s"
 L["Buy a rune and cast %s to save about %s"] = "Achetez une rune et lancez %s pour gagner environ %s"
@@ -5760,6 +5760,13 @@ L["Kept for %s: the route hands it in there."] = "Gardée pour %s : l'itinérair
 L["No quests in your log are ready to hand in."] = "Aucune quête de votre journal n'est prête à être rendue."
 L["Wait until combat ends to load the quest data."] = "Attendez la fin du combat pour charger les données des quêtes."
 L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "Le guide des quêtes à rendre n'a pas pu se charger. Vérifiez que l'addon Polestar_FreeMode est installé et activé."
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["None of these has a known place to hand it in."] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
 
 -- Lookup/Free.lua
 L["Free mode starts after combat."] = "Le mode libre démarre après le combat."
@@ -5771,6 +5778,33 @@ L["Free mode: follow your own quests (on, off, nearest, xp)"] = "Mode libre : su
 -- UI/QuestLinks.lua
 L["Start quest guide"] = "Lancer le guide de quête"
 L["Click to show quest guide actions."] = "Cliquez pour afficher les actions du guide de quête."
+
+-- Free.lua
+-- L["Low drop rate: %s"] = ""
+-- L["1 quest for your level: %s gives it."] = ""
+-- L["%d quests for your level, all here."] = ""
+-- L["%d quests for your level, %d of them here."] = ""
+-- L["Quests for your level"] = ""
+-- L["About %s XP a minute"] = ""
+-- L["Order: nearest first"] = ""
+-- L["Order: most XP a minute first"] = ""
+-- L["Bring back left-out quests (%d)"] = ""
+-- L["Unpin"] = ""
+-- L["Pin to the top"] = ""
+-- L["Free mode takes this quest first, whatever the order."] = ""
+-- L["Leave out of Free mode"] = ""
+-- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = ""
+
+-- Layouts/Atlas/Atlas.lua
+-- L["Get ahead, if possible"] = ""
+-- L["Still open from steps you have passed"] = ""
+-- L["1 quest off-guide"] = ""
+-- L["%d quests off-guide"] = ""
+-- L["View"] = ""
+-- L["Training due"] = ""
+-- L["New spells at your class trainer"] = ""
+-- L["Optional objectives during this step"] = ""
+-- L["Class quest"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Reconfigurer Polestar, une page à la fois. Chaque choix s'applique tout de suite."
