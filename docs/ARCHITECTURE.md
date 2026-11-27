@@ -9653,7 +9653,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   GF.REGIONS = {
     profession = { "meter", "stretch", "get", "step", "shopping" },
     reputation = { "meter", "turnin", "step", "more" },
-    dungeon    = { "brief", "ready", "step", "pickups", "entrance" },   -- outside its instance
+    dungeon    = { "brief", "ready", "step", "entrance" },   -- outside its instance
     -- "step": the card's own header and goal rows there, the leveling view's (GF.LayoutRegionsAfter
     -- lays the regions after it out under the goals area and the step's tip). A profession guide's
     -- train, learn, buy and go-to steps read there; its craft and get steps are goal rows of the
@@ -9676,8 +9676,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   A model's `covers` (goal indexes of the step, a list or a set) takes those
   goals' rows off the card; with every open goal covered the step's header
   goes too. A region frame is a part in `Theme.GuideParts()` under its id and
-  is offered to `guidePlace` by its id (Atlas places `turnin` and `pickups`
-  in cards). `layout` never builds
+  is offered to `guidePlace` by its id (Atlas places `turnin` in a card). `layout` never builds
   strings: `paint` does, on a render, not on a drag-resize. Model shapes:
 
   ```lua
@@ -9692,9 +9691,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
                buy = { { item, name, count } } }
   turnin   = { quest, title, repeatable, items = { { item, count } }, rep, npc, map, ready }
   more     = { { quest, title, rep, once, progress = { cur, max }, from, current, step, goalIndex }, covers = { goal index, ... } }
-  brief    = { key, name, lo, hi, best, players, zone }      ready = { level, best, floor, group = { n, max, names } }
-  pickups  = { held, total, missing = { { quest, title, npc, where, onWay, minutesOff, after, goal, gv, point } },
-               taken = { { quest, title, held, goal, gv } }, work }
+  brief    = { key, name, zone, art }      ready = { level, floor }      -- ready: only below the dungeon's floor
   entrance = { map, x, y, eta, cap = { used, max }, needs, go }
   tracker  = { key, name, bossesDone, bossesTotal, elapsed, loot = { { item, boss, quest, how, until } },
                quests = { { id, title, done, objectives = { { text, cur, max, done, boss, pending } } } },
@@ -9705,34 +9702,24 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   Skin API names the regions add (each behind its capability): parts in
   `Theme.GuideParts()` (`guideParts.kind`), hooks `guideKindRow(row, item,
   info)` and `guideMeter(meter, info)`, `guidePlace` names `meter`,
-  `stretch`, `get`, `shopping`, `turnin`, `more`, `pickups`, `guideSpace`
+  `stretch`, `get`, `shopping`, `turnin`, `more`, `brief`, `ready`, `entrance`, `guideSpace`
   names `bossRow`, tokens `craftOrange`, `craftYellow`, `craftGreen`,
   `craftGrey`; the dungeon tracker's `trackerPlace(name, frame, width, height)`.
 - **The dungeon kind** (`Core/KindDungeon.lua` models, `UI/GuideFrameKindDungeon.lua`
   regions; design in docs/DESIGN.md, "The Guide Window"): a guide of kind `dungeon`
   names its dungeon by `dungeon` (the pick-up guide, `Dungeons.PickupGuide`, sets it and
   `kind = "dungeon"`), a pick-up or hand-in guide's id, else its title
-  (`ns.KindDungeon.KeyOf`). Its models, beyond the shapes above: `brief.art`
-  (Dungeons.Art); `ready.under` (below the floor); `pickups` adds `waiting`,
-  `skipped`, `far` (the count over `Dungeons.PICKUP_DETOUR`, 10 minutes), `inGuide`
-  (the open guide is its pick-up guide), each missing quest `far` and `current`
-  (the step accepts it), `plan` and `covers` (the step's accepts, while the row is open), `open` (the
-  "Quests for the run" row is open: `Dungeons.PickupsOpen(key)`, `CharState().dungeonPickupOpen[key]`,
-  `Dungeons.SetPickupsOpen`; folded by default and again when the run ends, in Compact never open); the entries
-  (the open list's) are the
-  leveling view's goal rows (`GF.NewGoalRow`, `GF.PaintGoalRow`, `GF.MeasureRow`): `gv` the
-  step's accept of it, `taken` the page quests the step took (ticked until the step moves
-  on), `after` the chain quest it waits on (`Dungeons.OutsideWork`), `point` where a click
-  points the arrow (`Dungeons.GiverTarget` while it waits on a prerequisite), `work` the
-  quests with work out in the world still open; `entrance.zone`, `go` (nothing left before
-  the door: "Guide me to the entrance" shows only then),
-  `covers` (the step's way in). The pick-up plan and the travel time are kept 30
-  seconds (or until a quest is taken or dropped, the zone or the skips change):
-  `Dungeons.PickupDetours(plan)` plans the route once (`PlanStops`) and gives each
-  take its minutes off the way (the route against the same order without the stops
-  only that quest needs); `Dungeons.SkipFar(plan)` / `Unskip(key)` keep the left-out
-  quests per character (`CharState().dungeonPickupSkip`), and `PickupPlan` lists them
-  as `skipped`, never for the heads-up.
+  (`ns.KindDungeon.KeyOf`). It shows the way there only: the Dungeons hub already says the
+  level range, the group and the best level, and the step list holds every pick-up step, so
+  the window has no range chip, group row or list of the run's quests. Its models, beyond
+  the shapes above: `brief.art` (Dungeons.Art); `ready` exists only below the dungeon's floor
+  (nil, so no region, at or above it); `entrance.zone`, `go` (nothing left before the door:
+  "Guide me to the entrance" shows only then) and `covers` (the step's way in). The step's
+  own accepts and chain quests are the leveling view's rows, none covered by a region.
+  `KindDungeon.Pending(key)` -> `{ held, total, missing, work }` is the plan's count behind
+  `go`: `missing` the takes still to pick up (`Dungeons.PickupPlan`), `work` the quests with
+  work out in the world still open (`Dungeons.OutsideWork`); it and the travel time are kept
+  30 seconds (or until a quest is taken or dropped or the zone changes).
 - **The dungeon run and its tracker** (`Dungeons/Run.lua`, `UI/DungeonTracker.lua`;
   design in docs/DESIGN.md, "The Dungeon Tracker"): inside a party or raid instance
   with a Dungeons page, `Dungeons.Run` checks bosses off (ENCOUNTER_END won, by

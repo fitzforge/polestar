@@ -1,8 +1,8 @@
 'use strict';
 // A dungeon's work out in the world before the way in (#4379; Dungeons/Pickup.lua, Dungeons.OutsideWork) and
 // the dungeon window round it (Core/KindDungeon.lua, UI/GuideFrameKindDungeon.lua): the step's own goal rows
-// between the group and the pick-ups, as the leveling view shows them; each pick-up a goal row with its tick
-// box, its prerequisite named under it; "Guide me to the entrance" only once nothing is left before the door.
+// between the brief and the way in, as the leveling view shows them; "Guide me to the entrance" only once
+// nothing is left before the door (KindDungeon.Pending).
 // The Ruins of Lordaeron for a fresh Horde character at 15: The Wrath of Rath'mael waits on Rear Guard
 // Patrol (kill 8 + 8) and its follow-up, The New Plague on the three parts of A Recipe For Death.
 
@@ -109,12 +109,19 @@ E = Polestar.Engine
 GF = Polestar.UI.GuideFrame
 VIEW = { guide = { dungeon = INSIDE } }
 function pickups()
-	local m = E.KindModel("pickups", VIEW, "dungeon")
-	local rows = {}
-	for _, q in ipairs(m.missing) do
-		rows[#rows + 1] = { q.title, q.after and q.after.title or false, q.after and q.after.n or false, q.after and q.after.of or false }
+	Polestar.KindDungeon.Forget()
+	local p = Polestar.KindDungeon.Pending(INSIDE)
+	local plan = Polestar.Dungeons.PickupPlan(INSIDE)
+	local after = {}
+	for _, w in ipairs(Polestar.Dungeons.OutsideWork(plan)) do
+		if w.chain and w.opens and not after[w.opens] then after[w.opens] = w end
 	end
-	return { held = m.held, total = m.total, work = m.work, rows = rows }
+	local rows = {}
+	for _, t in ipairs(plan.take) do
+		local a = after[t.quest.id]
+		rows[#rows + 1] = { Polestar.Compat.GetQuestTitle(t.quest.id) or t.quest.title, a and a.title or false, a and a.chain.n or false, a and a.chain.of or false }
+	end
+	return { held = p.held, total = p.total, work = p.work, rows = rows }
 end
 function go() return E.KindModel("entrance", VIEW, "dungeon").go end
 `;
@@ -167,7 +174,7 @@ emit({ go = go(), m = pickups() })
 	assert.equal(after.m.held, 4);
 });
 
-test('the pick-up guide: the chain quest is a step of its own shown as the leveling view shows it, between the group and the pick-ups; the button stays hidden', () => {
+test('the pick-up guide: the chain quest is a step of its own shown as the leveling view shows it; the way in stays information only; no pick-ups region', () => {
 	const [out] = run(`
 Polestar.Set("ui.shown", true)
 Polestar.Dungeons.PickUp(INSIDE)
@@ -189,84 +196,16 @@ w.accept(356, { { text = "Bleeding Horror slain: 0/8", type = "monster", require
 stub.advance(0.5)
 GF.Render() GF.Layout()
 local taken = rows()
-local p = GF.RegionFrame("pickups")
-local _, rel = p:GetPoint(1)
 local entrance = GF.RegionFrame("entrance")
-Polestar.Dungeons.SetPickupsOpen(INSIDE, true)
-GF.Update()
-local sub = {}
-for i = 1, p.psRows do sub[i] = p.Rows[i].Sub:GetText():gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "") end
-emit({ titles = titles, step = v.title, first = first, rows = taken, pickupsUnder = rel == GF.parts.goals or rel == GF.parts.card.Tip,
-	go = entrance.Go:IsShown(), checks = p.Rows[1].Check ~= nil, subs = sub })
+emit({ titles = titles, step = v.title, first = first, rows = taken, go = entrance.Go:IsShown(), pickups = GF.RegionFrame("pickups") ~= nil or GF.RegionShown("pickups") })
 `);
 	assert.ok(out.titles.includes('Rear Guard Patrol'), out.titles.join(' | '));
 	assert.equal(out.step, 'Rear Guard Patrol', 'Linnea stands by: the chain comes first');
 	assert.ok(out.first.some((t) => /Accept.*Rear Guard Patrol/.test(t)), out.first.join(' | '));
 	assert.ok(out.rows.some((t) => /Bleeding Horror.*0\/8/.test(t)), out.rows.join(' | '));
 	assert.ok(out.rows.some((t) => /Wandering Spirit.*0\/8/.test(t)), out.rows.join(' | '));
-	assert.equal(out.pickupsUnder, true, "the pick-ups sit under the step's rows");
 	assert.equal(out.go, false, 'Guide me to the entrance hides while work is left');
-	assert.equal(out.checks, true, 'each pick-up is a goal row with its tick box');
-	assert.ok(out.subs.some((s) => /^Deathguard Kristof · (After .* · )?Chain: 1 of 2$/.test(s)), `the title may give way, the chain's count stays: ${out.subs.join(' | ')}`);
-});
-
-test('a pick-up ticks when accepted and stays until the step moves on; the count follows', () => {
-	const [before, after] = run(CHAINS_DONE + `
--- Morbin gives The New Plague too here: a stop with two accepts.
-QUESTS[95216].start.npc = { 266484 }
-w.moveTo(1458, 57, 89)
-Polestar.Set("ui.shown", true)
-Polestar.Dungeons.SetPickupsOpen(INSIDE, true)
-Polestar.Dungeons.PickUp(INSIDE)
-stub.advance(0.5)
-GF.Render() GF.Layout()
-local function look()
-	local p = GF.RegionFrame("pickups")
-	local rows = {}
-	for i = 1, p.psRows do
-		local r = p.Rows[i]
-		rows[#rows + 1] = { r.psGoal.quest, r.psGoal.status == "done", r.Check:GetChecked() and true or false }
-	end
-	return { right = p.Head.Right:GetText(), rows = rows }
-end
-emit(look())
-local v = E.GetStepView(E.GetStepIndex())
-local q
-for _, g in ipairs(v.goals) do if g.t == "accept" then q = g.quest end end
-w.accept(q, {}, QUESTS[q].title)
-stub.advance(0.5)
-GF.Render() GF.Layout()
-local out = look()
-out.q = q
-emit(out)
-`);
-	assert.equal(before.right, '0 / 4');
-	assert.ok(before.rows.every((r) => r[1] === false && r[2] === false), 'all unticked');
-	assert.equal(after.right, '1 / 4');
-	const row = after.rows.find((r) => r[0] === after.q);
-	assert.ok(row, 'the accepted quest keeps its row');
-	assert.deepEqual(row.slice(1), [true, true], 'ticked');
-});
-
-test("a click on a pick-up points the arrow at its giver, or at its chain's giver while it waits on one, as a goal row's click does", () => {
-	const [out] = run(`
-Polestar.Set("ui.shown", true)
-Polestar.Dungeons.SetPickupsOpen(INSIDE, true)
-Polestar.Dungeons.PickUp(INSIDE)
-stub.advance(0.5)
-GF.Render() GF.Layout()
-local p = GF.RegionFrame("pickups")
-local out = {}
-for i = 1, p.psRows do
-	local r = p.Rows[i]
-	r:GetScript("OnClick")(r, "LeftButton")
-	local t = Polestar.Nav.GetTarget()
-	out[QUESTS[r.psGoal.quest].title] = t and { t.map, t.x, t.y } or false
-end
-emit(out)
-`);
-	assert.deepEqual(out["Light's Justice"], [1458, 57.9, 89.5], "Morbin Lightbane's place");
-	assert.deepEqual(out["The Wrath of Rath'mael"], [1420, 65.4, 60.2], 'Deathguard Linnea, Rear Guard Patrol first');
+	assert.equal(out.pickups, false, 'the pick-ups are the step list\'s, not a region');
 });
 
 test("the page quests' own work out in the world: an item made from parts the world gives (The Pariah's Instructions' gems), a step before the way in; far work optional", () => {
@@ -320,7 +259,7 @@ local function accepts(def)
 end
 `;
 
-test('the step is one stop: with the quests for the run folded it shows that stop\'s quests only (Tabitha\'s first), the rest are the one row', () => {
+test('the step is one stop: it shows that stop\'s quests only (Tabitha\'s first); the step list holds the rest', () => {
 	const [out] = run(CHAINS_DONE + ACCEPTS + `
 w.moveTo(1421, 44.5, 42.9)
 Polestar.Set("ui.shown", true)
@@ -331,19 +270,16 @@ local rows = {}
 for _, r in ipairs(GF.rows) do
 	if r:IsShown() and r.psGoal then rows[#rows + 1] = (r.Text:GetText():gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) end
 end
-local p = GF.RegionFrame("pickups")
 local v = E.GetStepView(E.GetStepIndex())
 local quests = {}
 for _, g in ipairs(v.goals) do if g.t == "accept" then quests[#quests + 1] = g.quest end end
-emit({ steps = accepts(E.GetGuide()), step = v.title, quests = quests, rows = rows, head = p.Head.Text:GetText(), right = p.Head.Right:GetText(), listed = p.psRows })
+emit({ steps = accepts(E.GetGuide()), step = v.title, quests = quests, rows = rows, pickups = GF.RegionShown("pickups") })
 `);
 	assert.equal(out.step, 'Tabitha Heartweaver');
 	assert.deepEqual(out.quests, [92401], "the stop's one quest");
 	assert.equal(out.rows.length, 1, out.rows.join(' | '));
 	assert.match(out.rows[0], /Accept.*A Frightened Request/);
-	assert.equal(out.head, 'Quests for the run');
-	assert.equal(out.right, '0 / 4');
-	assert.equal(out.listed, 0, 'the others are in the folded row, not the page');
+	assert.equal(out.pickups, false, 'no folded row of the whole run');
 	assert.equal(out.steps.length, 5, 'four stops and the way in: four separate stops are four steps');
 	assert.deepEqual(out.steps.slice(0, 4).map((s) => s.accepts.length), [1, 1, 1, 1]);
 });

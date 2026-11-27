@@ -1,11 +1,9 @@
--- Atlas's dungeon parts (docs/DESIGN.md, "The Guide Window" and "The Dungeon
--- Tracker"; Polestar/UI/GuideFrameKindDungeon.lua, Polestar/UI/DungeonTracker.lua):
--- a dungeon guide's quests for the run as a card above the window, and the
--- floating dungeon tracker's loot, quests and bosses as three stacked cards,
--- with no head of the tracker's over them (their headings say what it would;
--- the tracker's frame shrinks to the cards' anchor and the cards move it).
--- Loaded before Atlas.lua, which hands each part in
--- S.atlasParts its hook registry, its leave list and its Core.
+-- Atlas's dungeon parts (docs/DESIGN.md, "The Dungeon Tracker";
+-- Polestar/UI/DungeonTracker.lua): the floating dungeon tracker's loot, quests
+-- and bosses as three stacked cards, with no head of the tracker's over them
+-- (their headings say what it would; the tracker's frame shrinks to the cards'
+-- anchor and the cards move it). Loaded before Atlas.lua, which hands each part
+-- in S.atlasParts its hook registry, its leave list and its Core.
 
 local _, S = ...
 S.atlasParts = S.atlasParts or {}
@@ -13,31 +11,8 @@ S.atlasParts = S.atlasParts or {}
 S.atlasParts[#S.atlasParts + 1] = function(on, onLeave, Core)
 	local P = Polestar
 	local Theme = P and P.Theme
-	if not (Theme and Core.regionCard and Core.capsLabel and Core.cardDress) then return end
+	if not (Theme and Core.capsLabel and Core.cardDress) then return end
 	local tr = Core.tr
-
-	---------------------------------------------------------------------------
-	-- The quests for the run: a card above the window
-	---------------------------------------------------------------------------
-
-	local styled = setmetatable({}, { __mode = "k" }) -- region frame -> true while dressed as a card
-
-	local CARD_PAD = 14
-	on("guidePlace", function(name, part, width, height)
-		if name ~= "pickups" then return nil end
-		local head = rawget(part, "Head")
-		if head then
-			-- Its head line is the card's caps heading: "QUESTS FOR THE RUN", the count at the right.
-			head.Text:SetText(Core.upper(tr(rawget(part, "psCardHead") or "")))
-			Core.capsLabel(head.Text)
-			head.Text:ClearAllPoints()
-			head.Text:SetPoint("LEFT", head, "TOPLEFT", CARD_PAD, -12)
-			head.Icon:Hide()
-			head.Bar:Hide()
-			styled[part] = true
-		end
-		return Core.regionCard(name, part, width, height)
-	end)
 
 	---------------------------------------------------------------------------
 	-- The floating tracker: three cards under its head
@@ -198,15 +173,6 @@ S.atlasParts[#S.atlasParts + 1] = function(on, onLeave, Core)
 			ic.Face:Show()
 			ic.Face:SetAlpha(1)
 			flat[ic] = nil
-		end
-		for part in pairs(styled) do
-			local head = rawget(part, "Head")
-			if head then
-				Theme.Font(head.Text, "goal")
-				if P.Widgets then P.Widgets.Color(head.Text, "text") end
-				head.Icon:Show()
-			end
-			styled[part] = nil
 		end
 		local DT = P.UI and P.UI.DungeonTracker
 		if DT and DT.Refresh then DT.Refresh() end

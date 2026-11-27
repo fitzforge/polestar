@@ -1370,11 +1370,7 @@ const ATLAS_LAYOUT = `${INSTALLED_SKINS}; Polestar.Set("ui.layout", "atlas")`;
 // Outside: the Wailing Caverns pick-up guide of the dungeons fixture (a dungeon guide: kind "dungeon") on
 // its first step, the level 20 Tauren of the Dungeons scenes in the Barrens; the window's Engine stand-in
 // answers the guide's kind and the regions' models from the real one.
-// run: a dungeon guide of a pack's own (kind "dungeon", its `dungeon` named) instead, whose window offers
-// Pick them up; after: Lua run once the guide is open (then the window draws again).
-const RUN_GUIDE = `{ id = "test/wailing-caverns", pack = "test", title = "Wailing Caverns", kind = "dungeon", dungeon = "wailing-caverns",
-	minLevel = 17, maxLevel = 24, steps = { { title = "Wailing Caverns", goals = { { t = "goto", text = "Wailing Caverns", map = 1413, x = 46, y = 36, entrance = true } } } } }`;
-const kindDungeon = (extra = '', { run = false, after = '', key = 'wailing-caverns' } = {}) => `${clientArtLua()}${DUNGEONS_SETUP}
+const kindDungeon = (extra = '', { key = 'wailing-caverns' } = {}) => `${clientArtLua()}${DUNGEONS_SETUP}
 local E, RE = Polestar.Engine, uistub.realEngine
 E.KindModel = function(r, v, k) return RE.KindModel(r, v, k) end
 E.GuideKind = function() return Polestar.GuideKinds.Of(E.GetGuide()) end
@@ -1385,8 +1381,8 @@ Polestar.TravelCost = function(a, b)
 end
 Polestar.Compat.MapName = Polestar.Compat.GetMapName
 ${extra}
-local def = ${run ? RUN_GUIDE : `Polestar.Dungeons.PickupGuide("${key}")`}
-${run ? '' : `def.id, def.pack = "lookup/pickup/${key}", "lookup"`}
+local def = Polestar.Dungeons.PickupGuide("${key}")
+def.id, def.pack = "lookup/pickup/${key}", "lookup"
 -- The window's Engine stand-in shows a step's goals as given: each gets the words and state the real Engine
 -- gives its view (the verb and subject, a count's 0/N, the first goal the one to do now).
 local VERB = { accept = "Accept", turnin = "Turn in", kill = "Kill", collect = "Collect", use = "Use", talk = "Talk to", interact = "Click", ["goto"] = "Enter" }
@@ -1404,14 +1400,11 @@ for _, s in ipairs(def.steps) do
 end
 uistub.guides[def.id] = def
 uistub.setGuide(def.id, 1)
-${after}`;
+`;
 // Maps loads too: the travel time, the instances this hour, and the tracker floating as the instance
 // tracker does (Maps.CompactFrame).
 const KIND_FILES = [...FILES.slice(0, 2), 'Maps/Maps.xml', ...FILES.slice(2)];
 const kindPanel = (extra, opts = {}) => ({ dungeons: true, roots: GUIDE, files: KIND_FILES, addons: SKINS_ADDON, ...opts, script: kindDungeon(extra, opts) });
-// Leaders of the Fang left in Thunder Bluff (out of the log): a giver a flight away, past Skip the far one's 10 minutes.
-const FAR = 'log[914] = nil';
-const SKIP_FAR = 'Polestar.Dungeons.SkipFar(Polestar.Engine.KindModel("pickups", nil, "dungeon").plan); Polestar.UI.GuideFrame.Render()';
 // The work out in the world before the way in (#4379): the Ruins of Lordaeron for a level 15 Forsaken warrior by
 // Deathguard Linnea in Tirisfal (game names; places from the Codex, the chains' mobs and items sample ones):
 // The Wrath of Rath'mael waits on Rear Guard Patrol (8 + 8 kills) and its follow-up, The New Plague on the
@@ -1493,13 +1486,27 @@ ITEMS[17758] = { id = 17758, name = "Amulet of Union", sources = {} }
 QUESTS[7067] = quest(7067, "The Pariah's Instructions", 13717, { { type = "item", id = 17758, count = 1, text = "Amulet of Union", madeFrom = { 17761, 17762, 17763, 17764, 17765, 17757 } } }, {}, 48)
 usePage({ key = K, name = "Maraudon", map = 349, minLevel = 46, maxLevel = 55, floor = 48, players = 5, zone = 1443, zoneName = "Desolace",
 	entrance = { map = 1443, x = 31, y = 60.8 }, quests = { pq(7067, "The Pariah's Instructions") } })`;
-// The quests for the run row: folded until it is opened (Dungeons.SetPickupsOpen).
-const OPEN_ROW = (key) => `Polestar.Dungeons.SetPickupsOpen("${key}", true)`;
-// Each case in the house look and Blizzard's: Standard folded and open, and Compact.
-const outsidePanels = (world, key) => ['polestar', 'blizzard'].flatMap((skin) => [
-	{ open: false, compact: false }, { open: true, compact: false }, { open: false, compact: true },
-].map(({ open, compact }) =>
-	kindPanel(`${world}\n${look(skin)}${compact ? '; Polestar.Set("ui.compact", true)' : ''}${open ? `; ${OPEN_ROW(key)}` : ''}`, { key })));
+// Blackfathom Deeps for a level 27 Tauren (Fitz's try8 check; game names, the places roughly, the chains' mobs and items
+// sample ones): over the floor of 24, so no ready line; the picture and name, the stop's quests, the way in.
+const BFD = `${OUTSIDE_WORLD}
+uistub.player.level = 27; UnitLevel = function() return 27 end
+Polestar.Compat.GetPlayerMapPosition = function() return 1413, 49.5, 57.9 end
+local K = "blackfathom-deeps"
+NPCS[3230], NPCS[3231] = npc(3230, "Doan Karhan", 1413, 49.8, 57.9), npc(3231, "Je'neu Sancrea", 1440, 11.8, 34.3)
+NPCS[3232], NPCS[3233] = inside(3232, "Twilight Lord Kelris", K), inside(3233, "Ghamoo-ra", K)
+ITEMS[5359], ITEMS[5360] = { id = 5359, name = "Soran'ruk Fragment", sources = { { type = "drop", npc = 3232, chance = 100, instance = K } } }, { id = 5360, name = "Ghamoo-ra's Shell", sources = { { type = "drop", npc = 3233, chance = 100, instance = K } } }
+QUESTS[971] = quest(971, "The Orb of Soran'ruk", 3230, { { type = "item", id = 5359, count = 3, text = "Soran'ruk Fragment" } }, {}, 25)
+QUESTS[6921] = quest(6921, "Twilight Falls", 3231, { { type = "item", id = 5360, count = 1, text = "Ghamoo-ra's Shell" } }, {}, 25)
+QUESTS[6922] = quest(6922, "Knowledge in the Deeps", 3231, { { type = "kill", id = 3232, count = 1, text = "Twilight Lord Kelris" } }, {}, 26)
+usePage({ key = K, name = "Blackfathom Deeps", map = 48, minLevel = 24, maxLevel = 32, floor = 24, players = 5, zone = 1440, zoneName = "Ashenvale",
+	entrance = { map = 1440, x = 14.8, y = 13.9 }, quests = { pq(971, "The Orb of Soran'ruk"), pq(6921, "Twilight Falls"), pq(6922, "Knowledge in the Deeps") } })`;
+// Each case in the house look and Blizzard's, Standard and Compact, and in Atlas, Standard and Compact.
+const outsidePanels = (world, key) => [
+	...['polestar', 'blizzard'].flatMap((skin) => [false, true].map((compact) =>
+		kindPanel(`${world}\n${look(skin)}${compact ? '; Polestar.Set("ui.compact", true)' : ''}`, { key }))),
+	...[false, true].map((compact) =>
+		kindPanel(`${world}\n${ATLAS_LAYOUT}${compact ? '; Polestar.Set("ui.compact", true)' : ''}`, { key, roots: [...GUIDE, 'PolestarGuideFrameCards'] })),
+];
 // Inside: the tracker's made-up run (UI.DungeonTracker.SAMPLE), floating with the guide window hidden,
 // or docked in the window on the Barrens guide.
 const trackerFloat = (extra = '') => `Polestar.Set("ui.shown", false)
@@ -1539,17 +1546,14 @@ const SCENES = [
 	},
 	{
 		file: 'guide-kind-dungeon.svg',
-		title: 'Dungeon guide, outside: the picture, your level against the range, the group, the quests for the run folded to one row and open (on your way, minutes off the route), the way in; Compact; Atlas; under the floor with a key missing; Skip the far one in the open list',
+		title: 'Dungeon guide, outside: the picture and name, the step, the way in; Compact; Atlas; under the floor with a key missing (one line: come back at the floor level)',
 		panels: [
 			kindPanel(''),
-			kindPanel(OPEN_ROW('wailing-caverns')),
 			kindPanel('Polestar.Set("ui.compact", true)'),
 			kindPanel(ATLAS_LAYOUT, { roots: [...GUIDE, 'PolestarGuideFrameCards'] }),
 			kindPanel(`uistub.player.level = 15; UnitLevel = function() return 15 end
 Polestar.Dungeons.Attunements = function() return { { kind = "key", name = "Prison Cell Key", item = { name = "Prison Cell Key" } } } end
 Polestar.Dungeons.AttunementState = function() return { done = false } end`),
-			kindPanel(`${FAR}; ${OPEN_ROW('wailing-caverns')}`, { run: true }),
-			kindPanel(`${FAR}; ${OPEN_ROW('wailing-caverns')}`, { run: true, after: SKIP_FAR }),
 		],
 	},
 	{
@@ -1564,13 +1568,18 @@ Polestar.Dungeons.AttunementState = function() return { done = false } end`),
 	},
 	{
 		file: 'guide-kind-dungeon-chains.svg',
-		title: "Dungeon guide, outside, the Ruins of Lordaeron for a level 15 Forsaken: Rear Guard Patrol's step as the leveling view shows it, the quests for the run folded to one row and open, naming the chains they wait on, no way in yet; then with the chains done, each stop's step and the four quests (house look and Blizzard's, Standard folded and open, and Compact)",
+		title: "Dungeon guide, outside, the Ruins of Lordaeron for a level 15 Forsaken (under the floor of 18: the one line): Rear Guard Patrol's step as the leveling view shows it, no way in yet; then with the chains done, each stop's step (house look and Blizzard's, Standard and Compact, and Atlas)",
 		panels: [...outsidePanels(ROL, 'ruins-of-lordaeron'), ...outsidePanels(ROL_DONE, 'ruins-of-lordaeron')],
 	},
 	{
 		file: 'guide-kind-dungeon-outside.svg',
-		title: "Dungeon guide, outside, Maraudon: The Pariah's Instructions' gems out in the outer caves before the way in (house look and Blizzard's, Standard folded and open, and Compact)",
+		title: "Dungeon guide, outside, Maraudon: The Pariah's Instructions' gems out in the outer caves before the way in (house look and Blizzard's, Standard and Compact, and Atlas)",
 		panels: outsidePanels(MARAUDON, 'maraudon'),
+	},
+	{
+		file: 'guide-kind-dungeon-blackfathom.svg',
+		title: 'Dungeon guide, outside, Blackfathom Deeps for a level 27 character: the picture and name, the stop, the way in with its zone (house look and Blizzard\'s, Standard and Compact, and Atlas)',
+		panels: outsidePanels(BFD, 'blackfathom-deeps'),
 	},
 	{
 		file: 'dungeon-tracker.svg',

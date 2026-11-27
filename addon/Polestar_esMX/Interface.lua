@@ -454,26 +454,9 @@
 -- Machine-translated, to be reviewed (dungeon guides and the dungeon tracker, 26 Nov 2026): translated by an AI
 -- model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
 -- keep or fix its line below, and take its key off this list.
---   %s off route
---   %s · your level
---   %s, on your way
---   Bring back the far ones (%d)
---   Group %d of %d
---   Group %d/%d
---   Group of %d
---   Group: none yet
---   Level %d · best at %d
 --   Level %d: come back at %d
 --   Needs %s
---   No quests to pick up
---   Pick them up
---   Quests open at a later level: %d
---   Skip the far one
---   best %d
---   from %d
 --   instances this hour: %d of %d
---   on your way
---   Quests for the run
 --   %d / %d bosses
 --   All %d quests ready to turn in: hand them in after the run
 --   Every boss is down
@@ -5803,26 +5786,9 @@ L["Leave out of Free mode"] = "Omitir del modo libre"
 L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "El modo libre deja de mostrar esta misión. \"Recuperar misiones omitidas\" en el menú la vuelve a mostrar."
 
 -- UI/GuideFrameKindDungeon.lua
-L["%s off route"] = "%s fuera de la ruta"
-L["%s · your level"] = "%s · tu nivel"
-L["%s, on your way"] = "%s, de camino"
-L["Bring back the far ones (%d)"] = "Recuperar las lejanas (%d)"
-L["Group %d of %d"] = "Grupo %d de %d"
-L["Group %d/%d"] = "Grupo %d/%d"
-L["Group of %d"] = "Grupo de %d"
-L["Group: none yet"] = "Grupo: ninguno aún"
-L["Level %d · best at %d"] = "Nivel %d · mejor en nivel %d"
 L["Level %d: come back at %d"] = "Nivel %d: regresa en el nivel %d"
 L["Needs %s"] = "Necesita %s"
-L["No quests to pick up"] = "No hay misiones que recoger"
-L["Pick them up"] = "Recogerlas"
-L["Quests open at a later level: %d"] = "Misiones en un nivel posterior: %d"
-L["Skip the far one"] = "Omitir la lejana"
-L["best %d"] = "mejor %d"
-L["from %d"] = "desde %d"
 L["instances this hour: %d of %d"] = "estancias esta hora: %d de %d"
-L["on your way"] = "de camino"
-L["Quests for the run"] = "Misiones del calabozo"
 
 -- UI/DungeonTracker.lua
 L["%d / %d bosses"] = "%d / %d jefes"

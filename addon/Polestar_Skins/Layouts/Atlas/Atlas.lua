@@ -1819,9 +1819,9 @@ end)
 
 -- The guide kinds' regions (Skin API: guidePlace by the region's id) that
 -- Atlas sets above the window as cards: a reputation guide's turn-in.
--- Another file's region joins through Core.regionCard. The region keeps its
--- own content; its heading takes Atlas's caps. A profession guide's steps
--- stay rows in the window, as a leveling guide's.
+-- The region keeps its own content; its heading takes Atlas's caps. A
+-- dungeon guide's regions and a profession guide's steps stay rows in the
+-- window, as a leveling guide's.
 local REGION_CARDS = { turnin = true }
 local function regionHead(part)
 	local head = rawget(part, "Head")

@@ -1,7 +1,7 @@
 'use strict';
 // The dungeon kind (docs/DESIGN.md, "The Guide Window" and "The Dungeon Tracker"): outside, the window's
-// regions (Core/KindDungeon.lua: the level against the floor, the group, the quests to pick up with their
-// minutes off the way and "Skip the far one", the way in with a key still missing); inside, the run
+// regions (Core/KindDungeon.lua: the picture and name, one line only under the dungeon's floor, the way in
+// with a key still missing; no range chip, group row or "Quests for the run"); inside, the run
 // (Dungeons/Run.lua: bosses checked off as they die, "Loot <item> from <boss>" until it is in the bags,
 // three minutes pass or the next boss is pulled) and the tracker (UI/DungeonTracker.lua: it shows while
 // the guide window waits out the dungeon, docks into the window when that is shown, hides on leaving).
@@ -243,140 +243,115 @@ emit({ before = before, during = during, after = T:GetHeight(), done = table.con
 
 const OUTSIDE = `
 local E = Polestar.Engine
-local function pickups()
-	local m = E.KindModel("pickups", nil, "dungeon")
-	local rows = {}
-	for _, q in ipairs(m.missing) do
-		rows[#rows + 1] = { q.title, q.npc, q.where, q.onWay, q.minutesOff, q.far }
-	end
-	return { held = m.held, total = m.total, far = m.far, skipped = m.skipped, rows = rows }
-end
+local function plain(s) return ((s or ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) end
 `;
 
-test('outside: the pick-ups, on the way or minutes off it; Skip the far one leaves the far one out until brought back', () => {
-	const [before, after, back] = run(OUTSIDE + `
-Polestar.Dungeons.PickUp("wailing-caverns")
-emit(pickups())
-local m = E.KindModel("pickups", nil, "dungeon")
-Polestar.Dungeons.SkipFar(m.plan)
-emit(pickups())
-Polestar.Dungeons.Unskip("wailing-caverns")
-emit(pickups())
-`);
-	assert.equal(before.total, 3);
-	assert.equal(before.held, 0);
-	assert.equal(before.far, 1);
-	const byTitle = Object.fromEntries(before.rows.map((r) => [r[0], r]));
-	assert.equal(byTitle['Deviate Hides'][3], true, 'Ebru stands by the entrance: on the way');
-	assert.equal(byTitle['Leaders of the Fang'][1], 'Nara Wildmane');
-	assert.equal(byTitle['Leaders of the Fang'][2], 'Thunder Bluff');
-	assert.equal(byTitle['Leaders of the Fang'][5], true, 'Thunder Bluff and back is past the 10 minutes');
-	assert.ok(byTitle['Leaders of the Fang'][4] >= 25, `minutes off ${byTitle['Leaders of the Fang'][4]}`);
-	assert.equal(after.total, 2);
-	assert.equal(after.skipped, 1);
-	assert.ok(!after.rows.some((r) => r[0] === 'Leaders of the Fang'));
-	assert.equal(back.total, 3);
-});
-
-test('outside: the pick-up guide is a dungeon guide: its regions show; the quests for the run are one folded row, open they are the goal rows, and the way in follows', () => {
-	const [out] = run(OUTSIDE + `
-Polestar.Set("ui.shown", true)
-Polestar.Dungeons.PickUp("wailing-caverns")
-stub.advance(0.5)
-local GF = Polestar.UI.GuideFrame
-GF.Render()
-local shown = {}
-for _, id in ipairs({ "brief", "ready", "pickups", "entrance" }) do shown[id] = GF.RegionShown(id) end
-local p = GF.RegionFrame("pickups")
-local function look()
-	local rows = {}
-	for i = 1, p.psRows do rows[i] = p.Rows[i].psGoal and p.Rows[i].psGoal.t or false end
-	return { head = p.Head.Text:GetText(), right = p.Head.Right:GetText(), chevron = p.Head.Chevron:IsShown() and p.Head.Chevron:GetTexture() or false,
-		covers = #GF.RegionModel("pickups").covers, bar = p.Head.Bar:IsShown(), rows = rows, open = GF.RegionModel("pickups").open,
-		pick = p.Pick:IsShown(), skip = p.Skip:IsShown() }
-end
-GF.Layout()
-local folded = look()
-p.Head:GetScript("OnClick")(p.Head, "LeftButton")
-GF.Layout()
-local open = look()
-local go = GF.RegionFrame("entrance").Go:IsShown()
-p.Head:GetScript("OnClick")(p.Head, "LeftButton")
-GF.Layout()
-local again = look()
-p.Head:GetScript("OnClick")(p.Head, "LeftButton")
-Polestar.Set("ui.compact", true)
-GF.Render() GF.Layout()
-emit({ kind = E.GuideKind(), shown = shown, folded = folded, open = open, again = again, compact = look(),
-	way = GF.RegionFrame("entrance").Way.Text:GetText(), go = go, compactEnabled = p.Head:IsEnabled() })
-`);
-	assert.equal(out.kind, 'dungeon');
-	assert.deepEqual(out.shown, { brief: true, ready: true, pickups: true, entrance: true });
-	assert.equal(out.folded.head, 'Quests for the run');
-	assert.equal(out.folded.right, '0 / 3');
-	assert.deepEqual(Object.values(out.folded.rows), [], 'folded by default: the one row alone');
-	assert.equal(out.folded.open, false);
-	assert.equal(out.folded.covers, 0, "folded, the step keeps the stop's own rows");
-	assert.equal(out.folded.bar, false);
-	assert.match(out.folded.chevron, /chevron-down/, "the Journey row's chevron: it opens");
-	assert.equal(out.folded.pick, false, 'Pick them up and Skip the far one are in the open list');
-	assert.equal(out.folded.skip, false);
-	assert.equal(out.open.open, true);
-	assert.equal(out.open.right, '0 / 3', 'the count is the same open');
-	assert.ok(out.open.covers >= 1, 'open, the list stands for the step accept');
-	assert.equal(out.open.bar, true, 'the 2px bar is on the row while quests are left and it is open');
-	assert.match(out.open.chevron, /chevron-up/);
-	assert.deepEqual(out.open.rows, ['accept', 'accept', 'accept'], "each entry is the leveling view's accept row");
-	assert.equal(out.open.skip, true, 'Skip the far one comes with the list');
-	assert.equal(out.go, false, 'quests left to pick up: the way in is information only');
-	assert.equal(out.again.open, false, 'a second click folds it again');
-	assert.deepEqual(Object.values(out.again.rows), []);
-	assert.deepEqual(Object.values(out.compact.rows), [], 'compact: the one line, no list');
-	assert.equal(out.compact.chevron, false, 'compact: no chevron');
-	assert.equal(out.compactEnabled, false, 'compact: nothing to click, nothing for the gamepad');
-	assert.equal(out.compact.covers, 0);
-	assert.equal(out.way, 'Entrance', "the zone is the brief chip's: the way in does not repeat it");
-});
-
-test('outside: the quests for the run row opens with the gamepad\'s A, is remembered for the dungeon until the run ends, and the count follows the log while it is folded', () => {
-	const [out] = run(OUTSIDE + `
-Polestar.Set("ui.shown", true)
-Polestar.Dungeons.PickUp("wailing-caverns")
-stub.advance(0.5)
-local GF = Polestar.UI.GuideFrame
-GF.Render() GF.Layout()
-local p = GF.RegionFrame("pickups")
-local G = Polestar.Gamepad
-local pad = {}
-for _, b in ipairs(G.Collect(_G.PolestarGuideFrame)) do if b == p.Head then pad.found = true end end
-local function state() return Polestar.Dungeons.PickupsOpen("wailing-caverns") end
-local before = state()
-p.Head:GetScript("OnClick")(p.Head, "LeftButton")
-local opened = state()
--- A fresh window render keeps it open: the state is the character's, not the frame's.
-GF.Render() GF.Layout()
-local kept = { open = GF.RegionModel("pickups").open, rows = p.psRows }
-p.Head:GetScript("OnClick")(p.Head, "LeftButton")
-local folded = state()
--- Open again, the log changes while it is folded: the count follows.
+test('outside: what is left before the way in follows the plan and the log (KindDungeon.Pending)', () => {
+	const [before, after] = run(OUTSIDE + `
+local function pending() Polestar.KindDungeon.Forget(); local p = Polestar.KindDungeon.Pending("wailing-caverns"); return { held = p.held, total = p.total, missing = p.missing, work = p.work } end
+emit(pending())
 w.accept(1486, {}, "Deviate Hides")
 stub.advance(0.5)
-Polestar.KindDungeon.Forget()
-GF.Render() GF.Layout()
-local count = p.Head.Right:GetText()
-p.Head:GetScript("OnClick")(p.Head, "LeftButton")
--- The run ends: into the instance and out again, and it is folded.
-enter()
-leave()
-emit({ gamepad = pad.found, before = before, opened = opened, kept = kept, folded = folded, count = count, afterRun = state(), openedAgain = true })
+emit(pending())
 `);
-	assert.equal(out.gamepad, true, "the row is a button the gamepad's focus reaches");
-	assert.equal(out.before, false);
-	assert.equal(out.opened, true);
-	assert.deepEqual(out.kept, { open: true, rows: 3 });
-	assert.equal(out.folded, false);
-	assert.equal(out.count, '1 / 3', 'a quest just picked up ticks the count, folded');
-	assert.equal(out.afterRun, false, 'the run is over: folded again');
+	assert.deepEqual(before, { held: 0, total: 3, missing: 3, work: 0 });
+	assert.deepEqual(after, { held: 1, total: 3, missing: 2, work: 0 }, 'a quest taken moves from missing to held');
+});
+
+test('outside: the pick-up guide is a dungeon guide of two regions and the way in: the picture and name, no range chip, group row or "Quests for the run"; the step shows the stop\'s own accepts', () => {
+	const [out] = run(OUTSIDE + `
+Polestar.Set("ui.shown", true)
+Polestar.Dungeons.PickUp("wailing-caverns")
+stub.advance(0.5)
+local GF = Polestar.UI.GuideFrame
+GF.Render() GF.Layout()
+local function look()
+	local shown = {}
+	for _, id in ipairs({ "brief", "ready", "pickups", "entrance" }) do shown[id] = GF.RegionShown(id) end
+	local texts = {}
+	local function add(fs) if fs and fs:IsShown() then texts[#texts + 1] = plain(fs:GetText()) end end
+	local brief, ready, entrance = GF.RegionFrame("brief"), GF.RegionFrame("ready"), GF.RegionFrame("entrance")
+	if GF.RegionShown("brief") then add(brief.Name); if brief.Line:IsShown() then add(brief.Line.Text) end end
+	if GF.RegionShown("ready") then add(ready.Level.Text) end
+	if GF.RegionShown("entrance") then add(entrance.Way.Text); if entrance.Needs:IsShown() then add(entrance.Needs.Text) end end
+	return { shown = shown, texts = texts, way = plain(GF.RegionFrame("entrance").Way.Text:GetText()) }
+end
+local rows = {}
+for _, r in ipairs(GF.rows) do
+	if r:IsShown() and r.psGoal then rows[#rows + 1] = r.psGoal.t end
+end
+local standard = look()
+local brief = GF.RegionFrame("brief")
+local chip = { range = rawget(brief, "Range") ~= nil, facts = rawget(brief, "Facts") ~= nil }
+local v = E.GetStepView(E.GetStepIndex())
+local accepts = 0
+for _, g in ipairs(v.goals) do if g.t == "accept" then accepts = accepts + 1 end end
+Polestar.Set("ui.compact", true)
+GF.Render() GF.Layout()
+emit({ kind = E.GuideKind(), standard = standard, compact = look(), chip = chip, rows = rows, accepts = accepts, go = GF.RegionFrame("entrance").Go:IsShown(),
+	hasPickups = GF.RegionFrame("pickups") ~= nil, model = Polestar.Engine.KindModel("pickups", nil, "dungeon") ~= nil })
+`);
+	assert.equal(out.kind, 'dungeon');
+	assert.deepEqual(out.standard.shown, { brief: true, ready: false, pickups: false, entrance: true }, 'level 19 is over the floor of 17: no ready row, and no pick-ups region');
+	assert.deepEqual(out.compact.shown, { brief: true, ready: false, pickups: false, entrance: true });
+	assert.deepEqual(out.chip, { range: false, facts: false }, 'the brief is the picture and the name alone');
+	assert.equal(out.hasPickups, false);
+	assert.equal(out.model, false, 'no pickups model any more');
+	assert.ok(out.standard.texts.includes('Wailing Caverns'), out.standard.texts.join(' | '));
+	for (const t of [...out.standard.texts, ...out.compact.texts]) {
+		assert.doesNotMatch(t, /Quests for the run|your level|Group|best at|Level \d/, `nothing the hub already shows: ${t}`);
+	}
+	assert.equal(out.standard.way, 'Entrance · The Barrens', 'the zone is the way in\'s: the brief no longer names it');
+	assert.ok(out.rows.length >= 1 && out.rows.every((t) => t === 'accept'), `the step's own accepts: ${out.rows}`);
+	assert.ok(out.accepts >= 1, 'the step has its stop\'s accepts');
+	assert.equal(out.go, false, 'quests left to pick up: the way in is information only');
+});
+
+test('outside: no ready row at or above the floor; under it, one line "Level 15: come back at 17" in Standard and Compact', () => {
+	const [at, under, atFloor] = run(OUTSIDE + `
+Polestar.Set("ui.shown", true)
+Polestar.Dungeons.PickUp("wailing-caverns")
+stub.advance(0.5)
+local GF = Polestar.UI.GuideFrame
+local function ready()
+	GF.Render() GF.Layout()
+	local f = GF.RegionFrame("ready")
+	return { shown = GF.RegionShown("ready"), model = E.KindModel("ready", nil, "dungeon") ~= nil,
+		text = f and GF.RegionShown("ready") and plain(f.Level.Text:GetText()) or false, h = f and GF.RegionShown("ready") and f:GetHeight() or 0 }
+end
+emit(ready())
+w.level = 15
+local standard = ready()
+Polestar.Set("ui.compact", true)
+local compact = ready()
+w.level = 17
+emit({ standard = standard, compact = compact })
+emit(ready())
+`);
+	assert.deepEqual(at, { shown: false, model: false, text: false, h: 0 }, 'level 19, floor 17');
+	assert.equal(under.standard.shown, true);
+	assert.equal(under.standard.text, 'Level 15: come back at 17');
+	assert.equal(under.compact.shown, true);
+	assert.equal(under.compact.text, 'Level 15: come back at 17');
+	assert.ok(under.standard.h > 0 && under.standard.h <= 24, `one 24px line: ${under.standard.h}`);
+	assert.equal(atFloor.shown, false, 'level 17 is the floor itself: not under it');
+});
+
+test('outside: the way in\'s button waits until nothing is left before the door, and Guide me to the entrance then shows', () => {
+	const [before, after] = run(OUTSIDE + `
+Polestar.Set("ui.shown", true)
+Polestar.Dungeons.PickUp("wailing-caverns")
+stub.advance(0.5)
+local GF = Polestar.UI.GuideFrame
+local function go() GF.Render() GF.Layout(); return { go = E.KindModel("entrance", nil, "dungeon").go, button = GF.RegionFrame("entrance").Go:IsShown() } end
+emit(go())
+for _, id in ipairs({ 1486, 914, 1491 }) do w.accept(id, {}, "q") end
+stub.advance(0.5)
+Polestar.KindDungeon.Forget()
+emit(go())
+`);
+	assert.deepEqual(before, { go: false, button: false });
+	assert.deepEqual(after, { go: true, button: true });
 });
 
 test('outside: under the floor and alone; a key still missing', () => {
@@ -388,9 +363,7 @@ emit(E.KindModel("ready", view, "dungeon"))
 local e = E.KindModel("entrance", view, "dungeon")
 emit({ needs = e.needs, zone = e.zone, eta = e.eta ~= nil, cap = e.cap })
 `);
-	assert.equal(ready.under, true);
-	assert.equal(ready.floor, 17);
-	assert.equal(ready.group.n, 0);
+	assert.deepEqual(ready, { level: 15, floor: 17 });
 	assert.equal(entrance.needs, 'Prison Cell Key');
 	assert.equal(entrance.zone, 'The Barrens');
 	assert.equal(entrance.eta, true);

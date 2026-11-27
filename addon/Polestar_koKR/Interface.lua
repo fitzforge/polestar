@@ -565,26 +565,9 @@
 -- Machine-translated, to be reviewed (dungeon guides and the dungeon tracker, 26 Nov 2026): translated by an AI
 -- model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
 -- keep or fix its line below, and take its key off this list.
---   %s off route
---   %s · your level
---   %s, on your way
---   Bring back the far ones (%d)
---   Group %d of %d
---   Group %d/%d
---   Group of %d
---   Group: none yet
---   Level %d · best at %d
 --   Level %d: come back at %d
 --   Needs %s
---   No quests to pick up
---   Pick them up
---   Quests open at a later level: %d
---   Skip the far one
---   best %d
---   from %d
 --   instances this hour: %d of %d
---   on your way
---   Quests for the run
 --   %d / %d bosses
 --   All %d quests ready to turn in: hand them in after the run
 --   Every boss is down
@@ -5914,26 +5897,9 @@ L["Leave out of Free mode"] = "자유 모드에서 제외"
 L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "자유 모드에서 이 퀘스트를 더 이상 보여 주지 않습니다. 메뉴의 '제외한 퀘스트 되돌리기'로 다시 보여 줍니다."
 
 -- UI/GuideFrameKindDungeon.lua
-L["%s off route"] = "경로에서 %s 벗어남"
-L["%s · your level"] = "%s · 내 레벨"
-L["%s, on your way"] = "%s, 가는 길"
-L["Bring back the far ones (%d)"] = "먼 퀘스트 되돌리기 (%d)"
-L["Group %d of %d"] = "파티 %d / %d"
-L["Group %d/%d"] = "파티 %d/%d"
-L["Group of %d"] = "%d인 파티"
-L["Group: none yet"] = "파티: 아직 없음"
-L["Level %d · best at %d"] = "레벨 %d · 적정 레벨 %d"
 L["Level %d: come back at %d"] = "레벨 %d: %d레벨에 다시 오세요"
 L["Needs %s"] = "필요: %s"
-L["No quests to pick up"] = "수락할 퀘스트 없음"
-L["Pick them up"] = "수락하러 가기"
-L["Quests open at a later level: %d"] = "나중 레벨에 열리는 퀘스트: %d"
-L["Skip the far one"] = "먼 퀘스트 건너뛰기"
-L["best %d"] = "적정 %d"
-L["from %d"] = "%d부터"
 L["instances this hour: %d of %d"] = "이번 시간 인스턴스: %d / %d"
-L["on your way"] = "가는 길"
-L["Quests for the run"] = "던전 퀘스트"
 
 -- UI/DungeonTracker.lua
 L["%d / %d bosses"] = "우두머리 %d / %d"

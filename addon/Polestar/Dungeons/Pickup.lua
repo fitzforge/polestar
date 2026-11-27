@@ -85,23 +85,6 @@
 --       a prerequisite's line: "Needed for “A”, “B”." (a breadcrumb:
 --       "Leads to “A”."), the quests ({ title }, ...) it comes before, then
 --       `note`; `note` unchanged when there are none.
---   Dungeons.PickupDetours(plan[, from]) -> plan   -- each of plan.take gets `seconds`, `minutesOff`
---       and `onWay`: how much longer the way to the entrance is for that quest. The way is the
---       pick-up route (PlanStops from `from`, default where the player stands, through every
---       stop to the entrance); a quest's share is that route's travel less the same order's
---       without the stops only it needs (its giver, when no other quest is taken there; its
---       prerequisites, when they open nothing else). onWay: under ON_WAY minutes. seconds nil
---       when a stop or the entrance can't be placed.
---   Dungeons.PICKUP_DETOUR: minutes off the way past which "Skip the far one" (the dungeon
---       window's pick-ups) leaves a quest out; Dungeons.ON_WAY: under this, "on your way".
---   Dungeons.SkipFar(plan) -> n   -- leaves out of this character's pick-ups for the plan's
---       dungeon every take PickupDetours put more than PICKUP_DETOUR minutes off the way
---       (CharState().dungeonPickupSkip[key][questId]); PickupPlan then lists them as
---       `skipped` (not for the heads-up's `offer`). Dungeons.Unskip(key) brings them back.
---       Dungeons.Skipped(key) -> { [questId] = true } | nil
---   Dungeons.PickupsOpen(key) -> bool, Dungeons.SetPickupsOpen(key, open)   -- whether the dungeon
---       window's "Quests for the run" row is open (CharState().dungeonPickupOpen[key]): per
---       character and dungeon, folded again when the run ends (Dungeons.Run leaves the instance)
 --   Dungeons.OutsideWork(plan) -> { { quest, title, rec, goals, take, optional, chain = { n, of }, opens } }
 --       what is done out in the world before the way in (#4379), in the plan's order:
 --       for each take, the quests of its chain open now (its `pre` none of the others
@@ -212,13 +195,11 @@ local MIN_DROP = 25 -- percent: a rarer drop (or one of no known chance) is left
 local SAME_SPOT = 10 -- seconds of travel: closer than this, a spawn on the entrance's zone is the one
 -- The heads-up offers a quest from this many levels below its quest level.
 Dungeons.OFFER_MARGIN = 1
--- "Skip the far one" (the dungeon window's pick-ups): a quest whose giver
--- puts more than this many minutes on the way to the entrance. Ten minutes is
--- about one flight or a long walk across a zone and back: a quest worth a
--- trip like that is worth its own errand, not a stop on the way in.
+-- A quest whose giver puts more than this many minutes on the way to the
+-- entrance is optional work (Dungeons.OutsideWork). Ten minutes is about one
+-- flight or a long walk across a zone and back: a quest worth a trip like
+-- that is worth its own errand, not a stop on the way in.
 Dungeons.PICKUP_DETOUR = 10
--- Under this many minutes off the way, a giver is "on your way".
-Dungeons.ON_WAY = 2
 
 local function LK() return ns.Lookup end
 
@@ -1019,17 +1000,6 @@ function Dungeons.PickupPlan(key, offer)
 			if not onTheWay[pq.id] then carried[#carried + 1] = pq end
 		end
 		plan.carried = carried
-	end
-	-- The quests the player left out ("Skip the far one"), never for the
-	-- heads-up's count: listed, not taken.
-	plan.skipped = {}
-	local skip = not offer and Dungeons.Skipped(key)
-	if skip then
-		local take = {}
-		for _, t in ipairs(plan.take) do
-			if skip[t.quest.id] then plan.skipped[#plan.skipped + 1] = t.quest else take[#take + 1] = t end
-		end
-		plan.take = take
 	end
 	plan = crumbsFirst(dropDetours(plan, from, p), key)
 	-- A quest in the log whose items come from objects at its giver, missing
@@ -2162,104 +2132,6 @@ local function route(key, plan, outside)
 		end
 	end
 	return steps, pre
-end
-
--- Whether stop s serves only quest id (its accepts, or the quests it opens).
-local function onlyFor(s, id)
-	local list = s.accepts or s.opens
-	if not list or #list == 0 then return false end
-	for _, x in ipairs(list) do
-		if (x.quest or x).id ~= id then return false end
-	end
-	return true
-end
-
-function Dungeons.PickupDetours(plan, from)
-	from = from or ns.PlayerPoint()
-	if not (plan and from and #plan.take > 0) then return plan end
-	local stops = stopsOf(plan, from)
-	local finish = finishOf(plan)
-	local travel = cachedTravel()
-	local order = Dungeons.PlanStops(stops, from, finish, travel)
-	-- The order's travel, leaving out the stops in `skip`; nil when a leg can't be placed.
-	local function walk(skip)
-		local pos, total = from, 0
-		for _, i in ipairs(order) do
-			local s = stops[i]
-			if not skip[i] then
-				if not (s.inP and s.inP.map) then return nil end
-				local a = travel(pos, s.inP)
-				local b = s.outP ~= s.inP and s.outP and s.outP.map and travel(s.inP, s.outP) or 0
-				if not (a and b) then return nil end
-				total = total + a + b
-				pos = (s.outP and s.outP.map) and s.outP or s.inP
-			end
-		end
-		if finish then
-			local t = travel(pos, finish)
-			if not t then return nil end
-			total = total + t
-		end
-		return total
-	end
-	local whole = walk({})
-	for _, t in ipairs(plan.take) do
-		local own = {}
-		for i, s in ipairs(stops) do
-			if onlyFor(s, t.quest.id) then own[i] = true end
-		end
-		local rest = whole and walk(own)
-		t.seconds = rest and max(0, whole - rest) or nil
-		t.minutesOff = t.seconds and math.floor(t.seconds / 60 + 0.5) or nil
-		t.onWay = t.seconds ~= nil and t.seconds < Dungeons.ON_WAY * 60
-	end
-	return plan
-end
-
-function Dungeons.Skipped(key)
-	local all = ns.CharState().dungeonPickupSkip
-	local s = type(all) == "table" and all[key]
-	return (type(s) == "table" and next(s)) and s or nil
-end
-
-function Dungeons.SkipFar(plan)
-	local key = plan and plan.dungeon and plan.dungeon.key
-	if not key then return 0 end
-	local n = 0
-	for _, t in ipairs(plan.take) do
-		if t.seconds and t.seconds > Dungeons.PICKUP_DETOUR * 60 then
-			local cs = ns.CharState()
-			cs.dungeonPickupSkip = cs.dungeonPickupSkip or {}
-			cs.dungeonPickupSkip[key] = cs.dungeonPickupSkip[key] or {}
-			cs.dungeonPickupSkip[key][t.quest.id] = true
-			n = n + 1
-		end
-	end
-	if n > 0 then ns.Fire("DUNGEON_PICKUPS_CHANGED", key) end
-	return n
-end
-
-function Dungeons.Unskip(key)
-	local all = ns.CharState().dungeonPickupSkip
-	if type(all) == "table" and all[key] then
-		all[key] = nil
-		ns.Fire("DUNGEON_PICKUPS_CHANGED", key)
-	end
-end
-
-function Dungeons.PickupsOpen(key)
-	local all = ns.CharState().dungeonPickupOpen
-	return type(all) == "table" and all[key] == true
-end
-
-function Dungeons.SetPickupsOpen(key, open)
-	local cs = ns.CharState()
-	if open then
-		cs.dungeonPickupOpen = type(cs.dungeonPickupOpen) == "table" and cs.dungeonPickupOpen or {}
-		cs.dungeonPickupOpen[key] = true
-	elseif type(cs.dungeonPickupOpen) == "table" then
-		cs.dungeonPickupOpen[key] = nil
-	end
 end
 
 function Dungeons.PickupGuide(key)

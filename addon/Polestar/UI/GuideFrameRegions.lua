@@ -36,7 +36,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	GF.REGIONS = {
 		profession = { "meter", "stretch", "get", "step", "shopping" },
 		reputation = { "meter", "turnin", "step", "more" },
-		dungeon = { "brief", "ready", "step", "pickups", "entrance" },
+		dungeon = { "brief", "ready", "step", "entrance" },
 	}
 
 	function GF.RegionsFor(view, kind)

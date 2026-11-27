@@ -254,7 +254,7 @@ check("skin moonlit", Theme.RegisterSkin("moonlit", {
 		-- A row of a guide kind's region (a profession guide's materials, a
 		-- reputation guide's turn-ins, a dungeon guide's bosses), once
 		-- painted: `item` is the item or quest it shows; info says its kind
-		-- ("supply", "more", "pickup", "ready", "boss", "objective"), whether
+		-- ("supply", "more", "ready", "boss", "objective"), whether
 		-- it is done and whether it is the row the step works on. Rows are
 		-- pooled: a skin sets every piece it uses each time. A moonline under
 		-- the row, brighter on the current one, gone once it is done.

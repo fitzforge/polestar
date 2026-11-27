@@ -465,26 +465,9 @@
 -- Machine-translated, to be reviewed (dungeon guides and the dungeon tracker, 26 Nov 2026): translated by an AI
 -- model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
 -- keep or fix its line below, and take its key off this list.
---   %s off route
---   %s · your level
---   %s, on your way
---   Bring back the far ones (%d)
---   Group %d of %d
---   Group %d/%d
---   Group of %d
---   Group: none yet
---   Level %d · best at %d
 --   Level %d: come back at %d
 --   Needs %s
---   No quests to pick up
---   Pick them up
---   Quests open at a later level: %d
---   Skip the far one
---   best %d
---   from %d
 --   instances this hour: %d of %d
---   on your way
---   Quests for the run
 --   %d / %d bosses
 --   All %d quests ready to turn in: hand them in after the run
 --   Every boss is down
@@ -5814,26 +5797,9 @@ L["Leave out of Free mode"] = "从自由模式中排除"
 L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "自由模式不再列出此任务。菜单中的“恢复被排除的任务”会重新列出它。"
 
 -- UI/GuideFrameKindDungeon.lua
-L["%s off route"] = "偏离路线 %s"
-L["%s · your level"] = "%s · 你的等级"
-L["%s, on your way"] = "%s，顺路"
-L["Bring back the far ones (%d)"] = "找回较远的任务（%d）"
-L["Group %d of %d"] = "队伍 %d / %d"
-L["Group %d/%d"] = "队伍 %d/%d"
-L["Group of %d"] = "%d 人队伍"
-L["Group: none yet"] = "队伍：尚无"
-L["Level %d · best at %d"] = "等级 %d · 最佳 %d"
 L["Level %d: come back at %d"] = "等级 %d：%d 级再来"
 L["Needs %s"] = "需要 %s"
-L["No quests to pick up"] = "没有可接的任务"
-L["Pick them up"] = "去接任务"
-L["Quests open at a later level: %d"] = "更高等级开放的任务：%d"
-L["Skip the far one"] = "跳过远的"
-L["best %d"] = "最佳 %d"
-L["from %d"] = "%d 级起"
 L["instances this hour: %d of %d"] = "本小时副本：%d / %d"
-L["on your way"] = "顺路"
-L["Quests for the run"] = "本次副本的任务"
 
 -- UI/DungeonTracker.lua
 L["%d / %d bosses"] = "首领 %d / %d"

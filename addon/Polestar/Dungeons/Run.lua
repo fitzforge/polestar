@@ -341,8 +341,6 @@ local function check()
 		listen(false)
 		loot = {}
 	end
-	-- The run is over: the window's list of the dungeon's quests folds again.
-	if was and was ~= key and Dungeons.SetPickupsOpen then Dungeons.SetPickupsOpen(was, false) end
 	if was ~= key or key then changed() end
 end
 Run.Check = check

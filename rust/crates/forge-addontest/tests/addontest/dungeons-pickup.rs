@@ -320,18 +320,14 @@ emit({ take = take, carried = carried, title = def.title, steps = describe(def),
 
 // The pick-up guide's last step in the real guide window (the whole addon): a dungeon guide (kind "dungeon",
 // UI/GuideFrameKindDungeon.lua), so the way in is the entrance region, "Enter Shadowfang Keep" its row no more
-// (and never folded into the step's heading though its text is the step's title), and "Need a group? Press I for
-// the group finder." sits under the group row; the after-the-run line names no slash command. Inside the
-// instance the finder line goes.
+// (and never folded into the step's heading though its text is the step's title); the window has no group row or
+// range chip (the Dungeons hub shows both); the after-the-run line names no slash command.
 #[test]
-fn the_last_pick_up_step_shows_the_way_in_and_the_group_finder_line_under_the_group() {
+fn the_last_pick_up_step_shows_the_way_in_as_the_entrance_region() {
 	let pack = default_pack();
 	let out = run(
 		&pack,
 		&k(r#"
-local inside = false
-function GetBindingKey(action) if action == "TOGGLEGROUPFINDER" then return "I" end end
-function IsInInstance() return inside end
 D.PickUp("{KEY}")
 local E, GF = Polestar.Engine, Polestar.UI.GuideFrame
 E.Goto(E.GetStepCount())
@@ -346,16 +342,10 @@ local function rows()
 	end
 	return out
 end
-local function finder()
-	local g = GF.RegionFrame("ready").Group
-	return g.Sub:IsShown() and plain(g.Sub:GetText()) or false
-end
 local view = E.GetStepView(E.GetStepIndex())
-local outside, finderOut, way = rows(), finder(), GF.RegionShown("entrance")
-inside = true
-GF.Render()
-emit({ step = E.GetStepIndex(), count = E.GetStepCount(), header = view.goals[2].header or false, outside = outside, way = way,
-	finder = finderOut, finderInside = finder() })"#),
+local ready, brief = GF.RegionFrame("ready"), GF.RegionFrame("brief")
+emit({ step = E.GetStepIndex(), count = E.GetStepCount(), header = view.goals[2].header or false, outside = rows(), way = GF.RegionShown("entrance"),
+	group = ready ~= nil and rawget(ready, "Group") ~= nil, chip = brief ~= nil and (rawget(brief, "Range") ~= nil or rawget(brief, "Facts") ~= nil), pickups = GF.RegionShown("pickups") })"#),
 		Opts { whole: true, ..Default::default() },
 	)
 	.remove(0);
@@ -363,9 +353,10 @@ emit({ step = E.GetStepIndex(), count = E.GetStepCount(), header = view.goals[2]
 	assert_eq!(out["header"], false, "the entrance is not folded into the heading: {out}");
 	assert!(!out["outside"].as_array().unwrap().iter().any(|r| r["t"] == "goto"), "the way in is the region's, not a row: {out}");
 	assert_eq!(out["way"], true, "{out}");
-	assert_eq!(out["finder"], "Need a group? Press I for the group finder.", "{out}");
+	assert_eq!(out["group"], false, "no group row: {out}");
+	assert_eq!(out["chip"], false, "no range chip or group facts under the name: {out}");
+	assert_eq!(out["pickups"], false, "no pick-ups region: {out}");
 	assert!(out["outside"].as_array().unwrap().iter().any(|r| r["text"] == "After the run: choose Hand in the quests at the end of this guide or on the dungeon's page."), "{out}");
-	assert_eq!(out["finderInside"], false, "inside the instance, no finder line: {out}");
 }
 
 #[test]

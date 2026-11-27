@@ -193,6 +193,7 @@ fn switching_the_skin_restyles_the_flight_timer_and_every_polestar_frame_live_13
 const DUNGEON_GUIDE: &str = r#"
 local w = stub.world
 w.addMap(1413, { name = "The Barrens", c = 1, left = 1000, right = -1000, top = 1000, bottom = -1000 })
+w.level = 20
 w.moveTo(1413, 52, 30)
 local PAGE = { key = "wailing-caverns", name = "Wailing Caverns", map = 43, minLevel = 17, maxLevel = 24, floor = 17, players = 5,
 	zoneName = "The Barrens", entrance = { map = 1413, x = 46, y = 36 } }
@@ -202,7 +203,7 @@ D.Get = function(key) return key == PAGE.key and PAGE or nil end
 D.BestAt = function() return 20 end
 D.Entrance = function() return 1413, 46, 36 end
 D.Attunements = function() return {} end
-D.PickupPlan = function() return { dungeon = PAGE, take = {}, carried = { { id = 914 } }, skipped = {}, later = 0 } end
+D.PickupPlan = function() return { dungeon = PAGE, take = {}, carried = { { id = 914 } }, later = 0 } end
 Polestar.RegisterPack({ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" })
 Polestar.RegisterGuide({ id = "test/wc", pack = "test", title = "Wailing Caverns", kind = "dungeon", dungeon = "wailing-caverns",
 	minLevel = 17, maxLevel = 24, steps = { { title = "Wailing Caverns", goals = { { t = "goto", text = "Wailing Caverns", map = 1413, x = 46, y = 36, entrance = true } } } } })
@@ -224,9 +225,43 @@ emit(out)
 #[test]
 fn a_dungeon_guides_regions_follow_the_skin() {
 	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons: vec![Addon::name("Polestar")], login: true, script: DUNGEON_GUIDE.into(), ..Default::default() }).remove(0);
-	assert_eq!(out["regions"], json!({ "brief": true, "ready": true, "pickups": true, "entrance": true }), "the four regions show");
+	assert_eq!(out["regions"], json!({ "brief": true, "ready": false, "pickups": false, "entrance": true }), "no ready line at 20 over the floor of 17, no pick-ups region");
 	for (key, s) in out["skins"].as_object().unwrap() {
 		assert_eq!(s["shown"], true, "{key}: Guide me to the entrance shows");
 		assert_eq!(s["go"], json!(key), "{key}: Guide me to the entrance painted in it");
+	}
+}
+
+// Atlas puts a guide's extra cards (While you're here, a class card) above the window. A dungeon guide's regions are
+// rows in the window: no card of theirs, empty or not, stands above it (an empty "Quests for the run" card did, once).
+const ATLAS_TAIL: &str = r#"
+Polestar.Set("ui.skin", "atlas")
+Polestar.Theme.SetLayout("atlas")
+local function cards()
+	stub.advance(0.5)
+	GF.Render() GF.Layout()
+	stub.advance(0.5)
+	local c = _G.PolestarGuideFrameCards
+	local n = 0
+	for _, ch in ipairs({ c and c:GetChildren() }) do if ch:IsShown() then n = n + 1 end end
+	return { stack = c ~= nil and c:IsShown() or false, shown = n, brief = GF.RegionShown("brief"), entrance = GF.RegionShown("entrance"), pickups = GF.RegionShown("pickups") }
+end
+local standard = cards()
+Polestar.Set("ui.compact", true)
+emit({ standard = standard, compact = cards() })
+"#;
+
+#[test]
+fn atlas_shows_no_card_above_a_dungeon_guides_window() {
+	let script = DUNGEON_GUIDE.replace("emit(out)", ATLAS_TAIL);
+	let addons = vec![Addon::name("Polestar"), Addon::name("Polestar_Skins")];
+	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons, login: true, script, ..Default::default() }).remove(0);
+	for mode in ["standard", "compact"] {
+		let m = &out[mode];
+		assert_eq!(m["stack"], false, "{mode}: no card stack above the window: {out}");
+		assert_eq!(m["shown"], 0, "{mode}: no card above the window: {out}");
+		assert_eq!(m["brief"], true, "{mode}: the brief stays in the window: {out}");
+		assert_eq!(m["entrance"], true, "{mode}: the way in stays in the window: {out}");
+		assert_eq!(m["pickups"], false, "{mode}: no pick-ups region: {out}");
 	}
 }
