@@ -253,7 +253,7 @@ local function create()
 	local b = CreateFrame("Button", NAME, UIParent, "SecureActionButtonTemplate")
 	b:SetSize(SIZE, SIZE)
 	b:SetFrameStrata("MEDIUM")
-	b:RegisterForClicks("AnyUp", "AnyDown")
+	b:RegisterForClicks("LeftButtonUp", "LeftButtonDown", "RightButtonUp", "RightButtonDown")
 	b:Hide()
 
 	local T = ns.Theme

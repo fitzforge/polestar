@@ -26,7 +26,8 @@
 --     step's NPCs too while the player is within the While you're here radius
 --     of one; farther, the rows' mobs before the NPCs (#1623). A row the
 --     arrow points at (clicked) comes before the step's own mobs (#2011).
---     Each name takes its own kind's mark and ping. Every click moves the next name to the
+--     Each name takes its own kind's mark; a right-click also pings it
+--     (see Ping below). Every click moves the next name to the
 --     front; a click while a living one of its names is targeted takes the
 --     next one of that name instead (Buttons.WireCycle; the step key, the
 --     list's rows and the guide's names too). With qol.targetPlate (on by default) its icon shows what you do with the
@@ -48,7 +49,7 @@
 --   Target list (unless qol.targetSimple): a row beside the target button
 --     for each of its names, with the creature's portrait and what it drops
 --     for the step; a click on a row targets that one, with the target
---     button's mark and ping for its kind. The button then keeps the list's
+--     button's mark for its kind (a right-click pings it too). The button then keeps the list's
 --     order instead of moving the next name to the front, and a small
 --     Polestar mark stands in its slot. There is no setting of its own: it
 --     shows with qol.targetButton. The rows sit beside the target button in a
@@ -78,11 +79,18 @@
 --     on a live hostile target (skull unless set) or an NPC (star), or a new
 --     one each press (Buttons.MarkLine). The rare card's Target button
 --     (Rares/Toast.lua, Buttons.RareCardMacro) marks its rare the same way.
---   Ping: the rare button and the rare card's Target button always follow
---     /targetexact with /ping [@target] (Buttons.PingLine), where the client
---     has the command; the target button (on mobs) and the step key only
---     with qol.pingTarget (off by default), never as a raid member without
---     lead or assist (Buttons.QuestPingLine).
+--   Ping: a right-click on the target button, on a target list row and on
+--     the step key's right-click binding (CLICK PolestarStepButton:RightButton,
+--     CLICK PolestarTargetButton:RightButton) runs the same macro as the left
+--     click plus /ping [@target] (Buttons.PingLine) between the names and the
+--     mark, so the group sees the mob or NPC behind rocks and buildings; the
+--     left click never pings. Both macros are secure attributes set out of
+--     combat (type/macrotext for the left, type2/macrotext2 for the right), so
+--     both work in a fight. The rare button and the rare card's Target button
+--     always ping: a rare is worth one. The secure buttons answer the left and
+--     the right button only: the game's own ping key can be a mouse button,
+--     and a press of it over one of them used to fire its secure click and
+--     the hooks behind it (#4252).
 --
 -- All of them go with the guide window (ns.GuideShown); the step key stays.
 -- In the game's Quick Keybind Mode they take a key under the cursor, and the
@@ -1055,7 +1063,10 @@ local function newButton(name, kind, onEnter)
 	local size = Buttons.Size(kind)
 	b:SetSize(size, size)
 	b:SetFrameStrata("MEDIUM")
-	b:RegisterForClicks("AnyUp", "AnyDown")
+	-- The left and the right button only (the right one pings, Buttons.SetMacros):
+	-- the game's ping key can be a mouse button, and any other button over a
+	-- secure button fired its click and its hooks (#4252).
+	b:RegisterForClicks("LeftButtonUp", "LeftButtonDown", "RightButtonUp", "RightButtonDown")
 	b:RegisterForDrag("LeftButton")
 	-- A /reload in combat creates the buttons under lockdown.
 	QoL.Secure("init:" .. name, function() if not b.itemID and not b.applied then b:Hide() end end)
@@ -1819,20 +1830,26 @@ end
 -- The /ping line after a mob's /targetexact, so the group sees where it is
 -- (behind rocks or a building): the client's own command word (SLASH_PING1;
 -- a localized client has its own) on the target. With no target the client
--- sends nothing for "[@target]". nil on a client without the command.
+-- sends nothing for "[@target]". nil on a client without the command. The
+-- rare button and the rare card always follow their names with it; the
+-- target button, its rows and the step key only on a right click
+-- (Buttons.SetMacros).
 function Buttons.PingLine()
 	local cmd = SLASH_PING1
 	if type(cmd) ~= "string" or not cmd:find("^/[^%s%c]+$") then return nil end
 	return cmd .. " [@target]"
 end
 
--- The Target button's and step key's ping: only with "Ping what they target"
--- (qol.pingTarget, off by default), and never from a raid member without
--- lead or assist (Buttons.MarkRight nil: the raid's own callouts are theirs).
--- The rare button and the rare card always ping: a rare is worth one.
-function Buttons.QuestPingLine()
-	if not QoL.On("pingTarget") or not Buttons.MarkRight() then return nil end
-	return Buttons.PingLine()
+-- b's two macros as attributes: text for a left click (type, macrotext: also
+-- what any button without a type2 would run) and pingText for a right click
+-- (type2, macrotext2): the same names and mark with the ping line
+-- (Buttons.PingLine) between them. Secure: callers run it out of combat
+-- (QoL.Secure), and in a fight both stand as they were.
+function Buttons.SetMacros(b, text, pingText)
+	b:SetAttribute("type", text and "macro" or nil)
+	b:SetAttribute("macrotext", text)
+	b:SetAttribute("type2", pingText and "macro" or nil)
+	b:SetAttribute("macrotext2", pingText)
 end
 
 -- The macro for names, tried from names[preferred] on in click order. Out of
@@ -1916,7 +1933,7 @@ end
 -- the rows last took (applyRows).
 local target = { list = {}, verbs = {}, ids = {}, marks = {}, sig = nil, namesSig = "", cycle = 1, info = {}, foldFirst = nil }
 
--- The mark and ping the target button's name i (default: the one the next
+-- The mark the target button's name i (default: the one the next
 -- click tries first) takes: "npc" for an NPC goal's name, else "mob".
 local function targetKind(i)
 	return NPC_VERBS[target.verbs[i or target.cycle]] and "npc" or "mob"
@@ -1957,17 +1974,18 @@ function Buttons.CycleIndex(list)
 	return nil
 end
 
--- The macro a button applied, for its presses (Buttons.WireCycle): text is
--- Buttons.MarkedMacro(list, ..., kindOf, ping), or with a single name and
--- kindOf a kind ("mob" or "npc"), TargetMacro's with that kind's mark; ping:
--- true when it has Buttons.QuestPingLine(). nil text: no macro.
-function Buttons.SetPress(b, list, kindOf, text, ping)
+-- The macros a button applied, for its presses (Buttons.WireCycle): text is
+-- Buttons.MarkedMacro(list, ..., kindOf), or with a single name and kindOf a
+-- kind ("mob" or "npc"), TargetMacro's with that kind's mark; pingText: the
+-- same with Buttons.PingLine() for its right click (nil or false: the button
+-- has none, a right click runs nothing new). nil text: no macro.
+function Buttons.SetPress(b, list, kindOf, text, pingText)
 	if not text then
 		b.press = nil
 		return
 	end
 	local p = b.press or {}
-	p.list, p.kindOf, p.text, p.ping = list, kindOf, text, ping
+	p.list, p.kindOf, p.text, p.ping = list, kindOf, text, pingText or nil
 	b.press = p
 end
 
@@ -2006,12 +2024,13 @@ function Buttons.MacroNames(text)
 	return names
 end
 
--- attr: the macro's attribute ("macrotext", or "macrotext1" for its type1).
+-- attr: the macro's attribute ("macrotext", "macrotext1" for its type1 or
+-- "macrotext2" for its type2, the right click's).
 function Buttons.UndoStrayMark(b, attr)
 	local guid, was = b.psMarkGuid, b.psMarkWas
 	b.psMarkGuid, b.psMarkWas = nil, nil
 	if not (guid and SetRaidTarget and UnitGUID) or QoL.InLockdown() then return end
-	if b:GetAttribute(attr == "macrotext1" and "type1" or "type") ~= "macro" then return end
+	if b:GetAttribute((attr:gsub("^macrotext", "type"))) ~= "macro" then return end
 	local text = b:GetAttribute(attr)
 	if type(text) ~= "string" or not ("\n" .. text):find("\n/tm ", 1, true) then return end
 	local C = ns.Compat
@@ -2024,23 +2043,26 @@ end
 -- A press out of combat on a living unit of one of b.press's names leaves the
 -- target and starts from its name (TargetMacro's keep), so the press takes
 -- the next one of that name; the corpse lines, the other names, the ping and
--- the mark stay. PostClick puts the applied macro back. In a fight nothing
+-- the mark stay. PostClick puts the applied macros back. In a fight nothing
 -- changes: macros cannot, and the clear is "[nocombat][dead]" anyway (a living
 -- target stays). While a press is cycled, b.pressedKind and b.pressedMixed are
 -- its macro's (the target list's rows mark by them). Every press also takes
 -- back a mark its macro put on a unit it never chose (Buttons.UndoStrayMark).
--- attr: the macro's attribute ("macrotext", or "macrotext1" for a left click
--- only).
+-- attr: the left click's macro attribute ("macrotext", or "macrotext1" for a
+-- left click only); a right click of a button whose press has a ping macro
+-- (Buttons.SetPress) runs, and cycles, "macrotext2".
 function Buttons.WireCycle(b, attr)
 	attr = attr or "macrotext"
-	b:HookScript("PreClick", function(self, _, down)
+	b:HookScript("PreClick", function(self, mouse, down)
 		Buttons.NoteMark(self, down)
 		local p = self.press
 		if not p or QoL.InLockdown() then return end
+		local right = mouse == "RightButton"
+		if right and not p.ping then return end
 		local i = Buttons.CycleIndex(p.list)
 		if not i then return end
 		local text, kind, mixed
-		local ping = p.ping and Buttons.QuestPingLine() or nil
+		local ping = right and Buttons.PingLine() or nil
 		if type(p.kindOf) == "string" then
 			kind, mixed = p.kindOf, false
 			text = Buttons.TargetMacro(p.list, i, Buttons.MarkLine(kind), ping, true)
@@ -2048,14 +2070,20 @@ function Buttons.WireCycle(b, attr)
 			text, kind, mixed = Buttons.MarkedMacro(p.list, i, p.kindOf, ping, true)
 		end
 		if not text or #text > MACRO_LIMIT then return end
-		self:SetAttribute(attr, text)
+		self:SetAttribute(right and "macrotext2" or attr, text)
 		self.pressed, self.pressedKind, self.pressedMixed = true, kind, mixed
 	end)
-	b:HookScript("PostClick", function(self)
-		Buttons.UndoStrayMark(self, attr)
+	b:HookScript("PostClick", function(self, mouse)
+		local p = self.press
+		-- The macro the click ran: the left click's, a right click's ping macro,
+		-- or nothing (a button without one, any other button: the guide names'
+		-- middle click opens the quest log without running a macro).
+		local ran = (mouse == nil or mouse == "LeftButton") and attr or mouse == "RightButton" and p and p.ping and "macrotext2" or nil
+		if ran then Buttons.UndoStrayMark(self, ran) else self.psMarkGuid, self.psMarkWas = nil, nil end
 		if not self.pressed or QoL.InLockdown() then return end
 		self.pressed, self.pressedKind, self.pressedMixed = nil, nil, nil
-		self:SetAttribute(attr, self.press and self.press.text)
+		self:SetAttribute(attr, p and p.text)
+		if p and p.ping then self:SetAttribute("macrotext2", p.ping) end
 	end)
 end
 
@@ -2690,9 +2718,9 @@ do
 
 	-- The rows' names, macros and visibility from the target list (secure:
 	-- callers run it through QoL.Secure). Each row targets its own name, with
-	-- the target button's mark and ping for its kind (#2036: a skull on a mob,
-	-- a star on an NPC goal's NPC with qol.markTarget, on by default; the ping
-	-- with qol.pingTarget, off by default, on both).
+	-- the target button's mark for its kind (#2036: a skull on a mob, a star
+	-- on an NPC goal's NPC with qol.markTarget, on by default); its right
+	-- click runs the same with the ping (Buttons.SetMacros).
 	-- Defined below; the rows are made when a list first needs them.
 	local newRow
 
@@ -2705,14 +2733,14 @@ do
 		-- needs them, so a player who never sees the list, or only a short one,
 		-- never carries the rest.
 		for i = #TL.rows + 1, math.min(#list, TL.MAX) do TL.rows[i] = newRow(i) end
-		-- Each name takes its own kind's mark and ping (targetKind).
-		local function markPing(k)
+		-- Each name takes its own kind's mark (targetKind).
+		local function markKind(k)
 			local kind = targetKind(k)
-			return kind, Buttons.MarkLine(kind), Buttons.QuestPingLine()
+			return kind, Buttons.MarkLine(kind)
 		end
 		local fold = folded() and #list > 1
 		for i = 1, #TL.rows do
-			local r, name, text, kind, mixed = TL.rows[i], list[i], nil, nil, false
+			local r, name, text, pingText, kind, mixed = TL.rows[i], list[i], nil, nil, nil, false
 			r.names, r.all, r.infos, r.looks = nil, nil, nil, {}
 			if fold then
 				-- Folded: the first row tries the names in the list's order, as the
@@ -2724,11 +2752,15 @@ do
 						if list[k] == target.foldFirst then first = k end
 					end
 					-- Names of both kinds in the macro: the mark of the kind it
-					-- targets (Buttons.MarkedMacro), not the first name's.
-					text, kind, mixed = Buttons.MarkedMacro(list, first, targetKind, Buttons.QuestPingLine())
-					if text and #text > MACRO_LIMIT then text = nil end
+					-- targets (Buttons.MarkedMacro), not the first name's. The
+					-- ping macro is the longer one: the row shows the names it
+					-- holds.
+					text, kind, mixed = Buttons.MarkedMacro(list, first, targetKind)
+					pingText = Buttons.MarkedMacro(list, first, targetKind, Buttons.PingLine())
+					if text and #text > MACRO_LIMIT then text, pingText = nil, nil end
+					if pingText and #pingText > MACRO_LIMIT then pingText = text end
 					if text then
-						local n = select(2, text:gsub("/targetexact", ""))
+						local n = select(2, (pingText or text):gsub("/targetexact", ""))
 						r.names, r.all, r.infos = {}, {}, {}
 						for k = 1, #list do
 							r.all[k] = list[k]
@@ -2743,16 +2775,17 @@ do
 					end
 				end
 			elseif name then
-				local mark, ping
-				kind, mark, ping = markPing(i)
+				local mark
+				kind, mark = markKind(i)
 				r.looks[name] = { target.verbs[i], target.ids[i], target.marks[i] }
-				text = Buttons.TargetMacro({ name }, 1, mark, ping)
-				if text and #text > MACRO_LIMIT then text = nil end
+				text = Buttons.TargetMacro({ name }, 1, mark)
+				pingText = Buttons.TargetMacro({ name }, 1, mark, Buttons.PingLine())
+				if text and #text > MACRO_LIMIT then text, pingText = nil, nil end
+				if pingText and #pingText > MACRO_LIMIT then pingText = text end
 			end
-			r:SetAttribute("type", text and "macro" or nil)
-			r:SetAttribute("macrotext", text)
+			Buttons.SetMacros(r, text, pingText)
 			-- Its presses: the folded row's names, or its own name (Buttons.WireCycle).
-			Buttons.SetPress(r, text and (fold and list or { name }), fold and targetKind or kind, text, true)
+			Buttons.SetPress(r, text and (fold and list or { name }), fold and targetKind or kind, text, pingText)
 			r.applied = text and name or nil
 			-- The mark the row's click puts on (Buttons.AdvanceMark).
 			r.kind = r.applied and kind or nil
@@ -2780,6 +2813,7 @@ do
 		if r.all and #r.all > 1 then
 			tip:AddLine(L["Folded: targets the first of %d names that is close. Left-click the Polestar mark to show them all."]:format(#r.all), 1, 1, 1, true)
 		end
+		if Buttons.PingLine() then tip:AddLine(L["Right-click: target and ping for your group."], 1, 1, 1, true) end
 		tip:AddLine(ns.Get("ui.lockHud") and L["Click to target it. Shift-drag to move."]
 			or L["Click to target it. Drag to move."], 0.6, 0.6, 0.6)
 	end
@@ -2987,7 +3021,7 @@ do
 		local r = CreateFrame("Button", "PolestarTargetRow" .. i, UIParent, "SecureActionButtonTemplate")
 		r.psLive = true
 		r:SetFrameStrata("MEDIUM")
-		r:RegisterForClicks("AnyUp", "AnyDown")
+		r:RegisterForClicks("LeftButtonUp", "LeftButtonDown", "RightButtonUp", "RightButtonDown")
 		r:RegisterForDrag("LeftButton")
 		-- Made in a secure run (applyRows), which shows it once it has a name.
 		r:Hide()
@@ -3144,12 +3178,13 @@ do
 			local list = target.list
 			-- The list keeps its order: only the single button cycles.
 			local cycle = simple() and target.cycle or 1
-			-- A mob and an NPC goal's NPC are both pinged for the group (Fitz, 2026-11-13);
-			-- a fallback of the other kind takes its own kind's mark (#2152).
-			local text = Buttons.MarkedMacro(list, cycle, targetKind, Buttons.QuestPingLine())
-			b:SetAttribute("type", text and "macro" or nil)
-			b:SetAttribute("macrotext", text)
-			Buttons.SetPress(b, list, targetKind, text, true)
+			-- A fallback of the other kind takes its own kind's mark (#2152); a
+			-- right click pings what it finds, a mob and an NPC goal's NPC alike
+			-- (Fitz, 2026-11-13).
+			local text = Buttons.MarkedMacro(list, cycle, targetKind)
+			local pingText = Buttons.MarkedMacro(list, cycle, targetKind, Buttons.PingLine())
+			Buttons.SetMacros(b, text, pingText)
+			Buttons.SetPress(b, list, targetKind, text, pingText)
 			b.applied = list[cycle]
 			b.aList, b.aVerbs, b.aIds, b.aMarks, b.aCycle = list, target.verbs, target.ids, target.marks, cycle
 			paintTarget(b)
@@ -3225,6 +3260,7 @@ local function targetTooltip(b, tip)
 	local locked = ns.Get("ui.lockHud")
 	if not simple() then
 		tip:AddLine(L["Targets the first name in the list that is close. Click a name to target that one."], 1, 1, 1, true)
+		if Buttons.PingLine() then tip:AddLine(L["Right-click: target and ping for your group."], 1, 1, 1, true) end
 		tip:AddLine(locked and L["Shift-drag to move."] or L["Drag to move."], 0.6, 0.6, 0.6)
 		return
 	end
@@ -3250,6 +3286,7 @@ local function targetTooltip(b, tip)
 			tip:AddLine(L["Marks nothing: in a raid only the leader and assistants set icons."], 0.6, 0.6, 0.6, true)
 		end
 	end
+	if Buttons.PingLine() then tip:AddLine(L["Right-click: target and ping for your group."], 1, 1, 1, true) end
 	tip:AddLine(locked and L["Click again for the next name. Shift-drag to move."]
 		or L["Click again for the next name. Drag to move."], 0.6, 0.6, 0.6)
 end
@@ -3491,21 +3528,26 @@ end
 
 local function applyStep(b)
 	QoL.Secure("step", function()
-		local text, item
+		local text, pingText, item
 		if step.kind == "target" then
-			-- A fallback of the other kind takes its own kind's mark (#2152); both kinds are pinged.
-			text = Buttons.MarkedMacro(step.list, step.cycle, stepKind, Buttons.QuestPingLine())
-			Buttons.SetPress(b, step.list, stepKind, text, true)
+			-- A fallback of the other kind takes its own kind's mark (#2152); the
+			-- right click's macro pings both kinds.
+			text = Buttons.MarkedMacro(step.list, step.cycle, stepKind)
+			pingText = Buttons.MarkedMacro(step.list, step.cycle, stepKind, Buttons.PingLine())
+			Buttons.SetPress(b, step.list, stepKind, text, pingText)
 		elseif step.kind == "npc" then
-			text = Buttons.TargetMacro({ step.value }, 1, Buttons.MarkLine("npc"), Buttons.QuestPingLine())
-			Buttons.SetPress(b, { step.value }, "npc", text, true)
+			text = Buttons.TargetMacro({ step.value }, 1, Buttons.MarkLine("npc"))
+			pingText = Buttons.TargetMacro({ step.value }, 1, Buttons.MarkLine("npc"), Buttons.PingLine())
+			Buttons.SetPress(b, { step.value }, "npc", text, pingText)
 		elseif step.kind == "item" then
 			item = "item:" .. step.value
 		end
 		if step.kind ~= "target" and step.kind ~= "npc" then Buttons.SetPress(b, nil, nil, nil) end
-		b:SetAttribute("type", item and "item" or text and "macro" or nil)
+		-- An item or the Hearthstone has no ping: type2 stays empty and a right
+		-- click does what the left one does.
+		Buttons.SetMacros(b, text, pingText)
+		if item then b:SetAttribute("type", "item") end
 		b:SetAttribute("item", item)
-		b:SetAttribute("macrotext", text)
 		b.aList, b.aNpc, b.aKind, b.aCycle = step.list, step.npc, step.kind, step.cycle
 	end)
 end
@@ -3646,8 +3688,7 @@ local function refresh()
 	-- The mark settings and who may mark (Buttons.MarkRight) are part of both
 	-- signatures, so changing one re-applies.
 	local mark = QoL.On("markTarget") and (markSetting("mob") .. " " .. markSetting("npc") .. " " .. tostring(Buttons.MarkRight()) .. "\n") or ""
-	-- And the ping (Buttons.QuestPingLine), on or off.
-	mark = mark .. (Buttons.QuestPingLine() or "") .. "\n"
+	mark = mark .. "\n"
 	local namesSig = concat(list, "\n")
 	-- The list's portraits and notes too, so new data re-applies.
 	local parts = { simple() and "simple" or "list", mark }
@@ -3794,7 +3835,7 @@ local function create()
 	-- reach it and useOnKeyDown stays nil, so the player's key-down setting
 	-- (ActionButtonUseKeyDown) picks which one acts: once, either way.
 	stepButton = CreateFrame("Button", "PolestarStepButton", UIParent, "SecureActionButtonTemplate")
-	stepButton:RegisterForClicks("AnyUp", "AnyDown")
+	stepButton:RegisterForClicks("LeftButtonUp", "LeftButtonDown", "RightButtonUp", "RightButtonDown")
 	QoL.Secure("init:PolestarStepButton", function() stepButton:Hide() end)
 	stepButton:HookScript("PostClick", function(self, _, down)
 		if down then return end

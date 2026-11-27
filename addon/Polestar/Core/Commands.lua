@@ -37,9 +37,11 @@ BINDING_NAME_POLESTAR_MARK_KEEP = L["Mark to keep"]
 -- so they can only be set through _G.
 _G["BINDING_NAME_CLICK PolestarQuestItemButton:LeftButton"] = L["Use quest item"]
 _G["BINDING_NAME_CLICK PolestarTargetButton:LeftButton"] = L["Target quest mob"]
+_G["BINDING_NAME_CLICK PolestarTargetButton:RightButton"] = L["Target and ping"]
 _G["BINDING_NAME_CLICK PolestarRareButton:LeftButton"] = L["Target rare"]
 _G["BINDING_NAME_CLICK PolestarHearthButton:LeftButton"] = L["Use Hearthstone"]
 _G["BINDING_NAME_CLICK PolestarStepButton:LeftButton"] = L["Use the step button"]
+_G["BINDING_NAME_CLICK PolestarStepButton:RightButton"] = L["Step button and ping"]
 _G["BINDING_NAME_CLICK PolestarTravelButton:LeftButton"] = L["Use the travel button"]
 _G["BINDING_NAME_CLICK PolestarBagButton:LeftButton"] = L["Delete cheapest junk"]
 

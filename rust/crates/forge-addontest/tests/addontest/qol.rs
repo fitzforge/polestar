@@ -958,8 +958,11 @@ fn mark_target_switched_off_on_the_target_button_and_step_key_put_a_skull_on_a_l
 	assert!(long.ends_with("\n/cleartarget [dead]\n/tm [@target,harm,nodead] !8"), "and the mark stays last");
 }
 
+// The target button, its rows and the step key: a left click targets (and marks), a right click does the same and
+// pings for the group (Fitz, 2026-11-27, from uNBEx's idea: it replaces the "Ping what they target" setting). Both
+// macros are attributes: macrotext / macrotext2. The rare button always pings.
 #[test]
-fn mark_on_ping_off_by_default_the_target_button_and_step_key_ping_mobs_and_npcs_when_on_the_rare_button_always_pings_the_mark_last() {
+fn right_click_on_the_target_button_and_the_step_key_pings_mobs_and_npcs_the_left_click_never_does_the_rare_button_always_pings_the_mark_last() {
 	let script = r#"
 		local t, s, r = PolestarTargetButton, PolestarStepButton, PolestarRareButton
 		local nearby = { "Thuros Lightfingers" }
@@ -967,16 +970,13 @@ fn mark_on_ping_off_by_default_the_target_button_and_step_key_ping_mobs_and_npcs
 		q.step({ { t = "kill", target = "Kobold Vermin", quest = 7, oi = 1 } })
 		Polestar.Fire("RARE_NEARBY")
 		stub.runTimers()
-		local defaults = { Polestar.GetDefault("qol.pingTarget"), Polestar.GetDefault("qol.markTarget") }
-		set("pingTarget", false)
-		set("markTarget", false)
-		emit({ defaults, t:GetAttribute("macrotext"), s:GetAttribute("macrotext"), r:GetAttribute("macrotext") })
-		set("pingTarget", true)
-		emit({ t:GetAttribute("macrotext"), s:GetAttribute("macrotext") })
+		local function both(b) return { b:GetAttribute("macrotext"), b:GetAttribute("macrotext2"), b:GetAttribute("type"), b:GetAttribute("type2") } end
+		emit({ Polestar.GetDefault("qol.pingTarget") == nil, Polestar.GetDefault("qol.markTarget"), r:GetAttribute("macrotext"), r:GetAttribute("macrotext2") or false })
+		emit({ both(t), both(s) })
 		set("markTarget", true)
-		emit({ t:GetAttribute("macrotext"), s:GetAttribute("macrotext") })
+		emit({ both(t), both(s) })
 		q.step({ { t = "turnin", quest = 9, npc = 240, npcName = "Marshal Dughan" } })
-		emit({ t:GetAttribute("macrotext"), s:GetAttribute("macrotext") })
+		emit({ both(t), both(s) })
 		local long = {}
 		for i = 1, 5 do long[i] = string.rep("N", 50) .. i end
 		emit(Polestar.QoL.Buttons.TargetMacro(long, 1, "/tm [@target,harm,nodead] !8", Polestar.QoL.Buttons.PingLine()))
@@ -986,27 +986,32 @@ fn mark_on_ping_off_by_default_the_target_button_and_step_key_ping_mobs_and_npcs
 	let ping = |name: &str| plain(name) + "\n/ping [@target]";
 	assert_eq!(
 		out[0],
-		json!([[false, true], plain("Kobold Vermin"), plain("Kobold Vermin"), ping("Thuros Lightfingers")]),
-		"ping off and mark on by default (Fitz, 2026-11-13); with both off, no ping; the rare button always pings"
+		json!([true, true, ping("Thuros Lightfingers"), false]),
+		"the setting is gone, marking is on by default (Fitz, 2026-11-13), the rare button always pings on its left click"
 	);
-	assert_eq!(out[1], json!([ping("Kobold Vermin"), ping("Kobold Vermin")]));
-	let marked = ping("Kobold Vermin") + "\n/tm [@target,harm,nodead] !8";
-	assert_eq!(out[2], json!([marked, marked]), "the ping right after the target, the mark last");
-	let star = ping("Marshal Dughan") + "\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1";
-	assert_eq!(out[3], json!([star, star]), "an NPC goal's NPC is pinged too, the star last");
+	let both = |left: &str, right: &str| json!([[left, right, "macro", "macro"], [left, right, "macro", "macro"]]);
+	assert_eq!(out[1], both(&plain("Kobold Vermin"), &ping("Kobold Vermin")), "left: no ping; right: the same with the ping, at once (no setting)");
+	let marked = plain("Kobold Vermin") + "\n/tm [@target,harm,nodead] !8";
+	let pinged = ping("Kobold Vermin") + "\n/tm [@target,harm,nodead] !8";
+	assert_eq!(out[2], both(&marked, &pinged), "the ping right after the target, the mark last");
+	let star = "\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1";
+	assert_eq!(out[3], both(&(plain("Marshal Dughan") + star), &(ping("Marshal Dughan") + star)), "an NPC goal's NPC is pinged too, the star last");
 	let long = text(&out[4]);
 	assert!(long.len() <= 255, "fits a macro");
 	assert!(long.ends_with("\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8"), "names are dropped, never the ping or the mark");
-	// A localized command word is used as the client gives it; without the command, no ping line at all.
+	// A localized command word is used as the client gives it; without the command, the right click does what the left one does.
 	let out = run_with(script, "SLASH_PING1 = \"/пинг\"", None);
-	assert_eq!(out[1][0], json!(plain("Kobold Vermin") + "\n/пинг [@target]"));
+	assert_eq!(out[1][0][1], json!(plain("Kobold Vermin") + "\n/пинг [@target]"));
+	assert_eq!(out[1][0][0], json!(plain("Kobold Vermin")), "the left click stays plain");
 	let out = run_with(script, "SLASH_PING1 = nil", None);
-	assert_eq!(out[1], json!([plain("Kobold Vermin"), plain("Kobold Vermin")]));
-	assert_eq!(out[0][3], json!(plain("Thuros Lightfingers")));
+	assert_eq!(out[1], both(&plain("Kobold Vermin"), &plain("Kobold Vermin")));
+	assert_eq!(out[0][2], json!(plain("Thuros Lightfingers")));
 }
 
+// The right click ping is the player's own explicit act: it goes out whatever the group (the raid's own callouts stay
+// the raid's: a raid member without lead or assist still gets no raid icon, but the ping is a click away).
 #[test]
-fn ping_what_they_target_in_a_raid_only_the_leader_and_assistants_ping_from_the_target_button_and_step_key_the_rare_button_still_does() {
+fn right_click_pings_in_a_group_and_in_a_raid_whoever_leads_the_left_click_and_the_rare_button_as_they_were() {
 	let out = run_with(
 		r#"
 		local t, s, r = PolestarTargetButton, PolestarStepButton, PolestarRareButton
@@ -1016,9 +1021,11 @@ fn ping_what_they_target_in_a_raid_only_the_leader_and_assistants_ping_from_the_
 		function IsInGroup() return g.party or g.raid end
 		function UnitIsGroupLeader() return g.lead end
 		function UnitIsGroupAssistant() return g.assist end
-		local function has(b) return (b:GetAttribute("macrotext") or ""):find("/ping", 1, true) ~= nil end
-		local function now() stub.fire("GROUP_ROSTER_UPDATE") stub.runTimers() return { has(t), has(s), has(r) } end
-		set("pingTarget", true)
+		local function has(b, attr) return (b:GetAttribute(attr) or ""):find("/ping", 1, true) ~= nil end
+		local function now()
+			stub.fire("GROUP_ROSTER_UPDATE") stub.runTimers()
+			return { { has(t, "macrotext"), has(t, "macrotext2") }, { has(s, "macrotext"), has(s, "macrotext2") }, { has(r, "macrotext"), has(r, "macrotext2") } }
+		end
 		q.step({ { t = "kill", target = "Kobold Vermin", quest = 7, oi = 1 } })
 		Polestar.Fire("RARE_NEARBY")
 		emit(now())
@@ -1032,10 +1039,174 @@ fn ping_what_they_target_in_a_raid_only_the_leader_and_assistants_ping_from_the_
 		"SLASH_PING1 = \"/ping\"",
 		None,
 	);
-	assert_eq!(out[0], json!([true, true, true]), "alone");
-	assert_eq!(out[1], json!([true, true, true]), "a party member who doesn't lead");
-	assert_eq!(out[2], json!([false, false, true]), "a raid member without lead or assist: only the rare button");
-	assert_eq!(out[3], json!([true, true, true]), "an assistant");
+	let always = json!([[false, true], [false, true], [true, false]]);
+	for (i, who) in ["alone", "a party member who doesn't lead", "a raid member without lead or assist", "an assistant"].iter().enumerate() {
+		assert_eq!(out[i], always, "{who}: the target button and the step key ping on the right click only, the rare button on its left");
+	}
+}
+
+// In a fight the attributes stand as they were (the secure frames refuse changes), both clicks still run what was
+// prepared, and the change lands when the fight ends.
+#[test]
+fn right_click_and_left_click_macros_stand_in_a_fight_and_both_clicks_run_them_the_new_names_follow_after_it() {
+	let out = run_with(
+		r#"
+		local t, s = PolestarTargetButton, PolestarStepButton
+		q.step({ { t = "kill", target = "Kobold Vermin", quest = 7, oi = 1 } })
+		stub.runTimers()
+		local function both(b) return { b:GetAttribute("macrotext"), b:GetAttribute("macrotext2"), b:GetAttribute("type"), b:GetAttribute("type2") } end
+		local function ran(b, mouse)
+			for k in pairs(q.ran) do rawset(q.ran, k, nil) end
+			q.mouseClick(b, mouse)
+			return q.ran[1] and q.ran[1][2] or false
+		end
+		local before = { both(t), both(s) }
+		q.combat(true)
+		q.step({ { t = "kill", target = "Hogger", quest = 8, oi = 1 } })
+		stub.runTimers()
+		emit({ before = before, during = { both(t), both(s) } })
+		emit({ left = ran(t, "LeftButton"), right = ran(t, "RightButton"), stepLeft = ran(s, "LeftButton"), stepRight = ran(s, "RightButton") })
+		q.combat(false)
+		stub.runTimers()
+		emit({ both(t), both(s) })
+	"#,
+		"SLASH_PING1 = \"/ping\"",
+		None,
+	);
+	assert_eq!(out[0]["during"], out[0]["before"], "in combat the attributes are unchanged");
+	let plain = |name: &str| format!("/cleartarget [nocombat][dead]\n/targetexact {name}\n/cleartarget [dead]");
+	let ping = |name: &str| plain(name) + "\n/ping [@target]";
+	assert_eq!(out[1]["left"], json!(plain("Kobold Vermin")), "a left click in combat: the prepared macro, no ping");
+	assert_eq!(out[1]["right"], json!(ping("Kobold Vermin")), "a right click in combat: the prepared ping macro");
+	assert_eq!(out[1]["stepLeft"], json!(plain("Kobold Vermin")));
+	assert_eq!(out[1]["stepRight"], json!(ping("Kobold Vermin")));
+	let after = json!([[plain("Hogger"), ping("Hogger"), "macro", "macro"], [plain("Hogger"), ping("Hogger"), "macro", "macro"]]);
+	assert_eq!(out[2], after, "the new names land when the fight ends");
+}
+
+// A right click on a living unit of one of the names takes the next one of that name, as the left click does
+// (Buttons.WireCycle), with the ping; the prepared macros come back after the press.
+#[test]
+fn right_click_on_a_living_unit_of_the_name_cycles_to_the_next_one_with_the_ping_and_the_macros_come_back() {
+	let out = run_with(
+		r#"
+		local t = PolestarTargetButton
+		q.step({ { t = "kill", target = "Kobold Vermin", quest = 7, oi = 1 } })
+		stub.runTimers()
+		local prepared = { t:GetAttribute("macrotext"), t:GetAttribute("macrotext2") }
+		q.target = { name = "Kobold Vermin", hostile = true }
+		local seen
+		q.ran = setmetatable({}, { __newindex = function(tbl, k, v) rawset(tbl, k, v) seen = { v[2], t:GetAttribute("macrotext"), t:GetAttribute("macrotext2") } end })
+		q.mouseClick(t, "RightButton")
+		emit({ prepared = prepared, during = seen, after = { t:GetAttribute("macrotext"), t:GetAttribute("macrotext2") } })
+	"#,
+		"SLASH_PING1 = \"/ping\"",
+		None,
+	);
+	let o = &out[0];
+	let keep = "/targetexact Kobold Vermin\n/cleartarget [dead]\n/ping [@target]";
+	assert_eq!(o["during"][0], json!(keep), "the press keeps the target out of the clear and pings");
+	assert_eq!(o["during"][1], o["prepared"][0], "the left click's macro is not touched by a right click");
+	assert_eq!(o["after"], o["prepared"], "both prepared macros are back after the press");
+}
+
+// #4252 ("Polestar has been blocked from an action only available to the Blizzard UI" with the game's ping hotkey,
+// also on a click in the target list): the game's ping key can be a mouse button, and a press of it over a Polestar
+// secure button used to fire that button's click, so its PreClick/PostClick hooks and their calls. The buttons now
+// answer the left and the right button only: any other mouse button runs nothing, calls no raid icon function and
+// leaves the macros alone, in a fight and out of it.
+#[test]
+fn secure_buttons_answer_only_the_left_and_the_right_button_so_the_game_s_ping_key_on_a_mouse_button_runs_nothing_4252() {
+	let out = run_with(
+		r#"
+		set("markTarget", true)
+		q.step({ { t = "kill", target = "Kobold Vermin", quest = 7, oi = 1 } })
+		Polestar.Rares = { Nearby = function() return { "Thuros Lightfingers" } end }
+		Polestar.Fire("RARE_NEARBY")
+		stub.runTimers()
+		local calls = 0
+		function SetRaidTarget() calls = calls + 1 end
+		local B = Polestar.QoL.Buttons
+		local names = { PolestarTargetButton, PolestarStepButton, PolestarRareButton, PolestarQuestItemButton, PolestarHearthButton, B.rows[1] }
+		local clicks = {}
+		for i, b in ipairs(names) do
+			local keys = {}
+			for k in pairs(b.clicks) do keys[#keys + 1] = k end
+			table.sort(keys)
+			clicks[i] = table.concat(keys, ",")
+		end
+		local snapshot = {}
+		for i, b in ipairs(names) do snapshot[i] = (b:GetAttribute("macrotext") or "") .. "|" .. (b:GetAttribute("macrotext2") or "") end
+		local function sweep(label)
+			local o = {}
+			for _, mouse in ipairs({ "Button4", "Button5", "MiddleButton" }) do
+				for _, b in ipairs(names) do
+					for k in pairs(q.ran) do rawset(q.ran, k, nil) end
+					q.target = { name = "Harvest Sentry", hostile = true, guid = "S", mark = 5 }
+					q.mouseClick(b, mouse)
+					if q.ran[1] then o[#o + 1] = label .. " " .. mouse .. " " .. b:GetName() end
+				end
+			end
+			return o
+		end
+		local ran = sweep("calm")
+		q.combat(true)
+		for _, v in ipairs(sweep("fight")) do ran[#ran + 1] = v end
+		q.combat(false)
+		local unchanged = true
+		for i, b in ipairs(names) do
+			if snapshot[i] ~= (b:GetAttribute("macrotext") or "") .. "|" .. (b:GetAttribute("macrotext2") or "") then unchanged = false end
+		end
+		emit({ clicks = clicks, ran = ran, calls = calls, unchanged = unchanged })
+	"#,
+		"SLASH_PING1 = \"/ping\"",
+		None,
+	);
+	let o = &out[0];
+	assert_eq!(o["clicks"].as_array().unwrap().len(), 6, "the target button, the step key, the rare button, the quest item, the Hearthstone and a target list row");
+	for (i, clicks) in o["clicks"].as_array().unwrap().iter().enumerate() {
+		assert_eq!(clicks, "LeftButtonDown,LeftButtonUp,RightButtonDown,RightButtonUp", "button {i} is registered for the left and the right button only");
+	}
+	assert_eq!(o["ran"], json!([]), "no other mouse button runs an action");
+	assert_eq!(o["calls"], json!(0), "none of their hooks calls SetRaidTarget");
+	assert_eq!(o["unchanged"], json!(true), "the macros are left alone");
+}
+
+// "Ping what they target" (qol.pingTarget) is gone, replaced by the right click: an old save that has it loads,
+// silently drops the value from the settings in use and from the saved profiles, keeps its other settings, and the
+// buttons work as new. (The whole addon: the migration registry is Core/Profiles.lua's.)
+#[test]
+fn the_ping_what_they_target_setting_is_gone_an_old_save_loads_and_drops_its_value_silently() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		addons: vec![Addon::name("Polestar")],
+		saved: vec![(
+			"Polestar".into(),
+			"PolestarDB = { schema = 1, settings = { qol = { pingTarget = true, trainAll = true } }, profiles = { Alt = { qol = { pingTarget = false, trainAll = true } } } }".into(),
+		)],
+		login: true,
+		script: r#"
+			local s = PolestarDB.settings.qol
+			local alt = PolestarDB.profiles.Alt.qol
+			local said = false
+			for _, m in ipairs(stub.messages) do if m:find("[Pp]ing") then said = true end end
+			emit({
+				gone = Polestar.GetDefault("qol.pingTarget") == nil and s.pingTarget == nil and alt.pingTarget == nil,
+				kept = { s.trainAll, alt.trainAll },
+				ran = PolestarDB.migrations.pingTargetGone,
+				silent = not said,
+				button = PolestarTargetButton ~= nil,
+			})
+		"#
+		.into(),
+		..Default::default()
+	});
+	let o = &out[0];
+	assert_eq!(o["gone"], json!(true), "no default, and the saved value is dropped from the settings and the profiles");
+	assert_eq!(o["kept"], json!([true, true]), "the other settings stay");
+	assert_eq!(o["ran"], json!(true), "the migration ran once");
+	assert_eq!(o["silent"], json!(true), "without a word");
+	assert_eq!(o["button"], json!(true), "the buttons load");
 }
 
 #[test]
@@ -2517,9 +2688,9 @@ fn target_button_while_you_re_here_mobs_before_the_step_s_npc_beyond_the_radius_
 		LOOK,
 		TARGET_HERE_ROWS,
 		r#"
-		set("pingTarget", true)
 		set("markTarget", true)
-		local function macro() return t:GetAttribute("macrotext") end
+		-- The right click's macro (macrotext2): the same names and marks with the ping.
+		local function macro() return t:GetAttribute("macrotext2") end
 		local function at(wx) q.player = { c = 0, wx = wx, wy = 0 }; stub.advance(1.1) end
 		"#,
 		SVEN_STEP,
@@ -2563,17 +2734,17 @@ fn step_key_while_you_re_here_mobs_before_the_step_s_npc_beyond_the_radius_after
 	let script = [
 		HERE_ROWS,
 		r#"
-		set("pingTarget", true)
+		-- The right click's macro (macrotext2): the same names with the ping.
 		local s = PolestarStepButton
 		local function at(wx) q.player = { c = 0, wx = wx, wy = 0 }; stub.advance(1.1) end
 		"#,
 		SVEN_STEP,
 		r#"
-		emit({ names(), s:GetAttribute("macrotext") })
+		emit({ names(), s:GetAttribute("macrotext2") })
 		rows({ { t = "kill", subject = "Skeletal Fiend" } })
-		emit({ names(), s:GetAttribute("macrotext") })
+		emit({ names(), s:GetAttribute("macrotext2") })
 		at(100)
-		emit({ names(), s:GetAttribute("macrotext") })
+		emit({ names(), s:GetAttribute("macrotext2") })
 		at(-10)
 		emit(names())
 	"#,

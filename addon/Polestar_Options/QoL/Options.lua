@@ -204,9 +204,6 @@ register(QUESTING, L["Buttons"], L["Targeting"], {
 		help = L["A new one each press skips the NPCs' icon and leaves a mob that has one as it is."], search = "raid marker, raid icon, skull" },
 	{ kind = "dropdown", key = "qol.markNpc", label = L["Icon on NPCs"], choices = markChoices, disabled = markOff, child = true,
 		help = L["A new one each press, so the last few NPCs keep theirs. Every press counts, even one that marks nothing."], search = "raid marker, raid icon, star" },
-	{ kind = "toggle", key = "qol.pingTarget", label = L["Ping what they target"],
-		help = L["The target button and the step key ping the mob or NPC they target, so your group sees it behind rocks and buildings. Never in a raid unless you lead or assist. The rare buttons always ping."],
-		search = "ping, ping target, group ping" },
 })
 
 -- Questing > Rewards & gear: the reward panel, and gear offered after a kill, a chest or a merchant.

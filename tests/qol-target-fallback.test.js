@@ -73,9 +73,10 @@ const CLIENT = String.raw`
 		visible, pings, q.target = {}, {}, false
 		for _, u in ipairs({ ... }) do visible[u.name] = u end
 	end
-	local function click(button)
+	-- A right click targets and pings for the group; a left click only targets (and marks).
+	local function click(button, mouse)
 		local before = #q.ran
-		if button == PolestarTargetButton then q.mouseClick(button) else q.keyClick(button) end
+		q.mouseClick(button, mouse or "RightButton")
 		assert(#q.ran == before + 1, "each press must dispatch exactly one macro")
 		return { name = q.target and q.target.name or false, mark = q.target and q.target.mark or 0,
 			pings = #pings, macro = q.ran[#q.ran][2] }
@@ -101,7 +102,6 @@ const CLIENT = String.raw`
 	end
 	Polestar.Set("behavior.whileHereStepKey", true)
 	set("markTarget", true)
-	set("pingTarget", true)
 	-- The single cycling button (beside the target list it hides and only answers its key).
 	set("targetSimple", true)
 `;
@@ -116,7 +116,7 @@ function outcome(row) {
 }
 
 for (const button of ['PolestarTargetButton', 'PolestarStepButton']) {
-	test(`${button}: fallback marks and pings follow the acquired unit, including neutral NPCs`, () => {
+	test(`${button}: a right click's fallback marks and pings follow the acquired unit, including neutral NPCs`, () => {
 		const rows = run(`
 			setup()
 			world(unit("Skeletal Fiend", true)); emit(click(${button}))
@@ -143,7 +143,7 @@ for (const button of ['PolestarTargetButton', 'PolestarStepButton']) {
 		]);
 	});
 
-	test(`${button}: custom icons and marks disabled retain each fallback's ping policy`, () => {
+	test(`${button}: custom icons and marks disabled keep each fallback's ping on the right click`, () => {
 		const rows = run(`
 			set("markMob", "6"); set("markNpc", "4"); setup()
 			world(unit("Skeletal Fiend", true)); emit(click(${button}))
@@ -196,7 +196,7 @@ for (const button of ['PolestarTargetButton', 'PolestarStepButton']) {
 	});
 }
 
-test('fallbacks honor solo, party, and raid marking rights and preserve existing icons', () => {
+test('fallbacks honor solo, party, and raid marking rights and preserve existing icons; the right click always pings', () => {
 	const rows = run(`
 		setup()
 		for _, group in ipairs({ "solo", "party", "party-leader", "raid", "raid-leader", "raid-assistant" }) do
@@ -212,22 +212,39 @@ test('fallbacks honor solo, party, and raid marking rights and preserve existing
 		for (const marked of [0, 5]) {
 			const mob = group === 'raid' ? marked : group === 'party' && marked ? marked : 8;
 			const npc = group === 'raid' ? marked : group === 'party' && marked ? marked : 1;
-			expected.push(['Skeletal Fiend', mob, group === 'raid' ? 0 : 1], ['Madame Eva', npc, group === 'raid' ? 0 : 1]);
+			expected.push(['Skeletal Fiend', mob, 1], ['Madame Eva', npc, 1]);
 		}
 	}
 	assert.deepEqual(rows.map(outcome), expected);
+});
+
+test('a left click targets and marks but never pings, on the button and the step key alike', () => {
+	const rows = run(`
+		setup()
+		for _, button in ipairs({ PolestarTargetButton, PolestarStepButton }) do
+			world(unit("Skeletal Fiend", true)); emit(click(button, "LeftButton"))
+			world(unit("Madame Eva")); emit(click(button, "LeftButton"))
+			world(unit("Skeletal Fiend", true)); emit(click(button, "RightButton"))
+		end
+	`);
+	assert.deepEqual(rows.map(outcome), [
+		['Skeletal Fiend', 8, 0], ['Madame Eva', 1, 0], ['Skeletal Fiend', 8, 1],
+		['Skeletal Fiend', 8, 0], ['Madame Eva', 1, 0], ['Skeletal Fiend', 8, 1],
+	]);
+	assert.deepEqual(rows.map((r) => r.macro.includes('/ping')), [false, false, true, false, false, true]);
 });
 
 test('mixed macros freeze in combat and apply pending changes after combat', () => {
 	const [during, after] = run(`
 		setup()
 		local t, s = PolestarTargetButton, PolestarStepButton
-		local oldT, oldS = t:GetAttribute("macrotext"), s:GetAttribute("macrotext")
+		local function both(b) return b:GetAttribute("macrotext") .. "|" .. b:GetAttribute("macrotext2") end
+		local oldT, oldS = both(t), both(s)
 		q.combat(true)
 		set("markMob", "6"); set("markNpc", "4")
 		world(unit("Skeletal Fiend", true)); local a = click(t)
 		world(unit("Skeletal Fiend", true)); local b = click(s)
-		emit({ a, b, t:GetAttribute("macrotext") == oldT, s:GetAttribute("macrotext") == oldS })
+		emit({ a, b, both(t) == oldT, both(s) == oldS })
 		q.combat(false); stub.runTimers()
 		world(unit("Madame Eva")); a = click(t)
 		world(unit("Madame Eva")); b = click(s)
