@@ -170,7 +170,7 @@ return {
 
 	-- Step 33: Razor Hill
 	-- {quest:5648} Garments of Spirituality · {spell:613} Lesser Heal · {npc:3706} Tai'jin
-	["Priests: {quest:5648} counts only {spell:613} (Rank 2). {npc:3706} trains priests too: learn it from her now if you have not yet."] = "",
+	["Priests: {quest:5648} counts only {spell:613} (Rank 2). {npc:3706} trains priests too: learn it from her now if you have not yet."] = "牧师：{quest:5648}的治疗只认{spell:613}（等级2）。{npc:3706}也教牧师技能。如果还没学，现在就找她学。",
 	-- {npc:266940} Turroc
 	["{npc:266940}, on the east side of town; inside"] = "{npc:266940}，在城镇东侧的室内。",
 	-- {npc:3706} Tai'jin · {npc:266940} Turroc
