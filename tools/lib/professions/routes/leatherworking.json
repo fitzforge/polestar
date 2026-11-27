@@ -1,0 +1,112 @@
+{
+	"_about": "Leatherworking 1-300: the curated route the profession guide is generated from (tools/lib/professions/route.js; rules: docs/forge/professions.md, \"Route files\"). Every recipe, count, trainer, vendor and pattern seller is checked against data/forever when the guide is built.",
+	"profession": "Leatherworking",
+	"intro": [
+		"Leatherworking cures hides and stitches leather into armour and armour kits. Skinning is its partner: leather is most of what the route costs, and every leather on it is one you can skin yourself. Hides are a rare find when skinning, so the route gets them from the Auction House (the ones you skin count too); the salt, threads and dyes come from vendors.",
+		"Ranks: Apprentice at any level from any Leatherworking trainer (the first trainer teaches recipes only up to 50); Journeyman from level 10 at the city trainers, who teach the recipes up to 150; Expert from level 20 (50s) at Telonis in Darnassus or Una in Thunder Bluff; Artisan from level 35 at Drakk Stonehand in Aerie Peak or Hahrana Ironhide in Camp Mojache.",
+		"Two patterns come from vendors: Wicked Leather Gauntlets (Leonard Porter in the Western Plaguelands, Werg Thickblade in Tirisfal Glades) and Runic Leather Headband (Jase Farlane at Light's Hope Chapel). Patterns that need a Tanning Rack or a Sewing Machine are left out: no town has either."
+	],
+	"tools": [],
+	"sections": [
+		{
+			"rank": "Apprentice",
+			"from": 1,
+			"to": 60,
+			"level": 1,
+			"teachers": {
+				"Alliance": [1466, 1632, 3605, 3967, 4212, 5127, 5564, 11081, 11083, 11096, 11097, 251993, 252376],
+				"Horde": [223, 1385, 3007, 3008, 3069, 3365, 3549, 3703, 4588, 5811, 11084, 11098, 251993, 252376]
+			},
+			"route": [
+				{ "from": 1, "to": 30, "recipe": 2881, "count": 35, "mats": { "2934": 105 }, "keep": "Keep the leather: the gloves at 40 use it." },
+				{ "from": 30, "to": 40, "recipe": 3816, "count": 10, "mats": { "783": 10, "4289": 10 }, "keep": "Keep all 10 hides for the Embossed Leather Pants at 70." },
+				{ "from": 40, "to": 60, "recipe": 3756, "count": 20, "mats": { "2318": 60, "2320": 40 } }
+			]
+		},
+		{
+			"rank": "Journeyman",
+			"from": 60,
+			"to": 150,
+			"level": 10,
+			"teachers": {
+				"Alliance": [5564, 5127, 11081],
+				"Horde": [3365, 4588, 11084]
+			},
+			"route": [
+				{ "from": 60, "to": 70, "recipe": 3756, "count": 10, "mats": { "2318": 30, "2320": 20 } },
+				{ "from": 70, "to": 80, "recipe": 3759, "count": 10, "mats": { "4231": 10, "2318": 60, "2320": 20 }, "note": "No points past 75 until Journeyman is trained." },
+				{ "from": 80, "to": 95, "recipe": 3817, "count": 20, "mats": { "4232": 20, "4289": 20 }, "keep": "Keep all 20 hides for the Dark Leather Belts at 105." },
+				{ "from": 95, "to": 105, "recipe": 3763, "count": 22, "mats": { "2318": 132, "2320": 44 }, "keep": "Keep 20 belts: the Dark Leather Belts at 105 are made from them." },
+				{ "from": 105, "to": 125, "recipe": 3766, "count": 20, "mats": { "4246": 20, "4233": 20, "2321": 40, "4340": 20 } },
+				{ "from": 125, "to": 130, "recipe": 20649, "count": 8, "mats": { "2319": 40 }, "keep": "Keep the Heavy Leather for the shoulders at 150." },
+				{ "from": 130, "to": 143, "recipe": 3818, "count": 25, "mats": { "4235": 25, "4289": 75 }, "keep": "Keep all 25: 15 for the shoulders at 150, 10 for the gloves at 165." },
+				{ "from": 143, "to": 150, "recipe": 3764, "count": 8, "mats": { "2319": 112, "2321": 32 } }
+			]
+		},
+		{
+			"rank": "Expert",
+			"from": 150,
+			"to": 205,
+			"level": 20,
+			"cost": 5000,
+			"teachers": {
+				"Alliance": [4212],
+				"Horde": [3007]
+			},
+			"route": [
+				{ "from": 150, "to": 165, "recipe": 7151, "count": 15, "mats": { "4234": 120, "4236": 15, "2321": 30 } },
+				{ "from": 165, "to": 175, "recipe": 7156, "count": 10, "mats": { "4234": 40, "4236": 10, "4291": 10 }, "note": "Orange to 185: more hides? These carry on in place of the harness." },
+				{ "from": 175, "to": 185, "recipe": 6661, "count": 10, "mats": { "4234": 140, "2321": 20, "7071": 10 } },
+				{ "from": 185, "to": 205, "recipe": 10507, "count": 22, "mats": { "4304": 110, "4291": 44 } }
+			]
+		},
+		{
+			"rank": "Artisan",
+			"from": 205,
+			"to": 300,
+			"level": 35,
+			"teachers": {
+				"Alliance": [11097],
+				"Horde": [11098]
+			},
+			"route": [
+				{ "from": 205, "to": 235, "recipe": 10548, "count": 36, "mats": { "4304": 504, "4291": 144 }, "note": "No points past 225 until Artisan is trained." },
+				{ "from": 235, "to": 265, "recipe": 19049, "count": 36, "mats": { "8170": 288, "2325": 36, "14341": 36 } },
+				{ "from": 265, "to": 300, "recipe": 19082, "count": 49, "mats": { "8170": 686, "14047": 490, "14341": 49 }, "note": "Yellow from 285, green from 295: short of 300? A few more do it." }
+			]
+		}
+	],
+	"recipes": {
+		"15725": { "Alliance": [12942], "Horde": [12943], "note": "It binds when picked up." },
+		"15756": { "Alliance": [12941], "Horde": [12941], "note": "At Light's Hope Chapel. It binds when picked up." }
+	},
+	"materials": {
+		"2934": ["gather", "auction"],
+		"783": ["auction"],
+		"2318": ["gather", "auction"],
+		"4232": ["auction"],
+		"2319": ["gather", "auction"],
+		"4235": ["auction"],
+		"4234": ["gather", "auction"],
+		"4304": ["gather", "auction"],
+		"8170": ["gather", "auction"],
+		"14047": ["drop", "auction"],
+		"7071": ["auction"],
+		"4289": ["vendor"],
+		"2320": ["vendor"],
+		"2321": ["vendor"],
+		"4340": ["vendor"],
+		"4291": ["vendor"],
+		"2325": ["vendor"],
+		"14341": ["vendor"]
+	},
+	"vendors": {
+		"4289": { "Alliance": [66, 3614], "Horde": [2118, 3005] },
+		"2320": { "Alliance": [1347, 4168, 66], "Horde": [3005, 4577, 2118] },
+		"2321": { "Alliance": [1347, 4168], "Horde": [3005, 4577] },
+		"4340": { "Alliance": [1347, 4168], "Horde": [3005, 4577] },
+		"4291": { "Alliance": [1347, 4168], "Horde": [3005, 4577] },
+		"2325": { "Alliance": [1347, 4168], "Horde": [3005, 4577] },
+		"14341": { "Alliance": [1347, 4168], "Horde": [3005, 4577] }
+	}
+}

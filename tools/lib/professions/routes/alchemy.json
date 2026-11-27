@@ -1,0 +1,103 @@
+{
+	"_about": "Alchemy 1-300: the curated route the profession guide is generated from (tools/lib/professions/route.js; rules: docs/forge/professions.md, \"Route files\"). Every recipe, count, trainer, vendor and recipe seller is checked against data/forever when the guide is built.",
+	"profession": "Alchemy",
+	"intro": [
+		"Alchemy brews potions, elixirs and oils from herbs and vials. Herbalism is its partner: nearly every herb on this route is one you can pick yourself; the vials come from alchemy and trade supply vendors, and two fish from the Auction House.",
+		"Ranks: Apprentice at any level from any Alchemy trainer (the first trainer teaches recipes only up to 50); Journeyman from level 10 at the city trainers; Expert from level 20 (50s) at Doctor Herbert Halsey in Undercity, Ainethil in Darnassus or Master Mycologist Shurome in Felwood's Emerald Sanctuary; Artisan from level 35 at Rogvar in Stonard, Kylanna Windwhisper in Feathermoon Stronghold or Shurome.",
+		"Two recipes on the route come from vendors: Nature Protection Potion (Alchemist Pestlezugg in Tanaris, Glyx Brewright in Booty Bay) and the Elixir of Superior Defense recipe, which teaches the Elixir of Greater Defense (Kor'geld in Orgrimmar, Soolie Berryfizz in Ironforge). The transmutes and the Philosopher's Stone they need are not on this route: they give a point an hour at most."
+	],
+	"tools": [],
+	"sections": [
+		{
+			"rank": "Apprentice",
+			"from": 1,
+			"to": 55,
+			"level": 1,
+			"teachers": {
+				"Alliance": [1215, 1246, 1470, 2837, 3603, 3964, 4160, 4900, 5177, 5499, 5500, 7948, 11041, 11042, 253004, 257005, 257019],
+				"Horde": [1386, 2132, 2391, 2837, 3009, 3184, 3347, 4609, 4611, 11044, 11046, 11047, 257005, 257019]
+			},
+			"route": [
+				{ "from": 1, "to": 10, "recipe": 1245250, "count": 9, "mats": { "765": 9, "3371": 9 } },
+				{ "from": 10, "to": 55, "recipe": 7183, "count": 45, "mats": { "765": 45, "2447": 45, "3371": 45 } }
+			]
+		},
+		{
+			"rank": "Journeyman",
+			"from": 55,
+			"to": 150,
+			"level": 10,
+			"teachers": {
+				"Alliance": [5499, 5177, 11042],
+				"Horde": [3347, 4609, 3009]
+			},
+			"route": [
+				{ "from": 55, "to": 65, "recipe": 2331, "count": 10, "mats": { "785": 10, "2447": 10, "3371": 10 } },
+				{ "from": 65, "to": 90, "recipe": 2334, "count": 28, "mats": { "2449": 56, "2447": 28, "3371": 28 }, "note": "No points past 75 until Journeyman is trained." },
+				{ "from": 90, "to": 120, "recipe": 3171, "count": 30, "mats": { "785": 30, "2450": 60, "3371": 30 } },
+				{ "from": 120, "to": 130, "recipe": 3173, "count": 10, "mats": { "785": 10, "3820": 10, "3371": 10 } },
+				{ "from": 130, "to": 150, "recipe": 7837, "count": 20, "mats": { "6359": 40, "3371": 20 }, "keep": "Each craft makes 2 oils. Keep 30: the Elixirs of Fire Power at 150 use them." }
+			]
+		},
+		{
+			"rank": "Expert",
+			"from": 150,
+			"to": 225,
+			"level": 20,
+			"cost": 5000,
+			"teachers": {
+				"Alliance": [4160, 259585],
+				"Horde": [4611, 259585]
+			},
+			"route": [
+				{ "from": 150, "to": 165, "recipe": 7845, "count": 15, "mats": { "6371": 30, "3356": 15, "3372": 15 } },
+				{ "from": 165, "to": 195, "recipe": 3452, "count": 36, "mats": { "3820": 36, "3356": 36, "3372": 36 } },
+				{ "from": 195, "to": 225, "recipe": 7259, "count": 36, "mats": { "3357": 36, "3820": 36, "3372": 36 } }
+			]
+		},
+		{
+			"rank": "Artisan",
+			"from": 225,
+			"to": 300,
+			"level": 35,
+			"teachers": {
+				"Alliance": [7948, 259585],
+				"Horde": [1386, 259585]
+			},
+			"route": [
+				{ "from": 225, "to": 235, "recipe": 7259, "count": 26, "mats": { "3357": 26, "3820": 26, "3372": 26 }, "note": "Green for the last 5 points: short of 235? A few more do it." },
+				{ "from": 235, "to": 250, "recipe": 11465, "count": 15, "mats": { "8839": 15, "3358": 15, "8925": 15 } },
+				{ "from": 250, "to": 260, "recipe": 17551, "count": 47, "mats": { "13422": 47, "3372": 47 }, "keep": "Each craft makes 2 oils. Keep all of them: the elixirs at 265 use 88." },
+				{ "from": 260, "to": 265, "recipe": 11465, "count": 10, "mats": { "8839": 10, "3358": 10, "8925": 10 } },
+				{ "from": 265, "to": 300, "recipe": 17554, "count": 44, "mats": { "13423": 88, "8838": 44, "8925": 44 }, "note": "Yellow from 280: short of 300? A few more do it." }
+			]
+		}
+	],
+	"recipes": {
+		"6057": { "Alliance": [5594, 2848, 8157], "Horde": [5594, 2848, 8158], "note": "It binds when picked up." },
+		"13478": { "Alliance": [5178], "Horde": [3348], "note": "Its name says Superior Defense; it teaches the Elixir of Greater Defense." }
+	},
+	"materials": {
+		"765": ["gather", "auction"],
+		"2447": ["gather", "auction"],
+		"785": ["gather", "auction"],
+		"2449": ["gather", "auction"],
+		"2450": ["gather", "auction"],
+		"3820": ["gather", "auction"],
+		"3356": ["gather", "auction"],
+		"3357": ["gather", "auction"],
+		"8839": ["gather", "auction"],
+		"3358": ["gather", "auction"],
+		"8838": ["gather", "auction"],
+		"6359": ["auction"],
+		"13422": ["auction"],
+		"3371": ["vendor"],
+		"3372": ["vendor"],
+		"8925": ["vendor"]
+	},
+	"vendors": {
+		"3371": { "Alliance": [1313, 5178, 4226], "Horde": [3348, 4610, 3010] },
+		"3372": { "Alliance": [1313, 5178, 4226], "Horde": [3348, 4610, 3010] },
+		"8925": { "Alliance": [1313, 5178, 4226], "Horde": [3348, 4610, 3010] }
+	}
+}
