@@ -166,8 +166,6 @@ local function isExperimental(g)
 	return G and G.IsExperimental and G.IsExperimental(g) or false
 end
 
--- A guide in one of Forever's new zones (Guides.InForeverZone): the Forever
--- mark on its row and a "Forever" chip in its details.
 -- The Group tag: a guide that needs a group (dungeon and raid quests, elites).
 -- The leveling routes (Horde, Alliance, the starting zones) never wear it: a
 -- leveling player expects group quests along the way, so the tag says nothing
@@ -176,6 +174,8 @@ local function showsGroup(g)
 	return g.group == true and g.category ~= nil and g.category ~= "Leveling"
 end
 
+-- A guide in one of Forever's new zones (Guides.InForeverZone): the Forever
+-- mark on its row and a "Forever" chip in its details.
 local function inForeverZone(g)
 	local G = ns.Guides
 	return G and G.InForeverZone and G.InForeverZone(g) or false
