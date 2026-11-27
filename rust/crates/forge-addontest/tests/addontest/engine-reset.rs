@@ -95,3 +95,61 @@ fn issue_1764_after_a_reset_a_step_skipped_behind_the_progress_comes_back_from_t
 	));
 	assert_eq!(out[0], json!({ "live": 2, "skipped": "", "manual": "3:1" }), "Goto opens the skipped step again");
 }
+
+// Reset everything (#4111): the call with `true` keeps nothing, so the skip behind the last quest progress comes
+// back too and the guide starts at the first quest the player can still take, Wolves at step 2.
+#[test]
+fn issue_4111_reset_everything_clears_the_skip_the_reset_from_here_keeps_and_starts_at_the_first_open_quest() {
+	let out = run(&format!(
+		r#"{PLAYED}
+		E.ResetProgress(true); flush(); stub.advance(11)
+		emit(state())"#
+	));
+	assert_eq!(out[0], json!({ "live": 2, "skipped": "", "manual": "" }));
+}
+
+// The same played guide through the old call: it still keeps step 2 skipped and the first walk ticked.
+#[test]
+fn issue_4111_reset_from_here_stays_as_it_was_beside_reset_everything() {
+	let out = run(&format!(
+		r#"{PLAYED}
+		E.ResetProgress(); flush(); stub.advance(11)
+		emit(state())"#
+	));
+	assert_eq!(out[0], json!({ "live": 6, "skipped": "2", "manual": "3:1" }));
+}
+
+// The saved view and a quest held for the player's answer go with it, for this guide only.
+#[test]
+fn issue_4111_reset_everything_forgets_the_saved_view_and_the_held_quest_of_the_guide_only() {
+	let out = run(&format!(
+		r#"{PLAYED}
+		local st = Polestar.CharState()
+		st.pins = {{ ["test/reset"] = {{ step = 3, done = false }}, other = {{ step = 4, done = false }} }}
+		st.lostQuests = {{ ["test/reset"] = {{ [33] = 5 }}, other = {{ [9] = 2 }} }}
+		E.ResetProgress(true); flush()
+		emit({{
+			pin = st.pins["test/reset"] ~= nil, lost = st.lostQuests["test/reset"] ~= nil,
+			otherPin = st.pins.other ~= nil, otherLost = st.lostQuests.other ~= nil,
+			asked = E.LostQuestion() ~= nil,
+		}})"#
+	));
+	assert_eq!(out[0], json!({ "pin": false, "lost": false, "otherPin": true, "otherLost": true, "asked": false }));
+}
+
+// The slash commands (#4111): `reset` is Reset everything, `resetfrom` the reset the guide had before.
+#[test]
+fn issue_4111_the_reset_command_clears_everything_and_resetfrom_keeps_what_is_behind_the_progress() {
+	let out = run(&format!(
+		r#"{PLAYED}
+		Polestar.RunCommand("resetfrom"); flush(); stub.advance(11)
+		emit(state())
+		E.Skip(); E.ToggleGoal(3, 1); flush()
+		Polestar.RunCommand("reset"); flush(); stub.advance(11)
+		emit(state())"#
+	));
+	assert_eq!(out[0], json!({ "live": 6, "skipped": "2", "manual": "3:1" }));
+	assert_eq!(out[1]["skipped"], "");
+	assert_eq!(out[1]["manual"], "");
+	assert_eq!(out[1]["live"], 2);
+}

@@ -630,7 +630,7 @@ function Engine.GetProgress()
 	end
 	return done, total
 end
-function Engine.ResetProgress() record("ResetProgress") end
+function Engine.ResetProgress(everything) record("ResetProgress", everything) end
 -- Dungeons in the route: the character's answer for one dungeon
 -- (CharState().dungeons[map]: true run, false skip), else the answer for
 -- every dungeon (the behavior.dungeons setting: "ask" | "run"; else skip).
