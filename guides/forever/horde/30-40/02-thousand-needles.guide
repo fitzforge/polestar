@@ -315,6 +315,7 @@ step The southern flats
 
 step The Rustmaul Dig Site
   zone Thousand Needles
+  when onquest 1147
   tip West of them the silithid swarm the dig site. Searchers and Hive Drones walk among the mounds; the Invaders (34-35) stay inside the hive cave. The first silithid you kill drops a Cracked Silithid Carapace: open it.
   tip Careful: Hive Drones call for help when they fall to 20% health, and the Silithid Ravager (37, rare) walks the dig: take the Searchers and Drones (32-34) outside first, then pull the Invaders (34-35) one at a time from the cave mouth.
   kill 4130 quest 1147.1 @69.8,83.3 map 1441

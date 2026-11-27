@@ -326,6 +326,23 @@ pub struct Levels {
 	pub floor: V,
 }
 
+/// The top of an instance's range before the Group Finder and the named exceptions: the client's
+/// (`max`), unless that is no wider than one level. An instance whose bosses have no level (Forever's
+/// own: Ruins of Lordaeron, The Hall of Thanes) came out as a one-level range (15-15), so "For your
+/// level" dropped it a level past its minimum; its quests' highest level is then the top. That top
+/// never runs past the level cap: Zul'Gurub's level-61 quests made the raid read 60-61 (#4426).
+pub fn range_top(min: &V, max: V, quest_levels: impl Iterator<Item = f64>) -> V {
+	if min.is_nullish() || !(max.is_nullish() || max.num() <= min.num()) {
+		return max;
+	}
+	let top = quest_levels.fold(f64::NEG_INFINITY, f64::max).min(super::instances::MAX_LEVEL);
+	if top > min.num() {
+		V::Num(top)
+	} else {
+		max
+	}
+}
+
 /// A dungeon's range and floor. With a Group Finder row (a dungeon the client's finder lists): the
 /// range is the finder's, its bottom never under the client's own minimum (`min`, MinLevelSquish);
 /// without one (raids) the range stays the client's minimum and the bosses' top (`max`). A curated
@@ -1274,16 +1291,8 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 		page.set("kind", if raid { "raid" } else { "dungeon" });
 		page.set("forever", inst.get("forever").truthy());
 		let min_level = if lv.truthy() { first_nn(&[lv.at(1), lv.at(0)]) } else { V::Null };
-		let mut max_level = if lv.truthy() { first_nn(&[lv.at(2), lv.at(1), lv.at(0)]) } else { V::Null };
-		// An instance whose bosses have no level (Forever's own: Ruins of Lordaeron, The Hall of
-		// Thanes) came out as a one-level range (15-15), so "For your level" dropped it a level past
-		// its minimum. Its quests' highest level is then the top of the range.
-		if !min_level.is_nullish() && (max_level.is_nullish() || max_level.num() <= min_level.num()) {
-			let top = quests.iter().map(|q| q.get("level")).filter(|l| l.truthy()).map(|l| l.num()).fold(f64::NEG_INFINITY, f64::max);
-			if top > min_level.num() {
-				max_level = V::Num(top);
-			}
-		}
+		let max_level = if lv.truthy() { first_nn(&[lv.at(2), lv.at(1), lv.at(0)]) } else { V::Null };
+		let max_level = range_top(&min_level, max_level, quests.iter().map(|q| q.get("level")).filter(|l| l.truthy()).map(|l| l.num()));
 		// The client's Group Finder for a dungeon it lists, the named exceptions over it, players'
 		// recorded entries for the floor (`levels_of`).
 		let finder = m.and_then(|m| m.finder.as_ref()).filter(|_| !raid);
@@ -1724,6 +1733,22 @@ mod tests {
 		// A raid (no finder row) keeps the client's minimum and its bosses' top.
 		let mc = levels_of(V::Num(60.0), V::Num(60.0), None, &none, &none);
 		assert_eq!((mc.min.num(), mc.max.num(), mc.floor.num()), (60.0, 60.0, 60.0));
+	}
+
+	/// #4426: a one-level range takes its quests' highest level as its top, never past the level cap
+	/// (Zul'Gurub: client 60-60, quests up to 61, read "60-61" in the Dungeons window).
+	#[test]
+	fn a_one_level_range_takes_its_quests_top_but_never_past_the_level_cap() {
+		// The Hall of Thanes: bosses with no level (15-15), quests up to 18.
+		assert_eq!(range_top(&V::Num(15.0), V::Num(15.0), [15.0, 18.0, 17.0].into_iter()).num(), 18.0);
+		// Zul'Gurub: 60-60, quests up to 61: stays 60.
+		assert_eq!(range_top(&V::Num(60.0), V::Num(60.0), [60.0, 61.0].into_iter()).num(), 60.0);
+		// A real range is the client's, whatever its quests say.
+		assert_eq!(range_top(&V::Num(44.0), V::Num(54.0), [56.0].into_iter()).num(), 54.0);
+		// No top and quests over the minimum: the quests' top.
+		assert_eq!(range_top(&V::Num(30.0), V::Null, [33.0].into_iter()).num(), 33.0);
+		// No minimum: the client's top as it is.
+		assert!(range_top(&V::Null, V::Null, [33.0].into_iter()).is_nullish());
 	}
 
 	#[test]
