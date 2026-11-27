@@ -716,3 +716,15 @@ emit({ title = t and t.title or false, due = t and t.due or false, level = t and
 	assert.deepEqual(runPair(RANKS('55, 75', 'nil'), TR), { title: 'Apprentice Leatherworking', due: true, level: 0 });
 	assert.deepEqual(runPair('', TR), { title: 'Journeyman Skinning', due: true, level: 50 }, 'both learned: the next rank, as before');
 });
+
+test('a paired guide, neither skill learned: the profession layout on every step (recipe card, "Learn Leatherworking first", materials)', () => {
+	for (const step of [1, 2, 3, 4]) {
+		const out = runPair(`${RANKS('nil', 'nil')}; E.Goto(${step})`, `
+GF.Render(); GF.Layout(); stub.advance(1)
+local v = E.GetStepView(${step})
+local st, sup = GF.RegionFrame("stretch"), GF.RegionFrame("supplies")
+emit({ stretch = GF.RegionShown("stretch"), supplies = GF.RegionShown("supplies"), make = st and plain(st.Make:GetText() or "") or false,
+	name = E.KindModel("stretch", v, "profession").name })`);
+		assert.deepEqual(out, { stretch: true, supplies: true, make: 'Learn Leatherworking first', name: 'Light Armor Kit' }, `step ${step}`);
+	}
+});
