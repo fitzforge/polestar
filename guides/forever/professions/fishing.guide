@@ -143,13 +143,13 @@ step Catch a Sar'theris Striker
   tip Along the coast, by Shadowprey Village or the tower on the northern shore.
   only Alliance
   zone Desolace
-  collect 16968 quest 6607 @39.5,22.7
+  collect 16968 x1 quest 6607 @39.5,22.7
 
 step Catch a Sar'theris Striker
   tip Along the coast, by Shadowprey Village or the tower on the northern shore.
   only Horde
   zone Desolace
-  collect 16968 quest 6607 @22.8,76.8
+  collect 16968 x1 quest 6607 @22.8,76.8
 
 step Buy 2 Bright Baubles
   tip Fish get away in Feralas below skill 300; a lure adds 75 for ten minutes.
@@ -158,24 +158,24 @@ step Buy 2 Bright Baubles
 step Catch a Feralas Ahi
   tip The Verdantis River, just west of the bridge on the main road.
   zone Feralas
-  collect 16967 quest 6607 @63.7,53.1
+  collect 16967 x1 quest 6607 @63.7,53.1
 
 step Catch a Savage Coast Blue Sailfin
   tip Anywhere along the Savage Coast; only Mithril Head Trout and Catfish means another spot.
   only Alliance
   zone Stranglethorn Vale
-  collect 16969 quest 6607 @27.4,68.9
+  collect 16969 x1 quest 6607 @27.4,68.9
 
 step Catch a Savage Coast Blue Sailfin
   tip Anywhere along the Savage Coast; only Mithril Head Trout and Catfish means another spot.
   only Horde
   zone Stranglethorn Vale
-  collect 16969 quest 6607 @33.0,32.1
+  collect 16969 x1 quest 6607 @33.0,32.1
 
 step Catch a Misty Reed Mahi Mahi
   tip The Misty Reed Strand; the small islands off the coast keep you clear of the murlocs.
   zone Swamp of Sorrows
-  collect 16970 quest 6607 @76.2,95.6
+  collect 16970 x1 quest 6607 @76.2,95.6
 
 step Hand in Nat Pagle, Angler Extreme
   zone Dustwallow Marsh

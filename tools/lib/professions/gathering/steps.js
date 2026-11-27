@@ -210,7 +210,7 @@ function renderRoute(ctx, prof, route) {
 			if (per.some((p) => !p.c)) errs.push(`no ${item} spot in ${zoneName(ctx, f.zone)}`);
 			else {
 				const same = Math.hypot(per[0].c.pt.x - per[1].c.pt.x, per[0].c.pt.y - per[1].c.pt.y) < 1;
-				for (const p of same ? [per[0]] : per) step('collect', `Catch a ${item}`, e.where && e.where[f.item], [...(same ? [] : [`  only ${p.side}`]), `  zone ${zoneName(ctx, f.zone)}`, `  collect ${f.item} quest 6607 @${fmt(p.c.pt.x)},${fmt(p.c.pt.y)}`]);
+				for (const p of same ? [per[0]] : per) step('collect', `Catch a ${item}`, e.where && e.where[f.item], [...(same ? [] : [`  only ${p.side}`]), `  zone ${zoneName(ctx, f.zone)}`, `  collect ${f.item} x1 quest 6607 @${fmt(p.c.pt.x)},${fmt(p.c.pt.y)}`]);
 			}
 		}
 		step('quest', `Hand in ${pagle.title}`, null, ['  zone Dustwallow Marsh', '  turnin 6607']);

@@ -20,7 +20,7 @@ const { loadRoute, checkRoute, TIP_MAX, IMPERATIVE } = require('../tools/lib/pro
 
 // The guides a route builds: the crafting guide and the paired guide on top of it, and the gathering guides
 // (routes/<profession>.json with `"kind": "gathering"`, gathering/steps.js).
-const ROUTED = ['blacksmithing', 'mining-blacksmithing', 'mining', 'herbalism', 'skinning', 'fishing'];
+const ROUTED = ['blacksmithing', 'mining-blacksmithing', 'mining', 'herbalism', 'skinning', 'fishing', 'lockpicking'];
 const read = (name) => fs.readFileSync(path.join(ROOT, 'guides', 'forever', 'professions', `${name}.guide`), 'utf8');
 const exists = (name) => fs.existsSync(path.join(ROOT, 'guides', 'forever', 'professions', `${name}.guide`));
 
@@ -77,7 +77,8 @@ test('every step says what, where, how many and when it is done, on its own', ()
 			assert.ok(goals.every((g) => counted(g, s)), `${at}: a material or craft without a count`);
 			// One action: the goals of a step are one verb (a get's ways are its choice rows: collect, a vendor and
 			// the Auction House).
-			const verbs = new Set(goals.map((g) => (g.verb === 'auction' || g.verb === 'collect' || g.verb === 'task' ? 'get' : g.verb === 'buy' && goals.some((x) => x.verb === 'collect' || x.verb === 'auction') ? 'get' : g.verb)));
+			// A skill step's gotos are where the skill is earned (Lockpicking's boxes), not a second action.
+			const verbs = new Set(goals.map((g) => (g.verb === 'auction' || g.verb === 'collect' || g.verb === 'task' ? 'get' : g.verb === 'buy' && goals.some((x) => x.verb === 'collect' || x.verb === 'auction') ? 'get' : g.verb === 'goto' && goals.some((x) => x.verb === 'skill') ? 'skill' : g.verb)));
 			assert.ok(verbs.size === 1, `${at}: more than one action (${[...verbs].join(', ')})`);
 		}
 	}
