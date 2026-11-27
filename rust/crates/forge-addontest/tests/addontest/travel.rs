@@ -1115,6 +1115,26 @@ fn world_map_shows_the_final_target_pin_plus_the_route_waypoints() {
 	assert_eq!(out, json!([["nav.target", "Kobolds", "1380 yd", 22.4], ["nav.route", "Fly to East Hold", "Travel route, step 1/3", 13.5], ["nav.route", "Kobolds", "Travel route, step 2/3", 13.5],]));
 }
 
+// The route and the target are what a continent's map keeps (the dense layers leave it).
+#[test]
+fn a_continent_map_keeps_the_final_target_pin_and_the_route_waypoints() {
+	let out = run(r#"
+		known(1, 2)
+		nav.place(0, 600)
+		target(0, -780, "Kobolds")
+		nav.maps[9010] = { c = 0, top = 3000, bottom = -3000, left = 3000, right = -3000, name = "Mainland" }
+		C_Map.GetMapInfo = function(map) return { mapID = map, mapType = map == 9010 and 2 or 3 } end
+		nav.showWorldMap(9010)
+		local r = {}
+		for _, pin in ipairs(nav.pins()) do
+			local tip = nav.tooltipOf(pin)
+			r[#r + 1] = pin.data.layer.name .. "|" .. tostring(tip[1]) .. "|" .. tostring(tip[2] or false)
+		end
+		table.sort(r)
+		emit(r)"#);
+	assert_eq!(out, json!(["nav.route|Fly to East Hold|Travel route, step 1/3", "nav.route|Kobolds|Travel route, step 2/3", "nav.target|Kobolds|1380 yd"]));
+}
+
 #[test]
 fn estimatetravel_prices_trips_with_the_planner_caches_briefly_and_leaves_the_route_alone() {
 	let out = run(r#"

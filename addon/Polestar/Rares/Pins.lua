@@ -1,7 +1,8 @@
--- Rares on the world map and the minimap, through Polestar.Pins (Nav): one
--- layer per kind ("rares.rare", "rares.treasure"), each on the world map
--- and/or the minimap by its own setting (rares.worldRares, worldTreasures,
--- minimapRares, minimapTreasures).
+-- Rares on zone maps and the minimap, through Polestar.Pins (Nav): one
+-- layer per kind ("rares.rare", "rares.treasure"), each on the world map's
+-- zone views and/or the minimap by its own setting (rares.worldRares,
+-- worldTreasures, minimapRares, minimapTreasures). The layers are dense
+-- (Pins' `dense`): a continent or the world shows none of them.
 --
 -- Spawns come from the Codex pack, which loads on demand: the first time the
 -- world map opens with a world-map kind on, at login (out of combat) when a
@@ -196,7 +197,7 @@ local function apply(kind)
 		history = Rares.History(), now = serverTime(), onClick = click,
 	})
 	if pins and #pins > 0 then
-		Pins.SetLayer(layer, pins, { world = world, minimap = minimap, edge = false })
+		Pins.SetLayer(layer, pins, { world = world, minimap = minimap, edge = false, dense = true })
 	else
 		Pins.ClearLayer(layer)
 	end

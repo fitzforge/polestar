@@ -1,5 +1,5 @@
--- Spawn markers for your quests: a marker on the world map and the minimap
--- for every spawn point of the mobs and objects your quests need, in
+-- Spawn markers for your quests: a marker on the world map's zone views and the minimap (never on a continent
+-- or the world: they are dense, see draw) for every spawn point of the mobs and objects your quests need, in
 -- Polestar's look: its skull on its medallion (the guide's pickup bag for an
 -- object). Skull colour = quest; for a quest with several mobs, a ring round
 -- the medallion in each mob's colour; a legend on the world map lists the
@@ -547,9 +547,10 @@ local function restyle()
 end
 
 -- relayout: the legend's content may have changed (another map, quests, a toggle), so lay it out again;
--- a zoom or resize only moves the markers.
+-- a zoom or resize only moves the markers. A continent or the world (Compat.IsWideMap) shows no markers and no
+-- legend, like Nav/Pins.lua's dense layers: every spawn of the quests' mobs piled over the zone names and levels.
 local function draw(relayout)
-	if not (map and map:IsShown() and on() and ns.GuideShown()) then
+	if not (map and map:IsShown() and on() and ns.GuideShown()) or Compat.IsWideMap(map:GetMapID()) then
 		for i = 1, placed do dots[i]:Hide() end
 		placed = 0
 		wipe(here)

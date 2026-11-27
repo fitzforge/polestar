@@ -62,6 +62,34 @@ fn zone_only_layers_hide_on_continent_and_world_maps_return_in_narrower_views_an
 	assert_eq!(out, json!({ "world": [2, 1, 1, 2, 1, 2], "minimap": 1 }));
 }
 
+// A dense layer (rares, treasures, a target's spawn spots: many pins) is a zone-and-narrower layer on the world map
+// and as present as any on the minimap; the target, the route and the layers that are not dense stay on a continent,
+// the world and the cosmos, and a dense pin's area goes with its pin. A view whose type the client does not say
+// (9005) shows the dense layer rather than lose it for no reason.
+#[test]
+fn dense_layers_show_on_zone_maps_and_the_minimap_never_on_a_continent_the_world_or_the_cosmos() {
+	let out = run(r#"
+		local kinds={ [9000]=3, [9002]=2, [9003]=1, [9004]=5, [9006]=0 }
+		for _,map in ipairs({9002,9003,9004,9005,9006}) do nav.maps[map]=nav.maps[9000] end
+		C_Map.GetMapInfo=function(map) return kinds[map] and {mapType=kinds[map]} end
+		Pins.SetLayer("rares.rare", {at(0,0), at(40,0,{area=40})}, {dense=true})
+		Pins.SetLayer("nav.target", {at(0,50)})
+		Pins.SetLayer("nav.route", {at(0,100)}, {minimap=false})
+		local seen={}
+		for _,map in ipairs({9000,9002,9003,9006,9004,9005,9000}) do
+			nav.showWorldMap(map)
+			local names={}
+			for _,f in ipairs(nav.pins()) do names[#names+1]=f.data.layer.name end
+			table.sort(names)
+			seen[#seen+1]={map,table.concat(names," "),#nav.pins("areas")}
+		end
+		emit({world=seen,minimap=frames("rares.rare")})
+	"#);
+	let zone = "nav.route nav.target rares.rare rares.rare";
+	let wide = "nav.route nav.target";
+	assert_eq!(out, json!({ "world": [[9000, zone, 1], [9002, wide, 0], [9003, wide, 0], [9006, wide, 0], [9004, zone, 1], [9005, zone, 1], [9000, zone, 1]], "minimap": 2 }));
+}
+
 // #2973: on a continent's map the quest layers' pins (summary layers) are one pin per zone, its badge their count and
 // its tooltip each layer's; a cave's pins count for its zone, areas wait for the zone's map, a layer without a
 // summary keeps its pins, and a click opens the zone's map. On the zone's map every pin is back.

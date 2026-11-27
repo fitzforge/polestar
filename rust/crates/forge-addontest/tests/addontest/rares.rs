@@ -1291,6 +1291,55 @@ emit({ rare = opts["rares.rare"] })"#,
 	assert_eq!(on[3]["rare"]["n"], 2, "muting alerts keeps the rare on the map");
 }
 
+// Rares and treasures are dense layers (Pins' `dense`): the world map shows them on a zone's map and not on a
+// continent or the world (the CurseForge report: the continent's zone names and levels were buried), the minimap's
+// layers are as before, and each kind's setting still gates its own pins.
+#[test]
+fn rare_and_treasure_pins_show_on_a_zone_map_and_the_minimap_never_on_a_continent_or_the_world_map() {
+	let out = run_with(
+		r#"
+local P = Polestar.Pins
+local opts = {}
+local set = P.SetLayer
+P.SetLayer = function(name, pins, o) opts[name] = { n = #pins, dense = o.dense, world = o.world, minimap = o.minimap } return set(name, pins, o) end
+local w = stub.world
+local e = w.maps[1429]
+w.addMap(9100, { name = "Eastern Kingdoms", c = e.c, left = 6000, right = -6000, top = -3000, bottom = -12000, mapType = 2 })
+w.addMap(9101, { name = "Azeroth", mapType = 1 })
+WorldMapFrame:GetCanvas():SetSize(1000, 1000)
+stub.worldMapID = 1429
+WorldMapFrame:Show()
+stub.advance(6)
+local function drawn(map)
+	stub.worldMapID = map
+	stub.runMapFrame(WorldMapFrame, 0)
+	local n = { rare = 0, treasure = 0 }
+	for _, f in ipairs(P.GetWorldFrames()) do
+		local layer = f.data.layer.name
+		if layer == "rares.rare" then n.rare = n.rare + 1 elseif layer == "rares.treasure" then n.treasure = n.treasure + 1 end
+	end
+	return n
+end
+local r = { opts = { ["rares.rare"] = opts["rares.rare"], ["rares.treasure"] = opts["rares.treasure"] }, zone = drawn(1429), continent = drawn(9100), world = drawn(9101), zoneAgain = drawn(1429) }
+Polestar.Set("rares.worldRares", false)
+r.rareOff = drawn(1429)
+r.rareOffLayer = opts["rares.rare"]
+emit(r)"#,
+		[1429, 88, 78],
+		Some("{ worldRares = true, worldTreasures = true, minimapRares = true, minimapTreasures = true }"),
+	);
+	let spots = json!({ "rare": 2, "treasure": 2 });
+	let none = json!({ "rare": 0, "treasure": 0 });
+	assert_eq!(out[0]["opts"]["rares.rare"], json!({ "n": 2, "dense": true, "world": true, "minimap": true }));
+	assert_eq!(out[0]["opts"]["rares.treasure"], json!({ "n": 2, "dense": true, "world": true, "minimap": true }));
+	assert_eq!(out[0]["zone"], spots, "the zone's map shows every spawn");
+	assert_eq!(out[0]["continent"], none, "a continent's map shows none");
+	assert_eq!(out[0]["world"], none, "nor does the world map");
+	assert_eq!(out[0]["zoneAgain"], spots, "back on the zone they return");
+	assert_eq!(out[0]["rareOff"], json!({ "rare": 0, "treasure": 2 }), "the rares' own setting still gates them");
+	assert_eq!(out[0]["rareOffLayer"], json!({ "n": 2, "dense": true, "world": false, "minimap": true }));
+}
+
 #[test]
 fn loading_the_codex_decodes_nothing_for_the_pins_until_a_layer_is_due_and_never_inside_the_load() {
 	let out = run(r#"

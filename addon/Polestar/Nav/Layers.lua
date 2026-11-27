@@ -4,7 +4,8 @@
 --   nav.route   where the travel route changes mode: flight masters, docks, the inn (world map)
 --   nav.goals   the current step's other open goals; click one to point the arrow there (world map)
 --   nav.spots   the target's other spawn places, small marks (other places it spawns fainter);
---               click one to search there next (world map); nav.spawnSpots off hides them. A target of exact points
+--               click one to search there next (zone maps; a continent shows the target and its regions, not
+--               every spot); nav.spawnSpots off hides them. A target of exact points
 --               (Engine.SpotsExact: an object's spawns, a mob at a few fixed places, #1944)
 --               marks every point on the minimap too, those checked lately fainter
 --   nav.areas   the regions the target's goal spawns in, in the arrow's colour (world
@@ -124,7 +125,7 @@ local function updateSpots(world, minimap)
 			}
 		end
 	end
-	Pins.SetLayer(SPOTS, pins, { world = world, minimap = minimap })
+	Pins.SetLayer(SPOTS, pins, { world = world, minimap = minimap, dense = true })
 end
 
 -- A leg that ends at a chokepoint (leg.choke = { kind, name }, Travel.lua)

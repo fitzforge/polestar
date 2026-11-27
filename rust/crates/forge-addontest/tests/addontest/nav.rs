@@ -1501,6 +1501,32 @@ fn the_world_map_marks_every_other_spot_of_an_area_objective_clicking_one_search
 	assert_eq!(out["off"], 0);
 }
 
+// The target's other spots are a dense layer (Pins' `dense`): a continent's map shows the target and not every spot,
+// the zone's map shows them all.
+#[test]
+fn a_continent_map_shows_the_target_and_not_every_other_spot_of_an_area_objective() {
+	let out = run(&[
+		SEARCH,
+		r#"
+		nav.maps[9010] = { c = 0, top = 3000, bottom = -3000, left = 3000, right = -3000, name = "Mainland" }
+		nav.setWaypoint(searchWp(1))
+		C_Map.GetMapInfo = function(map) return { mapID = map, mapType = map == 9010 and 2 or 3 } end
+		local function layers()
+			local names = {}
+			for _, pin in ipairs(nav.pins()) do names[#names + 1] = pin.data.layer.name end
+			table.sort(names)
+			return table.concat(names, " ")
+		end
+		nav.showWorldMap(9010)
+		local r = { continent = layers() }
+		nav.showWorldMap(9000)
+		r.zone = layers()
+		emit(r)"#,
+	]
+	.concat());
+	assert_eq!(out, json!({ "continent": "nav.target", "zone": "nav.spots nav.spots nav.target" }));
+}
+
 #[test]
 fn the_other_places_a_target_spawns_are_marked_fainter_and_smaller_and_say_so() {
 	let out = run(&[
