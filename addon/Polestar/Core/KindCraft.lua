@@ -533,8 +533,14 @@ local function professionSupplies(view)
 	for gi, gv in ipairs(view and view.goals or {}) do
 		if (gv.t == "collect" or gv.t == "auction" or gv.t == "buy") and seen[gv.item] then covers[#covers + 1] = gi end
 	end
+	-- The Buy | Farm | Mix switch is offered only while a material still to get has a real choice (farmed and bought):
+	-- with the rest held, vendor-only or made, every way gives the same list.
+	local choosable = false
+	for _, r in ipairs(rows) do
+		if r.choosable and r.toGet > 0 then choosable = true break end
+	end
 	return { title = st and st.goal.untilSkill, titleKind = "skill", way = mode == "gather" and "gather" or mode, rows = rows, focus = focus,
-		buyList = buyListOf(rows), selfFound = Materials.SelfFound(), choosable = Materials.Choosable(G), covers = covers }
+		buyList = buyListOf(rows), selfFound = Materials.SelfFound(), choosable = choosable, covers = covers }
 end
 
 M.supplies = function(view, kind)

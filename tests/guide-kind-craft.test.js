@@ -404,3 +404,33 @@ emit({ made = m.made, left = m.left, count = plain(st.Count:GetText()), compact 
 	assert.match(out.count, /^about 36 to go +· +2 made$/);
 	assert.match(out.compact, /^36 to go +· +to 115$/);
 });
+
+test('Buy | Farm | Mix: a click moves the chosen tab and repaints the materials', () => {
+	const out = run('', `
+GF.Layout(); stub.advance(1)
+local sup = GF.RegionFrame("supplies")
+local function marks() local t = {} for k, b in ipairs(sup.Modes) do t[k] = b.psMarked or false end return t end
+local before, shown = marks(), sup.Modes[1]:IsShown()
+sup.Modes[1]:Click()
+stub.advance(0.5)
+local afterBuy = marks()
+sup.Modes[2]:Click()
+stub.advance(0.5)
+emit({ shown = shown, before = before, afterBuy = afterBuy, afterFarm = marks(), way = GF.RegionModel("supplies").way,
+	wool = GF.RegionModel("supplies").rows[1].way })`);
+	assert.equal(out.shown, true, 'Wool Cloth is still short and can be farmed or bought');
+	assert.deepEqual(out.before, [false, false, true], 'Mix by default');
+	assert.deepEqual(out.afterBuy, [true, false, false]);
+	assert.deepEqual(out.afterFarm, [false, true, false]);
+	assert.equal(out.way, 'gather');
+	assert.equal(out.wool, 'gather');
+});
+
+test('Buy | Farm | Mix shows only while a material still to get has a choice: held, vendor-only or made ones give the same list', () => {
+	const out = run('w.items[2592] = 400', `
+GF.Layout(); stub.advance(1)
+local sup = GF.RegionFrame("supplies")
+local m = GF.RegionModel("supplies")
+emit({ choosable = m.choosable, tabs = sup.Modes[1]:IsShown() or sup.Modes[2]:IsShown() or sup.Modes[3]:IsShown(), drop = sup.ModeDrop:IsShown() })`);
+	assert.deepEqual(out, { choosable: false, tabs: false, drop: false }, 'the wool is held; Coarse Thread is vendor-only');
+});
