@@ -11,23 +11,38 @@ Building and releasing the addon (docs/RELEASING.md):
                      dist/SHA256SUMS; given another pack, <pack>/dist/<folder>-<version>.zip
   version [<x.y.z>]  print the version (exit 1 when guides/pack.json or an addon TOC disagrees), or set it
                      in package.json, guides/pack.json and every addon TOC
-  notes <x.y.z>      the version's release notes from CHANGELOG.md: dist/notes-<v>.md (GitHub),
-                     dist/notes-curseforge-<v>.md and dist/notes-discord-<v>.txt
+  notes <x.y.z>      the version's release notes from CHANGELOG.md: dist/notes-<v>.md (GitHub, ending with
+                     its Contributors section; needs gh), dist/notes-curseforge-<v>.md and
+                     dist/notes-discord-<v>.txt
   credits            rewrite addon/Polestar/Core/Credits.lua (the Guiding Stars page) from data/credits.json,
                      the repository's merged pull requests and those the release ref carries, its issues
                      (needs the GitHub CLI, gh, logged in), and the locales' translators
 
 forge release <command> --help shows the command's options. The changelog fragments: forge changelog.";
 
-const NOTES_USAGE: &str = "usage: forge release notes <x.y.z> [--root <dir>] [--out <dir>]
+const NOTES_USAGE: &str = "usage: forge release notes <x.y.z> [--root <dir>] [--out <dir>] [--since <tag>] [--release-ref <git ref>]
 
 Writes the version's CHANGELOG.md section (## <x.y.z> (<date>)) as notes-<v>.md (GitHub: the players' and
 guide authors' entries), notes-curseforge-<v>.md (the players') and notes-discord-<v>.txt (posts of at
 most 2,000 characters), each paragraph and list item joined onto one line. Each starts with a
 [[REPLACE ...]] line for the intro, to replace before publishing.
 
-  --root <dir>   the checkout holding CHANGELOG.md (default: the one above here, else above the forge binary)
-  --out <dir>    where to write (default <root>/dist/)";
+The GitHub notes end with a \"## Contributors\" section tagging every GitHub login that contributed to
+THIS release, so GitHub lists them on it (and notifies them: read the list before publishing). Source:
+the commits from the previous release tag to the release ref, with the rules of the Guiding Stars page
+(forge release credits --help): authors of the pull requests merged into the range, folded into it
+(closed, cherry-picked with authorship kept) or open with their head in it (translators included);
+Co-authored-by accounts GitHub resolves; reporters of the issues the release closes whose report
+counts; people whose idea (data/credits.json \"ideas\") shipped in it. Never the maintainer, bots or
+anyone in \"exclude\". A Discord report the bot relayed
+counts only when data/credits.json \"github\" maps its Discord name to a login. A hotfix gets the
+same section from its picks. Needs the GitHub CLI (gh, logged in); CurseForge and Discord notes have no
+such section.
+
+  --root <dir>         the checkout holding CHANGELOG.md (default: the one above here, else above the forge binary)
+  --out <dir>          where to write (default <root>/dist/)
+  --since <tag>        the previous release (default: the newest vX.Y.Z[.N] tag below <x.y.z>)
+  --release-ref <ref>  what the release ships (default: the tag v<x.y.z> when it exists, else HEAD)";
 
 const CREDITS_USAGE: &str = "usage: forge release credits [--root <dir>] [--release-ref <git ref>]
 
@@ -128,8 +143,9 @@ pub fn main() -> ExitCode {
 }
 
 fn notes(args: &[String]) -> Result<(), super::Fail> {
-	super::check_args(args, &["--root", "--out"], &[], 1).map_err(super::usage)?;
-	let [version] = positional(args, &["--root", "--out"]).try_into().map_err(|_| super::usage("one version"))?;
+	const VALUES: [&str; 4] = ["--root", "--out", "--since", "--release-ref"];
+	super::check_args(args, &VALUES, &[], 1).map_err(super::usage)?;
+	let [version] = positional(args, &VALUES).try_into().map_err(|_| super::usage("one version"))?;
 	if !forge_release::is_version(&version) {
 		return Err(super::usage(format!("\"{version}\" is not a version (x.y.z, x.y.z.hotfix or x.y.z-pre)")));
 	}
@@ -137,15 +153,28 @@ fn notes(args: &[String]) -> Result<(), super::Fail> {
 	let file = root.join("CHANGELOG.md");
 	let text = std::fs::read_to_string(&file).map_err(|e| format!("{}: {e}", file.display()))?;
 	let rel = forge_release::notes::release_section(&text, &version).ok_or_else(|| format!("CHANGELOG.md has no \"## {version} (<date>)\" section"))?;
+	let found = forge_release::contributors::collect(&root, &version, opt(args, "--since").as_deref(), opt(args, "--release-ref").as_deref())?;
+	let logins: Vec<String> = found.credits.iter().map(|c| c.login.clone()).collect();
 	let out = opt(args, "--out").map_or_else(|| root.join("dist"), |o| forge_release::absolute(Path::new(&o)));
 	std::fs::create_dir_all(&out).map_err(|e| format!("{}: {e}", out.display()))?;
 	use forge_release::notes::{curseforge, discord, github, PLACEHOLDER};
-	for (name, text) in [(format!("notes-{version}.md"), github(&rel)), (format!("notes-curseforge-{version}.md"), curseforge(&rel)), (format!("notes-discord-{version}.txt"), discord(&rel))] {
+	for (name, text) in [(format!("notes-{version}.md"), github(&rel, &logins)), (format!("notes-curseforge-{version}.md"), curseforge(&rel)), (format!("notes-discord-{version}.txt"), discord(&rel))]
+	{
 		let file = out.join(name);
 		std::fs::write(&file, text).map_err(|e| format!("{}: {e}", file.display()))?;
 		println!("{}", file.display());
 	}
 	println!("\nEach file holds a placeholder for the intro, marked {PLACEHOLDER}: replace it before publishing.");
+	println!(
+		"\nContributors ({}..{}, {}): {} tagged in the GitHub notes, who are notified when it is published:",
+		found.since,
+		found.until,
+		forge_release::plural(found.commits, "commit"),
+		found.credits.len()
+	);
+	for c in &found.credits {
+		println!("  @{}: {}", c.login, c.why.join(", "));
+	}
 	Ok(())
 }
 
