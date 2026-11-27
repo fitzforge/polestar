@@ -1205,3 +1205,20 @@ test('Kodo Roundup (5561) is a use of the Kodo Kombobulator on the kodos, then a
 	assert.deepEqual(m.steps.map((s) => s.action), ['use-item', 'talk']);
 	assert.match(m.steps[0].fact, /Don't kill it/);
 });
+
+// imp (#4454): Watch Yer Back has a quest-log line, "Speak with Sully", that ticks at Sully McCleary's window before
+// the hand-in to him; with no objective in our data the Alcaz Prison pick-up guide only said to hand it in.
+test('Watch Yer Back (95196) is a talk with Sully McCleary before the hand-in (#4454)', () => {
+	const objs = corrections.quests[95196].set.objectives;
+	assert.equal(objs.length, 1, 'one objective');
+	assert.deepEqual([objs[0].type, objs[0].id, objs[0].count], ['talk', 260271, 1]);
+});
+
+// imp (#4455): The Return of the King?'s eavesdropping is done in the SI:7 Disguise Kit, relieving the guard at the
+// Theramore Mage Tower; the pick-up guide said nothing of either.
+test('The Return of the King? (95198) says to use the SI:7 Disguise Kit and relieve the guard (#4455)', () => {
+	const m = require('../data/mechanics-public.json').quests[95198];
+	assert.deepEqual(m.steps.map((s) => s.action), ['use-item', 'talk']);
+	assert.equal(m.steps[0].item.id, 269000);
+	assert.match(m.steps[1].fact, /Theramore Guard/);
+});
