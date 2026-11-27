@@ -8318,8 +8318,6 @@ test(`${ARATHI}: Fyurie's report (#1319): MacKreel's Moonshine is taken after Ko
 	assert.equal(list[turnin].s, list[fly].s + 1, 'handed in in the step right after the flight');
 	assert.ok(list.slice(accept + 1, turnin).every(({ goal }) => goal.t !== 'kill' && goal.t !== 'collect'), 'nothing to kill or collect in between');
 	assert.ok([list[accept].step.note, list[accept].step.tip].flat().filter(Boolean).join(' ').includes('within 15 minutes'), 'the step names the time limit');
-	// Review (0.3.6): the race filter it kept came from an old per-race export; every Alliance race may take it.
-	for (const i of [accept, turnin]) assert.ok(!list[i].goal.only?.races, `${list[i].goal.t} 647 is open to every Alliance race`);
 });
 
 // --- Timed-quest check (2026-11-08, #1319's pattern): A Meal Served Cold (212) must be back with Angus Stern in Stormwind
@@ -14303,7 +14301,10 @@ test('Alliance 30-40: the Balloo letters and MacKreel\'s Moonshine for every All
 		assert.ok(everyone(wet[at(wet, `${t} ${q}`, is(t, q))]), `${t} ${q} has no race filter`);
 	}
 	const ara = goals('forever/alliance/30-40/05-arathi-highlands.guide');
-	for (const t of ['accept', 'turnin']) assert.ok(everyone(ara[at(ara, `${t} 647`, is(t, 647))]), `${t} 647 has no race filter`);
+	for (const t of ['accept', 'turnin']) {
+		const { step, goal } = ara[at(ara, `${t} 647`, is(t, 647))];
+		assert.ok(!step.only?.races && !goal.only?.races, `${t} 647 has no race filter`);
+	}
 });
 
 // Seam Horde 30-40/40-50 (0.3.6, with the 30-40 owner): Gazlowe in Ratchet gives Goblin Sponsorship part 2 (1180) on

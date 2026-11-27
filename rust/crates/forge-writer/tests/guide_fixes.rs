@@ -99,3 +99,30 @@ fn report_2282_does_not_add_the_horde_detour_warning_to_other_routes() {
 	assert_eq!(after, before);
 	assert!(rows.iter().all(|r| r.state == "not for this start"));
 }
+
+#[test]
+fn mackreels_moonshine_limits_pickup_and_keeps_the_rest_of_the_southshore_stop() {
+	const ARATHI: &str = "forever/alliance/30-40/05-arathi-highlands.guide";
+	let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../..");
+	let before = std::fs::read_to_string(root.join("forge/seed/guides").join(ARATHI)).unwrap().replace("\r\n", "\n");
+	let all = document("data/guide-fixes.json");
+	let fixes = json!({ "fixes": all["fixes"].as_array().unwrap().iter().filter(|r| r["at"]["quest"] == 647 || r["id"] == "arathi-southshore-town-hall").collect::<Vec<_>>() });
+	let records = Records { guide_fixes: Some(&fixes), ..Records::default() };
+	let mut tree = BTreeMap::from([(ARATHI.to_string(), before)]);
+	let write = |tree: &mut BTreeMap<String, String>| apply(tree, &[ARATHI.into()], &HashSet::from([647]), Some("Alliance"), records, None);
+	let rows = write(&mut tree);
+	assert!(rows.iter().all(|r| matches!(r.state.as_str(), "applied" | "redundant")), "{rows:?}");
+	let after = tree[ARATHI].clone();
+	let gap = after.split("step Foggy MacKreel\n").nth(1).unwrap().split("\nstep ").next().unwrap();
+	assert!(gap.lines().any(|l| l.trim() == "accept 647 only Hunter,Druid"), "{gap}");
+	assert!(gap.lines().any(|l| l.contains("Aspect of the Cheetah (Hunter)") && l.contains("Travel Form (Druid)")), "{gap}");
+	let (_, southshore) = after.split_once("step Brewmeister Bilger\n").unwrap();
+	let (hand_in, other_quests) = southshore.split_once("step Southshore town hall\n").unwrap();
+	assert!(hand_in.contains("when onquest 647") && hand_in.contains("turnin 647"), "{hand_in}");
+	assert!(!hand_in.contains("only ") && !hand_in.contains("turnin 505"), "{hand_in}");
+	let other_quests = other_quests.split("\nstep ").next().unwrap();
+	assert!(other_quests.contains("turnin 505") && other_quests.contains("accept 514"), "{other_quests}");
+	assert!(!other_quests.contains("when onquest 647"), "{other_quests}");
+	assert!(write(&mut tree).iter().all(|r| r.state == "redundant"));
+	assert_eq!(tree[ARATHI], after);
+}

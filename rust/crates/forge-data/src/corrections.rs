@@ -1617,7 +1617,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	let mut slots: Vec<(String, String)> = Vec::new();
 	// (Per quest with `races` records: whether one is quest-wide, how many there are, the first's path.)
 	let mut races_of: std::collections::BTreeMap<String, (bool, usize, String)> = std::collections::BTreeMap::new();
-	const KINDS: [&str; 14] = ["tip", "goalNote", "optional", "level", "along", "early", "when", "background", "races", "follows", "split", "step", "way", "levels"];
+	const KINDS: [&str; 15] = ["tip", "goalNote", "optional", "level", "along", "early", "when", "background", "races", "classes", "follows", "split", "step", "way", "levels"];
 	for (i, r) in list.items().iter().enumerate() {
 		let at = format!("fixes[{i}]");
 		ck.keys(
@@ -1637,6 +1637,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 				"when",
 				"background",
 				"races",
+				"classes",
 				"follows",
 				"split",
 				"step",
@@ -1649,7 +1650,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 				"pr",
 			],
 		);
-		for field in ["follows", "split", "step", "way", "levels"] {
+		for field in ["classes", "follows", "split", "step", "way", "levels"] {
 			if !r.get(field).is_undef() && KINDS.iter().any(|k| *k != field && !r.get(k).is_undef()) {
 				ck.err(format!("{at}.{field}"), format!("a `{field}` fix uses a record of its own"));
 			}
@@ -1741,10 +1742,18 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 		if !races.is_undef() && [&tip, &level].iter().any(|v| !v.is_undef()) {
 			ck.err(&at, "a `races` fix uses a record of its own");
 		}
+		let classes = r.get("classes");
+		if !classes.is_undef() {
+			let valid = classes.as_str().is_some_and(|list| list.split(',').all(|name| forge_core::races::CLASSES.iter().any(|class| forge_core::races::class_label(class.file) == name.trim())));
+			if !valid || a.get("goal").as_str() != Some("accept") {
+				ck.err(format!("{at}.classes"), "a comma-separated class list (such as `Hunter,Druid`) on an accept");
+			}
+		}
 		let kind =
 			match (tip.is_undef(), level.is_undef()) {
 				(true, true) if !r.get("optional").is_undef() => "optional",
 				(true, true) if !r.get("goalNote").is_undef() => "goalNote",
+				(true, true) if !classes.is_undef() => "classes",
 				(true, true) if !r.get("follows").is_undef() => {
 					check_goal_ref(ck, &format!("{at}.follows"), &r.get("follows"));
 					"follows"
