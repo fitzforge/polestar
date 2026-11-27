@@ -2871,11 +2871,40 @@ fn a_group_quest_banner_asks_skip_it_or_do_it_with_a_group_and_cannot_be_dismiss
 		ASK,
 		r#"
 		B.Later:Click()
-		emit({ call = lastCall("AnswerGroup"), after = B:IsShown() })"#,
+		emit({ call = lastCall("AnswerGroup"), after = GF.BannerNotice() or false })"#,
 	]
 	.concat())
 	.remove(0);
-	assert_eq!(group, json!({ "call": ["AnswerGroup", 6284, "do"], "after": false }));
+	assert_eq!(group, json!({ "call": ["AnswerGroup", 6284, "do"], "after": "groupDo" }));
+}
+
+// "Do it with a group" is never final: at the group quest's step the banner offers "No group? Skip it", which
+// skips it with the usual undo; closed, it stays away for that quest this session.
+#[test]
+fn a_group_quest_answered_do_offers_no_group_skip_it_at_its_step() {
+	let out = run(&[
+		ASK,
+		r#"
+		B.Later:Click()
+		local doing = { kind = GF.BannerNotice() or false, text = B.Text:GetText(), link = B.Jump.Label:GetText(), close = B.Close:IsShown() }
+		B.Jump:Click()
+		local skipped = { call = lastCall("AnswerGroup"), kind = GF.BannerNotice() or false }
+		B.Jump:Click()
+		B.Later:Click()
+		GF.DismissBanner()
+		emit({ doing = doing, skipped = skipped, closed = GF.BannerNotice() or false, answer = Polestar.CharState().groupQuests[6284] or false })"#,
+	]
+	.concat())
+	.remove(0);
+	assert_eq!(
+		out["doing"],
+		json!({ "kind": "groupDo", "text": "Group quest: “Arachnophobia”
+In your route: the guide takes you to it. Bring a group.", "link": "No group? Skip it", "close": true }),
+		"{out}"
+	);
+	assert_eq!(out["skipped"], json!({ "call": ["AnswerGroup", 6284, "skip"], "kind": "groupSkip" }), "{out}");
+	assert_eq!(out["closed"], false, "{out}");
+	assert_eq!(out["answer"], "do", "{out}");
 }
 
 // The group quest's skip, undone from the banner (#2404): the quest is unanswered again, so the step asks once more.

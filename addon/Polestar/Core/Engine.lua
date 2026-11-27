@@ -12174,6 +12174,25 @@ function Engine.EscortNote(q)
 	return L["%s. Optional: the route doesn't need it."]:format(head)
 end
 
+-- The group quest the live step takes the player to because the answer is
+-- "do" (`when group`, per character or behavior.groupQuests), while it still
+-- has work (Own.groupOpen): its id and title, or nil. The banner offers
+-- "No group? Skip it" there, so a "do" answer is never final.
+function Engine.GroupDoing()
+	local step = guide and computed and guide.steps[computed]
+	if not step or step.along then return nil end
+	for _, p in ipairs(step.when or NONE) do
+		if p.k == "group" and not p.neg and Own.groupAnswer(p.q) == "do" and Own.groupOpen(step, p.q) then
+			for _, goal in ipairs(step.goals) do
+				if goal.quest == p.q and goal.title then return p.q, questTitle(goal) end
+			end
+			local a = layoutOf(guide).accepts[p.q]
+			return p.q, (a and questTitle(a[1].goal)) or step.title
+		end
+	end
+	return nil
+end
+
 -- Whether the live step's escort runs: an escort goal (compiled `escort`) of
 -- it for this character, not done, its quest in the log (the escorted NPC
 -- walks from the accept on). The travel planner walks then: a Hearthstone,
