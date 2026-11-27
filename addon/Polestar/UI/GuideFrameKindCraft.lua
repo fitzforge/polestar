@@ -5,7 +5,7 @@
 -- line on top ("Blacksmithing 12 / 75", "Not learned yet"); then the step: a train, learn, buy or go-to step is
 -- the step's own rows (UI/GuideFrameRegions.lua, "step"); a get step is "Get 200 Rough Stone 64/200" with a row
 -- per way its goals allow, picked like an option (a radio mark), each with one button ("Guide me", "Buy list") and
--- a short line ("Durotar loop on your map  ·  ~25 min for the rest", "136 more, about 14s at your last search");
+-- a short line ("Durotar loop on your map  ·  about 25 min for the rest", "136 more, about 14s at your last search");
 -- a craft step is "Craft Rough Sharpening Stone until 35" with the recipe's icon, the client's skill-up arrow,
 -- "about 42 to go" and Open <Profession> (the window's one secure button). Under it one folded row, the shopping
 -- list: the section's materials, have / need, and "Buy the whole list". Reputation: the standing meter, the turn-in
@@ -520,7 +520,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			if w.way == "gather" and w.npc then parts[#parts + 1] = hexed("npc", w.npc) end
 			if zone then parts[#parts + 1] = w.loop and format(L["%s loop on your map"], zone) or zone end
 			if w.minutes and toGet > 0 then
-				parts[#parts + 1] = w.minutes <= 90 and format(L["~%d min for the rest"], w.minutes) or (w.rate and format(L["about %d an hour"], w.rate)) or nil
+				parts[#parts + 1] = w.minutes <= 90 and format(L["about %d min for the rest"], w.minutes) or (w.rate and format(L["about %d an hour"], w.rate)) or nil
 			end
 		end
 		return parts[1] and table.concat(parts, DOT) or nil
