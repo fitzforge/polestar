@@ -736,9 +736,10 @@ function wrap(text, width = 100) {
 // steps first, then Enchanting's, and the green armour Tailoring made in the bracket is disenchanted for it.
 // Both drafts come from their route files (route.js) as one-action steps, kept as they are; the pair only
 // orders them: Learn Enchanting on the first trip with Learn Tailoring, an Enchanting rank trained right after
-// the Tailoring rank of the same bracket (one trip to the capitals), Enchanting's disenchanting step at the head
-// of its bracket (the greens are in the bags then), and Tailoring's last fork after Enchanting 225-300 (a way
-// may stop short of 300). Each Enchanting Get of a dust or essence says how much the bracket's own Tailoring
+// the Tailoring rank of the same bracket (one trip to the capitals), and Tailoring's last fork after
+// Enchanting 225-300 (a way may stop short of 300). Enchanting's disenchanting step stays where its guide has
+// it, after the rod (a craft "until 2" past 2 would be done without the tool): the bracket's greens are in the
+// bags by then. Each Enchanting Get of a dust or essence says how much the bracket's own Tailoring
 // greens give (data/disenchant.json: the client's disenchant bands with the server's loot, green armour;
 // tailoring-item-levels.json: the client's item level of each green Tailoring makes). Disenchanting asks
 // Enchanting skill by item level (Classic's rule, ASSUMED): a bracket's greens count where Enchanting's bracket
@@ -782,8 +783,7 @@ function renderCloth(ctx) {
 	const emit = (b) => out.push('', ...b.lines);
 	const plainRank = (b, P) => b.kind === 'train' && new RegExp(`^Train (Journeyman|Expert|Artisan) ${P}$`).test(b.title);
 	const learnE = E.blocks.find((b) => b.kind === 'train' && b.title === 'Learn Enchanting');
-	const deStep = E.blocks.find((b) => b.kind === 'disenchant');
-	const moved = new Set([learnE, deStep].filter(Boolean));
+	const moved = new Set([learnE].filter(Boolean));
 	const range = (cap) => `${cap === 75 ? 1 : CAPS[CAPS.indexOf(cap) - 1]}-${cap}`;
 	for (const cap of CAPS) {
 		const tb = t.get(cap);
@@ -810,7 +810,6 @@ function renderCloth(ctx) {
 			for (const [item, n] of disenchant(ilvl, s.count * (s.recipe.itemCount || 1))) got.set(item, (got.get(item) || 0) + n);
 		}
 		for (const [item, n] of got) report.de.set(item, (report.de.get(item) || 0) + n);
-		let first = true;
 		for (const b of eb) {
 			if (moved.has(b)) continue;
 			const lines = b.lines.slice();
@@ -824,9 +823,6 @@ function renderCloth(ctx) {
 				if (n >= 1 && tip >= 0 && lines[tip].length - 6 + add.length <= 120) lines[tip] += add;
 			}
 			out.push('', ...lines);
-			// The disenchanting step heads Enchanting's first bracket, under its first section.
-			if (first && b.kind === 'section' && deStep && cap === 75) emit(deStep);
-			if (b.kind === 'section') first = false;
 		}
 		for (const b of tb.slice(cut)) emit(b);
 	}

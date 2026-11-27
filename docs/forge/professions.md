@@ -4,8 +4,7 @@ Polestar's profession guides (`guides/forever/professions/`) are generated, neve
 
 | Guides | Built by | From |
 |---|---|---|
-| Blacksmithing, Enchanting, Engineering | `node tools/polestar.js profession draft <Profession> --out` | its route file, `tools/lib/professions/routes/<profession>.json`, through `route.js` (see "Route files") |
-| Alchemy, Leatherworking, Tailoring (until each has a route file) | `node tools/polestar.js profession draft <Profession> --out` | `tools/lib/professions/` (plan.js, guide.js, specs.js) |
+| Alchemy, Blacksmithing, Enchanting, Engineering, Leatherworking, Tailoring | `node tools/polestar.js profession draft <Profession> --out` | its route file, `tools/lib/professions/routes/<profession>.json`, through `route.js` (see "Route files") |
 | Cooking, First Aid | `node tools/polestar.js profession gathering build` | their route files through `route.js`, like the crafting professions |
 | Mining, Herbalism, Skinning, Fishing | `node tools/polestar.js profession gathering build` | `tools/lib/professions/gathering/` |
 | Herbalism + Alchemy, Mining + Blacksmithing, Mining + Engineering, Skinning + Leatherworking, Fishing + Cooking, Tailoring + Enchanting | `node tools/polestar.js profession gathering build` | `tools/lib/professions/pairs.js` over the two above (Fishing + Cooking: `pair-fishing.js` over `gathering/fish-rounds.js`) |
@@ -142,11 +141,13 @@ professions' ranks trained on one visit when both are due.
 - **Trainers.** A gathering rank or smelt that falls due is trained at the next crafting trainer visit
   (one trip); otherwise it gets its own step where the gathering guide trains it. The smelts a bar needs
   are learned before the stretch that smelts it.
-- **Tailoring + Enchanting** flows the other way: each rank bracket levels Tailoring, then Enchanting, and
-  the green armour Tailoring made is disenchanted for Enchanting's dust (`data/disenchant.json`: the
-  client's disenchant bands with the server's loot; `tailoring-item-levels.json`: the client's item levels).
-  The Enchanting steps say how much of what they ask
-  those crafts give; the rest is looted or bought.
+- **Tailoring + Enchanting** flows the other way: both guides are built from their route files and kept as
+  their steps are; each rank bracket runs Tailoring's steps, then Enchanting's. Learn Enchanting comes with
+  Learn Tailoring, an Enchanting rank with the Tailoring rank of the same bracket (one trip; Annora's keeps its
+  own), Enchanting's disenchanting step stays after its rod, and Tailoring's last fork comes after
+  Enchanting 225-300 (a way may stop short of 300). Each Enchanting get of a dust or essence says how much the
+  bracket's own Tailoring greens give when disenchanted (`data/disenchant.json`: the client's disenchant bands
+  with the server's loot; `tailoring-item-levels.json`: the client's item levels); the rest is looted or bought.
 - **Fishing + Cooking** (`pair-fishing.js`) is blended the same way. Its track is the Fishing bands
   (`gathering/fish-rounds.js`): per band and faction, every water of the side that gives the band's fish
   as a farming loop of its stands (where players stood when they caught fish, `fishing-waters.json`), a
