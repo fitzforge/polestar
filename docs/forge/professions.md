@@ -34,7 +34,7 @@ one, so no step could lead a player to it), a rank book or quest the data does n
 | `profession`, `intro` | The profession's name; the header's paragraphs |
 | `tools` | `{ item, at: "learn", vendors: { Alliance, Horde } }`: a tool bought on the first trainer visit; the vendors are the ones by each trainer (checked; the step itself takes the nearest seller). `{ item, at: "craft" }`: a tool the profession makes itself (Arclight Spanner, the runed rods); a band or make crafts it before the first recipe that needs it, or the build stops |
 | `recipes` | recipe item -> `{ Alliance: [vendors], Horde: [vendors], note? }`: patterns, formulas, schematics, cookbook recipes and manuals vendors sell (checked: each sells it and serves the side; both sides need one) |
-| `sections` | One per rank: `{ rank, from, to, level, cost?, teachers: { Alliance, Horde }, route }`. `teachers` are the trainers who teach that rank's recipes: the trainer a player starts with teaches only the first ones (Blacksmithing: up to 50), and a recipe may be taught by fewer trainers than its rank (Mithril Coif: Brikk Keencraft only). A rank from a book: `by: { book, vendors: { Alliance, Horde } }` (`level` is the route's: the data's is Classic's); from a quest: `by: { quest: { Alliance, Horde } }` (`level` is the quest's). A rank only a trainer inside a dungeon teaches: `dungeon: true` (or the dungeon's name), with `outside: { Alliance, Horde }` when someone outside trains it too |
+| `sections` | One per rank: `{ rank, from, to, level, cost?, teachers: { Alliance, Horde }, route }`. `teachers` are the trainers who teach that rank's recipes: the trainer a player starts with teaches only the first ones (Blacksmithing: up to 50), and a recipe may be taught by fewer trainers than its rank (Mithril Coif: Brikk Keencraft only). A rank from a book: `by: { book, vendors: { Alliance, Horde } }` (`level` is the route's: the data's is Classic's); from a quest: `by: { quest: { Alliance, Horde } }` (`level` is the quest's). A rank only a trainer inside a dungeon teaches: `dungeon: true` (or the dungeon's name), with `outside: { Alliance, Horde }` when someone outside trains it too; `dungeonTip` is the trainer step's heads-up (Annora appears once her room is cleared) |
 | band | `{ from, to, recipe, count, mats, keep?, note?, quests?, alternative? }`: craft `count` of `recipe` from `from` to `to`; `mats` is item -> count (checked); `keep` and `note` are its one-line tip; `quests` hand over its plans (their items join the get); `alternative` is another recipe for the same points, kept for reference |
 | make | `{ make, count, mats, for }`: parts crafted for a later band (no skill points) |
 | fork | `{ fork, ways: [{ name, plans?, why?, route }] }`: from here the route goes one of several ways; a way with `plans` (world drops) is taken when the player buys them at the Auction House, the last way is the one that always works |
@@ -55,7 +55,9 @@ pin lead to, or any station with the nearest pinned), how many, and what finishe
   first recipe); **Learn <recipe>** (`learn <spell> npc <the section's teachers>`, or from plans in the bags).
   On that visit the player also learns every recipe a later band of the rank uses that the skill already
   allows (outside forks), so no recipe takes a second trip that the first could have taught.
-- A rank from a book: **Buy <book> · <vendor>**, then **Read <book>** (`train <Profession> <Rank>`); from a
+- A rank from a book: the section's recipes the trainers already teach at its start first (**Learn** on the
+  trainer visit before the trip), **Buy <book> · <vendor>**, then **Read <book>** (`train <Profession> <Rank>`)
+  and, on the same visit, the section's patterns the book's sellers also sell; from a
   quest: **Get N <item>** for each item the quest asks, the feeder each side's trainer hands out (**Accept** and
   **Hand in** it: the data shows the quest only after it), then **Accept**, **Complete** (an event or kill
   objective; `by.tip` is its heads-up) and **Hand in** the quest; inside a dungeon: **Go to <dungeon>** (its
@@ -63,7 +65,9 @@ pin lead to, or any station with the nearest pinned), how many, and what finishe
   outside trains it, **Train <Rank> <Profession> · <outside trainer>** per side.
 - **Buy <Pattern: X> · <vendor>** (`buy <item> x1 npc <id>`, or `nearest` over several; one step per side
   where the sides' vendors differ; `when !knows <spell>`) on the trip before the band that needs it, then
-  **Learn <recipe>** from the pattern in the bags.
+  **Learn <recipe>** from the pattern in the bags (`learn <spell> nearest`: until it is in the bags, the learn
+  leads to the nearest seller). A recipe first learned in an earlier section is learned again (a step that is
+  done at once for a player who knows it) in each later section that crafts it, for a player who starts there.
 - **Go to an anvil** (`goto … nearest` over the stations of the recipe's spell focus, `stations.json`, in
   towns with a trainer or tool seller), before a craft that needs one unless the step before was a craft
   there; the engine finishes it on arrival at any of them. A cooking fire's step is also finished by placing a
