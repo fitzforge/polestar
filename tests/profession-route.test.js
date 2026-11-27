@@ -61,7 +61,7 @@ test('tips are one short line, never an instruction', () => {
 
 test('every step says what, where, how many and when it is done, on its own', () => {
 	// Goals that lead somewhere (the arrow): a smart target, a place, a loop or farm, a trainer list.
-	const placed = (g) => /^(train|buy|auction|turnin|accept|complete|vendor)$/.test(g.verb) || (g.verb === 'learn') || (g.verb === 'goto') || (g.verb === 'collect' && /\b(gather|nearest|@)/.test(g.rest)) || (g.verb === 'skill');
+	const placed = (g) => /^(train|buy|auction|turnin|accept|complete|vendor)$/.test(g.verb) || (g.verb === 'learn') || (g.verb === 'goto') || (g.verb === 'collect' && /\b(gather|nearest)\b|@/.test(g.rest)) || (g.verb === 'skill');
 	// Goals that may sit anywhere: a craft (its station step comes before when it needs one), a level, a task,
 	// a skill, and what is done on the spot (equip the pole, put a lure on it, turn tracking on).
 	const anywhere = (g) => /^(craft|level|task|skill|equip|use|cast)$/.test(g.verb);
@@ -127,6 +127,7 @@ test('a trainer visit learns every recipe of the rank the skill already allows: 
 	const d = loadData();
 	for (const name of ROUTED.filter(exists)) {
 		const prof = Object.values(d.professions).find((p) => name.endsWith(p.name.toLowerCase()) && p.recipes && p.kind !== 'secondary');
+		if (!prof) continue; // Fishing and Lockpicking learn no trainer recipes
 		const recipes = new Map(prof.recipes.map((r) => [r.spell, r]));
 		let skill = 1;
 		const visits = []; // trainer visits outside fork ways: { npcs, skill }
