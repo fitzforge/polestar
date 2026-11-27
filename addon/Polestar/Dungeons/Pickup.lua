@@ -99,6 +99,20 @@
 --       (CharState().dungeonPickupSkip[key][questId]); PickupPlan then lists them as
 --       `skipped` (not for the heads-up's `offer`). Dungeons.Unskip(key) brings them back.
 --       Dungeons.Skipped(key) -> { [questId] = true } | nil
+--   Dungeons.OutsideWork(plan) -> { { quest, title, rec, goals, take, optional, chain = { n, of }, opens } }
+--       what is done out in the world before the way in (#4379), in the plan's order:
+--       for each take, the quests of its chain open now (its `pre` none of the others
+--       wait on: chain = their place in the chain's line, Lookup.ChainProgress, the page
+--       quest not counted; opens: the take's quest id; goals: the quest's whole step), then
+--       for each take and each carried quest not ready to hand in, its objectives done
+--       only out in the world and not done yet (an NPC or object placed outside every
+--       instance, an item no source inside any instance gives; an item placed nowhere
+--       but made from parts: a collect of each part only the world gives, The Pariah's
+--       Instructions' three Khans' gems). optional: none of its places in the
+--       entrance's zone and the trip there from the entrance and back over
+--       PICKUP_DETOUR minutes (each goal carries `optional` then). The pick-up guide
+--       makes each page quest's work a step of its own, after its accept, on the
+--       planned route before the way in.
 --   Dungeons.MarkOpens(step, quest, opens, breadcrumb)
 --       puts OpensNote's line on the step's accept of `quest` (else its first
 --       goal) as that goal's note, before the goal's own: the guide window
@@ -1477,6 +1491,153 @@ function Dungeons.PlanStops(stops, from, finish, travel, opts)
 	return near, cost(near)
 end
 
+---------------------------------------------------------------------------
+-- The work out in the world before the way in (#4379)
+---------------------------------------------------------------------------
+
+-- A Codex NPC or object placed outside every instance.
+local function placedOutside(x) return type(x) == "table" and not x.instance and type(x.spawns) == "table" and #x.spawns > 0 end
+
+-- An item's sources -> within, outside: one in an instance (the source's or
+-- its NPC's or object's `instance`), one placed out in the world. Vendors and
+-- crafts are neither: nothing places them.
+local function itemPlaces(itemId)
+	local C = ns.Codex
+	local it = C.Item(itemId)
+	local within, outside = false, false
+	for _, src in ipairs(it and it.sources or {}) do
+		local x = (src.type == "drop" and src.npc and C.Npc(src.npc)) or (src.type == "object" and src.object and C.Object(src.object)) or nil
+		if (src.type == "drop" or src.type == "object") and (src.instance or (x and x.instance)) then
+			within = true
+		elseif placedOutside(x) then
+			outside = true
+		end
+	end
+	return within, outside
+end
+
+-- Whether a Codex objective can be done only out in the world: its NPC or
+-- object placed outside every instance, its item dropped or held only
+-- there. One the run gives too (an item dropped inside as well) is left to
+-- the run.
+local function outsideOnly(o)
+	local C = ns.Codex
+	if (o.type == "kill" or o.type == "talk") and o.id then return placedOutside(C.Npc(o.id)) end
+	if o.type == "object" and o.id then return placedOutside(C.Object(o.id)) end
+	if o.type == "item" and o.id then
+		local within, outside = itemPlaces(o.id)
+		return outside and not within
+	end
+	return false
+end
+
+-- A part an objective's item is made from (the Codex's madeFrom) that only
+-- the world gives -> an untied collect goal at its source's spawn nearest
+-- `here` (the Engine counts it in the bags), or nil.
+local function partGoal(itemId, here)
+	local C, Lk = ns.Codex, LK()
+	local within, outside = itemPlaces(itemId)
+	if within or not outside then return nil end
+	local best, bestT, bestSrc
+	for _, src in ipairs(C.Item(itemId).sources or {}) do
+		local x = (src.type == "drop" and src.npc and C.Npc(src.npc)) or (src.type == "object" and src.object and C.Object(src.object)) or nil
+		if placedOutside(x) then
+			local s, t = Lk.Nearest(x.spawns, here)
+			if s and (not best or (t and (not bestT or t < bestT))) then best, bestT, bestSrc = s, t, { src = src, rec = x } end
+		end
+	end
+	if not best then return nil end
+	local g = { t = "collect", item = itemId, itemName = (C.Name and C.Name("item", itemId)) or nil, count = 1,
+		map = best.map, x = best.x, y = best.y, f = best.f }
+	if bestSrc.src.npc then g.npc, g.npcName = bestSrc.src.npc, bestSrc.rec.name end
+	return g
+end
+
+-- Quest rec's objectives done only out in the world and not done yet, as
+-- Lookup's goals (Lookup.QuestStep's, nearest `here`), in the quest's order
+-- -> { goal, ... }. An item the Codex places nowhere but makes from parts
+-- (The Pariah's Instructions' Amulet of Union: three Khans' gems out in
+-- Desolace's caves, two inside) gets a collect of each part the world gives.
+local function workGoals(r, here)
+	local step = LK().QuestStep(r, here)
+	local open = inLog(r.id) and ns.Compat.GetQuestObjectives(r.id) or nil
+	local out = {}
+	for _, g in ipairs(step and step.goals or {}) do
+		local o = g.oi and r.objectives and r.objectives[g.oi]
+		local finished = o and open and open[g.oi] and open[g.oi].finished
+		if o and not finished and g.t ~= "accept" and g.t ~= "turnin" then
+			if outsideOnly(o) and located(g) then
+				out[#out + 1] = g
+			elseif o.type == "item" and type(o.madeFrom) == "table" and not (itemPlaces(o.id)) and not select(2, itemPlaces(o.id)) then
+				for _, part in ipairs(o.madeFrom) do
+					local pg = partGoal(part, here)
+					if pg then
+						pg.title = r.title
+						out[#out + 1] = pg
+					end
+				end
+			end
+		end
+	end
+	return out
+end
+
+-- Whether the work's places put it over the pick-up detour: none in the
+-- entrance's zone, and the trip there from the entrance and back over
+-- PICKUP_DETOUR minutes.
+local function farWork(goals, e)
+	if not located(e) then return false end
+	for _, g in ipairs(goals) do if g.map == e.map then return false end end
+	local travel = LK().Travel
+	local a, b = goals[1], goals[#goals]
+	local there, back = travel(e, a), travel(b, e)
+	return there ~= nil and back ~= nil and there + back > Dungeons.PICKUP_DETOUR * 60
+end
+
+function Dungeons.OutsideWork(plan)
+	local out = {}
+	if type(plan) ~= "table" or not plan.dungeon then return out end
+	local C, Lk = ns.Codex, LK()
+	local e = plan.dungeon.entrance
+	local here = located(e) and { map = e.map, x = e.x, y = e.y, f = e.f == "e" and "e" or nil } or nil
+	local seen = {}
+	local function work(r, take)
+		if not r or seen[r.id] then return end
+		seen[r.id] = true
+		local goals = workGoals(r, here)
+		if #goals == 0 then return end
+		local far = farWork(goals, e)
+		if far then for _, g in ipairs(goals) do g.optional = true end end
+		out[#out + 1] = { quest = r.id, title = ns.Compat.GetQuestTitle(r.id) or r.title, rec = r, goals = goals, take = take, optional = far }
+	end
+	for _, t in ipairs(plan.take or {}) do
+		-- The chain's quests open now (none of the take's other prerequisites before them).
+		local open = {}
+		for _, r in ipairs(t.pre or {}) do open[r.id] = true end
+		local line = Lk.ChainProgress and Lk.ChainProgress(t.quest.id)
+		for _, r in ipairs(t.pre or {}) do
+			local ready = not seen[r.id]
+			for _, id in ipairs(r.pre or {}) do if open[id] and not done(id) then ready = false end end
+			for _, id in ipairs(r.preAny or {}) do if open[id] and not done(id) then ready = false end end
+			if ready then
+				seen[r.id] = true
+				local step = Lk.QuestStep(r, here)
+				local n, of = 1, #t.pre
+				if line then
+					for i, q in ipairs(line.quests) do if q.id == r.id then n, of = i, line.total - 1 end end
+				end
+				out[#out + 1] = { quest = r.id, title = ns.Compat.GetQuestTitle(r.id) or r.title, rec = r, goals = step and step.goals or {},
+					chain = { n = n, of = math.max(n, of) }, opens = t.quest.id }
+			end
+		end
+		work(t.rec or C.Quest(t.quest.id), true)
+	end
+	for _, pq in ipairs(plan.carried or {}) do
+		if not (ns.Compat.IsQuestReadyForTurnIn and ns.Compat.IsQuestReadyForTurnIn(pq.id)) then work(C.Quest(pq.id), false) end
+	end
+	return out
+end
+
 -- plan -> stops: each open prerequisite quest once (after the quests it
 -- requires; it starts at its giver nearest the player and leaves the
 -- player at its turn-in; `opens`: the page quests it comes before, each
@@ -1490,9 +1651,12 @@ end
 -- Ramstein's six (Nathanos Blightcaller, Stratholme) in the list's order sent
 -- a Horde player from the Plaguelands to the Undercity and back for The
 -- Champion of the Banshee Queen, the Undercity passed on the way there.
-local function stopsOf(plan, from)
+-- The page quests' work out in the world (`outside`, Dungeons.OutsideWork,
+-- its chain entries left out: those are the prerequisites above) is a stop
+-- each, after the quest's accept when the route takes it.
+local function stopsOf(plan, from, outside)
 	local Lk = LK()
-	local stops, byKey = {}, {}
+	local stops, byKey, takeKey = {}, {}, {}
 	local function add(s)
 		stops[#stops + 1] = s
 		byKey[s.key] = #stops
@@ -1572,10 +1736,18 @@ local function stopsOf(plan, from)
 		local g = t.giver
 		local dropKey = dropStops(g, t.quest)
 		if dropKey then deps[#deps + 1] = dropKey end
-		giverStop(g, deps, t)
+		takeKey[t.quest.id] = giverStop(g, deps, t)
 	end
 	-- A carried quest's items at its giver (plan.fetch, #4042): a stop there.
 	for _, t in ipairs(plan.fetch or {}) do giverStop(t.giver, {}, t) end
+	for _, w in ipairs(outside or {}) do
+		if not w.chain then
+			local a, b = w.goals[1], w.goals[#w.goals]
+			local s = add({ key = "w" .. w.quest, rec = w.rec, work = w, deps = {},
+				inP = { map = a.map, x = a.x, y = a.y, f = a.f }, outP = { map = b.map, x = b.x, y = b.y, f = b.f } })
+			depend(s, byKey[takeKey[w.quest] or ""])
+		end
+	end
 	return stops
 end
 
@@ -1732,7 +1904,9 @@ local function splitStops(whole, from)
 	end
 	for i, s in ipairs(whole) do
 		local list = {}
-		if s.giver then
+		if s.work then
+			list[1] = add({ key = s.key, kind = "work", rec = s.rec, work = s.work, inP = s.inP, outP = s.outP, log = 0, deps = {} })
+		elseif s.giver then
 			local takes = 0
 			for _, t in ipairs(s.accepts) do if not t.fetch then takes = takes + 1 end end
 			list[1] = add({ key = s.key, kind = "giver", giverKey = s.giverKey, giver = s.giver, inP = s.inP, outP = s.outP,
@@ -1844,9 +2018,9 @@ end
 -- with the quest (as before); an accept or a turn-in on its own is a step at
 -- its NPC, one with the givers' accepts and other such stops at that NPC in
 -- a row.
-local function route(key, plan)
+local function route(key, plan, outside)
 	local from = ns.PlayerPoint()
-	local whole = stopsOf(plan, from)
+	local whole = stopsOf(plan, from, outside)
 	local finish = finishOf(plan)
 	local stops, parts = splitStops(whole, from)
 	local opts
@@ -1879,6 +2053,12 @@ local function route(key, plan)
 				if a and a.candidates and #s.accepts == 1 then u.title = t.quest.title or (t.rec and t.rec.title) or u.title end
 			end
 			units[#units + 1] = u
+			last = nil
+		elseif s.kind == "work" then
+			-- The quest's work out in the world: its goals as a step of their own.
+			local goals = {}
+			for _, g in ipairs(s.work.goals) do goals[#goals + 1] = g end
+			units[#units + 1] = { quest = s.rec.id, title = s.work.title, goals = goals }
 			last = nil
 		else
 			local r = s.rec
@@ -2038,9 +2218,12 @@ end
 function Dungeons.PickupGuide(key)
 	local plan, err = Dungeons.PickupPlan(key)
 	if not plan then return nil, err end
-	if #plan.take == 0 and #plan.fetch == 0 then return nil, "nothing" end
+	local outside = Dungeons.OutsideWork(plan)
+	local work = 0
+	for _, w in ipairs(outside) do if not w.chain then work = work + 1 end end
+	if #plan.take == 0 and #plan.fetch == 0 and work == 0 then return nil, "nothing" end
 	local d = plan.dungeon
-	local steps, pre = route(key, plan)
+	local steps, pre = route(key, plan, outside)
 	if #steps == 0 then return nil, "nothing" end
 	local last = { title = d.name, goals = {} }
 	-- The quests already in the log: one line in the step's note, not a row

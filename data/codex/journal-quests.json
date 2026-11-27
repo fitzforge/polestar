@@ -287,6 +287,12 @@
 			"exclude": true,
 			"source": { "kind": "client", "ref": "Forever client AreaTable (1.60.1.70888): area 16560 (CityofDalaran) is not the City of Dalaran dungeon's area 16544 (RuinsofDalaran) nor under it; the quest is filed under 16560" },
 			"note": "Unstable Magic (Alliance, level 60): Archmage Celindra's quest in Dalaran city; one recorded player took it from her there."
+		},
+		{
+			"quest": 92066,
+			"instance": "blackmaw-hold",
+			"source": { "kind": "recording", "ref": "5 people ran it: the Totem of Ursoc and the Totem of Ursol were looted (q92066.1, q92066.2) inside Blackmaw Hold, or already carried from it when they took the quest from Lorekeeper Nok in Azshara" },
+			"note": "The Twin Bears (both sides, level 55): both totems lie in objects inside Blackmaw Hold (570890, 570888); the giver and ender stand outside in Azshara, so no rule places it (the dungeon pick-up sweep, 2026-11-27)."
 		}
 	]
 }

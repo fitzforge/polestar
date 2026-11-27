@@ -289,10 +289,14 @@ local shown = {}
 for _, id in ipairs({ "brief", "ready", "pickups", "entrance" }) do shown[id] = GF.RegionShown(id) end
 local p = GF.RegionFrame("pickups")
 local pickRows = {}
-for i = 1, p.psRows do pickRows[i] = p.Rows[i].Bar:IsShown() end
+for i = 1, p.psRows do pickRows[i] = p.Rows[i].psGoal and p.Rows[i].psGoal.t or false end
+local go = GF.RegionFrame("entrance").Go:IsShown()
+Polestar.Set("ui.compact", true)
+GF.Render() GF.Layout()
+local compactRows = p.psRows
 emit({ kind = E.GuideKind(), shown = shown, head = p.Head.Text:GetText(), right = p.Head.Right:GetText(),
-	covers = #GF.RegionModel("pickups").covers, headBar = p.Head.Bar:IsShown(), entryBars = pickRows,
-	way = GF.RegionFrame("entrance").Way.Text:GetText() })
+	covers = #GF.RegionModel("pickups").covers, headBar = p.Head.Bar:IsShown(), entries = pickRows,
+	way = GF.RegionFrame("entrance").Way.Text:GetText(), go = go, compactRows = compactRows })
 `);
 	assert.equal(out.kind, 'dungeon');
 	assert.deepEqual(out.shown, { brief: true, ready: true, pickups: true, entrance: true });
@@ -300,7 +304,9 @@ emit({ kind = E.GuideKind(), shown = shown, head = p.Head.Text:GetText(), right 
 	assert.equal(out.right, '0 / 3');
 	assert.ok(out.covers >= 1, 'the step accept is the pick-up row');
 	assert.equal(out.headBar, true, 'the 2px bar is on the "Pick up N more" row');
-	assert.deepEqual(out.entryBars, [false, false, false], 'and on no entry');
+	assert.deepEqual(out.entries, ['accept', 'accept', 'accept'], "each entry is the leveling view's accept row");
+	assert.equal(out.go, false, 'quests left to pick up: the way in is information only');
+	assert.equal(out.compactRows, 0, 'compact: the head line alone');
 	assert.equal(out.way, 'Entrance', "the zone is the brief chip's: the way in does not repeat it");
 });
 

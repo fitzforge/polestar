@@ -9650,7 +9650,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   GF.REGIONS = {
     profession = { "meter", "trainer", "stretch", "supplies", "buyList" },
     reputation = { "meter", "turnin", "supplies", "more" },
-    dungeon    = { "brief", "ready", "pickups", "entrance" },   -- outside its instance
+    dungeon    = { "brief", "ready", "step", "pickups", "entrance" },   -- outside its instance;
+                -- "step": the card's own header and goal rows there (GF.LayoutRegionsAfter lays
+                -- the regions after it out under the goals area and the step's tip)
   }
   GF.RegionOverride(view, kind) -> { id, ... } | nil   -- a part taking the card for any kind
                                                       -- (the docked dungeon tracker: { "tracker" })
@@ -9686,8 +9688,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   turnin   = { quest, title, repeatable, items = { { item, count } }, rep, npc, map, ready }
   more     = { { quest, title, rep, once, progress, from } }
   brief    = { key, name, lo, hi, best, players, zone }      ready = { level, best, floor, group = { n, max, names } }
-  pickups  = { held, total, missing = { { quest, title, npc, where, onWay, minutesOff, xp } } }
-  entrance = { map, x, y, eta, cap = { used, max }, needs }
+  pickups  = { held, total, missing = { { quest, title, npc, where, onWay, minutesOff, after, goal, gv, point } },
+               taken = { { quest, title, held, goal, gv } }, work }
+  entrance = { map, x, y, eta, cap = { used, max }, needs, go }
   tracker  = { key, name, bossesDone, bossesTotal, elapsed, loot = { { item, boss, quest, how, until } },
                quests = { { id, title, done, objectives = { { text, cur, max, done, boss, pending } } } },
                bosses = { { order, name, npc, state = "dead"|"next"|"ahead", role, ties = { { how, item, quest } } } },
@@ -9709,7 +9712,13 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   (Dungeons.Art); `ready.under` (below the floor); `pickups` adds `waiting`,
   `skipped`, `far` (the count over `Dungeons.PICKUP_DETOUR`, 10 minutes), `inGuide`
   (the open guide is its pick-up guide), each missing quest `far` and `current`
-  (the step accepts it), `plan` and `covers` (the step's accepts); `entrance.zone`,
+  (the step accepts it), `plan` and `covers` (the step's accepts); the entries are the
+  leveling view's goal rows (`GF.NewGoalRow`, `GF.PaintGoalRow`, `GF.MeasureRow`): `gv` the
+  step's accept of it, `taken` the page quests the step took (ticked until the step moves
+  on), `after` the chain quest it waits on (`Dungeons.OutsideWork`), `point` where a click
+  points the arrow (`Dungeons.GiverTarget` while it waits on a prerequisite), `work` the
+  quests with work out in the world still open; `entrance.zone`, `go` (nothing left before
+  the door: "Guide me to the entrance" shows only then),
   `covers` (the step's way in). The pick-up plan and the travel time are kept 30
   seconds (or until a quest is taken or dropped, the zone or the skips change):
   `Dungeons.PickupDetours(plan)` plans the route once (`PlanStops`) and gives each

@@ -6,14 +6,23 @@
 --             entrance's zone painting) with its name, then the range chip
 --             ("17–24 · your level"), "Group of 5" and the zone
 --   ready     the level against the floor and the best level, the group
---   pickups   "Pick up 2 more quests 4 / 6", one entry per quest not in the log
---             (on your way, or N min off the route), Pick them up (the
---             dungeon's pick-up guide in a tab) and Skip the far one
+--   (step)    the step's own header and goal rows, as the leveling view shows
+--             them (GF.REGIONS' "step"): a prerequisite's accept and kills, a
+--             page quest's work out in the world (Dungeons.OutsideWork)
+--   pickups   "Pick up 2 more quests 4 / 6", one entry per quest not in the log,
+--             each the leveling view's goal row (GF.NewGoalRow, its tick box: a
+--             quest the step took stays, ticked, until the step moves on), the
+--             giver and where under it (on your way, N min off the route, or the
+--             prerequisite it waits on: "After “Rear Guard Patrol” · Chain: 1 of 2");
+--             a click points the arrow at the giver as a goal row's does. Pick
+--             them up (the dungeon's pick-up guide in a tab) and Skip the far one
 --             (Dungeons.SkipFar: over Dungeons.PICKUP_DETOUR minutes off the way)
 --   entrance  the way in: its zone, the travel time, the instances this hour, a
---             key or attunement still missing, Guide me to the entrance
--- Compact: one line each. Rows are goal-like (24px) and painted as goal rows;
--- a skin's guideKindRow hook dresses each (info.kind "ready" | "pickup").
+--             key or attunement still missing; Guide me to the entrance once
+--             nothing is left before the door (no pick-up, no work out in the world)
+-- Compact: one line each (the pick-ups' head line alone). The regions' own rows
+-- are goal-like (24px) and painted as goal rows; a skin's guideKindRow hook
+-- dresses each (info.kind "ready" | "pickup"), its guideRow hook the entries.
 -- Every control is a button, so the gamepad's focus reaches it.
 
 local ADDON, ns = ...
@@ -236,11 +245,16 @@ ns.UI.GuideFrame.Part(function(GF)
 		return b
 	end
 
-	-- A pick-up entry's second line round its place: what comes before the name, the name (the part that is
-	-- cut to fit), what follows it ("on your way", the minutes off the route: never cut), and the line
-	-- without the name for a window too narrow for any of it.
+	-- A pick-up entry's sub-line round its place: what comes before the name, the name (the part that is
+	-- cut to fit), what follows it ("on your way", the minutes off the route, the prerequisite it waits
+	-- on: never cut), and the line without the name for a window too narrow for any of it.
 	local function whereParts(q)
-		if q.onWay then
+		if q.after then
+			local a = q.after
+			local tail = format(L["After %s"], ns.Quoted(a.title) or "")
+			if (a.of or 0) > 1 then tail = tail .. DOT .. format(L["Chain: %d of %d"], a.n, a.of) end
+			return "", nil, tail
+		elseif q.onWay then
 			if not q.where then return "", nil, L["on your way"] end
 			local a, b = format(L["%s, on your way"], "\1"):match("^(.-)\1(.*)$")
 			return a or "", q.where, b or "", L["on your way"]
@@ -257,11 +271,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		s = col("textMuted", s)
 		return r.psNpc and (r.psNpc .. DOT .. s) or s
 	end
-	-- One line: the place gives way with "..." where the window is narrow (to four letters at least, else it
+	-- One line: the place gives way with "..." where the row is narrow (to four letters at least, else it
 	-- goes), the minutes stay.
 	local MIN_PLACE = 4
-	local function fitSub(r, width)
-		local avail = max(20, width - TEXT_X - PAD)
+	local function fitSub(r, avail)
 		r.Sub:SetText(composeSub(r, r.psPlace))
 		if not r.psPlace or W.TextWidth(r.Sub) <= avail then return end
 		local chars = {}
@@ -271,6 +284,16 @@ ns.UI.GuideFrame.Part(function(GF)
 			if W.TextWidth(r.Sub) <= avail then return end
 		end
 		r.Sub:SetText(composeSub(r, nil, r.psBare))
+	end
+
+	-- An entry's goal view: the step's own accept of it (the pick-up guide's stop), else one in the
+	-- same fields, ticked once the quest is in the log, its place the one a click points the arrow at.
+	local function entryGoal(q)
+		if q.gv then return q.gv end
+		local p = q.point
+		return { t = "accept", quest = q.quest, title = q.title, verb = L["Accept"], subject = q.title, subjectKind = "quest",
+			status = q.held and "done" or "pending", tickable = false,
+			map = p and p.map, x = p and p.x, y = p and p.y, f = p and p.f, z = p and p.z }
 	end
 
 	GF.RegisterRegion("pickups", {
@@ -304,25 +327,34 @@ ns.UI.GuideFrame.Part(function(GF)
 			-- The step works on this region while quests are left (the pick-up guide's accepts).
 			h.Bar:SetShown(left > 0)
 			hook(h, m, { kind = "pickup", current = left > 0, done = left == 0 and m.total > 0 })
+			-- The entries are the leveling view's goal rows (GF.NewGoalRow): the ones the step took,
+			-- ticked, then those still to pick up; the step's first open accept is the arrow's.
 			-- Compact lists no entries: the head line says it.
-			local list = mode ~= "compact" and m.missing or {}
+			local list = {}
+			if mode ~= "compact" then
+				for _, q in ipairs(m.taken or {}) do list[#list + 1] = q end
+				for _, q in ipairs(m.missing) do list[#list + 1] = q end
+			end
+			local lit = false
 			for i, q in ipairs(list) do
 				local r = f.Rows[i]
 				if not r then
-					r = row(f)
-					r.Icon:Hide()
+					r = GF.NewGoalRow(f)
 					-- The giver and where: one line (the place is cut for the minutes, fitSub).
 					r.Sub:SetWordWrap(false)
 					f.Rows[i] = r
 				end
-				Theme.Font(r.Text, "body")
-				r.Text:SetText(col("quest", q.title or ""))
-				local pre, place, post, bare = whereParts(q)
-				r.psNpc, r.psPre, r.psPlace, r.psPost, r.psBare = q.npc and col("npc", q.npc) or nil, pre, place, post, bare
-				r.Sub:SetText(composeSub(r, place))
-				-- The step's own bar is the head row's: an entry has none.
-				r.Bar:Hide()
-				hook(r, q, { kind = "pickup", current = q.current, way = q.onWay and "onWay" or (q.far and "far") or nil })
+				local goal = entryGoal(q)
+				local current = not lit and q.gv ~= nil and goal.status ~= "done" and goal.status ~= "skipped"
+				if current then lit = true end
+				GF.PaintGoalRow(r, goal, current)
+				if not q.held then
+					local pre, place, post, bare = whereParts(q)
+					r.psNpc, r.psPre, r.psPlace, r.psPost, r.psBare = q.npc and col("npc", q.npc) or nil, pre, place, post, bare
+					r.Sub:SetText(composeSub(r, place))
+					r.Sub:SetShown(true)
+				end
+				r.psEntry = not q.held
 			end
 			f.psRows = #list
 			for i = f.psRows + 1, #f.Rows do f.Rows[i]:Hide() end
@@ -333,9 +365,17 @@ ns.UI.GuideFrame.Part(function(GF)
 			local compact = mode == "compact"
 			for i = 1, f.psRows or 0 do
 				local r = f.Rows[i]
-				-- The quest's own line as the row's first, the giver and where under it (on one line).
-				fitSub(r, width)
-				y = y + place(r, f, y, width, true) - 2
+				local h = GF.MeasureRow(r, width)
+				if r.psEntry then
+					fitSub(r, r.Sub:GetWidth())
+					h = GF.MeasureRow(r, width)
+				end
+				r:SetHeight(h)
+				r:ClearAllPoints()
+				r:SetPoint("TOPLEFT", f, "TOPLEFT", 0, -y)
+				r:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, -y)
+				r:Show()
+				y = y + h
 			end
 			local pick = not compact and not m.inGuide and #m.missing > 0
 			local skip = not compact and m.far > 0
@@ -359,7 +399,7 @@ ns.UI.GuideFrame.Part(function(GF)
 				end
 				y = y + 24 + 6 + (apart and 22 or 0)
 			elseif (f.psRows or 0) > 0 then
-				-- The last entry's second line stands clear of the way in's hairline.
+				-- The last entry's sub-line stands clear of the way in's hairline.
 				y = y + 6
 			end
 			return y
@@ -431,6 +471,11 @@ ns.UI.GuideFrame.Part(function(GF)
 				return y + place(f.Way, f, y, width)
 			end
 			y = y + place(f.Way, f, y, width, f.Way.Sub:GetText() ~= "")
+			-- Information only while quests or work out in the world are left before the door.
+			if not m.go then
+				f.Go:Hide()
+				return y + 6
+			end
 			f.Go:Show()
 			f.Go:ClearAllPoints()
 			f.Go:SetPoint("TOPLEFT", f, "TOPLEFT", PAD, -(y + 4))

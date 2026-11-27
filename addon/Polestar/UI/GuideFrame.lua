@@ -751,10 +751,11 @@ GF.Part(function(GF)
 		W.HideTooltip(row)
 	end
 
-	local function goalRow(i)
-		local r = rows[i]
-		if r then return r end
-		r = CreateFrame("Button", nil, goals.Child)
+	-- A goal row under `parent`: the goals area's own (goalRow), and a guide
+	-- kind region's list that reads as goal rows (GF.NewGoalRow: the dungeon
+	-- window's pick-ups, painted with GF.PaintGoalRow, measured with GF.MeasureRow).
+	local function buildRow(parent)
+		local r = CreateFrame("Button", nil, parent)
 		r:RegisterForClicks("LeftButtonUp", "RightButtonUp", "MiddleButtonUp")
 		r.Hover = r:CreateTexture(nil, "BACKGROUND")
 		r.Hover:SetTexture(Theme.Media("white"))
@@ -875,6 +876,14 @@ GF.Part(function(GF)
 		r:SetScript("OnClick", rowClick)
 		r:SetScript("OnEnter", rowEnter)
 		r:SetScript("OnLeave", rowLeave)
+		return r
+	end
+	GF.NewGoalRow = buildRow
+
+	local function goalRow(i)
+		local r = rows[i]
+		if r then return r end
+		r = buildRow(goals.Child)
 		rows[i] = r
 		return r
 	end
@@ -1009,6 +1018,12 @@ GF.Part(function(GF)
 		end
 		info.current, info.done, info.skipped = current and true or false, done, skipped
 		GF.Hook("guideRow", r, goal, info)
+	end
+	-- A region's goal row (GF.NewGoalRow) painted as the goals area paints one:
+	-- its goal view (a step's own, or one with the same fields), `current` the
+	-- arrow's target. The party, escort and finder lines are the step's rows' to say.
+	function GF.PaintGoalRow(r, goal, current)
+		paintRow(r, goal, false, false, current, true, true, true, nil, nil, nil, true)
 	end
 
 	local function layoutBar(b, tw)

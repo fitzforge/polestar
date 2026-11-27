@@ -8,17 +8,27 @@
 --   ready    = { level, best, floor, under, group = { n, max, names } }
 --       under: the character is below the dungeon's floor (come back at `floor`);
 --       group.n: 0 alone, else the members with the player; names: the others'
---   pickups  = { held, total, missing = { { quest, title, npc, where, onWay, minutesOff, far, current } },
---                waiting, skipped, far, inGuide }
+--   pickups  = { held, total, missing = { { quest, title, npc, where, onWay, minutesOff, far, current, after, goal, gv, point } },
+--                taken = { { quest, title, held, goal, gv } }, waiting, skipped, far, inGuide, work }
 --       held/total: the page's quests in the log of those this character may take now
 --       (held + the plan's takes, Dungeons.PickupPlan); missing: the takes, with
 --       Dungeons.PickupDetours' minutes off the way; far: over Dungeons.PICKUP_DETOUR
 --       (the count: what "Skip the far one" would leave out); current: the quest the open
---       pick-up guide's step accepts; waiting: quests that open at a later level; skipped:
---       quests the player left out; inGuide: the open guide is this dungeon's pick-up guide
---   entrance = { map, x, y, eta, zone, cap = { used, max }, needs }
+--       pick-up guide's step accepts; after: its chain's quest open now, when it has open
+--       prerequisites ({ title, n, of }: its place in the chain, the page quest not counted,
+--       Dungeons.OutsideWork); waiting: quests that open at a later level; skipped:
+--       quests the player left out; inGuide: the open guide is this dungeon's pick-up guide;
+--       goal, gv: the index of the step's accept of it and that goal's view (the region
+--       paints it as the goal row and covers it); point: where a click points the arrow
+--       (its giver, the first open prerequisite's while it waits on one: Dungeons.GiverTarget); taken: the page
+--       quests the step accepted, in the log now (ticked rows until the step moves on);
+--       work: the quests with work out in the world still open before the way in (a
+--       chain's quest open now, a page quest's objectives done only outside: Dungeons.OutsideWork)
+--   entrance = { map, x, y, eta, zone, cap = { used, max }, needs, go }
 --       eta: seconds of travel from here (nil: unknown); cap: new instances this hour and the
---       cap (Maps/Instances.lua); needs: the key or attunement this character still lacks
+--       cap (Maps/Instances.lua); needs: the key or attunement this character still lacks;
+--       go: nothing is left before the door (no pick-up missing, no work out in the world
+--       open): the region offers "Guide me to the entrance" only then
 --   tracker  = Dungeons.Run.Model()
 --
 --   KindDungeon.KeyOf(def) -> key | nil   -- the dungeon a guide is for: its `dungeon`, a
@@ -123,28 +133,80 @@ local function stepAccepts(view)
 	return out
 end
 
+local function planOf(key)
+	local Dg = D()
+	return cached(key, "plan", function()
+		local p = Dg.PickupPlan(key)
+		return p and Dg.PickupDetours(p) or false
+	end)
+end
+
+local function inPickupGuide(key)
+	local g = openGuide()
+	return type(g) == "table" and type(g.id) == "string" and g.id == "lookup/pickup/" .. key
+end
+
+-- Whether a Lookup goal of the work out in the world is done now.
+local function goalDone(g)
+	local C = ns.Compat
+	local q = g.quest
+	if g.t == "accept" then return C.IsOnQuest(q) or C.IsQuestCompleted(q) end
+	if q and C.IsQuestCompleted(q) then return true end
+	if g.t == "turnin" then return false end
+	if g.t == "collect" and not q and g.item then return (C.GetItemCount(g.item) or 0) >= (g.count or 1) end
+	if q and g.oi and C.IsOnQuest(q) then
+		local o = (C.GetQuestObjectives(q) or {})[g.oi]
+		return o ~= nil and o.finished
+	end
+	return false
+end
+
 function M.pickups(view)
 	local key = keyOf(view)
 	if not key then return nil end
 	local Dg = D()
-	local plan = cached(key, "plan", function()
-		local p = Dg.PickupPlan(key)
-		return p and Dg.PickupDetours(p) or false
-	end)
+	local plan = planOf(key)
 	if not plan then return nil end
-	local g = openGuide()
-	local inGuide = type(g) == "table" and type(g.id) == "string" and g.id == "lookup/pickup/" .. key
+	local inGuide = inPickupGuide(key)
 	local now = inGuide and stepAccepts(view) or {}
 	local covers = {}
 	local m = { held = #plan.carried, total = #plan.carried + #plan.take, missing = {}, waiting = plan.later or 0,
-		skipped = #(plan.skipped or {}), far = 0, inGuide = inGuide }
+		skipped = #(plan.skipped or {}), far = 0, inGuide = inGuide, work = 0 }
+	-- The work out in the world (Dungeons.OutsideWork, kept with the plan): each take's chain quest open now.
+	local work = cached(key, "outside", function() return Dg.OutsideWork and Dg.OutsideWork(plan) or {} end) or {}
+	local after = {}
+	for _, w in ipairs(work) do
+		local open = false
+		for _, g in ipairs(w.goals) do
+			if not goalDone(g) then open = true; break end
+		end
+		if open then m.work = m.work + 1 end
+		if w.chain and w.opens and not after[w.opens] then after[w.opens] = { title = w.title, n = w.chain.n, of = w.chain.of } end
+	end
+	-- A page quest the step accepted stays, ticked, until the step moves on (as a done goal row does).
+	local held = {}
+	for _, pq in ipairs(plan.carried) do held[pq.id] = pq end
+	m.taken = {}
+	for q, gi in pairs(now) do
+		local pq = held[q]
+		if pq then
+			m.taken[#m.taken + 1] = { quest = q, title = ns.Compat.GetQuestTitle(q) or pq.title, held = true, goal = gi, gv = view.goals[gi] }
+			covers[#covers + 1] = gi
+		end
+	end
+	table.sort(m.taken, function(a, b) return a.goal < b.goal end)
 	for _, t in ipairs(plan.take) do
 		local giver = t.giver or {}
 		local far = t.seconds ~= nil and t.seconds > Dg.PICKUP_DETOUR * 60
 		if far then m.far = m.far + 1 end
+		-- Where a click points the arrow: the first open prerequisite's giver while the quest waits on one.
+		local point = after[t.quest.id] and Dg.GiverTarget and cached(key, "target" .. t.quest.id, function() return Dg.GiverTarget(key, t.quest.id) or false end) or nil
+		local gi = now[t.quest.id]
 		m.missing[#m.missing + 1] = { quest = t.quest.id, title = ns.Compat.GetQuestTitle(t.quest.id) or t.quest.title,
 			npc = giver.name, where = giver.map and ns.Compat.MapName(giver.map) or nil,
-			onWay = t.onWay or false, minutesOff = t.minutesOff, far = far, current = now[t.quest.id] ~= nil }
+			onWay = t.onWay or false, minutesOff = t.minutesOff, far = far, current = gi ~= nil,
+			after = after[t.quest.id], goal = gi, gv = gi and view.goals[gi] or nil, held = false,
+			point = point or (giver.map and { map = giver.map, x = giver.x, y = giver.y, f = giver.f, name = giver.name }) or nil }
 		-- The pick-up guide's accept of it reads as this row, not twice.
 		if now[t.quest.id] then covers[#covers + 1] = now[t.quest.id] end
 	end
@@ -179,6 +241,9 @@ function M.entrance(view)
 		end
 		return false
 	end) or nil
+	-- The way in is offered once nothing is left before the door.
+	local p = M.pickups(view)
+	m.go = not (p and (#p.missing > 0 or p.work > 0))
 	return m
 end
 

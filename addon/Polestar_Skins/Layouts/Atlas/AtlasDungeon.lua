@@ -34,14 +34,6 @@ S.atlasParts[#S.atlasParts + 1] = function(on, onLeave, Core)
 			head.Text:SetPoint("LEFT", head, "TOPLEFT", CARD_PAD, -12)
 			head.Icon:Hide()
 			head.Bar:Hide()
-			-- Each quest wears the accept glyph in quest gold, as on the step's rows.
-			for _, r in ipairs(rawget(part, "Rows") or {}) do
-				if r:IsShown() then
-					r.Icon:SetTexture(Theme.Media("icon-accept"))
-					r.Icon:SetVertexColor(Theme.Color("quest"))
-					r.Icon:Show()
-				end
-			end
 			styled[part] = true
 		end
 		return Core.regionCard(name, part, width, height)
@@ -213,7 +205,6 @@ S.atlasParts[#S.atlasParts + 1] = function(on, onLeave, Core)
 				Theme.Font(head.Text, "goal")
 				if P.Widgets then P.Widgets.Color(head.Text, "text") end
 				head.Icon:Show()
-				for _, r in ipairs(rawget(part, "Rows") or {}) do r.Icon:Hide() end
 			end
 			styled[part] = nil
 		end
