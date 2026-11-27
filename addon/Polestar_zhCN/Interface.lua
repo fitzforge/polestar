@@ -44,10 +44,6 @@
 --   Suggested
 --   The guides window only. Click to pick a size; right-click to reset.
 --   Elites nearby
---   Group, or careful: a group quest, yours to do or skip
---   Group, or careful: an escort that can go wrong
---   Group, or careful: elites at your level or above
---   Group, or careful: a group is advised
 --   Careful: elites nearby
 --   Careful: elites, below your level
 --   %s · kept for %s
@@ -113,7 +109,6 @@
 --   Your current settings: the new profile is a copy of the one in use, window positions, skin and all. Defaults: every setting at its default.
 --   Northshire Abbey
 --   Echo Ridge Mine
---   Northshire Vineyards
 --   Brother Paxton
 --   Goldshire
 --   Tab style
@@ -156,8 +151,6 @@
 --   Any issues: @%s in a bug report or on Discord.
 --   Before %s (%s)
 --   Your setup as it was saved: a click puts back every window setting it holds.
---   Looking ahead.
---   Looking back.
 --   On the way to your map point (%s).
 --   Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests.
 --   You are past this class quest's levels.
@@ -182,7 +175,6 @@
 --   Tetris is saved and paused for the fight: type %s to continue.
 --   Tetris is saved and paused.
 --   Landed. Tetris is saved and paused: type %s to continue.
---   Play next
 --   Start
 --   Other guides
 --   Review %d skipped
@@ -214,8 +206,6 @@
 --   Emberforge
 --   Stormspire Isles
 --   Astral Sanctum
---   Row sweep
---   Column sweep
 --   Burst
 --   Level %d / %d
 --   Objectives complete
@@ -1888,10 +1878,10 @@ L["%s to buy"] = "需购买 %s 个"
 L["(only %s listed)"] = "（仅有 %s 个在售）"
 L["(old price)"] = "（旧价格）"
 L["Elites nearby"] = "附近有精英"
-L["Group, or careful: a group quest, yours to do or skip"] = "小队或小心：小队任务，做还是跳过由你决定"
-L["Group, or careful: an escort that can go wrong"] = "小队或小心：可能失败的护送"
-L["Group, or careful: elites at your level or above"] = "小队或小心：与你同级或更高的精英"
-L["Group, or careful: a group is advised"] = "小队或小心：建议组队"
+L["Group, or careful: a group quest, yours to do or skip"] = "组队，或小心：小队任务，做还是跳过由你决定"
+L["Group, or careful: an escort that can go wrong"] = "组队，或小心：可能失败的护送"
+L["Group, or careful: elites at your level or above"] = "组队，或小心：与你同级或更高的精英"
+L["Group, or careful: a group is advised"] = "组队，或小心：建议组队"
 L["Careful: elites nearby"] = "小心：附近有精英"
 L["Careful: elites, below your level"] = "小心：精英，等级低于你"
 L["%s · kept for %s"] = "%s · 留给 %s"
@@ -4930,7 +4920,7 @@ L["A dim line where the guide passes over quests: open it to see each one and wh
 L["The size of the guide window's text, apart from its scale and the rest of Polestar's text (Theme > Text). The class quest card keeps that general size. Changes at once. Right-click to reset."] = "调整指南窗口的文字大小，与窗口缩放及「主题 > 文字」里的通用大小分开设置。职业任务卡片仍使用通用大小。修改立即生效，右键重置。"
 L["Northshire Abbey"] = "北郡修道院"
 L["Echo Ridge Mine"] = "回音山矿洞"
-L["Northshire Vineyards"] = "北郡农场"
+L["Northshire Vineyards"] = "北郡葡萄园"
 L["Brother Paxton"] = "帕克斯顿修士"
 L["Goldshire"] = "闪金镇"
 L["Tab style"] = "标签样式"
@@ -5262,8 +5252,8 @@ L["Equip it"] = "装备"
 L["%s (level %d)"] = "%s（%d级）"
 L["%s takes these once you reach their level: %s"] = "达到所需等级后，%s会接受这些任务：%s"
 L["Waiting for your level, taken where a later guide passes the giver: %s"] = "等级达标后，后续路线经过任务发布者时接取：%s"
-L["Looking ahead."] = "向前看。"
-L["Looking back."] = "向后看。"
+L["Looking ahead."] = "查看之后。"
+L["Looking back."] = "查看之前。"
 L["On the way to your map point (%s)."] = "正在前往你的地图点（%s）。"
 L["Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests."] = "本指南的部分任务接续自 %s。从那里开始可获得全部任务，或在这里继续；指南会用附近的任务补足。"
 L["You are past this class quest's levels."] = "你已超过这个职业任务的等级。"
@@ -5464,7 +5454,7 @@ L["/polestar perf: on, off, report or reset"] = "/polestar perf：on 开启、of
 L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = "排查游戏卡顿，记录 Polestar 自身的运行耗时（on、off、report、reset）"
 
 -- UI/GuideFramePlayNext.lua
-L["Play next"] = "接下来玩"
+L["Play next"] = "玩下一个"
 L["Start"] = "开始"
 L["Other guides"] = "其他指南"
 L["Review %d skipped"] = "查看 %d 个已跳过"
@@ -5541,8 +5531,8 @@ L["Frostglass Peaks"] = "霜晶峰"
 L["Emberforge"] = "余烬熔炉"
 L["Stormspire Isles"] = "风暴尖塔群岛"
 L["Astral Sanctum"] = "星界圣所"
-L["Row sweep"] = "横排横扫"
-L["Column sweep"] = "竖列横扫"
+L["Row sweep"] = "整排消除"
+L["Column sweep"] = "整列消除"
 L["Burst"] = "爆炸"
 L["Level %d / %d"] = "关卡 %d / %d"
 L["Objectives complete"] = "目标完成"
