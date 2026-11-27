@@ -3153,6 +3153,37 @@ that (#1768), landing at the flight's end left nothing to fly on to, the walk
 before it read open again and the arrow sent the player back (Camp Taurajo to
 Thunder Bluff's rise, then the flight to Camp Taurajo again).
 
+#### Travel steps defer to the planner
+
+A travel step says where to get to and the planner picks how (#3922,
+0.4.4). Run time only: the guides, the compiled steps and the legacy step
+map are as written, so no step moves. With the planner leading
+(`Own.plannerFlies`):
+
+- a flight's landing is its `node`, else the node of its town serving the
+  character's faction (`Own.flyNodeId`, `Nav.FindTaxiNode`): a flight for
+  both factions to a town with one flight master per side (Mount Hyjal's
+  "Fly to Everlook") carries no node and had no arrow before;
+- a walk that ends at a boat's, zeppelin's or tram's end or a portal's mouth
+  (`Own.DOCK_REACH`) leads to the far end of that crossing nearest the work
+  after it (`Own.crossEnd`, `Own.crossAim`), when that end is nearer the work
+  than the dock; arriving on that side by any way passes it, as above;
+- the live step's title and its travel row read the route's way
+  (`Own.travelWay`): the first leg that is not a walk ("Hearth to Everlook",
+  "Take the boat to Auberdine"), then a second ride ("..., then fly to X") or
+  a walk of `Own.WAY_WALK` (60 s) or more ("..., then ride to X"); only roads:
+  "Ride to X". `ROUTE_CHANGED` redraws the step when it changes;
+- the travel waypoint carries `keepHearth` (`Own.keepHearth`), which the
+  planner takes as `noHearth`, when the character's steps after it, up to
+  the next `sethome` (this guide, then the next one; at most
+  `Own.KEEP_STEPS`, 60), hold a `hearth` goal, or, for a step whose end is
+  more than `Own.KEEP_NEAR` (400 yd) from the bound inn, work by that inn:
+  the route comes back there and wants the Hearthstone then.
+
+Planner off, TomTom's arrow or a hand-off: the step leads as written, except that a flight to a landing the
+character never learned leads there as travel ("Go to") when the way is handed to Shortest Path Forever too, as
+with Polestar's arrow on or off (#4192): the hand-off then plans its own way to the landing (`Own.travelsToLanding`).
+
 #### Focus: one person at a time
 
 A step's goals form **groups**, walked in authored order: a goal joins the
@@ -5851,6 +5882,36 @@ Shortest Path Forever (`Walk:Refresh` cancels one in flight). The planner
 itself never waits: the first plan is straight, the measured one follows a
 few frames later.
 
+**Walks the engine's paths measured after the plan (#3920).** The measure
+prices the 16 places nearest the target within 3,000 yd; a player farther
+out, or past those 16, keeps the straight estimate. Every path the engine
+searches into the target later is remembered for that target
+(`Travel.NoteWalk`): the arrow's path from where the player stands
+(`Travel.SplitWalk`'s total, `Travel.WalkMeasured`) and a later walk's path
+(`Travel.PricePaths`, `Travel.WalkPriced`). Each plan for the target prices
+an unmeasured start by the arrow's path (`p.walkLeft`: the live walk's yards
+left, else the remembered yards less the ground covered since, summed each
+second by `Travel.WalkedMoved` so a flight or a teleport uses it up; never
+under the straight distance) and an unmeasured place by its path
+(`p.walked`, matched by its point). A path that takes over 20 s more than
+the plan priced the walk plans once more on the next tick, as walking on
+does (`Travel.Replan`'s soft replan, once per walk: the live walk stays
+unless another way saves `keep.SAVES`, a way it left costing at least what it
+had left then, so the border sweep's back and forth stays fixed): from Moonglade, 2,999 yd
+straight from Mourning's Rest and 10,090 along the path, the walk was priced
+at 9 minutes and stayed the route over Faustron's flight to the Tainted
+Foothills.
+
+**Walk speed (#3913).** The live route and the player's estimates time and
+weigh every walk at the character's ground speed (`Travel.GroundSpeed`):
+run speed (7 yd/s) for a ghost, an escort or a character without riding,
+else the mount's from the riding skill (skill 150 or more: x2, else x1.6),
+read from the skill, not from whether the player is mounted now
+(`Travel.walkSpeed`, kept for the live route's later path measures). Priced
+as if run, a mounted player's way with more riding lost to one with less
+(Stormwind to Gadgetzan by Booty Bay and Ratchet instead of Farholde Keep and
+the Powderfuse Port boat).
+
 **Every walk's shape at once.** A search from a cold start is mostly its
 endpoint and lift-landing grid searches and the clusters it decodes (Mulgore
 below Thunder Bluff to the Barrens: about 0.5 s of CPU, 2-3 s at a 60 fps
@@ -5941,7 +6002,7 @@ The split runs once per path (`Travel.SplitWalk`, `ROUTE_CHANGED`) and again
 after a fresh plan of the same walk from the path already in, so the steps
 stay the same as the player walks (K2). A walk with no stops on its path
 stays one leg and takes the path's measure: `yards` the path from the
-player to its end, `seconds` that at run speed (the planner's pace), its
+player to its end, `seconds` that at the walk speed (the planner's pace), its
 straight estimate kept in `straightYards`/`straightSeconds`; `ROUTE_CHANGED`
 fires as for a split, so the journey's legs, `Progress`, `Remaining` and the
 panel header agree. When that path's search fails or the path is cleared
@@ -6621,7 +6682,7 @@ what is shown and timed.
 
 - The planner's `p.walkCost(c, wx, wy, start)` (`Walk.Measured`) returns the
   measured walk's cost and its yards (`FindMany`'s `job.yards[i]`): the
-  Dijkstra orders by the cost (at run speed), the leg's `seconds` and `yards`
+  Dijkstra orders by the cost (at the walk speed), the leg's `seconds` and `yards`
   come from the yards. Those are the no-profile path's yards per graph edge,
   so a measured walk that goes round a hostile town inside one cluster reads
   a little short until its own path is searched (one yards value per edge,

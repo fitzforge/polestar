@@ -210,6 +210,8 @@ mod engine_tabs;
 mod engine_talk;
 #[path = "engine-training.rs"]
 mod engine_training;
+#[path = "engine-travel-steps.rs"]
+mod engine_travel_steps;
 #[path = "engine-unavailable.rs"]
 mod engine_unavailable;
 #[path = "engine-upgrade.rs"]
