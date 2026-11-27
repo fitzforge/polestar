@@ -423,8 +423,18 @@ test('generated profession guides are up to date and compile', { skip: hasData ?
 		.map(([name]) => name);
 	assert.deepEqual(stale, [], 'run node tools/polestar.js profession gathering build');
 	const sources = Object.entries(files).map(([name, text]) => ({ file: `guides/forever/professions/${name}`, source: `forever/professions/${name}`, text }));
-	const { diag } = compileSources(sources, ctx.data);
+	const { diag, guides } = compileSources(sources, ctx.data);
 	assert.deepEqual(diag.errors.map(format), []);
+	// Every pair names both its professions, gathering first, so the guide window shows both skills (Fishing + Cooking
+	// once had no `skills` and no `kind`: a single Fishing meter over a Cooking recipe card).
+	const lines = Object.fromEntries(guides.map((g) => [g.id, [g.kind, g.skillLines]]));
+	for (const [file, skillLines] of [
+		['fishing-cooking', [356, 185]],
+		['skinning-leatherworking', [393, 165]],
+		['mining-blacksmithing', [186, 164]],
+	]) {
+		assert.deepEqual(lines[`forever/professions/${file}`], ['profession', skillLines], file);
+	}
 });
 
 test("the Fishing guide names each band's cooking recipes with their sellers, buys one only by the water, and says what Darkshore Grouper and Oily Blackmouth are for (#1883)", { skip: hasData ? false : 'data/forever not built' }, () => {

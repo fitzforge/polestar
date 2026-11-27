@@ -436,7 +436,7 @@ function render(ctx) {
 	const mats = P.materials || {};
 	const plans = plan(ctx);
 
-	L.push(GUIDE_HEADER, `guide ${GUIDE}`, 'title Fishing + Cooking 1-300', 'category Professions', 'coords era', 'levels 5-60', 'zone Ironforge', '');
+	L.push(GUIDE_HEADER, `guide ${GUIDE}`, 'title Fishing + Cooking 1-300', 'category Professions', 'kind profession', 'skills Fishing, Cooking', 'coords era', 'levels 5-60', 'zone Ironforge', '');
 	for (const c of [
 		'Fishing and Cooking 1-300 together, for both factions: each fishing band',
 		'catches the fish its cooking takes, so neither waits on the other. Each band',

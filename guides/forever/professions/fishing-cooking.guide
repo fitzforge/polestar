@@ -2,6 +2,8 @@
 guide forever/professions/fishing-cooking
 title Fishing + Cooking 1-300
 category Professions
+kind profession
+skills Fishing, Cooking
 coords era
 levels 5-60
 zone Ironforge
