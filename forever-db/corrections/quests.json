@@ -1729,13 +1729,26 @@
 				],
 				"object": [],
 				"item": []
+			},
+			"excl": [
+				7731
+			]
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			},
+			{
+				"kind": "recording",
+				"ref": "rec.py offers 4568 / quest 7731 (2026-11-27): Anastasia Hartwell refused Tabetha's Task to the 3 people who had taken Stinglasher (7731) before her window (taken at 45, 46 and 47; refused at 45 with it in the log, and at 48 and 49 afterwards); the 14 people she offered it to had not taken Stinglasher yet"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#4508 (Pooker, 0.4.3.1): a level 48 Horde shaman on the Horde route, which takes Stinglasher at Camp Mojache, could not take Tabetha's Task from Anastasia Hartwell"
 			}
-		},
-		"source": {
-			"kind": "factoruide",
-			"ref": "Factoruide row sources: questie"
-		},
-		"note": "Tabetha's Task: starts with Anastasia Hartwell (npc 4568), Bink (npc 5144), Jennea Cannon (npc 5497) and Deino (npc 5885); as its giver the merged data also listed Ursyn Ghull (npc 3048)."
+		],
+		"note": "Tabetha's Task: starts with Anastasia Hartwell (npc 4568), Bink (npc 5144), Jennea Cannon (npc 5497) and Deino (npc 5885); as its giver the merged data also listed Ursyn Ghull (npc 3048). Taking Stinglasher (7731, Hadoken Swiftstrider in Feralas) closes it for good, so Lookup's Zul'Farrak pick-up guide passes this lead-in once Stinglasher is taken and sends the player straight to Tabetha for Tiara of the Deep (2846), which needs no lead-in (#4508). The other way it is only while it is in the log: Hadoken offers Stinglasher once Tabetha's Task is handed in or abandoned (guide-fixes 4487-stinglasher-tabethas-task-tip)."
 	},
 	"2924": {
 		"set": {

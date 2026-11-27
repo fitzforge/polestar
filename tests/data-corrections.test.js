@@ -1222,3 +1222,10 @@ test('The Return of the King? (95198) says to use the SI:7 Disguise Kit and reli
 	assert.equal(m.steps[0].item.id, 269000);
 	assert.match(m.steps[1].fact, /Theramore Guard/);
 });
+
+// Pooker (#4508): Anastasia Hartwell refuses Tabetha's Task to a player who has taken Stinglasher (7731), which the
+// Horde route takes at Camp Mojache; Lookup's Zul'Farrak pick-up guide still sent such a player to her.
+test("Tabetha's Task (2861) is closed for good once Stinglasher (7731) is taken (#4508)", () => {
+	assert.deepEqual(corrections.quests[2861].set.excl, [7731]);
+	assert.ok(closedByOf(2861, { 2861: { id: 2861, breadcrumbFor: 2846, excl: [7731] } }).includes(7731), 'Lookup reads it as closing the lead-in');
+});
