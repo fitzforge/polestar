@@ -331,7 +331,7 @@ fn marks_ctrl_alt_click_cycles_junk_keep_and_clear_junk_is_sold_kept_greys_are_n
 		M.Set(3, "junk")
 		M.Set(2, "keep")
 		bagsChanged()
-		emit(S.Junk().id)                    -- the shell is kept: a cloth (13c) beats the two fangs (14c)
+		emit(S.Junk().id)
 		q.openMerchant()
 		stub.advance(3)
 		local sold = {}
@@ -341,7 +341,7 @@ fn marks_ctrl_alt_click_cycles_junk_keep_and_clear_junk_is_sold_kept_greys_are_n
 	]
 	.concat());
 	assert_eq!(out[0], json!({ "first": "junk", "second": "keep", "third": false, "altOnly": false, "said": true }));
-	assert_eq!(out[1], 3, "a kept grey is never the one to delete; a junk-marked common one may be");
+	assert_eq!(out[1], 1, "the kept shell is skipped and the grey fangs come before marked cloth");
 	assert_eq!(out[2], json!({ "fangs": 1, "shell": 0, "cloth": 13, "ring": 0 }), "junk-marked cloth sells; the kept shell and the ring stay");
 }
 
@@ -523,10 +523,10 @@ fn mark_click_switch_off_leaves_marking_to_the_keys_and_on_again_the_click_cycle
 	assert_eq!(out[0], json!({ "default": true, "clicked": "none", "quiet": 0, "key": "keep", "on": "junk" }));
 }
 
-// #946: junk marked in the reagent bag (bag 5, past NUM_BAG_SLOTS) is the bag button's cheapest junk and sells at a
-// merchant, while the reagent bag's free slots stay out of the free count (it takes only reagents).
+// #946: marked junk in the reagent bag (bag 5, past NUM_BAG_SLOTS) is eligible for deletion and sells at
+// a merchant. The reagent bag's free slots stay out of the free count.
 #[test]
-fn junk_in_the_reagent_bag_is_the_cheapest_junk_and_sells_but_its_free_slots_never_count() {
+fn junk_in_the_reagent_bag_can_be_suggested_and_sold_but_its_free_slots_never_count() {
 	let out = run(&[
 		BAGS,
 		r#"
@@ -536,6 +536,8 @@ fn junk_in_the_reagent_bag_is_the_cheapest_junk_and_sells_but_its_free_slots_nev
 		fill(2)
 		q.addItem(5, 1, 6, 1)
 		M.Set(6, "junk")
+		M.Set(1, "keep")
+		M.Set(2, "keep")
 		bagsChanged()
 		local f, t = S.Free()
 		local j = S.Junk()
@@ -548,7 +550,7 @@ fn junk_in_the_reagent_bag_is_the_cheapest_junk_and_sells_but_its_free_slots_nev
 	"#,
 	]
 	.concat());
-	assert_eq!(out[0], json!({ "free": 2, "total": 16, "junk": 6, "bag": 5 }), "the thread (1c) is the cheapest; the reagent bag's three free slots never count");
+	assert_eq!(out[0], json!({ "free": 2, "total": 16, "junk": 6, "bag": 5 }), "the marked thread is eligible and the reagent bag's free slots never count");
 	assert_eq!(out[1], json!({ "thread": 1, "left": false }), "sold from the reagent bag");
 }
 
