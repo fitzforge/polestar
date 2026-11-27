@@ -22,10 +22,13 @@ checkpoints at 75/150/225/300.
   --out [file]         write the guide (default guides/forever/professions/<name>.guide)
   --quiet              no plan summary on stderr
 
-gathering build: rewrites the seven generated guides in guides/forever/professions
-(mining, herbalism, skinning, fishing, cooking, first-aid, fishing-cooking) from their specs in
+gathering build: rewrites the twelve generated guides in guides/forever/professions
+(mining, herbalism, skinning, fishing, cooking, first-aid, and the paired
+fishing-cooking, herbalism-alchemy, mining-blacksmithing, mining-engineering,
+skinning-leatherworking and tailoring-enchanting, tools/lib/professions/pairs.js) from their specs in
 tools/lib/professions/gathering/specs.js and data/forever (node spawns,
-professions, items, npcs, objects). Run \`compile\` afterwards.
+professions, items, npcs, objects). Run \`compile\` afterwards. The rules every
+profession guide keeps: docs/forge/professions.md.
 gathering check: builds them in memory and exits 1 when a committed guide
 differs (writes nothing).
 gathering abundance: rewrites tools/lib/professions/gathering/node-abundance.json,
@@ -41,8 +44,9 @@ ore and fishing pool can spawn and the skill it asks, for While you're here's
 gathering spots (--check: exit 1 when it differs, writes nothing).
 gathering waters: rewrites tools/lib/professions/gathering/fishing-waters.json,
 each zone's fishing loot and the Fishing skill from which it loses no fish
-(the world database), and where players stood when they caught fish (the
-recordings archive's session files, --recordings).
+(the world database), and where players stood when they caught fish and the
+deaths recorded near each stand (the recordings archive's session files,
+--recordings).
 
   --data <dir>         reference data (default data/forever)
   --tdb <file>         world database (abundance, nodes and waters)

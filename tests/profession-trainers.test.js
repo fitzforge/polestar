@@ -74,8 +74,9 @@ function goals() {
 		if (!parts[i].includes('forever/professions/')) continue;
 		const block = shelfSource(parts[i + 1]);
 		const recs = block.match(/local candidateRecords = \{\n([\s\S]*?)\n\t\t\}\n/);
-		const records = recs ? [...recs[1].matchAll(/^\t\t\t\{ npc = (\d+)/gm)].map((m) => Number(m[1])) : [];
-		const ids = (text) => [...text.matchAll(/candidateRecords\[(\d+)\]|\{ npc = (\d+)/g)].map((m) => (m[1] ? records[Number(m[1]) - 1] : Number(m[2])));
+		// A record is a trainer ({ npc = ... }) or a gathering spot ({ map = ... }, a Get step's loop); a spot counts in the numbering and is no trainer.
+		const records = recs ? [...recs[1].matchAll(/^\t\t\t\{ (?:npc = (\d+))?/gm)].map((m) => (m[1] ? Number(m[1]) : null)) : [];
+		const ids = (text) => [...text.matchAll(/candidateRecords\[(\d+)\]|\{ npc = (\d+)/g)].map((m) => (m[1] ? records[Number(m[1]) - 1] : Number(m[2]))).filter((n) => n !== null);
 		const lists = block.match(/local candidateLists = \{\n([\s\S]*?)\n\t\t\}\n/);
 		const shared = lists ? lists[1].split('\n').map(ids) : [];
 		const npcsOf = (cands, what) => {

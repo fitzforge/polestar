@@ -39,7 +39,7 @@ pub fn header(lang: &str, command: &str, sources: &str) -> String {
 
 // ------------------------------------------------------------ emit.js
 
-pub const GUIDE_KEYS: [&str; 31] = [
+pub const GUIDE_KEYS: [&str; 33] = [
 	"id",
 	"pack",
 	"title",
@@ -50,6 +50,8 @@ pub const GUIDE_KEYS: [&str; 31] = [
 	"maxLevel",
 	"factionLevels",
 	"category",
+	"kind",
+	"skillLines",
 	"folder",
 	"keywords",
 	"collects",

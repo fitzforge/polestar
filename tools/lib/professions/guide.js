@@ -1534,7 +1534,7 @@ function draftGuide(name, data, opts = {}) {
 	// against it): [{ from, cap, items: [{ item, name, count, uses }] }], after the moves between brackets.
 	// Path B's materials are the other way through, not more of them: the gathering guides count path A's.
 	const materials = brackets.filter((b) => b.path !== 'B').map((b) => ({ from: b.from, cap: b.cap, items: b.list.filter((t) => SIDES.some((s) => t.src[s].kind !== 'vendor')).map((t) => ({ item: t.item, name: matName(t.item), count: t.count, uses: t.uses.slice() })) }));
-	return { text: `${byBanners(out.join('\n'), P)}\n`, plan, materials };
+	return { text: `${byBanners(out.join('\n'), P)}\n`, plan, alt, materials };
 }
 
 // The data `draftGuide` reads, from a data/forever folder: the JSON files, and

@@ -934,7 +934,8 @@ test('no profession guide crafts a recipe past its grey threshold (issue #109)',
 	// (routes/<profession>.json `colours`; the data build carries the fix once it lands in forge-data).
 	const { loadRoute } = require('../tools/lib/professions/route');
 	const recorded = (file, message) => {
-		const route = loadRoute(path.basename(file, '.guide'));
+		// The guide's own route, or a paired guide's crafting side's (mining-blacksmithing: Blacksmithing).
+		const route = path.basename(file, '.guide').split('-').map((n) => loadRoute(n)).find(Boolean);
 		const m = /^(.+) turns grey at \d+; crafting it gives no skill up to (\d+)$/.exec(message);
 		if (!route || !m) return false;
 		const prof = Object.values(JSON.parse(fs.readFileSync(path.join(REAL_DATA, 'professions.json'), 'utf8'))).find((p) => p.name === route.profession);

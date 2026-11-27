@@ -988,6 +988,23 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		}
 	}
 	guide.category = canonicalCategory(h.category, ast, warn);
+	// `kind`: what the guide window shows for it (docs/GUIDE_FORMAT.md, "Guide kind"); written out only when set,
+	// the addon takes it from the category otherwise.
+	if (h.kind !== undefined) {
+		if (KINDS.includes(h.kind)) guide.kind = h.kind;
+		else err(ast.lines.kind, `unknown kind "${h.kind}" (known: ${KINDS.join(', ')})`);
+	}
+	// `skills`: the skill lines the guide levels (docs/GUIDE_FORMAT.md, "Guide kind"), as `skillLines`; a paired
+	// profession guide names both, so the window can show two skill bars.
+	if (h.skills && data.hasProfessions) {
+		const lines = [];
+		for (const name of h.skills) {
+			const p = data.professionNamed(name);
+			if (p) lines.push(p.id);
+			else err(ast.lines.skills, `unknown profession "${name}" in \`skills\``);
+		}
+		if (lines.length === h.skills.length) guide.skillLines = lines;
+	}
 	setIf(guide, 'folder', h.folder);
 	setIf(guide, 'keywords', h.keywords);
 	if (h.collects) {
@@ -1065,6 +1082,10 @@ function resolveGuide(ast, data, diag, opts = {}) {
 	// is its index, 1-based); the engine starts a profession guide at the section the player's skill is in.
 	if (ast.sections) {
 		let prev = null;
+		// A guide whose `skills` names two professions (a paired guide) alternates their sections: each
+		// profession's own sections rise in order.
+		const paired = (h.skills || []).length > 1 ? new Set(h.skills.map((s) => s.toLowerCase())) : null;
+		const prevOf = new Map();
 		const starts = new Set();
 		guide.sections = ast.sections.map((sec) => {
 			const out = {};
@@ -1080,7 +1101,12 @@ function resolveGuide(ast, data, diag, opts = {}) {
 			}
 			// Another way of a fork starts again where an earlier section started (`when` keeps its steps apart).
 			const again = starts.has(`${sec.skill}|${sec.from}`);
-			if (prev && (prev.skill !== sec.skill || (sec.from < prev.from && !again))) warn(sec.line, `section ${sec.skill} ${sec.from}-${sec.to} comes after ${prev.skill} ${prev.from}-${prev.to}: a guide's sections are one profession's skill ranges in rising order`);
+			const own = paired && paired.has(String(sec.skill).toLowerCase()) ? String(sec.skill).toLowerCase() : null;
+			if (own) {
+				const before = prevOf.get(own);
+				if (before && sec.from < before.from && !again) warn(sec.line, `section ${sec.skill} ${sec.from}-${sec.to} comes after ${before.skill} ${before.from}-${before.to}: each profession's sections rise in order`);
+				prevOf.set(own, sec);
+			} else if (prev && (prev.skill !== sec.skill || (sec.from < prev.from && !again))) warn(sec.line, `section ${sec.skill} ${sec.from}-${sec.to} comes after ${prev.skill} ${prev.from}-${prev.to}: a guide's sections are one profession's skill ranges in rising order`);
 			starts.add(`${sec.skill}|${sec.from}`);
 			prev = sec;
 			out.from = sec.from;
@@ -1594,6 +1620,9 @@ function objectiveFor(q, kind, id) {
 }
 
 const CATEGORIES = ['Leveling', 'Class', 'Professions', 'Reputation', 'Legacy', 'Exploration', 'Collectibles', 'Miscellaneous', 'Dungeons'];
+
+// Guide kinds (`kind`), each a set of guide window parts and menu entries (addon Core/GuideKinds.lua).
+const KINDS = ['leveling', 'profession', 'reputation', 'dungeon', 'class', 'collectible', 'exploration', 'misc'];
 
 // Documented categories are matched case-insensitively; others pass through with a warning.
 function canonicalCategory(raw, ast, warn) {

@@ -52,8 +52,9 @@ fn is_num(s: &str) -> bool {
 	}
 }
 
-pub const HEADER_KEYS: [&str; 20] =
-	["guide", "title", "levels", "zone", "faction", "race", "class", "next", "category", "folder", "keywords", "collects", "reward", "why", "author", "version", "coords", "pitch", "pro", "con"];
+pub const HEADER_KEYS: [&str; 22] = [
+	"guide", "title", "levels", "zone", "faction", "race", "class", "next", "category", "kind", "skills", "folder", "keywords", "collects", "reward", "why", "author", "version", "coords", "pitch", "pro", "con",
+];
 /// Lines inside a step that are not goals.
 /// `loop`: the step's `goto` points are the spawn areas of its kill, collect
 /// and interact goals (resolve.rs, applyLoop). `loop <zone> … at <x,y> …`: one
@@ -846,7 +847,27 @@ fn parse_header(guide: &V, kw: &str, line: &[u16], lex: &Lex, ln: f64, cx: &mut 
 			}
 			guide.set("id", toks[1].text.as_str());
 		}
-		"title" | "category" | "author" | "pitch" | "why" | "folder" => h.set(kw, rest.as_str()),
+		"title" | "category" | "kind" | "author" | "pitch" | "why" | "folder" => h.set(kw, rest.as_str()),
+		"skills" => {
+			// `skills Skinning, Leatherworking`: the skill lines a profession guide levels (a paired guide: both).
+			let names: Vec<String> = rest
+				.split(',')
+				.map(|w| {
+					let t = js_trim(w);
+					if t.len() >= 2 && t.starts_with('"') && t.ends_with('"') { t[1..t.len() - 1].to_string() } else { t.to_string() }
+				})
+				.collect();
+			if names.iter().any(|w| w.is_empty()) {
+				cx.err(ln, "`skills` has an empty entry (expected a comma list of professions)", None);
+				return;
+			}
+			let lower: Vec<String> = names.iter().map(|w| w.to_lowercase()).collect();
+			if lower.iter().enumerate().any(|(i, l)| lower.iter().position(|o| o == l) != Some(i)) {
+				cx.err(ln, "`skills` names the same profession twice", None);
+				return;
+			}
+			h.set("skills", names.iter().map(|w| V::str(w)).collect::<Vec<V>>());
+		}
 		"keywords" => {
 			// `keywords a, b, c`: extra search words for the guide menu.
 			let words: Vec<&str> = rest.split(',').map(js_trim).collect();

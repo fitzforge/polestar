@@ -15,10 +15,14 @@
 //   `lap` is the closed tour's length in yards. `clusters`: step 2's clusters of these points, when the
 //   caller already has them (several spans over one ground); `avoid` is then not applied.
 //
-// hazards(ctx, map, { level, faction }) -> avoid list: every spawn on `map` of a hostile creature more
+// hazards(ctx, map, { level, faction, strict }) -> avoid list: every spawn on `map` of a hostile creature more
 // than ABOVE levels above `level` (MOB_YARDS of aggro ground: Polestar's level bar, never a solo player at
-// mobs 2+ levels above), and every spawn of an NPC of the other faction (ENEMY_YARDS: their towns and
-// guards). pointLevels / levelFor: the character level a point (or `need` of them) asks by the same rule.
+// mobs 2+ levels above), and every spawn of an NPC of the other faction's towns (ENEMY_YARDS). `strict`
+// (the fishing rounds): an elite counts ELITE levels higher, so it is avoided until the player is three
+// levels past it (the danger gate's elite rule), and the other faction's guard posts count as towns.
+// pointLevels / levelFor: the character level a point (or `need` of them) asks by the same rule.
+// threats(ctx, map, stops, level) -> how many hostile creature spawns stand within MOB_YARDS of a stop and
+// are not grey to a player of `level` (they would fight the player there).
 
 const { dist } = require('../../route/geo');
 const { planTour, pathLength } = require('../../route/tour');
@@ -28,6 +32,16 @@ const ABOVE = 1;
 const MOB_YARDS = 30;
 const ENEMY_YARDS = 150;
 const SIDE = { Alliance: 'A', Horde: 'H' };
+// An elite (Blizzard rank 1) or boss (3) hits like a creature this many levels above its own.
+const ELITE = new Set([1, 3]);
+const ELITE_LEVELS = 3;
+// A guard: an NPC of a side at GUARD_LEVEL or above with GUARD_SPAWNS spawns or more on the map (a post or
+// a patrol), a hazard to the other side on its own, town or not; one NPC of that level standing alone (a
+// quest giver, a festival keeper) is none.
+const GUARD_LEVEL = 50;
+const GUARD_SPAWNS = 3;
+// A creature this many levels or more below the player is grey: it leaves the player alone.
+const GREY = 6;
 
 function buildLoop(points, project, { radius = 30, span = 250, cover = 0.9, maxStops = 6, entry = null, avoid = [], clusters = null } = {}) {
 	const open = clusters ? points : points.filter((p) => !avoid.some((a) => dist(a.pt, p.pt) < a.yards));
@@ -53,10 +67,10 @@ function buildLoop(points, project, { radius = 30, span = 250, cover = 0.9, maxS
 // Per data object: map -> [{ pt, level, faction, town }] for every spawn on the map of an NPC of a side,
 // and of every creature without a side that drops something (items.json: one players kill; a messenger
 // or emissary friendly to all drops nothing) other than a rare, but no service NPC. A creature whose levels span more than
-// SCALING levels scales to the player: its lowest level counts. `town`:
+// SCALING levels scales to the player: its lowest level counts; an elite's counts ELITE_LEVELS higher. `town`:
 // an NPC of a side with at least TOWN_MATES other kinds of NPC of its side within ENEMY_YARDS (a town or
 // a guard post; the festival keepers the seasonal events put by a lake or in the other side's capital are
-// none).
+// none), or a guard (GUARD_LEVEL, GUARD_SPAWNS).
 const SERVICE = new Set(['vendor', 'innkeeper', 'repair', 'flightmaster', 'banker', 'stablemaster', 'auctioneer', 'battlemaster', 'spirithealer', 'trainer', 'questgiver']);
 const TOWN_MATES = 2;
 const SCALING = 5;
@@ -74,10 +88,13 @@ function killable(data) {
 	return killCache.get(data);
 }
 const spawnCache = new WeakMap();
-function mapSpawns(ctx, map) {
+// `strict`: an elite's level counts ELITE_LEVELS higher and a guard of a side is a town on its own (the fishing
+// rounds); without it the herb, ore and skinning loops keep the plain rule.
+function mapSpawns(ctx, map, strict = false) {
 	let byMap = spawnCache.get(ctx.data);
 	if (!byMap) spawnCache.set(ctx.data, (byMap = new Map()));
-	if (!byMap.has(map)) {
+	const key = `${map}|${strict ? 1 : 0}`;
+	if (!byMap.has(key)) {
 		const kills = killable(ctx.data);
 		const out = [];
 		for (const n of Object.values(ctx.data.npcs)) {
@@ -90,24 +107,26 @@ function mapSpawns(ctx, map) {
 			// side still marks its camp.
 			if (!n.faction && lo > MAX_LEVEL) continue;
 			const hi = Math.min(MAX_LEVEL, Math.max(lo, Number(n.levelMax) || 0));
-			const level = hi - lo > SCALING ? lo : hi;
-			for (const [x, y] of allPoints(s)) out.push({ id: n.id, pt: ctx.project.point(map, x, y, s.f), level, faction: n.faction || null });
+			const level = (hi - lo > SCALING ? lo : hi) + (strict && !n.faction && ELITE.has(n.rank) ? ELITE_LEVELS : 0);
+			const pts = allPoints(s);
+			const guard = strict && (n.faction === 'A' || n.faction === 'H') && lo >= GUARD_LEVEL && pts.length >= GUARD_SPAWNS && !(Array.isArray(n.roles) && n.roles.some((r) => SERVICE.has(r)));
+			for (const [x, y] of pts) out.push({ id: n.id, pt: ctx.project.point(map, x, y, s.f), level, faction: n.faction || null, guard });
 		}
 		for (const s of out) {
 			if (s.faction !== 'A' && s.faction !== 'H') continue;
 			const mates = new Set();
 			for (const o of out) if (o.id !== s.id && o.faction === s.faction && dist(o.pt, s.pt) < ENEMY_YARDS && mates.add(o.id).size >= TOWN_MATES) break;
-			s.town = mates.size >= TOWN_MATES;
+			s.town = s.guard || mates.size >= TOWN_MATES;
 		}
-		byMap.set(map, out);
+		byMap.set(key, out);
 	}
-	return byMap.get(map);
+	return byMap.get(key);
 }
 
-function hazards(ctx, map, { level = 60, faction = null } = {}) {
+function hazards(ctx, map, { level = 60, faction = null, strict = false } = {}) {
 	const other = faction ? (SIDE[faction] === 'A' ? 'H' : 'A') : null;
 	const out = [];
-	for (const s of mapSpawns(ctx, map)) {
+	for (const s of mapSpawns(ctx, map, strict)) {
 		if (other && s.faction === other && s.town) out.push({ pt: s.pt, yards: ENEMY_YARDS });
 		else if (!s.faction && s.level > level + ABOVE) out.push({ pt: s.pt, yards: MOB_YARDS });
 	}
@@ -117,19 +136,20 @@ function hazards(ctx, map, { level = 60, faction = null } = {}) {
 // The spawns of `map` by ENEMY_YARDS grid cell (every spawn within ENEMY_YARDS of a point lies in its
 // cell or the eight around it).
 const gridCache = new WeakMap();
-function spawnGrid(ctx, map) {
+function spawnGrid(ctx, map, strict = false) {
 	let byMap = gridCache.get(ctx.data);
 	if (!byMap) gridCache.set(ctx.data, (byMap = new Map()));
-	if (!byMap.has(map)) {
+	const key = `${map}|${strict ? 1 : 0}`;
+	if (!byMap.has(key)) {
 		const grid = new Map();
-		for (const s of mapSpawns(ctx, map)) {
+		for (const s of mapSpawns(ctx, map, strict)) {
 			const k = `${s.pt.c}|${Math.floor(s.pt.wx / ENEMY_YARDS)}|${Math.floor(s.pt.wy / ENEMY_YARDS)}`;
 			if (!grid.has(k)) grid.set(k, []);
 			grid.get(k).push(s);
 		}
-		byMap.set(map, grid);
+		byMap.set(key, grid);
 	}
-	return byMap.get(map);
+	return byMap.get(key);
 }
 
 // The level a place asks (pointLevels) from the map's spawn grid.
@@ -151,17 +171,17 @@ function levelAt(grid, pt, other) {
 
 // The level each point asks: the highest hostile creature within MOB_YARDS minus ABOVE (at least 1), or
 // null for a point within ENEMY_YARDS of the other faction (never safe).
-function pointLevels(ctx, map, points, faction = null) {
+function pointLevels(ctx, map, points, faction = null, { strict = false } = {}) {
 	const other = faction ? (SIDE[faction] === 'A' ? 'H' : 'A') : null;
-	const grid = spawnGrid(ctx, map);
+	const grid = spawnGrid(ctx, map, strict);
 	return points.map((p) => levelAt(grid, p.pt, other));
 }
 
 // The level a closed round through `stops` asks along its whole walk, sampled every `step` yards
 // (pointLevels' rule), or null when it passes within ENEMY_YARDS of the other faction's town.
-function roundLevel(ctx, map, stops, faction = null, step = 15) {
+function roundLevel(ctx, map, stops, faction = null, { step = 15, strict = false } = {}) {
 	const other = faction ? (SIDE[faction] === 'A' ? 'H' : 'A') : null;
-	const grid = spawnGrid(ctx, map);
+	const grid = spawnGrid(ctx, map, strict);
 	let top = 1;
 	for (let i = 0; i < stops.length; i++) {
 		const a = stops[i].pt;
@@ -179,11 +199,30 @@ function roundLevel(ctx, map, stops, faction = null, step = 15) {
 
 // The lowest character level, at least `min`, at which `need` of `points` are safe (pointLevels), or
 // null when fewer than `need` ever are.
-function levelFor(ctx, map, points, { faction = null, min = 1, need = 1 } = {}) {
-	const lv = pointLevels(ctx, map, points, faction)
+function levelFor(ctx, map, points, { faction = null, min = 1, need = 1, strict = false } = {}) {
+	const lv = pointLevels(ctx, map, points, faction, { strict })
 		.filter((l) => l !== null)
 		.sort((a, b) => a - b);
 	return lv.length >= need ? Math.max(min, lv[need - 1]) : null;
 }
 
-module.exports = { buildLoop, hazards, pointLevels, roundLevel, levelFor, ABOVE, MOB_YARDS, ENEMY_YARDS };
+// The hostile creature spawns within MOB_YARDS of a stop that are not grey to a player of `level`, each
+// counted once (elites at their strict level).
+function threats(ctx, map, stops, level) {
+	const grid = spawnGrid(ctx, map, true);
+	const seen = new Set();
+	for (const st of stops) {
+		const gx = Math.floor(st.pt.wx / ENEMY_YARDS);
+		const gy = Math.floor(st.pt.wy / ENEMY_YARDS);
+		for (let dx = -1; dx <= 1; dx++) {
+			for (let dy = -1; dy <= 1; dy++) {
+				for (const s of grid.get(`${st.pt.c}|${gx + dx}|${gy + dy}`) || []) {
+					if (!s.faction && s.level > level - GREY && dist(s.pt, st.pt) < MOB_YARDS) seen.add(s);
+				}
+			}
+		}
+	}
+	return seen.size;
+}
+
+module.exports = { buildLoop, hazards, pointLevels, roundLevel, levelFor, threats, ABOVE, MOB_YARDS, ENEMY_YARDS };

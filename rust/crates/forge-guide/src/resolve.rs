@@ -75,6 +75,8 @@ fn loop_target(g: &V) -> bool {
 const LOOP_NPC_VERBS: [&str; 3] = ["accept", "turnin", "talk"];
 const ON_STEP_ONLY: [&str; 8] = ["goto", "talk", "hearth", "die", "getfp", "fly", "vendor", "task"];
 const CATEGORIES: [&str; 9] = ["Leveling", "Class", "Professions", "Reputation", "Legacy", "Exploration", "Collectibles", "Miscellaneous", "Dungeons"];
+/// Guide kinds (`kind`), each a set of guide window parts and menu entries (addon Core/GuideKinds.lua).
+const KINDS: [&str; 8] = ["leveling", "profession", "reputation", "dungeon", "class", "collectible", "exploration", "misc"];
 
 pub fn round2(n: f64) -> f64 {
 	let r = math_round(n * 100.0) / 100.0;
@@ -1861,6 +1863,34 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 		guide.set("factionLevels", by);
 	}
 	guide.set("category", canonical_category(&h.get("category"), ast, r));
+	// `kind`: what the guide window shows for it (docs/GUIDE_FORMAT.md, "Guide kind"); written out only when set,
+	// the addon takes it from the category otherwise.
+	let kind = h.get("kind");
+	if !kind.is_undef() {
+		let k = kind.to_js_string();
+		if KINDS.contains(&k.as_str()) {
+			guide.set("kind", k.as_str());
+		} else {
+			r.err(&ast.get("lines").get("kind"), format!("unknown kind \"{}\" (known: {})", k, KINDS.join(", ")), None);
+		}
+	}
+	// `skills`: the skill lines the guide levels (docs/GUIDE_FORMAT.md, "Guide kind"), as `skillLines`; a paired
+	// profession guide names both, so the window can show two skill bars.
+	let skills = h.get("skills");
+	if skills.truthy() && data.has_professions {
+		let mut lines = Vec::new();
+		for name in skills.items() {
+			let p = data.profession_named(&name.to_js_string());
+			if p.truthy() {
+				lines.push(p.get("id"));
+			} else {
+				r.err(&ast.get("lines").get("skills"), format!("unknown profession \"{}\" in `skills`", name.to_js_string()), None);
+			}
+		}
+		if lines.len() == skills.items().len() {
+			guide.set("skillLines", lines);
+		}
+	}
 	set_if(&guide, "folder", h.get("folder"));
 	set_if(&guide, "keywords", h.get("keywords"));
 	if h.get("collects").truthy() {
@@ -1991,6 +2021,10 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 	if ast.get("sections").truthy() {
 		let mut out_secs = Vec::new();
 		let mut prev: Option<V> = None;
+		// A guide whose `skills` names two professions (a paired guide) alternates their sections: each
+		// profession's own sections rise in order.
+		let paired: Vec<String> = if h.get("skills").items().len() > 1 { h.get("skills").items().iter().map(|s| s.to_js_string().to_lowercase()).collect() } else { Vec::new() };
+		let mut prev_of: Vec<(String, V)> = Vec::new();
 		// Another way of a fork starts again where an earlier section started (`when` keeps its steps apart).
 		let mut starts: std::collections::HashSet<String> = std::collections::HashSet::new();
 		for sec in ast.get("sections").items() {
@@ -2016,7 +2050,28 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 			}
 			let start = format!("{}|{}", sec.get("skill").to_js_string(), sec.get("from").num());
 			let again = starts.contains(&start);
-			if let Some(pv) = &prev {
+			let own = sec.get("skill").to_js_string().to_lowercase();
+			if paired.contains(&own) {
+				if let Some((_, before)) = prev_of.iter().find(|(k, _)| *k == own) {
+					if sec.get("from").num() < before.get("from").num() && !again {
+						r.warn(
+							&ln,
+							format!(
+								"section {} {}-{} comes after {} {}-{}: each profession's sections rise in order",
+								sec.get("skill"),
+								sec.get("from"),
+								sec.get("to"),
+								before.get("skill"),
+								before.get("from"),
+								before.get("to")
+							),
+							None,
+						);
+					}
+				}
+				prev_of.retain(|(k, _)| *k != own);
+				prev_of.push((own, sec.clone()));
+			} else if let Some(pv) = &prev {
 				if !pv.get("skill").strict_eq(&sec.get("skill")) || (sec.get("from").num() < pv.get("from").num() && !again) {
 					r.warn(
 						&ln,
