@@ -251,6 +251,25 @@ check("skin moonlit", Theme.RegisterSkin("moonlit", {
 		-- piece it uses each time. Moonlit leaves them as Polestar paints them.
 		guideUpRow = function(row, view, index)
 		end,
+		-- A row of a guide kind's region (a profession guide's materials, a
+		-- reputation guide's turn-ins, a dungeon guide's bosses), once
+		-- painted: `item` is the item or quest it shows; info says its kind
+		-- ("supply", "more", "pickup", "ready", "boss", "objective"), whether
+		-- it is done and whether it is the row the step works on. Rows are
+		-- pooled: a skin sets every piece it uses each time. A moonline under
+		-- the row, brighter on the current one, gone once it is done.
+		guideKindRow = function(row, item, info)
+			moonline(row, "moon", "accent2", info.current and 0.8 or 0.35, true):SetShown(not info.done)
+		end,
+		-- A guide kind's meter ("skill": a profession's rank; "rep": a
+		-- standing), once painted; `frac` is the share of its value, 0 to 1.
+		-- A moonline under it as long as that share.
+		guideMeter = function(meter, info)
+			local line = moonline(meter, "moon", "accent2", 0.8, true)
+			line:ClearAllPoints()
+			line:SetPoint("BOTTOMLEFT", meter, "BOTTOMLEFT", 0, 0)
+			line:SetWidth(math.max(1, (meter:GetWidth() or 0) * (info.frac or 0)))
+		end,
 		-- Whether a part shows the skin's way: "tip" (in compact mode),
 		-- "done" (finished goals kept in place), "upnextHead", "goalScroll",
 		-- "classCardLater"; `default` is Polestar's own choice. A name the

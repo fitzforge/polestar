@@ -6,4 +6,4 @@ section: authors
   `guidePlace` and `guideSpace` names and the tokens `craftOrange`,
   `craftYellow`, `craftGreen` and `craftGrey` (capability `guideParts.kind`;
   docs/skins/reference.md). A profession guide's steps are goal rows, so
-  `guideRow` dresses them too.
+  `guideRow` dresses them too. The example skin Moonlit sets both hooks.

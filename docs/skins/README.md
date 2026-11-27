@@ -152,7 +152,7 @@ pixel-exact border, a hover wash, a soft glow, a picture of the game, a
 tint over the game art, and a store for the skin's own pieces). Call the
 base painter and add to it, or paint the frame from scratch.
 
-Nineteen **hooks** reach the art Polestar's modules draw themselves, each
+Twenty-two **hooks** reach the art Polestar's modules draw themselves, each
 after Polestar's own look is on, with its parts by name: `arrow` (the
 waypoint arrow), `pin` (a map or minimap pin), the guide window's
 `guideTitle` (its title row), `guideRow` (each goal's row), `guideLayout`
@@ -162,8 +162,10 @@ on), `guideTab` (each tab), `guidePlace` (a part the skin places itself,
 out of the window), `guideMenu` (the window's menu), `guideTakes` (a
 goal the skin shows on a card of its own), `guidePerson` (the step's
 header), `guideInset` (a part set in from the window's left edge),
-`guideUpRow` (each Up next row) and `guideShows` (whether a part shows the
-skin's way), then
+`guideUpRow` (each Up next row), `guideShows` (whether a part shows the
+skin's way), `guideSpace` (a gap or height of the window's layout),
+`guideKindRow` (a row of a profession, reputation or dungeon guide's
+regions) and `guideMeter` (their skill or standing meter), then
 `card` (the heads-up and class quest cards), `toast` (the rare alert, the
 transport heads-up, While you're here) and `actionButton` (the buttons
 Polestar puts on the screen).
