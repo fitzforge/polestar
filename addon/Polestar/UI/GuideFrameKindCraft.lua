@@ -634,7 +634,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		return parts[1] and table.concat(parts, DOT) or nil
 	end
 
-	-- A way row's radio mark: a ring, a dot in it while it is the way taken.
+	-- A way row's radio mark: a ring, a dot in it while it is the way taken; the others' rings step back.
 	local function radio(r, on)
 		local dot = r.psDot
 		if not dot then
@@ -645,7 +645,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			r.psDot = dot
 		end
 		r.Icon:SetTexture(Theme.Media("ring"))
-		W.Color(r.Icon, on and "accent" or "textDim")
+		W.Color(r.Icon, on and "accent" or "textMuted")
 		W.Color(dot, "accent")
 		dot:SetShown(on)
 	end
