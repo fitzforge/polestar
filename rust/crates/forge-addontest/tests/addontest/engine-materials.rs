@@ -121,7 +121,7 @@ fn each_material_takes_one_way_and_the_route_follows_a_pick_the_mode_the_level_a
 	assert_eq!(out["asks"], true, "no answer yet, and Options' default asks");
 	// Mix: Linen Cloth drops at the character's level (gathered); Light Leather takes Skinning (bought).
 	assert_eq!(out["mix"], json!({ "at": 2, "open": ["Buy Light Leather 0/10"] }));
-	assert_eq!(out["leatherWhy"], "Bought at the Auction House: needs Skinning 1");
+	assert_eq!(out["leatherWhy"], "Bought at the Auction House: needs Skinning skill 1");
 	// Skinning learned: the leather is gathered too, and the Auction House step passes.
 	assert_eq!(out["skinner"], json!({ "at": 3, "open": ["Collect Linen Cloth 0/40"] }));
 	assert_eq!(out["ahWhy"], "Gathering this yourself");
