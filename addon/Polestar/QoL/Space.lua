@@ -6,7 +6,9 @@
 --     slots and the cheapest junk in all the bags, the reagent bag too: a
 --     grey item, or one marked as junk (QoL/Marks.lua) of common quality or
 --     below; never one marked to keep, one a later step needs, or a quest's
---     item or one that begins a quest (Client.SlotQuest). Its worth
+--     item or one that begins a quest (Client.SlotQuest), unless it is a
+--     leftover quest item no quest in the log asks for (red border,
+--     Q.IsDeletableLeftover, #4272): those count as junk too. Its worth
 --     is what a merchant pays for the stack (Client.SlotSellPrice: less for a
 --     damaged item, #3997; an item without a price is worth
 --     nothing; one whose price the client
@@ -68,7 +70,11 @@ local function candidate(info, bag, slot)
 	if not info or info.isLocked or not info.itemID then return false end
 	local Marks = QoL.Marks
 	if Marks.Protected(info.itemID) then return false end
-	if Client.SlotQuest(bag, slot) then return false end -- a quest's item or a quest starter (#1557)
+	if Client.SlotQuest(bag, slot) then -- a quest's item or a quest starter (#1557)
+		local Q = ns.QuestDB
+		if Client.SlotStartsQuest(bag, slot) then return false end -- the game says it begins a quest
+		return Q and Q.IsDeletableLeftover and Q.IsDeletableLeftover(info.itemID) or false -- a leftover (#4272)
+	end
 	if info.quality == Client.QUALITY_POOR then return true end
 	return Marks.Junk(info.itemID) and info.quality ~= nil and info.quality <= Client.QUALITY_COMMON
 end

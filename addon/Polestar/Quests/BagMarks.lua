@@ -5,8 +5,13 @@
 -- Abandoning a quest keeps it, as the quest is ahead in the guide again.
 -- So does a guide that has gone past every step for a quest you never accepted:
 -- nothing ahead needs the item, and the mark clears.
--- A red border suggests a leftover only when every known quest tied to that
--- quest-class item was handed in and none is repeatable or kept by the guide.
+-- A red border suggests a leftover when no known quest tied to that
+-- quest-class item needs it any more (#4272): each was handed in (and is not
+-- repeatable), is grey for you, is not in your log (abandoned or never taken,
+-- unless the item begins it), or is not for this character; and no guide
+-- ahead and no kept mark holds it. Its tooltip says so, quest by quest, and
+-- the bag-space button (QoL/Space.lua) offers to delete one no quest in the
+-- log asks for.
 --
 -- Four bag views (qol.questBagMarks, which hides only the marks: the sale,
 -- delete and buyback guards ask Q.IsItemNeeded whatever it says), the way
@@ -18,6 +23,8 @@
 --
 --   Q.IsItemNeeded(itemID) -> bool          -- also used by the item guards
 --   Q.IsObsoleteQuestItem(itemID) -> bool   -- a leftover suggestion only
+--   Q.LeftoverQuests(itemID) -> list|nil    -- its quests and why each lets it go
+--   Q.IsDeletableLeftover(itemID) -> bool   -- a leftover no quest in the log asks for
 --   Q.BagMarkShown(itemID) -> bool          -- the quest icon shows on the item's slot
 --   Q.RedrawBagMarks()                      -- repaint the shown bags now
 
@@ -48,22 +55,74 @@ function Q.BagMarkShown(itemID)
 	return itemID ~= nil and isOn() and Q.IsItemNeeded(itemID) or false
 end
 
--- A suggestion only: the client cannot prove an item has no other use.
-function Q.IsObsoleteQuestItem(itemID)
+-- Why quest q no longer needs the item (#4272), or nil when it may:
+--   "done"    handed in, not repeatable
+--   "grey"    grey for you (Q.GreyLevel), in your log or not
+--   "dropped" not in your log, not handed in, and the item does not start it
+--             (abandoned, or never taken; a guide ahead that takes it again
+--             keeps the item through Q.IsItemNeededAhead)
+--   "other"   not for this character (faction, race, class) or shut out by
+--             a quest you did instead
+local ctx = {}
+local function whyNotNeeded(log, q, starts, plevel)
+	local on = log.IsOnQuest(q)
+	local level = Q.GetQuestLevel(q)
+	local grey = level and plevel and level <= Q.GreyLevel(plevel)
+	if on then return grey and "grey" or nil end
+	if log.IsQuestFlaggedCompleted(q) then
+		return log.IsRepeatableQuest(q) == false and "done" or nil
+	end
+	if not plevel then return nil end -- no player info: only handed-in quests let it go
+	local ok, reason = Q.CheckAvailable(q, ctx, log.IsQuestFlaggedCompleted, log.IsOnQuest)
+	if not ok and (reason == "eligibility" or reason == "exclusive") then return "other" end
+	if grey then return "grey" end
+	if starts and starts[q] then return nil end -- it begins a quest you can still take
+	return "dropped"
+end
+
+-- The quests a leftover quest item was for, each with why it needs the item
+-- no more: { { quest = q, why = "done"|"grey"|"dropped"|"other" }, ... }, or
+-- nil when the item is not a leftover. A suggestion only: the client cannot
+-- prove an item has no other use.
+function Q.LeftoverQuests(itemID)
 	local client = ns.QoL and ns.QoL.Client
-	if not (itemID and Q.IsRunning() and client and client.ItemClass) then return false end
-	if client.ItemClass(itemID) ~= client.CLASS_QUEST or Q.IsItemNeeded(itemID) then return false end
+	if not (itemID and Q.IsRunning() and client and client.ItemClass) then return nil end
+	if client.ItemClass(itemID) ~= client.CLASS_QUEST or Q.IsItemNeededAhead(itemID) then return nil end
 	local kept = ns.QoL and ns.QoL.Kept
-	if kept and kept(itemID) then return false end
+	if kept and kept(itemID) then return nil end
 	local log = C_QuestLog
-	if not (log and log.IsOnQuest and log.IsQuestFlaggedCompleted and log.IsRepeatableQuest) then return false end
+	if not (log and log.IsOnQuest and log.IsQuestFlaggedCompleted and log.IsRepeatableQuest) then return nil end
 	local quests = Q.ItemQuests(itemID)
-	if not quests then return false end
+	if not quests or #quests == 0 then return nil end
+	local starts
+	local starters = Q.StartedBy and Q.StartedBy(itemID)
+	for i = 1, starters and #starters or 0 do
+		starts = starts or {}
+		starts[starters[i]] = true
+	end
+	local C = ns.Compat
+	local plevel = C and C.GetPlayerInfo and Q.PlayerContext(nil, ctx).level or nil
+	local out, onGrey = {}, false
 	for i = 1, #quests do
 		local q = quests[i]
-		if log.IsOnQuest(q) or not log.IsQuestFlaggedCompleted(q) or log.IsRepeatableQuest(q) ~= false then return false end
+		local why = whyNotNeeded(log, q, starts, plevel)
+		if not why then return nil end
+		if why == "grey" and log.IsOnQuest(q) then onGrey = true end
+		out[i] = { quest = q, why = why }
 	end
-	return true
+	-- A quest in the log still asks for it: only a grey one there lets it go.
+	if Q.ObjectivesForItem(itemID) ~= nil and not onGrey then return nil end
+	return out
+end
+
+function Q.IsObsoleteQuestItem(itemID)
+	return Q.LeftoverQuests(itemID) ~= nil
+end
+
+-- A leftover the bag-space button may delete (QoL/Space.lua): no quest in
+-- the log asks for it any more, not even a grey one.
+function Q.IsDeletableLeftover(itemID)
+	return Q.ObjectivesForItem(itemID) == nil and Q.LeftoverQuests(itemID) ~= nil
 end
 
 local marks = setmetatable({}, { __mode = "k" }) -- item button -> texture
@@ -174,9 +233,35 @@ if Slots then
 end
 
 local tooltipOn = false
+local LEFTOVER_LINES = 5 -- at most this many of a leftover's quests are named
+local WHY = {
+	done = ns.L["Done"],
+	grey = ns.L["Grey"],
+	dropped = ns.L["Not in your log"],
+	other = ns.L["Not for you"],
+}
 local function onItemTooltip(tt, _, itemID)
-	if isOn() and Q.IsObsoleteQuestItem(itemID) then
-		ns.Hooks.AddLine(tt, ns.L["Related quests completed (likely safe to delete)"])
+	local list = isOn() and Q.LeftoverQuests(itemID)
+	if not list then return end
+	local L = ns.L
+	local allDone, inLog = true, false
+	for i = 1, #list do
+		if list[i].why ~= "done" then allDone = false end
+		if list[i].why == "grey" and C_QuestLog.IsOnQuest(list[i].quest) then inLog = true end
+	end
+	if allDone then
+		ns.Hooks.AddLine(tt, L["Related quests completed (likely safe to delete)"])
+	elseif inLog then
+		ns.Hooks.AddLine(tt, L["Its quest is grey: abandon it, then this is likely safe to delete"])
+	else
+		ns.Hooks.AddLine(tt, L["No quest needs this any more (likely safe to delete)"])
+	end
+	-- The quests it was for, "[12] <Quest>: Done", in their difficulty colours.
+	if not Q.TooltipQuestName then return end
+	local dim = Q.Color("textDim")
+	for i = 1, math.min(#list, LEFTOVER_LINES) do
+		local name, c = Q.TooltipQuestName(list[i].quest)
+		ns.Hooks.AddLine(tt, name .. ":", WHY[list[i].why], c.r, c.g, c.b, dim.r, dim.g, dim.b)
 	end
 end
 

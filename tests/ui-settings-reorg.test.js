@@ -137,6 +137,7 @@ const REFS = [
 	'qualityoflife > Travel > Hearth and travel: nav.nearbyMenu',
 	'guide > Automation > Guides: behavior.trainReminder',
 	'alerts > Heads-up card > Card: dungeons.headsUp',
+	'integrations >  > Questie: qol.questTooltipsQuestie',
 ];
 const DROPPED = [
 	// Its home is Game, in the same group: Quests shows it no more.

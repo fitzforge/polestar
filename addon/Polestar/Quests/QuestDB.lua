@@ -29,6 +29,7 @@ ns.RegisterDefaults("qol", {
 	questTooltips = true, -- quest lines on unit, item and object tooltips
 	questDropChance = false, -- ... with how often a mob or object gives the quest item, on its tooltip
 	questTooltipsReplace = false, -- ... in place of the client's own rows for the same quests
+	questTooltipsQuestie = false, -- ... and in place of Questie's lines for the same quests (Quests/QuestieLines.lua)
 	questTooltipsNpc = false, -- ... and on an NPC, the quests it gives now and the ready ones it takes
 	questSellWarning = true, -- at a vendor, offer to buy back a sold item a quest needs
 	questBagMarks = true, -- a quest mark on bag items a quest (in the log or ahead in the guide) still needs
@@ -337,6 +338,13 @@ end
 function Q.GetQuestTitle(id)
 	local r = data.quests[id]
 	return r and named("Quest", id, r[QUEST_TITLE]) or nil
+end
+
+-- A quest's level from the database (nil for none or a scaling quest's -1).
+function Q.GetQuestLevel(id)
+	local r = data.quests[id]
+	local level = r and r[QUEST_LEVEL]
+	return type(level) == "number" and level > 0 and level or nil
 end
 
 local function spawnRow(list, _, map, f, x, y, r)

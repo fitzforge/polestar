@@ -76,5 +76,7 @@ if ns.QuestieTurnIns then
 		{ kind = "toggle", key = "routePlan.questie", label = L["Show planned turn-ins in Questie"],
 			help = L["Completed quests in Questie's tracker show their Polestar turn-in step. Earlier, skipped and unplanned hand-ins are flagged."],
 			needs = function() return ns.Compat.AddOnPresent("Questie") end },
+		-- At home under Questing > Quests > Quest tooltips; here a link to it.
+		ns.Widgets.Ref("toggle", "qol.questTooltipsQuestie", { needs = function() return ns.Compat.AddOnPresent("Questie") end }),
 	} })
 end
