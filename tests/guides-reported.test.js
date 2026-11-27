@@ -19915,3 +19915,13 @@ test("forever/alliance/50-60/02-felwood.guide: Pokey's report: both ooze steps s
 		assert.match(jar.step.note || '', /use (Laris's|the) Empty (Tainted )?Ooze Jar on their remains/, `the jar of objective ${oi}: how to fill it`);
 	}
 });
+
+// #4253 (nepyanbin, zhCN): the note on Eridan's next task named the quest Ancient Spirit (4261), but the compiler took
+// the words for the same-named creature, so other languages showed the creature's name there. The note writes the
+// quest's token itself.
+test("forever/alliance/50-60/03-winterspring.guide: nepyanbin's report: Eridan's note names the quest Ancient Spirit (#4253)", { skip }, () => {
+	const list = goals('forever/alliance/50-60/03-winterspring.guide');
+	const note = list.find(({ goal }) => goal.t === 'note' && /next task, .*Kayneth|next task, .*\{npc:3848\}/.test(goal.text || ''));
+	assert.ok(note, "the note on Eridan's next task is in the guide");
+	assert.match(note.goal.text, /next task, \{quest:4261\},/, note.goal.text);
+});
