@@ -19,7 +19,7 @@ const skip = !fs.existsSync(path.join(DATA, 'professions.json')) && 'needs data/
 const { loadRoute, checkRoute, TIP_MAX, IMPERATIVE } = require('../tools/lib/professions/route');
 
 // The guides a route builds: the crafting guide and the paired guide on top of it.
-const ROUTED = ['blacksmithing', 'mining-blacksmithing'];
+const ROUTED = ['blacksmithing', 'mining-blacksmithing', 'alchemy', 'herbalism-alchemy', 'tailoring', 'leatherworking', 'skinning-leatherworking', 'tailoring-enchanting'];
 const read = (name) => fs.readFileSync(path.join(ROOT, 'guides', 'forever', 'professions', `${name}.guide`), 'utf8');
 const exists = (name) => fs.existsSync(path.join(ROOT, 'guides', 'forever', 'professions', `${name}.guide`));
 
