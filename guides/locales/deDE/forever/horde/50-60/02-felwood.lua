@@ -27,7 +27,7 @@ return {
 	["The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A {npc:10816} carries the outhouse key; {npc:10836} comes out when you open the outhouse and carries the cabinet key."] = "Das Tagebuch liegt im Bauernhaus, der Schrank steht drinnen und der Abort dahinter. Ein {npc:10816} trägt den Schlüssel zum Abort; {npc:10836} kommt heraus, wenn du den Abort öffnest, und trägt den Schlüssel zum Schrank.",
 
 	-- Step 4: Mulgris Deepriver
-	["His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands guide's sweep at about 55."] = "",
+	["His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands guide's sweep at about 55."] = "Seine nächste Jagd, die kranken Grizzlys (55-56), wartet auf den Streifzug des Plaguelands-Guides bei etwa Stufe 55.",
 
 	-- Step 6: High Executor Derrington
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "Das hast du beim früheren Besuch der Route hier verpasst: Es kommt jetzt zuerst. Es geht schnell und öffnet die Quests danach.",
@@ -73,7 +73,7 @@ return {
 	-- {area:1237} Valormok
 	["Fly to {area:1237}"] = "Flieg nach {area:1237}",
 	-- {zone:1447} Azshara · {zone:1454} Orgrimmar
-	["{zone:1447} is a short flight from {zone:1454}: its quests are 51-55, at your level now."] = "",
+	["{zone:1447} is a short flight from {zone:1454}: its quests are 51-55, at your level now."] = "{zone:1447} ist ein kurzer Flug von {zone:1454}: seine Quests sind 51-55, jetzt auf deinem Level.",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Flugmeister: {zone:1454}",
 
@@ -90,8 +90,8 @@ return {
 	-- {item:10695} Box of Empty Vials · {area:1231} Southridge Beach · {npc:8390} Chemist Cuely · {zone:1458} Undercity
 	["Open Cuely's {item:10695} in your bags for the four labelled vials. The tide pools cannot be clicked: stand in each pool and use its own vial from your bags, from {area:1231} north up the coast; Spitelash naga patrol between them. No vials? Abandon the quest and take it again from {npc:8390} in the {zone:1458}."] = "Öffne den {item:10695} von Cuely in deinen Taschen und nimm die vier beschrifteten Phiolen. Die Gezeitentümpel lassen sich nicht anklicken: Steh in jedem Tümpel und benutze die eigene Phiole aus deinen Taschen, von {area:1231} nach Norden die Küste entlang; zwischen ihnen patrouillieren Spitelash-Naga. Keine Phiolen? Gib die Quest auf und nimm sie erneut von {npc:8390} in {zone:1458} an.",
 	-- {item:10691} Filled Vial Labeled #1 · {area:1231} Southridge Beach
-	["{item:10691}: the tide pool on {area:1231}"] = "",
-	["#2, north along the shore"] = "",
+	["{item:10691}: the tide pool on {area:1231}"] = "{item:10691}: der Gezeitentümpel auf {area:1231}",
+	["#2, north along the shore"] = "#2, nach Norden entlang der Küste",
 
 	-- Step 19: Makrinni Burrowers
 	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower
@@ -145,7 +145,7 @@ return {
 	-- Step 26: The Legashi satyrs
 	["The Legashi satyrs"] = "Die Satyrn der Legashi",
 	-- {npc:235903} Ekkal · {npc:235892} Prince Halanox
-	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind.\nCareful: {npc:235892} (55, elite) stands among the satyrs at the north-east end of their hills, around 67,19: take the satyrs nearer the camp and leave him be."] = "",
+	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind.\nCareful: {npc:235892} (55, elite) stands among the satyrs at the north-east end of their hills, around 67,19: take the satyrs nearer the camp and leave him be."] = "Die Legashi-Satyrn (51-52) halten die Hügel nördlich des Lagers der Blutelfen: {npc:235903} will fünf von jeder Sorte.\nVorsicht: {npc:235892} (55, Elite) steht unter den Satyrn am nordöstlichen Ende ihrer Hügel, um 67,19: nimm die Satyrn näher am Lager und lass ihn in Ruhe.",
 
 	-- Step 27: Kim'jael
 	-- {npc:8420} Kim'jael
@@ -172,11 +172,11 @@ return {
 	-- {npc:8587} Jediga · {npc:3326} Zevrost · {zone:1454} Orgrimmar
 	["{npc:8587}: the tome goes to {npc:3326} in {zone:1454}"] = "{npc:8587}: Der Foliant geht an {npc:3326} in {zone:1454}",
 	-- {npc:8659} Jes'rimon · {npc:4485} Belgrom Rockmaul · {npc:3326} Zevrost · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {npc:6522} Andron Gant · {zone:1458} Undercity
-	["Keep the deliveries: {npc:8659}, {npc:4485} and {npc:3326} are in {zone:1454} next, Magatha in {zone:1456} and {npc:6522} in the {zone:1458} on the next guides."] = "",
+	["Keep the deliveries: {npc:8659}, {npc:4485} and {npc:3326} are in {zone:1454} next, Magatha in {zone:1456} and {npc:6522} in the {zone:1458} on the next guides."] = "Behalte die Lieferungen: {npc:8659}, {npc:4485} und {npc:3326} sind als Nächstes in {zone:1454}, Magatha in {zone:1456} und {npc:6522} im {zone:1458} in den nächsten Führern.",
 
 	-- Step 32: Sanath Lim-yo
 	-- {area:1237} Valormok · {npc:8379} Archmage Xylem
-	["Ride east from {area:1237} to Sanath's camp at the foot of the cliff and get off your mount: he teleports you up to {npc:8379}'s tower."] = "",
+	["Ride east from {area:1237} to Sanath's camp at the foot of the cliff and get off your mount: he teleports you up to {npc:8379}'s tower."] = "Reite von {area:1237} nach Osten bis zu Sanaths Lager am Fuß der Klippe und steig ab: er teleportiert dich hoch zum Turm von {npc:8379}.",
 
 	-- Step 33: Archmage Xylem
 	["The apprentice at the top of the tower sends you back down."] = "Der Lehrling oben im Turm schickt dich wieder nach unten.",
@@ -194,7 +194,7 @@ return {
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow
 	["{npc:3326}, the {object:172960}"] = "{npc:3326}, {object:172960}",
 	-- {npc:8659} Jes'rimon · {npc:8587} Jediga
-	["{npc:8659}: his payment goes back to {npc:8587}, on the flight out"] = "",
+	["{npc:8659}: his payment goes back to {npc:8587}, on the flight out"] = "{npc:8659}: Seine Bezahlung geht zurück an {npc:8587}, beim Hinflug",
 
 	-- Step 37: Class trainer
 	["Class trainer"] = "Klassenlehrer",
@@ -206,7 +206,7 @@ return {
 
 	-- Step 39: Fly to Valormok
 	-- {zone:1448} Felwood · {area:1237} Valormok · {npc:8587} Jediga · {npc:8659} Jes'rimon · {area:431} Splintertree Post
-	["{zone:1448} is next: fly by way of {area:1237}, where {npc:8587} takes {npc:8659}'s payment, then on to {area:431}."] = "",
+	["{zone:1448} is next: fly by way of {area:1237}, where {npc:8587} takes {npc:8659}'s payment, then on to {area:431}."] = "{zone:1448} ist als Nächstes: flieg über {area:1237}, wo {npc:8587} {npc:8659}'s Bezahlung annimmt, und dann weiter nach {area:431}.",
 
 	-- Step 41: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
@@ -229,7 +229,7 @@ return {
 	-- {area:1763} Jaedenar
 	["Southern {area:1763}"] = "Südliches {area:1763}",
 	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge
-	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: pull the cultists and hounds away from him."] = "",
+	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: pull the cultists and hounds away from him."] = "Folge der Straße nach Nordwesten. Der Süden von {area:1763}, um seinen verdorbenen Mondbrunnen, wird von Kultisten, Adepten, Wachen und ihren Hunden des Shadow Council gehalten.\nVorsicht: Der {npc:11141} (53, Elite) spukt am Westende von {area:1763}, etwa bei 35,60: Ziehe die Kultisten und Hunde von ihm weg.",
 
 	-- Step 47: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
@@ -269,9 +269,9 @@ return {
 
 	-- Step 53: Meilosh
 	-- {npc:11557} Meilosh · {zone:1448} Felwood · {quest:6031} Runecloth · {area:1769} Timbermaw Hold
-	["Only from Friendly with the Timbermaw: {npc:11557}, in the tunnel near its {zone:1448} mouth, gives {quest:6031} then (the {area:1769} reputation guide gets you there)."] = "",
+	["Only from Friendly with the Timbermaw: {npc:11557}, in the tunnel near its {zone:1448} mouth, gives {quest:6031} then (the {area:1769} reputation guide gets you there)."] = "Erst ab Freundlich bei der Holzschlundfeste: {npc:11557} im Tunnel nahe ihrem {zone:1448}-Ausgang gibt dir dann {quest:6031} (der Ruf-Guide für {area:1769} bringt dich dorthin).",
 	-- {npc:11557} Meilosh · {quest:6031} Runecloth
-	["{npc:11557}: keep 30 {quest:6031} for him; below ground"] = "",
+	["{npc:11557}: keep 30 {quest:6031} for him; below ground"] = "{npc:11557}: Behalte 30 {quest:6031} für ihn auf; unter der Erde",
 
 	-- Step 54: Nafien
 	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold
@@ -280,9 +280,9 @@ return {
 	-- Step 55: Felpaw Village
 	-- {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
 	-- plural, as words: Deadwood Avengers = {npc:7157} Deadwood Avenger
-	["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nIf one drops a {quest:8470} (about one kill in thirty), right-click it; don't stay to farm one. {npc:11558} in {area:1769} takes it only from Neutral with the Timbermaw (the {area:1769} reputation guide gets you there): now if they already are, or on the last guide's pass of the cave."] = "",
+	["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nIf one drops a {quest:8470} (about one kill in thirty), right-click it; don't stay to farm one. {npc:11558} in {area:1769} takes it only from Neutral with the Timbermaw (the {area:1769} reputation guide gets you there): now if they already are, or on the last guide's pass of the cave."] = "Vorsicht: Den Watchers sind Stufe 53-54 und die Rächer der Totenwaldfelle 54-55; sie rufen innerhalb von 25 Yards Verbündete herbei, sobald sie unter 50 % Gesundheit sind, und laufen unter 15 % los, um Hilfe zu holen.\nWenn einer ein {quest:8470} fallen lässt (etwa eine von dreißig Kills), klicke mit der rechten Maustaste darauf; bleib nicht, um eines zu farmen. {npc:11558} in {area:1769} nimmt es erst ab Neutral mit dem Timbermaw an (der {area:1769}-Reputationsguide bringt dich dorthin): jetzt, wenn sie schon neutral sind, oder beim letzten Durchgang des Guides durch die Höhle.",
 	-- {quest:8470} Deadwood Ritual Totem
-	["{quest:8470}, a rare drop from the Deadwood furbolgs"] = "",
+	["{quest:8470}, a rare drop from the Deadwood furbolgs"] = "{quest:8470}, eine seltene Beute von den Deadwood-Furbolgs",
 
 	-- Step 56: Nafien
 	-- {quest:8465} Speak to Salfa · {zone:1452} Winterspring
@@ -290,7 +290,7 @@ return {
 
 	-- Step 57: Timbermaw Hold
 	-- {npc:11558} Kernda
-	["Step into the cave: {npc:11558} stands just inside. She speaks to you only from Neutral with the Timbermaw."] = "",
+	["Step into the cave: {npc:11558} stands just inside. She speaks to you only from Neutral with the Timbermaw."] = "Geh in die Höhle: {npc:11558} steht gleich hinter dem Eingang. Sie spricht mit dir erst ab Neutral bei den Holzschlund.",
 	-- {npc:11558} Kernda
 	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558} läuft hier herum: schau in den Kreis auf der Karte",
 

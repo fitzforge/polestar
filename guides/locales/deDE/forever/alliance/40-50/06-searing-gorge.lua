@@ -116,7 +116,7 @@ return {
 	["Level 48.66"] = "Stufe 48,66",
 	-- {area:1443} Slag Pit · {quest:7701} WANTED: Overseer Maltorius · {npc:14621} Overseer Maltorius
 	-- plural, as words: Incendosaurs = {npc:9318} Incendosaur
-	["Still under level 48.66 after the {area:1443} (a solo player usually is; a group's Culling the Competition or {quest:7701} covers it)? Top up on the Incendosaurs (47) in the {area:1443}'s lava pools, pulled to the edge.\nCareful: {npc:14621} (50, elite) and his elite guards hold the {area:1443}'s depths: keep to the pools near the entrance and don't follow the tunnels in."] = "",
+	["Still under level 48.66 after the {area:1443} (a solo player usually is; a group's Culling the Competition or {quest:7701} covers it)? Top up on the Incendosaurs (47) in the {area:1443}'s lava pools, pulled to the edge.\nCareful: {npc:14621} (50, elite) and his elite guards hold the {area:1443}'s depths: keep to the pools near the entrance and don't follow the tunnels in."] = "Noch unter Stufe 48.66 nach dem {area:1443} (bei einem Solospieler ist das üblich; Culling the Competition einer Gruppe oder {quest:7701} deckt es ab)? Toppe dich bei den Incendosauriern (47) in den Lavabecken des {area:1443} auf, an den Rand gezogen.\nVorsicht: {npc:14621} (50, Elite) und seine Elite-Wachen halten die Tiefen des {area:1443}: bleib bei den Becken nahe dem Eingang und folge den Tunneln nicht hinein.",
 	-- {npc:9318} Incendosaur
 	["grind on {npc:9318}"] = "Grinde an {npc:9318}",
 
@@ -145,7 +145,7 @@ return {
 	["Level 48.98"] = "Stufe 48,98",
 	-- {quest:3452} The Flame's Casing · {object:147516} Dark Iron · {area:1442} Firewatch Ridge
 	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider · Magma Elementals = {npc:5855} Magma Elemental
-	["Still under level 48.98 (a solo player usually is; a group's {quest:3452} covers it)? Top up on the Searing Lava Spiders (47-48) of the western plateaus, away from the {object:147516} camps.\nCareful: Magma Elementals (46-48) drift among the spiders: pull one at a time. Keep south of the Twilight camp at {area:1442}, whose cultists are elites."] = "",
+	["Still under level 48.98 (a solo player usually is; a group's {quest:3452} covers it)? Top up on the Searing Lava Spiders (47-48) of the western plateaus, away from the {object:147516} camps.\nCareful: Magma Elementals (46-48) drift among the spiders: pull one at a time. Keep south of the Twilight camp at {area:1442}, whose cultists are elites."] = "Noch unter Stufe 48.98 (als Solospieler ist man das üblicherweise; eine Gruppe mit {quest:3452} deckt das ab)? Hole dir den Rest bei den Großen Lavaspinnen (47-48) der westlichen Hochebenen, weg von den Lagern bei {object:147516}.\nVorsicht: Magmaelementare (46-48) treiben unter den Spinnen umher: Ziehe sie einzeln. Bleibe südlich des Dämmerungslagers bei {area:1442}, dessen Kultisten Elites sind.",
 	-- {npc:5858} Searing Lava Spider
 	["grind on {npc:5858}"] = "Ertüchtigung auf {npc:5858}",
 

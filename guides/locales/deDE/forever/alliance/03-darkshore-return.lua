@@ -13,7 +13,7 @@ return {
 	["{npc:3649}, north end of the village: {npc:1646}'s reply"] = "{npc:3649}, Nordende des Dorfes: die Antwort an {npc:1646}",
 	["The WANTED poster"] = "Der Steckbrief",
 	-- {npc:8997} Gershala Nightwhisper · {npc:3693} Terenthis · {zone:1453} Stormwind
-	["{npc:8997}, a short walk west of {npc:3693}: Argos's message from {zone:1453}"] = "",
+	["{npc:8997}, a short walk west of {npc:3693}: Argos's message from {zone:1453}"] = "{npc:8997}, ein kurzer Spaziergang westlich von {npc:3693}: Argos's Nachricht von {zone:1453}",
 	-- {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
 	["{npc:3694}, beside {npc:3693} if she is there: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}, neben {npc:3693}, falls sie da ist: für {npc:3691} in {area:415}, im nächsten Guide",
 
