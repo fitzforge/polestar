@@ -95,6 +95,7 @@ const GROUPS: &[Group] = &[
 	Group { name: "pins_world", src: include_str!("effects/pins-world.lua") },
 	Group { name: "pins_spawns", src: include_str!("effects/pins-spawns.lua") },
 	Group { name: "pause", src: include_str!("effects/pause.lua") },
+	Group { name: "groupfinder", src: include_str!("effects/groupfinder.lua") },
 ];
 
 // A guide whose first step is Marshal McBride's Kobold Camp Cleanup and every later step a dungeon's (`when dungeon`,
@@ -808,6 +809,11 @@ fn pins_spawns() {
 #[test]
 fn pause() {
 	check("pause");
+}
+
+#[test]
+fn groupfinder() {
+	check("groupfinder");
 }
 
 // Every control of the settings window has an effect check, and every check is a registered control's. A later

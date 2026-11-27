@@ -161,6 +161,8 @@ local PAGES = {
 	-- A section per addon Polestar works with.
 	integrations = { "quests", sections = { EllesmereUI = "skin", TomTom = "arrow", ["Shortest Path Forever"] = "routes" } },
 	gamepad = "window",
+	-- The group finder's page: grouping and its messages.
+	groupfinder = "quests",
 	-- The update notices' switch (Install & updates), the guide window's.
 	profiles = "window",
 }
@@ -180,6 +182,9 @@ local HIDDEN = {
 	nav = "routes", maps = "arrow", buttons = "hud", toasts = "hud", trackers = "hud", rares = "hud",
 	behavior = "quests", qol = "quests", party = "quests", routePlan = "quests",
 	gear = "gear", talents = "gear", dungeons = "dungeons", alts = "dungeons", lookup = "dungeons", movers = "positions",
+	-- The group finder's debug switch, and where its panel and message box were left.
+	groupFinder = "quests", ["groupFinder.panelPos"] = "positions", ["groupFinder.panelWidth"] = "positions",
+	["groupFinder.partyBoxPos"] = "positions",
 }
 
 -- t[path], else t[path less its last part], and so on.

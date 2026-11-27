@@ -41,6 +41,11 @@ local function add(root, id)
 			UI.Picker.ShowQuest(id)
 		end)
 	end
+	-- The group finder, while it is on (Quests/GroupFinder.lua): players on this quest, whatever the route.
+	local GF = ns.GroupFinder
+	if GF and GF.QuestMenuWanted(id) then
+		root:CreateButton(L["Polestar"] .. ": " .. L["Find a group for this quest"], function() GF.FindFor(id) end)
+	end
 end
 
 local function setupDetails()

@@ -555,16 +555,18 @@ function textsDirRefusal(dir, packId) {
 // on demand; the game looks, the Skin API's checks
 // and the tab styles are inside Polestar since 0.4.3), Polestar_Skins (our
 // skins and layouts, loaded on demand) and Polestar_Arcade
-// (Freedoom Arcade by petllama, loaded on demand) when there, plus the generated
+// (Freedoom Arcade by petllama, loaded on demand) and Polestar_GroupFinder (the
+// group finder, loaded while it is on) when there, plus the generated
 // data addons when they have been built (each skipped while its folder or TOC
 // is missing; `pack` refuses a release without the Codex, which Lookup,
 // Dungeons and Rares read: forge-release's codex_refusal), the language
 // folders last (our guides' texts and the game's names, `forge guide
 // compile` and `forge data names`, committed; the client loads only its own).
 const RELEASE_ADDONS = ['Polestar', 'Polestar_Guides', 'Polestar_Nav', 'Polestar_FreeMode', 'Polestar_Options'];
-// forge-release addons.rs SKINS and ARCADE.
+// forge-release addons.rs SKINS, ARCADE and GROUP_FINDER.
 const SKINS = 'Polestar_Skins';
 const ARCADE = 'Polestar_Arcade';
+const GROUP_FINDER = 'Polestar_GroupFinder';
 // The folders 0.4.3 folded into others (#3507; forge-release addons.rs FOLDED_ADDONS, Core/Data.lua's FOLDED):
 // never shipped, removed by install where it finds them.
 const FOLDED_ADDONS = [
@@ -585,7 +587,7 @@ function releaseAddons(addonsDir) {
 	// release_addons).
 	const walking = navParts(path.join(addonsDir, 'Polestar_Nav'));
 	const guides = ['Alliance', 'Horde'].map((r) => partAddon(OWN_FOLDER, r));
-	const parts = [SKINS, ARCADE, ...walking, ...guides].filter((n) => fs.existsSync(path.join(addonsDir, n, `${n}.toc`)));
+	const parts = [SKINS, ARCADE, GROUP_FINDER, ...walking, ...guides].filter((n) => fs.existsSync(path.join(addonsDir, n, `${n}.toc`)));
 	return { names: [...RELEASE_ADDONS, ...parts, ...RELEASE_DATA_ADDONS.filter((n) => !skipped.includes(n))], skipped };
 }
 

@@ -38,6 +38,7 @@ one into the other. The addons:
 | `Polestar_Travel` (`addon/Polestar_Travel/`) | Zone crossings for the travel planner, from an optional local crossings file; loaded with Polestar | `travel build` | no (local, gitignored) | no, never packaged (Nav, "Travel planner and zone crossings") |
 | `Polestar_Options` (`addon/Polestar_Options/`) | The settings window, its Look pages and previews, the Profiles page and profile strings, Move frames; loaded on demand the first time the settings open (`UI/OptionsLoader.lua` is its door in the core) | hand-written | yes | yes |
 | `Polestar_FreeMode` (`addon/Polestar_FreeMode/`) | The quest-log modes: Free mode (`Free.lua`, #3701) and the finished-quest guide's planner (`Route.lua`, `Handins.lua`, #2486). Opening or restoring either guide loads it; the core keeps their doors (`Lookup/Free.lua`, `Lookup/Handins.lua`) and the guide menu's count of ready quests. | hand-written | yes | yes |
+| `Polestar_GroupFinder` (`addon/Polestar_GroupFinder/`) | The group finder (Quests, "Group Finder"): players on your quests who run Polestar, found through a hidden channel of its own and grouped with by a click. Loaded at login while it is on, or when turned on or opened; the core keeps its door (`Quests/GroupFinder.lua`). | hand-written | yes | yes |
 | `Polestar_Skins` (`addon/Polestar_Skins/`) | The ten skins that ship (`Skins/<Name>/`: Vellum, Lumen, Beacon, Aurora, Hairline, Umbra, Waymark, Lanterns, Sheen, Atlas, on the Skin API, named in its TOC's `## X-Polestar-Skin`) and the guide window's layout Atlas on Skin API 2 (`Layouts/Atlas/`, `## X-Polestar-Layout`: the step on a timeline with cards above the window, a beta), each its own addon before 0.4.3; loaded on demand when one of them is wanted (`Theme.LoadSkinAddon`: the saved skin or layout at login, a pick, the settings listing the skins); `Polestar_Skin_Example` never ships (docs/SKINS-API.md) | hand-written | yes | yes |
 | `Polestar_Arcade` (`addon/Polestar_Arcade/`) | The games offered on flights by `Maps/Arcade.lua` (one picker, `arcade.game`), loaded on demand the first time Play is pressed. Freedoom Arcade by petllama, a program of its own (GPL-2.0-or-later, its `LICENSE` and `CREDITS.md`): his DOOM engine port and three Freedoom levels; Polestar talks to it only through `LoadAddOn` and `FreedoomArcadeAPI`. Sky Jewels by RikyZ90 (`games/skyjewels/`, GPL-3.0-only, its `CREDITS.md`), a match-three game with 60 levels, progress in `PolestarCharDB.skyJewels`; Tetris by beemerwt (`games/tetris/`, GPL-3.0-only, its `LICENSE`), its run and best score in `Polestar_TetrisDB`. Each hands `Arcade.Register` its `Open`, `Close` and `IsOpen`. The folder is never loaded when the standalone `FreedoomArcade` addon is installed and enabled (one engine, the same globals): then Freedoom Arcade is the only game offered | `git subtree` of github.com/petllama/FreedoomArcade with our commits on top; assets by its `tools/build_assets.py` and `tools/subset.py`; Sky Jewels' levels by `tools/sky-jewels.lua`, its textures by `tools/media/sky-jewels.js` | yes | yes |
 | `Polestar_Recorder` (`addon/Polestar_Recorder/`) | The optional standalone recorder of play sessions, for authoring | hand-written | yes | yes, as its own zip |
@@ -7252,6 +7253,71 @@ asks Party.lua only whether every member runs Polestar.
   (`Media/UI/logo`, `|T…:0|t`) in place of the token. Your own lines are
   dropped unless `party.chatEcho` is on; with `party.chatHideOthers` on,
   other players' are dropped too. Every other line passes untouched.
+
+### Group Finder — Quests/GroupFinder.lua, the folder Polestar_GroupFinder
+
+Players on the same quests who run Polestar, found and grouped with by a
+click. Off by default (`groupFinder.enabled`, Options > Group Finder >
+Essentials); everything else that acts or speaks for the player is off too,
+or only ever runs on a click or a key.
+
+- **The door** (`Quests/GroupFinder.lua`, in the core): the settings
+  (`groupFinder.*`, below), the guide menu's Group Finder row (the panel),
+  five key bindings (Find a group, the panel, Announce, Say hello, Goodbye
+  and leave) and `/polestar finder [search | stop | announce | on | off |
+  test | reset | debug]`. It loads the folder (`Data.Pack`) at login while
+  the finder is on, when it is turned on, and when the panel, a key or the
+  command asks; the folder's `Door.lua` then takes the door's functions'
+  places. Options' Group Finder page (Polestar_Options/Quests/GroupFinder.lua)
+  loads it too, for the languages offered and the message box's pictures;
+  off, the folder only waits: no channel joined, nothing listened to or sent.
+- **Finding.** A search (`S`) leaves only on Find a group (a click or the key,
+  then every 10 s while nobody is found for 5 minutes with
+  `groupFinder.autoRetry`, off by default): the quests of the live step first,
+  then the log's worth a group (kill, named, loot, group), each with its
+  objective counts, the map and position (`shareCoords`), level, class,
+  group size, flags (auto-group, faction) and the client's language. It goes
+  over the finder's hidden channel, `PSGroupFinder`, joined 6 s after the
+  finder turns on and taken out of every chat window; answers (`R`) and the
+  search's updates (a quest done, the search over) are whispered. The
+  messages' format is `Protocol.lua`'s header; the prefix is `PSGF`. **This
+  is the one place Polestar sends CHANNEL addon messages** (Party.lua's rule
+  above keeps to the group, the guild and whispers): strangers can't be
+  reached otherwise, and the channel exists only while the player has the
+  finder on. Another player's search is answered by itself only with
+  `autoReply` ("Let others find me", off by default), or between two players
+  who both turned auto-group on.
+- **The list** (`Matcher.lua`): players who share a quest, best first (more
+  quests in common, the live step's, nearer, not grouped, fresh), filtered by
+  the languages searched (`searchLangs`, `acceptAll`; `Lang.lua` offers the
+  region's). Whisper and Invite on each row; Invite on a player in a group
+  whispers the ask message instead. In a group, only its leader with room
+  invites; the list folds when you can't.
+- **Grouping** (`Group.lua`): with `autoGroup` (off by default) on both
+  sides, the player found is invited, or asked to invite (`G`), and an
+  invitation is accepted only from a player the finder expects.
+- **Messages** (`Messages.lua`): announce, invite, ask, hello, goodbye, each
+  a switch (`<kind>On`) and a text (`announceMsg`, ..., in English for every
+  client, Options' text rows); `{quests}` and `{progress}` are filled when
+  said. Only ever said from a click or a key: Announce (a public channel,
+  `announceTo`), Invite and Ask (whispered), and the message box
+  (`UI/PartyBox.lua`, `partyBox`): when a group formed through the finder
+  gets together it offers Say hello for 5 s, its button's colour draining
+  (paused under the pointer); when that group's quests are done, Goodbye &
+  leave for 30 s. Leaving through the game says nothing.
+- **The goal rows' button** (UI/GuideFrame.lua's `r.Finder`, `GroupFinder.RowWanted`): on an open kill,
+  collect or complete goal of a quest, only while the folder is loaded and the finder on; it opens the panel
+  and searches for that quest alone (`GroupFinder.FindFor`). The door repaints the guide window as the finder
+  comes or goes. The quest menus (UI/QuestLinks.lua: the quest log's and the tracker's right-click, the quest
+  details' Polestar button) get "Find a group for this quest" for any quest of the log, whatever the route,
+  while the finder is on (`GroupFinder.QuestMenuWanted`).
+- **The panel** (`UI/Panel.lua`, `Dock.lua`): a window of its own, first
+  opened beside the guide window on the side the screen has room for, then
+  where the player drags it (`panelPos`), its width set by its corner grip
+  (`panelWidth`); it hides with the guide window. Find a group, Announce, the
+  players found; its cog opens the finder's quick
+  settings, a popover made by `UI.QuickSettings.New` as the guide window's.
+  `Nearby.lua` opens it near the live step's objective (`openNear`, off).
 
 ## Gear — item stats, stat weights, upgrade tooltips, reward picks
 
