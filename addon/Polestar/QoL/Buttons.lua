@@ -1438,7 +1438,12 @@ local function addGoalNames(gv, rg, qdb)
 		-- work (compiled `group`) marks the mob.
 		local id = rg.npc or gv.npc
 		local group = rg.group or gv.party
-		addName((N and N.Npc(id)) or rg.target or gv.subject, id, type(group) == "table" and group.kind == "elite")
+		-- A quest-log line with no NPC of its own (`logLine`, #2614: an
+		-- event's text, Find Mason Connery's Treasure; a placeholder credit,
+		-- Graveyard Assaulted) is no creature's name: nothing to target (#4500).
+		if id or not (rg.logLine or gv.logLine) then
+			addName((N and N.Npc(id)) or rg.target or gv.subject, id, type(group) == "table" and group.kind == "elite")
+		end
 		-- Every other creature its objective credits (#1614).
 		for i = 1, type(src) == "table" and #src or 0 do addSource(src[i], rg) end
 		return
@@ -3379,7 +3384,8 @@ function Buttons.GuideNameMacro(goal, raw)
 	name = (npc and N and N.Npc and N.Npc(npc)) or name
 	if chosen and not name and t ~= "kill" then return nil end
 	if not name then
-		if t == "kill" then
+		-- A quest-log line names no creature (#4500, as in addGoalNames).
+		if t == "kill" and not (raw.logLine or goal.logLine) then
 			name = goal.subject or raw.target
 		elseif t == "collect" then
 			local source = goal.source
