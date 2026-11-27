@@ -940,7 +940,6 @@ L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the 
 L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."] = "Polestar 已暫停：當你活著離開地城，或輸入 /polestar resume 後，箭頭會重新跟隨指南。"
 
 -- Nav/Arrow.lua
-L["The last steps here aren't mapped"] = "這裡最後幾步沒有地圖"
 L["Search here"] = "在此搜尋"
 L["Arrived"] = "已抵達"
 L["Click the arrow for the next spot"] = "點擊箭頭前往下一處"
@@ -6062,6 +6061,7 @@ L["Click to show quest guide actions."] = "點擊顯示任務指南操作。"
 -- L["Max height"] = "最大高度"
 -- L["%s: on this step"] = "%s：在此步驟"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "把你自己的任務當作指南，在單獨的分頁中：箭頭指向最近的任務，然後是下一個（/polestar free）。"
+-- L["The last steps here aren't mapped"] = "這裡最後幾步沒有地圖"
 -- L["None of these has a known place to hand it in."] = "這些任務都沒有已知的繳交地點。"
 -- L["Travel time to this hand-in is unknown. Its location is still shown."] = "前往此繳交處的路程時間未知。仍會顯示它的位置。"
 -- L["Hand-ins without a known location"] = "位置未知的繳交任務"

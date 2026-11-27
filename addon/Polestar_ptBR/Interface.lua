@@ -858,7 +858,6 @@ L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the 
 L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."] = "O Polestar está pausado: a seta volta a seguir o guia assim que você sair vivo da masmorra, ou após /polestar resume."
 
 -- Nav/Arrow.lua
-L["The last steps here aren't mapped"] = "Os últimos passos aqui não estão mapeados"
 L["Search here"] = "Procure aqui"
 L["Arrived"] = "Chegou"
 L["Click the arrow for the next spot"] = "Clique na seta para o próximo local"
@@ -5994,6 +5993,7 @@ L["Click to show quest guide actions."] = "Clique para mostrar as ações do gui
 -- L["Max height"] = "Altura máxima"
 -- L["%s: on this step"] = "%s: nesta etapa"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "Suas próprias missões como guia, em uma aba própria: a seta leva à mais próxima e depois à seguinte (/polestar free)."
+-- L["The last steps here aren't mapped"] = "Os últimos passos aqui não estão mapeados"
 -- L["None of these has a known place to hand it in."] = "Nenhuma delas tem um lugar conhecido para entregar."
 -- L["Travel time to this hand-in is unknown. Its location is still shown."] = "O tempo de viagem até esta entrega é desconhecido. O local dela continua aparecendo."
 -- L["Hand-ins without a known location"] = "Entregas sem local conhecido"

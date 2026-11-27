@@ -676,7 +676,6 @@ L["Levels"] = "Stufen"
 L["From %s"] = "Von %s"
 
 -- Nav/Arrow.lua
-L["The last steps here aren't mapped"] = "Die letzten Schritte hier sind nicht kartiert"
 L["Search here"] = "Hier suchen"
 L["Arrived"] = "Angekommen"
 L["Click the arrow for the next spot"] = "Klick auf den Pfeil für den nächsten Punkt"
@@ -5880,6 +5879,7 @@ L["Click to show quest guide actions."] = "Klicken, um die Aktionen des Quest-Gu
 -- L["Layout"] = "Layout"
 -- L["Your current design"] = "Dein aktuelles Design"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "Deine eigenen Quests als Guide, in einem eigenen Tab: Der Pfeil führt zur nächsten, dann zur folgenden (/polestar free)."
+-- L["The last steps here aren't mapped"] = "Die letzten Schritte hier sind nicht kartiert"
 -- L["None of these has a known place to hand it in."] = "Für keine davon ist bekannt, wo man sie abgibt."
 -- L["Travel time to this hand-in is unknown. Its location is still shown."] = "Die Reisezeit zu dieser Abgabe ist unbekannt. Ihr Ort wird trotzdem angezeigt."
 -- L["Hand-ins without a known location"] = "Abgaben ohne bekannten Ort"

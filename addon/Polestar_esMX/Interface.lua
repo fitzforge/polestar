@@ -1154,7 +1154,6 @@ L["Player"] = "Jugador"
 L["Cursor"] = "Cursor"
 
 -- Nav/Arrow.lua
-L["The last steps here aren't mapped"] = "Los últimos pasos aquí no están en el mapa"
 L["Search here"] = "Busca aquí"
 L["Arrived"] = "Llegaste"
 L["Click the arrow for the next spot"] = "Haz clic en la flecha para el siguiente lugar"
@@ -5992,6 +5991,7 @@ L["Click to show quest guide actions."] = "Haz clic para ver las acciones de la 
 -- L["Max height"] = "Altura máx."
 -- L["%s: on this step"] = "%s: en este paso"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "Tus propias misiones como guía, en una pestaña propia: la flecha va a la más cercana y luego a la siguiente (/polestar free)."
+-- L["The last steps here aren't mapped"] = "Los últimos pasos aquí no están en el mapa"
 -- L["None of these has a known place to hand it in."] = "Ninguna tiene un lugar conocido donde entregarla."
 -- L["Travel time to this hand-in is unknown. Its location is still shown."] = "Se desconoce el tiempo de viaje a esta entrega. Su ubicación se sigue mostrando."
 -- L["Hand-ins without a known location"] = "Entregas sin ubicación conocida"

@@ -923,7 +923,6 @@ L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the 
 L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."] = "Polestar на паузе: стрелка снова последует за гайдом, когда вы живым выйдете из подземелья, или после /polestar resume."
 
 -- Nav/Arrow.lua
-L["The last steps here aren't mapped"] = "Последние шаги здесь не нанесены на карту"
 L["Search here"] = "Ищите здесь"
 L["Arrived"] = "На месте"
 L["Click the arrow for the next spot"] = "Щелкните стрелку для следующей точки"
@@ -6052,6 +6051,7 @@ L["Click to show quest guide actions."] = "Нажмите, чтобы показ
 -- L["Max height"] = "Макс. высота"
 -- L["%s: on this step"] = "%s: на этом шаге"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "Ваши собственные задания как гайд, на отдельной вкладке: стрелка ведет к ближайшему, затем к следующему (/polestar free)."
+-- L["The last steps here aren't mapped"] = "Последние шаги здесь не нанесены на карту"
 -- L["None of these has a known place to hand it in."] = "Ни для одного из них неизвестно, где его сдать."
 -- L["Travel time to this hand-in is unknown. Its location is still shown."] = "Время пути до места сдачи неизвестно. Его местоположение по-прежнему показано."
 -- L["Hand-ins without a known location"] = "Сдача без известного места"
