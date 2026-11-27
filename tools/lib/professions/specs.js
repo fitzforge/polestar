@@ -103,8 +103,14 @@ const SPECS = {
 			'Ranks: Journeyman needs character level 10 (Forever\'s sniffed lists). Trainers teach by tier and train only from their tier\'s skill: Journeyman at the city trainers, from skill 50; Expert only at Bengus Deepforge (Ironforge) and Saru Steelfury (Orgrimmar), from 125; Artisan only at Brikk Keencraft (Booty Bay), from 200. Specialisation at 200 and level 40: Armorsmith (Grumnus Steelshaper, Ironforge / Okothos Ironrager, Orgrimmar) or Weaponsmith (Ironus Coldsteel, Ironforge / Borgosh Corebender, Orgrimmar), with the axe, hammer and sword masters in Everlook at 250 and level 50.',
 		],
 		// Derotain Mudsipper (Gadgetzan) trades the Imperial Plate plans for Thorium Bars after A Blue
-		// Light Bargain (7652): the Forever quest pages name these rewards; the data has no rewards.
-		questRecipes: { 16647: 7653, 16657: 7654, 16649: 7655 },
+		// Light Bargain (7652): the Forever quest pages name these rewards; the data has no rewards. His
+		// quests ask Blacksmithing 240 on Forever, not Classic's 265 (forever-db correction: a recorded
+		// blacksmith of 243 was offered all seven and learned the belt plans on the spot).
+		questRecipes: { 16647: 7653, 16657: 7654, 16649: 7655, 16646: 7659, 16658: 7657, 16663: 7656, 16730: 7658 },
+		// Magnus Frostwake's plans: he is a ghost seen only with the Spectral Essence, the reward of a level-55
+		// Scholomance chain, and his battleaxe takes 40 Thorium Bars and 24 Dense Stone a craft where
+		// Derotain's bracers take 20 bars and a Star Ruby.
+		exclude: { 16969: "Magnus Frostwake's plans (a level-55 dungeon chain)", 16971: "Magnus Frostwake's plans (a level-55 dungeon chain)" },
 		// Classic's trainer lists (world DB, VB 0) teach these, which asked 230-235 there (above Expert's 225), at
 		// Brikk Keencraft (1002836) only, never at Bengus Deepforge or Saru Steelfury (1004258/1003355). Forever
 		// moved the plans 25 points down but not off the Artisan list: at 205 Saru teaches no Heavy Mithril
@@ -125,35 +131,40 @@ const SPECS = {
 		// From 200 the plan takes Steel Plate Helm (Steel Bars) to 215 and Heavy Mithril Boots to 225, about
 		// 150 Mithril Bars where Heavy Mithril Breastplate took 320; Mithril Coif (Mageweave for Mithril) is no
 		// better for a smith who mines.
+		// From 240 Derotain's plans: Imperial Plate Belt (orange 240-260) for five points, then Imperial Plate
+		// Bracers, orange to 265: 20-22 Thorium Bars a point where the Heavy Mithril Boots turn green at 240
+		// (14 Mithril Bars for about half a point). The belt saves about 240 Mithril Bars for 130 Thorium Bars;
+		// the bracers save about 220 Thorium Bars over the belt to 270 for a Star Ruby a craft.
 		use: [
 			{ spell: 2666, from: 75, to: 100 },
 			{ spell: 2672, from: 100, to: 125 },
 			{ spell: 9985, from: 125, to: 150 },
 			{ spell: 7223, from: 175, to: 185 },
 			{ spell: 9928, from: 185, to: 200 },
+			{ spell: 16647, from: 240, to: 245 },
+			{ spell: 16649, from: 245, to: 265 },
 		],
-		// From 250 the plans come from Magnus Frostwake (a ghost seen only with the Spectral Essence, from a
-		// level-55 dungeon chain), or from the Auction House: the Radiant plans drop in the world and do not bind.
+		// From 265 the Radiant plans (world drops that do not bind) take about 14 Thorium Bars a point where
+		// Derotain's boots take 34: the plans from the Auction House, or his boots for everyone else.
+		auction: { 16656: 265, 16725: 280 },
 		fork: {
-			at: 250,
-			key: 16971,
-			keys: [16969, 16971],
-			name: "with Magnus Frostwake's plans",
-			title: "Blacksmithing 250: Magnus Frostwake's plans",
-			tip: "From 250 the route has two ways. Magnus Frostwake in Caer Darrow (Western Plaguelands) sells Plans: Ornate Thorium Handaxe and Plans: Huge Thorium Battleaxe (unlimited stock; they bind when picked up), but he is a ghost you see only with the Spectral Essence on (put it on inside Caer Darrow): the reward of Eva Sarkhoff's Scholomance chain that ends with Kirtonos the Herald, level 55 and a dungeon group. With the battleaxe plans learned, the steps after this take you to 300 on them. Without them, skip this step: the next steps go on with Radiant plans from the Auction House (world drops that do not bind), whose crafts take Hearts of Fire instead of Dense Stone.",
+			at: 265,
+			key: 16656,
+			keys: [16656],
+			name: 'with Radiant plans',
+			title: 'Blacksmithing 265: Plans: Radiant Boots',
+			tip: "From 265 the route has two ways. Plans: Radiant Boots and Plans: Radiant Leggings drop from mobs all over the world and do not bind, so the Auction House often lists them: with them, Radiant Boots (orange to 285) and then Radiant Leggings take you to 300 on about half the Thorium Bars, with Hearts of Fire. No plans for sale? Skip this step: the next steps go on with Derotain Mudsipper's Imperial Plate Boots, about 34 Thorium Bars a craft. Buy the boots plans whenever they turn up.",
 			other: {
-				name: 'with Auction House plans',
-				exclude: { 16969: "Magnus Frostwake's plans", 16971: "Magnus Frostwake's plans" },
-				auction: { 16645: 250, 16656: 265, 16725: 280 },
+				name: "with Derotain's plans",
+				exclude: { 16656: 'a pattern from the Auction House', 16725: 'a pattern from the Auction House' },
+				use: [{ spell: 16649, from: 265, to: 270 }],
 				tips: {
-					16645: 'Ten Thorium Bars and two Hearts of Fire a craft; orange to 255.',
-					16656: 'Fourteen Thorium Bars and four Hearts of Fire a craft; orange to 285.',
-					16725: 'The last points: buy the plans when you reach 280; until then the boots carry you.',
+					16649: 'Yellow from 265, so not every craft gives a point; five more points, until the boots plans can be used at 270.',
 				},
 			},
 		},
 		assumed: [
-			"ASSUMED: Derotain Mudsipper's Imperial Plate quests ask Blacksmithing 265 and character level 50 (Forever's quest data, as in Classic, though Forever moved the plans themselves 25 points down to 240-270). In-game check: the skill his quests ask; a lower one lets the Imperial Plate Bracers (orange to 265) take over from the battleaxe sooner.",
+			"ASSUMED: Derotain Mudsipper's Imperial Plate quests ask Blacksmithing 240 and character level 50 (a recorded blacksmith of 243 was offered all of them, where the quest data still has Classic's 265; 240 is where his first plans, the belt's, can be learned). In-game check: the skill his quests ask.",
 			"ASSUMED: rank prices Expert 50s and Artisan 5g (Classic's trainer lists; Forever's sniffed lists price only Apprentice 10c and Journeyman 5s, as in Classic). In-game check: what Expert and Artisan cost.",
 		],
 		apprentice: 'Buy a Blacksmith Hammer (any blacksmithing supplier) and pair it with Mining: Rough Stone and Copper Ore come from the Copper Veins of every starting zone.',
@@ -168,12 +179,12 @@ const SPECS = {
 			9928: 'Six Mithril Bars and four Mageweave Cloth a craft; Bengus Deepforge (Ironforge) and Saru Steelfury (Orgrimmar) teach it from 180.',
 			7223: 'Steel Bars are smelted from an Iron Bar and a Coal (Mining 165; Coal from trade and blacksmithing suppliers), so each bracer is five of each. Each bracer takes two Heavy Grinding Stones: make them first.',
 			9959: 'Sixteen Mithril Bars a craft and nothing else; orange to 225 on Forever, so a point every craft to the Artisan cap.',
-			16639: 'Four Dense Stones a craft (Thorium veins). Keep the stones: the thorium axes from 250 take two and six each, so these points cost no extra stone.',
 			9968: 'Mithril Bars from Mithril Deposits; Thick Leather from skinners or the Auction House.',
-			10001: 'Only about 11 crafts to bridge 247-250, but each wants four Shadowgems (about one Tin Vein in a hundred) and a Black Pearl: buy those at the Auction House unless your bags already hold them.',
-			16969: 'Large Opal turns up in about one Thorium vein in 130: buy the ten at the Auction House. Five crafts only, until the battleaxe plans can be used at 255.',
-			16971: 'Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the Imperial Plate Boots take over.',
-			16657: 'About 34 Thorium Bars a craft against the battleaxe\'s 40 and its grinding stones, orange to 290. Below character level 50 Derotain has no quest for you: keep making Huge Thorium Battleaxes to 300 instead (yellow to 292, grey at 305: about twice the Thorium Bars).',
+			16647: 'Twenty-two Thorium Bars, six Rugged Leather and an Aquamarine a craft, orange from 240: five points, until the bracers plans can be learned at 245.',
+			16649: 'Twenty Thorium Bars and a Star Ruby a craft, orange to 265: the fewest Thorium Bars a point Derotain\'s plans give.',
+			16656: 'Fourteen Thorium Bars and four Hearts of Fire a craft; orange to 285.',
+			16725: 'The last points: buy the plans when you reach 280; until then the boots carry you.',
+			16657: 'Thirty-four Thorium Bars, a Star Ruby and an Aquamarine a craft, orange to 290: the plans you can always get past 270.',
 		},
 		notes: [
 			{

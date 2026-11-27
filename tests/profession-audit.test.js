@@ -208,7 +208,7 @@ test('a bracket of a rank few trainers teach goes to one trainer per side; Tailo
 
 test('a fork: path A and path B steps carry their when, and each path reaches 300 or says what is left', { skip }, () => {
 	for (const [name, key] of [
-		['blacksmithing', 16971],
+		['blacksmithing', 16656],
 		['tailoring', 18449],
 	]) {
 		const all = steps(read(name));
@@ -235,6 +235,25 @@ test('Tailoring 75-150 levels on the bolts the later stretches use: under 300 Wo
 	assert.ok(band.some((s) => s.lines.some((l) => /^craft 3839 until 120$/.test(l))), 'Bolt of Silk Cloth to 120');
 	assert.ok(band.some((s) => s.lines.some((l) => /^craft 8760 until 135$/.test(l))), 'Azure Silk Hood to 135');
 	assert.ok(!band.some((s) => s.lines.some((l) => /^craft 3866 until/.test(l))), 'no Stylish Red Shirt stretch');
+});
+
+// Fitz, 0.4.4: "2,168 Thorium Bars for 250-300 and 848 Mithril Bars doesn't sound right". The Thorium went into
+// Magnus Frostwake's 40-bar battleaxe because the quest data kept Classic's Blacksmithing 265 for Derotain
+// Mudsipper's Imperial Plate quests; a recorded blacksmith of 243 was offered them (forever-db correction: 240).
+// With his belt plans at 240 and bracers plans at 245 (one trip), 225-300 takes Heavy Mithril Boots only to 240.
+test('Blacksmithing 225-300: Derotain\'s belt and bracers from 240, under 1,300 Thorium Bars with the Radiant plans and 200 Mithril Bars', { skip }, () => {
+	const all = steps(read('blacksmithing'));
+	const count = (s, item) => Number((new RegExp(`^collect ${item} x(\\d+)`).exec(s.lines.find((l) => l.startsWith(`collect ${item} `)) || '') || [0, 0])[1]);
+	const got = (item, when) => all.filter((s) => s.section && s.section[0] >= 225 && s.title === `Get ${item === 12359 ? 'Thorium' : 'Mithril'} Bar` && (when ? s.lines.includes(when) : !s.lines.some((l) => /^when /.test(l)))).reduce((a, s) => a + count(s, item), 0);
+	const shared = got(12359);
+	assert.ok(shared + got(12359, 'when knows 16656') <= 1300, `with the Radiant plans: ${shared} + ${got(12359, 'when knows 16656')} Thorium Bars`);
+	assert.ok(shared + got(12359, 'when !knows 16656') <= 2100, `with Derotain's plans only: ${shared} + ${got(12359, 'when !knows 16656')} Thorium Bars`);
+	assert.ok(got(3860) <= 200, `225-300: ${got(3860)} Mithril Bars`);
+	const plans = all.find((s) => s.lines.includes('accept 7653'));
+	assert.ok(plans && plans.lines.includes('accept 7655'), 'the bracers plans come on the belt plans\' visit');
+	assert.ok(all.some((s) => s.lines.includes('craft 16647 until 245')) && all.some((s) => s.lines.includes('craft 16649 until 265')), 'belt to 245, bracers to 265');
+	assert.ok(!all.some((s) => s.lines.some((l) => /^(buy (12819|12823)|learn (16969|16971))\b/.test(l))), 'no Magnus Frostwake plans');
+	assert.equal(json('quests')[7653].skillLevel, 240, 'the data build applies the Derotain correction');
 });
 
 // Every Get it step's tip starts with why: the count, the band and the crafts it goes into ("57 Wool Cloth for

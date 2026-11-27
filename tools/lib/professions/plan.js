@@ -174,7 +174,9 @@ function crafts90(r, s, t, mean) {
 // (quests.json) gives what it asks for, its skill and level, and the quest before it. Such a recipe
 // is usable from the quest's skill, and learning it costs the items handed in plus a trip.
 // `opts.tools`: tools already in the bags (a plan from a fork's skill: the hammer bought at 1).
-function planProfession(prof, data, { from = 1, to = 300, exclude = {}, noLevel = {}, questRecipes = {}, auction = {}, notBefore = {}, levelTo = {}, use = [], tools = [] } = {}) {
+// `opts.quests`: recipe quests already handed in (a plan from a fork's skill: the bracers plans taken at
+// 245 cost no second hand-in at 265).
+function planProfession(prof, data, { from = 1, to = 300, exclude = {}, noLevel = {}, questRecipes = {}, auction = {}, notBefore = {}, levelTo = {}, use = [], tools = [], quests = [] } = {}) {
 	const ctx = { professions: data.professions, npcs: data.npcs || {}, objects: data.objects || {}, zones: data.zones || {}, self: prof.id };
 	const mats = prof.materials || {};
 	const excluded = [];
@@ -278,8 +280,8 @@ function planProfession(prof, data, { from = 1, to = 300, exclude = {}, noLevel 
 		}
 		let learn = auction[r.spell] ? AUCTION_TRIP : r.source === 'vendor' ? (r.cost || 0) + VENDOR_TRIP : r.cost || 0;
 		if (r.source === 'quest') {
-			// The quest's hand-in (20 Thorium Bars a plan) and the trip to its giver.
-			learn = VENDOR_TRIP + r.quest.items.reduce((a, g) => a + unit(g.item).cost * g.count, 0);
+			// The quest's hand-in (20 Thorium Bars a plan) and the trip to its giver, unless it is handed in already.
+			if (!quests.includes(r.quest.id)) learn = VENDOR_TRIP + r.quest.items.reduce((a, g) => a + unit(g.item).cost * g.count, 0);
 			req = Math.max(req, r.quest.skill);
 		}
 		info.set(r.spell, { cost, req, learn, subs: [...subs.values()] });
@@ -399,7 +401,7 @@ function planProfession(prof, data, { from = 1, to = 300, exclude = {}, noLevel 
 	// What a segment crafts to level (Thick Leather, Rugged Leather, a Bolt of
 	// Runecloth) stays in the bags and counts against the later segments' needs.
 	const toolsHave = new Set(tools);
-	const questsDone = new Set();
+	const questsDone = new Set(quests);
 	const stock = new Map(); // item -> count crafted by earlier segments, not yet used
 	segments.forEach((seg, i) => {
 		const r = bySpell.get(seg.spell);
