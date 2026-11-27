@@ -55,6 +55,7 @@ pub mod resolve;
 pub mod revisit;
 pub mod solo;
 pub mod timed;
+pub mod tipactions;
 pub mod toc;
 pub mod tokens;
 pub mod trainers;

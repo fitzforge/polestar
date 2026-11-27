@@ -613,6 +613,9 @@ fn run() -> i32 {
 		// Second visits (revisit.rs): Polestar's own guides, with the route's `leftout` records.
 		if official {
 			forge_guide::revisit::check_second_visits(&built.project.guides, &route_leftout(&root), &mut diag);
+			// Tips that give an order no goal row does (tipactions.rs), with the list of those not fixed yet.
+			let pending = std::fs::read_to_string(root.join("guides/tip-actions-pending.json")).ok().and_then(|t| parse_json(&t).ok()).unwrap_or(V::Null);
+			forge_guide::tipactions::check(&forge_guide::project::read_sources(&pack_dir, &built.project.sources), &data, &pending, &mut diag);
 		}
 	}
 	let t_built = t0.elapsed();
