@@ -1440,7 +1440,10 @@ local function addGoalNames(gv, rg, qdb)
 		-- work (compiled `group`) marks the mob.
 		local id = rg.npc or gv.npc
 		local group = rg.group or gv.party
-		addName((N and N.Npc(id)) or rg.target or gv.subject, id, type(group) == "table" and group.kind == "elite")
+		-- A quest-log event may have a label but no mob for /targetexact.
+		if id or not rg.logLine then
+			addName((N and N.Npc(id)) or rg.target or gv.subject, id, type(group) == "table" and group.kind == "elite")
+		end
 		-- Every other creature its objective credits (#1614).
 		for i = 1, type(src) == "table" and #src or 0 do addSource(src[i], rg) end
 		return
