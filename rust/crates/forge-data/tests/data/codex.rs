@@ -91,8 +91,8 @@ fn an_items_hotfix_row_comes_before_classic_era() {
 	lines.push(format!("16666,1,10,{}", fields("40", "2")));
 	lines.push(format!("16666,1,20,{}", fields("50", "4")));
 	// Green Iron Bracers (3835) ships in the slice's Forever build (quality 2; Classic Era's is 1).
-	// The server deleted its row, so Classic Era's must not come back for it: the item keeps only what
-	// data/forever says (its name), no client facts.
+	// The server deleted its row, so Classic Era's must not come back for it. data/forever still lists
+	// it, so it stays in Lookup with its name and no client facts: a blank level, not a missing item.
 	lines.push(format!("3835,2,30,{}", header.iter().map(|_| "0").collect::<Vec<_>>().join(",")));
 	let hot = sources.join("hotfix").join(build);
 	std::fs::create_dir_all(&hot).unwrap();
@@ -105,7 +105,9 @@ fn an_items_hotfix_row_comes_before_classic_era() {
 	assert_eq!(items["16666"]["reqLevel"], 50);
 	assert_eq!(items["16666"]["quality"], 4);
 	assert_eq!(items["16667"]["reqLevel"], 57, "items without a hotfix row keep Classic Era's level");
+	assert_eq!(items["3835"]["name"], "Green Iron Bracers", "an item data/forever lists stays in Lookup after its row is deleted");
 	assert_eq!((&items["3835"]["quality"], &items["3835"]["reqLevel"]), (&serde_json::Value::Null, &serde_json::Value::Null), "a deleted item: {}", items["3835"]);
+	assert!(out.pack.iter().any(|(_, text)| text.contains("Green Iron Bracers")), "the pack offers the deleted item in Lookup");
 	let logged = logged.into_inner();
 	assert!(logged.iter().any(|l| l.contains("hotfixes ItemSparse: 0 replaced, 1 added, 1 deleted")), "{logged:?}");
 	let src = out.meta.get("sources").items().into_iter().find(|s| s.get("name").to_js_string().contains("hotfix")).expect("a hotfix source in meta.json");

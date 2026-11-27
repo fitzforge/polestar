@@ -482,6 +482,8 @@ pub fn load_inputs(opts: &Options, log: &dyn Fn(&str)) -> Result<Inputs, String>
 		None
 	};
 	// An item row the server deleted is gone in the game too: Classic Era's row doesn't fill it in.
+	// An item data/forever still lists stays in the Codex with no client facts (no level, no rarity):
+	// a blank level hurts less than an item missing from Lookup.
 	let deleted_items: FxHashSet<i64> = hotfixes.iter().flatten().filter(|a| matches!(a.table.as_str(), "Item" | "ItemSparse")).flat_map(|a| a.deleted.iter().copied()).collect();
 	let mut cl = client::client_facts(&tables, &build);
 	cl.hotfixes = hotfixes;
