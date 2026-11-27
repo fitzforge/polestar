@@ -708,3 +708,11 @@ test('a skill not learned yet: the profession layout from the first step (the re
 	assert.equal(out.head, 'Materials to 115');
 	assert.deepEqual([out.learned, out.colour, out.chip, out.open], [false, false, false, false], 'no colour and no Open Tailoring before it is learned');
 });
+
+test('a paired guide, a skill not learned yet: the trainer line asks for its Apprentice rank, gathering first', () => {
+	const TR = `local t = E.KindModel("trainer", view, "profession")
+emit({ title = t and t.title or false, due = t and t.due or false, level = t and t.level or false })`;
+	assert.deepEqual(runPair(RANKS('nil', 'nil'), TR), { title: 'Apprentice Skinning', due: true, level: 0 });
+	assert.deepEqual(runPair(RANKS('55, 75', 'nil'), TR), { title: 'Apprentice Leatherworking', due: true, level: 0 });
+	assert.deepEqual(runPair('', TR), { title: 'Journeyman Skinning', due: true, level: 50 }, 'both learned: the next rank, as before');
+});

@@ -608,6 +608,19 @@ M.trainer = function(view, kind)
 		return { title = table.concat(learns, ", "), learn = true, level = skillOf(list, lg.skillLine).rank or 0, npc = npc, map = map, due = true,
 			toGo = 0, step = view.index, goalIndex = lgi, covers = covers }
 	end
+	-- A skill not learned yet (gathering first in a paired guide): its first rank, Apprentice, is due now, at the
+	-- trainer of its next rank in the guide (who teaches Apprentice too).
+	for _, s in ipairs(list) do
+		if not s.rank then
+			local at = nextTrain(view and view.index or 1, 0, s.b.line) or nextTrain(1, 0, s.b.line)
+			local npc, map = nil, nil
+			if at then npc, map = placeOf(at.goal) end
+			local title = rankTitle(1)
+			if #list == 2 then title = title .. " " .. (KC.SkillName(s.b.line) or "") end
+			return { title = title, rank = 1, level = 0, npc = npc, map = map, due = true, toGo = 0, step = at and at.s, goalIndex = at and at.g,
+				covers = covers }
+		end
+	end
 	local tr = nextTrain(view and view.index or 1, capsOf(list))
 	if not tr then return nil end
 	-- The skill that rank is of: a paired guide trains each of its two.
