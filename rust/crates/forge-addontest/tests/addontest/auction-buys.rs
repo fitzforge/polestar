@@ -569,6 +569,38 @@ emit({ shown = F:IsShown(), title = F.Title:GetText(), rows = rows, go = F.Go:Is
 	);
 }
 
+// #3607 (JAKEJ): "Turn these off" was too strong for one unwanted item. A row's ✕ leaves that item out from then
+// on, the menu counts one fewer, and "Show 1 hidden items again" brings it back.
+#[test]
+fn one_item_can_be_left_out_and_shown_again() {
+	let db = db();
+	let out = run(
+		&db,
+		r#"
+E.SetGuide("test/ah")
+stub.advance(5)
+CT.Later()
+stub.advance(1)
+AU.MenuItem().onClick()
+stub.advance(0.5)
+local F = PolestarAuctionBuys
+local function names()
+	local out = {}
+	for _, r in ipairs(F.rows) do if r:IsShown() then out[#out + 1] = r.Title:GetText() end end
+	return out
+end
+F.rows[1].Ignore:Click()
+stub.advance(1)
+emit({ rows = names(), menu = AU.MenuItem().text, unhide = F.Unhide:IsShown() and F.Unhide.Label:GetText() or false })
+F.Unhide:Click()
+stub.advance(1)
+emit({ rows = #names(), menu = AU.MenuItem().text, unhide = F.Unhide:IsShown() })
+"#,
+	);
+	assert_eq!(out[0], json!({ "rows": ["10 Iron Bar"], "menu": "Auction house buys (1)", "unhide": "Show 1 hidden items again" }));
+	assert_eq!(out[1], json!({ "rows": 2, "menu": "Auction house buys (2)", "unhide": false }));
+}
+
 // Off: no card when the guide opens, no reminder in town, no menu entry, an empty list.
 #[test]
 fn with_the_setting_off_nothing_shows() {
