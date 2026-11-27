@@ -2335,6 +2335,9 @@ end
 
 local function countColumn(row, goal, info)
 	local own = store(row)
+	-- A reused row keeps no count, nor room for one, it no longer shows.
+	row.psRightMin = nil
+	if own.count then own.count:Hide() end
 	if row.Check and row.Check:IsShown() then
 		row.Check:SetAlpha(0)
 		row.Check:Disable()
