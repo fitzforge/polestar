@@ -114,7 +114,7 @@
 		"recordedCrossings": 0,
 		"shippedCrossings": 54,
 		"timetables": 15,
-		"portals": 9,
+		"portals": 11,
 		"teleports": 8
 	},
 	"taxi": {
@@ -7352,6 +7352,64 @@
 				},
 				"seconds": 5,
 				"source": "gameobject 617085 spawn (Forever world DB) -> recorded arrivals at 2521:66.3,79.7 beside Elaadrin Evengale (3 people)"
+			},
+			{
+				"id": "portal-rowboat-arathi-coast",
+				"name": "The Forbidding Sea",
+				"area": 308,
+				"a": {
+					"name": "Rowboat at Thandol Span",
+					"area": 330,
+					"c": 0,
+					"wx": -2338.1,
+					"wy": -2796.4,
+					"map": 1437,
+					"x": 58.2,
+					"y": 6.9,
+					"f": "l"
+				},
+				"b": {
+					"name": "The Forbidding Sea",
+					"area": 308,
+					"c": 0,
+					"wx": -2002,
+					"wy": -4089.4,
+					"map": 1417,
+					"x": 89.52,
+					"y": 77.86,
+					"f": "l"
+				},
+				"seconds": 5,
+				"source": "gameobject 420054 spawn (Forever world DB) -> cameronmoten's Forever recording for quest 79242: from Wetlands to 1417:89.52,77.86"
+			},
+			{
+				"id": "portal-rowboat-thandol-span",
+				"name": "Thandol Span",
+				"area": 330,
+				"a": {
+					"name": "Rowboat on the Arathi coast",
+					"area": 308,
+					"c": 0,
+					"wx": -2005.3,
+					"wy": -4092.3,
+					"map": 1417,
+					"x": 89.6,
+					"y": 78,
+					"f": "l"
+				},
+				"b": {
+					"name": "Thandol Span",
+					"area": 330,
+					"c": 0,
+					"wx": -2332.7,
+					"wy": -2797,
+					"map": 1417,
+					"x": 53.62,
+					"y": 91.64,
+					"f": "l"
+				},
+				"seconds": 5,
+				"source": "gameobject 420054 spawn (Forever world DB) -> cameronmoten's Forever recording for quest 79242: from the coast to 1417:53.62,91.64"
 			},
 			{
 				"id": "portal-azshara-tower",

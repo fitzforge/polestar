@@ -571,6 +571,11 @@ walk: a class's walk to a class quest taken in an earlier guide is made only wit
 (`"way": { "when": "onquest 94774" }` on Divine Grace's hand-in: Human Priests without it no longer
 walk to Laurena in Stormwind's cathedral).
 
+With `way.insert` set to `"before"` or `"after"`, the writer supplies an explicit travel step if
+it did not already write one with `way.title` beside the anchor. This uses `way.at` as the
+destination and `way.tip` for crossing instructions. On No Honor Among Thieves the outbound step
+requires the quest in the log, and the return step is available while on the Arathi coast.
+
 ```json
 { "id": "way-sorrow-hill-not-chillwind-camp", "faction": "Horde", "at": { "quest": 5152, "goal": "turnin" },
   "way": { "at": { "map": 1422, "x": 49.2, "y": 78.6, "frame": "era" }, "label": "Sorrow Hill", "title": "To Sorrow Hill" }, "…": "…" }

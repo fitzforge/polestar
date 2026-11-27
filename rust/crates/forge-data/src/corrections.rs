@@ -1267,7 +1267,7 @@ fn check_overrides(ck: &mut Ck, o: &V) {
 	};
 	let mut included: Vec<(String, String, bool)> = Vec::new();
 	let mut skipped: Vec<(String, String, bool)> = Vec::new();
-	for (sec, allowed) in [("include", &["q", "after", "reason", "issue"][..]), ("skip", &["q", "reason", "issue", "faction"][..])] {
+	for (sec, allowed) in [("include", &["q", "after", "reason", "issue", "faction"][..]), ("skip", &["q", "reason", "issue", "faction"][..])] {
 		let list = o.get(sec);
 		if !list.is_undef() && !list.is_arr() {
 			ck.err(sec, "must be a list");
@@ -1283,7 +1283,7 @@ fn check_overrides(ck: &mut Ck, o: &V) {
 			if e.has("after") {
 				step(ck, &format!("{a}.after"), &e.get("after"), false);
 			}
-			// (A skip may hold for one side's routes only.)
+			// (An include or skip may hold for one side's routes only.)
 			let f = e.get("faction");
 			if !(f.is_undef() || matches!(f.as_str(), Some("Alliance" | "Horde"))) {
 				ck.err(format!("{a}.faction"), format!("{} is not Alliance or Horde", show(&f)));
@@ -1762,8 +1762,18 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 				}
 				(true, true) if !r.get("way").is_undef() => {
 					let w = r.get("way");
-					ck.keys(&format!("{at}.way"), &w, &["at", "label", "title", "when"]);
+					ck.keys(&format!("{at}.way"), &w, &["at", "label", "title", "when", "insert", "tip"]);
 					let p = w.get("at");
+					if !w.get("insert").is_undef() {
+						if !matches!(w.get("insert").as_str(), Some("before" | "after")) {
+							ck.err(format!("{at}.way.insert"), "`before` or `after` the anchored step");
+						}
+						if !p.is_obj() || !has_text(&w.get("title")) || !has_text(&w.get("tip")) {
+							ck.err(format!("{at}.way"), "an inserted travel step needs `at`, `title` and `tip`");
+						}
+					} else if !w.get("tip").is_undef() {
+						ck.err(format!("{at}.way.tip"), "a new travel step's tip requires `insert`");
+					}
 					if p.is_undef() && w.get("when").is_undef() {
 						ck.err(format!("{at}.way"), "a way fix moves the walk's end (`at`) or holds it (`when`)");
 					}
@@ -1778,7 +1788,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 							}
 						}
 					}
-					for k in ["label", "title"] {
+					for k in ["label", "title", "tip"] {
 						let v = w.get(k);
 						if !v.is_undef() && (!has_text(&v) || v.as_str().is_some_and(|t| t.contains('\n'))) {
 							ck.err(format!("{at}.way.{k}"), "one line of text");

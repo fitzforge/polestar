@@ -93,6 +93,68 @@ fn report_2282_warns_at_arnak_and_lakota_even_when_the_writer_separates_their_st
 }
 
 #[test]
+fn no_honor_among_thieves_detour_requires_the_quest_but_pickup_and_main_route_do_not() {
+	const BOOTY_BAY: &str = "forever/alliance/30-40/04b-stranglethorn-vale.guide";
+	const ARATHI: &str = "forever/alliance/30-40/05-arathi-highlands.guide";
+	let all = document("data/guide-fixes.json");
+	let fixes = json!({ "fixes": all["fixes"].as_array().unwrap().iter().filter(|r| r["at"]["quest"] == 79242).collect::<Vec<_>>() });
+	let mut tree = BTreeMap::from([
+		(BOOTY_BAY.into(), "guide forever/alliance/30-40/04b-stranglethorn-vale\nstep Tokal\n  turnin 79236\n  accept 79242\n".into()),
+		(
+			ARATHI.into(),
+			concat!(
+				"guide forever/alliance/30-40/05-arathi-highlands\n",
+				"step Kor'gresh's cave\n  collect 4525 quest 693\n\n",
+				"step Wetlands shore\n  goto 58.2,6.9\n\n",
+				"step Portal to The Forbidding Sea\n  goto 58.2,6.9 \"Portal to The Forbidding Sea\"\n\n",
+				"step Illari Duskfeather\n  talk 215655 quest 79242.1\n\n",
+				"step Illari's Key\n  collect 212347 quest 79242.2\n\n",
+				"step Illari's Loot Cache\n  turnin 79242\n\n",
+				"step Portal to Thandol Span\n  when subzone \"The Forbidding Sea\"\n  goto 89.6,78 \"Portal to Thandol Span\"\n\n",
+				"step Foggy MacKreel\n  only Hunter,Druid\n  accept 647\n\n",
+				"step Skuerto\n  turnin 693\n",
+			)
+			.into(),
+		),
+	]);
+	let records = Records { guide_fixes: Some(&fixes), ..Records::default() };
+	let write = |tree: &mut BTreeMap<String, String>| apply(tree, &[BOOTY_BAY.into(), ARATHI.into()], &HashSet::from([79242]), Some("Alliance"), records, None);
+	let mut walked = tree.clone();
+	walked.insert(
+		ARATHI.into(),
+		concat!(
+			"guide forever/alliance/30-40/05-arathi-highlands\n",
+			"step Kor'gresh's cave\n  collect 4525 quest 693\n\n",
+			"step Illari Duskfeather\n  talk 215655 quest 79242.1\n  collect 212347 quest 79242.2\n  turnin 79242\n\n",
+			"step Foggy MacKreel\n  accept 647 only Hunter,Druid\n",
+		)
+		.into(),
+	);
+	assert!(write(&mut walked).iter().all(|r| matches!(r.state.as_str(), "applied" | "redundant")));
+	let stops: Vec<_> = walked[ARATHI].split("\nstep ").skip(1).collect();
+	assert_eq!(stops.len(), 5);
+	assert!(stops[1].starts_with("Portal to The Forbidding Sea\n  when onquest 79242\n"));
+	assert!(stops[1].contains("Click the Rowboat at Wetlands 58.2, 6.9"));
+	assert!(stops[1].contains("goto 89.52,77.86 map 1417 era"));
+	assert!(stops[2].contains("turnin 79242"));
+	assert!(stops[3].starts_with("Portal to Thandol Span\n  when subzone \"The Forbidding Sea\"\n"));
+	assert!(stops[3].contains("goto 53.62,91.64 map 1417 era"));
+	assert!(stops[4].contains("accept 647 only Hunter,Druid"));
+	assert!(write(&mut walked).iter().all(|r| r.state == "redundant"));
+
+	assert!(write(&mut tree).iter().all(|r| r.state == "applied" || (r.id == "arathi-no-honor-among-thieves-return-rowboat" && r.state == "redundant")));
+	assert!(tree[BOOTY_BAY].contains("turnin 79236\n  accept 79242\n"));
+	assert!(!tree[BOOTY_BAY].contains("when onquest 79242"));
+	let steps: Vec<_> = tree[ARATHI].split("\nstep ").skip(1).collect();
+	assert_eq!(steps.len(), 9);
+	assert!(steps[1..=5].iter().all(|step| step.lines().any(|line| line.trim() == "when onquest 79242")), "{steps:?}");
+	assert!(steps[6].contains("when subzone \"The Forbidding Sea\"") && !steps[6].contains("when onquest 79242"));
+	assert!(steps[7].contains("only Hunter,Druid") && !steps[7].contains("when onquest 79242"));
+	assert!(steps[8].contains("turnin 693") && !steps[8].contains("when onquest 79242"));
+	assert!(write(&mut tree).iter().all(|r| r.state == "redundant"));
+}
+
+#[test]
 fn report_2282_does_not_add_the_horde_detour_warning_to_other_routes() {
 	let before = format!("guide forever/alliance/test\nzone Thousand Needles\n\nstep Lakota Windsong\n{ARNAK}{LAKOTA}");
 	let (after, rows) = written(&before, "Alliance", &[5147, 4904]);

@@ -121,10 +121,16 @@ function fixedIssues(closed, last = null) {
 }
 
 // Every quest id a guide names: accepts, hand-ins, completes, `quest Q[.O]` and tasks.
-function guideQuests(root = ROOT) {
+function guideQuests(root = ROOT, anchors) {
 	const out = new Set();
 	for (const f of walk(path.join(root, 'guides'), (p) => p.endsWith('.guide'))) {
-		for (const m of fs.readFileSync(f, 'utf8').matchAll(/^\s+(?:accept|turnin|complete|abandon|task)\s+(\d+)|\bquest\s+(\d+)/gm)) out.add(Number(m[1] || m[2]));
+		const guide = fs.readFileSync(f, 'utf8');
+		const faction = /^faction (Alliance|Horde)\b/m.exec(guide)?.[1];
+		for (const m of guide.matchAll(/^\s+(accept|turnin|complete|abandon|task)\s+(\d+)|\bquest\s+(\d+)/gm)) {
+			const quest = Number(m[2] || m[3]);
+			out.add(quest);
+			if (anchors && faction) anchors[faction].add(`${m[1] === 'complete' || !m[1] ? 'task' : m[1]} ${quest}`);
+		}
 	}
 	return out;
 }
@@ -149,19 +155,30 @@ function recordKey(file, section, r) {
 	return `${file} ${section} ${parts.join(' ')}`;
 }
 
-// Records whose quests no guide has any more -> [{ key, quests }].
+// An explicit faction's include anchored to a step in that faction's published route is a
+// pin for a known quest scheduled for the next build.
+function scheduledQuests(root, includes, have, anchors) {
+	const pending = new Set((includes || []).filter((r) => r && !have.has(r.q) && r.after && anchors[r.faction]?.has(r.after.slice(0, 2).join(' '))).map((r) => r.q));
+	if (!pending.size) return [];
+	const published = fs.readFileSync(path.join(root, 'forever-db', 'data', 'quest.jsonl'), 'utf8');
+	return published.split('\n').filter((line) => line.trim()).map((line) => JSON.parse(line).id).filter((id) => pending.has(id));
+}
+
+// Records whose quests are absent from the guides and the scheduled includes -> [{ key, quests }].
 function deadRecords(root = ROOT) {
-	const have = guideQuests(root);
+	const anchors = { Alliance: new Set(), Horde: new Set() };
+	const have = guideQuests(root, anchors);
+	const rf = JSON.parse(fs.readFileSync(path.join(root, 'data', 'route-fixes.json'), 'utf8'));
+	const scheduled = new Set(scheduledQuests(root, rf.overrides?.include, have, anchors));
 	const out = [];
 	const check = (file, section, list) => {
 		for (const r of Array.isArray(list) ? list : []) {
 			if (!r || typeof r !== 'object') continue;
 			const qs = recordQuests(r);
-			const gone = qs.filter((q) => !have.has(q));
+			const gone = qs.filter((q) => !have.has(q) && (section === 'overrides.skip' || !scheduled.has(q)));
 			if (qs.length && gone.length) out.push({ key: recordKey(file, section, r), quests: gone });
 		}
 	};
-	const rf = JSON.parse(fs.readFileSync(path.join(root, 'data', 'route-fixes.json'), 'utf8'));
 	for (const part of ['deliberate', 'overrides']) {
 		for (const [section, list] of Object.entries(rf[part] || {})) check('data/route-fixes.json', `${part}.${section}`, list);
 	}

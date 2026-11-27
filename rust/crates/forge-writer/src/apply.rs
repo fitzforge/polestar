@@ -1323,6 +1323,11 @@ fn portal_name(node: &str) -> String {
 /// Powderfuse Port to the Swamp of Sorrows and to Kargath). Not on a ride, a flight master's goto, or a
 /// step already in the zone.
 fn way_in_tip(zone: Option<&str>, came_from: Option<&str>, label: &str) -> Option<&'static str> {
+	match label {
+		"Portal to The Forbidding Sea" => return Some("Click the Rowboat at Wetlands 58.2, 6.9 to cross to the Arathi coast."),
+		"Portal to Thandol Span" => return Some("Click the Rowboat on the Arathi coast to return to Thandol Span."),
+		_ => {}
+	}
 	const WAYS_IN: [(&str, &str); 1] = [("Riverglades", "Riverglades is reached on foot through Redridge Pass, south of the Bristle Hills.")];
 	const WAYS_OUT: [(&str, &str, &str); 4] = [
 		("Riverglades", "Swamp of Sorrows", "Leave Riverglades on foot through Redridge Pass, south of the Bristle Hills, into the Swamp of Sorrows."),
@@ -5931,6 +5936,15 @@ impl Writer<'_, '_> {
 			}
 		}
 		self.write_goto(&c, zn, label, with_only);
+		// The ride out is part of the quest detour. The way back is still needed after turning it in.
+		let rowboat_guard = match label {
+			"Portal to The Forbidding Sea" => Some("  when onquest 79242"),
+			"Portal to Thandol Span" => Some("  when subzone \"The Forbidding Sea\""),
+			_ => None,
+		};
+		if let Some(guard) = rowboat_guard {
+			self.g.body.insert(self.g.body.len() - 1, Some(guard.to_string()));
+		}
 	}
 
 	/// A goto step to the coordinates `c` (` @x,y map M live` parts) in zone `zn`.
@@ -6651,7 +6665,11 @@ impl Writer<'_, '_> {
 									// (A portal's end, and Zephras Isle's way off, are named by its zone: not the
 									// world's internal "(arrival)" node, A10.)
 									let zone_at = |pt: Option<u32>| cx.w(pt).and_then(|p| cx.zone_name(Some(p.map)));
-									let dest = if kind == "Portal" && zone_at(nb.pt).is_some() && zone_at(nb.pt) == zone_at(na.pt) {
+									let dest = if na.name == "portal-rowboat-arathi-coast" {
+										"The Forbidding Sea".to_string()
+									} else if na.name == "portal-rowboat-thandol-span" {
+										"Thandol Span".to_string()
+									} else if kind == "Portal" && zone_at(nb.pt).is_some() && zone_at(nb.pt) == zone_at(na.pt) {
 										// (A portal within one zone, up to the Rohashi Spires on Zephras Isle: named by
 										// the place it lands, its area, else its own name; c14 review.)
 										cx.w(nb.pt)

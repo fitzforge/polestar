@@ -3058,6 +3058,18 @@
 				"why": "#1319: MacKreel's Moonshine is taken on the way from Kor'gresh's cave back to Skuerto at Refuge Pointe, the last stop before the flight to Southshore, so its 15-minute limit covers only that walk and the flight."
 			},
 			{
+				"a": ["task", 693],
+				"b": ["task", 79242],
+				"faction": "Alliance",
+				"why": "Do No Honor Among Thieves on the Thandol Span visit after Kor'gresh's cave. The Rowboat crosses from Wetlands to the Arathi coast and brings the player back beside the span."
+			},
+			{
+				"a": ["turnin", 79242],
+				"b": ["accept", 647],
+				"faction": "Alliance",
+				"why": "Hand in No Honor Among Thieves at Illari's Loot Cache before taking MacKreel's Moonshine. The rowboat ride and Illari's fight would spend part of the 15-minute Moonshine timer."
+			},
+			{
 				"a": [
 					"turnin",
 					693
@@ -12023,6 +12035,13 @@
 					79235
 				],
 				"reason": "Alliance 30-40 fix pass (2026-11-20): Cherry for Your Thoughts? (level 40, from 30, 1,550 XP) is Tokal's: a Cherry Grog from Nixxrax Fillamug (npc 2832) in the Salty Sailor Tavern beside him, handed back on the spot on 30-40/04b's last Booty Bay stop. Players' recordings: 7 hand-ins (12 people).",
+				"issue": "-"
+			},
+			{
+				"q": 79242,
+				"faction": "Alliance",
+				"after": ["turnin", 79236],
+				"reason": "Alliance 30-40: Take No Honor Among Thieves from Tokal after Cherry for Your Thoughts? and carry it to Thandol Span. Only players with the quest take the Rowboat detour before the Moonshine stop. The recording shows both crossings, the encounter and the cache hand-in.",
 				"issue": "-"
 			},
 			{

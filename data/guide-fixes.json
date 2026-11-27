@@ -7806,6 +7806,133 @@
 			]
 		},
 		{
+			"id": "arathi-no-honor-among-thieves-pickup",
+			"faction": "Alliance",
+			"at": {
+				"quest": 79242,
+				"goal": "accept"
+			},
+			"tip": "Pick up No Honor Among Thieves from Tokal after turning in Cherry for Your Thoughts? Keep it for Arathi Highlands. You'll click the Rowboat at Wetlands 58.2, 6.9 before the Moonshine stop.",
+			"note": "Tokal offers this follow-up after Cherry for Your Thoughts? in Booty Bay. Players who start the guide later skip the detour if they do not already have the quest in their log.",
+			"source": {
+				"kind": "recording",
+				"ref": "cameronmoten's Forever 1.60.1.71037 recording, quest 79242"
+			}
+		},
+		{
+			"id": "arathi-no-honor-among-thieves-illari",
+			"faction": "Alliance",
+			"at": {
+				"quest": 79242,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Speak to Illari Duskfeather and challenge her. Defeat her, then loot Illari's Key from the Dropped Pouch she leaves behind. Use the key at Illari's Loot Cache and take the Rowboat back to Thandol Span.",
+			"when": "onquest 79242",
+			"note": "The recording shows 27.9 seconds in combat, then the key from Dropped Pouch (423569) and 4,017 XP at the cache hand-in (418855). The base quest reward is 3,900 XP. The recording has no separate combat XP award.",
+			"source": {
+				"kind": "recording",
+				"ref": "cameronmoten's Forever 1.60.1.71037 recording, quest 79242"
+			}
+		},
+		{
+			"id": "arathi-no-honor-among-thieves-key",
+			"faction": "Alliance",
+			"at": {
+				"quest": 79242,
+				"goal": "collect",
+				"item": 212347
+			},
+			"goalNote": "Challenge Illari through her dialogue and defeat her. Then loot the Dropped Pouch for Illari's Key.",
+			"note": "Speaking to Illari awards the first objective before the fight. Keep the fight and pouch instructions on the key goal until the player loots it.",
+			"source": {
+				"kind": "recording",
+				"ref": "cameronmoten's Forever 1.60.1.71037 recording, quest 79242"
+			}
+		},
+		{
+			"id": "arathi-no-honor-among-thieves-walk-to-rowboat",
+			"faction": "Alliance",
+			"at": {
+				"quest": 79242,
+				"goal": "objective",
+				"objective": 1
+			},
+			"way": {
+				"insert": "before",
+				"at": {
+					"map": 1417,
+					"x": 89.52,
+					"y": 77.86,
+					"frame": "era"
+				},
+				"title": "Portal to The Forbidding Sea",
+				"label": "Arathi coast landing",
+				"tip": "Click the Rowboat at Wetlands 58.2, 6.9. It teleports you to the Arathi coast.",
+				"when": "onquest 79242"
+			},
+			"note": "Players who missed Tokal's pickup can skip the walk to the rowboat and the ride out to the coast.",
+			"source": {
+				"kind": "recording",
+				"ref": "cameronmoten's Forever 1.60.1.71037 recording, quest 79242"
+			}
+		},
+		{
+			"id": "arathi-no-honor-among-thieves-key-carried",
+			"faction": "Alliance",
+			"at": {
+				"quest": 79242,
+				"goal": "objective",
+				"objective": 2
+			},
+			"when": "onquest 79242",
+			"note": "When the writer gives the key its own step, show it only for a player still carrying the quest.",
+			"source": {
+				"kind": "recording",
+				"ref": "cameronmoten's Forever 1.60.1.71037 recording, quest 79242"
+			}
+		},
+		{
+			"id": "arathi-no-honor-among-thieves-hand-in-carried",
+			"faction": "Alliance",
+			"at": {
+				"quest": 79242,
+				"goal": "turnin"
+			},
+			"when": "onquest 79242",
+			"note": "Send only players carrying No Honor Among Thieves to Illari's Loot Cache.",
+			"source": {
+				"kind": "recording",
+				"ref": "cameronmoten's Forever 1.60.1.71037 recording, quest 79242"
+			}
+		},
+		{
+			"id": "arathi-no-honor-among-thieves-return-rowboat",
+			"faction": "Alliance",
+			"at": {
+				"quest": 79242,
+				"goal": "turnin"
+			},
+			"way": {
+				"insert": "after",
+				"at": {
+					"map": 1417,
+					"x": 53.62,
+					"y": 91.64,
+					"frame": "era"
+				},
+				"title": "Portal to Thandol Span",
+				"label": "Thandol Span landing",
+				"tip": "Click the Rowboat on the Arathi coast at 89.6, 78.0 to return to Thandol Span.",
+				"when": "subzone \"The Forbidding Sea\""
+			},
+			"note": "The return boat takes players back to Thandol Span after they hand in the quest. It remains available while on the coast.",
+			"source": {
+				"kind": "recording",
+				"ref": "cameronmoten's Forever 1.60.1.71037 recording, quest 79242"
+			}
+		},
+		{
 			"id": "1319-mackreels-moonshine-time-limit",
 			"at": {
 				"quest": 647,
