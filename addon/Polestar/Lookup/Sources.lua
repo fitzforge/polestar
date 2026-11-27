@@ -139,6 +139,22 @@ local function maskBlocks(mask, bits, key)
 	return not hasBit(mask, b)
 end
 
+-- Skyborne's bits in a race mask: 2^32 for the Alliance's High Order, 2^33
+-- for the Horde's Windshapers (Forever's own; no Era mask has them).
+local SKYBORNE_BIT = { Alliance = 2 ^ 32, Horde = 2 ^ 33 }
+
+-- Whether `mask` shuts Skyborne of `faction` out: it names races, not their
+-- bit, and is no whole side's mask (those are the faction's say, Lookup.QuestFor).
+-- Night Elf druids' Body and Heart (mask 8) is no quest for a Skyborne druid;
+-- Moonglade (2^32 alone) is not for a Windshaper.
+local function skyborneBlocks(mask, faction)
+	local sky = SKYBORNE_BIT[faction]
+	if type(mask) ~= "number" or mask <= 0 or not sky or hasBit(mask, sky) then return false end
+	if mask % 2 ^ 32 == 0 then return true end
+	local who = Lookup.QuestFor({ races = mask })
+	return who ~= nil and who.races ~= nil
+end
+
 -- Who a quest is for, by its masks -> { classes = { file, ... } | nil,
 -- races = { file, ... } | nil } | nil (anyone of its side).
 -- classes: the classes its class mask names, nil when it names all or none.
@@ -463,7 +479,9 @@ end
 local function questBlock(q, p)
 	local side = questSide(q)
 	if side and not sideOK(side, p) then return "faction", sideText(side) end
-	if maskBlocks(q.races, RACE_BIT, p.race) then return "race", Lookup.QuestForText(q) or L["Not for your race"] end
+	if maskBlocks(q.races, RACE_BIT, p.race) or (p.race == "Skyborne" and skyborneBlocks(q.races, p.faction)) then
+		return "race", Lookup.QuestForText(q) or L["Not for your race"]
+	end
 	if maskBlocks(q.classes, CLASS_BIT, p.class) then return "class", Lookup.QuestForText(q) or L["Not for your class"] end
 	local line, need = missingProfession(q)
 	if line then

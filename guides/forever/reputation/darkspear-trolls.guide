@@ -300,8 +300,8 @@ step Everlook: A Little Luck
   zone Winterspring
   tip Luck Be With You is level 60, so it pays in full. Harlo Wigglesworth in Everlook sends you to Witch Doctor Mau'ari, who stands in the same town. The Frostmaul Shards lie on the ground in Frostwhisper Gorge, the canyon at the south end of Winterspring, and the Frostmaul Giants there drop them too (about one in five). The giants are elite level 59 and 60 and stand close together: pick the shards at the edges, pull one giant at a time, or bring a friend.
   level 55
-  accept 6606                         -- Harlo Wigglesworth: A Little Luck
-  turnin 6606                         -- Witch Doctor Mau'ari
+  accept 6606 optional                -- Harlo Wigglesworth: A Little Luck
+  turnin 6606 optional                -- Witch Doctor Mau'ari
   accept 969                          -- Luck Be With You, +100
   collect 12334 x4 quest 969.1        -- Frostmaul Shards
   turnin 969

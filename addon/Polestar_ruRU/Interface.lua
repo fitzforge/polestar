@@ -132,7 +132,7 @@
 --   %s. Optional: the route doesn't need it.
 --   Kept for %s
 --   Hand in %s to %s, who walks around here: look inside the circle on the map
---   A quest you carry that the route does not work here: its work is nearby.
+--   A quest in your log with an objective nearby that the route doesn't do here.
 --   %s at %s
 --   Only visible while dead: die nearby and talk to them as a ghost.
 --   Under water nearby: swim down to it
@@ -475,6 +475,23 @@
 --   Fewer folders
 --   Quit the game fully and start it again: Polestar is 22 folders now, not 45.
 --   Steps fixed in dozens of zones. Found something off? Type %s.
+--
+-- Machine-translated, to be reviewed (0.4.4 Dungeon Set 2 guides, 26 Nov 2026): translated by an AI model
+-- (Claude Opus 5.5) and waiting for a native speaker's check. Reviewing one: keep or fix it, and take it
+-- off this list. These guides' texts in guides/locales/ruRU/:
+--   forever/class/druid/dungeon-set-2
+--   forever/class/hunter/dungeon-set-2
+--   forever/class/mage/dungeon-set-2
+--   forever/class/paladin/dungeon-set-2
+--   forever/class/priest/dungeon-set-2
+--   forever/class/rogue/dungeon-set-2
+--   forever/class/shaman/dungeon-set-2
+--   forever/class/warlock/dungeon-set-2
+--   forever/class/warrior/dungeon-set-2
+--
+-- Machine-translated, to be reviewed (0.4.4 Lookup, 26 Nov 2026): translated by an AI model (Claude Opus 5.5)
+-- and waiting for a native speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   Not seen on Forever yet
 -- Machine-translated, to be reviewed (#3701 Free mode, the finished-quest guide #2486 and the other lines new on
 -- next since 0.4.3, 26 Nov 2026):
 -- translated by an AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native
@@ -771,7 +788,7 @@ L["%s; 1 in %d runs fails"] = "%s; проваливается 1 раз из %d"
 L["%s. Optional: the route doesn't need it."] = "%s. Необязательно: маршруту это не нужно."
 L["Kept for %s"] = "Оставлено для «%s»"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "Сдайте «%s»: %s ходит поблизости, ищите внутри круга на карте"
-L["A quest you carry that the route does not work here: its work is nearby."] = "Задание из вашего журнала, которое маршрут здесь не выполняет: его цель рядом."
+L["A quest in your log with an objective nearby that the route doesn't do here."] = "Задание из вашего журнала, которое маршрут здесь не выполняет: его цель рядом."
 L["%s at %s"] = "%s у %s"
 L["Buy a rune at %s"] = "Купить руну у %s"
 L["Buy a rune and cast %s to save about %s"] = "Купите руну и примените %s — это сэкономит около %s"
@@ -2499,6 +2516,7 @@ L["Finished, %d skipped"] = "Завершено, пропущено: %d"
 L["All %d done"] = "Выполнены все %d"
 L["Click to open its page."] = "Щелкните, чтобы открыть страницу."
 L["Then any of: %s"] = "Затем любое из: %s"
+L["Not seen on Forever yet"] = "Ещё не замечено в Forever"
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Можно сдать"
@@ -4147,7 +4165,6 @@ L["Clean up quest log"] = "Очистить журнал заданий"
 L["Grey: no XP any more"] = "Серое: опыта больше нет"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "Маршруту они не нужны: он их не сдаёт, или они больше не дают опыта. «Отказаться» сначала спрашивает в окне самой игры."
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "Показывает задания в журнале, которые маршруту не нужны: те, что он никогда не сдаёт, и серые, которые больше не дают опыта. У каждого есть кнопка «Отказаться», которая сначала спрашивает. Пока такие есть, это есть и в меню окна гайда."
-L["None of these has a known place to hand it in."] = "Ни для одного из них неизвестно, где его сдать."
 L["Where it is turned in is not known"] = "Неизвестно, где сдать"
 L["Finished quests you're still carrying"] = "Выполненные задания, которые вы ещё не сдали"
 L["The route hands in every finished quest in your log."] = "Маршрут сдаёт все выполненные задания из вашего журнала."
@@ -5710,10 +5727,17 @@ L["kept for %s"] = "оставлено для «%s»"
 L["kept"] = "оставлено"
 L["Kept for %s: the route hands it in there."] = "Оставлено для «%s»: маршрут сдает его там."
 
--- Lookup/Handins.lua
+-- Handins.lua
 L["No quests in your log are ready to hand in."] = "В журнале нет заданий, готовых к сдаче."
 L["Wait until combat ends to load the quest data."] = "Дождитесь конца боя, чтобы загрузить данные заданий."
 L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "Не удалось загрузить гайд по сдаче заданий. Проверьте, что аддон Polestar_FreeMode установлен и включен."
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["None of these has a known place to hand it in."] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
 
 -- Lookup/Free.lua
 L["Free mode starts after combat."] = "Свободный режим запустится после боя."
@@ -5726,29 +5750,32 @@ L["Free mode: follow your own quests (on, off, nearest, xp)"] = "Свободн�
 L["Start quest guide"] = "Начать гайд по заданию"
 L["Click to show quest guide actions."] = "Нажмите, чтобы показать действия гайда по заданию."
 
--- Handins.lua
-L["Travel time to this hand-in is unknown. Its location is still shown."] = "Время пути до места сдачи неизвестно. Его местоположение по-прежнему показано."
-L["Hand-ins without a known location"] = "Сдача без известного места"
-L["Refining the travel order. Travel times are estimates."] = "Уточняем порядок маршрута. Время пути — оценка."
-L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = "Оценки пути неполные. Порядок использует доступные оценки и приблизительные расстояния."
-L["Waiting for your quest log."] = "Ожидание журнала заданий."
-L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = "Не удалось загрузить гайд по сдаче заданий. Проверьте, что аддон Polestar_Codex установлен и включен."
-
 -- Free.lua
-L["Low drop rate: %s"] = "Низкий шанс добычи: %s"
-L["1 quest for your level: %s gives it."] = "1 задание для вашего уровня: его дает %s."
-L["%d quests for your level, all here."] = "Заданий для вашего уровня: %d, все здесь."
-L["%d quests for your level, %d of them here."] = "Заданий для вашего уровня: %d, из них здесь: %d."
-L["Quests for your level"] = "Задания для вашего уровня"
-L["About %s XP a minute"] = "Около %s опыта в минуту"
-L["Order: nearest first"] = "Порядок: ближайшее — первым"
-L["Order: most XP a minute first"] = "Порядок: больше опыта в минуту — первым"
-L["Bring back left-out quests (%d)"] = "Вернуть исключенные задания (%d)"
-L["Unpin"] = "Открепить"
-L["Pin to the top"] = "Закрепить наверху"
-L["Free mode takes this quest first, whatever the order."] = "Свободный режим берет это задание первым, каким бы ни был порядок."
-L["Leave out of Free mode"] = "Исключить из свободного режима"
-L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "Свободный режим больше не показывает это задание. Пункт меню «Вернуть исключенные задания» вернет его в список."
+-- L["Low drop rate: %s"] = ""
+-- L["1 quest for your level: %s gives it."] = ""
+-- L["%d quests for your level, all here."] = ""
+-- L["%d quests for your level, %d of them here."] = ""
+-- L["Quests for your level"] = ""
+-- L["About %s XP a minute"] = ""
+-- L["Order: nearest first"] = ""
+-- L["Order: most XP a minute first"] = ""
+-- L["Bring back left-out quests (%d)"] = ""
+-- L["Unpin"] = ""
+-- L["Pin to the top"] = ""
+-- L["Free mode takes this quest first, whatever the order."] = ""
+-- L["Leave out of Free mode"] = ""
+-- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = ""
+
+-- Layouts/Atlas/Atlas.lua
+-- L["Get ahead, if possible"] = ""
+-- L["Still open from steps you have passed"] = ""
+-- L["1 quest off-guide"] = ""
+-- L["%d quests off-guide"] = ""
+-- L["View"] = ""
+-- L["Training due"] = ""
+-- L["New spells at your class trainer"] = ""
+-- L["Optional objectives during this step"] = ""
+-- L["Class quest"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Заново настроить Polestar, страница за страницей. Каждый выбор действует сразу."
@@ -6025,3 +6052,24 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 -- L["Max height"] = "Макс. высота"
 -- L["%s: on this step"] = "%s: на этом шаге"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "Ваши собственные задания как гайд, на отдельной вкладке: стрелка ведет к ближайшему, затем к следующему (/polestar free)."
+-- L["None of these has a known place to hand it in."] = "Ни для одного из них неизвестно, где его сдать."
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = "Время пути до места сдачи неизвестно. Его местоположение по-прежнему показано."
+-- L["Hand-ins without a known location"] = "Сдача без известного места"
+-- L["Refining the travel order. Travel times are estimates."] = "Уточняем порядок маршрута. Время пути — оценка."
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = "Оценки пути неполные. Порядок использует доступные оценки и приблизительные расстояния."
+-- L["Waiting for your quest log."] = "Ожидание журнала заданий."
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = "Не удалось загрузить гайд по сдаче заданий. Проверьте, что аддон Polestar_Codex установлен и включен."
+-- L["Low drop rate: %s"] = "Низкий шанс добычи: %s"
+-- L["1 quest for your level: %s gives it."] = "1 задание для вашего уровня: его дает %s."
+-- L["%d quests for your level, all here."] = "Заданий для вашего уровня: %d, все здесь."
+-- L["%d quests for your level, %d of them here."] = "Заданий для вашего уровня: %d, из них здесь: %d."
+-- L["Quests for your level"] = "Задания для вашего уровня"
+-- L["About %s XP a minute"] = "Около %s опыта в минуту"
+-- L["Order: nearest first"] = "Порядок: ближайшее — первым"
+-- L["Order: most XP a minute first"] = "Порядок: больше опыта в минуту — первым"
+-- L["Bring back left-out quests (%d)"] = "Вернуть исключенные задания (%d)"
+-- L["Unpin"] = "Открепить"
+-- L["Pin to the top"] = "Закрепить наверху"
+-- L["Free mode takes this quest first, whatever the order."] = "Свободный режим берет это задание первым, каким бы ни был порядок."
+-- L["Leave out of Free mode"] = "Исключить из свободного режима"
+-- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "Свободный режим больше не показывает это задание. Пункт меню «Вернуть исключенные задания» вернет его в список."

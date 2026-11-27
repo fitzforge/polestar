@@ -428,15 +428,26 @@ local function decodeQuest(group, id, s)
 		elseif lead == "v" then
 			-- One of a set its giver offers one at a time (#3601: Pix's weekly In Demand quests): v<set name>.
 			rec.rotation = unesc(sub(f, 2))
+		elseif f == "n" then
+			-- No recording has shown it on Forever yet (the Nightmare Incursion missions).
+			rec.unseen = true
 		elseif f == "t" then
 			-- The kill objective before it is a beast to tame (Taming the Beast).
 			local o = rec.objectives[#rec.objectives]
 			if o then o.tame = true end
 		elseif lead == "a" then
-			-- The kill objective before it is done by using this item on the
-			-- NPC (the Codex build's useItem, #2468): a<item>.
+			-- The kill or event objective before it is done by using this item
+			-- (the Codex build's useItem: on the NPC, #2468; at the event's
+			-- place, #4270: the Pile of Pylon Parts at each pylon): a<item>.
 			local o = rec.objectives[#rec.objectives]
 			if o then o.useItem = tonumber(sub(f, 2)) end
+		elseif lead == "j" then
+			-- What that use spends, gathered before it (the Codex build's
+			-- reagent, #4270: four Coalesced Mana Crystals from the Unstable
+			-- Mana Rifts for each pylon): j<item>,<count>,<npc>.
+			local o = rec.objectives[#rec.objectives]
+			local _, _, item, count, npc = find(f, "^j(%d+),(%d+),(%d+)$")
+			if o and item then o.reagent = { item = tonumber(item), count = tonumber(count), npc = tonumber(npc) } end
 		elseif lead == "m" then
 			-- The kill objective before it is of a target this item calls up
 			-- (the Codex build's summonItem, #2326: Yeh'kinya's Bramble on a dead
