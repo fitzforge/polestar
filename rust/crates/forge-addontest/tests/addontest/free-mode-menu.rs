@@ -343,7 +343,7 @@ emit(out)
 		assert_eq!(l["stars"], 3, "{d}: the route's first three");
 		assert!(text(&l["lead"]).starts_with("Free mode is leading you to "), "{d}: {}", l["lead"]);
 	}
-	assert_eq!(o["backs"], json!([]), "no Back to <guide> button");
+	assert!(strs(&o["backs"]).is_empty(), "no Back to <guide> button: {}", o["backs"]);
 	assert_eq!(o["back"], false, "the Back button is gone");
 	assert_eq!(o["after"], json!(["test/route", false, "main", "Activate Free mode"]), "Turn off hands the arrow back; the page is the intro again");
 }

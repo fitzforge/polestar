@@ -171,7 +171,7 @@ local function arrow(x, y)
 	local from, to = { x - 46, y + 16 }, { x + 46, y - 18 }
 	K.Emblem(from[1], from[2], 38, 120, 0)
 	K.Dots(K.smooth({ { from[1] + 18, from[2] - 4 }, { x, y + 18 }, { x + 18, y - 26 }, to }), "accent", 0.8, 0, 2.5)
-	K.tint(K.Place(K.Tex("ring", "ARTWORK", 0), to[1], to[2], 26), "accent", 0.9)
+	K.tint(K.Place(K.Tex("ring", "ARTWORK", 0), to[1], to[2], 20), "accent", 0.5)
 	K.Star(to[1], to[2], 2.6, "quest", 1)
 	K.tint(K.Place(K.Tex("icon-goto", "ARTWORK", 1), to[1], to[2] - 24, 14), "accent", 1)
 end
@@ -213,8 +213,8 @@ local function trail(c, x, y, width)
 	local bottom = y
 	for i, f in ipairs(parts.Beats) do
 		local bx = x + (i - 0.5) * colW
-		-- The beat's number in an accent ring.
-		K.tint(K.Place(K.Tex("ring", "ARTWORK", 0), bx, y + 10, 22), "accent", 0.8)
+		-- The beat's number on a soft accent disc.
+		K.tint(K.Place(K.Tex("circle", "ARTWORK", 0), bx, y + 10, 24), "accent", 0.16)
 		f.Num:SetWidth(22)
 		K.At(f.Num, bx - 11, y + 4)
 		local ty = K.Centred(f.Title, bx, y + 30, colW - 24) + 6
