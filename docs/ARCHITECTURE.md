@@ -5347,7 +5347,11 @@ else the flight master within 60 yd of where the flight left;
 60 yd of it, one that never got away), a boat's, zeppelin's, tram's or
 portal's transport once it has arrived. So a plan made later on the way
 never goes back: from Stormwind the route flew to Sentinel Hill and on
-landing planned the flight back, over and over (#1890). A crossing's near
+landing planned the flight back, over and over (#1890). A flight master left
+behind counts again once the player is back at it: landed there, or standing
+within 60 yd of it (from Southshore a flight to Menethil Harbor and back left
+Southshore out, and the route rode round into the Hinterlands instead of
+flying to Aerie Peak, #4227); a flight leg the player skipped stays out. A crossing's near
 end reached (the walk to it, or the far end on the crossing's own walk or on
 the walk on to it from a start on it) is passed the same way a skipped one is
 (`passCrossing`): a plan from within the ends' distance of the far end walks on
