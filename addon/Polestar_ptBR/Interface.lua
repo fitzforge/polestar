@@ -526,6 +526,54 @@
 --   Without quests too
 --   dungeon tracker
 
+-- Machine-translated, to be reviewed (the profession and reputation guides' window, 26 Nov 2026): translated by an
+-- AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
+-- keep or fix its line below, and take its key off this list.
+--   %d made
+--   %d ready
+--   %s a turn-in
+--   about %d to go
+--   Learn %s first
+--   %s loop on your map
+--   %s more
+--   %s more, about %s at your last search
+--   Buy it at the Auction House
+--   Buy it from %s
+--   Buy it from a vendor
+--   Buy list
+--   Buy the whole list
+--   Craft %s until %d
+--   Disenchant green armour
+--   Farm it
+--   Fish it
+--   Get %d %s
+--   Make it
+--   Mine it
+--   Not learned yet
+--   Pick it
+--   Pick one way:
+--   Requires Level %d-%d
+--   Shopping list
+--   Skin it
+--   about %d an hour
+--   ~%d min for the rest
+--   %s reached
+--   %s to %s
+--   %s to %s  \194\183  about %d turn-ins
+--   +%d each
+--   +%d once
+--   +%d reputation
+--   A long farm: bought instead
+--   Expert
+--   Green
+--   More reputation
+--   Next turn-in: %d more %s
+--   Open list
+--   Repeatable
+--   Turn in %d now
+--   once
+--   repeats
+--   %d more
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "ptBR") then return end
 local L = ns.L
@@ -763,6 +811,9 @@ L["Kept for %s"] = "Guardada para %s"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "Entregue %s para %s, que anda por aqui: procure dentro do círculo no mapa"
 L["A quest you carry that the route does not work here: its work is nearby."] = "Uma missão que você carrega e que a rota não faz aqui: o objetivo dela está perto."
 L["%s at %s"] = "%s em %s"
+-- L["Buy a rune at %s"] = ""
+-- L["Buy a rune and cast %s to save about %s"] = ""
+-- L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."] = ""
 L["Buy a rune at %s"] = "Comprar uma runa com %s"
 L["Buy a rune and cast %s to save about %s"] = "Compre uma runa e lance %s para economizar cerca de %s"
 L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."] = "Você está sem Runas de Teleporte e este vendedor as vende: comprar uma e se teleportar é mais rápido que o voo da sua rota."
@@ -1994,6 +2045,10 @@ L["Most of it drops as you level %s"] = "A maior parte cai enquanto você sobe o
 L["A long farm: most of it drops as you level"] = "Farm longo: a maior parte cai enquanto você sobe de nível"
 L["or the Auction House"] = "ou a casa de leilões"
 L["or %s"] = "ou %s"
+-- L["%s loop"] = ""
+-- L["Farming loop"] = ""
+-- L["%d min a lap"] = ""
+-- L["about %d laps"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "Local"
@@ -2390,6 +2445,7 @@ L["Suggested"] = "Sugerido"
 L["The guides window only. Click to pick a size; right-click to reset."] = "Somente a janela de guias. Clique para escolher um tamanho; clique com o botão direito para redefinir."
 L["Quests in"] = "Missões em"
 L["Passes through"] = "Passa por"
+-- L["%s: optional class quests"] = ""
 L["%s: optional class quests"] = "%s: missões de classe opcionais"
 
 -- UI/Lookup.lua
@@ -3251,6 +3307,7 @@ L["General"] = "Geral"
 L["The language Polestar shows."] = "O idioma que o Polestar mostra."
 L["Say when I've outlevelled a guide"] = "Avisar quando eu passar do nível de um guia"
 L["A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is."] = "Um aviso na janela do guia, uma vez por guia a cada sessão, quando seu nível passa do nível do guia, com um guia que combina com seu nível. Desligado: sem aviso; o guia continua como está."
+-- L["For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route."] = ""
 L["For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route."] = "Para um mago sem Runa de Teleporte, também um vendedor próximo que venda uma, quando comprar e se teleportar for mais rápido que a rota."
 
 -- Rares/Rares.lua
@@ -4159,6 +4216,8 @@ L["Every quest in your log is part of your route."] = "Todas as missões do seu 
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "Nenhum guia da sua rota as aceita, faz ou entrega. Mantenha as que quiser; Abandonar pergunta antes na janela do próprio jogo."
 L["Finished: no guide of your route hands it in"] = "Concluída: nenhum guia da sua rota a entrega"
 L["Not in any guide of your route"] = "Não está em nenhum guia da sua rota"
+-- L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = ""
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = ""
 L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = "Guie-me abre uma ordem de viagem para todas as missões concluídas no seu registro, incluindo as guardadas para um guia posterior."
 L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = "Toda missão concluída no seu registro, incluindo as da sua rota. Guie-me estima uma ordem de viagem; missões sem local conhecido continuam na lista para entrega manual. Uma cinza quase não dá mais EXP."
 
@@ -5060,6 +5119,8 @@ L["On the window's edge"] = "Na borda da janela"
 L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."] = "Linhas abaixo da etapa para missões que você ainda precisa concluir ou entregar fora da rota: as que uma atualização do guia deixou para trás e as missões concluídas que nenhum guia à frente entrega. Desligado, o menu da janela do guia ainda lista as concluídas em Entregar missões concluídas."
 L["XP line"] = "Linha de EXP"
 L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "A linha abaixo das etapas: EXP por hora, tempo para subir de nível e seu ritmo. O Descanso Melhorado mantém a própria linha."
+-- L["Quest log notices"] = ""
+-- L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = ""
 L["Quest log notices"] = "Avisos do registro de missões"
 L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = "As linhas sobre o seu registro de missões: missões que não fazem parte da sua rota, na etapa e quando um guia termina, e missões concluídas que nenhum guia à frente recebe. Desligado, o menu da janela do guia ainda tem Limpar registro de missões e Entregar missões concluídas."
 
@@ -5716,6 +5777,21 @@ L["kept"] = "guardada"
 L["Kept for %s: the route hands it in there."] = "Guardada para %s: a rota a entrega lá."
 
 -- Lookup/Handins.lua
+-- L["No quests in your log are ready to hand in."] = ""
+-- L["Wait until combat ends to load the quest data."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Handins addon is installed and enabled."] = ""
+
+-- UI/QuestLinks.lua
+-- L["Start quest guide"] = ""
+-- L["Click to show quest guide actions."] = ""
+
+-- Handins.lua
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
 L["No quests in your log are ready to hand in."] = "Nenhuma missão no seu registro está pronta para entregar."
 L["Wait until combat ends to load the quest data."] = "Espere o combate acabar para carregar os dados das missões."
 L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "O guia de entregas não pôde carregar. Verifique se o addon Polestar_FreeMode está instalado e ativado."
@@ -5792,6 +5868,52 @@ L["loot it"] = "saqueie"
 L["starts a quest"] = "inicia uma missão"
 L["Loot now"] = "Saquear agora"
 L["%s · quests"] = "%s · missões"
+-- UI/GuideFrameKindCraft.lua
+L["%d made"] = "%d feitos"
+L["%d ready"] = "%d prontas"
+L["%s a turn-in"] = "%s por entrega"
+L["about %d to go"] = "faltam cerca de %d"
+L["Learn %s first"] = "Aprenda %s primeiro"
+L["%s loop on your map"] = "rota em %s no seu mapa"
+L["%s more"] = "mais %s"
+L["%s more, about %s at your last search"] = "mais %s, cerca de %s na sua última busca"
+L["Buy it at the Auction House"] = "Compre na Casa de Leilões"
+L["Buy it from %s"] = "Compre de %s"
+L["Buy it from a vendor"] = "Compre de um vendedor"
+L["Buy list"] = "Lista do leilão"
+L["Buy the whole list"] = "Comprar a lista toda"
+L["Craft %s until %d"] = "Fabrique %s até %d"
+L["Disenchant green armour"] = "Desencante armaduras verdes"
+L["Farm it"] = "Farme"
+L["Fish it"] = "Pesque"
+L["Get %d %s"] = "Consiga %d %s"
+L["Make it"] = "Fabrique"
+L["Mine it"] = "Minere"
+L["Not learned yet"] = "Ainda não aprendido"
+L["Pick it"] = "Colha"
+L["Pick one way:"] = "Escolha um jeito:"
+L["Requires Level %d-%d"] = "Requer nível %d-%d"
+L["Shopping list"] = "Lista de compras"
+L["Skin it"] = "Esfole"
+L["about %d an hour"] = "cerca de %d por hora"
+L["~%d min for the rest"] = "~%d min para o resto"
+L["%s reached"] = "%s alcançado"
+L["%s to %s"] = "%s até %s"
+L["%s to %s  \194\183  about %d turn-ins"] = "%s até %s  \194\183  cerca de %d entregas"
+L["+%d each"] = "+%d cada vez"
+L["+%d once"] = "+%d uma vez"
+L["+%d reputation"] = "+%d de reputação"
+L["A long farm: bought instead"] = "Coleta longa: comprado no lugar"
+L["Expert"] = "Especialista"
+L["Green"] = "Verde"
+L["More reputation"] = "Mais reputação"
+L["Next turn-in: %d more %s"] = "Próxima entrega: mais %d %s"
+L["Open list"] = "Abrir lista"
+L["Repeatable"] = "Repetível"
+L["Turn in %d now"] = "Entregue %d agora"
+L["once"] = "uma vez"
+L["repeats"] = "repetível"
+L["%d more"] = "mais %d"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Configurar o Polestar de novo, uma página por vez. Cada escolha vale na hora."

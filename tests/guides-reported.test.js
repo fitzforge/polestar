@@ -5424,6 +5424,9 @@ const AWAY_FROM_ITS_OBJECTS = new Set([
 	'forever/professions/fishing.guide 16968',
 	'forever/professions/fishing.guide 16969',
 	'forever/professions/fishing.guide 16970',
+	'forever/professions/fishing-cooking.guide 16968',
+	'forever/professions/fishing-cooking.guide 16969',
+	'forever/professions/fishing-cooking.guide 16970',
 ]);
 test("#289: a quest item picked up from objects is collected at one of the objects' spawns", { skip }, () => {
 	data = data || loadData(DATA);
@@ -17876,14 +17879,19 @@ test('#190, #297, #1958, #1808: profession guides craft and learn what Forever\'
 	const leather = goals('forever/professions/leatherworking.guide');
 	assert.ok(!leather.some(({ goal }) => goal.t === 'craft' && goal.item === 4304), 'Thick Leather is never crafted');
 	const enchanting = goals('forever/professions/enchanting.guide');
-	const { goal } = enchanting[at(enchanting, 'learn 13637', (g) => g.t === 'learn' && g.spell === 13637)];
-	assert.deepEqual(goal.candidates.map((c) => c.npc).sort((a, b) => a - b), [11072, 11074], 'Kitta Firewind and Hgarth only');
+	// The learn is a smart target or, since the Expert bracket's visits go to one trainer per side, one pinned
+	// learn per side: either way only Kitta Firewind and Hgarth.
+	const { s } = enchanting[at(enchanting, 'learn 13637', (g) => g.t === 'learn' && g.spell === 13637)];
+	const npcs = enchanting.filter((e) => e.s === s && e.goal.t === 'learn' && e.goal.spell === 13637).flatMap(({ goal }) => (goal.candidates ? goal.candidates.map((c) => c.npc) : [goal.npc]));
+	assert.deepEqual([...new Set(npcs)].sort((a, b) => a - b), [11072, 11074], 'Kitta Firewind and Hgarth only');
 });
 
 // Encrypt512bit (#3140) and Sylliad (#3272): Magnus Frostwake's house in Caer Darrow was empty. He is a ghost: the
 // server gives him the Caer Darrow Ghosts invisibility aura, seen through only with the Spectral Essence on, the reward
 // of a level 55 Scholomance chain. His two plans are optional buys that say so; their learns and the Dense Grinding
-// Stones they take never hold a step, and the skill reaches 285 by any recipe.
+// Stones they take never hold a step, and the skill reaches 285 by any recipe. Since the 0.4.4 profession fixes both
+// plans are bought on the step where Blacksmithing 250 forks: the steps for players without them (`when !knows`) go on
+// with Auction House plans.
 test('#3140, #3272: Blacksmithing: Magnus Frostwake\'s plans are optional and name the Spectral Essence', { skip }, () => {
 	const bs = goals('forever/professions/blacksmithing.guide');
 	for (const item of [12819, 12823]) {
@@ -17891,9 +17899,10 @@ test('#3140, #3272: Blacksmithing: Magnus Frostwake\'s plans are optional and na
 		assert.ok(goal.optional, `buy ${item} is optional`);
 		assert.ok(step.goals.every((g) => g.optional || g.t === 'tip' || g.t === 'note'), `nothing on the ${item} step holds it`);
 	}
-	const tips = fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/professions/blacksmithing.guide'), 'utf8').split('\n').filter((l) => /^ {2}tip Plans: (Ornate Thorium Handaxe|Huge Thorium Battleaxe) teaches/.test(l));
-	assert.equal(tips.length, 2);
-	for (const t of tips) assert.match(t, /Magnus is a ghost: you see him only with the Spectral Essence on/);
+	const tips = fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/professions/blacksmithing.guide'), 'utf8').split('\n\n').filter((b) => /\n {2}buy 12823 nearest optional/.test(b));
+	assert.equal(tips.length, 1, 'one step buys both plans');
+	assert.match(tips[0], /Magnus Frostwake .*he is a ghost you see only with the Spectral Essence on/);
+	assert.match(tips[0], /\n {2}buy 12819 nearest optional/);
 	for (const spell of [16969, 16971]) {
 		const { goal, s } = bs[at(bs, `learn ${spell}`, (g) => g.t === 'learn' && g.spell === spell)];
 		assert.ok(goal.optional, `learn ${spell} is optional`);

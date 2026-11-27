@@ -591,6 +591,54 @@
 --   Without quests too
 --   dungeon tracker
 
+-- Machine-translated, to be reviewed (the profession and reputation guides' window, 26 Nov 2026): translated by an
+-- AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
+-- keep or fix its line below, and take its key off this list.
+--   %d made
+--   %d ready
+--   %s a turn-in
+--   about %d to go
+--   Learn %s first
+--   %s loop on your map
+--   %s more
+--   %s more, about %s at your last search
+--   Buy it at the Auction House
+--   Buy it from %s
+--   Buy it from a vendor
+--   Buy list
+--   Buy the whole list
+--   Craft %s until %d
+--   Disenchant green armour
+--   Farm it
+--   Fish it
+--   Get %d %s
+--   Make it
+--   Mine it
+--   Not learned yet
+--   Pick it
+--   Pick one way:
+--   Requires Level %d-%d
+--   Shopping list
+--   Skin it
+--   about %d an hour
+--   ~%d min for the rest
+--   %s reached
+--   %s to %s
+--   %s to %s  \194\183  about %d turn-ins
+--   +%d each
+--   +%d once
+--   +%d reputation
+--   A long farm: bought instead
+--   Expert
+--   Green
+--   More reputation
+--   Next turn-in: %d more %s
+--   Open list
+--   Repeatable
+--   Turn in %d now
+--   once
+--   repeats
+--   %d more
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "ruRU") then return end
 local L = ns.L
@@ -828,6 +876,9 @@ L["Kept for %s"] = "Оставлено для «%s»"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "Сдайте «%s»: %s ходит поблизости, ищите внутри круга на карте"
 L["A quest you carry that the route does not work here: its work is nearby."] = "Задание из вашего журнала, которое маршрут здесь не выполняет: его цель рядом."
 L["%s at %s"] = "%s у %s"
+-- L["Buy a rune at %s"] = ""
+-- L["Buy a rune and cast %s to save about %s"] = ""
+-- L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."] = ""
 L["Buy a rune at %s"] = "Купить руну у %s"
 L["Buy a rune and cast %s to save about %s"] = "Купите руну и примените %s — это сэкономит около %s"
 L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."] = "У вас закончились Руны телепортации, а этот торговец их продает: купить одну и телепортироваться быстрее, чем перелет по маршруту."
@@ -2059,6 +2110,10 @@ L["Most of it drops as you level %s"] = "Большая часть выпаде�
 L["A long farm: most of it drops as you level"] = "Долгий фарм: большая часть выпадет по ходу прокачки"
 L["or the Auction House"] = "или аукцион"
 L["or %s"] = "или %s"
+-- L["%s loop"] = ""
+-- L["Farming loop"] = ""
+-- L["%d min a lap"] = ""
+-- L["about %d laps"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "Место"
@@ -2455,6 +2510,7 @@ L["Suggested"] = "Рекомендуемый"
 L["The guides window only. Click to pick a size; right-click to reset."] = "Только окно гайдов. Нажмите, чтобы выбрать размер; правый клик — сброс."
 L["Quests in"] = "Задания в"
 L["Passes through"] = "Проходит через"
+-- L["%s: optional class quests"] = ""
 L["%s: optional class quests"] = "%s: необязательные классовые задания"
 
 -- UI/Lookup.lua
@@ -3316,6 +3372,7 @@ L["General"] = "Общие"
 L["The language Polestar shows."] = "Язык, который показывает Polestar."
 L["Say when I've outlevelled a guide"] = "Сообщать, когда я перерос гайд"
 L["A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is."] = "Уведомление в окне гайда, раз за сессию для каждого гайда, когда ваш уровень выше уровня гайда, с гайдом под ваш уровень. Выкл.: без уведомления; гайд остается как есть."
+-- L["For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route."] = ""
 L["For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route."] = "Для мага без Руны телепортации — еще и ближайший торговец, который ее продает, когда купить ее и телепортироваться быстрее маршрута."
 
 -- Rares/Rares.lua
@@ -4224,6 +4281,8 @@ L["Every quest in your log is part of your route."] = "Все задания в 
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "Ни один гайд вашего маршрута их не берет, не выполняет и не сдает. Оставьте нужные; «Отказаться» сначала спросит в окне самой игры."
 L["Finished: no guide of your route hands it in"] = "Выполнено: ни один гайд вашего маршрута его не сдает"
 L["Not in any guide of your route"] = "Нет ни в одном гайде вашего маршрута"
+-- L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = ""
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = ""
 L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = "«Вести меня» открывает порядок пути для всех выполненных заданий в журнале, включая отложенные для следующего гайда."
 L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = "Каждое выполненное задание в журнале, включая задания на вашем маршруте. «Вести меня» оценивает порядок пути; задания без известного места остаются в списке для сдачи вручную. Серое задание почти не дает опыта."
 
@@ -5125,6 +5184,8 @@ L["On the window's edge"] = "У края окна"
 L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."] = "Строки под шагом для заданий, которые вам еще нужно выполнить или сдать вне маршрута: оставленных позади обновлением гайда и выполненных, которые не сдает ни один следующий гайд. Выкл.: меню окна гайда по-прежнему перечисляет выполненные в пункте Сдать выполненные задания."
 L["XP line"] = "Строка опыта"
 L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "Строка под шагами: опыт в час, время до уровня и ваш темп. У Улучшенного отдыха своя строка."
+-- L["Quest log notices"] = ""
+-- L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = ""
 L["Quest log notices"] = "Заметки о журнале заданий"
 L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = "Строки о журнале заданий: задания вне вашего маршрута — на шаге и когда гайд завершен, — и выполненные задания, которые не примет ни один следующий гайд. Если выключено, в меню окна гайда остаются «Очистить журнал заданий» и «Сдать выполненные задания»."
 
@@ -5781,6 +5842,21 @@ L["kept"] = "оставлено"
 L["Kept for %s: the route hands it in there."] = "Оставлено для «%s»: маршрут сдает его там."
 
 -- Lookup/Handins.lua
+-- L["No quests in your log are ready to hand in."] = ""
+-- L["Wait until combat ends to load the quest data."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Handins addon is installed and enabled."] = ""
+
+-- UI/QuestLinks.lua
+-- L["Start quest guide"] = ""
+-- L["Click to show quest guide actions."] = ""
+
+-- Handins.lua
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
 L["No quests in your log are ready to hand in."] = "В журнале нет заданий, готовых к сдаче."
 L["Wait until combat ends to load the quest data."] = "Дождитесь конца боя, чтобы загрузить данные заданий."
 L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "Не удалось загрузить гайд по сдаче заданий. Проверьте, что аддон Polestar_FreeMode установлен и включен."
@@ -5857,6 +5933,52 @@ L["loot it"] = "заберите"
 L["starts a quest"] = "начинает задание"
 L["Loot now"] = "Заберите сейчас"
 L["%s · quests"] = "%s · задания"
+-- UI/GuideFrameKindCraft.lua
+L["%d made"] = "изготовлено: %d"
+L["%d ready"] = "готово: %d"
+L["%s a turn-in"] = "%s за сдачу"
+L["about %d to go"] = "осталось около %d"
+L["Learn %s first"] = "Сначала изучите: %s"
+L["%s loop on your map"] = "маршрут: %s, на вашей карте"
+L["%s more"] = "ещё %s"
+L["%s more, about %s at your last search"] = "ещё %s, около %s по последнему поиску"
+L["Buy it at the Auction House"] = "Купить на аукционе"
+L["Buy it from %s"] = "Купить у: %s"
+L["Buy it from a vendor"] = "Купить у торговца"
+L["Buy list"] = "Список аукциона"
+L["Buy the whole list"] = "Купить весь список"
+L["Craft %s until %d"] = "Изготавливать «%s» до %d"
+L["Disenchant green armour"] = "Распылить зелёные доспехи"
+L["Farm it"] = "Добыть самому"
+L["Fish it"] = "Выловить"
+L["Get %d %s"] = "Раздобыть %d: %s"
+L["Make it"] = "Изготовить"
+L["Mine it"] = "Добыть горным делом"
+L["Not learned yet"] = "Ещё не изучено"
+L["Pick it"] = "Собрать травничеством"
+L["Pick one way:"] = "Выберите способ:"
+L["Requires Level %d-%d"] = "Требуется уровень %d-%d"
+L["Shopping list"] = "Список покупок"
+L["Skin it"] = "Снять шкуру"
+L["about %d an hour"] = "около %d в час"
+L["~%d min for the rest"] = "~%d мин на остальное"
+L["%s reached"] = "%s достигнуто"
+L["%s to %s"] = "%s до: %s"
+L["%s to %s  \194\183  about %d turn-ins"] = "%s до: %s  \194\183  примерно %d сдач"
+L["+%d each"] = "+%d за раз"
+L["+%d once"] = "+%d один раз"
+L["+%d reputation"] = "+%d репутации"
+L["A long farm: bought instead"] = "Долгая добыча: покупается"
+L["Expert"] = "Эксперт"
+L["Green"] = "Зеленый"
+L["More reputation"] = "Еще репутация"
+L["Next turn-in: %d more %s"] = "Следующая сдача: еще %d: %s"
+L["Open list"] = "Открыть список"
+L["Repeatable"] = "Повторяемое"
+L["Turn in %d now"] = "Сдать %d сейчас"
+L["once"] = "один раз"
+L["repeats"] = "повторяется"
+L["%d more"] = "ещё %d"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Заново настроить Polestar, страница за страницей. Каждый выбор действует сразу."

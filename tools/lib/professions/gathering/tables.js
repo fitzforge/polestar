@@ -140,6 +140,9 @@ const ZONES = {
 	1417: { name: 'Arathi Highlands', min: 30, max: 40, side: 'AH' },
 	1443: { name: 'Desolace', min: 30, max: 40, side: 'AH' },
 	1434: { name: 'Stranglethorn Vale', min: 30, max: 45, side: 'AH' },
+	// Forever's own zone (levels 38-47, a flight master of each side); its nodes come from objects.json,
+	// confirmed by players' gathers there (gathering-nodes.json), as the world database has none.
+	2548: { name: 'Riverglades', min: 38, max: 47, side: 'AH' },
 	1418: { name: 'Badlands', min: 35, max: 45, side: 'AH' },
 	1435: { name: 'Swamp of Sorrows', min: 35, max: 45, side: 'AH' },
 	1445: { name: 'Dustwallow Marsh', min: 35, max: 45, side: 'AH' },

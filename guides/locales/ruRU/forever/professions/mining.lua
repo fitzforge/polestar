@@ -13,180 +13,113 @@ return {
 	-- plural, as words: Poor Copper Veins = {object:562111} Poor Copper Vein
 	["Any {skill:186} trainer of your faction teaches Apprentice {skill:186} at any level (10c), and so does the Junior Mining Trainer in each starting area; the arrow picks the nearest. Buy a {item:2901} from a trade goods or general vendor: keep it in your bags, you cannot mine without it. Turn on {spell:2580} (spellbook, General tab) so veins show on the minimap. Forever's starting areas also have Poor Copper Veins ({item:2770} and {item:2835}, from skill 1). The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's {item:11584}, A Humble Task, Marla's Last Wish) offers {item:247840} as a reward: reading it gives 2 skill, up to 15. Trade goods vendors and the junior trainers sell the {item:277115}, a four-slot bag for ore and stone (25c). If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: {skill:186}: hand it in to the mining trainer it names once you reach skill 20, for the {spell:1230161} recipe."] = "",
 
-	-- Step 2: Copper: Elwynn Forest (1-50)
-	-- {zone:1429} Elwynn Forest
-	["Copper: {zone:1429} (1-50)"] = "Медная жила: {zone:1429} (1-50)",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, orange), Poor Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "Добывайте по пути: Медная жила (1, оранжевый), бедная медная жила (1, оранжевый) – и обходите точки маршрута, пока {skill:186} не достигнет 50. Когда сумки заполнятся, переплавляйте в горне: {spell:2657} (оранжевый до 25, серый с 70) тоже дает очки. Уровень зоны: 1-10. На эти 49 очков уйдет около 60 залежей.",
-	["Copper"] = "Медная жила",
-	["Poor Copper"] = "Бедная медь",
-	["Copper, Poor Copper"] = "Медь, бедная медь",
+	-- Step 2: Chunk of Amber & Poor Copper (1-50)
+	-- {object:656332} Chunk of Amber
+	["{object:656332} & Poor Copper (1-50)"] = "",
+	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {skill:186} Mining · {spell:2657} Smelt Copper · {item:2770} Copper Ore · {item:2835} Rough Stone · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every {object:656332} (1, orange), Copper (1, orange), {object:656333} (1, orange), Poor Copper (1, orange) node on the way until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 60 nodes for these 49 points: about 55 {item:2770} and 55 {item:2835}. For {skill:164}: about 485 {item:2770} and 195 {item:2835} in all. For {skill:202}: about 260 {item:2770} and 35 {item:2835} in all."] = "",
 
-	-- Step 3: Copper & Poor Copper: Dun Morogh (1-50)
-	-- {zone:1426} Dun Morogh
-	["Copper & Poor Copper: {zone:1426} (1-50)"] = "Медная и бедная медная жилы: {zone:1426} (1-50)",
-
-	-- Step 4: Chunk of Amber & Large Chunk of Amber: Teldrassil (1-50)
-	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every {object:656332} (1, orange), {object:656333} (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "Добывайте по пути: {object:656332} (1, оранжевый), {object:656333} (1, оранжевый) – и обходите точки маршрута, пока {skill:186} не достигнет 50. Когда сумки заполнятся, переплавьте руду в горне: {spell:2657} (оранжевый до 25, серый с 70) тоже дает очки. Уровень зоны: 1-10. Рассчитывайте примерно на 60 месторождений для этих 49 очков.",
-
-	-- Step 5: Copper: Zephras Isle (1-50)
-	-- {zone:2521} Zephras Isle
-	["Copper: {zone:2521} (1-50)"] = "Медная жила: {zone:2521} (1-50)",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-15. Expect about 60 nodes for these 49 points."] = "Добывайте по пути: Медная жила (1, оранжевый) – и обходите точки маршрута, пока {skill:186} не достигнет 50. Когда сумки заполнятся, переплавляйте в горне: {spell:2657} (оранжевый до 25, серый с 70) тоже дает очки. Уровень зоны: 1-15. На эти 49 очков уйдет около 60 залежей.",
-
-	-- Step 6: Copper & Poor Copper: Durotar (1-50)
-	-- {zone:1411} Durotar
-	["Copper & Poor Copper: {zone:1411} (1-50)"] = "Медная и бедная медная жилы: {zone:1411} (1-50)",
-	["Poor Copper, Copper"] = "Бедная медь, медь",
-
-	-- Step 7: Copper: Mulgore (1-50)
-	-- {zone:1412} Mulgore
-	["Copper: {zone:1412} (1-50)"] = "Медная жила: {zone:1412} (1-50)",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, orange), Poor Copper (1, orange, rare) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "Добывайте по пути: Медная жила (1, оранжевый), Poor Copper (1, оранжевый, редкий) – и обходите точки маршрута, пока {skill:186} не достигнет 50. Когда сумки заполнятся, переплавьте руду в горне: {spell:2657} (оранжевый до 25, серый с 70) тоже дает очки. Уровень зоны: 1-10. Рассчитывайте примерно на 60 месторождений для этих 49 очков.",
-
-	-- Step 8: Copper & Poor Copper: Tirisfal Glades (1-50)
-	-- {zone:1420} Tirisfal Glades
-	["Copper & Poor Copper: {zone:1420} (1-50)"] = "Медная и бедная медная жилы: {zone:1420} (1-50)",
-
-	-- Step 9: Journeyman Mining
+	-- Step 3: Journeyman Mining
 	-- {skill:186} Mining
 	["Journeyman {skill:186}"] = "{skill:186}: Подмастерье",
 	-- {skill:186} Mining · {spell:1230161} Lodestone · {item:2835} Rough Stone · {item:2840} Copper Bar
 	["Journeyman {skill:186} raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest {skill:186} trainer of your faction. {spell:1230161}, Forever's camping item for {skill:186}, is taught from skill 20 (1s, or free from Camping 101: {skill:186}): a {item:2835} and a {item:2840} each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour."] = "Подмастерье {skill:186} поднимает предел до 150; требуется 50 навыка и любой уровень персонажа, стоит 5s: учите, как только достигнете 50. Стрелка укажет ближайшего наставника {skill:186} вашей фракции. {spell:1230161}, кемпинговый предмет Forever для {skill:186}, изучается с 20 навыка (1s, или бесплатно через Camping 101: {skill:186}): по одному {item:2835} и {item:2840}, даёт очки до 25; поставленный у костра, он даёт всем в лагере усиление на час.",
 
-	-- Step 10: Copper: Elwynn Forest (50-65) cont.
-	-- {zone:1429} Elwynn Forest
-	["Copper: {zone:1429} (50-65) cont."] = "Медная жила: {zone:1429} (50-65), продолжение",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, yellow), Poor Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "",
+	-- Step 4: Chunk of Amber & Poor Copper (50-65)
+	-- {object:656332} Chunk of Amber
+	["{object:656332} & Poor Copper (50-65)"] = "",
+	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {skill:186} Mining · {spell:2657} Smelt Copper · {item:2770} Copper Ore · {item:2835} Rough Stone · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every {object:656332} (1, yellow), Copper (1, yellow), {object:656333} (1, yellow), Poor Copper (1, yellow) node on the way until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 80 nodes for these 15 points: about 75 {item:2770} and 70 {item:2835}. For {skill:164}: about 485 {item:2770} and 195 {item:2835} in all. For {skill:202}: about 260 {item:2770} and 35 {item:2835} in all."] = "",
 
-	-- Step 11: Copper & Poor Copper: Dun Morogh (50-65) cont.
-	-- {zone:1426} Dun Morogh
-	["Copper & Poor Copper: {zone:1426} (50-65) cont."] = "Медная и бедная медная жилы: {zone:1426} (50-65), продолжение",
-
-	-- Step 12: Chunk of Amber & Large Chunk of Amber: Teldrassil (50-65) cont.
-	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {zone:1438} Teldrassil
-	["{object:656332} & {object:656333}: {zone:1438} (50-65) cont."] = "{object:656332} и {object:656333}: {zone:1438} (50-65), продолжение",
-	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every {object:656332} (1, yellow), {object:656333} (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "Добывайте по пути: {object:656332} (1, желтый), {object:656333} (1, желтый) – и обходите точки маршрута, пока {skill:186} не достигнет 65. Когда сумки заполнятся, переплавьте руду в горне: {spell:2657} (оранжевый до 25, серый с 70) тоже дает очки. Уровень зоны: 1-10. Рассчитывайте примерно на 80 месторождений для этих 15 очков.",
-
-	-- Step 13: Copper: Zephras Isle (50-65) cont.
-	-- {zone:2521} Zephras Isle
-	["Copper: {zone:2521} (50-65) cont."] = "Медная жила: {zone:2521} (50-65), продолжение",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-15. Expect about 80 nodes for these 15 points."] = "Добывайте по пути: Медная жила (1, желтый) – и обходите точки маршрута, пока {skill:186} не достигнет 65. Когда сумки заполнятся, переплавляйте в горне: {spell:2657} (оранжевый до 25, серый с 70) тоже дает очки. Уровень зоны: 1-15. На эти 15 очков уйдет около 80 залежей.",
-
-	-- Step 14: Copper & Poor Copper: Durotar (50-65) cont.
-	-- {zone:1411} Durotar
-	["Copper & Poor Copper: {zone:1411} (50-65) cont."] = "Медная и бедная медная жилы: {zone:1411} (50-65), продолжение",
-
-	-- Step 15: Copper: Mulgore (50-65) cont.
-	-- {zone:1412} Mulgore
-	["Copper: {zone:1412} (50-65) cont."] = "Медная жила: {zone:1412} (50-65), продолжение",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, yellow), Poor Copper (1, yellow, rare) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "Добывайте по пути: Медная жила (1, желтый), Poor Copper (1, желтый, редкий) – и обходите точки маршрута, пока {skill:186} не достигнет 65. Когда сумки заполнятся, переплавьте руду в горне: {spell:2657} (оранжевый до 25, серый с 70) тоже дает очки. Уровень зоны: 1-10. Рассчитывайте примерно на 80 месторождений для этих 15 очков.",
-
-	-- Step 16: Copper & Poor Copper: Tirisfal Glades (50-65) cont.
-	-- {zone:1420} Tirisfal Glades
-	["Copper & Poor Copper: {zone:1420} (50-65) cont."] = "Медная и бедная медная жилы: {zone:1420} (50-65), продолжение",
-
-	-- Step 17: Smelt Bronze & Smelt Tin
+	-- Step 5: Smelt Bronze & Smelt Tin
 	-- {skill:186} Mining · {spell:2659} Smelt Bronze · {spell:3304} Smelt Tin
 	["At 65 a {skill:186} trainer teaches {spell:2659} (2s; grey at 115) and {spell:3304} (50c; grey at 75): smelting at a forge raises {skill:186} too, so smelt what you mine."] = "",
 
-	-- Step 18: Incendicite & Tin: Wetlands (65-125)
-	-- {zone:1437} Wetlands
-	["Incendicite & Tin: {zone:1437} (65-125)"] = "Инсендицит и олово: {zone:1437} (65-125)",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {spell:2658} Smelt Silver
-	["Mine every Copper (1, green), Incendicite (65, orange), Tin (65, orange) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 20-30. Expect about 130 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "",
-	["Copper, Tin"] = "Медная жила, оловянная жила",
-	["Tin, Copper"] = "Оловянная жила, медная жила",
-	["Incendicite, Tin"] = "Инсендицит, олово",
+	-- Step 6: Tin (65-125)
+	-- was: ["Tin: {zone:1424} (65-125)"] = "Оловянная жила: {zone:1424} (65-125)"
+	["Tin (65-125)"] = "",
+	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {npc:167} Morhan Coppertongue · {zone:1432} Loch Modan · {item:2770} Copper Ore · {item:2771} Tin Ore · {item:2835} Rough Stone · {item:2836} Coarse Stone · {item:5075} Blood Shard · {item:3340} Incendicite Ore · {item:249391} Pyrite · {skill:164} Blacksmithing · {skill:202} Engineering · {spell:2658} Smelt Silver
+	["Walk the loop and mine every Copper (1, green), Incendicite (65, orange), Tin (65, orange) node on the way until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. A quest in these zones needs {skill:186}: Ingredients for the Forge (level 30, {npc:167}, {zone:1432}; Alliance). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 160 nodes for these 60 points: about 80 {item:2770}, 65 {item:2771}, 55 {item:2835}, 40 {item:2836}, 15 {item:5075}, 10 {item:3340} and 5 {item:249391}. For {skill:164}: about 485 {item:2770}, 165 {item:2771}, 195 {item:2835} and 100 {item:2836} in all. For {skill:202}: about 260 {item:2770}, 95 {item:2771}, 35 {item:2835} and 45 {item:2836} in all. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "",
 
-	-- Step 19: Tin: Ashenvale (65-125)
-	-- {zone:1440} Ashenvale
-	["Tin: {zone:1440} (65-125)"] = "Оловянная жила: {zone:1440} (65-125)",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {spell:2658} Smelt Silver
-	["Mine every Copper (1, green), Tin (65, orange) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 18-30. Expect about 140 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "",
-	["Tin"] = "Оловянная жила",
-
-	-- Step 21: Tin: Hillsbrad Foothills (65-125)
-	-- {zone:1424} Hillsbrad Foothills
-	["Tin: {zone:1424} (65-125)"] = "Оловянная жила: {zone:1424} (65-125)",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {spell:2658} Smelt Silver
-	["Mine every Copper (1, green), Tin (65, orange) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 20-30. Expect about 140 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "",
-
-	-- Step 22: Expert Mining
+	-- Step 7: Expert Mining
 	-- {skill:186} Mining
 	["Expert {skill:186}"] = "{skill:186}: Умелец",
 	-- {skill:186} Mining · {spell:3307} Smelt Iron
 	["Expert {skill:186} raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest {skill:186} trainer of your faction. Learn {spell:3307} (5s; orange to 130, grey at 140) on the same visit: smelting at a forge raises {skill:186} too, so smelt what you mine."] = "Эксперт по {skill:186} поднимает предел до 225; требуется 125 навыка и любой уровень персонажа, стоит 50s: учите, как только достигнете 125. Стрелка укажет ближайшего наставника {skill:186} вашей фракции. На том же визите изучите {spell:3307} (5s; оранжевый до 130, серый с 140): плавка в кузнице тоже поднимает {skill:186}, так что плавите добытое.",
 
-	-- Step 23: Iron: Arathi Highlands (125-155)
-	-- {zone:1417} Arathi Highlands
-	["Iron: {zone:1417} (125-155)"] = "Железо: {zone:1417} (125-155)",
-	-- {skill:186} Mining · {spell:3307} Smelt Iron
-	["Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. Zone level 30-40. Expect about 50 nodes for these 30 points."] = "Добывайте по пути: Оловянная жила (65, зеленый), малый кровавый камень (75, зеленый), серебряная жила (75, зеленый, редкий), залежи железа (125, оранжевый) – и обходите точки маршрута, пока {skill:186} не достигнет 155. Когда сумки заполнятся, переплавляйте в горне: {spell:3307} (оранжевый до 130, серый с 140) тоже дает очки. Уровень зоны: 30-40. На эти 30 очков уйдет около 50 залежей.",
-	["Iron, Tin"] = "Железо, олово",
-	["Lesser Bloodstone, Iron"] = "Малое месторождение кровавого камня, залежи железа",
+	-- Step 8: Iron (125-155)
+	-- was: ["Iron: {zone:1416} (125-155)"] = "Залежи железа: {zone:1416} (125-155)"
+	["Iron (125-155)"] = "",
+	-- {skill:186} Mining · {spell:3307} Smelt Iron · {item:2772} Iron Ore · {item:2838} Heavy Stone · {item:2771} Tin Ore · {item:2836} Coarse Stone · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every Tin (65, green), Silver (75, green, rare), Iron (125, orange) node on the way until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 50 nodes for these 30 points: about 30 {item:2772}, 25 {item:2838}, 20 {item:2771} and 10 {item:2836}. For {skill:164}: about 490 {item:2772}, 60 {item:2838}, 165 {item:2771} and 100 {item:2836} in all. For {skill:202}: about 80 {item:2772}, 115 {item:2838}, 95 {item:2771} and 45 {item:2836} in all."] = "",
 
-	-- Step 24: Iron: Arathi Highlands (155-175)
-	-- {zone:1417} Arathi Highlands
-	["Iron: {zone:1417} (155-175)"] = "Железо: {zone:1417} (155-175)",
+	-- Step 9: Smelt Gold
 	-- {skill:186} Mining · {spell:3308} Smelt Gold
-	["Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, yellow), Gold (155, orange, rare) node you pass and circle the waypoints until {skill:186} 175. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. Zone level 30-40. Expect about 40 nodes for these 20 points. {spell:3308} (25s; orange to 170, grey at 185) is taught from 155: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "",
+	["At 155 a {skill:186} trainer teaches {spell:3308} (25s; orange to 170, grey at 185): smelting at a forge raises {skill:186} too, so smelt what you mine."] = "",
 
-	-- Step 25: Mithril: Badlands (175-200)
-	-- {zone:1418} Badlands
-	["Mithril: {zone:1418} (175-200)"] = "Мифрил: {zone:1418} (175-200)",
-	-- {skill:186} Mining · {spell:3308} Smelt Gold
-	["Mine every Iron (125, green), Gold (155, orange), Mithril (175, orange) node you pass and circle the waypoints until {skill:186} 200. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. Zone level 35-45. Expect about 40 nodes for these 25 points."] = "Добывайте по пути: Залежи железа (125, зеленый), золотая жила (155, оранжевый), мифриловые залежи (175, оранжевый) – и обходите точки маршрута, пока {skill:186} не достигнет 200. Когда сумки заполнятся, переплавляйте в горне: {spell:3308} (оранжевый до 170, серый с 185) тоже дает очки. Уровень зоны: 35-45. На эти 25 очков уйдет около 40 залежей.",
-	["Mithril, Iron"] = "Мифриловые залежи, залежи железа",
-	["Iron, Mithril"] = "Железо, мифрил",
+	-- Step 10: Iron (155-175)
+	-- was: ["Iron: {zone:1417} (155-175)"] = "Железо: {zone:1417} (155-175)"
+	["Iron (155-175)"] = "",
+	-- {skill:186} Mining · {spell:3308} Smelt Gold · {item:2772} Iron Ore · {item:2838} Heavy Stone · {item:2771} Tin Ore · {item:2836} Coarse Stone · {item:3340} Incendicite Ore · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every Incendicite (65, green), Tin (65, green), Silver (75, green), Iron (125, yellow), Gold (155, orange, rare) node on the way until {skill:186} 175. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 50 nodes for these 20 points: about 30 {item:2772}, 25 {item:2838}, 15 {item:2771}, 10 {item:2836} and 5 {item:3340}. For {skill:164}: about 490 {item:2772}, 60 {item:2838}, 165 {item:2771} and 100 {item:2836} in all. For {skill:202}: about 80 {item:2772}, 115 {item:2838}, 95 {item:2771} and 45 {item:2836} in all."] = "",
 
-	-- Step 26: Artisan Mining
+	-- Step 11: Mithril (175-200)
+	-- was: ["Mithril: {zone:1418} (175-200)"] = "Мифрил: {zone:1418} (175-200)"
+	["Mithril (175-200)"] = "",
+	-- {skill:186} Mining · {spell:3308} Smelt Gold · {item:3858} Mithril Ore · {item:7912} Solid Stone · {item:2772} Iron Ore · {item:2838} Heavy Stone · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every Iron (125, green), Gold (155, orange), Mithril (175, orange) node on the way until {skill:186} 200. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 40 nodes for these 25 points: about 20 {item:3858}, 20 {item:7912}, 15 {item:2772} and 15 {item:2838}. For {skill:164}: about 1080 {item:3858}, 145 {item:7912}, 490 {item:2772} and 60 {item:2838} in all. For {skill:202}: about 165 {item:3858}, 390 {item:7912}, 80 {item:2772} and 115 {item:2838} in all."] = "",
+
+	-- Step 12: Artisan Mining
 	-- {skill:186} Mining
 	["Artisan {skill:186}"] = "{skill:186}: Искусник",
 	-- {skill:186} Mining
 	["Artisan {skill:186} raises the cap to 300; it needs skill 200 and no character level, and costs 5g: train it as soon as you reach 200. The arrow picks the nearest {skill:186} trainer of your faction."] = "{skill:186}, ранг «Искусник»: предел 300; нужен навык 200, уровень персонажа не важен, стоит 5 з: обучитесь, как только достигнете 200. Стрелка ведет к ближайшему учителю вашей фракции ({skill:186}).",
 
-	-- Step 27: Mithril: Badlands (200-230) cont.
-	-- {zone:1418} Badlands
-	["Mithril: {zone:1418} (200-230) cont."] = "Мифрил: {zone:1418} (200-230), продолжение",
-	-- {skill:186} Mining
-	["Mine every Iron (125, green), Gold (155, yellow), Mithril (175, yellow) node you pass and circle the waypoints until {skill:186} 230. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 35-45. Expect about 90 nodes for these 30 points."] = "",
+	-- Step 13: Mithril (200-230)
+	-- was: ["Mithril: {zone:1418} (200-230) cont."] = "Мифрил: {zone:1418} (200-230), продолжение"
+	["Mithril (200-230)"] = "",
+	-- {skill:186} Mining · {item:3858} Mithril Ore · {item:7912} Solid Stone · {item:2772} Iron Ore · {item:2838} Heavy Stone · {item:2776} Gold Ore · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every Iron (125, green), Gold (155, yellow), Mithril (175, yellow) node on the way until {skill:186} 230. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 90 nodes for these 30 points: about 45 {item:3858}, 45 {item:7912}, 40 {item:2772}, 30 {item:2838} and 5 {item:2776}. For {skill:164}: about 1080 {item:3858}, 145 {item:7912}, 490 {item:2772} and 60 {item:2838} in all. For {skill:202}: about 165 {item:3858}, 390 {item:7912}, 80 {item:2772} and 115 {item:2838} in all."] = "",
 
-	-- Step 28: Mithril & Dark Iron: Searing Gorge (230-245)
-	-- {object:147516} Dark Iron · {zone:1427} Searing Gorge
-	["Mithril & {object:147516}: {zone:1427} (230-245)"] = "Мифриловые залежи и {object:147516}: {zone:1427} (230-245)",
-	-- {object:147516} Dark Iron · {skill:186} Mining · {item:11099} Dark Iron Ore · {object:174824} Black Forge (no name in this language: may be words) · {area:1584} Blackrock Depths
-	["Mine every Gold (155, green, rare), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "Добывайте каждую жилу по пути: золото (155, зеленая, редкая), мифрил (175, зеленая), {object:147516} (230, оранжевая), истинное серебро (230, оранжевая) – и обходите точки маршрута, пока {skill:186} не достигнет 245. Выплавка отсюда очков не дает (высокие рецепты выплавки сразу серые): выплавляйте для ремесла или продажи, или продавайте руду. {item:11099} выплавляется только у места {object:174824} ({area:1584}) (8 руды на слиток). Уровень зоны 43-50. Ожидайте около 40 жил на эти 15 очков.",
+	-- Step 14: Mithril & Dark Iron (230-245)
 	-- {object:147516} Dark Iron
-	["Mithril, {object:147516}"] = "Мифрил, {object:147516}",
+	-- was: ["Mithril & {object:147516}: {zone:1427} (230-245)"] = "Мифриловые залежи и {object:147516}: {zone:1427} (230-245)"
+	["Mithril & {object:147516} (230-245)"] = "",
+	-- {object:147516} Dark Iron · {skill:186} Mining · {item:11099} Dark Iron Ore · {object:174824} Black Forge (no name in this language: may be words) · {area:1584} Blackrock Depths · {item:3858} Mithril Ore · {item:7912} Solid Stone · {item:2776} Gold Ore · {item:7911} Truesilver Ore · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every Gold (155, green), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node on the way until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 60 nodes for these 15 points: about 50 {item:3858}, 50 {item:7912}, 5 {item:2776}, 5 {item:11099} and 5 {item:7911}. For {skill:164}: about 1080 {item:3858} and 145 {item:7912} in all. For {skill:202}: about 165 {item:3858} and 390 {item:7912} in all."] = "",
 
-	-- Step 29: Small Thorium: Felwood (245-275)
-	-- {zone:1448} Felwood
-	["Small Thorium: {zone:1448} (245-275)"] = "Малая ториевая жила: {zone:1448} (245-275)",
-	-- {skill:186} Mining · {npc:9528} Arathandris Silversky · {npc:9529} Maybess Riverbreeze
-	["Mine every Gold (155, green, rare), Mithril (175, green), Truesilver (230, orange), Small Thorium (245, orange) node you pass and circle the waypoints until {skill:186} 275. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Quests here that need {skill:186}: Salve via {skill:186} (level 55, {npc:9528}; Alliance), Salve via {skill:186} (level 55, {npc:9529}; Horde). Zone level 48-55. Expect about 50 nodes for these 30 points."] = "Промышляйте каждой жилой по пути (Золото (155, зеленый, редкий), Мифрил (175, зеленый), Истинное серебро (230, оранжевый), Малая ториевая жила (245, оранжевый)) и обойдите точки до навыка {skill:186} 275. Задания здесь, для которых нужен {skill:186}: «Мазь через {skill:186}» (55 уровень, {npc:9528}; Альянс), «Мазь через {skill:186}» (55 уровень, {npc:9529}; Орда). Уровень зоны 48-55. На эти 30 очков нужно около 50 жил.",
-	["Small Thorium, Truesilver"] = "Малая ториевая жила, истинное серебро",
-	["Mithril, Small Thorium"] = "Мифрил, малая ториевая жила",
+	-- Step 15: Small Thorium (245-275)
+	-- was: ["Truesilver & Small Thorium: {zone:1419} (245-275)"] = "Залежи истинного серебра и малая ториевая жила: {zone:1419} (245-275)"
+	["Small Thorium (245-275)"] = "",
+	-- {object:147516} Dark Iron · {skill:186} Mining · {item:11099} Dark Iron Ore · {object:174824} Black Forge (no name in this language: may be words) · {area:1584} Blackrock Depths · {npc:9528} Arathandris Silversky · {zone:1448} Felwood · {npc:9529} Maybess Riverbreeze · {item:10620} Thorium Ore · {item:12365} Dense Stone · {item:3858} Mithril Ore · {item:7912} Solid Stone · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every Gold (155, green, rare), Mithril (175, green), {object:147516} (230, orange, rare), Truesilver (230, orange), Small Thorium (245, orange) node on the way until {skill:186} 275. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Quests in these zones need {skill:186}: Salve via {skill:186} (level 55, {npc:9528}, {zone:1448}; Alliance), Salve via {skill:186} (level 55, {npc:9529}, {zone:1448}; Horde). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 40 nodes for these 30 points: about 25 {item:10620}, 25 {item:12365}, 10 {item:3858} and 10 {item:7912}. For {skill:164}: about 2170 {item:10620}, 835 {item:12365}, 1080 {item:3858} and 145 {item:7912} in all. For {skill:202}: about 175 {item:10620}, 165 {item:3858} and 390 {item:7912} in all."] = "",
 
-	-- Step 30: Small Thorium & Rich Thorium: Eastern Plaguelands (275-300)
-	-- {zone:1423} Eastern Plaguelands
-	["Small Thorium & Rich Thorium: {zone:1423} (275-300)"] = "Малая и богатая ториевые жилы: {zone:1423} (275-300)",
-	-- {skill:186} Mining
-	["Mine every Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 53-60. Expect about 30 nodes for these 25 points."] = "Добывайте каждую жилу по пути: истинное серебро (230, желтая), малая ториевая (245, желтая), богатая ториевая (275, оранжевая) – и обходите точки маршрута, пока {skill:186} не достигнет 300. Выплавка отсюда очков не дает (высокие рецепты выплавки сразу серые): выплавляйте для ремесла или продажи, или продавайте руду. Уровень зоны 53-60. Ожидайте около 30 жил на эти 25 очков.",
-	["Rich Thorium, Small Thorium"] = "Богатая ториевая жила, малая ториевая жила",
+	-- Step 16: Small Thorium & Rich Thorium (275-300)
+	-- was: ["Small Thorium & Rich Thorium: {zone:1423} (275-300)"] = "Малая и богатая ториевые жилы: {zone:1423} (275-300)"
+	["Small Thorium & Rich Thorium (275-300)"] = "",
+	-- {object:147516} Dark Iron · {skill:186} Mining · {item:11099} Dark Iron Ore · {object:174824} Black Forge (no name in this language: may be words) · {area:1584} Blackrock Depths · {item:10620} Thorium Ore · {item:12365} Dense Stone · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every {object:147516} (230, yellow), Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node on the way until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 40 nodes for these 25 points: about 35 {item:10620} and 30 {item:12365}. For {skill:164}: about 2170 {item:10620} and 835 {item:12365} in all. For {skill:202}: about 175 {item:10620} in all."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:186} trainer of your faction teaches Apprentice {skill:186} (character level 5); the arrow picks the nearest. Buy a {item:2901} from a trade goods or general vendor: keep it in your bags, you cannot mine without it."] = "Любой учитель вашей фракции ({skill:186}) обучает навыку {skill:186}, ранг «Ученик» (уровень персонажа 5); стрелка ведет к ближайшему. Купите у торговца товарами или припасами: {item:2901} – и держите в сумке, без нее добывать руду нельзя.",
+	-- ["Copper"] = "Медная жила",
+	-- ["Copper & Poor Copper: {zone:1411} (1-50)"] = "Медная и бедная медная жилы: {zone:1411} (1-50)",
+	-- ["Copper & Poor Copper: {zone:1411} (50-65) cont."] = "Медная и бедная медная жилы: {zone:1411} (50-65), продолжение",
+	-- ["Copper & Poor Copper: {zone:1420} (1-50)"] = "Медная и бедная медная жилы: {zone:1420} (1-50)",
+	-- ["Copper & Poor Copper: {zone:1420} (50-65) cont."] = "Медная и бедная медная жилы: {zone:1420} (50-65), продолжение",
+	-- ["Copper & Poor Copper: {zone:1426} (1-50)"] = "Медная и бедная медная жилы: {zone:1426} (1-50)",
+	-- ["Copper & Poor Copper: {zone:1426} (50-65) cont."] = "Медная и бедная медная жилы: {zone:1426} (50-65), продолжение",
+	-- ["Copper, Poor Copper"] = "Медь, бедная медь",
 	-- ["Copper, Silver"] = "Медная жила, серебряная жила",
+	-- ["Copper, Tin"] = "Медная жила, оловянная жила",
+	-- ["Copper: {zone:1412} (1-50)"] = "Медная жила: {zone:1412} (1-50)",
+	-- ["Copper: {zone:1412} (50-65) cont."] = "Медная жила: {zone:1412} (50-65), продолжение",
+	-- ["Copper: {zone:1429} (1-50)"] = "Медная жила: {zone:1429} (1-50)",
+	-- ["Copper: {zone:1429} (50-65) cont."] = "Медная жила: {zone:1429} (50-65), продолжение",
 	-- ["Copper: {zone:1439} (1-50)"] = "Медная жила: {zone:1439} (1-50)",
 	-- ["Copper: {zone:1439} (50-65) cont."] = "Медная жила: {zone:1439} (50-65), продолжение",
+	-- ["Copper: {zone:2521} (1-50)"] = "Медная жила: {zone:2521} (1-50)",
+	-- ["Copper: {zone:2521} (50-65) cont."] = "Медная жила: {zone:2521} (50-65), продолжение",
 	-- ["Expert {skill:186} raises the cap to 225; it needs skill 125 and character level 20. The arrow picks the nearest {skill:186} trainer of your faction."] = "{skill:186}, ранг «Умелец»: предел 225; нужен навык 125 и уровень персонажа 20. Стрелка ведет к ближайшему учителю вашей фракции ({skill:186}).",
 	-- ["Gold"] = "Золотая жила",
 	-- ["Gold & Mithril: {zone:1435} (175-200)"] = "Золотая жила и мифриловые залежи: {zone:1435} (175-200)",
@@ -194,34 +127,70 @@ return {
 	-- ["Gold, Iron"] = "Золотая жила, залежи железа",
 	-- ["Gold, Mithril"] = "Золотая жила, мифриловые залежи",
 	-- ["Gold: {zone:1435} (155-175)"] = "Золотая жила: {zone:1435} (155-175)",
+	-- ["Incendicite & Tin: {zone:1437} (65-125)"] = "Инсендицит и олово: {zone:1437} (65-125)",
+	-- ["Incendicite, Tin"] = "Инсендицит, олово",
+	-- ["Iron, Mithril"] = "Железо, мифрил",
 	-- ["Iron, Silver"] = "Залежи железа, серебряная жила",
+	-- ["Iron, Tin"] = "Железо, олово",
 	-- ["Iron: {zone:1416} (125-155)"] = "Залежи железа: {zone:1416} (125-155)",
+	-- ["Iron: {zone:1417} (125-155)"] = "Железо: {zone:1417} (125-155)",
+	-- ["Iron: {zone:1417} (155-175)"] = "Железо: {zone:1417} (155-175)",
 	-- ["Iron: {zone:1431} (125-155)"] = "Залежи железа: {zone:1431} (125-155)",
 	-- ["Journeyman {skill:186} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:186} trainer of your faction."] = "{skill:186}, ранг «Подмастерье»: предел 150; нужен навык 50 и уровень персонажа 10. Стрелка ведет к ближайшему учителю вашей фракции ({skill:186}).",
 	-- ["Lesser Bloodstone"] = "Малое месторождение кровавого камня",
+	-- ["Lesser Bloodstone, Iron"] = "Малое месторождение кровавого камня, залежи железа",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-20."] = "Добывайте по пути: Медная жила (1, зеленый), оловянная жила (65, оранжевый), серебряная жила (с 75) – и обходите точки маршрута, пока {skill:186} не достигнет 125. Когда сумки заполнятся, переплавьте руду в горне: выплавка тоже повышает {skill:186}. Уровень зоны: 10-20.",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-25."] = "Добывайте по пути: Медная жила (1, зеленый), оловянная жила (65, оранжевый), серебряная жила (с 75) – и обходите точки маршрута, пока {skill:186} не достигнет 125. Когда сумки заполнятся, переплавьте руду в горне: выплавка тоже повышает {skill:186}. Уровень зоны: 10-25.",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 15-25."] = "Добывайте по пути: Медная жила (1, зеленый), оловянная жила (65, оранжевый), серебряная жила (с 75) – и обходите точки маршрута, пока {skill:186} не достигнет 125. Когда сумки заполнятся, переплавьте руду в горне: выплавка тоже повышает {skill:186}. Уровень зоны: 15-25.",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 20-30."] = "Добывайте по пути: Медная жила (1, зеленый), оловянная жила (65, оранжевый), серебряная жила (с 75) – и обходите точки маршрута, пока {skill:186} не достигнет 125. Когда сумки заполнятся, переплавьте руду в горне: выплавка тоже повышает {skill:186}. Уровень зоны: 20-30.",
+	-- ["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-15. Expect about 60 nodes for these 49 points."] = "Добывайте по пути: Медная жила (1, оранжевый) – и обходите точки маршрута, пока {skill:186} не достигнет 50. Когда сумки заполнятся, переплавляйте в горне: {spell:2657} (оранжевый до 25, серый с 70) тоже дает очки. Уровень зоны: 1-15. На эти 49 очков уйдет около 60 залежей.",
+	-- ["Mine every Copper (1, orange), Poor Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "Добывайте по пути: Медная жила (1, оранжевый), бедная медная жила (1, оранжевый) – и обходите точки маршрута, пока {skill:186} не достигнет 50. Когда сумки заполнятся, переплавляйте в горне: {spell:2657} (оранжевый до 25, серый с 70) тоже дает очки. Уровень зоны: 1-10. На эти 49 очков уйдет около 60 залежей.",
+	-- ["Mine every Copper (1, orange), Poor Copper (1, orange, rare) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "Добывайте по пути: Медная жила (1, оранжевый), Poor Copper (1, оранжевый, редкий) – и обходите точки маршрута, пока {skill:186} не достигнет 50. Когда сумки заполнятся, переплавьте руду в горне: {spell:2657} (оранжевый до 25, серый с 70) тоже дает очки. Уровень зоны: 1-10. Рассчитывайте примерно на 60 месторождений для этих 49 очков.",
+	-- ["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-15. Expect about 80 nodes for these 15 points."] = "Добывайте по пути: Медная жила (1, желтый) – и обходите точки маршрута, пока {skill:186} не достигнет 65. Когда сумки заполнятся, переплавляйте в горне: {spell:2657} (оранжевый до 25, серый с 70) тоже дает очки. Уровень зоны: 1-15. На эти 15 очков уйдет около 80 залежей.",
 	-- ["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-20."] = "Добывайте по пути: Медная жила (1, желтый) – и обходите точки маршрута, пока {skill:186} не достигнет 65. Когда сумки заполнятся, переплавьте руду в горне: выплавка тоже повышает {skill:186}. Уровень зоны: 10-20.",
+	-- ["Mine every Copper (1, yellow), Poor Copper (1, yellow, rare) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "Добывайте по пути: Медная жила (1, желтый), Poor Copper (1, желтый, редкий) – и обходите точки маршрута, пока {skill:186} не достигнет 65. Когда сумки заполнятся, переплавьте руду в горне: {spell:2657} (оранжевый до 25, серый с 70) тоже дает очки. Уровень зоны: 1-10. Рассчитывайте примерно на 80 месторождений для этих 15 очков.",
 	-- ["Mine every Gold (155, green), Mithril (175, green), Truesilver (230, orange), Small Thorium (245, orange) node you pass and circle the waypoints until {skill:186} 275. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 45-55."] = "Добывайте по пути: Золотая жила (155, зеленый), мифриловые залежи (175, зеленый), залежи истинного серебра (230, оранжевый), малая ториевая жила (245, оранжевый) – и обходите точки маршрута, пока {skill:186} не достигнет 275. Когда сумки заполнятся, переплавьте руду в горне: выплавка тоже повышает {skill:186}. Уровень зоны: 45-55.",
 	-- ["Mine every Gold (155, green), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 43-50."] = "Добывайте по пути: Золотая жила (155, зеленый), мифриловые залежи (175, зеленый), {object:147516} (230, оранжевый), залежи истинного серебра (230, оранжевый) – и обходите точки маршрута, пока {skill:186} не достигнет 245. Когда сумки заполнятся, переплавьте руду в горне: выплавка тоже повышает {skill:186}. Уровень зоны: 43-50.",
 	-- ["Mine every Gold (155, green), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "Промышляйте каждой жилой по пути (Золото (155, зеленый), Мифрил (175, зеленый), {object:147516} (230, оранжевый), Истинное серебро (230, оранжевый)) и обойдите точки до навыка {skill:186} 245. {item:11099} плавится только в {object:174824} в {area:1584} (8 руды на слиток). Уровень зоны 43-50. На эти 15 очков нужно около 40 жил.",
+	-- ["Mine every Gold (155, green, rare), Mithril (175, green), Truesilver (230, orange), Small Thorium (245, orange) node you pass and circle the waypoints until {skill:186} 275. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Quests here that need {skill:186}: Salve via {skill:186} (level 55, {npc:9528}; Alliance), Salve via {skill:186} (level 55, {npc:9529}; Horde). Zone level 48-55. Expect about 50 nodes for these 30 points."] = "Промышляйте каждой жилой по пути (Золото (155, зеленый, редкий), Мифрил (175, зеленый), Истинное серебро (230, оранжевый), Малая ториевая жила (245, оранжевый)) и обойдите точки до навыка {skill:186} 275. Задания здесь, для которых нужен {skill:186}: «Мазь через {skill:186}» (55 уровень, {npc:9528}; Альянс), «Мазь через {skill:186}» (55 уровень, {npc:9529}; Орда). Уровень зоны 48-55. На эти 30 очков нужно около 50 жил.",
+	-- ["Mine every Gold (155, green, rare), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "Добывайте каждую жилу по пути: золото (155, зеленая, редкая), мифрил (175, зеленая), {object:147516} (230, оранжевая), истинное серебро (230, оранжевая) – и обходите точки маршрута, пока {skill:186} не достигнет 245. Выплавка отсюда очков не дает (высокие рецепты выплавки сразу серые): выплавляйте для ремесла или продажи, или продавайте руду. {item:11099} выплавляется только у места {object:174824} ({area:1584}) (8 руды на слиток). Уровень зоны 43-50. Ожидайте около 40 жил на эти 15 очков.",
+	-- ["Mine every Iron (125, green), Gold (155, orange), Mithril (175, orange) node you pass and circle the waypoints until {skill:186} 200. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. Zone level 35-45. Expect about 40 nodes for these 25 points."] = "Добывайте по пути: Залежи железа (125, зеленый), золотая жила (155, оранжевый), мифриловые залежи (175, оранжевый) – и обходите точки маршрута, пока {skill:186} не достигнет 200. Когда сумки заполнятся, переплавляйте в горне: {spell:3308} (оранжевый до 170, серый с 185) тоже дает очки. Уровень зоны: 35-45. На эти 25 очков уйдет около 40 залежей.",
 	-- ["Mine every Iron (125, green), Gold (155, yellow), Mithril (175, yellow) node you pass and circle the waypoints until {skill:186} 230. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 35-45."] = "Добывайте по пути: Залежи железа (125, зеленый), золотая жила (155, желтый), мифриловые залежи (175, желтый) – и обходите точки маршрута, пока {skill:186} не достигнет 230. Когда сумки заполнятся, переплавьте руду в горне: выплавка тоже повышает {skill:186}. Уровень зоны: 35-45.",
 	-- ["Mine every Silver (75, green), Iron (125, yellow), Gold (155, orange) node you pass and circle the waypoints until {skill:186} 175. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 35-45."] = "Добывайте по пути: Серебряная жила (75, зеленый), залежи железа (125, желтый), золотая жила (155, оранжевый) – и обходите точки маршрута, пока {skill:186} не достигнет 175. Когда сумки заполнятся, переплавьте руду в горне: выплавка тоже повышает {skill:186}. Уровень зоны: 35-45.",
+	-- ["Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. Zone level 30-40. Expect about 50 nodes for these 30 points."] = "Добывайте по пути: Оловянная жила (65, зеленый), малый кровавый камень (75, зеленый), серебряная жила (75, зеленый, редкий), залежи железа (125, оранжевый) – и обходите точки маршрута, пока {skill:186} не достигнет 155. Когда сумки заполнятся, переплавляйте в горне: {spell:3307} (оранжевый до 130, серый с 140) тоже дает очки. Уровень зоны: 30-40. На эти 30 очков уйдет около 50 залежей.",
 	-- ["Mine every Tin (65, green), Silver (75, green), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 18-30."] = "Добывайте по пути: Оловянная жила (65, зеленый), серебряная жила (75, зеленый), залежи железа (125, оранжевый) – и обходите точки маршрута, пока {skill:186} не достигнет 155. Когда сумки заполнятся, переплавьте руду в горне: выплавка тоже повышает {skill:186}. Уровень зоны: 18-30.",
+	-- ["Mine every Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 53-60. Expect about 30 nodes for these 25 points."] = "Добывайте каждую жилу по пути: истинное серебро (230, желтая), малая ториевая (245, желтая), богатая ториевая (275, оранжевая) – и обходите точки маршрута, пока {skill:186} не достигнет 300. Выплавка отсюда очков не дает (высокие рецепты выплавки сразу серые): выплавляйте для ремесла или продажи, или продавайте руду. Уровень зоны 53-60. Ожидайте около 30 жил на эти 25 очков.",
 	-- ["Mine every {object:147516} (230, yellow), Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 50-58."] = "Добывайте по пути: {object:147516} (230, желтый), залежи истинного серебра (230, желтый), малая ториевая жила (245, желтый), богатая ториевая жила (275, оранжевый) – и обходите точки маршрута, пока {skill:186} не достигнет 300. Когда сумки заполнятся, переплавьте руду в горне: выплавка тоже повышает {skill:186}. Уровень зоны: 50-58.",
+	-- ["Mine every {object:656332} (1, orange), {object:656333} (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "Добывайте по пути: {object:656332} (1, оранжевый), {object:656333} (1, оранжевый) – и обходите точки маршрута, пока {skill:186} не достигнет 50. Когда сумки заполнятся, переплавьте руду в горне: {spell:2657} (оранжевый до 25, серый с 70) тоже дает очки. Уровень зоны: 1-10. Рассчитывайте примерно на 60 месторождений для этих 49 очков.",
+	-- ["Mine every {object:656332} (1, yellow), {object:656333} (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "Добывайте по пути: {object:656332} (1, желтый), {object:656333} (1, желтый) – и обходите точки маршрута, пока {skill:186} не достигнет 65. Когда сумки заполнятся, переплавьте руду в горне: {spell:2657} (оранжевый до 25, серый с 70) тоже дает очки. Уровень зоны: 1-10. Рассчитывайте примерно на 80 месторождений для этих 15 очков.",
+	-- ["Mithril & {object:147516}: {zone:1427} (230-245)"] = "Мифриловые залежи и {object:147516}: {zone:1427} (230-245)",
+	-- ["Mithril, Iron"] = "Мифриловые залежи, залежи железа",
+	-- ["Mithril, Small Thorium"] = "Мифрил, малая ториевая жила",
+	-- ["Mithril, {object:147516}"] = "Мифрил, {object:147516}",
+	-- ["Mithril: {zone:1418} (175-200)"] = "Мифрил: {zone:1418} (175-200)",
+	-- ["Mithril: {zone:1418} (200-230) cont."] = "Мифрил: {zone:1418} (200-230), продолжение",
+	-- ["Poor Copper"] = "Бедная медь",
+	-- ["Poor Copper, Copper"] = "Бедная медь, медь",
 	-- ["Rich Thorium"] = "Богатая ториевая жила",
+	-- ["Rich Thorium, Small Thorium"] = "Богатая ториевая жила, малая ториевая жила",
 	-- ["Rich Thorium, Truesilver"] = "Богатая ториевая жила, истинное серебро",
 	-- ["Silver, Tin"] = "Серебряная жила, оловянная жила",
+	-- ["Small Thorium & Rich Thorium: {zone:1423} (275-300)"] = "Малая и богатая ториевые жилы: {zone:1423} (275-300)",
 	-- ["Small Thorium & Rich Thorium: {zone:1452} (275-300)"] = "Малая ториевая и богатая ториевая жилы: {zone:1452} (275-300)",
 	-- ["Small Thorium, Rich Thorium"] = "Малая ториевая жила, богатая ториевая жила",
+	-- ["Small Thorium, Truesilver"] = "Малая ториевая жила, истинное серебро",
+	-- ["Small Thorium: {zone:1448} (245-275)"] = "Малая ториевая жила: {zone:1448} (245-275)",
+	-- ["Tin"] = "Оловянная жила",
 	-- ["Tin & Silver: {zone:1413} (65-125)"] = "Оловянная и серебряная жилы: {zone:1413} (65-125)",
 	-- ["Tin & Silver: {zone:1433} (65-125)"] = "Оловянная и серебряная жилы: {zone:1433} (65-125)",
 	-- ["Tin & Silver: {zone:1439} (65-125)"] = "Оловянная и серебряная жилы: {zone:1439} (65-125)",
+	-- ["Tin, Copper"] = "Оловянная жила, медная жила",
 	-- ["Tin, Silver"] = "Оловянная жила, серебряная жила",
+	-- ["Tin: {zone:1424} (65-125)"] = "Оловянная жила: {zone:1424} (65-125)",
+	-- ["Tin: {zone:1440} (65-125)"] = "Оловянная жила: {zone:1440} (65-125)",
 	-- ["Truesilver & Small Thorium: {zone:1419} (245-275)"] = "Залежи истинного серебра и малая ториевая жила: {zone:1419} (245-275)",
 	-- ["Truesilver, {object:147516}"] = "Залежи истинного серебра, {object:147516}",
 	-- ["{object:147516}, Gold"] = "{object:147516}, золотая жила",
 	-- ["{object:147516}, Rich Thorium"] = "{object:147516}, богатая ториевая жила",
+	-- ["{object:656332} & {object:656333}: {zone:1438} (50-65) cont."] = "{object:656332} и {object:656333}: {zone:1438} (50-65), продолжение",
 }

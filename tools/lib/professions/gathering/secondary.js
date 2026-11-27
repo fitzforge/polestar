@@ -57,6 +57,20 @@ function expectedCrafts(recipe, from, to) {
 	return Math.ceil(n);
 }
 
+// The crafts 9 players in 10 need at most (the same chance per point; a normal approximation of the sum of
+// one geometric draw per point). Gathered and dropped ingredients are counted to it, so a yellow or green
+// stretch rarely sends a player back to farm; vendor goods stay at the expected count.
+function crafts90(recipe, from, to) {
+	let mean = 0;
+	let v = 0;
+	for (let s = from; s < to; s++) {
+		const p = s < recipe.yellow ? 1 : (recipe.grey - s) / (recipe.grey - recipe.yellow);
+		mean += 1 / p;
+		v += (1 - p) / (p * p);
+	}
+	return Math.max(expectedCrafts(recipe, from, to), Math.ceil(mean + 1.2816 * Math.sqrt(v)));
+}
+
 function recipeOf(ctx, spell) {
 	const r = ctx.data.recipe(spell);
 	if (!r) throw new Error(`recipe ${spell} not in professions.json`);
@@ -150,7 +164,8 @@ function step(L, title, lines) {
 
 function craftTip(P, recipe, from, to, crafts, extra) {
 	const color = from < recipe.yellow ? 'orange' : from < recipe.green ? 'yellow' : 'green';
-	return `tip ${recipe.name} is ${color} from ${from} (yellow at ${recipe.yellow}, green at ${recipe.green}, grey at ${recipe.grey}): about ${crafts} crafts to ${to}.${P.craftTip ? ` ${P.craftTip}` : ''}${extra ? ` ${extra}` : ''}`;
+	const most = crafts90(recipe, from, to);
+	return `tip ${recipe.name} is ${color} from ${from} (yellow at ${recipe.yellow}, green at ${recipe.green}, grey at ${recipe.grey}): about ${crafts} crafts to ${to}${most > crafts ? `, up to ${most} for 9 players in 10 (the ingredients to farm count that many)` : ''}.${P.craftTip ? ` ${P.craftTip}` : ''}${extra ? ` ${extra}` : ''}`;
 }
 
 // What learning a segment's recipe costs and where: "The trainer teaches it
@@ -195,7 +210,7 @@ function renderSegment(ctx, P, seg, L) {
 	for (const item of seg.alsoBuy || []) shop.push(`buy ${item} x1 nearest`);
 	const zone = zoneName(ctx, seg.zone);
 	for (const rg of recipe.reagents) {
-		const need = crafts * rg.count;
+		const need = soldTo(ctx, P, rg.item, seg.who) ? crafts * rg.count : crafts90(recipe, seg.from, seg.to) * rg.count;
 		const name = itemName(ctx, rg.item);
 		if (soldTo(ctx, P, rg.item, seg.who)) {
 			shop.push(`buy ${rg.item} x${need} nearest`);
@@ -256,7 +271,20 @@ function renderGuide(ctx, P) {
 	P.materials = (ctx.data.professionNamed(P.skill) || {}).materials || {};
 	const L = [GUIDE_HEADER, `guide forever/professions/${P.file}`, `title ${P.title}`, 'category Professions', 'coords era', `levels ${P.levels}`, 'zone Ironforge', ''];
 	for (const c of [...P.header, '', ...ERA_NOTE]) L.push(c ? `# ${c}` : '#');
-	for (const e of P.route(ctx)) {
+	const route = P.route(ctx);
+	// Bandage bands on the same cloth farm it once, at the first of them (`ahead`: what the later ones take).
+	const bands = route.filter((e) => e.bandage);
+	bands.forEach((e, i) => {
+		e.ahead = {};
+		for (const rg of recipeOf(ctx, e.spell).reagents) {
+			for (const o of bands.slice(i + 1)) {
+				const r = recipeOf(ctx, o.spell);
+				const g = r.reagents.find((x) => x.item === rg.item);
+				if (g) e.ahead[rg.item] = (e.ahead[rg.item] || 0) + crafts90(r, o.from, o.to) * g.count;
+			}
+		}
+	});
+	for (const e of route) {
 		if (e.section) L.push('', `# ---------------------------------------------------------------- ${e.section}`);
 		else if (e.apprentice) {
 			const ap = rankInfo(ctx, P.skill, 'Apprentice');
@@ -297,10 +325,14 @@ function renderBandage(ctx, P, e, L) {
 	const crafts = expectedCrafts(recipe, e.from, e.to);
 	const levels = (rg) => (CLOTH_LEVELS[itemName(ctx, rg.item)] ? ` levels ${CLOTH_LEVELS[itemName(ctx, rg.item)].join('-')}` : '');
 	for (const rg of recipe.reagents) {
-		const need = crafts * rg.count;
+		// The cloth of this band and of every later band on the same cloth, in one farm (`ahead`, renderGuide):
+		// a player who starts here gets it all now; the later bands' steps are then already done.
+		const own = crafts90(recipe, e.from, e.to) * rg.count;
+		const later = (e.ahead && e.ahead[rg.item]) || 0;
+		const need = own + later;
 		const name = itemName(ctx, rg.item);
 		step(L, `Get ${name}`, [
-			`tip You need ${need} ${name} for ${recipe.name} (${e.from}-${e.to}). ${CLOTH[rg.item]}, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most ${name} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy ${need > 1 ? 'them' : 'it'} at the Auction House.`,
+			`tip You need ${need} ${name}: ${own} for ${recipe.name} (${e.from}-${e.to})${later ? ` and ${later} for the later bandages on ${name}: get them all now, one farm` : ''}. ${CLOTH[rg.item]}, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most ${name} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy ${need > 1 ? 'them' : 'it'} at the Auction House.`,
 			`collect ${rg.item} x${need} nearest gather${levels(rg)}`,
 			`auction ${rg.item} x${need}`,
 		]);
@@ -354,8 +386,8 @@ const firstAid = {
 		const mw = recipe(10840);
 		const hmw = recipe(10841);
 		const rune = recipe(18629);
-		const mageweave = expectedCrafts(mw, 225, hmw.learnedAt) + 2 * expectedCrafts(hmw, hmw.learnedAt, rune.learnedAt);
-		const runecloth = expectedCrafts(rune, rune.learnedAt, 300);
+		const mageweave = crafts90(mw, 225, hmw.learnedAt) + 2 * crafts90(hmw, hmw.learnedAt, rune.learnedAt);
+		const runecloth = crafts90(rune, rune.learnedAt, 300);
 		// The Artisan recipes: only the Triage doctor teaches them.
 		const doctorLearn = (spell) => ({
 			title: recipe(spell).name,
@@ -377,7 +409,7 @@ const firstAid = {
 			band(3277, 80, 115, ['learn 3277'], 'Anti-Venom (Small Venom Sac, from spiders) is taught at 80 too: Rogues need it for Touch of Zanzil, and it sells.'),
 			band(3278, 115, 125, ['learn 3278'], `Herbalists: ${healing.name} (from ${healing.learnedAt}, ${money(healing.cost)}; Bruiseweed, Hot Spices and a Leaded Vial) is orange to ${healing.yellow}.`),
 			{ section: 'Expert First Aid' },
-			{ rank: 'Expert', alsoBuy: [16112, 16113], tip: `The same vendor sells the Heavy Silk and Mageweave Bandage manuals (${money((this.materials[16112] || {}).buy)} and ${money((this.materials[16113] || {}).buy)}): buy both now, you read them at 180 and 210.` },
+			{ rank: 'Expert', alsoBuy: [16112, 16113], tip: `The same vendor sells the Heavy Silk and Mageweave Bandage manuals (${money((this.materials[16112] || {}).buy)} and ${money((this.materials[16113] || {}).buy)}): buy both now, you read them at 180 and 210. The book's sellers stand in zones above a level-20 character: Deneb Walker in Stromgarde (Arathi Highlands, creatures of level 30-40) and Balai Lok'Wein in Brackenwall Village (Dustwallow Marsh, 35-45). Take the flight path or keep to the road, buy, and leave the same way.` },
 			{ section: 'First Aid 125-225' },
 			band(3278, 125, 150, ['learn 3278'], null, trainerAgain(3278)),
 			band(7928, 150, 180, ['learn 7928']),
@@ -477,14 +509,9 @@ const cooking = {
 		const crabCake = 2544;
 		const omelet = recipeOf(ctx, 15933);
 		const omeletCrafts = expectedCrafts(omelet, 225, 300);
+		const omeletMost = crafts90(omelet, 225, 300);
 		const skyborne = { races: ['Skyborne'] };
 		const westfall = { races: ['Human', 'Skyborne'], side: 'Alliance' };
-		const clamlette = (f, zone, giver) => ({
-			title: 'Dirge Quikcleave',
-			raw: [`only ${f}`, `zone ${zone}`, `tip Artisan Cooking comes from Dirge Quikcleave in Gadgetzan (Tanaris). The cooking trainer in ${zone} sends you; it needs skill 225 and level ${ctx.data.quest(6610).minLevel}.`, 'skill Cooking 225', `level ${ctx.data.quest(6610).minLevel}`, giver],
-		});
-		const egg = dropSpot(ctx, 12207, 1425);
-		const muckshells = npcCluster(ctx, 1445, 'Muckshell Scrabbler');
 		const raptors = 'Arathi Highlands: Hammon Karwn at Refuge Pointe (Alliance) and Keena at Hammerfall (Horde) sell the recipe and Hot Spices beside the raptors.';
 		return [
 			{ section: 'Apprentice' },
@@ -509,40 +536,55 @@ const cooking = {
 			{ who: H, zone: 1413, spell: 6416, from: 50, to: 100, learn: 'vendor' },
 			{ who: H, zone: 1413, spell: 6418, from: 100, to: 130, learn: 'vendor', alsoBuy: [3735], tip: `Zargh, the butcher beside this vendor at the Crossroads, sells Recipe: Hot Lion Chops (${money((this.materials[3735] || {}).buy)}), the recipe after Expert: buy it now.` },
 			{ section: 'Expert Cooking' },
-			{ rank: 'Expert' },
+			{ rank: 'Expert', tip: 'The cookbook\'s sellers stand above a level-20 character: Shandrina in Ashenvale (creatures of level 18-30) and Wulan in Desolace (30-40). Take the flight path or keep to the road, buy, and leave the same way.' },
 			{ section: 'Cooking 130-175' },
 			{ who: A, zone: 1437, spell: 3376, from: 130, to: 175, learn: 'vendor', tip: 'The raptors of the Wetlands drop a Raptor Egg about two kills in three. Kendor Kabonka in Stormwind sells the recipe.' },
 			{ who: H, zone: 1424, spell: 3398, from: 130, to: 175, learn: 'vendor', tip: 'The Feral and Hulking Mountain Lions of Hillsbrad Foothills drop Lion Meat more often than the Starving ones.' },
 			{ section: 'Cooking 175-225' },
 			{ who: ALL, zone: 1417, spell: 15855, from: 175, to: 225, learn: 'vendor', tip: `${raptors} Spider Sausage (any trainer from 200, 40s) is the alternative, but it takes two White Spider Meat a craft and Dustwallow's spiders drop one about two kills in five.` },
 			{ section: 'Artisan Cooking: Clamlette Surprise' },
-			clamlette('Alliance', 'Ironforge', 'accept 6612                             -- Daryl Riknussun, Ironforge'),
-			clamlette('Horde', 'Orgrimmar', 'accept 6611                             -- Zamja, Orgrimmar'),
-			{
-				title: 'Giant Eggs',
-				raw: ['zone The Hinterlands', `tip Clamlette Surprise asks for 12 Giant Eggs, 10 Zesty Clam Meat and 20 Alterac Swiss: bring all three before you go to Tanaris, so you make the trip once. Giant Eggs drop from the owlbeasts of The Hinterlands: ${egg.mobs.join(', ')}. Monster Omelet takes about ${omeletCrafts} more after Artisan: farm them now too if you like.`, 'collect 12207 x12'],
-			},
-			{
-				title: 'Alterac Swiss',
-				raw: ['tip Innkeepers and food vendors sell Alterac Swiss; the arrow picks the nearest.', 'buy 8932 x20 nearest'],
-			},
-			{
-				title: 'Zesty Clam Meat',
-				raw: [
-					'zone Dustwallow Marsh',
-					"tip Zesty Clam Meat comes from Big-mouth Clams: open each one, every clam holds one. The Muckshell crabs on the Dustwallow Marsh coast south-west of Theramore drop a clam about seven kills in ten, so ten clams take about fifteen kills, on your way to Tanaris. The Steeljaw Snappers on Tanaris's east coast drop them about one kill in three.",
-					`collect 7974 x10 @${fmt(muckshells.x)},${fmt(muckshells.y)}`,
-				],
-			},
-			{
-				title: 'Clamlette Surprise',
-				raw: ['zone Tanaris', 'turnin 6612 only Alliance', 'turnin 6611 only Horde', 'accept 6610', 'turnin 6610                             -- Artisan Cooking'],
-			},
+			...clamletteSteps(ctx, `Monster Omelet takes about ${omeletCrafts} more after Artisan: farm them now too if you like.`),
 			{ section: 'Cooking 225-300' },
-			{ who: ALL, zone: 1425, spell: 15933, from: 225, to: 300, learn: 'vendor', tip: `Monster Omelet is orange to ${omelet.yellow} and green from ${omelet.green}, yet it still carries you to 300. Fishers can finish on Nightfin Soup (Gikkix, Steamwheedle Port; yellow to 310) instead; Poached Sunscale Salmon needs an Iron Oven on Forever.` },
+			{ who: ALL, zone: 1425, spell: 15933, from: 225, to: 300, learn: 'vendor', tip: `The longest stretch of the guide: about ${omeletCrafts} Monster Omelets (up to ${omeletMost}), a Giant Egg and two Soothing Spices each, and the last points green (orange to ${omelet.yellow}, green from ${omelet.green}); no recipe without fish or an Iron Oven does better. Fishers can finish on Nightfin Soup (Gikkix, Steamwheedle Port; yellow to 310) instead, though Nightfin Snapper bites only in waters that lose fish below 300; Poached Sunscale Salmon needs an Iron Oven on Forever.` },
 		];
 	},
 };
+
+// Artisan Cooking: Clamlette Surprise (6610), from the capital cooking trainer's quest to the hand-in in
+// Gadgetzan, with its three ingredients on the way. `eggNote`: what the Giant Eggs step adds.
+function clamletteSteps(ctx, eggNote = '') {
+	const level = ctx.data.quest(6610).minLevel;
+	const clamlette = (f, zone, giver) => ({
+		title: 'Dirge Quikcleave',
+		raw: [`only ${f}`, `zone ${zone}`, `tip Artisan Cooking comes from Dirge Quikcleave in Gadgetzan (Tanaris). The cooking trainer in ${zone} sends you; it needs skill 225 and level ${level}.`, 'skill Cooking 225', `level ${level}`, giver],
+	});
+	const egg = dropSpot(ctx, 12207, 1425);
+	const muckshells = npcCluster(ctx, 1445, 'Muckshell Scrabbler');
+	return [
+		clamlette('Alliance', 'Ironforge', 'accept 6612                             -- Daryl Riknussun, Ironforge'),
+		clamlette('Horde', 'Orgrimmar', 'accept 6611                             -- Zamja, Orgrimmar'),
+		{
+			title: 'Giant Eggs',
+			raw: ['zone The Hinterlands', `tip Clamlette Surprise asks for 12 Giant Eggs, 10 Zesty Clam Meat and 20 Alterac Swiss: bring all three before you go to Tanaris, so you make the trip once. Giant Eggs drop from the owlbeasts of The Hinterlands: ${egg.mobs.join(', ')}.${eggNote ? ` ${eggNote}` : ''}`, 'collect 12207 x12'],
+		},
+		{
+			title: 'Alterac Swiss',
+			raw: ['tip Innkeepers and food vendors sell Alterac Swiss; the arrow picks the nearest.', 'buy 8932 x20 nearest'],
+		},
+		{
+			title: 'Zesty Clam Meat',
+			raw: [
+				'zone Dustwallow Marsh',
+				"tip Zesty Clam Meat comes from Big-mouth Clams: open each one, every clam holds one. The Muckshell crabs on the Dustwallow Marsh coast south-west of Theramore drop a clam about seven kills in ten, so ten clams take about fifteen kills, on your way to Tanaris. The Steeljaw Snappers on Tanaris's east coast drop them about one kill in three.",
+				`collect 7974 x10 @${fmt(muckshells.x)},${fmt(muckshells.y)}`,
+			],
+		},
+		{
+			title: 'Clamlette Surprise',
+			raw: ['zone Tanaris', 'turnin 6612 only Alliance', 'turnin 6611 only Horde', 'accept 6610', 'turnin 6610                             -- Artisan Cooking'],
+		},
+	];
+}
 
 module.exports = {
 	firstAid: { file: firstAid.file, skill: firstAid.skill, render: (ctx) => renderGuide(ctx, firstAid) },
@@ -550,4 +592,7 @@ module.exports = {
 	expectedCrafts,
 	dropSpot,
 	learnNote,
+	clamletteSteps,
+	recipeOf,
+	step,
 };

@@ -1575,7 +1575,9 @@ goals carry its `goto` points instead, in order, with `spread = true` and no
 `n` or alternatives (compile-time: `resolve.js` applyLoop): its kill, collect,
 interact and skill goals, or with none of those its accept, turnin and talk
 goals. A skill, accept, turnin or talk goal with them is no field goal, but
-the dwell moves the arrow along its points all the same (`Own.isSearch`). A
+the dwell moves the arrow along its points all the same (`Own.isSearch`); a
+channelled spell (fishing at a round's stand) counts as work there, as a fight
+does (`Own.channelling`). A
 kill, collect or interact bound to a quest objective that players' recordings
 place (`data/recorded/quests.json`) takes its places from the trusted recorded
 spots (an area of a spot's own size, no `n` where no spawn of the target lies
@@ -4353,7 +4355,7 @@ gather steps. The way is never stored on a step; only the goals' own bag-count
 latches are, as for `collect` and `buy`.
 
 ```lua
-Polestar.Materials.Way(guide, item, player) -> "gather" | "buy", reason   -- first rule that fits: Self-Found (C_PlayerInfo.IsSelfFoundActive) gathers ("selfFound"); no auction goal for the character gathers ("noBuy"), no gather goal buys ("noGather"); the player's pick ("picked"); Buy all ("mode"); Gather all, buying what takes a profession or rank the character lacks ("skill"); Mix: that too, mobs more than Materials.LOW (2) levels above ("low"), a bag count with no place more than Materials.PAST (5) levels past its mobs ("past"), else gather ("mix")
+Polestar.Materials.Way(guide, item, player[, farmMinutes]) -> "gather" | "buy", reason   -- first rule that fits: Self-Found (C_PlayerInfo.IsSelfFoundActive) gathers ("selfFound"); no auction goal for the character gathers ("noBuy"), no gather goal buys ("noGather"); the player's pick ("picked"); Buy all ("mode"); Gather all, buying what takes a profession or rank the character lacks ("skill"); Mix: that too, mobs more than Materials.LOW (2) levels above ("low"), a bag count with no place more than Materials.PAST (5) levels past its mobs ("past"), a farm of what is still needed longer than Materials.LONG (45) minutes ("long": farmMinutes(), the Engine's Engine.FarmMinutes(item): the current stretch's need at the farm spot's rate, Core/KindCraft.lua), else gather ("mix")
 Polestar.Materials.Mode(guideId[, item]) -> mode, answered, pick   -- the character's answer for the guide (CharState().materials.guides[guideId] = { mode, ways }), else Options' default (`professions.materials`: "ask", the default, reads Mix)
 Polestar.Materials.Asks(guideId) -> bool                         -- no answer yet, the default is to ask and Later never told it (never Self-Found)
 Polestar.Materials.Dismiss(guideId)                              -- Later on the card: the default stays, the guide asks no more
@@ -9649,11 +9651,13 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
 
   ```lua
   GF.REGIONS = {
-    profession = { "meter", "trainer", "stretch", "supplies", "buyList" },
-    reputation = { "meter", "turnin", "supplies", "more" },
-    dungeon    = { "brief", "ready", "step", "pickups", "entrance" },   -- outside its instance;
-                -- "step": the card's own header and goal rows there (GF.LayoutRegionsAfter lays
-                -- the regions after it out under the goals area and the step's tip)
+    profession = { "meter", "stretch", "get", "step", "shopping" },
+    reputation = { "meter", "turnin", "step", "more" },
+    dungeon    = { "brief", "ready", "step", "pickups", "entrance" },   -- outside its instance
+    -- "step": the card's own header and goal rows there, the leveling view's (GF.LayoutRegionsAfter
+    -- lays the regions after it out under the goals area and the step's tip). A profession guide's
+    -- train, learn, buy and go-to steps read there; its craft and get steps are goal rows of the
+    -- "stretch" and "get" regions (GF.NewGoalRow, GF.PaintGoalRow), which cover the step's goals
   }
   GF.RegionOverride(view, kind) -> { id, ... } | nil   -- a part taking the card for any kind
                                                       -- (the docked dungeon tracker: { "tracker" })
@@ -9672,22 +9676,22 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   A model's `covers` (goal indexes of the step, a list or a set) takes those
   goals' rows off the card; with every open goal covered the step's header
   goes too. A region frame is a part in `Theme.GuideParts()` under its id and
-  is offered to `guidePlace` by its id (Atlas places `meter`, `supplies`,
-  `turnin`, `pickups` and `trainer` in cards). `layout` never builds
+  is offered to `guidePlace` by its id (Atlas places `turnin` and `pickups`
+  in cards). `layout` never builds
   strings: `paint` does, on a render, not on a drag-resize. Model shapes:
 
   ```lua
-  meter    = { kind = "skill"|"rep", name, nameKind, value, max, rank, frac, seg = { a, b }, ticks = { { at, what } }, line }
-  trainer  = { title, level, npc, map, due, toGo }
+  meter    = { kind = "skill"|"rep", name, nameKind, value, max, rank, frac, learned, seg = { a, b }, line }
   stretch  = { item, recipe, name, quality, colour = "orange"|"yellow"|"green"|"grey", yellow, green, grey,
-               reagents = { { item, count } }, made, expected, moveOn, canMake, spell }
-  supplies = { title, way = "mix"|"buy"|"gather", rows = { { item, name, quality, have, need,
-               parts = { bags, bank, mail, coming, made }, way = "buy"|"gather"|"vendor"|"make", choosable,
-               reason, split = { buy = { count, copper, each, age, source } | false,
-                                 farm = { count, minutes, kills, npc, map, lvl, second, above } | false,
-                                 verdict = "buy"|"farm"|"pick"|"selfFound", long } } }, buyList = { count, copper } }
+               made, left, moveOn, learned, spell, step, goalIndex, done }
+               -- made: the recipe's casts counted (never guessed from the skill); left: the crafts the skill still takes
+  get      = { items = { { item, name, quality, need, have, goalIndex, done,
+               ways = { { way = "gather"|"buy"|"vendor", current, goalIndex, verb = "mine"|"herb"|"skin"|"fish"|
+                          "disenchant"|"make"|"farm", npc, map, loop, minutes, rate, levels, copper } } } } }
+  shopping = { rows = { { item, name, quality, have, need, toGet, way = "gather"|"buy"|"vendor" } }, met,
+               buy = { { item, name, count } } }
   turnin   = { quest, title, repeatable, items = { { item, count } }, rep, npc, map, ready }
-  more     = { { quest, title, rep, once, progress, from } }
+  more     = { { quest, title, rep, once, progress = { cur, max }, from, current, step, goalIndex }, covers = { goal index, ... } }
   brief    = { key, name, lo, hi, best, players, zone }      ready = { level, best, floor, group = { n, max, names } }
   pickups  = { held, total, missing = { { quest, title, npc, where, onWay, minutesOff, after, goal, gv, point } },
                taken = { { quest, title, held, goal, gv } }, work }
@@ -9701,10 +9705,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   Skin API names the regions add (each behind its capability): parts in
   `Theme.GuideParts()` (`guideParts.kind`), hooks `guideKindRow(row, item,
   info)` and `guideMeter(meter, info)`, `guidePlace` names `meter`,
-  `supplies`, `turnin`, `pickups`, `trainer`, `guideShows` names `split` and
-  `trainer`, `guideSpace` names `supplyRow`, `splitGap`, `bossRow`, tokens
-  `craftOrange`, `craftYellow`, `craftGreen`, `craftGrey`, `coin`; the
-  dungeon tracker's `trackerPlace(name, frame, width, height)`.
+  `stretch`, `get`, `shopping`, `turnin`, `more`, `pickups`, `guideSpace`
+  names `bossRow`, tokens `craftOrange`, `craftYellow`, `craftGreen`,
+  `craftGrey`; the dungeon tracker's `trackerPlace(name, frame, width, height)`.
 - **The dungeon kind** (`Core/KindDungeon.lua` models, `UI/GuideFrameKindDungeon.lua`
   regions; design in docs/DESIGN.md, "The Guide Window"): a guide of kind `dungeon`
   names its dungeon by `dungeon` (the pick-up guide, `Dungeons.PickupGuide`, sets it and

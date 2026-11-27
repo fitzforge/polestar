@@ -25,9 +25,11 @@ zone Azeroth
 #
 # Ranks: trainers teach by tier and train only from their tier's skill: Journeyman at the city
 # trainers, from skill 50; Expert only at Ainethil (Darnassus) and Doctor Herbert Halsey
-# (Undercity), from 125; Artisan only at Kylanna Windwhisper (Feathermoon Stronghold, Feralas) and
-# Rogvar (Stonard, Swamp of Sorrows), from 200. Alchemy has no specialisation. Transmutes and the
-# Philosopher's Stone come from Alchemist Pestlezugg in Gadgetzan.
+# (Undercity), from 125; Artisan only at Kylanna Windwhisper (Feathermoon Stronghold, Feralas),
+# Rogvar (Stonard, Swamp of Sorrows) and, for both factions, Master Mycologist Shurome (the Emerald
+# Circle, Felwood: Forever's own trainer, seen training Artisan in players' recordings), from 200.
+# Alchemy has no specialisation. Transmutes and the Philosopher's Stone come from Alchemist
+# Pestlezugg in Gadgetzan.
 #
 # The route keeps to trainer recipes from 75 to 265. Holy Protection Potion (100) and Shadow
 # Protection Potion (135) would cost about the same, but their recipes come from limited-stock
@@ -37,35 +39,34 @@ zone Azeroth
 #
 # Route (crafts are expected counts; yellow and green crafts can take more):
 #     1-75  Elixir of Minor Defense, about 82 (known): 1 Silverleaf, 1 Peacebloom and 1 Empty Vial each
-#    75-90  Minor Mana Potion, about 28 (trainer 1s): 1 Mageroyal, 1 Peacebloom and 1 Empty Vial each
-#    90-135 Elixir of Wisdom, about 49 (trainer): 1 Mageroyal, 2 Briarthorn and 1 Empty Vial each
+#    75-92  Elixir of Minor Fortitude, about 20 (trainer 2s 50c): 2 Earthroot, 1 Peacebloom and 1 Empty Vial each
+#    92-135 Elixir of Wisdom, about 47 (trainer): 1 Mageroyal, 2 Briarthorn and 1 Empty Vial each
 #   135-150 Lesser Troll's Blood Elixir, about 15 (trainer): 2 Bruiseweed, 2 Briarthorn and 1 Leaded Vial each
 #   150-160 Lesser Troll's Blood Elixir, about 12 (trainer): 2 Bruiseweed, 2 Briarthorn and 1 Leaded Vial each
 #   160-195 Mana Potion, about 39 (trainer): 1 Stranglekelp, 1 Kingsblood and 1 Leaded Vial each
 #   195-225 Elixir of Defense, about 32 (trainer): 1 Wild Steelbloom, 1 Goldthorn and 1 Leaded Vial each
 #   225-230 Elixir of Defense, about 8 (trainer): 1 Wild Steelbloom, 1 Goldthorn and 1 Leaded Vial each
-#   230-265 Draught of Detect Undead, about 43 (trainer): 1 Arthas' Tears and 1 Crystal Vial each
+#   230-265 Dreamless Sleep Potion, about 43 (trainer): 3 Purple Lotus and 1 Crystal Vial each
 #   265-300 Elixir of Greater Defense, about 43 (recipe 1g 30s): 2 Stonescale Oil, 1 Sungrass and 1 Crystal Vial each
 #
-# Shopping per bracket (vendor goods at vendor prices; gathered or dropped materials by count):
-# 1-75: Apprentice 10c, vendor goods 3s 28c; gather or buy 82 Silverleaf and 110 Peacebloom.
-# 75-150: Journeyman 4s 50c (Classic price), recipes 1s plus unpriced trainer recipes, vendor goods
-# 9s 8c; gather or buy 77 Mageroyal, 152 Briarthorn and 54 Bruiseweed.
+# Shopping per bracket (vendor goods at vendor prices; gathered or dropped materials by count, enough for 9 players in 10):
+# 1-75: Apprentice 10c, vendor goods 3s 28c; gather or buy 87 Silverleaf and 110 Peacebloom.
+# 75-150: Journeyman 4s 50c (Classic price), recipes 2s 50c plus unpriced trainer recipes, vendor
+# goods 8s 68c; gather or buy 50 Mageroyal, 46 Earthroot, 158 Briarthorn and 58 Bruiseweed.
 # 150-225: Expert 50s (Classic price), trainer recipes (prices not in the data), vendor goods 33s
-# 20c; gather or buy 40 Wild Steelbloom, 39 Kingsblood, 39 Stranglekelp and 40 Goldthorn.
+# 20c; gather or buy 45 Wild Steelbloom, 42 Kingsblood, 42 Stranglekelp and 45 Goldthorn.
 # 225-300: Artisan 4g 50s (Classic price), recipes 1g 30s plus unpriced trainer recipes, vendor
-# goods 4g 50s 40c; gather or buy 43 Arthas' Tears, 43 Sungrass and 43 Stonescale Eel.
+# goods 4g 50s 40c; gather or buy 144 Purple Lotus, 48 Sungrass and 48 Stonescale Eel.
 #
 # Data: recipes, colours and reagents from the Forever client's tables; trainer learn skills and
 # prices from Forever's sniffed trainer lists (they reach skill 50-150); vendors, stock and drops
 # from data/forever. Materials are valued at about four times their vendor sell price (cloth and
 # leather by the square root of it, hides four times higher; tools/lib/professions/materials.js) to
 # rank recipes against each other, never as a price forecast.
-# ASSUMED: learn skills of Elixir of Wisdom 90, Lesser Troll's Blood Elixir 125, Mana Potion 160,
-# Elixir of Defense 195, Draught of Detect Undead 230 and Stonescale Oil 250 (no sniffed Forever
-# list teaches them: Classic's trainer skill moved as far as Forever moved the recipe's colours,
-# which the sniffed lists bear out on 126 of 129 recipes). In-game check: the skill the trainer
-# asks; their prices are not in the data.
+# Learn skills players' recordings bear out (estimated from Classic's lists; the lowest skill
+# players learned each at, never below): Elixir of Wisdom 90 (29 players), Lesser Troll's Blood
+# Elixir 125 (18 players), Mana Potion 160 (10 players), Elixir of Defense 195 (9 players),
+# Dreamless Sleep Potion 230 (3 players) and Stonescale Oil 250 (3 players).
 # ASSUMED: rank level gates Journeyman 10, Expert 20 and Artisan 35 (Classic's; Forever's sniffed
 # lists ask level 1 for Apprentice). In-game check: the level each trainer asks.
 # ASSUMED: rank prices Journeyman 4s 50c, Expert 50s and Artisan 4g 50s (Classic's trainer lists;
@@ -76,7 +77,7 @@ zone Azeroth
 section Alchemy 1-75
 
 step Learn Alchemy
-  tip Apprentice Alchemy lets you craft up to 75 for 10c, at any character level. Any Alchemy trainer of your faction teaches it; the arrow picks the nearest. Pair it with Herbalism: Peacebloom and Silverleaf grow in every starting zone, and Empty Vials cost 4c at any alchemy or trade supplies vendor. 1-75 takes about 3s 28c of vendor goods, plus 82 Silverleaf and 110 Peacebloom to gather or buy.
+  tip Apprentice Alchemy lets you craft up to 75 for 10c, at any character level. Not every Alchemy trainer teaches it: Alliance Alchemist Mallory (Elwynn Forest), Cyndra Kindwhisper (Teldrassil), Ghak Healtouch (Loch Modan), Iaadaria Bitterwind (Zephras Isle), Milla Fairancora (Darnassus), Nyassa Swiftdraught (Zephras Isle), Tel'Athir (Stormwind City), Valiena Swiftgale (Zephras Isle) and Vosur Brakthel (Ironforge); Horde Carolai Anise (Tirisfal Glades), Doctor Martin Felben (Undercity), Kray (Thunder Bluff), Miao'zan (Durotar), Nyassa Swiftdraught (Zephras Isle), Valiena Swiftgale (Zephras Isle) and Whuut (Orgrimmar). The arrow picks the nearest of your faction. Pair it with Herbalism: Peacebloom and Silverleaf grow in every starting zone, and Empty Vials cost 4c at any alchemy or trade supplies vendor. 1-75 takes about 3s 28c of vendor goods, plus 87 Silverleaf and 110 Peacebloom to gather or buy.
   train Alchemy Apprentice
   skill Alchemy 1
 
@@ -84,107 +85,32 @@ step Alchemy 1-75: vendor goods
   tip Buy the whole bracket's share in one go: 82 Empty Vial (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction (Stormwind City: Edna Mullby, Eldraeith and Jasper Fel; Orgrimmar: Felika, Kor'geld and Rekkul).
   buy 3371 x82 nearest
 
-step Get Silverleaf (Elwynn Forest)
-  only Human
-  zone Elwynn Forest
-  tip You need 82 Silverleaf for Alchemy 1-75: Elixir of Minor Defense. Herbalism: Silverleaf (skill 1). The densest patch of Silverleaf in Elwynn Forest is marked. Or buy them at the Auction House.
-  collect 765 x82 @23.3,77.7 era gather Herbalism 1
-  auction 765 x82
+step Get Silverleaf
+  tip 87 Silverleaf for Alchemy 1-75: 87 Elixirs of Minor Defense. Herbalism: Silverleaf (skill 1) in Dun Morogh (1-10), Elwynn Forest (1-10) and Zephras Isle (1-15). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 765 x87 gather Herbalism 1
+  loop Zephras Isle lvl 11 lap 460 yield 34.3 live r 60 at 59.6,42.4 64.0,39.2 62.2,36.4 60.3,36.2 60.8,38.5 58.6,38.8 55.9,36.5 55.9,41.4 57.6,48.1 58.1,50.5 59.4,52.5 59.5,49.6
+  loop Dun Morogh lvl 4 lap 382 yield 18.0 only Alliance r 60 at 32.2,72.6 33.9,71.7 31.5,69.4 28.6,71.6 26.3,72.8 22.2,72.7 20.6,72.8 23.3,76.4 25.9,77.6 28.1,77.7 30.1,76.6 29.6,73.7
+  loop Elwynn Forest lvl 4 lap 381 yield 16.0 only Alliance r 60 at 55.3,39.7 52.8,34.7 50.3,36.1 50.5,31.0 46.1,31.5 45.3,38.8 45.7,42.7 46.8,46.4 49.1,48.5 52.1,51.2 51.1,47.0 52.4,43.6
+  loop Loch Modan lvl 12 lap 325 yield 6.4 only Alliance r 60 at 40.3,35.1 41.3,31.4 39.6,23.6 35.8,32.2 31.7,31.6 31.9,35.5 34.3,40.2 36.9,37.2 37.5,45.3 40.8,42.3
+  loop Tirisfal Glades lvl 9 lap 378 yield 14.5 only Horde r 60 at 29.5,69.0 30.8,68.3 32.4,72.3 32.8,69.4 32.9,66.4 35.4,68.7 41.2,64.1 35.0,56.1 33.1,56.0 33.6,58.2 34.4,61.6 30.0,60.8
+  loop Durotar lvl 4 lap 323 yield 5.6 only Horde r 60 at 40.1,68.1 41.7,72.9 43.7,72.5 44.2,70.3 45.3,71.0 51.0,66.8 44.6,67.3 43.0,64.2
+  loop Mulgore lvl 7 lap 335 yield 4.9 only Horde r 60 at 46.5,74.3 52.5,68.5 47.8,68.5 44.2,67.3 41.4,66.5 44.9,70.3 42.8,79.5 41.6,81.8 44.0,82.8
+  auction 765 x87
 
-step Get Silverleaf (Dun Morogh)
-  only Dwarf,Gnome
-  zone Dun Morogh
-  tip You need 82 Silverleaf for Alchemy 1-75: Elixir of Minor Defense. Herbalism: Silverleaf (skill 1). The densest patch of Silverleaf in Dun Morogh is marked. Or buy them at the Auction House.
-  collect 765 x82 @30.7,43.4 era gather Herbalism 1
-  auction 765 x82
-
-step Get Silverleaf (Teldrassil)
-  only NightElf
-  zone Teldrassil
-  tip You need 82 Silverleaf for Alchemy 1-75: Elixir of Minor Defense. Herbalism: Silverleaf (skill 1). The densest patch of Silverleaf in Teldrassil is marked. Or buy them at the Auction House.
-  collect 765 x82 @49.3,73 era gather Herbalism 1
-  auction 765 x82
-
-step Get Silverleaf (Zephras Isle)
-  only Skyborne
-  zone Zephras Isle
-  tip You need 82 Silverleaf for Alchemy 1-75: Elixir of Minor Defense. Herbalism: Silverleaf (skill 1). The densest patch of Silverleaf in Zephras Isle is marked. Or buy them at the Auction House.
-  collect 765 x82 @40.3,53.5 live gather Herbalism 1
-  auction 765 x82
-
-step Get Silverleaf (Durotar)
-  only Orc,Troll
-  zone Durotar
-  tip You need 82 Silverleaf for Alchemy 1-75: Elixir of Minor Defense. Herbalism: Silverleaf (skill 1). The densest patch of Silverleaf in Durotar is marked. Or buy them at the Auction House.
-  collect 765 x82 @51.4,73.9 era gather Herbalism 1
-  auction 765 x82
-
-step Get Silverleaf (Mulgore)
-  only Tauren
-  zone Mulgore
-  tip You need 82 Silverleaf for Alchemy 1-75: Elixir of Minor Defense. Herbalism: Silverleaf (skill 1). The densest patch of Silverleaf in Mulgore is marked. Or buy them at the Auction House.
-  collect 765 x82 @55.2,67 live gather Herbalism 1
-  auction 765 x82
-
-step Get Silverleaf (Tirisfal Glades)
-  only Undead
-  zone Tirisfal Glades
-  tip You need 82 Silverleaf for Alchemy 1-75: Elixir of Minor Defense. Herbalism: Silverleaf (skill 1). The densest patch of Silverleaf in Tirisfal Glades is marked. Or buy them at the Auction House.
-  collect 765 x82 @48.2,37.1 era gather Herbalism 1
-  auction 765 x82
-
-step Get Peacebloom (Elwynn Forest)
-  only Human
-  zone Elwynn Forest
-  tip You need 110 Peacebloom for Alchemy 1-75: Elixir of Minor Defense and Minor Mana Potion (28 of them for 75-150: get them all now). Herbalism: Peacebloom (skill 1). The densest patch of Peacebloom in Elwynn Forest is marked. Or buy them at the Auction House.
-  collect 2447 x110 @26.2,81.6 era gather Herbalism 1
-  auction 2447 x110
-
-step Get Peacebloom (Dun Morogh)
-  only Dwarf,Gnome
-  zone Dun Morogh
-  tip You need 110 Peacebloom for Alchemy 1-75: Elixir of Minor Defense and Minor Mana Potion (28 of them for 75-150: get them all now). Herbalism: Peacebloom (skill 1). The densest patch of Peacebloom in Dun Morogh is marked. Or buy them at the Auction House.
-  collect 2447 x110 @48,55.6 era gather Herbalism 1
-  auction 2447 x110
-
-step Get Peacebloom (Teldrassil)
-  only NightElf
-  zone Teldrassil
-  tip You need 110 Peacebloom for Alchemy 1-75: Elixir of Minor Defense and Minor Mana Potion (28 of them for 75-150: get them all now). Herbalism: Peacebloom (skill 1). The densest patch of Peacebloom in Teldrassil is marked. Or buy them at the Auction House.
-  collect 2447 x110 @55.3,66.8 era gather Herbalism 1
-  auction 2447 x110
-
-step Get Peacebloom (Zephras Isle)
-  only Skyborne
-  zone Zephras Isle
-  tip You need 110 Peacebloom for Alchemy 1-75: Elixir of Minor Defense and Minor Mana Potion (28 of them for 75-150: get them all now). Herbalism: Peacebloom (skill 1). The densest patch of Peacebloom in Zephras Isle is marked. Or buy them at the Auction House.
-  collect 2447 x110 @51,75.1 live gather Herbalism 1
-  auction 2447 x110
-
-step Get Peacebloom (Durotar)
-  only Orc,Troll
-  zone Durotar
-  tip You need 110 Peacebloom for Alchemy 1-75: Elixir of Minor Defense and Minor Mana Potion (28 of them for 75-150: get them all now). Herbalism: Peacebloom (skill 1). The densest patch of Peacebloom in Durotar is marked. Or buy them at the Auction House.
-  collect 2447 x110 @42.7,39.7 era gather Herbalism 1
-  auction 2447 x110
-
-step Get Peacebloom (Mulgore)
-  only Tauren
-  zone Mulgore
-  tip You need 110 Peacebloom for Alchemy 1-75: Elixir of Minor Defense and Minor Mana Potion (28 of them for 75-150: get them all now). Herbalism: Peacebloom (skill 1). The densest patch of Peacebloom in Mulgore is marked. Or buy them at the Auction House.
-  collect 2447 x110 @44.9,43.5 live gather Herbalism 1
-  auction 2447 x110
-
-step Get Peacebloom (Tirisfal Glades)
-  only Undead
-  zone Tirisfal Glades
-  tip You need 110 Peacebloom for Alchemy 1-75: Elixir of Minor Defense and Minor Mana Potion (28 of them for 75-150: get them all now). Herbalism: Peacebloom (skill 1). The densest patch of Peacebloom in Tirisfal Glades is marked. Or buy them at the Auction House.
-  collect 2447 x110 @49.8,37.4 era gather Herbalism 1
+step Get Peacebloom
+  tip 110 Peacebloom for Alchemy 1-75: 87 Elixirs of Minor Defense and 23 Elixirs of Minor Fortitude (23 of them for 75-150: get them all now). Herbalism: Peacebloom (skill 1) in Dun Morogh (1-10), Elwynn Forest (1-10) and Zephras Isle (1-15). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 2447 x110 gather Herbalism 1
+  loop Zephras Isle lvl 4 lap 331 yield 48.0 live r 60 at 44.8,26.2 43.8,28.2 41.9,27.4 41.4,24.9 42.2,21.4 43.4,21.2 44.6,20.9 45.0,22.9 46.4,22.0 46.8,23.8 47.8,28.8 46.4,26.6
+  loop Elwynn Forest lvl 4 lap 381 yield 15.0 only Alliance r 60 at 55.3,39.7 52.8,34.7 50.3,36.1 50.5,31.0 46.1,31.5 45.3,38.8 45.7,42.7 46.8,46.4 49.1,48.5 52.1,51.2 51.1,47.0 52.4,43.6
+  loop Dun Morogh lvl 4 lap 382 yield 12.0 only Alliance r 60 at 32.2,72.6 33.9,71.7 31.5,69.4 28.6,71.6 26.3,72.8 22.2,72.7 20.6,72.8 23.3,76.4 25.9,77.6 28.1,77.7 30.1,76.6 29.6,73.7
+  loop Teldrassil lvl 4 lap 307 yield 6.0 only Alliance r 60 at 55.2,46.3 57.4,46.5 59.0,47.0 57.4,42.8 55.4,41.6
+  loop Tirisfal Glades lvl 4 lap 345 yield 8.0 only Horde r 60 at 29.5,69.0 30.8,68.3 32.9,66.4 30.0,60.8 33.1,56.0 35.0,56.1 33.6,58.2 34.4,61.6 35.8,65.1 35.4,68.7 32.8,69.4 32.4,72.3
+  loop Durotar lvl 4 lap 323 yield 7.0 only Horde r 60 at 40.1,68.1 41.7,72.9 43.7,72.5 44.2,70.3 45.3,71.0 51.0,66.8 44.6,67.3 43.0,64.2
+  loop Mulgore lvl 7 lap 335 yield 5.3 only Horde r 60 at 46.5,74.3 52.5,68.5 47.8,68.5 44.2,67.3 41.4,66.5 44.9,70.3 42.8,79.5 41.6,81.8 44.0,82.8
   auction 2447 x110
 
 step Elixir of Minor Defense to 75
-  zone Azeroth
-  tip Elixir of Minor Defense is orange at 1 (yellow 55, green 75, grey 95): about 82 crafts to 75. Each takes 1 Silverleaf, 1 Peacebloom and 1 Empty Vial. Known from the start and the cheapest way through the Apprentice range. Keep the elixirs (armour while you level) or sell them.
+  tip Elixir of Minor Defense is orange at 1 (yellow 55, green 75, grey 95): about 82 crafts to 75, up to 87 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Silverleaf, 1 Peacebloom and 1 Empty Vial. Known from the start and the cheapest way through the Apprentice range. Keep the elixirs (armour while you level) or sell them.
   craft 7183 until 75
   skill Alchemy 75
 
@@ -192,140 +118,78 @@ step Elixir of Minor Defense to 75
 section Alchemy 75-150
 
 step Journeyman Alchemy
-  tip Journeyman raises the cap from 75 to 150 for 4s 50c (Classic's price; Forever's is not in the data); it needs Alchemy 50 and character level 10, so you can take it on any visit from 50. Not every Alchemy trainer teaches it: Alliance Alchemist Narett (Dustwallow Marsh), Jaxin Chong (Stranglethorn Vale), Kylanna (Ashenvale), Lilyssia Nightbreeze (Stormwind City), Sylvanna Forestmoon (Darnassus) and Tally Berryfizz (Ironforge); Horde Bena Winterhoof (Thunder Bluff), Doctor Marsh (Undercity), Jaxin Chong (Stranglethorn Vale), Serge Hinott (Hillsbrad Foothills) and Yelmak (Orgrimmar). The arrow picks the nearest of your faction. Learn now: Minor Mana Potion (from 25, 1s). Also learn Mana Well (1s): Forever's Alchemy camp item, 1 Peacebloom and 1 Empty Vial, placed at a campsite beside a campfire for its buff. The Camping 101: Alchemy quest from your starting area's camping guide (after The Great Outdoors) sends you to an alchemy trainer who teaches it free. 75-150 takes about 1s of recipes and 9s 8c of vendor goods, plus 77 Mageroyal, 152 Briarthorn and 54 Bruiseweed to gather or buy.
+  tip Journeyman raises the cap from 75 to 150 for 4s 50c (Classic's price; Forever's is not in the data); it needs Alchemy 50 and character level 10, so you can take it on any visit from 50. Not every Alchemy trainer teaches it: Alliance Alchemist Narett (Dustwallow Marsh), Jaxin Chong (Stranglethorn Vale), Kylanna (Ashenvale), Lilyssia Nightbreeze (Stormwind City), Sylvanna Forestmoon (Darnassus) and Tally Berryfizz (Ironforge); Horde Bena Winterhoof (Thunder Bluff), Doctor Marsh (Undercity), Jaxin Chong (Stranglethorn Vale), Serge Hinott (Hillsbrad Foothills) and Yelmak (Orgrimmar). The arrow picks the nearest of your faction. Learn now: Elixir of Minor Fortitude (from 50, 2s 50c). Also learn Mana Well (1s): Forever's Alchemy camp item, 1 Peacebloom and 1 Empty Vial, placed at a campsite beside a campfire for its buff. The Camping 101: Alchemy quest from your starting area's camping guide (after The Great Outdoors) sends you to an alchemy trainer who teaches it free. 75-150 takes about 2s 50c of recipes and 8s 68c of vendor goods, plus 50 Mageroyal, 46 Earthroot, 158 Briarthorn and 58 Bruiseweed to gather or buy.
   level 10
   train Alchemy Journeyman
-  learn 2331
+  learn 2334
   learn 1230564
 
 step Alchemy 75-150: vendor goods
-  tip Buy the whole bracket's share in one go: 77 Empty Vial (3s 8c) and 15 Leaded Vial (6s); about 9s 8c in all. The arrow picks the nearest seller of your faction (Stormwind City: Edna Mullby, Eldraeith and Jasper Fel; Orgrimmar: Felika, Kor'geld and Rekkul).
-  buy 3371 x77 nearest
+  tip Buy the whole bracket's share in one go: 67 Empty Vial (2s 68c) and 15 Leaded Vial (6s); about 8s 68c in all. The arrow picks the nearest seller of your faction (Stormwind City: Edna Mullby, Eldraeith and Jasper Fel; Orgrimmar: Felika, Kor'geld and Rekkul).
+  buy 3371 x67 nearest
   buy 3372 x15 nearest
 
-step Get Mageroyal (Westfall)
-  only Human
-  zone Westfall
-  tip You need 77 Mageroyal for Alchemy 75-150: Minor Mana Potion and Elixir of Wisdom. Herbalism: Mageroyal (skill 50). The densest patch of Mageroyal in Westfall is marked. Or buy them at the Auction House.
-  collect 785 x77 @27.2,50.1 era gather Herbalism 50
-  auction 785 x77
+step Get Mageroyal
+  tip 50 Mageroyal for Alchemy 75-150: 50 Elixirs of Wisdom. Herbalism: Mageroyal (skill 50) in Teldrassil (1-10), Zephras Isle (1-15) and Darkshore (10-20). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 785 x50 gather Herbalism 50
+  loop Zephras Isle lvl 11 lap 458 yield 36.9 live r 60 at 59.6,42.4 58.6,38.8 55.9,36.5 55.9,41.4 57.6,48.1 58.1,50.5 59.5,49.6 62.1,49.4 64.0,39.2 62.2,36.4 60.3,36.2 60.8,38.5
+  loop Darkshore lvl 20 lap 710 yield 8.8 only Alliance r 60 at 34.7,89.8 35.2,84.8 34.6,81.8 36.3,80.0 38.9,49.4 46.9,48.9 42.1,67.6 42.3,72.3 40.2,71.9 38.7,77.7 38.7,86.9 38.1,88.9
+  loop Westfall lvl 18 lap 341 yield 4.0 only Alliance r 60 at 39.6,32.9 42.2,33.1 46.1,28.7 42.8,38.8 38.9,38.4 31.9,44.1 30.7,38.2 28.6,32.2 32.5,25.5 36.6,22.1 36.6,26.5 37.0,32.8
+  loop Loch Modan lvl 18 lap 332 yield 2.6 only Alliance r 60 at 76.0,65.6 70.6,72.4 66.1,72.4 62.1,58.0 64.4,54.1 69.9,51.9 67.3,48.4 64.6,44.3 66.8,37.8 71.8,37.9 74.0,41.6 77.0,43.6
+  loop Silverpine Forest lvl 16 lap 430 yield 8.4 only Horde r 60 at 49.2,30.2 45.2,27.0 47.6,27.0 55.9,19.2 58.9,16.4 56.2,22.5 53.6,29.4 55.4,36.1 54.0,42.1 51.6,49.4 53.3,35.5 49.6,36.0
+  loop The Barrens lvl 18 lap 322 yield 2.6 only Horde r 60 at 45.9,33.2 46.5,34.5 47.3,34.0 47.9,32.6 49.3,33.0 48.8,35.0 46.4,36.2 45.7,35.3 45.3,36.2 43.0,33.7 42.5,32.6 45.3,30.8
+  loop Stonetalon Mountains lvl 17 lap 321 yield 1.7 only Horde r 60 at 84.0,85.2 81.3,89.1 81.7,91.6 79.8,93.2 78.5,94.2 76.8,95.7 75.6,93.8 69.4,90.7 74.1,89.8 76.1,89.4 77.5,90.0 78.9,85.1
+  auction 785 x50
 
-step Get Mageroyal (Loch Modan)
-  only Dwarf,Gnome
-  zone Loch Modan
-  tip You need 77 Mageroyal for Alchemy 75-150: Minor Mana Potion and Elixir of Wisdom. Herbalism: Mageroyal (skill 50). The densest patch of Mageroyal in Loch Modan is marked. Or buy them at the Auction House.
-  collect 785 x77 @62.4,25.6 era gather Herbalism 50
-  auction 785 x77
+step Get Earthroot
+  tip 46 Earthroot for Alchemy 75-150: 23 Elixirs of Minor Fortitude. Herbalism: Earthroot (skill 15) in Dun Morogh (1-10), Zephras Isle (1-15) and Redridge Mountains (15-25). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 2449 x46 gather Herbalism 15
+  loop Zephras Isle lvl 6 lap 558 yield 38.0 only Alliance live r 60 at 44.8,26.2 44.2,28.5 40.2,29.9 39.0,32.3 38.0,34.5 35.3,34.1 37.0,29.6 39.4,27.3 41.9,27.4 41.3,24.9 47.0,19.3 45.0,22.9
+  loop Westfall lvl 18 lap 341 yield 6.8 only Alliance r 60 at 39.6,32.9 42.2,33.1 46.1,28.7 42.8,38.8 38.9,38.4 31.9,44.1 30.7,38.2 28.6,32.2 32.5,25.5 36.6,22.1 36.6,26.5 37.0,32.8
+  loop Darkshore lvl 20 lap 710 yield 6.7 only Alliance r 60 at 34.7,89.8 35.2,84.8 34.6,81.8 36.3,80.0 38.9,49.4 46.9,48.9 42.1,67.6 42.3,72.3 40.2,71.9 38.7,77.7 38.7,86.9 38.1,88.9
+  loop Redridge Mountains lvl 22 lap 332 yield 2.6 only Alliance r 60 at 72.5,73.4 65.0,82.9 61.2,79.3 59.5,75.3 56.8,72.5 60.1,69.7 59.5,63.3 63.0,69.6 67.8,62.6 75.9,63.3 85.4,61.1 76.6,72.8
+  loop Zephras Isle lvl 6 lap 719 yield 26.0 only Horde live r 60 at 41.0,44.9 37.6,46.9 39.3,42.8 39.0,32.3 37.0,29.6 39.4,27.3 41.3,24.9 44.8,26.2 44.2,28.5 43.4,40.2 44.9,42.0 42.2,47.2
+  loop Silverpine Forest lvl 13 lap 317 yield 2.3 only Horde r 60 at 50.1,29.2 46.5,30.5 47.3,27.1 48.8,28.3 54.8,25.6 53.9,29.4
+  loop The Barrens lvl 16 lap 411 yield 2.8 only Horde r 60 at 40.1,19.2 41.5,18.5 42.8,21.2 44.5,19.0 44.3,23.0 43.7,27.3 42.1,29.0 40.5,32.2 39.0,30.5 40.3,28.2 41.6,24.6 40.7,21.6
+  loop Mulgore lvl 7 lap 316 yield 0.5 only Horde r 60 at 46.5,74.3 44.0,82.8 41.6,81.8 42.8,79.5 44.2,67.3 52.5,68.5 52.0,71.6
+  auction 2449 x46
 
-step Get Mageroyal (Teldrassil)
-  only NightElf
-  zone Teldrassil
-  tip You need 77 Mageroyal for Alchemy 75-150: Minor Mana Potion and Elixir of Wisdom. Herbalism: Mageroyal (skill 50). The densest patch of Mageroyal in Teldrassil is marked. Or buy them at the Auction House.
-  collect 785 x77 @49.1,78 era gather Herbalism 50
-  auction 785 x77
+step Get Briarthorn
+  tip 158 Briarthorn for Alchemy 75-150: 50 Elixirs of Wisdom and 29 Lesser Troll's Blood Elixirs (28 of them for 150-225: get them all now). Herbalism: Briarthorn (skill 70) in Westfall (10-20), Ashenvale (18-30) and Wetlands (20-30). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 2450 x158 gather Herbalism 70
+  loop Loch Modan lvl 18 lap 332 yield 7.0 only Alliance r 60 at 76.0,65.6 70.6,72.4 66.1,72.4 62.1,58.0 64.4,54.1 69.9,51.9 67.3,48.4 64.6,44.3 66.8,37.8 71.8,37.9 74.0,41.6 77.0,43.6
+  loop Westfall lvl 16 lap 348 yield 5.6 only Alliance r 60 at 36.1,37.0 34.4,38.3 31.6,43.5 29.7,49.2 37.3,46.1 38.9,38.4 46.4,30.9 42.6,31.9 40.4,29.7 39.5,32.7 34.6,26.3 37.1,33.3
+  loop Wetlands lvl 32 lap 422 yield 4.6 only Alliance r 60 at 43.8,25.6 53.9,30.3 55.7,36.4 51.4,31.6 44.5,34.2 40.2,33.7 37.9,32.8 31.6,33.9 31.4,27.2 31.3,22.6 37.7,27.1 40.1,28.7
+  loop Redridge Mountains lvl 23 lap 326 yield 3.3 only Alliance r 60 at 72.5,73.4 76.6,72.8 75.9,63.3 67.8,62.6 64.9,55.6 59.5,63.3 56.8,72.5 59.5,75.3 61.5,79.0 65.0,82.1 60.1,69.7 63.0,69.6
+  loop The Barrens lvl 16 lap 411 yield 3.3 only Horde r 60 at 40.1,19.2 41.5,18.5 42.8,21.2 44.5,19.0 44.3,23.0 43.7,27.3 42.1,29.0 40.5,32.2 39.0,30.5 40.3,28.2 41.6,24.6 40.7,21.6
+  loop Silverpine Forest lvl 16 lap 430 yield 2.8 only Horde r 60 at 49.2,30.2 45.2,27.0 47.6,27.0 55.9,19.2 58.9,16.4 56.2,22.5 53.6,29.4 55.4,36.1 54.0,42.1 51.6,49.4 53.3,35.5 49.6,36.0
+  loop Stonetalon Mountains lvl 25 lap 375 yield 1.5 only Horde r 60 at 38.6,21.5 36.3,22.2 33.1,20.5 44.5,34.6 46.8,32.7 43.7,26.9 45.2,22.6 46.8,21.3 44.0,21.6 44.0,15.0 42.2,11.5 40.1,19.2
+  loop Hillsbrad Foothills lvl 26 lap 315 yield 1.1 only Horde r 60 at 70.8,55.8 72.6,52.0 75.7,52.7 76.5,57.3 74.9,59.5 72.1,60.6 71.1,64.8 69.1,63.7 66.7,56.0 63.8,53.8 69.9,47.9 69.3,51.1
+  auction 2450 x158
 
-step Get Mageroyal (Zephras Isle)
-  only Skyborne
-  zone Zephras Isle
-  tip You need 77 Mageroyal for Alchemy 75-150: Minor Mana Potion and Elixir of Wisdom. Herbalism: Mageroyal (skill 50). The densest patch of Mageroyal in Zephras Isle is marked. Or buy them at the Auction House.
-  collect 785 x77 @59.7,41.9 live gather Herbalism 50
-  auction 785 x77
+step Get Bruiseweed
+  tip 58 Bruiseweed for Alchemy 75-150: 29 Lesser Troll's Blood Elixirs (28 of them for 150-225: get them all now). Herbalism: Bruiseweed (skill 100) in Stonetalon Mountains (15-27), Duskwood (18-30) and Ashenvale (18-30). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 2453 x58 gather Herbalism 100
+  loop Loch Modan lvl 20 lap 421 yield 14.3 only Alliance r 60 at 71.0,17.3 65.0,23.3 68.1,27.3 71.1,29.1 68.1,32.6 71.6,44.8 69.9,51.6 73.5,57.8 79.6,76.6 81.6,64.5 80.8,39.9 77.8,26.5
+  loop Redridge Mountains lvl 22 lap 332 yield 6.6 only Alliance r 60 at 72.5,73.4 65.0,82.9 61.2,79.3 59.5,75.3 56.8,72.5 60.1,69.7 59.5,63.3 63.0,69.6 67.8,62.6 75.9,63.3 85.4,61.1 76.6,72.8
+  loop Westfall lvl 18 lap 332 yield 6.1 only Alliance r 60 at 59.8,22.4 61.6,25.3 61.0,18.1 58.9,15.2 52.2,6.4 44.1,16.7 43.2,26.1 45.0,24.2 48.3,25.0 55.9,31.0 55.1,27.6 56.6,19.3
+  loop Stonetalon Mountains lvl 17 lap 319 yield 4.2 only Alliance r 60 at 84.0,85.2 82.7,84.0 81.1,84.5 78.9,85.1 76.2,83.0 74.1,89.8 76.1,89.4 77.5,90.0 78.5,94.2 79.8,93.2 81.7,91.6 81.3,89.1
+  loop Stonetalon Mountains lvl 17 lap 321 yield 5.4 only Horde r 60 at 84.0,85.2 81.3,89.1 81.7,91.6 79.8,93.2 78.5,94.2 76.8,95.7 75.6,93.8 69.4,90.7 74.1,89.8 76.1,89.4 77.5,90.0 78.9,85.1
+  loop The Barrens lvl 18 lap 321 yield 5.3 only Horde r 60 at 46.1,32.6 47.9,32.6 48.6,32.0 49.2,32.7 48.8,35.0 47.9,34.5 47.3,33.6 46.5,34.3 45.7,35.3 45.3,36.2 43.1,37.6 45.8,33.6
+  loop Hillsbrad Foothills lvl 26 lap 315 yield 1.8 only Horde r 60 at 70.8,55.8 72.6,52.0 75.7,52.7 76.5,57.3 74.9,59.5 72.1,60.6 71.1,64.8 69.1,63.7 66.7,56.0 63.8,53.8 69.9,47.9 69.3,51.1
+  loop Ashenvale lvl 41 lap 621 yield 2.2 only Horde r 60 at 99.8,30.8 100.3,40.8 90.1,45.5 92.5,51.6 92.4,59.8 91.3,64.2 81.8,51.1 79.6,44.9 77.8,42.2
+  auction 2453 x58
 
-step Get Mageroyal (The Barrens)
-  only Orc,Troll,Tauren
-  zone The Barrens
-  tip You need 77 Mageroyal for Alchemy 75-150: Minor Mana Potion and Elixir of Wisdom. Herbalism: Mageroyal (skill 50). The densest patch of Mageroyal in The Barrens is marked. Or buy them at the Auction House.
-  collect 785 x77 @42.8,21.2 era gather Herbalism 50
-  auction 785 x77
+step Elixir of Minor Fortitude to 92
+  tip Elixir of Minor Fortitude is orange at 75 (yellow 80, green 100, grey 120): about 20 crafts to 92, up to 23 for 9 players in 10 (the gathered materials above count that many). Each takes 2 Earthroot, 1 Peacebloom and 1 Empty Vial. Two Earthroot and a Peacebloom a craft, herbs of the starting zones and the 10-20 zones; orange to 80.
+  craft 2334 until 92
 
-step Get Mageroyal (Silverpine Forest)
-  only Undead
-  zone Silverpine Forest
-  tip You need 77 Mageroyal for Alchemy 75-150: Minor Mana Potion and Elixir of Wisdom. Herbalism: Mageroyal (skill 50). The densest patch of Mageroyal in Silverpine Forest is marked. Or buy them at the Auction House.
-  collect 785 x77 @52.6,29.1 era gather Herbalism 50
-  auction 785 x77
-
-step Get Briarthorn (Westfall)
-  only Human,Skyborne,Alliance
-  zone Westfall
-  tip You need 152 Briarthorn for Alchemy 75-150: Elixir of Wisdom and Lesser Troll's Blood Elixir (24 of them for 150-225: get them all now). Herbalism: Briarthorn (skill 70). The densest patch of Briarthorn in Westfall is marked. Or buy them at the Auction House.
-  collect 2450 x152 @52,70.8 era gather Herbalism 70
-  auction 2450 x152
-
-step Get Briarthorn (Loch Modan)
-  only Dwarf,Gnome
-  zone Loch Modan
-  tip You need 152 Briarthorn for Alchemy 75-150: Elixir of Wisdom and Lesser Troll's Blood Elixir (24 of them for 150-225: get them all now). Herbalism: Briarthorn (skill 70). The densest patch of Briarthorn in Loch Modan is marked. Or buy them at the Auction House.
-  collect 2450 x152 @66.6,48.4 era gather Herbalism 70
-  auction 2450 x152
-
-step Get Briarthorn (Darkshore)
-  only NightElf
-  zone Darkshore
-  tip You need 152 Briarthorn for Alchemy 75-150: Elixir of Wisdom and Lesser Troll's Blood Elixir (24 of them for 150-225: get them all now). Herbalism: Briarthorn (skill 70). The densest patch of Briarthorn in Darkshore is marked. Or buy them at the Auction House.
-  collect 2450 x152 @42.6,33.7 era gather Herbalism 70
-  auction 2450 x152
-
-step Get Briarthorn (The Barrens)
-  only Orc,Troll,Tauren,Skyborne,Horde
-  zone The Barrens
-  tip You need 152 Briarthorn for Alchemy 75-150: Elixir of Wisdom and Lesser Troll's Blood Elixir (24 of them for 150-225: get them all now). Herbalism: Briarthorn (skill 70). The densest patch of Briarthorn in The Barrens is marked. Or buy them at the Auction House.
-  collect 2450 x152 @45.6,15.6 era gather Herbalism 70
-  auction 2450 x152
-
-step Get Briarthorn (Silverpine Forest)
-  only Undead
-  zone Silverpine Forest
-  tip You need 152 Briarthorn for Alchemy 75-150: Elixir of Wisdom and Lesser Troll's Blood Elixir (24 of them for 150-225: get them all now). Herbalism: Briarthorn (skill 70). The densest patch of Briarthorn in Silverpine Forest is marked. Or buy them at the Auction House.
-  collect 2450 x152 @55.3,73.8 era gather Herbalism 70
-  auction 2450 x152
-
-step Get Bruiseweed (Westfall)
-  only Human,Skyborne,Alliance
-  zone Westfall
-  tip You need 54 Bruiseweed for Alchemy 75-150: Lesser Troll's Blood Elixir (24 of them for 150-225: get them all now). Herbalism: Bruiseweed (skill 100). The densest patch of Bruiseweed in Westfall is marked. Or buy them at the Auction House.
-  collect 2453 x54 @43.6,54.7 era gather Herbalism 100
-  auction 2453 x54
-
-step Get Bruiseweed (Loch Modan)
-  only Dwarf,Gnome
-  zone Loch Modan
-  tip You need 54 Bruiseweed for Alchemy 75-150: Lesser Troll's Blood Elixir (24 of them for 150-225: get them all now). Herbalism: Bruiseweed (skill 100). The densest patch of Bruiseweed in Loch Modan is marked. Or buy them at the Auction House.
-  collect 2453 x54 @68.4,26.2 era gather Herbalism 100
-  auction 2453 x54
-
-step Get Bruiseweed (Darkshore)
-  only NightElf
-  zone Darkshore
-  tip You need 54 Bruiseweed for Alchemy 75-150: Lesser Troll's Blood Elixir (24 of them for 150-225: get them all now). Herbalism: Bruiseweed (skill 100). The densest patch of Bruiseweed in Darkshore is marked. Or buy them at the Auction House.
-  collect 2453 x54 @56.2,21.7 era gather Herbalism 100
-  auction 2453 x54
-
-step Get Bruiseweed (The Barrens)
-  only Orc,Troll,Tauren,Skyborne,Horde
-  zone The Barrens
-  tip You need 54 Bruiseweed for Alchemy 75-150: Lesser Troll's Blood Elixir (24 of them for 150-225: get them all now). Herbalism: Bruiseweed (skill 100). The densest patch of Bruiseweed in The Barrens is marked. Or buy them at the Auction House.
-  collect 2453 x54 @57.5,54.3 era gather Herbalism 100
-  auction 2453 x54
-
-step Get Bruiseweed (Silverpine Forest)
-  only Undead
-  zone Silverpine Forest
-  tip You need 54 Bruiseweed for Alchemy 75-150: Lesser Troll's Blood Elixir (24 of them for 150-225: get them all now). Herbalism: Bruiseweed (skill 100). The densest patch of Bruiseweed in Silverpine Forest is marked. Or buy them at the Auction House.
-  collect 2453 x54 @60.9,62 era gather Herbalism 100
-  auction 2453 x54
-
-step Minor Mana Potion to 90
-  zone Azeroth
-  tip Minor Mana Potion is yellow at 75 (yellow 65, green 85, grey 105): about 28 crafts to 90. Each takes 1 Mageroyal, 1 Peacebloom and 1 Empty Vial. The trainer teaches it from 25. It is yellow already, so count on about two crafts a point until Elixir of Wisdom takes over at 90. Mageroyal grows in the 10-25 zones.
-  craft 2331 until 90
-
-step Alchemy recipes at 90
+step Alchemy recipes at 92
   tip Back to an Alchemy trainer: Elixir of Wisdom (from 90).
   learn 3171
 
 step Elixir of Wisdom to 135
-  tip Elixir of Wisdom is orange at 90 (yellow 120, green 140, grey 160): about 49 crafts to 135. Each takes 1 Mageroyal, 2 Briarthorn and 1 Empty Vial. Two Briarthorn and a Mageroyal a craft, both from the 10-25 zones; orange to 120.
+  tip Elixir of Wisdom is orange at 92 (yellow 120, green 140, grey 160): about 47 crafts to 135, up to 50 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Mageroyal, 2 Briarthorn and 1 Empty Vial. Two Briarthorn and a Mageroyal a craft, both from the 10-25 zones; orange to 120.
   craft 3171 until 135
 
 step Alchemy recipes at 135
@@ -344,87 +208,84 @@ step Alchemy 150-225: vendor goods
   tip Buy the whole bracket's share in one go: 83 Leaded Vial (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction (Stormwind City: Edna Mullby, Eldraeith and Jasper Fel; Orgrimmar: Felika, Kor'geld and Rekkul).
   buy 3372 x83 nearest
 
-step Get Wild Steelbloom (Alliance)
-  only Alliance
-  zone Stranglethorn Vale
-  tip You need 40 Wild Steelbloom for Alchemy 150-225: Elixir of Defense (8 of them for 225-300: get them all now). Herbalism: Wild Steelbloom (skill 115) in Stonetalon Mountains (15-27), Arathi Highlands (30-40) and Stranglethorn Vale (30-45). The densest patch of Wild Steelbloom in Stranglethorn Vale is marked. Or buy them at the Auction House.
-  collect 3355 x40 @26.6,9.9 era gather Herbalism 115
-  auction 3355 x40
+step Get Wild Steelbloom
+  tip 45 Wild Steelbloom for Alchemy 150-225: 45 Elixirs of Defense (11 of them for 225-300: get them all now). Herbalism: Wild Steelbloom (skill 115) in Stonetalon Mountains (15-27), Arathi Highlands (30-40) and Stranglethorn Vale (30-45). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 3355 x45 gather Herbalism 115
+  loop Stonetalon Mountains lvl 25 lap 343 yield 5.3 only Alliance r 60 at 34.3,17.8 33.1,20.5 31.9,17.1 29.3,12.1 30.1,9.0 31.5,5.3 36.7,5.5 44.0,15.0 40.1,19.2 38.6,21.5 36.3,22.2 37.0,16.5
+  loop Arathi Highlands lvl 37 lap 333 yield 1.6 only Alliance r 60 at 65.3,70.0 66.7,64.2 71.2,59.2 71.5,62.7 72.5,65.8 69.1,69.0 67.3,70.5 69.0,75.1 62.3,72.5 56.1,70.2 54.9,64.5 62.1,68.9
+  loop Wetlands lvl 32 lap 660 yield 3.0 only Alliance r 60 at 43.8,25.6 32.6,28.8 22.7,27.8 30.9,45.0 34.0,44.4 37.7,41.0 44.6,34.5 44.9,42.4 49.7,52.0 62.1,39.3 60.3,33.1 55.3,29.8
+  loop Stranglethorn Vale lvl 37 lap 333 yield 1.0 only Alliance r 60 at 35.6,23.5 36.7,23.8 39.7,22.7 39.9,19.5 41.7,15.0 40.1,12.0 37.8,16.8 34.2,16.4 31.7,16.6 29.9,19.9 33.2,21.4 34.3,23.0
+  loop Stonetalon Mountains lvl 17 lap 327 yield 4.4 only Horde r 60 at 77.2,95.5 79.8,93.2 83.6,89.3 85.5,85.1 84.0,85.2 81.3,89.1 80.3,87.4 78.2,87.4 75.8,83.1 75.0,88.1 72.4,88.7 73.0,91.4
+  loop Riverglades lvl 39 lap 338 yield 3.4 only Horde live r 60 at 77.0,60.5 70.9,59.2 68.8,61.5 69.5,64.4 69.8,67.4 69.0,70.1 67.0,70.5 65.1,61.0 67.7,55.5 67.1,51.7 71.1,51.1 70.4,56.0
+  loop Hillsbrad Foothills lvl 31 lap 323 yield 1.9 only Horde r 60 at 63.8,53.8 59.3,46.0 61.7,44.2 64.1,39.1 66.3,38.7 66.9,35.8 68.1,32.4 67.5,29.4 68.7,22.5 68.8,27.2 69.2,37.8 72.1,60.6
+  loop Stranglethorn Vale lvl 38 lap 332 yield 1.4 only Horde r 60 at 35.6,23.5 36.7,23.8 39.7,22.7 39.9,19.5 37.8,16.8 34.2,16.4 31.7,16.6 29.9,19.9 30.3,24.7 34.3,26.1 33.2,21.4 34.3,23.0
+  auction 3355 x45
 
-step Get Wild Steelbloom (Horde)
-  only Horde
-  zone Stonetalon Mountains
-  tip You need 40 Wild Steelbloom for Alchemy 150-225: Elixir of Defense (8 of them for 225-300: get them all now). Herbalism: Wild Steelbloom (skill 115) in Stonetalon Mountains (15-27), Arathi Highlands (30-40) and Stranglethorn Vale (30-45). The densest patch of Wild Steelbloom in Stonetalon Mountains is marked. Or buy them at the Auction House.
-  collect 3355 x40 @58.6,84.2 era gather Herbalism 115
-  auction 3355 x40
+step Get Kingsblood
+  tip 42 Kingsblood for Alchemy 150-225: 42 Mana Potions. Herbalism: Kingsblood (skill 125) in Wetlands (20-30), Stranglethorn Vale (30-45) and Riverglades (38-47). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 3356 x42 gather Herbalism 125
+  loop Riverglades lvl 39 lap 333 yield 8.0 only Alliance live r 60 at 46.1,82.1 44.2,82.7 37.9,77.3 37.1,73.8 35.4,75.0 35.7,71.8 34.0,69.8 37.5,60.7 38.2,58.8 38.9,64.8 38.6,70.6 40.2,75.4
+  loop Wetlands lvl 32 lap 660 yield 9.3 only Alliance r 60 at 43.8,25.6 32.6,28.8 22.7,27.8 30.9,45.0 34.0,44.4 37.7,41.0 44.6,34.5 44.9,42.4 49.7,52.0 62.1,39.3 60.3,33.1 55.3,29.8
+  loop Stranglethorn Vale lvl 40 lap 550 yield 7.1 only Alliance r 60 at 41.7,11.7 31.4,12.1 27.9,14.8 30.2,20.3 32.3,18.5 34.1,16.0 37.6,17.4 39.6,19.3 45.0,30.9 46.3,29.4 48.1,24.8 44.1,18.6
+  loop Ashenvale lvl 27 lap 331 yield 2.7 only Alliance r 60 at 63.8,54.8 66.6,54.0 66.6,57.2 67.5,55.6 70.2,56.7 69.7,50.8 68.9,49.0 68.5,50.6 67.2,50.4 63.9,47.4 58.5,56.8 62.2,61.1
+  loop Riverglades lvl 39 lap 338 yield 6.8 only Horde live r 60 at 77.0,60.5 70.9,59.2 68.8,61.5 69.5,64.4 69.8,67.4 69.0,70.1 67.0,70.5 65.1,61.0 67.7,55.5 67.1,51.7 71.1,51.1 70.4,56.0
+  loop Stranglethorn Vale lvl 38 lap 433 yield 5.3 only Horde r 60 at 35.6,23.5 37.8,16.8 41.5,11.7 40.1,12.0 34.0,11.4 26.8,13.9 28.4,14.5 31.2,16.4 33.4,18.8 33.2,21.4 30.3,24.7 34.3,23.0
+  loop The Barrens lvl 18 lap 321 yield 2.6 only Horde r 60 at 46.1,32.6 47.9,32.6 48.6,32.0 49.2,32.7 48.8,35.0 47.9,34.5 47.3,33.6 46.5,34.3 45.7,35.3 45.3,36.2 43.1,37.6 45.8,33.6
+  loop Hillsbrad Foothills lvl 26 lap 315 yield 2.2 only Horde r 60 at 70.8,55.8 72.6,52.0 75.7,52.7 76.5,57.3 74.9,59.5 72.1,60.6 71.1,64.8 69.1,63.7 66.7,56.0 63.8,53.8 69.9,47.9 69.3,51.1
+  auction 3356 x42
 
-step Get Kingsblood (Alliance)
-  only Alliance
-  zone Stranglethorn Vale
-  tip You need 39 Kingsblood for Alchemy 150-225: Mana Potion. Herbalism: Kingsblood (skill 125) in Ashenvale (18-30), Wetlands (20-30) and Stranglethorn Vale (30-45). The densest patch of Kingsblood in Stranglethorn Vale is marked. Or buy them at the Auction House.
-  collect 3356 x39 @38.2,34.2 era gather Herbalism 125
-  auction 3356 x39
+step Get Stranglekelp
+  tip 42 Stranglekelp for Alchemy 150-225: 42 Mana Potions. Herbalism: Stranglekelp (skill 85) in Wetlands (20-30), Stranglethorn Vale (30-45) and The Hinterlands (40-50). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 3820 x42 gather Herbalism 100
+  loop Stranglethorn Vale lvl 41 lap 334 yield 13.4 r 60 at 21.4,53.3 22.0,51.3 22.6,49.0 22.2,45.7 23.6,47.0 24.9,48.5 25.9,47.8 25.4,57.0 23.9,58.5 22.8,59.3 21.6,60.4 22.1,56.5
+  loop Westfall lvl 19 lap 538 yield 6.1 only Alliance r 60 at 36.1,37.0 36.9,33.0 39.5,32.7 45.3,25.1 34.4,16.2 32.7,18.8 25.9,38.6 24.5,55.2 36.9,57.1 43.7,55.5 37.3,45.7 31.5,43.9
+  loop The Hinterlands lvl 41 lap 312 yield 4.6 only Horde r 60 at 80.4,88.7 82.4,88.0 83.0,81.4 77.2,89.6
+  loop Ashenvale lvl 30 lap 529 yield 2.1 only Horde r 60 at 73.0,58.2 70.2,56.7 69.9,61.2 67.5,63.3 65.6,65.7 63.8,54.8 74.4,46.0 78.6,53.2 79.5,61.9 81.6,64.1 81.4,66.4 79.4,70.0
+  auction 3820 x42
 
-step Get Kingsblood (Horde)
-  only Horde
-  zone The Barrens
-  tip You need 39 Kingsblood for Alchemy 150-225: Mana Potion. Herbalism: Kingsblood (skill 125) in The Barrens (10-25), Ashenvale (18-30) and Stranglethorn Vale (30-45). The densest patch of Kingsblood in The Barrens is marked. Or buy them at the Auction House.
-  collect 3356 x39 @44.5,75 era gather Herbalism 125
-  auction 3356 x39
-
-step Get Stranglekelp (Alliance)
-  only Alliance
-  zone Stranglethorn Vale
-  tip You need 39 Stranglekelp for Alchemy 150-225: Mana Potion. Herbalism: Stranglekelp (skill 85) in Wetlands (20-30), Stranglethorn Vale (30-45) and The Hinterlands (40-50). The densest patch of Stranglekelp in Stranglethorn Vale is marked. Or buy them at the Auction House.
-  collect 3820 x39 @22.9,62.5 era gather Herbalism 85
-  auction 3820 x39
-
-step Get Stranglekelp (Horde)
-  only Horde
-  zone The Barrens
-  tip You need 39 Stranglekelp for Alchemy 150-225: Mana Potion. Herbalism: Stranglekelp (skill 85) in The Barrens (10-25), Stranglethorn Vale (30-45) and The Hinterlands (40-50). The densest patch of Stranglekelp in The Barrens is marked. Or buy them at the Auction House.
-  collect 3820 x39 @65.9,44.6 era gather Herbalism 85
-  auction 3820 x39
-
-step Get Goldthorn (Alliance)
-  only Alliance
-  zone Arathi Highlands
-  tip You need 40 Goldthorn for Alchemy 150-225: Elixir of Defense (8 of them for 225-300: get them all now). Herbalism: Goldthorn (skill 170) in Arathi Highlands (30-40), The Hinterlands (40-50) and Feralas (40-50). The densest patch of Goldthorn in Arathi Highlands is marked. Or buy them at the Auction House.
-  collect 3821 x40 @49.1,71.5 era gather Herbalism 170
-  auction 3821 x40
-
-step Get Goldthorn (Horde)
-  only Horde
-  zone Feralas
-  tip You need 40 Goldthorn for Alchemy 150-225: Elixir of Defense (8 of them for 225-300: get them all now). Herbalism: Goldthorn (skill 170) in Arathi Highlands (30-40), The Hinterlands (40-50) and Feralas (40-50). The densest patch of Goldthorn in Feralas is marked. Or buy them at the Auction House.
-  collect 3821 x40 @45,26.1 era gather Herbalism 170
-  auction 3821 x40
+step Get Goldthorn
+  tip 45 Goldthorn for Alchemy 150-225: 45 Elixirs of Defense (11 of them for 225-300: get them all now). Herbalism: Goldthorn (skill 170) in Riverglades (38-47), The Hinterlands (40-50) and Feralas (40-50). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 3821 x45 gather Herbalism 170
+  loop Riverglades lvl 39 lap 338 yield 7.1 only Alliance live r 60 at 38.6,65.1 37.1,61.6 39.0,57.7 32.1,59.5 33.7,70.2 35.9,71.7 37.1,74.3 36.4,77.0 38.1,76.5 40.1,74.9 38.7,72.9 38.6,68.9
+  loop Alterac Mountains lvl 43 lap 432 yield 7.1 r 60 at 58.2,41.8 53.8,42.0 48.1,41.9 39.3,59.2 33.6,52.4 36.1,47.9 36.8,26.1 37.3,13.6 39.6,16.8 47.3,15.3 52.5,18.5 50.2,29.5
+  loop Feralas lvl 45 lap 326 yield 3.9 r 60 at 60.2,57.6 61.8,59.5 62.3,64.2 60.2,64.2 60.1,62.3 57.3,59.2 55.6,57.9 56.9,56.9 58.8,58.5 59.8,56.4 60.5,52.1 61.4,54.9
+  loop The Hinterlands lvl 51 lap 469 yield 5.1 r 60 at 56.8,43.5 59.1,42.0 63.2,44.1 65.5,46.7 67.8,47.0 71.6,48.3 64.1,50.4 53.5,55.1 49.2,62.7 49.1,48.0 45.1,42.3 51.6,39.5
+  loop Stranglethorn Vale lvl 37 lap 333 yield 1.8 only Alliance r 60 at 35.6,23.5 36.7,23.8 39.7,22.7 39.9,19.5 41.7,15.0 40.1,12.0 37.8,16.8 34.2,16.4 31.7,16.6 29.9,19.9 33.2,21.4 34.3,23.0
+  loop Ashenvale lvl 41 lap 414 yield 0.9 only Alliance r 60 at 99.8,30.8 100.3,40.8 79.6,44.9
+  loop Riverglades lvl 42 lap 439 yield 14.3 only Horde live r 60 at 51.2,53.1 51.6,50.7 54.7,46.9 56.4,43.3 61.7,39.8 63.5,37.0 60.5,35.8 60.7,32.3 59.0,32.9 56.9,36.6 46.7,41.4 45.4,53.7
+  loop Swamp of Sorrows lvl 38 lap 326 yield 2.8 only Horde r 60 at 21.9,62.0 24.6,59.1 28.2,62.2 32.2,52.1 38.4,46.7 43.9,41.7 40.0,38.2 35.1,29.8 30.3,31.6 20.8,42.3 21.2,55.3 13.8,61.8
+  loop Stranglethorn Vale lvl 38 lap 332 yield 1.4 only Horde r 60 at 35.6,23.5 36.7,23.8 39.7,22.7 39.9,19.5 37.8,16.8 34.2,16.4 31.7,16.6 29.9,19.9 30.3,24.7 34.3,26.1 33.2,21.4 34.3,23.0
+  loop Hillsbrad Foothills lvl 35 lap 348 yield 0.8 only Horde r 60 at 51.4,5.4 54.3,4.9 58.2,2.7 68.7,22.5 68.8,27.2 67.5,29.4 68.1,32.4 66.9,35.8 66.3,38.7 64.1,39.1 61.7,44.2 59.3,46.0
+  loop Ashenvale lvl 41 lap 621 yield 0.9 only Horde r 60 at 99.8,30.8 100.3,40.8 90.1,45.5 92.5,51.6 92.4,59.8 91.3,64.2 81.8,51.1 79.6,44.9 77.8,42.2
+  auction 3821 x45
 
 step Expert Alchemy
-  zone Azeroth
-  tip Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs Alchemy 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance Ainethil (Darnassus); Horde Doctor Herbert Halsey (Undercity). The arrow picks the nearest of your faction. 150-225 takes about 33s 20c of vendor goods, plus 40 Wild Steelbloom, 39 Kingsblood, 39 Stranglekelp and 40 Goldthorn to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach Mana Potion (from 160) and Elixir of Defense (from 195), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3.
+  tip Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs Alchemy 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance Ainethil (Darnassus); Horde Doctor Herbert Halsey (Undercity). This route trains it at Ainethil (Darnassus) for the Alliance and Doctor Herbert Halsey (Undercity) for the Horde, who also teach the recipes of 150-225: one trainer for every visit. 150-225 takes about 33s 20c of vendor goods, plus 45 Wild Steelbloom, 42 Kingsblood, 42 Stranglekelp and 45 Goldthorn to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach Mana Potion (from 160) and Elixir of Defense (from 195), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3.
   level 20
-  train Alchemy Expert
+  train Alchemy Expert npc 4160 only Alliance
+  train Alchemy Expert npc 4611 only Horde
 
 step Lesser Troll's Blood Elixir to 160
-  tip Lesser Troll's Blood Elixir is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 Bruiseweed, 2 Briarthorn and 1 Leaded Vial. Two Bruiseweed and two Briarthorn a craft; Bruiseweed grows in the 15-30 zones. If you got here without learning Lesser Troll's Blood Elixir, learn it now: an earlier step teaches it.
+  tip Lesser Troll's Blood Elixir is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160, up to 14 for 9 players in 10 (the gathered materials above count that many). Each takes 2 Bruiseweed, 2 Briarthorn and 1 Leaded Vial. Two Bruiseweed and two Briarthorn a craft; Bruiseweed grows in the 15-30 zones. If you got here without learning Lesser Troll's Blood Elixir, learn it now: an earlier step teaches it.
   learn 3176
   craft 3176 until 160
 
 step Alchemy recipes at 160
   tip Still at the Expert trainer: Mana Potion (from 160).
-  learn 3452
+  learn 3452 npc 4160 only Alliance
+  learn 3452 npc 4611 only Horde
 
 step Mana Potion to 195
-  tip Mana Potion is orange at 160 (yellow 180, green 200, grey 220): about 39 crafts to 195. Each takes 1 Stranglekelp, 1 Kingsblood and 1 Leaded Vial. Stranglekelp grows under water along the coasts: bring a water breathing elixir or come up for air. Kingsblood grows in the 20-40 zones.
+  tip Mana Potion is orange at 160 (yellow 180, green 200, grey 220): about 39 crafts to 195, up to 42 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Stranglekelp, 1 Kingsblood and 1 Leaded Vial. Stranglekelp grows under water along the coasts: bring a water breathing elixir or come up for air. Kingsblood grows in the 20-40 zones.
   craft 3452 until 195
 
 step Alchemy recipes at 195
   tip Still at the Expert trainer: Elixir of Defense (from 195).
-  learn 11450
+  learn 11450 npc 4160 only Alliance
+  learn 11450 npc 4611 only Horde
 
 step Elixir of Defense to 225
-  tip Elixir of Defense is orange at 195 (yellow 215, green 235, grey 255): about 32 crafts to 225. Each takes 1 Wild Steelbloom, 1 Goldthorn and 1 Leaded Vial. Wild Steelbloom and Goldthorn are the herbs of the 30-45 zones (Stranglethorn, Arathi, the Badlands). Alchemy 225 is a Legacy System milestone.
+  tip Elixir of Defense is orange at 195 (yellow 215, green 235, grey 255): about 32 crafts to 225, up to 34 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Wild Steelbloom, 1 Goldthorn and 1 Leaded Vial. Wild Steelbloom and Goldthorn are the herbs of the 30-45 zones (Stranglethorn, Arathi, the Badlands). Alchemy 225 is a Legacy System milestone.
   craft 11450 until 225
   skill Alchemy 225
 
@@ -440,73 +301,62 @@ step Recipe: Elixir of Superior Defense
   tip Recipe: Elixir of Superior Defense teaches Elixir of Greater Defense (Alchemy 265) for 1g 30s. Sold by Alliance: Soolie Berryfizz (Ironforge), limited stock; Horde: Kor'geld (Orgrimmar), limited stock. Its sellers keep one or two in stock that come back some time after a sale; the Auction House often has it too.
   buy 13478 nearest
 
-step Get Arthas' Tears (Alliance)
-  only Alliance
-  zone Western Plaguelands
-  tip You need 43 Arthas' Tears for Alchemy 225-300: Draught of Detect Undead. Herbalism: Arthas' Tears (skill 220) in Felwood (48-55), Western Plaguelands (51-58) and Eastern Plaguelands (53-60). The densest patch of Arthas' Tears in Western Plaguelands is marked. Or buy them at the Auction House.
-  collect 8836 x43 @45.5,67.5 era gather Herbalism 220
-  auction 8836 x43
+step Get Purple Lotus
+  tip 144 Purple Lotus for Alchemy 225-300: 48 Dreamless Sleep Potions. Herbalism: Purple Lotus (skill 210) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 8831 x144 gather Herbalism 210
+  loop Feralas lvl 47 lap 367 yield 6.5 r 60 at 55.6,73.8 59.5,73.8 60.7,68.9 59.9,66.9 60.1,64.5 60.2,60.5 60.2,57.6 58.4,55.7 58.5,58.2 57.2,61.0 57.0,65.2 54.1,66.7
+  loop Tanaris lvl 43 lap 318 yield 4.6 r 60 at 60.2,23.6 60.8,22.7 61.7,24.1 65.7,20.1 65.6,29.2 64.2,32.2 63.3,35.0 61.7,29.8 57.0,24.8
+  loop The Hinterlands lvl 51 lap 469 yield 6.4 r 60 at 56.8,43.5 59.1,42.0 63.2,44.1 65.5,46.7 67.8,47.0 71.6,48.3 64.1,50.4 53.5,55.1 49.2,62.7 49.1,48.0 45.1,42.3 51.6,39.5
+  loop Azshara lvl 57 lap 340 yield 4.6 only Alliance r 60 at 29.6,47.4 31.9,43.4 34.3,39.4 35.0,43.5 37.3,46.0 35.4,51.5 33.0,56.6 26.6,56.6 25.2,54.3 27.3,53.7 31.6,51.2 33.2,49.6
+  loop Azshara lvl 57 lap 355 yield 5.0 only Horde r 60 at 29.6,47.4 24.6,49.3 25.2,54.3 26.6,56.6 33.0,56.6 35.4,51.5 37.3,46.0 35.0,43.5 34.3,39.4 31.9,43.4 33.2,49.6 31.6,51.2
+  auction 8831 x144
 
-step Get Arthas' Tears (Horde)
-  only Horde
-  zone Felwood
-  tip You need 43 Arthas' Tears for Alchemy 225-300: Draught of Detect Undead. Herbalism: Arthas' Tears (skill 220) in Felwood (48-55), Western Plaguelands (51-58) and Eastern Plaguelands (53-60). The densest patch of Arthas' Tears in Felwood is marked. Or buy them at the Auction House.
-  collect 8836 x43 @37.8,45.1 era gather Herbalism 220
-  auction 8836 x43
+step Get Sungrass
+  tip 48 Sungrass for Alchemy 225-300: 48 Elixirs of Greater Defense. Herbalism: Sungrass (skill 230) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 8838 x48 gather Herbalism 230
+  loop The Hinterlands lvl 45 lap 344 yield 11.6 only Alliance r 60 at 22.3,56.8 18.4,54.3 18.2,51.0 22.0,52.6 26.1,54.8 28.5,53.9 30.4,53.4 34.4,46.8 36.3,58.3 31.4,63.7 29.7,65.5 27.0,62.4
+  loop Feralas lvl 47 lap 367 yield 8.3 r 60 at 55.6,73.8 59.5,73.8 60.7,68.9 59.9,66.9 60.1,64.5 60.2,60.5 60.2,57.6 58.4,55.7 58.5,58.2 57.2,61.0 57.0,65.2 54.1,66.7
+  loop Blasted Lands lvl 57 lap 396 yield 4.8 only Alliance r 60 at 55.6,51.0 59.5,50.1 62.1,52.1 62.6,44.6 63.5,32.1 59.9,26.5 50.9,29.0 53.5,37.3 47.6,40.9 45.5,36.4 41.9,39.6 53.6,56.5
+  loop Western Plaguelands lvl 60 lap 607 yield 2.3 r 60 at 37.1,55.7 38.7,53.4 44.4,35.0 47.6,44.7 54.6,50.1 60.0,53.1 66.4,42.2 67.8,45.1 62.1,58.3 59.6,60.8 53.0,65.2 46.3,51.7
+  loop The Hinterlands lvl 46 lap 363 yield 8.0 only Horde r 60 at 22.3,56.8 24.0,59.2 27.0,62.4 29.7,65.5 31.0,66.9 31.4,63.7 34.5,61.5 47.0,54.8 40.9,49.9 37.7,54.5 36.3,58.3 31.2,58.5
+  loop Felwood lvl 53 lap 473 yield 1.1 only Horde r 60 at 47.0,23.8 43.4,21.6 44.9,18.2 51.5,12.3 52.0,18.7 55.4,20.8 56.8,27.3 53.1,23.9 52.3,27.2 50.7,32.8 47.2,39.3 48.1,28.5
+  auction 8838 x48
 
-step Get Sungrass (Alliance)
-  only Alliance
-  zone The Hinterlands
-  tip You need 43 Sungrass for Alchemy 225-300: Elixir of Greater Defense. Herbalism: Sungrass (skill 230) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The densest patch of Sungrass in The Hinterlands is marked. Or buy them at the Auction House.
-  collect 8838 x43 @22.9,52.9 era gather Herbalism 230
-  auction 8838 x43
-
-step Get Sungrass (Horde)
-  only Horde
-  zone Feralas
-  tip You need 43 Sungrass for Alchemy 225-300: Elixir of Greater Defense. Herbalism: Sungrass (skill 230) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The densest patch of Sungrass in Feralas is marked. Or buy them at the Auction House.
-  collect 8838 x43 @56.1,55 era gather Herbalism 230
-  auction 8838 x43
-
-step Get Stonescale Eel (Alliance)
-  only Alliance
+step Get Stonescale Eel
   zone Stranglethorn Vale
-  tip You need 43 Stonescale Eel for Alchemy 225-300: Elixir of Greater Defense. Fish them from the Stonescale Eel Swarm pools at the marked spot. Or buy them at the Auction House.
-  collect 13422 x43 @27.5,76.5 era gather Fishing 1
-  auction 13422 x43
-
-step Get Stonescale Eel (Horde)
-  only Horde
-  zone Feralas
-  tip You need 43 Stonescale Eel for Alchemy 225-300: Elixir of Greater Defense. Fish them from the Stonescale Eel Swarm pools at the marked spot. Or buy them at the Auction House.
-  collect 13422 x43 @44.2,46.5 era gather Fishing 1
-  auction 13422 x43
+  tip 48 Stonescale Eel for Alchemy 225-300: 48 Elixirs of Greater Defense. Fish them from the Stonescale Eel Swarm pools at the marked spot. Or buy them at the Auction House.
+  collect 13422 x48 @27.5,76.5 era gather Fishing 225
+  auction 13422 x48
 
 step Artisan Alchemy
   zone Azeroth
-  tip Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs Alchemy 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance Kylanna Windwhisper (Feralas); Horde Rogvar (Swamp of Sorrows). The arrow picks the nearest of your faction. 225-300 takes about 1g 30s of recipes and 4g 50s 40c of vendor goods, plus 43 Arthas' Tears, 43 Sungrass and 43 Stonescale Eel to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach Draught of Detect Undead (from 230) and Stonescale Oil (from 250), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3.
+  tip Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs Alchemy 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance Kylanna Windwhisper (Feralas) and Master Mycologist Shurome (Felwood); Horde Master Mycologist Shurome (Felwood) and Rogvar (Swamp of Sorrows). This route trains it at Kylanna Windwhisper (Feralas) for the Alliance and Rogvar (Swamp of Sorrows) for the Horde, who also teach the recipes of 225-300: one trainer for every visit. 225-300 takes about 1g 30s of recipes and 4g 50s 40c of vendor goods, plus 144 Purple Lotus, 48 Sungrass and 48 Stonescale Eel to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach Dreamless Sleep Potion (from 230) and Stonescale Oil (from 250), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3.
   level 35
-  train Alchemy Artisan
+  train Alchemy Artisan npc 7948 only Alliance
+  train Alchemy Artisan npc 1386 only Horde
 
 step Elixir of Defense to 230
-  tip Elixir of Defense is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 Wild Steelbloom, 1 Goldthorn and 1 Leaded Vial. Wild Steelbloom and Goldthorn are the herbs of the 30-45 zones (Stranglethorn, Arathi, the Badlands). If you got here without learning Elixir of Defense, learn it now: an earlier step teaches it.
-  learn 11450
+  tip Elixir of Defense is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230, up to 11 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Wild Steelbloom, 1 Goldthorn and 1 Leaded Vial. Wild Steelbloom and Goldthorn are the herbs of the 30-45 zones (Stranglethorn, Arathi, the Badlands). If you got here without learning Elixir of Defense, learn it now: an earlier step teaches it.
+  learn 11450 npc 4160 only Alliance
+  learn 11450 npc 4611 only Horde
   craft 11450 until 230
 
 step Alchemy recipes at 230
-  tip Still at the Artisan trainer: Draught of Detect Undead (from 230).
-  learn 11460
+  tip Still at the Artisan trainer: Dreamless Sleep Potion (from 230).
+  learn 15833 npc 7948 only Alliance
+  learn 15833 npc 1386 only Horde
 
-step Draught of Detect Undead to 265
-  tip Draught of Detect Undead is orange at 230 (yellow 245, green 265, grey 285): about 43 crafts to 265. Each takes 1 Arthas' Tears and 1 Crystal Vial. Arthas' Tears grow in the Plaguelands and Felwood (Herbalism 220); Crystal Vials come from alchemy vendors.
-  craft 11460 until 265
+step Dreamless Sleep Potion to 265
+  tip Dreamless Sleep Potion is orange at 230 (yellow 245, green 265, grey 285): about 43 crafts to 265, up to 48 for 9 players in 10 (the gathered materials above count that many). Each takes 3 Purple Lotus and 1 Crystal Vial. Three Purple Lotus a craft (Herbalism 210: the Hinterlands and Feralas, mobs of level 44-47) and a Crystal Vial from an alchemy vendor. The Herbalism guide's loops there give Sungrass for the last stretch too.
+  craft 15833 until 265
 
 step Alchemy recipes at 265
   tip Still at the Artisan trainer: Stonescale Oil (from 250).
-  learn 17551
+  learn 17551 npc 7948 only Alliance
+  learn 17551 npc 1386 only Horde
 
 step Elixir of Greater Defense to 300
-  tip Elixir of Greater Defense is orange at 265 (yellow 280, green 300, grey 320): about 43 crafts to 300. Each takes 2 Stonescale Oil, 1 Sungrass and 1 Crystal Vial. Make the 86 Stonescale Oil (43 crafts) first. Stonescale Eel comes from the Stonescale Eel schools on the coasts of the 40-55 zones, or the Auction House (fishers sell them in stacks). Sungrass grows in the 40-55 zones. Alchemy 300 is a Legacy System milestone.
+  tip Elixir of Greater Defense is orange at 265 (yellow 280, green 300, grey 320): about 43 crafts to 300, up to 48 for 9 players in 10 (the gathered materials above count that many). Each takes 2 Stonescale Oil, 1 Sungrass and 1 Crystal Vial. Make the 86 Stonescale Oil (43 crafts) first. Stonescale Eel comes from the Stonescale Eel schools on the coasts of the 40-55 zones, or the Auction House (fishers sell them in stacks). Sungrass grows in the 40-55 zones. Alchemy 300 is a Legacy System milestone.
   learn 17554 -- from the recipe in your bags
   craft 17551 x43
   craft 17554 until 300

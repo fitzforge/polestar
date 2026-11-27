@@ -34,8 +34,8 @@ ns.UI.GuideFrame.Part(function(GF)
 	local max = math.max
 
 	GF.REGIONS = {
-		profession = { "meter", "trainer", "stretch", "supplies", "buyList" },
-		reputation = { "meter", "turnin", "supplies", "more" },
+		profession = { "meter", "stretch", "get", "step", "shopping" },
+		reputation = { "meter", "turnin", "step", "more" },
 		dungeon = { "brief", "ready", "step", "pickups", "entrance" },
 	}
 
@@ -56,7 +56,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	GF.Bind(function(p) card = p.card end)
 
 	-- This window's region frames, built on first use; the regions the step
-	-- shows now, in order: { { id, def, frame, model } }; the goals they cover.
+	-- shows now, in order: { { id, def, frame, model, after } }; the goals they cover.
 	local frames, active = {}, { n = 0 }
 	local covered, coveredView = {}, nil
 
@@ -83,15 +83,20 @@ ns.UI.GuideFrame.Part(function(GF)
 	end
 
 	-- Works out the regions for `view` (the step on the card) and paints them;
-	-- every other region frame hides. -> true when some region shows
+	-- every other region frame hides. A guide kind without regions allocates
+	-- nothing here (it runs on every render). -> true when some region shows
+	local EMPTY = {}
 	function GF.FillRegions(view)
 		local E = GF.Engine()
 		local kind = E and E.GuideKind and E.GuideKind() or "leveling"
-		local list = view and GF.RegionsFor(view, kind) or nil
-		covered, coveredView = {}, view
+		local list = view and GF.RegionsFor(view, kind) or EMPTY
+		if next(covered) then wipe(covered) end
+		coveredView = view
+		local hadMeter = GF.RegionShown("meter")
+		active.n = 0
 		local n, m = 0, mode()
 		local after = false
-		for _, id in ipairs(list or {}) do
+		for _, id in ipairs(list) do
 			if id == "step" then after = true end
 			local def = defs[id]
 			local model = def and def.model(view, kind)
@@ -101,16 +106,18 @@ ns.UI.GuideFrame.Part(function(GF)
 				local a = active[n] or {}
 				active[n] = a
 				a.id, a.def, a.frame, a.model, a.after = id, def, f, model, after
+				-- A later region may read an earlier one's model as it paints (GF.RegionModel).
+				active.n = n
 				cover(model)
 				if def.paint then def.paint(f, model, m) end
 			end
 		end
 		for i = n + 1, #active do active[i] = nil end
 		active.n = n
-		local on = {}
-		for i = 1, n do on[active[i].id] = true end
+		-- The XP row leaves the skill out while the meter shows (UI/GuideFrameStatus.lua).
+		if hadMeter ~= GF.RegionShown("meter") and GF.UpdateXP then GF.UpdateXP() end
 		for id, f in pairs(frames) do
-			if not on[id] then f:Hide() end
+			if not GF.RegionShown(id) then f:Hide() end
 		end
 		return n > 0
 	end
@@ -147,7 +154,17 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		f:SetHeight(h)
 		f:Show()
-		if GF.Claimed(a.id, f, width, h) then return 0 end
+		local hosted = GF.Claimed(a.id, f, width, h) or nil
+		-- A region on a card of the layout's own draws no card of its own (UI/GuideFrameKindCraft.lua).
+		if f.psHosted ~= hosted then
+			f.psHosted = hosted
+			local own = rawget(f, "Card")
+			if own then
+				own.psBare = (hosted or GF.Transparent()) and true or nil
+				ns.Theme.Repaint(own)
+			end
+		end
+		if hosted then return 0 end
 		f:ClearAllPoints()
 		return h
 	end

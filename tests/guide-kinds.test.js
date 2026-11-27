@@ -52,10 +52,10 @@ const LEVELING = `{ id = "test/kind", pack = "test", title = "Elwynn", minLevel 
 
 const run = (guide, setup) => runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar'], script: script(guide, setup) }).emitted[0];
 
-test('a profession guide: the skill line in the XP row, no XP or pace; its menu leads with its trainer, no hand-ins, Free mode or log clean-up', () => {
+test('a profession guide: no XP or pace (its skill is the meter over the step); its menu leads with its trainer, no hand-ins, Free mode or log clean-up', () => {
 	const out = run(PROFESSION());
 	assert.equal(out.kind, 'profession', 'the Professions category');
-	assert.equal(out.xp, 'Tailoring 87 / 150  ·  next stretch to 100  ·  step 2 needs level 35 (Artisan Tailoring)');
+	assert.equal(out.xp, false, 'the skill meter (UI/GuideFrameKindCraft.lua) says the skill; the XP row has nothing left');
 	assert.ok(!out.menu.some((t) => /Hand in finished|None to hand in|Clean up quest log|Quest log is clean|Free mode/.test(t)), out.menu.join(' | '));
 	assert.deepEqual(out.menu.slice(0, 4), ['bar', '-', 'Nearest Tailoring trainer', '-'], 'the trainer first, after the window toggles');
 });

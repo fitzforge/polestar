@@ -3177,6 +3177,10 @@ GF.Part(function(GF)
 		card.Tip.psImage = pic
 		card.Tip.Text:SetText(note or (pic and L["Picture of this spot"]) or "")
 		card.Tip:SetShown(note ~= nil or pic ~= nil)
+		-- A profession guide's tip is one short line under the step, never opened: the whole text is its tooltip.
+		card.Tip.psLine = E and E.GuideKind and E.GuideKind() == "profession" and true or nil
+		card.Tip.psNote = note
+		card.Tip.Toggle:SetShown(not card.Tip.psLine)
 		W.SetIcon(card.Tip.Toggle, tipOpen and "chevron-up" or "chevron-down")
 		return groups, focus
 	end
@@ -3682,11 +3686,16 @@ GF.Part(function(GF)
 		tip.Toggle:EnableMouse(false)
 		tip.Toggle:SetPoint("TOPLEFT", tip, "TOPLEFT", PAD - 2, -3)
 		tip:SetScript("OnClick", function()
+			if tip.psLine then return end
 			tipOpen = not tipOpen
 			W.SetIcon(tip.Toggle, tipOpen and "chevron-up" or "chevron-down")
 			GF.Layout()
 		end)
-		tip:SetScript("OnEnter", function() GF.HoverIn() end)
+		tip:SetScript("OnEnter", function()
+			GF.HoverIn()
+			if tip.psLine and tip.psNote then W.Tooltip(tip, "ANCHOR_TOP", tip.psNote) end
+		end)
+		tip:SetScript("OnLeave", function() W.HideTooltip(tip) end)
 		card.Tip = tip
 
 		-- "Then: Gazrog" on the left, "Person 2 of 8" on the right.

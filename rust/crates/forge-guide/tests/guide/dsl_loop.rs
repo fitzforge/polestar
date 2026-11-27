@@ -141,7 +141,8 @@ fn a_loop_needs_two_points_on_one_map_and_frame_a_goal_to_search_them_and_nothin
 		assert_match(&errors(&["step L", "  loop", "  goto 47.6,35.1", "  goto 52.3,26.8", goal]), r"`loop` needs an unpinned");
 	}
 	assert_match(&errors(&["step L", "  loop", "  loop", "  goto 47.6,35.1", "  goto 52.3,26.8", "  kill 6"]), r"duplicate `loop` in step");
-	assert_match(&errors(&["step L", "  loop now", "  goto 47.6,35.1", "  goto 52.3,26.8", "  kill 6"]), r"`loop` takes nothing");
+	// Words after `loop` make it a farming loop line (`loop <zone> … at …`), which needs its points.
+	assert_match(&errors(&["step L", "  loop now", "  goto 47.6,35.1", "  goto 52.3,26.8", "  kill 6"]), r"a `loop` needs at least two points after `at`");
 	assert_match(&errors(&["step L", "  loop", "  goto 47.6,35.1", "  goto 50,50 map 1411", "  kill 6"]), r"`loop` points must all be on one map");
 	assert_match(&errors(&["step L", "  loop", "  goto 47.6,35.1", "  goto 50,50 live", "  kill 6"]), r"`loop` points must all be in one map frame");
 	assert_match(&errors(&["step L", "  loop", "  goto 47.6,35.1", "  goto 50,50 optional", "  kill 6"]), r"a `loop` point cannot be `optional` or have `only`");

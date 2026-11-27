@@ -48,6 +48,8 @@ mod dsl_gossip_wait;
 mod dsl_guide_reward;
 #[path = "dsl-loop.rs"]
 mod dsl_loop;
+#[path = "dsl-loops.rs"]
+mod dsl_loops;
 #[path = "dsl-rewards.rs"]
 mod dsl_rewards;
 #[path = "dsl-shared-candidates.rs"]
@@ -156,6 +158,8 @@ mod engine_level_hold;
 mod engine_level_pick;
 #[path = "engine-level-wait.rs"]
 mod engine_level_wait;
+#[path = "engine-loops.rs"]
+mod engine_loops;
 #[path = "engine-lost-quest.rs"]
 mod engine_lost_quest;
 #[path = "engine-manual.rs"]

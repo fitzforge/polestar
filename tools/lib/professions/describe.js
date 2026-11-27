@@ -54,6 +54,20 @@ function article(word) {
 	return /^[AEIOU]/i.test(word) ? `an ${word}` : `a ${word}`;
 }
 
+// "40 Woolen Capes", "14 Bolts of Linen Cloth", "17 Formal White Shirts"; a name that already reads as a
+// plural (Gloves, Boots), a mass noun (Light Leather, Rough Blasting Powder) or an enchant ("Enchant Bracer -
+// Minor Stamina") stays as it is.
+function crafts(n, name) {
+	if (n === 1 || / - /.test(name) || /^Enchant /.test(name)) return `${n} ${name}`;
+	const one = (w) => (/s$/.test(w) ? w : /(x|ch|sh)$/.test(w) ? `${w}es` : /[^aeiou]y$/.test(w) ? `${w.slice(0, -1)}ies` : `${w}s`);
+	const of = /^(\S+)( of .+)$/.exec(name);
+	if (of) return `${n} ${one(of[1])}${of[2]}`;
+	if (/(Leather|Cloth|Powder|Mail)$/.test(name)) return `${n} ${name}`;
+	const words = name.split(' ');
+	words[words.length - 1] = one(words[words.length - 1]);
+	return `${n} ${words.join(' ')}`;
+}
+
 // Humanoids of these levels drop the cloth.
 const CLOTH_LEVELS = {
 	'Linen Cloth': [5, 20],
@@ -229,4 +243,4 @@ function rankTrainers(data, rank, side, prof) {
 	return [...new Set(ids.map((id) => npcPlace(data, id)).filter(Boolean))].sort();
 }
 
-module.exports = { SIDES, money, list, article, sourceText, townVendors, mainTown, rankTrainers, npcPlace, nodeZones, nodesUp, nodeTable, nodeNames, nodeSkill, CLOTH_LEVELS, HIDE_LEVELS, DISENCHANT_LEVELS, zoneName };
+module.exports = { SIDES, money, list, article, crafts, sourceText, townVendors, mainTown, rankTrainers, npcPlace, nodeZones, nodesUp, nodeTable, nodeNames, nodeSkill, CLOTH_LEVELS, HIDE_LEVELS, DISENCHANT_LEVELS, zoneName };

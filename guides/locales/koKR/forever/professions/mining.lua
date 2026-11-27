@@ -13,183 +13,113 @@ return {
 	-- plural, as words: Poor Copper Veins = {object:562111} Poor Copper Vein
 	["Any {skill:186} trainer of your faction teaches Apprentice {skill:186} at any level (10c), and so does the Junior Mining Trainer in each starting area; the arrow picks the nearest. Buy a {item:2901} from a trade goods or general vendor: keep it in your bags, you cannot mine without it. Turn on {spell:2580} (spellbook, General tab) so veins show on the minimap. Forever's starting areas also have Poor Copper Veins ({item:2770} and {item:2835}, from skill 1). The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's {item:11584}, A Humble Task, Marla's Last Wish) offers {item:247840} as a reward: reading it gives 2 skill, up to 15. Trade goods vendors and the junior trainers sell the {item:277115}, a four-slot bag for ore and stone (25c). If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: {skill:186}: hand it in to the mining trainer it names once you reach skill 20, for the {spell:1230161} recipe."] = "당신 진영의 어떤 {skill:186} 상급자든 초급 {skill:186}을(를) 어떤 레벨에서나 가르치며(10코퍼), 각 시작 지역의 견습 채광 상급자도 가르칩니다. 화살표가 가장 가까운 이를 가리킵니다. 무역 용품이나 일반 상인에게 {item:2901}을(를) 사세요. 가방에 두세요. 없이는 채광할 수 없습니다. {spell:2580}을(를) 켜면(마법책, 일반 탭) 광맥이 미니맵에 표시됩니다. Forever의 시작 지역에는 빈약한 구리 광맥({item:2770}과(와) {item:2835}, 숙련도 1부터)도 있습니다. 각 시작 지역의 첫 한 시간 퀘스트(건방진 설치류, 콜드리지 계곡 우편 배달, 숲의 수호자, 갈가르의 {item:11584}, 겸손한 부탁, 말라의 마지막 소원)가 보상으로 {item:247840}을(를) 주며, 읽으면 숙련도 2가 오르고 15까지 오릅니다. 무역 용품 상인과 견습 상급자가 광석과 돌을 담는 4칸 가방 {item:277115}(25코퍼)을 팝니다. 시작 지역 모닥불에서 위대한 야외를 했다면, 그곳의 야영 가이드도 야영 기초 101: {skill:186}을(를) 줍니다. 숙련도 20에 도달하면 그 가이드가 적어준 채광 상급자에게 제출해 {spell:1230161} 제조법을 받으세요.",
 
-	-- Step 2: Copper: Elwynn Forest (1-50)
-	-- {zone:1429} Elwynn Forest
-	["Copper: {zone:1429} (1-50)"] = "구리: {zone:1429} (1-50)",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, orange), Poor Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "지나가는 구리(1, 주황색), 질 낮은 구리(1, 주황색) 광맥을 모두 캐고, {skill:186} 50까지 경유지를 도세요. 가방이 차면 제련소에서 제련하세요. {spell:2657}(25까지 주황색, 70에 회색)도 숙련도를 올려 줍니다. 지역 레벨 1-10. 이번 49점에는 광맥 약 60개가 필요합니다.",
-	["Copper"] = "구리",
-	["Poor Copper"] = "빈약한 구리",
-	["Copper, Poor Copper"] = "구리, 빈약한 구리",
+	-- Step 2: Chunk of Amber & Poor Copper (1-50)
+	-- {object:656332} Chunk of Amber
+	["{object:656332} & Poor Copper (1-50)"] = "",
+	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {skill:186} Mining · {spell:2657} Smelt Copper · {item:2770} Copper Ore · {item:2835} Rough Stone · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every {object:656332} (1, orange), Copper (1, orange), {object:656333} (1, orange), Poor Copper (1, orange) node on the way until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 60 nodes for these 49 points: about 55 {item:2770} and 55 {item:2835}. For {skill:164}: about 485 {item:2770} and 195 {item:2835} in all. For {skill:202}: about 260 {item:2770} and 35 {item:2835} in all."] = "",
 
-	-- Step 3: Copper & Poor Copper: Dun Morogh (1-50)
-	-- {zone:1426} Dun Morogh
-	["Copper & Poor Copper: {zone:1426} (1-50)"] = "구리 및 질 낮은 구리: {zone:1426} (1-50)",
-
-	-- Step 4: Chunk of Amber & Large Chunk of Amber: Teldrassil (1-50)
-	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every {object:656332} (1, orange), {object:656333} (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "지나가는 {object:656332}(1, 주황색), {object:656333}(1, 주황색) 광맥을 모두 캐고, {skill:186} 50까지 경유지를 도세요. 가방이 차면 용광로에서 제련하세요. {spell:2657}(25까지 주황색, 70에서 회색)도 숙련도를 올려 줍니다. 지역 레벨 1-10. 이 49포인트에 광맥 60개쯤 예상하세요.",
-
-	-- Step 5: Copper: Zephras Isle (1-50)
-	-- {zone:2521} Zephras Isle
-	["Copper: {zone:2521} (1-50)"] = "구리: {zone:2521} (1-50)",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-15. Expect about 60 nodes for these 49 points."] = "지나가는 구리(1, 주황색) 광맥을 모두 캐고, {skill:186} 50까지 경유지를 도세요. 가방이 차면 제련소에서 제련하세요. {spell:2657}(25까지 주황색, 70에 회색)도 숙련도를 올려 줍니다. 지역 레벨 1-15. 이번 49점에는 광맥 약 60개가 필요합니다.",
-
-	-- Step 6: Copper & Poor Copper: Durotar (1-50)
-	-- {zone:1411} Durotar
-	["Copper & Poor Copper: {zone:1411} (1-50)"] = "구리 및 질 낮은 구리: {zone:1411} (1-50)",
-	["Poor Copper, Copper"] = "빈약한 구리, 구리",
-
-	-- Step 7: Copper: Mulgore (1-50)
-	-- {zone:1412} Mulgore
-	["Copper: {zone:1412} (1-50)"] = "구리: {zone:1412} (1-50)",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, orange), Poor Copper (1, orange, rare) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "지나가는 구리(1, 주황색), 빈약한 구리(1, 주황색, 희귀) 광맥을 모두 캐고, {skill:186} 50까지 경유지를 도세요. 가방이 차면 용광로에서 제련하세요. {spell:2657}(25까지 주황색, 70에서 회색)도 숙련도를 올려 줍니다. 지역 레벨 1-10. 이 49포인트에 광맥 60개쯤 예상하세요.",
-
-	-- Step 8: Copper & Poor Copper: Tirisfal Glades (1-50)
-	-- {zone:1420} Tirisfal Glades
-	["Copper & Poor Copper: {zone:1420} (1-50)"] = "구리 및 질 낮은 구리: {zone:1420} (1-50)",
-
-	-- Step 9: Journeyman Mining
+	-- Step 3: Journeyman Mining
 	-- {skill:186} Mining
 	["Journeyman {skill:186}"] = "수습 {skill:186}",
 	-- {skill:186} Mining · {spell:1230161} Lodestone · {item:2835} Rough Stone · {item:2840} Copper Bar
 	["Journeyman {skill:186} raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest {skill:186} trainer of your faction. {spell:1230161}, Forever's camping item for {skill:186}, is taught from skill 20 (1s, or free from Camping 101: {skill:186}): a {item:2835} and a {item:2840} each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour."] = "{skill:186} 수습 단계는 150으로 상한을 올립니다. 숙련도 50과 캐릭터 레벨 제한이 없고 5실버입니다. 50에 도달하면 바로 배우세요. 화살표가 당신 진영의 가장 가까운 {skill:186} 상급자를 가리킵니다. {spell:1230161}, Forever의 {skill:186} 야영 아이템은 숙련도 20부터 배웁니다(1실버, 야영 기초 101: {skill:186}에서 무료). {item:2835} 하나와(과) {item:2840} 하나가 들고 25까지 포인트를 주며, 모닥불 옆에 설치하면 한 시간 동안 야영지의 모두에게 강화 효과를 줍니다.",
 
-	-- Step 10: Copper: Elwynn Forest (50-65) cont.
-	-- {zone:1429} Elwynn Forest
-	["Copper: {zone:1429} (50-65) cont."] = "구리: {zone:1429} (50-65) (계속)",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, yellow), Poor Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "지나는 구리 (1, 노란색), 빈약한 구리 (1, 노란색) 광맥을 모두 캐고 경유지를 돌아 {skill:186} 65까지 가세요. 가방이 차면 모루에서 제련하세요: {spell:2657}(25까지 주황색, 70에서 회색)도 포인트를 줍니다. 지역 레벨 1-10. 이 15포인트에는 광맥 약 80개가 필요합니다.",
+	-- Step 4: Chunk of Amber & Poor Copper (50-65)
+	-- {object:656332} Chunk of Amber
+	["{object:656332} & Poor Copper (50-65)"] = "",
+	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {skill:186} Mining · {spell:2657} Smelt Copper · {item:2770} Copper Ore · {item:2835} Rough Stone · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every {object:656332} (1, yellow), Copper (1, yellow), {object:656333} (1, yellow), Poor Copper (1, yellow) node on the way until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 80 nodes for these 15 points: about 75 {item:2770} and 70 {item:2835}. For {skill:164}: about 485 {item:2770} and 195 {item:2835} in all. For {skill:202}: about 260 {item:2770} and 35 {item:2835} in all."] = "",
 
-	-- Step 11: Copper & Poor Copper: Dun Morogh (50-65) cont.
-	-- {zone:1426} Dun Morogh
-	["Copper & Poor Copper: {zone:1426} (50-65) cont."] = "구리 및 질 낮은 구리: {zone:1426} (50-65) (계속)",
-
-	-- Step 12: Chunk of Amber & Large Chunk of Amber: Teldrassil (50-65) cont.
-	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {zone:1438} Teldrassil
-	["{object:656332} & {object:656333}: {zone:1438} (50-65) cont."] = "{object:656332} & {object:656333}: {zone:1438} (50-65) (계속)",
-	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every {object:656332} (1, yellow), {object:656333} (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "지나가는 {object:656332}(1, 노란색), {object:656333}(1, 노란색) 광맥을 모두 캐고, {skill:186} 65까지 경유지를 도세요. 가방이 차면 용광로에서 제련하세요. {spell:2657}(25까지 주황색, 70에서 회색)도 숙련도를 올려 줍니다. 지역 레벨 1-10. 이 15포인트에 광맥 80개쯤 예상하세요.",
-
-	-- Step 13: Copper: Zephras Isle (50-65) cont.
-	-- {zone:2521} Zephras Isle
-	["Copper: {zone:2521} (50-65) cont."] = "구리: {zone:2521} (50-65) (계속)",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-15. Expect about 80 nodes for these 15 points."] = "지나가는 구리(1, 노란색) 광맥을 모두 캐고, {skill:186} 65까지 경유지를 도세요. 가방이 차면 제련소에서 제련하세요. {spell:2657}(25까지 주황색, 70에 회색)도 숙련도를 올려 줍니다. 지역 레벨 1-15. 이번 15점에는 광맥 약 80개가 필요합니다.",
-
-	-- Step 14: Copper & Poor Copper: Durotar (50-65) cont.
-	-- {zone:1411} Durotar
-	["Copper & Poor Copper: {zone:1411} (50-65) cont."] = "구리 및 질 낮은 구리: {zone:1411} (50-65) (계속)",
-
-	-- Step 15: Copper: Mulgore (50-65) cont.
-	-- {zone:1412} Mulgore
-	["Copper: {zone:1412} (50-65) cont."] = "구리: {zone:1412} (50-65) (계속)",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, yellow), Poor Copper (1, yellow, rare) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "지나가는 구리(1, 노란색), 빈약한 구리(1, 노란색, 희귀) 광맥을 모두 캐고, {skill:186} 65까지 경유지를 도세요. 가방이 차면 용광로에서 제련하세요. {spell:2657}(25까지 주황색, 70에서 회색)도 숙련도를 올려 줍니다. 지역 레벨 1-10. 이 15포인트에 광맥 80개쯤 예상하세요.",
-
-	-- Step 16: Copper & Poor Copper: Tirisfal Glades (50-65) cont.
-	-- {zone:1420} Tirisfal Glades
-	["Copper & Poor Copper: {zone:1420} (50-65) cont."] = "구리 및 질 낮은 구리: {zone:1420} (50-65) (계속)",
-
-	-- Step 17: Smelt Bronze & Smelt Tin
+	-- Step 5: Smelt Bronze & Smelt Tin
 	-- {skill:186} Mining · {spell:2659} Smelt Bronze · {spell:3304} Smelt Tin
 	["At 65 a {skill:186} trainer teaches {spell:2659} (2s; grey at 115) and {spell:3304} (50c; grey at 75): smelting at a forge raises {skill:186} too, so smelt what you mine."] = "65에서 {skill:186} 상급자가 {spell:2659}(2실버; 115에서 회색)과(와) {spell:3304}(50코퍼; 75에서 회색)를(을) 가르칩니다. 모루에서 제련해도 {skill:186}이(가) 오르니 캐는 것은 제련하세요.",
 
-	-- Step 18: Incendicite & Tin: Wetlands (65-125)
-	-- {zone:1437} Wetlands
-	["Incendicite & Tin: {zone:1437} (65-125)"] = "발연과(와) 주석: {zone:1437} (65-125)",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {spell:2658} Smelt Silver
-	-- was: ["Mine every Copper (1, green), Incendicite (65, orange), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 20-30. Expect about 130 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "지나는 구리 (1, 초록색), 발연 (65, 주황색), 주석 (65, 주황색), 은 (75부터, 희귀) 광맥을 모두 캐고 경유지를 돌아 {skill:186} 125까지 가세요. 가방이 차면 모루에서 제련하세요: {spell:2657}(25까지 주황색, 70에서 회색), {spell:3304}(75에서 회색), {spell:2659}(115에서 회색)가 포인트를 줍니다. {spell:2659}은(는) {item:2840} 하나와(과) {item:3576} 하나가 들며, 그 전에 제련한 주괴를 간직하세요. 지역 레벨 20-30. 이 60포인트에는 광맥 약 130개가 필요합니다. {spell:2658}(2실버; 100까지 주황색, 125에서 회색)은(는) 75에서 배웁니다. {skill:186} 상급자를 지나가다 보면 배우세요. 굳이 여행할 가치는 없습니다."
-	["Mine every Copper (1, green), Incendicite (65, orange), Tin (65, orange) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 20-30. Expect about 130 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "",
-	["Copper, Tin"] = "구리, 주석",
-	["Tin, Copper"] = "주석, 구리",
-	["Incendicite, Tin"] = "발연, 주석",
+	-- Step 6: Tin (65-125)
+	-- was: ["Tin: {zone:1424} (65-125)"] = "주석: {zone:1424} (65-125)"
+	["Tin (65-125)"] = "",
+	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {npc:167} Morhan Coppertongue · {zone:1432} Loch Modan · {item:2770} Copper Ore · {item:2771} Tin Ore · {item:2835} Rough Stone · {item:2836} Coarse Stone · {item:5075} Blood Shard · {item:3340} Incendicite Ore · {item:249391} Pyrite · {skill:164} Blacksmithing · {skill:202} Engineering · {spell:2658} Smelt Silver
+	["Walk the loop and mine every Copper (1, green), Incendicite (65, orange), Tin (65, orange) node on the way until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. A quest in these zones needs {skill:186}: Ingredients for the Forge (level 30, {npc:167}, {zone:1432}; Alliance). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 160 nodes for these 60 points: about 80 {item:2770}, 65 {item:2771}, 55 {item:2835}, 40 {item:2836}, 15 {item:5075}, 10 {item:3340} and 5 {item:249391}. For {skill:164}: about 485 {item:2770}, 165 {item:2771}, 195 {item:2835} and 100 {item:2836} in all. For {skill:202}: about 260 {item:2770}, 95 {item:2771}, 35 {item:2835} and 45 {item:2836} in all. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "",
 
-	-- Step 19: Tin: Ashenvale (65-125)
-	-- {zone:1440} Ashenvale
-	["Tin: {zone:1440} (65-125)"] = "주석: {zone:1440} (65-125)",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {spell:2658} Smelt Silver
-	-- was: ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 18-30. Expect about 130 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "지나는 구리 (1, 초록색), 주석 (65, 주황색), 은 (75부터, 희귀) 광맥을 모두 캐고 경유지를 돌아 {skill:186} 125까지 가세요. 가방이 차면 모루에서 제련하세요: {spell:2657}(25까지 주황색, 70에서 회색), {spell:3304}(75에서 회색), {spell:2659}(115에서 회색)가 포인트를 줍니다. {spell:2659}은(는) {item:2840} 하나와(과) {item:3576} 하나가 들며, 그 전에 제련한 주괴를 간직하세요. 지역 레벨 18-30. 이 60포인트에는 광맥 약 130개가 필요합니다. {spell:2658}(2실버; 100까지 주황색, 125에서 회색)은(는) 75에서 배웁니다. {skill:186} 상급자를 지나가다 보면 배우세요. 굳이 여행할 가치는 없습니다."
-	["Mine every Copper (1, green), Tin (65, orange) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 18-30. Expect about 140 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "",
-	["Tin"] = "주석",
-
-	-- Step 21: Tin: Hillsbrad Foothills (65-125)
-	-- {zone:1424} Hillsbrad Foothills
-	["Tin: {zone:1424} (65-125)"] = "주석: {zone:1424} (65-125)",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {spell:2658} Smelt Silver
-	-- was: ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 20-30. Expect about 140 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "지나는 구리 (1, 초록색), 주석 (65, 주황색), 은 (75부터, 희귀) 광맥을 모두 캐고 경유지를 돌아 {skill:186} 125까지 가세요. 가방이 차면 모루에서 제련하세요: {spell:2657}(25까지 주황색, 70에서 회색), {spell:3304}(75에서 회색), {spell:2659}(115에서 회색)가 포인트를 줍니다. {spell:2659}은(는) {item:2840} 하나와(과) {item:3576} 하나가 들며, 그 전에 제련한 주괴를 간직하세요. 지역 레벨 20-30. 이 60포인트에는 광맥 약 140개가 필요합니다. {spell:2658}(2실버; 100까지 주황색, 125에서 회색)은(는) 75에서 배웁니다. {skill:186} 상급자를 지나가다 보면 배우세요. 굳이 여행할 가치는 없습니다."
-	["Mine every Copper (1, green), Tin (65, orange) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 20-30. Expect about 140 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "",
-
-	-- Step 22: Expert Mining
+	-- Step 7: Expert Mining
 	-- {skill:186} Mining
 	["Expert {skill:186}"] = "숙련 {skill:186}",
 	-- {skill:186} Mining · {spell:3307} Smelt Iron
 	["Expert {skill:186} raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest {skill:186} trainer of your faction. Learn {spell:3307} (5s; orange to 130, grey at 140) on the same visit: smelting at a forge raises {skill:186} too, so smelt what you mine."] = "{skill:186} 숙련 단계는 225으로 상한을 올립니다. 숙련도 125와 캐릭터 레벨 제한이 없고 50실버입니다. 125에 도달하면 바로 배우세요. 화살표가 당신 진영의 가장 가까운 {skill:186} 상급자를 가리킵니다. 같은 방문에서 {spell:3307}(5실버; 130까지 주황색, 140에서 회색)을(를) 배우세요. 모루에서 제련해도 {skill:186}이(가) 오르니 캐는 것은 제련하세요.",
 
-	-- Step 23: Iron: Arathi Highlands (125-155)
-	-- {zone:1417} Arathi Highlands
-	["Iron: {zone:1417} (125-155)"] = "철: {zone:1417} (125-155)",
-	-- {skill:186} Mining · {spell:3307} Smelt Iron
-	["Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. Zone level 30-40. Expect about 50 nodes for these 30 points."] = "지나가는 주석(65, 초록색), 하급 혈석(75, 초록색), 은(75, 초록색, 희귀), 철(125, 주황색) 광맥을 모두 캐고, {skill:186} 155까지 경유지를 도세요. 가방이 차면 제련소에서 제련하세요. {spell:3307}(130까지 주황색, 140에 회색)도 숙련도를 올려 줍니다. 지역 레벨 30-40. 이번 30점에는 광맥 약 50개가 필요합니다.",
-	["Iron, Tin"] = "철, 주석",
-	["Lesser Bloodstone, Iron"] = "저급 혈석, 철",
+	-- Step 8: Iron (125-155)
+	-- was: ["Iron: {zone:1416} (125-155)"] = "철: {zone:1416} (125-155)"
+	["Iron (125-155)"] = "",
+	-- {skill:186} Mining · {spell:3307} Smelt Iron · {item:2772} Iron Ore · {item:2838} Heavy Stone · {item:2771} Tin Ore · {item:2836} Coarse Stone · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every Tin (65, green), Silver (75, green, rare), Iron (125, orange) node on the way until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 50 nodes for these 30 points: about 30 {item:2772}, 25 {item:2838}, 20 {item:2771} and 10 {item:2836}. For {skill:164}: about 490 {item:2772}, 60 {item:2838}, 165 {item:2771} and 100 {item:2836} in all. For {skill:202}: about 80 {item:2772}, 115 {item:2838}, 95 {item:2771} and 45 {item:2836} in all."] = "",
 
-	-- Step 24: Iron: Arathi Highlands (155-175)
-	-- {zone:1417} Arathi Highlands
-	["Iron: {zone:1417} (155-175)"] = "철: {zone:1417} (155-175)",
+	-- Step 9: Smelt Gold
 	-- {skill:186} Mining · {spell:3308} Smelt Gold
-	["Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, yellow), Gold (155, orange, rare) node you pass and circle the waypoints until {skill:186} 175. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. Zone level 30-40. Expect about 40 nodes for these 20 points. {spell:3308} (25s; orange to 170, grey at 185) is taught from 155: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "지나는 주석 (65, 초록색), 저급 혈석 (75, 초록색), 은 (75, 초록색, 희귀), 철 (125, 노란색), 금 (155, 주황색, 희귀) 광맥을 모두 캐고 경유지를 돌아 {skill:186} 175까지 가세요. 가방이 차면 모루에서 제련하세요: {spell:3308}(170까지 주황색, 185에서 회색)도 포인트를 줍니다. 지역 레벨 30-40. 이 20포인트에는 광맥 약 40개가 필요합니다. {spell:3308}(25실버; 170까지 주황색, 185에서 회색)은(는) 155에서 배웁니다. {skill:186} 상급자를 지나가다 보면 배우세요. 굳이 여행할 가치는 없습니다.",
+	["At 155 a {skill:186} trainer teaches {spell:3308} (25s; orange to 170, grey at 185): smelting at a forge raises {skill:186} too, so smelt what you mine."] = "",
 
-	-- Step 25: Mithril: Badlands (175-200)
-	-- {zone:1418} Badlands
-	["Mithril: {zone:1418} (175-200)"] = "미스릴: {zone:1418} (175-200)",
-	-- {skill:186} Mining · {spell:3308} Smelt Gold
-	["Mine every Iron (125, green), Gold (155, orange), Mithril (175, orange) node you pass and circle the waypoints until {skill:186} 200. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. Zone level 35-45. Expect about 40 nodes for these 25 points."] = "지나가는 철(125, 초록색), 금(155, 주황색), 미스릴(175, 주황색) 광맥을 모두 캐고, {skill:186} 200까지 경유지를 도세요. 가방이 차면 제련소에서 제련하세요. {spell:3308}(170까지 주황색, 185에 회색)도 숙련도를 올려 줍니다. 지역 레벨 35-45. 이번 25점에는 광맥 약 40개가 필요합니다.",
-	["Mithril, Iron"] = "미스릴, 철",
-	["Iron, Mithril"] = "철, 미스릴",
+	-- Step 10: Iron (155-175)
+	-- was: ["Iron: {zone:1417} (155-175)"] = "철: {zone:1417} (155-175)"
+	["Iron (155-175)"] = "",
+	-- {skill:186} Mining · {spell:3308} Smelt Gold · {item:2772} Iron Ore · {item:2838} Heavy Stone · {item:2771} Tin Ore · {item:2836} Coarse Stone · {item:3340} Incendicite Ore · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every Incendicite (65, green), Tin (65, green), Silver (75, green), Iron (125, yellow), Gold (155, orange, rare) node on the way until {skill:186} 175. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 50 nodes for these 20 points: about 30 {item:2772}, 25 {item:2838}, 15 {item:2771}, 10 {item:2836} and 5 {item:3340}. For {skill:164}: about 490 {item:2772}, 60 {item:2838}, 165 {item:2771} and 100 {item:2836} in all. For {skill:202}: about 80 {item:2772}, 115 {item:2838}, 95 {item:2771} and 45 {item:2836} in all."] = "",
 
-	-- Step 26: Artisan Mining
+	-- Step 11: Mithril (175-200)
+	-- was: ["Mithril: {zone:1418} (175-200)"] = "미스릴: {zone:1418} (175-200)"
+	["Mithril (175-200)"] = "",
+	-- {skill:186} Mining · {spell:3308} Smelt Gold · {item:3858} Mithril Ore · {item:7912} Solid Stone · {item:2772} Iron Ore · {item:2838} Heavy Stone · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every Iron (125, green), Gold (155, orange), Mithril (175, orange) node on the way until {skill:186} 200. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 40 nodes for these 25 points: about 20 {item:3858}, 20 {item:7912}, 15 {item:2772} and 15 {item:2838}. For {skill:164}: about 1080 {item:3858}, 145 {item:7912}, 490 {item:2772} and 60 {item:2838} in all. For {skill:202}: about 165 {item:3858}, 390 {item:7912}, 80 {item:2772} and 115 {item:2838} in all."] = "",
+
+	-- Step 12: Artisan Mining
 	-- {skill:186} Mining
 	["Artisan {skill:186}"] = "전문 {skill:186}",
 	-- {skill:186} Mining
 	["Artisan {skill:186} raises the cap to 300; it needs skill 200 and no character level, and costs 5g: train it as soon as you reach 200. The arrow picks the nearest {skill:186} trainer of your faction."] = "전문 {skill:186}은(는) 최대 숙련도를 300(으)로 올립니다. 숙련도 200이 필요하고 캐릭터 레벨 제한은 없으며, 5골드가 듭니다. 200이 되면 바로 배우세요. 화살표는 진영의 가장 가까운 {skill:186} 상급자를 가리킵니다.",
 
-	-- Step 27: Mithril: Badlands (200-230) cont.
-	-- {zone:1418} Badlands
-	["Mithril: {zone:1418} (200-230) cont."] = "미스릴: {zone:1418} (200-230) 계속",
-	-- {skill:186} Mining
-	["Mine every Iron (125, green), Gold (155, yellow), Mithril (175, yellow) node you pass and circle the waypoints until {skill:186} 230. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 35-45. Expect about 90 nodes for these 30 points."] = "지나는 철 (125, 초록색), 금 (155, 노란색), 미스릴 (175, 노란색) 광맥을 모두 캐고 경유지를 돌아 {skill:186} 230까지 가세요. 여기부터 제련은 포인트를 주지 않습니다(상위 제련은 배우면 회색). 제작하거나 팔 것을 위해 제련하거나, 광석을 팔으세요. 지역 레벨 35-45. 이 30포인트에는 광맥 약 90개가 필요합니다.",
+	-- Step 13: Mithril (200-230)
+	-- was: ["Mithril: {zone:1418} (200-230) cont."] = "미스릴: {zone:1418} (200-230) 계속"
+	["Mithril (200-230)"] = "",
+	-- {skill:186} Mining · {item:3858} Mithril Ore · {item:7912} Solid Stone · {item:2772} Iron Ore · {item:2838} Heavy Stone · {item:2776} Gold Ore · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every Iron (125, green), Gold (155, yellow), Mithril (175, yellow) node on the way until {skill:186} 230. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 90 nodes for these 30 points: about 45 {item:3858}, 45 {item:7912}, 40 {item:2772}, 30 {item:2838} and 5 {item:2776}. For {skill:164}: about 1080 {item:3858}, 145 {item:7912}, 490 {item:2772} and 60 {item:2838} in all. For {skill:202}: about 165 {item:3858}, 390 {item:7912}, 80 {item:2772} and 115 {item:2838} in all."] = "",
 
-	-- Step 28: Mithril & Dark Iron: Searing Gorge (230-245)
-	-- {object:147516} Dark Iron · {zone:1427} Searing Gorge
-	["Mithril & {object:147516}: {zone:1427} (230-245)"] = "미스릴 및 {object:147516}: {zone:1427} (230-245)",
-	-- {object:147516} Dark Iron · {skill:186} Mining · {item:11099} Dark Iron Ore · {object:174824} Black Forge (no name in this language: may be words) · {area:1584} Blackrock Depths
-	["Mine every Gold (155, green, rare), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "지나가며 금(155, 초록색, 희귀), 미스릴(175, 초록색), {object:147516}(230, 주황색), 진은(230, 주황색) 광맥을 모두 캐고 {skill:186}이(가) 245가 될 때까지 경유지를 도십시오. 여기서부터 제련은 숙련도를 주지 않습니다(높은 제련은 배우면 바로 회색): 제작이나 판매용으로 제련하거나 광석을 파십시오. {item:11099}은(는) {area:1584}의 {object:174824}에서만 제련됩니다(주괴 하나에 광석 8개). 지역 레벨 43-50. 이 15점에 광맥 약 40개가 듭니다.",
+	-- Step 14: Mithril & Dark Iron (230-245)
 	-- {object:147516} Dark Iron
-	["Mithril, {object:147516}"] = "미스릴, {object:147516}",
+	-- was: ["Mithril & {object:147516}: {zone:1427} (230-245)"] = "미스릴 및 {object:147516}: {zone:1427} (230-245)"
+	["Mithril & {object:147516} (230-245)"] = "",
+	-- {object:147516} Dark Iron · {skill:186} Mining · {item:11099} Dark Iron Ore · {object:174824} Black Forge (no name in this language: may be words) · {area:1584} Blackrock Depths · {item:3858} Mithril Ore · {item:7912} Solid Stone · {item:2776} Gold Ore · {item:7911} Truesilver Ore · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every Gold (155, green), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node on the way until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 60 nodes for these 15 points: about 50 {item:3858}, 50 {item:7912}, 5 {item:2776}, 5 {item:11099} and 5 {item:7911}. For {skill:164}: about 1080 {item:3858} and 145 {item:7912} in all. For {skill:202}: about 165 {item:3858} and 390 {item:7912} in all."] = "",
 
-	-- Step 29: Small Thorium: Felwood (245-275)
-	-- {zone:1448} Felwood
-	["Small Thorium: {zone:1448} (245-275)"] = "작은 토륨: {zone:1448} (245-275)",
-	-- {skill:186} Mining · {npc:9528} Arathandris Silversky · {npc:9529} Maybess Riverbreeze
-	["Mine every Gold (155, green, rare), Mithril (175, green), Truesilver (230, orange), Small Thorium (245, orange) node you pass and circle the waypoints until {skill:186} 275. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Quests here that need {skill:186}: Salve via {skill:186} (level 55, {npc:9528}; Alliance), Salve via {skill:186} (level 55, {npc:9529}; Horde). Zone level 48-55. Expect about 50 nodes for these 30 points."] = "지나는 금 (155, 초록색, 희귀), 미스릴 (175, 초록색), 진은 (230, 주황색), 작은 토륨 (245, 주황색) 광맥을 모두 캐고 경유지를 돌아 {skill:186} 275까지 가세요. 여기부터 제련은 포인트를 주지 않습니다(상위 제련은 배우면 회색). 제작하거나 팔 것을 위해 제련하거나, 광석을 팔으세요. 여기에서 {skill:186}이(가) 필요한 퀘스트: 연금술로 가는 길({skill:186})(레벨 55, {npc:9528}; 얼라이언스), 연금술로 가는 길({skill:186})(레벨 55, {npc:9529}; 호드). 지역 레벨 48-55. 이 30포인트에는 광맥 약 50개가 필요합니다.",
-	["Small Thorium, Truesilver"] = "작은 토륨, 진은",
-	["Mithril, Small Thorium"] = "미스릴, 작은 토륨",
+	-- Step 15: Small Thorium (245-275)
+	-- was: ["Truesilver & Small Thorium: {zone:1419} (245-275)"] = "진은 및 작은 토륨: {zone:1419} (245-275)"
+	["Small Thorium (245-275)"] = "",
+	-- {object:147516} Dark Iron · {skill:186} Mining · {item:11099} Dark Iron Ore · {object:174824} Black Forge (no name in this language: may be words) · {area:1584} Blackrock Depths · {npc:9528} Arathandris Silversky · {zone:1448} Felwood · {npc:9529} Maybess Riverbreeze · {item:10620} Thorium Ore · {item:12365} Dense Stone · {item:3858} Mithril Ore · {item:7912} Solid Stone · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every Gold (155, green, rare), Mithril (175, green), {object:147516} (230, orange, rare), Truesilver (230, orange), Small Thorium (245, orange) node on the way until {skill:186} 275. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Quests in these zones need {skill:186}: Salve via {skill:186} (level 55, {npc:9528}, {zone:1448}; Alliance), Salve via {skill:186} (level 55, {npc:9529}, {zone:1448}; Horde). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 40 nodes for these 30 points: about 25 {item:10620}, 25 {item:12365}, 10 {item:3858} and 10 {item:7912}. For {skill:164}: about 2170 {item:10620}, 835 {item:12365}, 1080 {item:3858} and 145 {item:7912} in all. For {skill:202}: about 175 {item:10620}, 165 {item:3858} and 390 {item:7912} in all."] = "",
 
-	-- Step 30: Small Thorium & Rich Thorium: Eastern Plaguelands (275-300)
-	-- {zone:1423} Eastern Plaguelands
-	["Small Thorium & Rich Thorium: {zone:1423} (275-300)"] = "작은 토륨 & 풍부한 토륨: {zone:1423} (275-300)",
-	-- {skill:186} Mining
-	["Mine every Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 53-60. Expect about 30 nodes for these 25 points."] = "지나가며 진은(230, 노란색), 작은 토륨(245, 노란색), 풍부한 토륨(275, 주황색) 광맥을 모두 캐고 {skill:186}이(가) 300이 될 때까지 경유지를 도십시오. 여기서부터 제련은 숙련도를 주지 않습니다(높은 제련은 배우면 바로 회색): 제작이나 판매용으로 제련하거나 광석을 파십시오. 지역 레벨 53-60. 이 25점에 광맥 약 30개가 듭니다.",
-	["Rich Thorium, Small Thorium"] = "풍부한 토륨, 작은 토륨",
+	-- Step 16: Small Thorium & Rich Thorium (275-300)
+	-- was: ["Small Thorium & Rich Thorium: {zone:1423} (275-300)"] = "작은 토륨 & 풍부한 토륨: {zone:1423} (275-300)"
+	["Small Thorium & Rich Thorium (275-300)"] = "",
+	-- {object:147516} Dark Iron · {skill:186} Mining · {item:11099} Dark Iron Ore · {object:174824} Black Forge (no name in this language: may be words) · {area:1584} Blackrock Depths · {item:10620} Thorium Ore · {item:12365} Dense Stone · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every {object:147516} (230, yellow), Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node on the way until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 40 nodes for these 25 points: about 35 {item:10620} and 30 {item:12365}. For {skill:164}: about 2170 {item:10620} and 835 {item:12365} in all. For {skill:202}: about 175 {item:10620} in all."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:186} trainer of your faction teaches Apprentice {skill:186} (character level 5); the arrow picks the nearest. Buy a {item:2901} from a trade goods or general vendor: keep it in your bags, you cannot mine without it."] = "진영의 {skill:186} 상급자 누구에게서나 초급 {skill:186}을(를) 배울 수 있습니다(캐릭터 레벨 5). 화살표가 가장 가까운 상급자를 가리킵니다. 직업용품 상인이나 잡화 상인에게서 {item:2901}을(를) 사서 가방에 넣어 두세요. 없으면 채광할 수 없습니다.",
+	-- ["Copper"] = "구리",
+	-- ["Copper & Poor Copper: {zone:1411} (1-50)"] = "구리 및 질 낮은 구리: {zone:1411} (1-50)",
+	-- ["Copper & Poor Copper: {zone:1411} (50-65) cont."] = "구리 및 질 낮은 구리: {zone:1411} (50-65) (계속)",
+	-- ["Copper & Poor Copper: {zone:1420} (1-50)"] = "구리 및 질 낮은 구리: {zone:1420} (1-50)",
+	-- ["Copper & Poor Copper: {zone:1420} (50-65) cont."] = "구리 및 질 낮은 구리: {zone:1420} (50-65) (계속)",
+	-- ["Copper & Poor Copper: {zone:1426} (1-50)"] = "구리 및 질 낮은 구리: {zone:1426} (1-50)",
+	-- ["Copper & Poor Copper: {zone:1426} (50-65) cont."] = "구리 및 질 낮은 구리: {zone:1426} (50-65) (계속)",
+	-- ["Copper, Poor Copper"] = "구리, 빈약한 구리",
 	-- ["Copper, Silver"] = "구리, 은",
+	-- ["Copper, Tin"] = "구리, 주석",
+	-- ["Copper: {zone:1412} (1-50)"] = "구리: {zone:1412} (1-50)",
+	-- ["Copper: {zone:1412} (50-65) cont."] = "구리: {zone:1412} (50-65) (계속)",
+	-- ["Copper: {zone:1429} (1-50)"] = "구리: {zone:1429} (1-50)",
+	-- ["Copper: {zone:1429} (50-65) cont."] = "구리: {zone:1429} (50-65) (계속)",
 	-- ["Copper: {zone:1439} (1-50)"] = "구리: {zone:1439} (1-50)",
 	-- ["Copper: {zone:1439} (50-65) cont."] = "구리: {zone:1439} (50-65) (계속)",
+	-- ["Copper: {zone:2521} (1-50)"] = "구리: {zone:2521} (1-50)",
+	-- ["Copper: {zone:2521} (50-65) cont."] = "구리: {zone:2521} (50-65) (계속)",
 	-- ["Expert {skill:186} raises the cap to 225; it needs skill 125 and character level 20. The arrow picks the nearest {skill:186} trainer of your faction."] = "숙련 {skill:186}은(는) 최대 숙련도를 225(으)로 올립니다. 숙련도 125, 캐릭터 레벨 20이(가) 필요합니다. 화살표는 진영의 가장 가까운 {skill:186} 상급자를 가리킵니다.",
 	-- ["Gold"] = "금",
 	-- ["Gold & Mithril: {zone:1435} (175-200)"] = "금 및 미스릴: {zone:1435} (175-200)",
@@ -197,11 +127,18 @@ return {
 	-- ["Gold, Iron"] = "금, 철",
 	-- ["Gold, Mithril"] = "금, 미스릴",
 	-- ["Gold: {zone:1435} (155-175)"] = "금: {zone:1435} (155-175)",
+	-- ["Incendicite & Tin: {zone:1437} (65-125)"] = "발연과(와) 주석: {zone:1437} (65-125)",
+	-- ["Incendicite, Tin"] = "발연, 주석",
+	-- ["Iron, Mithril"] = "철, 미스릴",
 	-- ["Iron, Silver"] = "철, 은",
+	-- ["Iron, Tin"] = "철, 주석",
 	-- ["Iron: {zone:1416} (125-155)"] = "철: {zone:1416} (125-155)",
+	-- ["Iron: {zone:1417} (125-155)"] = "철: {zone:1417} (125-155)",
+	-- ["Iron: {zone:1417} (155-175)"] = "철: {zone:1417} (155-175)",
 	-- ["Iron: {zone:1431} (125-155)"] = "철: {zone:1431} (125-155)",
 	-- ["Journeyman {skill:186} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:186} trainer of your faction."] = "수습 {skill:186}은(는) 최대 숙련도를 150(으)로 올립니다. 숙련도 50, 캐릭터 레벨 10이(가) 필요합니다. 화살표는 진영의 가장 가까운 {skill:186} 상급자를 가리킵니다.",
 	-- ["Lesser Bloodstone"] = "저급 혈석",
+	-- ["Lesser Bloodstone, Iron"] = "저급 혈석, 철",
 	-- ["Mine every Copper (1, green), Incendicite (65, orange), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 20-30. Expect about 130 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "지나는 구리 (1, 초록색), 발연 (65, 주황색), 주석 (65, 주황색), 은 (75부터, 희귀) 광맥을 모두 캐고 경유지를 돌아 {skill:186} 125까지 가세요. 가방이 차면 모루에서 제련하세요: {spell:2657}(25까지 주황색, 70에서 회색), {spell:3304}(75에서 회색), {spell:2659}(115에서 회색)가 포인트를 줍니다. {spell:2659}은(는) {item:2840} 하나와(과) {item:3576} 하나가 들며, 그 전에 제련한 주괴를 간직하세요. 지역 레벨 20-30. 이 60포인트에는 광맥 약 130개가 필요합니다. {spell:2658}(2실버; 100까지 주황색, 125에서 회색)은(는) 75에서 배웁니다. {skill:186} 상급자를 지나가다 보면 배우세요. 굳이 여행할 가치는 없습니다.",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-20."] = "지나가는 구리(1, 초록색), 주석(65, 주황색), 은(75부터) 광맥을 모두 캐고, {skill:186} 125까지 경유지를 도세요. 가방이 차면 제련소에서 광석을 제련하세요. 제련도 {skill:186}을(를) 올립니다. 지역 레벨 10-20.",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-25."] = "지나가는 구리(1, 초록색), 주석(65, 주황색), 은(75부터) 광맥을 모두 캐고, {skill:186} 125까지 경유지를 도세요. 가방이 차면 제련소에서 광석을 제련하세요. 제련도 {skill:186}을(를) 올립니다. 지역 레벨 10-25.",
@@ -209,26 +146,58 @@ return {
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 20-30."] = "지나가는 구리(1, 초록색), 주석(65, 주황색), 은(75부터) 광맥을 모두 캐고, {skill:186} 125까지 경유지를 도세요. 가방이 차면 제련소에서 광석을 제련하세요. 제련도 {skill:186}을(를) 올립니다. 지역 레벨 20-30.",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 18-30. Expect about 130 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "지나는 구리 (1, 초록색), 주석 (65, 주황색), 은 (75부터, 희귀) 광맥을 모두 캐고 경유지를 돌아 {skill:186} 125까지 가세요. 가방이 차면 모루에서 제련하세요: {spell:2657}(25까지 주황색, 70에서 회색), {spell:3304}(75에서 회색), {spell:2659}(115에서 회색)가 포인트를 줍니다. {spell:2659}은(는) {item:2840} 하나와(과) {item:3576} 하나가 들며, 그 전에 제련한 주괴를 간직하세요. 지역 레벨 18-30. 이 60포인트에는 광맥 약 130개가 필요합니다. {spell:2658}(2실버; 100까지 주황색, 125에서 회색)은(는) 75에서 배웁니다. {skill:186} 상급자를 지나가다 보면 배우세요. 굳이 여행할 가치는 없습니다.",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 20-30. Expect about 140 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "지나는 구리 (1, 초록색), 주석 (65, 주황색), 은 (75부터, 희귀) 광맥을 모두 캐고 경유지를 돌아 {skill:186} 125까지 가세요. 가방이 차면 모루에서 제련하세요: {spell:2657}(25까지 주황색, 70에서 회색), {spell:3304}(75에서 회색), {spell:2659}(115에서 회색)가 포인트를 줍니다. {spell:2659}은(는) {item:2840} 하나와(과) {item:3576} 하나가 들며, 그 전에 제련한 주괴를 간직하세요. 지역 레벨 20-30. 이 60포인트에는 광맥 약 140개가 필요합니다. {spell:2658}(2실버; 100까지 주황색, 125에서 회색)은(는) 75에서 배웁니다. {skill:186} 상급자를 지나가다 보면 배우세요. 굳이 여행할 가치는 없습니다.",
+	-- ["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-15. Expect about 60 nodes for these 49 points."] = "지나가는 구리(1, 주황색) 광맥을 모두 캐고, {skill:186} 50까지 경유지를 도세요. 가방이 차면 제련소에서 제련하세요. {spell:2657}(25까지 주황색, 70에 회색)도 숙련도를 올려 줍니다. 지역 레벨 1-15. 이번 49점에는 광맥 약 60개가 필요합니다.",
+	-- ["Mine every Copper (1, orange), Poor Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "지나가는 구리(1, 주황색), 질 낮은 구리(1, 주황색) 광맥을 모두 캐고, {skill:186} 50까지 경유지를 도세요. 가방이 차면 제련소에서 제련하세요. {spell:2657}(25까지 주황색, 70에 회색)도 숙련도를 올려 줍니다. 지역 레벨 1-10. 이번 49점에는 광맥 약 60개가 필요합니다.",
+	-- ["Mine every Copper (1, orange), Poor Copper (1, orange, rare) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "지나가는 구리(1, 주황색), 빈약한 구리(1, 주황색, 희귀) 광맥을 모두 캐고, {skill:186} 50까지 경유지를 도세요. 가방이 차면 용광로에서 제련하세요. {spell:2657}(25까지 주황색, 70에서 회색)도 숙련도를 올려 줍니다. 지역 레벨 1-10. 이 49포인트에 광맥 60개쯤 예상하세요.",
+	-- ["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-15. Expect about 80 nodes for these 15 points."] = "지나가는 구리(1, 노란색) 광맥을 모두 캐고, {skill:186} 65까지 경유지를 도세요. 가방이 차면 제련소에서 제련하세요. {spell:2657}(25까지 주황색, 70에 회색)도 숙련도를 올려 줍니다. 지역 레벨 1-15. 이번 15점에는 광맥 약 80개가 필요합니다.",
 	-- ["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-20."] = "지나가는 구리(1, 노란색) 광맥을 모두 캐고, {skill:186} 65까지 경유지를 도세요. 가방이 차면 제련소에서 광석을 제련하세요. 제련도 {skill:186}을(를) 올립니다. 지역 레벨 10-20.",
+	-- ["Mine every Copper (1, yellow), Poor Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "지나는 구리 (1, 노란색), 빈약한 구리 (1, 노란색) 광맥을 모두 캐고 경유지를 돌아 {skill:186} 65까지 가세요. 가방이 차면 모루에서 제련하세요: {spell:2657}(25까지 주황색, 70에서 회색)도 포인트를 줍니다. 지역 레벨 1-10. 이 15포인트에는 광맥 약 80개가 필요합니다.",
+	-- ["Mine every Copper (1, yellow), Poor Copper (1, yellow, rare) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "지나가는 구리(1, 노란색), 빈약한 구리(1, 노란색, 희귀) 광맥을 모두 캐고, {skill:186} 65까지 경유지를 도세요. 가방이 차면 용광로에서 제련하세요. {spell:2657}(25까지 주황색, 70에서 회색)도 숙련도를 올려 줍니다. 지역 레벨 1-10. 이 15포인트에 광맥 80개쯤 예상하세요.",
 	-- ["Mine every Gold (155, green), Mithril (175, green), Truesilver (230, orange), Small Thorium (245, orange) node you pass and circle the waypoints until {skill:186} 275. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 45-55."] = "지나가는 금(155, 초록색), 미스릴(175, 초록색), 진은(230, 주황색), 작은 토륨(245, 주황색) 광맥을 모두 캐고, {skill:186} 275까지 경유지를 도세요. 가방이 차면 제련소에서 광석을 제련하세요. 제련도 {skill:186}을(를) 올립니다. 지역 레벨 45-55.",
 	-- ["Mine every Gold (155, green), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 43-50."] = "지나가는 금(155, 초록색), 미스릴(175, 초록색), {object:147516}(230, 주황색), 진은(230, 주황색) 광맥을 모두 캐고, {skill:186} 245까지 경유지를 도세요. 가방이 차면 제련소에서 광석을 제련하세요. 제련도 {skill:186}을(를) 올립니다. 지역 레벨 43-50.",
 	-- ["Mine every Gold (155, green), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "지나는 금 (155, 초록색), 미스릴 (175, 초록색), {object:147516} (230, 주황색), 진은 (230, 주황색) 광맥을 모두 캐고 경유지를 돌아 {skill:186} 245까지 가세요. 여기부터 제련은 포인트를 주지 않습니다(상위 제련은 배우면 회색). 제작하거나 팔 것을 위해 제련하거나, 광석을 팔으세요. {item:11099}은(는) {area:1584}의 {object:174824}에서만 제련됩니다(주괴 하나에 광석 여덟 개). 지역 레벨 43-50. 이 15포인트에는 광맥 약 40개가 필요합니다.",
+	-- ["Mine every Gold (155, green, rare), Mithril (175, green), Truesilver (230, orange), Small Thorium (245, orange) node you pass and circle the waypoints until {skill:186} 275. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Quests here that need {skill:186}: Salve via {skill:186} (level 55, {npc:9528}; Alliance), Salve via {skill:186} (level 55, {npc:9529}; Horde). Zone level 48-55. Expect about 50 nodes for these 30 points."] = "지나는 금 (155, 초록색, 희귀), 미스릴 (175, 초록색), 진은 (230, 주황색), 작은 토륨 (245, 주황색) 광맥을 모두 캐고 경유지를 돌아 {skill:186} 275까지 가세요. 여기부터 제련은 포인트를 주지 않습니다(상위 제련은 배우면 회색). 제작하거나 팔 것을 위해 제련하거나, 광석을 팔으세요. 여기에서 {skill:186}이(가) 필요한 퀘스트: 연금술로 가는 길({skill:186})(레벨 55, {npc:9528}; 얼라이언스), 연금술로 가는 길({skill:186})(레벨 55, {npc:9529}; 호드). 지역 레벨 48-55. 이 30포인트에는 광맥 약 50개가 필요합니다.",
+	-- ["Mine every Gold (155, green, rare), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "지나가며 금(155, 초록색, 희귀), 미스릴(175, 초록색), {object:147516}(230, 주황색), 진은(230, 주황색) 광맥을 모두 캐고 {skill:186}이(가) 245가 될 때까지 경유지를 도십시오. 여기서부터 제련은 숙련도를 주지 않습니다(높은 제련은 배우면 바로 회색): 제작이나 판매용으로 제련하거나 광석을 파십시오. {item:11099}은(는) {area:1584}의 {object:174824}에서만 제련됩니다(주괴 하나에 광석 8개). 지역 레벨 43-50. 이 15점에 광맥 약 40개가 듭니다.",
+	-- ["Mine every Iron (125, green), Gold (155, orange), Mithril (175, orange) node you pass and circle the waypoints until {skill:186} 200. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. Zone level 35-45. Expect about 40 nodes for these 25 points."] = "지나가는 철(125, 초록색), 금(155, 주황색), 미스릴(175, 주황색) 광맥을 모두 캐고, {skill:186} 200까지 경유지를 도세요. 가방이 차면 제련소에서 제련하세요. {spell:3308}(170까지 주황색, 185에 회색)도 숙련도를 올려 줍니다. 지역 레벨 35-45. 이번 25점에는 광맥 약 40개가 필요합니다.",
 	-- ["Mine every Iron (125, green), Gold (155, yellow), Mithril (175, yellow) node you pass and circle the waypoints until {skill:186} 230. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 35-45."] = "지나가는 철(125, 초록색), 금(155, 노란색), 미스릴(175, 노란색) 광맥을 모두 캐고, {skill:186} 230까지 경유지를 도세요. 가방이 차면 제련소에서 광석을 제련하세요. 제련도 {skill:186}을(를) 올립니다. 지역 레벨 35-45.",
+	-- ["Mine every Iron (125, green), Gold (155, yellow), Mithril (175, yellow) node you pass and circle the waypoints until {skill:186} 230. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 35-45. Expect about 90 nodes for these 30 points."] = "지나는 철 (125, 초록색), 금 (155, 노란색), 미스릴 (175, 노란색) 광맥을 모두 캐고 경유지를 돌아 {skill:186} 230까지 가세요. 여기부터 제련은 포인트를 주지 않습니다(상위 제련은 배우면 회색). 제작하거나 팔 것을 위해 제련하거나, 광석을 팔으세요. 지역 레벨 35-45. 이 30포인트에는 광맥 약 90개가 필요합니다.",
 	-- ["Mine every Silver (75, green), Iron (125, yellow), Gold (155, orange) node you pass and circle the waypoints until {skill:186} 175. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 35-45."] = "지나가는 은(75, 초록색), 철(125, 노란색), 금(155, 주황색) 광맥을 모두 캐고, {skill:186} 175까지 경유지를 도세요. 가방이 차면 제련소에서 광석을 제련하세요. 제련도 {skill:186}을(를) 올립니다. 지역 레벨 35-45.",
+	-- ["Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. Zone level 30-40. Expect about 50 nodes for these 30 points."] = "지나가는 주석(65, 초록색), 하급 혈석(75, 초록색), 은(75, 초록색, 희귀), 철(125, 주황색) 광맥을 모두 캐고, {skill:186} 155까지 경유지를 도세요. 가방이 차면 제련소에서 제련하세요. {spell:3307}(130까지 주황색, 140에 회색)도 숙련도를 올려 줍니다. 지역 레벨 30-40. 이번 30점에는 광맥 약 50개가 필요합니다.",
+	-- ["Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, yellow), Gold (155, orange, rare) node you pass and circle the waypoints until {skill:186} 175. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. Zone level 30-40. Expect about 40 nodes for these 20 points. {spell:3308} (25s; orange to 170, grey at 185) is taught from 155: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "지나는 주석 (65, 초록색), 저급 혈석 (75, 초록색), 은 (75, 초록색, 희귀), 철 (125, 노란색), 금 (155, 주황색, 희귀) 광맥을 모두 캐고 경유지를 돌아 {skill:186} 175까지 가세요. 가방이 차면 모루에서 제련하세요: {spell:3308}(170까지 주황색, 185에서 회색)도 포인트를 줍니다. 지역 레벨 30-40. 이 20포인트에는 광맥 약 40개가 필요합니다. {spell:3308}(25실버; 170까지 주황색, 185에서 회색)은(는) 155에서 배웁니다. {skill:186} 상급자를 지나가다 보면 배우세요. 굳이 여행할 가치는 없습니다.",
 	-- ["Mine every Tin (65, green), Silver (75, green), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 18-30."] = "지나가는 주석(65, 초록색), 은(75, 초록색), 철(125, 주황색) 광맥을 모두 캐고, {skill:186} 155까지 경유지를 도세요. 가방이 차면 제련소에서 광석을 제련하세요. 제련도 {skill:186}을(를) 올립니다. 지역 레벨 18-30.",
+	-- ["Mine every Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 53-60. Expect about 30 nodes for these 25 points."] = "지나가며 진은(230, 노란색), 작은 토륨(245, 노란색), 풍부한 토륨(275, 주황색) 광맥을 모두 캐고 {skill:186}이(가) 300이 될 때까지 경유지를 도십시오. 여기서부터 제련은 숙련도를 주지 않습니다(높은 제련은 배우면 바로 회색): 제작이나 판매용으로 제련하거나 광석을 파십시오. 지역 레벨 53-60. 이 25점에 광맥 약 30개가 듭니다.",
 	-- ["Mine every Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 55-60. Expect about 40 nodes for these 25 points."] = "지나는 진은 (230, 노란색), 작은 토륨 (245, 노란색), 풍부한 토륨 (275, 주황색) 광맥을 모두 캐고 경유지를 돌아 {skill:186} 300까지 가세요. 여기부터 제련은 포인트를 주지 않습니다(상위 제련은 배우면 회색). 제작하거나 팔 것을 위해 제련하거나, 광석을 팔으세요. 지역 레벨 55-60. 이 25포인트에는 광맥 약 40개가 필요합니다.",
 	-- ["Mine every {object:147516} (230, yellow), Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 50-58."] = "지나가는 {object:147516}(230, 노란색), 진은(230, 노란색), 작은 토륨(245, 노란색), 풍부한 토륨(275, 주황색) 광맥을 모두 캐고, {skill:186} 300까지 경유지를 도세요. 가방이 차면 제련소에서 광석을 제련하세요. 제련도 {skill:186}을(를) 올립니다. 지역 레벨 50-58.",
+	-- ["Mine every {object:656332} (1, orange), {object:656333} (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "지나가는 {object:656332}(1, 주황색), {object:656333}(1, 주황색) 광맥을 모두 캐고, {skill:186} 50까지 경유지를 도세요. 가방이 차면 용광로에서 제련하세요. {spell:2657}(25까지 주황색, 70에서 회색)도 숙련도를 올려 줍니다. 지역 레벨 1-10. 이 49포인트에 광맥 60개쯤 예상하세요.",
+	-- ["Mine every {object:656332} (1, yellow), {object:656333} (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "지나가는 {object:656332}(1, 노란색), {object:656333}(1, 노란색) 광맥을 모두 캐고, {skill:186} 65까지 경유지를 도세요. 가방이 차면 용광로에서 제련하세요. {spell:2657}(25까지 주황색, 70에서 회색)도 숙련도를 올려 줍니다. 지역 레벨 1-10. 이 15포인트에 광맥 80개쯤 예상하세요.",
+	-- ["Mithril & {object:147516}: {zone:1427} (230-245)"] = "미스릴 및 {object:147516}: {zone:1427} (230-245)",
+	-- ["Mithril, Iron"] = "미스릴, 철",
+	-- ["Mithril, Small Thorium"] = "미스릴, 작은 토륨",
+	-- ["Mithril, {object:147516}"] = "미스릴, {object:147516}",
+	-- ["Mithril: {zone:1418} (175-200)"] = "미스릴: {zone:1418} (175-200)",
+	-- ["Mithril: {zone:1418} (200-230) cont."] = "미스릴: {zone:1418} (200-230) 계속",
+	-- ["Poor Copper"] = "빈약한 구리",
+	-- ["Poor Copper, Copper"] = "빈약한 구리, 구리",
 	-- ["Rich Thorium"] = "풍부한 토륨",
+	-- ["Rich Thorium, Small Thorium"] = "풍부한 토륨, 작은 토륨",
 	-- ["Rich Thorium, Truesilver"] = "풍부한 토륨, 진은",
 	-- ["Silver, Tin"] = "은, 주석",
+	-- ["Small Thorium & Rich Thorium: {zone:1423} (275-300)"] = "작은 토륨 & 풍부한 토륨: {zone:1423} (275-300)",
 	-- ["Small Thorium & Rich Thorium: {zone:1452} (275-300)"] = "작은 토륨 및 풍부한 토륨: {zone:1452} (275-300)",
 	-- ["Small Thorium, Rich Thorium"] = "작은 토륨, 풍부한 토륨",
+	-- ["Small Thorium, Truesilver"] = "작은 토륨, 진은",
+	-- ["Small Thorium: {zone:1448} (245-275)"] = "작은 토륨: {zone:1448} (245-275)",
+	-- ["Tin"] = "주석",
 	-- ["Tin & Silver: {zone:1413} (65-125)"] = "주석 및 은: {zone:1413} (65-125)",
 	-- ["Tin & Silver: {zone:1433} (65-125)"] = "주석 및 은: {zone:1433} (65-125)",
 	-- ["Tin & Silver: {zone:1439} (65-125)"] = "주석 및 은: {zone:1439} (65-125)",
+	-- ["Tin, Copper"] = "주석, 구리",
 	-- ["Tin, Silver"] = "주석, 은",
+	-- ["Tin: {zone:1424} (65-125)"] = "주석: {zone:1424} (65-125)",
+	-- ["Tin: {zone:1440} (65-125)"] = "주석: {zone:1440} (65-125)",
 	-- ["Truesilver & Small Thorium: {zone:1419} (245-275)"] = "진은 및 작은 토륨: {zone:1419} (245-275)",
 	-- ["Truesilver, {object:147516}"] = "진은, {object:147516}",
 	-- ["{object:147516}, Gold"] = "{object:147516}, 금",
 	-- ["{object:147516}, Rich Thorium"] = "{object:147516}, 풍부한 토륨",
+	-- ["{object:656332} & {object:656333}: {zone:1438} (50-65) cont."] = "{object:656332} & {object:656333}: {zone:1438} (50-65) (계속)",
 }

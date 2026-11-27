@@ -415,10 +415,12 @@ end
 -- first ("1 level above you: careful"; with no spot at their level, "No farm
 -- at your level: 3 levels above you"), then the kills and minutes the items
 -- still missing take there, then the second choice ("or Riverpaw Gnoll
--- (Westfall)"). A farm longer than UI.FARM_LONG minutes is no plan to send
--- a player on: it says where the rest really comes from instead ("Most of it
--- drops as you level 15-30  ·  or the Auction House"), no kills, minutes or
--- second farm. Nil without one.
+-- (Westfall)"). A farming loop instead names itself, its zone and lap, the
+-- laps left and the second choice's zone ("Mining loop · Westfall · 5 min a
+-- lap · about 4 laps · or Loch Modan"). A (non-loop) farm longer than
+-- UI.FARM_LONG minutes is no plan to send a player on: it says where the rest
+-- really comes from instead ("Most of it drops as you level 15-30  ·  or the
+-- Auction House"), no kills, minutes or second farm. Nil without one.
 UI.FARM_LONG = 60
 function UI.FarmLine(goal)
 	local f = type(goal.farm) == "table" and goal.farm
@@ -430,13 +432,20 @@ function UI.FarmLine(goal)
 	elseif above and above > 0 then
 		parts[#parts + 1] = L["1 level above you: careful"]
 	end
-	if f.minutes and f.minutes > UI.FARM_LONG then
+	if not f.loop and f.minutes and f.minutes > UI.FARM_LONG then
 		local lv = type(f.levels) == "table" and UI.LevelRange(f.levels[1], f.levels[2])
 		parts[#parts + 1] = lv and string.format(L["Most of it drops as you level %s"], lv) or L["A long farm: most of it drops as you level"]
 		if f.market then parts[#parts + 1] = L["or the Auction House"] end
 		return table.concat(parts, "  \194\183  ")
 	end
-	if f.kills and f.minutes then
+	if f.loop then
+		local what = type(goal.subject) == "string" and goal.subject ~= "" and goal.subject or nil
+		parts[#parts + 1] = what and string.format(L["%s loop"], what) or L["Farming loop"]
+		local zone = goal.map and UI.MapName(goal.map)
+		if zone then parts[#parts + 1] = zone end
+		if f.lap then parts[#parts + 1] = string.format(L["%d min a lap"], f.lap) end
+		if f.laps then parts[#parts + 1] = string.format(L["about %d laps"], f.laps) end
+	elseif f.kills and f.minutes then
 		parts[#parts + 1] = string.format(L["about %d kills, %d min"], f.kills, f.minutes)
 	elseif f.kills then
 		parts[#parts + 1] = string.format(L["about %d kills"], f.kills)
@@ -445,6 +454,8 @@ function UI.FarmLine(goal)
 	if type(s) == "table" and type(s.npcName) == "string" then
 		local zone = s.map and UI.MapName(s.map)
 		parts[#parts + 1] = zone and string.format(L["or %s (%s)"], s.npcName, zone) or string.format(L["or %s"], s.npcName)
+	elseif type(s) == "table" and f.loop and s.map and UI.MapName(s.map) then
+		parts[#parts + 1] = string.format(L["or %s"], UI.MapName(s.map))
 	end
 	if #parts == 0 then return nil end
 	return table.concat(parts, "  \194\183  ")
@@ -466,7 +477,7 @@ function UI.GoalDetail(goal)
 	local d = goal.detail
 	if goal.optional then d = d and (d .. " \194\183 " .. L["optional"]) or L["Optional"] end
 	if d then parts[#parts + 1] = d end
-	local chosen = farm or (type(goal.alternatives) == "number" and goal.alternatives > 0)
+	local chosen = farm or (type(goal.alternatives) == "number" and goal.alternatives > 0 and not (type(goal.farm) == "table" and goal.farm.loop))
 	if chosen and goal.map then
 		local zone = UI.MapName(goal.map)
 		if zone and not (d and d:find(zone, 1, true)) then parts[#parts + 1] = zone end

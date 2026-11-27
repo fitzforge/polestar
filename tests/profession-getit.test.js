@@ -213,40 +213,75 @@ function getIts(text, material) {
 		});
 }
 
-test('Light and Medium Leather: a Get it step per starting area or faction, at beasts of the leather\'s levels, the Auction House last', { skip }, () => {
+// Leather comes from the Skinning guide's loops (0.4.4), as herbs and ore come from theirs: each loop says the
+// level its creatures ask, so the engine never sends a character to beasts 10-20 levels above them (a fixed
+// point did: Medium Leather at Hillsbrad's yetis of level 30-31, Heavy at Alterac's lions of 32-35).
+test('Light and Medium Leather: one Get it step whose Skinning loops each say their level, both sides served at the leather\'s own levels, the Auction House last', { skip }, () => {
 	const text = draft('Leatherworking');
-	const light = getIts(text, 'Light Leather');
-	// Each starting area skins at home: Elwynn Forest for Humans, Teldrassil for Night Elves, Durotar for Orcs and Trolls ...
-	const zones = Object.fromEntries(light.map((g) => [g.only, g.zone]));
-	assert.equal(zones.Human, 'Elwynn Forest');
-	assert.equal(zones.NightElf, 'Teldrassil');
-	assert.equal(zones['Orc,Troll'], 'Durotar');
-	assert.equal(zones.Tauren, 'Mulgore');
-	for (const g of light) {
-		assert.match(g.lines.join('\n'), /Skinning: beasts of level 5-20\./, g.title);
-		assert.match(g.lines.at(-2), /^ {2}collect 2318 x\d+ @[\d.]+,[\d.]+ (era|live) gather Skinning 1$/, g.title);
-		assert.match(g.lines.at(-1), /^ {2}auction 2318 x\d+$/, g.title);
-	}
-	const medium = getIts(text, 'Medium Leather');
-	assert.ok(medium.length >= 2, text.slice(0, 200));
-	for (const g of medium) {
-		assert.match(g.lines.join('\n'), /Skinning: beasts of level 18-30\./, g.title);
-		assert.match(g.lines.at(-1), /^ {2}auction 2319 x\d+$/, g.title);
+	const loopsOf = (g) => g.lines.filter((l) => /^ {2}loop /.test(l)).map((l) => ({ line: l, lvl: Number(/ lvl (\d+) /.exec(l)[1]), only: (/ only (Alliance|Horde) /.exec(l) || [])[1] || null }));
+	for (const [name, item, most] of [
+		['Light Leather', 2318, 24],
+		['Medium Leather', 2319, 36],
+	]) {
+		const [g] = getIts(text, name);
+		assert.ok(g, `${name}: a Get it step`);
+		assert.match(g.lines.join('\n'), new RegExp(`\\n {2}collect ${item} x\\d+ gather Skinning \\d+\\n {2}loop `), name);
+		assert.match(g.lines.at(-1), new RegExp(`^ {2}auction ${item} x\\d+$`), name);
+		const loops = loopsOf(g);
+		assert.ok(loops.length >= 2, `${name}: loops`);
+		for (const l of loops) assert.ok(l.lvl <= most, `${name}: ${l.line.slice(0, 80)}`);
+		// Each side has a loop of level 18 or less: a character of the leather's own levels has somewhere to go.
+		for (const side of ['Alliance', 'Horde']) assert.ok(loops.some((l) => (l.only === null || l.only === side) && l.lvl <= 18), `${name}: a ${side} loop of level 18 or less`);
 	}
 });
 
-test('Iron Bar: each faction mines Iron Deposits in a zone of its own side or a contested one, and smelts them; the Auction House last', { skip }, () => {
+test('Iron Bar: one Get it step whose Mining loops give Iron Ore in zones of each faction\'s side or contested ones, smelted; the Auction House last', { skip }, () => {
 	const { ZONES } = require('../tools/lib/professions/gathering/tables');
 	const { data } = world();
 	const iron = getIts(draft('Blacksmithing'), 'Iron Bar');
-	assert.deepEqual(iron.map((g) => g.only).sort(), ['Alliance', 'Horde']);
+	assert.ok(iron.length >= 1);
 	for (const g of iron) {
-		const map = Object.keys(ZONES).find((m) => (data.zone(Number(m)) || {}).name === g.zone);
-		assert.ok(map && (ZONES[map].side === 'AH' || ZONES[map].side === g.only[0]), `${g.title}: ${g.zone}`);
-		assert.match(g.lines.join('\n'), /Mine Iron Deposit \(Mining 125\) for Iron Ore and smelt it at a forge/);
-		assert.match(g.lines.at(-2), /^ {2}collect 3575 x\d+ @[\d.]+,[\d.]+ era gather Mining 125$/);
+		assert.match(g.lines.join('\n'), /Mine Iron Ore and smelt it at a forge \(Mining \d+\)/);
+		const at = g.lines.findIndex((l) => l.startsWith('  collect 3575 '));
+		assert.match(g.lines[at], /^ {2}collect 3575 x\d+ gather Mining \d+$/);
+		const loops = g.lines.filter((l) => l.startsWith('  loop '));
+		assert.ok(loops.length >= 2, g.lines.join('\n'));
+		const sides = new Set();
+		for (const l of loops) {
+			const m = l.match(/^ {2}loop (.+?) lvl \d+ lap \d+ yield [\d.]+(?: only (Alliance|Horde))?/);
+			assert.ok(m, l);
+			const map = Object.keys(ZONES).find((z) => (data.zone(Number(z)) || {}).name === m[1]);
+			const side = m[2] ? m[2][0] : null;
+			assert.ok(map && (ZONES[map].side === 'AH' || ZONES[map].side === side), l);
+			for (const s of side ? [side] : ['A', 'H']) sides.add(s);
+		}
+		assert.deepEqual([...sides].sort(), ['A', 'H'], 'a loop for each faction');
 		assert.match(g.lines.at(-1), /^ {2}auction 3575 x\d+$/);
 	}
+});
+
+test('a crafting guide\'s herb or ore that grows in one zone only has a Get it loop there (Icecap: Winterspring)', { skip }, () => {
+	const { ZONES } = require('../tools/lib/professions/gathering/tables');
+	const nodes = require('../tools/lib/professions/gathering/gathering-nodes.json');
+	const { data } = world();
+	const zonesOf = (kind) => Object.keys(nodes.maps).filter((m) => ZONES[m] && nodes.maps[m].kinds[kind]).map((m) => ZONES[m].name);
+	let checked = 0;
+	const missing = [];
+	for (const name of ['alchemy', 'blacksmithing', 'enchanting', 'engineering', 'leatherworking', 'tailoring']) {
+		const text = fs.readFileSync(path.join(__dirname, '..', 'guides/forever/professions', `${name}.guide`), 'utf8');
+		for (const block of text.split('\n\n').filter((b) => b.startsWith('step Get '))) {
+			const m = block.match(/^ {2}collect (\d+) x\d+.* gather (Herbalism|Mining) \d+$/m);
+			if (!m) continue;
+			const mat = (data.professionNamed(m[2]).materials || {})[m[1]];
+			const ids = mat && mat.gather ? Object.values(mat.gather).flat() : [];
+			const kinds = [...new Set(ids.map((id) => (data.objects[id] || {}).name).filter(Boolean))];
+			const zones = [...new Set(kinds.flatMap(zonesOf))];
+			checked++;
+			if (zones.length === 1 && !block.includes(`\n  loop ${zones[0]} `)) missing.push(`${name}: ${block.split('\n')[0]} needs a loop in ${zones[0]}`);
+		}
+	}
+	assert.ok(checked > 20, `${checked} gathered Get it steps`);
+	assert.deepEqual(missing, []);
 });
 
 test('the farm is ranked by the travel planner from where the player stands (flights, Hearthstone), not from a point', { skip }, () => {

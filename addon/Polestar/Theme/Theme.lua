@@ -584,6 +584,19 @@ local function lightestOf(pal)
 	return { p[1] + (w[1] - p[1]) * a, p[2] + (w[2] - p[2]) * a, p[3] + (w[3] - p[3]) * a }
 end
 
+-- The guide kinds' colours (docs/skins/reference.md, "Tokens"): a recipe's skill-up colour (craftOrange,
+-- craftYellow, craftGreen, craftGrey). A skin's own, else the game's colour held to the subject colours' 4.5:1 on
+-- the lightest place a name sits: a light look's darken toward its ink.
+Theme.KIND_COLOURS = { craftOrange = { 1, 0.502, 0.251 }, craftYellow = { 1, 0.882, 0.302 }, craftGreen = { 0.251, 0.749, 0.251 },
+	craftGrey = { 0.627, 0.627, 0.627 } }
+local function kindColours(out)
+	local lightest = lightestOf(out)
+	for name, c in pairs(Theme.KIND_COLOURS) do
+		if not out[name] then out[name] = { liftTo(lightest, out.text, c) } end
+		out[name][4] = 1
+	end
+end
+
 -- The subject and status colours a player may set their own of
 -- (ui.colors.<name>), in the order the options list them.
 Theme.SUBJECTS = { "npc", "quest", "item", "place", "object", "area", "dungeon", "rare", "skill", "spell", "faction",
@@ -939,6 +952,7 @@ local function resolveSkin(skin)
 	out.arrowText = copy(out.arrow)
 	out.arrowNearText = copy(out.arrowNear)
 	out.arrowGlow = copy(stoks and stoks.glow or out.arrowNear)
+	kindColours(out)
 	return out
 end
 
@@ -1057,6 +1071,7 @@ local function resolve(id, schemeKey)
 	derived("inputBg", { out.shade[1], out.shade[2], out.shade[3], 0.35 })
 	derived("accent2", { r, g, b, 1 })
 	out.arrowGlow = copy(stoks and stoks.glow or out.arrowNear)
+	kindColours(out)
 	out.skin, out.skinId = "polestar", id
 	return out
 end

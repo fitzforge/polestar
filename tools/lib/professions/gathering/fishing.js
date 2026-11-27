@@ -143,8 +143,14 @@ function price(ctx, item) {
 
 // " from skill 50" when the item asks for Fishing skill.
 function fromSkill(ctx, item) {
+	const s = lureSkill(ctx, item);
+	return s > 0 ? ` from skill ${s}` : '';
+}
+
+// The Fishing skill an item asks before it can be used (Bright Baubles: 100), or 0.
+function lureSkill(ctx, item) {
 	const it = codexItem(ctx, item);
-	return it.reqSkill === 356 && it.reqSkillRank > 0 ? ` from skill ${it.reqSkillRank}` : '';
+	return it.reqSkill === 356 && it.reqSkillRank > 0 ? it.reqSkillRank : 0;
 }
 
 function itemName(ctx, id) {
@@ -232,6 +238,48 @@ function waterTip(ctx, def, from) {
 	if (!def.full) return '';
 	if (from >= def.full) return ` From skill ${def.full} this water loses no fish, so no lure is needed.`;
 	return ` Fish get away here below skill ${def.full}; a lure on the pole adds to your skill for ten minutes and closes the gap.`;
+}
+
+// Artisan Fishing: Nat Pagle's quests, his four fish (each on its fishing-location object, one step per
+// faction where their nearest spots differ), the hand-in. `step(title, lines)` writes a step.
+function pagleSteps(ctx, step) {
+	const artisan = rankInfo(ctx, 'Fishing', 'Artisan');
+	const pagle = ctx.data.quest(6607);
+	for (const [f, zone, accept] of [
+		['Alliance', 'Ironforge', 'accept 6609                             -- Grimnur Stonebrand, Ironforge'],
+		['Horde', 'Orgrimmar', 'accept 6608                             -- Lumak, Orgrimmar'],
+	]) {
+		step('Nat Pagle, Angler Extreme', [
+			`only ${f}`,
+			`zone ${zone}`,
+			`tip Artisan Fishing (cap ${artisan.max}) comes from Nat Pagle in Dustwallow Marsh. The fishing trainer in ${zone} sends you to him; the quest needs skill ${artisan.minSkill} and level ${pagle.minLevel}.`,
+			`skill Fishing ${artisan.minSkill}`,
+			`level ${pagle.minLevel}`,
+			accept,
+		]);
+	}
+	step('Nat Pagle', [
+		'zone Dustwallow Marsh',
+		'tip Nat Pagle fishes from the shore of a small island off the east coast, south of Theramore; swim over from the coast.',
+		'turnin 6609 only Alliance',
+		'turnin 6608 only Horde',
+		'accept 6607',
+	]);
+	for (const f of PAGLE_FISH) {
+		const item = itemName(ctx, f.item);
+		const lure = f.full > artisan.minSkill
+			? ` This water loses fish below skill ${f.full}: at ${artisan.minSkill} most get away, so put ${itemName(ctx, BRIGHT_BAUBLES)} (+75) on the pole first.`
+			: ` At skill ${artisan.minSkill} nothing gets away here.`;
+		const tip = `tip Fish along ${f.where} until you catch a ${item}: ${PAGLE_RATE} there brings it up, and it bites nowhere else.${lure}`;
+		const per = FACTIONS.map((side) => ({ side, c: spot(ctx, f, anchorFor(ctx, f, side), side) }));
+		if (per.some((p) => !p.c)) throw new Error(`Fishing: no ${item} spot in ${zoneName(ctx, f.zone)}`);
+		const same = dist(per[0].c.pt, per[1].c.pt) < 1;
+		const extra = f.full > artisan.minSkill ? [`buy ${BRIGHT_BAUBLES} x2 nearest`] : [];
+		for (const p of same ? [per[0]] : per) {
+			step(item, [...(same ? [] : [`only ${p.side}`]), `zone ${zoneName(ctx, f.zone)}`, tip, ...extra, `collect ${f.item} quest 6607 @${fmt(p.c.pt.x)},${fmt(p.c.pt.y)}`]);
+		}
+	}
+	step('Nat Pagle', ['zone Dustwallow Marsh', 'turnin 6607                             -- Artisan Fishing']);
 }
 
 function render(ctx) {
@@ -424,48 +472,13 @@ function render(ctx) {
 		? ` Forever's second camping item, the ${rack.recipe.name} (from skill ${rack.recipe.learnedAt}), is a blueprint that drops from Gelihast in Blackfathom Deeps.`
 		: '';
 	for (const faction of FACTIONS)
-		spotSteps(REGIONS[faction], REGION_SPOTS, faction, expert.minSkill, 225, `Fish the pools here until skill 225, ${about(catches(expert.minSkill, 225))} catches: one in three raises the skill at 125, one in seven by 225, so this is the long stretch.${rackTip}`, 'region');
+		spotSteps(REGIONS[faction], REGION_SPOTS, faction, expert.minSkill, 225, `Fish the pools here until skill 225, ${about(catches(expert.minSkill, 225))} catches: one in three raises the skill at 125, one in seven by 225, so this is the long stretch.${rackTip} This guide keeps to one spot per band; the Fishing + Cooking guide walks loops of the stands players fished most (in more zones, the arrow picking the nearest) and cooks the catch as it goes.`, 'region');
 
 	section('Artisan Fishing: Nat Pagle');
-	const artisan = rankInfo(ctx, 'Fishing', 'Artisan');
-	const pagle = ctx.data.quest(6607);
-	for (const [f, zone, accept] of [
-		['Alliance', 'Ironforge', 'accept 6609                             -- Grimnur Stonebrand, Ironforge'],
-		['Horde', 'Orgrimmar', 'accept 6608                             -- Lumak, Orgrimmar'],
-	]) {
-		step('Nat Pagle, Angler Extreme', [
-			`only ${f}`,
-			`zone ${zone}`,
-			`tip Artisan Fishing (cap ${artisan.max}) comes from Nat Pagle in Dustwallow Marsh. The fishing trainer in ${zone} sends you to him; the quest needs skill ${artisan.minSkill} and level ${pagle.minLevel}.`,
-			`skill Fishing ${artisan.minSkill}`,
-			`level ${pagle.minLevel}`,
-			accept,
-		]);
-	}
-	step('Nat Pagle', [
-		'zone Dustwallow Marsh',
-		'tip Nat Pagle fishes from the shore of a small island off the east coast, south of Theramore; swim over from the coast.',
-		'turnin 6609 only Alliance',
-		'turnin 6608 only Horde',
-		'accept 6607',
-	]);
-	for (const f of PAGLE_FISH) {
-		const item = itemName(ctx, f.item);
-		const lure = f.full > artisan.minSkill
-			? ` This water loses fish below skill ${f.full}: at ${artisan.minSkill} most get away, so put ${itemName(ctx, BRIGHT_BAUBLES)} (+75) on the pole first.`
-			: ` At skill ${artisan.minSkill} nothing gets away here.`;
-		const tip = `tip Fish along ${f.where} until you catch a ${item}: ${PAGLE_RATE} there brings it up, and it bites nowhere else.${lure}`;
-		const per = FACTIONS.map((side) => ({ side, c: spot(ctx, f, anchorFor(ctx, f, side), side) }));
-		if (per.some((p) => !p.c)) throw new Error(`Fishing: no ${item} spot in ${zoneName(ctx, f.zone)}`);
-		const same = dist(per[0].c.pt, per[1].c.pt) < 1;
-		const extra = f.full > artisan.minSkill ? [`buy ${BRIGHT_BAUBLES} x2 nearest`] : [];
-		for (const p of same ? [per[0]] : per) {
-			step(item, [...(same ? [] : [`only ${p.side}`]), `zone ${zoneName(ctx, f.zone)}`, tip, ...extra, `collect ${f.item} quest 6607 @${fmt(p.c.pt.x)},${fmt(p.c.pt.y)}`]);
-		}
-	}
-	step('Nat Pagle', ['zone Dustwallow Marsh', 'turnin 6607                             -- Artisan Fishing']);
+	pagleSteps(ctx, step);
 
 	section('Fishing 225-300');
+	const artisan = rankInfo(ctx, 'Fishing', 'Artisan');
 	const late = spotLines(
 		LATE_SPOT,
 		anchorFor(ctx, LATE_SPOT, 'Alliance'),
@@ -478,4 +491,4 @@ function render(ctx) {
 	return `${byBanners(L.join('\n'), 'Fishing')}\n`;
 }
 
-module.exports = { file: 'fishing', skill: 'Fishing', render, PAGLE_FISH, catches };
+module.exports = { file: 'fishing', skill: 'Fishing', render, PAGLE_FISH, catches, about, note, lureSkill, price, itemName, pagleSteps, POLE, SHINY_BAUBLE, NIGHTCRAWLERS, BRIGHT_BAUBLES, FISH_ATTRACTOR, FISHING_RACK };

@@ -1817,6 +1817,35 @@ on("guidePlace", function(name, part, width, height)
 	end
 end)
 
+-- The guide kinds' regions (Skin API: guidePlace by the region's id) that
+-- Atlas sets above the window as cards: a reputation guide's turn-in.
+-- Another file's region joins through Core.regionCard. The region keeps its
+-- own content; its heading takes Atlas's caps. A profession guide's steps
+-- stay rows in the window, as a leveling guide's.
+local REGION_CARDS = { turnin = true }
+local function regionHead(part)
+	local head = rawget(part, "Head")
+	if type(head) ~= "table" or not head.GetText then return end
+	capsLabel(head)
+	local text = head:GetText() or ""
+	if part.psAtlasHead ~= text then
+		part.psAtlasHead = Core.upper(text)
+		head:SetText(part.psAtlasHead)
+	end
+end
+function Core.regionCard(name, part, width, height)
+	slots.regions = slots.regions or {}
+	local list = slots.regions
+	part:SetHeight(height)
+	regionHead(part)
+	list[#list + 1] = { name = name, part = part, h = height }
+	return true
+end
+on("guidePlace", function(name, part, width, height)
+	if not REGION_CARDS[name] then return nil end
+	return Core.regionCard(name, part, width, height)
+end)
+
 -- The arrow's target on While you're here's and Along the way's rows (their
 -- clicks are Polestar's own), looked at a few times a second while shown.
 local MARK_EVERY = 0.2
@@ -1881,6 +1910,10 @@ local function layoutStack(parts)
 	end
 	local optional = layoutOptional(stack, window, step)
 	if optional then add(optional, function() closedOn.opt = step relay() end) end
+	-- The guide kinds' cards (Core.regionCard).
+	for _, r in ipairs(s.regions or {}) do
+		if isUnder(r.part, window) then add(r.part, nil) end
+	end
 	if s.train and isUnder(s.train, window) then
 		add(fillTrain(trainCard(stack), window:GetWidth() or 300), Core.laterNotice)
 	elseif stack.train then
@@ -2605,8 +2638,12 @@ local function lastLines(last, person)
 	-- Out of compact mode they stand LAST_DOWN lower, into the room over the
 	-- title: their text as clear of the bars as of the title.
 	local up = compact() and 0 or -LAST_DOWN
-	last:SetPoint("BOTTOMLEFT", person, "TOPLEFT", -(CARD_X - UP_X), up)
-	last:SetPoint("BOTTOMRIGHT", person, "TOPRIGHT", 0, up)
+	-- A guide kind's regions stand over the step's header (UI/GuideFrameRegions.lua): the rows go over the first.
+	local G = frame()
+	local placed = G and G.PlacedRegions and G.PlacedRegions()
+	local top = placed and placed[1] and placed[1][2] or person
+	last:SetPoint("BOTTOMLEFT", top, "TOPLEFT", -(CARD_X - UP_X), up)
+	last:SetPoint("BOTTOMRIGHT", top, "TOPRIGHT", 0, up)
 	local w = last:GetWidth()
 	for _, r in ipairs(rows) do
 		local text = stepLine(r.psView)
@@ -3070,11 +3107,30 @@ on("guidePlace", function(name, part)
 	end
 end)
 
+-- Atlas's parts in files of their own (Layouts/Atlas/AtlasDungeon.lua, loaded
+-- before this file): each adds its hooks through the same `on`, `onLeave` and
+-- Core reads.
+local _, S = ...
+-- What those files dress their own frames with: Atlas's caps heading, and a
+-- card's ground as the cards above the window wear it (the window's own
+-- transparency and border copied from `window`).
+Core.capsLabel = capsLabel
+function Core.cardDress(card, window)
+	if not card.psAtlasCard then
+		card.psAtlasCard = true
+		card.psGuide, card.psNoShadow = true, true
+		Theme.Skin(card, "window")
+	end
+	if window then dress(card, window) end
+end
+for _, add in ipairs(S and S.atlasParts or {}) do add(on, onLeave, Core) end
+
 ---------------------------------------------------------------------------
 -- Registration
 ---------------------------------------------------------------------------
 
-local FIRST = { guidePlace = true, guideTakes = true, guideInset = true, guidePerson = true, guideAnchor = true, guideSpace = true }
+local FIRST = { guidePlace = true, guideTakes = true, guideInset = true, guidePerson = true, guideAnchor = true, guideSpace = true,
+	trackerPlace = true }
 
 local function join(name, list)
 	if name == "guideShows" then
@@ -3113,11 +3169,14 @@ local LAYOUT_HOOKS = { guideLayout = true, guideRender = true, guidePlace = true
 local LATER_HOOKS = { guideTitle = true, guideRow = true, guideProgress = true }
 -- The gaps came later still: a Polestar without them keeps its own.
 local SPACE = Theme.HasCapability("surfaces.guideSpace")
+-- The guide kinds' hooks (the regions' rows and meter, the dungeon tracker's
+-- cards) came with the kinds: offered only where this Polestar has them.
+local KIND_HOOKS = { guideKindRow = true, guideMeter = true, trackerPlace = true }
 
 local function hooksOf(withLater)
 	local hooks = {}
 	for _, name in ipairs(order) do
-		if (LAYOUT_HOOKS[name] or (withLater and LATER_HOOKS[name]) or (name == "guideSpace" and SPACE)) and has(name) then
+		if (LAYOUT_HOOKS[name] or (withLater and LATER_HOOKS[name]) or (name == "guideSpace" and SPACE) or KIND_HOOKS[name]) and has(name) then
 			hooks[name] = join(name, chains[name])
 		end
 	end

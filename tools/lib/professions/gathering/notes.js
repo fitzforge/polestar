@@ -17,10 +17,16 @@ const ERA_NOTE = [
 	'changed a map frame, and a map without an Era frame (Zephras Isle) compiles live.',
 ];
 
-// Mining, Herbalism and Skinning: ERA_NOTE with what Forever's trainer lists
-// say about rank levels in place of the Classic-gates assumption.
+// Mining, Herbalism and Skinning: where their spawns come from, how their loops
+// pick a character level, and what Forever's trainer lists say about rank levels.
 const GATHERING_NOTE = [
-	...ERA_NOTE.slice(0, 7),
+	'Herb and ore spawns come from the Forever TrinityCore world DB (its spawn pools',
+	'say how often each is up); beast spawns and levels from the reference data;',
+	"trainer learn skills and prices from Forever's sniffed trainer lists; recipes",
+	'and their skill colours from the Forever client tables.',
+	"Zones are ranked for a character of a fifth of the band's skill in levels (at",
+	'least 5; ASSUMED: one levelling with the profession); a loop that asks more',
+	'says so with a `level` goal, and loses half its worth per level it asks above.',
 	"Ranks ask no character level: Forever's sniffed trainer lists carry none for",
 	"Herbalism, Mining or Skinning, and players' recordings show Expert Mining",
 	'trained at 15 and Artisan Skinning at 29.',

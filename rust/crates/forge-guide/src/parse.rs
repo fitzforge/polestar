@@ -57,7 +57,9 @@ pub const HEADER_KEYS: [&str; 21] = [
 ];
 /// Lines inside a step that are not goals.
 /// `loop`: the step's `goto` points are the spawn areas of its kill, collect
-/// and interact goals (resolve.rs, applyLoop).
+/// and interact goals (resolve.rs, applyLoop). `loop <zone> … at <x,y> …`: one
+/// of several farming loops its skill or collect goal picks from at runtime
+/// (parse_loop_candidate, resolve.rs apply_loop_candidates).
 /// `skipto <label> when <predicate>`: when the route reaches the step and the
 /// predicate holds, it jumps to the labelled step (resolve.rs, checkLabels).
 pub const STEP_KEYS: [&str; 10] = ["zone", "only", "tip", "image", "when", "label", "along", "background", "skipto", "loop"];
@@ -623,9 +625,15 @@ pub fn parse_guide(text: &str, file: &str, diag: &mut Diagnostics) -> V {
 				"image" => parse_image(&step, toks, ln, &mut cx),
 				"loop" => {
 					if toks.len() > 1 {
-						cx.err(ln, "`loop` takes nothing", None);
+						if step.get("loop").truthy() {
+							cx.err(ln, "a bare `loop` walks the step's gotos; `loop <zone> …` lines are farming loops to pick from: use one kind", None);
+						} else if let Some(c) = parse_loop_candidate(&lex, ln, &mut cx) {
+							push_to(&step, "loops", c);
+						}
 					} else if step.get("loop").truthy() {
 						cx.err(ln, "duplicate `loop` in step", None);
+					} else if step.get("loops").truthy() {
+						cx.err(ln, "a bare `loop` walks the step's gotos; `loop <zone> …` lines are farming loops to pick from: use one kind", None);
 					} else {
 						step.set("loop", ln);
 					}
@@ -716,6 +724,107 @@ fn parse_zone_spec(line: &[u16], lex: &Lex, ln: f64, cx: &mut Cx) -> Option<V> {
 		return Some(V::Obj(obj! { "map" => str_to_num(&toks[2].text), "line" => ln }));
 	}
 	Some(V::Obj(obj! { "name" => unquote_rest(line, lex, 1), "line" => ln }))
+}
+
+/// The words of a `loop <zone> …` line after its zone.
+const LOOP_WORDS: [&str; 8] = ["lvl", "lap", "gain", "yield", "only", "live", "r", "at"];
+
+/// `loop <zone or map <uiMapID>> lvl <level> lap <seconds> gain|yield <per lap> [only <conditions>] [live]
+/// [r <yards>] at <x,y> <x,y> …`: a farming loop a `skill` or `collect` goal of its step may pick at runtime
+/// (docs/GUIDE_FORMAT.md, "Farming loops"). `lvl`: the strongest creature along its walk; `lap`: the seconds a
+/// lap takes; `gain`: the skill points a lap gives (a `skill` goal), `yield`: the items of the goal's item a lap
+/// gives (a `collect` goal); its stops in order, each `r` yards wide (default 30), in the Era frame unless `live`.
+fn parse_loop_candidate(lex: &Lex, ln: f64, cx: &mut Cx) -> Option<V> {
+	let toks = &lex.tokens;
+	let usage = "usage: loop <zone> lvl <level> lap <seconds> gain|yield <per lap> [only <conditions>] [live] [r <yards>] at <x,y> <x,y> …";
+	let word = |t: &Tok| !t.quoted && LOOP_WORDS.contains(&t.text.to_lowercase().as_str());
+	let mut i = 1;
+	while i < toks.len() && !word(&toks[i]) {
+		i += 1;
+	}
+	let zone = if i == 1 {
+		cx.err(ln, "`loop` with settings needs its zone first", Some(usage));
+		return None;
+	} else if !toks[1].quoted && toks[1].text.to_lowercase() == "map" {
+		if i != 3 || !is_int(&toks[2].text) || str_to_num(&toks[2].text) <= 0.0 {
+			cx.err(ln, "malformed `loop map <uiMapID>`", Some(usage));
+			return None;
+		}
+		V::Obj(obj! { "map" => str_to_num(&toks[2].text), "line" => ln })
+	} else {
+		let name: Vec<&str> = toks[1..i].iter().map(|t| t.text.as_str()).collect();
+		V::Obj(obj! { "name" => name.join(" "), "line" => ln })
+	};
+	let out: V = obj! { "line" => ln, "zone" => zone }.into();
+	let mut pts: Vec<V> = Vec::new();
+	while i < toks.len() {
+		let w = toks[i].text.to_lowercase();
+		if !word(&toks[i]) {
+			cx.err(ln, format!("unexpected \"{}\" in `loop`", toks[i].text), Some(usage));
+			return None;
+		}
+		i += 1;
+		match w.as_str() {
+			"live" => {
+				out.set("live", true);
+			}
+			"at" => {
+				while i < toks.len() && !word(&toks[i]) {
+					let p = toks[i].text.split_once(',').filter(|(x, y)| is_num(x) && is_num(y));
+					let Some((x, y)) = p else {
+						cx.err(ln, format!("malformed loop point \"{}\" (expected x,y)", toks[i].text), Some(usage));
+						return None;
+					};
+					pts.push(arr![str_to_num(x), str_to_num(y)]);
+					i += 1;
+				}
+			}
+			"only" => {
+				let Some(t) = toks.get(i) else {
+					cx.err(ln, "`only` in `loop` needs a condition list", Some(usage));
+					return None;
+				};
+				let c = parse_conditions(&tighten_commas(&t.text), "any");
+				for e in &c.errors {
+					cx.err(ln, e.clone(), None);
+				}
+				if !c.errors.is_empty() {
+					return None;
+				}
+				out.set("only", c.value);
+				i += 1;
+			}
+			_ => {
+				let v = toks.get(i).filter(|t| is_num(&t.text)).map(|t| str_to_num(&t.text)).filter(|v| *v > 0.0);
+				let Some(v) = v else {
+					cx.err(ln, format!("`{w}` in `loop` needs a positive number"), Some(usage));
+					return None;
+				};
+				if out.get(&w).truthy() {
+					cx.err(ln, format!("duplicate `{w}` in `loop`"), None);
+					return None;
+				}
+				out.set(&w, v);
+				i += 1;
+			}
+		}
+	}
+	if pts.len() < 2 {
+		cx.err(ln, "a `loop` needs at least two points after `at`", Some(usage));
+		return None;
+	}
+	for k in ["lvl", "lap"] {
+		if !out.get(k).truthy() {
+			cx.err(ln, format!("`loop` needs `{k}`"), Some(usage));
+			return None;
+		}
+	}
+	if out.get("gain").truthy() == out.get("yield").truthy() {
+		cx.err(ln, "`loop` needs one of `gain` (skill points a lap) or `yield` (items a lap)", Some(usage));
+		return None;
+	}
+	out.set("pts", V::from(pts));
+	Some(out)
 }
 
 fn parse_header(guide: &V, kw: &str, line: &[u16], lex: &Lex, ln: f64, cx: &mut Cx) {

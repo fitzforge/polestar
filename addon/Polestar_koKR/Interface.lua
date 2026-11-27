@@ -608,6 +608,54 @@
 --   Without quests too
 --   dungeon tracker
 
+-- Machine-translated, to be reviewed (the profession and reputation guides' window, 26 Nov 2026): translated by an
+-- AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
+-- keep or fix its line below, and take its key off this list.
+--   %d made
+--   %d ready
+--   %s a turn-in
+--   about %d to go
+--   Learn %s first
+--   %s loop on your map
+--   %s more
+--   %s more, about %s at your last search
+--   Buy it at the Auction House
+--   Buy it from %s
+--   Buy it from a vendor
+--   Buy list
+--   Buy the whole list
+--   Craft %s until %d
+--   Disenchant green armour
+--   Farm it
+--   Fish it
+--   Get %d %s
+--   Make it
+--   Mine it
+--   Not learned yet
+--   Pick it
+--   Pick one way:
+--   Requires Level %d-%d
+--   Shopping list
+--   Skin it
+--   about %d an hour
+--   ~%d min for the rest
+--   %s reached
+--   %s to %s
+--   %s to %s  \194\183  about %d turn-ins
+--   +%d each
+--   +%d once
+--   +%d reputation
+--   A long farm: bought instead
+--   Expert
+--   Green
+--   More reputation
+--   Next turn-in: %d more %s
+--   Open list
+--   Repeatable
+--   Turn in %d now
+--   once
+--   repeats
+--   %d more
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "koKR") then return end
 local L = ns.L
@@ -845,6 +893,9 @@ L["Kept for %s"] = "%s용으로 보관"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "%s 퀘스트를 %s에게 제출하십시오. 이 근처를 돌아다닙니다: 지도의 원 안을 살펴보십시오"
 L["A quest you carry that the route does not work here: its work is nearby."] = "경로가 여기서 진행하지 않는, 가지고 있는 퀘스트입니다: 할 일이 근처에 있습니다."
 L["%s at %s"] = "%s - %s"
+-- L["Buy a rune at %s"] = ""
+-- L["Buy a rune and cast %s to save about %s"] = ""
+-- L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."] = ""
 L["Buy a rune at %s"] = "%s에게서 룬 구입"
 L["Buy a rune and cast %s to save about %s"] = "룬을 사서 %s 시전, 약 %s 절약"
 L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."] = "순간이동의 룬이 다 떨어졌고 이 상인이 팝니다: 하나 사서 순간이동하는 편이 경로의 비행보다 빠릅니다."
@@ -2075,6 +2126,10 @@ L["Most of it drops as you level %s"] = "대부분은 레벨 %s 구간을 올리
 L["A long farm: most of it drops as you level"] = "긴 파밍: 대부분은 레벨을 올리며 얻습니다"
 L["or the Auction House"] = "또는 경매장"
 L["or %s"] = "또는 %s"
+-- L["%s loop"] = ""
+-- L["Farming loop"] = ""
+-- L["%d min a lap"] = ""
+-- L["about %d laps"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "위치"
@@ -2471,6 +2526,7 @@ L["Suggested"] = "추천"
 L["The guides window only. Click to pick a size; right-click to reset."] = "가이드 창에만 적용됩니다. 클릭하여 크기를 고르고, 우클릭하면 초기화됩니다."
 L["Quests in"] = "퀘스트 지역"
 L["Passes through"] = "지나가는 지역"
+-- L["%s: optional class quests"] = ""
 L["%s: optional class quests"] = "%s: 선택 직업 퀘스트"
 
 -- UI/Lookup.lua
@@ -3332,6 +3388,7 @@ L["General"] = "일반"
 L["The language Polestar shows."] = "Polestar가 표시하는 언어입니다."
 L["Say when I've outlevelled a guide"] = "가이드 레벨을 넘어서면 알림"
 L["A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is."] = "내 레벨이 가이드 레벨을 넘으면 가이드 창에 알림을 가이드마다 세션당 한 번, 내 레벨에 맞는 가이드와 함께 표시합니다. 끄기: 알림 없음, 가이드는 그대로 유지됩니다."
+-- L["For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route."] = ""
 L["For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route."] = "순간이동의 룬이 없는 마법사에게는, 룬을 사서 순간이동하는 편이 경로보다 빠를 때 근처에서 룬을 파는 상인도 보여 줍니다."
 
 -- Rares/Rares.lua
@@ -4240,6 +4297,8 @@ L["Every quest in your log is part of your route."] = "목록의 모든 퀘스�
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "경로의 어떤 가이드도 이 퀘스트를 받거나 진행하거나 제출하지 않습니다. 원하는 것은 보관하십시오. 포기는 먼저 게임 자체 창에서 확인합니다."
 L["Finished: no guide of your route hands it in"] = "완료됨: 경로의 어떤 가이드도 제출하지 않습니다"
 L["Not in any guide of your route"] = "경로의 어떤 가이드에도 없음"
+-- L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = ""
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = ""
 L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = "가이드 시작은 나중 가이드를 위해 남겨 둔 것을 포함해, 목록에 있는 완료한 퀘스트 전체의 이동 순서를 엽니다."
 L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = "경로에 있는 것을 포함해 목록에 있는 완료한 퀘스트 전부입니다. 가이드 시작은 이동 순서를 추정하며, 위치를 모르는 퀘스트는 직접 제출하도록 목록에 남습니다. 회색 퀘스트는 이제 경험치를 거의 주지 않습니다."
 
@@ -5141,6 +5200,8 @@ L["On the window's edge"] = "창 가장자리"
 L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."] = "경로 밖에서 아직 완료하거나 제출해야 하는 퀘스트를 단계 아래에 줄로 표시합니다: 가이드 업데이트로 지나쳐 버린 퀘스트와, 앞으로의 어떤 가이드도 제출하지 않는 완료된 퀘스트입니다. 꺼도 가이드 창 메뉴의 완료한 퀘스트 제출에 완료된 퀘스트가 계속 나열됩니다."
 L["XP line"] = "경험치 줄"
 L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "단계 아래 줄: 시간당 경험치, 레벨업까지 시간과 내 속도. 휴식 강화는 별도 줄을 유지합니다."
+-- L["Quest log notices"] = ""
+-- L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = ""
 L["Quest log notices"] = "퀘스트 목록 알림"
 L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = "퀘스트 목록에 관한 줄: 경로에 없는 퀘스트(단계에서, 그리고 가이드를 마쳤을 때)와 앞으로 어느 가이드도 받지 않는 완료한 퀘스트. 끄면 가이드 창 메뉴에 퀘스트 목록 정리와 완료한 퀘스트 제출이 그대로 있습니다."
 
@@ -5798,6 +5859,21 @@ L["kept"] = "보관"
 L["Kept for %s: the route hands it in there."] = "%s용으로 보관: 경로가 그곳에서 제출합니다."
 
 -- Lookup/Handins.lua
+-- L["No quests in your log are ready to hand in."] = ""
+-- L["Wait until combat ends to load the quest data."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Handins addon is installed and enabled."] = ""
+
+-- UI/QuestLinks.lua
+-- L["Start quest guide"] = ""
+-- L["Click to show quest guide actions."] = ""
+
+-- Handins.lua
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
 L["No quests in your log are ready to hand in."] = "퀘스트 목록에 제출할 준비가 된 퀘스트가 없습니다."
 L["Wait until combat ends to load the quest data."] = "퀘스트 데이터를 불러오려면 전투가 끝날 때까지 기다리세요."
 L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "퀘스트 제출 가이드를 불러오지 못했습니다. Polestar_FreeMode 애드온이 설치되어 켜져 있는지 확인하세요."
@@ -5874,6 +5950,52 @@ L["loot it"] = "획득하세요"
 L["starts a quest"] = "퀘스트 시작"
 L["Loot now"] = "지금 획득"
 L["%s · quests"] = "%s · 퀘스트"
+-- UI/GuideFrameKindCraft.lua
+L["%d made"] = "%d개 제작"
+L["%d ready"] = "%d개 준비"
+L["%s a turn-in"] = "납품당 %s"
+L["about %d to go"] = "약 %d 남음"
+L["Learn %s first"] = "먼저 %s 배우기"
+L["%s loop on your map"] = "지도에 %s 순환 경로"
+L["%s more"] = "%s개 더"
+L["%s more, about %s at your last search"] = "%s개 더, 마지막 검색 기준 약 %s"
+L["Buy it at the Auction House"] = "경매장에서 구매"
+L["Buy it from %s"] = "%s에게서 구매"
+L["Buy it from a vendor"] = "상인에게서 구매"
+L["Buy list"] = "구매 목록"
+L["Buy the whole list"] = "목록 전체 구매"
+L["Craft %s until %d"] = "%s 제작 (%d까지)"
+L["Disenchant green armour"] = "녹색 방어구 마력 추출"
+L["Farm it"] = "직접 파밍"
+L["Fish it"] = "낚시로 얻기"
+L["Get %d %s"] = "%d개의 %s 구하기"
+L["Make it"] = "직접 제작"
+L["Mine it"] = "채광으로 얻기"
+L["Not learned yet"] = "아직 배우지 않음"
+L["Pick it"] = "약초 채집으로 얻기"
+L["Pick one way:"] = "방법 하나를 고르세요:"
+L["Requires Level %d-%d"] = "요구 레벨 %d-%d"
+L["Shopping list"] = "쇼핑 목록"
+L["Skin it"] = "무두질로 얻기"
+L["about %d an hour"] = "시간당 약 %d"
+L["~%d min for the rest"] = "나머지 ~%d분"
+L["%s reached"] = "%s 달성"
+L["%s to %s"] = "%s → %s"
+L["%s to %s  \194\183  about %d turn-ins"] = "%s → %s  \194\183  약 %d회 납품"
+L["+%d each"] = "매번 +%d"
+L["+%d once"] = "1회 +%d"
+L["+%d reputation"] = "평판 +%d"
+L["A long farm: bought instead"] = "긴 파밍: 대신 구매"
+L["Expert"] = "전문가"
+L["Green"] = "녹색"
+L["More reputation"] = "추가 평판"
+L["Next turn-in: %d more %s"] = "다음 납품: %d개 더 %s"
+L["Open list"] = "목록 열기"
+L["Repeatable"] = "반복 가능"
+L["Turn in %d now"] = "지금 %d회 납품"
+L["once"] = "1회"
+L["repeats"] = "반복"
+L["%d more"] = "%d개 더"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar를 한 페이지씩 다시 설정합니다. 선택은 바로 적용됩니다."

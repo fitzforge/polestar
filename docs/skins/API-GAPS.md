@@ -147,3 +147,10 @@ author, and a suggested fix, or that it is done and how. Items marked
     reads the count (`progress`), where it is (`map`, `x`, `y`) and the
     level range of the spot chosen (`lvl`) for kill and collect goals from
     the goal the `guideRow` hook gets.
+26. **A region's model is not handed to a layout.** Atlas reads two things the
+    Skin API does not give it to place the guide kinds' regions: whether the
+    trainer's rank is due (`GuideFrame.RegionModel("trainer").due`, so only a
+    due rank goes to a card) and the regions the window placed in its card
+    (`GuideFrame.PlacedRegions()`, so the steps before stand over the first
+    one). Suggested: hand a region's model to `guidePlace` (a fifth argument)
+    and the card's first region to `guideRender`'s parts.

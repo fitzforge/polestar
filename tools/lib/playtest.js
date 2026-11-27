@@ -1013,7 +1013,8 @@ local function ensureSkill(r, line)
 end
 -- A goal with candidates must have picked one the character may use: the
 -- player's faction (or both) and, when listed, race and class. NPC candidates
--- are matched by npc; farm spots (no npc) by the chosen position.
+-- are matched by npc; farm spots (no npc) by the chosen position; a farming
+-- loop by any of its stops (the arrow walks them).
 local wrongPick = {}
 local function checkPick(i, g, r)
 	if not r.candidates then return end
@@ -1022,16 +1023,23 @@ local function checkPick(i, g, r)
 	if not (g.npc or g.map) then return bad("no usable candidate for " .. w.faction) end
 	local function picked(c)
 		if c.npc then return c.npc == g.npc end
-		return c.map == g.map and c.x == g.x and c.y == g.y
+		if c.map ~= g.map then return false end
+		if c.lap then
+			for _, s in ipairs(Polestar.Guides.CandidateSpots(c) or {}) do
+				if s.x == g.x and s.y == g.y then return true end
+			end
+		end
+		return c.x == g.x and c.y == g.y
 	end
+	-- Two loops (one per faction) may share a stop: the pick is right when a usable one holds it.
+	local wrong
 	for _, c in ipairs(r.candidates) do
 		if picked(c) then
-			if not (c.faction or "AH"):find(tag, 1, true) then
-				bad(("picked %s (%s) for %s"):format(tostring(c.npcName), tostring(c.faction), w.faction))
-			end
-			return
+			if (c.faction or "AH"):find(tag, 1, true) then return end
+			wrong = wrong or c
 		end
 	end
+	if wrong then return bad(("picked %s (%s) for %s"):format(tostring(wrong.npcName), tostring(wrong.faction), w.faction)) end
 	bad(("picked %s, which is not a candidate"):format(g.npc and ("npc " .. g.npc) or (tostring(g.map) .. " " .. tostring(g.x) .. "," .. tostring(g.y))))
 end
 -- PERSONA restock: a step that leads to a source of an item its own hand-in

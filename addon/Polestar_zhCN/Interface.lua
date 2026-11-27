@@ -508,6 +508,54 @@
 --   Without quests too
 --   dungeon tracker
 
+-- Machine-translated, to be reviewed (the profession and reputation guides' window, 26 Nov 2026): translated by an
+-- AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
+-- keep or fix its line below, and take its key off this list.
+--   %d made
+--   %d ready
+--   %s a turn-in
+--   about %d to go
+--   Learn %s first
+--   %s loop on your map
+--   %s more
+--   %s more, about %s at your last search
+--   Buy it at the Auction House
+--   Buy it from %s
+--   Buy it from a vendor
+--   Buy list
+--   Buy the whole list
+--   Craft %s until %d
+--   Disenchant green armour
+--   Farm it
+--   Fish it
+--   Get %d %s
+--   Make it
+--   Mine it
+--   Not learned yet
+--   Pick it
+--   Pick one way:
+--   Requires Level %d-%d
+--   Shopping list
+--   Skin it
+--   about %d an hour
+--   ~%d min for the rest
+--   %s reached
+--   %s to %s
+--   %s to %s  \194\183  about %d turn-ins
+--   +%d each
+--   +%d once
+--   +%d reputation
+--   A long farm: bought instead
+--   Expert
+--   Green
+--   More reputation
+--   Next turn-in: %d more %s
+--   Open list
+--   Repeatable
+--   Turn in %d now
+--   once
+--   repeats
+--   %d more
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhCN") then return end
 local L = ns.L
@@ -745,6 +793,9 @@ L["Kept for %s"] = "留给 %s"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "把 %s 交还给 %s，此人在附近走动：在地图上的圆圈里找"
 L["A quest you carry that the route does not work here: its work is nearby."] = "你身上的一个任务，路线不在这里做：它的目标就在附近。"
 L["%s at %s"] = "%2$s 处的 %1$s"
+-- L["Buy a rune at %s"] = ""
+-- L["Buy a rune and cast %s to save about %s"] = ""
+-- L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."] = ""
 L["Buy a rune at %s"] = "在%s处购买符文"
 L["Buy a rune and cast %s to save about %s"] = "购买符文并施放%s，约可节省%s"
 L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."] = "你的传送符文用完了，而这位商人有售：买一个再传送比你路线上的飞行更快。"
@@ -1976,6 +2027,10 @@ L["Most of it drops as you level %s"] = "大部分会在你升到 %s 级的途�
 L["A long farm: most of it drops as you level"] = "耗时很长：大部分会在升级途中掉落"
 L["or the Auction House"] = "或拍卖行"
 L["or %s"] = "或%s"
+-- L["%s loop"] = ""
+-- L["Farming loop"] = ""
+-- L["%d min a lap"] = ""
+-- L["about %d laps"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"
@@ -2372,6 +2427,7 @@ L["Suggested"] = "推荐"
 L["The guides window only. Click to pick a size; right-click to reset."] = "仅限指南窗口。点击选择大小；右键点击重置。"
 L["Quests in"] = "任务地区"
 L["Passes through"] = "途经"
+-- L["%s: optional class quests"] = ""
 L["%s: optional class quests"] = "%s：可选职业任务"
 
 -- UI/Lookup.lua
@@ -3233,6 +3289,7 @@ L["The language Polestar shows."] = "Polestar 显示的语言。"
 L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags, unless a talent does away with it (Reagent Economy)."] = "如果更快，路线可以从你会的传送法术开始：法师的城市传送、德鲁伊的月光林地，或萨满的星界传送（相当于第二块炉石）。城市传送需要背包里有传送符文，除非有天赋免除它（材料节约）。"
 L["Say when I've outlevelled a guide"] = "我的等级超过指南时提醒"
 L["A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is."] = "当你的等级超过指南的等级时，在指南窗口显示提醒，每个指南每次登录一次，并附上适合你等级的指南。关闭：不提醒；指南保持不变。"
+-- L["For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route."] = ""
 L["For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route."] = "对于没有传送符文的法师，当购买并传送比路线更快时，也显示附近出售符文的商人。"
 
 -- Rares/Rares.lua
@@ -4141,6 +4198,8 @@ L["Every quest in your log is part of your route."] = "任务日志中的所有�
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "路线中没有任何指南会接取、完成或交还这些任务。保留你想要的；“放弃”会先在游戏自身的窗口中确认。"
 L["Finished: no guide of your route hands it in"] = "已完成：路线中没有指南会交还它"
 L["Not in any guide of your route"] = "不在你路线中的任何指南里"
+-- L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = ""
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = ""
 L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = "“指引我”会为任务日志中所有已完成的任务打开路线顺序，包括留给之后指南的任务。"
 L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = "任务日志中每个已完成的任务，包括你路线上的任务。“指引我”会估算路线顺序；位置未知的任务仍留在列表中供手动交还。灰色任务几乎不再给经验。"
 
@@ -5042,6 +5101,8 @@ L["On the window's edge"] = "窗口边缘"
 L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."] = "在步骤下方为路线之外仍需完成或交还的任务显示行：指南更新后落在你身后的任务，以及之后没有指南会交还的已完成任务。关闭后，指南窗口菜单仍会在“交还已完成的任务”下列出已完成的任务。"
 L["XP line"] = "经验行"
 L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "步骤下方的一行：每小时经验、升级时间和你的节奏。强化休息保留自己的一行。"
+-- L["Quest log notices"] = ""
+-- L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = ""
 L["Quest log notices"] = "任务日志提示"
 L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = "关于任务日志的提示行：不在你路线上的任务（在步骤中以及指南完成时），以及之后没有指南会接收的已完成任务。关闭后，指南窗口的菜单中仍有“清理任务日志”和“交还已完成的任务”。"
 
@@ -5698,6 +5759,21 @@ L["kept"] = "保留"
 L["Kept for %s: the route hands it in there."] = "留给 %s：路线会在那里交还。"
 
 -- Lookup/Handins.lua
+-- L["No quests in your log are ready to hand in."] = ""
+-- L["Wait until combat ends to load the quest data."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Handins addon is installed and enabled."] = ""
+
+-- UI/QuestLinks.lua
+-- L["Start quest guide"] = ""
+-- L["Click to show quest guide actions."] = ""
+
+-- Handins.lua
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
 L["No quests in your log are ready to hand in."] = "任务日志中没有可交还的任务。"
 L["Wait until combat ends to load the quest data."] = "请等战斗结束后再加载任务数据。"
 L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "交还任务指南无法加载。请检查插件 Polestar_FreeMode 是否已安装并启用。"
@@ -5774,6 +5850,52 @@ L["loot it"] = "去拾取"
 L["starts a quest"] = "开始任务"
 L["Loot now"] = "立即拾取"
 L["%s · quests"] = "%s · 任务"
+-- UI/GuideFrameKindCraft.lua
+L["%d made"] = "已制作 %d"
+L["%d ready"] = "%d 份就绪"
+L["%s a turn-in"] = "每次上交 %s"
+L["about %d to go"] = "还差约 %d"
+L["Learn %s first"] = "先学习%s"
+L["%s loop on your map"] = "地图上的%s路线"
+L["%s more"] = "还差 %s"
+L["%s more, about %s at your last search"] = "还差 %s，按你上次搜索约 %s"
+L["Buy it at the Auction House"] = "在拍卖行购买"
+L["Buy it from %s"] = "从%s处购买"
+L["Buy it from a vendor"] = "从商人处购买"
+L["Buy list"] = "购物清单"
+L["Buy the whole list"] = "购买整张清单"
+L["Craft %s until %d"] = "制作%s直到 %d"
+L["Disenchant green armour"] = "分解绿色护甲"
+L["Farm it"] = "自己刷"
+L["Fish it"] = "钓鱼获得"
+L["Get %d %s"] = "获取 %d 个%s"
+L["Make it"] = "自己制作"
+L["Mine it"] = "采矿获得"
+L["Not learned yet"] = "尚未学习"
+L["Pick it"] = "采药获得"
+L["Pick one way:"] = "选一种方式："
+L["Requires Level %d-%d"] = "需要等级 %d-%d"
+L["Shopping list"] = "采购清单"
+L["Skin it"] = "剥皮获得"
+L["about %d an hour"] = "每小时约 %d"
+L["~%d min for the rest"] = "剩余约 %d 分钟"
+L["%s reached"] = "已达到%s"
+L["%s to %s"] = "%s 至%s"
+L["%s to %s  \194\183  about %d turn-ins"] = "%s 至%s  \194\183  约 %d 次上交"
+L["+%d each"] = "每次 +%d"
+L["+%d once"] = "一次 +%d"
+L["+%d reputation"] = "声望 +%d"
+L["A long farm: bought instead"] = "刷取太久：改为购买"
+L["Expert"] = "专家"
+L["Green"] = "绿色"
+L["More reputation"] = "更多声望"
+L["Next turn-in: %d more %s"] = "下次上交：还差 %d 个%s"
+L["Open list"] = "打开清单"
+L["Repeatable"] = "可重复"
+L["Turn in %d now"] = "现在上交 %d 次"
+L["once"] = "一次"
+L["repeats"] = "可重复"
+L["%d more"] = "还差 %d"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐页重新设置 Polestar。每项选择立即生效。"

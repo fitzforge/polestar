@@ -74,6 +74,14 @@ I.PAINT_KINDS, I.HOOKS, I.LAYOUT_HOOKS, I.LAYOUTS = PAINT_KINDS, HOOKS, LAYOUT_H
 -- cards), anything else: the tracker keeps it. The layout's hook, else the skin's.
 -- Placing "quests" takes the tracker's head away too (its cards say it).
 HOOKS.trackerPlace, LAYOUT_HOOKS.trackerPlace = true, true
+-- The guide kinds' regions (UI/GuideFrameRegions.lua, docs/skins/reference.md): a kind's row once painted
+-- (guideKindRow(row, item, info): info.kind "supply" | "pickup" | "ready" | "more" | "boss" | "objective", done,
+-- current, way) and its skill or standing meter (guideMeter(meter, info): info.kind "skill" | "rep", frac, seg,
+-- bar). A skin or a layout may set them; their parts are in Theme.GuideParts() (capability "guideParts.kind").
+-- guidePlace is also asked for each region by its id ("meter", "stretch", "get", "shopping", "turnin", "more",
+-- "pickups", ...), guideSpace for "bossRow".
+HOOKS.guideKindRow, HOOKS.guideMeter = true, true
+LAYOUT_HOOKS.guideKindRow, LAYOUT_HOOKS.guideMeter = true, true
 
 local CAPABILITIES = {}
 for _, c in ipairs({ "schemes", "skins", "tokens", "legibility", "fonts", "fontSizes", "textShadow", "icons", "media.band",
@@ -81,7 +89,8 @@ for _, c in ipairs({ "schemes", "skins", "tokens", "legibility", "fonts", "fontS
 	-- Skin API 2
 	"variants", "resolve", "shadow", "artTint", "media.dart", "tokens.accent2", "tokens.glow", "tokens.pins",
 	"kit.glow", "kit.gameArt", "kit.crossfade", "kit.tintArt", "kit.gradient.horizontal", "kit.color",
-	"media.pins", "arrow.parts", "pin.parts", "skins.installed", "theme.functions", "layouts", "layouts.preset", "guideReach" }) do CAPABILITIES[c] = true end
+	"media.pins", "arrow.parts", "pin.parts", "skins.installed", "theme.functions", "layouts", "layouts.preset", "guideReach",
+	"guideParts.kind" }) do CAPABILITIES[c] = true end
 for kind in pairs(PAINT_KINDS) do CAPABILITIES["surfaces." .. kind] = true end
 for name in pairs(HOOKS) do CAPABILITIES["surfaces." .. name] = true end
 

@@ -284,6 +284,11 @@ function Methods.SetText(self, t)
 	if stub.strictFonts and self.kind == "FontString" and t ~= nil and t ~= "" and not (self.font or self.fontObject or self.psTemplate) then
 		error("FontString:SetText(): Font not set", 2)
 	end
+	-- The client keeps no empty text: GetText answers nil after SetText(""). Only while stub.emptyTextNil is on.
+	if stub.emptyTextNil and self.kind == "FontString" and (t == "" or t == nil) then
+		self.text, self.highlight = nil, nil
+		return
+	end
 	self.text = t == nil and nil or tostring(t)
 	self.highlight = nil
 end

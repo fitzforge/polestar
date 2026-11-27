@@ -1511,6 +1511,8 @@ struct Ctx<'a> {
 	prof: Option<&'a ProfProgress>,
 	zone_id: V,
 	loop_: bool,
+	/// The step has farming loops (`loop <zone> …`): they place its collect (apply_loop_candidates).
+	loops: bool,
 }
 
 fn only_of(c: &V) -> V {
@@ -1600,6 +1602,89 @@ fn apply_loop(step: &V, s: &V, r: &mut R) {
 	}
 	let kept: Vec<V> = goals.into_iter().filter(|g| g.get("t").as_str() != Some("goto")).collect();
 	step.set("goals", kept);
+}
+
+/// `loop <zone> … at …` lines (parse.rs parse_loop_candidate): farming loops the step's `skill` goal (with
+/// `gain`) or unpinned `collect` goal (with `yield`) picks from at runtime, the Engine's farm ranking
+/// (pickFor): one `candidates` entry per loop, { map, x, y, f, faction, races, classes, lvl = { n, n }, lap,
+/// gain | yield, spotsPacked } with its stops as packed spawn areas. The goal's own place and spawn areas
+/// are the first loop's until the Engine picks.
+fn apply_loop_candidates(step: &V, s: &V, faction: &V, r: &mut R) {
+	let loops = s.get("loops").items();
+	let first_line = loops[0].get("line");
+	let sgoals = s.get("goals");
+	let goals = step.get("goals").items();
+	let mut targets: Vec<(V, &str)> = Vec::new();
+	for (i, g) in goals.iter().enumerate() {
+		let source = sgoals.at(i);
+		let free = !source.get("explicitCoords").truthy() && !source.get("anywhere").truthy() && !g.get("candidates").truthy();
+		match g.get("t").as_str() {
+			Some("skill") if free => targets.push((g.clone(), "gain")),
+			Some("collect") if free => targets.push((g.clone(), "yield")),
+			_ => {}
+		}
+	}
+	if targets.len() != 1 {
+		return r.err(&first_line, "farming loops (`loop <zone> …`) need exactly one unpinned `skill` or `collect` goal in their step", Some("the loops pick the place of that one goal"));
+	}
+	if goals.iter().any(|g| g.get("t").as_str() == Some("goto")) {
+		return r.err(&first_line, "farming loops (`loop <zone> …`) carry their own points: drop the step's `goto` lines", None);
+	}
+	let (goal, per) = targets.remove(0);
+	let mut candidates: Vec<(V, V)> = Vec::new();
+	for l in &loops {
+		let ln = l.get("line");
+		if !l.get(per).truthy() {
+			let other = if per == "gain" { "yield" } else { "gain" };
+			r.err(&ln, format!("a loop for a `{}` goal takes `{per}`, not `{other}`", goal.get("t").to_js_string()), None);
+			continue;
+		}
+		let zone = r.resolve_zone(&l.get("zone"));
+		if !zone.truthy() {
+			continue;
+		}
+		let rr = if l.get("r").truthy() { l.get("r") } else { LOOP_RADIUS.into() };
+		let spots: Vec<V> = l.get("pts").items().iter().map(|p| obj! { "x" => p.at(0), "y" => p.at(1), "r" => rr.clone() }.into()).collect();
+		let spots = V::from(spots);
+		let first = spots.at(0);
+		let c: V = obj! { "map" => zone.get("id"), "x" => first.get("x"), "y" => first.get("y") }.into();
+		// A compiled point is Era-frame with `f = "e"`, Forever's own frame without `f`.
+		if !l.get("live").truthy() {
+			c.set("f", "e");
+		}
+		let o = l.get("only");
+		let mut sides = o.get("factions").items();
+		if sides.is_empty() && faction.truthy() {
+			sides = vec![faction.clone()];
+		}
+		let tag = match sides.first().and_then(|s| s.as_str()) {
+			Some("Alliance") if sides.len() == 1 => "A",
+			Some("Horde") if sides.len() == 1 => "H",
+			_ => "AH",
+		};
+		c.set("faction", tag);
+		set_if(&c, "races", o.get("races"));
+		set_if(&c, "classes", o.get("classes"));
+		c.set("lvl", obj! { "min" => l.get("lvl"), "max" => l.get("lvl") });
+		c.set("lap", l.get("lap"));
+		c.set(per, l.get(per));
+		c.set("spotsPacked", crate::emit::pack_spots(&spots));
+		candidates.push((c, spots));
+	}
+	let Some((c0, spots0)) = candidates.first().cloned() else { return };
+	goal.set("map", c0.get("map"));
+	goal.set("x", c0.get("x"));
+	goal.set("y", c0.get("y"));
+	if c0.get("f").truthy() {
+		goal.set("f", c0.get("f"));
+	} else {
+		goal.as_obj().unwrap().delete("f");
+	}
+	goal.set("spots", spots0);
+	goal.set("spread", true);
+	goal.as_obj().unwrap().delete("lvl");
+	goal.as_obj().unwrap().delete("z");
+	goal.set("candidates", V::from(candidates.into_iter().map(|(c, _)| c).collect::<Vec<V>>()));
 }
 
 /// `skill <Profession> <N> nearest` (#2529): the step's `goto` points are the places to do it, each for the
@@ -2071,6 +2156,7 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 				prof: Some(&prof_progress),
 				zone_id: zone_id.clone(),
 				loop_: s.get("loop").truthy(),
+				loops: s.get("loops").truthy(),
 			};
 			let goal = resolve_goal(g, &zone_id, &cursors[at].prev, r, &ctx);
 			goal.set_hidden("_line", g.get("line"));
@@ -2185,6 +2271,9 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 					c.prev = here.clone();
 				}
 			}
+		}
+		if s.get("loops").truthy() {
+			apply_loop_candidates(&step, s, &guide.get("faction"), r);
 		}
 		apply_nearest(&step, s, &guide.get("faction"), r);
 		gsteps.push(step);
@@ -4159,6 +4248,7 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 		&& !g.get("nearest").truthy()
 		&& !g.get("anywhere").truthy()
 		&& !(ctx.loop_ && loop_target(&goal))
+		&& !(ctx.loops && v == "collect")
 	{
 		r.warn(
 			&ln,
