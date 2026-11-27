@@ -434,3 +434,44 @@ local m = GF.RegionModel("supplies")
 emit({ choosable = m.choosable, tabs = sup.Modes[1]:IsShown() or sup.Modes[2]:IsShown() or sup.Modes[3]:IsShown(), drop = sup.ModeDrop:IsShown() })`);
 	assert.deepEqual(out, { choosable: false, tabs: false, drop: false }, 'the wool is held; Coarse Thread is vendor-only');
 });
+
+const ATLAS = `C_Texture = { GetAtlasInfo = function(name)
+	if name == "Professions-Icon-Skill-High" or name == "Professions-Icon-Skill-Medium" or name == "Professions-Icon-Skill-Low" then
+		return { width = 13, height = 15, file = 4417031 } end end }`;
+const ICON = `
+GF.Layout(); stub.advance(1)
+local st = GF.RegionFrame("stretch")
+local chip = st.Chip
+chip:GetScript("OnEnter")(chip)
+local tip = Polestar.Widgets.TipShown()
+chip:GetScript("OnLeave")(chip)
+local card = { shown = chip:IsShown(), atlas = chip.Icon:GetAtlas() or false, texture = chip.Icon:GetTexture() or false, text = rawget(chip, "Text") and true or false,
+	tip = tip and tip.title or false }
+Polestar.Set("ui.compact", true)
+GF.Render(); GF.Layout(); stub.advance(1)
+emit({ card = card, line = st.Line:GetText() })`;
+
+test('the recipe\'s colour is the client\'s own skill-up arrow, its name in the tooltip; our chevron where the client has none', () => {
+	const art = run(ATLAS, ICON);
+	assert.equal(art.card.shown, true);
+	assert.equal(art.card.atlas, 'Professions-Icon-Skill-High', 'orange at 87, below yellow (100)');
+	assert.equal(art.card.text, false, 'no word chip');
+	assert.equal(art.card.tip, 'Orange');
+	assert.match(art.line, /\|A:Professions-Icon-Skill-High:15:13\|a$/, 'compact: the same arrow after the recipe');
+	const own = run('', ICON);
+	assert.equal(own.card.shown, true);
+	assert.match(String(own.card.texture), /chevron-up/);
+	assert.match(own.line, /\|T[^|]*chevron-up[^|]*\|t$/);
+	const yellow = run(`${ATLAS}; C.GetSkillRank = function(line) if line == 197 or line == "Tailoring" then return 105, 150 end return nil end`, ICON);
+	assert.equal(yellow.card.atlas, 'Professions-Icon-Skill-Medium');
+});
+
+test('a grey recipe shows no arrow, as the client\'s window shows none', () => {
+	const out = run(`${ATLAS}
+GetSpellInfo = function(id) if id == 2402 then return "Woolen Cape" end end
+C_Spell = nil
+GetNumTradeSkills = function() return 1 end
+GetTradeSkillInfo = function(i) return "Woolen Cape", "trivial" end`, ICON);
+	assert.equal(out.card.shown, false);
+	assert.doesNotMatch(out.line, /\|A:|\|T/);
+});

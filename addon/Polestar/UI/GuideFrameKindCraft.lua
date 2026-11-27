@@ -2,7 +2,7 @@
 -- contract in docs/ARCHITECTURE.md, "Guide kind regions"; the models in Core/KindCraft.lua).
 --
 -- Profession: the skill meter (the skill, the stretch still to go lit to its move-on, ticks at the move-on and the
--- next trainer rank), the trainer line, the stretch card (the recipe now, its colour chip, "about 26 to go · 6 made",
+-- next trainer rank), the trainer line, the stretch card (the recipe now, its skill-up arrow, "about 26 to go · 6 made",
 -- "You can make 3 now" with Open <Profession>, the window's one secure button), the materials (a row each, have /
 -- need, the Buy | Farm toggle; the split under the row in focus: a verdict line over a Buy and a Farm column, the
 -- way it takes lit), the buy list line. Reputation: the standing meter, the turn-in card, its items (the same rows
@@ -420,14 +420,44 @@ ns.UI.GuideFrame.Part(function(GF)
 		return L["Grey"]
 	end
 
-	local function colourChip(c, colour)
-		local tok = COLOUR_TOKEN[colour]
-		W.SetChip(c, colourWord(colour))
-		if tok then
-			local r, g, b = Theme.Color(tok)
-			c.Bg:SetColor(r, g, b, 0.16)
-			W.Color(c.Text, tok)
+	-- The recipe's colour as the client's own profession window marks it: its skill-up arrows (Blizzard_Professions'
+	-- recipe list: Professions-Icon-Skill-High for orange, -Medium for yellow, -Low for green; none for grey). Where
+	-- the client has no such art, our chevron in the colour's token. The arrows are 13 x 15, their size in the client's
+	-- atlas table (UiTextureAtlasMember), as its recipe list draws them (UseAtlasSize).
+	local SKILL_UP = { orange = "Professions-Icon-Skill-High", yellow = "Professions-Icon-Skill-Medium", green = "Professions-Icon-Skill-Low" }
+	local SKILL_UP_W, SKILL_UP_H = 13, 15
+	local function skillUpAtlas(colour)
+		local atlas = SKILL_UP[colour]
+		return atlas and C_Texture and C_Texture.GetAtlasInfo and C_Texture.GetAtlasInfo(atlas) and atlas or nil
+	end
+	-- On texture t: shown (true) or hidden for grey / no colour.
+	local function skillUp(t, colour)
+		if not SKILL_UP[colour] then
+			t:Hide()
+			return false
 		end
+		local atlas = skillUpAtlas(colour)
+		if atlas then
+			t:SetAtlas(atlas)
+			t:SetSize(SKILL_UP_W, SKILL_UP_H)
+			W.Uncolor(t)
+			t:SetVertexColor(1, 1, 1, 1)
+		else
+			t:SetTexture(Theme.Media("chevron-up"))
+			t:SetTexCoord(0, 1, 0, 1)
+			t:SetSize(12, 12)
+			W.Color(t, COLOUR_TOKEN[colour])
+		end
+		t:Show()
+		return true
+	end
+	-- The same arrow inline in a line of text (compact): "" for grey / no colour.
+	local function skillUpMarkup(colour)
+		if not SKILL_UP[colour] then return "" end
+		local atlas = skillUpAtlas(colour)
+		if atlas then return format("|A:%s:%d:%d|a", atlas, SKILL_UP_H, SKILL_UP_W) end
+		local r, g, b = Theme.Color(COLOUR_TOKEN[colour])
+		return format("|T%s:12:12:0:0:64:64:0:64:0:64:%d:%d:%d|t", Theme.Media("chevron-up"), floor(r * 255 + 0.5), floor(g * 255 + 0.5), floor(b * 255 + 0.5))
 	end
 
 	-- Open <Profession>. What shows in the card is an ordinary button (`f.psOpen`, painted and laid out with the
@@ -531,13 +561,16 @@ ns.UI.GuideFrame.Part(function(GF)
 			f.Bar = accentBar(f.Card)
 			f.Tile = tile(f.Card, 32)
 			f.Name = W.Text(f.Card, "goal", "item")
-			f.Chip = W.Chip(f.Card)
+			-- The recipe's colour: the client's skill-up arrow; its name and thresholds in the tooltip.
+			f.Chip = CreateFrame("Frame", nil, f.Card)
+			f.Chip:SetSize(16, 16)
+			f.Chip.Icon = f.Chip:CreateTexture(nil, "ARTWORK")
+			f.Chip.Icon:SetPoint("CENTER", f.Chip, "CENTER", 0, 0)
 			f.Chip:EnableMouse(true)
 			f.Chip:SetScript("OnEnter", function(self)
 				local m = f.psModel
-				if m and m.yellow then
-					W.Tip(self, colourWord(m.colour), { format(L["Orange: every craft is a point. Yellow from %d, green from %d, grey at %d."], m.yellow, m.green, m.grey) })
-				end
+				if not (m and m.colour) then return end
+				W.Tip(self, colourWord(m.colour), m.yellow and { format(L["Orange: every craft is a point. Yellow from %d, green from %d, grey at %d."], m.yellow, m.green, m.grey) } or nil)
 			end)
 			f.Chip:SetScript("OnLeave", function(self) W.TipHide(self) end)
 			f.Uses = W.Text(f.Card, "small", "textDim")
@@ -564,7 +597,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			bareIn(f.Card)
 			setTile(f.Tile, m.item, "craft")
 			f.Name:SetText(m.item and itemHex(m.item, m.name) or m.name)
-			if m.colour then colourChip(f.Chip, m.colour) else f.Chip:Hide() end
+			f.Chip:SetShown(skillUp(f.Chip.Icon, m.colour))
 			local parts = {}
 			for _, r in ipairs(m.reagents or {}) do parts[#parts + 1] = format(L["%d %s"], r.count, itemHex(r.item, r.name)) end
 			f.Uses:SetText(table.concat(parts, " + "))
@@ -605,8 +638,8 @@ ns.UI.GuideFrame.Part(function(GF)
 			end
 			f.psCan = m.canMake and m.canMake > 0
 			-- Compact
-			local word = m.colour and hexed(COLOUR_TOKEN[m.colour], string.lower(colourWord(m.colour))) or nil
-			f.Line:SetText((m.item and itemHex(m.item, m.name) or m.name) .. (word and hexed("textMuted", DOT) .. word or ""))
+			local mark = skillUpMarkup(m.colour)
+			f.Line:SetText((m.item and itemHex(m.item, m.name) or m.name) .. (mark ~= "" and "  " .. mark or ""))
 			f.LineRight:SetText(left and left > 0 and format(L["%d to go  \194\183  to %d"], left, m.moveOn) or format(L["move on at %d"], m.moveOn))
 		end,
 		layout = function(f, m, width, mode)
