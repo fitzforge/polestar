@@ -980,20 +980,3 @@ fn ashenvale_the_horde_walk_from_zoramgar_to_splintertree_goes_round_maestras_po
 		assert!(off >= 200.0, "the walk passes {off:.0} yd from {name}'s Sentinel at {x},{y}");
 	}
 }
-
-// Hillsbrad Foothills, Southshore's north-east edge: players' recordings hold 29 Horde players (levels 25 to 38) who
-// died 37 times passing it, 12 of them to Southshore Guards (55) 50 to 100 yd from their posts, and the walk from
-// Hillsbrad Fields to Dun Garok passed 53 yd from four of them. A guard of level 50 or more keeps walks 100 yd away
-// (hubs.rs HIGH_GUARD_RADIUS).
-#[test]
-fn hillsbrad_the_horde_walk_from_hillsbrad_fields_to_dun_garok_keeps_100_yd_from_southshores_guards() {
-	let fields = Pt { c: 0, x: -496.0, y: -53.3, z: None }; // Hillsbrad Foothills 35, 42 (live map)
-	let dun_garok = Pt { c: 0, x: -1200.0, y: -1173.3, z: None }; // 70, 75
-	let got = walk(fields, dun_garok, Some("Horde"));
-	assert!(truthy(&got), "the engine finds the walk");
-	let pts = points(&got);
-	for (x, y) in [(-747.6, -684.6), (-677.2, -593.4), (-691.7, -605.5), (-645.3, -520.8)] {
-		let off = off_path(&pts, Pt { c: 0, x, y, z: None });
-		assert!(off >= 100.0, "the walk passes {off:.0} yd from the Southshore Guard at {x},{y}");
-	}
-}

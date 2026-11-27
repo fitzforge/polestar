@@ -12,9 +12,8 @@
 //!
 //! Guards and service NPCs of one side on one map are clustered by single linkage at LINK yd; a cluster
 //! with at least MIN_GUARDS guard or MIN_SERVICES service NPCs is a hub. Hubs of one side within JOIN yd
-//! are listed as one (a naming merge only). A hub's disks: one per spawn, GUARD_RADIUS around a guard
-//! (HIGH_GUARD_RADIUS around one of HIGH_GUARD_LEVEL or more), SERVICE_RADIUS around a service NPC. Named by
-//! the AreaTable: the capital at least half its spawns stand
+//! are listed as one (a naming merge only). A hub's disks: one per spawn, GUARD_RADIUS around a guard,
+//! SERVICE_RADIUS around a service NPC. Named by the AreaTable: the capital at least half its spawns stand
 //! in (by the grid's chunk area or the zone map around them), else the subzone under its centroid, else the
 //! most common subzone under its spawns, else the zone.
 //!
@@ -46,11 +45,6 @@ pub const GUARD_NAMES: [&str; 13] = ["Guard", "Sentinel", "Grunt", "Protector", 
 pub const MIN_GUARD_LEVEL: f64 = 10.0;
 pub const MIN_NAMED_GUARD_LEVEL: f64 = 20.0;
 pub const GUARD_RADIUS: f64 = 50.0;
-/// A guard of this level or more (a town's level-55 guards, 20 to 30 levels over the players walking past) keeps
-/// walks HIGH_GUARD_RADIUS yd away: players' recordings hold 12 Horde players at levels 25 to 33 who died to
-/// Southshore's Guards (55) 50 to 100 yd from their posts, on the walk past the town's north-east edge.
-pub const HIGH_GUARD_LEVEL: f64 = 50.0;
-pub const HIGH_GUARD_RADIUS: f64 = 100.0;
 pub const SERVICE_RADIUS: f64 = 25.0;
 const LINK: f64 = 60.0;
 const JOIN: f64 = 100.0;
@@ -203,8 +197,6 @@ struct Pt {
 	x: f64,
 	y: f64,
 	guard: bool,
-	/// The disk's radius: GUARD_RADIUS, HIGH_GUARD_RADIUS or SERVICE_RADIUS.
-	r: f64,
 }
 
 /// Single-linkage clusters of points within r of each other, in first-member order.
@@ -426,17 +418,11 @@ pub fn build_hubs(i: &HubsIn) -> Result<Vec<(u32, Vec<Value>)>, String> {
 	let mut entries: Vec<(i64, &Value)> = i.spawns.as_object().into_iter().flatten().filter_map(|(k, v)| Some((k.parse().ok()?, v))).collect();
 	entries.sort_by_key(|e| e.0);
 	for (entry, list) in entries {
-		let t = &i.templates[entry.to_string()];
-		let Some((side, guard)) = role_of(t, &h) else { continue };
-		let r = match (guard, t["minLevel"].as_f64().unwrap_or(0.0) >= HIGH_GUARD_LEVEL) {
-			(true, true) => HIGH_GUARD_RADIUS,
-			(true, false) => GUARD_RADIUS,
-			(false, _) => SERVICE_RADIUS,
-		};
+		let Some((side, guard)) = role_of(&i.templates[entry.to_string()], &h) else { continue };
 		for s in list.as_array().into_iter().flatten() {
 			let g = |k: usize| s[k].as_f64().unwrap_or(f64::NAN);
 			if let Some(at) = points.get_mut(&(g(0) as u32)) {
-				at[(side == "Horde") as usize].push(Pt { x: g(1), y: g(2), guard, r });
+				at[(side == "Horde") as usize].push(Pt { x: g(1), y: g(2), guard });
 			}
 		}
 	}
@@ -450,7 +436,7 @@ pub fn build_hubs(i: &HubsIn) -> Result<Vec<(u32, Vec<Value>)>, String> {
 				let mut seen = rustc_hash::FxHashSet::default();
 				let mut disks: Vec<[f64; 3]> = Vec::new();
 				for p in &members {
-					let d = [tenth(p.x), tenth(p.y), p.r];
+					let d = [tenth(p.x), tenth(p.y), if p.guard { GUARD_RADIUS } else { SERVICE_RADIUS }];
 					if seen.insert((d[0].to_bits(), d[1].to_bits(), d[2].to_bits())) {
 						disks.push(d);
 					}
@@ -636,7 +622,7 @@ pub fn rules() -> Value {
 		"service": format!("one side's, not a guard, NpcFlags & 0x{SERVICE_FLAGS:x} (quest giver, vendor, flight master, trainer, innkeeper, banker, repair)"),
 		"hub": format!("single linkage at {LINK} yd; a cluster with >= {MIN_GUARDS} guard or >= {MIN_SERVICES} service NPCs is a hub, unless >= {SHARED} of the other side's guards and service NPCs stand within {JOIN} yd of it (a camp both sides share); hubs of one side within {JOIN} yd are listed as one (a naming merge: their disks unchanged, none added)"),
 		"name": "AreaTable: the capital (Flags_0 & 0x100) at least half the spawns stand in (chunk area or zone map), else the subzone under the centroid, else the most common subzone, else the zone",
-		"disks": format!("{GUARD_RADIUS} yd around a guard ({HIGH_GUARD_RADIUS} yd around one of level {HIGH_GUARD_LEVEL} or more), {SERVICE_RADIUS} yd around a service NPC"),
+		"disks": format!("{GUARD_RADIUS} yd around a guard, {SERVICE_RADIUS} yd around a service NPC"),
 		"forever": "Forever's own NPCs (forever-db's npc and spawn tables, the ids classic-db lacks): a guard by its name, a service NPC by its codex roles (vendor, flight master, trainer, innkeeper, banker, repair) or as a quest's giver; one with no faction template is the side the codex has it friendly to, when only one",
 		"passage": "a hub of `side` whose disks a road passage's road crosses (hub-passages.json: the only road through a hostile post) is written with passage true: listed, its disks price no walk",
 	})
