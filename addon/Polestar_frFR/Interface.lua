@@ -589,6 +589,7 @@
 --   %s each
 --   %s for %s
 --   about %d to go
+--   Learn %s first
 --   %s reached
 --   %s to %d
 --   %s to %d, then %s to %d
@@ -5929,6 +5930,7 @@ L["%s at %d"] = "%s à %d"
 L["%s each"] = "%s pièce"
 L["%s for %s"] = "%s pour %s"
 L["about %d to go"] = "encore environ %d"
+L["Learn %s first"] = "Apprends d'abord %s"
 L["%s reached"] = "%s atteint"
 L["%s to %d"] = "%s jusqu'à %d"
 L["%s to %d, then %s to %d"] = "%s jusqu'à %d, puis %s jusqu'à %d"

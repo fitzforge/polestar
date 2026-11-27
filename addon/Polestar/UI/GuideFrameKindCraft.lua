@@ -623,7 +623,11 @@ ns.UI.GuideFrame.Part(function(GF)
 				W.Color(f.MoveOn, "textMuted")
 			end
 			local canAll = false
-			if m.canMake and m.canMake > 0 then
+			if m.learned == false and m.spell then
+				f.Make:SetText(format(L["Learn %s first"], m.spell))
+				W.Color(f.Make, "textDim")
+				f.Check:Hide()
+			elseif m.canMake and m.canMake > 0 then
 				canAll = left and left > 0 and m.canMake >= left
 				f.Make:SetText(canAll and format(L["You can make all %d now"], left) or format(L["You can make %d now"], m.canMake))
 				W.Color(f.Make, "success")

@@ -475,3 +475,14 @@ GetTradeSkillInfo = function(i) return "Woolen Cape", "trivial" end`, ICON);
 	assert.equal(out.card.shown, false);
 	assert.doesNotMatch(out.line, /\|A:|\|T/);
 });
+
+test('a skill not learned yet: the profession layout from the first step (the recipe it starts on, "Learn Tailoring first", the materials)', () => {
+	const out = run('C.GetSkillRank = function() return nil end', `${WINDOW.replace('emit({', 'local stm = E.KindModel("stretch", view, "profession")\nemit({ learned = stm and stm.learned, colour = stm and stm.colour or false, chip = st and st.Chip:IsShown(), open = st and st.psOpen:IsShown(),')}`);
+	assert.deepEqual(out.regions, { meter: true, trainer: true, stretch: true, supplies: true, buyList: true });
+	assert.equal(out.person, false, 'no plain goal rows in place of the layout');
+	assert.equal(out.name, 'Learn Tailoring');
+	assert.equal(out.make, 'Learn Tailoring first');
+	assert.match(out.count, /^about \d+ to go$/);
+	assert.equal(out.head, 'Materials to 115');
+	assert.deepEqual([out.learned, out.colour, out.chip, out.open], [false, false, false, false], 'no colour and no Open Tailoring before it is learned');
+});

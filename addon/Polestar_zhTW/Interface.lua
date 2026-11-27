@@ -577,6 +577,7 @@
 --   %s each
 --   %s for %s
 --   about %d to go
+--   Learn %s first
 --   %s reached
 --   %s to %d
 --   %s to %d, then %s to %d
@@ -5917,6 +5918,7 @@ L["%s at %d"] = "%s（%d 起）"
 L["%s each"] = "每個 %s"
 L["%s for %s"] = "%s（%s）"
 L["about %d to go"] = "還差約 %d"
+L["Learn %s first"] = "先學習%s"
 L["%s reached"] = "已達到%s"
 L["%s to %d"] = "%s 至 %d"
 L["%s to %d, then %s to %d"] = "%s 至 %d，然後 %s 至 %d"

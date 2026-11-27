@@ -560,6 +560,7 @@
 --   %s each
 --   %s for %s
 --   about %d to go
+--   Learn %s first
 --   %s reached
 --   %s to %d
 --   %s to %d, then %s to %d
@@ -5900,6 +5901,7 @@ L["%s at %d"] = "%s с %d"
 L["%s each"] = "%s за штуку"
 L["%s for %s"] = "%s для: %s"
 L["about %d to go"] = "осталось около %d"
+L["Learn %s first"] = "Сначала изучите: %s"
 L["%s reached"] = "%s достигнуто"
 L["%s to %d"] = "%s до %d"
 L["%s to %d, then %s to %d"] = "%s до %d, затем %s до %d"

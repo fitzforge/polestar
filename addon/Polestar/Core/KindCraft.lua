@@ -470,14 +470,17 @@ end
 M.stretch = function(view, kind)
 	if kind ~= "profession" then return nil end
 	local b, rank = skill()
-	if not (b and rank) then return nil end
+	if not b then return nil end
+	-- A skill not learned yet stands at 0: the card shows the recipe it starts on ("Learn Tailoring first").
+	local learned = rank ~= nil
+	rank = rank or 0
 	local st = KC.Stretch(view and view.index, rank)
 	if not st then return nil end
 	local a = access()
 	local G = a.guide()
 	local goal = st.goal
 	local colour, green = KC.Colour(goal, rank)
-	colour = KC.WindowColour(goal) or colour
+	colour = learned and (KC.WindowColour(goal) or colour) or nil
 	local expected = goal.yellow and a.craftsFrom(goal, st.from, st.from) or nil
 	local left = goal.yellow and ceil(a.craftsFrom(goal, st.from, max(rank, st.from)) - 0.001) or nil
 	local made = 0
@@ -502,13 +505,14 @@ M.stretch = function(view, kind)
 	local covers = coverTypes(view, { craft = true })
 	return { item = goal.item, recipe = goal.spell, name = craftName(goal), quality = goal.item and quality(goal.item), colour = colour,
 		yellow = goal.yellow, green = green, grey = goal.grey, reagents = reagents, made = made, left = left,
-		expected = expected and floor(expected + 0.5) or nil, moveOn = goal.untilSkill, from = st.from, rank = rank,
-		canMake = canMake or 0, makeFirst = makeFirst, spell = KC.SkillName(b.line), step = st.s, covers = covers }
+		expected = expected and floor(expected + 0.5) or nil, moveOn = goal.untilSkill, from = st.from, rank = rank, learned = learned,
+		canMake = learned and canMake or 0, makeFirst = learned and makeFirst or nil, spell = KC.SkillName(b.line), step = st.s, covers = covers }
 end
 
 local function professionSupplies(view)
 	local b, rank = skill()
-	if not (b and rank) then return nil end
+	if not b then return nil end
+	rank = rank or 0
 	local st = KC.Stretch(view and view.index, rank)
 	local a = access()
 	local G = a.guide()

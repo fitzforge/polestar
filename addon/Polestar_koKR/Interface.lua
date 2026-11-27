@@ -577,6 +577,7 @@
 --   %s each
 --   %s for %s
 --   about %d to go
+--   Learn %s first
 --   %s reached
 --   %s to %d
 --   %s to %d, then %s to %d
@@ -5917,6 +5918,7 @@ L["%s at %d"] = "%s %d부터"
 L["%s each"] = "개당 %s"
 L["%s for %s"] = "%s (%s 달성용)"
 L["about %d to go"] = "약 %d 남음"
+L["Learn %s first"] = "먼저 %s 배우기"
 L["%s reached"] = "%s 달성"
 L["%s to %d"] = "%s %d까지"
 L["%s to %d, then %s to %d"] = "%s %d까지, 다음 %s %d까지"
