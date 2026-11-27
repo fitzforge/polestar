@@ -247,3 +247,16 @@ test("the curated table: The Drowned City's way in is where players enter it, at
 	assert.equal(d.source.kind, 'recording', 'cited from players\' recordings');
 	assert.ok(isSourceCitation(d.source));
 });
+
+// #4432: The Shaper's Terrace (Forever's, instance map 3001) had no entrance at all, so a ghost's arrow pointed 232 yd
+// off; its way in is on Un'Goro Crater's northern edge, where players' recordings enter it and the reporter stood.
+test("the curated table: The Shaper's Terrace's way in is on Un'Goro Crater's northern edge, where players enter it (#4432)", () => {
+	const d = loadEntranceTable()['the-shapers-terrace'];
+	assert.ok(d, 'an entry for the Forever dungeon');
+	assert.equal(d.instance, 3001, 'the client Map id players enter');
+	assert.deepEqual([d.map, d.x, d.y], [1449, 48.2, 5.5], "Un'Goro Crater, where players enter");
+	assert.equal(d.source.kind, 'recording', "cited from players' recordings");
+	assert.ok(isSourceCitation(d.source));
+	const UNGORO = { c: 1, left: 533.333, right: -3166.667, top: -5966.667, bottom: -8433.333 };
+	assert.deepEqual(chooseEntrance({ name: "The Shaper's Terrace", zones: {}, frames: { 1449: UNGORO }, prefer: [1449], table: d }), { map: 1449, x: 48.2, y: 5.5, f: null }, 'the table entry, not nothing');
+});

@@ -237,6 +237,17 @@ fn skip_passes_the_step_and_its_turn_in_goes_with_it_do_keeps_the_quest_on_the_r
 	assert_eq!(done[0], json!({ "at": 1, "s1": "current", "q": false }));
 }
 
+// "do" is never final: while the route is at the quest's step, Engine.GroupDoing names it, for the banner's
+// "No group? Skip it"; skipped, the route goes on without it.
+#[test]
+fn a_do_answer_names_the_quest_at_its_step_and_a_later_skip_passes_it() {
+	let out =
+		run(opts(r#"emit(E.GroupDoing() or false); E.AnswerGroup(7, "do"); flush(); emit({ E.GroupDoing() }); E.AnswerGroup(7, "skip"); flush(); emit({ at = at(), q = E.GroupDoing() or false })"#));
+	assert_eq!(out[0], json!(false), "unanswered: asked, not doing");
+	assert_eq!(out[1][0], json!(7));
+	assert_eq!(out[2], json!({ "at": 3, "q": false }));
+}
+
 #[test]
 fn the_answer_is_kept_per_character_and_asked_for_no_more() {
 	let out = run(Opts { saved: json!({ "schema": 1, "guide": "test/group", "groupQuests": { "7": "skip" } }), ..opts("emit({ at = at(), q = E.GroupQuestion() or false })") });

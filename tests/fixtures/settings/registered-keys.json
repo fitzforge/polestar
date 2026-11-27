@@ -18,6 +18,7 @@
 	"behavior.trainReminder",
 	"behavior.warnClosing",
 	"behavior.whileHere",
+	"behavior.whileHereDungeons",
 	"behavior.whileHereFlights",
 	"behavior.whileHereGather",
 	"behavior.whileHereRadius",

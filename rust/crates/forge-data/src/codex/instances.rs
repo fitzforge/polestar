@@ -17,7 +17,8 @@ const MIN_LOOT: f64 = 1.0;
 const OWN_LOOT: f64 = 5.0;
 const BOSS_LOOT_CAP: usize = 30;
 const ORIGINAL_MAPS: f64 = 1000.0;
-const MAX_LEVEL: f64 = 60.0;
+/// The level cap: a range's top never runs past it (the bosses' here, the quests' in journal.rs).
+pub(crate) const MAX_LEVEL: f64 = 60.0;
 const ZONE_MAX: f64 = 20000.0;
 
 static JUNK_NPC: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"(?i)^(?:\[|zz|Test |Monster - )|\(DND\)|(?-u:\b)DND(?-u:\b)|Trigger|Bunny|Invisible").unwrap());

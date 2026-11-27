@@ -427,6 +427,16 @@
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
 --   Profession routes: based on the guides by Peter at WoW-Professions.com.
+-- Machine-translated, to be reviewed (#2576 auction house prices, 27 Nov 2026): translated by an AI model (Claude Opus 5.5)
+-- and waiting for a native speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   Optional: buy at the auction house (/polestar ah)
+--   Auctionator estimate: %s
+--   %s (%d still unpriced)
+--   The auction house is unavailable to Self-Found characters.
+--   No cached price
+--   No cached prices for the remaining quest items.
+--   Partial estimate for remaining quest items: %s
+--   Estimated total for remaining quest items: %s
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhCN") then return end
@@ -1593,7 +1603,6 @@ L["Pick what the step asks for"] = "选择步骤要求的选项"
 L["At the step's NPC, picks the chat option the guide names, or opens the goods or training the step needs. Only on the step the guide is at. Hold Shift to choose yourself."] = "在步骤的NPC处，选择指南指定的对话选项，或打开步骤所需的商品或训练界面。仅在指南当前所在的步骤生效。按住 Shift 可自行选择。"
 L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = "自动选择无任务 NPC 的唯一选项。按住 Shift 阅读。关闭时，游戏本身仍会跳过部分对话，“选择步骤要求的选项”仍会选择步骤的选项，飞行管理员则遵循“打开飞行地图”。"
 L["Click objectives to target"] = "点击任务目标以选中"
-L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "在战斗外点击任务目标行或 NPC 标题时，也会选中该 NPC，并使用与目标按钮相同的标记设置。这会替换你当前的目标；搜索失败时会清除目标。"
 L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "目标按钮和步骤快捷键会给选中的怪物或 NPC 加上团队标记；非战斗状态下，若按下后未找到目标，则清除当前目标。再次按下不会移除标记。在你不是队长的小队中，只给尚无标记的单位加标记；在团队中，仅当你是团长或助理时才会标记。"
 L["Ping what they target"] = "对所选目标发送信号"
 L["Show quest-starting loot"] = "显示开始任务的战利品"
@@ -1649,6 +1658,7 @@ L["Equip a spare bag first"] = "先装备备用背包"
 L["When your bags are nearly full and a bag sits in them while a bag slot is empty, the bag button and the guide window offer to put it on before any junk. Nothing happens until you press."] = "背包快满时，如果还有空的背包栏位，且背包里有备用背包，背包按钮和指南窗口会优先提示装备备用背包。按下按钮才会装备。"
 L["Step errands"] = "步骤杂务"
 L["Level pace"] = "升级节奏"
+-- L["Clicking an objective row, an NPC heading or a While you're here line also targets its mob or NPC outside combat, using the Target button's marking settings. This replaces your current target. A failed search clears it."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "仅限联盟"
@@ -1892,6 +1902,7 @@ L["about %d kills, %d min"] = "约%d次击杀，%d分钟"
 L["about %d kills"] = "约%d次击杀"
 L["or %s (%s)"] = "或%s（%s）"
 L["or %s"] = "或%s"
+L["Optional: buy at the auction house (/polestar ah)"] = "可选：在拍卖行购买（/polestar ah）"
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"
@@ -5328,6 +5339,13 @@ L["MATERIALS FOR %s"] = "%s 的材料"
 L["%s held"] = "已有 %s 个"
 L["Tracking is on"] = "追踪已开启"
 L["Tracking is on: your minimap shows the ones that are up."] = "追踪已开启：你的微缩地图会显示已刷新的目标。"
+L["Auctionator estimate: %s"] = "Auctionator 估价：%s"
+L["%s (%d still unpriced)"] = "%s（%d 件尚无价格）"
+L["The auction house is unavailable to Self-Found characters."] = "自强角色无法使用拍卖行。"
+L["No cached price"] = "没有缓存价格"
+L["No cached prices for the remaining quest items."] = "剩余任务物品没有缓存价格。"
+L["Partial estimate for remaining quest items: %s"] = "剩余任务物品的部分估价：%s"
+L["Estimated total for remaining quest items: %s"] = "剩余任务物品的估计总价：%s"
 
 -- UI/Materials.lua
 L["Your choice"] = "你的选择"
@@ -5927,6 +5945,7 @@ L["Class quest"] = "职业任务"
 -- L["Max height"] = "最大高度"
 -- L["%s: on this step"] = "%s：在此步骤"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "把你自己的任务当作指南，在单独的标签页中：箭头指向最近的任务，然后是下一个（/polestar free）。"
+-- L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "在战斗外点击任务目标行或 NPC 标题时，也会选中该 NPC，并使用与目标按钮相同的标记设置。这会替换你当前的目标；搜索失败时会清除目标。"
 -- L["The last steps here aren't mapped"] = "这里最后几步没有地图"
 -- L["None of these has a known place to hand it in."] = "这些任务都没有已知的交还地点。"
 -- L["Travel time to this hand-in is unknown. Its location is still shown."] = "前往此交任务处的路程时间未知。仍会显示它的位置。"

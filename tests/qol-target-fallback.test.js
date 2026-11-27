@@ -301,3 +301,52 @@ test('in combat, a dead target is cleared before acquiring the next living mob w
 		['Boar', 8, 1], ['Wolf', 8, 1], [false, 0, 0], ['Living Opponent', 8, 1],
 	]);
 });
+
+test('the target button names a clicked While you\'re here pick-up\'s NPC first, with the NPC icon', () => {
+	const rows = run(`
+		local function aim(waypoint, goals)
+			shown = {
+				{ t = "accept", npcName = "Demar Brant", quest = 9, step = 30, index = 2, status = "active" },
+				{ t = "kill", subject = "Roosting Duskbat", step = 31, index = 1, status = "active" },
+			}
+			q.engine.waypoint = waypoint
+			q.step(goals)
+		end
+		-- Not clicked: the step's NPC, then the row's mob; the pick-up is not named.
+		aim(nil, { { t = "talk", npcName = "Scout Bolain" } })
+		world(unit("Scout Bolain"), unit("Demar Brant")); emit(click(PolestarTargetButton))
+		-- Clicked: its NPC before the step's NPC and the row's mob.
+		aim({ stepIndex = 30, goalIndex = 2 }, { { t = "talk", npcName = "Scout Bolain" } })
+		world(unit("Scout Bolain"), unit("Demar Brant")); emit(click(PolestarTargetButton))
+		-- And before the step's own mobs.
+		aim({ stepIndex = 30, goalIndex = 2 }, { { t = "kill", target = "Skeletal Fiend" } })
+		world(unit("Skeletal Fiend", true), unit("Demar Brant")); emit(click(PolestarTargetButton))
+		world(unit("Skeletal Fiend", true)); emit(click(PolestarTargetButton))
+	`);
+	assert.deepEqual(rows.map(outcome), [
+		['Scout Bolain', 1, 1], ['Demar Brant', 1, 1], ['Demar Brant', 1, 1], ['Skeletal Fiend', 8, 1],
+	]);
+});
+
+test('the target button puts nearby mobs before a far step NPC after the clicked pick-up', () => {
+	const [near, far, fallback] = run(`
+		Polestar.Set("behavior.whileHereRadius", 300)
+		shown = {
+			{ t = "accept", npcName = "Demar Brant", quest = 9, step = 30, index = 2, status = "active" },
+			{ t = "kill", subject = "Roosting Duskbat", step = 31, index = 1, status = "active" },
+		}
+		q.engine.waypoint = { stepIndex = 30, goalIndex = 2 }
+		local goals = { { t = "talk", npcName = "Scout Bolain", map = 9000, x = 92, y = 92 } }
+		q.player.wx, q.player.wy = -840, -840
+		q.step(goals)
+		emit(B.TargetNames(nil, nil, true, true))
+		q.player.wx, q.player.wy = 0, 0
+		q.step(goals)
+		emit(B.TargetNames(nil, nil, true, true))
+		world(unit("Scout Bolain"), unit("Roosting Duskbat", true))
+		emit(click(PolestarTargetButton))
+	`);
+	assert.deepEqual(near, ['Demar Brant', 'Scout Bolain', 'Roosting Duskbat']);
+	assert.deepEqual(far, ['Demar Brant', 'Roosting Duskbat', 'Scout Bolain']);
+	assert.deepEqual(outcome(fallback), ['Roosting Duskbat', 8, 1]);
+});

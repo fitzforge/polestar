@@ -560,6 +560,8 @@ Polestar.RegisterGuide({
 	})
 	.remove(0);
 	let why = "Only with \u{201c}Kobold Camp Cleanup\u{201d} in your quest log";
-	assert_eq!(out["before"], json!({ "live": 3, "skipped": true, "why": why }), "passed and stored as skipped: the condition says why");
+	// #4158: the route's pass says why as the step list does.
+	let passed = "Not for you: needs \u{201c}Kobold Camp Cleanup\u{201d} in your quest log";
+	assert_eq!(out["before"], json!({ "live": 3, "skipped": true, "why": passed }), "passed and stored as skipped: the condition says why");
 	assert_eq!(out["after"], json!({ "live": 3, "skipped": false, "why": why }), "unskipped, it still holds nothing");
 }

@@ -80,7 +80,10 @@ local function createButton(i)
 				ns.Print(message)
 			end
 		end
-		if mouse == "LeftButton" or (mouse == "RightButton" and self.psRight) then ownerScript(self, "OnClick", mouse) end
+		-- Rows handle right-click and middle-click. The NPC heading takes only left-click.
+		if mouse == "LeftButton" or (self.psRight and (mouse == "RightButton" or mouse == "MiddleButton")) then
+			ownerScript(self, "OnClick", mouse)
+		end
 		-- Navigation can change the step and reuse this overlay. Advance the
 		-- kind whose macro just ran, after the ordinary click has finished.
 		if ran then ns.QoL.Buttons.AdvanceMark(kind) end

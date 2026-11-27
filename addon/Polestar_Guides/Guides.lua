@@ -1019,7 +1019,7 @@ do
 				},
 				{
 					title = "{npc:264089} and the veteran",
-					note = "Back to {npc:264089}, then the ghostly {npc:255009} at {area:16868}'s western edge, where the recording met him, on your way west.",
+					note = "Back to {npc:264089}, then the ghostly {npc:255009} on your way west. He doesn't keep to one spot: players have met him anywhere in {area:16868} from its western edge (20,60) north-east to about 25,51, so if he isn't at the arrow, look along that line.",
 					goals = {
 						{ t = "turnin", quest = 90865, title = "Eyes of the Watchers", npc = 264089, npcName = "Eluneth", map = 2482, x = 18.65, y = 61.98 },
 						{ t = "accept", quest = 92100, title = "Anywhere But Here", npc = 255009, npcName = "Veteran of the Third War", minLevel = 54, qlvl = 58, map = 2482, x = 21.6, y = 57.5, spotsPacked = "21.6,57.5,,15,1;20.5,60.1,,15,1,1", note = "{npc:255009}: {quest:92100}" },

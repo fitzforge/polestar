@@ -29,7 +29,9 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- it or Skip it, never dismissed), and after "No group? Skip it" the
 	-- dungeon's quests kept in the log; the step the player just skipped, with
 	-- its undo; why the guide just moved past a quest (while that step's guide
-	-- and next step are on screen); the step on screen when it is not the live
+	-- and next step are on screen); at the live step's group quest answered Do
+	-- it with a group, "No group? Skip it" (closed: for that quest, this
+	-- session); the step on screen when it is not the live
 	-- one (skipped: unskip it; looked at with ‹ ›: back to the live step); at a
 	-- chosen dungeon's run, until inside, "No group? Skip it", and a few steps
 	-- before it the start-looking line; then the end of a leveling
@@ -48,7 +50,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	---------------------------------------------------------------------------
 
 	local SKIPPED_SECONDS = 20 -- how long the "Skipped …" notices stay
-	local notices = { closedTab = nil, questSkip = nil, groupSkip = nil, stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil, dungeonKept = nil, soonSeen = nil, freshSeen = {}, taxiMap = nil }
+	local notices = { closedTab = nil, questSkip = nil, groupSkip = nil, groupDoSeen = nil, stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil, dungeonKept = nil, soonSeen = nil, freshSeen = {}, taxiMap = nil }
 	GF.notices = notices
 
 	-- The step on screen when it is not the live step: { guideId, index, live,
@@ -56,7 +58,9 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- skipped step that holds nothing for the character (the view's `why`:
 	-- passed because its condition failed, its quest not in the log) is not
 	-- offered back: unskipped, it would still hold nothing (#2847). The card
-	-- says why; the banner offers the way back to the live step.
+	-- says why; the banner offers the way back to the live step. One the
+	-- route passed whose condition holds now (the view's `passedHeld`, #4158)
+	-- says so, with its Unskip.
 	local function awayNotice(E, g)
 		local view = GF.View()
 		if not (E.GetLiveStep and view and g) then return nil end
@@ -64,7 +68,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		if not index or index ~= view.index or index == live then return nil end
 		local skipped = view.skipped and not view.why
 		if not skipped and not live then return nil end
-		local a = { guideId = g.id, index = index, live = live, skipped = skipped and true or false }
+		local a = { guideId = g.id, index = index, live = live, skipped = skipped and true or false, passed = skipped and view.passedHeld and view.passed or nil }
 		if notices.away == g.id .. ":" .. index then return nil end
 		return a
 	end
@@ -193,6 +197,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		if k and g ~= nil and g.id == k.guideId and (not view or view.index ~= k.step) then return "stepSkip", k end
 		local s = notices.skipped
 		if s and g ~= nil and g.id == s.guideId and E.GetStepIndex() == s.to then return "skipped", s end
+		-- At the live step's group quest answered "do": "No group? Skip it" (closed: for that quest, this session).
+		local doq, dotitle
+		if E and E.GroupDoing then doq, dotitle = E.GroupDoing() end
+		if doq and notices.groupDoSeen ~= doq then return "groupDo", { quest = doq, title = dotitle } end
 		local a = E and awayNotice(E, g)
 		if a then return "away", a end
 		-- At a chosen dungeon's run, until inside: "No group? Skip it"; a few steps before it: start looking for a group.
@@ -584,6 +592,13 @@ ns.UI.GuideFrame.Part(function(GF)
 			local w = placeLink(banner.Jump, L["Skip it"], 0, -4)
 			placeLink(banner.Later, L["Do it with a group"], w + 10, -4)
 			banner.Close:Hide()
+		elseif kind == "groupDo" then
+			-- A group quest answered "do", at the live step: the way out when no group comes.
+			banner.Icon:SetTexture(Theme.Media("icon-kill"))
+			local line = L["In your route: the guide takes you to it. Bring a group."]
+			banner.Text:SetText(string.format(L["Group quest: %s"], ns.Quoted(n.title) or "") .. "\n" .. line)
+			placeLink(banner.Jump, L["No group? Skip it"], 0, -4)
+			banner.Close:Show()
 		elseif kind == "dungeon" then
 			-- "Ask me": the first step of a dungeon not answered yet holds the route until Run it or Skip it.
 			banner.Icon:SetTexture(Theme.Media("icon-dungeon"))
@@ -613,7 +628,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		elseif kind == "away" then
 			banner.Icon:SetTexture(Theme.Media(n.skipped and "skip" or (n.live and n.index > n.live and "chevron-right" or "chevron-left")))
 			if n.skipped then
-				banner.Text:SetText(L["You skipped this step."])
+				banner.Text:SetText(n.passed or L["You skipped this step."])
 				local w = placeLink(banner.Jump, L["Unskip it"], 0, -4)
 				-- The way back to the live step stays beside it (LaterBanner).
 				if n.live and n.live ~= n.index then
@@ -872,6 +887,12 @@ ns.UI.GuideFrame.Part(function(GF)
 				E.AnswerGroup(n.quest, "skip")
 				if GF.live then groupSkipped(n.quest, n.title) end
 			end
+		elseif kind == "groupDo" then
+			-- No group after all: skipped, with the usual undo.
+			if E and E.AnswerGroup then
+				E.AnswerGroup(n.quest, "skip")
+				if GF.live then groupSkipped(n.quest, n.title) end
+			end
 		elseif kind == "groupSkip" then
 			-- Unanswered again: the step asks once more.
 			notices.groupSkip = nil
@@ -998,6 +1019,9 @@ ns.UI.GuideFrame.Part(function(GF)
 			notices.away = n.guideId .. ":" .. n.index
 		elseif kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun" or kind == "faction" then
 			-- a group quest, a lost one or a dungeon is answered, never dismissed
+		elseif kind == "groupDo" then
+			-- closed for this quest, this session
+			notices.groupDoSeen = n.quest
 		elseif kind == "dungeonSoon" then
 			-- closed for this dungeon's run
 			notices.soonSeen = n.map

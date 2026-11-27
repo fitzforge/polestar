@@ -65,6 +65,25 @@ ns.UI.GuideFrame.Part(function(GF)
 		if E.SelectTab and not self.psActive then E.SelectTab(self.psIndex) end
 	end
 
+	-- The tab strip's tooltips (a tab's, its close, New tab) open above their
+	-- owner, and under it where the screen's top would cut them: the game
+	-- pushes a tooltip that does not fit above down over its owner (#4369).
+	local function tipFitsAbove(owner)
+		local top, screenTop = owner:GetTop(), UIParent:GetTop()
+		if not (top and screenTop and GameTooltip) then return true end
+		return top * owner:GetEffectiveScale() + GameTooltip:GetHeight() * GameTooltip:GetEffectiveScale()
+			<= screenTop * UIParent:GetEffectiveScale()
+	end
+	local function tipAbove(owner, title, lines)
+		W.Tooltip(owner, "ANCHOR_TOP", title, lines)
+		if not tipFitsAbove(owner) then W.Tooltip(owner, "ANCHOR_BOTTOM", title, lines) end
+	end
+	-- A W.IconButton's own tooltip (psTip, which W.SimpleTip opens above it), from its psOnEnter.
+	local function iconTipAbove(b)
+		if b.psTip and not tipFitsAbove(b) then W.Tooltip(b, "ANCHOR_BOTTOM", b.psTip, b.psTipLines) end
+	end
+	GF.TipAbove, GF.IconTipAbove = tipAbove, iconTipAbove
+
 	local function tabTip(self, anchor)
 		local lines = {}
 		if self.psMeta and self.psMeta ~= "" then lines[#lines + 1] = self.psMeta end
@@ -74,7 +93,11 @@ ns.UI.GuideFrame.Part(function(GF)
 		local total = t and (t.total or t.stepCount)
 		if t and t.done and total and total > 0 then lines[#lines + 1] = string.format(L["%d of %d steps done"], t.done, total) end
 		lines[#lines + 1] = { L["Right-click for tab options"], Theme.Accent() }
-		W.Tooltip(self, anchor or "ANCHOR_TOP", self.psTitle or "", lines)
+		if (anchor or "ANCHOR_TOP") == "ANCHOR_TOP" then
+			tipAbove(self, self.psTitle or "", lines)
+		else
+			W.Tooltip(self, anchor, self.psTitle or "", lines)
+		end
 		GF.HoverIn()
 	end
 	GF.TabMenu, GF.TabClick, GF.TabTip = tabMenu, tabClick, tabTip
@@ -153,7 +176,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		b.Close.psTabClose = true
 		Theme.KitIconButton(b.Close)
 		b.Close:SetAlpha(closeRest())
-		b.Close.psOnEnter = function(c) c:SetAlpha(1) end
+		b.Close.psOnEnter = function(c) c:SetAlpha(1); iconTipAbove(c) end
 		b.Close.psOnLeave = function(c) if not c:GetParent():IsMouseOver() then c:SetAlpha(closeRest()) end end
 		-- Its parts for a skin's hooks.guideTab (Skin API 2), made once.
 		b.psParts = { selected = b.Selected, bar = b.Bar, label = b.Label, range = b.Range, icon = b.Icon, close = b.Close }

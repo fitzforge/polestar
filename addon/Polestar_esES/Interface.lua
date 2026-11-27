@@ -570,6 +570,16 @@
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
 --   Profession routes: based on the guides by Peter at WoW-Professions.com.
+-- Machine-translated, to be reviewed (#2576 auction house prices, 27 Nov 2026): translated by an AI model (Claude Opus 5.5)
+-- and waiting for a native speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   Optional: buy at the auction house (/polestar ah)
+--   Auctionator estimate: %s
+--   %s (%d still unpriced)
+--   The auction house is unavailable to Self-Found characters.
+--   No cached price
+--   No cached prices for the remaining quest items.
+--   Partial estimate for remaining quest items: %s
+--   Estimated total for remaining quest items: %s
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "esES") then return end
@@ -1736,7 +1746,6 @@ L["Pick what the step asks for"] = "Elegir lo que pide el paso"
 L["At the step's NPC, picks the chat option the guide names, or opens the goods or training the step needs. Only on the step the guide is at. Hold Shift to choose yourself."] = "Con el PNJ del paso, elige la opción de conversación que indica la guía, o abre la mercancía o el entrenamiento que necesita el paso. Solo en el paso en el que está la guía. Mantén pulsado Mayús para elegir tú."
 L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = "Elige la única opción de los PNJ sin misiones. Mantén pulsado Mayús para leerla. Desactivado, el juego sigue saltándose algunas por sí mismo, Elegir lo que pide el paso sigue eligiendo la opción del paso y los maestros de vuelo siguen Abrir el mapa de vuelo."
 L["Click objectives to target"] = "Clic en los objetivos para seleccionar"
-L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Al hacer clic en una fila de objetivo o en el encabezado de un PNJ, también se selecciona a ese PNJ fuera de combate, con los mismos ajustes de marcado que el botón de objetivo. Esto reemplaza tu objetivo actual; una búsqueda fallida lo quita."
 L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "El botón de objetivo y la tecla del paso ponen un icono de banda al monstruo y al PNJ que seleccionan; fuera de combate, una pulsación que no encuentra ninguno borra tu objetivo. Pulsar otra vez nunca quita un icono. En un grupo que no lideras, solo recibe icono una unidad que no tenga ninguno; en una banda, solo si eres líder o ayudante."
 L["Ping what they target"] = "Marcar con ping lo que seleccionan"
 L["Show quest-starting loot"] = "Mostrar el botín que inicia misiones"
@@ -1791,6 +1800,7 @@ L["Equip a spare bag first"] = "Equipar primero una bolsa de sobra"
 L["When your bags are nearly full and a bag sits in them while a bag slot is empty, the bag button and the guide window offer to put it on before any junk. Nothing happens until you press."] = "Cuando tus bolsas están casi llenas y llevas una bolsa dentro mientras una casilla de bolsa está vacía, el botón de bolsas y la ventana de la guía te ofrecen ponértela antes de tirar basura. No pasa nada hasta que pulses."
 L["Step errands"] = "Encargos del paso"
 L["Level pace"] = "Ritmo de nivel"
+-- L["Clicking an objective row, an NPC heading or a While you're here line also targets its mob or NPC outside combat, using the Target button's marking settings. This replaces your current target. A failed search clears it."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Solo Alianza"
@@ -2034,6 +2044,7 @@ L["about %d kills, %d min"] = "unas %d muertes, %d min"
 L["about %d kills"] = "unas %d muertes"
 L["or %s (%s)"] = "o %s (%s)"
 L["or %s"] = "o %s"
+L["Optional: buy at the auction house (/polestar ah)"] = "Opcional: compra en la casa de subastas (/polestar ah)"
 
 -- UI/GuideFrame.lua
 L["Location"] = "Ubicación"
@@ -5471,6 +5482,13 @@ L["MATERIALS FOR %s"] = "MATERIALES PARA %s"
 L["%s held"] = "%s en tu poder"
 L["Tracking is on"] = "Rastreo activado"
 L["Tracking is on: your minimap shows the ones that are up."] = "Rastreo activado: tu minimapa muestra los que hay ahora."
+L["Auctionator estimate: %s"] = "Estimación de Auctionator: %s"
+L["%s (%d still unpriced)"] = "%s (%d aún sin precio)"
+L["The auction house is unavailable to Self-Found characters."] = "La casa de subastas no está disponible para personajes de opción personal."
+L["No cached price"] = "Sin precio guardado"
+L["No cached prices for the remaining quest items."] = "No hay precios guardados para los objetos de misión restantes."
+L["Partial estimate for remaining quest items: %s"] = "Estimación parcial de los objetos de misión restantes: %s"
+L["Estimated total for remaining quest items: %s"] = "Total estimado de los objetos de misión restantes: %s"
 
 -- UI/Materials.lua
 L["Your choice"] = "Tu elección"
@@ -6056,6 +6074,7 @@ L["Click to show quest guide actions."] = "Haz clic para ver las acciones de la 
 -- L["Max height"] = "Altura máx."
 -- L["%s: on this step"] = "%s: en este paso"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "Tus propias misiones como guía, en una pestaña propia: la flecha va a la más cercana y luego a la siguiente (/polestar free)."
+-- L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Al hacer clic en una fila de objetivo o en el encabezado de un PNJ, también se selecciona a ese PNJ fuera de combate, con los mismos ajustes de marcado que el botón de objetivo. Esto reemplaza tu objetivo actual; una búsqueda fallida lo quita."
 -- L["The last steps here aren't mapped"] = "Los últimos pasos aquí no están en el mapa"
 -- L["None of these has a known place to hand it in."] = "Ninguna tiene un lugar conocido donde entregarla."
 -- L["Travel time to this hand-in is unknown. Its location is still shown."] = "Se desconoce el tiempo de viaje a esta entrega. Su ubicación se sigue mostrando."

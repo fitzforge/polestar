@@ -47,7 +47,7 @@ return {
 	["{area:154}: kill these as you meet them"] = "{area:154}: Töte sie, wenn sie dir begegnen",
 	-- {area:154} Deathknell · {npc:1661} Novice Elreth
 	-- plural, as words: Rattlecage Skeletons = {npc:1890} Rattlecage Skeleton · Young Scavengers = {npc:1508} Young Scavenger · Ragged Scavengers = {npc:1509} Ragged Scavenger · Mangy Duskbats = {npc:1513} Mangy Duskbat
-	["Rattlecage Skeletons wander the ruined houses in the north half of {area:154}. Young Scavengers and Duskbats roam all around the village; the Ragged Scavengers and Mangy Duskbats are on its east side. {npc:1661} wants their paws and wings: kill them as you meet them while you clear the skeletons."] = "Rattlecage Skeletons wandern durch die zerstörten Häuser in der nördlichen Hälfte von {area:154}. Young Scavengers und Duskbats streifen überall ums Dorf; die Ragged Scavengers und Mangy Duskbats sind an seiner Ostseite. {npc:1661} will ihre Pfoten und Flügel: Töte sie, wenn sie dir begegnen, während du die Skelette ausdünnst.",
+	["Rattlecage Skeletons wander the ruined houses in the north half of {area:154}. Young Scavengers and Duskbats roam all around the village; the Ragged Scavengers and Mangy Duskbats are on its east side. {npc:1661} wants their paws and wings: kill them as you meet them while you clear the skeletons."] = "Klappernde Skelette wandern durch die zerstörten Häuser in der nördlichen Hälfte von {area:154}. Junge Aasfresser und Nachtsauger streifen überall ums Dorf; die Struppige Aasfresser und Räudige Nachtsauger sind an seiner Ostseite. {npc:1661} will ihre Pfoten und Flügel: Töte sie, wenn sie dir begegnen, während du die Skelette ausdünnst.",
 
 	-- Step 7: Back to the church
 	["Back to the church"] = "Zurück zur Kirche",
@@ -81,7 +81,7 @@ return {
 	-- Step 11: Night Web's Hollow
 	-- {npc:271961} Webbed Forsaken
 	-- plural, as words: Young Night Web Spiders = {npc:1504} Young Night Web Spider · Night Web Spiders = {npc:1505} Night Web Spider
-	["Head west to the cave. The Young Night Web Spiders sit outside; the Night Web Spiders and the cocooned {npc:271961} are inside.\nCareful: A low-level character can die quickly if it pulls several Night Web Spiders in the cave at the same time."] = "Geh nach Westen zur Höhle. Die Young Night Web Spiders sitzen draußen; die Night Web Spiders und die eingesponnenen {npc:271961} sind drinnen.\nVorsicht: Ein Charakter mit niedriger Stufe kann schnell sterben, wenn er in der Höhle mehrere Night Web Spiders gleichzeitig pullt.",
+	["Head west to the cave. The Young Night Web Spiders sit outside; the Night Web Spiders and the cocooned {npc:271961} are inside.\nCareful: A low-level character can die quickly if it pulls several Night Web Spiders in the cave at the same time."] = "Geh nach Westen zur Höhle. Die Junge Nachtweber sitzen draußen; die Nachtweber und die eingesponnenen {npc:271961} sind drinnen.\nVorsicht: Ein Charakter mit niedriger Stufe kann schnell sterben, wenn er in der Höhle mehrere Nachtweber gleichzeitig pullt.",
 	["Below ground"] = "Unter der Erde",
 	["attack the cocoons inside the cave to free them; below ground"] = "Greife die Kokons in der Höhle an, um sie zu befreien; unter der Erde",
 	-- {npc:271961} Webbed Forsaken
@@ -301,7 +301,7 @@ return {
 	["{area:166}: kill these as you meet them"] = "{area:166}: Töte sie, wenn sie dir begegnen",
 	-- {npc:1525} Rotting Dead · {area:159} Brill · {npc:10666} Gordo · {npc:3549} Shelene Rhobart
 	-- plural, as words: Ravaged Corpses = {npc:1526} Ravaged Corpse · Decrepit Darkhounds = {npc:1547} Decrepit Darkhound
-	["{npc:1525} and Ravaged Corpses shamble through the fields just west of {area:159}; Decrepit Darkhounds roam there and on west along the road toward {npc:10666}. Johaan wants their blood, {npc:3549} their hides."] = "{npc:1525} und Ravaged Corpses schlurfen über die Felder direkt westlich von {area:159}; Decrepit Darkhounds streifen dort und weiter westlich an der Straße entlang Richtung {npc:10666}. Johaan will ihr Blut, {npc:3549} ihre Häute.",
+	["{npc:1525} and Ravaged Corpses shamble through the fields just west of {area:159}; Decrepit Darkhounds roam there and on west along the road toward {npc:10666}. Johaan wants their blood, {npc:3549} their hides."] = "{npc:1525} und Verheerte Kadaver schlurfen über die Felder direkt westlich von {area:159}; Altersschwache Schattenhunde streifen dort und weiter westlich an der Straße entlang Richtung {npc:10666}. Johaan will ihr Blut, {npc:3549} ihre Häute.",
 
 	-- Step 55: Bowen Brisboise
 	-- {npc:3523} Bowen Brisboise · {area:159} Brill · {quest:97961} Camping 101: Tailoring
@@ -382,7 +382,7 @@ return {
 	-- Step 67: Agamand Mills
 	-- {area:157} Agamand Mills · {npc:1657} Devlin Agamand · {npc:1656} Thurman Agamand · {item:2839} A Letter to Yvette
 	-- plural, as words: Cracked Skull Soldiers = {npc:1523} Cracked Skull Soldier · Darkeye Bonecasters = {npc:1522} Darkeye Bonecaster
-	["Follow the road north-west to {area:157}. {npc:1657} walks the graveyard south of the mills; Nissa, Gregor and {npc:1656} haunt the mills themselves. Rattlecage and Cracked Skull Soldiers drop the ribs, Darkeye Bonecasters the skulls, and any of them may drop {item:2839}.\nCareful: Rotting undead and Darkeye Bonecasters near the Agamands can join a fight as adds."] = "Folge der Straße nach Nordwesten zu {area:157}. {npc:1657} läuft über den Friedhof südlich der Mühlen; Nissa, Gregor und {npc:1656} spuken in den Mühlen selbst. Rattlecage und Cracked Skull Soldiers lassen die Rippen fallen, Darkeye Bonecasters die Schädel, und jeder von ihnen kann {item:2839} fallen lassen.\nVorsicht: Verrottende Untote und Darkeye Bonecasters bei den Agamands können als Adds in einen Kampf eingreifen.",
+	["Follow the road north-west to {area:157}. {npc:1657} walks the graveyard south of the mills; Nissa, Gregor and {npc:1656} haunt the mills themselves. Rattlecage and Cracked Skull Soldiers drop the ribs, Darkeye Bonecasters the skulls, and any of them may drop {item:2839}.\nCareful: Rotting undead and Darkeye Bonecasters near the Agamands can join a fight as adds."] = "Folge der Straße nach Nordwesten zu {area:157}. {npc:1657} läuft über den Friedhof südlich der Mühlen; Nissa, Gregor und {npc:1656} spuken in den Mühlen selbst. Klappernde Skelette und Trümmerschädelsoldaten lassen die Rippen fallen, Dunkle Skelettmagier die Schädel, und jeder von ihnen kann {item:2839} fallen lassen.\nVorsicht: Verrottende Untote und Dunkle Skelettmagier bei den Agamands können als Adds in einen Kampf eingreifen.",
 	-- {npc:1655} Nissa Agamand
 	["{npc:1655}; upstairs"] = "{npc:1655}; oben",
 	-- {item:2839} A Letter to Yvette
@@ -491,12 +491,12 @@ return {
 	-- Step 86: Shadowvale
 	-- {area:16881} Shadowvale · {area:16616} Whispering Forest
 	-- plural, as words: Shadowvale Lurchers = {npc:260428} Shadowvale Lurcher
-	["{area:16881} is the hollow at the west edge of the glades, south-west of the {area:16616}. Go down into the big basement under the ruined house (only a floor and a few pillars left, not the two-storey house): the bottles lie on its floor among the Shadowvale Lurchers and Mystics."] = "{area:16881} ist die Senke am Westrand der Auen, südwestlich des {area:16616}. Geh hinunter in den großen Keller unter dem zerstörten Haus (nur noch ein Boden und ein paar Säulen, nicht das zweistöckige Haus): Die Flaschen liegen auf seinem Boden zwischen den Shadowvale Lurchers und Mystics.",
+	["{area:16881} is the hollow at the west edge of the glades, south-west of the {area:16616}. Go down into the big basement under the ruined house (only a floor and a few pillars left, not the two-storey house): the bottles lie on its floor among the Shadowvale Lurchers and Mystics."] = "{area:16881} ist die Senke am Westrand der Auen, südwestlich des {area:16616}. Geh hinunter in den großen Keller unter dem zerstörten Haus (nur noch ein Boden und ein paar Säulen, nicht das zweistöckige Haus): Die Flaschen liegen auf seinem Boden zwischen den Schattentalschlinger und Schattentalmystiker.",
 	["the basement under the ruined house"] = "der Keller unter dem zerstörten Haus",
 	-- {item:286269} Glowing Crystal Fragment
 	["the {item:286269}, at the basement's south end"] = "der {item:286269}, am Südende des Kellers",
 	-- plural, as words: Shadowvale Lurchers = {npc:260428} Shadowvale Lurcher
-	["the Shadowvale Lurchers and Mystics drop the bones; below ground"] = "die Shadowvale Lurchers und Mystics lassen die Knochen fallen; unter der Erde",
+	["the Shadowvale Lurchers and Mystics drop the bones; below ground"] = "die Schattentalschlinger und Schattentalmystiker lassen die Knochen fallen; unter der Erde",
 
 	-- Step 87: Hilda the Breaker and Ephram Barbaro
 	-- {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro

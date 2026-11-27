@@ -195,7 +195,7 @@ register(QUESTING, L["Buttons"], L["Targeting"], {
 		help = L["When the target button's names change, one line in chat lists them (\"Targeting: ...\"). Only you see it."],
 		search = "target chat, announce target, targeting" },
 	{ kind = "toggle", key = "qol.guideNameTarget", label = L["Click objectives to target"],
-		help = L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] },
+		help = L["Clicking an objective row, an NPC heading or a While you're here line also targets its mob or NPC outside combat, using the Target button's marking settings. This replaces your current target. A failed search clears it."] },
 	{ kind = "toggle", key = "qol.markTarget", label = L["Mark what they target"],
 		help = L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."],
 		search = "raid marker, raid icon, skull, star, mark target" },

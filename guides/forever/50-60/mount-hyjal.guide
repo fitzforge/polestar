@@ -615,7 +615,7 @@ step Final Death
   collect 268573 quest 92591.1 @28.0,57.7  -- Reanimator's Amulet
 
 step Eluneth and the veteran
-  tip Back to Eluneth, then the ghostly Veteran of the Third War at Mourning's Rest's western edge, where the recording met him, on your way west.
+  tip Back to Eluneth, then the ghostly Veteran of the Third War on your way west. He doesn't keep to one spot: players have met him anywhere in Mourning's Rest from its western edge (20,60) north-east to about 25,51, so if he isn't at the arrow, look along that line.
   turnin 90865
   accept 92100 @21.6,57.5               -- Veteran of the Third War: Anywhere But Here
 

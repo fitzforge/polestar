@@ -80,10 +80,10 @@ return {
 	-- Step 17: Blackfathom Deeps
 	-- {area:2797} Blackfathom Deeps · {npc:4787} Argent Guard Thaelrid · {zone:1457} Darnassus
 	-- plural, as words: Corrupted Brain Stems = {item:5952} Corrupted Brain Stem
-	["{area:2797} is a dungeon for a group of five, about levels 22 to 30, and a full run takes about an hour. The way in is the sunken ruins at the north end of the strand: go down the stairs into the pit, swim through the tunnels under the wall, past the blue crystals, to the portal.\nInside: the naga and the satyrs drop the Corrupted Brain Stems for Gershala. {npc:4787}, by a campfire in an underwater side room off Ghamoo-ra's room, has a quest for {zone:1457}, which this route leaves to the Dungeons page."] = "{area:2797} ist ein Dungeon für eine Gruppe aus fünf Spielern, etwa Stufe 22 bis 30; ein kompletter Run dauert etwa eine Stunde. Der Weg hinein führt durch die versunkenen Ruinen am Nordende des Strands: Steig die Treppe in die Grube hinab und schwimm durch die Tunnel unter der Mauer, an den blauen Kristallen vorbei, zum Portal.\nDrinnen: Die Naga und Satyrn lassen die Corrupted Brain Stems für Gershala fallen. {npc:4787} hat an einem Lagerfeuer in einem Unterwasser-Nebenraum von Ghamoo-ras Raum eine Quest für {zone:1457}, die diese Route der Seite „Dungeons“ überlässt.",
+	["{area:2797} is a dungeon for a group of five, about levels 22 to 30, and a full run takes about an hour. The way in is the sunken ruins at the north end of the strand: go down the stairs into the pit, swim through the tunnels under the wall, past the blue crystals, to the portal.\nInside: the naga and the satyrs drop the Corrupted Brain Stems for Gershala. {npc:4787}, by a campfire in an underwater side room off Ghamoo-ra's room, has a quest for {zone:1457}, which this route leaves to the Dungeons page."] = "{area:2797} ist ein Dungeon für eine Gruppe aus fünf Spielern, etwa Stufe 22 bis 30; ein kompletter Run dauert etwa eine Stunde. Der Weg hinein führt durch die versunkenen Ruinen am Nordende des Strands: Steig die Treppe in die Grube hinab und schwimm durch die Tunnel unter der Mauer, an den blauen Kristallen vorbei, zum Portal.\nDrinnen: Die Naga und Satyrn lassen die verderbten Hirnstämme für Gershala fallen. {npc:4787} hat an einem Lagerfeuer in einem Unterwasser-Nebenraum von Ghamoo-ras Raum eine Quest für {zone:1457}, die diese Route der Seite „Dungeons“ überlässt.",
 	-- {quest:1275} Researching the Corruption
 	-- plural, as words: Corrupted Brain Stems = {item:5952} Corrupted Brain Stem
-	["{quest:1275}: Corrupted Brain Stems"] = "{quest:1275}: Corrupted Brain Stems",
+	["{quest:1275}: Corrupted Brain Stems"] = "{quest:1275}: Verderbte Hirnstämme",
 
 	-- Step 19: Astranaar
 	-- {area:415} Astranaar · {area:414} Zoram Strand · {npc:3845} Shindrell Swiftfire · {npc:3691} Raene Wolfrunner · {npc:3894} Pelturas Whitemoon
@@ -239,7 +239,7 @@ return {
 	["Young crocolisks"] = "Junge Krokilisken",
 	-- {zone:1437} Wetlands
 	-- plural, as words: Young Wetlands Crocolisks = {npc:1417} Young Wetlands Crocolisk
-	["From the marsh head east across the {zone:1437}. Young Wetlands Crocolisks lurk in the pools north of the excavation site."] = "Geh vom Sumpf nach Osten durch das {zone:1437}. Young Wetlands Crocolisks lauern in den Tümpeln nördlich der Ausgrabungsstätte.",
+	["From the marsh head east across the {zone:1437}. Young Wetlands Crocolisks lurk in the pools north of the excavation site."] = "Geh vom Sumpf nach Osten durch das {zone:1437}. Junge Sumpflandkrokiliske lauern in den Tümpeln nördlich der Ausgrabungsstätte.",
 
 	-- Step 45: Whelgar's Excavation Site
 	["The excavation site sits on the hill south of the road."] = "Die Ausgrabungsstätte liegt auf dem Hügel südlich der Straße.",
@@ -250,7 +250,7 @@ return {
 	["The raptor hills"] = "Die Raptorenhügel",
 	-- {npc:1021} Mottled Screecher
 	-- plural, as words: Mottled Raptors = {npc:1020} Mottled Raptor · Mottled Screechers = {npc:1021} Mottled Screecher
-	["Mottled Raptors and Screechers roam the hills west of the excavation site.\nCareful: Once a {npc:1021} drops to 30% health, it calls for help from creatures within 20 yd. Mottled Screechers frequently come in packs of three, and raptors summoned by their calls for help may also join the fight."] = "Mottled Raptors und Screechers streifen durch die Hügel westlich der Ausgrabungsstätte.\nVorsicht: Sobald ein {npc:1021} auf 30% Gesundheit fällt, ruft er Kreaturen im Umkreis von 20 Metern zu Hilfe. Mottled Screechers kommen oft in Dreiergruppen, und Raptoren, die durch ihre Hilferufe herbeigerufen werden, können ebenfalls in den Kampf eingreifen.",
+	["Mottled Raptors and Screechers roam the hills west of the excavation site.\nCareful: Once a {npc:1021} drops to 30% health, it calls for help from creatures within 20 yd. Mottled Screechers frequently come in packs of three, and raptors summoned by their calls for help may also join the fight."] = "Scheckige Raptoren und Kreischer streifen durch die Hügel westlich der Ausgrabungsstätte.\nVorsicht: Sobald ein {npc:1021} auf 30% Gesundheit fällt, ruft er Kreaturen im Umkreis von 20 Metern zu Hilfe. Scheckige Kreischer kommen oft in Dreiergruppen, und Raptoren, die durch ihre Hilferufe herbeigerufen werden, können ebenfalls in den Kampf eingreifen.",
 	-- {npc:1021} Mottled Screecher · {npc:270589} Nightveiled Rotheap
 	["{npc:1021}; careful: {npc:270589}, a level 31 elite, roams these hills"] = "{npc:1021}; Vorsicht: {npc:270589}, ein Elite der Stufe 31, streift durch diese Hügel",
 
@@ -276,15 +276,15 @@ return {
 	-- Step 51: Rethiel the Greenwarden
 	-- {area:309} Ironbeard's Tomb · {npc:1244} Rethiel the Greenwarden · {zone:1437} Wetlands
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner
-	["Its flint comes from the Mosshide Fenrunners on the way to {area:309}; {npc:1244} takes it on your next {zone:1437} visit"] = "Sein Feuerstein kommt von den Mosshide Fenrunners auf dem Weg nach {area:309}; {npc:1244} nimmt ihn bei deinem nächsten Besuch im {zone:1437} an",
+	["Its flint comes from the Mosshide Fenrunners on the way to {area:309}; {npc:1244} takes it on your next {zone:1437} visit"] = "Sein Feuerstein kommt von den Moorläufern der Moosfelle auf dem Weg nach {area:309}; {npc:1244} nimmt ihn bei deinem nächsten Besuch im {zone:1437} an",
 
 	-- Step 52: Ironbeard's Tomb
 	-- {npc:1244} Rethiel the Greenwarden · {area:309} Ironbeard's Tomb · {area:205} Dun Modr · {item:3349} Sida's Bag · {area:1025} The Green Belt
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner · Monstrous Oozes = {npc:1033} Monstrous Ooze · Crimson Oozes = {npc:1031} Crimson Ooze · Maddened Rotclaws = {npc:271334} Maddened Rotclaw · Mosshide Brutes = {npc:1012} Mosshide Brute
-	["North-west from {npc:1244}: the Mosshide Fenrunners and Trappers (22-24) along the river south-west of {area:309} drop flint, almost every one. Black, Crimson and Monstrous Oozes fill {area:309}, just west of the road to {area:205} and north of Einar's camp. Careful: Black and Crimson Oozes also drop {item:3349}. Pull those instead of fighting the larger Monstrous Oozes (25–26).\nCareful: Maddened Rotclaws (25-26) roam the {area:1025} around {npc:1244} and north of him: cross it to the river and don't hunt the flint there. Mosshide Brutes, Mystics and Alphas (24-27) hold the hills north-west of the Fenrunners' camp."] = "Nordwestlich von {npc:1244}: die Mosshide Fenrunners und Trappers (22-24) entlang des Flusses südwestlich von {area:309} lassen Feuerstein fallen, fast jeder. Schwarze, Purpurrote und Monströse Brühschlammer füllen {area:309}, direkt westlich der Straße nach {area:205} und nördlich von Einars Lager. Vorsicht: Schwarze und Purpurrote Brühschlammer lassen auch {item:3349} fallen. Ziehe diese statt der größeren Monströsen Brühschlammer (25–26).\nVorsicht: Wahnsinnige Rottenklauen (25-26) streifen durch die {area:1025} um {npc:1244} und nördlich von ihm: durchquere sie bis zum Fluss und jage dort nicht nach Feuerstein. Schläger der Moosfelle, Mystiker und Alphas (24-27) halten die Hügel nordwestlich des Lagers der Fenrunners.",
+	["North-west from {npc:1244}: the Mosshide Fenrunners and Trappers (22-24) along the river south-west of {area:309} drop flint, almost every one. Black, Crimson and Monstrous Oozes fill {area:309}, just west of the road to {area:205} and north of Einar's camp. Careful: Black and Crimson Oozes also drop {item:3349}. Pull those instead of fighting the larger Monstrous Oozes (25–26).\nCareful: Maddened Rotclaws (25-26) roam the {area:1025} around {npc:1244} and north of him: cross it to the river and don't hunt the flint there. Mosshide Brutes, Mystics and Alphas (24-27) hold the hills north-west of the Fenrunners' camp."] = "Nordwestlich von {npc:1244}: die Moorläufer und Fallensteller der Moosfelle (22-24) entlang des Flusses südwestlich von {area:309} lassen Feuerstein fallen, fast jeder. Schwarze, Purpurrote und Monströse Brühschlammer füllen {area:309}, direkt westlich der Straße nach {area:205} und nördlich von Einars Lager. Vorsicht: Schwarze und Purpurrote Brühschlammer lassen auch {item:3349} fallen. Ziehe diese statt der größeren Monströsen Brühschlammer (25–26).\nVorsicht: Wahnsinnige Moderklaue (25-26) streifen durch die {area:1025} um {npc:1244} und nördlich von ihm: durchquere sie bis zum Fluss und jage dort nicht nach Feuerstein. Schläger, Mystiker und Alphas der Moosfelle (24-27) halten die Hügel nordwestlich des Lagers der Moorläufer.",
 	-- {item:2611} Crude Flint
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner
-	["{item:2611}: the Mosshide Fenrunners and Trappers by the river"] = "{item:2611}: die Mosshide Fenrunners und Trapper am Fluss",
+	["{item:2611}: the Mosshide Fenrunners and Trappers by the river"] = "{item:2611}: die Moorläufer und Fallensteller der Moosfelle am Fluss",
 
 	-- Step 53: Menethil
 	["Menethil"] = "Menethil",
@@ -309,7 +309,7 @@ return {
 	-- {object:32372} Great Forge (no name in this language: may be words) · {npc:4081} Lomac Gearstrip · {object:171524} Tinker Town · {area:2257} Deeprun Tram
 	["The gryphons land in the {object:32372}. {npc:4081} stands in {object:171524}, east of it, by the {area:2257}."] = "Die Greifen landen in der {object:32372}. {npc:4081} steht in {object:171524}, östlich davon, bei der {area:2257}.",
 	-- {item:4371} Bronze Tube · {area:42} Darkshire · {npc:5175} Gearcutter Cogspinner · {npc:4081} Lomac Gearstrip
-	["{item:4371}, for Look to the Stars in {area:42}: {npc:5175}, beside {npc:4081}, sometimes has one"] = "{item:4371}, für Look to the Stars in {area:42}: {npc:5175}, neben {npc:4081}, hat manchmal eine",
+	["{item:4371}, for Look to the Stars in {area:42}: {npc:5175}, beside {npc:4081}, sometimes has one"] = "{item:4371}, für „Der Blick zu den Sternen“ in {area:42}: {npc:5175}, neben {npc:4081}, hat manchmal eine",
 	-- {item:5352} Book: The Powers Below · {zone:1439} Darkshore · {npc:2786} Gerrig Bonegrip · {object:32383} Forlorn Cavern
 	["Only with {item:5352} from {zone:1439}: {npc:2786}, the {object:32383}"] = "Nur mit {item:5352} aus {zone:1439}: {npc:2786}, {object:32383}",
 

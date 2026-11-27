@@ -19979,6 +19979,28 @@ test("forever/alliance/50-60/03-winterspring.guide: nepyanbin's report: Eridan's
 	assert.match(note.goal.text, /next task, \{quest:4261\},/, note.goal.text);
 });
 
+// #4430 (Oscure3, 0.4.3.1): the Cracked Silithid Carapace that starts Parts of the Swarm (1148) drops only for a player
+// on The Swarm Grows (1147): in players' recordings all 96 accepts of 1148 came with 1147 in the log. The dig site's
+// step asked a player without 1147 to kill silithid for a carapace that never dropped; it shows only with 1147 now
+// (guide-fixes 4430-parts-of-the-swarm-carapace-gate).
+test("forever/horde/30-40/02-thousand-needles.guide: Oscure3's report: the carapace for Parts of the Swarm is asked only on The Swarm Grows (#4430)", { skip }, () => {
+	const list = goals('forever/horde/30-40/02-thousand-needles.guide');
+	const carapace = list[at(list, 'collect 5877 (Cracked Silithid Carapace)', (g) => g.t === 'collect' && g.item === 5877)];
+	const take = list[at(list, 'accept 1148 (Parts of the Swarm)', is('accept', 1148))];
+	for (const { step } of [carapace, take]) assert.ok(holdsQuest(step, 1147), `${step.title}: only with The Swarm Grows (1147) in the log`);
+});
+
+// #4439 (Meta, 0.4.3.1): the Veteran of the Third War (255009), who gives Anywhere But Here (92100), was not at the
+// guide's one spot. Players' recordings open his window at 30 places across Mourning's Rest, from 19.9,59.6 to
+// 25.1,51.5 (30 people); the step says so instead of "where the recording met him".
+test("forever/50-60/mount-hyjal.guide: Meta's report: the step says where in Mourning's Rest the Veteran can be (#4439)", { skip }, () => {
+	const list = goals('forever/50-60/mount-hyjal.guide');
+	const { step } = list[at(list, 'accept 92100 (Anywhere But Here)', is('accept', 92100))];
+	const tip = [step.tip, step.note].flat().filter(Boolean).join(' ');
+	assert.doesNotMatch(tip, /where the recording met him/, tip);
+	assert.match(tip, /\(20,60\).*25,51/, tip);
+});
+
 // #4435 (foggel), #4487 (Akuma), #4491 (ArcticWildWolf), 0.4.3.1: Hadoken Swiftstrider doesn't offer Stinglasher (7731)
 // while Tabetha's Task (2861) is in the quest log; once it is handed in or abandoned he does (players' recordings: of
 // the 34 people offered Zukk'ash Infestation, the 31 without 2861 in the log were offered Stinglasher with it, the 3
