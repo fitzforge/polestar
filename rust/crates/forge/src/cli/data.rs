@@ -659,7 +659,7 @@ cached file is never fetched again (cached builds and pinned commits do not chan
   wago        the client table CSVs `forge data build` reads (wago.tools): the Classic Era build's
               map and faction tables, the Forever build's when no client is installed, QuestXP
   builders    the other builders' client tables: itemdb's Era item tables, the Codex's, professions'
-              and travel's, and the pinned builds of talents and map overlays
+              and travel's, and the pinned builds of talents, map overlays and dungeon loading screens
   pfquest     the pfQuest checkout at its pinned commit
   eglink      the EG Link output at its pinned commit
   forever-vo  forever-vo's dialog captures at their pinned commit
@@ -1074,7 +1074,7 @@ fn talents(args: Vec<String>) -> Result<(), Fail> {
 	Ok(())
 }
 
-pub(super) const MAPS_USAGE: &str = "usage: forge data maps build|overlays [options]
+pub(super) const MAPS_USAGE: &str = "usage: forge data maps build|overlays|art [options]
 
 build: zone level ranges for the world map (hostile creature levels per zone, spawn-weighted
 P10..P90) -> addon/Polestar/Maps/ZoneLevels.lua.
@@ -1089,7 +1089,14 @@ client's tables via wago.tools, so the zone art shows a map without fog of war
   --offline       use cached tables only
   --lua FILE      output (default: <root>/addon/Polestar/UI/ZoneArtOverlays.lua)
 
-Both take --root DIR (default: the checkout above the current folder).";
+art: each dungeon's and raid's own loading screen (Map.LoadingScreenID -> LoadingScreens), as file ids
+-> addon/Polestar/Dungeons/ArtFiles.lua.
+  --build V       client build (default: the pinned Forever build)
+  --sources DIR   source cache folder (default: <root>/data/sources)
+  --offline       use cached tables only
+  --lua FILE      output (default: <root>/addon/Polestar/Dungeons/ArtFiles.lua)
+
+Each takes --root DIR (default: the checkout above the current folder).";
 
 fn maps(args: Vec<String>) -> Result<(), Fail> {
 	let (kv, fl, pos) = opts(args, &["--root", "--data", "--lua", "--build", "--sources"], &["--offline"])?;
@@ -1098,7 +1105,7 @@ fn maps(args: Vec<String>) -> Result<(), Fail> {
 	match pos.as_slice() {
 		[m] if m == "build" => {
 			if let Some(k) = ["--build", "--sources"].iter().find(|k| get(k).is_some()).or(fl.first().map(|_| &"--offline")) {
-				return Err(usage(format!("{k} is an overlays option")));
+				return Err(usage(format!("{k} is an overlays and art option")));
 			}
 			let data = get("--data").map(abs).unwrap_or_else(|| root.join("data").join("forever"));
 			let out = get("--lua").map(abs).unwrap_or_else(|| root.join("addon/Polestar/Maps/ZoneLevels.lua"));
@@ -1124,7 +1131,30 @@ fn maps(args: Vec<String>) -> Result<(), Fail> {
 			println!("maps: {} overlays ({} tiles) on {} map arts, build {build}", o.count, o.tiles, o.arts.len());
 			println!("wrote {} ({} bytes)", rel(&out), lua.len());
 		}
-		_ => return Err(usage("expected `maps build` or `maps overlays`")),
+		[m] if m == "art" => {
+			if get("--data").is_some() {
+				return Err(usage("--data is a build option"));
+			}
+			let build = get("--build").unwrap_or_else(|| forge_data::dungeon_art::BUILD.to_string());
+			let src = get("--sources").map(abs).unwrap_or_else(|| root.join("data").join("sources"));
+			let out = get("--lua").map(abs).unwrap_or_else(|| root.join("addon/Polestar/Dungeons/ArtFiles.lua"));
+			let (map, screens) = forge_data::dungeon_art::tables(&src, &build, !fl.is_empty(), &|m| println!("{m}"))?;
+			let a = forge_data::dungeon_art::build(&map, &screens);
+			for w in &a.warnings {
+				eprintln!("warning: {w}");
+			}
+			let lua = forge_data::dungeon_art::emit(&a, &build);
+			std::fs::write(&out, &lua).map_err(|e| format!("{}: {e}", out.display()))?;
+			println!(
+				"maps: {} wide and {} narrow loading screens; {} instance maps on a continent's screen: {}",
+				a.wide.len(),
+				a.narrow.len(),
+				a.generic.len(),
+				a.generic.iter().map(|g| g.1.as_str()).collect::<Vec<_>>().join(", ")
+			);
+			println!("wrote {} ({} bytes)", rel(&out), lua.len());
+		}
+		_ => return Err(usage("expected `maps build`, `maps overlays` or `maps art`")),
 	}
 	Ok(())
 }

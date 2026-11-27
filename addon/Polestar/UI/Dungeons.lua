@@ -1090,13 +1090,16 @@ end
 -- A dungeon's painting: its zone framed on the entrance, or the whole zone
 -- where only the zone is known (Forever's dungeons nobody has walked into
 -- yet), else its own loading screen (Dungeons.Art), so no dungeon shows the
--- bare night band. -> "entrance" | "zone" | "picture" | nil
-local function paintDungeon(art, d, index)
+-- bare night band. banner (a list card, the page header): the loading
+-- screen first (cropped around what it shows), the map's painting only where
+-- the client has none for it. -> "entrance" | "zone" | "picture" | nil
+local function paintDungeon(art, d, index, banner)
+	local pic = D().Art and D().Art(d.key)
+	if banner and pic and ZoneArt.Picture(art, pic) then return "picture" end
 	local e = d.entrance
 	if ZoneArt.Paint(art, e and e.map or d.zone, e and e.x, e and e.y, index) then
 		return (e and e.map) and "entrance" or "zone"
 	end
-	local pic = D().Art and D().Art(d.key)
 	if pic and ZoneArt.Picture then return ZoneArt.Picture(art, pic) and "picture" end
 	return nil
 end
@@ -1110,7 +1113,7 @@ function DS.PaintVisible()
 		local c = cards[i]
 		local key = c.psKey
 		if c.psPainted ~= key and c.psY < top + view + CARD_H and c.psY + CARD_H > top - CARD_H then
-			c.psArt = paintDungeon(c.Art, c.psEntry, i)
+			c.psArt = paintDungeon(c.Art, c.psEntry, i, true)
 			c.psPainted = key
 			shown.painted = (shown.painted or 0) + 1
 		end
@@ -1319,7 +1322,7 @@ end
 local function pageHeader(d)
 	local art = pg.Art
 	local e = d.entrance
-	local painted = paintDungeon(art, d, 1)
+	local painted = paintDungeon(art, d, 1, true)
 	if painted == "entrance" then
 		placeOn(art.Entrance, art, e.x, e.y)
 		art.Entrance:Show()

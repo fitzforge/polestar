@@ -29,6 +29,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `class <Class>, ...` | Only these classes |
 | `next <id>, ...` | The guide that follows. Several ids: the player chooses, the first is the default; each must suit this guide's characters (`polestar find <zone> --kind guide --race <Race>`). Repeatable; `next <id> when <predicate>` (one guide per line, a predicate as for `when`) offers that guide only while the predicate holds when this guide ends: one option left, Polestar goes on to it; none, the guide ends there |
 | `category <Category>` | `Leveling` (default), `Class`, `Professions`, `Reputation`, `Legacy`, `Exploration`, `Collectibles`, `Miscellaneous`, `Dungeons` |
+| `kind <kind>` | What the guide window shows, when the category's kind is not the one you want: `leveling`, `profession`, `reputation`, `dungeon`, `class`, `collectible`, `exploration`, `misc` (default: the category's; any other value is an error) |
 | `folder <text>` | The guide menu folder to list it under |
 | `keywords <word>, ...` | Extra words the guide menu search matches |
 | `collects <item>, ...` | Item ids the guide obtains |

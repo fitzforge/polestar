@@ -76,7 +76,7 @@
 --   Dungeons/Handin.lua. Attunements and keys (AttunementState, AttuneGuide,
 --   Attune): Dungeons/Attune.lua. What the quests are worth in levels
 --   (QuestXP): Dungeons/XP.lua. The dungeon's own picture (Art, its loading
---   screen cropped square): Dungeons/Art.lua.
+--   screen cropped square, on the list cards and the page header): Dungeons/Art.lua.
 -- Settings: dungeons.enabled, dungeons.headsUp (the heads-up when a
 -- dungeon opens up, UI/DungeonToast.lua); per character, the dungeons run in leveling
 -- guides (Engine.ChooseDungeon; their rows, with Dungeons.ROUTE, are the settings'

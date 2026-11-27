@@ -75,6 +75,8 @@ fn loop_target(g: &V) -> bool {
 const LOOP_NPC_VERBS: [&str; 3] = ["accept", "turnin", "talk"];
 const ON_STEP_ONLY: [&str; 8] = ["goto", "talk", "hearth", "die", "getfp", "fly", "vendor", "task"];
 const CATEGORIES: [&str; 9] = ["Leveling", "Class", "Professions", "Reputation", "Legacy", "Exploration", "Collectibles", "Miscellaneous", "Dungeons"];
+/// Guide kinds (`kind`), each a set of guide window parts and menu entries (addon Core/GuideKinds.lua).
+const KINDS: [&str; 8] = ["leveling", "profession", "reputation", "dungeon", "class", "collectible", "exploration", "misc"];
 
 pub fn round2(n: f64) -> f64 {
 	let r = math_round(n * 100.0) / 100.0;
@@ -1736,6 +1738,17 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 		guide.set("factionLevels", by);
 	}
 	guide.set("category", canonical_category(&h.get("category"), ast, r));
+	// `kind`: what the guide window shows for it (docs/GUIDE_FORMAT.md, "Guide kind"); written out only when set,
+	// the addon takes it from the category otherwise.
+	let kind = h.get("kind");
+	if !kind.is_undef() {
+		let k = kind.to_js_string();
+		if KINDS.contains(&k.as_str()) {
+			guide.set("kind", k.as_str());
+		} else {
+			r.err(&ast.get("lines").get("kind"), format!("unknown kind \"{}\" (known: {})", k, KINDS.join(", ")), None);
+		}
+	}
 	set_if(&guide, "folder", h.get("folder"));
 	set_if(&guide, "keywords", h.get("keywords"));
 	if h.get("collects").truthy() {

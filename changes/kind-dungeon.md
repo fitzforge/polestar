@@ -1,0 +1,7 @@
+---
+section: players
+---
+- Dungeon guides: a dungeon's pick-up guide now shows the dungeon itself: its picture, your level against its range and best level, your group, the quests left to pick up with how far off the way each giver is (Skip the far one leaves out any over 10 minutes), and the way in with its travel time, a missing key and Guide me to the entrance.
+- Dungeon tracker: inside a dungeon or raid where you hold its quests, a small tracker lists what is left for them with live counts, the bosses in kill order checked off as they die, and "Loot <item> from <boss>" when a boss drops something your quest needs. It shows even while the guide window hides in dungeons, docks into the guide window when you open it there, and puts a quest's item on the quest item button. Options > Trackers > Dungeon tracker.
+- Dungeon guides: each step shows only the quests of its stop, as the leveling view does, and the quests of the whole run fold into one row, "Quests for the run 1 / 4", with the Journey row's chevron. Click it (or press A on a gamepad) to open the list: every quest with its tick box, where its giver is and Skip the far one. It stays open for that dungeon until the run ends; shut, the count still follows your quest log. Quest givers who stand together (the same spot, or within 60 yards) are one step.
+- Dungeon guides: the guide window's general row of finished quests ("4 quests ready to hand in") is not shown on a dungeon's pick-up or hand-in guide: its quests are the run's own, and the Quest room lists every finished quest in your log.

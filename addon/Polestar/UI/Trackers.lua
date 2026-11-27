@@ -3,7 +3,8 @@
 -- addon (Polestar_Options, UI/Looks/Trackers.lua: Options > Look > Trackers).
 --
 -- The trackers: the flight timer (Maps/FlightTimer.lua), the instance
--- tracker (Maps/Instances.lua), the party panel (UI/PartyPanel.lua) and the
+-- tracker (Maps/Instances.lua), the dungeon tracker (UI/DungeonTracker.lua),
+-- the party panel (UI/PartyPanel.lua) and the
 -- guide's level mark on the game's XP bar (QoL/XPMark.lua). Each builds its
 -- frame and hands it here (TR.Attach) with its strings and progress bar;
 -- from then on its scale, width, opacity, type sizes and outline, bar and
@@ -45,6 +46,10 @@ local DEFAULTS = {
 	instances = panel(230, { combat = "show", instance = "show" }),
 	-- combat "guide": as the guide window does in a fight (ui.combat).
 	party = panel(260, { combat = "guide", instance = "show" }),
+	-- The dungeon tracker (UI/DungeonTracker.lua): inside a dungeon or raid
+	-- where you hold its quests; bossesAlone: also with none held (its bosses
+	-- only); compact: only what is left (open objectives, the next two bosses).
+	dungeon = panel(300, { combat = "show", instance = "show", enabled = true, bossesAlone = false, compact = false }),
 	xp = { tickWidth = 2, tickColor = false, label = true, labelSize = 1, outline = true },
 	-- The guide window's journey (UI/JourneyPanel.lua): how many legs it lists, their numbers.
 	journey = { rows = 8, numbers = true },

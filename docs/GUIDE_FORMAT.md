@@ -67,6 +67,7 @@ Every line before the first `step`.
 | `class` | no | comma list |
 | `next` | no | id of the guide that follows, or several ids separated by commas: a **route choice**. The player picks where to level next in the "Choose your path" window; the first id is the author's default. Every option must be the guide's own faction. Repeatable: each line adds its guides in order, and `next <id> when <predicate>` offers that guide only while the predicate holds at the hand-off (see "Conditional hand-offs"). Polestar's own guides may also offer one of Polestar's experimental guides (`polestar-experimental/<id>`, never the first line): see "Route choices". |
 | `category` | no | default `Leveling`; others: `Class` (class quest chains, mounts and weapons; pair with a `class` header; Polestar's own Class guides each have a row in `data/codex/class-quests.json` saying whether the chain is alerted for or optional, then `node tools/polestar.js classquests build`), `Professions`, `Reputation`, `Legacy`, `Exploration`, `Collectibles`, `Miscellaneous` (side chains and collections that fit no other category: the Cozy Sleeping Bag), `Dungeons` |
+| `kind` | no | what the guide window shows for the guide (see Guide kind): `leveling`, `profession`, `reputation`, `dungeon`, `class`, `collectible`, `exploration` or `misc`; any other value is an error. Default: the category's kind |
 | `folder` | no | the guide menu folder this guide is listed under, any category (e.g. `Mounts · Level 40`, `Companion pets · Vendors`). Guides sharing a folder sort by faction (yours first), then level. Without it: the category's folder (Leveling: by faction and level band). |
 | `keywords` | no | comma list of extra words the guide menu search matches (e.g. the colours a mount guide covers); an empty entry is an error, a repeated one a warning |
 | `collects` | no | comma list of item ids this guide obtains (a mount guide: every colour it sells). Compiled as `collects = { ... }`; the Lookup module opens this guide for those items instead of building one. Malformed or repeated ids are errors; an id missing from `items.json` is a warning. |
@@ -772,6 +773,40 @@ it is an error. A part that is the whole of the line's count is the
 objective itself, and lint says so. A pack with `upto` is written in pack
 format 11 (Polestar 0.4.1 and later): an older Polestar would hold the step
 until the whole objective is done.
+
+## Guide kind
+
+A guide's kind decides which parts of the guide window it shows and what
+the window's ⋯ menu offers. Most guides need no `kind` line: the category
+gives it (`Leveling` or none: `leveling`; `Professions`: `profession`;
+`Reputation`: `reputation`; `Dungeons`: `dungeon`; `Class`: `class`;
+`Collectibles`: `collectible`; `Exploration`: `exploration`;
+`Miscellaneous`, `Legacy` and any other: `misc`). A guide whose category
+says one thing and whose window should show another sets it: a reputation
+guide filed under `Miscellaneous` writes `kind reputation`. The compiler
+writes `kind` into the pack only when the header sets it, so packs without
+it read as before.
+
+| Kind | The window leaves out | The menu |
+|---|---|---|
+| `leveling` | nothing | everything |
+| `profession` | the XP line and the route's pace (the row shows the profession's skill instead: `Tailoring 87 / 150 · next stretch to 100 · step 29 needs level 35 (Artisan Tailoring)`), the finished quests' row, Still to do and While you're here rows of quests | leads with the materials (Gather, buy or mix) and the profession's nearest trainer; no Free mode, Hand in finished quests or Clean up quest log |
+| `reputation`, `class`, `collectible`, `exploration`, `misc` | the route's pace | everything |
+| `dungeon` | the route's pace and the finished quests' row (a dungeon guide's quests are its own; the log's finished quests are in the menu's Hand in finished quests) | everything |
+
+A part's own setting (Options: the XP line, the pace, Still to do) still
+turns it off for every kind. The addon's table is `ns.GuideKinds`
+(`addon/Polestar/Core/Guides.lua`); `Engine.GuideKind()` gives the kind of
+the guide in view.
+
+A `dungeon` guide's window shows its dungeon in place of the step's person
+(docs/DESIGN.md, "The Guide Window"): the dungeon's picture and level range,
+your level against its best level, your group, the quests for the run
+(one row, folded until opened, listing each with how far off the way its giver is) and the way in with its travel time.
+It finds the dungeon by the guide's title (a Dungeons page's name, "Wailing
+Caverns"); a pack's Lua guide may name it by `dungeon` (its Dungeons key,
+PACK_FORMAT). A step's accepts of those quests and its way in (`goto … entrance`)
+read as the window's rows for them. Polestar's own pick-up guides are this kind.
 
 ## Sections
 

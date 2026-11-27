@@ -77,14 +77,42 @@ ns.UI.GuideFrame.Part(function(GF)
 		return h
 	end
 
+	-- A profession guide's skill line (Engine.SkillBar), in the XP row's place:
+	-- "Tailoring 87 / 150  ·  next stretch to 100", then the first step ahead
+	-- the character's level holds back: "step 29 needs level 35 (Artisan
+	-- Tailoring)". nil with no profession skill in the guide.
+	function GF.SkillText()
+		local E = Engine()
+		local b = E and E.SkillBar and E.SkillBar()
+		if not b then return nil end
+		local C, Nearby = ns.Compat, ns.Nav and ns.Nav.nearby
+		local name = (Nearby and Nearby.ProfessionName and Nearby.ProfessionName(b.line)) or (C.GetSkillLineName and C.GetSkillLineName(b.line)) or nil
+		local parts = {}
+		local have = b.max and b.max > 0 and string.format(L["%d / %d"], b.rank, b.max) or tostring(b.rank)
+		parts[1] = name and (name .. " " .. have) or have
+		if b.next then parts[#parts + 1] = string.format(L["next stretch to %d"], b.next) end
+		local g = b.gate
+		if g then
+			local stepNo = UI.StepNo(g.step, E)
+			parts[#parts + 1] = g.title and string.format(L["step %d needs level %d (%s)"], stepNo, g.level, g.title)
+				or string.format(L["step %d needs level %d"], stepNo, g.level)
+		end
+		return table.concat(parts, "  \194\183  ")
+	end
+
 	function GF.UpdateXP(stats)
 		if not GF.xp then return end
 		local d, Q = Derived(), ns.QoL
 		if stats == nil and d.XPStats then stats = d.XPStats() end
 		local parts = {}
+		-- A profession guide's skill line first (GF.SkillText), where its kind
+		-- has one (Core/Guides.lua, GuideKinds).
+		local skill = GF.KindHas("skillBar") and GF.SkillText()
+		if skill then parts[#parts + 1] = skill end
 		-- The XP line (XP an hour, time to level, the pace) unless turned off
-		-- (guideWindow.xpLine, #3304); Boosted Rest keeps its own line.
-		local xpLine = GF.On("xpLine")
+		-- (guideWindow.xpLine, #3304) or the guide's kind has none; Boosted
+		-- Rest keeps its own line.
+		local xpLine = GF.KindHas("xp", "xpLine")
 		if xpLine and type(stats) == "table" and not stats.maxed and Q then
 			local short = Q.XP and Q.XP.Short
 			if type(stats.rate) == "number" and stats.rate > 0 and short then
@@ -97,7 +125,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		local restLine
 		if not (type(stats) == "table" and stats.maxed) then
 			-- The pace line, unless turned off (guideWindow.pace, #2371, #2379).
-			local pace = xpLine and GF.On("pace") and GF.PaceText(stats)
+			local pace = xpLine and GF.KindHas("pace", "pace") and GF.PaceText(stats)
 			if pace then parts[#parts + 1] = pace end
 			-- Boosted Rest and the sleeping bag (QoL/Rest.lua): empty while its
 			-- setting is off or there is nothing to say.
@@ -133,6 +161,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		ns.On("QOL_REST_UPDATED", whenReady(function() GF.UpdateXP() end))
 		ns.OnLogin(function() GF.UpdateXP() end)
 		ns.On("STEP_CHANGED", whenReady(function() GF.UpdateXP() end))
+		-- A profession guide's skill line follows the skill.
+		ns.RegisterEvent("SKILL_LINES_CHANGED", whenReady(function() GF.UpdateXP() end))
 	end
 
 	-- The party line (Quests/Party.lua, Party.StepLine): hidden without one;

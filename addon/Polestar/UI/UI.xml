@@ -9,12 +9,14 @@
 	<Script file="GuideFrameTabStyles.lua"/>
 	<Script file="GuideFrameBanner.lua"/>
 	<Script file="GuideFrameHere.lua"/>
+	<Script file="GuideFrameRegions.lua"/>
 	<Script file="GuideFrameLayout.lua"/>
 	<Script file="GuideFramePlayNext.lua"/>
 	<Script file="GuideFrameLook.lua"/>
 	<Script file="GuideFrameMenu.lua"/>
 	<Script file="GuideFrameWindow.lua"/>
 	<Script file="GuideFrameStatus.lua"/>
+	<Script file="GuideFrameKindDungeon.lua"/>
 	<Script file="StepList.lua"/>
 	<Script file="QuickSettings.lua"/>
 	<Script file="Launcher.lua"/>
@@ -56,6 +58,7 @@
 	<Script file="OptionsLoader.lua"/>
 	<Script file="Toasts.lua"/>
 	<Script file="Trackers.lua"/>
+	<Script file="DungeonTracker.lua"/>
 	<Script file="QuestieTurnIns.lua"/>
 	<Script file="Movers.lua"/>
 	<Script file="TabStyles\Menu.lua"/>

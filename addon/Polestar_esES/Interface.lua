@@ -569,6 +569,61 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+-- Machine-translated, to be reviewed (guide kinds and the long farm line, 26 Nov 2026): translated by an AI
+-- model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
+-- keep or fix its line below, and take its key off this list.
+--   next stretch to %d
+--   step %d needs level %d (%s)
+--   step %d needs level %d
+--   Nearest %s trainer
+--   Most of it drops as you level %s
+--   A long farm: most of it drops as you level
+--   or the Auction House
+-- Machine-translated, to be reviewed (dungeon guides and the dungeon tracker, 26 Nov 2026): translated by an AI
+-- model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
+-- keep or fix its line below, and take its key off this list.
+--   %s off route
+--   %s · your level
+--   %s, on your way
+--   Bring back the far ones (%d)
+--   Group %d of %d
+--   Group %d/%d
+--   Group of %d
+--   Group: none yet
+--   Level %d · best at %d
+--   Level %d: come back at %d
+--   Needs %s
+--   No quests to pick up
+--   Pick them up
+--   Quests open at a later level: %d
+--   Skip the far one
+--   best %d
+--   from %d
+--   instances this hour: %d of %d
+--   on your way
+--   Quests for the run
+--   %d / %d bosses
+--   All %d quests ready to turn in: hand them in after the run
+--   Every boss is down
+--   Its quest is ready to turn in: hand it in after the run
+--   Loot %s
+--   Next: %s · then %s
+--   Quests here
+--   for your quest
+--   from %s: it starts a quest
+--   in kill order
+--   loot it
+--   starts a quest
+--   Loot now
+--   %s · quests
+--   Also show it, with its bosses alone, in a dungeon where you hold none of its quests.
+--   Dungeon tracker
+--   Inside a dungeon or raid where you hold its quests: what is left for them, the bosses in kill order, and what to loot. It docks into the guide window when that is shown.
+--   Only the objectives still open and the next two bosses.
+--   Only what's left
+--   The size of the dungeon's name and the headings against Polestar's text size.
+--   Without quests too
+--   dungeon tracker
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "esES") then return end
@@ -2032,6 +2087,9 @@ L["1 level above you: careful"] = "1 nivel por encima: cuidado"
 L["about %d kills, %d min"] = "unas %d muertes, %d min"
 L["about %d kills"] = "unas %d muertes"
 L["or %s (%s)"] = "o %s (%s)"
+L["Most of it drops as you level %s"] = "La mayor parte cae mientras subes los niveles %s"
+L["A long farm: most of it drops as you level"] = "Farmeo largo: la mayor parte cae mientras subes de nivel"
+L["or the Auction House"] = "o la casa de subastas"
 L["or %s"] = "o %s"
 
 -- UI/GuideFrame.lua
@@ -2190,6 +2248,10 @@ L["Quest log full: this step takes %d, and there is room for %d."] = "Registro d
 L["Room to make: %s"] = "Hueco que hacer: %s"
 L["Make room"] = "Hacer hueco"
 L["On pace for level %s by step %d"] = "Al ritmo para el nivel %s en el paso %d"
+L["next stretch to %d"] = "siguiente tramo hasta %d"
+L["step %d needs level %d (%s)"] = "el paso %d requiere nivel %d (%s)"
+L["step %d needs level %d"] = "el paso %d requiere nivel %d"
+L["Nearest %s trainer"] = "Instructor de %s más cercano"
 L["Your class quest is done. Back to %s."] = "Tu misión de clase está hecha. Vuelve a %s."
 L["Close and return"] = "Cerrar y volver"
 L["The guide has no class training ahead."] = "La guía no tiene entrenamiento de clase por delante."
@@ -5179,6 +5241,14 @@ L["Class quest chime"] = "Aviso sonoro de misión de clase"
 L["The rare alert, the transport banner, the heads-up card and the class quest card: their size, look, motion, sound and time on screen."] = "La alerta de raros, el aviso de transporte, la tarjeta de aviso y la tarjeta de misión de clase: su tamaño, aspecto, movimiento, sonido y tiempo en pantalla."
 
 -- UI/Looks/Trackers.lua
+L["Also show it, with its bosses alone, in a dungeon where you hold none of its quests."] = "Mostrarlo también, solo con sus jefes, en una mazmorra de la que no tienes ninguna misión."
+L["Dungeon tracker"] = "Rastreador de mazmorras"
+L["Inside a dungeon or raid where you hold its quests: what is left for them, the bosses in kill order, and what to loot. It docks into the guide window when that is shown."] = "Dentro de una mazmorra o banda de la que tienes misiones: lo que les falta, los jefes por orden y qué despojar. Se acopla a la ventana de la guía cuando está abierta."
+L["Only the objectives still open and the next two bosses."] = "Solo los objetivos aún abiertos y los dos jefes siguientes."
+L["Only what's left"] = "Solo lo que falta"
+L["The size of the dungeon's name and the headings against Polestar's text size."] = "El tamaño del nombre de la mazmorra y de los encabezados respecto al tamaño de texto de Polestar."
+L["Without quests too"] = "También sin misiones"
+L["dungeon tracker"] = "rastreador de mazmorras"
 L["Aelindra"] = "Aelindra"
 L["The Defias Brotherhood"] = "La hermandad de los Defias"
 L["Brogan"] = "Brogan"
@@ -5792,6 +5862,44 @@ L["Click to show quest guide actions."] = "Haz clic para ver las acciones de la 
 -- L["New spells at your class trainer"] = ""
 -- L["Optional objectives during this step"] = ""
 -- L["Class quest"] = ""
+
+-- UI/GuideFrameKindDungeon.lua
+L["%s off route"] = "%s fuera de la ruta"
+L["%s · your level"] = "%s · tu nivel"
+L["%s, on your way"] = "%s, de camino"
+L["Bring back the far ones (%d)"] = "Recuperar las lejanas (%d)"
+L["Group %d of %d"] = "Grupo %d de %d"
+L["Group %d/%d"] = "Grupo %d/%d"
+L["Group of %d"] = "Grupo de %d"
+L["Group: none yet"] = "Grupo: ninguno aún"
+L["Level %d · best at %d"] = "Nivel %d · mejor a nivel %d"
+L["Level %d: come back at %d"] = "Nivel %d: vuelve a nivel %d"
+L["Needs %s"] = "Necesita %s"
+L["No quests to pick up"] = "No hay misiones que aceptar"
+L["Pick them up"] = "Aceptarlas"
+L["Quests open at a later level: %d"] = "Misiones a un nivel posterior: %d"
+L["Skip the far one"] = "Omitir la lejana"
+L["best %d"] = "mejor %d"
+L["from %d"] = "desde %d"
+L["instances this hour: %d of %d"] = "instancias esta hora: %d de %d"
+L["on your way"] = "de camino"
+L["Quests for the run"] = "Misiones de la mazmorra"
+
+-- UI/DungeonTracker.lua
+L["%d / %d bosses"] = "%d / %d jefes"
+L["All %d quests ready to turn in: hand them in after the run"] = "Las %d misiones listas para entregar: entrégalas al salir"
+L["Every boss is down"] = "Todos los jefes derrotados"
+L["Its quest is ready to turn in: hand it in after the run"] = "Su misión está lista para entregar: entrégala al salir"
+L["Loot %s"] = "Despoja %s"
+L["Next: %s · then %s"] = "Siguiente: %s · luego %s"
+L["Quests here"] = "Misiones aquí"
+L["for your quest"] = "para tu misión"
+L["from %s: it starts a quest"] = "de %s: inicia una misión"
+L["in kill order"] = "por orden"
+L["loot it"] = "despójalo"
+L["starts a quest"] = "inicia una misión"
+L["Loot now"] = "Despojar ahora"
+L["%s · quests"] = "%s · misiones"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Volver a configurar Polestar, página a página. Cada opción se aplica al momento."

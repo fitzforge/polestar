@@ -53,6 +53,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		if frame:GetParent() ~= home then frame:SetParent(home) end
 		return false
 	end
+	GF.Claimed = claimed
 
 	-- Measure and place the card's parts; the goals area's own height is left
 	-- to fitGoals (its contents, within the cap). -> the card's height without
@@ -121,6 +122,8 @@ ns.UI.GuideFrame.Part(function(GF)
 			end
 			y = y + n * rowH
 		end
+		-- The guide kind's regions (UI/GuideFrameRegions.lua) where the header sits.
+		y = GF.LayoutRegions(width, y)
 		if person:IsShown() then
 			local nameW = cw - ICON - 10
 			person.Name:SetWidth(nameW)
@@ -175,7 +178,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			f:SetPoint("TOPRIGHT", prev, edge .. "RIGHT", 0, 0)
 			prev = f
 		end
-		local tip = card.Tip
+		local tip, below = card.Tip, goals
 		if tip:IsShown() then
 			tip.Text:SetWidth(cw - 18)
 			tip.Text:SetWordWrap(tipOpen)
@@ -211,8 +214,11 @@ ns.UI.GuideFrame.Part(function(GF)
 				tip:SetPoint("TOPLEFT", goals, "BOTTOMLEFT", 0, -gap)
 				tip:SetPoint("TOPRIGHT", goals, "BOTTOMRIGHT", 0, -gap)
 				y = y + gap + h
+				below = tip
 			end
 		end
+		-- The guide kind's regions after the step's own rows (GF.REGIONS' "step").
+		y = GF.LayoutRegionsAfter(width, y, below)
 		return y + 6
 	end
 
@@ -609,11 +615,29 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- The guide's title sits in the navigator only when no tab names it.
 		local steps = nav.Steps:IsShown()
 
-		local skipW = nav.Skip:IsShown() and nav.Skip:GetWidth() + 4 or 0
+		-- Skip shows its label while the row has room for it; where a long label (a language's own) would run
+		-- into the step count, only its glyph stays (its tooltip names it).
+		local skipShown = nav.Skip:IsShown()
 		local reportW = nav.Report:IsShown() and nav.Report:GetWidth() or 0
 		local nearbyW = nav.Nearby:IsShown() and nav.Nearby:GetWidth() or 0
 		local lookupW = nav.Lookup:GetWidth()
-		local titleW = width - PAD - (steps and nav.Steps:GetWidth() + 12 or 0) - 24 - 8 - 8 - (nav.Close:IsShown() and 18 or 0) - skipW - reportW - nearbyW - lookupW
+		local function titleRoom(skipW)
+			return width - PAD - (steps and nav.Steps:GetWidth() + 12 or 0) - 24 - 8 - 8 - (nav.Close:IsShown() and 18 or 0) - skipW - reportW - nearbyW - lookupW
+		end
+		local skip = nav.Skip
+		-- Its width with the label: the look's own, or what the label asks once it has been taken off.
+		local labelW = skip.psGlyphOnly and floor(7 + 11 + 5 + skip.Label:GetStringWidth() + 8 + 0.5) or skip:GetWidth()
+		if skipShown and titleRoom(labelW + 4) < 0 then
+			skip.psGlyphOnly = true
+			skip.Label:Hide()
+			skip:SetWidth(7 + 11 + 7)
+		elseif skip.psGlyphOnly then
+			skip.psGlyphOnly = nil
+			skip.Label:Show()
+			skip:SetWidth(labelW)
+		end
+		local skipW = skipShown and skip:GetWidth() + 4 or 0
+		local titleW = titleRoom(skipW)
 		-- At the minimum width the controls take the row; the title must not sit
 		-- behind Skip (notably in compact mode with one guide, where no strip shows).
 		-- A layout that sets the row out itself (nav.psFitTitle) sizes and hides the title.
@@ -777,6 +801,7 @@ ns.UI.GuideFrame.Part(function(GF)
 				return cardTop - (y or 0)
 			end
 			if person:IsShown() then add("person", person, inCard(person), person:GetHeight()) end
+			for _, r in ipairs(GF.PlacedRegions()) do add(r[1], r[2], inCard(r[2]), r[2]:GetHeight()) end
 			local goalsTop, scroll = inCard(goals), goals:GetVerticalScroll() or 0
 			for _, f in ipairs(GF.CardItems()) do
 				local y = GF.ItemTop(f)

@@ -3629,10 +3629,15 @@ local function refresh()
 	local view, raw = QoL.CurrentStep()
 	farWatch = nil
 	local guideShown = ns.GuideShown()
+	-- Inside a dungeon, the dungeon tracker's quest item (UI/DungeonTracker.lua)
+	-- when the step has none: it shows while the tracker does, the guide
+	-- window waiting out the dungeon or not.
+	local DT = ns.UI and ns.UI.DungeonTracker
+	local runItem = DT and DT.UseItem and DT.UseItem() or nil
 	-- The step's item first; with none, a quest starter from the bags, glowing.
 	-- Never on a taxi: the client refuses item spells there (#1583).
-	local itemOn = QoL.On("itemButton") and guideShown and not onTaxi()
-	local item = itemOn and view and Buttons.ChooseQuestItem(view, raw) or nil
+	local itemOn = QoL.On("itemButton") and (guideShown or runItem ~= nil) and not onTaxi()
+	local item = itemOn and (guideShown and view and Buttons.ChooseQuestItem(view, raw) or runItem) or nil
 	local QL = QoL.QuestLoot
 	local loot = itemOn and not item and QL and QL.Current() or nil
 	applyItem(itemButton, item or loot, loot)
@@ -3903,6 +3908,7 @@ ns.On("NAME_LEARNED", refreshSoon)
 ns.On("BAG_SPACE", refreshSoon)
 ns.On("WHILE_HERE_CHANGED", refreshSoon)
 ns.On("QUEST_LOOT_CHANGED", refreshSoon)
+ns.On("DUNGEON_RUN_CHANGED", refreshSoon)
 -- The target button names the arrow's goal first.
 ns.On("WAYPOINT_CHANGED", refreshSoon)
 ns.On("SETTING_CHANGED", function(path)

@@ -352,6 +352,16 @@ GF.Part(function(GF)
 	if GF.live then ns.RegisterDefaults("guideWindow", GF.LOOK) end
 
 	function GF.On(key) return ns.Get("guideWindow." .. key) ~= false end
+	-- Whether the window shows part `part` for the guide in view (Core/Guides.lua, GuideKinds:
+	-- "xp", "pace", "skillBar", "handinRow", "whileHereQuests", "stillToDo"): its kind has it, and
+	-- `key`'s setting (guideWindow.<key>), when it has one, is on. The setting still turns the part
+	-- off for every kind.
+	function GF.KindHas(part, key)
+		local E, K = GF.Engine(), ns.GuideKinds
+		local kind = E and E.GuideKind and E.GuideKind() or "leveling"
+		if K and not K.Has(kind, part) then return false end
+		return key == nil or GF.On(key)
+	end
 	function GF.Num(key) return tonumber(ns.Get("guideWindow." .. key)) or GF.LOOK[key] end
 	-- A colour setting: r, g, b, or nil to follow the theme.
 	function GF.Rgb(key)
@@ -741,10 +751,11 @@ GF.Part(function(GF)
 		W.HideTooltip(row)
 	end
 
-	local function goalRow(i)
-		local r = rows[i]
-		if r then return r end
-		r = CreateFrame("Button", nil, goals.Child)
+	-- A goal row under `parent`: the goals area's own (goalRow), and a guide
+	-- kind region's list that reads as goal rows (GF.NewGoalRow: the dungeon
+	-- window's pick-ups, painted with GF.PaintGoalRow, measured with GF.MeasureRow).
+	local function buildRow(parent)
+		local r = CreateFrame("Button", nil, parent)
 		r:RegisterForClicks("LeftButtonUp", "RightButtonUp", "MiddleButtonUp")
 		r.Hover = r:CreateTexture(nil, "BACKGROUND")
 		r.Hover:SetTexture(Theme.Media("white"))
@@ -865,6 +876,14 @@ GF.Part(function(GF)
 		r:SetScript("OnClick", rowClick)
 		r:SetScript("OnEnter", rowEnter)
 		r:SetScript("OnLeave", rowLeave)
+		return r
+	end
+	GF.NewGoalRow = buildRow
+
+	local function goalRow(i)
+		local r = rows[i]
+		if r then return r end
+		r = buildRow(goals.Child)
 		rows[i] = r
 		return r
 	end
@@ -999,6 +1018,12 @@ GF.Part(function(GF)
 		end
 		info.current, info.done, info.skipped = current and true or false, done, skipped
 		GF.Hook("guideRow", r, goal, info)
+	end
+	-- A region's goal row (GF.NewGoalRow) painted as the goals area paints one:
+	-- its goal view (a step's own, or one with the same fields), `current` the
+	-- arrow's target. The party, escort and finder lines are the step's rows' to say.
+	function GF.PaintGoalRow(r, goal, current)
+		paintRow(r, goal, false, false, current, true, true, true, nil, nil, nil, true)
 	end
 
 	local function layoutBar(b, tw)
@@ -2451,8 +2476,9 @@ GF.Part(function(GF)
 		end
 		local n, untilStep, mixed = 0, nil, false
 		-- Still to do (both kinds below) unless turned off (guideWindow.stillToDo,
-		-- #3303); the finished ones stay in the menu's Hand in finished quests.
-		local stillToDo = GF.On("stillToDo")
+		-- #3303) or the guide's kind has none (a profession guide); the finished
+		-- ones stay in the menu's Hand in finished quests.
+		local stillToDo = GF.KindHas("stillToDo", "stillToDo")
 		-- First the quests an update left behind the player (Engine.GetBehind):
 		-- "Still to do: <quest>, back in <zone>, 240 yd".
 		local back = 0
@@ -2596,7 +2622,7 @@ GF.Part(function(GF)
 			local goal = v.goals[gi]
 			local ran, taken
 			if goal then ran, taken = GF.HookValue("guideTakes", goal) end
-			if goal and goal.status ~= "na" and not goal.folded and not (ran and taken == true) then
+			if goal and goal.status ~= "na" and not goal.folded and not (ran and taken == true) and not GF.RegionCovers(v, gi) then
 				list[#list + 1] = UI.ReadingGoal(v, goal)
 				if not goal.header then others = others + 1 end
 			end
@@ -2626,7 +2652,7 @@ GF.Part(function(GF)
 		local fold = CC and E and E.GetGuide and CC.Fold(E.GetGuide(), v)
 		local list = {}
 		for gi, goal in ipairs(v.goals) do
-			if goal.status ~= "na" and not goal.folded and gi ~= fold and not (header and header.index == gi) then
+			if goal.status ~= "na" and not goal.folded and gi ~= fold and not (header and header.index == gi) and not GF.RegionCovers(v, gi) then
 				list[#list + 1] = UI.ReadingGoal(v, goal)
 			end
 		end
@@ -2723,6 +2749,9 @@ GF.Part(function(GF)
 	-- (with "Show the whole step", or on a done step, every goal as written).
 	-- sameFocus = repaint in place; a goal that just turned done pops and folds.
 	local function fillCard(sameFocus)
+		-- The guide kind's regions (UI/GuideFrameRegions.lua) first: the goals they
+		-- stand for leave the rows below.
+		GF.FillRegions(view)
 		local groups, focus = UI.StepGroups(view)
 		local g = shownGroup(view, groups, focus)
 		focusGroup = g
@@ -2742,7 +2771,8 @@ GF.Part(function(GF)
 		local sv = view.section
 		card.Section:SetText(sv and sv.title or "")
 		if sv then W.Color(card.Section, sv.state == "current" and "accent" or "textDim") end
-		card.Section:SetShown(sv ~= nil)
+		-- The kind's skill meter (UI/GuideFrameKindCraft.lua) says it already.
+		card.Section:SetShown(sv ~= nil and not GF.RegionShown("meter"))
 		person:Show()
 		-- A class quest's step: the class card, its colour on the step's quest
 		-- names (the live window's alone).
@@ -3122,6 +3152,8 @@ GF.Part(function(GF)
 			-- Read afresh once the line is back on.
 			model.offRoute = nil
 		end
+		-- With the regions standing for every goal, the step's header goes too.
+		if n == 0 and GF.RegionsActive() then person:Hide() end
 		for gi, goal in ipairs(view.goals) do model.last[gi] = goal.status end
 		for i = n + 1, #rows do
 			local r = rows[i]

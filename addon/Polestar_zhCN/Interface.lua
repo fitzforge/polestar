@@ -469,6 +469,61 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+-- Machine-translated, to be reviewed (guide kinds and the long farm line, 26 Nov 2026): translated by an AI
+-- model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
+-- keep or fix its line below, and take its key off this list.
+--   next stretch to %d
+--   step %d needs level %d (%s)
+--   step %d needs level %d
+--   Nearest %s trainer
+--   Most of it drops as you level %s
+--   A long farm: most of it drops as you level
+--   or the Auction House
+-- Machine-translated, to be reviewed (dungeon guides and the dungeon tracker, 26 Nov 2026): translated by an AI
+-- model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
+-- keep or fix its line below, and take its key off this list.
+--   %s off route
+--   %s · your level
+--   %s, on your way
+--   Bring back the far ones (%d)
+--   Group %d of %d
+--   Group %d/%d
+--   Group of %d
+--   Group: none yet
+--   Level %d · best at %d
+--   Level %d: come back at %d
+--   Needs %s
+--   No quests to pick up
+--   Pick them up
+--   Quests open at a later level: %d
+--   Skip the far one
+--   best %d
+--   from %d
+--   instances this hour: %d of %d
+--   on your way
+--   Quests for the run
+--   %d / %d bosses
+--   All %d quests ready to turn in: hand them in after the run
+--   Every boss is down
+--   Its quest is ready to turn in: hand it in after the run
+--   Loot %s
+--   Next: %s · then %s
+--   Quests here
+--   for your quest
+--   from %s: it starts a quest
+--   in kill order
+--   loot it
+--   starts a quest
+--   Loot now
+--   %s · quests
+--   Also show it, with its bosses alone, in a dungeon where you hold none of its quests.
+--   Dungeon tracker
+--   Inside a dungeon or raid where you hold its quests: what is left for them, the bosses in kill order, and what to loot. It docks into the guide window when that is shown.
+--   Only the objectives still open and the next two bosses.
+--   Only what's left
+--   The size of the dungeon's name and the headings against Polestar's text size.
+--   Without quests too
+--   dungeon tracker
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhCN") then return end
@@ -1933,6 +1988,9 @@ L["1 level above you: careful"] = "高你1级：小心"
 L["about %d kills, %d min"] = "约%d次击杀，%d分钟"
 L["about %d kills"] = "约%d次击杀"
 L["or %s (%s)"] = "或%s（%s）"
+L["Most of it drops as you level %s"] = "大部分会在你升到 %s 级的途中掉落"
+L["A long farm: most of it drops as you level"] = "耗时很长：大部分会在升级途中掉落"
+L["or the Auction House"] = "或拍卖行"
 L["or %s"] = "或%s"
 
 -- UI/GuideFrame.lua
@@ -2091,6 +2149,10 @@ L["Quest log full: this step takes %d, and there is room for %d."] = "任务日�
 L["Room to make: %s"] = "可放弃的任务：%s"
 L["Make room"] = "腾出空间"
 L["On pace for level %s by step %d"] = "按当前进度，将在步骤 %2$d 达到 %1$s 级"
+L["next stretch to %d"] = "下一段至 %d"
+L["step %d needs level %d (%s)"] = "步骤 %d 需要等级 %d（%s）"
+L["step %d needs level %d"] = "步骤 %d 需要等级 %d"
+L["Nearest %s trainer"] = "最近的%s训练师"
 L["Your class quest is done. Back to %s."] = "你的职业任务已完成。返回%s。"
 L["Close and return"] = "关闭并返回"
 L["The guide has no class training ahead."] = "指南后续没有职业训练。"
@@ -5079,6 +5141,14 @@ L["Class quest chime"] = "职业任务提示音"
 L["The rare alert, the transport banner, the heads-up card and the class quest card: their size, look, motion, sound and time on screen."] = "稀有提醒、交通横幅、提醒卡片和职业任务卡片：它们的大小、外观、动效、声音和显示时长。"
 
 -- UI/Looks/Trackers.lua
+L["Also show it, with its bosses alone, in a dungeon where you hold none of its quests."] = "在没有其任务的地下城中也显示，仅列出首领。"
+L["Dungeon tracker"] = "地下城追踪器"
+L["Inside a dungeon or raid where you hold its quests: what is left for them, the bosses in kill order, and what to loot. It docks into the guide window when that is shown."] = "在你持有其任务的地下城或团队副本中：任务还差什么、按击杀顺序的首领，以及要拾取的物品。指南窗口显示时会停靠在其中。"
+L["Only the objectives still open and the next two bosses."] = "只显示仍未完成的目标和接下来的两个首领。"
+L["Only what's left"] = "只显示剩余的"
+L["The size of the dungeon's name and the headings against Polestar's text size."] = "地下城名称和标题相对于 Polestar 文字大小的大小。"
+L["Without quests too"] = "无任务时也显示"
+L["dungeon tracker"] = "地下城追踪器"
 L["Aelindra"] = "艾琳德拉"
 L["The Defias Brotherhood"] = "迪菲亚兄弟会"
 L["Brogan"] = "布罗根"
@@ -5692,6 +5762,44 @@ L["Training due"] = "职业训练"
 L["New spells at your class trainer"] = "职业训练师处有新法术可学"
 -- L["Optional objectives during this step"] = ""
 -- L["Class quest"] = ""
+
+-- UI/GuideFrameKindDungeon.lua
+L["%s off route"] = "偏离路线 %s"
+L["%s · your level"] = "%s · 你的等级"
+L["%s, on your way"] = "%s，顺路"
+L["Bring back the far ones (%d)"] = "找回较远的任务（%d）"
+L["Group %d of %d"] = "队伍 %d / %d"
+L["Group %d/%d"] = "队伍 %d/%d"
+L["Group of %d"] = "%d 人队伍"
+L["Group: none yet"] = "队伍：尚无"
+L["Level %d · best at %d"] = "等级 %d · 最佳 %d"
+L["Level %d: come back at %d"] = "等级 %d：%d 级再来"
+L["Needs %s"] = "需要 %s"
+L["No quests to pick up"] = "没有可接的任务"
+L["Pick them up"] = "去接任务"
+L["Quests open at a later level: %d"] = "更高等级开放的任务：%d"
+L["Skip the far one"] = "跳过远的"
+L["best %d"] = "最佳 %d"
+L["from %d"] = "%d 级起"
+L["instances this hour: %d of %d"] = "本小时副本：%d / %d"
+L["on your way"] = "顺路"
+L["Quests for the run"] = "本次副本的任务"
+
+-- UI/DungeonTracker.lua
+L["%d / %d bosses"] = "首领 %d / %d"
+L["All %d quests ready to turn in: hand them in after the run"] = "全部 %d 个任务可交还：打完后交还"
+L["Every boss is down"] = "所有首领已击败"
+L["Its quest is ready to turn in: hand it in after the run"] = "它的任务可交还：打完后交还"
+L["Loot %s"] = "拾取 %s"
+L["Next: %s · then %s"] = "下一个：%s · 然后 %s"
+L["Quests here"] = "此处的任务"
+L["for your quest"] = "任务需要"
+L["from %s: it starts a quest"] = "来自 %s：可开始一个任务"
+L["in kill order"] = "按击杀顺序"
+L["loot it"] = "去拾取"
+L["starts a quest"] = "开始任务"
+L["Loot now"] = "立即拾取"
+L["%s · quests"] = "%s · 任务"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐页重新设置 Polestar。每项选择立即生效。"

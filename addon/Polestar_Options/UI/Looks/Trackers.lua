@@ -62,6 +62,10 @@ local BUILD = {
 		f.Fill = function(self) PP.FillRows(self, demoParty()) end
 		return f
 	end,
+	dungeon = function(parent)
+		local DT = UI.DungeonTracker
+		return DT and DT.NewSandbox and DT.NewSandbox(parent) or nil
+	end,
 }
 
 -- The game's XP bar, drawn plainly, with the guide's real mark on it, on
@@ -238,7 +242,8 @@ end
 -- What lights each tracker with a setting's row: its whole panel, its bar,
 -- its main line, its other lines; its switch's own.
 local PANEL_KEYS = { "scale", "width", "alpha", "bgAlpha", "bg", "borderSize", "border", "combat", "instance" }
-local SWITCH = { flight = { "maps.flightTimer" }, instances = { "maps.instances", "maps.instanceDisplay" }, party = { "party.panel" } }
+local SWITCH = { flight = { "maps.flightTimer" }, instances = { "maps.instances", "maps.instanceDisplay" }, party = { "party.panel" },
+	dungeon = { "trackers.dungeon.enabled" } }
 local function lightTracker(s, kind, f, fight)
 	local t, k = f.psTracker, "trackers." .. kind .. "."
 	for _, key in ipairs(PANEL_KEYS) do s:Light(k .. key, f) end
@@ -257,6 +262,11 @@ local function lightTracker(s, kind, f, fight)
 	s:Light(k .. "outline", unpack(titles))
 	s:Light(k .. "bodySize", unpack(bodies))
 	if kind == "flight" then s:Light("trackers.flight.format", t.titles[1]) end
+	-- The dungeon tracker's list (what is left, the bosses with no quests): the whole panel.
+	if kind == "dungeon" then
+		s:Light("trackers.dungeon.compact", f)
+		s:Light("trackers.dungeon.bossesAlone", f)
+	end
 end
 
 -- A band of trackers (UI.Preview.Band): kinds (their sandbox panels), with
@@ -267,7 +277,7 @@ end
 -- one its setting draws. A tab's own tracker with a fight rule has "In a
 -- fight" in Play's place: its fight look, faded or gone, for a moment.
 -- s.Tracker, s.Journey, s.XP: its parts, for the tests.
-local NAMES = { flight = L["Flight timer"], instances = L["Instance tracker"], party = L["Party panel"] }
+local NAMES = { flight = L["Flight timer"], instances = L["Instance tracker"], party = L["Party panel"], dungeon = L["Dungeon tracker"] }
 local WATCH = { "trackers.", "maps.flightTimer", "maps.instances", "party.panel", "nav.journeySteps", "qol.xpTargetMark", "ui." }
 -- The choice a setting draws, where its key does not say (trackers.<kind>.*).
 local OWNER = { ["nav.journeySteps"] = "journey", ["qol.xpTargetMark"] = "xp", ["maps.flightTimer"] = "flight",
@@ -388,7 +398,7 @@ end
 -- "party" | "all" (Essentials: its dropdown picks the tracker, the journey
 -- or the level mark)
 function TR.Preview(view, tab)
-	if tab == "all" then return trackerBand(view, { "flight", "instances", "party" }, { pick = true }) end
+	if tab == "all" then return trackerBand(view, { "flight", "instances", "party", "dungeon" }, { pick = true }) end
 	return trackerBand(view, { tab }, { journey = tab == "flight", xp = tab == "instances" })
 end
 
@@ -567,6 +577,25 @@ panelPage(PARTY, "party", L["party panel"], {
 }, { minW = 200, maxW = 460, guideRule = true, titleLabel = L["Name size"],
 	titleHelp = L["The size of the members' names and the panel's title against Polestar's text size."] })
 
+-- Dungeon tracker (UI/DungeonTracker.lua): inside a dungeon or raid where
+-- you hold its quests; docked in the guide window when that is shown there.
+local DUNGEON = L["Dungeon tracker"]
+local function dungeonOff() return TR.Get("dungeon", "enabled") == false end
+panelPage(DUNGEON, "dungeon", L["dungeon tracker"], {
+	section = L["Dungeon tracker"], preview = function(view) return TR.Preview(view, "dungeon") end, move = "dungeonTracker",
+	toggle = { kind = "toggle", key = "trackers.dungeon.enabled", label = L["Dungeon tracker"], new = "0.4.4",
+		help = L["Inside a dungeon or raid where you hold its quests: what is left for them, the bosses in kill order, and what to loot. It docks into the guide window when that is shown."],
+		search = "dungeon, raid, instance, quests, bosses, loot, tracker, objectives" },
+	controls = {
+		{ kind = "toggle", key = "trackers.dungeon.compact", label = L["Only what's left"], new = "0.4.4", disabled = dungeonOff,
+			help = L["Only the objectives still open and the next two bosses."],
+			search = "compact, small, short, objectives, bosses, dungeon tracker" },
+		{ kind = "toggle", key = "trackers.dungeon.bossesAlone", label = L["Without quests too"], new = "0.4.4", disabled = dungeonOff,
+			help = L["Also show it, with its bosses alone, in a dungeon where you hold none of its quests."],
+			search = "bosses, no quests, always, dungeon tracker" },
+	},
+}, { minW = 220, maxW = 460, titleLabel = L["Heading size"], titleHelp = L["The size of the dungeon's name and the headings against Polestar's text size."] })
+
 ---------------------------------------------------------------------------
 -- Essentials (the page's lead tab): three sizes of the trackers as picture
 -- cards, then each tracker's size and on/off and the guide's own trackers,
@@ -576,7 +605,7 @@ panelPage(PARTY, "party", L["party panel"], {
 local O = UI.Options
 if O and O.PresetCards and O.Ref then
 	local R = O.Ref
-	local PANELS = { "flight", "instances", "party" }
+	local PANELS = { "flight", "instances", "party", "dungeon" }
 	-- A preset's card: the flight timer as the preset paints it (its own
 	-- builder and TR.ApplyLook, at a share of its scale so a bigger one shows
 	-- bigger), fitted to the card.
@@ -624,6 +653,8 @@ if O and O.PresetCards and O.Ref then
 		R("slider", "trackers.flight.scale", { label = L["Flight timer"], disabled = off("maps.flightTimer"), extras = { R("toggle", "maps.flightTimer") } }),
 		R("slider", "trackers.instances.scale", { label = L["Instance tracker"], disabled = off("maps.instances"), extras = { R("toggle", "maps.instances") } }),
 		R("slider", "trackers.party.scale", { label = L["Party panel"], disabled = off("party.panel"), extras = { R("toggle", "party.panel") } }),
+		R("slider", "trackers.dungeon.scale", { label = L["Dungeon tracker"], disabled = function() return TR.Get("dungeon", "enabled") == false end,
+			extras = { R("toggle", "trackers.dungeon.enabled") } }),
 		R("dropdown", "trackers.flight.format"),
 		R("slider", "trackers.journey.rows", { label = L["Journey"], disabled = off("nav.journeySteps"), extras = { R("toggle", "nav.journeySteps", { label = L["Journey"] }) } }),
 		R("toggle", "qol.xpTargetMark", { label = L["Guide level"] }),

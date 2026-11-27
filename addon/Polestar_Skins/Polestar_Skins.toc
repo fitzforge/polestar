@@ -42,4 +42,5 @@ Skins\Waymark\Waymark.lua
 Skins\Lanterns\Lanterns.lua
 Skins\Sheen\Sheen.lua
 Skins\Atlas\Atlas.lua
+Layouts\Atlas\AtlasDungeon.lua
 Layouts\Atlas\Atlas.lua

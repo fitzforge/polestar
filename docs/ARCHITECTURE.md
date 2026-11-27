@@ -3053,12 +3053,16 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   spot's `map`, `x`, `y`, `f`, `npcName`, `lvl` and `alternatives`, and, for
   an open goal with items still missing, `farm` (`Own.farmView`): `kills`
   (missing / rate, rounded up), `minutes` (the farm seconds), `above` (levels
-  the weakest mobs are above the player, when they are) and `second` (the
+  the weakest mobs are above the player, when they are), `second` (the
   next spot of the ranking on another map, else the next one: `npcName`,
-  `map`, `lvl`). The guide window adds them to the farm line
-  (`UI.FarmLine`: "1 level above you: careful", or "No farm at your level: 3
-  levels above you"; "about 60 kills, 25 min"; "or Riverpaw Gnoll
-  (Westfall)"). `CycleCandidate` walks the ranking.
+  `map`, `lvl`), `levels` (the `gather levels` of a material the Auction
+  House sells) and `market` (it sells there). The guide window adds them to
+  the farm line (`UI.FarmLine`: "1 level above you: careful", or "No farm at
+  your level: 3 levels above you"; "about 60 kills, 25 min"; "or Riverpaw
+  Gnoll (Westfall)"). A farm over `UI.FARM_LONG` (60) minutes is no plan to
+  send a player on: the line says "Most of it drops as you level 15–30 · or
+  the Auction House" instead of its kills, minutes and second spot.
+  `CycleCandidate` walks the ranking.
 
 #### Steps the character has
 
@@ -8871,8 +8875,9 @@ Orgrimmar and in. Stops: each prerequisite once, after the one before it in
 its chain (a full quest step, `Lookup.QuestStep`, from its giver nearest the
 player; the player then stands at its turn-in), and a giver once per set of
 prerequisites its quests wait on (one step with an accept per quest; the
-giver comes up again for a quest still waiting, and visits to the same giver
-in a row are one step). The last step names the carried quests in one line,
+giver comes up again for a quest still waiting, and visits to the same giver,
+or to givers within 60 yards of one another (the leveling stop's reach,
+`SAME_STOP`), in a row are one step). The last step names the carried quests in one line,
 its note (#1591: not a row each above the way in), goes to the entrance and
 says where the hand-in guide is (a note naming
 `/polestar dungeons <name>`). Nothing to take: nil, "nothing". The route is
@@ -9644,6 +9649,130 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `Theme.GuideParts()` is the live window's), and `psGuideWindow` marks a
   guide window itself apart from a card painted as one. What the window
   shows now comes through `GF.View()`, `GF.State()` and `GF.TipOpen()`.
+- **Guide kinds** (`Core/Guides.lua`, `ns.GuideKinds`; docs/GUIDE_FORMAT.md,
+  "Guide kind"): one small table, kind → the window parts it leaves out
+  (`parts`: `xp`, `pace`, `skillBar` (off unless a kind turns it on),
+  `handinRow`, `whileHereQuests`, `stillToDo`), the menu entries it leaves
+  out (`menu`: `free`, `handins`, `questLog`, `materials`) and the entries
+  it puts first (`lead`: `materials`, `trainer`). `GuideKinds.Of(guide)`
+  reads the guide's compiled `kind`, else its category's;
+  `Engine.GuideKind()` is the guide in view's. The window asks
+  `GF.KindHas(part, settingKey)`: the kind has the part and its setting
+  (`guideWindow.xpLine`, `.pace`, `.stillToDo`) is on. The profession
+  kind's skill line is `GF.SkillText()` over `Engine.SkillBar()` (the
+  guide's skill line from its sections, the stretch ahead from the next
+  `craft … until`, the first `level` goal above the character), in the XP
+  row's place (`UI/GuideFrameStatus.lua`); the menu's kind entries are in
+  `UI/GuideFrameMenu.lua`, the While you're here filter in
+  `UI/GuideFrameHere.lua`. A layout that draws a kind its own way reads
+  the same table.
+- **Guide kind regions** (`UI/GuideFrameRegions.lua`; design in
+  docs/DESIGN.md, "The Guide Window"): a kind with regions shows them where
+  the card's header and goal rows sit, in order, after the banner and before
+  Then:, Up next and the foot; a kind without (leveling, class, collectible,
+  exploration, misc) keeps today's card. The contract every kind's files share:
+
+  ```lua
+  GF.REGIONS = {
+    profession = { "meter", "trainer", "stretch", "supplies", "buyList" },
+    reputation = { "meter", "turnin", "supplies", "more" },
+    dungeon    = { "brief", "ready", "step", "pickups", "entrance" },   -- outside its instance;
+                -- "step": the card's own header and goal rows there (GF.LayoutRegionsAfter lays
+                -- the regions after it out under the goals area and the step's tip)
+  }
+  GF.RegionOverride(view, kind) -> { id, ... } | nil   -- a part taking the card for any kind
+                                                      -- (the docked dungeon tracker: { "tracker" })
+  GF.RegionsFor(view, kind) = (GF.RegionOverride and GF.RegionOverride(view, kind)) or GF.REGIONS[kind]
+  GF.RegisterRegion(id, {
+    build  = function(parent) -> frame,                -- once; frames per window (live + settings copy)
+    model  = function(view, kind) -> model | nil,      -- nil: the region is left out (and its height)
+    paint  = function(frame, model, mode),             -- optional: text and colours, on a render only
+    layout = function(frame, model, width, mode) -> h, -- mode "standard" | "compact"; measures and anchors only
+  })
+  Engine.KindModel(region, view[, kind]) -> model     -- pure data, no frames: the window, tests, preview
+  Engine.KindModels[region] = function(view, kind)    -- each kind's model makers (Core/KindCraft.lua,
+                                                      -- Core/KindDungeon.lua)
+  ```
+
+  A model's `covers` (goal indexes of the step, a list or a set) takes those
+  goals' rows off the card; with every open goal covered the step's header
+  goes too. A region frame is a part in `Theme.GuideParts()` under its id and
+  is offered to `guidePlace` by its id (Atlas places `meter`, `supplies`,
+  `turnin`, `pickups` and `trainer` in cards). `layout` never builds
+  strings: `paint` does, on a render, not on a drag-resize. Model shapes:
+
+  ```lua
+  meter    = { kind = "skill"|"rep", name, nameKind, value, max, rank, frac, seg = { a, b }, ticks = { { at, what } }, line }
+  trainer  = { title, level, npc, map, due, toGo }
+  stretch  = { item, recipe, name, quality, colour = "orange"|"yellow"|"green"|"grey", yellow, green, grey,
+               reagents = { { item, count } }, made, expected, moveOn, canMake, spell }
+  supplies = { title, way = "mix"|"buy"|"gather", rows = { { item, name, quality, have, need,
+               parts = { bags, bank, mail, coming, made }, way = "buy"|"gather"|"vendor"|"make", choosable,
+               reason, split = { buy = { count, copper, each, age, source } | false,
+                                 farm = { count, minutes, kills, npc, map, lvl, second, above } | false,
+                                 verdict = "buy"|"farm"|"pick"|"selfFound", long } } }, buyList = { count, copper } }
+  turnin   = { quest, title, repeatable, items = { { item, count } }, rep, npc, map, ready }
+  more     = { { quest, title, rep, once, progress, from } }
+  brief    = { key, name, lo, hi, best, players, zone }      ready = { level, best, floor, group = { n, max, names } }
+  pickups  = { held, total, missing = { { quest, title, npc, where, onWay, minutesOff, after, goal, gv, point } },
+               taken = { { quest, title, held, goal, gv } }, work }
+  entrance = { map, x, y, eta, cap = { used, max }, needs, go }
+  tracker  = { key, name, bossesDone, bossesTotal, elapsed, loot = { { item, boss, quest, how, until } },
+               quests = { { id, title, done, objectives = { { text, cur, max, done, boss, pending } } } },
+               bosses = { { order, name, npc, state = "dead"|"next"|"ahead", role, ties = { { how, item, quest } } } },
+               use = { { item, quest } } }
+  ```
+
+  Skin API names the regions add (each behind its capability): parts in
+  `Theme.GuideParts()` (`guideParts.kind`), hooks `guideKindRow(row, item,
+  info)` and `guideMeter(meter, info)`, `guidePlace` names `meter`,
+  `supplies`, `turnin`, `pickups`, `trainer`, `guideShows` names `split` and
+  `trainer`, `guideSpace` names `supplyRow`, `splitGap`, `bossRow`, tokens
+  `craftOrange`, `craftYellow`, `craftGreen`, `craftGrey`, `coin`; the
+  dungeon tracker's `trackerPlace(name, frame, width, height)`.
+- **The dungeon kind** (`Core/KindDungeon.lua` models, `UI/GuideFrameKindDungeon.lua`
+  regions; design in docs/DESIGN.md, "The Guide Window"): a guide of kind `dungeon`
+  names its dungeon by `dungeon` (the pick-up guide, `Dungeons.PickupGuide`, sets it and
+  `kind = "dungeon"`), a pick-up or hand-in guide's id, else its title
+  (`ns.KindDungeon.KeyOf`). Its models, beyond the shapes above: `brief.art`
+  (Dungeons.Art); `ready.under` (below the floor); `pickups` adds `waiting`,
+  `skipped`, `far` (the count over `Dungeons.PICKUP_DETOUR`, 10 minutes), `inGuide`
+  (the open guide is its pick-up guide), each missing quest `far` and `current`
+  (the step accepts it), `plan` and `covers` (the step's accepts, while the row is open), `open` (the
+  "Quests for the run" row is open: `Dungeons.PickupsOpen(key)`, `CharState().dungeonPickupOpen[key]`,
+  `Dungeons.SetPickupsOpen`; folded by default and again when the run ends, in Compact never open); the entries
+  (the open list's) are the
+  leveling view's goal rows (`GF.NewGoalRow`, `GF.PaintGoalRow`, `GF.MeasureRow`): `gv` the
+  step's accept of it, `taken` the page quests the step took (ticked until the step moves
+  on), `after` the chain quest it waits on (`Dungeons.OutsideWork`), `point` where a click
+  points the arrow (`Dungeons.GiverTarget` while it waits on a prerequisite), `work` the
+  quests with work out in the world still open; `entrance.zone`, `go` (nothing left before
+  the door: "Guide me to the entrance" shows only then),
+  `covers` (the step's way in). The pick-up plan and the travel time are kept 30
+  seconds (or until a quest is taken or dropped, the zone or the skips change):
+  `Dungeons.PickupDetours(plan)` plans the route once (`PlanStops`) and gives each
+  take its minutes off the way (the route against the same order without the stops
+  only that quest needs); `Dungeons.SkipFar(plan)` / `Unskip(key)` keep the left-out
+  quests per character (`CharState().dungeonPickupSkip`), and `PickupPlan` lists them
+  as `skipped`, never for the heads-up.
+- **The dungeon run and its tracker** (`Dungeons/Run.lua`, `UI/DungeonTracker.lua`;
+  design in docs/DESIGN.md, "The Dungeon Tracker"): inside a party or raid instance
+  with a Dungeons page, `Dungeons.Run` checks bosses off (ENCOUNTER_END won, by
+  `encounter`; UNIT_DIED in the combat log for a boss without one, listened to only
+  then), keeps them per character for the run (`CharState().dungeonRun`, a new run of
+  Maps' instance tracker starts over) and raises loot reminders for a dead boss's
+  `item` ties to quests still short of the item (`starts` ties: a quest neither done
+  nor held), gone at the item's count, after `Run.LOOT_SECONDS` (180) or at the next
+  ENCOUNTER_START; `Run.Model()` is the `tracker` model (nil while no quest here is
+  held, unless `trackers.dungeon.bossesAlone`). The tracker floats
+  (`PolestarDungeonTracker`, `Maps.CompactFrame`, `UI.Trackers` kind `dungeon`) unless
+  the guide window is shown, which takes it as the region `tracker` through
+  `GF.RegionOverride` for every guide kind. Its parts `loot`, `quests` and `bosses`
+  are offered to `trackerPlace` (Atlas's cards: Polestar_Skins/Layouts/Atlas/AtlasDungeon.lua,
+  handed Atlas's registry through `S.atlasParts`). A height change in a fight waits for
+  its end. `UI.DungeonTracker.UseItem()` hands the run's quest item (a held quest's
+  Codex `useItem` in the bags) to the quest item button (QoL/Buttons.lua), which then
+  shows while the tracker does.
 - **Guide window** (`UI/GuideFrame.lua`): tab strip (each tab's close button
   faint at rest, full under the pointer; right-click for Choose guide, Close
   tab, Move left/right; middle-click closes), a slim navigator (prev,
@@ -10281,13 +10410,15 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   opens `Dungeons.Attune` in a new tab as the pick-up guide does) and a row per
   step of the filter's side (state glyph, the quest in its difficulty colour
   or what drops it, its state, giver and zone or chance and instance; a click
-  sets the arrow there); the other side's entries carry no state. Map: the entrance and
-  the quest givers on its zone painting. A dungeon whose entrance is not known
+  sets the arrow there); the other side's entries carry no state. Map: the entrance and the quest givers on its zone painting. A dungeon whose entrance is not known
   paints its page's `zone` (the Codex takes it from the client's AreaTable: an
   open-world area of the instance's name, Forever's Blackmaw Hold in Azshara)
   whole on its card, header and Map tab, names it in the facts, and the Map tab
   says where it lies; one with no zone either wears its loading screen
-  (`Dungeons.Art`, through `ZoneArt.Picture`). Blocks, rows, tiles, chips and cards
+  (`Dungeons.Art`, through `ZoneArt.Picture`). The list cards and the page header wear
+  the dungeon's loading screen (`Dungeons.Art`'s crop, `paintBanner`) wherever it has one
+  and the map's painting where it has none (the continent-shared instances); the Map tab
+  is the map alone. Blocks, rows, tiles, chips and cards
   are pooled; quest states refresh on QUEST_ACCEPTED, QUEST_REMOVED,
   QUEST_TURNED_IN and PLAYER_LEVEL_UP, the Attunement tab also on
   BAG_UPDATE_DELAYED and UPDATE_FACTION. `UI.DungeonsSection` exposes
@@ -10320,7 +10451,8 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `UI.ZoneArt.Picture(art, { file, l, r, t, b })` fills the band with a
   picture instead (a dungeon's loading screen, the crop square on screen, the
   band showing the picture's full width at its scale); the next `Paint`
-  replaces it. `tests/zone-art-coverage.test.js` checks every shipped guide's
+  replaces it.
+  `tests/zone-art-coverage.test.js` checks every shipped guide's
   zone, every recorded dungeon door's zone and the fixed paintings against
   the maps the client paints, and that every dungeon has a loading screen.
 - **Community guides in the menu.** Our categories (Leveling, Professions, …)
@@ -11304,6 +11436,28 @@ the core addon, loaded right after `UI/ZoneArt.lua`, because the core is what
 draws it (the menu and the route cards work without any pack), and it
 registers through `ZoneArt.RegisterOverlays` the way `MapFrames.lua` and
 `Maps/ZoneLevels.lua` register their generated tables.
+
+### Dungeon loading screens (`maps art`)
+
+`forge data maps art [--build <ver>] [--offline]` writes
+`addon/Polestar/Dungeons/ArtFiles.lua` (`rust/crates/forge-data/src/dungeon_art.rs`) from the
+client's `Map` and `LoadingScreens` tables (wago.tools CSV cached under
+`data/sources/wago/<build>/`; `LoadingScreens` is also saved with the client tables in
+`data/sources/client-tables/<build>/`). A map of `InstanceType` 1 (dungeon) or 2 (raid)
+names its screen in `LoadingScreenID`; `LoadingScreens` holds the files: `MainImageFileDataID`
+(Forever's own 2992x1684 screens, "wide") or `NarrowScreenFileDataID` (Classic's, a 4:3 picture
+in a square texture, "narrow"; the `WideScreen` columns are 0 on every instance screen of the
+build). An instance on the screen of an open-world map (the continents') or on none is left out,
+with the client's test and unused maps: The Searing Basin, Shadow Hold, Starfall Barrow Den,
+Deadwind Pass, Manor Mistmantle, Caverns of Time, The Scarab Dais and Emerald Dream have no
+picture of their own. Forever's own dungeons whose rows the client keeps encrypted (The Drowned
+City, Blackmaw Hold, Alcaz Prison, The Shaper's Terrace, Krol'dok Stronghold) are pinned in
+`dungeon_art.rs` by map id and file; a pin whose map the table holds is reported and dropped.
+The default build is 1.60.1.70532. The file registers through `Dungeons.ArtFiles`
+(`{ wide = { [map] = file }, narrow = { [map] = file } }`) and is loaded before
+`Dungeons/Art.lua`, whose crops for the cards and the heads-up ring read their files from it.
+forge-data's `dungeon_art` tests check that every Classic dungeon and raid has a screen and that
+the continents' have none, and (with the cached tables) that the file is up to date.
 
 ### Codex (`codex build`)
 

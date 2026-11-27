@@ -1054,18 +1054,58 @@ fn map_the_entrance_on_its_zone_with_the_quest_givers_there() {
 		Polestar.Dungeons.Open("wailing-caverns")
 		DS.SetTab("map")
 		local _, _, pg = DS.Frames()
-		emit({ shown = DS.Shown(), note = pg.MapNote:GetText(), art = pg.MapArt:IsShown(), blocks = (function() for _, b in ipairs(DS.blocks) do if b:IsShown() then return true end end return false end)() })"#);
+		local art = pg.MapArt
+		emit({ shown = DS.Shown(), note = pg.MapNote:GetText(), art = art:IsShown(), toggle = rawget(pg, "MapToggle") ~= nil, pic = art.psPic ~= nil and art.psPic:IsShown(), marker = art.Entrance:IsShown(), blocks = (function() for _, b in ipairs(DS.blocks) do if b:IsShown() then return true end end return false end)() })"#);
 	let out = &out[0];
 	assert_eq!(out["shown"]["map"], "entrance");
 	assert_eq!(out["shown"]["givers"], 2, "Nalpak (two quests) and Crane Operator Bigglefuzz; the shard starts inside");
 	assert!(is_match(out["note"].as_str().unwrap(), r"^The entrance, on The Barrens \(46\.0, 36\.4\)\."), "{}", out["note"]);
 	assert_eq!(out["art"], true);
+	assert_eq!((&out["toggle"], &out["pic"], &out["marker"]), (&json!(false), &json!(false), &json!(true)), "the Map tab is the map alone: no loading screen, no toggle, the entrance marked");
 	assert_eq!(out["blocks"], false, "the other tabs\u{2019} rows are hidden");
+}
+
+// The list cards and the page header wear the dungeon's loading screen (Wailing Caverns' own file, 131882, cropped
+// around its focus with the aspect kept); a dungeon the client gives none (an instance on a continent's own screen)
+// keeps its zone's painting there.
+#[test]
+fn the_cards_and_the_page_header_wear_the_loading_screen_and_the_zone_art_where_there_is_none() {
+	let out = run(r#"
+		C_Map = C_Map or {}
+		C_Map.GetMapArtLayers = function(id) if id == 1413 then return { { layerWidth = 1002, layerHeight = 668, tileWidth = 256, tileHeight = 256 } } end return {} end
+		C_Map.GetMapArtLayerTextures = function(id) if id == 1413 then local t = {} for i = 1, 12 do t[i] = 100 + i end return t end return {} end
+		local function head(art) return { pic = art.psPic ~= nil and art.psPic:IsShown(), file = art.psPic and art.psPic.texture, band = art.Band:IsShown() } end
+		local function card(key)
+			Polestar.Dungeons.Open()
+			DS.SetFaction("All")
+			DS.SetBand("all")
+			for _, c in ipairs(DS.cards) do c.psPainted = nil end
+			DS.PaintVisible()
+			for _, c in ipairs(DS.cards) do if c:IsShown() and c.psKey == key then return { art = c.psArt, pic = c.Art.psPic ~= nil and c.Art.psPic:IsShown(), file = c.Art.psPic and c.Art.psPic.texture } end end
+		end
+		local out = {}
+		Polestar.Dungeons.Open("wailing-caverns")
+		local _, _, pg = DS.Frames()
+		out.wcHead, out.wcMarker = head(pg.Art), pg.Art.Entrance:IsShown()
+		out.wcCard = card("wailing-caverns")
+		Polestar.Dungeons.ArtFiles.narrow[43] = nil
+		Polestar.Dungeons.Art = function() return nil end
+		Polestar.Dungeons.Open("wailing-caverns")
+		out.zoneHead, out.zoneMarker = head(pg.Art), pg.Art.Entrance:IsShown()
+		out.zoneCard = card("wailing-caverns")
+		emit(out)"#);
+	let out = &out[0];
+	assert_eq!(out["wcHead"], json!({ "pic": true, "file": 131882, "band": false }), "the header: the loading screen");
+	assert_eq!(out["wcMarker"], false);
+	assert_eq!(out["wcCard"], json!({ "art": "picture", "pic": true, "file": 131882 }), "the card too");
+	assert_eq!(out["zoneHead"]["pic"], false, "no screen: the header keeps the zone's painting");
+	assert_eq!((&out["zoneHead"]["band"], &out["zoneMarker"]), (&json!(false), &json!(true)));
+	assert_eq!((&out["zoneCard"]["art"], &out["zoneCard"]["pic"]), (&json!("entrance"), &json!(false)), "and the card");
 }
 
 // Fitz, 2026-11-14 (the 50-60 band: "Missing game art for these zones"): Forever's Blackmaw Hold and The
 // Shaper's Terrace showed the bare night band and no zone. A dungeon whose door nobody has recorded takes the zone
-// the client's areas name it in (Blackmaw Hold: Azshara): its card and page paint that zone and name it, and the Map
+// the client's areas name it in (Blackmaw Hold: Azshara): its facts and page name it, and the Map
 // tab says the door isn't known yet but where the dungeon lies. One with no zone at all (Alcaz Prison) wears its own
 // loading screen (Dungeons.Art), never the bare night band.
 #[test]
@@ -1107,7 +1147,7 @@ fn a_dungeon_without_a_known_door_paints_its_zone_and_names_it_else_its_loading_
 		Some(pack_of(&codex, &inputs)),
 	);
 	let out = &out[0];
-	assert_eq!((&out["bmArt"], &out["bmBand"]), (&json!("zone"), &json!(false)), "Blackmaw Hold's card: Azshara's painting");
+	assert_eq!((&out["bmArt"], &out["bmBand"]), (&json!("picture"), &json!(false)), "Blackmaw Hold's card: its loading screen");
 	assert!(out["bmStats"].as_str().unwrap().contains("Azshara"), "{}", out["bmStats"]);
 	assert!(out["bmSub"].as_str().unwrap().contains("Azshara"), "the page header names the zone: {}", out["bmSub"]);
 	assert_eq!(out["bmHeadBand"], false);

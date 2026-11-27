@@ -392,7 +392,7 @@ fn api_version_and_capabilities_say_what_this_polestar_offers() {
 			"lightSchemes", "surfaces.guideTitle", "variants", "resolve", "shadow", "artTint", "media.dart", "guideParts",
 			"surfaces.card", "surfaces.actionButton", "surfaces.guideRow", "surfaces.guideLayout", "surfaces.guideRender",
 			"surfaces.guideProgress", "surfaces.guideAnchor", "surfaces.guideTakes", "surfaces.guidePerson", "surfaces.guideInset", "surfaces.guideUpRow", "surfaces.guideShows", "surfaces.guideSpace", "media.pins", "arrow.parts", "pin.parts", "tokens.accent2", "tokens.glow",
-			"tokens.pins", "skins.installed", "theme.functions", "kit.color", "kit.glow", "kit.tintArt" }) do
+			"tokens.pins", "skins.installed", "theme.functions", "kit.color", "kit.glow", "kit.tintArt", "surfaces.trackerPlace" }) do
 			if not T.HasCapability(c) then caps[#caps + 1] = c end
 		end
 		emit({ v = T.API_VERSION, missing = table.concat(caps, ","), nope = T.HasCapability("surfaces.nope"), odd = T.HasCapability(nil),
@@ -423,7 +423,8 @@ fn api_version_and_capabilities_say_what_this_polestar_offers() {
 			"guideTitle",
 			"guideUpRow",
 			"pin",
-			"toast"
+			"toast",
+			"trackerPlace"
 		])
 	);
 	assert_eq!(out["surfaces"]["paint"], json!(["button", "checkbox", "close", "dropdown", "editbox", "guide", "inset", "panel", "scrollbar", "sidebar", "tab", "tile", "toast", "window"]));
@@ -854,6 +855,8 @@ local CT = Polestar.UI.ClassToast
 CT.ShowCard({ head = "LEVEL 21 · SHAMAN", title = "Call of Water", act = { label = "Go", run = function() end } })
 Polestar.Rares.Toast.Show({ kind = "rare", name = "Mother Fang", map = 1413, x = 50, y = 50 })
 Polestar.Nav.alerts.ShowSample()
+-- The dungeon tracker on its sample run: its parts offered to trackerPlace.
+Polestar.UI.DungeonTracker.ShowSample()
 -- A step pin and a map mark, by the pins' own code (as the map layers draw theirs).
 local P = Polestar.Pins
 local stepPin, markPin = CreateFrame("Frame", nil, UIParent), CreateFrame("Frame", nil, UIParent)

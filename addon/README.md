@@ -254,7 +254,8 @@ never in saved variables.
 | `Attune.lua` | `Dungeons` | Attunements and keys: this character's progress through each, and a guide through what is left |
 | `Mark.lua` | `Dungeons` | The dungeon glyph after a quest's name when it belongs to a dungeon or leads to one |
 | `XP.lua` | `Dungeons` | How far a dungeon's quests take this character, for the page's level chip |
-| `Art.lua` | `Dungeons` | Each dungeon's loading screen art, cropped for the dungeon heads-up |
+| `ArtFiles.lua` | `Dungeons` | Each dungeon's and raid's loading screen file (generated: `forge data maps art`) |
+| `Art.lua` | `Dungeons` | Each dungeon's loading screen: crops for the list cards, the page header and the dungeon heads-up |
 
 ### UI
 

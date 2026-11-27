@@ -27,7 +27,7 @@ pub const FOREVER: Product = Product {
 	key: "wow_classic_beta",
 	family: forever_family,
 	tables: &["UiMap", "UiMapAssignment", "AreaTable"],
-	optional: &["ChrRaces", "ChrClasses", "CharBaseInfo", "Faction", "Map", "ItemSparse"],
+	optional: &["ChrRaces", "ChrClasses", "CharBaseInfo", "Faction", "Map", "LoadingScreens", "ItemSparse"],
 };
 /// sim-v2 also reads Item (mount vendors), SpellName (training's spell names) and SpellEffect (the
 /// creatures spells summon: camp bots are no vendors). SkillLineAbility comes with SpellName: a guide
@@ -37,7 +37,7 @@ pub const FOREVER_SIM: Product = Product {
 	key: "wow_classic_beta",
 	family: forever_family,
 	tables: &["UiMap", "UiMapAssignment", "AreaTable"],
-	optional: &["ChrRaces", "ChrClasses", "CharBaseInfo", "Faction", "Map", "ItemSparse", "Item", "SpellName", "SkillLineAbility", "SpellEffect"],
+	optional: &["ChrRaces", "ChrClasses", "CharBaseInfo", "Faction", "Map", "LoadingScreens", "ItemSparse", "Item", "SpellName", "SkillLineAbility", "SpellEffect"],
 };
 /// `data classspells` (class_spells.rs): spell names, their rank text and the class/race masks.
 pub const CLASS_SPELLS: Product = Product { key: "wow_classic_beta", family: forever_family, tables: &["SpellName", "Spell", "SkillLineAbility"], optional: &[] };

@@ -569,6 +569,61 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+-- Machine-translated, to be reviewed (guide kinds and the long farm line, 26 Nov 2026): translated by an AI
+-- model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
+-- keep or fix its line below, and take its key off this list.
+--   next stretch to %d
+--   step %d needs level %d (%s)
+--   step %d needs level %d
+--   Nearest %s trainer
+--   Most of it drops as you level %s
+--   A long farm: most of it drops as you level
+--   or the Auction House
+-- Machine-translated, to be reviewed (dungeon guides and the dungeon tracker, 26 Nov 2026): translated by an AI
+-- model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
+-- keep or fix its line below, and take its key off this list.
+--   %s off route
+--   %s · your level
+--   %s, on your way
+--   Bring back the far ones (%d)
+--   Group %d of %d
+--   Group %d/%d
+--   Group of %d
+--   Group: none yet
+--   Level %d · best at %d
+--   Level %d: come back at %d
+--   Needs %s
+--   No quests to pick up
+--   Pick them up
+--   Quests open at a later level: %d
+--   Skip the far one
+--   best %d
+--   from %d
+--   instances this hour: %d of %d
+--   on your way
+--   Quests for the run
+--   %d / %d bosses
+--   All %d quests ready to turn in: hand them in after the run
+--   Every boss is down
+--   Its quest is ready to turn in: hand it in after the run
+--   Loot %s
+--   Next: %s · then %s
+--   Quests here
+--   for your quest
+--   from %s: it starts a quest
+--   in kill order
+--   loot it
+--   starts a quest
+--   Loot now
+--   %s · quests
+--   Also show it, with its bosses alone, in a dungeon where you hold none of its quests.
+--   Dungeon tracker
+--   Inside a dungeon or raid where you hold its quests: what is left for them, the bosses in kill order, and what to loot. It docks into the guide window when that is shown.
+--   Only the objectives still open and the next two bosses.
+--   Only what's left
+--   The size of the dungeon's name and the headings against Polestar's text size.
+--   Without quests too
+--   dungeon tracker
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "koKR") then return end
@@ -2032,6 +2087,9 @@ L["1 level above you: careful"] = "1레벨 높음: 주의"
 L["about %d kills, %d min"] = "약 %d마리, %d분"
 L["about %d kills"] = "약 %d마리"
 L["or %s (%s)"] = "또는 %s (%s)"
+L["Most of it drops as you level %s"] = "대부분은 레벨 %s 구간을 올리며 얻습니다"
+L["A long farm: most of it drops as you level"] = "긴 파밍: 대부분은 레벨을 올리며 얻습니다"
+L["or the Auction House"] = "또는 경매장"
 L["or %s"] = "또는 %s"
 
 -- UI/GuideFrame.lua
@@ -2190,6 +2248,10 @@ L["Quest log full: this step takes %d, and there is room for %d."] = "퀘스트 
 L["Room to make: %s"] = "확보할 자리: %s"
 L["Make room"] = "자리 만들기"
 L["On pace for level %s by step %d"] = "%2$d단계까지 레벨 %1$s 도달 예상"
+L["next stretch to %d"] = "다음 구간: %d까지"
+L["step %d needs level %d (%s)"] = "%d단계에 레벨 %d 필요 (%s)"
+L["step %d needs level %d"] = "%d단계에 레벨 %d 필요"
+L["Nearest %s trainer"] = "가장 가까운 %s 훈련사"
 L["Your class quest is done. Back to %s."] = "직업 퀘스트를 마쳤습니다. %s(으)로 돌아갑니다."
 L["Close and return"] = "닫고 돌아가기"
 L["The guide has no class training ahead."] = "앞으로 가이드에 직업 훈련이 없습니다."
@@ -5179,6 +5241,14 @@ L["Class quest chime"] = "직업 퀘스트 알림음"
 L["The rare alert, the transport banner, the heads-up card and the class quest card: their size, look, motion, sound and time on screen."] = "희귀 알림, 교통수단 배너, 사전 알림 카드, 직업 퀘스트 카드: 크기, 모양, 움직임, 소리, 표시 시간."
 
 -- UI/Looks/Trackers.lua
+L["Also show it, with its bosses alone, in a dungeon where you hold none of its quests."] = "퀘스트가 없는 던전에서도 우두머리만으로 표시합니다."
+L["Dungeon tracker"] = "던전 추적기"
+L["Inside a dungeon or raid where you hold its quests: what is left for them, the bosses in kill order, and what to loot. It docks into the guide window when that is shown."] = "퀘스트가 있는 던전이나 공격대 안에서: 퀘스트에 남은 목표, 처치 순서대로의 우두머리, 획득할 아이템을 보여 줍니다. 가이드 창이 열려 있으면 그 안에 붙습니다."
+L["Only the objectives still open and the next two bosses."] = "아직 남은 목표와 다음 우두머리 둘만 표시합니다."
+L["Only what's left"] = "남은 것만"
+L["The size of the dungeon's name and the headings against Polestar's text size."] = "Polestar 글자 크기 대비 던전 이름과 제목의 크기."
+L["Without quests too"] = "퀘스트가 없어도"
+L["dungeon tracker"] = "던전 추적기"
 L["Aelindra"] = "아엘린드라"
 L["The Defias Brotherhood"] = "데피아즈단"
 L["Brogan"] = "브로건"
@@ -5792,6 +5862,44 @@ L["Click to show quest guide actions."] = "클릭하면 퀘스트 가이드 동�
 -- L["New spells at your class trainer"] = ""
 -- L["Optional objectives during this step"] = ""
 -- L["Class quest"] = ""
+
+-- UI/GuideFrameKindDungeon.lua
+L["%s off route"] = "경로에서 %s 벗어남"
+L["%s · your level"] = "%s · 내 레벨"
+L["%s, on your way"] = "%s, 가는 길"
+L["Bring back the far ones (%d)"] = "먼 퀘스트 되돌리기 (%d)"
+L["Group %d of %d"] = "파티 %d / %d"
+L["Group %d/%d"] = "파티 %d/%d"
+L["Group of %d"] = "%d인 파티"
+L["Group: none yet"] = "파티: 아직 없음"
+L["Level %d · best at %d"] = "레벨 %d · 적정 레벨 %d"
+L["Level %d: come back at %d"] = "레벨 %d: %d레벨에 다시 오세요"
+L["Needs %s"] = "필요: %s"
+L["No quests to pick up"] = "수락할 퀘스트 없음"
+L["Pick them up"] = "수락하러 가기"
+L["Quests open at a later level: %d"] = "나중 레벨에 열리는 퀘스트: %d"
+L["Skip the far one"] = "먼 퀘스트 건너뛰기"
+L["best %d"] = "적정 %d"
+L["from %d"] = "%d부터"
+L["instances this hour: %d of %d"] = "이번 시간 인스턴스: %d / %d"
+L["on your way"] = "가는 길"
+L["Quests for the run"] = "던전 퀘스트"
+
+-- UI/DungeonTracker.lua
+L["%d / %d bosses"] = "우두머리 %d / %d"
+L["All %d quests ready to turn in: hand them in after the run"] = "퀘스트 %d개 모두 제출 가능: 던전을 마친 뒤 제출하세요"
+L["Every boss is down"] = "모든 우두머리 처치"
+L["Its quest is ready to turn in: hand it in after the run"] = "퀘스트 제출 가능: 던전을 마친 뒤 제출하세요"
+L["Loot %s"] = "%s 획득"
+L["Next: %s · then %s"] = "다음: %s · 그다음 %s"
+L["Quests here"] = "이곳의 퀘스트"
+L["for your quest"] = "퀘스트용"
+L["from %s: it starts a quest"] = "%s에게서: 퀘스트를 시작합니다"
+L["in kill order"] = "처치 순서"
+L["loot it"] = "획득하세요"
+L["starts a quest"] = "퀘스트 시작"
+L["Loot now"] = "지금 획득"
+L["%s · quests"] = "%s · 퀘스트"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar를 한 페이지씩 다시 설정합니다. 선택은 바로 적용됩니다."

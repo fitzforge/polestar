@@ -318,12 +318,13 @@ emit({ take = take, carried = carried, title = def.title, steps = describe(def),
 	assert_eq!(out["after"], "After the run: choose Hand in the quests at the end of this guide or on the dungeon's page.");
 }
 
-// The pick-up guide's last step in the real guide window (the whole addon): the entrance is its own row, "Enter
-// Shadowfang Keep" (not "Go to Enter …", and not folded into the step's heading though its text is the step's
-// title), with "Need a group? Press I for the group finder." under it; the after-the-run line names no slash
-// command. Inside the instance the finder line goes.
+// The pick-up guide's last step in the real guide window (the whole addon): a dungeon guide (kind "dungeon",
+// UI/GuideFrameKindDungeon.lua), so the way in is the entrance region, "Enter Shadowfang Keep" its row no more
+// (and never folded into the step's heading though its text is the step's title), and "Need a group? Press I for
+// the group finder." sits under the group row; the after-the-run line names no slash command. Inside the
+// instance the finder line goes.
 #[test]
-fn the_last_pick_up_step_shows_the_entrance_row_enter_x_with_the_group_finder_line_under_it() {
+fn the_last_pick_up_step_shows_the_way_in_and_the_group_finder_line_under_the_group() {
 	let pack = default_pack();
 	let out = run(
 		&pack,
@@ -335,32 +336,36 @@ D.PickUp("{KEY}")
 local E, GF = Polestar.Engine, Polestar.UI.GuideFrame
 E.Goto(E.GetStepCount())
 stub.advance(0.6)
+local function plain(s) return ((s or ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) end
 local function rows()
 	local out = {}
 	for _, r in ipairs(GF.rows) do
 		if r:IsShown() then
-			local function plain(s) return ((s or ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) end
 			out[#out + 1] = { t = r.psGoal.t, text = plain(r.Text:GetText()), sub = r.Sub:IsShown() and plain(r.Sub:GetText()) or false }
 		end
 	end
 	return out
 end
+local function finder()
+	local g = GF.RegionFrame("ready").Group
+	return g.Sub:IsShown() and plain(g.Sub:GetText()) or false
+end
 local view = E.GetStepView(E.GetStepIndex())
-local outside = rows()
+local outside, finderOut, way = rows(), finder(), GF.RegionShown("entrance")
 inside = true
 GF.Render()
-emit({ step = E.GetStepIndex(), count = E.GetStepCount(), header = view.goals[2].header or false, outside = outside, inside = rows() })"#),
+emit({ step = E.GetStepIndex(), count = E.GetStepCount(), header = view.goals[2].header or false, outside = outside, way = way,
+	finder = finderOut, finderInside = finder() })"#),
 		Opts { whole: true, ..Default::default() },
 	)
 	.remove(0);
 	assert_eq!(out["step"], out["count"], "the last step: {out}");
 	assert_eq!(out["header"], false, "the entrance is not folded into the heading: {out}");
-	let enter = out["outside"].as_array().unwrap().iter().find(|r| r["t"] == "goto").unwrap_or_else(|| panic!("no entrance row: {out}"));
-	assert_eq!(enter["text"], "Enter Shadowfang Keep", "{out}");
-	assert_eq!(enter["sub"], "Need a group? Press I for the group finder.", "{out}");
+	assert!(!out["outside"].as_array().unwrap().iter().any(|r| r["t"] == "goto"), "the way in is the region's, not a row: {out}");
+	assert_eq!(out["way"], true, "{out}");
+	assert_eq!(out["finder"], "Need a group? Press I for the group finder.", "{out}");
 	assert!(out["outside"].as_array().unwrap().iter().any(|r| r["text"] == "After the run: choose Hand in the quests at the end of this guide or on the dungeon's page."), "{out}");
-	let inside = out["inside"].as_array().unwrap().iter().find(|r| r["t"] == "goto").unwrap_or_else(|| panic!("no entrance row inside: {out}"));
-	assert_eq!(inside["sub"], false, "inside the instance, no finder line: {out}");
+	assert_eq!(out["finderInside"], false, "inside the instance, no finder line: {out}");
 }
 
 #[test]
@@ -765,7 +770,8 @@ fn blueleaf_pack() -> CodexPack {
 // Owner's Manual and a Snufflenose Command Stick, each taken from an object at Mebok Mizzyrix's feet in Ratchet
 // (65 people's recordings tick those lines there), and the guide only said to take the quest, so players went into
 // the dungeon without them. An item objective of a page quest whose item comes from an object at the giver (within
-// a few yards) is collected in the giver's step, right after the accept; one found inside the dungeon is not.
+// a few yards) is collected in the giver's step, right after the accept; one found inside the dungeon is not. One
+// from an object farther off out in the world is work before the way in (#4379): a step of its own after the accept.
 #[test]
 fn the_items_a_page_quest_needs_from_objects_at_its_giver_are_collected_with_the_accept_2439_blueleaf_tubers() {
 	let own = blueleaf_pack();
@@ -786,7 +792,7 @@ emit(out)"#),
 		Opts::default(),
 	)
 	.remove(0);
-	assert_eq!(out, json!(["accept:90730@60 collect:8100@60.2"]), "the crate at the giver's feet with the accept; neither the tubers inside nor the far crate");
+	assert_eq!(out, json!(["accept:90730@60 collect:8100@60.2", "collect:8101@70"]), "the crate at the giver's feet with the accept, not the tubers inside; the far crate a step of its own");
 }
 
 // #4042 (Iriael, Razorfen Kraul's pick-up guide): with Blueleaf Tubers taken long before, the guide only named it as
@@ -804,7 +810,8 @@ local function guide()
 	for _, s in ipairs(def and def.steps or {}) do
 		local verbs = {}
 		for _, g in ipairs(s.goals) do
-			if g.quest == 90730 then verbs[#verbs + 1] = g.t .. ":" .. (g.item or g.quest) end
+			-- The far crate out in the world is work of its own (#4379, pinned above), not this stop's.
+			if g.quest == 90730 and g.item ~= 8101 then verbs[#verbs + 1] = g.t .. ":" .. (g.item or g.quest) end
 		end
 		if #verbs > 0 then out[#out + 1] = s.title .. " " .. table.concat(verbs, " ") end
 	end
@@ -815,7 +822,7 @@ stub.world.addItem(8100, 1)
 emit(guide())"#);
 	let alone = run(&own, &script, Opts { done: vec![1098, 1740, 1014, 1016], log: vec![1013, 90730], ..Default::default() });
 	assert_eq!(alone[0], json!({ "why": false, "steps": "Mebok collect:8100", "fetch": 1 }), "every quest in the log: a guide to the crate");
-	assert_eq!(alone[1], json!({ "why": "nothing", "steps": "", "fetch": 0 }), "the crate in the bags: nothing left");
+	assert_eq!(alone[1], json!({ "why": false, "steps": "", "fetch": 0 }), "the crate in the bags: its stop goes (the far crate's own step stays)");
 	let with_takes = run(&own, &script, Opts { log: vec![1013, 90730], ..Default::default() });
 	assert_eq!(with_takes[0]["steps"], json!("Mebok collect:8100"), "among the quests to take: the stop, no accept");
 	assert_eq!(with_takes[1]["steps"], json!(""), "the crate in the bags: no stop");

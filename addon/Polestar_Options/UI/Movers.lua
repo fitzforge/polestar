@@ -1512,6 +1512,10 @@ if ns.Maps then
 	pointFormat({ key = "instances", label = L["Instance tracker"], frame = G("PolestarInstanceTracker"), settings = "trackers.instances.scale",
 		enabled = function() return ns.Get("maps.instances") ~= false end,
 		size = function() return 230, 30 end }, "maps.trackerPos", { "TOPRIGHT", -220, -220 })
+	-- The dungeon tracker (UI/DungeonTracker.lua), a compact frame too.
+	pointFormat({ key = "dungeonTracker", label = L["Dungeon tracker"], frame = G("PolestarDungeonTracker"), settings = "trackers.dungeon.scale",
+		enabled = function() return ns.Get("trackers.dungeon.enabled") ~= false end,
+		size = function() return 300, 260 end }, "trackers.dungeon.pos", { "TOPRIGHT", -220, -290 })
 end
 if ns.Party then
 	pointFormat({ key = "party", label = L["Party panel"], frame = G("PolestarPartyPanel"), settings = "trackers.party.scale",

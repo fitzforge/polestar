@@ -366,13 +366,20 @@ fn krol_dok_moulding_from_tunk_inside_is_on_krol_dok_strongholds_page_picked_up_
 // The #2560 sweep, quests whose objective item lies in an object inside a dungeon: The Horn of Xelthos and The Test
 // of Righteousness (Shadowfang Keep), The Eye of Bhossca (the Scarlet Monastery), A Moon-Kissed Blade (Shadowfang
 // Keep; 11, 7, 7 and 9 people progressed them inside), Collection of Goods (Stratholme's supply crates) and Leggings
-// of Arcana (Scholomance's embalming fluid). No rule ties a quest through an object (a general one also picked up
+// of Arcana (Scholomance's embalming fluid); the 2026-11-27 pick-up sweep: The Twin Bears (Blackmaw Hold's two
+// totems; 5 people looted them inside). No rule ties a quest through an object (a general one also picked up
 // retired quests), so the committed rows put them on their pages.
 #[test]
 fn the_rows_put_quests_whose_item_lies_in_an_object_inside_on_their_dungeons_pages() {
 	let f = fixture("dungeons.json");
 	let (mut c, mut i) = (f["codex"].clone(), f["inputs"].clone());
-	for (key, name, map) in [("shadowfang-keep", "Shadowfang Keep", 33), ("scarlet-monastery", "Scarlet Monastery", 189), ("stratholme", "Stratholme", 329), ("scholomance", "Scholomance", 289)] {
+	for (key, name, map) in [
+		("shadowfang-keep", "Shadowfang Keep", 33),
+		("scarlet-monastery", "Scarlet Monastery", 189),
+		("stratholme", "Stratholme", 329),
+		("scholomance", "Scholomance", 289),
+		("blackmaw-hold", "Blackmaw Hold", 2974),
+	] {
 		c["instances"][key] = json!({ "key": key, "name": name, "kind": "dungeon", "forever": false, "areaId": null, "map": map, "entrance": null, "levels": [20, 25, 60], "bosses": [] });
 		i["client"]["instanceMaps"].as_array_mut().unwrap().push(json!({ "id": map, "name": name, "raid": false, "players": 5, "area": null, "areas": [], "inner": [], "zones": [], "corpse": null }));
 	}
@@ -388,11 +395,12 @@ fn the_rows_put_quests_whose_item_lies_in_an_object_inside_on_their_dungeons_pag
 		(95036, "A Moon-Kissed Blade", json!(HORDE)),
 		(7642, "Collection of Goods", json!(ALLIANCE)),
 		(5067, "Leggings of Arcana", Value::Null),
+		(92066, "The Twin Bears", Value::Null),
 	] {
 		c["quests"][id.to_string()] = one(id, title, races);
 	}
 	let (before, _) = journal(&c, &i, &[]);
-	for key in ["shadowfang-keep", "scarlet-monastery", "stratholme", "scholomance"] {
+	for key in ["shadowfang-keep", "scarlet-monastery", "stratholme", "scholomance", "blackmaw-hold"] {
 		assert_eq!(ids(&page(&before, key)), Vec::<i64>::new(), "no rule places them ({key})");
 	}
 	let (j, _) = journal(&c, &i, &journal_rows());
@@ -400,6 +408,7 @@ fn the_rows_put_quests_whose_item_lies_in_an_object_inside_on_their_dungeons_pag
 	assert_eq!(ids(&page(&j, "scarlet-monastery")), vec![78676]);
 	assert_eq!(ids(&page(&j, "stratholme")), vec![7642]);
 	assert_eq!(ids(&page(&j, "scholomance")), vec![5067]);
+	assert_eq!(ids(&page(&j, "blackmaw-hold")), vec![92066]);
 }
 
 // The #2560 sweep, City of Dalaran: the client's AreaTable puts the city's area (16560) on the dungeon's map (2959)

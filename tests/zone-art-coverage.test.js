@@ -4,7 +4,7 @@
 // zones" on Forever's dungeon cards). The guide menu, the route choice cards,
 // the guide-end window and the welcome paint a guide's `zone`; a dungeon card
 // its entrance's zone, else the zone its page places it in, else its loading
-// screen (Dungeons/Art.lua); the Rares page the world map for a rare no source
+// screen (Dungeons/ArtFiles.lua); the Rares page the world map for a rare no source
 // places.
 //
 // Which maps the client paints: every map UI/ZoneArtOverlays.lua lists (its
@@ -48,9 +48,9 @@ function shippedGuides() {
 	return out;
 }
 
-// Dungeons/Art.lua's loading screens, by instance Map id.
+// Dungeons/ArtFiles.lua's loading screens (wide and narrow), by instance Map id.
 function loadingScreens() {
-	return new Set([...read('Polestar', 'Dungeons', 'Art.lua').matchAll(/^\t\[(\d+)\] = \{ file = \d+,/gm)].map((m) => Number(m[1])));
+	return new Set([...read('Polestar', 'Dungeons', 'ArtFiles.lua').matchAll(/^\t\t\[(\d+)\] = \d+,/gm)].map((m) => Number(m[1])));
 }
 
 test('the painted-map list reads the overlay table (45 zones) and the maps without overlays', () => {

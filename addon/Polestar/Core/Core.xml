@@ -32,4 +32,5 @@
 	<Script file="Pause.lua"/>
 	<Script file="Update.lua"/>
 	<Script file="Perf.lua"/>
+	<Script file="KindDungeon.lua"/>
 </Ui>
