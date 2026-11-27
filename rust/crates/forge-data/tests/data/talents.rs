@@ -5,7 +5,7 @@
 
 use std::path::{Path, PathBuf};
 
-use forge_data::talents::{build_all, replay, tree_facts, Pick, Tables, BUILD, PREREQ_RULE, TABLES};
+use forge_data::talents::{build_all, class_build, replay, tree_facts, Pick, Tables, BUILD, CLASS_BUILDS, PREREQ_RULE, TABLES};
 use forge_guide::js::{parse_json, V};
 
 fn rows(header: &str, lines: &[&str]) -> forge_data::jsv::Rows {
@@ -165,9 +165,12 @@ fn plan_files() -> Vec<String> {
 }
 
 #[test]
-fn builds_lua_names_every_plan_file_and_the_pinned_build() {
+fn builds_lua_names_every_plan_file_and_the_pinned_builds() {
 	let head = std::fs::read_to_string(repo().join("addon/Polestar/Talents/Builds.lua")).unwrap().lines().next().unwrap().to_string();
-	assert!(head.contains(&format!("the Forever {BUILD} trait tables")), "{head}");
+	assert!(head.contains(BUILD), "{head}");
+	for &(class, build) in CLASS_BUILDS {
+		assert!(head.contains(&format!("{build} for {class}")), "{head}");
+	}
 	let names: Vec<String> = plan_files().iter().map(|f| f.trim_end_matches(".json").to_string()).collect();
 	assert!(head.contains(&format!("talents/forever/{{{}}}.json", names.join(","))), "{head}");
 }
@@ -180,7 +183,8 @@ fn every_plan_three_specs_51_picks_from_10_to_60_its_split_checked_on_the_pinned
 		assert_eq!(order.len(), 3, "{f}");
 		let specs: Vec<String> = src.get("builds").items().iter().map(|b| b.get("spec").to_js_string()).collect();
 		assert_eq!(specs, order, "{f}: one plan per spec, in order");
-		assert_eq!(src.get("checkedOn").to_js_string(), format!("WoW: Forever beta {BUILD}"), "{f}");
+		let checked = src.get("checkedOn").to_js_string();
+		assert_eq!(checked.split_whitespace().last(), Some(class_build(&src.get("class").to_js_string())), "{f}: {checked}");
 		for b in src.get("builds").items() {
 			let levels: Vec<f64> = b.get("picks").items().iter().map(|p| p.get("level").num()).collect();
 			assert_eq!(levels, (10..=60).map(f64::from).collect::<Vec<_>>(), "{f}: one pick per level");
@@ -192,30 +196,24 @@ fn every_plan_three_specs_51_picks_from_10_to_60_its_split_checked_on_the_pinned
 	}
 }
 
-/// The pinned Forever tables, when the source cache has them (FORGE_SOURCES, else <repo>/data/sources).
-fn cached_tables() -> Option<Tables> {
-	let sources = std::env::var_os("FORGE_SOURCES").map(PathBuf::from).unwrap_or_else(|| repo().join("data/sources"));
-	let dir = sources.join("wago").join(BUILD);
-	if !TABLES.iter().all(|t| dir.join(format!("{t}.csv")).exists()) {
-		eprintln!("skipped: no cached Forever {BUILD} trait tables under {}", sources.display());
-		return None;
-	}
-	let read = |t: &str| forge_data::tables::parse_csv(&std::fs::read_to_string(dir.join(format!("{t}.csv"))).unwrap()).unwrap();
-	Some(TABLES.iter().map(|t| (t.to_string(), read(t))).collect())
-}
-
 #[test]
 fn on_the_pinned_tables_every_plan_replays_builds_lua_is_up_to_date_and_the_strays_are_known() {
-	let Some(t) = cached_tables() else { return };
 	let mut o = forge_data::talents::Options::new(&repo());
 	o.sources = std::env::var_os("FORGE_SOURCES").map(PathBuf::from).unwrap_or_else(|| repo().join("data/sources"));
+	for build in std::iter::once(BUILD).chain(CLASS_BUILDS.iter().map(|&(_, build)| build)) {
+		let dir = o.sources.join("wago").join(build);
+		if !TABLES.iter().all(|t| dir.join(format!("{t}.csv")).exists()) {
+			eprintln!("skipped: no cached Forever {build} trait tables under {}", o.sources.display());
+			return;
+		}
+	}
 	o.offline = true;
 	let (r, _) = forge_data::talents::run(&o, &|_| {}).unwrap();
 	assert!(r.errors.is_empty(), "{:?}", r.errors);
 	assert_eq!(std::fs::read_to_string(Path::new(&o.out).join("Builds.lua")).unwrap(), r.lua, "run: forge data talents build");
 	let mut strays = Vec::new();
-	for (cls, _) in [("DRUID", 0), ("HUNTER", 0), ("MAGE", 0), ("PALADIN", 0), ("PRIEST", 0), ("ROGUE", 0), ("SHAMAN", 0), ("WARLOCK", 0), ("WARRIOR", 0)] {
-		let f = tree_facts(&t, cls).unwrap();
+	for result in &r.results {
+		let (cls, f) = (result.class.as_str(), &result.facts);
 		assert_eq!(f.specs.len(), 3, "{cls}");
 		for col in &f.specs {
 			let mut names: Vec<&str> = col.iter().map(|id| f.nodes[id].name.as_str()).collect();
@@ -229,8 +227,16 @@ fn on_the_pinned_tables_every_plan_replays_builds_lua_is_up_to_date_and_the_stra
 		}
 	}
 	assert_eq!(strays, vec![("HUNTER", vec![104982]), ("PRIEST", vec![105865])]);
-	let druid = tree_facts(&t, "DRUID").unwrap();
+	let druid = &r.results.iter().find(|p| p.class == "DRUID").unwrap().facts;
 	let named = |n: &str| *druid.nodes.iter().find(|(_, x)| x.name == n).unwrap().0;
 	let pair: Vec<(i64, i64)> = druid.edges.iter().copied().filter(|e| e.0 == named("Nature's Majesty") || e.1 == named("Nature's Majesty")).collect();
 	assert_eq!(pair, vec![(named("Nature's Majesty"), named("Nature's Splendor"))], "the line back is drawn only");
+
+	let warrior = &r.results.iter().find(|p| p.class == "WARRIOR").unwrap().facts;
+	assert_eq!(warrior.nodes.len(), 53);
+	for (id, max) in [(105954, 3.0), (110524, 2.0), (105928, 3.0), (105977, 2.0), (113636, 1.0)] {
+		assert_eq!(warrior.nodes[&id].max, max, "Warrior node {id}");
+	}
+	assert_eq!(warrior.nodes[&113636].name, "Reckless Swings");
+	assert_eq!(warrior.nodes[&113636].spell, 1329555.0);
 }

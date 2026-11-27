@@ -3,7 +3,7 @@
 	"source": "ForeverDB's leveling builds, adapted to level 30",
 	"sourceUrl": "https://foreverdb.net/class/Warrior/talents",
 	"credit": "Builds adapted from ForeverDB's Warrior talent guides (https://foreverdb.net/class/Warrior/talents). Notes rewritten for Polestar.",
-	"checkedOn": "WoW: Forever beta 1.60.1.70450",
+	"checkedOn": "WoW: Forever 1.60.1.70959",
 	"summary": "Level as Arms with a two-hander (Mortal Strike, Sweeping Strikes) or Fury (Enrage, Death Wish, then Flurry and Bloodthirst with two weapons). Protection is slower alone but ready to tank any dungeon on the way.",
 	"order": [
 		"Arms",
@@ -15,7 +15,7 @@
 			"key": "arms",
 			"spec": "Arms",
 			"split": "31/20/0",
-			"link": "https://foreverdb.net/class/Warrior/talents?lvl=60&t=62fd33.32305013032015201-1505013005",
+			"link": "https://foreverdb.net/class/Warrior/talents",
 			"picks": [
 				{
 					"level": 10,
@@ -70,14 +70,14 @@
 				{
 					"level": 18,
 					"tree": "Arms",
-					"talent": "Improved Tactical Mastery",
-					"rank": 4
+					"talent": "Deflection",
+					"rank": 3
 				},
 				{
 					"level": 19,
 					"tree": "Arms",
-					"talent": "Improved Tactical Mastery",
-					"rank": 5
+					"talent": "Deflection",
+					"rank": 4
 				},
 				{
 					"level": 20,
@@ -338,7 +338,7 @@
 			"key": "fury",
 			"spec": "Fury",
 			"split": "17/34/0",
-			"link": "https://foreverdb.net/class/Warrior/talents?lvl=60&t=62fd33.32305013-05150135050010521",
+			"link": "https://foreverdb.net/class/Warrior/talents",
 			"picks": [
 				{
 					"level": 10,
@@ -469,7 +469,7 @@
 					"tree": "Fury",
 					"talent": "Death Wish",
 					"rank": 1,
-					"note": "Death Wish is a big cooldown for elites and a fear breaker; it also opens Flurry."
+					"note": "Death Wish is a big cooldown for elites and a fear breaker. It also opens Bloodthirst."
 				},
 				{
 					"level": 31,
@@ -523,14 +523,14 @@
 				{
 					"level": 39,
 					"tree": "Fury",
-					"talent": "Flurry",
-					"rank": 4
+					"talent": "Improved Whirlwind",
+					"rank": 1
 				},
 				{
 					"level": 40,
 					"tree": "Fury",
-					"talent": "Flurry",
-					"rank": 5
+					"talent": "Improved Whirlwind",
+					"rank": 2
 				},
 				{
 					"level": 41,
@@ -604,14 +604,14 @@
 				{
 					"level": 52,
 					"tree": "Arms",
-					"talent": "Improved Tactical Mastery",
-					"rank": 4
+					"talent": "Deflection",
+					"rank": 3
 				},
 				{
 					"level": 53,
 					"tree": "Arms",
-					"talent": "Improved Tactical Mastery",
-					"rank": 5
+					"talent": "Deflection",
+					"rank": 4
 				},
 				{
 					"level": 54,
@@ -661,7 +661,7 @@
 			"key": "protection",
 			"spec": "Protection",
 			"split": "10/0/41",
-			"link": "https://foreverdb.net/class/Warrior/talents?lvl=60&t=62fd33.32005--250533120331121351",
+			"link": "https://foreverdb.net/class/Warrior/talents",
 			"picks": [
 				{
 					"level": 10,
@@ -969,14 +969,14 @@
 				{
 					"level": 59,
 					"tree": "Arms",
-					"talent": "Improved Tactical Mastery",
-					"rank": 4
+					"talent": "Deflection",
+					"rank": 3
 				},
 				{
 					"level": 60,
 					"tree": "Arms",
-					"talent": "Improved Tactical Mastery",
-					"rank": 5
+					"talent": "Deflection",
+					"rank": 4
 				}
 			]
 		}

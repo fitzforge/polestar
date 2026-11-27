@@ -260,6 +260,11 @@ pub fn pinned_tables(data: bool, builders: bool) -> Vec<(&'static str, Vec<&'sta
 	if builders {
 		era.extend(crate::codex::client::ERA_TABLES);
 		out.push((crate::talents::BUILD, crate::talents::TABLES.to_vec()));
+		for &(_, build) in crate::talents::CLASS_BUILDS {
+			if !out.iter().any(|(pinned, _)| *pinned == build) {
+				out.push((build, crate::talents::TABLES.to_vec()));
+			}
+		}
 		out.push((crate::worldmap::OVERLAYS_BUILD, crate::worldmap::OVERLAY_TABLES.to_vec()));
 		out.push((crate::newquests::ERA_BUILD, crate::newquests::TABLES.to_vec()));
 		out.push((crate::newquests::FOREVER_BUILD, crate::newquests::TABLES.to_vec()));

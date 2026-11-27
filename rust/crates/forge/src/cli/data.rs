@@ -1018,7 +1018,7 @@ options:
   --plans DIR      plan sources (default <root>/talents/forever/)
   --out DIR        output folder (default <root>/addon/Polestar/Talents/)
   --sources DIR    source cache (default <root>/data/sources/)
-  --build V        client build (default the pinned one)
+  --build V        use this client build for every plan (default the pinned builds)
   --offline        use cached tables only";
 
 fn talents(args: Vec<String>) -> Result<(), Fail> {
@@ -1040,9 +1040,7 @@ fn talents(args: Vec<String>) -> Result<(), Fail> {
 	if let Some(p) = get("--sources") {
 		o.sources = abs(p);
 	}
-	if let Some(b) = get("--build") {
-		o.build = b;
-	}
+	o.build = get("--build");
 	o.offline = !fl.is_empty();
 	let (r, warnings) = forge_data::talents::run(&o, &|m| println!("{m}"))?;
 	for w in &warnings {
