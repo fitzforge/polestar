@@ -134,6 +134,26 @@ ns.RegisterCommand("guide", function(rest)
 	ns.Print((L["Guide: %s"]):format(g.title))
 end, L["Switch to a guide by id"])
 
+-- The fresh-start note's link as a command (#4110), for when the banner is not on screen.
+ns.RegisterCommand("prereq", function(rest)
+	local id = rest and rest:match("^%s*(%S+)")
+	local g
+	if id then
+		-- Guide ids are lower-case; an exact match still wins.
+		g = ns.Guides.Get(id) or ns.Guides.Get(id:lower())
+		if not g then
+			ns.Print((L["Unknown guide '%s'."]):format(id))
+			return
+		end
+	else
+		if not needGuide() then return end
+		g = Engine.GetGuide()
+	end
+	if not Engine.OpenFreshSource(g.id) then
+		ns.Print((L["Nothing to open: %s follows on from no guide you can play, or you have every quest it needs."]):format(g.title))
+	end
+end, L["Open the guide this one follows on from, at the quests it needs"])
+
 ns.RegisterCommand("status", function()
 	local g = Engine.GetGuide()
 	if not g then

@@ -1429,7 +1429,9 @@ percent), below the guide's top level and with `from` a guide for them, the
 guide window says while the guide's live step is in its first third: "Some
 of this guide's quests follow on from <guide>. Start there for the full set,
 or carry on here; the guide fills in with nearby quests.", with "Open
-<guide>", which opens that guide in a new tab. Taken or dismissed, it
+<guide>", which opens that guide in a new tab at the first step where they
+can start on the quests they lack (`/polestar prereq` does the same), not at
+its first step. Taken or dismissed, it
 is gone for that guide until the next session. "Suggested for you" lists
 such a guide after the others of its zone and travel band.
 

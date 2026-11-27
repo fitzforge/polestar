@@ -5194,7 +5194,9 @@ end
 -- Alliance Burning Steppes: Azshara, played first, moved to the end; read in
 -- the new order, its done work put the player at the end and everything
 -- before passed, the guide read as done).
-local function anchorStep(added, fromTab)
+-- turnedOnly (the high-water mark, #86): an accept is no progress, so a quest
+-- only carried in the log (a breadcrumb) cannot throw the player ahead.
+local function anchorStep(added, fromTab, turnedOnly)
 	local steps = guide.steps
 	-- Progress counts only on a quest the guide offers before (or at) that
 	-- goal: a quest taken in another guide (or further on in this one) is no
@@ -5500,6 +5502,86 @@ function Own.catchUpPast(level)
 	return out, why
 end
 
+-- Skipped earlier (#86). The high-water mark (anchorStep with turnedOnly) is
+-- the furthest step the character has done quest work in. The open accepts
+-- before it that the character can take, not grey for them, are passed for
+-- the placement: they read as skipped (Own.leftOut, as the catch-up's), their
+-- hand-ins and objectives drop out, and they are listed as "skipped earlier"
+-- for the player to take or dismiss. Saved per character and guide by quest
+-- id (CharState().earlier): true (listed), "dismissed" (out, not listed) or
+-- "taken" (back in the route). Only when at least EARLIER_SHARE of the route's
+-- quests before the mark are done or in the log: else the player was never on
+-- this route that far and placement starts as before.
+Own.EARLIER_SHARE = 0.5
+
+-- The accept goals of the loaded guide's route before step `mark` that were
+-- not taken, or nil when too few quests before it were: { goal, ... }. A
+-- quest the game no longer offers (closed, unavailableFor), one grey for the
+-- character (greyNeed) or one the catch-up already left out counts neither way.
+function Own.earlierBefore(mark, gated)
+	local C, steps, sk = Compat(), guide.steps, skippedFor(guide.id)
+	local caught = Own.leftOut[guide.id] or NONE
+	local seen, open, total, kept = {}, {}, 0, 0
+	-- A quest an accept still to take lists as its prerequisite stays: passing it would shut that accept.
+	local needed = {}
+	for _, step in ipairs(steps) do
+		for _, goal in ipairs(step.goals) do
+			if goal.t == "accept" and goal.quest and not questDone(goal.quest) then
+				for _, list in ipairs({ goal.pre or NONE, goal.preAll or NONE }) do
+					for _, q in ipairs(list) do needed[q] = true end
+				end
+			end
+		end
+	end
+	for s = 1, mark - 1 do
+		-- A step still asking its group question is the player's to answer, not passed.
+		local asking = Own.groupPending(steps[s]) ~= nil
+		if stepApplies(steps[s]) and not (sk and sk[s]) then
+			for _, goal in ipairs(steps[s].goals) do
+				local q = goal.quest
+				if (goal.t == "accept" or goal.direct) and q and not seen[q] and not goal.optional and Guides.Matches(goal.only, player)
+					and greyNeed(goal) ~= false and not unavailableFor(goal) and not caught[q] then
+					seen[q] = true
+					if questDone(q) or C.IsOnQuest(q) then
+						total, kept = total + 1, kept + 1
+					elseif not gated(goal) then
+						total = total + 1
+						if not (asking or needed[q]) then open[#open + 1] = goal end
+					end
+				end
+			end
+		end
+	end
+	if total == 0 or kept < total * Own.EARLIER_SHARE then return nil end
+	return open
+end
+
+-- Notes what placement passed (Own.earlierBefore) in the save, then applies
+-- the guide's saved list (Own.applyEarlier). A quest already in the list
+-- keeps the player's answer.
+function Own.mergeEarlier(mark, gated)
+	local all = ns.CharState().earlier
+	for _, goal in ipairs(mark > 1 and Own.earlierBefore(mark, gated) or NONE) do
+		local mine = all[guide.id] or {}
+		all[guide.id] = mine
+		if mine[goal.quest] == nil then mine[goal.quest] = true end
+	end
+	Own.applyEarlier(guide.id)
+end
+
+-- Puts every quest of guide `id`'s saved list that is not taken back into the
+-- route out of it (Own.leftOut: out until the player takes the quest by hand),
+-- beside the catch-up's own.
+function Own.applyEarlier(id)
+	local mine = ns.CharState().earlier[id]
+	if not mine then return end
+	local out = Own.leftOut[id] or {}
+	Own.leftOut[id] = out
+	for q, state in pairs(mine) do
+		if state ~= "taken" and out[q] == nil and not questDone(q) then out[q] = true end
+	end
+end
+
 -- The first step with an accept or direct hand-in waiting for the character's
 -- level (unavailableFor's "level" mark: the route passes it until then), or nil.
 -- A guide that is no leveling guide waits there with nothing else left open
@@ -5604,6 +5686,7 @@ local function place()
 	local added = type(addedAll) == "table" and addedAll[guide.id] or nil
 	local fromTab = logReady and Own.logPlaced[guide.id]
 	local anchor = anchorStep(added, fromTab)
+	local mark = logReady and not Own.everyStep(guide) and anchorStep(added, fromTab, true) or 0
 	if fromTab then
 		Own.logPlaced[guide.id], Own.reworkedOrder[guide.id] = nil, nil
 		added = Own.noteMovedBehind(anchor) or added
@@ -5620,6 +5703,7 @@ local function place()
 		if missingPre(goal) then return "pre" end
 		return nil
 	end
+	Own.mergeEarlier(mark, gated)
 	local out = Own.leftOut[guide.id]
 	-- An accept waiting for a level holds the guide (Own.levelHold).
 	local start, later, anyOut = nil, Own.levelHold() ~= nil, nil
@@ -12376,6 +12460,42 @@ function Engine.NextGuide(fromId)
 	return id
 end
 
+-- Where guide g's fresh-start note (Engine.FreshFor) and its link
+-- (Engine.OpenFreshSource) get their facts: g's `fresh` header, the guide it
+-- names for this character, `needs` (up to 8 quests of earlier guides) and
+-- those the character still lacks, `left`: neither done, in the log nor
+-- taken on the way (an accept of a feeder step of g's plan). Only a leveling
+-- guide below its top level, with `from` a guide for this character.
+-- -> fresh header, from guide, needs, left | nil
+function Own.freshSource(g)
+	local f = type(g) == "table" and g.fresh
+	if type(f) ~= "table" or type(f.share) ~= "number" or type(f.from) ~= "string" then return nil end
+	if not (g.category == nil or g.category == "Leveling") then return nil end
+	if not player then refreshPlayer() end
+	local lvl = player.level or 1
+	local _, top = Guides.Levels(g, player.faction)
+	if type(top) == "number" and lvl >= top then return nil end
+	local from = Guides.Get(f.from)
+	if not (from and Guides.GuideMatches(from, player)) then return nil end
+	local onWay = NONE
+	if g.base then
+		onWay = {}
+		for _, step in ipairs(g.steps) do
+			if step.feeder then
+				for _, goal in ipairs(step.goals) do
+					if goal.t == "accept" and goal.quest then onWay[goal.quest] = true end
+				end
+			end
+		end
+	end
+	local C = Compat()
+	local needs, left = type(f.needs) == "table" and f.needs or NONE, {}
+	for _, q in ipairs(needs) do
+		if not (questDone(q) or C.IsOnQuest(q) or onWay[q]) then left[#left + 1] = q end
+	end
+	return f, from, needs, left
+end
+
 -- Fresh start (#1562): a character who opens a leveling guide without the
 -- guides before it misses the quest XP that follows on from them (the
 -- quests Own.feederPlan leaves out, and the hand-ins of quests they take).
@@ -12393,32 +12513,9 @@ end
 -- (whole percent) } | nil. Guides.Suggestions ranks such a guide lower.
 function Engine.FreshFor(g)
 	local FRESH_NOTE = 30
-	local f = type(g) == "table" and g.fresh
-	if type(f) ~= "table" or type(f.share) ~= "number" or type(f.from) ~= "string" then return nil end
-	if not (g.category == nil or g.category == "Leveling") then return nil end
-	if not player then refreshPlayer() end
-	local lvl = player.level or 1
-	local _, top = Guides.Levels(g, player.faction)
-	if type(top) == "number" and lvl >= top then return nil end
-	local from = Guides.Get(f.from)
-	if not (from and Guides.GuideMatches(from, player)) then return nil end
-	-- Taken on the way: the accepts of the feeder steps the guide's plan put in.
-	local onWay = NONE
-	if g.base then
-		onWay = {}
-		for _, step in ipairs(g.steps) do
-			if step.feeder then
-				for _, goal in ipairs(step.goals) do
-					if goal.t == "accept" and goal.quest then onWay[goal.quest] = true end
-				end
-			end
-		end
-	end
-	local C = Compat()
-	local needs, left = type(f.needs) == "table" and f.needs or NONE, {}
-	for _, q in ipairs(needs) do
-		if not (questDone(q) or C.IsOnQuest(q) or onWay[q]) then left[#left + 1] = q end
-	end
+	local f, from, needs, left = Own.freshSource(g)
+	if not f then return nil end
+	local C, lvl = Compat(), player.level or 1
 	local function shareOf(n) return #needs > 0 and f.share * n / #needs or f.share end
 	if math.floor(shareOf(#left) + 0.5) < FRESH_NOTE then return nil end
 	-- Only now the levels: they read `from`'s steps (loaded for this, given back after).
@@ -12444,6 +12541,64 @@ function Engine.FreshStart()
 	if not (guide and computed and logReady) then return nil end
 	if computed > math.max(3, #guide.steps / 3) then return nil end
 	return Engine.FreshFor(Guides.Get(guide.id) or guide)
+end
+
+-- The first step of the loaded guide where the character can start on the
+-- quests of `left` (#4110): the first step with an accept (or a direct
+-- hand-in) of one of them, or of a quest one of them needs down its
+-- prerequisites (Own.needsFrom), that the character can take now (not done,
+-- in the log, skipped, or waiting on a prerequisite), or a hand-in of one
+-- they hold in the log: a hand-in of a quest they do not hold is no start.
+-- nil when no step is.
+function Own.chainStart(left)
+	local open = {}
+	for i, q in ipairs(left) do open[i] = { quest = q } end
+	local want = Own.needsFrom(Own.chainOf(guide).pres, open)
+	for _, goal in ipairs(open) do want[goal.quest] = true end
+	local C = Compat()
+	local sk = skippedFor(guide.id)
+	for s, step in ipairs(guide.steps) do
+		if stepApplies(step) and not (sk and sk[s]) then
+			for _, goal in ipairs(step.goals) do
+				local q = goal.quest
+				if q and want[q] and not goal.optional and goalApplies(goal) and not questDone(q) and not Own.questSkipped(q) then
+					local onQuest = C.IsOnQuest(q)
+					if goal.t == "turnin" and not goal.direct then
+						if onQuest then return s end
+					elseif (goal.t == "accept" or goal.direct) and not onQuest and not missingPre(goal) then
+						return s
+					end
+				end
+			end
+		end
+	end
+	return nil
+end
+
+-- The link of the fresh-start note (#4110): opens the guide guide `id`
+-- follows on from in a new tab, at the first step that starts on the quests
+-- the character lacks of it (Own.chainStart), not at its first step. The
+-- steps before it are skipped as a `skipto` jump skips them ("jump"), each
+-- to be brought back with Unskip. A guide already in a tab is only shown, as
+-- the player left it; nothing to start on: the guide's own start. Nil, and
+-- nothing opened, when the guide follows on from no guide for this character
+-- or the character lacks none of the quests it needs.
+-- -> the tab's index | nil
+function Engine.OpenFreshSource(id)
+	local f, from, _, left = Own.freshSource(id and Guides.Get(id))
+	if not f or #left == 0 then return nil end
+	local opened = tabIndexOf(from.id) == nil
+	local index = Engine.OpenTab(from.id, true)
+	if not (index and opened and guide and guide.id == from.id) then return index end
+	local start = Own.chainStart(left)
+	if start and start > 1 then
+		local sk = skippedFor(guide.id, true)
+		for s = 1, start - 1 do
+			if not sk[s] then sk[s] = "jump" end
+		end
+		evaluate()
+	end
+	return index
 end
 
 -- The choice that offers guide `id` to this character (to change route), or nil.
@@ -13275,6 +13430,9 @@ function Engine.LeftOutHere(i, alone)
 		if when then return add(s, goal, "when", when) end
 		local lo = Own.leftOut[guide.id]
 		local w = lo and lo[q]
+		-- Skipped earlier (Engine.SkippedEarlier lists them, the dismissed ones nowhere).
+		local e = Own.earlierState(q)
+		if (e == true or e == "dismissed") and not C.IsOnQuest(q) then return end
 		if w and ((w == "log" and not C.IsQuestReadyForTurnIn(q)) or (w ~= "log" and not C.IsOnQuest(q))) then
 			local y = (Own.leftOutWhy[guide.id] or NONE)[q] or NONE
 			return add(s, goal, "catchup", L["Pays %d%% XP at your level and is out of the way (Skip grey quests)"]:format(y.share and math.floor(y.share * 100 + 0.5) or share(goal.qlvl)), { kind = "skipGrey" })
@@ -17825,6 +17983,83 @@ function Engine.Unskip(i)
 	return true
 end
 
+-- What the loaded guide's saved list says of quest q: true (skipped earlier,
+-- listed), "dismissed", "taken" or nil (Own.mergeEarlier).
+function Own.earlierState(q)
+	local mine = guide and ns.CharState().earlier[guide.id]
+	return mine and mine[q]
+end
+
+-- Sets quest q's state in the loaded guide's saved list (a taken one is back
+-- in the route at once, the others stay out of it) and evaluates again.
+function Own.setEarlier(q, state)
+	local mine = guide and ns.CharState().earlier[guide.id]
+	if not (mine and mine[q] ~= nil and mine[q] ~= state) then return false end
+	mine[q] = state
+	local out = Own.leftOut[guide.id]
+	if out and state == "taken" then out[q] = nil end
+	refreshPlayer()
+	placing = nil
+	evaluate()
+	return true
+end
+
+-- The quests placement passed as skipped earlier (#86), still open to take:
+-- { { quest, title }, ... } in route order. Kept for the evaluation (the
+-- guide window asks on every refill).
+Own.earlierCache = { gen = nil, guide = nil, list = nil }
+function Engine.SkippedEarlier()
+	local mine = guide and ns.CharState().earlier[guide.id]
+	if not mine then return {} end
+	local cache = Own.earlierCache
+	if cache.gen == generation and cache.guide == guide then return cache.list end
+	local C, out, seen = Compat(), {}, {}
+	for _, step in ipairs(guide.steps) do
+		for _, goal in ipairs(step.goals) do
+			local q = goal.quest
+			if q and mine[q] == true and not seen[q] and (goal.t == "accept" or goal.direct) and not (C.IsOnQuest(q) or questDone(q)) then
+				seen[q] = true
+				out[#out + 1] = { quest = q, title = titleOfQuest(q, goal.preTitles) }
+			end
+		end
+	end
+	cache.gen, cache.guide, cache.list = generation, guide, out
+	return out
+end
+
+-- Take: the quest is part of the route again. Dismiss: it stays out, unlisted.
+function Engine.TakeEarlier(q) return Own.setEarlier(q, "taken") end
+function Engine.DismissEarlier(q) return Own.setEarlier(q, "dismissed") end
+
+-- How much of guide g's route the character has done (#86): the share of its
+-- quests (accepts for them, not optional) turned in or in the log, and whether
+-- every one is turned in. Guides.Suggestions ranks by it. Turned in is the
+-- game's flag (and this session's turn-ins), not questDone: following every
+-- quest's chain (Own.chainPast) for each guide that fits would cost the
+-- picker too much, and a guide is ranked, not placed, by it. Kept per guide
+-- for the evaluation and level.
+Own.progressCache = setmetatable({}, { __mode = "k" })
+function Engine.ProgressOf(g)
+	if not player then refreshPlayer() end
+	local c = Own.progressCache[g]
+	if c and c.gen == generation and c.level == player.level then return c.share, c.finished end
+	local C, total, kept, turned = Compat(), 0, 0, 0
+	for q, list in pairs(layoutOf(g).accepts) do
+		local a = list[1]
+		if not a.goal.optional and Guides.Matches(a.goal.only, player) and Guides.Matches(a.step.only, player) then
+			total = total + 1
+			if turnedIn[q] or C.IsQuestCompleted(q) then
+				kept, turned = kept + 1, turned + 1
+			elseif C.IsOnQuest(q) then
+				kept = kept + 1
+			end
+		end
+	end
+	local share, finished = total > 0 and kept / total or 0, total > 0 and turned == total
+	Own.progressCache[g] = { gen = generation, level = player.level, share = share, finished = finished }
+	return share, finished
+end
+
 -- The player's step skip that left the rest of the loaded guide out
 -- (#1372): with no live step, the first step skipped by hand (a skip of a
 -- step with `when` may be a failed condition stored as one, and a `skipto`
@@ -18295,7 +18530,7 @@ function Engine.ResetProgress()
 	state.when[id] = nil
 	if type(state.skipStored) == "table" then state.skipStored[id] = nil end
 	-- What an update passed or left behind (Own.passAdded), and the pick-ups a profession opened (Own.noteOpened), come back too.
-	for _, f in ipairs({ "added", "gone", "behind", "passedBefore", "opened" }) do
+	for _, f in ipairs({ "added", "gone", "behind", "passedBefore", "opened", "earlier" }) do
 		if type(state[f]) == "table" then state[f][id] = nil end
 	end
 	Own.goneGen = Own.goneGen + 1
@@ -18421,7 +18656,11 @@ ns.On("SETTING_CHANGED", function(path)
 	end
 	-- Turned off, every quest the catch-up left out is back at once (the guide
 	-- window's "Turn off" under "left out here", Engine.LeftOutHere).
-	if path == "behavior.skipGrey" and not ns.Get("behavior.skipGrey") then Own.leftOut, Own.leftOutWhy = {}, {} end
+	-- The quests skipped earlier (#86) stay out: they are no catch-up's.
+	if path == "behavior.skipGrey" and not ns.Get("behavior.skipGrey") then
+		Own.leftOut, Own.leftOutWhy = {}, {}
+		if guide then Own.applyEarlier(guide.id) end
+	end
 	if path == "behavior.groupQuests" or path == "behavior.deathskips" or path == "behavior.skipGrey" then requestUpdate() end
 end)
 
