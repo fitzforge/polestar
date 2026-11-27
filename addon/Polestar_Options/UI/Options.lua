@@ -871,7 +871,8 @@ local function buildAbout(view)
 		.. L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] .. "\n"
 		.. L["Discord and its logo are trademarks of Discord Inc.; the logo marks the link to the Polestar Discord."] .. "\n"
 		.. L["With EllesmereUI installed, Polestar can follow its accent, font and panel colour through its public skinning API."] .. "\n"
-		.. L["Gear scores from Forever Leveling BiS by Timearc when it is installed, through its public API."])
+		.. L["Gear scores from Forever Leveling BiS by Timearc when it is installed, through its public API."] .. "\n"
+		.. L["Profession routes: based on the guides by Peter at WoW-Professions.com."])
 	-- Special thanks (UI/Thanks.lua), under the credits: one supporter or
 	-- contributor a time the page opens, a link to Guiding Stars.
 	local thanksLead = W.Text(view, "note", "textDim")
