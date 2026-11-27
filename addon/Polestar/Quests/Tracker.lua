@@ -702,7 +702,8 @@ end
 -- (Nav/Regions.lua, as the guide's spawn regions). qol.objectiveSpots picks
 -- how they draw:
 --   "groups" (default): a region of GROUP_MIN or more spots is one soft area
---     in the theme's accent with one marker at its centre; fewer stay markers.
+--     in the theme's accent with one marker at its centre. Sources that fit
+--     inside one minimum-radius spot share a compact icon. Fewer stay markers.
 --   "icons": every spot its own marker, no areas.
 --   "areas": every region an area and no marker (vendors and event points,
 --     which spread over nothing, stay markers).
@@ -724,6 +725,7 @@ end
 -- keys of its spots and reused while a rebuild still has the region. A step
 -- change or a setting only restyles.
 local GROUP_MIN, GROUP_WORK = 3, 250000
+local COMPACT_SPOT_SCALE = 0.75
 local SPOT_MODES = { groups = true, icons = true, areas = true }
 Q.GROUP_MIN = GROUP_MIN
 
@@ -751,10 +753,22 @@ end
 -- Scratch for addRegion: refs already listed, names already in the header.
 local hasRef, heads, named = {}, {}, {}
 
+-- The packed database lists each creature's clusters separately. Nearby
+-- sources for one objective can share the same physical spot.
+local function fitsOneSpot(region, members, radius)
+	for i = 1, #members do
+		local pin = members[i]
+		local reach = radius - (pin.radius or 0)
+		local dx, dy = pin.wx - region.wx, pin.wy - region.wy
+		if reach < 0 or dx * dx + dy * dy > reach * reach then return false end
+	end
+	return true
+end
+
 -- One region of member pins: the area, and its centre marker under the
 -- glyph of the highest-ranked member, naming every member's mob or object
 -- and listing every quest objective they serve. Kept in regionPool by sig.
-local function addRegion(cr, members)
+local function addRegion(cr, members, minRadius)
 	local rg, n = cr.rg, #members
 	local g = regionPool[cr.sig]
 	if not g then
@@ -789,6 +803,7 @@ local function addRegion(cr, members)
 	end
 	if n >= GROUP_MIN then
 		for m = 1, n do grouped[members[m]] = true end
+		g.compact = fitsOneSpot(rg, members, minRadius)
 		local s = STYLE[style]
 		local pin = g.pin
 		if not pin then
@@ -884,7 +899,7 @@ local function buildRegions()
 					local idx = cr.rg.members
 					for m = 1, #idx do members[m] = pins[idx[m]] end
 					for m = #members, #idx + 1, -1 do members[m] = nil end
-					addRegion(cr, members)
+					addRegion(cr, members, R.MIN_RADIUS)
 				end
 			end
 		end
@@ -1215,14 +1230,16 @@ local function flatten(layer)
 			if pin or mode == "areas" then
 				local focus
 				if pin then
-					stylePin(pin, highlight, dim, sizeK)
+					stylePin(pin, highlight, dim, g.compact and sizeK * COMPACT_SPOT_SCALE or sizeK)
 					out[#out + 1] = pin
 					focus = pin.focus
 				else
 					focus = focusWith(g.area, highlight, dim)
 				end
-				g.area.color = focus == "dim" and faded or plain
-				out[#out + 1] = g.area
+				if not pin or not g.compact then
+					g.area.color = focus == "dim" and faded or plain
+					out[#out + 1] = g.area
+				end
 			end
 		end
 	end

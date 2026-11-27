@@ -6800,9 +6800,11 @@ spots' keys and reused. A step change or a setting only restyles.
 `hull` pin (`areaOnly`) in the accent at `qol.objectiveAreaAlpha` (0.2–1,
 default 0.6; times the dim 0.6 when its marker is dimmed) and one marker at
 its centre (`spots` = its spot count, the members' names as header, every
-objective they serve in its tooltip) in place of its members; `icons` draws
-every spot's marker and no area; `areas` draws every region as an area and no
-objective marker (vendors and event points stay markers). The layer is set
+objective they serve in its tooltip) in place of its members. If the spawn
+clusters all fit inside one minimum-radius spot, the centre marker is smaller
+and the group draws as an icon only. `icons` draws every spot's marker and no
+area. `areas` draws every region as an area and no objective marker (vendors
+and event points stay markers). The layer is set
 with `minimapAreas` unless `icons`, so the areas follow it onto the minimap.
 Over the shipped database `groups` cuts every quest's objective markers from
 about 122,000 to 41,000. `qol.questMarkerSize` (0.6–1.6) scales every quest
