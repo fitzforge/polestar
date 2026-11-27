@@ -3,11 +3,11 @@
 --
 -- Profession: the skill meter (the skill, the stretch still to go lit to its move-on, ticks at the move-on and the
 -- next trainer rank; a paired guide's two skills as two compact meters stacked, or in a layout that says them in the
--- XP row (GF.Shows "pairMeter", Atlas) none), the trainer line, the stretch card (the recipe now, its colour chip, a
--- paired guide's flow line under its name, "6 of about 32 made", "You can make 3 now" with Open <Profession>, the
--- window's one secure button), the materials (a row each, have / need, the Buy | Farm toggle; the split under the row
--- in focus: a verdict line over a Buy and a Farm column, the way it takes lit; a paired guide's "from your skinning on
--- the way" under the heading), the buy list line. Reputation: the standing meter, the turn-in card, its items (the
+-- XP row (GF.Shows "pairMeter", Atlas) none), the trainer line, the stretch card (the recipe now, its skill-up arrow,
+-- a paired guide's flow line under its name, "about 26 to go · 6 made", "You can make 3 now" with Open <Profession>,
+-- the window's one secure button), the materials (a row each, have / need, the Buy | Farm toggle; the split under the
+-- row in focus: a verdict line over a Buy and a Farm column, the way it takes lit; a paired guide's "from your skinning
+-- on the way" under the heading), the buy list line. Reputation: the standing meter, the turn-in card, its items (the
 -- same rows and split), More reputation.
 --
 -- Compact mode: one line per thing (the skill, or a paired guide's two on one line; the recipe, each material still
@@ -417,7 +417,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			f.Bar:ClearAllPoints()
 			local maxW = f.Max:GetStringWidth()
 			local valW = f.Value:GetStringWidth()
-			local rankW = f.Rank:GetText() ~= "" and f.Rank:GetStringWidth() + 6 or 0
+			local rankW = (f.Rank:GetText() or "") ~= "" and f.Rank:GetStringWidth() + 6 or 0
 			local textX = x + 22
 			local done = m.done or (m.line and m.line.reached)
 			if mode == "compact" then
@@ -542,14 +542,44 @@ ns.UI.GuideFrame.Part(function(GF)
 		return L["Grey"]
 	end
 
-	local function colourChip(c, colour)
-		local tok = COLOUR_TOKEN[colour]
-		W.SetChip(c, colourWord(colour))
-		if tok then
-			local r, g, b = Theme.Color(tok)
-			c.Bg:SetColor(r, g, b, 0.16)
-			W.Color(c.Text, tok)
+	-- The recipe's colour as the client's own profession window marks it: its skill-up arrows (Blizzard_Professions'
+	-- recipe list: Professions-Icon-Skill-High for orange, -Medium for yellow, -Low for green; none for grey). Where
+	-- the client has no such art, our chevron in the colour's token. The arrows are 13 x 15, their size in the client's
+	-- atlas table (UiTextureAtlasMember), as its recipe list draws them (UseAtlasSize).
+	local SKILL_UP = { orange = "Professions-Icon-Skill-High", yellow = "Professions-Icon-Skill-Medium", green = "Professions-Icon-Skill-Low" }
+	local SKILL_UP_W, SKILL_UP_H = 13, 15
+	local function skillUpAtlas(colour)
+		local atlas = SKILL_UP[colour]
+		return atlas and C_Texture and C_Texture.GetAtlasInfo and C_Texture.GetAtlasInfo(atlas) and atlas or nil
+	end
+	-- On texture t: shown (true) or hidden for grey / no colour.
+	local function skillUp(t, colour)
+		if not SKILL_UP[colour] then
+			t:Hide()
+			return false
 		end
+		local atlas = skillUpAtlas(colour)
+		if atlas then
+			t:SetAtlas(atlas)
+			t:SetSize(SKILL_UP_W, SKILL_UP_H)
+			W.Uncolor(t)
+			t:SetVertexColor(1, 1, 1, 1)
+		else
+			t:SetTexture(Theme.Media("chevron-up"))
+			t:SetTexCoord(0, 1, 0, 1)
+			t:SetSize(12, 12)
+			W.Color(t, COLOUR_TOKEN[colour])
+		end
+		t:Show()
+		return true
+	end
+	-- The same arrow inline in a line of text (compact): "" for grey / no colour.
+	local function skillUpMarkup(colour)
+		if not SKILL_UP[colour] then return "" end
+		local atlas = skillUpAtlas(colour)
+		if atlas then return format("|A:%s:%d:%d|a", atlas, SKILL_UP_H, SKILL_UP_W) end
+		local r, g, b = Theme.Color(COLOUR_TOKEN[colour])
+		return format("|T%s:12:12:0:0:64:64:0:64:0:64:%d:%d:%d|t", Theme.Media("chevron-up"), floor(r * 255 + 0.5), floor(g * 255 + 0.5), floor(b * 255 + 0.5))
 	end
 
 	-- Open <Profession>. What shows in the card is an ordinary button (`f.psOpen`, painted and laid out with the
@@ -653,13 +683,16 @@ ns.UI.GuideFrame.Part(function(GF)
 			f.Bar = accentBar(f.Card)
 			f.Tile = tile(f.Card, 32)
 			f.Name = W.Text(f.Card, "goal", "item")
-			f.Chip = W.Chip(f.Card)
+			-- The recipe's colour: the client's skill-up arrow; its name and thresholds in the tooltip.
+			f.Chip = CreateFrame("Frame", nil, f.Card)
+			f.Chip:SetSize(16, 16)
+			f.Chip.Icon = f.Chip:CreateTexture(nil, "ARTWORK")
+			f.Chip.Icon:SetPoint("CENTER", f.Chip, "CENTER", 0, 0)
 			f.Chip:EnableMouse(true)
 			f.Chip:SetScript("OnEnter", function(self)
 				local m = f.psModel
-				if m and m.yellow then
-					W.Tip(self, colourWord(m.colour), { format(L["Orange: every craft is a point. Yellow from %d, green from %d, grey at %d."], m.yellow, m.green, m.grey) })
-				end
+				if not (m and m.colour) then return end
+				W.Tip(self, colourWord(m.colour), m.yellow and { format(L["Orange: every craft is a point. Yellow from %d, green from %d, grey at %d."], m.yellow, m.green, m.grey) } or nil)
 			end)
 			f.Chip:SetScript("OnLeave", function(self) W.TipHide(self) end)
 			f.Uses = W.Text(f.Card, "small", "textDim")
@@ -691,16 +724,26 @@ ns.UI.GuideFrame.Part(function(GF)
 			bareIn(f.Card)
 			setTile(f.Tile, m.item, "craft")
 			f.Name:SetText(m.item and itemHex(m.item, m.name) or m.name)
-			if m.colour then colourChip(f.Chip, m.colour) else f.Chip:Hide() end
+			f.Chip:SetShown(skillUp(f.Chip.Icon, m.colour))
 			local parts = {}
 			for _, r in ipairs(m.reagents or {}) do parts[#parts + 1] = format(L["%d %s"], r.count, itemHex(r.item, r.name)) end
 			f.Uses:SetText(table.concat(parts, " + "))
 			f.Flow:SetText(m.flow or "")
 			f.psFlow = m.flow ~= nil
-			local exp = m.expected
-			-- Under 300 wide the count's short form (layout picks): numbers never cut.
-			f.psCountLong = exp and format(L["%s of about %d made"], hexed("text", m.made), exp) or format(L["%d made"], m.made)
-			f.psCountShort = exp and format("%d / ~%d", m.made, exp) or f.psCountLong
+			-- The count: about how many crafts the skill still takes to the move-on (whatever made its points so far),
+			-- then "M made" once the recipe's casts were counted. Three forms, the layout takes the first that fits:
+			-- the numbers are never cut.
+			local left = m.left
+			local made = m.made and m.made > 0 and hexed("textMuted", DOT .. format(L["%d made"], m.made)) or nil
+			if left and left > 0 then
+				local toGo = format(L["%d to go"], left)
+				f.psCount1 = format(L["about %d to go"], left) .. (made or "")
+				f.psCount2 = made and toGo .. made or nil
+				f.psCount3 = toGo
+			else
+				f.psCount1 = m.made and m.made > 0 and format(L["%d made"], m.made) or ""
+				f.psCount2, f.psCount3 = nil, nil
+			end
 			if m.colour == "grey" then
 				f.MoveOn:SetText(L["Grey now: move on"])
 				W.Color(f.MoveOn, "warning")
@@ -709,9 +752,12 @@ ns.UI.GuideFrame.Part(function(GF)
 				W.Color(f.MoveOn, "textMuted")
 			end
 			local canAll = false
-			if m.canMake and m.canMake > 0 then
-				local left = exp and max(0, exp - m.made) or nil
-				canAll = left and m.canMake >= left and left > 0
+			if m.learned == false and m.spell then
+				f.Make:SetText(format(L["Learn %s first"], m.spell))
+				W.Color(f.Make, "textDim")
+				f.Check:Hide()
+			elseif m.canMake and m.canMake > 0 then
+				canAll = left and left > 0 and m.canMake >= left
 				f.Make:SetText(canAll and format(L["You can make all %d now"], left) or format(L["You can make %d now"], m.canMake))
 				W.Color(f.Make, "success")
 				f.Check:Show()
@@ -725,9 +771,9 @@ ns.UI.GuideFrame.Part(function(GF)
 			end
 			f.psCan = m.canMake and m.canMake > 0
 			-- Compact
-			local word = m.colour and hexed(COLOUR_TOKEN[m.colour], string.lower(colourWord(m.colour))) or nil
-			f.Line:SetText((m.item and itemHex(m.item, m.name) or m.name) .. (word and hexed("textMuted", DOT) .. word or ""))
-			f.LineRight:SetText(format(L["%d / %s  \194\183  to %d"], m.made, exp and ("~" .. exp) or "?", m.moveOn))
+			local mark = skillUpMarkup(m.colour)
+			f.Line:SetText((m.item and itemHex(m.item, m.name) or m.name) .. (mark ~= "" and "  " .. mark or ""))
+			f.LineRight:SetText(left and left > 0 and format(L["%d to go  \194\183  to %d"], left, m.moveOn) or format(L["move on at %d"], m.moveOn))
 		end,
 		layout = function(f, m, width, mode)
 			local compact = mode == "compact"
@@ -777,17 +823,27 @@ ns.UI.GuideFrame.Part(function(GF)
 			f.Progress:ClearAllPoints()
 			f.Progress:SetPoint("TOPLEFT", f.Card, "TOPLEFT", tx, -y)
 			f.Progress:SetWidth(cw - tx - inner)
-			W.SetProgress(f.Progress, m.expected and m.expected > 0 and m.made / m.expected or 0, cw - tx - inner)
+			local exp = m.expected
+			W.SetProgress(f.Progress, exp and exp > 0 and m.left and max(0, min(1, (exp - m.left) / exp)) or 0, cw - tx - inner)
 			y = y + 2 + 6
-			local countText = narrow(width) and f.psCountShort or f.psCountLong
-			if f.Count:GetText() ~= countText then f.Count:SetText(countText) end
+			local room = max(40, cw - tx - inner - f.MoveOn:GetStringWidth() - 8)
+			local countText = f.psCount1 or ""
+			for k = 2, 3 do
+				local alt = k == 2 and (f.psCount2 or f.psCount3) or f.psCount3
+				if not alt or alt == countText then break end
+				f.Count:SetText(countText)
+				if f.Count:GetUnboundedStringWidth() <= room then break end
+				countText = alt
+			end
+			if (f.Count:GetText() or "") ~= countText then f.Count:SetText(countText) end
 			f.Count:ClearAllPoints()
 			f.Count:SetPoint("TOPLEFT", f.Card, "TOPLEFT", tx, -y)
 			f.MoveOn:ClearAllPoints()
 			f.MoveOn:SetPoint("TOPRIGHT", f.Card, "TOPRIGHT", -inner, -y - 1)
-			f.Count:SetWidth(max(40, cw - tx - inner - f.MoveOn:GetStringWidth() - 8))
+			f.Count:SetWidth(room)
 			y = y + f.Count:GetStringHeight() + 10
-			local makeShown = f.Make:GetText() ~= ""
+			-- The client answers nil for an empty text: an empty line keeps no rule or row in the card.
+			local makeShown = (f.Make:GetText() or "") ~= ""
 			f.Rule:SetShown(makeShown)
 			f.Make:SetShown(makeShown)
 			local iconOnly = narrow(width)
@@ -967,29 +1023,34 @@ ns.UI.GuideFrame.Part(function(GF)
 		c.Button.psPrimary = lit or nil
 		W.RepaintButton(c.Button)
 	end
+	-- Everything in a column is centred in it: the glyph and title as one line, the lines under them (wrapped lines
+	-- centred each), the button at its own width.
 	local function layoutColumn(c, x, w, top, h)
 		c:ClearAllPoints()
 		c:SetPoint("TOPLEFT", c:GetParent(), "TOPLEFT", x, -top)
 		c:SetSize(w, h)
 		local ix = 10
+		local room = max(20, w - ix * 2)
+		c.Title:SetWidth(max(20, room - 19))
+		local tw = min(room - 19, c.Title:GetUnboundedStringWidth())
+		c.Title:SetWidth(max(1, tw))
+		local gx = floor((w - (19 + tw)) / 2 + 0.5)
 		c.Glyph:ClearAllPoints()
-		c.Glyph:SetPoint("TOPLEFT", c, "TOPLEFT", ix, -11)
+		c.Glyph:SetPoint("TOPLEFT", c, "TOPLEFT", max(ix, gx), -11)
 		c.Title:ClearAllPoints()
-		c.Title:SetPoint("TOPLEFT", c, "TOPLEFT", ix + 19, -10)
-		c.Title:SetWidth(max(20, w - ix * 2 - 19))
+		c.Title:SetPoint("TOPLEFT", c, "TOPLEFT", max(ix, gx) + 19, -10)
 		local y = 10 + c.Title:GetStringHeight() + 5
 		for _, fs in ipairs({ c.Big, c.Small1, c.Small2 }) do
 			fs:ClearAllPoints()
-			fs:SetPoint("TOPLEFT", c, "TOPLEFT", ix, -y)
+			fs:SetJustifyH("CENTER")
 			local text = fs:GetText() or ""
 			local lv = fs == c.Small2 and c.psLevel
 			local both, only = c.psLevelBoth or "", c.psLevelOnly or ""
 			local extra = 0
 			if lv then
-				-- The place line: the zone, then "· lvl 19–23" after it; where both do not fit the column's width the
-				-- level takes the line under it. The zone is cut at its end only when it alone is too long; the
-				-- level never is.
-				local room = w - ix * 2
+				-- The place line: the zone, then "· lvl 19–23" after it, the two centred as one; where both do not fit
+				-- the column's width the level takes the line under it, centred too. The zone is cut at its end only
+				-- when it alone is too long; the level never is.
 				fs:SetWordWrap(false)
 				local zw = text ~= "" and fs:GetUnboundedStringWidth() or 0
 				local shown = text ~= "" and both or only
@@ -999,18 +1060,23 @@ ns.UI.GuideFrame.Part(function(GF)
 					lv:SetText(only)
 					extra = lv:GetStringHeight() + 2
 				end
-				fs:SetWidth(max(20, min(zw, room)))
+				local fw = max(20, min(zw, room))
+				fs:SetWidth(fw)
+				local lw = lv:GetUnboundedStringWidth()
 				lv:ClearAllPoints()
 				if text == "" then
-					lv:SetPoint("TOPLEFT", c, "TOPLEFT", ix, -y)
+					lv:SetPoint("TOP", c, "TOP", 0, -y)
 				elseif under then
-					lv:SetPoint("TOPLEFT", fs, "BOTTOMLEFT", 0, -2)
+					fs:SetPoint("TOP", c, "TOP", 0, -y)
+					lv:SetPoint("TOP", fs, "BOTTOM", 0, -2)
 				else
+					fs:SetPoint("TOPLEFT", c, "TOPLEFT", max(ix, floor((w - fw - (shown ~= "" and lw or 0)) / 2 + 0.5)), -y)
 					lv:SetPoint("TOPLEFT", fs, "TOPRIGHT", 0, 0)
 				end
 				lv:SetShown(shown ~= "")
 			else
-				fs:SetWidth(max(20, w - ix * 2))
+				fs:SetWidth(room)
+				fs:SetPoint("TOP", c, "TOP", 0, -y)
 			end
 			if text ~= "" or (lv and only ~= "") then
 				fs:SetShown(text ~= "")
@@ -1022,9 +1088,11 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		y = y + 8
 		if c.Button:IsShown() then
+			-- Its own width (W.SetButtonText's), never wider than the column.
+			local bw = c.Button.psOwnWidth or c.Button:GetWidth()
+			c.Button:SetWidth(min(bw, room))
 			c.Button:ClearAllPoints()
-			c.Button:SetPoint("TOPLEFT", c, "TOPLEFT", ix, -y)
-			c.Button:SetPoint("TOPRIGHT", c, "TOPRIGHT", -ix, -y)
+			c.Button:SetPoint("TOP", c, "TOP", 0, -y)
 			y = y + 24
 		end
 		return y + 10
@@ -1065,6 +1133,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		local atAH = M() and M().AuctionOpen and M().AuctionOpen()
 		W.SetButtonText(B.Button, atAH and L["Search"] or L["Add to buy list"])
+		B.Button.psOwnWidth = B.Button:GetWidth()
 		-- Farm
 		Fm.Title:SetText(format(L["Farm %d"], r.toGet))
 		if not farm then
@@ -1096,6 +1165,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			Fm.psLevelBoth, Fm.psLevelOnly = lv and ((where and DOT or "") .. lv) or "", lv or ""
 			Fm.Button:SetShown(farm.step ~= nil)
 			W.SetButtonText(Fm.Button, L["Guide me"])
+			Fm.Button.psOwnWidth = Fm.Button:GetWidth()
 		end
 		paintColumn(B, r.way == "buy" and buy ~= false)
 		paintColumn(Fm, r.way ~= "buy")
@@ -1670,7 +1740,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			f.Who:SetPoint("TOPLEFT", f.What, "BOTTOMLEFT", 0, -3)
 			f.Who:SetWidth(max(40, cw - tx - inner))
 			local y = 10 + f.Name:GetStringHeight() + 4 + f.What:GetStringHeight() + 3 + f.Who:GetStringHeight() + 10
-			local shown = f.Ready:GetText() ~= ""
+			local shown = (f.Ready:GetText() or "") ~= ""
 			f.Rule:SetShown(shown)
 			f.Ready:SetShown(shown)
 			if shown then

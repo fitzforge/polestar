@@ -388,8 +388,11 @@ function W.Tooltip(owner, anchor, title, lines)
 	GameTooltip:Show()
 end
 
+-- Hide the game's tooltip (only `owner`'s, when given), and Polestar's own tip with it: a hover target's
+-- OnLeave hides whichever of the two it showed.
 function W.HideTooltip(owner)
 	if GameTooltip and (not owner or GameTooltip:GetOwner() == owner) then GameTooltip:Hide() end
+	if W.TipHide then W.TipHide(owner) end
 end
 
 ---------------------------------------------------------------------------
@@ -399,7 +402,9 @@ end
 -- lines in Small at 80% (a line given as { text, r, g, b } keeps its
 -- colour), 3 apart. Centred 4 over the
 -- anchor (the row's label), under it where the screen ends; no delay, a
--- 0.2s fade in and out. Its owner's scale is its own (the Menu scale).
+-- 0.2s fade in; gone at once when the cursor leaves its owner, or when the
+-- owner hides under it (a repaint that reuses the row). Its owner's scale is
+-- its own (the Menu scale).
 ---------------------------------------------------------------------------
 
 local TIP_PAD, TIP_MAX, TIP_GAP, TIP_LINE, TIP_FADE = 8, 250, 4, 3, 0.2
@@ -412,6 +417,11 @@ local function tipFrame()
 	tip:SetClampedToScreen(true)
 	tip:EnableMouse(false)
 	tip:Hide()
+	-- The owner hidden under the cursor (a repaint, the window closing) sends no OnLeave: the tip goes with it.
+	tip:SetScript("OnUpdate", function(self)
+		local o = self.psOwner
+		if not (o and o.IsVisible and o:IsVisible()) then W.TipHide() end
+	end)
 	tip.Ground = tip:CreateTexture(nil, "BACKGROUND")
 	tip.Ground:SetTexture(WHITE)
 	tip.Ground:SetAllPoints(tip)
@@ -503,14 +513,15 @@ function W.Tip(owner, title, lines, anchor)
 	return f
 end
 
--- Fade the tip out (only `owner`'s, when given).
+-- Hide the tip at once (only `owner`'s, when given), and the game's tooltip `owner` showed (an item tile's).
 function W.TipHide(owner)
+	if owner and GameTooltip and GameTooltip:IsShown() and GameTooltip:GetOwner() == owner then GameTooltip:Hide() end
 	if not (tip and tip:IsShown()) then return end
 	if owner and tip.psOwner ~= owner then return end
 	tip.psOwner = nil
-	Anim.To(tip, "alpha", tip:GetAlpha() or 1, 0, TIP_FADE, "out", function()
-		if not tip.psOwner then tip:Hide() end
-	end)
+	Anim.Stop(tip, "alpha")
+	tip:Hide()
+	tip:SetAlpha(0)
 end
 
 -- The tip on screen, for tests: { owner, title, lines = { text, ... } } | nil

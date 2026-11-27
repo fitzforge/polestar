@@ -62,15 +62,16 @@ for _, r in ipairs(m.supplies and m.supplies.rows or {}) do
 end
 emit({ meter = m.meter and { value = m.meter.value, max = m.meter.max, ticks = m.meter.ticks, line = m.meter.line[1] and m.meter.line[1].to } or false,
 	trainer = m.trainer and { title = m.trainer.title, level = m.trainer.level, due = m.trainer.due, toGo = m.trainer.toGo } or false,
-	stretch = m.stretch and { colour = m.stretch.colour, green = m.stretch.green, expected = m.stretch.expected, made = m.stretch.made, canMake = m.stretch.canMake, moveOn = m.stretch.moveOn } or false,
+	stretch = m.stretch and { colour = m.stretch.colour, green = m.stretch.green, expected = m.stretch.expected, made = m.stretch.made, left = m.stretch.left, canMake = m.stretch.canMake, moveOn = m.stretch.moveOn } or false,
 	rows = rows, buyList = m.buyList and { count = m.buyList.count, copper = m.buyList.copper or false } or false })`;
 
 test('profession at 87: meter, trainer, stretch colour and counts; materials with bolts counted as cloth', () => {
 	const out = run('', MODELS);
 	assert.deepEqual(out.meter, { value: 87, max: 150, ticks: [{ at: 115, what: 'moveOn' }, { at: 125, what: 'train' }], line: 115 });
 	assert.deepEqual(out.trainer, { title: 'Expert', level: 125, due: false, toGo: 38 });
-	// Orange below yellow (100), green from (100 + 125) / 2; about 47 crafts from 75, 12 of them made by 87.
-	assert.deepEqual(out.stretch, { colour: 'orange', green: 112, expected: 47, made: 12, canMake: 3, moveOn: 115 });
+	// Orange below yellow (100), green from (100 + 125) / 2; about 47 crafts from 75, about 36 still to go from 87. None
+	// made: the 12 points since 75 may have come from other recipes, so no cast counted means none made.
+	assert.deepEqual(out.stretch, { colour: 'orange', green: 112, expected: 47, made: 0, left: 36, canMake: 3, moveOn: 115 });
 	const wool = out.rows.find((r) => r.item === 2592);
 	// 36 capes still to make: 108 bolts, 324 Wool Cloth; held: 58 bags + 10 bank + 10 bolts (30 cloth).
 	assert.equal(wool.need, 324);
@@ -130,7 +131,7 @@ test('the window: the regions in place of the step header, the split open on the
 	assert.equal(out.value, '87');
 	assert.equal(out.line, 'Woolen Cape to 115');
 	assert.equal(out.make, 'You can make 3 now');
-	assert.equal(out.count, '12 of about 47 made');
+	assert.equal(out.count, 'about 36 to go', 'what the skill still takes; no "made" without a counted cast');
 	assert.equal(out.head, 'Materials to 115');
 	assert.match(out.verdict, /^Mix buys this: farming takes about 4 h/);
 	assert.ok(!out.xp || !String(out.xp).includes('Tailoring'), 'the skill sits in the meter, not the XP row');
@@ -562,4 +563,148 @@ test('a paired guide 355 wide: a skill not learned yet spans the row ("Learn Lea
 	const both = runPair('Polestar.Set("ui.width", 355)', PAIR_NAMES);
 	assert.deepEqual(both.rows.map((r) => [r.name, r.bar]), [['Skinning', true], ['Leatherworking', true]]);
 	assert.equal(both.rows[0].w, both.rows[1].w, 'the bars line up: one name column');
+});
+
+test('a tooltip goes the moment the cursor leaves: the game\'s item tooltip on a tile, the tip on the chip, a tip whose owner hides', () => {
+	const out = run('', `
+GF.Layout(); stub.advance(1)
+local st, sup = GF.RegionFrame("stretch"), GF.RegionFrame("supplies")
+local function gameOwned(o) return GameTooltip:IsShown() and GameTooltip:GetOwner() == o or false end
+local function tipShown() return _G.PolestarTip and _G.PolestarTip:IsShown() or false end
+local tile = sup.Rows[1].Tile
+tile:GetScript("OnEnter")(tile)
+local itemOn = gameOwned(tile)
+tile:GetScript("OnLeave")(tile)
+local itemAfter = gameOwned(tile)
+local chip = st.Chip
+chip:GetScript("OnEnter")(chip)
+local tipOn = tipShown()
+chip:GetScript("OnLeave")(chip)
+local tipAfter = tipShown()
+chip:GetScript("OnEnter")(chip)
+st:Hide()
+stub.advance(0.1)
+emit({ itemOn = itemOn, itemAfter = itemAfter, tipOn = tipOn, tipAfter = tipAfter, ownerHidden = tipShown() })`);
+	assert.deepEqual(out, { itemOn: true, itemAfter: false, tipOn: true, tipAfter: false, ownerHidden: false });
+});
+
+test('the split\'s columns centre what they hold: the lines under the title, the button at its own width', () => {
+	const out = run('', `
+GF.Layout(); stub.advance(1)
+local sup = GF.RegionFrame("supplies")
+local B, Fm = sup.Buy, sup.Farm
+local function pt(r) return (r:GetPoint(1)) end
+emit({ well = sup.Well:IsShown(), big = pt(B.Big), small = pt(B.Small1), justify = B.Big:GetJustifyH(), button = pt(B.Button),
+	ownWidth = B.Button:GetWidth() < B:GetWidth() - 20, farmBig = pt(Fm.Big), farmButton = Fm.Button:IsShown() and pt(Fm.Button) or false })`);
+	assert.deepEqual(out, { well: true, big: 'TOP', small: 'TOP', justify: 'CENTER', button: 'TOP', ownWidth: true, farmBig: 'TOP', farmButton: 'TOP' });
+});
+
+test('nothing to make now: the card keeps no rule and no empty row under the count (the client answers nil for an empty text)', () => {
+	const out = run('stub.emptyTextNil = true; w.items[2320] = 0', `
+GF.Layout(); stub.advance(1)
+local st = GF.RegionFrame("stretch")
+local _, _, _, _, cy = st.Count:GetPoint(1)
+emit({ rule = st.Rule:IsShown(), make = st.Make:IsShown(), open = st.psOpen:IsShown(),
+	tight = st.Card:GetHeight() <= -cy + st.Count:GetStringHeight() + 10.5 })`);
+	assert.deepEqual(out, { rule: false, make: false, open: false, tight: true });
+});
+
+test('crafts made are the recipe\'s casts counted, after what the skill still takes ("about 36 to go · 2 made")', () => {
+	const out = run('Polestar.Set("ui.width", 460)', `
+stub.fire("UNIT_SPELLCAST_SUCCEEDED", "player", "Cast-1", 2402)
+stub.fire("UNIT_SPELLCAST_SUCCEEDED", "player", "Cast-2", 2402)
+stub.fire("UNIT_SPELLCAST_SUCCEEDED", "player", "Cast-3", 2964)
+stub.advance(0.5)
+GF.Layout(); stub.advance(1)
+local m = E.KindModel("stretch", view, "profession")
+local st = GF.RegionFrame("stretch")
+Polestar.Set("ui.compact", true)
+GF.Render(); GF.Layout(); stub.advance(1)
+emit({ made = m.made, left = m.left, count = plain(st.Count:GetText()), compact = plain(st.LineRight:GetText()) })`);
+	assert.equal(out.made, 2, 'Woolen Cape cast twice; the bolt is another recipe');
+	assert.equal(out.left, 36);
+	assert.match(out.count, /^about 36 to go +· +2 made$/);
+	assert.match(out.compact, /^36 to go +· +to 115$/);
+});
+
+test('Buy | Farm | Mix: a click moves the chosen tab and repaints the materials', () => {
+	const out = run('', `
+GF.Layout(); stub.advance(1)
+local sup = GF.RegionFrame("supplies")
+local function marks() local t = {} for k, b in ipairs(sup.Modes) do t[k] = b.psMarked or false end return t end
+local before, shown = marks(), sup.Modes[1]:IsShown()
+sup.Modes[1]:Click()
+stub.advance(0.5)
+local afterBuy = marks()
+sup.Modes[2]:Click()
+stub.advance(0.5)
+emit({ shown = shown, before = before, afterBuy = afterBuy, afterFarm = marks(), way = GF.RegionModel("supplies").way,
+	wool = GF.RegionModel("supplies").rows[1].way })`);
+	assert.equal(out.shown, true, 'Wool Cloth is still short and can be farmed or bought');
+	assert.deepEqual(out.before, [false, false, true], 'Mix by default');
+	assert.deepEqual(out.afterBuy, [true, false, false]);
+	assert.deepEqual(out.afterFarm, [false, true, false]);
+	assert.equal(out.way, 'gather');
+	assert.equal(out.wool, 'gather');
+});
+
+test('Buy | Farm | Mix shows only while a material still to get has a choice: held, vendor-only or made ones give the same list', () => {
+	const out = run('w.items[2592] = 400', `
+GF.Layout(); stub.advance(1)
+local sup = GF.RegionFrame("supplies")
+local m = GF.RegionModel("supplies")
+emit({ choosable = m.choosable, tabs = sup.Modes[1]:IsShown() or sup.Modes[2]:IsShown() or sup.Modes[3]:IsShown(), drop = sup.ModeDrop:IsShown() })`);
+	assert.deepEqual(out, { choosable: false, tabs: false, drop: false }, 'the wool is held; Coarse Thread is vendor-only');
+});
+
+const ATLAS = `C_Texture = { GetAtlasInfo = function(name)
+	if name == "Professions-Icon-Skill-High" or name == "Professions-Icon-Skill-Medium" or name == "Professions-Icon-Skill-Low" then
+		return { width = 13, height = 15, file = 4417031 } end end }`;
+const ICON = `
+GF.Layout(); stub.advance(1)
+local st = GF.RegionFrame("stretch")
+local chip = st.Chip
+chip:GetScript("OnEnter")(chip)
+local tip = Polestar.Widgets.TipShown()
+chip:GetScript("OnLeave")(chip)
+local card = { shown = chip:IsShown(), atlas = chip.Icon:GetAtlas() or false, texture = chip.Icon:GetTexture() or false, text = rawget(chip, "Text") and true or false,
+	tip = tip and tip.title or false }
+Polestar.Set("ui.compact", true)
+GF.Render(); GF.Layout(); stub.advance(1)
+emit({ card = card, line = st.Line:GetText() })`;
+
+test('the recipe\'s colour is the client\'s own skill-up arrow, its name in the tooltip; our chevron where the client has none', () => {
+	const art = run(ATLAS, ICON);
+	assert.equal(art.card.shown, true);
+	assert.equal(art.card.atlas, 'Professions-Icon-Skill-High', 'orange at 87, below yellow (100)');
+	assert.equal(art.card.text, false, 'no word chip');
+	assert.equal(art.card.tip, 'Orange');
+	assert.match(art.line, /\|A:Professions-Icon-Skill-High:15:13\|a$/, 'compact: the same arrow after the recipe');
+	const own = run('', ICON);
+	assert.equal(own.card.shown, true);
+	assert.match(String(own.card.texture), /chevron-up/);
+	assert.match(own.line, /\|T[^|]*chevron-up[^|]*\|t$/);
+	const yellow = run(`${ATLAS}; C.GetSkillRank = function(line) if line == 197 or line == "Tailoring" then return 105, 150 end return nil end`, ICON);
+	assert.equal(yellow.card.atlas, 'Professions-Icon-Skill-Medium');
+});
+
+test('a grey recipe shows no arrow, as the client\'s window shows none', () => {
+	const out = run(`${ATLAS}
+GetSpellInfo = function(id) if id == 2402 then return "Woolen Cape" end end
+C_Spell = nil
+GetNumTradeSkills = function() return 1 end
+GetTradeSkillInfo = function(i) return "Woolen Cape", "trivial" end`, ICON);
+	assert.equal(out.card.shown, false);
+	assert.doesNotMatch(out.line, /\|A:|\|T/);
+});
+
+test('a skill not learned yet: the profession layout from the first step (the recipe it starts on, "Learn Tailoring first", the materials)', () => {
+	const out = run('C.GetSkillRank = function() return nil end', `${WINDOW.replace('emit({', 'local stm = E.KindModel("stretch", view, "profession")\nemit({ learned = stm and stm.learned, colour = stm and stm.colour or false, chip = st and st.Chip:IsShown(), open = st and st.psOpen:IsShown(),')}`);
+	assert.deepEqual(out.regions, { meter: true, trainer: true, stretch: true, supplies: true, buyList: true });
+	assert.equal(out.person, false, 'no plain goal rows in place of the layout');
+	assert.equal(out.name, 'Learn Tailoring');
+	assert.equal(out.make, 'Learn Tailoring first');
+	assert.match(out.count, /^about \d+ to go$/);
+	assert.equal(out.head, 'Materials to 115');
+	assert.deepEqual([out.learned, out.colour, out.chip, out.open], [false, false, false, false], 'no colour and no Open Tailoring before it is learned');
 });

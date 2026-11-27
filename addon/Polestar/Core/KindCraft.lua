@@ -17,8 +17,9 @@
 --
 -- The stretch: the first `craft … until` goal from the step in view on that the skill is under. Its colours
 -- (Classic's): orange below `yellow`, yellow below green ((yellow + grey) / 2), green below `grey`, grey from
--- there. Crafts expected (Engine's craftsFrom, the skill-up chance) from the stretch's start; made = the casts
--- counted since (UNIT_SPELLCAST_SUCCEEDED of the recipe, per character), at least what the skill gained takes.
+-- there. Crafts left (Engine's craftsFrom, the skill-up chance) from the skill now to the move-on, whatever made
+-- the points so far; made = the casts of the recipe counted (UNIT_SPELLCAST_SUCCEEDED, per character), never a
+-- guess from the skill (points since the stretch's start may come from other recipes or trainers).
 --
 -- Engine.FarmMinutes(item): the minutes farming what is still needed takes, for Materials.Way's "long" (Mix buys
 -- past Materials.LONG): what the stretch still needs of it, else what its gather goal still needs.
@@ -630,18 +631,19 @@ M.stretch = function(view, kind)
 	local st = KC.Stretch(view and view.index, ranksOf(list))
 	if not st then return nil end
 	local own = skillOf(list, st.goal.skillLine)
-	local rank = own.rank
-	if not rank then return nil end
+	-- A skill not learned yet stands at 0: the card shows the recipe it starts on ("Learn Leatherworking first").
+	local learned = own.rank ~= nil
+	local rank = own.rank or 0
 	local a = access()
 	local G = a.guide()
 	local goal = st.goal
 	local colour, green = KC.Colour(goal, rank)
-	colour = KC.WindowColour(goal) or colour
+	colour = learned and (KC.WindowColour(goal) or colour) or nil
 	local expected = goal.yellow and a.craftsFrom(goal, st.from, st.from) or nil
-	local left = goal.yellow and a.craftsFrom(goal, st.from, max(rank, st.from)) or nil
-	local made = expected and left and max(0, floor(expected - left + 0.5)) or 0
+	local left = goal.yellow and ceil(a.craftsFrom(goal, st.from, max(rank, st.from)) - 0.001) or nil
+	local made = 0
 	local rec = madeState()[madeKey(G, goal)]
-	if type(rec) == "table" and type(rec.n) == "number" then made = max(made, rec.n) end
+	if type(rec) == "table" and type(rec.n) == "number" then made = rec.n end
 	local canMake
 	local reagents = {}
 	for _, r in ipairs(goal.reagents or {}) do
@@ -662,9 +664,9 @@ M.stretch = function(view, kind)
 	-- A paired guide's step says its cycle in its tip: the card says it, and the tip keeps the rest.
 	local parts = tipOf(list, view, st)
 	return { item = goal.item, recipe = goal.spell, name = craftName(goal), quality = goal.item and quality(goal.item), colour = colour,
-		yellow = goal.yellow, green = green, grey = goal.grey, reagents = reagents, made = made,
-		expected = expected and max(made, floor(expected + 0.5)) or nil, moveOn = goal.untilSkill, from = st.from, rank = rank,
-		canMake = canMake or 0, makeFirst = makeFirst, spell = KC.SkillName(own.b.line), step = st.s, covers = covers,
+		yellow = goal.yellow, green = green, grey = goal.grey, reagents = reagents, made = made, left = left,
+		expected = expected and floor(expected + 0.5) or nil, moveOn = goal.untilSkill, from = st.from, rank = rank, learned = learned,
+		canMake = learned and canMake or 0, makeFirst = learned and makeFirst or nil, spell = KC.SkillName(own.b.line), step = st.s, covers = covers,
 		flow = parts and parts.flow or nil, note = parts and parts.rest or nil }
 end
 
@@ -673,8 +675,8 @@ local function professionSupplies(view)
 	if #list == 0 then return nil end
 	local ranks = ranksOf(list)
 	local st = KC.Stretch(view and view.index, ranks)
-	local rank = skillOf(list, st and st.goal.skillLine).rank
-	if not rank then return nil end
+	-- A skill not learned yet stands at 0.
+	local rank = skillOf(list, st and st.goal.skillLine).rank or 0
 	local a = access()
 	local G = a.guide()
 	local needs = st and KC.StretchNeeds(st, rank) or {}
@@ -698,9 +700,15 @@ local function professionSupplies(view)
 	for gi, gv in ipairs(view and view.goals or {}) do
 		if (gv.t == "collect" or gv.t == "auction" or gv.t == "buy") and seen[gv.item] then covers[#covers + 1] = gi end
 	end
+	-- The Buy | Farm | Mix switch is offered only while a material still to get has a real choice (farmed and bought):
+	-- with the rest held, vendor-only or made, every way gives the same list.
+	local choosable = false
+	for _, r in ipairs(rows) do
+		if r.choosable and r.toGet > 0 then choosable = true break end
+	end
 	local parts = tipOf(list, view, st)
 	return { title = st and st.goal.untilSkill, titleKind = "skill", way = mode == "gather" and "gather" or mode, rows = rows, focus = focus,
-		buyList = buyListOf(rows), selfFound = Materials.SelfFound(), choosable = Materials.Choosable(G), covers = covers,
+		buyList = buyListOf(rows), selfFound = Materials.SelfFound(), choosable = choosable, covers = covers,
 		from = parts and parts.from or nil }
 end
 

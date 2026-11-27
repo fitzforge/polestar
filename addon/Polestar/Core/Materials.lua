@@ -26,8 +26,9 @@
 --
 -- Reasons: "selfFound" (a Self-Found character has no Auction House), "noBuy" (nothing buys it in this guide),
 -- "noGather" (nothing gathers it in this guide), "picked" (the player's pick), "mode" (the guide's way), "skill"
--- (the profession or rank its gather way takes is missing), "low" (its mobs more than Materials.LOW levels above
--- the character), "past" (looted while levelling, cloth or meat, and the character Materials.PAST levels beyond
+-- (the profession or rank its gather way takes is missing, and the guide's earlier steps do not train or raise it),
+-- "low" (its mobs more than Materials.LOW levels above the character), "past" (looted while levelling, cloth or
+-- meat, and the character Materials.PAST levels beyond
 -- its mobs), "mix" (Mix gathers it), "long" (Mix buys it: farming what is still needed takes over Materials.LONG
 -- minutes).
 --
@@ -109,6 +110,28 @@ local function wayOf(goal)
 	return nil
 end
 
+-- Gather goals whose profession and rank the guide's own earlier steps reach (`train <profession>` from rank 1,
+-- `skill <profession> N` to N): the character has it by then, so Materials.CanGather does not ask for it yet.
+-- Set by Materials.Index; weak, goals go with their steps.
+local reachedByGuide = setmetatable({}, { __mode = "k" })
+
+-- What the steps walked so far bring: known[skill line | lowercase profession name] = the highest rank reached.
+local function raise(known, g)
+	local rank = (g.t == "train" and 1) or (g.t == "skill" and type(g.level) == "number" and g.level) or nil
+	if not rank then return end
+	local keys = { g.skillLine or false, type(g.skill) == "string" and g.skill:lower() or false }
+	-- A `skill` goal raises a profession the guide trained before it; alone it brings nothing.
+	if g.t == "skill" and not ((keys[1] and known[keys[1]]) or (keys[2] and known[keys[2]])) then return end
+	for _, key in ipairs(keys) do
+		if key and (known[key] or 0) < rank then known[key] = rank end
+	end
+end
+
+local function reaches(known, w)
+	local have = max(w.skillLine and known[w.skillLine] or 0, type(w.skill) == "string" and known[w.skill:lower()] or 0)
+	return have >= (w.rank or 1)
+end
+
 -- Per guide's steps (weak: steps a guide releases take theirs along): item -> { gather = { { goal, step } },
 -- auction = { ... } }, the steps walked once. Built for the guides whose ways are asked (the running ones and the
 -- windows'); Materials.Tracked takes only the items (itemSets) of the others.
@@ -120,10 +143,13 @@ function Materials.Index(guide)
 	local ix = indexes[steps]
 	if ix then return ix end
 	ix = {}
+	local known = {}
 	for _, step in ipairs(steps) do
 		for _, goal in ipairs(step.goals) do
 			local way = wayOf(goal)
 			if way then
+				local w = way == "gather" and type(goal.gather) == "table" and goal.gather or nil
+				if w and (w.skillLine or w.skill) and reaches(known, w) then reachedByGuide[goal] = true end
 				local e = ix[goal.item]
 				if not e then
 					e = { gather = {}, auction = {} }
@@ -133,6 +159,8 @@ function Materials.Index(guide)
 				list[#list + 1] = { goal = goal, step = step }
 			end
 		end
+		-- What a step trains or raises counts from the step after it.
+		for _, goal in ipairs(step.goals) do raise(known, goal) end
 	end
 	indexes[steps], itemSets[steps] = ix, nil
 	return ix
@@ -168,11 +196,13 @@ function Materials.SelfFound()
 	return ok and Compat.Readable(v) == true
 end
 
--- Whether the character can take gather goal g's way now; else false and why ("skill" | "low" | "past").
+-- Whether the character can take gather goal g's way now; else false and why ("skill" | "low" | "past"). A
+-- profession and rank the guide itself trains or raises in an earlier step (Materials.Index walked its steps)
+-- count as there: the character has them by the time the guide gets to g.
 function Materials.CanGather(g, player)
 	local w = type(g.gather) == "table" and g.gather or nil
 	if not w then return true end
-	if (w.skillLine or w.skill) and Compat.GetSkillRank and Compat.Supports("skill") then
+	if (w.skillLine or w.skill) and not reachedByGuide[g] and Compat.GetSkillRank and Compat.Supports("skill") then
 		local rank = Compat.GetSkillRank(w.skillLine or w.skill)
 		if (rank or 0) < (w.rank or 1) then return false, "skill" end
 	end

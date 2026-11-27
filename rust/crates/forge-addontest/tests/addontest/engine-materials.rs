@@ -535,3 +535,58 @@ fn in_gamepad_mode_a_search_is_only_the_game_s_browse_query_by_name_3700() {
 	assert_eq!(out["selected"], json!(0), "the window's buy view is not driven");
 	assert_eq!(out["quantities"], json!(0), "no count filled in");
 }
+
+// A gather way whose profession (and rank) the guide itself trains or raises in an earlier step is one the character
+// will have when the guide gets there: a guide shown ahead of its own train step (Fitz's try6, Skinning +
+// Leatherworking: the window said "Buy Ruined Leather Scraps 0/57" at step 1, before Skinning was trained) gathers in
+// every mode. A guide that never trains it keeps "skill".
+#[test]
+fn a_gather_way_the_guide_trains_in_an_earlier_step_is_available_before_that_step_in_every_mode() {
+	let out = run(
+		CORE,
+		"",
+		r#"
+		local ah = { { npc = 8719, npcName = "Auctioneer Fitch", map = 1453, x = 61.2, y = 70.6, faction = "A" } }
+		local function auction(item, name, count) return { t = "auction", item = item, itemName = name, count = count, candidates = ah } end
+		local function gather(item, name, count, rank)
+			return { t = "collect", item = item, itemName = name, count = count, gather = { skill = "Skinning", skillLine = 393, rank = rank } }
+		end
+		local trains = { title = "Learn Skinning", goals = { { t = "train", skill = "Skinning", skillLine = 393, rank = 1, rankMax = 75 } } }
+		local steps = function(first) return {
+			first,
+			{ title = "Auction House", goals = { auction(2934, "Ruined Leather Scraps", 57), auction(2318, "Light Leather", 34), auction(2319, "Medium Leather", 20) } },
+			{ title = "Scraps", goals = { gather(2934, "Ruined Leather Scraps", 57, 1) } },
+			{ title = "Skinning 50", goals = { { t = "skill", skill = "Skinning", skillLine = 393, level = 50 } } },
+			{ title = "Light Leather", goals = { gather(2318, "Light Leather", 34, 50) } },
+			{ title = "Medium Leather", goals = { gather(2319, "Medium Leather", 20, 100) } },
+		} end
+		Polestar.RegisterGuide({ id = "test/skinner", pack = "test", title = "Skinning", category = "Professions", minLevel = 1, maxLevel = 60,
+			steps = steps(trains) })
+		Polestar.RegisterGuide({ id = "test/untrained", pack = "test", title = "Tailoring", category = "Professions", minLevel = 1, maxLevel = 60,
+			steps = steps({ title = "Learn Tailoring", goals = { { t = "train", skill = "Tailoring", skillLine = 197, rank = 1, rankMax = 75 } } }) })
+		local P = Polestar.Compat.GetPlayerInfo()
+		local function ways(id, mode)
+			M.SetMode(id, mode)
+			local g = Polestar.Guides.Get(id)
+			local out = {}
+			for _, item in ipairs({ 2934, 2318, 2319 }) do out[#out + 1] = table.concat({ M.Way(g, item, P) }, "/") end
+			return out
+		end
+		r.gather, r.mix, r.buy = ways("test/skinner", "gather"), ways("test/skinner", "mix"), ways("test/skinner", "buy")
+		r.untrained = { gather = ways("test/untrained", "gather"), mix = ways("test/untrained", "mix") }
+		E.SetGuide("test/skinner"); flush()
+		M.SetMode("test/skinner", "gather"); flush()
+		r.window = { at = E.GetLiveStep() or false, why = E.GetStepView(2).why or false }
+		w.learnSkill(393, "Skinning", 1, 75); flush()
+		r.learned = ways("test/skinner", "gather")
+		"#,
+	);
+	// Rank 1 (trained at step 1) and rank 50 (Skinning 50 reached at step 4) are the guide's own; rank 100 is not.
+	assert_eq!(out["gather"], json!(["gather/mode", "gather/mode", "buy/skill"]), "Gather all: only what the guide does not bring is bought");
+	assert_eq!(out["mix"], json!(["gather/mix", "gather/mix", "buy/skill"]));
+	assert_eq!(out["buy"], json!(["buy/mode", "buy/mode", "buy/mode"]));
+	assert_eq!(out["untrained"]["gather"], json!(["buy/skill", "buy/skill", "buy/skill"]), "a guide that never trains Skinning: missing as before");
+	assert_eq!(out["untrained"]["mix"], json!(["buy/skill", "buy/skill", "buy/skill"]));
+	assert_eq!(out["window"]["at"], json!(1), "the guide starts at its train step, not at the Auction House");
+	assert_eq!(out["learned"], json!(["gather/mode", "gather/mode", "buy/skill"]));
+}

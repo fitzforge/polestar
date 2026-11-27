@@ -566,7 +566,7 @@
 -- Machine-translated, to be reviewed (the profession and reputation guides' window, 26 Nov 2026): translated by an
 -- AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
 -- keep or fix its line below, and take its key off this list.
---   %d / %s  \194\183  to %d
+--   %d to go  \194\183  to %d
 --   %d made
 --   %d ready
 --   %d to go
@@ -576,7 +576,8 @@
 --   %s at %d
 --   %s each
 --   %s for %s
---   %s of about %d made
+--   about %d to go
+--   Learn %s first
 --   %s reached
 --   %s to %d
 --   %s to %d, then %s to %d
@@ -5911,7 +5912,7 @@ L["Leave out of Free mode"] = "從自由模式中排除"
 L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "自由模式不再列出此任務。選單中的「恢復被排除的任務」會重新列出它。"
 
 -- UI/GuideFrameKindCraft.lua
-L["%d / %s  \194\183  to %d"] = "%d / %s  \194\183  至 %d"
+L["%d to go  \194\183  to %d"] = "還差 %d  \194\183  至 %d"
 L["%d made"] = "已製作 %d"
 L["%d ready"] = "%d 份就緒"
 L["%d to go"] = "還差 %d"
@@ -5921,7 +5922,8 @@ L["%s a turn-in"] = "每次上繳 %s"
 L["%s at %d"] = "%s（%d 起）"
 L["%s each"] = "每個 %s"
 L["%s for %s"] = "%s（%s）"
-L["%s of about %d made"] = "%s / 約 %d 已製作"
+L["about %d to go"] = "還差約 %d"
+L["Learn %s first"] = "先學習%s"
 L["%s reached"] = "已達到%s"
 L["%s to %d"] = "%s 至 %d"
 L["%s to %d, then %s to %d"] = "%s 至 %d，然後 %s 至 %d"

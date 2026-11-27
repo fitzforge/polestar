@@ -877,7 +877,10 @@ else in it does):
   collects is always gathered.
 - Otherwise the player's pick for the item wins, then the guide's way: Buy
   buys, Gather gathers (an item whose `gather` takes a profession the
-  character lacks, or a lower rank, is bought), and Mix, the default, gathers
+  character lacks, or a lower rank, is bought, unless the guide itself
+  trains that profession, or raises it to that rank with a `skill` goal, in a
+  step before the `collect`: the character has it by then, so a step shown
+  ahead of its `train` step already gathers), and Mix, the default, gathers
   what the character can (the profession and rank `gather` names; the levels:
   from 2 below `min`, and for a bag count with no place, cloth looted while
   levelling, up to 5 past `max`) and buys the rest, and buys too what would

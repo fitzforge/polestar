@@ -9681,8 +9681,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
              | { kind = "skill", pair = { meter, meter }, covers }   -- a paired guide: its gathering skill's, then its crafting one's
   trainer  = { title, level, npc, map, due, toGo }
   stretch  = { item, recipe, name, quality, colour = "orange"|"yellow"|"green"|"grey", yellow, green, grey,
-               reagents = { { item, count } }, made, expected, moveOn, canMake, spell,
+               reagents = { { item, count } }, made, left, expected, moveOn, canMake, spell,
                flow, note }                                          -- a paired guide: the flow line, the tip left
+               -- made: the recipe's casts counted (never guessed from the skill); left: the crafts the skill still takes
   supplies = { title, from, way = "mix"|"buy"|"gather", rows = { { item, name, quality, have, need,
                parts = { bags, bank, mail, coming, made }, way = "buy"|"gather"|"vendor"|"make", choosable,
                reason, split = { buy = { count, copper, each, age, source } | false,
