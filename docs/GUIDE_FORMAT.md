@@ -1223,10 +1223,14 @@ gets the floor players stand on there, from their recordings
 (`data/npc-floors.json`, `nav city npc-floors`: 3+ people, 70% of them on one
 level). A goal gets the z of the entity's nearest spawn on the goal's
 instance map (its world point's, in the goal's frame), when that spawn is
-within 15 yards of the point. Nothing is guessed: an NPC no source places
-there gets none, and without `spawnz.json` no
-goal gets one. These goals can get one, their point being the NPC's or
-object's (its spawn, or your `@x,y` at it):
+within 15 yards of the point. An NPC met to talk to (any of the verbs below but
+`kill`) with one spawn with a height on the map is that one creature, and the
+data's other points for it are where it walks: those within 100 yards of that
+spawn take its height (Harbinger Balthazad's points round the Undercity's Trade
+Quarter, up to 84 yards from his one spawn with a height, #4363). Nothing else
+is guessed: an NPC no source places there gets none, and without
+`spawnz.json` no goal gets one. These goals can get one, their point being the
+NPC's or object's (its spawn, or your `@x,y` at it):
 
 - `accept` and `turnin` at their NPC or object (not a quest from an item);
 - `talk`, `kill` (the spawn nearest the previous goal; a point at the centre
@@ -1260,7 +1264,9 @@ object's (its spawn, or your `@x,y` at it):
 
 The same rule gives a height, each from its own point, to the other spawn
 places of such a goal (`spots`: a place within 15 yards of one of its spawns;
-the centre of a camp farther from each gets none) and to every candidate of a
+the centre of a camp farther from each, the nearest of its spawns within the
+camp's own radius: the Incendosaurs' camps in the tunnels under Searing Gorge
+lie 19 to 26 yards from their nearest spawn, #4352) and to every candidate of a
 smart target (`nearest`, class and profession trainers, by the candidate's
 own NPC), so the walk to the place or NPC the arrow picks ends on its floor
 too. Any other `goto`, `explore` (places), `collect … nearest`'s farm spots

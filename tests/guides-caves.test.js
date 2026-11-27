@@ -166,6 +166,35 @@ for (const c of FLOORS) {
 	});
 }
 
+// Goals whose spawn spots lie off their spawns: each spot carries its floor's height (heights.js spotHeight), so the
+// walk to the spot the arrow picks ends there, not on the ground above.
+const SPOTS = [
+	{
+		// gidi_ (#4352): the Incendosaurs' camps are in the tunnels under Searing Gorge, their centres 19 to 26 yd from
+		// the nearest spawn: each takes the nearest within its own radius.
+		guide: 'forever/horde/40-50/04-tanaris.guide',
+		target: (g) => g.t === 'kill' && g.npc === 9318,
+		z: [136.1, 151.4, 166.3, 168.1],
+	},
+	{
+		// gidi_ (#4363): Harbinger Balthazad walks round the Undercity's Trade Quarter; his points take his one spawn's
+		// height, not the ruins' above.
+		guide: 'forever/horde/50-60/01-un-goro-crater.guide',
+		target: (g) => g.t === 'accept' && g.npc === 10879,
+		z: [-57.1, -57.1, -57.1],
+		point: -57.1,
+	},
+];
+
+for (const c of SPOTS) {
+	test(`${c.guide}: every spawn spot of the goal carries its floor's height (${c.z.join(', ')})`, { skip }, () => {
+		const goal = compiled(c.guide).steps.flatMap((step) => step.goals).find(c.target);
+		assert.ok(goal, 'the target goal is in the guide');
+		assert.deepEqual((goal.spots || []).map((s) => s.z), c.z, JSON.stringify(goal.spots));
+		if (c.point !== undefined) assert.equal(goal.z, c.point, JSON.stringify(goal));
+	});
+}
+
 // Redrett (#1782) had the Rod of Helcular used at the Flames of Azel and Veraz, in the Foothill Caverns under Darrow
 // Hill, with each flame's floor height. Since the 0.4.0 level tidy Helcular's Revenge part 2 (553) is left out of the
 // Horde route (#1925: its last flame stands among yetis 32-34 and its end inside Southshore), so no goal there needs
