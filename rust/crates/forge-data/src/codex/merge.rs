@@ -2646,7 +2646,9 @@ impl OrObj for V {
 #[cfg(test)]
 mod tests {
 	use super::*;
+	use crate::codex::client::{client_facts, Tables};
 	use crate::codex::Forever;
+	use crate::tables::parse_csv;
 	use forge_guide::js::parse_json;
 
 	fn inputs(quests: &str, mechanics: &str) -> Inputs {
@@ -2687,6 +2689,38 @@ mod tests {
 			mechanics_public: V::Null,
 			warnings: Vec::new(),
 		}
+	}
+
+	#[test]
+	fn companion_pet_without_a_spell_is_a_pet() {
+		let mut tables = Tables::default();
+		tables.insert("Item", parse_csv("ID,ClassID,SubclassID,InventoryType\n1,15,2,0\n2,15,2,0\n3,15,2,0\n").unwrap());
+		tables.insert("ItemSparse", parse_csv("ID,Display_lang\n1,Companion Pet\n3,Companion With Use Spell\n").unwrap());
+		tables.insert("ItemEffect", parse_csv("ID,ParentItemID,SpellID,TriggerType\n1,3,42,0\n2,2,43,6\n").unwrap());
+		let mut i = inputs("{}", "{}");
+		i.client = Some(client_facts(&tables, "fixture"));
+		i.forever.items = parse_json(r#"{ "2": { "name": "Companion Without Sparse Data" } }"#).unwrap();
+
+		let items = merge_codex(&i).items;
+		for id in ["1", "2", "3"] {
+			let item = items.get(id);
+			assert_eq!(item.get("kind").as_str(), Some("pet"), "item {id}");
+			assert!(matches!(item.get("spell"), V::Null), "item {id}");
+		}
+	}
+
+	#[test]
+	fn companion_pet_with_a_learn_spell_keeps_it() {
+		let mut tables = Tables::default();
+		tables.insert("Item", parse_csv("ID,ClassID,SubclassID,InventoryType\n1,15,2,0\n").unwrap());
+		tables.insert("ItemSparse", parse_csv("ID,Display_lang\n1,Companion With Learn Spell\n").unwrap());
+		tables.insert("ItemEffect", parse_csv("ID,ParentItemID,SpellID,TriggerType\n1,1,44,6\n2,1,45,0\n").unwrap());
+		let mut i = inputs("{}", "{}");
+		i.client = Some(client_facts(&tables, "fixture"));
+
+		let item = merge_codex(&i).items.get("1");
+		assert_eq!(item.get("kind").as_str(), Some("pet"));
+		assert!(item.get("spell").strict_eq(&V::Num(44.0)), "spell: {:?}", item.get("spell"));
 	}
 
 	#[test]
