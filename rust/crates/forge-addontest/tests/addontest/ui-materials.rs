@@ -252,3 +252,49 @@ fn the_headings_keep_their_capitals_in_the_clients_language() {
 	assert_eq!(out["heads"], json!(["ПОРТНЯЖНОЕ ДЕЛО 1-75  \u{b7}  your skill 1", "ПОРТНЯЖНОЕ ДЕЛО 75-150  \u{b7}  your skill 1"]));
 	assert_eq!(out["auction"], "MATERIALS FOR COUTURE, PREMIÈRE ÉTAPE 1-150");
 }
+
+// An item's tooltip under "Used in guides:" (QoL/Keep.lua) gives what the character holds of what each range ahead
+// needs, the numbers the Materials window shows for the same item: Linen Cloth is needed in both ranges, the 50 in
+// the bags go to the first range's 40 first, so the window has nothing left to get there and 10 held of 20 in the
+// second. Wool Cloth, none held, reads 0 / 50; an item the profession guides don't track gets no counts.
+#[test]
+fn a_materials_tooltip_counts_what_the_materials_window_counts() {
+	let guide = GUIDE.replace(
+		r#"{ title = "Auction House", section = 2, goals = { { t = "auction", item = 2592"#,
+		r#"{ title = "Linen Cloth", section = 2, goals = { { t = "auction", item = 2589, itemName = "Linen Cloth", count = 20, candidates = auctioneer },
+			{ t = "collect", item = 2589, itemName = "Linen Cloth", count = 20, gather = { min = 5, max = 15 } } } },
+		{ title = "Auction House", section = 2, goals = { { t = "auction", item = 2592"#,
+	);
+	let out = run_in(
+		WORLD,
+		&guide,
+		r#"
+		local QoL = Polestar.QoL
+		w.addItem(2589, 50); stub.advance(1)
+		MA.Show(); stub.advance(0.5)
+		-- The window's Linen Cloth rows, in range order: their second line and what is still to get.
+		r.window = {}
+		for _, row in ipairs(rows()) do
+			if row[1] == "Linen Cloth" then
+				r.window[#r.window + 1] = { row[2], tonumber(row[2]:match("^(%d+) still to get")) or 0 }
+			end
+		end
+		r.counts = QoL.MaterialCounts(2589)
+		local block = QoL.KeptLines(2589)
+		r.lines = {}
+		for i, l in ipairs(block.lines) do r.lines[i] = l[1] end
+		r.wool = QoL.MaterialCounts(2592)
+		r.untracked = QoL.MaterialCounts(4306) or false
+		"#,
+	);
+	assert_eq!(out["counts"], json!([[40, 40, "Tailoring 1-75"], [10, 20, "Tailoring 75-150"]]));
+	assert_eq!(out["lines"][1], "  40 / 40 for Tailoring 1-75");
+	assert_eq!(out["lines"][2], "  10 / 20 for Tailoring 75-150");
+	assert!(out["lines"][0].as_str().unwrap().starts_with("1-60 Tailoring 1-150"), "{}", out["lines"]);
+	// The window: nothing left to get in the first range (40 of 40 held), 10 still to get and 10 held of 20 in the second.
+	assert_eq!(out["window"][0][1], 0);
+	assert!(out["window"][0][0].as_str().unwrap().starts_with("You have them all"), "{}", out["window"]);
+	assert!(out["window"][1][0].as_str().unwrap().starts_with("10 still to get  \u{b7}  10 held"), "{}", out["window"]);
+	assert_eq!(out["wool"], json!([[0, 50, "Tailoring 75-150"]]));
+	assert_eq!(out["untracked"], json!(false));
+}

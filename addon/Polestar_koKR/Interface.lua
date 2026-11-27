@@ -569,6 +569,7 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+--   %s / %s for %s
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "koKR") then return end
@@ -4128,6 +4129,7 @@ L["Used in guides:"] = "사용되는 가이드:"
 L["Don't sell, used in guides:"] = "판매 금지, 사용되는 가이드:"
 L["%s: step %d (%s)"] = "%s: %d단계 (%s)"
 L["%s: step %d"] = "%s: %d단계"
+L["%s / %s for %s"] = "%3$s: %1$s / %2$s"
 L["Keep %s: a later step of the guide needs it."] = "%s을(를) 보관하십시오: 가이드의 이후 단계에 필요합니다."
 L["Keep %s: later steps of the guide need them."] = "%s을(를) 보관하십시오: 가이드의 이후 단계들에 필요합니다."
 
