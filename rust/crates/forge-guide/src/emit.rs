@@ -638,7 +638,8 @@ enum Steps {
 	/// In the guide's table.
 	Inline,
 	/// Deferred: one source string (`stepsSrc`, `return { ... }`, run on first read) with
-	/// `stepCount`; the guide registers for every character (a side shelf of our pack).
+	/// `stepCount`; the guide registers for every character (a side shelf of our pack, or any guide
+	/// of a pack that loads on demand).
 	Shelf,
 	/// Deferred, and the guide registers only for a character of one of its classes
 	/// (Polestar.PartWants): a race part's guide.
@@ -866,6 +867,13 @@ pub fn emit_guides_with(entries: &[V], deferred: bool, packed: bool) -> String {
 /// steps of every side-shelf guide (crate::project::shelf) deferred, read in when the guide is opened.
 pub fn emit_own_guides(entries: &[V]) -> String {
 	emit_sorted(entries, |g| if crate::project::shelf(g) { Steps::Shelf } else { Steps::Inline }, true)
+}
+
+/// Guides.lua of a community pack that loads on demand (pack.json `load`) and of its faction parts: as
+/// our pack's (emit_own_guides), with every guide's steps deferred, read in when the guide is opened and
+/// given back (Guides.Release) when no tab shows it.
+pub fn emit_on_demand_guides(entries: &[V]) -> String {
+	emit_sorted(entries, |_| Steps::Shelf, true)
 }
 
 fn emit_sorted(entries: &[V], steps: impl Fn(&V) -> Steps, packed: bool) -> String {
