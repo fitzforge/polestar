@@ -216,7 +216,10 @@ test('every gathering step leads with its count and what it is for', { skip }, (
 
 test('Tailoring + Enchanting counts what disenchanting its own crafts gives, per bracket', { skip }, () => {
 	const t = read('tailoring-enchanting');
-	const de = steps(t).filter((s) => (s.lines.find((l) => /^tip /.test(l)) || '').startsWith('tip Disenchant the green armour you made for Tailoring'));
-	assert.ok(de.length >= 3, `${de.length} brackets disenchant Tailoring's greens`);
-	assert.match(t, /Disenchanting your Tailoring crafts of this bracket gives about \d+ of them/);
+	const counted = new Set([...t.matchAll(/Your Tailoring greens of (\d+-\d+) give about \d+ when disenchanted\./g)].map((m) => m[1]));
+	assert.ok(counted.size >= 3, `${counted.size} brackets count Tailoring's greens`);
+	// One trip: Learn Enchanting straight after Learn Tailoring; Journeyman Enchanting straight after Journeyman Tailoring.
+	const titles = steps(t).map((s) => s.title);
+	assert.equal(titles[titles.indexOf('Learn Tailoring') + 1], 'Learn Enchanting');
+	assert.equal(titles[titles.indexOf('Train Journeyman Tailoring') + 1], 'Train Journeyman Enchanting');
 });

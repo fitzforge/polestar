@@ -19,7 +19,7 @@ const skip = !fs.existsSync(path.join(DATA, 'professions.json')) && 'needs data/
 const { loadRoute, checkRoute, TIP_MAX, IMPERATIVE } = require('../tools/lib/professions/route');
 
 // The guides a route builds: the crafting guide and the paired guide on top of it.
-const ROUTED = ['blacksmithing', 'mining-blacksmithing', 'enchanting', 'engineering', 'mining-engineering', 'first-aid', 'cooking'];
+const ROUTED = ['blacksmithing', 'mining-blacksmithing', 'alchemy', 'herbalism-alchemy', 'tailoring', 'leatherworking', 'skinning-leatherworking', 'tailoring-enchanting', 'enchanting', 'engineering', 'mining-engineering', 'first-aid', 'cooking'];
 const slugOf = (name) => String(name).toLowerCase().replace(/[^a-z0-9]+/g, '-');
 // The profession a routed guide levels by its route: the crafting one of a pair (its file name ends with it).
 const profOf = (d, name) => Object.values(d.professions).find((p) => p && p.recipes && name.endsWith(slugOf(p.name)) && (p.kind !== 'secondary' || name === slugOf(p.name)));

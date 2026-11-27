@@ -297,7 +297,7 @@ function routeGuide(name, data, opts = {}) {
 			const l = itemLoops(data, item);
 			return l && { ...l, prof: 'Mining' };
 		}
-		if (/(Leather|Hide|Scale)$/.test(name)) {
+		if (/(Leather|Hide|Scale|Leather Scraps)$/.test(name)) {
 			const l = itemLoops(data, item);
 			return l && { ...l, prof: 'Skinning' };
 		}
@@ -443,23 +443,26 @@ function routeGuide(name, data, opts = {}) {
 			step('learn', `Learn ${r.name}`, { tip: `From the ${itemKind(r.recipeItem)} in your bags.`, lines });
 			return;
 		}
-		const ids = [...new Set(SIDES.flatMap((s) => sec.teachers[s] || []))];
-		const lines = [`  learn ${r.spell} npc ${ids.join(',')}`];
+		const lines = [`  learn ${r.spell} npc ${teacherIds(sec).join(',')}`];
 		taughtAt.set(r.spell, { sec: sectionNo(), skill: band.make ? skill : band.from, lines });
 		step('learn', `Learn ${r.name}`, { lines });
-		// On the same visit, every recipe a later band of this rank uses that the skill already allows.
+		learnAhead(sec, band, band.make ? skill : band.from, false);
+	};
+	const teacherIds = (sec) => [...new Set(SIDES.flatMap((s) => sec.teachers[s] || []))];
+	// On a trainer visit at skill `now`: every recipe a band of this rank from `band` on (after it, unless `self`)
+	// uses that the skill already allows, so no recipe takes a second trip the first could have taught.
+	const learnAhead = (sec, band, now, self) => {
 		const list = secBands.get(sec);
 		const i = list.indexOf(band);
 		if (curWay || i < 0) return;
-		const now = band.make ? skill : band.from;
-		for (const b of list.slice(i + 1)) {
+		for (const b of list.slice(self ? i : i + 1)) {
 			const x = recipes.get(b.recipe || b.make);
 			if (!x || learned.has(x.spell) || (x.recipeItem && !taught(x)) || Number(x.learnedAt) > now) continue;
 			learned.add(x.spell);
 			const use = b.make ? `For the ${D.crafts(b.count, x.name)} later` : `For ${b.from}-${b.to}`;
-			const xl = [`  learn ${x.spell} npc ${ids.join(',')}`];
+			const xl = [`  learn ${x.spell} npc ${teacherIds(sec).join(',')}`];
 			taughtAt.set(x.spell, { sec: sectionNo(), skill: now, lines: xl });
-			step('learn', `Learn ${x.name}`, { tip: `${use}: taught here now, so no second trip.`, lines: xl });
+			step('learn', `Learn ${x.name}`, { tip: b === band ? null : `${use}: taught here now, so no second trip.`, lines: xl });
 		}
 	};
 	const craftStep = (band, sec) => {
@@ -473,7 +476,8 @@ function routeGuide(name, data, opts = {}) {
 			lastFocus = r.focus;
 		}
 		for (const [k, n] of Object.entries(band.mats)) {
-			if (madeHere(prof, Number(k), route) === undefined) continue;
+			// Every crafted item the band uses comes off the bags' stock (a material also got: what is there).
+			if (madeHere(prof, Number(k)) === undefined) continue;
 			const have = stock.get(Number(k)) || 0;
 			// A part that is also got (Light Leather: crafted for points, then gathered or bought): the bags'
 			// crafts first, the get the rest.
@@ -606,9 +610,10 @@ function routeGuide(name, data, opts = {}) {
 		out.push('', `section ${pq} ${from}-${to}`);
 		blocks.push({ kind: 'section', from, to, lines: [`section ${pq} ${from}-${to}`] });
 	};
-	const trainStep = (sec) => {
+	const trainStep = (sec, first = null) => {
+		const ahead = () => first && learnAhead(sec, first, first.make ? skill : first.from, true);
 		if (sec.rank === 'Apprentice') {
-			step('train', `Learn ${P}`, { tip: 'No character level needed.', lines: [`  train ${pq} Apprentice`] });
+			step('train', `Learn ${P}`, { tip: 'No character level needed.', lines: [`  train ${P} Apprentice`] });
 			// The recipes the rank teaches with it (Rough Sharpening Stone: learned at 1, free).
 			for (const r of recipes.values()) if (r.source === 'trainer' && Number(r.learnedAt) <= 1 && !r.cost) learned.add(r.spell);
 			for (const t of route.tools || []) {
@@ -630,7 +635,7 @@ function routeGuide(name, data, opts = {}) {
 			}
 			const needs = sec.level > level ? `Needs level ${sec.level} to read.` : null;
 			sellerSteps('buy', sec.by.book, sec.by.vendors, { tip: needs });
-			step('train', `Read ${itemName(sec.by.book)}`, { tip: `It teaches ${sec.rank} ${P} from your bags.`, lines: [`  train ${pq} ${sec.rank}`] });
+			step('train', `Read ${itemName(sec.by.book)}`, { tip: `It teaches ${sec.rank} ${P} from your bags.`, lines: [`  train ${P} ${sec.rank}`] });
 			const seller = new Set(SIDES.flatMap((s) => sec.by.vendors[s] || []));
 			for (const b of list) {
 				const x = recipes.get(b.recipe || b.make);
@@ -664,6 +669,13 @@ function routeGuide(name, data, opts = {}) {
 				step('quest', `Hand in ${quest.title}`, { only, tip: `It teaches ${sec.rank} ${P}.`, lines: [`  turnin ${q}`] });
 			};
 			const same = ids[0] === ids[1];
+			// The quests' level, reached before the first of them is taken (the window asks it once).
+			const chain = ids.flatMap((q) => [q, ...feeder(q, 'Alliance'), ...feeder(q, 'Horde')]);
+			const need = Math.max(sec.level, ...chain.map((q) => quests[q].minLevel || 0));
+			if (need > level) {
+				step('level', `Reach level ${need}`, { tip: `${quests[ids[0]].title} asks for level ${need}.`, lines: [`  level ${need}`] });
+				level = need;
+			}
 			for (const [i, side] of SIDES.entries()) {
 				const only = same && !feeder(ids[0], 'Alliance').length && !feeder(ids[0], 'Horde').length ? null : side;
 				for (const p of feeder(ids[i], side)) {
@@ -693,10 +705,12 @@ function routeGuide(name, data, opts = {}) {
 				const door = (inst.entrances || []).slice().sort((a, b) => b.n - a.n)[0];
 				if (!door) throw new Error(`${P}: ${sec.rank}: no entrance of ${where} in instances.json`);
 				step('goto', `Go to ${where}`, { tip: `${needs}${npc.name}, the only ${sec.rank} trainer, is inside this dungeon.`, lines: [`  goto ${door.x},${door.y} "${where}" map ${door.map}`] });
-				step('train', `Train ${sec.rank} ${P} · ${npc.name}`, { tip: sec.dungeonTip || `${where} is a dungeon: grouping up is advised.`, lines: [`  train ${pq} ${sec.rank}`] });
+				step('train', `Train ${sec.rank} ${P} · ${npc.name}`, { tip: sec.dungeonTip || `${where} is a dungeon: grouping up is advised.`, lines: [`  train ${inside[0]}`] });
+				ahead();
 			}
 		} else {
-			step('train', `Train ${sec.rank} ${P}`, { tip: sec.level > level ? `Needs level ${sec.level}.` : null, lines: [`  train ${pq} ${sec.rank}`] });
+			step('train', `Train ${sec.rank} ${P}`, { tip: sec.level > level ? `Needs level ${sec.level}.` : null, lines: [`  train ${P} ${sec.rank}`] });
+			ahead();
 		}
 		level = Math.max(level, sec.level);
 		trained.add(sec.rank);
@@ -713,7 +727,7 @@ function routeGuide(name, data, opts = {}) {
 			if (i === 0) vendorSteps(list);
 			if (g[0].disenchant) return disenchantStep(g[0]);
 			getSteps(g);
-			if (!trained.has(sec.rank)) trainStep(sec);
+			if (!trained.has(sec.rank)) trainStep(sec, g[0]);
 			for (const b of g) bandSteps(b, sec);
 		});
 	};

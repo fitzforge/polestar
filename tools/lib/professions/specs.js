@@ -231,7 +231,6 @@ const SPECS = {
 			at: 20,
 			tip: `Also learn Faction Banner (1s): Forever's Tailoring camp item, a Bolt of Linen Cloth and a Coarse Thread; each faction has its own. ${CAMPING_101('Tailoring')}`,
 		},
-		noLevel: { 3865: 'Mageweave drops from humanoids of level 35-50, later than skill 140 comes' },
 		// Classic's trainer lists (world DB, VB 0) teach these, which asked 230-250 there (above Expert's 225), at
 		// the Artisan trainers only, never at Georgio Bolero or Josef Gregorian: Forever moved them down, not off
 		// the Artisan list (Blacksmithing's Heavy Mithril Breastplate, #1956).

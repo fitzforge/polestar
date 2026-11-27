@@ -732,13 +732,18 @@ function wrap(text, width = 100) {
 
 // ------------------------------------------------------------ Tailoring + Enchanting
 // Neither gathers: the cloth comes from the mobs a player kills (or the Auction House), and Enchanting's dust
-// and essences from disenchanting green gear. The blend flows that way: each rank bracket levels Tailoring
-// first, then Enchanting, and the green armour Tailoring made in the bracket is disenchanted for it. The
-// counts are honest: what disenchanting the bracket's own crafts gives (data/disenchant.json: the client's
-// disenchant bands with the server's loot, green armour; tailoring-item-levels.json: the client's item level
-// of each green Tailoring makes), set against what Enchanting asks; the rest is
-// bought or looted, as in the Enchanting guide. Disenchanting asks Enchanting skill by item level (Classic's
-// rule, ASSUMED): Tailoring's greens of a bracket are disenchanted when Enchanting has reached that bracket.
+// and essences from disenchanting green gear. The blend flows that way: each rank bracket runs Tailoring's
+// steps first, then Enchanting's, and the green armour Tailoring made in the bracket is disenchanted for it.
+// Both drafts come from their route files (route.js) as one-action steps, kept as they are; the pair only
+// orders them: Learn Enchanting on the first trip with Learn Tailoring, an Enchanting rank trained right after
+// the Tailoring rank of the same bracket (one trip to the capitals), and Tailoring's last fork after
+// Enchanting 225-300 (a way may stop short of 300). Enchanting's disenchanting step stays where its guide has
+// it, after the rod (a craft "until 2" past 2 would be done without the tool): the bracket's greens are in the
+// bags by then. Each Enchanting Get of a dust or essence says how much the bracket's own Tailoring
+// greens give (data/disenchant.json: the client's disenchant bands with the server's loot, green armour;
+// tailoring-item-levels.json: the client's item level of each green Tailoring makes). Disenchanting asks
+// Enchanting skill by item level (Classic's rule, ASSUMED): a bracket's greens count where Enchanting's bracket
+// reaches that skill.
 const DE = {
 	bands: require('../../../data/disenchant.json').bands.filter((b) => b.class === 4 && b.quality === 2),
 	tailoring: require('./tailoring-item-levels.json').items,
@@ -755,106 +760,73 @@ function disenchant(ilvl, n) {
 	return out;
 }
 
-// A draft's blocks after its header, grouped by rank bracket (the cap of each section's range).
-function byBracket(text) {
-	const bl = blocks(text);
-	const start = bl.findIndex((b) => b.step !== undefined || /^section |^# -{10,}/.test(b.raw || ''));
+// A routed draft's blocks grouped by rank bracket (the cap of each section's range): Map(cap -> blocks).
+function byBracket(draft) {
 	const groups = new Map(CAPS.map((c) => [c, []]));
 	let cap = 75;
-	for (let i = start; i < bl.length; i++) {
-		const b = bl[i];
-		const sec = /^section .* (\d+)-(\d+)$/.exec(b.raw || '');
-		const banner = /^# -{10,} .*\((\d+)-(\d+)\)$/.exec(b.raw || '');
-		const m = sec || banner;
-		if (m) cap = CAPS.find((c) => c >= Number(m[2])) || 300;
+	for (const b of draft.blocks) {
+		if (b.kind === 'section') cap = CAPS.find((c) => c >= b.to) || 300;
 		groups.get(cap).push(b);
 	}
-	return { header: bl.slice(0, start), groups };
+	return groups;
 }
 
 function renderCloth(ctx) {
 	const data = dataFor(ctx);
 	const T = draftGuide('Tailoring', data);
 	const E = draftGuide('Enchanting', data);
-	const itemName = (id) => (ctx.data.item(id) || {}).name || `item ${id}`;
-	const t = byBracket(T.text);
-	const e = byBracket(E.text);
-	// The Tailoring fork (Runecloth Shoulders' pattern at 265): its paths come last, after Enchanting 225-300,
-	// since a path's last step may say what is left of Tailoring and hold there.
-	const forkAt = T.alt ? T.alt.segments[0].from : 301;
-	// Per bracket: the greens Tailoring makes before the fork and what disenchanting them gives.
-	const greens = (segs, cap) =>
-		segs
-			.filter((s) => (CAPS.find((c) => c > s.from) || 300) === cap && s.from < forkAt && DE.tailoring[s.recipe.item])
-			.map((s) => ({ name: s.recipe.name, n: s.count * (s.recipe.itemCount || 1), ilvl: DE.tailoring[s.recipe.item], from: s.from, to: s.to }));
-	const yields = (list) => {
-		const out = new Map();
-		for (const g of list) for (const [item, n] of disenchant(g.ilvl, g.n)) out.set(item, (out.get(item) || 0) + n);
-		return out;
-	};
+	if (!T.blocks || !E.blocks) throw new Error('Tailoring + Enchanting: both guides are built from their route files (tools/lib/professions/routes)');
+	const t = byBracket(T);
+	const e = byBracket(E);
 	const report = { de: new Map(), asked: new Map() };
 	const out = [];
-	const emit = (b) => out.push(...(b.raw !== undefined ? [b.raw] : b.lines));
-	let enchantAt = 1; // the Enchanting skill the route has reached when a bracket's greens come
+	const emit = (b) => out.push('', ...b.lines);
+	const plainRank = (b, P) => b.kind === 'train' && new RegExp(`^Train (Journeyman|Expert|Artisan) ${P}$`).test(b.title);
+	const learnE = E.blocks.find((b) => b.kind === 'train' && b.title === 'Learn Enchanting');
+	const moved = new Set([learnE].filter(Boolean));
+	const range = (cap) => `${cap === 75 ? 1 : CAPS[CAPS.indexOf(cap) - 1]}-${cap}`;
 	for (const cap of CAPS) {
-		const tb = t.groups.get(cap);
-		// The fork's blocks: from the section or banner that opens the fork step's range on.
-		let cut = tb.findIndex((b) => b.step !== undefined && b.lines.some((l) => /^ {2}when /.test(l)));
-		if (cut >= 0) {
-			while (cut > 0 && (tb[cut - 1].raw !== undefined || !tb[cut - 1].lines.some((l) => /^ {2}craft /.test(l)))) cut--;
-		} else cut = tb.length;
-		// Both ranks on one visit: an Enchanting rank any trainer teaches is trained at the Tailoring rank's
-		// visit (the city trainers stand in the same capitals); a rank only a few trainers teach keeps its trip.
-		const eRank = e.groups.get(cap).find((b) => b.step !== undefined && /^(Journeyman|Expert|Artisan) Enchanting$/.test(b.step));
-		const eTrain = eRank && eRank.lines.find((l) => /^ {2}train Enchanting \w+$/.test(l));
-		const eLevel = eRank && eRank.lines.find((l) => /^ {2}level \d+$/.test(l));
+		const tb = t.get(cap);
+		const eb = e.get(cap);
+		// Tailoring's last fork comes after Enchanting's bracket: from its first step on a fork way.
+		let cut = tb.findIndex((b) => b.way);
+		if (cut < 0) cut = tb.length;
+		else while (cut > 0 && tb[cut - 1].kind === 'section') cut--;
+		// An Enchanting rank of this bracket any trainer teaches rides on the Tailoring rank's trip of the
+		// same bracket (a dungeon trainer keeps its own).
+		const eRank = eb.find((b) => plainRank(b, 'Enchanting'));
+		const tRank = tb.slice(0, cut).find((b) => plainRank(b, 'Tailoring'));
+		if (eRank && tRank) moved.add(eRank);
 		for (const b of tb.slice(0, cut)) {
-			if (eTrain && b.step !== undefined && /^(Journeyman|Expert|Artisan) Tailoring$/.test(b.step)) {
-				const lines = b.lines.slice();
-				const tip = lines.findIndex((l) => /^ {2}tip /.test(l));
-				const rank = eRank.step.split(' ')[0];
-				const need = { Journeyman: 50, Expert: 125, Artisan: 200 }[rank];
-				lines[tip] = `${lines[tip]} Train ${rank} Enchanting on the same trip (it needs Enchanting ${need}${eLevel ? ` and character level ${eLevel.trim().split(' ')[1]}` : ''}; the arrow picks the nearest Enchanting trainer who teaches it): the Enchanting steps below need it.`;
-				const at = lines.findIndex((l) => /^ {2}train Tailoring /.test(l));
-				lines.splice(at + 1, 0, '  train Enchanting ' + rank);
-				emit({ lines });
-			} else emit(b);
+			emit(b);
+			if (b.kind === 'train' && b.title === 'Learn Tailoring' && learnE) emit(learnE);
+			if (b === tRank && moved.has(eRank)) emit(eRank);
 		}
-		const a = greens(T.plan.segments, cap);
-		const got = yields(a);
+		// What disenchanting this bracket's Tailoring greens gives, at the Enchanting skill its bracket reaches.
+		const got = new Map();
+		for (const s of T.plan.segments) {
+			const ilvl = DE.tailoring[s.recipe.item];
+			if (!ilvl || (s.when || []).length || (CAPS.find((c) => c >= s.to) || 300) !== cap || deSkill(ilvl) > cap) continue;
+			for (const [item, n] of disenchant(ilvl, s.count * (s.recipe.itemCount || 1))) got.set(item, (got.get(item) || 0) + n);
+		}
 		for (const [item, n] of got) report.de.set(item, (report.de.get(item) || 0) + n);
-		const later = a.filter((g) => deSkill(g.ilvl) > enchantAt);
-		const listOf = (m) => D.list([...m].filter(([, n]) => n >= 1).sort((x, y) => y[1] - x[1]).map(([item, n]) => `${Math.round(n)} ${itemName(item)}`));
-		const deText = a.length
-			? `Disenchant the green armour you made for Tailoring ${cap === 75 ? 1 : CAPS[CAPS.indexOf(cap) - 1]}-${cap}: ${D.list(a.map((g) => `${D.crafts(Math.round(g.n), g.name)}${deSkill(g.ilvl) > 1 ? ` (item level ${g.ilvl}, from Enchanting ${deSkill(g.ilvl)})` : ''}`))} give about ${listOf(got)}.${later.length ? ` ${D.list(later.map((g) => g.name))} ${later.length > 1 ? 'ask' : 'asks'} more Enchanting than you have at the bracket's start: keep ${later.length > 1 ? 'them' : 'it'} and disenchant ${later.length > 1 ? 'them' : 'it'} as your skill gets there.` : ''}`
-			: '';
-		// The Enchanting bracket: the disenchanting line leads its rank step (else its first step), and each
-		// dust's Get it step says how much of it the Tailoring crafts give.
-		const eb = e.groups.get(cap);
-		const lead = eb.find((b) => b.step !== undefined && /^(Learn|Journeyman|Expert|Artisan) Enchanting$/.test(b.step)) || eb.find((b) => b.step !== undefined);
 		for (const b of eb) {
-			if (b.raw !== undefined) {
-				out.push(b.raw);
-				continue;
-			}
+			if (moved.has(b)) continue;
 			const lines = b.lines.slice();
-			const tip = lines.findIndex((l) => /^ {2}tip /.test(l));
-			if (b === lead && deText && tip >= 0) lines[tip] = `  tip ${deText} ${lines[tip].slice(6)}`;
-			const c = /^Get /.test(b.step) && lines.map((l) => /^ {2}collect (\d+) x(\d+)/.exec(l)).find(Boolean);
-			if (c && tip >= 0) {
-				const item = Number(c[1]);
-				const ask = Number(c[2]);
+			const item = b.kind === 'get' && b.items && b.items[0] && b.items[0].item;
+			if (item) {
+				const ask = b.items[0].count;
 				report.asked.set(item, (report.asked.get(item) || 0) + ask);
 				const n = Math.min(ask, Math.round(got.get(item) || 0));
-				const rest = ask - n;
-				if (n >= 1) lines[tip] = lines[tip].replace(/^( {2}tip [^.]*\.)/, `$1 Disenchanting your Tailoring crafts of this bracket gives about ${n} of them (see ${lead.step}); ${rest > 0 ? `the other ${rest} come from greens you loot or the Auction House.` : 'that covers them.'}`);
+				const tip = lines.findIndex((l) => /^ {2}tip /.test(l));
+				const add = ` Your Tailoring greens of ${range(cap)} give about ${n} when disenchanted.`;
+				if (n >= 1 && tip >= 0 && lines[tip].length - 6 + add.length <= 120) lines[tip] += add;
 			}
-			out.push(...lines);
+			out.push('', ...lines);
 		}
 		for (const b of tb.slice(cut)) emit(b);
-		enchantAt = cap;
 	}
-	const comment = (h) => h.filter((b) => /^#/.test(b.raw || '') && !/^# Generated by /.test(b.raw)).map((b) => b.raw);
+	const comment = (text) => text.split('\n').filter((l) => /^#/.test(l) && !/^# Generated by /.test(l));
 	const sum = (m) => [...m.values()].reduce((x, n) => x + n, 0);
 	const head = [
 		GUIDE_HEADER,
@@ -871,11 +843,10 @@ function renderCloth(ctx) {
 		...wrap(`What disenchanting gives is Forever's server data for green armour of each item level, and the item levels the client's; the item level bands and the Enchanting skill disenchanting asks are Classic's (ASSUMED). Over the route your own crafts give about ${Math.round(sum(report.de))} enchanting materials against the ${Math.round(sum(report.asked))} the Enchanting steps ask for.`),
 		'#',
 		'# Tailoring:',
-		...comment(t.header),
+		...comment(T.text.split(/\nsection /)[0]),
 		'#',
 		'# Enchanting:',
-		...comment(e.header),
-		'',
+		...comment(E.text.split(/\nsection /)[0]),
 	];
 	const text = `${[...head, ...out].join('\n').replace(/\n{3,}/g, '\n\n').replace(/\n+$/, '')}\n`;
 	return { text, report };

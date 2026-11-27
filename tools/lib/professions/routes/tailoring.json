@@ -1,0 +1,149 @@
+{
+	"_about": "Tailoring 1-300: the curated route the profession guide is generated from (tools/lib/professions/route.js; rules: docs/forge/professions.md, \"Route files\"). Every recipe, count, trainer, vendor and pattern seller is checked against data/forever when the guide is built.",
+	"profession": "Tailoring",
+	"intro": [
+		"Tailoring weaves cloth into bolts, then sews the bolts into cloth armour and bags. Cloth drops from humanoids, so it needs no gathering profession; Enchanting suits it, as the green pieces it makes break into enchanting materials.",
+		"Ranks: Apprentice at any level from any Tailoring trainer (the first trainer teaches recipes only up to 55); Journeyman from level 10 at the city trainers; Expert from level 20 (50s) at Georgio Bolero in Stormwind or Josef Gregorian in Undercity; Artisan from level 35 at Timothy Worthington on Theramore Isle or Daryl Stack in Tarren Mill.",
+		"Two patterns come from vendors: Runecloth Gloves (Qia in Everlook) and Runecloth Cuffs (Pexmit in Mount Hyjal). Past 280 only world-drop patterns from the Auction House reach 300: Runecloth Shoulders or Wizardweave Turban. The Loom patterns from Silithus would also do, but no town has a Loom."
+	],
+	"tools": [],
+	"sections": [
+		{
+			"rank": "Apprentice",
+			"from": 1,
+			"to": 55,
+			"level": 1,
+			"teachers": {
+				"Alliance": [1103, 1300, 1346, 1703, 2627, 4159, 4193, 5153, 5567, 11050, 11052, 251972, 251991, 252380],
+				"Horde": [2399, 2627, 2855, 3004, 3363, 3484, 3523, 3704, 4576, 11048, 11049, 11051, 251991, 252380]
+			},
+			"route": [
+				{ "from": 1, "to": 30, "recipe": 2963, "count": 30, "mats": { "2589": 60 }, "keep": "Keep all 30 bolts: the belts next use them." },
+				{ "from": 30, "to": 55, "recipe": 8776, "count": 28, "mats": { "2996": 28, "2320": 28 } }
+			]
+		},
+		{
+			"rank": "Journeyman",
+			"from": 55,
+			"to": 140,
+			"level": 10,
+			"teachers": {
+				"Alliance": [5567, 5153, 4159],
+				"Horde": [3363, 11049, 3004]
+			},
+			"route": [
+				{ "from": 55, "to": 80, "recipe": 2964, "count": 37, "mats": { "2592": 111 }, "keep": "Keep all 37 bolts: the capes and shoulders next use them. No points past 75 until Journeyman." },
+				{ "from": 80, "to": 95, "recipe": 2402, "count": 22, "mats": { "2997": 22, "2321": 22 }, "note": "Past 80 already from the bolts? These carry on from where you are." },
+				{ "from": 95, "to": 100, "recipe": 3848, "count": 5, "mats": { "2997": 15, "2321": 10 } },
+				{ "from": 100, "to": 120, "recipe": 3839, "count": 55, "mats": { "4306": 220 }, "keep": "Keep all 55 bolts: 10 for the hoods, 45 for the packs." },
+				{ "from": 120, "to": 125, "recipe": 8760, "count": 5, "mats": { "4305": 10, "6260": 10, "2321": 5 } },
+				{ "from": 125, "to": 140, "recipe": 3813, "count": 15, "mats": { "4305": 45, "4234": 30, "2321": 45 } }
+			]
+		},
+		{
+			"rank": "Expert",
+			"from": 140,
+			"to": 200,
+			"level": 20,
+			"cost": 5000,
+			"teachers": {
+				"Alliance": [1346],
+				"Horde": [4576]
+			},
+			"route": [
+				{ "from": 140, "to": 150, "recipe": 3865, "count": 23, "mats": { "4338": 115 }, "keep": "Keep all 23 bolts for the leggings at 185." },
+				{ "make": 3839, "count": 80, "mats": { "4306": 320 }, "for": "the vests" },
+				{ "from": 150, "to": 170, "recipe": 8791, "count": 20, "mats": { "4305": 80, "2604": 40, "2321": 40 } },
+				{ "make": 3839, "count": 68, "mats": { "4306": 272 }, "for": "the pantaloons" },
+				{ "from": 170, "to": 185, "recipe": 8799, "count": 17, "mats": { "4305": 68, "2604": 34, "4291": 34 } },
+				{ "make": 3865, "count": 21, "mats": { "4338": 105 }, "for": "the leggings" },
+				{ "from": 185, "to": 200, "recipe": 12049, "count": 22, "mats": { "4339": 44, "4291": 66 }, "note": "Yellow all the way: short of 200? A few more do it." }
+			]
+		},
+		{
+			"rank": "Artisan",
+			"from": 200,
+			"to": 300,
+			"level": 35,
+			"teachers": {
+				"Alliance": [11052],
+				"Horde": [2399]
+			},
+			"route": [
+				{ "make": 3865, "count": 15, "mats": { "4338": 75 }, "for": "the shoulders" },
+				{ "from": 200, "to": 205, "recipe": 12074, "count": 5, "mats": { "4339": 15, "8343": 10 } },
+				{ "from": 205, "to": 215, "recipe": 18401, "count": 23, "mats": { "14047": 115 }, "keep": "Keep all 23 bolts for the belts at 225." },
+				{ "make": 3865, "count": 68, "mats": { "4338": 340 }, "for": "the bags" },
+				{ "from": 215, "to": 225, "recipe": 12079, "count": 17, "mats": { "4339": 68, "2604": 34, "8343": 34 }, "note": "Yellow all the way: short of 225? The belts next carry on." },
+				{ "make": 18401, "count": 49, "mats": { "14047": 245 }, "for": "the belts" },
+				{ "from": 225, "to": 240, "recipe": 18402, "count": 24, "mats": { "14048": 72, "14341": 24 }, "note": "No points past 225 until Artisan is trained." },
+				{ "make": 18401, "count": 44, "mats": { "14047": 220 }, "for": "the gloves" },
+				{ "from": 240, "to": 250, "recipe": 18417, "count": 11, "mats": { "14048": 44, "8170": 44, "14341": 11 } },
+				{ "make": 18401, "count": 195, "mats": { "14047": 975 }, "for": "the cuffs" },
+				{ "from": 250, "to": 280, "recipe": 1257487, "count": 39, "mats": { "14048": 195, "14227": 39, "14341": 39 } },
+				{
+					"fork": "the last pattern",
+					"ways": [
+						{
+							"name": "Runecloth Shoulders",
+							"plans": [14504],
+							"why": "A world drop: with it, the shoulders reach 300.",
+							"route": [
+								{ "make": 18401, "count": 406, "mats": { "14047": 2030 }, "for": "the shoulders" },
+								{ "from": 280, "to": 300, "recipe": 18449, "count": 58, "mats": { "14048": 406, "14227": 116, "8170": 232, "14341": 58 } }
+							]
+						},
+						{
+							"name": "Wizardweave Turban",
+							"plans": [14505],
+							"why": "A rarer world drop: with it, the turbans reach 300.",
+							"route": [
+								{ "make": 18401, "count": 348, "mats": { "14047": 1740 }, "for": "the turbans" },
+								{ "from": 280, "to": 300, "recipe": 18450, "count": 58, "mats": { "14048": 348, "11176": 232, "7910": 58, "14341": 58 } }
+							]
+						},
+						{
+							"name": "Runecloth Cuffs",
+							"route": [
+								{ "make": 18401, "count": 155, "mats": { "14047": 775 }, "for": "the last cuffs" },
+								{ "from": 280, "to": 290, "recipe": 1257487, "count": 31, "mats": { "14048": 155, "14227": 31, "14341": 31 }, "note": "Green now. Past 290 a point is rare: only the two Auction House patterns reach 300." }
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"recipes": {
+		"14481": { "Alliance": [11189], "Horde": [11189], "note": "In the Everlook bank building, Winterspring." },
+		"254124": { "Alliance": [266901], "Horde": [266901], "note": "Pexmit roams Mount Hyjal. It binds when picked up." }
+	},
+	"materials": {
+		"2589": ["drop", "auction"],
+		"2592": ["drop", "auction"],
+		"4306": ["drop", "auction"],
+		"4338": ["drop", "auction"],
+		"14047": ["drop", "auction"],
+		"4234": ["gather", "auction"],
+		"8170": ["gather", "auction"],
+		"14227": ["drop", "auction"],
+		"11176": ["disenchant", "auction"],
+		"7910": ["auction"],
+		"2320": ["vendor"],
+		"2321": ["vendor"],
+		"4291": ["vendor"],
+		"8343": ["vendor"],
+		"14341": ["vendor"],
+		"2604": ["vendor"],
+		"6260": ["vendor"]
+	},
+	"vendors": {
+		"2320": { "Alliance": [1347, 4168, 66], "Horde": [3005, 4577, 2118] },
+		"2321": { "Alliance": [1347, 4168], "Horde": [3005, 4577] },
+		"4291": { "Alliance": [1347, 4168], "Horde": [3005, 4577] },
+		"8343": { "Alliance": [1347, 4168], "Horde": [3005, 4577] },
+		"14341": { "Alliance": [1347, 4168], "Horde": [3005, 4577] },
+		"2604": { "Alliance": [1347, 4168], "Horde": [3005, 4577] },
+		"6260": { "Alliance": [1347, 4168], "Horde": [3005, 4577] }
+	}
+}
