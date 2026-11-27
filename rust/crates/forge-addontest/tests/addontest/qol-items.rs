@@ -81,6 +81,57 @@ fn bag_space_counts_free_slots_of_ordinary_bags_only_and_the_bag_button_comes_up
 }
 
 #[test]
+fn bag_space_prefers_grey_junk_and_compares_the_value_of_each_whole_stack() {
+	let out = run(&[
+		BAGS,
+		r#"
+		local S, M = QoL.Space, QoL.Marks
+		q.items[2].price = 10
+		q.items[3].price = 1
+		M.Set(3, "junk")
+		fill(0)
+		bagsChanged()
+		emit({ id = S.Junk().id, value = S.Junk().value })
+
+		M.Set(1, "keep")
+		M.Set(2, "keep")
+		stub.advance(0.1)
+		emit({ id = S.Junk().id, value = S.Junk().value })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "id": 2, "value": 10 }), "the grey shell (10c) is chosen ahead of two grey fangs (14c) and marked linen (1c)");
+	assert_eq!(out[1], json!({ "id": 3, "value": 1 }), "marked common junk remains eligible when no grey junk can be deleted");
+}
+
+#[test]
+fn bag_button_tooltip_refreshes_with_coin_icons_when_the_stack_price_loads() {
+	let out = run(&[
+		BAGS,
+		r#"
+		local b = QoL.Buttons.bag
+		q.items[1].price, q.items[1].uncached = 5117, true
+		fill(0)
+		QoL.Marks.Set(2, "keep")
+		bagsChanged()
+		stub.RunScript(b, "OnEnter")
+		emit(GameTooltip.lines[4])
+
+		q.items[1].uncached = false
+		stub.fire("GET_ITEM_INFO_RECEIVED", 1, true)
+		stub.advance(0.1)
+		emit(GameTooltip.lines[4])
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], "Vendor price | ?", "the vendor price is unknown while item info loads");
+	assert_eq!(
+		out[1], r"Vendor price | 1 |TInterface\MoneyFrame\UI-GoldIcon:12:12|t 2 |TInterface\MoneyFrame\UI-SilverIcon:12:12|t 34 |TInterface\MoneyFrame\UI-CopperIcon:12:12|t",
+		"the open tooltip shows the value of both fangs after the event"
+	);
+}
+
+#[test]
 fn bag_button_deletes_only_on_a_second_press_within_five_seconds_and_only_the_item_it_armed() {
 	let out = run(&[
 		BAGS,
@@ -280,7 +331,7 @@ fn marks_ctrl_alt_click_cycles_junk_keep_and_clear_junk_is_sold_kept_greys_are_n
 		M.Set(3, "junk")
 		M.Set(2, "keep")
 		bagsChanged()
-		emit(S.Junk().id)                    -- the shell is kept: a cloth (13c) beats the two fangs (14c)
+		emit(S.Junk().id)
 		q.openMerchant()
 		stub.advance(3)
 		local sold = {}
@@ -290,7 +341,7 @@ fn marks_ctrl_alt_click_cycles_junk_keep_and_clear_junk_is_sold_kept_greys_are_n
 	]
 	.concat());
 	assert_eq!(out[0], json!({ "first": "junk", "second": "keep", "third": false, "altOnly": false, "said": true }));
-	assert_eq!(out[1], 3, "a kept grey is never the one to delete; a junk-marked common one may be");
+	assert_eq!(out[1], 1, "the kept shell is skipped and the grey fangs come before marked cloth");
 	assert_eq!(out[2], json!({ "fangs": 1, "shell": 0, "cloth": 13, "ring": 0 }), "junk-marked cloth sells; the kept shell and the ring stay");
 }
 
@@ -472,10 +523,10 @@ fn mark_click_switch_off_leaves_marking_to_the_keys_and_on_again_the_click_cycle
 	assert_eq!(out[0], json!({ "default": true, "clicked": "none", "quiet": 0, "key": "keep", "on": "junk" }));
 }
 
-// #946: junk marked in the reagent bag (bag 5, past NUM_BAG_SLOTS) is the bag button's cheapest junk and sells at a
-// merchant, while the reagent bag's free slots stay out of the free count (it takes only reagents).
+// #946: marked junk in the reagent bag (bag 5, past NUM_BAG_SLOTS) is eligible for deletion and sells at
+// a merchant. The reagent bag's free slots stay out of the free count.
 #[test]
-fn junk_in_the_reagent_bag_is_the_cheapest_junk_and_sells_but_its_free_slots_never_count() {
+fn junk_in_the_reagent_bag_can_be_suggested_and_sold_but_its_free_slots_never_count() {
 	let out = run(&[
 		BAGS,
 		r#"
@@ -485,6 +536,8 @@ fn junk_in_the_reagent_bag_is_the_cheapest_junk_and_sells_but_its_free_slots_nev
 		fill(2)
 		q.addItem(5, 1, 6, 1)
 		M.Set(6, "junk")
+		M.Set(1, "keep")
+		M.Set(2, "keep")
 		bagsChanged()
 		local f, t = S.Free()
 		local j = S.Junk()
@@ -497,7 +550,7 @@ fn junk_in_the_reagent_bag_is_the_cheapest_junk_and_sells_but_its_free_slots_nev
 	"#,
 	]
 	.concat());
-	assert_eq!(out[0], json!({ "free": 2, "total": 16, "junk": 6, "bag": 5 }), "the thread (1c) is the cheapest; the reagent bag's three free slots never count");
+	assert_eq!(out[0], json!({ "free": 2, "total": 16, "junk": 6, "bag": 5 }), "the marked thread is eligible and the reagent bag's free slots never count");
 	assert_eq!(out[1], json!({ "thread": 1, "left": false }), "sold from the reagent bag");
 }
 
@@ -772,10 +825,10 @@ uistub.openTabs({ { uistub.elwynn, 3 } }, 1)
 local log = {}
 local bags, offer
 Polestar.QoL = {
-	Money = function(c) return c .. "c" end,
 	Space = {
 		Banner = function() return bags end,
 		ItemText = function(j) return j.link .. " x" .. j.count end,
+		ValueText = function(j, icons) return j.value .. (icons and [[ |TInterface\MoneyFrame\UI-CopperIcon:12:12|t]] or "c") end,
 		Press = function() log[#log + 1] = "press"; if bags then bags.armed = true end end,
 		Dismiss = function() log[#log + 1] = "dismiss"; bags = nil end,
 	},
@@ -800,6 +853,9 @@ fn banner_bags_full_offers_the_two_click_delete_and_close_dismisses_it() {
 		bags = { free = 0, junk = { id = 2, count = 2, value = 14, link = "[Broken Fang]" }, armed = false }
 		Polestar.Fire("BAG_SPACE")
 		emit({ shown = B:IsShown(), text = B.Text:GetText(), jump = B.Jump.Label:GetText(), close = B.Close:IsShown() })
+		stub.RunScript(B.Jump, "OnEnter")
+		emit(GameTooltip.lines[2])
+		stub.RunScript(B.Jump, "OnLeave")
 		B.Jump:Click()
 		emit(B.Jump.Label:GetText())
 		B.Close:Click()
@@ -807,8 +863,9 @@ fn banner_bags_full_offers_the_two_click_delete_and_close_dismisses_it() {
 	"#,
 	);
 	assert_eq!(out[0], json!({ "shown": true, "text": "Your bags are full.  ·  Cheapest junk: [Broken Fang] x2 (14c)", "jump": "Delete it", "close": true }));
-	assert_eq!(out[1], "Click again to delete it");
-	assert_eq!(out[2], json!({ "shown": false, "log": ["press", "dismiss"] }));
+	assert_eq!(out[1], r"Vendor price | 14 |TInterface\MoneyFrame\UI-CopperIcon:12:12|t");
+	assert_eq!(out[2], "Click again to delete it");
+	assert_eq!(out[3], json!({ "shown": false, "log": ["press", "dismiss"] }));
 }
 
 // #4314 (Shuurajou, Atlas): with the action on the right (guideWindow.bannerLinks "right", Atlas's), the armed

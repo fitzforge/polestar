@@ -698,7 +698,7 @@
 			{ "node": "tests/guides-reported.test.js", "test": "#934: Winterspring (Alliance): the level 55.05 top-up grinds Winterfall furbolgs, never Timbermaw" }
 		] },
 		"946": { "tests": [
-			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/qol-items.rs", "test": "junk_in_the_reagent_bag_is_the_cheapest_junk_and_sells_but_its_free_slots_never_count" }
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/qol-items.rs", "test": "junk_in_the_reagent_bag_can_be_suggested_and_sold_but_its_free_slots_never_count" }
 		] },
 		"947": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "${BARRENS}: Rohkin's report (#947): a Warlock is never sent into another zone and straight back with nothing done there" },

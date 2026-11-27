@@ -645,12 +645,18 @@ function Client.Money()
 	return GetMoney and GetMoney() or 0
 end
 
--- "1g 23s 45c", "5s 0c", "25c": from the largest coin on, in the coins'
--- symbols (ns.CoinSymbols), the gold in thousands.
-function QoL.Money(copper)
+-- Format from the largest coin on, with localized symbols or coin textures.
+function QoL.Money(copper, withIcons)
 	copper = floor(copper or 0)
 	local g, s, c = floor(copper / 10000), floor(copper / 100) % 100, copper % 100
-	local G, S, C = ns.CoinSymbols()
+	local G, S, C
+	if withIcons then
+		G = [[ |TInterface\MoneyFrame\UI-GoldIcon:12:12|t]]
+		S = [[ |TInterface\MoneyFrame\UI-SilverIcon:12:12|t]]
+		C = [[ |TInterface\MoneyFrame\UI-CopperIcon:12:12|t]]
+	else
+		G, S, C = ns.CoinSymbols()
+	end
 	if g > 0 then return format("%s%s %d%s %d%s", ns.Thousands(g), G, s, S, c, C) end
 	if s > 0 then return format("%d%s %d%s", s, S, c, C) end
 	return format("%d%s", c, C)

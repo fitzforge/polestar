@@ -459,11 +459,24 @@ ns.UI.GuideFrame.Part(function(GF)
 		return link:GetWidth()
 	end
 
+	function GF.BannerJumpTooltip(button)
+		local j = button.psJunk
+		if j then
+			local Space = ns.QoL.Space
+			ns.Widgets.Tooltip(button, GF.TooltipAnchor(), Space.ItemText(j),
+				{ { left = L["Vendor price"], right = Space.ValueText(j, true) } })
+		else
+			ns.Widgets.HideTooltip(button)
+		end
+	end
+
 	-- known, kind, n: the notice GF.Layout just read (bannerNotice), with
 	-- nothing run in between; else it is read here.
 	local function layoutBanner(width, known, kind, n)
 		if not known then kind, n = bannerNotice() end
 		banner.psKind = kind
+		banner.Jump.psJunk = kind == "bags" and not n.spare and n.junk or nil
+		if GameTooltip and GameTooltip:GetOwner() == banner.Jump then GF.BannerJumpTooltip(banner.Jump) end
 		banner.psRole = GF.BANNER_ROLE[kind] or "textDim"
 		ns.Widgets.Color(banner.Icon, banner.psRole)
 		if banner.Fill.psPaint then banner.Fill.psPaint(banner.Fill) end
@@ -776,7 +789,7 @@ ns.UI.GuideFrame.Part(function(GF)
 				banner.Text:SetText(title .. "  \194\183  " .. string.format(L["Spare bag: %s"], s.link or (L["Item"] .. " " .. s.id)))
 				placeLink(banner.Jump, L["Equip it"], 0, -4)
 			elseif j then
-				local worth = j.value < math.huge and Q.Money(j.value) or "?"
+				local worth = Q.Space.ValueText(j)
 				banner.Text:SetText(title .. "  \194\183  " .. string.format(L["Cheapest junk: %s (%s)"], Q.Space.ItemText(j), worth))
 				placeLink(banner.Jump, n.armed and L["Click again to delete it"] or L["Delete it"], 0, -4)
 			else
