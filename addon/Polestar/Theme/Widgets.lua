@@ -1384,6 +1384,13 @@ local function markRow(row)
 	-- card) that puts this one setting back (W.ResetSetting: the window's
 	-- Undo hears it). The gamepad's reset on the row (Y) does the same, so
 	-- the button is no stop of its own. Newness is the section's New pill.
+	-- A row that says nothing of its default (psNoReset: a module's quick settings): its label in text, no
+	-- reset, no dot.
+	if row.psNoReset then
+		W.Color(row.Label, row.psOff and "textMuted" or "text")
+		row.ModDot:Hide()
+		return
+	end
 	local mod = W.Modified(row.psPath)
 	row.psModified = mod
 	W.Color(row.Label, row.psOff and "textMuted" or mod and "text" or "textDim")
