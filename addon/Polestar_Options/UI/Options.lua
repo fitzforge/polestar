@@ -3902,7 +3902,13 @@ function Undo.rowLinks(on)
 				w.UndoB = b
 			end
 			b:ClearAllPoints()
-			b:SetPoint("LEFT", w.Label, "LEFT", math.ceil(w.Label:GetStringWidth()) + 8, 0)
+			-- After the row's (i) when it has one, not on top of it.
+			local info = rawget(w, "Info")
+			if info and info:IsShown() then
+				b:SetPoint("LEFT", info, "RIGHT", 6, 0)
+			else
+				b:SetPoint("LEFT", w.Label, "LEFT", math.ceil(w.Label:GetStringWidth()) + 8, 0)
+			end
 			b:Show()
 			Undo.links[w] = true
 		end
