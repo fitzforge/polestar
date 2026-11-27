@@ -9570,6 +9570,20 @@ function Own.endWorkDone(s)
 	return did
 end
 
+-- `goto … nearest`: the player stands within r yards of one of the goal's places
+-- they may use (faction, race, class), on continent c at world px, py.
+function Own.atCandidate(goal, c, px, py, r)
+	local C = Compat()
+	local who = player or C.GetPlayerInfo()
+	for _, cand in ipairs(goal.candidates) do
+		if Guides.CandidateMatches(cand, who) then
+			local cc, cx, cy = C.MapToWorld(cand.map, cand.x, cand.y, cand.f)
+			if cc == c and (cx - px) ^ 2 + (cy - py) ^ 2 <= r * r then return true end
+		end
+	end
+	return false
+end
+
 -- Loaded tab: mark arrived goals of step s; true if any. A "Go to" naming
 -- its step is the area the step's work is in: reaching the place of any
 -- other goal of the step (where the arrow leads) arrives there too.
@@ -9590,6 +9604,9 @@ function Own.arriveStep(s, c, px, py)
 			end
 			local dx, dy, r = (gx or 0) - px, (gy or 0) - py, goal.r or (goal.t == "die" and Own.DIE_RADIUS) or (goal.t == "fly" and Own.LANDING_RADIUS) or DEFAULT_RADIUS
 			local here = gc == c and dx * dx + dy * dy <= r * r
+			-- `goto … nearest` (a profession guide's "Go to an anvil"): any of its places of the
+			-- character's faction counts, the one the arrow picked or another the player walked to.
+			if not here and goal.t == "goto" and goal.candidates then here = Own.atCandidate(goal, c, px, py, r) end
 			if not here and goal.t == "goto" and Own.enteredPlace(goals, g, goal) then here = true end
 			if not here and goal.t == "goto" and step.title and goal.text == step.title then
 				for j = 1, #goals do

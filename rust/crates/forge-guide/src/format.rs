@@ -43,6 +43,9 @@ pub const DEPOSIT_EQUIP_FORMAT: u32 = 11;
 /// Format 11 also: an objective goal's `upto` (part of the objective's count). An older Polestar would hold the
 /// step until the whole objective is done.
 pub const UPTO_FORMAT: u32 = 11;
+/// Format 12, read by Polestar 0.4.4: a `goto` goal with `candidates` (`goto … nearest`: a profession guide's "Go to
+/// an anvil"). An older Polestar would wait at a goto with no place of its own.
+pub const GOTO_NEAREST_FORMAT: u32 = 12;
 
 /// NEEDS[format]: the first Polestar version that reads it (`undefined` -> None).
 pub fn needs(format: u32) -> Option<&'static str> {
@@ -54,6 +57,7 @@ pub fn needs(format: u32) -> Option<&'static str> {
 		5..=9 => "0.3.0",
 		10 => "0.4.0",
 		11 => "0.4.1",
+		12 => "0.4.4",
 		_ => return None,
 	})
 }
@@ -153,6 +157,11 @@ fn uses_upto(g: &V) -> bool {
 	g.get("steps").items().iter().any(|s| s.get("goals").items().iter().any(|goal| !goal.get("upto").is_undef()))
 }
 
+/// A `goto` goal with candidates needs format 12 (GOTO_NEAREST_FORMAT).
+fn uses_goto_nearest(g: &V) -> bool {
+	g.get("steps").items().iter().any(|s| s.get("goals").items().iter().any(|goal| goal.get("t").as_str() == Some("goto") && goal.get("candidates").is_arr()))
+}
+
 fn has_keys(v: &V) -> bool {
 	v.truthy() && !v.keys().is_empty()
 }
@@ -169,6 +178,9 @@ fn has_keys(v: &V) -> bool {
 /// option has `when` (`nextWhen`), else FORMAT. A pack with baked legs is
 /// LEGS_FORMAT (project.rs build_pack_files).
 pub fn format_for(guides: &[V]) -> u32 {
+	if guides.iter().any(uses_goto_nearest) {
+		return GOTO_NEAREST_FORMAT;
+	}
 	if guides.iter().any(uses_either) {
 		return EITHER_FORMAT;
 	}

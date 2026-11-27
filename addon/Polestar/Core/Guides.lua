@@ -192,7 +192,7 @@ local REQUIRED = {
 	equip = { item = isNum, itemName = isStr },
 	kill = { target = isStr },
 	collect = { item = isNum, itemName = isStr },
-	["goto"] = { map = isNum, x = isNum, y = isNum },
+	["goto"] = {}, -- `map`, `x` and `y`, or `candidates` for `goto … nearest` (format 12)
 	talk = { npc = isNum, npcName = isStr },
 	interact = { object = isNum, objName = isStr },
 	use = { item = isNum, itemName = isStr },
@@ -554,6 +554,9 @@ local function checkGoal(goal)
 	if goal.t == "sethome" and not isStr(goal.location) and type(goal.candidates) ~= "table" then
 		return "sethome needs location"
 	end
+	if goal.t == "goto" and type(goal.candidates) ~= "table" and not (isNum(goal.map) and isNum(goal.x) and isNum(goal.y)) then
+		return "goto needs map, x, y"
+	end
 	if goal.candidates ~= nil then
 		if type(goal.candidates) ~= "table" or #goal.candidates == 0 then return "bad candidates" end
 		for i = 1, #goal.candidates do
@@ -774,7 +777,7 @@ Guides.Validate = validate
 ---------------------------------------------------------------------------
 
 -- Every format Polestar has shipped (docs/PACK_FORMAT.md, "Versioning").
-Guides.FORMATS = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true, [7] = true, [8] = true, [9] = true, [10] = true, [11] = true }
+Guides.FORMATS = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true, [7] = true, [8] = true, [9] = true, [10] = true, [11] = true, [12] = true }
 -- Pack ids only Polestar's own packs may give (forge-guide's RESERVED_IDS and
 -- format.js's have the same): a pack registering one is refused, unless it
 -- comes from the addon the id belongs to (RESERVED_ADDON: ours,
