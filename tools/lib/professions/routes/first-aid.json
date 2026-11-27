@@ -56,7 +56,7 @@
 			"from": 225,
 			"to": 300,
 			"level": 35,
-			"by": { "quest": { "Alliance": 6624, "Horde": 6622 } },
+			"by": { "quest": { "Alliance": 6624, "Horde": 6622 }, "tip": "Use his Triage Bandages, the worst wounds first: 15 saved completes it, and 6 deaths fail it." },
 			"teachers": {
 				"Alliance": [12939],
 				"Horde": [12920]

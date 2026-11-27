@@ -596,10 +596,26 @@ function routeGuide(name, data, opts = {}) {
 				step('tool', `Buy ${article(itemName(t.item))} ${itemName(t.item)}`, { tip: 'A tool: it stays in your bags, and most recipes need it.', lines: [`  buy ${t.item} x1 nearest`] });
 			}
 		} else if (sec.by && sec.by.book) {
-			// A rank from a book: bought from its sellers, then read (the rank is learned from the bags).
+			// A rank from a book: bought from its sellers, then read (the rank is learned from the bags). The
+			// section's recipes the trainers already teach at its start (Silk Bandage at 150) are learned first, on
+			// the trainer visit before the trip; the recipes the book's sellers also sell come on the same visit.
+			const list = secBands.get(sec) || [];
+			const ids = [...new Set(SIDES.flatMap((s) => sec.teachers[s] || []))];
+			for (const b of list) {
+				const x = recipes.get(b.recipe || b.make);
+				if (!x || learned.has(x.spell) || (x.recipeItem && !taught(x)) || Number(x.learnedAt) > sec.from) continue;
+				learned.add(x.spell);
+				step('learn', `Learn ${x.name}`, { tip: `For ${b.from}-${b.to}: the trainers teach it, not the book's seller.`, lines: [`  learn ${x.spell} npc ${ids.join(',')}`] });
+			}
 			const needs = sec.level > level ? `Needs level ${sec.level} to read.` : null;
 			sellerSteps('buy', sec.by.book, sec.by.vendors, { tip: needs });
 			step('train', `Read ${itemName(sec.by.book)}`, { tip: `It teaches ${sec.rank} ${P} from your bags.`, lines: [`  train ${pq} ${sec.rank}`] });
+			const seller = new Set(SIDES.flatMap((s) => sec.by.vendors[s] || []));
+			for (const b of list) {
+				const x = recipes.get(b.recipe || b.make);
+				const by = x && x.recipeItem && (route.recipes || {})[x.recipeItem];
+				if (by && SIDES.every((s) => (by[s] || []).some((v) => seller.has(v)))) recipeBuy(x);
+			}
 		} else if (sec.by && sec.by.quest) {
 			// A rank from a quest: its items got first, the feeder the side's trainer hands out (the data
 			// hides the quest without it), then the quest taken, done and handed in; one set per side where the
@@ -656,7 +672,7 @@ function routeGuide(name, data, opts = {}) {
 				const door = (inst.entrances || []).slice().sort((a, b) => b.n - a.n)[0];
 				if (!door) throw new Error(`${P}: ${sec.rank}: no entrance of ${where} in instances.json`);
 				step('goto', `Go to ${where}`, { tip: `${needs}${npc.name}, the only ${sec.rank} trainer, is inside this dungeon.`, lines: [`  goto ${door.x},${door.y} "${where}" map ${door.map}`] });
-				step('train', `Train ${sec.rank} ${P} · ${npc.name}`, { tip: `${where} is a dungeon: grouping up is advised.`, lines: [`  train ${pq} ${sec.rank}`] });
+				step('train', `Train ${sec.rank} ${P} · ${npc.name}`, { tip: sec.dungeonTip || `${where} is a dungeon: grouping up is advised.`, lines: [`  train ${pq} ${sec.rank}`] });
 			}
 		} else {
 			step('train', `Train ${sec.rank} ${P}`, { tip: sec.level > level ? `Needs level ${sec.level}.` : null, lines: [`  train ${pq} ${sec.rank}`] });

@@ -72,7 +72,8 @@
 			"from": 225,
 			"to": 300,
 			"level": 35,
-			"dungeon": true,
+			"dungeon": "Uldaman",
+			"dungeonTip": "She appears only once every creature in her room is dead: a group is advised.",
 			"teachers": {
 				"Alliance": [11073],
 				"Horde": [11073]
