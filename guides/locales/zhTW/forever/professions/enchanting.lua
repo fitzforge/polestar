@@ -24,7 +24,7 @@ return {
 	-- {item:10940} Strange Dust
 	["Get {item:10940}"] = "",
 	-- {item:10940} Strange Dust · {skill:333} Enchanting · {spell:7420} Enchant Chest - Inferior Stamina
-	["52 {item:10940} for {skill:333} 1-75: 52 {spell:7420}. {skill:333}: disenchant green items of item level 5-20. Or buy them at the Auction House."] = "",
+	["52 {item:10940} for {skill:333} 1-75: 52 {spell:7420}. {skill:333}: disenchant green armour that requires level 1-20. Or buy them at the Auction House."] = "",
 
 	-- Step 4: Enchant Bracer - Inferior Stamina to 25
 	-- {spell:7418} Enchant Bracer - Inferior Stamina
@@ -75,13 +75,13 @@ return {
 
 	-- Step 11: Get Strange Dust
 	-- {item:10940} Strange Dust · {skill:333} Enchanting · {spell:7420} Enchant Chest - Inferior Stamina · {spell:7771} Enchant Cloak - Minor Protection · {item:6339} Runed Silver Rod
-	["136 {item:10940} for {skill:333} 75-150: 27 {spell:7420}, 53 {spell:7771} and {item:6339}. {skill:333}: disenchant green items of item level 5-20. Or buy them at the Auction House."] = "",
+	["136 {item:10940} for {skill:333} 75-150: 27 {spell:7420}, 53 {spell:7771} and {item:6339}. {skill:333}: disenchant green armour that requires level 1-20. Or buy them at the Auction House."] = "",
 
 	-- Step 12: Get Soul Dust
 	-- {item:11083} Soul Dust
 	["Get {item:11083}"] = "",
 	-- {item:11083} Soul Dust · {skill:333} Enchanting · {spell:13501} Enchant Bracer - Lesser Stamina
-	["20 {item:11083} for {skill:333} 75-150: 20 {spell:13501}. {skill:333}: disenchant green items of item level 21-30. Or buy them at the Auction House."] = "",
+	["20 {item:11083} for {skill:333} 75-150: 20 {spell:13501}. {skill:333}: disenchant green armour that requires level 21-30. Or buy them at the Auction House."] = "",
 
 	-- Step 13: Enchanting 75-150: Auction House
 	-- {skill:333} Enchanting
@@ -113,7 +113,8 @@ return {
 	-- {spell:13501} Enchant Bracer - Lesser Stamina
 	["{spell:13501} to 150"] = "{spell:13501}練到150",
 	-- {spell:13501} Enchant Bracer - Lesser Stamina · {item:11083} Soul Dust · {item:6339} Runed Silver Rod · {item:10938} Lesser Magic Essence · {skill:333} Enchanting
-	["{spell:13501} is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:6339} first: the recipe needs it in your bags, so keep it there. {item:10938} (4 for 75-150): Alliance: {skill:333}: disenchant green items of item level 5-15; or the Auction House. Enchant any item for that slot in your bags, even a grey one. {skill:333} 150 is a Legacy System milestone."] = "{spell:13501}在技能130時為橙色（155變黃、175變綠、195變灰）：約製作20次可到150，每次都加1點。每次需要1個{item:11083}。每次一個{item:11083}（21-30級的綠色物品）。先做好{item:6339}：配方需要它放在背包裡，所以一直帶著。{item:10938}（75-150需要4個）：聯盟：{skill:333}：分解物品等級5-15的綠色物品；或在拍賣場購買。對背包中任何該部位的物品附魔都可以，灰色物品也行。{skill:333}達到150是傳承系統的一個里程碑。",
+	-- was: ["{spell:13501} is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:6339} first: the recipe needs it in your bags, so keep it there. {item:10938} (4 for 75-150): Alliance: {skill:333}: disenchant green items of item level 5-15; or the Auction House. Enchant any item for that slot in your bags, even a grey one. {skill:333} 150 is a Legacy System milestone."] = "{spell:13501}在技能130時為橙色（155變黃、175變綠、195變灰）：約製作20次可到150，每次都加1點。每次需要1個{item:11083}。每次一個{item:11083}（21-30級的綠色物品）。先做好{item:6339}：配方需要它放在背包裡，所以一直帶著。{item:10938}（75-150需要4個）：聯盟：{skill:333}：分解物品等級5-15的綠色物品；或在拍賣場購買。對背包中任何該部位的物品附魔都可以，灰色物品也行。{skill:333}達到150是傳承系統的一個里程碑。"
+	["{spell:13501} is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:6339} first: the recipe needs it in your bags, so keep it there. {item:10938} (4 for 75-150): Alliance: {skill:333}: disenchant green armour that requires level 1-15; or the Auction House. Enchant any item for that slot in your bags, even a grey one. {skill:333} 150 is a Legacy System milestone."] = "",
 
 	-- Step 18: Get Iridescent Pearl (Alliance)
 	-- {item:5500} Iridescent Pearl
@@ -132,11 +133,11 @@ return {
 	-- {item:11082} Greater Astral Essence
 	["Get {item:11082}"] = "",
 	-- {item:11082} Greater Astral Essence · {skill:333} Enchanting · {item:11130} Runed Golden Rod
-	["1 {item:11082} for {skill:333} 150-225: {item:11130}. {skill:333}: disenchant green items of item level 16-25. Or buy it at the Auction House."] = "",
+	["1 {item:11082} for {skill:333} 150-225: {item:11130}. {skill:333}: disenchant green armour that requires level 16-25. Or buy it at the Auction House."] = "",
 
 	-- Step 21: Get Soul Dust
 	-- {item:11083} Soul Dust · {skill:333} Enchanting · {item:11130} Runed Golden Rod · {spell:13501} Enchant Bracer - Lesser Stamina · {spell:13637} Enchant Boots - Lesser Agility
-	["55 {item:11083} for {skill:333} 150-225: {item:11130}, 12 {spell:13501} and 42 {spell:13637}. {skill:333}: disenchant green items of item level 21-30. Or buy them at the Auction House."] = "",
+	["55 {item:11083} for {skill:333} 150-225: {item:11130}, 12 {spell:13501} and 42 {spell:13637}. {skill:333}: disenchant green armour that requires level 21-30. Or buy them at the Auction House."] = "",
 
 	-- Step 22: Get Golden Rod
 	-- {item:11128} Golden Rod
@@ -148,19 +149,19 @@ return {
 	-- {item:11134} Lesser Mystic Essence
 	["Get {item:11134}"] = "",
 	-- {item:11134} Lesser Mystic Essence · {skill:333} Enchanting · {spell:13663} Enchant Chest - Greater Intellect
-	["10 {item:11134} for {skill:333} 150-225: 10 {spell:13663}. {skill:333}: disenchant green items of item level 26-35. Or buy them at the Auction House."] = "",
+	["10 {item:11134} for {skill:333} 150-225: 10 {spell:13663}. {skill:333}: disenchant green armour that requires level 26-35. Or buy them at the Auction House."] = "",
 
 	-- Step 24: Get Greater Mystic Essence
 	-- {item:11135} Greater Mystic Essence
 	["Get {item:11135}"] = "",
 	-- {item:11135} Greater Mystic Essence · {skill:333} Enchanting · {item:11145} Runed Truesilver Rod
-	["1 {item:11135} for {skill:333} 150-225: {item:11145}. {skill:333}: disenchant green items of item level 26-35. Or buy it at the Auction House."] = "",
+	["1 {item:11135} for {skill:333} 150-225: {item:11145}. {skill:333}: disenchant green armour that requires level 26-35. Or buy it at the Auction House."] = "",
 
 	-- Step 25: Get Vision Dust
 	-- {item:11137} Vision Dust
 	["Get {item:11137}"] = "",
 	-- {item:11137} Vision Dust · {skill:333} Enchanting · {item:11145} Runed Truesilver Rod · {spell:13746} Enchant Cloak - Greater Defense
-	["21 {item:11137} for {skill:333} 150-225: {item:11145} and 20 {spell:13746}. {skill:333}: disenchant green items of item level 31-40. Or buy them at the Auction House."] = "",
+	["21 {item:11137} for {skill:333} 150-225: {item:11145} and 20 {spell:13746}. {skill:333}: disenchant green armour that requires level 31-40. Or buy them at the Auction House."] = "",
 
 	-- Step 26: Get Truesilver Rod
 	-- {item:11144} Truesilver Rod
@@ -255,14 +256,14 @@ return {
 
 	-- Step 41: Get Vision Dust
 	-- {item:11137} Vision Dust · {skill:333} Enchanting · {spell:13815} Enchant Gloves - Agility
-	["45 {item:11137} for {skill:333} 225-300: 45 {spell:13815}. {skill:333}: disenchant green items of item level 31-40. Or buy them at the Auction House."] = "",
+	["45 {item:11137} for {skill:333} 225-300: 45 {spell:13815}. {skill:333}: disenchant green armour that requires level 31-40. Or buy them at the Auction House."] = "",
 
 	-- Step 42: Get Dream Dust
 	-- {item:11176} Dream Dust
 	["Get {item:11176}"] = "",
 	-- {item:11176} Dream Dust · {skill:333} Enchanting · {spell:20017} Enchant Shield - Greater Stamina
 	-- plural, as words: Lesser Mana Oils = {item:20747} Lesser Mana Oil
-	["233 {item:11176} for {skill:333} 225-300: 41 Lesser Mana Oils and 32 {spell:20017}. {skill:333}: disenchant green items of item level 41-50. Or buy them at the Auction House."] = "",
+	["233 {item:11176} for {skill:333} 225-300: 41 Lesser Mana Oils and 32 {spell:20017}. {skill:333}: disenchant green armour that requires level 41-50. Or buy them at the Auction House."] = "",
 
 	-- Step 43: Enchant Gloves - Agility to 253
 	-- {spell:13815} Enchant Gloves - Agility
@@ -370,6 +371,7 @@ return {
 	-- ["{skill:333} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 4g 3s in all."] = "{skill:333}可以邊升級邊練。永恆的傳承系統會在專業技能150、225和300（中級、高級和專家級的上限）時給予製造專業獎勵，所以每個階段都很重要。1-75所需材料總價約4金3銀。",
 	-- ["{skill:333}: disenchant uncommon (green) gear (or the Auction House)"] = "{skill:333}：分解優秀（綠色）裝備（或在拍賣場購買）",
 	-- ["{spell:13419} to 150"] = "{spell:13419}練到150",
+	-- ["{spell:13501} is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:6339} first: the recipe needs it in your bags, so keep it there. {item:10938} (4 for 75-150): Alliance: {skill:333}: disenchant green items of item level 5-15; or the Auction House. Enchant any item for that slot in your bags, even a grey one. {skill:333} 150 is a Legacy System milestone."] = "{spell:13501}在技能130時為橙色（155變黃、175變綠、195變灰）：約製作20次可到150，每次都加1點。每次需要1個{item:11083}。每次一個{item:11083}（21-30級的綠色物品）。先做好{item:6339}：配方需要它放在背包裡，所以一直帶著。{item:10938}（75-150需要4個）：聯盟：{skill:333}：分解物品等級5-15的綠色物品；或在拍賣場購買。對背包中任何該部位的物品附魔都可以，灰色物品也行。{skill:333}達到150是傳承系統的一個里程碑。",
 	-- ["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13501}在技能150時為橙色（155變黃、175變綠、195變灰）：約製作11次可到160。每次需要1個{item:11083}。每次一個{item:11083}（21-30級的綠色物品）。趁現在還能加點時做好{item:11130}：之後的配方需要它放在背包裡，所以一直帶著。對背包中任何該部位的物品附魔都可以，灰色物品也行。",
 	-- ["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one. If you got here without learning {spell:13501}, learn it now: an earlier step teaches it."] = "{spell:13501}在150時為橙色（黃色155，綠色175，灰色195）：大約製作11次到160。每次需要1個{item:11083}。每次一個{item:11083}（21-30級綠色物品）。現在就做{item:11130}，趁它還能加點：後面的配方需要它在你的背包裡，所以留著。給背包裡該部位的任何物品附魔，灰色的也行。如果你到這裡還沒學會{spell:13501}，現在就學：之前的步驟會教。",
 	-- ["{spell:13637} is orange at 160 (yellow 180, green 200, grey 220): about 59 crafts to 205. Each takes 1 {item:11083}. {item:11083} again. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13637}在160時為橙色（180黃、200綠、220灰）：大約59次製作可到205。每次需要1個{item:11083}。又是{item:11083}。給包中該部位的任意一件物品附魔，哪怕是灰色的。",

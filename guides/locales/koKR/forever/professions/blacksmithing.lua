@@ -9,369 +9,569 @@ return {
 	-- Step 1: Learn Blacksmithing
 	-- {skill:164} Blacksmithing
 	["Learn {skill:164}"] = "{skill:164} 배우기",
-	-- {skill:164} Blacksmithing · {item:5956} Blacksmith Hammer · {skill:186} Mining · {item:2835} Rough Stone · {item:2770} Copper Ore
-	-- plural, as words: Copper Veins = {object:1731} Copper Vein
-	-- was: ["Apprentice {skill:164} lets you craft up to 75 for 10c, at any character level. Any {skill:164} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} (any blacksmithing supplier) and pair it with {skill:186}: {item:2835} and {item:2770} come from the Copper Veins of every starting zone. 1-75 takes about 1s of recipes, plus 286 {item:2835} to gather or buy."] = "{skill:164} 초급 단계는 10코퍼로 75까지 제작할 수 있게 해 주며, 캐릭터 레벨 제한이 없습니다. 당신 진영의 어떤 {skill:164} 상급자든 가르치며, 화살표가 가장 가까운 이를 가리킵니다. {item:5956}을(를) 대장기술 용품 상인에게서 사서 {skill:186}과(와) 함께 쓰세요. {item:2835}과(와) {item:2770}은(는) 모든 시작 지역의 구리 광맥에서 나옵니다. 1-75에는 제조법 약 1실버와 {item:2835} 286개를 채집하거나 구매해야 합니다."
-	["Apprentice {skill:164} lets you craft up to 75 for 10c, at any character level. Any {skill:164} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} (any blacksmithing supplier) and pair it with {skill:186}: {item:2835} and {item:2770} come from the Copper Veins of every starting zone. 1-75 takes about 1s of recipes, plus 195 {item:2835} to gather or buy."] = "",
+	["No character level needed."] = "",
 
-	-- Step 2: Get Rough Stone
+	-- Step 2: Buy a Blacksmith Hammer
+	-- {item:5956} Blacksmith Hammer
+	["Buy a {item:5956}"] = "",
+	["A tool: it stays in your bags, and most recipes need it."] = "",
+
+	-- Step 3: Get 198 Rough Stone
 	-- {item:2835} Rough Stone
-	["Get {item:2835}"] = "",
-	-- {item:2835} Rough Stone · {skill:164} Blacksmithing · {skill:186} Mining · {object:1731} Copper Vein · {zone:1426} Dun Morogh · {zone:1429} Elwynn Forest · {zone:2521} Zephras Isle
+	["Get 198 {item:2835}"] = "",
 	-- plural, as words: Rough Sharpening Stones = {spell:2660} Rough Sharpening Stone · Rough Grinding Stones = {spell:3320} Rough Grinding Stone
-	["195 {item:2835} for {skill:164} 1-75: 47 Rough Sharpening Stones and 74 Rough Grinding Stones. {skill:186}: {object:1731} (skill 1) in {zone:1426} (1-10), {zone:1429} (1-10) and {zone:2521} (1-15). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["For 30 Rough Sharpening Stones and 84 Rough Grinding Stones."] = "",
 
-	-- Step 3: Rough Sharpening Stone to 35
-	-- {spell:2660} Rough Sharpening Stone
-	["{spell:2660} to 35"] = "{spell:2660}: 35까지",
-	-- {spell:2660} Rough Sharpening Stone · {item:2835} Rough Stone
-	["{spell:2660} is orange at 1 (yellow 15, green 35, grey 55): about 42 crafts to 35, up to 47 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:2835}. One {item:2835} a craft, a point every craft to 15."] = "",
+	-- Step 4: Craft 30 Rough Sharpening Stones until 25
+	-- plural, as words: Rough Sharpening Stones = {spell:2660} Rough Sharpening Stone
+	["Craft 30 Rough Sharpening Stones until 25"] = "",
+	["About 30 crafts."] = "",
 
-	-- Step 4: Blacksmithing recipes at 35
-	-- {skill:164} Blacksmithing
-	["{skill:164} recipes at 35"] = "35에서 {skill:164} 제조법",
-	-- {skill:164} Blacksmithing · {spell:3320} Rough Grinding Stone · {spell:1230171} Sharpening Wheel · {item:2835} Rough Stone · {item:2840} Copper Bar
-	["Back to a {skill:164} trainer: {spell:3320} (from 25, 1s). Also learn {spell:1230171} (1s): Forever's {skill:164} camp item, 1 {item:2835} and 1 {item:2840}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:164} quest from your starting area's camping guide (after The Great Outdoors) sends you to a blacksmithing trainer who teaches it free."] = "{skill:164} 상급자에게 돌아가세요: {spell:3320}(25부터, 1s). {spell:1230171}(1s)도 배우세요. Forever의 {skill:164} 야영 아이템으로, {item:2835} 1개와 {item:2840} 1개가 들고 모닥불 옆 야영지에 설치하면 강화 효과를 줍니다. 시작 지역의 야영 가이드에 있는 야영 기초 101: {skill:164} 퀘스트(위대한 야외 다음)가 대장장이 상급자에게 보내며, 거기서 무료로 가르칩니다.",
-
-	-- Step 5: Rough Grinding Stone to 75
+	-- Step 5: Learn Rough Grinding Stone
 	-- {spell:3320} Rough Grinding Stone
-	["{spell:3320} to 75"] = "{spell:3320}: 75까지",
-	-- {spell:3320} Rough Grinding Stone · {item:2835} Rough Stone
-	-- was: ["{spell:3320} is orange at 35 (yellow 45, green 65, grey 85): about 64 crafts to 75. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320}은(는) 35에 주황색입니다(노란색 45, 초록색 65, 회색 85). 75까지 약 64번 만드세요. 한 번에 {item:2835} 2개. 제작당 {item:2835} 두 개. 숫돌은 이후 제조법의 재료이며, 남는 것은 상인에게 팔립니다."
-	["{spell:3320} is orange at 35 (yellow 45, green 65, grey 85): about 64 crafts to 75, up to 74 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "",
+	["Learn {spell:3320}"] = "",
 
-	-- Step 6: Journeyman Blacksmithing
-	-- {skill:164} Blacksmithing
-	["Journeyman {skill:164}"] = "수습 {skill:164}",
-	-- {skill:164} Blacksmithing · {npc:3136} Clarise Gnarltree · {zone:1431} Duskwood · {npc:252479} Daeann Steelwind · {zone:2521} Zephras Isle · {npc:10276} Rotgath Stonebeard · {zone:1455} Ironforge · {npc:5511} Therum Deepforge · {zone:1453} Stormwind City · {npc:276067} Angus Hammerhand · {zone:1420} Tirisfal Glades · {npc:4596} James Van Brunt · {zone:1458} Undercity · {npc:2998} Karn Stonehoof · {zone:1456} Thunder Bluff · {npc:1383} Snarl · {zone:1454} Orgrimmar · {npc:3478} Traugh · {zone:1413} The Barrens · {spell:2666} Runed Copper Belt · {spell:3326} Coarse Grinding Stone · {item:2319} Medium Leather · {item:2836} Coarse Stone · {item:2840} Copper Bar · {item:2841} Bronze Bar
-	-- was: ["Journeyman raises the cap from 75 to 150 for 5s; it needs {skill:164} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:164} trainer teaches it: Alliance {npc:3136} ({zone:1431}), {npc:252479} ({zone:2521}), {npc:10276} ({zone:1455}) and {npc:5511} ({zone:1453}); Horde {npc:276067} ({zone:1420}), {npc:252479} ({zone:2521}), {npc:4596} ({zone:1458}), {npc:2998} ({zone:1456}), {npc:1383} ({zone:1454}) and {npc:3478} ({zone:1413}). The arrow picks the nearest of your faction. Learn now: {spell:2666} (from 45, 2s) and {spell:3326} (from 50, 2s 50c). 75-150 takes about 19s 50c of recipes and 18c of vendor goods, plus 256 {item:2836}, 28 {item:2838}, 210 {item:2840} and 320 {item:2841} to gather or buy."] = "수습 단계는 5실버로 최대 숙련도를 75에서 150으로 올립니다. {skill:164} 50과 캐릭터 레벨 10이 필요하므로, 50이 되면 언제 들러도 배울 수 있습니다. 모든 {skill:164} 상급자가 가르치지는 않습니다: 얼라이언스는 {npc:3136}({zone:1431}), {npc:252479}({zone:2521}), {npc:10276}({zone:1455}), {npc:5511}({zone:1453}), 호드는 {npc:276067}({zone:1420}), {npc:252479}({zone:2521}), {npc:4596}({zone:1458}), {npc:2998}({zone:1456}), {npc:1383}({zone:1454}), {npc:3478}({zone:1413})입니다. 화살표가 진영의 가장 가까운 상급자를 가리킵니다. 지금 배우세요: {spell:2666}(45부터, 2실버), {spell:3326}(50부터, 2실버 50코퍼). 75-150에는 제조법 약 19실버 50코퍼와 상인 재료 약 18코퍼, 그리고 채집하거나 살 {item:2836} 256개, {item:2838} 28개, {item:2840} 210개, {item:2841} 320개가 듭니다."
-	["Journeyman raises the cap from 75 to 150 for 5s; it needs {skill:164} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:164} trainer teaches it: Alliance {npc:3136} ({zone:1431}), {npc:252479} ({zone:2521}), {npc:10276} ({zone:1455}) and {npc:5511} ({zone:1453}); Horde {npc:276067} ({zone:1420}), {npc:252479} ({zone:2521}), {npc:4596} ({zone:1458}), {npc:2998} ({zone:1456}), {npc:1383} ({zone:1454}) and {npc:3478} ({zone:1413}). The arrow picks the nearest of your faction. Learn now: {spell:2666} (from 45, 2s) and {spell:3326} (from 50, 2s 50c). 75-150 takes about 12s of recipes and 5g 18c of vendor goods, plus 25 {item:2319}, 100 {item:2836}, 320 {item:2840} and 325 {item:2841} to gather or buy."] = "",
+	-- Step 6: Craft 84 Rough Grinding Stones until 75
+	-- plural, as words: Rough Grinding Stones = {spell:3320} Rough Grinding Stone
+	["Craft 84 Rough Grinding Stones until 75"] = "",
+	["About 84 crafts."] = "",
 
-	-- Step 7: Blacksmithing 75-150: vendor goods
-	-- {skill:164} Blacksmithing
-	["{skill:164} 75-150: vendor goods"] = "{skill:164} 75-150: 상인 재료",
-	-- {item:3466} Strong Flux · {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:1286} Edna Mullby · {npc:5512} Kaita Deepforge · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:5817} Shimra · {npc:3413} Sovik
-	-- was: ["Buy the whole bracket's share in one go: {item:5956} (a tool: one, kept in your bags, 18c); about 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:1286} and {npc:5512}; {zone:1454}: {npc:3367}, {npc:5817} and {npc:3413})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:5956}(도구: 하나를 사서 가방에 두세요, 18코퍼). 모두 약 18코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:5519}, {npc:1286}, {npc:5512}; {zone:1454}: {npc:3367}, {npc:5817}, {npc:3413})."
-	["Buy the whole bracket's share in one go: 25 {item:3466} (5g) and {item:5956} (a tool: one, kept in your bags, 18c); about 5g 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:1286} and {npc:5512}; {zone:1454}: {npc:3367}, {npc:5817} and {npc:3413})."] = "",
-	["a tool, keep it in your bags"] = "도구이니 가방에 두세요",
-
-	-- Step 8: Get Medium Leather
-	-- {item:2319} Medium Leather
-	["Get {item:2319}"] = "",
-	-- {item:2319} Medium Leather · {skill:164} Blacksmithing · {skill:393} Skinning
-	-- plural, as words: Bronze Warhammers = {item:7956} Bronze Warhammer
-	["25 {item:2319} for {skill:164} 75-150: 25 Bronze Warhammers. {skill:393}: beasts of level 18-30. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
-
-	-- Step 9: Get Coarse Stone
+	-- Step 7: Get 120 Coarse Stone
 	-- {item:2836} Coarse Stone
-	["Get {item:2836}"] = "",
-	-- {item:2836} Coarse Stone · {skill:164} Blacksmithing · {spell:2672} Patterned Bronze Bracers · {skill:186} Mining · {object:1732} Tin Vein · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills · {zone:1437} Wetlands
-	["100 {item:2836} for {skill:164} 75-150: 25 {spell:2672}. {skill:186}: {object:1732} (skill 65) in {zone:1440} (18-30), {zone:1424} (20-30) and {zone:1437} (20-30). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["Get 120 {item:2836}"] = "",
+	-- plural, as words: Coarse Grinding Stones = {spell:3326} Coarse Grinding Stone
+	["For 60 Coarse Grinding Stones."] = "",
 
-	-- Step 10: Get Copper Bar
-	-- {item:2840} Copper Bar
-	["Get {item:2840}"] = "",
-	-- {item:2840} Copper Bar · {skill:164} Blacksmithing · {item:2770} Copper Ore · {skill:186} Mining
-	-- plural, as words: Runed Copper Belts = {spell:2666} Runed Copper Belt
-	["320 {item:2840} for {skill:164} 75-150: 32 Runed Copper Belts. Mine {item:2770} and smelt it at a forge ({skill:186} 1). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- Step 8: Train Journeyman Blacksmithing
+	-- {skill:164} Blacksmithing
+	["Train Journeyman {skill:164}"] = "",
+	["Needs level 10."] = "",
 
-	-- Step 11: Get Bronze Bar
+	-- Step 9: Learn Coarse Grinding Stone
+	-- {spell:3326} Coarse Grinding Stone
+	["Learn {spell:3326}"] = "",
+
+	-- Step 10: Craft 60 Coarse Grinding Stones until 84
+	-- plural, as words: Coarse Grinding Stones = {spell:3326} Coarse Grinding Stone
+	["Craft 60 Coarse Grinding Stones until 84"] = "",
+	["About 60 crafts. Keep all 60: the bracers at 95 and 115 and the gauntlets at 125 use them."] = "",
+
+	-- Step 11: Get 91 Bronze Bar
 	-- {item:2841} Bronze Bar
-	["Get {item:2841}"] = "",
-	-- {item:2841} Bronze Bar · {skill:164} Blacksmithing · {spell:2672} Patterned Bronze Bracers · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
-	-- plural, as words: Bronze Warhammers = {item:7956} Bronze Warhammer
-	["325 {item:2841} for {skill:164} 75-150: 25 {spell:2672} and 25 Bronze Warhammers. {skill:186}: smelt {item:2840} and {item:3576}. Or buy them at the Auction House."] = "",
+	["Get 91 {item:2841}"] = "",
+	-- {spell:2668} Rough Bronze Leggings · {spell:2672} Patterned Bronze Bracers · {skill:186} Mining
+	["For 11 {spell:2668} and 5 {spell:2672}. No {skill:186}? The bars, not the ore."] = "",
 
-	-- Step 12: Runed Copper Belt to 100
-	-- {spell:2666} Runed Copper Belt
-	["{spell:2666} to 100"] = "{spell:2666}: 100까지",
-	-- {spell:2666} Runed Copper Belt · {item:2840} Copper Bar · {item:2770} Copper Ore · {item:5956} Blacksmith Hammer
-	-- plural, as words: Copper Bars = {item:2840} Copper Bar
-	-- was: ["{spell:2666} is orange at 83 (yellow 85, green 105, grey 125): about 21 crafts to 100. Each takes 10 {item:2840}. Forever teaches {spell:2666} from 45; it stays orange to 85. Ten Copper Bars a craft: smelt your {item:2770}. Needs an anvil nearby. {item:5956} is a tool: keep it in your bags."] = "{spell:2666}은(는) 83에 주황색입니다(노란색 85, 초록색 105, 회색 125). 100까지 약 21번 만드세요. 한 번에 {item:2840} 10개. Forever는 {spell:2666}을(를) 45에서 가르치며 85까지 주황색입니다. 제작당 구리 주괴 열 개. {item:2770}을(를) 제련하세요. 근처에 모루가 필요합니다. {item:5956}은(는) 도구이니 가방에 두세요."
-	["{spell:2666} is orange at 75 (yellow 85, green 105, grey 125): about 29 crafts to 100, up to 32 for 9 players in 10 (the gathered materials above count that many). Each takes 10 {item:2840}. Forever teaches {spell:2666} from 45; it stays orange to 85. Ten Copper Bars a craft: smelt your {item:2770}. Needs an anvil nearby. {item:5956} is a tool: keep it in your bags."] = "",
+	-- Step 12: Learn Rough Bronze Leggings
+	-- {spell:2668} Rough Bronze Leggings
+	["Learn {spell:2668}"] = "",
 
-	-- Step 13: Blacksmithing recipes at 100
-	-- {skill:164} Blacksmithing
-	["{skill:164} recipes at 100"] = "100에서 {skill:164} 제조법",
-	-- {skill:164} Blacksmithing · {spell:2672} Patterned Bronze Bracers · {spell:9985} Bronze Warhammer
-	["Back to a {skill:164} trainer: {spell:2672} (from 95, 5s) and {spell:9985} (from 100, 2s 50c)."] = "",
+	-- Step 13: Go to an anvil
+	["Go to an anvil"] = "",
+	["Anvil"] = "",
 
-	-- Step 14: Patterned Bronze Bracers to 125
+	-- Step 14: Craft 11 Rough Bronze Leggings until 95
+	-- {spell:2668} Rough Bronze Leggings
+	["Craft 11 {spell:2668} until 95"] = "",
+	["About 11 crafts. Short of 84 after the stones? These leggings carry on from where you are."] = "",
+
+	-- Step 15: Learn Patterned Bronze Bracers
 	-- {spell:2672} Patterned Bronze Bracers
-	["{spell:2672} to 125"] = "",
-	-- {spell:2672} Patterned Bronze Bracers · {item:2841} Bronze Bar · {spell:3326} Coarse Grinding Stone · {item:2836} Coarse Stone
-	-- plural, as words: Coarse Grinding Stones = {spell:3326} Coarse Grinding Stone · Tin Veins = {object:1732} Tin Vein
-	["{spell:2672} is orange at 100 (yellow 125, green 140, grey 155): about 25 crafts to 125, a point every craft. Each takes 5 {item:2841} and 2 {spell:3326}. Make the 50 {spell:3326} first. Each bracer takes two Coarse Grinding Stones ({item:2836} from Tin Veins): make them first; they give points too. Needs an anvil nearby."] = "",
+	["Learn {spell:2672}"] = "",
 
-	-- Step 15: Bronze Warhammer to 150
-	-- {item:7956} Bronze Warhammer
-	["{item:7956} to 150"] = "",
-	-- {item:7956} Bronze Warhammer · {item:2841} Bronze Bar · {item:3466} Strong Flux · {item:2319} Medium Leather · {skill:164} Blacksmithing
-	-- plural, as words: Bronze Bars = {item:2841} Bronze Bar
-	["{item:7956} is orange at 125 (yellow 155, green 170, grey 185): about 25 crafts to 150, a point every craft. Each takes 8 {item:2841}, 1 {item:3466} and 1 {item:2319}. Eight Bronze Bars, a {item:3466} (blacksmithing suppliers) and a {item:2319} a craft; every Journeyman trainer in the capitals teaches it from 100. Needs an anvil nearby. {skill:164} 150 is a Legacy System milestone."] = "",
+	-- Step 17: Craft 5 Patterned Bronze Bracers until 100
+	-- {spell:2672} Patterned Bronze Bracers
+	["Craft 5 {spell:2672} until 100"] = "",
+	["About 5 crafts."] = "",
 
-	-- Step 16: Expert Blacksmithing
-	-- {skill:164} Blacksmithing
-	["Expert {skill:164}"] = "숙련 {skill:164}",
-	-- {skill:164} Blacksmithing · {npc:4258} Bengus Deepforge · {zone:1455} Ironforge · {npc:3355} Saru Steelfury · {zone:1454} Orgrimmar · {spell:3501} Green Iron Bracers · {spell:3337} Heavy Grinding Stone · {item:2838} Heavy Stone · {item:3575} Iron Bar · {item:3859} Steel Bar · {item:3860} Mithril Bar · {item:4304} Thick Leather · {item:4338} Mageweave Cloth · {item:7912} Solid Stone
-	["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:164} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:4258} ({zone:1455}); Horde {npc:3355} ({zone:1454}). This route trains it at {npc:4258} ({zone:1455}) for the Alliance and {npc:3355} ({zone:1454}) for the Horde, who also teach the recipes of 150-225: one trainer for every visit. Learn now: {spell:3501} (from 140) and {spell:3337} (from 100, 10s). 150-225 takes about 10s of recipes and 28s of vendor goods, plus 60 {item:2838}, 186 {item:3575}, 302 {item:3859}, 230 {item:3860}, 84 {item:4304}, 60 {item:4338} and 72 {item:7912} to gather or buy."] = "",
-
-	-- Step 17: Blacksmithing 150-225: vendor goods
-	-- {skill:164} Blacksmithing
-	["{skill:164} 150-225: vendor goods"] = "{skill:164} 150-225: 상인 재료",
-	-- {item:2605} Green Dye · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:5817} Shimra · {item:3859} Steel Bar · {skill:186} Mining · {item:3575} Iron Bar
-	-- was: ["Buy the whole bracket's share in one go: 28 {item:2605} (28s); about 28s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817}). If you smelt the 195 {item:3859} yourself ({skill:186} 165: an {item:3575} and a Coal each), buy 195 Coal too (9g 75s, trade and blacksmithing suppliers); skip them if you buy the bars."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:2605} 28개(28실버). 모두 약 28실버. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1347}, {npc:1286}, {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367}, {npc:5817}). 195개의 {item:3859}을(를) 직접 제련한다면({skill:186} 165: {item:3575} 하나와 석탄 하나) 석탄 195개도 사세요(9골드 75실버, 무역 및 대장기술 용품 상인). 주괴를 산다면 건너뛰세요."
-	["Buy the whole bracket's share in one go: 28 {item:2605} (28s); about 28s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: Borya, {npc:3367} and {npc:5817}). If you smelt the 302 {item:3859} yourself ({skill:186} 165: an {item:3575} and a Coal each), buy 302 Coal too (15g 10s, trade and blacksmithing suppliers); skip them if you buy the bars."] = "",
-
-	-- Step 18: Get Heavy Stone
+	-- Step 18: Get 90 Heavy Stone
 	-- {item:2838} Heavy Stone
-	["Get {item:2838}"] = "",
-	-- {item:2838} Heavy Stone · {skill:164} Blacksmithing · {item:6040} Golden Scale Bracers · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {zone:2548} Riverglades
-	["60 {item:2838} for {skill:164} 150-225: 10 {item:6040}. {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:2548} (38-47). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["Get 90 {item:2838}"] = "",
+	-- plural, as words: Heavy Grinding Stones = {spell:3337} Heavy Grinding Stone
+	["For 30 Heavy Grinding Stones."] = "",
 
-	-- Step 19: Get Iron Bar
-	-- {item:3575} Iron Bar
-	["Get {item:3575}"] = "",
-	-- {item:3575} Iron Bar · {skill:164} Blacksmithing · {spell:3501} Green Iron Bracers · {item:2772} Iron Ore · {skill:186} Mining
-	["186 {item:3575} for {skill:164} 150-225: 31 {spell:3501}. Mine {item:2772} and smelt it at a forge ({skill:186} 125). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- Step 19: Learn Heavy Grinding Stone
+	-- {spell:3337} Heavy Grinding Stone
+	["Learn {spell:3337}"] = "",
 
-	-- Step 20: Get Steel Bar
-	-- {item:3859} Steel Bar
-	["Get {item:3859}"] = "",
-	-- {item:3859} Steel Bar · {skill:164} Blacksmithing · {item:6040} Golden Scale Bracers · {item:2772} Iron Ore · {skill:186} Mining
-	-- plural, as words: Steel Plate Helms = {item:7922} Steel Plate Helm
-	["302 {item:3859} for {skill:164} 150-225: 10 {item:6040} and 18 Steel Plate Helms. Smelting makes them from {item:2772} ({skill:186} 165): about 302 {item:2772} for 302. The loops below are for the {item:2772}; the {skill:186} guide's loops give the rest. The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
-
-	-- Step 21: Get Mithril Bar
-	-- {item:3860} Mithril Bar
-	["Get {item:3860}"] = "",
-	-- {item:3860} Mithril Bar · {skill:164} Blacksmithing · {item:7933} Heavy Mithril Boots · {item:3858} Mithril Ore · {skill:186} Mining
-	-- plural, as words: Heavy Mithril Gauntlets = {item:7919} Heavy Mithril Gauntlet
-	["230 {item:3860} for {skill:164} 150-225: 15 Heavy Mithril Gauntlets and 10 {item:7933}. Mine {item:3858} and smelt it at a forge ({skill:186} 175). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
-
-	-- Step 22: Get Thick Leather
-	-- {item:4304} Thick Leather
-	["Get {item:4304}"] = "",
-	-- {item:4304} Thick Leather · {skill:164} Blacksmithing · {item:7933} Heavy Mithril Boots · {skill:393} Skinning
-	["84 {item:4304} for {skill:164} 150-225: 21 {item:7933} (44 of them for 225-300: get them all now). {skill:393}: beasts of level 38-50. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
-
-	-- Step 23: Get Mageweave Cloth
-	-- {item:4338} Mageweave Cloth
-	["Get {item:4338}"] = "",
-	-- {item:4338} Mageweave Cloth · {skill:164} Blacksmithing
-	-- plural, as words: Heavy Mithril Gauntlets = {item:7919} Heavy Mithril Gauntlet
-	["60 {item:4338} for {skill:164} 150-225: 15 Heavy Mithril Gauntlets. Humanoids of level 35-50 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4338} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
-
-	-- Step 24: Get Solid Stone
-	-- {item:7912} Solid Stone
-	["Get {item:7912}"] = "",
-	-- {item:7912} Solid Stone · {skill:164} Blacksmithing · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	-- plural, as words: Steel Plate Helms = {item:7922} Steel Plate Helm
-	["72 {item:7912} for {skill:164} 150-225: 18 Steel Plate Helms. {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
-
-	-- Step 25: Green Iron Bracers to 175
-	-- {spell:3501} Green Iron Bracers
-	["{spell:3501} to 175"] = "{spell:3501}: 175까지",
-	-- {spell:3501} Green Iron Bracers · {item:3575} Iron Bar · {item:2605} Green Dye
-	-- plural, as words: Iron Bars = {item:3575} Iron Bar
-	-- was: ["{spell:3501} is orange at 150 (yellow 165, green 177, grey 190): about 28 crafts to 175. Each takes 6 {item:3575} and 1 {item:2605}. Six Iron Bars and a {item:2605} a craft; {item:2605} comes from tailoring, leatherworking and trade supplies vendors. Orange to 165 on Forever, so a point every craft for the first fifteen. Needs an anvil nearby."] = "{spell:3501}은(는) 150에 주황색입니다(노란색 165, 초록색 177, 회색 190). 175까지 약 28번 만드세요. 한 번에 {item:3575} 6개, {item:2605} 1개. 제작당 철 주괴 여섯 개와(과) {item:2605} 한 개. {item:2605}은(는) 재봉술, 가죽세공, 무역 용품 상인에게서. Forever에서는 165까지 주황색이니 처음 열다섯 번은 매번 포인트가 오릅니다. 근처에 모루가 필요합니다."
-	["{spell:3501} is orange at 150 (yellow 165, green 177, grey 190): about 28 crafts to 175, up to 31 for 9 players in 10 (the gathered materials above count that many). Each takes 6 {item:3575} and 1 {item:2605}. Six Iron Bars and a {item:2605} a craft; {item:2605} comes from tailoring, leatherworking and trade supplies vendors. Orange to 165 on Forever, so a point every craft for the first fifteen. Needs an anvil nearby."] = "",
-
-	-- Step 26: Blacksmithing recipes at 175
-	-- {skill:164} Blacksmithing
-	["{skill:164} recipes at 175"] = "175에서 {skill:164} 제조법",
-	-- {npc:4258} Bengus Deepforge · {zone:1455} Ironforge · {npc:3355} Saru Steelfury · {zone:1454} Orgrimmar · {spell:7223} Golden Scale Bracers · {spell:9920} Solid Grinding Stone
-	["Back to {npc:4258} ({zone:1455}) (Alliance) or {npc:3355} ({zone:1454}) (Horde): {spell:7223} (from 160) and {spell:9920} (from 175)."] = "",
-
-	-- Step 27: Golden Scale Bracers to 185
+	-- Step 20: Craft 30 Heavy Grinding Stones until 115
+	-- plural, as words: Heavy Grinding Stones = {spell:3337} Heavy Grinding Stone
+	["Craft 30 Heavy Grinding Stones until 115"] = "",
 	-- {item:6040} Golden Scale Bracers
-	["{item:6040} to 185"] = "",
-	-- {item:6040} Golden Scale Bracers · {item:3859} Steel Bar · {spell:3337} Heavy Grinding Stone · {item:3575} Iron Bar · {skill:186} Mining
-	-- plural, as words: Steel Bars = {item:3859} Steel Bar · Heavy Grinding Stones = {spell:3337} Heavy Grinding Stone
-	["{item:6040} is orange at 175 (yellow 185, green 197, grey 210): about 10 crafts to 185, a point every craft. Each takes 5 {item:3859} and 2 {spell:3337}. Make the 20 {spell:3337} first. Steel Bars are smelted from an {item:3575} and a Coal ({skill:186} 165; Coal from trade and blacksmithing suppliers), so each bracer is five of each. Each bracer takes two Heavy Grinding Stones: make them first. Needs an anvil nearby."] = "",
+	["About 30 crafts. Keep all 30 for the {item:6040} at 185."] = "",
 
-	-- Step 28: Blacksmithing recipes at 185
+	-- Step 21: Get 50 Bronze Bar
+	-- {item:2841} Bronze Bar
+	["Get 50 {item:2841}"] = "",
+	-- {spell:2672} Patterned Bronze Bracers · {skill:186} Mining
+	["For 10 {spell:2672}. No {skill:186}? The bars, not the ore."] = "",
+
+	-- Step 23: Craft 10 Patterned Bronze Bracers until 125
+	-- {spell:2672} Patterned Bronze Bracers
+	["Craft 10 {spell:2672} until 125"] = "",
+	["About 10 crafts."] = "",
+
+	-- Step 24: Get 120 Bronze Bar
+	-- {item:2841} Bronze Bar
+	["Get 120 {item:2841}"] = "",
+	-- {spell:3333} Silvered Bronze Gauntlets · {skill:186} Mining
+	["For 15 {spell:3333}. No {skill:186}? The bars, not the ore."] = "",
+
+	-- Step 25: Get 15 Silver Bar
+	-- {item:2842} Silver Bar
+	["Get 15 {item:2842}"] = "",
+	-- {spell:3333} Silvered Bronze Gauntlets
+	["For 15 {spell:3333}."] = "",
+
+	-- Step 26: Learn Silvered Bronze Gauntlets
+	-- {spell:3333} Silvered Bronze Gauntlets
+	["Learn {spell:3333}"] = "",
+
+	-- Step 28: Craft 15 Silvered Bronze Gauntlets until 140
+	-- {spell:3333} Silvered Bronze Gauntlets
+	["Craft 15 {spell:3333} until 140"] = "",
+	-- {item:2842} Silver Bar
+	-- plural, as words: Bronze Warhammers = {item:7956} Bronze Warhammer
+	["About 15 crafts. {item:2842} dear? 15 Bronze Warhammers reach 140 too."] = "",
+
+	-- Step 29: Buy 40 Green Dye
+	-- {item:2605} Green Dye
+	["Buy 40 {item:2605}"] = "",
+	-- {spell:3501} Green Iron Bracers
+	["For 40 {spell:3501}."] = "",
+
+	-- Step 30: Get 240 Iron Bar
+	-- {item:3575} Iron Bar
+	["Get 240 {item:3575}"] = "",
+	-- {spell:3501} Green Iron Bracers · {skill:186} Mining
+	["For 40 {spell:3501}. No {skill:186}? The bars, not the ore."] = "",
+
+	-- Step 31: Train Expert Blacksmithing
 	-- {skill:164} Blacksmithing
-	["{skill:164} recipes at 185"] = "185에서 {skill:164} 제조법",
-	-- {npc:4258} Bengus Deepforge · {zone:1455} Ironforge · {npc:3355} Saru Steelfury · {zone:1454} Orgrimmar · {spell:9928} Heavy Mithril Gauntlet
-	["Back to {npc:4258} ({zone:1455}) (Alliance) or {npc:3355} ({zone:1454}) (Horde): {spell:9928} (from 180)."] = "",
+	["Train Expert {skill:164}"] = "",
+	["Needs level 20."] = "",
 
-	-- Step 29: Heavy Mithril Gauntlet to 200
-	-- {item:7919} Heavy Mithril Gauntlet
-	["{item:7919} to 200"] = "",
-	-- {item:7919} Heavy Mithril Gauntlet · {item:3860} Mithril Bar · {item:4338} Mageweave Cloth · {npc:4258} Bengus Deepforge · {zone:1455} Ironforge · {npc:3355} Saru Steelfury · {zone:1454} Orgrimmar
+	-- Step 32: Learn Green Iron Bracers
+	-- {spell:3501} Green Iron Bracers
+	["Learn {spell:3501}"] = "",
+
+	-- Step 34: Craft 40 Green Iron Bracers until 175
+	-- {spell:3501} Green Iron Bracers
+	["Craft 40 {spell:3501} until 175"] = "",
+	["About 40 crafts."] = "",
+
+	-- Step 35: Get 60 Solid Stone
+	-- {item:7912} Solid Stone
+	["Get 60 {item:7912}"] = "",
+	-- plural, as words: Solid Grinding Stones = {item:7966} Solid Grinding Stone · Solid Sharpening Stones = {item:7964} Solid Sharpening Stone
+	["For 8 Solid Grinding Stones and 28 Solid Sharpening Stones."] = "",
+
+	-- Step 36: Learn Solid Grinding Stone
+	-- {spell:9920} Solid Grinding Stone
+	["Learn {spell:9920}"] = "",
+
+	-- Step 37: Craft 8 Solid Grinding Stones until 180
+	-- plural, as words: Solid Grinding Stones = {item:7966} Solid Grinding Stone
+	["Craft 8 Solid Grinding Stones until 180"] = "",
+	["About 8 crafts. Keep all 8 for the step at 210."] = "",
+
+	-- Step 38: Learn Solid Sharpening Stone
+	-- {spell:9918} Solid Sharpening Stone
+	["Learn {spell:9918}"] = "",
+
+	-- Step 39: Craft 28 Solid Sharpening Stones until 185
+	-- plural, as words: Solid Sharpening Stones = {item:7964} Solid Sharpening Stone
+	["Craft 28 Solid Sharpening Stones until 185"] = "",
+	["About 28 crafts. Green from 180: short of 185? A few more do it."] = "",
+
+	-- Step 40: Buy 75 Coal
+	["Buy 75 Coal"] = "",
+	-- {item:3859} Steel Bar
+	["Smelting {item:3859} takes 1 Coal a bar."] = "",
+
+	-- Step 41: Get 75 Steel Bar
+	-- {item:3859} Steel Bar
+	["Get 75 {item:3859}"] = "",
+	-- {item:6040} Golden Scale Bracers · {skill:186} Mining
+	["For 15 {item:6040}. No {skill:186}? The bars, not the ore."] = "",
+
+	-- Step 42: Learn Golden Scale Bracers
+	-- {spell:7223} Golden Scale Bracers
+	["Learn {spell:7223}"] = "",
+
+	-- Step 44: Craft 15 Golden Scale Bracers until 195
+	-- {item:6040} Golden Scale Bracers
+	["Craft 15 {item:6040} until 195"] = "",
+	["About 15 crafts. Alliance smiths who want Armorsmithing later: keep 6."] = "",
+
+	-- Step 45: Get 204 Mithril Bar
+	-- {item:3860} Mithril Bar
+	["Get 204 {item:3860}"] = "",
+	-- {item:7920} Mithril Plate Pants · {skill:186} Mining
+	["For 17 {item:7920}. No {skill:186}? The bars, not the ore."] = "",
+
+	-- Step 46: Learn Mithril Plate Pants
+	-- {spell:9931} Mithril Plate Pants
+	["Learn {spell:9931}"] = "",
+
+	-- Step 48: Craft 17 Mithril Plate Pants until 210
+	-- {item:7920} Mithril Plate Pants
+	["Craft 17 {item:7920} until 210"] = "",
+	["About 17 crafts. Armorsmith or Weaponsmith opens at 200 and level 40; optional."] = "",
+
+	-- Step 49: Train Artisan Blacksmithing
+	-- {skill:164} Blacksmithing
+	["Train Artisan {skill:164}"] = "",
+	["Needs level 35."] = "",
+
+	-- Step 50: Buy Plans: Mithril Spurs at the Auction House
+	-- {item:7989} Plans: Mithril Spurs
+	["Buy {item:7989} at the Auction House"] = "",
 	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
-	["{item:7919} is orange at 185 (yellow 200, green 210, grey 220): about 15 crafts to 200, a point every craft. Each takes 6 {item:3860} and 4 {item:4338}. Six Mithril Bars and four {item:4338} a craft; {npc:4258} ({zone:1455}) and {npc:3355} ({zone:1454}) teach it from 180. Needs an anvil nearby."] = "",
+	["Saves about 130 Thorium and 150 Mithril Bars."] = "",
+	["None listed, or too dear"] = "",
 
-	-- Step 30: Blacksmithing recipes at 200
-	-- {skill:164} Blacksmithing
-	["{skill:164} recipes at 200"] = "",
-	-- {npc:4258} Bengus Deepforge · {zone:1455} Ironforge · {npc:3355} Saru Steelfury · {zone:1454} Orgrimmar · {spell:9935} Steel Plate Helm
-	["Back to {npc:4258} ({zone:1455}) (Alliance) or {npc:3355} ({zone:1454}) (Horde): {spell:9935} (from 190)."] = "",
+	-- Step 51: Learn Mithril Spurs
+	-- {spell:9964} Mithril Spurs
+	["Learn {spell:9964}"] = "",
+	["From the plans in your bags."] = "",
 
-	-- Step 31: Steel Plate Helm to 215
-	-- {item:7922} Steel Plate Helm
-	["{item:7922} to 215"] = "",
-	-- {item:7922} Steel Plate Helm · {item:3859} Steel Bar · {item:7966} Solid Grinding Stone · {npc:5164} Grumnus Steelshaper · {zone:1455} Ironforge · {npc:11177} Okothos Ironrager · {zone:1454} Orgrimmar · {spell:9788} Armorsmith · {item:7936} Ornate Mithril Boots · {item:7935} Ornate Mithril Breastplate · {npc:11146} Ironus Coldsteel · {npc:11178} Borgosh Corebender · {item:3853} Moonsteel Broadsword · {npc:2482} Zarena Cromwind · {area:35} Booty Bay · {item:3855} Massive Iron Axe
-	-- plural, as words: Ornate Mithril Helms = {item:7937} Ornate Mithril Helm · Moonsteel Broadswords = {item:3853} Moonsteel Broadsword · Massive Iron Axes = {item:3855} Massive Iron Axe · Heavy Mithril Axes = {item:7940} Heavy Mithril Axe · Big Black Maces = {item:7945} Big Black Mace
-	["{item:7922} is orange at 200 (yellow 210, green 220, grey 230): about 16 crafts to 215, up to 18 for 9 players in 10 (the gathered materials above count that many). Each takes 14 {item:3859} and 1 {item:7966}. Make the 16 {item:7966} first. The trainer teaches it, and it is the cheapest way through these points in the data. Specialisation (optional): at 200 and character level 40, {npc:5164} ({zone:1455}) or {npc:11177} ({zone:1454}) starts The Art of the {spell:9788}: 4 Ornate Mithril Helms, 2 {item:7936} and an {item:7935}, whose plans come from a Mithril Order quest chain. {npc:11146} ({zone:1455}) or {npc:11178} ({zone:1454}) starts The Way of the Weaponsmith: 4 Moonsteel Broadswords, 4 Massive Iron Axes, 2 Heavy Mithril Axes and 2 Big Black Maces; on Forever the {item:3853} plans ({npc:2482}, {area:35}) and {item:3855} plans bind when picked up, so buy and use them yourself. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby."] = "",
+	-- Step 52: Get 148 Solid Stone
+	-- {item:7912} Solid Stone
+	["Get 148 {item:7912}"] = "",
+	-- plural, as words: Solid Grinding Stones = {item:7966} Solid Grinding Stone
+	["For 37 Solid Grinding Stones."] = "",
 
-	-- Step 32: Blacksmithing recipes at 215
-	-- {skill:164} Blacksmithing
-	["{skill:164} recipes at 215"] = "",
-	-- {spell:9968} Heavy Mithril Boots · {npc:2836} Brikk Keencraft · {zone:1434} Stranglethorn Vale · {skill:164} Blacksmithing
-	-- was: ["{spell:9959} (from 205) is taught only by the Artisan trainers: Alliance {npc:2836} ({zone:1434}); Horde {npc:2836} ({zone:1434}). You can train Artisan there now if you are level 35 (it needs {skill:164} 200), which saves the trip at 225."] = "{spell:9959}(205부터)은(는) 전문 상급자만 가르칩니다: 얼라이언스 {npc:2836}({zone:1434}), 호드 {npc:2836}({zone:1434}). 35레벨이라면 지금 그곳에서 전문 단계를 배울 수 있으며({skill:164} 200 필요), 225에 다시 찾아갈 필요가 없어집니다."
-	["{spell:9968} (from 210) is taught only by the Artisan trainers: Alliance {npc:2836} ({zone:1434}); Horde {npc:2836} ({zone:1434}). You can train Artisan there now if you are level 35 (it needs {skill:164} 200), which saves the trip at 225."] = "",
+	-- Step 53: Get 60 Mithril Bar
+	-- {item:3860} Mithril Bar
+	["Get 60 {item:3860}"] = "",
+	-- {item:7969} Mithril Spurs · {skill:186} Mining
+	["For 15 {item:7969}. No {skill:186}? The bars, not the ore."] = "",
 
-	-- Step 33: Heavy Mithril Boots to 225
-	-- {item:7933} Heavy Mithril Boots
-	["{item:7933} to 225"] = "",
-	-- {item:7933} Heavy Mithril Boots · {item:3860} Mithril Bar · {item:4304} Thick Leather · {skill:164} Blacksmithing
-	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar · Mithril Deposits = {object:2040} Mithril Deposit
-	["{item:7933} is orange at 215 (yellow 230, green 240, grey 250): about 10 crafts to 225, a point every craft. Each takes 14 {item:3860} and 4 {item:4304}. Mithril Bars from Mithril Deposits; {item:4304} from skinners or the Auction House. Needs an anvil nearby. {skill:164} 225 is a Legacy System milestone."] = "",
+	-- Step 54: Craft 37 Solid Grinding Stones
+	-- plural, as words: Solid Grinding Stones = {item:7966} Solid Grinding Stone
+	["Craft 37 Solid Grinding Stones"] = "",
+	["Parts for the spurs; no skill points from these."] = "",
 
-	-- Step 34: Artisan Blacksmithing
-	-- {skill:164} Blacksmithing
-	["Artisan {skill:164}"] = "전문 {skill:164}",
-	-- {skill:164} Blacksmithing · {npc:2836} Brikk Keencraft · {zone:1434} Stranglethorn Vale · {spell:16640} Dense Weightstone · {item:3860} Mithril Bar · {item:7909} Aquamarine · {item:7910} Star Ruby · {item:8170} Rugged Leather · {item:12359} Thorium Bar · {item:12365} Dense Stone · {item:7077} Heart of Fire · {npc:14567} Derotain Mudsipper
-	["Artisan raises the cap from 225 to 300 for 5g (Classic's price; Forever's is not in the data); it needs {skill:164} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:2836} ({zone:1434}); Horde {npc:2836} ({zone:1434}). This route trains it at {npc:2836} ({zone:1434}) for the Alliance and {npc:2836} ({zone:1434}) for the Horde, who also teach the recipes of 225-300: one trainer for every visit. Learn now: {spell:16640} (from 225). 225-300 takes 154 {item:3860}, 5 {item:7909}, 20 {item:7910}, 30 {item:8170}, 550 {item:12359} and 24 {item:12365} to gather or buy. From 265 the route splits: with Radiant plans, about 36 more crafts and 152 {item:7077} and 586 {item:12359}; with {npc:14567}'s plans, about 40 crafts and 37 {item:7909}, 45 {item:7910} and 1458 {item:12359}."] = "",
+	-- Step 56: Craft 15 Mithril Spurs until 225
+	-- {item:7969} Mithril Spurs
+	["Craft 15 {item:7969} until 225"] = "",
+	["About 15 crafts."] = "",
 
-	-- Step 35: Get Mithril Bar
-	-- {item:3860} Mithril Bar · {skill:164} Blacksmithing · {item:7933} Heavy Mithril Boots · {item:3858} Mithril Ore · {skill:186} Mining
-	["154 {item:3860} for {skill:164} 225-300: 11 {item:7933}. Mine {item:3858} and smelt it at a forge ({skill:186} 175). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
-
-	-- Step 36: Get Aquamarine
-	-- {item:7909} Aquamarine
-	["Get {item:7909}"] = "",
-	-- {item:7909} Aquamarine · {skill:164} Blacksmithing · {object:2047} Truesilver Deposit · {object:123309} Ooze Covered Truesilver Deposit
-	-- plural, as words: Imperial Plate Belts = {quest:7653} Imperial Plate Belt
-	["5 {item:7909} for {skill:164} 225-300: 5 Imperial Plate Belts. {item:7909} turns up in about one {object:2047} or {object:123309} in 500: keep the ones you find while mining. Or buy them at the Auction House."] = "",
-
-	-- Step 37: Get Star Ruby
-	-- {item:7910} Star Ruby
-	["Get {item:7910}"] = "",
-	-- {item:7910} Star Ruby · {skill:164} Blacksmithing · {item:12425} Imperial Plate Bracers · {object:2047} Truesilver Deposit · {object:123309} Ooze Covered Truesilver Deposit
-	["20 {item:7910} for {skill:164} 225-300: 20 {item:12425}. {item:7910} turns up in about one {object:2047} or {object:123309} in 143: keep the ones you find while mining. Or buy them at the Auction House."] = "",
-
-	-- Step 38: Get Rugged Leather
-	-- {item:8170} Rugged Leather
-	["Get {item:8170}"] = "",
-	-- {item:8170} Rugged Leather · {skill:164} Blacksmithing · {skill:393} Skinning
-	-- plural, as words: Imperial Plate Belts = {quest:7653} Imperial Plate Belt
-	["30 {item:8170} for {skill:164} 225-300: 5 Imperial Plate Belts. {skill:393}: beasts of level 48-60. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
-
-	-- Step 39: Get Thorium Bar
-	-- {item:12359} Thorium Bar
-	["Get {item:12359}"] = "",
-	-- {item:12359} Thorium Bar · {skill:164} Blacksmithing · {item:12425} Imperial Plate Bracers · {item:10620} Thorium Ore · {skill:186} Mining
-	-- plural, as words: Imperial Plate Belts = {quest:7653} Imperial Plate Belt
-	["550 {item:12359} for {skill:164} 225-300: 5 Imperial Plate Belts and 20 {item:12425}. Mine {item:10620} and smelt it at a forge ({skill:186} 250). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
-
-	-- Step 40: Get Dense Stone
+	-- Step 57: Get 16 Dense Stone
 	-- {item:12365} Dense Stone
-	["Get {item:12365}"] = "",
-	-- {item:12365} Dense Stone · {skill:164} Blacksmithing · {skill:186} Mining · {object:324} Small Thorium Vein · {zone:1448} Felwood · {zone:1451} Silithus · {zone:1452} Winterspring
-	-- plural, as words: Dense Weightstones = {item:12643} Dense Weightstone
-	["24 {item:12365} for {skill:164} 225-300: 24 Dense Weightstones. {skill:186}: {object:324} (skill 245) in {zone:1448} (48-55), {zone:1451} (55-60) and {zone:1452} (55-60). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["Get 16 {item:12365}"] = "",
+	-- plural, as words: Dense Sharpening Stones = {item:12404} Dense Sharpening Stone
+	["For 16 Dense Sharpening Stones."] = "",
 
-	-- Step 41: Dense Weightstone to 235
-	-- {item:12643} Dense Weightstone
-	-- was: ["{item:12643} to 235"] = "{item:12643}: 235까지"
-	["{item:12643} to 235"] = "",
-	-- {item:12643} Dense Weightstone · {item:12365} Dense Stone
-	["{item:12643} is orange at 225 (yellow 230, green 232, grey 235): about 17 crafts to 235, up to 24 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:12365}. The trainer teaches it, and it is the cheapest way through these points in the data."] = "",
+	-- Step 58: Learn Dense Sharpening Stone
+	-- {spell:16641} Dense Sharpening Stone
+	["Learn {spell:16641}"] = "",
 
-	-- Step 42: Heavy Mithril Boots to 240
+	-- Step 59: Craft 16 Dense Sharpening Stones until 235
+	-- plural, as words: Dense Sharpening Stones = {item:12404} Dense Sharpening Stone
+	["Craft 16 Dense Sharpening Stones until 235"] = "",
+	["About 16 crafts."] = "",
+
+	-- Step 60: Get 336 Solid Stone
+	-- {item:7912} Solid Stone
+	["Get 336 {item:7912}"] = "",
+	-- plural, as words: Solid Grinding Stones = {item:7966} Solid Grinding Stone
+	["For 84 Solid Grinding Stones."] = "",
+
+	-- Step 61: Get 112 Mithril Bar
+	-- {item:3860} Mithril Bar
+	["Get 112 {item:3860}"] = "",
+	-- {item:7969} Mithril Spurs · {skill:186} Mining
+	["For 28 {item:7969}. No {skill:186}? The bars, not the ore."] = "",
+
+	-- Step 62: Craft 84 Solid Grinding Stones
+	-- plural, as words: Solid Grinding Stones = {item:7966} Solid Grinding Stone
+	["Craft 84 Solid Grinding Stones"] = "",
+
+	-- Step 64: Craft 28 Mithril Spurs until 245
+	-- {item:7969} Mithril Spurs
+	["Craft 28 {item:7969} until 245"] = "",
+	["About 28 crafts."] = "",
+
+	-- Step 65: Get 72 Mithril Bar
+	-- {item:3860} Mithril Bar
+	["Get 72 {item:3860}"] = "",
+	-- {skill:186} Mining
+	-- plural, as words: Heavy Mithril Axes = {item:7941} Heavy Mithril Axe
+	["For 6 Heavy Mithril Axes. No {skill:186}? The bars, not the ore."] = "",
+
+	-- Step 66: Get 12 Citrine
+	-- {item:3864} Citrine
+	["Get 12 {item:3864}"] = "",
+	-- plural, as words: Heavy Mithril Axes = {item:7941} Heavy Mithril Axe
+	["For 6 Heavy Mithril Axes."] = "",
+
+	-- Step 67: Get 24 Heavy Leather
+	-- {item:4234} Heavy Leather
+	["Get 24 {item:4234}"] = "",
+
+	-- Step 68: Learn Heavy Mithril Axe
+	-- {spell:9993} Heavy Mithril Axe
+	["Learn {spell:9993}"] = "",
+
+	-- Step 70: Craft 6 Heavy Mithril Axes until 215
+	-- plural, as words: Heavy Mithril Axes = {item:7941} Heavy Mithril Axe
+	["Craft 6 Heavy Mithril Axes until 215"] = "",
+	["About 6 crafts. Weaponsmithing later? Keep 2: its quest asks for them."] = "",
+
+	-- Step 71: Get 100 Mithril Bar
+	-- {item:3860} Mithril Bar
+	["Get 100 {item:3860}"] = "",
+	-- {skill:186} Mining
+	-- plural, as words: Mithril Coifs = {item:7931} Mithril Coif
+	["For 10 Mithril Coifs. No {skill:186}? The bars, not the ore."] = "",
+
+	-- Step 72: Get 60 Mageweave Cloth
+	-- {item:4338} Mageweave Cloth
+	["Get 60 {item:4338}"] = "",
+	-- plural, as words: Mithril Coifs = {item:7931} Mithril Coif
+	["For 10 Mithril Coifs."] = "",
+
+	-- Step 73: Learn Mithril Coif
+	-- {spell:9961} Mithril Coif
+	["Learn {spell:9961}"] = "",
+
+	-- Step 75: Craft 10 Mithril Coifs until 225
+	-- plural, as words: Mithril Coifs = {item:7931} Mithril Coif
+	["Craft 10 Mithril Coifs until 225"] = "",
+	["About 10 crafts. Armorsmithing later? Keep 2: its quest asks for them."] = "",
+
+	-- Step 79: Get 154 Mithril Bar
+	-- {item:3860} Mithril Bar
+	["Get 154 {item:3860}"] = "",
+	-- {item:7933} Heavy Mithril Boots · {skill:186} Mining
+	["For 11 {item:7933}. No {skill:186}? The bars, not the ore."] = "",
+
+	-- Step 80: Get 44 Thick Leather
+	-- {item:4304} Thick Leather
+	["Get 44 {item:4304}"] = "",
 	-- {item:7933} Heavy Mithril Boots
-	["{item:7933} to 240"] = "",
-	-- {item:7933} Heavy Mithril Boots · {item:3860} Mithril Bar · {item:4304} Thick Leather
-	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar · Mithril Deposits = {object:2040} Mithril Deposit
-	["{item:7933} is yellow at 235 (yellow 230, green 240, grey 250): about 8 crafts to 240, up to 11 for 9 players in 10 (the gathered materials above count that many). Each takes 14 {item:3860} and 4 {item:4304}. Mithril Bars from Mithril Deposits; {item:4304} from skinners or the Auction House. Needs an anvil nearby. If you got here without learning {item:7933}, learn it now: an earlier step teaches it."] = "",
+	["For 11 {item:7933}."] = "",
 
-	-- Step 43: Plans: Imperial Plate Belt and Plans: Imperial Plate Bracers
-	-- {item:12688} Plans: Imperial Plate Belt · {item:12690} Plans: Imperial Plate Bracers
-	["{item:12688} and {item:12690}"] = "",
-	-- {npc:14567} Derotain Mudsipper · {zone:1446} Tanaris · {item:12688} Plans: Imperial Plate Belt · {skill:164} Blacksmithing · {item:12359} Thorium Bar · {quest:7653} Imperial Plate Belt · {item:12690} Plans: Imperial Plate Bracers · {quest:7655} Imperial Plate Bracer · {quest:7652} A Blue Light Bargain · {item:12425} Imperial Plate Bracers
-	["{npc:14567} ({zone:1446}) trades {item:12688} ({skill:164} 240) for 20 {item:12359} in {quest:7653} and {item:12690} ({skill:164} 245) for 20 {item:12359} in {quest:7655}, which need {skill:164} 240 and character level 50; take {quest:7652} first (it asks for nothing). The plans bind when picked up. Take the {item:12690} now too: they wait in your bags until 245 for {item:12425}, and it saves a trip back."] = "",
+	-- Step 81: Learn Heavy Mithril Boots
+	-- {spell:9968} Heavy Mithril Boots
+	["Learn {spell:9968}"] = "",
 
-	-- Step 44: Imperial Plate Belt to 245
-	-- {item:12424} Imperial Plate Belt
-	["{item:12424} to 245"] = "",
-	-- {item:12424} Imperial Plate Belt · {item:12359} Thorium Bar · {item:8170} Rugged Leather · {item:7909} Aquamarine
-	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["{item:12424} is orange at 240 (yellow 260, green 270, grey 280): about 5 crafts to 245, a point every craft. Each takes 22 {item:12359}, 6 {item:8170} and 1 {item:7909}. Twenty-two Thorium Bars, six {item:8170} and an {item:7909} a craft, orange from 240: five points, until the bracers plans can be learned at 245. Needs an anvil nearby."] = "",
-	["from the recipe in your bags"] = "가방에 있는 제조법으로",
+	-- Step 83: Craft 11 Heavy Mithril Boots until 240
+	-- {item:7933} Heavy Mithril Boots
+	["Craft 11 {item:7933} until 240"] = "",
+	["About 11 crafts. Armorsmithing later? Keep 2: its quest asks for them."] = "",
 
-	-- Step 45: Imperial Plate Bracers to 265
+	-- Step 84: Get 5 Aquamarine
+	-- {item:7909} Aquamarine
+	["Get 5 {item:7909}"] = "",
+	-- plural, as words: Imperial Plate Belts = {quest:7653} Imperial Plate Belt
+	["For 5 Imperial Plate Belts."] = "",
+
+	-- Step 85: Get 30 Rugged Leather
+	-- {item:8170} Rugged Leather
+	["Get 30 {item:8170}"] = "",
+
+	-- Step 86: Get 150 Thorium Bar
+	-- {item:12359} Thorium Bar
+	["Get 150 {item:12359}"] = "",
+	-- {skill:186} Mining
+	-- plural, as words: Imperial Plate Belts = {quest:7653} Imperial Plate Belt
+	["For 5 Imperial Plate Belts and the plans. No {skill:186}? The bars, not the ore."] = "",
+
+	-- Step 87: Reach level 50
+	["Reach level 50"] = "",
+	-- {quest:7652} A Blue Light Bargain
+	["{quest:7652} asks for level 50."] = "",
+
+	-- Step 88: Hand in A Blue Light Bargain
+	-- {quest:7652} A Blue Light Bargain
+	["Hand in {quest:7652}"] = "",
+
+	-- Step 89: Hand in Imperial Plate Belt
+	-- {quest:7653} Imperial Plate Belt
+	["Hand in {quest:7653}"] = "",
+
+	-- Step 90: Hand in Imperial Plate Bracer
+	-- {quest:7655} Imperial Plate Bracer
+	["Hand in {quest:7655}"] = "",
+
+	-- Step 91: Learn Imperial Plate Belt
+	-- {spell:16647} Imperial Plate Belt
+	["Learn {spell:16647}"] = "",
+
+	-- Step 93: Craft 5 Imperial Plate Belts until 245
+	-- plural, as words: Imperial Plate Belts = {item:12424} Imperial Plate Belt
+	["Craft 5 Imperial Plate Belts until 245"] = "",
+
+	-- Step 94: Get 27 Star Ruby
+	-- {item:7910} Star Ruby
+	["Get 27 {item:7910}"] = "",
 	-- {item:12425} Imperial Plate Bracers
-	["{item:12425} to 265"] = "",
-	-- {item:12425} Imperial Plate Bracers · {item:12359} Thorium Bar · {item:7910} Star Ruby · {npc:14567} Derotain Mudsipper
-	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["{item:12425} is orange at 245 (yellow 265, green 275, grey 285): about 20 crafts to 265, a point every craft. Each takes 20 {item:12359} and 1 {item:7910}. Twenty Thorium Bars and a {item:7910} a craft, orange to 265: the fewest Thorium Bars a point {npc:14567}'s plans give. Needs an anvil nearby."] = "",
+	["For 27 {item:12425}."] = "",
 
-	-- Step 46: Blacksmithing 265: Plans: Radiant Boots
-	-- {item:12697} Plans: Radiant Boots · {item:12713} Plans: Radiant Leggings · {spell:16656} Radiant Boots · {item:12420} Radiant Leggings · {npc:14567} Derotain Mudsipper · {quest:7654} Imperial Plate Boots
-	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["From 265 the route has two ways. {item:12697} and {item:12713} drop from mobs all over the world and do not bind, so the Auction House often lists them: with them, {spell:16656} (orange to 285) and then {item:12420} take you to 300 on about half the Thorium Bars, with Hearts of Fire. No plans for sale? Skip this step: the next steps go on with {npc:14567}'s {quest:7654}, about 34 Thorium Bars a craft. Buy the boots plans whenever they turn up."] = "",
+	-- Step 95: Get 560 Thorium Bar
+	-- {item:12359} Thorium Bar
+	["Get 560 {item:12359}"] = "",
+	-- {item:12425} Imperial Plate Bracers · {skill:186} Mining
+	["For 27 {item:12425} and the plans. No {skill:186}? The bars, not the ore."] = "",
 
-	-- Step 47: Get Heart of Fire
-	-- {item:7077} Heart of Fire
-	["Get {item:7077}"] = "",
-	-- {item:7077} Heart of Fire · {skill:164} Blacksmithing · {item:12419} Radiant Boots · {item:12420} Radiant Leggings · {npc:9878} Entropic Beast · {npc:6520} Scorching Elemental · {npc:5855} Magma Elemental
-	["152 {item:7077} for {skill:164} 265-300: 29 {item:12419} and 9 {item:12420}. {item:7077} drops most from {npc:9878}, {npc:6520} and {npc:5855}, among others. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:7077} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- Step 96: Get 540 Thorium Bar
+	-- {item:12359} Thorium Bar
+	["Get 540 {item:12359}"] = "",
 
-	-- Step 48: Get Thorium Bar
-	-- {item:12359} Thorium Bar · {skill:164} Blacksmithing · {item:12419} Radiant Boots · {item:12420} Radiant Leggings · {item:10620} Thorium Ore · {skill:186} Mining
-	["586 {item:12359} for {skill:164} 265-300: 29 {item:12419} and 9 {item:12420}. Mine {item:10620} and smelt it at a forge ({skill:186} 250). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- Step 100: Learn Imperial Plate Bracers
+	-- {spell:16649} Imperial Plate Bracers
+	["Learn {spell:16649}"] = "",
 
-	-- Step 49: Blacksmithing 265-300: Auction House
-	-- {skill:164} Blacksmithing
-	["{skill:164} 265-300: Auction House"] = "",
+	-- Step 102: Craft 27 Imperial Plate Bracers until 270
+	-- {item:12425} Imperial Plate Bracers
+	["Craft 27 {item:12425} until 270"] = "",
+	["About 27 crafts."] = "",
+
+	-- Step 103: Buy Plans: Radiant Boots at the Auction House
+	-- {item:12697} Plans: Radiant Boots
+	["Buy {item:12697} at the Auction House"] = "",
+	["The cheapest way to 300 when both plans are listed."] = "",
+
+	-- Step 104: Buy Plans: Radiant Leggings at the Auction House
 	-- {item:12713} Plans: Radiant Leggings
-	["What 265-300 takes that the Auction House sells and no step above farms: a {item:12713}. The counts drop by what your bags, bank and mail hold."] = "",
+	["Buy {item:12713} at the Auction House"] = "",
 
-	-- Step 50: Radiant Boots to 291
+	-- Step 105: Buy Plans: Thorium Leggings at the Auction House
+	-- {item:12704} Plans: Thorium Leggings
+	["Buy {item:12704} at the Auction House"] = "",
+	["Next cheapest; the plans are learned at 275."] = "",
+
+	-- Step 106: Learn Radiant Boots
+	-- {spell:16656} Radiant Boots
+	["Learn {spell:16656}"] = "",
+
+	-- Step 107: Get 88 Heart of Fire
+	-- {item:7077} Heart of Fire
+	["Get 88 {item:7077}"] = "",
 	-- {item:12419} Radiant Boots
-	["{item:12419} to 291"] = "",
-	-- {item:12419} Radiant Boots · {item:12359} Thorium Bar · {item:7077} Heart of Fire · {item:12697} Plans: Radiant Boots
-	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["{item:12419} is orange at 265 (yellow 285, green 295, grey 305): about 27 crafts to 291, up to 29 for 9 players in 10 (the gathered materials above count that many). Each takes 14 {item:12359} and 4 {item:7077}. Its pattern ({item:12697}) drops from mobs all over the world and does not bind: buy it at the Auction House. Fourteen Thorium Bars and four Hearts of Fire a craft; orange to 285. Needs an anvil nearby."] = "",
+	["For 22 {item:12419}."] = "",
 
-	-- Step 51: Radiant Leggings to 300
+	-- Step 108: Get 308 Thorium Bar
+	-- {item:12359} Thorium Bar
+	["Get 308 {item:12359}"] = "",
+	-- {item:12419} Radiant Boots · {skill:186} Mining
+	["For 22 {item:12419}. No {skill:186}? The bars, not the ore."] = "",
+
+	-- Step 110: Craft 22 Radiant Boots until 290
+	-- {item:12419} Radiant Boots
+	["Craft 22 {item:12419} until 290"] = "",
+	["About 22 crafts."] = "",
+
+	-- Step 111: Get 40 Heart of Fire
+	-- {item:7077} Heart of Fire
+	["Get 40 {item:7077}"] = "",
 	-- {item:12420} Radiant Leggings
-	["{item:12420} to 300"] = "",
-	-- {item:12420} Radiant Leggings · {item:12359} Thorium Bar · {item:7077} Heart of Fire · {item:12713} Plans: Radiant Leggings · {skill:164} Blacksmithing
-	["{item:12420} is orange at 291 (yellow 300, green 310, grey 320): about 9 crafts to 300, a point every craft. Each takes 20 {item:12359} and 4 {item:7077}. Its pattern ({item:12713}) drops from mobs all over the world and does not bind: buy it at the Auction House. The last points: buy the plans when you reach 280; until then the boots carry you. Needs an anvil nearby. {skill:164} 300 is a Legacy System milestone."] = "",
-	["from the pattern bought at the Auction House"] = "경매장에서 산 제조법에서",
+	["For 10 {item:12420}."] = "",
 
-	-- Step 52: Get Aquamarine
-	-- {item:7909} Aquamarine · {skill:164} Blacksmithing · {quest:7654} Imperial Plate Boots · {object:2047} Truesilver Deposit · {object:123309} Ooze Covered Truesilver Deposit
-	["37 {item:7909} for {skill:164} 265-300: 37 {quest:7654}. {item:7909} turns up in about one {object:2047} or {object:123309} in 500: keep the ones you find while mining. Or buy them at the Auction House."] = "",
+	-- Step 112: Get 200 Thorium Bar
+	-- {item:12359} Thorium Bar
+	["Get 200 {item:12359}"] = "",
+	-- {item:12420} Radiant Leggings · {skill:186} Mining
+	["For 10 {item:12420}. No {skill:186}? The bars, not the ore."] = "",
 
-	-- Step 53: Get Star Ruby
-	-- {item:7910} Star Ruby · {skill:164} Blacksmithing · {item:12425} Imperial Plate Bracers · {quest:7654} Imperial Plate Boots · {object:2047} Truesilver Deposit · {object:123309} Ooze Covered Truesilver Deposit
-	["45 {item:7910} for {skill:164} 265-300: 8 {item:12425} and 37 {quest:7654}. {item:7910} turns up in about one {object:2047} or {object:123309} in 143: keep the ones you find while mining. Or buy them at the Auction House."] = "",
+	-- Step 113: Learn Radiant Leggings
+	-- {spell:16725} Radiant Leggings
+	["Learn {spell:16725}"] = "",
 
-	-- Step 54: Get Thorium Bar
-	-- {item:12359} Thorium Bar · {skill:164} Blacksmithing · {item:12425} Imperial Plate Bracers · {quest:7654} Imperial Plate Boots · {item:10620} Thorium Ore · {skill:186} Mining
-	["1458 {item:12359} for {skill:164} 265-300: 8 {item:12425} and 37 {quest:7654}. Mine {item:10620} and smelt it at a forge ({skill:186} 250). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- Step 115: Craft 10 Radiant Leggings until 300
+	-- {item:12420} Radiant Leggings
+	["Craft 10 {item:12420} until 300"] = "",
 
-	-- Step 55: Imperial Plate Bracers to 270
+	-- Step 116: Get 11 Star Ruby
+	-- {item:7910} Star Ruby
+	["Get 11 {item:7910}"] = "",
 	-- {item:12425} Imperial Plate Bracers
-	["{item:12425} to 270"] = "",
-	-- {item:12425} Imperial Plate Bracers · {item:12359} Thorium Bar · {item:7910} Star Ruby
-	["{item:12425} is yellow at 265 (yellow 265, green 275, grey 285): about 6 crafts to 270, up to 8 for 9 players in 10 (the gathered materials above count that many). Each takes 20 {item:12359} and 1 {item:7910}. Yellow from 265, so not every craft gives a point; five more points, until the boots plans can be used at 270. Needs an anvil nearby. If you got here without learning {item:12425}, learn it now: an earlier step teaches it."] = "",
+	["For 11 {item:12425}."] = "",
 
-	-- Step 56: Plans: Imperial Plate Boots
-	-- {npc:14567} Derotain Mudsipper · {zone:1446} Tanaris · {item:12700} Plans: Imperial Plate Boots · {skill:164} Blacksmithing · {item:12359} Thorium Bar · {quest:7654} Imperial Plate Boots
-	["{npc:14567} ({zone:1446}) trades {item:12700} ({skill:164} 270) for 40 {item:12359} in {quest:7654}, which needs {skill:164} 240 and character level 50. The plans bind when picked up."] = "",
+	-- Step 117: Get 220 Thorium Bar
+	-- {item:12359} Thorium Bar
+	["Get 220 {item:12359}"] = "",
+	-- {item:12425} Imperial Plate Bracers · {skill:186} Mining
+	["For 11 {item:12425}. No {skill:186}? The bars, not the ore."] = "",
 
-	-- Step 57: Imperial Plate Boots to 300
+	-- Step 119: Craft 11 Imperial Plate Bracers until 275
+	-- {item:12425} Imperial Plate Bracers
+	["Craft 11 {item:12425} until 275"] = "",
+	["About 11 crafts."] = "",
+
+	-- Step 120: Get 108 Red Power Crystal
+	-- {item:11186} Red Power Crystal
+	["Get 108 {item:11186}"] = "",
+	-- {item:12414} Thorium Leggings
+	["For 27 {item:12414}."] = "",
+
+	-- Step 121: Get 702 Thorium Bar
+	-- {item:12359} Thorium Bar
+	["Get 702 {item:12359}"] = "",
+	-- {item:12414} Thorium Leggings · {skill:186} Mining
+	["For 27 {item:12414}. No {skill:186}? The bars, not the ore."] = "",
+
+	-- Step 122: Learn Thorium Leggings
+	-- {spell:16662} Thorium Leggings
+	["Learn {spell:16662}"] = "",
+
+	-- Step 124: Craft 27 Thorium Leggings until 300
+	-- {item:12414} Thorium Leggings
+	["Craft 27 {item:12414} until 300"] = "",
+
+	-- Step 125: Get 20 Aquamarine
+	-- {item:7909} Aquamarine
+	["Get 20 {item:7909}"] = "",
+	-- {quest:7654} Imperial Plate Boots
+	["For 20 {quest:7654}."] = "",
+
+	-- Step 126: Get 20 Star Ruby
+	-- {item:7910} Star Ruby
+	["Get 20 {item:7910}"] = "",
+
+	-- Step 127: Get 720 Thorium Bar
+	-- {item:12359} Thorium Bar
+	["Get 720 {item:12359}"] = "",
+	-- {quest:7654} Imperial Plate Boots · {skill:186} Mining
+	["For 20 {quest:7654} and the plans. No {skill:186}? The bars, not the ore."] = "",
+
+	-- Step 128: Hand in Imperial Plate Boots
+	-- {quest:7654} Imperial Plate Boots
+	["Hand in {quest:7654}"] = "",
+
+	-- Step 129: Learn Imperial Plate Boots
+	-- {spell:16657} Imperial Plate Boots
+	["Learn {spell:16657}"] = "",
+
+	-- Step 131: Craft 20 Imperial Plate Boots until 290
 	-- {item:12426} Imperial Plate Boots
-	["{item:12426} to 300"] = "{item:12426}: 300까지",
-	-- {item:12426} Imperial Plate Boots · {item:12359} Thorium Bar · {item:7910} Star Ruby · {item:7909} Aquamarine · {skill:164} Blacksmithing
-	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["{item:12426} is orange at 270 (yellow 290, green 300, grey 310): about 34 crafts to 300, up to 37 for 9 players in 10 (the gathered materials above count that many). Each takes 34 {item:12359}, 1 {item:7910} and 1 {item:7909}. Thirty-four Thorium Bars, a {item:7910} and an {item:7909} a craft, orange to 290: the plans you can always get past 270. Needs an anvil nearby. {skill:164} 300 is a Legacy System milestone."] = "",
+	["Craft 20 {item:12426} until 290"] = "",
+	["About 20 crafts."] = "",
+
+	-- Step 132: Get 20 Star Ruby
+	-- {quest:7658} Imperial Plate Leggings
+	["For 10 {quest:7658}."] = "",
+
+	-- Step 133: Get 500 Thorium Bar
+	-- {item:12359} Thorium Bar
+	["Get 500 {item:12359}"] = "",
+	-- {quest:7658} Imperial Plate Leggings · {skill:186} Mining
+	["For 10 {quest:7658} and the plans. No {skill:186}? The bars, not the ore."] = "",
+
+	-- Step 134: Hand in Imperial Plate Leggings
+	-- {quest:7658} Imperial Plate Leggings
+	["Hand in {quest:7658}"] = "",
+
+	-- Step 135: Learn Imperial Plate Leggings
+	-- {spell:16730} Imperial Plate Leggings
+	["Learn {spell:16730}"] = "",
+
+	-- Step 137: Craft 10 Imperial Plate Leggings until 300
+	-- {item:12429} Imperial Plate Leggings
+	["Craft 10 {item:12429} until 300"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["10 {item:12799} for {item:12773}: {item:12799} turns up in about one {object:175404}, {object:177388} or {object:180215} in 143: keep the ones you find while mining."] = "{item:12773}에 쓸 {item:12799} 10개: {item:12799}은(는) {object:175404}, {object:177388}, {object:180215} 약 143개 중 하나에서 나옵니다. 채광하며 얻은 것은 보관하십시오.",
@@ -416,6 +616,7 @@ return {
 	-- ["Apprentice {skill:164} lets you craft up to 75 for 10c, at any character level. Any {skill:164} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} (any blacksmithing supplier) and pair it with {skill:186}: {item:2835} and {item:2770} come from the Copper Veins of every starting zone. 1-75 takes about 1s of recipes, plus 286 {item:2835} to gather or buy."] = "{skill:164} 초급 단계는 10코퍼로 75까지 제작할 수 있게 해 주며, 캐릭터 레벨 제한이 없습니다. 당신 진영의 어떤 {skill:164} 상급자든 가르치며, 화살표가 가장 가까운 이를 가리킵니다. {item:5956}을(를) 대장기술 용품 상인에게서 사서 {skill:186}과(와) 함께 쓰세요. {item:2835}과(와) {item:2770}은(는) 모든 시작 지역의 구리 광맥에서 나옵니다. 1-75에는 제조법 약 1실버와 {item:2835} 286개를 채집하거나 구매해야 합니다.",
 	-- ["Artisan needs character level 35 and {skill:164} 200; it raises the cap to 300. Materials for 225-300 are worth about 942g in all."] = "전문은(는) 캐릭터 레벨 35, {skill:164} 200이(가) 필요하며 최대 숙련도를 300(으)로 올립니다. 225-300 재료는 모두 약 942골드입니다.",
 	-- ["Artisan raises the cap from 225 to 300 for 5g (Classic's price; Forever's is not in the data); it needs {skill:164} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:2836} ({zone:1434}); Horde {npc:2836} ({zone:1434}). The arrow picks the nearest of your faction. Learn now: {spell:16640} (from 225), {spell:9968} (from 210), {spell:9920} (from 175), {spell:10001} (from 205) and {spell:16639} (from 225). 225-300 takes about 3g 60s of recipes, plus 44 {item:1210}, 596 {item:3860}, 142 {item:4304}, 19 {item:7909}, 19 {item:7910}, 44 {item:7912}, 11 {item:7971}, 206 {item:8170}, 2026 {item:12359}, 801 {item:12365} and 10 {item:12799} to gather or buy."] = "전문 단계는 5골드(클래식 가격이며, Forever 가격은 데이터에 없습니다)로 최대 숙련도를 225에서 300으로 올립니다. {skill:164} 200과 캐릭터 레벨 35가 필요하므로, 200부터 언제 들러도 배울 수 있습니다. 가르치는 상급자는 몇 명뿐입니다: 얼라이언스 {npc:2836}({zone:1434}), 호드 {npc:2836}({zone:1434}). 화살표가 진영의 가장 가까운 상급자를 가리킵니다. 지금 배우세요: {spell:16640}(225부터), {spell:9968}(210부터), {spell:9920}(175부터), {spell:10001}(205부터), {spell:16639}(225부터). 225-300에는 제조법 약 3골드 60실버와 {item:1210} 44개, {item:3860} 596개, {item:4304} 142개, {item:7909} 19개, {item:7910} 19개, {item:7912} 44개, {item:7971} 11개, {item:8170} 206개, {item:12359} 2026개, {item:12365} 801개, {item:12799} 10개를 채집하거나 구매해야 합니다.",
+	-- ["Artisan {skill:164}"] = "전문 {skill:164}",
 	-- ["Back to a {skill:164} trainer: {spell:16639} is taught from {skill:164} 230."] = "{skill:164} 상급자에게 돌아가세요. {spell:16639}은(는) {skill:164} 230부터 배울 수 있습니다.",
 	-- ["Back to a {skill:164} trainer: {spell:16640} is taught from {skill:164} 230."] = "{skill:164} 상급자에게 돌아가세요. {spell:16640}은(는) {skill:164} 230부터 배울 수 있습니다.",
 	-- ["Back to a {skill:164} trainer: {spell:2666} is taught from {skill:164} 80."] = "{skill:164} 상급자에게 돌아가세요. {spell:2666}은(는) {skill:164} 80부터 배울 수 있습니다.",
@@ -423,6 +624,7 @@ return {
 	-- ["Back to a {skill:164} trainer: {spell:2672} (from 95, 5s)."] = "{skill:164} 상급자에게 돌아가세요: {spell:2672}(95부터, 5실버).",
 	-- ["Back to a {skill:164} trainer: {spell:2674} (from 100, 10s)."] = "{skill:164} 상급자에게 돌아가세요: {spell:2674}(100부터, 10실버).",
 	-- ["Back to a {skill:164} trainer: {spell:3117} is taught from {skill:164} 100."] = "{skill:164} 상급자에게 돌아가세요. {spell:3117}은(는) {skill:164} 100부터 배울 수 있습니다.",
+	-- ["Back to a {skill:164} trainer: {spell:3320} (from 25, 1s). Also learn {spell:1230171} (1s): Forever's {skill:164} camp item, 1 {item:2835} and 1 {item:2840}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:164} quest from your starting area's camping guide (after The Great Outdoors) sends you to a blacksmithing trainer who teaches it free."] = "{skill:164} 상급자에게 돌아가세요: {spell:3320}(25부터, 1s). {spell:1230171}(1s)도 배우세요. Forever의 {skill:164} 야영 아이템으로, {item:2835} 1개와 {item:2840} 1개가 들고 모닥불 옆 야영지에 설치하면 강화 효과를 줍니다. 시작 지역의 야영 가이드에 있는 야영 기초 101: {skill:164} 퀘스트(위대한 야외 다음)가 대장장이 상급자에게 보내며, 거기서 무료로 가르칩니다.",
 	-- ["Back to a {skill:164} trainer: {spell:7223} (from 160)."] = "{skill:164} 상급자에게 돌아가세요: {spell:7223}(160부터).",
 	-- ["Back to a {skill:164} trainer: {spell:9916} is taught from {skill:164} 200."] = "{skill:164} 상급자에게 돌아가세요. {spell:9916}은(는) {skill:164} 200부터 배울 수 있습니다.",
 	-- ["Back to a {skill:164} trainer: {spell:9918} (from 175)."] = "{skill:164} 상급자에게 돌아가세요: {spell:9918}(175부터).",
@@ -433,8 +635,10 @@ return {
 	-- ["Buy the whole bracket's share in one go: {item:5956} (a tool: one, kept in your bags, 18c); about 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:1286} and {npc:5512}; {zone:1454}: {npc:3367}, {npc:5817} and {npc:3413})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:5956}(도구: 하나를 사서 가방에 두세요, 18코퍼). 모두 약 18코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:5519}, {npc:1286}, {npc:5512}; {zone:1454}: {npc:3367}, {npc:5817}, {npc:3413}).",
 	-- ["Expert needs character level 20 and {skill:164} 125; it raises the cap to 225. Materials for 150-225 are worth about 42g in all."] = "숙련은(는) 캐릭터 레벨 20, {skill:164} 125이(가) 필요하며 최대 숙련도를 225(으)로 올립니다. 150-225 재료는 모두 약 42골드입니다.",
 	-- ["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:164} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:4258} ({zone:1455}); Horde {npc:3355} ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:3501} (from 140) and {spell:3337} (from 100, 10s). 150-225 takes about 10s of recipes and 28s of vendor goods, plus 234 {item:2838}, 168 {item:3575}, 195 {item:3859}, 320 {item:3860} and 30 {item:7912} to gather or buy."] = "숙련 단계는 50실버(클래식 가격이며, Forever 가격은 데이터에 없습니다)로 최대 숙련도를 150에서 225로 올립니다. {skill:164} 125와 캐릭터 레벨 20이 필요하므로, 125가 되면 언제 들러도 배울 수 있습니다. 가르치는 상급자는 몇 명뿐입니다: 얼라이언스는 {npc:4258}({zone:1455}), 호드는 {npc:3355}({zone:1454})입니다. 화살표가 진영의 가장 가까운 상급자를 가리킵니다. 지금 배우세요: {spell:3501}(140부터), {spell:3337}(100부터, 10실버). 150-225에는 제조법 약 10실버와 상인 재료 약 28실버, 그리고 채집하거나 살 {item:2838} 234개, {item:3575} 168개, {item:3859} 195개, {item:3860} 320개, {item:7912} 30개가 듭니다.",
+	-- ["Expert {skill:164}"] = "숙련 {skill:164}",
 	-- ["Journeyman needs character level 10 and {skill:164} 50; it raises the cap to 150. Materials for 75-150 are worth about 9g 41s in all."] = "수습은(는) 캐릭터 레벨 10, {skill:164} 50이(가) 필요하며 최대 숙련도를 150(으)로 올립니다. 75-150 재료는 모두 약 9골드 41실버입니다.",
 	-- ["Journeyman raises the cap from 75 to 150 for 5s; it needs {skill:164} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:164} trainer teaches it: Alliance {npc:3136} ({zone:1431}), {npc:252479} ({zone:2521}), {npc:10276} ({zone:1455}) and {npc:5511} ({zone:1453}); Horde {npc:276067} ({zone:1420}), {npc:252479} ({zone:2521}), {npc:4596} ({zone:1458}), {npc:2998} ({zone:1456}), {npc:1383} ({zone:1454}) and {npc:3478} ({zone:1413}). The arrow picks the nearest of your faction. Learn now: {spell:2666} (from 45, 2s) and {spell:3326} (from 50, 2s 50c). 75-150 takes about 19s 50c of recipes and 18c of vendor goods, plus 256 {item:2836}, 28 {item:2838}, 210 {item:2840} and 320 {item:2841} to gather or buy."] = "수습 단계는 5실버로 최대 숙련도를 75에서 150으로 올립니다. {skill:164} 50과 캐릭터 레벨 10이 필요하므로, 50이 되면 언제 들러도 배울 수 있습니다. 모든 {skill:164} 상급자가 가르치지는 않습니다: 얼라이언스는 {npc:3136}({zone:1431}), {npc:252479}({zone:2521}), {npc:10276}({zone:1455}), {npc:5511}({zone:1453}), 호드는 {npc:276067}({zone:1420}), {npc:252479}({zone:2521}), {npc:4596}({zone:1458}), {npc:2998}({zone:1456}), {npc:1383}({zone:1454}), {npc:3478}({zone:1413})입니다. 화살표가 진영의 가장 가까운 상급자를 가리킵니다. 지금 배우세요: {spell:2666}(45부터, 2실버), {spell:3326}(50부터, 2실버 50코퍼). 75-150에는 제조법 약 19실버 50코퍼와 상인 재료 약 18코퍼, 그리고 채집하거나 살 {item:2836} 256개, {item:2838} 28개, {item:2840} 210개, {item:2841} 320개가 듭니다.",
+	-- ["Journeyman {skill:164}"] = "수습 {skill:164}",
 	-- ["Kill the mobs that drop it at the farm spot Polestar picks for your level and faction. The Auction House works too."] = "Polestar가 레벨과 진영에 맞춰 고른 사냥터에서 이것을 떨어뜨리는 몹을 처치하세요. 경매장도 됩니다.",
 	-- ["Orange (a point every craft) until 120, yellow until 135, green until 150. Needs an anvil nearby."] = "120까지 주황색(만들 때마다 1점), 135까지 노란색, 150까지 초록색입니다. 근처에 모루가 필요합니다.",
 	-- ["Orange (a point every craft) until 125, yellow until 140, green until 155. Needs an anvil nearby. {skill:164} 150 is a Legacy System milestone."] = "125까지 주황색(만들 때마다 1점), 140까지 노란색, 155까지 초록색입니다. 근처에 모루가 필요합니다. {skill:164} 150은(는) 유산 시스템 단계입니다.",
@@ -468,10 +672,14 @@ return {
 	-- ["Yellow until 240, green until 250: not every craft gives a point. Needs an anvil nearby."] = "240까지 노란색, 250까지 초록색입니다. 만들 때마다 점수가 오르지는 않습니다. 근처에 모루가 필요합니다.",
 	-- ["Yellow until 65, green until 85: not every craft gives a point."] = "65까지 노란색, 85까지 초록색입니다. 만들 때마다 점수가 오르지는 않습니다.",
 	-- ["Yellow until 65, green until 85: not every craft gives a point. 75 is the Apprentice cap."] = "65까지 노란색, 85까지 초록색입니다. 만들 때마다 점수가 오르지는 않습니다. 75은(는) 초급 최대치입니다.",
+	-- ["a tool, keep it in your bags"] = "도구이니 가방에 두세요",
+	-- ["from the pattern bought at the Auction House"] = "경매장에서 산 제조법에서",
+	-- ["from the recipe in your bags"] = "가방에 있는 제조법으로",
 	-- ["{item:12365} (Alliance)"] = "{item:12365} (얼라이언스)",
 	-- ["{item:12365} (Horde)"] = "{item:12365} (호드)",
 	-- ["{item:12365} comes from {object:324} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:12365}은(는) {object:324} 채집지에서 나옵니다({skill:186}). 데이터상 가장 밀집된 곳입니다. 경매장도 됩니다.",
 	-- ["{item:12426} is orange at 285 (yellow 290, green 300, grey 310): about 19 crafts to 300. Each takes 34 {item:12359}, 1 {item:7910} and 1 {item:7909}. About 34 Thorium Bars a craft against the battleaxe's 40 and its grinding stones, orange to 290. Below character level 50 {npc:14567} has no quest for you: keep making Huge Thorium Battleaxes to 300 instead (yellow to 292, grey at 305: about twice the Thorium Bars). Needs an anvil nearby. {skill:164} 300 is a Legacy System milestone."] = "{item:12426}은(는) 285에 주황색입니다(노란색 290, 초록색 300, 회색 310). 300까지 약 19번 만드세요. 한 번에 {item:12359} 34개, {item:7910} 1개, {item:7909} 1개. 전투도끼의 40개와(과) 숫돌에 비해 제작당 토륨 주괴 약 34개. 290까지 주황색입니다. 캐릭터 레벨 50 미만이면 {npc:14567}에게 줄 퀘스트가 없습니다. 대신 거대한 토륨 전투도끼를 300까지 만드세요(292까지 노란색, 305에서 회색: 토륨 주괴가 약 두 배). 근처에 모루가 필요합니다. {skill:164} 300은(는) 유산 시스템 이정표입니다.",
+	-- ["{item:12426} to 300"] = "{item:12426}: 300까지",
 	-- ["{item:12643} is orange at 225 (yellow 230, green 232, grey 235): about 17 crafts to 235. Each takes 1 {item:12365}. One {item:12365} a craft (Thorium veins): cheap points at the start of Artisan."] = "{item:12643}은(는) 225에 주황색입니다(노란색 230, 초록색 232, 회색 235). 235까지 약 17번 만드세요. 한 번에 {item:12365} 1개. 제작당 {item:12365} 한 개(토륨 광맥). 전문 시작의 저렴한 포인트입니다.",
 	-- ["{item:12643} to 235"] = "{item:12643}: 235까지",
 	-- ["{item:12773} is orange at 250 (yellow 275, green 287, grey 300): about 5 crafts to 255, a point every craft. Each takes 20 {item:12359}, 2 {item:12799}, 2 {item:12644} and 4 {item:8170}. Make the 10 {item:12644} first. {item:12799} turns up in about one Thorium vein in 130: buy the ten at the Auction House. Five crafts only, until the battleaxe plans can be used at 255. Needs an anvil nearby."] = "{item:12773}은(는) 250에 주황색입니다(노란색 275, 초록색 287, 회색 300). 255까지 약 5번 만드세요, 매번 포인트가 오릅니다. 한 번에 {item:12359} 20개, {item:12799} 2개, {item:12644} 2개, {item:8170} 4개. 먼저 {item:12644} 10개를 만드세요. {item:12799}은(는) 토륨 광맥 130개 중 하나 정도에서 나옵니다. 열 개는 경매장에서 사세요. 255에서 전투도끼 제조법을 쓸 수 있을 때까지 다섯 번뿐입니다. 근처에 모루가 필요합니다.",
@@ -522,18 +730,24 @@ return {
 	-- ["{npc:14567} ({zone:1446}) trades {item:12700} ({skill:164} 270) for 40 {item:12359} in {quest:7654}, which needs {skill:164} 265 and character level 50; take {quest:7652} first (it asks for nothing). The plans bind when picked up."] = "{npc:14567}({zone:1446})은(는) {quest:7654}에서 {item:12359} 40개와(과) 교환해 {item:12700}({skill:164} 270)을(를) 줍니다. {skill:164} 265와 캐릭터 레벨 50이 필요하고, 먼저 {quest:7652}를(을) 받으세요(아무것도 요구하지 않습니다). 제조법은 주울 때 귀속됩니다.",
 	-- ["{skill:164} 1-75: Auction House"] = "{skill:164} 1-75: 경매장",
 	-- ["{skill:164} 150-225: Auction House"] = "{skill:164} 150-225: 경매장",
+	-- ["{skill:164} 150-225: vendor goods"] = "{skill:164} 150-225: 상인 재료",
 	-- ["{skill:164} 225-300: Auction House"] = "{skill:164} 225-300: 경매장",
 	-- ["{skill:164} 75-150: Auction House"] = "{skill:164} 75-150: 경매장",
+	-- ["{skill:164} 75-150: vendor goods"] = "{skill:164} 75-150: 상인 재료",
 	-- ["{skill:164} materials for 150-225"] = "{skill:164} 재료(150-225)",
 	-- ["{skill:164} materials for 225-300"] = "{skill:164} 재료(225-300)",
 	-- ["{skill:164} materials for 75-150"] = "{skill:164} 재료(75-150)",
+	-- ["{skill:164} recipes at 100"] = "100에서 {skill:164} 제조법",
 	-- ["{skill:164} recipes at 113"] = "113에서 {skill:164} 제조법",
 	-- ["{skill:164} recipes at 121"] = "121에서 {skill:164} 제조법",
 	-- ["{skill:164} recipes at 155"] = "155에서 {skill:164} 제조법",
+	-- ["{skill:164} recipes at 175"] = "175에서 {skill:164} 제조법",
+	-- ["{skill:164} recipes at 185"] = "185에서 {skill:164} 제조법",
 	-- ["{skill:164} recipes at 205"] = "205에서 {skill:164} 제조법",
 	-- ["{skill:164} recipes at 210"] = "210에서 {skill:164} 제조법",
 	-- ["{skill:164} recipes at 230"] = "230에서 {skill:164} 제조법",
 	-- ["{skill:164} recipes at 268"] = "268에서 {skill:164} 제조법",
+	-- ["{skill:164} recipes at 35"] = "35에서 {skill:164} 제조법",
 	-- ["{skill:164} recipes at 45"] = "45에서 {skill:164} 제조법",
 	-- ["{skill:164} recipes at 83"] = "83에서 {skill:164} 제조법",
 	-- ["{skill:164} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 17s in all."] = "{skill:164}은(는) 레벨업과 함께 진행합니다. Forever의 유산 시스템은 제작 전문 기술 숙련도 150, 225, 300(수습, 숙련, 전문 최대치)에 보상을 주므로, 각 단계가 중요합니다. 1-75 재료는 모두 약 17실버입니다.",
@@ -547,7 +761,9 @@ return {
 	-- ["{skill:202}: {item:249432} (or the Auction House)"] = "{skill:202}: {item:249432} (또는 경매장)",
 	-- ["{skill:393} (or the Auction House)"] = "{skill:393} (또는 경매장)",
 	-- ["{spell:2660} is orange at 1 (yellow 15, green 35, grey 55): about 42 crafts to 35. Each takes 1 {item:2835}. One {item:2835} a craft, a point every craft to 15."] = "{spell:2660}은(는) 1에 주황색입니다(노란색 15, 초록색 35, 회색 55). 35까지 약 42번 만드세요. 한 번에 {item:2835} 1개. 제작당 {item:2835} 한 개. 15까지 매번 포인트가 오릅니다.",
+	-- ["{spell:2660} to 35"] = "{spell:2660}: 35까지",
 	-- ["{spell:2666} is orange at 83 (yellow 85, green 105, grey 125): about 21 crafts to 100. Each takes 10 {item:2840}. Forever teaches {spell:2666} from 45; it stays orange to 85. Ten Copper Bars a craft: smelt your {item:2770}. Needs an anvil nearby. {item:5956} is a tool: keep it in your bags."] = "{spell:2666}은(는) 83에 주황색입니다(노란색 85, 초록색 105, 회색 125). 100까지 약 21번 만드세요. 한 번에 {item:2840} 10개. Forever는 {spell:2666}을(를) 45에서 가르치며 85까지 주황색입니다. 제작당 구리 주괴 열 개. {item:2770}을(를) 제련하세요. 근처에 모루가 필요합니다. {item:5956}은(는) 도구이니 가방에 두세요.",
+	-- ["{spell:2666} to 100"] = "{spell:2666}: 100까지",
 	-- ["{spell:2668} to 121"] = "{spell:2668}: 121까지",
 	-- ["{spell:2672} is orange at 113 (yellow 125, green 140, grey 155): about 64 crafts to 150. Each takes 5 {item:2841} and 2 {spell:3326}. Make the 128 {spell:3326} first. Each bracer takes two Coarse Grinding Stones ({item:2836} from Tin Veins): make them first; they give points too. Needs an anvil nearby. {skill:164} 150 is a Legacy System milestone."] = "{spell:2672}은(는) 113에 주황색입니다(노란색 125, 초록색 140, 회색 155). 150까지 약 64번 만드세요. 한 번에 {item:2841} 5개, {spell:3326} 2개. 먼저 {spell:3326} 128개를 만드세요. 팔보호구 하나에 조잡한 숫돌 두 개({item:2836}, 주석 광맥에서)가 듭니다. 먼저 만드세요. 포인트도 줍니다. 근처에 모루가 필요합니다. {skill:164} 150은(는) 유산 시스템 이정표입니다.",
 	-- ["{spell:2672} to 150"] = "{spell:2672}: 150까지",
@@ -557,8 +773,10 @@ return {
 	-- ["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320}은(는) 75에서 초록색입니다(노란색 45, 초록색 65, 회색 85). 83까지 약 58번 만드세요. 한 번에 {item:2835} 2개. 제작당 {item:2835} 두 개. 숫돌은 이후 제조법의 재료이며, 남는 것은 상인에게 팔립니다.",
 	-- ["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors. If you got here without learning {spell:3320}, learn it now: an earlier step teaches it."] = "{spell:3320}은(는) 75에서 초록색입니다(노란색 45, 초록색 65, 회색 85): 83까지 약 58번 제작. 매번 {item:2835} 2개가 필요합니다. 제작마다 {item:2835} 두 개. 연마석은 나중 도면의 재료이고 남는 것은 상인에게 팝니다. {spell:3320}을(를) 배우지 않고 여기까지 왔다면 지금 배우십시오: 앞의 단계에서 가르칩니다.",
 	-- ["{spell:3320} is orange at 35 (yellow 45, green 65, grey 85): about 64 crafts to 75. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320}은(는) 35에 주황색입니다(노란색 45, 초록색 65, 회색 85). 75까지 약 64번 만드세요. 한 번에 {item:2835} 2개. 제작당 {item:2835} 두 개. 숫돌은 이후 제조법의 재료이며, 남는 것은 상인에게 팔립니다.",
+	-- ["{spell:3320} to 75"] = "{spell:3320}: 75까지",
 	-- ["{spell:3320} to 83"] = "{spell:3320}: 83까지",
 	-- ["{spell:3333} to 155"] = "{spell:3333}: 155까지",
 	-- ["{spell:3501} is orange at 150 (yellow 165, green 177, grey 190): about 28 crafts to 175. Each takes 6 {item:3575} and 1 {item:2605}. Six Iron Bars and a {item:2605} a craft; {item:2605} comes from tailoring, leatherworking and trade supplies vendors. Orange to 165 on Forever, so a point every craft for the first fifteen. Needs an anvil nearby."] = "{spell:3501}은(는) 150에 주황색입니다(노란색 165, 초록색 177, 회색 190). 175까지 약 28번 만드세요. 한 번에 {item:3575} 6개, {item:2605} 1개. 제작당 철 주괴 여섯 개와(과) {item:2605} 한 개. {item:2605}은(는) 재봉술, 가죽세공, 무역 용품 상인에게서. Forever에서는 165까지 주황색이니 처음 열다섯 번은 매번 포인트가 오릅니다. 근처에 모루가 필요합니다.",
+	-- ["{spell:3501} to 175"] = "{spell:3501}: 175까지",
 	-- ["{spell:9959} (from 205) is taught only by the Artisan trainers: Alliance {npc:2836} ({zone:1434}); Horde {npc:2836} ({zone:1434}). You can train Artisan there now if you are level 35 (it needs {skill:164} 200), which saves the trip at 225."] = "{spell:9959}(205부터)은(는) 전문 상급자만 가르칩니다: 얼라이언스 {npc:2836}({zone:1434}), 호드 {npc:2836}({zone:1434}). 35레벨이라면 지금 그곳에서 전문 단계를 배울 수 있으며({skill:164} 200 필요), 225에 다시 찾아갈 필요가 없어집니다.",
 }

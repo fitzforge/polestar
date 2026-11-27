@@ -981,6 +981,23 @@ is refused.
 { t = "kill", quest = 7, title = "Kobold Camp Cleanup", target = "Kobold Vermin", npc = 6, count = 10, oi = 1, upto = 4 }
 ```
 
+## Format 12
+
+Format 11 with a **`goto` goal's `candidates`** (`goto … nearest` in a guide:
+places of one kind, such as a profession guide's anvils). The goal has no
+place of its own; the arrow leads to the candidate nearest the player that
+the character may use (`faction`, `races`, `classes`, as for a smart
+target), and arriving within the goal's radius of any of them finishes it.
+Polestar 0.4.4 and later read it; an older Polestar would wait at a `goto`
+with no place.
+
+```lua
+{ t = "goto", text = "Anvil", candidates = {
+	{ map = 1453, x = 63.1, y = 37.4, f = "e", faction = "A" },
+	{ map = 1454, x = 80.9, y = 23.7, f = "e", faction = "H" },
+} }
+```
+
 ## Import strings
 
 One compiled guide as one line of text, for a player to paste on Polestar's
@@ -1062,9 +1079,10 @@ or nothing (equal or lower). Imported guides are listed in the guide menu as
   faction parts, Polestar's own pack only) by 0.3.0 and later, format 9
   (the `wait` goal) by 0.3.0 and later, format 10 (the `taxi` when
   predicate, the `auction` goal and a `collect`'s `gather`) by 0.4.0 and later,
-  and format 11 (a goal's `either`, an objective goal's `upto`, the `buff`,
+  format 11 (a goal's `either`, an objective goal's `upto`, the `buff`,
   `deposit` and `equip` goals, a `rep` goal's `points`, the `rep`, `buff`,
-  `equipped` and `indoors` when predicates) by 0.4.1 and later.
+  `equipped` and `indoors` when predicates) by 0.4.1 and later, and format 12
+  (a `goto` goal's `candidates`) by 0.4.4 and later.
 - A pack in a format this Polestar does not read registers nothing; the
   Community guides page shows it as `too-new` with "Needs Polestar <version> or
   newer." (rule 5).

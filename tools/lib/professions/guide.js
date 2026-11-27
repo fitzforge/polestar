@@ -470,11 +470,24 @@ function taughtFloor(prof, taughtBy = {}) {
 	return raised ? { ...prof, recipes } : prof;
 }
 
+// ` levels a-b` for a disenchanted material: the "Requires Level" of the green armour that breaks into it
+// (describe.js DISENCHANT_LEVELS). A `gather Enchanting 1 levels a-b` collect is the disenchant way (the guide
+// window's "Disenchant green armour, Requires Level a-b" row).
+function deLevels(name) {
+	const t = D.DISENCHANT_LEVELS.find((h) => h.re.test(name));
+	return t ? ` levels ${t.min}-${t.max}` : '';
+}
+
 function draftGuide(name, data, opts = {}) {
 	const profs = data.professions || {};
 	const found = Object.values(profs).find((p) => p && String(p.name).toLowerCase() === String(name).toLowerCase());
 	if (!found) throw new Error(`unknown profession "${name}"`);
 	if (!CRAFTING.has(found.id)) throw new Error(`${found.name} is not a crafting profession (Alchemy, Blacksmithing, Enchanting, Engineering, Leatherworking, Tailoring)`);
+	// A profession with a curated route (routes/<profession>.json) is built from it (route.js); the planner below
+	// serves the professions still without one.
+	const { loadRoute, routeGuide } = require('./route');
+	const route = opts.spec ? null : loadRoute(found.name);
+	if (route) return routeGuide(found.name, data, { ...opts, route });
 	const spec = opts.spec || SPECS[found.name] || {};
 	const prof = taughtFloor(found, spec.taughtBy);
 	// spec.to: the plan stops there and the last step explains the rest (the
@@ -1277,7 +1290,7 @@ function draftGuide(name, data, opts = {}) {
 					: r0 && NODE_KINDS.has(r0.spot.kind)
 						? { tip: rareText(t.item, r0.spot, false), facts: ` ${r0.spot.kind === 'herb' ? 'Herbalism' : 'Mining'} ${D.nodeSkill(r0.spot.label) ?? 1}` }
 						: kind === 'disenchant'
-							? { tip: D.sourceText(data, t.item, mats[t.item], t.src.Alliance, 'Alliance', { market: false }), facts: ' Enchanting 1' }
+							? { tip: D.sourceText(data, t.item, mats[t.item], t.src.Alliance, 'Alliance', { market: false }), facts: ` Enchanting 1${deLevels(matName(t.item))}` }
 							: maker
 								? { tip: D.sourceText(data, t.item, mats[t.item], t.src.Alliance, 'Alliance', { market: false }), facts: ` ${profWord(maker.name)} ${maker.rank}` }
 								: null;

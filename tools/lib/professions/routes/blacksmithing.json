@@ -1,0 +1,178 @@
+{
+	"_about": "Blacksmithing 1-300: the curated route the profession guide is generated from (tools/lib/professions/route.js; rules: docs/forge/professions.md, \"Route files\"). Every recipe, count, trainer, vendor, quest and station is checked against data/forever when the guide is built.",
+	"profession": "Blacksmithing",
+	"intro": [
+		"Blacksmithing hammers bars into plate, mail and weapons, and makes the sharpening and grinding stones later plans use. Mining is its partner: the bars are smelted from ore and the stones come from the veins.",
+		"Ranks: Apprentice at any level from any Blacksmithing trainer; Journeyman from level 10 at the city trainers (the first trainer teaches recipes only up to 50); Expert from level 20 (50s) at Bengus Deepforge or Saru Steelfury; Artisan from level 35 at Brikk Keencraft in Booty Bay, for both factions.",
+		"Specialisation (optional, not needed for 300) opens at 200 and level 40: Armorsmith or Weaponsmith."
+	],
+	"tools": [
+		{
+			"item": 5956,
+			"at": "learn",
+			"vendors": {
+				"Alliance": [5512, 4259, 66, 1690, 6300, 252388, 251913],
+				"Horde": [3356, 4597, 2999, 3168, 267325, 2118, 252388, 251913]
+			}
+		}
+	],
+	"sections": [
+		{
+			"rank": "Apprentice",
+			"from": 1,
+			"to": 75,
+			"level": 1,
+			"teachers": {
+				"Alliance": [957, 10277, 514, 1241, 6299, 252479, 251913],
+				"Horde": [10266, 4605, 10278, 3174, 276067, 252479, 251913]
+			},
+			"route": [
+				{ "from": 1, "to": 25, "recipe": 2660, "count": 30, "mats": { "2835": 30 } },
+				{ "from": 25, "to": 75, "recipe": 3320, "count": 84, "mats": { "2835": 168 } }
+			]
+		},
+		{
+			"rank": "Journeyman",
+			"from": 75,
+			"to": 140,
+			"level": 10,
+			"teachers": {
+				"Alliance": [5511, 10276, 252479],
+				"Horde": [1383, 4596, 2998, 276067, 252479]
+			},
+			"route": [
+				{ "from": 75, "to": 84, "recipe": 3326, "count": 60, "mats": { "2836": 120 }, "keep": "Keep all 60: the bracers at 95 and 115 and the gauntlets at 125 use them." },
+				{ "from": 84, "to": 95, "recipe": 2668, "count": 11, "mats": { "2841": 66 }, "note": "Short of 84 after the stones? These leggings carry on from where you are." },
+				{ "from": 95, "to": 100, "recipe": 2672, "count": 5, "mats": { "2841": 25, "3478": 10 } },
+				{ "from": 100, "to": 115, "recipe": 3337, "count": 30, "mats": { "2838": 90 }, "keep": "Keep all 30 for the Golden Scale Bracers at 185." },
+				{ "from": 115, "to": 125, "recipe": 2672, "count": 10, "mats": { "2841": 50, "3478": 20 } },
+				{ "from": 125, "to": 140, "recipe": 3333, "count": 15, "mats": { "2841": 120, "2842": 15, "3478": 30 }, "note": "Silver Bar dear? 15 Bronze Warhammers reach 140 too.", "alternative": { "recipe": 9985, "count": 15, "mats": { "2841": 120, "3466": 15, "2319": 15 }, "why": "price" } }
+			]
+		},
+		{
+			"rank": "Expert",
+			"from": 140,
+			"to": 210,
+			"level": 20,
+			"cost": 5000,
+			"teachers": {
+				"Alliance": [4258],
+				"Horde": [3355]
+			},
+			"route": [
+				{ "from": 140, "to": 175, "recipe": 3501, "count": 40, "mats": { "3575": 240, "2605": 40 } },
+				{ "from": 175, "to": 180, "recipe": 9920, "count": 8, "mats": { "7912": 32 }, "keep": "Keep all 8 for the step at 210." },
+				{ "from": 180, "to": 185, "recipe": 9918, "count": 28, "mats": { "7912": 28 }, "note": "Green from 180: short of 185? A few more do it." },
+				{ "from": 185, "to": 195, "recipe": 7223, "count": 15, "mats": { "3859": 75, "3486": 30 }, "keep": "Alliance smiths who want Armorsmithing later: keep 6." },
+				{ "from": 195, "to": 210, "recipe": 9931, "count": 17, "mats": { "3860": 204 }, "note": "Armorsmith or Weaponsmith opens at 200 and level 40; optional." }
+			]
+		},
+		{
+			"rank": "Artisan",
+			"from": 210,
+			"to": 300,
+			"level": 35,
+			"teachers": {
+				"Alliance": [2836],
+				"Horde": [2836]
+			},
+			"route": [
+				{
+					"fork": "Mithril Spurs plans",
+					"ways": [
+						{
+							"name": "Mithril Spurs",
+							"plans": [7989],
+							"why": "Saves about 130 Thorium and 150 Mithril Bars.",
+							"route": [
+								{ "make": 9920, "count": 37, "mats": { "7912": 148 }, "for": "the spurs" },
+								{ "from": 210, "to": 225, "recipe": 9964, "count": 15, "mats": { "3860": 60, "7966": 45 } },
+								{ "from": 225, "to": 235, "recipe": 16641, "count": 16, "mats": { "12365": 16 } },
+								{ "make": 9920, "count": 84, "mats": { "7912": 336 }, "for": "the spurs" },
+								{ "from": 235, "to": 245, "recipe": 9964, "count": 28, "mats": { "3860": 112, "7966": 84 } }
+							]
+						},
+						{
+							"name": "Heavy Mithril",
+							"route": [
+								{ "from": 210, "to": 215, "recipe": 9993, "count": 6, "mats": { "3860": 72, "3864": 12, "7966": 6, "4234": 24 }, "keep": "Weaponsmithing later? Keep 2: its quest asks for them." },
+								{ "from": 215, "to": 225, "recipe": 9961, "count": 10, "mats": { "3860": 100, "4338": 60 }, "keep": "Armorsmithing later? Keep 2: its quest asks for them." },
+								{ "from": 225, "to": 235, "recipe": 16641, "count": 16, "mats": { "12365": 16 } },
+								{ "from": 235, "to": 240, "recipe": 9968, "count": 11, "mats": { "3860": 154, "4304": 44 }, "keep": "Armorsmithing later? Keep 2: its quest asks for them." },
+								{ "from": 240, "to": 245, "recipe": 16647, "count": 5, "mats": { "12359": 110, "8170": 30, "7909": 5 }, "quests": [7652, 7653, 7655] }
+							]
+						}
+					]
+				},
+				{ "from": 245, "to": 270, "recipe": 16649, "count": 27, "mats": { "12359": 540, "7910": 27 }, "quests": [7652, 7655] },
+				{
+					"fork": "the last plans",
+					"ways": [
+						{
+							"name": "Radiant",
+							"plans": [12697, 12713],
+							"why": "The cheapest way to 300 when both plans are listed.",
+							"route": [
+								{ "from": 270, "to": 290, "recipe": 16656, "count": 22, "mats": { "12359": 308, "7077": 88 } },
+								{ "from": 290, "to": 300, "recipe": 16725, "count": 10, "mats": { "12359": 200, "7077": 40 } }
+							]
+						},
+						{
+							"name": "Thorium Leggings",
+							"plans": [12704],
+							"why": "Next cheapest; the plans are learned at 275.",
+							"route": [
+								{ "from": 270, "to": 275, "recipe": 16649, "count": 11, "mats": { "12359": 220, "7910": 11 } },
+								{ "from": 275, "to": 300, "recipe": 16662, "count": 27, "mats": { "12359": 702, "11186": 108 } }
+							]
+						},
+						{
+							"name": "Imperial Plate",
+							"route": [
+								{ "from": 270, "to": 290, "recipe": 16657, "count": 20, "mats": { "12359": 680, "7910": 20, "7909": 20 }, "quests": [7654] },
+								{ "from": 290, "to": 300, "recipe": 16730, "count": 10, "mats": { "12359": 440, "7910": 20 }, "quests": [7658] }
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"materials": {
+		"2835": ["gather", "auction"],
+		"2836": ["gather", "auction"],
+		"2838": ["gather", "auction"],
+		"7912": ["gather", "auction"],
+		"12365": ["gather", "auction"],
+		"2841": ["gather", "auction"],
+		"2842": ["auction"],
+		"3575": ["gather", "auction"],
+		"3859": ["gather", "auction"],
+		"3860": ["gather", "auction"],
+		"12359": ["gather", "auction"],
+		"2319": ["gather", "auction"],
+		"4234": ["gather", "auction"],
+		"4304": ["gather", "auction"],
+		"8170": ["gather", "auction"],
+		"4338": ["drop", "auction"],
+		"7077": ["drop", "auction"],
+		"11186": ["auction"],
+		"3864": ["auction"],
+		"7909": ["auction"],
+		"7910": ["auction"],
+		"2605": ["vendor"],
+		"3466": ["vendor"],
+		"3857": ["vendor"]
+	},
+	"vendors": {
+		"2605": { "Alliance": [5128], "Horde": [3366] },
+		"3466": { "Alliance": [5512, 4259], "Horde": [3356, 4597, 2999] },
+		"3857": { "Alliance": [5512, 4259], "Horde": [3356, 4597, 2999] }
+	},
+	"smelt": {
+		"3859": { "skill": 165, "with": { "3857": 1 } }
+	},
+	"colours": {
+		"3326": { "grey": 90, "why": "Players' recordings: Coarse Grinding Stone kept giving points up to skill 89 and none from 90 (the client table says grey at 75)." }
+	}
+}

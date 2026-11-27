@@ -825,9 +825,15 @@ function applyNearest(step, s, err, faction) {
 	if (gotos.length < 2) return err(ln, '`skill … nearest` needs at least two `goto` points in its step', 'list the places as `goto x,y` lines; for one place, drop `nearest`');
 	const own = gotos.find((g) => g.optional);
 	if (own) return err(own._line, 'a `skill … nearest` point cannot be `optional`: it is one of the places the arrow may pick');
+	step.goals[at].candidates = placeCandidates(gotos, step, faction);
+	step.goals = step.goals.filter((g) => g.t !== 'goto');
+}
+
+// The places of `gotos` as smart-target candidates, each for the characters its own `only` and the step's
+// name (faction, races, classes).
+function placeCandidates(gotos, step, faction) {
 	const outer = step.only || {};
-	const goal = step.goals[at];
-	goal.candidates = gotos.map((g) => {
+	return gotos.map((g) => {
 		const o = g.only || {};
 		const c = { map: g.map, x: g.x, y: g.y };
 		if (g.f) c.f = g.f;
@@ -839,7 +845,28 @@ function applyNearest(step, s, err, faction) {
 		if (classes) c.classes = classes;
 		return c;
 	});
-	step.goals = step.goals.filter((g) => g.t !== 'goto');
+}
+
+// `goto x,y ["Text"] nearest` (docs/GUIDE_FORMAT.md, "Smart targets"): the step's `nearest` gotos are one
+// goal, a place of a kind with many spots (a profession guide's "Go to an anvil"). They become the first
+// one's `candidates`, so the arrow leads to the one nearest the player when the step comes up, and
+// arriving at any of them finishes it; the goal keeps no place of its own.
+function applyGotoNearest(step, s, err, faction) {
+	const idx = s.goals.map((g, i) => (g.verb === 'goto' && g.nearest ? i : -1)).filter((i) => i >= 0);
+	if (!idx.length) return;
+	const ln = s.goals[idx[0]].line;
+	if (s.loop) return err(ln, '`goto … nearest` picks one of the step\'s points, `loop` walks them all: drop one of the two');
+	if (s.goals.some((g) => g.verb === 'skill' && g.nearest)) return err(ln, '`goto … nearest` and `skill … nearest` both take the step\'s points: use one');
+	const gotos = idx.map((i) => step.goals[i]);
+	if (gotos.some((g) => g.x === undefined)) return; // its coordinates' error is reported
+	if (gotos.length < 2) return err(ln, '`goto … nearest` needs at least two `nearest` points in its step', 'for one place, drop `nearest`');
+	const own = idx.find((i) => s.goals[i].optional);
+	if (own !== undefined) return err(s.goals[own].line, 'a `goto … nearest` point cannot be `optional`: it is one of the places the arrow may pick');
+	const goal = gotos[0];
+	goal.candidates = placeCandidates(gotos, step, faction);
+	for (const k of ['map', 'x', 'y', 'f', 'z', 'area', 'only']) delete goal[k];
+	const drop = new Set(gotos.slice(1));
+	step.goals = step.goals.filter((g) => !drop.has(g));
 }
 
 // `loop <zone> … at …` lines (parse.js parseLoopCandidate; resolve.rs apply_loop_candidates): farming loops
@@ -1059,6 +1086,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		// profession's own sections rise in order.
 		const paired = (h.skills || []).length > 1 ? new Set(h.skills.map((s) => s.toLowerCase())) : null;
 		const prevOf = new Map();
+		const starts = new Set();
 		guide.sections = ast.sections.map((sec) => {
 			const out = {};
 			const p = data.professionNamed(sec.skill);
@@ -1071,12 +1099,15 @@ function resolveGuide(ast, data, diag, opts = {}) {
 			} else {
 				err(sec.line, `unknown profession "${sec.skill}"; quote the name to use it anyway: \`section "${sec.skill}" ${sec.from}-${sec.to}\``);
 			}
+			// Another way of a fork starts again where an earlier section started (`when` keeps its steps apart).
+			const again = starts.has(`${sec.skill}|${sec.from}`);
 			const own = paired && paired.has(String(sec.skill).toLowerCase()) ? String(sec.skill).toLowerCase() : null;
 			if (own) {
 				const before = prevOf.get(own);
-				if (before && sec.from < before.from) warn(sec.line, `section ${sec.skill} ${sec.from}-${sec.to} comes after ${before.skill} ${before.from}-${before.to}: each profession's sections rise in order`);
+				if (before && sec.from < before.from && !again) warn(sec.line, `section ${sec.skill} ${sec.from}-${sec.to} comes after ${before.skill} ${before.from}-${before.to}: each profession's sections rise in order`);
 				prevOf.set(own, sec);
-			} else if (prev && (prev.skill !== sec.skill || sec.from < prev.from)) warn(sec.line, `section ${sec.skill} ${sec.from}-${sec.to} comes after ${prev.skill} ${prev.from}-${prev.to}: a guide's sections are one profession's skill ranges in rising order`);
+			} else if (prev && (prev.skill !== sec.skill || (sec.from < prev.from && !again))) warn(sec.line, `section ${sec.skill} ${sec.from}-${sec.to} comes after ${prev.skill} ${prev.from}-${prev.to}: a guide's sections are one profession's skill ranges in rising order`);
+			starts.add(`${sec.skill}|${sec.from}`);
 			prev = sec;
 			out.from = sec.from;
 			out.to = sec.to;
@@ -1197,7 +1228,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 				}
 			}
 			// A `skill … nearest` step's gotos are its places, each on its own map: no zone to match.
-			const nearestPlace = g.verb === 'goto' && s.goals.some((x) => x.verb === 'skill' && x.nearest);
+			const nearestPlace = g.verb === 'goto' && (g.nearest || s.goals.some((x) => x.verb === 'skill' && x.nearest));
 			// A step on the world map (`zone Azeroth`: a profession guide's trainer visit, which pins each faction
 			// to its teacher in another zone) spans every zone.
 			const worldStep = zoneId !== null && ((data.zone(zoneId) || {}).type ?? 3) <= 1;
@@ -1241,6 +1272,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		}
 		if (s.loops) applyLoopCandidates(step, s, err, guide.faction, resolveZone);
 		applyNearest(step, s, err, guide.faction);
+		applyGotoNearest(step, s, err, guide.faction);
 		guide.steps.push(step);
 	}
 	// The guide menu's "Group" chip (#1358): some goal on the route every player follows needs a group:
@@ -2207,7 +2239,12 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 					goal.item = recipeItem;
 					setIf(goal, 'itemName', g.item !== undefined ? optionalName('item', recipeItem) : nameOf(data, 'item', recipeItem));
 				}
-				if (g.npc !== undefined) {
+				if (g.npcs !== undefined) {
+					// `learn <spell> npc <id>,<id>…`: the trainers who teach it (a profession guide's tier: the
+					// trainer a player started with teaches only the first recipes); the arrow takes the nearest
+					// of the character's faction.
+					smart(goal, g.npcs.map((id) => ({ npc: id })), 'named trainer');
+				} else if (g.npc !== undefined) {
 					goal.npc = g.npc;
 					setIf(goal, 'npcName', optionalName('npc', g.npc));
 					candidates = [{ kind: 'npc', id: g.npc }];
@@ -2421,7 +2458,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 		}
 	}
 	if (g.frame && !g.explicitCoords) err(ln, `\`${g.frame}\` only applies to explicit coordinates (@x,y)`);
-	if (g.explicitCoords && (g.nearest || g.classTrain || (g.profession !== undefined && g.npc === undefined))) {
+	if (g.explicitCoords && v !== 'goto' && (g.nearest || g.classTrain || (g.profession !== undefined && g.npc === undefined))) {
 		err(ln, 'smart targets pick their NPC and position at runtime; drop the coordinates, or name an npc id');
 	}
 	// A collect's droppers: the normal ones over elites beside them, the ones

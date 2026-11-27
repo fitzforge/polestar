@@ -205,7 +205,7 @@ function draft(name) {
 function getIts(text, material) {
 	return text
 		.split('\n\n')
-		.filter((b) => b.startsWith(`step Get ${material}`))
+		.filter((b) => new RegExp(`^step Get (\\d+ )?${material}(\\n| \\()`).test(b))
 		.map((b) => {
 			const lines = b.split('\n');
 			const val = (k) => (lines.find((l) => l.startsWith(`  ${k} `)) || '').slice(k.length + 3) || null;
@@ -241,7 +241,7 @@ test('Iron Bar: one Get it step whose Mining loops give Iron Ore in zones of eac
 	const iron = getIts(draft('Blacksmithing'), 'Iron Bar');
 	assert.ok(iron.length >= 1);
 	for (const g of iron) {
-		assert.match(g.lines.join('\n'), /Mine Iron Ore and smelt it at a forge \(Mining \d+\)/);
+		assert.match(g.lines.join('\n'), /\n {2}tip For \d+ Green Iron Bracers\. No Mining\? The bars, not the ore\./);
 		const at = g.lines.findIndex((l) => l.startsWith('  collect 3575 '));
 		assert.match(g.lines[at], /^ {2}collect 3575 x\d+ gather Mining \d+$/);
 		const loops = g.lines.filter((l) => l.startsWith('  loop '));

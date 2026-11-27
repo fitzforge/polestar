@@ -171,14 +171,12 @@ test("Pyzx's report (#1956): recipes only the Artisan trainers teach are learned
 	}
 });
 
-test('the Artisan Blacksmithing visit learns Brikk’s recipes from him for both factions (#3136)', () => {
+test('from Artisan Blacksmithing on, every trainer recipe is learned from Brikk Keencraft, for both factions (#3136)', () => {
 	const guide = fs.readFileSync(path.join(__dirname, '..', 'guides', 'forever', 'professions', 'blacksmithing.guide'), 'utf8');
-	const visit = guide.split('\nstep Artisan Blacksmithing\n')[1].split('\nstep ')[0];
-	// Heavy Mithril Boots (9968) is learned at 215 now, from Brikk too (the #1956 test above). A Dense stone
-	// (Dense Weightstone since Derotain's plans carry 240-265) carries 225-235: Brikk teaches it, Bengus does not.
-	const learns = visit.split('\n').filter((line) => /^\s*learn \d+/.test(line));
-	const dense = learns.filter((line) => /^\s*learn 1664[01]\b|^\s*learn 16639\b/.test(line));
-	assert.equal(dense.length, 2, `a Dense stone recipe on the Artisan visit: ${learns.join(' | ')}`);
-	for (const line of learns) assert.match(line, /^ {2}learn \d+ npc 2836 only (Alliance|Horde)$/, 'every learn there is Brikk\'s');
-	assert.deepEqual(dense.map((line) => line.split(' only ')[1]).sort(), ['Alliance', 'Horde']);
+	const artisan = guide.split('\nstep Train Artisan Blacksmithing\n')[1];
+	// The Dense stone of 225-235 too: Brikk teaches it, Bengus does not. Plans from the Auction House or Derotain's
+	// quests are learned from the bags (no npc).
+	const learns = artisan.split('\n').filter((line) => /^ {2}learn \d+ npc /.test(line));
+	assert.ok(learns.some((line) => /^ {2}learn 1664[01] /.test(line)), `a Dense stone recipe after the Artisan visit: ${learns.join(' | ')}`);
+	for (const line of learns) assert.match(line, /^ {2}learn \d+ npc 2836$/, 'every trainer learn there is Brikk\'s, for both factions (he serves both)');
 });

@@ -1712,6 +1712,14 @@ fn apply_nearest(step: &V, s: &V, faction: &V, r: &mut R) {
 	if let Some(own) = gotos.iter().find(|g| g.get("optional").truthy()) {
 		return r.err(&own.hidden("_line"), "a `skill … nearest` point cannot be `optional`: it is one of the places the arrow may pick", None);
 	}
+	goals[at].set("candidates", place_candidates(&gotos, step, faction));
+	let kept: Vec<V> = goals.into_iter().filter(|g| g.get("t").as_str() != Some("goto")).collect();
+	step.set("goals", kept);
+}
+
+/// The places of `gotos` as smart-target candidates, each for the characters its own `only` and the step's name
+/// (faction, races, classes; else the guide's faction).
+fn place_candidates(gotos: &[V], step: &V, faction: &V) -> Vec<V> {
 	let outer = step.get("only");
 	let pick = |o: &V, k: &str| -> V {
 		let v = o.get(k);
@@ -1721,7 +1729,7 @@ fn apply_nearest(step: &V, s: &V, faction: &V, r: &mut R) {
 			v
 		}
 	};
-	let candidates: Vec<V> = gotos
+	gotos
 		.iter()
 		.map(|g| {
 			let o = g.get("only");
@@ -1741,9 +1749,41 @@ fn apply_nearest(step: &V, s: &V, faction: &V, r: &mut R) {
 			set_if(&c, "classes", pick(&o, "classes"));
 			c
 		})
-		.collect();
-	goals[at].set("candidates", candidates);
-	let kept: Vec<V> = goals.into_iter().filter(|g| g.get("t").as_str() != Some("goto")).collect();
+		.collect()
+}
+
+/// `goto x,y ["Text"] nearest` (docs/GUIDE_FORMAT.md, "Smart targets"): the step's `nearest` gotos are one goal, a
+/// place of a kind with many spots (a profession guide's "Go to an anvil"). They become the first one's
+/// `candidates`, so the arrow leads to the one nearest the player when the step comes up, and arriving at any of
+/// them finishes it; the goal keeps no place of its own.
+fn apply_goto_nearest(step: &V, s: &V, faction: &V, r: &mut R) {
+	let sgoals = s.get("goals").items();
+	let idx: Vec<usize> = (0..sgoals.len()).filter(|&i| sgoals[i].get("verb").as_str() == Some("goto") && sgoals[i].get("nearest").truthy()).collect();
+	let Some(&first) = idx.first() else { return };
+	let ln = sgoals[first].get("line");
+	if s.get("loop").truthy() {
+		return r.err(&ln, "`goto … nearest` picks one of the step's points, `loop` walks them all: drop one of the two", None);
+	}
+	if sgoals.iter().any(|g| g.get("verb").as_str() == Some("skill") && g.get("nearest").truthy()) {
+		return r.err(&ln, "`goto … nearest` and `skill … nearest` both take the step's points: use one", None);
+	}
+	let goals = step.get("goals").items();
+	let gotos: Vec<V> = idx.iter().map(|&i| goals[i].clone()).collect();
+	if gotos.iter().any(|g| g.get("x").is_undef()) {
+		return;
+	}
+	if gotos.len() < 2 {
+		return r.err(&ln, "`goto … nearest` needs at least two `nearest` points in its step", Some("for one place, drop `nearest`"));
+	}
+	if let Some(&own) = idx.iter().find(|&&i| sgoals[i].get("optional").truthy()) {
+		return r.err(&sgoals[own].get("line"), "a `goto … nearest` point cannot be `optional`: it is one of the places the arrow may pick", None);
+	}
+	let goal = &gotos[0];
+	goal.set("candidates", place_candidates(&gotos, step, faction));
+	for k in ["map", "x", "y", "f", "z", "area", "only"] {
+		goal.as_obj().unwrap().delete(k);
+	}
+	let kept: Vec<V> = goals.into_iter().enumerate().filter(|(i, _)| !idx[1..].contains(i)).map(|(_, g)| g).collect();
 	step.set("goals", kept);
 }
 
@@ -1985,6 +2025,8 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 		// profession's own sections rise in order.
 		let paired: Vec<String> = if h.get("skills").items().len() > 1 { h.get("skills").items().iter().map(|s| s.to_js_string().to_lowercase()).collect() } else { Vec::new() };
 		let mut prev_of: Vec<(String, V)> = Vec::new();
+		// Another way of a fork starts again where an earlier section started (`when` keeps its steps apart).
+		let mut starts: std::collections::HashSet<String> = std::collections::HashSet::new();
 		for sec in ast.get("sections").items() {
 			let out = V::obj();
 			let ln = sec.get("line");
@@ -2006,10 +2048,12 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 			} else {
 				r.err(&ln, format!("unknown profession \"{}\"; quote the name to use it anyway: `section \"{}\" {}-{}`", sec.get("skill"), sec.get("skill"), sec.get("from"), sec.get("to")), None);
 			}
+			let start = format!("{}|{}", sec.get("skill").to_js_string(), sec.get("from").num());
+			let again = starts.contains(&start);
 			let own = sec.get("skill").to_js_string().to_lowercase();
 			if paired.contains(&own) {
 				if let Some((_, before)) = prev_of.iter().find(|(k, _)| *k == own) {
-					if sec.get("from").num() < before.get("from").num() {
+					if sec.get("from").num() < before.get("from").num() && !again {
 						r.warn(
 							&ln,
 							format!(
@@ -2028,7 +2072,7 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 				prev_of.retain(|(k, _)| *k != own);
 				prev_of.push((own, sec.clone()));
 			} else if let Some(pv) = &prev {
-				if !pv.get("skill").strict_eq(&sec.get("skill")) || sec.get("from").num() < pv.get("from").num() {
+				if !pv.get("skill").strict_eq(&sec.get("skill")) || (sec.get("from").num() < pv.get("from").num() && !again) {
 					r.warn(
 						&ln,
 						format!(
@@ -2044,6 +2088,7 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 					);
 				}
 			}
+			starts.insert(start);
 			prev = Some(sec.clone());
 			out.set("from", sec.get("from"));
 			out.set("to", sec.get("to"));
@@ -2236,7 +2281,7 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 			}
 			let gmap = goal.get("map");
 			// A `skill … nearest` step's gotos are its places, each on its own map: no zone to match.
-			let nearest_place = g.get("verb").as_str() == Some("goto") && s.get("goals").items().iter().any(|x| x.get("verb").as_str() == Some("skill") && x.get("nearest").truthy());
+			let nearest_place = g.get("verb").as_str() == Some("goto") && (g.get("nearest").truthy() || s.get("goals").items().iter().any(|x| x.get("verb").as_str() == Some("skill") && x.get("nearest").truthy()));
 			// A step on the world map (`zone Azeroth`: a profession guide's trainer visit, which pins each faction
 			// to its teacher in another zone) spans every zone.
 			let world_step = !matches!(zone_id, V::Null) && data.zone(&zone_id).get("type").as_num().is_some_and(|t| t <= 1.0);
@@ -2318,6 +2363,7 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 			apply_loop_candidates(&step, s, &guide.get("faction"), r);
 		}
 		apply_nearest(&step, s, &guide.get("faction"), r);
+		apply_goto_nearest(&step, s, &guide.get("faction"), r);
 		gsteps.push(step);
 	}
 	if route_needs_group(&gsteps.items()) {
@@ -3756,7 +3802,13 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 						let nm = if !g.get("item").is_undef() { optional_name(r, "item", &recipe_item) } else { opt_str(name_of(data, "item", &recipe_item)) };
 						set_if(&goal, "itemName", nm);
 					}
-					if !g.get("npc").is_undef() {
+					if g.get("npcs").is_arr() {
+						// `learn <spell> npc <id>,<id>…`: the trainers who teach it (a profession guide's tier: the trainer
+						// a player started with teaches only the first recipes); the arrow takes the nearest of the
+						// character's faction.
+						let entries: Vec<V> = g.get("npcs").items().iter().map(|id| obj! { "npc" => id.num() }.into()).collect();
+						smart(&sm, r, &goal, &entries, "named trainer");
+					} else if !g.get("npc").is_undef() {
 						goal.set("npc", g.get("npc"));
 						set_if(&goal, "npcName", optional_name(r, "npc", &g.get("npc")));
 						candidates = vec![cand("npc", g.get("npc"))];
@@ -4058,7 +4110,7 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 	if g.get("frame").truthy() && !explicit {
 		r.err(&ln, format!("`{}` only applies to explicit coordinates (@x,y)", g.get("frame")), None);
 	}
-	if explicit && (g.get("nearest").truthy() || g.get("classTrain").truthy() || (!g.get("profession").is_undef() && g.get("npc").is_undef())) {
+	if explicit && v != "goto" && (g.get("nearest").truthy() || g.get("classTrain").truthy() || (!g.get("profession").is_undef() && g.get("npc").is_undef())) {
 		r.err(&ln, "smart targets pick their NPC and position at runtime; drop the coordinates, or name an npc id", None);
 	}
 	let drop_sides = if v == "collect" { Some(&ctx.sides) } else { None };
