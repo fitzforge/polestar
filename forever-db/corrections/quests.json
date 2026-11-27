@@ -22245,6 +22245,20 @@
 		],
 		"note": "Watch Yer Back (Theramore, the start of the Alliance's Alcaz Prison chain) has one quest-log line: speak with Sully McCleary (260271), then hand the quest in to him. Our data had no objective, so the Alcaz Prison pick-up guide only said to hand it in (#4454)."
 	},
+	"95285": {
+		"set": {
+			"objectives": [
+				{ "type": "talk", "id": 260383, "count": 1, "text": "Speak with Sergeant Ulka" }
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-27: 25 people (21 established) took Right Place, Wrong Time; at accept their quest log had one line, x1 \"Speak with Sergeant Ulka\" (German \"Sprecht mit Sergeant Ulka\"), ticked 1/1 at the window of Sergeant Ulka (260383, 1445 70.27,18.94) by 24 of them, all of whom handed it in to him"
+			}
+		],
+		"note": "Right Place, Wrong Time (the Horde's Alcaz Prison chain, Sergeant Ulka in Dustwallow Marsh) has one quest-log line: speak with Sergeant Ulka, then hand the quest in to him. Our data had no objective, so the Alcaz Prison pick-up guide only said to hand it in: the Horde side of #4454 (Watch Yer Back)."
+	},
 	"95198": {
 		"set": {
 			"objectives": [

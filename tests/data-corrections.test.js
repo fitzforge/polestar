@@ -1229,3 +1229,11 @@ test("Tabetha's Task (2861) is closed for good once Stinglasher (7731) is taken 
 	assert.deepEqual(corrections.quests[2861].set.excl, [7731]);
 	assert.ok(closedByOf(2861, { 2861: { id: 2861, breadcrumbFor: 2846, excl: [7731] } }).includes(7731), 'Lookup reads it as closing the lead-in');
 });
+
+// #4454's sweep: the Horde's Alcaz Prison chain has the same kind of quest. Right Place, Wrong Time's one line,
+// "Speak with Sergeant Ulka", ticks at his window before the hand-in to him (25 people in players' recordings).
+test('Right Place, Wrong Time (95285) is a talk with Sergeant Ulka before the hand-in (#4454)', () => {
+	const objs = corrections.quests[95285].set.objectives;
+	assert.equal(objs.length, 1, 'one objective');
+	assert.deepEqual([objs[0].type, objs[0].id, objs[0].count], ['talk', 260383, 1]);
+});
