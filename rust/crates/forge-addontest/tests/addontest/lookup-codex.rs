@@ -363,7 +363,10 @@ fn in0k_s_report_a_skipped_defias_traitor_escort_leaves_gryan_s_and_riell_s_acce
 	let riell = skipped.iter().find(|s| s.starts_with("accept:214:")).expect("Scout Riell's Red Silk Bandanas");
 	assert_eq!(gryan, "accept:166:skipped:Requires \u{201c}The Defias Brotherhood\u{201d} first");
 	assert_eq!(riell, "accept:214:skipped:Requires \u{201c}The Defias Brotherhood\u{201d} first");
-	assert_eq!(out["skipped"]["at"].as_u64(), Some(skipped.len() as u64), "on at the entrance: {skipped:?}");
+	// On to the first step with something left to do: the work out in the world the guide keeps before the way in
+	// (the held quests' collect steps, #4375), else the entrance.
+	let open = skipped.iter().position(|s| s.starts_with("collect:167:")).map_or(skipped.len(), |i| i + 1);
+	assert_eq!(out["skipped"]["at"].as_u64(), Some(open as u64), "on to the first step with work left: {skipped:?}");
 }
 
 const TABETHA: &str = r#"

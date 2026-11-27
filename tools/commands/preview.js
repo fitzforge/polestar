@@ -1464,7 +1464,7 @@ const SCENES = [
 		panels: [
 			kindPanel(''),
 			kindPanel('Polestar.Set("ui.compact", true)'),
-			kindPanel(ATLAS_LAYOUT),
+			kindPanel(ATLAS_LAYOUT, { roots: [...GUIDE, 'PolestarGuideFrameCards'] }),
 			kindPanel(`uistub.player.level = 15; UnitLevel = function() return 15 end
 Polestar.Dungeons.Attunements = function() return { { kind = "key", name = "Prison Cell Key", item = { name = "Prison Cell Key" } } } end
 Polestar.Dungeons.AttunementState = function() return { done = false } end`),
