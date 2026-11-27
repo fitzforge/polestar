@@ -6483,6 +6483,7 @@ do
 				{
 					title = "{area:479}",
 					note = "West of them the silithid swarm the dig site. Searchers and Hive Drones walk among the mounds; the Invaders (34-35) stay inside the hive cave. The first silithid you kill drops a {item:5877}: open it.\nCareful: Hive Drones call for help when they fall to 20% health, and the {npc:4132} (37, rare) walks the dig: take the Searchers and Drones (32-34) outside first, then pull the Invaders (34-35) one at a time from the cave mouth.",
+					when = { { k = "onquest", q = { 1147 } } },
 					goals = {
 						{ t = "kill", quest = 1147, title = "The Swarm Grows", target = "Silithid Searcher", npc = 4130, count = 5, oi = 1, map = 1441, x = 69.8, y = 83.3, f = "e", spotsPacked = "69.8,83.3,,39,1;71.7,83.3,-58.6,15,1;67.7,82.4,,33,2,1;71.8,86,-58.6,15,1,1", lvl = 33 },
 						{ t = "kill", quest = 1147, title = "The Swarm Grows", target = "Silithid Hive Drone", npc = 4133, count = 5, oi = 2, map = 1441, x = 68, y = 85.7, z = -70, f = "e", spotsPacked = "68,85.7,-70,105,6;69.7,83.1,,69,7;70.6,86.2,,47,5;67.1,82.5,-57.7,15,1,1;69.2,88.8,-58.7,61,4,1;64.6,86,-112.5,51,9,1", lvl = 34 },
