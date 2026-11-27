@@ -344,6 +344,16 @@
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
 --   Profession routes: based on the guides by Peter at WoW-Professions.com.
+-- Machine-translated, to be reviewed (#2576 auction house prices, 27 Nov 2026): translated by an AI model (Claude Opus 5.5)
+-- and waiting for a native speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   Optional: buy at the auction house (/polestar ah)
+--   Auctionator estimate: %s
+--   %s (%d still unpriced)
+--   The auction house is unavailable to Self-Found characters.
+--   No cached price
+--   No cached prices for the remaining quest items.
+--   Partial estimate for remaining quest items: %s
+--   Estimated total for remaining quest items: %s
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "deDE") then return end
@@ -1294,6 +1304,7 @@ L["about %d kills, %d min"] = "etwa %d Kills, %d Min."
 L["about %d kills"] = "etwa %d Kills"
 L["or %s (%s)"] = "oder %s (%s)"
 L["or %s"] = "oder %s"
+L["Optional: buy at the auction house (/polestar ah)"] = "Optional: im Auktionshaus kaufen (/polestar ah)"
 
 -- UI/Welcome.lua
 L["level %d %s"] = "Stufe %d, %s"
@@ -5234,6 +5245,13 @@ L["MATERIALS FOR %s"] = "MATERIALIEN FÜR %s"
 L["%s held"] = "%s vorhanden"
 L["Tracking is on"] = "Suche aktiv"
 L["Tracking is on: your minimap shows the ones that are up."] = "Suche aktiv: Deine Minikarte zeigt die, die gerade da sind."
+L["Auctionator estimate: %s"] = "Auctionator-Schätzung: %s"
+L["%s (%d still unpriced)"] = "%s (%d noch ohne Preis)"
+L["The auction house is unavailable to Self-Found characters."] = "Selbstgefundene Charaktere können das Auktionshaus nicht nutzen."
+L["No cached price"] = "Kein gespeicherter Preis"
+L["No cached prices for the remaining quest items."] = "Keine gespeicherten Preise für die restlichen Questgegenstände."
+L["Partial estimate for remaining quest items: %s"] = "Teilschätzung für die restlichen Questgegenstände: %s"
+L["Estimated total for remaining quest items: %s"] = "Geschätzte Summe für die restlichen Questgegenstände: %s"
 
 -- UI/Materials.lua
 L["Your choice"] = "Deine Wahl"

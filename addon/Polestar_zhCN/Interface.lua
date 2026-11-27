@@ -427,6 +427,16 @@
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
 --   Profession routes: based on the guides by Peter at WoW-Professions.com.
+-- Machine-translated, to be reviewed (#2576 auction house prices, 27 Nov 2026): translated by an AI model (Claude Opus 5.5)
+-- and waiting for a native speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   Optional: buy at the auction house (/polestar ah)
+--   Auctionator estimate: %s
+--   %s (%d still unpriced)
+--   The auction house is unavailable to Self-Found characters.
+--   No cached price
+--   No cached prices for the remaining quest items.
+--   Partial estimate for remaining quest items: %s
+--   Estimated total for remaining quest items: %s
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhCN") then return end
@@ -1892,6 +1902,7 @@ L["about %d kills, %d min"] = "约%d次击杀，%d分钟"
 L["about %d kills"] = "约%d次击杀"
 L["or %s (%s)"] = "或%s（%s）"
 L["or %s"] = "或%s"
+L["Optional: buy at the auction house (/polestar ah)"] = "可选：在拍卖行购买（/polestar ah）"
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"
@@ -5328,6 +5339,13 @@ L["MATERIALS FOR %s"] = "%s 的材料"
 L["%s held"] = "已有 %s 个"
 L["Tracking is on"] = "追踪已开启"
 L["Tracking is on: your minimap shows the ones that are up."] = "追踪已开启：你的微缩地图会显示已刷新的目标。"
+L["Auctionator estimate: %s"] = "Auctionator 估价：%s"
+L["%s (%d still unpriced)"] = "%s（%d 件尚无价格）"
+L["The auction house is unavailable to Self-Found characters."] = "自强角色无法使用拍卖行。"
+L["No cached price"] = "没有缓存价格"
+L["No cached prices for the remaining quest items."] = "剩余任务物品没有缓存价格。"
+L["Partial estimate for remaining quest items: %s"] = "剩余任务物品的部分估价：%s"
+L["Estimated total for remaining quest items: %s"] = "剩余任务物品的估计总价：%s"
 
 -- UI/Materials.lua
 L["Your choice"] = "你的选择"
