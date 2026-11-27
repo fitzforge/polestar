@@ -19978,3 +19978,16 @@ test("forever/alliance/50-60/03-winterspring.guide: nepyanbin's report: Eridan's
 	assert.ok(note, "the note on Eridan's next task is in the guide");
 	assert.match(note.goal.text, /next task, \{quest:4261\},/, note.goal.text);
 });
+
+// #4435 (foggel), #4487 (Akuma), #4491 (ArcticWildWolf), 0.4.3.1: Hadoken Swiftstrider doesn't offer Stinglasher (7731)
+// while Tabetha's Task (2861) is in the quest log; once it is handed in or abandoned he does (players' recordings: of
+// the 34 people offered Zukk'ash Infestation, the 31 without 2861 in the log were offered Stinglasher with it, the 3
+// with it were not). The route never takes Tabetha's Task, so the accept's step says what to do (guide-fixes
+// 4487-stinglasher-tabethas-task-tip).
+test("forever/horde/40-50/02-feralas.guide: Stinglasher's step says to hand in or abandon Tabetha's Task first (#4435, #4487, #4491)", { skip }, () => {
+	const list = goals('forever/horde/40-50/02-feralas.guide');
+	const take = list[at(list, 'accept 7731 (Stinglasher)', is('accept', 7731))];
+	const text = [take.step.note, take.step.tip].flat().filter(Boolean).join(' ');
+	assert.match(text, /Tabetha's Task/, 'the step names Tabetha\'s Task');
+	assert.match(text, /hand it in to Tabetha in Dustwallow Marsh or abandon it/, 'and what to do with it');
+});
