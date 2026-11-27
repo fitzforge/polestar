@@ -456,6 +456,7 @@
 -- keep or fix its line below, and take its key off this list.
 --   Level %d: come back at %d
 --   Needs %s
+--   A guide to the key or attunement you still need, ending at the entrance.
 --   1 of this dungeon's quests is left out because you skipped it
 --   %d of this dungeon's quests are left out because you skipped them
 --   Review
@@ -5791,6 +5792,7 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 -- UI/GuideFrameKindDungeon.lua
 L["Level %d: come back at %d"] = "Nivel %d: regresa en el nivel %d"
 L["Needs %s"] = "Necesita %s"
+L["A guide to the key or attunement you still need, ending at the entrance."] = "Una guía para la llave o la sintonización que aún necesitas, que termina en la entrada."
 L["1 of this dungeon's quests is left out because you skipped it"] = "1 misión de esta mazmorra queda fuera porque la omitiste"
 L["%d of this dungeon's quests are left out because you skipped them"] = "%d misiones de esta mazmorra quedan fuera porque las omitiste"
 L["Review"] = "Revisar"

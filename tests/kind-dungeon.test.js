@@ -380,6 +380,32 @@ emit(steps({ KEY }))
 	assert.ok(!owned.some((s) => s[0] === 'Prison Cell Key' || s[0] === 'Cell Keeper'), 'no key step once the key is owned');
 });
 
+test('outside: a dungeon with no pick-ups and a missing key still gets a guide: the key step, then the way in; with the key owned it is "nothing"', () => {
+	const [missing, owned, hub] = run(OUTSIDE + `
+local D = Polestar.Dungeons
+-- Every quest is in the log: nothing to take.
+for _, q in ipairs({ 1486, 914, 1491 }) do w.accept(q, {}, "q") end
+local KEY = { kind = "key", name = "Prison Cell Key", item = { name = "Prison Cell Key" }, done = false }
+ATTUNE = { KEY }
+D.AttuneGuide = function() return nil, "nothing" end
+local function titles()
+	local def, why = D.PickupGuide("wailing-caverns")
+	if not def then return why end
+	local out = {}
+	for i, s in ipairs(def.steps) do out[i] = s.title end
+	return out
+end
+emit(titles())
+KEY.done = true
+emit(titles())
+ATTUNE = { { kind = "key", name = "Prison Cell Key", item = { name = "Prison Cell Key" }, done = false } }
+emit({ keys = D.KeyMissing("wailing-caverns") and 1 or 0 })
+`);
+	assert.deepEqual(missing, ['Prison Cell Key', 'Wailing Caverns'], 'the key step, then the way in');
+	assert.equal(owned, 'nothing', 'key owned and nothing to take: still nothing to pick up');
+	assert.equal(hub.keys, 1, 'the Dungeons page counts the missing key as a pick-up');
+});
+
 test('outside: under the floor and alone', () => {
 	const [ready] = run(OUTSIDE + `
 w.level = 15

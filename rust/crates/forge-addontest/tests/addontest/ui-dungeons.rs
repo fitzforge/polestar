@@ -649,6 +649,8 @@ fn a_page_with_quests_to_pick_up_pick_up_the_quests_is_the_primary_action_the_en
 		emit({ pickup = shown(pg.Pickup), go = shown(pg.Go), quiet = shown(pg.GoQuiet), none = shown(pg.PickupNone), corner = corner(),
 			tip = { pg.Pickup.psTip, pg.Pickup.psTipLines } })
 		done[1486], done[959] = true, true
+		-- The key is owned too (a key still missing would keep the guide: its steps, then the way in).
+		done[90003], done[90004] = true, true
 		stub.fire("QUEST_TURNED_IN", 1486)
 		stub.fire("QUEST_TURNED_IN", 959)
 		DS.Render()
@@ -687,6 +689,8 @@ fn pick_up_the_quests_says_how_many_now_and_how_many_wait_for_a_level_the_tip_li
 			local b = p.Pickup:IsShown() and p.Pickup or p.PickupNone
 			return { label = b.Label:GetText(), tip = b.psTipLines, width = b:GetWidth() > b.Label:GetStringWidth() }
 		end
+		-- The fixture's Wailing Caverns key is owned: a key still missing is a pick-up of its own.
+		done[90003], done[90004] = true, true
 		local at17 = page(17)
 		local at19 = page(19)
 		done[1486] = true

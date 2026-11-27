@@ -567,6 +567,7 @@
 -- keep or fix its line below, and take its key off this list.
 --   Level %d: come back at %d
 --   Needs %s
+--   A guide to the key or attunement you still need, ending at the entrance.
 --   1 of this dungeon's quests is left out because you skipped it
 --   %d of this dungeon's quests are left out because you skipped them
 --   Review
@@ -5902,6 +5903,7 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 -- UI/GuideFrameKindDungeon.lua
 L["Level %d: come back at %d"] = "等級 %d：%d 級再來"
 L["Needs %s"] = "需要 %s"
+L["A guide to the key or attunement you still need, ending at the entrance."] = "為你仍需要的鑰匙或任務鏈準入提供的指引，終點是入口。"
 L["1 of this dungeon's quests is left out because you skipped it"] = "本副本有 1 個任務因你跳過而被排除"
 L["%d of this dungeon's quests are left out because you skipped them"] = "本副本有 %d 個任務因你跳過而被排除"
 L["Review"] = "查看"

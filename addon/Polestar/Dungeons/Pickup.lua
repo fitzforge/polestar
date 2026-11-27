@@ -74,9 +74,9 @@
 --       Engine passes it once taken on the way.
 --   Dungeons.OfferLevel(pq, rec) -> level   -- the level the heads-up offers page quest pq from
 --   Dungeons.PreDone(rec) -> bool   -- every prerequisite of Codex quest rec done (all of `pre`, one of `preAny`)
---   Dungeons.PickupGuide(key) -> def | nil, reason   -- "nothing" when there is nothing to take or fetch and no quest
---       left out because the player skipped it (the window lists those: plan.skipped); a key or attunement missing
---       adds its steps, the attunement guide's, before the way in: the last step;
+--   Dungeons.PickupGuide(key) -> def | nil, reason   -- "nothing" when there is nothing to take or fetch, no quest
+--       left out because the player skipped it (the window lists those: plan.skipped) and no key or attunement
+--       missing (Dungeons.KeySteps: its steps, the attunement guide's, come before the way in: the last step);
 --       every quest the game gives now: a player who opens it chose the run, so
 --       a quest two levels up comes along (Fitz, #3063: Corruption of Earth and
 --       Seed at 49, which the heads-up's rule held back to 50)
@@ -2158,8 +2158,16 @@ end
 
 -- The key or attunement this character still lacks, as steps before the way in: the attunement guide's
 -- own steps (Dungeons.AttuneGuide, less its closing step: the way in is this guide's), else, where the page
--- lists no steps for it, one step naming it.
-local function keySteps(key)
+-- lists no steps for it, one step naming it. Dungeons.KeyMissing is the cheap check the Dungeons page uses: a
+-- missing key is something to pick up for (a guide is built for it, whatever the quests).
+function Dungeons.KeyMissing(key)
+	for _, a in ipairs(Dungeons.Attunements(key, LK().PlayerInfo().code)) do
+		if (a.kind == "key" or a.kind == "attunement") and not Dungeons.AttunementState(a).done then return true end
+	end
+	return false
+end
+
+function Dungeons.KeySteps(key)
 	local steps = {}
 	for _, a in ipairs(Dungeons.Attunements(key, LK().PlayerInfo().code)) do
 		if (a.kind == "key" or a.kind == "attunement") and not Dungeons.AttunementState(a).done then
@@ -2198,11 +2206,11 @@ function Dungeons.PickupGuide(key)
 	local outside = Dungeons.OutsideWork(plan)
 	local work = 0
 	for _, w in ipairs(outside) do if not w.chain then work = work + 1 end end
-	if #plan.take == 0 and #plan.fetch == 0 and work == 0 and #plan.skipped == 0 then return nil, "nothing" end
-	local keys = keySteps(key)
+	local keys = Dungeons.KeySteps(key)
+	if #plan.take == 0 and #plan.fetch == 0 and work == 0 and #plan.skipped == 0 and #keys == 0 then return nil, "nothing" end
 	local d = plan.dungeon
 	local steps, pre = route(key, plan, outside)
-	if #steps == 0 and #plan.skipped == 0 then return nil, "nothing" end
+	if #steps == 0 and #plan.skipped == 0 and #keys == 0 then return nil, "nothing" end
 	local last = { title = d.name, goals = {} }
 	-- The quests already in the log: one line in the step's note, not a row
 	-- each above the way in (#1591: four rows before "Enter Ragefire Chasm").

@@ -9725,7 +9725,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   instance count (`UI.InstanceCapLine`, "instances this hour: 4 of 5", only at one short of
   the cap or more). A key or attunement the character still lacks is steps of its own before
   the way in (`Dungeons.PickupGuide` adds the attunement guide's steps, `Dungeons.AttuneGuide`
-  less its closing step, else one step "Needs <key>").
+  less its closing step, else one step "Needs <key>", `Dungeons.KeySteps`); a dungeon with no quest to take and a key
+  missing still gets the guide (the key steps, then the way in), and its Dungeons page offers Pick up the quests for it;
+  with the key owned the page says nothing to pick up.
 - **The dungeon run and its tracker** (`Dungeons/Run.lua`, `UI/DungeonTracker.lua`;
   design in docs/DESIGN.md, "The Dungeon Tracker"): inside a party or raid instance
   with a Dungeons page, `Dungeons.Run` checks bosses off (ENCOUNTER_END won, by
