@@ -615,6 +615,7 @@ step The Crossroads
 step Dreadmist Peak
   only Tauren,Skyborne,Druid
   tip Head north from the Crossroads to Dreadmist Peak and fill the Empty Dreadmist Peak Sampler at the Dreadmist Peak Pool, then back to Tonga Runetotem in the Crossroads. No Herbalism? Hula'mahi beside him sells Earthroot, three at a time until he restocks.
+  use 15842 quest 6127.1 @48.4,18.9 only Tauren,Skyborne
   collect 15843 quest 6127.1 @48.4,18.9 only Tauren,Skyborne -- Filled Dreadmist Peak Sampler
   turnin 6127 only Tauren,Skyborne -- Tonga Runetotem
   accept 6128 only Tauren,Skyborne

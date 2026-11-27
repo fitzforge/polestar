@@ -18500,6 +18500,984 @@
 			]
 		},
 		{
+			"id": "long-walks-treasure-trowel-used",
+			"faction": "Horde",
+			"at": {
+				"quest": 91568,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/02-felwood"
+			},
+			"rows": {
+				"before": [
+					"use 246683 quest 91568.1 @53.7,41.4 map 1447"
+				]
+			},
+			"note": "Long Walks on the Beach (91568): the Highborne Treasure Fragments are dug up with Izvi's Treasure Trowel 3000 (246683, Dig); the step had the fragments' count and the trowel only in its tip. The trowel's use is a row before the count.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 91568.1 ticked within 3 s of a cast of 1243356 126 times of 150, for 15 people; 20 people took 91568, 3 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 246683's use is spell 1243356 (Dig)"
+				}
+			]
+		},
+		{
+			"id": "are-we-there-yeti-legacki",
+			"faction": "Horde",
+			"at": {
+				"quest": 5163,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/07-felwood"
+			},
+			"rows": {
+				"before": [
+					"use 12928 quest 5163.1 @61.5,38.6 map 1452"
+				]
+			},
+			"note": "Are We There, Yeti? (5163): Legacki is scared by releasing Umi's Mechanical Yeti (12928, the quest's source item) beside him (Release Umi's Yeti, 17166); the step had only his line, written as a kill. The yeti's use is a row before it, as Sprinkle's step already has.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 5163.1 ticked within 3 s of a cast of 17166 20 times of 20, for 19 people; 5163.2 ticked within 3 s of a cast of 17166 15 times of 15, for 15 people; 5163.3 ticked within 3 s of a cast of 17166 15 times of 15, for 15 people; 19 people took 5163, 2 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 12928's use is spell 17166 (Release Umi's Yeti)"
+				}
+			]
+		},
+		{
+			"id": "are-we-there-yeti-quixxil",
+			"faction": "Horde",
+			"at": {
+				"quest": 5163,
+				"goal": "objective",
+				"objective": 3,
+				"guide": "forever/horde/50-60/06-silithus"
+			},
+			"rows": {
+				"before": [
+					"use 12928 quest 5163.3 @43.7,9.4 map 1449"
+				]
+			},
+			"note": "Are We There, Yeti? (5163): as the Legacki record, for Quixxil at Marshal's Refuge.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 5163.1 ticked within 3 s of a cast of 17166 20 times of 20, for 19 people; 5163.2 ticked within 3 s of a cast of 17166 15 times of 15, for 15 people; 5163.3 ticked within 3 s of a cast of 17166 15 times of 15, for 15 people; 19 people took 5163, 2 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 12928's use is spell 17166 (Release Umi's Yeti)"
+				}
+			]
+		},
+		{
+			"id": "marlas-last-wish-remains-buried",
+			"faction": "Horde",
+			"at": {
+				"quest": 6395,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/undead/01-tirisfal-glades"
+			},
+			"rows": {
+				"before": [
+					"use 16333 quest 6395.1 @31.2,65.1 map 1420"
+				]
+			},
+			"note": "Marla's Last Wish (6395): Samuel's Remains (16333, the quest's source item) are buried by using them at Marla's Grave (Bury Samuel's Remains, 20364); the step had only the grave's click. The use is a row before it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 6395.1 ticked within 3 s of a cast of 20364 129 times of 140, for 109 people; 109 people took 6395, 1 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 16333's use is spell 20364 (Bury Samuel's Remains)"
+				}
+			]
+		},
+		{
+			"id": "hypercapacitor-gizmo-cage-key-used",
+			"faction": "Horde",
+			"at": {
+				"quest": 5151,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/07-ashenvale"
+			},
+			"rows": {
+				"before": [
+					"use 12942 quest 5151.1 @22.8,24.6 map 1441"
+				]
+			},
+			"note": "Hypercapacitor Gizmo (5151): the Enraged Panther is let out of its cage with the Panther Cage Key (12942, the quest's source item; Panther Cage Key, 17176) and drops the gizmo; the step had only the gizmo. The key's use is a row before it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 114 people took 5151, 5 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 12942's use is spell 17176 (Panther Cage Key)"
+				}
+			]
+		},
+		{
+			"id": "kel-theril-jarons-pick-1",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5245,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/50-60/03-winterspring"
+			},
+			"rows": {
+				"before": [
+					"use 12891 quest 5245.1 @55.1,43.0 map 1452"
+				]
+			},
+			"note": "Troubled Spirits of Kel'Theril (5245): each relic fragment is dug up with Jaron's Pick (12891, Find Relic Fragment) at its spot in the ruins; the step listed only the fragments. The pick's use is a row before each.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 5245.1 ticked within 3 s of a cast of 17474 24 times of 32, for 27 people; 5245.2 ticked within 3 s of a cast of 17474 26 times of 32, for 27 people; 5245.3 ticked within 3 s of a cast of 17474 24 times of 32, for 27 people; 5245.4 ticked within 3 s of a cast of 17474 22 times of 32, for 27 people; 32 people took 5245, 5 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 12891's use is spell 17474 (Find Relic Fragment)"
+				}
+			]
+		},
+		{
+			"id": "kel-theril-jarons-pick-2",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5245,
+				"goal": "objective",
+				"objective": 2,
+				"guide": "forever/alliance/50-60/03-winterspring"
+			},
+			"rows": {
+				"before": [
+					"use 12891 quest 5245.2 @50.9,41.7 map 1452"
+				]
+			},
+			"note": "Troubled Spirits of Kel'Theril (5245): each relic fragment is dug up with Jaron's Pick (12891, Find Relic Fragment) at its spot in the ruins; the step listed only the fragments. The pick's use is a row before each.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 5245.1 ticked within 3 s of a cast of 17474 24 times of 32, for 27 people; 5245.2 ticked within 3 s of a cast of 17474 26 times of 32, for 27 people; 5245.3 ticked within 3 s of a cast of 17474 24 times of 32, for 27 people; 5245.4 ticked within 3 s of a cast of 17474 22 times of 32, for 27 people; 32 people took 5245, 5 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 12891's use is spell 17474 (Find Relic Fragment)"
+				}
+			]
+		},
+		{
+			"id": "kel-theril-jarons-pick-3",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5245,
+				"goal": "objective",
+				"objective": 3,
+				"guide": "forever/alliance/50-60/03-winterspring"
+			},
+			"rows": {
+				"before": [
+					"use 12891 quest 5245.3 @53.3,43.4 map 1452"
+				]
+			},
+			"note": "Troubled Spirits of Kel'Theril (5245): each relic fragment is dug up with Jaron's Pick (12891, Find Relic Fragment) at its spot in the ruins; the step listed only the fragments. The pick's use is a row before each.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 5245.1 ticked within 3 s of a cast of 17474 24 times of 32, for 27 people; 5245.2 ticked within 3 s of a cast of 17474 26 times of 32, for 27 people; 5245.3 ticked within 3 s of a cast of 17474 24 times of 32, for 27 people; 5245.4 ticked within 3 s of a cast of 17474 22 times of 32, for 27 people; 32 people took 5245, 5 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 12891's use is spell 17474 (Find Relic Fragment)"
+				}
+			]
+		},
+		{
+			"id": "kel-theril-jarons-pick-4",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5245,
+				"goal": "objective",
+				"objective": 4,
+				"guide": "forever/alliance/50-60/03-winterspring"
+			},
+			"rows": {
+				"before": [
+					"use 12891 quest 5245.4 @52.4,41.5 map 1452"
+				]
+			},
+			"note": "Troubled Spirits of Kel'Theril (5245): each relic fragment is dug up with Jaron's Pick (12891, Find Relic Fragment) at its spot in the ruins; the step listed only the fragments. The pick's use is a row before each.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 5245.1 ticked within 3 s of a cast of 17474 24 times of 32, for 27 people; 5245.2 ticked within 3 s of a cast of 17474 26 times of 32, for 27 people; 5245.3 ticked within 3 s of a cast of 17474 24 times of 32, for 27 people; 5245.4 ticked within 3 s of a cast of 17474 22 times of 32, for 27 people; 32 people took 5245, 5 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 12891's use is spell 17474 (Find Relic Fragment)"
+				}
+			]
+		},
+		{
+			"id": "portals-of-the-legion-hand-of-iruxos",
+			"faction": "Horde",
+			"at": {
+				"quest": 5581,
+				"goal": "complete",
+				"guide": "forever/horde/30-40/04-dustwallow-marsh"
+			},
+			"rows": {
+				"before": [
+					"use 14547 quest 5581.1 @52.0,78.0"
+				]
+			},
+			"note": "Portals of the Legion (5581): a portal is banished by using the Hand of Iruxos (14547, the quest's source item) at its ring, which calls the Demon Portal Guardian to kill; the step had only the quest's complete and a tip. The hand's use is a row before it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 55 people took 5581, 8 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 14547's use is spell 18762 (Hand of Iruxos)"
+				}
+			]
+		},
+		{
+			"id": "bait-for-larkorwi-pouch-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4292,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/50-60/03-winterspring"
+			},
+			"rows": {
+				"before": [
+					"use 11568 @79.7,49.8 map 1449",
+					"use 11569 quest 4292.1 @79.7,49.8 map 1449",
+					"use 11570 quest 4292.1 @79.7,49.8 map 1449"
+				]
+			},
+			"note": "The Bait for Lar'korwi (4292): Torwa's Pouch (11568, the quest's source item) is opened for the Preserved Threshadon Meat (11569), placed in the lair (Place Threshadon Carcass, 15118), and the Preserved Pheromone Mixture (11570), used on it to call Lar'korwi (Apply Seduction Gland, 15119); the step had only his head. The three are rows before it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 58 people took 4292, 13 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 11569's use is spell 15118 (Place Threshadon Carcass)"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 11570's use is spell 15119 (Apply Seduction Gland)"
+				}
+			]
+		},
+		{
+			"id": "bait-for-larkorwi-pouch-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 4292,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/06-silithus"
+			},
+			"rows": {
+				"before": [
+					"use 11568 @79.7,49.8 map 1449",
+					"use 11569 quest 4292.1 @79.7,49.8 map 1449",
+					"use 11570 quest 4292.1 @79.7,49.8 map 1449"
+				]
+			},
+			"note": "The Bait for Lar'korwi (4292): Torwa's Pouch (11568, the quest's source item) is opened for the Preserved Threshadon Meat (11569), placed in the lair (Place Threshadon Carcass, 15118), and the Preserved Pheromone Mixture (11570), used on it to call Lar'korwi (Apply Seduction Gland, 15119); the step had only his head. The three are rows before it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 58 people took 4292, 13 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 11569's use is spell 15118 (Place Threshadon Carcass)"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 11570's use is spell 15119 (Apply Seduction Gland)"
+				}
+			]
+		},
+		{
+			"id": "flying-machine-airport-toxic-fogger",
+			"faction": "Horde",
+			"at": {
+				"quest": 1086,
+				"goal": "complete",
+				"guide": "forever/horde/04-the-barrens"
+			},
+			"rows": {
+				"before": [
+					"use 5638 quest 1086.1 @66.4,45.5"
+				]
+			},
+			"note": "The Flying Machine Airport (1086): the quest is done by placing Zamah's Toxic Fogger (5638, its source item) on the copter pad (Place Toxic Fogger, 6620); the step had only the complete. The fogger's use is a row before it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 12 people took 1086, 3 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 5638's use is spell 6620 (Place Toxic Fogger)"
+				}
+			]
+		},
+		{
+			"id": "scarlet-diversions-tent-and-banner-01-un-goro-crater",
+			"faction": "Horde",
+			"at": {
+				"quest": 5096,
+				"goal": "complete",
+				"guide": "forever/horde/50-60/01-un-goro-crater"
+			},
+			"rows": {
+				"before": [
+					"use 12814 quest 5096.1 @40.7,51.9 map 1422",
+					"use 12807 quest 5096.1 @40.7,51.9 map 1422"
+				]
+			},
+			"note": "Scarlet Diversions (5096): the command tent burns when the Flame in a Bottle (12814) is used at it (Destroy Tent, 17015) and the Scourge Banner (12807, the quest's source item) is planted beside it (Planting Banner, 16989); the step had the box's click and the complete. Both uses are rows before the complete.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 30 people took 5096, 4 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 12814's use is spell 17015 (Destroy Tent)"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 12807's use is spell 16989 (Planting Banner)"
+				}
+			]
+		},
+		{
+			"id": "scarlet-diversions-tent-and-banner-02-felwood",
+			"faction": "Horde",
+			"at": {
+				"quest": 5096,
+				"goal": "complete",
+				"guide": "forever/horde/50-60/02-felwood"
+			},
+			"rows": {
+				"before": [
+					"use 12814 quest 5096.1 @40.7,51.9 map 1422",
+					"use 12807 quest 5096.1 @40.7,51.9 map 1422"
+				]
+			},
+			"note": "Scarlet Diversions (5096): the command tent burns when the Flame in a Bottle (12814) is used at it (Destroy Tent, 17015) and the Scourge Banner (12807, the quest's source item) is planted beside it (Planting Banner, 16989); the step had the box's click and the complete. Both uses are rows before the complete.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 30 people took 5096, 4 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 12814's use is spell 17015 (Destroy Tent)"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 12807's use is spell 16989 (Planting Banner)"
+				}
+			]
+		},
+		{
+			"id": "principal-source-cliffspring-sampler",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6122,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/03-darkshore"
+			},
+			"rows": {
+				"before": [
+					"use 15844 quest 6122.1 @54.9,33.3 map 1439 only NightElf,Skyborne,Druid"
+				]
+			},
+			"note": "The Principal Source (6122): the Filled Cliffspring Falls Sampler is made by using the Empty Cliffspring Falls Sampler (15844, the quest's source item) at the falls (Draw Water Sample, 19564); the step had only the filled sampler. The use is a row before it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 6122.1 ticked within 3 s of a cast of 19564 30 times of 30, for 30 people; 36 people took 6122, 2 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect, SpellEffect; 1.60.1.70532): item 15844's use is spell 19564 (Draw Water Sample), which creates item 15845"
+				}
+			]
+		},
+		{
+			"id": "principal-source-dreadmist-sampler",
+			"faction": "Horde",
+			"at": {
+				"quest": 6127,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/02-the-barrens"
+			},
+			"rows": {
+				"before": [
+					"use 15842 quest 6127.1 @48.4,18.9 only Tauren,Skyborne"
+				]
+			},
+			"note": "The Principal Source (6127): as 6122, the Empty Dreadmist Peak Sampler (15842) used at the Dreadmist Peak Pool (Draw Water Sample, 19565).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 6127.1 ticked within 3 s of a cast of 19565 18 times of 18, for 18 people; 20 people took 6127, 1 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect, SpellEffect; 1.60.1.70532): item 15842's use is spell 19565 (Draw Water Sample), which creates item 15843"
+				}
+			]
+		},
+		{
+			"id": "curing-the-sick-salve-used-darkshore",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6124,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/03-darkshore-return"
+			},
+			"rows": {
+				"before": [
+					"use 15826 quest 6124.1 @43.5,83.4 map 1439 only NightElf,Skyborne,Druid"
+				]
+			},
+			"note": "Curing the Sick (6124): a Sickly Deer counts when the Curative Animal Salve (15826, the quest's source item) is used on it (Apply Salve, 19512); the step said so only in the kill line's note. The salve's use is a row before it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 21 people took 6124"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 15826's use is spell 19512 (Apply Salve)"
+				}
+			]
+		},
+		{
+			"id": "dousing-the-flames-water-alliance-1",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5165,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/50-60/03-winterspring"
+			},
+			"rows": {
+				"before": [
+					"use 12906 quest 5165.1 @36.3,56.3 map 1448"
+				]
+			},
+			"note": "Dousing the Flames of Protection (5165): each brazier goes out when the Purified Moonwell Water (12906, the quest's source item) is used at it (Sprinkling Purified Water, 17155); the steps had the braziers' clicks and the water in a tip. The water's use is a row before each.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 5165.1 ticked within 3 s of a cast of 17155 19 times of 20, for 20 people; 5165.2 ticked within 3 s of a cast of 17155 18 times of 20, for 20 people; 5165.3 ticked within 3 s of a cast of 17155 18 times of 20, for 20 people; 5165.4 ticked within 3 s of a cast of 17155 19 times of 20, for 20 people; 24 people took 5165, 4 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 12906's use is spell 17155 (Sprinkling Purified Water)"
+				}
+			]
+		},
+		{
+			"id": "dousing-the-flames-water-alliance-2",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5165,
+				"goal": "objective",
+				"objective": 2,
+				"guide": "forever/alliance/50-60/03-winterspring"
+			},
+			"rows": {
+				"before": [
+					"use 12906 quest 5165.2 @37.7,52.7 map 1448"
+				]
+			},
+			"note": "Dousing the Flames of Protection (5165): each brazier goes out when the Purified Moonwell Water (12906, the quest's source item) is used at it (Sprinkling Purified Water, 17155); the steps had the braziers' clicks and the water in a tip. The water's use is a row before each.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 5165.1 ticked within 3 s of a cast of 17155 19 times of 20, for 20 people; 5165.2 ticked within 3 s of a cast of 17155 18 times of 20, for 20 people; 5165.3 ticked within 3 s of a cast of 17155 18 times of 20, for 20 people; 5165.4 ticked within 3 s of a cast of 17155 19 times of 20, for 20 people; 24 people took 5165, 4 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 12906's use is spell 17155 (Sprinkling Purified Water)"
+				}
+			]
+		},
+		{
+			"id": "dousing-the-flames-water-alliance-3",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5165,
+				"goal": "objective",
+				"objective": 3,
+				"guide": "forever/alliance/50-60/03-winterspring"
+			},
+			"rows": {
+				"before": [
+					"use 12906 quest 5165.3 @36.7,53.3 map 1448"
+				]
+			},
+			"note": "Dousing the Flames of Protection (5165): each brazier goes out when the Purified Moonwell Water (12906, the quest's source item) is used at it (Sprinkling Purified Water, 17155); the steps had the braziers' clicks and the water in a tip. The water's use is a row before each.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 5165.1 ticked within 3 s of a cast of 17155 19 times of 20, for 20 people; 5165.2 ticked within 3 s of a cast of 17155 18 times of 20, for 20 people; 5165.3 ticked within 3 s of a cast of 17155 18 times of 20, for 20 people; 5165.4 ticked within 3 s of a cast of 17155 19 times of 20, for 20 people; 24 people took 5165, 4 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 12906's use is spell 17155 (Sprinkling Purified Water)"
+				}
+			]
+		},
+		{
+			"id": "dousing-the-flames-water-alliance-4",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5165,
+				"goal": "objective",
+				"objective": 4,
+				"guide": "forever/alliance/50-60/03-winterspring"
+			},
+			"rows": {
+				"before": [
+					"use 12906 quest 5165.4 @36.5,55.2 map 1448"
+				]
+			},
+			"note": "Dousing the Flames of Protection (5165): each brazier goes out when the Purified Moonwell Water (12906, the quest's source item) is used at it (Sprinkling Purified Water, 17155); the steps had the braziers' clicks and the water in a tip. The water's use is a row before each.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 5165.1 ticked within 3 s of a cast of 17155 19 times of 20, for 20 people; 5165.2 ticked within 3 s of a cast of 17155 18 times of 20, for 20 people; 5165.3 ticked within 3 s of a cast of 17155 18 times of 20, for 20 people; 5165.4 ticked within 3 s of a cast of 17155 19 times of 20, for 20 people; 24 people took 5165, 4 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 12906's use is spell 17155 (Sprinkling Purified Water)"
+				}
+			]
+		},
+		{
+			"id": "dousing-the-flames-water-horde-1",
+			"faction": "Horde",
+			"at": {
+				"quest": 5165,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"rows": {
+				"before": [
+					"use 12906 quest 5165.1 @36.3,56.3 map 1448"
+				]
+			},
+			"note": "Dousing the Flames of Protection (5165): each brazier goes out when the Purified Moonwell Water (12906, the quest's source item) is used at it (Sprinkling Purified Water, 17155); the steps had the braziers' clicks and the water in a tip. The water's use is a row before each.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 5165.1 ticked within 3 s of a cast of 17155 19 times of 20, for 20 people; 5165.2 ticked within 3 s of a cast of 17155 18 times of 20, for 20 people; 5165.3 ticked within 3 s of a cast of 17155 18 times of 20, for 20 people; 5165.4 ticked within 3 s of a cast of 17155 19 times of 20, for 20 people; 24 people took 5165, 4 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 12906's use is spell 17155 (Sprinkling Purified Water)"
+				}
+			]
+		},
+		{
+			"id": "dousing-the-flames-water-horde-2",
+			"faction": "Horde",
+			"at": {
+				"quest": 5165,
+				"goal": "objective",
+				"objective": 2,
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"rows": {
+				"before": [
+					"use 12906 quest 5165.2 @37.7,52.7 map 1448"
+				]
+			},
+			"note": "Dousing the Flames of Protection (5165): each brazier goes out when the Purified Moonwell Water (12906, the quest's source item) is used at it (Sprinkling Purified Water, 17155); the steps had the braziers' clicks and the water in a tip. The water's use is a row before each.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 5165.1 ticked within 3 s of a cast of 17155 19 times of 20, for 20 people; 5165.2 ticked within 3 s of a cast of 17155 18 times of 20, for 20 people; 5165.3 ticked within 3 s of a cast of 17155 18 times of 20, for 20 people; 5165.4 ticked within 3 s of a cast of 17155 19 times of 20, for 20 people; 24 people took 5165, 4 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 12906's use is spell 17155 (Sprinkling Purified Water)"
+				}
+			]
+		},
+		{
+			"id": "dousing-the-flames-water-horde-3",
+			"faction": "Horde",
+			"at": {
+				"quest": 5165,
+				"goal": "objective",
+				"objective": 3,
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"rows": {
+				"before": [
+					"use 12906 quest 5165.3 @36.7,53.3 map 1448"
+				]
+			},
+			"note": "Dousing the Flames of Protection (5165): each brazier goes out when the Purified Moonwell Water (12906, the quest's source item) is used at it (Sprinkling Purified Water, 17155); the steps had the braziers' clicks and the water in a tip. The water's use is a row before each.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 5165.1 ticked within 3 s of a cast of 17155 19 times of 20, for 20 people; 5165.2 ticked within 3 s of a cast of 17155 18 times of 20, for 20 people; 5165.3 ticked within 3 s of a cast of 17155 18 times of 20, for 20 people; 5165.4 ticked within 3 s of a cast of 17155 19 times of 20, for 20 people; 24 people took 5165, 4 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 12906's use is spell 17155 (Sprinkling Purified Water)"
+				}
+			]
+		},
+		{
+			"id": "dousing-the-flames-water-horde-4",
+			"faction": "Horde",
+			"at": {
+				"quest": 5165,
+				"goal": "objective",
+				"objective": 4,
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"rows": {
+				"before": [
+					"use 12906 quest 5165.4 @36.5,55.2 map 1448"
+				]
+			},
+			"note": "Dousing the Flames of Protection (5165): each brazier goes out when the Purified Moonwell Water (12906, the quest's source item) is used at it (Sprinkling Purified Water, 17155); the steps had the braziers' clicks and the water in a tip. The water's use is a row before each.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 5165.1 ticked within 3 s of a cast of 17155 19 times of 20, for 20 people; 5165.2 ticked within 3 s of a cast of 17155 18 times of 20, for 20 people; 5165.3 ticked within 3 s of a cast of 17155 18 times of 20, for 20 people; 5165.4 ticked within 3 s of a cast of 17155 19 times of 20, for 20 people; 24 people took 5165, 4 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 12906's use is spell 17155 (Sprinkling Purified Water)"
+				}
+			]
+		},
+		{
+			"id": "finding-the-source-thermometer-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 974,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/50-60/03-winterspring"
+			},
+			"rows": {
+				"before": [
+					"use 12472 quest 974.1 @49.7,45.6 map 1449"
+				]
+			},
+			"note": "Finding the Source (974): the reading is taken with Krakle's Thermometer (12472, the quest's source item) at the hot spot (Temperature Reading, 16378); the step had the hot spot's click. The thermometer's use is a row before it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 974.1 ticked within 3 s of a cast of 16378 35 times of 40, for 40 people; 44 people took 974, 2 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 12472's use is spell 16378 (Temperature Reading)"
+				}
+			]
+		},
+		{
+			"id": "finding-the-source-thermometer-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 974,
+				"goal": "complete",
+				"guide": "forever/horde/50-60/01-un-goro-crater"
+			},
+			"rows": {
+				"before": [
+					"use 12472 quest 974.1 @49.7,45.6"
+				]
+			},
+			"note": "Finding the Source (974): as the Alliance record, in the Horde guide.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 974.1 ticked within 3 s of a cast of 16378 35 times of 40, for 40 people; 44 people took 974, 2 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 12472's use is spell 16378 (Temperature Reading)"
+				}
+			]
+		},
+		{
+			"id": "set-them-ablaze-torch-1",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3463,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/06-searing-gorge"
+			},
+			"rows": {
+				"before": [
+					"use 10515 quest 3463.1 @35.7,60.7 map 1427"
+				]
+			},
+			"note": "Set Them Ablaze! (3463): each Sentry Brazier is lit by using the Torch of Retribution (10515, the quest's source item) beside it (Flames of Retribution, 12534); the step had the braziers' clicks. The torch's use is a row before each.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 3463.1 ticked within 3 s of a cast of 12534 24 times of 45, for 45 people; 3463.2 ticked within 3 s of a cast of 12534 22 times of 45, for 45 people; 3463.3 ticked within 3 s of a cast of 12534 19 times of 45, for 45 people; 3463.4 ticked within 3 s of a cast of 12534 27 times of 45, for 45 people; 46 people took 3463, 1 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 10515's use is spell 12534 (Flames of Retribution)"
+				}
+			]
+		},
+		{
+			"id": "set-them-ablaze-torch-2",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3463,
+				"goal": "objective",
+				"objective": 2,
+				"guide": "forever/alliance/40-50/06-searing-gorge"
+			},
+			"rows": {
+				"before": [
+					"use 10515 quest 3463.2 @44.0,60.9 map 1427"
+				]
+			},
+			"note": "Set Them Ablaze! (3463): each Sentry Brazier is lit by using the Torch of Retribution (10515, the quest's source item) beside it (Flames of Retribution, 12534); the step had the braziers' clicks. The torch's use is a row before each.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 3463.1 ticked within 3 s of a cast of 12534 24 times of 45, for 45 people; 3463.2 ticked within 3 s of a cast of 12534 22 times of 45, for 45 people; 3463.3 ticked within 3 s of a cast of 12534 19 times of 45, for 45 people; 3463.4 ticked within 3 s of a cast of 12534 27 times of 45, for 45 people; 46 people took 3463, 1 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 10515's use is spell 12534 (Flames of Retribution)"
+				}
+			]
+		},
+		{
+			"id": "set-them-ablaze-torch-3",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3463,
+				"goal": "objective",
+				"objective": 3,
+				"guide": "forever/alliance/40-50/06-searing-gorge"
+			},
+			"rows": {
+				"before": [
+					"use 10515 quest 3463.3 @50.1,54.8 map 1427"
+				]
+			},
+			"note": "Set Them Ablaze! (3463): each Sentry Brazier is lit by using the Torch of Retribution (10515, the quest's source item) beside it (Flames of Retribution, 12534); the step had the braziers' clicks. The torch's use is a row before each.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 3463.1 ticked within 3 s of a cast of 12534 24 times of 45, for 45 people; 3463.2 ticked within 3 s of a cast of 12534 22 times of 45, for 45 people; 3463.3 ticked within 3 s of a cast of 12534 19 times of 45, for 45 people; 3463.4 ticked within 3 s of a cast of 12534 27 times of 45, for 45 people; 46 people took 3463, 1 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 10515's use is spell 12534 (Flames of Retribution)"
+				}
+			]
+		},
+		{
+			"id": "set-them-ablaze-torch-4",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3463,
+				"goal": "objective",
+				"objective": 4,
+				"guide": "forever/alliance/40-50/06-searing-gorge"
+			},
+			"rows": {
+				"before": [
+					"use 10515 quest 3463.4 @33.3,54.5 map 1427"
+				]
+			},
+			"note": "Set Them Ablaze! (3463): each Sentry Brazier is lit by using the Torch of Retribution (10515, the quest's source item) beside it (Flames of Retribution, 12534); the step had the braziers' clicks. The torch's use is a row before each.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 3463.1 ticked within 3 s of a cast of 12534 24 times of 45, for 45 people; 3463.2 ticked within 3 s of a cast of 12534 22 times of 45, for 45 people; 3463.3 ticked within 3 s of a cast of 12534 19 times of 45, for 45 people; 3463.4 ticked within 3 s of a cast of 12534 27 times of 45, for 45 people; 46 people took 3463, 1 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 10515's use is spell 12534 (Flames of Retribution)"
+				}
+			]
+		},
+		{
+			"id": "discipline-executors-motivator",
+			"faction": "Horde",
+			"at": {
+				"quest": 99134,
+				"goal": "complete",
+				"guide": "forever/horde/undead/01-tirisfal-glades"
+			},
+			"rows": {
+				"before": [
+					"use 286176 quest 99134.1 @60.6,52.0"
+				]
+			},
+			"note": "Discipline (99134): the five Deathguards count when the Executor's Motivator (286176, the quest's source item) is used on them (Motivated, 1319421); the step had the walk's note and the complete. The motivator's use is a row before the complete.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 99134.1 ticked within 3 s of a cast of 1319421 628 times of 657, for 104 people; 110 people took 99134, 0 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 286176's use is spell 1319421 (Motivated)"
+				}
+			]
+		},
+		{
+			"id": "lazy-peons-blackjack-orc",
+			"faction": "Horde",
+			"at": {
+				"quest": 5441,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/orc/01-durotar"
+			},
+			"rows": {
+				"before": [
+					"use 16114 quest 5441.1 @45.0,69.1 map 1411"
+				]
+			},
+			"note": "Lazy Peons (5441): a peon wakes when the Foreman's Blackjack (16114, the quest's source item) is used on it (Awaken Peon, 19938); the step had only the kill-credit line. The blackjack's use is a row before it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 5441.1 ticked within 3 s of a cast of 19938 551 times of 582, for 92 people; 90 people took 5441, 1 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 16114's use is spell 19938 (Awaken Peon)"
+				}
+			]
+		},
+		{
+			"id": "lazy-peons-blackjack-troll",
+			"faction": "Horde",
+			"at": {
+				"quest": 5441,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/troll/01-durotar"
+			},
+			"rows": {
+				"before": [
+					"use 16114 quest 5441.1 @45.0,69.1 map 1411"
+				]
+			},
+			"note": "Lazy Peons (5441): a peon wakes when the Foreman's Blackjack (16114, the quest's source item) is used on it (Awaken Peon, 19938); the step had only the kill-credit line. The blackjack's use is a row before it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 5441.1 ticked within 3 s of a cast of 19938 551 times of 582, for 92 people; 90 people took 5441, 1 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 16114's use is spell 19938 (Awaken Peon)"
+				}
+			]
+		},
+		{
+			"id": "deeprun-rat-roundup-flute-dwarf",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6661,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/dwarf/01-dun-morogh"
+			},
+			"rows": {
+				"before": [
+					"use 17117 quest 6661.1 @78.0,51.4 map 1455"
+				]
+			},
+			"note": "Deeprun Rat Roundup (6661): a rat counts when the Rat Catcher's Flute (17117, the quest's source item) is played to it (Melodious Rapture, 21050); the step said so in its tip and the line's note. The flute's use is a row before the count.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 6661.1 ticked within 3 s of a cast of 21050 337 times of 370, for 57 people; 61 people took 6661, 5 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 17117's use is spell 21050 (Melodious Rapture)"
+				}
+			]
+		},
+		{
+			"id": "deeprun-rat-roundup-flute-gnome",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6661,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/gnome/01-dun-morogh"
+			},
+			"rows": {
+				"before": [
+					"use 17117 quest 6661.1 @78.0,51.4 map 1455"
+				]
+			},
+			"note": "Deeprun Rat Roundup (6661): a rat counts when the Rat Catcher's Flute (17117, the quest's source item) is played to it (Melodious Rapture, 21050); the step said so in its tip and the line's note. The flute's use is a row before the count.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 6661.1 ticked within 3 s of a cast of 21050 337 times of 370, for 57 people; 61 people took 6661, 5 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 17117's use is spell 21050 (Melodious Rapture)"
+				}
+			]
+		},
+		{
 			"id": "3574-stv-fever-group-horde-first-visit",
 			"faction": "Horde",
 			"at": {

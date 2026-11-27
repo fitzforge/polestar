@@ -352,6 +352,7 @@ step Darnassus: Morrowgrain Research
   accept 3785                         -- Morrowgrain Research, +100
   buy 11020 npc 4217                  -- Evergreen Pouch
   buy 11022 x10 npc 4217              -- Packet of Tharlendris Seeds
+  use 11020 quest 3785.1 @35.4,8.4
   collect 11040 x10 quest 3785.1 @35.4,8.4 -- Morrowgrain: grow it here and open the casings
   turnin 3785
 

@@ -300,6 +300,7 @@ step Cliffspring Falls
   tip Follow the hills north to the Cliffspring River and up to the falls. Two more beached remains lie on the north shore: near the Ruins of Mathystra and north of Bashal'Aran.
   use 12350 quest 4762.1 @50.8,25.6 map 1439
   collect 12349 quest 4762                    -- Cliffspring River Sample, at the waterfall
+  use 15844 quest 6122.1 @54.9,33.3 map 1439 only NightElf,Skyborne,Druid
   collect 15845 quest 6122.1 only NightElf,Skyborne,Druid -- Filled Cliffspring Falls Sampler: at the mouth of the cave by the falls
   accept 4727 only Dwarf,Gnome,Human,Skyborne -- Beached Sea Turtle
   accept 4725                                 -- Beached Sea Turtle

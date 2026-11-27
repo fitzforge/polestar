@@ -392,6 +392,7 @@ step The Flying Machine Airport
   zone Stonetalon Mountains
   when onquest 1086
   tip The Venture Co. Copter Pad is the platform just south-east of Gerenzo's tower: place Zamah's Toxic Fogger on it. Zamah takes it back on the next guide's Thunder Bluff stop.
+  use 5638 quest 1086.1 @66.4,45.5
   complete 1086 @66.44,45.46          -- Place the Toxic Fogger on the Venture Co. Copter Pad
 
 step Ziz Fizziks

@@ -18821,6 +18821,24 @@ for (const [guide, item, quest, oi, verb] of [
 	['forever/alliance/03-darkshore.guide', 5338, 957, 1, 'use'], // Bashal'Aran: the seal at the flame
 	['forever/horde/07-ashenvale.guide', 273015, 96241, 1, 'use'], // Talkin' bout Toxins, Mon: the extractor on the corpses
 	['forever/reputation/orgrimmar.guide', 10327, 881, 1, 'use'], // Echeyakee: the horn at his lair
+	// The sweep's second batch.
+	['forever/horde/50-60/02-felwood.guide', 246683, 91568, 1, 'use'], // Long Walks on the Beach: the Treasure Trowel on the sands
+	['forever/horde/50-60/07-felwood.guide', 12928, 5163, 1, 'use'], // Are We There, Yeti?: the yeti beside Legacki
+	['forever/horde/undead/01-tirisfal-glades.guide', 16333, 6395, 1, 'use'], // Marla's Last Wish: the remains at the grave
+	['forever/horde/07-ashenvale.guide', 12942, 5151, 1, 'use'], // Hypercapacitor Gizmo: the panther cage key
+	['forever/alliance/50-60/03-winterspring.guide', 12891, 5245, 1, 'use'], // Troubled Spirits of Kel'Theril: Jaron's Pick at each fragment
+	['forever/horde/30-40/04-dustwallow-marsh.guide', 14547, 5581, 1, 'use'], // Portals of the Legion: the Hand of Iruxos
+	['forever/horde/50-60/06-silithus.guide', 11570, 4292, 1, 'use'], // The Bait for Lar'korwi: the pheromone mixture on the meat
+	['forever/horde/04-the-barrens.guide', 5638, 1086, 1, 'use'], // The Flying Machine Airport: the Toxic Fogger
+	['forever/horde/50-60/01-un-goro-crater.guide', 12807, 5096, 1, 'use'], // Scarlet Diversions: the banner by the tent
+	['forever/alliance/03-darkshore.guide', 15844, 6122, 1, 'use'], // The Principal Source: the sampler at the falls
+	['forever/alliance/50-60/03-winterspring.guide', 12906, 5165, 4, 'use'], // Dousing the Flames of Protection: the water at each brazier
+	['forever/alliance/40-50/06-searing-gorge.guide', 10515, 3463, 1, 'use'], // Set Them Ablaze!: the torch at each brazier
+	['forever/horde/undead/01-tirisfal-glades.guide', 286176, 99134, 1, 'use'], // Discipline: the Executor's Motivator
+	['forever/horde/orc/01-durotar.guide', 16114, 5441, 1, 'use'], // Lazy Peons: the Foreman's Blackjack
+	['forever/alliance/dwarf/01-dun-morogh.guide', 17117, 6661, 1, 'use'], // Deeprun Rat Roundup: the flute
+	['forever/reputation/stormwind.guide', 12815, 5097, 1, 'use'], // All Along the Watchtowers: the Beacon Torch at each tower
+	['forever/class/warlock/orb-of-orahil.guide', 12647, 4962, 1, 'use'], // Shard of a Felhound: the Felhas Ruby
 ]) {
 	test(`${guide}: ${verb} ${item} right before the line of quest ${quest}.${oi} (tip-only actions sweep)`, { skip }, () => {
 		const list = goals(guide);

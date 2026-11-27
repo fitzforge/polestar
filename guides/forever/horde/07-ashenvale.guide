@@ -549,6 +549,7 @@ step Wizlo Bearingshiner
 step Hypercapacitor Gizmo
   when group 5151
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Enraged Panther is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone.
+  use 12942 quest 5151.1 @22.8,24.6 map 1441
   collect 12946 quest 5151.1 @22.8,24.6 map 1441
 
 step Whitereach Post
