@@ -482,7 +482,7 @@ local function Tail(path, index, bx, by, point, kx, ky, line, color)
 end
 
 -- A cross, CROSS px a side, at x, y (the painter's units): the mark of a danger stretch.
-local CROSS = 4
+local CROSS = 6
 local function Cross(x, y, color)
 	local h = CROSS / scale
 	Stroke(x - h, y - h, x + h, y + h, color)

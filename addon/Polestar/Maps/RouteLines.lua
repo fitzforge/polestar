@@ -167,6 +167,7 @@ local LIVE_REACH = 60
 local JUMP = { hearth = true, teleport = true, portal = true }
 
 -- Theme tokens per leg kind (the same as the travel pins': Maps/TravelPins.lua).
+local DANGER_RED = { 0.94, 0.16, 0.16 }
 local TOKEN = { walk = "arrow", flight = "success", boat = "npc", zeppelin = "place", airship = "place", tram = "object", lift = "object", danger = "danger" }
 local colors = {}
 for kind in pairs(TOKEN) do colors[kind] = { 1, 1, 1 } end
@@ -609,7 +610,7 @@ end
 -- ever hidden. The text keeps its size on screen while the canvas zooms under it.
 ---------------------------------------------------------------------------
 
-local LABEL_SIZE, LABEL_RISE = 11, 4
+local LABEL_SIZE, LABEL_RISE = 11, 12 -- the rise clears the cross at the stretch's middle
 
 -- b: the map's bounds (c, left, top, kx, ky), or nil to hide every label.
 local function paintLabels(pin, b, width, height, zoom)
@@ -1338,6 +1339,8 @@ end
 function RouteLines.DefaultColor(kind)
 	local tint = kind == "walk" and RouteLines.DOT_COLORS[ns.Get("nav.dotColor")]
 	if tint then return tint[1], tint[2], tint[3] end
+	-- Danger: one saturated red on every look; the themes' soft salmon vanishes on green ground.
+	if kind == "danger" then return DANGER_RED[1], DANGER_RED[2], DANGER_RED[3] end
 	local T = ns.Theme
 	if T and T.Color and TOKEN[kind] then return T.Color(TOKEN[kind]) end
 	return 1, 1, 1
