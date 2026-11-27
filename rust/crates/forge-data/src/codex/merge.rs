@@ -1289,7 +1289,7 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 				npc_roles[i].1.delete("rare");
 			}
 		}
-		if matches!(int(&fv.npcs.get(&*id).get("rank")), Some(r) if r == 2.0 || r == 4.0) {
+		if matches!(int(&fv.npcs.get(&id).get("rank")), Some(r) if r == 2.0 || r == 4.0) {
 			n.set("rareSpawn", true);
 		}
 	}
