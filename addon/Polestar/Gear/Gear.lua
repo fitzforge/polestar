@@ -553,6 +553,9 @@ local CLIENT_STATS = {
 	ITEM_MOD_HEALTH_REGEN_SHORT = "hp5", ITEM_MOD_HEALTH_REGENERATION_SHORT = "hp5",
 	ITEM_MOD_DEFENSE_SKILL_RATING_SHORT = "defense", -- 1 rating = 1 defense skill (combatratings)
 	ITEM_MOD_BLOCK_VALUE_SHORT = "blockValue",
+	-- Spell penetration is points of the target's resistance, not a rating
+	-- (#4301).
+	ITEM_MOD_SPELL_PENETRATION_SHORT = "spellPen",
 }
 Gear.CLIENT_STATS = CLIENT_STATS
 

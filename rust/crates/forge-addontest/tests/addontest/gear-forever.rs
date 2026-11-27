@@ -126,3 +126,42 @@ fn pawn_s_haste_expertise_and_armor_penetration_map_to_the_new_keys() {
 	"#);
 	assert_eq!(out[0], json!({ "w": { "haste": 30, "expertise": 20, "armorPen": 10, "crit": 56 }, "mapped": 4, "ignored": {} }), "per rating point in Pawn, per 1% in Polestar");
 }
+
+#[test]
+fn spell_penetration_is_read_one_for_one_weighed_by_no_spec_and_counts_once_the_player_weighs_it() {
+	let out = run(r#"
+		g.defineItem("item:9102", { equipLoc = "INVTYPE_WRIST", classID = 4, subclassID = 1, minLevel = 20, stats = {
+			ITEM_MOD_INTELLECT_SHORT = 5, ITEM_MOD_SPELL_PENETRATION_SHORT = 10 } })
+		emit(G.GetItemInfo("item:9102").stats)
+		local known, weighed = false, {}
+		for _, k in ipairs(G.STAT_KEYS) do known = known or k == "spellPen" end
+		for class, specs in pairs(G.WEIGHTS) do
+			for key in pairs(specs) do
+				if (G.WeightsFor(class, key, 60) or {}).spellPen then weighed[#weighed + 1] = class .. "." .. key end
+			end
+		end
+		emit({ known = known, weighed = weighed })
+		Polestar.Set("gear.spec.WARRIOR", "arms")
+		local before = G.ScoreItem("item:9102")
+		emit({ G.Adjust.Set("WARRIOR", "arms", "spellPen", 0.5) })
+		emit({ before = before, after = G.ScoreItem("item:9102"), w = G.GetWeights().spellPen })
+	"#);
+	assert_eq!(out[0], json!({ "int": 5, "spellPen": 10 }), "points of resistance, not a rating");
+	assert_eq!(out[1], json!({ "known": true, "weighed": {} }), "a stat key, with no built-in weight");
+	assert_eq!(out[2], json!([true]), "Adjust weights takes it");
+	assert_eq!(out[3]["w"], 0.5);
+	let (before, after) = (out[3]["before"].as_f64().unwrap(), out[3]["after"].as_f64().unwrap());
+	assert!((after - before - 5.0).abs() < 1e-9, "10 spell penetration at 0.5 each: {before} -> {after}");
+}
+
+#[test]
+fn pawn_s_spell_penetration_maps_to_spell_pen_one_for_one_and_exports_back() {
+	let out = run(r#"
+		local p = assert(G.Pawn.Parse('( Pawn: v1: "R": SpellPenetration=0.4, SpellDamage=1 )'))
+		local w, mapped, ignored = G.Pawn.Weights(p)
+		emit({ w = w, mapped = mapped, ignored = ignored })
+		emit({ G.Pawn.Build("R", "MAGE", w):find("SpellPenetration=0.4", 1, true) ~= nil, G.Pawn.NameOf("spellPen") })
+	"#);
+	assert_eq!(out[0], json!({ "w": { "spellPen": 0.4, "sp": 1 }, "mapped": 2, "ignored": {} }), "no rating rate: Pawn's points are Polestar's");
+	assert_eq!(out[1], json!([true, "SpellPenetration"]));
+}

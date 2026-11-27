@@ -77,6 +77,12 @@
 --   * sp = spell damage of every school, spFire etc. = one school only, heal =
 --     healing. Classic +spell-power items carry both sp and heal, so damage
 --     specs read the sp half and healers the heal half.
+--   * spellPen = spell penetration, per point of the target's resistance it
+--     takes away (a flat amount, not a rating; #4301). No spec weighs it here:
+--     it only counts against a mob that resists the spell's school, and most
+--     levelling mobs resist none, so its worth depends on how many do. Items
+--     still carry it and a player can weigh it (Adjust weights, a Pawn scale's
+--     SpellPenetration).
 
 local ADDON, ns = ...
 
@@ -88,7 +94,7 @@ Gear.STAT_KEYS = {
 	"str", "agi", "sta", "int", "spi", "armor", "health", "mana",
 	"ap", "rap", "sp", "spArcane", "spFire", "spFrost", "spHoly", "spNature", "spShadow", "heal",
 	"crit", "hit", "spellCrit", "spellHit", "mp5", "hp5", "defense", "dodge", "parry", "block", "blockValue",
-	"haste", "expertise", "armorPen",
+	"haste", "expertise", "armorPen", "spellPen",
 	"dps", "ohDps", "rdps",
 }
 

@@ -7381,6 +7381,10 @@ Polestar.Gear.Bags.Redraw()                  -- repaint the shown bags; GEAR_UPD
   rating is defense skill, one for one. New stat keys: `haste`, `expertise`,
   `armorPen` (Gear.STAT_KEYS, PawnStats.lua's HasteRating, ExpertiseRating and
   ArmorPenetration).
+- **Spell penetration.** `spellPen` is points of the target's resistance, not
+  a rating: `ITEM_MOD_SPELL_PENETRATION_SHORT` and Pawn's SpellPenetration are
+  read one for one. No built-in spec weighs it (most levelling mobs resist no
+  school); a player weighs it with Adjust weights or a Pawn scale (#4301).
 - **Pawn scales in Pawn's unit.** A Pawn string weighs a rating per rating
   point; Polestar per 1%. `Gear.Pawn.Weights` multiplies a rating stat's
   weight by its rate (`Gear.RATING_RATE`, from `Gear.RATINGS`; to the
