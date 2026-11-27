@@ -417,159 +417,155 @@ return {
 	-- {item:12425} Imperial Plate Bracers · {skill:186} Mining
 	["For 27 {item:12425} and the plans. No {skill:186}? The bars, not the ore."] = "",
 
-	-- Step 96: Get 540 Thorium Bar
-	-- {item:12359} Thorium Bar
-	["Get 540 {item:12359}"] = "",
-
-	-- Step 100: Learn Imperial Plate Bracers
+	-- Step 99: Learn Imperial Plate Bracers
 	-- {spell:16649} Imperial Plate Bracers
 	["Learn {spell:16649}"] = "",
 
-	-- Step 102: Craft 27 Imperial Plate Bracers until 270
+	-- Step 101: Craft 27 Imperial Plate Bracers until 270
 	-- {item:12425} Imperial Plate Bracers
 	["Craft 27 {item:12425} until 270"] = "",
 	["About 27 crafts."] = "",
 
-	-- Step 103: Buy Plans: Radiant Boots at the Auction House
+	-- Step 102: Buy Plans: Radiant Boots at the Auction House
 	-- {item:12697} Plans: Radiant Boots
 	["Buy {item:12697} at the Auction House"] = "",
 	["The cheapest way to 300 when both plans are listed."] = "",
 
-	-- Step 104: Buy Plans: Radiant Leggings at the Auction House
+	-- Step 103: Buy Plans: Radiant Leggings at the Auction House
 	-- {item:12713} Plans: Radiant Leggings
 	["Buy {item:12713} at the Auction House"] = "",
 
-	-- Step 105: Buy Plans: Thorium Leggings at the Auction House
+	-- Step 104: Buy Plans: Thorium Leggings at the Auction House
 	-- {item:12704} Plans: Thorium Leggings
 	["Buy {item:12704} at the Auction House"] = "",
 	["Next cheapest; the plans are learned at 275."] = "",
 
-	-- Step 106: Learn Radiant Boots
+	-- Step 105: Learn Radiant Boots
 	-- {spell:16656} Radiant Boots
 	["Learn {spell:16656}"] = "",
 
-	-- Step 107: Get 88 Heart of Fire
+	-- Step 106: Get 88 Heart of Fire
 	-- {item:7077} Heart of Fire
 	["Get 88 {item:7077}"] = "",
 	-- {item:12419} Radiant Boots
 	["For 22 {item:12419}."] = "",
 
-	-- Step 108: Get 308 Thorium Bar
+	-- Step 107: Get 308 Thorium Bar
 	-- {item:12359} Thorium Bar
 	["Get 308 {item:12359}"] = "",
 	-- {item:12419} Radiant Boots · {skill:186} Mining
 	["For 22 {item:12419}. No {skill:186}? The bars, not the ore."] = "",
 
-	-- Step 110: Craft 22 Radiant Boots until 290
+	-- Step 109: Craft 22 Radiant Boots until 290
 	-- {item:12419} Radiant Boots
 	["Craft 22 {item:12419} until 290"] = "",
 	["About 22 crafts."] = "",
 
-	-- Step 111: Get 40 Heart of Fire
+	-- Step 110: Get 40 Heart of Fire
 	-- {item:7077} Heart of Fire
 	["Get 40 {item:7077}"] = "",
 	-- {item:12420} Radiant Leggings
 	["For 10 {item:12420}."] = "",
 
-	-- Step 112: Get 200 Thorium Bar
+	-- Step 111: Get 200 Thorium Bar
 	-- {item:12359} Thorium Bar
 	["Get 200 {item:12359}"] = "",
 	-- {item:12420} Radiant Leggings · {skill:186} Mining
 	["For 10 {item:12420}. No {skill:186}? The bars, not the ore."] = "",
 
-	-- Step 113: Learn Radiant Leggings
+	-- Step 112: Learn Radiant Leggings
 	-- {spell:16725} Radiant Leggings
 	["Learn {spell:16725}"] = "",
 
-	-- Step 115: Craft 10 Radiant Leggings until 300
+	-- Step 114: Craft 10 Radiant Leggings until 300
 	-- {item:12420} Radiant Leggings
 	["Craft 10 {item:12420} until 300"] = "",
 
-	-- Step 116: Get 11 Star Ruby
+	-- Step 115: Get 11 Star Ruby
 	-- {item:7910} Star Ruby
 	["Get 11 {item:7910}"] = "",
 	-- {item:12425} Imperial Plate Bracers
 	["For 11 {item:12425}."] = "",
 
-	-- Step 117: Get 220 Thorium Bar
+	-- Step 116: Get 220 Thorium Bar
 	-- {item:12359} Thorium Bar
 	["Get 220 {item:12359}"] = "",
 	-- {item:12425} Imperial Plate Bracers · {skill:186} Mining
 	["For 11 {item:12425}. No {skill:186}? The bars, not the ore."] = "",
 
-	-- Step 119: Craft 11 Imperial Plate Bracers until 275
+	-- Step 118: Craft 11 Imperial Plate Bracers until 275
 	-- {item:12425} Imperial Plate Bracers
 	["Craft 11 {item:12425} until 275"] = "",
 	["About 11 crafts."] = "",
 
-	-- Step 120: Get 108 Red Power Crystal
+	-- Step 119: Get 108 Red Power Crystal
 	-- {item:11186} Red Power Crystal
 	["Get 108 {item:11186}"] = "",
 	-- {item:12414} Thorium Leggings
 	["For 27 {item:12414}."] = "",
 
-	-- Step 121: Get 702 Thorium Bar
+	-- Step 120: Get 702 Thorium Bar
 	-- {item:12359} Thorium Bar
 	["Get 702 {item:12359}"] = "",
 	-- {item:12414} Thorium Leggings · {skill:186} Mining
 	["For 27 {item:12414}. No {skill:186}? The bars, not the ore."] = "",
 
-	-- Step 122: Learn Thorium Leggings
+	-- Step 121: Learn Thorium Leggings
 	-- {spell:16662} Thorium Leggings
 	["Learn {spell:16662}"] = "",
 
-	-- Step 124: Craft 27 Thorium Leggings until 300
+	-- Step 123: Craft 27 Thorium Leggings until 300
 	-- {item:12414} Thorium Leggings
 	["Craft 27 {item:12414} until 300"] = "",
 
-	-- Step 125: Get 20 Aquamarine
+	-- Step 124: Get 20 Aquamarine
 	-- {item:7909} Aquamarine
 	["Get 20 {item:7909}"] = "",
 	-- {quest:7654} Imperial Plate Boots
 	["For 20 {quest:7654}."] = "",
 
-	-- Step 126: Get 20 Star Ruby
+	-- Step 125: Get 20 Star Ruby
 	-- {item:7910} Star Ruby
 	["Get 20 {item:7910}"] = "",
 
-	-- Step 127: Get 720 Thorium Bar
+	-- Step 126: Get 720 Thorium Bar
 	-- {item:12359} Thorium Bar
 	["Get 720 {item:12359}"] = "",
 	-- {quest:7654} Imperial Plate Boots · {skill:186} Mining
 	["For 20 {quest:7654} and the plans. No {skill:186}? The bars, not the ore."] = "",
 
-	-- Step 128: Hand in Imperial Plate Boots
+	-- Step 127: Hand in Imperial Plate Boots
 	-- {quest:7654} Imperial Plate Boots
 	["Hand in {quest:7654}"] = "",
 
-	-- Step 129: Learn Imperial Plate Boots
+	-- Step 128: Learn Imperial Plate Boots
 	-- {spell:16657} Imperial Plate Boots
 	["Learn {spell:16657}"] = "",
 
-	-- Step 131: Craft 20 Imperial Plate Boots until 290
+	-- Step 130: Craft 20 Imperial Plate Boots until 290
 	-- {item:12426} Imperial Plate Boots
 	["Craft 20 {item:12426} until 290"] = "",
 	["About 20 crafts."] = "",
 
-	-- Step 132: Get 20 Star Ruby
+	-- Step 131: Get 20 Star Ruby
 	-- {quest:7658} Imperial Plate Leggings
 	["For 10 {quest:7658}."] = "",
 
-	-- Step 133: Get 500 Thorium Bar
+	-- Step 132: Get 500 Thorium Bar
 	-- {item:12359} Thorium Bar
 	["Get 500 {item:12359}"] = "",
 	-- {quest:7658} Imperial Plate Leggings · {skill:186} Mining
 	["For 10 {quest:7658} and the plans. No {skill:186}? The bars, not the ore."] = "",
 
-	-- Step 134: Hand in Imperial Plate Leggings
+	-- Step 133: Hand in Imperial Plate Leggings
 	-- {quest:7658} Imperial Plate Leggings
 	["Hand in {quest:7658}"] = "",
 
-	-- Step 135: Learn Imperial Plate Leggings
+	-- Step 134: Learn Imperial Plate Leggings
 	-- {spell:16730} Imperial Plate Leggings
 	["Learn {spell:16730}"] = "",
 
-	-- Step 137: Craft 10 Imperial Plate Leggings until 300
+	-- Step 136: Craft 10 Imperial Plate Leggings until 300
 	-- {item:12429} Imperial Plate Leggings
 	["Craft 10 {item:12429} until 300"] = "",
 
