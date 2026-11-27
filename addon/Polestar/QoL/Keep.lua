@@ -8,9 +8,14 @@
 -- (Engine.ItemGuides: the active guide with its step, then the guides
 -- ahead), headed "Don't sell, used in guides:" in the warning colour while a
 -- merchant is open. An item only a guide ahead uses is listed but not Kept.
+-- A material of the running profession guide (one Materials.Tracked counts)
+-- also shows, under that guide, what the character holds of what each range
+-- still ahead needs, as the Materials window counts it (Engine.MaterialRows
+-- "rest": "12 / 40 for Tailoring 75-100").
 --
 --   QoL.Kept(itemID) -> the step that needs it | nil   -- the active guide only
 --   QoL.KeptLines(itemID) -> { header = { text, r, g, b }, lines = { { text, r, g, b }, ... } } | nil
+--   QoL.MaterialCounts(itemID) -> { { held, need, title }, ... } | nil   -- the running guide's ranges that need it
 --   QoL.KeptToSell() -> { { item, link }, ... }   -- kept items in the bags a merchant buys, once each, in bag order
 --
 -- Client: C_Container.GetContainerItemInfo (hasNoValue, hyperlink), C_Item.GetItemInfo's sell price.
@@ -82,6 +87,27 @@ local function levelsText(g)
 	return format("%d-%d", lo, hi)
 end
 
+-- What the running guide's ranges still ahead need of itemID, and what the
+-- character holds toward each (bags, bank, mail, purchases coming, and the
+-- other characters when counted: Materials.Have, the earliest range first),
+-- as the Materials window shows them: Engine.MaterialRows("rest").
+-- -> { { held, need, title }, ... } | nil (no range needs it, or not a
+-- material the profession guides track)
+function QoL.MaterialCounts(itemID)
+	local E, M = ns.Engine, ns.Materials
+	if not (itemID and E and E.MaterialRows and M and M.Tracked and M.Tracked()[itemID]) then return nil end
+	local out
+	for _, sec in ipairs(E.MaterialRows("rest")) do
+		for _, row in ipairs(sec.items) do
+			if row.item == itemID then
+				out = out or {}
+				out[#out + 1] = { row.held, row.need, sec.title }
+			end
+		end
+	end
+	return out
+end
+
 -- The tooltip block for itemID: every guide whose steps use it, the active
 -- one (with its step) first, then those ahead (Engine.ItemGuides).
 -- -> { header = { text, r, g, b }, lines = { { text, r, g, b }, ... } } | nil
@@ -91,6 +117,13 @@ end
 function QoL.KeptLines(itemID)
 	local E = ns.Engine
 	local list = itemID and E and E.ItemGuides and E.ItemGuides(itemID)
+	local counts = QoL.MaterialCounts(itemID)
+	local running = counts and E.GetGuide and E.GetGuide()
+	-- A range needs it before the live step (no Kept step): the running guide still heads the list.
+	if running and not (list and list[1].guide == running) then
+		list = list or {}
+		table.insert(list, 1, { guide = running })
+	end
 	if not list then return nil end
 	local lines = {}
 	for i, e in ipairs(list) do
@@ -109,7 +142,13 @@ function QoL.KeptLines(itemID)
 			text = title and format(L["%s: step %d (%s)"], text, s, title) or format(L["%s: step %d"], text, s)
 		end
 		local r, gr, b = color("textDim", 0.8, 0.8, 0.8)
-		lines[i] = { text, r, gr, b }
+		lines[#lines + 1] = { text, r, gr, b }
+		if i == 1 and running then
+			r, gr, b = color("text", 1, 1, 1)
+			for _, c in ipairs(counts) do
+				lines[#lines + 1] = { "  " .. format(L["%s / %s for %s"], ns.Thousands(c[1]), ns.Thousands(c[2]), c[3]), r, gr, b }
+			end
+		end
 	end
 	local header
 	if atMerchant then

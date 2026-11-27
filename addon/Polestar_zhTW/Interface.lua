@@ -569,6 +569,7 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+--   %s / %s for %s
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhTW") then return end
@@ -4128,6 +4129,7 @@ L["Used in guides:"] = "用於指南："
 L["Don't sell, used in guides:"] = "不要出售，用於指南："
 L["%s: step %d (%s)"] = "%s：第 %d 步（%s）"
 L["%s: step %d"] = "%s：第 %d 步"
+L["%s / %s for %s"] = "%3$s：%1$s / %2$s"
 L["Keep %s: a later step of the guide needs it."] = "保留 %s：指南之後的步驟需要它。"
 L["Keep %s: later steps of the guide need them."] = "保留 %s：指南之後的步驟需要它們。"
 

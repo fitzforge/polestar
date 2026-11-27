@@ -581,6 +581,7 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+--   %s / %s for %s
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "frFR") then return end
@@ -4140,6 +4141,7 @@ L["Used in guides:"] = "Utilisé dans les guides :"
 L["Don't sell, used in guides:"] = "Ne pas vendre, utilisé dans les guides :"
 L["%s: step %d (%s)"] = "%s : étape %d (%s)"
 L["%s: step %d"] = "%s : étape %d"
+L["%s / %s for %s"] = "%s / %s pour %s"
 L["Keep %s: a later step of the guide needs it."] = "Gardez %s : une étape suivante du guide en a besoin."
 L["Keep %s: later steps of the guide need them."] = "Gardez %s : des étapes suivantes du guide en ont besoin."
 

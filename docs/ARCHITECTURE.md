@@ -8262,6 +8262,7 @@ Polestar.QoL.Rest.Refresh(force)                      -- read the aura and the b
 ```lua
 Polestar.QoL.Kept(itemID) -> stepIndex | nil                 -- Engine.KeptItems()[itemID]
 Polestar.QoL.KeptLines(itemID) -> { header, lines } | nil     -- its tooltip block: the guides that use it
+Polestar.QoL.MaterialCounts(itemID) -> { { held, need, title }, ... } | nil  -- the running guide's ranges that need it
 Polestar.QoL.KeptToSell() -> { { item, link }, ... }          -- kept items in the bags a merchant buys, once each
 ```
 
@@ -8280,7 +8281,15 @@ Polestar.QoL.KeptToSell() -> { { item, link }, ... }          -- kept items in t
   Westfall" for each of up to three guides ahead (`Engine.NextGuide` chain;
   scanned once per guide change, items of steps for this character by
   `Engine.StepHiddenFor`). An item only a guide ahead uses is listed but not
-  Kept: it can still be sold;
+  Kept: it can still be sold. A material the profession guides track
+  (`Materials.Tracked`) that the running guide's ranges still ahead need
+  gets, under the running guide's line, one line per range: "12 / 40 for
+  Tailoring 75-100", what the character holds toward the range of what it
+  needs, from `Engine.MaterialRows("rest")`, the Materials window's own
+  rows (held from `Materials.Have`: bags, bank, mail, purchases coming,
+  other characters when counted; the earliest range first), so the two
+  always agree. A range that needs it before the live step adds the running
+  guide's line when `Engine.ItemGuides` has none;
   in the bags (QoL/BagGlow.lua, under `qol.bagGlow`) a kept item a merchant
   would buy gets a small lock in its bottom-left corner (Baganator and
   BagSmith: a bottom-left corner widget), unless it is the glowing step item.
