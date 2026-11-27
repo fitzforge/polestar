@@ -225,7 +225,7 @@ return {
 	-- {skill:165} Leatherworking
 	["Expert {skill:165}"] = "",
 	-- {skill:165} Leatherworking · {npc:4212} Telonis · {zone:1457} Darnassus · {npc:3007} Una · {zone:1456} Thunder Bluff · {spell:7151} Barbaric Shoulders · {item:4304} Thick Leather · {item:8193} Nightscape Pants
-	["Expert raises the cap from 150 to 225; it needs {skill:165} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:4212} ({zone:1457}); Horde {npc:3007} ({zone:1456}). This route trains it at {npc:4212} ({zone:1457}) for the Alliance and {npc:3007} ({zone:1456}) for the Horde, who also teach the recipes of 150-225: one trainer for every visit. Learn now: {spell:7151} (from 150). 150-225 takes about 7g 61s 50c of vendor goods, plus 398 {item:4304} to gather or buy. The gathering steps below come between the visits: learn each recipe when you are back for it. {item:8193} (from 210) takes a second trip, to other trainers (below)."] = "",
+	["Expert raises the cap from 150 to 225; it needs {skill:165} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:4212} ({zone:1457}); Horde {npc:3007} ({zone:1456}). This route trains it at {npc:4212} ({zone:1457}) for the Alliance and {npc:3007} ({zone:1456}) for the Horde, who also teach the recipes of 150-225: one trainer for every visit. Learn now: {spell:7151} (from 150). 150-225 takes about 7g 61s 50c of vendor goods, plus 398 {item:4304} to gather or buy. The gathering steps below come between the visits: learn each recipe when you are back for it. {item:8193} (from 205) takes a second trip, to other trainers (below)."] = "",
 
 	-- Step 39: Skin Heavy Leather
 	-- {item:4234} Heavy Leather · {skill:165} Leatherworking · {skill:393} Skinning
@@ -297,7 +297,7 @@ return {
 	-- {skill:165} Leatherworking
 	["{skill:165} recipes at 213"] = "",
 	-- {spell:10548} Nightscape Pants · {npc:11097} Drakk Stonehand · {zone:1425} The Hinterlands · {npc:11098} Hahrana Ironhide · {zone:1444} Feralas · {skill:165} Leatherworking
-	["{spell:10548} (from 210) is taught only by the Artisan trainers: Alliance {npc:11097} ({zone:1425}); Horde {npc:11098} ({zone:1444}). You can train Artisan there now if you are level 35 (it needs {skill:165} 200), which saves the trip at 225."] = "",
+	["{spell:10548} (from 205) is taught only by the Artisan trainers: Alliance {npc:11097} ({zone:1425}); Horde {npc:11098} ({zone:1444}). You can train Artisan there now if you are level 35 (it needs {skill:165} 200), which saves the trip at 225."] = "",
 
 	-- Step 52: Nightscape Pants to 225
 	-- {item:8193} Nightscape Pants
