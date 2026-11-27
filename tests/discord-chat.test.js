@@ -363,6 +363,38 @@ test('!dungeons and !dung answer with the text from faq/dungeons.md, any case, w
 	for (const text of ['!dungeons please', 'my !dung', '!dungeon']) assert.equal(await say('1003', text, { author: { id: 'u3' } }), false, text);
 });
 
+test('!pray and !faith reply with the picture from faq/pray.md, named pray.png, and no text; FAQ files without an image reply with text only', async () => {
+	const { discord, say } = setup();
+	assert.equal(await say(GENERAL, '!pray'), true);
+	assert.equal(await say('1002', '!FAITH', { author: { id: 'u2' } }), true);
+	assert.equal(await say('1003', '!dungeons', { author: { id: 'u3' } }), true);
+	for (const m of discord.sent.slice(0, 2)) {
+		assert.equal(m.content, '');
+		assert.equal(m.files.length, 1);
+		assert.equal(m.files[0].name, 'pray.png');
+		assert.equal(m.files[0].type, 'image/png');
+		assert.deepEqual([...m.files[0].data.subarray(0, 4)], [0x89, 0x50, 0x4e, 0x47], 'a real PNG');
+	}
+	assert.equal(discord.sent[2].files, undefined);
+	assert.ok(discord.sent[2].content.length > 0);
+});
+
+test('a FAQ file may name an image, which must exist under faq/', () => {
+	assert.deepEqual(parseFaq('x.md', 'Commands: !a\nImage: media/a.png\n\nOne line'), { commands: ['!a'], text: 'One line', image: 'media/a.png' });
+	assert.throws(() => parseFaq('x.md', 'Commands: !a\nImage:\n\ntext'), /"Image:" needs a file/);
+	const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'faq-'));
+	try {
+		fs.writeFileSync(path.join(dir, 'a.md'), 'Commands: !a\nImage: media/a.png\n');
+		assert.throws(() => loadFaq(dir), /faq\/a\.md: the image media\/a\.png was not found/);
+		fs.writeFileSync(path.join(dir, 'a.md'), 'Commands: !a\nImage: ../a.png\n');
+		assert.throws(() => loadFaq(dir), /outside faq\//);
+		fs.writeFileSync(path.join(dir, 'a.md'), 'Commands: !a\nImage: a.txt\n');
+		assert.throws(() => loadFaq(dir), /must be a png/);
+	} finally {
+		fs.rmSync(dir, { recursive: true });
+	}
+});
+
 test('the FAQ answers hold the !bug caps, shared with it', async () => {
 	const { discord, say, clock } = setup();
 	await say(GENERAL, '!dungeons', { author: { id: 'a' } });
@@ -409,4 +441,5 @@ test('a FAQ file with a bad shape is refused with a line naming the file and the
 test('the shipped FAQ loads', () => {
 	const faq = loadFaq(FAQ_DIR);
 	assert.deepEqual(faq.find((e) => e.file === 'dungeons.md').commands, ['!dungeons', '!dung']);
+	assert.deepEqual(faq.find((e) => e.file === 'pray.md').commands, ['!pray', '!faith']);
 });

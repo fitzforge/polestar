@@ -301,6 +301,11 @@ Commands: !dungeons, !dung
 **Are dungeons in the leveling guide?** ...
 ```
 
+An answer can carry a picture: add a second line `Image: media/pray.png` (a
+png, jpg, gif or webp under `faq/`, at most 8 MB; `media/` is baked into the
+image with the rest of `faq/`). The text after it may then be empty or one
+short line (`pray.md`: `!pray` and `!faith`, a picture only).
+
 To add or change an answer: edit or add a file in `faq/` (an `!` and letters
 or digits per command, at most 2,000 characters of text), merge it, and
 redeploy the bot (the update steps above; the files are baked into the
