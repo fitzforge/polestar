@@ -1,7 +1,8 @@
 -- Materials: a profession guide's materials, gathered or bought (docs/GUIDE_FORMAT.md, "Materials"). An item a
 -- guide both gathers (`collect … gather`) and buys (`auction`) takes one way at a time: the player's pick for it,
--- else the way they chose for the guide (Gather, Buy or Mix; for a guide they never answered, Options' default, Mix
--- while that default is to ask). Mix gathers what the character can (the profession and rank its `gather` names,
+-- else the way they chose for the guide (Gather, Buy or Mix; for a guide they never answered, Gather in a paired
+-- guide, which levels the gathering skill it gathers with, else Options' default, Mix while that default is to
+-- ask). Mix gathers what the character can (the profession and rank its `gather` names,
 -- the levels of the mobs it drops from) and buys the rest. The Engine applies only the goals of the way an item
 -- takes (Engine.lua, Own.materialApplies); the windows read the counts and prices here.
 --
@@ -182,6 +183,15 @@ function Materials.CanGather(g, player)
 	return true
 end
 
+-- Whether gather goal g is what a paired guide (two skill lines, the gathering one first: docs/forge/professions.md)
+-- gathers with its gathering skill. Until the player answers for the guide, that is gathered whatever Options'
+-- default: the guide is there to level that skill too (Mix's pick or Buy all still buy it).
+local function pairedGather(guide, g)
+	local lines = type(guide.skillLines) == "table" and guide.skillLines
+	local w = type(g.gather) == "table" and g.gather
+	return lines and #lines >= 2 and w and w.skillLine ~= nil and w.skillLine == lines[1] or false
+end
+
 function Materials.Mode(guideId, item)
 	local c = guideId and state().guides[guideId]
 	local mode = type(c) == "table" and MODES[c.mode] and c.mode or nil
@@ -217,10 +227,15 @@ function Materials.Way(guide, item, player)
 	if not firstFor(e.auction, player) then return "gather", "noBuy" end
 	local g = firstFor(e.gather, player)
 	if not g then return "buy", "noGather" end
-	local mode, _, pick = Materials.Mode(guide.id, item)
+	local mode, answered, pick = Materials.Mode(guide.id, item)
 	if pick then return pick, "picked" end
-	if mode == "buy" then return "buy", "mode" end
 	local can, why = Materials.CanGather(g, player)
+	if not answered and pairedGather(guide, g) then
+		-- The gathering is the guide's own: only a missing profession or rank buys it.
+		if why == "skill" then return "buy", "skill" end
+		return "gather", "mix"
+	end
+	if mode == "buy" then return "buy", "mode" end
 	if mode == "gather" then
 		-- Gather all still buys what takes a profession the character lacks: there is no gathering it.
 		if why == "skill" then return "buy", "skill" end

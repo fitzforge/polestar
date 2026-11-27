@@ -590,6 +590,7 @@ module.exports = {
 	firstAid: { file: firstAid.file, skill: firstAid.skill, render: (ctx) => renderGuide(ctx, firstAid) },
 	cooking: { file: cooking.file, skill: cooking.skill, render: (ctx) => renderGuide(ctx, cooking) },
 	expectedCrafts,
+	crafts90,
 	dropSpot,
 	learnNote,
 	clamletteSteps,

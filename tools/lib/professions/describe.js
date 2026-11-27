@@ -55,14 +55,14 @@ function article(word) {
 }
 
 // "40 Woolen Capes", "14 Bolts of Linen Cloth", "17 Formal White Shirts"; a name that already reads as a
-// plural (Gloves, Boots), a mass noun (Light Leather, Rough Blasting Powder) or an enchant ("Enchant Bracer -
-// Minor Stamina") stays as it is.
+// plural (Gloves, Boots), a mass noun (Light Leather, Rough Blasting Powder), a fish ("52 Longjaw Mud
+// Snapper", "40 Bristle Whisker Catfish") or an enchant ("Enchant Bracer - Minor Stamina") stays as it is.
 function crafts(n, name) {
 	if (n === 1 || / - /.test(name) || /^Enchant /.test(name)) return `${n} ${name}`;
 	const one = (w) => (/s$/.test(w) ? w : /(x|ch|sh)$/.test(w) ? `${w}es` : /[^aeiou]y$/.test(w) ? `${w.slice(0, -1)}ies` : `${w}s`);
 	const of = /^(\S+)( of .+)$/.exec(name);
 	if (of) return `${n} ${one(of[1])}${of[2]}`;
-	if (/(Leather|Cloth|Powder|Mail)$/.test(name)) return `${n} ${name}`;
+	if (/(Leather|Cloth|Powder|Mail|fish|Snapper|Mackerel|Trout|Cod|Yellowtail|Salmon)$/.test(name)) return `${n} ${name}`;
 	const words = name.split(' ');
 	words[words.length - 1] = one(words[words.length - 1]);
 	return `${n} ${words.join(' ')}`;
