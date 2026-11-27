@@ -609,11 +609,15 @@ function renderPair(ctx, pair) {
 	function blendRoute() {
 		let snap = null;
 		let way = null;
-		for (const b of draft.blocks) {
+		let learnedG = false;
+		const last = (x) => x && x.kind === 'craft' && x.band && x.band.to === 300;
+		draft.blocks.forEach((b, i) => {
+			const next = draft.blocks[i + 1];
+			const prev = draft.blocks[i - 1];
 			if (b.kind === 'section') {
 				out.push('', b.lines[0]);
 				st.cum = new Map();
-				continue;
+				return;
 			}
 			if ((b.way || null) !== way) {
 				const fork = (x) => (x ? x.split(':')[0] : null);
@@ -636,14 +640,16 @@ function renderPair(ctx, pair) {
 					const collects = [{ item: it.item, count: it.count, raws }];
 					smeltsFor(collects);
 					gatherFor(seg, collects, (b.lines.find((l) => /^ {2}tip /.test(l)) || '  tip ').slice(6).replace(/ No Mining\? The bars, not the ore\.$/, ''));
-					continue;
+					return;
 				}
 			}
-			if (b.kind === 'craft' && b.band && b.band.to === 300) raiseTo(300, (a, c) => `${G} ${c} before the last stretch: the guide ends with ${P}.`);
+			// The gathering skill to 300 before the last stretch's craft (and before its station step).
+			if ((b.kind === 'station' && last(next)) || (last(b) && !(prev && prev.kind === 'station'))) raiseTo(300, (a, c) => `${G} ${c} before the last stretch: the guide ends with ${P}.`);
 			out.push('', ...b.lines);
-			if (b.kind === 'tool' && track[0] && track[0].kind === 'learn' && st.ptr === 0) {
+			if (b.kind === 'tool' && !learnedG) {
 				// The gathering profession on the first trip: learned, and its tool bought.
-				st.ptr = 1;
+				learnedG = true;
+				if (track[0] && track[0].kind === 'learn') st.ptr = Math.max(st.ptr, 1);
 				push([`step Learn ${G}`, '  tip No character level needed.', `  train ${G} Apprentice`]);
 				if (gprof.tool) push([`step Buy ${/^[aeiou]/i.test(gprof.tool.name) ? 'an' : 'a'} ${gprof.tool.name}`, `  tip A tool: it stays in your bags, and ${G.toLowerCase()} needs it.`, `  buy ${gprof.tool.item} x1 nearest`]);
 			}
@@ -652,7 +658,7 @@ function renderPair(ctx, pair) {
 				settle();
 				if (st.pending.length) trainPending();
 			}
-		}
+		});
 		when = null;
 	}
 

@@ -66,10 +66,12 @@ test('each pair reaches 300 in both skills on every path, or its last step says 
 	for (const [file, a, b] of PAIRS) {
 		const all = steps(read(file));
 		if (routed(b)) {
-			// Every way ends crafting to 300, the gathering skill raised to 300 on that way before it.
+			// Every way ends crafting to 300, the gathering skill at 300 before it: a skill step, or the gathering
+			// on the way that brings it there ("Mining 280 to 300 on the way").
 			const ends = all.filter((s) => s.lines.some((l) => /^craft \d+ until 300$/.test(l)));
 			assert.ok(ends.length, `${file}: a craft to 300`);
-			for (const c of ends) assert.ok(all.slice(0, all.indexOf(c)).some((s) => s.when === c.when && s.lines.includes(`skill ${a} 300`)), `${file} ${c.title} (${c.when || 'every way'}): ${a} 300 before it`);
+			const at300 = (s) => s.lines.includes(`skill ${a} 300`) || s.lines.some((l) => new RegExp(`^tip .*${a} \\d+ to 300 on the way`).test(l));
+			for (const c of ends) assert.ok(all.slice(0, all.indexOf(c)).some(at300), `${file} ${c.title} (${c.when || 'every way'}): ${a} 300 before it`);
 			continue;
 		}
 		for (const w of paths(all)) {
@@ -109,6 +111,11 @@ test('a gathering step never asks more gathering skill than the steps before it 
 				for (const l of s.lines) {
 					const m = new RegExp(`^skill ${g} (\\d+)`).exec(l);
 					if (m) have = Math.max(have, Number(m[1]));
+				}
+				// The gathering on the way raises the skill too ("Mining 230 to 250 on the way").
+				for (const l of s.lines) {
+					const r = new RegExp(`^tip .*${g} \\d+ to (\\d+) on the way`).exec(l);
+					if (r) have = Math.max(have, Number(r[1]));
 				}
 			}
 		}
