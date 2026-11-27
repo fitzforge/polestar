@@ -234,6 +234,7 @@
 	"warnings": [
 		"pfQuest: <data>/pfQuest is not a git checkout; revision unknown",
 		"uiMap 947: spans 2 continents (0, 1); no single Era frame",
+		"wago.tools wow_classic_beta 1.60.1.70450: no LoadingScreens (--offline: missing cached <root>/data/sources/wago/1.60.1.70450/LoadingScreens.csv)",
 		"forever uiMap 947: spans 2 continents (0, 1); no single Era frame"
 	]
 }

@@ -800,8 +800,8 @@ the guide in view.
 
 A `dungeon` guide's window shows its dungeon in place of the step's person
 (docs/DESIGN.md, "The Guide Window"): the dungeon's picture and level range,
-your level against its best level, your group, the quests still to pick up
-with how far off the way each giver is, and the way in with its travel time.
+your level against its best level, your group, the quests for the run
+(one row, folded until opened, listing each with how far off the way its giver is) and the way in with its travel time.
 It finds the dungeon by the guide's title (a Dungeons page's name, "Wailing
 Caverns"); a pack's Lua guide may name it by `dungeon` (its Dungeons key,
 PACK_FORMAT). A step's accepts of those quests and its way in (`goto … entrance`)
