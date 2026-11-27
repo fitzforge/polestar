@@ -3771,12 +3771,24 @@ local function latchable(goal)
 		or t == "buff" or t == "equip" or t == "deposit"
 end
 
+-- Only a generated Lookup source guide opts into acquisition tracking.
+function Own.freshGoal(goal)
+	local t = goal.t
+	return goal.fresh == true and guide.pack == "lookup"
+		and (t == "buy" or (t == "collect" and not goal.quest) or t == "craft")
+end
+
 -- Check-offs and latched results share CharState().manual[guideId]["s:g"].
 local function checked(s, g)
 	local m = ns.CharState().manual[guide.id]
 	local mark = m and m[Own.key(s, g)]
+	if not mark then return false end
+	if mark == "tick" then return true end
+	local goal = guide.steps[s].goals[g]
+	-- A saved bag-count latch from an older Lookup guide is no acquisition.
+	if Own.freshGoal(goal) then return mark == "acquired" end
 	-- Old placement marks are not a player's answer to a manual task.
-	return mark == "tick" or (mark and guide.steps[s].goals[g].t ~= "task") or false
+	return goal.t ~= "task"
 end
 
 -- The client's word for a standing (ns.StandingName), else its number.
@@ -4794,6 +4806,7 @@ function Own.goalDoneLive(s, g, goal)
 	-- Keep questDone's history intact for prerequisites and predicates.
 	if t == "turnin" and goal.currentLog then return not C.IsOnQuest(goal.quest) end
 	if t ~= "accept" and checked(s, g) then return true end
+	if Own.freshGoal(goal) then return false end
 	local now = Own.passedNow[guide.id]
 	if now and now[Own.key(s, g)] then return true end
 	-- A repeatable's accept and work, its round handed in (Own.roundHanded, #3334).
@@ -5127,6 +5140,7 @@ end
 -- abandon, destroy), latched within their own step so using the items up
 -- does not reopen it.
 local function isBagCount(goal)
+	if Own.freshGoal(goal) then return false end
 	return goal.t == "buy" or goal.t == "auction" or (goal.t == "collect" and (not goal.quest or Own.bagCollect(goal)))
 		or (goal.t == "craft" and craftMode(goal) == "count") or goal.t == "money"
 		or goal.t == "abandon" or goal.t == "destroy" or goal.t == "deposit"
@@ -9776,6 +9790,12 @@ function Own.repairsInTown(goal)
 	return false
 end
 
+function Own.latchGoal(s, g, mark)
+	if checked(s, g) then return false end
+	manualFor(guide.id, true)[Own.key(s, g)] = mark or true
+	return true
+end
+
 -- An NPC interaction while a step is current checks off its talk/train/
 -- vendor goals (sethome: binding); while the player looks at another step,
 -- the live step's too. Stored with the manual check-offs, so the result
@@ -9818,18 +9838,65 @@ local function latch(kind, npc)
 						ok = Engine.IsClassTrainer(npc)
 					end
 				end
-				if ok then
-					local m = manualFor(guide.id, true)
-					local key = s .. ":" .. g
-					if not m[key] then
-						m[key] = true
-						hit = true
+				if ok then hit = Own.latchGoal(s, g) or hit end
+			end
+		end
+	end
+	return hit
+end
+
+-- Like NPC latches, an acquisition can count in either the viewed or live
+-- step of an open tab. The same goal and tab must be there at both ends of
+-- the window. Only the check-off is saved, never the opening bag count.
+function Own.visitFreshGoals(visit)
+	if not player then return end
+	for _, tab in ipairs(tabs) do
+		if tab.guide.pack == "lookup" then
+			use(tab)
+			for pass = 1, 2 do
+				local s = pass == 1 and current or computed
+				local step = s and guide.steps[s]
+				if step and (pass == 1 or s ~= current) and not isSkipped(s) and stepApplies(step) then
+					for g, goal in ipairs(step.goals) do
+						if Own.freshGoal(goal) and goalApplies(goal) and not checked(s, g) and not Own.goalSkipped(s, g) then
+							visit(tab, s, g, goal)
+						end
 					end
 				end
 			end
 		end
 	end
-	return hit
+	useActive()
+end
+
+function Own.startFreshWindow(kind, source)
+	local items = {}
+	Own.visitFreshGoals(function(tab, _, _, goal)
+		if (kind == "vendor" and goal.t == "buy" and goal.npc == source)
+			or (kind == "talk" and goal.t == "collect" and goal.npc == source)
+			or (kind == "loot" and goal.t == "collect" and not goal.npc)
+			or (kind == "craft" and goal.t == "craft" and goal.spell == source) then
+			items[goal] = { tab = tab, count = Compat().GetItemCount(goal.item) }
+		end
+	end)
+	return next(items) and items or nil
+end
+
+function Own.checkFreshWindow(items, pendingCast)
+	if not items or not next(items) then return end
+	local hit = false
+	Own.visitFreshGoals(function(tab, s, g, goal)
+		local entry = items[goal]
+		if entry and entry.tab == tab and (entry.rose or Compat().GetItemCount(goal.item) > entry.count) then
+			if pendingCast then
+				entry.rose = true
+			else
+				hit = Own.latchGoal(s, g, "acquired") or hit
+				items[goal] = nil
+			end
+		end
+	end)
+	if hit then requestUpdate() end
 end
 
 -- A hand-in the client never flags completed (a repeatable quest, and every
@@ -18523,12 +18590,32 @@ ns.RegisterEvent("QUEST_TURNED_IN", function(_, questID)
 	requestUpdate()
 end)
 
+ns.RegisterEvent("UNIT_SPELLCAST_START", function(_, unit, cast, spellID)
+	local C = Compat()
+	if C.Readable(unit) ~= "player" then return end
+	cast, spellID = C.Readable(cast), C.Readable(spellID)
+	local items = cast and type(spellID) == "number" and Own.startFreshWindow("craft", spellID)
+	Own.freshCast = items and { cast = cast, spell = spellID, items = items } or nil
+end, "player")
+function Own.cancelFreshCast(_, unit, cast)
+	if Own.freshCast and Compat().Readable(unit) == "player" and Own.freshCast.cast == Compat().Readable(cast) then
+		Own.freshCast = nil
+	end
+end
+ns.RegisterEvent("UNIT_SPELLCAST_FAILED", Own.cancelFreshCast, "player")
+ns.RegisterEvent("UNIT_SPELLCAST_INTERRUPTED", Own.cancelFreshCast, "player")
+
 -- The player's own successful casts (Own.latchCast): the player's alone (a
 -- fight sends every nameplate's).
-ns.RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", function(_, unit, _, spellID)
+ns.RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", function(_, unit, cast, spellID)
 	local C = Compat()
 	spellID = C.Readable(spellID)
 	if C.Readable(unit) ~= "player" or type(spellID) ~= "number" or not player then return end
+	local fresh = Own.freshCast
+	if fresh and fresh.cast == C.Readable(cast) and fresh.spell == spellID then
+		Own.freshCast = nil
+		Own.checkFreshWindow(fresh.items)
+	end
 	local hit = false
 	for i = 1, #tabs do
 		use(tabs[i])
@@ -18554,6 +18641,9 @@ end)
 -- from the window opening.
 local function onNpcFrame(kind)
 	local npc = Compat().GetNpcID("npc")
+	if npc ~= openNpc or kind ~= openKind then
+		Own.freshNpc = npc and (kind == "talk" or kind == "vendor") and Own.startFreshWindow(kind, npc) or nil
+	end
 	openNpc, openKind = npc, kind
 	if player and kind ~= "talk" then
 		for i = 1, #tabs do
@@ -18576,9 +18666,12 @@ end
 -- off the NPC's talk goals. Accepting closes the quest window before the
 -- quest log says so: an act within 2 seconds of the NPC's window closing
 -- still counts for that NPC. (No new main-chunk local: it is at Lua's 200.)
+function Own.recentNpc()
+	return openNpc or (Own.closedNpc and GetTime() - Own.closedAt < 2 and Own.closedNpc)
+end
+
 function Own.talkAct()
-	local npc = openNpc
-	if not npc and Own.closedNpc and GetTime() - Own.closedAt < 2 then npc = Own.closedNpc end
+	local npc = Own.recentNpc()
 	if not (npc and player) then return end
 	local hit = false
 	for i = 1, #tabs do
@@ -18870,6 +18963,12 @@ ns.RegisterEvent("MERCHANT_SHOW", function() onNpcFrame("vendor") end)
 -- The NPC whose window just closed, for an act the client reports after it
 -- (Own.talkAct).
 local function onNpcFrameClosed()
+	-- The count may already be visible even if BAG_UPDATE_DELAYED trails the
+	-- close event. Only a gift keeps its opening count after the frame closes.
+	if openNpc then
+		Own.checkFreshWindow(Own.freshNpc)
+		if openKind ~= "talk" then Own.freshNpc = nil end
+	end
 	if openNpc then Own.closedNpc, Own.closedAt = openNpc, GetTime() end
 	openNpc, openKind = nil, nil
 end
@@ -18878,6 +18977,19 @@ ns.RegisterEvent("QUEST_FINISHED", onNpcFrameClosed)
 ns.RegisterEvent("TRAINER_CLOSED", onNpcFrameClosed)
 ns.RegisterEvent("MERCHANT_CLOSED", onNpcFrameClosed)
 ns.RegisterEvent("TAXIMAP_CLOSED", onNpcFrameClosed)
+
+ns.RegisterEvent("LOOT_OPENED", function()
+	Own.freshLoot = Own.startFreshWindow("loot")
+end)
+ns.RegisterEvent("LOOT_CLOSED", function()
+	Own.checkFreshWindow(Own.freshLoot)
+	Own.freshLoot = nil
+end)
+ns.RegisterEvent("BAG_UPDATE_DELAYED", function()
+	if Own.recentNpc() then Own.checkFreshWindow(Own.freshNpc) else Own.freshNpc = nil end
+	Own.checkFreshWindow(Own.freshLoot)
+	if Own.freshCast then Own.checkFreshWindow(Own.freshCast.items, true) end
+end)
 
 ns.RegisterEvent("TAXIMAP_OPENED", function()
 	local C = Compat()

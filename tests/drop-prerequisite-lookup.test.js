@@ -95,6 +95,11 @@ test('Lookup finishes ordinary prerequisites and accepts the drop-enabling quest
 	assertUnlockBeforeFarm(r);
 });
 
+test('Lookup keeps the drop prerequisites when the item is already in the bags', () => {
+	const [r] = run(fixture(), LOOKUP, `w.items[${ITEM}] = 1`);
+	assertUnlockBeforeFarm(r);
+});
+
 for (const [state, setup] of [['held', `w.onQuest(${UNLOCK}, { 5 })`], ['completed', `w.complete({ ${UNLOCK} })`]]) {
 	test(`Lookup farms directly when the enabling quest is ${state}`, () => {
 		const [r] = run(fixture(), LOOKUP, setup);
