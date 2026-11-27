@@ -12,6 +12,8 @@
 --       game gives now or by the dungeon's lowest level.
 --       plan = { dungeon, take = { { quest, rec, giver, pre = { rec, ... } } }, carried = { quest, ... }, fetch = { { quest, rec, giver, fetch = true } },
 --         done = n, later = n, waiting = { { quest, level, needs = rec | nil } }, closedBy = { [questId] = { questId } },
+--         skipped = { { quest, by } }: quests left out because the player skipped them (`by`: the quest id they
+--         skipped, the quest itself or one of its chain: Engine.SkipQuest), none of them in `take`,
 --         breadcrumbs = { { id, targets = { questId }, detour = seconds | nil, far, sea, taken } } | nil }
 --       take: quests that apply (faction, race, class), not done, not in the log,
 --       not closed for good (one of the page's `closedBy` done or in the log:
@@ -72,7 +74,9 @@
 --       Engine passes it once taken on the way.
 --   Dungeons.OfferLevel(pq, rec) -> level   -- the level the heads-up offers page quest pq from
 --   Dungeons.PreDone(rec) -> bool   -- every prerequisite of Codex quest rec done (all of `pre`, one of `preAny`)
---   Dungeons.PickupGuide(key) -> def | nil, reason   -- "nothing" when there is nothing to take or fetch;
+--   Dungeons.PickupGuide(key) -> def | nil, reason   -- "nothing" when there is nothing to take or fetch and no quest
+--       left out because the player skipped it (the window lists those: plan.skipped); a key or attunement missing
+--       adds its steps, the attunement guide's, before the way in: the last step;
 --       every quest the game gives now: a player who opens it chose the run, so
 --       a quest two levels up comes along (Fitz, #3063: Corruption of Earth and
 --       Seed at 49, which the heads-up's rule held back to 50)
@@ -870,7 +874,7 @@ function Dungeons.PickupPlan(key, offer)
 	local quests = Dungeons.Quests(key)
 	local onPage = {}
 	for _, q in ipairs(quests) do onPage[q.id] = true end
-	local plan = { dungeon = d, take = {}, carried = {}, done = 0, later = 0, waiting = {}, closedBy = {} }
+	local plan = { dungeon = d, take = {}, carried = {}, done = 0, later = 0, waiting = {}, closedBy = {}, skipped = {} }
 	local function wait(pq, level, needs)
 		plan.later = plan.later + 1
 		plan.waiting[#plan.waiting + 1] = { quest = pq, level = level, needs = needs }
@@ -896,8 +900,22 @@ function Dungeons.PickupPlan(key, offer)
 		end
 		return false
 	end
+	-- The quest the player skipped (Engine.SkipQuest) that this one comes after: itself, or a quest of its chain
+	-- (the start of it: its follow-ups go with it). Only the player's own skips count, not a step the route
+	-- passed. nil without any skip (no chain is read then), and for a skipped quest since done.
+	local skips = ns.CharState().skippedQuests
+	local function skippedBy(pq, rec)
+		if type(skips) ~= "table" or not next(skips) then return nil end
+		if skips[pq.id] == true then return pq.id end
+		if not rec then return nil end
+		for _, r in ipairs(Lk.QuestChain(pq.id, p, clashes)) do
+			if skips[r.id] == true and not done(r.id) then return r.id end
+		end
+		return nil
+	end
 	for _, pq in ipairs(quests) do
 		local rec = C.Quest(pq.id)
+		local by = not (done(pq.id) or inLog(pq.id)) and skippedBy(pq, rec) or nil
 		if not notYours(key, pq, rec, p) then
 			if done(pq.id) then
 				plan.done = plan.done + 1
@@ -912,6 +930,10 @@ function Dungeons.PickupPlan(key, offer)
 				-- Handed in at one talk and never in the log (Pozzik's
 				-- Indurium Ore, #2241): nothing to pick up; the hand-in
 				-- guide hands it in once the bags hold what it asks.
+			elseif by then
+				-- One the player skipped, or whose chain they skipped: left out of the plan, listed (the window
+				-- says so and brings it back).
+				plan.skipped[#plan.skipped + 1] = { quest = pq, by = by }
 			elseif ((rec and rec.minLevel) or pq.minLevel or 1) > reach then
 				-- One that starts inside (no giver out here, no drop outside)
 				-- never comes to the pick-up guide: it does not wait for it.
@@ -2134,16 +2156,53 @@ local function route(key, plan, outside)
 	return steps, pre
 end
 
+-- The key or attunement this character still lacks, as steps before the way in: the attunement guide's
+-- own steps (Dungeons.AttuneGuide, less its closing step: the way in is this guide's), else, where the page
+-- lists no steps for it, one step naming it.
+local function keySteps(key)
+	local steps = {}
+	for _, a in ipairs(Dungeons.Attunements(key, LK().PlayerInfo().code)) do
+		if (a.kind == "key" or a.kind == "attunement") and not Dungeons.AttunementState(a).done then
+			local def = Dungeons.AttuneGuide(key, a.id)
+			if def and #def.steps > 0 then
+				for _, s in ipairs(def.steps) do
+					local goals = {}
+					for _, g in ipairs(s.goals) do
+						if not (g.t == "goto" and g.entrance) then goals[#goals + 1] = g end
+					end
+					if #goals == #s.goals then
+						steps[#steps + 1] = s
+					elseif #goals > 0 then
+						-- The closing step's notes (not open yet, how to get it) stay on the step before.
+						local into = steps[#steps]
+						if into then
+							for _, g in ipairs(goals) do into.goals[#into.goals + 1] = g end
+						else
+							s.goals = goals
+							steps[#steps + 1] = s
+						end
+					end
+				end
+			else
+				local name = a.item and a.item.name or a.name
+				steps[#steps + 1] = { title = name, goals = { { t = "note", text = format(L["Needs %s"], name) } } }
+			end
+		end
+	end
+	return steps
+end
+
 function Dungeons.PickupGuide(key)
 	local plan, err = Dungeons.PickupPlan(key)
 	if not plan then return nil, err end
 	local outside = Dungeons.OutsideWork(plan)
 	local work = 0
 	for _, w in ipairs(outside) do if not w.chain then work = work + 1 end end
-	if #plan.take == 0 and #plan.fetch == 0 and work == 0 then return nil, "nothing" end
+	if #plan.take == 0 and #plan.fetch == 0 and work == 0 and #plan.skipped == 0 then return nil, "nothing" end
+	local keys = keySteps(key)
 	local d = plan.dungeon
 	local steps, pre = route(key, plan, outside)
-	if #steps == 0 then return nil, "nothing" end
+	if #steps == 0 and #plan.skipped == 0 then return nil, "nothing" end
 	local last = { title = d.name, goals = {} }
 	-- The quests already in the log: one line in the step's note, not a row
 	-- each above the way in (#1591: four rows before "Enter Ragefire Chasm").
@@ -2181,6 +2240,7 @@ function Dungeons.PickupGuide(key)
 	-- quests then finished; this guide's own end offers it (UI/GuideFrame), and
 	-- so does the dungeon's page.
 	last.goals[#last.goals + 1] = { t = "note", text = L["After the run: choose Hand in the quests at the end of this guide or on the dungeon's page."] }
+	for _, s in ipairs(keys) do steps[#steps + 1] = s end
 	steps[#steps + 1] = last
 	-- How much of the way is prerequisites, and about how long they take: on
 	-- the first goal, the first thing the window says.

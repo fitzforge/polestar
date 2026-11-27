@@ -1626,7 +1626,9 @@ on every goal of a leveling guide's dungeon run (`when dungeon`,
 (`UI.FinderLine`), "Need a group? Press I for the group finder." with the
 player's key for the client's TOGGLEGROUPFINDER binding (`GetBindingKey`,
 named by `GetBindingText`), or "Need a group? Open the group finder."
-without one; never inside an instance or in a full party.
+without one; never inside an instance or in a full party. The same goal's
+line also says the hourly instance count (`UI.InstanceCapLine`: "instances
+this hour: 4 of 5") from one short of the cap, in the warning colour at it.
 
 A guide's `reward` (format 2; GUIDE_FORMAT, `reward`) lists what its goal
 gives: `{ item, itemName, quality, choice }`, `{ spell, spellName }` or
@@ -9653,7 +9655,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   GF.REGIONS = {
     profession = { "meter", "stretch", "get", "step", "shopping" },
     reputation = { "meter", "turnin", "step", "more" },
-    dungeon    = { "brief", "ready", "step", "entrance" },   -- outside its instance
+    dungeon    = { "brief", "ready", "skipped", "step" },   -- outside its instance
     -- "step": the card's own header and goal rows there, the leveling view's (GF.LayoutRegionsAfter
     -- lays the regions after it out under the goals area and the step's tip). A profession guide's
     -- train, learn, buy and go-to steps read there; its craft and get steps are goal rows of the
@@ -9691,8 +9693,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
                buy = { { item, name, count } } }
   turnin   = { quest, title, repeatable, items = { { item, count } }, rep, npc, map, ready }
   more     = { { quest, title, rep, once, progress = { cur, max }, from, current, step, goalIndex }, covers = { goal index, ... } }
-  brief    = { key, name, zone, art }      ready = { level, floor }      -- ready: only below the dungeon's floor
-  entrance = { map, x, y, eta, cap = { used, max }, needs, go }
+  brief    = { key, name, art }      ready = { level, floor }      -- ready: only below the dungeon's floor
   tracker  = { key, name, bossesDone, bossesTotal, elapsed, loot = { { item, boss, quest, how, until } },
                quests = { { id, title, done, objectives = { { text, cur, max, done, boss, pending } } } },
                bosses = { { order, name, npc, state = "dead"|"next"|"ahead", role, ties = { { how, item, quest } } } },
@@ -9702,24 +9703,29 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   Skin API names the regions add (each behind its capability): parts in
   `Theme.GuideParts()` (`guideParts.kind`), hooks `guideKindRow(row, item,
   info)` and `guideMeter(meter, info)`, `guidePlace` names `meter`,
-  `stretch`, `get`, `shopping`, `turnin`, `more`, `brief`, `ready`, `entrance`, `guideSpace`
+  `stretch`, `get`, `shopping`, `turnin`, `more`, `brief`, `ready`, `skipped`, `guideSpace`
   names `bossRow`, tokens `craftOrange`, `craftYellow`, `craftGreen`,
   `craftGrey`; the dungeon tracker's `trackerPlace(name, frame, width, height)`.
 - **The dungeon kind** (`Core/KindDungeon.lua` models, `UI/GuideFrameKindDungeon.lua`
   regions; design in docs/DESIGN.md, "The Guide Window"): a guide of kind `dungeon`
   names its dungeon by `dungeon` (the pick-up guide, `Dungeons.PickupGuide`, sets it and
   `kind = "dungeon"`), a pick-up or hand-in guide's id, else its title
-  (`ns.KindDungeon.KeyOf`). It shows the way there only: the Dungeons hub already says the
-  level range, the group and the best level, and the step list holds every pick-up step, so
-  the window has no range chip, group row or list of the run's quests. Its models, beyond
-  the shapes above: `brief.art` (Dungeons.Art); `ready` exists only below the dungeon's floor
-  (nil, so no region, at or above it); `entrance.zone`, `go` (nothing left before the door:
-  "Guide me to the entrance" shows only then) and `covers` (the step's way in). The step's
-  own accepts and chain quests are the leveling view's rows, none covered by a region.
-  `KindDungeon.Pending(key)` -> `{ held, total, missing, work }` is the plan's count behind
-  `go`: `missing` the takes still to pick up (`Dungeons.PickupPlan`), `work` the quests with
-  work out in the world still open (`Dungeons.OutsideWork`); it and the travel time are kept
-  30 seconds (or until a quest is taken or dropped or the zone changes).
+  (`ns.KindDungeon.KeyOf`). Its regions are the picture and name (`brief`, with `art`:
+  Dungeons.Art), a line only below the dungeon's floor (`ready`: nil, so no region, at or
+  above it), a line only while the plan left a quest out because the player skipped it
+  (`skipped`: `{ key, count, items = { { quest, title, by, byTitle } } }`, nil without one;
+  `Dungeons.PickupPlan`'s `skipped` = `{ { quest, by } }`: the quest itself or a quest of its chain
+  in `CharState().skippedQuests`, `Engine.SkipQuest`; the route's passed steps never count; kept
+  30 seconds or until the log or a skip changes, and read only while a skip exists; Review opens
+  the list, its Unskip it calls `Engine.SkipQuest(by, false)` and builds the pick-up guide again
+  in its place) and the step. The Dungeons hub already says the level range, the group and the
+  best level, and the step list holds the rest, so the window has no range chip, group row,
+  list of the run's quests or way-in region: the way in is the pick-up guide's last step
+  (`goto ... entrance`), a plain goal row with the arrow, and its sub-line carries the
+  instance count (`UI.InstanceCapLine`, "instances this hour: 4 of 5", only at one short of
+  the cap or more). A key or attunement the character still lacks is steps of its own before
+  the way in (`Dungeons.PickupGuide` adds the attunement guide's steps, `Dungeons.AttuneGuide`
+  less its closing step, else one step "Needs <key>").
 - **The dungeon run and its tracker** (`Dungeons/Run.lua`, `UI/DungeonTracker.lua`;
   design in docs/DESIGN.md, "The Dungeon Tracker"): inside a party or raid instance
   with a Dungeons page, `Dungeons.Run` checks bosses off (ENCOUNTER_END won, by

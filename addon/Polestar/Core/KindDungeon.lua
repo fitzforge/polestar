@@ -1,30 +1,24 @@
 -- The dungeon kind's models for the guide window (docs/ARCHITECTURE.md, "Guide
 -- kinds"): pure data, no frames, what the window's regions
 -- (UI/GuideFrameKindDungeon.lua), the tests and the preview read through
--- Engine.KindModel(region, view). Outside the instance: the dungeon and the
--- way there; inside: the run (Dungeons/Run.lua).
+-- Engine.KindModel(region, view). Outside the instance: the dungeon's picture and
+-- name, then the step (the way in is the pick-up guide's last step); inside: the run
+-- (Dungeons/Run.lua).
 --
---   brief    = { key, name, zone, art }
+--   brief    = { key, name, art }
 --   ready    = { level, floor }                    nil unless the character is below the
 --       dungeon's floor (the region is left out then): come back at `floor`
---   entrance = { map, x, y, eta, zone, cap = { used, max }, needs, go }
---       eta: seconds of travel from here (nil: unknown); cap: new instances this hour and the
---       cap (Maps/Instances.lua); needs: the key or attunement this character still lacks;
---       go: nothing is left before the door (no pick-up missing, no work out in the world
---       open: KD.Pending): the region offers "Guide me to the entrance" only then
+--   skipped  = { key, count, items = { { quest, title, by, byTitle } } }   nil without one: the dungeon's quests left out
+--       of the plan because the player skipped them (Dungeons.PickupPlan's `skipped`); by: the quest id to
+--       unskip (the quest itself, or the start of its chain: byTitle names it)
 --   tracker  = Dungeons.Run.Model()
 --
 --   KindDungeon.KeyOf(def) -> key | nil   -- the dungeon a guide is for: its `dungeon`, a
 --       Dungeons pick-up or hand-in guide's, else the dungeon its title names
---   KindDungeon.Pending(key) -> { held, total, missing, work } | nil
---       what is left before the way in, from the plan (Dungeons.PickupPlan): held/total: the
---       page's quests in the log of those this character may take now; missing: the takes still
---       to pick up (counted); work: the quests with work out in the world still open (a chain's
---       quest open now, a page quest's objectives done only outside: Dungeons.OutsideWork)
 
 local ADDON, ns = ...
 
-local type, ipairs, floor, GetTime = type, ipairs, math.floor, GetTime
+local type = type
 
 local KD = {}
 ns.KindDungeon = KD
@@ -64,8 +58,7 @@ function M.brief(view)
 	if not key then return nil end
 	local Dg = D()
 	local d = Dg.Get(key)
-	return { key = key, name = d.name, zone = d.zoneName or (d.zone and ns.Compat.MapName(d.zone)) or nil,
-		art = Dg.Art and Dg.Art(key) or nil }
+	return { key = key, name = d.name, art = Dg.Art and Dg.Art(key) or nil }
 end
 
 function M.ready(view)
@@ -78,85 +71,39 @@ function M.ready(view)
 	return { level = level, floor = fl }
 end
 
--- The plan behind what is left before the way in and the entrance's needs, kept STALE seconds
--- (the plan is the costly part) or until the log or the zone changes.
+-- The plan behind `skipped`, kept STALE seconds (the plan is the costly part) or until the log or the
+-- player's skips change.
 local STALE = 30
-local cache = {}
-local function forget() cache = {} end
-for _, e in ipairs({ "QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_TURNED_IN", "ZONE_CHANGED_NEW_AREA" }) do ns.RegisterEvent(e, forget) end
-
-local function cached(key, what, build)
-	local t = GetTime and GetTime() or 0
-	local c = cache[what]
-	if c and c.key == key and t - c.at < STALE then return c.value end
-	local v = build()
-	cache[what] = { key = key, at = t, value = v }
-	return v
-end
+local cached
+local function forget() cached = nil end
+for _, e in ipairs({ "QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_TURNED_IN" }) do ns.RegisterEvent(e, forget) end
+ns.On("PLAYER_SKIPPED_QUEST", forget)
+ns.On("PLAYER_UNSKIPPED_QUEST", forget)
 KD.Forget = forget
 
--- Whether a Lookup goal of the work out in the world is done now.
-local function goalDone(g)
-	local C = ns.Compat
-	local q = g.quest
-	if g.t == "accept" then return C.IsOnQuest(q) or C.IsQuestCompleted(q) end
-	if q and C.IsQuestCompleted(q) then return true end
-	if g.t == "turnin" then return false end
-	if g.t == "collect" and not q and g.item then return (C.GetItemCount(g.item) or 0) >= (g.count or 1) end
-	if q and g.oi and C.IsOnQuest(q) then
-		local o = (C.GetQuestObjectives(q) or {})[g.oi]
-		return o ~= nil and o.finished
-	end
-	return false
-end
-
-function KD.Pending(key)
-	local Dg = D()
-	local plan = Dg and Dg.PickupPlan and cached(key, "plan", function() return Dg.PickupPlan(key) or false end)
-	if not plan then return nil end
-	local m = { held = #plan.carried, total = #plan.carried + #plan.take, missing = #plan.take, work = 0 }
-	-- The work out in the world (Dungeons.OutsideWork, kept with the plan).
-	local work = cached(key, "outside", function() return Dg.OutsideWork and Dg.OutsideWork(plan) or {} end) or {}
-	for _, w in ipairs(work) do
-		for _, g in ipairs(w.goals) do
-			if not goalDone(g) then m.work = m.work + 1; break end
-		end
-	end
-	return m
-end
-
-function M.entrance(view)
+-- The dungeon's quests the plan left out because the player skipped them (Dungeons.PickupPlan's `skipped`):
+-- nil, so no region, without a skip (the character's skips are read first: no plan is built then).
+function M.skipped(view)
 	local key = keyOf(view)
 	if not key then return nil end
+	local list = ns.CharState().skippedQuests
+	if type(list) ~= "table" or not next(list) then return nil end
 	local Dg = D()
-	local map, x, y, f = Dg.Entrance(key)
-	if not map then return nil end
-	local d = Dg.Get(key)
-	local m = { map = map, x = x, y = y, f = f, zone = ns.Compat.MapName(map) or d.zoneName, covers = {} }
-	-- The step's way in (the pick-up guide's last step) reads as this region.
-	for gi, goal in ipairs(view and view.goals or {}) do
-		if goal.t == "goto" and goal.entrance then m.covers[#m.covers + 1] = gi end
+	local t = GetTime and GetTime() or 0
+	if not (cached and cached.key == key and t - cached.at < STALE) then
+		cached = { key = key, at = t, plan = Dg.PickupPlan(key) or false }
 	end
-	m.eta = cached(key, "eta", function()
-		local Lk = ns.Lookup
-		local from = ns.PlayerPoint()
-		return from and Lk and Lk.Travel(from, { map = map, x = x, y = y, f = f }) or false
-	end) or nil
-	local St = ns.Maps and ns.Maps.GetInstanceStatus and ns.Maps.GetInstanceStatus()
-	if St then m.cap = { used = St.inHour, max = St.perHour } end
-	m.needs = cached(key, "needs", function()
-		local code = player().code
-		for _, a in ipairs(Dg.Attunements(key, code)) do
-			if (a.kind == "key" or a.kind == "attunement") and not Dg.AttunementState(a).done then
-				return a.item and a.item.name or a.name
-			end
-		end
-		return false
-	end) or nil
-	-- The way in is offered once nothing is left before the door.
-	local p = KD.Pending(key)
-	m.go = not (p and (p.missing > 0 or p.work > 0))
-	return m
+	local plan = cached.plan
+	if not (plan and plan.skipped and #plan.skipped > 0) then return nil end
+	local C, Cx = ns.Compat, ns.Codex
+	local items = {}
+	for i, s in ipairs(plan.skipped) do
+		local id = s.quest.id
+		local rec = s.by ~= id and Cx and Cx.Quest and Cx.Quest(s.by) or nil
+		items[i] = { quest = id, title = C.GetQuestTitle(id) or s.quest.title, by = s.by,
+			byTitle = s.by ~= id and (C.GetQuestTitle(s.by) or ns.Names.Quest(s.by) or (rec and rec.title)) or nil }
+	end
+	return { key = key, count = #items, items = items }
 end
 
 function M.tracker()

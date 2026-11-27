@@ -567,6 +567,9 @@
 -- keep or fix its line below, and take its key off this list.
 --   Level %d: come back at %d
 --   Needs %s
+--   1 of this dungeon's quests is left out because you skipped it
+--   %d of this dungeon's quests are left out because you skipped them
+--   Review
 --   instances this hour: %d of %d
 --   %d / %d bosses
 --   All %d quests ready to turn in: hand them in after the run
@@ -5899,6 +5902,9 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 -- UI/GuideFrameKindDungeon.lua
 L["Level %d: come back at %d"] = "레벨 %d: %d레벨에 다시 오세요"
 L["Needs %s"] = "필요: %s"
+L["1 of this dungeon's quests is left out because you skipped it"] = "이 던전의 퀘스트 1개가 건너뛰어서 제외되었습니다"
+L["%d of this dungeon's quests are left out because you skipped them"] = "이 던전의 퀘스트 %d개가 건너뛰어서 제외되었습니다"
+L["Review"] = "확인"
 L["instances this hour: %d of %d"] = "이번 시간 인스턴스: %d / %d"
 
 -- UI/DungeonTracker.lua

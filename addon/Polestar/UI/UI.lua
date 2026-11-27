@@ -740,6 +740,18 @@ function UI.FinderLine(goal)
 	return "|c" .. Theme.Hex("dungeon") .. text .. "|r"
 end
 
+-- The way in's instance count (Maps/Instances.lua): "instances this hour: 4 of 5", only at one short of
+-- the hourly cap or more (the warning colour at the cap), and only for a dungeon's way in (`entrance`)
+-- that is still to do. Nil otherwise.
+function UI.InstanceCapLine(goal)
+	if goal.entrance ~= true or goal.status == "done" or goal.status == "skipped" then return nil end
+	local M = ns.Maps
+	local st = M and M.GetInstanceStatus and M.GetInstanceStatus()
+	if not (st and (st.perHour or 0) > 0 and st.inHour >= st.perHour - 1) then return nil end
+	local text = format(L["instances this hour: %d of %d"], st.inHour, st.perHour)
+	return "|c" .. Theme.Hex(st.inHour >= st.perHour and "warning" or "textMuted") .. text .. "|r"
+end
+
 -- A guide as the guide list names it, with its levels: "Badlands &
 -- Desolace (37–38)"; just the title (or id) when it has none.
 function UI.GuideLabel(g)
@@ -863,6 +875,8 @@ function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort, noFinder)
 	if escort then parts[#parts + 1] = escort end
 	local finder = not noFinder and UI.FinderLine(goal)
 	if finder then parts[#parts + 1] = finder end
+	local cap = UI.InstanceCapLine(goal)
+	if cap then parts[#parts + 1] = cap end
 	local starter = UI.StarterLine(goal)
 	if starter then parts[#parts + 1] = starter end
 	-- A `direct` hand-in: its giver offers it and takes it back in one talk.

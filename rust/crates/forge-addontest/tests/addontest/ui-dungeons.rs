@@ -2077,7 +2077,7 @@ fn pick_up_the_quests_opens_the_dungeons_pick_up_guide_in_a_new_tab() {
 	));
 	assert_eq!(
 		out[0],
-		json!({ "active": "lookup/pickup/wailing-caverns", "tabs": ["forever/alliance/human/01-elwynn-forest", "lookup/pickup/wailing-caverns"], "accepts": [959, 1486], "card": false, "ui": true })
+		json!({ "active": "lookup/pickup/wailing-caverns", "tabs": ["forever/alliance/human/01-elwynn-forest", "lookup/pickup/wailing-caverns"], "accepts": [959, 1486, 90001, 90002, 90003], "card": false, "ui": true })
 	);
 }
 
@@ -2526,5 +2526,6 @@ fn the_heads_up_s_button_picks_up_every_quest_the_game_gives_now_not_one_held_ba
 	);
 	let o = &out[0];
 	assert!(o["offer"].as_i64().is_some_and(|l| l > 20), "the heads-up's rule would hold Trouble at the Docks back at 20: {o}");
-	assert_eq!(o["accepts"], json!([959, 1486]), "the guide it opens takes Trouble at the Docks too: {o}");
+	// The quests of the dungeon's attunement (90001-90003) come before the way in: a key still missing is steps of its own.
+	assert_eq!(o["accepts"], json!([959, 1486, 90001, 90002, 90003]), "the guide it opens takes Trouble at the Docks too: {o}");
 }

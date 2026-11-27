@@ -246,19 +246,7 @@ local E = Polestar.Engine
 local function plain(s) return ((s or ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) end
 `;
 
-test('outside: what is left before the way in follows the plan and the log (KindDungeon.Pending)', () => {
-	const [before, after] = run(OUTSIDE + `
-local function pending() Polestar.KindDungeon.Forget(); local p = Polestar.KindDungeon.Pending("wailing-caverns"); return { held = p.held, total = p.total, missing = p.missing, work = p.work } end
-emit(pending())
-w.accept(1486, {}, "Deviate Hides")
-stub.advance(0.5)
-emit(pending())
-`);
-	assert.deepEqual(before, { held: 0, total: 3, missing: 3, work: 0 });
-	assert.deepEqual(after, { held: 1, total: 3, missing: 2, work: 0 }, 'a quest taken moves from missing to held');
-});
-
-test('outside: the pick-up guide is a dungeon guide of two regions and the way in: the picture and name, no range chip, group row or "Quests for the run"; the step shows the stop\'s own accepts', () => {
+test('outside: the pick-up guide is a dungeon guide of the picture and name and the step: no range chip, group row, "Quests for the run" or entrance region', () => {
 	const [out] = run(OUTSIDE + `
 Polestar.Set("ui.shown", true)
 Polestar.Dungeons.PickUp("wailing-caverns")
@@ -270,11 +258,10 @@ local function look()
 	for _, id in ipairs({ "brief", "ready", "pickups", "entrance" }) do shown[id] = GF.RegionShown(id) end
 	local texts = {}
 	local function add(fs) if fs and fs:IsShown() then texts[#texts + 1] = plain(fs:GetText()) end end
-	local brief, ready, entrance = GF.RegionFrame("brief"), GF.RegionFrame("ready"), GF.RegionFrame("entrance")
+	local brief, ready = GF.RegionFrame("brief"), GF.RegionFrame("ready")
 	if GF.RegionShown("brief") then add(brief.Name); if brief.Line:IsShown() then add(brief.Line.Text) end end
 	if GF.RegionShown("ready") then add(ready.Level.Text) end
-	if GF.RegionShown("entrance") then add(entrance.Way.Text); if entrance.Needs:IsShown() then add(entrance.Needs.Text) end end
-	return { shown = shown, texts = texts, way = plain(GF.RegionFrame("entrance").Way.Text:GetText()) }
+	return { shown = shown, texts = texts }
 end
 local rows = {}
 for _, r in ipairs(GF.rows) do
@@ -283,28 +270,22 @@ end
 local standard = look()
 local brief = GF.RegionFrame("brief")
 local chip = { range = rawget(brief, "Range") ~= nil, facts = rawget(brief, "Facts") ~= nil }
-local v = E.GetStepView(E.GetStepIndex())
-local accepts = 0
-for _, g in ipairs(v.goals) do if g.t == "accept" then accepts = accepts + 1 end end
 Polestar.Set("ui.compact", true)
 GF.Render() GF.Layout()
-emit({ kind = E.GuideKind(), standard = standard, compact = look(), chip = chip, rows = rows, accepts = accepts, go = GF.RegionFrame("entrance").Go:IsShown(),
-	hasPickups = GF.RegionFrame("pickups") ~= nil, model = Polestar.Engine.KindModel("pickups", nil, "dungeon") ~= nil })
+emit({ kind = E.GuideKind(), standard = standard, compact = look(), chip = chip, rows = rows,
+	hasPickups = GF.RegionFrame("pickups") ~= nil, hasEntrance = GF.RegionFrame("entrance") ~= nil,
+	models = { E.KindModel("pickups", nil, "dungeon") ~= nil, E.KindModel("entrance", nil, "dungeon") ~= nil } })
 `);
 	assert.equal(out.kind, 'dungeon');
-	assert.deepEqual(out.standard.shown, { brief: true, ready: false, pickups: false, entrance: true }, 'level 19 is over the floor of 17: no ready row, and no pick-ups region');
-	assert.deepEqual(out.compact.shown, { brief: true, ready: false, pickups: false, entrance: true });
+	assert.deepEqual(out.standard.shown, { brief: true, ready: false, pickups: false, entrance: false }, 'level 19 is over the floor of 17: the brief alone');
+	assert.deepEqual(out.compact.shown, { brief: true, ready: false, pickups: false, entrance: false });
 	assert.deepEqual(out.chip, { range: false, facts: false }, 'the brief is the picture and the name alone');
 	assert.equal(out.hasPickups, false);
-	assert.equal(out.model, false, 'no pickups model any more');
-	assert.ok(out.standard.texts.includes('Wailing Caverns'), out.standard.texts.join(' | '));
-	for (const t of [...out.standard.texts, ...out.compact.texts]) {
-		assert.doesNotMatch(t, /Quests for the run|your level|Group|best at|Level \d/, `nothing the hub already shows: ${t}`);
-	}
-	assert.equal(out.standard.way, 'Entrance · The Barrens', 'the zone is the way in\'s: the brief no longer names it');
+	assert.equal(out.hasEntrance, false, 'no entrance region: the way in is the pick-up guide\'s last step');
+	assert.deepEqual(out.models, [false, false], 'no pickups or entrance model any more');
+	assert.deepEqual(out.standard.texts, ['Wailing Caverns']);
+	for (const t of out.compact.texts) assert.doesNotMatch(t, /Quests for the run|your level|Group|best at|Level \d|Entrance/, `nothing the hub already shows: ${t}`);
 	assert.ok(out.rows.length >= 1 && out.rows.every((t) => t === 'accept'), `the step's own accepts: ${out.rows}`);
-	assert.ok(out.accepts >= 1, 'the step has its stop\'s accepts');
-	assert.equal(out.go, false, 'quests left to pick up: the way in is information only');
 });
 
 test('outside: no ready row at or above the floor; under it, one line "Level 15: come back at 17" in Standard and Compact', () => {
@@ -337,37 +318,74 @@ emit(ready())
 	assert.equal(atFloor.shown, false, 'level 17 is the floor itself: not under it');
 });
 
-test('outside: the way in\'s button waits until nothing is left before the door, and Guide me to the entrance then shows', () => {
-	const [before, after] = run(OUTSIDE + `
+test('outside: the way in is the last step\'s row; its sub-line says the instance count only at 4 of 5 and 5 of 5', () => {
+	const [out] = run(OUTSIDE + `
 Polestar.Set("ui.shown", true)
 Polestar.Dungeons.PickUp("wailing-caverns")
 stub.advance(0.5)
 local GF = Polestar.UI.GuideFrame
-local function go() GF.Render() GF.Layout(); return { go = E.KindModel("entrance", nil, "dungeon").go, button = GF.RegionFrame("entrance").Go:IsShown() } end
-emit(go())
-for _, id in ipairs({ 1486, 914, 1491 }) do w.accept(id, {}, "q") end
-stub.advance(0.5)
-Polestar.KindDungeon.Forget()
-emit(go())
+E.Goto(E.GetStepCount())
+stub.advance(0.6)
+local function way(used)
+	Polestar.Maps.GetInstanceStatus = function() return { inHour = used, perHour = 5 } end
+	GF.Render() GF.Layout()
+	for _, r in ipairs(GF.rows) do
+		if r:IsShown() and r.psGoal and r.psGoal.t == "goto" then
+			return { text = plain(r.Text:GetText()), sub = r.Sub:IsShown() and plain(r.Sub:GetText()) or false }
+		end
+	end
+	return false
+end
+local out = {}
+for used = 0, 5 do out[used + 1] = way(used) end
+emit({ out = out, entrance = GF.RegionShown("entrance") })
 `);
-	assert.deepEqual(before, { go: false, button: false });
-	assert.deepEqual(after, { go: true, button: true });
+	assert.equal(out.entrance, false);
+	for (const used of [0, 1, 2, 3]) assert.ok(out.out[used] && !/instances this hour/.test(out.out[used].sub || ''), `${used} of 5: no count line: ${JSON.stringify(out.out[used])}`);
+	for (const used of [4, 5]) assert.match(out.out[used].sub, new RegExp(`instances this hour: ${used} of 5`), `${used} of 5 says it`);
+	assert.match(out.out[0].text, /Wailing Caverns/, 'the way in is a plain goal row');
 });
 
-test('outside: under the floor and alone; a key still missing', () => {
-	const [ready, entrance] = run(OUTSIDE + `
+test('outside: a key still missing is a step of its own before the way in; none once it is owned', () => {
+	const [missing, withSteps, owned] = run(OUTSIDE + `
+local function steps(attune)
+	ATTUNE = attune
+	local def = Polestar.Dungeons.PickupGuide("wailing-caverns")
+	local out = {}
+	for i, s in ipairs(def.steps) do
+		local kinds = {}
+		for _, g in ipairs(s.goals) do kinds[#kinds + 1] = g.t .. (g.entrance and ":entrance" or "") end
+		out[i] = { s.title, table.concat(kinds, ",") }
+	end
+	return out
+end
+local KEY = { kind = "key", name = "Prison Cell Key", item = { name = "Prison Cell Key" }, done = false }
+-- The page lists no steps for it (the attunement guide builds none): one step naming it.
+Polestar.Dungeons.AttuneGuide = function() return nil, "nothing" end
+emit(steps({ KEY }))
+-- The attunement guide's steps, less its closing way in: the steps come before this guide's own.
+Polestar.Dungeons.AttuneGuide = function()
+	return { steps = { { title = "Cell Keeper", goals = { { t = "accept", quest = 7001 } } },
+		{ title = "Wailing Caverns", goals = { { t = "note", text = "Not open yet." }, { t = "goto", entrance = true, map = 1413, x = 46, y = 36 } } } } }
+end
+emit(steps({ KEY }))
+KEY.done = true
+emit(steps({ KEY }))
+`);
+	const last = (s) => s[s.length - 1];
+	assert.deepEqual(last(missing), ['Wailing Caverns', 'goto:entrance,note'], 'the way in stays last');
+	assert.deepEqual(missing[missing.length - 2], ['Prison Cell Key', 'note'], 'a step naming the key, just before the way in');
+	assert.deepEqual(withSteps[withSteps.length - 2], ['Cell Keeper', 'accept,note'], "the attunement guide's step, its closing notes kept on it");
+	assert.ok(!withSteps.some((s) => s[0] === 'Wailing Caverns' && s[1] === 'note,goto:entrance'), 'its own closing step is dropped for this guide\'s');
+	assert.ok(!owned.some((s) => s[0] === 'Prison Cell Key' || s[0] === 'Cell Keeper'), 'no key step once the key is owned');
+});
+
+test('outside: under the floor and alone', () => {
+	const [ready] = run(OUTSIDE + `
 w.level = 15
-ATTUNE = { { kind = "key", name = "Prison Cell Key", item = { name = "Prison Cell Key" }, done = false } }
-local view = { guide = { dungeon = "wailing-caverns" } }
-emit(E.KindModel("ready", view, "dungeon"))
-local e = E.KindModel("entrance", view, "dungeon")
-emit({ needs = e.needs, zone = e.zone, eta = e.eta ~= nil, cap = e.cap })
+emit(E.KindModel("ready", { guide = { dungeon = "wailing-caverns" } }, "dungeon"))
 `);
 	assert.deepEqual(ready, { level: 15, floor: 17 });
-	assert.equal(entrance.needs, 'Prison Cell Key');
-	assert.equal(entrance.zone, 'The Barrens');
-	assert.equal(entrance.eta, true);
-	assert.deepEqual(entrance.cap, { used: 0, max: 5 });
 });
 
 test('docked: the head names the dungeon unless the open guide is its own; an item boss row shows its glyph and names the item on hover', () => {

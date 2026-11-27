@@ -1195,14 +1195,14 @@ goal rows `Items` and its ways' rows `Ways`, pooled), `shopping` (the folded
 shopping list: its row `Head`, the materials `Rows`, pooled, and the `Buy`
 button), `turnin` (a reputation guide's turn-in, on its card `Card`), `more`
 (the guide's other quests for the faction: `Rows`), and the dungeon kind's
-`brief`, `ready`, `entrance` and `tracker`. The goal rows are the
+`brief`, `ready`, `skipped` and `tracker`. The goal rows are the
 goals area's own (they go to `guideRow` too); the cards are painted as
 `button`; a look that does nothing for them draws them its own way.
 
 The regions add names to two hooks of the table below. `guidePlace` is
 also asked for `"meter"`, `"stretch"`, `"get"`, `"shopping"`, `"turnin"`,
-`"more"` and the dungeon kind's `"brief"`, `"ready"` and
-`"entrance"` (Atlas takes the turn-in into its cards above the window).
+`"more"` and the dungeon kind's `"brief"`, `"ready"` and `"skipped"` (Atlas takes the
+turn-in into its cards above the window).
 `guideSpace` is asked for `"bossRow"` (a boss's row in the dungeon tracker,
 20).
 
@@ -1226,7 +1226,7 @@ your pieces in that window's store, as Aurora does: a hook that reaches for
 |---|---|---|---|
 | `guideTitle` | `function(nav, parts)` | after the guide window's style is applied (a skin, theme or window style change), not in the transparent window; the Looks page's preview calls it too, with its own parts | `nav`: the navigator frame (the row with the step count and the menu). `parts`, each in the base's state when the hook runs: `bar` (the title bar texture, a `sky` to `skyBottom` gradient, shown on Hearth), `close` (a close square in `closeFill`, `closeEdge` and `closeGlyph` that hides the window, hidden), `rule` (the line under the navigator), `band` (the house band behind the bars, shown on the Polestar base), `menuRight` (the menu button's inset from the right edge, `8`). Show or hide parts and set `parts.menuRight`: `26` leaves room for the close square. With the bar shown, the rule takes `titleLine`. |
 | `guideRow` | `function(row, goal, info)` | after Polestar painted a goal row, at every render and repaint, for each row shown | `row`: the row. Rows are pooled: the same row shows other goals later, so set every piece you use each time. `goal`: the goal it shows (fields below). `info`: `current` (the goal the arrow is on), `done`, `skipped` (booleans; the same table each time). |
-| `guideKindRow` | `function(row, item, info)` | after Polestar painted a row of a guide kind's region, at every render | `row`: the row (pooled: set every piece you use each time). `item`: the item or quest it shows. `info`: `kind` (`"supply"` a material, `"more"` another quest for the faction, `"ready"`, `"boss"`, `"objective"` the dungeon kind's), `done`, `current` (the row the step works on), `way` (a material's: `"buy"`, `"gather"`, `"vendor"` or `"make"`). |
+| `guideKindRow` | `function(row, item, info)` | after Polestar painted a row of a guide kind's region, at every render | `row`: the row (pooled: set every piece you use each time). `item`: the item or quest it shows. `info`: `kind` (`"supply"` a material, `"more"` another quest for the faction, `"ready"`, `"skipped"`, `"boss"`, `"objective"` the dungeon kind's), `done`, `current` (the row the step works on), `way` (a material's: `"buy"`, `"gather"`, `"vendor"` or `"make"`). |
 | `guideMeter` | `function(meter, info)` | after Polestar painted a guide kind's meter, at every render | `meter`: the meter part. `info`: `kind` (`"skill"` or `"rep"`), `frac` (the value's share, 0-1), `seg` (`{ a, b }`: a reputation turn-in's gain, lit from `a` to `b`; nil for a skill), `bar` (the bar). |
 | `guideLayout` | `function(parts, width, y)` -> height | at every layout of the window (a step, a size or a setting changed), after Polestar placed its parts | `parts`: the window's, as `GuideParts()` gives the live window's. `width`: the window's width. `y`: how far down the body Polestar's parts reach. Place your own frames from `y` down and answer the height they take (a number; nothing or 0 for none): the window grows by it. |
 | `guideRender` | `function(view, parts)` | after every render of the window | `view`: the step on screen (`index`, `title`, `note`, `status`, `goals`: the goals below), or nil when the window shows no step (no guide open, a guide finished). `parts`: the window's, as for `guideLayout`. |

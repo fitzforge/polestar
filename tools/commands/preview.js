@@ -1367,10 +1367,10 @@ const INSTALLED_SKINS = `Polestar.RegisterDefaults("nav", { lineStyle = "line", 
 Polestar.Theme.LoadInstalledSkins()`;
 const look = (skin) => `${INSTALLED_SKINS}; Polestar.Set("ui.skin", "${skin}")`;
 const ATLAS_LAYOUT = `${INSTALLED_SKINS}; Polestar.Set("ui.layout", "atlas")`;
-// Outside: the Wailing Caverns pick-up guide of the dungeons fixture (a dungeon guide: kind "dungeon") on
-// its first step, the level 20 Tauren of the Dungeons scenes in the Barrens; the window's Engine stand-in
-// answers the guide's kind and the regions' models from the real one.
-const kindDungeon = (extra = '', { key = 'wailing-caverns' } = {}) => `${clientArtLua()}${DUNGEONS_SETUP}
+// Outside: the Wailing Caverns pick-up guide of the dungeons fixture (a dungeon guide: kind "dungeon") on its first
+// step (`step`: a Lua expression for another, the last: `#def.steps`), the level 20 Tauren of the Dungeons scenes in
+// the Barrens; the window's Engine stand-in answers the guide's kind and the regions' models from the real one.
+const kindDungeon = (extra = '', { key = 'wailing-caverns', step = '1', after = '' } = {}) => `${clientArtLua()}${DUNGEONS_SETUP}
 local E, RE = Polestar.Engine, uistub.realEngine
 E.KindModel = function(r, v, k) return RE.KindModel(r, v, k) end
 E.GuideKind = function() return Polestar.GuideKinds.Of(E.GetGuide()) end
@@ -1399,8 +1399,8 @@ for _, s in ipairs(def.steps) do
 	end
 end
 uistub.guides[def.id] = def
-uistub.setGuide(def.id, 1)
-`;
+uistub.setGuide(def.id, ${step})
+${after}`;
 // Maps loads too: the travel time, the instances this hour, and the tracker floating as the instance
 // tracker does (Maps.CompactFrame).
 const KIND_FILES = [...FILES.slice(0, 2), 'Maps/Maps.xml', ...FILES.slice(2)];
@@ -1507,6 +1507,22 @@ const outsidePanels = (world, key) => [
 	...[false, true].map((compact) =>
 		kindPanel(`${world}\n${ATLAS_LAYOUT}${compact ? '; Polestar.Set("ui.compact", true)' : ''}`, { key, roots: [...GUIDE, 'PolestarGuideFrameCards'] })),
 ];
+// The player skipped Rear Guard Patrol: the plan leaves The Wrath of Rath'mael out and the window says so; the line
+// folded, then Review opened (each quest with its Unskip it).
+const SKIPPED = `${ROL}
+Polestar.CharState().skippedQuests = { [356] = true }`;
+const REVIEW = `local GF = Polestar.UI.GuideFrame
+GF.Render()
+local head = GF.RegionFrame("skipped").Head
+head:GetScript("OnClick")(head, "LeftButton")
+GF.Render() GF.Layout()`;
+const SKIPPED_PANELS = [
+	kindPanel(`${SKIPPED}\n${look('polestar')}`, { key: 'ruins-of-lordaeron' }),
+	kindPanel(`${SKIPPED}\n${look('polestar')}`, { key: 'ruins-of-lordaeron', after: REVIEW }),
+	kindPanel(`${SKIPPED}\n${look('blizzard')}`, { key: 'ruins-of-lordaeron', after: REVIEW }),
+	kindPanel(`${SKIPPED}\n${look('polestar')}; Polestar.Set("ui.compact", true)`, { key: 'ruins-of-lordaeron', after: REVIEW }),
+	kindPanel(`${SKIPPED}\n${ATLAS_LAYOUT}`, { key: 'ruins-of-lordaeron', after: REVIEW, roots: [...GUIDE, 'PolestarGuideFrameCards'] }),
+];
 // Inside: the tracker's made-up run (UI.DungeonTracker.SAMPLE), floating with the guide window hidden,
 // or docked in the window on the Barrens guide.
 const trackerFloat = (extra = '') => `Polestar.Set("ui.shown", false)
@@ -1546,14 +1562,17 @@ const SCENES = [
 	},
 	{
 		file: 'guide-kind-dungeon.svg',
-		title: 'Dungeon guide, outside: the picture and name, the step, the way in; Compact; Atlas; under the floor with a key missing (one line: come back at the floor level)',
+		title: 'Dungeon guide, outside: the picture and name and the step; Compact; Atlas; under the floor (one line: come back at the floor level); the step for a key still missing; the way in as the last step with the instance count at 4 of 5 and 5 of 5',
 		panels: [
 			kindPanel(''),
 			kindPanel('Polestar.Set("ui.compact", true)'),
 			kindPanel(ATLAS_LAYOUT, { roots: [...GUIDE, 'PolestarGuideFrameCards'] }),
-			kindPanel(`uistub.player.level = 15; UnitLevel = function() return 15 end
-Polestar.Dungeons.Attunements = function() return { { kind = "key", name = "Prison Cell Key", item = { name = "Prison Cell Key" } } } end
-Polestar.Dungeons.AttunementState = function() return { done = false } end`),
+			kindPanel('uistub.player.level = 15; UnitLevel = function() return 15 end'),
+			kindPanel(`Polestar.Dungeons.Attunements = function() return { { kind = "key", name = "Prison Cell Key", item = { name = "Prison Cell Key" } } } end
+Polestar.Dungeons.AttunementState = function() return { done = false } end
+Polestar.Dungeons.AttuneGuide = function() return nil, "nothing" end`, { step: '#def.steps - 1' }),
+			kindPanel(`Polestar.Maps.GetInstanceStatus = function() return { inHour = 4, perHour = 5 } end`, { step: '#def.steps' }),
+			kindPanel(`Polestar.Maps.GetInstanceStatus = function() return { inHour = 5, perHour = 5 } end`, { step: '#def.steps' }),
 		],
 	},
 	{
@@ -1579,7 +1598,12 @@ Polestar.Dungeons.AttunementState = function() return { done = false } end`),
 	{
 		file: 'guide-kind-dungeon-blackfathom.svg',
 		title: 'Dungeon guide, outside, Blackfathom Deeps for a level 27 character: the picture and name, the stop, the way in with its zone (house look and Blizzard\'s, Standard and Compact, and Atlas)',
-		panels: outsidePanels(BFD, 'blackfathom-deeps'),
+		panels: [...outsidePanels(BFD, 'blackfathom-deeps'), kindPanel(`${BFD}\n${look('polestar')}\nPolestar.Maps.GetInstanceStatus = function() return { inHour = 4, perHour = 5 } end`, { key: 'blackfathom-deeps', step: '#def.steps' })],
+	},
+	{
+		file: 'guide-kind-dungeon-skipped.svg',
+		title: "Dungeon guide, outside, the Ruins of Lordaeron after skipping Rear Guard Patrol (the start of The Wrath of Rath'mael's chain): the line folded and with Review open (house look and Blizzard's, Standard and Compact, and Atlas)",
+		panels: SKIPPED_PANELS,
 	},
 	{
 		file: 'dungeon-tracker.svg',

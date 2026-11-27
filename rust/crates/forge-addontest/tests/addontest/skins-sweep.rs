@@ -189,7 +189,7 @@ fn switching_the_skin_restyles_the_flight_timer_and_every_polestar_frame_live_13
 }
 
 // A dungeon guide outside its dungeon (Core/KindDungeon.lua, UI/GuideFrameKindDungeon.lua): its regions in the
-// window, the way in's button painted in each skin as it changes.
+// window, the same in every skin as it changes.
 const DUNGEON_GUIDE: &str = r#"
 local w = stub.world
 w.addMap(1413, { name = "The Barrens", c = 1, left = 1000, right = -1000, top = 1000, bottom = -1000 })
@@ -214,10 +214,11 @@ local GF = Polestar.UI.GuideFrame
 GF.Render()
 local out = { regions = {}, skins = {} }
 for _, id in ipairs({ "brief", "ready", "pickups", "entrance" }) do out.regions[id] = GF.RegionShown(id) end
-local go = GF.RegionFrame("entrance").Go
 for _, key in ipairs(Polestar.Theme.SKIN_ORDER) do
 	Polestar.Set("ui.skin", key)
-	out.skins[key] = { go = go.psSkin and go.psSkin.skin or false, shown = go:IsVisible() }
+	GF.Render()
+	out.skins[key] = {}
+	for _, id in ipairs({ "brief", "ready", "pickups", "entrance" }) do out.skins[key][id] = GF.RegionShown(id) end
 end
 emit(out)
 "#;
@@ -225,10 +226,9 @@ emit(out)
 #[test]
 fn a_dungeon_guides_regions_follow_the_skin() {
 	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons: vec![Addon::name("Polestar")], login: true, script: DUNGEON_GUIDE.into(), ..Default::default() }).remove(0);
-	assert_eq!(out["regions"], json!({ "brief": true, "ready": false, "pickups": false, "entrance": true }), "no ready line at 20 over the floor of 17, no pick-ups region");
+	assert_eq!(out["regions"], json!({ "brief": true, "ready": false, "pickups": false, "entrance": false }), "no ready line at 20 over the floor of 17, no pick-ups or entrance region");
 	for (key, s) in out["skins"].as_object().unwrap() {
-		assert_eq!(s["shown"], true, "{key}: Guide me to the entrance shows");
-		assert_eq!(s["go"], json!(key), "{key}: Guide me to the entrance painted in it");
+		assert_eq!(s, &out["regions"], "{key}: the same regions in every skin");
 	}
 }
 
@@ -244,7 +244,9 @@ local function cards()
 	local c = _G.PolestarGuideFrameCards
 	local n = 0
 	for _, ch in ipairs({ c and c:GetChildren() }) do if ch:IsShown() then n = n + 1 end end
-	return { stack = c ~= nil and c:IsShown() or false, shown = n, brief = GF.RegionShown("brief"), entrance = GF.RegionShown("entrance"), pickups = GF.RegionShown("pickups") }
+	local way = false
+	for _, r in ipairs(GF.rows) do if r:IsShown() and r.psGoal and r.psGoal.t == "goto" then way = true end end
+	return { stack = c ~= nil and c:IsShown() or false, shown = n, brief = GF.RegionShown("brief"), entrance = GF.RegionShown("entrance") or GF.RegionFrame("entrance") ~= nil, way = way, pickups = GF.RegionShown("pickups"), skipped = GF.RegionShown("skipped") }
 end
 local standard = cards()
 Polestar.Set("ui.compact", true)
@@ -261,7 +263,26 @@ fn atlas_shows_no_card_above_a_dungeon_guides_window() {
 		assert_eq!(m["stack"], false, "{mode}: no card stack above the window: {out}");
 		assert_eq!(m["shown"], 0, "{mode}: no card above the window: {out}");
 		assert_eq!(m["brief"], true, "{mode}: the brief stays in the window: {out}");
-		assert_eq!(m["entrance"], true, "{mode}: the way in stays in the window: {out}");
+		assert_eq!(m["entrance"], false, "{mode}: no entrance region or card: {out}");
+		assert_eq!(m["way"], true, "{mode}: the way in is the step's own row in the window: {out}");
 		assert_eq!(m["pickups"], false, "{mode}: no pick-ups region: {out}");
+	}
+}
+
+// The skipped line (the plan left out a quest the player skipped) is a row of the window in Atlas too, in Standard
+// and Compact: no card above it, the line the window's own.
+#[test]
+fn atlas_keeps_the_skipped_line_in_the_window() {
+	let script = DUNGEON_GUIDE
+		.replace("later = 0 } end", "later = 0, skipped = { { quest = { id = 914, title = \"Leaders of the Fang\" }, by = 914 } } } end")
+		.replace("Polestar.Set(\"ui.shown\", true)", "Polestar.CharState().skippedQuests = { [914] = true }\nPolestar.Set(\"ui.shown\", true)")
+		.replace("emit(out)", ATLAS_TAIL);
+	let addons = vec![Addon::name("Polestar"), Addon::name("Polestar_Skins")];
+	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons, login: true, script, ..Default::default() }).remove(0);
+	for mode in ["standard", "compact"] {
+		let m = &out[mode];
+		assert_eq!(m["skipped"], true, "{mode}: the line shows: {out}");
+		assert_eq!(m["shown"], 0, "{mode}: and no card stands above the window: {out}");
+		assert_eq!(m["stack"], false, "{mode}: {out}");
 	}
 }

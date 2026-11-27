@@ -801,13 +801,14 @@ turns it off for every kind. The addon's table is `ns.GuideKinds`
 the guide in view.
 
 A `dungeon` guide's window shows its dungeon in place of the step's person
-(docs/DESIGN.md, "The Guide Window"): the dungeon's picture and name, a line
-only when your level is under its floor, and the way in with its zone and travel time.
-It repeats nothing the Dungeons page and the step list hold (the level range, the group, the run's quests).
+(docs/DESIGN.md, "The Guide Window"): the dungeon's picture and name and a line
+only when your level is under its floor; the step follows as any guide's, with
+its way in (`goto … entrance`) as the last row, the hourly instance count under it
+from one short of the cap. It repeats nothing the Dungeons page and the step list
+hold (the level range, the group, the run's quests).
 It finds the dungeon by the guide's title (a Dungeons page's name, "Wailing
 Caverns"); a pack's Lua guide may name it by `dungeon` (its Dungeons key,
-PACK_FORMAT). A step's accepts of those quests and its way in (`goto … entrance`)
-read as the window's rows for them. Polestar's own pick-up guides are this kind.
+PACK_FORMAT). Polestar's own pick-up guides are this kind.
 
 ## Sections
 

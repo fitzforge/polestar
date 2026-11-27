@@ -1,8 +1,7 @@
 'use strict';
 // A dungeon's work out in the world before the way in (#4379; Dungeons/Pickup.lua, Dungeons.OutsideWork) and
-// the dungeon window round it (Core/KindDungeon.lua, UI/GuideFrameKindDungeon.lua): the step's own goal rows
-// between the brief and the way in, as the leveling view shows them; "Guide me to the entrance" only once
-// nothing is left before the door (KindDungeon.Pending).
+// the dungeon window round it (UI/GuideFrameKindDungeon.lua): the step's own goal rows between the brief and
+// the way in (the pick-up guide's last step), as the leveling view shows them.
 // The Ruins of Lordaeron for a fresh Horde character at 15: The Wrath of Rath'mael waits on Rear Guard
 // Patrol (kill 8 + 8) and its follow-up, The New Plague on the three parts of A Recipe For Death.
 
@@ -109,11 +108,10 @@ E = Polestar.Engine
 GF = Polestar.UI.GuideFrame
 VIEW = { guide = { dungeon = INSIDE } }
 function pickups()
-	Polestar.KindDungeon.Forget()
-	local p = Polestar.KindDungeon.Pending(INSIDE)
 	local plan = Polestar.Dungeons.PickupPlan(INSIDE)
-	local after = {}
+	local after, work = {}, 0
 	for _, w in ipairs(Polestar.Dungeons.OutsideWork(plan)) do
+		work = work + 1
 		if w.chain and w.opens and not after[w.opens] then after[w.opens] = w end
 	end
 	local rows = {}
@@ -121,19 +119,17 @@ function pickups()
 		local a = after[t.quest.id]
 		rows[#rows + 1] = { Polestar.Compat.GetQuestTitle(t.quest.id) or t.quest.title, a and a.title or false, a and a.chain.n or false, a and a.chain.of or false }
 	end
-	return { held = p.held, total = p.total, work = p.work, rows = rows }
+	return { held = #plan.carried, total = #plan.carried + #plan.take, work = work, rows = rows }
 end
-function go() return E.KindModel("entrance", VIEW, "dungeon").go end
 `;
 
 const run = (script) => runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar'], login: true, script: WORLD + script }).emitted;
 
 const CHAINS_DONE = 'w.complete({ 356, 99156, 447, 450, 451 })\n';
 
-test("Fitz's case, a fresh Horde character at 15: both chains are work before the way in, named on their pick-ups; no way in yet", () => {
-	const [m, entrance, work] = run(`
+test("Fitz's case, a fresh Horde character at 15: both chains are work before the way in, named on their pick-ups", () => {
+	const [m, work] = run(`
 emit(pickups())
-emit({ go = go() })
 local out = {}
 local plan = Polestar.Dungeons.PickupPlan(INSIDE)
 for _, w in ipairs(Polestar.Dungeons.OutsideWork(plan)) do
@@ -150,31 +146,27 @@ emit(out)
 	assert.deepEqual(by["The Wrath of Rath'mael"].slice(1), ['Rear Guard Patrol', 1, 2]);
 	assert.deepEqual(by['The New Plague'].slice(1), ['A Recipe For Death', 1, 3]);
 	assert.equal(by['Light\'s Justice'][1], false, 'a quest with no prerequisite names none');
-	assert.equal(entrance.go, false, 'pick-ups and chains left: no Guide me to the entrance');
 	assert.deepEqual(work.map((w) => w[0]).sort(), ['A Recipe For Death', 'Rear Guard Patrol']);
 	const rg = work.find((w) => w[0] === 'Rear Guard Patrol');
 	assert.equal(rg[3], 'accept:1495 kill:1529 kill:1532 turnin:1495', "the chain quest's whole step");
 });
 
-test("Fitz's own state, the chains done: exactly the four pick-ups, no work; the way in comes once they are in the log", () => {
-	const [m, before, after] = run(CHAINS_DONE + `
+test("Fitz's own state, the chains done: exactly the four pick-ups, no work; once they are in the log none is left to take", () => {
+	const [m, after] = run(CHAINS_DONE + `
 emit(pickups())
-emit({ go = go() })
 for _, id in ipairs({ 92401, 92421, 92422, 95216 }) do w.accept(id, {}, QUESTS[id].title) end
 stub.advance(0.5)
-Polestar.KindDungeon.Forget()
-emit({ go = go(), m = pickups() })
+emit(pickups())
 `);
 	assert.equal(m.total, 4);
 	assert.equal(m.work, 0);
 	assert.deepEqual(m.rows.map((r) => r[0]).sort(), ['A Frightened Request', "Light's Justice", 'The New Plague', "The Wrath of Rath'mael"]);
 	assert.ok(m.rows.every((r) => r[1] === false), 'no prerequisite left');
-	assert.equal(before.go, false);
-	assert.equal(after.go, true, 'all four in the log: the way in is offered');
-	assert.equal(after.m.held, 4);
+	assert.equal(after.held, 4);
+	assert.equal(Object.keys(after.rows).length, 0, 'all four in the log: none left to take');
 });
 
-test('the pick-up guide: the chain quest is a step of its own shown as the leveling view shows it; the way in stays information only; no pick-ups region', () => {
+test('the pick-up guide: the chain quest is a step of its own shown as the leveling view shows it; no pick-ups or entrance region', () => {
 	const [out] = run(`
 Polestar.Set("ui.shown", true)
 Polestar.Dungeons.PickUp(INSIDE)
@@ -196,15 +188,14 @@ w.accept(356, { { text = "Bleeding Horror slain: 0/8", type = "monster", require
 stub.advance(0.5)
 GF.Render() GF.Layout()
 local taken = rows()
-local entrance = GF.RegionFrame("entrance")
-emit({ titles = titles, step = v.title, first = first, rows = taken, go = entrance.Go:IsShown(), pickups = GF.RegionFrame("pickups") ~= nil or GF.RegionShown("pickups") })
+emit({ titles = titles, step = v.title, first = first, rows = taken, entrance = GF.RegionShown("entrance"), pickups = GF.RegionFrame("pickups") ~= nil or GF.RegionShown("pickups") })
 `);
 	assert.ok(out.titles.includes('Rear Guard Patrol'), out.titles.join(' | '));
 	assert.equal(out.step, 'Rear Guard Patrol', 'Linnea stands by: the chain comes first');
 	assert.ok(out.first.some((t) => /Accept.*Rear Guard Patrol/.test(t)), out.first.join(' | '));
 	assert.ok(out.rows.some((t) => /Bleeding Horror.*0\/8/.test(t)), out.rows.join(' | '));
 	assert.ok(out.rows.some((t) => /Wandering Spirit.*0\/8/.test(t)), out.rows.join(' | '));
-	assert.equal(out.go, false, 'Guide me to the entrance hides while work is left');
+	assert.equal(out.entrance, false, 'no entrance region: the way in is the last step');
 	assert.equal(out.pickups, false, 'the pick-ups are the step list\'s, not a region');
 });
 
@@ -286,7 +277,7 @@ emit({ steps = accepts(E.GetGuide()), step = v.title, quests = quests, rows = ro
 
 test("givers who stand together are one step: within the leveling stop's 60 yards, not beyond; the same NPC as before", () => {
 	const [near, far, same] = run(CHAINS_DONE + ACCEPTS + `
-local def = function() Polestar.KindDungeon.Forget(); return accepts(Polestar.Dungeons.PickupGuide(INSIDE)) end
+local def = function() return accepts(Polestar.Dungeons.PickupGuide(INSIDE)) end
 -- A yard is 20 map units here (maps 2000 yards wide): Theodore 58 yards from Morbin, then 64.
 NPCS[11835].spawns = { { map = 1458, x = 57.9 + 2.9, y = 89.5 } }
 emit(def())
@@ -303,4 +294,106 @@ emit(def())
 	assert.equal(together(far), false, '64 yards apart: two steps');
 	assert.equal(far.length, 5);
 	assert.equal(together(same), true, 'one NPC giving two: one step');
+});
+
+// The quests the player skipped (Engine.SkipQuest), or whose chain's start they skipped, are left out of the
+// plan and the window says so: one line, Review opening the list, each quest with an Unskip that brings it back.
+const SKIP_HEAD = `
+Polestar.Set("ui.shown", true)
+local function plain(s) return ((s or ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) end
+local function steps() local out = {} for _, s in ipairs(Polestar.Dungeons.PickupGuide(INSIDE).steps) do out[#out + 1] = s.title end return out end
+local function line()
+	Polestar.UI.GuideFrame.Render() Polestar.UI.GuideFrame.Layout()
+	local GF = Polestar.UI.GuideFrame
+	local f = GF.RegionFrame("skipped")
+	local rows = {}
+	for i = 1, f and f.psRows or 0 do
+		local r = f.Rows[i]
+		if r:IsShown() then rows[#rows + 1] = { plain(r.Text:GetText()), r.Sub:IsShown() and plain(r.Sub:GetText()) or false } end
+	end
+	return { shown = GF.RegionShown("skipped"), text = f and GF.RegionShown("skipped") and plain(f.Head.Text:GetText()) or false,
+		review = f and GF.RegionShown("skipped") and plain(f.Head.Right:GetText()) or false, rows = rows }
+end
+`;
+
+test('a skipped chain start leaves its quest out of the pick-up guide and the window says so: the count, Review, the list; Unskip brings it back', () => {
+	const [none, skipped, opened, back] = run(SKIP_HEAD + `
+Polestar.Dungeons.PickUp(INSIDE)
+stub.advance(0.5)
+emit({ line = line(), steps = steps() })
+-- Rear Guard Patrol (356) starts The Wrath of Rath'mael's chain, A Recipe For Death (447) The New Plague's.
+E.SkipQuest(356, true)
+E.SkipQuest(447, true)
+Polestar.Dungeons.PickUp(INSIDE)
+stub.advance(0.5)
+emit({ line = line(), steps = steps() })
+local GF = Polestar.UI.GuideFrame
+local head = GF.RegionFrame("skipped").Head
+head:GetScript("OnClick")(head, "LeftButton")
+GF.Update() GF.Render() GF.Layout()
+emit({ line = line() })
+local f = GF.RegionFrame("skipped")
+for i = 1, f.psRows do
+	local r = f.Rows[i]
+	if r:IsShown() and plain(r.Text:GetText()):find("Wrath") then r.Link:GetScript("OnClick")(r.Link, "LeftButton") end
+end
+stub.advance(0.5)
+emit({ line = line(), steps = steps(), skipped = { E.IsQuestSkipped(356), E.IsQuestSkipped(447) } })
+`);
+	assert.equal(none.line.shown, false, 'no skips: no line');
+	assert.ok(none.steps.includes('Rear Guard Patrol'), none.steps.join(' | '));
+	assert.equal(skipped.line.shown, true);
+	assert.equal(skipped.line.text, "2 of this dungeon's quests are left out because you skipped them");
+	assert.equal(skipped.line.review, 'Review');
+	assert.ok(!skipped.steps.includes('Rear Guard Patrol') && !skipped.steps.includes('A Recipe For Death'), `the chains are out: ${skipped.steps.join(' | ')}`);
+	assert.ok(skipped.steps.includes("Light's Justice") || skipped.steps.some((s) => /Morbin|Tabitha|Theodore/.test(s)), 'the other quests stay');
+	assert.equal(Object.keys(skipped.line.rows).length, 0, 'the list is folded until Review is pressed');
+	const titles = opened.line.rows.map((r) => r[0]).sort();
+	assert.deepEqual(titles, ['“The New Plague”', '“The Wrath of Rath\'mael”'], JSON.stringify(opened.line.rows));
+	const wrath = opened.line.rows.find((r) => /Wrath/.test(r[0]));
+	assert.equal(wrath[1], 'After “Rear Guard Patrol”', 'a quest left out by its chain names the skipped start');
+	assert.equal(back.skipped[0], false, 'Unskip brought the chain start back');
+	assert.equal(back.skipped[1], true, 'and only that one');
+	assert.equal(back.line.text, "1 of this dungeon's quests is left out because you skipped it");
+	assert.ok(back.steps.includes('Rear Guard Patrol'), `the quest's steps are back: ${back.steps.join(' | ')}`);
+});
+
+test('no skips, no line; a step the route passed, or a skipped quest since done, is not the player\'s skip', () => {
+	const [none, passed, done] = run(SKIP_HEAD + `
+Polestar.Dungeons.PickUp(INSIDE)
+stub.advance(0.5)
+emit(line())
+-- A feeder the route passed (not the player's own skip).
+ns = Polestar.CharState and Polestar.CharState() or {}
+Polestar.CharState().feedSkips = { [356] = true }
+Polestar.KindDungeon.Forget()
+emit(line())
+-- Skipped, then done anyway: nothing left out.
+E.SkipQuest(447, true)
+w.complete({ 447, 450, 451 })
+Polestar.KindDungeon.Forget()
+emit(line())
+`);
+	assert.equal(none.shown, false);
+	assert.equal(passed.shown, false, "a route-passed step is not the player's skip");
+	assert.equal(done.shown, false, 'a skipped quest that was done since leaves nothing out');
+});
+
+test('the skipped line follows Compact: one line, the list under it', () => {
+	const [out] = run(SKIP_HEAD + `
+Polestar.Set("ui.compact", true)
+E.SkipQuest(92401, true)
+Polestar.Dungeons.PickUp(INSIDE)
+stub.advance(0.5)
+local GF = Polestar.UI.GuideFrame
+local before = line()
+local head = GF.RegionFrame("skipped").Head
+head:GetScript("OnClick")(head, "LeftButton")
+GF.Update() GF.Render() GF.Layout()
+emit({ before = before, after = line(), shown = GF.RegionShown("skipped") })
+`);
+	assert.equal(out.before.shown, true);
+	assert.equal(out.before.text, "1 of this dungeon's quests is left out because you skipped it");
+	assert.deepEqual(out.after.rows.map((r) => r[0]), ['“A Frightened Request”'], 'a quest skipped itself names no chain start');
+	assert.equal(out.after.rows[0][1], false);
 });

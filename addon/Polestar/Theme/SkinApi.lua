@@ -75,11 +75,11 @@ I.PAINT_KINDS, I.HOOKS, I.LAYOUT_HOOKS, I.LAYOUTS = PAINT_KINDS, HOOKS, LAYOUT_H
 -- Placing "quests" takes the tracker's head away too (its cards say it).
 HOOKS.trackerPlace, LAYOUT_HOOKS.trackerPlace = true, true
 -- The guide kinds' regions (UI/GuideFrameRegions.lua, docs/skins/reference.md): a kind's row once painted
--- (guideKindRow(row, item, info): info.kind "supply" | "ready" | "more" | "boss" | "objective", done,
+-- (guideKindRow(row, item, info): info.kind "supply" | "ready" | "skipped" | "more" | "boss" | "objective", done,
 -- current, way) and its skill or standing meter (guideMeter(meter, info): info.kind "skill" | "rep", frac, seg,
 -- bar). A skin or a layout may set them; their parts are in Theme.GuideParts() (capability "guideParts.kind").
 -- guidePlace is also asked for each region by its id ("meter", "stretch", "get", "shopping", "turnin", "more",
--- "brief", "ready", "entrance", ...), guideSpace for "bossRow".
+-- "brief", "ready", "skipped", ...), guideSpace for "bossRow".
 HOOKS.guideKindRow, HOOKS.guideMeter = true, true
 LAYOUT_HOOKS.guideKindRow, LAYOUT_HOOKS.guideMeter = true, true
 

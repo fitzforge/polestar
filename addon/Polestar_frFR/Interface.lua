@@ -579,6 +579,9 @@
 -- keep or fix its line below, and take its key off this list.
 --   Level %d: come back at %d
 --   Needs %s
+--   1 of this dungeon's quests is left out because you skipped it
+--   %d of this dungeon's quests are left out because you skipped them
+--   Review
 --   instances this hour: %d of %d
 --   %d / %d bosses
 --   All %d quests ready to turn in: hand them in after the run
@@ -5911,6 +5914,9 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 -- UI/GuideFrameKindDungeon.lua
 L["Level %d: come back at %d"] = "Niveau %d : revenez au niveau %d"
 L["Needs %s"] = "Nécessite %s"
+L["1 of this dungeon's quests is left out because you skipped it"] = "1 quête de ce donjon est écartée car vous l'avez passée"
+L["%d of this dungeon's quests are left out because you skipped them"] = "%d quêtes de ce donjon sont écartées car vous les avez passées"
+L["Review"] = "Voir"
 L["instances this hour: %d of %d"] = "instances cette heure : %d sur %d"
 
 -- UI/DungeonTracker.lua
