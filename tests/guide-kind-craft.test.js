@@ -542,3 +542,24 @@ emit({ de = de and { flow = de.flow, gather = de.gather, from = de.from or false
 	assert.equal(out.none, false, 'a craft step\'s own numbers in a tip are not a flow line');
 	assert.deepEqual(out.first, { flow: 'Your bags hold it already, then craft 24 Nimble Leather Gloves (Leatherworking 102 to 125)', gather: false, rest: 'The arrow takes you.' });
 });
+
+const PAIR_NAMES = `
+GF.Render(); GF.Layout(); stub.advance(1)
+local m = GF.RegionFrame("meter")
+local rows = {}
+for i, r in ipairs(m.PairRows) do
+	rows[i] = { name = r.Name:GetText(), whole = r.Name:GetWidth() >= r.Name:GetUnboundedStringWidth(), bar = r.Bar:IsShown(), w = r.Name:GetWidth() }
+end
+emit({ rows = rows })`;
+const RANKS = (a, b) => `C.GetSkillRank = function(line) if line == 393 or line == "Skinning" then return ${a} end if line == 165 or line == "Leatherworking" then return ${b} end return nil end`;
+
+test('a paired guide 355 wide: a skill not learned yet spans the row ("Learn Leatherworking" whole); learned ones keep the shared bar columns', () => {
+	const none = runPair(`Polestar.Set("ui.width", 355); ${RANKS('nil', 'nil')}`, PAIR_NAMES);
+	assert.deepEqual(none.rows.map((r) => [r.name, r.whole, r.bar]), [['Learn Skinning', true, false], ['Learn Leatherworking', true, false]]);
+	const one = runPair(`Polestar.Set("ui.width", 355); ${RANKS('55, 75', 'nil')}`, PAIR_NAMES);
+	assert.deepEqual(one.rows.map((r) => [r.name, r.whole, r.bar]), [['Skinning', true, true], ['Learn Leatherworking', true, false]]);
+	assert.ok(one.rows[1].w > one.rows[0].w, 'the unlearned row is not held to the bar column');
+	const both = runPair('Polestar.Set("ui.width", 355)', PAIR_NAMES);
+	assert.deepEqual(both.rows.map((r) => [r.name, r.bar]), [['Skinning', true], ['Leatherworking', true]]);
+	assert.equal(both.rows[0].w, both.rows[1].w, 'the bars line up: one name column');
+});

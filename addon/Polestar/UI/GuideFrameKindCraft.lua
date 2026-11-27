@@ -286,12 +286,15 @@ ns.UI.GuideFrame.Part(function(GF)
 			f.PairLine:SetWidth(max(40, width - textX - PAD))
 			return h
 		end
-		-- The two rows share their columns: names, then the bars, then the ranks, so the bars line up.
+		-- The rows that draw a bar share their columns: names, then the bars, then the ranks, so the bars line up. A
+		-- skill not learned yet ("Learn Leatherworking") draws no bar or rank: its name takes the row's whole width.
 		local nameW, maxW, valW = 0, 0, 0
-		for _, r in ipairs(f.PairRows) do
-			nameW = max(nameW, r.Name:GetStringWidth())
-			maxW = max(maxW, r.Max:GetStringWidth())
-			valW = max(valW, r.Value:GetStringWidth())
+		for i, r in ipairs(f.PairRows) do
+			if m.pair[i].learned ~= false then
+				nameW = max(nameW, r.Name:GetUnboundedStringWidth())
+				maxW = max(maxW, r.Max:GetStringWidth())
+				valW = max(valW, r.Value:GetStringWidth())
+			end
 		end
 		nameW = min(nameW, max(40, (width - textX - PAD) * 0.4))
 		local rowH, y = 24, 4
@@ -305,7 +308,8 @@ ns.UI.GuideFrame.Part(function(GF)
 			r.Glyph:SetPoint("LEFT", r, "LEFT", PAD, 0)
 			r.Name:ClearAllPoints()
 			r.Name:SetPoint("LEFT", r, "LEFT", textX, 0)
-			r.Name:SetWidth(nameW)
+			local barred = sub.learned ~= false
+			r.Name:SetWidth(barred and nameW or max(40, width - textX - PAD))
 			r.Max:ClearAllPoints()
 			r.Max:SetPoint("RIGHT", r, "RIGHT", -PAD, -1)
 			r.Value:ClearAllPoints()
@@ -314,7 +318,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			local bw = width - PAD - maxW - valW - 3 - 10 - bx
 			r.Bar:ClearAllPoints()
 			r.Bar:SetPoint("LEFT", r, "LEFT", bx, 0)
-			r.Bar:SetShown(bw > 20 and sub.learned ~= false)
+			r.Bar:SetShown(bw > 20 and barred)
 			placeBar(r.Bar, bw, sub.frac, sub.seg, sub.ticks, sub.max, false)
 			y = y + rowH
 		end
