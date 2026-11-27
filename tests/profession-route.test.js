@@ -60,7 +60,7 @@ test('tips are one short line, never an instruction', () => {
 
 test('every step says what, where, how many and when it is done, on its own', () => {
 	// Goals that lead somewhere (the arrow): a smart target, a place, a loop or farm, a trainer list.
-	const placed = (g) => /^(train|buy|auction|turnin|accept|vendor)$/.test(g.verb) || (g.verb === 'learn') || (g.verb === 'goto') || (g.verb === 'collect' && /\b(gather|nearest|@)/.test(g.rest)) || (g.verb === 'skill');
+	const placed = (g) => /^(train|buy|auction|turnin|accept|complete|vendor)$/.test(g.verb) || (g.verb === 'learn') || (g.verb === 'goto') || (g.verb === 'collect' && /\b(gather|nearest|@)/.test(g.rest)) || (g.verb === 'skill');
 	// Goals that may sit anywhere: a craft (its station step comes before when it needs one), a level, a task.
 	const anywhere = (g) => /^(craft|level|task|skill)$/.test(g.verb);
 	// A craft until a skill says its count in the title ("Craft 30 Rough Sharpening Stones until 25").
@@ -108,13 +108,75 @@ test('the route rules: recipe learnable, materials got, tools and stations befor
 						const part = prof.recipes.some((x) => x.item === rg.item);
 						assert.ok(got.has(rg.item) || part, `${at}: ${r.name} needs item ${rg.item}, which no step before it gets`);
 					}
-					for (const t of r.tools || []) assert.ok(tools.has(t), `${at}: ${r.name} needs tool ${t}, bought by no step before it`);
+					for (const t of r.tools || []) assert.ok(tools.has(t), `${at}: ${r.name} needs tool ${t}, bought or crafted by no step before it`);
 					if (r.focus) assert.equal(station, r.focus, `${at}: ${r.name} needs ${r.focus}; the step before it goes to ${station || 'none'}`);
+					tools.add(r.item); // a tool the profession crafts itself (Arclight Spanner, runed rods)
 				}
 			}
 			if (s.goals.some((g) => g.verb !== 'craft' && g.verb !== 'goto')) station = s.goals.some((g) => g.verb === 'goto') ? station : null;
 		}
 	}
+});
+
+test('a trainer visit learns every recipe of the rank the skill already allows: no second trip', { skip }, () => {
+	const d = loadData();
+	for (const name of ROUTED.filter(exists)) {
+		const prof = Object.values(d.professions).find((p) => name.endsWith(p.name.toLowerCase()) && p.recipes && p.kind !== 'secondary');
+		const recipes = new Map(prof.recipes.map((r) => [r.spell, r]));
+		let skill = 1;
+		const visits = []; // trainer visits outside fork ways: { npcs, skill }
+		for (const s of stepsOf(read(name))) {
+			for (const g of s.goals) {
+				const until = /\buntil (\d+)/.exec(g.rest);
+				if (g.verb === 'craft' && until && recipes.has(Number(g.rest.split(' ')[0]))) skill = Math.max(skill, Number(until[1]));
+				const m = /^(\d+) npc ([\d,]+)/.exec(g.rest);
+				if (g.verb !== 'learn' || !m || s.when.length) continue;
+				const r = recipes.get(Number(m[1]));
+				if (!r) continue;
+				const early = visits.find((v) => v.npcs === m[2] && v.skill >= Number(r.learnedAt) && v.skill < skill);
+				assert.ok(!early, `${name}:${s.line} ${s.title}: learnable (from ${r.learnedAt}) on the visit at skill ${early && early.skill}; a second trip`);
+				visits.push({ npcs: m[2], skill });
+			}
+		}
+	}
+});
+
+test('fork ways tell plans apart, and the boots-only Radiant way reaches 300', { skip }, () => {
+	const steps = stepsOf(read('blacksmithing'));
+	const boots = steps.filter((s) => s.when.includes('knows 16656') && s.when.includes('!has 12713') && s.when.includes('!knows 16725'));
+	assert.ok(boots.some((s) => s.goals.some((g) => g.verb === 'craft' && /until 300/.test(g.rest))), 'a player with only Plans: Radiant Boots has a way to 300');
+	assert.equal(steps.filter((s) => /^Buy Plans: Radiant Boots/.test(s.title)).length, 1, 'plans two ways share are bought once');
+});
+
+test('the route format: vendor recipes, crafted tools, camp stations, ranks from a book or quest, a dungeon trainer', { skip }, () => {
+	const d = loadData();
+	const prof = d.professions[164];
+	const base = loadRoute('Blacksmithing');
+	const copy = () => JSON.parse(JSON.stringify(base));
+	// A recipe from an item: its vendors, a quest or fork plans, else the build stops.
+	const noVendor = copy();
+	noVendor.sections[3].route[1].quests = [];
+	assert.throws(() => checkRoute(noVendor, prof, d), /Imperial Plate Bracers: taught by item 12690; list its vendors in `recipes`/);
+	// A tool must be listed: bought on the first visit or crafted.
+	const noTool = copy();
+	noTool.tools = [];
+	assert.throws(() => checkRoute(noTool, prof, d), /needs tool 5956, which `tools` does not list/);
+	const badTool = copy();
+	badTool.tools.push({ item: 6219, at: 'craft' });
+	assert.throws(() => checkRoute(badTool, prof, d), /tool 6219: no Blacksmithing recipe makes it/);
+	// A camp-only station is never a route's.
+	const tailor = d.professions[197];
+	const loom = { profession: 'Tailoring', tools: [], materials: { 14048: ['auction'], 14343: ['auction'], 7080: ['auction'], 14341: ['vendor'] }, sections: [{ rank: 'Artisan', from: 285, to: 300, level: 35, teachers: { Alliance: [], Horde: [] }, route: [{ from: 285, to: 290, recipe: 1297123, count: 1, mats: { 14048: 4, 14343: 1, 7080: 3, 14341: 6 } }] }], recipes: {} };
+	assert.throws(() => checkRoute(loom, tailor, d), /needs a Loom, which only a camp has/);
+	// A rank from a book or a quest, and a rank only a dungeon trainer teaches.
+	const fa = d.professions[129];
+	const book = { profession: 'First Aid', tools: [], materials: {}, sections: [{ rank: 'Expert', from: 150, to: 225, level: 1, by: { book: 16084, vendors: { Alliance: [2805], Horde: [13476] } }, teachers: { Alliance: [], Horde: [] }, route: [] }] };
+	checkRoute(book, fa, d);
+	book.sections[0].by.book = 16083;
+	assert.throws(() => checkRoute(book, fa, d), /the data has no book 16083 for this rank/);
+	const ench = d.professions[333];
+	const inside = { profession: 'Enchanting', tools: [], materials: {}, sections: [{ rank: 'Expert', from: 150, to: 225, level: 20, dungeon: true, teachers: { Alliance: [], Horde: [] }, route: [] }] };
+	assert.throws(() => checkRoute(inside, ench, d), /`dungeon`, but no trainer of the rank stands inside a dungeon/);
 });
 
 test('a route whose counts the data does not bear out fails the build, naming the band', { skip }, () => {

@@ -666,8 +666,9 @@ function renderPair(ctx, pair) {
 			// The gathering skill to 300 before the last stretch's craft (and before its station step).
 			if ((b.kind === 'station' && last(next)) || (last(b) && !(prev && prev.kind === 'station'))) raiseTo(300, (a, c) => `${G} ${c} before the last stretch: the guide ends with ${P}.`);
 			out.push('', ...b.lines);
-			if (b.kind === 'tool' && !learnedG) {
-				// The gathering profession on the first trip: learned, and its tool bought.
+			if (!learnedG && (b.kind === 'tool' || (b.kind === 'train' && !(next && next.kind === 'tool')))) {
+				// The gathering profession on the first trip: learned, and its tool bought (after the crafting
+				// profession's tool, or straight after learning it when it has none: Alchemy, Tailoring).
 				learnedG = true;
 				if (track[0] && track[0].kind === 'learn') st.ptr = Math.max(st.ptr, 1);
 				push([`step Learn ${G}`, '  tip No character level needed.', `  train ${G} Apprentice`]);

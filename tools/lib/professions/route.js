@@ -14,13 +14,18 @@
 //                                 guides' loops, `collect … nearest` farm spots, `auction`; sized to the
 //                                 crafts up to the next trainer visit (gets of one material merge across
 //                                 bands that only a recipe visit separates)
-//   Train <Rank> <Profession>     train <Profession> <Rank>
-//   Learn <recipe>                learn <spell> npc <the section's trainers>, or from plans in the bags
+//   Train <Rank> <Profession>     train <Profession> <Rank>; a rank from a book: Buy <book> · <vendor>, Read
+//                                 <book>; from a quest: Accept / Hand in <quest>; inside a dungeon: Go to
+//                                 <dungeon>, Train … · <trainer> (or the trainer outside, where one is)
+//   Learn <recipe>                learn <spell> npc <the section's trainers>, with every recipe a later band
+//                                 of the rank uses that the skill already allows; or from plans in the bags
+//   Buy <Pattern: X> · <vendor>   buy <recipe item> x1 npc <vendor>: a recipe vendors sell, before its band
 //   Go to an anvil                goto … nearest over the stations of the recipe's spell focus in towns with
 //                                 the profession's trainers or tool sellers (stations.json), before a craft
 //                                 that needs one, unless the step before was a craft at one
 //   Craft <recipe> until N        craft <spell> x<count> until N
-//   Craft N <part>                craft <spell> xN: parts made for a later band, no skill
+//   Craft N <part>                craft <spell> xN: parts made for a later band, no skill; a tool the
+//                                 profession makes itself (`tools` at "craft")
 //   Buy <plans> at the Auction House / Hand in <quest>   the way into a fork or a quest's plans
 // Tips are at most one short line of why or a heads-up (TIP_MAX), never an instruction: every action is a
 // step or a goal.
@@ -42,6 +47,9 @@ const TOWN_YARDS = 120;
 const STATION_SPREAD = 250;
 // Forever's Basic Campfire Kit: placed from the bags, it lights a cooking fire.
 const CAMPFIRE_KIT = 279981;
+// Stations only a camp has (a player's or a friend's, from a blueprint), never a town: a recipe that needs one
+// cannot be pinned for a first-timer, so a route never crafts it.
+const CAMP_STATIONS = ['Spinning Wheel', 'Loom', 'Tanning Rack', 'Sewing Machine'];
 
 const slug = (name) => String(name).toLowerCase().replace(/[^a-z0-9]+/g, '-');
 
@@ -73,32 +81,80 @@ function checkRoute(route, prof, data) {
 	const quests = data.quests || {};
 	const sideOk = (npc, side) => !npc.faction || npc.faction === 'AH' || npc.faction === side[0];
 	const sells = (vendor, item) => ((items[item] || {}).vendors || []).includes(vendor);
-	for (const t of route.tools || []) {
+	// Vendors by side (`{ Alliance: [ids], Horde: [ids] }`) of `item`: each sells it and serves its side.
+	const vendorsOk = (by, item, what) => {
 		for (const side of SIDES) {
-			for (const v of (t.vendors || {})[side] || []) {
-				if (!npcs[v]) errs.push(`tool ${t.item}: vendor ${v} is not in npcs.json`);
-				else if (!sells(v, t.item)) errs.push(`tool ${t.item}: ${npcs[v].name} does not sell it`);
-				else if (!sideOk(npcs[v], side)) errs.push(`tool ${t.item}: ${npcs[v].name} does not serve the ${side}`);
+			for (const v of (by || {})[side] || []) {
+				if (!npcs[v]) errs.push(`${what}: vendor ${v} is not in npcs.json`);
+				else if (!sells(v, item)) errs.push(`${what}: ${npcs[v].name} does not sell it`);
+				else if (!sideOk(npcs[v], side)) errs.push(`${what}: ${npcs[v].name} does not serve the ${side}`);
 			}
 		}
+	};
+	for (const t of route.tools || []) {
+		if (t.at === 'craft') {
+			if (!madeHere(prof, t.item)) errs.push(`tool ${t.item}: no ${prof.name} recipe makes it`);
+		} else if (t.at === 'learn') vendorsOk(t.vendors, t.item, `tool ${t.item}`);
+		else errs.push(`tool ${t.item}: \`at\` is "learn" (bought) or "craft" (made by a band), not "${t.at}"`);
 	}
-	const known = new Set([...(prof.trainers ? SIDES.flatMap((s) => prof.trainers[s] || []) : []), ...(prof.ranks || []).flatMap((r) => SIDES.flatMap((s) => (r.trainers || {})[s] || []))]);
+	for (const [item, by] of Object.entries(route.recipes || {})) {
+		const what = `recipe item ${item}`;
+		if (![...recipes.values()].some((r) => Number(r.recipeItem) === Number(item))) errs.push(`${what} teaches no ${prof.name} recipe`);
+		for (const side of SIDES) if (!((by || {})[side] || []).length) errs.push(`${what}: no ${side} vendor`);
+		vendorsOk(by, Number(item), what);
+		// Several sellers go to the nearest of every one the data knows: the step names them all.
+		for (const side of SIDES) {
+			const ids = (by || {})[side] || [];
+			if (ids.length < 2) continue;
+			for (const v of (items[item] || {}).vendors || []) if (npcs[v] && sideOk(npcs[v], side) && !ids.includes(v)) errs.push(`${what}: ${npcs[v].name} sells it to the ${side} too; list every seller (the step goes to the nearest)`);
+		}
+	}
+	// Who teaches the profession: its trainers, and the NPCs of a rank from a quest (the Triage doctors teach
+	// Artisan First Aid's bandages) or the sellers of a rank's book.
+	const rankNpcs = (r) => SIDES.flatMap((s) => [...((r.trainers || {})[s] || []), ...(((r.quest || {}).npcs || {})[s] || []), ...(((r.book || {}).vendors || {})[s] || [])]);
+	const known = new Set([...(prof.trainers ? SIDES.flatMap((s) => prof.trainers[s] || []) : []), ...(prof.ranks || []).flatMap(rankNpcs)]);
 	for (const sec of route.sections) {
 		if (!RANKS.includes(sec.rank)) errs.push(`section ${sec.from}-${sec.to}: unknown rank ${sec.rank}`);
 		const rank = (prof.ranks || []).find((r) => r.name === sec.rank);
-		if (rank && rank.minLevel && sec.level !== rank.minLevel) errs.push(`${sec.rank}: level ${sec.level}, the data says ${rank.minLevel}`);
+		// The level a rank asks: a quest's own minimum level; a book's is the route's (the data's is Classic's
+		// generic one); a trainer's the data's.
+		if (sec.by && sec.by.quest) {
+			for (const side of SIDES) {
+				const q = quests[sec.by.quest[side]];
+				if (q && q.minLevel && sec.level !== q.minLevel) errs.push(`${sec.rank}: level ${sec.level}, the ${side} quest asks ${q.minLevel}`);
+			}
+		} else if (!(sec.by && sec.by.book) && rank && rank.minLevel && sec.level !== rank.minLevel) errs.push(`${sec.rank}: level ${sec.level}, the data says ${rank.minLevel}`);
 		for (const side of SIDES) {
-			for (const id of sec.teachers[side] || []) {
+			for (const id of [...(sec.teachers[side] || []), ...((sec.outside || {})[side] || [])]) {
 				const n = npcs[id];
 				if (!n) errs.push(`${sec.rank}: trainer ${id} is not in npcs.json`);
 				else if (!known.has(id)) errs.push(`${sec.rank}: ${n.name} trains no ${prof.name} in the data`);
 				else if (!sideOk(n, side)) errs.push(`${sec.rank}: ${n.name} does not serve the ${side}`);
 			}
 		}
+		if (sec.by && sec.by.book) {
+			if (!rank || !rank.book || Number(rank.book.item) !== sec.by.book) errs.push(`${sec.rank}: the data has no book ${sec.by.book} for this rank`);
+			for (const side of SIDES) if (!((sec.by.vendors || {})[side] || []).length) errs.push(`${sec.rank}: no ${side} seller of the book`);
+			vendorsOk(sec.by.vendors, sec.by.book, `${sec.rank} book`);
+		}
+		if (sec.by && sec.by.quest) {
+			if (!rank || !rank.quest) errs.push(`${sec.rank}: the data has no quest for this rank`);
+			for (const side of SIDES) {
+				const q = sec.by.quest[side];
+				if (!quests[q]) errs.push(`${sec.rank}: ${side} quest ${q} is not in quests.json`);
+			}
+		}
+		if (sec.dungeon) {
+			const inside = SIDES.flatMap((s) => (rank && rank.trainers && rank.trainers[s]) || []).filter((id) => insideOnly(npcs[id]));
+			if (!inside.length) errs.push(`${sec.rank}: \`dungeon\`, but no trainer of the rank stands inside a dungeon in the data`);
+		}
 	}
 	for (const [item, side] of Object.entries(route.vendors || {}).flatMap(([i, by]) => SIDES.map((s) => [[i, by[s] || []], s]))) {
 		for (const v of item[1]) if (!sells(v, Number(item[0]))) errs.push(`item ${item[0]}: ${(npcs[v] || {}).name || v} does not sell it (${side})`);
 	}
+	const plans = new Set(bandsOf(route).filter((x) => x.fork).flatMap((x) => x.fork.ways.flatMap((w) => w.plans || [])));
+	const tools = new Set((route.tools || []).map((t) => t.item));
+	const byQuest = new Set(bandsOf(route).filter((x) => (x.band.quests || []).length).map((x) => x.band.recipe || x.band.make));
 	for (const { band } of bandsOf(route).filter((x) => !x.band.disenchant)) {
 		const spell = band.recipe || band.make;
 		const r = recipes.get(spell);
@@ -115,6 +171,10 @@ function checkRoute(route, prof, data) {
 		}
 		if (band.recipe && Number(r.learnedAt) > band.from) errs.push(`${at} ${r.name}: learned at ${r.learnedAt}, after the band starts`);
 		if (band.recipe && Number(r.grey) > 0 && Number(r.grey) <= band.from && !(route.colours || {})[spell]) errs.push(`${at} ${r.name}: grey at ${r.grey} in the data; give its colour in \`colours\` with the evidence`);
+		if (r.focus && CAMP_STATIONS.includes(r.focus)) errs.push(`${at} ${r.name}: needs a ${r.focus}, which only a camp has (no town has one), so no step can lead a player to it`);
+		for (const t of r.tools || []) if (!tools.has(t)) errs.push(`${at} ${r.name}: needs tool ${t}, which \`tools\` does not list`);
+		const item = Number(r.recipeItem) || 0;
+		if (item && !(route.recipes || {})[item] && !plans.has(item) && !byQuest.has(spell) && !(route.taught || []).includes(spell)) errs.push(`${at} ${r.name}: taught by item ${item}; list its vendors in \`recipes\`, its quest in the band, the plans in a fork, or the spell in \`taught\``);
 		for (const q of band.quests || []) if (!quests[q]) errs.push(`${at}: quest ${q} is not in quests.json`);
 		for (const k of Object.keys(got)) {
 			const ways = (route.materials || {})[k];
@@ -124,6 +184,11 @@ function checkRoute(route, prof, data) {
 		}
 	}
 	if (errs.length) throw new Error(`${prof.name} route (tools/lib/professions/routes/${slug(prof.name)}.json):\n  ${errs.join('\n  ')}`);
+}
+
+// An NPC who stands only inside a dungeon (no spawn on an outdoor map: Annora in Uldaman).
+function insideOnly(npc) {
+	return !!npc && (npc.instances || []).length > 0 && !Object.keys(npc.spawns || {}).length;
 }
 
 // The recipe of this profession that makes `item` (a grinding stone), or undefined. A material the route gets
@@ -199,6 +264,8 @@ function routeGuide(name, data, opts = {}) {
 	const recipeName = (spell) => recipes.get(spell).name;
 	const quests = data.quests || {};
 	const mines = (profs[186] || {}).recipes || [];
+	// A recipe the data marks as from an item that trainers teach (`taught`).
+	const taught = (r) => (route.taught || []).includes(r.spell);
 	const tipOf = (text) => {
 		if (!text) return null;
 		if (text.length > TIP_MAX) throw new Error(`${P}: a tip over ${TIP_MAX} characters: "${text}"`);
@@ -293,25 +360,28 @@ function routeGuide(name, data, opts = {}) {
 	let forks = 0;
 	let curWay = null; // the fork way a step is on ("<fork>:<way>"), for pairs.js
 	let lastFocus = null;
-	const step = (kind, title, { tip, lines = [], extra = {}, also = [] } = {}) => {
+	const step = (kind, title, { tip, lines = [], extra = {}, also = [], only = null } = {}) => {
 		const t = tipOf(tip);
-		const text = [`step ${title}`, ...[...when, ...also].map((w) => `  when ${w}`), ...(t ? [`  tip ${t}`] : []), ...lines];
+		const text = [`step ${title}`, ...[...when, ...also].map((w) => `  when ${w}`), ...(only ? [`  only ${only}`] : []), ...(t ? [`  tip ${t}`] : []), ...lines];
 		out.push('', ...text);
 		blocks.push({ kind, title, lines: text, when: [...when, ...also], way: curWay, ...extra });
 		lastKind = kind;
 		if (kind !== 'craft' && kind !== 'station') lastFocus = null;
 	};
 	// A band's steps after its gets: the recipe (a quest's plans after the hand-in), the quests, the craft. A
-	// fork way keyed on plans in the bags holds on the recipe known once it is learned (`afterLearn`).
-	let afterLearn = null;
+	// fork way keyed on plans in the bags holds on each recipe known once it is learned (`afterLearn`: spell ->
+	// the `when` line it replaces and its replacement).
+	const afterLearn = new Map();
 	const bandSteps = (b, sec) => {
-		const fromQuest = b.recipe && recipes.get(b.recipe).recipeItem && (b.quests || []).length;
-		if (b.recipe && !fromQuest) learnStep(b, sec);
+		const spell = b.recipe || b.make;
+		const fromQuest = recipes.get(spell).recipeItem && (b.quests || []).length;
+		if (!fromQuest) learnStep(b, sec);
 		questSteps(b, sec);
 		if (fromQuest) learnStep(b, sec);
-		if (afterLearn && afterLearn.spell === b.recipe) {
-			when = afterLearn.when;
-			afterLearn = null;
+		if (afterLearn.has(spell)) {
+			const [from, to] = afterLearn.get(spell);
+			when = when.map((w) => (w === from ? to : w));
+			afterLearn.delete(spell);
 		}
 		craftStep(b, sec);
 	};
@@ -320,21 +390,60 @@ function routeGuide(name, data, opts = {}) {
 	const maybe = new Set(); // ... on some ways
 	const stock = new Map(); // parts made earlier (grinding stones)
 	const tools = new Set();
+	const bought = new Set(); // recipe items bought
 	let level = 1;
-
+	let skill = 1; // the skill the route has reached
+	// Each section's bands outside forks, in order (learns are batched over them).
+	const secBands = new Map(route.sections.map((s) => [s, bandsOf({ sections: [s] }).filter((x) => x.way === null && !x.band.disenchant).map((x) => x.band)]));
+	const npcName = (id) => ((data.npcs || {})[id] || {}).name || `NPC ${id}`;
+	const orList = (xs) => (xs.length <= 1 ? xs.join('') : `${xs.slice(0, -1).join(', ')} or ${xs[xs.length - 1]}`);
+	// "plans", "pattern", "recipe", "formula", "schematic", "manual": what a recipe item is called.
+	const itemKind = (id) => {
+		const m = /^(Plans|Pattern|Recipe|Formula|Schematic|Manual)\b/.exec(itemName(id));
+		return m ? m[1].toLowerCase() : 'recipe';
+	};
+	// Something sold by vendors of each side, bought at one of them: one step when both sides share the vendors,
+	// else one per side. A single vendor is pinned; several go to the nearest seller.
+	const sellerSteps = (kind, item, by, opts = {}) => {
+		const key = (s) => [...(by[s] || [])].sort((a, b) => a - b).join();
+		const one = (ids, only) => step(kind, `Buy ${itemName(item)} · ${orList(ids.map(npcName))}`, { ...opts, only, lines: [`  buy ${item} x1 ${ids.length === 1 ? `npc ${ids[0]}` : 'nearest'}`] });
+		if (key('Alliance') === key('Horde')) one(by.Alliance);
+		else for (const s of SIDES) one(by[s], s);
+	};
+	// A recipe taught by an item a vendor sells: bought on the trip before its first craft.
+	const recipeBuy = (r) => {
+		const by = (route.recipes || {})[r.recipeItem];
+		if (!by || bought.has(r.recipeItem)) return;
+		bought.add(r.recipeItem);
+		sellerSteps('recipe', r.recipeItem, by, { tip: by.note || null, also: [`!knows ${r.spell}`] });
+	};
 	const learnStep = (band, sec) => {
-		const r = recipes.get(band.recipe);
+		const r = recipes.get(band.recipe || band.make);
 		if (learned.has(r.spell)) return;
 		learned.add(r.spell);
-		if (r.recipeItem && !(route.taught || []).includes(r.spell)) {
-			step('learn', `Learn ${r.name}`, { tip: 'From the plans in your bags.', lines: [`  learn ${r.spell}`] });
+		if (r.recipeItem && !taught(r)) {
+			recipeBuy(r);
+			step('learn', `Learn ${r.name}`, { tip: `From the ${itemKind(r.recipeItem)} in your bags.`, lines: [`  learn ${r.spell}`] });
 			return;
 		}
 		const ids = [...new Set(SIDES.flatMap((s) => sec.teachers[s] || []))];
 		step('learn', `Learn ${r.name}`, { lines: [`  learn ${r.spell} npc ${ids.join(',')}`] });
+		// On the same visit, every recipe a later band of this rank uses that the skill already allows.
+		const list = secBands.get(sec);
+		const i = list.indexOf(band);
+		if (curWay || i < 0) return;
+		const now = band.make ? skill : band.from;
+		for (const b of list.slice(i + 1)) {
+			const x = recipes.get(b.recipe || b.make);
+			if (!x || learned.has(x.spell) || (x.recipeItem && !taught(x)) || Number(x.learnedAt) > now) continue;
+			learned.add(x.spell);
+			const use = b.make ? `For the ${D.crafts(b.count, x.name)} later` : `For ${b.from}-${b.to}`;
+			step('learn', `Learn ${x.name}`, { tip: `${use}: taught here now, so no second trip.`, lines: [`  learn ${x.spell} npc ${ids.join(',')}`] });
+		}
 	};
 	const craftStep = (band, sec) => {
 		const r = recipes.get(band.recipe || band.make);
+		for (const t of r.tools || []) if (!tools.has(t)) throw new Error(`${P}: ${r.name} needs ${itemName(t)}, which no step before it buys or crafts`);
 		if (r.focus && !(lastKind === 'craft' && lastFocus === r.focus) && !(lastKind === 'station' && lastFocus === r.focus)) {
 			// A cooking fire: a town's, or one the player lights from a Basic Campfire Kit (Forever).
 			const camp = r.focus === 'Cooking Fire';
@@ -345,21 +454,26 @@ function routeGuide(name, data, opts = {}) {
 		for (const [k, n] of Object.entries(band.mats)) {
 			if (madeHere(prof, Number(k), route) === undefined) continue;
 			const have = stock.get(Number(k)) || 0;
-			if (have < n) throw new Error(`${P}: ${band.from || 'make'}-${band.to || ''} ${r.name} uses ${n} ${itemName(k)}, the bags hold ${have}`);
-			stock.set(Number(k), have - n);
+			// A part that is also got (Light Leather: crafted for points, then gathered or bought): the bags'
+			// crafts first, the get the rest.
+			if (have < n && !route.materials[k]) throw new Error(`${P}: ${band.from || 'make'}-${band.to || ''} ${r.name} uses ${n} ${itemName(k)}, the bags hold ${have}`);
+			stock.set(Number(k), Math.max(0, have - n));
 		}
 		// The craft's count for the window ("about N crafts"), then its keep or heads-up line when both fit.
+		const tool = (route.tools || []).some((t) => t.at === 'craft' && t.item === r.item) && !tools.has(r.item);
 		const about = band.make || band.count < 2 ? null : `About ${band.count} crafts.`;
-		const own = band.keep || band.note || (band.make ? `Parts for ${band.for}; no skill points from these.` : null);
+		const own = band.keep || band.note || (tool ? 'A tool: it stays in your bags, and later recipes need it.' : band.make ? `Parts for ${band.for}; no skill points from these.` : null);
 		const tip = about && own ? (`${about} ${own}`.length <= TIP_MAX ? `${about} ${own}` : own) : about || own;
 		if (band.make) {
 			step('make', `Craft ${D.crafts(band.count, r.name)}`, { tip, lines: [`  craft ${r.spell} x${band.count}`], extra: { band } });
 		} else {
 			step('craft', `Craft ${D.crafts(band.count, r.name)} until ${band.to}`, { tip, lines: [`  craft ${r.spell} until ${band.to}`], extra: { band } });
 			segments.push({ from: band.from, to: band.to, recipe: r, count: band.count, count90: band.count, need: Object.entries(band.mats).filter(([k]) => madeHere(prof, Number(k), route) === undefined).map(([k, n]) => ({ item: Number(k), count: n })), make: [], tools: [], when: when.slice() });
+			skill = Math.max(skill, band.to);
 		}
 		lastFocus = r.focus || null;
 		if (r.item) stock.set(r.item, (stock.get(r.item) || 0) + band.count * (r.itemCount || 1));
+		if (tool) tools.add(r.item);
 	};
 	const questSteps = (band, sec) => {
 		for (const q of band.quests || []) {
@@ -399,12 +513,18 @@ function routeGuide(name, data, opts = {}) {
 			for (const [k, n] of questItems(b)) add(k, n);
 		}
 		for (const [item, e] of need) {
+			// What earlier crafts left in the bags of a material that is also got (Light Leather) comes off.
+			const spare = madeHere(prof, item) !== undefined ? Math.min(stock.get(item) || 0, e.n) : 0;
+			const n = e.n - spare;
+			if (n <= 0) continue;
 			const withSmelt = route.smelt && route.smelt[item];
 			for (const [v, per] of Object.entries((withSmelt && withSmelt.with) || {})) {
-				step('buy', `Buy ${e.n * per} ${itemName(v)}`, { tip: `Smelting ${itemName(item)} takes ${per} ${itemName(v)} a bar.`, lines: [`  buy ${v} x${e.n * per} nearest`], also: [`skill Mining ${withSmelt.skill}`] });
+				step('buy', `Buy ${n * per} ${itemName(v)}`, { tip: `Smelting ${itemName(item)} takes ${per} ${itemName(v)} a bar.`, lines: [`  buy ${v} x${n * per} nearest`], also: [`skill Mining ${withSmelt.skill}`] });
 			}
 			const bar = !!(loopsFor(item) || {}).smelt;
-			step('get', `Get ${e.n} ${itemName(item)}`, { tip: forWhat(group, item, bar), lines: getLines(item, e.n), extra: { items: [{ item, count: e.n }], bands: group } });
+			const why = forWhat(group, item, bar);
+			const own = spare ? ` ${spare} more come from your own crafts.` : '';
+			step('get', `Get ${n} ${itemName(item)}`, { tip: (why + own).length <= TIP_MAX ? why + own : why, lines: getLines(item, n), extra: { items: [{ item, count: n }], bands: group } });
 		}
 	};
 	// A get's why line: the crafts it is for (each recipe once), and the plans a quest hands over for it.
@@ -475,6 +595,69 @@ function routeGuide(name, data, opts = {}) {
 				tools.add(t.item);
 				step('tool', `Buy ${article(itemName(t.item))} ${itemName(t.item)}`, { tip: 'A tool: it stays in your bags, and most recipes need it.', lines: [`  buy ${t.item} x1 nearest`] });
 			}
+		} else if (sec.by && sec.by.book) {
+			// A rank from a book: bought from its sellers, then read (the rank is learned from the bags).
+			const needs = sec.level > level ? `Needs level ${sec.level} to read.` : null;
+			sellerSteps('buy', sec.by.book, sec.by.vendors, { tip: needs });
+			step('train', `Read ${itemName(sec.by.book)}`, { tip: `It teaches ${sec.rank} ${P} from your bags.`, lines: [`  train ${pq} ${sec.rank}`] });
+		} else if (sec.by && sec.by.quest) {
+			// A rank from a quest: its items got first, the feeder the side's trainer hands out (the data
+			// hides the quest without it), then the quest taken, done and handed in; one set per side where the
+			// quests differ.
+			const ids = SIDES.map((s) => sec.by.quest[s]);
+			const npcSide = (id, side) => {
+				const n = (data.npcs || {})[id];
+				return !!n && (!n.faction || n.faction === 'AH' || n.faction === side[0]);
+			};
+			const feeder = (q, side) => (quests[q].pre || []).filter((p) => quests[p] && ((quests[p].start || {}).npc || []).some((id) => npcSide(id, side)));
+			const lvTip = (q) => {
+				const lv = Math.max(sec.level, quests[q].minLevel || 0);
+				return lv > level ? `Needs level ${lv}.` : null;
+			};
+			const items = new Map();
+			for (const q of new Set(ids)) for (const o of quests[q].objectives || []) if (o.type === 'item') items.set(o.id, Math.max(items.get(o.id) || 0, o.count));
+			for (const [item, n] of items) {
+				if (!route.materials[item]) throw new Error(`${P}: ${sec.rank}: the quest asks for ${itemName(item)}; give its ways in \`materials\``);
+				step('get', `Get ${n} ${itemName(item)}`, { tip: `For ${quests[ids[0]].title}, which teaches ${sec.rank} ${P}.`, lines: route.materials[item].length === 1 && route.materials[item][0] === 'vendor' ? [`  buy ${item} x${n} nearest`] : getLines(item, n), extra: { items: [{ item, count: n }], bands: [] } });
+			}
+			const questSteps2 = (q, only) => {
+				const quest = quests[q];
+				step('quest', `Accept ${quest.title}`, { only, tip: feeder(q, only || 'Alliance').length ? null : lvTip(q), lines: [`  accept ${q}`] });
+				if ((quest.objectives || []).some((o) => o.type !== 'item')) step('quest', `Complete ${quest.title}`, { only, tip: sec.by.tip || null, lines: [`  complete ${q}`] });
+				step('quest', `Hand in ${quest.title}`, { only, tip: `It teaches ${sec.rank} ${P}.`, lines: [`  turnin ${q}`] });
+			};
+			const same = ids[0] === ids[1];
+			for (const [i, side] of SIDES.entries()) {
+				const only = same && !feeder(ids[0], 'Alliance').length && !feeder(ids[0], 'Horde').length ? null : side;
+				for (const p of feeder(ids[i], side)) {
+					step('quest', `Accept ${quests[p].title}`, { only, tip: lvTip(p), lines: [`  accept ${p}`] });
+					step('quest', `Hand in ${quests[p].title}`, { only, lines: [`  turnin ${p}`] });
+				}
+				if (!same) questSteps2(ids[i], side);
+				if (!only) break;
+			}
+			if (same) questSteps2(ids[0], null);
+		} else if (sec.dungeon) {
+			// A rank only a trainer inside a dungeon teaches (Annora in Uldaman), or, where one exists, someone
+			// outside who trains it too.
+			const rank = (prof.ranks || []).find((r) => r.name === sec.rank) || {};
+			const inside = [...new Set(SIDES.flatMap((s) => (rank.trainers || {})[s] || []))].filter((id) => insideOnly((data.npcs || {})[id]));
+			const npc = (data.npcs || {})[inside[0]];
+			const inst = (data.instances || {})[(npc.instances || [])[0]] || {};
+			const where = typeof sec.dungeon === 'string' ? sec.dungeon : inst.name;
+			if (!where) throw new Error(`${P}: ${sec.rank}: name the dungeon ${npc.name} stands in (\`dungeon: "<name>"\`)`);
+			const needs = sec.level > level ? `Needs level ${sec.level}. ` : '';
+			if (sec.outside) {
+				for (const s of SIDES) {
+					const ids = sec.outside[s] || [];
+					step('train', `Train ${sec.rank} ${P} · ${orList(ids.map(npcName))}`, { only: s, tip: `${needs}${npc.name} teaches it too, inside ${where}.`, lines: [`  train ${ids[0]}`] });
+				}
+			} else {
+				const door = (inst.entrances || []).slice().sort((a, b) => b.n - a.n)[0];
+				if (!door) throw new Error(`${P}: ${sec.rank}: no entrance of ${where} in instances.json`);
+				step('goto', `Go to ${where}`, { tip: `${needs}${npc.name}, the only ${sec.rank} trainer, is inside this dungeon.`, lines: [`  goto ${door.x},${door.y} "${where}" map ${door.map}`] });
+				step('train', `Train ${sec.rank} ${P} · ${npc.name}`, { tip: `${where} is a dungeon: grouping up is advised.`, lines: [`  train ${pq} ${sec.rank}`] });
+			}
 		} else {
 			step('train', `Train ${sec.rank} ${P}`, { tip: sec.level > level ? `Needs level ${sec.level}.` : null, lines: [`  train ${pq} ${sec.rank}`] });
 		}
@@ -521,13 +704,19 @@ function routeGuide(name, data, opts = {}) {
 		section(from, groups(fork.ways[0].route)[0].filter((b) => !b.make).slice(-1)[0].to);
 		if (!trained.has(sec.rank)) trainStep(sec);
 		const keys = fork.ways.map((w) => (w.plans ? recipesOfPlans(w.plans) : null));
+		const late = (r) => Number(r.learnedAt) > from;
+		const planned = new Set();
 		fork.ways.forEach((w) => {
-			for (const p of w.plans || []) step('plans', `Buy ${itemName(p)} at the Auction House`, { tip: w.why, lines: [`  auction ${p} x1 either`, '  task "None listed, or too dear" either'] });
+			for (const p of w.plans || []) {
+				if (planned.has(p)) continue;
+				planned.add(p);
+				step('plans', `Buy ${itemName(p)} at the Auction House`, { tip: w.why, lines: [`  auction ${p} x1 either`, '  task "None listed, or too dear" either'] });
+			}
 		});
 		fork.ways.forEach((w, i) => {
 			for (const r of keys[i] || []) {
-				if (Number(r.learnedAt) > from) continue;
-				step('learn', `Learn ${r.name}`, { tip: 'From the plans in your bags.', lines: [`  learn ${r.spell}`], also: [`has ${r.recipeItem}`] });
+				if (late(r) || learned.has(r.spell)) continue;
+				step('learn', `Learn ${r.name}`, { tip: `From the ${itemKind(r.recipeItem)} in your bags.`, lines: [`  learn ${r.spell}`], also: [`has ${r.recipeItem}`] });
 				learned.add(r.spell);
 			}
 		});
@@ -544,22 +733,31 @@ function routeGuide(name, data, opts = {}) {
 			reset(maybe, before.maybe);
 			reset(stock, before.stock);
 			level = before.level;
-			const conds = [];
+			// A way holds when all its plans are known (or, learned later, in the bags) and no earlier way does.
+			// An earlier way not holding is one of its plans missing: of its plans this way lacks, an earlier way
+			// that lacks a subset says it already, and what is left must be one plan each (`when` has no "or").
+			const own = keys[i] || [];
+			let sets = [];
 			for (let j = 0; j < i; j++) {
-				const r = (keys[j] || [])[0];
-				if (!r) continue;
-				if (Number(r.learnedAt) <= from) conds.push(`!knows ${r.spell}`);
-				else conds.push(`!has ${r.recipeItem}`, `!knows ${r.spell}`);
+				if (!keys[j]) continue;
+				const s = keys[j].filter((r) => !own.includes(r));
+				if (!s.length) throw new Error(`${P}: fork "${fork.fork}": way ${w.name} is never reached (way ${fork.ways[j].name} takes every player it would)`);
+				if (!sets.some((t) => t.length === s.length && t.every((x) => s.includes(x)))) sets.push(s);
 			}
-			const own = (keys[i] || [])[0];
-			const lateKey = own && Number(own.learnedAt) > from ? own : null;
-			const ownWhen = own ? (lateKey ? `has ${own.recipeItem}` : `knows ${own.spell}`) : null;
-			when = [...conds, ...(ownWhen ? [ownWhen] : [])];
-			if (lateKey) afterLearn = { spell: lateKey.spell, when: [...conds, `knows ${own.spell}`] };
+			sets = sets.filter((s) => !sets.some((t) => t !== s && t.length < s.length && t.every((x) => s.includes(x))));
+			const conds = [];
+			for (const s of sets) {
+				if (s.length > 1) throw new Error(`${P}: fork "${fork.fork}": way ${w.name} differs from an earlier way by ${s.length} plans; add a way with fewer of them first`);
+				const r = s[0];
+				conds.push(...(late(r) ? [`!has ${r.recipeItem}`, `!knows ${r.spell}`] : [`!knows ${r.spell}`]));
+			}
+			when = [...conds, ...own.map((r) => (late(r) ? `has ${r.recipeItem}` : `knows ${r.spell}`))];
+			afterLearn.clear();
+			for (const r of own) if (late(r)) afterLearn.set(r.spell, [`has ${r.recipeItem}`, `knows ${r.spell}`]);
 			if (i > 0) lastSection = null;
 			curWay = `${forks}:${i}`;
 			runList(sec, w.route);
-			afterLearn = null;
+			afterLearn.clear();
 			doneSets.push(new Set(done));
 			if (i === 0) after = { learned: new Set(learned), stock: new Map(stock), level };
 		});

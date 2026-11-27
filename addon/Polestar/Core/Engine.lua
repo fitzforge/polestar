@@ -4327,7 +4327,7 @@ function Own.materialWhy(step, goals)
 			if goal.t == "auction" then
 				why = reason == "selfFound" and L["No Auction House for self-found characters"] or L["Gathering this yourself"]
 			elseif reason == "skill" and w and w.rank then
-				why = L["Bought at the Auction House: needs %s %d"]:format(skillName(w), w.rank)
+				why = L["Bought at the Auction House: needs %s skill %d"]:format(skillName(w), w.rank)
 			elseif reason == "low" and w and w.min then
 				why = L["Bought at the Auction House: it drops from level %d"]:format(w.min)
 			elseif reason == "past" then

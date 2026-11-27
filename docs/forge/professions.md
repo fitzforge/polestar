@@ -24,13 +24,17 @@ the build on any fact the data does not bear out:
 a recipe that is not the profession's, a band's materials that are not its count times the recipe's
 reagents, a recipe learned after its band starts, a band past the recipe's grey (unless `colours` gives
 the colour players' recordings show), a trainer or vendor who does not serve the side or does not
-train or sell the thing, a quest not in the data, a material with no way to get it.
+train or sell the thing, a quest not in the data, a material with no way to get it, a recipe item with no
+way to get it (vendors in `recipes`, a band's quest, or fork plans), a tool `tools` does not list, a
+recipe that needs a camp-only station (Spinning Wheel, Loom, Tanning Rack, Sewing Machine: no town has
+one, so no step could lead a player to it), a rank book or quest the data does not give that rank.
 
 | Field | What it holds |
 |---|---|
 | `profession`, `intro` | The profession's name; the header's paragraphs |
-| `tools` | `{ item, at: "learn", vendors: { Alliance, Horde } }`: a tool bought on the first trainer visit; the vendors are the ones by each trainer (checked; the step itself takes the nearest seller) |
-| `sections` | One per rank: `{ rank, from, to, level, cost?, teachers: { Alliance, Horde }, route }`. `teachers` are the trainers who teach that rank's recipes: the trainer a player starts with teaches only the first ones (Blacksmithing: up to 50), and a recipe may be taught by fewer trainers than its rank (Mithril Coif: Brikk Keencraft only) |
+| `tools` | `{ item, at: "learn", vendors: { Alliance, Horde } }`: a tool bought on the first trainer visit; the vendors are the ones by each trainer (checked; the step itself takes the nearest seller). `{ item, at: "craft" }`: a tool the profession makes itself (Arclight Spanner, the runed rods); a band or make crafts it before the first recipe that needs it, or the build stops |
+| `recipes` | recipe item -> `{ Alliance: [vendors], Horde: [vendors], note? }`: patterns, formulas, schematics, cookbook recipes and manuals vendors sell (checked: each sells it and serves the side; both sides need one) |
+| `sections` | One per rank: `{ rank, from, to, level, cost?, teachers: { Alliance, Horde }, route }`. `teachers` are the trainers who teach that rank's recipes: the trainer a player starts with teaches only the first ones (Blacksmithing: up to 50), and a recipe may be taught by fewer trainers than its rank (Mithril Coif: Brikk Keencraft only). A rank from a book: `by: { book, vendors: { Alliance, Horde } }` (`level` is the route's: the data's is Classic's); from a quest: `by: { quest: { Alliance, Horde } }` (`level` is the quest's). A rank only a trainer inside a dungeon teaches: `dungeon: true` (or the dungeon's name), with `outside: { Alliance, Horde }` when someone outside trains it too |
 | band | `{ from, to, recipe, count, mats, keep?, note?, quests?, alternative? }`: craft `count` of `recipe` from `from` to `to`; `mats` is item -> count (checked); `keep` and `note` are its one-line tip; `quests` hand over its plans (their items join the get); `alternative` is another recipe for the same points, kept for reference |
 | make | `{ make, count, mats, for }`: parts crafted for a later band (no skill points) |
 | fork | `{ fork, ways: [{ name, plans?, why?, route }] }`: from here the route goes one of several ways; a way with `plans` (world drops) is taken when the player buys them at the Auction House, the last way is the one that always works |
@@ -49,13 +53,27 @@ pin lead to, or any station with the nearest pinned), how many, and what finishe
 - **Buy N <vendor good>**: a section's vendor goods at one stop.
 - **Train <Rank> <Profession>** after the first gets of its section (one trip trains it and learns the
   first recipe); **Learn <recipe>** (`learn <spell> npc <the section's teachers>`, or from plans in the bags).
+  On that visit the player also learns every recipe a later band of the rank uses that the skill already
+  allows (outside forks), so no recipe takes a second trip that the first could have taught.
+- A rank from a book: **Buy <book> · <vendor>**, then **Read <book>** (`train <Profession> <Rank>`); from a
+  quest: **Get N <item>** for each item the quest asks, the feeder each side's trainer hands out (**Accept** and
+  **Hand in** it: the data shows the quest only after it), then **Accept**, **Complete** (an event or kill
+  objective; `by.tip` is its heads-up) and **Hand in** the quest; inside a dungeon: **Go to <dungeon>** (its
+  busiest entrance) and **Train <Rank> <Profession> · <trainer>** with a grouping heads-up, or, when someone
+  outside trains it, **Train <Rank> <Profession> · <outside trainer>** per side.
+- **Buy <Pattern: X> · <vendor>** (`buy <item> x1 npc <id>`, or `nearest` over several; one step per side
+  where the sides' vendors differ; `when !knows <spell>`) on the trip before the band that needs it, then
+  **Learn <recipe>** from the pattern in the bags.
 - **Go to an anvil** (`goto … nearest` over the stations of the recipe's spell focus, `stations.json`, in
   towns with a trainer or tool seller), before a craft that needs one unless the step before was a craft
   there; the engine finishes it on arrival at any of them. A cooking fire's step is also finished by placing a
   Basic Campfire Kit (`use 279981 either` beside the fires, each `either`).
 - **Disenchant your green items until N** (`skill … either` beside `task "No green items left to break" either`).
-- **Craft N <recipe> until <skill>**; **Craft N <part>** for parts.
-- **Buy <plans> at the Auction House** (`auction … either` beside a "none listed" task), **Hand in <quest>**.
+- **Craft N <recipe> until <skill>**; **Craft N <part>** for parts, and for a tool the profession makes.
+- **Buy <plans> at the Auction House** (`auction … either` beside a "none listed" task; plans two ways share
+  are bought once), **Hand in <quest>**. A fork way holds while all its plans are known (or, learned later,
+  in the bags) and no earlier way does; a way whose plans are a subset of an earlier way's (Radiant Boots
+  without the Radiant Leggings) comes after it.
 
 Tips are at most one short line (120 characters) of why or a heads-up ("Keep all 60: the bracers at 95 and
 115 use them"), never an instruction: an action is a step or a goal. Costs and totals go in the header.
