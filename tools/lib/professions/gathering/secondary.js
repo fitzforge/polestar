@@ -586,9 +586,21 @@ function clamletteSteps(ctx, eggNote = '') {
 	];
 }
 
+// Cooking and First Aid are built from their route files (routes/<profession>.json, ../route.js), on the data
+// the crafting drafts use.
+let routeData = null;
+function routed(name) {
+	return (ctx) => {
+		const { draftData } = require('../guide');
+		const { routeGuide } = require('../route');
+		if (!routeData || routeData.dir !== ctx.data.dir) routeData = { dir: ctx.data.dir, data: draftData(ctx.data.dir) };
+		return routeGuide(name, routeData.data, { command: 'profession gathering build' }).text;
+	};
+}
+
 module.exports = {
-	firstAid: { file: firstAid.file, skill: firstAid.skill, render: (ctx) => renderGuide(ctx, firstAid) },
-	cooking: { file: cooking.file, skill: cooking.skill, render: (ctx) => renderGuide(ctx, cooking) },
+	firstAid: { file: firstAid.file, skill: firstAid.skill, render: routed('First Aid') },
+	cooking: { file: cooking.file, skill: cooking.skill, render: routed('Cooking') },
 	expectedCrafts,
 	crafts90,
 	dropSpot,

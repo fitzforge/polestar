@@ -1,0 +1,83 @@
+{
+	"_about": "First Aid 1-300: the curated route the profession guide is generated from (tools/lib/professions/route.js; rules: docs/forge/professions.md, \"Route files\"). Every recipe, count, trainer, vendor, manual and quest is checked against data/forever when the guide is built.",
+	"profession": "First Aid",
+	"intro": [
+		"First Aid makes bandages from the cloth that drops while you level, and in Forever its trainers also teach healing potions. It takes no profession slot, so any character can level it beside two others. Bandages need no fire or station: craft them anywhere.",
+		"Ranks: Apprentice and Journeyman at any level from any First Aid trainer; Expert from the book Expert First Aid - Under Wraps (First Aid 125, no character level), sold by Deneb Walker in the Arathi Highlands and Balai Lok'Wein in Dustwallow Marsh; Artisan from the Triage quest (First Aid 225, level 35) at the doctor in Theramore or Hammerfall, who also teaches the last three bandages."
+	],
+	"sections": [
+		{
+			"rank": "Apprentice",
+			"from": 1,
+			"to": 75,
+			"level": 1,
+			"teachers": {
+				"Alliance": [2327, 5150, 4211, 2329, 2326, 6094, 3181, 257007, 257018],
+				"Horde": [3373, 4591, 2798, 5943, 5939, 5759, 257007, 257018]
+			},
+			"route": [
+				{ "from": 1, "to": 40, "recipe": 3275, "count": 50, "mats": { "2589": 50 } },
+				{ "from": 40, "to": 75, "recipe": 3276, "count": 47, "mats": { "2589": 94 } }
+			]
+		},
+		{
+			"rank": "Journeyman",
+			"from": 75,
+			"to": 150,
+			"level": 1,
+			"teachers": {
+				"Alliance": [2327, 5150, 4211, 2329, 2326, 6094, 3181, 257007, 257018],
+				"Horde": [3373, 4591, 2798, 5943, 5939, 5759, 257007, 257018]
+			},
+			"route": [
+				{ "from": 75, "to": 80, "recipe": 3276, "count": 13, "mats": { "2589": 26 } },
+				{ "from": 80, "to": 115, "recipe": 3277, "count": 52, "mats": { "2592": 52 } },
+				{ "from": 115, "to": 150, "recipe": 3278, "count": 51, "mats": { "2592": 102 } }
+			]
+		},
+		{
+			"rank": "Expert",
+			"from": 150,
+			"to": 225,
+			"level": 1,
+			"by": { "book": 16084, "vendors": { "Alliance": [2805], "Horde": [13476] } },
+			"teachers": {
+				"Alliance": [2327, 5150, 4211, 2329, 2326, 6094, 3181, 257007, 257018],
+				"Horde": [3373, 4591, 2798, 5943, 5939, 5759, 257007, 257018]
+			},
+			"route": [
+				{ "from": 150, "to": 180, "recipe": 7928, "count": 44, "mats": { "4306": 44 } },
+				{ "from": 180, "to": 210, "recipe": 7929, "count": 44, "mats": { "4306": 88 } },
+				{ "from": 210, "to": 225, "recipe": 10840, "count": 19, "mats": { "4338": 19 } }
+			]
+		},
+		{
+			"rank": "Artisan",
+			"from": 225,
+			"to": 300,
+			"level": 35,
+			"by": { "quest": { "Alliance": 6624, "Horde": 6622 } },
+			"teachers": {
+				"Alliance": [12939],
+				"Horde": [12920]
+			},
+			"route": [
+				{ "from": 225, "to": 240, "recipe": 10840, "count": 26, "mats": { "4338": 26 }, "note": "The doctor teaches the next bandages at 240, 260 and 290: crafting beside him saves trips." },
+				{ "from": 240, "to": 260, "recipe": 10841, "count": 30, "mats": { "4338": 60 } },
+				{ "from": 260, "to": 290, "recipe": 18629, "count": 47, "mats": { "14047": 47 } },
+				{ "from": 290, "to": 300, "recipe": 18630, "count": 12, "mats": { "14047": 24 } }
+			]
+		}
+	],
+	"materials": {
+		"2589": ["drop", "auction"],
+		"2592": ["drop", "auction"],
+		"4306": ["drop", "auction"],
+		"4338": ["drop", "auction"],
+		"14047": ["drop", "auction"]
+	},
+	"recipes": {
+		"16112": { "Alliance": [2805], "Horde": [13476] },
+		"16113": { "Alliance": [2805], "Horde": [13476] }
+	}
+}

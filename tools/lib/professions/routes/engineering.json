@@ -1,0 +1,149 @@
+{
+	"_about": "Engineering 1-300: the curated route the profession guide is generated from (tools/lib/professions/route.js; rules: docs/forge/professions.md, \"Route files\"). Every recipe, count, trainer, vendor and schematic is checked against data/forever when the guide is built.",
+	"profession": "Engineering",
+	"intro": [
+		"Engineering builds explosives, gadgets and goggles out of stone, bars and cloth. Mining is its partner: almost every recipe uses stone or bars, and without Mining they come from the Auction House.",
+		"Many parts are made for later recipes: powders, bolts, tubes and casings. Keep everything the guide says to keep.",
+		"Ranks: Apprentice at any level from any Engineering trainer (the first trainer teaches recipes only up to 75); Journeyman from level 10 at the city trainers; Expert from level 20 at Roxxik in Orgrimmar or Springspindle Fizzlegear in Ironforge; Artisan from level 35 at Buzzek Bracketswing in Gadgetzan, for both factions.",
+		"Specialisation (optional, not needed for 300) opens at 200 and level 30: Gnomish or Goblin Engineering."
+	],
+	"tools": [
+		{
+			"item": 5956,
+			"at": "learn",
+			"vendors": {
+				"Alliance": [5175, 1690, 5512, 4259, 66, 251913],
+				"Horde": [3413, 3356, 4597, 2999, 3168, 2118, 251913]
+			}
+		},
+		{ "item": 6219, "at": "craft" }
+	],
+	"sections": [
+		{
+			"rank": "Apprentice",
+			"from": 1,
+			"to": 56,
+			"level": 1,
+			"teachers": {
+				"Alliance": [11026, 11028, 1702, 11037, 251684, 5518, 11029, 1676],
+				"Horde": [2857, 4586, 11025, 10993, 251684, 11017, 11031]
+			},
+			"route": [
+				{ "from": 1, "to": 35, "recipe": 3918, "count": 56, "mats": { "2835": 56 }, "keep": "Keep all 56: the bombs at 56 use them." },
+				{ "from": 35, "to": 55, "recipe": 3922, "count": 28, "mats": { "2840": 28 }, "keep": "Keep all 28 for the bombs at 56." },
+				{ "from": 55, "to": 56, "recipe": 7430, "count": 1, "mats": { "2840": 6 }, "keep": "A tool: it stays in your bags, and many recipes need it." }
+			]
+		},
+		{
+			"rank": "Journeyman",
+			"from": 56,
+			"to": 150,
+			"level": 10,
+			"teachers": {
+				"Alliance": [5518, 11029, 1676],
+				"Horde": [11017, 11031]
+			},
+			"route": [
+				{ "from": 56, "to": 75, "recipe": 3923, "count": 28, "mats": { "2840": 28, "4359": 28, "4357": 56, "2589": 28 } },
+				{ "from": 75, "to": 90, "recipe": 3929, "count": 51, "mats": { "2836": 51 }, "keep": "Keep all 51 for the dynamite at 90." },
+				{ "from": 90, "to": 100, "recipe": 3931, "count": 17, "mats": { "4364": 51, "2589": 17 }, "note": "Green from 97: short of 100? The Silver Contacts next carry on." },
+				{ "from": 100, "to": 105, "recipe": 3973, "count": 5, "mats": { "2842": 5 }, "alternative": { "recipe": 3934, "count": 5, "mats": { "2318": 30, "818": 10 }, "why": "price" } },
+				{ "from": 105, "to": 125, "recipe": 3938, "count": 25, "mats": { "2841": 50, "2880": 25 }, "keep": "Keep 10 for the scopes at 125." },
+				{ "from": 125, "to": 135, "recipe": 3978, "count": 10, "mats": { "4371": 10, "1206": 10 } },
+				{ "make": 3945, "count": 40, "mats": { "2838": 40 }, "for": "the sheep at 160 and the grenades at 193", "keep": "These give points too. Keep all 40: the sheep at 160 use 30 and the grenades at 193 use 3." },
+				{ "from": 135, "to": 150, "recipe": 3942, "count": 15, "mats": { "2841": 30, "2592": 15 }, "keep": "Keep all 15 for the sheep at 160." }
+			]
+		},
+		{
+			"rank": "Expert",
+			"from": 150,
+			"to": 200,
+			"level": 20,
+			"cost": 5000,
+			"teachers": {
+				"Alliance": [5174],
+				"Horde": [11017]
+			},
+			"route": [
+				{ "from": 150, "to": 160, "recipe": 3953, "count": 15, "mats": { "2841": 30, "2319": 15, "2592": 15 }, "keep": "Keep all 15 for the sheep next." },
+				{ "from": 160, "to": 175, "recipe": 3955, "count": 15, "mats": { "4382": 15, "4375": 15, "4377": 30, "2592": 30 }, "keep": "Goblin Engineering at 200 asks for some; keep 5 if you want it." },
+				{ "from": 175, "to": 193, "recipe": 12585, "count": 61, "mats": { "7912": 122 }, "keep": "Keep all 61: the triggers at 200 and the bombs at 238 use them." },
+				{ "from": 193, "to": 194, "recipe": 12590, "count": 1, "mats": { "3859": 4 }, "keep": "A tool: some Engineering recipes need it in your bags." },
+				{ "from": 194, "to": 195, "recipe": 3962, "count": 3, "mats": { "3575": 3, "4377": 3, "4306": 3 } },
+				{ "from": 195, "to": 200, "recipe": 12589, "count": 6, "mats": { "3860": 18 }, "keep": "Gnomish Engineering at 200 asks for some; keep all 6 if you want it." }
+			]
+		},
+		{
+			"rank": "Artisan",
+			"from": 200,
+			"to": 300,
+			"level": 35,
+			"teachers": {
+				"Alliance": [8736],
+				"Horde": [8736]
+			},
+			"route": [
+				{ "from": 200, "to": 215, "recipe": 12591, "count": 21, "mats": { "3860": 21, "4338": 21, "10505": 21 }, "keep": "Keep 20 for the bombs at 238." },
+				{ "from": 215, "to": 238, "recipe": 12599, "count": 40, "mats": { "3860": 120 }, "keep": "Keep all 40 for the bombs at 238." },
+				{ "from": 238, "to": 250, "recipe": 12619, "count": 20, "mats": { "10561": 40, "10560": 20, "10505": 40 } },
+				{ "from": 250, "to": 260, "recipe": 19788, "count": 44, "mats": { "12365": 88 }, "keep": "Keep 14: the Thorium Shells at 286 use them, if you get those plans." },
+				{ "from": 260, "to": 286, "recipe": 19791, "count": 28, "mats": { "12359": 84, "14047": 28 } },
+				{
+					"fork": "Thorium Shells schematic",
+					"ways": [
+						{
+							"name": "Thorium Shells",
+							"plans": [16051],
+							"why": "Saves 62 Thorium Bars; each craft makes 200 shells to sell.",
+							"route": [
+								{ "from": 286, "to": 300, "recipe": 19800, "count": 14, "mats": { "12359": 28, "15992": 14 } }
+							]
+						},
+						{
+							"name": "Thorium Tube",
+							"route": [
+								{ "from": 286, "to": 300, "recipe": 19795, "count": 15, "mats": { "12359": 90 }, "note": "Yellow from 295: short of 300? A few more do it." }
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"materials": {
+		"2835": ["gather", "auction"],
+		"2840": ["gather", "auction"],
+		"2836": ["gather", "auction"],
+		"2838": ["gather", "auction"],
+		"7912": ["gather", "auction"],
+		"12365": ["gather", "auction"],
+		"2841": ["gather", "auction"],
+		"3575": ["gather", "auction"],
+		"3859": ["gather", "auction"],
+		"3860": ["gather", "auction"],
+		"12359": ["gather", "auction"],
+		"2318": ["gather", "auction"],
+		"2319": ["gather", "auction"],
+		"2589": ["drop", "auction"],
+		"2592": ["drop", "auction"],
+		"4306": ["drop", "auction"],
+		"4338": ["drop", "auction"],
+		"14047": ["drop", "auction"],
+		"2842": ["auction"],
+		"818": ["auction"],
+		"1206": ["auction"],
+		"2880": ["vendor"],
+		"3857": ["vendor"]
+	},
+	"vendors": {
+		"2880": { "Alliance": [5175, 1690, 5512, 4259], "Horde": [3413, 3356, 4597, 2999] },
+		"3857": { "Alliance": [5512, 4259], "Horde": [3356, 4597, 2999] }
+	},
+	"smelt": {
+		"3859": { "skill": 165, "with": { "3857": 1 } }
+	},
+	"recipes": {
+		"16042": { "Alliance": [5175], "Horde": [3413] },
+		"16047": { "Alliance": [11185, 260565], "Horde": [11185] }
+	}
+}

@@ -15,12 +15,10 @@
 // that would fight the player at its stops (loop.js threats) and the deaths players' recordings show at
 // its stands, so the pick prefers the quieter water.
 //
-// Pairing: each band also takes the cooking to `cookTo` with the fish it catches. A deterministic
-// walk over the cooking skill picks, at each point, the vendor recipe with the best chance of a skill-up
-// (Classic: always below yellow, then (grey - skill) / (grey - yellow)) among those learnt by then whose
-// fish the round gives (RECORDED_MIN recorded catches at its stands, else the zone's fishing loot from
-// the world database) or the bags kept from earlier bands; ties keep the recipe already on, else take the
-// one orange longest.
+// Pairing: each band also takes the cooking to `cookTo` with the fish it catches, as the band's `cook`
+// says: per stretch, the first of its recipes whose fish the round gives (RECORDED_MIN recorded catches at
+// its stands, else the zone's fishing loot from the world database) or the bags kept from earlier bands
+// hold, with the crafts the Classic chance asks (always below yellow, then (grey - skill) / (grey - yellow)).
 //
 //   plan(ctx) -> per faction, the bands in order: { kind: 'band', band, group, round, loops, need, kept,
 //     catches, cook, shop } (loops: the band's farming loops for the group, [] when no round of two stops
@@ -65,28 +63,29 @@ const DEATH_SECONDS = 180;
 
 // The bands. `by`: race (RACE_GROUPS key) or faction; `level`: the least character level the band asks
 // (rank gates; the round's hazards may ask more); `want`: the fish the band's cooking is after (they
-// weigh the stands); `cookTo`: the cooking skill the band's fish take you to; `waters`: the water the
-// band's cooking is planned on. Every other water of the faction whose round gives the fish that cooking
-// takes, asks at most `maxLevel` and loses no fish from `lure` skill points above the band's start (a
-// lure closes that gap) is a farming loop of the band too, so the arrow takes the one that gets the
-// player there soonest from where they are (candidateRounds).
+// weigh the stands); `cookTo`: the cooking skill the band's fish take you to; `cook`: that cooking, in
+// order: { spells, from, to }, the first recipe of `spells` whose fish the band's water gives or the bags
+// hold; `waters`: the water the band's cooking is planned on. Every other water of the faction whose round
+// gives the fish that cooking takes, asks at most `maxLevel` and loses no fish from `lure` skill points
+// above the band's start (a lure closes that gap) is a farming loop of the band too, so the arrow takes the
+// one that gets the player there soonest from where they are (candidateRounds).
 // - Starting areas to Fishing 75: below 75 every catch raises the skill wherever you fish, and their
 //   water loses no fish from 25; Brilliant Smallfish or Slitherskin Mackerel to Cooking 50.
-// - Capitals to 150: city water loses nothing from 75 and gives Longjaw Mud Snapper and Bristle Whisker
-//   Catfish (cooking 50-140), beside the cooking trainer and supplies; no creatures.
-// - Catfish water to 190, for Cooking 140-175, where the Expert Cookbook is sold: Ashenvale (Alliance),
-//   Desolace (Horde).
-// - 190-225 for Cooking 175-225: Mithril Head Trout (or Rockscale Cod) water: northern Stranglethorn
-//   Vale, by the Expert Fishing book (Alliance), Shadowprey Village in Desolace (Horde).
-// - 225-300 from Artisan: Spotted Yellowtail water that loses no fish from 225 (Dustwallow Marsh, where Nat
-//   Pagle's hand-in ends, and the other 225 waters), so no lure the whole band; Tanaris and the other 300
-//   waters (more Yellowtail, Glossy Mightfish) would need one for about two and a half hours.
+// - Capitals to 130: city water loses nothing from 75 and gives Longjaw Mud Snapper (Cooking 50-100) and
+//   the first Bristle Whisker Catfish, beside the cooking trainer and supplies; no creatures.
+// - Catfish water to 205, for Cooking 100-175: Mystral Lake in Ashenvale (Alliance), where the Expert
+//   Cookbook and Nightcrawlers are sold; Stonetalon Mountains (Horde), a flight from the cookbook in Desolace.
+// - Dustwallow Marsh's swamp to 225 (no cooking: Nat Pagle, Angler Extreme is taken there at 225), then on
+//   to 255 for Mithril Head Trout, Cooking 175-225 (the swamp's inland water: the coast gives cod).
+// - Feralas to 300 with Bright Baubles (its water loses fish below 300): the trout kept from the swamp to
+//   Cooking 250, then Filet of Redgill to 285 and Nightfin Soup to 300.
 const BANDS = [
-	{ key: 'start', from: 1, to: 75, cookTo: 50, by: 'race', level: 1, maxLevel: 12, lure: 25, want: [6291, 6303], waters: { human: 1429, 'dwarf-gnome': 1426, nightelf: 1438, 'skyborne-a': 2521, 'orc-troll': 1411, tauren: 1412, undead: 1420, 'skyborne-h': 2521 } },
-	{ key: 'city', from: 75, to: 150, cookTo: 140, by: 'faction', level: 10, maxLevel: 22, lure: 75, want: [6289, 6308], waters: { Alliance: 1453, Horde: 1454 } },
-	{ key: 'catfish', from: 150, to: 190, cookTo: 175, by: 'faction', level: 20, maxLevel: 32, lure: 75, want: [6308], waters: { Alliance: 1440, Horde: 1443 } },
-	{ key: 'cod', from: 190, to: 225, cookTo: 225, by: 'faction', level: 20, maxLevel: 42, lure: 75, want: [6362, 8365], waters: { Alliance: 1434, Horde: 1443 } },
-	{ key: 'late', from: 225, to: 300, cookTo: 300, by: 'faction', level: 35, maxLevel: 52, lure: 0, want: [4603, 13754], waters: { Alliance: 1445, Horde: 1445 }, prefer: [1445] },
+	{ key: 'start', from: 1, to: 75, cookTo: 50, by: 'race', level: 1, maxLevel: 12, lure: 25, want: [6291, 6303], cook: [{ spells: [7751, 7752], from: 1, to: 50 }], waters: { human: 1429, 'dwarf-gnome': 1426, nightelf: 1438, 'skyborne-a': 2521, 'orc-troll': 1411, tauren: 1412, undead: 1420, 'skyborne-h': 2521 } },
+	{ key: 'city', from: 75, to: 130, cookTo: 100, by: 'faction', level: 10, maxLevel: 22, lure: 75, want: [6289, 6308], cook: [{ spells: [7753], from: 50, to: 100 }], waters: { Alliance: 1453, Horde: 1454 } },
+	{ key: 'catfish', from: 130, to: 205, cookTo: 175, by: 'faction', level: 20, maxLevel: 32, lure: 75, want: [6308], cook: [{ spells: [7755], from: 100, to: 175 }], waters: { Alliance: 1440, Horde: 1442 } },
+	{ key: 'swamp', from: 205, to: 225, cookTo: 175, by: 'faction', level: 30, maxLevel: 45, lure: 75, want: [8365], cook: [], waters: { Alliance: 1434, Horde: 1443 } },
+	{ key: 'trout', from: 225, to: 255, cookTo: 225, by: 'faction', level: 35, maxLevel: 45, lure: 0, want: [8365], cook: [{ spells: [20916], from: 175, to: 225 }], waters: { Alliance: 1434, Horde: 1443 } },
+	{ key: 'late', from: 255, to: 300, cookTo: 300, by: 'faction', level: 35, maxLevel: 52, lure: 75, want: [13758, 13759], cook: [{ spells: [20916], from: 225, to: 250 }, { spells: [18241], from: 250, to: 285 }, { spells: [18243], from: 285, to: 300 }], waters: { Alliance: 1444, Horde: 1444 }, prefer: [1444] },
 ];
 
 // Lures (fishing.js): the cheapest one usable at the band's first skill (Bright Baubles ask Fishing 100)
@@ -319,36 +318,31 @@ function chance(r, s) {
 	return s < r.yellow ? 1 : (r.grey - s) / (r.grey - r.yellow);
 }
 
-// The cooking from skill `from` to `to`: [{ recipe, from, to, crafts }], and the fish they take
+// A band's cooking (its `cook` stretches): [{ recipe, from, to, crafts }], and the fish they take
 // ({ item: n }). `bites(item)`: the round gives it; `kept`: { item: n } in the bags from earlier bands.
-// Throws when no recipe carries a skill point.
-function cookingPlan(recipes, from, to, bites, kept) {
+// Throws when no recipe of a stretch has its fish.
+function bandCooking(recipes, band, bites, kept) {
 	const segs = [];
 	const used = {};
-	let cur = null;
-	for (let s = from; s < to; s++) {
-		let best = null;
-		for (const r of recipes) {
-			if (r.learnedAt > s) continue;
+	const craftsOf = (r, from, to) => {
+		let n = 0;
+		for (let s = from; s < to; s++) {
 			const p = chance(r, s);
-			if (p <= 0) continue;
-			const ok = r.fish.every((g) => bites(g.item) || (kept[g.item] || 0) - (used[g.item] || 0) >= g.count / p);
-			if (!ok) continue;
-			// Ties: the recipe already on, else the one orange longest (one recipe bought, not two).
-			const tie = best && Math.abs(p - best.p) < 1e-9;
-			const better = !best || p > best.p + 1e-9 || (tie && best.r !== cur && (r === cur || r.yellow > best.r.yellow));
-			if (better) best = { r, p };
+			if (p <= 0) throw new Error(`Fishing + Cooking: ${r.name} is grey at Cooking ${s}`);
+			n += 1 / p;
 		}
-		if (!best) throw new Error(`Fishing + Cooking: no fish recipe carries Cooking ${s} (fish: ${Object.keys(kept).join(',')})`);
-		for (const g of best.r.fish) used[g.item] = (used[g.item] || 0) + g.count / best.p;
-		if (cur === best.r) {
-			const last = segs[segs.length - 1];
-			last.to = s + 1;
-			last.crafts += 1 / best.p;
-		} else segs.push({ recipe: best.r, from: s, to: s + 1, crafts: 1 / best.p });
-		cur = best.r;
+		return n;
+	};
+	for (const c of band.cook) {
+		const r = c.spells
+			.map((spell) => recipes.find((x) => x.spell === spell))
+			.filter(Boolean)
+			.find((x) => x.fish.every((g) => bites(g.item) || (kept[g.item] || 0) - (used[g.item] || 0) >= craftsOf(x, c.from, c.to) * g.count));
+		if (!r) throw new Error(`Fishing + Cooking: no fish for Cooking ${c.from}-${c.to} (recipes ${c.spells.join(', ')}) in Fishing ${band.from}-${band.to}`);
+		const crafts = craftsOf(r, c.from, c.to);
+		for (const g of r.fish) used[g.item] = (used[g.item] || 0) + crafts * g.count;
+		segs.push({ recipe: r, from: c.from, to: c.to, crafts: Math.ceil(crafts) });
 	}
-	for (const seg of segs) seg.crafts = Math.ceil(seg.crafts);
 	return { segs, used };
 }
 
@@ -376,7 +370,7 @@ function plan(ctx) {
 		for (const band of BANDS) {
 			if (band.key === 'city') entries.push({ kind: 'rank', skill: 'Fishing', rank: 'Journeyman' });
 			if (band.key === 'catfish') entries.push({ kind: 'rank', skill: 'Fishing', rank: 'Expert' }, { kind: 'rank', skill: 'Cooking', rank: 'Expert' });
-			if (band.key === 'late') entries.push({ kind: 'artisan' });
+			if (band.key === 'trout') entries.push({ kind: 'artisan' });
 			for (const g of groupsOf(band.by, faction)) {
 				const members = RACE_GROUPS[faction].filter((r) => !g.races || r.races.some((x) => g.races.includes(x))).map((r) => kept.get(r.key));
 				const inv = {};
@@ -384,7 +378,7 @@ function plan(ctx) {
 				const owned = new Set([...members[0].owned].filter((s) => members.every((m) => m.owned.has(s))));
 				const round = roundAt(ctx, band.waters[g.key], faction, band);
 				const bites = (item) => bitesAt(round, item);
-				const { segs, used } = cookingPlan(recipes, band.key === 'start' ? 1 : BANDS[BANDS.indexOf(band) - 1].cookTo, band.cookTo, bites, inv);
+				const { segs, used } = bandCooking(recipes, band, bites, inv);
 				// The fish to hold before cooking: all the band's cooking takes (the bags count what was kept).
 				const need = {};
 				for (const [item, n] of Object.entries(used)) need[item] = Math.ceil(n);
@@ -492,4 +486,4 @@ function forever(ctx, waters, faction) {
 	return out;
 }
 
-module.exports = { BANDS, CASTS, CAST_SECONDS, plan, roundAt, asLoop, candidateRounds, loopOnly, sideOf, bitesAt, cookingPlan, fishRecipes, sellersOf, chance, loopLine, rankSteps, lureLines, forever };
+module.exports = { BANDS, CASTS, CAST_SECONDS, plan, roundAt, asLoop, candidateRounds, loopOnly, sideOf, bitesAt, bandCooking, fishRecipes, sellersOf, chance, loopLine, rankSteps, lureLines, forever };

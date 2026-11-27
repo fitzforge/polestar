@@ -40,6 +40,8 @@ const IMPERATIVE = /\b(buy|go to|learn|talk to|train|travel to|head to|visit|pic
 const TOWN_YARDS = 120;
 // One station per this many yards (a town has one candidate).
 const STATION_SPREAD = 250;
+// Forever's Basic Campfire Kit: placed from the bags, it lights a cooking fire.
+const CAMPFIRE_KIT = 279981;
 
 const slug = (name) => String(name).toLowerCase().replace(/[^a-z0-9]+/g, '-');
 
@@ -97,7 +99,7 @@ function checkRoute(route, prof, data) {
 	for (const [item, side] of Object.entries(route.vendors || {}).flatMap(([i, by]) => SIDES.map((s) => [[i, by[s] || []], s]))) {
 		for (const v of item[1]) if (!sells(v, Number(item[0]))) errs.push(`item ${item[0]}: ${(npcs[v] || {}).name || v} does not sell it (${side})`);
 	}
-	for (const { band } of bandsOf(route)) {
+	for (const { band } of bandsOf(route).filter((x) => !x.band.disenchant)) {
 		const spell = band.recipe || band.make;
 		const r = recipes.get(spell);
 		const at = band.make ? `make ${spell}` : `${band.from}-${band.to}`;
@@ -124,8 +126,10 @@ function checkRoute(route, prof, data) {
 	if (errs.length) throw new Error(`${prof.name} route (tools/lib/professions/routes/${slug(prof.name)}.json):\n  ${errs.join('\n  ')}`);
 }
 
-// The recipe of this profession that makes `item` (a grinding stone), or undefined.
-function madeHere(prof, item) {
+// The recipe of this profession that makes `item` (a grinding stone), or undefined. A material the route gets
+// (`materials`: Mote of Magic, which Dust to Motes could make) is not one of its parts.
+function madeHere(prof, item, route) {
+	if (route && (route.materials || {})[item]) return undefined;
 	const r = (prof.recipes || []).find((x) => x.item === item);
 	return r ? r.spell : undefined;
 }
@@ -322,7 +326,7 @@ function routeGuide(name, data, opts = {}) {
 		const r = recipes.get(band.recipe);
 		if (learned.has(r.spell)) return;
 		learned.add(r.spell);
-		if (r.recipeItem) {
+		if (r.recipeItem && !(route.taught || []).includes(r.spell)) {
 			step('learn', `Learn ${r.name}`, { tip: 'From the plans in your bags.', lines: [`  learn ${r.spell}`] });
 			return;
 		}
@@ -332,24 +336,27 @@ function routeGuide(name, data, opts = {}) {
 	const craftStep = (band, sec) => {
 		const r = recipes.get(band.recipe || band.make);
 		if (r.focus && !(lastKind === 'craft' && lastFocus === r.focus) && !(lastKind === 'station' && lastFocus === r.focus)) {
-			step('station', `Go to ${article(r.focus)} ${r.focus.toLowerCase()}`, { lines: stationLines(r.focus) });
+			// A cooking fire: a town's, or one the player lights from a Basic Campfire Kit (Forever).
+			const camp = r.focus === 'Cooking Fire';
+			const lines = camp ? [...stationLines(r.focus).map((l) => `${l} either`), `  use ${CAMPFIRE_KIT} either`] : stationLines(r.focus);
+			step('station', `Go to ${article(r.focus)} ${r.focus.toLowerCase()}`, { tip: camp ? 'A Basic Campfire Kit placed from your bags counts too.' : null, lines });
 			lastFocus = r.focus;
 		}
 		for (const [k, n] of Object.entries(band.mats)) {
-			if (madeHere(prof, Number(k)) === undefined) continue;
+			if (madeHere(prof, Number(k), route) === undefined) continue;
 			const have = stock.get(Number(k)) || 0;
 			if (have < n) throw new Error(`${P}: ${band.from || 'make'}-${band.to || ''} ${r.name} uses ${n} ${itemName(k)}, the bags hold ${have}`);
 			stock.set(Number(k), have - n);
 		}
 		// The craft's count for the window ("about N crafts"), then its keep or heads-up line when both fit.
-		const about = band.make ? null : `About ${band.count} crafts.`;
+		const about = band.make || band.count < 2 ? null : `About ${band.count} crafts.`;
 		const own = band.keep || band.note || (band.make ? `Parts for ${band.for}; no skill points from these.` : null);
 		const tip = about && own ? (`${about} ${own}`.length <= TIP_MAX ? `${about} ${own}` : own) : about || own;
 		if (band.make) {
 			step('make', `Craft ${D.crafts(band.count, r.name)}`, { tip, lines: [`  craft ${r.spell} x${band.count}`], extra: { band } });
 		} else {
 			step('craft', `Craft ${D.crafts(band.count, r.name)} until ${band.to}`, { tip, lines: [`  craft ${r.spell} until ${band.to}`], extra: { band } });
-			segments.push({ from: band.from, to: band.to, recipe: r, count: band.count, count90: band.count, need: Object.entries(band.mats).filter(([k]) => madeHere(prof, Number(k)) === undefined).map(([k, n]) => ({ item: Number(k), count: n })), make: [], tools: [], when: when.slice() });
+			segments.push({ from: band.from, to: band.to, recipe: r, count: band.count, count90: band.count, need: Object.entries(band.mats).filter(([k]) => madeHere(prof, Number(k), route) === undefined).map(([k, n]) => ({ item: Number(k), count: n })), make: [], tools: [], when: when.slice() });
 		}
 		lastFocus = r.focus || null;
 		if (r.item) stock.set(r.item, (stock.get(r.item) || 0) + band.count * (r.itemCount || 1));
@@ -403,7 +410,7 @@ function routeGuide(name, data, opts = {}) {
 	// A get's why line: the crafts it is for (each recipe once), and the plans a quest hands over for it.
 	const forWhat = (group, item, bar) => {
 		const by = new Map();
-		for (const b of group) if (b.mats[item]) by.set(b.recipe || b.make, (by.get(b.recipe || b.make) || 0) + b.count);
+		for (const b of group) if ((b.mats || {})[item]) by.set(b.recipe || b.make, (by.get(b.recipe || b.make) || 0) + b.count);
 		const uses = [...by].map(([spell, n]) => D.crafts(n, recipeName(spell)));
 		const quest = group.some((b) => (b.quests || []).some((q) => (quests[q].objectives || []).some((o) => o.id === item)));
 		let text = `For ${D.list([...uses, ...(quest ? ['the plans'] : [])])}.`;
@@ -414,8 +421,17 @@ function routeGuide(name, data, opts = {}) {
 	// A list's vendor goods, bought at one stop before its first craft.
 	const vendorSteps = (list) => {
 		const need = new Map();
-		for (const b of list) for (const [k, n] of Object.entries(b.mats)) if (vendorOnly(k)) need.set(Number(k), (need.get(Number(k)) || 0) + n);
+		for (const b of list) for (const [k, n] of Object.entries(b.mats || {})) if (vendorOnly(k)) need.set(Number(k), (need.get(Number(k)) || 0) + n);
 		for (const [item, n] of need) step('buy', `Buy ${n} ${itemName(item)}`, { tip: forWhat(list, item, false), lines: [`  buy ${item} x${n} nearest`] });
+	};
+	// Disenchanting raises Enchanting too (players' recordings: a point for nearly every item below 20, fewer
+	// after, none from 60): the green items in the bags go first, so the crafts after it need fewer materials.
+	// Done at the band's top or when the player says nothing is left to break.
+	const disenchantStep = (b) => {
+		step('disenchant', `Disenchant your green items until ${b.to}`, {
+			tip: 'Disenchant is in the Enchanting window, not the spellbook. Nearly every item gives a point below 20.',
+			lines: [`  skill ${pq} ${b.to} either`, '  task "No green items left to break" either'],
+		});
 	};
 	// Bands into groups that share one get: consecutive bands whose gathered material is one and the same, and
 	// parts crafted for a band (`make`) with that band.
@@ -424,13 +440,17 @@ function routeGuide(name, data, opts = {}) {
 		const out2 = [];
 		let parts = [];
 		for (const b of list) {
+			if (b.disenchant) {
+				out2.push([b]);
+				continue;
+			}
 			if (b.make) {
 				parts.push(b);
 				continue;
 			}
 			const g = out2[out2.length - 1];
 			const a = gathered(b);
-			if (!parts.length && g && !(b.quests || []).length && !a.includes(',') && g.every((x) => !x.make && gathered(x) === a)) g.push(b);
+			if (!parts.length && g && !(b.quests || []).length && !a.includes(',') && g.every((x) => !x.make && !x.disenchant && gathered(x) === a)) g.push(b);
 			else out2.push([...parts, b]);
 			parts = [];
 		}
@@ -471,6 +491,7 @@ function routeGuide(name, data, opts = {}) {
 			if (real.length) section(real[0].from, real[real.length - 1].to);
 			if (!trained.has(sec.rank) && sec.rank === 'Apprentice') trainStep(sec);
 			if (i === 0) vendorSteps(list);
+			if (g[0].disenchant) return disenchantStep(g[0]);
 			getSteps(g);
 			if (!trained.has(sec.rank)) trainStep(sec);
 			for (const b of g) bandSteps(b, sec);
@@ -563,12 +584,12 @@ function routeGuide(name, data, opts = {}) {
 	for (const sec of route.sections) {
 		const list = bandsOf({ sections: [sec] }).filter((x) => x.way === null || x.way === 0).map((x) => x.band);
 		const tally = new Map();
-		for (const b of list) for (const [k, n] of Object.entries(b.mats)) if (madeHere(prof, Number(k)) === undefined) tally.set(Number(k), (tally.get(Number(k)) || 0) + n);
+		for (const b of list) for (const [k, n] of Object.entries(b.mats || {})) if (madeHere(prof, Number(k), route) === undefined) tally.set(Number(k), (tally.get(Number(k)) || 0) + n);
 		materials.push({ from: sec.from, cap: sec.to, items: [...tally].filter(([k]) => !(route.materials[k].length === 1 && route.materials[k][0] === 'vendor')).map(([item, count]) => ({ item, name: itemName(item), count, uses: [] })) });
 	}
 	const { header } = require('../generated');
 	const head = [
-		header('guide', `profession draft ${P} --out`, `tools/lib/professions/routes/${slug(P)}.json and data/forever`),
+		header('guide', opts.command || `profession draft ${P} --out`, `tools/lib/professions/routes/${slug(P)}.json and data/forever`),
 		`guide forever/professions/${slug(P)}`,
 		`title ${P} 1-300`,
 		'category Professions',
@@ -588,6 +609,7 @@ function routeGuide(name, data, opts = {}) {
 function routeTable(route, recipes, itemName) {
 	const lines = ['# The route (crafts are about what it takes; yellow and green recipes can take a few more):'];
 	const band = (b, pad) => {
+		if (b.disenchant) return `#${pad}  ${String(b.from).padStart(3)}-${String(b.to).padEnd(3)} disenchant green items (a point for nearly each)`;
 		const r = recipes.get(b.recipe || b.make);
 		const mats = Object.entries(b.mats).map(([k, n]) => `${n} ${itemName(k)}`).join(', ');
 		return b.make ? `#${pad}  make ${b.count} ${r.name}: ${mats}` : `#${pad}  ${String(b.from).padStart(3)}-${String(b.to).padEnd(3)} ${b.count} ${r.name}: ${mats}`;
