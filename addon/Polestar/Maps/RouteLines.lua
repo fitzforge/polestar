@@ -641,7 +641,7 @@ local function paintLabels(pin, b, width, height, zoom)
 				fs:SetText(format(L["Danger: %s"], d.name))
 				local c = colors.danger
 				fs:SetTextColor(c[1], c[2], c[3])
-				fs:SetAlpha(d.later and Strokes.LATER_ALPHA or 1)
+				fs:SetAlpha(1)
 				fs:Show()
 			end
 		end

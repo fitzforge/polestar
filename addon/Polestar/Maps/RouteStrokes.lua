@@ -449,7 +449,8 @@ local function modeOf(path)
 	if kind == "flight" and lined then return dashFlights and "dash" or "line" end
 	-- The way round a hostile town (RouteLines, nav.dangerLine): round dots in every style, with
 	-- a cross at its middle, so it never reads as a guessed walk (a wide faded dash).
-	if kind == "danger" then return "dots" end
+	-- Never faded as a later leg's: the warning matters most before you get there.
+	if kind == "danger" then fade = 1 return "dots" end
 	return "solid"
 end
 
