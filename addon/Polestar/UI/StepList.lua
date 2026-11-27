@@ -128,16 +128,17 @@ function SL.Place(parent, steps)
 end
 
 -- What the player set aside in the open guide that is still undone: steps
--- skipped, quests skipped and goals dismissed, each counted once. Only the
--- steps holding a skip are read (Engine.SetAsideSteps): a finished guide's
--- page asks on every draw, and a view of every step cost 20 ms there. -> n
+-- skipped (not one the route passed, the view's `passed`), quests skipped
+-- and goals dismissed, each counted once. Only the steps holding a skip are
+-- read (Engine.SetAsideSteps): a finished guide's page asks on every draw,
+-- and a view of every step cost 20 ms there. -> n
 function SL.Skips()
 	local E = ns.Engine
 	if not (E and E.SetAsideSteps and E.GetStepView and E.GetGuide and E.GetGuide()) then return 0 end
 	local n, seen = 0, {}
 	for _, i in ipairs(E.SetAsideSteps()) do
 		local v = E.GetStepView(i, true)
-		if v and v.skipped == true then
+		if v and v.skipped == true and not v.passed then
 			n = n + 1
 		elseif v and v.goals then
 			for _, goal in ipairs(v.goals) do
@@ -348,10 +349,15 @@ local function fillRow(r, v, i, live, at)
 	-- step's first goal), then one line that says the player skipped it, the
 	-- skip glyph in the accent and its Unskip. Steps skipped for the player
 	-- (fillSkipped: the guide's call) read "Skipped for you", muted, with no
-	-- Unskip: the two are never drawn alike.
-	local mine = v.skipped == true and i ~= live
-	local only = gone and i ~= at and held and not mine
-	local one = gone and i ~= at and not held and not mine
+	-- Unskip: the two are never drawn alike. A step the route passed (the
+	-- view's `passed`, #4158) is not folded either: one muted line that says
+	-- why ("Not for you: …"), with no Unskip, but for one whose condition
+	-- holds now (`passedHeld`): its Unskip brings it back.
+	local passed = v.passed and i ~= live and v.passed or nil
+	local back = passed and v.passedHeld == true
+	local mine = v.skipped == true and not passed and i ~= live
+	local only = gone and i ~= at and held and not mine and not passed
+	local one = gone and i ~= at and not held and not mine and not passed
 	r.psOne = one
 	local no = UI.StepNo(i)
 	-- An untitled step is named by its first goal (UI.StepSummary), as its
@@ -370,7 +376,7 @@ local function fillRow(r, v, i, live, at)
 	r.psWhy = why
 	r.Unskip:SetShown(false)
 	r.Unskip.psTip = L["Bring it back"]
-	local n, more, key = 0, 0, { mine and "unskip" or "" }
+	local n, more, key = 0, 0, { (mine or back) and "unskip" or "" }
 	-- A first goal that says the title draws no line, as on the step card,
 	-- unless it is the player's skip: that line carries its Unskip.
 	local said = false
@@ -382,8 +388,17 @@ local function fillRow(r, v, i, live, at)
 		g.Text:SetText(L["You skipped this step."])
 		W.Color(g.Text, "textMuted")
 		key[1] = "unskip"
+	elseif passed then
+		n = 1
+		local g = line(r, 1)
+		g.psUnskip = nil
+		g.Icon:SetTexture(Theme.Media("skip"))
+		W.Color(g.Icon, "textMuted")
+		g.Text:SetText(passed)
+		W.Color(g.Text, "textMuted")
+		key[1] = passed .. (back and "|unskip" or "")
 	end
-	for _, goal in ipairs(mine and {} or list) do
+	for _, goal in ipairs((mine or passed) and {} or list) do
 		if only and not mySkip(goal) then
 			-- Folded: only the player's skips show.
 		elseif n >= MAX_LINES then
@@ -442,7 +457,7 @@ local function fillRow(r, v, i, live, at)
 	end
 	-- What the route leaves out of this step (#2634, Engine.LeftOutHere with
 	-- `alone`): one muted line, the quests and why in the card's tooltip.
-	local out = not one and not only and not mine and E.LeftOutHere and E.LeftOutHere(i, true) or nil
+	local out = not one and not only and not mine and not passed and E.LeftOutHere and E.LeftOutHere(i, true) or nil
 	r.psOut = out and #out > 0 and out or nil
 	if r.psOut then
 		n = n + 1
@@ -456,7 +471,7 @@ local function fillRow(r, v, i, live, at)
 	end
 	if one then n, more, key = 0, 0, { "one" } end
 	-- The step's Unskip on its line.
-	if mine and n > 0 then
+	if (mine or back) and n > 0 then
 		local g = r.G[1]
 		g.psUnskip = true
 		g.Unskip.psQuest, g.Unskip.psStep = nil, i

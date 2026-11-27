@@ -308,6 +308,13 @@ ns.UI.GuideFrame.Part(function(GF)
 			end
 			y = y - 10
 		end
+		-- What the guide's conditions left out (GF.EndQuestLines), wrapped to the card.
+		if empty.LeftOut:IsShown() then
+			empty.LeftOut:SetWidth(cw)
+			empty.LeftOut:ClearAllPoints()
+			empty.LeftOut:SetPoint("TOP", empty, "TOP", 0, y)
+			y = y - empty.LeftOut:GetStringHeight() - 18
+		end
 		local pn = GF.PlayNext
 		if pn then
 			local h = pn.Layout(width - PAD * 2)
