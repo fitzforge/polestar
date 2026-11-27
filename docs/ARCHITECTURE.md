@@ -9679,7 +9679,8 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   meter    = { kind = "skill"|"rep", name, nameKind, value, max, rank, frac, seg = { a, b }, ticks = { { at, what } }, line }
   trainer  = { title, level, npc, map, due, toGo }
   stretch  = { item, recipe, name, quality, colour = "orange"|"yellow"|"green"|"grey", yellow, green, grey,
-               reagents = { { item, count } }, made, expected, moveOn, canMake, spell }
+               reagents = { { item, count } }, made, left, expected, moveOn, canMake, spell }
+               -- made: the recipe's casts counted (never guessed from the skill); left: the crafts the skill still takes
   supplies = { title, way = "mix"|"buy"|"gather", rows = { { item, name, quality, have, need,
                parts = { bags, bank, mail, coming, made }, way = "buy"|"gather"|"vendor"|"make", choosable,
                reason, split = { buy = { count, copper, each, age, source } | false,

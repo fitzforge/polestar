@@ -62,15 +62,16 @@ for _, r in ipairs(m.supplies and m.supplies.rows or {}) do
 end
 emit({ meter = m.meter and { value = m.meter.value, max = m.meter.max, ticks = m.meter.ticks, line = m.meter.line[1] and m.meter.line[1].to } or false,
 	trainer = m.trainer and { title = m.trainer.title, level = m.trainer.level, due = m.trainer.due, toGo = m.trainer.toGo } or false,
-	stretch = m.stretch and { colour = m.stretch.colour, green = m.stretch.green, expected = m.stretch.expected, made = m.stretch.made, canMake = m.stretch.canMake, moveOn = m.stretch.moveOn } or false,
+	stretch = m.stretch and { colour = m.stretch.colour, green = m.stretch.green, expected = m.stretch.expected, made = m.stretch.made, left = m.stretch.left, canMake = m.stretch.canMake, moveOn = m.stretch.moveOn } or false,
 	rows = rows, buyList = m.buyList and { count = m.buyList.count, copper = m.buyList.copper or false } or false })`;
 
 test('profession at 87: meter, trainer, stretch colour and counts; materials with bolts counted as cloth', () => {
 	const out = run('', MODELS);
 	assert.deepEqual(out.meter, { value: 87, max: 150, ticks: [{ at: 115, what: 'moveOn' }, { at: 125, what: 'train' }], line: 115 });
 	assert.deepEqual(out.trainer, { title: 'Expert', level: 125, due: false, toGo: 38 });
-	// Orange below yellow (100), green from (100 + 125) / 2; about 47 crafts from 75, 12 of them made by 87.
-	assert.deepEqual(out.stretch, { colour: 'orange', green: 112, expected: 47, made: 12, canMake: 3, moveOn: 115 });
+	// Orange below yellow (100), green from (100 + 125) / 2; about 47 crafts from 75, about 36 still to go from 87. None
+	// made: the 12 points since 75 may have come from other recipes, so no cast counted means none made.
+	assert.deepEqual(out.stretch, { colour: 'orange', green: 112, expected: 47, made: 0, left: 36, canMake: 3, moveOn: 115 });
 	const wool = out.rows.find((r) => r.item === 2592);
 	// 36 capes still to make: 108 bolts, 324 Wool Cloth; held: 58 bags + 10 bank + 10 bolts (30 cloth).
 	assert.equal(wool.need, 324);
@@ -130,7 +131,7 @@ test('the window: the regions in place of the step header, the split open on the
 	assert.equal(out.value, '87');
 	assert.equal(out.line, 'Woolen Cape to 115');
 	assert.equal(out.make, 'You can make 3 now');
-	assert.equal(out.count, '12 of about 47 made');
+	assert.equal(out.count, 'about 36 to go', 'what the skill still takes; no "made" without a counted cast');
 	assert.equal(out.head, 'Materials to 115');
 	assert.match(out.verdict, /^Mix buys this: farming takes about 4 h/);
 	assert.ok(!out.xp || !String(out.xp).includes('Tailoring'), 'the skill sits in the meter, not the XP row');
@@ -384,4 +385,22 @@ local _, _, _, _, cy = st.Count:GetPoint(1)
 emit({ rule = st.Rule:IsShown(), make = st.Make:IsShown(), open = st.psOpen:IsShown(),
 	tight = st.Card:GetHeight() <= -cy + st.Count:GetStringHeight() + 10.5 })`);
 	assert.deepEqual(out, { rule: false, make: false, open: false, tight: true });
+});
+
+test('crafts made are the recipe\'s casts counted, after what the skill still takes ("about 36 to go · 2 made")', () => {
+	const out = run('Polestar.Set("ui.width", 460)', `
+stub.fire("UNIT_SPELLCAST_SUCCEEDED", "player", "Cast-1", 2402)
+stub.fire("UNIT_SPELLCAST_SUCCEEDED", "player", "Cast-2", 2402)
+stub.fire("UNIT_SPELLCAST_SUCCEEDED", "player", "Cast-3", 2964)
+stub.advance(0.5)
+GF.Layout(); stub.advance(1)
+local m = E.KindModel("stretch", view, "profession")
+local st = GF.RegionFrame("stretch")
+Polestar.Set("ui.compact", true)
+GF.Render(); GF.Layout(); stub.advance(1)
+emit({ made = m.made, left = m.left, count = plain(st.Count:GetText()), compact = plain(st.LineRight:GetText()) })`);
+	assert.equal(out.made, 2, 'Woolen Cape cast twice; the bolt is another recipe');
+	assert.equal(out.left, 36);
+	assert.match(out.count, /^about 36 to go +· +2 made$/);
+	assert.match(out.compact, /^36 to go +· +to 115$/);
 });

@@ -12,8 +12,9 @@
 --
 -- The stretch: the first `craft … until` goal from the step in view on that the skill is under. Its colours
 -- (Classic's): orange below `yellow`, yellow below green ((yellow + grey) / 2), green below `grey`, grey from
--- there. Crafts expected (Engine's craftsFrom, the skill-up chance) from the stretch's start; made = the casts
--- counted since (UNIT_SPELLCAST_SUCCEEDED of the recipe, per character), at least what the skill gained takes.
+-- there. Crafts left (Engine's craftsFrom, the skill-up chance) from the skill now to the move-on, whatever made
+-- the points so far; made = the casts of the recipe counted (UNIT_SPELLCAST_SUCCEEDED, per character), never a
+-- guess from the skill (points since the stretch's start may come from other recipes or trainers).
 --
 -- Engine.FarmMinutes(item): the minutes farming what is still needed takes, for Materials.Way's "long" (Mix buys
 -- past Materials.LONG): what the stretch still needs of it, else what its gather goal still needs.
@@ -478,10 +479,10 @@ M.stretch = function(view, kind)
 	local colour, green = KC.Colour(goal, rank)
 	colour = KC.WindowColour(goal) or colour
 	local expected = goal.yellow and a.craftsFrom(goal, st.from, st.from) or nil
-	local left = goal.yellow and a.craftsFrom(goal, st.from, max(rank, st.from)) or nil
-	local made = expected and left and max(0, floor(expected - left + 0.5)) or 0
+	local left = goal.yellow and ceil(a.craftsFrom(goal, st.from, max(rank, st.from)) - 0.001) or nil
+	local made = 0
 	local rec = madeState()[madeKey(G, goal)]
-	if type(rec) == "table" and type(rec.n) == "number" then made = max(made, rec.n) end
+	if type(rec) == "table" and type(rec.n) == "number" then made = rec.n end
 	local canMake
 	local reagents = {}
 	for _, r in ipairs(goal.reagents or {}) do
@@ -500,8 +501,8 @@ M.stretch = function(view, kind)
 	end
 	local covers = coverTypes(view, { craft = true })
 	return { item = goal.item, recipe = goal.spell, name = craftName(goal), quality = goal.item and quality(goal.item), colour = colour,
-		yellow = goal.yellow, green = green, grey = goal.grey, reagents = reagents, made = made,
-		expected = expected and max(made, floor(expected + 0.5)) or nil, moveOn = goal.untilSkill, from = st.from, rank = rank,
+		yellow = goal.yellow, green = green, grey = goal.grey, reagents = reagents, made = made, left = left,
+		expected = expected and floor(expected + 0.5) or nil, moveOn = goal.untilSkill, from = st.from, rank = rank,
 		canMake = canMake or 0, makeFirst = makeFirst, spell = KC.SkillName(b.line), step = st.s, covers = covers }
 end
 

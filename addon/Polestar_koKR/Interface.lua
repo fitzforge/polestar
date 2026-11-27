@@ -566,7 +566,7 @@
 -- Machine-translated, to be reviewed (the profession and reputation guides' window, 26 Nov 2026): translated by an
 -- AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
 -- keep or fix its line below, and take its key off this list.
---   %d / %s  \194\183  to %d
+--   %d to go  \194\183  to %d
 --   %d made
 --   %d ready
 --   %d to go
@@ -576,7 +576,7 @@
 --   %s at %d
 --   %s each
 --   %s for %s
---   %s of about %d made
+--   about %d to go
 --   %s reached
 --   %s to %d
 --   %s to %d, then %s to %d
@@ -5906,7 +5906,7 @@ L["Leave out of Free mode"] = "자유 모드에서 제외"
 L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "자유 모드에서 이 퀘스트를 더 이상 보여 주지 않습니다. 메뉴의 '제외한 퀘스트 되돌리기'로 다시 보여 줍니다."
 
 -- UI/GuideFrameKindCraft.lua
-L["%d / %s  \194\183  to %d"] = "%d / %s  \194\183  %d까지"
+L["%d to go  \194\183  to %d"] = "%d 남음  \194\183  %d까지"
 L["%d made"] = "%d개 제작"
 L["%d ready"] = "%d개 준비"
 L["%d to go"] = "%d 남음"
@@ -5916,7 +5916,7 @@ L["%s a turn-in"] = "납품당 %s"
 L["%s at %d"] = "%s %d부터"
 L["%s each"] = "개당 %s"
 L["%s for %s"] = "%s (%s 달성용)"
-L["%s of about %d made"] = "%s / 약 %d개 제작"
+L["about %d to go"] = "약 %d 남음"
 L["%s reached"] = "%s 달성"
 L["%s to %d"] = "%s %d까지"
 L["%s to %d, then %s to %d"] = "%s %d까지, 다음 %s %d까지"

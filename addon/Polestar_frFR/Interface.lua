@@ -578,7 +578,7 @@
 -- Machine-translated, to be reviewed (the profession and reputation guides' window, 26 Nov 2026): translated by an
 -- AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
 -- keep or fix its line below, and take its key off this list.
---   %d / %s  \194\183  to %d
+--   %d to go  \194\183  to %d
 --   %d made
 --   %d ready
 --   %d to go
@@ -588,7 +588,7 @@
 --   %s at %d
 --   %s each
 --   %s for %s
---   %s of about %d made
+--   about %d to go
 --   %s reached
 --   %s to %d
 --   %s to %d, then %s to %d
@@ -5918,7 +5918,7 @@ L["Leave out of Free mode"] = "Écarter du mode libre"
 L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "Le mode libre n'affiche plus cette quête. « Rétablir les quêtes écartées » dans le menu la remet dans la liste."
 
 -- UI/GuideFrameKindCraft.lua
-L["%d / %s  \194\183  to %d"] = "%d / %s  \194\183  jusqu'à %d"
+L["%d to go  \194\183  to %d"] = "encore %d  \194\183  jusqu'à %d"
 L["%d made"] = "%d fabriqués"
 L["%d ready"] = "%d prêtes"
 L["%d to go"] = "encore %d"
@@ -5928,7 +5928,7 @@ L["%s a turn-in"] = "%s par remise"
 L["%s at %d"] = "%s à %d"
 L["%s each"] = "%s pièce"
 L["%s for %s"] = "%s pour %s"
-L["%s of about %d made"] = "%s sur environ %d fabriqués"
+L["about %d to go"] = "encore environ %d"
 L["%s reached"] = "%s atteint"
 L["%s to %d"] = "%s jusqu'à %d"
 L["%s to %d, then %s to %d"] = "%s jusqu'à %d, puis %s jusqu'à %d"

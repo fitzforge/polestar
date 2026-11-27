@@ -1238,7 +1238,7 @@ local models = {
 	trainer = { title = "Expert", rank = 3, level = 125, npc = "Georgio Bolero", map = 1453, due = false, toGo = 38, step = 4, goalIndex = 1 },
 	stretch = { item = 2584, name = "Woolen Cape", colour = "yellow", yellow = 80, green = 97, grey = 115, moveOn = 100, from = 75, rank = 87,
 		reagents = { { item = 2997, count = 1, name = "Bolt of Woolen Cloth" }, { item = 2321, count = 1, name = "Fine Thread" } },
-		made = 13, expected = 34, canMake = S == "done" and 22 or 2, spell = "Tailoring", step = 2 },
+		made = 13, left = 21, expected = 34, canMake = S == "done" and 22 or 2, spell = "Tailoring", step = 2 },
 	supplies = { title = 100, titleKind = "skill", way = "mix", rows = rows, choosable = true, selfFound = S == "selfFound", buyList = buyList },
 	buyList = buyList,
 }

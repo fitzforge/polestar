@@ -2,7 +2,7 @@
 -- contract in docs/ARCHITECTURE.md, "Guide kind regions"; the models in Core/KindCraft.lua).
 --
 -- Profession: the skill meter (the skill, the stretch still to go lit to its move-on, ticks at the move-on and the
--- next trainer rank), the trainer line, the stretch card (the recipe now, its colour chip, "6 of about 32 made",
+-- next trainer rank), the trainer line, the stretch card (the recipe now, its colour chip, "about 26 to go · 6 made",
 -- "You can make 3 now" with Open <Profession>, the window's one secure button), the materials (a row each, have /
 -- need, the Buy | Farm toggle; the split under the row in focus: a verdict line over a Buy and a Farm column, the
 -- way it takes lit), the buy list line. Reputation: the standing meter, the turn-in card, its items (the same rows
@@ -568,10 +568,20 @@ ns.UI.GuideFrame.Part(function(GF)
 			local parts = {}
 			for _, r in ipairs(m.reagents or {}) do parts[#parts + 1] = format(L["%d %s"], r.count, itemHex(r.item, r.name)) end
 			f.Uses:SetText(table.concat(parts, " + "))
-			local exp = m.expected
-			-- Under 300 wide the count's short form (layout picks): numbers never cut.
-			f.psCountLong = exp and format(L["%s of about %d made"], hexed("text", m.made), exp) or format(L["%d made"], m.made)
-			f.psCountShort = exp and format("%d / ~%d", m.made, exp) or f.psCountLong
+			-- The count: about how many crafts the skill still takes to the move-on (whatever made its points so far),
+			-- then "M made" once the recipe's casts were counted. Three forms, the layout takes the first that fits:
+			-- the numbers are never cut.
+			local left = m.left
+			local made = m.made and m.made > 0 and hexed("textMuted", DOT .. format(L["%d made"], m.made)) or nil
+			if left and left > 0 then
+				local toGo = format(L["%d to go"], left)
+				f.psCount1 = format(L["about %d to go"], left) .. (made or "")
+				f.psCount2 = made and toGo .. made or nil
+				f.psCount3 = toGo
+			else
+				f.psCount1 = m.made and m.made > 0 and format(L["%d made"], m.made) or ""
+				f.psCount2, f.psCount3 = nil, nil
+			end
 			if m.colour == "grey" then
 				f.MoveOn:SetText(L["Grey now: move on"])
 				W.Color(f.MoveOn, "warning")
@@ -581,8 +591,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			end
 			local canAll = false
 			if m.canMake and m.canMake > 0 then
-				local left = exp and max(0, exp - m.made) or nil
-				canAll = left and m.canMake >= left and left > 0
+				canAll = left and left > 0 and m.canMake >= left
 				f.Make:SetText(canAll and format(L["You can make all %d now"], left) or format(L["You can make %d now"], m.canMake))
 				W.Color(f.Make, "success")
 				f.Check:Show()
@@ -598,7 +607,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			-- Compact
 			local word = m.colour and hexed(COLOUR_TOKEN[m.colour], string.lower(colourWord(m.colour))) or nil
 			f.Line:SetText((m.item and itemHex(m.item, m.name) or m.name) .. (word and hexed("textMuted", DOT) .. word or ""))
-			f.LineRight:SetText(format(L["%d / %s  \194\183  to %d"], m.made, exp and ("~" .. exp) or "?", m.moveOn))
+			f.LineRight:SetText(left and left > 0 and format(L["%d to go  \194\183  to %d"], left, m.moveOn) or format(L["move on at %d"], m.moveOn))
 		end,
 		layout = function(f, m, width, mode)
 			local compact = mode == "compact"
@@ -638,15 +647,24 @@ ns.UI.GuideFrame.Part(function(GF)
 			f.Progress:ClearAllPoints()
 			f.Progress:SetPoint("TOPLEFT", f.Card, "TOPLEFT", tx, -y)
 			f.Progress:SetWidth(cw - tx - inner)
-			W.SetProgress(f.Progress, m.expected and m.expected > 0 and m.made / m.expected or 0, cw - tx - inner)
+			local exp = m.expected
+			W.SetProgress(f.Progress, exp and exp > 0 and m.left and max(0, min(1, (exp - m.left) / exp)) or 0, cw - tx - inner)
 			y = y + 2 + 6
-			local countText = narrow(width) and f.psCountShort or f.psCountLong
-			if f.Count:GetText() ~= countText then f.Count:SetText(countText) end
+			local room = max(40, cw - tx - inner - f.MoveOn:GetStringWidth() - 8)
+			local countText = f.psCount1 or ""
+			for k = 2, 3 do
+				local alt = k == 2 and (f.psCount2 or f.psCount3) or f.psCount3
+				if not alt or alt == countText then break end
+				f.Count:SetText(countText)
+				if f.Count:GetUnboundedStringWidth() <= room then break end
+				countText = alt
+			end
+			if (f.Count:GetText() or "") ~= countText then f.Count:SetText(countText) end
 			f.Count:ClearAllPoints()
 			f.Count:SetPoint("TOPLEFT", f.Card, "TOPLEFT", tx, -y)
 			f.MoveOn:ClearAllPoints()
 			f.MoveOn:SetPoint("TOPRIGHT", f.Card, "TOPRIGHT", -inner, -y - 1)
-			f.Count:SetWidth(max(40, cw - tx - inner - f.MoveOn:GetStringWidth() - 8))
+			f.Count:SetWidth(room)
 			y = y + f.Count:GetStringHeight() + 10
 			-- The client answers nil for an empty text: an empty line keeps no rule or row in the card.
 			local makeShown = (f.Make:GetText() or "") ~= ""
