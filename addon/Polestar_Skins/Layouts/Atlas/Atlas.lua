@@ -1818,11 +1818,11 @@ on("guidePlace", function(name, part, width, height)
 end)
 
 -- The guide kinds' regions (Skin API: guidePlace by the region's id) that
--- Atlas sets above the window as cards: the materials (with the buy list
--- under them on the same card), a reputation guide's turn-in, a trainer rank
--- that is due. Another file's region joins through Core.regionCard. The
--- region keeps its own content; its heading takes Atlas's caps.
-local REGION_CARDS = { supplies = true, turnin = true, buyList = true, trainer = true }
+-- Atlas sets above the window as cards: a reputation guide's turn-in.
+-- Another file's region joins through Core.regionCard. The region keeps its
+-- own content; its heading takes Atlas's caps. A profession guide's steps
+-- stay rows in the window, as a leveling guide's.
+local REGION_CARDS = { turnin = true }
 local function regionHead(part)
 	local head = rawget(part, "Head")
 	if type(head) ~= "table" or not head.GetText then return end
@@ -1836,11 +1836,6 @@ end
 function Core.regionCard(name, part, width, height)
 	slots.regions = slots.regions or {}
 	local list = slots.regions
-	-- The buy list rides on the materials' card.
-	if name == "buyList" and list[#list] and list[#list].name == "supplies" then
-		list[#list].extra = part
-		return true
-	end
 	part:SetHeight(height)
 	regionHead(part)
 	list[#list + 1] = { name = name, part = part, h = height }
@@ -1848,12 +1843,6 @@ function Core.regionCard(name, part, width, height)
 end
 on("guidePlace", function(name, part, width, height)
 	if not REGION_CARDS[name] then return nil end
-	-- A trainer rank not due yet stays a line in the window.
-	if name == "trainer" then
-		local G = frame()
-		local m = G and G.RegionModel and G.RegionModel("trainer")
-		if not (m and m.due) then return nil end
-	end
 	return Core.regionCard(name, part, width, height)
 end)
 
@@ -1921,21 +1910,9 @@ local function layoutStack(parts)
 	end
 	local optional = layoutOptional(stack, window, step)
 	if optional then add(optional, function() closedOn.opt = step relay() end) end
-	-- The guide kinds' cards (Core.regionCard): the buy list joined under the materials.
+	-- The guide kinds' cards (Core.regionCard).
 	for _, r in ipairs(s.regions or {}) do
-		if isUnder(r.part, window) then
-			local extra = r.extra
-			if extra and isUnder(extra, window) then
-				local h = r.h or r.part:GetHeight() or 0
-				extra:SetParent(r.part)
-				extra:ClearAllPoints()
-				extra:SetPoint("TOPLEFT", r.part, "TOPLEFT", 0, -h)
-				extra:SetPoint("TOPRIGHT", r.part, "TOPRIGHT", 0, -h)
-				extra:Show()
-				r.part:SetHeight(h + (extra:GetHeight() or 0))
-			end
-			add(r.part, nil)
-		end
+		if isUnder(r.part, window) then add(r.part, nil) end
 	end
 	if s.train and isUnder(s.train, window) then
 		add(fillTrain(trainCard(stack), window:GetWidth() or 300), Core.laterNotice)

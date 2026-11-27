@@ -585,9 +585,8 @@ local function lightestOf(pal)
 end
 
 -- The guide kinds' colours (docs/skins/reference.md, "Tokens"): a recipe's skill-up colour (craftOrange,
--- craftYellow, craftGreen, craftGrey) and money in the materials' Buy column (coin). A skin's own, else the
--- game's colour (the quest gold for coin) held to the subject colours' 4.5:1 on the lightest place a name sits:
--- a light look's darken toward its ink.
+-- craftYellow, craftGreen, craftGrey). A skin's own, else the game's colour held to the subject colours' 4.5:1 on
+-- the lightest place a name sits: a light look's darken toward its ink.
 Theme.KIND_COLOURS = { craftOrange = { 1, 0.502, 0.251 }, craftYellow = { 1, 0.882, 0.302 }, craftGreen = { 0.251, 0.749, 0.251 },
 	craftGrey = { 0.627, 0.627, 0.627 } }
 local function kindColours(out)
@@ -596,8 +595,6 @@ local function kindColours(out)
 		if not out[name] then out[name] = { liftTo(lightest, out.text, c) } end
 		out[name][4] = 1
 	end
-	if not out.coin then out.coin = { liftTo(lightest, out.text, out.quest or out.text) } end
-	out.coin[4] = 1
 end
 
 -- The subject and status colours a player may set their own of

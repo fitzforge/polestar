@@ -1204,56 +1204,46 @@ const DRUID_CARD = `${CLASS_CARD}; uistub.player.class = "DRUID"; uistub.openTab
 const WARRIOR_CARD = `${CLASS_CARD}; uistub.player.class, uistub.player.race, uistub.player.level = "WARRIOR", "Human", 30; uistub.openTabs({ { "preview/whirlwind", 1 } }, 1)`;
 // The guide kinds' regions (UI/GuideFrameKindCraft.lua) over sample models, as Engine.KindModel hands them
 // (Core/KindCraft.lua builds them from the guide and the client). The numbers are the Tailoring guide's own:
-// Woolen Cape (yellow 80, grey 115) to 100 from 75, 1 Bolt of Woolen Cloth and 1 Fine Thread each, about 34
-// crafts; Expert at 125 from Georgio Bolero; Wool Cloth from Blackrock Grunts in Redridge (19-23), Silk Cloth
-// from Skeletal Healers in Duskwood (26-32). The character holds a sample of each (bags, bank, bolts made).
-// state: "farm" (Mix farms the wool), "buy" (the Get Silk Cloth step: Mix buys the silk, a long farm, priced),
-// "noprice" (the same, no search yet), "pick" (the player picked Farm), "selfFound", "done" (every material met).
-function kindProfession(state = 'farm') {
+// Woolen Cape (yellow 80, grey 115) to 100 from 75, about 21 crafts still to go at 87; Wool Cloth from Blackrock
+// Grunts in Redridge (19-23), 38 minutes for the rest; the section's shopping list.
+// state: "get" (the get step: Mix farms the wool), "buy" (the player picked the Auction House, priced), "craft"
+// (the craft step), "selfFound" (no Auction House way), "learn" (the skill not learned yet, the craft step).
+function kindProfession(state = 'get') {
 	return `${KIND_MAPS}
 ${TABS}
 uistub.setGuide(uistub.tailoring, 2)
 local S = ${JSON.stringify(state)}
 local function covers(view) local c = {} for i in ipairs(view and view.goals or {}) do c[#c + 1] = i end return c end
-local wool = { item = 2592, name = "Wool Cloth", have = 30, need = 66, toGet = 36, parts = { bags = 18, bank = 6, mail = 0, coming = 0, made = 6 },
-	madeItem = 2997, madeName = "Bolt of Woolen Cloth", madeCount = 2, way = "gather", choosable = true, reason = "mix",
-	split = { buy = { count = 36, copper = 36 * 38, each = 38, age = 7200, source = "search" },
-		farm = { count = 36, minutes = 38, kills = 115, npc = "Blackrock Grunt", map = 1433, lvl = { min = 19, max = 23 }, step = 2, index = 2 }, verdict = "farm" } }
-local thread = { item = 2321, name = "Fine Thread", have = 30, need = 22, toGet = 0, parts = { bags = 30, bank = 0, mail = 0, coming = 0, made = 0 }, way = "vendor" }
-local silk = { item = 4306, name = "Silk Cloth", have = 44, need = 424, toGet = 380, parts = { bags = 44, bank = 0, mail = 0, coming = 0, made = 0 },
-	way = "buy", choosable = true, reason = "long", routeCloth = true,
-	split = { buy = { count = 380, copper = 380 * 51, each = 51, age = 10800, source = "search" },
-		farm = { count = 380, minutes = 312, kills = 985, npc = "Skeletal Healer", map = 1431, lvl = { min = 26, max = 32 }, above = 1, step = 2, index = 2 }, verdict = "buy", long = true } }
-local rows = { wool, thread }
-if S == "buy" or S == "noprice" then wool.have, wool.toGet, wool.split = 66, 0, nil; rows[3] = silk end
-if S == "noprice" then silk.split.buy = { count = 380 } end
-if S == "pick" then wool.split.verdict = "pick" end
-if S == "selfFound" then wool.reason = "selfFound"; wool.split.buy = false; wool.split.verdict = "selfFound" end
-if S == "done" then wool.have, wool.toGet, wool.split = 66, 0, nil end
-local buyList = (S == "buy" or S == "noprice") and { count = 380, copper = S == "buy" and 380 * 51 or nil } or nil
+local craft = S == "craft" or S == "learn"
+local ways = {
+	{ way = "gather", verb = "farm", npc = "Blackrock Grunt", map = 1433, minutes = 38, rate = 57, current = S ~= "buy", goalIndex = 1 },
+	{ way = "buy", toGet = 36, copper = S == "buy" and 36 * 38 or nil, current = S == "buy", goalIndex = 2 },
+}
+if S == "selfFound" then ways[2] = nil end
 local models = {
-	meter = { kind = "skill", name = "Tailoring", nameKind = "skill", value = 87, max = 150, frac = 87 / 150, seg = { 87 / 150, 100 / 150 },
-		ticks = { { at = 100, what = "moveOn" }, { at = 125, what = "train" } }, learned = true,
-		line = { { name = "Woolen Cape", to = 100, item = 2584 }, { name = "Bolt of Silk Cloth", to = 120, item = 4305 } } },
-	trainer = { title = "Expert", rank = 3, level = 125, npc = "Georgio Bolero", map = 1453, due = false, toGo = 38, step = 4, goalIndex = 1 },
-	stretch = { item = 2584, name = "Woolen Cape", colour = "yellow", yellow = 80, green = 97, grey = 115, moveOn = 100, from = 75, rank = 87,
-		reagents = { { item = 2997, count = 1, name = "Bolt of Woolen Cloth" }, { item = 2321, count = 1, name = "Fine Thread" } },
-		made = 13, left = 21, expected = 34, canMake = S == "done" and 22 or 2, spell = "Tailoring", step = 2 },
-	supplies = { title = 100, titleKind = "skill", way = "mix", rows = rows, choosable = true, selfFound = S == "selfFound", buyList = buyList },
-	buyList = buyList,
+	meter = { kind = "skill", name = "Tailoring", nameKind = "skill", value = S == "learn" and 0 or 87, max = S == "learn" and 0 or 150,
+		frac = S == "learn" and 0 or 87 / 150, learned = S ~= "learn" },
+	stretch = craft and { item = 2584, name = "Woolen Cape", colour = S ~= "learn" and "yellow" or nil, yellow = 80, green = 97, grey = 115, moveOn = 100,
+		rank = 87, made = 13, left = 21, learned = S ~= "learn", spell = "Tailoring", step = 2, goalIndex = 2, done = false } or nil,
+	get = not craft and { items = { { item = 2592, name = "Wool Cloth", need = 66, have = 30, goalIndex = 1, done = false, ways = ways } } } or nil,
+	shopping = { met = 1, rows = {
+		{ item = 2592, name = "Wool Cloth", have = 30, need = 66, toGet = 36, way = S == "buy" and "buy" or "gather" },
+		{ item = 2321, name = "Fine Thread", have = 68, need = 68, toGet = 0, way = "vendor" },
+		{ item = 4306, name = "Silk Cloth", have = 44, need = 424, toGet = 380, way = "buy" } },
+		buy = { { item = 4306, name = "Silk Cloth", count = 380 } } },
 }
 local E = Polestar.Engine
 E.GuideKind = function() return "profession" end
 E.KindModel = function(region, view)
 	local m = models[region]
-	if type(m) == "table" and region ~= "buyList" then m.covers = covers(view) end
+	if type(m) == "table" and region ~= "shopping" then m.covers = covers(view) end
 	return m
 end
 uistub.update()`;
 }
 // A reputation guide (Stormwind's cloth): the standing, the turn-in of 60 Wool Cloth at Clavicus Knavingham
-// (the Dwarven District), the wool with its split, the guide's next cloth quests. No reputation value in the data
-// for the donation: no "about N turn-ins". state "short" (30 more wool), "ready" (one turn-in in the bags).
+// (the Dwarven District), the guide's next cloth quests. No reputation value in the data for the donation: no
+// "about N turn-ins". state "short" (30 more wool), "ready" (one turn-in in the bags).
 function kindRep(state = 'short') {
 	return `${KIND_MAPS}
 ${TABS}
@@ -1263,16 +1253,11 @@ local sg = uistub.guides[uistub.stormwindRep]
 table.remove(sg.steps[2].goals, 3)
 uistub.setGuide(uistub.stormwindRep, 2)
 local S = ${JSON.stringify(state)}
-local wool = { item = 2592, name = "Wool Cloth", have = S == "ready" and 60 or 30, need = 60, toGet = S == "ready" and 0 or 30,
-	parts = { bags = S == "ready" and 60 or 30, bank = 0, mail = 0, coming = 0, made = 0 }, way = "gather", choosable = true,
-	split = S ~= "ready" and { buy = { count = 30, copper = 30 * 38, each = 38, age = 7200, source = "search" },
-		farm = { count = 30, minutes = 32, kills = 96, npc = "Blackrock Grunt", map = 1433, lvl = { min = 19, max = 23 }, step = 2, index = 2 }, verdict = "farm" } or nil }
 local models = {
 	meter = { kind = "rep", name = "Stormwind", nameKind = "faction", value = 2150, max = 6000, rank = "Friendly", standing = 5, known = true,
 		frac = 2150 / 6000, seg = { 2150 / 6000, 2150 / 6000 }, ticks = {}, line = { toNext = 3850, next = "Honored" } },
 	turnin = { quest = 7791, title = "A Donation of Wool", items = { { item = 2592, count = 60, name = "Wool Cloth" } }, npc = "Clavicus Knavingham", map = 1453,
 		ready = S == "ready" and 1 or 0, short = S ~= "ready" and { item = 2592, name = "Wool Cloth", count = 30 } or nil, step = 2, goalIndex = 2 },
-	supplies = { title = "Honored", titleKind = "standing", items = { { item = 2592, name = "Wool Cloth", count = 60 } }, way = "mix", rows = { wool }, choosable = true },
 	more = { covers = { 3 }, { quest = 9001, title = "Friend of the Crown", rep = 500, once = true, progress = { cur = 3, max = 5 }, current = true, step = 2, goalIndex = 3 },
 		{ quest = 7793, title = "A Donation of Silk", once = true }, { quest = 7794, title = "A Donation of Mageweave", once = true },
 		{ quest = 7795, title = "A Donation of Runecloth", once = true } },
@@ -1281,38 +1266,29 @@ local E = Polestar.Engine
 E.GuideKind = function() return "reputation" end
 E.KindModel = function(region, view)
 	local m = models[region]
-	if type(m) == "table" and (region == "meter" or region == "supplies" or region == "turnin") then m.covers = { 1, 2 } end
+	if type(m) == "table" and (region == "meter" or region == "turnin") then m.covers = { 1, 2 } end
 	return m
 end
 uistub.update()`;
 }
-// A paired profession guide (Skinning + Leatherworking): its two skill meters, the stretch card with the flow line
-// under the recipe's name, the materials with "from your skinning on the way". Models as Core/KindCraft.lua hands
-// them; the numbers are the guide's own first Light Leather stretch (Skinning 50 to 72, then Light Armor Kits from
-// Leatherworking 20 to 51), the character at Skinning 58 and Leatherworking 31. Atlas says both skills in its XP slot
-// (Engine.SkillBar's two bars, GF.SkillText).
+// A paired profession guide (Skinning + Leatherworking): its two skill lines and a get step whose gathering way is
+// Skinning's. Models as Core/KindCraft.lua hands them; the numbers are the guide's own first Light Leather stretch, the
+// character at Skinning 58 and Leatherworking 31. Atlas says both skills in its XP slot (Engine.SkillBar's two bars,
+// GF.SkillText).
 function kindPair() {
 	return `${KIND_MAPS}
 ${TABS}
 uistub.setGuide(uistub.tailoring, 2)
 local function covers(view) local c = {} for i in ipairs(view and view.goals or {}) do c[#c + 1] = i end return c end
-local leather = { item = 2318, name = "Light Leather", have = 12, need = 34, toGet = 22, parts = { bags = 12, bank = 0, mail = 0, coming = 0, made = 0 },
-	way = "gather", choosable = true, reason = "mix",
-	split = { buy = { count = 22, copper = 22 * 26, each = 26, age = 5400, source = "search" },
-		farm = { count = 22, minutes = 17, kills = 52, npc = "Mottled Raptor", map = 1433, lvl = { min = 8, max = 11 }, step = 2, index = 2 }, verdict = "farm" } }
 local models = {
-	meter = { kind = "skill", covers = covers, pair = {
-		{ kind = "skill", name = "Skinning", nameKind = "skill", value = 58, max = 75, frac = 58 / 75, seg = { 58 / 75, 72 / 75 },
-			ticks = { { at = 72, what = "gathered" } }, line = {}, learned = true },
-		{ kind = "skill", name = "Leatherworking", nameKind = "skill", value = 31, max = 75, frac = 31 / 75, seg = { 31 / 75, 51 / 75 },
-			ticks = { { at = 50, what = "train" }, { at = 51, what = "moveOn" } }, line = { { name = "Light Armor Kit", to = 51, item = 2304 } }, learned = true },
+	meter = { kind = "skill", pair = {
+		{ kind = "skill", name = "Skinning", nameKind = "skill", value = 58, max = 75, frac = 58 / 75, learned = true },
+		{ kind = "skill", name = "Leatherworking", nameKind = "skill", value = 31, max = 75, frac = 31 / 75, learned = true },
 	} },
-	trainer = { title = "Journeyman Leatherworking", rank = 2, level = 50, npc = "Simon Tanner", map = 1453, due = false, toGo = 19, step = 4, goalIndex = 1 },
-	stretch = { item = 2304, name = "Light Armor Kit", colour = "orange", yellow = 30, green = 45, grey = 60, moveOn = 51, from = 20, rank = 31,
-		reagents = { { item = 2318, count = 1, name = "Light Leather" } }, made = 4, left = 35, expected = 45, canMake = 12, spell = "Leatherworking", step = 3,
-		flow = "Skin 34 Light Leather (Skinning 50 to 72), then craft 45 Light Armor Kits (Leatherworking 20 to 51)",
-		note = "34 Light Leather for Leatherworking 20-51: 53 Light Armor Kits. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them. Or buy them at the Auction House." },
-	supplies = { title = 51, titleKind = "skill", way = "mix", rows = { leather }, choosable = true, from = "from your skinning on the way: 12 of 34 Light Leather" },
+	get = { items = { { item = 2318, name = "Light Leather", need = 34, have = 12, goalIndex = 1, done = false, ways = {
+		{ way = "gather", verb = "skin", npc = "Mottled Raptor", map = 1433, minutes = 17, rate = 78, current = true, goalIndex = 1 },
+		{ way = "buy", toGet = 22, copper = 22 * 26, current = false, goalIndex = 2 } } } } },
+	shopping = { met = 0, rows = { { item = 2318, name = "Light Leather", have = 12, need = 34, toGet = 22, way = "gather" } }, buy = {} },
 }
 local E = Polestar.Engine
 E.GuideKind = function() return "profession" end
@@ -1321,7 +1297,7 @@ local names = { [393] = "Skinning", [165] = "Leatherworking" }
 Polestar.Compat.GetSkillLineName = function(line) return names[line] end
 E.KindModel = function(region, view)
 	local m = models[region]
-	if type(m) == "table" then m.covers = covers(view) end
+	if type(m) == "table" and region ~= "shopping" then m.covers = covers(view) end
 	return m
 end
 uistub.update()
@@ -1469,21 +1445,21 @@ const SCENES = [
 	},
 	{
 		file: 'guide-kind-profession.svg',
-		title: 'A profession guide: the skill meter, the trainer, the recipe now and its materials with the Buy / Farm split (Mix farms the wool); compact; the Atlas layout',
+		title: 'A profession guide: the slim skill line, a get step with its ways (Mix farms the wool), the folded shopping list; compact; the Atlas layout',
 		panels: [
-			{ roots: GUIDE, script: kindProfession('farm') },
-			{ roots: GUIDE, script: `Polestar.Set("ui.compact", true); ${kindProfession('farm')}` },
-			{ roots: GUIDE_CARDS, addons: ATLAS, script: `Polestar.Set("ui.layout", "atlas"); ${kindProfession('farm')}` },
+			{ roots: GUIDE, script: kindProfession('get') },
+			{ roots: GUIDE, script: `Polestar.Set("ui.compact", true); ${kindProfession('get')}` },
+			{ roots: GUIDE_CARDS, addons: ATLAS, script: `Polestar.Set("ui.layout", "atlas"); ${kindProfession('get')}` },
 		],
 	},
 	{
 		file: 'guide-kind-profession-states.svg',
-		title: 'A profession guide\'s materials: Mix buys a long farm (the silk), no price yet, the player\'s pick, Self-Found, every material met',
-		panels: ['buy', 'noprice', 'pick', 'selfFound', 'done'].map((s) => ({ roots: GUIDE, script: kindProfession(s) })),
+		title: 'A profession guide\'s steps: the Auction House picked (priced), Self-Found (no Auction House), the craft step, the craft step before the skill is learned',
+		panels: ['buy', 'selfFound', 'craft', 'learn'].map((s) => ({ roots: GUIDE, script: kindProfession(s) })),
 	},
 	{
 		file: 'guide-kind-rep.svg',
-		title: 'A reputation guide: the standing, the turn-in card (30 more wool; one ready), its items and More reputation; compact; the Atlas layout',
+		title: 'A reputation guide: the standing, the turn-in card (30 more wool; one ready) and More reputation; compact; the Atlas layout',
 		panels: [
 			{ roots: GUIDE, script: kindRep('short') },
 			{ roots: GUIDE, script: kindRep('ready') },
@@ -1493,7 +1469,7 @@ const SCENES = [
 	},
 	{
 		file: 'guide-kind-pair.svg',
-		title: 'A paired profession guide (Skinning + Leatherworking): two skill meters, the flow line on the stretch card, "from your skinning on the way" in the materials; compact; the Atlas layout, standard and compact: both skills in its XP slot',
+		title: 'A paired profession guide (Skinning + Leatherworking): two skill lines over a get step whose gathering way is Skinning\'s; compact; the Atlas layout, standard and compact: both skills in its XP slot',
 		panels: [
 			{ roots: GUIDE, script: kindPair() },
 			{ roots: GUIDE, script: `Polestar.Set("ui.compact", true); ${kindPair()}` },

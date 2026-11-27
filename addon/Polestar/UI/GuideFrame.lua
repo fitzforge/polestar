@@ -751,10 +751,11 @@ GF.Part(function(GF)
 		W.HideTooltip(row)
 	end
 
-	local function goalRow(i)
-		local r = rows[i]
-		if r then return r end
-		r = CreateFrame("Button", nil, goals.Child)
+	-- A goal row under `parent`: the goals area's own (goalRow), and a guide
+	-- kind region's list that reads as goal rows (GF.NewGoalRow: the dungeon
+	-- window's pick-ups, painted with GF.PaintGoalRow, measured with GF.MeasureRow).
+	local function buildRow(parent)
+		local r = CreateFrame("Button", nil, parent)
 		r:RegisterForClicks("LeftButtonUp", "RightButtonUp", "MiddleButtonUp")
 		r.Hover = r:CreateTexture(nil, "BACKGROUND")
 		r.Hover:SetTexture(Theme.Media("white"))
@@ -875,6 +876,14 @@ GF.Part(function(GF)
 		r:SetScript("OnClick", rowClick)
 		r:SetScript("OnEnter", rowEnter)
 		r:SetScript("OnLeave", rowLeave)
+		return r
+	end
+	GF.NewGoalRow = buildRow
+
+	local function goalRow(i)
+		local r = rows[i]
+		if r then return r end
+		r = buildRow(goals.Child)
 		rows[i] = r
 		return r
 	end
@@ -1009,6 +1018,12 @@ GF.Part(function(GF)
 		end
 		info.current, info.done, info.skipped = current and true or false, done, skipped
 		GF.Hook("guideRow", r, goal, info)
+	end
+	-- A region's goal row (GF.NewGoalRow) painted as the goals area paints one:
+	-- its goal view (a step's own, or one with the same fields), `current` the
+	-- arrow's target. The party, escort and finder lines are the step's rows' to say.
+	function GF.PaintGoalRow(r, goal, current)
+		paintRow(r, goal, false, false, current, true, true, true, nil, nil, nil, true)
 	end
 
 	local function layoutBar(b, tw)
@@ -3152,8 +3167,7 @@ GF.Part(function(GF)
 			i = i + 1
 		end
 		local shown = ns.Get("ui.showNotes") and GF.Shows("tip", not compact()) or false
-		-- A kind's region may say part of the tip itself (a paired guide's flow line on the stretch card).
-		local note = shown and (GF.RegionNote() or view.note) or nil
+		local note = shown and view.note or nil
 		if note == "" then note = nil end
 		-- The step's picture (a file in its pack's addon folder, Guides.lua): one
 		-- the client cannot load leaves the tip as it was without one.
@@ -3163,6 +3177,10 @@ GF.Part(function(GF)
 		card.Tip.psImage = pic
 		card.Tip.Text:SetText(note or (pic and L["Picture of this spot"]) or "")
 		card.Tip:SetShown(note ~= nil or pic ~= nil)
+		-- A profession guide's tip is one short line under the step, never opened: the whole text is its tooltip.
+		card.Tip.psLine = E and E.GuideKind and E.GuideKind() == "profession" and true or nil
+		card.Tip.psNote = note
+		card.Tip.Toggle:SetShown(not card.Tip.psLine)
 		W.SetIcon(card.Tip.Toggle, tipOpen and "chevron-up" or "chevron-down")
 		return groups, focus
 	end
@@ -3668,11 +3686,16 @@ GF.Part(function(GF)
 		tip.Toggle:EnableMouse(false)
 		tip.Toggle:SetPoint("TOPLEFT", tip, "TOPLEFT", PAD - 2, -3)
 		tip:SetScript("OnClick", function()
+			if tip.psLine then return end
 			tipOpen = not tipOpen
 			W.SetIcon(tip.Toggle, tipOpen and "chevron-up" or "chevron-down")
 			GF.Layout()
 		end)
-		tip:SetScript("OnEnter", function() GF.HoverIn() end)
+		tip:SetScript("OnEnter", function()
+			GF.HoverIn()
+			if tip.psLine and tip.psNote then W.Tooltip(tip, "ANCHOR_TOP", tip.psNote) end
+		end)
+		tip:SetScript("OnLeave", function() W.HideTooltip(tip) end)
 		card.Tip = tip
 
 		-- "Then: Gazrog" on the left, "Person 2 of 8" on the right.

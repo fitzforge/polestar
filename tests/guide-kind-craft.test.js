@@ -1,9 +1,10 @@
 'use strict';
 // The profession and reputation kinds' regions (Core/KindCraft.lua, UI/GuideFrameKindCraft.lua; docs/ARCHITECTURE.md,
-// "Guide kind regions"): a profession guide at Tailoring 87 shows its skill meter, the trainer's next rank, the
-// stretch it levels now (its colour, crafts made, what the bags make now) and the materials to the move-on, counted
-// from bags, bank and the bolts already made; Mix buys a material whose farm is longer than Materials.LONG, a price
-// is never made up, Self-Found farms everything. A reputation guide shows its standing, the turn-in and its items.
+// "Guide kind regions"): a profession guide reads as steps drawn as the leveling view's goal rows. The slim skill
+// line; a get step's "Get 265 Wool Cloth" with a row per way (farm it, the Auction House, a vendor), picked like an
+// option; a craft step's "Craft Woolen Cape until 115" with the client's skill-up arrow, the crafts to go and Open
+// Tailoring; a train step's own rows; the folded shopping list. A reputation guide shows its standing, the turn-in
+// and More reputation.
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { runAddon } = require('./helpers/lua');
@@ -11,16 +12,19 @@ const { runAddon } = require('./helpers/lua');
 const PROFESSION = `{ id = "test/craft", pack = "test", title = "Tailoring 1-300", minLevel = 5, maxLevel = 60, category = "Professions",
 	sections = { { skill = "Tailoring", skillLine = 197, from = 75, to = 150 } },
 	steps = {
-		{ title = "Get Wool Cloth", section = 1, goals = {
+		{ title = "Get Wool Cloth", section = 1, note = "Wool Cloth drops from humanoids of level 15-30. The arrow takes you to the best farm for your level.", goals = {
 			{ t = "collect", item = 2592, itemName = "Wool Cloth", count = 288, gather = { min = 15, max = 30 } },
 			{ t = "auction", item = 2592, itemName = "Wool Cloth", count = 288 } } },
-		{ title = "Coarse Thread", section = 1, goals = { { t = "buy", item = 2320, itemName = "Coarse Thread", count = 72 } } },
+		{ title = "Coarse Thread", section = 1, goals = { { t = "buy", item = 2320, itemName = "Coarse Thread", count = 72, npc = 1250, npcName = "Rachel" } } },
 		{ title = "Bolts", section = 1, goals = { { t = "craft", spell = 2964, spellName = "Bolt of Woolen Cloth", item = 2997, itemName = "Bolt of Woolen Cloth", skillLine = 197, count = 30,
 			reagents = { { item = 2592, itemName = "Wool Cloth", count = 3 } } } } },
 		{ title = "Woolen Cape to 115", section = 1, goals = { { t = "craft", spell = 2402, spellName = "Woolen Cape", item = 2580, itemName = "Woolen Cape", skillLine = 197,
 			untilSkill = 115, yellow = 100, grey = 125,
 			reagents = { { item = 2997, itemName = "Bolt of Woolen Cloth", count = 3 }, { item = 2320, itemName = "Coarse Thread", count = 2 } } } } },
 		{ title = "Expert Tailoring", section = 1, goals = { { t = "level", level = 20 }, { t = "train", skill = "Tailoring", skillLine = 197, rank = 3, rankMax = 225 } } },
+		{ title = "Get Strange Dust", section = 1, goals = {
+			{ t = "collect", item = 10940, itemName = "Strange Dust", count = 25, gather = { skill = "Enchanting", skillLine = 333, rank = 1, min = 1, max = 20 } },
+			{ t = "auction", item = 10940, itemName = "Strange Dust", count = 25 } } },
 	} }`;
 
 const script = (setup, body) => `
@@ -38,110 +42,420 @@ C.GetSkillRank = function(line) if line == 197 or line == "Tailoring" then retur
 C.GetSkillLineName = function(line) return line == 197 and "Tailoring" or nil end
 w.items[2592] = 58; w.bank[2592] = 10; w.items[2997] = 10; w.items[2320] = 12
 local E = Polestar.Engine
--- The farm spot's numbers (Own.farmView over the guide's spawns): 200 minutes for what the step still needs.
+-- The farm spot's numbers (Own.farmView over the guide's spawns): 200 minutes for what the step still needs, at
+-- Blackrock Grunts in Elwynn Forest.
 E.KindAccess.farm = function(goal) if goal.item == 2592 then return { minutes = 200, kills = 1652 } end end
+E.KindAccess.chosen = function(goal) if goal.item == 2592 and goal.t == "collect" then return { npc = 436, npcName = "Blackrock Grunt", map = 1429 } end end
 ${setup}
 E.SetGuide("test/craft")
 stub.advance(1)
 local GF = Polestar.UI.GuideFrame
-local view = E.GetStepView(E.GetStepIndex())
+local function at(n) E.Goto(n); stub.advance(0.5) end
 local function plain(s) return s and (s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("\\194\\160", " ")) or s end
 ${body}`;
 
 const run = (setup, body) => runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar'], script: script(setup, body) }).emitted[0];
 
-const MODELS = `
-local m = {}
-for _, id in ipairs({ "meter", "trainer", "stretch", "supplies", "buyList" }) do m[id] = E.KindModel(id, view, "profession") or false end
+// The get region's rows as the window shows them: the item's, then its ways.
+const GET_ROWS = `
+local function getRows()
+	local f, out = GF.RegionFrame("get"), {}
+	for _, r in ipairs(f and f.List or {}) do
+		if r:IsShown() then
+			out[#out + 1] = { text = plain(r.Text:GetText()), sub = r.Sub:IsShown() and plain(r.Sub:GetText()) or false, way = r.psWay and r.psWay.way or false,
+				on = r.psDot and r.psDot:IsShown() or false, button = r.psButton and r.psButton:IsShown() and r.psButton.Label:GetText() or false }
+		end
+	end
+	return out
+end`;
+
+test('the models: the slim skill, no trainer line, a get step\'s ways, the section\'s shopping list', () => {
+	const out = run('', `
+local view = E.GetStepView(E.GetStepIndex())
+local meter, get, shop = E.KindModel("meter", view, "profession"), E.KindModel("get", view, "profession"), E.KindModel("shopping", view, "profession")
+local it = get.items[1]
+local ways = {}
+for _, w in ipairs(it.ways) do ways[#ways + 1] = { way = w.way, current = w.current, verb = w.verb or false, npc = w.npc or false, minutes = w.minutes or false, rate = w.rate or false, toGet = w.toGet or false } end
 local rows = {}
-for _, r in ipairs(m.supplies and m.supplies.rows or {}) do
-	rows[#rows + 1] = { item = r.item, have = r.have, need = r.need, way = r.way, choosable = r.choosable, reason = r.reason, made = r.parts.made,
-		verdict = r.split and r.split.verdict or false, long = r.split and r.split.long or false,
-		copper = r.split and r.split.buy and r.split.buy.copper or false, buy = r.split and r.split.buy and true or false,
-		minutes = r.split and r.split.farm and r.split.farm.minutes or false, text = r.split and GF.KindVerdict(r) and plain(GF.KindVerdict(r)) or false }
-end
-emit({ meter = m.meter and { value = m.meter.value, max = m.meter.max, ticks = m.meter.ticks, line = m.meter.line[1] and m.meter.line[1].to } or false,
-	trainer = m.trainer and { title = m.trainer.title, level = m.trainer.level, due = m.trainer.due, toGo = m.trainer.toGo } or false,
-	stretch = m.stretch and { colour = m.stretch.colour, green = m.stretch.green, expected = m.stretch.expected, made = m.stretch.made, left = m.stretch.left, canMake = m.stretch.canMake, moveOn = m.stretch.moveOn } or false,
-	rows = rows, buyList = m.buyList and { count = m.buyList.count, copper = m.buyList.copper or false } or false })`;
-
-test('profession at 87: meter, trainer, stretch colour and counts; materials with bolts counted as cloth', () => {
-	const out = run('', MODELS);
-	assert.deepEqual(out.meter, { value: 87, max: 150, ticks: [{ at: 115, what: 'moveOn' }, { at: 125, what: 'train' }], line: 115 });
-	assert.deepEqual(out.trainer, { title: 'Expert', level: 125, due: false, toGo: 38 });
-	// Orange below yellow (100), green from (100 + 125) / 2; about 47 crafts from 75, about 36 still to go from 87. None
-	// made: the 12 points since 75 may have come from other recipes, so no cast counted means none made.
-	assert.deepEqual(out.stretch, { colour: 'orange', green: 112, expected: 47, made: 0, left: 36, canMake: 3, moveOn: 115 });
-	const wool = out.rows.find((r) => r.item === 2592);
-	// 36 capes still to make: 108 bolts, 324 Wool Cloth; held: 58 bags + 10 bank + 10 bolts (30 cloth).
-	assert.equal(wool.need, 324);
-	assert.equal(wool.have, 98);
-	assert.equal(wool.made, 30);
-	const thread = out.rows.find((r) => r.item === 2320);
-	assert.deepEqual([thread.need, thread.have, thread.way, thread.choosable], [72, 12, 'vendor', false]);
+for _, r in ipairs(shop.rows) do rows[#rows + 1] = { item = r.item, need = r.need, have = r.have, way = r.way } end
+emit({ meter = { value = meter.value, max = meter.max, learned = meter.learned, ticks = meter.ticks or false, line = meter.line or false },
+	trainer = E.KindModel("trainer", view, "profession") or false, stretch = E.KindModel("stretch", view, "profession") or false,
+	item = { need = it.need, have = it.have, done = it.done }, ways = ways, covers = get.covers, rows = rows, buy = shop.buy })`);
+	assert.deepEqual(out.meter, { value: 87, max: 150, learned: true, ticks: false, line: false });
+	assert.equal(out.trainer, false, 'training is a step of its own');
+	assert.equal(out.stretch, false, 'the craft row belongs to the craft step');
+	// 265 of the step's 288 once the crafts made to 87 are counted; 58 in the bags.
+	assert.deepEqual(out.item, { need: 265, have: 58, done: false });
+	// Mix buys a farm longer than 45 minutes: the Auction House is the way taken.
+	assert.deepEqual(out.ways, [
+		{ way: 'gather', current: false, verb: 'farm', npc: 'Blackrock Grunt', minutes: 200, rate: 62, toGet: false },
+		{ way: 'buy', current: true, verb: false, npc: false, minutes: false, rate: false, toGet: 197 },
+	]);
+	assert.deepEqual(out.covers, [1, 2]);
+	assert.deepEqual(out.rows.map((r) => [r.item, r.need, r.way]), [[2592, 265, 'buy'], [2320, 48, 'vendor'], [10940, 25, 'buy']]);
+	assert.deepEqual(out.buy.map((b) => [b.item, b.count]), [[2592, 197], [10940, 25]]);
 });
 
-test('Mix buys a material whose farm takes over 45 minutes; no price is "No price yet", never a guess', () => {
-	const out = run('', MODELS);
-	const wool = out.rows.find((r) => r.item === 2592);
-	assert.deepEqual([wool.way, wool.reason, wool.verdict, wool.long, wool.copper], ['buy', 'long', 'buy', true, false]);
-	// 200 min for the 206 the step still lacks (264 of its 288 once the crafts made to 87 are counted, less the 58 in
-	// the bags); the stretch lacks 226: 219 min.
-	assert.equal(wool.minutes, 219);
-	assert.equal(wool.text, 'Mix buys this: farming takes about 4 h at your level. Cloth from your route still counts.', 'past two hours the verdict says whole hours (3 h 39 min stays in the Farm column)');
-	assert.deepEqual(out.buyList, { count: 226, copper: false });
-});
-
-test('a short farm stays a farm; a searched price shows; the player\'s pick wins; Self-Found farms all', () => {
-	const short = run('E.KindAccess.farm = function(goal) if goal.item == 2592 then return { minutes = 30, kills = 200 } end end', MODELS);
-	const wool = short.rows.find((r) => r.item === 2592);
-	assert.deepEqual([wool.way, wool.reason, wool.verdict], ['gather', 'mix', 'farm']);
-	assert.equal(wool.text, 'Mix farms this: about 33 min here.');
-	const priced = run('Polestar.Materials.NoteSearch(2592, { { price = 45, quantity = 1000 } })', MODELS);
-	const pw = priced.rows.find((r) => r.item === 2592);
-	assert.equal(pw.copper, 45 * 226);
-	assert.deepEqual(priced.buyList, { count: 226, copper: 45 * 226 });
-	const picked = run('Polestar.Materials.SetWay("test/craft", 2592, "gather")', MODELS);
-	const kw = picked.rows.find((r) => r.item === 2592);
-	assert.deepEqual([kw.way, kw.verdict], ['gather', 'pick']);
-	assert.equal(kw.text, 'Your pick: farm. About 4 h for 226.');
-	const sf = run('C_PlayerInfo = C_PlayerInfo or {}; C_PlayerInfo.IsSelfFoundActive = function() return true end', MODELS);
-	const sw = sf.rows.find((r) => r.item === 2592);
-	assert.deepEqual([sw.way, sw.verdict, sw.buy], ['gather', 'selfFound', false]);
-	assert.equal(sw.text, 'About 4 h for 226 at your level.', 'Self-Found: the time farming all of it takes');
-});
-
-const WINDOW = `
+test('a get step in the window: the item\'s row with its count once, a row per way picked like an option', () => {
+	const out = run('', `${GET_ROWS}
 GF.Layout(); stub.advance(1)
 local function shown(id) local f = GF.RegionFrame(id); return f and f:IsShown() or false end
-local sup = GF.RegionFrame("supplies")
-local meter = GF.RegionFrame("meter")
-local st = GF.RegionFrame("stretch")
-emit({ regions = { meter = shown("meter"), trainer = shown("trainer"), stretch = shown("stretch"), supplies = shown("supplies"), buyList = shown("buyList") },
-	person = GF.parts.person:IsShown(), name = meter and meter.Name:GetText(), value = meter and meter.Value:GetText(),
-	line = meter and plain(meter.Line:GetText()), make = st and plain(st.Make:GetText()), count = st and plain(st.Count:GetText()),
-	verdict = sup and sup.Well:IsShown() and plain(sup.Verdict:GetText()) or false, head = sup and sup.Head:GetText(),
-	xp = GF.xp.psHas and GF.xp.Text:GetText() or false })`;
-
-test('the window: the regions in place of the step header, the split open on the first choosable material', () => {
-	const out = run('', WINDOW);
-	assert.deepEqual(out.regions, { meter: true, trainer: true, stretch: true, supplies: true, buyList: true });
-	assert.equal(out.person, false, 'the regions stand for every goal of the step');
-	assert.equal(out.name, 'Tailoring');
-	assert.equal(out.value, '87');
-	assert.equal(out.line, 'Woolen Cape to 115');
-	assert.equal(out.make, 'You can make 3 now');
-	assert.equal(out.count, 'about 36 to go', 'what the skill still takes; no "made" without a counted cast');
-	assert.equal(out.head, 'Materials to 115');
-	assert.match(out.verdict, /^Mix buys this: farming takes about 4 h/);
-	assert.ok(!out.xp || !String(out.xp).includes('Tailoring'), 'the skill sits in the meter, not the XP row');
+emit({ regions = { meter = shown("meter"), stretch = shown("stretch"), get = shown("get"), shopping = shown("shopping") },
+	person = GF.parts.person:IsShown(), rows = getRows(), meter = { name = GF.RegionFrame("meter").Name:GetText(), value = GF.RegionFrame("meter").Value:GetText(),
+	max = GF.RegionFrame("meter").Max:GetText(), h = GF.RegionFrame("meter"):GetHeight() } })`);
+	assert.deepEqual(out.regions, { meter: true, stretch: false, get: true, shopping: true });
+	assert.equal(out.person, false, 'the get rows stand for every goal of the step');
+	assert.deepEqual(out.meter, { name: 'Tailoring', value: '87', max: '/ 150', h: 26 }, 'one slim line');
+	assert.equal(out.rows.length, 3);
+	assert.match(out.rows[0].text, /^Get 265 Wool Cloth +58\/265$/);
+	assert.equal(out.rows[0].sub, 'Pick one way:');
+	assert.deepEqual(out.rows[1], { text: 'Farm it', sub: 'Blackrock Grunt  ·  Elwynn Forest  ·  about 62 an hour', way: 'gather', on: false, button: 'Guide me' });
+	assert.deepEqual(out.rows[2], { text: 'Buy it at the Auction House', sub: '197 more', way: 'buy', on: true, button: 'Buy list' });
 });
 
-test('compact: one line each, no split', () => {
-	const out = run('Polestar.Set("ui.compact", true)', WINDOW);
-	assert.equal(out.regions.meter, true);
-	assert.equal(out.regions.buyList, false);
-	assert.equal(out.verdict, false);
+test('a way row\'s click picks it: the item takes that way and the arrow follows its goal', () => {
+	const out = run('', `${GET_ROWS}
+GF.Layout(); stub.advance(1)
+local farm = GF.RegionFrame("get").List[2]
+farm:Click()
+stub.advance(0.5); GF.Layout(); stub.advance(0.5)
+local _, _, pick = Polestar.Materials.Mode("test/craft", 2592)
+local view = E.GetStepView(E.GetStepIndex())
+emit({ pick = pick or false, rows = getRows(), applies = view.goals[1].status ~= "na", auction = view.goals[2].status, pad = farm.psPadLabel })`);
+	assert.equal(out.pick, 'gather');
+	assert.equal(out.applies, true, 'the farm goal applies now');
+	assert.equal(out.auction, 'na');
+	assert.deepEqual([out.rows[1].on, out.rows[2].on], [true, false]);
+	assert.equal(out.pad, 'Guide me');
+});
+
+test('a short farm says the minutes for the rest; a disenchant way says the green items\' levels', () => {
+	const short = run('E.KindAccess.farm = function(goal) if goal.item == 2592 then return { minutes = 30, kills = 200 } end end', `${GET_ROWS}
+GF.Layout(); stub.advance(1)
+emit({ rows = getRows() })`);
+	assert.equal(short.rows[1].sub, 'Blackrock Grunt  ·  Elwynn Forest  ·  ~30 min for the rest');
+	assert.equal(short.rows[1].on, true, 'Mix farms a short farm');
+	const dust = run('', `${GET_ROWS}
+at(6); GF.Layout(); stub.advance(1)
+emit({ rows = getRows() })`);
+	assert.match(dust.rows[0].text, /^Get 25 Strange Dust/);
+	assert.deepEqual([dust.rows[1].text, dust.rows[1].sub, dust.rows[1].button], ['Disenchant green armour', 'Requires Level 1-20', false]);
+	assert.equal(dust.rows[2].text, 'Buy it at the Auction House');
+});
+
+test('Self-Found: no Auction House way; a vendor step reads "Buy it from Rachel" with Guide me', () => {
+	const sf = run('C_PlayerInfo = C_PlayerInfo or {}; C_PlayerInfo.IsSelfFoundActive = function() return true end', `${GET_ROWS}
+GF.Layout(); stub.advance(1)
+emit({ rows = getRows() })`);
+	assert.equal(sf.rows.length, 2, 'the item and its one way');
+	assert.equal(sf.rows[0].sub, false, 'one way: nothing to pick');
+	assert.equal(sf.rows[1].way, 'gather');
+	const vendor = run('', `${GET_ROWS}
+at(2); GF.Layout(); stub.advance(1)
+emit({ rows = getRows(), person = GF.parts.person:IsShown() })`);
+	assert.match(vendor.rows[0].text, /^Get 48 Coarse Thread +12\/48$/, 'the thread the crafts made to 87 used is left out');
+	assert.equal(vendor.rows[1].text, 'Buy it from Rachel');
+	assert.equal(vendor.rows[1].way, 'vendor');
+	assert.equal(vendor.person, false);
+});
+
+test('a craft step: one row, the recipe\'s icon, "Craft Woolen Cape until 115", the crafts to go and Open Tailoring', () => {
+	const out = run('', `
+at(4); GF.Layout(); stub.advance(1)
+local f = GF.RegionFrame("stretch")
+local r = f.Row
+emit({ shown = f:IsShown(), text = plain(r.Text:GetText()), sub = plain(r.Sub:GetText()), open = r.psOpen:IsShown() and r.psOpen.Label:GetText() or false,
+	person = GF.parts.person:IsShown(), get = GF.RegionFrame("get") and GF.RegionFrame("get"):IsShown() or false })`);
+	assert.equal(out.shown, true);
+	assert.match(out.text, /^Craft Woolen Cape until 115/);
+	assert.equal(out.sub, 'about 36 to go');
+	assert.equal(out.open, 'Open Tailoring');
+	assert.equal(out.person, false, 'the craft row stands for the step');
+	assert.equal(out.get, false);
+});
+
+test('crafts made are the recipe\'s casts counted, after what the skill still takes ("about 36 to go · 2 made")', () => {
+	const out = run('', `
+stub.fire("UNIT_SPELLCAST_SUCCEEDED", "player", "Cast-1", 2402)
+stub.fire("UNIT_SPELLCAST_SUCCEEDED", "player", "Cast-2", 2402)
+stub.fire("UNIT_SPELLCAST_SUCCEEDED", "player", "Cast-3", 2964)
+stub.advance(0.5)
+at(4); GF.Layout(); stub.advance(1)
+local m = E.KindModel("stretch", E.GetStepView(4), "profession")
+emit({ made = m.made, left = m.left, sub = plain(GF.RegionFrame("stretch").Row.Sub:GetText()) })`);
+	assert.equal(out.made, 2, 'Woolen Cape cast twice; the bolt is another recipe');
+	assert.equal(out.left, 36);
+	assert.match(out.sub, /^about 36 to go +· +2 made$/);
+});
+
+const ATLAS_ART = `C_Texture = { GetAtlasInfo = function(name)
+	if name == "Professions-Icon-Skill-High" or name == "Professions-Icon-Skill-Medium" or name == "Professions-Icon-Skill-Low" then
+		return { width = 13, height = 15, file = 4417031 } end end }`;
+const CRAFT_TEXT = `
+at(4); GF.Layout(); stub.advance(1)
+emit({ text = GF.RegionFrame("stretch").Row.Text:GetText() })`;
+
+test('the recipe\'s colour is the client\'s own skill-up arrow after its name; our chevron where the client has none; none for grey', () => {
+	const art = run(ATLAS_ART, CRAFT_TEXT);
+	assert.match(art.text, /\|A:Professions-Icon-Skill-High:15:13\|a/, 'orange at 87, below yellow (100)');
+	const own = run('', CRAFT_TEXT);
+	assert.match(own.text, /\|T[^|]*chevron-up[^|]*\|t/);
+	const yellow = run(`${ATLAS_ART}; C.GetSkillRank = function(line) if line == 197 or line == "Tailoring" then return 105, 150 end return nil end`, CRAFT_TEXT);
+	assert.match(yellow.text, /Professions-Icon-Skill-Medium/);
+	const grey = run(`${ATLAS_ART}
+GetSpellInfo = function(id) if id == 2402 then return "Woolen Cape" end end
+C_Spell = nil
+GetNumTradeSkills = function() return 1 end
+GetTradeSkillInfo = function(i) return "Woolen Cape", "trivial" end`, CRAFT_TEXT);
+	assert.doesNotMatch(grey.text, /\|A:|\|T/, 'the trade skill window says grey: no arrow');
+});
+
+test('Open Tailoring: the click is a secure spell button outside the guide window, over the row\'s button', () => {
+	const out = run('', `
+at(4); GF.Layout(); stub.advance(1)
+local slot = GF.RegionFrame("stretch").Row.psOpen
+slot:GetScript("OnUpdate")(slot, 1)
+local b = _G.PolestarOpenProfession
+local under = false
+local p = b and b:GetParent()
+while p do if p == GF.frame then under = true end p = p:GetParent() end
+emit({ shown = slot:IsShown(), text = slot.Label:GetText(), secure = b ~= nil, under = under, spell = b and b:GetAttribute("spell") or false })`);
+	assert.deepEqual(out, { shown: true, text: 'Open Tailoring', secure: true, under: false, spell: 'Tailoring' });
+});
+
+test('a skill not learned yet: "Not learned yet" on the skill line; the craft row says to learn it first, no Open button', () => {
+	const out = run('C.GetSkillRank = function() return nil end', `
+GF.Layout(); stub.advance(1)
+local meter = GF.RegionFrame("meter")
+local line = { name = meter.Name:GetText(), value = meter.Value:GetText(), max = meter.Max:GetText(), bar = meter.Bar:IsShown() }
+at(4); GF.Layout(); stub.advance(1)
+local r = GF.RegionFrame("stretch").Row
+emit({ line = line, sub = plain(r.Sub:GetText()), open = r.psOpen:IsShown(), text = plain(r.Text:GetText()) })`);
+	assert.deepEqual(out.line, { name: 'Tailoring', value: '', max: 'Not learned yet', bar: false });
+	assert.equal(out.sub, 'Learn Tailoring first');
+	assert.equal(out.open, false);
+	assert.doesNotMatch(out.text, /\|A:|\|T/, 'no colour before it is learned');
+});
+
+test('a train step is the step\'s own rows (the trainer, the arrow on them); its tip is one line, the rest in its tooltip', () => {
+	const out = run('', `
+at(5); GF.Layout(); stub.advance(1)
+local person, tip = GF.parts.person, GF.parts.tip
+local trainLine = GF.RegionFrame("trainer") ~= nil
+at(1); GF.Layout(); stub.advance(1)
+tip = GF.parts.tip
+local open = GF.TipOpen()
+tip:Click()
+stub.advance(0.2)
+tip:GetScript("OnEnter")(tip)
+emit({ person = person:IsShown() or false, trainLine = trainLine, tipShown = tip:IsShown(), toggle = tip.Toggle:IsShown(), wraps = tip.psOpen,
+	stillShut = GF.TipOpen() == open, tooltip = GameTooltip:IsShown() and GameTooltip:GetOwner() == tip and GameTooltip.lines and GameTooltip.lines[1] or false })`);
+	assert.equal(out.trainLine, false, 'no trainer line: training is a step');
+	assert.equal(out.tipShown, true);
+	assert.equal(out.toggle, false, 'no expander');
+	assert.equal(out.wraps, false, 'one line');
+	assert.equal(out.stillShut, true, 'a click does not open it');
+	assert.match(String(out.tooltip), /^Wool Cloth drops from humanoids of level 15-30\. The arrow/);
+});
+
+test('a train step shows its own header and rows in the step\'s place', () => {
+	const out = run('', `
+at(5); GF.Layout(); stub.advance(1)
+local texts = {}
+for _, f in ipairs(GF.CardItems()) do if f:IsShown() and f.Text and f.psGoal then texts[#texts + 1] = plain(f.Text:GetText()) end end
+emit({ person = GF.parts.person:IsShown(), texts = texts })`);
+	assert.equal(out.person, true);
+	assert.ok(out.texts.some((t) => /^Learn Expert Tailoring/.test(t)), out.texts.join(' | '));
+});
+
+test('the shopping list: one folded row; opened, the section\'s materials and Buy the whole list', () => {
+	const out = run('', `
+GF.Layout(); stub.advance(1)
+local f = GF.RegionFrame("shopping")
+local folded = { right = f.Head.Right:GetText(), rows = f.psN, buy = f.Buy:IsShown() }
+f.Head:Click()
+stub.advance(0.5); GF.Render(); GF.Layout(); stub.advance(0.5)
+local rows = {}
+for i = 1, f.psN do rows[i] = { name = plain(f.Rows[i].Name:GetText()), count = f.Rows[i].Count:GetText() } end
+local tile = f.Rows[1].Tile
+tile:GetScript("OnEnter")(tile)
+local itemOn = GameTooltip:IsShown() and GameTooltip:GetOwner() == tile
+tile:GetScript("OnLeave")(tile)
+emit({ folded = folded, head = f.Head.Text:GetText(), rows = rows, buy = f.Buy:IsShown() and f.Buy.Label:GetText() or false,
+	itemOn = itemOn, itemAfter = GameTooltip:IsShown() and GameTooltip:GetOwner() == tile })`);
+	assert.deepEqual(out.folded, { right: '0 / 3', rows: 0, buy: false });
+	assert.equal(out.head, 'Shopping list');
+	assert.deepEqual(out.rows.map((r) => r.count), ['68 / 265', '12 / 48', '0 / 25']);
+	assert.equal(out.buy, 'Buy the whole list');
+	assert.deepEqual([out.itemOn, out.itemAfter], [true, false], 'the game\'s item tooltip goes as the cursor leaves');
+});
+
+test('compact: the skill line and the item\'s row, no ways and no shopping list', () => {
+	const out = run('Polestar.Set("ui.compact", true)', `${GET_ROWS}
+GF.Layout(); stub.advance(1)
+emit({ meter = GF.RegionFrame("meter"):IsShown(), rows = getRows(), shopping = GF.RegionFrame("shopping") and GF.RegionFrame("shopping"):IsShown() or false })`);
+	assert.equal(out.meter, true);
+	assert.equal(out.rows.length, 1);
+	assert.equal(out.shopping, false);
+});
+
+test('Atlas keeps a profession step\'s rows in the window', () => {
+	const out = runAddon({
+		stubs: ['stub_world.lua'],
+		addons: ['Polestar', { name: 'Polestar_Skins', files: ['Layouts/Atlas/Atlas.lua'] }],
+		script: script('Polestar.Set("ui.layout", "atlas")', `
+GF.Layout(); stub.advance(1); GF.Layout()
+emit({ get = GF.RegionFrame("get"):GetParent() == GF.parts.card, meter = GF.RegionFrame("meter"):GetParent() == GF.parts.card,
+	shopping = GF.RegionFrame("shopping"):GetParent() == GF.parts.card })`),
+	}).emitted[0];
+	assert.deepEqual(out, { get: true, meter: true, shopping: true });
+});
+
+// A paired guide (`skills Skinning, Leatherworking`, compiled as `skillLines = { 393, 165 }`): the window shows both
+// skills on two slim lines; a step reads as for one skill, a craft row of its own skill.
+const PAIR = `{ id = "test/pair", pack = "test", title = "Skinning + Leatherworking 1-300", minLevel = 5, maxLevel = 60, category = "Professions",
+	kind = "profession", skillLines = { 393, 165 },
+	sections = { { skill = "Leatherworking", skillLine = 165, from = 20, to = 75 } },
+	steps = {
+		{ title = "Skin Light Leather (Skinning 50-72)", section = 1, goals = {
+			{ t = "collect", item = 2318, itemName = "Light Leather", count = 34, gather = { skill = "Skinning", skillLine = 393, rank = 50 } },
+			{ t = "auction", item = 2318, itemName = "Light Leather", count = 34 } } },
+		{ title = "Light Armor Kit to 51", section = 1, goals = {
+			{ t = "craft", spell = 2152, spellName = "Light Armor Kit", item = 2304, itemName = "Light Armor Kit", skillLine = 165, untilSkill = 51,
+				yellow = 30, grey = 60, reagents = { { item = 2318, itemName = "Light Leather", count = 1 } } } } },
+		{ title = "Skinning 72-75", section = 1, goals = { { t = "skill", skill = "Skinning", skillLine = 393, level = 75 } } },
+		{ title = "Journeyman Skinning", section = 1, goals = { { t = "train", skill = "Skinning", skillLine = 393, rank = 2, rankMax = 150 } } },
+		{ title = "Journeyman Leatherworking", section = 1, goals = { { t = "level", level = 10 }, { t = "train", skill = "Leatherworking", skillLine = 165, rank = 2, rankMax = 150 } } },
+	} }`;
+
+const pairScript = (setup, body) => `
+w = stub.world
+w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
+w.moveTo(1429, 48, 42)
+w.setLevel(24)
+Polestar.RegisterPack({ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" })
+Polestar.RegisterGuide(${PAIR})
+stub.login()
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)
+Polestar.Set("ui.shown", true)
+local C = Polestar.Compat
+C.GetSkillRank = function(line) if line == 393 or line == "Skinning" then return 55, 75 end if line == 165 or line == "Leatherworking" then return 32, 75 end return nil end
+C.GetSkillLineName = function(line) return line == 393 and "Skinning" or line == 165 and "Leatherworking" or nil end
+w.items[2318] = 20
+local E = Polestar.Engine
+${setup}
+E.SetGuide("test/pair")
+stub.advance(1)
+local GF = Polestar.UI.GuideFrame
+local function at(n) E.Goto(n); stub.advance(0.5) end
+local function plain(s) return s and (s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("\\194\\160", " "):gsub("  +", " ")) or s end
+${body}`;
+const runPair = (setup, body, addons = ['Polestar']) => runAddon({ stubs: ['stub_world.lua'], addons, script: pairScript(setup, body) }).emitted[0];
+const RANKS = (a, b) => `C.GetSkillRank = function(line) if line == 393 or line == "Skinning" then return ${a} end if line == 165 or line == "Leatherworking" then return ${b} end return nil end`;
+
+test('a paired guide: GuideKinds.SkillLine and Engine.SkillBar give both skills, gathering first; a single guide one', () => {
+	const out = run('', `
+local K = Polestar.GuideKinds
+local single = { K.SkillLine(Polestar.Guides.Get("test/craft")) }
+local a, b = E.SkillBar()
+emit({ single = single, singleBar2 = select(2, E.SkillBar()) or false, singleLine = a.line })`);
+	assert.deepEqual(out.single, [197]);
+	assert.equal(out.singleBar2, false);
+	assert.equal(out.singleLine, 197);
+	const pair = runPair('', `
+local K = Polestar.GuideKinds
+local lines = { K.SkillLine(Polestar.Guides.Get("test/pair")) }
+local a, b = E.SkillBar()
+emit({ lines = lines, bars = { a.line, b.line }, ranks = { a.rank, b.rank }, next = { a.next or false, b.next or false }, kind = E.GuideKind() })`);
+	assert.deepEqual(pair.lines, [393, 165]);
+	assert.deepEqual(pair.bars, [393, 165]);
+	assert.deepEqual(pair.ranks, [55, 32]);
+	assert.deepEqual(pair.next, [75, 51]);
+	assert.equal(pair.kind, 'profession');
+});
+
+test('a paired guide: two skill lines; the get step\'s gathering way is Skinning\'s; the craft row is Leatherworking\'s', () => {
+	const out = runPair('', `
+local view = E.GetStepView(1)
+local meter, get = E.KindModel("meter", view, "profession"), E.KindModel("get", view, "profession")
+local craft = E.KindModel("stretch", E.GetStepView(2), "profession")
+local function brief(m) return { name = m.name, value = m.value, max = m.max, learned = m.learned } end
+emit({ pair = { brief(meter.pair[1]), brief(meter.pair[2]) }, verb = get.items[1].ways[1].verb, ways = #get.items[1].ways,
+	spell = craft.spell, moveOn = craft.moveOn, left = craft.left })`);
+	assert.deepEqual(out.pair, [{ name: 'Skinning', value: 55, max: 75, learned: true }, { name: 'Leatherworking', value: 32, max: 75, learned: true }]);
+	assert.equal(out.verb, 'skin');
+	assert.equal(out.ways, 2);
+	assert.equal(out.spell, 'Leatherworking', 'Open Leatherworking, not Open Skinning');
+	assert.equal(out.moveOn, 51);
+	assert.ok(out.left > 0, 'what is left counts from Leatherworking 32, not Skinning 55');
+});
+
+const PAIR_WINDOW = `
+GF.Render(); GF.Layout(); stub.advance(1)
+local m = GF.RegionFrame("meter")
+local rows = {}
+for i, r in ipairs(m.PairRows) do
+	rows[i] = { shown = r:IsShown(), name = r.Name:GetText(), value = r.Value:GetText(), max = r.Max:GetText(), bar = r.Bar:IsShown(), w = r.Name:GetWidth() }
+end
+emit({ meterShown = m:IsShown(), meterH = m:GetHeight(), rows = rows, single = m.Name:IsShown(), line = plain(m.PairLine:GetText()), lineShown = m.PairLine:IsShown(),
+	xp = GF.xp.psHas and plain(GF.xp.Text:GetText()) or false })`;
+
+test('a paired guide, in the window: two slim lines stacked, the bars in one column; the XP row leaves them out', () => {
+	const out = runPair('', PAIR_WINDOW);
+	assert.equal(out.meterShown, true);
+	assert.equal(out.single, false, 'the single meter\'s widgets stay quiet');
+	assert.deepEqual(out.rows.map((r) => [r.shown, r.name, r.value, r.max, r.bar]), [
+		[true, 'Skinning', '55', '/ 75', true],
+		[true, 'Leatherworking', '32', '/ 75', true],
+	]);
+	assert.equal(out.rows[0].w, out.rows[1].w, 'one name column: the bars line up');
+	assert.equal(out.lineShown, false, 'the one line is the compact window\'s');
+	assert.equal(out.meterH, 26 * 2);
+	assert.ok(!out.xp || !String(out.xp).includes('Skinning'), 'the lines say the skills, not the XP row');
+});
+
+test('a paired guide, compact: one line, "Skinning 55 · Leatherworking 32"', () => {
+	const out = runPair('Polestar.Set("ui.compact", true)', PAIR_WINDOW);
+	assert.equal(out.lineShown, true);
+	assert.equal(out.line, 'Skinning 55 · Leatherworking 32');
+	assert.deepEqual(out.rows.map((r) => r.shown), [false, false]);
+	assert.equal(out.meterH, 26);
+});
+
+test('a paired guide, a skill not learned yet: "Not learned yet" at its right, no bar; the craft row says to learn it first', () => {
+	const one = runPair(RANKS('55, 75', 'nil'), PAIR_WINDOW);
+	assert.deepEqual(one.rows.map((r) => [r.name, r.max, r.bar]), [['Skinning', '/ 75', true], ['Leatherworking', 'Not learned yet', false]]);
+	const none = runPair(RANKS('nil', 'nil'), `
+at(2); GF.Render(); GF.Layout(); stub.advance(1)
+local r = GF.RegionFrame("stretch").Row
+emit({ sub = plain(r.Sub:GetText()), open = r.psOpen:IsShown(), line = plain(GF.RegionFrame("meter").PairLine:GetText()) })`);
+	assert.equal(none.sub, 'Learn Leatherworking first');
+	assert.equal(none.open, false);
+	assert.equal(none.line, 'Skinning Not learned yet · Leatherworking Not learned yet');
+});
+
+test('a paired guide in Atlas: both skills in the XP slot, none stacked in the window; compact too', () => {
+	for (const compact of [false, true]) {
+		const out = runPair(`Polestar.Set("ui.layout", "atlas")${compact ? '; Polestar.Set("ui.compact", true)' : ''}`, `
+GF.Render(); GF.Layout(); stub.advance(1); GF.Layout()
+local m = GF.RegionFrame("meter")
+emit({ meter = m:IsShown(), xpHas = GF.xp.psHas, xpShown = GF.xp:IsShown(), text = plain(GF.xp.Text:GetText()) })`, ['Polestar', { name: 'Polestar_Skins', files: ['Layouts/Atlas/Atlas.lua'] }]);
+		assert.equal(out.meter, false, `compact ${compact}: the meter leaves the window`);
+		assert.equal(out.xpHas, true);
+		assert.equal(out.xpShown, true);
+		assert.match(out.text, /Skinning 55 \/ 75 · Leatherworking 32 \/ 75/);
+		assert.match(out.text, /next stretch to 51/);
+	}
+});
+
+test('a single-skill guide keeps one line: no pair, the skill in no XP row', () => {
+	const out = run('', `
+GF.Render(); GF.Layout(); stub.advance(1)
+local m = E.KindModel("meter", E.GetStepView(1), "profession")
+local f = GF.RegionFrame("meter")
+emit({ pair = m.pair or false, shown = f:IsShown(), single = f.Name:IsShown(), rows = f.PairRows[1]:IsShown(), xp = GF.xp.psHas and GF.xp.Text:GetText() or false })`);
+	assert.deepEqual([out.pair, out.shown, out.single, out.rows], [false, true, true, false]);
+	assert.ok(!out.xp || !String(out.xp).includes('Tailoring'));
 });
 
 const REP = `{ id = "test/rep", pack = "test", title = "Darnassus Reputation", minLevel = 12, maxLevel = 60, category = "Reputation",
@@ -174,16 +488,14 @@ stub.advance(1)
 local view = E.GetStepView(E.GetStepIndex())
 local m = E.KindModel("meter", view, "reputation")
 local t = E.KindModel("turnin", view, "reputation")
-local s = E.KindModel("supplies", view, "reputation")
 local more = E.KindModel("more", view, "reputation")
 emit({ kind = E.GuideKind(), meter = { name = m.name, value = m.value, max = m.max, toNext = m.line.toNext, turnins = m.line.turnins or false },
-	turnin = { title = t.title, ready = t.ready, rep = t.rep or false, items = #t.items },
-	rows = #s.rows, need = s.rows[1].need, more = more and more[1].title or false })` }).emitted[0];
+	turnin = { title = t.title, ready = t.ready, rep = t.rep or false, items = #t.items }, supplies = E.KindModel("supplies", view, "reputation") or false,
+	more = more and more[1].title or false })` }).emitted[0];
 	assert.equal(out.kind, 'reputation');
 	assert.deepEqual(out.meter, { name: 'Darnassus', value: 2150, max: 6000, toNext: 3850, turnins: false }, 'no reputation value known: no "about N turn-ins"');
 	assert.deepEqual(out.turnin, { title: 'A Donation of Wool', ready: 2, rep: false, items: 1 });
-	assert.equal(out.rows, 1);
-	assert.equal(out.need, 60);
+	assert.equal(out.supplies, false, 'the turn-in card says the items');
 	assert.equal(out.more, 'The Balance of Nature');
 });
 
@@ -194,13 +506,13 @@ const REP_SIDE = REP.replace(
 			{ t = "turnin", quest = 7800, title = "Friend of the Crown", npc = 14725, npcName = "Raedon Duskstriker",
 				rewards = { rep = { { faction = 69, value = 500 } } } } } },`,
 );
-const repRun = (setup, body) => runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar'], script: `
+const repRun = (setup, body, guide = REP_SIDE) => runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar'], script: `
 w = stub.world
 w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
 w.moveTo(1429, 48, 42)
 w.setLevel(24)
 Polestar.RegisterPack({ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" })
-Polestar.RegisterGuide(${REP_SIDE})
+Polestar.RegisterGuide(${guide})
 stub.login()
 stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)
 Polestar.Set("ui.shown", true)
@@ -233,7 +545,24 @@ emit({ first = more[1].title, rep = more[1].rep, current = more[1].current or fa
 	assert.equal(out.value, '2,150');
 	assert.equal(out.max, '/ 6,000');
 	assert.equal(out.line, '3,850 to Honored', 'thousands as the client writes them');
-	assert.equal(out.check, true, 'a turn-in ready reads with the same check as "You can make 2 now"');
+	assert.equal(out.check, true, 'a turn-in ready reads with its check');
+});
+
+test('reputation: a goal no region stands for reads as the step\'s own row, under the turn-in and over More reputation', () => {
+	const talk = REP_SIDE.replace('{ t = "rep", faction = 69,', '{ t = "talk", npc = 14725, npcName = "Raedon Duskstriker" },\n\t\t\t{ t = "rep", faction = 69,');
+	const out = repRun('', `
+GF.Render(); GF.Layout(); stub.advance(1)
+local turnin, more, goals = GF.RegionFrame("turnin"), GF.RegionFrame("more"), GF.parts.goals
+local _, turninRel = turnin:GetPoint(1)
+local _, moreRel = more:GetPoint(1)
+local texts = {}
+for _, f in ipairs(GF.CardItems()) do if f:IsShown() and f.Text and f.psGoal then texts[#texts + 1] = plain(f.Text:GetText()) end end
+emit({ person = GF.parts.person:IsShown(), turninOnCard = turninRel == GF.parts.card, moreUnderStep = moreRel == goals or moreRel == GF.parts.tip,
+	texts = texts })`, talk);
+	assert.equal(out.person, true, 'a goal is left: the step\'s header shows');
+	assert.equal(out.turninOnCard, true);
+	assert.equal(out.moreUnderStep, true, 'More reputation comes after the step\'s rows');
+	assert.deepEqual(out.texts, ['Talk to Raedon Duskstriker']);
 });
 
 test('reputation, compact: the standing word, how many are ready or short, and no leftover goal rows', () => {
@@ -250,481 +579,4 @@ emit({ name = meter.Name:GetText(), right = turnin.LineRight:GetText(), person =
 GF.Layout(); stub.advance(1)
 emit({ right = GF.RegionFrame("turnin").LineRight:GetText() })`);
 	assert.equal(short.right, '40 more');
-});
-
-test('Self-Found: the row offers Farm alone, the Buy column is dimmed with no count; a made count is "10 made", never cut', () => {
-	const out = run('C_PlayerInfo = C_PlayerInfo or {}; C_PlayerInfo.IsSelfFoundActive = function() return true end', `
-GF.Layout(); stub.advance(1)
-local sup = GF.RegionFrame("supplies")
-local row = sup.Rows[1]
-emit({ toggle = row.Seg[1]:IsShown(), way = row.Way:IsShown() and row.Way:GetText() or false, flip = row.psPadFlipLabel(row) or false,
-	src = plain(row.Src:GetText()), tip = row.psMade, buyTitle = sup.Buy.Title:GetText(), buyBig = sup.Buy.Big:GetText(),
-	verdict = plain(sup.Verdict:GetText()), lines = sup.Verdict:GetNumLines() })`);
-	assert.equal(out.toggle, false);
-	assert.equal(out.way, 'Farm');
-	assert.equal(out.flip, false);
-	assert.equal(out.src.replace(/ +/g, ' '), 'bags 58 · bank 10 · 10 made');
-	assert.equal(out.tip, '10 Bolt of Woolen Cloth already made');
-	assert.equal(out.buyTitle, 'Buy');
-	assert.equal(out.buyBig, 'Not for Self-Found characters');
-	assert.match(out.verdict, /^About 4 h for 226 at your level\.$/);
-	assert.ok(out.lines <= 2, 'the advice is two lines at most');
-});
-
-test('the Farm column reads the zone first, then the level; Blizzard marks the chosen segment', () => {
-	const out = run('w.addMap(1433, { name = "Redridge Mountains", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 }); Polestar.Set("ui.skin", "blizzard")', `
-local real = E.KindModel
-E.KindModel = function(id, v, k)
-	local m = real(id, v, k)
-	if id == "supplies" and m then
-		m.rows[1].split.farm = { count = 226, minutes = 38, npc = "Blackrock Grunt", map = 1433, lvl = { min = 19, max = 23 }, step = 1, index = 1 }
-	end
-	return m
-end
-GF.Render(); GF.Layout(); stub.advance(1)
-local sup = GF.RegionFrame("supplies")
-local Fm = sup.Farm
-local marks = {}
-for k, b in ipairs(sup.Rows[1].Seg) do marks[k] = { b.psMarked or false, b.psUnder and b.psUnder:IsShown() or false } end
-emit({ zone = plain(Fm.Small2:GetText()), level = plain(Fm.psLevel:GetText()), marks = marks })`);
-	assert.equal(out.zone, 'Redridge Mountains');
-	assert.match(out.level, /^( {2}· {2})?lvl 19–23$/, 'after the zone on its line, or alone on the line under it where both do not fit');
-	assert.deepEqual(out.marks, [[true, true], [false, false]]);
-});
-
-test('gamepad: X on a material row flips its way (Buy to Farm), A opens its split', () => {
-	const out = run('', `
-GF.Layout(); stub.advance(1)
-local sup = GF.RegionFrame("supplies")
-local row = sup.Rows[1]
-local before = { flip = row.psPadFlipLabel(row), action = row.psPadLabel(row) }
-row.psPadFlip(row)
-stub.advance(1)
-local _, _, pick = Polestar.Materials.Mode("test/craft", 2592)
-emit({ before = before, pick = pick or false })`);
-	assert.deepEqual(out.before, { flip: 'Farm instead', action: 'Show Buy and Farm' });
-	assert.equal(out.pick, 'gather', 'the flip is the player\'s pick, remembered');
-});
-
-test('Atlas sets the materials and the buy list on a card above the window', () => {
-	const out = runAddon({
-		stubs: ['stub_world.lua'],
-		addons: ['Polestar', { name: 'Polestar_Skins', files: ['Layouts/Atlas/Atlas.lua'] }],
-		script: script('Polestar.Set("ui.layout", "atlas")', `
-GF.Layout(); stub.advance(1); GF.Layout()
-local sup, list, meter = GF.RegionFrame("supplies"), GF.RegionFrame("buyList"), GF.RegionFrame("meter")
-emit({ supplies = sup:GetParent() ~= GF.parts.card, buyList = list:GetParent() == sup, meter = meter:GetParent() == GF.parts.card,
-	head = sup.Head:GetText() })`),
-	}).emitted[0];
-	assert.deepEqual(out, { supplies: true, buyList: true, meter: true, head: 'MATERIALS TO 115' });
-});
-
-test('the trade skill window open: its own colour for the recipe wins ("Grey now: move on")', () => {
-	const out = run(`GetSpellInfo = function(id) if id == 2402 then return "Woolen Cape" end end
-C_Spell = nil
-GetNumTradeSkills = function() return 2 end
-GetTradeSkillInfo = function(i) if i == 2 then return "Woolen Cape", "trivial" end return "Bolt of Woolen Cloth", "easy" end`, `
-local m = E.KindModel("stretch", view, "profession")
-GF.Layout(); stub.advance(1)
-emit({ colour = m.colour, line = plain(GF.RegionFrame("stretch").MoveOn:GetText()) })`);
-	assert.deepEqual(out, { colour: 'grey', line: 'Grey now: move on' });
-});
-
-test('Open Tailoring: the click is a secure spell button outside the guide window, over the card\'s button', () => {
-	const out = run('', `
-GF.Layout(); stub.advance(1)
-local slot = GF.RegionFrame("stretch").psOpen
-slot:GetScript("OnUpdate")(slot, 1)
-local b = _G.PolestarOpenProfession
-local under = false
-local p = b and b:GetParent()
-while p do if p == GF.frame then under = true end p = p:GetParent() end
-emit({ shown = slot:IsShown(), text = slot.Label:GetText(), secure = b ~= nil, under = under, spell = b and b:GetAttribute("spell") or false })`);
-	assert.deepEqual(out, { shown: true, text: 'Open Tailoring', secure: true, under: false, spell: 'Tailoring' });
-});
-
-// A paired guide (`skills Skinning, Leatherworking`, compiled as `skillLines = { 393, 165 }`): the window shows both
-// skills, and the step's flow line stands on the stretch card instead of in the tip. The tip is the generator's
-// own: the why line with its "from your skinning" clause, the flow line, then the arrow's sentence.
-const WHY = '34 Light Leather for Leatherworking 20-51: 53 Light Armor Kits; from your skinning on the way: 12 of 34 Light Leather.';
-const FLOW = 'Skin 34 Light Leather (Skinning 50 to 72), then craft 45 Light Armor Kits (Leatherworking 20 to 51).';
-const ARROW = 'The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them. Or buy them at the Auction House.';
-const PAIR = `{ id = "test/pair", pack = "test", title = "Skinning + Leatherworking 1-300", minLevel = 5, maxLevel = 60, category = "Professions",
-	kind = "profession", skillLines = { 393, 165 },
-	sections = { { skill = "Leatherworking", skillLine = 165, from = 20, to = 75 } },
-	steps = {
-		{ title = "Skin Light Leather (Skinning 50-72)", section = 1, note = "${WHY} ${FLOW} ${ARROW}", goals = {
-			{ t = "collect", item = 2318, itemName = "Light Leather", count = 34, gather = { skill = "Skinning", skillLine = 393, rank = 50 } },
-			{ t = "auction", item = 2318, itemName = "Light Leather", count = 34 } } },
-		{ title = "Light Armor Kit to 51", section = 1, note = "Light Armor Kit is orange at 20 (yellow 30, green 45, grey 60): about 45 crafts to 51.", goals = {
-			{ t = "craft", spell = 2152, spellName = "Light Armor Kit", item = 2304, itemName = "Light Armor Kit", skillLine = 165, untilSkill = 51,
-				yellow = 30, grey = 60, reagents = { { item = 2318, itemName = "Light Leather", count = 1 } } } } },
-		{ title = "Skinning 72-75", section = 1, goals = { { t = "skill", skill = "Skinning", skillLine = 393, level = 75 } } },
-		{ title = "Journeyman Skinning", section = 1, goals = { { t = "train", skill = "Skinning", skillLine = 393, rank = 2, rankMax = 150 } } },
-		{ title = "Journeyman Leatherworking", section = 1, goals = { { t = "level", level = 10 }, { t = "train", skill = "Leatherworking", skillLine = 165, rank = 2, rankMax = 150 } } },
-	} }`;
-
-const pairScript = (setup, body, guide = PAIR) => `
-w = stub.world
-w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
-w.moveTo(1429, 48, 42)
-w.setLevel(24)
-Polestar.RegisterPack({ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" })
-Polestar.RegisterGuide(${guide})
-stub.login()
-stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)
-Polestar.Set("ui.shown", true)
-local C = Polestar.Compat
-C.GetSkillRank = function(line) if line == 393 or line == "Skinning" then return 55, 75 end if line == 165 or line == "Leatherworking" then return 32, 75 end return nil end
-C.GetSkillLineName = function(line) return line == 393 and "Skinning" or line == 165 and "Leatherworking" or nil end
-w.items[2318] = 20
-local E = Polestar.Engine
-${setup}
-E.SetGuide("test/pair")
-stub.advance(1)
-local GF = Polestar.UI.GuideFrame
-local view = E.GetStepView(E.GetStepIndex())
-local function plain(s) return s and (s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("\\194\\160", " "):gsub("  +", " ")) or s end
-${body}`;
-const runPair = (setup, body, extra = {}) => runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar'], script: pairScript(setup, body, extra.guide), ...extra.opts }).emitted[0];
-
-test('a paired guide: GuideKinds.SkillLine and Engine.SkillBar give both skills, gathering first; a single guide one', () => {
-	const out = run('', `
-local K = Polestar.GuideKinds
-local single = { K.SkillLine(Polestar.Guides.Get("test/craft")) }
-local a, b = E.SkillBar()
-emit({ single = single, singleBar2 = select(2, E.SkillBar()) or false, singleLine = a.line })`);
-	assert.deepEqual(out.single, [197]);
-	assert.equal(out.singleBar2, false);
-	assert.equal(out.singleLine, 197);
-	const pair = runPair('', `
-local K = Polestar.GuideKinds
-local lines = { K.SkillLine(Polestar.Guides.Get("test/pair")) }
-local a, b = E.SkillBar()
-emit({ lines = lines, bars = { a.line, b.line }, ranks = { a.rank, b.rank }, next = { a.next or false, b.next or false }, kind = E.GuideKind() })`);
-	assert.deepEqual(pair.lines, [393, 165]);
-	assert.deepEqual(pair.bars, [393, 165]);
-	assert.deepEqual(pair.ranks, [55, 32]);
-	// The gathering skill moves on at its next `skill` goal; the crafting one at its craft's `until`.
-	assert.deepEqual(pair.next, [75, 51]);
-	assert.equal(pair.kind, 'profession');
-});
-
-const PAIR_MODELS = `
-local meter = E.KindModel("meter", view, "profession")
-local stretch = E.KindModel("stretch", view, "profession")
-local sup = E.KindModel("supplies", view, "profession")
-local trainer = E.KindModel("trainer", view, "profession")
-local function brief(m) return { name = m.name, value = m.value, max = m.max, seg = m.seg, ticks = m.ticks, line = m.line[1] and m.line[1].to or false } end
-emit({ pair = meter.pair and { brief(meter.pair[1]), brief(meter.pair[2]) } or false, covers = #meter.covers,
-	flow = stretch and stretch.flow or false, note = stretch and stretch.note or false, from = sup and sup.from or false,
-	moveOn = stretch and stretch.moveOn, spell = stretch and stretch.spell, trainer = trainer and { title = trainer.title, due = trainer.due, level = trainer.level } or false })`;
-
-test('a paired guide: two meters (gathering to where its stretch ends, crafting to its move-on), the flow line, the clause', () => {
-	const out = runPair('', PAIR_MODELS);
-	assert.equal(out.pair.length, 2);
-	const [skin, leather] = out.pair;
-	assert.deepEqual([skin.name, skin.value, skin.max], ['Skinning', 55, 75]);
-	// Skinning's stretch ends where the tip's "(Skinning 50 to 72)" says; no recipe in its line.
-	assert.deepEqual(skin.ticks, [{ at: 72, what: 'gathered' }]);
-	assert.equal(skin.line, false);
-	assert.ok(Math.abs(skin.seg[0] - 55 / 75) < 1e-9 && Math.abs(skin.seg[1] - 72 / 75) < 1e-9);
-	assert.deepEqual([leather.name, leather.value, leather.max], ['Leatherworking', 32, 75]);
-	assert.deepEqual(leather.ticks, [{ at: 51, what: 'moveOn' }, { at: 50, what: 'train' }]);
-	assert.equal(leather.line, 51);
-	assert.equal(out.covers, 0);
-	assert.equal(out.flow, 'Skin 34 Light Leather (Skinning 50 to 72), then craft 45 Light Armor Kits (Leatherworking 20 to 51)');
-	assert.equal(out.note, `34 Light Leather for Leatherworking 20-51: 53 Light Armor Kits. ${ARROW}`, 'the tip keeps the rest, without the flow line or the clause');
-	assert.equal(out.from, 'from your skinning on the way: 12 of 34 Light Leather');
-	assert.equal(out.moveOn, 51);
-	assert.equal(out.spell, 'Leatherworking', 'Open Leatherworking, not Open Skinning');
-	// The trainer line: the next rank of either skill, in guide order, named by its skill.
-	assert.deepEqual(out.trainer, { title: 'Journeyman Skinning', due: true, level: 50 });
-});
-
-test('a paired guide, off its gathering step: no flow line, the tip as written; Skinning moves on at its next skill goal', () => {
-	const out = runPair('E.Goto(2)', PAIR_MODELS.replace('E.KindModel("meter", view', 'E.KindModel("meter", E.GetStepView(2)').replace('E.KindModel("stretch", view', 'E.KindModel("stretch", E.GetStepView(2)').replace('E.KindModel("supplies", view', 'E.KindModel("supplies", E.GetStepView(2)'));
-	assert.equal(out.flow, false);
-	assert.equal(out.note, false);
-	assert.equal(out.from, false);
-	// Nothing in the tip to say it: Skinning's next `skill` goal (75, its cap: no tick over the bar's end).
-	assert.equal(Object.keys(out.pair[0].ticks).length, 0);
-	assert.ok(Math.abs(out.pair[0].seg[1] - 1) < 1e-9);
-});
-
-const PAIR_WINDOW = `
-GF.Render(); GF.Layout(); stub.advance(1)
-local m = GF.RegionFrame("meter")
-local st = GF.RegionFrame("stretch")
-local sup = GF.RegionFrame("supplies")
-local rows = {}
-for i, r in ipairs(m.PairRows) do
-	rows[i] = { shown = r:IsShown(), name = r.Name:GetText(), value = r.Value:GetText(), max = r.Max:GetText(), bar = r.Bar:IsShown(), h = r:GetHeight(),
-		fill = r.Bar.Fill:GetWidth(), seg = r.Bar.Seg:IsShown(), ticks = #r.Bar.Ticks }
-end
-emit({ meterShown = m:IsShown(), meterH = m:GetHeight(), rows = rows, single = m.Name:IsShown(), line = plain(m.PairLine:GetText()), lineShown = m.PairLine:IsShown(),
-	flow = st.Flow:IsShown() and plain(st.Flow:GetText()) or false, from = sup.From:IsShown() and plain(sup.From:GetText()) or false,
-	tip = plain(GF.parts.card.Tip.Text:GetText()), xp = GF.xp.psHas and plain(GF.xp.Text:GetText()) or false })`;
-
-test('a paired guide, in the window: two compact meters stacked, the flow line under the recipe\'s name, the tip without it', () => {
-	const out = runPair('', PAIR_WINDOW);
-	assert.equal(out.meterShown, true);
-	assert.equal(out.single, false, 'the single meter\'s widgets stay quiet');
-	assert.deepEqual(out.rows.map((r) => [r.shown, r.name, r.value, r.max, r.bar, r.seg]), [
-		[true, 'Skinning', '55', '/ 75', true, true],
-		[true, 'Leatherworking', '32', '/ 75', true, true],
-	]);
-	assert.ok(out.rows[0].ticks >= 1 && out.rows[1].ticks >= 1, 'a tick at each move-on');
-	assert.equal(out.lineShown, false, 'the one line is the compact window\'s');
-	assert.equal(out.meterH, 4 + 24 * 2 + 6);
-	assert.equal(out.flow, 'Skin 34 Light Leather (Skinning 50 to 72), then craft 45 Light Armor Kits (Leatherworking 20 to 51)');
-	assert.equal(out.from, 'From your skinning on the way: 12 of 34 Light Leather');
-	assert.equal(out.tip, `34 Light Leather for Leatherworking 20-51: 53 Light Armor Kits. ${ARROW}`);
-	assert.ok(!out.xp || !String(out.xp).includes('Skinning'), 'the meters say the skills, not the XP row');
-});
-
-test('a paired guide, compact: one line, "Skinning 55 · Leatherworking 32"', () => {
-	const out = runPair('Polestar.Set("ui.compact", true)', PAIR_WINDOW);
-	assert.equal(out.lineShown, true);
-	assert.equal(out.line, 'Skinning 55 · Leatherworking 32');
-	assert.deepEqual(out.rows.map((r) => r.shown), [false, false]);
-	assert.equal(out.meterH, 24);
-	assert.equal(out.flow, false, 'the compact card is one line');
-});
-
-test('a paired guide in Atlas: both skills in the XP slot, none stacked in the window; compact too', () => {
-	for (const compact of [false, true]) {
-		const out = runAddon({
-			stubs: ['stub_world.lua'],
-			addons: ['Polestar', { name: 'Polestar_Skins', files: ['Layouts/Atlas/Atlas.lua'] }],
-			script: pairScript(`Polestar.Set("ui.layout", "atlas")${compact ? '; Polestar.Set("ui.compact", true)' : ''}`, `
-GF.Render(); GF.Layout(); stub.advance(1); GF.Layout()
-local m = GF.RegionFrame("meter")
-emit({ meter = m:IsShown(), xpHas = GF.xp.psHas, xpShown = GF.xp:IsShown(), text = plain(GF.xp.Text:GetText()) })`),
-		}).emitted[0];
-		assert.equal(out.meter, false, `compact ${compact}: the meter leaves the window`);
-		assert.equal(out.xpHas, true);
-		assert.equal(out.xpShown, true);
-		assert.match(out.text, /Skinning 55 \/ 75 · Leatherworking 32 \/ 75/);
-		assert.match(out.text, /next stretch to 51/);
-	}
-});
-
-test('a single-skill guide is unchanged: one meter, no pair, no flow, its tip whole, the skill in no XP row', () => {
-	const out = run('', `
-GF.Render(); GF.Layout(); stub.advance(1)
-local m = E.KindModel("meter", view, "profession")
-local f = GF.RegionFrame("meter")
-local st = E.KindModel("stretch", view, "profession")
-emit({ pair = m.pair or false, flow = st.flow or false, note = st.note or false, shown = f:IsShown(), single = f.Name:IsShown(), rows = f.PairRows[1]:IsShown(),
-	xp = GF.xp.psHas and GF.xp.Text:GetText() or false })`);
-	assert.deepEqual([out.pair, out.flow, out.note], [false, false, false]);
-	assert.deepEqual([out.shown, out.single, out.rows], [true, true, false]);
-	assert.ok(!out.xp || !String(out.xp).includes('Tailoring'));
-});
-
-test('the flow line is found by its numbers, in any language: another stop, full-width brackets, no clause', () => {
-	const out = runPair('', `
-local KC = Polestar.KindCraft
-local de = KC.TipParts("34 Light Leather für Lederverarbeitung 20-51: 53 Leichte Rüstungssätze. Erbeute 34 Leichtes Leder (Kürschnerei 50 bis 72), dann stelle 45 Leichte Rüstungssätze her (Lederverarbeitung 20 bis 51). Der Pfeil führt dich.", 20, 51)
-local zh = KC.TipParts("34 块轻皮；用你的剥皮顺带：12 / 34 块轻皮。剥 34 块轻皮（剥皮 50 到 72），然后制作 45 个轻型护甲片（制皮 20 到 51）。箭头带你去。", 20, 51)
-local none = KC.TipParts("Light Armor Kit is orange at 20 (yellow 30, green 45, grey 60): about 45 crafts to 51.", 20, 51)
-local first = KC.TipParts("Your bags hold it already, then craft 24 Nimble Leather Gloves (Leatherworking 102 to 125). The arrow takes you.", 102, 125)
-emit({ de = de and { flow = de.flow, gather = de.gather, from = de.from or false, rest = de.rest } or false,
-	zh = zh and { flow = zh.flow, gather = zh.gather, from = zh.from, rest = zh.rest } or false, none = none or false,
-	first = first and { flow = first.flow, gather = first.gather or false, rest = first.rest } or false })`);
-	assert.deepEqual(out.de, {
-		flow: 'Erbeute 34 Leichtes Leder (Kürschnerei 50 bis 72), dann stelle 45 Leichte Rüstungssätze her (Lederverarbeitung 20 bis 51)',
-		gather: [50, 72], from: false, rest: '34 Light Leather für Lederverarbeitung 20-51: 53 Leichte Rüstungssätze. Der Pfeil führt dich.',
-	});
-	assert.deepEqual(out.zh.gather, [50, 72]);
-	assert.equal(out.zh.flow, '剥 34 块轻皮（剥皮 50 到 72），然后制作 45 个轻型护甲片（制皮 20 到 51）'.replace(/（/g, '(').replace(/）/g, ')'));
-	assert.equal(out.zh.from, '用你的剥皮顺带：12 / 34 块轻皮');
-	assert.equal(out.none, false, 'a craft step\'s own numbers in a tip are not a flow line');
-	assert.deepEqual(out.first, { flow: 'Your bags hold it already, then craft 24 Nimble Leather Gloves (Leatherworking 102 to 125)', gather: false, rest: 'The arrow takes you.' });
-});
-
-const PAIR_NAMES = `
-GF.Render(); GF.Layout(); stub.advance(1)
-local m = GF.RegionFrame("meter")
-local rows = {}
-for i, r in ipairs(m.PairRows) do
-	rows[i] = { name = r.Name:GetText(), whole = r.Name:GetWidth() >= r.Name:GetUnboundedStringWidth(), bar = r.Bar:IsShown(), w = r.Name:GetWidth() }
-end
-emit({ rows = rows })`;
-const RANKS = (a, b) => `C.GetSkillRank = function(line) if line == 393 or line == "Skinning" then return ${a} end if line == 165 or line == "Leatherworking" then return ${b} end return nil end`;
-
-test('a paired guide 355 wide: a skill not learned yet spans the row ("Learn Leatherworking" whole); learned ones keep the shared bar columns', () => {
-	const none = runPair(`Polestar.Set("ui.width", 355); ${RANKS('nil', 'nil')}`, PAIR_NAMES);
-	assert.deepEqual(none.rows.map((r) => [r.name, r.whole, r.bar]), [['Learn Skinning', true, false], ['Learn Leatherworking', true, false]]);
-	const one = runPair(`Polestar.Set("ui.width", 355); ${RANKS('55, 75', 'nil')}`, PAIR_NAMES);
-	assert.deepEqual(one.rows.map((r) => [r.name, r.whole, r.bar]), [['Skinning', true, true], ['Learn Leatherworking', true, false]]);
-	assert.ok(one.rows[1].w > one.rows[0].w, 'the unlearned row is not held to the bar column');
-	const both = runPair('Polestar.Set("ui.width", 355)', PAIR_NAMES);
-	assert.deepEqual(both.rows.map((r) => [r.name, r.bar]), [['Skinning', true], ['Leatherworking', true]]);
-	assert.equal(both.rows[0].w, both.rows[1].w, 'the bars line up: one name column');
-});
-
-test('a tooltip goes the moment the cursor leaves: the game\'s item tooltip on a tile, the tip on the chip, a tip whose owner hides', () => {
-	const out = run('', `
-GF.Layout(); stub.advance(1)
-local st, sup = GF.RegionFrame("stretch"), GF.RegionFrame("supplies")
-local function gameOwned(o) return GameTooltip:IsShown() and GameTooltip:GetOwner() == o or false end
-local function tipShown() return _G.PolestarTip and _G.PolestarTip:IsShown() or false end
-local tile = sup.Rows[1].Tile
-tile:GetScript("OnEnter")(tile)
-local itemOn = gameOwned(tile)
-tile:GetScript("OnLeave")(tile)
-local itemAfter = gameOwned(tile)
-local chip = st.Chip
-chip:GetScript("OnEnter")(chip)
-local tipOn = tipShown()
-chip:GetScript("OnLeave")(chip)
-local tipAfter = tipShown()
-chip:GetScript("OnEnter")(chip)
-st:Hide()
-stub.advance(0.1)
-emit({ itemOn = itemOn, itemAfter = itemAfter, tipOn = tipOn, tipAfter = tipAfter, ownerHidden = tipShown() })`);
-	assert.deepEqual(out, { itemOn: true, itemAfter: false, tipOn: true, tipAfter: false, ownerHidden: false });
-});
-
-test('the split\'s columns centre what they hold: the lines under the title, the button at its own width', () => {
-	const out = run('', `
-GF.Layout(); stub.advance(1)
-local sup = GF.RegionFrame("supplies")
-local B, Fm = sup.Buy, sup.Farm
-local function pt(r) return (r:GetPoint(1)) end
-emit({ well = sup.Well:IsShown(), big = pt(B.Big), small = pt(B.Small1), justify = B.Big:GetJustifyH(), button = pt(B.Button),
-	ownWidth = B.Button:GetWidth() < B:GetWidth() - 20, farmBig = pt(Fm.Big), farmButton = Fm.Button:IsShown() and pt(Fm.Button) or false })`);
-	assert.deepEqual(out, { well: true, big: 'TOP', small: 'TOP', justify: 'CENTER', button: 'TOP', ownWidth: true, farmBig: 'TOP', farmButton: 'TOP' });
-});
-
-test('nothing to make now: the card keeps no rule and no empty row under the count (the client answers nil for an empty text)', () => {
-	const out = run('stub.emptyTextNil = true; w.items[2320] = 0', `
-GF.Layout(); stub.advance(1)
-local st = GF.RegionFrame("stretch")
-local _, _, _, _, cy = st.Count:GetPoint(1)
-emit({ rule = st.Rule:IsShown(), make = st.Make:IsShown(), open = st.psOpen:IsShown(),
-	tight = st.Card:GetHeight() <= -cy + st.Count:GetStringHeight() + 10.5 })`);
-	assert.deepEqual(out, { rule: false, make: false, open: false, tight: true });
-});
-
-test('crafts made are the recipe\'s casts counted, after what the skill still takes ("about 36 to go · 2 made")', () => {
-	const out = run('Polestar.Set("ui.width", 460)', `
-stub.fire("UNIT_SPELLCAST_SUCCEEDED", "player", "Cast-1", 2402)
-stub.fire("UNIT_SPELLCAST_SUCCEEDED", "player", "Cast-2", 2402)
-stub.fire("UNIT_SPELLCAST_SUCCEEDED", "player", "Cast-3", 2964)
-stub.advance(0.5)
-GF.Layout(); stub.advance(1)
-local m = E.KindModel("stretch", view, "profession")
-local st = GF.RegionFrame("stretch")
-Polestar.Set("ui.compact", true)
-GF.Render(); GF.Layout(); stub.advance(1)
-emit({ made = m.made, left = m.left, count = plain(st.Count:GetText()), compact = plain(st.LineRight:GetText()) })`);
-	assert.equal(out.made, 2, 'Woolen Cape cast twice; the bolt is another recipe');
-	assert.equal(out.left, 36);
-	assert.match(out.count, /^about 36 to go +· +2 made$/);
-	assert.match(out.compact, /^36 to go +· +to 115$/);
-});
-
-test('Buy | Farm | Mix: a click moves the chosen tab and repaints the materials', () => {
-	const out = run('', `
-GF.Layout(); stub.advance(1)
-local sup = GF.RegionFrame("supplies")
-local function marks() local t = {} for k, b in ipairs(sup.Modes) do t[k] = b.psMarked or false end return t end
-local before, shown = marks(), sup.Modes[1]:IsShown()
-sup.Modes[1]:Click()
-stub.advance(0.5)
-local afterBuy = marks()
-sup.Modes[2]:Click()
-stub.advance(0.5)
-emit({ shown = shown, before = before, afterBuy = afterBuy, afterFarm = marks(), way = GF.RegionModel("supplies").way,
-	wool = GF.RegionModel("supplies").rows[1].way })`);
-	assert.equal(out.shown, true, 'Wool Cloth is still short and can be farmed or bought');
-	assert.deepEqual(out.before, [false, false, true], 'Mix by default');
-	assert.deepEqual(out.afterBuy, [true, false, false]);
-	assert.deepEqual(out.afterFarm, [false, true, false]);
-	assert.equal(out.way, 'gather');
-	assert.equal(out.wool, 'gather');
-});
-
-test('Buy | Farm | Mix shows only while a material still to get has a choice: held, vendor-only or made ones give the same list', () => {
-	const out = run('w.items[2592] = 400', `
-GF.Layout(); stub.advance(1)
-local sup = GF.RegionFrame("supplies")
-local m = GF.RegionModel("supplies")
-emit({ choosable = m.choosable, tabs = sup.Modes[1]:IsShown() or sup.Modes[2]:IsShown() or sup.Modes[3]:IsShown(), drop = sup.ModeDrop:IsShown() })`);
-	assert.deepEqual(out, { choosable: false, tabs: false, drop: false }, 'the wool is held; Coarse Thread is vendor-only');
-});
-
-const ATLAS = `C_Texture = { GetAtlasInfo = function(name)
-	if name == "Professions-Icon-Skill-High" or name == "Professions-Icon-Skill-Medium" or name == "Professions-Icon-Skill-Low" then
-		return { width = 13, height = 15, file = 4417031 } end end }`;
-const ICON = `
-GF.Layout(); stub.advance(1)
-local st = GF.RegionFrame("stretch")
-local chip = st.Chip
-chip:GetScript("OnEnter")(chip)
-local tip = Polestar.Widgets.TipShown()
-chip:GetScript("OnLeave")(chip)
-local card = { shown = chip:IsShown(), atlas = chip.Icon:GetAtlas() or false, texture = chip.Icon:GetTexture() or false, text = rawget(chip, "Text") and true or false,
-	tip = tip and tip.title or false }
-Polestar.Set("ui.compact", true)
-GF.Render(); GF.Layout(); stub.advance(1)
-emit({ card = card, line = st.Line:GetText() })`;
-
-test('the recipe\'s colour is the client\'s own skill-up arrow, its name in the tooltip; our chevron where the client has none', () => {
-	const art = run(ATLAS, ICON);
-	assert.equal(art.card.shown, true);
-	assert.equal(art.card.atlas, 'Professions-Icon-Skill-High', 'orange at 87, below yellow (100)');
-	assert.equal(art.card.text, false, 'no word chip');
-	assert.equal(art.card.tip, 'Orange');
-	assert.match(art.line, /\|A:Professions-Icon-Skill-High:15:13\|a$/, 'compact: the same arrow after the recipe');
-	const own = run('', ICON);
-	assert.equal(own.card.shown, true);
-	assert.match(String(own.card.texture), /chevron-up/);
-	assert.match(own.line, /\|T[^|]*chevron-up[^|]*\|t$/);
-	const yellow = run(`${ATLAS}; C.GetSkillRank = function(line) if line == 197 or line == "Tailoring" then return 105, 150 end return nil end`, ICON);
-	assert.equal(yellow.card.atlas, 'Professions-Icon-Skill-Medium');
-});
-
-test('a grey recipe shows no arrow, as the client\'s window shows none', () => {
-	const out = run(`${ATLAS}
-GetSpellInfo = function(id) if id == 2402 then return "Woolen Cape" end end
-C_Spell = nil
-GetNumTradeSkills = function() return 1 end
-GetTradeSkillInfo = function(i) return "Woolen Cape", "trivial" end`, ICON);
-	assert.equal(out.card.shown, false);
-	assert.doesNotMatch(out.line, /\|A:|\|T/);
-});
-
-test('a skill not learned yet: the profession layout from the first step (the recipe it starts on, "Learn Tailoring first", the materials)', () => {
-	const out = run('C.GetSkillRank = function() return nil end', `${WINDOW.replace('emit({', 'local stm = E.KindModel("stretch", view, "profession")\nemit({ learned = stm and stm.learned, colour = stm and stm.colour or false, chip = st and st.Chip:IsShown(), open = st and st.psOpen:IsShown(),')}`);
-	assert.deepEqual(out.regions, { meter: true, trainer: true, stretch: true, supplies: true, buyList: true });
-	assert.equal(out.person, false, 'no plain goal rows in place of the layout');
-	assert.equal(out.name, 'Learn Tailoring');
-	assert.equal(out.make, 'Learn Tailoring first');
-	assert.match(out.count, /^about \d+ to go$/);
-	assert.equal(out.head, 'Materials to 115');
-	assert.deepEqual([out.learned, out.colour, out.chip, out.open], [false, false, false, false], 'no colour and no Open Tailoring before it is learned');
-});
-
-test('a paired guide, a skill not learned yet: the trainer line asks for its Apprentice rank, gathering first', () => {
-	const TR = `local t = E.KindModel("trainer", view, "profession")
-emit({ title = t and t.title or false, due = t and t.due or false, level = t and t.level or false })`;
-	assert.deepEqual(runPair(RANKS('nil', 'nil'), TR), { title: 'Apprentice Skinning', due: true, level: 0 });
-	assert.deepEqual(runPair(RANKS('55, 75', 'nil'), TR), { title: 'Apprentice Leatherworking', due: true, level: 0 });
-	assert.deepEqual(runPair('', TR), { title: 'Journeyman Skinning', due: true, level: 50 }, 'both learned: the next rank, as before');
-});
-
-test('a paired guide, neither skill learned: the profession layout on every step (recipe card, "Learn Leatherworking first", materials)', () => {
-	for (const step of [1, 2, 3, 4]) {
-		const out = runPair(`${RANKS('nil', 'nil')}; E.Goto(${step})`, `
-GF.Render(); GF.Layout(); stub.advance(1)
-local v = E.GetStepView(${step})
-local st, sup = GF.RegionFrame("stretch"), GF.RegionFrame("supplies")
-emit({ stretch = GF.RegionShown("stretch"), supplies = GF.RegionShown("supplies"), make = st and plain(st.Make:GetText() or "") or false,
-	name = E.KindModel("stretch", v, "profession").name })`);
-		assert.deepEqual(out, { stretch: true, supplies: true, make: 'Learn Leatherworking first', name: 'Light Armor Kit' }, `step ${step}`);
-	}
 });

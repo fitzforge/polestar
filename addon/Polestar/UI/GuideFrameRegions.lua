@@ -4,7 +4,9 @@
 -- Then:, Up next and the foot. A kind without regions (leveling, class,
 -- collectible, exploration, misc) keeps the card as it is.
 --
---   GF.REGIONS[kind] = { id, ... }        the kind's regions, in order
+--   GF.REGIONS[kind] = { id, ... }        the kind's regions, in order; "step" (no region of its
+--       own) puts the card's header and goal rows there, the leveling view's: the regions
+--       before it over them, those after it under them (and under the step's tip)
 --   GF.RegionOverride(view, kind) -> { id, ... } | nil
 --       set by a part that takes the card for any kind (the docked dungeon
 --       tracker inside its instance); nil leaves the kind's own
@@ -15,6 +17,9 @@
 --     paint  = function(frame, model, mode),      optional: text and colours, on a render only
 --     layout = function(frame, model, width, mode) -> height,  measures and anchors only
 --   })                                             mode "standard" | "compact"
+--
+--   GF.LayoutRegions(width, y) -> y        the regions before "step" (all of them without it)
+--   GF.LayoutRegionsAfter(width, y, below) -> y   those after it, under the frame `below`
 --
 -- A model may name the step's goals it stands for (`covers`: their indexes,
 -- as a list or a set): their rows leave the card. With every open goal of
@@ -29,9 +34,9 @@ ns.UI.GuideFrame.Part(function(GF)
 	local max = math.max
 
 	GF.REGIONS = {
-		profession = { "meter", "trainer", "stretch", "supplies", "buyList" },
-		reputation = { "meter", "turnin", "supplies", "more" },
-		dungeon = { "brief", "ready", "pickups", "entrance" },
+		profession = { "meter", "stretch", "get", "step", "shopping" },
+		reputation = { "meter", "turnin", "step", "more" },
+		dungeon = { "brief", "ready", "step", "pickups", "entrance" },
 	}
 
 	function GF.RegionsFor(view, kind)
@@ -51,7 +56,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	GF.Bind(function(p) card = p.card end)
 
 	-- This window's region frames, built on first use; the regions the step
-	-- shows now, in order: { { id, def, frame, model } }; the goals they cover.
+	-- shows now, in order: { { id, def, frame, model, after } }; the goals they cover.
 	local frames, active = {}, { n = 0 }
 	local covered, coveredView = {}, nil
 
@@ -90,7 +95,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		local hadRow = GF.SkillInRow()
 		active.n = 0
 		local n, m = 0, mode()
+		local after = false
 		for _, id in ipairs(list) do
+			if id == "step" then after = true end
 			local def = defs[id]
 			local model = def and def.model(view, kind)
 			if model ~= nil then
@@ -98,7 +105,7 @@ ns.UI.GuideFrame.Part(function(GF)
 				n = n + 1
 				local a = active[n] or {}
 				active[n] = a
-				a.id, a.def, a.frame, a.model = id, def, f, model
+				a.id, a.def, a.frame, a.model, a.after = id, def, f, model, after
 				-- A later region may read an earlier one's model as it paints (GF.RegionModel).
 				active.n = n
 				cover(model)
@@ -142,51 +149,71 @@ ns.UI.GuideFrame.Part(function(GF)
 		return m.pair ~= nil and not GF.Shows("pairMeter", true)
 	end
 
-	-- The step's tip as a region leaves it (the stretch card says a paired guide's flow line itself): the text, or
-	-- nil when no region has any.
-	function GF.RegionNote()
-		for i = 1, active.n do
-			local note = active[i].model.note
-			if type(note) == "string" then return note end
-		end
-		return nil
-	end
 	function GF.RegionFrame(id) return frames[id] end
 	function GF.RegionsActive() return active.n > 0 end
 
-	-- Lays the regions out in the card from y down, `width` wide (GF.Layout's
-	-- layoutCard). A region the layout places itself (guidePlace by its id) takes
-	-- no room here. -> y under the last region
+	-- Lays region a out `width` wide; one the layout places itself (guidePlace by
+	-- its id) takes no room. -> its height in the card (0: none)
+	local function measure(a, width, m)
+		local f = a.frame
+		local h = a.def.layout(f, a.model, width, m) or 0
+		if h <= 0 then
+			f:Hide()
+			return 0
+		end
+		f:SetHeight(h)
+		f:Show()
+		local hosted = GF.Claimed(a.id, f, width, h) or nil
+		-- A region on a card of the layout's own draws no card of its own (UI/GuideFrameKindCraft.lua).
+		if f.psHosted ~= hosted then
+			f.psHosted = hosted
+			local own = rawget(f, "Card")
+			if own then
+				own.psBare = (hosted or GF.Transparent()) and true or nil
+				ns.Theme.Repaint(own)
+			end
+		end
+		if hosted then return 0 end
+		f:ClearAllPoints()
+		return h
+	end
+
+	-- Lays the regions before the step's own rows out in the card from y down,
+	-- `width` wide (GF.Layout's layoutCard). -> y under the last region
 	function GF.LayoutRegions(width, y)
 		local m = mode()
 		for i = 1, active.n do
 			local a = active[i]
-			local f = a.frame
-			local h = a.def.layout(f, a.model, width, m) or 0
-			if h > 0 then
-				f:SetHeight(h)
-				f:Show()
-				local hosted = GF.Claimed(a.id, f, width, h) or nil
-				-- A region on a card of the layout's own draws no card of its own (UI/GuideFrameKindCraft.lua).
-				if f.psHosted ~= hosted then
-					f.psHosted = hosted
-					local card = rawget(f, "Card")
-					if card then
-						card.psBare = (hosted or GF.Transparent()) and true or nil
-						ns.Theme.Repaint(card)
-					end
-				end
-				if not hosted then
-					f:ClearAllPoints()
-					f:SetPoint("TOPLEFT", card, "TOPLEFT", 0, -y)
-					f:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, -y)
+			if not a.after then
+				local h = measure(a, width, m)
+				if h > 0 then
+					a.frame:SetPoint("TOPLEFT", card, "TOPLEFT", 0, -y)
+					a.frame:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, -y)
 					y = y + h
 				end
-			else
-				f:Hide()
 			end
 		end
 		return max(0, y)
+	end
+
+	-- Lays the regions after the step's own rows out under `below` (the goals
+	-- area, or the step's tip under it), each under the one before; y grows by
+	-- their heights (the card's height without the goals area). -> y
+	function GF.LayoutRegionsAfter(width, y, below)
+		local m = mode()
+		local off = 0
+		for i = 1, active.n do
+			local a = active[i]
+			if a.after then
+				local h = measure(a, width, m)
+				if h > 0 then
+					a.frame:SetPoint("TOPLEFT", below, "BOTTOMLEFT", 0, -off)
+					a.frame:SetPoint("TOPRIGHT", below, "BOTTOMRIGHT", 0, -off)
+					off = off + h
+				end
+			end
+		end
+		return y + off
 	end
 
 	-- The shown regions in the card, for GF.Placed: { id, frame } in order.

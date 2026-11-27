@@ -3,17 +3,15 @@
 -- Engine.KindModel(region, view). Built from the Engine's own view of the guide (Engine.KindAccess), the client's
 -- skill and standing, and the materials' counts, ways and prices (Core/Materials.lua).
 --
--- Profession: "meter" (the skill, the stretch to its move-on, the next trainer rank), "trainer" (that rank or the
--- recipes the step learns), "stretch" (the `craft … until` recipe levelled now: its colour now, crafts made of
--- about how many, how many the bags make now), "supplies" (each material still needed to the move-on, counted from
--- bags, bank, mail and the intermediates already made, with its way and the Buy / Farm split), "buyList" (what is
--- set to Buy). Reputation: "meter" (the standing), "turnin" (the step's turn-in), "supplies" (its items), "more"
--- (the guide's other quests for the faction).
+-- Profession: the window draws its steps as the leveling view's rows (UI/GuideFrameRegions.lua, "step"): "meter"
+-- (the slim skill line), "stretch" (the craft step's row: its `craft … until` recipe, the colour now, about how many
+-- crafts still to go, the casts counted), "get" (a get step: "Get 42 Rough Stone" and its ways, each a choice:
+-- gather it, the Auction House, a vendor), "shopping" (the section's materials, have / need, what is set to Buy).
+-- Reputation: "meter" (the standing), "turnin" (the step's turn-in), "more" (the guide's other quests for the
+-- faction).
 --
 -- A paired guide (`skills Skinning, Leatherworking`, compiled as `skillLines`) levels two skills: the meter is
--- `{ pair = { gathering, crafting } }`, a stretch is of its own craft's skill (its rank decides when it is done), the
--- trainer line takes the next rank of either, and the step's tip gives the stretch card its flow line and the
--- materials their "from your skinning on the way" clause (KC.TipParts).
+-- `{ pair = { gathering, crafting } }`, and a stretch is of its own craft's skill (its rank decides when it is done).
 --
 -- The stretch: the first `craft … until` goal from the step in view on that the skill is under. Its colours
 -- (Classic's): orange below `yellow`, yellow below green ((yellow + grey) / 2), green below `grey`, grey from
@@ -26,7 +24,7 @@
 
 local _, ns = ...
 local Engine, Materials = ns.Engine, ns.Materials
-local floor, ceil, max, min, format = math.floor, math.ceil, math.max, math.min, string.format
+local floor, ceil, max, min = math.floor, math.ceil, math.max, math.min
 local pairs, ipairs, type = pairs, ipairs, type
 
 local KC = {}
@@ -192,113 +190,6 @@ local function maker(G, item)
 	return nil
 end
 
--- The next profession rank the guide trains from step `index` on, above `cap`: { s, g, goal, cap, level, rank }.
--- `cap`: the cap held, a number for every skill line or { [skillLine] = cap } (a paired guide's two skills);
--- `line`: only that skill line's ranks.
-local function nextTrain(index, cap, line)
-	local a = access()
-	local G = a.guide()
-	for s = index or 1, #G.steps do
-		local step = G.steps[s]
-		if a.stepApplies(step) then
-			for g, goal in ipairs(step.goals or {}) do
-				local top = goal.t == "train" and (not line or not goal.skillLine or goal.skillLine == line) and (goal.rankMax or a.rankCap(goal))
-				local held = type(cap) == "table" and (cap[goal.skillLine or 0] or cap[0]) or cap
-				if top and top > (held or 0) and a.goalApplies(goal) and not a.goalDone(s, g, goal) then
-					local r = tonumber(goal.rank)
-					return { s = s, g = g, goal = goal, cap = top, rank = r, level = (r and r >= 2) and max(1, top - 100) or 0 }
-				end
-			end
-		end
-	end
-	return nil
-end
-
----------------------------------------------------------------------------
--- A paired guide's step tip: the flow line and the "from your ... on the way" clause
----------------------------------------------------------------------------
-
--- A paired guide's gathering step says its cycle in its tip: "34 Light Leather for Leatherworking 20-51: 53 Light
--- Armor Kits; from your skinning on the way: 12 of 34 Light Leather. Skin 34 Light Leather (Skinning 50 to 72), then
--- craft 45 Light Armor Kits (Leatherworking 20 to 51). The arrow takes ...". The window says the cycle on the stretch
--- card (the flow line, the sentence with the craft's own range in brackets: `from` to `to`, the skill the stretch
--- starts and ends at) and the clause after the first sentence's `;` in the materials, and leaves the rest as the tip.
--- Found by those numbers, not by words: the guide's texts are in every language of the addon.
--- -> { flow, gather = { from, to } | nil, from = the clause | nil, rest = the tip left } or nil (no such sentence).
-local tipCache = {}
-local function trim(s) return (s:gsub("^%s+", ""):gsub("%s+$", "")) end
-local CJK_STOP, WIDE_SEMI = "\227\128\130", "\239\188\155"
--- Where the last sentence of `s` starts: after the last full stop and its space, or the last CJK full stop; 1 for
--- one sentence alone.
-local function sentenceStart(s)
-	local at = 1
-	for p in s:gmatch("()%.%s") do at = p + 2 end
-	for p in s:gmatch("()" .. CJK_STOP) do at = max(at, p + 3) end
-	return at
-end
--- The text without its closing full stop (an ordinary or a CJK one).
-local function unstop(s)
-	if s:sub(-3) == CJK_STOP then return s:sub(1, -4) end
-	if s:sub(-1) == "." then return s:sub(1, -2) end
-	return s
-end
-function KC.TipParts(note, from, to)
-	if type(note) ~= "string" or type(from) ~= "number" or type(to) ~= "number" then return nil end
-	local key = format("%d:%d", from, to)
-	local hit = tipCache[note]
-	if hit and hit.key == key then return hit.parts or nil end
-	local text = note:gsub("\239\188\136", "("):gsub("\239\188\137", ")")
-	-- The last bracket holding `from` and then `to`: the craft's range.
-	local pattern = format("%%([^()]-%%f[%%d]%d%%f[%%D][^()%%d]-%%f[%%d]%d%%f[%%D][^()]-%%)", from, to)
-	local s0, e0, pos = nil, nil, 1
-	while true do
-		local s, e = text:find(pattern, pos)
-		if not s then break end
-		s0, e0, pos = s, e, e + 1
-	end
-	local parts
-	if s0 then
-		-- The flow sentence: from after the stop before the bracket to the stop after it.
-		local startAt = sentenceStart(text:sub(1, s0 - 1))
-		local stop = text:sub(e0 + 1):match("^%s*%.") or text:sub(e0 + 1):match("^%s*" .. CJK_STOP) or ""
-		local flow = trim(text:sub(startAt, e0))
-		local head, tail = trim(text:sub(1, startAt - 1)), trim(text:sub(e0 + #stop + 1))
-		-- Its gathering range: the bracket before the craft's ("Skinning 50 to 72"), when the flow has two.
-		local brackets = {}
-		for inner in flow:gmatch("%(([^()]-)%)") do brackets[#brackets + 1] = inner end
-		local gather
-		if #brackets >= 2 then
-			local g0, g1 = brackets[1]:match("%f[%d](%d+)%f[%D]%D-%f[%d](%d+)")
-			if g0 then gather = { tonumber(g0), tonumber(g1) } end
-		end
-		-- The clause: what follows the first sentence's last `;` (a full-width one too).
-		local why, clause = head, nil
-		local semi, wide = 0, false
-		for p in why:gmatch("();") do semi = p end
-		for p in why:gmatch("()" .. WIDE_SEMI) do
-			if p > semi then semi, wide = p, true end
-		end
-		if semi > 0 then
-			clause = unstop(trim(why:sub(semi + (wide and 3 or 1))))
-			local cjk = why:sub(-3) == CJK_STOP
-			why = trim(why:sub(1, semi - 1)) .. (cjk and CJK_STOP or ".")
-		end
-		parts = { flow = unstop(flow), gather = gather, from = clause, rest = trim(why .. " " .. tail) }
-	end
-	tipCache[note] = { key = key, parts = parts or false }
-	return parts
-end
-
--- A profession rank's title, a literal key each (the translations' check finds only those).
-local function rankTitle(rank)
-	local L = ns.L
-	if rank == 1 then return L["Apprentice"] end
-	if rank == 2 then return L["Journeyman"] end
-	if rank == 3 then return L["Expert"] end
-	if rank == 4 then return L["Artisan"] end
-	return nil
-end
-
 -- Where a goal is done: its chosen candidate's NPC and map, else the goal's own.
 local function placeOf(goal)
 	local c = access().chosen(goal)
@@ -308,11 +199,11 @@ local function placeOf(goal)
 	return npc, c and c.map or goal.map, id
 end
 
--- The step's goals of types `types` (a set), as covers for a region.
-local function coverTypes(view, types, out)
+-- The step's goals of types `types` (a set), as covers for a region; with `done`, its done goals too.
+local function coverTypes(view, types, out, done)
 	out = out or {}
 	for gi, gv in ipairs(view and view.goals or {}) do
-		if types[gv.t] then out[#out + 1] = gi end
+		if types[gv.t] or (done and gv.status == "done") then out[#out + 1] = gi end
 	end
 	return out
 end
@@ -397,188 +288,34 @@ function Engine.FarmMinutes(item)
 	return ok and minutes or nil
 end
 
--- Where goal `goal` sits in the guide: step, goal index.
-local function locate(goal)
-	local G = access().guide()
-	for s, step in ipairs(G and G.steps or {}) do
-		for g, o in ipairs(step.goals or {}) do
-			if o == goal then return s, g end
-		end
-	end
-	return nil
-end
-KC.Locate = locate
-
--- The split's Buy and Farm columns for `count` of `item`, gather goal `gg` (nil: no farm).
-local function split(item, count, gg)
-	local buy = false
-	if not Materials.SelfFound() then
-		local copper, info = Materials.Price(item, count)
-		buy = { count = count, copper = copper, each = info and info.each, age = info and info.age, source = info and info.source,
-			short = info and info.short }
-	end
-	local farm = false
-	if gg then
-		local a = access()
-		local fv = a.farm(gg)
-		if fv and not fv.loop then
-			local missing = max(1, a.needOf(gg) - bags(item))
-			local k = count / missing
-			local npc, map = placeOf(gg)
-			local c = a.chosen(gg)
-			local s, gi = locate(gg)
-			farm = { count = count, minutes = fv.minutes and max(1, ceil(fv.minutes * k)), kills = fv.kills and max(1, ceil(fv.kills * k)),
-				npc = npc, map = map, lvl = c and c.lvl, second = fv.second, above = fv.above, step = s, index = gi }
-		elseif gg.candidates then
-			local npc, map = placeOf(gg)
-			local s, gi = locate(gg)
-			farm = { count = count, npc = npc, map = map, step = s, index = gi }
-		end
-	end
-	return buy, farm
-end
-
--- A material's way in guide G: "buy" | "gather" | "vendor" | "make", whether the player may choose, the reason
--- (Materials.Way's) and its gather goal.
-local function wayOf(G, item, player)
-	local e = Materials.Index(G)[item]
-	local gg = e and e.gather and e.gather[1] and e.gather[1].goal
-	local canBuy = e and e.auction and e.auction[1] ~= nil
-	if gg and canBuy then
-		local way, why = Materials.Way(G, item, player, function() return Engine.FarmMinutes(item) end)
-		return way, true, why, gg
-	end
-	if canBuy then return "buy", false, Materials.SelfFound() and "selfFound" or "noGather", nil end
-	for _, step in ipairs(G.steps) do
-		for _, goal in ipairs(step.goals or {}) do
-			if goal.t == "buy" and goal.item == item then return "vendor", false, nil, nil end
-		end
-	end
-	if maker(G, item) then return "make", false, nil, nil end
-	-- A collect goal of the guide with farm spots: farmed; a reputation guide's item.
-	for _, step in ipairs(G.steps) do
-		for _, goal in ipairs(step.goals or {}) do
-			if goal.t == "collect" and goal.item == item and not goal.quest then return "gather", false, nil, goal.candidates and goal or nil end
-		end
-	end
-	return "gather", false, nil, nil
-end
-
--- The verdict over a split: "selfFound" | "pick" | "buy" | "farm" and whether Mix bought it for a long farm.
-local function verdict(G, item, way, why)
-	if why == "selfFound" then return "selfFound", false end
-	local _, _, pick = Materials.Mode(G.id, item)
-	if pick or why == "picked" then return "pick", false end
-	return way == "buy" and "buy" or "farm", why == "long"
-end
-
--- Rows for the supplies model from needs { { item, name, need, have, parts } }.
-local function supplyRows(G, needs)
-	local a = access()
-	local player = a.player()
-	local rows, focus = {}, nil
-	for _, n in ipairs(needs) do
-		local way, choosable, why, gg = wayOf(G, n.item, player)
-		local row = { item = n.item, name = n.name, quality = quality(n.item), have = n.have, need = n.need, parts = n.parts,
-			madeItem = n.madeItem, madeName = n.madeName, madeCount = n.madeCount, way = way, choosable = choosable, reason = why }
-		-- Cloth or meat the character still loots on the way (its mobs' levels not passed yet) counts too.
-		local w = gg and type(gg.gather) == "table" and gg.gather
-		row.routeCloth = w and not (w.skill or w.skillLine) and w.max and player and (player.level or 0) <= w.max and way == "buy" or nil
-		local toGet = max(0, n.need - n.have)
-		row.toGet = toGet
-		if toGet > 0 and (choosable or way == "buy" or way == "gather") then
-			local b, f = split(n.item, toGet, gg)
-			local v, long = verdict(G, n.item, way, why)
-			if way == "buy" and not choosable then f = false end
-			row.split = { buy = b, farm = f, verdict = v, long = long }
-			if not focus and choosable then focus = #rows + 1 end
-		end
-		rows[#rows + 1] = row
-	end
-	return rows, focus
-end
-
-local function buyListOf(rows)
-	local count, copper, known = 0, 0, true
-	for _, r in ipairs(rows) do
-		if r.way == "buy" and r.toGet > 0 and r.split and r.split.buy then
-			count = count + r.toGet
-			if r.split.buy.copper then copper = copper + r.split.buy.copper else known = false end
-		end
-	end
-	if count == 0 then return nil end
-	return { count = count, copper = copper > 0 and copper or nil, partial = not known or nil }
-end
-
 ---------------------------------------------------------------------------
 -- Profession models
 ---------------------------------------------------------------------------
 
 local M = Engine.KindModels
 
--- The caps held, { [skillLine] = cap } (0: not learned), and [0], the last skill's, for a goal with no skill line.
-local function capsOf(list)
-	local c = {}
-	for _, s in ipairs(list) do
-		c[s.b.line] = s.rank and s.cap or 0
-		c[0] = c[s.b.line]
-	end
-	return c
-end
-
--- The paired guide's tip parts for the stretch in view (KC.TipParts), nil for any other guide or step.
-local function tipOf(list, view, st)
-	if #list < 2 or not (view and st and view.note) then return nil end
-	return KC.TipParts(view.note, st.from, st.goal.untilSkill)
-end
-
--- One skill's meter: its rank against its cap, the stretch still to go lit to its move-on, ticks at the move-on and
--- the next trainer rank, and the recipes ahead. A paired guide's gathering skill moves on where its gathering for
--- the stretch ends (the tip's "Skinning 50 to 72", else its next `skill` goal) and has no recipes.
-local function skillMeter(s, list, view, ranks, parts)
+-- One skill's slim line: its rank against its cap; not learned yet: learned = false.
+local function skillMeter(s)
 	local b, rank, cap = s.b, s.rank, s.cap
 	local name = KC.SkillName(b.line)
 	if not rank then
-		return { kind = "skill", name = name, nameKind = "skill", value = 0, max = cap or 0, frac = 0, seg = { 0, 0 }, ticks = {}, line = {},
-			learned = false, skillLine = b.line }
+		return { kind = "skill", name = name, nameKind = "skill", value = 0, max = 0, frac = 0, learned = false, skillLine = b.line }
 	end
 	cap = (type(cap) == "number" and cap > 0) and cap or max(rank, 1)
-	local st, k = KC.Stretch(view and view.index, ranks)
-	if st and (st.goal.skillLine or b.line) ~= b.line then st, k = nil, nil end
-	local gathering = #list == 2 and s == list[1]
-	local moveOn = st and st.goal.untilSkill
-	if gathering then
-		moveOn = parts and parts.gather and parts.gather[2] > rank and parts.gather[2] or b.next
-	end
-	local tr = nextTrain(view and view.index or 1, cap, b.line)
-	local ticks = {}
-	if moveOn and moveOn < cap then ticks[#ticks + 1] = { at = moveOn, what = gathering and "gathered" or "moveOn" } end
-	if tr and tr.level > rank and tr.level <= cap and tr.level ~= moveOn then ticks[#ticks + 1] = { at = tr.level, what = "train" } end
-	local line = {}
-	if st then
-		line[1] = { name = craftName(st.goal), to = moveOn, item = st.goal.item }
-		local nx = KC.Stretches()[k + 1]
-		if nx then line[2] = { name = craftName(nx.goal), to = nx.goal.untilSkill, item = nx.goal.item } end
-	end
-	return { kind = "skill", name = name, nameKind = "skill", value = rank, max = cap, frac = min(1, rank / cap),
-		seg = { min(1, rank / cap), moveOn and min(1, moveOn / cap) or min(1, rank / cap) }, ticks = ticks, line = line, learned = true,
-		skillLine = b.line }
+	return { kind = "skill", name = name, nameKind = "skill", value = rank, max = cap, frac = min(1, rank / cap), learned = true, skillLine = b.line }
 end
 
--- The skill meter: one skill's, or a paired guide's two (`pair`: the gathering skill's, then the crafting one's).
+-- The skill line: one skill's, or a paired guide's two (`pair`: the gathering skill's, then the crafting one's).
 local function professionMeter(view)
 	local list = skills()
 	if #list == 0 then return nil end
-	local ranks = ranksOf(list)
 	local covers = coverTypes(view, { skill = true })
 	if #list == 1 then
-		local m = skillMeter(list[1], list, view, ranks, nil)
+		local m = skillMeter(list[1])
 		m.covers = covers
 		return m
 	end
-	local parts = tipOf(list, view, KC.Stretch(view and view.index, ranks))
-	return { kind = "skill", pair = { skillMeter(list[1], list, view, ranks, parts), skillMeter(list[2], list, view, ranks, parts) },
-		covers = covers }
+	return { kind = "skill", pair = { skillMeter(list[1]), skillMeter(list[2]) }, covers = covers }
 end
 
 M.meter = function(view, kind)
@@ -587,64 +324,17 @@ M.meter = function(view, kind)
 	return nil
 end
 
-M.trainer = function(view, kind)
-	if kind ~= "profession" then return nil end
-	local list = skills()
-	if #list == 0 then return nil end
-	local a = access()
-	local G = a.guide()
-	-- Recipes the step in view learns: due now.
-	local step = view and G.steps[view.index]
-	local learns, lg, lgi = {}, nil, nil
-	for g, goal in ipairs(step and step.goals or {}) do
-		if goal.t == "learn" and a.goalApplies(goal) and not a.goalDone(view.index, g, goal) then
-			learns[#learns + 1] = goal.spellName or goal.itemName or ""
-			if not lg then lg, lgi = goal, g end
-		end
-	end
-	local covers = coverTypes(view, { train = true, learn = true, level = true })
-	if lg then
-		local npc, map = placeOf(lg)
-		return { title = table.concat(learns, ", "), learn = true, level = skillOf(list, lg.skillLine).rank or 0, npc = npc, map = map, due = true,
-			toGo = 0, step = view.index, goalIndex = lgi, covers = covers }
-	end
-	-- A skill not learned yet (gathering first in a paired guide): its first rank, Apprentice, is due now, at the
-	-- trainer of its next rank in the guide (who teaches Apprentice too).
-	for _, s in ipairs(list) do
-		if not s.rank then
-			local at = nextTrain(view and view.index or 1, 0, s.b.line) or nextTrain(1, 0, s.b.line)
-			local npc, map = nil, nil
-			if at then npc, map = placeOf(at.goal) end
-			local title = rankTitle(1)
-			if #list == 2 then title = title .. " " .. (KC.SkillName(s.b.line) or "") end
-			return { title = title, rank = 1, level = 0, npc = npc, map = map, due = true, toGo = 0, step = at and at.s, goalIndex = at and at.g,
-				covers = covers }
-		end
-	end
-	local tr = nextTrain(view and view.index or 1, capsOf(list))
-	if not tr then return nil end
-	-- The skill that rank is of: a paired guide trains each of its two.
-	local own = skillOf(list, tr.goal.skillLine)
-	local rank, cap = own.rank, own.cap
-	local npc, map = placeOf(tr.goal)
-	local due = not rank or (rank or 0) >= tr.level or (rank and cap and rank >= cap) or false
-	local gate = own.b.gate
-	local title = rankTitle(tr.rank) or tostring(tr.goal.rank or "")
-	-- A paired guide trains both its skills: the rank says whose.
-	if #list == 2 then title = title .. " " .. (KC.SkillName(own.b.line) or "") end
-	return { title = title, rank = tr.rank, level = tr.level,
-		npc = npc, map = map, due = due, toGo = max(0, tr.level - (rank or 0)), step = tr.s, goalIndex = tr.g,
-		needsLevel = gate and gate.step == tr.s and gate.level or nil, covers = covers }
-end
-
+-- The craft step's row: its `craft … until` goal ("Craft Woolen Cape until 100"), the recipe's colour now, about how
+-- many crafts the skill still takes and the casts counted. Shown on the step that holds the goal, standing for it
+-- and for what is done of the step; the step's other crafts (the bolts first) stay its own rows.
 M.stretch = function(view, kind)
 	if kind ~= "profession" then return nil end
 	local list = skills()
 	if #list == 0 then return nil end
 	local st = KC.Stretch(view and view.index, ranksOf(list))
-	if not st then return nil end
+	if not (st and view and st.s == view.index) then return nil end
+	-- A paired guide's craft is of its own skill: that skill's rank decides its colour and what is left.
 	local own = skillOf(list, st.goal.skillLine)
-	-- A skill not learned yet stands at 0: the card shows the recipe it starts on ("Learn Leatherworking first").
 	local learned = own.rank ~= nil
 	local rank = own.rank or 0
 	local a = access()
@@ -652,94 +342,141 @@ M.stretch = function(view, kind)
 	local goal = st.goal
 	local colour, green = KC.Colour(goal, rank)
 	colour = learned and (KC.WindowColour(goal) or colour) or nil
-	local expected = goal.yellow and a.craftsFrom(goal, st.from, st.from) or nil
 	local left = goal.yellow and ceil(a.craftsFrom(goal, st.from, max(rank, st.from)) - 0.001) or nil
 	local made = 0
 	local rec = madeState()[madeKey(G, goal)]
 	if type(rec) == "table" and type(rec.n) == "number" then made = rec.n end
-	local canMake
-	local reagents = {}
-	for _, r in ipairs(goal.reagents or {}) do
-		reagents[#reagents + 1] = { item = r.item, count = r.count or 1, name = itemName(r.item, r.itemName) }
-		local n = floor(bags(r.item) / (r.count or 1))
-		canMake = canMake and min(canMake, n) or n
-	end
-	-- An intermediate the bags lack for one craft: make it first.
-	local makeFirst
-	for _, r in ipairs(goal.reagents or {}) do
-		local mk = maker(G, r.item)
-		if mk and bags(r.item) < (r.count or 1) then
-			makeFirst = { item = r.item, name = itemName(r.item, r.itemName), count = (r.count or 1) - bags(r.item) }
-			break
-		end
-	end
-	local covers = coverTypes(view, { craft = true })
-	-- A paired guide's step says its cycle in its tip: the card says it, and the tip keeps the rest.
-	local parts = tipOf(list, view, st)
+	local gv = view.goals and view.goals[st.g]
+	local covers = coverTypes(view, {}, { st.g }, true)
 	return { item = goal.item, recipe = goal.spell, name = craftName(goal), quality = goal.item and quality(goal.item), colour = colour,
-		yellow = goal.yellow, green = green, grey = goal.grey, reagents = reagents, made = made, left = left,
-		expected = expected and floor(expected + 0.5) or nil, moveOn = goal.untilSkill, from = st.from, rank = rank, learned = learned,
-		canMake = learned and canMake or 0, makeFirst = learned and makeFirst or nil, spell = KC.SkillName(own.b.line), step = st.s, covers = covers,
-		flow = parts and parts.flow or nil, note = parts and parts.rest or nil }
+		yellow = goal.yellow, green = green, grey = goal.grey, made = made, left = left, moveOn = goal.untilSkill, rank = rank,
+		learned = learned, spell = KC.SkillName(own.b.line), step = st.s, goalIndex = st.g, done = gv and gv.status == "done" or false,
+		covers = covers }
 end
 
-local function professionSupplies(view)
-	local list = skills()
-	if #list == 0 then return nil end
-	local ranks = ranksOf(list)
-	local st = KC.Stretch(view and view.index, ranks)
-	-- A skill not learned yet stands at 0.
-	local rank = skillOf(list, st and st.goal.skillLine).rank or 0
+-- The gathering verb of a material's `gather` goal: the profession it takes ("mine", "skin", "herb", "fish",
+-- "disenchant"; another profession makes it: "make"), else "farm" (mobs drop it).
+local GATHER_LINE = { [186] = "mine", [393] = "skin", [182] = "herb", [356] = "fish", [333] = "disenchant" }
+local GATHER_SKILL = { mining = "mine", skinning = "skin", herbalism = "herb", fishing = "fish", enchanting = "disenchant" }
+function KC.GatherVerb(goal)
+	local w = type(goal.gather) == "table" and goal.gather or nil
+	if not w then return "farm" end
+	local v = (w.skillLine and GATHER_LINE[w.skillLine]) or (type(w.skill) == "string" and GATHER_SKILL[w.skill:lower()])
+	if v then return v end
+	if w.skill or w.skillLine then return "make" end
+	return "farm"
+end
+
+-- A material goal of a profession step: a gather goal, an Auction House goal or a vendor's (not a quest's).
+local function materialGoal(goal)
+	if not goal.item or goal.quest then return false end
+	return (goal.t == "collect" and goal.gather ~= nil) or goal.t == "auction" or goal.t == "buy"
+end
+
+-- A get step: per item of the step's material goals, "Get 42 Rough Stone" with the bags' count, and the ways the
+-- item's goals in the step allow, each a choice: { way = "gather", verb, npc, map, loop, minutes (for the rest at
+-- the chosen spot), rate (an hour there), levels (a disenchant's green items: { min, max } Requires Level) } |
+-- { way = "buy", toGet (what the bags, bank and mail still lack), copper } | { way = "vendor", npc, map };
+-- `current` the way the guide takes now (the goal that applies: the player's pick, else the guide's way). The
+-- Auction House is no way for a Self-Found character.
+M.get = function(view, kind)
+	if kind ~= "profession" then return nil end
 	local a = access()
 	local G = a.guide()
-	local needs = st and KC.StretchNeeds(st, rank) or {}
-	-- The step's own materials (Get Silk Cloth) that the stretch does not use yet: their own counts.
-	local step = view and G.steps[view.index]
-	local seen = {}
-	for _, n in ipairs(needs) do seen[n.item] = true end
-	for _, goal in ipairs(step and step.goals or {}) do
-		if (goal.t == "collect" or goal.t == "auction" or goal.t == "buy") and goal.item and not goal.quest and not seen[goal.item] then
-			seen[goal.item] = true
-			local total, p = Materials.Have(goal.item)
-			local need = a.needOf(goal)
-			needs[#needs + 1] = { item = goal.item, name = itemName(goal.item, goal.itemName), need = need, have = min(need, total),
-				parts = { bags = p.bags, bank = p.bank, mail = p.mail, coming = p.coming, made = 0 } }
+	local step = view and G and G.steps[view.index]
+	if not step then return nil end
+	local list, byItem, covers = {}, {}, {}
+	local selfFound = Materials.SelfFound()
+	for gi, goal in ipairs(step.goals or {}) do
+		local gv = view.goals and view.goals[gi]
+		if gv and materialGoal(goal) then
+			covers[#covers + 1] = gi
+			local e = byItem[goal.item]
+			if not e then
+				e = { item = goal.item, name = itemName(goal.item, goal.itemName), quality = quality(goal.item), ways = {} }
+				byItem[goal.item] = e
+				list[#list + 1] = e
+			end
+			local applies = gv.status ~= "na"
+			if applies and not e.goalIndex then
+				e.goalIndex, e.status = gi, gv.status
+				local p = type(gv.progress) == "table" and gv.progress or nil
+				e.need = p and p.max or a.needOf(goal)
+				e.have = min(p and p.cur or bags(goal.item), e.need)
+			end
+			local w
+			if goal.t == "collect" then
+				local npc, map = placeOf(goal)
+				w = { way = "gather", verb = KC.GatherVerb(goal), npc = npc, map = map }
+				local fv = a.farm(goal)
+				local missing = a.needOf(goal) - bags(goal.item)
+				if fv and fv.minutes and fv.minutes > 0 and missing > 0 then
+					w.minutes, w.loop = fv.minutes, fv.loop or nil
+					w.rate = max(1, floor(missing * 60 / fv.minutes + 0.5))
+				end
+				local gw = type(goal.gather) == "table" and goal.gather or nil
+				if w.verb == "disenchant" and gw and gw.min and gw.max then w.levels = { gw.min, gw.max } end
+			elseif goal.t == "auction" then
+				if not selfFound then
+					local toGet = max(0, a.needOf(goal) - Materials.Have(goal.item))
+					w = { way = "buy", toGet = toGet }
+					if toGet > 0 then w.copper = Materials.Price(goal.item, toGet) end
+				end
+			else
+				local npc, map = placeOf(goal)
+				w = { way = "vendor", npc = npc, map = map }
+			end
+			if w then
+				w.goalIndex, w.current = gi, applies
+				e.ways[#e.ways + 1] = w
+			end
 		end
 	end
-	if #needs == 0 then return nil end
-	local rows, focus = supplyRows(G, needs)
-	local mode = Materials.Mode(G.id)
-	local covers = {}
-	for gi, gv in ipairs(view and view.goals or {}) do
-		if (gv.t == "collect" or gv.t == "auction" or gv.t == "buy") and seen[gv.item] then covers[#covers + 1] = gi end
+	if #list == 0 then return nil end
+	for _, e in ipairs(list) do
+		e.need = e.need or 0
+		e.have = e.have or 0
+		e.done = e.status == "done"
 	end
-	-- The Buy | Farm | Mix switch is offered only while a material still to get has a real choice (farmed and bought):
-	-- with the rest held, vendor-only or made, every way gives the same list.
-	local choosable = false
-	for _, r in ipairs(rows) do
-		if r.choosable and r.toGet > 0 then choosable = true break end
-	end
-	local parts = tipOf(list, view, st)
-	return { title = st and st.goal.untilSkill, titleKind = "skill", way = mode == "gather" and "gather" or mode, rows = rows, focus = focus,
-		buyList = buyListOf(rows), selfFound = Materials.SelfFound(), choosable = choosable, covers = covers,
-		from = parts and parts.from or nil }
+	return { items = list, covers = covers }
 end
 
-M.supplies = function(view, kind)
-	-- A standing at its end needs no more items.
-	if kind == "reputation" then
-		local meter = KC.RepMeter(view)
-		if meter and meter.done then return nil end
-	end
-	if kind == "profession" then return professionSupplies(view) end
-	if kind == "reputation" then return KC.RepSupplies(view) end
-	return nil
-end
-
-M.buyList = function(view, kind)
+-- The shopping list: the materials of the section (the bracket) the step is in, each with what the character holds
+-- (bags, bank, mail) of what the section's goals ask, and the way the guide takes for it ("gather" | "buy" |
+-- "vendor"); `buy`: the items set to Buy still to get, for "Buy the whole list".
+M.shopping = function(view, kind)
 	if kind ~= "profession" then return nil end
-	local s = M.supplies(view, kind)
-	return s and s.buyList or nil
+	local a = access()
+	local G = a.guide()
+	if not (G and view) then return nil end
+	local sec = a.sectionOf(view.index)
+	local rows, at = {}, {}
+	for s, step in ipairs(G.steps) do
+		if a.sectionOf(s) == sec and a.stepApplies(step) then
+			for _, goal in ipairs(step.goals or {}) do
+				if materialGoal(goal) and a.goalApplies(goal) then
+					local r = at[goal.item]
+					if not r then
+						r = { item = goal.item, name = itemName(goal.item, goal.itemName), quality = quality(goal.item), need = 0, way = "vendor" }
+						at[goal.item] = r
+						rows[#rows + 1] = r
+					end
+					r.need = max(r.need, a.needOf(goal))
+					local way = a.materialWay(goal)
+					if way then r.way = way end
+				end
+			end
+		end
+	end
+	if #rows == 0 then return nil end
+	local buy, met = {}, 0
+	for _, r in ipairs(rows) do
+		r.have = min(r.need, (Materials.Have(r.item)))
+		r.toGet = r.need - r.have
+		if r.toGet == 0 then met = met + 1 end
+		if r.way == "buy" and r.toGet > 0 then buy[#buy + 1] = { item = r.item, name = r.name, count = r.toGet } end
+	end
+	return { rows = rows, met = met, buy = buy }
 end
 
 -- The trade skill window's colours come and go with it.
@@ -891,38 +628,6 @@ M.turnin = function(view, kind)
 		end
 	end
 	return t
-end
-
-function KC.RepSupplies(view)
-	local goal = repGoal(view)
-	local t = stepTurnin(view, goal and goal.faction)
-	if not t then return nil end
-	local a = access()
-	local G = a.guide()
-	local meter = KC.RepMeter(view)
-	-- Enough for the next standing when a turn-in's reputation is known, else the step's own counts.
-	local turnins = meter and meter.line and meter.line.turnins
-	local needs = {}
-	for _, it in ipairs(t.items) do
-		local need = turnins and turnins * it.count or (it.goal and a.needOf(it.goal)) or it.count
-		local total, p = Materials.Have(it.item)
-		needs[#needs + 1] = { item = it.item, name = it.name, need = need, have = min(need, total),
-			parts = { bags = p.bags, bank = p.bank, mail = p.mail, coming = p.coming, made = 0 } }
-	end
-	local rows, focus = supplyRows(G, needs)
-	-- A reputation guide's item has a farm and, unless Self-Found, an Auction House: the player picks the way.
-	for i, r in ipairs(rows) do
-		if r.split and r.split.farm and r.split.buy and not r.choosable then
-			r.choosable = true
-			local _, _, pick = Materials.Mode(G.id, r.item)
-			r.way = pick or "gather"
-			r.split.verdict = pick and "pick" or "farm"
-			focus = focus or i
-		end
-	end
-	local mode = Materials.Mode(G.id)
-	return { title = meter and meter.line and (meter.line.reached and meter.line.next or meter.line.target), titleKind = "standing",
-		items = t.items, way = mode, rows = rows, focus = focus, buyList = buyListOf(rows), selfFound = Materials.SelfFound(), covers = {} }
 end
 
 -- "More reputation": the step's own other quests that pay this faction (beside the turn-in card: each with its

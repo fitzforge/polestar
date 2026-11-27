@@ -9650,9 +9650,13 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
 
   ```lua
   GF.REGIONS = {
-    profession = { "meter", "trainer", "stretch", "supplies", "buyList" },
-    reputation = { "meter", "turnin", "supplies", "more" },
-    dungeon    = { "brief", "ready", "pickups", "entrance" },   -- outside its instance
+    profession = { "meter", "stretch", "get", "step", "shopping" },
+    reputation = { "meter", "turnin", "step", "more" },
+    dungeon    = { "brief", "ready", "step", "pickups", "entrance" },   -- outside its instance
+    -- "step": the card's own header and goal rows there, the leveling view's (GF.LayoutRegionsAfter
+    -- lays the regions after it out under the goals area and the step's tip). A profession guide's
+    -- train, learn, buy and go-to steps read there; its craft and get steps are goal rows of the
+    -- "stretch" and "get" regions (GF.NewGoalRow, GF.PaintGoalRow), which cover the step's goals
   }
   GF.RegionOverride(view, kind) -> { id, ... } | nil   -- a part taking the card for any kind
                                                       -- (the docked dungeon tracker: { "tracker" })
@@ -9671,24 +9675,21 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   A model's `covers` (goal indexes of the step, a list or a set) takes those
   goals' rows off the card; with every open goal covered the step's header
   goes too. A region frame is a part in `Theme.GuideParts()` under its id and
-  is offered to `guidePlace` by its id (Atlas places `meter`, `supplies`,
-  `turnin`, `pickups` and `trainer` in cards). `layout` never builds
-  strings: `paint` does, on a render, not on a drag-resize. A model's `note`
-  stands for the step's tip text (`GF.RegionNote`). Model shapes:
+  is offered to `guidePlace` by its id (Atlas places `turnin` and `pickups`
+  in cards). `layout` never builds
+  strings: `paint` does, on a render, not on a drag-resize. Model shapes:
 
   ```lua
-  meter    = { kind = "skill"|"rep", name, nameKind, value, max, rank, frac, seg = { a, b }, ticks = { { at, what } }, line }
+  meter    = { kind = "skill"|"rep", name, nameKind, value, max, rank, frac, learned, seg = { a, b }, line }
              | { kind = "skill", pair = { meter, meter }, covers }   -- a paired guide: its gathering skill's, then its crafting one's
-  trainer  = { title, level, npc, map, due, toGo }
   stretch  = { item, recipe, name, quality, colour = "orange"|"yellow"|"green"|"grey", yellow, green, grey,
-               reagents = { { item, count } }, made, left, expected, moveOn, canMake, spell,
-               flow, note }                                          -- a paired guide: the flow line, the tip left
+               made, left, moveOn, learned, spell, step, goalIndex, done }
                -- made: the recipe's casts counted (never guessed from the skill); left: the crafts the skill still takes
-  supplies = { title, from, way = "mix"|"buy"|"gather", rows = { { item, name, quality, have, need,
-               parts = { bags, bank, mail, coming, made }, way = "buy"|"gather"|"vendor"|"make", choosable,
-               reason, split = { buy = { count, copper, each, age, source } | false,
-                                 farm = { count, minutes, kills, npc, map, lvl, second, above } | false,
-                                 verdict = "buy"|"farm"|"pick"|"selfFound", long } } }, buyList = { count, copper } }
+  get      = { items = { { item, name, quality, need, have, goalIndex, done,
+               ways = { { way = "gather"|"buy"|"vendor", current, goalIndex, verb = "mine"|"herb"|"skin"|"fish"|
+                          "disenchant"|"make"|"farm", npc, map, loop, minutes, rate, levels, copper } } } } }
+  shopping = { rows = { { item, name, quality, have, need, toGet, way = "gather"|"buy"|"vendor" } }, met,
+               buy = { { item, name, count } } }
   turnin   = { quest, title, repeatable, items = { { item, count } }, rep, npc, map, ready }
   more     = { { quest, title, rep, once, progress = { cur, max }, from, current, step, goalIndex }, covers = { goal index, ... } }
   brief    = { key, name, lo, hi, best, players, zone }      ready = { level, best, floor, group = { n, max, names } }
@@ -9703,10 +9704,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   Skin API names the regions add (each behind its capability): parts in
   `Theme.GuideParts()` (`guideParts.kind`), hooks `guideKindRow(row, item,
   info)` and `guideMeter(meter, info)`, `guidePlace` names `meter`,
-  `supplies`, `turnin`, `pickups`, `trainer`, `guideShows` names `split` and
-  `trainer`, `guideSpace` names `supplyRow`, `splitGap`, `bossRow`, tokens
-  `craftOrange`, `craftYellow`, `craftGreen`, `craftGrey`, `coin`; the
-  dungeon tracker's `trackerPlace(name, frame, width, height)`.
+  `stretch`, `get`, `shopping`, `turnin`, `more`, `pickups`, `guideSpace`
+  names `bossRow`, tokens `craftOrange`, `craftYellow`, `craftGreen`,
+  `craftGrey`; the dungeon tracker's `trackerPlace(name, frame, width, height)`.
 - **Guide window** (`UI/GuideFrame.lua`): tab strip (each tab's close button
   faint at rest, full under the pointer; right-click for Choose guide, Close
   tab, Move left/right; middle-click closes), a slim navigator (prev,

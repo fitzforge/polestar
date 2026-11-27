@@ -4,9 +4,9 @@
 //! the skin in use (one hidden by a closed window above it as that window shows), the floating ones on the window
 //! skin (Halo's veil, not a menu's fill), and the quest item and
 //! travel buttons' hover wash follows the skin's.
-//! A profession guide's regions (UI/GuideFrameKindCraft.lua) are swept too: its stretch card, the split's well, the
-//! segments, a material's toggle and a button, in every built-in look and every look of Polestar_Skins, and a paired
-//! profession guide's two skill meters (a row each: the name's skill colour, the bar's track wash).
+//! A profession guide's regions (UI/GuideFrameKindCraft.lua) are swept too: the craft row's Open button, a way's
+//! button and the shopping list's button, in every built-in look and every look of Polestar_Skins, and a paired
+//! profession guide's two skill lines (a line each: the name's skill colour, the bar's track wash).
 
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
@@ -23,9 +23,8 @@ Polestar.Nav.alerts.ShowSample()
 Polestar.Rares.Toast.Show({ kind = "rare", name = "Mother Fang", map = 1429, x = 50, y = 50 })
 Polestar.UI.ShowCopy("Copy", "text")
 Polestar.UI.Materials.Show()
--- A profession guide in the guide window (its kind's regions, UI/GuideFrameKindCraft.lua): Tailoring 87, the
--- stretch card, the materials' Buy · Farm · Mix segments, a material's row with its toggle, the split's well and
--- its buttons.
+-- A profession guide in the guide window (its kind's regions, UI/GuideFrameKindCraft.lua): Tailoring 87, the craft
+-- step's Open Tailoring, the get step's ways with their buttons, the shopping list's Buy the whole list.
 local w = stub.world
 w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
 w.moveTo(1429, 48, 42)
@@ -45,11 +44,13 @@ Polestar.Set("ui.shown", true)
 Polestar.Engine.SetGuide("test/craft")
 stub.advance(1)
 local GF = Polestar.UI.GuideFrame
+Polestar.Engine.Goto(2); stub.advance(0.5)
 GF.Render(); GF.Layout()
-local stretch, sup = GF.RegionFrame("stretch"), GF.RegionFrame("supplies")
+Polestar.Engine.Goto(1); stub.advance(0.5)
+GF.Render(); GF.Layout()
+local stretch, get, shop = GF.RegionFrame("stretch"), GF.RegionFrame("get"), GF.RegionFrame("shopping")
 local kind = {
-	stretch = stretch and stretch.Card, split = sup and sup.Well:IsShown() and sup.Well, segment = sup and sup.Modes[1],
-	toggle = sup and sup.Rows[1] and sup.Rows[1].Seg[1], button = sup and sup.Buy.Button,
+	open = stretch and stretch.Row.psOpen, way = get and get.Ways[1] and get.Ways[1].psButton, buy = shop and shop.Buy,
 }
 local function kindSkins()
 	local k = {}
@@ -194,10 +195,10 @@ fn switching_the_skin_restyles_the_flight_timer_and_every_polestar_frame_live_13
 				assert_eq!(s[b], s["wash"], "{key}: the {b} button's hover wash is the skin's");
 			}
 		}
-		// The guide kinds' parts (UI/GuideFrameKindCraft.lua): the stretch card, the split's well, the way's
-		// segments, a material's toggle and the split's button, each in the skin in use.
+		// The guide kinds' parts (UI/GuideFrameKindCraft.lua): the craft row's Open button, a way's button and the
+		// shopping list's button, each in the skin in use.
 		let kind = s["kind"].as_object().unwrap();
-		assert_eq!(kind.len(), 5, "{key}: every kind part reported");
+		assert_eq!(kind.len(), 3, "{key}: every kind part reported");
 		for (name, skin) in kind {
 			assert_eq!(skin, &json!(key), "{key}: the profession guide's {name} painted in it");
 		}
