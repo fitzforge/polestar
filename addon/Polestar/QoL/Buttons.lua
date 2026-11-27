@@ -3360,6 +3360,7 @@ local function applyBag(b)
 		if s or j then
 			GameTooltip:ClearLines()
 			bagTooltip(b, GameTooltip)
+			if ns.Theme then ns.Theme.TipDots(GameTooltip) end
 			GameTooltip:Show()
 		else
 			GameTooltip:Hide()
