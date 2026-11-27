@@ -869,6 +869,86 @@ local function closeButton(parent)
 	return x
 end
 
+-- A card folded to its heading: a click on the heading folds it, a click
+-- on the folded card opens it. Kept per card across steps and reloads
+-- (ui.atlasFolded.<card>); the × still closes the card for the step.
+local function folded(key) return Core.setting("ui.atlasFolded." .. key) == true end
+local function setFolded(key, on)
+	if P.Set then P.Set("ui.atlasFolded." .. key, on and true or nil) end
+	Core.relayout()
+end
+
+-- The tooltip over a card's heading: what the card holds (its info, if
+-- any), then what a click does.
+local function foldTip(owner, info, hint)
+	if not GameTooltip then return end
+	GameTooltip:SetOwner(owner, "ANCHOR_NONE")
+	GameTooltip:ClearAllPoints()
+	GameTooltip:SetPoint("BOTTOMLEFT", owner, "TOPLEFT", 0, 4)
+	if info then
+		GameTooltip:SetText(info, 1, 1, 1, 1, true)
+		GameTooltip:AddLine(hint, Theme.Accent())
+	else
+		GameTooltip:SetText(hint, Theme.Accent())
+	end
+	if Theme.TipDots then Theme.TipDots(GameTooltip) end
+	GameTooltip:Show()
+end
+
+-- The open card's heading as a button that folds it (placed at layoutStack,
+-- over the heading and its chevron).
+local function foldButton(b)
+	local f = CreateFrame("Button", nil, b)
+	f.Chevron = f:CreateTexture(nil, "ARTWORK")
+	f.Chevron:SetTexture(Theme.Media("chevron-up"))
+	f.Chevron:SetSize(10, 10)
+	f.Chevron:SetPoint("RIGHT", f, "RIGHT", -2, 0)
+	f:SetScript("OnClick", function(self) if self.psKey then setFolded(self.psKey, true) end end)
+	f:SetScript("OnEnter", function(self)
+		if self.psLabel then self.psLabel:SetTextColor(Theme.Color("textDim")) end
+		foldTip(self, self.psInfo, tr("Click to fold them away"))
+	end)
+	f:SetScript("OnLeave", function(self)
+		if self.psLabel then self.psLabel:SetTextColor(Theme.Color("textMuted")) end
+		if GameTooltip then GameTooltip:Hide() end
+	end)
+	f:Hide()
+	return f
+end
+
+-- A folded card: its heading and count, a chevron; a click opens it.
+local function foldStrip(stack, key, text, count, info)
+	stack.folds = stack.folds or {}
+	local f = stack.folds[key]
+	if not f then
+		f = CreateFrame("Button", nil, stack)
+		f.Label = f:CreateFontString(nil, "OVERLAY")
+		f.Label:SetWordWrap(false)
+		f.Chevron = f:CreateTexture(nil, "ARTWORK")
+		f.Chevron:SetTexture(Theme.Media("chevron-down"))
+		f.Chevron:SetSize(10, 10)
+		f:SetScript("OnClick", function() setFolded(key, false) end)
+		f:SetScript("OnEnter", function(self)
+			self.Label:SetTextColor(Theme.Color("textDim"))
+			foldTip(self, self.psInfo, tr("Click to list them"))
+		end)
+		f:SetScript("OnLeave", function(self)
+			self.Label:SetTextColor(Theme.Color("textMuted"))
+			if GameTooltip then GameTooltip:Hide() end
+		end)
+		stack.folds[key] = f
+	end
+	f.psInfo = info
+	capsLabel(f.Label)
+	f.Label:SetText(Core.upper(text or "") .. ((count and count > 0) and ("  \194\183  " .. count) or ""))
+	local y = cardHead(f, f.Label)
+	f.Chevron:SetVertexColor(Theme.Color("textMuted"))
+	f.Chevron:ClearAllPoints()
+	f.Chevron:SetPoint("LEFT", f.Label, "LEFT", math.ceil(f.Label:GetStringWidth() or 0) + 6, 0)
+	f:SetHeight(cardFoot(y))
+	return f
+end
+
 -- Card i's backing, with its ×.
 local function backing(stack, i)
 	local b = stack.cards[i]
@@ -883,13 +963,16 @@ local function backing(stack, i)
 		b.Close = closeButton(b)
 		b.Close:SetPoint("TOPRIGHT", b, "TOPRIGHT", -4, -4)
 		b.Close:SetScript("OnClick", function(self) if self.psClose then self.psClose() end end)
-		-- The × shows while the pointer is on the card.
+		b.Fold = foldButton(b)
+		-- The × and the heading's chevron show while the pointer is on the card.
 		b.Close:SetAlpha(0)
+		b.Fold.Chevron:SetAlpha(0)
 		b:SetScript("OnUpdate", function(self)
 			local over = self:IsMouseOver() and true or false
 			if over == self.psOver then return end
 			self.psOver = over
 			self.Close:SetAlpha(over and 1 or 0)
+			self.Fold.Chevron:SetAlpha(over and 1 or 0)
 		end)
 		stack.cards[i] = b
 	end
@@ -1912,6 +1995,27 @@ local function layoutStack(parts)
 	local list = {}
 	local function add(f, close) list[#list + 1] = { f = f, close = close } end
 	local function relay() Core.relayout() end
+	for _, strip in pairs(stack.folds or {}) do strip:Hide() end
+	-- A card that folds (While you're here, Along the way, Optional, Party):
+	-- folded, its heading alone on a strip of Atlas's own; open, its heading
+	-- folds it. `count`: its rows.
+	local function fold(key, f, close, label, count)
+		local info = stores[f] and stores[f].info and stores[f].info.psTip or nil
+		if not (label and label:IsShown()) then
+			add(f, close)
+		elseif folded(key) then
+			f:Hide()
+			add(foldStrip(stack, key, label:GetText(), count, info), close)
+		else
+			add(f, close)
+			list[#list].fold = { key = key, label = label, info = info }
+		end
+	end
+	local function shown(rows)
+		local n = 0
+		for _, r in ipairs(rows or {}) do if r:IsShown() then n = n + 1 end end
+		return n
+	end
 	local s = slots
 	-- A banner notice keeps its own × (and Later): none of the card's.
 	if s.banner and isUnder(s.banner, window) then add(s.banner, nil) end
@@ -1927,13 +2031,24 @@ local function layoutStack(parts)
 		add(s.class, function() if key then classShut[key] = true end relay() end)
 	end
 	if s.here and isUnder(s.here, window) then
-		if closedOn.here == step then s.here:Hide() else add(s.here, function() closedOn.here = step relay() end) end
+		if closedOn.here == step then
+			s.here:Hide()
+		else
+			fold("here", s.here, function() closedOn.here = step relay() end, s.here.Label, shown(rawget(s.here, "Rows")))
+		end
 	end
 	if s.along and isUnder(s.along, window) then
-		if closedOn.along == step then s.along:Hide() else add(s.along, function() closedOn.along = step relay() end) end
+		if closedOn.along == step then
+			s.along:Hide()
+		else
+			fold("along", s.along, function() closedOn.along = step relay() end, s.along.Label, #alongRowList(s.along))
+		end
 	end
 	local optional = layoutOptional(stack, window, step)
-	if optional then add(optional, function() closedOn.opt = step relay() end) end
+	if optional then
+		local o = opt[window]
+		fold("opt", optional, function() closedOn.opt = step relay() end, optional.Label, o and #o.goals or 0)
+	end
 	if s.train and isUnder(s.train, window) then
 		add(fillTrain(trainCard(stack), window:GetWidth() or 300), Core.laterNotice)
 	elseif stack.train then
@@ -1941,10 +2056,11 @@ local function layoutStack(parts)
 	end
 	if s.party and isUnder(s.party, window) and not partyStaysShut(s.party.psState) then
 		local part = s.party
-		add(partyCard(stack, part), function()
+		local c = partyCard(stack, part)
+		fold("party", c, function()
 			partyShut, partySeen = part.psState, nil
 			relay()
-		end)
+		end, c.Label)
 	elseif s.party then
 		s.party:Hide()
 	end
@@ -1967,6 +2083,19 @@ local function layoutStack(parts)
 		b.Close.Icon:SetVertexColor(Theme.Color("textMuted"))
 		b.Close:SetFrameLevel(b:GetFrameLevel() + 5)
 		b.Close:SetShown(list[i].close ~= nil)
+		-- An open card's heading folds it.
+		local fd, fb = list[i].fold, b.Fold
+		fb.psKey, fb.psInfo, fb.psLabel = fd and fd.key, fd and fd.info, fd and fd.label
+		fb:SetShown(fd ~= nil)
+		if fd then
+			local lw = math.ceil(fd.label:GetStringWidth() or 0)
+			fb:ClearAllPoints()
+			fb:SetPoint("TOPLEFT", fd.label, "TOPLEFT", -4, 4)
+			-- Air over the heading, none under: the first row starts at its foot (CARD_UNDER).
+			fb:SetSize(lw + 24, math.floor(fd.label:GetStringHeight() or 10) + 4)
+			fb:SetFrameLevel(b:GetFrameLevel() + 6)
+			fb.Chevron:SetVertexColor(Theme.Color("textMuted"))
+		end
 		f:SetParent(b)
 		f:SetFrameLevel(b:GetFrameLevel() + 1)
 		f:ClearAllPoints()
@@ -2481,11 +2610,13 @@ on("guideInset", function(name)
 	if name == "upnext" then return UP_X end
 end)
 
--- Done goals stay in place. On the rail Up next shows its heading only while
--- folded (ui.upcomingOpen off), as the handle that opens it; open, its rows
--- stand on the rail without one.
+-- Done goals stay in place; in compact mode, or with Fold finished goals on
+-- (guideWindow.foldDone, #4450), they fold into "✓ N done", as Polestar's
+-- own. On the rail Up next shows its heading only while folded
+-- (ui.upcomingOpen off), as the handle that opens it; open, its rows stand
+-- on the rail without one.
 on("guideShows", function(what, shown)
-	if what == "done" then return true end
+	if what == "done" then return not (compact() or Core.setting("guideWindow.foldDone") == true) end
 	if what == "progressFoot" then return false end
 	if what == "markWash" then return true end
 	-- The game looks' quest tracker band behind the title: Atlas's title has
@@ -3206,6 +3337,7 @@ local function spec(hooks)
 			["guideWindow.lastSteps"] = 1,
 			["guideWindow.stepNumberSize"] = 0.75,
 			["guideWindow.journeyStyle"] = "folded",
+			["guideWindow.foldDone"] = false,
 			["guideWindow.bannerLinks"] = "right",
 			-- The step card's air out of compact mode, each gap's whole size in
 			-- px: over the title, between it and its line, over the tip, round

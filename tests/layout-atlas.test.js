@@ -1194,7 +1194,9 @@ test('Atlas writes its caps labels through Polestar.Upper, so accents and Cyrill
 // Compact mode under Atlas is the full window with the current step alone:
 // the cards above (Still to do), the XP row and the Journey keep their places
 // (GF.Shows "along", "xp", "journey"); Polestar's own layout leaves them out.
-test('Atlas compact mode keeps Still to do, the XP row and the Journey; Polestar compact leaves them out', () => {
+// Done goals fold into "✓ N done" in compact mode (GF.Shows "done"), and in
+// full mode with Fold finished goals on (guideWindow.foldDone, #4450).
+test('Atlas compact mode keeps Still to do, the XP row and the Journey, folds done goals; Polestar compact leaves them out', () => {
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
 		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
@@ -1206,13 +1208,18 @@ local function state()
 	GF.xp.psHas = true
 	GF.Layout()
 	return { along = GF.Shows("along", not Polestar.Get("ui.compact")), xpShows = GF.Shows("xp", not Polestar.Get("ui.compact")), journey = GF.Shows("journey", not Polestar.Get("ui.compact")),
-		xp = GF.xp:IsShown() }
+		xp = GF.xp:IsShown(), done = GF.Shows("done", false) }
 end
 Polestar.Set("ui.shown", true)
 Polestar.Set("ui.skin", "atlas")
 T.SetLayout("atlas")
 draw()
 local out = { full = state() }
+-- Fold finished goals (#4450): full mode folds them too.
+Polestar.Set("guideWindow.foldDone", true)
+draw()
+out.fullFold = GF.Shows("done", false)
+Polestar.Set("guideWindow.foldDone", false)
 Polestar.Set("ui.compact", true)
 draw()
 out.compact = state()
@@ -1226,6 +1233,9 @@ emit(out)`,
 	assert.deepEqual([out.full.xpShows, out.full.journey, out.full.xp], [true, true, true], 'full mode: both');
 	assert.deepEqual([out.compact.along, out.compact.xpShows, out.compact.journey], [true, true, true], 'Atlas compact: the cards above (Still to do), the XP row and the Journey kept');
 	assert.equal(out.compact.xp, true, 'the XP row shows in compact mode');
+	assert.equal(out.full.done, true, 'full mode: done goals stay in place');
+	assert.equal(out.compact.done, false, 'Atlas compact: done goals fold into the done line, as Polestar\'s own');
+	assert.equal(out.fullFold, false, 'full mode with Fold finished goals on: done goals fold too');
 	assert.deepEqual([out.house.along, out.house.xpShows, out.house.journey, out.house.xp], [false, false, false, false], "Polestar's own compact: none");
 });
 
