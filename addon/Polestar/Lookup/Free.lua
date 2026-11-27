@@ -19,7 +19,6 @@
 --   Free.Say(reason)                                  -- why it could not start, in chat
 --   Free.State() -> CharState().free                  -- { pin, out = { [questID] = true }, from = guideId }
 --   Free.IsBackTarget(guideId) -> bool                -- a guide of a pack, not one Polestar builds
---   Free.Used() -> bool ; Free.MarkUsed()             -- started once on this account (PolestarDB.freeUsed)
 --
 -- The way back: while any tab is active, the last guide of a pack the player
 -- had in front is CharState().free.from, so Free mode's "Back to <guide>"
@@ -66,9 +65,6 @@ end
 function Free.IsBackTarget(id)
 	return type(id) == "string" and Lookup.ParseGuideId(id) == nil
 end
-
-function Free.Used() return ns.DB().freeUsed == true end
-function Free.MarkUsed() ns.DB().freeUsed = true end
 
 ns.On("TABS_CHANGED", function(list, active)
 	local t = type(list) == "table" and list[active] or nil

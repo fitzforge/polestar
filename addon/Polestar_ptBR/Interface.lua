@@ -533,7 +533,6 @@
 --   Back to %s
 --   Back to your guide any time, from the guide window's menu or this page.
 --   Every quest of a zone at once. Bring one back from Left out.
---   First up
 --   Free mode is on · following %d quests
 --   Free mode is on · following 1 quest
 --   Free mode page
@@ -5822,7 +5821,6 @@ L["About %s, %d stops"] = "Cerca de %s, %d paradas"
 L["Hand in to %s"] = "Entregar a %s"
 L["Free mode is on · following 1 quest"] = "O modo livre está ativo · seguindo 1 missão"
 L["Free mode is on · following %d quests"] = "O modo livre está ativo · seguindo %d missões"
-L["First up"] = "Primeiro"
 L["About Free mode"] = "Sobre o modo livre"
 
 -- UI/FreeMode.lua

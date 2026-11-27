@@ -189,10 +189,9 @@ Polestar.Widgets.Modal({ title = "Reset this guide?", text = "Your check-offs in
 	{ key: 'report', title: 'the report window', ...scene('report.svg', 0) },
 	{ key: 'copy', title: 'the copy window', ...scene('report.svg', 1) },
 	{ key: 'picker', title: 'the guide list', ...scene('picker.svg', 0) },
-	// The Free mode page by who arrives (never started, started before, on), and the guide window in Free mode.
-	{ key: 'free-intro', title: 'the Free mode page, never started', ...scene('free-mode.svg', 0) },
-	{ key: 'free-ready', title: 'the Free mode page, started before', ...scene('free-mode.svg', 1) },
-	{ key: 'free-on', title: 'the Free mode page, on: the route', ...scene('free-mode.svg', 2) },
+	// The Free mode page by who arrives (off, on), and the guide window in Free mode.
+	{ key: 'free-intro', title: 'the Free mode page, off (the intro)', ...scene('free-mode.svg', 0) },
+	{ key: 'free-on', title: 'the Free mode page, on: the route', ...scene('free-mode.svg', 1) },
 	{ key: 'guide-free', title: 'the guide window in Free mode: its tab, the start line, the why line', family: 'guide', ...scene('guide-free.svg', 0) },
 	{ key: 'settings-guide', title: 'the settings window: Guide', ...scene('options.svg', 0) },
 	{ key: 'settings-theme', title: 'the settings window: Colour', ...scene('settings-theme.svg', 0) },

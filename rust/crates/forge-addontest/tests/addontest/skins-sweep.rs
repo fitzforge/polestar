@@ -209,7 +209,7 @@ fn the_free_mode_page_and_its_step_line_follow_every_skin_live_through_skin_part
 	}
 }
 
-// The Free mode page's hero (never started: Polestar_FreeMode/Hero.lua), through every skin, live, in each of its
+// The Free mode page's hero (off: Polestar_FreeMode/Hero.lua), through every skin, live, in each of its
 // compositions: Activate is the skin's button (`button`), and the art and text paint from the skin's tokens (the
 // emblem and its glow in the accent, the quests' stars' names in the quest colour, the tagline in text, the lead and
 // the points' lines in textDim, the points' glyphs in the accent), so a skin or scheme restyles the hero without a

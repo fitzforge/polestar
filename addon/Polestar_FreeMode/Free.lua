@@ -759,7 +759,6 @@ function Free.Start()
 	local ok, err = Lookup.Guide(KIND, ID)
 	if not ok then return nil, err end
 	planned = signature()
-	Free.MarkUsed()
 	ns.Fire("FREE_MODE", true)
 	return true
 end

@@ -615,7 +615,6 @@
 --   Back to %s
 --   Back to your guide any time, from the guide window's menu or this page.
 --   Every quest of a zone at once. Bring one back from Left out.
---   First up
 --   Free mode is on · following %d quests
 --   Free mode is on · following 1 quest
 --   Free mode page
@@ -5904,7 +5903,6 @@ L["About %s, %d stops"] = "약 %s, %d곳"
 L["Hand in to %s"] = "%s에게 제출"
 L["Free mode is on · following 1 quest"] = "자유 모드 켜짐 · 퀘스트 1개 진행 중"
 L["Free mode is on · following %d quests"] = "자유 모드 켜짐 · 퀘스트 %d개 진행 중"
-L["First up"] = "먼저 할 일"
 L["About Free mode"] = "자유 모드 소개"
 
 -- UI/FreeMode.lua

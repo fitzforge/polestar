@@ -598,7 +598,6 @@
 --   Back to %s
 --   Back to your guide any time, from the guide window's menu or this page.
 --   Every quest of a zone at once. Bring one back from Left out.
---   First up
 --   Free mode is on · following %d quests
 --   Free mode is on · following 1 quest
 --   Free mode page
@@ -5887,7 +5886,6 @@ L["About %s, %d stops"] = "Около %s, остановок: %d"
 L["Hand in to %s"] = "Сдать: %s"
 L["Free mode is on · following 1 quest"] = "Свободный режим включен · 1 задание в маршруте"
 L["Free mode is on · following %d quests"] = "Свободный режим включен · заданий в маршруте: %d"
-L["First up"] = "Сначала"
 L["About Free mode"] = "О свободном режиме"
 
 -- UI/FreeMode.lua

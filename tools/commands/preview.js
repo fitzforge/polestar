@@ -408,10 +408,9 @@ Polestar.Free.Load()`;
 function freeScene(script) {
 	return `${FREE_SETUP}\nPolestar.UI.ShowPicker()\n${script}`;
 }
-// Started before on this account; Free mode on (its tab stands in for the
-// Engine's), Ogre Menace left out, the way back the leveling guide's.
-const FREE_USED = 'Polestar.DB().freeUsed = true';
-const FREE_ON = `${FREE_USED}; Polestar.Free.LeaveOut(7004, true); Polestar.Free.IsOn = function() return true end; Polestar.Free.ReturnTitle = function() return "Hillsbrad Foothills (20-25)" end`;
+// Free mode on (its tab stands in for the Engine's), Ogre Menace left out,
+// the way back the leveling guide's.
+const FREE_ON = `Polestar.Free.LeaveOut(7004, true); Polestar.Free.IsOn = function() return true end; Polestar.Free.ReturnTitle = function() return "Hillsbrad Foothills (20-25)" end`;
 // The guide window in Free mode: a leveling tab and Free mode's, its first
 // step the two hand-ins at Marshal Hale with why they come first, and the
 // line Free mode's start shows once.
@@ -2236,16 +2235,15 @@ local r = b.Chains[1]; r:GetScript("OnEnter")(r)`) },
 	},
 	{
 		file: 'free-mode.svg',
-		title: 'The Free mode section of the hub, by who arrives: never started (the hero: the log\'s first three quests as stars on a dotted path the emblem leads, one big Activate Free mode under them, the three points and the hand-in card); started before (the stars unnamed, Activate with the order under it, the first three, What is Free mode? folded); on (following six quests, Back to the guide, the order, the hand-in card, the route numbered with the current quest marked, two hand-ins under Marshal Hale, Ogre Menace left out)',
+		title: 'The Free mode section of the hub, off and on: off, whenever it is (the hero: the log\'s first three quests as stars on a dotted path the emblem leads, one big Activate Free mode under them, the three points and the hand-in card); on (following six quests, Back to the guide, the order, the hand-in card, the route numbered with the current quest marked, two hand-ins under Marshal Hale, Ogre Menace left out)',
 		panels: [
 			{ free: true, roots: PICKER, script: freeScene('Polestar.UI.ShowFreeMode()') },
-			{ free: true, roots: PICKER, script: freeScene(`${FREE_USED}; Polestar.UI.ShowFreeMode()`) },
 			{ free: true, roots: PICKER, script: freeScene(`${FREE_ON}; Polestar.UI.ShowFreeMode()`) },
 		],
 	},
 	{
 		file: 'free-mode-looks.svg',
-		title: 'The Free mode page never started and on, in every other built-in look: Halo, Hearth, WoW Forever, Blizzard and Classic',
+		title: 'The Free mode page off and on, in every other built-in look: Halo, Hearth, WoW Forever, Blizzard and Classic',
 		panels: ['halo', 'hearth', 'forever', 'blizzard', 'classic'].flatMap((look) => [
 			{ free: true, roots: PICKER, script: freeScene(`Polestar.Set("ui.skin", "${look}"); Polestar.UI.ShowFreeMode()`) },
 			{ free: true, roots: PICKER, script: freeScene(`Polestar.Set("ui.skin", "${look}"); ${FREE_ON}; Polestar.UI.ShowFreeMode()`) },
@@ -2253,11 +2251,8 @@ local r = b.Chains[1]; r:GetScript("OnEnter")(r)`) },
 	},
 	{
 		file: 'free-mode-hero.svg',
-		title: 'The Free mode page\'s hero, never started and started before, in its three compositions (the dev switch PolestarDB.devFreeHero): sky (the default: the log\'s first three quests as stars on a dotted path the emblem leads, Activate under them), polaris (the emblem in its glow over the tagline and Activate) and seal (Activate at the heart of the emblem\'s engraving)',
-		panels: ['sky', 'polaris', 'seal'].flatMap((d) => [
-			{ free: true, roots: PICKER, script: freeScene(`PolestarDB.devFreeHero = "${d}"; Polestar.UI.ShowFreeMode()`) },
-			{ free: true, roots: PICKER, script: freeScene(`PolestarDB.devFreeHero = "${d}"; ${FREE_USED}; Polestar.UI.ShowFreeMode()`) },
-		]),
+		title: 'The Free mode page\'s hero, in its three compositions (the dev switch PolestarDB.devFreeHero): sky (the default: the log\'s first three quests as stars on a dotted path the emblem leads, Activate under them), polaris (the emblem in its glow over the tagline and Activate) and seal (Activate at the heart of the emblem\'s engraving)',
+		panels: ['sky', 'polaris', 'seal'].map((d) => ({ free: true, roots: PICKER, script: freeScene(`PolestarDB.devFreeHero = "${d}"; Polestar.UI.ShowFreeMode()`) })),
 	},
 	{
 		file: 'guide-free.svg',

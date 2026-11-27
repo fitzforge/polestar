@@ -1,5 +1,5 @@
--- The Free mode page's hero, while Free mode is off (Page.lua's intro and
--- ready layouts): the one primary "Activate Free mode" at the centre of the
+-- The Free mode page's hero, shown every time the page opens while Free mode
+-- is off (Page.lua's intro): the one primary "Activate Free mode" at the centre of the
 -- page, the Polestar emblem and a faint constellation around it, the tagline,
 -- and under it the three points and the player's own quests in Free mode's
 -- order. Drawn only from the addon's own art (the emblem, its engraving, the
@@ -327,18 +327,6 @@ local function record(c, upto)
 	end
 end
 
--- The order's three segments centred on cx at y, its line under it -> the y under it.
-local function order(c, cx, y)
-	local w = c.orderWidth()
-	local under = c.layOrder(cx - w / 2, y, c.pick)
-	local rule = c.rule
-	rule:ClearAllPoints()
-	rule:SetWidth(w + 80)
-	rule:SetJustifyH("CENTER")
-	rule:SetPoint("TOP", art, "TOPLEFT", cx, -(y + 28 + 8))
-	return under
-end
-
 ---------------------------------------------------------------------------
 -- sky: your quests as a constellation
 ---------------------------------------------------------------------------
@@ -350,7 +338,7 @@ local SKY = { emblem = { -0.36, 92 }, { -0.15, 58 }, { 0.04, 128 }, { 0.23, 62 }
 local FIELD = { { -0.46, 30, 1 }, { -0.27, 150, 1.2 }, { -0.05, 24, 0.9 }, { 0.19, 182, 1 }, { 0.33, 22, 1.1 }, { 0.46, 160, 0.9 },
 	{ -0.42, 170, 0.8 }, { 0.47, 70, 1 } }
 
-local function sky(c, x, y, width, h, labelled)
+local function sky(c, x, y, width, h)
 	local cx = x + width / 2
 	local function pt(p) return { cx + p[1] * width, y + p[2] * h / 200 } end
 	for _, s in ipairs(FIELD) do
@@ -358,7 +346,7 @@ local function sky(c, x, y, width, h, labelled)
 		star(p[1], p[2], s[3], "star", 0.5)
 	end
 	local e = pt(SKY.emblem)
-	emblem(e[1], e[2], labelled and 80 or 56, labelled and 280 or 200, labelled and 48 or 36)
+	emblem(e[1], e[2], 80, 280, 48)
 	local n = #c.route
 	local path = { { e[1] + 30, e[2] - 6 } }
 	local stars = {}
@@ -374,31 +362,29 @@ local function sky(c, x, y, width, h, labelled)
 	dots(smooth(path), "star", 0.55, n > 3 and 0.25 or 0.45)
 	for i, p in ipairs(stars) do
 		star(p[1], p[2], 2.6, "quest", 1)
-		if labelled then
-			local l, s = parts.Labels[i], c.route[i]
-			local up = i ~= 2
-			local lw = min(200, floor(width * 0.22))
-			l.title:SetText(s.title)
-			l.title:SetWidth(lw)
-			l.title:SetJustifyH("CENTER")
-			l.why:SetText(s.why or "")
-			l.why:SetWidth(lw)
-			l.why:SetJustifyH("CENTER")
-			if up then
-				at(l.why, p[1] - lw / 2, p[2] - 14 - 14, "TOPLEFT")
-				at(l.title, p[1] - lw / 2, p[2] - 14 - 14 - 18, "TOPLEFT")
-			else
-				at(l.title, p[1] - lw / 2, p[2] + 14, "TOPLEFT")
-				at(l.why, p[1] - lw / 2, p[2] + 14 + 18, "TOPLEFT")
-			end
-			l.why:SetShown(s.why ~= nil)
+		local l, s = parts.Labels[i], c.route[i]
+		local up = i ~= 2
+		local lw = min(200, floor(width * 0.22))
+		l.title:SetText(s.title)
+		l.title:SetWidth(lw)
+		l.title:SetJustifyH("CENTER")
+		l.why:SetText(s.why or "")
+		l.why:SetWidth(lw)
+		l.why:SetJustifyH("CENTER")
+		if up then
+			at(l.why, p[1] - lw / 2, p[2] - 14 - 14, "TOPLEFT")
+			at(l.title, p[1] - lw / 2, p[2] - 14 - 14 - 18, "TOPLEFT")
+		else
+			at(l.title, p[1] - lw / 2, p[2] + 14, "TOPLEFT")
+			at(l.why, p[1] - lw / 2, p[2] + 14 + 18, "TOPLEFT")
 		end
+		l.why:SetShown(s.why ~= nil)
 	end
-	if labelled and n > 3 then
+	if n > 3 then
 		parts.More:SetText(format(L["and %d more"], n - 3))
 		at(parts.More, tail[1] - 4, tail[2] + 8)
 		c.shown.more = n - 3
-	elseif labelled and n == 0 then
+	elseif n == 0 then
 		parts.More:SetText(L["Pick up quests and Free mode leads you to them."])
 		star(tail[1], tail[2], 1.6, "star", 0.6)
 		at(parts.More, tail[1] + 14, tail[2] - 7)
@@ -409,24 +395,19 @@ end
 local function laySky(c)
 	local x, y, width = c.x, c.y, c.width
 	local cx = x + width / 2
-	if c.mode == "intro" then
-		parts.Title:SetText(L["Quest your own way"])
-		y = centred(parts.Title, cx, y + 4, width) + 8
-		y = centred(parts.Lead, cx, y, min(width, 520)) + 14
-		sky(c, x, y, width, 200, true)
-		record(c, 3)
-		if #c.route > 0 then
-			local first = c.route[1]
-			c.shown.lead = format(L["Free mode would start with %s"], first.title)
-		end
-		y = button(c, cx, y + 200 + 4)
-		y = centred(parts.Back, cx, y + 10, min(width, 520)) + 28
-		y = points(x, y, width)
-		return y + 32
+	parts.Title:SetText(L["Quest your own way"])
+	y = centred(parts.Title, cx, y + 4, width) + 8
+	y = centred(parts.Lead, cx, y, min(width, 520)) + 14
+	sky(c, x, y, width, 200)
+	record(c, 3)
+	if #c.route > 0 then
+		local first = c.route[1]
+		c.shown.lead = format(L["Free mode would start with %s"], first.title)
 	end
-	sky(c, x, y - 8, width, 132, false)
-	y = button(c, cx, y + 124 + 4)
-	return order(c, cx, y + 20) + 32
+	y = button(c, cx, y + 200 + 4)
+	y = centred(parts.Back, cx, y + 10, min(width, 520)) + 28
+	y = points(x, y, width)
+	return y + 32
 end
 
 ---------------------------------------------------------------------------
@@ -469,21 +450,16 @@ end
 local function layPolaris(c)
 	local x, y, width = c.x, c.y, c.width
 	local cx = x + width / 2
-	if c.mode == "intro" then
-		polaris(c, x, y, width, 144, 76)
-		y = y + 144 + 2
-		parts.Title:SetText(L["Quest your own way"])
-		y = centred(parts.Title, cx, y, width) + 8
-		y = centred(parts.Lead, cx, y, min(width, 520)) + 20
-		y = button(c, cx, y)
-		y = centred(parts.Back, cx, y + 10, min(width, 520)) + 36
-		y = points(x, y, width) + 28
-		record(c, 3)
-		return strip(c, x, y, width) + 28
-	end
-	polaris(c, x, y - 8, width, 112, 52)
-	y = button(c, cx, y + 112 + 4)
-	return order(c, cx, y + 20) + 32
+	polaris(c, x, y, width, 144, 76)
+	y = y + 144 + 2
+	parts.Title:SetText(L["Quest your own way"])
+	y = centred(parts.Title, cx, y, width) + 8
+	y = centred(parts.Lead, cx, y, min(width, 520)) + 20
+	y = button(c, cx, y)
+	y = centred(parts.Back, cx, y + 10, min(width, 520)) + 36
+	y = points(x, y, width) + 28
+	record(c, 3)
+	return strip(c, x, y, width) + 28
 end
 
 ---------------------------------------------------------------------------
@@ -514,31 +490,23 @@ end
 local function laySeal(c)
 	local x, y, width = c.x, c.y, c.width
 	local cx = x + width / 2
-	if c.mode == "intro" then
-		local size = 340
-		local cy = y + size / 2 + 4
-		seal(c, cx, cy, size)
-		parts.Title:SetText(L["Quest your own way"])
-		centred(parts.Title, cx, cy - 66, width)
-		button(c, cx, cy - BUTTON_H / 2 + 2)
-		centred(parts.Back, cx, cy + 36, 250)
-		y = cy + size / 2 + 20
-		y = points(x, y, width) + 28
-		record(c, 3)
-		return strip(c, x, y, width) + 28
-	end
-	local size = 200
-	local cy = y + size / 2 - 8
+	local size = 340
+	local cy = y + size / 2 + 4
 	seal(c, cx, cy, size)
-	button(c, cx, cy - BUTTON_H / 2)
-	return order(c, cx, cy + size / 2 + 8) + 32
+	parts.Title:SetText(L["Quest your own way"])
+	centred(parts.Title, cx, cy - 66, width)
+	button(c, cx, cy - BUTTON_H / 2 + 2)
+	centred(parts.Back, cx, cy + 36, 250)
+	y = cy + size / 2 + 20
+	y = points(x, y, width) + 28
+	record(c, 3)
+	return strip(c, x, y, width) + 28
 end
 
 local LAY = { sky = laySky, polaris = layPolaris, seal = laySeal }
 
--- Lay the hero from c.y: c = { body, x, y, width, mode = "intro"|"ready",
--- route (Page's entries), start (the button), pick, layOrder, orderWidth,
--- rule, shown } -> the y under it.
+-- Lay the hero from c.y: c = { body, x, y, width, route (Page's entries),
+-- start (the button), shown } -> the y under it.
 function H.Lay(c)
 	if not art then build(c.body) end
 	hide()
