@@ -406,6 +406,8 @@ mod profiles;
 mod qol;
 #[path = "qol-bagglow.rs"]
 mod qol_bagglow;
+#[path = "qol-disenchant.rs"]
+mod qol_disenchant;
 #[path = "qol-items.rs"]
 mod qol_items;
 #[path = "qol-loot-track.rs"]

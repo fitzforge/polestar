@@ -993,6 +993,16 @@ function Compat.ItemKind(itemID)
 	return classID, subclassID
 end
 
+-- An item's level (C_Item.GetItemInfo's itemLevel) from its id or link, or
+-- nil while the item is not cached.
+function Compat.ItemLevel(item)
+	local fn = (type(item) == "number" or type(item) == "string") and ((C_Item and C_Item.GetItemInfo) or GetItemInfo)
+	if not fn then return nil end
+	local ok, name, _, _, level = pcall(fn, item)
+	if not (ok and name and type(level) == "number" and not isSecret(level)) then return nil end
+	return level
+end
+
 -- How an item binds (C_Item.GetItemInfo's bindType: 0 not at all, 1 when
 -- picked up, 2 when equipped, 3 when used, 4 as a quest item), or nil while
 -- the item is not cached (RequestItem asks for it).

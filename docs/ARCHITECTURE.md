@@ -8267,6 +8267,26 @@ Polestar.QoL.Rest.Refresh(force)                      -- read the aura and the b
 - **The party**: party sync sends it as "2B|" (Quests/Party.lua), and the
   party panel adds "Boosted Rest 42m" to a member's level line.
 
+### Disenchanting result on the tooltip — QoL/Disenchant
+
+```lua
+Polestar.QoL.DisenchantLoot(classID, quality, itemLevel) -> { { item, chance, min, max }, ... } | nil   -- best first
+Polestar.QoL.DisenchantText(classID, quality, itemLevel) -> text | nil
+Polestar.QoL.DisenchantLine(itemID, link?) -> text | nil                                                 -- for this character
+```
+
+- **What** (Hooks.ItemLines owner "disenchant"): an uncommon or rare weapon
+  or armour's tooltip says what an Enchanter gets, "Disenchants into: 1–2
+  Strange Dust (or 1–2 Lesser Magic Essence)", for a character with
+  Enchanting (`Compat.GetSkillRank(333)`): the likeliest result with its
+  count range, and the next when it has `QoL.DISENCHANT_ALSO` (15) percent
+  or more.
+- **The table** is the client's ItemDisenchantLoot (item class, quality and
+  item level band) with each band's loot from the server's templates
+  (`data/disenchant.json`; the Lua copy in QoL/Disenchant.lua is kept equal
+  by a test). No Enchanting, another class or quality, or an item level no
+  band covers: no line.
+
 ### Items kept for later — QoL/Keep, asks the Engine
 
 ```lua
