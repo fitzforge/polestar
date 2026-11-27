@@ -34,8 +34,8 @@ local SCHEME_MAY = { "ink", "star", "shade", "scrim", "onAccent", "shadow" }
 -- its own (accent2), or a skin's alone (glow: the arrow's light; pinRing,
 -- pinFill: the pins' rim and fill).
 local SKIN_TOKENS = { accent = true, windowBorder = true, accent2 = true, glow = true, pinRing = true, pinFill = true,
-	-- the guide kinds' colours (Theme.KIND_COLOURS, coin)
-	craftOrange = true, craftYellow = true, craftGreen = true, craftGrey = true, coin = true }
+	-- the guide kinds' colours (Theme.KIND_COLOURS)
+	craftOrange = true, craftYellow = true, craftGreen = true, craftGrey = true }
 
 -- A colour as a spec may give it: { r, g, b[, a] } or { r =, g =, b =[, a =] }
 -- in 0-1, or "#rrggbb" / "#rrggbbaa". -> { r, g, b, a } | nil

@@ -1,23 +1,25 @@
 -- The profession and reputation kinds' regions in the guide window (docs/DESIGN.md, "The Guide Window"; the
 -- contract in docs/ARCHITECTURE.md, "Guide kind regions"; the models in Core/KindCraft.lua).
 --
--- Profession: the skill meter (the skill, the stretch still to go lit to its move-on, ticks at the move-on and the
--- next trainer rank), the trainer line, the stretch card (the recipe now, its skill-up arrow, "about 26 to go · 6 made",
--- "You can make 3 now" with Open <Profession>, the window's one secure button), the materials (a row each, have /
--- need, the Buy | Farm toggle; the split under the row in focus: a verdict line over a Buy and a Farm column, the
--- way it takes lit), the buy list line. Reputation: the standing meter, the turn-in card, its items (the same rows
--- and split), More reputation.
+-- Profession: steps a first-timer follows, drawn as the leveling view's goal rows (GF.NewGoalRow). The slim skill
+-- line on top ("Blacksmithing 12 / 75", "Not learned yet"); then the step: a train, learn, buy or go-to step is
+-- the step's own rows (UI/GuideFrameRegions.lua, "step"); a get step is "Get 200 Rough Stone 64/200" with a row
+-- per way its goals allow, picked like an option (a radio mark), each with one button ("Guide me", "Buy list") and
+-- a short line ("Durotar loop on your map  ·  ~25 min for the rest", "136 more, about 14s at your last search");
+-- a craft step is "Craft Rough Sharpening Stone until 35" with the recipe's icon, the client's skill-up arrow,
+-- "about 42 to go" and Open <Profession> (the window's one secure button). Under it one folded row, the shopping
+-- list: the section's materials, have / need, and "Buy the whole list". Reputation: the standing meter, the turn-in
+-- card, More reputation.
 --
--- Compact mode: one line per thing (the skill, the recipe, each material still short); the trainer line only when
--- due; no split (a material row opens the Materials window). Every colour is a Theme token, every ground a kit
--- painter (`button` for the cards, `inset` for the split's well, `tab` for the segments), so each look paints
--- them its own way; the rows go to the skin's guideKindRow hook and the meters to guideMeter. Nothing here builds a
--- string while the window is being resized: `paint` writes the text on a render, `layout` measures and anchors.
+-- Compact mode: the skill line, the step's rows without the ways' rows, no shopping list. Every colour is a Theme
+-- token; the rows are the goals area's own, so each look paints them its own way; the shopping list's rows go to
+-- the skin's guideKindRow hook and the meter to guideMeter. Nothing here builds a string while the window is being
+-- resized: `paint` writes the text on a render, `layout` measures and anchors.
 
 local ADDON, ns = ...
 ns.UI.GuideFrame.Part(function(GF)
 	local UI, Theme, W, L = ns.UI, ns.Theme, ns.Widgets, ns.L
-	local floor, ceil, max, min, format = math.floor, math.ceil, math.max, math.min, string.format
+	local floor, max, min, format = math.floor, math.max, math.min, string.format
 	local DOT = "  \194\183  "
 	local PAD, TEXT_X = 14, 38
 	GF.Bind(function(_, m) PAD, TEXT_X = m.PAD, m.TEXT_X end)
@@ -37,56 +39,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		return g and g.id
 	end
 	local function narrow(width) return width < 300 end
-
-	-- Minutes as the window writes them: "25 min", "4 h", "4 h 20 min".
-	local function timeText(m)
-		m = floor(m + 0.5)
-		if m < 60 then return format(L["%d min"], m) end
-		if m % 60 == 0 then return format(L["%d h"], m / 60) end
-		return format(L["%d h %d min"], floor(m / 60), m % 60)
-	end
-	GF.KindTime = timeText
-
-	-- A price's age: "seen 2 h ago", "seen 3 days ago".
-	local function ageText(sec)
-		if type(sec) ~= "number" then return nil end
-		local m = floor(sec / 60)
-		if m < 60 then return format(L["seen %d min ago"], max(1, m)) end
-		local h = floor(m / 60)
-		if h < 48 then return format(L["seen %d h ago"], h) end
-		return format(L["seen %d days ago"], floor(h / 24))
-	end
-
-	-- The time in a verdict: exact to two hours, past that whole hours ("5 h": the exact time stays in the Farm
-	-- column), its words never apart (a no-break space), the warning colour past two hours.
-	local NBSP = "\194\160"
-	local function verdictTime(mins)
-		if not mins then return nil end
-		local long = mins > 120
-		local t = (timeText(long and floor(mins / 60 + 0.5) * 60 or mins):gsub(" ", NBSP))
-		return long and hexed("warning", t) or t
-	end
-
-	-- The chosen way's segment (the row's Buy | Farm, the head's Buy | Farm | Mix): the game's looks draw their
-	-- tab art, not an underline, so a segment of ours marks its choice with the accent underline there; the
-	-- others' own tab paint draws theirs.
-	local function segMark(b, on)
-		b.psMarked = on and true or false
-		local u = b.psUnder
-		if not u then
-			u = b:CreateTexture(nil, "OVERLAY")
-			u:SetTexture(Theme.Media("white"))
-			u:SetHeight(2)
-			u:SetPoint("BOTTOMLEFT", b, "BOTTOMLEFT", 6, 0)
-			u:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -6, 0)
-			b.psUnder = u
-			W.Painter(u, function(t)
-				t:SetVertexColor(Theme.Color("accent"))
-				t:SetShown(b.psMarked and Theme.GameSkin() and true or false)
-			end)
-		else
-			u:SetShown(b.psMarked and Theme.GameSkin() and true or false)
-		end
+	local function stepShown()
+		local e = E()
+		return e and e.GetStepIndex and e.GetStepIndex()
 	end
 
 	local function glyph(parent, verb, size, color)
@@ -102,7 +57,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	local function tile(parent, size)
 		local b = CreateFrame("Button", nil, parent)
 		b:SetSize(size, size)
-		-- Not a gamepad stop: its row or card is.
+		-- Not a gamepad stop: its row is.
 		b.psPadSkip = true
 		b.Edge = b:CreateTexture(nil, "BORDER")
 		b.Edge:SetTexture(Theme.Media("white"))
@@ -139,7 +94,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 	end
 
-	-- In the transparent window the cards and the split's well draw no ground, as the window draws none.
+	-- In the transparent window the cards draw no ground, as the window draws none.
 	local function bareIn(frame)
 		-- So does a card a layout set on a card of its own (psHosted: GF.LayoutRegions), never a card in a card.
 		local host = frame:GetParent()
@@ -150,7 +105,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 	end
 
-	-- The 2px accent bar of the row the step works on.
+	-- The 2px accent bar of the card the step works on.
 	local function accentBar(parent)
 		local t = parent:CreateTexture(nil, "ARTWORK", nil, 2)
 		t:SetTexture(Theme.Media("white"))
@@ -161,7 +116,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		return t
 	end
 
-	-- A meter's bar: the track, the stretch still to go lit at 30 % of the accent, the fill, 1px ticks.
+	-- A meter's bar: the track, the stretch still to go lit at 30 % of the accent, the fill.
 	local function meterBar(parent, h)
 		local bar = CreateFrame("Frame", nil, parent)
 		bar:SetHeight(h)
@@ -175,10 +130,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		bar.Fill = bar:CreateTexture(nil, "ARTWORK")
 		bar.Fill:SetTexture(Theme.Media("white"))
 		W.Color(bar.Fill, "accent")
-		bar.Ticks = {}
 		return bar
 	end
-	local function placeBar(bar, w, frac, seg, ticks, maxv, done)
+	local function placeBar(bar, w, frac, seg, done)
 		bar:SetWidth(max(1, w))
 		local fw = max(0.01, w * min(1, max(0, frac or 0)))
 		bar.Fill:ClearAllPoints()
@@ -197,25 +151,28 @@ ns.UI.GuideFrame.Part(function(GF)
 		else
 			bar.Seg:Hide()
 		end
-		for i, tk in ipairs(ticks or {}) do
-			local t = bar.Ticks[i]
-			if not t then
-				t = bar:CreateTexture(nil, "OVERLAY")
-				t:SetTexture(Theme.Media("white"))
-				W.Color(t, "textMuted")
-				bar.Ticks[i] = t
-			end
-			t:ClearAllPoints()
-			t:SetWidth(Theme.Pixel(bar))
-			t:SetPoint("TOP", bar, "TOPLEFT", floor(w * tk.at / max(1, maxv) + 0.5), 3)
-			t:SetPoint("BOTTOM", bar, "BOTTOMLEFT", floor(w * tk.at / max(1, maxv) + 0.5), -3)
-			t:Show()
-		end
-		for i = #(ticks or {}) + 1, #bar.Ticks do bar.Ticks[i]:Hide() end
+	end
+
+	-- Leads the arrow to a goal of step s (index gi): the step is looked at first when it is not the one shown.
+	local function guideTo(s, gi)
+		local e = E()
+		if not (e and s) then return end
+		if e.GetStepIndex and e.GetStepIndex() ~= s and e.Goto then e.Goto(s) end
+		if gi and e.AimGoal then e.AimGoal(s, gi) end
+		if ns.Nav and ns.Nav.ReleaseTarget then ns.Nav.ReleaseTarget() end
+		if GF.UpdateTargets then GF.UpdateTargets() end
+	end
+
+	-- A region's button at a goal row's right edge, on the text's first line; the row's text wraps clear of it.
+	local function rowButton(row, b, width)
+		b:ClearAllPoints()
+		b:SetPoint("TOPRIGHT", row, "TOPRIGHT", -PAD, -3)
+		row.psRightMin = PAD + (b:IsShown() and b:GetWidth() + 8 or 0)
+		return GF.MeasureRow(row, width)
 	end
 
 	---------------------------------------------------------------------------
-	-- Meter: the skill or the standing
+	-- Meter: the skill (one slim line) or the standing
 	---------------------------------------------------------------------------
 
 	GF.RegisterRegion("meter", {
@@ -228,17 +185,6 @@ ns.UI.GuideFrame.Part(function(GF)
 			f.Rank = W.Text(f, "label", "textDim")
 			f.Bar = meterBar(f, 3)
 			f.Line = W.Text(f, "small", "textDim")
-			f:EnableMouse(true)
-			f:SetScript("OnEnter", function(self)
-				local m = self.psModel
-				if not m then return end
-				local lines = {}
-				for _, tk in ipairs(m.ticks or {}) do
-					lines[#lines + 1] = tk.what == "train" and format(L["%d: the trainer's next rank"], tk.at) or format(L["%d: move on to the next recipe"], tk.at)
-				end
-				W.Tip(self, m.name, lines)
-			end)
-			f:SetScript("OnLeave", function(self) W.TipHide(self) end)
 			return f
 		end,
 		model = function(view, kind)
@@ -251,9 +197,9 @@ ns.UI.GuideFrame.Part(function(GF)
 			W.Color(f.Glyph, m.done and "success" or "textDim")
 			W.Color(f.Name, m.nameKind or "skill")
 			if m.kind == "skill" and m.learned == false then
-				f.Name:SetText(format(L["Learn %s"], m.name or ""))
+				f.Name:SetText(m.name or "")
 				f.Value:SetText("")
-				f.Max:SetText("")
+				f.Max:SetText(L["Not learned yet"])
 			elseif m.kind == "rep" then
 				f.Name:SetText((mode == "compact" and m.known and m.rank) or m.name or "")
 				f.Value:SetText(m.known and ns.Thousands(m.value) or tostring(m.value or ""))
@@ -266,11 +212,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			f.Rank:SetText(m.kind == "rep" and m.rank or "")
 			local ln = m.line or {}
 			local text = ""
-			if m.kind == "skill" and ln[1] then
-				local a = itemHex(ln[1].item, ln[1].name)
-				text = ln[2] and format(L["%s to %d, then %s to %d"], a, ln[1].to, itemHex(ln[2].item, ln[2].name), ln[2].to)
-					or format(L["%s to %d"], a, ln[1].to)
-			elseif m.kind == "rep" and m.known then
+			if m.kind == "rep" and m.known then
 				if m.done and m.rank then
 					text = format(L["%s reached"], m.rank)
 				elseif ln.reached and ln.target then
@@ -283,7 +225,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			end
 			f.Line:SetText(text)
 			f.Line:SetShown(mode ~= "compact" and text ~= "")
-			GF.Hook("guideMeter", f, { kind = m.kind, frac = m.frac, seg = m.seg, ticks = m.ticks, bar = f.Bar })
+			GF.Hook("guideMeter", f, { kind = m.kind, frac = m.frac, seg = m.seg, bar = f.Bar })
 		end,
 		layout = function(f, m, width, mode)
 			local x = PAD
@@ -298,20 +240,21 @@ ns.UI.GuideFrame.Part(function(GF)
 			local rankW = (f.Rank:GetText() or "") ~= "" and f.Rank:GetStringWidth() + 6 or 0
 			local textX = x + 22
 			local done = m.done or (m.line and m.line.reached)
-			if mode == "compact" then
-				local h = 24
+			-- The skill is one slim line in every mode: its name, a bar, the value and the cap.
+			if mode == "compact" or m.kind == "skill" then
+				local h = 26
 				f.Glyph:SetPoint("LEFT", f, "TOPLEFT", x, -h / 2)
 				f.Name:SetPoint("LEFT", f, "TOPLEFT", textX, -h / 2)
 				f.Max:SetPoint("RIGHT", f, "TOPRIGHT", -PAD, -h / 2 - 1)
 				f.Value:SetPoint("RIGHT", f.Max, "LEFT", -3, 1)
-				local nameW = min(f.Name:GetStringWidth(), max(40, (width - textX - PAD) * 0.4))
+				local nameW = min(f.Name:GetStringWidth(), max(40, (width - textX - PAD) * 0.45))
 				f.Name:SetWidth(nameW)
 				f.Rank:Hide()
 				local bx = textX + nameW + 10
 				local bw = width - PAD - maxW - valW - 3 - 10 - bx
 				f.Bar:SetPoint("LEFT", f, "TOPLEFT", bx, -h / 2)
-				f.Bar:SetShown(bw > 20)
-				placeBar(f.Bar, bw, m.frac, m.seg, m.ticks, m.max, done)
+				f.Bar:SetShown(bw > 20 and m.learned ~= false)
+				placeBar(f.Bar, bw, m.frac, m.seg, done)
 				f.Line:Hide()
 				return h
 			end
@@ -325,7 +268,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			local bw = width - textX - PAD
 			f.Bar:SetPoint("TOPLEFT", f, "TOPLEFT", textX, -31)
 			f.Bar:Show()
-			placeBar(f.Bar, bw, m.frac, m.seg, m.ticks, m.max, done)
+			placeBar(f.Bar, bw, m.frac, m.seg, done)
 			local h = 31 + 3
 			if f.Line:IsShown() then
 				f.Line:ClearAllPoints()
@@ -338,120 +281,21 @@ ns.UI.GuideFrame.Part(function(GF)
 	})
 
 	---------------------------------------------------------------------------
-	-- Trainer
+	-- The craft step's row
 	---------------------------------------------------------------------------
-
-	-- Leads the arrow to a goal of step s (index gi): the step is looked at first when it is not the one shown.
-	local function guideTo(s, gi)
-		local e = E()
-		if not (e and s) then return end
-		if e.GetStepIndex and e.GetStepIndex() ~= s and e.Goto then e.Goto(s) end
-		if gi and e.AimGoal then e.AimGoal(s, gi) end
-		if ns.Nav and ns.Nav.ReleaseTarget then ns.Nav.ReleaseTarget() end
-		if GF.UpdateTargets then GF.UpdateTargets() end
-	end
-	GF.KindGuideTo = guideTo
-
-	GF.RegisterRegion("trainer", {
-		build = function(parent)
-			local f = CreateFrame("Frame", nil, parent)
-			f.Glyph = glyph(f, "train", 13)
-			f.Text = W.Text(f, "body", "text")
-			f.Right = W.Text(f, "small", "textMuted")
-			f.Go = W.Link(f, L["Guide me"], function(self)
-				local m = f.psModel
-				if m then guideTo(m.step, m.goalIndex) end
-			end)
-			f.Go.psTip = nil
-			return f
-		end,
-		model = function(view, kind)
-			local e = E()
-			local m = e and e.KindModel and e.KindModel("trainer", view, kind)
-			if m and not m.due and not GF.Shows("trainer", not GF.Compact()) then return nil end
-			return m
-		end,
-		paint = function(f, m)
-			f.psModel = m
-			W.Color(f.Glyph, m.due and "accent" or "textDim")
-			f.Glyph:SetTexture(Theme.VerbIcon(m.learn and "learn" or "train"))
-			local who = m.npc and hexed("npc", m.npc) or nil
-			local where = m.map and UI.MapName(m.map)
-			if who and where then who = who .. ", " .. where end
-			local text
-			if m.learn then
-				text = format(L["Learn %s"], hexed("spell", m.title))
-			elseif m.due then
-				text = format(L["Train %s now"], m.title)
-			else
-				text = format(L["%s at %d"], m.title, m.level)
-			end
-			if m.needsLevel then text = text .. hexed("textMuted", DOT .. format(L["needs level %d"], m.needsLevel)) end
-			if who then text = text .. DOT .. who end
-			f.Text:SetText(text)
-			f.Right:SetText(not m.due and format(L["%d to go"], m.toGo) or "")
-			f.Go:SetShown(m.due and m.step ~= nil)
-		end,
-		layout = function(f, m, width)
-			local h = 24
-			f.Glyph:ClearAllPoints()
-			f.Glyph:SetPoint("LEFT", f, "TOPLEFT", PAD + 1, -h / 2)
-			f.Text:ClearAllPoints()
-			f.Text:SetPoint("LEFT", f, "TOPLEFT", PAD + 22, -h / 2)
-			local right = f.Go:IsShown() and f.Go or f.Right
-			right:ClearAllPoints()
-			right:SetPoint("RIGHT", f, "TOPRIGHT", -PAD, -h / 2)
-			local rw = right == f.Go and f.Go:GetWidth() or f.Right:GetStringWidth()
-			f.Text:SetWidth(max(40, width - PAD * 2 - 22 - rw - 8))
-			return h
-		end,
-	})
-
-	---------------------------------------------------------------------------
-	-- Stretch card
-	---------------------------------------------------------------------------
-
-	local COLOUR_TOKEN = { orange = "craftOrange", yellow = "craftYellow", green = "craftGreen", grey = "craftGrey" }
-	-- The colour's word, a literal key each (the translations' check finds only those).
-	local function colourWord(colour)
-		if colour == "orange" then return L["Orange"] end
-		if colour == "yellow" then return L["Yellow"] end
-		if colour == "green" then return L["Green"] end
-		return L["Grey"]
-	end
 
 	-- The recipe's colour as the client's own profession window marks it: its skill-up arrows (Blizzard_Professions'
 	-- recipe list: Professions-Icon-Skill-High for orange, -Medium for yellow, -Low for green; none for grey). Where
 	-- the client has no such art, our chevron in the colour's token. The arrows are 13 x 15, their size in the client's
-	-- atlas table (UiTextureAtlasMember), as its recipe list draws them (UseAtlasSize).
+	-- atlas table (UiTextureAtlasMember), as its recipe list draws them, inline after the recipe's name.
+	local COLOUR_TOKEN = { orange = "craftOrange", yellow = "craftYellow", green = "craftGreen", grey = "craftGrey" }
 	local SKILL_UP = { orange = "Professions-Icon-Skill-High", yellow = "Professions-Icon-Skill-Medium", green = "Professions-Icon-Skill-Low" }
 	local SKILL_UP_W, SKILL_UP_H = 13, 15
 	local function skillUpAtlas(colour)
 		local atlas = SKILL_UP[colour]
 		return atlas and C_Texture and C_Texture.GetAtlasInfo and C_Texture.GetAtlasInfo(atlas) and atlas or nil
 	end
-	-- On texture t: shown (true) or hidden for grey / no colour.
-	local function skillUp(t, colour)
-		if not SKILL_UP[colour] then
-			t:Hide()
-			return false
-		end
-		local atlas = skillUpAtlas(colour)
-		if atlas then
-			t:SetAtlas(atlas)
-			t:SetSize(SKILL_UP_W, SKILL_UP_H)
-			W.Uncolor(t)
-			t:SetVertexColor(1, 1, 1, 1)
-		else
-			t:SetTexture(Theme.Media("chevron-up"))
-			t:SetTexCoord(0, 1, 0, 1)
-			t:SetSize(12, 12)
-			W.Color(t, COLOUR_TOKEN[colour])
-		end
-		t:Show()
-		return true
-	end
-	-- The same arrow inline in a line of text (compact): "" for grey / no colour.
+	-- "" for grey / no colour.
 	local function skillUpMarkup(colour)
 		if not SKILL_UP[colour] then return "" end
 		local atlas = skillUpAtlas(colour)
@@ -459,12 +303,13 @@ ns.UI.GuideFrame.Part(function(GF)
 		local r, g, b = Theme.Color(COLOUR_TOKEN[colour])
 		return format("|T%s:12:12:0:0:64:64:0:64:0:64:%d:%d:%d|t", Theme.Media("chevron-up"), floor(r * 255 + 0.5), floor(g * 255 + 0.5), floor(b * 255 + 0.5))
 	end
+	GF.KindSkillUp = skillUpMarkup
 
-	-- Open <Profession>. What shows in the card is an ordinary button (`f.psOpen`, painted and laid out with the
-	-- card); the click is a secure spell button's (the window's only one) that lives outside the window's frame
-	-- tree, as the name targets' do (UI/NameTargets.lua): under a holder the client hides in combat, placed over
-	-- the card's button in UIParent's own coordinates out of combat, so the window moves, hides and repaints
-	-- freely in a fight. The live window's alone; a copy's button does nothing.
+	-- Open <Profession>. What shows on the row is an ordinary button (`row.psOpen`, painted and laid out with the
+	-- row); the click is a secure spell button's (the window's only one) that lives outside the window's frame tree,
+	-- as the name targets' do (UI/NameTargets.lua): under a holder the client hides in combat, placed over the row's
+	-- button in UIParent's own coordinates out of combat, so the window moves, hides and repaints freely in a fight.
+	-- The live window's alone; a copy's button does nothing.
 	local secure, holder
 	local function locked() return InCombatLockdown and InCombatLockdown() end
 	local function secureButton()
@@ -476,12 +321,12 @@ ns.UI.GuideFrame.Part(function(GF)
 		secure:RegisterForClicks("AnyUp", "AnyDown")
 		secure:SetAttribute("type", "spell")
 		secure:Hide()
-		-- Its look is the card's button under it: the hover lights that one.
+		-- Its look is the row's button under it: the hover lights that one.
 		secure:SetScript("OnEnter", function(self) local v = self.psSlot; if v then v.psLit = true; W.Color(v.Label, "text") end end)
 		secure:SetScript("OnLeave", function(self) local v = self.psSlot; if v then v.psLit = nil; W.Color(v.Label, "buttonText") end end)
 		return secure
 	end
-	-- The secure button over the card's (`slot`), or hidden. Out of combat only.
+	-- The secure button over the row's (`slot`), or hidden. Out of combat only.
 	local function placeSecure(slot)
 		if locked() then return end
 		local b = secureButton()
@@ -508,10 +353,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		if b:GetFrameLevel() ~= level then b:SetFrameLevel(level) end
 		if not b:IsShown() then b:Show() end
 	end
-	-- The card's button: built with the card; its text, its spell, shown or not.
-	local function openSlot(f)
-		local b = CreateFrame("Button", nil, f.Card)
-		b:SetHeight(24)
+	-- The row's button: built with the row; its text, its spell, shown or not.
+	local function openSlot(parent)
+		local b = CreateFrame("Button", nil, parent)
+		b:SetHeight(22)
 		b.Label = W.Text(b, "label", "buttonText")
 		b.Label:SetPoint("CENTER", b, "CENTER", 0, 0)
 		b.Icon = b:CreateTexture(nil, "ARTWORK")
@@ -535,8 +380,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		b:SetScript("OnHide", function(self) if GF.live and secure and secure.psSlot == self then placeSecure(nil) end end)
 		return b
 	end
-	local function setOpen(f, spell, show, iconOnly)
-		local b = f.psOpen
+	local function setOpen(b, spell, show, iconOnly)
 		if show and spell then
 			b.psSpell = spell
 			b.Label:SetText(format(L["Open %s"], spell))
@@ -544,7 +388,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			b.Icon:SetTexture(Theme.VerbIcon("craft"))
 			W.Color(b.Icon, "buttonText")
 			b.Icon:SetShown(iconOnly)
-			b:SetWidth(iconOnly and 32 or floor(b.Label:GetStringWidth() + 2 * Theme.Metric("buttonPad", 16) + 0.5))
+			b:SetWidth(iconOnly and 30 or floor(b.Label:GetStringWidth() + 2 * Theme.Metric("buttonPad", 16) + 0.5))
 			b:Show()
 		else
 			b.psSpell = nil
@@ -555,928 +399,363 @@ ns.UI.GuideFrame.Part(function(GF)
 	GF.RegisterRegion("stretch", {
 		build = function(parent)
 			local f = CreateFrame("Frame", nil, parent)
-			f.Card = CreateFrame("Frame", nil, f)
-			f.Card.psCard = true
-			Theme.Skin(f.Card, "button")
-			f.Bar = accentBar(f.Card)
-			f.Tile = tile(f.Card, 32)
-			f.Name = W.Text(f.Card, "goal", "item")
-			-- The recipe's colour: the client's skill-up arrow; its name and thresholds in the tooltip.
-			f.Chip = CreateFrame("Frame", nil, f.Card)
-			f.Chip:SetSize(16, 16)
-			f.Chip.Icon = f.Chip:CreateTexture(nil, "ARTWORK")
-			f.Chip.Icon:SetPoint("CENTER", f.Chip, "CENTER", 0, 0)
-			f.Chip:EnableMouse(true)
-			f.Chip:SetScript("OnEnter", function(self)
-				local m = f.psModel
-				if not (m and m.colour) then return end
-				W.Tip(self, colourWord(m.colour), m.yellow and { format(L["Orange: every craft is a point. Yellow from %d, green from %d, grey at %d."], m.yellow, m.green, m.grey) } or nil)
-			end)
-			f.Chip:SetScript("OnLeave", function(self) W.TipHide(self) end)
-			f.Uses = W.Text(f.Card, "small", "textDim")
-			f.Progress = W.ProgressLine(f.Card, 2)
-			f.Count = W.Text(f.Card, "label", "text")
-			f.MoveOn = W.Text(f.Card, "small", "textMuted")
-			f.Rule = W.Divider(f.Card)
-			f.Check = glyph(f.Card, "complete", 13, "success")
-			f.Check:SetTexture(Theme.Media("check"))
-			f.Make = W.Text(f.Card, "label", "success")
-			f.psOpen = openSlot(f)
-			-- The compact form: one line.
-			f.Line = W.Text(f, "goal", "text")
-			f.LineGlyph = glyph(f, "craft", 14, "accent")
-			f.LineRight = W.Text(f, "number", "text")
+			f.Row = GF.NewGoalRow(f)
+			f.Row.psOpen = openSlot(f.Row)
+			f.Row.psGoal = {}
 			return f
 		end,
 		model = function(view, kind)
 			local e = E()
 			return e and e.KindModel and e.KindModel("stretch", view, kind)
 		end,
-		paint = function(f, m, mode)
+		paint = function(f, m)
 			f.psModel = m
-			bareIn(f.Card)
-			setTile(f.Tile, m.item, "craft")
-			f.Name:SetText(m.item and itemHex(m.item, m.name) or m.name)
-			f.Chip:SetShown(skillUp(f.Chip.Icon, m.colour))
-			local parts = {}
-			for _, r in ipairs(m.reagents or {}) do parts[#parts + 1] = format(L["%d %s"], r.count, itemHex(r.item, r.name)) end
-			f.Uses:SetText(table.concat(parts, " + "))
-			-- The count: about how many crafts the skill still takes to the move-on (whatever made its points so far),
-			-- then "M made" once the recipe's casts were counted. Three forms, the layout takes the first that fits:
-			-- the numbers are never cut.
-			local left = m.left
-			local made = m.made and m.made > 0 and hexed("textMuted", DOT .. format(L["%d made"], m.made)) or nil
-			if left and left > 0 then
-				local toGo = format(L["%d to go"], left)
-				f.psCount1 = format(L["about %d to go"], left) .. (made or "")
-				f.psCount2 = made and toGo .. made or nil
-				f.psCount3 = toGo
-			else
-				f.psCount1 = m.made and m.made > 0 and format(L["%d made"], m.made) or ""
-				f.psCount2, f.psCount3 = nil, nil
+			local r = f.Row
+			local g = r.psGoal or {}
+			g.t, g.index, g.status = "craft", m.goalIndex, m.done and "done" or "active"
+			g.subject, g.subjectKind, g.item, g.spell = m.name, "item", m.item, m.recipe
+			local mark = not m.done and skillUpMarkup(m.colour) or ""
+			g.text = format(L["Craft %s until %d"], m.name, m.moveOn) .. (mark ~= "" and "  " .. mark or "")
+			GF.PaintGoalRow(r, g, not m.done)
+			-- The recipe's icon where the verb's glyph sits.
+			local icon = not m.done and m.item and C().ItemIcon and C().ItemIcon(m.item)
+			if icon then
+				r.Icon:SetTexture(icon)
+				W.Uncolor(r.Icon)
+				r.Icon:SetVertexColor(1, 1, 1, 1)
 			end
-			if m.colour == "grey" then
-				f.MoveOn:SetText(L["Grey now: move on"])
-				W.Color(f.MoveOn, "warning")
-			else
-				f.MoveOn:SetText(format(L["move on at %d"], m.moveOn))
-				W.Color(f.MoveOn, "textMuted")
-			end
-			local canAll = false
+			-- About how many crafts the skill still takes to the move-on (whatever made its points so far), then
+			-- "M made" once the recipe's casts were counted; before the skill is learned, that it comes first.
+			local sub
 			if m.learned == false and m.spell then
-				f.Make:SetText(format(L["Learn %s first"], m.spell))
-				W.Color(f.Make, "textDim")
-				f.Check:Hide()
-			elseif m.canMake and m.canMake > 0 then
-				canAll = left and left > 0 and m.canMake >= left
-				f.Make:SetText(canAll and format(L["You can make all %d now"], left) or format(L["You can make %d now"], m.canMake))
-				W.Color(f.Make, "success")
-				f.Check:Show()
-			elseif m.makeFirst then
-				f.Make:SetText(format(L["Make %d %s first"], m.makeFirst.count, itemHex(m.makeFirst.item, m.makeFirst.name)))
-				W.Color(f.Make, "textDim")
-				f.Check:Hide()
-			else
-				f.Make:SetText("")
-				f.Check:Hide()
+				sub = format(L["Learn %s first"], m.spell)
+			elseif not m.done then
+				local left = m.left and m.left > 0 and format(L["about %d to go"], m.left) or nil
+				local made = m.made and m.made > 0 and format(L["%d made"], m.made) or nil
+				sub = left and made and (left .. DOT .. made) or left or made
 			end
-			f.psCan = m.canMake and m.canMake > 0
-			-- Compact
-			local mark = skillUpMarkup(m.colour)
-			f.Line:SetText((m.item and itemHex(m.item, m.name) or m.name) .. (mark ~= "" and "  " .. mark or ""))
-			f.LineRight:SetText(left and left > 0 and format(L["%d to go  \194\183  to %d"], left, m.moveOn) or format(L["move on at %d"], m.moveOn))
+			UI.SetCounted(r.Sub, sub or "")
+			r.Sub:SetShown(sub ~= nil)
+			r.psOpenOn = m.learned ~= false and not m.done
 		end,
 		layout = function(f, m, width, mode)
-			local compact = mode == "compact"
-			for _, r in ipairs({ f.Line, f.LineGlyph, f.LineRight }) do r:SetShown(compact) end
-			f.Card:SetShown(not compact)
-			if compact then
-				setOpen(f, nil, false)
-				local h = 24
-				f.LineGlyph:ClearAllPoints()
-				f.LineGlyph:SetPoint("LEFT", f, "TOPLEFT", PAD, -h / 2)
-				f.LineRight:ClearAllPoints()
-				f.LineRight:SetPoint("RIGHT", f, "TOPRIGHT", -PAD, -h / 2)
-				f.Line:ClearAllPoints()
-				f.Line:SetPoint("LEFT", f, "TOPLEFT", PAD + 22, -h / 2)
-				f.Line:SetWidth(max(40, width - PAD * 2 - 22 - f.LineRight:GetStringWidth() - 8))
-				return h
-			end
-			local cx, cw = PAD - 4, width - (PAD - 4) * 2
-			local inner = 12
-			f.Card:ClearAllPoints()
-			f.Card:SetPoint("TOPLEFT", f, "TOPLEFT", cx, -4)
-			f.Card:SetWidth(cw)
-			f.Tile:ClearAllPoints()
-			f.Tile:SetPoint("TOPLEFT", f.Card, "TOPLEFT", inner, -12)
-			local tx = inner + 32 + 10
-			local chipW = f.Chip:IsShown() and f.Chip:GetWidth() + 8 or 0
-			f.Chip:ClearAllPoints()
-			f.Chip:SetPoint("TOPRIGHT", f.Card, "TOPRIGHT", -inner, -10)
-			f.Name:ClearAllPoints()
-			f.Name:SetPoint("TOPLEFT", f.Card, "TOPLEFT", tx, -10)
-			f.Name:SetWidth(max(40, cw - tx - inner - chipW))
-			f.Uses:ClearAllPoints()
-			f.Uses:SetPoint("TOPLEFT", f.Name, "BOTTOMLEFT", 0, -3)
-			f.Uses:SetWidth(max(40, cw - tx - inner))
-			local y = 10 + f.Name:GetStringHeight() + 3 + f.Uses:GetStringHeight() + 10
-			y = max(y, 12 + 32 + 8)
-			f.Progress:ClearAllPoints()
-			f.Progress:SetPoint("TOPLEFT", f.Card, "TOPLEFT", tx, -y)
-			f.Progress:SetWidth(cw - tx - inner)
-			local exp = m.expected
-			W.SetProgress(f.Progress, exp and exp > 0 and m.left and max(0, min(1, (exp - m.left) / exp)) or 0, cw - tx - inner)
-			y = y + 2 + 6
-			local room = max(40, cw - tx - inner - f.MoveOn:GetStringWidth() - 8)
-			local countText = f.psCount1 or ""
-			for k = 2, 3 do
-				local alt = k == 2 and (f.psCount2 or f.psCount3) or f.psCount3
-				if not alt or alt == countText then break end
-				f.Count:SetText(countText)
-				if f.Count:GetUnboundedStringWidth() <= room then break end
-				countText = alt
-			end
-			if (f.Count:GetText() or "") ~= countText then f.Count:SetText(countText) end
-			f.Count:ClearAllPoints()
-			f.Count:SetPoint("TOPLEFT", f.Card, "TOPLEFT", tx, -y)
-			f.MoveOn:ClearAllPoints()
-			f.MoveOn:SetPoint("TOPRIGHT", f.Card, "TOPRIGHT", -inner, -y - 1)
-			f.Count:SetWidth(room)
-			y = y + f.Count:GetStringHeight() + 10
-			-- The client answers nil for an empty text: an empty line keeps no rule or row in the card.
-			local makeShown = (f.Make:GetText() or "") ~= ""
-			f.Rule:SetShown(makeShown)
-			f.Make:SetShown(makeShown)
-			local iconOnly = narrow(width)
-			setOpen(f, m.spell, f.psCan, iconOnly)
-			if makeShown then
-				f.Rule:ClearAllPoints()
-				f.Rule:SetPoint("TOPLEFT", f.Card, "TOPLEFT", inner, -y)
-				f.Rule:SetPoint("TOPRIGHT", f.Card, "TOPRIGHT", -inner, -y)
-				local rowH = 32
-				local mid = y + rowH / 2
-				f.Check:ClearAllPoints()
-				f.Check:SetPoint("LEFT", f.Card, "TOPLEFT", inner, -mid)
-				f.Make:ClearAllPoints()
-				f.Make:SetPoint("LEFT", f.Card, "TOPLEFT", f.Check:IsShown() and inner + 20 or inner, -mid)
-				local bw = 0
-				local ob = f.psOpen
-				if ob and ob:IsShown() then
-					ob:ClearAllPoints()
-					ob:SetPoint("RIGHT", f.Card, "TOPRIGHT", -inner, -mid)
-					bw = ob:GetWidth() + 8
-				end
-				f.Make:SetWidth(max(40, cw - inner * 2 - 20 - bw))
-				y = y + rowH + 4
-			end
-			f.Card:SetHeight(y)
-			return floor(y + 4 + 8 + 0.5)
+			local r = f.Row
+			setOpen(r.psOpen, m.spell, r.psOpenOn, mode == "compact" or narrow(width))
+			local h = rowButton(r, r.psOpen, width)
+			r:SetHeight(h)
+			r:ClearAllPoints()
+			r:SetPoint("TOPLEFT", f, "TOPLEFT", 0, 0)
+			r:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, 0)
+			r:Show()
+			return h
 		end,
 	})
 
 	---------------------------------------------------------------------------
-	-- Materials: head, rows, the split
+	-- A get step: "Get 200 Rough Stone" and its ways
 	---------------------------------------------------------------------------
 
-	-- The material in focus per guide (a click, a gamepad focus): its split shows; nil the first unmet choosable.
-	local focusOf = {}
-	local function focusItem(m)
-		local id = guideId()
-		local want = id and focusOf[id]
-		local first
-		for i, r in ipairs(m.rows or {}) do
-			local open = r.split and r.toGet > 0
-			if open and r.item == want then return r, i end
-			if open and not first and r.choosable then first = i end
-		end
-		if first then return m.rows[first], first end
-		return nil
-	end
-
-	-- A material's way, a literal key each.
-	local function wayWord(way)
-		if way == "buy" then return L["Buy"] end
-		if way == "vendor" then return L["Vendor"] end
-		if way == "make" then return L["Make"] end
-		return L["Farm"]
-	end
-	local WAY_VERB = { buy = "buy", gather = "collect", vendor = "vendor", make = "craft" }
-
-	-- The verdict over a material's split: one sentence, the time in warning past two hours.
-	local function verdictText(r, short)
-		local s = r.split
-		if not s then return "" end
-		local farm, buy = s.farm, s.buy
-		local mins = farm and farm.minutes
-		local timeT = verdictTime(mins)
-		local cost = buy and buy.copper and ns.MoneyText(buy.copper)
-		local text
-		if s.verdict == "selfFound" then
-			text = (timeT and farm and farm.count) and format(L["About %s for %d at your level."], timeT, farm.count) or L["Self-Found: you farm all of it."]
-		elseif s.verdict == "pick" then
-			if r.way == "buy" then
-				text = cost and format(L["Your pick: buy. About %s."], cost) or L["Your pick: buy."]
-			else
-				text = timeT and format(L["Your pick: farm. About %s for %d."], timeT, farm.count) or L["Your pick: farm."]
-			end
-		elseif r.way == "buy" then
-			if s.long and timeT then
-				text = short and format(L["Mix buys: farming \226\137\136 %s"], timeT) or format(L["Mix buys this: farming takes about %s at your level."], timeT)
-			elseif r.reason == "low" then
-				text = L["Mix buys this: its mobs are above your level."]
-			elseif r.reason == "skill" then
-				text = L["Mix buys this: gathering it needs a profession you don't have."]
-			elseif r.reason == "past" then
-				text = L["Mix buys this: you're past its levels."]
-			elseif r.reason == "mode" then
-				text = L["Buy all: you buy this."]
-			else
-				text = L["Bought at the Auction House."]
-			end
-		else
-			if r.reason == "mode" then
-				text = L["Gather all: you farm this."]
-			elseif timeT and cost then
-				text = format(L["Mix farms this: about %s here. Buying costs about %s."], timeT, cost)
-			elseif timeT then
-				text = format(L["Mix farms this: about %s here."], timeT)
-			else
-				text = L["Mix farms this."]
-			end
-		end
-		if r.routeCloth then text = text .. " " .. (short and L["Route cloth still counts."] or L["Cloth from your route still counts."]) end
-		return text
-	end
-	GF.KindVerdict = verdictText
-
-	-- Sets a material's way (Materials.SetWay): "buy" | "gather", nil back to automatic.
+	-- Sets a material's way (Materials.SetWay): "buy" | "gather".
 	local function setWay(item, way)
 		local Mt, id = M(), guideId()
 		if Mt and id then Mt.SetWay(id, item, way) end
 	end
 
-	local function addToBuyList(r)
+	-- Puts `count` of item on the buy list: the game's search at an open Auction House, Auctionator's list when it
+	-- is installed, and Polestar's own list at the Auction House (UI/AuctionBuys.lua).
+	local function buyList(list)
 		local Mt = M()
-		if not (Mt and r) then return end
-		setWay(r.item, "buy")
+		if not (Mt and list[1]) then return end
 		if Mt.AuctionOpen and Mt.AuctionOpen() and Mt.Search then
-			Mt.Search(r.item, r.toGet)
+			Mt.Search(list[1].item, list[1].count)
 			return
 		end
 		if Mt.AuctionatorLoaded and Mt.AuctionatorLoaded() and Mt.ToAuctionator then
 			local e = E()
 			local g = e and e.GetGuide and e.GetGuide()
-			Mt.ToAuctionator(g and g.title or "Polestar", { { item = r.item, name = r.name, count = r.toGet } })
+			Mt.ToAuctionator(g and g.title or "Polestar", list)
 		end
 		if UI.AuctionBuys and UI.AuctionBuys.CheckGuide then UI.AuctionBuys.CheckGuide(guideId()) end
 	end
 
-	local function guideMeFarm(r)
-		setWay(r.item, "gather")
-		local f = r.split and r.split.farm
-		if f and f.step then guideTo(f.step, f.index) end
+	-- A way's words, a literal key each (the translations' check finds only those).
+	local function wayText(w)
+		if w.way == "buy" then return L["Buy it at the Auction House"] end
+		if w.way == "vendor" then return w.npc and format(L["Buy it from %s"], hexed("npc", w.npc)) or L["Buy it from a vendor"] end
+		local v = w.verb
+		if v == "mine" then return L["Mine it"] end
+		if v == "herb" then return L["Pick it"] end
+		if v == "skin" then return L["Skin it"] end
+		if v == "fish" then return L["Fish it"] end
+		if v == "disenchant" then return L["Disenchant green armour"] end
+		if v == "make" then return L["Make it"] end
+		return L["Farm it"]
 	end
 
-	-- A split column: glyph, title, the big number, two small lines, a button. `withLevel`: the place line's
-	-- level is a text of its own after the zone, so a long zone is cut and the level never.
-	local function column(parent, verb, withLevel)
-		-- A frame the mouse clicks (OnMouseUp), so the gamepad stops on its button, not on it.
-		local c = CreateFrame("Frame", nil, parent)
-		c:EnableMouse(true)
-		c.Lit = c:CreateTexture(nil, "BACKGROUND", nil, 2)
-		c.Lit:SetTexture(Theme.Media("white"))
-		c.Lit:SetAllPoints(c)
-		c.Top = c:CreateTexture(nil, "ARTWORK")
-		c.Top:SetTexture(Theme.Media("white"))
-		c.Top:SetPoint("TOPLEFT", c, "TOPLEFT", 0, 0)
-		c.Top:SetPoint("TOPRIGHT", c, "TOPRIGHT", 0, 0)
-		c.Top:SetHeight(1.5)
-		W.Color(c.Top, "accent")
-		c.Glyph = glyph(c, verb, 13)
-		c.Title = W.Text(c, "label", "text")
-		c.Big = W.Text(c, "heading", "text")
-		c.Small1 = W.Text(c, "small", "textMuted")
-		c.Small2 = W.Text(c, "small", "textDim")
-		if withLevel then
-			c.psLevel = W.Text(c, "small", "textDim")
-			c.psLevel:SetWordWrap(false)
-		end
-		-- Names and places wrap at a narrow column; a word never runs off it.
-		for _, fs in ipairs({ c.Big, c.Small1, c.Small2 }) do
-			fs:SetWordWrap(true)
-			fs:SetJustifyV("TOP")
-		end
-		c.Button = W.Button(c, "", nil, { height = 24 })
-		return c
-	end
-	local function paintColumn(c, lit)
-		c.psLit = lit
-		local r, g, b, a = Theme.Wash("selected")
-		-- The chosen column is the well a shade lighter (the house selection wash at 60 %), not a slab.
-		c.Lit:SetVertexColor(r, g, b, (a or 0.08) * 0.6)
-		c.Lit:SetShown(lit and not GF.Transparent())
-		c.Top:SetShown(lit)
-		W.Color(c.Glyph, lit and "accent" or "textDim")
-		c.Button.psPrimary = lit or nil
-		W.RepaintButton(c.Button)
-	end
-	-- Everything in a column is centred in it: the glyph and title as one line, the lines under them (wrapped lines
-	-- centred each), the button at its own width.
-	local function layoutColumn(c, x, w, top, h)
-		c:ClearAllPoints()
-		c:SetPoint("TOPLEFT", c:GetParent(), "TOPLEFT", x, -top)
-		c:SetSize(w, h)
-		local ix = 10
-		local room = max(20, w - ix * 2)
-		c.Title:SetWidth(max(20, room - 19))
-		local tw = min(room - 19, c.Title:GetUnboundedStringWidth())
-		c.Title:SetWidth(max(1, tw))
-		local gx = floor((w - (19 + tw)) / 2 + 0.5)
-		c.Glyph:ClearAllPoints()
-		c.Glyph:SetPoint("TOPLEFT", c, "TOPLEFT", max(ix, gx), -11)
-		c.Title:ClearAllPoints()
-		c.Title:SetPoint("TOPLEFT", c, "TOPLEFT", max(ix, gx) + 19, -10)
-		local y = 10 + c.Title:GetStringHeight() + 5
-		for _, fs in ipairs({ c.Big, c.Small1, c.Small2 }) do
-			fs:ClearAllPoints()
-			fs:SetJustifyH("CENTER")
-			local text = fs:GetText() or ""
-			local lv = fs == c.Small2 and c.psLevel
-			local both, only = c.psLevelBoth or "", c.psLevelOnly or ""
-			local extra = 0
-			if lv then
-				-- The place line: the zone, then "· lvl 19–23" after it, the two centred as one; where both do not fit
-				-- the column's width the level takes the line under it, centred too. The zone is cut at its end only
-				-- when it alone is too long; the level never is.
-				fs:SetWordWrap(false)
-				local zw = text ~= "" and fs:GetUnboundedStringWidth() or 0
-				local shown = text ~= "" and both or only
-				lv:SetText(shown)
-				local under = text ~= "" and only ~= "" and zw + lv:GetUnboundedStringWidth() + 2 > room
-				if under then
-					lv:SetText(only)
-					extra = lv:GetStringHeight() + 2
-				end
-				local fw = max(20, min(zw, room))
-				fs:SetWidth(fw)
-				local lw = lv:GetUnboundedStringWidth()
-				lv:ClearAllPoints()
-				if text == "" then
-					lv:SetPoint("TOP", c, "TOP", 0, -y)
-				elseif under then
-					fs:SetPoint("TOP", c, "TOP", 0, -y)
-					lv:SetPoint("TOP", fs, "BOTTOM", 0, -2)
-				else
-					fs:SetPoint("TOPLEFT", c, "TOPLEFT", max(ix, floor((w - fw - (shown ~= "" and lw or 0)) / 2 + 0.5)), -y)
-					lv:SetPoint("TOPLEFT", fs, "TOPRIGHT", 0, 0)
-				end
-				lv:SetShown(shown ~= "")
-			else
-				fs:SetWidth(room)
-				fs:SetPoint("TOP", c, "TOP", 0, -y)
+	-- A way's short line: where and how long (a farm), what is left and its price (the Auction House, counting the
+	-- bank and the mail), where (a vendor). `toGet`: what the bags still lack.
+	local function waySub(w, toGet)
+		local parts = {}
+		if w.way == "buy" then
+			local n = w.toGet or toGet
+			if n > 0 then
+				parts[1] = w.copper and format(L["%s more, about %s at your last search"], ns.Thousands(n), ns.MoneyText(w.copper))
+					or format(L["%s more"], ns.Thousands(n))
 			end
-			if text ~= "" or (lv and only ~= "") then
-				fs:SetShown(text ~= "")
-				local h = text ~= "" and fs:GetStringHeight() or lv:GetStringHeight()
-				y = y + h + extra + (fs == c.Big and 4 or 2)
-			else
-				fs:Hide()
-			end
-		end
-		y = y + 8
-		if c.Button:IsShown() then
-			-- Its own width (W.SetButtonText's), never wider than the column.
-			local bw = c.Button.psOwnWidth or c.Button:GetWidth()
-			c.Button:SetWidth(min(bw, room))
-			c.Button:ClearAllPoints()
-			c.Button:SetPoint("TOP", c, "TOP", 0, -y)
-			y = y + 24
-		end
-		return y + 10
-	end
-
-	local function paintSplit(f, r, width)
-		local s = r.split
-		-- Both forms now; the layout shows the one its width takes.
-		f.psVerdictLong, f.psVerdictShort = verdictText(r, false), verdictText(r, true)
-		f.Verdict:SetText(f.psVerdictLong)
-		local buy, farm = s.buy, s.farm
-		local B, Fm = f.Buy, f.Farm
-		-- Buy
-		B.Title:SetText(buy and format(L["Buy %d"], r.toGet) or L["Buy"])
-		W.Color(B.Title, buy and "text" or "textMuted")
-		if not buy then
-			B.Big:SetText(L["Not for Self-Found characters"])
-			W.Color(B.Big, "textMuted")
-			B.Small1:SetText("")
-			B.Small2:SetText("")
-			B.Button:Hide()
-		elseif buy.copper then
-			B.Big:SetText("\226\137\136 " .. ns.MoneyText(buy.copper))
-			W.Color(B.Big, "coin")
-			local bits = {}
-			if buy.each then bits[#bits + 1] = format(L["%s each"], ns.MoneyText(buy.each)) end
-			local age = ageText(buy.age)
-			if age then bits[#bits + 1] = age end
-			B.Small1:SetText(table.concat(bits, DOT))
-			B.Small2:SetText(buy.short and format(L["only %d listed"], r.toGet - buy.short) or L["Auction House"])
-			B.Button:Show()
 		else
-			B.Big:SetText(L["No price yet"])
-			W.Color(B.Big, "textDim")
-			B.Small1:SetText(L["Search it once at the Auction House to see the cost."])
-			B.Small2:SetText("")
-			B.Button:Show()
+			if w.levels then parts[#parts + 1] = format(L["Requires Level %d-%d"], w.levels[1], w.levels[2]) end
+			local zone = w.map and UI.MapName(w.map)
+			if w.way == "gather" and w.npc then parts[#parts + 1] = hexed("npc", w.npc) end
+			if zone then parts[#parts + 1] = w.loop and format(L["%s loop on your map"], zone) or zone end
+			if w.minutes and toGet > 0 then
+				parts[#parts + 1] = w.minutes <= 90 and format(L["~%d min for the rest"], w.minutes) or (w.rate and format(L["about %d an hour"], w.rate)) or nil
+			end
 		end
-		local atAH = M() and M().AuctionOpen and M().AuctionOpen()
-		W.SetButtonText(B.Button, atAH and L["Search"] or L["Add to buy list"])
-		B.Button.psOwnWidth = B.Button:GetWidth()
-		-- Farm
-		Fm.Title:SetText(format(L["Farm %d"], r.toGet))
-		if not farm then
-			Fm.Big:SetText(L["No farm spot in this guide"])
-			W.Color(Fm.Big, "textMuted")
-			Fm.Small1:SetText("")
-			Fm.Small2:SetText("")
-			Fm.psLevelBoth, Fm.psLevelOnly = "", ""
-			Fm.Button:Hide()
-		else
-			if farm.above and farm.above >= 2 then
-				Fm.Big:SetText(format(L["No farm at your level: %d levels above you"], farm.above))
-				W.Color(Fm.Big, "warning")
-			elseif farm.minutes then
-				Fm.Big:SetText("\226\137\136 " .. timeText(farm.minutes))
-				W.Color(Fm.Big, farm.minutes > 120 and "warning" or "text")
+		return parts[1] and table.concat(parts, DOT) or nil
+	end
+
+	-- A way row's radio mark: a ring, a dot in it while it is the way taken.
+	local function radio(r, on)
+		local dot = r.psDot
+		if not dot then
+			dot = r:CreateTexture(nil, "OVERLAY")
+			dot:SetTexture(Theme.Media("circle"))
+			dot:SetSize(6, 6)
+			dot:SetPoint("CENTER", r.Icon, "CENTER", 0, 0)
+			r.psDot = dot
+		end
+		r.Icon:SetTexture(Theme.Media("ring"))
+		W.Color(r.Icon, on and "accent" or "textDim")
+		W.Color(dot, "accent")
+		dot:SetShown(on)
+	end
+
+	-- A way picked: the item takes it (Materials' pick), and the arrow leads to its goal.
+	local function pick(r)
+		local w, e = r.psWay, r.psItem
+		if not (w and e) then return end
+		if (w.way == "gather" or w.way == "buy") and not w.current then setWay(e.item, w.way) end
+		local s = stepShown()
+		if s then guideTo(s, w.goalIndex) end
+	end
+
+	-- The item's row: a goal row as the step's own (a click leads the arrow to the goal that applies).
+	local function itemRow(f, i)
+		f.Items[i] = f.Items[i] or GF.NewGoalRow(f)
+		return f.Items[i]
+	end
+	-- A way's row: a click picks it; its button leads the arrow there ("Guide me") or puts it on the buy list.
+	local function wayRow(f, i)
+		local r = f.Ways[i]
+		if r then return r end
+		r = GF.NewGoalRow(f)
+		r:SetScript("OnClick", pick)
+		r.psPadLabel = L["Guide me"]
+		r.psButton = W.Button(r, "", function()
+			local w, e = r.psWay, r.psItem
+			if not (w and e) then return end
+			if w.way == "buy" then
+				setWay(e.item, "buy")
+				buyList({ { item = e.item, name = e.name, count = w.toGet or max(0, e.need - e.have) } })
 			else
-				Fm.Big:SetText(L["Time not known yet"])
-				W.Color(Fm.Big, "textDim")
+				pick(r)
 			end
-			Fm.Small1:SetText(farm.npc and hexed("npc", farm.npc) or "")
-			local where = farm.map and UI.MapName(farm.map)
-			local lvl = farm.lvl
-			if type(lvl) == "table" then lvl = UI.LevelRange(lvl.min or lvl[1], lvl.max or lvl[2]) end
-			-- "lvl 19–23" never breaks inside.
-			local lv = lvl and (format(L["lvl %s"], tostring(lvl)):gsub(" ", NBSP)) or nil
-			-- The zone first, in its colour, then the level.
-			Fm.Small2:SetText(where and hexed("place", where) or "")
-			Fm.psLevelBoth, Fm.psLevelOnly = lv and ((where and DOT or "") .. lv) or "", lv or ""
-			Fm.Button:SetShown(farm.step ~= nil)
-			W.SetButtonText(Fm.Button, L["Guide me"])
-			Fm.Button.psOwnWidth = Fm.Button:GetWidth()
-		end
-		paintColumn(B, r.way == "buy" and buy ~= false)
-		paintColumn(Fm, r.way ~= "buy")
-		if not buy then W.Color(B.Glyph, "textMuted") end
+		end, { height = 22 })
+		f.Ways[i] = r
+		return r
 	end
 
-	local function rowOf(f, i)
-		local row = f.Rows[i]
-		if row then return row end
-		row = CreateFrame("Button", nil, f)
-		row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-		row.Bar = accentBar(row)
-		row.Hover = row:CreateTexture(nil, "BACKGROUND")
-		row.Hover:SetTexture(Theme.Media("white"))
-		row.Hover:SetAllPoints(row)
-		W.Painter(row.Hover, function(t) t:SetVertexColor(Theme.Wash("hover")) end)
-		row.Hover:Hide()
-		row.Tile = tile(row, 24)
-		row.Name = W.Text(row, "label", "item")
-		row.Src = W.Text(row, "small", "textMuted")
-		-- The counts go to a second line, whole, before one is cut: a count is never lost (the layout packs them).
-		row.Src:SetWordWrap(true)
-		row.Src:SetMaxLines(3)
-		row.Src:SetJustifyV("TOP")
-		row.Count = W.Text(row, "number", "text")
-		row.Way = W.Text(row, "small", "textDim")
-		row.WayGlyph = glyph(row, "buy", 11)
-		row.Check = glyph(row, "complete", 12, "success")
-		row.Check:SetTexture(Theme.Media("check"))
-		-- The Buy | Farm toggle.
-		row.Seg = {}
-		for k, way in ipairs({ "buy", "gather" }) do
-			local b = CreateFrame("Button", nil, row)
-			b:SetHeight(18)
-			b.Label = W.Text(b, "small", "textDim")
-			b.Label:SetPoint("CENTER", b, "CENTER", 0, 0)
-			b.Label:SetText(wayWord(way))
-			b:SetWidth(floor(b.Label:GetStringWidth() + 16 + 0.5))
-			Theme.Skin(b, "tab")
-			b.psWay = way
-			b:SetScript("OnClick", function(self)
-				local r = row.psRow
-				if r then
-					focusOf[guideId() or ""] = r.item
-					setWay(r.item, self.psWay)
-				end
-			end)
-			row.Seg[k] = b
-		end
-		-- The gamepad: A opens the row's split, X flips its way (UI/GamepadGuide.lua).
-		row.psPadLabel = function(self)
-			local r = self.psRow
-			return r and r.split and r.toGet > 0 and not GF.Compact() and L["Show Buy and Farm"] or nil
-		end
-		row.psPadFlipLabel = function(self)
-			local r = self.psRow
-			if not (r and r.choosable and r.toGet > 0) or self.psSelfFound then return nil end
-			return r.way == "buy" and L["Farm instead"] or L["Buy instead"]
-		end
-		row.psPadFlip = function(self)
-			local r = self.psRow
-			if not (r and r.choosable and r.toGet > 0) or self.psSelfFound then return false end
-			focusOf[guideId() or ""] = r.item
-			setWay(r.item, r.way == "buy" and "gather" or "buy")
-			return true
-		end
-		row:SetScript("OnEnter", function(self)
-			self.Hover:Show()
-			-- What the made counts are, by name (the row's line says "2 made").
-			if self.psMade and self.psRow then W.Tip(self, self.psRow.name, { self.psMade }) end
-		end)
-		row:SetScript("OnLeave", function(self)
-			self.Hover:Hide()
-			W.TipHide(self)
-		end)
-		row:SetScript("OnClick", function(self, button)
-			local r = self.psRow
-			if not r then return end
-			if button == "RightButton" then
-				if r.choosable then setWay(r.item, nil) end
-				return
-			end
-			if GF.Compact() then
-				if UI.Materials and UI.Materials.Show then UI.Materials.Show() end
-				return
-			end
-			focusOf[guideId() or ""] = r.item
-			GF.Render()
-		end)
-		f.Rows[i] = row
-		return row
-	end
-
-	local function paintRow(row, r, current, mode, selfFound)
-		row.psRow = r
-		setTile(row.Tile, r.item, WAY_VERB[r.way] or "collect")
-		row.Name:SetText(r.name)
-		W.Color(row.Name, "item")
-		local met = r.have >= r.need
-		local p = r.parts or {}
-		local bits = {}
-		if (p.bags or 0) > 0 then bits[#bits + 1] = format(L["bags %d"], p.bags) end
-		if (p.bank or 0) > 0 then bits[#bits + 1] = format(L["bank %d"], p.bank) end
-		if (p.mail or 0) + (p.coming or 0) > 0 then bits[#bits + 1] = format(L["mail %d"], p.mail + p.coming) end
-		if r.madeCount and r.madeCount > 0 then bits[#bits + 1] = format(L["%d made"], r.madeCount) end
-		if #bits == 0 then bits[1] = L["none yet"] end
-		-- The layout packs the counts into lines at their dots, so a count is never cut.
-		row.psBits = bits
-		row.Src:SetText(table.concat(bits, DOT))
-		row.psMade = r.madeCount and r.madeCount > 0 and format(L["%d %s already made"], r.madeCount, r.madeName or "") or nil
-		row.psSelfFound = selfFound and true or nil
-		if mode == "compact" then
-			row.Count:SetText(format(L["%d / %d"], r.have, r.need) .. hexed("textMuted", DOT .. string.lower(wayWord(r.way))))
-		else
-			row.Count:SetText(format(L["%d / %d"], r.have, r.need))
-		end
-		W.Color(row.Count, met and "success" or "text")
-		row.Check:SetShown(met and mode ~= "compact")
-		-- Self-Found farms all of it: one way, no toggle.
-		local toggle = r.choosable and not met and not selfFound and mode ~= "compact"
-		for _, b in ipairs(row.Seg) do
-			b:SetShown(toggle)
-			Theme.SetTabSelected(b, r.way == b.psWay)
-			segMark(b, r.way == b.psWay)
-			W.Color(b.Label, r.way == b.psWay and "text" or "textDim")
-		end
-		local fixed = not toggle and not met and mode ~= "compact"
-		row.Way:SetShown(fixed)
-		row.WayGlyph:SetShown(fixed)
-		if fixed then
-			row.Way:SetText(wayWord(r.way))
-			row.WayGlyph:SetTexture(Theme.VerbIcon(WAY_VERB[r.way] or "collect"))
-		end
-		if met then
-			W.Color(row.Name, "textMuted")
-		end
-		row.Bar:SetShown(current)
-		GF.Hook("guideKindRow", row, r.item, { kind = "supply", done = met, current = current, way = r.way })
-		row:Show()
-	end
-
-	local function layoutRow(row, width, h, mode)
-		row:SetHeight(h)
-		local x = PAD
-		row.Tile:ClearAllPoints()
-		if mode == "compact" then
-			row.Tile:SetSize(16, 16)
-			row.Tile:SetPoint("LEFT", row, "LEFT", x, 0)
-			row.Src:Hide()
-			row.Count:ClearAllPoints()
-			row.Count:SetPoint("RIGHT", row, "RIGHT", -PAD, 0)
-			row.Name:ClearAllPoints()
-			row.Name:SetPoint("LEFT", row, "LEFT", x + 22, 0)
-			row.Name:SetWidth(max(40, width - x - 22 - PAD - row.Count:GetStringWidth() - 8))
-			return h
-		end
-		row.Tile:SetSize(24, 24)
-		row.Tile:SetPoint("TOPLEFT", row, "TOPLEFT", x, -11)
-		row.Src:Show()
-		local rx = width - PAD
-		row.Count:ClearAllPoints()
-		row.Count:SetPoint("TOPRIGHT", row, "TOPRIGHT", -PAD, -8)
-		local segW = 0
-		if row.Seg[1]:IsShown() then
-			row.Seg[2]:ClearAllPoints()
-			row.Seg[2]:SetPoint("TOPRIGHT", row, "TOPRIGHT", -PAD, -25)
-			row.Seg[1]:ClearAllPoints()
-			row.Seg[1]:SetPoint("RIGHT", row.Seg[2], "LEFT", -2, 0)
-			segW = row.Seg[1]:GetWidth() + row.Seg[2]:GetWidth() + 2
-		elseif row.Way:IsShown() then
-			row.Way:ClearAllPoints()
-			row.Way:SetPoint("TOPRIGHT", row, "TOPRIGHT", -PAD, -27)
-			row.WayGlyph:ClearAllPoints()
-			row.WayGlyph:SetPoint("RIGHT", row.Way, "LEFT", -4, 0)
-			segW = row.Way:GetStringWidth() + 15
-		end
-		row.Check:ClearAllPoints()
-		row.Check:SetPoint("TOPRIGHT", row, "TOPRIGHT", -PAD, -27)
-		local tx = x + 24 + 10
-		local rightW = max(row.Count:GetStringWidth(), segW) + 10
-		row.Name:ClearAllPoints()
-		row.Name:SetPoint("TOPLEFT", row, "TOPLEFT", tx, -8)
-		row.Name:SetWidth(max(40, rx - tx - rightW))
-		row.Src:ClearAllPoints()
-		row.Src:SetPoint("TOPLEFT", row, "TOPLEFT", tx, -26)
-		local room = max(40, rx - tx - rightW)
-		row.Src:SetWidth(room)
-		-- Whole counts per line, joined by dots; one that does not fit goes to the next line.
-		local bits = row.psBits
-		if bits and #bits > 1 then
-			local lines, cur = {}, nil
-			for _, b in ipairs(bits) do
-				local try = cur and (cur .. DOT .. b) or b
-				row.Src:SetText(try)
-				if cur and row.Src:GetUnboundedStringWidth() > room then
-					lines[#lines + 1] = cur
-					cur = b
-				else
-					cur = try
-				end
-			end
-			lines[#lines + 1] = cur
-			row.Src:SetText(table.concat(lines, "\n"))
-		end
-		-- A count that goes to a second line takes a line more of the row.
-		local need = max(h, 26 + row.Src:GetStringHeight() + 9)
-		row:SetHeight(need)
-		return need
-	end
-
-	local function wayLabel(way)
-		return way == "gather" and L["Farm"] or way == "buy" and L["Buy"] or L["Mix"]
-	end
-
-	GF.RegisterRegion("supplies", {
+	GF.RegisterRegion("get", {
 		build = function(parent)
 			local f = CreateFrame("Frame", nil, parent)
-			f.Head = W.Text(f, "heading", "text")
-			f.HeadRule = W.Divider(f)
-			f.Modes = {}
-			for k, mode in ipairs({ "buy", "gather", "mix" }) do
-				local b = CreateFrame("Button", nil, f)
-				b:SetHeight(22)
-				b.Label = W.Text(b, "label", "textDim")
-				b.Label:SetPoint("CENTER", b, "CENTER", 0, 0)
-				b.psMode = mode
-				Theme.Skin(b, "tab")
-				b:SetScript("OnClick", function(self)
-					local Mt, id = M(), guideId()
-					if Mt and id then Mt.SetMode(id, self.psMode) end
-				end)
-				f.Modes[k] = b
-			end
-			-- Under 300 wide: the way and a chevron, a menu of the three.
-			f.ModeDrop = CreateFrame("Button", nil, f)
-			f.ModeDrop:SetHeight(22)
-			f.ModeDrop.Label = W.Text(f.ModeDrop, "label", "text")
-			f.ModeDrop.Label:SetPoint("LEFT", f.ModeDrop, "LEFT", 8, 0)
-			f.ModeDrop.Chev = f.ModeDrop:CreateTexture(nil, "ARTWORK")
-			f.ModeDrop.Chev:SetTexture(Theme.Media("chevron-down"))
-			f.ModeDrop.Chev:SetSize(10, 10)
-			f.ModeDrop.Chev:SetPoint("RIGHT", f.ModeDrop, "RIGHT", -6, 0)
-			W.Color(f.ModeDrop.Chev, "textDim")
-			Theme.Skin(f.ModeDrop, "tab")
-			f.ModeDrop:SetScript("OnClick", function(self)
-				local items = {}
-				for _, mode in ipairs({ "buy", "gather", "mix" }) do
-					items[#items + 1] = { text = wayLabel(mode), func = function()
-						local Mt, id = M(), guideId()
-						if Mt and id then Mt.SetMode(id, mode) end
-					end }
-				end
-				W.ShowMenu(self, items)
-			end)
-			f.Rows = {}
-			-- The split's well.
-			f.Well = CreateFrame("Frame", nil, f)
-			Theme.Skin(f.Well, "inset")
-			f.Info = f.Well:CreateTexture(nil, "ARTWORK")
-			f.Info:SetTexture(Theme.Media("info"))
-			f.Info:SetSize(13, 13)
-			W.Color(f.Info, "textDim")
-			f.Verdict = W.Text(f.Well, "label", "text")
-			f.Verdict:SetWordWrap(true)
-			f.Verdict:SetJustifyV("TOP")
-			-- The advice is two lines at most; the time in it is rounded so it fits.
-			f.Verdict:SetMaxLines(2)
-			f.Buy = column(f.Well, "buy")
-			f.Farm = column(f.Well, "collect", true)
-			f.ColRule = W.Divider(f.Well, true)
-			f.SplitRule = W.Divider(f.Well)
-			f.Buy:SetScript("OnMouseUp", function() if f.psSplitRow and f.psSplitRow.split.buy then setWay(f.psSplitRow.item, "buy") end end)
-			f.Farm:SetScript("OnMouseUp", function() if f.psSplitRow then setWay(f.psSplitRow.item, "gather") end end)
-			f.Buy.Button:SetScript("OnClick", function() addToBuyList(f.psSplitRow) end)
-			f.Farm.Button:SetScript("OnClick", function() if f.psSplitRow then guideMeFarm(f.psSplitRow) end end)
-			f.Farm:SetScript("OnEnter", function(self)
-				local r = f.psSplitRow
-				local fm = r and r.split and r.split.farm
-				if not fm then return end
-				local lines = {}
-				if fm.kills then lines[#lines + 1] = format(L["about %d kills"], fm.kills) end
-				local sc = fm.second
-				if type(sc) == "table" and sc.npcName then
-					local zone = sc.map and UI.MapName(sc.map)
-					lines[#lines + 1] = zone and format(L["or %s (%s)"], sc.npcName, zone) or format(L["or %s"], sc.npcName)
-				end
-				lines[#lines + 1] = L["The arrow takes you to the best farm for your level."]
-				W.Tip(self, format(L["Farm %d"], r.toGet), lines)
-			end)
-			f.Farm:SetScript("OnLeave", function(self) W.TipHide(self) end)
+			f.Items, f.Ways, f.List = {}, {}, {}
 			return f
 		end,
 		model = function(view, kind)
 			local e = E()
-			return e and e.KindModel and e.KindModel("supplies", view, kind)
+			return e and e.KindModel and e.KindModel("get", view, kind)
 		end,
 		paint = function(f, m, mode)
-			f.psModel = m
-			local title
-			if m.titleKind == "skill" and m.title then
-				title = format(L["Materials to %d"], m.title)
-			elseif m.titleKind == "standing" and m.title and m.items and m.items[1] then
-				title = format(L["%s for %s"], m.items[1].name, m.title)
-			else
-				title = L["Materials"]
-			end
-			f.Head:SetText(title)
-			for _, b in ipairs(f.Modes) do
-				b.Label:SetText(wayLabel(b.psMode))
-				b:SetWidth(floor(b.Label:GetStringWidth() + 18 + 0.5))
-				local on = m.way == b.psMode
-				Theme.SetTabSelected(b, on)
-				segMark(b, on)
-				W.Color(b.Label, on and "text" or "textDim")
-				b:SetShown(m.choosable and not m.selfFound and mode ~= "compact")
-			end
-			f.ModeDrop.Label:SetText(wayLabel(m.way))
-			f.ModeDrop:SetWidth(floor(f.ModeDrop.Label:GetStringWidth() + 30 + 0.5))
-			local splitOn = GF.Shows("split", mode ~= "compact")
-			local fr, fi = focusItem(m)
-			f.psSplitRow = splitOn and fr or nil
-			f.psSplitAt = splitOn and fi or nil
-			local n = 0
-			for i, r in ipairs(m.rows) do
-				if mode ~= "compact" or r.have < r.need then
-					n = n + 1
-					paintRow(rowOf(f, n), r, fi == i, mode, m.selfFound)
-					f.Rows[n].psAt = i
-				end
-			end
-			for i = n + 1, #f.Rows do f.Rows[i]:Hide() end
-			f.psN = n
-			f.Well:SetShown(f.psSplitRow ~= nil)
-			bareIn(f.Well)
-			if f.psSplitRow then paintSplit(f, f.psSplitRow, f:GetWidth() > 1 and f:GetWidth() or 340) end
-		end,
-		layout = function(f, m, width, mode)
-			local y = 0
+			local list = f.List
+			for i = #list, 1, -1 do list[i] = nil end
+			local ni, nw = 0, 0
 			local compact = mode == "compact"
-			f.Head:SetShown(not compact)
-			f.HeadRule:SetShown(not compact)
-			f.ModeDrop:Hide()
-			if not compact then
-				local headH = 32
-				f.Head:ClearAllPoints()
-				f.Head:SetPoint("LEFT", f, "TOPLEFT", PAD, -(y + headH / 2 + 2))
-				local segShown = f.Modes[1]:IsShown()
-				local segW = 0
-				if segShown and narrow(width) then
-					for _, b in ipairs(f.Modes) do b:Hide() end
-					f.ModeDrop:Show()
-					f.ModeDrop:ClearAllPoints()
-					f.ModeDrop:SetPoint("RIGHT", f, "TOPRIGHT", -PAD, -(y + headH / 2 + 2))
-					segW = f.ModeDrop:GetWidth()
-				elseif segShown then
-					local prev
-					for k = #f.Modes, 1, -1 do
-						local b = f.Modes[k]
-						b:ClearAllPoints()
-						if prev then b:SetPoint("RIGHT", prev, "LEFT", -2, 0) else b:SetPoint("RIGHT", f, "TOPRIGHT", -PAD, -(y + headH / 2 + 2)) end
-						segW = segW + b:GetWidth() + 2
-						prev = b
+			for _, e in ipairs(m.items) do
+				-- The item's row: what to get, the count once.
+				ni = ni + 1
+				local r = itemRow(f, ni)
+				local g = r.psGoal
+				if type(g) ~= "table" or g.psKind ~= "get" then g = { psKind = "get" } end
+				g.t, g.index, g.status = "collect", e.goalIndex, e.done and "done" or "active"
+				g.text = format(L["Get %d %s"], e.need, e.name)
+				g.subject, g.subjectKind, g.item = e.name, "item", e.item
+				g.progress = { cur = e.have, max = e.need, kind = "count" }
+				GF.PaintGoalRow(r, g, not e.done)
+				local choices = not compact and not e.done and #e.ways > 1
+				UI.SetCounted(r.Sub, choices and L["Pick one way:"] or "")
+				r.Sub:SetShown(choices and true or false)
+				list[#list + 1] = r
+				-- A row per way, picked like an option; each leads the arrow there.
+				if not compact and not e.done then
+					for _, w in ipairs(e.ways) do
+						nw = nw + 1
+						local wr = wayRow(f, nw)
+						local wg = wr.psGoal
+						if type(wg) ~= "table" or wg.psKind ~= "way" then wg = { psKind = "way" } end
+						wg.t, wg.index, wg.status = w.way == "gather" and "collect" or "buy", w.goalIndex, "active"
+						wg.text = wayText(w)
+						GF.PaintGoalRow(wr, wg, false)
+						radio(wr, w.current)
+						W.Color(wr.Text, w.current and "text" or "textDim")
+						local sub = waySub(w, max(0, e.need - e.have))
+						UI.SetCounted(wr.Sub, sub or "")
+						wr.Sub:SetShown(sub ~= nil)
+						wr.psWay, wr.psItem = w, e
+						W.SetButtonText(wr.psButton, w.way == "buy" and L["Buy list"] or L["Guide me"])
+						wr.psButton:SetShown(w.way == "buy" or w.map ~= nil)
+						list[#list + 1] = wr
 					end
 				end
-				f.Head:SetWidth(max(40, width - PAD * 2 - segW - 8))
-				y = y + headH + 4
-				f.HeadRule:ClearAllPoints()
-				f.HeadRule:SetPoint("TOPLEFT", f, "TOPLEFT", PAD, -y)
-				f.HeadRule:SetPoint("TOPRIGHT", f, "TOPRIGHT", -PAD, -y)
 			end
-			local rowH = compact and 24 or GF.Space("supplyRow", 46)
-			local gap = GF.Space("splitGap", 8)
-			for i = 1, f.psN or 0 do
-				local row = f.Rows[i]
-				row:ClearAllPoints()
-				row:SetPoint("TOPLEFT", f, "TOPLEFT", 0, -y)
-				row:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, -y)
-				local used = layoutRow(row, width, rowH, mode) or rowH
-				y = y + used
-				if f.psSplitRow and row.psAt == f.psSplitAt then
-					local well = f.Well
-					local wx = PAD - 4
-					local ww = width - wx * 2
-					well:ClearAllPoints()
-					well:SetPoint("TOPLEFT", f, "TOPLEFT", wx, -y)
-					well:SetWidth(ww)
-					f.Info:ClearAllPoints()
-					f.Info:SetPoint("TOPLEFT", well, "TOPLEFT", 10, -11)
-					f.Verdict:ClearAllPoints()
-					f.Verdict:SetPoint("TOPLEFT", well, "TOPLEFT", 30, -10)
-					f.Verdict:SetWidth(ww - 30 - 10)
-					local vt = narrow(width) and f.psVerdictShort or f.psVerdictLong
-					if vt and f.Verdict:GetText() ~= vt then f.Verdict:SetText(vt) end
-					local vh = f.Verdict:GetStringHeight()
-					local top = 10 + vh + 10
-					f.SplitRule:ClearAllPoints()
-					f.SplitRule:SetPoint("TOPLEFT", well, "TOPLEFT", 0, -top)
-					f.SplitRule:SetPoint("TOPRIGHT", well, "TOPRIGHT", 0, -top)
-					local half = floor(ww / 2)
-					local hb = layoutColumn(f.Buy, 0, half, top, 200)
-					local hf = layoutColumn(f.Farm, half, ww - half, top, 200)
-					local ch = max(hb, hf)
-					f.Buy:SetHeight(ch)
-					f.Farm:SetHeight(ch)
-					f.ColRule:ClearAllPoints()
-					f.ColRule:SetPoint("TOPLEFT", well, "TOPLEFT", half, -top)
-					f.ColRule:SetHeight(ch)
-					well:SetHeight(top + ch)
-					y = y + top + ch + gap
-				end
+			for i = ni + 1, #f.Items do f.Items[i]:Hide() end
+			for i = nw + 1, #f.Ways do f.Ways[i]:Hide() end
+		end,
+		layout = function(f, _, width)
+			local y = 0
+			for _, r in ipairs(f.List) do
+				local way = r.psButton ~= nil
+				-- The ways sit under the item's row, indented as its options.
+				local x = way and 16 or 0
+				local h = way and rowButton(r, r.psButton, width - x) or GF.MeasureRow(r, width)
+				r:SetHeight(h)
+				r:ClearAllPoints()
+				r:SetPoint("TOPLEFT", f, "TOPLEFT", x, -y)
+				r:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, -y)
+				r:Show()
+				y = y + h
 			end
-			return floor(y + (compact and 0 or 4) + 0.5)
+			return floor(y + 0.5)
 		end,
 	})
 
 	---------------------------------------------------------------------------
-	-- Buy list line
+	-- The shopping list: one folded row
 	---------------------------------------------------------------------------
 
-	GF.RegisterRegion("buyList", {
+	-- Opened per guide while the session lasts; folded at first.
+	local openOf = {}
+
+	local function shopRow(f, i)
+		local row = f.Rows[i]
+		if row then return row end
+		row = CreateFrame("Frame", nil, f)
+		row.Tile = tile(row, 18)
+		row.Name = W.Text(row, "label", "item")
+		row.Count = W.Text(row, "number", "text")
+		f.Rows[i] = row
+		return row
+	end
+
+	GF.RegisterRegion("shopping", {
 		build = function(parent)
 			local f = CreateFrame("Frame", nil, parent)
-			f.Text = W.Text(f, "small", "textDim")
-			f.Open = W.Link(f, L["Open list"], function()
-				if UI.AuctionBuys and UI.AuctionBuys.Show then UI.AuctionBuys.Show() end
+			f.Rule = W.Divider(f)
+			f.Head = CreateFrame("Button", nil, f)
+			W.Hover(f.Head, 0.6)
+			f.Head.Chev = f.Head:CreateTexture(nil, "ARTWORK")
+			f.Head.Chev:SetSize(10, 10)
+			W.Color(f.Head.Chev, "textDim")
+			f.Head.Text = W.Text(f.Head, "label", "textDim")
+			f.Head.Text:SetText(L["Shopping list"])
+			f.Head.Right = W.Text(f.Head, "small", "textDim")
+			f.Head:SetScript("OnClick", function()
+				local id = guideId() or ""
+				openOf[id] = not openOf[id] or nil
+				GF.Layout()
 			end)
-			f.Open.psTip = nil
+			f.Rows = {}
+			f.Buy = W.Button(f, L["Buy the whole list"], function()
+				local m = f.psModel
+				if not m then return end
+				for _, b in ipairs(m.buy) do setWay(b.item, "buy") end
+				buyList(m.buy)
+				if UI.AuctionBuys and UI.AuctionBuys.Show then UI.AuctionBuys.Show() end
+			end, { height = 22 })
 			return f
 		end,
 		model = function(view, kind)
 			if GF.Compact() then return nil end
 			local e = E()
-			return e and e.KindModel and e.KindModel("buyList", view, kind)
+			return e and e.KindModel and e.KindModel("shopping", view, kind)
 		end,
 		paint = function(f, m)
-			local s = GF.RegionModel and GF.RegionModel("supplies")
-			local what
-			for _, r in ipairs(s and s.rows or {}) do
-				if r.way == "buy" and r.toGet > 0 then
-					what = what and (what .. ", " .. itemHex(r.item, r.name)) or (format(L["%d %s"], r.toGet, itemHex(r.item, r.name)))
+			f.psModel = m
+			local open = openOf[guideId() or ""] and true or false
+			f.psOpen = open
+			f.Head.Text:SetText(L["Shopping list"])
+			f.Head.Right:SetText(format("%d / %d", m.met, #m.rows))
+			f.Head.Chev:SetTexture(Theme.Media(open and "chevron-up" or "chevron-down"))
+			local n = 0
+			if open then
+				for _, r in ipairs(m.rows) do
+					n = n + 1
+					local row = shopRow(f, n)
+					setTile(row.Tile, r.item, r.way == "buy" and "buy" or "collect")
+					row.Name:SetText(itemHex(r.item, r.name))
+					local met = r.have >= r.need
+					row.Count:SetText(format("%s / %s", ns.Thousands(r.have), ns.Thousands(r.need)))
+					W.Color(row.Count, met and "success" or "text")
+					if met then W.Color(row.Name, "textMuted") end
+					GF.Hook("guideKindRow", row, r.item, { kind = "supply", done = met, current = false, way = r.way })
 				end
 			end
-			local text = format(L["Buy list: %s"], what or tostring(m.count))
-			if m.copper then text = text .. DOT .. "\226\137\136 " .. ns.MoneyText(m.copper) .. (m.partial and "+" or "") end
-			f.Text:SetText(text)
+			for i = n + 1, #f.Rows do f.Rows[i]:Hide() end
+			f.psN = n
+			f.Buy:SetShown(open and m.buy[1] ~= nil)
 		end,
 		layout = function(f, _, width)
-			local h = 26
-			f.Open:ClearAllPoints()
-			f.Open:SetPoint("RIGHT", f, "TOPRIGHT", -PAD, -h / 2)
-			f.Text:ClearAllPoints()
-			f.Text:SetPoint("LEFT", f, "TOPLEFT", PAD, -h / 2)
-			f.Text:SetWidth(max(40, width - PAD * 2 - f.Open:GetWidth() - 8))
-			return h
+			local y = 6
+			f.Rule:ClearAllPoints()
+			f.Rule:SetPoint("TOPLEFT", f, "TOPLEFT", PAD, -y)
+			f.Rule:SetPoint("TOPRIGHT", f, "TOPRIGHT", -PAD, -y)
+			y = y + 2
+			local hh = 26
+			local h = f.Head
+			h:ClearAllPoints()
+			h:SetPoint("TOPLEFT", f, "TOPLEFT", 0, -y)
+			h:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, -y)
+			h:SetHeight(hh)
+			h.Chev:ClearAllPoints()
+			h.Chev:SetPoint("LEFT", h, "LEFT", PAD + 2, 0)
+			h.Right:ClearAllPoints()
+			h.Right:SetPoint("RIGHT", h, "RIGHT", -PAD, 0)
+			h.Text:ClearAllPoints()
+			h.Text:SetPoint("LEFT", h, "LEFT", TEXT_X, 0)
+			h.Text:SetWidth(max(40, width - TEXT_X - PAD - h.Right:GetStringWidth() - 8))
+			y = y + hh
+			local rh = 24
+			for i = 1, f.psN or 0 do
+				local row = f.Rows[i]
+				row:ClearAllPoints()
+				row:SetPoint("TOPLEFT", f, "TOPLEFT", 0, -y)
+				row:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, -y)
+				row:SetHeight(rh)
+				row.Tile:ClearAllPoints()
+				row.Tile:SetPoint("LEFT", row, "LEFT", TEXT_X - 24, 0)
+				row.Count:ClearAllPoints()
+				row.Count:SetPoint("RIGHT", row, "RIGHT", -PAD, 0)
+				row.Name:ClearAllPoints()
+				row.Name:SetPoint("LEFT", row, "LEFT", TEXT_X, 0)
+				row.Name:SetWidth(max(40, width - TEXT_X - PAD - row.Count:GetStringWidth() - 8))
+				row:Show()
+				y = y + rh
+			end
+			if f.Buy:IsShown() then
+				f.Buy:ClearAllPoints()
+				f.Buy:SetPoint("TOPLEFT", f, "TOPLEFT", TEXT_X, -(y + 4))
+				y = y + 4 + f.Buy:GetHeight() + 4
+			end
+			return floor(y + 4 + 0.5)
 		end,
 	})
 

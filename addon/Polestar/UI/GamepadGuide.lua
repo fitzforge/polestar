@@ -106,26 +106,19 @@ local spec = {
 		if g and g.x and g.map then return L["Point the arrow"] end
 		return nil
 	end,
-	-- X: a material's way flipped (Buy <-> Farm) on its row; elsewhere the line's details.
-	xLabel = function(w)
-		local flip = rawget(w, "psPadFlipLabel")
-		if type(flip) == "function" then flip = flip(w) end
-		if flip then return flip end
-		return w:GetScript("OnEnter") and L["Details"] or nil
-	end,
-	x = function(w)
-		local flip = rawget(w, "psPadFlip")
-		if type(flip) == "function" and flip(w) then return end
-		details(w)
-	end,
-	-- Y: a profession or reputation guide with something set to Buy opens its buy list (UI/AuctionBuys.lua);
+	xLabel = function(w) return w:GetScript("OnEnter") and L["Details"] or nil end,
+	x = details,
+	-- Y: a profession guide with something set to Buy in its shopping list opens its buy list (UI/AuctionBuys.lua);
 	-- else the window goes to compact mode.
 	reset = function()
 		local GF = UI.GuideFrame
 		local AB = UI.AuctionBuys
-		if GF and GF.RegionShown and GF.RegionShown("buyList") and AB and AB.Show then
-			AB.Show()
-			return true
+		if GF and GF.RegionShown and GF.RegionShown("shopping") and AB and AB.Show then
+			local m = GF.RegionModel("shopping")
+			if m and m.buy and m.buy[1] then
+				AB.Show()
+				return true
+			end
 		end
 		G.StopFocus()
 		ns.Set("ui.compact", true)
@@ -133,7 +126,8 @@ local spec = {
 	end,
 	resetLabel = function()
 		local GF = UI.GuideFrame
-		if GF and GF.RegionShown and GF.RegionShown("buyList") then return L["Open list"] end
+		local m = GF and GF.RegionShown and GF.RegionShown("shopping") and GF.RegionModel("shopping")
+		if m and m.buy and m.buy[1] then return L["Open list"] end
 		return L["Minimize"]
 	end,
 	prevTab = function() local E = engine(); if E and E.Prev then E.Prev() end end,

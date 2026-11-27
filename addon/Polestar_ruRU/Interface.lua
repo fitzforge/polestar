@@ -549,97 +549,51 @@
 -- Machine-translated, to be reviewed (the profession and reputation guides' window, 26 Nov 2026): translated by an
 -- AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
 -- keep or fix its line below, and take its key off this list.
---   %d to go  \194\183  to %d
 --   %d made
 --   %d ready
---   %d to go
---   %d: move on to the next recipe
---   %d: the trainer's next rank
 --   %s a turn-in
---   %s at %d
---   %s each
---   %s for %s
 --   about %d to go
 --   Learn %s first
+--   %s loop on your map
+--   %s more
+--   %s more, about %s at your last search
+--   Buy it at the Auction House
+--   Buy it from %s
+--   Buy it from a vendor
+--   Buy list
+--   Buy the whole list
+--   Craft %s until %d
+--   Disenchant green armour
+--   Farm it
+--   Fish it
+--   Get %d %s
+--   Make it
+--   Mine it
+--   Not learned yet
+--   Pick it
+--   Pick one way:
+--   Requires Level %d-%d
+--   Shopping list
+--   Skin it
+--   about %d an hour
+--   ~%d min for the rest
 --   %s reached
---   %s to %d
---   %s to %d, then %s to %d
 --   %s to %s
 --   %s to %s  \194\183  about %d turn-ins
 --   +%d each
 --   +%d once
 --   +%d reputation
 --   A long farm: bought instead
---   Add to buy list
---   Apprentice
---   Artisan
---   Auction House
---   Bought at the Auction House.
---   Buy %d
---   Buy all: you buy this.
---   Buy instead
---   Buy list: %s
---   Cloth from your route still counts.
 --   Expert
---   Farm
---   Farm %d
---   Farm instead
---   Gather all: you farm this.
 --   Green
---   Grey
---   Grey now: move on
---   Journeyman
---   Make
---   Make %d %s first
---   Materials to %d
---   Mix buys this: farming takes about %s at your level.
---   Mix buys this: gathering it needs a profession you don't have.
---   Mix buys this: its mobs are above your level.
---   Mix buys this: you're past its levels.
---   Mix buys: farming \226\137\136 %s
---   Mix farms this.
---   Mix farms this: about %s here.
---   Mix farms this: about %s here. Buying costs about %s.
 --   More reputation
 --   Next turn-in: %d more %s
---   No farm spot in this guide
---   No price yet
---   Not for Self-Found characters
 --   Open list
---   Orange
---   Orange: every craft is a point. Yellow from %d, green from %d, grey at %d.
 --   Repeatable
---   Route cloth still counts.
---   Search it once at the Auction House to see the cost.
---   Self-Found: you farm all of it.
---   Show Buy and Farm
---   The arrow takes you to the best farm for your level.
---   Time not known yet
---   Train %s now
 --   Turn in %d now
---   Yellow
---   You can make %d now
---   You can make all %d now
---   Your pick: buy.
---   Your pick: buy. About %s.
---   Your pick: farm.
---   Your pick: farm. About %s for %d.
---   bags %d
---   bank %d
---   lvl %s
---   mail %d
---   move on at %d
---   needs level %d
---   none yet
 --   once
---   only %d listed
 --   repeats
---   seen %d days ago
---   seen %d h ago
---   seen %d min ago
 --   %d more
---   About %s for %d at your level.
---   %d %s already made
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "ruRU") then return end
 local L = ns.L
@@ -5890,97 +5844,51 @@ L["Leave out of Free mode"] = "Исключить из свободного ре
 L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "Свободный режим больше не показывает это задание. Пункт меню «Вернуть исключенные задания» вернет его в список."
 
 -- UI/GuideFrameKindCraft.lua
-L["%d to go  \194\183  to %d"] = "осталось %d  \194\183  до %d"
 L["%d made"] = "изготовлено: %d"
 L["%d ready"] = "готово: %d"
-L["%d to go"] = "осталось %d"
-L["%d: move on to the next recipe"] = "%d: переходите к следующему рецепту"
-L["%d: the trainer's next rank"] = "%d: следующий ранг у наставника"
 L["%s a turn-in"] = "%s за сдачу"
-L["%s at %d"] = "%s с %d"
-L["%s each"] = "%s за штуку"
-L["%s for %s"] = "%s для: %s"
 L["about %d to go"] = "осталось около %d"
 L["Learn %s first"] = "Сначала изучите: %s"
+L["%s loop on your map"] = "маршрут: %s, на вашей карте"
+L["%s more"] = "ещё %s"
+L["%s more, about %s at your last search"] = "ещё %s, около %s по последнему поиску"
+L["Buy it at the Auction House"] = "Купить на аукционе"
+L["Buy it from %s"] = "Купить у: %s"
+L["Buy it from a vendor"] = "Купить у торговца"
+L["Buy list"] = "Список аукциона"
+L["Buy the whole list"] = "Купить весь список"
+L["Craft %s until %d"] = "Изготавливать «%s» до %d"
+L["Disenchant green armour"] = "Распылить зелёные доспехи"
+L["Farm it"] = "Добыть самому"
+L["Fish it"] = "Выловить"
+L["Get %d %s"] = "Раздобыть %d: %s"
+L["Make it"] = "Изготовить"
+L["Mine it"] = "Добыть горным делом"
+L["Not learned yet"] = "Ещё не изучено"
+L["Pick it"] = "Собрать травничеством"
+L["Pick one way:"] = "Выберите способ:"
+L["Requires Level %d-%d"] = "Требуется уровень %d-%d"
+L["Shopping list"] = "Список покупок"
+L["Skin it"] = "Снять шкуру"
+L["about %d an hour"] = "около %d в час"
+L["~%d min for the rest"] = "~%d мин на остальное"
 L["%s reached"] = "%s достигнуто"
-L["%s to %d"] = "%s до %d"
-L["%s to %d, then %s to %d"] = "%s до %d, затем %s до %d"
 L["%s to %s"] = "%s до: %s"
 L["%s to %s  \194\183  about %d turn-ins"] = "%s до: %s  \194\183  примерно %d сдач"
 L["+%d each"] = "+%d за раз"
 L["+%d once"] = "+%d один раз"
 L["+%d reputation"] = "+%d репутации"
 L["A long farm: bought instead"] = "Долгая добыча: покупается"
-L["Add to buy list"] = "В список покупок"
-L["Apprentice"] = "Ученик"
-L["Artisan"] = "Мастер"
-L["Auction House"] = "Аукцион"
-L["Bought at the Auction House."] = "Куплено на аукционе."
-L["Buy %d"] = "Купить %d"
-L["Buy all: you buy this."] = "Покупать все: вы покупаете."
-L["Buy instead"] = "Лучше купить"
-L["Buy list: %s"] = "Список покупок: %s"
-L["Cloth from your route still counts."] = "Ткань с вашего маршрута тоже считается."
 L["Expert"] = "Эксперт"
-L["Farm"] = "Добыть"
-L["Farm %d"] = "Добыть %d"
-L["Farm instead"] = "Лучше добыть"
-L["Gather all: you farm this."] = "Собирать все: вы добываете."
 L["Green"] = "Зеленый"
-L["Grey"] = "Серый"
-L["Grey now: move on"] = "Уже серый: переходите дальше"
-L["Journeyman"] = "Подмастерье"
-L["Make"] = "Изготовить"
-L["Make %d %s first"] = "Сначала изготовьте %d: %s"
-L["Materials to %d"] = "Материалы до %d"
-L["Mix buys this: farming takes about %s at your level."] = "Комбинировать покупает: добыча на вашем уровне займет около %s."
-L["Mix buys this: gathering it needs a profession you don't have."] = "Комбинировать покупает: для сбора нужна профессия, которой у вас нет."
-L["Mix buys this: its mobs are above your level."] = "Комбинировать покупает: противники выше вашего уровня."
-L["Mix buys this: you're past its levels."] = "Комбинировать покупает: вы уже выше их уровней."
-L["Mix buys: farming \226\137\136 %s"] = "Комбинировать покупает: добыча \226\137\136 %s"
-L["Mix farms this."] = "Комбинировать добывает."
-L["Mix farms this: about %s here."] = "Комбинировать добывает: здесь около %s."
-L["Mix farms this: about %s here. Buying costs about %s."] = "Комбинировать добывает: здесь около %s. Купить стоит около %s."
 L["More reputation"] = "Еще репутация"
 L["Next turn-in: %d more %s"] = "Следующая сдача: еще %d: %s"
-L["No farm spot in this guide"] = "В этом руководстве нет места добычи"
-L["No price yet"] = "Цены еще нет"
-L["Not for Self-Found characters"] = "Не для самодостаточных персонажей"
 L["Open list"] = "Открыть список"
-L["Orange"] = "Оранжевый"
-L["Orange: every craft is a point. Yellow from %d, green from %d, grey at %d."] = "Оранжевый: каждое изделие дает очко. Желтый с %d, зеленый с %d, серый на %d."
 L["Repeatable"] = "Повторяемое"
-L["Route cloth still counts."] = "Ткань с маршрута тоже считается."
-L["Search it once at the Auction House to see the cost."] = "Найдите его один раз на аукционе, чтобы увидеть цену."
-L["Self-Found: you farm all of it."] = "Самодостаточность: вы добываете все."
-L["Show Buy and Farm"] = "Показать покупку и добычу"
-L["The arrow takes you to the best farm for your level."] = "Стрелка ведет к лучшему месту добычи для вашего уровня."
-L["Time not known yet"] = "Время пока неизвестно"
-L["Train %s now"] = "Изучите %s сейчас"
 L["Turn in %d now"] = "Сдать %d сейчас"
-L["Yellow"] = "Желтый"
-L["You can make %d now"] = "Сейчас можно изготовить %d"
-L["You can make all %d now"] = "Сейчас можно изготовить все %d"
-L["Your pick: buy."] = "Ваш выбор: купить."
-L["Your pick: buy. About %s."] = "Ваш выбор: купить. Около %s."
-L["Your pick: farm."] = "Ваш выбор: добыть."
-L["Your pick: farm. About %s for %d."] = "Ваш выбор: добыть. Около %s на %d."
-L["bags %d"] = "сумки %d"
-L["bank %d"] = "банк %d"
-L["lvl %s"] = "ур. %s"
-L["mail %d"] = "почта %d"
-L["move on at %d"] = "дальше на %d"
-L["needs level %d"] = "нужен уровень %d"
-L["none yet"] = "пока нет"
 L["once"] = "один раз"
-L["only %d listed"] = "выставлено только %d"
 L["repeats"] = "повторяется"
-L["seen %d days ago"] = "видели %d дн. назад"
-L["seen %d h ago"] = "видели %d ч назад"
-L["seen %d min ago"] = "видели %d мин назад"
 L["%d more"] = "ещё %d"
-L["About %s for %d at your level."] = "Около %s на %d на вашем уровне."
-L["%d %s already made"] = "%d %s уже изготовлено"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Заново настроить Polestar, страница за страницей. Каждый выбор действует сразу."

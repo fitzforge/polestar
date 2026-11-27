@@ -1,14 +1,17 @@
 ---
 section: players
 ---
-- Profession guides show your skill with the stretch to the next recipe, the
-  trainer's next rank, the recipe you level now (its colour, how many you have
-  made and how many your bags make now, with an Open button for the
-  profession) and the materials still needed to move on, counted from your
-  bags, bank, mail and the bolts you already made. Each material says whether
-  to buy or farm it: the cost from your own searches, the farm time and spot,
-  one line saying why, Add to buy list and Guide me. Mix now buys a material
-  whose farm would take over 45 minutes.
+- Profession guides read as simple steps, the way leveling guides do: your
+  skill on one slim line, then the step in front of you. Learning a rank or
+  a recipe, buying a tool and going to a station are ordinary steps with the
+  arrow on the trainer, vendor or station. A "Get 200 Rough Stone" step shows
+  its count once and the ways to get it, each a choice with one button: mine
+  or farm it (Guide me leads the arrow to the spot, with about how long the
+  rest takes) or buy it at the Auction House (Buy list, with what is left and
+  its price from your last search). A craft step reads "Craft Rough
+  Sharpening Stone until 35" with the game's own skill-up arrow, about how
+  many crafts are left and an Open button for the profession. A folded
+  shopping list under the step holds the bracket's materials, what you hold
+  of each, and Buy the whole list. A step's tip is one short line.
 - Reputation guides show your standing, the turn-in with what your bags hand
-  in now, its items with the same buy or farm choice, and the guide's other
-  quests for the faction.
+  in now, the step's own rows and the guide's other quests for the faction.

@@ -180,10 +180,12 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		local tip, below = card.Tip, goals
 		if tip:IsShown() then
+			-- A profession guide's tip stays one line (its tooltip holds the rest: UI/GuideFrame.lua).
+			local open = tipOpen and not tip.psLine
 			tip.Text:SetWidth(cw - 18)
-			tip.Text:SetWordWrap(tipOpen)
-			tip.psOpen = tipOpen
-			local th = tipOpen and tip.Text:GetStringHeight() or min(tip.Text:GetStringHeight(), tip.Text:GetLineHeight())
+			tip.Text:SetWordWrap(open)
+			tip.psOpen = open
+			local th = open and tip.Text:GetStringHeight() or min(tip.Text:GetStringHeight(), tip.Text:GetLineHeight())
 			-- Its room above and below the text, and its gap under the goals
 			-- (GF.Space "tipPad", "tipGap").
 			local pad, gap = GF.Space("tipPad", 6), GF.Space("tipGap", 2)
@@ -193,7 +195,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			local h = floor(pad + th + pad + 0.5)
 			-- The step's picture, under the opened tip: as wide as the text
 			-- column, its aspect kept, no taller than PICTURE_MAX_H.
-			local pic = tipOpen and tip.psImage or nil
+			local pic = open and tip.psImage or nil
 			if pic then
 				local aspect = (pic.w and pic.h) and pic.w / pic.h or PICTURE_ASPECT
 				local iw = max(1, width - TEXT_X - PAD)

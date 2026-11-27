@@ -890,15 +890,14 @@ own colours otherwise.
 
 ### The guide kinds' colours (skins only)
 
-A profession guide's recipe colour and money in its materials' Buy column
+A profession guide's recipe colour, the client's skill-up arrow where it has none
 (capability `guideParts.kind`). A skin may give its own; without them each is
 the game's colour held to the subject colours' 4.5:1 on the lightest place a
 name sits, so a light skin's come out darker.
 
 | Token | Where | Default |
 |---|---|---|
-| `craftOrange`, `craftYellow`, `craftGreen`, `craftGrey` | the recipe's skill-up colour chip and word (every craft a point; most; some; none) | the game's `#ff8040`, `#ffe14d`, `#40bf40`, `#a0a0a0`, lifted |
-| `coin` | a material's cost in the Buy column | the `quest` gold, lifted |
+| `craftOrange`, `craftYellow`, `craftGreen`, `craftGrey` | the recipe's skill-up arrow where the client has none (every craft a point; most; some; none) | the game's `#ff8040`, `#ffe14d`, `#40bf40`, `#a0a0a0`, lifted |
 
 ### The game looks' own (skins only)
 
@@ -1190,28 +1189,22 @@ built.
 A guide kind's regions (a profession, reputation or dungeon guide; capability
 `guideParts.kind`) are parts too, under their ids, from their first showing on:
 `meter` (the skill or standing: `Name`, `Value`, `Max`, `Line`, its bar `Bar`
-with `Track`, `Seg` (what is still to go, lit), `Fill` and `Ticks`), `trainer`
-(one line), `stretch` (the recipe levelled now, on its card `Card`), `supplies`
-(the materials: `Head`, the way's segments `Modes`, the rows `Rows`, pooled,
-and the split's well `Well` with its `Buy` and `Farm` columns), `buyList`,
-`turnin` (a reputation guide's turn-in, on its card `Card`), `more` (the
-guide's other quests for the faction: `Rows`), and the dungeon kind's
-`brief`, `ready`, `pickups`, `entrance` and `tracker`. They are painted by
-the painter kinds a look already has: the cards as `button`, the split's well
-as `inset`, the segments as `tab`; a look that does nothing for them draws
-them its own way.
+with `Track`, `Seg` (what is still to go, lit) and `Fill`), `stretch` (a
+profession's craft step: one goal row `Row`), `get` (a get step: the item's
+goal rows `Items` and its ways' rows `Ways`, pooled), `shopping` (the folded
+shopping list: its row `Head`, the materials `Rows`, pooled, and the `Buy`
+button), `turnin` (a reputation guide's turn-in, on its card `Card`), `more`
+(the guide's other quests for the faction: `Rows`), and the dungeon kind's
+`brief`, `ready`, `pickups`, `entrance` and `tracker`. The goal rows are the
+goals area's own (they go to `guideRow` too); the cards are painted as
+`button`; a look that does nothing for them draws them its own way.
 
-The regions add names to three hooks of the table below. `guidePlace` is
-also asked for `"meter"`, `"trainer"`, `"stretch"`, `"supplies"`,
-`"buyList"`, `"turnin"`, `"more"` and the dungeon kind's `"brief"`,
-`"ready"`, `"pickups"` and `"entrance"` (Atlas takes the materials with the
-buy list, the turn-in and a trainer rank that is due into its cards above
-the window). `guideShows` is asked for `"split"` (the Buy and Farm columns
-under the material in focus; `default` false in compact mode, true
-otherwise) and `"trainer"` (the trainer line before its rank is due;
-`default` false in compact mode). `guideSpace` is asked for `"supplyRow"` (a
-material's row, 46), `"splitGap"` (the room under the split, 8) and
-`"bossRow"` (a boss's row in the dungeon tracker, 20).
+The regions add names to two hooks of the table below. `guidePlace` is
+also asked for `"meter"`, `"stretch"`, `"get"`, `"shopping"`, `"turnin"`,
+`"more"` and the dungeon kind's `"brief"`, `"ready"`, `"pickups"` and
+`"entrance"` (Atlas takes the turn-in into its cards above the window).
+`guideSpace` is asked for `"bossRow"` (a boss's row in the dungeon tracker,
+20).
 
 `Theme.GuideReach(window)` (capability `guideReach`) answers how far that
 window's own parts stand past its top and bottom edges, in its units: the On
@@ -1234,7 +1227,7 @@ your pieces in that window's store, as Aurora does: a hook that reaches for
 | `guideTitle` | `function(nav, parts)` | after the guide window's style is applied (a skin, theme or window style change), not in the transparent window; the Looks page's preview calls it too, with its own parts | `nav`: the navigator frame (the row with the step count and the menu). `parts`, each in the base's state when the hook runs: `bar` (the title bar texture, a `sky` to `skyBottom` gradient, shown on Hearth), `close` (a close square in `closeFill`, `closeEdge` and `closeGlyph` that hides the window, hidden), `rule` (the line under the navigator), `band` (the house band behind the bars, shown on the Polestar base), `menuRight` (the menu button's inset from the right edge, `8`). Show or hide parts and set `parts.menuRight`: `26` leaves room for the close square. With the bar shown, the rule takes `titleLine`. |
 | `guideRow` | `function(row, goal, info)` | after Polestar painted a goal row, at every render and repaint, for each row shown | `row`: the row. Rows are pooled: the same row shows other goals later, so set every piece you use each time. `goal`: the goal it shows (fields below). `info`: `current` (the goal the arrow is on), `done`, `skipped` (booleans; the same table each time). |
 | `guideKindRow` | `function(row, item, info)` | after Polestar painted a row of a guide kind's region, at every render | `row`: the row (pooled: set every piece you use each time). `item`: the item or quest it shows. `info`: `kind` (`"supply"` a material, `"more"` another quest for the faction, `"pickup"`, `"ready"`, `"boss"`, `"objective"` the dungeon kind's), `done`, `current` (the row the step works on), `way` (a material's: `"buy"`, `"gather"`, `"vendor"` or `"make"`). |
-| `guideMeter` | `function(meter, info)` | after Polestar painted a guide kind's meter, at every render | `meter`: the meter part. `info`: `kind` (`"skill"` or `"rep"`), `frac` (the value's share, 0-1), `seg` (`{ a, b }`: the stretch still to go, lit from `a` to `b`), `ticks` (`{ { at, what } }`: `"moveOn"` the next recipe, `"train"` the trainer's next rank), `bar` (the bar). |
+| `guideMeter` | `function(meter, info)` | after Polestar painted a guide kind's meter, at every render | `meter`: the meter part. `info`: `kind` (`"skill"` or `"rep"`), `frac` (the value's share, 0-1), `seg` (`{ a, b }`: a reputation turn-in's gain, lit from `a` to `b`; nil for a skill), `bar` (the bar). |
 | `guideLayout` | `function(parts, width, y)` -> height | at every layout of the window (a step, a size or a setting changed), after Polestar placed its parts | `parts`: the window's, as `GuideParts()` gives the live window's. `width`: the window's width. `y`: how far down the body Polestar's parts reach. Place your own frames from `y` down and answer the height they take (a number; nothing or 0 for none): the window grows by it. |
 | `guideRender` | `function(view, parts)` | after every render of the window | `view`: the step on screen (`index`, `title`, `note`, `status`, `goals`: the goals below), or nil when the window shows no step (no guide open, a guide finished). `parts`: the window's, as for `guideLayout`. |
 | `guideProgress` | `function(foot, frac)` | after the progress is painted (every render) | `foot`: the progress part (its bar is `GuideParts().line`). `frac`: how much of the guide is done, 0-1. |
@@ -1526,7 +1519,7 @@ version 1, the API's preview before it.
 | `preset` | `preset`, and the functions that apply and undo it |
 | `guideParts` (**2**) | `Theme.GuideParts()` |
 | `guideReach` (**2**) | `Theme.GuideReach(window)` |
-| `guideParts.kind` (**2**) | the guide kinds' regions: their parts in `Theme.GuideParts()`, the hooks `guideKindRow` and `guideMeter`, their `guidePlace`, `guideShows` and `guideSpace` names, the tokens `craftOrange`, `craftYellow`, `craftGreen`, `craftGrey` and `coin` |
+| `guideParts.kind` (**2**) | the guide kinds' regions: their parts in `Theme.GuideParts()`, the hooks `guideKindRow` and `guideMeter`, their `guidePlace` and `guideSpace` names, the tokens `craftOrange`, `craftYellow`, `craftGreen` and `craftGrey` |
 | `variants` (**2**) | `variants`, `defaultVariant`, `SkinVariants`, `SkinVariant`, the variant cards |
 | `resolve` (**2**) | `resolve` |
 | `shadow` (**2**), `artTint` (**2**) | those skin fields |
