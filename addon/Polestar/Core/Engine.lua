@@ -11400,7 +11400,7 @@ local function evaluate()
 				evaluateLoaded(false)
 			end
 		end
-	else
+	elseif #tabs > 1 then
 		Own.backgroundTabsDirty = true
 	end
 	useActive()
