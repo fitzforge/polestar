@@ -226,7 +226,7 @@ test('a fork: path A and path B steps carry their when, and each path reaches 30
 	for (const [name, key] of [
 		['blacksmithing', 16656],
 		['tailoring', 18449],
-		['mining-blacksmithing', 16971],
+		['mining-blacksmithing', 16656],
 	]) {
 		const all = steps(read(name));
 		const at = all.findIndex((s) => s.lines.includes(`learn ${key} optional`));
