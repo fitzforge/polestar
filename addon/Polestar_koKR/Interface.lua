@@ -638,7 +638,7 @@
 --   Shopping list
 --   Skin it
 --   about %d an hour
---   ~%d min for the rest
+--   about %d min for the rest
 --   %s reached
 --   %s to %s
 --   %s to %s  \194\183  about %d turn-ins
@@ -5978,7 +5978,7 @@ L["Requires Level %d-%d"] = "요구 레벨 %d-%d"
 L["Shopping list"] = "쇼핑 목록"
 L["Skin it"] = "무두질로 얻기"
 L["about %d an hour"] = "시간당 약 %d"
-L["~%d min for the rest"] = "나머지 ~%d분"
+L["about %d min for the rest"] = "나머지 약 %d분"
 L["%s reached"] = "%s 달성"
 L["%s to %s"] = "%s → %s"
 L["%s to %s  \194\183  about %d turn-ins"] = "%s → %s  \194\183  약 %d회 납품"

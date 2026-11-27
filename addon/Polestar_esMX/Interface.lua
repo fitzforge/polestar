@@ -527,7 +527,7 @@
 --   Shopping list
 --   Skin it
 --   about %d an hour
---   ~%d min for the rest
+--   about %d min for the rest
 --   %s reached
 --   %s to %s
 --   %s to %s  \194\183  about %d turn-ins
@@ -5867,7 +5867,7 @@ L["Requires Level %d-%d"] = "Requiere nivel %d-%d"
 L["Shopping list"] = "Lista de compras"
 L["Skin it"] = "Despéllalo"
 L["about %d an hour"] = "unos %d por hora"
-L["~%d min for the rest"] = "~%d min para el resto"
+L["about %d min for the rest"] = "unos %d min para el resto"
 L["%s reached"] = "%s alcanzado"
 L["%s to %s"] = "%s hasta %s"
 L["%s to %s  \194\183  about %d turn-ins"] = "%s hasta %s  \194\183  unas %d entregas"

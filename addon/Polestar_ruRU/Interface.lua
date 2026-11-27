@@ -621,7 +621,7 @@
 --   Shopping list
 --   Skin it
 --   about %d an hour
---   ~%d min for the rest
+--   about %d min for the rest
 --   %s reached
 --   %s to %s
 --   %s to %s  \194\183  about %d turn-ins
@@ -5961,7 +5961,7 @@ L["Requires Level %d-%d"] = "Требуется уровень %d-%d"
 L["Shopping list"] = "Список покупок"
 L["Skin it"] = "Снять шкуру"
 L["about %d an hour"] = "около %d в час"
-L["~%d min for the rest"] = "~%d мин на остальное"
+L["about %d min for the rest"] = "около %d мин на остальное"
 L["%s reached"] = "%s достигнуто"
 L["%s to %s"] = "%s до: %s"
 L["%s to %s  \194\183  about %d turn-ins"] = "%s до: %s  \194\183  примерно %d сдач"

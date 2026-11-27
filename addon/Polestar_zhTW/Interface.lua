@@ -638,7 +638,7 @@
 --   Shopping list
 --   Skin it
 --   about %d an hour
---   ~%d min for the rest
+--   about %d min for the rest
 --   %s reached
 --   %s to %s
 --   %s to %s  \194\183  about %d turn-ins
@@ -5978,7 +5978,7 @@ L["Requires Level %d-%d"] = "需要等級 %d-%d"
 L["Shopping list"] = "採購清單"
 L["Skin it"] = "剝皮獲得"
 L["about %d an hour"] = "每小時約 %d"
-L["~%d min for the rest"] = "剩餘約 %d 分鐘"
+L["about %d min for the rest"] = "剩餘約 %d 分鐘"
 L["%s reached"] = "已達到%s"
 L["%s to %s"] = "%s 至%s"
 L["%s to %s  \194\183  about %d turn-ins"] = "%s 至%s  \194\183  約 %d 次上繳"
