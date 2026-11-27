@@ -1547,6 +1547,69 @@ emit(out)`,
 	assert.equal(out.here.subAfter, 0, 'and still unseen when Polestar shows it again');
 });
 
+// Atlas sets the header's row out itself, from Polestar's list of buttons
+// (nav.psButtons): Lookup starts in the menu (its spec.defaults), a menu
+// action the player puts in the header joins the row with no gap, Skip left
+// of the last, and leaving gives Polestar's own row back with Lookup as the
+// player has it.
+test('under Atlas the header actions the player picks line up, Lookup in the menu by default', () => {
+	const [out] = runAddon({
+		stubs: ['stub_world.lua'],
+		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
+		script: `${GUIDE}
+local T, GF = Polestar.Theme, Polestar.UI.GuideFrame
+local function draw()
+	GF.Layout()
+	GF.Render()
+	stub.advance(1)
+end
+Polestar.Set("ui.shown", true)
+Polestar.Set("ui.skin", "atlas")
+T.SetLayout("atlas")
+draw()
+local nav = T.GuideParts().nav
+local names = { [nav.Menu] = "Menu" }
+for _, b in ipairs(nav.psButtons) do
+	for k, v in pairs(nav) do if v == b then names[b] = k end end
+end
+local function row()
+	local shown, leftOf = {}, {}
+	for _, b in ipairs(nav.psButtons) do
+		if b:IsShown() then
+			shown[#shown + 1] = names[b]
+			local _, rel = b:GetPoint(1)
+			leftOf[names[b]] = names[rel] or "?"
+		end
+	end
+	local _, rel = nav.Skip:GetPoint(1)
+	leftOf.Skip = names[rel] or "?"
+	return { shown = shown, leftOf = leftOf }
+end
+local out = { start = row() }
+Polestar.Set("guideWindow.settingsButton", true)
+Polestar.Set("guideWindow.chooseGuideButton", true)
+draw()
+out.picked = row()
+Polestar.Set("guideWindow.lookupButton", true)
+T.SetLayout()
+Polestar.Set("ui.skin", "polestar")
+draw()
+out.back = row()
+emit(out)`,
+	}).emitted;
+	assert.ok(!out.start.shown.includes('Lookup'), `Lookup starts in the menu under Atlas: ${out.start.shown}`);
+	for (const k of ['Settings', 'ChooseGuide']) assert.ok(out.picked.shown.includes(k), `${k} in the row: ${out.picked.shown}`);
+	for (const r of [out.picked, out.back]) {
+		let prev = 'Menu';
+		for (const k of r.shown) {
+			assert.equal(r.leftOf[k], prev, `${k} sits left of ${prev} (${r.shown})`);
+			prev = k;
+		}
+		assert.equal(r.leftOf.Skip, prev, 'Skip left of the last button');
+	}
+	assert.ok(out.back.shown.includes('Lookup'), `Lookup back in the header as the player has it: ${out.back.shown}`);
+});
+
 // Every button of the header bar takes the skin's plate alike: Hearth's plank
 // on all of them (Skip and All steps with Menu, Lookup, Report, Nearby), none
 // of them in another skin.
@@ -1558,12 +1621,12 @@ Polestar.UI.GuideFrame.Layout()
 stub.advance(1)
 local nav = Polestar.Theme.GuideParts().nav
 local out = {}
-for _, key in ipairs({ "Menu", "Lookup", "Report", "Nearby", "AllSteps", "Skip" }) do
+for _, key in ipairs({ "Menu", "Lookup", "Report", "Nearby", "AllSteps", "Settings", "QuickSettings", "HandIn", "ChooseGuide", "Skip" }) do
 	local f = rawget(nav[key], "psFrame")
 	out[key] = f ~= nil and f:IsShown() and true or false
 end
 emit(out)`;
-	const keys = ['Menu', 'Lookup', 'Report', 'Nearby', 'AllSteps', 'Skip'];
+	const keys = ['Menu', 'Lookup', 'Report', 'Nearby', 'AllSteps', 'Settings', 'QuickSettings', 'HandIn', 'ChooseGuide', 'Skip'];
 	for (const [skin, want] of [['hearth', true], ['polestar', false]]) {
 		const [out] = runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar'], script: script(skin) }).emitted;
 		for (const k of keys) assert.equal(out[k], want, `${skin}: ${k}`);
