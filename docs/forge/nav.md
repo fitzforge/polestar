@@ -694,7 +694,10 @@ import: one command, `tools/nav/repack.sh`, with `--check` to repack and check t
   out comes back as a one-way arc down, so walks still go down the face, never up it. The cut clusters' entrance
   edges are priced again where the cut changed their walk (dearer by the way round, gone with no way left); the
   others keep their costs. PACK.json's `cuts` counts them. Add a cut only where players' recordings or a report show
-  the face can't be climbed (Ghost Walker Post's east face, #2316).
+  the face can't be climbed (Ghost Walker Post's east face, #2316). A cut marked `"wall": true` closes its line both
+  ways: every move across it inside the band goes, level ones too, and none comes back as an arc, so no walk passes
+  it and the ground on each side is still walked to it. Walls keep walks out of a passage no player on their own
+  should take (the Terrorweb Tunnel between the Plaguelands, #4239).
 - Ground no player reaches is left out of his maps (`pack/reach.rs`, Shortest Path Forever v1.33's rule,
   ported): a walk is followed from every fixed place (flight masters and inns by their NPC's spawn in
   `data/forever/spawnz.json`, boat, zeppelin, tram and lift landings and portal ends from `travel.json`, the travel

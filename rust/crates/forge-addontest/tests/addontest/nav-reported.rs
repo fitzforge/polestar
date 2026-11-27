@@ -1050,3 +1050,52 @@ fn felwood_the_walk_into_shadow_hold_goes_in_by_its_mouth() {
 	let hall = Pt { c: 1, x: 4793.8, y: -558.9, z: Some(299.1) };
 	joined_both_ways(outside, hall, Some("Horde"), "Shadow Hold");
 }
+
+// #4238 (Darius), Hillsbrad Foothills: the Azurelode Mine step's point lay over the tunnel (28.5, 55.0), and the
+// arrow left him on the hill above the Hillsbrad Miners. The step's point is the mine's south-west mouth now (27.6,
+// 59.6, where players' recorded walks to the miners go in): the walk from Tarren Mill ends there, and the walk on to
+// the miners (31.8, 52.5, height 9.6) goes in along the tunnel, under the hill (36 over them).
+#[test]
+fn hillsbrad_the_walk_from_tarren_mill_ends_at_the_azurelode_mines_mouth_and_goes_on_along_the_tunnel_4238() {
+	forge_addontest::needs!("map-frames.json");
+	let tarren = world(1424, 61.5, 19.5);
+	let mouth = world(1424, 27.6, 59.6);
+	let miners = Pt { z: Some(9.6), ..world(1424, 31.8, 52.5) };
+	let pts = points(&walk(tarren, mouth, Some("Horde")));
+	let last = pts[pts.len() - 1];
+	assert!((last.0 - mouth.x).hypot(last.1 - mouth.y) < 10.0, "the walk from Tarren Mill ends at the mouth");
+	let pts = points(&walk(mouth, miners, Some("Horde")));
+	let last = pts[pts.len() - 1];
+	assert!((last.0 - miners.x).hypot(last.1 - miners.y) < 10.0, "the walk from the mouth reaches the miners");
+	for p in &pts {
+		let z = p.2.unwrap_or(f64::NAN);
+		assert!(z < 25.0, "the walk in stays in the tunnel, never on the hill: {:.1},{:.1} at {z:.1}", p.0, p.1);
+	}
+}
+
+// #4239 (JoffeLaiNeN), the Plaguelands: walks into Eastern Plaguelands took the Terrorweb Tunnel, the shortest way, and
+// he died in it at 56 (its Crypt Fiends, Walkers, Horrors and Slayers are 53 to 59, the Nerubian Overseer a 60 elite).
+// A wall across the tunnel's narrowest point (7.9 to 9.4, 27.35 on Eastern Plaguelands' live map) closes it: walks
+// between the Plaguelands keep to the road, both ways, and each half is still walked into from its own mouth.
+#[test]
+fn the_plaguelands_walks_keep_out_of_the_terrorweb_tunnel_4239() {
+	let neck = Pt { c: 0, x: 2909.1, y: -2630.5, z: None }; // 8.7, 27.3: the tunnel's narrowest point
+	let chillwind = Pt { c: 0, x: 947.2, y: -1428.0, z: None }; // Western Plaguelands 42.9, 84.4
+	let hearthglen = Pt { c: 0, x: 2793.3, y: -1518.3, z: None }; // Western Plaguelands 45, 20
+	let plaguewood = Pt { c: 0, x: 3118.3, y: -3546.9, z: None }; // Eastern Plaguelands 30, 20 (live)
+	let terrordale = Pt { c: 0, x: 2831.7, y: -2901.6, z: None }; // Eastern Plaguelands 15, 30 (live)
+	for (from, to, profile) in [(chillwind, plaguewood, "Alliance"), (hearthglen, terrordale, "Alliance"), (terrordale, chillwind, "Horde")] {
+		let got = walk(from, to, Some(profile));
+		assert!(truthy(&got), "the engine finds a walk from {:.0},{:.0} to {:.0},{:.0}", from.x, from.y, to.x, to.y);
+		let pts = points(&got);
+		let last = pts[pts.len() - 1];
+		assert!((last.0 - to.x).hypot(last.1 - to.y) < 10.0, "to {:.0},{:.0}", to.x, to.y);
+		let off = off_path(&pts, neck);
+		assert!(off > 100.0, "the walk from {:.0},{:.0} to {:.0},{:.0} passes {off:.0} yd from the tunnel", from.x, from.y, to.x, to.y);
+	}
+	let outside = Pt { c: 0, x: 2628.1, y: -2458.5, z: None }; // 4.7, 37.1: below the west mouth
+	let west = Pt { c: 0, x: 2877.5, y: -2587.5, z: Some(89.0) }; // 7.7, 28.4: inside, on the Western Plaguelands side
+	let east = Pt { c: 0, x: 2940.6, y: -2699.4, z: Some(96.0) }; // 10.3, 26.2: inside, on the Terrordale side
+	joined_both_ways(outside, west, Some("Alliance"), "the tunnel's west half");
+	joined_both_ways(terrordale, east, Some("Alliance"), "the tunnel's east half");
+}
