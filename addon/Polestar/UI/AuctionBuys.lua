@@ -269,7 +269,7 @@ local F
 
 local function build()
 	F = CreateFrame("Frame", "PolestarAuctionBuys", ns.UIParent)
-	F:SetFrameStrata("DIALOG")
+	F:SetFrameStrata("LOW")
 	F:SetToplevel(true)
 	F:SetClampedToScreen(true)
 	F:EnableMouse(true)
