@@ -16288,7 +16288,7 @@ test(`${NE_DARKSHORE}: no bind before Westfall's Sentinel Hill; Teldrassil's Dol
 });
 
 // Alliance 1-12 audit (0.4.0, #2025): Night Elves took Marshal Dughan's Further Concerns (35) at the end of their
-// Darkshore guide, but nothing on their route works Guard Thomas' chain (Westfall's east-Elwynn loop is the Dwarves'
+// Darkshore guide, but nothing in the Night Elf route works Guard Thomas' chain (Westfall's east-Elwynn loop is the Dwarves'
 // and Gnomes'); in players' recordings 12 Night Elves took it and 1 handed it in. A Fishy Peril (40) stays: Remy and
 // Dughan stand side by side.
 test(`${NE_DARKSHORE}: Night Elves no longer take Further Concerns; A Fishy Peril stays`, { skip }, () => {
