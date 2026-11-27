@@ -3046,16 +3046,38 @@ end
 
 -- In such a guide, a quest the character can never take (the quest
 -- database's race, class or faction: the Human class letters for a Night Elf
--- Warrior in Elwynn, Tauren-only Mulgore quests for a Troll) is not theirs,
--- like another class's goals. Without the quest database those goals stay.
+-- Warrior in Elwynn, Tauren-only Mulgore quests for a Troll, the Night Elf
+-- druids' Body and Heart for a Skyborne druid) is not theirs, like another
+-- class's goals. So is what only serves such quests: the flight, the walk and
+-- the item use of a step whose quests are all barred (the Moonkin Stone step
+-- sends a Skyborne druid to Auberdine to use Cenarion Moondust for a quest
+-- they cannot take). A step with a quest the character can take keeps its
+-- travel, and a goal that stands alone (a trainer, a flight path, a vendor)
+-- stays. Without the quest database those goals stay.
 Own.questCtx = {}
-function Own.barred(goal)
-	local q = goal.quest
-	if not (q and guide and Own.otherStart(guide)) then return false end
+Own.SERVES = { goto = true, fly = true, use = true, enter = true, hearth = true, die = true, kill = true, collect = true, interact = true, talk = true, level = true, cast = true }
+function Own.cannotTake(q)
 	local Q = ns.QuestDB
 	local r = Q and Q.IsLoaded() and Q.QuestRecord(q)
 	if not r then return false end
 	return not Q.IsEligible(r, Q.PlayerContext(player, Own.questCtx))
+end
+function Own.barred(goal)
+	if not (guide and Own.otherStart(guide)) then return false end
+	local q = goal.quest
+	if q then return Own.cannotTake(q) end
+	if not Own.SERVES[goal.t] then return false end
+	local s = layoutOf(guide).stepOf[goal]
+	local step = s and guide.steps[s]
+	if not step then return false end
+	local barred = false
+	for _, g in ipairs(step.goals) do
+		if g.quest and Guides.Matches(g.only, player) then
+			if not Own.cannotTake(g.quest) then return false end
+			barred = true
+		end
+	end
+	return barred
 end
 
 function Own.findGate(g, level)
