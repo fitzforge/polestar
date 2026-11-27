@@ -149,7 +149,7 @@
 --   %s. Optional: the route doesn't need it.
 --   Kept for %s
 --   Hand in %s to %s, who walks around here: look inside the circle on the map
---   A quest you carry that the route does not work here: its work is nearby.
+--   A quest in your log with an objective nearby that the route doesn't do here.
 --   %s at %s
 --   Only visible while dead: die nearby and talk to them as a ghost.
 --   Under water nearby: swim down to it
@@ -805,7 +805,7 @@ L["%s; 1 in %d runs fails"] = "%s；每 %d 次有 1 次失敗"
 L["%s. Optional: the route doesn't need it."] = "%s。可選：路線不需要它。"
 L["Kept for %s"] = "保留給 %s"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "把 %s 繳交給 %s，此人在附近走動：在地圖上的圓圈裡找"
-L["A quest you carry that the route does not work here: its work is nearby."] = "你身上的一個任務，路線不在這裡做：它的目標就在附近。"
+L["A quest in your log with an objective nearby that the route doesn't do here."] = "你身上的一個任務，路線不在這裡做：它的目標就在附近。"
 L["%s at %s"] = "%2$s 處的 %1$s"
 L["Buy a rune at %s"] = "在%s處購買符文"
 L["Buy a rune and cast %s to save about %s"] = "購買符文並施放%s，約可節省%s"
@@ -940,7 +940,6 @@ L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the 
 L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."] = "Polestar 已暫停：當你活著離開地城，或輸入 /polestar resume 後，箭頭會重新跟隨指南。"
 
 -- Nav/Arrow.lua
-L["The last steps here aren't mapped"] = "這裡最後幾步沒有地圖"
 L["Search here"] = "在此搜尋"
 L["Arrived"] = "已抵達"
 L["Click the arrow for the next spot"] = "點擊箭頭前往下一處"
@@ -5748,6 +5747,13 @@ L["Kept for %s: the route hands it in there."] = "保留給 %s：路線會在那
 L["No quests in your log are ready to hand in."] = "任務日誌中沒有可繳交的任務。"
 L["Wait until combat ends to load the quest data."] = "請等戰鬥結束後再載入任務資料。"
 L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "繳交任務指南無法載入。請檢查插件 Polestar_FreeMode 是否已安裝並啟用。"
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["None of these has a known place to hand it in."] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
 
 -- Lookup/Free.lua
 L["Free mode starts after combat."] = "自由模式將在戰鬥結束後啟動。"
@@ -5759,6 +5765,33 @@ L["Free mode: follow your own quests (on, off, nearest, xp)"] = "自由模式：
 -- UI/QuestLinks.lua
 L["Start quest guide"] = "開始任務指南"
 L["Click to show quest guide actions."] = "點擊顯示任務指南操作。"
+
+-- Free.lua
+-- L["Low drop rate: %s"] = ""
+-- L["1 quest for your level: %s gives it."] = ""
+-- L["%d quests for your level, all here."] = ""
+-- L["%d quests for your level, %d of them here."] = ""
+-- L["Quests for your level"] = ""
+-- L["About %s XP a minute"] = ""
+-- L["Order: nearest first"] = ""
+-- L["Order: most XP a minute first"] = ""
+-- L["Bring back left-out quests (%d)"] = ""
+-- L["Unpin"] = ""
+-- L["Pin to the top"] = ""
+-- L["Free mode takes this quest first, whatever the order."] = ""
+-- L["Leave out of Free mode"] = ""
+-- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = ""
+
+-- Layouts/Atlas/Atlas.lua
+-- L["Get ahead, if possible"] = ""
+-- L["Still open from steps you have passed"] = ""
+-- L["1 quest off-guide"] = ""
+-- L["%d quests off-guide"] = ""
+-- L["View"] = ""
+-- L["Training due"] = ""
+-- L["New spells at your class trainer"] = ""
+-- L["Optional objectives during this step"] = ""
+-- L["Class quest"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐頁重新設定 Polestar。每項選擇立即生效。"
@@ -6029,6 +6062,7 @@ L["Click to show quest guide actions."] = "點擊顯示任務指南操作。"
 -- L["%s: on this step"] = "%s：在此步驟"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "把你自己的任務當作指南，在單獨的分頁中：箭頭指向最近的任務，然後是下一個（/polestar free）。"
 -- L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "在戰鬥外點擊任務目標列或 NPC 標題時，也會選取該 NPC，並使用與目標按鈕相同的標記設定。這會取代你目前的目標；搜尋失敗時會清除目標。"
+-- L["The last steps here aren't mapped"] = "這裡最後幾步沒有地圖"
 -- L["None of these has a known place to hand it in."] = "這些任務都沒有已知的繳交地點。"
 -- L["Travel time to this hand-in is unknown. Its location is still shown."] = "前往此繳交處的路程時間未知。仍會顯示它的位置。"
 -- L["Hand-ins without a known location"] = "位置未知的繳交任務"

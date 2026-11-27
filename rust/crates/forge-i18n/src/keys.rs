@@ -54,7 +54,8 @@ impl Keys {
 	}
 }
 
-/// Keys in one Lua source: (key, line) for L["text"] and LC("ctx", "text").
+/// Keys in one Lua source: (key, line) for L["text"], LC("ctx", "text") and tr("text") / Core.tr("text") (the
+/// skins' layouts look Polestar's texts up through Core.tr, Polestar_Skins/Layouts/Atlas/Atlas.lua).
 pub fn keys_in_source(src: &str, file: &str) -> Result<Vec<(String, usize)>, String> {
 	let t = tokenize(src, file)?;
 	let at = |i: usize| t.get(i);
@@ -65,7 +66,8 @@ pub fn keys_in_source(src: &str, file: &str) -> Result<Vec<(String, usize)>, Str
 		if t[i].0 != "name" {
 			continue;
 		}
-		if t[i].1 == "L" && is(i + 1, "[") && is(i + 3, "]") {
+		let lookup = (t[i].1 == "L" && is(i + 1, "[") && is(i + 3, "]")) || (t[i].1 == "tr" && is(i + 1, "(") && is(i + 3, ")"));
+		if lookup {
 			if let Some(s) = string(i + 2) {
 				out.push((s.1.clone(), s.2));
 			}
@@ -156,8 +158,9 @@ fn lua_files(dir: &Path, skip: &Path, out: &mut Vec<PathBuf>) -> Result<(), Stri
 /// Polestar_Options is Polestar's settings window, loaded on first open; Polestar_Arcade
 /// the games to play on a flight, loaded on the first Play (Freedoom Arcade has no strings of Polestar's; the other
 /// games use Polestar's). Polestar_FreeMode holds the quest-log modes, Free mode and the finished-quest guide's
-/// planner, loaded when one of them opens.
-pub const PARTS: &[(&str, &[&str])] = &[("Polestar", &["Polestar_Options", "Polestar_Arcade", "Polestar_FreeMode"])];
+/// planner, loaded when one of them opens. Polestar_Skins holds the looks and their layouts (Atlas), which show
+/// Polestar's texts through Core.tr.
+pub const PARTS: &[(&str, &[&str])] = &[("Polestar", &["Polestar_Options", "Polestar_Arcade", "Polestar_FreeMode", "Polestar_Skins"])];
 
 /// The keys of the .lua files under `dir` (its `Locales` folder skipped) into `keys`, each use under its
 /// path inside `dir`, in the order the folder loads them (TOC, XML manifests; a folder without a TOC, a

@@ -11,7 +11,7 @@ zone Eastern Plaguelands
 # Stratholme's undead side.
 # Stratholme (58-60) is in Forever.
 # Sources: Forever client 1.60.1.70338 via wago.tools (ItemSparse: level 60, Journeyman
-# Riding); items.json (drop chance, pfQuest) and objects.json (the Service
+# Riding); items.json (drop chance) and objects.json (the Service
 # Entrance at Elders' Square).
 # The Service Entrance is at 41.5,17.7 on Forever's Eastern Plaguelands map:
 # objects.json places it at 47.9,23.8 on the Era map, which Forever redrew
@@ -25,6 +25,6 @@ step Journeyman Riding
   skill Riding 150
 
 step Stratholme: Baron Rivendare
-  tip Stratholme is a group of five, level 58-60. The Service Entrance at Elders' Square, in north-western Eastern Plaguelands, leads to the undead side; Baron Rivendare waits in the Slaughter House at its end. Our data gives the reins a 0.02% drop chance (pfQuest, Era): one in about five thousand kills. Nothing shows Forever changing it.
+  tip Stratholme is a group of five, level 58-60. The Service Entrance at Elders' Square, in north-western Eastern Plaguelands, leads to the undead side; Baron Rivendare waits in the Slaughter House at its end. Our data gives the reins a 0.02% drop chance (Era): one in about five thousand kills. Nothing shows Forever changing it.
   goto 41.5,17.7 "Stratholme Service Entrance"
   collect 13335 @41.5,17.7            -- Baron Rivendare

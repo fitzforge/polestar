@@ -409,3 +409,17 @@ test('a suggestions post filed as a bug is followed and told as a bug, its first
 	await onIssue({ discord, github, forumId: FORUM, suggestionsForumId: SUGGESTIONS, log: quietLog, event: { action: 'closed', issue } });
 	assert.match(told(discord, id).content, /^<@op> This is fixed and will ship in the next Polestar update\. Thanks for the report!/);
 });
+
+test('the start-up index reads every issue the bot filed, past the first thousand, and warns at its bound', async () => {
+	const { github, discord } = setup();
+	for (let i = 1; i <= 1500; i++) {
+		await github.createIssue({ title: `t${i}`, body: `<!-- polestar-bot ${JSON.stringify({ thread: String(9000 + i), guild: 'g' })} -->`, labels: ['discord'] });
+	}
+	const lines = [];
+	const again = createSync({ discord, github, media: fakeMedia(), config: { forumId: FORUM, suggestionsForumId: SUGGESTIONS, botId: BOT, maintainerIds: ['fitz'] }, log: { info: (m) => lines.push(m), warn: (m) => lines.push(m), error() {} }, sleep: async () => {} });
+	await again.loadIndex();
+	assert.equal(await again.issueFor('9001'), 1, 'the oldest issue is indexed');
+	assert.equal(await again.issueFor('10500'), 1500);
+	assert.ok(lines.some((m) => m.includes('index: 1500 issues')), lines.join('|'));
+	assert.ok(!lines.some((m) => m.includes('stopped at')));
+});

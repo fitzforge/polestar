@@ -2826,7 +2826,7 @@ t.guides["forever/alliance/50-60/03-winterspring"] = (function() return {
 		["{npc:8737} in {area:541}, Un'Goro: keep it"] = "{npc:8737} en {area:541}, Un'Goro: guárdala",
 		["{npc:9116} stands inside, in the {area:2479}."] = "{npc:9116} está dentro, en {area:2479}.",
 		["{npc:9116}'s next task, Silver Heart, sends you to the Irontree Stompers in the north and back here: skip it."] = "La siguiente tarea de {npc:9116}, Corazón de plata, te manda a los vapuleadores Troncoferro del norte y de vuelta aquí: omítela.",
-		["{npc:9116}'s next task, {npc:222647}, ends with {npc:3848} at {area:2358}, south of the route once {zone:1448} is done: skip it."] = "La siguiente tarea de {npc:9116}, {npc:222647}, termina con {npc:3848} en {area:2358}, al sur de la ruta una vez terminada {zone:1448}: omítela.",
+		["{npc:9116}'s next task, {quest:4261}, ends with {npc:3848} at {area:2358}, south of the route once {zone:1448} is done: skip it."] = "La siguiente tarea de {npc:9116}, {quest:4261}, termina con {npc:3848} en {area:2358}, al sur de la ruta una vez terminada {zone:1448}: omítela.",
 		["{npc:9116}, inside"] = "{npc:9116}, adentro",
 		["{npc:9117}, below ground"] = "{npc:9117}, bajo tierra",
 		["{npc:9298} camps beside the hot springs at the western end of the road."] = "{npc:9298} acampa junto a las aguas termales, en el extremo oeste del camino.",
@@ -6961,7 +6961,7 @@ t.guides["forever/collectibles/mounts/neutral/deathcharger"] = (function() retur
 		["Deathcharger"] = "Destrero de la muerte",
 		["Journeyman {skill:762}"] = "{skill:762} de oficial",
 		["Stratholme {object:175461}"] = "{object:175461} de Stratholme",
-		["{area:2279} is a group of five, level 58-60. The {object:175461} at {object:175440}, in north-western {zone:1423}, leads to the undead side; {npc:10440} waits in the Slaughter House at its end. Our data gives the reins a 0.02% drop chance (pfQuest, Era): one in about five thousand kills. Nothing shows Forever changing it."] = "{area:2279} es para un grupo de cinco, nivel 58-60. {object:175461} en {object:175440}, en el noroeste de {zone:1423}, lleva al lado no-muerto; {npc:10440} espera en el Slaughter House, al final. Nuestros datos dan a las riendas un 0.02% de probabilidad (pfQuest, Era): una de cada unas cinco mil muertes. Nada indica que Forever lo haya cambiado.",
+		["{area:2279} is a group of five, level 58-60. The {object:175461} at {object:175440}, in north-western {zone:1423}, leads to the undead side; {npc:10440} waits in the Slaughter House at its end. Our data gives the reins a 0.02% drop chance (Era): one in about five thousand kills. Nothing shows Forever changing it."] = "{area:2279} es para un grupo de cinco, nivel 58-60. {object:175461} en {object:175440}, en el noroeste de {zone:1423}, lleva al lado no-muerto; {npc:10440} espera en el Slaughter House, al final. Nuestros datos dan a las riendas un 0.02% de probabilidad (Era): una de cada unas cinco mil muertes. Nada indica que Forever lo haya cambiado.",
 		["{item:13335} needs level 60 and Journeyman {skill:762} to ride (Forever client). Train it at your race's riding trainer; see the Level 60 mount guides."] = "{item:13335} requiere nivel 60 y {skill:762} de oficial para montar (cliente de Forever). Apréndela con el instructor de equitación de tu raza; consulta las guías de monturas de nivel 60.",
 } end)()
 t.guides["forever/collectibles/mounts/neutral/galestrider"] = (function() return {

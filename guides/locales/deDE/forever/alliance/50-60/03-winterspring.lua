@@ -294,8 +294,8 @@ return {
 	["{npc:10924}: for {npc:11079} in {area:2253}, later in this guide; keep it"] = "{npc:10924}: für {npc:11079} in {area:2253}, später in diesem Guide; behalte es",
 	-- {npc:9116} Eridan Bluewind
 	["Wait a moment for {npc:9116}"] = "Warte kurz auf {npc:9116}",
-	-- {npc:9116} Eridan Bluewind · {npc:222647} Ancient Spirit · {npc:3848} Kayneth Stillwind · {area:2358} Forest Song · {zone:1448} Felwood
-	["{npc:9116}'s next task, {npc:222647}, ends with {npc:3848} at {area:2358}, south of the route once {zone:1448} is done: skip it."] = "{npc:9116}'s nächste Aufgabe, {npc:222647}, endet mit {npc:3848} in {area:2358}, südlich der Route, sobald {zone:1448} erledigt ist: überspringe es.",
+	-- {npc:9116} Eridan Bluewind · {quest:4261} Ancient Spirit · {npc:3848} Kayneth Stillwind · {area:2358} Forest Song · {zone:1448} Felwood
+	["{npc:9116}'s next task, {quest:4261}, ends with {npc:3848} at {area:2358}, south of the route once {zone:1448} is done: skip it."] = "{npc:9116}'s nächste Aufgabe, {quest:4261}, endet mit {npc:3848} in {area:2358}, südlich der Route, sobald {zone:1448} erledigt ist: überspringe es.",
 	-- {npc:9116} Eridan Bluewind
 	-- plural, as words: Irontree Stompers = {npc:7139} Irontree Stomper
 	["{npc:9116}'s next task, Silver Heart, sends you to the Irontree Stompers in the north and back here: skip it."] = "{npc:9116}'s nächste Aufgabe, Silver Heart, sendet dich nach Norden zu den Irontree-Stompern und zurück zu hier: überspringe es.",
@@ -545,6 +545,7 @@ return {
 	-- ["{npc:11629}: keep it for {area:2262}; inside"] = "{npc:11629}: Behalte es für {area:2262}; drinnen",
 	-- ["{npc:11754} walks around {area:2255}: look inside the circle on the map"] = "{npc:11754} läuft um {area:2255} umher: Schau in den Kreis auf der Karte",
 	-- ["{npc:12250} is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "{npc:12250} ist Elite: Eine Gruppe wird empfohlen. Er wartet ganz unten im {area:2261}, der Krypta im Südwesten des Gebiets.",
+	-- ["{npc:9116}'s next task, {npc:222647}, ends with {npc:3848} at {area:2358}, south of the route once {zone:1448} is done: skip it."] = "{npc:9116}'s nächste Aufgabe, {npc:222647}, endet mit {npc:3848} in {area:2358}, südlich der Route, sobald {zone:1448} erledigt ist: überspringe es.",
 	-- ["{npc:9616} works in the {object:32356}: hand him {zone:1448}'s ooze jars now, on your way through."] = "{npc:9616} arbeitet in {object:32356}: Gib ihm jetzt auf dem Weg die Schlammgefäße aus {zone:1448}.",
 	-- ["{object:175894}, inside"] = "{object:175894}, drinnen",
 	-- ["{quest:5152}, in the {area:28}: keep it"] = "{quest:5152}, in {area:28}: behalten",

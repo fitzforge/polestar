@@ -731,13 +731,14 @@
 			"steps": [
 				{
 					"n": 1,
-					"action": "use-item",
+					"action": "collect",
 					"target": {
 						"type": "npc",
 						"id": 264149
 					},
-					"item": 255662,
-					"fact": "With the Mana Sieve in your bags, gather mana before you go to the pylons: the Sieve takes it from the Unstable Mana Rifts, the floating sparks along the road north. Each pylon needs its share of it.",
+					"item": 255667,
+					"count": 4,
+					"fact": "With the Mana Sieve in your bags, gather four Coalesced Mana Crystals before each pylon: the Sieve takes them from the Unstable Mana Rifts, the floating sparks along the road north.",
 					"confidence": "high"
 				},
 				{
@@ -748,7 +749,7 @@
 					"confidence": "high"
 				}
 			],
-			"note": "Powering the Pylons (96018): the pylons are repaired with mana gathered with the Mana Sieve (255662) first; its objectives list only the Sieve and the two pylons. Source: the quest's own text (\"use it to collect Ancient Mana Crystals. Once you have acquired enough mana, empower the pylons\"); players' in-game recordings to 2026-11-17: the Unstable Mana Rifts (264149) seen by 54 people in Shen'dralas, and the pylons' lines ticking on a cast of spell 1289727 (30 people took the quest); Unholy's report (#2714), who counted four Coalesced Mana Crystals (255667) for each pylon. Spell 1289727 is the Pile of Pylon Parts' (271882, the quest's handed-over item; the client's item effect table), with four Coalesced Mana Crystals as its reagent (the client's spell reagent table); recordings to 2026-11-20: 79 of 79 pylon repairs ticked on it, 25 of them with no Decrepit Pylon Protector killed in the minute before (#4135)."
+			"note": "Powering the Pylons (96018): the pylons are repaired with mana gathered with the Mana Sieve (255662) first; its objectives list only the Sieve and the two pylons. Source: the quest's own text (\"use it to collect Ancient Mana Crystals. Once you have acquired enough mana, empower the pylons\"); players' in-game recordings to 2026-11-17: the Unstable Mana Rifts (264149) seen by 54 people in Shen'dralas, and the pylons' lines ticking on a cast of spell 1289727 (30 people took the quest); Unholy's report (#2714), who counted four Coalesced Mana Crystals (255667) for each pylon. Spell 1289727 is the Pile of Pylon Parts' (271882, the quest's handed-over item; the client's item effect table), with four Coalesced Mana Crystals as its reagent (the client's spell reagent table); recordings to 2026-11-20: 79 of 79 pylon repairs ticked on it, 25 of them with no Decrepit Pylon Protector killed in the minute before (#4135). Step 1 names the crystals, their count and the rifts, and step 2 the item that spends them, so Lookup's pick-up guides gather four before each pylon and use the Pile of Pylon Parts there (#4270, imp's report: the guide never said to gather them)."
 		},
 		"96082": {
 			"kinds": [
