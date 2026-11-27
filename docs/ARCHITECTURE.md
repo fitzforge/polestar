@@ -1980,8 +1980,11 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
 - **Race names.** `"Scourge"` and `"Undead"` are the same race everywhere a race is
   compared (Forever's client name is unconfirmed).
 - **Context-aware Suggest.** `Guides.Suggestions()` orders the leveling guides
-  that fit faction/race/class and level: the one whose zone is the player's
-  current zone first, then the nearest by travel, then (0.4.0) one whose
+  that fit faction/race/class and level: first by how much of the guide's
+  quests the character has turned in or holds (#86, `Engine.ProgressOf`, in
+  tenths of its route; a guide with every quest turned in is left out unless
+  nothing else fits), then the one whose zone is the player's
+  current zone, then the nearest by travel, then (0.4.0) one whose
   quest XP mostly follows on from an earlier guide the character has not
   done last (`Engine.FreshFor`); ties keep the race's own chain. `Suggest()`
   is its first. The hub's Home lists all of them under "Suggested for you",
@@ -3697,6 +3700,21 @@ holds at its opening, see "Not yet available"):
   Stranglethorn's flight to Darkshire, Feralas' zeppelin, Darkshore's boat).
   The judge's Rust engine (forge-judge `place`, `anchor_step`,
   `leads_to_done`) mirrors it.
+- Skipped earlier (#86). The high-water mark is `anchorStep` with
+  `turnedOnly`: a hand-in done or objective progress, never an accept alone,
+  so a carried breadcrumb cannot throw the player ahead. When at least
+  `Own.EARLIER_SHARE` (half) of the route's quests before it are done or in
+  the log, the open accepts before it that the character can take now (not
+  grey for them, not closed, not left out by the catch-up, not on a step the
+  player skipped) are passed: saved per character and guide by quest id
+  (`CharState().earlier`: `true` listed, `"dismissed"`, `"taken"`), and put
+  in `Own.leftOut` beside the catch-up's (`Own.applyEarlier`), so their
+  hand-ins and objectives drop out until the player takes the quest. The
+  guide window lists them ("N quests you skipped earlier",
+  `Engine.SkippedEarlier`): a click takes one back into the route
+  (`Engine.TakeEarlier`), the × dismisses it (`Engine.DismissEarlier`).
+  `/polestar reset` forgets the list. The Rust engine does not mirror this
+  yet.
 - Before the start (with no start: before the last quest progress), a step
   passes when every open goal is an accept the character cannot take yet
   (level, prerequisite; marked unavailable for the session, so it comes back

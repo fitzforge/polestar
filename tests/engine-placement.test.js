@@ -35,6 +35,12 @@ const PERSONAS = {
 		files: ['forever/horde/04-barrens.guide', 'forever/horde/05-stonetalon.guide'],
 		race: 'Scourge', raceName: 'Undead', cls: 'WARLOCK', at: [1413, 58.9, 25.8],
 	},
+	// Both guides a level 22 Warlock fits (Guides.Suggestions); opened at 04-barrens.
+	suggest: {
+		id: 'forever/horde/04-barrens',
+		files: ['forever/horde/03-hillsbrad.guide', 'forever/horde/04-barrens.guide'],
+		race: 'Scourge', raceName: 'Undead', cls: 'WARLOCK', at: [1413, 58.9, 25.8],
+	},
 	warrior: {
 		id: 'forever/horde/02-barrens',
 		files: ['forever/horde/02-barrens.guide', 'forever/horde/03-hillsbrad.guide', 'forever/horde/tauren/01-mulgore.guide'],
@@ -80,6 +86,10 @@ function savedState(persona, { manual = [], skipped = [] } = {}) {
 
 const FRESH = 'PolestarDB = { schema = 1, settings = { behavior = { autoSelectGuide = false } } }';
 const LOST = 'PolestarDB = nil; PolestarCharDB = nil';
+// Quests placement passed as skipped earlier (Engine.SkippedEarlier), as a Lua `l`.
+const SKIPPED_LIST = 'local l = {}; for _, o in ipairs(E.SkippedEarlier()) do l[#l + 1] = o.quest end';
+// An empty Lua table is emitted as {}.
+const asList = (x) => (Array.isArray(x) ? x : []);
 
 // Quests a level-20 Undead Warlock had done or held on reaching 04-barrens
 // (from the player's report): the succubus chain done, Super Reaper 6000 done
@@ -135,7 +145,9 @@ function warlockSaved() {
 
 test('the breadcrumb Ziz Fizziks is skipped before the trip to Ratchet once Super Reaper 6000 is done, and says why', { skip }, () => {
 	const ratchet = stepOf('warlock', { t: 'accept', quest: 1483 });
-	const taurajo = stepOf('warlock', { t: 'accept', quest: 878 });
+	// Tatternack Steelforge (893), taken by no one, is behind the player's turn-ins
+	// at Camp Taurajo: skipped earlier, so the guide opens at the Field of Giants.
+	const giants = stepOf('warlock', { t: 'accept', quest: 79192 });
 	const [out] = play({
 		saved: warlockSaved(),
 		script: `
@@ -144,26 +156,29 @@ test('the breadcrumb Ziz Fizziks is skipped before the trip to Ratchet once Supe
 		`,
 	});
 	// The Crossroads and Chol'aruk skipped by the player, Ratchet closed, the
-	// Warlock's Ken'zigla step done: Camp Taurajo.
+	// Warlock's Ken'zigla step done: past Camp Taurajo.
 	assert.deepEqual(out, {
-		at: taurajo,
+		at: giants,
 		ratchet: 'done',
 		status: 'skipped',
 		why: 'closed',
 		text: 'No longer offered: you took “Super Reaper 6000”',
 	});
 
-	// Without Super Reaper 6000 the breadcrumb still sends the player to Ratchet.
+	// Without Super Reaper 6000 the breadcrumb is open, but the player's turn-ins
+	// are far past Ratchet: it is a quest skipped earlier (the player can take it
+	// from the list), not the start.
 	const [open] = play({
 		done: DONE.filter((q) => q !== 1093 && q !== 1094),
 		saved: warlockSaved(),
-		script: `emit({ at = E.GetStepIndex(), status = E.GetStepView(${ratchet}).goals[1].status })`,
+		script: `${SKIPPED_LIST}; emit({ at = E.GetStepIndex(), list = l })`,
 	});
-	assert.deepEqual(open, { at: ratchet, status: 'active' });
+	assert.equal(open.at, giants);
+	assert.ok(asList(open.list).includes(1483), 'Ziz Fizziks is listed as skipped earlier');
 });
 
 test('Prev visits every step that applies to a Warlock, Next walks back to where Prev started, and skips stay as they were', { skip }, () => {
-	const start = stepOf('warlock', { t: 'accept', quest: 878 });
+	const start = stepOf('warlock', { t: 'accept', quest: 79192 });
 	const skipped = [stepOf('warlock', { t: 'accept', quest: 868 }), stepOf('warlock', { t: 'collect', quest: 97003 })];
 	const before = [];
 	for (let s = start - 1; s >= 1; s--) if (applies('warlock', s)) before.push(s);
@@ -316,4 +331,134 @@ test('placement: accepts the character cannot take yet are not the start, and tr
 	assert.deepEqual(there, { at: orgrimmar, bat: 'done', zeppelin: 'done' });
 	const [tarren] = play({ ...opts, at: [1424, 56, 20], script: 'emit(E.GetStepIndex())' });
 	assert.equal(tarren, bat, 'far from the work: the trip starts at the bat');
+});
+
+// ---------------------------------------------------------------------------
+// Placement by quest history (#86): the high-water mark, quests skipped
+// earlier, and the guide suggested by progress.
+// ---------------------------------------------------------------------------
+
+// The mid-guide Warlock of the Bael'dun test, with Egg Hunt (868, taken at the
+// Crossroads, long before the fortress) never taken.
+const MID_DONE = [1507, 1508, 1509, 1510, 1511, 1515, 878, 5052, 843];
+const MID_LOG = [[846, [1, 1, 1]], [97003, [{ required: 1, fulfilled: 1 }]],
+	[879, [{ fulfilled: 1 }, { fulfilled: 1 }, { fulfilled: 1 }]], [893, [{ fulfilled: 1 }, { fulfilled: 1 }, { fulfilled: 1 }]],
+	[97250, [{ fulfilled: 1 }, { fulfilled: 1 }]], [3513, []], [79192, []], [1483, []], [1512, []]];
+
+test('a quest skipped before the player\'s real progress is no start: it is listed as skipped earlier, to take or dismiss', { skip }, () => {
+	const w = (m) => stepOf('warlock', m);
+	const fortress = w({ t: 'collect', quest: 846, oi: 1 });
+	const eggHunt = w({ t: 'accept', quest: 868 });
+	const opts = { done: MID_DONE, log: MID_LOG, level: 22, saved: FRESH, open: 'tab' };
+	const [out] = play({
+		...opts,
+		script: `
+			${SKIPPED_LIST}
+			local r = { at = E.GetStepIndex(), list = l }
+			r.take = E.TakeEarlier(868); stub.advance(0.6); r.afterTake = E.GetStepIndex(); r.listAfterTake = #E.SkippedEarlier()
+			emit(r)
+		`,
+	});
+	assert.equal(out.at, fortress, 'the skipped accept at the Crossroads is not the start');
+	assert.deepEqual(asList(out.list), [868]);
+	assert.equal(out.take, true);
+	assert.equal(out.afterTake, eggHunt, 'taken back, the route goes to it');
+	assert.equal(out.listAfterTake, 0);
+
+	const [dismissed] = play({
+		...opts,
+		script: `
+			local r = { dismiss = E.DismissEarlier(868) }
+			stub.advance(0.6)
+			${SKIPPED_LIST}
+			r.at, r.list, r.saved = E.GetStepIndex(), l, PolestarCharDB.earlier["${PERSONAS.warlock.id}"][868]
+			emit(r)
+		`,
+	});
+	assert.deepEqual({ ...dismissed, list: asList(dismissed.list) }, { dismiss: true, at: fortress, list: [], saved: 'dismissed' });
+
+	// The list is saved: a reload keeps it, and a quest taken by hand leaves it.
+	const [reload] = play({
+		...opts,
+		saved: `PolestarCharDB = { schema = 1, tabs = { "${PERSONAS.warlock.id}" }, activeTab = 1, earlier = { ["${PERSONAS.warlock.id}"] = { [868] = true } } }`,
+		log: [...MID_LOG, [868, [{ required: 12, fulfilled: 0 }]]],
+		script: `${SKIPPED_LIST}; emit({ at = E.GetStepIndex(), list = l })`,
+	});
+	assert.deepEqual(asList(reload.list), [], 'in the log now: nothing skipped');
+});
+
+test('turning Skip grey quests off brings back the catch-up\'s quests, not the ones skipped earlier', { skip }, () => {
+	const fortress = stepOf('warlock', { t: 'collect', quest: 846, oi: 1 });
+	const grey = 'PolestarDB = { schema = 1, settings = { behavior = { autoSelectGuide = false, skipGrey = true } } }';
+	const [out] = play({
+		done: MID_DONE, log: MID_LOG, level: 22, saved: grey, open: 'tab',
+		script: `
+			Polestar.Set("behavior.skipGrey", false); stub.advance(0.6)
+			${SKIPPED_LIST}
+			emit({ at = E.GetStepIndex(), list = l })
+		`,
+	});
+	assert.deepEqual({ ...out, list: asList(out.list) }, { at: fortress, list: [868] });
+});
+
+test('mid-guide without skips, and a fresh character, list nothing skipped earlier', { skip }, () => {
+	const done = [...MID_DONE, 868];
+	const [mid] = play({ done, log: MID_LOG, level: 22, saved: FRESH, open: 'tab', script: `${SKIPPED_LIST}; emit(l)` });
+	assert.deepEqual(asList(mid), []);
+	let first = 1;
+	while (!applies('warrior', first)) first++;
+	const [fresh] = warrior({ done: [], log: [], level: 8, saved: FRESH, open: 'tab', script: `${SKIPPED_LIST}; emit({ at = E.GetStepIndex(), list = l })` });
+	assert.deepEqual({ ...fresh, list: asList(fresh.list) }, { at: first, list: [] });
+});
+
+test('with fewer than half of the quests before the mark done or held, placement starts as before', { skip }, () => {
+	// One turn-in far on (Gann\'s Reclamation, 843) and nothing else.
+	const first = stepOf('warlock', { t: 'accept', quest: 1507 });
+	const [out] = play({ done: [843], log: [], level: 22, saved: FRESH, open: 'tab', script: `${SKIPPED_LIST}; emit({ at = E.GetStepIndex(), list = l })` });
+	assert.deepEqual(asList(out.list), []);
+	assert.ok(out.at <= first, 'the first accept the player can take is the start');
+});
+
+test('a Warrior who out-levelled 02-barrens is placed past what they skipped, which is listed', { skip }, () => {
+	const log = WARRIOR_LOG.filter(([q]) => q !== 869);
+	const [out] = warrior({
+		level: 22, log, saved: FRESH, open: 'tab',
+		script: `
+			${SKIPPED_LIST}
+			emit({ at = E.GetStepIndex(), list = l })
+		`,
+	});
+	const accepts = new Map();
+	guideOf('warrior').steps.forEach((s, i) => s.goals.forEach((g) => { if (g.t === 'accept' && !accepts.has(g.quest)) accepts.set(g.quest, i + 1); }));
+	const held = new Set([...WARRIOR_DONE, ...log.map(([q]) => q)]);
+	for (const q of asList(out.list)) {
+		assert.ok(accepts.has(q), `${q} is an accept of the guide`);
+		assert.ok(!held.has(q), `${q} is neither done nor in the log`);
+		assert.ok(accepts.get(q) < out.at, `${q} is before the start`);
+	}
+});
+
+test('Guides.Suggestions ranks by the share of a guide\'s quests done or held, and leaves out a guide that is all done', { skip }, () => {
+	// Level 22 fits 03-hillsbrad (18-22) and 04-barrens (22-24). The route of a
+	// guide: its accepts for an Undead Warlock (class and race steps and goals
+	// that let them in), none optional, as Engine.ProgressOf counts them.
+	const p = PERSONAS.suggest;
+	const mine = (only) => !only || ((!only.classes || only.classes.includes(p.cls)) && (!only.races || only.races.includes(p.race)));
+	const routeOf = (id) => [...new Set(packOf('suggest').guides.find((g) => g.id === id).steps
+		.filter((s) => mine(s.only)).flatMap((s) => s.goals.filter((g) => g.t === 'accept' && !g.optional && mine(g.only)).map((g) => g.quest)))];
+	const barrens = routeOf(PERSONAS.suggest.id);
+	const hillsbrad = routeOf('forever/horde/03-hillsbrad');
+	assert.ok(barrens.length > 4 && hillsbrad.length > 4, 'both routes have quests');
+	const script = 'emit(Polestar.Guides.Suggestions())';
+	// No guide opened: the registry's guides as shipped, without a plan's feeder steps.
+	const suggest = (done) => play({ persona: 'suggest', done, log: [], level: 22, saved: FRESH, script })[0];
+	const share = (route) => route.slice(0, Math.ceil(route.length * 0.6));
+	// More than half of 03-hillsbrad done and none of 04-barrens: 03 first.
+	assert.equal(suggest(share(hillsbrad))[0], 'forever/horde/03-hillsbrad');
+	// More than half of 04-barrens done and none of 03: 04 first.
+	assert.equal(suggest(share(barrens))[0], PERSONAS.suggest.id);
+	// All of 04-barrens done: it is not suggested while another guide fits.
+	const finished = suggest(barrens);
+	assert.ok(!finished.includes(PERSONAS.suggest.id));
+	assert.equal(finished[0], 'forever/horde/03-hillsbrad');
 });

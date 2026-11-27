@@ -2041,7 +2041,8 @@ local function rank(packId, player, here, zone)
 	local r = packs[packId]
 	if not (r and packVisible(r)) then return {}, nil end
 	local level = player.level or 1
-	local fitting, best, bestKey = {}, nil, nil
+	local fitting, finished, best, bestKey = {}, {}, nil, nil
+	local E = ns.Engine
 	for i, id in ipairs(r.guides) do
 		local g = guides[id]
 		if (g.category == nil or g.category == "Leveling") and guideMatches(g, player) then
@@ -2061,15 +2062,22 @@ local function rank(packId, player, here, zone)
 				-- Much of its quest XP follows on from an earlier guide this
 				-- character has not done (Engine.FreshFor): after the others of
 				-- its zone and travel band, so it never sends anyone further.
-				local E = ns.Engine
 				local fresh = E and E.FreshFor and E.FreshFor(g) and 1 or 0
-				fitting[#fitting + 1] = { id = g.id, key = { inZone, band, fresh, specific, hi - lo, lo, i } }
+				-- Before all of it, how much of its quests the player has done or
+				-- holds (Engine.ProgressOf, in tenths). A guide with every one done
+				-- is left out (below).
+				local share, done = 0, false
+				if E and E.ProgressOf then share, done = E.ProgressOf(g) end
+				local list = done and finished or fitting
+				list[#list + 1] = { id = g.id, key = { -math.floor(share * 10), inZone, band, fresh, specific, hi - lo, lo, i } }
 			elseif #fitting == 0 then
 				local key = lo > level and { 1, lo - level, hi - lo, i } or { 2, level - hi, hi - lo, i }
 				if not bestKey or less(key, bestKey) then best, bestKey = g.id, key end
 			end
 		end
 	end
+	-- A guide whose quests are all done is left out, unless nothing else fits.
+	if #fitting == 0 then fitting = finished end
 	table.sort(fitting, function(a, b) return less(a.key, b.key) end)
 	local out = {}
 	for i = 1, #fitting do out[i] = fitting[i].id end
@@ -2080,9 +2088,11 @@ end
 -- other categories are only ever picked by the player), from the suggestion
 -- source (SuggestSource); where it has nothing for the player, ours fill in.
 -- Faction/race/class must match. Every guide whose level range contains the
--- player's level, in this order: the player's current zone first, then the
--- nearest by travel (in 2-minute bands), then one whose quest XP mostly
--- follows on from an earlier guide the player has not done last
+-- player's level, in this order: the most of its quests done or in the log
+-- (tenths of its route; a guide with all of them done is left out), then the
+-- player's current zone, then the nearest by travel (in 2-minute bands), then
+-- one whose quest XP mostly follows on from an earlier guide the player has
+-- not done last
 -- (Engine.FreshFor), then race- or class-specific (the race's own chain),
 -- then the narrowest range, the lowest minLevel and registration order. If
 -- none contains the level: the nearest upcoming guide, else the highest one
