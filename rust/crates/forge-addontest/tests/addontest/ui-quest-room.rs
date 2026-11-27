@@ -143,6 +143,55 @@ emit({ title = r.Title:GetText(), cut = r.Title:IsTruncated() or r.Why:IsTruncat
 }
 
 #[test]
+fn each_finished_quest_guides_only_to_its_handin_and_leaves_room_for_abandon() {
+	let out = run(
+		768,
+		r#"Polestar.Codex.Register("meta", {})
+local P = Polestar.RoutePlan
+local list = {
+	{ quest = 9005, title = "A finished grey quest with a very long name", grey = true },
+	{ quest = 9010, title = "A finished quest with no known recipient" },
+}
+P.Carried = function() return list end
+P.Unneeded = function() return { { quest = 9005, title = list[1].title, status = "grey" } } end
+local ender = P.Ender
+P.Ender = function(q) if q ~= 9010 then return ender(q) end end
+local function click(row)
+	assert(row.GuideMe:IsShown(), "each finished quest has a Guide me button")
+	row.GuideMe:Click()
+	local guide, quests, goal = Polestar.Engine.GetGuide(), {}, nil
+	for _, s in ipairs(guide.steps) do
+		for _, g in ipairs(s.goals) do
+			if g.t == "turnin" then quests[#quests + 1], goal = g.quest, g end
+		end
+	end
+	return { id = guide.id, quests = quests, map = goal and goal.map or false, closed = not F:IsShown() }
+end
+measure("carried")
+local row = F.rows[1]
+local guide = assert(rawget(row, "GuideMe"), "a finished row has a Guide me button")
+stub.RunScript(guide, "OnEnter")
+local tip = GameTooltip:GetOwner() == guide and GameTooltip.lines[1]
+stub.RunScript(guide, "OnLeave")
+local point, relative, relPoint, x = guide:GetPoint()
+local left = row:GetWidth() + x - guide:GetWidth()
+local fits = point == "RIGHT" and relative == row and relPoint == "RIGHT" and row.Abandon:IsShown()
+	and x < -row.Abandon:GetWidth() and row.Title:GetWidth() < left and row.Why:GetWidth() < left
+local carried = click(row)
+measure("elsewhere")
+local elsewhere = click(F.rows[2])
+measure()
+emit({ carried = carried, elsewhere = elsewhere, fits = fits, tip = tip or false,
+	hidden = not F.rows[1].GuideMe:IsShown() })"#,
+	);
+	assert_eq!(out["carried"], json!({ "id": "lookup/carried/9005", "quests": [9005], "map": 1429, "closed": true }), "{out}");
+	assert_eq!(out["elsewhere"], json!({ "id": "lookup/carried/9010", "quests": [9010], "map": false, "closed": true }), "{out}");
+	assert_eq!(out["fits"], true, "the text ends left of Guide me, which ends left of Abandon: {out}");
+	assert_eq!(out["tip"], "Guide me to this hand-in", "{out}");
+	assert_eq!(out["hidden"], true, "reused Make room rows hide the button: {out}");
+}
+
+#[test]
 fn guide_me_uses_all_finished_quests_and_opens_the_existing_guide_even_without_known_locations() {
 	let out = run(
 		768,

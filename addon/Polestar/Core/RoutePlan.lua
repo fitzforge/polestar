@@ -463,11 +463,12 @@ local function finished(q)
 end
 
 -- The ready, non-failed quests in the current log, once each, in log order.
+-- With a quest id, consider just that log entry.
 -- Completion history is not readiness: a repeatable can be ready again.
-function Plan.Ready()
+function Plan.Ready(quest)
 	local C, out, seen, now = ns.Compat, {}, {}, GetTime()
 	for q, untilTime in pairs(turned) do if untilTime <= now then turned[q] = nil end end
-	for _, q in ipairs(C.GetLogQuests() or {}) do
+	for _, q in ipairs(C.GetLogQuests(quest and { [quest] = true }) or {}) do
 		if not seen[q] and not turned[q] and not C.IsQuestFailed(q) and finished(q) then
 			out[#out + 1], seen[q] = q, true
 		end

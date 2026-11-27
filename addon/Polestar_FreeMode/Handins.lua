@@ -1,35 +1,47 @@
--- The quest room's "Hand in your finished quests" guide (carried/log).
--- Rebuilt in its existing tab on quest changes, without selecting that tab.
+-- The quest room's hand-in guides (carried/log and carried/<quest id>).
+-- Rebuilt in their existing tabs on quest changes, without selecting them.
 local ns = Polestar
 local L, Lookup = ns.L, ns.Lookup
 local Handins = ns.Handins
 
 local KIND, ID = "carried", "log"
 local GID = Lookup.GuideId(KIND, ID)
-local current, pending
+local plans, pending = {}, false
 
 local function signature(ids) return table.concat(ids, ",") end
 
-local function open()
+local function plannerId(guideId)
+	local kind, id = Lookup.ParseGuideId(guideId)
+	if kind == KIND then return id end
+end
+
+local function open(guideId)
 	local E = ns.Engine
 	if not (E and E.GetTabs) then return false end
 	for _, tab in ipairs(E.GetTabs()) do
-		if tab.guideId == GID then return true end
+		if (guideId and tab.guideId == guideId) or (not guideId and plannerId(tab.guideId)) then return true end
 	end
 	return false
 end
 
-local function note(text)
-	return { title = L["Hand in your finished quests"], goals = { { t = "note", text = text } } }
+local function note(title, text)
+	return { title = title, goals = { { t = "note", text = text } } }
 end
 
-local function collect(ids)
-	local p = { signature = signature(ids), stops = {}, unplaced = {}, from = ns.PlayerPoint() }
+local function questTitle(id)
+	local rec = ns.Codex.Quest(id)
+	return ns.Compat.GetQuestTitle(id) or (rec and rec.title) or (L["Quest"] .. " " .. id)
+end
+
+local function guideTitle(quest)
+	return quest and questTitle(quest) or L["Hand in your finished quests"]
+end
+
+local function collect(ids, quest)
+	local p = { title = guideTitle(quest), signature = signature(ids), stops = {}, unplaced = {}, from = ns.PlayerPoint() }
 	local byKey = {}
 	for _, id in ipairs(ids) do
-		local rec = ns.Codex.Quest(id)
-		local title = ns.Compat.GetQuestTitle(id) or (rec and rec.title) or (L["Quest"] .. " " .. id)
-		local q = { id = id, title = title }
+		local q = { id = id, title = quest and p.title or questTitle(id) }
 		-- Recipient selection is cheap; transport-aware ordering is refined
 		-- across frames after the guide opens. Other-faction fallbacks are not
 		-- hand-in destinations for this character.
@@ -47,11 +59,12 @@ local function collect(ids)
 		end
 	end
 	p.order = ns.HandinRoute.Order(p.stops, p.from)
-	p.refining = p.from ~= nil and #p.stops > 0 and ns.Nav and ns.Nav.EstimateTravelCooperative ~= nil
+	-- A single destination needs no travel-order refinement.
+	p.refining = not quest and p.from ~= nil and #p.stops > 0 and ns.Nav and ns.Nav.EstimateTravelCooperative ~= nil
 	return p
 end
 
-local function render(p)
+local function render(p, quest)
 	local steps = {}
 	for _, i in ipairs(p.order) do
 		local s = p.stops[i]
@@ -82,7 +95,7 @@ local function render(p)
 		steps[#steps + 1] = { title = L["Hand-ins without a known location"], goals = unplaced,
 			note = #p.stops == 0 and L["None of these has a known place to hand it in."] or nil }
 	end
-	if #steps == 0 then steps[1] = note(L["No quests in your log are ready to hand in."]) end
+	if #steps == 0 then steps[1] = note(p.title, Handins.NotReady(quest)) end
 	if p.refining then
 		local warning = L["Refining the travel order. Travel times are estimates."]
 		steps[1].note = steps[1].note and (steps[1].note .. " " .. warning) or warning
@@ -91,51 +104,65 @@ local function render(p)
 		local warning = L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."]
 		steps[1].note = steps[1].note and (steps[1].note .. " " .. warning) or warning
 	end
-	return { title = L["Hand in your finished quests"], steps = steps }
+	return { title = p.title, steps = steps }
 end
 
-function Handins.BuildGuide()
+local function same(plan, ids)
+	return plan and not plan.cancelled and plan.signature == signature(ids)
+end
+
+function Handins.BuildGuide(quest)
 	-- Lookup restores saved tabs during ADDON_LOADED, before the quest log
 	-- arrives. Keep that tab until login/quest events can fill it honestly.
 	if not ns.IsLoggedIn() then
-		return { title = L["Hand in your finished quests"], steps = { note(L["Waiting for your quest log."]) } }
+		local title = guideTitle(quest)
+		return { title = title, steps = { note(title, L["Waiting for your quest log."]) } }
 	end
-	local ids = Handins.Ready()
-	if not current or current.cancelled or current.signature ~= signature(ids) then current = collect(ids) end
-	return render(current)
+	local id, ids = quest or ID, Handins.Ready(quest)
+	if not same(plans[id], ids) then plans[id] = collect(ids, quest) end
+	return render(plans[id], quest)
 end
 
-local function publish()
-	local def, reason = Lookup.BuildGuide(KIND, ID)
+local function publish(id)
+	local def, reason = Lookup.BuildGuide(KIND, id)
 	if not def then return nil, reason end
-	local ok, err = ns.RegisterGuide(def)
-	if ok then ns.Fire("PACKS_CHANGED") end
-	return ok, err
+	return ns.RegisterGuide(def)
 end
 
 local function refine()
-	local plan = current
+	local plan = plans[ID]
 	if not (plan and plan.refining and not plan.started) then return end
 	plan.started = true
 	ns.HandinRoute.Refine(plan.stops, plan.from, function()
-		if current ~= plan or not open() then return false end
+		if plans[ID] ~= plan or not open(GID) then return false end
 		-- Quest updates can change and revert before the refresh debounce.
 		-- Remember cancellation so that the next refresh restarts the job.
 		if signature(Handins.Ready()) ~= plan.signature then plan.cancelled = true; return false end
 		return true
 	end, function(order, uncertain, partial)
 		plan.order, plan.uncertain, plan.refining, plan.partial = order or plan.order, uncertain, false, partial
-		publish()
+		if publish(ID) then ns.Fire("PACKS_CHANGED") end
 	end)
 end
 
 function Handins.Refresh(force)
-	if not (ns.IsLoggedIn() and open()) then return end
-	local ids = Handins.Ready()
-	if not force and current and not current.cancelled and current.signature == signature(ids) then return end
-	current = nil
-	local ok = publish()
-	if ok then refine() end
+	local E = ns.Engine
+	if not (ns.IsLoggedIn() and E and E.GetTabs) then return end
+	local changed
+	for _, tab in ipairs(E.GetTabs()) do
+		local id = plannerId(tab.guideId)
+		if id then
+			local quest = type(id) == "number" and id or nil
+			if force or not same(plans[id], Handins.Ready(quest)) then
+				plans[id] = nil
+				if publish(id) then changed = true end
+			end
+		end
+	end
+	if changed then
+		ns.Fire("PACKS_CHANGED")
+		if open(GID) then refine() end
+	end
 end
 
 local function soon()
@@ -147,15 +174,16 @@ local function soon()
 	end)
 end
 
-function Handins.Start()
-	if #Handins.Ready() == 0 then
-		ns.Print(L["No quests in your log are ready to hand in."])
+function Handins.Start(quest)
+	if #Handins.Ready(quest) == 0 then
+		ns.Print(Handins.NotReady(quest))
 		return nil, "nothing"
 	end
-	current = nil
-	local gid, reason = Lookup.Guide(KIND, ID)
+	local id = quest or ID
+	plans[id] = nil
+	local gid, reason = Lookup.Guide(KIND, id)
 	if gid then
-		refine()
+		if id == ID then refine() end
 		ns.Fire("SHOW_FRAME")
 	elseif reason == "tabs" then
 		ns.Print(L["Six tabs is the limit. Close one to open another."])
@@ -173,8 +201,16 @@ ns.RegisterEvent("QUEST_REMOVED", soon)
 ns.RegisterEvent("QUEST_ACCEPTED", soon)
 ns.RegisterEvent("QUEST_TURNED_IN", soon)
 ns.On("GUIDE_CHANGED", function()
-	if not open() then current = nil end
+	if not open(GID) then plans[ID] = nil end
 	soon()
 end)
-ns.On("TAB_CLOSED", function(id) if id == GID then current = nil end end)
-ns.RegisterEvent("PLAYER_ENTERING_WORLD", function() if current and not current.from then current = nil end; soon() end)
+ns.On("TAB_CLOSED", function(guideId)
+	local id = plannerId(guideId)
+	if id then plans[id] = nil end
+end)
+ns.RegisterEvent("PLAYER_ENTERING_WORLD", function()
+	for id, plan in pairs(plans) do
+		if not plan.from then plans[id] = nil end
+	end
+	soon()
+end)

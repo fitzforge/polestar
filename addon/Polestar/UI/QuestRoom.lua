@@ -102,7 +102,7 @@ local function build()
 
 	-- The quests, in a list that scrolls when they don't fit (What's new's
 	-- way): it spans to the window's right edge, so its bar sits in the margin
-	-- beside the rows' Abandon buttons.
+	-- beside the rows' buttons.
 	F.List = W.Scroll(F)
 	F.List.Child:SetWidth(WIDTH - PAD * 2)
 
@@ -184,6 +184,10 @@ local function row(i)
 	r.Why:SetPoint("TOPLEFT", r.Title, "BOTTOMLEFT", 0, -2)
 	r.Why:SetJustifyH("LEFT")
 	r.Why:SetWordWrap(false)
+	r.GuideMe = W.IconButton(r, "icon-goto", 24, L["Guide me to this hand-in"], function()
+		if UI.GuideCarried(r.psQuest) then F:Hide() end
+	end)
+	r.GuideMe.psPadLabel = r.GuideMe.psTip
 	r.Abandon = W.Button(r, L["Abandon"], function(self)
 		if not ns.Compat.AskAbandonQuest(self.psQuest) then ns.Print(L["Abandon it from your quest log."]) end
 	end, { ghost = true, danger = true, height = 24 })
@@ -312,9 +316,15 @@ function UI.LayoutQuestRoom()
 			r.Why:SetText(why)
 			r.Abandon:Show()
 		end
-		-- Both lines to the Abandon button, or the row's end without it: cut short past it (the tooltip has them whole).
-		local textW = rowW - (r.Abandon:IsShown() and (r.Abandon:GetWidth() + 8) or 0)
-		textW = textW - dungeonButton(r, u.quest, r.Abandon:IsShown() and r.Abandon or nil)
+		-- Fit both lines to the left of the visible buttons.
+		local abandon = r.Abandon:IsShown() and r.Abandon or nil
+		local buttonW = (abandon and abandon:GetWidth() + 8 or 0) + dungeonButton(r, u.quest, abandon)
+		r.GuideMe:SetShown(carried)
+		if carried then
+			r.GuideMe:SetPoint("RIGHT", r, "RIGHT", -buttonW, 0)
+			buttonW = buttonW + r.GuideMe:GetWidth() + 8
+		end
+		local textW = rowW - buttonW
 		r.Title:SetWidth(textW)
 		r.Why:SetWidth(textW)
 		r.Abandon.psQuest, r.psQuest = u.quest, u.quest
@@ -364,8 +374,8 @@ end
 -- Guide me on the "carried" list, and the guide window's menu: the hand-in
 -- guide for every finished quest in the log (Lookup planner kind
 -- "carried", id "log"). -> its guide id, or nil with the reason in chat.
-function UI.GuideCarried()
-	return ns.Handins.Start()
+function UI.GuideCarried(quest)
+	return ns.Handins.Start(quest)
 end
 
 ns.On("SHOW_QUEST_ROOM", function() UI.ShowQuestRoom() end)
