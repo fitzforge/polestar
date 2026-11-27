@@ -367,21 +367,14 @@ function routeGuide(name, data, opts = {}) {
 			done.add(q);
 		}
 	};
-	// The items a band's quests ask to be handed in (Thorium Bars for plans): item -> { n, quest }, for the quests
-	// not handed in on every way here; `quest` is one some ways have handed in (that get comes in two).
+	// The items a band's quests ask to be handed in (Thorium Bars for plans): item -> { n }, for the quests not
+	// handed in on every way here (after a fork, a way that already handed one in keeps a few spare bars).
 	const questItems = (band) => {
 		const need = new Map();
 		for (const q of band.quests || []) {
 			if (done.has(q) && !maybe.has(q)) continue;
 			for (const o of quests[q].objectives || []) {
-				if (o.type !== 'item') continue;
-				const e = need.get(o.id) || { n: 0, quest: null, qn: 0 };
-				e.n += o.count;
-				if (maybe.has(q) && !e.quest) {
-					e.quest = q;
-					e.qn = o.count;
-				}
-				need.set(o.id, e);
+				if (o.type === 'item') need.set(o.id, (need.get(o.id) || 0) + o.count);
 			}
 		}
 		return need;
@@ -392,31 +385,19 @@ function routeGuide(name, data, opts = {}) {
 	};
 	// One Get step per material a group of bands needs (vendor goods are a section's; parts come from the bags).
 	const getSteps = (group) => {
-		const need = new Map(); // item -> { n, quest, qn }
+		const need = new Map(); // item -> { n }
+		const add = (k, n) => need.set(k, { n: ((need.get(k) || {}).n || 0) + n });
 		for (const b of group) {
-			for (const [k, n] of Object.entries(b.mats)) {
-				if (!route.materials[k] || vendorOnly(k)) continue;
-				const e = need.get(Number(k)) || { n: 0, quest: null, qn: 0 };
-				e.n += n;
-				need.set(Number(k), e);
-			}
-			for (const [k, q] of questItems(b)) {
-				const e = need.get(k) || { n: 0, quest: null, qn: 0 };
-				e.n += q.n;
-				if (q.quest && !e.quest) Object.assign(e, { quest: q.quest, qn: q.qn });
-				need.set(k, e);
-			}
+			for (const [k, n] of Object.entries(b.mats)) if (route.materials[k] && !vendorOnly(k)) add(Number(k), n);
+			for (const [k, n] of questItems(b)) add(k, n);
 		}
 		for (const [item, e] of need) {
 			const withSmelt = route.smelt && route.smelt[item];
 			for (const [v, per] of Object.entries((withSmelt && withSmelt.with) || {})) {
 				step('buy', `Buy ${e.n * per} ${itemName(v)}`, { tip: `Smelting ${itemName(item)} takes ${per} ${itemName(v)} a bar.`, lines: [`  buy ${v} x${e.n * per} nearest`], also: [`skill Mining ${withSmelt.skill}`] });
 			}
-			const variants = e.quest ? [[`!turnedin ${e.quest}`, e.n], [`turnedin ${e.quest}`, e.n - e.qn]] : [[null, e.n]];
-			for (const [w, count] of variants) {
-				const bar = !!(loopsFor(item) || {}).smelt;
-				step('get', `Get ${count} ${itemName(item)}`, { tip: forWhat(group, item, bar), lines: getLines(item, count), extra: { items: [{ item, count }], bands: group }, also: w ? [w] : [] });
-			}
+			const bar = !!(loopsFor(item) || {}).smelt;
+			step('get', `Get ${e.n} ${itemName(item)}`, { tip: forWhat(group, item, bar), lines: getLines(item, e.n), extra: { items: [{ item, count: e.n }], bands: group } });
 		}
 	};
 	// A get's why line: the crafts it is for (each recipe once), and the plans a quest hands over for it.

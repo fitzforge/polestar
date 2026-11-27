@@ -1105,7 +1105,6 @@ step Get 27 Star Ruby
   auction 7910 x27
 
 step Get 560 Thorium Bar
-  when !turnedin 7655
   tip For 27 Imperial Plate Bracers and the plans. No Mining? The bars, not the ore.
   collect 12359 x560 gather Mining 250
   loop Winterspring lvl 59 lap 705 yield 4.9 only Alliance r 60 at 70.4,40.3 69.1,39.8 56.3,25.6 57.3,32.8 56.0,49.0 55.5,50.7 54.1,50.4 56.0,53.8 57.8,61.1 56.9,50.4 58.4,46.6 69.4,41.9
@@ -1118,21 +1117,6 @@ step Get 560 Thorium Bar
   loop Felwood lvl 52 lap 616 yield 1.8 only Horde r 60 at 36.2,68.9 37.9,68.0 38.3,70.6 40.1,74.1 42.1,78.4 39.7,81.0 42.8,84.1 44.9,85.5 47.3,76.1 45.2,66.6 43.8,62.1 36.6,62.7
   loop Tanaris lvl 50 lap 965 yield 2.7 only Horde r 60 at 57.2,68.7 56.5,73.2 55.4,73.0 29.7,68.4 29.4,64.8 31.0,63.8 33.4,46.1 35.1,46.8 62.7,48.5 64.4,47.1 65.5,52.3 64.0,53.3
   auction 12359 x560
-
-step Get 540 Thorium Bar
-  when turnedin 7655
-  tip For 27 Imperial Plate Bracers and the plans. No Mining? The bars, not the ore.
-  collect 12359 x540 gather Mining 250
-  loop Winterspring lvl 59 lap 705 yield 4.9 only Alliance r 60 at 70.4,40.3 69.1,39.8 56.3,25.6 57.3,32.8 56.0,49.0 55.5,50.7 54.1,50.4 56.0,53.8 57.8,61.1 56.9,50.4 58.4,46.6 69.4,41.9
-  loop Un'Goro Crater lvl 56 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
-  loop Felwood lvl 54 lap 811 yield 3.5 only Alliance r 60 at 57.6,17.3 59.2,19.4 61.3,21.3 58.7,22.8 43.8,62.1 38.9,55.1 43.2,46.7 43.4,41.2 38.1,32.2 39.8,22.3 46.2,13.5 48.6,23.8
-  loop Azshara lvl 55 lap 688 yield 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
-  loop Winterspring lvl 58 lap 621 yield 4.0 only Horde r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
-  loop Burning Steppes lvl 53 lap 615 yield 1.9 only Horde r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
-  loop The Hinterlands lvl 51 lap 718 yield 2.2 only Horde r 60 at 54.9,67.3 52.1,65.4 33.7,65.0 37.1,67.5 57.9,84.2 72.6,61.9 65.5,41.2 59.1,41.5 57.0,43.1 66.8,52.4 64.4,64.2 56.6,68.6
-  loop Felwood lvl 52 lap 616 yield 1.8 only Horde r 60 at 36.2,68.9 37.9,68.0 38.3,70.6 40.1,74.1 42.1,78.4 39.7,81.0 42.8,84.1 44.9,85.5 47.3,76.1 45.2,66.6 43.8,62.1 36.6,62.7
-  loop Tanaris lvl 50 lap 965 yield 2.7 only Horde r 60 at 57.2,68.7 56.5,73.2 55.4,73.0 29.7,68.4 29.4,64.8 31.0,63.8 33.4,46.1 35.1,46.8 62.7,48.5 64.4,47.1 65.5,52.3 64.0,53.3
-  auction 12359 x540
 
 step Reach level 50
   tip A Blue Light Bargain asks for level 50.
