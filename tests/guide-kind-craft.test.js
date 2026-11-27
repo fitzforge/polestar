@@ -375,3 +375,13 @@ emit({ well = sup.Well:IsShown(), big = pt(B.Big), small = pt(B.Small1), justify
 	ownWidth = B.Button:GetWidth() < B:GetWidth() - 20, farmBig = pt(Fm.Big), farmButton = Fm.Button:IsShown() and pt(Fm.Button) or false })`);
 	assert.deepEqual(out, { well: true, big: 'TOP', small: 'TOP', justify: 'CENTER', button: 'TOP', ownWidth: true, farmBig: 'TOP', farmButton: 'TOP' });
 });
+
+test('nothing to make now: the card keeps no rule and no empty row under the count (the client answers nil for an empty text)', () => {
+	const out = run('stub.emptyTextNil = true; w.items[2320] = 0', `
+GF.Layout(); stub.advance(1)
+local st = GF.RegionFrame("stretch")
+local _, _, _, _, cy = st.Count:GetPoint(1)
+emit({ rule = st.Rule:IsShown(), make = st.Make:IsShown(), open = st.psOpen:IsShown(),
+	tight = st.Card:GetHeight() <= -cy + st.Count:GetStringHeight() + 10.5 })`);
+	assert.deepEqual(out, { rule: false, make: false, open: false, tight: true });
+});

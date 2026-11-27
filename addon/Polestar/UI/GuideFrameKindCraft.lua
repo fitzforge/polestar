@@ -295,7 +295,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			f.Bar:ClearAllPoints()
 			local maxW = f.Max:GetStringWidth()
 			local valW = f.Value:GetStringWidth()
-			local rankW = f.Rank:GetText() ~= "" and f.Rank:GetStringWidth() + 6 or 0
+			local rankW = (f.Rank:GetText() or "") ~= "" and f.Rank:GetStringWidth() + 6 or 0
 			local textX = x + 22
 			local done = m.done or (m.line and m.line.reached)
 			if mode == "compact" then
@@ -648,7 +648,8 @@ ns.UI.GuideFrame.Part(function(GF)
 			f.MoveOn:SetPoint("TOPRIGHT", f.Card, "TOPRIGHT", -inner, -y - 1)
 			f.Count:SetWidth(max(40, cw - tx - inner - f.MoveOn:GetStringWidth() - 8))
 			y = y + f.Count:GetStringHeight() + 10
-			local makeShown = f.Make:GetText() ~= ""
+			-- The client answers nil for an empty text: an empty line keeps no rule or row in the card.
+			local makeShown = (f.Make:GetText() or "") ~= ""
 			f.Rule:SetShown(makeShown)
 			f.Make:SetShown(makeShown)
 			local iconOnly = narrow(width)
@@ -1527,7 +1528,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			f.Who:SetPoint("TOPLEFT", f.What, "BOTTOMLEFT", 0, -3)
 			f.Who:SetWidth(max(40, cw - tx - inner))
 			local y = 10 + f.Name:GetStringHeight() + 4 + f.What:GetStringHeight() + 3 + f.Who:GetStringHeight() + 10
-			local shown = f.Ready:GetText() ~= ""
+			local shown = (f.Ready:GetText() or "") ~= ""
 			f.Rule:SetShown(shown)
 			f.Ready:SetShown(shown)
 			if shown then
