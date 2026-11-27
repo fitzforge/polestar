@@ -30,6 +30,12 @@ or none.
   `.github/ISSUE_TEMPLATE/`, a `.md` at the root or under `.github/`) that
   no Node test and no check of `ci.yml` reads runs only the checks every
   tracked file gets (wording, names, SVGs: about a minute and a half).
+- **bot**: the Discord bot alone (`tools/discord-bot/`, `tests/discord-*.test.js`,
+  `tests/helpers/discord-fakes.js`, `changes/*bot*`, `.github/workflows/discord-*.yml`)
+  runs only this GitHub-hosted job: the bot's Node tests and the checks every
+  tracked file gets. Every other step is skipped, and `Format, lints, tests`
+  skips as for documentation; `Base branch` and the public-text check run as
+  always.
 - **part**: guides, Lua, data, fragments, Node test files and documentation
   only. forge comes
   from the Actions cache (keyed by `rust/` and the Lua it embeds; next's
