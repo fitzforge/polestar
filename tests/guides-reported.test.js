@@ -19931,3 +19931,13 @@ for (const guide of ['forever/horde/50-60/07-felwood.guide', 'forever/reputation
 		assert.equal(luck.step, take.step, 'on the same visit to Everlook');
 	});
 }
+
+// #4381 (GustavoCampos1999, 0.4.3.1): Bareth Dawnstone gives Seeking Refuge (99144) held on the top floor of the
+// Crusader's Outpost tower (the world data's spawn at 31.76,45.89, height 40.3), but the arrow led to 33.28,47.65 on the
+// ground outside, where the escort ends (places.json 4381-tirisfal-bareth-top-floor-giver).
+test("forever/horde/undead/01-tirisfal-glades.guide: GustavoCampos1999's report: Seeking Refuge is taken on the tower's top floor (#4381)", { skip }, () => {
+	const list = goals('forever/horde/undead/01-tirisfal-glades.guide');
+	const { goal } = list[at(list, 'accept 99144 (Seeking Refuge)', is('accept', 99144))];
+	assert.ok(yards(goal, { map: 1420, x: 31.76, y: 45.89 }) < 5, `at Bareth's top-floor spawn (${goal.x},${goal.y})`);
+	assert.equal(goal.z, 40.3, 'on the top floor\'s height');
+});
