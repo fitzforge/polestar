@@ -38,7 +38,7 @@ local menu = {}
 for _, it in ipairs(got or {}) do
 	if it.separator then menu[#menu + 1] = "-" elseif it.bar then menu[#menu + 1] = "bar" else menu[#menu + 1] = it.text end
 end
-emit({ kind = E.GuideKind(), xp = GF.xp.psHas and GF.xp.Text:GetText() or false, menu = menu })`;
+emit({ kind = E.GuideKind(), xp = GF.xp.psHas and GF.xp.Text:GetText() or false, menu = menu, handinRow = GF.KindHas("handinRow", "handinRow") })`;
 
 const PROFESSION = (extra = '') => `{ id = "test/kind", pack = "test", title = "Tailoring 1-300", minLevel = 5, maxLevel = 60, category = "Professions"${extra},
 	sections = { { skill = "Tailoring", skillLine = 197, from = 1, to = 150 } },
@@ -71,4 +71,15 @@ test('`kind` beats the category; a part turned off in the settings stays off in 
 	assert.equal(run(PROFESSION(', kind = "reputation"')).kind, 'reputation');
 	assert.equal(run(PROFESSION(', kind = "nonsense"')).kind, 'profession', 'a kind Polestar does not know: the category');
 	assert.equal(run(LEVELING, 'Polestar.Set("guideWindow.xpLine", false)').xp, false);
+});
+
+const DUNGEON = (extra = '') => `{ id = "test/kind", pack = "test", title = "Blackfathom Deeps", minLevel = 20, maxLevel = 30, category = "Dungeons"${extra},
+	steps = { { goals = { { t = "accept", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride" } } } } }`;
+
+test('the finished quests\' row (handinRow): a dungeon guide has none, whatever the log holds; a leveling guide keeps it', () => {
+	assert.equal(run(DUNGEON()).handinRow, false, 'the Dungeons category');
+	assert.equal(run(DUNGEON(', kind = "dungeon"')).handinRow, false, 'kind dungeon');
+	assert.equal(run(LEVELING.replace('maxLevel = 20,', 'maxLevel = 20, kind = "dungeon",')).handinRow, false, 'kind beats a leveling category');
+	assert.equal(run(LEVELING).handinRow, true, 'a leveling guide with the same two finished quests');
+	assert.equal(run(DUNGEON().replace('category = "Dungeons"', 'category = "Leveling"')).handinRow, true, 'category alone decides, never the id');
 });

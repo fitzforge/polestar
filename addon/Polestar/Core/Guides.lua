@@ -2336,7 +2336,7 @@ GuideKinds.KINDS = {
 		lead = { "materials", "trainer" },
 	},
 	reputation = { parts = { pace = false } },
-	dungeon = { parts = { pace = false } },
+	dungeon = { parts = { pace = false, handinRow = false } },
 	class = { parts = { pace = false } },
 	collectible = { parts = { pace = false } },
 	exploration = { parts = { pace = false } },

@@ -791,7 +791,8 @@ it read as before.
 |---|---|---|
 | `leveling` | nothing | everything |
 | `profession` | the XP line and the route's pace (the row shows the profession's skill instead: `Tailoring 87 / 150 · next stretch to 100 · step 29 needs level 35 (Artisan Tailoring)`), the finished quests' row, Still to do and While you're here rows of quests | leads with the materials (Gather, buy or mix) and the profession's nearest trainer; no Free mode, Hand in finished quests or Clean up quest log |
-| `reputation`, `dungeon`, `class`, `collectible`, `exploration`, `misc` | the route's pace | everything |
+| `reputation`, `class`, `collectible`, `exploration`, `misc` | the route's pace | everything |
+| `dungeon` | the route's pace and the finished quests' row (a dungeon guide's quests are its own; the log's finished quests are in the menu's Hand in finished quests) | everything |
 
 A part's own setting (Options: the XP line, the pace, Still to do) still
 turns it off for every kind. The addon's table is `ns.GuideKinds`
