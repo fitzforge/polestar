@@ -167,10 +167,11 @@ fn a_low_quest_in_the_log_goes_while_it_is_not_done_and_stays_once_it_only_has_t
 
 #[test]
 fn without_skip_grey_quests_the_guide_is_placed_as_before_the_first_quest_not_done_in_the_first_guide() {
-	let out = run(DONE, GUIDES, OFF, r#"E.SetGuide("test/low"); flush(); emit({ guide = E.GetGuide().id, at = E.GetStepIndex() })"#);
-	// The trip to the farm leads to Grey not done (102), still to do: it stays, though 101's turn-in further on
-	// is done (the skip-ahead sweep, 0.3.6: travel before work still to do is never passed).
-	assert_eq!(out, json!({ "guide": "test/low", "at": 2 }), "the trip to the farm leads to work still to do");
+	let out = run(DONE, GUIDES, OFF, r#"E.SetGuide("test/low"); flush(); emit({ guide = E.GetGuide().id, at = E.GetStepIndex(), earlier = #E.SkippedEarlier() })"#);
+	// No catch-up leaves anything out, so no quest is passed for being grey. Grey not done (102) was never
+	// taken though 101 was handed in: placement by quest history (#86) passes it as a quest skipped earlier
+	// (listed to take or dismiss), and the trip to the farm before it no longer leads to work to do.
+	assert_eq!(out, json!({ "guide": "test/low", "at": 5, "earlier": 1 }), "the skipped quest no longer sets the start");
 }
 
 #[test]

@@ -117,6 +117,32 @@ ns.RegisterCommand("reset", function()
 	ns.Print(L["Cleared ticks, skips and the step you were looking at for this guide."])
 end, L["Clear ticks and skips for the current guide"])
 
+-- What placement marked in the current guide, with its undo (Engine.PlacementReport).
+-- `placement undo` takes it back, `placement redo` places the guide again.
+ns.RegisterCommand("placement", function(rest)
+	if not needGuide() then return end
+	local word = rest and rest:match("^%s*(%S+)")
+	if word == "undo" then
+		ns.Print(Engine.UndoPlacement() and L["Placement undone. The guide starts from your own marks."] or L["Placement has nothing to undo here."])
+	elseif word == "redo" then
+		ns.Print(Engine.RedoPlacement() and L["Placed again."] or L["Placement was not undone here."])
+	else
+		local report, line = Engine.PlacementReport(), Engine.PlacementLine()
+		if not line then
+			ns.Print(L["Placement marked nothing in this guide."])
+			return
+		end
+		ns.Print(line)
+		for _, s in ipairs(report.steps) do
+			DEFAULT_CHAT_FRAME:AddMessage(("  %s"):format(string.format(L["Step %d"], s.number) .. (s.title and s.title ~= "" and ("  \194\183  " .. s.title) or "")))
+		end
+		for _, q in ipairs(report.quests) do
+			DEFAULT_CHAT_FRAME:AddMessage(("  %s"):format(string.format(L["Skipped earlier: %s"], ns.Quoted(q.title) or q.title or q.quest)))
+		end
+		ns.Print(L["/polestar placement undo takes this back."])
+	end
+end, L["Show what placement marked in this guide; undo or redo it"])
+
 ns.RegisterCommand("guide", function(rest)
 	local id = rest and rest:match("^%s*(%S+)")
 	if not id then

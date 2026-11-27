@@ -28,7 +28,8 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- waits on ("Dungeons in my route": Ask me; Run
 	-- it or Skip it, never dismissed), and after "No group? Skip it" the
 	-- dungeon's quests kept in the log; the step the player just skipped, with
-	-- its undo; why the guide just moved past a quest (while that step's guide
+	-- its undo; what placement just marked, with its undo (PLACED_SECONDS);
+	-- why the guide just moved past a quest (while that step's guide
 	-- and next step are on screen); the step on screen when it is not the live
 	-- one (skipped: unskip it; looked at with ‹ ›: back to the live step); at a
 	-- chosen dungeon's run, until inside, "No group? Skip it", and a few steps
@@ -48,7 +49,8 @@ ns.UI.GuideFrame.Part(function(GF)
 	---------------------------------------------------------------------------
 
 	local SKIPPED_SECONDS = 20 -- how long the "Skipped …" notices stay
-	local notices = { closedTab = nil, questSkip = nil, groupSkip = nil, stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil, dungeonKept = nil, soonSeen = nil, freshSeen = {}, taxiMap = nil }
+	local PLACED_SECONDS = 60 -- how long the "Placed you …" notice and its undo stay (/polestar placement undo after)
+	local notices = { closedTab = nil, questSkip = nil, groupSkip = nil, stepSkip = nil, skipped = nil, placed = nil, unplaced = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil, dungeonKept = nil, soonSeen = nil, freshSeen = {}, taxiMap = nil }
 	GF.notices = notices
 
 	-- The step on screen when it is not the live step: { guideId, index, live,
@@ -193,6 +195,11 @@ ns.UI.GuideFrame.Part(function(GF)
 		if k and g ~= nil and g.id == k.guideId and (not view or view.index ~= k.step) then return "stepSkip", k end
 		local s = notices.skipped
 		if s and g ~= nil and g.id == s.guideId and E.GetStepIndex() == s.to then return "skipped", s end
+		-- What placement just marked (Engine.PlacementLine), with its undo; after the undo, the way to place the guide again.
+		local pl = notices.placed
+		if pl and g ~= nil and g.id == pl.guideId and E and E.PlacementLine and E.PlacementLine() then return "placed", pl end
+		local up = notices.unplaced
+		if up and g ~= nil and g.id == up.guideId then return "unplaced", up end
 		local a = E and awayNotice(E, g)
 		if a then return "away", a end
 		-- At a chosen dungeon's run, until inside: "No group? Skip it"; a few steps before it: start looking for a group.
@@ -327,6 +334,32 @@ ns.UI.GuideFrame.Part(function(GF)
 					if F and ns.IsLoggedIn() then GF.Layout() end
 				end
 			end)
+		end)
+
+		-- A notice of guide `guideId` held in notices[kind] for PLACED_SECONDS.
+		local function hold(kind, guideId)
+			local notice = { guideId = guideId }
+			notices[kind] = notice
+			if ns.IsLoggedIn() then GF.Layout() end
+			ns.After(PLACED_SECONDS, function()
+				if notices[kind] == notice then
+					notices[kind] = nil
+					if F and ns.IsLoggedIn() then GF.Layout() end
+				end
+			end)
+		end
+
+		-- PLACEMENT_RECORDED(guideId): placement marked steps done or quests skipped; the banner says what, with
+		-- its undo (Engine.UndoPlacement). PLACEMENT_UNDONE(guideId): the way to place the guide again.
+		ns.On("PLACEMENT_RECORDED", function(guideId)
+			if not F then return end
+			notices.unplaced = nil
+			hold("placed", guideId)
+		end)
+		ns.On("PLACEMENT_UNDONE", function(guideId)
+			if not F then return end
+			notices.placed = nil
+			hold("unplaced", guideId)
 		end)
 
 		-- PLAYER_SKIPPED_QUEST(questID, title): a quest skipped from its line's
@@ -610,6 +643,16 @@ ns.UI.GuideFrame.Part(function(GF)
 			banner.Text:SetText(string.format(L["Skipped %s"], what))
 			placeLink(banner.Jump, L["Undo"], 0, -4)
 			banner.Close:Show()
+		elseif kind == "placed" then
+			banner.Icon:SetTexture(Theme.Media("check"))
+			banner.Text:SetText(Engine().PlacementLine() or "")
+			placeLink(banner.Jump, L["Undo"], 0, -4)
+			banner.Close:Show()
+		elseif kind == "unplaced" then
+			banner.Icon:SetTexture(Theme.Media("skip"))
+			banner.Text:SetText(L["Placement undone. The guide starts from your own marks."])
+			placeLink(banner.Jump, L["Place me again"], 0, -4)
+			banner.Close:Show()
 		elseif kind == "away" then
 			banner.Icon:SetTexture(Theme.Media(n.skipped and "skip" or (n.live and n.index > n.live and "chevron-right" or "chevron-left")))
 			if n.skipped then
@@ -885,6 +928,11 @@ ns.UI.GuideFrame.Part(function(GF)
 		elseif kind == "stepSkip" then
 			notices.stepSkip = nil
 			if E and E.Unskip then E.Unskip(n.step) end
+		elseif kind == "placed" then
+			if E and E.UndoPlacement then E.UndoPlacement() end
+		elseif kind == "unplaced" then
+			notices.unplaced = nil
+			if E and E.RedoPlacement then E.RedoPlacement() end
 		elseif kind == "away" then
 			if n.skipped then
 				if E and E.Unskip then E.Unskip(n.index) end

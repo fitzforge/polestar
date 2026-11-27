@@ -176,6 +176,8 @@ mod engine_npc_arrival;
 mod engine_packs;
 #[path = "engine-pin.rs"]
 mod engine_pin;
+#[path = "engine-placement-undo.rs"]
+mod engine_placement_undo;
 #[path = "engine-professions.rs"]
 mod engine_professions;
 #[path = "engine-repeatable.rs"]
