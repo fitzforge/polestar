@@ -110,7 +110,7 @@ test('the report says how the arrow routes: the route style, then only the routi
 	assert.equal(out.unknown, 'Routes: balanced · real paths off · travel planner off', 'a style the router reads as Balanced is reported as Balanced');
 });
 
-test('the report lists the travel plan from the current leg: each caption and time, "(maybe)" on a flight to a flight master the character may not have, no line without a plan (#1795)', () => {
+test('the report lists the travel plan from the current leg: each caption and time, "(assumed)" on a flight to a flight master the character may not have, no line without a plan (#1795)', () => {
 	const [out] = run(`
 		uistub.setGuide(uistub.elwynn, 3)
 		local function travel()
@@ -131,7 +131,32 @@ test('the report lists the travel plan from the current leg: each caption and ti
 		r.plan = travel()
 		emit(r)`);
 	assert.equal(out.none, undefined, 'no plan: no line');
-	assert.equal(out.plan, 'Travel: Walk to the flight master 1:23 · Fly to Astranaar 3:05 (maybe) · Delgren the Purifier 0:40');
+	assert.equal(out.plan, 'Travel: Walk to the flight master 1:23 · Fly to Astranaar 3:05 (assumed) · Delgren the Purifier 0:40');
+});
+
+test('the report names the flight paths Polestar takes the character to know on this continent, and whether a flight map opened here (#3290)', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		local function flights()
+			UI.ShowReport()
+			for line in PolestarReport.Box:GetText():gmatch("[^\\n]+") do
+				if line:find("^Flight paths: ") then return line end
+			end
+		end
+		local r = { none = flights() }
+		local nodes = { [1] = { name = "Ratchet", c = 1 }, [2] = { name = "Auberdine", c = 1 }, [3] = { name = "Stormwind", c = 0 } }
+		local known, seen = { [1] = true, [2] = true, [3] = true }, {}
+		Polestar.Nav.GetKnownTaxiNodes = function() return known end
+		Polestar.Nav.GetTaxiNode = function(id) return nodes[id] end
+		Polestar.Nav.GetTaxiSeen = function() return seen end
+		Polestar.Compat.GetPlayerWorldPosition = function() return 1, 100, 200 end
+		r.unseen = flights()
+		seen[1] = true
+		r.seen = flights()
+		emit(r)`);
+	assert.equal(out.none, undefined, 'no travel data: no line');
+	assert.equal(out.unseen, 'Flight paths: 2 known here · no flight map opened here yet · Auberdine, Ratchet', 'this continent\'s, by name; not Stormwind');
+	assert.equal(out.seen, 'Flight paths: 2 known here · flight map opened here · Auberdine, Ratchet');
 });
 
 test('the Where line gives the height of the floor Polestar takes the player to stand on, when it knows one (#2215)', () => {
@@ -449,9 +474,11 @@ test('what the player typed stays while it is the same step; a report on another
 	assert.deepEqual(out.other, { text: '', placeholder: true, report: '**What went wrong:** (not described)' });
 });
 
-test('the guide window\'s menu and /polestar report open it too; Escape closes it', () => {
+test('the guide window\'s menu (with the header\'s bug off) and /polestar report open it too; Escape closes it', () => {
 	const [out] = run(`
 		uistub.setGuide(uistub.elwynn, 3)
+		-- The menu lists Report a problem while the header has no bug to click.
+		GF.parts.nav.Report:Hide()
 		GF.menuButton:Click()
 		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == "Report a problem" then r:Click() end end
 		local fromMenu = PolestarReport:IsShown()
@@ -1291,4 +1318,101 @@ test('the report carries the quest log, the settings turned away from their defa
 	const log = lines.indexOf('Log:');
 	assert.ok(log > 0, out.text);
 	assert.match(lines[lines.length - 2], /^> \d\d:\d\d:\d\d picked the inn at Goldshire$/, 'the newest line last, inside the block');
+});
+
+// #3847 (from #3699, thanks Semper): at his context line the window shook by
+// a few pixels every other frame, drawn at two places. The window is placed
+// once, on whole pixels, kept on the screen by its own layout; and a layout
+// pass that would undo the last one by the same step (a label measured
+// differently on alternate passes) keeps the height it has.
+test('at UI scale 0.64 on 1080p, "Step 106 of 112 · Stormwind · Riverglades": the window keeps its height and its place over 10 layout passes, on whole pixels, and a pass that would undo the last is kept out (#3847)', () => {
+	const [out] = run(`
+		local steps = {}
+		for i = 1, 112 do steps[i] = { title = i == 106 and "Stormwind" or ("Step " .. i), goals = { { t = "note", text = "Go on.", status = "pending" } } } end
+		local id = "forever/alliance/riverglades"
+		uistub.guides[id] = { id = id, pack = "guides", title = "Riverglades", faction = "Alliance", minLevel = 38, maxLevel = 47, steps = steps }
+		uistub.setGuide(id, 106)
+		UI.ShowReport()
+		local F = PolestarReport
+		F.Desc:SetText("The window shakes up and down.")
+		-- typed: each pass a new text, of the same length (the event repeated
+		-- with nothing changed lays nothing out: the next test).
+		local function passes(typed)
+			local list = {}
+			for i = 1, 10 do
+				if typed then F.Desc:SetText("The window shakes up and down" .. (i % 2 == 0 and "." or "!")) end
+				stub.RunScript(F.Desc, "OnTextChanged", true)
+				stub.advance(0.05)
+				local point, rel, relPoint, x, y = F:GetPoint(1)
+				list[#list + 1] = { h = F:GetHeight(), at = table.concat({ point, rel == UIParent and "UIParent" or tostring(rel), relPoint, x, y, F:GetNumPoints() }, " ") }
+			end
+			return list
+		end
+		local hidden = passes()
+		F.Copy:Click()
+		local shown = passes()
+		-- A label measured 6 units taller on every other pass.
+		local real, n = F.DiscordNote.GetStringHeight, 0
+		F.DiscordNote.GetStringHeight = function(self) n = n + 1; return real(self) + (n % 2 == 0 and 6 or 0) end
+		local flipping = passes(true)
+		local noted = 0
+		for _, line in ipairs(Polestar.DebugLog()) do if line:find("Report window: a layout pass undid", 1, true) then noted = noted + 1 end end
+		local _, _, _, x, y = F:GetPoint(1)
+		emit({ context = F.Context:GetText(), hidden = hidden, shown = shown, flipping = flipping, noted = noted,
+			px = Polestar.Theme.PixelsPerUnit(F), x = x, y = y, screen = UIParent:GetHeight() })`, 'UIParent:SetScale(0.64); UIParent.width, UIParent.height = 1200 * 16 / 9, 1200');
+	assert.equal(out.context, 'Step 106 of 112  \u00b7  Stormwind  \u00b7  Riverglades');
+	for (const name of ['hidden', 'shown']) {
+		const list = out[name];
+		for (const p of list) assert.deepEqual(p, list[0], `${name}: the same height and place on every pass: ${JSON.stringify(list)}`);
+		assert.match(list[0].at, /^TOPLEFT UIParent BOTTOMLEFT /, `${name}: placed by its top-left corner: ${list[0].at}`);
+		assert.ok(list[0].h <= 720, `${name}: fits a 720-unit screen (${list[0].h})`);
+	}
+	for (const v of [out.x, out.y]) {
+		const px = v * out.px;
+		assert.ok(Math.abs(px - Math.round(px)) < 1e-6, `on a whole pixel: ${v} units = ${px} px`);
+	}
+	assert.ok(out.y <= out.screen, 'its top on the screen');
+	const settled = out.flipping.slice(1);
+	for (const p of settled) assert.deepEqual(p, settled[0], `the flip is kept out from the second pass on: ${JSON.stringify(out.flipping.map((p) => p.h))}`);
+	assert.equal(out.noted, 1, 'noted once in the report\'s Log');
+});
+
+// #3847, Semper's clip (#3699), frame by frame: at UI scale off on 1080p
+// (768/1080, a unit a pixel) the window grew and shrank by one line of the
+// GitHub note on alternate frames, its centre still, so its top and its text
+// went 6 px up and down. The note's last line is exactly as wide as its box:
+// measured, it came out 2 lines and 3 on alternate passes, and a pass ran
+// every frame with nothing typed (the description's OnTextChanged, which the
+// client repeats). That event with nothing changed now lays nothing out.
+test('the description\'s OnTextChanged repeated every frame with nothing typed lays the window out once: a GitHub note measured 2 and 3 lines on alternate passes moves nothing (#3847, Semper\'s clip)', () => {
+	const [out] = run(`
+		local steps = {}
+		for i = 1, 112 do steps[i] = { title = i == 106 and "Stormwind" or ("Step " .. i), goals = { { t = "note", text = "Go on.", status = "pending" } } } end
+		local id = "forever/alliance/riverglades"
+		uistub.guides[id] = { id = id, pack = "guides", title = "Riverglades", faction = "Alliance", minLevel = 38, maxLevel = 47, steps = steps }
+		uistub.setGuide(id, 106)
+		UI.ShowReport()
+		local F = PolestarReport
+		local real, n = F.GitHubNote.GetStringHeight, 0
+		F.GitHubNote.GetStringHeight = function(self) n = n + 1; return real(self) + (n % 2 == 0 and self:GetLineHeight() or 0) end
+		local setHeight, layouts = F.SetHeight, 0
+		F.SetHeight = function(self, h) layouts = layouts + 1; return setHeight(self, h) end
+		local function at(r)
+			local point, rel, relPoint, x, y = r:GetPoint(1)
+			return table.concat({ point, rel == UIParent and "UIParent" or rel == F and "F" or tostring(rel), relPoint, x, y }, " ")
+		end
+		local frames = {}
+		for _ = 1, 10 do
+			stub.RunScript(F.Desc, "OnTextChanged", false)
+			stub.RunScript(F.Desc, "OnCursorChanged", 0, 0, 0, 16)
+			stub.advance(1 / 60)
+			frames[#frames + 1] = { h = F:GetHeight(), window = at(F), note = at(F.GitHubNote), button = at(F.GitHub) }
+		end
+		emit({ context = F.Context:GetText(), box = F.Box:IsShown(), placeholder = F.Desc.Placeholder:IsShown(), frames = frames, layouts = layouts })`,
+	'UIParent:SetScale(768 / 1080); UIParent.width, UIParent.height = 1920, 1080');
+	assert.equal(out.context, 'Step 106 of 112  \u00b7  Stormwind  \u00b7  Riverglades');
+	assert.equal(out.box, false, 'the report box hidden, as in the clip');
+	assert.equal(out.placeholder, true, 'nothing typed');
+	for (const f of out.frames) assert.deepEqual(f, out.frames[0], `the window, the note and the button stay where they are: ${JSON.stringify(out.frames)}`);
+	assert.ok(out.layouts <= 1, `laid out at most once over 10 frames (${out.layouts})`);
 });

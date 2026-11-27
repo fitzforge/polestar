@@ -616,11 +616,12 @@ emit({ Polestar.Get("party.chatEcho"), Polestar.Get("party.chatHideOthers"), Pol
 			"Questing/Group/party.waitForGroup",
 			"Questing/Group/party.lootNeeds",
 			"Questing/Group/party.panel",
-			// What Polestar says in party chat has its own section.
+			// What Polestar says in party chat has its own section; your own lines and the Polestar-only quiet under
+			// the objectives' switch, the loot's after them.
 			"Questing/Party chat/party.chat",
-			"Questing/Party chat/party.chatLoot",
 			"Questing/Party chat/party.chatEcho",
 			"Questing/Party chat/party.chatOnlyNeeded",
+			"Questing/Party chat/party.chatLoot",
 			"Questing/Party chat/party.chatHideOthers",
 			// The panel's switch also heads its look tab (Options > Trackers > Party panel), registered with the
 			// settings window's addon (Polestar_Options/UI/Looks/Trackers.lua).
@@ -972,12 +973,13 @@ p.receive("Ana-TestRealm", "1P|8|0.0.1|test|3|test/g")
 p.receive("Ben-TestRealm", "1P|4|0.0.1|test|3|test/g")
 p.receive("Cy-TestRealm", "1P|9|0.0.1|test|2|test/g")
 p.receive("Dee-TestRealm", "1P|2|0.0.1|test|3|test/other")
-emit({ P.StepLine() })
+local function step() local text, holding = P.StepLine() return { text, holding } end
+emit(step())
 goals[1] = { t = "kill", quest = 33, oi = 1, status = "done" }
 p.receive("Ana-TestRealm", "1|33:5/8")
-emit({ P.StepLine() })
+emit(step())
 Polestar.Set("party.waitForGroup", false)
-emit({ P.StepLine() })"#
+emit(step())"#
 	)));
 	let places = format!("Ana: 3 steps ahead{DOT}Ben: 1 step behind{DOT}Dee: other guide");
 	assert_eq!(out[0], json!([places, false]), "Cy's pack version differs: no line for her");
@@ -1107,7 +1109,7 @@ emit(told())"#
 	assert_eq!(fresh[0], json!(["1H|0.1.0-test"]), "never touched: on, and only the hello before anyone answers");
 	assert_eq!(fresh[3], json!(["1S|33:0/8"]), "Ana runs Polestar: she gets our snapshot");
 	assert_eq!(json!([fresh[1], fresh[2], fresh[4], fresh[6]]), json!([0, 0, 1, 1]), "said once, when the first member's progress shows (her answer alone shows nothing)");
-	assert_eq!(fresh[5], "|cff4fd1c5Polestar|r: Party sync is on: you and your party see each other's quest progress. Turn it off in Options.");
+	assert_eq!(fresh[5], "|cff4fd1c5Polestar|r: Party sync is on: you and your party see each other's quest progress. Turn it off in Settings.");
 	let no_share = saved_run(Some("PolestarDB = { schema = 1, settings = { party = { share = false } } }"), &script);
 	assert_eq!(no_share[0], json!(["1H|0.1.0-test"]), "showing alone still says hello");
 	assert!(no_share[3] == json!([]) || no_share[3] == json!({}), "sharing turned off stays off: {}", no_share[3]);
@@ -1563,7 +1565,7 @@ emit(why)"#
 	);
 	assert_eq!(
 		out[1],
-		json!(["|cff4fd1c5Polestar|r: The party panel is hidden inside instances: Options > Trackers > Party panel.", "|cff4fd1c5Polestar|r: The party panel comes back after combat."])
+		json!(["|cff4fd1c5Polestar|r: The party panel is hidden inside instances: Settings > Trackers > Party panel.", "|cff4fd1c5Polestar|r: The party panel comes back after combat."])
 	);
 }
 

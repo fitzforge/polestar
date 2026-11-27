@@ -91,8 +91,20 @@ return {
 		["nav.targetGlow"] = function() return target() end,
 		["nav.targetPulse"] = function() return target() end,
 		["nav.pulseSeconds"] = { with = { ["nav.targetPulse"] = true }, probe = function() return target() end },
+		-- The target's other spawn spots on the world map: the goal's pin with three spots about it.
+		["nav.spawnSpots"] = { probe = function() return #world("nav.spots") end,
+			prepare = function()
+				N.GetTarget().spots = { at(100, 0), at(0, 100), at(-100, -100) }
+				Polestar.Fire("ROUTE_CHANGED")
+			end,
+			cleanup = function()
+				N.GetTarget().spots = nil
+				Polestar.Fire("ROUTE_CHANGED")
+			end },
 		["nav.worldPins"] = function() return #world("nav.target") end,
 		["nav.minimapPins"] = function() return #minimap("nav.target") end,
+		-- The guide window hidden: the target pin stays on the world map, or goes with it.
+		["nav.hidePinsWithGuide"] = { with = { ["ui.shown"] = false }, probe = function() return #world("nav.target") end },
 		["nav.areaAlpha"] = function() local a = nav.pins("areas")[1]; return a and rgba(a.tex) or false end,
 		["nav.areaColor"] = function() local a = nav.pins("areas")[1]; return a and rgba(a.tex) or false end,
 		["nav.trailDots"] = function() return trail().n end,

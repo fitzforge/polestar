@@ -60,7 +60,7 @@ return {
 	-- {area:2268} Light's Hope Chapel
 	["{area:2268} quests"] = "{area:2268}的任務",
 	-- {area:2268} Light's Hope Chapel · {zone:1423} Eastern Plaguelands · {faction:529} Argent Dawn · {npc:11039} Duke Nicholas Zverenhoff · {npc:11035} Betina Bigglezink · {npc:243252} Leonid Barthalomew · {area:2279} Stratholme · {area:2057} Scholomance · {object:176317} Argent Hold
-	["{area:2268}, on the east side of the {zone:1423}, is the {faction:529}'s home: {npc:11039}, {npc:11035} and {npc:243252} give its dungeon quests, 100 to 200 reputation each and about 1,700 in all. They are group quests for {area:2279} and {area:2057} (level 58-60, five players): take the ones your group will run. The Duke's chain ends at the {object:176317}, a chest of {faction:529} gear."] = "",
+	["{area:2268}, on the east side of the {zone:1423}, is the {faction:529}'s home: {npc:11039}, {npc:11035} and {npc:243252} give its dungeon quests, 100 to 200 reputation each and about 1,700 in all. They are group quests for {area:2279} and {area:2057} (level 58-60, five players): take the ones your group will run. The Duke's chain ends at the {object:176317}, a chest of {faction:529} gear."] = "{area:2268} 位於 {zone:1423} 東部，是 {faction:529} 的據點：{npc:11039}、{npc:11035} 和 {npc:243252} 會提供地下城任務，每個獎勵100到200點聲望，總計約1,700點。這些是 {area:2279} 和 {area:2057} 的組隊任務（58-60級，五人）：只接你的小隊要去的地下城對應的任務。公爵的任務線最終獎勵 {object:176317}，這是裝有 {faction:529} 裝備的箱子。",
 
 	-- Step 6: Stratholme
 	-- {area:2279} Stratholme · {zone:1423} Eastern Plaguelands · {npc:10440} Baron Rivendare · {item:12843} Corruptor's Scourgestone
@@ -72,7 +72,7 @@ return {
 	-- {npc:10811} Archivist Galford
 	["{npc:10811}, Scarlet side"] = "{npc:10811}，血色一側",
 	-- {object:176245} Scarlet Archive
-	["the {object:176245}: burn it, Scarlet side"] = "",
+	["the {object:176245}: burn it, Scarlet side"] = "{object:176245}：燒掉它，血色陣營那邊",
 
 	-- Step 7: Scholomance
 	-- {area:2057} Scholomance · {area:2298} Caer Darrow · {zone:1422} Western Plaguelands · {item:13704} Skeleton Key · {faction:529} Argent Dawn · {quest:5508} Corruptor's Scourgestones · {npc:10508} Ras Frostwhisper · {npc:1853} Darkmaster Gandling
@@ -84,17 +84,17 @@ return {
 	-- {area:2268} Light's Hope Chapel
 	["Back at {area:2268}"] = "回到{area:2268}",
 	-- {quest:5212} The Flesh Does Not Lie · {quest:5213} The Active Agent · {item:13176} Scourge Data · {area:2279} Stratholme · {item:13209} Seal of the Dawn · {item:19812} Rune of the Dawn · {quest:5251} The Archivist · {item:13250} Head of Balnazzar · {npc:10440} Baron Rivendare · {item:13920} Healthy Dragon Scale · {quest:5529} Plagued Hatchlings · {npc:10267} Tinkee Steamboil · {zone:1428} Burning Steppes · {area:1583} Blackrock Spire · {npc:243252} Leonid Barthalomew · {npc:11035} Betina Bigglezink · {item:12368} Dawn's Gambit · {area:2057} Scholomance
-	["{quest:5212} leads to {quest:5213} (the {item:13176} in a {area:2279} ziggurat), which rewards the {item:13209} or the {item:19812}: better trinkets that also make Scourgestones drop, so they can replace the Commission. {quest:5251} leads on to the {item:13250} and {npc:10440}. A {item:13920}, a rare drop (about 6%) from the {quest:5529} once {quest:5529} is done, starts a quest worth 50 each time: keep them until Revered. {npc:10267} in the {zone:1428}, at the end of her {area:1583} quests, sends you to {npc:243252} (75) and on to {npc:11035}'s {item:12368} in {area:2057} (25 and 200)."] = "",
+	["{quest:5212} leads to {quest:5213} (the {item:13176} in a {area:2279} ziggurat), which rewards the {item:13209} or the {item:19812}: better trinkets that also make Scourgestones drop, so they can replace the Commission. {quest:5251} leads on to the {item:13250} and {npc:10440}. A {item:13920}, a rare drop (about 6%) from the {quest:5529} once {quest:5529} is done, starts a quest worth 50 each time: keep them until Revered. {npc:10267} in the {zone:1428}, at the end of her {area:1583} quests, sends you to {npc:243252} (75) and on to {npc:11035}'s {item:12368} in {area:2057} (25 and 200)."] = "{quest:5212} 後續是 {quest:5213}（獲取 {area:2279} 通靈塔中的 {item:13176}），獎勵 {item:13209} 或 {item:19812}：它們是更好的飾品，同樣能讓怪物掉落天災石，因此可以替代委任徽章。{quest:5251} 會繼續引向 {item:13250} 和 {npc:10440}。完成 {quest:5529} 後，{quest:5529} 有較低機率（約 6%）掉落 {item:13920}，可開啟一個每次提供 50 點聲望的任務：留到崇敬再交。{zone:1428} 的 {npc:10267} 在她的 {area:1583} 任務鏈末尾，會讓你去找 {npc:243252}（75 點），再前往 {area:2057} 獲取 {npc:11035} 所需的 {item:12368}（25 點和 200 點）。",
 
 	-- Step 9: Friendly to Honored: stones and named Scourge
 	["Friendly to Honored: stones and named Scourge"] = "友善到尊敬：石頭與具名天災",
 	-- {npc:10826} Lord Darkscythe · {npc:10821} Hed'mush the Rotting · {npc:10825} Gish the Unmoving · {area:2057} Scholomance · {area:2279} Stratholme · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {area:3197} Chillwind Camp · {area:152} Bulwark · {item:12844} Argent Dawn Valor Token · {quest:5509} Invader's Scourgestones · {area:2272} Northdale · {item:12843} Corruptor's Scourgestone · {npc:1850} Putridius
-	-- plural, as words: Dark Adepts = {npc:8546} Dark Adept · Shadowmages = {npc:8550} Shadowmage · Dread Weavers = {npc:8528} Dread Weaver · Scourge Champions = {npc:8529} Scourge Champion · Enriched Manna Biscuits = {item:13724} Enriched Manna Biscuit
+	-- plural, as words: Dark Adepts = {npc:8546} Dark Adept · Dread Weavers = {npc:8528} Dread Weaver · Scourge Champions = {npc:8529} Scourge Champion · Enriched Manna Biscuits = {item:13724} Enriched Manna Biscuit
 	["Normal Scourge outside the dungeons stop giving reputation halfway through Friendly (3,000 of 6,000); {npc:10826}, {npc:10821} and {npc:10825} stop at the end of Friendly. After that only Araj, the {area:2057} and {area:2279} mobs, the cauldron deliveries and Scourgestones count. Now turn in the stones you saved: {npc:11039} at {area:2268} takes all three kinds, and so do the officers at {area:3197} and the {area:152}. Every turn-in pays 25 and an {item:12844}: keep 35 tokens for the mantles at Revered and Exalted. {quest:5509} are worth twice as much per stone: the Dark Adepts, Shadowmages, Dread Weavers and Scourge Champions (level 58-60) at {area:2272}, just north of {area:2268}, drop them about a third of the time or more, next to the turn-in. The named Scourge below drop a {item:12843} half the time or more ({npc:1850} two times in three, Araj and {npc:10821} half the time) and give 15 a kill, Araj until Exalted; {npc:1850} gives no reputation, only the stone. Friendly opens the Enriched Manna Biscuits (60 silver) at the quartermasters."] = "地城外的普通天災在友善過半時（6,000中的3,000）就不再給聲望；{npc:10826}、{npc:10821}和{npc:10825}在友善結束時停止。此後只有阿拉基、{area:2057}和{area:2279}的怪物、瘟疫鍋交付和天災石算數。現在把攢下的石頭交掉：{area:2268}的{npc:11039}收全部三種，{area:3197}和{area:152}的軍官也一樣。每次交付給25聲望和一枚{item:12844}：留35枚勳章換崇敬和崇拜時的斗篷。{quest:5509}每塊石頭價值翻倍：{area:2268}正北方{area:2272}的黑暗專家、暗影法師、恐懼編織者和天災勇士（58-60級）約三分之一或更高几率掉落，就在交付點旁邊。下列具名天災有一半或更高几率掉{item:12843}（{npc:1850}三分之二，阿拉基和{npc:10821}一半），每殺一個給15聲望，阿拉基直到崇拜；{npc:1850}不給聲望，只給石頭。友善時軍需官開放強化瑪納餅乾（60銀）。",
 	-- {item:12843} Corruptor's Scourgestone
 	["{item:12843}: the named Scourge below, and dungeon bosses"] = "{item:12843}：下列有名字的天譴軍，以及地城首領",
 	-- {area:2272} Northdale
-	-- plural, as words: Dark Adepts = {npc:8546} Dark Adept · Shadowmages = {npc:8550} Shadowmage
+	-- plural, as words: Dark Adepts = {npc:8546} Dark Adept
 	["Dark Adepts and Shadowmages at {area:2272}"] = "{area:2272}的黑暗專家和暗影法師",
 	-- {npc:1852} Araj the Summoner
 	["{npc:1852}, Andorhal"] = "{npc:1852}，安多哈爾",
@@ -127,7 +127,7 @@ return {
 	-- Step 11: Mantles of the Dawn
 	-- {npc:11536} Quartermaster Miranda Breechlock · {quest:5513} Mantles of the Dawn · {faction:529} Argent Dawn · {item:18173} Shadow Mantle of the Dawn · {item:13810} Blessed Sunfruit
 	-- plural, as words: Argent Dawn Valor Tokens = {item:12844} Argent Dawn Valor Token
-	["At Revered, {npc:11536} takes 10 Argent Dawn Valor Tokens for {quest:5513} (100 reputation). After it, any {faction:529} quartermaster sells the five shoulder enchants for 10 gold each: Flame, Frost, Arcane, Nature and {item:18173}, +5 to that resistance. Revered also opens the {item:13810} and its juice (60 silver) and the Revered recipes."] = "",
+	["At Revered, {npc:11536} takes 10 Argent Dawn Valor Tokens for {quest:5513} (100 reputation). After it, any {faction:529} quartermaster sells the five shoulder enchants for 10 gold each: Flame, Frost, Arcane, Nature and {item:18173}, +5 to that resistance. Revered also opens the {item:13810} and its juice (60 silver) and the Revered recipes."] = "達到崇敬後，{npc:11536} 會收取 10 枚銀色黎明勇氣勳章，用於完成 {quest:5513}（100 點聲望）。完成後，任意 {faction:529} 軍需官都會出售五種肩部附魔，每種 10 金幣：火焰、冰霜、奧術、自然和 {item:18173}，對應抗性 +5。崇敬還會解鎖 {item:13810} 及其果汁（60 銀）和崇敬配方。",
 	-- plural, as words: Argent Dawn Valor Tokens = {item:12844} Argent Dawn Valor Token
 	["Argent Dawn Valor Tokens, from the stone turn-ins"] = "銀色黎明勇氣勳章，來自交石頭",
 	-- {item:18170} Frost Mantle of the Dawn

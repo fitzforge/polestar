@@ -2,7 +2,7 @@
 //! the client counts it (collectgarbage("count")), with Polestar.QuestDB reading it (addon/Polestar/Quests/
 //! QuestDB.lua: the records stay LuaChunks text, decoded when read). Built by `forge data questdb` from
 //! data/forever; skipped when that data is absent. Each figure fails the test when it grows past its
-//! budget: lower a budget when a change lowers the figure, never raise one to make a change pass.
+//! budget: the figure measured at the release's code freeze plus 3 %, moved only then (docs/CI.md, "Memory budgets").
 //!
 //!   resident      after loading the files and two full collects
 //!   peak          the heap grown while loading, with the collector stopped
@@ -14,6 +14,13 @@
 //! records the cache had piled up between its cycles (its emptied hash keeps that size), and that pace
 //! follows the whole addon's heap: a few lines more in Nav/Travel.lua moved `read` from 1,555 to 1,811 KiB
 //! with the quest database unchanged.
+//!
+//! The id list is built and its garbage collected before the collector stops (the list stays: Polestar.QuestDB
+//! keeps it). Lua 5.1's string table doubles its slots (8 bytes each) once it holds as many strings as slots,
+//! dead ones counted, and halves them only when fewer than a quarter are live; the addon's strings sit 2,000 to
+//! 3,000 below a doubling. Built with the collector stopped, the id list's throwaway strings crossed it and
+//! `read` kept 32,768 slots more, 256 KiB exactly (2026-11-20: 1,779 KiB, and 1,770 with 0.4.1.1's own QuestDB;
+//! 1,523 and 1,514 with the list built first). The 1,555 -> 1,811 above was the same 256 KiB.
 
 use forge_addontest::questdb::build_db;
 use forge_addontest::run::root;
@@ -23,10 +30,12 @@ use forge_addontest::{emitted, Addon, RunAddon};
 /// 2,722 items): resident 1,202, peak 1,250; read 1,333 on 2026-11-06 with the reads batched (the id list and
 /// the record cache's emptied hash; 1,555 to 1,811 before, by the collector's pace).
 /// The table files of schema 1 cost 6,789 resident and 12,692 at the peak (lua5.1, the same files).
-// Raised for 0.3.8 (Fitz, 2026-11-12: "raise memory budgets, it's fine; we can always compress and review
-// later"): QuestieDB 1.0.16, EG Link and the recordings bring +658 quests (Riverglades, Mount Hyjal,
-// Shen'dralas); measured resident 1334, peak 1385, read 1474 KiB; about 5 % headroom on each.
-const BUDGET: [(&str, f64); 3] = [("resident", 1400.0), ("peak", 1450.0), ("read", 1550.0)];
+/// Measured on next f5bd74406e with the reference data built 2026-11-24 (2026-11-26, #4143; three runs reading
+/// the same): resident 1,420, peak 1,471, read 1,810. Each budget is that figure plus 3 % (docs/CI.md, "Memory
+/// budgets").
+/// `read` carries one doubling of the string table (256 KiB, the module comment) that the pack alone does not
+/// cause: the table is the whole addon's (#3762).
+const BUDGET: [(&str, f64); 3] = [("resident", 1470.0), ("peak", 1520.0), ("read", 1870.0)];
 
 /// Records read between full collects while `read` is measured.
 const READ_BATCH: usize = 256;
@@ -50,9 +59,11 @@ for _, f in ipairs(files) do assert(loadfile(f))("Polestar_QuestDB", {{}}) end
 local peak = collectgarbage("count") - base
 collectgarbage("restart")
 local resident = full() - base
+local ids = Q.QuestIds()
+full()
 local n = 0
 collectgarbage("stop")
-for i, q in ipairs(Q.QuestIds()) do
+for i, q in ipairs(ids) do
 	if Q.QuestRecord(q) then n = n + 1 end
 	if i % {batch} == 0 then collectgarbage("collect") end
 end

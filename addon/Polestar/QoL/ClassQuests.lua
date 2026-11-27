@@ -11,8 +11,14 @@
 -- highest of them (the elites' `group.lvl`). Every chain waits for one level
 -- below its first quest's level (Fitz, 2026-11-10): the game often offers a
 -- class quest 3-5 levels before its level (The Eye of Bhossca, level 35, at
--- 30), and cards stacked up there. The guide still opens early from the
--- guide list, as soon as Engine.StartGate allows.
+-- 30), and cards stacked up there. A chain the character has outgrown
+-- (Engine.Outgrown: 5 levels past its guide's top, and every spell it rewards
+-- known; Fitz, 2026-11-23, #3845) is no longer offered. Nor is an optional
+-- chain (Core/ClassQuestList.lua, from data/codex/class-quests.json; Fitz,
+-- 2026-11-24, #3925): one that gives only items, experience or reputation
+-- and is not on the hand-picked worth-it list (the Enchanted Gold Bloodrobe;
+-- the Whirlwind Axe is on it). The guide still opens early from the guide
+-- list, as soon as Engine.StartGate allows.
 --
 -- Per-character state in CharState().flags.classOffered (guide id ->):
 --   true    offered and taken, or dismissed: never again
@@ -20,6 +26,7 @@
 --
 -- Public API:
 --   ClassQuests.Ready()        the guides that can be offered now, in list order
+--   ClassQuests.Prompted(id)   whether Class guide `id` is alerted for (not optional)
 --   ClassQuests.Check()        offer the first of them (PLAYER_LEVEL_UP,
 --                              QUEST_TURNED_IN, login)
 --   ClassQuests.Resolve(id, later)  called by GuideFrame on take, Later or dismiss
@@ -175,12 +182,20 @@ local function tooHard(h, level)
 	return h.eliteMax ~= nil and level < h.eliteMax - ClassQuests.ELITE_MARGIN
 end
 
+-- Whether Class guide `id` is alerted for: every guide but those the list
+-- (Core/ClassQuestList.lua) calls optional; a guide it does not name (a
+-- community pack's) is, as before the list.
+function ClassQuests.Prompted(id)
+	local list = ns.ClassQuestList
+	return not (list and list.OptionalGuide and list.OptionalGuide(id))
+end
+
 -- The pending notice: its guide id, so a level-up does not offer it twice.
 local pending
 
 function ClassQuests.Ready()
 	local G, E, C = ns.Guides, ns.Engine, ns.Compat
-	if not (G and G.List and G.Get and G.GuideMatches and E and E.StartGate and E.GetGuideState) then return {} end
+	if not (G and G.List and G.Get and G.GuideMatches and E and E.StartGate and E.GetGuideState and E.Outgrown) then return {} end
 	local ok, player = pcall(C.GetPlayerInfo)
 	if not (ok and type(player) == "table") then return {} end
 	local level = player.level or 1
@@ -189,9 +204,12 @@ function ClassQuests.Ready()
 	for _, h in ipairs(G.List()) do
 		local v = seen[h.id]
 		local due = v == nil or (type(v) == "number" and level > v)
-		if h.category == "Class" and due and G.GuideMatches(h, player) and E.GetGuideState(h.id) == "new" then
+		if h.category == "Class" and due and ClassQuests.Prompted(h.id) and G.GuideMatches(h, player) and E.GetGuideState(h.id) == "new" then
+			-- A side-shelf guide's steps are read in for the check, then given back (Guides.Peek).
+			local _, fresh = G.Peek(h.id)
 			local g = G.Get(h.id)
-			if g and not E.StartGate(h.id) and not underWay(g) and not tooHard(ClassQuests.Heads(g, player), level) then out[#out + 1] = g end
+			if g and not E.StartGate(h.id) and not underWay(g) and not tooHard(ClassQuests.Heads(g, player), level) and not E.Outgrown(g, player) then out[#out + 1] = g end
+			G.Unpeek(h.id, fresh)
 		end
 	end
 	return out
@@ -203,7 +221,9 @@ function ClassQuests.Check()
 	if not g then return end
 	pending = g.id
 	local ok, player = pcall(ns.Compat.GetPlayerInfo)
+	local _, fresh = ns.Guides.Peek(g.id)
 	local heads = ClassQuests.HeadsLine(ClassQuests.Heads(g, ok and type(player) == "table" and player or {}), g)
+	ns.Guides.Unpeek(g.id, fresh)
 	ns.Fire("CLASS_QUEST_READY", { guideId = g.id, title = g.title or g.id, heads = heads, why = g.why })
 end
 

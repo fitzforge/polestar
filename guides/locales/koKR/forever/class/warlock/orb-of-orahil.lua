@@ -42,7 +42,7 @@ return {
 	-- Step 7: Mannoroc Coven
 	-- {area:602} Mannoroc Coven · {zone:1443} Desolace · {area:2408} Shadowprey Village · {item:7291} Infernal Orb · {spell:1120} Drain Soul
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner · Mana Eaters = {npc:4678} Mana Eater · Mage Hunters = {npc:4681} Mage Hunter · Ley Hunters = {npc:4685} Ley Hunter · Lesser Infernals = {npc:4676} Lesser Infernal
-	["{area:602} fills south-central {zone:1443}, east of {area:2408}. The Burning Blade Summoners (level 38-39, warlocks with imps) carry the {item:7291} every time. For the spirit, bring your demon to low health with your damage over time, then channel the ruby or the emerald on it and keep channelling while it dies, as with {spell:1120}: the gem does no damage of its own. The ruby works on the coven's felhounds: the two Mana Eaters (37-38) in the north, and the Mage Hunters (38) and Ley Hunters (39) further south. The emerald works on the Lesser Infernals (36-37, sixteen of them, fire-resistant)."] = "",
+	["{area:602} fills south-central {zone:1443}, east of {area:2408}. The Burning Blade Summoners (level 38-39, warlocks with imps) carry the {item:7291} every time. For the spirit, bring your demon to low health with your damage over time, then channel the ruby or the emerald on it and keep channelling while it dies, as with {spell:1120}: the gem does no damage of its own. The ruby works on the coven's felhounds: the two Mana Eaters (37-38) in the north, and the Mage Hunters (38) and Ley Hunters (39) further south. The emerald works on the Lesser Infernals (36-37, sixteen of them, fire-resistant)."] = "{area:602}은(는) {zone:1443} 중남부, {area:2408} 동쪽을 채웁니다. 불타는칼날단 소환사(38-39레벨, 임프 동반)는 {item:7291}을(를) 항상 지닙니다. 영혼은 지속 피해로 체력을 낮춘 뒤 루비나 에메랄드를 시전하고 죽는 동안 계속 유지하세요. {spell:1120}과(와) 같으며 보석 자체는 피해를 주지 않습니다. 루비는 공동의 지옥사냥개에 통합니다. 북쪽의 마나먹이 두 마리(37-38레벨)와 더 남쪽의 마법사사냥꾼(38), 지기사냥꾼(39)입니다. 에메랄드는 하급 인페르날(36-37레벨, 16마리, 불 저항)에 통합니다.",
 	-- {item:7291} Infernal Orb
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner
 	["{item:7291}, from the Burning Blade Summoners"] = "{item:7291}, 불타는칼날단 소환사에게서",
@@ -66,7 +66,7 @@ return {
 	-- {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:15108} Orb of Dar'Orahil
 	["Back to {npc:6266} in the tower above {area:392} with the cleansed orb. On the felhound path, accept her last quest and wait beside her while she completes the {item:15108} (do not attack her: the quest log calls it a kill), then speak to her again and pick the off-hand orb or the staff."] = "정화된 보주를 가지고 {area:392} 위 탑의 {npc:6266}에게 돌아가십시오. 지옥사냥개 경로라면 그녀의 마지막 퀘스트를 수락하고 그녀가 {item:15108}을(를) 완성할 때까지 곁에서 기다린 뒤(공격하지 마십시오. 퀘스트 목록에는 처치로 표시됩니다), 다시 대화해 보조장비 보주나 지팡이를 고르십시오.",
 	-- {npc:6266} Menara Voidrender
-	["Wait beside {npc:6266} while she makes the orb"] = "",
+	["Wait beside {npc:6266} while she makes the orb"] = "{npc:6266}이(가) 구슬을 만드는 동안 곁에서 기다리세요",
 
 	-- Step 11: The Orb of Noh'Orahil
 	-- {item:15107} Orb of Noh'Orahil

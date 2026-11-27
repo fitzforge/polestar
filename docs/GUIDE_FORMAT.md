@@ -66,7 +66,7 @@ Every line before the first `step`.
 | `race` | no | comma list (see Conditions) |
 | `class` | no | comma list |
 | `next` | no | id of the guide that follows, or several ids separated by commas: a **route choice**. The player picks where to level next in the "Choose your path" window; the first id is the author's default. Every option must be the guide's own faction. Repeatable: each line adds its guides in order, and `next <id> when <predicate>` offers that guide only while the predicate holds at the hand-off (see "Conditional hand-offs"). Polestar's own guides may also offer one of Polestar's experimental guides (`polestar-experimental/<id>`, never the first line): see "Route choices". |
-| `category` | no | default `Leveling`; others: `Class` (class quest chains, mounts and weapons; pair with a `class` header), `Professions`, `Reputation`, `Legacy`, `Exploration`, `Collectibles`, `Miscellaneous` (side chains and collections that fit no other category: the Cozy Sleeping Bag), `Dungeons` |
+| `category` | no | default `Leveling`; others: `Class` (class quest chains, mounts and weapons; pair with a `class` header; Polestar's own Class guides each have a row in `data/codex/class-quests.json` saying whether the chain is alerted for or optional, then `node tools/polestar.js classquests build`), `Professions`, `Reputation`, `Legacy`, `Exploration`, `Collectibles`, `Miscellaneous` (side chains and collections that fit no other category: the Cozy Sleeping Bag), `Dungeons` |
 | `folder` | no | the guide menu folder this guide is listed under, any category (e.g. `Mounts · Level 40`, `Companion pets · Vendors`). Guides sharing a folder sort by faction (yours first), then level. Without it: the category's folder (Leveling: by faction and level band). |
 | `keywords` | no | comma list of extra words the guide menu search matches (e.g. the colours a mount guide covers); an empty entry is an error, a repeated one a warning |
 | `collects` | no | comma list of item ids this guide obtains (a mount guide: every colour it sells). Compiled as `collects = { ... }`; the Lookup module opens this guide for those items instead of building one. Malformed or repeated ids are errors; an id missing from `items.json` is a warning. |
@@ -134,7 +134,7 @@ Step directives:
 | `skipto <label> when <predicate>` | When the route reaches the step and the predicate holds, it skips this step and the ones after it up to the labelled step; several lines may follow one another, and the first that holds decides. See "Jumps". |
 | `tip <text>` | Player-facing step note (compiled to `step.note`). |
 | `image <path> [<w>x<h>]` | A picture shown in the guide window under the step's tip, while the tip is open, scaled to the window's width (at most 160 high): a screenshot of a spot that is hard to find, such as a cave mouth. `<path>` is the file's place in the pack folder, `/` between folders (`media/fargodeep-mine.tga`), a `.tga` or `.blp` file; without the extension the `.tga`, else the `.blp`. The file ships in the pack's addon folder at that path. `<w>x<h>` is the size it is drawn at (only the ratio counts: `512x256` is twice as wide as high); without it the compiler reads the file's own. One per step; a step with no `tip` reads "Picture of this spot" above it. See "Pictures" in the Cookbook. |
-| `loop` | The step's `goto` points, in order, are the places to search for its kill, collect, interact and skill goals (or, with none of those, for the NPC of its accept, turnin and talk goals) instead of a path to walk: see "Spawn areas", Loop. |
+| `loop` | The step's `goto` points, in order, are the places to search for its kill, collect, interact, skill and `use … quest Q.O` goals (or, with none of those, for the NPC of its accept, turnin and talk goals) instead of a path to walk: see "Spawn areas", Loop. |
 
 A step must contain at least one goal.
 
@@ -151,7 +151,7 @@ A step must contain at least one goal.
 | `complete` | `<questId> ["Title"]` | Finish all objectives. The guide window shows the quest's objective lines from the quest log in the game's words, each with its count ("Rabid Thistle Bear Captured 0/1"), starting with "Use Tharnariun's Hope:" while the item the quest hands over is in the bags and usable; looked at ahead, before the quest is in the log, the quest data's objectives (the compiler writes them, and the item, onto the goal); "Complete <quest>" only when neither has any. A `--` note stays the line under it. |
 | `abandon` | `<questId> ["Title"]` | Drop a quest from the log (a quest the guide takes only to turn it in elsewhere, a chain you skip). Done once the quest is out of the log, and it stays done for the rest of its step. The quest's `accept` stays done too, so abandoning on the guide's say-so does not send the route back to the giver. A character that does not have the quest has it done at once, and once the route has passed the step it stays done: taking the quest again later does not reopen it. Lint counts it as the end of the quest, like a turn-in. Pack format 5. |
 | `kill` | `<npcId>` or `"Target name"` | Pair with `quest Q.O` to track a quest objective (`talk` takes it too, for an objective that is speaking with someone). |
-| `collect` | `<itemId> ["Item name"]` | Pair with `quest Q.O` when the item is one of the quest's objectives; otherwise tracked by bag count `xN` (an item the quest only uses). `npc <id>` names the NPC who hands the item over, for an item nothing drops and no data lists a source for (a quest report given in a gossip window): the target button then has someone to target, and the point is that NPC's spawn unless you place it. `collect <item> xN nearest` (no `quest`) compiles to farm spots: clusters of normal or rare mobs that drop the item at 2% or more, outside towns and guard posts, each with the zone's safety (`A`/`H` faction zone, `AH` contested), mob level range, items per kill and spawn count; at most 16 per continent, spread over safety and 10-level bands. The engine picks one by the player's level, faction and travel time. `collect <item> xN anywhere` (no `quest`, no place) is a bag count the arrow never leads to: otherwise a bag count is placed at one of the item's sources, which for cloth is one humanoid of hundreds, near wherever the guide happens to be (Polestar 0.3.7). |
+| `collect` | `<itemId> ["Item name"]` | Pair with `quest Q.O` when the item is one of the quest's objectives; otherwise tracked by bag count `xN` (an item the quest only uses). `npc <id>` names the NPC who hands the item over, for an item nothing drops and no data lists a source for (a quest report given in a gossip window): the target button then has someone to target, and the point is that NPC's spawn unless you place it. `collect <item> xN nearest` (no `quest`) compiles to farm spots: clusters of normal or rare mobs that drop the item at 2% or more, outside towns and guard posts, each camp counting every dropper of the item within 70 yards (every spawn), with who may farm it (the zone's safety: `A`/`H` faction zone, `AH` contested; a mob tagged for one faction is the other side's), the camp's mob level range, its mean items per looted kill (the drop chance times the item's yield from players' recordings: cloth drops one to three at a time) and spawn count, named for the kind most of the camp is; a camp of fewer than 3 mobs only where the continent has no other; each zone's best camp per safety and 5-level band, at most 32 per continent, spread over safety and 10-level bands; never Timbermaw furbolgs (their kills cost reputation). The engine picks one by the player's level (never mobs 2+ levels above them while another spot is left), faction, farm time and travel time, again on level-up, and the guide window shows the kills and minutes it takes, a second choice, and how far above the player the spot is when it is (Polestar 0.4.4). `collect <item> xN anywhere` (no `quest`, no place) is a bag count the arrow never leads to: otherwise a bag count is placed at one of the item's sources, which for cloth is one humanoid of hundreds, near wherever the guide happens to be (Polestar 0.3.7). |
 | `goto` | `<x>,<y> ["Label"]` | Coordinates are mandatory here. A label that is a subzone's name as the game spells it (`"Fargodeep Mine"`, not `"Fargodeep Mine's mouth"`) gets its area ("Places by ID"); at a cave's or mine's mouth the goto then also counts as arrived once the player walks into it past the point (in that subzone and indoors). |
 | `talk` | `<npcId>` | Speak with an NPC. With `quest Q.O` it is that quest objective ("Speak with Valennia"): done once the quest log line is finished or the quest is ready to hand in, and the guide window reads "Talk to <npc>" for the quest; `quest Q` takes the index from the objective for that NPC. A line the game shows only once the one before it is done ticks when the player talks to the NPC. A `kill … quest Q.O` naming the same NPC's talk objective (older guides) still compiles. |
 | `interact` | `<objectId>` | Click a game object. |
@@ -197,7 +197,8 @@ turn-in is the last open goal of its step).
 *candidate set* instead of one NPC: every matching NPC in the data with its faction.
 At runtime the engine keeps the candidates the character may use (faction, and race
 or class where it matters) and picks the cheapest by travel time from where the
-player stands, re-deciding on zone changes. Explicit npc ids stay fixed. Profession
+player stands (the travel planner's own estimate for the nearest few: the flights
+they know, the Hearthstone or a teleport when it pays), re-deciding on zone changes. Explicit npc ids stay fixed. Profession
 guides should use these forms instead of per-race branches.
 Sources: profession trainers from `professions.json`; class trainers from
 `trainers.json` (`forge data trainers`: `train <npcId> only <Class>`
@@ -212,7 +213,9 @@ the step's `only` name), which leave the step. Only
 factions the goal can apply to are kept, and each set keeps one candidate per town
 (within 250 yards), nearest to the previous goal first; in a capital city (Stormwind,
 Orgrimmar, Ironforge, Thunder Bluff, Darnassus, the Undercity) one per district
-(within 60 yards), since its districts are a long walk apart.
+(within 60 yards), since its districts are a long walk apart. Of a town's or district's
+NPCs the one most players train with is kept (`trainers.json` `visits`, from players'
+recordings), else the first by distance and id.
 Smart targets take no coordinates.
 
 Modifiers, in any order after the positional arguments:
@@ -314,7 +317,20 @@ except a `complete <quest>`: a hand-in can't be done before its quest is, so
 an unskipped step whose `when` fails only on `complete` comes back once the
 quest is ready. One failure is never stored: a `complete <quest>` that fails while the
 player carries the quest (a Wanted hand-in passed before the elite is dead)
-is checked again, and the step comes back once the quest is done.
+is checked again, and the step comes back once the quest is done. Nor, while
+the guide lasts, is a failure that can still turn as the player plays it: a
+`level>=N` or `level>N` not reached yet, a `skill <Profession> N` not
+reached yet (a profession learned or raised later), or `onquest`, `complete` or
+`turnedin` of a quest the guide still takes (or one waiting for the
+character's level). Such a step comes back if the route reaches it again (the
+level-up brings the route back to a quest's accept, and its `when onquest`
+step follows it); once it holds behind the live step, it stays passed and its
+quest's work is listed under "Still to do" instead of pulling the arrow back,
+and with a `skill` in its `when` its accepts are "While you're here" lines at
+their giver (a start camp's Camping 101 for a profession learned after the
+route passed the camp: "“Camping 101: Mining” at Sam Sarsaparilla");
+at the guide's end it is stored as skipped. A step with `group` or `dungeon`
+in its `when` is stored as it passes, as the player's answer decides it.
 Resetting the guide's progress forgets the stored outcomes.
 
 While its `when` fails, a step counts as one that does not apply: like a step
@@ -507,7 +523,9 @@ elite, an escort): the player decides whether to do it. When the route
 reaches a step with `when group <quest>` or `when !group <quest>` and the
 player has not answered for that quest yet, the route waits there and the
 guide window asks: "Skip it" (the default, the solo route) or "Do it with a
-group". Quest automation leaves the quest alone until then. The answer is
+group". Quest automation leaves the quest alone until then. A quest already
+in the log and ready to hand in is not asked about: its group work is done,
+and the route goes on to the hand-in (#3402). The answer is
 kept per character, once per quest, for every guide; Options, Discovery,
 Group quests lists them and changes an answer until the route has passed
 the step. Options, Guide, Automation, "Group quests" answers every quest the
@@ -807,21 +825,21 @@ guide (Gather, Buy or Mix) and per material, and changes it any time (the card
 a guide with such materials shows once, the Materials window, `/polestar
 materials`, or the guide window's menu; Options > Guide > Professions sets the
 way of a guide never answered). A section writes both ways for each material it needs that the Auction House
-sells: an `auction` goal (usually all of them in one step after the vendor
-goods) and the item's `collect` steps marked `gather`:
+sells: the item's `collect` marked `gather` and an `auction` goal. Polestar's
+profession guides write one "Get it" step per material, the farm first and
+the Auction House as its last line (#3661); what no step farms (a pattern)
+goes in one Auction House step after them:
 
 ```
 section Tailoring 75-150
 
-step Tailoring 75-150: Auction House
+step Get Wool Cloth
+  collect 2592 x567 nearest gather levels 15-30
   auction 2592 x567
+
+step Get Silk Cloth
+  collect 4306 x204 nearest gather levels 25-45
   auction 4306 x204
-
-step Wool Cloth
-  collect 2592 x567 anywhere gather levels 15-30
-
-step Silk Cloth
-  collect 4306 x204 anywhere gather levels 25-45
 ```
 
 Polestar applies one way per item, never both, and a goal of the other way
@@ -877,7 +895,11 @@ as skipped.
 **The jump is checked once and kept.** Unlike `when`, which keeps
 checking a step until the route passes it, `skipto` is checked when the route
 arrives at its step (once the quest log can be read after login). A step
-passed some other way, done ahead of time, never jumps. The jumped steps are
+passed some other way, done ahead of time, never jumps. Nor does any step of
+the block once the player went into it: a step before it with a jump to the
+same label done without jumping, or quest work of theirs (an accept, a
+hand-in, an objective) done in one up to it. The jump is the block's door: a
+save from a release without the jump is often inside already. The jumped steps are
 saved for the character with the steps the player skipped, so the jump does
 not undo itself when the predicate stops holding. The player can unskip any
 of them like a skipped step; the step carrying the `skipto` then takes no
@@ -919,6 +941,7 @@ take a jump.
 | spawn areas `spots` | every goal placed at an NPC or object that spawns at more than one place, hand-placed `@x,y` goals whose target the data also knows, and kill, collect and interact goals players' recordings place: see "Spawn areas" below |
 | group content `group` | elite work, dungeon and raid quests and goals on an instance map: see "Group content" below |
 | escort `escort` | the accept, `complete` and objective goals of an escort quest: see "Escort quests" below |
+| repeatable hand-in `repeatable` | a `turnin` (not `direct`) of a quest `quests.json` marks repeatable: the game never marks it completed, so Polestar stores the hand-in, one per goal, and counts the accept and work of the same quest before it, back to the previous turn-in of it, done with it (Zorbin's Ultra-Shrinker quests, #3334) |
 | later hand-in `carriedTo` | `complete` and objective goals of a quest only a later guide of the chain hands in: see "Quests carried to a later guide" below |
 | placeholder target `logLine` | a `kill` or `talk` on one of the game's placeholder targets (a "[DNT] Kill Credit", "PvP Graveyard Credit Marker", "Trigger Ichman", #2614): its `npc` is dropped, `target` (`npcName`) is the name the placeholder carries ("[DNT] Kill Credit: Twilight Thrall" -> "Twilight Thrall"), else the objective's own text, else the goal's note, and the guide window reads it by its quest-log line. None of the three is an error. A `complete`'s `objs` leave out a placeholder's text the same way |
 | fresh start `fresh` | a leveling guide that other leveling guides lead to: how much of its quest XP follows on from their quests: see "Fresh starts" below |
@@ -1083,15 +1106,21 @@ gets no `spots`, except an NPC who walks around:
 - **Loop** (a step with a `loop` line, for a search the data does not shape
   the way you want: a circuit through camps, round a lake): the step's `goto`
   points, in order, become the spawn areas of each of its `kill`, `collect`,
-  `interact` and `skill` goals that has no `@x,y` of its own and picks no
-  place at runtime (`nearest`), with `spread = true`. The goal's point is the
+  `interact`, `skill` and `use … quest Q.O` goals that has no `@x,y` of its
+  own and picks no place at runtime (`nearest`), with `spread = true`. A use
+  without an objective keeps its own place. The goal's point is the
   first goto, the spots are exactly the gotos (no alternatives, no spawn count
   `n`), each as wide as its goto's `r` (default 30 yd), and the gotos leave
   the step (their labels with them), so the player searches the points one
   after another as in an area objective. Compile-time
   only: the compiled step has no `loop`. It is an error when the step has
   fewer than two gotos, gotos on different maps or frames, an `optional` or
-  `only` goto, or no goal to place.
+  `only` goto, or no goal to place. A `collect`'s target button names the
+  droppers at the points, not the map's best ones elsewhere: at each point the
+  likely droppers (as for `fromNpcs`) spawning within its radius, most spawns
+  first, or, where none of those spawns, every dropper that does; a point no
+  dropper spawns at names the others. Points that all name the same five or
+  fewer share `fromNpcs`; otherwise `fromNpcsAt` lists each point's (#1616).
 
   ```
   step Kobold camps
@@ -1164,8 +1193,8 @@ gets no `spots`, except an NPC who walks around:
   who walks: its `accept`, `turnin` and `talk` goals take the points, and the
   arrow leads from one to the next until the player meets the NPC. Use it for
   a walker the data draws no circle for (Walkers, above), or whose round is
-  too long for one circle. Beside a kill, collect, interact or skill goal the
-  loop is that goal's, and an accept, turnin or talk keeps its own place.
+  too long for one circle. Beside a goal that searches the loop, an accept,
+  turnin or talk keeps its own place.
 
   ```
   step Deputy Willem, somewhere on his rounds
@@ -1188,10 +1217,14 @@ NPC or object gets that entity's height, `z` (world yards), from
 `data/forever/spawnz.json`, which `data build` writes from CMaNGOS
 classic-db's spawn positions and, for an NPC or object classic-db lacks (one
 only Forever has), the Forever TrinityCore world database's sniffed spawn
-positions: the z of the entity's nearest spawn on the goal's instance map
-(its world point's, in the goal's frame), when that spawn is within 15 yards
-of the point. Nothing is guessed: an NPC neither source places, or one
-Forever moved more than 15 yards, gets none, and without `spawnz.json` no
+positions; an NPC whose spawns give no height within 15 yards of where
+players talk to it (a Forever NPC neither source places, one Forever moved)
+gets the floor players stand on there, from their recordings
+(`data/npc-floors.json`, `nav city npc-floors`: 3+ people, 70% of them on one
+level). A goal gets the z of the entity's nearest spawn on the goal's
+instance map (its world point's, in the goal's frame), when that spawn is
+within 15 yards of the point. Nothing is guessed: an NPC no source places
+there gets none, and without `spawnz.json` no
 goal gets one. These goals can get one, their point being the NPC's or
 object's (its spawn, or your `@x,y` at it):
 
@@ -1327,6 +1360,22 @@ of the escort after it). There is no modifier: a wrong label is a data fix.
 While you're here never offers an escort's accept ahead of its own step
 ("Take X: saves a trip back"): the NPC walks off the moment it is taken.
 
+An escort is the player's choice (#3439). A required `accept` of an escort
+quest asks at its step as a group quest does (`when group`): the guide window
+says how long players' runs of it take and how often they fail ("Escort,
+about 12 min; 1 in 3 runs fails. Optional: the route doesn't need it."), with
+Skip it (the default) and Do it. The answer is kept per character and quest
+with the group answers, Options lists it with the group quests, and "Group
+quests" in Options, Guide, Automation answers it too. Skipped, the quest's
+accept, work and hand-in are out of the route and of its level sums, with no
+"left out" line. The compiler writes the time and the failures on the accept
+(`escortSecs`, the median seconds a completed run takes; `escortFail`, the
+share of runs that failed) from `data/recorded/escorts.json` (`forge record
+learn`, docs/forge/learn.md), only from three or more counted players; without
+them the line says "Escort." alone. A step that asks about the quest itself
+(`when group <quest>` or `when !group <quest>`) keeps the author's choice, and
+an `optional` accept asks nothing.
+
 ## Quests carried to a later guide
 
 A quest worked in one guide and handed in only in a later guide of its chain
@@ -1375,12 +1424,12 @@ Written only from 10%; there is nothing to write in the guide.
 
 In the game the share left to a character is `share` scaled by the part of
 `needs` they have neither done, nor in the log, nor taken on the way (a
-lead-in step Polestar put in). From 30%, below the guide's top level and
-with `from` a guide for them, the guide window says while the guide's live
-step is in its first third: "Fresh start: about N% of this guide's quest XP
-follows on from <guide>. Expect about M minutes of extra grinding, or start
-there." (M: that XP as kills of mobs of their level, 1.5 a minute), with
-"Open <guide>", which opens that guide in a new tab. Taken or dismissed, it
+lead-in step Polestar put in), nor grey for them. From 30% (in whole
+percent), below the guide's top level and with `from` a guide for them, the
+guide window says while the guide's live step is in its first third: "Some
+of this guide's quests follow on from <guide>. Start there for the full set,
+or carry on here; the guide fills in with nearby quests.", with "Open
+<guide>", which opens that guide in a new tab. Taken or dismissed, it
 is gone for that guide until the next session. "Suggested for you" lists
 such a guide after the others of its zone and travel band.
 
@@ -1449,7 +1498,11 @@ Errors:
   to a side the goal applies to (a friendly one is a talk credit), or `collect` of
   an item whose every located dropper is such an npc; `lint` also errors on a
   non-`optional` quest goal of a quest the cached simulator world (below) excludes
-  as `elite`, unless the goal was already reported as elite
+  as `elite`, unless the goal was already reported as elite. A low elite is solo
+  content (2026-11-20: an elite two or more levels under the player): elite work
+  passes on a step gated at least two levels over the elite, by `when level>=N` or a
+  `level N` line on the step with N at least the elite's top level (`levelMax`) + 2;
+  keep a Careful tip on the step
 - one of the game's placeholder names ("[DNT] Kill Credit", "Credit", "PvP Tower Credit
   Marker", "Trigger Ichman", "<UNUSED>", anything tagged `[PH]` or `(DND)`) in a name or text a
   compiled goal shows (its target, NPC, object, item, source, objective lines, note):
@@ -1580,7 +1633,8 @@ Warnings:
 - a `craft` before any `learn` of that spell earlier in the chain (free starter
   recipes excepted); `until <N>` past the recipe's grey skill
 - a coordinate on a map other than the step's zone that the guide never sets as
-  a zone (catches a target resolved onto another continent)
+  a zone (catches a target resolved onto another continent); a step on the
+  world map (`zone Azeroth`) spans every zone and never warns
 - coordinates without `map` on a zone set in a step for some characters only,
   when the other characters who see them are in another zone (a class trip's
   `zone Moonglade` holding for the rest of Darkshore)

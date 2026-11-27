@@ -53,7 +53,7 @@ local ADDON, ns = ...
 local Nav = ns.Nav
 local L = ns.L
 
-local exp, sin, abs, floor, min, max, pi = math.exp, math.sin, math.abs, math.floor, math.min, math.max, math.pi
+local exp, sin, abs, floor, min, max, pi, sqrt = math.exp, math.sin, math.abs, math.floor, math.min, math.max, math.pi, math.sqrt
 local wrap = Nav.WrapAngle
 local MEDIA = Nav.MEDIA
 
@@ -771,6 +771,7 @@ local function facing()
 	local C = ns.Compat
 	return C and C.GetPlayerFacing and C.GetPlayerFacing() or nil
 end
+
 local lastYards, lastEta
 local floorShown -- the floor glyph's hint ("up" | "down") or nil
 local lastDist, closeSpeed = nil, 0
@@ -825,14 +826,20 @@ local function travelDistColor()
 	if c then distText:SetTextColor(c[1], c[2], c[3]) else distText:SetTextColor(Nav.RGB("text")) end
 end
 
+local routingPointed = false -- in the "routing" mode, the arrow shown on its straight bearing
+
 local function setMode(m)
 	if m == mode then return end
 	mode = m
+	if m == "travel" then D.near = nil end -- repaint after a mode or theme change
 	turnVel = 0 -- a speed from before an arrival or an instruction does not carry into the next walk
-	local travel, done, act, idle = m == "travel", m == "arrived" or m == "search", m == "instruction", m == "idle"
-	dial:SetShown(travel or done or act or idle)
-	grabArea(travel or done or act or idle)
+	local travel, done, act, idle = m == "travel", m == "arrived" or m == "arrived-underwater" or m == "search", m == "instruction", m == "idle"
+	-- Waiting for a walking route, the arrow points straight at what the walk will lead to.
+	local routing = m == "routing"
+	dial:SetShown(travel or done or act or idle or routing)
+	grabArea(travel or done or act or idle or routing)
 	showArrow(travel)
+	routingPointed = false
 	dialArrival(D, done, look)
 	if act then halo:SetShown(look.glow) end
 	legIcon:SetShown(act)
@@ -840,12 +847,17 @@ local function setMode(m)
 	lastYards, lastEta = nil, nil
 	lastDist, closeSpeed = nil, 0
 	etaText:Hide()
+	if m == "submerged" or m == "arrived-underwater" or m == "water-depth" then
+		local t = Nav.GetTarget()
+		labelText:SetText(t and t.label or "")
+		routeSeen = -2
+	end
 	if done then
 		pulse = 0
 		distText:SetTextColor(Nav.RGB("arrowNearText"))
 		-- An area objective is never done by standing somewhere: look around,
 		-- then move on (a click on the arrow, or the next spot comes up by itself).
-		distText:SetText(m == "search" and L["Search here"] or L["Arrived"])
+		distText:SetText(m == "search" and L["Search here"] or m == "arrived-underwater" and L["Arrived underwater"] or L["Arrived"])
 		if m == "search" then
 			etaColor()
 			etaText:SetText(L["Click the arrow for the next spot"])
@@ -858,6 +870,18 @@ local function setMode(m)
 		etaColor()
 		etaText:SetText(L["On another continent"])
 		etaText:Show()
+	elseif m == "water-depth" then
+		distText:SetTextColor(Nav.RGB("text"))
+	elseif m == "submerged" then
+		distText:SetTextColor(Nav.RGB("text"))
+		distText:SetText(L["Under water nearby: swim down to it"])
+	elseif m == "routing" then
+		distText:SetTextColor(Nav.RGB("textDim"))
+		distText:SetText(L["Finding a walking route"])
+	elseif m == "unmapped" then
+		distText:SetTextColor(Nav.RGB("textDim"))
+		distText:SetText("")
+		lastYards = nil
 	elseif m == "nopos" then
 		-- Nothing to point at or measure; the label (target or route leg) stays.
 		distText:SetTextColor(Nav.RGB("textDim"))
@@ -903,6 +927,7 @@ end
 -- The far colour away, the near colour up close (blend).
 local function applyColor(dist, radius)
 	local r, g, b, near = blend(style, dist, radius, look)
+	if near == D.near and r == tintR and g == tintG and b == tintB then return end
 	D.near = near
 	tint(r, g, b)
 end
@@ -930,7 +955,7 @@ local function applyLook()
 		showArrow(true)
 		tint(tintR, tintG, tintB)
 		travelDistColor()
-	elseif mode == "arrived" or mode == "search" or mode == "instruction" or mode == "idle" then
+	elseif mode == "arrived" or mode == "arrived-underwater" or mode == "submerged" or mode == "water-depth" or mode == "search" or mode == "instruction" or mode == "idle" then
 		local m = mode
 		mode = nil
 		setMode(m)
@@ -1016,7 +1041,7 @@ local function sample(elapsed)
 		frame:Hide()
 		return false
 	end
-	local hint = state == "travel" and Nav.FloorHint and Nav.FloorHint() or nil
+	local hint = (state == "travel" or state == "unmapped") and Nav.FloorHint and Nav.FloorHint() or nil
 	if hint ~= floorShown then
 		floorShown = hint
 		if hint then
@@ -1027,9 +1052,31 @@ local function sample(elapsed)
 	end
 	local T = Nav.travel
 	local routed = T ~= nil and T.Active() or false
-	syncLabel(T, routed)
-	if state == "far" or state == "arrived" or state == "search" or state == "nopos" then
+	if state == "water-depth" then
 		setMode(state)
+		local yards = floor(dist + .5)
+		if lastYards ~= yards then
+			lastYards = yards
+			distText:SetFormattedText(L["%d yd below you: swim down"], yards)
+		end
+		return true
+	end
+	if state == "submerged" or state == "arrived-underwater" then
+		setMode(state)
+		return true
+	end
+	syncLabel(T, routed)
+	if state == "far" or state == "arrived" or state == "search" or state == "nopos" or state == "unmapped" then
+		setMode(state)
+		if state == "unmapped" then
+			-- No walk to measure along: the straight-line distance to the target.
+			local dn, dw = Nav.TargetOffset()
+			local yards = dn and floor(sqrt(dn * dn + dw * dw) + 0.5)
+			if yards ~= lastYards then
+				lastYards = yards
+				distText:SetText(yards and ns.FormatDistance(yards) or "")
+			end
+		end
 		return true
 	end
 	if state == "instruction" then
@@ -1039,7 +1086,13 @@ local function sample(elapsed)
 		return true
 	end
 
-	setMode("travel")
+	local routing = state == "routing"
+	setMode(routing and "routing" or "travel")
+	-- Waiting for the walk: the arrow shows once there is a bearing (what the walk leads to is on this map).
+	if routing and angle and not routingPointed then
+		routingPointed = true
+		showArrow(true)
+	end
 	if angle then
 		local f = facing()
 		local bearing = f and wrap(angle + f) or angle
@@ -1051,6 +1104,8 @@ local function sample(elapsed)
 		end
 		goalAngle = bearing
 	end
+	-- The caption stays "Finding a walking route" until the walk is in.
+	if routing then return true end
 
 	local yards = floor(dist + 0.5)
 	if yards ~= lastYards then
@@ -1092,17 +1147,36 @@ local function sample(elapsed)
 	return true
 end
 
+-- Standing still (the same position, facing and target, the route unchanged, nothing being searched): sampled at
+-- STILL_INTERVAL instead of every SAMPLE_INTERVAL, and the dial is not turned once it rests on its bearing (#3881:
+-- the arrow's OnUpdate ran every frame of a 27-minute session). A target change, a setting or a zone event still
+-- samples at once (Refresh).
+local STILL_INTERVAL = 0.1
+local still = { at = nil }
+local function stillSince()
+	if mode == "routing" then return false end
+	-- UnitPosition: four numbers, no table (Compat's map position builds a vector each call).
+	local x, y, _, c
+	if UnitPosition then x, y, _, c = UnitPosition("player") end
+	local T = Nav.travel
+	local f, t, v = facing(), Nav.GetTarget(), T and T.version
+	local same = still.at ~= nil and c == still.c and x == still.x and y == still.y and f == still.f and t == still.t and v == still.v
+	still.at, still.c, still.x, still.y, still.f, still.t, still.v = true, c, x, y, f, t, v
+	return same
+end
+
 frame:SetScript("OnUpdate", ns.Safe(function(_, elapsed)
 	-- The faint ring with no target is still: target changes, settings and
 	-- zone events bring the arrow back (Refresh).
 	if mode == "idle" then return end
 	accum = accum + elapsed
-	if accum >= SAMPLE_INTERVAL then
+	if accum >= SAMPLE_INTERVAL and (accum >= STILL_INTERVAL or not stillSince()) then
 		local step = accum
 		accum = 0
 		if not sample(step) then return end
 	end
-	if mode == "travel" and hasAngle then
+	if (mode == "travel" or mode == "routing") and hasAngle then
+		if not byBearing and abs(turnVel) < 1e-4 and abs(wrap(goalAngle - curBearing)) < 1e-4 then return end
 		curBearing, turnVel = turnStep(curBearing, turnVel, goalAngle, elapsed, look.turnRate)
 		local f = byBearing and facing()
 		local shown = f and wrap(curBearing - f) or curBearing
@@ -1110,7 +1184,7 @@ frame:SetScript("OnUpdate", ns.Safe(function(_, elapsed)
 			curAngle = shown
 			setRotation(curAngle)
 		end
-	elseif (mode == "arrived" or mode == "search") and look.pulse then
+	elseif (mode == "arrived" or mode == "arrived-underwater" or mode == "search") and look.pulse then
 		pulse = pulse + elapsed
 		dialPulse(D, pulse)
 	end
@@ -1154,6 +1228,7 @@ frame:SetScript("OnEnter", function(self)
 	GameTooltip:AddLine(ns.Get("ui.lockHud") and L["Shift-drag to move."] or L["Drag to move."], Nav.RGB("text"))
 	local target = Nav.GetTarget()
 	if target and target.spots then GameTooltip:AddLine(L["Click for the next spot."], Nav.RGB("text")) end
+	if ns.Theme then ns.Theme.TipDots(GameTooltip) end
 	GameTooltip:Show()
 end)
 

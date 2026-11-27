@@ -188,17 +188,46 @@ end
 
 ---------------------------------------------------------------------------
 -- Sightings: PolestarDB.transit[realm][route] = { epoch = server ms at
--- phase 0, seen = server s, source = "you"|"player" }
+-- phase 0, seen = server s, source = "you"|"player" }; realm "?" while the
+-- client does not give it (Compat.RealmName), when the one realm's
+-- sightings held then move there once (with several, none moves: they age
+-- out in MAX_AGE).
 ---------------------------------------------------------------------------
 
-local realmName
+local realmName, claimed -- claimed: the PolestarDB.transit the move ran on
+
+-- With the realm unknown: the only realm's sightings move to "?", the newer
+-- per route kept.
+local function claim(all)
+	local only
+	for k, v in pairs(all) do
+		if k ~= "?" and type(v) == "table" then
+			if only then return end
+			only = k
+		end
+	end
+	if not only then return end
+	local into = type(all["?"]) == "table" and all["?"] or {}
+	all["?"] = into
+	for route, a in pairs(all[only]) do
+		local held = into[route]
+		if type(a) == "table" and type(a.seen) == "number" and (type(held) ~= "table" or type(held.seen) ~= "number" or a.seen > held.seen) then
+			into[route] = a
+		end
+	end
+	all[only] = nil
+end
+
 local function store()
 	local db = ns.DB()
 	if type(db.transit) ~= "table" then db.transit = {} end
 	if not realmName then
 		local C = ns.Compat
-		local ok, info = pcall(C and C.GetPlayerInfo or function() end)
-		realmName = ok and type(info) == "table" and type(info.realm) == "string" and info.realm ~= "" and info.realm or nil
+		realmName = C and C.RealmName and C.RealmName() or nil
+	end
+	if not realmName and claimed ~= db.transit then
+		claimed = db.transit
+		claim(db.transit)
 	end
 	local realm = realmName or "?"
 	local s = db.transit[realm]
@@ -695,15 +724,17 @@ local function inPvp()
 end
 
 -- Whether a sender is someone else on this realm (the player's own echo is
--- not: Compat.SenderIsMe, Forever's "First Last" senders included).
+-- not: Compat.SenderIsMe, Forever's "First Last" senders included). A sender
+-- named with a realm is from another one unless it is this realm's name; with
+-- this realm unknown (Compat.NormalizedRealmName) it counts as another.
 local function fromThisRealm(sender)
 	if type(sender) ~= "string" or sender == "" then return false end
 	if ns.Compat.SenderIsMe(sender) then return false end
 	local name = Ambiguate and Ambiguate(sender, "none") or sender
 	local realm = name:match("%-(.+)$")
 	if not realm then return true end
-	local mine = GetNormalizedRealmName and GetNormalizedRealmName()
-	return type(mine) == "string" and realm == mine
+	local mine = ns.Compat.NormalizedRealmName()
+	return mine ~= nil and realm == mine
 end
 Transit.fromThisRealm = fromThisRealm -- tests
 
@@ -843,14 +874,22 @@ local function known(t)
 	return C and C.IsSpellKnown and C.IsSpellKnown(t.spell) or false
 end
 
+-- Its reagents in the bags, or, without them, the game says it can be cast: a
+-- talent that does away with the reagent (a mage's Reagent Economy: a city
+-- teleport with no Rune of Teleportation, #3815). Only a plain yes counts:
+-- short of mana, the game does not say whether the reagent is there too.
 local function stocked(t)
 	local r = t.reagents
 	if not r then return true end
 	local C = ns.Compat
+	local held = C ~= nil and C.GetItemCount ~= nil
 	for i = 1, #r - 1, 2 do
-		if not (C and C.GetItemCount) or (C.GetItemCount(r[i]) or 0) < r[i + 1] then return false end
+		if not held or (C.GetItemCount(r[i]) or 0) < r[i + 1] then
+			held = false
+			break
+		end
 	end
-	return true
+	return held or (C ~= nil and C.IsSpellUsable ~= nil and C.IsSpellUsable(t.spell) == true)
 end
 
 -- Seconds until the spell is off cooldown (0 = now; the global cooldown
@@ -891,6 +930,20 @@ function Transit.Teleports(now)
 		u.length = C and C.GetSpellBaseCooldown and C.GetSpellBaseCooldown(u.spell) or nil
 	end
 	return usable
+end
+
+-- Teleports this character knows and lacks a reagent for (Nav/RuneStop.lua):
+-- { { spell, name, cast, to, rune = the reagent's item id }, ... }.
+function Transit.MissingRunes()
+	local list = {}
+	if not ns.Get("nav.teleports") then return list end
+	for _, t in ipairs(teleportData) do
+		if t.reagents and t.to and known(t) and not stocked(t) then
+			local N = ns.Names
+			list[#list + 1] = { spell = t.spell, name = (N and N.Spell(t.spell)) or t.name, cast = t.cast, to = t.to, rune = t.reagents[1] }
+		end
+	end
+	return list
 end
 
 -- The usable set (and readiness) as a key, to notice a change.

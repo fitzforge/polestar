@@ -224,3 +224,89 @@ fn guides_validate_checks_skipto_and_done() {
 		])
 	);
 }
+
+// A jump asks at its block's door whether the player comes fresh; one who did quest work in the block is inside
+// it. 0.4.2.2 -> 0.4.3, Alliance Burning Steppes: 0.4.3 jumps its Ironforge and Chillwind Camp opening for a player
+// who carries none of the quests the route brings (`skipto burning-steppes when !onquest 2990,3181,3449` on each
+// step). A 0.4.2.2 save that had taken Courier Hammerfall (5090) and The Smoldering Ruins of Thaurissan (3701) in
+// Ironforge landed at Morgan's Vigil, the Chillwind Camp hand-in of 5090 jumped. They stay on the way to it, and a
+// player who comes fresh still jumps.
+const BLOCK: &str = r#"
+local M = 1429
+local function a(q) return { t = "accept", quest = q, title = "Quest " .. q, map = M, x = 50, y = 50 } end
+local function t(q) return { t = "turnin", quest = q, title = "Quest " .. q, map = M, x = 50, y = 50 } end
+local J = { { to = "zone", when = { k = "onquest", neg = true, q = { 900, 901 } } } }
+Polestar.RegisterGuide({
+	id = "test/door", pack = "test", title = "Door", minLevel = 1, maxLevel = 6,
+	steps = {
+		{ title = "Courier", skipto = J, goals = { a(10) } },
+		{ title = "Historian", skipto = J, goals = { a(11) } },
+		{ title = "Fly to Southshore", skipto = J, goals = { { t = "goto", map = M, x = 60, y = 60 } } },
+		{ title = "Chillwind Camp", skipto = J, goals = { t(10) } },
+		{ title = "Morgan's Vigil", label = "zone", goals = { a(12) } },
+		{ title = "Ruins", goals = { t(11), t(12) } },
+	},
+})
+"#;
+
+fn door(before: &str) -> Value {
+	in_block(BLOCK, "", before)
+}
+
+// A guide `block` (id "test/door"), the save's CharState fields `saved`, the world's `before`: the live step and
+// the saved skips of steps 1-5 after login.
+fn in_block(block: &str, saved: &str, before: &str) -> Value {
+	json!(emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}{before}"),
+		addons: vec![core()],
+		saved: vec![("Polestar".into(), format!(r#"PolestarCharDB = {{ schema = 1, guide = "test/door", {saved} }}"#))],
+		script: [
+			TEST_PACK,
+			TEST_SOURCE,
+			block,
+			r#"stub.login(); stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)
+local sk = Polestar.CharState().skipped["test/door"] or {}
+local out = {}
+for s = 1, 5 do out[#out + 1] = tostring(sk[s]) end
+emit({ Polestar.Engine.GetLiveStep(), table.concat(out, " ") })"#,
+		]
+		.join("\n"),
+		..Default::default()
+	}))
+}
+
+#[test]
+fn a_jump_never_takes_a_player_who_did_quest_work_in_its_block_burning_steppes_0422() {
+	let inside = door(r#"stub.world.onQuest(10, {}, "Quest 10"); stub.world.onQuest(11, {}, "Quest 11")"#);
+	assert_eq!(inside, json!([[3, "nil nil nil nil nil"]]), "on the way to Chillwind Camp, nothing jumped");
+	let fresh = door("");
+	assert_eq!(fresh, json!([[5, "jump jump jump jump nil"]]), "a player who comes fresh jumps at the door");
+}
+
+// 0.4.2.2 -> 0.4.3, Alliance Un'Goro Crater: 0.4.3 jumps its Theramore and Tanaris opening (`skipto un-goro when
+// !onquest 82,623,...`) for a player carrying none of the quests the route brings. A 0.4.2.2 save on the flight to
+// Gadgetzan, its flight to Menethil and boat to Theramore done, landed in Un'Goro, Tanaris jumped. Those steps
+// passed without jumping: the jump was not taken at the door, and the player stays on the flight to Gadgetzan.
+const TRAVEL: &str = r#"
+local M = 1429
+local J = { { to = "zone", when = { k = "onquest", neg = true, q = { 900, 901 } } } }
+Polestar.RegisterGuide({
+	id = "test/door", pack = "test", title = "Door", minLevel = 1, maxLevel = 6,
+	steps = {
+		{ title = "Fly to Menethil Harbor", skipto = J, goals = { { t = "goto", map = M, x = 20, y = 20 } } },
+		{ title = "Boat to Theramore", skipto = J, goals = { { t = "goto", map = M, x = 30, y = 30 } } },
+		{ title = "Fly to Gadgetzan", skipto = J, goals = { { t = "goto", map = M, x = 40, y = 40 } } },
+		{ title = "Marin Noggenfogger", skipto = J, goals = { { t = "accept", quest = 20, title = "Quest 20", map = M, x = 80, y = 80 } } },
+		{ title = "Un'Goro Crater", label = "zone", goals = { { t = "accept", quest = 21, title = "Quest 21", map = M, x = 60, y = 60 } } },
+	},
+})
+"#;
+
+#[test]
+fn a_jump_never_takes_a_player_who_passed_a_step_of_its_block_without_it_un_goro_0422() {
+	let inside = in_block(TRAVEL, r#"manual = { ["test/door"] = { ["1:1"] = true, ["2:1"] = true } }"#, "");
+	assert_eq!(inside, json!([[3, "nil nil nil nil nil"]]), "on the flight to Gadgetzan, nothing jumped");
+	let fresh = in_block(TRAVEL, "", "");
+	assert_eq!(fresh, json!([[5, "jump jump jump jump nil"]]), "a player who comes fresh jumps at the door");
+}

@@ -7,9 +7,11 @@
 //! - [`changelog`]: the changelog fragments in changes/ and the release section they become.
 //! - [`notes`]: the release notes (GitHub, CurseForge, Discord) from a version's changelog section.
 //! - [`credits`]: the Guiding Stars page's names (addon/Polestar/Core/Credits.lua).
+//! - [`contributors`]: the logins a release's notes tag (their `## Contributors` section).
 
 pub mod addons;
 pub mod changelog;
+pub mod contributors;
 pub mod credits;
 pub mod notes;
 pub mod pack;

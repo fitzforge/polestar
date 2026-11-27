@@ -179,11 +179,13 @@ fn t_1596_optional_work_and_other_classes_steps_keep_the_walk() {
 // The shipped guide (addon/Polestar_Guides_Horde) on the real addon, with Redrett's quest log from the report:
 // 2841 0/2, 567 2/4, 515 0/3, 4542 done, 6681 0/1; every quest of the guide before the walk up done, every flight
 // path in it known; standing in Camp Taurajo. Since the 0.4.0 Horde route the Tear of the Moons is left out of the
-// guide (#1333), so the first step with work for him after the walk is Freewind Post's, where 4542 is handed in.
+// guide (#1333), and since the 0.4.2 route round Melor Stonehoof gives Steelsnap (1131) on the Thunder Bluff stop, so
+// the first step with work for him after the walk is Melor's.
 #[test]
 fn t_1596_redrett_on_the_shipped_ashenvale_passes_the_thunder_bluff_walk() {
 	let dir = forge_addontest::run::addons_dir();
 	let before = r#"local w = stub.world
+stub.clientBuild = "70532"
 w.race, w.raceName, w.faction, w.class, w.className, w.level = "Skyborne", "Skyborne", "Horde", "ROGUE", "Rogue", 30
 w.money = 500000
 w.onQuest(2841, { { required = 2, fulfilled = 0 } })
@@ -198,11 +200,11 @@ stub.login(); stub.advance(0.25)
 Polestar.Set("behavior.autoAccept", false)
 E.SetGuide("forever/horde/07-ashenvale"); stub.advance(0.25)
 local g = E.GetGuide()
-local tb, fw
+local tb, work
 for i, step in ipairs(g.steps) do
 	local goal = step.goals[1]
 	if not tb and step.title == "Thunder Bluff" and #step.goals == 1 and goal.t == "goto" then tb = i end
-	for _, x in ipairs(step.goals) do if tb and i > tb and x.t == "turnin" and x.quest == 4542 then fw = fw or i end end
+	for _, x in ipairs(step.goals) do if tb and i > tb and x.t == "accept" and x.quest == 1131 then work = work or i end end
 end
 local done, taxi = {}, Polestar.CharState().flags
 taxi.taxi = {}
@@ -216,7 +218,7 @@ stub.world.complete(done)
 stub.world.moveTo(1413, 44.53, 58.97); stub.world.setZone("The Barrens", "Camp Taurajo")
 stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.25)
 if E.GetStepIndex() < tb then E.SkipUpTo(tb); stub.advance(0.25) end
-emit({ tb = tb, fw = fw, at = E.GetStepIndex() })
+emit({ tb = tb, work = work, at = E.GetStepIndex() })
 "#;
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
@@ -226,8 +228,8 @@ emit({ tb = tb, fw = fw, at = E.GetStepIndex() })
 		..Default::default()
 	})
 	.remove(0);
-	assert!(out["tb"].is_u64() && out["fw"].is_u64(), "{out}");
-	assert_eq!(out["at"], out["fw"], "the walk up to Thunder Bluff passes; Freewind Post's hand-in of 4542 leads: {out}");
+	assert!(out["tb"].is_u64() && out["work"].is_u64(), "{out}");
+	assert_eq!(out["at"], out["work"], "the walk up to Thunder Bluff passes; Melor's Steelsnap leads: {out}");
 }
 
 // The same live step after a reload (0.3.7 skip-ahead gate). Passing a stop stores the `when` that failed there as
@@ -470,4 +472,136 @@ fn t_2154_a_walk_to_a_crossing_or_past_steps_that_dont_apply_holds() {
 		"control": tram("test/tram", ""),
 	});
 	assert_eq!(out, json!({ "tram": [1, 1455, "goto"], "whenFails": [1, 1455, "goto"], "control": [4, 1453, "turnin"] }));
+}
+
+// The same walk where the feeder plan leaves the Gol'dir stop out (#4013, asdmasa, a Tauren Druid at 38): without
+// The Rescue (498), which only the Hillsbrad guide before this one gives, Infiltration (533) can't be taken, and
+// Gol'dir (503) and Blackmoore's Legacy (506) go with it: the plan drops Tarren Mill's hand-in and the whole Gol'dir
+// step, so the crater's kills follow the walk straight away. A stop the plan left out is a stop the character had,
+// all done: the walk passes and the crater leads, as it does when Gol'dir is only not in the log (#2154).
+const ALTERAC_FEEDERS: &str = r#"
+Polestar.RegisterGuide({ id = "test/hb", pack = "test", title = "Hillsbrad Foothills", faction = "Horde", minLevel = 28, maxLevel = 30, next = "test/al2", steps = {
+	{ title = "The Rescue", goals = {
+		{ t = "accept", quest = 498, title = "The Rescue", npc = 2276, map = 1420, x = 40.0, y = 40.0 },
+		{ t = "turnin", quest = 498, title = "The Rescue", npc = 2276, map = 1420, x = 40.0, y = 40.0 },
+	} },
+} })
+Polestar.RegisterGuide({ id = "test/al2", pack = "test", title = "Alterac Mountains & Arathi Highlands", faction = "Horde", minLevel = 30, maxLevel = 40, steps = {
+	{ title = "Tarren Mill", goals = {
+		{ t = "accept", quest = 533, title = "Infiltration", npc = 2229, map = 1424, x = 62.0, y = 20.0, pre = { 498 } },
+		{ t = "accept", quest = 545, title = "Dalaran Patrols", npc = 2276, map = 1424, x = 62.0, y = 20.0 },
+	} },
+	{ title = "Tarren Mill", goals = {
+		{ t = "turnin", quest = 533, title = "Infiltration", npc = 2229, map = 1424, x = 62.0, y = 20.0 },
+		{ t = "accept", quest = 503, title = "Gol'dir", npc = 2229, map = 1424, x = 62.0, y = 20.0, pre = { 533 } },
+	} },
+	{ title = "Alterac Mountains", goals = { { t = "goto", map = 1416, x = 60.0, y = 43.7, text = "Gol'dir" } } },
+	{ title = "Gol'dir", goals = {
+		{ t = "turnin", quest = 503, title = "Gol'dir", npc = 2316, map = 1416, x = 60.0, y = 43.7 },
+		{ t = "accept", quest = 506, title = "Blackmoore's Legacy", npc = 2316, map = 1416, x = 60.0, y = 43.7, pre = { 503 } },
+	} },
+	{ title = "Old Dalaran Ruins: kill these as you meet them", goals = {
+		{ t = "kill", target = "Dalaran Summoner", npc = 2358, count = 6, quest = 545, oi = 1, map = 1416, x = 22.0, y = 57.9 },
+	} },
+	{ title = "Back to Tarren Mill", goals = { { t = "goto", map = 1424, x = 61.5, y = 20.9, text = "Tarren Mill" } } },
+	{ title = "Tarren Mill", goals = {
+		{ t = "turnin", quest = 545, title = "Dalaran Patrols", npc = 2276, map = 1424, x = 62.0, y = 20.0 },
+		{ t = "turnin", quest = 506, title = "Blackmoore's Legacy", npc = 2229, map = 1424, x = 62.0, y = 20.0 },
+	} },
+} })
+"#;
+
+// -> the live step's title, the arrow's map and kind, and the quests the plan left out.
+fn alterac_feeders(setup: &str) -> Value {
+	run(
+		ALTERAC_FEEDERS,
+		&format!(
+			r#"
+			stub.world.moveTo(1424, 61.0, 22.0); stub.world.setZone("Hillsbrad Foothills", "Tarren Mill")
+			stub.world.onQuest(545, {{ {{ required = 6, fulfilled = 0 }} }})
+			{setup}
+			stub.fire("QUEST_LOG_UPDATE")
+			E.SetGuide("test/al2"); flush()
+			local g, wp = E.GetGuide(), E.GetWaypoint()
+			local hidden = {{}}
+			for q in pairs(g.hidden or {{}}) do hidden[#hidden + 1] = q end
+			table.sort(hidden)
+			emit({{ g.steps[E.GetStepIndex()].title, wp and wp.map or false, wp and wp.kind or false, table.concat(hidden, " ") }})
+			"#
+		),
+	)
+}
+
+#[test]
+fn t_4013_without_the_rescue_the_walk_to_strahnbrad_passes_and_the_crater_leads() {
+	assert_eq!(
+		alterac_feeders(""),
+		json!(["Old Dalaran Ruins: kill these as you meet them", 1416, "kill", "503 506 533"]),
+		"asdmasa: straight to the crater, not up to Strahnbrad for a stop the guide left out"
+	);
+}
+
+#[test]
+fn t_4013_with_goldir_in_the_log_the_walk_to_strahnbrad_holds() {
+	let out = alterac_feeders("stub.world.complete({ 498, 533 }); stub.world.onQuest(503, { { required = 1, fulfilled = 1 } })");
+	assert_eq!(out, json!(["Alterac Mountains", 1416, "goto", ""]));
+}
+
+// The shipped guide (addon/Polestar_Guides_Horde) on the real addon, as asdmasa (#4013): a Tauren Druid, 38, who
+// never had The Rescue (498) from the Hillsbrad guide, with Dalaran Patrols (545) and Bracers of Binding (557) to do
+// and every other quest of the guide before the walk done; back at Tarren Mill after the first loop. The guide's
+// plan leaves Infiltration, Gol'dir and Blackmoore's Legacy out, the Gol'dir step with them, so the walk north to
+// Strahnbrad leads nowhere: it passes and the Dalaran ruins lead.
+#[test]
+fn t_4013_asdmasa_on_the_shipped_alterac_passes_the_walk_to_strahnbrad() {
+	let dir = forge_addontest::run::addons_dir();
+	let before = r#"local w = stub.world
+stub.clientBuild = "70532"
+w.race, w.raceName, w.faction, w.class, w.className, w.level = "Tauren", "Tauren", "Horde", "DRUID", "Druid", 38
+w.money = 500000
+w.onQuest(545, { { required = 6, fulfilled = 0 }, { required = 6, fulfilled = 0 } })
+w.onQuest(557, { { required = 1, fulfilled = 0 } })
+w.bind("Tarren Mill")"#;
+	let script = r#"
+E = Polestar.Engine
+for id, b in pairs(Polestar.MapFrames.era) do stub.world.addMap(id, b) end
+stub.login(); stub.advance(0.25)
+Polestar.Set("behavior.autoAccept", false)
+local base = Polestar.Guides.Get("forever/horde/30-40/05-arathi-highlands")
+local CHAIN = { [498] = true, [533] = true, [535] = true, [503] = true, [506] = true, [545] = true, [557] = true }
+local done, taxi, walk = {}, Polestar.CharState().flags, nil
+taxi.taxi = {}
+for i, step in ipairs(base.steps) do
+	local goal = step.goals[1]
+	if not walk and step.title == "Alterac Mountains" and #step.goals == 1 and goal.t == "goto" and goal.text == "Gol'dir" then walk = i end
+	for _, x in ipairs(step.goals) do
+		if not walk and x.quest and (x.t == "accept" or x.t == "turnin") and not CHAIN[x.quest] then done[#done + 1] = x.quest end
+		if x.node then taxi.taxi[x.node] = true end
+	end
+end
+stub.world.complete(done)
+stub.world.moveTo(1424, 61.0, 22.0); stub.world.setZone("Hillsbrad Foothills", "Tarren Mill")
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.25)
+E.SetGuide("forever/horde/30-40/05-arathi-highlands"); stub.advance(0.25)
+local g = E.GetGuide()
+local hidden = {}
+for q in pairs(g.hidden or {}) do hidden[#hidden + 1] = q end
+table.sort(hidden)
+-- The walk where the plan has it; anything still open before it skipped, as asdmasa had gone on from Tarren Mill.
+local planned = g.fromBase and g.fromBase[walk] or walk
+if planned and E.GetStepIndex() < planned then E.SkipUpTo(planned); stub.advance(0.25) end
+local at = E.GetStepIndex()
+emit({ walk = walk ~= nil, hidden = table.concat(hidden, " "), at = at and g.steps[at].title or false })
+"#;
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: before.to_string(),
+		addons: vec![Addon::name("Polestar"), Addon::dir("Polestar_Guides", dir.join("Polestar_Guides")), Addon::dir("Polestar_Guides_Horde", dir.join("Polestar_Guides_Horde"))],
+		script: script.to_string(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["walk"], true, "{out}");
+	assert!(out["hidden"].as_str().is_some_and(|h| h.split(' ').any(|q| q == "503")), "Gol'dir is left out: {out}");
+	assert_eq!(out["at"], "Old Dalaran Ruins: kill these as you meet them", "asdmasa: the walk to Strahnbrad passes, the ruins lead: {out}");
 }

@@ -282,3 +282,160 @@ fn the_reminder_poll_allocates_nothing_per_tick() {
 	assert!(shown < 0.5, "2000 polls with the line shown allocated {shown:.2} KiB");
 	assert!(idle < 0.5, "2000 polls with the kind spent allocated {idle:.2} KiB");
 }
+
+// #3547: Nav/RuneStop.lua's offer is a line of the same kind: the vendor, what it saves, a click points the arrow
+// there, and the line goes when the offer does (a rune in the bags), the arrow back on the guide.
+#[test]
+fn a_rune_stop_is_a_while_you_re_here_line_a_click_leads_to_the_vendor_and_it_goes_with_the_offer() {
+	let out = run(r#"
+		bags(16)
+		local c, wx, wy = Polestar.Compat.MapToWorld(1429, 43, 65)
+		local place = { id = 102, name = "Brog Hamfist", sub = "General Supplies", map = 1429, x = 43, y = 65, c = c, wx = wx, wy = wy }
+		local function offer(saves) return { seller = place, places = { place }, teleport = { spell = 3561, name = "Teleport: Stormwind" }, saves = saves } end
+		local function line()
+			for _, v in ipairs(E.GetWhileHereList()) do
+				if v.here == "rune" then return { v.hereText, v.hereSub or false, v.yards or false, Polestar.Theme.VerbIcon(v.t):match("[^\\]+$") } end
+			end
+			return false
+		end
+		r.none = line()
+		E.SetRuneStop(offer(185))
+		flush()
+		at(42, 65)
+		r.shown = line()
+		E.SetRuneStop(offer(250))
+		flush()
+		r.moved = line()
+		r.aim = E.AimWhileHere(1)
+		r.aimed = E.RuneStopAimed()
+		local wp = E.GetWaypoint()
+		r.wp = wp and { wp.map, wp.x, wp.y, wp.label, wp.stepIndex, wp.goalIndex } or false
+		E.SetRuneStop(nil)
+		flush()
+		r.gone = line()
+		local back = E.GetWaypoint()
+		r.backOnGuide = back and back.stepIndex == E.GetLiveStep() or false
+		-- Out of runes again, in the same town: a new trip's offer shows, not held back as once per visit.
+		E.SetRuneStop(offer(185))
+		flush()
+		at(42, 65)
+		r.again = line() ~= false
+		-- Dismissed, it stays gone though the offer holds.
+		E.DismissWhileHere(1)
+		flush()
+		E.SetRuneStop(offer(190))
+		flush()
+		at(42, 65)
+		r.dismissed = line()
+		"#);
+	assert_eq!(out["none"], false);
+	assert_eq!(out["shown"], json!(["Buy a rune and cast Teleport: Stormwind to save about 3m", "Brog Hamfist (General Supplies)", 30, "icon-sell"]));
+	assert_eq!(out["moved"][0], "Buy a rune and cast Teleport: Stormwind to save about 4m", "the same stop takes the new saving");
+	assert_eq!(out["aim"], true);
+	assert_eq!(out["aimed"], true);
+	assert_eq!(out["wp"], json!([1429, 43, 65, "Buy a rune at Brog Hamfist", -4, 3]));
+	assert_eq!(out["gone"], false);
+	assert_eq!(out["backOnGuide"], true);
+	assert_eq!(out["again"], true, "a later trip in the same town gets the line again");
+	assert_eq!(out["dismissed"], false, "a dismiss holds");
+}
+
+// #3432 (Stö): Mount Hyjal's "Sell before heading out" picked Pexmit ("Someone's Minion"), a rare merchant with 8
+// spawns across the zone, often not there. A rare whose spawns lie more than 100 yd apart is no place to send the
+// player (Nav/Nearby.lua); one that stays at one spot still is.
+#[test]
+fn a_rare_merchant_who_wanders_is_never_the_place_to_sell_one_who_stays_put_is_3432() {
+	let line = |spawns: &str| {
+		let out = run(&format!(
+			r#"
+		npcs[104] = {{ id = 104, name = "Pexmit", subName = "Someone's Minion", faction = "AH", rare = true, spawns = {spawns} }}
+		roles.vendor = {{ 102, 103, 104 }}
+		bags(2)
+		headOut()
+		r.out = vendors()
+		"#
+		));
+		out["out"][0][2].clone()
+	};
+	assert_eq!(line("{ { map = 1429, x = 42.3, y = 65 }, { map = 1429, x = 80, y = 20 } }"), "Brog Hamfist (General Supplies)", "9 yd off, but it wanders");
+	assert_eq!(line("{ { map = 1429, x = 42.3, y = 65 }, { map = 1429, x = 42.5, y = 65.2 } }"), "Pexmit (Someone's Minion)", "at one spot: the nearest");
+}
+
+// #4388 (Meta): #3432's fix never fired: the Codex calls no NPC on a player faction's side a rare (#2929), so Pexmit
+// (faction AH) came as a plain vendor. The Codex marks him a rare spawn (`rareSpawn`), and a rare spawn who wanders is
+// no place to sell either; one at one spot still is.
+#[test]
+fn a_rare_spawn_both_sides_deal_with_who_wanders_is_never_the_place_to_sell_4388() {
+	let line = |spawns: &str| {
+		let out = run(&format!(
+			r#"
+		npcs[104] = {{ id = 104, name = "Pexmit", subName = "Someone's Minion", faction = "AH", rare = false, rareSpawn = true, spawns = {spawns} }}
+		roles.vendor = {{ 102, 103, 104 }}
+		bags(2)
+		headOut()
+		r.out = vendors()
+		"#
+		));
+		out["out"][0][2].clone()
+	};
+	assert_eq!(line("{ { map = 1429, x = 42.3, y = 65 }, { map = 1429, x = 80, y = 20 } }"), "Brog Hamfist (General Supplies)", "9 yd off, but he wanders");
+	assert_eq!(line("{ { map = 1429, x = 42.3, y = 65 }, { map = 1429, x = 42.5, y = 65.2 } }"), "Pexmit (Someone's Minion)", "at one spot: the nearest");
+}
+
+// #4388 with the local Codex (data/forever/codex; skipped without it): at Meta's spot on the Mount Hyjal 56-58 guide
+// (map 2482 47.15,80.33, step "Velician"), 8 yd from one of Pexmit's eight spawns, the vendors Nearby offers leave
+// Pexmit out. The other rare spawns with a service stay at one spot and keep their places: Malgin Barleybrew (one
+// spawn, on the Barrens' and Dustwallow Marsh's maps) and Riverglades' stablemaster Reginald Holmsby (about his stable).
+#[test]
+fn with_the_local_codex_pexmit_is_never_a_vendor_place_at_the_mount_hyjal_spot_he_was_offered_4388() {
+	forge_addontest::needs!("codex/npcs.json", "codex/frames.json", "map-frames.json");
+	let data = forge_addontest::run::root().join("data/forever");
+	let read = |n: &str| -> Value { serde_json::from_str(&std::fs::read_to_string(data.join(format!("{n}.json"))).unwrap()).unwrap() };
+	let npcs = read("codex/npcs");
+	let npcs_flag = json!(["266901", "5848", "256410"].map(|id| npcs[id]["rareSpawn"] == true));
+	let pack = forge_addontest::codex::write_codex_pack(&json!({ "npcs": npcs, "frames": read("codex/frames") }), &forge_addontest::codex::CodexOpts::default());
+	// The client's live frames (the maps Forever added among them: Mount Hyjal 2482, the Riverglades 2548).
+	let maps: String = read("map-frames")["forever"]
+		.as_object()
+		.unwrap()
+		.iter()
+		.map(|(id, b)| format!("w.addMap({id}, {{ c = {}, left = {}, right = {}, top = {}, bottom = {} }})\n", b["c"], b["left"], b["right"], b["top"], b["bottom"]))
+		.collect();
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{}\n{WORLD}\n{maps}", pack.stub_lua),
+		addons: vec![Addon::name("Polestar")],
+		script: r#"
+			stub.login()
+			local N, C = Polestar.Nav.nearby, Polestar.Compat
+			local function ids(list)
+				local out = {}
+				for _, p in ipairs(list or {}) do out[p.id] = (out[p.id] or 0) + 1 end
+				return out
+			end
+			local vendors = N.PlacesOn("vendor", 1) or {}
+			local c, x, y = C.MapToWorld(2482, 47.15, 80.33)
+			local best, bestD, hyjal = nil, nil, 0
+			for _, p in ipairs(vendors) do
+				if p.map == 2482 then hyjal = hyjal + 1 end
+				local d = ((p.wx - x) ^ 2 + (p.wy - y) ^ 2) ^ 0.5
+				if p.c == c and (not bestD or d < bestD) then best, bestD = p, d end
+			end
+			local v = ids(vendors)
+			emit({
+				pexmit = v[266901] or 0, malgin = v[5848] or 0, hyjal = hyjal,
+				nearest = best and { best.name, math.floor(bestD + 0.5) } or false,
+				reginald = ids(N.PlacesOn("stable", 0))[256410] or 0,
+			})
+		"#
+		.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["pexmit"], 0, "no spawn of Pexmit is a vendor place: {out}");
+	assert_eq!(out["malgin"], 2, "Malgin Barleybrew is, at his one spot: {out}");
+	assert!(out["hyjal"].as_i64().unwrap_or(0) > 0, "Mount Hyjal's other merchants are: {out}");
+	assert!(out["nearest"][0].as_str().is_some_and(|n| n != "Pexmit"), "the nearest at Meta's spot: {out}");
+	assert!(out["reginald"].as_i64().unwrap_or(0) > 0, "Reginald Holmsby stays at his stable: {out}");
+	assert_eq!(npcs_flag, json!([true, true, true]), "Pexmit, Malgin Barleybrew and Reginald Holmsby are rare spawns in the Codex");
+}

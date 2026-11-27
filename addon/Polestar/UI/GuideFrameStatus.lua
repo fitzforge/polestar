@@ -22,11 +22,8 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- 2.4 levels: step 32 grinds to level 14 (≈12m)", said plainly. Behind with
 	-- none, in the warning colour: "Behind by 2.4 levels for level 24 by step 21:
 	-- grind ≈1h 10m before then" (or "and no grind step ahead"). "≈" is "~" in a
-	-- face without it (Theme.Approx, #1906). A quest 3+
-	-- levels over the character (pace.hard) is named only on the step where it is
-	-- fought, calmly: "On pace, but Ashenvale Outrunners (24) at step 4 is hard:
-	-- you're 21.3; reach 22 first", or the "Behind:" form past the slack. nil
-	-- without a target ahead or the Codex.
+	-- face without it (Theme.Approx, #1906). It never names a quest or its level
+	-- (Fitz, #3438). nil without a target ahead or the Codex.
 	GF.PACE_SLACK = 1
 	function GF.PaceText(stats)
 		local d = Derived()
@@ -43,18 +40,6 @@ ns.UI.GuideFrame.Part(function(GF)
 		local level = pace.target % 1 == 0 and string.format("%d", pace.target) or ns.Decimal(pace.target, 1)
 		local stepNo = UI.StepNo(pace.step, E)
 		local behind = (pace.short or 0) > GF.PACE_SLACK
-		local h = pace.hard
-		if h and h.step ~= pace.live then h = nil end
-		if h then
-			local name, at, you, time = ns.Quoted(h.title) or L["Quest"], UI.StepNo(h.step, E), GF.LevelText(h.reach), grind(h.xp)
-			if not behind then
-				return time and string.format(L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"], name, h.level, at, you, time)
-					or string.format(L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"], name, h.level, at, you, h.need)
-			end
-			local text = time and string.format(L["Behind: %s (%d) at step %d, you're %s; grind %s first"], name, h.level, at, you, time)
-				or string.format(L["Behind: %s (%d) at step %d, you're %s; reach %d first"], name, h.level, at, you, h.need)
-			return "|c" .. Theme.Hex("warning") .. text .. "|r"
-		end
 		if not behind then
 			-- At a guide's end there is no goal to meet, only the level the route
 			-- gets you to: say that one, which a character already at the guide's
@@ -79,11 +64,13 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- both are off, at max level, or before there is anything to show.
 	-- The XP row's height at `width`: its line, on a second line when the row
 	-- can't hold it ("On pace for level 24.9 by s…" read cut at the window's
-	-- default width in every look), and Boosted Rest's line under it.
+	-- default width in every look), and Boosted Rest's line under it. Its
+	-- one line's height is GF.Space "xpRow"; the room its line has, GF.Space
+	-- "xpRoom" (a layout that sets the text elsewhere or adds to it).
 	function GF.XPHeight(width)
 		local xp = GF.xp
-		local h = GF.XPROW.h + (xp.psRest and GF.XPROW.restH or 0)
-		local room = (width or 0) - PAD * 2 - 11 - 7
+		local h = GF.Space("xpRow", GF.XPROW.h) + (xp.psRest and GF.XPROW.restH or 0)
+		local room = GF.Space("xpRoom", (width or 0) - PAD * 2 - 11 - 7, width or 0)
 		if xp.psLine and room > 0 and W.TextWidth(xp.Text, xp.psLine) > room then
 			h = h + math.floor(xp.Text:GetLineHeight() + 0.5)
 		end
@@ -95,7 +82,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		local d, Q = Derived(), ns.QoL
 		if stats == nil and d.XPStats then stats = d.XPStats() end
 		local parts = {}
-		if type(stats) == "table" and not stats.maxed and Q then
+		-- The XP line (XP an hour, time to level, the pace) unless turned off
+		-- (guideWindow.xpLine, #3304); Boosted Rest keeps its own line.
+		local xpLine = GF.On("xpLine")
+		if xpLine and type(stats) == "table" and not stats.maxed and Q then
 			local short = Q.XP and Q.XP.Short
 			if type(stats.rate) == "number" and stats.rate > 0 and short then
 				parts[#parts + 1] = string.format(L["%s XP/h"], short(stats.rate))
@@ -107,7 +97,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		local restLine
 		if not (type(stats) == "table" and stats.maxed) then
 			-- The pace line, unless turned off (guideWindow.pace, #2371, #2379).
-			local pace = GF.On("pace") and GF.PaceText(stats)
+			local pace = xpLine and GF.On("pace") and GF.PaceText(stats)
 			if pace then parts[#parts + 1] = pace end
 			-- Boosted Rest and the sleeping bag (QoL/Rest.lua): empty while its
 			-- setting is off or there is nothing to say.
@@ -146,22 +136,27 @@ ns.UI.GuideFrame.Part(function(GF)
 	end
 
 	-- The party line (Quests/Party.lua, Party.StepLine): hidden without one;
-	-- "Go on without them" at its end while the group waits on the step.
+	-- "Go on without them" at its end while the group waits on the step. With
+	-- the party panel open (it shows who is where) only the wait stays, in
+	-- every layout: this is the one place the line is made. psState: what in
+	-- it needs the player (a card the player closed in the Atlas layout reads it).
 	function GF.UpdateParty()
 		if not GF.party then return end
 		local P = ns.Party
-		local text, holding
-		if P and P.StepLine then text, holding = P.StepLine() end
-		local had = GF.party.psText ~= nil
-		GF.party.psText, GF.party.psHolding = text, holding and true or false
+		local panel = UI.PartyPanel and UI.PartyPanel.Frame and UI.PartyPanel.Frame()
+		local text, holding, state
+		if P and P.StepLine then text, holding, state = P.StepLine(panel ~= nil and panel:IsShown()) end
+		local was = GF.party.psText
+		GF.party.psText, GF.party.psHolding, GF.party.psState = text, holding and true or false, state
 		if text then GF.party.Text:SetText(text) end
 		local goOn = GF.party.GoOn
 		goOn:SetShown(holding and true or false)
 		GF.party.Text:SetPoint("RIGHT", holding and goOn or GF.party, holding and "LEFT" or "RIGHT", holding and -8 or -PAD, 0)
-		if had ~= (text ~= nil) then GF.Layout() end
+		-- A new line may also bring a closed card back (Atlas), so it lays out too.
+		if was ~= text then GF.Layout() end
 	end
 	if GF.live then
-		for _, msg in ipairs({ "PARTY_PROGRESS", "STEP_CHANGED", "STEP_UPDATED", "GUIDE_CHANGED" }) do
+		for _, msg in ipairs({ "PARTY_PROGRESS", "STEP_CHANGED", "STEP_UPDATED", "GUIDE_CHANGED", "PARTY_PANEL_TOGGLED" }) do
 			ns.On(msg, whenReady(function() GF.UpdateParty() end))
 		end
 	end

@@ -1,0 +1,172 @@
+name: Release data
+
+# The tests that read the reference data, on the release data, on the maintainers' self-hosted runner (labels
+# self-hosted, polestar-data; docs/CI.md "Reference data"), for the changes that can move what they read and once at
+# freeze: a pull request that changes the data (data/, forever-db/), each push to a release branch (the cut, then
+# any fix on the frozen tree) and a run started by hand. Every other pull request has the public data in ci.yml's
+# Tests and the post-merge gates; it never waits on this machine. The data never leaves that machine, so only this
+# repository's own branches run here: a fork's pull request skips this job (the runner refuses one too). A draft
+# skips it too, until it is marked ready. Its tests fail on any failure: the release data is the one the release
+# gates read. Not a required check: the runner is one machine that may be off.
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths:
+      - "data/**"
+      - "forever-db/**"
+  push:
+    branches: ["release/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A newer push replaces the pull request's (or the branch's) older run, waiting or running.
+concurrency:
+  group: release-data-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  release-data:
+    name: Release data
+    if: github.event_name != 'pull_request' || (github.event.pull_request.head.repo.full_name == github.repository && !github.event.pull_request.draft)
+    runs-on: [self-hosted, polestar-data]
+    timeout-minutes: 120
+    # pull-requests: write for the route-integrity table's comment (this repository's own branches only: the job
+    # never runs for a fork's pull request).
+    permissions:
+      contents: read
+      pull-requests: write
+    env:
+      POLESTAR_TIMING_BUDGETS: warn
+      # One test file at a time: each guide suite on the data starts up to 8 Lua workers of its own (the pool sizes
+      # by the machine's cores, not the runner's share), and two at once went over the runner's 6 GB.
+      CI_TEST_CONCURRENCY: "1"
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+          fetch-depth: 2
+
+      # As ci.yml's Tests job: the lane from the base's own copy of the script. Then what there is to run on the
+      # data: the tests that read it (tools/ci-data-tests.js; the others run the same without it, and Tests runs
+      # them) and the guide texts of the languages touched. Nothing to run: the job ends here. A push or a run by
+      # hand is a whole tree: everything.
+      - name: Lane
+        id: lane
+        env:
+          EVENT: ${{ github.event_name }}
+        run: |
+          changed="$RUNNER_TEMP/changed.txt" base="$RUNNER_TEMP/base" from=
+          [ "$EVENT" = pull_request ] && { from=$(git rev-parse HEAD^1) || from=; }
+          if [ -n "$from" ] && git diff --no-renames --name-only "$from" HEAD > "$changed" \
+            && git worktree add --detach --quiet "$base" "$from" && [ -f "$base/tools/ci-lane.js" ]; then
+            node "$base/tools/ci-lane.js" --github --files "$changed"
+          else
+            echo "lane=full" >> "$GITHUB_OUTPUT"
+            echo "locales=all" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: What to run
+        id: plan
+        env:
+          LANE: ${{ steps.lane.outputs.lane }}
+          TESTS: ${{ steps.lane.outputs.tests }}
+          LOCALES: ${{ steps.lane.outputs.locales }}
+        run: |
+          set -f # the glob is node's to expand
+          files=
+          case "$LANE" in
+            docs) ;;
+            full) files=$(node tools/ci-data-tests.js "tests/**/*.test.js") ;;
+            *) files=$(node tools/ci-data-tests.js $TESTS) ;;
+          esac
+          echo "files=$files" >> "$GITHUB_OUTPUT"
+          if [ -z "$files" ] && [ -z "$LOCALES" ]; then
+            echo "run=no" >> "$GITHUB_OUTPUT"
+            printf '## Release data\n\nNothing the change can break reads the data.\n' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "run=yes" >> "$GITHUB_OUTPUT"
+            echo "$(wc -w <<< "$files") test file(s) read the data; guide texts: ${LOCALES:-none}"
+          fi
+
+      # The runner's copy of the release data ($POLESTAR_DATA: forever/ and the sources it was built from,
+      # sources/), read-only there: forever/ copied (some tools write beside it), each source folder linked.
+      - name: Release data
+        if: steps.plan.outputs.run == 'yes'
+        run: |
+          test -f "$POLESTAR_DATA/forever/meta.json"
+          rm -rf data/forever && cp -r "$POLESTAR_DATA/forever" data/forever
+          mkdir -p data/sources
+          for s in "$POLESTAR_DATA"/sources/*; do ln -sfn "$s" "data/sources/$(basename "$s")"; done
+          printf '## Release data\n\n%s\n' "$(jq -r '"built \(.builtAt // "?")"' data/forever/meta.json)" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Forge cache key
+        id: forgekey
+        if: steps.plan.outputs.run == 'yes'
+        run: echo "key=forge-quick-Linux-${{ hashFiles('rust/**', 'tests/lua/simulate.lua') }}" >> "$GITHUB_OUTPUT"
+
+      - name: Forge (cache)
+        id: forgecache
+        if: steps.plan.outputs.run == 'yes'
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: rust/target/quick/forge
+          key: ${{ steps.forgekey.outputs.key }}
+
+      - name: Build forge
+        if: steps.plan.outputs.run == 'yes' && steps.forgecache.outputs.cache-hit != 'true'
+        working-directory: rust
+        run: cargo build --profile quick --locked -j 6 -p forge
+
+      - name: Forge path
+        if: steps.plan.outputs.run == 'yes'
+        run: echo "FORGE=$GITHUB_WORKSPACE/rust/target/quick/forge" >> "$GITHUB_ENV"
+
+      - name: Test (the ones that read the data)
+        if: steps.plan.outputs.files != ''
+        env:
+          FILES: ${{ steps.plan.outputs.files }}
+        run: tools/ci-tests.sh "" $FILES
+
+      # The checks below run whatever the tests did (each fails the job on its own).
+      - name: Guide texts
+        if: ${{ !cancelled() && steps.plan.outputs.run == 'yes' && steps.lane.outputs.locales != '' }}
+        env:
+          LOCALES: ${{ steps.lane.outputs.locales }}
+        run: tools/ci-guide-texts.sh "" "$LOCALES"
+
+      # The route-integrity gate (#3654, docs/CI.md "Route integrity"): for an edit to a leveling guide in a pull
+      # request, its chain played, the honest playtest, what the guides lose and the level model, against the base.
+      # The table goes to the run's summary and to one comment on the pull request, kept up to date.
+      - name: Route integrity
+        id: route
+        if: ${{ !cancelled() && github.event_name == 'pull_request' && steps.plan.outputs.run == 'yes' && (steps.lane.outputs.lane == 'full' || contains(steps.lane.outputs.areas, 'guides')) }}
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          if [ ! -d "$RUNNER_TEMP/base" ]; then echo "::error::no base checkout to compare with"; exit 1; fi
+          tools/ci-route-gate.sh "$RUNNER_TEMP/base" "$RUNNER_TEMP/changed.txt" "$RUNNER_TEMP/route"
+
+      - name: Route integrity (comment)
+        if: always() && steps.route.outcome != 'skipped'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          URL: ${{ github.api_url }}/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments
+        run: |
+          f=$RUNNER_TEMP/route/route-integrity.md
+          [ -s "$f" ] || exit 0
+          cat "$f" >> "$GITHUB_STEP_SUMMARY"
+          if grep -q 'no leveling guide edited' "$f"; then exit 0; fi
+          body=$(printf '<!-- polestar:route-integrity -->\n%s\n\nRun: %s\n' "$(cat "$f")" "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID")
+          auth=(-H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json")
+          id=$(curl -sSf "${auth[@]}" "$URL?per_page=100" | jq -r '[.[] | select(.body | startswith("<!-- polestar:route-integrity -->"))][0].id // empty')
+          payload=$(jq -n --arg b "$body" '{body: $b}')
+          if [ -n "$id" ]; then
+            curl -sSf -X PATCH "${auth[@]}" "${URL%/issues/*}/issues/comments/$id" -d "$payload" > /dev/null
+          else
+            curl -sSf -X POST "${auth[@]}" "$URL" -d "$payload" > /dev/null
+          fi

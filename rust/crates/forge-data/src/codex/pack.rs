@@ -3,7 +3,7 @@
 
 use forge_guide::js::{num_str, str_to_num, V};
 
-use super::util::{kstr, math_round};
+use super::util::{by_num, kstr, math_round, oentries};
 
 pub const SCHEMA: f64 = 1.0;
 pub const ADDON: &str = "Polestar_Codex";
@@ -334,7 +334,16 @@ fn encode_spawns(spawns: &V) -> Result<Vec<String>, String> {
 }
 
 fn encode_npc(rec: &V) -> Result<String, String> {
-	let flags = format!("{}{}{}", if rec.get("rare").truthy() { "r" } else { "" }, if rec.get("elite").truthy() { "e" } else { "" }, if rec.get("boss").truthy() { "b" } else { "" });
+	// r rare, e elite, b boss, g seen only by a dead character (#558: Franclorn Forgewright), s a rare spawn on a
+	// player faction's side, which is no rare to hunt (#4388: Pexmit).
+	let flags = format!(
+		"{}{}{}{}{}",
+		if rec.get("rare").truthy() { "r" } else { "" },
+		if rec.get("elite").truthy() { "e" } else { "" },
+		if rec.get("boss").truthy() { "b" } else { "" },
+		if rec.get("ghostOnly").truthy() { "g" } else { "" },
+		if rec.get("rareSpawn").truthy() { "s" } else { "" }
+	);
 	let fac = rec.get("faction");
 	let mut parts = vec![
 		num(&rec.get("level"))?,
@@ -348,6 +357,10 @@ fn encode_npc(rec: &V) -> Result<String, String> {
 	parts.extend(encode_spawns(&rec.get("spawns"))?);
 	if rec.get("subName").truthy() {
 		parts.push(format!("t{}", esc(&rec.get("subName"))));
+	}
+	// The quest after which it sells (#3138: Zorbin Fandazzle after Zapped Giants): v<quest>, last.
+	if rec.get("vendorAfter").num() > 0.0 {
+		parts.push(format!("v{}", num(&rec.get("vendorAfter"))?));
 	}
 	Ok(parts.join(";"))
 }
@@ -407,11 +420,18 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 		if o.get("tame").truthy() {
 			parts.push("t".into());
 		}
-		// The item the kill objective before it is really a use of (merge.rs `use_item_on`, #2468):
-		// a<item>. An older reader skips it (no objective kind is a).
+		// The item the kill or event objective before it is really a use of (merge.rs `use_item_on`, #2468;
+		// `event_use`, #4270): a<item>. An older reader skips it (no objective kind is a).
 		let use_item = o.get("useItem");
 		if use_item.truthy() {
 			parts.push(format!("a{}", num(&use_item)?));
+		}
+		// What that use spends, gathered before it (merge.rs `event_use`, #4270: four Coalesced Mana Crystals from
+		// the Unstable Mana Rifts for each pylon): j<item>,<count>,<npc>. An older reader skips it (no objective kind
+		// is j).
+		let reagent = o.get("reagent");
+		if reagent.truthy() {
+			parts.push(format!("j{},{},{}", num(&reagent.get("item"))?, num(&reagent.get("count"))?, num(&reagent.get("npc"))?));
 		}
 		// The item that calls the kill objective's target up (merge.rs `summon_item_for`, #2326): m<item>.
 		// An older reader skips it (no objective kind is m).
@@ -424,6 +444,12 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 		let on = o.get("summonOn");
 		if summon.truthy() && !on.items().is_empty() {
 			parts.push(format!("g{}", list(&on)?));
+		}
+		// The items an item objective is made from that the quest needs (merge.rs `made_from_items`, #4148: the
+		// Essence of Hakkar for the Filled Egg): f<item>,<item>... An older reader skips it (no objective kind is f).
+		let made = o.get("madeFrom");
+		if !made.items().is_empty() {
+			parts.push(format!("f{}", list(&made)?));
 		}
 		// The hostile elites at an object's work, per side (elites.rs): w<side><rank>,<lvl>.
 		let el = o.get("elites");
@@ -466,6 +492,17 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 	if rec.get("direct").truthy() {
 		parts.push("d".into());
 	}
+	// One of a set the game offers one at a time (#3601: Pix's weekly In Demand quests): v<set name>. An older
+	// reader skips it (no objective kind is v).
+	let rot = rec.get("rotation");
+	if rot.truthy() {
+		parts.push(format!("v{}", esc(&rot)));
+	}
+	// No recording has shown it on Forever yet (quests.json `unseen`: the Nightmare Incursion missions): `n`. An older
+	// reader skips it (no objective kind is n).
+	if rec.get("unseen").truthy() {
+		parts.push("n".into());
+	}
 	Ok(parts.join(";"))
 }
 
@@ -494,11 +531,16 @@ fn encode_instance(rec: &V) -> Result<String, String> {
 		let f = e.get("f");
 		let mut p = vec![num(&e.get("map"))?, coord(&e.get("x")), coord(&e.get("y")), if f.truthy() { f.to_js_string() } else { String::new() }];
 		let a = e.get("A");
-		if e.get("approx").truthy() || a.truthy() {
-			p.push(if e.get("approx").truthy() { "a".into() } else { String::new() });
+		let approx = e.get("approx").truthy();
+		let z = num(&e.get("z"))?;
+		if approx || a.truthy() || !z.is_empty() {
+			p.push(if approx { "a".into() } else { String::new() });
 		}
 		if a.truthy() {
 			p.extend([num(&a.get("map"))?, coord(&a.get("x")), coord(&a.get("y"))]);
+		}
+		if !z.is_empty() {
+			p.push(z);
 		}
 		p.join(",")
 	} else {
@@ -517,6 +559,28 @@ fn encode_instance(rec: &V) -> Result<String, String> {
 
 fn encode_spell(rec: &V) -> Result<String, String> {
 	Ok([esc(&rec.get("kind")), num(&rec.get("item"))?, esc(&rec.get("class"))].join(";"))
+}
+
+/// A profession's record (#3784): `minSkill,max,<Alliance ids>,<Horde ids>` per rank, then
+/// `trainerSkill` as `npc,skill,npc,skill` (sorted by npc). Id lists are space-joined, so `,` and `;`
+/// stay the field and rank separators Codex.lua's `split` knows.
+fn encode_profession(rec: &V) -> Result<String, String> {
+	let mut parts: Vec<String> = Vec::new();
+	for r in rec.get("ranks").items() {
+		let t = r.get("trainers");
+		let side = |k: &str| -> Result<String, String> {
+			let ids: Vec<String> = t.get(k).items().iter().map(num).collect::<Result<Vec<_>, _>>()?;
+			Ok(ids.join(" "))
+		};
+		parts.push(format!("{},{},{},{}", num(&r.get("minSkill"))?, num(&r.get("max"))?, side("Alliance")?, side("Horde")?));
+	}
+	let mut gates: Vec<(String, String)> = Vec::new();
+	for (npc, skill) in oentries(&rec.get("trainerSkill")) {
+		gates.push((npc.to_string(), num(&skill)?));
+	}
+	gates.sort_by(|a, b| by_num(str_to_num(&a.0), str_to_num(&b.0)));
+	parts.push(gates.iter().map(|(npc, skill)| format!("{npc},{skill}")).collect::<Vec<_>>().join(","));
+	Ok(parts.join(";"))
 }
 
 /// pack.js `luaValue(v, indent)`.
@@ -623,6 +687,7 @@ pub struct PackCodex<'a> {
 	pub spells: &'a V,
 	pub meta: &'a V,
 	pub frames: &'a V,
+	pub professions: &'a V,
 }
 
 /// `emitPack(codex, { version, build, extraFiles })` -> [(file, text)] (TOC order, then the TOC and
@@ -736,7 +801,10 @@ pub fn emit_pack(codex: &PackCodex, version: &str, build: &V, extra_files: &[(St
 	}
 	let mut roles: Vec<(String, Vec<String>)> = Vec::new();
 	for id in &npc_ids {
-		for r in npcs.get(id).get("roles").items() {
+		// `vendorAfter`: the NPCs whose selling waits on a quest (v<quest> on their record), so the addon reads only
+		// those records to filter its vendor lists (#3138).
+		let after = (npcs.get(id).get("vendorAfter").num() > 0.0).then(|| V::str("vendorAfter"));
+		for r in npcs.get(id).get("roles").items().into_iter().chain(after) {
 			let r = r.to_js_string();
 			match roles.iter_mut().find(|(x, _)| *x == r) {
 				Some(e) => e.1.push(id.clone()),
@@ -749,6 +817,16 @@ pub fn emit_pack(codex: &PackCodex, version: &str, build: &V, extra_files: &[(St
 	let role_entries: Vec<Entry> = roles.iter().map(|(r, ids)| (r.clone(), V::str(&ids.join(",")), None, String::new())).collect();
 	if !role_entries.is_empty() {
 		emit_group("role", &role_entries, "Roles", &mut out, &mut order);
+	}
+	let profession_entries: Vec<Entry> = sorted_ids(codex.professions)
+		.into_iter()
+		.map(|id| {
+			let p = codex.professions.get(&id);
+			Ok::<Entry, String>((id, p.get("name"), Some(encode_profession(&p)?), String::new()))
+		})
+		.collect::<Result<Vec<_>, String>>()?;
+	if !profession_entries.is_empty() {
+		emit_group("profession", &profession_entries, "Professions", &mut out, &mut order);
 	}
 	let obj_ids = sorted_ids(objects);
 	let obj_entries = |treasure: bool| -> Result<Vec<Entry>, String> {
@@ -907,15 +985,17 @@ mod tests {
 	}
 
 	#[test]
-	fn an_entrance_carries_its_approximate_flag_and_the_alliance_way_in_after_it() {
+	fn an_entrance_carries_its_approximate_flag_alliance_way_in_and_height() {
 		let line = |entrance: &str| {
 			let rec = forge_guide::js::parse_json(&format!(r#"{{ "kind": "dungeon", "forever": true, "areaId": 279, "map": 2959, "entrance": {entrance}, "levels": null, "bosses": [] }}"#)).unwrap();
 			encode_instance(&rec).unwrap().split(';').nth(4).unwrap().to_string()
 		};
 		assert_eq!(line(r#"{ "map": 1436, "x": 30, "y": 50, "f": null, "approx": true }"#), "1436,300,500,,a");
 		assert_eq!(line(r#"{ "map": 1436, "x": 30, "y": 50, "f": null }"#), "1436,300,500,");
+		assert_eq!(line(r#"{ "map": 1455, "x": 28.3, "y": 47.6, "z": 399 }"#), "1455,283,476,,,399");
 		// The City of Dalaran (#706): the Horde's tunnel, then the Alliance's pipe in Cantrips & Crows.
 		assert_eq!(line(r#"{ "map": 1416, "x": 8.5, "y": 59.2, "f": null, "A": { "map": 1416, "x": 14.7, "y": 63 } }"#), "1416,85,592,,,1416,147,630");
+		assert_eq!(line(r#"{ "map": 1416, "x": 8.5, "y": 59.2, "z": 0, "A": { "map": 1416, "x": 14.7, "y": 63 } }"#), "1416,85,592,,,1416,147,630,0");
 	}
 
 	#[test]
@@ -957,5 +1037,51 @@ mod tests {
 		};
 		assert!(line(r#", "direct": true"#).ends_with(";x5300;d"), "Bloodpetal Sprouts: handed in at one talk");
 		assert!(line("").ends_with(";x5300"), "taken into the log: no field");
+	}
+
+	#[test]
+	fn a_ghost_only_npc_carries_g_and_a_conditional_vendor_its_quest_558_3138() {
+		let npc = |extra: &str| {
+			let rec = forge_guide::js::parse_json(&format!(
+				r#"{{ "id": 8888, "level": 60, "levelMax": null, "faction": "AH", "rare": false, "elite": false, "boss": false, "instance": null, "roles": [], "spawns": []{extra} }}"#
+			))
+			.unwrap();
+			encode_npc(&rec).unwrap()
+		};
+		assert_eq!(npc(""), "60;;AH;;;;");
+		assert_eq!(npc(r#", "ghostOnly": true"#), "60;;AH;g;;;", "Franclorn Forgewright: seen only by the dead");
+		assert_eq!(npc(r#", "vendorAfter": 7003"#), "60;;AH;;;;;v7003", "Zorbin Fandazzle sells after Zapped Giants");
+		assert_eq!(npc(r#", "rareSpawn": true"#), "60;;AH;s;;;", "#4388: Pexmit, a rare spawn both sides deal with");
+	}
+
+	#[test]
+	fn a_quest_of_a_rotation_carries_its_set_name_3601() {
+		let rec = forge_guide::js::parse_json(
+			r#"{ "id": 96075, "level": 45, "minLevel": 40, "faction": null, "races": null, "classes": null, "zone": 1444, "start": { "npc": [1], "object": [], "item": [] }, "end": { "npc": [1], "object": [] }, "pre": [], "rewards": [], "choices": [], "preAny": [], "objectives": [], "rotation": "pix-weekly" }"#,
+		)
+		.unwrap();
+		assert!(encode_quest(&rec).unwrap().ends_with(";vpix-weekly"), "{}", encode_quest(&rec).unwrap());
+	}
+
+	#[test]
+	fn an_event_objective_carries_its_use_and_what_it_spends_4270() {
+		let rec = forge_guide::js::parse_json(
+			r#"{ "id": 96018, "level": 43, "minLevel": 35, "faction": null, "races": null, "classes": null, "zone": 2652, "start": { "npc": [253471], "object": [], "item": [] }, "end": { "npc": [253471], "object": [] }, "pre": [], "rewards": [], "choices": [], "preAny": [], "objectives": [{ "type": "event", "id": null, "count": 1, "text": "Western pylon repaired", "map": 2652, "x": 44, "y": 35.6, "f": "l", "useItem": 271882, "reagent": { "item": 255667, "count": 4, "npc": 264149 } }] }"#,
+		)
+		.unwrap();
+		let line = encode_quest(&rec).unwrap();
+		assert!(line.ends_with(";e,1,Western pylon repaired;p2652,440,356,l;a271882;j255667,4,264149"), "{line}");
+	}
+
+	#[test]
+	fn a_quest_no_recording_has_shown_carries_n() {
+		let quest = |extra: &str| {
+			forge_guide::js::parse_json(&format!(
+				r#"{{ "id": 81786, "level": 52, "minLevel": 47, "faction": null, "races": null, "classes": null, "zone": 1425, "start": {{ "npc": [221479], "object": [], "item": [] }}, "end": {{ "npc": [221479], "object": [] }}, "pre": [], "rewards": [], "choices": [], "preAny": [], "objectives": []{extra} }}"#
+			))
+			.unwrap()
+		};
+		assert!(encode_quest(&quest(r#", "unseen": true"#)).unwrap().ends_with(";n"));
+		assert!(!encode_quest(&quest("")).unwrap().split(';').any(|f| f == "n"));
 	}
 }

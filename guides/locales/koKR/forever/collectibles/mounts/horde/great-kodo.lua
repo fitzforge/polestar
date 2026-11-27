@@ -13,15 +13,15 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "수습 {skill:762}",
 	-- {npc:3690} Kar Stormsinger · {npc:3685} Harb Clawhoof · {area:222} Bloodhoof Village · {zone:1412} Mulgore · {skill:762} Riding · {faction:81} Thunder Bluff
-	["{npc:3690} and {npc:3685}'s kodos are in {area:222}, {zone:1412}. At 60 {npc:3690} teaches Journeyman {skill:762} to Tauren for 1,000g (10% less at Honored with {faction:81}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each great kodo costs 200g here."] = "",
+	["{npc:3690} and {npc:3685}'s kodos are in {area:222}, {zone:1412}. At 60 {npc:3690} teaches Journeyman {skill:762} to Tauren for 1,000g (10% less at Honored with {faction:81}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each great kodo costs 200g here."] = "{npc:3690}과(와) {npc:3685}의 코도가 {zone:1412}의 {area:222}에 있습니다. 60레벨에 {npc:3690}이(가) 타우렌에게 수습 {skill:762}을(를) 1,000골드에 가르칩니다({faction:81}과(와) 우호적이면 10% 할인). 블리자드는 탈것이 함께 온다고 합니다. 다른 종족은 각자 종족의 승마 교관에서 배웁니다. 여기서 큰 코도는 마리당 200골드입니다.",
 	-- {npc:3690} Kar Stormsinger
 	["{npc:3690}, riding trainer"] = "{npc:3690}, 탈것 상급자",
 
 	-- Step 2: Kodo Riding for other races
 	-- {spell:18995} Kodo Riding
-	["{spell:18995} for other races"] = "",
+	["{spell:18995} for other races"] = "{spell:18995} (다른 종족)",
 	-- {spell:18995} Kodo Riding · {skill:762} Riding · {npc:3690} Kar Stormsinger · {faction:81} Thunder Bluff
-	["Any Horde race can buy these kodos, but riding one also takes {spell:18995}, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "",
+	["Any Horde race can buy these kodos, but riding one also takes {spell:18995}, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "모든 호드 종족이 이 코도를 살 수 있지만 탑승에는 {spell:18995}도 필요하며 타우렌만 {skill:762}과(와) 함께 받습니다. {faction:81}과(와) 확고한 동맹이 되면 {npc:3690}이(가) 다른 종족에게도 가르칩니다(썬더 블러프 평판 가이드가 안내). 그 전에는 이 캐릭터로 코도를 사지 마세요.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "색상 고르기",

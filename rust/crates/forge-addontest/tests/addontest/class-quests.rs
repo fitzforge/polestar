@@ -98,11 +98,15 @@ Polestar.Guides = {
 	List = function() return guides end,
 	Get = function(id) return byId[id] end,
 	GuideMatches = function(g, p) return not g.classes or g.classes[1] == p.class end,
+	Peek = function(id) return byId[id] and byId[id].steps, false end,
+	Unpeek = function() end,
 }
 local gates = { ["c/air"] = { level = 30 } }
+local outgrown = {}
 Polestar.Engine = {
 	StartGate = function(id) return gates[id] end,
 	GetGuideState = function() return "new" end,
+	Outgrown = function(g) return outgrown[g.id] == true end,
 }
 local offers = {}
 Polestar.On("CLASS_QUEST_READY", function(n) offers[#offers + 1] = n end)
@@ -361,6 +365,34 @@ fn a_druid_on_a_druid_only_accept_sees_the_class_card_with_the_reward_spells_ico
 	assert_eq!(warrior["row"], "Accept “|cffffd673The Great Cat Spirit|r”");
 }
 
+// #2898: the Forsaken paladin's warhorse guide opens on Report to Danitha (97022). Its card names the chain's end, the
+// Forsaken Summon Warhorse (1279399, from A Paladin's Steed 94971), as a new mount.
+#[test]
+fn report_to_danitha_s_card_is_the_forsaken_paladin_s_summon_warhorse_2898() {
+	let out = run_card(
+		r#"
+		uistub.guides["test/warhorse"] = { id = "test/warhorse", pack = "guides", title = "Paladin Warhorse (Forsaken)", minLevel = 40, maxLevel = 60,
+			category = "Class", zone = 1458, zoneName = "Undercity", author = "Polestar", version = 1, steps = {
+			{ title = "Report to Danitha", goals = {
+				G("accept", { verb = "Accept", subject = "Report to Danitha", subjectKind = "quest", quest = 97022, npc = 260093, npcName = "Garen Largo", minLevel = 40, map = 1458, x = 47.12, y = 15.49, status = "active" }),
+			} },
+			{ title = "Summon Warhorse", goals = {
+				G("accept", { verb = "Accept", subject = "A Paladin's Steed", subjectKind = "quest", quest = 94971, npc = 246378, npcName = "Danitha Morr", minLevel = 40, map = 1420, x = 22, y = 44.66, status = "pending" }),
+				G("turnin", { verb = "Turn in", subject = "A Paladin's Steed", subjectKind = "quest", quest = 94971, npc = 246378, npcName = "Danitha Morr", map = 1420, x = 22, y = 44.66, status = "pending" }),
+			} },
+		} }
+		uistub.player.class, uistub.player.race, uistub.player.faction, uistub.player.level = "PALADIN", "Scourge", "Horde", 40
+		uistub.setGuide("test/warhorse", 1)
+		local c = card()
+		emit({ shown = c.shown, icon = c.icon, learn = c.learn, badge = c.badge })"#,
+	);
+	let c = &out[0];
+	assert_eq!(c["shown"], true, "{c}");
+	assert_eq!(c["icon"], "Interface\\Icons\\spell-1279399");
+	assert!(c["learn"].as_str().unwrap_or("").contains("Summon Warhorse"), "{c}");
+	assert_eq!(c["badge"], "NEW MOUNT");
+}
+
 // Discord (a Rogue on The Horn of Xelthos, 78261): the card read "ROGUE · LEVEL 1". The quest is level 23 and any
 // level may take it (minLevel 1); the head showed the minimum. It shows the quest's own level, and the minimum only
 // when there is no level and the minimum is one (above 1).
@@ -526,6 +558,125 @@ fn a_reward_choice_reads_as_one_line_and_the_card_shines_and_chimes_once_per_cha
 	assert_eq!(out[1]["line"], "Earn the Whirlwind Axe, Sword or Warhammer");
 	assert_eq!(out[1]["badge"], "NEW WEAPON");
 	assert_eq!(out[1]["icon"], "Interface\\Icons\\item-6975");
+}
+
+// A Priest at 20 met Dark Sacrifice on the card and wanted to know what it does before taking the quest: the
+// card's reward (its ring and its "Learn ..." line) shows the game's own tooltip of what the line names, beside
+// the guide window, and Shift-click links it, as the class heads-up's spell icons do.
+#[test]
+fn the_card_s_reward_shows_the_game_s_tooltip_of_what_it_names_beside_the_guide_window() {
+	let out = run_card(
+		r#"
+		uistub.player.class, uistub.player.race, uistub.player.level = "DRUID", "NightElf", 20
+		local tips, links = {}, {}
+		GameTooltip.SetSpellByID = function(self, id) tips[#tips + 1] = "spell:" .. id end
+		GameTooltip.SetHyperlink = function(self, l) tips[#tips + 1] = l end
+		Polestar.Compat.SpellLink = function(id) return "spell-link-" .. id end
+		ChatEdit_InsertLink = function(l) links[#links + 1] = l end
+		uistub.setGuide("test/darkshore", 1)
+		local f = CC.frame
+		local r = { ring = f.RingHit:IsShown(), learn = f.LearnHit:IsShown() }
+		stub.RunScript(f.RingHit, "OnEnter")
+		local _, rel = GameTooltip:GetPoint(1)
+		r.over = { GameTooltip:IsShown(), GameTooltip.owner == f.RingHit, rel == GF.frame }
+		stub.RunScript(f.RingHit, "OnLeave")
+		r.left = GameTooltip:IsShown()
+		stub.RunScript(f.LearnHit, "OnEnter")
+		r.learnOwner = GameTooltip.owner == f.LearnHit
+		stub.RunScript(f.LearnHit, "OnLeave")
+		-- A plain click does nothing; Shift-click puts the spell in chat.
+		IsModifiedClick = function() return false end
+		stub.RunScript(f.RingHit, "OnClick", "LeftButton")
+		IsModifiedClick = function() return true end
+		stub.RunScript(f.RingHit, "OnClick", "LeftButton")
+		r.tips, r.links = { unpack(tips) }, { unpack(links) }
+		-- The hover area is the line's words, never wider than its column.
+		r.learnW = { f.LearnHit:GetWidth(), Polestar.Widgets.TextWidth(f.Learn), f.Learn:GetWidth() }
+		-- The window keeps its hover look while the reward is under the cursor.
+		local hovers = 0
+		local hoverIn = GF.HoverIn
+		GF.HoverIn = function() hovers = hovers + 1 end
+		stub.RunScript(f.RingHit, "OnEnter")
+		GF.HoverIn = hoverIn
+		r.hovers = hovers
+		emit(r)
+		-- Taken under a still cursor: the slim line has no ring and no reward line, and the tooltip goes with them.
+		uistub.goal(1, 1).status = "done"
+		uistub.update()
+		emit({ slim = f.psSlim, ring = f.RingHit:IsShown(), learn = f.LearnHit:IsShown(), tip = GameTooltip:IsShown() })
+		-- The card gone under a still cursor (Auberdine, no class quest): no tooltip left behind.
+		uistub.goal(1, 1).status = "active"
+		uistub.update()
+		stub.RunScript(f.RingHit, "OnEnter")
+		local before = GameTooltip:IsShown()
+		uistub.setGuide("test/darkshore", 4)
+		local gone = { before = before, card = f:IsShown(), tip = GameTooltip:IsShown() }
+		-- The guide window hidden (hide-all, a close) with the cursor on the reward: the tooltip goes with it.
+		uistub.setGuide("test/darkshore", 1)
+		stub.RunScript(f.RingHit, "OnEnter")
+		gone.shownAgain = GameTooltip:IsShown()
+		stub.cascadeVisibility = true
+		GF.frame:Hide()
+		stub.cascadeVisibility = false
+		gone.windowHidden = GameTooltip:IsShown()
+		emit(gone)"#,
+	);
+	let r = &out[0];
+	assert_eq!(r["ring"], true, "{r}");
+	assert_eq!(r["learn"], true, "{r}");
+	assert_eq!(r["over"], json!([true, true, true]), "shown, owned by the ring, beside the guide window: {r}");
+	assert_eq!(r["left"], false, "{r}");
+	assert_eq!(r["learnOwner"], true, "{r}");
+	// Cat Form (768): the spell the line names, from the ring and from the line.
+	assert_eq!(r["tips"], json!(["spell:768", "spell:768"]), "{r}");
+	assert_eq!(r["links"], json!(["spell-link-768"]), "{r}");
+	let w: Vec<f64> = r["learnW"].as_array().unwrap().iter().map(|v| v.as_f64().unwrap()).collect();
+	assert!(w[0] > 0.0 && w[0] <= w[2] && (w[0] - w[1].min(w[2])).abs() < 0.5, "{r}");
+	assert_eq!(r["hovers"], 1, "{r}");
+	assert_eq!(out[1], json!({ "slim": true, "ring": false, "learn": false, "tip": false }));
+	assert_eq!(out[2], json!({ "before": true, "card": false, "tip": false, "shownAgain": true, "windowHidden": false }));
+}
+
+// An item reward (a weapon or a totem): the ring shows the item's tooltip and a click goes to W.ItemClick (the bag's: plain
+// does nothing, Shift links, Ctrl tries on, Alt guides). The options' preview card has no reward to hover.
+#[test]
+fn an_item_reward_shows_the_item_s_tooltip_and_a_modified_click_is_the_bag_s_and_the_preview_has_none() {
+	let out = run_card(
+		r#"
+		uistub.player.class, uistub.player.race, uistub.player.level = "DRUID", "NightElf", 20
+		local tips, clicks = {}, {}
+		GameTooltip.SetSpellByID = function(self, id) tips[#tips + 1] = "spell:" .. id end
+		GameTooltip.SetHyperlink = function(self, l) tips[#tips + 1] = l end
+		Polestar.Widgets.ItemClick = function(id) clicks[#clicks + 1] = id; return true end
+		uistub.setGuide("test/darkshore", 1)
+		local f = CC.frame
+		f.psReward = { kind = "weapon", show = "item", items = { 6975, 6977, 6976 }, choice = true }
+		stub.RunScript(f.RingHit, "OnEnter")
+		stub.RunScript(f.RingHit, "OnClick", "LeftButton")
+		local demo = CC.NewCard(UIParent)
+		CC.FillDemo(demo, { class = "DRUID", head = "DRUID", title = "T", learn = "Learn Cat Form", badge = "NEW ABILITY", trip = "x" }, 300)
+		emit({ tips = tips, clicks = clicks, demo = { demo.RingHit:IsShown(), demo.LearnHit:IsShown() } })"#,
+	);
+	assert_eq!(out[0], json!({ "tips": ["item:6975"], "clicks": [6975], "demo": [false, false] }));
+}
+
+// The tooltip is of what the "Learn"/"Earn" line names: a totem quest that teaches the totem spell (its icon the
+// totem item) shows the spell; an item reward its item, a choice the first (the ring's icon); nothing without one.
+#[test]
+fn the_reward_tooltip_is_of_the_spell_or_item_the_line_names() {
+	let out = run_card(
+		r#"
+		local function tip(reward) local kind, id = CC.TipOf(reward); return kind and (kind .. ":" .. id) or false end
+		emit({
+			stream = tip({ kind = "ability", show = "item", spell = 5394, items = { 5177 } }),
+			cat = tip({ kind = "ability", show = "spell", spell = 768 }),
+			imp = tip({ kind = "pet", show = "spell", spell = 688 }),
+			whirl = tip({ kind = "weapon", show = "item", items = { 6975, 6977, 6976 }, choice = true }),
+			air = tip({ kind = "ability", show = "item", items = { 5178 } }),
+			none = tip(nil),
+		})"#,
+	);
+	assert_eq!(out[0], json!({ "stream": "spell:5394", "cat": "spell:768", "imp": "spell:688", "whirl": "item:6975", "air": "item:5178", "none": false }));
 }
 
 // Dun Morogh's Anvilmar step for a Gnome Mage (guides/forever/alliance/dwarf-gnome/01-dun-morogh.guide):
@@ -710,6 +861,36 @@ fn a_druid_reaching_20_gets_the_cat_form_heads_up_once_a_warrior_does_not() {
 	assert!(!warrior["title"].as_str().unwrap_or("").contains("Cat Form"), "{warrior}");
 }
 
+// #3727 (Liquidor): a level 50 hunter's card read "#20083, #19991 or #19992 ready": reward items the client had not
+// cached had no name. The card asks for them and names them the moment they arrive.
+#[test]
+fn a_reward_item_the_client_has_not_cached_is_asked_for_and_the_card_names_it_when_it_arrives() {
+	let out = run_toast(
+		r#"
+		local names, asked = {}, {}
+		C_Item = C_Item or {}
+		C_Item.GetItemNameByID = function(id) return names[id] end
+		-- What the client is asked for (Compat.RequestItem: C_Item.RequestLoadItemDataByID in the game).
+		Polestar.Compat.RequestItem = function(id) asked[#asked + 1] = id return names[id] ~= nil end
+		GetItemInfo = function(id) return names[id] end
+		who("WARLOCK", "Orc", "Horde", 10)
+		uistub.openTabs({ { "test/durotar", 1 } }, 1)
+		local m = CT.Model(1506)
+		m.reward = { kind = "weapon", show = "item", items = { 20083, 19991 }, choice = true }
+		m.title = string.format("%s ready", Polestar.UI.ClassCard.RewardName(m.reward))
+		CT.ShowCard(m)
+		local before = CT.frame.Title:GetText()
+		names[20083], names[19991] = "Hunting Spear", "Devilsaur Eye"
+		stub.fire("GET_ITEM_INFO_RECEIVED", 20083)
+		emit({ before = before, asked = asked, after = CT.frame.Title:GetText() })"#,
+	);
+	let o = &out[0];
+	assert!(o["before"].as_str().unwrap().contains("#20083"), "{o}");
+	assert!(o["asked"].as_array().unwrap().iter().any(|x| x == 20083) && o["asked"].as_array().unwrap().iter().any(|x| x == 19991), "asked for: {o}");
+	let after = o["after"].as_str().unwrap();
+	assert!(after.contains("Hunting Spear") && after.contains("Devilsaur Eye") && !after.contains('#'), "named once they arrive: {o}");
+}
+
 #[test]
 fn open_in_a_new_tab_lands_each_chain_on_its_own_section_of_the_class_guide() {
 	let out = run_toast(
@@ -843,6 +1024,25 @@ fn no_heads_up_for_a_reward_already_known_or_owned_or_a_chain_already_taken() {
 	assert_eq!(out[4]["quest"], 98393, "{}", out[4]);
 }
 
+// #3020 (FleshExpress): a Highborne hunter who had Tame Beast for days got the "Taming the Beast" card at 35: the
+// card checked the one spell id the data names, and another race's chain teaches it under another id. #1935: the
+// same for a Skyborne druid's Bear Form. The reward counts as known by its name in the spellbook too.
+#[test]
+fn issue_3020_a_reward_spell_known_under_another_id_counts_by_its_name() {
+	let out = run_toast(
+		r#"
+		local book = {}
+		Polestar.Compat.KnowsSpellNamed = function(name) return book[name] == true end
+		local tame = { kind = "pet", spell = 1515, spellName = "Tame Beast" }
+		local r = { CT.RewardKnown(tame) }
+		book["Tame Beast"] = true
+		r[2] = CT.RewardKnown(tame)
+		r[3] = CT.RewardKnown({ kind = "ability", spell = 5487, spellName = "Bear Form" })
+		emit(r)"#,
+	);
+	assert_eq!(out[0], json!([false, true, false]), "not known; known by name; another name stays unknown");
+}
+
 #[test]
 fn login_tells_only_of_chains_opened_in_the_last_two_levels_and_never_of_level_1_ones() {
 	let out = run_toast(
@@ -956,6 +1156,9 @@ w.complete({ 78261, 78270, 78307 })
 		script: r#"
 local G, CQ = Polestar.Guides, Polestar.QoL.ClassQuests
 local id = "forever/class/rogue/the-eye-of-bhossca"
+-- An optional chain since #3925 (an item off the worth-it list) is never offered; the compiled quest level is what
+-- this test reads, so it lists the chain as alerted.
+Polestar.ClassQuestList.OptionalGuide = function() return false end
 local function ready()
 	for _, g in ipairs(CQ.Ready()) do if g.id == id then return true end end
 	return false
@@ -967,4 +1170,57 @@ emit(r)"#
 			.into(),
 	});
 	assert_eq!(out[0], json!({ "first": 35, "at30": false, "at33": false, "at34": true }));
+}
+
+#[test]
+fn a_guide_the_engine_calls_outgrown_is_never_offered_3845() {
+	let out = run_qol(
+		r#"
+		outgrown["c/fire"] = true
+		levelUp(20)
+		emit(#offers)"#,
+	);
+	assert_eq!(out[0], 0);
+}
+
+// NoThink's report (#3845): a level-25 Human mage in Duskwood was offered the level-15 class quest (Manaweave Robe,
+// levels 15-17), and the guide it opened called itself outgrown at once. Fitz, 23 Nov: a class quest stops being
+// offered 5 levels past its guide's top, unless it rewards a spell the character still lacks (Bear Form, 10-12).
+// The shipped pack, the real Engine.Outgrown. The robe is optional since #3925 (never offered at all); the cap still
+// holds for an alerted chain, so the test lists it as one.
+#[test]
+fn a_class_quest_stops_being_offered_five_levels_past_its_guide_s_top_unless_its_spell_is_still_missing_3845() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: r#"
+local w = stub.world
+w.addMap(1431, { name = "Duskwood", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
+w.race, w.raceName, w.raceID, w.class, w.className, w.classID, w.faction, w.level = "Human", "Human", 1, "MAGE", "Mage", 8, "Alliance", 21
+w.moveTo(1431, 50, 50)
+"#
+		.into(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "QoL/QoL.xml"]), Addon::name("Polestar_Guides"), Addon::name("Polestar_Guides_Alliance")],
+		saved: vec![("Polestar".into(), "PolestarCharDB = { schema = 1 }".into())],
+		login: true,
+		script: r#"
+local G, E, CQ = Polestar.Guides, Polestar.Engine, Polestar.QoL.ClassQuests
+local robe = "forever/class/mage/manaweave-robe"
+Polestar.ClassQuestList.OptionalGuide = function() return false end
+local function ready(id)
+	for _, g in ipairs(CQ.Ready()) do if g.id == id then return true end end
+	return false
+end
+local r = { levels = { G.Levels(G.Get(robe), "Alliance") } }
+for _, n in ipairs({ 21, 22, 25 }) do stub.world.setLevel(n); stub.advance(2); r["robe" .. n] = ready(robe) end
+-- Bear Form (10-12) for a Night Elf druid: 17 is 5 past its top; the spell decides.
+local bear = G.Get("forever/class/druid/bear-form")
+local p = { level = 17, faction = "Alliance" }
+r.bearMissing = E.Outgrown(bear, p)
+stub.world.learnSpell(5487)
+r.bearKnown = E.Outgrown(bear, p)
+r.bearAt16 = E.Outgrown(bear, { level = 16, faction = "Alliance" })
+emit(r)"#
+			.into(),
+	});
+	assert_eq!(out[0], json!({ "levels": [15, 17], "robe21": true, "robe22": false, "robe25": false, "bearMissing": false, "bearKnown": true, "bearAt16": false }));
 }

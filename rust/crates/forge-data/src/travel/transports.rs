@@ -63,8 +63,17 @@ struct TDef {
 const fn end(name: &'static str, area: f64, zone: i64) -> TEnd {
 	TEnd { name, area, zone, anchor: None, near: None, trigger: 0 }
 }
+/// An NPC who stands where passengers board a ship that hangs in the air beside its tower or platform (the
+/// zeppelin masters, the airships' dock NPCs): the end stands at the NPC, whose spawn gives it its height.
 const fn npc(mut e: TEnd, name: &'static str) -> TEnd {
 	e.anchor = Some(Anchor { kind: AnchorKind::Npc, name, position: true });
+	e
+}
+/// A wharfmaster on a boat's quay: the end stays at the boat's stop (its board point on the pier beside the
+/// boat) and the NPC only checks that stop. A wharfmaster stands on the quay, away from where the boat lies
+/// (#4344: the Riverglades boat's two stand 68 and 83 yd from its stops).
+const fn quay_npc(mut e: TEnd, name: &'static str) -> TEnd {
+	e.anchor = Some(Anchor { kind: AnchorKind::Npc, name, position: false });
 	e
 }
 const fn object(mut e: TEnd, name: &'static str) -> TEnd {
@@ -76,7 +85,7 @@ const fn boat(id: &'static str, kind: &'static str, faction: i32, forever: bool,
 }
 
 const TRANSPORTS: [TDef; 15] = [
-	boat("boat-bootybay-ratchet", "boat", BOTH, false, 241, npc(end("Booty Bay", 35.0, 1434), "Wharfmaster Lozgil"), npc(end("Ratchet", 392.0, 1413), "Wharfmaster Dizzywig")),
+	boat("boat-bootybay-ratchet", "boat", BOTH, false, 241, quay_npc(end("Booty Bay", 35.0, 1434), "Wharfmaster Lozgil"), quay_npc(end("Ratchet", 392.0, 1413), "Wharfmaster Dizzywig")),
 	boat("boat-menethil-theramore", "boat", A, false, 292, object(end("Menethil Harbor", 150.0, 1437), "Boat to Theramore"), end("Theramore", 513.0, 1445)),
 	boat("boat-menethil-southshore", "boat", A, true, 11167, end("Menethil Harbor", 150.0, 1437), end("Southshore", 271.0, 1424)),
 	boat("boat-southshore-auberdine", "boat", A, true, 11167, end("Southshore", 271.0, 1424), object(end("Auberdine", 442.0, 1439), "Boat to Menethil")),
@@ -88,8 +97,8 @@ const TRANSPORTS: [TDef; 15] = [
 		BOTH,
 		true,
 		11391,
-		npc(end("Steamwheedle Port", 977.0, 1446), "Wharfmaster Steamfizzle"),
-		npc(end("Powderfuse Port", 16727.0, 2548), "Wharfmaster Whizzbuzz"),
+		quay_npc(end("Steamwheedle Port", 977.0, 1446), "Wharfmaster Steamfizzle"),
+		quay_npc(end("Powderfuse Port", 16727.0, 2548), "Wharfmaster Whizzbuzz"),
 	),
 	boat("boat-auberdine-ruttheran", "boat", A, false, 293, object(end("Auberdine", 442.0, 1439), "Boat to Teldrassil"), end("Rut'theran Village", 702.0, 1438)),
 	boat(

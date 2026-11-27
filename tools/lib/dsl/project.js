@@ -14,6 +14,7 @@ const { tokeniseGuides } = require('./tokens');
 const { emitGuides, emitPack, emitToc, emitTextsToc, emitPartToc, emitLegs, emitRetired, emitTexts, emitMapFrames, emitLicense } = require('./emit');
 const { ownsGuideId, GENERATED_MARKER, isGenerated, formatFor, LEGS_FORMAT } = require('../pack/format');
 const { readPackFile, jsonErrorAt } = require('../pack/manifest');
+const { navParts } = require('../nav/parts');
 const { heightCounts } = require('./heights');
 const { checkImages, imageFiles } = require('./images');
 const { HEIGHTS_SOURCE } = require('../travel/cmangos');
@@ -168,11 +169,14 @@ function legsRaces(g) {
 	return RACE_FILES.filter((r) => RACE_BY_FILE[r].sides[g.faction] !== undefined);
 }
 
-// <packDir>/retired.json: the ids of guides a cutover removed, ["<id>", ...]
+// <packDir>/retired.json: the ids of guides a cutover removed, ["<id>", ...],
+// an entry { "id": "<old id>", "to": "<new id>" } naming the guide it became
 // (Polestar opens a saved tab of one as its successor: Core/Guides.lua
-// Guides.Successor). An id one of the pack's guides still has warns; a file
-// that is no list of guide ids is an error. -> [id] ([] without the file)
+// Guides.Successor). An id one of the pack's guides still has warns; a `to`
+// that is none of them, or a file that is no such list, is an error.
+// -> [{ id, to? }] by id ([] without the file)
 const RETIRED_FILE = 'retired.json';
+const GUIDE_ID = /^[a-z0-9_-]+(?:\/[a-z0-9_-]+)*$/;
 function readRetired(packDir, guides, diag) {
 	const file = path.join(packDir, RETIRED_FILE);
 	const { text, error } = readPackFile(packDir, RETIRED_FILE);
@@ -188,13 +192,27 @@ function readRetired(packDir, guides, diag) {
 		diag.error(file, 1, `${RETIRED_FILE} is not JSON${jsonErrorAt(e, text)}`);
 		return [];
 	}
-	if (!Array.isArray(list) || !list.every((id) => typeof id === 'string' && /^[a-z0-9_-]+(?:\/[a-z0-9_-]+)*$/.test(id))) {
-		diag.error(file, 1, `${RETIRED_FILE} must be a list of guide ids`, 'write ["forever/horde/02-the-barrens", ...]');
+	const entry = (e) => {
+		if (typeof e === 'string') return GUIDE_ID.test(e) ? { id: e } : null;
+		const ok = e && typeof e === 'object' && !Array.isArray(e) && Object.keys(e).length === 2
+			&& typeof e.id === 'string' && GUIDE_ID.test(e.id) && typeof e.to === 'string' && GUIDE_ID.test(e.to);
+		return ok ? { id: e.id, to: e.to } : null;
+	};
+	const entries = Array.isArray(list) ? list.map(entry) : [null];
+	if (entries.includes(null)) {
+		diag.error(file, 1, `${RETIRED_FILE} must be a list of guide ids, or of { "id": <old id>, "to": <new id> }`,
+			'write ["forever/horde/02-the-barrens", { "id": "forever/class/old-name", "to": "forever/miscellaneous/new-name" }, ...]');
 		return [];
 	}
 	const live = new Set(guides.map((g) => g.id));
-	for (const id of list) if (live.has(id)) diag.warn(file, 1, `retired guide id "${id}" is still a guide of the pack: Polestar keeps opening it`);
-	return [...new Set(list)].sort();
+	const out = new Map();
+	for (const r of entries) {
+		if (live.has(r.id)) diag.warn(file, 1, `retired guide id "${r.id}" is still a guide of the pack: Polestar keeps opening it`);
+		if (r.to && !live.has(r.to)) diag.error(file, 1, `retired guide id "${r.id}" goes to "${r.to}", which is not a guide of the pack`, 'name the guide it became, or leave `to` out');
+		const had = out.get(r.id);
+		if (!had || (!had.to && r.to)) out.set(r.id, r);
+	}
+	return [...out.values()].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
 }
 
 // Parse and resolve sources into guides of `pack` (ours when absent); a
@@ -533,17 +551,27 @@ function textsDirRefusal(dir, packId) {
 
 // Addon folders of the release: always these (Polestar_Nav is committed:
 // Polestar's walking router and maps, `nav pack`; Polestar_Options is the
-// settings window, Polestar_SkinAPI the Skin API's checks and Polestar_Looks
-// the game looks with Hearth, all three loaded on demand), Polestar_Arcade
+// settings window and Polestar_FreeMode Free mode and the finished-quest planner, both loaded
+// on demand; the game looks, the Skin API's checks
+// and the tab styles are inside Polestar since 0.4.3), Polestar_Skins (our
+// skins and layouts, loaded on demand) and Polestar_Arcade
 // (Freedoom Arcade by petllama, loaded on demand) when there, plus the generated
 // data addons when they have been built (each skipped while its folder or TOC
 // is missing; `pack` refuses a release without the Codex, which Lookup,
 // Dungeons and Rares read: forge-release's codex_refusal), the language
 // folders last (our guides' texts and the game's names, `forge guide
 // compile` and `forge data names`, committed; the client loads only its own).
-const RELEASE_ADDONS = ['Polestar', 'Polestar_Guides', 'Polestar_Nav', 'Polestar_Options', 'Polestar_SkinAPI', 'Polestar_Looks'];
-// forge-release addons.rs ARCADE.
+const RELEASE_ADDONS = ['Polestar', 'Polestar_Guides', 'Polestar_Nav', 'Polestar_FreeMode', 'Polestar_Options'];
+// forge-release addons.rs SKINS and ARCADE.
+const SKINS = 'Polestar_Skins';
 const ARCADE = 'Polestar_Arcade';
+// The folders 0.4.3 folded into others (#3507; forge-release addons.rs FOLDED_ADDONS, Core/Data.lua's FOLDED):
+// never shipped, removed by install where it finds them.
+const FOLDED_ADDONS = [
+	'Polestar_Looks', 'Polestar_SkinAPI', 'Polestar_TabStyles', 'Polestar_Experimental', 'Polestar_Layout_Atlas',
+	...['Vellum', 'Lumen', 'Beacon', 'Aurora', 'Hairline', 'Umbra', 'Waymark', 'Lanterns', 'Sheen', 'Atlas'].map((s) => `Polestar_Skin_${s}`),
+	...['Human', 'Orc', 'Dwarf', 'NightElf', 'Scourge', 'Tauren', 'Gnome', 'Troll', 'Skyborne'].map((r) => `Polestar_Guides_${r}`),
+];
 const RELEASE_DATA_ADDONS = [
 	'Polestar_QuestDB', 'Polestar_ItemDB', 'Polestar_Codex',
 	...LOCALE_CODES.map(languageAddon),
@@ -552,10 +580,12 @@ const RELEASE_DATA_ADDONS = [
 // -> { names, skipped }: the release addons present under addonsDir, in load order.
 function releaseAddons(addonsDir) {
 	const skipped = RELEASE_DATA_ADDONS.filter((n) => !fs.existsSync(path.join(addonsDir, n, `${n}.toc`)));
-	// The walking maps' part addons (forge nav pack --leffe), then our pack's faction parts and race parts (forge
-	// guide compile, format 8), each once built (as forge-release's release_addons).
-	const navParts = ['Polestar_Nav_EK', 'Polestar_Nav_Kalimdor'];
-	const parts = [ARCADE, ...navParts, ...['Alliance', 'Horde', ...RACE_FILES].map((r) => partAddon(OWN_FOLDER, r))].filter((n) => fs.existsSync(path.join(addonsDir, n, `${n}.toc`)));
+	// The walking maps' part addons (forge nav pack --leffe), then our pack's faction parts (forge guide
+	// compile, format 8; their races' guides and legs inside since 0.4.3), each once built (as forge-release's
+	// release_addons).
+	const walking = navParts(path.join(addonsDir, 'Polestar_Nav'));
+	const guides = ['Alliance', 'Horde'].map((r) => partAddon(OWN_FOLDER, r));
+	const parts = [SKINS, ARCADE, ...walking, ...guides].filter((n) => fs.existsSync(path.join(addonsDir, n, `${n}.toc`)));
 	return { names: [...RELEASE_ADDONS, ...parts, ...RELEASE_DATA_ADDONS.filter((n) => !skipped.includes(n))], skipped };
 }
 
@@ -576,6 +606,7 @@ module.exports = {
 	textsAddon,
 	partAddon,
 	racePart,
+	FOLDED_ADDONS,
 	RELEASE_ADDONS,
 	RELEASE_DATA_ADDONS,
 	releaseAddons,

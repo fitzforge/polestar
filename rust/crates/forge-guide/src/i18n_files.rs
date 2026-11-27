@@ -8,7 +8,8 @@
 //!   -- German (deDE). ...                <- the file's own header comments
 //!
 //!   local ns = Polestar                  <- the Recorder's: local _, ns = ...
-//!   if not (ns and GetLocale and GetLocale() == "deDE") then return end
+//!   if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "deDE") then return end
+//!                                        <- the Recorder's: if not (GetLocale and GetLocale() == "deDE") ...
 //!   local L = ns.L
 //!
 //!   -- Core/Commands.lua                  <- a group: the file that first uses its keys
@@ -16,7 +17,8 @@
 //!   -- L["Next step"] = ""               <- not translated yet: shows in English
 //!
 //! One entry per line. Values are read by the real Lua 5.1 (a file the game
-//! cannot load fails here too), with GetLocale answering the file's locale.
+//! cannot load fails here too), with GetLocale and Polestar.Names.Language
+//! answering the file's locale.
 //! `i18n sync` edits a file in place and never rewrites a line that holds a
 //! translation: it adds the keys the code gained, commented out, at the end of
 //! their file's group, and moves the translations of keys the code lost to a
@@ -256,12 +258,26 @@ pub struct LocaleFile {
 	pub twice: Vec<String>,
 }
 
-/// Loads translation files in one Lua run, each with GetLocale() answering its
-/// locale and ns = { L, locale, AddTranslations }. Reads Polestar's layout
+/// Loads translation files in one Lua run, each with GetLocale() and Polestar.Names.Language()
+/// answering its locale and ns = { L, locale, Names, AddTranslations }. Reads Polestar's layout
 /// (assignments to ns.L), Ding!'s (ns.AddTranslations(locale, t)) and a file
 /// that returns a table. entries: (file, locale). -> one LocaleFile per entry, in order.
+/// Read in batches of LOCALE_BATCH files, one Lua state each, so the LUA_MEMORY cap holds per batch however many guides
+/// a pack translates (Polestar's own pack: 2,394 files, over 50 MB of Lua, past the cap in one state).
 #[cfg(feature = "native")]
 pub fn read_locale_files(entries: &[(String, String)]) -> Result<Vec<LocaleFile>, String> {
+	let mut out = Vec::with_capacity(entries.len());
+	for batch in entries.chunks(LOCALE_BATCH) {
+		out.extend(read_locale_batch(batch)?);
+	}
+	Ok(out)
+}
+
+#[cfg(feature = "native")]
+const LOCALE_BATCH: usize = 400;
+
+#[cfg(feature = "native")]
+fn read_locale_batch(entries: &[(String, String)]) -> Result<Vec<LocaleFile>, String> {
 	if entries.is_empty() {
 		return Ok(Vec::new());
 	}
@@ -282,7 +298,7 @@ for i, e in ipairs(list) do
 			assigned[k] = v
 		end,
 	}})
-	local ns = {{ L = L, locale = e.locale }}
+	local ns = {{ L = L, locale = e.locale, Names = {{ Language = GetLocale }} }}
 	function ns.AddTranslations(locale, t) got = t end
 	Polestar = ns
 	local ok, ret = __polestar_loaddata(e.path, "Polestar", ns)
@@ -806,10 +822,16 @@ pub fn update_locale_text(text: &str, file: &str, keys: &[(String, Vec<String>)]
 /// first uses it in load order, translated from `fill` or commented out.
 /// `title`: the JS default is "Polestar's interface strings". `language_folder`: the file is
 /// Interface.lua in Polestar_<locale>, an addon of its own, so it reaches Polestar's namespace through
-/// the global `Polestar` rather than `...`.
+/// the global `Polestar` rather than `...`, and fills L when Polestar shows its language
+/// (Polestar.Names.Language: the client's, or the one the Language setting chose); the Recorder's
+/// when the client is in its language.
 pub fn new_locale_text(locale: &str, keys: &[(String, Vec<String>)], fill: &V, retire: &V, title: &str, language_folder: bool) -> Result<LocaleUpdate, String> {
 	let language = locales::locale(locale).map_or(locale, |m| m.language);
-	let (ns, guard) = if language_folder { ("local ns = Polestar", "ns and ") } else { ("local _, ns = ...", "") };
+	let (ns, guard) = if language_folder {
+		("local ns = Polestar", format!("if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == {}) then return end", lua_string(locale)))
+	} else {
+		("local _, ns = ...", format!("if not (GetLocale and GetLocale() == {}) then return end", lua_string(locale)))
+	};
 	let head = [
 		format!("-- {language} ({locale}): {title}."),
 		"-- Keys are the English strings exactly as the code writes them; a key".into(),
@@ -817,7 +839,7 @@ pub fn new_locale_text(locale: &str, keys: &[(String, Vec<String>)], fill: &V, r
 		"-- first uses each key. docs/TRANSLATING.md explains the rest.".into(),
 		String::new(),
 		ns.into(),
-		format!("if not ({guard}GetLocale and GetLocale() == {}) then return end", lua_string(locale)),
+		guard,
 		BODY_START.into(),
 	];
 	let file = if language_folder { format!("{}/{}", crate::toc::language_addon(locale), crate::toc::INTERFACE_FILE) } else { format!("Locales/{locale}.lua") };

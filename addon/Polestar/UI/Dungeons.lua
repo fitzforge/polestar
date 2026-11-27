@@ -775,9 +775,11 @@ local function tie(i)
 	t.Text = W.Text(t, "label", "textDim")
 	t.Text:SetPoint("LEFT", t, "LEFT", 24, 0)
 	t:SetScript("OnClick", function(self) DS.ShowQuest(self.psQuest) end)
-	t:SetScript("OnEnter", W.SimpleTip)
+	-- The quest's tooltip (UI.QuestTip), what a click does under it.
+	t:SetScript("OnEnter", function(self)
+		if self.psQuest then UI.QuestTip(self, self.psQuest, "ANCHOR_TOP", { { L["Show the quest"], Theme.Accent() } }, self.psTitle) end
+	end)
 	t:SetScript("OnLeave", W.HideTip)
-	t.psTip = L["Show the quest"]
 	ties[i] = t
 	return t
 end
@@ -1377,11 +1379,13 @@ local function pageHeader(d)
 	local plan = hd.plan or nil
 	local hplan = hd.hplan or nil
 	local take = plan and #plan.take or 0
+	-- Quests in the log whose items wait at their giver (#4042) need the guide too.
+	local fetch = plan and #(plan.fetch or {}) or 0
 	local hand = hplan and #hplan.hand + #(hplan.errands or {}) or 0
 	local logged = hplan and #hplan.hand + #hplan.unfinished + #hplan.inside + #hplan.unplaced or 0
-	local lead = hand > 0 and "handin" or take > 0 and "pickup" or "go"
+	local lead = hand > 0 and "handin" or (take > 0 or fetch > 0) and "pickup" or "go"
 	local side = SIDE[UI.PlayerFaction() or ""]
-	local none = plan ~= nil and take == 0 and #Dg.Quests(d.key, side) > 0 and lead == "go"
+	local none = plan ~= nil and take == 0 and fetch == 0 and #Dg.Quests(d.key, side) > 0 and lead == "go"
 	-- The quests that wait for a level say so on the button and in its tip
 	-- (Dungeons.PickupLabel, WaitingLines: "3 now · 2 at level 16").
 	local waiting = plan and Dg.WaitingLines and Dg.WaitingLines(plan) or {}
@@ -1393,11 +1397,17 @@ local function pageHeader(d)
 		end
 		return lines
 	end
-	if take > 0 then
-		local lines = { format(take == 1 and L["A guide to the 1 quest here you can take, with what comes before it, ending at the entrance."]
-			or L["A guide to the %d quests here you can take, with what comes before them, ending at the entrance."], take) }
-		local carried = #plan.carried
-		if carried > 0 then lines[#lines + 1] = carried == 1 and L["1 more is in your log already."] or format(L["%d more are in your log already."], carried) end
+	if take > 0 or fetch > 0 then
+		local lines
+		if take > 0 then
+			lines = { format(take == 1 and L["A guide to the 1 quest here you can take, with what comes before it, ending at the entrance."]
+				or L["A guide to the %d quests here you can take, with what comes before them, ending at the entrance."], take) }
+			local carried = #plan.carried
+			if carried > 0 then lines[#lines + 1] = carried == 1 and L["1 more is in your log already."] or format(L["%d more are in your log already."], carried) end
+		else
+			lines = { fetch == 1 and L["A guide to the items 1 quest in your log needs from where it is given, ending at the entrance."]
+				or format(L["A guide to the items %d quests in your log need from where they are given, ending at the entrance."], fetch) }
+		end
 		withWaiting(lines)
 		lines[#lines + 1] = L["It opens in a new tab."]
 		for _, b in ipairs({ pg.Pickup, pg.PickupQuiet }) do
@@ -1424,7 +1434,7 @@ local function pageHeader(d)
 	pg.HandIn:SetShown(lead == "handin")
 	pg.HandInQuiet:SetShown(lead ~= "handin" and logged > 0)
 	pg.Pickup:SetShown(lead == "pickup")
-	pg.PickupQuiet:SetShown(lead == "handin" and take > 0)
+	pg.PickupQuiet:SetShown(lead == "handin" and (take > 0 or fetch > 0))
 	pg.PickupNone:SetShown(none)
 	pg.Go:SetShown(go and lead == "go")
 	pg.GoQuiet:SetShown(go and lead ~= "go")
@@ -1945,7 +1955,7 @@ local function renderBosses(key, f, plevel)
 				else
 					row.Text:SetText(format(spec[2], qh))
 				end
-				row.psQuest = q.id
+				row.psQuest, row.psTitle = q.id, q.title
 				row:ClearAllPoints()
 				row:SetPoint("TOPLEFT", pg.Body, "TOPLEFT", PAD - 4, -(y + h - 6))
 				row:SetWidth(MW - PAD * 2 + 4)
@@ -2096,11 +2106,15 @@ local function stepLine(s, plevel)
 	elseif s.kind == "drop" then
 		return format(L["%s from %s"], colored("item", s.item.name), colored("npc", s.npc and s.npc.name)), s.npc
 	elseif s.kind == "object" then
-		return format(L["%s from %s"], colored("item", s.item.name), colored("object", s.object and s.object.name)), s.object
+		-- A chest the Codex names no object for (the Black Tome's table): the item alone.
+		if not (s.object and s.object.name) then return colored("item", s.item.name), s.object end
+		return format(L["%s from %s"], colored("item", s.item.name), colored("object", s.object.name)), s.object
 	elseif s.kind == "rep" then
 		return format(L["Reach %s with %s"], standingName(s.standing), colored("faction", factionName(s.faction, s.name))), nil
 	elseif s.kind == "gift" then
 		return format(L["%s gives you %s"], colored("npc", s.npc and s.npc.name), colored("item", s.item.name)), s.npc
+	elseif s.kind == "use" then
+		return format(L["Use %s beside %s"], colored("item", s.from and s.from.name), colored("npc", s.at and s.at.name)), s.at
 	end
 	return "", nil
 end
@@ -2126,7 +2140,7 @@ local function stepSub(s, state)
 	elseif (s.kind == "drop" or s.kind == "object") and s.chance then
 		t[#t + 1] = format(L["%d%% chance"], floor(s.chance + 0.5))
 	end
-	if s.kind == "drop" and s.instance then
+	if (s.kind == "drop" or s.kind == "object") and s.instance then
 		local inst = D().Get(s.instance)
 		if inst then t[#t + 1] = format(L["inside %s"], inst.name) end
 	end
@@ -2144,6 +2158,17 @@ local function renderAttune(key, f, plevel)
 	local mineCode = SIDE[UI.PlayerFaction() or ""]
 	local list_ = Dg.Attunements(key, side)
 	local y, nr = 0, 0
+	-- Every attunement and key with this character's progress: the Attunements section (UI/Attunements.lua).
+	if #list_ > 0 and UI.Attunements then
+		if not rawget(pg, "AttLink") then
+			pg.AttLink = W.Link(pg.Body, L["All attunements and keys"], function() UI.Attunements.Show() end)
+			pg.AttLink.psTip = L["Every attunement and key, with how far you are"]
+		end
+		pg.AttLink:ClearAllPoints()
+		pg.AttLink:SetPoint("TOPRIGHT", pg.Body, "TOPRIGHT", -PAD, -12)
+		pg.AttLink:Show()
+		y = 20
+	end
 	shown.attune = {}
 	for i, a in ipairs(list_) do
 		local st = Dg.AttunementState(a)
@@ -2184,6 +2209,7 @@ local function renderAttune(key, f, plevel)
 		facts[#facts + 1] = a.need == "one" and L["One in the group is enough"] or L["Everyone entering needs it"]
 		if a.level then facts[#facts + 1] = format(L["From level %d"], a.level) end
 		if a.faction == "A" then facts[#facts + 1] = L["Alliance only"] elseif a.faction == "H" then facts[#facts + 1] = L["Horde only"] end
+		if a.open == false then facts[#facts + 1] = L["Not open on Forever yet"] end
 		h.Meta:SetText(concat(facts, DOT))
 		local hy = 66
 		if a.note then
@@ -2319,7 +2345,11 @@ local function renderPage(key, plevel)
 		hidePool(ties)
 		if lootBlock then lootBlock:Hide() end
 	end
-	if tab ~= "attune" then hidePool(atts); hidePool(attSteps) end
+	if tab ~= "attune" then
+		hidePool(atts)
+		hidePool(attSteps)
+		if rawget(pg, "AttLink") then pg.AttLink:Hide() end
+	end
 	if tab ~= "map" then
 		pg.MapArt:Hide()
 		pg.MapNote:Hide()
@@ -2363,7 +2393,7 @@ local function renderEmpty(reason)
 	home.Watermark:Show()
 	local text
 	if reason == "off" then
-		text = L["The Dungeons section is turned off. Turn it on under Options > Discovery > Lookup."]
+		text = L["The Dungeons section is turned off. Turn it on under Settings > Discovery > Lookup."]
 	else
 		local LK = UI.Lookup
 		text = REASON[reason] or (LK and LK.ReasonText and LK.ReasonText(reason)) or tostring(reason)
@@ -2534,16 +2564,17 @@ function DS.HandIn(key)
 	return openPlanned(Dg.HandIn, key, function() return Dg.HandinText(Dg.HandinPlan(key)) end)
 end
 
--- An attunement's guide (Dungeons.Attune), from the page's Attunement tab;
--- nothing left says so instead.
-function DS.Attune(id)
+-- An attunement's guide (Dungeons.Attune), from the page's Attunement tab
+-- (or `key`'s, from the Attunements section); nothing left says so instead.
+function DS.Attune(id, key)
 	local Dg = D()
-	if not (page and id and Dg and Dg.Attune) then return nil end
-	return openPlanned(function(key)
-		local gid, reason = Dg.Attune(key, id)
+	key = key or page
+	if not (key and id and Dg and Dg.Attune) then return nil end
+	return openPlanned(function(k)
+		local gid, reason = Dg.Attune(k, id)
 		if reason == "done" then reason = "nothing" end
 		return gid, reason
-	end, page, function() return L["Nothing is left to do for it."] end)
+	end, key, function() return L["Nothing is left to do for it."] end)
 end
 
 -- In combat the map stays shut (Compat.OpenWorldMap: opening it then is
@@ -2572,10 +2603,11 @@ function DS.Enter()
 	if c and c:IsShown() and c.psKey then DS.Open(c.psKey) end
 end
 
--- SHOW_DUNGEON(key): the hub at the page (nil: Home).
-function DS.Show(key)
+-- SHOW_DUNGEON(key): the hub at the page (nil: Home), on tab `tabKey`
+-- ("quests" when nil; "attune", "bosses", "map").
+function DS.Show(key, tabKey)
 	page = key
-	tab = "quests"
+	tab = tabKey or "quests"
 	setFilter("")
 	local P = UI.Picker
 	local win = PolestarPicker

@@ -59,7 +59,12 @@ for _, fn in pairs(stub.Methods) do
 			local name, v = debug.getupvalue(fn, i)
 			if not name then break end
 			if name == "RunScript" and type(v) == "function" then
-				debug.setupvalue(fn, i, addon(v))
+				-- Lua 5.1's lua_setupvalue stores into the upvalue without a write barrier. A collector
+				-- cycle that has already marked the (closed) upvalue never marks the new closure, frees it
+				-- at its sweep, and the next RunScript call runs freed memory (a SIGSEGV, depending on how
+				-- far the cycle has got). A table holds the closure too, and a table store has its barrier.
+				A.runScript = addon(v)
+				debug.setupvalue(fn, i, A.runScript)
 				replaced = true
 				break
 			end

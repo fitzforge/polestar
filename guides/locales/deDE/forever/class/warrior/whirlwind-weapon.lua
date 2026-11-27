@@ -49,7 +49,7 @@ return {
 
 	-- Step 10: Bloodscalp Tusks
 	-- plural, as words: Bloodscalp Tusks = {item:3901} Bloodscalp Tusk
-	["Bloodscalp Tusks"] = "Bloodscalp Tusks",
+	["Bloodscalp Tusks"] = "Hauer der Bloodscalp",
 	-- {area:117} Grom'gol Base Camp · {area:123} Bal'lal Ruins
 	["You need 30 tusks. Every Bloodscalp troll (level 33-37) of north-west Stranglethorn drops one about one kill in three, so plan on some 80 kills: the camps and ruins north and north-west of {area:117} and around the {area:123} on the coast. They enrage below 30% health and the Warriors disarm; back in 5 minutes."] = "Du brauchst 30 Hauer. Jeder Bloodscalp-Troll (Stufe 33-37) im Nordwesten von Stranglethorn lässt bei etwa jedem dritten Kill einen fallen, plane also etwa 80 Kills ein: die Lager und Ruinen nördlich und nordwestlich von {area:117} und rund um {area:123} an der Küste. Unter 30 % Gesundheit werden sie wütend, und die Warriors entwaffnen; nach 5 Minuten zurück.",
 

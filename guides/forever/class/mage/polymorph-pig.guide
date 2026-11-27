@@ -42,6 +42,7 @@ why A new look for Polymorph: it turns the target into a pig rather than a sheep
 step Xylem's tower
   tip Fly to Talrendis Point (Alliance) or Valormok (Horde). Sanath Lim-yo camps below Archmage Xylem's tower, a short way east of Valormok: from the fork of Azshara's main road at the Ruins of Eldarath, head straight north to the cliffs. Dismount, and he teleports you up; a trail climbs to the Archmage at the top of the tower.
   level 60
+  goto 28.1,50.1 "Sanath Lim-yo"
   accept 9362                                 -- Archmage Xylem
 
 step Warlord Krellian
@@ -50,6 +51,7 @@ step Warlord Krellian
 
 step Archmage Xylem
   tip Back to Sanath Lim-yo and up to the tower. Xylem hands the shell back with the next quest: keep it in your bags.
+  goto 28.1,50.1 "Sanath Lim-yo"
   turnin 9362                                 -- Archmage Xylem
   accept 9364
 
@@ -59,4 +61,5 @@ step Polymorph Clones
 
 step Fragmented Magic
   tip Back to Sanath Lim-yo and up to the tower.
+  goto 28.1,50.1 "Sanath Lim-yo"
   turnin 9364                                 -- Archmage Xylem: Polymorph (pig)

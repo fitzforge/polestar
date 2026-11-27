@@ -46,10 +46,297 @@ test('no correction file has the same id twice', () => {
 	assert.deepEqual(dup, []);
 });
 
+test('Gnomish Garbage counts five discards, not five Wastewander Rogue kills (#3159)', () => {
+	const [goal] = corrections.quests[97536].set.objectives;
+	assert.deepEqual([goal.type, goal.id, goal.count], ['event', null, 5]);
+	const [step] = require('../data/mechanics-public.json').quests[97536].steps;
+	assert.deepEqual([step.action, step.item, step.count], ['use-item', 278194, goal.count]);
+});
+
+test('A Reliquary of Purity opens at Rabine Saturna only after a Dire Maul visit (#3104, #3270)', () => {
+	const [step] = require('../data/mechanics-public.json').quests[5527].steps;
+	assert.deepEqual([step.action, step.target.type, step.target.id], ['accept', 'npc', 11801]);
+	assert.match(step.fact, /inside Dire Maul once/);
+});
+
+test('Goblin Lockpicks is a one-talk hand-in at Veenix, only while The Horn of Xelthos is in the log (#3161, #3213)', () => {
+	assert.equal(corrections.quests[78270].set.direct, true);
+	const [step] = require('../data/mechanics-public.json').quests[78270].steps;
+	assert.deepEqual([step.action, step.target.type, step.target.id], ['turnin', 'npc', 4086]);
+	assert.match(step.fact, /only while The Horn of Xelthos is in your quest log/);
+});
+
+test('Burbik Gearspanner sells no Fishing Pole: off its vendor list (#3037)', () => {
+	assert.deepEqual(corrections.items[6256].removeVendors, [5163]);
+});
+
+test('Child of Nature starts only with Alfina Nightgaze, and each A Thief\'s Reward only with its own side\'s festival NPC (#4225 sweep)', () => {
+	const q = corrections.quests;
+	assert.deepEqual(q[94912].set.start.npc, [270459], 'Child of Nature: Alfina Nightgaze, not Archmage Ansirem Runeweaver (2543)');
+	assert.deepEqual([q[9339].set.start.npc, q[9339].set.end.npc, q[9339].set.races], [[16817], [16817], 4294967373], 'Alliance: Festival Loremaster');
+	assert.deepEqual([q[9365].set.start.npc, q[9365].set.end.npc, q[9365].set.races], [[16818], [16818], 8589934770], 'Horde: Festival Talespinner');
+	assert.ok([].concat(q[94912].source).some((s) => s.kind === 'recording'), 'Child of Nature: the recordings');
+});
+
 test('Damp Note requires The Essence of Aku\'Mai on the recorded Priestess drop, not on its follow-up quest (#1923)', () => {
 	assert.deepEqual(corrections.items[16790].dropRequires, { npc: { 4802: [6563] } });
 	assert.match(corrections.items[16790].source.ref, /#1923.*6820003090/);
 	assert.notEqual(corrections.quests[6564]?.set?.pre?.includes(6563), true, 'accepting the root is enough; it is not a completion prerequisite');
+});
+
+// #3918 (Deadshot): a Gnome Mage held Forever's An Earnest Proposition 84149 while the Lookup guide for the chain
+// waited for the Classic 8907, since 8922 did not follow 84149 and the data gave it no class or objectives. Every
+// version players' quest logs held or Deliana and Mokvar offered (game build 70959) is one of A Supernatural Device's
+// prerequisites on its side, for its class, with the side's samples and the class's bracers, given and taken back by
+// the side's giver.
+test('A Supernatural Device follows every recorded class version of An Earnest Proposition (#3918, #3081)', () => {
+	const SAMPLE = { 8922: 21928, 8923: 22381 };
+	const GIVER = { 8922: 230319, 8923: 230317 };
+	const versions = [
+		[84149, 8922, 128, 16683], // Mage: Magister's Bindings
+		[84150, 8922, 2, 16722], // Paladin: Lightforge Bracers
+		[84152, 8922, 8, 16710], // Rogue: Shadowcraft Bracers
+		[84160, 8923, 64, 16671], // Shaman: Bindings of Elements
+		[84161, 8923, 256, 16703], // Warlock: Dreadmist Bracers
+		[97411, 8923, 2, 16722], // Paladin (Horde): Lightforge Bracers
+	];
+	for (const [id, device, cls, bracers] of versions) {
+		assert.ok(corrections.quests[device].set.preAny.includes(id), `${device} follows ${id}`);
+		const { set, remove } = corrections.quests[id];
+		assert.ok(!remove, `${id} stays in the data`);
+		assert.equal(set.classes, cls, `${id}'s class`);
+		assert.equal(set.next, device, `${id} leads to ${device}`);
+		assert.deepEqual(set.objectives.map((o) => [o.id, o.count]), [[SAMPLE[device], 15], [bracers, 1]], `${id}'s objectives`);
+		for (const end of [set.start, set.end].filter(Boolean)) assert.deepEqual(end.npc, [GIVER[device]], `${id} at its side's giver`);
+	}
+});
+
+// #4025 (Tauren Druid, 84155), #3765 (Night Elf Druid, 84147), #4016: the versions no recording had yet carried no
+// class, so the Lookup chain sent every class without one in its log to the first of them (the Hunter's 84148, the
+// Druid's 84155), which the giver never offers it; and the Alliance Druid's 84147 had left the data. Each side's
+// A Supernatural Device now follows one version per class, and each version names its class and that class's bracers.
+test('A Supernatural Device follows one class-locked An Earnest Proposition per class on each side (#4025, #3765)', () => {
+	const BRACERS = { 1: 16735, 2: 16722, 4: 16681, 8: 16710, 16: 16697, 64: 16671, 128: 16683, 256: 16703, 1024: 16714 };
+	const SAMPLE = { 8922: 21928, 8923: 22381 };
+	for (const device of [8922, 8923]) {
+		const classes = [];
+		for (const id of corrections.quests[device].set.preAny) {
+			const entry = corrections.quests[id];
+			assert.ok(entry && entry.set && !entry.remove, `${id} has a record and stays in the data`);
+			const { classes: cls, next, objectives } = entry.set;
+			assert.ok(BRACERS[cls], `${id} names one class`);
+			classes.push(cls);
+			assert.equal(next, device, `${id} leads to ${device}`);
+			assert.deepEqual(objectives.map((o) => [o.id, o.count]), [[SAMPLE[device], 15], [BRACERS[cls], 1]], `${id}: the samples and its class's bracers`);
+		}
+		assert.deepEqual(classes.slice().sort((a, b) => a - b), Object.keys(BRACERS).map(Number), `${device}: one version per class`);
+	}
+	assert.ok(corrections.quests[8922].set.preAny.includes(84147), 'the Alliance Druid version 84147 leads to 8922');
+});
+
+// #4169 (Swiftfyre, Skyborne Hunter 58): the Blackrock Spire pick-up guide's step at Deliana listed five copies of
+// Just Compensation, none of them offered, and waited on them. Forever's copies of the Dungeon Set 2 chain's
+// class quests had no class and no prerequisite, so every class saw every copy from the first step. Each copy now
+// names its class (by its set pieces) and the quest before it (as the Classic copy for that class has it), and
+// the Classic copies that a Forever copy for the same class replaces, at the Classic Deliana or Mokvar whom
+// players never meet, leave the data.
+test('Dungeon Set 2: each Forever copy of Just Compensation, Anthion\'s Parting Words and Saving the Best for Last has its class and prerequisite (#4169)', () => {
+	// id: [class, the quest before it]
+	const copies = { 84163: [1024, 8977], 84164: [4, 8977], 84165: [128, 8977], 84166: [2, 8977], 84167: [16, 8977], 84168: [8, 8977], 84169: [256, 8977], 84170: [1, 8977], 97448: [64, 8977],
+		84171: [1024, 8978], 84172: [4, 8978], 84173: [128, 8978], 84174: [16, 8978], 84175: [8, 8978], 84176: [64, 8978], 84177: [256, 8978], 84178: [1, 8978], 97412: [2, 8978],
+		84179: [1024, 9015], 84180: [4, 9015], 84181: [128, 9015], 84182: [2, 9015], 84183: [16, 9015], 84184: [8, 9015], 84186: [1, 9015],
+		84187: [1024, 9015], 84188: [4, 9015], 84189: [128, 9015], 84190: [16, 9015], 84191: [8, 9015], 84192: [64, 9015], 84193: [256, 9015], 84194: [1, 9015],
+		84195: [1024, 8997], 84196: [4, 8997], 84200: [8, 8997], 84202: [1, 8997], 84203: [1024, 8998], 84208: [64, 8998], 84210: [1, 8998],
+		// The copies the data lacked until the server's quest records in players' caches named them (0.4.4).
+		84185: [256, 9015], 97449: [64, 9015], 97413: [2, 9015],
+		84197: [128, 8997], 84198: [2, 8997], 84199: [16, 8997], 84201: [256, 8997], 97450: [64, 8997],
+		84204: [4, 8998], 84205: [128, 8998], 84206: [16, 8998], 84207: [8, 8998], 84209: [256, 8998], 97414: [2, 8998] };
+	for (const [id, [cls, pre]] of Object.entries(copies)) {
+		const entry = corrections.quests[id];
+		assert.ok(entry && entry.set && !entry.remove, `${id} has a record`);
+		assert.equal(entry.set.classes, cls, `${id}'s class`);
+		assert.deepEqual(entry.set.preAny, [pre], `${id} after ${pre}`);
+	}
+	for (const id of [8951, 8952, 8953, 8954, 8955, 8956, 8957, 8959, 9016, 9017, 9018, 9019, 9020, 9021, 9022, 8999, 9000, 9004, 9006, 9007, 9011, 9013,
+		8958, 9001, 9002, 9003, 9005, 9008, 9009, 9010, 9012, 9014]) {
+		assert.equal(corrections.quests[id] && corrections.quests[id].remove, true, `the Classic copy ${id} leaves the data`);
+	}
+});
+
+// #4169's sweep: Bodley's class-group quests (four versions each, by class group, per the server's world database
+// and Factoruide) had no class in the data, so every class saw all four at his step, as at Deliana.
+test('Bodley gives each class group its own Components of Importance and Valthalak amulet quests (#4169)', () => {
+	const groups = { 8962: 129, 8963: 1280, 8964: 12, 8965: 82, 8966: 129, 8967: 1280, 8968: 12, 8969: 82,
+		8985: 9, 8986: 1090, 8987: 144, 8988: 260, 8989: 1090, 8990: 9, 8991: 144, 8992: 260 };
+	for (const [id, cls] of Object.entries(groups)) {
+		assert.equal(corrections.quests[id] && corrections.quests[id].set && corrections.quests[id].set.classes, cls, `${id}'s classes`);
+	}
+	// The four of each set together are every class, once.
+	for (const set of [[8962, 8963, 8964, 8965], [8966, 8967, 8968, 8969], [8985, 8986, 8987, 8988], [8989, 8990, 8991, 8992]]) {
+		assert.equal(set.reduce((m, id) => m + groups[id], 0), 1503, `${set}: every class once`);
+	}
+});
+
+// #4169's sweep: Forever's Horde Paladin charger chain at Danitha Morr had no prerequisites, so Justice and
+// Retribution (97185, on the Dire Maul and Scholomance pick-up pages) read as open for every Horde Paladin; and
+// the Alliance's The Darkreaver Menace (97169, Scholomance) had no class or prerequisite, unlike the Horde's
+// Shaman-only 7668 after 7667.
+test('the Horde Paladin charger chain and the Alliance Darkreaver Menace have their prerequisites (#4169)', () => {
+	const after = { 97175: 97174, 97177: 97175, 97176: 97177, 97182: 97176, 97179: 97178, 97180: 97179, 97184: 97183, 97185: 97184, 97169: 97168 };
+	for (const [id, pre] of Object.entries(after)) {
+		assert.deepEqual(corrections.quests[id] && corrections.quests[id].set && corrections.quests[id].set.preAny, [pre], `${id} after ${pre}`);
+	}
+	assert.equal(corrections.quests[97169].set.classes, 64, 'The Darkreaver Menace 97169 is the Shaman\'s');
+});
+
+// #4169's hotfix build: removing the Classic Anthion's Parting Words copies took Bodley's Unfortunate Fate's
+// prerequisites with them (the Horde's 9032 had none left, the Alliance's 8960 only the Warlock's 8958). It
+// follows any class's Forever copy now, the Alliance Warlock's and Shaman's and the Horde Paladin's included.
+test('Bodley\'s Unfortunate Fate follows Forever\'s Anthion\'s Parting Words on each side (#4169)', () => {
+	assert.deepEqual(corrections.quests[8960].set.preAny, [84179, 84180, 84181, 84182, 84183, 84184, 84185, 84186, 97449]);
+	assert.deepEqual(corrections.quests[9032].set.preAny, [84187, 84188, 84189, 84190, 84191, 84192, 84193, 84194, 97413]);
+	for (const id of [8960, 9032]) assert.deepEqual(corrections.quests[id].set.pre, [], `${id}: no all-of prerequisite left over`);
+});
+
+// The check behind it: a quest whose prerequisite the corrections remove keeps a prerequisite the corrections
+// give it, unless another of its prerequisites stays. Reads the built data (skips without it).
+test('no quest loses all its prerequisites to a removal without a record that gives it new ones (#4169)', { skip: require('./helpers/data').needs('quests.json') }, () => {
+	const built = JSON.parse(fs.readFileSync(path.join(require('./helpers/data').DATA, 'quests.json'), 'utf8'));
+	const removed = new Set(Object.entries(corrections.quests).filter(([, e]) => e && e.remove).map(([id]) => Number(id)));
+	const bad = [];
+	for (const [id, q] of Object.entries(built)) {
+		if (removed.has(Number(id))) continue;
+		const set = (corrections.quests[id] && corrections.quests[id].set) || {};
+		for (const f of ['pre', 'preAny', 'preAll']) {
+			const v = Array.isArray(q[f]) ? q[f] : [];
+			if (!v.some((x) => removed.has(x))) continue;
+			const left = v.filter((x) => !removed.has(x));
+			const given = ['pre', 'preAny', 'preAll'].some((k) => Array.isArray(set[k]) && set[k].length && !set[k].some((x) => removed.has(x)));
+			if (!given && (left.length === 0 || left.length < v.length / 2)) bad.push(`${id} ${f}: ${v.join(',')} -> ${left.join(',') || 'none'}`);
+		}
+	}
+	assert.deepEqual(bad, []);
+});
+
+// #4169's hotfix build gave each Forever copy the Classic copy's pieces as its rewards, so the tier 0.5 pieces kept a
+// quest source. Forever's own quest records (players' caches) reward otherwise: a class with several specs chooses
+// one spec's set (a box per slot group), a class with one spec gets its new pieces. Both sides reward the same.
+test('Forever\'s Set 2 copies reward what Forever\'s quest records name, per class (0.4.4)', () => {
+	// class: [Anthion's Parting Words, Saving the Best for Last], each { items } or { choices }
+	const byClass = {
+		Druid: [{ choices: [227359, 227360, 227361, 227365] }, { choices: [227383, 227384, 227385, 227387] }],
+		Hunter: [{ items: [226881, 226882, 226884] }, { items: [226887, 226886] }],
+		Mage: [{ items: [226931, 226933, 226936] }, { items: [226935, 226932] }],
+		Paladin: [{ choices: [227368, 227369, 227370] }, { choices: [227390, 227391, 227392] }],
+		Priest: [{ choices: [227371, 227372] }, { choices: [227393, 227394] }],
+		Rogue: [{ items: [226831, 226827, 226826] }, { items: [226829, 226825] }],
+		Shaman: [{ choices: [227375, 227376, 227377] }, { choices: [227397, 227398, 227399] }],
+		Warlock: [{ items: [226908, 226910, 226912] }, { items: [226909, 226906] }],
+		Warrior: [{ choices: [227381, 227382] }, { choices: [227403, 227404] }],
+	};
+	// class: [Alliance APW, Horde APW, Alliance STBL, Horde STBL]
+	const copies = { Druid: [84179, 84187, 84195, 84203], Hunter: [84180, 84188, 84196, 84204], Mage: [84181, 84189, 84197, 84205],
+		Paladin: [84182, 97413, 84198, 97414], Priest: [84183, 84190, 84199, 84206], Rogue: [84184, 84191, 84200, 84207],
+		Shaman: [97449, 84192, 97450, 84208], Warlock: [84185, 84193, 84201, 84209], Warrior: [84186, 84194, 84202, 84210] };
+	for (const [cls, ids] of Object.entries(copies)) {
+		ids.forEach((id, i) => {
+			const want = byClass[cls][i < 2 ? 0 : 1];
+			const r = corrections.quests[id] && corrections.quests[id].set && corrections.quests[id].set.rewards;
+			assert.deepEqual(r && r.items, want.items || [], `${cls} ${id}'s reward items`);
+			assert.deepEqual(r && r.choices, want.choices || [], `${cls} ${id}'s reward choices`);
+		});
+	}
+});
+
+// The Nightmare Incursion quests (Duskwood, Hinterlands and Feralas missions, Fight the Nightmare Incursions): no
+// recording shows any of them or their Field Captains on Forever, so each stays in the data for Lookup marked
+// unseen; Materials of Significance (81790), a Paladin quest in the same id range that players' traces show, is not.
+test('the Nightmare Incursion quests are marked unseen, with their objective counts (0.4.4)', () => {
+	const missions = Object.keys(corrections.quests).map(Number).filter((id) => (id >= 81730 && id <= 81747) || (id >= 81786 && id <= 81874) || id === 82068);
+	assert.equal(missions.length, 55);
+	for (const id of missions) {
+		const set = corrections.quests[id].set;
+		assert.equal(set.unseen, true, `${id} is marked unseen`);
+		for (const o of set.objectives || []) assert.ok(o.count >= 1, `${id}: ${o.text} has a count`);
+	}
+	assert.ok(!corrections.quests[81790], 'Materials of Significance is left as it is');
+	assert.deepEqual(corrections.quests[81786].set.objectives, [{ type: 'kill', id: 221330, count: 20, text: 'Fallen Moonkin' }]);
+});
+
+// The check behind it: an item whose only sources in the built Codex are quests the corrections remove must get a
+// quest source back from a record (a `set.rewards` naming it), or Lookup reads "no known source" after the next
+// build. Reads the built Codex (skips without it).
+//
+// One stated exception, these 45 items by name: Classic's Dungeon Set 2 boots, legs, shoulders, helm and chest, the
+// rewards of the Classic copies of Anthion's Parting Words (8951-8959, 9016-9022) and Saving the Best for Last
+// (8999-9014). Forever's own copies of those two quests reward a choice of each spec's set boxes (227xxx) or the
+// class's new pieces (226xxx) instead (their records in forever-db/corrections/quests.json), so on Forever these 22xxx
+// pieces have no quest source, and "no known source" is the truth for them.
+const SET2_CLASSIC_PIECES = {
+	21995: 'Boots of Heroism', 21997: 'Breastplate of Heroism', 21999: 'Helm of Heroism', 22000: 'Legplates of Heroism', 22001: 'Spaulders of Heroism',
+	22003: 'Darkmantle Boots', 22005: 'Darkmantle Cap', 22007: 'Darkmantle Pants', 22008: 'Darkmantle Spaulders', 22009: 'Darkmantle Tunic',
+	22013: "Beastmaster's Cap", 22016: "Beastmaster's Mantle", 22017: "Beastmaster's Pants", 22060: "Beastmaster's Tunic", 22061: "Beastmaster's Boots",
+	22064: "Sorcerer's Boots", 22065: "Sorcerer's Crown", 22067: "Sorcerer's Leggings", 22068: "Sorcerer's Mantle", 22069: "Sorcerer's Robes",
+	22072: 'Deathmist Leggings', 22073: 'Deathmist Mantle', 22074: 'Deathmist Mask', 22075: 'Deathmist Robe', 22076: 'Deathmist Sandals',
+	22080: 'Virtuous Crown', 22082: 'Virtuous Mantle', 22083: 'Virtuous Robe', 22084: 'Virtuous Sandals', 22085: 'Virtuous Skirt',
+	22087: 'Soulforge Boots', 22089: 'Soulforge Breastplate', 22091: 'Soulforge Helm', 22092: 'Soulforge Legplates', 22093: 'Soulforge Spaulders',
+	22096: 'Boots of The Five Thunders', 22097: 'Coif of The Five Thunders', 22100: 'Kilt of The Five Thunders', 22101: 'Pauldrons of The Five Thunders', 22102: 'Vest of The Five Thunders',
+	22107: 'Feralheart Boots', 22109: 'Feralheart Cowl', 22111: 'Feralheart Kilt', 22112: 'Feralheart Spaulders', 22113: 'Feralheart Vest',
+};
+
+test('no item loses its only quest sources to a removal without a record that rewards it again (#4169)', { skip: require('./helpers/data').needs('codex/items.json') }, () => {
+	const items = JSON.parse(fs.readFileSync(path.join(require('./helpers/data').DATA, 'codex', 'items.json'), 'utf8'));
+	const removed = new Set(Object.entries(corrections.quests).filter(([, e]) => e && e.remove).map(([id]) => Number(id)));
+	const rewarded = new Set();
+	for (const e of Object.values(corrections.quests)) {
+		const r = e && e.set && e.set.rewards;
+		for (const it of [...((r && r.items) || []), ...((r && r.choices) || [])]) rewarded.add(it);
+	}
+	const bad = [];
+	for (const [id, it] of Object.entries(items)) {
+		const sources = it.sources || [];
+		if (!sources.length || !sources.every((s) => s.type === 'quest' && removed.has(s.quest))) continue;
+		if (SET2_CLASSIC_PIECES[id]) {
+			// The exception names each item: an id that is some other item now is an error, not a pass.
+			assert.equal(it.name, SET2_CLASSIC_PIECES[id], `item ${id} is the exception's ${SET2_CLASSIC_PIECES[id]}`);
+			continue;
+		}
+		if (!rewarded.has(Number(id))) bad.push(`${id} ${it.name}: only from ${sources.map((s) => s.quest).join(', ')}`);
+	}
+	assert.deepEqual(bad, []);
+});
+
+// #4169's hotfix build: the corrections removed the Classic Saving the Best for Last copies (8999, 9000, 9004,
+// 9006, 9007, 9011, 9013) that the Legacy Challenges guide still accepted, and the guide no longer compiled
+// ("quest 8999 is not in data"). No guide (guides/, experimental/) may accept, turn in or name in a `quest N`
+// objective a quest the corrections remove.
+test('no guide accepts, turns in or works on a quest the corrections remove (#4169)', () => {
+	const removed = new Set(Object.entries(corrections.quests).filter(([, e]) => e && e.remove).map(([id]) => Number(id)));
+	const root = path.join(__dirname, '..');
+	const files = [];
+	const walk = (dir) => {
+		if (!fs.existsSync(dir)) return;
+		for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+			const p = path.join(dir, e.name);
+			if (e.isDirectory()) walk(p);
+			else if (e.name.endsWith('.guide')) files.push(p);
+		}
+	};
+	walk(path.join(root, 'guides'));
+	walk(path.join(root, 'experimental'));
+	const bad = [];
+	for (const file of files) {
+		fs.readFileSync(file, 'utf8').split('\n').forEach((line, i) => {
+			const code = line.split('--')[0];
+			if (code.trimStart().startsWith('#')) return;
+			for (const m of code.matchAll(/^\s*(?:accept|turnin)\s+(\d+)|\bquest\s+(\d+)/g)) {
+				const id = Number(m[1] || m[2]);
+				if (removed.has(id)) bad.push(`${path.relative(root, file)}:${i + 1}: ${id}`);
+			}
+		});
+	}
+	assert.ok(files.length > 100, 'the guides are read');
+	assert.deepEqual(bad, []);
 });
 
 test('the overlay takes mechanics flat or under quests; mechanics 603 and 1064 stay private', () => {
@@ -136,6 +423,23 @@ test('A Void Path waits for Never Coming Back, handed in to the same giver (#100
 test('Moonbrook Espionage waits for Murloc Gills as well as The State of the Mines (#991)', () => {
 	const { all, any } = blockingPrereqs({ id: 92747, start: { npc: [253092] }, ...corrections.quests[92747].set });
 	assert.deepEqual({ all, any }, { all: [92744], any: [92745] });
+});
+
+test('Explosive Consultation waits for A Dynamite Plan as well as the second Detonation at a Distance (#3357)', () => {
+	const { all } = blockingPrereqs({ id: 92752, start: { npc: [11026] }, preAny: [92751], ...corrections.quests[92752].set });
+	assert.deepEqual(all, [92749, 92751]);
+});
+
+test('Report to Sen\'jin Village is Forgotten Loa Idols\' breadcrumb, not its prerequisite (#3214, #796)', () => {
+	const set = corrections.quests[97225].set;
+	assert.deepEqual(blockingPrereqs({ id: 97225, start: { npc: [3304] }, pre: [805], ...set }), { all: [], any: [] });
+	assert.deepEqual(set.breadcrumbs, [805], 'held back while 805 is in the log');
+});
+
+// The hand-in guide leads to a placed objective with no id before the hand-in (Dungeons/Handin.lua, talksLeft).
+test('More Valuable Than Gold\'s treasure is placed at Connery\'s Trunk, where it is handed in (#3382)', () => {
+	const [o] = corrections.quests[96337].set.objectives;
+	assert.deepEqual([o.type, o.id, o.map, o.x, o.y], ['event', null, 1436, 43.4, 67.9]);
 });
 
 test('The State of the Mines waits for both Testing the Wells and Murloc Gills (dungeon pre-quest sweep)', () => {
@@ -230,6 +534,13 @@ test("Henrig Lonebrow's Journal lies where players loot it now, its old spot gon
 	assert.deepEqual(corrections.objects[19861].set.spawns, { 1441: { f: 'e', pts: [[31.29, 28.05]] } });
 });
 
+// #2466: the Ancient Egg's world point is inside both The Hinterlands' and Arathi Highlands' map frames, and it was
+// read in Arathi's (81.3,26.2), so the Sunken Temple pick-up guide's collect step led to Hammerfall. Players loot it
+// in The Hinterlands.
+test('The Ancient Egg lies in The Hinterlands, where players loot it, not on Arathi Highlands\' map (#2466)', () => {
+	assert.deepEqual(corrections.objects[175889].set.spawns, { 1425: { f: 'e', pts: [[57.48, 86.69]] } });
+});
+
 // #1992, #2007: Archmage Tervosh and Lady Jaina Proudmoore show at Sentry Point and North Point Tower only to players on
 // The Missing Diplomat; the corrections had made those spots their spawns, so the Maraudon pick-up guide sent everyone to
 // North Point Tower for Shadowshard Fragments. Their spawns are Theramore's tower; the chain's steps keep their own spots.
@@ -249,6 +560,16 @@ test('quest objects stand where players loot them: Krom\'zar\'s Banner, the coff
 	const box = at(19019, 1436).pts;
 	for (const p of [[43.98, 67.79], [44.9, 71.1], [26.46, 72.78]]) assert.ok(box.some((q) => q[0] === p[0] && q[1] === p[1]), `Box of Assorted Parts at ${p}`);
 	assert.ok(at(19019, 1413).pts.some((q) => q[0] === 61.92 && q[1] === 3.62), 'and in the Barrens where players loot it');
+});
+
+// Merkanex (#2861): the City of Dalaran pick-up guide sent a Horde player up the stairs to the guards for Dalaran
+// Patrols, and to 16,77 for the slaves. Players kill both around the ruins outside the dome, none south of 68.
+test('Dalaran Summoners and Elemental Slaves stand around the ruins outside the dome, none at 10-20,73-81 (#2861)', () => {
+	for (const id of [2358, 2359]) {
+		const pts = corrections.npcs[id].addSpawns[1416].pts;
+		assert.ok(pts.length >= 20, `npc ${id}: the recorded kill spots`);
+		for (const [x, y] of pts) assert.ok(x >= 16 && x <= 28 && y >= 49 && y <= 67, `npc ${id}: ${x},${y} outside the ruins`);
+	}
 });
 
 test('The Glowing Shard\'s one line is to speak with Sputtervalve in Ratchet, so its hand-in guide goes there first (#1326)', () => {
@@ -539,6 +860,80 @@ test('quest XP the recordings confirm is held by the corrections (0.3.8 XP revie
 	assert.deepEqual(corrections.quests[96261].set.preAny, [96259], "The Broodmother's prerequisite stays");
 });
 
+test('Hyjal tracks each seed cast separately and credits the decision at Felflick (#3170, #3121, #3194)', () => {
+	const wrecks = corrections.quests[93747].set.objectives;
+	assert.deepEqual(wrecks.map(o => [o.text, o.type, o.count]), [
+		['Ruined Ballista reclaimed', 'event', 1],
+		['Ruined Catapult reclaimed', 'event', 1],
+		['Ruined Flying Machine reclaimed', 'event', 1],
+	]);
+	assert.deepEqual(corrections.quests[96322].set.objectives, [
+		{ type: 'talk', id: 263757, count: 1, text: 'Decide What to do with Felflick' },
+	]);
+});
+
+test('A Matter of Time asks for fifteen Temporal Parasites in both the goal and its instructions (#3046)', () => {
+	const { objectives: [goal], objectiveText } = corrections.quests[4971].set;
+	assert.deepEqual([goal.type, goal.id, goal.count], ['kill', 10717, 15]);
+	assert.ok(objectiveText.includes(`${goal.count} Temporal Parasites`));
+});
+
+test("Burkrum's stock at Splintertree Post has no ammunition or ammo bags (#3189)", () => {
+	for (const item of [2102, 2512, 2515, 2516, 2519, 3030, 3033, 5439, 11285, 11362]) {
+		assert.ok(corrections.items[item]?.removeVendors.includes(6028), `item ${item} still lists Burkrum`);
+	}
+});
+
+test("Champion's Hall quartermasters sell and repair gear, but offer no inn or auction services (#2984, #3168)", () => {
+	for (const npc of [12777, 12782]) assert.deepEqual(corrections.npcs[npc].set.roles, ['repair', 'vendor']);
+});
+
+// #3112: the Crossroads stall is an auctioneer, a banker or a mailbox by the day (Auctioneer Quickcoin 258878,
+// Steamwheedle Courier 258879 and Uninspected Shipment 258880 share their two spawn points; recordings meet both
+// the auctioneer and the banker there), so the cooking guide's Auction House goal stalled on the other days.
+// Sweep of NPCs sharing every spawn point with another: this stall is the only one that takes turns.
+test('The Crossroads stall that changes by the day gives no Auction House or bank goal (#3112)', () => {
+	for (const npc of [258878, 258880]) assert.deepEqual(corrections.npcs[npc].set.roles, [], `npc ${npc}`);
+});
+
+// #3032: Nearby services' nearest vendor led to Orphan Matron Nightingale, whose vendor flag carries only the
+// Children's Week foods; 36 people's recorded windows with her had no merchant window.
+test('Orphan Matron Nightingale is no everyday vendor (#3032)', () => {
+	assert.deepEqual(corrections.npcs[14450].set.roles, []);
+});
+
+// #3241: Lookup's step for Powering the Pylons (96018) said "Elite: group advised" at the Mana Sieve's altar. The
+// Codex marks an object's objective when hostile elites stand within 40 yards of it, and an elite with no side counts
+// as hostile: the altar's Pylon Protectors (level 61) have none in the merged data, yet players' recordings show them
+// neutral to all 64 people who met them, never fought. Sweep: every elite with no side that marks a Codex objective,
+// checked against the recordings; these six more were seen only neutral or friendly and never killed.
+test('elites players only ever saw neutral are neutral to both sides, so no objective beside them reads "group advised" (#3241)', () => {
+	for (const npc of [252695, 11102, 266878, 266880, 271742, 270571, 269699]) {
+		assert.equal(corrections.npcs[npc]?.set?.faction, 'AH', `npc ${npc}: neutral to both sides`);
+	}
+});
+
+// #3028: Test of Lore's only line is to answer Braug Dimspirit's question, and a wrong answer teleports you to Camp
+// Taurajo; the Scarlet Monastery pick-up guide never said the answer. The mechanics record is the Codex's `how`, the
+// note Lookup shows on the step.
+test('Test of Lore says to answer Braug Dimspirit with Neltharion (#3028)', () => {
+	const [step] = require('../data/mechanics-public.json').quests[6627].steps;
+	assert.deepEqual([step.action, step.target], ['talk', { type: 'npc', id: 4489 }]);
+	assert.match(step.fact, /Neltharion/);
+	assert.match(step.fact, /Camp Taurajo/);
+});
+
+// #3069 (gidi, the Scarlet Monastery pick-up guide): the step for the first Test of Lore (1154) pointed at its book,
+// the Legacy of the Aspects, and never said the book lies underground, at the bottom of the Dor'Danil Barrow Den. The
+// mechanics record is the Codex's `how`, the note Lookup shows on the step.
+test("Test of Lore says its book lies at the bottom of the Dor'Danil Barrow Den (#3069)", () => {
+	const [step] = require('../data/mechanics-public.json').quests[1154].steps;
+	assert.equal(step.action, 'explore');
+	assert.match(step.fact, /Dor'Danil Barrow Den/);
+	assert.match(step.fact, /descend to the bottom/);
+	assert.match(step.fact, /Legacy of the Aspects/);
+});
+
 // #1820: Nearby services' "Bows & guns" at Grom'gol led to Innkeeper Thulbek (5814), who sells food, drink and
 // fish only (the Forever TDB's vendor list, 4 people's recorded merchant windows). pfQuest alone listed him as a
 // vendor of Hunter's Boomstick (2511) and a repairer. Sweep over every Codex `sells:ranged` and `repair` NPC
@@ -675,4 +1070,138 @@ test('the release data: Death to the Dragonmaw (#2256) and Open the Maw (#2437) 
 	assert.ok(pre(98291).includes(98246), 'Death to the Dragonmaw after Trying Times');
 	assert.ok(pre(95682).includes(95663), 'Open the Maw after Dragonmaw Rumors');
 	assert.equal(quests[6562].breadcrumbFor, 6563);
+});
+
+// bsolca (#3102): Bloodpetal Poison's goal named the Workers, Reavers and Hive Guards for the Gorishi Sting; players'
+// recordings tick the line only on Wasps and Stingers.
+test('Gorishi Sting is not dropped by the Gorishi Workers, Reavers or Hive Guards (#3102)', () => {
+	assert.deepEqual(corrections.items[22435].removeDrops, { npc: [6552, 6553, 10040] });
+});
+
+// Soggy (#3235): The Super Snapper FX read "Kill Gammerita (elite)"; the snapshot comes from using the camera on her.
+test('Snapshot of Gammerita is no drop of Gammerita: the Super Snapper FX takes it (#3235)', () => {
+	assert.deepEqual(corrections.items[9330].removeDrops, { npc: [7977] });
+});
+
+test('In Demand - Ancient Elven Curiosities is offered from level 60, as the live server says (#3072)', () => {
+	assert.equal(corrections.quests[96076].set.minLevel, 60);
+});
+
+// The Codex's `how` (the public mechanics' facts) is what a Lookup pick-up step says beyond the objectives (#2714).
+test('pick-up steps say what the objectives leave out: the Twilight Key (#3266), Maraudon (#3243), Franclorn the ghost (#3009), the slimes\' chests (#3002)', () => {
+	const { quests } = require('../data/mechanics-public.json');
+	const how = (q) => (quests[q]?.steps ?? []).map((s) => s.fact).join(' ');
+	assert.match(how(94748), /Twilight Champions .* drop the Twilight Key/);
+	assert.match(how(93404), /inside Maraudon/);
+	assert.match(how(3801), /ghost only a dead character can see/);
+	assert.match(how(1027), /Rotting Slimes .* leave a Rusty Chest/);
+});
+
+// Rockout (#3545): My Little Friends' specimens are caught with the Bug Catching Net, not looted, so the goal read
+// "Kill Hay Weevil". The public mechanics name the net and the three insects it works on.
+test('My Little Friends: each specimen is a use of the Bug Catching Net on its insect, not a kill (#3545)', () => {
+	const m = require('../data/mechanics-public.json').quests[93176];
+	assert.deepEqual(m.params, [{ kind: 'use-item-on-mob', item: 213562, npcs: [217588, 217589, 217590] }]);
+	assert.deepEqual(m.steps.map((s) => [s.n, s.action, s.target.id, s.item.id]), [[1, 'use-item', 217588, 213562], [2, 'use-item', 217589, 213562], [3, 'use-item', 217590, 213562]]);
+});
+
+// Gindry (#3546): Tooga gives Oasis only once Tooga's Quest is handed in at Torta.
+test('Oasis comes after Tooga\'s Quest (#3546)', () => {
+	assert.deepEqual(corrections.quests[97540].set.pre, [1560]);
+});
+
+// #3171, #3392, #3522: the live server describes none of Duke Hydraxis's chain, nor Attunement to the Core, and two
+// players at 56 and 60 were offered nothing by him: the quests leave the data until the Molten Core opens.
+test('Duke Hydraxis\'s chain and Attunement to the Core leave the data while the Molten Core is closed (#3171, #3392, #3522)', () => {
+	for (const q of [6804, 6805, 6821, 6822, 6823, 6824, 7486, 7848]) {
+		assert.equal(corrections.quests[q].remove, true, `quest ${q}`);
+		assert.ok(corrections.quests[q].source.some((s) => s.kind === 'eg'), `quest ${q}: the live scans`);
+	}
+});
+
+// Zack (#3338): Scout Bloodfist and Rifleman Torrig are not in the world, and nobody has done their quests.
+test('The Silithus scouts\' quests leave the data: 9415, 9416 and the Scouring the Desert pair (#3338)', () => {
+	for (const q of [9415, 9416, 9419, 9422]) assert.equal(corrections.quests[q].remove, true, `quest ${q}`);
+});
+
+// PierreAnken (#3192): Ignatz offers the Horde's Stinky's Escape from level 36; the Alliance's stays at 30.
+test('Stinky\'s Escape (Horde) is offered from level 36 (#3192)', () => {
+	assert.equal(corrections.quests[1270].set.minLevel, 36);
+	assert.equal(corrections.quests[1222], undefined);
+});
+
+// Sugawolf (#3601): Pix Xizzix offers one In Demand quest a week; the data knew only 96076. All four are known now.
+test('Pix Xizzix\'s four In Demand quests are in the data (#3601)', () => {
+	for (const q of [96075, 96087, 96088]) {
+		const s = corrections.quests[q].set;
+		assert.deepEqual([s.start.npc, s.end.npc, s.minLevel, s.objectives.length], [[227853], [227853], 60, 3], `quest ${q}`);
+	}
+});
+
+// #2465, #3138, #3601, #558: what the game hides behind a condition, for the engine (#3658).
+test('Seeking the Kor Gem counts as done by An Underrated Talent; Zorbin sells after Zapped Giants; Pix\'s In Demand quests rotate; Franclorn is a ghost (#2465, #3138, #3601, #558)', () => {
+	assert.deepEqual(corrections.quests[95042].set.doneBy, [95111]);
+	assert.equal(corrections.npcs[14637].set.vendorAfter, 7003);
+	for (const q of [96075, 96076, 96087, 96088]) assert.equal(corrections.quests[q].set.rotation, 'pix-weekly', `quest ${q}`);
+	assert.equal(corrections.npcs[8888].set.ghostOnly, true);
+});
+
+// Everlast (#3301): Melizza offers her escort in the Maraudine camp, not along its path.
+test('Melizza Brimbuzzle stands only in the Maraudine camp (#3301)', () => {
+	for (const [x, y] of corrections.npcs[12277].set.spawns[1443].pts) assert.ok(x < 34.5 && y < 55, `${x},${y}`);
+});
+
+// Stö (#3531): Blademaster's Bonfires is two bonfires lit, with their objects and spots.
+test('Blademaster\'s Bonfires: the south and southeast bonfires are its objectives, placed where players light them (#3531)', () => {
+	assert.deepEqual(corrections.quests[96959].set.objectives.map((o) => [o.type, o.id]), [['object', 656668], ['object', 656669]]);
+	assert.deepEqual(corrections.objects[656668].addSpawns[2482].pts, [[49.1, 36.02]]);
+	assert.deepEqual(corrections.objects[656669].addSpawns[2482].pts, [[54.84, 40.0]]);
+});
+
+// gidi_ (#3676): Biting the Hand's second part, leading Fuzzle out of Sunnyglade, is an escort its text never names.
+test('Biting the Hand (94963) is an escort (#3676)', () => {
+	assert.equal(corrections.quests[94963].set.escort, true);
+});
+
+// cjtylr (#3739): The Return of the King? had no objective, so the pick-up guide sent players straight back to Sully.
+test('The Return of the King? (95198) has its eavesdropping objective at the Theramore Mage Tower (#3739)', () => {
+	const [o, ...rest] = corrections.quests[95198].set.objectives;
+	assert.equal(rest.length, 0, 'one objective');
+	assert.equal(o.text, "Relieve Jaina's guard and eavesdrop");
+	assert.equal(o.map, 1445);
+});
+
+// devanpy (#3773): Twilight Tablet Fragments lie on the ground; the elementals pfQuest lists at 100 never drop them.
+test('Twilight Tablet Fragment (20378) drops from no elemental (#3773)', () => {
+	assert.deepEqual(corrections.items[20378].removeDrops.npc, [11744, 11746, 14455]);
+});
+
+// #3706: Horde Triage (6622) takes place at Doctor Gregory Victor in Hammerfall, Arathi Highlands (1417),
+// not at the Alliance clinic in Theramore Isle (1445).
+test('Horde Triage (6622) is completed at Doctor Gregory Victor in Hammerfall (#3706)', () => {
+	const objs = corrections.quests[6622].set.objectives;
+	assert.ok(objs && objs.length === 1, 'one objective');
+	assert.equal(objs[0].type, 'event');
+	assert.equal(objs[0].map, 1417);
+	assert.deepEqual([objs[0].x, objs[0].y], [73.4, 36.8]);
+});
+
+// 司徒王朗 (#4157): Mother's Milk's line "Milked" ticks when Ragged John milks a player Mother Smolderweb has poisoned;
+// typed as a talk, the Blackrock Spire hand-in guide sent players to talk to him without the poison.
+test("Mother's Milk (4866) is an event, not a talk at Ragged John (#4157)", () => {
+	const objs = corrections.quests[4866].set.objectives;
+	assert.equal(objs.length, 1, 'one objective');
+	assert.deepEqual([objs[0].type, objs[0].id, objs[0].text], ['event', null, 'Milked']);
+	assert.ok(!('map' in objs[0]), 'no place: the hand-in guide lists it as not finished');
+});
+
+// Moduki (#4188): Kodo Roundup's kodos are tamed with the Kodo Kombobulator and counted at Smeed's camp; the quest
+// guide said "Kill Aged Kodo".
+test('Kodo Roundup (5561) is a use of the Kodo Kombobulator on the kodos, then a talk at the camp (#4188)', () => {
+	const m = require('../data/mechanics-public.json').quests[5561];
+	assert.ok(m.kinds.some((k) => k.kind === 'use-item-on-mob' && k.confidence === 'high'));
+	const [p] = m.params;
+	assert.deepEqual([p.item, p.npcs], [13892, corrections.quests[5561].set.objectives[0].credit]);
+	assert.deepEqual(m.steps.map((s) => s.action), ['use-item', 'talk']);
+	assert.match(m.steps[0].fact, /Don't kill it/);
 });

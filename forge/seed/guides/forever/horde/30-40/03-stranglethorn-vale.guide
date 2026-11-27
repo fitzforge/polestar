@@ -2,7 +2,7 @@
 guide forever/horde/30-40/03-stranglethorn-vale
 title Stranglethorn Vale
 faction Horde
-levels 33-36
+levels 34-36
 zone Stranglethorn Vale
 next forever/horde/30-40/04-dustwallow-marsh
 
@@ -12,8 +12,6 @@ next forever/horde/30-40/04-dustwallow-marsh
 
 step Fly to Orgrimmar
   only !Druid
-  zone Desolace
-  goto 21.6,74.0 "Shadowprey Village flight master"
   fly "Orgrimmar"
   zone Orgrimmar
 
@@ -75,7 +73,8 @@ step Grom'gol
 # Nesingwary -> elder tigers -> Nesingwary -> the basilisks, raptors, Bloodscalp village and Zimmix
 # at Zul'Kunda -> Nesingwary -> Lashtail raptors -> Grom'gol -> fly to Booty Bay -> fly to Grom'gol
 # (top-up to 35 if needed) -> the Vile Reef and the Bloodscalp ruins -> Grom'gol -> Shadowmaw, the tigresses and the Snapjaw river ->
-# the Mosh'Ogg camp -> Grom'gol, where the next guide takes the zeppelin to Orgrimmar.
+# the Mosh'Ogg camp -> Grom'gol -> (top-up to 36 if needed) -> Sin'Dall north of Nesingwary's camp -> Nesingwary -> back
+# to Grom'gol, where the next guide takes the zeppelin to Orgrimmar.
 # Before 0.3.6's last pass the guide came in by zeppelin and walked from Nesingwary's camp all
 # the way down the vale to Booty Bay for its quests and flight path (2,900 yd), then flew back.
 #
@@ -184,7 +183,7 @@ step Elder Stranglethorn Tigers
 step Nesingwary's camp
   tip Back north to the camp.
   turnin 187                          -- Ajeck Rouack
-  accept 188                          -- Ajeck Rouack: Sin'Dall (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale
+  accept 188                          -- Ajeck Rouack: Sin'Dall (37) comes at the end of this guide, from level 36
 
 step Thoroughly Scavenged Supplies
   zone Stranglethorn Vale
@@ -194,7 +193,7 @@ step Thoroughly Scavenged Supplies
 step The Savage Coast: kill these as you meet them
   zone Stranglethorn Vale
   tip West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.
-  tip Leave Sin'Dall, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.
+  tip Leave Sin'Dall, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and this guide comes back to him at its end, from level 36.
   tip Careful: The raptor nest has young raptors that join the fight when you attack the adults.
   collect 3918 quest 605
   collect 1519 quest 189
@@ -202,12 +201,16 @@ step The Savage Coast: kill these as you meet them
 
 step Zimmix Sputterspark
   zone Stranglethorn Vale
-  tip Zimmix Sputterspark is held at the east edge of the Ruins of Zul'Kunda; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his Primitive Key. Then lead him out of the ruins: Wharfmaster Lozgil in Booty Bay takes the news and the shipments.
+  tip Zimmix Sputterspark is held at the east edge of the Ruins of Zul'Kunda; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his Primitive Key: Wharfmaster Lozgil in Booty Bay takes the shipments.
   tip Careful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of Zimmix, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by Zimmix first, and pull one at a time if you go north.
   accept 97329 @23.46,12.79           -- Zimmix Sputterspark
   collect 277953 quest 97328.1 @24.25,12.24 -- Stolen Shipments, in the ruins
   collect 277957 quest 97329.1        -- Primitive Key, from the Bloodscalp Scouts, Hunters and Mystics
   turnin 97329
+
+step Escort Zimmix
+  zone Stranglethorn Vale
+  tip Lead Zimmix out of the ruins and keep him alive: Lozgil takes the news once he is safe.
   accept 97331
   complete 97331 @26.8,11.4
   note Escort Zimmix out of the ruins and keep him alive: Lozgil takes the news once he is safe.
@@ -288,13 +291,27 @@ step Grom'gol
   tip Back to Grom'gol.
   turnin 569                          -- Commander Aggro'gosh
   turnin 570                          -- Far Seer Mok'thardin
-  accept 572                          -- Far Seer Mok'thardin: for forever/horde/40-50/01-stranglethorn-vale
-  accept 584                          -- Nimboya: for forever/horde/40-50/01-stranglethorn-vale
-  note The next guide takes the zeppelin to Orgrimmar from the tower on the west side of the camp.
+  accept 572                          -- Far Seer Mok'thardin: for the Stranglethorn Vale & Swamp of Sorrows guide, at about 40
+  accept 584                          -- Nimboya: for the Stranglethorn Vale & Swamp of Sorrows guide, at about 40
+  note After Sin'Dall, back here: the next guide takes the zeppelin to Orgrimmar from the tower on the west side of the camp.
 
 step Level 36
   when level<36
   zone Stranglethorn Vale
-  tip Dustwallow's quests are 35-38. Still below 36 after Grom'gol's hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36, then walk back to the zeppelin tower. Leave the Mosh'Ogg ogres (36-37) above them alone.
+  tip Dustwallow's quests are 35-38, and Sin'Dall (37) is next. Still below 36 after Grom'gol's hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36. Leave the Mosh'Ogg ogres (36-37) above them alone.
   goto 38.4,31.0 map 1434 "Snapjaw Crocolisks"
   level 36 grind 1152                 -- grind on Snapjaw Crocolisk
+
+step Sin'Dall
+  when onquest 188
+  when level>=36
+  zone Stranglethorn Vale
+  tip North from Grom'gol to the hilltop just south-west of Nesingwary's camp: Sin'Dall prowls there alone.
+  tip Careful: Sin'Dall (37) is a level over you: pull him at full health, clear of the Elder Stranglethorn Tigers (34-35) on the hill's slopes.
+  collect 3879 quest 188 @31.8,16.4
+
+step Nesingwary's camp
+  when complete 188
+  zone Stranglethorn Vale
+  tip North to Ajeck Rouack in Nesingwary's camp, then back south to Grom'gol's zeppelin tower.
+  turnin 188                          -- Ajeck Rouack

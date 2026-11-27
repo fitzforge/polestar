@@ -37,7 +37,7 @@ return {
 
 	-- Step 5: Feather Charms
 	-- plural, as words: Feather Charms = {item:6753} Feather Charm
-	["Feather Charms"] = "Feather Charms",
+	["Feather Charms"] = "Federglücksbringer",
 	-- {area:77} Anvilmar · {area:132} Coldridge Valley
 	-- plural, as words: Frostmane Novices = {npc:946} Frostmane Novice
 	["The Frostmane Novices (level 3-4) sit at the back of the troll cave south of {area:77}, near Grek'nir the Cold by the icy pool: take the left tunnel past the entrance. Four kills in five drop a charm, but only two or three novices spawn, so you may wait out their three-minute respawn. They throw frostbolts from range; the Troll Whelps at the cave mouth jump anyone who passes. With the charms, your hearthstone takes you straight back: a new character's is set to {area:132}."] = "Die Frostmane Novices (Stufe 3-4) sitzen hinten in der Trollhöhle südlich von {area:77}, nahe Grek'nir the Cold am eisigen Teich: Nimm den linken Tunnel hinter dem Eingang. Vier von fünf Kills lassen einen Charm fallen, aber es spawnen nur zwei oder drei Novices, du musst also vielleicht ihren Respawn von drei Minuten abwarten. Sie werfen Frostblitze aus der Distanz; die Troll Whelps am Höhleneingang greifen jeden an, der vorbeikommt. Mit den Charms bringt dich dein Ruhestein direkt zurück: Der eines neuen Charakters ist auf {area:132} gesetzt.",

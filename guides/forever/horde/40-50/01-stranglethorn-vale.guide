@@ -2,7 +2,7 @@
 guide forever/horde/40-50/01-stranglethorn-vale
 title Stranglethorn Vale & Swamp of Sorrows
 faction Horde
-levels 39-41
+levels 39-42
 zone Stranglethorn Vale
 next forever/horde/40-50/01b-riverglades
 
@@ -13,6 +13,10 @@ next forever/horde/40-50/01b-riverglades
 # Locating the Lost City (95770, Kin'weelay's next legend: the cavern entrance under the Vile Reef, west of Grom'gol, on
 # the way to the jungle stalkers; handed in with the trophy skulls). Its follow-up, The Drowned City (95775), is a dungeon.
 # Excelsior (628, Drizzlik: the Elder Saltwater Crocolisk on the coast between Zul'Kunda and Grom'gol, optional).
+# Goblin Sponsorship (1182, fix round 2026-11-20): from Baron Revilgaz on the first Booty Bay stop, for a player who
+# brought Gazlowe's letter (1180/1181); Foreman Cozzle's footlocker on the ride north from Grom'gol to Nesingwary (his
+# house by Lake Nazferiti, about 9 map units off the road; Cozzle 38, Venture Co. Agents 39, at or under the player at
+# 40), handed in on the second Booty Bay stop with 1183 taken for Pozzik at the Mirage Raceway (40-50/02).
 # Left out: The Bloodsail Buccaneers (608), taken in forever/horde/40-50/06-azshara at 50.
 # Level tidy (0.4.0): the level 43-46 errands are still taken here, where the route passes their givers, and done on
 # 40-50/02's Grom'gol stop at about 45, after the Riverglades, where their mobs fit (here they ran 2-4 over the player,
@@ -26,11 +30,16 @@ next forever/horde/40-50/01b-riverglades
 
 step Fly to the Undercity
   only Warrior,Paladin,Rogue,Priest,Mage,Warlock
-  zone Badlands
   tip Your level 40 training is in the Undercity: fly there from Kargath, train, and take the zeppelin from the towers outside the city to Grom'gol.
-  goto 4.1,44.9 "Kargath flight master"
   fly "Undercity"
   zone Undercity
+
+step Genavie Callow
+  only Warrior,Paladin,Rogue,Priest,Mage,Warlock
+  when complete 1164
+  zone Undercity
+  tip Genavie Callow stands beside the flight master you land at: the Dabyrie heads from the Arathi Highlands.
+  turnin 1164                           -- Genavie Callow, beside the flight master
 
 step Undercity trainers
   only Warrior,Paladin,Rogue,Priest,Mage,Warlock
@@ -58,8 +67,12 @@ step Fly to Grom'gol
   zone Stranglethorn Vale
 
 step Grom'gol Base Camp
+  sethome "Grom'gol Base Camp" npc 5814 -- Innkeeper Thulbek, by the flight master: hearth back here after the trainer trip at 40
   turnin 1240                           -- Kin'weelay
   accept 95748 npc 2519                 -- Kin'weelay: the legend lies in Zul'Kunda, where this guide goes for Gan'zulah
+  accept 1261                           -- the Bubbling Cauldron beside Kin'weelay: Marg Speaks, for Nazeer Bloodpike in Brackenwall Village on the Dustwallow guide, where the crabs drop the pendant
+  accept 598                            -- Kin'weelay: Split Bone Necklace, the trophy skulls stand in the Skullsplitter ruins, on this guide's second loop
+  accept 2932                           -- Nimboya: Grim Message, for the Hinterlands, around level 48
 
 step Jungle Stalkers
   tip The Jungle Stalkers (40-41) hunt the coast south of Grom'gol. They are well above you: pull one at a time and rest between fights.
@@ -75,28 +88,41 @@ step Fly to Booty Bay
   goto 32.5,29.3 "Grom'gol flight master"
   fly "Booty Bay"
 
+step Drizzlik
+  zone Stranglethorn Vale
+  when complete 577
+  tip Drizzlik's shop is in the building east of the inn.
+  turnin 577                          -- Drizzlik: the Snapjaw skins gathered earlier; inside
+
 step Booty Bay
   zone Stranglethorn Vale
-  turnin 577                          -- Drizzlik: the Snapjaw skins gathered earlier; inside
-  accept 628                          -- Drizzlik: the Elder Saltwater Crocolisk suns on the coast between Zul'Kunda and Grom'gol, later on this loop
   tip Gringer, the flight master, waits on Booty Bay's upper deck. The quest givers stand on the boardwalks around the harbour and in the inn.
-  turnin 213                          -- Kebok
+  accept 628                          -- Drizzlik: the Elder Saltwater Crocolisk suns on the coast between Zul'Kunda and Grom'gol, later on this loop
+
+step Kebok
+  zone Stranglethorn Vale
+  when complete 213
+  tip Kebok stands upstairs, beside the flight master.
+  turnin 213                          -- Kebok: the Tumbled Crystals from the earlier Stranglethorn guide
+
+step Kebok
+  when turnedin 189
+  tip Kebok, upstairs, has his next errand now: the Skullsplitter tusks come from the trolls of Zul'Mamwe, later on this loop.
+  accept 209                            -- Kebok, upstairs
+
+step Booty Bay
   turnin 1180                         -- Wharfmaster Lozgil, on the docks: Gazlowe's letter, if you carry it
   accept 1181
   accept 97332                          -- Wharfmaster Lozgil: Twice Misplaced Trust, after Zimmix's rescue; the package goes to Wharfmaster Whizzbuzz at Powderfuse Port, in the Riverglades guide
   accept 606                            -- "Sea Wolf" MacKinley, on the top floor
   turnin 1181                         -- Baron Revilgaz, on the balcony beside MacKinley
+  accept 1182                         -- Baron Revilgaz: Cozzle's footlocker is in his house by Lake Nazferiti, on your way north to Nesingwary
   turnin 669
   accept 621                          -- Inside
   accept 600                            -- Crank Fizzlebub
   accept 617                            -- Privateer Bloads
   vendor nearest
   accept 595                            -- First Mate Crazz
-
-step Kebok
-  when turnedin 189
-  tip Kebok, upstairs, has his next errand now: the Skullsplitter tusks come from the trolls of Zul'Mamwe, later on this loop.
-  accept 209                            -- Kebok, upstairs
 
 # ---------------------------------------------------------------- Booty Bay
 
@@ -118,8 +144,9 @@ step Kebok
 # -> Nesingwary ->
 # north through Duskwood and Deadwind Pass -> the Harborage -> Stonard
 # (flight path) -> crocolisks, Noboru, the Draenethyst crystals and Galen's
-# escort -> Galen's strongbox -> the Harborage, where the next guide rides back
-# to Stonard's flight master.
+# escort -> Galen's strongbox -> the Harborage -> back east past Stonard to the
+# Pool of Tears -> Misty Reed Post (Lack of Surplus, the snappers) -> Stonard,
+# where the next guide flies to Kargath.
 #
 # Deviations from the simulator's order:
 # - One stay at Zul'Mamwe for Speaking with Gan'zulah (586), Split Bone
@@ -133,14 +160,19 @@ step Kebok
 #   the same Zul'Mamwe loop, so merging saves a later trip from Grom'gol.
 # - Witch Doctor Unbagwa's part of Stranglethorn Fever (349) waits for 40-50/02's Grom'gol stop with Mokk (44):
 #   keep the gorilla fangs from this guide's Mistvale loop for it.
-# - Binds: none in this guide (0.4.0 route audit): the hearthstone stays
-#   where the previous guides set it. The travel sweep found no trip here
-#   that hearths back to Grom'gol, Booty Bay or Stonard, and 40-50/02 binds
-#   at Camp Mojache before its first hearth.
-# - Swamp of Sorrows: one pass east and back west (final review, 0.3.5).
-#   Lack of Surplus (698) is handed to Tok'Kar on the Misty Reed stop of
-#   forever/horde/40-50/03-feralas instead of a ride to the far south-east
-#   coast and back here.
+# - Binds (#4479): Grom'gol's inn on the first stop. The riding trainer trip at 40
+#   (Orgrimmar, Sen'jin, Bloodhoof, Valanaar or Brill) comes back to Grom'gol by
+#   Hearthstone instead of the zeppelin: about 5 minutes per branch with the addon's
+#   planner, and players bound at Tarren Mill took the zeppelin back (players' recordings).
+#   40-50/02 binds at Camp Mojache before its first hearth.
+# - Swamp of Sorrows: the strongbox on the way back west, the Harborage,
+#   then one ride east: the Pool of Tears, Misty Reed Post and Stonard
+#   (fix round, 2026-11-20). Lack of Surplus (698) is worked here and its
+#   crocolisks are 38, the pool's Sawfin Frenzies 38-40 and the snappers of
+#   Lack of Surplus' second part 41-42, all at or under the player at about
+#   41.5; players' recordings show a quarter of Horde players taking 698 at 42
+#   or lower and 1424 at 43.5 or lower. Katar's murlocs (41-44) and Fresh
+#   Meat's crawlers (42-44) wait for the next swamp visit.
 # - Added in the October refresh, from the new export (Forever above 30
 #   cannot be checked in game until launch on 4 November: from the data, not
 #   from play): Draenethyst Crystals (1389). Magtoor gives it at the
@@ -163,10 +195,9 @@ step Kebok
 # Sorrows; Grim Message (2932) in the Hinterlands, around level 48.
 #
 # Left out: Sunken Treasure part 6 (670: Seahorn sends you back to Shakes
-# O'Breen in Arathi, and the route never returns there); Goblin Sponsorship
-# part 4 (1182: Cozzle's footlocker sits in the Venture Co. camp at Lake
-# Nazferiti, off this loop). Parts 2 and 3 (1180, 1181: Gazlowe's letter from
-# 30-40/04) are handed in on the first Booty Bay stop.
+# O'Breen in Arathi, and the route never returns there). Goblin Sponsorship
+# part 4 (1182) is taken (see the note at the top); parts 2 and 3 (1180, 1181:
+# Gazlowe's letter from 30-40/04) are handed in on the first Booty Bay stop.
 # Left out from the refreshed export:
 # - Ancient Gurubashi Idol (96774, new in Forever, 8,800 XP): a dungeon quest
 #   in the Drowned City ("gather some friends", the Forever client's
@@ -198,13 +229,34 @@ step Booty Bay
 # ---------------------------------------------------------------- North through the jungle
 
 step Mistvale gorillas
-  tip The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.
+  when level>=40
+  when onquest 571
+  when !complete 571
+  tip The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: if you will take Stranglethorn Fever with a group, keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.
   tip Careful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time.
-  collect 2799 x10
+  loop
+  goto 33.03,66.12 map 1434 era r 22
+  goto 32.57,66.64 map 1434 era r 22
+  collect 2799 x10 npc 1557 optional -- Keep fangs from these same elders for Unbagwa (Stranglethorn Fever, with a group).
   collect 3862 quest 571 @33.0,66.1 map 1434
+  collect 3919 quest 606.1 @33.03,66.12 map 1434 era
 
-step Mistvale gorillas
-  collect 3919 quest 606.1
+step Mistvale giblets
+  when level>=40
+  when onquest 606
+  when !complete 606
+  collect 3919 quest 606.1 npc 1557 @33.03,66.12 map 1434 era
+
+step Mistvale gorillas at 39
+  when level>=39
+  when level<40
+  when onquest 571,606
+  tip Look for lone level 40 elders in this same camp for the sinew and giblets. Leave level 41 gorillas alone; don't stay just for extra fangs.
+  loop
+  goto 33.03,66.12 map 1434 era r 22
+  goto 32.57,66.64 map 1434 era r 22
+  collect 3862 quest 571 npc 1557
+  collect 3919 quest 606.1 npc 1557
 
 step Venture Co. mine
   tip Further north, the goblins of the Venture Co. dig at the mine east of the road; miners, foremen, surveyors and tinkerers all drop the crystals.
@@ -224,6 +276,12 @@ step Lashtail Raptors
   when onquest 195
   tip Raptor Mastery is still open: the Lashtail Raptors (35-36) hunt the jungle between Grom'gol and Nesingwary's camp, on your way north.
   kill 686 quest 195 @32.4,23.2 map 1434
+
+step Foreman Cozzle's house
+  when onquest 1182
+  tip On the way north, a short way east of the road: Foreman Cozzle's house stands on the north shore of Lake Nazferiti. Foreman Cozzle (38) carries the key to his footlocker, inside the house; the Venture Co. Agents (39) stand in and around it: pull them one at a time. Then on north-west to Nesingwary's camp.
+  collect 5851 "Cozzle's Key" @42.6,18.4 map 1434 -- Foreman Cozzle
+  collect 5852 quest 1182.1 @43.3,20.4 map 1434 -- Cozzle's Footlocker, inside the house
 
 step Nesingwary's camp
   turnin 195                          -- Hemet Nesingwary
@@ -310,8 +368,7 @@ step Grom'gol
   turnin 584                            -- the Bubbling Cauldron, beside Nimboya
   turnin 95748 npc 2519                 -- Kin'weelay
   accept 585
-  accept 2932                           -- Nimboya: for the Hinterlands, around level 48
-  accept 598                            -- Kin'weelay: the trophy skulls stand in the Skullsplitter ruins, later on this loop
+  accept 598                            -- Kin'weelay, if you didn't take it on the first stop: the trophy skulls stand in the Skullsplitter ruins, later on this loop
   accept 95770 npc 2519                 -- Kin'weelay: the cavern entrance under the Vile Reef, west of the camp
 
 step Riding at 40
@@ -319,7 +376,7 @@ step Riding at 40
   zone Orgrimmar
   when level>=40
   when !skill Riding 1
-  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the Riverglades after Stranglethorn are a long walk without one. Take the zeppelin from Grom'gol's tower to Orgrimmar: Kildar teaches Orcs in the Valley of Honor, by Ogunaro Wolfrunner's kennel (wolves 20 gold each). Then the zeppelin back to Grom'gol. Short of gold? Skip this step: the Feralas guide passes Orgrimmar again at about 45.
+  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the Riverglades after Stranglethorn are a long walk without one. Take the zeppelin from Grom'gol's tower to Orgrimmar: Kildar teaches Orcs in the Valley of Honor, by Ogunaro Wolfrunner's kennel (wolves 20 gold each). Then hearth back to Grom'gol, or take the zeppelin if your hearthstone is cooling down. Short of gold? Skip this step: the Feralas guide passes Orgrimmar again at about 45.
   train 4752                            -- Kildar, riding trainer
 
 step Riding at 40
@@ -327,7 +384,7 @@ step Riding at 40
   zone Durotar
   when level>=40
   when !skill Riding 1
-  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the Riverglades after Stranglethorn are a long walk without one. Take the zeppelin from Grom'gol's tower to Orgrimmar and go south down the Durotar road to Sen'jin Village: Xar'Ti teaches Trolls there, with Zjolnir's raptors (20 gold each). Then back to the zeppelin for Grom'gol. Short of gold? Skip this step: the Feralas guide passes Orgrimmar again at about 45.
+  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the Riverglades after Stranglethorn are a long walk without one. Take the zeppelin from Grom'gol's tower to Orgrimmar and go south down the Durotar road to Sen'jin Village: Xar'Ti teaches Trolls there, with Zjolnir's raptors (20 gold each). Then hearth back to Grom'gol, or take the zeppelin from Orgrimmar if your hearthstone is cooling down. Short of gold? Skip this step: the Feralas guide passes Orgrimmar again at about 45.
   train 7953                            -- Xar'Ti, riding trainer
 
 step Riding at 40
@@ -335,7 +392,7 @@ step Riding at 40
   zone Mulgore
   when level>=40
   when !skill Riding 1
-  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the Riverglades after Stranglethorn are a long walk without one. Take the zeppelin from Grom'gol's tower to Orgrimmar, fly to Thunder Bluff and ride down to Bloodhoof Village: Kar Stormsinger teaches Tauren there, with Harb Clawhoof's kodos (20 gold each). Then fly back to Orgrimmar for the Grom'gol zeppelin. Short of gold? Skip this step: the Feralas guide passes Thunder Bluff again at about 45.
+  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the Riverglades after Stranglethorn are a long walk without one. Take the zeppelin from Grom'gol's tower to Orgrimmar, fly to Thunder Bluff and ride down to Bloodhoof Village: Kar Stormsinger teaches Tauren there, with Harb Clawhoof's kodos (20 gold each). Then hearth back to Grom'gol, or fly back to Orgrimmar for the Grom'gol zeppelin if your hearthstone is cooling down. Short of gold? Skip this step: the Feralas guide passes Thunder Bluff again at about 45.
   train 3690                            -- Kar Stormsinger, riding trainer
 
 step Riding at 40
@@ -343,7 +400,7 @@ step Riding at 40
   zone Zephras Isle
   when level>=40
   when !skill Riding 1
-  tip Riding needs level 40 and costs 100 gold; learning it gives you a Galestrider, and the Riverglades after Stranglethorn are a long walk without one. Take the zeppelin from Grom'gol's tower to Orgrimmar and fly to Thunder Bluff: the skyboat to Zephras Isle leaves the cliffs south of Skywatcher Plateau, north of Thunder Bluff, about every five minutes, and Genn Fairweather teaches Skyborne at the Fairweather Stables in Valanaar. Then back to Orgrimmar for the Grom'gol zeppelin. Short of gold? Skip this step: the Feralas guide passes Orgrimmar again at about 45.
+  tip Riding needs level 40 and costs 100 gold; learning it gives you a Galestrider, and the Riverglades after Stranglethorn are a long walk without one. Take the zeppelin from Grom'gol's tower to Orgrimmar and fly to Thunder Bluff: the skyboat to Zephras Isle leaves the cliffs south of Skywatcher Plateau, north of Thunder Bluff, about every five minutes, and Genn Fairweather teaches Skyborne at the Fairweather Stables in Valanaar. Then hearth back to Grom'gol, or go back to Orgrimmar for the Grom'gol zeppelin if your hearthstone is cooling down. Short of gold? Skip this step: the Feralas guide passes Orgrimmar again at about 45.
   train 265756                          -- Genn Fairweather, riding trainer, at the Fairweather Stables in Valanaar
 
 step Riding at 40
@@ -351,7 +408,7 @@ step Riding at 40
   zone Tirisfal Glades
   when level>=40
   when !skill Riding 1
-  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the Riverglades after Stranglethorn are a long walk without one. Take the zeppelin from Grom'gol's tower to the Undercity's towers: Velma Warnam teaches the Forsaken in Brill, a short ride north, with Zachariah Post's skeletal horses (20 gold each). Then the zeppelin back to Grom'gol. Short of gold? Skip this step: the Swamp of Sorrows guide passes the Undercity again at about 47.
+  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the Riverglades after Stranglethorn are a long walk without one. Take the zeppelin from Grom'gol's tower to the Undercity's towers: Velma Warnam teaches the Forsaken in Brill, a short ride north, with Zachariah Post's skeletal horses (20 gold each). Then hearth back to Grom'gol, or take the zeppelin if your hearthstone is cooling down. Short of gold? Skip this step: the Feralas & Tanaris guide passes the Undercity again at about 45.
   train 4773                            -- Velma Warnam, riding trainer
 
 step Your mount at 40
@@ -380,18 +437,29 @@ step Booty Bay
   tip Head south to Booty Bay. Shaky Phillipe waits on the docks.
   turnin 606                            -- "Shaky" Phillipe
   accept 607
-  accept 580                            -- Whiskey Slim, in the inn: his bottles wash up on the Hinterlands coast, around level 48
-  accept 348                            -- Fin Fizracket: Stranglethorn Fever (offered from 40), Unbagwa's part on the Feralas guide's Grom'gol stop
   turnin 600                          -- Inside
+  turnin 1182                         -- Baron Revilgaz, on the balcony
+  accept 1183                         -- Baron Revilgaz: for Pozzik at the Mirage Raceway, on the Feralas & Tanaris guide's way
   accept 209                            -- Kebok, upstairs: the tusks come from the Skullsplitters, later on this loop
   turnin 607                            -- "Sea Wolf" MacKinley, on the top floor
-  accept 2872                           -- MacKinley, on the top floor: for Stoley in Tanaris
   accept 609                            -- MacKinley: keep it, the ghost pirates (43-44) wait for your Stranglethorn stop at about 45
   turnin 628 optional                   -- Drizzlik, inside: the Elder Crocolisk Skin
   accept 576                            -- Dizzy One-Eye: keep it for the Wild Shore at about 45
   accept 604                            -- Fleet Master Seahorn: keep it for the Wild Shore at about 45
   accept 587                            -- Deeg, on the top floor: keep it for the Wild Shore at about 45
   vendor nearest
+
+step Whiskey Slim and Fin Fizracket
+  when level>=40
+  tip Whiskey Slim, in the inn, and "Sea Wolf" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the Feralas & Tanaris guide's Booty Bay stop offers them again.
+  accept 580                            -- Whiskey Slim, in the inn: his bottles wash up on the Hinterlands coast, around level 48
+  accept 2872                           -- MacKinley, on the top floor: Stoley's Debt, for Stoley in Tanaris
+
+step Fin Fizracket
+  when level>=40
+  when group 348
+  tip Group quest: Stranglethorn Fever ends at Witch Doctor Unbagwa in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then Mokk the Savage (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along.
+  accept 348                            -- Fin Fizracket, beside the inn: Unbagwa's part on the Feralas guide's Grom'gol stop
 
 step The Bloodsail ships
   when group 624
@@ -407,23 +475,36 @@ step Fly to Grom'gol
 
 step Zul'Mamwe
   zone Stranglethorn Vale
-  tip From Grom'gol head east to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. One pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all. Careful: Ana'thek the Cruel (45) walks the south-western ruins with two guards; Speaking with Gan'zulah's last piece, his Broken Armor, waits for your Stranglethorn stop at about 45.
-  goto 45.06,34.07 "Skullsplitter warriors"
-  collect 1524 quest 209.1 @45.4,36.2 map 1434 era
-  collect 3908 quest 585.3
+  when level>=39
+  when onquest 209,598
+  tip The warriors in the northern ruins (39-40) drop both tusks and necklaces. Pull from the edge; leave the chief and his two guards to the south alone.
+  collect 1524 quest 209.1 npc 667 @45.06,34.07 map 1434 era
+  collect 3916 quest 598.1 npc 667 @45.06,34.07 map 1434 era
 
-step Balia'mah Ruins: kill these as you meet them
+step Zul'Mamwe and Balia'mah trophy skulls
   zone Stranglethorn Vale
-  tip The next trophy skulls stand in the small ruins just north of the warriors' camp.
+  tip Look for the trophy skulls in the small ruins north of Zul'Mamwe's warriors.
   tip The last skulls are in the ruins a short walk west, on the way back to Grom'gol.
-  collect 3916 quest 598.1
+  collect 3908 quest 585.3
   collect 3906 quest 585.1
   collect 3907 quest 585.2
 
-step Grom'gol Base Camp
+step Kin'weelay
+  when complete 598
+  when complete 95770
   tip Head west to Grom'gol.
   turnin 598                            -- Kin'weelay
   turnin 95770 npc 2519                 -- Kin'weelay
+
+step Kin'weelay
+  when complete 598
+  turnin 598
+
+step Kin'weelay
+  when complete 95770
+  turnin 95770 npc 2519                 -- Kin'weelay
+
+step Grom'gol Base Camp
   turnin 585
   accept 95141                          -- Commander Aggro'gosh: for Krom'rosh in Rog'mar, the Riverglades' Horde fort, in the next guide
   note Keep Mok'thardin's Enchantment, Zanzil's Secret and Kebok's tusks: the Skullsplitter chief, Zanzil's camps, the naga coast and Booty Bay come on your Stranglethorn stop at about 45, after the Riverglades.
@@ -525,6 +606,35 @@ step Galen's Strongbox
   turnin 1393
 
 step The Harborage
-  tip Head west along the road to the draenei camp at the Harborage, near the way in from Deadwind Pass. Lack of Surplus goes to Tok'Kar at Misty Reed Post on the next swamp visit: keep the flanks.
+  tip Head west along the road to the draenei camp at the Harborage, near the way in from Deadwind Pass.
   turnin 1392                           -- Magtoor
   turnin 1389
+
+# ---------------------------------------------------------------- Pool of Tears and Misty Reed Post
+
+step Pool of Tears
+  zone Swamp of Sorrows
+  tip Back east along the road, past Stonard: the Atal'ai artifacts lie in the water and on the banks of the Pool of Tears. Only Sawfin Frenzies (38-40) swim there.
+  collect 6175 quest 1424.1
+
+step Misty Reed Post
+  zone Swamp of Sorrows
+  tip Follow the road south-east to the small Horde post on the shore: Tok'Kar takes the crocolisk flanks, and Katar stands beside him.
+  turnin 698                            -- Tok'Kar
+  accept 699
+
+step Sawtooth snappers
+  tip The Sawtooth Snappers (41-42) line the strand south of the post; nearly every one drops a claw. Leave the murlocs further along the shore for your next swamp visit.
+  tip Careful: a Methuselah Crab (level 60) walks the south-east strand: give it a wide berth.
+  collect 6168 quest 699.1
+
+step Misty Reed Post
+  turnin 699                            -- Tok'Kar
+  accept 1422                           -- Tok'Kar
+  turnin 1422                           -- Katar
+  accept 1426                           -- Katar: the murlocs (41-44) wait for your next swamp visit
+
+step Stonard
+  zone Swamp of Sorrows
+  tip Back north-west along the road to Stonard: Fel'zerul, on the top floor, takes the artifacts. Fresh Meat's crawlers and Katar's murlocs wait for your next swamp visit.
+  turnin 1424                           -- Fel'zerul, on the top floor

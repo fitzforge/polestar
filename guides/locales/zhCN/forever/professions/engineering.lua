@@ -15,47 +15,64 @@ return {
 	-- Step 2: Engineering 1-75: vendor goods
 	-- {skill:202} Engineering
 	["{skill:202} 1-75: vendor goods"] = "{skill:202} 1–75：商人材料",
-	-- {item:2880} Weak Flux · {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:5514} Brooke Stonebraid · {npc:1286} Edna Mullby
-	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "一次买齐这个技能阶段所需的物资：18 个 {item:2880}（18 银币）和 {item:5956}（工具：只要一个，放在背包里保留，18 铜币）；总计约 18 银 18 铜。箭头会选择本阵营最近的商人（{zone:1453}：{npc:5519}、{npc:5514} 和 {npc:1286}）。",
+	-- {item:2880} Weak Flux · {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:1286} Edna Mullby · {npc:5512} Kaita Deepforge
+	-- was: ["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "一次买齐这个技能阶段所需的物资：18 个 {item:2880}（18 银币）和 {item:5956}（工具：只要一个，放在背包里保留，18 铜币）；总计约 18 银 18 铜。箭头会选择本阵营最近的商人（{zone:1453}：{npc:5519}、{npc:5514} 和 {npc:1286}）。"
+	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:1286} and {npc:5512})."] = "",
 	["a tool, keep it in your bags"] = "工具，留在背包里",
 
-	-- Step 3: Engineering 1-75: Auction House
-	-- {skill:202} Engineering
-	["{skill:202} 1-75: Auction House"] = "{skill:202} 1-75：拍卖行",
-	-- {item:2835} Rough Stone · {item:2840} Copper Bar
-	["What 1-75 takes that the Auction House sells: 46 {item:2835} and 75 {item:2840}. The counts drop by what your bags, bank and mail hold."] = "1-75阶段所需材料中拍卖行有售的：46个{item:2835}和75个{item:2840}。背包、银行和邮箱中已有的数量会自动扣除。",
+	-- Step 3: Get Rough Stone (Elwynn Forest)
+	-- {item:2835} Rough Stone · {zone:1429} Elwynn Forest
+	["Get {item:2835} ({zone:1429})"] = "",
+	-- {item:2835} Rough Stone · {skill:202} Engineering · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1429} Elwynn Forest
+	["You need 46 {item:2835} for {skill:202} 1-75: {spell:3918}. {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1429} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 4: Rough Stone (Elwynn Forest)
-	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1429} Elwynn Forest
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1429} is marked."] = "为 {spell:3918} 准备46个 {item:2835}：{skill:186}：开采 {object:1731}（技能1）。已标出 {zone:1429} 中 {object:1731} 最密集的矿点群。",
+	-- Step 4: Get Rough Stone (Dun Morogh)
+	-- {item:2835} Rough Stone · {zone:1426} Dun Morogh
+	["Get {item:2835} ({zone:1426})"] = "",
+	-- {item:2835} Rough Stone · {skill:202} Engineering · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1426} Dun Morogh
+	["You need 46 {item:2835} for {skill:202} 1-75: {spell:3918}. {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1426} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 5: Rough Stone (Dun Morogh)
-	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1426} Dun Morogh
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1426} is marked."] = "为 {spell:3918} 准备46个 {item:2835}：{skill:186}：开采 {object:1731}（技能1）。已标出 {zone:1426} 中 {object:1731} 最密集的矿点群。",
+	-- Step 5: Get Rough Stone (Darkshore)
+	-- {item:2835} Rough Stone · {zone:1439} Darkshore
+	["Get {item:2835} ({zone:1439})"] = "",
+	-- {item:2835} Rough Stone · {skill:202} Engineering · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1439} Darkshore
+	["You need 46 {item:2835} for {skill:202} 1-75: {spell:3918}. {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1439} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 6: Rough Stone (Darkshore)
-	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1439} Darkshore
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1439} is marked."] = "为 {spell:3918} 准备46个 {item:2835}：{skill:186}：开采 {object:1731}（技能1）。已标出 {zone:1439} 中 {object:1731} 最密集的矿点群。",
+	-- Step 6: Get Rough Stone (Zephras Isle)
+	-- {item:2835} Rough Stone · {zone:2521} Zephras Isle
+	["Get {item:2835} ({zone:2521})"] = "",
+	-- {item:2835} Rough Stone · {skill:202} Engineering · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:2521} Zephras Isle
+	["You need 46 {item:2835} for {skill:202} 1-75: {spell:3918}. {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:2521} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 7: Rough Stone (Zephras Isle)
-	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:2521} Zephras Isle
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:2521} is marked."] = "为 {spell:3918} 准备46个 {item:2835}：{skill:186}：开采 {object:1731}（技能1）。已标出 {zone:2521} 中 {object:1731} 最密集的矿点群。",
+	-- Step 7: Get Rough Stone (Durotar)
+	-- {item:2835} Rough Stone · {zone:1411} Durotar
+	["Get {item:2835} ({zone:1411})"] = "",
+	-- {item:2835} Rough Stone · {skill:202} Engineering · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1411} Durotar
+	["You need 46 {item:2835} for {skill:202} 1-75: {spell:3918}. {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1411} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 8: Rough Stone (Durotar)
-	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1411} Durotar
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1411} is marked."] = "为 {spell:3918} 准备46个 {item:2835}：{skill:186}：开采 {object:1731}（技能1）。已标出 {zone:1411} 中 {object:1731} 最密集的矿点群。",
+	-- Step 8: Get Rough Stone (Mulgore)
+	-- {item:2835} Rough Stone · {zone:1412} Mulgore
+	["Get {item:2835} ({zone:1412})"] = "",
+	-- {item:2835} Rough Stone · {skill:202} Engineering · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1412} Mulgore
+	["You need 46 {item:2835} for {skill:202} 1-75: {spell:3918}. {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1412} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 9: Rough Stone (Mulgore)
-	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1412} Mulgore
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1412} is marked."] = "为 {spell:3918} 准备46个 {item:2835}：{skill:186}：开采 {object:1731}（技能1）。已标出 {zone:1412} 中 {object:1731} 最密集的矿点群。",
+	-- Step 9: Get Rough Stone (Tirisfal Glades)
+	-- {item:2835} Rough Stone · {zone:1420} Tirisfal Glades
+	["Get {item:2835} ({zone:1420})"] = "",
+	-- {item:2835} Rough Stone · {skill:202} Engineering · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1420} Tirisfal Glades
+	["You need 46 {item:2835} for {skill:202} 1-75: {spell:3918}. {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1420} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 10: Rough Stone (Tirisfal Glades)
-	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1420} Tirisfal Glades
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1420} is marked."] = "为 {spell:3918} 准备46个 {item:2835}：{skill:186}：开采 {object:1731}（技能1）。已标出 {zone:1420} 中 {object:1731} 最密集的矿点群。",
+	-- Step 10: Get Copper Bar (Alliance)
+	-- {item:2840} Copper Bar
+	["Get {item:2840} (Alliance)"] = "",
+	-- {item:2840} Copper Bar · {skill:202} Engineering · {spell:3922} Handful of Copper Bolts · {item:6219} Arclight Spanner · {spell:3924} Copper Tube · {object:1731} Copper Vein · {skill:186} Mining · {item:2770} Copper Ore · {zone:1426} Dun Morogh
+	["You need 75 {item:2840} for {skill:202} 1-75: {spell:3922}, {item:6219} and {spell:3924}. Mine {object:1731} ({skill:186} 1) for {item:2770} and smelt it at a forge ({skill:186} 1). The densest cluster of {object:1731} in {zone:1426} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 11: Copper Bar
-	-- {item:2840} Copper Bar · {spell:3922} Handful of Copper Bolts · {item:6219} Arclight Spanner · {spell:3924} Copper Tube · {skill:186} Mining · {item:2770} Copper Ore
-	["75 {item:2840} for {spell:3922}, {item:6219} and {spell:3924}: {skill:186}: smelt {item:2770}."] = "为{spell:3922}、{item:6219}和{spell:3924}准备75个{item:2840}：{skill:186}：熔炼{item:2770}。",
+	-- Step 11: Get Copper Bar (Horde)
+	-- {item:2840} Copper Bar
+	["Get {item:2840} (Horde)"] = "",
+	-- {item:2840} Copper Bar · {skill:202} Engineering · {spell:3922} Handful of Copper Bolts · {item:6219} Arclight Spanner · {spell:3924} Copper Tube · {object:1731} Copper Vein · {skill:186} Mining · {item:2770} Copper Ore · {zone:1411} Durotar
+	["You need 75 {item:2840} for {skill:202} 1-75: {spell:3922}, {item:6219} and {spell:3924}. Mine {object:1731} ({skill:186} 1) for {item:2770} and smelt it at a forge ({skill:186} 1). The densest cluster of {object:1731} in {zone:1411} is marked. Or buy them at the Auction House."] = "",
 
 	-- Step 12: Rough Blasting Powder to 35
 	-- {spell:3918} Rough Blasting Powder
@@ -103,55 +120,73 @@ return {
 	-- {item:2880} Weak Flux · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:5514} Brooke Stonebraid · {npc:1286} Edna Mullby
 	["Buy the whole bracket's share in one go: 45 {item:2880} (45s); about 45s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "一次买齐整个阶段的用量：45个{item:2880}（45银）；合计约45银。箭头会选择本阵营最近的商人（{zone:1453}：{npc:5519}、{npc:5514}和{npc:1286}）。",
 
-	-- Step 19: Engineering 75-150: Auction House
-	-- {skill:202} Engineering
-	["{skill:202} 75-150: Auction House"] = "{skill:202} 75-150：拍卖行",
-	-- {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2840} Copper Bar · {item:2841} Bronze Bar · {item:2842} Silver Bar
-	["What 75-150 takes that the Auction House sells: 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842}. The counts drop by what your bags, bank and mail hold."] = "75-150阶段所需材料中拍卖行有售的：15个{item:2836}、27个{item:2838}、72个{item:2840}、61个{item:2841}和2个{item:2842}。背包、银行和邮箱中已有的数量会自动扣除。",
+	-- Step 19: Get Coarse Stone (Westfall)
+	-- {item:2836} Coarse Stone · {zone:1436} Westfall
+	["Get {item:2836} ({zone:1436})"] = "",
+	-- {item:2836} Coarse Stone · {skill:202} Engineering · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1436} Westfall
+	["You need 15 {item:2836} for {skill:202} 75-150: {spell:3930}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1436} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 20: Coarse Stone (Westfall)
-	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1436} Westfall
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1436} is marked."] = "准备 15 个 {item:2836}，用于 {spell:3930}：通过 {skill:186} 开采 {object:1732}（技能 65）。已标记 {zone:1436} 中 {object:1732} 最密集的区域。",
+	-- Step 20: Get Coarse Stone (Loch Modan)
+	-- {item:2836} Coarse Stone · {zone:1432} Loch Modan
+	["Get {item:2836} ({zone:1432})"] = "",
+	-- {item:2836} Coarse Stone · {skill:202} Engineering · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1432} Loch Modan
+	["You need 15 {item:2836} for {skill:202} 75-150: {spell:3930}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1432} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 21: Coarse Stone (Loch Modan)
-	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1432} Loch Modan
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1432} is marked."] = "准备 15 个 {item:2836}，用于 {spell:3930}：通过 {skill:186} 开采 {object:1732}（技能 65）。已标记 {zone:1432} 中 {object:1732} 最密集的区域。",
+	-- Step 21: Get Coarse Stone (Darkshore)
+	-- {item:2836} Coarse Stone · {zone:1439} Darkshore
+	["Get {item:2836} ({zone:1439})"] = "",
+	-- {item:2836} Coarse Stone · {skill:202} Engineering · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1439} Darkshore
+	["You need 15 {item:2836} for {skill:202} 75-150: {spell:3930}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1439} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 22: Coarse Stone (Darkshore)
-	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1439} Darkshore
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1439} is marked."] = "准备 15 个 {item:2836}，用于 {spell:3930}：通过 {skill:186} 开采 {object:1732}（技能 65）。已标记 {zone:1439} 中 {object:1732} 最密集的区域。",
+	-- Step 22: Get Coarse Stone (The Barrens)
+	-- {item:2836} Coarse Stone · {zone:1413} The Barrens
+	["Get {item:2836} ({zone:1413})"] = "",
+	-- {item:2836} Coarse Stone · {skill:202} Engineering · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens
+	["You need 15 {item:2836} for {skill:202} 75-150: {spell:3930}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1413} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 23: Coarse Stone (The Barrens)
-	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1413} is marked."] = "准备 15 个 {item:2836}，用于 {spell:3930}：通过 {skill:186} 开采 {object:1732}（技能 65）。已标记 {zone:1413} 中 {object:1732} 最密集的区域。",
+	-- Step 23: Get Coarse Stone (Silverpine Forest)
+	-- {item:2836} Coarse Stone · {zone:1421} Silverpine Forest
+	["Get {item:2836} ({zone:1421})"] = "",
+	-- {item:2836} Coarse Stone · {skill:202} Engineering · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1421} Silverpine Forest
+	["You need 15 {item:2836} for {skill:202} 75-150: {spell:3930}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1421} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 24: Coarse Stone (Silverpine Forest)
-	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1421} Silverpine Forest
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1421} is marked."] = "准备 15 个 {item:2836}，用于 {spell:3930}：通过 {skill:186} 开采 {object:1732}（技能 65）。已标记 {zone:1421} 中 {object:1732} 最密集的区域。",
+	-- Step 24: Get Heavy Stone (Arathi Highlands)
+	-- {item:2838} Heavy Stone · {zone:1417} Arathi Highlands
+	["Get {item:2838} ({zone:1417})"] = "",
+	-- {item:2838} Heavy Stone · {skill:202} Engineering · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands
+	["You need 27 {item:2838} for {skill:202} 75-150: {spell:3945}. {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1417} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 25: Heavy Stone (Arathi Highlands)
-	-- {item:2838} Heavy Stone · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands
-	["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1417} is marked."] = "准备 27 个 {item:2838}，用于 {spell:3945}：通过 {skill:186} 开采 {object:1735}（技能 125）。已标记 {zone:1417} 中 {object:1735} 最密集的区域。",
+	-- Step 25: Get Heavy Stone (Ashenvale)
+	-- {item:2838} Heavy Stone · {zone:1440} Ashenvale
+	["Get {item:2838} ({zone:1440})"] = "",
+	-- {item:2838} Heavy Stone · {skill:202} Engineering · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1440} Ashenvale
+	["You need 27 {item:2838} for {skill:202} 75-150: {spell:3945}. {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1440} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 26: Heavy Stone (Ashenvale)
-	-- {item:2838} Heavy Stone · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1440} Ashenvale
-	["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1440} is marked."] = "准备 27 个 {item:2838}，用于 {spell:3945}：通过 {skill:186} 开采 {object:1735}（技能 125）。已标记 {zone:1440} 中 {object:1735} 最密集的区域。",
+	-- Step 26: Get Heavy Stone (The Barrens)
+	-- {item:2838} Heavy Stone · {zone:1413} The Barrens
+	["Get {item:2838} ({zone:1413})"] = "",
+	-- {item:2838} Heavy Stone · {skill:202} Engineering · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1413} The Barrens
+	["You need 27 {item:2838} for {skill:202} 75-150: {spell:3945}. {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1413} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 27: Heavy Stone (The Barrens)
-	-- {item:2838} Heavy Stone · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1413} The Barrens
-	["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1413} is marked."] = "准备 27 个 {item:2838}，用于 {spell:3945}：通过 {skill:186} 开采 {object:1735}（技能 125）。已标记 {zone:1413} 中 {object:1735} 最密集的区域。",
+	-- Step 28: Get Copper Bar (Alliance)
+	-- {item:2840} Copper Bar · {skill:202} Engineering · {spell:3930} Crafted Heavy Shot · {spell:3924} Copper Tube · {item:6712} Practice Lock · {object:1731} Copper Vein · {skill:186} Mining · {item:2770} Copper Ore · {zone:1426} Dun Morogh
+	["You need 72 {item:2840} for {skill:202} 75-150: {spell:3930}, {spell:3924} and {item:6712}. Mine {object:1731} ({skill:186} 1) for {item:2770} and smelt it at a forge ({skill:186} 1). The densest cluster of {object:1731} in {zone:1426} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 29: Copper Bar
-	-- {item:2840} Copper Bar · {spell:3930} Crafted Heavy Shot · {spell:3924} Copper Tube · {item:6712} Practice Lock · {skill:186} Mining · {item:2770} Copper Ore
-	["72 {item:2840} for {spell:3930}, {spell:3924} and {item:6712}: {skill:186}: smelt {item:2770}."] = "为{spell:3930}、{spell:3924}和{item:6712}准备72个{item:2840}：{skill:186}：熔炼{item:2770}。",
+	-- Step 29: Get Copper Bar (Horde)
+	-- {item:2840} Copper Bar · {skill:202} Engineering · {spell:3930} Crafted Heavy Shot · {spell:3924} Copper Tube · {item:6712} Practice Lock · {object:1731} Copper Vein · {skill:186} Mining · {item:2770} Copper Ore · {zone:1411} Durotar
+	["You need 72 {item:2840} for {skill:202} 75-150: {spell:3930}, {spell:3924} and {item:6712}. Mine {object:1731} ({skill:186} 1) for {item:2770} and smelt it at a forge ({skill:186} 1). The densest cluster of {object:1731} in {zone:1411} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 30: Bronze Bar
-	-- {item:2841} Bronze Bar · {item:6712} Practice Lock · {spell:3950} Big Bronze Bomb · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
-	["61 {item:2841} for {item:6712} and {spell:3950}: {skill:186}: smelt {item:2840} and {item:3576}."] = "为{item:6712}和{spell:3950}准备61个{item:2841}：{skill:186}：熔炼{item:2840}和{item:3576}。",
+	-- Step 30: Get Bronze Bar
+	-- {item:2841} Bronze Bar
+	["Get {item:2841}"] = "",
+	-- {item:2841} Bronze Bar · {skill:202} Engineering · {item:6712} Practice Lock · {spell:3950} Big Bronze Bomb · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
+	["You need 61 {item:2841} for {skill:202} 75-150: {item:6712} and {spell:3950}. {skill:186}: smelt {item:2840} and {item:3576}. Or buy them at the Auction House."] = "",
 
-	-- Step 31: Silver Bar
-	-- {item:2842} Silver Bar · {spell:3950} Big Bronze Bomb · {skill:186} Mining · {item:2775} Silver Ore
-	["2 {item:2842} for {spell:3950}: {skill:186}: smelt {item:2775}."] = "为{spell:3950}准备2个{item:2842}：{skill:186}：熔炼{item:2775}。",
+	-- Step 31: Get Silver Bar
+	-- {item:2842} Silver Bar
+	["Get {item:2842}"] = "",
+	-- {item:2842} Silver Bar · {skill:202} Engineering · {spell:3950} Big Bronze Bomb · {skill:186} Mining · {item:2775} Silver Ore
+	["You need 2 {item:2842} for {skill:202} 75-150: {spell:3950}. {skill:186}: smelt {item:2775}. Or buy them at the Auction House."] = "",
 
 	-- Step 32: Crafted Heavy Shot to 94
 	-- {spell:3930} Crafted Heavy Shot
@@ -164,7 +199,7 @@ return {
 	["{spell:3924} to 100"] = "{spell:3924}练到100",
 	-- {spell:3924} Copper Tube · {item:2840} Copper Bar · {item:2880} Weak Flux
 	-- plural, as words: Copper Bars = {item:2840} Copper Bar
-	["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby."] = "{spell:3924} 在技能 94 时为黄色（80 变黄、95 变绿、110 变灰）：约制作 14 次可到 100。每次需要 2 个 {item:2840} 和 1 个 {item:2880}。即每次两块铜锭和一个 {item:2880}（由锻造和工程学供应商出售）。附近需要铁砧。",
+	["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. If you got here without learning {spell:3924}, learn it now: an earlier step teaches it."] = "{spell:3924}在94时为黄色（黄色80，绿色95，灰色110）：大约制作14次到100。每次需要2个{item:2840}和1个{item:2880}。每次两个铜锭和一个{item:2880}（锻造和工程学供应商）。需要附近有铁砧。如果你到这里还没学会{spell:3924}，现在就学：之前的步骤会教。",
 
 	-- Step 34: Engineering recipes at 100
 	-- {skill:202} Engineering
@@ -177,7 +212,7 @@ return {
 	["{item:6712} to 125"] = "制作{item:6712}，提升至 125",
 	-- {item:6712} Practice Lock · {item:2841} Bronze Bar · {spell:3922} Handful of Copper Bolts · {item:2880} Weak Flux
 	-- plural, as words: Practice Locks = {item:6712} Practice Lock
-	["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby."] = "{item:6712} 在技能 100 时为橙色（115 变黄、122 变绿、130 变灰）：约制作 31 次可升到 125。每次需要 1 个 {item:2841}、2 个 {spell:3922} 和 1 个 {item:2880}。先制作 29 个 {spell:3922}。同时用上先前制作的 33 个 {spell:3922}；上方材料数量未将它们计入。练习锁可以卖给潜行者，也可以自己打开。附近需要有铁砧。",
+	["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby. If you got here without learning {spell:3922}, learn it now: an earlier step teaches it."] = "{item:6712}在100时为橙色（黄色115，绿色122，灰色130）：大约制作31次到125。每次需要1个{item:2841}、2个{spell:3922}和1个{item:2880}。先做29个{spell:3922}。用上你之前做的33个{spell:3922}；上面的数量不包括它们。练习锁可以卖给潜行者，或者自己开。需要附近有铁砧。如果你到这里还没学会{spell:3922}，现在就学：之前的步骤会教。",
 
 	-- Step 36: Engineering recipes at 125
 	-- {skill:202} Engineering
@@ -216,191 +251,229 @@ return {
 	-- {item:6530} Nightcrawlers · {zone:1453} Stormwind City · {npc:5494} Catherine Leland · {npc:1286} Edna Mullby
 	["Buy the whole bracket's share in one go: 31 {item:6530} (31s); about 31s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5494} and {npc:1286})."] = "一次买齐整个阶段的用量：31个{item:6530}（31银）；合计约31银。箭头会选择本阵营最近的商人（{zone:1453}：{npc:5494}和{npc:1286}）。",
 
-	-- Step 42: Engineering 150-225: Auction House
-	-- {skill:202} Engineering
-	["{skill:202} 150-225: Auction House"] = "{skill:202} 150-225：拍卖行",
-	-- {item:2319} Medium Leather · {item:2592} Wool Cloth · {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2841} Bronze Bar · {item:2842} Silver Bar · {item:3575} Iron Bar · {item:3860} Mithril Bar · {item:7912} Solid Stone
-	["What 150-225 takes that the Auction House sells: 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} and 62 {item:7912}. The counts drop by what your bags, bank and mail hold."] = "150-225阶段所需材料中拍卖行有售的：19个{item:2319}、19个{item:2592}、31个{item:2836}、74个{item:2838}、100个{item:2841}、6个{item:2842}、81个{item:3575}、19个{item:3860}和62个{item:7912}。背包、银行和邮箱中已有的数量会自动扣除。",
-
-	-- Step 43: Medium Leather (Alliance)
+	-- Step 42: Get Medium Leather (Alliance)
 	-- {item:2319} Medium Leather
-	["{item:2319} (Alliance)"] = "{item:2319}（联盟）",
-	-- {item:2319} Medium Leather · {spell:3953} Bronze Framework · {skill:393} Skinning · {npc:2248} Cave Yeti · {npc:2356} Elder Gray Bear · {npc:2385} Feral Mountain Lion · {npc:2351} Gray Bear · {npc:2384} Starving Mountain Lion · {npc:2354} Vicious Gray Bear
-	["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "为 {spell:3953} 准备19张 {item:2319}：{skill:393}：剥取18-30级野兽。在这里剥取 {npc:2248}、{npc:2356}、{npc:2385}、{npc:2351}、钳嘴龟、{npc:2384} 和 {npc:2354}（18-30级）；{skill:393} 指南提供相应路线。",
+	-- was: ["{item:2319} (Alliance)"] = "{item:2319}（联盟）"
+	["Get {item:2319} (Alliance)"] = "",
+	-- {item:2319} Medium Leather · {skill:202} Engineering · {spell:3953} Bronze Framework · {skill:393} Skinning · {npc:2248} Cave Yeti · {npc:2356} Elder Gray Bear · {npc:2385} Feral Mountain Lion · {npc:2351} Gray Bear · {npc:2384} Starving Mountain Lion · {npc:2354} Vicious Gray Bear
+	-- was: ["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "为 {spell:3953} 准备19张 {item:2319}：{skill:393}：剥取18-30级野兽。在这里剥取 {npc:2248}、{npc:2356}、{npc:2385}、{npc:2351}、钳嘴龟、{npc:2384} 和 {npc:2354}（18-30级）；{skill:393} 指南提供相应路线。"
+	["You need 19 {item:2319} for {skill:202} 150-225: {spell:3953}. {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this. Or buy them at the Auction House."] = "",
 
-	-- Step 44: Medium Leather (Horde)
+	-- Step 43: Get Medium Leather (Horde)
 	-- {item:2319} Medium Leather
-	["{item:2319} (Horde)"] = "{item:2319}（部落）",
-	-- {item:2319} Medium Leather · {spell:3953} Bronze Framework · {skill:393} Skinning · {npc:3809} Ashenvale Bear · {npc:3810} Elder Ashenvale Bear · {npc:3818} Elder Shadowhorn Stag · {npc:3823} Ghostpaw Runner · {npc:3811} Giant Ashenvale Bear · {npc:3817} Shadowhorn Stag
-	["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} and {npc:3817} here (level 18-30); the {skill:393} guide routes this."] = "为{spell:3953}准备19个{item:2319}：通过{skill:393}剥取18-30级野兽。在这里剥取{npc:3809}、{npc:3810}、{npc:3818}、{npc:3823}、{npc:3811}和{npc:3817}（18-30级）；{skill:393}指南提供了对应路线。",
+	-- was: ["{item:2319} (Horde)"] = "{item:2319}（部落）"
+	["Get {item:2319} (Horde)"] = "",
+	-- {item:2319} Medium Leather · {skill:202} Engineering · {spell:3953} Bronze Framework · {skill:393} Skinning · {npc:3809} Ashenvale Bear · {npc:3810} Elder Ashenvale Bear · {npc:3818} Elder Shadowhorn Stag · {npc:3823} Ghostpaw Runner · {npc:3811} Giant Ashenvale Bear · {npc:3817} Shadowhorn Stag
+	-- was: ["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} and {npc:3817} here (level 18-30); the {skill:393} guide routes this."] = "为{spell:3953}准备19个{item:2319}：通过{skill:393}剥取18-30级野兽。在这里剥取{npc:3809}、{npc:3810}、{npc:3818}、{npc:3823}、{npc:3811}和{npc:3817}（18-30级）；{skill:393}指南提供了对应路线。"
+	["You need 19 {item:2319} for {skill:202} 150-225: {spell:3953}. {skill:393}: beasts of level 18-30. Skin {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} and {npc:3817} here (level 18-30); the {skill:393} guide routes this. Or buy them at the Auction House."] = "",
 
-	-- Step 45: Wool Cloth
-	-- {item:2592} Wool Cloth · {spell:3953} Bronze Framework
-	["19 {item:2592} for {spell:3953}: humanoids of level 15-30 drop it. Keep what you loot as you level, or take it from your bank."] = "为{spell:3953}准备19个{item:2592}：15-30级的人型生物会掉落。升级时把拾取到的留着，或从银行取出。",
+	-- Step 44: Get Wool Cloth
+	-- {item:2592} Wool Cloth
+	["Get {item:2592}"] = "",
+	-- {item:2592} Wool Cloth · {skill:202} Engineering · {spell:3953} Bronze Framework
+	["You need 19 {item:2592} for {skill:202} 150-225: {spell:3953}. Humanoids of level 15-30 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
-	-- Step 46: Coarse Stone (Alliance)
+	-- Step 45: Get Coarse Stone (Alliance)
 	-- {item:2836} Coarse Stone
-	["{item:2836} (Alliance)"] = "{item:2836}（联盟）",
-	-- {item:2836} Coarse Stone · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1432} Loch Modan · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
-	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1432} (10-20), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1432} is marked."] = "为 {item:6533} 准备31个 {item:2836}：{skill:186}：在 {zone:1432}（10-20级）、{zone:1440}（18-30级）和 {zone:1424}（20-30级）开采 {object:1732}（技能65）。已标出 {zone:1432} 中 {object:1732} 最密集的矿点群。",
+	-- was: ["{item:2836} (Alliance)"] = "{item:2836}（联盟）"
+	["Get {item:2836} (Alliance)"] = "",
+	-- {item:2836} Coarse Stone · {skill:202} Engineering · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1432} Loch Modan · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
+	-- was: ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1432} (10-20), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1432} is marked."] = "为 {item:6533} 准备31个 {item:2836}：{skill:186}：在 {zone:1432}（10-20级）、{zone:1440}（18-30级）和 {zone:1424}（20-30级）开采 {object:1732}（技能65）。已标出 {zone:1432} 中 {object:1732} 最密集的矿点群。"
+	["You need 31 {item:2836} for {skill:202} 150-225: {item:6533}. {skill:186}: {object:1732} (skill 65) in {zone:1432} (10-20), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1432} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 47: Coarse Stone (Horde)
+	-- Step 46: Get Coarse Stone (Horde)
 	-- {item:2836} Coarse Stone
-	["{item:2836} (Horde)"] = "{item:2836}（部落）",
-	-- {item:2836} Coarse Stone · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
-	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "为 {item:6533} 准备 31 个 {item:2836}：通过 {skill:186} 开采 {zone:1413}（10-25 级）、{zone:1440}（18-30 级）和 {zone:1424}（20-30 级）的 {object:1732}（需要技能 65）。已标记 {zone:1440} 中 {object:1732} 最密集的位置。",
+	-- was: ["{item:2836} (Horde)"] = "{item:2836}（部落）"
+	["Get {item:2836} (Horde)"] = "",
+	-- {item:2836} Coarse Stone · {skill:202} Engineering · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
+	-- was: ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1413} is marked."] = "31个{item:2836}用于{item:6533}：{skill:186}：{object:1732}（技能65），在{zone:1413}（10-25）、{zone:1440}（18-30）和{zone:1424}（20-30）。{zone:1413}中{object:1732}最密集的区域已标出。"
+	["You need 31 {item:2836} for {skill:202} 150-225: {item:6533}. {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1413} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 48: Heavy Stone (Alliance)
+	-- Step 47: Get Heavy Stone (Alliance)
 	-- {item:2838} Heavy Stone
-	["{item:2838} (Alliance)"] = "{item:2838}（联盟）",
-	-- {item:2838} Heavy Stone · {spell:3967} Big Iron Bomb · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {zone:1443} Desolace
-	["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked."] = "为 {spell:3967} 准备 74 个 {item:2838}：通过 {skill:186} 开采 {zone:1417}（30-40 级）、{zone:1434}（30-45 级）和 {zone:1443}（30-40 级）的 {object:1735}（需要技能 125）。已标记 {zone:1417} 中 {object:1735} 最密集的位置。",
+	-- was: ["{item:2838} (Alliance)"] = "{item:2838}（联盟）"
+	["Get {item:2838} (Alliance)"] = "",
+	-- {item:2838} Heavy Stone · {skill:202} Engineering · {spell:3967} Big Iron Bomb · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {zone:1443} Desolace
+	-- was: ["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked."] = "为 {spell:3967} 准备 74 个 {item:2838}：通过 {skill:186} 开采 {zone:1417}（30-40 级）、{zone:1434}（30-45 级）和 {zone:1443}（30-40 级）的 {object:1735}（需要技能 125）。已标记 {zone:1417} 中 {object:1735} 最密集的位置。"
+	["You need 74 {item:2838} for {skill:202} 150-225: {spell:3967}. {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 49: Heavy Stone (Horde)
+	-- Step 48: Get Heavy Stone (Horde)
 	-- {item:2838} Heavy Stone
-	["{item:2838} (Horde)"] = "{item:2838}（部落）",
-	-- {item:2838} Heavy Stone · {spell:3967} Big Iron Bomb · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1441} Thousand Needles · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
-	["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked."] = "准备 74 个 {item:2838}，用于 {spell:3967}：通过 {skill:186} 开采 {object:1735}（技能 125），产地有 {zone:1441}（25-35 级）、{zone:1417}（30-40 级）和 {zone:1434}（30-45 级）。已标记 {zone:1441} 中 {object:1735} 最密集的区域。",
+	-- was: ["{item:2838} (Horde)"] = "{item:2838}（部落）"
+	["Get {item:2838} (Horde)"] = "",
+	-- {item:2838} Heavy Stone · {skill:202} Engineering · {spell:3967} Big Iron Bomb · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1441} Thousand Needles · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
+	-- was: ["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked."] = "准备 74 个 {item:2838}，用于 {spell:3967}：通过 {skill:186} 开采 {object:1735}（技能 125），产地有 {zone:1441}（25-35 级）、{zone:1417}（30-40 级）和 {zone:1434}（30-45 级）。已标记 {zone:1441} 中 {object:1735} 最密集的区域。"
+	["You need 74 {item:2838} for {skill:202} 150-225: {spell:3967}. {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 50: Bronze Bar
-	-- {item:2841} Bronze Bar · {item:6533} Aquadynamic Fish Attractor · {spell:3953} Bronze Framework · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
-	["100 {item:2841} for {item:6533} and {spell:3953}: {skill:186}: smelt {item:2840} and {item:3576}."] = "为{item:6533}和{spell:3953}准备100个{item:2841}：{skill:186}：熔炼{item:2840}和{item:3576}。",
+	-- Step 49: Get Bronze Bar
+	-- {item:2841} Bronze Bar · {skill:202} Engineering · {item:6533} Aquadynamic Fish Attractor · {spell:3953} Bronze Framework · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
+	["You need 100 {item:2841} for {skill:202} 150-225: {item:6533} and {spell:3953}. {skill:186}: smelt {item:2840} and {item:3576}. Or buy them at the Auction House."] = "",
 
-	-- Step 51: Silver Bar
-	-- {item:2842} Silver Bar · {spell:3967} Big Iron Bomb · {skill:186} Mining · {item:2775} Silver Ore
-	["6 {item:2842} for {spell:3967}: {skill:186}: smelt {item:2775}."] = "为{spell:3967}准备6个{item:2842}：{skill:186}：熔炼{item:2775}。",
+	-- Step 50: Get Silver Bar
+	-- {item:2842} Silver Bar · {skill:202} Engineering · {spell:3967} Big Iron Bomb · {skill:186} Mining · {item:2775} Silver Ore
+	["You need 6 {item:2842} for {skill:202} 150-225: {spell:3967}. {skill:186}: smelt {item:2775}. Or buy them at the Auction House."] = "",
 
-	-- Step 52: Iron Bar
-	-- {item:3575} Iron Bar · {spell:3967} Big Iron Bomb · {skill:186} Mining · {item:2772} Iron Ore
-	["81 {item:3575} for {spell:3967}: {skill:186}: smelt {item:2772}."] = "为{spell:3967}准备81个{item:3575}：{skill:186}：熔炼{item:2772}。",
+	-- Step 51: Get Iron Bar (Alliance)
+	-- {item:3575} Iron Bar
+	["Get {item:3575} (Alliance)"] = "",
+	-- {item:3575} Iron Bar · {skill:202} Engineering · {spell:3967} Big Iron Bomb · {object:1735} Iron Deposit · {skill:186} Mining · {item:2772} Iron Ore · {zone:1417} Arathi Highlands
+	["You need 81 {item:3575} for {skill:202} 150-225: {spell:3967}. Mine {object:1735} ({skill:186} 125) for {item:2772} and smelt it at a forge ({skill:186} 125). The densest cluster of {object:1735} in {zone:1417} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 53: Mithril Bar
-	-- {item:3860} Mithril Bar · {item:10512} Hi-Impact Mithril Slugs · {skill:186} Mining · {item:3858} Mithril Ore
-	["19 {item:3860} for {item:10512}: {skill:186}: smelt {item:3858}."] = "为{item:10512}准备19个{item:3860}：{skill:186}：熔炼{item:3858}。",
+	-- Step 52: Get Iron Bar (Horde)
+	-- {item:3575} Iron Bar
+	["Get {item:3575} (Horde)"] = "",
+	-- {item:3575} Iron Bar · {skill:202} Engineering · {spell:3967} Big Iron Bomb · {object:1735} Iron Deposit · {skill:186} Mining · {item:2772} Iron Ore · {zone:1441} Thousand Needles
+	["You need 81 {item:3575} for {skill:202} 150-225: {spell:3967}. Mine {object:1735} ({skill:186} 125) for {item:2772} and smelt it at a forge ({skill:186} 125). The densest cluster of {object:1735} in {zone:1441} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 54: Solid Stone (Alliance)
+	-- Step 53: Get Mithril Bar (Alliance)
+	-- {item:3860} Mithril Bar
+	["Get {item:3860} (Alliance)"] = "",
+	-- {item:3860} Mithril Bar · {skill:202} Engineering · {item:10512} Hi-Impact Mithril Slugs · {object:2040} Mithril Deposit · {skill:186} Mining · {item:3858} Mithril Ore · {zone:1434} Stranglethorn Vale
+	["You need 19 {item:3860} for {skill:202} 150-225: {item:10512}. Mine {object:2040} ({skill:186} 175) for {item:3858} and smelt it at a forge ({skill:186} 175). The densest cluster of {object:2040} in {zone:1434} is marked. Or buy them at the Auction House."] = "",
+
+	-- Step 54: Get Mithril Bar (Horde)
+	-- {item:3860} Mithril Bar
+	["Get {item:3860} (Horde)"] = "",
+	-- {item:3860} Mithril Bar · {skill:202} Engineering · {item:10512} Hi-Impact Mithril Slugs · {object:2040} Mithril Deposit · {skill:186} Mining · {item:3858} Mithril Ore · {zone:1443} Desolace
+	["You need 19 {item:3860} for {skill:202} 150-225: {item:10512}. Mine {object:2040} ({skill:186} 175) for {item:3858} and smelt it at a forge ({skill:186} 175). The densest cluster of {object:2040} in {zone:1443} is marked. Or buy them at the Auction House."] = "",
+
+	-- Step 55: Get Solid Stone (Alliance)
 	-- {item:7912} Solid Stone
-	["{item:7912} (Alliance)"] = "{item:7912}（联盟）",
-	-- {item:7912} Solid Stone · {item:10505} Solid Blasting Powder · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked."] = "为 {item:10505} 准备62个 {item:7912}：{skill:186}：在 {zone:1434}（30-45级）、{zone:1425}（40-50级）和 {zone:1444}（40-50级）开采 {object:2040}（技能175）。已标出 {zone:1434} 中 {object:2040} 最密集的矿点群。",
+	-- was: ["{item:7912} (Alliance)"] = "{item:7912}（联盟）"
+	["Get {item:7912} (Alliance)"] = "",
+	-- {item:7912} Solid Stone · {skill:202} Engineering · {item:10505} Solid Blasting Powder · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands · {zone:1444} Feralas
+	-- was: ["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked."] = "为 {item:10505} 准备62个 {item:7912}：{skill:186}：在 {zone:1434}（30-45级）、{zone:1425}（40-50级）和 {zone:1444}（40-50级）开采 {object:2040}（技能175）。已标出 {zone:1434} 中 {object:2040} 最密集的矿点群。"
+	["You need 62 {item:7912} for {skill:202} 150-225: {item:10505}. {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 55: Solid Stone (Horde)
+	-- Step 56: Get Solid Stone (Horde)
 	-- {item:7912} Solid Stone
-	["{item:7912} (Horde)"] = "{item:7912}（部落）",
-	-- {item:7912} Solid Stone · {item:10505} Solid Blasting Powder · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "为 {item:10505} 准备62块 {item:7912}：{skill:186}：开采 {zone:1443}（30-40级）、{zone:1425}（40-50级）和 {zone:1444}（40-50级）的 {object:2040}（技能175）。已标记 {zone:1443} 中 {object:2040} 最密集的区域。",
+	-- was: ["{item:7912} (Horde)"] = "{item:7912}（部落）"
+	["Get {item:7912} (Horde)"] = "",
+	-- {item:7912} Solid Stone · {skill:202} Engineering · {item:10505} Solid Blasting Powder · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
+	-- was: ["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "为 {item:10505} 准备62块 {item:7912}：{skill:186}：开采 {zone:1443}（30-40级）、{zone:1425}（40-50级）和 {zone:1444}（40-50级）的 {object:2040}（技能175）。已标记 {zone:1443} 中 {object:2040} 最密集的区域。"
+	["You need 62 {item:7912} for {skill:202} 150-225: {item:10505}. {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 56: Aquadynamic Fish Attractor to 166
+	-- Step 57: Aquadynamic Fish Attractor to 166
 	-- {item:6533} Aquadynamic Fish Attractor
 	["{item:6533} to 166"] = "制作{item:6533}，提升至 166",
 	-- {item:6533} Aquadynamic Fish Attractor · {item:2841} Bronze Bar · {item:6530} Nightcrawlers · {spell:3929} Coarse Blasting Powder
-	["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen."] = "{item:6533} 在技能150时为黄色（150变黄，160变绿，170变灰）：大约制作31次升到166。每次需要2块 {item:2841}、1个 {item:6530} 和1份 {spell:3929}，产出3个。先制作31份 {spell:3929}。{item:6530} 可向商贸或钓鱼供应商购买；制成的诱饵可卖给钓鱼玩家。",
+	["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen. If you got here without learning {spell:3929}, learn it now: an earlier step teaches it."] = "{item:6533}在150时为黄色（黄色150，绿色160，灰色170）：大约制作31次到166。每次需要2个{item:2841}、1个{item:6530}和1个{spell:3929}，产出3个。先做31个{spell:3929}。{item:6530}来自商业和钓鱼供应商；诱鱼器可以卖给钓鱼的人。如果你到这里还没学会{spell:3929}，现在就学：之前的步骤会教。",
 
-	-- Step 57: Bronze Framework to 175
+	-- Step 58: Bronze Framework to 175
 	-- {spell:3953} Bronze Framework
 	["{spell:3953} to 175"] = "将{spell:3953}做到 175",
 	-- {spell:3953} Bronze Framework · {item:2841} Bronze Bar · {item:2319} Medium Leather · {item:2592} Wool Cloth
 	-- plural, as words: Bronze Frameworks = {spell:3953} Bronze Framework
 	["{spell:3953} is yellow at 166 (yellow 145, green 170, grey 195): about 19 crafts to 175. Each takes 2 {item:2841}, 1 {item:2319} and 1 {item:2592}. Bronze Frameworks are parts for later gadgets; the extras sell to vendors."] = "{spell:3953}在技能166时为黄色（145变黄，170变绿，195变灰）：约制作19次可到175。每次需要2个{item:2841}、1个{item:2319}和1个{item:2592}。青铜框架是之后装置的零件；多余的可卖给商人。",
 
-	-- Step 58: Engineering recipes at 175
+	-- Step 59: Engineering recipes at 175
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 175"] = "{skill:202} 175 级配方",
 	-- {skill:202} Engineering · {spell:12585} Solid Blasting Powder
 	["Back to an {skill:202} trainer: {spell:12585} (from 175)."] = "返回{skill:202}训练师处，学习{spell:12585}（技能 175 起可学）。",
 
-	-- Step 59: Solid Blasting Powder to 191
+	-- Step 60: Solid Blasting Powder to 191
 	-- {item:10505} Solid Blasting Powder
 	["{item:10505} to 191"] = "制作{item:10505}，提升至 191",
 	-- {item:10505} Solid Blasting Powder · {item:7912} Solid Stone
 	-- plural, as words: Mithril Deposits = {object:2040} Mithril Deposit
 	["{item:10505} is yellow at 175 (yellow 175, green 185, grey 195): about 31 crafts to 191. Each takes 2 {item:7912}. Two {item:7912} a craft (Mithril Deposits). Make plenty: the triggers, slugs and Gyro-Shot all use it."] = "{item:10505} 在技能175时为黄色（175变黄，185变绿，195变灰）：大约制作31次升到191。每次需要2块 {item:7912}。每次用两块 {item:7912}（来自秘银矿脉）。多做一些：扳机、弹头和 秘银螺旋弹 都要用到。",
 
-	-- Step 60: Engineering recipes at 191
+	-- Step 61: Engineering recipes at 191
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 191"] = "{skill:202}：技能 191 时学习的配方",
 	-- {skill:202} Engineering · {spell:3967} Big Iron Bomb
 	["Back to an {skill:202} trainer: {spell:3967} (from 190)."] = "返回{skill:202}训练师处，学习{spell:3967}（技能 190 起可学）。",
 
-	-- Step 61: Big Iron Bomb to 210
+	-- Step 62: Big Iron Bomb to 210
 	-- {spell:3967} Big Iron Bomb
 	["{spell:3967} to 210"] = "制作{spell:3967}，提升至 210",
 	-- {spell:3967} Big Iron Bomb · {item:3575} Iron Bar · {spell:3945} Heavy Blasting Powder · {spell:3973} Silver Contact · {item:2842} Silver Bar · {item:2838} Heavy Stone · {npc:5174} Springspindle Fizzlegear · {zone:1455} Ironforge · {npc:5518} Lilliam Sparkspindle · {zone:1453} Stormwind City · {npc:4586} Graham Van Talen · {zone:1458} Undercity · {area:392} Ratchet · {spell:20220} Gnomish Engineering · {npc:7944} Tinkmaster Overspark · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay · {item:4407} Accurate Scope · {npc:8126} Nixx Sprocketspring · {area:976} Gadgetzan · {item:10507} Solid Dynamite · {npc:2675} Explosive Sheep
 	-- plural, as words: Silver Contacts = {spell:3973} Silver Contact · Mithril Tubes = {item:10559} Mithril Tube · Big Iron Bombs = {spell:3967} Big Iron Bomb
-	["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby."] = "{spell:3967} 在技能 191 时为黄色（190 变黄，210 变绿，230 变灰）：约制作 27 次可到 210。每次需要 3 个 {item:3575}、3 个 {spell:3945} 和 1 个 {spell:3973}，产出 2 个。先制作 74 个 {spell:3945} 和 30 个 {spell:3973}（制作 6 次）。用上之前做好的 7 个 {spell:3945}；上述数量未将它们计入。一个 {item:2842} 可制成五个银触媒（此时已变灰，不再加技能点，但也无需再跑商人）；{spell:3945} 用 {item:2838} 制作。每次制作产出两个炸弹。专精（可选）：技能达到 200 且角色等级 30 时，{npc:5174}（{zone:1455}）、{npc:5518}（{zone:1453}）、{npc:4586}（{zone:1458}）或廷克维斯（{area:392}）会指引你学习 {spell:20220}（找 {zone:1455} 的 {npc:7944}，或 {area:35} 的 {npc:7406}：需要 6 个秘银管、一个 {item:4407} 和 2 个高级假人）或地精工程学（找 {area:976} 的 {npc:8126}：需要 20 个大铁炸弹、20 个 {item:10507} 和 5 个 {npc:2675}）。{item:4407} 的设计图现为拾取后绑定，但任务接受他人制作的瞄准镜。会员卡有效期为 14 天游戏时间，续期需 2 金币。只能选择一种专精；冲到 300 都不需要它们，而且测试版从未测试过这两种专精（测试止于 30 级）。附近需要有铁砧。",
+	["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby. If you got here without learning {spell:3945} and {spell:3973}, learn them now: an earlier step teaches them."] = "{spell:3967}在191时为黄色（黄色190，绿色210，灰色230）：大约制作27次到210。每次需要3个{item:3575}、3个{spell:3945}和1个{spell:3973}，产出2个。先做74个{spell:3945}和30个{spell:3973}（6次制作）。用上你之前做的7个{spell:3945}；上面的数量不包括它们。一个{item:2842}可以做五个银触媒（此时已是灰色：不加点，但也不用跑商人）；{spell:3945}来自{item:2838}。每次制作产出两个炸弹。专精（可选）：在200技能和30级角色时，{npc:5174}（{zone:1455}）、{npc:5518}（{zone:1453}）、{npc:4586}（{zone:1458}）或丁克维兹（{area:392}）会把你送到{spell:20220}（{npc:7944}、{zone:1455}，或{npc:7406}、{area:35}：6个秘银管、一个{item:4407}和2个高级假人）或地精工程学（{npc:8126}、{area:976}：20个重磅铁制炸弹、20个{item:10507}和5个{npc:2675}）。{item:4407}的设计图现在拾取后绑定，但任务接受别人做的瞄准镜。会员卡可用14天游戏时间；续期花费2金。只能选一个；到300都不需要，测试版也从未测试过它们（它停在30级）。需要附近有铁砧。如果你到这里还没学会{spell:3945}和{spell:3973}，现在就学：之前的步骤会教。",
 
-	-- Step 62: Engineering recipes at 210
+	-- Step 63: Engineering recipes at 210
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 210"] = "{skill:202} 210 级配方",
 	-- {skill:202} Engineering · {spell:12596} Hi-Impact Mithril Slugs
 	["Back to an {skill:202} trainer: {spell:12596} (from 210)."] = "返回{skill:202}训练师处，学习{spell:12596}（技能 210 起可学）。",
 
-	-- Step 63: Hi-Impact Mithril Slugs to 225
+	-- Step 64: Hi-Impact Mithril Slugs to 225
 	-- {item:10512} Hi-Impact Mithril Slugs
 	["{item:10512} to 225"] = "将{item:10512}做到 225",
 	-- {item:10512} Hi-Impact Mithril Slugs · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder · {skill:202} Engineering
 	["{item:10512} is yellow at 210 (yellow 210, green 230, grey 250): about 19 crafts to 225. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Use the 19 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. {skill:202} 225 is a Legacy System milestone."] = "{item:10512} 在210点时为黄色（210变黄，230变绿，250变灰）：制作约19次可到225。每次需要1块 {item:3860} 和1份 {item:10505}，产出200发。使用之前做好的19份 {item:10505}；上面的数量未包含它们。每次制作消耗一块 {item:3860} 和一份 {item:10505}；猎人会购买这些弹头。附近需要有铁砧。{skill:202} 达到225是传承系统的一个里程碑。",
 
-	-- Step 64: Artisan Engineering
+	-- Step 65: Artisan Engineering
 	-- {skill:202} Engineering
 	["Artisan {skill:202}"] = "专家级{skill:202}",
 	-- {skill:202} Engineering · {npc:8736} Buzzek Bracketswing · {zone:1446} Tanaris · {item:3860} Mithril Bar · {item:7912} Solid Stone · {item:12359} Thorium Bar · {item:14047} Runecloth
 	["Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:8736} ({zone:1446}); Horde {npc:8736} ({zone:1446}). The arrow picks the nearest of your faction. 225-300 takes about 2g 80s of recipes, plus 118 {item:3860}, 212 {item:7912}, 156 {item:12359} and 24 {item:14047} to gather or buy."] = "大师级技能将上限从225提高到300，费用4金币50银币（经典旧世价格；数据中没有无限服的价格）；需要 {skill:202} 200和角色35级，因此达到200后，随时拜访都能学习。只有少数训练师教授：联盟的 {npc:8736}（{zone:1446}）；部落的 {npc:8736}（{zone:1446}）。箭头会选择本阵营最近的一位。225—300阶段约需购买2金币80银币的配方，另外还需采集或购买118块 {item:3860}、212块 {item:7912}、156块 {item:12359} 和24块 {item:14047}。",
 
-	-- Step 65: Schematic: Thorium Widget
+	-- Step 66: Schematic: Thorium Widget
 	-- {item:16042} Schematic: Thorium Widget · {item:15994} Thorium Widget · {skill:202} Engineering · {npc:5175} Gearcutter Cogspinner · {zone:1455} Ironforge · {npc:3413} Sovik · {zone:1454} Orgrimmar
 	["{item:16042} teaches {item:15994} ({skill:202} 260) for 1g 20s. Sold by Alliance: {npc:5175} ({zone:1455}), limited stock; Horde: {npc:3413} ({zone:1454}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; the Auction House often has it too."] = "{item:16042} 可教会制作 {item:15994}（{skill:202} 260），售价 1 金 20 银。出售者：联盟 {npc:5175}（{zone:1455}），限量；部落 {npc:3413}（{zone:1454}），限量。商人通常只备一两份，售出一段时间后补货；拍卖行也经常有售。",
 
-	-- Step 66: Schematic: Thorium Tube
+	-- Step 67: Schematic: Thorium Tube
 	-- {item:16047} Schematic: Thorium Tube · {item:16000} Thorium Tube · {skill:202} Engineering · {npc:260565} Kor'gar · {zone:2548} Riverglades · {npc:11185} Xizzer Fizzbolt · {zone:1452} Winterspring
 	["{item:16047} teaches {item:16000} ({skill:202} 275) for 1g 60s. Sold by {npc:260565} ({zone:2548}) and {npc:11185} ({zone:1452}), limited stock."] = "{item:16047}用于学习{item:16000}（需要{skill:202}275），售价1金60银。出售者：{npc:260565}（{zone:2548}）和{npc:11185}（{zone:1452}），限量供应。",
 
-	-- Step 67: Engineering 225-300: Auction House
-	-- {skill:202} Engineering
-	["{skill:202} 225-300: Auction House"] = "{skill:202} 225-300：拍卖行",
-	-- {item:3860} Mithril Bar · {item:7912} Solid Stone · {item:12359} Thorium Bar · {item:14047} Runecloth
-	["What 225-300 takes that the Auction House sells: 118 {item:3860}, 212 {item:7912}, 156 {item:12359} and 24 {item:14047}. The counts drop by what your bags, bank and mail hold."] = "225-300阶段所需材料中拍卖行有售的：118个{item:3860}、212个{item:7912}、156个{item:12359}和24个{item:14047}。背包、银行和邮箱中已有的数量会自动扣除。",
+	-- Step 68: Get Mithril Bar (Alliance)
+	-- {item:3860} Mithril Bar · {skill:202} Engineering · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {object:2040} Mithril Deposit · {skill:186} Mining · {item:3858} Mithril Ore · {zone:1425} The Hinterlands
+	["You need 118 {item:3860} for {skill:202} 225-300: {item:10512} and {item:10513}. Mine {object:2040} ({skill:186} 175) for {item:3858} and smelt it at a forge ({skill:186} 175). The densest cluster of {object:2040} in {zone:1425} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 68: Mithril Bar
-	-- {item:3860} Mithril Bar · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {item:3858} Mithril Ore
-	["118 {item:3860} for {item:10512} and {item:10513}: {skill:186}: smelt {item:3858}."] = "为{item:10512}和{item:10513}准备118个{item:3860}：{skill:186}：熔炼{item:3858}。",
+	-- Step 69: Get Mithril Bar (Horde)
+	-- {item:3860} Mithril Bar · {skill:202} Engineering · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {object:2040} Mithril Deposit · {skill:186} Mining · {item:3858} Mithril Ore · {zone:1443} Desolace
+	["You need 118 {item:3860} for {skill:202} 225-300: {item:10512} and {item:10513}. Mine {object:2040} ({skill:186} 175) for {item:3858} and smelt it at a forge ({skill:186} 175). The densest cluster of {object:2040} in {zone:1443} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 69: Solid Stone (Alliance)
-	-- {item:7912} Solid Stone · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest cluster of {object:2040} in {zone:1425} is marked."] = "准备 212 个 {item:7912}，用于 {item:10512} 和 {item:10513}：通过 {skill:186} 开采 {object:2040}（技能 175），产地有 {zone:1425}（40-50 级）、{zone:1444}（40-50 级）和 {zone:1447}（45-55 级）。已标记 {zone:1425} 中 {object:2040} 最密集的区域。",
+	-- Step 70: Get Solid Stone (Alliance)
+	-- {item:7912} Solid Stone · {skill:202} Engineering · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
+	-- was: ["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest cluster of {object:2040} in {zone:1425} is marked."] = "准备 212 个 {item:7912}，用于 {item:10512} 和 {item:10513}：通过 {skill:186} 开采 {object:2040}（技能 175），产地有 {zone:1425}（40-50 级）、{zone:1444}（40-50 级）和 {zone:1447}（45-55 级）。已标记 {zone:1425} 中 {object:2040} 最密集的区域。"
+	["You need 212 {item:7912} for {skill:202} 225-300: {item:10512} and {item:10513}. {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest cluster of {object:2040} in {zone:1425} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 70: Solid Stone (Horde)
-	-- {item:7912} Solid Stone · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "为{item:10512}和{item:10513}准备212个{item:7912}：通过{skill:186}在{zone:1443}（30-40级）、{zone:1425}（40-50级）和{zone:1444}（40-50级）开采{object:2040}（需要技能175）。已标记{zone:1443}中{object:2040}最密集的区域。",
+	-- Step 71: Get Solid Stone (Horde)
+	-- {item:7912} Solid Stone · {skill:202} Engineering · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
+	-- was: ["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "为{item:10512}和{item:10513}准备212个{item:7912}：通过{skill:186}在{zone:1443}（30-40级）、{zone:1425}（40-50级）和{zone:1444}（40-50级）开采{object:2040}（需要技能175）。已标记{zone:1443}中{object:2040}最密集的区域。"
+	["You need 212 {item:7912} for {skill:202} 225-300: {item:10512} and {item:10513}. {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 71: Thorium Bar
-	-- {item:12359} Thorium Bar · {item:15994} Thorium Widget · {item:16000} Thorium Tube · {skill:186} Mining · {item:10620} Thorium Ore
-	["156 {item:12359} for {item:15994} and {item:16000}: {skill:186}: smelt {item:10620}."] = "为{item:15994}和{item:16000}准备156个{item:12359}：{skill:186}：熔炼{item:10620}。",
+	-- Step 72: Get Thorium Bar (Alliance)
+	-- {item:12359} Thorium Bar
+	["Get {item:12359} (Alliance)"] = "",
+	-- {item:12359} Thorium Bar · {skill:202} Engineering · {item:15994} Thorium Widget · {item:16000} Thorium Tube · {object:324} Small Thorium Vein · {skill:186} Mining · {item:10620} Thorium Ore · {zone:1419} Blasted Lands
+	["You need 156 {item:12359} for {skill:202} 225-300: {item:15994} and {item:16000}. Mine {object:324} ({skill:186} 245) for {item:10620} and smelt it at a forge ({skill:186} 250). The densest cluster of {object:324} in {zone:1419} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 72: Runecloth
-	-- {item:14047} Runecloth · {item:15994} Thorium Widget
-	["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it. Keep what you loot as you level, or take it from your bank."] = "为{item:15994}准备24个{item:14047}：45-60级的人型生物会掉落。升级时把拾取到的留着，或从银行取出。",
+	-- Step 73: Get Thorium Bar (Horde)
+	-- {item:12359} Thorium Bar
+	["Get {item:12359} (Horde)"] = "",
+	-- {item:12359} Thorium Bar · {skill:202} Engineering · {item:15994} Thorium Widget · {item:16000} Thorium Tube · {object:324} Small Thorium Vein · {skill:186} Mining · {item:10620} Thorium Ore · {zone:1448} Felwood
+	["You need 156 {item:12359} for {skill:202} 225-300: {item:15994} and {item:16000}. Mine {object:324} ({skill:186} 245) for {item:10620} and smelt it at a forge ({skill:186} 250). The densest cluster of {object:324} in {zone:1448} is marked. Or buy them at the Auction House."] = "",
 
-	-- Step 73: Hi-Impact Mithril Slugs to 245
+	-- Step 74: Get Runecloth
+	-- {item:14047} Runecloth
+	["Get {item:14047}"] = "",
+	-- {item:14047} Runecloth · {skill:202} Engineering · {item:15994} Thorium Widget
+	["You need 24 {item:14047} for {skill:202} 225-300: {item:15994}. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+
+	-- Step 75: Hi-Impact Mithril Slugs to 245
 	-- {item:10512} Hi-Impact Mithril Slugs
 	["{item:10512} to 245"] = "将{item:10512}做到 245",
 	-- {item:10512} Hi-Impact Mithril Slugs · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder
-	["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby."] = "{item:10512} 在225点时为黄色（210变黄，230变绿，250变灰）：制作约62次可到245。每次需要1块 {item:3860} 和1份 {item:10505}，产出200发。先制作50份 {item:10505}。使用之前做好的12份 {item:10505}；上面的数量未包含它们。每次制作消耗一块 {item:3860} 和一份 {item:10505}；猎人会购买这些弹头。附近需要有铁砧。",
+	["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. If you got here without learning {item:10505} and {item:10512}, learn them now: an earlier step teaches them."] = "{item:10512}在225时为黄色（黄色210，绿色230，灰色250）：大约制作62次到245。每次需要1个{item:3860}和1个{item:10505}，产出200个。先做50个{item:10505}。用上你之前做的12个{item:10505}；上面的数量不包括它们。每次一个{item:3860}和一个{item:10505}；猎人会买子弹。需要附近有铁砧。如果你到这里还没学会{item:10505}和{item:10512}，现在就学：之前的步骤会教。",
 
-	-- Step 74: Engineering recipes at 245
+	-- Step 76: Engineering recipes at 245
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 245"] = "{skill:202} 245 级配方",
 	-- {skill:202} Engineering · {spell:12621} Mithril Gyro-Shot
 	["Back to an {skill:202} trainer: {spell:12621} (from 245)."] = "返回{skill:202}训练师处，学习{spell:12621}（技能 245 起可学）。",
 
-	-- Step 75: Mithril Gyro-Shot to 265
+	-- Step 77: Mithril Gyro-Shot to 265
 	-- {item:10513} Mithril Gyro-Shot
 	["{item:10513} to 265"] = "制作{item:10513}，提升至 265",
 	-- {item:10513} Mithril Gyro-Shot · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder
 	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
-	["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby."] = "{item:10513} 在技能 245 时为黄色（245 变黄、265 变绿、285 变灰）：约制作 28 次可到 265。每次需要 2 个 {item:3860} 和 2 个 {item:10505}，产出 200 个。先制作 56 个 {item:10505}。即每次两块秘银锭和两个 {item:10505}。附近需要铁砧。",
+	["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby. If you got here without learning {item:10505}, learn it now: an earlier step teaches it."] = "{item:10513}在245时为黄色（黄色245，绿色265，灰色285）：大约制作28次到265。每次需要2个{item:3860}和2个{item:10505}，产出200个。先做56个{item:10505}。每次两个秘银锭和两个{item:10505}。需要附近有铁砧。如果你到这里还没学会{item:10505}，现在就学：之前的步骤会教。",
 
-	-- Step 76: Thorium Widget to 287
+	-- Step 78: Thorium Widget to 287
 	-- {item:15994} Thorium Widget
 	["{item:15994} to 287"] = "制作{item:15994}，提升至 287",
 	-- {item:15994} Thorium Widget · {item:12359} Thorium Bar · {item:14047} Runecloth
@@ -408,7 +481,7 @@ return {
 	["{item:15994} is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287. Each takes 3 {item:12359} and 1 {item:14047}. Three Thorium Bars and a {item:14047} a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby."] = "{item:15994} 在技能 265 时为橙色（280 变黄、290 变绿、300 变灰）：约制作 24 次可升到 287。每次需要 3 个 {item:12359} 和 1 个 {item:14047}，即三块瑟银锭和一个 {item:14047}；这些零件用于后续的瑟银装置。附近需要有铁砧。",
 	["from the recipe in your bags"] = "使用背包里的配方",
 
-	-- Step 77: Thorium Tube to 300
+	-- Step 79: Thorium Tube to 300
 	-- {item:16000} Thorium Tube
 	["{item:16000} to 300"] = "将{item:16000}做到 300",
 	-- {item:16000} Thorium Tube · {item:12359} Thorium Bar · {skill:202} Engineering
@@ -416,9 +489,47 @@ return {
 	["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "{item:16000} 在技能 287 时为橙色（295 变黄、305 变绿、315 变灰）：约制作 14 次可升到 300。每次需要 6 个 {item:12359}。结构图拾取后绑定；每次制作消耗六块瑟银锭。附近需要有铁砧。{skill:202} 达到 300 是传承系统的一个里程碑。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["100 {item:2841} for {item:6533} and {spell:3953}: {skill:186}: smelt {item:2840} and {item:3576}."] = "为{item:6533}和{spell:3953}准备100个{item:2841}：{skill:186}：熔炼{item:2840}和{item:3576}。",
+	-- ["118 {item:3860} for {item:10512} and {item:10513}: {skill:186}: smelt {item:3858}."] = "为{item:10512}和{item:10513}准备118个{item:3860}：{skill:186}：熔炼{item:3858}。",
+	-- ["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1413} is marked."] = "准备 15 个 {item:2836}，用于 {spell:3930}：通过 {skill:186} 开采 {object:1732}（技能 65）。已标记 {zone:1413} 中 {object:1732} 最密集的区域。",
+	-- ["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1421} is marked."] = "准备 15 个 {item:2836}，用于 {spell:3930}：通过 {skill:186} 开采 {object:1732}（技能 65）。已标记 {zone:1421} 中 {object:1732} 最密集的区域。",
+	-- ["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1432} is marked."] = "准备 15 个 {item:2836}，用于 {spell:3930}：通过 {skill:186} 开采 {object:1732}（技能 65）。已标记 {zone:1432} 中 {object:1732} 最密集的区域。",
+	-- ["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1436} is marked."] = "准备 15 个 {item:2836}，用于 {spell:3930}：通过 {skill:186} 开采 {object:1732}（技能 65）。已标记 {zone:1436} 中 {object:1732} 最密集的区域。",
+	-- ["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1439} is marked."] = "准备 15 个 {item:2836}，用于 {spell:3930}：通过 {skill:186} 开采 {object:1732}（技能 65）。已标记 {zone:1439} 中 {object:1732} 最密集的区域。",
+	-- ["156 {item:12359} for {item:15994} and {item:16000}: {skill:186}: smelt {item:10620}."] = "为{item:15994}和{item:16000}准备156个{item:12359}：{skill:186}：熔炼{item:10620}。",
+	-- ["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "为 {spell:3953} 准备19张 {item:2319}：{skill:393}：剥取18-30级野兽。在这里剥取 {npc:2248}、{npc:2356}、{npc:2385}、{npc:2351}、钳嘴龟、{npc:2384} 和 {npc:2354}（18-30级）；{skill:393} 指南提供相应路线。",
+	-- ["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} and {npc:3817} here (level 18-30); the {skill:393} guide routes this."] = "为{spell:3953}准备19个{item:2319}：通过{skill:393}剥取18-30级野兽。在这里剥取{npc:3809}、{npc:3810}、{npc:3818}、{npc:3823}、{npc:3811}和{npc:3817}（18-30级）；{skill:393}指南提供了对应路线。",
+	-- ["19 {item:2592} for {spell:3953}: humanoids of level 15-30 drop it. Keep what you loot as you level, or take it from your bank."] = "为{spell:3953}准备19个{item:2592}：15-30级的人型生物会掉落。升级时把拾取到的留着，或从银行取出。",
 	-- ["19 {item:2592} for {spell:3953}: humanoids of level 15-30 drop it; or the Auction House. The arrow picks a farm spot for your level and faction."] = "为 {spell:3953} 准备19块 {item:2592}：15—30级人形生物会掉落；也可在拍卖行购买。箭头会根据你的等级和阵营选择一处刷取地点。",
+	-- ["19 {item:3860} for {item:10512}: {skill:186}: smelt {item:3858}."] = "为{item:10512}准备19个{item:3860}：{skill:186}：熔炼{item:3858}。",
+	-- ["2 {item:2842} for {spell:3950}: {skill:186}: smelt {item:2775}."] = "为{spell:3950}准备2个{item:2842}：{skill:186}：熔炼{item:2775}。",
+	-- ["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest cluster of {object:2040} in {zone:1425} is marked."] = "准备 212 个 {item:7912}，用于 {item:10512} 和 {item:10513}：通过 {skill:186} 开采 {object:2040}（技能 175），产地有 {zone:1425}（40-50 级）、{zone:1444}（40-50 级）和 {zone:1447}（45-55 级）。已标记 {zone:1425} 中 {object:2040} 最密集的区域。",
+	-- ["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "为{item:10512}和{item:10513}准备212个{item:7912}：通过{skill:186}在{zone:1443}（30-40级）、{zone:1425}（40-50级）和{zone:1444}（40-50级）开采{object:2040}（需要技能175）。已标记{zone:1443}中{object:2040}最密集的区域。",
+	-- ["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it. Keep what you loot as you level, or take it from your bank."] = "为{item:15994}准备24个{item:14047}：45-60级的人型生物会掉落。升级时把拾取到的留着，或从银行取出。",
 	-- ["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:11880} (level 57-59) here."] = "准备 24 个 {item:14047}，用于 {item:15994}：45-60 级人型生物会掉落，或在拍卖行购买。这里的 {npc:11880}（57-59 级）会掉落。",
 	-- ["24 {item:14047} for {item:15994}: humanoids of level 45-60 drop it; or the Auction House. It drops from {npc:7027} (level 56-57) here."] = "为 {item:15994} 准备24块 {item:14047}：45—60级人形生物会掉落；也可在拍卖行购买。这里的 {npc:7027}（56—57级）会掉落。",
+	-- ["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1413} is marked."] = "准备 27 个 {item:2838}，用于 {spell:3945}：通过 {skill:186} 开采 {object:1735}（技能 125）。已标记 {zone:1413} 中 {object:1735} 最密集的区域。",
+	-- ["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1417} is marked."] = "准备 27 个 {item:2838}，用于 {spell:3945}：通过 {skill:186} 开采 {object:1735}（技能 125）。已标记 {zone:1417} 中 {object:1735} 最密集的区域。",
+	-- ["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1440} is marked."] = "准备 27 个 {item:2838}，用于 {spell:3945}：通过 {skill:186} 开采 {object:1735}（技能 125）。已标记 {zone:1440} 中 {object:1735} 最密集的区域。",
+	-- ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1413} is marked."] = "31个{item:2836}用于{item:6533}：{skill:186}：{object:1732}（技能65），在{zone:1413}（10-25）、{zone:1440}（18-30）和{zone:1424}（20-30）。{zone:1413}中{object:1732}最密集的区域已标出。",
+	-- ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "为 {item:6533} 准备 31 个 {item:2836}：通过 {skill:186} 开采 {zone:1413}（10-25 级）、{zone:1440}（18-30 级）和 {zone:1424}（20-30 级）的 {object:1732}（需要技能 65）。已标记 {zone:1440} 中 {object:1732} 最密集的位置。",
+	-- ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1432} (10-20), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1432} is marked."] = "为 {item:6533} 准备31个 {item:2836}：{skill:186}：在 {zone:1432}（10-20级）、{zone:1440}（18-30级）和 {zone:1424}（20-30级）开采 {object:1732}（技能65）。已标出 {zone:1432} 中 {object:1732} 最密集的矿点群。",
+	-- ["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1411} is marked."] = "为 {spell:3918} 准备46个 {item:2835}：{skill:186}：开采 {object:1731}（技能1）。已标出 {zone:1411} 中 {object:1731} 最密集的矿点群。",
+	-- ["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1412} is marked."] = "为 {spell:3918} 准备46个 {item:2835}：{skill:186}：开采 {object:1731}（技能1）。已标出 {zone:1412} 中 {object:1731} 最密集的矿点群。",
+	-- ["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1420} is marked."] = "为 {spell:3918} 准备46个 {item:2835}：{skill:186}：开采 {object:1731}（技能1）。已标出 {zone:1420} 中 {object:1731} 最密集的矿点群。",
+	-- ["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1426} is marked."] = "为 {spell:3918} 准备46个 {item:2835}：{skill:186}：开采 {object:1731}（技能1）。已标出 {zone:1426} 中 {object:1731} 最密集的矿点群。",
+	-- ["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1429} is marked."] = "为 {spell:3918} 准备46个 {item:2835}：{skill:186}：开采 {object:1731}（技能1）。已标出 {zone:1429} 中 {object:1731} 最密集的矿点群。",
+	-- ["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1439} is marked."] = "为 {spell:3918} 准备46个 {item:2835}：{skill:186}：开采 {object:1731}（技能1）。已标出 {zone:1439} 中 {object:1731} 最密集的矿点群。",
+	-- ["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:2521} is marked."] = "为 {spell:3918} 准备46个 {item:2835}：{skill:186}：开采 {object:1731}（技能1）。已标出 {zone:2521} 中 {object:1731} 最密集的矿点群。",
+	-- ["6 {item:2842} for {spell:3967}: {skill:186}: smelt {item:2775}."] = "为{spell:3967}准备6个{item:2842}：{skill:186}：熔炼{item:2775}。",
+	-- ["61 {item:2841} for {item:6712} and {spell:3950}: {skill:186}: smelt {item:2840} and {item:3576}."] = "为{item:6712}和{spell:3950}准备61个{item:2841}：{skill:186}：熔炼{item:2840}和{item:3576}。",
+	-- ["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked."] = "为 {item:10505} 准备62个 {item:7912}：{skill:186}：在 {zone:1434}（30-45级）、{zone:1425}（40-50级）和 {zone:1444}（40-50级）开采 {object:2040}（技能175）。已标出 {zone:1434} 中 {object:2040} 最密集的矿点群。",
+	-- ["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "为 {item:10505} 准备62块 {item:7912}：{skill:186}：开采 {zone:1443}（30-40级）、{zone:1425}（40-50级）和 {zone:1444}（40-50级）的 {object:2040}（技能175）。已标记 {zone:1443} 中 {object:2040} 最密集的区域。",
+	-- ["72 {item:2840} for {spell:3930}, {spell:3924} and {item:6712}: {skill:186}: smelt {item:2770}."] = "为{spell:3930}、{spell:3924}和{item:6712}准备72个{item:2840}：{skill:186}：熔炼{item:2770}。",
+	-- ["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked."] = "为 {spell:3967} 准备 74 个 {item:2838}：通过 {skill:186} 开采 {zone:1417}（30-40 级）、{zone:1434}（30-45 级）和 {zone:1443}（30-40 级）的 {object:1735}（需要技能 125）。已标记 {zone:1417} 中 {object:1735} 最密集的位置。",
+	-- ["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked."] = "准备 74 个 {item:2838}，用于 {spell:3967}：通过 {skill:186} 开采 {object:1735}（技能 125），产地有 {zone:1441}（25-35 级）、{zone:1417}（30-40 级）和 {zone:1434}（30-45 级）。已标记 {zone:1441} 中 {object:1735} 最密集的区域。",
+	-- ["75 {item:2840} for {spell:3922}, {item:6219} and {spell:3924}: {skill:186}: smelt {item:2770}."] = "为{spell:3922}、{item:6219}和{spell:3924}准备75个{item:2840}：{skill:186}：熔炼{item:2770}。",
+	-- ["81 {item:3575} for {spell:3967}: {skill:186}: smelt {item:2772}."] = "为{spell:3967}准备81个{item:3575}：{skill:186}：熔炼{item:2772}。",
 	-- ["Apprentice {skill:202}"] = "初级{skill:202}",
 	-- ["Artisan needs character level 35 and {skill:202} 200; it raises the cap to 300. Materials for 225-300 are worth about 67g in all."] = "专家级需要角色等级 35 且{skill:202}达到 200；会将上限提高到 300。225-300 的材料总价约 67 金币。",
 	-- ["Back to an {skill:202} trainer: {spell:12585}, {spell:12596} are taught from {skill:202} 210."] = "回到{skill:202}训练师处：{spell:12585}、{spell:12596}在{skill:202} 210 时可学。",
@@ -432,6 +543,7 @@ return {
 	-- ["Back to an {skill:202} trainer: {spell:3937} is taught from {skill:202} 105."] = "回到{skill:202}训练师处：{spell:3937}在{skill:202} 105 时可学。",
 	-- ["Back to an {skill:202} trainer: {spell:3942} is taught from {skill:202} 125."] = "回到{skill:202}训练师处：{spell:3942}在{skill:202} 125 时可学。",
 	-- ["Back to an {skill:202} trainer: {spell:3945} is taught from {skill:202} 125."] = "回到{skill:202}训练师处：{spell:3945}在{skill:202} 125 时可学。",
+	-- ["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "一次买齐这个技能阶段所需的物资：18 个 {item:2880}（18 银币）和 {item:5956}（工具：只要一个，放在背包里保留，18 铜币）；总计约 18 银 18 铜。箭头会选择本阵营最近的商人（{zone:1453}：{npc:5519}、{npc:5514} 和 {npc:1286}）。",
 	-- ["Expert needs character level 20 and {skill:202} 125; it raises the cap to 225. Materials for 150-225 are worth about 15g in all."] = "高级需要角色等级 20 且{skill:202}达到 125；会将上限提高到 225。150-225 的材料总价约 15 金币。",
 	-- ["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:8736} ({zone:1446}) and {npc:5174} ({zone:1455}); Horde {npc:8736} ({zone:1446}) and Roxxik ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:9271} (from 150) and {spell:3953} (from 145). 150-225 takes about 31s of vendor goods, plus 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} and 62 {item:7912} to gather or buy."] = "高级将技能上限从 150 提高到 225，费用为 50 银币（经典旧世价格；数据中没有无限服的价格）；需要 {skill:202} 125 和角色等级 20，因此达到 125 后，任意一次来访都可学习。只有少数训练师教授：联盟为 {npc:8736}（{zone:1446}）和 {npc:5174}（{zone:1455}）；部落为 {npc:8736}（{zone:1446}）和罗克希克（{zone:1454}）。箭头会指向你所属阵营最近的一位。现在学习：{spell:9271}（技能 150 起）和 {spell:3953}（技能 145 起）。150-225 阶段约需 31 银币的商人材料，另需采集或购买 19 个 {item:2319}、19 个 {item:2592}、31 个 {item:2836}、74 个 {item:2838}、100 个 {item:2841}、6 个 {item:2842}、81 个 {item:3575}、19 个 {item:3860} 和 62 个 {item:7912}。",
 	-- ["Journeyman needs character level 10 and {skill:202} 50; it raises the cap to 150. Materials for 75-150 are worth about 3g 23s in all."] = "中级需要角色等级 10 且{skill:202}达到 50；会将上限提高到 150。75-150 的材料总价约 3 金币 23 银币。",
@@ -445,6 +557,10 @@ return {
 	-- ["Skinned, disenchanted or crafted by another profession: gather them yourself or buy them on the Auction House."] = "剥皮、分解或其他专业制造所得：自己收集，或在拍卖行购买。",
 	-- ["Teaches {item:15994} (needs {skill:202} 260). Vendors sell it in limited stock that restocks; the Auction House often has it too."] = "学会{item:15994}（需要{skill:202} 260）。商人限量出售并会补货；拍卖行也常有。",
 	-- ["Teaches {item:16000} (needs {skill:202} 275). Vendors sell it in limited stock that restocks."] = "学会{item:16000}（需要{skill:202} 275）。商人限量出售并会补货。",
+	-- ["What 1-75 takes that the Auction House sells: 46 {item:2835} and 75 {item:2840}. The counts drop by what your bags, bank and mail hold."] = "1-75阶段所需材料中拍卖行有售的：46个{item:2835}和75个{item:2840}。背包、银行和邮箱中已有的数量会自动扣除。",
+	-- ["What 150-225 takes that the Auction House sells: 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} and 62 {item:7912}. The counts drop by what your bags, bank and mail hold."] = "150-225阶段所需材料中拍卖行有售的：19个{item:2319}、19个{item:2592}、31个{item:2836}、74个{item:2838}、100个{item:2841}、6个{item:2842}、81个{item:3575}、19个{item:3860}和62个{item:7912}。背包、银行和邮箱中已有的数量会自动扣除。",
+	-- ["What 225-300 takes that the Auction House sells: 118 {item:3860}, 212 {item:7912}, 156 {item:12359} and 24 {item:14047}. The counts drop by what your bags, bank and mail hold."] = "225-300阶段所需材料中拍卖行有售的：118个{item:3860}、212个{item:7912}、156个{item:12359}和24个{item:14047}。背包、银行和邮箱中已有的数量会自动扣除。",
+	-- ["What 75-150 takes that the Auction House sells: 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842}. The counts drop by what your bags, bank and mail hold."] = "75-150阶段所需材料中拍卖行有售的：15个{item:2836}、27个{item:2838}、72个{item:2840}、61个{item:2841}和2个{item:2842}。背包、银行和邮箱中已有的数量会自动扣除。",
 	-- ["Yellow until 110, green until 125: not every craft gives a point. Needs an anvil nearby."] = "110 前为黄色，125 前为绿色：不是每次制造都加点。需要在铁砧附近。",
 	-- ["Yellow until 130, green until 155: not every craft gives a point. Needs an anvil nearby."] = "130 前为黄色，155 前为绿色：不是每次制造都加点。需要在铁砧附近。",
 	-- ["Yellow until 135, green until 145: not every craft gives a point."] = "135 前为黄色，145 前为绿色：不是每次制造都加点。",
@@ -461,19 +577,31 @@ return {
 	-- ["Yellow until 90, green until 95: not every craft gives a point."] = "90 前为黄色，95 前为绿色：不是每次制造都加点。",
 	-- ["Yellow until 95, green until 110: not every craft gives a point. Needs an anvil nearby."] = "95 前为黄色，110 前为绿色：不是每次制造都加点。需要在铁砧附近。",
 	-- ["{item:10498} to 210"] = "将{item:10498}做到 210",
+	-- ["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby."] = "{item:10512} 在225点时为黄色（210变黄，230变绿，250变灰）：制作约62次可到245。每次需要1块 {item:3860} 和1份 {item:10505}，产出200发。先制作50份 {item:10505}。使用之前做好的12份 {item:10505}；上面的数量未包含它们。每次制作消耗一块 {item:3860} 和一份 {item:10505}；猎人会购买这些弹头。附近需要有铁砧。",
+	-- ["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby."] = "{item:10513} 在技能 245 时为黄色（245 变黄、265 变绿、285 变灰）：约制作 28 次可到 265。每次需要 2 个 {item:3860} 和 2 个 {item:10505}，产出 200 个。先制作 56 个 {item:10505}。即每次两块秘银锭和两个 {item:10505}。附近需要铁砧。",
 	-- ["{item:10513} to 264"] = "将{item:10513}做到 264",
 	-- ["{item:14047} (Alliance)"] = "{item:14047}（联盟）",
 	-- ["{item:14047} (Horde)"] = "{item:14047}（部落）",
 	-- ["{item:15994} to 288"] = "将{item:15994}做到 288",
 	-- ["{item:16047} teaches {item:16000} ({skill:202} 275) for 1g 60s. Sold by Alliance: {npc:260565} ({zone:2548}) and {npc:11185} ({zone:1452}), limited stock; Horde: {npc:11185} ({zone:1452}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "{item:16047}用于学习{item:16000}（需要{skill:202}275），售价1金60银。联盟出售者：{npc:260565}（{zone:2548}）和{npc:11185}（{zone:1452}），限量供应；部落出售者：{npc:11185}（{zone:1452}），限量供应。商人库存为1-2份，售出一段时间后才会补货；此图纸拾取绑定，拍卖行买不到。",
+	-- ["{item:2319} (Alliance)"] = "{item:2319}（联盟）",
+	-- ["{item:2319} (Horde)"] = "{item:2319}（部落）",
 	-- ["{item:2592} (Alliance)"] = "{item:2592}（联盟）",
 	-- ["{item:2592} (Horde)"] = "{item:2592}（部落）",
 	-- ["{item:2835} (Alliance)"] = "{item:2835}（联盟）",
 	-- ["{item:2835} (Horde)"] = "{item:2835}（部落）",
 	-- ["{item:2835} comes from {object:1731} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:2835}来自{object:1731}（{skill:186}）；这里是数据中最密集的矿点。也可以去拍卖行购买。",
+	-- ["{item:2836} (Alliance)"] = "{item:2836}（联盟）",
+	-- ["{item:2836} (Horde)"] = "{item:2836}（部落）",
 	-- ["{item:2836} comes from {object:1732} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:2836}来自{object:1732}（{skill:186}）；这里是数据中最密集的矿点。也可以去拍卖行购买。",
+	-- ["{item:2838} (Alliance)"] = "{item:2838}（联盟）",
+	-- ["{item:2838} (Horde)"] = "{item:2838}（部落）",
 	-- ["{item:2838} comes from {object:1735} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:2838}来自{object:1735}（{skill:186}）；这里是数据中最密集的矿点。也可以去拍卖行购买。",
 	-- ["{item:5956}: a tool, keep it in your bags"] = "{item:5956}：工具，放在背包里",
+	-- ["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen."] = "{item:6533} 在技能150时为黄色（150变黄，160变绿，170变灰）：大约制作31次升到166。每次需要2块 {item:2841}、1个 {item:6530} 和1份 {spell:3929}，产出3个。先制作31份 {spell:3929}。{item:6530} 可向商贸或钓鱼供应商购买；制成的诱饵可卖给钓鱼玩家。",
+	-- ["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby."] = "{item:6712} 在技能 100 时为橙色（115 变黄、122 变绿、130 变灰）：约制作 31 次可升到 125。每次需要 1 个 {item:2841}、2 个 {spell:3922} 和 1 个 {item:2880}。先制作 29 个 {spell:3922}。同时用上先前制作的 33 个 {spell:3922}；上方材料数量未将它们计入。练习锁可以卖给潜行者，也可以自己打开。附近需要有铁砧。",
+	-- ["{item:7912} (Alliance)"] = "{item:7912}（联盟）",
+	-- ["{item:7912} (Horde)"] = "{item:7912}（部落）",
 	-- ["{item:7912} comes from {object:2040} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:7912}来自{object:2040}（{skill:186}）；这里是数据中最密集的矿点。也可以去拍卖行购买。",
 	-- ["{npc:3263} (level 19-20) drop it here. The Auction House works too."] = "这里的{npc:3263}（等级 19-20）会掉落它。也可以去拍卖行购买。",
 	-- ["{npc:6189} (level 51-52) drop it here. The Auction House works too."] = "这里的{npc:6189}（等级 51-52）会掉落它。也可以去拍卖行购买。",
@@ -484,6 +612,10 @@ return {
 	-- ["{skill:186}: smelt {item:2840} (or the Auction House)"] = "{skill:186}：熔炼{item:2840}（或去拍卖行购买）",
 	-- ["{skill:186}: smelt {item:3575} (or the Auction House)"] = "{skill:186}：熔炼{item:3575}（或去拍卖行购买）",
 	-- ["{skill:186}: smelt {item:3858} (or the Auction House)"] = "{skill:186}：熔炼{item:3858}（或去拍卖行购买）",
+	-- ["{skill:202} 1-75: Auction House"] = "{skill:202} 1-75：拍卖行",
+	-- ["{skill:202} 150-225: Auction House"] = "{skill:202} 150-225：拍卖行",
+	-- ["{skill:202} 225-300: Auction House"] = "{skill:202} 225-300：拍卖行",
+	-- ["{skill:202} 75-150: Auction House"] = "{skill:202} 75-150：拍卖行",
 	-- ["{skill:202} materials for 1-75"] = "{skill:202} 1-75 所需材料",
 	-- ["{skill:202} materials for 150-225"] = "{skill:202} 150-225 所需材料",
 	-- ["{skill:202} materials for 225-300"] = "{skill:202} 225-300 所需材料",
@@ -501,10 +633,12 @@ return {
 	-- ["{spell:3922} to 60"] = "将{spell:3922}做到 60",
 	-- ["{spell:3923} to 75"] = "将{spell:3923}做到 75",
 	-- ["{spell:3923} to 80"] = "将{spell:3923}做到 80",
+	-- ["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby."] = "{spell:3924} 在技能 94 时为黄色（80 变黄、95 变绿、110 变灰）：约制作 14 次可到 100。每次需要 2 个 {item:2840} 和 1 个 {item:2880}。即每次两块铜锭和一个 {item:2880}（由锻造和工程学供应商出售）。附近需要铁砧。",
 	-- ["{spell:3924} to 85"] = "将{spell:3924}做到 85",
 	-- ["{spell:3926} to 111"] = "将{spell:3926}做到 111",
 	-- ["{spell:3929} to 95"] = "将{spell:3929}做到 95",
 	-- ["{spell:3937} to 125"] = "将{spell:3937}做到 125",
 	-- ["{spell:3942} to 150"] = "将{spell:3942}做到 150",
 	-- ["{spell:3945} to 139"] = "将{spell:3945}做到 139",
+	-- ["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby."] = "{spell:3967} 在技能 191 时为黄色（190 变黄，210 变绿，230 变灰）：约制作 27 次可到 210。每次需要 3 个 {item:3575}、3 个 {spell:3945} 和 1 个 {spell:3973}，产出 2 个。先制作 74 个 {spell:3945} 和 30 个 {spell:3973}（制作 6 次）。用上之前做好的 7 个 {spell:3945}；上述数量未将它们计入。一个 {item:2842} 可制成五个银触媒（此时已变灰，不再加技能点，但也无需再跑商人）；{spell:3945} 用 {item:2838} 制作。每次制作产出两个炸弹。专精（可选）：技能达到 200 且角色等级 30 时，{npc:5174}（{zone:1455}）、{npc:5518}（{zone:1453}）、{npc:4586}（{zone:1458}）或廷克维斯（{area:392}）会指引你学习 {spell:20220}（找 {zone:1455} 的 {npc:7944}，或 {area:35} 的 {npc:7406}：需要 6 个秘银管、一个 {item:4407} 和 2 个高级假人）或地精工程学（找 {area:976} 的 {npc:8126}：需要 20 个大铁炸弹、20 个 {item:10507} 和 5 个 {npc:2675}）。{item:4407} 的设计图现为拾取后绑定，但任务接受他人制作的瞄准镜。会员卡有效期为 14 天游戏时间，续期需 2 金币。只能选择一种专精；冲到 300 都不需要它们，而且测试版从未测试过这两种专精（测试止于 30 级）。附近需要有铁砧。",
 }

@@ -140,6 +140,29 @@ fn a_ding_in_combat_waits_for_the_fight_to_end_and_an_instance_stays_silent() {
 	assert_eq!(out[2], 0, "nothing in a dungeon");
 }
 
+// #2930: a Warrior reached 32 inside the Excavation Site and Polestar never said there were spells to train. A ding
+// in an instance is held and told on the way out, with any level reached after it, in one notice, once.
+#[test]
+fn a_ding_in_an_instance_is_told_on_the_way_out_with_every_level_since() {
+	let out = run_qol(
+		r#"
+		IsInInstance = function() return true, "party" end
+		levelUp(10)
+		levelUp(14)
+		emit(#cards)
+		IsInInstance = function() return false end
+		stub.fire("PLAYER_ENTERING_WORLD", false, false)
+		stub.advance(3)
+		emit({ count = #cards, level = cards[1] and cards[1].level, ids = ids(cards[1] and cards[1].spells) })
+		stub.fire("PLAYER_ENTERING_WORLD", false, false)
+		stub.advance(3)
+		emit(#cards)"#,
+	);
+	assert_eq!(out[0], 0, "nothing inside");
+	assert_eq!(out[1], json!({ "count": 1, "level": 14, "ids": [139, 586, 594, 598] }), "10's and 14's spells, told once outside");
+	assert_eq!(out[2], 1, "not told twice");
+}
+
 #[test]
 fn the_setting_off_shows_no_level_up_card() {
 	let out = run_qol(
@@ -407,7 +430,7 @@ fn the_level_up_card_shows_the_spells_their_cost_the_trainer_and_hides_by_itself
 		emit(card())
 		emit(#stub.sounds)
 		stub.advance(31)
-		emit(card().shown)"#,
+		emit(card().shown and card().title or false)"#,
 	);
 	let c = &out[0];
 	assert_eq!(c["shown"], true, "{c}");
@@ -418,7 +441,9 @@ fn the_level_up_card_shows_the_spells_their_cost_the_trainer_and_hides_by_itself
 	assert_eq!(c["route"], "Class trainer: High Priestess Laurena, Stormwind City.", "{c}");
 	assert_eq!(c["act"], "Show me");
 	assert_eq!(out[1], 0, "a quiet card: no chime");
-	assert_eq!(out[2], false, "gone by itself");
+	// Gone by itself; a class quest card waiting behind it (a level 10 Priest's Divine Grace, its giver placed
+	// since #2472) may come up next.
+	assert_ne!(out[2], "3 new spells to train", "gone by itself");
 }
 
 #[test]
@@ -499,8 +524,9 @@ fn costs_leave_zero_units_out() {
 	assert_eq!(out[0], json!(["64s", "1g 5c", "0c", "12g 34s 56c"]));
 }
 
+// #2843: the guide's own training stop wins wherever it is ahead; with none ahead, the planner's trainer.
 #[test]
-fn the_guides_own_training_stop_within_ten_steps_wins_over_the_planners_trainer_as_on_the_training_banner() {
+fn the_guides_own_training_stop_ahead_wins_over_the_planners_trainer_as_on_the_training_banner() {
 	let out = run_ui(
 		r#"
 		uistub.plannerTrainer = { npc = 3171, npcName = "Thotar", map = 1411, x = 51.8, y = 43.5 }
@@ -514,6 +540,10 @@ fn the_guides_own_training_stop_within_ten_steps_wins_over_the_planners_trainer_
 		CT.Hide()
 		uistub.trainStop = { 14, "Thunder Bluff" }
 		Polestar.Fire("LEVELUP_SPELLS", { level = 20, spells = spells(2), cost = 200, money = 1000 })
+		emit(card().route)
+		CT.Hide()
+		uistub.trainStop = { false }
+		Polestar.Fire("LEVELUP_SPELLS", { level = 20, spells = spells(2), cost = 200, money = 1000 })
 		emit(card())
 		CT.Act()
 		emit(lastCall("SetTarget"))"#,
@@ -523,11 +553,12 @@ fn the_guides_own_training_stop_within_ten_steps_wins_over_the_planners_trainer_
 	assert_eq!(near["buttons"], false, "no arrow to another trainer: {near}");
 	assert_eq!(near["laterFirst"], true, "Later leads the row: {near}");
 	assert_eq!(out[1], "Your guide's current step trains you.");
-	let far = &out[2];
-	assert_eq!(far["route"], "Class trainer: Thotar, Durotar.", "{far}");
-	assert_eq!(far["act"], "Show me");
+	assert_eq!(out[2], "The guide trains you in 14 steps (Thunder Bluff).", "a stop further ahead still wins");
+	let none = &out[3];
+	assert_eq!(none["route"], "Class trainer: Thotar, Durotar.", "{none}");
+	assert_eq!(none["act"], "Show me");
 	// Show me aims where the training banner's Show does: the advice's trainer.
-	assert_eq!(out[3], json!(["SetTarget", 1411, 51.8, 43.5, "Thotar"]));
+	assert_eq!(out[4], json!(["SetTarget", 1411, 51.8, 43.5, "Thotar"]));
 }
 
 #[test]

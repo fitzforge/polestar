@@ -9,7 +9,8 @@ name: PR base
 #
 # This runs on pull_request_target so it is a required check for forks too.
 # It never checks out or runs the pull request's code: the public-text job
-# runs the base branch's own check.
+# runs the base branch's own check, and the commit authors are read through
+# the API.
 
 on:
   pull_request_target:
@@ -24,12 +25,71 @@ concurrency:
 
 jobs:
   base:
+    # Base branch is a check next requires, so the commit email check sits in this job: a failure stops a merge,
+    # an automatic one included.
     name: Base branch
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    permissions:
+      pull-requests: read
     env:
       BASE: ${{ github.event.pull_request.base.ref }}
     steps:
+      # The maintainers' commits carry the account's GitHub noreply address (<id>+<login>@users.noreply.github.com;
+      # noreply@github.com for a commit GitHub makes on the website): a pushed commit's email is public for good.
+      # A commit side (author or committer) is the maintainers' when GitHub links it to the repository owner's
+      # account or its name is the owner's commit name. An address on the deny list (SHA-256 of the lowercased
+      # address; the address itself is never stored here) fails whatever name it carries. Contributors' own
+      # addresses are theirs to choose and are not checked. A failure names the commit and the side, never the
+      # address. Fields are split on the unit separator: an empty field (a commit GitHub links to no account) keeps
+      # its place.
+      - name: Commit emails
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+          OWNER: ${{ github.repository_owner }}
+          OWNER_ID: ${{ github.repository_owner_id }}
+          OWNER_NAME: Fitz
+          DENY_SHA256: 37704005b54e643f71e0fd97f375d1f004fc797dd6958a9ca5856ef4cf03ba11
+        run: |
+          list=$RUNNER_TEMP/commits.txt
+          gh api --paginate "repos/$REPO/pulls/$PR/commits" \
+            --jq '.[] | [.sha[0:12], (.author.login // ""), (.commit.author.name // ""), (.commit.author.email // ""), (.committer.login // ""), (.commit.committer.name // ""), (.commit.committer.email // "")] | join("\u001f")' > "$list"
+          ours=$(printf '%s+%s@users.noreply.github.com' "$OWNER_ID" "$OWNER" | tr '[:upper:]' '[:lower:]')
+          bad=
+          while IFS=$'\x1f' read -r sha alogin aname aemail clogin cname cemail; do
+            for side in author committer; do
+              if [ "$side" = author ]; then login=$alogin name=$aname email=$aemail; else login=$clogin name=$cname email=$cemail; fi
+              email=$(printf '%s' "$email" | tr '[:upper:]' '[:lower:]')
+              hash=$(printf '%s' "$email" | sha256sum | cut -c1-64)
+              if [[ " $DENY_SHA256 " == *" $hash "* ]]; then
+                bad+="$sha $side"$'\n'
+              elif [ "${login,,}" = "${OWNER,,}" ] || [ "$name" = "$OWNER_NAME" ]; then
+                [ "$email" = "$ours" ] || [ "$email" = noreply@github.com ] || bad+="$sha $side"$'\n'
+              fi
+            done
+          done < "$list"
+          bad=${bad%$'\n'}
+          if [ -n "$bad" ]; then
+            msg="A commit made as the maintainers' account carries an address other than the account's GitHub noreply one. Set git config user.email to the noreply address, rewrite the branch's commits (git rebase --exec 'git commit --amend --no-edit --reset-author' followed by the branch it merges into) and force-push."
+            while read -r sha side; do echo "::error::Commit $sha: the $side email is not the account's GitHub noreply address."; done <<< "$bad"
+            echo "::error::$msg"
+            {
+              echo '## Commit emails'
+              echo
+              echo "$msg"
+              echo
+              sed 's/^/- /' <<< "$bad"
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+          {
+            echo '## Commit emails'
+            echo
+            echo "None of the $(wc -l < "$list") commit(s) carries a private address of the maintainers' account."
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Not main
         if: github.event.pull_request.base.ref == 'main'
         run: |
@@ -83,7 +143,7 @@ jobs:
         run: |
           bad=$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[].filename' | grep -E '^(guides/GENERATED\.json|forge/seed/)' || true)
           if [ -n "$bad" ]; then
-            msg="This pull request changes files only forge build writes: $(echo $bad). A fix goes into forever-db/corrections, data/mechanics-public.json or data/route-fixes.json, and the next build applies it (docs/FORGE.md, \"Fixing a generated guide\")."
+            msg="This pull request changes files only forge build writes: $(echo $bad). A fix goes into forever-db/corrections, data/mechanics-public.json, data/route-fixes.json, data/places.json (arrow points) or data/guide-fixes.json (tips, gates, when), with its test, and the next build applies it (docs/FORGE.md, \"Fixing a generated guide\")."
             echo "::error::$msg"
             {
               echo '## Generated guides'

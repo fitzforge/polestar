@@ -1,0 +1,45 @@
+## Interface: 16001
+## Title: Polestar Skins
+## Notes: Part of Polestar: its ten skins and the Atlas layout. Loaded when you use one of them or the settings list them.
+## Title-deDE: Polestar-Skins
+## Notes-deDE: Teil von Polestar: seine zehn Skins und das Atlas-Layout. Wird geladen, wenn du einen davon verwendest oder die Einstellungen sie auflisten.
+## Title-esES: Polestar: aspectos
+## Notes-esES: Parte de Polestar: sus diez aspectos y el diseño Atlas. Se carga al usar uno de ellos o cuando la configuración los muestra.
+## Title-esMX: Polestar: aspectos
+## Notes-esMX: Parte de Polestar: sus diez aspectos y el diseño Atlas. Se carga al usar uno de ellos o cuando la configuración los muestra.
+## Title-frFR: Polestar : skins
+## Notes-frFR: Fait partie de Polestar : ses dix skins et la disposition Atlas. Chargé quand vous en utilisez un ou quand les réglages les affichent.
+## Title-koKR: Polestar 스킨
+## Notes-koKR: Polestar의 일부: 스킨 열 가지와 Atlas 레이아웃. 그중 하나를 쓰거나 설정에서 목록을 보일 때 불러옵니다.
+## Title-ptBR: Polestar: aparências
+## Notes-ptBR: Parte do Polestar: suas dez aparências e o layout Atlas. Carregado ao usar uma delas ou quando as configurações as mostram.
+## Title-ruRU: Polestar: облики
+## Notes-ruRU: Часть Polestar: его десять обликов и макет Atlas. Загружается, когда выбран один из них или когда настройки показывают их список.
+## Title-zhCN: Polestar 皮肤
+## Notes-zhCN: Polestar 的组成部分：十款皮肤和 Atlas 布局。使用其中之一或在设置中列出它们时加载。
+## Title-zhTW: Polestar 外觀主題
+## Notes-zhTW: Polestar 的一部分：十款外觀主題與 Atlas 版面。使用其中之一或在設定中列出它們時載入。
+## Author: Polestar
+## Version: 0.4.3.1
+## Category: Polestar
+## Group: Polestar
+## LoadOnDemand: 1
+## Dependencies: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+## X-Polestar-Skin: vellum, lumen, beacon, aurora, hairline, umbra, waymark, lanterns, sheen, atlas
+## X-Polestar-Layout: atlas
+## X-Polestar-Layout-Preset: atlas = Atlas
+## X-Polestar-Layout-Stage: beta
+
+Skins\Vellum\Vellum.lua
+Skins\Lumen\Lumen.lua
+Skins\Beacon\Beacon.lua
+Skins\Aurora\Aurora.lua
+Skins\Hairline\Hairline.lua
+Skins\Umbra\Umbra.lua
+Skins\Waymark\Waymark.lua
+Skins\Lanterns\Lanterns.lua
+Skins\Sheen\Sheen.lua
+Skins\Atlas\Atlas.lua
+Layouts\Atlas\Atlas.lua

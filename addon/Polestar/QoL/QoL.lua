@@ -131,7 +131,7 @@ end
 -- A game event handled only while one of `keys` ("qol.<key>" settings) is on:
 -- registered when the first turns on, unregistered when the last turns off,
 -- so a feature that is off costs nothing. Follows saved settings from
--- ADDON_LOADED on.
+-- ADDON_LOADED on. unit: that unit's events only (ns.RegisterEvent).
 local watches = {}
 
 local function sync(w)
@@ -144,12 +144,12 @@ local function sync(w)
 	end
 	if on == w.live then return end
 	w.live = on
-	if on then ns.RegisterEvent(w.event, w.fn) else ns.UnregisterEvent(w.event, w.fn) end
+	if on then ns.RegisterEvent(w.event, w.fn, w.unit) else ns.UnregisterEvent(w.event, w.fn, w.unit) end
 end
 
 local initialized = false
-function QoL.WhileOn(keys, event, fn)
-	local w = { keys = type(keys) == "table" and keys or { keys }, event = event, fn = fn, live = false }
+function QoL.WhileOn(keys, event, fn, unit)
+	local w = { keys = type(keys) == "table" and keys or { keys }, event = event, fn = fn, unit = unit, live = false }
 	watches[#watches + 1] = w
 	if initialized then sync(w) end
 	return w
@@ -359,12 +359,30 @@ end
 -- Gossip and Blizzard's dialogs, for the helpers that answer them
 ---------------------------------------------------------------------------
 
--- The open gossip offers a quest to pick up or one to hand in: the quest
--- automation goes first, so a helper leaves such a gossip alone.
-function QoL.HasQuestBusiness()
+-- The open gossip offers a quest the guide takes (to pick up, or to hand in
+-- at one talk: Engine.WantsQuest) or one ready to hand in: the quest
+-- automation goes first, so a helper leaves such a gossip alone. A quest on
+-- offer that the guide doesn't take holds nothing back: nobody picks it, so
+-- the helper would wait for good (#3088: Gadgetzan's innkeeper offers
+-- Overseas Delivery, off the route, at every level, and the bind never
+-- came). One whose id the client doesn't give still counts. With `anyOffer`,
+-- every quest on offer counts (the flight map, #3428: a flight master's own
+-- quest, Ride to Orgrimmar at Devrak, stays in sight and the player picks
+-- the flight, one click).
+function QoL.HasQuestBusiness(anyOffer)
 	local G = C_GossipInfo
 	if not G then return false end
-	if (G.GetNumAvailableQuests and G.GetNumAvailableQuests() or 0) > 0 then return true end
+	local n = G.GetNumAvailableQuests and G.GetNumAvailableQuests() or 0
+	if n > 0 then
+		if anyOffer then return true end
+		local list = G.GetAvailableQuests and G.GetAvailableQuests() or {}
+		if #list < n then return true end
+		local E = ns.Engine
+		for i = 1, #list do
+			local id = list[i].questID
+			if not (id and id ~= 0 and E and E.WantsQuest) or E.WantsQuest("accept", id) or E.WantsQuest("direct", id) then return true end
+		end
+	end
 	if G.GetActiveQuests then
 		local active = G.GetActiveQuests() or {}
 		for i = 1, #active do
@@ -470,6 +488,30 @@ end
 function Client.UseSlot(bag, slot)
 	local C = C_Container
 	if C and C.UseContainerItem then C.UseContainerItem(bag, slot) end
+end
+
+-- What a merchant pays for each item in a bag slot, in copper: the price the
+-- slot's tooltip gives (a damaged item sells for less than its vendor price,
+-- by its durability: a Frayed Robe of 4c at 32/35 sells for 2c, #3997), else
+-- the item's vendor price (Client.SellPrice); nil while uncached. A stack
+-- keeps the vendor price: nothing that stacks wears.
+-- Client: C_TooltipInfo.GetBagItem, its SellPrice line (TooltipDataLineType 11).
+local SELL_PRICE_LINE = (Enum and Enum.TooltipDataLineType and Enum.TooltipDataLineType.SellPrice) or 11
+function Client.SlotSellPrice(bag, slot, itemID, count)
+	local T = C_TooltipInfo
+	if (count or 1) == 1 and T and T.GetBagItem then
+		local ok, data = pcall(T.GetBagItem, bag, slot)
+		local lines = ok and type(data) == "table" and data.lines
+		if type(lines) == "table" then
+			for _, l in ipairs(lines) do
+				if type(l) == "table" and readable(l.type) == SELL_PRICE_LINE then
+					local price = readable(l.price)
+					if type(price) == "number" then return price end
+				end
+			end
+		end
+	end
+	return Client.SellPrice(itemID)
 end
 
 -- Free slots in one bag and its family: 0 (or nil) for a bag that holds

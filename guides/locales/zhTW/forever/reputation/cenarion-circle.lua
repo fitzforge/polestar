@@ -23,7 +23,7 @@ return {
 	-- {zone:1454} Orgrimmar
 	["The emissary in {zone:1454}"] = "{zone:1454}的特使",
 	-- {npc:15188} Cenarion Emissary Blackhoof · {zone:1451} Silithus · {quest:8276} Taking Back Silithus
-	["Optional, and needed only for the Dredge quests later: {npc:15188} sends you to {zone:1451} with {quest:8276}, a 10-reputation letter. Skip it if you are already in {zone:1451}."] = "",
+	["Optional, and needed only for the Dredge quests later: {npc:15188} sends you to {zone:1451} with {quest:8276}, a 10-reputation letter. Skip it if you are already in {zone:1451}."] = "可選，只有後續的挖掘任務才需要：{npc:15188}讓你帶著{quest:8276}去{zone:1451}，那是一封值10點聲望的信。如果你已經在{zone:1451}，就跳過。",
 
 	-- Step 3: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {zone:1451} Silithus · {faction:609} Cenarion Circle · {npc:15270} Huum Wildmane · {quest:8318} Secret Communication · {item:20404} Encrypted Twilight Text
@@ -206,13 +206,7 @@ return {
 	-- {quest:8800} Cenarion Battlegear · {npc:15176} Vargus
 	["{quest:8800}: {npc:15176}'s badge gear"] = "{quest:8800}：{npc:15176}的徽章裝備",
 
-	-- Step 31: Silithyst
-	["Silithyst"] = "希利蘇斯晶體",
-	-- {quest:9419} Scouring the Desert · {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora · {npc:17079} General Kirika · {area:2744} Hive'Regal
-	["Optional, 100 reputation once: {quest:9419}. Your side's camp sits by a hive: {npc:17080}'s by {area:2743} (Alliance), {npc:17079}'s by {area:2744} (Horde). Silithyst rises from glowing geysers around the desert: walk through one, carry the Silithyst to your camp's Silithyst Extractor, then talk to the camp's leader. It is a world PvP objective: players of the other side can take it from you."] = "可選，一次性100點聲望：{quest:9419}。你所在陣營的營地就在蟲巢旁：{npc:17080}的營地在{area:2743}旁（聯盟），{npc:17079}的在{area:2744}旁（部落）。希利蘇斯晶體從沙漠各處的發光噴泉升起：走進其中一個，把晶體帶到你營地的希利蘇斯晶體萃取器，然後和營地首領交談。這是一個世界PvP目標：敵對陣營的玩家可以從你手中奪走它。",
-	["deliver Silithyst at the extractor"] = "把希利蘇斯晶體送到萃取器",
-
-	-- Step 32: Templars and the Abyssal Council
+	-- Step 31: Templars and the Abyssal Council
 	["Templars and the Abyssal Council"] = "聖殿騎士與深淵議會",
 	-- {object:180456} Lesser Wind Stone · {item:20513} Abyssal Crest · {quest:8361} Abyssal Contacts · {npc:15270} Huum Wildmane · {quest:8331} Aurel Goldleaf · {item:14344} Large Brilliant Shard · {object:180461} Wind Stone · {item:20514} Abyssal Signet
 	["Wearing a full set of Twilight Trappings (cultist Cowl, Mantle and Robe, about 8%, 8% and 6% per cultist) lets you use a {object:180456}: two stand in each of the three western camps. A random Abyssal Templar appears: a level 60 elite for 1 to 3 players, 5 reputation until the top of Honored and an {item:20513} 93% of the time. The summon uses up the set (and later the medallion and ring too), and if the elemental gets away they are gone: summon only when you can win. {quest:8361} pays 100 for the first crest; after that Bor takes 3 crests for 50. From Friendly, {npc:15270} sends you to {quest:8331}: 3 crests and a {item:14344} buy the Medallion of Station that, worn with a set, opens the larger {object:180461} for a Duke (level 62 elite, group of 5; 25 reputation, {item:20514} 85%)."] = "穿齊一套暮光裝束（教徒的頭巾、披肩和長袍，每隻教徒約8%、8%和6%）就能使用{object:180456}：三個西部營地各立著兩個。會隨機出現一位深淵聖殿騎士：60級精英，適合1到3名玩家，給5點聲望直到尊敬滿，並且93%機率掉落{item:20513}。召喚會消耗整套裝束（之後還要消耗勳章和戒指），而且如果元素逃掉，它們就沒了：只在有把握取勝時才召喚。{quest:8361}為第一枚紋章給100點；之後博爾收3枚紋章給50點。從友善起，{npc:15270}會讓你去接{quest:8331}：3枚紋章和一塊{item:14344}可換身份勳章；它與套裝一起穿戴時，能開啟更大的{object:180461}，召喚一位公爵（62級精英，5人隊伍；25點聲望，85%機率掉{item:20514}）。",
@@ -225,7 +219,7 @@ return {
 	-- {item:20514} Abyssal Signet
 	["{item:20514}: Duke, group of 5"] = "{item:20514}：公爵，5人隊伍",
 
-	-- Step 33: Signets and scepters to Exalted
+	-- Step 32: Signets and scepters to Exalted
 	["Signets and scepters to Exalted"] = "印戒與權杖：到崇拜",
 	-- {quest:8363} Abyssal Signets · {npc:15282} Aurel Goldleaf · {item:20515} Abyssal Scepter · {quest:9248} A Humble Offering · {quest:8343} Goldleaf's Discovery · {quest:8341} Lords of the Council · {object:180466} Greater Wind Stone · {item:22252} Satchel of Cenarius · {item:22660} Gaea's Embrace · {item:22756} Sylvan Vest · {npc:15176} Vargus
 	-- plural, as words: Large Brilliant Shards = {item:14344} Large Brilliant Shard
@@ -242,13 +236,13 @@ return {
 	-- {quest:8364} Abyssal Scepters
 	["3 {quest:8364}: 150, Revered"] = "3個{quest:8364}：150，崇敬",
 
-	-- Step 34: The Ruins of Ahn'Qiraj, when they open
+	-- Step 33: The Ruins of Ahn'Qiraj, when they open
 	-- {area:3454} Ruins of Ahn'Qiraj
 	["The {area:3454}, when they open"] = "{area:3454}，開放後",
 	-- {area:2737} Scarab Wall · {zone:1451} Silithus · {quest:8791} The Fall of Ossirian · {npc:15185} Brood of Nozdormu · {npc:15498} Windcaller Yessendra · {npc:15500} Keyl Swiftclaw · {npc:15499} Warden Haro · {npc:16091} Dirk Thunderwood · {quest:9023} The Perfect Poison · {item:22217} Kurinnaxx's Venom Sac · {area:19} Zul'Gurub · {npc:15471} Lieutenant General Andorov · {item:22219} Plans: Jagged Obsidian Shield · {item:22191} Obsidian Mail Tunic
 	["A 20-player raid behind the {area:2737} in the far south-west of {zone:1451}. A full clear is about 1,600 Cenarion reputation: the trash 3 each until 20,999 of 21,000 Revered, Kurinnaxx, Moam, Buru and Ayamiss 150 each and Ossirian 300, to Exalted. Ossirian's head starts {quest:8791} (200 here and 200 {npc:15185}). Their drops buy the ring (Honored), cloak (Revered) and weapon (Exalted) quests of {npc:15498}, {npc:15500} and {npc:15499} in the Hold, 100 reputation each. {npc:16091} in the Hold pays 100 once for {quest:9023}: {item:22217} from here and Venoxis's from {area:19}. {npc:15471} sells {item:22219} (Revered, 5g) and {item:22191} (Exalted, 8g) inside."] = "位於{zone:1451}最西南{area:2737}之後的20人團隊副本。全通約1,600點塞納里奧聲望：小怪每隻3點，直到崇敬的20,999/21,000；庫林納克斯、莫阿姆、布魯和阿亞米斯各150點，奧西里安300點，直到崇拜。奧西里安的頭顱會開啟{quest:8791}（這裡200點，另加{npc:15185}的200點）。他們的掉落可以換取要塞裡{npc:15498}、{npc:15500}和{npc:15499}的戒指（尊敬）、披風（崇敬）和武器（崇拜）任務，各100點聲望。要塞的{npc:16091}為{quest:9023}一次性支付100點：這裡的{item:22217}和{area:19}溫諾希斯的物品。{npc:15471}在裡面出售{item:22219}（崇敬，5金）和{item:22191}（崇拜，8金）。",
 
-	-- Step 35: Venoxis's Venom Sac, Zul'Gurub
+	-- Step 34: Venoxis's Venom Sac, Zul'Gurub
 	-- {quest:9023} The Perfect Poison · {npc:14507} High Priest Venoxis · {area:19} Zul'Gurub · {zone:1434} Stranglethorn Vale
 	["Optional, for {quest:9023}: {npc:14507} is the first boss of {area:19}, a 20-player raid in north-east {zone:1434}."] = "可選，為{quest:9023}：{npc:14507}是{area:19}的第一個首領，那是{zone:1434}東北的20人團隊副本。",
 	-- {item:22216} Venoxis's Venom Sac
@@ -260,7 +254,10 @@ return {
 	-- ["From here on, the {area:3454} raid and the Abyssal Council turn-ins (crests, signets, scepters) carry most of the reputation."] = "從這裡開始，{area:3454}團隊副本和深淵議會的繳交物（紋章、徽記、節杖）提供大部分聲望。",
 	-- ["Keep farming the Twilight camps. Wearing the Twilight Trappings (the Twilight cultist set plus a Medallion of Station, from {npc:15282}'s Medallion of Station quest) lets you summon Abyssal Templars at the Wind Stones; their Abyssal Crests go to {npc:15306}."] = "繼續在暮光營地刷。穿上暮光服飾（暮光教徒套裝加上身份勳章，來自{npc:15282}的身份勳章任務）就能在風之石召喚深淵聖殿騎士；牠們的深淵紋章交給{npc:15306}。",
 	-- ["Keep running the {area:3454} and turning in Abyssal Council insignia until Exalted."] = "繼續打{area:3454}並繳交深淵議會的徽章，直到崇拜。",
+	-- ["Optional, 100 reputation once: {quest:9419}. Your side's camp sits by a hive: {npc:17080}'s by {area:2743} (Alliance), {npc:17079}'s by {area:2744} (Horde). Silithyst rises from glowing geysers around the desert: walk through one, carry the Silithyst to your camp's Silithyst Extractor, then talk to the camp's leader. It is a world PvP objective: players of the other side can take it from you."] = "可選，一次性100點聲望：{quest:9419}。你所在陣營的營地就在蟲巢旁：{npc:17080}的營地在{area:2743}旁（聯盟），{npc:17079}的在{area:2744}旁（部落）。希利蘇斯晶體從沙漠各處的發光噴泉升起：走進其中一個，把晶體帶到你營地的希利蘇斯晶體萃取器，然後和營地首領交談。這是一個世界PvP目標：敵對陣營的玩家可以從你手中奪走它。",
+	-- ["Silithyst"] = "希利蘇斯晶體",
 	-- ["Twilight's Hammer cultists hold the camps in western {zone:1451}. {quest:8320} and Stonecallers mix here; any cultist can drop an {item:20404}. Every cultist kill also counts toward the {faction:609}. The Geolords count for {quest:8320} only if you are 60 and took it."] = "暮光之錘教徒佔據{zone:1451}西部的營地。{quest:8320}和暮光喚石者混雜在這裡；任何教徒都可能掉落{item:20404}。每擊殺一個教徒也會計入{faction:609}聲望。只有在你60級並接了{quest:8320}時，擊殺地王才會計入該任務。",
+	-- ["deliver Silithyst at the extractor"] = "把希利蘇斯晶體送到萃取器",
 	-- ["{area:3425} is the walled town in north-central {zone:1451}. Bor and {npc:15270} stand together inside. The {faction:609} starts out Neutral. Forever's Legacy Diplomat perk increases reputation gains."] = "{area:3425}是{zone:1451}中北部有圍牆的城鎮。鮑爾和{npc:15270}一起站在裡面。{faction:609}一開始是中立。Forever的傳承外交官天賦可提高聲望獲取。",
 	-- ["{faction:609} to Exalted"] = "{faction:609}到崇拜",
 	-- ["{faction:609} to Honored"] = "{faction:609}到尊敬",

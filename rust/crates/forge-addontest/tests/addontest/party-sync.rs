@@ -49,6 +49,21 @@ step Somewhere
   goto 40.0,40.0 "Somewhere"
 "#;
 
+// Another guide whose step kills the same kobolds for the same quest.
+const ALONG: &str = r#"guide forever/alliance/human/01-along
+title Along
+faction Alliance
+race Human
+levels 1-6
+zone Elwynn Forest
+
+step Marshal McBride
+  accept 7
+
+step Kobolds too
+  kill 6 x10 quest 7.1
+"#;
+
 const WORLD: &str = r#"
 local w = stub.world
 w.addMap(1429, { name = "Elwynn Forest", c = 1415, left = 1535.4166, right = -1941.6666, top = 1300.0, bottom = -1060.4166 })
@@ -110,7 +125,7 @@ stub.advance(1)
 
 fn run(before: &str, ana: (&str, u32), script: &str) -> Vec<Value> {
 	let data = fixture_data();
-	let r = compile_with(&[("northshire.guide", GUIDE), ("elsewhere.guide", OTHER)], &data, None);
+	let r = compile_with(&[("northshire.guide", GUIDE), ("elsewhere.guide", OTHER), ("along.guide", ALONG)], &data, None);
 	let errors: Vec<String> = r.diag.errors().into_iter().map(forge_guide::diag::format).collect();
 	assert_eq!(errors, Vec::<String>::new());
 	let pack = write_our_test_pack(&r.guides);
@@ -155,11 +170,11 @@ emit(line())"#
 		),
 	);
 	assert_eq!(out[0], 3, "the Warrior's live step is his own (Llane)");
-	assert_eq!(out[1], "Ana: on this step", "the Mage on the kobolds: the Warrior-only step between them does not count");
+	assert_eq!(out[1], "With Ana", "the Mage on the kobolds: the Warrior-only step between them does not count");
 	assert_eq!(out[2], "Ana: 1 step ahead", "a real step ahead");
-	assert_eq!(out[3], "Ana: on this step", "matched by its key across pack versions");
+	assert_eq!(out[3], "With Ana", "matched by its key across pack versions");
 	assert_eq!(out[4], false, "another pack version and no key: not placed");
-	assert_eq!(out[5], "Ana: on this step", "0.3.5 member");
+	assert_eq!(out[5], "With Ana", "0.3.5 member");
 	assert_eq!(out[6], "Ana: 1 step ahead", "0.3.5 member a step ahead");
 }
 
@@ -185,10 +200,39 @@ emit({ prompt = prompt() ~= nil, sent = texts() })"#
 		),
 	);
 	assert_eq!(out[0], 4, "the Mage has no Llane step: on the kobolds");
-	assert_eq!(out[1], "Ana: on this step");
+	assert_eq!(out[1], "With Ana");
 	assert_eq!(out[2], "Ana: 1 step behind", "one shared step back, not two");
 	assert_eq!(out[3], "Ana: 1 step ahead");
 	assert_eq!(out[4], json!({ "prompt": false, "sent": ["2A|="] }));
+}
+
+// #2897 (NoOneYouKnow): players on one quest read different step numbers (classes and races have steps of their
+// own) and took it for the guides being out of sync. A member whose live step, on another guide, holds the quest
+// work your live step still has open is "With Ana", like one on your step; one on another guide's other work
+// is still on "other guide".
+#[test]
+fn sync_a_member_on_another_guide_with_the_same_quest_work_is_with_you_2897() {
+	let out = run(
+		MAGE,
+		WARRIOR_ANA,
+		&format!(
+			"{TO_KOBOLDS}{}",
+			r#"
+local function on(guide, i)
+	local m = P.MyPos()
+	p.receive("Ana-TestRealm", "1P|" .. i .. "|0.3.5|" .. m.pack .. "|" .. m.packVersion .. "|" .. guide)
+	p.receive("Ana-TestRealm", "2P|" .. P.StepKey(Polestar.Guides.Get(guide), i) .. "|" .. guide)
+end
+emit(E.GetLiveStep())
+on("forever/alliance/human/01-along", 2)
+emit(line())
+on("forever/alliance/human/01-elsewhere", 1)
+emit(line())"#
+		),
+	);
+	assert_eq!(out[0], 4, "the Mage on the kobolds");
+	assert_eq!(out[1], "With Ana", "the same kobolds for the same quest, on her guide");
+	assert_eq!(out[2], "Ana: other guide");
 }
 
 #[test]

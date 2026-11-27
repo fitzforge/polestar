@@ -166,7 +166,7 @@ step Morin Cloudstalker
 
 step The Venture Co. Mine: the Clearcutter
   when done bloodhoof
-  tip The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for Ceasing Operations.
+  tip The elite shredder Venture Co. Clearclutter works deep inside the mine, beyond where Fizsprocket stood: its key is for Ceasing Operations.
   collect 281048 quest 98427.1        -- Clearcutter Key
   turnin 98427                        -- Morin Cloudstalker
 
@@ -278,6 +278,13 @@ step Bloodvenom Post: Trull Failbane
   zone Felwood
   tip Trull Failbane stands at Bloodvenom Post, through the Timbermaw tunnel south of Winterspring.
   turnin 4882                         -- Trull Failbane
+  accept 4883                         -- Guarding Secrets, +100: to Nara Wildmane in Thunder Bluff
+
+step Bloodvenom Post: Trull Failbane
+  when turnedin 4882
+  when available 4883
+  zone Felwood
+  tip Trull Failbane stands at Bloodvenom Post, through the Timbermaw tunnel south of Winterspring.
   accept 4883                         -- Guarding Secrets, +100: to Nara Wildmane in Thunder Bluff
 
 step Thunder Bluff: Nara Wildmane

@@ -127,6 +127,35 @@ fn upgrade_line_unusable_items_say_why_class_restricted_the_downgrade_in_red_equ
 	assert_eq!(worn, false);
 }
 
+// #3785 (imp, a Warrior): Vindicator's Belt, a Paladin-only item from Pix Xizzix, showed as an upgrade. Polestar.ItemDB
+// has no entry for Forever's newer items, so the class list it reads was never there. An item ItemDB gives no class
+// list reads the "Classes:" line of its own tooltip (C_TooltipInfo), the class names in the client's language. Here
+// 9900 is such an item, cloth any class can wear, for Paladins only; 9901 is the same with no such line.
+const CLASS_LINE_ITEMS: &str = r#"
+	LOCALIZED_CLASS_NAMES_MALE = { WARRIOR = "Warrior", PALADIN = "Paladin", PRIEST = "Priest" }
+	ITEM_CLASSES_ALLOWED = "Classes: %s"
+	local stats = { ITEM_MOD_STRENGTH_SHORT = 30, ITEM_MOD_STAMINA_SHORT = 30 }
+	g.defineItem("item:9900", { equipLoc = "INVTYPE_WAIST", classID = 4, subclassID = 1, minLevel = 1, stats = stats })
+	g.defineItem("item:9901", { equipLoc = "INVTYPE_WAIST", classID = 4, subclassID = 1, minLevel = 1, stats = stats })
+	TIPS = { ["item:9900"] = { "Vindicator's Belt", "Waist", "Classes: Priest, Paladin" }, ["item:9901"] = { "Plain Belt", "Waist" } }
+	C_TooltipInfo = { GetHyperlink = function(link)
+		local lines = {}
+		for i, t in ipairs(TIPS[link] or {}) do lines[i] = { leftText = t } end
+		return { lines = lines }
+	end }
+"#;
+
+#[test]
+fn an_item_polestar_has_no_entry_for_reads_its_classes_line_paladin_only_is_not_a_warriors_upgrade_3785() {
+	let script = format!("{CLASS_LINE_ITEMS}\nemit({{ line(\"item:9900\"), line(\"item:9901\") }})");
+	let warrior = run(&script).remove(0);
+	assert_eq!(warrior[0], "Polestar | not for your class", "a Warrior: Paladins and Priests only");
+	assert_ne!(warrior[1], "Polestar | not for your class", "no Classes line: any class");
+	let paladin = run_with(&script, Opts { cls: "PALADIN", class_name: "Paladin", class_id: 2, ..Default::default() }).remove(0);
+	assert_ne!(paladin[0], "Polestar | not for your class", "a Paladin may wear it ({paladin})");
+	assert_eq!(paladin[0], paladin[1], "and it scores as the same belt with no Classes line");
+}
+
 #[test]
 fn upgrade_line_why_an_item_is_unusable_is_in_the_client_language() {
 	let es = fake_locale("itIT", &[("armor you cannot wear", "armadura que no puedes llevar"), ("not for your class", "no es para tu clase")]);
@@ -181,6 +210,8 @@ fn reward_picks_a_known_upgrade_above_a_known_downgrade_the_same_in_any_order_ti
 		emit(pick({ "item:9103", "item:9101", "item:9102" }))
 		g.equip(1, "item:9105")
 		G.Invalidate("equipment")
+		-- Cached, none of them selling: the best this character can use.
+		for _, id in ipairs({ 9101, 9102, 9103 }) do g.defineItem("item:" .. id, {}) end
 		local p = G.QuestPick(5001)
 		emit({ p.entry.id, p.upgrade })
 	"#);
@@ -188,6 +219,44 @@ fn reward_picks_a_known_upgrade_above_a_known_downgrade_the_same_in_any_order_ti
 	assert_eq!(out[1], out[0]);
 	assert_eq!(out[2], out[0]);
 	assert_eq!(out[3], json!([9101, false]));
+}
+
+// #2865: a mage turning in Solution to Doom was sent to a -53% robe while the leather pants (no use to a mage) sold
+// for 13s more. With no upgrade among the choices the pick is the one that sells for the most, usable or not, as the
+// reward panel's coin; equal prices keep the usable one; an unknown price waits; an upgrade still wins.
+#[test]
+fn issue_2865_with_no_upgrade_the_reward_pick_is_the_best_sell_price_usable_or_not() {
+	let out = run(r#"
+		g.equip(1, "item:9105")
+		G.Invalidate("equipment")
+		local links = { "item:9101", "item:9150", "item:9102" }
+		local function ranked()
+			local list, p, best, pending, byValue = G.RankChoices(links)
+			return { id = p and list[p].id or false, usable = p and list[p].usable or false, best = best or false,
+				pending = pending, byValue = byValue }
+		end
+		g.defineItem("item:9101", { sellPrice = 500 })
+		g.defineItem("item:9150", { sellPrice = 900 })
+		g.defineItem("item:9102", { sellPrice = 100 })
+		emit(ranked())
+		g.defineItem("item:9150", { sellPrice = 500 })
+		emit(ranked())
+		g.defineItem("item:9102", { sellPrice = 100, cached = false })
+		emit(ranked())
+		g.defineItem("item:9102", { sellPrice = 100 })
+		g.defineItem("item:9103", { sellPrice = 2000 })
+		local q = G.QuestPick(5001)
+		emit({ id = q.entry.id, value = q.value, upgrade = q.upgrade })
+		g.equip(1, "item:9102")
+		G.Invalidate("equipment")
+		emit(ranked())
+	"#);
+	assert_eq!(out[0], json!({ "id": 9150, "usable": false, "best": false, "pending": false, "byValue": true }), "the dearest, though a warrior can't wear it");
+	assert_eq!(out[1], json!({ "id": 9101, "usable": true, "best": false, "pending": false, "byValue": true }), "equal prices: the usable one");
+	assert_eq!(out[2], json!({ "id": false, "usable": false, "best": false, "pending": true, "byValue": false }), "a price not cached yet waits");
+	assert_eq!(out[3], json!({ "id": 9103, "value": true, "upgrade": false }), "the guide window's pick");
+	assert_eq!(out[4]["byValue"], false, "an upgrade wins over any price: {}", out[4]);
+	assert_eq!(out[4]["id"], 9101);
 }
 
 #[test]
@@ -311,8 +380,8 @@ fn the_hunter_stats_line_is_in_the_clients_language() {
 
 #[test]
 fn racials_mace_specialization_makes_a_dwarf_shaman_a_forever_pair_prefer_the_mace_an_orc_the_axe() {
-	const R: &str = r#"G.RACIALS[3] = { weaponCrit = { pct = 1, subclasses = { [4] = true, [5] = true } } }
-		G.RACIALS[2] = { weaponCrit = { pct = 1, subclasses = { [0] = true, [1] = true } } }
+	const R: &str = r#"G.RACIALS[3] = { { name = "Mace Specialization", weaponCrit = { pct = 1, subclasses = { [4] = true, [5] = true } } } }
+		G.RACIALS[2] = { { name = "Axe Specialization", weaponCrit = { pct = 1, subclasses = { [0] = true, [1] = true } } } }
 		G.RefreshPlayer()"#;
 	let dwarf = run_with(
 		&format!(r#"{R}; emit(G.ScoreItem("item:9106") > G.ScoreItem("item:9107"))"#),
@@ -326,6 +395,33 @@ fn racials_mace_specialization_makes_a_dwarf_shaman_a_forever_pair_prefer_the_ma
 	.remove(0);
 	assert_eq!(dwarf, true);
 	assert_eq!(orc, true);
+}
+
+// A race's traits apply to the classes in their classMask: Forever's Expansive Mind (+5% maximum mana) is for the
+// Gnome's mana classes only (mask 400: Priest, Mage, Warlock); traits multiply together.
+#[test]
+fn racial_traits_apply_to_their_classes_and_multiply_together() {
+	const R: &str = r#"G.RACIALS[7] = { { name = "Expansive Mind", classMask = 400, statMult = { int = 1.05 } }, { name = "Sharp", statMult = { int = 1.1, spi = 1.02 } } }
+		G.RefreshPlayer()
+		emit(G.GetRacial())"#;
+	let gnome = |cls: &'static str, class_name: &'static str, class_id: i32| Opts { cls, class_name, class_id, race: "Gnome", race_id: 7, faction: "Alliance", ..Default::default() };
+	let mage = run_with(R, gnome("MAGE", "Mage", 8)).remove(0);
+	let warrior = run_with(R, gnome("WARRIOR", "Warrior", 1)).remove(0);
+	assert!((mage["statMult"]["int"].as_f64().unwrap() - 1.155).abs() < 1e-9, "{mage}");
+	assert_eq!(warrior, json!({ "statMult": { "int": 1.1, "spi": 1.02 } }));
+}
+
+// The shipped traits (SpecData.lua, from the Forever client's racial spells) are lists of named traits.
+#[test]
+fn the_shipped_racial_traits_are_named_trait_lists() {
+	let out = run(r#"local bad = {}
+		for race, traits in pairs(G.RACIALS) do
+			if type(traits) ~= "table" or #traits == 0 then bad[#bad + 1] = race end
+			for _, t in ipairs(traits) do if type(t.name) ~= "string" or not (t.statMult or t.weaponCrit) then bad[#bad + 1] = race end end
+		end
+		emit({ bad = table.concat(bad, ","), any = next(G.RACIALS) ~= nil })"#)
+	.remove(0);
+	assert_eq!(out, json!({ "bad": "", "any": true }));
 }
 
 #[test]

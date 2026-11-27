@@ -82,6 +82,13 @@ report goes through the same steps before anything changes:
 6. **Credit the reporter** in the fix's changelog entry, "(thanks <name>)",
    and tell them which release carries the fix.
 
+A report of something an earlier release already fixed is closed as
+completed with that release's label, `released:<tag>`, added first (`gh
+issue edit <N> --add-label released:v0.4.2.2`, then `gh issue close <N>
+--reason completed`): the Discord thread is told which release has the
+fix, and the release gates' pin coverage guard (`tools/pin-coverage.js`)
+counts it as that release's fix, not one the coming release has to pin.
+
 ## Before you start
 
 Many people, and their agents, work on the same reports at once. These
@@ -263,6 +270,27 @@ own build of the same commit without your change. The maintainers rebuild the
 shipped guides with his maps after merging
 ([docs/FORGE.md](docs/FORGE.md#building-as-a-contributor)).
 
+## Data you won't have
+
+A few inputs stay with the maintainers. Tests that need one skip when it is
+missing (the message says "maintainer-only input, skipped"), and a skip is not
+a failure:
+
+- **Players' recordings.** They hold players' play sessions, so they stay
+  private; guides and data are checked against them by the maintainers.
+- **Leffe's navigation maps.** They are his, shared with us privately. The
+  data pack carries the walks they answered, so your builds still get those
+  walks.
+- **Cached web pages and the private corrections overlay.** Facts we may use
+  but not republish.
+
+Never recreate these, and never add data from other addons or scraped sites to
+get a skipped test running: a change that rests on data like that is not
+accepted. What you can run is the public data: `forge data fetch` downloads the
+public pack and `forge data build` builds the reference data from it; `forge
+doctor` says what it finds and what is missing. Everything that does not need
+a maintainer-only input runs from there.
+
 ## Checks
 
 Run only the checks for what you changed. CI runs the full suite on every
@@ -286,7 +314,7 @@ Lua 5.1 is missing. [tests/README.md](tests/README.md) describes the suite;
 [docs/SUITE.md](docs/SUITE.md) what is in and out of scope.
 
 **A guide change commits its compiled guides and translation files**
-(`addon/Polestar_Guides*/`, `addon/Polestar_Experimental/`, the languages'
+(`addon/Polestar_Guides*/`, `addon/Polestar/Experimental/`, the languages'
 `Texts.lua`, `guides/locales/`; see [Fixing a guide](#fixing-a-guide)).
 **You do not commit** `docs/preview/*.svg`, the interface translation files
 (`Interface.lua` in `addon/Polestar_<locale>/`) or
@@ -313,6 +341,12 @@ those after merging your PR.
   a string does not require any extra step from you: CI checks the existing
   locale files and the maintainer runs `i18n sync` after merge to propagate
   new strings to the locale files.
+- Memory budgets (the core at login, the guide pack, the quest database, the
+  walking maps and the others in [docs/CI.md](docs/CI.md#memory-budgets))
+  carry 3 % over the figure measured at each release's code freeze and move
+  only then. A pull request never raises one: if yours crosses a budget,
+  find what grew and trim it, or say so in the pull request and it waits
+  for the freeze.
 - **Polestar Forge** (`rust/`, the Rust pipeline that makes the routes):
   start at [docs/FORGE.md](docs/FORGE.md) and
   [docs/forge/internals.md](docs/forge/internals.md). Run `cargo fmt --all`,

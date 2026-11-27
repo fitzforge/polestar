@@ -28,7 +28,7 @@ forge changelog --help
 ## The version
 
 The version lives in `package.json`, in `guides/pack.json` (the compiler writes it into
-`Polestar_Guides.toc`), in `experimental/pack.json` (into `Polestar_Experimental.toc`) and in the
+`Polestar_Guides.toc`), in `experimental/pack.json` (into `Polestar/Experimental/Pack.lua`) and in the
 `## Version` line of every addon TOC.
 
 ```sh
@@ -40,14 +40,14 @@ Versions are `x.y.z`, `x.y.z.hotfix` for an urgent hotfix, or `x.y.z-rc.1` for a
 
 ## The zips
 
-`forge release pack` in the checkout compiles our guides into `addon/Polestar_Guides` (with its race
-parts, and its texts in the language folders `Polestar_<locale>`) and Polestar's experimental pack
-(`experimental/`, with our guides as context) into `addon/Polestar_Experimental`, then writes to
-`dist/`:
+`forge release pack` in the checkout compiles our guides into `addon/Polestar_Guides` (with its faction
+parts, which carry each race's guides and walks, and its texts in the language folders `Polestar_<locale>`)
+and Polestar's experimental pack (`experimental/`, with our guides as context) into
+`addon/Polestar/Experimental`, then writes to `dist/`:
 
 | File | Contents |
 |---|---|
-| `Polestar-<version>.zip` | `Polestar` (with `LICENSE` and the players' `README.txt`), `Polestar_Guides` and its parts, `Polestar_Nav`, `Polestar_Arcade` (Freedoom Arcade by petllama, when there; without its `tools/` scripts, its `curseforge/` images and the standalone addon's `src/FreedoomArcade.toc`: `NOT_SHIPPED` in forge-release's `addons.rs`), `Polestar_Experimental` (Polestar's TOC, `## LoadOnDemand: 1`: off in game until a player chooses one of its guides at a route choice or switches it on; left out without `experimental/pack.json`), `Polestar_QuestDB` and `Polestar_ItemDB` when built, `Polestar_Codex`, the language folders `Polestar_<locale>` (guide texts and names). The old `Polestar_Guides_<locale>` and `Polestar_Names_<locale>` are never shipped: `pack` names any left in `addon/` so they get deleted |
+| `Polestar-<version>.zip` | `Polestar` (with `LICENSE` and the players' `README.txt`; inside it, `Experimental/`, Polestar's experimental pack, which `Polestar.toc` lists: off in game only when a player switches it off; left out without `experimental/pack.json`), `Polestar_Guides` and its faction parts, `Polestar_Nav` and its continent parts, `Polestar_Options`, `Polestar_Skins` (our skins and the Atlas layout), `Polestar_Arcade` (Freedoom Arcade by petllama, when there; without its `tools/` scripts, its `curseforge/` images and the standalone addon's `src/FreedoomArcade.toc`: `NOT_SHIPPED` in forge-release's `addons.rs`), `Polestar_QuestDB` and `Polestar_ItemDB` when built, `Polestar_Codex`, the language folders `Polestar_<locale>` (guide texts and names). The old `Polestar_Guides_<locale>` and `Polestar_Names_<locale>`, and the folders 0.4.3 folded into others (`FOLDED_ADDONS` in forge-release's `addons.rs`: `Polestar_Looks`, `Polestar_SkinAPI`, `Polestar_TabStyles`, `Polestar_Experimental`, `Polestar_Layout_Atlas`, our `Polestar_Skin_*`, the race parts `Polestar_Guides_<Race>`), are never shipped: `pack` names any left in `addon/` so they get deleted |
 | `Polestar_Recorder-<version>.zip` | `Polestar_Recorder` with `LICENSE` |
 | `SHA256SUMS` | both zips' checksums, as `sha256sum -c` reads them |
 
@@ -100,6 +100,42 @@ CHANGELOG.md has already, an empty `changes/` or a faulty fragment.
 entries), `dist/notes-curseforge-0.2.0.md` (players') and `dist/notes-discord-0.2.0.txt` (posts of at
 most 2,000 characters). Each paragraph and list item is joined onto one line, since GitHub shows every
 line break of a release's notes, and each file starts with a `[[REPLACE ...]]` line for the intro.
+
+The GitHub notes end with a `## Contributors` section, "Thanks to everyone who made 0.2.0: @a, @b, @c.",
+every GitHub login that contributed to THIS release, alphabetical ignoring case: GitHub lists everyone
+@mentioned in a release's notes as a contributor on it (and notifies them when it is published).
+`forge release notes` needs `gh` logged in for it, builds the list for the range from the previous
+release tag to the release ref (`--since <tag>`, default the newest `vX.Y.Z[.N]` tag below the version;
+`--release-ref <ref>`, default the tag `v<version>` when it exists, else `HEAD`), and prints each login
+with why. What the previous release already carried under another id is not in the range: a commit
+whose change a commit only the previous tag has also makes (a hotfix branch not merged back), and, when
+the previous release is a hotfix (`vX.Y.Z.N`) merged back, a commit with the same author, author date
+and subject as one of its picks (`git cherry-pick` keeps all three). The release after a hotfix does
+not thank it again for what the hotfix fixed either: an issue a pick names, or that only a pull request
+shared with the picks (a maintainer's batch pull request gives the hotfix some commits and the next
+release the rest) closes, is the hotfix's. The rules are the Guiding Stars page's
+([The credits](#the-credits)), cut down to the range:
+
+- the author of a pull request merged into the range: GitHub ties a commit of the range that carries
+  work (not a merge commit), or the commit a hotfix pick was cherry-picked from (`git cherry-pick -x`),
+  to its pull request; the author of a closed pull request folded into the range with its authorship
+  kept, and of an open one whose head commit is in the range;
+- the accounts GitHub resolves for the `Co-authored-by` trailers of a range commit (a tool's no-reply
+  trailer, such as an assistant's, is no one; the git author is the pull request's author);
+- the reporter of an issue the release closes whose report counts (`useful_report`, as for the page):
+  closed by a pull request of the range, named by a range commit (`(#123)` in its subject, or
+  `Fixes #123` in its body), or open and closed by an open pull request folded into the range. A report
+  the Discord bot relayed (filed under the maintainer's account) counts only when
+  `data/credits.json` `github` maps its Discord name to a login (`"github": { "Pip": "PipGH" }`,
+  names matched ignoring case, for a player who told us their login); otherwise it stays on the
+  Guiding Stars page only;
+- the people whose `ideas` entry's pull request or issue is in the range, when their name is a login
+  GitHub knows from the repository's pull requests and issues (a name that merely looks like a login is
+  never tagged). A translator is tagged like any author, through their pull request or co-authored
+  commit; a locale file that changed without them (new keys synced by the maintainer) tags no one;
+- never the maintainer, bots, or anyone in `exclude` (or shown under a name `exclude` lists).
+
+A hotfix gets the same section from its picks. The CurseForge and Discord notes have no such section.
 
 ## The credits
 

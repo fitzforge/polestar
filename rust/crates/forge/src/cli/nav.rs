@@ -5,6 +5,9 @@ use forge_navbuild::build::{run, Client, Opts};
 use std::path::{Path, PathBuf};
 use std::time::Instant;
 
+#[path = "ground_policy.rs"]
+mod ground_policy;
+
 pub(super) const USAGE: &str = "usage: forge nav grid --out <dir> [--wow <dir>] [--continents 0,1] [--force] [--threads N] [--allow-incomplete]
                      [--product <name>] [--root <dir>] [--data <dir>] [--defs <dir>]
 
@@ -20,7 +23,7 @@ Polestar checkout (default: the nearest folder above the working directory with 
 slots, files not downloaded: forge gamedata check) is refused, since the grid would be wrong
 there: run Scan and Repair in the launcher, or pass --allow-incomplete.
 
-usage: forge nav pack [--dir <grid>] [--layers <dir>] [--out <addon dir>] [--cells N] [--date YYYY-MM-DD] [--root <dir>] [--leffe <dir> [--leffe-maps 0,1,2991] [--literals zlib|base64] [--ground reached|all] [--ledges on|off] [--spawns on|off]]
+usage: forge nav pack [--dir <grid>] [--layers <dir>] [--out <addon dir>] [--cells N] [--date YYYY-MM-DD] [--root <dir>] [--leffe <dir> [--leffe-maps 0,1,2991] [--literals zlib|base64] [--ground reached|cities|all] [--ledges on|off] [--spawns on|off]]
 
 Writes Polestar's walking maps of maps 0, 1 and 2991 from the grid (--dir, default $POLESTAR_GRID,
 else <root>/data/local/nav4; grid format 4) and the ground layers (--layers, default
@@ -40,11 +43,13 @@ surface's area from the grid's surface nearest it (maps format 5); the chokepoin
 --leffe-maps names the maps taken from his (default all three); the rest stay the grid's. His
 continents' map parts ship in their own load-on-demand addons beside the folder (Polestar_Nav_EK,
 Polestar_Nav_Kalimdor; their metadata stays in Polestar_Nav), and their blocks as zlib bytes in the
-string literals (--literals base64 keeps base64). Three rules, each off until measured on the
-walking-map judges: --ground reached keeps only the ground a walk from a fixed place reaches
+string literals (--literals base64 keeps base64). Three rules from Shortest Path Forever:
+--ground reached keeps only the ground a walk from a fixed place reaches
 (flight masters and inns by their NPC's spawn, boat, zeppelin, tram and lift landings and portal
 ends from <root>/data/forever travel.json and spawnz.json, the travel chains' nodes in
-<root>/data/crossings.json, and the ends of the grid joins' ways; default all); --ledges on takes
+<root>/data/crossings.json, and the ends of the grid joins' ways), --ground cities (the default)
+the same in the capitals only (the ground outside them stays whole), --ground all keeps all of it;
+the other two are off until measured on the walking-map judges: --ledges on takes
 our grid's falls of 2 to 14.57 yd (the height a fall starts to hurt) into the cell beside a ledge
 as one-way arcs where his maps lack the walk down; --spawns on carries the heights of the NPC and
 quest object spawns (<root>/data/forever spawnz.json, quests.json) that stand within a cell of
@@ -77,7 +82,13 @@ and creature templates (the cached dump under <root>/data/sources/cmangos) and F
 classic-db lacks (<root>/forever-db/data npc.jsonl and spawn.jsonl; their roles and quests from
 <root>/data/forever), judged by the client's FactionTemplate table, clustered, named by the AreaTable area under them (the grid's area ids:
 --dir, default $POLESTAR_GRID, else <root>/data/local/nav4; the tables cached for the grid's build
-under <root>/data/sources/wago), into <layers>/hubs.json.";
+under <root>/data/sources/wago), into <layers>/hubs.json.
+
+usage: forge nav layers ground --from <reviewed export dir> --out <Nav dir>
+
+Imports areas.json (tiles in source order, each [map, column, row, 256 row-major policy bytes])
+and hubs.json (from forge nav layers hubs). Forge checks both local exports and both derived
+indexes against their reviewed hashes before writing DangerAreas.lua and DangerHubs.lua.";
 
 pub fn main() {
 	super::exit("nav", main2());
@@ -239,10 +250,11 @@ fn pack(args: &[String]) -> Result<(), Fail> {
 		Some("base64") => false,
 		Some(_) => return Err(usage("--literals needs zlib or base64")),
 	};
-	let reached = match o.get("--ground").map(String::as_str) {
-		Some("reached") => true,
-		None | Some("all") => false,
-		Some(_) => return Err(usage("--ground needs reached or all")),
+	let (reached, ground_cities) = match o.get("--ground").map(String::as_str) {
+		Some("reached") => (true, false),
+		None | Some("cities") => (true, true),
+		Some("all") => (false, false),
+		Some(_) => return Err(usage("--ground needs reached, cities or all")),
 	};
 	let ledges = match o.get("--ledges").map(String::as_str) {
 		Some("on") => leffe.is_some(),
@@ -295,6 +307,7 @@ fn pack(args: &[String]) -> Result<(), Fail> {
 		leffe: leffe.as_ref().map(|(d, m)| (d.as_path(), m.as_slice())),
 		zlib_literals,
 		places: places.as_deref(),
+		ground_cities,
 		ledges,
 		spawns: spawns.as_deref(),
 		log: &log,
@@ -329,8 +342,15 @@ fn layers(args: &[String]) -> Result<(), Fail> {
 	match args.first().map(String::as_str) {
 		Some("roads") => roads_layer(&args[1..]),
 		Some("hubs") => hubs_layer(&args[1..]),
-		Some(x) => Err(usage(format!("unknown nav layer {x} (roads, hubs)"))),
-		None => Err(usage("nav layers needs a layer: roads or hubs")),
+		Some("ground") => {
+			let o = options(&args[1..], &["--from", "--out"])?;
+			let from = o.get("--from").ok_or_else(|| usage("--from <export dir> is required"))?;
+			let out = o.get("--out").ok_or_else(|| usage("--out <Nav dir> is required"))?;
+			ground_policy::import(Path::new(from), Path::new(out))?;
+			Ok(())
+		}
+		Some(x) => Err(usage(format!("unknown nav layer {x} (roads, hubs, ground)"))),
+		None => Err(usage("nav layers needs a layer: roads, hubs or ground")),
 	}
 }
 
@@ -485,8 +505,11 @@ fn hubs_layer(args: &[String]) -> Result<(), Fail> {
 		let text = std::fs::read_to_string(&f).map_err(|e| format!("{}: {e}", f.display()))?;
 		text.lines().filter(|l| !l.is_empty()).map(|l| serde_json::from_str(l).map_err(|e| format!("{}: {e}", f.display()))).collect()
 	};
-	let flags = forge_nav::hubs::forever_flags(&read("npcs.json")?, &read("quests.json")?);
-	let forever = forge_nav::hubs::add_forever(&mut templates, &mut spawns, &jsonl("npc.jsonl")?, &jsonl("spawn.jsonl")?, &flags);
+	let npcs = read("npcs.json")?;
+	let flags = forge_nav::hubs::forever_flags(&npcs, &read("quests.json")?);
+	// #3830: most of Forever's new zones' NPCs have no faction template; their side is the codex's friendliness.
+	let sides = forge_nav::hubs::forever_sides(&npcs);
+	let forever = forge_nav::hubs::add_forever(&mut templates, &mut spawns, &jsonl("npc.jsonl")?, &jsonl("spawn.jsonl")?, &flags, &sides);
 	println!("hubs: {forever} Forever NPCs classic-db lacks (forever-db)");
 	let frames = forge_nav::pack::layers::Frames::new(&read("map-frames.json")?, read("zones.json")?);
 	let area_at = |c: u32, x: f64, y: f64| -> u32 {

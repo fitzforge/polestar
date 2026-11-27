@@ -147,7 +147,7 @@ step Kharanos
   accept 98322                                -- Senir Whitebeard
 
 step The Great Outdoors
-  tip Sit by Eric's campfire (type /sit) and wait for the buff. With a profession learned, Eric also offers its Camping 101, which its trainer takes: blacksmithing with Tognus Flintfire and First Aid with Thamner Pol in Kharanos, mining and engineering at Steelgrill's Depot.
+  tip Sit by Eric's campfire (type /sit) and wait for the buff. With a profession learned, Eric also offers its Camping 101, which its trainer takes: blacksmithing with Tognus Flintfire and First Aid with Thamner Pol in Kharanos, mining and engineering at Steelgrill's Depot, fishing with Paxton Ganter by Brewnall Village, herbalism, skinning, leatherworking and tailoring in Ironforge. In Ironforge the alchemy and enchanting trainers give their own.
   turnin 96628                                -- Eric Brighthammer: The Adventurer
   accept 96608                                -- Eric Brighthammer
   complete 96608
@@ -171,6 +171,36 @@ step Camping 101: Engineering
   when !knows 1230656
   tip Bronk Guzzlegear takes it once your Engineering skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 96058                                -- Eric Brighthammer: for Bronk Guzzlegear at Steelgrill's Depot
+
+step Camping 101: Herbalism
+  when skill Herbalism 1
+  when !knows 1229705
+  tip Reyna Stonebranch takes it once your Herbalism skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 96055                                -- Eric Brighthammer: for Reyna Stonebranch in Ironforge
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  when !knows 1229517
+  tip Balthus Stoneflayer takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 96056                                -- Eric Brighthammer: for Balthus Stoneflayer in Ironforge
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  when !knows 1229432
+  tip Gretta Finespindle takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 96031                                -- Eric Brighthammer: for Gretta Finespindle in Ironforge
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  when !knows 1263425
+  tip Uthrar Threx takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 96057                                -- Eric Brighthammer: for Uthrar Threx in Ironforge
+
+step Camping 101: Fishing
+  when skill Fishing 1
+  when !knows 1229745
+  tip Paxton Ganter takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 96050                                -- Eric Brighthammer: for Paxton Ganter by Brewnall Village
 
 step Kharanos
   accept 98321                                -- Tognus Flintfire, below ground
@@ -325,6 +355,12 @@ step Brewnall Village
   turnin 311                                  -- Marleth Barleybrew
   turnin 98326                                -- Gretta Ganter
 
+step Paxton Ganter
+  when onquest 96050
+  when complete 96050
+  complete 96050 @35.42,40.14                 -- talk to the trainer
+  turnin 96050                                -- Paxton Ganter: Camping 101: Fishing
+
 step The Gnomeregan road
   zone Dun Morogh
   tip Leper Gnomes wander the Gnomeregan road north of Brewnall Village and carry the cogs and gears. Frostmane Hold comes next, in the hills south-west of the village.
@@ -334,7 +370,7 @@ step The Gnomeregan road
   goto 25.1,50.94 live "Frostmane Hold"
 
 step Frostmane Hold
-  tip Frostmane Hold is the troll cave in the hills south-west of Brewnall Village. Kill Headhunters at its mouth and walk through to its far end.
+  tip Frostmane Hold is the troll cave in the hills south-west of Brewnall Village. Kill Headhunters at its mouth, then walk through the cave to its far end: Fully explore Frostmane Hold ticks only in there, not on the hill above it.
   tip Careful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth.
   kill 1123 quest 287                         -- Frostmane Headhunter, below ground
   goto 21.3,54.2 "Frostmane Hold"
@@ -508,10 +544,21 @@ step Amberstill Ranch
   when group 314
   turnin 314
 
+# ---------------------------------------------------------------- North Gate Outpost
+
+step North Gate Outpost
+  zone Dun Morogh
+  tip Follow the road east and take its northern fork to the North Gate Outpost: Pilot Hammerfoot waits there, and the dwarven corpse lies up the pass to the west of him. The South Gate and its tunnel into Loch Modan come next, down the road to the south.
+  accept 419                                  -- Pilot Hammerfoot
+  turnin 419                                  -- A Dwarven Corpse
+  accept 417
+  collect 3183 quest 417.1                    -- Mangy Claw: Mangeclaw
+  turnin 417                                  -- Pilot Hammerfoot
+
 # ---------------------------------------------------------------- South Gate Outpost
 
 step South Gate Outpost
-  tip Follow the road all the way east to the South Gate Outpost at the Loch Modan tunnel.
+  tip Back south down the road to the South Gate Outpost at the Loch Modan tunnel.
   turnin 413                                  -- Mountaineer Barleybrew
   accept 414
 
@@ -533,32 +580,38 @@ step Braldir Ashmantle
   turnin 94465                                -- Braldir Ashmantle
   accept 94466
 
-# ---------------------------------------------------------------- North Gate Outpost
-
-step North Gate Outpost
-  zone Dun Morogh
-  tip Pilot Hammerfoot waits at the North Gate Outpost, north of the South Gate; the dwarven corpse lies up the pass to the west of him.
-  accept 419                                  -- Pilot Hammerfoot
-  turnin 419                                  -- A Dwarven Corpse
-  accept 417
-  collect 3183 quest 417.1                    -- Mangy Claw: Mangeclaw
-  turnin 417                                  -- Pilot Hammerfoot
-
 # ---------------------------------------------------------------- Loch Modan: the tunnel post, Thelsamar and the west hills
 
 step The tunnel post
   zone Loch Modan
   tip East through the South Gate tunnel into Loch Modan. Mountaineer Cobbleflint and Captain Rugelfuss stand at the dwarven post just past it.
+  enter "Loch Modan" @22.03,73 live
   accept 224                                  -- Mountaineer Cobbleflint
   accept 267                                  -- Captain Rugelfuss
 
 step Stonesplinter troggs
   zone Loch Modan
+  loop
+  goto 29.57,72.89 r 40
+  goto 32.37,72.36 r 40
   tip North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.
-  tip Careful: Headsplitter, a level 15 trogg, walks Stonesplinter Valley among the 11-12 troggs: work the camps at its north edge, near the post, and keep clear of him.
+  tip Careful: pull the Stonesplinter Scouts and Troggs one at a time. Stay at the north edge of the valley; Headsplitter patrols the deeper camps.
   kill 1161 x10 quest 224.1                   -- Stonesplinter Trogg
   kill 1162 x10 quest 224.2                   -- Stonesplinter Scout
   collect 2536 quest 267.1                    -- Trogg Stone Tooth
+
+step Linen for John Turner
+  only Paladin
+  when level>=11
+  when !onquest 1648
+  when !turnedin 1648
+  when !has 2589 x10
+  zone Loch Modan
+  tip Keep ten Linen Cloth for John Turner in Ironforge. Finish your stack here on the same Stonesplinter Troggs and Scouts; stay in the north camps.
+  loop
+  goto 29.57,72.89 r 25
+  goto 32.37,72.36 r 25
+  collect 2589 x10
 
 step Back to the tunnel post
   zone Loch Modan
@@ -632,10 +685,59 @@ step Back to Bruegs Kindleborn
 step Golnir Bouldertoe
   zone Ironforge
   tip Golnir Bouldertoe works at the Great Forge's north end, and Gryth Thurden keeps the gryphons in the Great Forge, where the flight from Thelsamar lands.
+  enter "Ironforge" @21.6,77.8
   turnin 6391                                 -- Golnir Bouldertoe, in the Great Forge
   accept 6388
   turnin 6388                                 -- Gryth Thurden, the gryphon master in the Great Forge
   getfp "Ironforge"
+
+step Reyna Stonebranch
+  when onquest 96055
+  when complete 96055
+  complete 96055 @55.42,58.84                 -- talk to the trainer
+  turnin 96055                                -- Reyna Stonebranch: Camping 101: Herbalism
+
+step Balthus Stoneflayer
+  when onquest 96056
+  when complete 96056
+  complete 96056 @39.27,32.61                 -- talk to the trainer
+  turnin 96056                                -- Balthus Stoneflayer: Camping 101: Skinning
+
+step Gretta Finespindle
+  when onquest 96031
+  when complete 96031
+  complete 96031 @38.85,32.52                 -- talk to the trainer
+  turnin 96031                                -- Gretta Finespindle, beside Balthus: Camping 101: Leatherworking
+
+step Uthrar Threx
+  when onquest 96057
+  when complete 96057
+  complete 96057 @43.26,28.44                 -- talk to the trainer
+  turnin 96057                                -- Uthrar Threx: Camping 101: Tailoring
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  when !knows 1230564
+  tip Vosur Brakthel gives it and takes it back once your Alchemy skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 96045                                -- Vosur Brakthel
+
+step Vosur Brakthel
+  when onquest 96045
+  when complete 96045
+  complete 96045 @66.25,55.23                 -- talk to the trainer
+  turnin 96045                                -- Vosur Brakthel, who gave it
+
+step Camping 101: Enchanting
+  when skill Enchanting 1
+  when !knows 1230643
+  tip Thonys Pillarstone gives it and takes it back once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 96059                                -- Thonys Pillarstone
+
+step Thonys Pillarstone
+  when onquest 96059
+  when complete 96059
+  complete 96059 @60.15,44.89                 -- talk to the trainer
+  turnin 96059                                -- Thonys Pillarstone, who gave it
 
 # ---------------------------------------------------------------- Ironforge: one round of the city
 
@@ -654,7 +756,7 @@ step The Forlorn Cavern
 step The Tome of Divinity
   only Paladin
   zone Ironforge
-  tip West from the Forlorn Cavern into the Mystic Ward: Brandur Ironhammer, Tiza Battleforge and Muiredon Battleforge are in the Hall of Mysteries, Tiza and Muiredon on its upper floor: the stairs up start just north-east of Brandur. John Turner, a beggar, wanders the city. He asks for ten Linen Cloth: the troggs and trolls of Dun Morogh drop it, and the Auction House sells it.
+  tip West from the Forlorn Cavern into the Mystic Ward: Brandur Ironhammer, Tiza Battleforge and Muiredon Battleforge are in the Hall of Mysteries, Tiza and Muiredon on its upper floor: the stairs up start just north-east of Brandur. John Turner, a beggar, wanders the city. John needs ten Linen Cloth. Bring what you have; if you’re short, Rockjaw Skullthumpers at Gol’Bolar Quarry drop it.
   level 12 only Paladin
   accept 2999                                 -- Brandur Ironhammer
   turnin 2999                                 -- Tiza Battleforge
@@ -663,27 +765,51 @@ step The Tome of Divinity
   accept 1647
   turnin 1647                                 -- John Turner
   accept 1648
-  collect 2589 quest 1648.1                   -- Linen Cloth
+
+step Linen for The Tome of Divinity
+  only Paladin
+  when onquest 1648
+  when !has 2589 x10
+  zone Dun Morogh
+  tip If you're short on cloth, leave Ironforge through the Commons and follow the road down the mountain, then east to Gol'Bolar Quarry. Kill Rockjaw Skullthumpers on the quarry's western edge. If the missing cloth is affordable at the Auction House, you can buy it instead.
+  enter "Dun Morogh" @21.6,77.8 map 1455
+  loop
+  goto 67.18,58.58 r 25
+  goto 67.09,59.71 r 25
+  collect 2589 quest 1648.1
+
+step John Turner
+  only Paladin
+  when onquest 1648
+  zone Ironforge
+  tip Follow the road back to Ironforge if you left the city. John Turner walks through the Commons.
+  enter "Ironforge" @21.6,77.8
   turnin 1648
+
+step Tiza and Muiredon Battleforge
+  only Paladin
+  zone Ironforge
   accept 1778
   turnin 1778                                 -- Tiza Battleforge
   accept 1779
   turnin 1779                                 -- Muiredon Battleforge
   accept 1783
-  use 6866 quest 1783.1 only Paladin @78.32,58.09 map 1426 era -- Use the Symbol of Life on Narm Faulk
-  turnin 1783 only Paladin -- Narm Faulk
 
 step Narm Faulk
   only Paladin
   zone Dun Morogh
   tip Head back out of Ironforge and east along the road to Helm's Bed Lake. Narm Faulk lies dead by its shore: use the Symbol of Life on him. The Dark Iron Spies sneaking around the lake carry the script.
   level 12 only Paladin
+  goto 78.32,58.09 "Helm's Bed Lake"
+  use 6866 quest 1783.1 only Paladin @78.32,58.09 map 1426 era -- Use the Symbol of Life on Narm Faulk
+  turnin 1783 only Paladin -- Narm Faulk
   accept 1784
   collect 6847 quest 1784.1                   -- Dark Iron Script: Dark Iron Spies
 
 step Muiredon Battleforge
   only Paladin
   zone Ironforge
+  enter "Ironforge" @21.6,77.8
   turnin 1784                                 -- Muiredon Battleforge
 
 step Muiredon Battleforge
@@ -748,9 +874,10 @@ step The Deeprun Tram
 
 step Tram to Stormwind
   zone Ironforge
-  tip On the Ironforge platform of the Deeprun Tram, Monty asks for help with the rats: use his Rat Catcher's Flute on the Deeprun Rats around the platform, hand them in, then take his letter to his brother Nipsy at the Stormwind end.
+  tip On the Ironforge platform of the Deeprun Tram, Monty asks for help with the rats: use his Rat Catcher's Flute on the Deeprun Rats around the platform, hand them in, then take his letter to his brother Nipsy at the Stormwind end. The tram has no map inside. The city markers show the entrances, not the two brothers.
+  enter "Deeprun Tram" @78.0,51.4 map 1455
   accept 6661 @78.0,51.4                      -- Monty, on the Ironforge platform
-  kill 13016 x5 quest 6661.1 @78.0,51.4 "Catch Deeprun Rat" -- Deeprun Rat: use the Rat Catcher's Flute
+  kill 13016 x5 quest 6661.1 "Catch Deeprun Rat" -- Deeprun Rat: use the Rat Catcher's Flute
   turnin 6661 @78.0,51.4                      -- Monty
   accept 6662 @78.0,51.4
 
@@ -758,6 +885,10 @@ step Nipsy
   zone Stormwind City
   tip Ride the tram to Stormwind: Nipsy waits on the Stormwind platform. Furen Longbeard stands in the Dwarven District, just outside the tram.
   turnin 6662 @64.5,7.5                       -- Nipsy, on the Stormwind platform
+
+step From the tram to Stormwind
+  zone Stormwind City
+  enter "Stormwind City" @64.5,7.5
   turnin 1338                                 -- Furen Longbeard
 
 step Baros Alexston

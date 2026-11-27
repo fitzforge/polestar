@@ -8,14 +8,19 @@ name: Client release
 # repo's "latest", which stays Polestar's); the app's updater only sees
 # published, non-prerelease client-v* releases.
 #
-# The builds hold no secrets: Linux and Windows build unsigned with a read-only
-# token. Only two jobs run in the `release` environment (required reviewer, tags
+# The Linux builds hold no secrets: they build unsigned with a read-only token.
+# Three jobs run in the `release` environment (required reviewer, tags
 # client-v* only; see apps/client/README.md, "Releasing"):
 #   macos   needs the Apple secrets during the build to sign and notarize.
 #           APPLE_CERTIFICATE (base64 .p12), APPLE_CERTIFICATE_PASSWORD,
 #           APPLE_SIGNING_IDENTITY, APPLE_API_ISSUER, APPLE_API_KEY (key id),
 #           APPLE_API_KEY_PATH (the .p8 key's contents). Without
 #           APPLE_CERTIFICATE the dmg is only ad-hoc signed (no Developer ID).
+#   windows needs the SSL.com eSigner secrets during the build to Authenticode-sign
+#           the app's .exe (before it goes into the installer) and the .msi:
+#           ES_USERNAME, ES_PASSWORD, ES_CREDENTIAL_ID, ES_TOTP_SECRET. All four
+#           or none: without them the msi is unsigned, and Smart App Control
+#           blocks it.
 #   release runs no build code: it downloads the artifacts, signs the updater
 #           files with TAURI_SIGNING_PRIVATE_KEY and _PASSWORD (`tauri signer
 #           sign`; public half in apps/client/src-tauri/tauri.conf.json),
@@ -48,16 +53,8 @@ jobs:
         include:
           - name: Linux
             os: ubuntu-22.04
-            args: --bundles appimage,deb
           - name: Linux-arm64
             os: ubuntu-22.04-arm
-            args: --bundles appimage,deb
-          - name: Windows
-            os: windows-latest
-            # MSI only: unsigned NSIS installers get generic antivirus flags (0.1.0's -setup.exe:
-            # 3 of 71 on VirusTotal; the msi 0). NSIS and a native arm64 build come back with
-            # Authenticode signing.
-            args: --bundles msi
     defaults:
       run:
         shell: bash
@@ -77,7 +74,6 @@ jobs:
           fi
 
       - name: Linux libraries
-        if: runner.os == 'Linux'
         run: |
           sudo apt-get update -q
           sudo apt-get install -y -q libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev libgtk-3-dev patchelf xvfb
@@ -100,12 +96,11 @@ jobs:
 
       - name: Build
         working-directory: apps/client
-        run: pnpm tauri build ${{ matrix.args }} --config "$UNSIGNED"
+        run: pnpm tauri build --bundles appimage,deb --config "$UNSIGNED"
 
       # The AppImage this release ships, launched once on a virtual display
       # (apps/client/release/smoke.sh): the build fails if its window shows an error or never loads.
       - name: Launch test
-        if: runner.os == 'Linux'
         run: apps/client/release/smoke.sh apps/client/src-tauri/target/release/bundle/appimage/*.AppImage 15
 
       # Asset names without spaces (GitHub would turn them into dots anyway).
@@ -113,7 +108,7 @@ jobs:
         run: |
           mkdir out
           bundle=apps/client/src-tauri/target/release/bundle
-          for f in "$bundle"/appimage/*.AppImage "$bundle"/deb/*.deb "$bundle"/msi/*.msi "$bundle"/nsis/*-setup.exe; do
+          for f in "$bundle"/appimage/*.AppImage "$bundle"/deb/*.deb; do
             [ -f "$f" ] && cp "$f" "out/$(basename "$f" | tr ' ' '.')"
           done
           ls -l out
@@ -121,6 +116,139 @@ jobs:
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: client-${{ matrix.name }}
+          path: out/*
+          if-no-files-found: error
+
+  # Authenticode signing happens during the build (Tauri signs the app's .exe before it goes
+  # into the installer, then the .msi; Smart App Control checks both), so this job holds the
+  # SSL.com eSigner secrets (never the updater key) and runs only in the release environment.
+  windows:
+    name: Build (Windows, signed)
+    runs-on: windows-latest
+    timeout-minutes: 60
+    environment: release
+    outputs:
+      signed: ${{ steps.signing.outputs.sign }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+
+      - name: Version
+        run: |
+          have="$(jq -r .version apps/client/src-tauri/tauri.conf.json)"
+          want="${GITHUB_REF_NAME#client-v}"
+          if [ "$have" != "$want" ]; then
+            echo "::error file=apps/client/src-tauri/tauri.conf.json::the tag says $want, tauri.conf.json says $have"
+            exit 1
+          fi
+
+      # Signing only when the secrets are there, all four: a partial set fails the run instead
+      # of shipping an unsigned installer by mistake.
+      - name: Signing secrets
+        id: signing
+        env:
+          ES_USERNAME: ${{ secrets.ES_USERNAME }}
+          ES_PASSWORD: ${{ secrets.ES_PASSWORD }}
+          ES_CREDENTIAL_ID: ${{ secrets.ES_CREDENTIAL_ID }}
+          ES_TOTP_SECRET: ${{ secrets.ES_TOTP_SECRET }}
+        run: |
+          n=0
+          for v in ES_USERNAME ES_PASSWORD ES_CREDENTIAL_ID ES_TOTP_SECRET; do
+            if [ -n "${!v}" ]; then n=$((n + 1)); fi
+          done
+          case "$n" in
+            4) echo "sign=true" >> "$GITHUB_OUTPUT" ;;
+            0) echo "::notice::No ES_* secrets: the Windows app and installer are not code-signed."
+               echo "sign=false" >> "$GITHUB_OUTPUT" ;;
+            *) echo "::error::$n of the 4 ES_* secrets are set: set all four (apps/client/README.md, \"Releasing\") or none."
+               exit 1 ;;
+          esac
+
+      # SSL.com's CodeSignTool (the key stays in their cloud HSM), pinned by its SHA-256 because
+      # it runs with the signing secrets. Java comes with the runner image.
+      - name: Signing tool
+        if: steps.signing.outputs.sign == 'true'
+        shell: pwsh
+        run: |
+          $zip = Join-Path $env:RUNNER_TEMP 'CodeSignTool.zip'
+          Invoke-WebRequest -Uri 'https://github.com/SSLcom/CodeSignTool/releases/download/v1.3.2/CodeSignTool-v1.3.2.zip' -OutFile $zip
+          $sum = (Get-FileHash -Algorithm SHA256 -Path $zip).Hash.ToLowerInvariant()
+          if ($sum -ne 'f14b1e1ef14bfa1fd00279c363aab0debbf5dcfba0e4bcdce5d22bb771de0e3a') { throw "CodeSignTool-v1.3.2.zip has SHA-256 $sum, not the pinned one" }
+          $dir = Join-Path $env:RUNNER_TEMP 'CodeSignTool'
+          Expand-Archive -Path $zip -DestinationPath $dir
+          "CODESIGNTOOL_DIR=$dir" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          java -version
+
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          package_json_file: apps/client/package.json
+
+      # No pnpm or Rust caches: tag builds would restore caches other workflows may have written.
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+
+      - name: Frontend dependencies
+        working-directory: apps/client
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      # MSI only: unsigned NSIS installers get generic antivirus flags (0.1.0's -setup.exe:
+      # 3 of 71 on VirusTotal; the msi 0). The signing config (src-tauri/tauri.windows-sign.conf.json)
+      # points bundle.windows.signCommand at release/sign-windows.ps1; it's merged only when signing,
+      # because a signCommand that can't sign fails the build.
+      - name: Build
+        working-directory: apps/client
+        env:
+          SIGN: ${{ steps.signing.outputs.sign }}
+          ES_USERNAME: ${{ secrets.ES_USERNAME }}
+          ES_PASSWORD: ${{ secrets.ES_PASSWORD }}
+          ES_CREDENTIAL_ID: ${{ secrets.ES_CREDENTIAL_ID }}
+          ES_TOTP_SECRET: ${{ secrets.ES_TOTP_SECRET }}
+        run: |
+          if [ "$SIGN" = true ]; then
+            pnpm tauri build --bundles msi --config "$UNSIGNED" --config src-tauri/tauri.windows-sign.conf.json
+          else
+            pnpm tauri build --bundles msi --config "$UNSIGNED"
+          fi
+
+      # Smart App Control checks the installer and the program it installs, so both must carry a
+      # valid, timestamped signature. The program is checked as the msi holds it (an administrative
+      # install unpacks it): Tauri restores the unsigned build output after bundling.
+      - name: Check the signatures
+        if: steps.signing.outputs.sign == 'true'
+        shell: pwsh
+        working-directory: apps/client/src-tauri/target/release/bundle/msi
+        run: |
+          $msi = @(Get-ChildItem -Filter '*.msi')
+          if ($msi.Count -ne 1) { throw "expected one .msi, found $($msi.Count)" }
+          $unpacked = Join-Path $env:RUNNER_TEMP 'msi-unpacked'
+          $p = Start-Process msiexec.exe -ArgumentList "/a `"$($msi[0].FullName)`" /qn TARGETDIR=`"$unpacked`"" -Wait -PassThru
+          if ($p.ExitCode -ne 0) { throw "unpacking $($msi[0].Name) failed: msiexec exit code $($p.ExitCode)" }
+          $programs = @(Get-ChildItem -Path $unpacked -Recurse -Include '*.exe', '*.dll')
+          if ($programs.Count -eq 0) { throw "no .exe or .dll in $($msi[0].Name)" }
+          foreach ($f in $msi + $programs) {
+            $sig = Get-AuthenticodeSignature -FilePath $f.FullName
+            if ($sig.Status -ne 'Valid' -or -not $sig.TimeStamperCertificate) { throw "$($f.Name): $($sig.Status), timestamped: $([bool]$sig.TimeStamperCertificate). $($sig.StatusMessage)" }
+            "$($f.Name): signed by $($sig.SignerCertificate.Subject), timestamped by $($sig.TimeStamperCertificate.Subject)"
+          }
+
+      - name: Collect
+        run: |
+          mkdir out
+          for f in apps/client/src-tauri/target/release/bundle/msi/*.msi; do
+            cp "$f" "out/$(basename "$f" | tr ' ' '.')"
+          done
+          ls -l out
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: client-Windows
           path: out/*
           if-no-files-found: error
 
@@ -216,7 +344,7 @@ jobs:
   # creates the draft release. The only job with the updater key or a write token.
   release:
     name: Sign and draft the release
-    needs: [build, macos]
+    needs: [build, windows, macos]
     runs-on: ubuntu-22.04
     timeout-minutes: 20
     environment: release
@@ -265,11 +393,23 @@ jobs:
             "https://github.com/${GITHUB_REPOSITORY}/releases/download/${GITHUB_REF_NAME}" > out/latest.json
           cat out/latest.json
 
-      # The notes are apps/client/release/notes/<version>.md, written with the release.
+      # The notes are apps/client/release/notes/<version>.md, written with the release. What they
+      # say about Windows code signing must match the build: "now code-signed" only on a signed
+      # build, and the "isn't code-signed" first-launch line only on an unsigned one.
       - name: Release notes
+        env:
+          WINDOWS_SIGNED: ${{ needs.windows.outputs.signed }}
         run: |
           notes="apps/client/release/notes/${GITHUB_REF_NAME#client-v}.md"
           [ -f "$notes" ] || { echo "::error::write $notes before tagging"; exit 1; }
+          if [ "$WINDOWS_SIGNED" = true ] && grep -q "isn't code-signed" "$notes"; then
+            echo "::error file=$notes::the Windows installer is code-signed in this build: replace the \"isn't code-signed\" line"
+            exit 1
+          fi
+          if [ "$WINDOWS_SIGNED" != true ] && grep -q "now code-signed" "$notes"; then
+            echo "::error file=$notes::the Windows installer is not code-signed in this build (no ES_* secrets): the notes must not say it is"
+            exit 1
+          fi
           cp "$notes" notes.md
 
       # Every installer checked on VirusTotal (hash lookup first; the key is a free one shared

@@ -21,10 +21,12 @@ return {
 	["Mounts · Level 60"] = "Monturas · Nivel 60",
 	["Mounts · PvP"] = "Monturas · JcJ",
 	["Mounts · Reputation"] = "Monturas · Reputación",
-	["Raid"] = "",
-	["Reputation · Battlegrounds"] = "",
-	["Reputation · Cities"] = "",
-	["Reputation · Raids and dungeons"] = "",
-	["Reputation · World"] = "",
-	["The Drowned City"] = "",
+	["Raid"] = "Banda",
+	["Reputation · Battlegrounds"] = "Reputación · Campos de batalla",
+	["Reputation · Cities"] = "Reputación · Ciudades",
+	["Reputation · Raids and dungeons"] = "Reputación · Bandas y mazmorras",
+	["Reputation · World"] = "Reputación · Mundo",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The Drowned City"] = "La Ciudad Sumergida",
 }

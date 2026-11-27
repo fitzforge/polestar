@@ -32,9 +32,9 @@ return {
 
 	-- Step 5: The Wooden Figurine
 	-- {item:190309} Wooden Figurine
-	["The {item:190309}"] = "",
+	["The {item:190309}"] = "{item:190309}",
 	-- {zone:1440} Ashenvale · {area:413} Maestra's Post · {quest:1738} Heartswood · {item:190307} Unlit Torch · {object:29784} Basic Campfire · {area:414} Zoram Strand · {item:190308} Burning Torch
-	["The house stands alone in the trees of north-western {zone:1440}, north-west of Ordil'Aran and well north of {area:413}: do it on the same trip as the {quest:1738}. Take the {item:190307} from the table outside, light it at a campfire (a {object:29784} of your own, or Talen's fire on {area:414}), and go straight back: the {item:190308} burns out after five minutes, so a fire of your own beside the house is quickest. Without it the figure in the house stops you. The figurine is upstairs."] = "",
+	["The house stands alone in the trees of north-western {zone:1440}, north-west of Ordil'Aran and well north of {area:413}: do it on the same trip as the {quest:1738}. Take the {item:190307} from the table outside, light it at a campfire (a {object:29784} of your own, or Talen's fire on {area:414}), and go straight back: the {item:190308} burns out after five minutes, so a fire of your own beside the house is quickest. Throw the lit torch onto the archaeologist's cart outside the house: that draws the figure in the house away, and you take the figurine upstairs unseen."] = "집은 {zone:1440} 북서쪽 숲속에 홀로 서 있으며, 오르딜아란 북서쪽, {area:413}보다 훨씬 북쪽에 있습니다: {quest:1738}와(과) 같은 길에 하십시오. 바깥 탁자의 {item:190307}을(를) 집어 모닥불({object:29784}을(를) 직접 피우거나 {area:414}의 탈렌의 불)에 붙이고 곧장 돌아가십시오: {item:190308}은(는) 5분 뒤 꺼지므로 집 옆에 직접 불을 피우는 것이 가장 빠릅니다. 불붙인 횃불을 집 밖 고고학자의 수레에 던지십시오: 집 안의 형체가 끌려 나가고, 들키지 않고 위층의 조각상을 가져갈 수 있습니다.",
 	-- {item:190307} Unlit Torch
 	["{item:190307}, on the table outside"] = "",
 	-- {item:190309} Wooden Figurine

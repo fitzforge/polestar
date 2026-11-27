@@ -48,7 +48,9 @@ const BUDGETS: &[(&str, f64, f64)] = &[
 	("search clear", 6.3, 102.0),
 	("toggle", 6.4, 37.0),
 	("dropdown open", 0.4, 3.2),
-	("dropdown pick", 6.0, 23.0),
+	// 23 KiB until Grid size went from Guide to Look > Guide window (the pages ordered by the player's journey): the
+	// session's one dropdown is now Trackers' flight time format, 33.4 KiB a pick (as it was before), and a fifth.
+	("dropdown pick", 6.0, 40.0),
 	("slider step", 2.7, 2.0),
 	("slider release", 6.7, 44.0),
 	("colour open", 0.2, 2.2),

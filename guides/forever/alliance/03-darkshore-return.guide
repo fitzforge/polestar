@@ -22,7 +22,8 @@ next forever/alliance/06-ashenvale
 # Blackfathom Deeps (`when dungeon "Blackfathom Deeps"`, dungeons in the route): for a character who chose
 # it, Gershala Nightwhisper's Researching the Corruption (1275) is taken on the Auberdine stop after the
 # Grove, at about 22; the run is on the Zoram Strand in forever/alliance/06-ashenvale. The Corruption
-# Abroad (3765, Argos Nightwhisper in Stormwind) only leads to her: players take her quest without it.
+# Abroad (3765, Argos Nightwhisper in Stormwind, taken on 03-loch-modan's way to the harbour) goes to her on the
+# first Auberdine stop, beside Terenthis (fix round 2026-11-20); players take her own quest without it.
 
 # ---------------------------------------------------------------- Auberdine
 
@@ -34,6 +35,7 @@ step Auberdine
   accept 729                                  -- Archaeologist Hollee
   vendor nearest optional
   accept 4740                                 -- The WANTED poster
+  turnin 3765                                 -- Gershala Nightwhisper, a short walk west of Terenthis: Argos's message from Stormwind
   accept 986                                  -- Terenthis
   accept 990 optional                         -- Sentinel Selarin, beside Terenthis if she is there: for Raene Wolfrunner in Astranaar, in the next guide
 
@@ -60,18 +62,21 @@ step The Grove of the Ancients
   turnin 1003                                 -- Buzzbox 525
 
 step The Master's Glaive
-  tip Moonstalker Sires prowl the woods around the glaive. The Twilight Tome sits at the bottom of the crater; Therylune stands on its north side. For Onu's quest, use the Phial of Scrying at the bottom of the crater: it makes the Scrying Bowl, and you hand the quest in to the bowl.
+  tip Moonstalker Sires prowl the woods around the glaive. The Twilight Tome sits at the bottom of the crater. For Onu's quest, use the Phial of Scrying at the bottom of the crater: it makes the Scrying Bowl, and you hand the quest in to the bowl.
   collect 5386 quest 986                      -- Fine Moonstalker Pelts
-  accept 945                                  -- Therylune
-  complete 945                                -- Escort her out of the glaive; Therysil takes the turn-in in Ashenvale
   accept 968 optional                         -- Only if a Disciple or Thug dropped Book: The Powers Below: right-click it
-  complete 944
+  complete 944 @38.48,86.45 map 1439 era
   turnin 944                                  -- The Scrying Bowl
   accept 949
   turnin 949                                  -- The Twilight Tome
   accept 950
   accept 98042                                -- The Twilight Tome, once it has The Twilight Camp
   collect 279279 quest 98042                  -- Peerless Eye: Twilight Disciples and Thugs
+
+step Therylune
+  tip Therylune stands on the north side of the crater: escort her out of the glaive. Therysil takes the turn-in in Ashenvale.
+  accept 945                                  -- Therylune
+  complete 945                                -- Escort her out of the glaive; Therysil takes the turn-in in Ashenvale
 
 step Prospector Remtravel
   tip Remtravel's Excavation lies on the coast south of Murkdeep's beach. Protect the prospector while he searches for the fossil.
@@ -166,11 +171,14 @@ step Back south
   turnin 98013                                -- Arbal
 
 step Volcor
-  tip Volcor hides in the hills east of the Master's Glaive. Help him back to the road; he fights on his way out. Terenthis takes the escort in Auberdine on the next visit there.
+  tip Volcor hides in the hills east of the Master's Glaive, inside Blackwood Den.
   turnin 993                                  -- Volcor, inside Blackwood Den
+  kill 12298 quest 6124.1 "Cure Sickly Deer" only NightElf,Skyborne,Druid -- Sickly Deer: use the Curative Animal Salve on them; they roam all of Darkshore
+
+step Escort Volcor
+  tip Help Volcor back to the road; he fights on his way out. Terenthis takes the escort in Auberdine on the next visit there.
   accept 994
   complete 994 @41.7,81.5                     -- His walk ends at the road, where Grimclaw waits
-  kill 12298 quest 6124.1 "Cure Sickly Deer" only NightElf,Skyborne,Druid -- Sickly Deer: use the Curative Animal Salve on them; they roam all of Darkshore
 
 step Auberdine
   only Druid
@@ -260,6 +268,14 @@ step Trial of the Sea Lion
   tip Both half pendants in your bags (the Westfall half from your last Westfall visit, the Darkshore half from the north coast): stand by the Shrine of Remulos on the north-west shore of the lake and use a half to join them, then take the pendant to Dendrite Starblaze with the Cat Form hand-in. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   collect 15885 quest 272.1                   -- Pendant of the Sea Lion: join the halves at the Shrine of Remulos
   turnin 272                                  -- Dendrite Starblaze
+  accept 5061                                 -- Dendrite Starblaze: Aquatic Form, for Mathrengyl Bearwalker
+
+step Dendrite Starblaze
+  only NightElf,Skyborne,Druid
+  zone Moonglade
+  when turnedin 272
+  when available 5061
+  tip The Pendant of the Sea Lion is already with Dendrite Starblaze: take Aquatic Form from him, upstairs in his building.
   accept 5061                                 -- Dendrite Starblaze: Aquatic Form, for Mathrengyl Bearwalker
 
 step Back to Dendrite

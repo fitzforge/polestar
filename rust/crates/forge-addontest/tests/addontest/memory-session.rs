@@ -10,20 +10,22 @@
 //!   churn     what a step of the round allocated, collected or not, the addon's share (tests/lua/stub_alloc.lua
 //!             takes out what this stub allocates for its frames, which the client keeps in C)
 //!
-//! Each figure fails the test when it grows past its budget: lower a budget when a change lowers the figure,
-//! never raise one to make a change pass.
+//! Each figure fails the test when it grows past its budget. ONE_TIME is the figure measured at the release's
+//! code freeze plus 3 %, moved only then (docs/CI.md, "Memory budgets"); the churn budgets keep their own margin
+//! (what one round allocates), and KEPT_GROWTH is a fixed limit, not a figure.
 //!
 //!   - a round repeated keeps no more (the third round over the second, KEPT_GROWTH: a leak per use);
 //!   - what the first two rounds build once (their windows and pages, the looks' art) stays under ONE_TIME;
 //!   - the third round's churn: the Dungeons hub under HUB_KIB, the 50 steps under STEPS_KIB, the guide menu
 //!     under MENU_KIB. The settings' own churn per change is settings-perf.rs's.
 //!
-//! The budgets are the figures of 2026-11-15 (fix/memory-040: the hub's page plans worked out once per page, the
+//! The churn budgets are the figures of 2026-11-15 (fix/memory-040: the hub's page plans worked out once per page, the
 //! planner's arrays kept from one plan to the next) and about 10 %, in KiB: kept 15,118 at login, 111,653 after
 //! the second round, 111,703 after the third (+51; the frames and textures the settings' pages and the looks build
 //! are Lua tables in this stub, so "built once" reads far above the client's own figure); the third round's churn:
 //! hub 616 (3 dungeons), 50 steps 25,367 (14 MB of it Compat's map-to-world vectors, one pair per position read),
-//! guide menu 240.
+//! guide menu 240. ONE_TIME: two rounds built 72,110 over login on next f5bd74406e (2026-11-26, #4143; three runs
+//! reading the same), plus 3 %.
 
 use crate::ui_dungeons::pack;
 use forge_addontest::{emitted, Addon, RunAddon};
@@ -31,7 +33,7 @@ use serde_json::Value;
 use std::sync::LazyLock;
 
 const KEPT_GROWTH: f64 = 1024.0;
-const ONE_TIME: f64 = 106_000.0;
+const ONE_TIME: f64 = 75_000.0;
 const HUB_KIB: f64 = 680.0;
 const STEPS_KIB: f64 = 28_000.0;
 const MENU_KIB: f64 = 265.0;
@@ -177,8 +179,9 @@ fn a_session_round_repeated_keeps_no_more_and_what_it_builds_once_stays_within_b
 	assert!(num(&out["dungeons"]) >= 2.0, "the hub browsed the fixture's dungeons: {out}");
 	assert_eq!(out["step"], 1, "the step changes end where they began: {out}");
 	let growth = num(&r[2]["kept"]) - num(&r[1]["kept"]);
-	assert!(growth <= KEPT_GROWTH, "the third round kept {growth:.0} KiB over the second (budget {KEPT_GROWTH}): {out}");
 	let once = num(&r[1]["kept"]) - num(&out["login"]);
+	eprintln!("memory session: two rounds built {once:.0} KiB over login (budget {ONE_TIME}); the third kept {growth:.0} over the second (budget {KEPT_GROWTH})");
+	assert!(growth <= KEPT_GROWTH, "the third round kept {growth:.0} KiB over the second (budget {KEPT_GROWTH}): {out}");
 	assert!(once <= ONE_TIME, "two rounds built {once:.0} KiB over login (budget {ONE_TIME}): {out}");
 }
 

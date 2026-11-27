@@ -1,0 +1,20 @@
+# Fixture: a step behind `when level>=2` in a guide that starts at level 1
+# (tests/playtest.test.js, --level-offset). The Ahead step's goto is on a map
+# the game has no frame for: a character who starts a level ahead plays it and
+# is stuck there; one at the guide's level skips it and plays the guide through.
+guide ahead/northshire
+title Ahead Fixture
+faction Alliance
+race Human
+levels 1-6
+zone Elwynn Forest
+
+step Northshire Abbey
+  goto 48.2,42.0 "Northshire Abbey"
+
+step Ahead
+  when level>=2
+  goto 50,50 map 9999 "Nowhere"
+
+step Abbey garden
+  goto 50.6,40.2 "Abbey garden"

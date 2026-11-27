@@ -68,6 +68,37 @@ fn sync_keeps_every_translation_line_of_the_shipped_files_byte_for_byte() {
 }
 
 #[test]
+fn polestar_keys_include_the_tetris_windows_display_text() {
+	let keys = extract_keys(root(), &polestar()).unwrap();
+	for key in [
+		"Polestar Tetris",
+		"Score %d\nLines %d\nLevel %d\nBest %d",
+		"Next",
+		"Hold",
+		"Arrows move\nX/Z rotate  |  C hold\nSpace hard drop\nP pause  |  N new game",
+		"D-pad move\nA/B rotate  |  Y hold\nX hard drop  |  Start pause",
+	] {
+		assert!(keys.get(key).is_some_and(|uses| uses.iter().any(|u| u.file == "games/tetris/Window.lua")), "Tetris locale key {key:?}");
+	}
+}
+
+#[test]
+fn polestar_keys_include_the_finished_quest_planner() {
+	let keys = extract_keys(root(), &polestar()).unwrap();
+	assert!(keys.get("Refining the travel order. Travel times are estimates.").is_some_and(|uses| uses.iter().any(|u| u.file == "Handins.lua")));
+}
+
+// #4347: the skins' layouts show Polestar's texts through Core.tr (Atlas' training card, its off-guide row), so
+// those are keys of Polestar's locale files too.
+#[test]
+fn polestar_keys_include_the_texts_the_skins_layouts_show_through_core_tr_4347() {
+	let keys = extract_keys(root(), &polestar()).unwrap();
+	for key in ["Training due", "New spells at your class trainer"] {
+		assert!(keys.get(key).is_some_and(|uses| uses.iter().any(|u| u.file == "Layouts/Atlas/Atlas.lua")), "Atlas locale key {key:?}");
+	}
+}
+
+#[test]
 fn every_locale_has_its_language_status_and_translators() {
 	for l in &forge_guide::locales::LOCALES {
 		assert!(!l.language.is_empty(), "{}", l.code);

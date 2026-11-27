@@ -72,7 +72,7 @@ return {
 	-- {npc:10811} Archivist Galford
 	["{npc:10811}, Scarlet side"] = "{npc:10811}，血色区",
 	-- {object:176245} Scarlet Archive
-	["the {object:176245}: burn it, Scarlet side"] = "",
+	["the {object:176245}: burn it, Scarlet side"] = "{object:176245}：烧掉它，血色阵营那边",
 
 	-- Step 7: Scholomance
 	-- {area:2057} Scholomance · {area:2298} Caer Darrow · {zone:1422} Western Plaguelands · {item:13704} Skeleton Key · {faction:529} Argent Dawn · {quest:5508} Corruptor's Scourgestones · {npc:10508} Ras Frostwhisper · {npc:1853} Darkmaster Gandling
@@ -89,12 +89,12 @@ return {
 	-- Step 9: Friendly to Honored: stones and named Scourge
 	["Friendly to Honored: stones and named Scourge"] = "友善到尊敬：天灾石与有名的天灾怪",
 	-- {npc:10826} Lord Darkscythe · {npc:10821} Hed'mush the Rotting · {npc:10825} Gish the Unmoving · {area:2057} Scholomance · {area:2279} Stratholme · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {area:3197} Chillwind Camp · {area:152} Bulwark · {item:12844} Argent Dawn Valor Token · {quest:5509} Invader's Scourgestones · {area:2272} Northdale · {item:12843} Corruptor's Scourgestone · {npc:1850} Putridius
-	-- plural, as words: Dark Adepts = {npc:8546} Dark Adept · Shadowmages = {npc:8550} Shadowmage · Dread Weavers = {npc:8528} Dread Weaver · Scourge Champions = {npc:8529} Scourge Champion · Enriched Manna Biscuits = {item:13724} Enriched Manna Biscuit
+	-- plural, as words: Dark Adepts = {npc:8546} Dark Adept · Dread Weavers = {npc:8528} Dread Weaver · Scourge Champions = {npc:8529} Scourge Champion · Enriched Manna Biscuits = {item:13724} Enriched Manna Biscuit
 	["Normal Scourge outside the dungeons stop giving reputation halfway through Friendly (3,000 of 6,000); {npc:10826}, {npc:10821} and {npc:10825} stop at the end of Friendly. After that only Araj, the {area:2057} and {area:2279} mobs, the cauldron deliveries and Scourgestones count. Now turn in the stones you saved: {npc:11039} at {area:2268} takes all three kinds, and so do the officers at {area:3197} and the {area:152}. Every turn-in pays 25 and an {item:12844}: keep 35 tokens for the mantles at Revered and Exalted. {quest:5509} are worth twice as much per stone: the Dark Adepts, Shadowmages, Dread Weavers and Scourge Champions (level 58-60) at {area:2272}, just north of {area:2268}, drop them about a third of the time or more, next to the turn-in. The named Scourge below drop a {item:12843} half the time or more ({npc:1850} two times in three, Araj and {npc:10821} half the time) and give 15 a kill, Araj until Exalted; {npc:1850} gives no reputation, only the stone. Friendly opens the Enriched Manna Biscuits (60 silver) at the quartermasters."] = "地下城外的普通天灾怪在友善过半后（6,000中的3,000）就不再奖励声望；{npc:10826}、{npc:10821} 和 {npc:10825} 在友善结束时停止。之后只有阿拉基、{area:2057} 和 {area:2279} 的怪物、瘟疫之锅材料交付以及天灾石还能提供声望。现在交还之前攒下的天灾石：{area:2268} 的 {npc:11039} 接受全部三种，{area:3197} 和 {area:152} 的军官也一样。每次交还奖励25点和一个 {item:12844}：保留35个徽章，用于崇敬和崇拜的衬肩。{quest:5509} 每颗的声望价值是另一种的两倍：{area:2268} 正北方 {area:2272} 的黑暗教徒、暗影法师、恐怖编织者和天灾勇士（58—60级）约有三分之一或更高概率掉落，且就在交还点旁边。下列有名的天灾怪至少有一半概率掉落 {item:12843}（{npc:1850} 为三分之二，阿拉基和 {npc:10821} 为一半），每次击杀还奖励15点，阿拉基可一直奖励到崇拜；{npc:1850} 不奖励声望，只掉天灾石。友善可在军需官处购买可口的魔法点心（60银币）。",
 	-- {item:12843} Corruptor's Scourgestone
 	["{item:12843}: the named Scourge below, and dungeon bosses"] = "{item:12843}：来自下方列出的具名天灾怪物和地下城首领。",
 	-- {area:2272} Northdale
-	-- plural, as words: Dark Adepts = {npc:8546} Dark Adept · Shadowmages = {npc:8550} Shadowmage
+	-- plural, as words: Dark Adepts = {npc:8546} Dark Adept
 	["Dark Adepts and Shadowmages at {area:2272}"] = "{area:2272} 的黑暗教徒和暗影法师",
 	-- {npc:1852} Araj the Summoner
 	["{npc:1852}, Andorhal"] = "{npc:1852}，安多哈尔",

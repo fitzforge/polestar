@@ -56,8 +56,8 @@ return {
 	["{npc:12717}: take it last, his escort starts at once"] = "",
 
 	-- Step 10: Vorsha the Lasher
-	-- {npc:12717} Muglash · {npc:12719} Marukai
-	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "",
+	-- {npc:12717} Muglash · {npc:12940} Vorsha the Lasher · {npc:12719} Marukai
+	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until {npc:12940} is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} идет на север вдоль берега к жаровне наг. Потушите жаровню, затем охраняйте его во время волн наг, пока {npc:12940} не погибнет; наги Гневохвостых роняют головы, нужные NPC {npc:12719}.",
 	["Naga brazier"] = "Жаровня наг",
 
 	-- Step 11: Naga heads
@@ -95,60 +95,68 @@ return {
 	-- {npc:3419} Apothecary Zamah · {npc:2216} Apothecary Lydon · {area:272} Tarren Mill
 	["{npc:3419}: her note is for {npc:2216} in {area:272}, next guide"] = "{npc:3419}: ее записка – для NPC {npc:2216} в месте {area:272}, следующий гайд",
 
-	-- Step 17: Fly to Orgrimmar
+	-- Step 17: Magatha Grimtotem
+	-- {quest:1063} The Elder Crone · {npc:4046} Magatha Grimtotem · {quest:1064} Forsaken Aid · {area:1639} Elder Rise · {npc:3419} Apothecary Zamah · {area:2197} Pools of Vision · {area:1640} Spirit Rise
+	["{quest:1063}'s errand is already with {npc:4046}: take {quest:1064} from her on {area:1639}, for {npc:3419} in the {area:2197}, under {area:1640}."] = "Поручение задания {quest:1063} уже у NPC {npc:4046}: возьмите у нее задание {quest:1064} в месте {area:1639}, для NPC {npc:3419} ({area:2197}, под местом {area:1640}).",
+
+	-- Step 18: Apothecary Zamah
+	-- {quest:1064} Forsaken Aid · {npc:3419} Apothecary Zamah · {area:272} Tarren Mill · {area:2197} Pools of Vision · {area:1640} Spirit Rise
+	["{quest:1064} is already with {npc:3419}: take her note for {area:272} in the {area:2197}, under {area:1640}."] = "{quest:1064} уже у NPC {npc:3419}: возьмите ее записку для места {area:272} ({area:2197}, под местом {area:1640}).",
+
+	-- Step 19: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Летите сюда: {area:1637}",
 	-- {npc:2995} Tal · {area:1637} Orgrimmar
 	["Back up to {npc:2995} on the central rise and fly to {area:1637}."] = "Поднимитесь обратно к NPC {npc:2995} на центральном возвышении и летите в {area:1637}.",
 
-	-- Step 18: Fly to Orgrimmar
+	-- Step 20: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar · {area:2897} Zoram'gar Outpost
 	["Fly to {area:1637} from the {area:2897} flight master."] = "Летите в {area:1637} от распорядителя полетов ({area:2897}).",
 
-	-- Step 19: Druid trainer
+	-- Step 21: Druid trainer
 	["Druid trainer"] = "Учитель друидов",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
 	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034}, Зона: {zone:1412}; в зоне {zone:1454} нет учителя друидов",
 
-	-- Step 21: The Binding
+	-- Step 23: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {item:6626} Dogran's Pendant
 	["{npc:5875} stands in the {object:172960}. Use {item:6626} on the summoning circle there and defeat the succubus to bind her."] = "{npc:5875} стоит здесь: {object:172960}. Используйте {item:6626} на круге призыва и победите суккуба, чтобы подчинить ее.",
 
-	-- Step 22: Shenthul
+	-- Step 24: Shenthul
 	-- {quest:2478} Mission: Possible But Not Probable · {npc:3401} Shenthul · {object:172960} Cleft of Shadow
 	["If you did {quest:2478} with a group, {npc:3401} in the {object:172960} takes it now."] = "",
 	-- {npc:2391} Serge Hinott · {area:272} Tarren Mill
 	["{npc:2391} in {area:272} teaches Poisons: keep it"] = "{npc:2391} ({area:272}) обучает: Яды – сохраните задание",
 
-	-- Step 23: Zeppelin to Undercity
+	-- Step 25: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "Дирижабль: {zone:1458}",
 
-	-- Step 24: Brill
+	-- Step 26: Brill
 	-- {npc:246152} Shari Stilwell · {area:159} Brill
 	["{npc:246152} trains Paladins in {area:159}, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine."] = "{npc:246152} обучает паладинов – {area:159}, недалеко на север по дороге от башен дирижаблей. Возвращайтесь по той же дороге в Серебряный бор.",
 
-	-- Step 25: Morbin Lightbane
+	-- Step 27: Morbin Lightbane
 	-- {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {object:36126} Royal Quarter · {npc:266484} Morbin Lightbane · {npc:10181} Lady Sylvanas Windrunner
 	["For your {area:153} run: the zeppelin lands beside the ruins. Walk into the {zone:1458} through them and down to the {object:36126}: {npc:266484} stands there, near {npc:10181}."] = "Для подземелья {area:153}: дирижабль приземляется рядом с руинами. Пройдите через них в город {zone:1458} и спуститесь сюда: {object:36126}. {npc:266484} стоит там, рядом с NPC {npc:10181}.",
 
-	-- Step 26: Ruins of Lordaeron
+	-- Step 28: Ruins of Lordaeron
 	-- {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {item:268580} Intact Limbs · {npc:266484} Morbin Lightbane · {npc:250660} The Baron · {item:280438} Abominable Head · {npc:2055} Master Apothecary Faranell · {npc:256102} Crest of Lordaeron · {npc:7825} Oran Snakewrithe
 	["The {area:153} is a dungeon for a group of five, about levels 15 to 22, in the ruined city above the {zone:1458}: its portal is in the ruins you walked through.\nInside: every undead can drop {item:268580} for {npc:266484}, so clear as you go. {npc:250660} can drop an {item:280438}, which starts a quest for {npc:2055}, and a {npc:256102} found inside starts one for {npc:7825}: both are in the {zone:1458}, on this route's next stop there."] = "{area:153} – подземелье для группы из пяти игроков, примерно 15-22-й уровень, в разрушенном городе над городом {zone:1458}: его портал – в руинах, через которые вы прошли.\nВнутри: с любой нежити может упасть {item:268580} для NPC {npc:266484}, так что зачищайте все по пути. С NPC {npc:250660} может упасть {item:280438}: этот предмет начинает задание для NPC {npc:2055}, а найденный внутри {npc:256102} начинает задание для NPC {npc:7825}: оба – в городе {zone:1458}, на следующей остановке маршрута там.",
 	-- {quest:92421} Light's Justice · {item:268580} Intact Limbs
 	["{quest:92421}: the {item:268580}, inside"] = "{quest:92421}: {item:268580}, внутри",
 
-	-- Step 27: The Sepulcher
+	-- Step 29: The Sepulcher
 	-- {zone:1421} Silverpine Forest · {area:228} The Sepulcher
 	["Out of the ruins, take the road south through Tirisfal into {zone:1421} and on to the {area:228}."] = "Выйдя из руин, идите по дороге на юг через Тирисфальские леса в зону {zone:1421} и дальше: {area:228}.",
 
-	-- Step 28: Strange Lockbox
+	-- Step 30: Strange Lockbox
 	-- {area:240} Dead Field · {object:177844} Strange Lockbox · {item:15882} Half Pendant of Aquatic Endurance · {area:228} The Sepulcher
 	["From the zeppelin towers, run south into Silverpine and west past the {area:240} to the coast: the {object:177844} lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the {item:15882} for Trial of the Sea Lion. Then on to the {area:228}."] = "",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177844} Strange Lockbox
 	["{item:15882}, from the {object:177844}"] = "{item:15882}, из ящика ({object:177844})",
 
-	-- Step 29: The Sepulcher
+	-- Step 31: The Sepulcher
 	-- {area:228} The Sepulcher · {object:177844} Strange Lockbox · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
 	["Down the road through Silverpine to the {area:228}: from the zeppelin towers, south through Tirisfal; from the {object:177844}, south-east from the coast to the road. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "По дороге через Серебряный бор: {area:228}. От башен дирижаблей – на юг через Тирисфальские леса; от предмета {object:177844} – на юго-восток от побережья к дороге. {npc:2121} и {npc:1937} стоят у входа в склеп.",
 	-- {npc:1937} Apothecary Renferrel · {area:272} Tarren Mill
@@ -158,17 +166,17 @@ return {
 	-- {npc:2121} Shadow Priest Allister · {area:233} Ambermill
 	["{npc:2121}: {area:233}'s pendants, on the same roads"] = "{npc:2121}: подвески из места {area:233}, на тех же дорогах",
 
-	-- Step 30: Deathguard Podrig
+	-- Step 32: Deathguard Podrig
 	-- {npc:6389} Deathguard Podrig · {item:16210} Gordon's Crate · {zone:1458} Undercity
 	["{npc:6389} stands just west of the crypt entrance: hand him {item:16210} from the {zone:1458}."] = "{npc:6389} стоит чуть западнее входа в склеп: отдайте ему {item:16210} из города {zone:1458}.",
 
-	-- Step 31: High Executor Hadrec
+	-- Step 33: High Executor Hadrec
 	-- {area:236} Shadowfang Keep · {area:287} Hillsbrad · {npc:1952} High Executor Hadrec
 	["For your {area:236} run, at the end of the {area:287} guide: {npc:1952} stands below ground in the crypt."] = "Для подземелья {area:236}, в конце гайда ({area:287}): {npc:1952} стоит под землей в склепе.",
 	-- {npc:1952} High Executor Hadrec
 	["{npc:1952}, below ground"] = "{npc:1952}, под землей",
 
-	-- Step 32: Silverpine Forest: kill these as you meet them
+	-- Step 34: Silverpine Forest: kill these as you meet them
 	-- {zone:1421} Silverpine Forest
 	["{zone:1421}: kill these as you meet them"] = "{zone:1421}: убивайте их по пути",
 	-- {area:233} Ambermill · {quest:516} Beren's Peril
@@ -176,11 +184,11 @@ return {
 	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around {area:233}, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest. Careful: High Order Mages (30) walk the same roads among the Watchers and Wizards: leave them."] = "",
 	["Below ground"] = "Под землей",
 
-	-- Step 33: Ambermill
+	-- Step 35: Ambermill
 	-- {area:233} Ambermill · {npc:2540} Dalaran Serpent · {npc:2120} Archmage Ataeric
 	["On the roads around {area:233}, step into the town's outskirts: Protectors guard them and Mages the town; both drop pendants. Careful: each Mage (15) fights with a {npc:2540} (15) beside it: pull one Mage at a time from the outskirts. Stay out of the middle, where {npc:2120} (22) stands."] = "На дорогах вокруг места {area:233} зайдите на окраины города: их охраняют защитники, а город – маги; и те, и другие роняют подвески. Осторожно: каждый маг (15) сражается вместе с NPC {npc:2540} (15): выманивайте магов по одному с окраин. Держитесь подальше от центра, где стоит {npc:2120} (22).",
 
-	-- Step 34: Beren's Peril
+	-- Step 36: Beren's Peril
 	-- {quest:516} Beren's Peril · {npc:1973} Ravenclaw Guardian · {item:271343} Note Scrap · {object:645153} Offering Stone
 	["The Ravenclaw undead haunt the ruins of {quest:516}, east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}.\nAn elite spirit (20) often stands beside the {object:645153}: pull the Ravenclaws away from the stone before you fight them."] = "",
 	-- {item:271343} Note Scrap · {npc:1973} Ravenclaw Guardian
@@ -191,19 +199,19 @@ return {
 	-- plural, as words: Tortured Souls = {item:271350} Tortured Soul
 	["{item:271350}, from the Tortured Souls among the ruins; below ground"] = "{item:271350}: с измученных душ среди руин; под землей",
 
-	-- Step 35: The Offering of Blood
+	-- Step 37: The Offering of Blood
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone · {quest:95883} The Tortured Soul
 	["The quest hands you a {item:210713}: use it beside the {object:645153} to offer your blood, then kill the elite spirit that answers.\n{quest:95883} is elite: grouping up is advised."] = "Задание дает вам {item:210713}: используйте его у объекта {object:645153}, чтобы принести в жертву свою кровь, затем убейте отозвавшегося элитного духа.\n{quest:95883} – элитное: лучше собрать группу.",
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone
 	["{item:210713}, beside the {object:645153}: summons the elite spirit"] = "",
 
-	-- Step 36: Into Hillsbrad
+	-- Step 38: Into Hillsbrad
 	-- {area:287} Hillsbrad
 	["Into {area:287}"] = "",
 	-- {area:285} Southpoint Tower
 	["The road east to {area:285}"] = "",
 
-	-- Step 37: Southpoint Tower
+	-- Step 39: Southpoint Tower
 	-- {area:287} Hillsbrad · {npc:2214} Deathstalker Lesh · {area:285} Southpoint Tower
 	["Back on the road south. Where it turns east into {area:287}, {npc:2214} waits at {area:285}."] = "Снова на юг по дороге. Там, где она сворачивает на восток в {area:287}, {npc:2214} ждет здесь: {area:285}.",
 	-- {npc:2214} Deathstalker Lesh · {area:272} Tarren Mill

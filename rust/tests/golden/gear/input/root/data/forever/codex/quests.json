@@ -1,0 +1,435 @@
+{
+	"11": {
+		"choices": [
+			2238,
+			2249
+		],
+		"classes": null,
+		"end": {
+			"npc": [
+				963
+			],
+			"object": []
+		},
+		"faction": "A",
+		"id": 11,
+		"level": 10,
+		"minLevel": 6,
+		"objectives": [
+			{
+				"count": 8,
+				"id": 782,
+				"text": "Painted Gnoll Armband",
+				"type": "item"
+			}
+		],
+		"pre": [],
+		"preAny": [
+			76
+		],
+		"races": 4294967373,
+		"rewards": [],
+		"start": {
+			"item": [],
+			"npc": [
+				963
+			],
+			"object": []
+		},
+		"title": "Riverpaw Gnoll Bounty",
+		"xp": 840,
+		"zone": 1429
+	},
+	"183": {
+		"choices": [
+			61,
+			79
+		],
+		"classes": null,
+		"end": {
+			"npc": [
+				714
+			],
+			"object": []
+		},
+		"faction": "A",
+		"id": 183,
+		"level": 3,
+		"minLevel": 1,
+		"objectives": [
+			{
+				"count": 12,
+				"id": 708,
+				"text": "Small Crag Boar",
+				"type": "kill"
+			}
+		],
+		"pre": [],
+		"preAny": [],
+		"races": 4294967373,
+		"rewards": [],
+		"start": {
+			"item": [],
+			"npc": [
+				714
+			],
+			"object": []
+		},
+		"title": "The Boar Hunter",
+		"xp": 250,
+		"zone": 1426
+	},
+	"257": {
+		"choices": [
+			2903,
+			2904
+		],
+		"classes": null,
+		"end": {
+			"npc": [
+				1187
+			],
+			"object": []
+		},
+		"faction": "A",
+		"id": 257,
+		"level": 16,
+		"minLevel": 11,
+		"objectives": [
+			{
+				"count": 6,
+				"id": 1194,
+				"text": "Mountain Buzzard",
+				"type": "kill"
+			}
+		],
+		"pre": [],
+		"preAny": [],
+		"races": 4294967373,
+		"rewards": [],
+		"start": {
+			"item": [],
+			"npc": [
+				1187
+			],
+			"object": []
+		},
+		"title": "A Hunter's Boast",
+		"xp": 880,
+		"zone": 1432
+	},
+	"286": {
+		"choices": [
+			2949,
+			2950
+		],
+		"classes": null,
+		"end": {
+			"npc": [
+				1242
+			],
+			"object": []
+		},
+		"faction": "A",
+		"id": 286,
+		"level": 25,
+		"minLevel": 20,
+		"objectives": [],
+		"pre": [],
+		"preAny": [
+			285
+		],
+		"races": 4294967373,
+		"rewards": [],
+		"start": {
+			"item": [],
+			"npc": [],
+			"object": [
+				259
+			]
+		},
+		"title": "Return the Statuette",
+		"xp": 1500,
+		"zone": 1437
+	},
+	"4402": {
+		"choices": [
+			247840,
+			247841,
+			247846
+		],
+		"classes": null,
+		"end": {
+			"npc": [
+				9796
+			],
+			"object": []
+		},
+		"faction": "H",
+		"id": 4402,
+		"level": 3,
+		"minLevel": 1,
+		"objectives": [
+			{
+				"count": 10,
+				"id": 11583,
+				"text": "Cactus Apple",
+				"type": "item"
+			}
+		],
+		"pre": [],
+		"preAny": [
+			788
+		],
+		"races": 8589934770,
+		"rewards": [
+			11584
+		],
+		"start": {
+			"item": [],
+			"npc": [
+				9796
+			],
+			"object": []
+		},
+		"title": "Galgar's Cactus Apple Surprise",
+		"xp": 380,
+		"zone": 1411
+	},
+	"486": {
+		"choices": [
+			5459,
+			5587
+		],
+		"classes": null,
+		"end": {
+			"npc": [
+				2078
+			],
+			"object": []
+		},
+		"faction": "A",
+		"id": 486,
+		"level": 12,
+		"minLevel": 4,
+		"objectives": [
+			{
+				"count": 1,
+				"id": 2039,
+				"text": "Ursal the Mauler",
+				"type": "kill"
+			}
+		],
+		"pre": [],
+		"preAny": [
+			483
+		],
+		"races": 4294967373,
+		"rewards": [],
+		"start": {
+			"item": [],
+			"npc": [
+				2078
+			],
+			"object": []
+		},
+		"title": "Ursal the Mauler",
+		"xp": 1150,
+		"zone": 1438
+	},
+	"59": {
+		"choices": [
+			1171,
+			2237
+		],
+		"classes": null,
+		"end": {
+			"npc": [
+				278
+			],
+			"object": []
+		},
+		"faction": "A",
+		"id": 59,
+		"level": 10,
+		"minLevel": 7,
+		"objectives": [],
+		"pre": [],
+		"preAny": [
+			39
+		],
+		"races": 4294967373,
+		"rewards": [],
+		"start": {
+			"item": [],
+			"npc": [
+				240
+			],
+			"object": []
+		},
+		"title": "Cloth and Leather Armor",
+		"xp": 210,
+		"zone": 1429
+	},
+	"6": {
+		"choices": [
+			60,
+			3070,
+			6076
+		],
+		"classes": null,
+		"end": {
+			"npc": [
+				823
+			],
+			"object": []
+		},
+		"faction": "A",
+		"id": 6,
+		"level": 5,
+		"minLevel": 2,
+		"objectives": [
+			{
+				"count": 1,
+				"id": 182,
+				"text": "Garrick's Head",
+				"type": "item"
+			}
+		],
+		"pre": [],
+		"preAny": [
+			18
+		],
+		"races": 4294967373,
+		"rewards": [],
+		"start": {
+			"item": [],
+			"npc": [
+				823
+			],
+			"object": []
+		},
+		"title": "Bounty on Garrick Padfoot",
+		"xp": 335,
+		"zone": 1429
+	},
+	"765": {
+		"choices": [
+			4964,
+			4974
+		],
+		"classes": null,
+		"end": {
+			"npc": [
+				2988
+			],
+			"object": []
+		},
+		"faction": "H",
+		"id": 765,
+		"level": 12,
+		"minLevel": 5,
+		"objectives": [
+			{
+				"count": 1,
+				"id": 4819,
+				"text": "Fizsprocket's Clipboard",
+				"type": "item"
+			}
+		],
+		"pre": [],
+		"preAny": [
+			751
+		],
+		"races": 8589934770,
+		"rewards": [],
+		"start": {
+			"item": [],
+			"npc": [
+				2988
+			],
+			"object": []
+		},
+		"title": "Supervisor Fizsprocket",
+		"xp": 910,
+		"zone": 1412
+	},
+	"865": {
+		"choices": [],
+		"classes": null,
+		"end": {
+			"npc": [
+				3446
+			],
+			"object": []
+		},
+		"faction": null,
+		"id": 865,
+		"level": 18,
+		"minLevel": 13,
+		"objectives": [
+			{
+				"count": 5,
+				"id": 5055,
+				"text": "Intact Raptor Horn",
+				"type": "item"
+			}
+		],
+		"pre": [],
+		"preAny": [],
+		"races": null,
+		"rewards": [
+			5342,
+			5343
+		],
+		"start": {
+			"item": [],
+			"npc": [
+				3446
+			],
+			"object": []
+		},
+		"title": "Raptor Horns",
+		"xp": 1350,
+		"zone": 1413
+	},
+	"92421": {
+		"choices": [
+			279874,
+			279875
+		],
+		"classes": null,
+		"end": {
+			"npc": [
+				266484
+			],
+			"object": []
+		},
+		"faction": "H",
+		"id": 92421,
+		"level": 22,
+		"minLevel": 15,
+		"objectives": [
+			{
+				"count": 25,
+				"id": 268580,
+				"text": "Intact Limbs",
+				"type": "item"
+			}
+		],
+		"pre": [],
+		"preAny": [],
+		"races": 8589934770,
+		"rewards": [],
+		"start": {
+			"item": [],
+			"npc": [
+				266484
+			],
+			"object": []
+		},
+		"title": "Light's Justice",
+		"xp": 2200,
+		"zone": 1458
+	}
+}

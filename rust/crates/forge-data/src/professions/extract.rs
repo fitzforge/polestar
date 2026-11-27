@@ -8,7 +8,8 @@
 //! the skill a player's trainer window showed (CHECKED_LEARN, learnedAtFrom "in-game"), else
 //! MinSkillLineRank, else Classic's trainer skill moved as far as Forever moved the yellow rank
 //! (learnedAtEstimated, learnedAtFrom "classic"), else yellow (learnedAtEstimated). AcquireMethod 3
-//! (retired) and Season of Discovery recipes are left out.
+//! (retired) and Season of Discovery recipes are left out, not those Forever teaches itself (tables.rs
+//! season_spells).
 
 use forge_guide::js::{Arr, Obj, V};
 use rustc_hash::{FxHashMap, FxHashSet};
@@ -41,7 +42,7 @@ const ESTIMATE_GAP: i64 = 0;
 /// recipe's colours). They win over the estimates, which these show can be off (#1553: Una's window,
 /// Thunder Bluff, 2026-11-10: Thick Leather and Cured Thick Hide at 175 and Dusky Bracers at 170, where the
 /// estimate said 155; Thick Armor Kit 175 and Guardian Gloves 165 as estimated).
-const CHECKED_LEARN: [(i64, i64, &str); 19] = [
+const CHECKED_LEARN: [(i64, i64, &str); 20] = [
 	(20650, 175, "in-game"), // Thick Leather (#1553)
 	(10482, 175, "in-game"), // Cured Thick Hide (#1553)
 	(10487, 175, "in-game"), // Thick Armor Kit (#1553)
@@ -62,6 +63,7 @@ const CHECKED_LEARN: [(i64, i64, &str); 19] = [
 	(1255114, 100, "recordings"), // Trapper's Leather Pants
 	(1255115, 100, "recordings"), // Brawler's Leather Pants
 	(1249631, 120, "recordings"), // Magenta Dye (the estimate said its yellow, 130)
+	(12072, 200, "recordings"),   // Black Mageweave Headband (learned at 200, 206 and 209; the estimate said 190, #3923)
 	(13028, 175, "classic"),      // Goldthorn Tea (no world DB list; Classic's 175, colours unchanged)
 ];
 
@@ -819,5 +821,12 @@ mod checked_learn_tests {
 		assert_eq!(checked_learn(1249631), Some((120, "recordings")), "Magenta Dye: learned at 120");
 		assert_eq!(checked_learn(13028), Some((175, "classic")), "Goldthorn Tea: Classic's 175");
 		assert_eq!(HOTFIXES[0], (1263031, 125, 125, 127, 130), "Tanning Rack at 125");
+	}
+
+	// #3923: Daryl Stack teaches Black Mageweave Headband from Tailoring 200; the Classic-based estimate said 190, so the
+	// Tailoring guide sent players to him at 197.
+	#[test]
+	fn black_mageweave_headband_is_learned_at_200_3923() {
+		assert_eq!(checked_learn(12072), Some((200, "recordings")));
 	}
 }

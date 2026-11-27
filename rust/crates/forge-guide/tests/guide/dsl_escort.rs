@@ -46,6 +46,40 @@ fn the_compiled_escort_reaches_the_pack_escort_true_on_the_goal_in_guides_lua() 
 	assert_no_match(&lua, r#"t = "turnin", [^\n]*escort"#);
 }
 
+/// The escort data with data/recorded/escorts.json's facts (#3439): 9700 trusted, 9702 a gap (too few players).
+fn recorded() -> forge_guide::data::Data {
+	let mut d = escort_data();
+	d.escorts = v(&json!({
+		"9700": { "seconds": 718, "failed": 0.33, "runs": 9, "voters": 6, "counted": 5, "status": "trusted", "builds": [70790, 70888] },
+		"9702": { "seconds": 300, "failed": 0.0, "runs": 2, "voters": 2, "counted": 2, "status": "gap", "builds": [70888, 70888] },
+	}));
+	d
+}
+
+#[test]
+fn an_escorts_accept_carries_players_recorded_time_and_failure_share_from_trusted_facts_only() {
+	let r = compile_with(&guide(&["step S", "  accept 9700", "  complete 9700", "  turnin 9700", "  accept 9702", "  complete 9702"]), &recorded());
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let goals = r.steps()[0]["goals"].as_array().unwrap().clone();
+	let pick = |i: usize| (goals[i].get("escortSecs").cloned().unwrap_or(Value::Null), goals[i].get("escortFail").cloned().unwrap_or(Value::Null));
+	assert_eq!(pick(0), (json!(718), json!(0.33)), "the accept: the trusted fact");
+	assert_eq!(pick(1), (Value::Null, Value::Null), "the complete goal: the accept carries it");
+	assert_eq!(pick(3), (Value::Null, Value::Null), "a gap fact: nothing");
+	assert_match(&emit_sourced(&r.guides), r#"t = "accept", quest = 9700, [^\n]*escort = true, escortSecs = 718, escortFail = 0.33 \},"#);
+}
+
+#[test]
+fn the_escorts_left_to_the_player_are_the_required_accepts_no_step_asks_about() {
+	let steps = |body: &[&str]| {
+		let r = compile_with(&guide(body), &escort_data());
+		assert!(r.errors.is_empty(), "{}", r.text);
+		let list = forge_guide::escort::choice_quests(&r.guides[0].get("steps"));
+		list.iter().map(|(q, _)| q.num() as u32).collect::<Vec<_>>()
+	};
+	assert_eq!(steps(&["step S", "  accept 9700", "  accept 9701 optional", "  accept 9702", "  turnin 9700"]), [9700, 9702]);
+	assert_eq!(steps(&["step S", "  when group 9700", "  accept 9700", "", "step T", "  when !group 9702", "  accept 7", "", "step U", "  accept 9702"]), Vec::<u32>::new());
+}
+
 /// The reference data (built on the contributor's machine) with the corrections applied as the data build
 /// applies them: the escorts the guides route by text, the ones worded otherwise, and Lost! (4492), whose
 /// copied objective says escort. Skipped without the reference data.
