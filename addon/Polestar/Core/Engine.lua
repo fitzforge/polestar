@@ -7293,12 +7293,21 @@ local function findWaypoint()
 	local wp = cg and waypointOf(cg, goals[cg])
 	if wp then
 		-- A place objective leading a step of kills done on the way (Own.pointFields): which ones, under the arrow.
+		-- Not the mob the led goal's item comes from: that kill is the goal's own (#4268: "Kill Xavaric for Flute of
+		-- Xavaric · kill Xavaric as you meet them").
 		local kills = Own.meetKills[guide.steps[current]]
 		if kills then
+			local led, from = goals[cg], {}
+			if (led.fromKind or "npc") == "npc" then
+				if led.fromId then from[led.fromId] = true end
+				for _, e in ipairs(led.fromNpcs or {}) do
+					if e.npc then from[e.npc] = true end
+				end
+			end
 			local names = {}
 			for _, g in ipairs(kills) do
 				local _, subject = describe(goals[g], current)
-				if subject and subject ~= "" then names[#names + 1] = subject end
+				if subject and subject ~= "" and not (goals[g].npc and from[goals[g].npc]) then names[#names + 1] = subject end
 			end
 			if #names > 0 then wp.label = wp.label .. " · " .. L["kill %s as you meet them"]:format(table.concat(names, ", ")) end
 		end

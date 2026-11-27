@@ -391,7 +391,7 @@ step The Emerald Sanctuary
   accept 5249                         -- Ivy Leafrunner: for Wynd Nightchaser in Starfall Village, later in this guide; keep it
   accept 4442
   turnin 4442                         -- Wait a moment for Eridan
-  note Eridan's next task, Ancient Spirit, ends with Kayneth Stillwind at Forest Song, south of the route once Felwood is done: skip it.
+  note Eridan's next task, {quest:4261}, ends with Kayneth Stillwind at Forest Song, south of the route once Felwood is done: skip it.
   turnin 3942                         -- Eridan Bluewind
   note Eridan's next task, Silver Heart, sends you to the Irontree Stompers in the north and back here: skip it.
 

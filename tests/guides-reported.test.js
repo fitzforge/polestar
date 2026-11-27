@@ -19941,3 +19941,13 @@ test("forever/horde/undead/01-tirisfal-glades.guide: GustavoCampos1999's report:
 	assert.ok(yards(goal, { map: 1420, x: 31.76, y: 45.89 }) < 5, `at Bareth's top-floor spawn (${goal.x},${goal.y})`);
 	assert.equal(goal.z, 40.3, 'on the top floor\'s height');
 });
+
+// #4253 (nepyanbin, zhCN): the note on Eridan's next task named the quest Ancient Spirit (4261), but the compiler took
+// the words for the same-named creature, so other languages showed the creature's name there. The note writes the
+// quest's token itself.
+test("forever/alliance/50-60/03-winterspring.guide: nepyanbin's report: Eridan's note names the quest Ancient Spirit (#4253)", { skip }, () => {
+	const list = goals('forever/alliance/50-60/03-winterspring.guide');
+	const note = list.find(({ goal }) => goal.t === 'note' && /next task, .*Kayneth|next task, .*\{npc:3848\}/.test(goal.text || ''));
+	assert.ok(note, "the note on Eridan's next task is in the guide");
+	assert.match(note.goal.text, /next task, \{quest:4261\},/, note.goal.text);
+});
