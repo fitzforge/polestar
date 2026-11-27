@@ -1,5 +1,6 @@
 ---
 section: players
 ---
-- German (deDE): 70 remaining guide texts in the Leatherworking and Cooking
-  profession guides.
+- German (deDE): 143 remaining guide texts in six profession
+  guides, covering Leatherworking, Cooking, Enchanting, Tailoring, First Aid
+  and Mining.
