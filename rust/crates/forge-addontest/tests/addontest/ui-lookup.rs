@@ -583,6 +583,46 @@ fn while_the_codex_loads_the_section_says_so_and_searches_again_once_it_has() {
 	assert_eq!(out["empty"], false);
 }
 
+#[test]
+fn items_waiting_for_combat_load_the_codex_when_the_hub_reopens_after_combat_ended_behind_it() {
+	let out = run(r#"
+		local loads = 0
+		stub.inCombat = true
+		lookupstub.loaded, lookupstub.reason = false, "combat"
+		Polestar.Codex.Load = function()
+			loads = loads + 1
+			if stub.inCombat then return false, "combat" end
+			lookupstub.loaded, lookupstub.reason = true, nil
+			Polestar.Fire("CODEX_LOADED")
+			return true
+		end
+		-- Like the real Search, a query that wants the Codex kinds loads the pack first.
+		local query = Polestar.Search.Query
+		Polestar.Search.Query = function(...)
+			if not lookupstub.loaded then Polestar.Codex.Load() end
+			return query(...)
+		end
+		UI.ShowLookup({ query = "fang" })
+		LK.SetKind("item")
+		local waiting = { kind = LK.shown.kind, rows = LK.shown.rows, codex = LK.root.CodexLine:GetText() }
+		local tried = loads
+		PolestarPicker:Hide()
+		stub.inCombat = false
+		stub.fire("PLAYER_REGEN_ENABLED")
+		local hidden = loads
+		UI.ShowPicker()
+		emit({ waiting = waiting, tried = tried, hidden = hidden, loads = loads, section = Polestar.UI.Picker.Section(),
+			kind = LK.shown.kind, rows = LK.shown.rows, codex = LK.root.CodexLine:GetText(), list = rowTexts(LK.results.Child) })"#);
+	assert_eq!(out["waiting"], json!({ "kind": "item", "rows": 0, "codex": "Codex loads after combat" }), "combat still says so while it lasts");
+	assert_eq!(out["hidden"], out["tried"], "nothing loads while the hub is hidden");
+	assert_eq!(out["section"], "Lookup");
+	assert_eq!(out["kind"], "item");
+	assert!(out["loads"].as_i64().unwrap() > out["tried"].as_i64().unwrap(), "the hub loads the Codex when it comes back");
+	assert_eq!(out["rows"], 1, "the items are listed: {out}");
+	assert_eq!(out["list"], json!(["Sabertooth Fang"]), "and drawn");
+	assert_eq!(out["codex"], "", "the combat line is gone");
+}
+
 // A French client whose names pack lands with results up: the search runs again and the rows take the client's
 // names.
 #[test]
