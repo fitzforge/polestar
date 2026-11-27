@@ -19,5 +19,11 @@ return {
 	settle = 0.3,
 	probes = {
 		["guideWindow.journeyStyle"] = { value = "foot", probe = journeyShown },
+		-- Where the cards' stack hangs (#4269): its first point, on the window's top edge or under its foot.
+		["guideWindow.cardsPlace"] = { value = "below", probe = function()
+			Polestar.UI.GuideFrame.Render()
+			local s = _G.PolestarGuideFrameCards
+			return s and s:GetPoint(1) or false
+		end },
 	},
 }

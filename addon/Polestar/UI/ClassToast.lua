@@ -554,6 +554,7 @@ local placedCovers -- Buttons.Covers() as CT.Place last read it (nil: it read no
 -- The room the card took above or below the edge it sits on, gap included,
 -- in the edge's units, as CT.Place last placed it (0: free or beside it).
 local placedRoom = 0
+local placedHung = 0 -- the layout's room under the window (F.psBelow) CT.Place stepped past
 local function sameCovers(a, b)
 	if #a ~= #b then return false end
 	for i = 1, #a do
@@ -922,6 +923,17 @@ CT.Reach = reach
 -- The room between the card and the window's drawing.
 local GAP = 4
 
+-- Under the window, the room past the window's own reach the layout hangs
+-- there (F.psBelow, GF.Below: Atlas's Journey card, its cards below the
+-- window, #4269), the window's shadow under the last of them (dressed as it
+-- is), in the window's units.
+local function hungBelow(w, rw)
+	local below = tonumber(w.psBelow) or 0
+	if below <= 0 then return 0 end
+	local under = math.max(rw.bottom, tonumber(w.psBottomReach) or 0)
+	return math.max(0, below + rw.bottom - under)
+end
+
 -- Put the card on the window: above its top edge, or under its bottom one
 -- when the screen has no room above (toasts.headsup.place "below": under it,
 -- over it when there is no room below), beside it where neither has room
@@ -981,6 +993,9 @@ function CT.Place(animate)
 			r.top = math.max(r.top, tonumber(w.psTopReach) or 0)
 		end
 		local under = math.max(rw.bottom, tonumber(w.psBottomReach) or 0)
+		-- Only the spot moves past it: the cap counts the card's own room.
+		local hung = hungBelow(w, rw)
+		placedHung = hung
 		local gap = { above = r.top + GAP, below = under + GAP, left = r.left + GAP, right = r.right + GAP }
 		local top, bottom, left, right = edge:GetTop(), w:GetBottom(), edge:GetLeft(), edge:GetRight()
 		local s, us = w:GetEffectiveScale() or 1, UIParent:GetEffectiveScale() or 1
@@ -988,7 +1003,7 @@ function CT.Place(animate)
 		local cw = f:GetWidth() * k
 		local fits = {
 			above = not (top and sh) or (top + gap.above + h * k) * s <= sh * us,
-			below = not bottom or (bottom - gap.below - h * k) * s >= 0,
+			below = not bottom or (bottom - gap.below - hung - h * k) * s >= 0,
 			left = left ~= nil and (left - gap.left - cw) * s >= 0,
 			right = right ~= nil and sw ~= nil and (right + gap.right + cw) * s <= sw * us,
 		}
@@ -997,7 +1012,7 @@ function CT.Place(animate)
 		local hk = h * k
 		local box = top and bottom and left and right and {
 			above = { left, top + gap.above, left + cw, top + gap.above + hk },
-			below = { left, bottom - gap.below - hk, left + cw, bottom - gap.below },
+			below = { left, bottom - gap.below - hung - hk, left + cw, bottom - gap.below - hung },
 			left = { left - gap.left - cw, top - hk, left - gap.left, top },
 			right = { right + gap.right, top - hk, right + gap.right + cw, top },
 		}
@@ -1035,8 +1050,8 @@ function CT.Place(animate)
 			Anim.Anchor(f, "BOTTOMLEFT", edge, "TOPLEFT", 0, g)
 			dy = -(h + g)
 		elseif side == "below" then
-			Anim.Anchor(f, "TOPLEFT", w, "BOTTOMLEFT", 0, -g)
-			dy = h + g
+			Anim.Anchor(f, "TOPLEFT", w, "BOTTOMLEFT", 0, -(g + hung / k))
+			dy = h + g + hung / k
 		elseif side == "left" then
 			Anim.Anchor(f, "TOPRIGHT", edge, "TOPLEFT", -g, 0)
 			dy = 18
@@ -1066,6 +1081,15 @@ function CT.Reserved()
 	if not (f and CT.current and f:IsShown()) then return 0 end
 	if CT.side ~= "above" and CT.side ~= "below" then return 0 end
 	return placedRoom
+end
+
+-- Under the window, the card follows what the layout hangs there (F.psBelow:
+-- Atlas's cards below the window grow and shrink, #4269). GF.Layout calls it
+-- after the layout's hook.
+function CT.FollowBelow()
+	if not (f and CT.current and f:IsShown() and CT.side == "below") then return end
+	local w = window()
+	if w and math.abs(hungBelow(w, reach(w)) - placedHung) > 0.5 then CT.Place(false) end
 end
 
 -- The window makes room for the card, or takes it back: only when the room

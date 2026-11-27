@@ -155,3 +155,34 @@ test('while the goals scroll, they take no click on the scroll bar\'s strip, so 
 	assert.ok(fits.n > 0, JSON.stringify(fits));
 	for (const s of fits.strips) assert.equal(s, 0, JSON.stringify(fits));
 });
+
+// Placed under the window, the card stands clear of what the layout hangs
+// there (F.psBelow, GF.Below: Atlas's Journey card, its cards with
+// guideWindow.cardsPlace "below", #4269), not over it.
+test('under the window the class card stands clear of the layout\'s room below it', () => {
+	const [plain, room, grown] = run(`
+		Polestar.Set("toasts.headsup.place", "below")
+		-- Room under the window for the card and the layout's parts.
+		F.y = 600
+		CT.Show(1506)
+		stub.advance(1)
+		local function at()
+			local point, rel, relPoint, _, y = CT.frame:GetPoint(1)
+			return { side = CT.side, point = point, relPoint = relPoint, rel = rel == F, y = y, reserved = CT.Reserved() }
+		end
+		CT.Place()
+		emit(at())
+		F.psBelow = 120
+		CT.Place()
+		emit(at())
+		-- The layout's room grows (more cards): a layout pass moves the card on.
+		F.psBelow = 200
+		GF.Layout()
+		emit(at())`);
+	assert.equal(plain.side, 'below', JSON.stringify(plain));
+	assert.equal(room.side, 'below', JSON.stringify(room));
+	assert.equal(room.rel, true);
+	assert.ok(room.y <= plain.y - 120 + 0.5, `the card under the layout's room: ${JSON.stringify({ plain, room })}`);
+	assert.equal(room.reserved, plain.reserved, 'the cap counts the card\'s own room, not the layout\'s');
+	assert.ok(Math.abs(grown.y - (room.y - 80)) < 0.5, `a layout pass follows the room: ${JSON.stringify({ room, grown })}`);
+});

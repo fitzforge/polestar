@@ -856,8 +856,11 @@ local function anchorStack(window)
 	else
 		at = gapOf(window) + (Theme.GuideReach and Theme.GuideReach(window) or 0)
 	end
-	if own.stackAt ~= at or own.stackEdge ~= edge or own.stackBelow ~= below then
-		own.stackAt, own.stackEdge, own.stackBelow = at, edge, below
+	-- Whether it hangs from the Journey's card, not the edge frame itself: the
+	-- store's frames all hide when the layout is left (hideAll), the window too.
+	local onCard = edge ~= window
+	if own.stackAt ~= at or own.stackOnCard ~= onCard or own.stackBelow ~= below then
+		own.stackAt, own.stackOnCard, own.stackBelow = at, onCard, below
 		stack:ClearAllPoints()
 		if below then
 			stack:SetPoint("TOPLEFT", edge, "BOTTOMLEFT", 0, at)

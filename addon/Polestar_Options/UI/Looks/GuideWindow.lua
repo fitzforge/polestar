@@ -357,6 +357,8 @@ function UI.GuideWindowScene(band)
 			["ui.upcomingOpen"] = { up },
 			-- The sample Journey (made with the first layout that shows it).
 			["guideWindow.journeyStyle"] = { G.journeySample and G.journeySample.frame },
+			-- The cards stand round the window: the window lights.
+			["guideWindow.cardsPlace"] = window,
 		}) do
 			light(key, parts)
 		end
