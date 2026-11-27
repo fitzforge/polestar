@@ -114,6 +114,9 @@ function gatherRun(messages, anchorId, { gapMs, max } = GATHER) {
 	return [...before, anchor, ...after];
 }
 
+// Most 'discord' issues read back at start: far above today's ~1,500.
+const INDEX_MAX = 10000;
+
 function createSync({ discord, github, media, config, log = console, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), now = Date.now, setTimer = (fn, ms) => setTimeout(fn, ms).unref(), latest = U.cachedLatest(github, { now, log }) }) {
 	const { forumId, suggestionsForumId = null, since = null } = config;
 	const exemptIds = new Set(config.exemptIds || []);
@@ -640,7 +643,9 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 
 	// Issues the bot filed before, read back from their markers.
 	async function loadIndex() {
-		for (const issue of await github.issuesLabelled('discord', { max: 1000 })) {
+		const all = await github.issuesLabelled('discord', { max: INDEX_MAX });
+		if (all.length >= INDEX_MAX) log.warn(`index: stopped at ${INDEX_MAX} issues, older ones are not indexed; raise INDEX_MAX`);
+		for (const issue of all) {
 			const mk = I.issueMarker(issue);
 			if (mk && !issues.has(mk.thread)) issues.set(mk.thread, issue.number);
 			if (mk && !I.labelNames(issue).includes('idea')) bugPosts.add(mk.thread);

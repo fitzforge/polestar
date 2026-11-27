@@ -15,9 +15,9 @@ return {
 
 	-- Step 2: Get Linen Cloth
 	-- {item:2589} Linen Cloth
-	["Get {item:2589}"] = "",
+	["Get {item:2589}"] = "Sammle {item:2589}",
 	-- {item:2589} Linen Cloth · {item:1251} Linen Bandage
-	["You need 41 {item:2589} for {item:1251} (1-40). {item:2589} drops from humanoids of level 5-20, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2589} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 41 {item:2589} for {item:1251} (1-40). {item:2589} drops from humanoids of level 5-20, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2589} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 41 {item:2589} für {item:1251} (1-40). {item:2589} fällt von Humanoiden der Stufe 5-20, und was du beim Leveln einsammelst, zählt mit. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten {item:2589} pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 3: Linen Bandage (1-40)
 	-- {item:1251} Linen Bandage · {item:279968} First Aid Kit · {skill:129} First Aid · {item:159} Refreshing Spring Water
@@ -26,7 +26,7 @@ return {
 
 	-- Step 4: Get Linen Cloth
 	-- {item:2589} Linen Cloth · {item:2581} Heavy Linen Bandage
-	["You need 20 {item:2589} for {item:2581} (40-50). {item:2589} drops from humanoids of level 5-20, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2589} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 20 {item:2589} for {item:2581} (40-50). {item:2589} drops from humanoids of level 5-20, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2589} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 20 {item:2589} für {item:2581} (40-50). {item:2589} fällt von Humanoiden der Stufe 5-20, und was du beim Leveln einsammelst, zählt mit. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten {item:2589} pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 5: Heavy Linen Bandage (40-50)
 	-- {item:2581} Heavy Linen Bandage · {skill:129} First Aid
@@ -40,7 +40,7 @@ return {
 
 	-- Step 7: Get Linen Cloth
 	-- {item:2589} Linen Cloth · {item:2581} Heavy Linen Bandage
-	["You need 92 {item:2589} for {item:2581} (50-80). {item:2589} drops from humanoids of level 5-20, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2589} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 92 {item:2589} for {item:2581} (50-80). {item:2589} drops from humanoids of level 5-20, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2589} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 92 {item:2589} für {item:2581} (50-80). {item:2589} fällt von Humanoiden der Stufe 5-20, und was du beim Leveln einsammelst, zählt mit. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten {item:2589} pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 8: Heavy Linen Bandage (50-80)
 	-- {item:2581} Heavy Linen Bandage · {skill:129} First Aid · {item:858} Lesser Healing Potion · {item:2450} Briarthorn · {item:2678} Mild Spices · {item:3371} Empty Vial
@@ -48,9 +48,9 @@ return {
 
 	-- Step 9: Get Wool Cloth
 	-- {item:2592} Wool Cloth
-	["Get {item:2592}"] = "",
+	["Get {item:2592}"] = "Sammle {item:2592}",
 	-- {item:2592} Wool Cloth · {spell:3277} Wool Bandage
-	["You need 49 {item:2592} for {spell:3277} (80-115). {item:2592} drops from humanoids of level 15-30, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 49 {item:2592} for {spell:3277} (80-115). {item:2592} drops from humanoids of level 15-30, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 49 {item:2592} für {spell:3277} (80-115). {item:2592} fällt von Humanoiden der Stufe 15-30, und was du beim Leveln einsammelst, zählt mit. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten {item:2592} pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 10: Wool Bandage (80-115)
 	-- {spell:3277} Wool Bandage · {skill:129} First Aid · {item:6452} Anti-Venom · {item:1475} Small Venom Sac · {spell:9810} Touch of Zanzil
@@ -58,7 +58,7 @@ return {
 
 	-- Step 11: Get Wool Cloth
 	-- {item:2592} Wool Cloth · {spell:3278} Heavy Wool Bandage
-	["You need 22 {item:2592} for {spell:3278} (115-125). {item:2592} drops from humanoids of level 15-30, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 22 {item:2592} for {spell:3278} (115-125). {item:2592} drops from humanoids of level 15-30, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 22 {item:2592} für {spell:3278} (115-125). {item:2592} fällt von Humanoiden der Stufe 15-30, und was du beim Leveln einsammelst, zählt mit. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten {item:2592} pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 12: Heavy Wool Bandage (115-125)
 	-- {spell:3278} Heavy Wool Bandage · {skill:129} First Aid · {item:929} Healing Potion · {item:2453} Bruiseweed · {item:2692} Hot Spices · {item:3372} Leaded Vial
@@ -74,7 +74,7 @@ return {
 
 	-- Step 14: Get Wool Cloth
 	-- {item:2592} Wool Cloth · {spell:3278} Heavy Wool Bandage
-	["You need 76 {item:2592} for {spell:3278} (125-150). {item:2592} drops from humanoids of level 15-30, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 76 {item:2592} for {spell:3278} (125-150). {item:2592} drops from humanoids of level 15-30, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 76 {item:2592} für {spell:3278} (125-150). {item:2592} fällt von Humanoiden der Stufe 15-30, und was du beim Leveln einsammelst, zählt mit. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten {item:2592} pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 15: Heavy Wool Bandage (125-150)
 	-- {spell:3278} Heavy Wool Bandage · {skill:129} First Aid
@@ -82,9 +82,9 @@ return {
 
 	-- Step 16: Get Silk Cloth
 	-- {item:4306} Silk Cloth
-	["Get {item:4306}"] = "",
+	["Get {item:4306}"] = "Sammle {item:4306}",
 	-- {item:4306} Silk Cloth · {item:6450} Silk Bandage
-	["You need 42 {item:4306} for {item:6450} (150-180). {item:4306} drops from humanoids of level 25-45, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4306} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 42 {item:4306} for {item:6450} (150-180). {item:4306} drops from humanoids of level 25-45, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4306} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 42 {item:4306} für {item:6450} (150-180). {item:4306} fällt von Humanoiden der Stufe 25-45, und was du beim Leveln einsammelst, zählt mit. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten {item:4306} pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 17: Silk Bandage (150-180)
 	-- {item:6450} Silk Bandage · {skill:129} First Aid
@@ -92,7 +92,7 @@ return {
 
 	-- Step 18: Get Silk Cloth
 	-- {item:4306} Silk Cloth · {item:6451} Heavy Silk Bandage
-	["You need 84 {item:4306} for {item:6451} (180-210). {item:4306} drops from humanoids of level 25-45, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4306} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 84 {item:4306} for {item:6451} (180-210). {item:4306} drops from humanoids of level 25-45, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4306} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 84 {item:4306} für {item:6451} (180-210). {item:4306} fällt von Humanoiden der Stufe 25-45, und was du beim Leveln einsammelst, zählt mit. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten {item:4306} pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 19: Heavy Silk Bandage (180-210)
 	-- {item:6451} Heavy Silk Bandage · {item:16112} Manual: Heavy Silk Bandage · {skill:129} First Aid
@@ -100,9 +100,9 @@ return {
 
 	-- Step 20: Get Mageweave Cloth
 	-- {item:4338} Mageweave Cloth
-	["Get {item:4338}"] = "",
+	["Get {item:4338}"] = "Sammle {item:4338}",
 	-- {item:4338} Mageweave Cloth · {item:8544} Mageweave Bandage
-	["You need 18 {item:4338} for {item:8544} (210-225). {item:4338} drops from humanoids of level 35-50, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4338} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 18 {item:4338} for {item:8544} (210-225). {item:4338} drops from humanoids of level 35-50, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4338} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 18 {item:4338} für {item:8544} (210-225). {item:4338} fällt von Humanoiden der Stufe 35-50, und was du beim Leveln einsammelst, zählt mit. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten {item:4338} pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 21: Mageweave Bandage (210-225)
 	-- {item:8544} Mageweave Bandage · {item:16113} Manual: Mageweave Bandage · {skill:129} First Aid
@@ -131,7 +131,7 @@ return {
 
 	-- Step 26: Get Mageweave Cloth
 	-- {item:4338} Mageweave Cloth · {item:8544} Mageweave Bandage
-	["You need 24 {item:4338} for {item:8544} (225-240). {item:4338} drops from humanoids of level 35-50, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4338} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 24 {item:4338} for {item:8544} (225-240). {item:4338} drops from humanoids of level 35-50, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4338} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 24 {item:4338} für {item:8544} (225-240). {item:4338} fällt von Humanoiden der Stufe 35-50, und was du beim Leveln einsammelst, zählt mit. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten {item:4338} pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 27: Mageweave Bandage (225-240)
 	-- {item:8544} Mageweave Bandage · {item:16113} Manual: Mageweave Bandage · {skill:129} First Aid
@@ -144,7 +144,7 @@ return {
 
 	-- Step 29: Get Mageweave Cloth
 	-- {item:4338} Mageweave Cloth · {item:8545} Heavy Mageweave Bandage
-	["You need 50 {item:4338} for {item:8545} (240-260). {item:4338} drops from humanoids of level 35-50, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4338} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 50 {item:4338} for {item:8545} (240-260). {item:4338} drops from humanoids of level 35-50, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4338} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 50 {item:4338} für {item:8545} (240-260). {item:4338} fällt von Humanoiden der Stufe 35-50, und was du beim Leveln einsammelst, zählt mit. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten {item:4338} pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 30: Heavy Mageweave Bandage (240-260)
 	-- {item:8545} Heavy Mageweave Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall
@@ -156,9 +156,9 @@ return {
 
 	-- Step 32: Get Runecloth
 	-- {item:14047} Runecloth
-	["Get {item:14047}"] = "",
+	["Get {item:14047}"] = "Sammle {item:14047}",
 	-- {item:14047} Runecloth · {item:14529} Runecloth Bandage
-	["You need 65 {item:14047} for {item:14529} (260-300). {item:14047} drops from humanoids of level 45-60, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 65 {item:14047} for {item:14529} (260-300). {item:14047} drops from humanoids of level 45-60, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 65 {item:14047} für {item:14529} (260-300). {item:14047} fällt von Humanoiden der Stufe 45-60, und was du beim Leveln einsammelst, zählt mit. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten {item:14047} pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 33: Runecloth Bandage (260-300)
 	-- {item:14529} Runecloth Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall · {item:14047} Runecloth · {item:14530} Heavy Runecloth Bandage

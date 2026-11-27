@@ -221,11 +221,12 @@ function fakeGitHub(repo = 'fitzforge/polestar') {
 		async addLabels(n, ls) {
 			issues[n - 1].labels.push(...ls.map((name) => ({ name })));
 		},
-		async issuesLabelled(label, { state = 'all' } = {}) {
+		async issuesLabelled(label, { state = 'all', max = 300 } = {}) {
 			return issues
 				.filter((i) => i.labels.some((l) => l.name === label) && (state === 'all' || i.state === state))
 				.map((i) => structuredClone(i))
-				.reverse();
+				.reverse()
+				.slice(0, max);
 		},
 		// GitHub's duplicate marker: the issue's duplicate_of field here.
 		async duplicateOf(n) {

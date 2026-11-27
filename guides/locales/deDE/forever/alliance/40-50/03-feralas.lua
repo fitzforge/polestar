@@ -134,23 +134,23 @@ return {
 
 	-- Step 25: OOX-22/FE Distress Beacon
 	-- {zone:1444} Feralas
-	["Only with the distress beacon, a rare drop in {zone:1444}: it starts a quest to find the robot it calls for."] = "",
+	["Only with the distress beacon, a rare drop in {zone:1444}: it starts a quest to find the robot it calls for."] = "Nur mit dem Notfallsignal, einer seltenen Beute in {zone:1444}: Es startet eine Quest, um den Roboter zu finden, den es ruft.",
 
 	-- Step 26: Homing Robot OOX-22/FE
 	-- {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay · {zone:1425} Hinterlands
-	["The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}, where the boat to Feathermoon leaves; its reward waits with {npc:7406} in {area:35}, on the {zone:1425} guide's {area:35} stop.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "",
+	["The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}, where the boat to Feathermoon leaves; its reward waits with {npc:7406} in {area:35}, on the {zone:1425} guide's {area:35} stop.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "Der Roboter sitzt in einer kleinen Höhle an der Nordseite von {area:1105}, direkt nordwestlich der Ruinen. Eskortiere ihn zum Steg auf der {area:1108}, von wo das Boot nach Feathermoon abfährt; seine Belohnung wartet bei {npc:7406} in {area:35}, am Stopp des {zone:1425}-Guides in {area:35}.\nVorsicht: Während der Eskorte erscheinen drei Hinterhalte, und der Roboter warnt dich vor jedem. Der erste sind 3 Yetis, direkt nachdem er die Höhle verlässt und den Weg hoch zur Straße klettert. Der zweite sind 3 Gorillas auf dem Pfad entlang der Klippe. Der dritte sind etwa 4 Gnolle, einer davon ein Zauberer, wo die Route zum Steg abbiegt.",
 
 	-- Step 27: Feathermoon Stronghold
 	-- {npc:7880} Ginro Hearthkindle
 	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:7880} steht im Obergeschoss seines Gebäudes: Geh drinnen nach oben, der Pfeil kann die Stockwerke nicht unterscheiden.",
 	-- {npc:3936} Shandris Feathermoon · {quest:4267} Rise of the Silithid · {npc:7740} Gracina Spiritmight · {zone:1446} Tanaris · {zone:1457} Darnassus
-	["{npc:3936}: {quest:4267}, for {npc:7740} on the {zone:1446} guide's {zone:1457} stop: keep it"] = "",
+	["{npc:3936}: {quest:4267}, for {npc:7740} on the {zone:1446} guide's {zone:1457} stop: keep it"] = "{npc:3936}: {quest:4267}, für {npc:7740} im {zone:1446}-Guide am {zone:1457}-Stopp: Behalte es",
 
 	-- Step 28: Angelas Moonbreeze
 	-- {npc:7900} Angelas Moonbreeze · {area:1116} Feathermoon Stronghold · {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {zone:1446} Tanaris
-	["{npc:7900} in {area:1116} sends you to {npc:7771} at the {area:1938} in {zone:1446}, where the {zone:1446} guide stops for his dig."] = "",
+	["{npc:7900} in {area:1116} sends you to {npc:7771} at the {area:1938} in {zone:1446}, where the {zone:1446} guide stops for his dig."] = "{npc:7900} in {area:1116} schickt dich zu {npc:7771} am {area:1938} in {zone:1446}, wo der Guide für {zone:1446} für seine Ausgrabung anhält.",
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {zone:1446} Tanaris
-	["for {npc:7771} at the {area:1938} in {zone:1446}: keep it"] = "",
+	["for {npc:7771} at the {area:1938} in {zone:1446}: keep it"] = "für {npc:7771} bei dem {area:1938} in {zone:1446}: behalte es",
 
 	-- Step 30: Ride to Thalanaar
 	-- {area:489} Thalanaar

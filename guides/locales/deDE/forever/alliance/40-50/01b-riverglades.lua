@@ -27,7 +27,7 @@ return {
 	-- Step 3: Scout Bolain
 	-- {npc:260026} Scout Bolain · {zone:1434} Stranglethorn Vale · {npc:256881} Overlord Kilgar
 	-- plural, as words: Twilight Enforcers = {npc:256800} Twilight Enforcer
-	["{npc:260026} waits beside the road east of the pass.\nThis guide is written for levels 41-45: the route comes here at about 41, after {zone:1434}. The port's second wave and the Western Front's camps in the north are 43-45, with elite Twilight Enforcers (45) on patrol and {npc:256881} (46, elite) for groups only: below 41, do Stranglethorn first."] = "",
+	["{npc:260026} waits beside the road east of the pass.\nThis guide is written for levels 41-45: the route comes here at about 41, after {zone:1434}. The port's second wave and the Western Front's camps in the north are 43-45, with elite Twilight Enforcers (45) on patrol and {npc:256881} (46, elite) for groups only: below 41, do Stranglethorn first."] = "{npc:260026} wartet an der Straße östlich des Passes.\nDieser Guide ist für die Stufen 41-45 geschrieben: Die Route kommt mit etwa 41 hierher, nach {zone:1434}. Die zweite Welle des Hafens und die Lager der Western Front im Norden sind 43-45, mit Elite-Dämmerungs-Vollstreckern (45) auf Patrouille und {npc:256881} (46, Elite) nur für Gruppen: unter 41 mache zuerst Schlingendorntal.",
 
 	-- Step 4: Southern Watch
 	-- {area:16744} Southern Watch
@@ -236,7 +236,7 @@ return {
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["{npc:259158} wants out of {area:16723}: lead him west to his treasure at the edge of town and keep the cultists off him."] = "{npc:259158} will raus aus {area:16723}: Führ ihn nach Westen zu seinem Schatz am Stadtrand und halte die Kultisten von ihm fern.",
 	-- {npc:259158} Fuzzle
-	["{npc:259158} in his cage"] = "",
+	["{npc:259158} in his cage"] = "{npc:259158} in seinem Käfig",
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["lead {npc:259158} out of {area:16723} to his treasure, west of the town"] = "Führ {npc:259158} aus {area:16723} hinaus zu seinem Schatz westlich der Stadt",
 
@@ -368,8 +368,7 @@ return {
 	-- Step 69: Level 44 on the Eastsea pirates
 	["Level 44 on the Eastsea pirates"] = "Level 44 an den Ostsee-Piraten",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash · {area:1517} Uldaman
-	-- was: ["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "Vor der zweiten Welle: Ihre Plünderer und Bombardiere (43-45) und danach die Schiffe der Piraten sind unter 44.4 eine Stufe über dir. Füll an den Freibeutern und Musketieren (41-43) des ersten Lagers an dessen südwestlichem Ende auf, weg vom Hafen. {npc:259758}, ein Rare-Elite der Stufe 49, streift über diese Klippen: Wenn du ihn siehst, halte dich fern. Oder lauf stattdessen mit einer Gruppe den Dungeon {area:1517}."
-	["Before the second wave: its raiders (44-45), bombardiers (43-44) and {quest:95124}'s ships after them (45) are more than a level over you below 44. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	["Before the second wave: its raiders (44-45), bombardiers (43-44) and {quest:95124}'s ships after them (45) are more than a level over you below 44. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "Vor der zweiten Welle: Seine Räuber (44-45), Bombardiere (43-44) und {quest:95124}s Schiffe danach (45) sind unter Stufe 44 mehr als eine Stufe über dir. Füll dich bei den Bukkanieren und Musketieren (41-43) des ersten Lagers an dessen Südwestende auf, weit weg vom Hafen. {npc:259758}, ein seltener Elite der Stufe 49, streift durch diese Klippen: Wenn du ihn siehst, bleib weit weg. Oder lauf mit einer Gruppe stattdessen den Dungeon {area:1517}.",
 	-- {npc:257901} Eastsea Buccaneer
 	["grind on {npc:257901}"] = "farme {npc:257901}",
 
@@ -480,7 +479,7 @@ return {
 	-- Step 95: The Western Front
 	-- {npc:256881} Overlord Kilgar
 	-- plural, as words: Twilight Champions = {npc:256799} Twilight Champion · Twilight Enforcers = {npc:256800} Twilight Enforcer
-	["Careful: the Western Front is written for level 44 and up. Its Twilight Champions are 43-44 and its Thralls 44, Twilight Enforcers (elites, 45) patrol through the camps, and {npc:256881} (46, elite) is for a group only. Below 44, top up on the Eastsea pirates by the port first, or come back with a friend."] = "",
+	["Careful: the Western Front is written for level 44 and up. Its Twilight Champions are 43-44 and its Thralls 44, Twilight Enforcers (elites, 45) patrol through the camps, and {npc:256881} (46, elite) is for a group only. Below 44, top up on the Eastsea pirates by the port first, or come back with a friend."] = "Vorsicht: die Western Front ist für Stufe 44 und höher geschrieben. Ihre Twilight-Champions sind 43-44 und ihre Thralls 44, Twilight-Vollstrecker (Elites, 45) patrouillieren durch die Lager, und {npc:256881} (46, Elite) ist nur für eine Gruppe. Unter Stufe 44 solltest du dich zuerst an den Eastsea-Piraten am Hafen hocharbeiten oder mit einem Freund zurückkommen.",
 
 	-- Step 96: Sergeant Riftan
 	-- {area:16685} Twilight's Shroud · {npc:258023} Sergeant Riftan

@@ -28,13 +28,11 @@ return {
 	-- Step 5: Toxic Test
 	-- {spell:14099} Mighty Blow · {spell:339} Entangling Roots · {item:22432} Devilsaur Barb · {spell:2637} Hibernate · {npc:6499} Ironhide Devilsaur · {npc:9619} Torwa Pathfinder
 	-- plural, as words: Tyrant Devilsaurs = {npc:6500} Tyrant Devilsaur
-	-- was: ["Any {npc:6498} counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with {spell:14099} and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or {spell:339} it from range, stab it with the {item:22432} (the barb does not break {spell:2637}), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an {npc:6499} roams the middle of the crater's south, nearer {npc:9619}."] = "任意{npc:6498}都算，铁皮魔暴龙和霸王魔暴龙也可以。它们是54-55级精英，会使用{spell:14099}，跑得比旅行形态更快。建议组队，但德鲁伊也能单独完成：远距离用休眠或{spell:339}控制它，再用{item:22432}刺中它（倒钩不会打破{spell:2637}），然后离开。倒钩命中的瞬间就会计入进度，之后即使死亡也不影响。箭头指向西部和北部的普通魔暴龙；另有一只{npc:6499}在环形山南部中段游荡，离{npc:9619}更近。"
-	["Any Devilsaur counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with {spell:14099} and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or {spell:339} it from range, stab it with the {item:22432} (the barb does not break {spell:2637}), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an {npc:6499} roams the middle of the crater's south, nearer {npc:9619}."] = "",
+	["Any Devilsaur counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with {spell:14099} and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or {spell:339} it from range, stab it with the {item:22432} (the barb does not break {spell:2637}), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an {npc:6499} roams the middle of the crater's south, nearer {npc:9619}."] = "任意魔暴龙都算，铁皮魔暴龙和霸王魔暴龙也可以。它们是54-55级精英，会用{spell:14099}，跑得比旅行形态还快。建议组队。德鲁伊也可以单人做，先远距离用休眠或{spell:339}控住它，再用{item:22432}刺它一下，随后离开。刺不会打断{spell:2637}。刺中就算完成，之后即使阵亡也不影响进度。箭头指向环形山西部和北部的普通魔暴龙。环形山南部中央还有一只{npc:6499}在游荡，离{npc:9619}更近。",
 	-- {item:22432} Devilsaur Barb
-	-- was: ["{npc:6498}: stab it with the {item:22432}"] = "{npc:6498}：用{item:22432}刺它"
-	["Devilsaur: stab it with the {item:22432}"] = "",
+	["Devilsaur: stab it with the {item:22432}"] = "魔暴龙：用{item:22432}刺它",
 	-- {item:22432} Devilsaur Barb
-	["Stab a Devilsaur with the {item:22432}"] = "",
+	["Stab a Devilsaur with the {item:22432}"] = "对一只魔暴龙使用{item:22432}",
 
 	-- Step 7: The Sunken Temple
 	-- {area:1417} Sunken Temple

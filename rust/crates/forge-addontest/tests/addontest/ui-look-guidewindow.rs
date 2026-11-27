@@ -396,6 +396,27 @@ fn the_settings_window_lays_the_page_out_by_element_with_inline_switches_swatche
 	assert_eq!(out["styleMore"], json!(["guideWindow.outline", "guideWindow.shade", "guideWindow.veil", "ui.backing", "ui.barShown"]), "the transparent style's settings in the Style cog");
 }
 
+// #4317 (thirtydaysofnight, WoW Forever): the game's looks draw the game's status bar for the guide's progress, not
+// Polestar's line, so its Thickness and Percent rows changed nothing there. In those looks they are off and say why;
+// the Progress bar switch itself stays on.
+#[test]
+fn the_progress_line_s_rows_are_off_in_looks_that_draw_the_game_s_bar_4317() {
+	let out = run(r#"
+		local O, W = Polestar.UI.Options, Polestar.Widgets
+		local KEYS = { "guideWindow.progressHeight", "guideWindow.progressPct", "guideWindow.progress" }
+		local function rows(skin)
+			Polestar.Set("ui.skin", skin)
+			Polestar.UI.ShowOptions("guidewindow")
+			O.Select("guidewindow", "Parts")
+			local c, out = O.Controls("guidewindow", "Parts"), {}
+			for _, k in ipairs(KEYS) do out[#out + 1] = c[k] ~= nil and W.Enabled(c[k]) or false end
+			return out
+		end
+		emit({ own = rows("polestar"), game = rows("forever") })"#);
+	assert_eq!(out["own"], json!([true, true, true]), "Polestar's look draws the line: {out}");
+	assert_eq!(out["game"], json!([false, false, true]), "WoW Forever draws the game's bar: only the switch is on: {out}");
+}
+
 // A registered skin's `guideTitle` hook dresses the navigator: the title bar and the close square shown, the band
 // hidden, the menu moved in for the square, the rule in titleLine. The transparent window and the other skins keep
 // the house title.

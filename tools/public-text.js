@@ -22,6 +22,7 @@
 // Exit 0: nothing found; 1: something found; 2: usage.
 
 const fs = require('node:fs');
+const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const { RULES_FILE, loadRules, hits, lineCol, commitMessage, phraseHashes } = require('./lib/public-text');
 
@@ -61,8 +62,8 @@ function pushTexts(input) {
 // [{ what, text }] -> lines naming each hit's place and rule.
 function findings(texts, set) {
 	const out = [];
-	for (const { what, text } of texts) {
-		for (const h of hits(text || '', set)) {
+	for (const { what, text, file } of texts) {
+		for (const h of hits(text || '', set, undefined, file)) {
 			const { line, col } = lineCol(text, h.index);
 			out.push(`${what}, line ${line} column ${col}: public-text rule ${h.rule}`);
 		}
@@ -121,7 +122,8 @@ function main(argv) {
 	} else {
 		texts = files.map((f) => {
 			const text = fs.readFileSync(f, 'utf8');
-			return { what: mode === 'commit-msg' ? 'Commit message' : f, text: mode === 'commit-msg' ? commitMessage(text) : text };
+			const rel = path.relative(path.join(__dirname, '..'), path.resolve(f)).split(path.sep).join('/');
+			return { what: mode === 'commit-msg' ? 'Commit message' : f, text: mode === 'commit-msg' ? commitMessage(text) : text, file: mode === 'files' ? rel : null };
 		});
 	}
 	const found = findings(texts, set);

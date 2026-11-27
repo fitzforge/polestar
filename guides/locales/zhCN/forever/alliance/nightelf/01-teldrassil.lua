@@ -207,7 +207,7 @@ return {
 
 	-- Step 33: Dolanaar
 	-- {quest:5621} Garments of the Moon · {spell:613} Lesser Heal · {npc:3600} Laurna Morninglight
-	["Priests: {quest:5621} counts only {spell:613} (Rank 2). {npc:3600} trains priests too: learn it from her now if you have not yet."] = "",
+	["Priests: {quest:5621} counts only {spell:613} (Rank 2). {npc:3600} trains priests too: learn it from her now if you have not yet."] = "牧师做{quest:5621}时，只有{spell:613}（等级2）才计入任务。{npc:3600}也能训练牧师，还没学的话现在找她学。",
 	-- {npc:3515} Corithras Moonrage
 	["{npc:3515}, south of the inn"] = "{npc:3515}，在旅店南边",
 	-- {npc:3608} Aldia
@@ -230,7 +230,7 @@ return {
 	["{quest:940}: kill these as you meet them"] = "{quest:940}：沿途击杀以下目标",
 	-- {area:186} Dolanaar · {area:260} Starbreeze Village · {npc:3567} Tallonkai Swiftroot
 	-- plural, as words: Strigid Owls = {npc:1995} Strigid Owl · Webwood Lurkers = {npc:1998} Webwood Lurker · Befouled Webwoods = {npc:272096} Befouled Webwood
-	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}.\nCareful: the Befouled Webwoods (10-11) in the woods north-west of {area:186}, around 47-52,34-56, are over you now: take the silk from the Webwood Lurkers and leave the webwoods for {npc:3567}'s quest later. Duskstalker (9, a rare nightsaber) and Oakenscowl (9, elite) roam the woods south of {area:186}, around 54-62,73-77: leave them be."] = "",
+	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}.\nCareful: the Befouled Webwoods (10-11) in the woods north-west of {area:186}, around 47-52,34-56, are over you now: take the silk from the Webwood Lurkers and leave the webwoods for {npc:3567}'s quest later. Duskstalker (9, a rare nightsaber) and Oakenscowl (9, elite) roam the woods south of {area:186}, around 54-62,73-77: leave them be."] = "夜刃豹、巨翼枭和树林潜伏者在{area:186}周围及向东的路上游荡。树林潜伏者还会掉落食谱需要的蜘蛛腿。月亮井在{area:260}西缘。\n小心，被玷污的树林蜘蛛（10-11级）在{area:186}西北方树林的47-52,34-56一带出没，等级比你高。先打树林潜伏者收集蛛丝，等之后做{npc:3567}的任务再打被玷污的树林蜘蛛。暮色巡游者（9级稀有夜刃豹）和奥肯斯古尔（9级精英）在{area:186}南边树林的54-62,73-77一带游荡，避开它们。",
 	["Nightsabers"] = "夜刃豹",
 	-- plural, as words: Webwood Lurkers = {npc:1998} Webwood Lurker
 	["Webwood Lurkers"] = "树林潜伏者",
@@ -479,8 +479,7 @@ return {
 
 	-- Step 76: Into Darnassus
 	-- {area:1657} Darnassus
-	-- was: ["Into {zone:1457}"] = "进入{zone:1457}"
-	["Into {area:1657}"] = "",
+	["Into {area:1657}"] = "进入{area:1657}",
 	-- {npc:4241} Mydrannul · {area:1659} Craftsmen's Terrace
 	["{npc:4241}, on the {area:1659} just inside the city"] = "{npc:4241}，在刚进城的{area:1659}上",
 
@@ -492,12 +491,11 @@ return {
 	-- {quest:1683} Vorlus Vilehoof · {area:736} Ban'ethil Hollow · {quest:1684} Elanaria
 	["Back out of the city gate and east along the road: {quest:1683} stands south of it, by {area:736}. Bring his horn back to {quest:1684}."] = "出城后沿路向东，{quest:1683}站在道路南侧的{area:736}附近。拿到角后返回交给{quest:1684}。",
 	-- {area:736} Ban'ethil Hollow
-	["East from the city gate to {area:736}"] = "",
+	["East from the city gate to {area:736}"] = "从城门向东到{area:736}",
 
 	-- Step 81: Darnassus
 	-- {area:1657} Darnassus · {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace · {area:3425} Cenarion Hold · {npc:4241} Mydrannul · {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave · {quest:922} Rellian Greenspyre · {npc:4092} Lariia · {npc:7999} Tyrande Whisperwind · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade
-	-- was: ["Follow the road west into {zone:1457} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "沿路向西进入{zone:1457}，在{area:1659}的旅店和{area:3425}下方的隧道口使用{item:279378}，找到最后两只猫头鹰。{npc:4241}站在刚进城的{area:1659}。{npc:3516}在城北端的{area:1658}，{quest:922}就在其南边不远；{npc:4092}、{npc:7999}、{npc:7313}和{npc:8396}都在城南端的月神殿。"
-	["Follow the road west into {area:1657} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "",
+	["Follow the road west into {area:1657} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "沿路向西进入{area:1657}，在{area:1659}的旅店和{area:3425}下方的隧道口使用{item:279378}，找到最后两只猫头鹰。{npc:4241}站在刚进城的{area:1659}。{npc:3516}在城北端的{area:1658}，{quest:922}就在其南边不远。{npc:4092}、{npc:7999}、{npc:7313}和{npc:8396}都在城南端的月神殿。",
 	-- {npc:4088} Elanaria · {area:1660} Warrior's Terrace · {spell:71} Defensive Stance
 	["{npc:4088}, on the {area:1660}: {spell:71}"] = "{npc:4088}，位于{area:1660}：{spell:71}",
 	-- {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace
@@ -582,7 +580,7 @@ return {
 	["Crawler Legs: the Tide Crawlers"] = "蟹腿：潮行蟹掉落",
 	-- {quest:983} Buzzbox 827 · {zone:1439} Darkshore
 	-- plural, as words: Thresher Eyes = {item:5412} Thresher Eye
-	["{quest:983}: Thresher Eyes, on the {zone:1439} guide's first beach stop"] = "",
+	["{quest:983}: Thresher Eyes, on the {zone:1439} guide's first beach stop"] = "按{zone:1439}指南到第一个海滩时，为{quest:983}收集蛇颈龙的眼球",
 
 	-- Step 100: Auberdine
 	-- {npc:3649} Thundris Windweaver
@@ -610,7 +608,7 @@ return {
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "{area:702}的飞行管理员",
 	-- {zone:1457} Darnassus
-	["Take the portal down from {zone:1457} to the hippogryphs."] = "",
+	["Take the portal down from {zone:1457} to the hippogryphs."] = "从{zone:1457}走传送门下去，到角鹰兽飞行点。",
 
 	-- Step 107: The Moonkin Stone
 	-- {object:177525} Moonkin Stone
@@ -628,9 +626,9 @@ return {
 
 	-- Step 110: Back to Auberdine
 	-- {area:442} Auberdine
-	["Back to {area:442}"] = "",
+	["Back to {area:442}"] = "返回{area:442}",
 	-- {area:702} Rut'theran Village
-	["Take the portal down to the hippogryphs at {area:702}."] = "",
+	["Take the portal down to the hippogryphs at {area:702}."] = "走传送门下到{area:702}的角鹰兽飞行点。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Boat to {zone:1453}"] = "乘船前往{zone:1453}",

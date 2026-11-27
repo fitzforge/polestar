@@ -263,7 +263,7 @@ local function buildPinsPreview(view)
 	local all = { target, unpack(steps) }
 	for key, parts in pairs({
 		["nav.targetPinSize"] = { target, mmTarget }, ["nav.targetGlow"] = { target }, ["nav.targetPulse"] = { target },
-		["nav.pulseSeconds"] = { target }, ["nav.worldPins"] = { h.Map }, ["nav.minimapPins"] = { mmTarget },
+		["nav.pulseSeconds"] = { target }, ["nav.worldPins"] = { h.Map }, ["nav.minimapPins"] = { mmTarget }, ["nav.hidePinsWithGuide"] = { h.Map, mmTarget },
 		["nav.areaAlpha"] = { area }, ["nav.areaColor"] = { area }, ["nav.spawnSpots"] = { area }, ["nav.trailDotSize"] = { h.Me, target },
 		["nav.trailDots"] = { h.Me, target }, ["nav.trailDotAlpha"] = { h.Me, target },
 		["nav.upcomingPins"] = steps, ["nav.stepPinSize"] = steps, ["nav.stepRingColor"] = steps,
@@ -405,6 +405,7 @@ local SPECS = {
 			} },
 		Ref("toggle", "nav.worldPins", { label = L["On the world map"] }),
 		Ref("toggle", "nav.minimapPins", { label = L["On the minimap"] }),
+		Ref("toggle", "nav.hidePinsWithGuide", { label = L["Hide with guide"] }),
 		{ kind = "slider", key = "nav.areaAlpha", label = L["Spawn areas"], min = 0, max = 1, step = 0.02, format = percent, new = NEW,
 			search = "area, region, spawn, tint, opacity, transparency, alpha, blob, circle, zone, quest area, colour, spawn areas",
 			help = L["The opacity of the soft tint over the places mobs and objects spawn, on the world map and the minimap, their outlines with it. The swatch gives every area one colour."],

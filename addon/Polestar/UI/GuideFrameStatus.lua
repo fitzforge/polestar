@@ -136,22 +136,27 @@ ns.UI.GuideFrame.Part(function(GF)
 	end
 
 	-- The party line (Quests/Party.lua, Party.StepLine): hidden without one;
-	-- "Go on without them" at its end while the group waits on the step.
+	-- "Go on without them" at its end while the group waits on the step. With
+	-- the party panel open (it shows who is where) only the wait stays, in
+	-- every layout: this is the one place the line is made. psState: what in
+	-- it needs the player (a card the player closed in the Atlas layout reads it).
 	function GF.UpdateParty()
 		if not GF.party then return end
 		local P = ns.Party
-		local text, holding
-		if P and P.StepLine then text, holding = P.StepLine() end
-		local had = GF.party.psText ~= nil
-		GF.party.psText, GF.party.psHolding = text, holding and true or false
+		local panel = UI.PartyPanel and UI.PartyPanel.Frame and UI.PartyPanel.Frame()
+		local text, holding, state
+		if P and P.StepLine then text, holding, state = P.StepLine(panel ~= nil and panel:IsShown()) end
+		local was = GF.party.psText
+		GF.party.psText, GF.party.psHolding, GF.party.psState = text, holding and true or false, state
 		if text then GF.party.Text:SetText(text) end
 		local goOn = GF.party.GoOn
 		goOn:SetShown(holding and true or false)
 		GF.party.Text:SetPoint("RIGHT", holding and goOn or GF.party, holding and "LEFT" or "RIGHT", holding and -8 or -PAD, 0)
-		if had ~= (text ~= nil) then GF.Layout() end
+		-- A new line may also bring a closed card back (Atlas), so it lays out too.
+		if was ~= text then GF.Layout() end
 	end
 	if GF.live then
-		for _, msg in ipairs({ "PARTY_PROGRESS", "STEP_CHANGED", "STEP_UPDATED", "GUIDE_CHANGED" }) do
+		for _, msg in ipairs({ "PARTY_PROGRESS", "STEP_CHANGED", "STEP_UPDATED", "GUIDE_CHANGED", "PARTY_PANEL_TOGGLED" }) do
 			ns.On(msg, whenReady(function() GF.UpdateParty() end))
 		end
 	end

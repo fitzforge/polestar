@@ -1,6 +1,8 @@
 //! Release notes from CHANGELOG.md: a version's section in the three forms a release is announced in
-//! (docs/RELEASING.md, steps 8 to 10). GitHub's notes carry the players' and guide authors' entries,
-//! CurseForge's the players' only, and Discord's are split into posts under Discord's message limit.
+//! (docs/RELEASING.md, steps 8 to 10). GitHub's notes carry the players' and guide authors' entries and
+//! end with the Contributors section (every login the release's work is tagged to, so GitHub lists them
+//! on the release), CurseForge's the players' only, and Discord's are split into posts under Discord's
+//! message limit.
 //! The intro is the maintainer's to write: each form carries a placeholder for it ([`PLACEHOLDER`]),
 //! which must be replaced before publishing.
 
@@ -136,8 +138,20 @@ fn beta() -> String {
 	format!("Polestar is still a beta. If something's off, tell us on [Discord]({DISCORD}) or [GitHub Issues]({REPO}/issues).")
 }
 
-/// The GitHub release's notes: the players' and guide authors' entries.
-pub fn github(rel: &Release) -> String {
+/// The `## Contributors` section that ends the GitHub release's notes: every login tagged, so GitHub
+/// shows them as the release's contributors; "" without any. `logins` come sorted
+/// ([`crate::contributors::collect`]).
+pub fn contributors_section(version: &str, logins: &[String]) -> String {
+	if logins.is_empty() {
+		return String::new();
+	}
+	let tags: Vec<String> = logins.iter().map(|l| format!("@{l}")).collect();
+	format!("## Contributors\n\nThanks to everyone who made {version}: {}.\n", tags.join(", "))
+}
+
+/// The GitHub release's notes: the players' and guide authors' entries, ending with the
+/// contributors ([`contributors_section`]).
+pub fn github(rel: &Release, contributors: &[String]) -> String {
 	let v = &rel.version;
 	let mut out = vec![
 		intro(v),
@@ -158,6 +172,10 @@ pub fn github(rel: &Release) -> String {
 		}
 	}
 	out.extend([String::new(), "## Thank you".into(), String::new(), thanks(rel), String::new(), format!("Every change is in the [full changelog]({}).", changelog_link(v)), String::new()]);
+	let section = contributors_section(v, contributors);
+	if !section.is_empty() {
+		out.push(section);
+	}
 	out.join("\n")
 }
 
@@ -335,6 +353,22 @@ mod tests {
 	#[test]
 	fn thanked_names_sort_once_each_ignoring_case() {
 		assert_eq!(thanked("- A (thanks bo and Ann). - B (thanks Cy, Ann)."), ["Ann", "bo", "Cy"]);
+	}
+
+	#[test]
+	fn the_github_notes_end_with_the_contributors_section_the_other_forms_have_none() {
+		let rel = release_section("## 2.0.0 (2026-01-02)\n\n### For players\n\n- A fix (thanks Ann).\n", "2.0.0").unwrap();
+		let logins = ["ann".to_string(), "Bo".to_string(), "cy_1".to_string()];
+		assert_eq!(contributors_section("2.0.0", &logins), "## Contributors\n\nThanks to everyone who made 2.0.0: @ann, @Bo, @cy_1.\n");
+		let gh = github(&rel, &logins);
+		assert!(gh.ends_with("(https://github.com/fitzforge/polestar/blob/v2.0.0/CHANGELOG.md).\n\n## Contributors\n\nThanks to everyone who made 2.0.0: @ann, @Bo, @cy_1.\n"), "{gh}");
+		assert_eq!(gh.matches("## Contributors").count(), 1);
+		for other in [curseforge(&rel), discord(&rel)] {
+			assert!(!other.contains("Contributors") && !other.contains("@ann"));
+		}
+		// Nobody to thank: no section, and the notes end as they always did.
+		assert_eq!(contributors_section("2.0.0", &[]), "");
+		assert!(github(&rel, &[]).ends_with("CHANGELOG.md).\n"));
 	}
 
 	#[test]

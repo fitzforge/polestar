@@ -4198,10 +4198,10 @@ test('Zephras Isle, both factions: flow re-order: Fendaal on the road in, no alo
 
 // Aggressive Encroachment: the Scrawny Ursera are on the slope west of
 // Thendal Village (Forever's quest data), not in the village. That spawn fix is
-// in the private corrections overlay, so this needs it.
+// in the maintainers' corrections overlay, so this needs it.
 test('Sato\'s report: the Scrawny Ursera step leads to the slope west of Thendal Village', { skip }, (t) => {
 	const fix = (loadCorrections().npcs[250926] || {}).addSpawns;
-	if (!fix) return t.skip('needs the private corrections overlay (data/local/corrections-private.json)');
+	if (!fix) return t.skip('maintainer-only input, skipped (the corrections overlay)');
 	const fixed = fix[2521].pts;
 	assert.ok(fixed.every(([x]) => x <= 41.6), 'the corrected spawns are all west of the village');
 	for (const guide of [ZEPHRAS_HORDE, ZEPHRAS_ALLIANCE]) {
@@ -4267,10 +4267,18 @@ test('Phear\'s report: a kill or collect leads to the camp that holds its mobs, 
 // calibrated level model).
 const H40 = (n) => `forever/horde/40-50/${n}.guide`;
 
-test('Horde 40-50 binds: Stranglethorn sets none, Camp Mojache is bound once (0.4.0 route audit)', { skip }, () => {
-	// The travel sweep found no trip in 30-40/06 or 40-50/01 that hearths back to Grom'gol, Booty Bay or Stonard.
-	const stv = goals(H40('01-stranglethorn-vale')).filter(({ goal }) => goal.t === 'sethome');
-	assert.deepEqual(stv.map(({ goal }) => goal.location), [], '40-50/01 leaves the hearthstone where it is');
+// #4479: the riding trainer trip at 40 (Orgrimmar, Sen'jin, Bloodhoof, Valanaar or Brill) comes back to Grom'gol; with
+// the hearthstone left at Tarren Mill it came back by zeppelin (players' recordings), so the first Grom'gol stop binds
+// there and the riding steps say to hearth back. Camp Mojache stays bound once on 40-50/02 (0.4.0 route audit).
+test('Horde 40-50 binds: Stranglethorn binds Grom\'gol on its first stop for the riding trip back, Camp Mojache is bound once (#4479)', { skip }, () => {
+	const list = goals(H40('01-stranglethorn-vale'));
+	const stv = list.filter(({ goal }) => goal.t === 'sethome');
+	assert.deepEqual(stv.map(({ goal }) => goal.location), ["Grom'gol Base Camp"], '40-50/01 binds once, at Grom\'gol');
+	const bind = at(list, 'the Grom\'gol bind', (g) => g.t === 'sethome');
+	assert.equal(list[bind].s, list[at(list, 'turnin 1240 (Kin\'weelay)', is('turnin', 1240))].s, 'on the first Grom\'gol stop');
+	const trips = [...new Set(list.slice(bind).filter(({ step }) => step.title === 'Riding at 40').map(({ step }) => step))];
+	assert.ok(trips.length >= 5, `every race's riding step comes after the bind (${trips.length})`);
+	for (const step of trips) assert.match(step.note || '', /hearth back to Grom'gol/, `${(step.only && step.only.races || []).join(',')}: the riding step says to hearth back`);
 	const binds = goals(H40('02-feralas')).filter(({ goal }) => goal.t === 'sethome');
 	assert.deepEqual(binds.map(({ goal }) => goal.location), ['Camp Mojache'], '40-50/02 binds Camp Mojache once, at Innkeeper Greul');
 });
@@ -16288,7 +16296,7 @@ test(`${NE_DARKSHORE}: no bind before Westfall's Sentinel Hill; Teldrassil's Dol
 });
 
 // Alliance 1-12 audit (0.4.0, #2025): Night Elves took Marshal Dughan's Further Concerns (35) at the end of their
-// Darkshore guide, but nothing on their route works Guard Thomas' chain (Westfall's east-Elwynn loop is the Dwarves'
+// Darkshore guide, but nothing in the Night Elf route works Guard Thomas' chain (Westfall's east-Elwynn loop is the Dwarves'
 // and Gnomes'); in players' recordings 12 Night Elves took it and 1 handed it in. A Fishy Peril (40) stays: Remy and
 // Dughan stand side by side.
 test(`${NE_DARKSHORE}: Night Elves no longer take Further Concerns; A Fishy Peril stays`, { skip }, () => {
@@ -18217,6 +18225,25 @@ test('#2419: Stranglethorn (Alliance): the first loop starts at Booty Bay, never
 	assert.ok(at(list, 'turnin 198', is('turnin', 198)) < at(list, 'Kurzen kills', (g) => g.t === 'kill' && g.quest === 203), 'Thorsen\'s supplies on the first Rebel Camp stop');
 });
 
+// #4479 (a Discord report, Alliance Stranglethorn 32-45: "in Booty Bay I had to make the full trip like 3 times"): the
+// second loop (30-40/04b) ends with the walk from the north of the jungle down to Booty Bay, about 8 minutes on foot,
+// and 30-40/02-desolace between the loops bound the hearthstone at Nijel's Point, whose own walks back take 3 minutes or
+// less. Players' recordings: 10 people walked that last leg, 9 of them bound at Nijel's Point with the stone ready. Booty
+// Bay's bind from the first loop now stands through Desolace, and the step says to hearth back.
+test('#4479: Stranglethorn (Alliance): the first loop\'s Booty Bay bind brings the second loop back from the north', { skip }, () => {
+	const first = goals('forever/alliance/30-40/04-stranglethorn-vale.guide');
+	assert.deepEqual(first.filter(({ goal }) => goal.t === 'sethome').map(({ goal }) => goal.location), ['Booty Bay'], 'the first loop binds Booty Bay');
+	assert.equal(compiled('forever/alliance/30-40/04-stranglethorn-vale.guide').next, 'forever/alliance/30-40/02-desolace');
+	const desolace = goals('forever/alliance/30-40/02-desolace.guide');
+	assert.deepEqual(desolace.filter(({ goal }) => goal.t === 'sethome').map(({ goal }) => goal.location), [], 'Desolace leaves the hearthstone in Booty Bay');
+	assert.equal(compiled('forever/alliance/30-40/02-desolace.guide').next, 'forever/alliance/30-40/04b-stranglethorn-vale');
+	const second = goals('forever/alliance/30-40/04b-stranglethorn-vale.guide');
+	const handIn = at(second, 'turnin 577 (Drizzlik)', is('turnin', 577));
+	assert.ok(!second.slice(0, handIn).some(({ goal }) => goal.t === 'sethome'), 'no bind before the Booty Bay hand-ins');
+	const crocs = second[at(second, 'the Snapjaw Crocolisk skins', (g) => g.t === 'collect' && g.quest === 577)];
+	assert.match(crocs.step.note || '', /hearth back to Booty Bay/, 'the last northern step says to hearth back');
+});
+
 // #2587 (swork1, 0.4.0, Alliance Wetlands): the Dun Modr stop offered Spark of Freedom to a group but not Motley's The
 // Dark Iron War or Ashlan's Bring Back a Bang, group quests among the same elite Dark Irons. They are asked the same way:
 // only a player who chooses the group way gets them, the solo route never does.
@@ -19914,4 +19941,40 @@ test("forever/alliance/50-60/02-felwood.guide: Pokey's report: both ooze steps s
 		const jar = list[at(list, `collect 4512.${oi}`, (g) => g.t === 'collect' && g.quest === 4512 && g.oi === oi)];
 		assert.match(jar.step.note || '', /use (Laris's|the) Empty (Tainted )?Ooze Jar on their remains/, `the jar of objective ${oi}: how to fill it`);
 	}
+});
+
+// #4343 (Sekyno, 0.4.3.1): A Little Luck (6606, Harlo Wigglesworth) only sends you to Witch Doctor Mau'ari, who gives
+// Luck Be With You (969) without it: players' recordings have 969 taken at Mau'ari by 15 people and 6606 by none. A
+// player who already had 969 was held at Harlo's accept with no way on. The lead-in is optional (guide-fixes
+// 4343-a-little-luck-optional), so the step is done once 969 is taken; the Darkspear Trolls reputation guide the same.
+for (const guide of ['forever/horde/50-60/07-felwood.guide', 'forever/reputation/darkspear-trolls.guide']) {
+	test(`${guide}: Sekyno's report: A Little Luck never holds the step at Harlo Wigglesworth (#4343)`, { skip }, () => {
+		const list = goals(guide);
+		const take = list[at(list, 'accept 6606 (A Little Luck)', is('accept', 6606))];
+		const give = list[at(list, 'turnin 6606 (A Little Luck)', is('turnin', 6606))];
+		const luck = list[at(list, 'accept 969 (Luck Be With You)', is('accept', 969))];
+		assert.ok(take.goal.optional && give.goal.optional, 'the lead-in\'s accept and hand-in are optional');
+		assert.ok(!luck.goal.optional, 'Luck Be With You is still taken');
+		assert.equal(luck.step, take.step, 'on the same visit to Everlook');
+	});
+}
+
+// #4381 (GustavoCampos1999, 0.4.3.1): Bareth Dawnstone gives Seeking Refuge (99144) held on the top floor of the
+// Crusader's Outpost tower (the world data's spawn at 31.76,45.89, height 40.3), but the arrow led to 33.28,47.65 on the
+// ground outside, where the escort ends (places.json 4381-tirisfal-bareth-top-floor-giver).
+test("forever/horde/undead/01-tirisfal-glades.guide: GustavoCampos1999's report: Seeking Refuge is taken on the tower's top floor (#4381)", { skip }, () => {
+	const list = goals('forever/horde/undead/01-tirisfal-glades.guide');
+	const { goal } = list[at(list, 'accept 99144 (Seeking Refuge)', is('accept', 99144))];
+	assert.ok(yards(goal, { map: 1420, x: 31.76, y: 45.89 }) < 5, `at Bareth's top-floor spawn (${goal.x},${goal.y})`);
+	assert.equal(goal.z, 40.3, 'on the top floor\'s height');
+});
+
+// #4253 (nepyanbin, zhCN): the note on Eridan's next task named the quest Ancient Spirit (4261), but the compiler took
+// the words for the same-named creature, so other languages showed the creature's name there. The note writes the
+// quest's token itself.
+test("forever/alliance/50-60/03-winterspring.guide: nepyanbin's report: Eridan's note names the quest Ancient Spirit (#4253)", { skip }, () => {
+	const list = goals('forever/alliance/50-60/03-winterspring.guide');
+	const note = list.find(({ goal }) => goal.t === 'note' && /next task, .*Kayneth|next task, .*\{npc:3848\}/.test(goal.text || ''));
+	assert.ok(note, "the note on Eridan's next task is in the guide");
+	assert.match(note.goal.text, /next task, \{quest:4261\},/, note.goal.text);
 });

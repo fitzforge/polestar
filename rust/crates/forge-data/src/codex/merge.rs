@@ -430,7 +430,7 @@ fn finalize_sources(cands: &[&Cand], npc_level: &dyn Fn(&V) -> Option<(f64, f64)
 	kept
 }
 
-fn objective_of(o: &V, escort: bool, tame: bool, use_item: Option<f64>, summon_item: Option<(f64, Vec<f64>)>, made_from: &[f64]) -> V {
+fn objective_of(o: &V, escort: bool, tame: bool, use_item: Option<f64>, summon_item: Option<(f64, Vec<f64>)>, made_from: &[f64], reagent: Option<[f64; 3]>) -> V {
 	let out = Obj::new();
 	out.set("type", o.get("type"));
 	let nn = |v: V| if v.is_nullish() { V::Null } else { v };
@@ -439,10 +439,18 @@ fn objective_of(o: &V, escort: bool, tame: bool, use_item: Option<f64>, summon_i
 	out.set("text", nn(o.get("text")));
 	if tame && o.get("type").as_str() == Some("kill") {
 		out.set("tame", true);
-	} else if o.get("type").as_str() == Some("kill") {
+	} else if matches!(o.get("type").as_str(), Some("kill" | "event")) {
 		if let Some(item) = use_item {
 			out.set("useItem", item);
 		}
+	}
+	// What that use spends, gathered before it (event_use, #4270): { item, count, npc }.
+	if let Some([item, count, npc]) = reagent.filter(|_| use_item.is_some() && o.get("type").as_str() == Some("event")) {
+		let r = Obj::new();
+		r.set("item", item);
+		r.set("count", count);
+		r.set("npc", npc);
+		out.set("reagent", V::Obj(r));
 	}
 	// The item that calls its target up (summon_item_for, #2326): the Screecher Spirit rises from a dead Vale
 	// Screecher only with Yeh'kinya's Bramble; `summonOn`, the creatures the item is used on (#2578).
@@ -502,6 +510,24 @@ fn public_how(public: &V, quest_id: f64) -> Option<String> {
 		mechanics_entry(public, quest_id).get("steps").items().iter().filter_map(|s| s.get("fact").as_str().map(|f| (s.get("n").num(), f.trim().to_string()))).filter(|(_, f)| !f.is_empty()).collect();
 	steps.sort_by(|a, b| ord(a.0 - b.0));
 	(!steps.is_empty()).then(|| steps.into_iter().map(|(_, f)| f).collect::<Vec<_>>().join(" "))
+}
+
+/// What a quest's event objectives are done with, and what that spends (#4270: Powering the Pylons' Pile of Pylon
+/// Parts, whose Repair and Recharge Pylon takes four Coalesced Mana Crystals gathered from the Unstable Mana Rifts):
+/// data/mechanics-public.json's `collect` step that names the NPC, the item and the count, followed in step order by
+/// the `use-item` step with no target whose item spends them -> (the item used, [the item gathered, the count, the
+/// NPC]). None without that pair: the objectives' lines then say nothing more than before.
+fn event_use(public: &V, quest_id: f64) -> Option<(f64, [f64; 3])> {
+	let mut steps = mechanics_entry(public, quest_id).get("steps").items();
+	steps.sort_by(|a, b| ord(a.get("n").num() - b.get("n").num()));
+	steps.windows(2).find_map(|w| {
+		let (gather, used) = (&w[0], &w[1]);
+		let from = gather.get("target");
+		if gather.get("action").as_str() != Some("collect") || from.get("type").as_str() != Some("npc") || used.get("action").as_str() != Some("use-item") || used.get("target").truthy() {
+			return None;
+		}
+		Some((whole_id(&used.get("item"))?, [whole_id(&gather.get("item"))?, whole_id(&gather.get("count"))?, whole_id(&from.get("id"))?]))
+	})
 }
 
 fn drives_use_on_mob(e: &V) -> bool {
@@ -1250,13 +1276,21 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 	}
 	// An NPC on a player faction's side is never a rare (the data-diff gate's `friendly-rare`): a rank,
 	// a source's rare list or a sighting can name one (faction leaders in 0.4.1, #2929 #2942), and the
-	// rare alert, pins and list read this flag.
+	// rare alert, pins and list read this flag. One whose rank is a rare's (2 rare elite, 4 rare) still
+	// spawns as a rare does, at one of its spots at a time and often not up: `rareSpawn`, which Nearby
+	// reads to leave out a wandering merchant (#3432, #4388: Mount Hyjal's Pexmit).
 	for (id, n) in npcs.entries() {
-		if n.get("rare").truthy() && matches!(n.get("faction").as_str(), Some("A" | "H" | "AH")) {
+		if !matches!(n.get("faction").as_str(), Some("A" | "H" | "AH")) {
+			continue;
+		}
+		if n.get("rare").truthy() {
 			n.set("rare", false);
 			if let Some(&i) = role_ix.get(&*id) {
 				npc_roles[i].1.delete("rare");
 			}
+		}
+		if matches!(int(&fv.npcs.get(&id).get("rank")), Some(r) if r == 2.0 || r == 4.0) {
+			n.set("rareSpawn", true);
 		}
 	}
 	// Vendors by what they sell (sells_role): every NPC an item lists as its
@@ -2258,10 +2292,12 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 				.filter(|o| matches!(o.get("type").as_str(), Some("kill" | "item" | "object" | "event" | "talk")))
 				.map(|o| {
 					let kill = !tame && o.get("type").as_str() == Some("kill");
-					let use_item = if kill { use_item_on(&inputs.mechanics, idf, int(&o.get("id"))) } else { None };
+					let event = o.get("type").as_str() == Some("event");
+					let spend = if event { event_use(&inputs.mechanics_public, idf) } else { None };
+					let use_item = if kill { use_item_on(&inputs.mechanics, idf, int(&o.get("id"))) } else { spend.map(|s| s.0) };
 					let summon_item = if kill { summon_item_for(&inputs.mechanics, idf, int(&o.get("id"))) } else { None };
 					let made_from = if o.get("type").as_str() == Some("item") { made_from_items(&inputs.mechanics, &q, int(&o.get("id"))) } else { Vec::new() };
-					objective_of(o, escort, tame, use_item, summon_item, &made_from)
+					objective_of(o, escort, tame, use_item, summon_item, &made_from, spend.map(|s| s.1))
 				})
 				.collect();
 			if learned.truthy() {
@@ -2679,6 +2715,35 @@ mod tests {
 		assert_eq!(rare("61"), (true, true), "a hostile rare stays a rare");
 	}
 
+	// #4388: an NPC on a player faction's side whose rank is a rare's (Pexmit, rank 4; a rare elite, rank 2) is a rare
+	// spawn: no rare to hunt, but at one of its spots at a time and often not up, which Nearby reads (#3432). A faction
+	// leader named rare by a source's list (rank 3) is none; a hostile rare is a rare, not this. (Each has a role: the
+	// Codex keeps no spawnless NPC without one.)
+	#[test]
+	fn an_npc_on_a_player_faction_s_side_with_a_rare_s_rank_is_a_rare_spawn_4388() {
+		let mut inp = inputs("{}", "{}");
+		inp.forever.npcs = parse_json(
+			r#"{
+			"4949": { "id": 4949, "name": "Thrall", "faction": "H", "rank": 3, "roles": ["rare", "vendor"], "spawns": {} },
+			"88010": { "id": 88010, "name": "Rare Elite Merchant", "faction": "A", "rank": 2, "roles": ["vendor"], "spawns": {} },
+			"266901": { "id": 266901, "name": "Pexmit", "faction": "AH", "rank": 4, "roles": ["rare", "vendor"], "spawns": {} },
+			"61": { "id": 61, "name": "Thuros Lightfingers", "rank": 4, "roles": ["rare"], "spawns": {} },
+			"68": { "id": 68, "name": "Stormwind City Guard", "faction": "A", "rank": 1, "roles": ["vendor"], "spawns": {} }
+		}"#,
+		)
+		.unwrap();
+		let codex = merge_codex(&inp);
+		for id in ["4949", "88010", "266901", "61", "68"] {
+			assert!(codex.npcs.get(id).truthy(), "{id} in the Codex");
+		}
+		let spawn = |id: &str| codex.npcs.get(id).get("rareSpawn").truthy();
+		assert!(spawn("266901") && spawn("88010"), "rank 4 and rank 2 on a player faction's side");
+		assert!(!codex.npcs.get("266901").get("rare").truthy(), "still no rare (#2929)");
+		assert!(!spawn("4949"), "a faction leader a rare list names");
+		assert!(!spawn("61") && codex.npcs.get("61").get("rare").truthy(), "a hostile rare is a rare");
+		assert!(!spawn("68"), "an elite guard");
+	}
+
 	// #2326: Screecher Spirits' target rises only from Yeh'kinya's Bramble (a summon-by-item the mechanics drive,
 	// with its params' item and NPC): the kill objective keeps summonItem, and summonOn the creatures the params
 	// say the item is used on (#2578: the Vale Screechers); a kind that does not drive, or params for another NPC,
@@ -2784,6 +2849,30 @@ mod tests {
 		let q = codex.quests.get("96082");
 		assert_eq!(q.get("objectives").at(0).get("useItem").num(), 272126.0, "the Makeshift Bandages, on the soldiers");
 		assert!(q.get("how").as_str().is_some_and(|h| h.contains("Makeshift Bandages")), "{:?}", q.get("how"));
+	}
+
+	// #4270 (imp): Lookup's step for Powering the Pylons never said to gather the four Coalesced Mana Crystals each
+	// pylon's repair takes. The shipped public mechanics' gather step (the Unstable Mana Rifts' crystals) and the use
+	// after it (the Pile of Pylon Parts) give each pylon's event objective the item used and what it spends; the
+	// Mana Sieve's item objective gets neither.
+	#[test]
+	fn powering_the_pylons_pylons_are_a_use_that_spends_the_gathered_crystals_from_the_shipped_public_mechanics_4270() {
+		let public = include_str!("../../../../../data/mechanics-public.json");
+		let quests = r#"{ "96018": { "id": 96018, "title": "Powering the Pylons", "objectives": [
+			{ "type": "item", "id": 255662, "count": 1, "text": "Mana Sieve" },
+			{ "type": "event", "count": 1, "text": "Western pylon repaired" },
+			{ "type": "event", "count": 1, "text": "Eastern pylon repaired" }
+		] } }"#;
+		let mut i = inputs(quests, public);
+		i.mechanics_public = parse_json(public).unwrap();
+		let codex = merge_codex(&i);
+		let o = codex.quests.get("96018").get("objectives");
+		for p in [1, 2] {
+			assert_eq!(o.at(p).get("useItem").num(), 271882.0, "the Pile of Pylon Parts at pylon {p}");
+			let r = o.at(p).get("reagent");
+			assert_eq!([r.get("item").num(), r.get("count").num(), r.get("npc").num()], [255667.0, 4.0, 264149.0], "four Coalesced Mana Crystals from the rifts");
+		}
+		assert!(o.at(0).get("useItem").is_nullish() && o.at(0).get("reagent").is_nullish(), "the Sieve is only collected");
 	}
 
 	// #4046 (Soffish): Get the Scoop's "Plucky" Johnson is a chicken until a /beckon turns him human, and Lookup's

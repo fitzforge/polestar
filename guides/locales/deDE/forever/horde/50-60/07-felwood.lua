@@ -34,7 +34,7 @@ return {
 
 	-- Step 7: Rakaiah
 	-- {npc:11019} Jessir Moonbow · {npc:9518} Rakaiah · {item:13140} Blood Red Key · {area:1763} Jaedenar · {area:1770} Shadow Hold
-	["Only if {npc:11019} sent you after {npc:9518} (the {item:13140}'s chain): on the ride north, turn west into {area:1763} and go into {area:1770}, the cave at the back of the camp. {npc:9518} (56) and the remains of Trey Lightforge are inside: kill her first, then the remains take her quest and give the next, which goes back to {npc:11019} at the end of this guide."] = "",
+	["Only if {npc:11019} sent you after {npc:9518} (the {item:13140}'s chain): on the ride north, turn west into {area:1763} and go into {area:1770}, the cave at the back of the camp. {npc:9518} (56) and the remains of Trey Lightforge are inside: kill her first, then the remains take her quest and give the next, which goes back to {npc:11019} at the end of this guide."] = "Nur wenn {npc:11019} dich nach {npc:9518} geschickt hat (die Kette zum {item:13140}): Auf dem Ritt nach Norden biege nach Westen in {area:1763} ab und geh in {area:1770}, die Höhle am hinteren Ende des Lagers. {npc:9518} (56) und die Überreste von Trey Lightforge sind darin: Töte zuerst sie, dann nehmen die Überreste ihre Quest an und geben die nächste, die am Ende dieses Guides zurück zu {npc:11019} führt.",
 
 	-- Step 9: Trull Failbane
 	-- {area:1763} Jaedenar · {area:1997} Bloodvenom Post
@@ -48,8 +48,7 @@ return {
 	-- Step 11: Toxic Horrors
 	-- {zone:1448} Felwood · {area:1767} Irontree Woods · {quest:5086} Toxic Horrors · {npc:9116} Eridan Bluewind · {item:11173} Irontree Heart · {item:11172} Silvery Claws · {npc:14524} Vartrus the Ancient
 	-- plural, as words: Irontree Wanderers = {npc:7138} Irontree Wanderer · Ancient Irontree Walkers = {npc:235912} Ancient Irontree Walker
-	-- was: ["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "Reite die Straße von {zone:1448} nach Norden zu {area:1767}; die {quest:5086} sickern zwischen den Bäumen umher, und die meisten lassen ein Tröpfchen fallen.\nVorsicht: Uralte Eisenbaumwandler, Elites der Stufe 59, laufen zwischen den {quest:5086} umher, und {npc:14524} (63, Elite) streift durch die Wälder: Kümmere dich einzeln um die Schrecken an der Nordspitze von {area:1767}."
-	["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet. The Irontree Wanderers and Stompers (52-53) there carry {npc:9116}'s {item:11173}, the Angerclaw bears and Felpaw wolves his {item:11172}.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "",
+	["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet. The Irontree Wanderers and Stompers (52-53) there carry {npc:9116}'s {item:11173}, the Angerclaw bears and Felpaw wolves his {item:11172}.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "Reite die {zone:1448}-Straße nach Norden zu {area:1767} hoch; der {quest:5086} Schleim zwischen den Bäumen, und die meisten lassen einen Tropfen fallen. Die Wanderer der Eisenstämme und Stompers (52-53) dort tragen {npc:9116}'s {item:11173}, die Angerclaw-Bären und Felpaw-Wölfe sein {item:11172}.\nVorsicht: Ancient Irontree Walkers, Elites der Stufe 59, laufen zwischen den {quest:5086} umher, und {npc:14524} (63, Elite) streift durch den Wald: bearbeite die Horrors an der Nordspitze von {area:1767}, einen nach dem anderen.",
 
 	-- Step 13: Umber
 	-- {zone:1450} Moonglade · {npc:11939} Umber · {area:2361} Nighthaven
@@ -99,7 +98,7 @@ return {
 	-- Step 27: Frostmaul Shards
 	-- {area:2249} Frostwhisper Gorge · {npc:10198} Kashoch the Reaver
 	-- plural, as words: Frostmaul Giants = {npc:7428} Frostmaul Giant
-	["The shards lie on the ground along the west side of {area:2249}, among the Frostmaul Giants and Preservers. Careful: the giants are elites of 59-60: pick up the shards that lie clear of them, wait for a patrol to pass, and leave {npc:10198} (60, east side) alone."] = "",
+	["The shards lie on the ground along the west side of {area:2249}, among the Frostmaul Giants and Preservers. Careful: the giants are elites of 59-60: pick up the shards that lie clear of them, wait for a patrol to pass, and leave {npc:10198} (60, east side) alone."] = "Die Splitter liegen am Boden entlang der Westseite von {area:2249}, zwischen den Frosthagelriesen und Preservers. Vorsicht: Die Riesen sind Eliten der Stufen 59-60: Heb die Splitter auf, die frei von ihnen liegen, warte, bis eine Patrouille vorbeizieht, und lass {npc:10198} (60, Ostseite) in Ruhe.",
 
 	-- Step 28: Level 59.7
 	["Level 59.7"] = "Level 59,7",

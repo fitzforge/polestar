@@ -406,6 +406,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- other kind is neutral. The accent stays the main action's.
 	GF.BANNER_ROLE = { bags = "warning", away = "npc", train = "npc", riding = "npc", skipped = "textMuted", questSkip = "textMuted" }
 	local onRight = 0 -- the width the action on the right takes, else 0
+	local jumpUnder = false -- the first action went under the text at its right (too long for the right, #4314)
 	local jumpY = -4 -- the row (offset under the text) the first action was placed for
 	local closeRoom = 24 -- the ×'s room at the right; 0 for a notice shown without it
 	local function placeLink(link, text, x, y)
@@ -415,6 +416,13 @@ ns.UI.GuideFrame.Part(function(GF)
 		link.Label:SetText(text)
 		local right = link == banner.Jump and ns.Get("guideWindow.bannerLinks") == "right"
 		local room = right and floor(banner.Text:GetWidth() * 0.45) or floor(banner.Text:GetWidth() - x - 16)
+		-- On the right, a label longer than its room there goes under the text at the right, as wide as the text, not
+		-- cut short (#4314: Atlas's "Click again to delete it" read "Click again to…").
+		local under = right and link.Label:GetStringWidth() > room
+		if under then
+			right = false
+			room = floor(banner.Text:GetWidth() - 16)
+		end
 		if not right and x > 0 and link.Label:GetStringWidth() > room then
 			x, y = 0, y - 18 - 4
 			room = floor(banner.Text:GetWidth() - 16)
@@ -434,11 +442,14 @@ ns.UI.GuideFrame.Part(function(GF)
 		if right then
 			link:SetPoint("TOPRIGHT", banner, "TOPRIGHT", -(5 + closeRoom + 4), -7)
 			onRight = link:GetWidth() + 10
+		elseif under then
+			link:SetPoint("TOPRIGHT", banner.Text, "BOTTOMRIGHT", 0, y)
+			jumpUnder = true
 		else
-			if onRight > 0 then
+			if onRight > 0 or jumpUnder then
 				-- A second action: the first goes back under the text too, on
 				-- its own row (the second may have wrapped to the next one).
-				onRight = 0
+				onRight, jumpUnder = 0, false
 				banner.Jump:ClearAllPoints()
 				banner.Jump:SetPoint("TOPLEFT", banner.Text, "BOTTOMLEFT", 0, jumpY)
 			end
@@ -463,7 +474,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		banner.Jump.psDefault = (kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun") or nil -- the gamepad's first focus (UI/GamepadGuide.lua)
 		banner.Text:SetWidth(width - PAD * 2 - 21 - closeRoom)
 		secondRow = false
-		onRight = 0
+		onRight, jumpUnder = 0, false
 		jumpY = -4
 		local oneLine = false -- no link row under the text
 		-- The item the notice names, for its text's tooltip (banner.Item): the gear offer's, the spare bag's or the junk's.

@@ -14,7 +14,7 @@ return {
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "飞往{area:976}",
 	-- {zone:1445} Dustwallow Marsh · {area:496} Brackenwall Village · {area:976} Gadgetzan
-	["Coming from {zone:1445}: {area:496}'s flight master flies you to {area:976}."] = "",
+	["Coming from {zone:1445}: {area:496}'s flight master flies you to {area:976}."] = "从{zone:1445}过来时，找{area:496}的飞行管理员飞往{area:976}。",
 	-- {area:496} Brackenwall Village
 	["{area:496} flight master"] = "{area:496}的飞行管理员",
 
@@ -24,7 +24,7 @@ return {
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}，在双足飞龙管理员旁边",
 	-- {npc:11758} Andi Lynn · {area:983} Dunemaul Compound
-	["{npc:11758}: the {area:983} is on this guide's western loop"] = "",
+	["{npc:11758}: the {area:983} is on this guide's western loop"] = "{npc:11758}：{area:983}在本指南向西绕行的路上",
 
 	-- Step 4: Senior Surveyor Fizzledowser
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "你在路线之前来这里时错过了这一步：现在先做它。它很快，还会开启后面的任务。",
@@ -71,7 +71,7 @@ return {
 	-- {quest:3161} Gahz'ridian
 	["{quest:3161} ornaments"] = "{quest:3161}饰物",
 	-- {quest:3161} Gahz'ridian · {area:1938} Broken Pillar · {area:983} Dunemaul Compound
-	["Dig up the {quest:3161} ornaments around the {area:1938} and north of the {area:983}."] = "",
+	["Dig up the {quest:3161} ornaments around the {area:1938} and north of the {area:983}."] = "挖出{quest:3161}饰物，地点在{area:1938}周围和{area:983}北边。",
 
 	-- Step 15: The Noxious Lair
 	-- {npc:4196} Silithid Swarm
@@ -80,7 +80,7 @@ return {
 
 	-- Step 16: The Dunemaul Compound
 	-- {area:982} The Noxious Lair · {quest:3362} Thistleshrub Valley · {npc:12046} Gor'marok the Ravager
-	["South of the {area:982}, on the way west to {quest:3362}, the Dunemaul ogres hold their compound: the Brutes (46-48) and Enforcers (45-47) fill it, {npc:12046} (49) stands at its eastern end.\nCareful: {npc:12046} is one to two levels above you here, and the Ogre Mages and Warlocks (46-48) cast from range: pull from the compound's edge, one at a time, and leave {npc:12046} for last with full health."] = "",
+	["South of the {area:982}, on the way west to {quest:3362}, the Dunemaul ogres hold their compound: the Brutes (46-48) and Enforcers (45-47) fill it, {npc:12046} (49) stands at its eastern end.\nCareful: {npc:12046} is one to two levels above you here, and the Ogre Mages and Warlocks (46-48) cast from range: pull from the compound's edge, one at a time, and leave {npc:12046} for last with full health."] = "在{area:982}以南、向西前往{quest:3362}的路上，会经过砂槌食人魔的营地。营地里遍布砂槌蛮兵（46-48级）和砂槌执行者（45-47级），{npc:12046}（49级）在营地东端。\n小心，{npc:12046}比你高一到两级，砂槌食人魔法师和砂槌术士（46-48级）会远程施法。从营地边缘一次引一只，最后满血再打{npc:12046}。",
 	["Below ground"] = "在地下",
 
 	-- Step 17: Thistleshrub Valley: kill these as you meet them
@@ -88,8 +88,7 @@ return {
 	["{quest:3362}: kill these as you meet them"] = "{quest:3362}：沿途击杀以下目标",
 	-- {zone:1446} Tanaris · {quest:2864} Tran'rek · {area:1938} Broken Pillar
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
-	-- was: ["West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave {quest:2864}'s Gnarled Thistleshrubs and Rootshapers for the {area:1938} ride into Un'Goro at about 51."] = "营地西侧的山谷遍布仙人掌般的生物；只有露水收集者（47-48级）携带露腺。{zone:1446}的大多数怪物都有极低概率掉落OOX-17/TN的求救信标：看见就留着。\n小心：此地其他灌木怪为48-50级，四处游荡，很容易额外引怪：在山谷边缘打露水收集者，{quest:2864}要的长瘤的灌木兽和塑根者留到约51级经{area:1938}前往安戈洛时再打。"
-	["West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave {quest:2864}'s Gnarled Thistleshrubs and Rootshapers (49-50) for the {area:1938} ride into Un'Goro at about 51."] = "",
+	["West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave {quest:2864}'s Gnarled Thistleshrubs and Rootshapers (49-50) for the {area:1938} ride into Un'Goro at about 51."] = "营地西侧的山谷遍布仙人掌般的生物，只有灌木露水收集者（47-48级）携带露水腺。{zone:1446}的大多数怪物都有很低的概率掉落OOX-17/TN定位器，捡到了就留着。\n小心，这里其他灌木怪为48-50级，经常四处游荡，很容易多引怪。在山谷边缘打灌木露水收集者。{quest:2864}要打的长瘤的灌木兽和灌木塑根者（49-50级），留到约51级经{area:1938}前往安戈洛环形山时再打。",
 	-- {item:8623} OOX-17/TN Distress Beacon
 	["{item:8623}, a rare drop"] = "{item:8623}，稀有掉落",
 
@@ -113,12 +112,11 @@ return {
 
 	-- Step 24: Andi Lynn
 	-- {npc:11758} Andi Lynn · {area:983} Dunemaul Compound
-	["{npc:11758} stands a few steps from Bilgewhizzle: the {area:983}."] = "",
+	["{npc:11758} stands a few steps from Bilgewhizzle: the {area:983}."] = "{npc:11758}离比格维兹只有几步远，在这里交{area:983}的任务。",
 
 	-- Step 25: Gadgetzan
 	-- {quest:2864} Tran'rek · {quest:3362} Thistleshrub Valley · {area:1938} Broken Pillar
-	-- was: ["Keep {quest:2864}'s {quest:3362}: its Rootshapers (49-50) come with the {area:983} at the {area:1938}, on the way into Un'Goro at about 51."] = "保留{quest:2864}的{quest:3362}：其中的塑根者（49-50级）和{area:983}一起，在约51级经{area:1938}前往安戈洛时完成。"
-	["Keep {quest:2864}'s {quest:3362}: its Rootshapers (49-50) come at the {area:1938}, on the way into Un'Goro at about 51."] = "",
+	["Keep {quest:2864}'s {quest:3362}: its Rootshapers (49-50) come at the {area:1938}, on the way into Un'Goro at about 51."] = "先留着{quest:2864}给的{quest:3362}。任务要打的灌木塑根者（49-50级），留到约51级经{area:1938}前往安戈洛环形山时再打。",
 	-- {item:8526} Violet Tragan · {zone:1425} Hinterlands
 	["the {item:8526} grows in the {zone:1425}, around level 48"] = "{item:8526}生长在{zone:1425}，大约48级时",
 	-- {npc:5594} Alchemist Pestlezugg
@@ -146,7 +144,7 @@ return {
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "交给{zone:1454}的{npc:7010}，大约50级时",
 	-- {item:4306} Silk Cloth · {npc:8661} Auctioneer Beardo · {quest:4449} Caught! · {area:247} Grimesilt Dig Site · {zone:1427} Searing Gorge
-	["{item:4306}: {npc:8661}, for {quest:4449} at the {area:247} in the {zone:1427}"] = "",
+	["{item:4306}: {npc:8661}, for {quest:4449} at the {area:247} in the {zone:1427}"] = "{item:4306}：找{npc:8661}购买，留给{quest:4449}。交任务的{area:247}位于{zone:1427}",
 
 	-- Step 31: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
@@ -163,8 +161,7 @@ return {
 	-- Step 34: The Grimesilt Dig Site
 	-- {area:16727} Powderfuse Port · {zone:1427} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth · {area:976} Gadgetzan
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
-	-- was: ["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "从 {area:16727} 骑行，经东侧山口进入 {zone:1427}，再向西到挖掘场。{object:173265} 在挖掘场南端；黑铁地质学家就在它北边不远处挖掘。带上 15 个 {item:4306}（拍卖行有售）。"
-	["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring the 15 {item:4306} from {area:976}'s Auction House: the Geologists drop it only now and then."] = "",
+	["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring the 15 {item:4306} from {area:976}'s Auction House: the Geologists drop it only now and then."] = "从{area:16727}骑行，经东侧山口进入{zone:1427}，再向西到挖掘场。{object:173265}在挖掘场南端，黑铁地质学家就在它北边不远处挖掘。带上15块{item:4306}，从{area:976}的拍卖行购买。黑铁地质学家偶尔才会掉落。",
 	-- {object:173265} Wooden Outhouse
 	["the {object:173265}"] = "{object:173265}",
 
@@ -208,7 +205,7 @@ return {
 
 	-- Step 45: Velarok Windblade
 	-- {npc:8479} Velarok Windblade · {quest:3452} The Flame's Casing
-	["{npc:8479}: {quest:3452}, for the next guide's crossing of the gorge at about 52 (its Twilight cultists, elites 47-50, are at your level now)"] = "",
+	["{npc:8479}: {quest:3452}, for the next guide's crossing of the gorge at about 52 (its Twilight cultists, elites 47-50, are at your level now)"] = "{npc:8479}：先留着{quest:3452}，约52级按下一份指南穿过峡谷时再做（峡谷里的暮光教徒是47-50级精英，目前和你等级相近）",
 	-- {item:10552} Symbol of Ragnaros
 	["His next request needs the {item:10552} from elite cultists: leave it."] = "他的下一个请求需要精英信徒身上的{item:10552}：别接。",
 

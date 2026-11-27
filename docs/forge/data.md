@@ -626,6 +626,12 @@ It is merged over the private mechanics layers by their rules: the kind gains th
 it drives the route when it is high or another source agrees; the server's data can refute a kind,
 and a refuted kind is not added. A step with the same `n` as a known step replaces it.
 
+The steps' `fact`s, in step order, are the quest's `how` in the Codex (the note on Lookup's steps). One
+pair of steps is read for its ids too: a `collect` step with an NPC `target`, an `item` and a `count`,
+followed by a `use-item` step with no target, makes each of the quest's event objectives a use of the
+second step's item, with the gather before it (Powering the Pylons, 96018: four Coalesced Mana
+Crystals from the Unstable Mana Rifts before each pylon, then the Pile of Pylon Parts at it).
+
 Hand-checked fixes that win over every layer and always drive the route live in
 `forever-db/corrections/mechanics.json`, by quest id, each with its `source` and `note`: `params`
 replace ours of the same kind and item (or are added, with their kind at high confidence), and

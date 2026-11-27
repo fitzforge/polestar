@@ -609,11 +609,12 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- The guide's title sits in the navigator only when no tab names it.
 		local steps = nav.Steps:IsShown()
 
-		local skipW = nav.Skip:IsShown() and nav.Skip:GetWidth() + 4 or 0
-		local reportW = nav.Report:IsShown() and nav.Report:GetWidth() or 0
-		local nearbyW = nav.Nearby:IsShown() and nav.Nearby:GetWidth() or 0
-		local lookupW = nav.Lookup:GetWidth()
-		local titleW = width - PAD - (steps and nav.Steps:GetWidth() + 12 or 0) - 24 - 8 - 8 - (nav.Close:IsShown() and 18 or 0) - skipW - reportW - nearbyW - lookupW
+		-- Skip and every header button shown (nav.psButtons) take their room.
+		local buttonsW = nav.Skip:IsShown() and nav.Skip:GetWidth() + 4 or 0
+		for _, b in ipairs(nav.psButtons) do
+			if b:IsShown() then buttonsW = buttonsW + b:GetWidth() end
+		end
+		local titleW = width - PAD - (steps and nav.Steps:GetWidth() + 12 or 0) - 24 - 8 - 8 - (nav.Close:IsShown() and 18 or 0) - buttonsW
 		-- At the minimum width the controls take the row; the title must not sit
 		-- behind Skip (notably in compact mode with one guide, where no strip shows).
 		-- A layout that sets the row out itself (nav.psFitTitle) sizes and hides the title.

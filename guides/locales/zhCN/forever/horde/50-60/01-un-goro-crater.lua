@@ -111,7 +111,7 @@ return {
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "{npc:9117}：在地下",
 	-- {npc:9997} Spraggle Frock · {npc:9999} Ringo
-	["{npc:9997}, beside the flight master: {npc:9999} is found at the end of this loop"] = "",
+	["{npc:9997}, beside the flight master: {npc:9999} is found at the end of this loop"] = "{npc:9997}在飞行管理员旁边，本次环线走到最后会遇到{npc:9999}",
 	-- {npc:9118} Larion · {quest:4147} Marvon's Workshop · {npc:8737} Linken
 	["Keep {npc:9118}'s {quest:4147} and {npc:8737}'s letter for later guides."] = "留着{npc:9118}的{quest:4147}和{npc:8737}的信，在之后的指南中使用。",
 
@@ -161,7 +161,7 @@ return {
 	-- Step 32: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer · {npc:10302} Krakle
 	-- plural, as words: Living Blazes = {npc:6521} Living Blaze · Scorching Elementals = {npc:6520} Scorching Elemental
-	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}.\nCareful: Living Blazes (54-55) and Scorching Elementals (53-54) burn on the slopes: ride up the path and pull only what stands on it."] = "",
+	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}.\nCareful: Living Blazes (54-55) and Scorching Elementals (53-54) burn on the slopes: ride up the path and pull only what stands on it."] = "向东前往{area:537}，爬上山，在山顶附近的熔岩喷口使用{npc:10541}，再向西回去找{npc:10302}。\n小心，有生烈焰（54-55级）和灼热元素（53-54级）在山坡上活动。沿小路骑上去，只引路上的怪。",
 
 	-- Step 33: Krakle
 	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
@@ -169,7 +169,7 @@ return {
 
 	-- Step 34: Ringo
 	-- {area:537} Fire Plume Ridge · {npc:9999} Ringo
-	["Ride east again to the foot of {area:537}: {npc:9999} sits on its eastern slope, lost and exhausted."] = "",
+	["Ride east again to the foot of {area:537}: {npc:9999} sits on its eastern slope, lost and exhausted."] = "再次向东骑到{area:537}山脚。{npc:9999}迷了路，精疲力尽地坐在东坡上。",
 
 	-- Step 35: Escort Ringo
 	-- {npc:9999} Ringo
@@ -179,7 +179,7 @@ return {
 
 	-- Step 36: J.D. Collie
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:9117} J.D. Collie
-	["{area:541}: {npc:9997} beside the flight master, {npc:9117} below ground."] = "",
+	["{area:541}: {npc:9997} beside the flight master, {npc:9117} below ground."] = "{area:541}：{npc:9997}在飞行管理员旁边，{npc:9117}在地下。",
 	-- {npc:9997} Spraggle Frock
 	["{npc:9997}, beside the flight master"] = "{npc:9997}，在飞行管理员旁",
 	["Below ground"] = "在地下",
@@ -226,24 +226,23 @@ return {
 
 	-- Step 47: Kargath's poster
 	-- {area:340} Kargath
-	["{area:340}'s poster"] = "",
+	["{area:340}'s poster"] = "{area:340}的通缉告示",
 	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {area:340} Kargath
-	-- was: ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "为接下来途经{area:254}的{area:1584}之行做准备：{area:340}的{object:164867}告示要你削减副本内铁怒矮人的数量。"
-	["For your {area:1584} run, next, on the way through {area:254}: the WANTED poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "",
+	["For your {area:1584} run, next, on the way through {area:254}: the WANTED poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "接下来打{area:1584}时会经过{area:254}。{area:340}的通缉告示要求击杀副本里的铁怒矮人。",
 
 	-- Step 48: Thunderheart
 	-- {npc:9084} Thunderheart · {area:340} Kargath · {quest:3906} Disharmony of Flame · {npc:9026} Overmaster Pyron · {area:1584} Blackrock Depths · {area:254} Blackrock Mountain
-	["{npc:9084} stands in {area:340} beside the Hierophant. His {quest:3906} is {npc:9026} (52, elite), at the {area:1584} portal inside {area:254}, on the way through the mountain: a fight for a group."] = "",
+	["{npc:9084} stands in {area:340} beside the Hierophant. His {quest:3906} is {npc:9026} (52, elite), at the {area:1584} portal inside {area:254}, on the way through the mountain: a fight for a group."] = "{npc:9084}在{area:340}，站在大祭司塞朵拉·穆瓦丹尼旁边。他给的{quest:3906}要打{npc:9026}（52级精英）。目标守在{area:1584}入口，位于{area:254}内部，穿过这座山时组队去打。",
 
 	-- Step 49: Into the Searing Gorge
 	-- {zone:1427} Searing Gorge
 	["Into the {zone:1427}"] = "进入{zone:1427}",
 	-- {area:340} Kargath · {zone:1427} Searing Gorge · {npc:8479} Velarok Windblade · {area:1446} Thorium Point
-	["Take the pass out of {area:340}'s west side into the {zone:1427} and ride west to {npc:8479}, on the rim of the Cauldron south of {area:1446}."] = "",
+	["Take the pass out of {area:340}'s west side into the {zone:1427} and ride west to {npc:8479}, on the rim of the Cauldron south of {area:1446}."] = "从{area:340}西边的山口进入{zone:1427}，再向西骑去找{npc:8479}。他在大熔炉边缘，位于{area:1446}以南。",
 
 	-- Step 51: The Flame's Casing
 	-- {npc:8479} Velarok Windblade · {item:10552} Symbol of Ragnaros
-	["The Twilight's Hammer cultists camp in the hills west of {npc:8479}. The {item:10552} drops from their Dark Shamans (47-48), Fire Guards (48-49) and Geomancers (49-50): elites, but two to five levels under you now, so one at a time is fine. The Idolaters (49-51) at the altar further north drop it too, more rarely: leave them alone."] = "",
+	["The Twilight's Hammer cultists camp in the hills west of {npc:8479}. The {item:10552} drops from their Dark Shamans (47-48), Fire Guards (48-49) and Geomancers (49-50): elites, but two to five levels under you now, so one at a time is fine. The Idolaters (49-51) at the altar further north drop it too, more rarely: leave them alone."] = "暮光之锤的信徒在{npc:8479}西边的丘陵扎营。暮光黑暗萨满祭司（47-48级）、暮光火焰卫士（48-49级）和暮光地占师（49-50级）会掉落{item:10552}。这些怪都是精英，比你现在低两到五级，一次打一只就行。更北边祭坛的暮光崇拜者（49-51级）也会掉落，概率更低，别去打。",
 
 	-- Step 53: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade
@@ -258,26 +257,25 @@ return {
 	["Sentry Braziers"] = "哨兵火盆",
 	-- {object:149047} Torch of Retribution
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
-	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east."] = "",
+	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east."] = "带着{object:149047}沿大熔炉边缘向南走，从西南绕到东边，点燃四个哨岗火盆。",
 
 	-- Step 56: Squire Maltrake
 	-- {npc:8509} Squire Maltrake · {npc:8479} Velarok Windblade
-	["Back north to {npc:8509} beside {npc:8479}."] = "",
+	["Back north to {npc:8509} beside {npc:8479}."] = "向北回去找{npc:8509}，他在{npc:8479}旁边。",
 	-- {object:149502} Hoard of the Black Dragonflight · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous · {zone:1428} Burning Steppes
-	["The {object:149502} holds a {item:10575}: keep it for {npc:9459} in the {zone:1428}"] = "",
+	["The {object:149502} holds a {item:10575}: keep it for {npc:9459} in the {zone:1428}"] = "{object:149502}里有一张{item:10575}，留着交给{npc:9459}，他在{zone:1428}",
 
 	-- Step 57: Into Blackrock Mountain
 	-- {area:254} Blackrock Mountain
-	["Into {area:254}"] = "",
+	["Into {area:254}"] = "进入{area:254}",
 	-- {area:254} Blackrock Mountain
-	-- was: ["Take the pass out of {area:340}'s west side into the {zone:1427}, then ride south across the gorge to the long bridge into {area:254}. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals."] = "从{area:340}西侧的山口进入{zone:1427}，然后向南穿过峡谷，走上通往{area:254}的长桥。进去后沿着铁链走道往下走，从南边的出口离开；别走通往地下城传送门的路。"
-	["Ride south across the gorge to the long bridge into {area:254}. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals."] = "",
+	["Ride south across the gorge to the long bridge into {area:254}. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals."] = "向南骑行穿过峡谷，走上通往{area:254}的长桥。进去后沿铁链走道向下，从南边的出口离开。别走通往副本入口的岔路。",
 	-- {area:254} Blackrock Mountain
 	["Bridge into {area:254}"] = "通往{area:254}的桥",
 
 	-- Step 58: Overmaster Pyron
 	-- {npc:9026} Overmaster Pyron · {area:1584} Blackrock Depths
-	["With your group: {npc:9026} (52, elite) guards the way to the {area:1584} portal, down the walkways inside the mountain."] = "",
+	["With your group: {npc:9026} (52, elite) guards the way to the {area:1584} portal, down the walkways inside the mountain."] = "和队友沿山内的走道往下走。{npc:9026}（52级精英）守在通往{area:1584}入口的路上。",
 
 	-- Step 59: Blackrock Depths
 	-- {area:1584} Blackrock Depths · {zone:1428} Burning Steppes
@@ -303,19 +301,18 @@ return {
 
 	-- Step 64: Cyrus Therepentous
 	-- {quest:3821} Dreadmaul Rock · {zone:1428} Burning Steppes · {object:149502} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
-	["Ride north-east from {quest:3821} to the small cave in the far east of the {zone:1428}. Open the {object:149502} from the {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight.\nCareful: Volchan (60, a rare fire elemental) roams the hills around {npc:9459}'s cave: if he is about, wait for him to pass."] = "",
+	["Ride north-east from {quest:3821} to the small cave in the far east of the {zone:1428}. Open the {object:149502} from the {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight.\nCareful: Volchan (60, a rare fire elemental) roams the hills around {npc:9459}'s cave: if he is about, wait for him to pass."] = "从{quest:3821}向东北骑到{zone:1428}最东边的小洞穴。打开{object:149502}，它是从{zone:1427}带来的。取出{item:10575}，再告诉{npc:9459}你带来了事迹的证明。这里不用打幼龙。\n小心，沃尔查（60级稀有火元素）在{npc:9459}洞穴周围的山丘上游荡。如果它在附近，等它走过去。",
 	-- {item:10575} Black Dragonflight Molt
 	["{item:10575}, from the hoard"] = "{item:10575}：从宝藏中获取",
 	-- {npc:9459} Cyrus Therepentous · {area:1584} Blackrock Depths
-	["{npc:9459}' next errand is in {area:1584}: leave it."] = "",
+	["{npc:9459}' next errand is in {area:1584}: leave it."] = "{npc:9459}的下一个任务要去{area:1584}，跳过。",
 
 	-- Step 65: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "{area:250}：沿途击杀以下目标",
 	-- {quest:4296} Tablet of the Seven · {area:251} Flame Crest · {npc:10267} Tinkee Steamboil · {item:12284} Draco-Incarcinatrix 900 · {npc:7040} Black Dragonspawn · {npc:7044} Black Drake
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
-	-- was: ["Ride west to the dig site. The {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence.\nCareful: a {npc:7040} and a {npc:7044}, elites of 50-53, wander the same hills: pull the broodlings away from them, or bring a group."] = "向西骑往挖掘场。{quest:4296}矗立在挖掘场中央的索瑞森矮人之间。拓印它。\n黑色小龙在{area:251}正东的山丘中筑巢。将小龙打到濒死后，对它使用{npc:10267}的{item:12284}，捕获其精华。\n小心：一只{npc:7040}和一只{npc:7044}（50-53级精英）在同一片山丘游荡：把小龙拉离它们，或者组队前来。"
-	["Ride west to the dig site. The {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence.\nCareful: a {npc:7040} and a {npc:7044}, elites of 50-53, wander the same hills, and Volchan (60, a rare fire elemental) roams them too: pull the broodlings away from them, or bring a group."] = "",
+	["Ride west to the dig site. The {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence.\nCareful: a {npc:7040} and a {npc:7044}, elites of 50-53, wander the same hills, and Volchan (60, a rare fire elemental) roams them too: pull the broodlings away from them, or bring a group."] = "向西骑到挖掘场。{quest:4296}立在挖掘场中央，周围是索瑞森矮人。拓印石板。\n黑色小龙在{area:251}正东的山丘上筑巢。等小龙濒死时，对它使用{npc:10267}的{item:12284}，捕获它的精华。\n小心，一只{npc:7040}和一只{npc:7044}（50-53级精英）在同一片山丘游荡，沃尔查（60级稀有火元素）也在这里。把黑色小龙引到远离它们的地方再打，或者组队前来。",
 
 	-- Step 66: Flame Crest
 	-- {area:251} Flame Crest
@@ -348,7 +345,7 @@ return {
 	-- Step 75: Undercity
 	-- {npc:8390} Chemist Cuely · {item:10695} Box of Empty Vials · {zone:1447} Azshara
 	-- plural, as words: Empty Vials = {item:3371} Empty Vial
-	["{npc:8390}, the Apothecarium: a {item:10695} comes with the quest. Keep four bag slots free and open it for Empty Vials Labeled #1 to #4, filled in {zone:1447} later"] = "",
+	["{npc:8390}, the Apothecarium: a {item:10695} comes with the quest. Keep four bag slots free and open it for Empty Vials Labeled #1 to #4, filled in {zone:1447} later"] = "到炼金房找{npc:8390}，接任务时会拿到{item:10695}。留出四个背包格，打开盒子取出空瓶子#1至#4，之后去{zone:1447}装满",
 	-- {npc:5204} Apothecary Zinge
 	["{npc:5204}, near Cuely in the Apothecarium"] = "{npc:5204}在炼金房，科雷附近",
 

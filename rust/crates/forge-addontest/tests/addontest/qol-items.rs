@@ -811,6 +811,24 @@ fn banner_bags_full_offers_the_two_click_delete_and_close_dismisses_it() {
 	assert_eq!(out[2], json!({ "shown": false, "log": ["press", "dismiss"] }));
 }
 
+// #4314 (Shuurajou, Atlas): with the action on the right (guideWindow.bannerLinks "right", Atlas's), the armed
+// "Click again to delete it" was cut at the right's room and read "Click again to…". A label longer than that room
+// goes under the text at the right, whole.
+#[test]
+fn banner_bags_with_the_action_on_the_right_the_armed_delete_link_reads_whole_4314() {
+	let out = run_ui(
+		r#"
+		Polestar.Set("guideWindow.bannerLinks", "right")
+		bags = { free = 0, junk = { id = 2, count = 2, value = 14, link = "[Broken Fang]" }, armed = false }
+		Polestar.Fire("BAG_SPACE")
+		B.Jump:Click()
+		local point, rel, relPoint = B.Jump:GetPoint(1)
+		emit({ text = B.Jump.Label:GetText(), cut = B.Jump.Label:IsTruncated(), point = point, under = rel == B.Text, relPoint = relPoint })
+	"#,
+	);
+	assert_eq!(out[0], json!({ "text": "Click again to delete it", "cut": false, "point": "TOPRIGHT", "under": true, "relPoint": "BOTTOMRIGHT" }));
+}
+
 // Without junk or a spare bag the notice is the news alone: one line, no link row under it.
 #[test]
 fn banner_bags_full_without_junk_says_only_that_the_bags_are_full() {

@@ -559,6 +559,18 @@ version throughout.
    update" or any other size or hype claim, in any of the texts. Promise
    only what works in the zip that ships, data packs included.
 
+   The GitHub notes end with a generated `## Contributors` section that tags
+   every GitHub login that contributed to this release (the range from the
+   previous release tag to the release ref: pull request authors, translators
+   included, co-authors, reporters of the issues it closes, shipped ideas;
+   never the maintainer or bots), so GitHub lists them on the release. It
+   `@mention`s real people, who are notified when the release is published:
+   check the list `forge release notes` prints (each login with why) before
+   publishing, and keep the section as generated (a name to add or drop goes
+   into `data/credits.json` `github` or `exclude`, so the next release does
+   the same). The public-text rule covers it like the rest: run
+   `node tools/public-text.js dist/notes-0.2.0.md` over the notes.
+
    Then the two Discord texts, built from the final notes (not the
    fragments), each post under 3,900 characters, covering the addon and
    the Polestar Client and Recorder together:
@@ -573,7 +585,8 @@ version throughout.
      fit: post 1 "# Polestar 0.2.0 Patch Notes", the date, the notes'
      first sentence in bold, the rest of the opening and "## How to
      update"; then "## For players" over as many posts as it takes; the
-     last post the thanks. Leave out the contributor section.
+     last post the thanks. Leave out the changelog's contributor entries (the
+     Contributors section is the GitHub notes' only).
 
 9. Close the issues the release fixes (its issue list and the milestone's
    closed-by-PR issues still open) BEFORE publishing: the Discord release

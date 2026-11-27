@@ -24,16 +24,15 @@ return {
 	-- {npc:6986} Dran Droffers
 	["{npc:6986}, the Drag"] = "{npc:6986}，在暗巷区",
 	-- {zone:1425} Hinterlands
-	-- was: ["for the {zone:1425}, around level 50"] = "留到{zone:1425}，大约50级时"
-	["for the {zone:1425}, around level 49"] = "",
+	["for the {zone:1425}, around level 49"] = "留到去{zone:1425}时再做，大约49级",
 
 	-- Step 3: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "飞往{area:1638}",
 	-- {area:1638} Thunder Bluff · {area:1099} Camp Mojache
-	["Your trainer is in {area:1638}, on the way to {area:1099}."] = "",
+	["Your trainer is in {area:1638}, on the way to {area:1099}."] = "职业训练师在{area:1638}，去{area:1099}时顺路过去。",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "{zone:1454}飞行管理员",
 
 	-- Step 5: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
@@ -43,18 +42,17 @@ return {
 
 	-- Step 6: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache · {zone:1444} Feralas · {zone:1446} Tanaris
-	["Fly to {area:1099} (or hearth there, if your hearthstone is ready: it is still bound there from the {zone:1444} & {zone:1446} guide)."] = "",
+	["Fly to {area:1099} (or hearth there, if your hearthstone is ready: it is still bound there from the {zone:1444} & {zone:1446} guide)."] = "飞往{area:1099}（如果炉石可用，也可以直接用炉石过去。按《{zone:1444}和{zone:1446}》指南设的炉石还绑在那里）。",
 
 	-- Step 7: Camp Mojache
 	-- {zone:1425} Hinterlands
-	-- was: ["for the {zone:1425} owlbeasts, around level 48"] = "交给{zone:1425}的枭兽任务，大约48级时"
-	["for the {zone:1425} owlbeasts, around level 49"] = "",
+	["for the {zone:1425} owlbeasts, around level 49"] = "留到去{zone:1425}打枭兽时再做，大约49级",
 
 	-- Step 8: Fly to Brackenwall Village
 	-- {area:496} Brackenwall Village
 	["Fly to {area:496}"] = "飞往{area:496}",
 	-- {zone:1444} Feralas · {zone:1446} Tanaris · {area:496} Brackenwall Village
-	["No Muisek vessel to bring Uzer'i (you didn't take the {zone:1444} & {zone:1446} guide's chain): fly from here straight to {area:496}."] = "",
+	["No Muisek vessel to bring Uzer'i (you didn't take the {zone:1444} & {zone:1446} guide's chain): fly from here straight to {area:496}."] = "如果没有灵魂精华容器要带给巫医尤克里（之前没接《{zone:1444}和{zone:1446}》指南里的任务线），就从这里直飞{area:496}。",
 
 	-- Step 9: Fly to Brackenwall Village
 	-- {area:1099} Camp Mojache
@@ -108,9 +106,9 @@ return {
 	["The Eggs of Onyxia lie in the dragon caves in the {area:511}'s south-east, guarded by the scalebanes; smash five."] = "奥妮克希亚的蛋在{area:511}东南的龙穴里，由火鬃守卫看守；砸碎五个。",
 
 	-- Step 19: Muckshell crabs
-	["Muckshell crabs"] = "",
+	["Muckshell crabs"] = "污壳龙虾人",
 	-- plural, as words: Muckshell Razorclaws = {npc:4405} Muckshell Razorclaw
-	["On the way back north from the dragon caves, the Muckshell Razorclaws and Pincers (41-44) crowd the shallows just north of the caves; about one in twenty carries the Jeweled Pendant Marg Speaks asks for."] = "",
+	["On the way back north from the dragon caves, the Muckshell Razorclaws and Pincers (41-44) crowd the shallows just north of the caves; about one in twenty carries the Jeweled Pendant Marg Speaks asks for."] = "从龙洞向北返回时，洞穴正北边不远的浅水区挤满了污壳锐爪龙虾人和污壳钳手龙虾人（41-44级）。约每二十只就有一只带着《玛尔格的嘱托》需要的宝石坠饰。",
 
 	-- Step 20: Level 45.37
 	["Level 45.37"] = "等级 45.37",
@@ -121,11 +119,11 @@ return {
 
 	-- Step 21: Brackenwall Village
 	-- {npc:4791} Nazeer Bloodpike · {item:5942} Jeweled Pendant
-	["{npc:4791}: the {item:5942}"] = "",
+	["{npc:4791}: the {item:5942}"] = "{npc:4791}：交{item:5942}",
 	-- {npc:4047} Zor Lonetree · {zone:1454} Orgrimmar · {zone:1447} Azshara
-	["for {npc:4047} in {zone:1454}, on the {zone:1447} guide's {zone:1454} stop"] = "",
+	["for {npc:4047} in {zone:1454}, on the {zone:1447} guide's {zone:1454} stop"] = "留着交给{npc:4047}，他在{zone:1454}。按{zone:1447}指南到{zone:1454}时再交",
 	-- {quest:3128} Natural Materials · {zone:1444} Feralas
-	["Keep {quest:3128} and Improved Quality: {zone:1444}' sprites, hippogryphs, Zorbin's coast and the Rage Scar yetis come on your {zone:1444} loop at about 51, with the Muisek chain."] = "",
+	["Keep {quest:3128} and Improved Quality: {zone:1444}' sprites, hippogryphs, Zorbin's coast and the Rage Scar yetis come on your {zone:1444} loop at about 51, with the Muisek chain."] = "先留着{quest:3128}和《更高的品质》。{zone:1444}的精灵龙、角鹰兽、索尔宾所在的海岸和怒痕雪人，都留到约51级跑{zone:1444}环线时，和灵魂精华任务线一起做。",
 
 	-- Step 22: Challenge Overlord Mok'Morokk
 	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb

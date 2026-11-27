@@ -304,6 +304,25 @@ test('inline Undo restores a page reset, then leaves after 10 s', () => {
 	assert.equal(out.rowLeft, false);
 });
 
+test('a row\'s Undo link stands after its (i), not on it', () => {
+	const [out] = run(`
+		Polestar.UI.ShowOptions()
+		Polestar.Set("nav.upcomingPins", true)
+		O.Select("mappins", L["Pins"])
+		Polestar.Set("nav.stepFadeTo", 0.6)
+		O.ResetPage(O.page)
+		local found, after = false, false
+		for c, w in pairs(O.view.cache) do
+			if type(c) == "table" and c.key == "nav.stepFadeTo" and rawget(w, "UndoB") and w.UndoB:IsShown() then
+				found = true
+				after = select(2, w.UndoB:GetPoint(1)) == w.Info
+			end
+		end
+		emit({ found = found, after = after })`);
+	assert.equal(out.found, true, 'the reset row shows its Undo');
+	assert.equal(out.after, true, 'anchored after the (i)');
+});
+
 test('the current page keeps its footer and builds no ···', () => {
 	const [out] = run(`
 		Polestar.UI.ShowOptions("guide")

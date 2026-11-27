@@ -196,15 +196,21 @@ ns.UI.GuideFrame.Part(function(GF)
 		["ui.combat"] = function() GF.ApplyVisibility(); GF.ApplyAlpha(false) end,
 		["ui.font"] = function() GF.Layout() end,
 		["nav.nearbyButton"] = function()
-			GF.ApplyNearby()
+			GF.ApplyHeader()
 			GF.Layout()
 		end,
 	}
 
-	-- The Nearby services button, while nav.nearbyButton is on; Skip sits left
-	-- of whichever button is right of it.
-	function GF.ApplyNearby()
+	-- The header's actions the player puts there (guideWindow.lookupButton,
+	-- nav.nearbyButton and the menu's own: Settings, Quick settings, Hand in,
+	-- Choose guide); off, the guide menu has them. Skip sits left of the last.
+	function GF.ApplyHeader()
+		nav.Lookup:SetShown(GF.On("lookupButton"))
 		nav.Nearby:SetShown(ns.Get("nav.nearbyButton") ~= false)
+		nav.Settings:SetShown(GF.On("settingsButton"))
+		nav.QuickSettings:SetShown(UI.QuickSettings ~= nil and GF.On("quickSettingsButton"))
+		nav.HandIn:SetShown(GF.On("handInButton"))
+		nav.ChooseGuide:SetShown(GF.On("chooseGuideButton"))
 		anchorSkip()
 	end
 
@@ -218,7 +224,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			GF.ApplyPosition()
 		end
 		GF.ApplyLock()
-		GF.ApplyNearby()
+		GF.ApplyHeader()
 		GF.ApplyWidth()
 		GF.ApplyAlpha(false)
 		GF.ApplyStyle()

@@ -720,10 +720,22 @@ function UI.FinderLine(goal)
 end
 
 -- A guide as the guide list names it, with its levels: "Badlands &
--- Desolace (37–38)"; just the title (or id) when it has none.
+-- Desolace (37–38)"; just the title (or id) when it has none, or when the
+-- title already says them ("6-11 Elwynn Forest", a pack's own naming).
+local function titleHasLevels(title, lo, hi)
+	if not lo then return false end
+	hi = hi or lo
+	if lo == hi then return title:find("%f[%d]" .. lo .. "%f[%D]") ~= nil end
+	for _, dash in ipairs({ "%-", "\226\128\147" }) do
+		if title:find("%f[%d]" .. lo .. "%s*" .. dash .. "%s*" .. hi .. "%f[%D]") then return true end
+	end
+	return false
+end
+
 function UI.GuideLabel(g)
 	local title = g.title or g.id
 	local lv = UI.GuideLevels(g)
+	if lv and titleHasLevels(tostring(title), ns.Guides.Levels(g)) then lv = nil end
 	return lv and (title .. " (" .. lv .. ")") or title
 end
 

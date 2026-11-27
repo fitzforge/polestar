@@ -38,6 +38,8 @@ ns.RegisterDefaults("nav", {
 	arrowEta = true,
 	-- Hiding the guide window (ui.shown) hides the arrow too (Nav.HiddenWithGuide).
 	hideArrowWithGuide = false,
+	-- Hiding the guide window hides the guide's map pins and route lines too (Nav.PinsHiddenWithGuide).
+	hidePinsWithGuide = false,
 	worldPins = true,
 	minimapPins = true,
 	minimapRoute = true, -- the route line (or trail) on the minimap; off keeps the pin (Maps/RouteLines.lua, Nav/Layers.lua)
@@ -1193,6 +1195,15 @@ end
 -- Polestar takes the arrow by ns.ArrowHidden, not by this.
 function Nav.HiddenWithGuide()
 	if ns.GuideWindowOn() or not ns.Get("nav.hideArrowWithGuide") then return false end
+	return hold == nil
+end
+
+-- The same for the guide's pins and route lines on the world map and the
+-- minimap (Nav/Layers.lua, Maps/RouteLines.lua): only with
+-- nav.hidePinsWithGuide on, and never while the arrow is held, so the way
+-- back to your corpse stays on the map.
+function Nav.PinsHiddenWithGuide()
+	if ns.GuideWindowOn() or not ns.Get("nav.hidePinsWithGuide") then return false end
 	return hold == nil
 end
 

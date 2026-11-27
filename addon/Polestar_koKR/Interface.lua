@@ -149,7 +149,7 @@
 --   %s. Optional: the route doesn't need it.
 --   Kept for %s
 --   Hand in %s to %s, who walks around here: look inside the circle on the map
---   A quest you carry that the route does not work here: its work is nearby.
+--   A quest in your log with an objective nearby that the route doesn't do here.
 --   %s at %s
 --   Only visible while dead: die nearby and talk to them as a ghost.
 --   Under water nearby: swim down to it
@@ -569,6 +569,7 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+--   Profession routes: based on the guides by Peter at WoW-Professions.com.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "koKR") then return end
@@ -805,7 +806,7 @@ L["%s; 1 in %d runs fails"] = "%s; %d번에 1번 실패"
 L["%s. Optional: the route doesn't need it."] = "%s. 선택 사항: 경로에 필요하지 않습니다."
 L["Kept for %s"] = "%s용으로 보관"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "%s 퀘스트를 %s에게 제출하십시오. 이 근처를 돌아다닙니다: 지도의 원 안을 살펴보십시오"
-L["A quest you carry that the route does not work here: its work is nearby."] = "경로가 여기서 진행하지 않는, 가지고 있는 퀘스트입니다: 할 일이 근처에 있습니다."
+L["A quest in your log with an objective nearby that the route doesn't do here."] = "경로가 여기서 진행하지 않는, 가지고 있는 퀘스트입니다: 할 일이 근처에 있습니다."
 L["%s at %s"] = "%s - %s"
 L["Buy a rune at %s"] = "%s에게서 룬 구입"
 L["Buy a rune and cast %s to save about %s"] = "룬을 사서 %s 시전, 약 %s 절약"
@@ -940,7 +941,6 @@ L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the 
 L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."] = "Polestar가 일시 정지되었습니다: 던전에서 살아서 나오거나 /polestar resume을 입력하면 화살표가 다시 가이드를 따릅니다."
 
 -- Nav/Arrow.lua
-L["The last steps here aren't mapped"] = "이곳의 마지막 몇 걸음은 지도에 없습니다"
 L["Search here"] = "여기서 찾기"
 L["Arrived"] = "도착"
 L["Click the arrow for the next spot"] = "화살표를 클릭하면 다음 지점"
@@ -3064,6 +3064,7 @@ L["Quest and map data includes pfQuest by shagu (MIT License)."] = "퀘스트 �
 L["Discord and its logo are trademarks of Discord Inc.; the logo marks the link to the Polestar Discord."] = "Discord와 로고는 Discord Inc.의 상표입니다. 로고는 Polestar Discord 링크를 나타냅니다."
 L["With EllesmereUI installed, Polestar can follow its accent, font and panel colour through its public skinning API."] = "EllesmereUI가 설치되어 있으면 Polestar가 공개 스킨 API로 그 강조색, 글꼴, 패널 색을 따를 수 있습니다."
 L["Gear scores from Forever Leveling BiS by Timearc when it is installed, through its public API."] = "Forever Leveling BiS(Timearc 제작)가 설치되어 있으면 공개 API로 장비 점수를 가져옵니다."
+L["Profession routes: based on the guides by Peter at WoW-Professions.com."] = "전문 기술 루트: WoW-Professions.com의 Peter의 가이드를 바탕으로 합니다."
 L["Maintenance"] = "관리"
 L["Reset all settings"] = "모든 설정 초기화"
 L["Every Polestar setting back to default. Progress is kept."] = "모든 Polestar 설정을 기본값으로. 진행 상황은 유지됩니다."
@@ -5073,7 +5074,6 @@ L["Title menu"] = "제목 메뉴"
 L["On the top edge"] = "위쪽 가장자리"
 L["Down the left side"] = "왼쪽 세로"
 L["Default (%s)"] = "기본값 (%s)"
-L["A button in the step bar that opens every step of the guide in one list. The step number and the guide menu open it too."] = "가이드의 모든 단계를 한 목록으로 여는 단계 막대의 버튼입니다. 단계 번호와 가이드 메뉴로도 열 수 있습니다."
 L["Steps before"] = "이전 단계"
 L["How many of the steps before this one show over it, one dimmed line each, done or skipped; 0 turns them off. Click one to go back to it."] = "이 단계 위에 표시할 이전 단계 수입니다. 완료했거나 건너뛴 단계가 하나씩 흐린 줄로 표시되며, 0이면 끕니다. 하나를 클릭하면 그 단계로 돌아갑니다."
 L["Journey style"] = "여정 스타일"
@@ -5618,7 +5618,6 @@ L["%d changed"] = "%d개 변경됨"
 L["What Polestar does for you while you level: suggestions, quests, rewards, buttons, rares."] = "레벨업하는 동안 Polestar가 해 주는 일: 제안, 퀘스트, 보상, 버튼, 희귀 몬스터."
 L["The arrow, its routes, and what Polestar draws on the world map and the minimap."] = "화살표와 경로, 그리고 Polestar가 세계 지도와 미니맵에 그리는 것."
 L["The theme every Polestar window wears, the action buttons, the alert cards and the trackers."] = "모든 Polestar 창의 테마, 행동 버튼, 알림 카드, 추적기."
-L["Profiles, other addons, community guides and gamepad."] = "프로필, 다른 애드온, 커뮤니티 가이드, 게임패드."
 L["Pinned"] = "고정됨"
 L["Pinned, not available here: %d"] = "고정됨, 여기서 사용할 수 없음: %d"
 L["Pin a setting with the flag on its row."] = "행의 깃발로 설정을 고정하세요."
@@ -5748,6 +5747,13 @@ L["Kept for %s: the route hands it in there."] = "%s용으로 보관: 경로가 
 L["No quests in your log are ready to hand in."] = "퀘스트 목록에 제출할 준비가 된 퀘스트가 없습니다."
 L["Wait until combat ends to load the quest data."] = "퀘스트 데이터를 불러오려면 전투가 끝날 때까지 기다리세요."
 L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "퀘스트 제출 가이드를 불러오지 못했습니다. Polestar_FreeMode 애드온이 설치되어 켜져 있는지 확인하세요."
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["None of these has a known place to hand it in."] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
 
 -- Lookup/Free.lua
 L["Free mode starts after combat."] = "자유 모드는 전투가 끝난 뒤 시작합니다."
@@ -5759,6 +5765,33 @@ L["Free mode: follow your own quests (on, off, nearest, xp)"] = "자유 모드: 
 -- UI/QuestLinks.lua
 L["Start quest guide"] = "퀘스트 가이드 시작"
 L["Click to show quest guide actions."] = "클릭하면 퀘스트 가이드 동작을 보여 줍니다."
+
+-- Free.lua
+-- L["Low drop rate: %s"] = ""
+-- L["1 quest for your level: %s gives it."] = ""
+-- L["%d quests for your level, all here."] = ""
+-- L["%d quests for your level, %d of them here."] = ""
+-- L["Quests for your level"] = ""
+-- L["About %s XP a minute"] = ""
+-- L["Order: nearest first"] = ""
+-- L["Order: most XP a minute first"] = ""
+-- L["Bring back left-out quests (%d)"] = ""
+-- L["Unpin"] = ""
+-- L["Pin to the top"] = ""
+-- L["Free mode takes this quest first, whatever the order."] = ""
+-- L["Leave out of Free mode"] = ""
+-- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = ""
+
+-- Layouts/Atlas/Atlas.lua
+-- L["Get ahead, if possible"] = ""
+-- L["Still open from steps you have passed"] = ""
+-- L["1 quest off-guide"] = ""
+-- L["%d quests off-guide"] = ""
+-- L["View"] = ""
+-- L["Training due"] = ""
+-- L["New spells at your class trainer"] = ""
+-- L["Optional objectives during this step"] = ""
+-- L["Class quest"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar를 한 페이지씩 다시 설정합니다. 선택은 바로 적용됩니다."
@@ -6028,6 +6061,7 @@ L["Click to show quest guide actions."] = "클릭하면 퀘스트 가이드 동�
 -- L["Max height"] = "최대 높이"
 -- L["%s: on this step"] = "%s: 같은 단계"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "내가 받은 퀘스트를 자체 탭의 가이드로: 화살표가 가장 가까운 퀘스트로, 그다음 퀘스트로 안내합니다 (/polestar free)."
+-- L["The last steps here aren't mapped"] = "이곳의 마지막 몇 걸음은 지도에 없습니다"
 -- L["None of these has a known place to hand it in."] = "이 중 제출 장소가 알려진 퀘스트가 없습니다."
 -- L["Travel time to this hand-in is unknown. Its location is still shown."] = "이 제출 장소까지의 이동 시간을 알 수 없습니다. 위치는 계속 표시됩니다."
 -- L["Hand-ins without a known location"] = "위치를 모르는 제출 퀘스트"

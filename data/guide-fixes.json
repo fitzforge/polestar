@@ -14754,7 +14754,7 @@
 				"quest": 575,
 				"goal": "accept"
 			},
-			"tip": "Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop.",
+			"tip": "Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of this loop, and again at the end of the second loop, after Desolace.",
 			"note": "#2419 (Onrevax): 30-40/04-stranglethorn-vale walked the length of the jungle from Nesingwary's camp to Booty Bay for its flight point and quests, flew to Sentinel Hill and walked back in to work them in the north. Since 0.4.1 the guide starts at Booty Bay: 30-40/03-ashenvale ends in Theramore, so it goes on to Ratchet (flight point) and its boat, takes Booty Bay's quests and the inn bind first, walks north once, and the hearthstone brings the player back at the end of the loop (route-fixes deliberate.pairs). Level model (rested, 28 Alliance branches): 15 minutes less in this guide, 13 minutes less to 60, no level and no over-level spot moved.",
 			"source": [
 				{
@@ -14767,6 +14767,25 @@
 				}
 			],
 			"issue": 2419
+		},
+		{
+			"id": "4479-stranglethorn-04b-hearth-back",
+			"faction": "Alliance",
+			"at": {
+				"quest": 577,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/30-40/04b-stranglethorn-vale"
+			},
+			"tip": "Then hearth back to Booty Bay: the hearthstone is still bound there from the first loop.",
+			"note": "#4479: the second Stranglethorn loop ends with the walk from the north of the jungle down to Booty Bay (about 8 minutes on foot on the walking grid from the Snapjaw Crocolisks). 30-40/02-desolace no longer binds at Nijel's Point, so the Booty Bay bind of the first loop (30-40/04) still stands and the addon's planner takes the Hearthstone there; the step says so.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings, 0.4.x: on 30-40/04b, 10 people walked from the north of the jungle to Booty Bay, 9 of them bound at Nijel's Point with the Hearthstone ready; 2 hearthed"
+				}
+			],
+			"pr": 4479
 		},
 		{
 			"id": "dun-morogh-gnomeregan-road-careful",
@@ -19029,6 +19048,29 @@
 				{ "kind": "in-game-check", "ref": "#4231 (Pokey): the jars in the bags are used on the ooze's corpse to fill them" }
 			],
 			"issue": 4231
+		},
+		{
+			"id": "4343-a-little-luck-optional",
+			"faction": "Horde",
+			"at": { "quest": 6606, "goal": "accept", "guide": "forever/horde/50-60/07-felwood" },
+			"optional": true,
+			"note": "#4343: A Little Luck (6606, Harlo Wigglesworth in Everlook) only sends the player to Witch Doctor Mau'ari, who gives Luck Be With You (969) without it. A player who took 969 straight from Mau'ari was held at Harlo's accept with no way on. The lead-in is optional: the step is done once 969 is taken.",
+			"source": [
+				{ "kind": "recording", "ref": "players' recordings: Luck Be With You (969) accepted at Witch Doctor Mau'ari (10307) by 15 people, A Little Luck (6606) by none (0 runs)" },
+				{ "kind": "in-game-check", "ref": "#4343 (Sekyno, 0.4.3.1): a level 59 Horde warrior with Luck Be With You taken was stuck on Harlo's accept, which could not be ticked off" }
+			],
+			"issue": 4343
+		},
+		{
+			"id": "4343-a-little-luck-turnin-optional",
+			"faction": "Horde",
+			"at": { "quest": 6606, "goal": "turnin", "guide": "forever/horde/50-60/07-felwood" },
+			"optional": true,
+			"note": "#4343: the hand-in of the optional lead-in A Little Luck (6606) at Witch Doctor Mau'ari goes with its accept (4343-a-little-luck-optional).",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#4343 (Sekyno, 0.4.3.1)" }
+			],
+			"issue": 4343
 		}
 	]
 }

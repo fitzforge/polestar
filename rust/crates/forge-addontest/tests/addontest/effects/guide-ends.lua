@@ -65,5 +65,29 @@ return {
 			end
 			return table.concat(out, ",")
 		end,
+		-- The quests off the route (#4288): two in the log no guide takes, one a dungeon's (the dungeon mark,
+		-- Dungeons.QuestMark, given for the check); counted, or the dungeon's left out.
+		["guideWindow.offRouteDungeons"] = {
+			prepare = function()
+				Polestar.RegisterGuide({ id = "test/offroute", pack = "test", title = "Off route", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411,
+					steps = { { goals = { { t = "accept", quest = 4641, title = "Your Place In The World", map = 1411, x = 42, y = 68 } } } } })
+				w.onQuest(1901, nil, "A dungeon's quest")
+				w.onQuest(1902, nil, "Another quest")
+				stub.fire("QUEST_LOG_UPDATE"); flush()
+				local D = Polestar.Dungeons
+				D.psQuestMark = D.QuestMark
+				D.QuestMark = function(q) if q == 1901 then return { key = "ragefire" } end end
+			end,
+			probe = function()
+				local list = Polestar.RoutePlan.OffRoute("test/offroute")
+				if not list then return false end
+				local out = {}
+				for i, r in ipairs(list) do out[i] = r.quest end
+				return table.concat(out, ",")
+			end,
+			cleanup = function()
+				local D = Polestar.Dungeons
+				D.QuestMark, D.psQuestMark = D.psQuestMark, nil
+			end },
 	},
 }

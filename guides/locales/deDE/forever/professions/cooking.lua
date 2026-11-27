@@ -14,9 +14,9 @@ return {
 
 	-- Step 2: Get Stringy Wolf Meat
 	-- {item:2672} Stringy Wolf Meat
-	["Get {item:2672}"] = "",
+	["Get {item:2672}"] = "Sammle {item:2672}",
 	-- {item:2672} Stringy Wolf Meat · {spell:2538} Charred Wolf Meat · {npc:118} Prowler · {zone:1429} Elwynn Forest
-	["You need 50 {item:2672} for {spell:2538} (1-50). It drops from {npc:118} (86%) in {zone:1429}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 50 {item:2672} for {spell:2538} (1-50). It drops from {npc:118} (86%) in {zone:1429}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 50 {item:2672} für {spell:2538} (1-50). Es fällt von {npc:118} (86%) in {zone:1429}. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 3: Charred Wolf Meat (1-50)
 	-- {spell:2538} Charred Wolf Meat · {object:29784} Basic Campfire
@@ -24,9 +24,9 @@ return {
 
 	-- Step 4: Get Chunk of Boar Meat
 	-- {item:769} Chunk of Boar Meat
-	["Get {item:769}"] = "",
+	["Get {item:769}"] = "Sammle {item:769}",
 	-- {item:769} Chunk of Boar Meat · {spell:2540} Roasted Boar Meat · {npc:1126} Large Crag Boar · {npc:1125} Crag Boar · {zone:1426} Dun Morogh
-	["You need 50 {item:769} for {spell:2540} (1-50). It drops from {npc:1126} (36%), {npc:1125} (34%) in {zone:1426}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 50 {item:769} for {spell:2540} (1-50). It drops from {npc:1126} (36%), {npc:1125} (34%) in {zone:1426}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 50 {item:769} für {spell:2540} (1-50). Es fällt von {npc:1126} (36%), {npc:1125} (34%) in {zone:1426}. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 5: Roasted Boar Meat (1-50)
 	-- {spell:2540} Roasted Boar Meat · {object:29784} Basic Campfire
@@ -40,9 +40,9 @@ return {
 
 	-- Step 7: Get Small Egg
 	-- {item:6889} Small Egg
-	["Get {item:6889}"] = "",
+	["Get {item:6889}"] = "Sammle {item:6889}",
 	-- {item:6889} Small Egg · {item:6888} Herb Baked Egg · {npc:1995} Strigid Owl · {zone:1438} Teldrassil
-	["You need 50 {item:6889} for {item:6888} (1-50). It drops from {npc:1995} (58%) in {zone:1438}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 50 {item:6889} for {item:6888} (1-50). It drops from {npc:1995} (58%) in {zone:1438}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 50 {item:6889} für {item:6888} (1-50). Es fällt von {npc:1995} (58%) in {zone:1438}. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 8: Herb Baked Egg (1-50)
 	-- {item:6888} Herb Baked Egg · {object:29784} Basic Campfire · {skill:185} Cooking · {item:2678} Mild Spices · {zone:1438} Teldrassil · {item:6889} Small Egg · {zone:1439} Darkshore · {item:6290} Brilliant Smallfish · {npc:6286} Zarrin · {area:186} Dolanaar · {item:5472} Kaldorei Spider Kabob
@@ -51,7 +51,7 @@ return {
 
 	-- Step 9: Get Stringy Wolf Meat
 	-- {item:2672} Stringy Wolf Meat · {spell:2538} Charred Wolf Meat · {npc:250873} Juvenile Vuldren
-	["You need 50 {item:2672} for {spell:2538} (1-50). It drops from {npc:250873} in Zephras Isle. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 50 {item:2672} for {spell:2538} (1-50). It drops from {npc:250873} in Zephras Isle. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 50 {item:2672} für {spell:2538} (1-50). Es fällt von {npc:250873} in Zephras Isle. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 10: Charred Wolf Meat (1-50)
 	-- {spell:2538} Charred Wolf Meat · {object:29784} Basic Campfire · {item:2672} Stringy Wolf Meat
@@ -59,15 +59,15 @@ return {
 
 	-- Step 11: Get Chunk of Boar Meat
 	-- {item:769} Chunk of Boar Meat · {spell:2540} Roasted Boar Meat · {npc:3099} Dire Mottled Boar · {zone:1411} Durotar
-	["You need 50 {item:769} for {spell:2540} (1-50). It drops from {npc:3099} (99%) in {zone:1411}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 50 {item:769} for {spell:2540} (1-50). It drops from {npc:3099} (99%) in {zone:1411}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 50 {item:769} für {spell:2540} (1-50). Es fällt von {npc:3099} (99%) in {zone:1411}. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 13: Get Stringy Wolf Meat
 	-- {item:2672} Stringy Wolf Meat · {spell:2538} Charred Wolf Meat · {npc:2960} Prairie Wolf Alpha · {npc:2959} Prairie Stalker · {zone:1412} Mulgore
-	["You need 50 {item:2672} for {spell:2538} (1-50). It drops from {npc:2960} (82%), {npc:2959} (77%) in {zone:1412}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 50 {item:2672} for {spell:2538} (1-50). It drops from {npc:2960} (82%), {npc:2959} (77%) in {zone:1412}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 50 {item:2672} für {spell:2538} (1-50). Es fällt von {npc:2960} (82%), {npc:2959} (77%) in {zone:1412}. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 15: Get Stringy Wolf Meat
 	-- {item:2672} Stringy Wolf Meat · {spell:2538} Charred Wolf Meat · {npc:1547} Decrepit Darkhound · {npc:1548} Cursed Darkhound · {zone:1420} Tirisfal Glades
-	["You need 50 {item:2672} for {spell:2538} (1-50). It drops from {npc:1547} (72%), {npc:1548} (33%) in {zone:1420}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 50 {item:2672} for {spell:2538} (1-50). It drops from {npc:1547} (72%), {npc:1548} (33%) in {zone:1420}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 50 {item:2672} für {spell:2538} (1-50). Es fällt von {npc:1547} (72%), {npc:1548} (33%) in {zone:1420}. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 17: Journeyman Cooking
 	-- {skill:185} Cooking
@@ -77,9 +77,9 @@ return {
 
 	-- Step 18: Get Coyote Meat
 	-- {item:2673} Coyote Meat
-	["Get {item:2673}"] = "",
+	["Get {item:2673}"] = "Sammle {item:2673}",
 	-- {item:2673} Coyote Meat · {spell:2541} Coyote Steak · {npc:833} Coyote Packleader · {zone:1436} Westfall
-	["You need 40 {item:2673} for {spell:2541} (50-90). It drops from Coyote (54%), {npc:833} (51%) in {zone:1436}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 40 {item:2673} for {spell:2541} (50-90). It drops from Coyote (54%), {npc:833} (51%) in {zone:1436}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 40 {item:2673} für {spell:2541} (50-90). Es fällt von Coyote (54%), {npc:833} (51%) in {zone:1436}. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 19: Coyote Steak (50-90)
 	-- {spell:2541} Coyote Steak · {object:29784} Basic Campfire · {skill:185} Cooking · {zone:1436} Westfall · {npc:235} Salma Saldean · {area:108} Sentinel Hill · {item:733} Westfall Stew · {item:724} Goretusk Liver Pie
@@ -93,9 +93,9 @@ return {
 
 	-- Step 21: Get Crawler Meat
 	-- {item:2674} Crawler Meat
-	["Get {item:2674}"] = "",
+	["Get {item:2674}"] = "Sammle {item:2674}",
 	-- {item:2674} Crawler Meat · {spell:2544} Crab Cake · {npc:830} Sand Crawler · {zone:1436} Westfall
-	["You need 44 {item:2674} for {spell:2544} (90-130). It drops from {npc:830} (43%) in {zone:1436}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 44 {item:2674} for {spell:2544} (90-130). It drops from {npc:830} (43%) in {zone:1436}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 44 {item:2674} für {spell:2544} (90-130). Es fällt von {npc:830} (43%) in {zone:1436}. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 22: Crab Cake (90-130)
 	-- {spell:2544} Crab Cake · {object:29784} Basic Campfire · {skill:185} Cooking · {zone:1436} Westfall · {spell:3376} Curiously Tasty Omelet
@@ -108,9 +108,9 @@ return {
 
 	-- Step 24: Get Bear Meat
 	-- {item:3173} Bear Meat
-	["Get {item:3173}"] = "",
+	["Get {item:3173}"] = "Sammle {item:3173}",
 	-- {item:3173} Bear Meat · {item:6890} Smoked Bear Meat · {npc:1189} Black Bear Patriarch · {zone:1432} Loch Modan
-	["You need 30 {item:3173} for {item:6890} (50-80). It drops from {npc:1189} (39%) in {zone:1432}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 30 {item:3173} for {item:6890} (50-80). It drops from {npc:1189} (39%) in {zone:1432}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 30 {item:3173} für {item:6890} (50-80). Es fällt von {npc:1189} (39%) in {zone:1432}. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 25: Smoked Bear Meat (50-80)
 	-- {item:6890} Smoked Bear Meat · {object:29784} Basic Campfire · {item:6892} Recipe: Smoked Bear Meat · {zone:1432} Loch Modan
@@ -124,9 +124,9 @@ return {
 
 	-- Step 27: Get Boar Ribs
 	-- {item:2677} Boar Ribs
-	["Get {item:2677}"] = "",
+	["Get {item:2677}"] = "Sammle {item:2677}",
 	-- {item:2677} Boar Ribs · {spell:2546} Dry Pork Ribs · {npc:1191} Mangy Mountain Boar · {zone:1432} Loch Modan
-	["You need 52 {item:2677} for {spell:2546} (80-130). It drops from {npc:1191} (31%) in {zone:1432}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 52 {item:2677} for {spell:2546} (80-130). It drops from {npc:1191} (31%) in {zone:1432}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 52 {item:2677} für {spell:2546} (80-130). Es fällt von {npc:1191} (31%) in {zone:1432}. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 28: Dry Pork Ribs (80-130)
 	-- {spell:2546} Dry Pork Ribs · {object:29784} Basic Campfire · {skill:185} Cooking · {zone:1432} Loch Modan · {spell:3376} Curiously Tasty Omelet
@@ -140,10 +140,10 @@ return {
 
 	-- Step 30: Get Clam Meat
 	-- {item:5503} Clam Meat
-	["Get {item:5503}"] = "",
+	["Get {item:5503}"] = "Sammle {item:5503}",
 	-- {item:5503} Clam Meat · {item:5525} Boiled Clams · {npc:3812} Clattering Crawler · {npc:3814} Spined Crawler · {npc:3944} Wrathtail Priestess · {zone:1439} Darkshore
 	-- plural, as words: Small Barnacled Clams = {item:5523} Small Barnacled Clam
-	["You need 40 {item:5503} for {item:5525} (50-90). It comes in Small Barnacled Clams, which {npc:3812} (42%), {npc:3814} (42%), {npc:3944} (42%) in {zone:1439} drop: open each one. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice."] = "",
+	["You need 40 {item:5503} for {item:5525} (50-90). It comes in Small Barnacled Clams, which {npc:3812} (42%), {npc:3814} (42%), {npc:3944} (42%) in {zone:1439} drop: open each one. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice."] = "Du brauchst 40 {item:5503} für {item:5525} (50-90). Es kommt in Small Barnacled Clams vor, die {npc:3812} (42%), {npc:3814} (42%), {npc:3944} (42%) in {zone:1439} fallen lassen: Öffne jede. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl.",
 
 	-- Step 31: Boiled Clams (50-90)
 	-- {item:5525} Boiled Clams · {object:29784} Basic Campfire · {skill:185} Cooking · {item:2674} Crawler Meat · {spell:2544} Crab Cake
@@ -151,7 +151,7 @@ return {
 
 	-- Step 33: Get Crawler Meat
 	-- {item:2674} Crawler Meat · {spell:2544} Crab Cake · {npc:3814} Spined Crawler · {npc:3812} Clattering Crawler · {zone:1439} Darkshore
-	["You need 44 {item:2674} for {spell:2544} (90-130). It drops from {npc:3814} (42%), {npc:3812} (40%) in {zone:1439}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 44 {item:2674} for {spell:2544} (90-130). It drops from {npc:3814} (42%), {npc:3812} (40%) in {zone:1439}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 44 {item:2674} für {spell:2544} (90-130). Es fällt von {npc:3814} (42%), {npc:3812} (40%) in {zone:1439}. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 34: Crab Cake (90-130)
 	-- {spell:2544} Crab Cake · {object:29784} Basic Campfire · {skill:185} Cooking · {zone:1439} Darkshore · {spell:3376} Curiously Tasty Omelet
@@ -165,9 +165,9 @@ return {
 
 	-- Step 36: Get Strider Meat
 	-- {item:5469} Strider Meat
-	["Get {item:5469}"] = "",
+	["Get {item:5469}"] = "Sammle {item:5469}",
 	-- {item:5469} Strider Meat · {item:5477} Strider Stew · {npc:3246} Fleeting Plainstrider · {zone:1413} The Barrens
-	["You need 52 {item:5469} for {item:5477} (50-100). It drops from {npc:3246} (32%) in {zone:1413}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 52 {item:5469} for {item:5477} (50-100). It drops from {npc:3246} (32%) in {zone:1413}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 52 {item:5469} für {item:5477} (50-100). Es fällt von {npc:3246} (32%) in {zone:1413}. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 37: Strider Stew (50-100)
 	-- {item:5477} Strider Stew · {object:29784} Basic Campfire · {item:5486} Recipe: Strider Stew
@@ -181,9 +181,9 @@ return {
 
 	-- Step 39: Get Thunder Lizard Tail
 	-- {item:5470} Thunder Lizard Tail
-	["Get {item:5470}"] = "",
+	["Get {item:5470}"] = "Sammle {item:5470}",
 	-- {item:5470} Thunder Lizard Tail · {item:5479} Crispy Lizard Tail · {npc:3239} Thunderhead · {zone:1413} The Barrens
-	["You need 30 {item:5470} for {item:5479} (100-130). It drops from {npc:3239} (59%), Owatanka (35%) in {zone:1413}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 30 {item:5470} for {item:5479} (100-130). It drops from {npc:3239} (59%), Owatanka (35%) in {zone:1413}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 30 {item:5470} für {item:5479} (100-130). Es fällt von {npc:3239} (59%), Owatanka (35%) in {zone:1413}. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 40: Crispy Lizard Tail (100-130)
 	-- {item:5479} Crispy Lizard Tail · {object:29784} Basic Campfire · {item:5488} Recipe: Crispy Lizard Tail · {npc:3489} Zargh · {item:3735} Recipe: Hot Lion Chops
@@ -205,9 +205,9 @@ return {
 
 	-- Step 43: Get Raptor Egg
 	-- {item:3685} Raptor Egg
-	["Get {item:3685}"] = "",
+	["Get {item:3685}"] = "Sammle {item:3685}",
 	-- {item:3685} Raptor Egg · {spell:3376} Curiously Tasty Omelet · {npc:1018} Highland Razormaw · {npc:1019} Elder Razormaw · {zone:1437} Wetlands
-	["You need 46 {item:3685} for {spell:3376} (130-175). It drops from {npc:1018} (72%), {npc:1019} (67%) in {zone:1437}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 46 {item:3685} for {spell:3376} (130-175). It drops from {npc:1018} (72%), {npc:1019} (67%) in {zone:1437}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 46 {item:3685} für {spell:3376} (130-175). Es fällt von {npc:1018} (72%), {npc:1019} (67%) in {zone:1437}. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 44: Curiously Tasty Omelet (130-175)
 	-- {spell:3376} Curiously Tasty Omelet · {object:29784} Basic Campfire · {item:3682} Recipe: Curiously Tasty Omelet · {zone:1437} Wetlands · {item:3685} Raptor Egg · {npc:340} Kendor Kabonka · {zone:1453} Stormwind
@@ -221,9 +221,9 @@ return {
 
 	-- Step 46: Get Lion Meat
 	-- {item:3731} Lion Meat
-	["Get {item:3731}"] = "",
+	["Get {item:3731}"] = "Sammle {item:3731}",
 	-- {item:3731} Lion Meat · {spell:3398} Hot Lion Chops · {npc:2384} Starving Mountain Lion · {zone:1424} Hillsbrad Foothills
-	["You need 45 {item:3731} for {spell:3398} (130-175). It drops from {npc:2384} (42%) in {zone:1424}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 45 {item:3731} for {spell:3398} (130-175). It drops from {npc:2384} (42%) in {zone:1424}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 45 {item:3731} für {spell:3398} (130-175). Es fällt von {npc:2384} (42%) in {zone:1424}. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 47: Hot Lion Chops (130-175)
 	-- {spell:3398} Hot Lion Chops · {object:29784} Basic Campfire · {item:3735} Recipe: Hot Lion Chops · {item:3731} Lion Meat
@@ -238,9 +238,9 @@ return {
 
 	-- Step 49: Get Raptor Flesh
 	-- {item:12184} Raptor Flesh
-	["Get {item:12184}"] = "",
+	["Get {item:12184}"] = "Sammle {item:12184}",
 	-- {item:12184} Raptor Flesh · {item:12210} Roast Raptor · {npc:2560} Highland Thrasher · {zone:1417} Arathi Highlands
-	["You need 52 {item:12184} for {item:12210} (175-225). It drops from {npc:2560} (38%) in {zone:1417}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 52 {item:12184} for {item:12210} (175-225). It drops from {npc:2560} (38%) in {zone:1417}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 52 {item:12184} für {item:12210} (175-225). Es fällt von {npc:2560} (38%) in {zone:1417}. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 50: Roast Raptor (175-225)
 	-- {item:12210} Roast Raptor · {object:29784} Basic Campfire · {item:12228} Recipe: Roast Raptor · {zone:1417} Arathi Highlands · {npc:2810} Hammon Karwn · {area:320} Refuge Pointe · {npc:2821} Keena · {area:321} Hammerfall · {item:2692} Hot Spices · {item:17222} Spider Sausage · {item:12205} White Spider Meat
@@ -282,9 +282,9 @@ return {
 
 	-- Step 58: Get Giant Egg
 	-- {item:12207} Giant Egg
-	["Get {item:12207}"] = "",
+	["Get {item:12207}"] = "Sammle {item:12207}",
 	-- {item:12207} Giant Egg · {item:12218} Monster Omelet · {npc:2929} Savage Owlbeast · {zone:1425} The Hinterlands
-	["You need 120 {item:12207} for {item:12218} (225-300). It drops from {npc:2929} (54%) in {zone:1425}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 120 {item:12207} for {item:12218} (225-300). It drops from {npc:2929} (54%) in {zone:1425}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 120 {item:12207} für {item:12218} (225-300). Es fällt von {npc:2929} (54%) in {zone:1425}. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 59: Monster Omelet (225-300)
 	-- {item:12218} Monster Omelet · {object:29784} Basic Campfire · {item:16110} Recipe: Monster Omelet · {item:13931} Nightfin Soup · {npc:8137} Gikkix · {area:977} Steamwheedle Port · {item:13932} Poached Sunscale Salmon · {item:279982} Iron Oven

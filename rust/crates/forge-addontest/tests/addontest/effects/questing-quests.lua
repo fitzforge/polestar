@@ -104,6 +104,23 @@ return {
 		["qol.nameplateIconSide"] = { with = { ["qol.nameplateIcons"] = true }, value = "right", probe = plate },
 		-- The quest log drawn: Kobold Camp Cleanup's title.
 		["qol.questLevels"] = function() ql.updateLog(); return ql.logText(7) end,
+		-- Which guides use a quest (Quests/QuestGuides.lua): a guide that takes Kobold Camp Cleanup, and the lines a
+		-- tooltip of the quest gets (counted on a stand-in tooltip), or none.
+		["qol.questGuides"] = {
+			prepare = function()
+				Polestar.RegisterPack({ addon = "Polestar_QG", id = "qgtest", format = 1, title = "QG", author = "Test", version = "1", license = "MIT" })
+				Polestar.RegisterGuide({ id = "qgtest/elwynn", pack = "qgtest", title = "Elwynn", minLevel = 1, maxLevel = 10,
+					steps = { { goals = { { t = "accept", quest = 7, title = "Kobold Camp Cleanup" } } } } })
+				stub.advance(0.6)
+				Polestar.QuestGuides.BuildNow()
+			end,
+			probe = function()
+				local tip = { n = 0 }
+				function tip:AddLine() self.n = self.n + 1 end
+				function tip:AddDoubleLine() self.n = self.n + 1 end
+				Polestar.QuestGuides.AddLines(tip, 7)
+				return tip.n
+			end },
 		-- The delivery taken, five minutes on: a chat line (and a sound) with five minutes left.
 		["qol.questTimerAlerts"] = function()
 			local before = said("5 minutes left")

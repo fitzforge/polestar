@@ -222,9 +222,11 @@ local function sparklePhase(now)
 	return phase + (now - phaseAt) * (sparkleStyle and sparkleStyle.flow or 0)
 end
 
--- Where the lines draw (world map, minimap): nowhere while Polestar is hidden.
+-- Where the lines draw (world map, minimap): nowhere while Polestar is hidden,
+-- nor while the guide window is with nav.hidePinsWithGuide on.
 local function surfaces()
 	if not ns.Get("nav.routeLines") or ns.Hidden() then return false, false end
+	if Nav and Nav.PinsHiddenWithGuide and Nav.PinsHiddenWithGuide() then return false, false end
 	return (ns.Get("nav.worldPins") and ns.Get("nav.worldRoute") ~= false) and true or false,
 		(ns.Get("nav.minimapPins") and ns.Get("nav.minimapRoute") ~= false) and true or false
 end
@@ -1315,9 +1317,17 @@ ns.On("POLESTAR_HIDDEN", function()
 	refreshMinimap()
 end)
 
+-- The guide window shown or hidden (ui.shown, an instance hide): the lines
+-- go and come back with it while nav.hidePinsWithGuide is on.
+local function guideShown()
+	if ns.IsLoggedIn() and ns.Get("nav.hidePinsWithGuide") then RouteLines.Refresh() end
+end
+ns.On("GUIDE_SHOWN", guideShown)
+
 local WATCH = {
 	["nav.routeLines"] = true, ["nav.worldPins"] = true, ["nav.minimapPins"] = true, ["nav.minimapRoute"] = true, ["nav.worldRoute"] = true,
 	["nav"] = true, [""] = true, ["nav.lineStyle"] = true, ["nav.sparkleLater"] = true,
+	["nav.hidePinsWithGuide"] = true,
 	-- Reduce motion turns sparkles into dots.
 	["ui"] = true, ["ui.reduceMotion"] = true,
 }
@@ -1331,6 +1341,7 @@ local LOOK = {
 for _, key in pairs(RouteLines.COLOR_KEYS) do LOOK["nav." .. key] = true end
 ns.On("SETTING_CHANGED", function(path)
 	if not ns.IsLoggedIn() then return end
+	if path == "ui.shown" then return guideShown() end
 	if WATCH[path] then
 		recolor()
 		RouteLines.Refresh()

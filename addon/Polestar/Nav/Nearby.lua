@@ -276,24 +276,32 @@ end
 -- The spawns of the Codex NPCs with `role` on the player's side, outside
 -- instances. A class's own flight master (Nav.TaxiNpcClass: Nighthaven's fly
 -- Druids only, from their gossip) is a flight master for that class alone.
--- A rare whose spawns lie more than WANDER yards apart is no service place: it
--- wanders between them and is often not up (#3432: Mount Hyjal's Pexmit,
--- "Someone's Minion", a rare merchant with 8 spawns across the zone, met at
--- 11 spots, where "Sell before heading out" sent players). One that stays at
--- one spot keeps its place (Riverglades' stablemaster Reginald Holmsby).
+-- A rare whose spawns lie more than WANDER yards from their middle is no
+-- service place: it wanders between them and is often not up (#3432: Mount
+-- Hyjal's Pexmit, "Someone's Minion", a rare merchant with 8 spawns across the
+-- zone, met at 11 spots, where "Sell before heading out" sent players). One
+-- that stays at one spot keeps its place (Riverglades' stablemaster Reginald
+-- Holmsby, ten spawns about his stable, up to 107 yd apart; Malgin Barleybrew,
+-- one spawn on the Barrens' and Dustwallow Marsh's maps). The Codex calls no
+-- NPC on a player's side a rare (#2929), only a rare spawn (#4388: Pexmit).
 local WANDER = 100
 local function wanders(npc, C)
-	if not npc.rare then return false end
-	local c0, x0, y0
+	if not (npc.rare or npc.rareSpawn) then return false end
+	local c0, pts = nil, {}
+	local sx, sy = 0, 0
 	for _, s in ipairs(npc.spawns or {}) do
 		local c, wx, wy = C.MapToWorld(s.map, s.x, s.y, s.f)
 		if c then
-			if not c0 then
-				c0, x0, y0 = c, wx, wy
-			elseif c ~= c0 or (wx - x0) ^ 2 + (wy - y0) ^ 2 > WANDER * WANDER then
-				return true
-			end
+			if c0 and c ~= c0 then return true end
+			c0 = c
+			pts[#pts + 1] = { wx, wy }
+			sx, sy = sx + wx, sy + wy
 		end
+	end
+	if #pts == 0 then return false end
+	local mx, my = sx / #pts, sy / #pts
+	for _, p in ipairs(pts) do
+		if (p[1] - mx) ^ 2 + (p[2] - my) ^ 2 > WANDER * WANDER then return true end
 	end
 	return false
 end

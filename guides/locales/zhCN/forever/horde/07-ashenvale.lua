@@ -236,7 +236,7 @@ return {
 
 	-- Step 58: Melor Stonehoof
 	-- {npc:3441} Melor Stonehoof · {area:1641} Hunter Rise · {quest:1131} Steelsnap · {zone:1441} Thousand Needles · {area:2237} Whitereach Post
-	["{npc:3441} stands on {area:1641}, the southern rise, beside the hunter trainers: {quest:1131} prowls the far north-west of {zone:1441}, beyond {area:2237}, later in this guide."] = "",
+	["{npc:3441} stands on {area:1641}, the southern rise, beside the hunter trainers: {quest:1131} prowls the far north-west of {zone:1441}, beyond {area:2237}, later in this guide."] = "{npc:3441}站在南边的高地{area:1641}上，就在猎人训练师旁边。{quest:1131}在{zone:1441}最西北边游荡，要越过{area:2237}，本指南稍后会去。",
 
 	-- Step 59: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo
@@ -246,7 +246,7 @@ return {
 
 	-- Step 60: Tatternack Steelforge
 	-- {npc:3433} Tatternack Steelforge · {area:2237} Whitereach Post
-	["{npc:3433} works at his forge a few steps from the flight master: his ore sample comes from the Gravelsnout kobolds west of {area:2237}, later in this guide."] = "",
+	["{npc:3433} works at his forge a few steps from the flight master: his ore sample comes from the Gravelsnout kobolds west of {area:2237}, later in this guide."] = "{npc:3433}在离飞行管理员几步远的铁炉旁打铁。他要的矿石样本由{area:2237}以西的砂齿狗头人掉落，本指南稍后会去。",
 
 	-- Step 61: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {area:485} Great Lift
@@ -272,7 +272,7 @@ return {
 	-- {npc:10537} Cliffwatcher Longhorn
 	["The Wanted poster beside {npc:10537}"] = "{npc:10537}旁的通缉告示",
 	-- {npc:4877} Jandia · {area:2237} Whitereach Post
-	["{npc:4877}'s two harpy quests come on the next Freewind stop; their den is on the way back from {area:2237}."] = "",
+	["{npc:4877}'s two harpy quests come on the next Freewind stop; their den is on the way back from {area:2237}."] = "{npc:4877}的两个鹰身人任务留到下次来乱风岗时再做。它们的巢穴在从{area:2237}回来的路上。",
 
 	-- Step 65: Rau Cliffrunner
 	-- {npc:4722} Rau Cliffrunner · {area:484} Freewind Post · {npc:4721} Zangen Stonehoof
@@ -315,7 +315,7 @@ return {
 	-- {npc:11116} Innkeeper Abeqwa · {npc:4877} Jandia
 	["{npc:11116}, beside {npc:4877}"] = "{npc:11116}，在{npc:4877}旁边",
 	-- {npc:4877} Jandia · {area:487} Roguefeather Den
-	["{npc:4877}, inside the inn: {area:487}, south-west of the post, on the way back from Whitereach"] = "",
+	["{npc:4877}, inside the inn: {area:487}, south-west of the post, on the way back from Whitereach"] = "{npc:4877}在旅店里。{area:487}在岗哨西南边，从白沙岗哨回来时顺路经过",
 
 	-- Step 72: Darkcloud Pinnacle
 	-- {area:2097} Darkcloud Pinnacle
@@ -360,7 +360,7 @@ return {
 
 	-- Step 78: Whitereach Post
 	-- {npc:10428} Motega Firemane · {item:12732} Incendia Agave · {area:2097} Darkcloud Pinnacle
-	["{npc:10428}: the {item:12732} grows among the Grimtotem camps below {area:2097}, on the way back east"] = "",
+	["{npc:10428}: the {item:12732} grows among the Grimtotem camps below {area:2097}, on the way back east"] = "{npc:10428}：{item:12732}长在{area:2097}下方的恐怖图腾营地里，向东返回时顺路采集",
 
 	-- Step 79: Kanati Greycloud
 	-- {npc:10617} Galak Messenger · {npc:10638} Kanati Greycloud · {area:2237} Whitereach Post
@@ -376,20 +376,20 @@ return {
 
 	-- Step 85: Gravelsnout kobolds and Steelsnap
 	-- {quest:1131} Steelsnap
-	["Gravelsnout kobolds and {quest:1131}"] = "",
+	["Gravelsnout kobolds and {quest:1131}"] = "砂齿狗头人和{quest:1131}",
 	-- {quest:1131} Steelsnap · {npc:3441} Melor Stonehoof
 	-- plural, as words: Gravelsnout Diggers = {npc:4113} Gravelsnout Digger · Pesterhide Snarlers = {npc:4249} Pesterhide Snarler
-	["North-west of Whitereach Post the Gravelsnout Diggers and Surveyors dig in the far western hills; one of them drops the ore sample. {quest:1131}, a lone hyena, prowls the same hills with the Pesterhide Snarlers: his rib is {npc:3441}'s.\nCareful: {quest:1131} is level 30 and the kobolds 28-29: pull them one at a time."] = "",
+	["North-west of Whitereach Post the Gravelsnout Diggers and Surveyors dig in the far western hills; one of them drops the ore sample. {quest:1131}, a lone hyena, prowls the same hills with the Pesterhide Snarlers: his rib is {npc:3441}'s.\nCareful: {quest:1131} is level 30 and the kobolds 28-29: pull them one at a time."] = "从白沙岗哨往西北走，砂齿掘地工和砂齿勘探员在西边远处的山丘上挖掘，矿石样本会从其中一只身上掉落。{quest:1131}是一只落单的土狼，和杂毛嚎叫者在同一片山丘上游荡。把它的肋骨带给{npc:3441}。\n小心，{quest:1131}是30级，狗头人是28至29级，一次只引一只。",
 	-- plural, as words: Gravelsnout Diggers = {npc:4113} Gravelsnout Digger
-	["Ore Sample, from the Gravelsnout Diggers and Surveyors"] = "",
+	["Ore Sample, from the Gravelsnout Diggers and Surveyors"] = "未精炼的矿石样本，由砂齿掘地工和砂齿勘探员掉落",
 
 	-- Step 86: Incendia Agave
 	-- {area:2237} Whitereach Post · {item:12732} Incendia Agave · {area:2097} Darkcloud Pinnacle · {npc:216463} Ailgrha Splittusk
-	["Back east past {area:2237}: the {item:12732} grows on the ground among the Grimtotem camps below {area:2097}. Start with the three plants close together at the camps' north-western edge, where the arrow points, and stay on that side; the agave comes back while you work.\nCareful: the Ravaging elementals (38-40) and {npc:216463} (38, elite) hold the ground south and east of the camps, from about 36,35: don't follow the agave past them."] = "",
+	["Back east past {area:2237}: the {item:12732} grows on the ground among the Grimtotem camps below {area:2097}. Start with the three plants close together at the camps' north-western edge, where the arrow points, and stay on that side; the agave comes back while you work.\nCareful: the Ravaging elementals (38-40) and {npc:216463} (38, elite) hold the ground south and east of the camps, from about 36,35: don't follow the agave past them."] = "向东返回，经过{area:2237}。{item:12732}长在{area:2097}下方的恐怖图腾营地里。从箭头指向的营地西北边缘开始采，那里的三株挨得很近。留在这一侧，采集时龙舌兰会刷新。\n小心，从坐标约36,35起，营地南边和东边有肆虐的元素生物（38–40级）和{npc:216463}（38级精英）。采龙舌兰时别越过它们。",
 
 	-- Step 87: Roguefeather Den
 	-- {area:487} Roguefeather Den · {npc:4877} Jandia · {npc:4490} Grenka Bloodscreech · {npc:2986} Dorn Plainstalker · {quest:1150} Test of Endurance
-	["South of Darkcloud Pinnacle the Screeching harpies hold {area:487}; {npc:4877}'s stolen supplies lie on the ground around it.\nCareful: the harpies (28-29) stand in packs and the Windcallers cast from range: pull at the edge. {npc:4490} (31) waits deeper in the den: leave her for {npc:2986}'s {quest:1150} at about 30, in the next guide."] = "",
+	["South of Darkcloud Pinnacle the Screeching harpies hold {area:487}; {npc:4877}'s stolen supplies lie on the ground around it.\nCareful: the harpies (28-29) stand in packs and the Windcallers cast from range: pull at the edge. {npc:4490} (31) waits deeper in the den: leave her for {npc:2986}'s {quest:1150} at about 30, in the next guide."] = "黑云峰南边，尖啸鹰身人占据着{area:487}，{npc:4877}被偷走的补给品就在巢穴周围的地上。\n小心，鹰身人（28至29级）成群站在一起，尖啸的唤风者会远程施法，从边缘引怪。{npc:4490}（31级）在巢穴深处，留到约30级做下一篇指南里{npc:2986}的{quest:1150}时再打。",
 	-- {quest:98069} Stolen Freewind Supplies
 	["{quest:98069}, on the ground around the den"] = "{quest:98069}，在巢穴周围的地面上",
 
@@ -401,7 +401,7 @@ return {
 	-- {npc:4877} Jandia
 	["{npc:4877}, inside the inn"] = "{npc:4877}，在旅店里",
 	-- {npc:2986} Dorn Plainstalker · {quest:1150} Test of Endurance
-	["Keep {npc:2986}'s {quest:1150}: Grenka comes with the next Freewind visit, at about 30."] = "",
+	["Keep {npc:2986}'s {quest:1150}: Grenka comes with the next Freewind visit, at about 30."] = "先留着{npc:2986}的{quest:1150}，约30级下次来乱风岗时再打格林卡。",
 
 	-- Step 89: Fly to Thunder Bluff
 	-- {area:484} Freewind Post
@@ -409,15 +409,15 @@ return {
 
 	-- Step 90: Melor Stonehoof
 	-- {npc:3441} Melor Stonehoof · {area:1641} Hunter Rise · {quest:1131} Steelsnap
-	["{npc:3441} on {area:1641} takes {quest:1131}'s rib."] = "",
+	["{npc:3441} on {area:1641} takes {quest:1131}'s rib."] = "到{area:1641}找{npc:3441}，把{quest:1131}的肋骨交给他。",
 
 	-- Step 91: Magatha Grimtotem
 	-- {npc:4046} Magatha Grimtotem · {area:1639} Elder Rise · {area:2097} Darkcloud Pinnacle
-	["{npc:4046} stands on the {area:1639}, east across the bridges. Her next quest, Arikara, goes back to {area:2097} and Whitereach: leave it, the route does not go back there."] = "",
+	["{npc:4046} stands on the {area:1639}, east across the bridges. Her next quest, Arikara, goes back to {area:2097} and Whitereach: leave it, the route does not go back there."] = "向东过桥到{area:1639}找{npc:4046}。她的后续任务《阿利卡拉》要返回{area:2097}和白沙岗哨，后面的路线不会再去，跳过这个任务。",
 
 	-- Step 93: Tatternack Steelforge
 	-- {npc:3433} Tatternack Steelforge
-	["{npc:3433} takes the ore sample beside the flight master. The next guide flies on from here."] = "",
+	["{npc:3433} takes the ore sample beside the flight master. The next guide flies on from here."] = "把矿石样本交给飞行管理员旁的{npc:3433}。下一篇指南会从这里起飞。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back east past {area:2237} to {area:484}."] = "向东经过{area:2237}，返回{area:484}。",
