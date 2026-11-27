@@ -1719,7 +1719,6 @@ L["Pick what the step asks for"] = "Выбирать то, что требует
 L["At the step's NPC, picks the chat option the guide names, or opens the goods or training the step needs. Only on the step the guide is at. Hold Shift to choose yourself."] = "У NPC шага выбирает вариант диалога, указанный в гайде, или открывает нужные шагу товары или обучение. Только на текущем шаге гайда. Удерживайте Shift, чтобы выбрать самому."
 L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = "Выбирает единственный вариант у NPC без заданий. Удерживайте Shift, чтобы прочитать. Если выключено, игра все равно пропускает некоторые сама, «Выбирать то, что требует шаг» все равно выбирает вариант шага, а распорядители полетов следуют настройке «Открывать карту полетов»."
 L["Click objectives to target"] = "Выбор цели щелчком по задачам"
-L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Щелчок по строке задачи или заголовку NPC вне боя также выбирает этого NPC целью, с теми же настройками меток, что и у кнопки цели. Текущая цель при этом заменяется; неудачный поиск сбрасывает её."
 L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "Кнопка цели и клавиша шага ставят рейдовую метку на противника или НИП, которых выбирают целью; вне боя нажатие, не нашедшее ни того ни другого, сбрасывает вашу цель. Повторное нажатие никогда не снимает метку. В группе, где вы не лидер, метку получает только цель без метки; в рейде — только если вы лидер или помощник."
 L["Ping what they target"] = "Отмечать пингом выбранную цель"
 L["Show quest-starting loot"] = "Показывать добычу, начинающую задания"
@@ -1775,6 +1774,7 @@ L["Equip a spare bag first"] = "Сначала надеть запасную с�
 L["When your bags are nearly full and a bag sits in them while a bag slot is empty, the bag button and the guide window offer to put it on before any junk. Nothing happens until you press."] = "Когда сумки почти полны, а в них лежит сумка при пустой ячейке для сумки, кнопка сумок и окно гайда предлагают надеть ее, прежде чем удалять хлам. Ничего не происходит, пока вы не нажмете."
 L["Step errands"] = "Поручения шага"
 L["Level pace"] = "Темп уровней"
+-- L["Clicking an objective row, an NPC heading or a While you're here line also targets its mob or NPC outside combat, using the Target button's marking settings. This replaces your current target. A failed search clears it."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Только Альянс"
@@ -6051,6 +6051,7 @@ L["Click to show quest guide actions."] = "Нажмите, чтобы показ
 -- L["Max height"] = "Макс. высота"
 -- L["%s: on this step"] = "%s: на этом шаге"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "Ваши собственные задания как гайд, на отдельной вкладке: стрелка ведет к ближайшему, затем к следующему (/polestar free)."
+-- L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Щелчок по строке задачи или заголовку NPC вне боя также выбирает этого NPC целью, с теми же настройками меток, что и у кнопки цели. Текущая цель при этом заменяется; неудачный поиск сбрасывает её."
 -- L["The last steps here aren't mapped"] = "Последние шаги здесь не нанесены на карту"
 -- L["None of these has a known place to hand it in."] = "Ни для одного из них неизвестно, где его сдать."
 -- L["Travel time to this hand-in is unknown. Its location is still shown."] = "Время пути до места сдачи неизвестно. Его местоположение по-прежнему показано."

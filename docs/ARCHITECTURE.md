@@ -2568,8 +2568,11 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   while the player is within `behavior.whileHereRadius` of one of them, and
   before the NPCs farther off (`npcSpots`/`npcsFar`; #1623); a check each
   second re-orders them as the player crosses the radius, and each name takes
-  its own kind's mark and ping. The step key, while it targets or has nothing
-  else to do, takes the same names alone (`HereNames`) after the step's own,
+  its own kind's mark and ping. Clicking a line with an NPC, such as a
+  pick-up, hand-in or flight master, puts that NPC first on the target
+  button. The step's own NPCs still go behind the lines' mobs when far away.
+  The step key, while it targets or has nothing else to do, takes the same
+  names alone (`HereNames`) after the step's own,
   as many as fit its macro, and on an NPC goal after or before the NPC the
   same way (`StepAction`; `behavior.whileHereStepKey`, on by default; #1316,
   #1623). Both macros change only out of combat (`QoL.Secure`). An item keeps the step key, including the
@@ -7693,10 +7696,10 @@ for that press comes from the macro it ran (`pressedKind`, `pressedMixed`).
 
 ### Clickable objectives
 
-`qol.guideNameTarget` is off by default. Enabling it extends objective-row
-navigation clicks to target the objective's NPC. Marking uses the existing
-`qol.markTarget`, `qol.markMob` and `qol.markNpc` settings, including their
-shared icon cycle. Opt-in is a product decision:
+`qol.guideNameTarget` is off by default. Enabling it adds targeting to clicks
+on objective rows, NPC headings and While you're here lines. Marking uses
+the existing `qol.markTarget`, `qol.markMob` and `qol.markNpc` settings,
+including their shared icon cycle. Opt-in is a product decision:
 existing navigation clicks should not unexpectedly replace the player's
 target. The default can be changed independently of the targeting code.
 `QoL.Buttons.GuideNameMacro` resolves one NPC belonging to that
@@ -7716,15 +7719,15 @@ The command sequence is checked against Forever 1.60.1 (70450):
 [exact targeting and clearing](https://github.com/Gethe/wow-ui-source/blob/172a387e3ab85b26e6640d3058d5ec1e6ccd4c63/Interface/AddOns/Blizzard_ChatFrameBase/Shared/SlashCommands.lua#L489),
 and [marker commands](https://github.com/Gethe/wow-ui-source/blob/172a387e3ab85b26e6640d3058d5ec1e6ccd4c63/Interface/AddOns/Blizzard_ChatFrameBase/Shared/SlashCommands.lua#L1451).
 
-`UI/NameTargets.lua` pools secure buttons over objective rows (and the NPC
-heading's text), independently of the guide's frame tree. Absolute UIParent
-positions follow the guide's layout, animation and dragging. A secure
-visibility driver hides the buttons
+`UI/NameTargets.lua` pools secure buttons over objective rows, NPC heading
+text and targetable While you're here lines, independently of the guide's
+frame tree. Absolute UIParent positions follow the guide's layout,
+animation and dragging. A secure visibility driver hides the buttons
 in combat; no protected attributes or geometry change under lockdown, and a
 combat reload defers button creation. The normal guide remains interactive.
 After combat the buttons use the latest displayed goals. Left clicks retain
-arrow navigation; the quest's right-click menu, non-quest completion and
-adjacent controls keep working.
+arrow navigation. The quest's right-click menu, middle-click to show it in
+the quest log, non-quest completion and adjacent controls keep working.
 A left-click that finds no living target reports the NPC name through
 `UIErrorsFrame` (chat fallback), before navigation can reuse the button.
 The overlay sets `type1`, so a Shift-, Ctrl- or Alt-click runs no macro: it

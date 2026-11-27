@@ -2306,7 +2306,6 @@ L["At the step's NPC, picks the chat option the guide names, or opens the goods 
 L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = "Wählt die einzige Option von NPCs ohne Quests. Halte Umschalt gedrückt, um sie zu lesen. Aus überspringt das Spiel manche trotzdem selbst, „Wählen, was der Schritt verlangt“ wählt weiter die Option des Schritts, und Flugmeister folgen „Flugkarte öffnen“."
 L["Reset"] = "Zurücksetzen"
 L["Click objectives to target"] = "Ziele per Klick anvisieren"
-L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Ein Klick auf eine Zielzeile oder eine NPC-Überschrift visiert außerhalb des Kampfes auch den NPC an, mit denselben Markierungseinstellungen wie der Ziel-Button. Das ersetzt dein aktuelles Ziel; eine erfolglose Suche hebt es auf."
 L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "Der Ziel-Button und die Schrittetaste setzen ein Schlachtzugssymbol auf den Mob und den NPC, die sie anvisieren; außerhalb des Kampfes löscht ein Druck, der keines von beiden findet, dein Ziel. Erneutes Drücken nimmt nie ein Symbol weg. In einer Gruppe, die du nicht führst, bekommt nur eine Einheit ohne Symbol eines; in einem Schlachtzug nur, wenn du führst oder Assistent bist."
 L["Ping what they target"] = "Anvisiertes pingen"
 L["Show quest-starting loot"] = "Beute anzeigen, die eine Quest startet"
@@ -2361,6 +2360,7 @@ L["Equip a spare bag first"] = "Zuerst eine Ersatztasche anlegen"
 L["When your bags are nearly full and a bag sits in them while a bag slot is empty, the bag button and the guide window offer to put it on before any junk. Nothing happens until you press."] = "Wenn deine Taschen fast voll sind und eine Tasche darin liegt, während ein Taschenplatz leer ist, bieten der Taschen-Button und das Guide-Fenster an, sie vor jedem Plunder anzulegen. Nichts passiert, bevor du drückst."
 L["Step errands"] = "Schritterledigungen"
 L["Level pace"] = "Stufentempo"
+-- L["Clicking an objective row, an NPC heading or a While you're here line also targets its mob or NPC outside combat, using the Target button's marking settings. This replaces your current target. A failed search clears it."] = ""
 
 -- Rares/View.lua, Rares/Options.lua
 L["Seen"] = "Gesehen"
@@ -5879,6 +5879,7 @@ L["Click to show quest guide actions."] = "Klicken, um die Aktionen des Quest-Gu
 -- L["Layout"] = "Layout"
 -- L["Your current design"] = "Dein aktuelles Design"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "Deine eigenen Quests als Guide, in einem eigenen Tab: Der Pfeil führt zur nächsten, dann zur folgenden (/polestar free)."
+-- L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Ein Klick auf eine Zielzeile oder eine NPC-Überschrift visiert außerhalb des Kampfes auch den NPC an, mit denselben Markierungseinstellungen wie der Ziel-Button. Das ersetzt dein aktuelles Ziel; eine erfolglose Suche hebt es auf."
 -- L["The last steps here aren't mapped"] = "Die letzten Schritte hier sind nicht kartiert"
 -- L["None of these has a known place to hand it in."] = "Für keine davon ist bekannt, wo man sie abgibt."
 -- L["Travel time to this hand-in is unknown. Its location is still shown."] = "Die Reisezeit zu dieser Abgabe ist unbekannt. Ihr Ort wird trotzdem angezeigt."
