@@ -415,6 +415,13 @@ ns.UI.GuideFrame.Part(function(GF)
 		link.Label:SetText(text)
 		local right = link == banner.Jump and ns.Get("guideWindow.bannerLinks") == "right"
 		local room = right and floor(banner.Text:GetWidth() * 0.45) or floor(banner.Text:GetWidth() - x - 16)
+		-- On the right, a label longer than its room there goes under the text at the right, as wide as the text, not
+		-- cut short (#4314: Atlas's "Click again to delete it" read "Click again to…").
+		local under = right and link.Label:GetStringWidth() > room
+		if under then
+			right = false
+			room = floor(banner.Text:GetWidth() - 16)
+		end
 		if not right and x > 0 and link.Label:GetStringWidth() > room then
 			x, y = 0, y - 18 - 4
 			room = floor(banner.Text:GetWidth() - 16)
@@ -434,6 +441,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		if right then
 			link:SetPoint("TOPRIGHT", banner, "TOPRIGHT", -(5 + closeRoom + 4), -7)
 			onRight = link:GetWidth() + 10
+		elseif under then
+			link:SetPoint("TOPRIGHT", banner.Text, "BOTTOMRIGHT", 0, y)
 		else
 			if onRight > 0 then
 				-- A second action: the first goes back under the text too, on
