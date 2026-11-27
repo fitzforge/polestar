@@ -345,6 +345,10 @@ GF.Part(function(GF)
 		-- Where the Journey goes: "inside" (under the step); a layout may offer
 		-- more ("joined", "folded", "rail", "foot": Polestar_Skins/Layouts/Atlas).
 		journeyStyle = "inside",
+		-- A layout that keeps finished goals in place may fold them into
+		-- "✓ N done" out of compact mode too (offered by a layout that names
+		-- it in its defaults: Atlas); Polestar's own always folds them.
+		foldDone = false,
 		-- The banner's action: "under" the text, or "right" on its line, by
 		-- the × (only a notice with one action; two stay under).
 		bannerLinks = "under",

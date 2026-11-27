@@ -2592,12 +2592,13 @@ on("guideInset", function(name)
 	if name == "upnext" then return UP_X end
 end)
 
--- Done goals stay in place; in compact mode they fold into "✓ N done", as
--- Polestar's own. On the rail Up next shows its heading only while
--- folded (ui.upcomingOpen off), as the handle that opens it; open, its rows
--- stand on the rail without one.
+-- Done goals stay in place; in compact mode, or with Fold finished goals on
+-- (guideWindow.foldDone, #4450), they fold into "✓ N done", as Polestar's
+-- own. On the rail Up next shows its heading only while folded
+-- (ui.upcomingOpen off), as the handle that opens it; open, its rows stand
+-- on the rail without one.
 on("guideShows", function(what, shown)
-	if what == "done" then return not compact() end
+	if what == "done" then return not (compact() or Core.setting("guideWindow.foldDone") == true) end
 	if what == "progressFoot" then return false end
 	if what == "markWash" then return true end
 	-- The game looks' quest tracker band behind the title: Atlas's title has
@@ -3316,6 +3317,7 @@ local function spec(hooks)
 			["guideWindow.lastSteps"] = 1,
 			["guideWindow.stepNumberSize"] = 0.75,
 			["guideWindow.journeyStyle"] = "folded",
+			["guideWindow.foldDone"] = false,
 			["guideWindow.bannerLinks"] = "right",
 			-- The step card's air out of compact mode, each gap's whole size in
 			-- px: over the title, between it and its line, over the tip, round

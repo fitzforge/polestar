@@ -339,7 +339,7 @@ function UI.GuideWindowScene(band)
 			["guideWindow.combatAlpha"] = window, ["ui.instance"] = window, ["guideWindow.hideTaxi"] = window, ["ui.growUp"] = window,
 			["ui.barsBottom"] = { P.strip, nav }, ["guideWindow.stepAnim"] = moving, ["guideWindow.animSpeed"] = moving,
 			-- A goal done shuts into the done line.
-			["guideWindow.foldAnim"] = { G.lines[1] or person }, ["guideWindow.leftOut"] = { G.lines[1] or person },
+			["guideWindow.foldAnim"] = { G.lines[1] or person }, ["guideWindow.foldDone"] = { G.lines[1] or person }, ["guideWindow.leftOut"] = { G.lines[1] or person },
 			["guideWindow.tabs"] = { P.strip }, ["guideWindow.otherTabNear"] = window, ["guideWindow.tabStyle"] = styled,
 			["guideWindow.tabHeight"] = { P.strip }, ["guideWindow.navHeight"] = { nav },
 			["guideWindow.barTextSize"] = bars, ["guideWindow.stepCount"] = { nav.Steps }, ["guideWindow.guideTitle"] = { nav.Title },
@@ -681,6 +681,17 @@ local SPECS = {
 		{ kind = "toggle", key = "ui.wholeStep", label = L["Show the whole step"],
 			help = L["Every goal of the step at once, finished ones kept, instead of one person at a time with the others on one line each."],
 			search = "whole step, every goal, all goals, one person at a time, hub, expand" },
+		{ kind = "toggle", key = "guideWindow.foldDone", label = L["Fold finished goals"], new = "0.4.4",
+			-- Only a layout that keeps finished goals in place (its defaults name it) offers it.
+			disabled = function()
+				local T = ns.Theme
+				local id = T and T.LayoutId and T.LayoutId()
+				local info = id and T.LayoutInfo and T.LayoutInfo(id)
+				return not (info and info.defaults and info.defaults["guideWindow.foldDone"] ~= nil)
+			end,
+			offWhy = L["Polestar's layout always folds finished goals into one line. Pick a layout that keeps them, such as Atlas, in Presets."],
+			help = L["Finished goals fold into one \"✓ N done\" line, as in compact mode, instead of staying in place."],
+			search = "fold, done goals, finished goals, completed objectives, compact, collapse, hide done, atlas" },
 		{ kind = "slider", key = "guideWindow.lastSteps", label = L["Steps before"], min = 0, max = 5, step = 1, format = "%d", new = NEW,
 			help = L["How many of the steps before this one show over it, one dimmed line each, done or skipped; 0 turns them off. Click one to go back to it."],
 			search = "steps before, last step, previous steps, step before, done steps, history, back" },

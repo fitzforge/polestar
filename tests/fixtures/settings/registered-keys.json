@@ -83,6 +83,7 @@
 	"guideWindow.combatAlpha",
 	"guideWindow.detailSize",
 	"guideWindow.foldAnim",
+	"guideWindow.foldDone",
 	"guideWindow.glyphSize",
 	"guideWindow.goalSize",
 	"guideWindow.guideTitle",
