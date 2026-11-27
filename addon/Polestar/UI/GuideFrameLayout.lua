@@ -178,7 +178,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			f:SetPoint("TOPRIGHT", prev, edge .. "RIGHT", 0, 0)
 			prev = f
 		end
-		local tip = card.Tip
+		local tip, below = card.Tip, goals
 		if tip:IsShown() then
 			tip.Text:SetWidth(cw - 18)
 			tip.Text:SetWordWrap(tipOpen)
@@ -214,8 +214,11 @@ ns.UI.GuideFrame.Part(function(GF)
 				tip:SetPoint("TOPLEFT", goals, "BOTTOMLEFT", 0, -gap)
 				tip:SetPoint("TOPRIGHT", goals, "BOTTOMRIGHT", 0, -gap)
 				y = y + gap + h
+				below = tip
 			end
 		end
+		-- The guide kind's regions after the step's own rows (GF.REGIONS' "step").
+		y = GF.LayoutRegionsAfter(width, y, below)
 		return y + 6
 	end
 

@@ -9650,9 +9650,13 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
 
   ```lua
   GF.REGIONS = {
-    profession = { "meter", "trainer", "stretch", "supplies", "buyList" },
-    reputation = { "meter", "turnin", "supplies", "more" },
-    dungeon    = { "brief", "ready", "pickups", "entrance" },   -- outside its instance
+    profession = { "meter", "trainer", "stretch", "step", "supplies", "buyList" },
+    reputation = { "meter", "turnin", "step", "supplies", "more" },
+    dungeon    = { "brief", "ready", "step", "pickups", "entrance" },   -- outside its instance
+    -- "step": the card's own header and goal rows there, the leveling view's (GF.LayoutRegionsAfter
+    -- lays the regions after it out under the goals area and the step's tip). A profession guide's
+    -- gather, buy and train steps read there; its craft step's view is the stretch card, which
+    -- covers the step's crafts
   }
   GF.RegionOverride(view, kind) -> { id, ... } | nil   -- a part taking the card for any kind
                                                       -- (the docked dungeon tracker: { "tracker" })
