@@ -4167,7 +4167,6 @@ L["Lists the quests in your log the route doesn't need: those it never hands in,
 L["Where it is turned in is not known"] = "Неизвестно, где сдать"
 L["Finished quests you're still carrying"] = "Выполненные задания, которые вы ещё не сдали"
 L["The route hands in every finished quest in your log."] = "Маршрут сдаёт все выполненные задания из вашего журнала."
-L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "Выполнены, но маршрут впереди их не сдаёт: здесь указано, кому сдать каждое. «Вести меня» проведёт к ним, начиная с ближайшего. Серое задание почти не даёт опыта: отмените его, если не будете проходить мимо."
 L["Finished quests you're still carrying (%d)"] = "Выполненные задания, которые вы ещё не сдали (%d)"
 L["Hand in your finished quests"] = "Сдайте выполненные задания"
 L["Handed in in %s"] = "Сдается в гайде %s"
@@ -4178,8 +4177,6 @@ L["Every quest in your log is part of your route."] = "Все задания в 
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "Ни один гайд вашего маршрута их не берет, не выполняет и не сдает. Оставьте нужные; «Отказаться» сначала спросит в окне самой игры."
 L["Finished: no guide of your route hands it in"] = "Выполнено: ни один гайд вашего маршрута его не сдает"
 L["Not in any guide of your route"] = "Нет ни в одном гайде вашего маршрута"
-L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = "«Вести меня» открывает порядок пути для всех выполненных заданий в журнале, включая отложенные для следующего гайда."
-L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = "Каждое выполненное задание в журнале, включая задания на вашем маршруте. «Вести меня» оценивает порядок пути; задания без известного места остаются в списке для сдачи вручную. Серое задание почти не дает опыта."
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "НОВАЯ СПОСОБНОСТЬ"
@@ -6071,3 +6068,6 @@ L["Click to show quest guide actions."] = "Нажмите, чтобы показ
 -- L["Free mode takes this quest first, whatever the order."] = "Свободный режим берет это задание первым, каким бы ни был порядок."
 -- L["Leave out of Free mode"] = "Исключить из свободного режима"
 -- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "Свободный режим больше не показывает это задание. Пункт меню «Вернуть исключенные задания» вернет его в список."
+-- L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "Выполнены, но маршрут впереди их не сдаёт: здесь указано, кому сдать каждое. «Вести меня» проведёт к ним, начиная с ближайшего. Серое задание почти не даёт опыта: отмените его, если не будете проходить мимо."
+-- L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = "«Вести меня» открывает порядок пути для всех выполненных заданий в журнале, включая отложенные для следующего гайда."
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = "Каждое выполненное задание в журнале, включая задания на вашем маршруте. «Вести меня» оценивает порядок пути; задания без известного места остаются в списке для сдачи вручную. Серое задание почти не дает опыта."

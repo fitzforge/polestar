@@ -4353,7 +4353,9 @@ end
 -- the footer, the widest button gives, down to the next widest and 56 at
 -- most, its label cut short and whole in its tooltip. Fitted again as the
 -- window's size changes. W.ShellUncutFooter(b) gives a button its own width
--- back before it is labelled again.
+-- back before it is labelled again. W.CutWidestButtons(buttons, over) is the
+-- giving, for any row of buttons over by that many pixels (the quest log
+-- window's footer too).
 function W.ShellUncutFooter(b)
 	if not rawget(b, "psFooterCut") then return end
 	b.psFooterCut = nil
@@ -4361,26 +4363,8 @@ function W.ShellUncutFooter(b)
 	b.psTip = rawget(b, "psFooterTip")
 	b:SetWidth(b.psFooterW)
 end
-function W.ShellFitFooter(f)
-	local GAP, LEAST = 16, 56
-	local room = f.Footer:GetWidth()
-	local shown, need, firstGhost = {}, SHELL.pad * 2 + GAP, false
-	for _, side in ipairs({ "left", "right" }) do
-		local n = 0
-		for _, b in ipairs(f.footerButtons[side]) do
-			W.ShellUncutFooter(b)
-			if b:IsShown() then
-				if side == "left" and n == 0 then firstGhost = b.psGhost and true or false end
-				shown[#shown + 1] = b
-				need = need + b:GetWidth() + (n > 0 and 8 or 0)
-				n = n + 1
-			end
-		end
-	end
-	if firstGhost then need = need - 8 end
-	local over = need - room
-	-- No width known yet (the footer not laid out): nothing to fit to.
-	if room <= 0 or over <= 0.5 then return end
+function W.CutWidestButtons(shown, over)
+	local LEAST = 56
 	while over > 0.5 do
 		local widest, second = nil, LEAST
 		for _, b in ipairs(shown) do
@@ -4404,6 +4388,28 @@ function W.ShellFitFooter(f)
 		widest.Label:SetWidth(max(1, w - give - 16 - (rawget(widest, "Icon") and widest.Icon:IsShown() and 19 or 0)))
 		over = over - give
 	end
+end
+function W.ShellFitFooter(f)
+	local GAP = 16
+	local room = f.Footer:GetWidth()
+	local shown, need, firstGhost = {}, SHELL.pad * 2 + GAP, false
+	for _, side in ipairs({ "left", "right" }) do
+		local n = 0
+		for _, b in ipairs(f.footerButtons[side]) do
+			W.ShellUncutFooter(b)
+			if b:IsShown() then
+				if side == "left" and n == 0 then firstGhost = b.psGhost and true or false end
+				shown[#shown + 1] = b
+				need = need + b:GetWidth() + (n > 0 and 8 or 0)
+				n = n + 1
+			end
+		end
+	end
+	if firstGhost then need = need - 8 end
+	local over = need - room
+	-- No width known yet (the footer not laid out): nothing to fit to.
+	if room <= 0 or over <= 0.5 then return end
+	W.CutWidestButtons(shown, over)
 end
 
 -- Without any button the footer bar goes and the body runs to the bottom.

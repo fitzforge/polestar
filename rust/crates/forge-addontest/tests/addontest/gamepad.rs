@@ -943,3 +943,30 @@ fn make_room_with_a_full_log_the_d_pad_reaches_the_last_row_and_the_list_scrolls
 	"#);
 	assert_eq!(out[0], json!({ "reached": true, "scrolled": true, "inSight": true }));
 }
+
+#[test]
+fn the_quest_room_switch_and_a_grey_quests_guide_button_respond_to_the_gamepad() {
+	let out = run(r#"
+		Polestar.RoutePlan.Unneeded = function() return {} end
+		Polestar.RoutePlan.Carried = function() return { { quest = 9005, title = "Quest", grey = true } } end
+		local selected
+		UI.GuideCarried = function(quest) selected = quest; return "lookup/carried/" .. quest end
+		UI.ShowQuestRoom()
+		stub.advance(0.3)
+		local F = PolestarQuestRoom
+		local function seek(button, direction)
+			for _ = 1, 10 do
+				if button and G.Focused(F) == button then return true end
+				stub.press(direction)
+			end
+			return false
+		end
+		local switch = seek(F.Switch, "PADDDOWN")
+		if switch then stub.press("PAD1") end
+		local carried = F.psMode == "carried"
+		local guide = carried and seek(rawget(F.rows[1], "GuideMe"), "PADDUP")
+		if guide then stub.press("PAD1") end
+		emit({ switch = switch, carried = carried, guide = guide, quest = selected or false, hidden = not F:IsShown() })
+	"#);
+	assert_eq!(out[0], json!({ "switch": true, "carried": true, "guide": true, "quest": 9005, "hidden": true }));
+}

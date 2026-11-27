@@ -4195,7 +4195,6 @@ L["Lists the quests in your log the route doesn't need: those it never hands in,
 L["Where it is turned in is not known"] = "On ne sait pas où la rendre"
 L["Finished quests you're still carrying"] = "Quêtes terminées que vous gardez encore"
 L["The route hands in every finished quest in your log."] = "L'itinéraire rend toutes les quêtes terminées de votre journal."
-L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "Terminées, et l'itinéraire à venir ne les rend jamais : voici à qui rendre chacune. « Me guider » vous y mène, la plus proche d'abord. Une quête grise ne donne presque plus d'XP : abandonnez-la si vous ne passez pas par là."
 L["Finished quests you're still carrying (%d)"] = "Quêtes terminées que vous gardez encore (%d)"
 L["Hand in your finished quests"] = "Rendre vos quêtes terminées"
 L["Handed in in %s"] = "Rendue dans %s"
@@ -4206,8 +4205,6 @@ L["Every quest in your log is part of your route."] = "Chaque quête de votre jo
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "Aucun guide de votre itinéraire ne les prend, ne les fait ni ne les rend. Gardez celles que vous voulez ; Abandonner demande d'abord dans la fenêtre du jeu."
 L["Finished: no guide of your route hands it in"] = "Terminée : aucun guide de votre itinéraire ne la rend"
 L["Not in any guide of your route"] = "Dans aucun guide de votre itinéraire"
-L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = "« Me guider » ouvre un ordre de trajet pour toutes les quêtes terminées de votre journal, y compris celles gardées pour un guide ultérieur."
-L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = "Chaque quête terminée de votre journal, y compris celles de votre itinéraire. « Me guider » estime un ordre de trajet ; les quêtes sans emplacement connu restent listées pour être rendues à la main. Une quête grise ne rapporte presque plus de XP."
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "NOUVELLE TECHNIQUE"
@@ -6140,3 +6137,6 @@ L["Click to show quest guide actions."] = "Cliquez pour afficher les actions du 
 -- L["Free mode takes this quest first, whatever the order."] = "Le mode libre prend cette quête en premier, quel que soit l'ordre."
 -- L["Leave out of Free mode"] = "Écarter du mode libre"
 -- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "Le mode libre n'affiche plus cette quête. « Rétablir les quêtes écartées » dans le menu la remet dans la liste."
+-- L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "Terminées, et l'itinéraire à venir ne les rend jamais : voici à qui rendre chacune. « Me guider » vous y mène, la plus proche d'abord. Une quête grise ne donne presque plus d'XP : abandonnez-la si vous ne passez pas par là."
+-- L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = "« Me guider » ouvre un ordre de trajet pour toutes les quêtes terminées de votre journal, y compris celles gardées pour un guide ultérieur."
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = "Chaque quête terminée de votre journal, y compris celles de votre itinéraire. « Me guider » estime un ordre de trajet ; les quêtes sans emplacement connu restent listées pour être rendues à la main. Une quête grise ne rapporte presque plus de XP."

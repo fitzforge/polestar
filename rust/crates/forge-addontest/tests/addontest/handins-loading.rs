@@ -128,3 +128,36 @@ emit({loaded=before, ids=ids(Polestar.Guides.Get('lookup/carried/log')), tabs=ta
 	);
 	assert_eq!(out, json!({"loaded":true,"ids":[7101],"tabs":[ID]}));
 }
+
+#[test]
+fn restored_individual_handins_wait_for_the_log_and_only_pick_up_their_own_quests() {
+	let saved = run("w.onQuest(7101, {}); w.onQuest(7106, {})", None, "H.Start(7101); H.Start(7106); H.Start(); settle(); emit(Polestar.CharState())");
+	let out = run(
+		"",
+		Some(format!("PolestarCharDB = {}", lua_value(&saved))),
+		r#"
+local amber, lost = 'lookup/carried/7101', 'lookup/carried/7106'
+local function guide(id) return Polestar.Guides.Get(id) end
+local restored = tabIds()
+local waiting = { notes(guide(amber)), notes(guide(lost)) }
+settle()
+local empty = notes(guide(amber))
+w.onQuest(7101, {}); w.onQuest(7106, {}); w.onQuest(7103, {}); stub.fire('QUEST_LOG_UPDATE'); settle()
+local placed = guide(amber) and guide(amber).steps[1].goals[1]
+local manual = guide(lost) and guide(lost).steps[1].goals[1]
+emit({restored=restored, waiting=waiting, empty=empty, tabs=tabIds(), active=E.GetGuide().id,
+	amber=ids(guide(amber)), lost=ids(guide(lost)), all=ids(guide('lookup/carried/log')),
+	map=placed and placed.map or false, manual=manual and manual.currentLog and manual.map == nil or false})
+"#,
+	);
+	assert_eq!(out["restored"], json!(["lookup/carried/7101", "lookup/carried/7106", ID]), "{out}");
+	assert_eq!(out["waiting"], json!(["Waiting for your quest log.", "Waiting for your quest log."]), "{out}");
+	assert_eq!(out["empty"], "This quest is not ready to hand in.", "{out}");
+	assert_eq!(out["tabs"], out["restored"], "{out}");
+	assert_eq!(out["active"], ID, "refreshing an individual tab must keep the active tab: {out}");
+	assert_eq!(out["amber"], json!([7101]), "{out}");
+	assert_eq!(out["lost"], json!([7106]), "{out}");
+	assert_eq!(out["all"], json!([7101, 7103, 7106]), "{out}");
+	assert_eq!(out["map"], 9001, "{out}");
+	assert_eq!(out["manual"], true, "{out}");
+}

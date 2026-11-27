@@ -4183,7 +4183,6 @@ L["Lists the quests in your log the route doesn't need: those it never hands in,
 L["Where it is turned in is not known"] = "제출 장소를 알 수 없음"
 L["Finished quests you're still carrying"] = "아직 들고 있는 완료된 퀘스트"
 L["The route hands in every finished quest in your log."] = "경로에서 퀘스트 목록의 완료된 퀘스트를 모두 제출합니다."
-L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "완료했지만 앞으로의 경로에서 제출하지 않는 퀘스트입니다. 각각 누구에게 제출하는지 보여 줍니다. '가이드 시작'을 누르면 가까운 곳부터 안내합니다. 회색 퀘스트는 경험치를 거의 주지 않으니, 지나갈 일이 없다면 포기하십시오."
 L["Finished quests you're still carrying (%d)"] = "아직 들고 있는 완료된 퀘스트 (%d)"
 L["Hand in your finished quests"] = "완료한 퀘스트 제출"
 L["Handed in in %s"] = "%s에서 제출"
@@ -4194,8 +4193,6 @@ L["Every quest in your log is part of your route."] = "목록의 모든 퀘스�
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "경로의 어떤 가이드도 이 퀘스트를 받거나 진행하거나 제출하지 않습니다. 원하는 것은 보관하십시오. 포기는 먼저 게임 자체 창에서 확인합니다."
 L["Finished: no guide of your route hands it in"] = "완료됨: 경로의 어떤 가이드도 제출하지 않습니다"
 L["Not in any guide of your route"] = "경로의 어떤 가이드에도 없음"
-L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = "가이드 시작은 나중 가이드를 위해 남겨 둔 것을 포함해, 목록에 있는 완료한 퀘스트 전체의 이동 순서를 엽니다."
-L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = "경로에 있는 것을 포함해 목록에 있는 완료한 퀘스트 전부입니다. 가이드 시작은 이동 순서를 추정하며, 위치를 모르는 퀘스트는 직접 제출하도록 목록에 남습니다. 회색 퀘스트는 이제 경험치를 거의 주지 않습니다."
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "새 능력"
@@ -6081,3 +6078,6 @@ L["Click to show quest guide actions."] = "클릭하면 퀘스트 가이드 동�
 -- L["Free mode takes this quest first, whatever the order."] = "순서와 상관없이 자유 모드가 이 퀘스트를 먼저 합니다."
 -- L["Leave out of Free mode"] = "자유 모드에서 제외"
 -- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "자유 모드에서 이 퀘스트를 더 이상 보여 주지 않습니다. 메뉴의 '제외한 퀘스트 되돌리기'로 다시 보여 줍니다."
+-- L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "완료했지만 앞으로의 경로에서 제출하지 않는 퀘스트입니다. 각각 누구에게 제출하는지 보여 줍니다. '가이드 시작'을 누르면 가까운 곳부터 안내합니다. 회색 퀘스트는 경험치를 거의 주지 않으니, 지나갈 일이 없다면 포기하십시오."
+-- L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = "가이드 시작은 나중 가이드를 위해 남겨 둔 것을 포함해, 목록에 있는 완료한 퀘스트 전체의 이동 순서를 엽니다."
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = "경로에 있는 것을 포함해 목록에 있는 완료한 퀘스트 전부입니다. 가이드 시작은 이동 순서를 추정하며, 위치를 모르는 퀘스트는 직접 제출하도록 목록에 남습니다. 회색 퀘스트는 이제 경험치를 거의 주지 않습니다."

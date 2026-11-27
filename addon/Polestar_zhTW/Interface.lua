@@ -4183,7 +4183,6 @@ L["Lists the quests in your log the route doesn't need: those it never hands in,
 L["Where it is turned in is not known"] = "繳交地點未知"
 L["Finished quests you're still carrying"] = "仍未繳交的已完成任務"
 L["The route hands in every finished quest in your log."] = "路線會繳交日誌中所有已完成的任務。"
-L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "已完成，但後續路線不會繳交：這裡列出每個任務要交給誰。「指引我」會帶你前往，從最近的開始。灰色任務幾乎不再給予經驗值：如果不會路過，就放棄它。"
 L["Finished quests you're still carrying (%d)"] = "仍未繳交的已完成任務（%d）"
 L["Hand in your finished quests"] = "繳交已完成的任務"
 L["Handed in in %s"] = "在 %s 中繳交"
@@ -4194,8 +4193,6 @@ L["Every quest in your log is part of your route."] = "任務日誌中的所有�
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "路線中沒有任何指南會接取、完成或繳交這些任務。保留你想要的；「放棄」會先在遊戲本身的視窗中確認。"
 L["Finished: no guide of your route hands it in"] = "已完成：路線中沒有指南會繳交它"
 L["Not in any guide of your route"] = "不在你路線中的任何指南裡"
-L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = "「指引我」會為任務日誌中所有已完成的任務開啟路線順序，包括留給之後指南的任務。"
-L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = "任務日誌中每個已完成的任務，包括你路線上的任務。「指引我」會估算路線順序；位置未知的任務仍留在列表中供手動繳交。灰色任務幾乎不再給經驗。"
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "新技能"
@@ -6081,3 +6078,6 @@ L["Click to show quest guide actions."] = "點擊顯示任務指南操作。"
 -- L["Free mode takes this quest first, whatever the order."] = "無論順序如何，自由模式都會先做這個任務。"
 -- L["Leave out of Free mode"] = "從自由模式中排除"
 -- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "自由模式不再列出此任務。選單中的「恢復被排除的任務」會重新列出它。"
+-- L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "已完成，但後續路線不會繳交：這裡列出每個任務要交給誰。「指引我」會帶你前往，從最近的開始。灰色任務幾乎不再給予經驗值：如果不會路過，就放棄它。"
+-- L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = "「指引我」會為任務日誌中所有已完成的任務開啟路線順序，包括留給之後指南的任務。"
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = "任務日誌中每個已完成的任務，包括你路線上的任務。「指引我」會估算路線順序；位置未知的任務仍留在列表中供手動繳交。灰色任務幾乎不再給經驗。"

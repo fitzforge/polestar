@@ -1,7 +1,7 @@
 //! The Quest room (UI/QuestRoom.lua) with the log of a player who installs Polestar mid-leveling: thirty quests
 //! from all over, none of them on the route, every fifth finished. One row per quest would stand 1,300 tall:
 //! the window keeps to the screen instead (1080 high, and a 1366x768 screen at UI scale 1), its rows scrolling
-//! inside it, every one reachable, the title, the close button, the switch to the finished quests and Guide me
+//! inside it, every one reachable, the title, the close button, the switch to the finished quests and Guide me to all
 //! outside the list and in reach; a quest's title or second line cut short reads whole in its tooltip, and the
 //! second line keeps inside the window.
 
@@ -107,6 +107,23 @@ fn make_room_and_the_finished_list_keep_to_a_1366x768_screen_at_ui_scale_1() {
 }
 
 #[test]
+fn the_switch_is_a_framed_secondary_button_in_both_lists() {
+	let out = run(
+		768,
+		r#"measure()
+local function framed() return F.Switch.psTextButton == true and not F.Switch.psGhost and not F.Switch.psPrimary end
+local room = { F.Switch.Label:GetText(), framed() }
+F.Switch:Click()
+local carried = { F.Switch.Label:GetText(), framed() }
+F.Switch:Click()
+emit({ room = room, carried = carried, back = F.Title:GetText() })"#,
+	);
+	assert_eq!(out["room"], json!(["Finished quests you're still carrying (6)", true]), "{out}");
+	assert_eq!(out["carried"], json!(["Make room in your quest log", true]), "{out}");
+	assert_eq!(out["back"], "Make room in your quest log", "{out}");
+}
+
+#[test]
 fn a_title_or_second_line_cut_short_reads_whole_in_its_tooltip() {
 	let out = run(
 		1080,
@@ -126,29 +143,122 @@ emit({ title = r.Title:GetText(), cut = r.Title:IsTruncated() or r.Why:IsTruncat
 }
 
 #[test]
-fn guide_me_uses_all_finished_quests_and_opens_the_existing_guide_even_without_known_locations() {
+fn each_finished_quest_guides_only_to_its_handin_and_leaves_room_for_abandon() {
 	let out = run(
 		768,
-		r#"local starts, allCalls = 0, 0
+		r#"Polestar.Codex.Register("meta", {})
+local P = Polestar.RoutePlan
+local list = {
+	{ quest = 9005, title = "A finished grey quest with a very long name", grey = true },
+	{ quest = 9010, title = "A finished quest with no known recipient" },
+}
+P.Carried = function() return list end
+P.Unneeded = function() return { { quest = 9005, title = list[1].title, status = "grey" } } end
+local ender = P.Ender
+P.Ender = function(q) if q ~= 9010 then return ender(q) end end
+local function click(row)
+	assert(row.GuideMe:IsShown(), "each finished quest has a Guide me button")
+	row.GuideMe:Click()
+	local guide, quests, goal = Polestar.Engine.GetGuide(), {}, nil
+	for _, s in ipairs(guide.steps) do
+		for _, g in ipairs(s.goals) do
+			if g.t == "turnin" then quests[#quests + 1], goal = g.quest, g end
+		end
+	end
+	return { id = guide.id, quests = quests, map = goal and goal.map or false, closed = not F:IsShown() }
+end
+measure("carried")
+local row = F.rows[1]
+local guide = assert(rawget(row, "GuideMe"), "a finished row has a Guide me button")
+stub.RunScript(guide, "OnEnter")
+local tip = GameTooltip:GetOwner() == guide and GameTooltip.lines[1]
+stub.RunScript(guide, "OnLeave")
+-- What a button is anchored to, and whether both text lines end left of the given buttons.
+local function anchor(b) local _, rel, relPoint = b:GetPoint(); return rel, relPoint end
+local function textFits(...)
+	local w = 2
+	for _, b in ipairs({ ... }) do w = w + b:GetWidth() + 6 end
+	return row.Title:GetWidth() <= row:GetWidth() - w and row.Why:GetWidth() <= row:GetWidth() - w
+end
+local guideRel, guidePoint = anchor(guide)
+local fits = row.Abandon:IsShown() and guideRel == row and guidePoint == "RIGHT" and anchor(row.Abandon) == guide
+	and textFits(guide, row.Abandon)
+local D = Polestar.Dungeons
+local mark, tooltip = D.QuestMark, D.MarkTooltip
+D.QuestMark = function(q) if q == 9005 then return { key = "gnomeregan" } end return mark(q) end
+D.MarkTooltip = function(q) if q == 9005 then return "Part of the Gnomeregan quests" end return tooltip(q) end
+Polestar.UI.LayoutQuestRoom()
+local allFit = row.Dungeon:IsShown() and anchor(guide) == row and anchor(row.Dungeon) == guide
+	and anchor(row.Abandon) == row.Dungeon and textFits(guide, row.Dungeon, row.Abandon)
+local carried = click(row)
+measure("elsewhere")
+local elsewhere = click(F.rows[2])
+measure()
+emit({ carried = carried, elsewhere = elsewhere, fits = fits, allFit = allFit, tip = tip or false,
+	hidden = not F.rows[1].GuideMe:IsShown() })"#,
+	);
+	assert_eq!(out["carried"], json!({ "id": "lookup/carried/9005", "quests": [9005], "map": 1429, "closed": true }), "{out}");
+	assert_eq!(out["elsewhere"], json!({ "id": "lookup/carried/9010", "quests": [9010], "map": false, "closed": true }), "{out}");
+	assert_eq!(out["fits"], true, "Guide me takes the right edge, Abandon sits left of it, and the text ends before both: {out}");
+	assert_eq!(out["allFit"], true, "the dungeon icon goes left of Guide me, Abandon left of that, and the text ends before all three: {out}");
+	assert_eq!(out["tip"], "Guide me to this hand-in", "{out}");
+	assert_eq!(out["hidden"], true, "reused Make room rows hide the button: {out}");
+}
+
+#[test]
+fn guide_me_to_all_opens_the_whole_log_and_stays_clear_of_the_switch() {
+	let out = run(
+		768,
+		r#"Polestar.Codex.Register("meta", {})
+local starts, allCalls = 0, 0
 Polestar.RoutePlan.Carried = function(all)
-	assert(all == true, "the quest room must include finished quests already on a route")
+	if not all then return {} end
 	allCalls = allCalls + 1
 	return { { quest = 9005, title = "Finished quest" } }
 end
 Polestar.RoutePlan.Ender = function() return nil end
-Polestar.Handins.Start = function() starts = starts + 1; return "lookup/carried/log" end
+local start = Polestar.Handins.Start
+Polestar.Handins.Start = function(...) starts = starts + 1; return start(...) end
 local room = measure()
+-- Simulate a wider label, as a translation gives: the footer stays on one line and the wider label is cut short.
+F.GuideMe:SetWidth(220)
 local carried = measure("carried")
+local cut = {}
+for _, b in ipairs({ F.Switch, F.GuideMe }) do
+	if b.psFooterCut then cut[#cut + 1] = b.psTip == b.Label:GetText() and not b.Label:GetWordWrap() end
+end
+local oneLine = {
+	sameTop = select(5, F.Switch:GetPoint()) == select(5, F.GuideMe:GetPoint()),
+	fits = F.Switch:GetWidth() + 16 + F.GuideMe:GetWidth() <= F:GetWidth() - 48 + 0.5,
+	cut = cut,
+}
+local label = F.GuideMe.Label:GetText()
 local before, hint, why = starts, F.Hint:GetText(), F.rows[1].Why:GetText()
 F.GuideMe:Click()
+local guide, quests, manual = Polestar.Engine.GetGuide(), {}, true
+for _, s in ipairs(guide.steps) do
+	for _, g in ipairs(s.goals) do
+		if g.t == "turnin" then quests[#quests + 1], manual = g.quest, manual and g.currentLog and g.map == nil end
+	end
+end
+table.sort(quests)
 emit({ room = room, carried = carried, before = before, starts = starts, allCalls = allCalls,
-	hint = hint, why = why, shown = F:IsShown() })"#,
+	hint = hint, why = why, shown = F:IsShown(), label = label, oneLine = oneLine,
+	id = guide.id, quests = quests, manual = manual })"#,
 	);
+	assert_eq!(out["label"], "Guide me to all", "{out}");
+	assert_eq!(out["oneLine"]["sameTop"], true, "a wider label keeps the footer on one line: {out}");
+	assert_eq!(out["oneLine"]["fits"], true, "the two buttons fit beside each other: {out}");
+	let cut = out["oneLine"]["cut"].as_array().unwrap();
+	assert!(!cut.is_empty() && cut.iter().all(|c| c == true), "the wider label(s) are cut short, whole in the tooltip: {out}");
+	assert_eq!(out["id"], "lookup/carried/log", "{out}");
+	assert_eq!(out["quests"], json!([9005, 9010, 9015, 9020, 9025, 9030]), "{out}");
+	assert_eq!(out["manual"], true, "{out}");
 	assert_eq!(out["room"]["switch"], true, "the existing Make room path reaches all finished quests: {out}");
 	assert_eq!(out["carried"]["rows"], 1, "{out}");
 	assert_eq!(out["carried"]["guideMe"], true, "unknown locations still allow a manual hand-in guide: {out}");
 	assert_eq!(out["before"], 0, "listing quests does not start a guide: {out}");
-	assert_eq!(out["starts"], 1, "Guide me delegates once to the shared planner: {out}");
+	assert_eq!(out["starts"], 1, "the footer delegates once to the shared planner: {out}");
 	assert_eq!(out["allCalls"], 2, "both the switch and carried list request every finished quest: {out}");
 	assert_eq!(out["why"], "Where it is turned in is not known", "{out}");
 	assert_eq!(out["shown"], false, "the window closes after the guide opens: {out}");
