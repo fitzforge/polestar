@@ -1276,13 +1276,21 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 	}
 	// An NPC on a player faction's side is never a rare (the data-diff gate's `friendly-rare`): a rank,
 	// a source's rare list or a sighting can name one (faction leaders in 0.4.1, #2929 #2942), and the
-	// rare alert, pins and list read this flag.
+	// rare alert, pins and list read this flag. One whose rank is a rare's (2 rare elite, 4 rare) still
+	// spawns as a rare does, at one of its spots at a time and often not up: `rareSpawn`, which Nearby
+	// reads to leave out a wandering merchant (#3432, #4388: Mount Hyjal's Pexmit).
 	for (id, n) in npcs.entries() {
-		if n.get("rare").truthy() && matches!(n.get("faction").as_str(), Some("A" | "H" | "AH")) {
+		if !matches!(n.get("faction").as_str(), Some("A" | "H" | "AH")) {
+			continue;
+		}
+		if n.get("rare").truthy() {
 			n.set("rare", false);
 			if let Some(&i) = role_ix.get(&*id) {
 				npc_roles[i].1.delete("rare");
 			}
+		}
+		if matches!(int(&fv.npcs.get(&id).get("rank")), Some(r) if r == 2.0 || r == 4.0) {
+			n.set("rareSpawn", true);
 		}
 	}
 	// Vendors by what they sell (sells_role): every NPC an item lists as its
@@ -2705,6 +2713,35 @@ mod tests {
 		assert_eq!(rare("266901"), (false, false), "an NPC both sides deal with");
 		assert!(codex.npcs.get("266901").get("roles").items().iter().any(|r| r.as_str() == Some("vendor")), "its other roles stay");
 		assert_eq!(rare("61"), (true, true), "a hostile rare stays a rare");
+	}
+
+	// #4388: an NPC on a player faction's side whose rank is a rare's (Pexmit, rank 4; a rare elite, rank 2) is a rare
+	// spawn: no rare to hunt, but at one of its spots at a time and often not up, which Nearby reads (#3432). A faction
+	// leader named rare by a source's list (rank 3) is none; a hostile rare is a rare, not this. (Each has a role: the
+	// Codex keeps no spawnless NPC without one.)
+	#[test]
+	fn an_npc_on_a_player_faction_s_side_with_a_rare_s_rank_is_a_rare_spawn_4388() {
+		let mut inp = inputs("{}", "{}");
+		inp.forever.npcs = parse_json(
+			r#"{
+			"4949": { "id": 4949, "name": "Thrall", "faction": "H", "rank": 3, "roles": ["rare", "vendor"], "spawns": {} },
+			"88010": { "id": 88010, "name": "Rare Elite Merchant", "faction": "A", "rank": 2, "roles": ["vendor"], "spawns": {} },
+			"266901": { "id": 266901, "name": "Pexmit", "faction": "AH", "rank": 4, "roles": ["rare", "vendor"], "spawns": {} },
+			"61": { "id": 61, "name": "Thuros Lightfingers", "rank": 4, "roles": ["rare"], "spawns": {} },
+			"68": { "id": 68, "name": "Stormwind City Guard", "faction": "A", "rank": 1, "roles": ["vendor"], "spawns": {} }
+		}"#,
+		)
+		.unwrap();
+		let codex = merge_codex(&inp);
+		for id in ["4949", "88010", "266901", "61", "68"] {
+			assert!(codex.npcs.get(id).truthy(), "{id} in the Codex");
+		}
+		let spawn = |id: &str| codex.npcs.get(id).get("rareSpawn").truthy();
+		assert!(spawn("266901") && spawn("88010"), "rank 4 and rank 2 on a player faction's side");
+		assert!(!codex.npcs.get("266901").get("rare").truthy(), "still no rare (#2929)");
+		assert!(!spawn("4949"), "a faction leader a rare list names");
+		assert!(!spawn("61") && codex.npcs.get("61").get("rare").truthy(), "a hostile rare is a rare");
+		assert!(!spawn("68"), "an elite guard");
 	}
 
 	// #2326: Screecher Spirits' target rises only from Yeh'kinya's Bramble (a summon-by-item the mechanics drive,
