@@ -118,6 +118,15 @@
 							]
 						},
 						{
+							"name": "Radiant Boots",
+							"plans": [12697],
+							"why": "Boots plans but no leggings plans: the boots to 290, then the Imperial Plate Leggings quest.",
+							"route": [
+								{ "from": 270, "to": 290, "recipe": 16656, "count": 22, "mats": { "12359": 308, "7077": 88 } },
+								{ "from": 290, "to": 300, "recipe": 16730, "count": 10, "mats": { "12359": 440, "7910": 20 }, "quests": [7658] }
+							]
+						},
+						{
 							"name": "Thorium Leggings",
 							"plans": [12704],
 							"why": "Next cheapest; the plans are learned at 275.",

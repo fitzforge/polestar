@@ -157,7 +157,7 @@ fn the_window_lists_each_material_of_the_ranges_ahead_with_its_way_a_pick_moves_
 		out["rows"],
 		json!([
 			["Linen Cloth", "40 still to get  \u{b7}  Mobs of level 5-15", "gather", true, true],
-			["Light Leather", "10 still to get  \u{b7}  Needs Skinning 1", "buy", false, true],
+			["Light Leather", "10 still to get  \u{b7}  Needs Skinning skill 1", "buy", false, true],
 			["Wool Cloth", "50 still to get  \u{b7}  Drops from level 15", "buy", true, true],
 		]),
 		"a profession the character lacks leaves no gathering; mobs above its level are its choice"
