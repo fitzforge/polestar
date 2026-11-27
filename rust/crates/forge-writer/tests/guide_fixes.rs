@@ -99,3 +99,41 @@ fn report_2282_does_not_add_the_horde_detour_warning_to_other_routes() {
 	assert_eq!(after, before);
 	assert!(rows.iter().all(|r| r.state == "not for this start"));
 }
+
+#[test]
+fn sunken_treasure_escort_is_independent_of_the_reef_group_choice() {
+	let file = "forever/alliance/30-40/05-arathi-highlands.guide";
+	let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../..");
+	let seed = std::fs::read_to_string(root.join("forge/seed/guides").join(file)).unwrap();
+	let all = document("data/guide-fixes.json");
+	let fixes = json!({ "fixes": all["fixes"].as_array().unwrap().iter().filter(|r| {
+		matches!(r["id"].as_str(), Some(
+			"sunken-treasure-solo-escort" | "sunken-treasure-escort-up-to-the-cave" |
+			"faldirs-cove-solo-approach" | "faldirs-cove-reef-group"
+		))
+	}).collect::<Vec<_>>() });
+	let records = Records { guide_fixes: Some(&fixes), ..Records::default() };
+	let mut tree = BTreeMap::from([(file.to_string(), seed)]);
+	let apply_fixes = |tree: &mut _| apply(tree, &[file.into()], &HashSet::new(), Some("Alliance"), records, None);
+	assert!(apply_fixes(&mut tree).iter().all(|r| r.state == "applied"));
+	let text = &tree[file];
+	let steps: Vec<_> = text.split("\nstep ").skip(1).collect();
+	let has_goal = |step: &str, goal: &str| step.lines().any(|line| line.trim_start().split(" --").next().is_some_and(|code| code.trim_end() == goal));
+	let step_with = |goal| steps.iter().find(|step| has_goal(step, goal)).unwrap();
+	for goal in ["accept 663", "turnin 663", "accept 665", "complete 665", "turnin 665"] {
+		assert!(!step_with(goal).contains("when group"), "{goal} is available on the solo route");
+	}
+	let escort = step_with("complete 665");
+	assert!(escort.contains("goto 33.9,80.6"));
+	assert!(escort.contains("Two frost-immune level 40 water elementals") && escort.contains("at the cave mouth"));
+	for goal in ["accept 662", "accept 664", "accept 666", "turnin 662", "turnin 664", "turnin 666", "accept 669"] {
+		assert!(step_with(goal).contains("when group 664"), "{goal} stays with the reef");
+	}
+	assert!(!text.contains("when group 665"));
+	assert!(text.contains("you can escort the professor solo. Group up for the naga"));
+	let route_fixes = document("data/route-fixes.json");
+	assert!(!route_fixes["deliberate"]["group"].as_array().unwrap().iter().any(|row| row["q"] == 665));
+	let once = tree.clone();
+	assert!(apply_fixes(&mut tree).iter().all(|r| r.state == "redundant"));
+	assert_eq!(tree, once);
+}

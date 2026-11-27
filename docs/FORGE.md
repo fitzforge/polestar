@@ -462,6 +462,12 @@ The other forms are `level>=N` (levels 2 to 60, including fractional progress su
 `onquest Q[,Q...]`, `[!]complete Q`, `[!]turnedin Q` and `[!]knows S`. Here `Q` is a quest ID,
 `I` an item ID and `S` a spell ID. An optional `!` reverses the condition.
 
+To change the root of a guide's existing group choice, anchor `groupChoice` on the old
+root's accept and name the guide. Set `groupChoice.quest` to the new root, list the
+quests that should run independently in `groupChoice.solo`, and supply
+`groupChoice.pitch` if the guide's pitch describes the old choice. Mixed steps split
+in goal order. Remove any obsolete group size record from `data/route-fixes.json`.
+
 Places and guide fixes are anchored on a quest's goal (a `when` on a flight step and `levels` on a
 guide's header name the guide instead), never on a line or a step, and the writer applies them to
 the guides it writes, last:

@@ -7346,17 +7346,87 @@
 			"issue": 1257
 		},
 		{
+			"id": "sunken-treasure-solo-escort",
+			"faction": "Alliance",
+			"at": {
+				"quest": 665,
+				"goal": "accept",
+				"guide": "forever/alliance/30-40/05-arathi-highlands"
+			},
+			"groupChoice": {
+				"quest": 664,
+				"solo": [
+					663,
+					665
+				],
+				"pitch": "Swamp of Sorrows first, then north to Southshore, Alterac and Arathi. For characters of 36 to 38. At Faldir's Cove, you can escort the professor solo. Group up for the naga in the reef."
+			},
+			"note": "Land Ho! (663) and Sunken Treasure's escort (665) are on the solo route. Drowned Sorrows (664) is the group choice for the reef quests.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Polestar Forever database export: quest 665 (type 0), NPC 2776 (level 40, rank 0)"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "cameronmoten's Sunken Treasure report (2026-11-24): two level 40 water elementals at about 2,200 HP each, manageable solo"
+				},
+				{
+					"kind": "recording",
+					"ref": "Alliance 0.4.0 level tidy: 11 of 18 recorded players died to the Drowned Reef's Daggerspine naga"
+				}
+			]
+		},
+		{
+			"id": "faldirs-cove-solo-approach",
+			"faction": "Alliance",
+			"at": {
+				"quest": 663,
+				"goal": "accept",
+				"guide": "forever/alliance/30-40/05-arathi-highlands"
+			},
+			"tip": "Follow the west coast south to the cove. Lolo keeps watch on the rocks above it.",
+			"note": "Replace the old group-only introduction on the Land Ho! step after the escort leaves the reef group.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Polestar Forever database export: quest 665 (type 0), NPC 2776 (level 40, rank 0)"
+				}
+			]
+		},
+		{
+			"id": "faldirs-cove-reef-group",
+			"faction": "Alliance",
+			"at": {
+				"quest": 664,
+				"goal": "accept",
+				"guide": "forever/alliance/30-40/05-arathi-highlands"
+			},
+			"tip": "Group up for the level 38-40 Daggerspine naga in the reef. You can still escort the professor if you skip the reef quests.",
+			"note": "Explain what the Drowned Sorrows group choice covers at the reef pickups.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "Alliance 0.4.0 level tidy: 11 of 18 recorded players died to the Drowned Reef's Daggerspine naga"
+				}
+			]
+		},
+		{
 			"id": "sunken-treasure-escort-up-to-the-cave",
 			"at": {
 				"quest": 665,
 				"goal": "complete"
 			},
-			"tip": "Escort the professor up the hill to the cave above the cove and guard him while he works. Two level 40 water elementals ambush him there, and they are immune to frost. Hold them at the cave mouth, away from him: if the fight happens inside the cave, he joins in instead of working and more elementals keep coming.",
+			"tip": "Soloable escort. Follow the professor up to the cave. Two frost-immune level 40 water elementals ambush him there (about 2,200 HP each). Fight them at the cave mouth so he can keep working. If he joins the fight inside, more elementals can spawn.",
 			"note": "Final route review 0.3.5: the Horde step said two Daggerspine naga ambush the professor on the way down to the shore, the Alliance one that naga attack in waves on the beach north of the cove; both contradicted the writer's own 'Careful' tip. The professor walks up to the cave and, at his last waypoint, summons two Vengeful Surges (water elementals, npc 2776) before completing the quest. One tip for both sides, with the 'Careful' tip folded in, since a tip record replaces the step's tips.",
 			"source": [
 				{
 					"kind": "tdb",
 					"ref": "smart_scripts 2768/276802 (summon group 1) and creature_summon_groups: two Vengeful Surge 2776 by the cave"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "cameronmoten's Sunken Treasure report (2026-11-24): two level 40 water elementals at about 2,200 HP each, manageable solo"
 				}
 			]
 		},
@@ -14042,11 +14112,11 @@
 				"guide": "forever/alliance/40-50/01-stranglethorn-vale"
 			},
 			"optional": true,
-			"note": "Since the 0.4.0 level tidy Faldir's Cove (662-669) is a group choice on 30-40/05 (its naga and water elementals are 38-40 at 38), so a solo player arrives in Booty Bay without Sunken Treasure; its hand-in to Fleet Master Seahorn stays for the players who did it and never holds the step.",
+			"note": "The Booty Bay hand-in stays optional because it follows the reef gem quest (666), part of the Drowned Sorrows group choice.",
 			"source": [
 				{
 					"kind": "recording",
-					"ref": "route-fixes deliberate.group 665 (Faldir's Cove group record); polestar playtest --honest: 'turn in Sunken Treasure: never accepted' on the solo route"
+					"ref": "faldirs-cove-reef-group (Drowned Sorrows, 664)"
 				}
 			]
 		},
@@ -14058,12 +14128,12 @@
 				"goal": "turnin",
 				"guide": "forever/alliance/40-50/01-stranglethorn-vale"
 			},
-			"goalNote": "Fleet Master Seahorn, top floor: Sunken Treasure, if you did Faldir's Cove with a group",
+			"goalNote": "Fleet Master Seahorn, top floor: Sunken Treasure, if you finished the reef quests in Faldir's Cove",
 			"note": "The goal note of the optional Sunken Treasure hand-in (stv-sunken-treasure-optional).",
 			"source": [
 				{
 					"kind": "recording",
-					"ref": "route-fixes deliberate.group 665 (Faldir's Cove group record)"
+					"ref": "faldirs-cove-reef-group (Drowned Sorrows, 664)"
 				}
 			]
 		},
