@@ -3734,6 +3734,68 @@ test(`${TELDRASSIL}: Pynte's report: Zenn's Bidding is taken on the walk down to
 
 const BADLANDS = 'forever/alliance/30-40/06-badlands.guide';
 const DESOLACE_SOUTH = 'forever/alliance/30-40/06b-desolace.guide';
+test('Alliance Badlands: Safety Checks can be handed in on the first ride out if ready', () => {
+	const early = fs.readFileSync(path.join(OFFICIAL_DIR, BADLANDS), 'utf8');
+	const late = fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/alliance/40-50/02-badlands.guide'), 'utf8');
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	const record = fixes.find((f) => f.id === 'alliance-badlands-ready-safety-checks-on-exit');
+	assert.deepEqual(record.step, {
+		after: { quest: 711, goal: 'turnin' },
+		guide: BADLANDS.replace(/\.guide$/, ''),
+		copy: true,
+		when: 'complete 97617',
+	});
+
+	// Exercise the exit in the engine with fixed quest data. The public CI
+	// cache can be older than the full Badlands guide.
+	const exit = early.match(/^step To Stoutlager Inn\r?\n(?:[ \t]+[^\r\n]*\r?\n)+/m)[0];
+	const lotwil = early.match(/^step Lotwil Veriatus\r?\n  turnin 711[^\r\n]*\r?\n/m)[0];
+	const dorgaron = late.match(/^step Dorgaron\r?\n(?:[ \t]+[^\r\n]*\r?\n)+/m)[0];
+	const guarded = dorgaron.replace(/^(  zone Badlands\r?\n)/m, `$1  when ${record.step.when}\n`);
+	const text = `guide ${record.step.guide}\ntitle Badlands\nfaction Alliance\nlevels 37-38\nzone Badlands\n\n${lotwil}\n${guarded}\n${exit}`;
+	const quest = (id, title, npc) => ({ id, title, level: 39, minLevel: 35, end: { npc: [npc] }, objectives: [] });
+	const npc = (id, name, x, y) => ({ id, name, spawns: { 1418: { f: 'e', pts: [[x, y]] } } });
+	const fixture = new Data({
+		quests: {
+			711: quest(711, 'Study of the Elements: Rock', 2921),
+			97617: quest(97617, 'Safety Checks', 269577),
+		},
+		npcs: {
+			2921: npc(2921, 'Lotwil Veriatus', 25.92, 45.12),
+			269577: npc(269577, 'Dorgaron', 54.49, 12.92),
+		},
+		zones: {
+			1418: { id: 1418, name: 'Badlands', parent: 1415, type: 3 },
+			1432: { id: 1432, name: 'Loch Modan', parent: 1415, type: 3 },
+		},
+	});
+	const who = { race: 'Human', raceName: 'Human', faction: 'Alliance', cls: 'WARLOCK', className: 'Warlock', level: 39 };
+	const view = (state, continueAfterHandIn = '') => engineRun(BADLANDS, who, {
+		text,
+		data: fixture,
+		before: `w.moveTo(1418, 25.92, 45.12)
+			w.onQuest(711, {})
+			${state}`,
+		after: `local w = stub.world
+			assert(E.GetLiveStep() == 1)
+			w.turnIn(711)
+			${continueAfterHandIn}`,
+		script: `local step = E.GetGuide().steps[assert(E.GetLiveStep())]
+			local goal = step.goals[1]
+			emit({action = goal.t, quest = goal.quest, npc = goal.npc, map = goal.map})`,
+	});
+	const ready = 'w.onQuest(97617, {})';
+	assert.deepEqual(view(ready), { action: 'turnin', quest: 97617, npc: 269577, map: 1418 });
+	for (const [state, turnIn] of [
+		[ready, 'w.turnIn(97617)'],
+		['w.onQuest(97617, { 1 })', ''],
+		['w.complete({97617})', ''],
+		['', ''],
+	]) {
+		assert.deepEqual(view(state, turnIn), { action: 'goto', map: 1432 });
+	}
+});
+
 test(`${DESOLACE_SOUTH}: the same pattern as #89: Book of the Ancients is taken from Azore on the way to Karnitol's Chest, not on a walk back from it`, { skip }, () => {
 	// Review (0.3.6): the first Desolace visit (02) opens the chest beside Azore's tower; the south loop (06b) keeps
 	// the chain for a player who loads it without 02, and there Azore still comes before the chest.

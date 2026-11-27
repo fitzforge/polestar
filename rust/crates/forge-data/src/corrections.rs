@@ -1547,7 +1547,7 @@ fn check_places(ck: &mut Ck, d: &V) {
 	}
 }
 
-/// A top-level guide-fix condition uses this subset of the guide's step predicates.
+/// A guide-fix condition uses this subset of the guide's step predicates.
 fn check_guide_when(ck: &mut Ck, at: &str, when: &V) {
 	let text = when.as_str().filter(|w| !w.contains(['\r', '\n'])).unwrap_or("");
 	let parsed = forge_guide::when::parse_when(text);
@@ -1602,7 +1602,7 @@ fn check_guide_when(ck: &mut Ck, at: &str, when: &V) {
 /// step holds, each alone on its record: `follows: { quest, goal, objective? }` (the anchored goal line
 /// right after that goal's line), `split: { title, tip? }` (the anchored goal and the lines after it in
 /// its step become a step of their own) and `step: { after: { quest, goal, objective? }, guide?,
-/// copy?: true, way?: true, tip? }` (the anchored goal's whole step, or a copy, right after `after`'s
+/// copy?: true, way?: true, tip?, when? }` (the anchored goal's whole step, or a copy, right after `after`'s
 /// step in the guide `guide` names). `way: { at: { map, x, y, frame? }, label?, title? }` (alone): the
 /// end of the walk right before the anchored goal's step. `at.guide` narrows any record to the guide
 /// with that id.
@@ -1824,7 +1824,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 				}
 				(true, true) if !r.get("step").is_undef() => {
 					let s = r.get("step");
-					ck.keys(&format!("{at}.step"), &s, &["after", "guide", "copy", "way", "tip"]);
+					ck.keys(&format!("{at}.step"), &s, &["after", "guide", "copy", "way", "tip", "when"]);
 					check_goal_ref(ck, &format!("{at}.step.after"), &s.get("after"));
 					for k in ["copy", "way"] {
 						if !s.get(k).is_undef() && !matches!(s.get(k), V::Bool(true)) {
@@ -1836,6 +1836,10 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 						if !v.is_undef() && (!has_text(&v) || v.as_str().is_some_and(|t| t.contains('\n'))) {
 							ck.err(format!("{at}.step.{k}"), "one line of text");
 						}
+					}
+					let condition = s.get("when");
+					if !condition.is_undef() {
+						check_guide_when(ck, &format!("{at}.step.when"), &condition);
 					}
 					"step"
 				}

@@ -27,6 +27,19 @@ test('quest work handed in only by a later guide carries that guide id', () => {
 	assert.match(emitGuides(deep.guides.map((guide) => ({ guide, source: null }))), /carriedTo = "t\/three"/);
 });
 
+test('an early hand-in only when ready keeps the carry for unfinished quests', () => {
+	const r = compile({
+		'1.guide': text('t/one', [
+			'step S', '  accept 7', '  kill 6 quest 7.1', '  accept 33',
+			'step Early', '  when complete 7', '  turnin 7',
+			'step Early item quest', '  when complete 33', '  turnin 33',
+		], ['next t/two']),
+		'2.guide': text('t/two', ['step S', '  turnin 7']),
+	});
+	assert.equal(carried(r, 't/one')[1], 't/two');
+	assert.ok(!r.diag.warnings.some((w) => w.message.includes('no earlier goal in this guide') && w.message.includes('33')));
+});
+
 test('route choices: only one guide that every route hands it in at', () => {
 	const choice = (two, three, extra = {}) => {
 		const start = text('t/one', ['step S', '  accept 7', '  kill 6 quest 7.1'], ['next t/two, t/three']);

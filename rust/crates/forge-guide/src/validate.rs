@@ -226,6 +226,10 @@ fn carried_step(step: &V, quest: &V) -> bool {
 	})
 }
 
+fn ready_turn_in(step: &V, goal: &V) -> bool {
+	t_of(goal) == "turnin" && step.get("when").items().iter().any(|p| !p.get("neg").truthy() && p.get("k").as_str() == Some("complete") && p.get("q").strict_eq(&goal.get("quest")))
+}
+
 /// A step only players who chose the group way follow (`when group <quest>`, `when dungeon "<Name>"`)
 /// whose every goal is `optional`: an optional goal never holds a step, so it is done at once and the
 /// player who chose it gets no arrow to the accept, the elite or the hand-in (the Monogrammed Sash,
@@ -824,7 +828,7 @@ fn check_turnin_items(g: &V, before: &[V], data: &Data, diag: &mut Diagnostics) 
 		for goal in step.get("goals").items() {
 			let quest = goal.get("quest");
 			let q = if t_of(&goal) == "turnin" && !quest.is_undef() { data.quest(&quest) } else { V::Null };
-			if q.truthy() {
+			if q.truthy() && !ready_turn_in(&step, &goal) {
 				let qs = ts(&quest);
 				let missing: Vec<_> =
 					needed_items(data, &q).into_iter().filter(|it| !held.contains(&key(&it.0)) && !objectives.contains(&format!("{qs}.{}", ts(&it.2))) && !completed.contains(&key(&quest))).collect();
@@ -1178,7 +1182,7 @@ impl Ctx<'_> {
 			if q.is_undef() || !(t == "complete" || OBJECTIVE_VERBS.contains(&t.as_str())) {
 				continue;
 			}
-			if goals[i + 1..].iter().any(|(_, later)| closes(later) && later.get("quest").strict_eq(&q)) {
+			if goals[i + 1..].iter().any(|(step, later)| closes(later) && later.get("quest").strict_eq(&q) && !ready_turn_in(step, later)) {
 				continue;
 			}
 			let chars = characters(&[gl.clone(), step.hidden("_only"), goal.hidden("_only")], &self.data.quest(&q));

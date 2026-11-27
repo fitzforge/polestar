@@ -1387,7 +1387,8 @@ after the guide (`next` and every route choice, each character following
 only the guides its race, class and faction can) first hands the quest in
 in that one guide, for every character the goal applies to. A route that
 never hands it in, drops it with an `abandon`, or two routes handing it in
-in different guides: no `carriedTo`. There is nothing to write in the guide.
+in different guides: no `carriedTo`. A local hand-in gated by `when complete`
+for that quest still allows a carry to the later guide if the quest is unfinished.
 
 In the game the guide window says under the quest's last such goal in the
 step, on a line of its own after the goal's other line: "Keep this: you hand
