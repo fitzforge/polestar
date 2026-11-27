@@ -45,7 +45,7 @@ return {
 
 	-- Step 9: Gaeriyan
 	-- {object:148504} A Conspicuous Gravestone · {area:976} Gadgetzan · {npc:8737} Linken
-	["Alive again, go to {object:148504} in the graveyard just east of {area:976} and use it: it takes the quest. {npc:8737}'s sword goes back to {npc:8737} in Un'Goro: keep it."] = "",
+	["Alive again, go to {object:148504} in the graveyard just east of {area:976} and use it: it takes the quest. {npc:8737}'s sword goes back to {npc:8737} in Un'Goro: keep it."] = "Wieder belebt, geh zu {object:148504} auf dem Friedhof direkt östlich von {area:976} und benutze es: Es nimmt die Quest an. {npc:8737}s Schwert geht zurück an {npc:8737} in Un'Goro: Behalte es.",
 	-- {quest:3914} Linken's Sword · {npc:8737} Linken
 	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "{quest:3914} geht zurück zu {npc:8737} in Un'Goro: Behalte sie.",
 
@@ -171,7 +171,7 @@ return {
 
 	-- Step 34: Hermit Ortell
 	-- {area:3447} Ortell's Hideout · {area:2738} Southwind Village
-	["Ride south-east to {area:3447}, in the mountains south of {area:2738}."] = "",
+	["Ride south-east to {area:3447}, in the mountains south of {area:2738}."] = "Reite nach Südosten zu {area:3447}, in den Bergen südlich von {area:2738}.",
 
 	-- Step 35: Noggle's Lost Satchel
 	-- {npc:15196} Deathclasp
@@ -191,7 +191,7 @@ return {
 	-- Step 38: Twilight Base Camp
 	-- {npc:15306} Bor Wildmane · {area:2739} Twilight Base Camp · {area:3425} Cenarion Hold
 	-- plural, as words: Encrypted Twilight Texts = {item:20404} Encrypted Twilight Text · Twilight Avengers = {npc:11880} Twilight Avenger
-	["Collect twenty Encrypted Twilight Texts, ten for {npc:15306} and ten for Ortell. The {area:2739} holds only elementals: the texts drop from the Twilight's Hammer cultists of the Vanguard in the far south-west, the Post in the west and the Outpost west of {area:3425}. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60)."] = "",
+	["Collect twenty Encrypted Twilight Texts, ten for {npc:15306} and ten for Ortell. The {area:2739} holds only elementals: the texts drop from the Twilight's Hammer cultists of the Vanguard in the far south-west, the Post in the west and the Outpost west of {area:3425}. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60)."] = "Sammle zwanzig Verschlüsselte Texte der Twilight, zehn für {npc:15306} und zehn für Ortell. Der {area:2739} enthält nur Elementare: Die Texte fallen von den Kultisten der Twilight's Hammer der Vorhut im äußersten Südwesten, dem Posten im Westen und dem Außenposten westlich von {area:3425}. Nimm sie von den Rächern der Twilight und den Geolords; lass die Flammenhäscher und Steinrufer (59-60) aus.",
 	-- {npc:15306} Bor Wildmane
 	["ten for each quest: {npc:15306} takes his ten before Ortell"] = "zehn für jede Quest: {npc:15306} nimmt seine zehn vor Ortell",
 
@@ -247,7 +247,7 @@ return {
 
 	-- Step 52: Lar'korwi
 	-- {item:11568} Torwa's Pouch · {npc:9684} Lar'korwi
-	["Open {item:11568}: it holds the meat and the pheromone mixture. {npc:9684}'s lair is the bone-strewn valley just south of the pylon: place the meat among the bones, then use the mixture on it to call {npc:9684}. He is level 56 and hits hard, so start at full health."] = "",
+	["Open {item:11568}: it holds the meat and the pheromone mixture. {npc:9684}'s lair is the bone-strewn valley just south of the pylon: place the meat among the bones, then use the mixture on it to call {npc:9684}. He is level 56 and hits hard, so start at full health."] = "Öffne {item:11568}: Er enthält das Fleisch und die Pheromonmischung. {npc:9684}s Höhle ist das knochenübersäte Tal direkt südlich des Pylons: Lege das Fleisch zwischen die Knochen und benutze die Mischung darauf, um {npc:9684} zu rufen. Er ist Stufe 56 und schlägt hart zu, beginne also mit voller Gesundheit.",
 
 	-- Step 53: Ringo
 	-- {npc:9999} Ringo

@@ -48,7 +48,7 @@ return {
 
 	-- Step 9: Get Wool Cloth
 	-- {item:2592} Wool Cloth
-	["Get {item:2592}"] = "",
+	["Get {item:2592}"] = "Sammle {item:2592}",
 	-- {item:2592} Wool Cloth · {spell:3277} Wool Bandage
 	["You need 49 {item:2592} for {spell:3277} (80-115). {item:2592} drops from humanoids of level 15-30, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 49 {item:2592} für {spell:3277} (80-115). {item:2592} fällt von Humanoiden der Stufe 15-30, und was du beim Leveln einsammelst, zählt mit. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten {item:2592} pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
@@ -156,7 +156,7 @@ return {
 
 	-- Step 32: Get Runecloth
 	-- {item:14047} Runecloth
-	["Get {item:14047}"] = "",
+	["Get {item:14047}"] = "Sammle {item:14047}",
 	-- {item:14047} Runecloth · {item:14529} Runecloth Bandage
 	["You need 65 {item:14047} for {item:14529} (260-300). {item:14047} drops from humanoids of level 45-60, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 65 {item:14047} für {item:14529} (260-300). {item:14047} fällt von Humanoiden der Stufe 45-60, und was du beim Leveln einsammelst, zählt mit. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten {item:14047} pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 

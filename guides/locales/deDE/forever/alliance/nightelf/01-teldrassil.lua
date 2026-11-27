@@ -207,7 +207,7 @@ return {
 
 	-- Step 33: Dolanaar
 	-- {quest:5621} Garments of the Moon · {spell:613} Lesser Heal · {npc:3600} Laurna Morninglight
-	["Priests: {quest:5621} counts only {spell:613} (Rank 2). {npc:3600} trains priests too: learn it from her now if you have not yet."] = "",
+	["Priests: {quest:5621} counts only {spell:613} (Rank 2). {npc:3600} trains priests too: learn it from her now if you have not yet."] = "Priester: {quest:5621} zählt nur {spell:613} (Rang 2). {npc:3600} bildet Priesterinnen ebenfalls aus: Lerne es jetzt von ihr, falls noch nicht geschehen.",
 	-- {npc:3515} Corithras Moonrage
 	["{npc:3515}, south of the inn"] = "{npc:3515}, südlich des Gasthauses",
 	-- {npc:3608} Aldia

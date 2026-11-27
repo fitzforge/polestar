@@ -113,31 +113,31 @@ return {
 	["The road south of the western pylon"] = "",
 	-- {npc:252711} Decrepit Pylon Protector · {spell:1289727} Repair and Recharge Pylon
 	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift · Coalesced Mana Crystals = {item:255667} Coalesced Mana Crystal · Magram Necrokhans = {npc:253274} Magram Necrokhan · Nascent Pylon Protectors = {npc:276401} Nascent Pylon Protector
-	["North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Stop where the arrow points, on the road just south of the pylon, keeping to its west edge: the quiet side, with no Protectors behind you. Pull one {npc:252711} at a time down to that spot, the one nearest the pylon's south side first, and kill it there; then step up to the pylon's west side and use the Pile of Pylon Parts Mordent gave you: its {spell:1289727} takes your four Coalesced Mana Crystals.\nCareful: stay off the pylon's east and north-east side. The Protectors stand there two and three together, a Corpsefeeder (level 45, elite) walks among them and the Magram Necrokhans (elites, 45) stand just beyond: nearly every recorded death at this pylon happened east of it. If the Magram attack you (they do once you have killed Magram), wait at the arrow until any Necrokhan by the pylon walks off before you pull. Nascent Pylon Protectors (elites, 43) wander the road south of it: let them pass.\nIf you die here, walk your ghost back to the arrow before you come back to life: players who rose beside the pylon died again within seconds."] = "",
-	["the road just south of the western pylon"] = "",
+	["North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Stop where the arrow points, on the road just south of the pylon, keeping to its west edge: the quiet side, with no Protectors behind you. Pull one {npc:252711} at a time down to that spot, the one nearest the pylon's south side first, and kill it there; then step up to the pylon's west side and use the Pile of Pylon Parts Mordent gave you: its {spell:1289727} takes your four Coalesced Mana Crystals.\nCareful: stay off the pylon's east and north-east side. The Protectors stand there two and three together, a Corpsefeeder (level 45, elite) walks among them and the Magram Necrokhans (elites, 45) stand just beyond: nearly every recorded death at this pylon happened east of it. If the Magram attack you (they do once you have killed Magram), wait at the arrow until any Necrokhan by the pylon walks off before you pull. Nascent Pylon Protectors (elites, 43) wander the road south of it: let them pass.\nIf you die here, walk your ghost back to the arrow before you come back to life: players who rose beside the pylon died again within seconds."] = "Die Straße nach Norden zum ersten Pylon, unterwegs Mana aus den Instabilen Mana-Rissen sammeln. Halte dort an, wo der Pfeil zeigt, auf der Straße gleich südlich des Pylons, entlang seines westlichen Rands: die ruhige Seite, ohne Pylonenbeschützer hinter dir. Zieh einen {npc:252711} nach dem anderen zu dieser Stelle, zuerst den, der dem südlichen Teil des Pylons am nächsten ist, und töte ihn dort; dann geh zur Westseite des Pylons und benutze den Pylonteilehaufen, den Mordent dir gab: sein {spell:1289727} verbraucht deine vier Verdichteten Manakristalle.\nVorsicht: Meide die Ost- und Nordostseite des Pylons. Die Pylonenbeschützer stehen dort zu zweit und zu dritt, ein Leichenfresser (Stufe 45, Elite) läuft zwischen ihnen umher und die Nekrokhane der Magram (Eliten, 45) stehen gleich dahinter: Fast alle hier verzeichneten Tode am Pylon passierten östlich davon. Wenn dich die Magram angreifen (das tun sie, sobald du Magram getötet hast), warte am Pfeil, bis ein Nekrokhan am Pylon weggeht, bevor du pullst. Entstehende Pylonenbeschützer (Eliten, 43) wandern auf der Straße südlich davon: Lass sie vorbei.\nWenn du hier stirbst, geh mit deinem Geist zum Pfeil zurück, bevor du wieder zum Leben erweckst: Spieler, die neben dem Pylon auferstanden, starben innerhalb von Sekunden erneut.",
+	["the road just south of the western pylon"] = "Die Straße direkt südlich des westlichen Pylons",
 
 	-- Step 19: The western pylon: repair it
 	["The western pylon: repair it"] = "Der westliche Pylon: reparieren",
 	-- {item:271882} Pile of Pylon Parts
-	["Pull a single Protector down to the road, then use the {item:271882} on the pylon's west side."] = "",
+	["Pull a single Protector down to the road, then use the {item:271882} on the pylon's west side."] = "Zieh einen einzelnen Pylonenbeschützer die Straße hinab, dann benutze den {item:271882} an der Westseite des Pylons.",
 	-- {item:271882} Pile of Pylon Parts · {spell:1289727} Repair and Recharge Pylon
-	["{item:271882}: {spell:1289727} on the pylon's west side"] = "",
+	["{item:271882}: {spell:1289727} on the pylon's west side"] = "{item:271882}: {spell:1289727} an der Westseite des Pylons",
 
 	-- Step 20: Unstable Mana Rifts: mana for the eastern pylon
 	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift
 	["Unstable Mana Rifts: mana for the eastern pylon"] = "",
 	-- {item:255662} Mana Sieve · {item:271882} Pile of Pylon Parts
 	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift · Coalesced Mana Crystals = {item:255667} Coalesced Mana Crystal
-	["The western repair used up your crystals: on the way east, use the {item:255662} on the Unstable Mana Rifts again for four more Coalesced Mana Crystals. The {item:271882} needs all four for the next repair."] = "",
+	["The western repair used up your crystals: on the way east, use the {item:255662} on the Unstable Mana Rifts again for four more Coalesced Mana Crystals. The {item:271882} needs all four for the next repair."] = "Die westliche Reparatur hat deine Kristalle verbraucht: Auf dem Weg nach Osten benutze den {item:255662} erneut an den Instabilen Mana-Rissen für vier weitere Verdichtete Manakristalle. Der {item:271882} braucht alle vier für die nächste Reparatur.",
 
 	-- Step 21: Bristleback Retreat: repair the eastern pylon
 	-- {area:16677} Bristleback Retreat
 	["{area:16677}: repair the eastern pylon"] = "{area:16677}: den östlichen Pylon reparieren",
 	-- {item:271882} Pile of Pylon Parts · {npc:252711} Decrepit Pylon Protector · {npc:253527} Kog'thug the Brave
 	-- was: ["East along the valley road to the eastern pylon and repair it the same way, a {npc:252711} first, coming in from the west: {npc:253527} (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road."] = "Nach Osten die Talstraße entlang zum östlichen Pylon und repariere ihn genauso, zuerst einen {npc:252711}, von Westen kommend: {npc:253527} (Stufe 43, Elite) und seine Leibwächter halten die Südseite des Stacheleberlagers, und ein Leichenfresser (Stufe 45, Elite) läuft die Straße entlang."
-	["East along the valley road to the eastern pylon and repair it the same way with the {item:271882}, coming in from the west and pulling the nearest {npc:252711} away first: {npc:253527} (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road."] = "",
+	["East along the valley road to the eastern pylon and repair it the same way with the {item:271882}, coming in from the west and pulling the nearest {npc:252711} away first: {npc:253527} (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road."] = "Nach Osten die Talstraße entlang zum östlichen Pylon und repariere ihn genauso mit dem {item:271882}, von Westen kommend und zuerst den nächsten {npc:252711} wegzuziehen: {npc:253527} (Stufe 43, Elite) und seine Leibwächter halten die Südseite des Stacheleberlagers, und ein Leichenfresser (Stufe 45, Elite) läuft die Straße entlang.",
 	-- {item:271882} Pile of Pylon Parts · {spell:1289727} Repair and Recharge Pylon
-	["{item:271882}: {spell:1289727} on the eastern pylon"] = "",
+	["{item:271882}: {spell:1289727} on the eastern pylon"] = "{item:271882}: {spell:1289727} am östlichen Pylon",
 
 	-- Step 22: Evenshade's Overlook
 	-- {npc:253471} Mordent Evenshade · {quest:93016} A Brief History Lesson
@@ -178,7 +178,7 @@ return {
 
 	-- Step 31: Mana Mania
 	-- {item:286647} Depleted Crystal Heart · {npc:264149} Unstable Mana Rift · {npc:276401} Nascent Pylon Protector
-	["Take the {item:286647} to an {npc:264149} on the road north of the temple and throw it into the rift. The {npc:276401} that comes out is an elite (level 43) but it comes alone: most players in our recordings killed it without a group, from level 41 up."] = "",
+	["Take the {item:286647} to an {npc:264149} on the road north of the temple and throw it into the rift. The {npc:276401} that comes out is an elite (level 43) but it comes alone: most players in our recordings killed it without a group, from level 41 up."] = "Bringe den {item:286647} zu einem {npc:264149} auf der Straße nördlich des Tempels und wirf ihn in den Riss. Der {npc:276401}, der daraus kommt, ist eine Elite (Stufe 43), aber er kommt allein: Die meisten Spieler in unseren Aufzeichnungen haben ihn ohne Gruppe getötet, ab Stufe 41.",
 
 	-- Step 32: Shadowprey Village
 	-- {zone:2652} Shen'dralas · {area:2657} Valley of Bones · {area:405} Desolace · {area:2408} Shadowprey Village · {area:1637} Orgrimmar · {zone:1444} Feralas · {area:1099} Camp Mojache

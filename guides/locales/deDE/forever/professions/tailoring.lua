@@ -57,7 +57,7 @@ return {
 
 	-- Step 9: Get Wool Cloth
 	-- {item:2592} Wool Cloth
-	["Get {item:2592}"] = "",
+	["Get {item:2592}"] = "Sammle {item:2592}",
 	-- {item:2592} Wool Cloth · {skill:197} Tailoring · {spell:2402} Woolen Cape · {spell:3866} Stylish Red Shirt
 	["You need 567 {item:2592} for {skill:197} 75-150: {spell:2402} and {spell:3866}. Humanoids of level 15-30 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 567 {item:2592} für {skill:197} 75-150: {spell:2402} und {spell:3866}. Humanoiden der Stufe 15-30 lassen es fallen, und was du beim Leveln einsammelst, zählt mit. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten {item:2592} pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
@@ -177,21 +177,21 @@ return {
 	-- Step 29: Get Rugged Leather (Alliance)
 	-- {item:8170} Rugged Leather
 	-- was: ["{item:8170} (Alliance)"] = "{item:8170} (Allianz)"
-	["Get {item:8170} (Alliance)"] = "",
+	["Get {item:8170} (Alliance)"] = "Sammle {item:8170} (Allianz)",
 	-- {item:8170} Rugged Leather · {skill:197} Tailoring · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders · {skill:393} Skinning · {npc:8598} Frenzied Plaguehound · {npc:8596} Plaguehound Runt
 	["You need 420 {item:8170} for {skill:197} 225-300: {item:13863} and {item:13867}. {skill:393}: beasts of level 48-60. Skin {npc:8598}, Plaguehound and {npc:8596} here (level 48-60); the {skill:393} guide routes this. Or buy them at the Auction House."] = "Du brauchst 420 {item:8170} für {skill:197} 225-300: {item:13863} und {item:13867}. {skill:393}: Tiere der Stufe 48-60. Häute hier {npc:8598}, Plaguehound und {npc:8596} ab (Stufe 48-60); der {skill:393}-Guide plant das ein. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 30: Get Rugged Leather (Horde)
 	-- {item:8170} Rugged Leather
 	-- was: ["{item:8170} (Horde)"] = "{item:8170} (Horde)"
-	["Get {item:8170} (Horde)"] = "",
+	["Get {item:8170} (Horde)"] = "Sammle {item:8170} (Horde)",
 	-- {item:8170} Rugged Leather · {skill:197} Tailoring · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders · {skill:393} Skinning · {npc:6369} Coralshell Tortoise · {npc:8760} Mosshoof Stag · {npc:6380} Thunderhead Consort · {npc:6379} Thunderhead Patriarch · {npc:6378} Thunderhead Skystormer · {npc:6377} Thunderhead Stagwing
 	-- was: ["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this."] = "420 {item:8170} für {item:13863} und {item:13867}: {skill:393}: Tiere der Stufen 48-60. Häute hier {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} und {npc:6377} (Stufe 48-60); der {skill:393}-Guide routet das."
 	["You need 420 {item:8170} for {skill:197} 225-300: {item:13863} and {item:13867}. {skill:393}: beasts of level 48-60. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this. Or buy them at the Auction House."] = "Du brauchst 420 {item:8170} für {skill:197} 225-300: {item:13863} und {item:13867}. {skill:393}: Tiere der Stufe 48-60. Häute hier {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} und {npc:6377} ab (Stufe 48-60); der {skill:393}-Guide plant das ein. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 31: Get Runecloth
 	-- {item:14047} Runecloth
-	["Get {item:14047}"] = "",
+	["Get {item:14047}"] = "Sammle {item:14047}",
 	-- {item:14047} Runecloth · {skill:197} Tailoring · {item:13856} Runecloth Belt · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders
 	["You need 3195 {item:14047} for {skill:197} 225-300: {item:13856}, {item:13863} and {item:13867}. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 3195 {item:14047} für {skill:197} 225-300: {item:13856}, {item:13863} und {item:13867}. Humanoiden der Stufe 45-60 lassen es fallen, und was du beim Leveln einsammelst, zählt mit. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten {item:14047} pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 

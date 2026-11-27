@@ -58,7 +58,7 @@ return {
 
 	-- Step 9: Get Shadowgem
 	-- {item:1210} Shadowgem
-	["Get {item:1210}"] = "",
+	["Get {item:1210}"] = "Sammle {item:1210}",
 	-- {item:1210} Shadowgem · {skill:333} Enchanting · {item:6339} Runed Silver Rod · {object:1731} Copper Vein · {object:1732} Tin Vein · {object:1733} Silver Vein
 	["You need 1 {item:1210} for {skill:333} 75-150: {item:6339}. {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining. Or buy it at the Auction House."] = "Du brauchst 1 {item:1210} für {skill:333} 75-150: {item:6339}. {item:1210} taucht in etwa einem von 100 {object:1731}, {object:1732} oder {object:1733} auf: Behalte die, die du beim Abbauen findest. Oder kaufe es im Auktionshaus.",
 

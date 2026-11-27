@@ -114,7 +114,7 @@ return {
 
 	-- Step 19: Goldshire
 	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:295} Innkeeper Farley · {npc:253} William Pestle · {quest:5624} Garments of the Light · {spell:613} Lesser Heal · {npc:377} Priestess Josetta
-	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road.\nPriests: {quest:5624} counts only {spell:613} (Rank 2). {npc:377} trains priests too: learn it from her now if you have not yet."] = "",
+	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road.\nPriests: {quest:5624} counts only {spell:613} (Rank 2). {npc:377} trains priests too: learn it from her now if you have not yet."] = "Folge der Straße nach Süden aus dem Tal bis {area:87}. {npc:240} steht vor der Schmiede auf der Westseite der Straße, {npc:241} südlich davon an der Straße, und {npc:295} und {npc:253} im Gasthaus „Zur Höhle des Löwen“ gegenüber.\nPriester: {quest:5624} zählt nur {spell:613} (Rang 2). {npc:377} bildet Priesterinnen ebenfalls aus: Lerne es jetzt von ihr, falls noch nicht geschehen.",
 	-- {npc:295} Innkeeper Farley
 	["{npc:295}, inside"] = "{npc:295}, drinnen",
 	-- {npc:253} William Pestle
