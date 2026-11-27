@@ -12,15 +12,14 @@
 -- (RoutePlan.Carried(true); the Make room list's own button switches to it
 -- while it has any, and back): every finished quest in the log, each
 -- with who takes it and where (RoutePlan.Ender) and what it gives now; a
--- grey one says so and keeps its Abandon button. "Guide me" opens a hand-in
--- guide for all of them (Lookup/Handins.lua, planner kind "carried", id
--- "log": grouped enders in an estimated travel order, unknown locations
--- kept for manual hand-in).
--- A quest kept for a later guide says so; choosing Guide me still includes
--- it, because this is the player's explicit all-finished-quests route.
+-- grey one says so and keeps its Abandon button. A quest's arrow opens a
+-- guide for its hand-in (Lookup planner "carried", id = quest id).
+-- "Guide me to all" uses the same planner with id "log": it groups
+-- recipients in an estimated travel order, including quests kept for a
+-- later guide. Both actions keep unknown locations for manual hand-in.
 -- UI.ShowQuestRoom("elsewhere"): the same list for only the finished quests
 -- no open route hands in (RoutePlan.Carried), matching the guide window's
--- "to hand in elsewhere" row. Guide me still opens the all-ready guide.
+-- "to hand in elsewhere" row. "Guide me to all" still guides the whole log.
 --
 -- The end of a leveling guide opens two more lists (the guide window's end
 -- card, the guide-end window): UI.ShowQuestRoom("later", guideId), "Carried
@@ -33,7 +32,7 @@
 -- The quests scroll in a list of at most MAX_ROWS rows, and never so tall
 -- that the window passes the screen's edge (MARGIN clear above and below: a
 -- full log of 40 at UI scale 1 on a 768-high screen): the title, the ✕,
--- the switch and Guide me stay in reach under it. Every row shows the
+-- the switch and "Guide me to all" stay in reach under it. Every row shows the
 -- quest's tooltip on hover (UI.QuestTip, its second line under it), so a
 -- title or a second line cut short reads whole there.
 --
@@ -106,11 +105,11 @@ local function build()
 	F.List = W.Scroll(F)
 	F.List.Child:SetWidth(WIDTH - PAD * 2)
 
-	F.GuideMe = W.Button(F, L["Guide me"], function()
+	F.GuideMe = W.Button(F, L["Guide me to all"], function()
 		if UI.GuideCarried() then F:Hide() end
-	end, { height = 28 })
-	F.GuideMe.psTip = L["Hand in your finished quests"]
-	F.GuideMe.psTipLines = { L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] }
+	end, { height = BUTTON_H })
+	F.GuideMe.psTip = L["Hand in all finished quests"]
+	F.GuideMe.psTipLines = { L["Get an estimated travel order for all finished quests in your log, including those kept for a later guide."] }
 	F.GuideMe:Hide()
 	-- Between the two lists: the finished quests while Make room is shown, and back.
 	F.Switch = W.Button(F, "", function()
@@ -264,11 +263,11 @@ function UI.LayoutQuestRoom()
 			F.Hint:SetText(L["The route ahead isn't settled yet (a guide to choose or load), so it can't say which quests it leaves behind."])
 		elseif elsewhere then
 			F.Hint:SetText(#list == 0 and L["The route hands in every finished quest in your log."]
-				or L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."])
+				or L["Your route leaves these finished quests behind. Pick a quest's arrow for its hand-in. Guide me to all includes every finished quest in your log. Grey quests give almost no XP any more. Abandon them if you won't pass by."])
 		elseif #list == 0 then
 			F.Hint:SetText(L["No quests in your log are ready to hand in."])
 		else
-			F.Hint:SetText(L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."])
+			F.Hint:SetText(L["Pick a quest's arrow for its hand-in. Guide me to all estimates a travel order for every finished quest in your log. Unknown locations stay listed for manual hand-in. Grey quests give almost no XP any more."])
 		end
 	else
 		F.Title:SetText(L["Make room in your quest log"])
@@ -335,7 +334,13 @@ function UI.LayoutQuestRoom()
 	-- Make room: every finished quest in the log, when there are any.
 	local finished = not (carried or ending) and ns.RoutePlan.Carried(true) or nil
 	local switch = carried or (finished ~= nil and #finished > 0)
-	local foot = ((carried and guided) or switch) and (BUTTON_H + ROW_GAP) or 0
+	if switch then
+		W.SetButtonText(F.Switch, carried and L["Make room in your quest log"] or L["Finished quests you're still carrying (%d)"]:format(#finished))
+	end
+	-- Wider translations can put the switch on its own line.
+	local stacked = guided and switch and F.Switch:GetWidth() + F.GuideMe:GetWidth() + ROW_GAP > rowW
+	local footerRows = stacked and 2 or (guided or switch) and 1 or 0
+	local foot = footerRows * (BUTTON_H + ROW_GAP)
 	-- The list: every row, at most MAX_ROWS of them in view, and no taller
 	-- than the screen leaves room for (MARGIN above and below the window).
 	local screen = UIParent:GetHeight() or 0
@@ -350,11 +355,10 @@ function UI.LayoutQuestRoom()
 	local under = top + view
 	F.GuideMe:ClearAllPoints()
 	F.GuideMe:SetPoint("TOPRIGHT", F, "TOPRIGHT", -PAD, -under)
-	F.GuideMe:SetShown(carried and guided)
+	F.GuideMe:SetShown(guided)
 	if switch then
-		W.SetButtonText(F.Switch, carried and L["Make room in your quest log"] or L["Finished quests you're still carrying (%d)"]:format(#finished))
 		F.Switch:ClearAllPoints()
-		F.Switch:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -under)
+		F.Switch:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -(under + (stacked and BUTTON_H + ROW_GAP or 0)))
 	end
 	F.Switch:SetShown(switch)
 	F:SetHeight(under + foot + PAD - 6)
@@ -371,9 +375,9 @@ function UI.ShowQuestRoom(mode, guideId)
 	UI.LayoutQuestRoom()
 end
 
--- Guide me on the "carried" list, and the guide window's menu: the hand-in
--- guide for every finished quest in the log (Lookup planner kind
--- "carried", id "log"). -> its guide id, or nil with the reason in chat.
+-- The hand-in guide for one quest, or for all finished quests from the
+-- "Guide me to all" footer button and the guide window's menu.
+-- -> its guide id, or nil with the reason in chat.
 function UI.GuideCarried(quest)
 	return ns.Handins.Start(quest)
 end

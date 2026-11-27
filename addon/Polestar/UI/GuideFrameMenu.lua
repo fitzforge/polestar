@@ -99,7 +99,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		for _, it in ipairs(GF.PinItems(GF.View())) do add(it) end
 		-- Every ready quest, even with no guide or a hand-in already planned.
 		-- Count the live quest ids without building their recipient rows; the
-		-- shared Guide me action opens the one carried/log planner.
+		-- shared hand-in action opens the carried/log planner.
 		-- Not while the header's Hand in button shows.
 		if not inHeader("HandIn") then
 			local ready = ns.Handins and ns.Handins.Ready()

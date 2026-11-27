@@ -1,7 +1,7 @@
 //! The Quest room (UI/QuestRoom.lua) with the log of a player who installs Polestar mid-leveling: thirty quests
 //! from all over, none of them on the route, every fifth finished. One row per quest would stand 1,300 tall:
 //! the window keeps to the screen instead (1080 high, and a 1366x768 screen at UI scale 1), its rows scrolling
-//! inside it, every one reachable, the title, the close button, the switch to the finished quests and Guide me
+//! inside it, every one reachable, the title, the close button, the switch to the finished quests and Guide me to all
 //! outside the list and in reach; a quest's title or second line cut short reads whole in its tooltip, and the
 //! second line keeps inside the window.
 
@@ -192,29 +192,48 @@ emit({ carried = carried, elsewhere = elsewhere, fits = fits, tip = tip or false
 }
 
 #[test]
-fn guide_me_uses_all_finished_quests_and_opens_the_existing_guide_even_without_known_locations() {
+fn guide_me_to_all_opens_the_whole_log_and_stays_clear_of_the_switch() {
 	let out = run(
 		768,
-		r#"local starts, allCalls = 0, 0
+		r#"Polestar.Codex.Register("meta", {})
+local starts, allCalls = 0, 0
 Polestar.RoutePlan.Carried = function(all)
-	assert(all == true, "the quest room must include finished quests already on a route")
+	if not all then return {} end
 	allCalls = allCalls + 1
 	return { { quest = 9005, title = "Finished quest" } }
 end
 Polestar.RoutePlan.Ender = function() return nil end
-Polestar.Handins.Start = function() starts = starts + 1; return "lookup/carried/log" end
+local start = Polestar.Handins.Start
+Polestar.Handins.Start = function(...) starts = starts + 1; return start(...) end
 local room = measure()
+-- Simulate a wider label so the footer needs a second line.
+F.GuideMe:SetWidth(220)
 local carried = measure("carried")
+local stacked = select(5, F.Switch:GetPoint()) < select(5, F.GuideMe:GetPoint()) - F.GuideMe:GetHeight()
+local label = F.GuideMe.Label:GetText()
 local before, hint, why = starts, F.Hint:GetText(), F.rows[1].Why:GetText()
 F.GuideMe:Click()
+local guide, quests, manual = Polestar.Engine.GetGuide(), {}, true
+for _, s in ipairs(guide.steps) do
+	for _, g in ipairs(s.goals) do
+		if g.t == "turnin" then quests[#quests + 1], manual = g.quest, manual and g.currentLog and g.map == nil end
+	end
+end
+table.sort(quests)
 emit({ room = room, carried = carried, before = before, starts = starts, allCalls = allCalls,
-	hint = hint, why = why, shown = F:IsShown() })"#,
+	hint = hint, why = why, shown = F:IsShown(), label = label, stacked = stacked,
+	id = guide.id, quests = quests, manual = manual })"#,
 	);
+	assert_eq!(out["label"], "Guide me to all", "{out}");
+	assert_eq!(out["stacked"], true, "a wider localized footer label must not overlap the switch: {out}");
+	assert_eq!(out["id"], "lookup/carried/log", "{out}");
+	assert_eq!(out["quests"], json!([9005, 9010, 9015, 9020, 9025, 9030]), "{out}");
+	assert_eq!(out["manual"], true, "{out}");
 	assert_eq!(out["room"]["switch"], true, "the existing Make room path reaches all finished quests: {out}");
 	assert_eq!(out["carried"]["rows"], 1, "{out}");
 	assert_eq!(out["carried"]["guideMe"], true, "unknown locations still allow a manual hand-in guide: {out}");
 	assert_eq!(out["before"], 0, "listing quests does not start a guide: {out}");
-	assert_eq!(out["starts"], 1, "Guide me delegates once to the shared planner: {out}");
+	assert_eq!(out["starts"], 1, "the footer delegates once to the shared planner: {out}");
 	assert_eq!(out["allCalls"], 2, "both the switch and carried list request every finished quest: {out}");
 	assert_eq!(out["why"], "Where it is turned in is not known", "{out}");
 	assert_eq!(out["shown"], false, "the window closes after the guide opens: {out}");
