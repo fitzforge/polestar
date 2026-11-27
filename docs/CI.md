@@ -14,7 +14,10 @@ What a pull request starts depends on what it changes. `Tests` (`ci.yml`),
 checks `next` requires, report on every pull request; the other workflows
 start only on their paths. A newer push to a pull request cancels the runs
 of the older one (`tests/ci-lane.test.js` holds every pull request workflow
-to it).
+to it). None of them runs on the maintainers' machine: a pull request never
+waits on it. `Base branch` also fails a commit made as the maintainers'
+account whose author or committer email is not the account's GitHub noreply
+address (read through the API; contributors' own addresses are not checked).
 
 `Tests` picks its lane from the files the pull request changes
 (`tools/ci-lane.js`, run from the base branch's copy so a pull request cannot
@@ -27,6 +30,12 @@ or none.
   `.github/ISSUE_TEMPLATE/`, a `.md` at the root or under `.github/`) that
   no Node test and no check of `ci.yml` reads runs only the checks every
   tracked file gets (wording, names, SVGs: about a minute and a half).
+- **bot**: the Discord bot alone (`tools/discord-bot/`, `tests/discord-*.test.js`,
+  `tests/helpers/discord-fakes.js`, `changes/*bot*`, `.github/workflows/discord-*.yml`)
+  runs only this GitHub-hosted job: the bot's Node tests and the checks every
+  tracked file gets. Every other step is skipped, and `Format, lints, tests`
+  skips as for documentation; `Base branch` and the public-text check run as
+  always.
 - **part**: guides, Lua, data, fragments, Node test files and documentation
   only. forge comes
   from the Actions cache (keyed by `rust/` and the Lua it embeds; next's
@@ -123,6 +132,57 @@ their figures went 3x over for two days unnoticed (#3730, #4065).
 be over only warn while its issue is open. The workflow names the issue
 beside it, and the fix takes the figure out of the list.
 
+## Memory budgets
+
+Some tests hold what the addon costs in memory, as the client counts it
+(Lua 5.1, `collectgarbage("count")`), to a budget in KiB: the core at login
+and the settings window (forge-addontest's `options_memory`), the guide pack
+(`guides_memory`), the quest database (`questdb_memory`), the walking maps
+(`nav_memory`), the names packs (`names_memory`), what a session builds once
+(`memory_session`), the new-in-Forever quest ids (`new_in_forever`) and the
+baked legs (`tests/legs-memory.test.js`). These figures don't depend on the
+machine's speed, so they fail everywhere, CI included.
+
+**Each budget is the figure measured on the frozen tree plus 3 %, and the
+budgets move once per release, at the code freeze.** Then every memory test
+runs three times on the release branch (the highest figure of the three
+counts), and one pull request sets every budget with less room than that to
+the figure plus 3 %, rounded up, with one table: budget, measured, old
+budget, new budget, headroom. A budget more than 10 % over its figure comes
+down to the figure plus 3 % in the same pull request; one 3 to 10 % over it
+stays. Between freezes no budget is raised: a change that crosses one finds
+what grew and trims it, or waits for the freeze.
+
+One exception so far, Fitz approved: the guide pack's budgets moved between
+the 0.4.3 and 0.4.4 freezes for the Tier 0.5 class guides (#4248, #4300;
+26 Nov 2026: "360 KB is tiny"). Measured with both, three runs reading the
+same (KiB):
+
+| Budget | Measured | Old budget | New budget | Headroom |
+|---|---:|---:|---:|---:|
+| Guide pack Alliance resident | 14,750 | 14,360 | 15,200 | 3.1 % |
+| Guide pack Alliance peak | 28,305 | 28,170 | 29,160 | 3.0 % |
+| Guide pack Alliance read | 20,620 | 20,410 | 21,240 | 3.0 % |
+| Guide pack Horde resident | 13,812 | 13,400 | 14,230 | 3.0 % |
+| Guide pack Horde peak | 25,972 | 25,660 | 26,760 | 3.0 % |
+| Guide pack Horde read | 19,880 | 19,650 | 20,480 | 3.0 % |
+
+The login figure depends on where the checkout is: the harness loads every
+file by its absolute path, and each file's chunk name and the loader's file
+lists keep that path, about 0.7 KiB for each character. The post-merge
+runner's checkout path is 63 characters long, 25 to 35 more than a short
+local one, so it reads the login 17 to 25 KiB higher. The login budget is
+set on the runner's figure: measure it with the checkout mounted at a path
+of the runner's length, or add that difference to a local run. The other
+figures move by 5 KiB at most.
+
+Not budgets of this kind: what one action allocates (a drag step, a hover,
+a lookup, a step change: `settings_session`, `settings_perf`,
+`settings_hover_perf`, the session's churn, `codex-lookup.test.js`), which
+keeps its own margin for run-to-run spread, and the fixed limits (a round
+repeated keeps no more, a switched-off pack costs nothing at login, a race's
+legs stay under 1 MiB resident), which are design limits, not figures.
+
 ## The on-demand workflows
 
 | Workflow | What it runs |
@@ -156,7 +216,7 @@ every pull request's tests run with reference data, in two places:
 | Where | Data | Who | Fails on |
 |---|---|---|---|
 | `Tests` (`ci.yml`, GitHub's runners) | the public data `ci-data.yml` built on `next` | every pull request, forks too | a failure next's run on the same data does not have |
-| `Release data` (`ci-release-data.yml`, the maintainers' self-hosted runner) | the release data | pull requests from this repository's own branches, not drafts | any failure |
+| `Release data` (`ci-release-data.yml`, the maintainers' self-hosted runner) | the release data | pull requests from this repository's own branches that change the data (`data/`, `forever-db/`), not drafts; each push to a `release/` branch (the freeze); a run started by hand | any failure |
 
 **Public data.** On every push to `next`, `ci-data.yml` builds the public
 data (below), runs the whole Node suite on it and saves both in the Actions
@@ -177,8 +237,9 @@ again in the base checkout on the same data: one that fails there too is
 `next`'s, and passes the job; one that passes there is a new failure. Only a
 failing test the base does not have either (one the pull request adds or
 renames) has nothing to be held to: for this repository's own branches it
-is a warning, since their `Release data` job runs it on the release data;
-for a fork it fails.
+is a warning, since the release data's runs check it (`Release data` when the
+pull request changes the data, the post-merge gates after the merge); for a
+fork it fails.
 
 **Release data.** The release data is built from recordings and private
 sources and is never published: it stays on the maintainers' machine, where
@@ -187,9 +248,13 @@ two self-hosted runners hold a read-only copy: one for pull requests
 tree (`polestar-gates`: [After a merge](#after-a-merge) and the weekly
 route run), so the gates never queue behind pull requests. Only code from
 this repository's own branches runs there: the `Release data` job runs for
-a pull request whose head branch is in this repository once it is not a
-draft (marking a draft ready starts it; a newer push cancels the older
-run), and the gates on pushes to `next`. Each runner checks every job
+a pull request whose head branch is in this repository and that changes
+the data (`data/`, `forever-db/`) once it is not a draft (marking a draft
+ready starts it; a newer push cancels the older run), on each push to a
+`release/` branch (the cut at freeze and any fix on the frozen tree: the
+whole suite) and when started by hand; the gates run on pushes to `next`.
+Every other pull request gets the release data's tests after the merge, in
+the post-merge gates. Each runner checks every job
 before it starts and refuses anything else (a fork's pull request, a push to a branch
 other than `next`, `main`, `release/*` or `hotfix/*`, any other event), each
 job runs in a fresh sandbox (the data and toolchains
@@ -259,7 +324,7 @@ it runs where the data is:
 | Where | Languages | Fails on |
 |---|---|---|
 | `Tests` (public data) | those whose texts the pull request changes; every language when it changes a guide | an error the base's own texts do not have on the same data (`tools/ci-guide-texts.sh`) |
-| `Release data` | the same | any error |
+| `Release data` | the same, for a pull request that changes the data; every language at freeze | any error |
 | Post-merge gates | every language | any error |
 
 The public-text rule (CONTRIBUTING.md, "Commits and pull requests") holds
@@ -275,8 +340,9 @@ and commit messages (`Public text`).
 
 Triage after triage must not leave a route broken by something a fix took
 out (#3654). A pull request from this repository's own branches that edits
-a leveling guide gets these checks in its `Release data` job, against the
-branch it merges into, on the release data (`tools/ci-route-gate.sh`):
+a leveling guide and changes the data (its records in `data/`: route fixes,
+guide fixes, places) gets these checks in its `Release data` job, against
+the branch it merges into, on the release data (`tools/ci-route-gate.sh`):
 
 | Check | Fails on |
 |---|---|
@@ -289,8 +355,8 @@ The headers against `data/route-levels.json` (`tests/route-levels.test.js`)
 and the prerequisite order (`tests/prereq-order.test.js`) run with the
 tests a guide change selects. The table goes to the run's summary and to
 one comment on the pull request, kept up to date as it is pushed again. A
-fork's guide change gets the playtest and the levels after the merge (the
-post-merge gates and the weekly run below).
+guide change without data records, and a fork's, gets the playtest and the
+levels after the merge (the post-merge gates and the weekly run below).
 
 Every Monday `route-health.yml` runs the whole route on the release data:
 every leveling guide played, the level model for every race and class on
@@ -318,14 +384,28 @@ together.
 | Guide lint | a lint error, leveling or experimental guides |
 | Addon tests | any of forge-addontest's tests, all of them (the cached test binaries) |
 | Playtest | a guide stuck or failing, leveling or experimental |
-| Route speed | a time to the arrow's first walking route over 5 s in its 7 cases, or a settled route that differs from 0.4.2's |
+| Route speed | a time to the arrow's first walking route over 5 s in its 10 cases, a settled route that differs from 0.4.2's, or a case whose Lua interpreter dies on all of its runs (a "lua5.1 died" row: a case that dies is run again, up to 5 times, and a death that a rerun clears is listed under the table, not counted) |
 | Arrow corner cadence | a case whose corner lag is worse than 0.4.1.1's (mean over 3 degrees worse and 6 or more, max over 45 and 10 worse), 24 cases |
 | Arrow stretches | a guide stretch the arrow does not walk to its end; the table compares with 0.4.2's runs |
 
 The route-speed, cadence and stretch gates' harnesses and baselines come
 from the release gates and live with the runner (`$POLESTAR_GATES`), not in
-the repository. A gate that cannot run (no data, no harness) fails like one
+the repository. Their Lua is the distro's `lua5.1`. A gate that cannot run (no data, no harness) fails like one
 that finds something: nothing is skipped quietly.
+
+On 26 Nov 2026 the route-speed `:reload` cases died with a SIGSEGV in `lua5.1` on
+the runner (3 to 4 per run; elsewhere never, and a source-built Lua 5.1.5 died
+too). The cause is Lua 5.1's `lua_setupvalue`, which stores into an upvalue
+without the collector's write barrier: `tests/lua/stub_alloc.lua` swaps
+`wow_stub.lua`'s `RunScript` with `debug.setupvalue`, and a collector cycle that
+had already marked the upvalue never marked the new closure, freed it, and the
+next call ran freed memory. Where the cycle stands at that moment moves with every
+allocation before it, so the crash came and went with the length of a path
+(the tree's, the script's); it was no property of the runner. The stub now keeps
+the wrapper in a table, whose store has its barrier
+(`tests/stub-alloc-gc.test.js` replays the swap at every phase of a cycle). A
+case whose `lua5.1` dies by a signal is still run again, up to 5 times, and
+labelled, so a crash is never read as a route.
 
 Each gate runs whatever the others did; the run's summary has a row per
 gate. A failing run turns the badge above red and files an issue labelled

@@ -939,6 +939,11 @@ end
 -- (Own.coming), a mark that goes the moment the parent is taken, or one of
 -- its breadcrumbs is in the log and the route does not hand it in
 -- (Own.crumbHeld), a mark that goes the moment it is handed in.
+-- A `turnin ... direct` is its own accept for all of these: Zamek offers
+-- Zamek's Distraction (1191) only while Keeping Pace (1190, its `parent`) is
+-- in the log, so with Keeping Pace's accept passed for a missing News for
+-- Fizzle the hand-in is passed too (#4124), and once Keeping Pace is handed
+-- in it is closed.
 -- `depth`: how far Own.coming has followed a chain of prerequisites.
 local function unavailableFor(goal, depth)
 	local q = goal.quest
@@ -954,7 +959,8 @@ local function unavailableFor(goal, depth)
 	if Own.questSkipped(q) and not questDone(q) then return Own.skipMark(goal) end
 	local C = Compat()
 	if C.IsOnQuest(q) or questDone(q) then return nil end
-	local own = goal.t == "accept"
+	-- The goal that carries the quest's gates: an accept, or a direct hand-in (no accept of its own).
+	local own = goal.t == "accept" or goal.direct
 	local list = not own and guide and layoutOf(guide).accepts[q] or NONE
 	for i = 1, own and 1 or #list do
 		local a = own and goal or list[i].goal
@@ -978,9 +984,8 @@ local function unavailableFor(goal, depth)
 	end
 	if u or Own.offered[q] then return u end
 	local level = player and player.level
-	local levelOwn = own or goal.direct
-	for i = 1, level and (levelOwn and 1 or #list) or 0 do
-		local a = levelOwn and goal or list[i].goal
+	for i = 1, level and (own and 1 or #list) or 0 do
+		local a = own and goal or list[i].goal
 		local lvl = tonumber(a.minLevel)
 		if lvl and level < lvl then
 			local m = Own.levelMarks[a]
@@ -2061,8 +2066,11 @@ end
 -- stays in the guide's own zones and costs little goes in, next to the
 -- guide's own steps nearest it; every other accept that waits on an earlier
 -- guide's quest is left out, with its goals, and a step left with no quest
--- goal goes too. Nothing marks either in the guide window; the report names
--- them (step.feeder, guide.hidden).
+-- goal goes too. An optional class chain (Own.optionalClass, #3925) is never
+-- required: no feeder goes in for its accept, which is left out; a quest of
+-- it the player holds is the chain under way and keeps its hand-in. Nothing
+-- marks either in the guide window; the report names them (step.feeder,
+-- guide.hidden).
 Own.FEED_BACK = 8 -- guides back along the route
 Own.FEED_LOCAL = 300 -- seconds a feeder chain may add to the guide's route
 Own.FEED_OBJECTIVE = 90 -- seconds counted per objective goal (kill, collect, ...)
@@ -2356,7 +2364,9 @@ end
 -- no quest goal left goes.
 -- -> { steps, feeders (steps put in), hidden = { [quest] = { title, need,
 -- needTitle, from (guide title) } }, cost, fromBase (g's step -> new step),
--- legs (g's step -> true where its baked leg still leads in) }
+-- legs (g's step -> true where its baked leg still leads in), leftOut (new
+-- step -> true where a step of g for the character went right before it, all
+-- of its quests left out) }
 function Own.feederPlan(g)
 	local C = Compat()
 	local level = player.level or 1
@@ -2456,8 +2466,10 @@ function Own.feederPlan(g)
 					-- One record for the accept, in the chain of each missing root: it
 					-- opens only once every one of them is put in (else it is left out
 					-- with any chain not put in; a root no guide gives keeps its line).
+					-- An optional class chain's accept is never worth a feeder
+					-- (Own.optionalClass, #3925): left out like a grey one.
 					local d = #roots > 0 and { q = q, s = s, title = goal.title, whole = true,
-						worth = not goal.optional and not (goal.qlvl and C.IsQuestTrivial(tonumber(goal.qlvl), level)) } or nil
+						worth = not goal.optional and not (goal.qlvl and C.IsQuestTrivial(tonumber(goal.qlvl), level)) and not Own.optionalClass(q) } or nil
 					for _, root in ipairs(roots) do
 						-- Down to the quest the guide does not take itself (as before).
 						local p = root
@@ -2745,7 +2757,7 @@ function Own.feederPlan(g)
 		return { title = src.title, note = src.note, image = src.image, label = src.label, only = src.only,
 			when = src.when, goals = goals, feeder = st.id, feederStep = st.s }
 	end
-	local steps, fromBase, legs, feeders = {}, {}, {}, 0
+	local steps, fromBase, legs, feeders, leftOut = {}, {}, {}, 0, {}
 	local prevOwn = 0 -- g's step just before, when nothing came in between
 	local function addStep(st)
 		if st.emitted then return end
@@ -2786,13 +2798,23 @@ function Own.feederPlan(g)
 			prevOwn = s
 		else
 			prevOwn = nil
+			-- A stop the character had here, gone with its quests: the walk to it
+			-- may pass (Own.stopEmpty, #4013).
+			if Guides.Matches(step.only, player) and Own.whenMayHold(step) then
+				for _, goal in ipairs(step.goals) do
+					if goal.t ~= "note" and Guides.Matches(goal.only, player) then
+						leftOut[#steps + 1] = true
+						break
+					end
+				end
+			end
 		end
 		add(gaps[s])
 	end
 	for _, id in ipairs(read or NONE) do
 		if not Engine.TabIds()[id] then Guides.Release(id) end
 	end
-	return { steps = steps, feeders = feeders, hidden = hidden, cost = cost, fromBase = fromBase, legs = legs, onWay = onWay }
+	return { steps = steps, feeders = feeders, hidden = hidden, cost = cost, fromBase = fromBase, legs = legs, onWay = onWay, leftOut = leftOut }
 end
 
 -- A hand-in of a quest the player carries that g never works (no goal of g
@@ -2898,8 +2920,8 @@ end
 
 -- Guide g with the plan's steps: a new guide table with g's fields (a fresh
 -- table, so every per-guide cache starts over), `feeders` (steps put in),
--- `hidden`, `feedCost`, `fromBase`, `base` = g, and g's baked legs into the
--- steps whose way in is unchanged.
+-- `hidden`, `feedCost`, `fromBase`, `leftOut`, `base` = g, and g's baked legs
+-- into the steps whose way in is unchanged.
 function Own.rebuilt(g, plan)
 	local g2 = {}
 	for key, v in pairs(g) do
@@ -2907,6 +2929,7 @@ function Own.rebuilt(g, plan)
 	end
 	g2.steps, g2.feeders, g2.hidden, g2.feedCost, g2.fromBase, g2.base = plan.steps, plan.feeders, plan.hidden, plan.cost, plan.fromBase, g
 	g2.onWay = next(plan.onWay) and plan.onWay or nil
+	g2.leftOut = next(plan.leftOut) and plan.leftOut or nil
 	local legs = rawget(g, "legs")
 	if type(legs) ~= "table" then legs = Guides.Legs(g.id) end
 	if type(legs) == "table" then
@@ -3023,16 +3046,38 @@ end
 
 -- In such a guide, a quest the character can never take (the quest
 -- database's race, class or faction: the Human class letters for a Night Elf
--- Warrior in Elwynn, Tauren-only Mulgore quests for a Troll) is not theirs,
--- like another class's goals. Without the quest database those goals stay.
+-- Warrior in Elwynn, Tauren-only Mulgore quests for a Troll, the Night Elf
+-- druids' Body and Heart for a Skyborne druid) is not theirs, like another
+-- class's goals. So is what only serves such quests: the flight, the walk and
+-- the item use of a step whose quests are all barred (the Moonkin Stone step
+-- sends a Skyborne druid to Auberdine to use Cenarion Moondust for a quest
+-- they cannot take). A step with a quest the character can take keeps its
+-- travel, and a goal that stands alone (a trainer, a flight path, a vendor)
+-- stays. Without the quest database those goals stay.
 Own.questCtx = {}
-function Own.barred(goal)
-	local q = goal.quest
-	if not (q and guide and Own.otherStart(guide)) then return false end
+Own.SERVES = { goto = true, fly = true, use = true, enter = true, hearth = true, die = true, kill = true, collect = true, interact = true, talk = true, level = true, cast = true }
+function Own.cannotTake(q)
 	local Q = ns.QuestDB
 	local r = Q and Q.IsLoaded() and Q.QuestRecord(q)
 	if not r then return false end
 	return not Q.IsEligible(r, Q.PlayerContext(player, Own.questCtx))
+end
+function Own.barred(goal)
+	if not (guide and Own.otherStart(guide)) then return false end
+	local q = goal.quest
+	if q then return Own.cannotTake(q) end
+	if not Own.SERVES[goal.t] then return false end
+	local s = layoutOf(guide).stepOf[goal]
+	local step = s and guide.steps[s]
+	if not step then return false end
+	local barred = false
+	for _, g in ipairs(step.goals) do
+		if g.quest and Guides.Matches(g.only, player) then
+			if not Own.cannotTake(g.quest) then return false end
+			barred = true
+		end
+	end
+	return barred
 end
 
 function Own.findGate(g, level)
@@ -3141,8 +3186,10 @@ local picks = setmetatable({}, { __mode = "k" }) -- goal -> { list = { candidate
 -- even when frames are missing and travel cannot be measured; candidates in a
 -- zone far above the character (ZoneLevels) come after both. Within a
 -- tier: travel cost. Only the PLANNED nearest by straight line get the travel
--- planner's estimate (a set can hold one vendor per town in the world); the
--- rest count their straight-line running time. An unplaceable candidate counts
+-- planner's estimate (a set can hold one vendor per town in the world): the
+-- player's own trip from where they stand, the flights they know and the
+-- Hearthstone or a teleport when it pays counted (#3661); the rest count their
+-- straight-line running time. An unplaceable candidate counts
 -- as right here when it is on the player's own map, else after every placed one.
 -- A `train class` goal carries its step's zone (`zone`, a uiMapID): when that
 -- map has a trainer of the character's class, the others come after all of
@@ -3166,8 +3213,9 @@ Own.OUTGROWN = 8 -- tiers an outgrown class trainer drops (after continent, zone
 Own.trainerTop = {} -- class trainer npc -> the highest level it teaches, below the cap (ns.RegisterClassTrainerTops)
 -- Farm spots (`collect … nearest`): seconds to farm the items still missing
 -- there, and how many levels the spot's weakest mobs are above the player
--- (3 or more: too high).
-Own.TOO_HIGH = 3
+-- (2 or more: too high, the route rule "never send a solo player at mobs 2+
+-- levels above them"; Polestar 0.4.4, #3661).
+Own.TOO_HIGH = 2
 local function farmSeconds(goal, c)
 	local level = player.level or 1
 	local lo, hi = level, level
@@ -3278,7 +3326,7 @@ local function pickFor(goal)
 	if here then
 		for k = 1, math.min(Own.PLANNED, #list) do
 			local c = list[k]
-			local s = ns.TravelCost(here, c)
+			local s = ns.TravelCost(nil, c) -- from where the player stands: flights, the Hearthstone
 			if s then cost[c] = s end
 		end
 		table.sort(list, better)
@@ -3293,6 +3341,40 @@ local function chosen(goal)
 	if not goal.candidates then return nil end
 	local p = pickFor(goal)
 	return p.list[p.i]
+end
+
+-- A farm spot's numbers for the guide window (#3661): the kills and minutes
+-- the items still missing take at the chosen spot (`rate`: items a looted
+-- kill yields), how many levels its weakest mobs are above the player (nil at
+-- or below), and the second choice: the next spot of the ranking on another
+-- map, else the next one. Nil for no farm goal, no usable spot, or nothing
+-- left to farm.
+function Own.farmView(goal)
+	if goal.t ~= "collect" or goal.quest or not goal.candidates then return nil end
+	local p = pickFor(goal)
+	local c = p.list[p.i]
+	if not c then return nil end
+	local need = Own.needOf(goal) - (goal.item and Compat().GetItemCount(goal.item) or 0)
+	if need < 1 then return nil end
+	local secs, gap = farmSeconds(goal, c)
+	local rate = tonumber(c.rate) or 1
+	local n = #p.list
+	local second, after
+	for k = 1, n - 1 do
+		local o = p.list[(p.i - 1 + k) % n + 1]
+		after = after or o
+		if o.map ~= c.map then
+			second = o
+			break
+		end
+	end
+	second = second or after
+	return {
+		kills = rate > 0 and math.ceil(need / rate) or nil,
+		minutes = secs < Own.UNMEASURED and math.max(1, math.floor(secs / 60 + 0.5)) or nil,
+		above = gap > 0 and gap or nil,
+		second = second and { npcName = second.npcName, map = second.map, lvl = second.lvl } or nil,
+	}
 end
 
 -- The NPC a goal is done with (the chosen candidate's, if any; the banker
@@ -4606,12 +4688,16 @@ end
 -- (`use <item>`) and is done: the collect is then done too, so a quest whose
 -- work was the use, done before (Trial of the Lake's Shrine Bauble for a
 -- Druid who did the chain, #2099), never leaves the collect holding the step
--- and the trip to it.
+-- and the trip to it. A gather whose item another item's use spends
+-- (`spentBy`, Lookup's steps: four Coalesced Mana Crystals before each of
+-- Powering the Pylons' pylons, the Pile of Pylon Parts' repair using them up,
+-- #4270) goes with the first use of that item after it.
 function Own.usedLaterDone(s, g, goal)
 	local goals = guide.steps[s].goals
+	local item = goal.spentBy or goal.item
 	for j = g + 1, #goals do
 		local later = goals[j]
-		if later.t == "use" and later.item == goal.item and goalApplies(later) then
+		if later.t == "use" and later.item == item and goalApplies(later) then
 			return goalDone(s, j, later) and true or false
 		end
 	end
@@ -4650,7 +4736,11 @@ end
 -- one of 20 spears, #2633). Its met bag count is then not latched
 -- (latchInStep), so using the item up sends the arrow back to fetch the
 -- next; Own.usedLaterDone closes it with the objective.
+-- A gather another item's use spends (`spentBy`, #4270) is never latched
+-- either: the crystals for the second pylon are fetched again after the first
+-- repair used them up, though the bags held enough for both rows before it.
 function Own.refetch(s, g, goal)
+	if goal.t == "collect" and not goal.quest and goal.spentBy then return true end
 	if goal.t ~= "collect" or goal.quest or not goal.item or (goal.count or 1) > 1 then return false end
 	local goals = guide.steps[s].goals
 	for j = g + 1, #goals do
@@ -4699,6 +4789,10 @@ function Own.goalDoneLive(s, g, goal)
 	local C = Compat()
 	-- One of a set (`either`): done once any other goal of the set is.
 	if goal.either and Own.eitherDone(s, g) then return true end
+	-- A generated errand represents this quest-log attempt, even if an
+	-- earlier attempt is in completion history or has a stored check-off.
+	-- Keep questDone's history intact for prerequisites and predicates.
+	if t == "turnin" and goal.currentLog then return not C.IsOnQuest(goal.quest) end
 	if t ~= "accept" and checked(s, g) then return true end
 	local now = Own.passedNow[guide.id]
 	if now and now[Own.key(s, g)] then return true end
@@ -6692,6 +6786,8 @@ local function goalView(s, g, goal, stepStatus, group)
 		alternatives = alternatives,
 		spots = goal.spots and #goal.spots or nil, spread = goal.spread or nil, exact = goal.spots and Spots.exact(goal) or nil,
 		lvl = goal.candidates and chosen(goal) and chosen(goal).lvl or nil,
+		-- A farm spot's kills, minutes, level gap and second choice (Own.farmView).
+		farm = (status == "active" or status == "pending") and Own.farmView(goal) or nil,
 		unavailable = unavail and unavail.reason or nil,
 		waitsLevel = waitsLevel,
 		unavailableText = unavail and unavailableText(unavail) or nil,
@@ -7002,13 +7098,18 @@ function Own.currentGoal(s, groups, focus)
 				header = header or g
 			elseif not goal.optional then
 				first = first or g
-				if Own.isField(goal) and not barrier then
+				-- A gather another item's use spends (`spentBy`, #4270) is taken in
+				-- its order, never toured: it may need what a goal before it
+				-- fetches (the Mana Sieve before the Coalesced Mana Crystals), and
+				-- the use after it needs what it gathers.
+				local spent = goal.t == "collect" and not goal.quest and goal.spentBy ~= nil
+				if Own.isField(goal) and not spent and not barrier then
 					fields = fields or {}
 					fields[#fields + 1] = g
 					-- One item for no quest (Cozzle's Key, the Excavation Tools): what
 					-- comes after it needs it, so the tour stops there (#1953).
 					if goal.t == "collect" and not goal.quest and (goal.count or 1) == 1 then barrier = true end
-				elseif not Own.isField(goal) and not (g == first and goal.t == "goto" and Own.grindAfter(s, grp, g)) then
+				elseif (spent or not Own.isField(goal)) and not (g == first and goal.t == "goto" and Own.grindAfter(s, grp, g)) then
 					barrier = true
 				end
 			else
@@ -7192,12 +7293,21 @@ local function findWaypoint()
 	local wp = cg and waypointOf(cg, goals[cg])
 	if wp then
 		-- A place objective leading a step of kills done on the way (Own.pointFields): which ones, under the arrow.
+		-- Not the mob the led goal's item comes from: that kill is the goal's own (#4268: "Kill Xavaric for Flute of
+		-- Xavaric · kill Xavaric as you meet them").
 		local kills = Own.meetKills[guide.steps[current]]
 		if kills then
+			local led, from = goals[cg], {}
+			if (led.fromKind or "npc") == "npc" then
+				if led.fromId then from[led.fromId] = true end
+				for _, e in ipairs(led.fromNpcs or {}) do
+					if e.npc then from[e.npc] = true end
+				end
+			end
 			local names = {}
 			for _, g in ipairs(kills) do
 				local _, subject = describe(goals[g], current)
-				if subject and subject ~= "" then names[#names + 1] = subject end
+				if subject and subject ~= "" and not (goals[g].npc and from[goals[g].npc]) then names[#names + 1] = subject end
 			end
 			if #names > 0 then wp.label = wp.label .. " · " .. L["kill %s as you meet them"]:format(table.concat(names, ", ")) end
 		end
@@ -10763,6 +10873,17 @@ function Own.classQuest(q)
 	local band = bit and bit.band
 	return not band or band(mask, Own.ALL_CLASSES) ~= Own.ALL_CLASSES
 end
+-- Whether quest q is of an optional class chain (Core/ClassQuestList.lua,
+-- Fitz 2026-11-24, #3925: items only, not on the worth-it list) and a class
+-- quest (UI/ClassRewards.lua lists it, else the quest database's mask): never
+-- required, so never a feeder's reason (Own.feederPlan). Zardeth's errand
+-- before the Dread Mage Hat is open to everyone and stays a quest like any other.
+function Own.optionalClass(q)
+	local list, R = ns.ClassQuestList, ns.ClassRewards
+	if not (list and list.OptionalQuest and list.OptionalQuest(q)) then return false end
+	if R and R.quests and R.quests[q] then return true end
+	return Own.classQuest(q)
+end
 function Own.forSome(step)
 	if Own.someOnly(step.only) then return true end
 	local any = false
@@ -12673,7 +12794,11 @@ end
 -- continent, is a stop of its own (Own.stopFar): when the stop before it
 -- had a step for the character, all done, the walk passes (#2154: Alterac's
 -- walk to Strahnbrad for Gol'dir held for a character who had no Gol'dir to
--- do, since the Dalaran crater's kills came next). Steps whose `when` fails
+-- do, since the Dalaran crater's kills came next). A step of the character's
+-- the feeder plan left out with all its quests (the guide's `leftOut`) is
+-- such a stop, all done: a character without The Rescue from Hillsbrad has
+-- no Gol'dir step at all (Infiltration, Gol'dir and Blackmoore's Legacy left
+-- out), and the walk to Strahnbrad held again (#4013). Steps whose `when` fails
 -- are no such stop, and a walk to a boat's, zeppelin's or tram's end is the
 -- way on whatever comes after it. With the planner leading
 -- (Own.plannerFlies: the next leg may be a boat or a zeppelin), once the
@@ -12683,7 +12808,9 @@ function Own.stopEmpty(s)
 	local steps = guide.steps
 	if Own.writtenTravel(steps[s]) ~= "walk" or Own.transitKind(s) ~= "walk" then return false end
 	local stop, real, last = false, false, s
+	local leftOut = guide.leftOut
 	for n = s + 1, #steps do
+		if leftOut and leftOut[n] then stop, real = true, true end
 		local step = steps[n]
 		if not Own.hiddenStep(step) then
 			local kind = Own.writtenTravel(step)
@@ -14977,7 +15104,7 @@ function Own.hereOffRoute(list, n, live)
 								budget = Own.hereSeconds, xp = false, soon = false, visit = false, detour = 0, town = false, near = false,
 								key = q .. ":o" .. line,
 								sub = later and L["Handed in later on the route"] or L["Not handed in on the route ahead"],
-								tip = L["A quest you carry that the route does not work here: its work is nearby."],
+								tip = L["A quest in your log with an objective nearby that the route doesn't do here."],
 								opened = false, on = false, since = 0, yards = 0, serial = 0, view = false }
 						end
 					end
@@ -15214,8 +15341,8 @@ function Own.hereBuild()
 		elseif cur.kind == "flight" and Own.hereFlyHolds(cur) then
 			-- A flight path line: while its flight master is a candidate (Own.hereFly).
 			i = i + 1
-		elseif (cur.kind == "sell" or cur.kind == "repair") and Own.hereVendorHolds(cur) then
-			-- A sell or repair reminder: while the bags or the gear still need it (Own.hereVendor).
+		elseif (cur.kind == "sell" or cur.kind == "repair" or cur.kind == "rune") and Own.hereVendorHolds(cur) then
+			-- A sell, repair or rune reminder: while the bags, the gear or the route still need it (Own.hereVendor).
 			i = i + 1
 		elseif cur.kind == "gather" and Own.hereGatherHolds(cur) then
 			-- A gathering spot line: while its kind of node is a candidate (Own.hereGather).
@@ -15996,7 +16123,7 @@ function Own.hereViewOf(e)
 	if not v and e.kind == "flight" then
 		v = Own.hereFlyView(e)
 		e.view = v
-	elseif not v and (e.kind == "sell" or e.kind == "repair") then
+	elseif not v and (e.kind == "sell" or e.kind == "repair" or e.kind == "rune") then
 		v = Own.hereVendorView(e)
 		e.view = v
 	elseif not v and e.kind == "gather" then
@@ -16640,6 +16767,7 @@ Own.hereVendorRetry = false -- the places were asked for in combat: again once i
 Own.hereVendorAway = false -- the live step flies or hearths: heading out with no waypoint too
 Own.hereVendorRepair = false -- the repair need at the last build (UPDATE_INVENTORY_DURABILITY builds again when it flips)
 Own.hereVendorFree, Own.hereVendorWant = nil, 0 -- the free bag slots and those wanted at the last build; nil: reminders off
+Own.hereRuneOffer = false -- Nav/RuneStop.lua's offer: a Rune of Teleportation from a vendor nearby (#3547)
 
 -- Kind's candidate, made once. Its goal is a verb of its own ("sell", "repair": no guide step holds it, no goal
 -- state ends it) placed at the NPC the line shows (Own.hereVendorPlace); `list`: the continent's places
@@ -16647,9 +16775,9 @@ Own.hereVendorFree, Own.hereVendorWant = nil, 0 -- the free bag slots and those 
 function Own.hereVendorOf(kind)
 	local e = Own.hereVendorEntries[kind]
 	if not e then
-		local goal = { t = kind, text = "" }
+		local goal = { t = kind == "rune" and "sell" or kind, text = "" } -- (a rune stop has the merchant's icon)
 		-- g: the kind's place in VENDOR_KINDS (a goal index is a number wherever a waypoint goes, Nav/Walk.lua's too).
-		e = { s = Own.VENDOR_STEP, g = kind == "repair" and 1 or 2, goal = goal, kind = kind, left = 0, places = 1, npcs = false, seen = false, spot = false,
+		e = { s = Own.VENDOR_STEP, g = kind == "repair" and 1 or kind == "sell" and 2 or 3, goal = goal, kind = kind, left = 0, places = 1, npcs = false, seen = false, spot = false,
 			d = false, pick = 0, budget = 0, xp = false, soon = false, visit = false, detour = 0, town = false, near = false,
 			on = false, since = 0, yards = 0, serial = 0, view = false,
 			list = false, p = false, pc = false, px = 0, py = 0, free = 0, want = 0, worn = 100, both = false }
@@ -16737,6 +16865,15 @@ function Own.hereVendorBuild(c, live)
 				Own.hereVendorRetry = true
 			end
 		end
+	end
+	local rune = near and Own.hereRuneOffer
+	if rune then
+		local e = Own.hereVendorOf("rune")
+		if e.list ~= rune.places then e.list, e.p, e.pc = rune.places, false, false end
+		-- Its saving is already measured against the whole route: that is the detour it may take.
+		e.offer, e.budget = rune, rune.saves
+		n = n + 1
+		list[n] = e
 	end
 	for i = n + 1, #list do list[i] = nil end
 	Own.hereVendorN = n
@@ -16826,7 +16963,7 @@ function Own.hereVendorTick(c, px, py, timedOnly)
 		if not e.on and not (covered and e.kind == "sell") and not Own.hereVendorSpentNow(e.kind, c, px, py)
 			and not Own.hereQuiet[e.goal] and Own.hereAgain(e) and not Own.hereMuted(e) then
 			local p = Own.hereVendorPick(e, c, px, py)
-			if p and Own.hereVendorLeaving(p) then
+			if p and (e.kind == "rune" or Own.hereVendorLeaving(p)) then
 				Own.hereVendorPlace(e, p)
 				local d = Own.hereDistance(e, c, px, py)
 				if d and Own.hereIn(e, d) and not Own.hereWalkWait(e, c, px, py, d) and Own.hereMayShow(e, d) then
@@ -16857,9 +16994,11 @@ function Own.hereVendorShow(e, d)
 	e.yards = math.floor(d / Own.HERE_STEP + 0.5) * Own.HERE_STEP
 	-- What the arrow says, led there.
 	local goal = e.goal
-	goal.text = (e.kind == "repair" and L["Repair at %s"] or L["Sell at %s"]):format(goal.npcName or "")
+	goal.text = (e.kind == "rune" and L["Buy a rune at %s"] or e.kind == "repair" and L["Repair at %s"] or L["Sell at %s"]):format(goal.npcName or "")
 	Own.hereExpiredAt[goal], Own.hereMutes[goal] = nil, nil
-	Own.hereVendorSpend(e.kind)
+	-- (A rune stop is not once per visit: it is for this trip, and goes and comes with Nav/RuneStop.lua's offer. Its
+	-- dismiss still holds, as any line's does.)
+	if e.kind ~= "rune" then Own.hereVendorSpend(e.kind) end
 	Own.here = on[1]
 	ns.Fire("WHILE_HERE_CHANGED")
 end
@@ -16876,10 +17015,15 @@ end
 -- it the NPC and their title.
 function Own.hereVendorView(e)
 	local goal, p = e.goal, e.goal.place
-	local v = { t = e.kind, step = e.s, index = e.g, here = e.kind, left = 0, appeared = e.serial, later = false, npc = goal.npc,
+	local v = { t = goal.t, step = e.s, index = e.g, here = e.kind, left = 0, appeared = e.serial, later = false, npc = goal.npc,
 		map = goal.map, x = goal.x, y = goal.y, f = goal.f, status = "active" }
 	local worn = math.floor(e.worn)
-	if e.kind == "repair" then
+	if e.kind == "rune" then
+		local Q = ns.QoL
+		local saves = Q and Q.Duration and Q.Duration(e.offer.saves) or ("%ds"):format(e.offer.saves)
+		v.hereText = L["Buy a rune and cast %s to save about %s"]:format(e.offer.teleport.name, saves)
+		v.hereTip = L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."]
+	elseif e.kind == "repair" then
 		v.hereText = e.both and L["Repair and sell before heading out: gear at %d%%, %s"]:format(worn, Own.hereVendorSlots(e.free))
 			or L["Repair before heading out: gear at %d%%"]:format(worn)
 		v.hereTip = L["The guide heads out of town next and your gear is worn: repair it here before it breaks."]
@@ -16891,6 +17035,34 @@ function Own.hereVendorView(e)
 	v.hereSub = (p and p.sub and p.sub ~= "") and ("%s (%s)"):format(name, p.sub) or name
 	v.text = v.hereText
 	return v
+end
+
+-- Nav/RuneStop.lua's offer (nil: none now). The same stop only takes the new saving; another one, or none, is a new
+-- build, which makes or ends the line.
+function Engine.SetRuneStop(offer)
+	local was = Own.hereRuneOffer
+	Own.hereRuneOffer = offer or false
+	local e = Own.hereVendorEntries.rune
+	if offer and was and was.seller == offer.seller and was.teleport.spell == offer.teleport.spell then
+		offer.places = was.places
+		if e then
+			local moved = math.floor(was.saves / 60) ~= math.floor(offer.saves / 60)
+			e.offer, e.budget = offer, offer.saves
+			if moved and e.on then
+				e.view = false
+				ns.Fire("WHILE_HERE_CHANGED")
+			end
+		end
+		return
+	end
+	Own.hereDirty = true
+	requestUpdate()
+end
+
+-- Whether the player's click on the rune line leads the arrow to the vendor.
+function Engine.RuneStopAimed()
+	local e = Own.hereVendorEntries.rune
+	return e ~= nil and aim == e.goal
 end
 
 -- A merchant's window: the sell reminder is spent for this visit, the repair one too at a merchant who repairs;

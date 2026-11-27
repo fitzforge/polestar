@@ -1,6 +1,6 @@
 //! `forge release pack`: the release archives. In the checkout: dist/Polestar-<version>.zip (Polestar with
 //! Polestar's own experimental pack built from experimental/ inside it, Polestar_Guides, Polestar_Nav,
-//! Polestar_Options, Polestar_Skins, Polestar_Arcade, the Codex and the built data addons)
+//! Polestar_FreeMode, Polestar_Options, Polestar_Skins, Polestar_Arcade, the Codex and the built data addons)
 //! and dist/Polestar_Recorder-<version>.zip, each with
 //! the GPL in its first folder (and the players' README.txt in Polestar/), plus dist/SHA256SUMS for both. Given
 //! another pack (a folder argument, --pack, or the nearest pack.json): <pack>/dist/<folder>-<version>.zip holding
@@ -24,7 +24,8 @@ pub const USAGE: &str = "usage: forge release pack [<dir>] [options]
 In the checkout: compiles our guides into addon/Polestar_Guides and Polestar's own experimental pack
 (experimental/, with our guides as context) into addon/Polestar/Experimental (inside Polestar), then writes
 dist/Polestar-<version>.zip (Polestar, Polestar_Guides with its faction parts (their races' guides and legs
-inside), Polestar_Nav, Polestar_Options (the settings window), Polestar_Skins (our skins and layouts), Polestar_Arcade
+inside), Polestar_Nav, Polestar_FreeMode (Free mode and the finished-quest planner), Polestar_Options (the settings window),
+Polestar_Skins (our skins and layouts), Polestar_Arcade
 (Freedoom Arcade by petllama, when there), the walking maps' continent parts, Polestar_QuestDB and
 Polestar_ItemDB when built, Polestar_Codex, and the language folders Polestar_<locale>: our guides' texts
 and the game's names),

@@ -46,7 +46,7 @@ return {
 	-- {object:257} Suspicious Barrel
 	["The {object:257}"] = "Das {object:257}",
 	-- plural, as words: Dark Iron Sappers = {npc:1222} Dark Iron Sapper
-	["Walk east along the dam, down its eastern ramp, then back west along the foot of the dam on the land side: two Dark Iron Sappers guard the barrel. Kill them, then open the barrel: it ends this quest and starts the next."] = "Geh den Damm entlang nach Osten, die östliche Rampe hinunter und dann am Fuß des Damms auf der Landseite zurück nach Westen: Zwei Dark Iron Sappers bewachen das Fass. Töte sie und öffne dann das Fass: Es beendet diese Quest und startet die nächste.",
+	["Walk east along the dam, down its eastern ramp, then back west along the foot of the dam on the land side: two Dark Iron Sappers guard the barrel. Kill them, then open the barrel: it ends this quest and starts the next."] = "Geh den Damm entlang nach Osten, die östliche Rampe hinunter und dann am Fuß des Damms auf der Landseite zurück nach Westen: Zwei Pioniere der Dunkeleisenzwerge bewachen das Fass. Töte sie und öffne dann das Fass: Es beendet diese Quest und startet die nächste.",
 
 	-- Step 11: The loch
 	["The loch"] = "Der See",
@@ -67,7 +67,7 @@ return {
 	["The dig site"] = "Die Ausgrabungsstätte",
 	-- {item:2636} Carved Stone Idol · {quest:86613} Excavation Tools
 	-- plural, as words: Stonesplinter Diggers = {npc:1167} Stonesplinter Digger · Berserk Troggs = {npc:1393} Berserk Trogg
-	["Stonesplinter Diggers, Geomancers and Berserk Troggs hold the dig east of Ironband; any of them can drop a {item:2636}. Piles of Excavation Tools lie around the dig: open one and right-click the tools to start {quest:86613}, then gather six.\nCareful: Berserk Troggs (19-20) enrage below 40% health."] = "Stonesplinter Diggers, Geomancers und Berserk Troggs halten die Ausgrabung östlich von Ironband; jeder von ihnen kann einen {item:2636} fallen lassen. Haufen von Excavation Tools liegen rund um die Ausgrabung: Öffne einen und klick mit rechts auf die Werkzeuge, um {quest:86613} zu starten, und sammle dann sechs.\nVorsicht: Berserk Troggs (19-20) geraten unter 40% Gesundheit in Raserei.",
+	["Stonesplinter Diggers, Geomancers and Berserk Troggs hold the dig east of Ironband; any of them can drop a {item:2636}. Piles of Excavation Tools lie around the dig: open one and right-click the tools to start {quest:86613}, then gather six.\nCareful: Berserk Troggs (19-20) enrage below 40% health."] = "Buddler der Splittersteintroggs, Geomanten und Berserkertroggs halten die Ausgrabung östlich von Ironband; jeder von ihnen kann einen {item:2636} fallen lassen. Haufen von Ausgrabungswerkzeugen liegen rund um die Ausgrabung: Öffne einen und klick mit rechts auf die Werkzeuge, um {quest:86613} zu starten, und sammle dann sechs.\nVorsicht: Berserk Troggs (19-20) geraten unter 40% Gesundheit in Raserei.",
 	-- {quest:86613} Excavation Tools
 	["{quest:86613}: open a pile at the dig"] = "{quest:86613}: Öffne einen Haufen an der Ausgrabung",
 	-- {quest:86613} Excavation Tools
@@ -85,10 +85,10 @@ return {
 
 	-- Step 17: Mountain Buzzards
 	-- plural, as words: Mountain Buzzards = {npc:1194} Mountain Buzzard
-	["Mountain Buzzards"] = "Mountain Buzzards",
+	["Mountain Buzzards"] = "Bergbussard",
 	-- {quest:257} A Hunter's Boast
 	-- plural, as words: Mountain Buzzards = {npc:1194} Mountain Buzzard
-	["Mountain Buzzards circle the hills west and south of the lodge, back toward the dig. {quest:257} runs for 15 minutes."] = "Mountain Buzzards kreisen über den Hügeln westlich und südlich der Hütte, zurück zur Ausgrabung. {quest:257} läuft 15 Minuten.",
+	["Mountain Buzzards circle the hills west and south of the lodge, back toward the dig. {quest:257} runs for 15 minutes."] = "Bergbussarde kreisen über den Hügeln westlich und südlich der Hütte, zurück zur Ausgrabung. {quest:257} läuft 15 Minuten.",
 
 	-- Step 18: Daryl the Youngling
 	["12 minutes"] = "12 Minuten",
@@ -108,7 +108,7 @@ return {
 	["Back down to the east shore below the boars' hills: {npc:270693}, a crocolisk, patrols it among the Loch Crocolisks."] = "Zurück hinunter zum Ostufer unterhalb der Hügel der Eber: {npc:270693}, ein Krokilisk, patrouilliert dort zwischen den Lochkrokilisken.",
 	-- {item:2924} Crocolisk Meat
 	-- plural, as words: Loch Crocolisks = {npc:1693} Loch Crocolisk
-	["{item:2924}: Loch Crocolisks"] = "{item:2924}: Loch Crocolisks",
+	["{item:2924}: Loch Crocolisks"] = "{item:2924}: Lochkrokiliske",
 
 	-- Step 23: Thelsamar
 	-- {area:144} Thelsamar · {npc:1105} Jern Hornhelm · {npc:1572} Thorgrum Borrelson
@@ -121,7 +121,7 @@ return {
 	-- plural, as words: Stonevault Cave Hunters = {npc:4856} Stonevault Cave Hunter
 	["South of Thelsamar, Ylva lies dead in the mouth of a trogg cave. Take her banner, raise it beside her and hold the spot: troggs come in waves from both sides, then {npc:269185}.\nCareful: Stonevault Cave Hunters (36, elite) hold the pass just south of Ylva, toward the {zone:1418}: stay by the banner and don't chase troggs south."] = "Südlich von Thelsamar liegt Ylva tot im Eingang einer Trogg-Höhle. Nimm ihr Banner, stell es neben ihr auf und halte die Stellung: Troggs kommen in Wellen von beiden Seiten, danach {npc:269185}.\nVorsicht: Stonevault-Höhlenjäger (36, Elite) halten den Pass direkt südlich von Ylva, Richtung {zone:1418}: Bleib beim Banner und jag den Troggs nicht nach Süden hinterher.",
 	-- {item:253247} Banner of Ironforge · {npc:269185} Headsplitter
-	["{item:253247}: raise it beside Ylva, then hold the spot until {npc:269185} comes"] = "",
+	["{item:253247}: raise it beside Ylva, then hold the spot until {npc:269185} comes"] = "{item:253247}: stelle es neben Ylva auf, dann halte die Stelle, bis {npc:269185} kommt",
 
 	-- Step 25: The tunnel post
 	["The tunnel post"] = "Der Tunnelposten",
@@ -170,7 +170,7 @@ return {
 	-- Step 33: Henze Faulk
 	-- {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["From the bridge, head north to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "Geh von der Brücke nach Norden zu {area:86}. {npc:6172} liegt südlich des Sees: Benutze den {item:6866} an ihm. Die Defias Rogue Wizards um ihn herum tragen das {item:6846}.",
+	["From the bridge, head north to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "Geh von der Brücke nach Norden zu {area:86}. {npc:6172} liegt südlich des Sees: Benutze den {item:6866} an ihm. Die abtrünnigen Hexer der Defias um ihn herum tragen das {item:6846}.",
 	-- {item:6866} Symbol of Life · {npc:6172} Henze Faulk
 	["Use the {item:6866} on {npc:6172}"] = "Benutze {item:6866} an {npc:6172}",
 	-- {item:6846} Defias Script
@@ -215,7 +215,7 @@ return {
 	["{area:1001}: kill these as you meet them"] = "{area:1001}: Töte diese, wenn sie dir begegnen",
 	-- {area:1002} Three Corners
 	-- plural, as words: Redridge Mongrels = {npc:423} Redridge Mongrel · Great Goretusks = {npc:547} Great Goretusk · Dire Condors = {npc:428} Dire Condor
-	["Redridge Mongrels and Thrashers hold the hills east of {area:1002}, north of the road; Poachers camp south of the road. Great Goretusks root around the same hills and Dire Condors circle south of the lake; Tarantulas crawl round {area:1002}."] = "Redridge Mongrels und Thrashers halten die Hügel östlich von {area:1002}, nördlich der Straße; Poachers lagern südlich der Straße. Great Goretusks wühlen in denselben Hügeln, und Dire Condors kreisen südlich des Sees; Tarantulas krabbeln um {area:1002}.",
+	["Redridge Mongrels and Thrashers hold the hills east of {area:1002}, north of the road; Poachers camp south of the road. Great Goretusks root around the same hills and Dire Condors circle south of the lake; Tarantulas crawl round {area:1002}."] = "Bastarde der Rotkammgnolle und Thrashers halten die Hügel östlich von {area:1002}, nördlich der Straße; Poachers lagern südlich der Straße. Große Geiferzähne wühlen in denselben Hügeln, und Terrorkondore kreisen südlich des Sees; Tarantulas krabbeln um {area:1002}.",
 	-- {item:280911} Spiked Collar
 	-- plural, as words: Redridge Thrashers = {npc:712} Redridge Thrasher
 	["{item:280911}: Redridge Thrashers"] = "{item:280911}: Hauer der Rotkammgnolle",
@@ -263,8 +263,7 @@ return {
 	-- {zone:1453} Stormwind
 	["{zone:1453}'s gate"] = "Das Tor von {zone:1453}",
 	-- {npc:234} Gryan Stoutmantle · {zone:1436} Westfall · {area:87} Goldshire · {zone:1453} Stormwind · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:69} Lakeshire · {area:1617} Valley of Heroes
-	-- was: ["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "Keine Defias-Bruderschaft von Wiley (sie beginnt mit dem Brief von {npc:234} in {zone:1436}): Überspring {zone:1436}. Folge der Straße von {area:87} nach Norden nach {zone:1453}: {npc:466} sitzt auf seinem Pferd am fernen Ende der Brücke vor dem Haupttor. Danach zu den Greifen im {object:2096}, zurück nach {area:69}."
-	["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}.\nIf {npc:466} isn't at the arrow, he is walking his horse along the {area:1617} nearby: look along the avenue or wait a moment."] = "",
+	["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}.\nIf {npc:466} isn't at the arrow, he is walking his horse along the {area:1617} nearby: look along the avenue or wait a moment."] = "Keine Defias Brotherhood von Wiley (sie beginnt mit {npc:234}s Brief in {zone:1436}): überspringe {zone:1436}. Nach Norden entlang der Straße von {area:87} nach {zone:1453}: {npc:466} sitzt auf seinem Pferd am Ende der Brücke vor dem Haupttor. Dann die Greifen im {object:2096}, zurück nach {area:69}.\nFalls {npc:466} nicht am Pfeil ist, führt er sein Pferd entlang des nahen {area:1617}: schau die Allee entlang oder warte einen Moment.",
 	-- {npc:466} General Marcus Jonathan
 	["{npc:466}, outside the main gate"] = "{npc:466}, vor dem Haupttor",
 
@@ -286,8 +285,7 @@ return {
 
 	-- Step 51: Stormwind
 	-- {npc:332} Master Mathias Shaw · {object:2100} Old Town · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:1617} Valley of Heroes
-	-- was: ["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}."] = "{npc:332} ist oben im SI:7-Gebäude in {object:2100}: Die Treppe ist zuerst schwer zu sehen. {npc:466} sitzt auf seinem Pferd am fernen Ende der Brücke vor dem Haupttor, danach zurück zu den Greifen im {object:2096}."
-	["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}.\nIf {npc:466} isn't at the arrow, he is walking his horse along the {area:1617} nearby: look along the avenue or wait a moment."] = "",
+	["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}.\nIf {npc:466} isn't at the arrow, he is walking his horse along the {area:1617} nearby: look along the avenue or wait a moment."] = "{npc:332} ist oben im SI:7-Gebäude in {object:2100}: Die Treppe ist zuerst schwer zu sehen. {npc:466} sitzt auf seinem Pferd am fernen Ende der Brücke vor dem Haupttor, danach zurück zu den Greifen im {object:2096}.\nWenn {npc:466} nicht am Pfeil ist, reitet er sein Pferd entlang der {area:1617} in der Nähe: Schau die Allee entlang oder warte einen Moment.",
 	-- {npc:332} Master Mathias Shaw
 	["{npc:332}, SI:7; upstairs"] = "{npc:332}, SI:7; oben",
 
@@ -300,7 +298,7 @@ return {
 	["{area:20} and the Defias hills"] = "{area:20} und die Hügel der Defias",
 	-- {area:20} Moonbrook · {area:1581} The Deadmines
 	-- plural, as words: Defias Pathstalkers = {npc:121} Defias Pathstalker
-	["Defias Pathstalkers and Knuckledusters walk {area:20}; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. {area:1581} entrance in the smithy is a group dungeon.\nCareful: The camps in the hills hold mixed groups of Defias, so it is easy to pull more than one at a time if you are low level."] = "Defias Pathstalkers und Knuckledusters laufen durch {area:20}; Highwaymen (Stufe 17) patrouillieren paarweise in den Hügeln südlich und östlich davon: Zieh sie auseinander. Der Eingang zu {area:1581} in der Schmiede ist ein Gruppen-Dungeon.\nVorsicht: Die Lager in den Hügeln beherbergen gemischte Gruppen von Defias, es ist also leicht, mehr als einen auf einmal zu ziehen, wenn du eine niedrige Stufe hast.",
+	["Defias Pathstalkers and Knuckledusters walk {area:20}; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. {area:1581} entrance in the smithy is a group dungeon.\nCareful: The camps in the hills hold mixed groups of Defias, so it is easy to pull more than one at a time if you are low level."] = "Pfadpirscher der Defias und Knuckledusters laufen durch {area:20}; Highwaymen (Stufe 17) patrouillieren paarweise in den Hügeln südlich und östlich davon: Zieh sie auseinander. Der Eingang zu {area:1581} in der Schmiede ist ein Gruppen-Dungeon.\nVorsicht: Die Lager in den Hügeln beherbergen gemischte Gruppen von Defias, es ist also leicht, mehr als einen auf einmal zu ziehen, wenn du eine niedrige Stufe hast.",
 	-- {item:254676} Suspicious Industrial Supplies · {area:20} Moonbrook
 	["{item:254676}, from the crates around {area:20}"] = "{item:254676}, aus den Kisten rund um {area:20}",
 
@@ -327,7 +325,7 @@ return {
 	-- Step 57: Captain Grayson
 	-- {zone:1436} Westfall · {npc:392} Captain Grayson
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["Kept five Flasks of Oil from {zone:1436}'s Harvest Watchers? {npc:392} takes them for his lighthouse fire."] = "Hast du fünf Flasks of Oil von den Harvest Watchers aus {zone:1436} behalten? {npc:392} nimmt sie für das Feuer seines Leuchtturms.",
+	["Kept five Flasks of Oil from {zone:1436}'s Harvest Watchers? {npc:392} takes them for his lighthouse fire."] = "Hast du fünf Ölflaschen von den Erntebehütern aus {zone:1436} behalten? {npc:392} nimmt sie für das Feuer seines Leuchtturms.",
 
 	-- Step 58: Sentinel Hill
 	-- {area:108} Sentinel Hill · {npc:467} The Defias Traitor
@@ -376,10 +374,10 @@ return {
 	-- Step 67: Redridge Canyons
 	-- {spell:133} Fireball
 	-- plural, as words: Redridge Brutes = {npc:426} Redridge Brute · Iron Pikes = {item:2856} Iron Pike · Black Dragon Whelps = {npc:441} Black Dragon Whelp
-	["Redridge Brutes and Mystics hold the hills north and north-west of town; both carry the Iron Pikes and Rivets. Black Dragon Whelps nest in the same hills.\nCareful: The whelps cast {spell:133} from range, and the gnolls run for help at low health."] = "Redridge Brutes und Mystics halten die Hügel nördlich und nordwestlich der Stadt; beide tragen die Iron Pikes und Rivets. Black Dragon Whelps nisten in denselben Hügeln.\nVorsicht: Die Whelps wirken {spell:133} aus der Distanz, und die Gnolle rennen bei niedriger Gesundheit los, um Hilfe zu holen.",
+	["Redridge Brutes and Mystics hold the hills north and north-west of town; both carry the Iron Pikes and Rivets. Black Dragon Whelps nest in the same hills.\nCareful: The whelps cast {spell:133} from range, and the gnolls run for help at low health."] = "Schläger der Rotkammgnolle und Mystiker halten die Hügel nördlich und nordwestlich der Stadt; beide tragen die Eisenspitzen und Nieten. Schwarze Großdrachenwelpen nisten in denselben Hügeln.\nVorsicht: Die Whelps wirken {spell:133} aus der Distanz, und die Gnolle rennen bei niedriger Gesundheit los, um Hilfe zu holen.",
 	-- {item:1221} Underbelly Whelp Scale
 	-- plural, as words: Black Dragon Whelps = {npc:441} Black Dragon Whelp
-	["{item:1221}: Black Dragon Whelps"] = "{item:1221}: Black Dragon Whelps",
+	["{item:1221}: Black Dragon Whelps"] = "{item:1221}: Schwarze Großdrachenwelpen",
 
 	-- Step 68: Lakeshire
 	-- {npc:415} Verner Osgood · {npc:341} Foreman Oslow · {npc:381} Dockmaster Baren
@@ -429,7 +427,7 @@ return {
 
 	-- Step 77: Argos Nightwhisper
 	-- {npc:4984} Argos Nightwhisper · {npc:8997} Gershala Nightwhisper · {area:442} Auberdine
-	["On the way to the harbour: {npc:4984}'s message goes to {npc:8997} in {area:442}, beside Terenthis, where the boat lands."] = "",
+	["On the way to the harbour: {npc:4984}'s message goes to {npc:8997} in {area:442}, beside Terenthis, where the boat lands."] = "Auf dem Weg zum Hafen: {npc:4984}'s Nachricht geht an {npc:8997} in {area:442}, neben Terenthis, wo das Boot landet.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back toward town, swim east from the bridge into {area:68}; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}."] = "Zurück Richtung Stadt, schwimm von der Brücke nach Osten in {area:68}; die Truhe liegt auf dem Seegrund neben einem gesunkenen Boot. Murloc Flesheaters und Tidecallers säumen das Südufer um sie herum: Jeder von ihnen kann einen {item:1467} tragen.",

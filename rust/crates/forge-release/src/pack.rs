@@ -21,7 +21,8 @@ pub fn readme(version: &str, names: &[String]) -> String {
 	lines.extend(
 		[
 			"   They are all part of Polestar: Polestar_Codex holds what Lookup,",
-			"   Dungeons and Rares show; Polestar_Options the settings window",
+			"   Dungeons and Rares show; Polestar_FreeMode Free mode and the",
+			"   finished-quest guide (loaded when one opens); Polestar_Options the settings window",
 			"   (loaded when you open it); Polestar_Skins Polestar's skins and",
 			"   guide window layouts (loaded when you use one); Polestar_Nav",
 			"   the arrow's walking routes",
@@ -139,7 +140,7 @@ mod tests {
 
 	#[test]
 	fn the_readme_names_every_folder_shipped_in_crlf_lines() {
-		let names: Vec<String> = ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Options", "Polestar_Codex"].iter().map(|s| s.to_string()).collect();
+		let names: Vec<String> = ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_FreeMode", "Polestar_Options", "Polestar_Codex"].iter().map(|s| s.to_string()).collect();
 		let text = readme("0.2.0", &names);
 		assert!(text.starts_with("Polestar 0.2.0\r\n"));
 		assert!(text.contains("_forever_/Interface/AddOns/"));
@@ -150,6 +151,7 @@ mod tests {
 		assert!(!text.contains("     Polestar_Recorder\r\n"));
 		assert!(text.contains("Polestar_Nav\r\n   the arrow's walking routes\r\n   (Shortest Path Forever's pathing, by Cillian Berragan"));
 		assert!(text.contains("Polestar_Options the settings window\r\n   (loaded when you open it); Polestar_Skins Polestar's skins and\r\n   guide window layouts (loaded when you use one)"));
+		assert!(text.contains("Polestar_FreeMode Free mode and the\r\n   finished-quest guide (loaded when one opens)"));
 		// Updating over an older version: the folders 0.4.3 folded go (#3507).
 		assert!(text.contains("first: every Polestar and Polestar_ folder but Polestar_Recorder.\r\n   Since 0.4.3 Polestar has fewer folders"));
 		assert!(!text.contains("Polestar_Skin_") && !text.contains("Polestar_Looks") && !text.contains("Polestar_Experimental"));

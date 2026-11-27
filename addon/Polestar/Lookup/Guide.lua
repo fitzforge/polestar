@@ -795,6 +795,16 @@ local function questStep(q, from, isTarget, opts)
 			local name = (C.Name("item", o.id)) or o.text or itemName(o.id)
 			local s, source, spawns, dropper = itemSpot(o.id, here, inside, direct)
 			if source then mark(s, name) end
+			-- Made from an item the quest needs (the Codex's madeFrom), with no
+			-- place of its own: where that one comes from, so the arrow leaves
+			-- the giver (#4148: the Filled Egg of Hakkar, filled with the Essence
+			-- of Hakkar from inside the Sunken Temple).
+			for _, from in ipairs(not s and not (o.map and o.x and o.y) and o.madeFrom or {}) do
+				local fromName = (C.Name("item", from)) or itemName(from)
+				s, source, spawns, dropper = itemSpot(from, here, inside, direct)
+				if source then mark(s, fromName) end
+				if s then break end
+			end
 			if not s then
 				-- Nothing places a source: the objective's own place, where
 				-- players' recordings show it collected (A Dynamite Plan's
@@ -828,7 +838,27 @@ local function questStep(q, from, isTarget, opts)
 			goals[#goals + 1] = spawnSpots(at({ t = "interact", object = o.id, objName = objName,
 				quest = q.id, oi = oi, count = count, title = q.title, group = eliteMark(o) }, s), obj and obj.spawns)
 		elseif placedEvents >= 2 and o.map and o.x and o.y then
-			goals[#goals + 1] = at({ t = "kill", logLine = true, target = o.text or q.title, quest = q.id, oi = oi, count = count, title = q.title }, o)
+			-- `useItem`: the item the event is done with (Codex, from our public
+			-- mechanics), and `reagent`, what that use spends, gathered first
+			-- (#4270: four Coalesced Mana Crystals from the Unstable Mana Rifts
+			-- before each of Powering the Pylons' pylons, then the Pile of Pylon
+			-- Parts at it). The gather's `spentBy` tells the Engine the use after
+			-- it spends what it holds: done once that use is, never kept done by
+			-- the bags alone, and taken in its order (Own.usedLaterDone,
+			-- Own.refetch, Own.currentGoal). The events then follow the quest
+			-- log's order, which players keep: in their recordings 83 of 91 runs
+			-- repaired the western pylon first.
+			local use = type(o.useItem) == "number" and o.useItem > 0 and o.useItem or nil
+			local r = use and type(o.reagent) == "table" and type(o.reagent.item) == "number" and o.reagent or nil
+			if r then
+				local from = r.npc and C.Npc(r.npc)
+				local name = (C.Name("item", r.item)) or itemName(r.item)
+				local gather = { t = "collect", item = r.item, itemName = name, count = r.count or 1, spentBy = use,
+					npc = from and r.npc or nil, npcName = from and from.name or nil }
+				goals[#goals + 1] = spawnSpots(at(gather, from and Lookup.Nearest(from.spawns, here, direct)), from and from.spawns)
+			end
+			goals[#goals + 1] = at({ t = use and "use" or "kill", item = use, itemName = use and itemName(use) or nil, logLine = true,
+				target = o.text or q.title, quest = q.id, oi = oi, count = count, title = q.title }, o)
 		else
 			if not event then event, eventAt = o, #goals + 1 end
 		end

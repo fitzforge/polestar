@@ -484,7 +484,8 @@ step Oran Snakewrithe
 
 step Undercity
   zone Undercity
-  accept 3568                         -- Chemist Cuely, the Apothecarium: the vials fill in Azshara later
+  tip Andron Gant stands just outside the Apothecarium, on the way to the Royal Quarter.
+  accept 3568 -- Chemist Cuely, the Apothecarium: a Box of Empty Vials comes with the quest. Keep four bag slots free and open it for Empty Vials Labeled #1 to #4, filled in Azshara later
   turnin 864                          -- Apothecary Zinge, near Cuely in the Apothecarium
   train class only Warrior,Paladin,Rogue,Priest,Mage,Warlock
   turnin 3542                         -- Andron Gant, the Rogues' Quarter

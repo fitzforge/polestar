@@ -12,7 +12,7 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
-const { loadRules, sha256 } = require('../tools/lib/public-text');
+const { loadRules, hits, sha256 } = require('../tools/lib/public-text');
 
 const ROOT = path.join(__dirname, '..');
 const SCRIPT = path.join(ROOT, 'tools', 'public-text.js');
@@ -88,7 +88,9 @@ test('a pull request: its title, description, branch name and every commit messa
 });
 
 test('the commit-msg hook runs the check from the clone, and the hooks are executable', () => {
-	for (const h of ['commit-msg', 'pre-push']) assert.ok(fs.statSync(path.join(ROOT, 'tools', 'hooks', h)).mode & 0o111, `tools/hooks/${h} is executable`);
+	// fs.stat on Windows sets no execute bits; there the git index mode, which a clone gets, says it
+	const executable = (h) => process.platform === 'win32' ? spawnSync('git', ['ls-files', '-s', `tools/hooks/${h}`], { cwd: ROOT, encoding: 'utf8' }).stdout.startsWith('100755 ') : fs.statSync(path.join(ROOT, 'tools', 'hooks', h)).mode & 0o111;
+	for (const h of ['commit-msg', 'pre-push']) assert.ok(executable(h), `tools/hooks/${h} is executable`);
 	const bad = run([file('hook-bad', `${MSG.match[0]}\n`)], {}, 'sh', [HOOK]);
 	assert.equal(bad.status, 1);
 	assert.match(bad.out, new RegExp(`public-text rule ${MSG.id}`));
@@ -202,4 +204,33 @@ test('the Public text job checks out everything the check loads and keeps the te
 	for (const v of ['title', 'body', 'head.ref']) assert.match(job, new RegExp(`^ {6}PR_\\w+: \\$\\{\\{ github\\.event\\.pull_request\\.${v.replace('.', '\\.')} \\}\\}$`, 'm'));
 	const runs = job.slice(job.indexOf('run: |'));
 	assert.doesNotMatch(runs, /\$\{\{/, 'no expression inside run:');
+});
+
+// The one allowed credit (public-text.json `allow`): the profession routes' author and his site pass
+// in the About credits, the locale files, the README and the changelog, and stay hits in a guide, a
+// code comment, anywhere else and every message. The name is built from parts: this file is in the tree.
+test('the profession routes credit passes in the About credits and nowhere else', () => {
+	const site = ['WoW', 'Professions'].join('-') + '.com';
+	const credit = `Profession routes: based on the guides by Peter at ${site}.`;
+	const rules = loadRules();
+	const rulesOf = (text, file) => hits(text, rules, undefined, file).map((h) => h.rule);
+	for (const f of ['addon/Polestar_Options/UI/Options.lua', 'addon/Polestar_deDE/Interface.lua', 'addon/Polestar_zhTW/Interface.lua', 'README.md', 'CHANGELOG.md', 'changes/profession-routes-credit.md']) {
+		assert.deepEqual(rulesOf(`L["${credit}"] = "x"`, f), [], `${f} may carry the credit`);
+	}
+	for (const f of ['guides/forever/sample.guide', 'forge/seed/guides/sample.guide', 'addon/Polestar/UI/Hub.lua', 'tools/sample.js', 'docs/sample.md', null]) {
+		assert.deepEqual(rulesOf(credit, f), ['site-name'], `${f} still flags it`);
+	}
+	// The real About page and locale files carry the credit and pass the tree rules; the command line refuses
+	// a file outside the allowed ones and a message, without printing the name.
+	for (const f of ['addon/Polestar_Options/UI/Options.lua', 'addon/Polestar_deDE/Interface.lua']) {
+		assert.ok(fs.readFileSync(path.join(ROOT, f), 'utf8').includes(credit), `${f} has the credit`);
+		assert.deepEqual(hits(fs.readFileSync(path.join(ROOT, f), 'utf8'), rules, ['tree'], f), [], f);
+	}
+	const guide = run([file('sample.guide', `# Herbalism\n${credit}\n`)]);
+	assert.equal(guide.status, 1);
+	assert.match(guide.out, /sample\.guide, line 2 column \d+: public-text rule site-name/);
+	silent(guide.out, site);
+	const msg = run(['--commit-msg', file('credit-msg', `Credit\n\n${credit}\n`)]);
+	assert.equal(msg.status, 1);
+	assert.match(msg.out, /public-text rule site-name/);
 });

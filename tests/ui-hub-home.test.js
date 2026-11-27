@@ -189,6 +189,8 @@ test('suggestions say why they are listed: the level they fit, or the open tab t
 for (const [narrow, kept] of [[900, false], [1000, true]]) test(`a suggestion with a Group chip and a long note: nothing overlaps, the note gives way first (pickerW ${narrow})`, () => {
 	const [out] = run(`
 		uistub.guides[${JSON.stringify(LONG)}].next = uistub.elwynn
+		-- Not a Leveling guide: those never wear the Group chip.
+		uistub.guides[uistub.elwynn].category = "Dungeons"
 		uistub.guides[uistub.elwynn].group = true
 		uistub.suggestions = { ${JSON.stringify(EXPLORE)} }
 		uistub.openTabs({ { ${JSON.stringify(LONG)}, 1 } }, 1)

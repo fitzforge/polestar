@@ -532,6 +532,58 @@ fn desolace_the_walk_from_the_road_to_gurda_wildmane_goes_up_the_north_slope_not
 	}
 }
 
+// #4032 (devanpy), Azshara, Horde: bound for Blackmaw Hold the arrow led away over the ground, where the way in is the
+// cave whose mouth is at 39,33.7. The portal is at the cave's far end (35.0,23.5, the floor at 166: where players'
+// walks end before they go in); the walking maps join it to the mouth. From the reporter's spot (39.34,34.29) the walk
+// at the portal's height goes in by the mouth and along the cave as players walk it (by 38.3,32.25, 37.28,30.65 and
+// 36.49,28.5), about 520 yd, both ways.
+#[test]
+fn azshara_the_walk_to_blackmaw_holds_portal_goes_in_by_the_caves_mouth_and_along_the_cave_4032() {
+	forge_addontest::needs!("map-frames.json");
+	let reporter = world(1447, 39.34, 34.29);
+	let portal = Pt { z: Some(166.0), ..world(1447, 35.0, 23.5) };
+	joined_both_ways(reporter, portal, Some("Horde"), "Blackmaw Hold");
+	let pts = points(&walk(reporter, portal, Some("Horde")));
+	for (x, y) in [(38.3, 32.25), (37.28, 30.65), (36.49, 28.5)] {
+		let off = off_path(&pts, world(1447, x, y));
+		assert!(off < 20.0, "the walk passes {off:.0} yd from players' way through the cave at {x},{y}");
+	}
+	let yards = yards_of(&pts);
+	assert!(yards < 600.0, "the walk in is {yards:.0} yd");
+}
+
+// #3868 (gidi_), Stranglethorn Vale, Horde, Mok'thardin's Enchantment: from the beach (24.57,64.61, height 10) the arrow
+// drew a straight line at the cliff below the Holy Spring. The step pointed 7 yd off the spring, onto rocks no walk
+// reaches; it points at the spring's spawn now (28.9,61.96, the goal's height 93.7, guides-reported.test.js). Asked as
+// the arrow asks a goal with a height (Path.Find's reach, 10 yd: Nav/Walk.lua city.GOAL), the walk from the beach and
+// from the road to the north goes up the hill the way players' recordings take (by 27.4,62.98 and 27.9,62.62) and ends
+// beside the spring.
+#[test]
+fn stranglethorn_the_walk_to_the_holy_spring_goes_up_the_hill_from_the_beach_and_the_road_3868() {
+	forge_addontest::needs!("map-frames.json");
+	let spring = world(1434, 28.9, 61.96);
+	let mut beach = world(1434, 24.57, 64.61);
+	beach.z = Some(10.0);
+	for (from, what) in [(beach, "the beach"), (world(1434, 27.0, 59.5), "the road to the north")] {
+		let pt = |p: Pt| match p.z {
+			Some(z) => format!("{{ x = {}, y = {}, z = {} }}", p.x, p.y, z),
+			None => format!("{{ x = {}, y = {} }}", p.x, p.y),
+		};
+		let to = format!("{{ x = {}, y = {}, z = 93.7, reach = 10 }}", spring.x, spring.y);
+		let script = WALK.replace("@C", "0").replace("@FROM", &pt(from)).replace("@TO", &to).replace("@PROFILE", ", { profile = \"Horde\" }");
+		let got = emitted(&RunAddon { stubs: vec!["stub_encoding.lua"], addons: vec![Addon::name("Polestar_Nav")], script, ..Default::default() }).into_iter().next().unwrap_or(Value::Null);
+		assert!(truthy(&got), "the engine finds a walk from {what} to the Holy Spring");
+		let pts = points(&got);
+		let last = pts[pts.len() - 1];
+		let gap = (last.0 - spring.x).hypot(last.1 - spring.y);
+		assert!(gap < 15.0, "the walk from {what} ends {gap:.1} yd from the spring");
+		for (x, y) in [(27.4, 62.98), (27.9, 62.62)] {
+			let off = off_path(&pts, world(1434, x, y));
+			assert!(off < 15.0, "the walk from {what} passes {off:.0} yd from players' way up at {x},{y}");
+		}
+	}
+}
+
 // The city sweep (0.4.1, #2028): every guide goal in the capitals walked from its city's flight master. Three NPCs
 // whose spawn height stands a few yards beside or under the surfaces of their own cell (a bar, a counter, a balcony's
 // steps) were walked to nowhere at their height, and without it over the city's roof: Gwenna Firebrew, the Stonefire

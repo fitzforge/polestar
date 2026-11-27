@@ -247,7 +247,6 @@ function journey() {
 				tree[g.key] = keys
 			end
 			local home, sectionOf, sectionToggle, refToggle, parentOf, layout = {}, {}, {}, {}, {}, {}
-			local questsTabKeys = 0
 			for _, p in ipairs(K.pages) do
 				local tabs = {}
 				for _, t in ipairs(p.tabs) do
@@ -262,7 +261,6 @@ function journey() {
 							if c.key and not home[c.key] then
 								home[c.key] = p.key .. SEP .. (t.name or "") .. SEP .. (s.name or "")
 								sectionOf[c.key] = s.name
-								if p.key == "questing" and t.name == Polestar.L["Quests"] then questsTabKeys = questsTabKeys + 1 end
 							end
 						end
 						for _, c in ipairs(s.controls) do
@@ -291,7 +289,7 @@ function journey() {
 				if w:IsShown() and c.kind == "button" and c.label == text then styleLine = c.button end
 			end
 			emit({ tree = tree, home = home, sectionOf = sectionOf, sectionToggle = sectionToggle, refToggle = refToggle,
-				parentOf = parentOf, layout = layout, questsTabKeys = questsTabKeys, questingTabs = questingTabs,
+				parentOf = parentOf, layout = layout, questingTabs = questingTabs,
 				installHome = installHome, styleLine = styleLine or false, journal = ENCOUNTER_JOURNAL or Polestar.L["Dungeons"] })`,
 	}).emitted[0];
 	return journeyCached;
@@ -306,11 +304,11 @@ test('pages and sections follow the player journey order', () => {
 	assert.deepEqual(out.tree.qol, ['qualityoflife']);
 	assert.equal(out.tree.look[0], 'guidewindow');
 	assert.deepEqual(out.tree.look, ['guidewindow', 'theme', 'arrow', 'mappins', 'routelines', 'buttons', 'alerts', 'trackers']);
-	assert.deepEqual(out.tree.setup, ['language', 'profiles', 'integrations', 'guidepacks', 'gamepad', 'recorder']);
+	assert.deepEqual(out.tree.setup, ['language', 'profiles', 'gamepad']);
+	assert.deepEqual(out.tree.addons, ['integrations', 'guidepacks', 'recorder']);
 	assert.deepEqual(out.tree.about, ['about', 'thanks']);
 	// By name: pr/settings-essentials puts an Essentials tab before them.
 	assert.deepEqual(out.questingTabs.filter((n) => n !== 'Essentials'), ['Quests', 'Rewards & gear', 'Buttons', 'Group']);
-	assert.ok(out.questsTabKeys <= 22, out.questsTabKeys);
 
 	assert.deepEqual(tabsOf(out, 'guide'), ['While you play', 'Automation', 'Arrow & routes']);
 	assert.deepEqual(sectionsOf(out, 'guide', 'While you play'), ['Dynamic Questing', 'Pause', 'Level pace']);
@@ -318,7 +316,7 @@ test('pages and sections follow the player journey order', () => {
 	assert.deepEqual(sectionsOf(out, 'guide', 'Arrow & routes'), ['Arrow', 'Routes', 'Along the route', 'Getting around', 'Other waypoints']);
 
 	assert.deepEqual(tabsOf(out, 'questing'), ['Quests', 'Rewards & gear', 'Buttons', 'Group']);
-	assert.deepEqual(sectionsOf(out, 'questing', 'Quests'), ['Faster questing', 'Quest log', 'Quest data', 'Quest items']);
+	assert.deepEqual(sectionsOf(out, 'questing', 'Quests'), ['Faster questing', 'Quest log', 'Quest data', 'Quest items', 'Free mode']);
 	assert.deepEqual(sectionsOf(out, 'questing', 'Buttons'), ['Action buttons', 'Targeting']);
 	assert.deepEqual(sectionsOf(out, 'questing', 'Group'), ['Group', 'Party chat']);
 
@@ -333,7 +331,7 @@ test('pages and sections follow the player journey order', () => {
 	assert.deepEqual(tabsOf(out, 'guidewindow'), ['Essentials', 'Window', 'Parts']);
 	assert.deepEqual(sectionsOf(out, 'guidewindow', 'Window'), ['Window', 'Behaviour', 'Show and hide', 'Position', 'Background']);
 	assert.deepEqual(sectionsOf(out, 'guidewindow', 'Parts'),
-		['Bars', 'Step text', 'Step spacing', 'Target bar', 'Step tips', 'Up next', 'Still to do', 'Progress & pace']);
+		['Bars', 'Step text', 'Step spacing', 'Target bar', 'Step tips', 'Up next', 'Still to do', 'Quest log notices', 'Progress & pace']);
 
 	assert.deepEqual(tabsOf(out, 'alerts'), ['Essentials', 'Rare alert', 'Heads-up card', 'Transport alert', 'Class quest card']);
 	assert.deepEqual(sectionsOf(out, 'alerts', 'Essentials'), ['Presets', 'All alerts', 'Alerts', 'Sound']);

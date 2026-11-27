@@ -57,7 +57,7 @@ test('groups fold accordion-style, one open at a time; Expand all is remembered'
 		emit({ open = first, allOpen = allOpen, saved = PolestarDB.optionsNavAll == true, pages = pages,
 			head = head ~= nil and head.Expand:IsShown() and head.Expand:GetParent() == O.frame.Sidebar })`);
 	assert.deepEqual(out.open, ['b:look'], 'one group open: the page shown');
-	assert.deepEqual(out.allOpen, ['b:guiding', 'b:qol', 'b:look', 'b:setup'], 'Expand all opens every group');
+	assert.deepEqual(out.allOpen, ['b:guiding', 'b:qol', 'b:look', 'b:setup', 'b:addons'], 'Expand all opens every group');
 	assert.equal(out.saved, true, 'and is remembered for the account');
 	assert.ok(out.pages > 15, `every group lists its pages (${out.pages})`);
 	assert.equal(out.head, true, 'the toggle sits in the sidebar head');
@@ -175,7 +175,7 @@ test('the sidebar folds to an icon rail and a hovered icon opens its pages as a 
 	assert.equal(out.railW, 24 * 2 + 24, 'the rail is as wide as its icons');
 	assert.equal(out.grew, out.wide - out.railW, 'the page takes the room the sidebar gave up');
 	assert.equal(out.label, false, 'icons only');
-	assert.deepEqual(out.items, ['b:guiding', 'b:qol', 'b:look', 'b:setup', 'b:about'], 'the rail holds the groups');
+	assert.deepEqual(out.items, ['b:guiding', 'b:qol', 'b:look', 'b:setup', 'b:addons', 'b:about'], 'the rail holds the groups');
 	assert.equal(out.back, out.wide, 'unfolded, the sidebar is back at its width');
 	assert.equal(out.savedOff, true);
 });

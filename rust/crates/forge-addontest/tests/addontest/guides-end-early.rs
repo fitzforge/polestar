@@ -180,7 +180,7 @@ fn every_leveling_guide_played_in_order_with_its_givers_windows_ends_only_at_its
 				c = class,
 				f = faction
 			);
-			let script = format!("{loads}\n{}\n{SIMULATE}\nemit(ENDS)\n", SETUP.replace("@ID@", &serde_json::to_string(&id).unwrap()));
+			let script = format!("{loads}\n{}\n{SIMULATE}\nemit(ENDS)\n", SETUP.replace("@ID@", &serde_json::to_string(&id).unwrap()), SIMULATE = SIMULATE.as_str());
 			jobs.push((format!("{id} ({race} {class})"), before, script));
 		}
 	}

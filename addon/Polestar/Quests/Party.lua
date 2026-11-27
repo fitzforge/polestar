@@ -1964,36 +1964,63 @@ end
 -- wait ("Waiting on Ana", "Everyone's ready"), or with nobody holding the
 -- step, a soft hint when you are done with its objectives and a member is
 -- not ("Still at it: Ben").
-function Party.StepLine()
+--
+-- A third value says what in the line needs the player, for a card they
+-- closed (the Atlas layout) to know when to come back: { who = the members
+-- we have progress of ("Ana|Ben"), marks = { ["behind:Ana"] = true,
+-- ["wait:Ben"] = true, ... } }, a mark for each member ahead, behind or on
+-- another guide and for each one waited on, whatever the step count. "With"
+-- and "Everyone's ready" carry none.
+--
+-- `paneled`: the party panel is open. It already shows who is on which step
+-- (UI/PartyPanel.lua: each row's step or "Other guide", and what they still
+-- need) but not the wait, so the line then says only "Waiting on Ana" (with
+-- "Go on without them"), and is nil without one.
+function Party.StepLine(paneled)
 	if not ns.Get("party.show") or not grouped() then return nil end
 	local mine = Party.MyPos()
 	local E = ns.Engine
 	local g = mine and mine.step and E.GetGuide and E.GetGuide()
-	local parts, list, with, open = {}, Party.Members(), {}, {}
+	local parts, list, with, open, marks, who = {}, Party.Members(), {}, {}, {}, {}
 	local view = g and E.GetStepView(mine.step, true)
 	for _, goal in ipairs(view and view.goals or {}) do
 		local w = goal.status ~= "done" and goal.status ~= "skipped" and workOf(goal)
 		if w then open[w] = true end
 	end
 	for _, m in ipairs(list) do
+		who[#who + 1] = m.name
 		local p = m.pos
 		local theirs = g and theirStep(m, g, mine)
 		local d = theirs and Party.SharedSteps(g, mine.step, theirs, whoOf(m))
 		if d == 0 or (g and sameWork(m, g, theirs, open)) then
 			with[#with + 1] = m.name
-		elseif d == 1 then parts[#parts + 1] = L["%s: 1 step ahead"]:format(m.name)
-		elseif d and d > 1 then parts[#parts + 1] = L["%s: %d steps ahead"]:format(m.name, d)
-		elseif d == -1 then parts[#parts + 1] = L["%s: 1 step behind"]:format(m.name)
-		elseif d and d < -1 then parts[#parts + 1] = L["%s: %d steps behind"]:format(m.name, -d)
+		elseif d == 1 then
+			parts[#parts + 1] = L["%s: 1 step ahead"]:format(m.name)
+			marks["ahead:" .. m.name] = true
+		elseif d and d > 1 then
+			parts[#parts + 1] = L["%s: %d steps ahead"]:format(m.name, d)
+			marks["ahead:" .. m.name] = true
+		elseif d == -1 then
+			parts[#parts + 1] = L["%s: 1 step behind"]:format(m.name)
+			marks["behind:" .. m.name] = true
+		elseif d and d < -1 then
+			parts[#parts + 1] = L["%s: %d steps behind"]:format(m.name, -d)
+			marks["behind:" .. m.name] = true
 		elseif p and p.guide ~= (mine and mine.guide) then
 			parts[#parts + 1] = L["%s: other guide"]:format(m.name)
+			marks["other:" .. m.name] = true
 		end
 	end
 	if #with > 0 then table.insert(parts, 1, L["With %s"]:format(concat(with, ", "))) end
 	local names, ready = Party.StepWait()
 	local holding = names ~= nil and #names > 0
+	local state = { who = concat(who, "|"), marks = marks }
 	if holding then
+		for _, n in ipairs(names) do marks["wait:" .. n] = true end
 		parts[#parts + 1] = L["Waiting on %s"]:format(concat(names, ", "))
+		if paneled then return parts[#parts], true, state end
+	elseif paneled then
+		return nil
 	elseif ready then
 		parts[#parts + 1] = L["Everyone's ready"]
 	elseif mine and mine.step then
@@ -2015,7 +2042,7 @@ function Party.StepLine()
 		if #still > 0 then parts[#parts + 1] = L["Still at it: %s"]:format(concat(still, ", ")) end
 	end
 	if #parts == 0 then return nil end
-	return concat(parts, DOT), holding
+	return concat(parts, DOT), holding, state
 end
 
 ---------------------------------------------------------------------------

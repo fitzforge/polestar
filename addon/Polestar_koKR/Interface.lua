@@ -149,7 +149,7 @@
 --   %s. Optional: the route doesn't need it.
 --   Kept for %s
 --   Hand in %s to %s, who walks around here: look inside the circle on the map
---   A quest you carry that the route does not work here: its work is nearby.
+--   A quest in your log with an objective nearby that the route doesn't do here.
 --   %s at %s
 --   Only visible while dead: die nearby and talk to them as a ghost.
 --   Under water nearby: swim down to it
@@ -492,6 +492,84 @@
 --   Fewer folders
 --   Quit the game fully and start it again: Polestar is 22 folders now, not 45.
 --   Steps fixed in dozens of zones. Found something off? Type %s.
+--
+-- Machine-translated, to be reviewed (0.4.4 Dungeon Set 2 guides, 26 Nov 2026): translated by an AI model
+-- (Claude Opus 5.5) and waiting for a native speaker's check. Reviewing one: keep or fix it, and take it
+-- off this list. These guides' texts in guides/locales/koKR/:
+--   forever/class/druid/dungeon-set-2
+--   forever/class/hunter/dungeon-set-2
+--   forever/class/mage/dungeon-set-2
+--   forever/class/paladin/dungeon-set-2
+--   forever/class/priest/dungeon-set-2
+--   forever/class/rogue/dungeon-set-2
+--   forever/class/shaman/dungeon-set-2
+--   forever/class/warlock/dungeon-set-2
+--   forever/class/warrior/dungeon-set-2
+--
+-- Machine-translated, to be reviewed (0.4.4 Lookup, 26 Nov 2026): translated by an AI model (Claude Opus 5.5)
+-- and waiting for a native speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   Not seen on Forever yet
+-- Machine-translated, to be reviewed (#3701 Free mode, the finished-quest guide #2486 and the other lines new on
+-- next since 0.4.3, 26 Nov 2026):
+-- translated by an AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native
+-- speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   %d quests for your level, %d of them here.
+--   %d quests for your level, all here.
+--   1 quest for your level: %s gives it.
+--   About %s XP a minute
+--   Bring back left-out quests (%d)
+--   Free mode can't start: its folder Polestar_FreeMode or the Codex is missing or turned off.
+--   Free mode starts after combat.
+--   Free mode stops listing this quest. The menu's Bring back left-out quests lists it again.
+--   Free mode takes this quest first, whatever the order.
+--   Free mode
+--   Free mode: follow your own quests (on, off, nearest, xp)
+--   Free mode: the arrow takes your own quests, nearest first.
+--   Free mode: the arrow takes your own quests, the most XP a minute first.
+--   Leave out of Free mode
+--   Low drop rate: %s
+--   Most XP a minute first
+--   Nearest first
+--   Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes.
+--   No quests to lead to
+--   Or follow your own quests: Free mode
+--   Order: most XP a minute first
+--   Order: nearest first
+--   Pick up quests and Free mode leads you to them.
+--   Pin to the top
+--   Quests for your level
+--   Return to %s
+--   The XP each hand-in pays, and a collect whose items rarely drop says so.
+--   The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled.
+--   Unpin
+--   Which quest first
+--   With no quest near, the zone with the most quests for your level comes first, the arrow to its givers.
+--   XP and drop rates
+--   Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide.
+--   Your own quests as a guide: the arrow leads to the nearest one, then the next.
+--   Zone hints
+--   No quests in your log are ready to hand in.
+--   Wait until combat ends to load the quest data.
+--   Travel time to this hand-in is unknown. Its location is still shown.
+--   Hand-ins without a known location
+--   Refining the travel order. Travel times are estimates.
+--   Travel estimates are incomplete. The order uses the estimates available and approximate distances.
+--   Waiting for your quest log.
+--   The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled.
+--   Guide me opens a travel order for all finished quests in your log, including those kept for a later guide.
+--   Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more.
+--   Quest log notices
+--   The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests.
+--   Buy a rune at %s
+--   Buy a rune and cast %s to save about %s
+--   You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route.
+--   %s: optional class quests
+--   For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route.
+--   Start quest guide
+--   Click to show quest guide actions.
+--   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
+--   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+--   Profession routes: based on the guides by Peter at WoW-Professions.com.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "koKR") then return end
@@ -728,8 +806,11 @@ L["%s; 1 in %d runs fails"] = "%s; %d번에 1번 실패"
 L["%s. Optional: the route doesn't need it."] = "%s. 선택 사항: 경로에 필요하지 않습니다."
 L["Kept for %s"] = "%s용으로 보관"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "%s 퀘스트를 %s에게 제출하십시오. 이 근처를 돌아다닙니다: 지도의 원 안을 살펴보십시오"
-L["A quest you carry that the route does not work here: its work is nearby."] = "경로가 여기서 진행하지 않는, 가지고 있는 퀘스트입니다: 할 일이 근처에 있습니다."
+L["A quest in your log with an objective nearby that the route doesn't do here."] = "경로가 여기서 진행하지 않는, 가지고 있는 퀘스트입니다: 할 일이 근처에 있습니다."
 L["%s at %s"] = "%s - %s"
+L["Buy a rune at %s"] = "%s에게서 룬 구입"
+L["Buy a rune and cast %s to save about %s"] = "룬을 사서 %s 시전, 약 %s 절약"
+L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."] = "순간이동의 룬이 다 떨어졌고 이 상인이 팝니다: 하나 사서 순간이동하는 편이 경로의 비행보다 빠릅니다."
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "보상을 선택해 제출을 마치십시오."
@@ -860,7 +941,6 @@ L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the 
 L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."] = "Polestar가 일시 정지되었습니다: 던전에서 살아서 나오거나 /polestar resume을 입력하면 화살표가 다시 가이드를 따릅니다."
 
 -- Nav/Arrow.lua
-L["The last steps here aren't mapped"] = "이곳의 마지막 몇 걸음은 지도에 없습니다"
 L["Search here"] = "여기서 찾기"
 L["Arrived"] = "도착"
 L["Click the arrow for the next spot"] = "화살표를 클릭하면 다음 지점"
@@ -1162,6 +1242,13 @@ L["Quest givers and turn-ins"] = "퀘스트 제공자와 제출"
 L["On an NPC, name the quests it has for you now and the finished quests you can hand in to it."] = "NPC에 지금 받을 수 있는 퀘스트와 그 NPC에게 제출할 수 있는 완료된 퀘스트를 표시합니다."
 L["Replace the game's quest lines"] = "게임의 퀘스트 줄 대체"
 L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = "몹과 오브젝트에서 이 툴팁이 표시하는 퀘스트에 대한 게임 기본 줄을 빼서 각 퀘스트가 한 번만 보이게 합니다. 파티 중에는 게임 기본 줄이 남습니다: 파티원의 진행 상황을 보여 주기 때문입니다."
+L["Which quest first"] = "어떤 퀘스트부터"
+L["Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes."] = "가까운 순: 가장 빨리 닿는 퀘스트, 그다음 그 주변 퀘스트. 분당 경험치 많은 순: 이동과 작업에 드는 시간 대비 퀘스트가 주는 경험치."
+L["Zone hints"] = "지역 추천"
+L["With no quest near, the zone with the most quests for your level comes first, the arrow to its givers."] = "가까운 퀘스트가 없으면, 레벨에 맞는 퀘스트가 가장 많은 지역이 먼저 나오고 화살표가 퀘스트를 주는 NPC로 안내합니다."
+L["XP and drop rates"] = "경험치와 획득 확률"
+L["The XP each hand-in pays, and a collect whose items rarely drop says so."] = "각 퀘스트 완료 시 받는 경험치, 그리고 아이템이 드물게 나오는 수집 목표에는 그렇다고 표시합니다."
+L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."] = "내가 받은 퀘스트를 자체 탭의 가이드로: 화살표가 가장 가까운 퀘스트로, 그다음 퀘스트로 안내합니다 (/polestar free). 다시 누르면 가이드로 돌아갑니다."
 
 -- Quests/Party.lua
 L["%s done"] = "%s 완료"
@@ -1941,6 +2028,12 @@ L["Group, or careful: a group is advised"] = "파티 또는 주의: 파티 권�
 L["Careful: elites nearby"] = "주의: 근처에 정예"
 L["Careful: elites, below your level"] = "주의: 정예, 내 레벨보다 낮음"
 L["%s · kept for %s"] = "%s · %s용으로 보관"
+L["No farm at your level: %d levels above you"] = "내 레벨의 사냥터 없음: %d레벨 높음"
+L["1 level above you: careful"] = "1레벨 높음: 주의"
+L["about %d kills, %d min"] = "약 %d마리, %d분"
+L["about %d kills"] = "약 %d마리"
+L["or %s (%s)"] = "또는 %s (%s)"
+L["or %s"] = "또는 %s"
 
 -- UI/GuideFrame.lua
 L["Location"] = "위치"
@@ -2207,6 +2300,10 @@ L["Level with %s meanwhile: this guide picks up at level %d"] = "그동안 %s(�
 L["%s is done."] = "%s 완료."
 L["All steps"] = "모든 단계"
 L["Every step of the guide in one list. Click one to look at it."] = "가이드의 모든 단계를 한 목록으로 봅니다. 하나를 클릭하면 볼 수 있습니다."
+L["Or follow your own quests: Free mode"] = "또는 내가 받은 퀘스트를 따라가기: 자유 모드"
+L["No quests to lead to"] = "안내할 퀘스트가 없습니다"
+L["Pick up quests and Free mode leads you to them."] = "퀘스트를 받으면 자유 모드가 그곳으로 안내합니다."
+L["Return to %s"] = "%s(으)로 돌아가기"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"
@@ -2329,6 +2426,7 @@ L["Suggested"] = "추천"
 L["The guides window only. Click to pick a size; right-click to reset."] = "가이드 창에만 적용됩니다. 클릭하여 크기를 고르고, 우클릭하면 초기화됩니다."
 L["Quests in"] = "퀘스트 지역"
 L["Passes through"] = "지나가는 지역"
+L["%s: optional class quests"] = "%s: 선택 직업 퀘스트"
 
 -- UI/Lookup.lua
 L["Companion"] = "애완동물"
@@ -2434,6 +2532,7 @@ L["Finished, %d skipped"] = "완료, %d개 건너뜀"
 L["All %d done"] = "%d개 모두 완료"
 L["Click to open its page."] = "클릭하여 페이지를 엽니다."
 L["Then any of: %s"] = "그다음 다음 중 하나: %s"
+L["Not seen on Forever yet"] = "Forever에서 아직 확인되지 않음"
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "제출 가능"
@@ -2567,6 +2666,8 @@ L["Use %s beside %s"] = "%s을(를) %s 옆에서 사용"
 L["All attunements and keys"] = "모든 입장 조건과 열쇠"
 L["Every attunement and key, with how far you are"] = "모든 입장 조건과 열쇠, 그리고 진행 상황"
 L["Not open on Forever yet"] = "Forever에서 아직 열리지 않음"
+L["A guide to the items 1 quest in your log needs from where it is given, ending at the entrance."] = "목록의 퀘스트 1개에 필요한 아이템을 얻는 곳으로 안내하고 입구에서 끝나는 가이드."
+L["A guide to the items %d quests in your log need from where they are given, ending at the entrance."] = "목록의 퀘스트 %d개에 필요한 아이템을 얻는 곳으로 안내하고 입구에서 끝나는 가이드."
 
 -- UI/RouteChoice.lua
 L["Right here"] = "바로 여기"
@@ -2963,6 +3064,7 @@ L["Quest and map data includes pfQuest by shagu (MIT License)."] = "퀘스트 �
 L["Discord and its logo are trademarks of Discord Inc.; the logo marks the link to the Polestar Discord."] = "Discord와 로고는 Discord Inc.의 상표입니다. 로고는 Polestar Discord 링크를 나타냅니다."
 L["With EllesmereUI installed, Polestar can follow its accent, font and panel colour through its public skinning API."] = "EllesmereUI가 설치되어 있으면 Polestar가 공개 스킨 API로 그 강조색, 글꼴, 패널 색을 따를 수 있습니다."
 L["Gear scores from Forever Leveling BiS by Timearc when it is installed, through its public API."] = "Forever Leveling BiS(Timearc 제작)가 설치되어 있으면 공개 API로 장비 점수를 가져옵니다."
+L["Profession routes: based on the guides by Peter at WoW-Professions.com."] = "전문 기술 루트: WoW-Professions.com의 Peter의 가이드를 바탕으로 합니다."
 L["Maintenance"] = "관리"
 L["Reset all settings"] = "모든 설정 초기화"
 L["Every Polestar setting back to default. Progress is kept."] = "모든 Polestar 설정을 기본값으로. 진행 상황은 유지됩니다."
@@ -3187,6 +3289,7 @@ L["General"] = "일반"
 L["The language Polestar shows."] = "Polestar가 표시하는 언어입니다."
 L["Say when I've outlevelled a guide"] = "가이드 레벨을 넘어서면 알림"
 L["A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is."] = "내 레벨이 가이드 레벨을 넘으면 가이드 창에 알림을 가이드마다 세션당 한 번, 내 레벨에 맞는 가이드와 함께 표시합니다. 끄기: 알림 없음, 가이드는 그대로 유지됩니다."
+L["For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route."] = "순간이동의 룬이 없는 마법사에게는, 룬을 사서 순간이동하는 편이 경로보다 빠를 때 근처에서 룬을 파는 상인도 보여 줍니다."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -4079,7 +4182,6 @@ L["Clean up quest log"] = "퀘스트 목록 정리"
 L["Grey: no XP any more"] = "회색: 더 이상 경험치 없음"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "경로에 필요 없는 퀘스트입니다: 경로가 완료하지 않거나 더 이상 경험치를 주지 않습니다. 포기는 먼저 게임 자체 창에서 확인합니다."
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "퀘스트 목록에서 경로에 필요 없는 퀘스트를 보여 줍니다: 경로가 완료하지 않는 퀘스트와 더 이상 경험치를 주지 않는 회색 퀘스트입니다. 각각 먼저 확인하는 포기 버튼이 있습니다. 그런 퀘스트가 있는 동안 가이드 창 메뉴에도 나타납니다."
-L["None of these has a known place to hand it in."] = "이 중 제출 장소가 알려진 퀘스트가 없습니다."
 L["Where it is turned in is not known"] = "제출 장소를 알 수 없음"
 L["Finished quests you're still carrying"] = "아직 들고 있는 완료된 퀘스트"
 L["The route hands in every finished quest in your log."] = "경로에서 퀘스트 목록의 완료된 퀘스트를 모두 제출합니다."
@@ -4094,6 +4196,8 @@ L["Every quest in your log is part of your route."] = "목록의 모든 퀘스�
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "경로의 어떤 가이드도 이 퀘스트를 받거나 진행하거나 제출하지 않습니다. 원하는 것은 보관하십시오. 포기는 먼저 게임 자체 창에서 확인합니다."
 L["Finished: no guide of your route hands it in"] = "완료됨: 경로의 어떤 가이드도 제출하지 않습니다"
 L["Not in any guide of your route"] = "경로의 어떤 가이드에도 없음"
+L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = "가이드 시작은 나중 가이드를 위해 남겨 둔 것을 포함해, 목록에 있는 완료한 퀘스트 전체의 이동 순서를 엽니다."
+L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = "경로에 있는 것을 포함해 목록에 있는 완료한 퀘스트 전부입니다. 가이드 시작은 이동 순서를 추정하며, 위치를 모르는 퀘스트는 직접 제출하도록 목록에 남습니다. 회색 퀘스트는 이제 경험치를 거의 주지 않습니다."
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "새 능력"
@@ -4970,7 +5074,6 @@ L["Title menu"] = "제목 메뉴"
 L["On the top edge"] = "위쪽 가장자리"
 L["Down the left side"] = "왼쪽 세로"
 L["Default (%s)"] = "기본값 (%s)"
-L["A button in the step bar that opens every step of the guide in one list. The step number and the guide menu open it too."] = "가이드의 모든 단계를 한 목록으로 여는 단계 막대의 버튼입니다. 단계 번호와 가이드 메뉴로도 열 수 있습니다."
 L["Steps before"] = "이전 단계"
 L["How many of the steps before this one show over it, one dimmed line each, done or skipped; 0 turns them off. Click one to go back to it."] = "이 단계 위에 표시할 이전 단계 수입니다. 완료했거나 건너뛴 단계가 하나씩 흐린 줄로 표시되며, 0이면 끕니다. 하나를 클릭하면 그 단계로 돌아갑니다."
 L["Journey style"] = "여정 스타일"
@@ -4993,6 +5096,8 @@ L["On the window's edge"] = "창 가장자리"
 L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."] = "경로 밖에서 아직 완료하거나 제출해야 하는 퀘스트를 단계 아래에 줄로 표시합니다: 가이드 업데이트로 지나쳐 버린 퀘스트와, 앞으로의 어떤 가이드도 제출하지 않는 완료된 퀘스트입니다. 꺼도 가이드 창 메뉴의 완료한 퀘스트 제출에 완료된 퀘스트가 계속 나열됩니다."
 L["XP line"] = "경험치 줄"
 L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "단계 아래 줄: 시간당 경험치, 레벨업까지 시간과 내 속도. 휴식 강화는 별도 줄을 유지합니다."
+L["Quest log notices"] = "퀘스트 목록 알림"
+L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = "퀘스트 목록에 관한 줄: 경로에 없는 퀘스트(단계에서, 그리고 가이드를 마쳤을 때)와 앞으로 어느 가이드도 받지 않는 완료한 퀘스트. 끄면 가이드 창 메뉴에 퀘스트 목록 정리와 완료한 퀘스트 제출이 그대로 있습니다."
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "알림 줄"
@@ -5299,6 +5404,10 @@ L["Some of this guide's quests follow on from %s. Start there for the full set, 
 L["You are past this class quest's levels."] = "이 직업 퀘스트의 레벨을 넘어섰습니다."
 L["Escort: %s"] = "호위: %s"
 L["Do it"] = "하기"
+L["Free mode: the arrow takes your own quests, the most XP a minute first."] = "자유 모드: 화살표가 내가 받은 퀘스트로 안내합니다. 분당 경험치가 가장 많은 것부터."
+L["Free mode: the arrow takes your own quests, nearest first."] = "자유 모드: 화살표가 내가 받은 퀘스트로 안내합니다. 가까운 것부터."
+L["Nearest first"] = "가까운 순"
+L["Most XP a minute first"] = "분당 경험치 많은 순"
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "%s 키를 눌러 다시 시작하거나 가이드 창을 여십시오."
@@ -5509,7 +5618,6 @@ L["%d changed"] = "%d개 변경됨"
 L["What Polestar does for you while you level: suggestions, quests, rewards, buttons, rares."] = "레벨업하는 동안 Polestar가 해 주는 일: 제안, 퀘스트, 보상, 버튼, 희귀 몬스터."
 L["The arrow, its routes, and what Polestar draws on the world map and the minimap."] = "화살표와 경로, 그리고 Polestar가 세계 지도와 미니맵에 그리는 것."
 L["The theme every Polestar window wears, the action buttons, the alert cards and the trackers."] = "모든 Polestar 창의 테마, 행동 버튼, 알림 카드, 추적기."
-L["Profiles, other addons, community guides and gamepad."] = "프로필, 다른 애드온, 커뮤니티 가이드, 게임패드."
 L["Pinned"] = "고정됨"
 L["Pinned, not available here: %d"] = "고정됨, 여기서 사용할 수 없음: %d"
 L["Pin a setting with the flag on its row."] = "행의 깃발로 설정을 고정하세요."
@@ -5634,6 +5742,56 @@ L["(your current)"] = "(현재 사용 중)"
 L["kept for %s"] = "%s용으로 보관"
 L["kept"] = "보관"
 L["Kept for %s: the route hands it in there."] = "%s용으로 보관: 경로가 그곳에서 제출합니다."
+
+-- Handins.lua
+L["No quests in your log are ready to hand in."] = "퀘스트 목록에 제출할 준비가 된 퀘스트가 없습니다."
+L["Wait until combat ends to load the quest data."] = "퀘스트 데이터를 불러오려면 전투가 끝날 때까지 기다리세요."
+L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "퀘스트 제출 가이드를 불러오지 못했습니다. Polestar_FreeMode 애드온이 설치되어 켜져 있는지 확인하세요."
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["None of these has a known place to hand it in."] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
+
+-- Lookup/Free.lua
+L["Free mode starts after combat."] = "자유 모드는 전투가 끝난 뒤 시작합니다."
+L["Free mode can't start: its folder Polestar_FreeMode or the Codex is missing or turned off."] = "자유 모드를 시작할 수 없습니다: Polestar_FreeMode 폴더나 Codex가 없거나 꺼져 있습니다."
+L["Free mode"] = "자유 모드"
+L["Your own quests as a guide: the arrow leads to the nearest one, then the next."] = "내가 받은 퀘스트를 가이드로: 화살표가 가장 가까운 퀘스트로, 그다음 퀘스트로 안내합니다."
+L["Free mode: follow your own quests (on, off, nearest, xp)"] = "자유 모드: 내가 받은 퀘스트를 따라가기 (on, off, nearest, xp)"
+
+-- UI/QuestLinks.lua
+L["Start quest guide"] = "퀘스트 가이드 시작"
+L["Click to show quest guide actions."] = "클릭하면 퀘스트 가이드 동작을 보여 줍니다."
+
+-- Free.lua
+-- L["Low drop rate: %s"] = ""
+-- L["1 quest for your level: %s gives it."] = ""
+-- L["%d quests for your level, all here."] = ""
+-- L["%d quests for your level, %d of them here."] = ""
+-- L["Quests for your level"] = ""
+-- L["About %s XP a minute"] = ""
+-- L["Order: nearest first"] = ""
+-- L["Order: most XP a minute first"] = ""
+-- L["Bring back left-out quests (%d)"] = ""
+-- L["Unpin"] = ""
+-- L["Pin to the top"] = ""
+-- L["Free mode takes this quest first, whatever the order."] = ""
+-- L["Leave out of Free mode"] = ""
+-- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = ""
+
+-- Layouts/Atlas/Atlas.lua
+-- L["Get ahead, if possible"] = ""
+-- L["Still open from steps you have passed"] = ""
+-- L["1 quest off-guide"] = ""
+-- L["%d quests off-guide"] = ""
+-- L["View"] = ""
+-- L["Training due"] = ""
+-- L["New spells at your class trainer"] = ""
+-- L["Optional objectives during this step"] = ""
+-- L["Class quest"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar를 한 페이지씩 다시 설정합니다. 선택은 바로 적용됩니다."
@@ -5902,3 +6060,26 @@ L["Kept for %s: the route hands it in there."] = "%s용으로 보관: 경로가 
 -- L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "창이 커질 수 있는 높이(화면 대비 비율). 더 긴 단계는 스크롤됩니다."
 -- L["Max height"] = "최대 높이"
 -- L["%s: on this step"] = "%s: 같은 단계"
+-- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "내가 받은 퀘스트를 자체 탭의 가이드로: 화살표가 가장 가까운 퀘스트로, 그다음 퀘스트로 안내합니다 (/polestar free)."
+-- L["The last steps here aren't mapped"] = "이곳의 마지막 몇 걸음은 지도에 없습니다"
+-- L["None of these has a known place to hand it in."] = "이 중 제출 장소가 알려진 퀘스트가 없습니다."
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = "이 제출 장소까지의 이동 시간을 알 수 없습니다. 위치는 계속 표시됩니다."
+-- L["Hand-ins without a known location"] = "위치를 모르는 제출 퀘스트"
+-- L["Refining the travel order. Travel times are estimates."] = "이동 순서를 다듬는 중입니다. 이동 시간은 추정치입니다."
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = "이동 추정이 완전하지 않습니다. 가능한 추정치와 대략적인 거리로 순서를 정합니다."
+-- L["Waiting for your quest log."] = "퀘스트 목록을 기다리는 중입니다."
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = "퀘스트 제출 가이드를 불러오지 못했습니다. Polestar_Codex 애드온이 설치되어 켜져 있는지 확인하세요."
+-- L["Low drop rate: %s"] = "낮은 획득 확률: %s"
+-- L["1 quest for your level: %s gives it."] = "레벨에 맞는 퀘스트 1개: %s이(가) 줍니다."
+-- L["%d quests for your level, all here."] = "레벨에 맞는 퀘스트 %d개, 모두 여기 있습니다."
+-- L["%d quests for your level, %d of them here."] = "레벨에 맞는 퀘스트 %d개, 그중 %d개가 여기 있습니다."
+-- L["Quests for your level"] = "레벨에 맞는 퀘스트"
+-- L["About %s XP a minute"] = "분당 약 %s 경험치"
+-- L["Order: nearest first"] = "순서: 가까운 순"
+-- L["Order: most XP a minute first"] = "순서: 분당 경험치 많은 순"
+-- L["Bring back left-out quests (%d)"] = "제외한 퀘스트 되돌리기 (%d)"
+-- L["Unpin"] = "고정 해제"
+-- L["Pin to the top"] = "맨 위에 고정"
+-- L["Free mode takes this quest first, whatever the order."] = "순서와 상관없이 자유 모드가 이 퀘스트를 먼저 합니다."
+-- L["Leave out of Free mode"] = "자유 모드에서 제외"
+-- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "자유 모드에서 이 퀘스트를 더 이상 보여 주지 않습니다. 메뉴의 '제외한 퀘스트 되돌리기'로 다시 보여 줍니다."

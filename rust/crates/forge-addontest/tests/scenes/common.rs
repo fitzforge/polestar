@@ -72,6 +72,11 @@ pub struct Install {
 
 pub fn install(dir: &Path) -> Install {
 	let mut all = forge_release::addons::release_addons(dir).unwrap_or_else(|e| panic!("{}: {e}", dir.display())).names;
+	// The previous release (the update scene's "before") has only the folders it shipped: a folder this release
+	// added (Polestar_FreeMode after 0.4.3) is not there. The release under test must have every one.
+	if previous().as_deref() == Some(dir) {
+		all.retain(|n| dir.join(n).join(format!("{n}.toc")).exists());
+	}
 	if dir.join("Polestar_Recorder/Polestar_Recorder.toc").exists() {
 		all.push("Polestar_Recorder".into());
 	}

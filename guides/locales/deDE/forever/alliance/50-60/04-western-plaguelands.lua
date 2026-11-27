@@ -62,7 +62,7 @@ return {
 
 	-- Step 13: Laris Geardawdle
 	-- {npc:9616} Laris Geardawdle
-	["{npc:9616}' next task fills his jars in Un'Goro, behind the route now: skip it."] = "",
+	["{npc:9616}' next task fills his jars in Un'Goro, behind the route now: skip it."] = "{npc:9616}s nächste Aufgabe füllt seine Krüge in Un'Goro, hinter der aktuellen Route: Überspringe sie.",
 
 	-- Step 14: Ironforge
 	-- {npc:14724} Bubulo Acerbus · {npc:14723} Mistina Steelshield · {item:14047} Runecloth
@@ -397,8 +397,8 @@ return {
 	["West through the {area:2277} to {area:2627}: fill the {item:15042} at the big termite mounds, and kill the Frenzied Plaguehounds and the Carrion Devourers on the way.\nCareful: the Frenzied Plaguehounds are 57-58: pull them one at a time."] = "Nach Westen durch den {area:2277} zum {area:2627}: Fülle das {item:15042} an den großen Termitenhügeln und töte unterwegs die Rasenden Seuchenhunde und die Aasfresser.\nVorsicht: Die Rasenden Seuchenhunde sind Stufe 57–58: Zieh sie einzeln.",
 
 	-- Step 73: Augustus the Touched
-	-- {npc:12384} Augustus the Touched · {area:2627} Terrordale · {npc:11140} Egan
-	["{npc:12384} lives in the ruined hut in {area:2627}, and his receipt book lies in the ruined inn nearby. {npc:11140} stands by {npc:12384}' hut."] = "{npc:12384} lebt in der zerstörten Hütte im {area:2627}, und sein Quittungsbuch liegt im zerstörten Gasthaus in der Nähe. {npc:11140} steht bei der Hütte von {npc:12384}.",
+	-- {npc:12384} Augustus the Touched · {area:2627} Terrordale · {npc:11140} Egan · {npc:16184} Nerubian Overseer · {area:2626} Terrorweb Tunnel
+	["{npc:12384} lives in the ruined hut in {area:2627}, and his receipt book lies in the ruined inn nearby. {npc:11140} stands by {npc:12384}' hut.\nCareful: a {npc:16184} (60, elite) walks {area:2627} and the {area:2626} south-west of it. Look for him before you ride in, and wait for him to pass."] = "{npc:12384} lebt in der verfallenen Hütte in {area:2627}, und sein Quittungsbuch liegt im nahen, verfallenen Gasthaus. {npc:11140} steht bei {npc:12384}s Hütte.\nVorsicht: Ein {npc:16184} (60, Elite) läuft durch {area:2627} und das südwestlich davon liegende {area:2626}. Such ihn, bevor du hineinreitest, und warte, bis er vorbeigeht.",
 
 	-- Step 75: Tirion Fordring
 	-- {npc:1855} Tirion Fordring · {area:2627} Terrordale · {area:2626} Terrorweb Tunnel
@@ -636,6 +636,7 @@ return {
 	-- ["{npc:11616}: the termites come later, in {area:2627}"] = "{npc:11616}: Die Termiten kommen später, im {area:2627}",
 	-- ["{npc:11741} walks around here: look inside the circle on the map"] = "{npc:11741} läuft hier umher: Schau in den Kreis auf der Karte",
 	-- ["{npc:11886} is elite: grouping up is advised"] = "{npc:11886} ist Elite: Eine Gruppe wird empfohlen",
+	-- ["{npc:12384} lives in the ruined hut in {area:2627}, and his receipt book lies in the ruined inn nearby. {npc:11140} stands by {npc:12384}' hut."] = "{npc:12384} lebt in der zerstörten Hütte im {area:2627}, und sein Quittungsbuch liegt im zerstörten Gasthaus in der Nähe. {npc:11140} steht bei der Hütte von {npc:12384}.",
 	-- ["{npc:15189}'s and {npc:15191}'s next tasks (the Stonelash scorpids and the Dredge Crushers) wait for the {zone:1451} guide's {area:3425} stop: take them then."] = "Die nächsten Aufgaben von {npc:15189} und {npc:15191} (die Steinpeitschenskorpide und die Baggerbrecher) warten auf den Halt in {area:3425} im Guide für {zone:1451}: Nimm sie dann an.",
 	-- ["{npc:16256}: the last guide binds here, so this usually ticks at once"] = "{npc:16256}: Der letzte Guide bindet dich hier, daher ist das meist sofort abgehakt",
 	-- ["{npc:17082}, at the Alliance tents"] = "{npc:17082}, bei den Zelten der Allianz",

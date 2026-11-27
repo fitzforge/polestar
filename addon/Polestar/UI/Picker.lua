@@ -25,7 +25,9 @@
 -- raids: the compiled `group`; on Home's tab card too), a check on
 -- finished guides and a muted "Tab N" on open ones, under small folder
 -- headers (leveling by faction and band: "Horde 30-40"; the rest by
--- category). On Browse without a search a header folds its guides away and
+-- category; a class's optional class quests in a folder after its own,
+-- "Warlock: optional class quests", each row naming its reward, #3925).
+-- On Browse without a search a header folds its guides away and
 -- back (click, or A on a gamepad; its count stays), kept account-wide in
 -- ui.pickerCollapsed; opening the menu unfolds the open guide's folder. Only
 -- the character's own side is ever listed (Guides.OtherFaction; no faction
@@ -162,6 +164,14 @@ P.PackOf = packOf
 local function isExperimental(g)
 	local G = ns.Guides
 	return G and G.IsExperimental and G.IsExperimental(g) or false
+end
+
+-- The Group tag: a guide that needs a group (dungeon and raid quests, elites).
+-- The leveling routes (Horde, Alliance, the starting zones) never wear it: a
+-- leveling player expects group quests along the way, so the tag says nothing
+-- there. Every other category keeps it.
+local function showsGroup(g)
+	return g.group == true and g.category ~= nil and g.category ~= "Leveling"
 end
 
 -- A guide in one of Forever's new zones (Guides.InForeverZone): the Forever
@@ -325,16 +335,48 @@ P.Band = band
 
 local FACTION_ORDER = { Alliance = 1, Horde = 2 }
 
+-- Whether Class guide g is optional (Core/ClassQuestList.lua, Fitz
+-- 2026-11-24, #3925): its chain gives only items, experience or reputation
+-- and is not on the hand-picked worth-it list, so no alert speaks of it.
+function P.OptionalClass(g)
+	local list = ns.ClassQuestList
+	return categoryOf(g) == "Class" and list ~= nil and list.OptionalGuide ~= nil and list.OptionalGuide(g.id)
+end
+
+-- What an optional Class guide gives, named on its row: its first reward
+-- line in the game's words (UI.ClassCard.RewardName: a choice reads
+-- "Astral Knot Robe or Blouse"), or the line's own text ("Experience"). -> text | nil
+function P.OptionalReward(g)
+	local first = P.OptionalClass(g) and type(g.reward) == "table" and g.reward[1]
+	if type(first) ~= "table" then return nil end
+	if first.text then return first.text end
+	local CC = UI.ClassCard
+	if not (CC and CC.RewardName) then return first.itemName or first.spellName end
+	if first.spell then return (CC.RewardName({ spell = first.spell, spellName = first.spellName, show = "spell" })) end
+	local items, names = {}, {}
+	for _, e in ipairs(g.reward) do
+		if type(e) ~= "table" or not e.item or (#items > 0 and not (first.choice and e.choice)) then break end
+		items[#items + 1], names[#names + 1] = e.item, e.itemName or ("#" .. e.item)
+	end
+	return (CC.RewardName({ items = items, itemNames = names, choice = first.choice }))
+end
+
 -- The folder a guide is listed under -> label, sort key, id. A guide's own
 -- `folder` wins; guides sharing it still sort by faction, then level. The
 -- id names the folder whatever the client's language or the character's
 -- faction (the collapsed folders are kept by it, account-wide). `side`: the
 -- faction a leveling guide for both is listed under (an experimental guide
--- such as Shen'dralas sits in that side's band, as ours do).
+-- such as Shen'dralas sits in that side's band, as ours do). An optional
+-- Class guide (P.OptionalClass) goes in its class's folder of optional
+-- class quests ("Warlock: optional class quests"), right after the class's own.
 local function folderOf(g, mine, side)
 	local c = categoryOf(g)
 	if type(g.folder) == "string" and g.folder ~= "" then
-		return g.folder, string.format("%02d", CATEGORY_RANK[c] or 99) .. c .. "/" .. g.folder, c .. "/" .. g.folder
+		local key, id = string.format("%02d", CATEGORY_RANK[c] or 99) .. c .. "/" .. g.folder, c .. "/" .. g.folder
+		if P.OptionalClass(g) then
+			return string.format(L["%s: optional class quests"], g.folder), key .. "/optional", id .. "/optional"
+		end
+		return g.folder, key, id
 	end
 	if c == "Leveling" then
 		local lo, hi = band(g)
@@ -1157,6 +1199,10 @@ local function paintRow(r, g, note, width, title, home, suggested)
 		local when = gate.level and string.format(L["From level %d"], gate.level) or L["Not available yet"]
 		note = note and (note .. DOT .. when) or when
 	end
+	-- An optional Class guide names what it gives (#3925): "Astral Knot Robe or
+	-- Blouse" on Astral Knot Garment's row; nothing where the title is the reward.
+	local reward = P.OptionalReward(g)
+	if reward and reward ~= (title or g.title) then note = note and (reward .. DOT .. note) or reward end
 	r.Title:SetWidth(0) -- measured below from scratch, as the note
 	r.Title:SetText(title or g.title or g.id)
 	W.Color(r.Title, sel and "text" or ((done or gate) and "textDim" or "text"))
@@ -1169,7 +1215,7 @@ local function paintRow(r, g, note, width, title, home, suggested)
 	r.Range:SetText(lv and ("(" .. lv .. ")") or "")
 	local expW = inForeverZone(g) and (FOREVER_W + 4 + 4) or 0
 	r.Forever:SetShown(expW > 0)
-	local groupW = g.group == true and (W.SetChip(r.Group, L["Group"], "dungeon") + 6) or 0
+	local groupW = showsGroup(g) and (W.SetChip(r.Group, L["Group"], "dungeon") + 6) or 0
 	r.Group:SetShown(groupW > 0)
 	r.Group:ClearAllPoints()
 	r.Group:SetPoint("LEFT", expW > 0 and r.Forever or r.Range, "RIGHT", expW > 0 and 2 or 6, 0)
@@ -1322,7 +1368,7 @@ local function heroTitle(c, g, title)
 	local inner = c:GetWidth() - HERO_PAD * 2
 	local lv = UI.GuideLevels(g)
 	c.Range:SetText(lv and ("(" .. lv .. ")") or "")
-	local groupW = g.group == true and (W.SetChip(c.Group, L["Group"], "dungeon") + 8) or 0
+	local groupW = showsGroup(g) and (W.SetChip(c.Group, L["Group"], "dungeon") + 8) or 0
 	c.Group:SetShown(groupW > 0)
 	c.Title:SetWidth(0)
 	c.Title:SetText(title)
@@ -1971,7 +2017,7 @@ local function renderDetails(byId, tabs, active)
 	end
 	if inForeverZone(g) then addChip(L["Forever"]) end
 	if isExperimental(g) then addChip(L["Experimental"], "experimental") end
-	if g.group == true then addChip(L["Group"], "dungeon") end
+	if showsGroup(g) then addChip(L["Group"], "dungeon") end
 	addChip(ns.FactionName(g.faction) or L["Both factions"])
 	if type(g.races) == "table" then for _, race in ipairs(g.races) do addChip(UI.RaceName(race)) end end
 	if type(g.classes) == "table" then for _, cl in ipairs(g.classes) do addChip(UI.ClassName(cl)) end end

@@ -17,7 +17,7 @@
 -- are the player's (Options > Alerts & toasts, UI/Looks/Toasts.lua), and so
 -- is where it goes (toasts.headsup.place: "above" the window, the default;
 -- "below" it, flipping above when the screen has no room below; or "free",
--- a spot of its own, toasts.headsup.pos, moved with Move frames) and its
+-- a spot of its own, toasts.headsup.pos, moved with Move frames or by dragging the card) and its
 -- compact style (toasts.headsup.compact, off by default: one line, its icon,
 -- its title and its action, the rest in a tooltip and a menu). The class
 -- quest card is one of the heads-ups this card carries (CT.ShowCard): the
@@ -29,8 +29,10 @@
 -- a level-1 chain (learned at the start), opening at the new level
 -- (PLAYER_LEVEL_UP) or within the last two levels (login), its reward not
 -- known or owned (IsPlayerSpell / IsSpellKnown; GetItemCount with the bank),
--- no quest of its chain done or in the log, once per chain per character
--- (CharState().classToastSeen). The chime follows ui.classCardSound.
+-- no quest of its chain done or in the log, not an optional chain (its Class
+-- guide listed optional in Core/ClassQuestList.lua, #3925: CT.Optional),
+-- once per chain per character (CharState().classToastSeen). The chime
+-- follows ui.classCardSound.
 --
 --   UI.ClassToast.Candidates(level, mode)  mode "levelup" | "login" | "any"
 --   UI.ClassToast.Check(level, mode)       show the best candidate
@@ -340,10 +342,30 @@ function CT.Model(q)
 	return m
 end
 
+-- Whether the chain of quest q is an optional one (Core/ClassQuestList.lua,
+-- #3925): its Class guide (CT.ClassGuide) is listed optional, or it has no
+-- Class guide and gives only an item (no spell, pet or mount: the reward's
+-- kind in UI/ClassRewards.lua). No heads-up tells of it; the guide menu
+-- lists the guided ones under "Optional class quests".
+function CT.Optional(q, guideId)
+	local list = ns.ClassQuestList
+	if not (list and list.OptionalGuide) then return false end
+	if guideId == nil then guideId = CT.ClassGuide(q) end
+	if guideId == nil then
+		local d = data()
+		local e = d and d.quests and d.quests[q]
+		local reward = e and e[3] > 0 and d.rewards[e[3]] or nil
+		local kind = reward and reward.kind
+		return kind ~= "ability" and kind ~= "pet" and kind ~= "mount"
+	end
+	return list.OptionalGuide(guideId)
+end
+
 -- The chain starts to tell the character about now, best first: the highest
 -- level, then one the loaded guide takes, then the lowest quest id. mode
 -- "levelup": opening at `level`; "login": opened within the last
--- LOGIN_LEVELS levels; "any": any reached, seen ones too. -> { quest, ... }
+-- LOGIN_LEVELS levels; "any": any reached, seen ones too. An optional chain
+-- (CT.Optional) never. -> { quest, ... }
 function CT.Candidates(level, mode)
 	local d, C = data(), CC()
 	local p = C and C.Player()
@@ -357,9 +379,12 @@ function CT.Candidates(level, mode)
 		local due = (mode == "levelup" and at == level) or (mode == "login" and at <= level and at >= level - LOGIN_LEVELS)
 			or (mode == "any" and at <= level)
 		if due and at > 1 and e and e[3] > 0 and hasBit(e[1], cbit) and giverFor(s, p) and (mode == "any" or not done[q])
-			and not CT.RewardKnown(d.rewards[e[3]]) and not CT.ChainTaken(q) and CT.Model(q) then
-			out[#out + 1] = q
-			onRoute[q] = routeStep(q, C.ChainOf(q), p) ~= nil
+			and not CT.RewardKnown(d.rewards[e[3]]) and not CT.ChainTaken(q) then
+			local m = CT.Model(q)
+			if m and not CT.Optional(q, m.guideId) then
+				out[#out + 1] = q
+				onRoute[q] = routeStep(q, C.ChainOf(q), p) ~= nil
+			end
 		end
 	end
 	table.sort(out, function(a, b)
@@ -489,6 +514,18 @@ end
 local function build()
 	f = newCard(ns.UIParent, "PolestarClassToast")
 	f:Hide()
+	f:SetMovable(true)
+	ns.DragWindow(f, f, {
+		locked = function() return ns.DragLocked() end,
+		onStop = function(self)
+			local p = ns.Get("toasts.headsup.pos")
+			local point = type(p) == "table" and type(p[1]) == "string" and p[1] or CT.FREE_AT[1]
+			local x, y = ns.PointOffsets(self, point)
+			ns.Set("toasts.headsup.place", "free")
+			ns.Set("toasts.headsup.pos", { point, floor(x + 0.5), floor(y + 0.5) })
+			CT.Place(false)
+		end,
+	})
 	CT.frame = f
 
 	local w = window()
@@ -930,18 +967,22 @@ function CT.Place(animate)
 	else
 		f:SetClampedToScreen(false)
 		-- A skin's own frame around the window (its cards above it: Skin API 2,
-		-- hooks.guideAnchor) is the edge the card sits on instead.
+		-- hooks.guideAnchor) is the edge the card sits on instead; under the
+		-- window it is always the window's own foot. Under the skin's cards
+		-- the card lay on the window, behind it, its buttons out of reach
+		-- (#4212: Atlas's stack, the window near the screen's top).
 		local ran, own = Theme.SkinHookValue("guideAnchor")
 		local edge = ran and type(own) == "table" and own.GetTop and own or w
 		-- The gaps in the edge's units; the card's anchors take them in its own (k).
 		local r = reach(edge)
+		local rw = edge == w and r or reach(w)
 		-- The window's own parts past its edges (the edge tab style's tabs).
 		if edge == w then
 			r.top = math.max(r.top, tonumber(w.psTopReach) or 0)
-			r.bottom = math.max(r.bottom, tonumber(w.psBottomReach) or 0)
 		end
-		local gap = { above = r.top + GAP, below = r.bottom + GAP, left = r.left + GAP, right = r.right + GAP }
-		local top, bottom, left, right = edge:GetTop(), edge:GetBottom(), edge:GetLeft(), edge:GetRight()
+		local under = math.max(rw.bottom, tonumber(w.psBottomReach) or 0)
+		local gap = { above = r.top + GAP, below = under + GAP, left = r.left + GAP, right = r.right + GAP }
+		local top, bottom, left, right = edge:GetTop(), w:GetBottom(), edge:GetLeft(), edge:GetRight()
 		local s, us = w:GetEffectiveScale() or 1, UIParent:GetEffectiveScale() or 1
 		local sw, sh = UIParent:GetRight(), UIParent:GetTop()
 		local cw = f:GetWidth() * k
@@ -994,7 +1035,7 @@ function CT.Place(animate)
 			Anim.Anchor(f, "BOTTOMLEFT", edge, "TOPLEFT", 0, g)
 			dy = -(h + g)
 		elseif side == "below" then
-			Anim.Anchor(f, "TOPLEFT", edge, "BOTTOMLEFT", 0, -g)
+			Anim.Anchor(f, "TOPLEFT", w, "BOTTOMLEFT", 0, -g)
 			dy = h + g
 		elseif side == "left" then
 			Anim.Anchor(f, "TOPRIGHT", edge, "TOPLEFT", -g, 0)
@@ -1054,6 +1095,7 @@ function CT.CompactTip(c)
 	if m.badge then lines[#lines + 1] = { m.badge, Theme.Accent() } end
 	if m.giver then lines[#lines + 1] = m.giver end
 	if m.route then lines[#lines + 1] = m.route end
+	lines[#lines + 1] = ns.Get("ui.lockHud") and L["Shift-drag to move."] or L["Drag to move."]
 	W.Tooltip(c, CT.side == "below" and "ANCHOR_BOTTOM" or "ANCHOR_TOP", m.title or "", lines)
 end
 

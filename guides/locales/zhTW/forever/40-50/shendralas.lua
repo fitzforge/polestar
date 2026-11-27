@@ -112,30 +112,32 @@ return {
 	-- Step 18: The road south of the western pylon
 	["The road south of the western pylon"] = "",
 	-- {npc:252711} Decrepit Pylon Protector · {spell:1289727} Repair and Recharge Pylon
-	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift · Magram Necrokhans = {npc:253274} Magram Necrokhan · Nascent Pylon Protectors = {npc:276401} Nascent Pylon Protector
-	["North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Stop where the arrow points, on the road just south of the pylon, keeping to its west edge: the quiet side, with no Protectors behind you. Pull one {npc:252711} at a time down to that spot, the one nearest the pylon's south side first, and kill it there; then step up to the pylon's west side and use {spell:1289727}, as players did to repair it.\nCareful: stay off the pylon's east and north-east side. The Protectors stand there two and three together, a Corpsefeeder (level 45, elite) walks among them and the Magram Necrokhans (elites, 45) stand just beyond: nearly every recorded death at this pylon happened east of it. If the Magram attack you (they do once you have killed Magram), wait at the arrow until any Necrokhan by the pylon walks off before you pull. Nascent Pylon Protectors (elites, 43) wander the road south of it: let them pass.\nIf you die here, walk your ghost back to the arrow before you come back to life: players who rose beside the pylon died again within seconds."] = "",
+	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift · Coalesced Mana Crystals = {item:255667} Coalesced Mana Crystal · Magram Necrokhans = {npc:253274} Magram Necrokhan · Nascent Pylon Protectors = {npc:276401} Nascent Pylon Protector
+	["North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Stop where the arrow points, on the road just south of the pylon, keeping to its west edge: the quiet side, with no Protectors behind you. Pull one {npc:252711} at a time down to that spot, the one nearest the pylon's south side first, and kill it there; then step up to the pylon's west side and use the Pile of Pylon Parts Mordent gave you: its {spell:1289727} takes your four Coalesced Mana Crystals.\nCareful: stay off the pylon's east and north-east side. The Protectors stand there two and three together, a Corpsefeeder (level 45, elite) walks among them and the Magram Necrokhans (elites, 45) stand just beyond: nearly every recorded death at this pylon happened east of it. If the Magram attack you (they do once you have killed Magram), wait at the arrow until any Necrokhan by the pylon walks off before you pull. Nascent Pylon Protectors (elites, 43) wander the road south of it: let them pass.\nIf you die here, walk your ghost back to the arrow before you come back to life: players who rose beside the pylon died again within seconds."] = "",
 	["the road just south of the western pylon"] = "",
 
 	-- Step 19: The western pylon: repair it
 	["The western pylon: repair it"] = "西邊的水晶塔：修復它",
-	["Pull a single Protector down to the road, then repair the pylon from its west side."] = "",
-	-- {npc:252711} Decrepit Pylon Protector · {spell:1289727} Repair and Recharge Pylon
-	["{npc:252711}, pulled to the arrow's spot, then {spell:1289727} on the pylon's west side"] = "",
+	-- {item:271882} Pile of Pylon Parts
+	["Pull a single Protector down to the road, then use the {item:271882} on the pylon's west side."] = "",
+	-- {item:271882} Pile of Pylon Parts · {spell:1289727} Repair and Recharge Pylon
+	["{item:271882}: {spell:1289727} on the pylon's west side"] = "",
 
 	-- Step 20: Unstable Mana Rifts: mana for the eastern pylon
 	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift
 	["Unstable Mana Rifts: mana for the eastern pylon"] = "",
-	-- {item:255662} Mana Sieve
+	-- {item:255662} Mana Sieve · {item:271882} Pile of Pylon Parts
 	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift · Coalesced Mana Crystals = {item:255667} Coalesced Mana Crystal
-	["The western repair used up your crystals: on the way east, use the {item:255662} on the Unstable Mana Rifts again for four more Coalesced Mana Crystals."] = "",
+	["The western repair used up your crystals: on the way east, use the {item:255662} on the Unstable Mana Rifts again for four more Coalesced Mana Crystals. The {item:271882} needs all four for the next repair."] = "",
 
 	-- Step 21: Bristleback Retreat: repair the eastern pylon
 	-- {area:16677} Bristleback Retreat
 	["{area:16677}: repair the eastern pylon"] = "{area:16677}：修復東邊的水晶塔",
-	-- {npc:252711} Decrepit Pylon Protector · {npc:253527} Kog'thug the Brave
-	["East along the valley road to the eastern pylon and repair it the same way, a {npc:252711} first, coming in from the west: {npc:253527} (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road."] = "沿著山谷道路向東前往東邊的水晶塔，用同樣的方式修復，先殺一隻{npc:252711}，從西邊接近：{npc:253527}（43級，精英）和他的保鏢佔據豬人營地南側，還有一隻食屍者（45級，精英）在道路上走動。",
-	-- {npc:252711} Decrepit Pylon Protector · {spell:1289727} Repair and Recharge Pylon
-	["{npc:252711}, then {spell:1289727} on it"] = "{npc:252711}，然後對牠使用{spell:1289727}",
+	-- {item:271882} Pile of Pylon Parts · {npc:252711} Decrepit Pylon Protector · {npc:253527} Kog'thug the Brave
+	-- was: ["East along the valley road to the eastern pylon and repair it the same way, a {npc:252711} first, coming in from the west: {npc:253527} (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road."] = "沿著山谷道路向東前往東邊的水晶塔，用同樣的方式修復，先殺一隻{npc:252711}，從西邊接近：{npc:253527}（43級，精英）和他的保鏢佔據豬人營地南側，還有一隻食屍者（45級，精英）在道路上走動。"
+	["East along the valley road to the eastern pylon and repair it the same way with the {item:271882}, coming in from the west and pulling the nearest {npc:252711} away first: {npc:253527} (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road."] = "",
+	-- {item:271882} Pile of Pylon Parts · {spell:1289727} Repair and Recharge Pylon
+	["{item:271882}: {spell:1289727} on the eastern pylon"] = "",
 
 	-- Step 22: Evenshade's Overlook
 	-- {npc:253471} Mordent Evenshade · {quest:93016} A Brief History Lesson
@@ -176,7 +178,7 @@ return {
 
 	-- Step 31: Mana Mania
 	-- {item:286647} Depleted Crystal Heart · {npc:264149} Unstable Mana Rift · {npc:276401} Nascent Pylon Protector
-	["Take the {item:286647} to an {npc:264149} on the road north of the temple and throw it into the rift. The {npc:276401} is elite: grouping up is advised."] = "",
+	["Take the {item:286647} to an {npc:264149} on the road north of the temple and throw it into the rift. The {npc:276401} that comes out is an elite (level 43) but it comes alone: most players in our recordings killed it without a group, from level 41 up."] = "",
 
 	-- Step 32: Shadowprey Village
 	-- {zone:2652} Shen'dralas · {area:2657} Valley of Bones · {area:405} Desolace · {area:2408} Shadowprey Village · {area:1637} Orgrimmar · {zone:1444} Feralas · {area:1099} Camp Mojache
@@ -190,11 +192,13 @@ return {
 	["{zone:2652} is done. Your {zone:1444} guide picks up from here: ride back north through the {area:2657}, west along {area:405}'s southern edge and south into {zone:1444}, to the dock on the {area:1108} where the boat crosses to {area:1116}."] = "{zone:2652}完成了。接下來由你的{zone:1444}指南接手：向北騎回並穿過{area:2657}，沿著{area:405}南緣往西，再向南進入{zone:1444}，前往{area:1108}的碼頭，從那裡坐船前往{area:1116}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["East along the valley road to the eastern pylon and repair it the same way, a {npc:252711} first, coming in from the west: {npc:253527} (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road."] = "沿著山谷道路向東前往東邊的水晶塔，用同樣的方式修復，先殺一隻{npc:252711}，從西邊接近：{npc:253527}（43級，精英）和他的保鏢佔據豬人營地南側，還有一隻食屍者（45級，精英）在道路上走動。",
 	-- ["East through the valley to the strange crystal on its pedestal: clicking it starts {quest:92914}. The Decrepit Pylon Protectors (levels 42-43) around it are the mana elementals that guard it. Corpsefeeders (level 45, elite) roam the valley east of here."] = "向東穿過山谷，前往基座上的奇異水晶：點擊它開始{quest:92914}。周圍的衰朽水晶塔守護者（42-43級）是守護它的法力元素。食屍者（45級，精英）在此處以東的山谷中遊蕩。",
 	-- ["New in Forever: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nThe Outcast Necromancers and the Magram Necromancers of the valley drop a {quest:93644} whose writer lives in {zone:2652}: players got it within a few kills. The Magram centaurs leave you be until you attack; the Magram Necrokhans among them (level 45) are elites: leave them be.\nThe Gelkis and Magram centaurs have {area:2657} quest chains of their own, worth about 20,000 to 30,000 more experience, but each chain asks for Honored with its clan. The two clans are rivals, so work for one of them: the Gelkis and Magram Centaur Reputation guide, under Reputation, shows how."] = "Forever新內容：若有步驟錯誤，請在Polestar的Discord或GitHub告訴我們，並註明是哪個步驟。\n山谷中的被放逐的死靈法師和瑪格拉姆死靈法師會掉落{quest:93644}，其作者住在{zone:2652}：玩家通常擊殺幾隻就拿到了。瑪格拉姆半人馬在你攻擊前不會理你；其中的瑪格拉姆亡靈可汗（45級）是精英：別去惹牠們。\n吉爾吉斯和瑪格拉姆半人馬各有自己的{area:2657}任務鏈，約可多得20,000到30,000經驗，但每條任務鏈都需要該部族的尊敬聲望。兩個部族互為敵對，所以只能選一個：「聲望」下的吉爾吉斯與瑪格拉姆半人馬聲望指南有說明。",
 	-- ["North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Decrepit Pylon Protectors guard it: kill one beside the pylon, then use {spell:1289727} on it, as players did to repair it.\nCareful: the pylon stands at the edge of the {area:2657}, where Magram Necrokhans and Corpsefeeders (elites, level 45) walk, and Nascent Pylon Protectors (elites, 43) wander the road. Pull the Decrepit Pylon Protectors away from them before you repair it."] = "沿著道路向北前往第一座水晶塔，途中從不穩定的法力裂隙收集法力。衰朽的水晶塔守護者守在塔旁：在水晶塔旁殺一隻，再對牠使用{spell:1289727}，就像其他玩家修復它時那樣。\n小心：水晶塔位於{area:2657}邊緣，瑪格拉姆死靈可汗和食屍者（精英，45級）在那裡走動，新生水晶塔守護者（精英，43級）在道路上遊蕩。修復前先把衰朽的水晶塔守護者拉離牠們。",
 	-- ["The nearest Decrepit Pylon Protectors stand by the road north, from the middle of the zone up to the western pylon, and around {npc:253471}'s overlook: one of them carries the heart Biraxas wants."] = "最近的衰朽的水晶塔守護者站在北邊道路旁，從地區中部一直到西邊的水晶塔，以及{npc:253471}的瞭望點周圍：其中一隻身上帶著比拉克薩斯要的心臟。",
 	-- ["The {item:255656} lies at the western edge of the village; Magram Guardians (levels 39-41) watch over it."] = "{item:255656}在村莊西緣，由瑪格拉姆守護者（39-41級）看守。",
+	-- ["{npc:252711}, then {spell:1289727} on it"] = "{npc:252711}，然後對牠使用{spell:1289727}",
 	-- ["{zone:2652} is done. Ride back north through the {area:2657} and west along {area:405}'s southern edge to {area:2408}: the next guide picks up in {area:1637}, with the {zone:1444} guide's hand-ins. Your hearthstone is bound at {area:1099}: if it is ready, hearth there and fly to {area:1637} from {area:1099} instead."] = "{zone:2652}完成了。向北騎回並穿過{area:2657}，再沿著{area:405}南緣往西前往{area:2408}：下一個指南從{area:1637}開始，繳交{zone:1444}指南的任務。你的爐石綁定在{area:1099}：如果爐石已冷卻完畢，就用爐石回去，改從{area:1099}飛往{area:1637}。",
 	-- ["{zone:2652} is done: ride back north through the {area:2657}; the next step says where your route goes on from there."] = "{zone:2652}完成了：向北騎回並穿過{area:2657}；下一個步驟會告訴你接下來的路線。",
 }

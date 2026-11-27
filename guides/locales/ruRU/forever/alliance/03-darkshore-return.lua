@@ -40,7 +40,6 @@ return {
 	-- Step 6: The Master's Glaive
 	-- {object:12666} Twilight Tome · {quest:948} Onu · {item:5251} Phial of Scrying · {object:10076} Scrying Bowl
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	-- was: ["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater; {npc:3584} stands on its north side. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "Взрослые лунопарды рыщут в лесу вокруг глефы. {object:12666} – на дне кратера; {npc:3584} стоит на его северной стороне. Для задания {quest:948} примените {item:5251} на дне кратера: так появится {object:10076}, и задание сдается чаше."
 	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "Взрослые лунопарды рыщут в лесу вокруг глефы. {object:12666} – на дне кратера. Для задания {quest:948} используйте {item:5251} на дне кратера: появится {object:10076}, и задание сдается чаше.",
 	-- plural, as words: Fine Moonstalker Pelts = {item:5386} Fine Moonstalker Pelt
 	["Fine Moonstalker Pelts"] = "Прекрасные шкуры лунопарда",

@@ -434,10 +434,14 @@ function emitLegs(packId, guides) {
 	return `${out.join('\n')}\n`;
 }
 
-// The ids of guides a cutover retired (retired.json), after the pack's guides
-// in Guides.lua: Polestar opens a saved tab of one as its successor.
-function emitRetired(packId, ids) {
-	return `\nPolestar.RetireGuides(${luaString(packId)}, {\n${ids.map((id) => `\t${luaString(id)},`).join('\n')}\n})\n`;
+// The ids of guides a cutover retired (retired.json, [{ id, to? }]), after the
+// pack's guides in Guides.lua: Polestar opens a saved tab of one as its
+// successor. Every id is in the list part; one with a `to` names it in the
+// hash part too, which a Polestar from before targets reads past.
+function emitRetired(packId, entries) {
+	const lines = entries.map((r) => `\t${luaString(r.id)},`);
+	for (const r of entries) if (r.to) lines.push(`\t[${luaString(r.id)}] = ${luaString(r.to)},`);
+	return `\nPolestar.RetireGuides(${luaString(packId)}, {\n${lines.join('\n')}\n})\n`;
 }
 
 // A pack's texts addon for one language (docs/TRANSLATING.md, "Guide

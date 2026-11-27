@@ -233,6 +233,12 @@ ns.UI.GuideFrame.Part(function(GF)
 		if bags then return "bags", bags end
 		local wear = Q and Q.Wear and Q.Wear.Offer and Q.Wear.Offer()
 		if wear then return "wear", wear end
+		-- Free mode (Lookup/Free.lua) shown: what leads the arrow, the way back to the
+		-- guide and the other order; until closed for the session.
+		local FM = ns.Free
+		if FM and g ~= nil and FM.IsGuide(g.id) and not notices.freeSeen then
+			return "free", { back = FM.ReturnTitle(), xp = ns.Get("free.pick") == "xp" }
+		end
 		-- A newer Polestar (UI/UpdateCard.lua): last, so it waits for every other.
 		local UC = UI.UpdateCard
 		local up = UC and UC.Banner and UC.Banner()
@@ -408,6 +414,8 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- other kind is neutral. The accent stays the main action's.
 	GF.BANNER_ROLE = { bags = "warning", away = "npc", train = "npc", riding = "npc", skipped = "textMuted", questSkip = "textMuted" }
 	local onRight = 0 -- the width the action on the right takes, else 0
+	local jumpUnder = false -- the first action went under the text at its right (too long for the right, #4314)
+	local jumpY = -4 -- the row (offset under the text) the first action was placed for
 	local closeRoom = 24 -- the ×'s room at the right; 0 for a notice shown without it
 	local function placeLink(link, text, x, y)
 		link.Label:SetWordWrap(false)
@@ -416,6 +424,13 @@ ns.UI.GuideFrame.Part(function(GF)
 		link.Label:SetText(text)
 		local right = link == banner.Jump and ns.Get("guideWindow.bannerLinks") == "right"
 		local room = right and floor(banner.Text:GetWidth() * 0.45) or floor(banner.Text:GetWidth() - x - 16)
+		-- On the right, a label longer than its room there goes under the text at the right, as wide as the text, not
+		-- cut short (#4314: Atlas's "Click again to delete it" read "Click again to…").
+		local under = right and link.Label:GetStringWidth() > room
+		if under then
+			right = false
+			room = floor(banner.Text:GetWidth() - 16)
+		end
 		if not right and x > 0 and link.Label:GetStringWidth() > room then
 			x, y = 0, y - 18 - 4
 			room = floor(banner.Text:GetWidth() - 16)
@@ -431,15 +446,20 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		link:SetWidth(floor(textW + 16 + 0.5))
 		link:ClearAllPoints()
+		if link == banner.Jump then jumpY = y end
 		if right then
 			link:SetPoint("TOPRIGHT", banner, "TOPRIGHT", -(5 + closeRoom + 4), -7)
 			onRight = link:GetWidth() + 10
+		elseif under then
+			link:SetPoint("TOPRIGHT", banner.Text, "BOTTOMRIGHT", 0, y)
+			jumpUnder = true
 		else
-			if onRight > 0 then
-				-- A second action: the first goes back under the text too.
-				onRight = 0
+			if onRight > 0 or jumpUnder then
+				-- A second action: the first goes back under the text too, on
+				-- its own row (the second may have wrapped to the next one).
+				onRight, jumpUnder = 0, false
 				banner.Jump:ClearAllPoints()
-				banner.Jump:SetPoint("TOPLEFT", banner.Text, "BOTTOMLEFT", 0, y)
+				banner.Jump:SetPoint("TOPLEFT", banner.Text, "BOTTOMLEFT", 0, jumpY)
 			end
 			link:SetPoint("TOPLEFT", banner.Text, "BOTTOMLEFT", x, y)
 		end
@@ -462,7 +482,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		banner.Jump.psDefault = (kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun") or nil -- the gamepad's first focus (UI/GamepadGuide.lua)
 		banner.Text:SetWidth(width - PAD * 2 - 21 - closeRoom)
 		secondRow = false
-		onRight = 0
+		onRight, jumpUnder = 0, false
+		jumpY = -4
 		local oneLine = false -- no link row under the text
 		-- The item the notice names, for its text's tooltip (banner.Item): the gear offer's, the spare bag's or the junk's.
 		local item = (kind == "wear" and n) or (kind == "bags" and (n.spare or n.junk)) or nil
@@ -791,6 +812,18 @@ ns.UI.GuideFrame.Part(function(GF)
 			local w = placeLink(banner.Jump, L["Wear it"], 0, -4)
 			placeLink(banner.Later, L["Not this one"], w + 10, -4)
 			banner.Close:Show()
+		elseif kind == "free" then
+			banner.Icon:SetTexture(Theme.Media("icon-explore"))
+			banner.Text:SetText(n.xp and L["Free mode: the arrow takes your own quests, the most XP a minute first."]
+				or L["Free mode: the arrow takes your own quests, nearest first."])
+			local other = n.xp and L["Nearest first"] or L["Most XP a minute first"]
+			if n.back then
+				local w = placeLink(banner.Jump, string.format(L["Return to %s"], n.back), 0, -4)
+				placeLink(banner.Later, other, w + 10, -4)
+			else
+				placeLink(banner.Jump, other, 0, -4)
+			end
+			banner.Close:Show()
 		elseif kind == "update" then
 			banner.Icon:SetTexture(Theme.Media("reset"))
 			banner.Text:SetText(UI.UpdateCard.BannerText(n))
@@ -936,6 +969,8 @@ ns.UI.GuideFrame.Part(function(GF)
 			ns.QoL.Space.Press()
 		elseif kind == "wear" then
 			ns.QoL.Wear.Take()
+		elseif kind == "free" then
+			if n.back then ns.Free.Stop() else ns.Free.SetPick(n.xp and "near" or "xp") end
 		elseif kind == "update" then
 			UI.UpdateCard.Show(true)
 		end
@@ -959,6 +994,9 @@ ns.UI.GuideFrame.Part(function(GF)
 			GF.Layout()
 		elseif kind == "wear" then
 			ns.QoL.Wear.Decline()
+			GF.Layout()
+		elseif kind == "free" then
+			ns.Free.SetPick(n.xp and "near" or "xp")
 			GF.Layout()
 		elseif kind == "away" and n.live then
 			-- A skipped step looked at: back to the live one, the skip kept.
@@ -1010,6 +1048,8 @@ ns.UI.GuideFrame.Part(function(GF)
 			ns.QoL.Space.Dismiss()
 		elseif kind == "wear" then
 			ns.QoL.Wear.Dismiss()
+		elseif kind == "free" then
+			notices.freeSeen = true
 		elseif kind == "update" then
 			UI.UpdateCard.DismissBanner()
 		elseif kind == "fresh" then

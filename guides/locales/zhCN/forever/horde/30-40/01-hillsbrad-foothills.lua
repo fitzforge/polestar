@@ -14,11 +14,11 @@ return {
 	-- {area:378} Camp Taurajo
 	["{area:378} flight master"] = "{area:378}的飞行管理员",
 	-- {zone:1441} Thousand Needles · {area:378} Camp Taurajo
-	["Coming from the {zone:1441} guide, you stand beside {area:378}'s flight master: this guide flies on from here."] = "",
+	["Coming from the {zone:1441} guide, you stand beside {area:378}'s flight master: this guide flies on from here."] = "如果接着{zone:1441}的指南做，你就在{area:378}的飞行管理员旁边。本指南从这里起飞。",
 
 	-- Step 2: Ratchet
 	-- {area:392} Ratchet · {area:378} Camp Taurajo · {zone:1441} Thousand Needles · {npc:5901} Islen Waterseer
-	["Fly to {area:392} (from {area:378} if you come from the {zone:1441} guide, else from the flight master nearest you). {npc:5901} camps on the coast a short walk south of the town; fly on to the Crossroads from {area:392}."] = "",
+	["Fly to {area:392} (from {area:378} if you come from the {zone:1441} guide, else from the flight master nearest you). {npc:5901} camps on the coast a short walk south of the town; fly on to the Crossroads from {area:392}."] = "飞往{area:392}（接着{zone:1441}指南做的话就从{area:378}飞，否则找离你最近的飞行管理员）。{npc:5901}在镇南边不远的海岸上扎营。然后从{area:392}飞往十字路口。",
 	-- {npc:5901} Islen Waterseer · {item:6637} Water Sapta
 	["{npc:5901}: your {item:6637}, for the brazier"] = "{npc:5901}：用于火盆的{item:6637}",
 
@@ -29,11 +29,11 @@ return {
 
 	-- Step 4: Fly to the Crossroads
 	-- {area:378} Camp Taurajo · {zone:1441} Thousand Needles
-	["Fly to the Crossroads: from {area:378} if you come from the {zone:1441} guide, else from the flight master nearest you."] = "",
+	["Fly to the Crossroads: from {area:378} if you come from the {zone:1441} guide, else from the flight master nearest you."] = "飞往十字路口。如果你是从{zone:1441}指南过来的，就从{area:378}出发。其他情况找离你最近的飞行管理员。",
 
 	-- Step 5: Korran
 	-- {npc:3428} Korran · {quest:1145} The Swarm Grows
-	["{npc:3428} stands beside the Crossroads flight master. {quest:1145} is offered from level 29."] = "",
+	["{npc:3428} stands beside the Crossroads flight master. {quest:1145} is offered from level 29."] = "{npc:3428}就在十字路口的飞行管理员旁边。29级起可接{quest:1145}。",
 	-- {npc:3428} Korran · {npc:4485} Belgrom Rockmaul · {zone:1454} Orgrimmar
 	["{npc:3428}: for {npc:4485} in {zone:1454}"] = "{npc:3428}：交给 {zone:1454} 的 {npc:4485}",
 
@@ -98,8 +98,7 @@ return {
 
 	-- Step 17: High Executor Darthalia
 	-- {area:287} Hillsbrad · {quest:527} Battle of Hillsbrad
-	-- was: ["You missed Darthalia's first errands, from the 22-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "你错过了22-25级{area:287}指南中达萨利亚最早的几个差事：现在先做这些。它们比你低几级，很快就能完成，还会开启本指南中{quest:527}的后续任务。"
-	["You missed Darthalia's first errands, from the 23-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "",
+	["You missed Darthalia's first errands, from the 23-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "如果你没做23–25级{area:287}指南里达萨利亚最初的几项任务，就先补做。这些任务比你低几级，很快就能做完。完成后可开启本指南中的{quest:527}后续任务。",
 
 	-- Step 18: Krusk
 	-- {npc:2229} Krusk · {area:275} Durnholde Keep
@@ -140,8 +139,7 @@ return {
 	-- {area:272} Tarren Mill
 	["The river south of {area:272}: kill these as you meet them"] = "{area:272}南边的河：遇到就杀",
 	-- {area:272} Tarren Mill · {area:271} Southshore · {item:3712} Turtle Meat
-	-- was: ["South from {area:272} along the river: Snapjaws (29) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "从{area:272}沿河向南：钳嘴龟（29级）一路在河岸上晒太阳，直到{area:271}上方的山丘。其中一些身上有{item:3712}。"
-	["South from {area:272} along the river: Snapjaws (29-31) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "",
+	["South from {area:272} along the river: Snapjaws (29-31) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "从{area:272}沿河向南，一直到{area:271}上方的山丘，河岸上都有晒太阳的钳嘴龟（29–31级）。其中一些会掉落{item:3712}。",
 	-- {item:3712} Turtle Meat
 	["{item:3712}, from the Snapjaws"] = "{item:3712}，从钳嘴龟身上获取",
 
@@ -169,7 +167,7 @@ return {
 	["{npc:2429}, in the town: {item:3708}, from the yetis on the way to the town hall"] = "镇里的{npc:2429}：{item:3708}，在前往市政厅路上的雪人身上获得",
 	-- {npc:2418} Deathguard Samsa · {npc:2393} Christoph Jeffcoat
 	-- plural, as words: Hillsbrad Human Skulls = {item:3692} Hillsbrad Human Skull
-	["{npc:2418}, beside {npc:2393}: Hillsbrad Human Skulls, from the townsfolk and miners this guide fights next"] = "",
+	["{npc:2418}, beside {npc:2393}: Hillsbrad Human Skulls, from the townsfolk and miners this guide fights next"] = "{npc:2418}在{npc:2393}旁边。击杀接下来要打的镇民和矿工，收集希尔斯布莱德人类颅骨。",
 
 	-- Step 31: Helcular's Rod
 	-- {area:277} Foothill Caverns
@@ -179,8 +177,7 @@ return {
 	-- Step 32: Town hall
 	["Town hall"] = "市政厅",
 	-- {area:287} Hillsbrad · {npc:2335} Magistrate Burnside · {npc:2448} Clerk Horrace Whitesteed
-	-- was: ["On to {area:287} town, south-west of the yeti caves. The town hall is on the town's west side: {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "继续前往雪人洞穴西南边的{area:287}镇。市政厅在镇子西侧：{npc:2335}（30级）和{npc:2448}在里面，旁边是城镇登记簿；公告就贴在它旁边。议员们在镇上走动。"
-	["On to {area:287} town, south-west of the yeti caves. The town hall is on the town's west side: {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town. Every {area:287} human you kill from here on can drop a skull for Samsa: keep them."] = "",
+	["On to {area:287} town, south-west of the yeti caves. The town hall is on the town's west side: {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town. Every {area:287} human you kill from here on can drop a skull for Samsa: keep them."] = "前往雪人洞穴西南边的{area:287}镇。市政厅在镇西，{npc:2335}（30级）、{npc:2448}和希尔斯布莱德城镇文档都在里面，希尔斯布莱德宣言就贴在文档旁边。镇上有议员巡逻。接下来在{area:287}击杀人类时都可能掉落颅骨，记得留给沙穆萨。",
 	-- {object:1761} Hillsbrad Proclamation
 	["{object:1761}, inside"] = "{object:1761}，在里面",
 
@@ -198,7 +195,7 @@ return {
 	-- {item:277507} Dalaran Sewer Key · {npc:247126} Atrexis the Grave Knight · {npc:2278} Melisara · {npc:268743} Rexxie Copperclutch
 	["The City of Dalaran is a dungeon for a group of five, about levels 28 to 33, under the violet dome. Without the {item:277507}, go in through the sewer pipe north-west of the crater: the arrow leads there.\nInside: {npc:247126} is {npc:2278}'s. {npc:268743}, in the sewer, gives Opportunistic Education and takes it back there."] = "达拉然城是适合28-33级左右五人小队的地下城，位于紫罗兰穹顶之下。没有{item:277507}的话，就从弹坑西北的下水管道进去：箭头会指引你。\n副本内：{npc:247126}是{npc:2278}要的。下水道里的{npc:268743}会给你“投机教育”，并在原处交还。",
 	-- {quest:96986} The Grave Knight
-	["{quest:96986}: Atrexis, inside"] = "",
+	["{quest:96986}: Atrexis, inside"] = "{quest:96986}：墓穴骑士阿特雷克斯在里面",
 
 	-- Step 36: Azurelode Mine
 	-- {area:287} Hillsbrad · {area:288} Azurelode Mine · {npc:2305} Foreman Bonds · {npc:2450} Miner Hackett
@@ -206,13 +203,13 @@ return {
 	-- {area:288} Azurelode Mine
 	["Inside {area:288}"] = "在{area:288}里面",
 	-- {item:3692} Hillsbrad Human Skull · {area:287} Hillsbrad
-	["{item:3692}, from the Miners and every {area:287} human"] = "",
+	["{item:3692}, from the Miners and every {area:287} human"] = "从矿工和{area:287}的所有人类身上收集{item:3692}",
 
 	-- Step 37: Finish the Turtle Meat
 	-- {item:3712} Turtle Meat
 	["Finish the {item:3712}"] = "收集完{item:3712}",
 	-- {item:3712} Turtle Meat · {area:272} Tarren Mill
-	["Still short of ten {item:3712}? The Snapjaws line the river just east of {area:272}, a short way from town."] = "",
+	["Still short of ten {item:3712}? The Snapjaws line the river just east of {area:272}, a short way from town."] = "{item:3712}还没凑够10份？钳嘴龟就在{area:272}以东的河岸上，离镇子不远。",
 
 	-- Step 38: Tarren Mill
 	-- {area:272} Tarren Mill · {area:271} Southshore
@@ -227,9 +224,9 @@ return {
 	-- Step 39: Level 30
 	["Level 30"] = "30 级",
 	-- {npc:2410} Magus Wordeen Voidglare · {zone:1454} Orgrimmar · {area:272} Tarren Mill · {zone:1437} Wetlands
-	["{npc:2410}'s quests in the inn and Alliance Relations in {zone:1454}, the next guide's first stop, are offered from level 30. Still short of 30 after these hand-ins? The Snapjaws (29-31) line the river just east and south of {area:272}: kill them until level 30, then walk back into town. Or, with a group, run the Excavation Site dungeon (in the {zone:1437}) instead."] = "",
+	["{npc:2410}'s quests in the inn and Alliance Relations in {zone:1454}, the next guide's first stop, are offered from level 30. Still short of 30 after these hand-ins? The Snapjaws (29-31) line the river just east and south of {area:272}: kill them until level 30, then walk back into town. Or, with a group, run the Excavation Site dungeon (in the {zone:1437}) instead."] = "{npc:2410}在旅店里的任务，以及下一段路线首站{zone:1454}的「联盟关系」，都要30级才能接。交完这些任务还没到30级，就去{area:272}东边和南边的河岸打钳嘴龟（29–31级），升到30级再步行回镇。也可以组队去{zone:1437}打「挖掘场：湿地」。",
 	["Snapjaws"] = "钳嘴龟",
-	["grind on Snapjaw"] = "",
+	["grind on Snapjaw"] = "刷钳嘴龟",
 
 	-- Step 40: Voidglare, Bel'varil and Tallow
 	-- {npc:2770} Tallow

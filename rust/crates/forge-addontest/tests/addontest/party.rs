@@ -973,12 +973,13 @@ p.receive("Ana-TestRealm", "1P|8|0.0.1|test|3|test/g")
 p.receive("Ben-TestRealm", "1P|4|0.0.1|test|3|test/g")
 p.receive("Cy-TestRealm", "1P|9|0.0.1|test|2|test/g")
 p.receive("Dee-TestRealm", "1P|2|0.0.1|test|3|test/other")
-emit({ P.StepLine() })
+local function step() local text, holding = P.StepLine() return { text, holding } end
+emit(step())
 goals[1] = { t = "kill", quest = 33, oi = 1, status = "done" }
 p.receive("Ana-TestRealm", "1|33:5/8")
-emit({ P.StepLine() })
+emit(step())
 Polestar.Set("party.waitForGroup", false)
-emit({ P.StepLine() })"#
+emit(step())"#
 	)));
 	let places = format!("Ana: 3 steps ahead{DOT}Ben: 1 step behind{DOT}Dee: other guide");
 	assert_eq!(out[0], json!([places, false]), "Cy's pack version differs: no line for her");

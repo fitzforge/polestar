@@ -86,7 +86,6 @@ return {
 
 	-- Step 14: Raan Wildwind
 	-- {npc:263664} Raan Wildwind · {area:16624} Shen'dar Village · {quest:93159} The Strange Hermit
-	-- was: ["With a profession learned, {npc:263664} also offers its Camping 101, which its trainer in {area:16624} takes on the village round."] = "Hast du einen Beruf erlernt, bietet {npc:263664} auch das zugehörige Camping 101 an, das du bei seinem Lehrer in {area:16624} auf der Dorfrunde abgibst."
 	["With a profession learned, {npc:263664} also offers its Camping 101, which its trainer in {area:16624} takes on the village round. {quest:93159} has his own for engineers."] = "Mit einem erlernten Beruf bietet {npc:263664} auch dessen Camping 101 an, das sein Lehrer in {area:16624} auf der Dorfrunde annimmt. {quest:93159} hat sein eigenes für Ingenieure.",
 	-- {npc:263664} Raan Wildwind · {spell:1229451} Boosted Rest
 	["/sit by {npc:263664}'s campfire until you get {spell:1229451}"] = "/sit an {npc:263664}s Lagerfeuer, bis du {spell:1229451} bekommst",
@@ -197,7 +196,7 @@ return {
 	-- plural, as words: Highlands Bandits = {npc:251918} Highlands Bandit
 	["The Highlands Bandits camp north-east of the village. \"Badwind\" Bennic waits at the far north end of their camp.\nCareful: the bandits stand in close groups and players often died in this camp: pull them one at a time from the edge."] = "Die Hochlandbanditen lagern nordöstlich des Dorfes. „Übelwind“ Bennic wartet am äußersten Nordende ihres Lagers.\nVorsicht: Die Banditen stehen in dichten Gruppen und Spieler sind in diesem Lager oft gestorben: Zieh sie einzeln vom Rand weg.",
 	-- plural, as words: Highlands Bandits = {npc:251918} Highlands Bandit
-	["Highlands Bandits"] = "Highlands Bandits",
+	["Highlands Bandits"] = "Hochlandbandit",
 	["\"Badwind\" Bennic, below ground"] = "„Badwind“ Bennic, unter der Erde",
 
 	-- Step 43: Shen'dar turn-ins
@@ -261,7 +260,7 @@ return {
 	-- {area:16638} Valanaar
 	["{area:16638}, the turncoat"] = "{area:16638}, der Verräter",
 	-- {npc:252448} Alvarion Windfield · {npc:252359} Lotheluum Starbreeze · {npc:259012} Ealaane Nimbuswalker
-	["Speak to {npc:252448} by the inn on the west side, then cross town to {npc:252359} and {npc:259012}."] = "",
+	["Speak to {npc:252448} by the inn on the west side, then cross town to {npc:252359} and {npc:259012}."] = "Sprich mit {npc:252448} beim Gasthaus auf der Westseite, dann geh quer durch die Stadt zu {npc:252359} und {npc:259012}.",
 	-- {npc:252448} Alvarion Windfield
 	["Listen to {npc:252448}'s story"] = "Hör dir die Geschichte von {npc:252448} an",
 

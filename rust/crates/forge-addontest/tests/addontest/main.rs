@@ -92,6 +92,8 @@ mod engine_carried_work;
 mod engine_cast;
 #[path = "engine-catchup.rs"]
 mod engine_catchup;
+#[path = "engine-current-log.rs"]
+mod engine_current_log;
 #[path = "engine-die.rs"]
 mod engine_die;
 #[path = "engine-direct.rs"]
@@ -244,6 +246,8 @@ mod engine_zone_walk;
 mod faction_guides;
 #[path = "flight-map-notice.rs"]
 mod flight_map_notice;
+#[path = "free-mode.rs"]
+mod free_mode;
 mod gamepad;
 #[path = "gamepad-ui.rs"]
 mod gamepad_ui;
@@ -274,6 +278,7 @@ mod guides_end_early;
 mod guides_end_places;
 #[path = "guides-memory.rs"]
 mod guides_memory;
+mod handins;
 mod harness;
 #[path = "hide-all.rs"]
 mod hide_all;
@@ -295,6 +300,8 @@ mod lookup_codex;
 mod lookup_elites;
 #[path = "lookup-guides.rs"]
 mod lookup_guides;
+#[path = "lookup-skyborne.rs"]
+mod lookup_skyborne;
 #[path = "lookup-tooltip-performance.rs"]
 mod lookup_tooltip_performance;
 #[path = "lua-helper-paths.rs"]
@@ -354,6 +361,8 @@ mod nav_route_look;
 mod nav_route_sparkle;
 #[path = "nav-router.rs"]
 mod nav_router;
+#[path = "nav-rune-stop.rs"]
+mod nav_rune_stop;
 #[path = "nav-spf.rs"]
 mod nav_spf;
 #[path = "nav-trail.rs"]
@@ -379,6 +388,8 @@ mod packs_registry;
 #[path = "packs-visibility.rs"]
 mod packs_visibility;
 mod party;
+#[path = "party-card.rs"]
+mod party_card;
 #[path = "party-chat.rs"]
 mod party_chat;
 #[path = "party-group.rs"]
@@ -407,6 +418,8 @@ mod qol_spells;
 mod qol_target_list;
 #[path = "quest-links.rs"]
 mod quest_links;
+#[path = "quest-races.rs"]
+mod quest_races;
 #[path = "questdb-memory.rs"]
 mod questdb_memory;
 mod quests;

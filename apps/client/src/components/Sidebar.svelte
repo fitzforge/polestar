@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount, tick } from 'svelte';
 	import { app, go, type Screen } from '../lib/app.svelte';
-	import { updateAllCount } from '../lib/addons';
+	import { addonUpdateCount, guideUpdateCount } from '../lib/addons';
 	import { STATUS } from '../lib/status';
 	import type { Snapshot } from '../lib/types';
 	import Beacon from './Beacon.svelte';
@@ -23,7 +23,8 @@
 		{ id: 'sending', label: 'What we send', glyph: 'eye' },
 	];
 	const status = $derived(STATUS[snapshot.status.kind]);
-	const updates = $derived(updateAllCount(snapshot));
+	// Each badge sits on the page where its updates are found (#3832).
+	const updates = $derived<Partial<Record<Screen, number>>>({ addons: addonUpdateCount(snapshot), community: guideUpdateCount(snapshot) });
 	const attention = $derived(snapshot.status.kind === 'attention' || snapshot.status.kind === 'rejected');
 
 	// The selection glides: one wash with its 2px accent bar, moved to the row
@@ -70,11 +71,12 @@
 
 	{#snippet row(item: Item)}
 		{@const active = app.screen === item.id}
+		{@const count = updates[item.id] ?? 0}
 		<button class="nav" class:active bind:this={rows[item.id]} onclick={() => go(item.id)} aria-current={active ? 'page' : undefined}>
 			<Glyph name={item.glyph} color={active ? 'var(--accent)' : 'var(--textDim)'} />
 			<span class="nav-label">{item.label}</span>
-			{#if item.id === 'addons' && updates > 0}
-				<span class="badge" title="{updates} {updates === 1 ? 'update' : 'updates'} ready">{updates}</span>
+			{#if count > 0}
+				<span class="badge" title="{count} {count === 1 ? 'update' : 'updates'} ready">{count}</span>
 			{:else if item.id === 'home' && attention}
 				<span class="dot" title={snapshot.status.title}></span>
 			{/if}

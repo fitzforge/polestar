@@ -703,6 +703,27 @@ fn the_arrow_follows_the_legs_walk_act_at_the_flight_master_re_plan_on_landing()
 }
 
 #[test]
+fn named_flight_paths_follow_additions_and_replacements_of_travel_data() {
+	let out = run(r#"
+		local flags = Polestar.CharState().flags
+		flags.fp = { ["WEST HOLD, TESTSHIRE"] = true }
+		local function matches()
+			flags.taxi = {}
+			local found = N.GetKnownTaxiNodes()
+			return { found[1] == true, found[4] == true, found[5] == true }
+		end
+		local function node(id)
+			return { id, 0, 0, 790, 9000, 10.5, 50, 1, "West Hold, Testshire" }
+		end
+		local first = matches()
+		N.RegisterTravelData({ taxi = { node(4) } })
+		local appended = matches()
+		N.RegisterTravelData({ taxi = { node(5) } }, true)
+		emit({ first, appended, matches() })"#);
+	assert_eq!(out, json!([[true, false, false], [true, true, false], [false, false, true]]));
+}
+
+#[test]
 fn opening_the_flight_map_records_known_nodes_and_re_plans() {
 	let out = run(r#"
 		nav.place(0, 790)
@@ -1070,8 +1091,8 @@ fn changing_the_target_replans_and_turning_travel_off_preserves_the_players_walk
 		emit(r)"#);
 	assert_eq!(out["first"], 3);
 	assert_eq!(out["second"], json!(["walk|Target"]));
-	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
-	assert_eq!(out["off"], json!([true, "travel", "Target\nThe last steps here aren't mapped"]));
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight, as before 0.4.2.
+	assert_eq!(out["off"], json!([true, "travel", "Target"]));
 	assert_eq!(out["unmapped"], json!(["travel"]), "turning off travel alone points straight, saying why");
 	assert_eq!(out["compass"], json!([true, "travel", 0, -1380]), "the direct bearing is available when the player turns walking maps off too");
 	assert_eq!(out["on"], 3);

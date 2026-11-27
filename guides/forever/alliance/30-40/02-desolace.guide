@@ -28,6 +28,10 @@ next forever/alliance/30-40/04b-stranglethorn-vale
 # the south loop before), and it is carried there. Highway Robbery (79229) starts at an Extinguished
 # Campfire just north of the Kodo Bones, goes to Bibbly at Kormek's Hut on the way home, and Bibbly's On the Lam
 # (79235) is carried to Tokal at the end of 30-40/04b in Booty Bay (about 200 yards added).
+# Hearthstone (#4479): no bind at Nijel's Point. It stays bound in Booty Bay from 30-40/04, so the walk from the north of
+# the jungle back to Booty Bay at the end of 30-40/04b (about 8 minutes on foot) goes by Hearthstone; players who bound
+# here walked it, with the stone ready. This guide's own walks back to Nijel's Point take 3 minutes or less, too short for
+# the Hearthstone to pay. 30-40/06b binds Nijel's Point for the south loop.
 
 # ---------------------------------------------------------------- Getting there
 
@@ -35,7 +39,6 @@ step Nijel's Point
   zone Desolace
   tip Follow the road west past Sun Rock Retreat (Horde) and south-west through the Charred Vale into Desolace; Nijel's Point stands at the top of the pass.
   getfp "Nijel's Point" npc 6706      -- Baritanas Skyriver
-  sethome "Nijel's Point" npc 11103   -- Innkeeper Lyshaerya
   turnin 1453                         -- Kreldig Ungor
   accept 1458
   accept 1454                         -- Kreldig Ungor: the wreck's chest lies below Azore's tower, on the way to Thunder Axe Fortress

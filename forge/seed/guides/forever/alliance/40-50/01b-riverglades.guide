@@ -321,8 +321,8 @@ step Cut Off the Heads
 
 step Fuzzle
   tip Fuzzle wants out of Sunnyglade: lead him west to his treasure at the edge of town and keep the cultists off him.
-  turnin 94961
-  accept 94963                          -- Biting the Hand
+  turnin 94961 @47.2,51.2               -- Fuzzle in his cage
+  accept 94963 @47.2,51.2               -- Biting the Hand
   complete 94963 @41.6,47.7             -- lead Fuzzle out of Sunnyglade to his treasure, west of the town
   turnin 94963                          -- Fuzzle's Treasure
 
@@ -468,6 +468,7 @@ step Powderfuse Port
 
 step Wharfmaster Whizzbuzz
   when onquest 95120
+  when complete 95120
   turnin 95120
 
 # Polestar Experimental, Riverglades for the Alliance, part 3 of 4 (2026-11-12). Hand-written from players'

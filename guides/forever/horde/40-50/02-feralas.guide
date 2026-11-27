@@ -101,7 +101,7 @@ step The Cape of Stranglethorn: kill these as you meet them
   tip Follow the coast south. If you still need the Wild Shore pirates, take the road past the Booty Bay tunnel to the beach before going into town.
   collect 4029 quest 617.1
   kill 1907 quest 573.1
-  collect 737 quest 573.2 @29.0,61.9
+  collect 737 quest 573.2 @28.9,61.96
 
 step The Wild Shore
   zone Stranglethorn Vale

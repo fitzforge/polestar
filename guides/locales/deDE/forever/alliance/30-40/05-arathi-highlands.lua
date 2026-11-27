@@ -16,7 +16,7 @@ return {
 
 	-- Step 2: The Scythe of Elune
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {zone:1430} Deadwind Pass · {npc:661} Jonathan Carevin
-	["South from {area:42} to the {area:121}, on the way to {zone:1430}: the mound of dirt by the Nightbane worgen (29-31) holds the evidence {npc:661} wants."] = "",
+	["South from {area:42} to the {area:121}, on the way to {zone:1430}: the mound of dirt by the Nightbane worgen (29-31) holds the evidence {npc:661} wants."] = "Südlich von {area:42} bis zum {area:121}, auf dem Weg nach {zone:1430}: der Erdhaufen bei den Nightbane-Worgen (29-31) enthält das Beweismittel, das {npc:661} will.",
 	-- {object:19030} Mound of Dirt
 	["the {object:19030}"] = "das {object:19030}",
 
@@ -241,7 +241,7 @@ return {
 	-- Step 51: The Drowned Reef: kill these as you meet them
 	-- {area:328} The Drowned Reef
 	["{area:328}: kill these as you meet them"] = "{area:328}: Töte diese, sobald sie dir begegnen",
-	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay.\nCareful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy."] = "",
+	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay.\nCareful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy."] = "Die beiden Wracks liegen in der Bucht westlich der Einbuchtung. Die Karten und Logbücher sind in ihnen; die Edelsteine liegen auf dem Meeresboden ringsherum. Säbelflossen-Naga schwimmen in der gesamten Bucht.\nVorsicht: Die Karten und Logbücher liegen tief in den Wracks: Achte auf deinen Atembalken und komm zwischen ihnen wieder hoch; ein Wasseratmungstrank macht es einfach.",
 	-- {npc:2595} Daggerspine Raider
 	["{npc:2595}, underwater"] = "{npc:2595}, unter Wasser",
 	-- {item:4492} Elven Gem

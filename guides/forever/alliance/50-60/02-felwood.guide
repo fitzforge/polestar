@@ -70,6 +70,7 @@ step Ruins of Constellas
 step Jaedenar
   tip Jaedenar is the ruined temple north of the glen.
   tip Careful: the Spirit of Trey Lightforge (53, elite) haunts the west end of Jaedenar, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him.
+  tip Tainted Oozes slide about Jaedenar's fel pools: kill them and use the Empty Tainted Ooze Jar on their remains.
   kill 7125 quest 5155.1 @38.7,61.9   -- Jaedenar Hound
   kill 7113 quest 5155.2 @38.5,61.1   -- Jaedenar Guardian
   kill 7115 quest 5155.3 @38.2,61.5   -- Jaedenar Adept
@@ -326,6 +327,7 @@ step Rockbiter
 
 step Evoroot
   tip The Evoroot grows inside a ruined building north of Rockbiter: climb in through the break in its wall from the ledge beside it.
+  tip Or the front door: Miblon Snarltooth guards it, and the Bait Gregan sells draws him off when you use it beside him. Half the players in our recordings went in that way, half through the wall.
   collect 11242 @44.5,10.2 map 1444 -- Evoroot
 
 step Shay Leafrunner

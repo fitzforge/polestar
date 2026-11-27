@@ -40,7 +40,7 @@ fn farm_spots_and_prerequisite_titles_emit_lua_that_the_engine_registry_accepts_
 	let pack = write_our_test_pack(&r.guides);
 	let at = pack.guides_of("test/f");
 	let lua = pack.text(at);
-	assert!(is_match(lua, r#"\{ npc = 95001, npcName = "Cloth Kobold", map = 1429, x = 65\.4, y = 75\.3, f = "e", faction = "A", lvl = \{ min = 5, max = 5 \}, rate = 0\.3, spawns = 4 \}"#));
+	assert!(is_match(lua, r#"\{ npc = 95001, npcName = "Cloth Kobold", map = 1429, x = 65\.4, y = 75\.3, f = "e", faction = "A", lvl = \{ min = 5, max = 5 \}, rate = 0\.468, spawns = 4 \}"#));
 	assert!(is_match(lua, r#"pre = \{ 9201, 783 \}, preTitles = \{ \[783\] = "A Threat Within", \[9201\] = "The First Step" \}"#));
 	let file = serde_json::to_string(&pack.dir.join(at)).unwrap();
 	let out = emitted(&RunAddon { addons: vec![Addon::files("Polestar", &["Core/Core.xml"])], script: SCRIPT.replace("${TEST_PACK}", TEST_PACK).replace("${FILE}", &file), ..Default::default() });

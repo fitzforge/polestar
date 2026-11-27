@@ -16,9 +16,9 @@ return {
 
 	-- Step 2: The Scythe of Elune
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {zone:1430} Deadwind Pass · {npc:661} Jonathan Carevin
-	["South from {area:42} to the {area:121}, on the way to {zone:1430}: the mound of dirt by the Nightbane worgen (29-31) holds the evidence {npc:661} wants."] = "",
+	["South from {area:42} to the {area:121}, on the way to {zone:1430}: the mound of dirt by the Nightbane worgen (29-31) holds the evidence {npc:661} wants."] = "从{area:42}向南到{area:121}，在去{zone:1430}的路上：夜行狼人（29–31）旁的土堆里有{npc:661}要的证据。",
 	-- {object:19030} Mound of Dirt
-	["the {object:19030}"] = "",
+	["the {object:19030}"] = "{object:19030}",
 
 	-- Step 4: Watcher Biggs
 	-- {npc:5476} Watcher Biggs · {npc:217412} Amaryllis Webb · {quest:93176} My Little Friends
@@ -83,9 +83,9 @@ return {
 
 	-- Step 15: Jonathan Carevin
 	-- {npc:661} Jonathan Carevin · {area:42} Darkshire
-	["{npc:661}, in {area:42}"] = "",
+	["{npc:661}, in {area:42}"] = "{npc:661}，在{area:42}",
 	-- {zone:1457} Darnassus
-	["His next errand goes to {zone:1457}, off this route: leave it."] = "",
+	["His next errand goes to {zone:1457}, off this route: leave it."] = "他下一件差事去{zone:1457}，不在这条路线上：别接。",
 
 	-- Step 16: Fly to Stormwind
 	-- {zone:1453} Stormwind
@@ -131,7 +131,7 @@ return {
 
 	-- Step 25: Southshore
 	-- {npc:2276} Magistrate Henry Maleb · {zone:1424} Hillsbrad Foothills
-	["{npc:2276}, inside, if the {zone:1424} guide didn't take it: the Syndicate camp is on the way to Arathi"] = "",
+	["{npc:2276}, inside, if the {zone:1424} guide didn't take it: the Syndicate camp is on the way to Arathi"] = "{npc:2276}，在里面，如果{zone:1424}指南里没接：辛迪加营地在去阿拉希的路上",
 
 	-- Step 26: Shadowy Assassin
 	-- {npc:2434} Shadowy Assassin · {area:271} Southshore · {npc:2276} Magistrate Henry Maleb
@@ -193,7 +193,7 @@ return {
 	-- Step 38: Witherbark Village
 	-- {area:318} Drywhisker Gorge · {area:314} Go'Shek Farm · {area:317} Witherbark Village · {npc:2712} Quae
 	-- plural, as words: Witherbark Goliaths = {npc:218032} Witherbark Goliath
-	["South from {area:318}, past {area:314}, through {area:317} to the far end of the valley: the Shadow Hunters there drop the knife, and the trolls packed around them give most of the tusks. Then the Witch Doctors among the huts for the pouches, on the way back out towards {npc:2712}. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "从{area:318}向南，经过{area:314}，穿过{area:317}到山谷尽头：那里的暗影猎手掉落匕首，围在他们周围的巨魔提供大部分獠牙。然后在回程朝{npc:2712}的路上，到小屋间的巫医那里拿袋子。小心：枯木巨人（{npc:218032}，35，精英）和暗影猎手一起在尽头走动：把猎手一个个拉到你这边，远离巨人。",
+	["South from {area:318}, past {area:314}, through {area:317} to the far end of the valley: the Shadow Hunters there drop the knife, and the trolls packed around them give most of the tusks. Then the Witch Doctors among the huts for the pouches, on the way back out towards {npc:2712}. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "从{area:318}向南，经过{area:314}，穿过{area:317}来到山谷尽头。这里的枯木暗影猎手会掉落短刀，附近扎堆的巨魔是獠牙的主要来源。然后往{npc:2712}的方向折返，顺路击杀小屋之间的枯木巫医收集药包。小心，枯木巨怪（35级精英）和枯木暗影猎手都在山谷尽头活动。每次只拉一名暗影猎手，拉到远离巨怪的地方再打。",
 	-- {item:5040} Shadow Hunter Knife
 	["{item:5040}; below ground"] = "{item:5040}：在地下",
 
@@ -241,7 +241,7 @@ return {
 	-- Step 51: The Drowned Reef: kill these as you meet them
 	-- {area:328} The Drowned Reef
 	["{area:328}: kill these as you meet them"] = "{area:328}：沿途击杀以下目标",
-	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay.\nCareful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy."] = "",
+	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay.\nCareful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy."] = "两艘沉船在小海湾以西的海里。海图和航海日志在船里面；宝石在它们周围的海底。刺脊纳迦在整个海湾游弋。\n注意：海图和日志在沉船深处：盯着呼吸条，两艘之间上来换气；有水下呼吸药水就轻松了。",
 	-- {npc:2595} Daggerspine Raider
 	["{npc:2595}, underwater"] = "{npc:2595}：在水下",
 	-- {item:4492} Elven Gem
@@ -365,7 +365,7 @@ return {
 
 	-- Step 77: Thelsamar
 	-- {zone:2548} Riverglades · {zone:1455} Ironforge · {area:69} Lakeshire · {area:2417} Blackrock Pass
-	["Leave the {zone:2548} for about level 41: its Western Front has elite patrols. After Stranglethorn, the {zone:2548} guide takes you from {zone:1455} to {area:69}, then through {area:2417}."] = "",
+	["Leave the {zone:2548} for about level 41: its Western Front has elite patrols. After Stranglethorn, the {zone:2548} guide takes you from {zone:1455} to {area:69}, then through {area:2417}."] = "大约41级再去{zone:2548}，那里的西部前线有精英巡逻。跑完荆棘谷后，按{zone:2548}指南从{zone:1455}前往{area:69}，再穿过{area:2417}。",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "{npc:1470}：在地下",
 

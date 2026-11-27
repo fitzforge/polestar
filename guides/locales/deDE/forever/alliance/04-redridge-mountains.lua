@@ -43,7 +43,7 @@ return {
 	-- Step 8: Henze Faulk
 	-- {area:91} Tower of Azora · {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["On the road east, past the {area:91}, head north from the bridge to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "Geh auf der Straße nach Osten am {area:91} vorbei und von der Brücke nach Norden zu {area:86}. {npc:6172} liegt südlich des Sees: Benutze den {item:6866} an ihm. Die Defias Rogue Wizards um ihn herum tragen das {item:6846}.",
+	["On the road east, past the {area:91}, head north from the bridge to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "Geh auf der Straße nach Osten am {area:91} vorbei und von der Brücke nach Norden zu {area:86}. {npc:6172} liegt südlich des Sees: Benutze den {item:6866} an ihm. Die abtrünnigen Hexer der Defias um ihn herum tragen das {item:6846}.",
 	-- {item:6866} Symbol of Life · {npc:6172} Henze Faulk
 	["Use the {item:6866} on {npc:6172}"] = "Benutze {item:6866} an {npc:6172}",
 	-- {item:6846} Defias Script
@@ -73,7 +73,7 @@ return {
 	-- {npc:267} Clerk Daltry
 	["{npc:267}, in the town hall"] = "{npc:267}, im Rathaus",
 	-- {npc:267} Clerk Daltry · {quest:66} The Legend of Stalvan · {zone:1436} Westfall · {area:20} Moonbrook · {zone:1431} Duskwood
-	["{npc:267}: {quest:66}, the footlocker in {zone:1436}'s {area:20}, at the west end of your next {zone:1431} loop (the {zone:1431} guide)"] = "",
+	["{npc:267}: {quest:66}, the footlocker in {zone:1436}'s {area:20}, at the west end of your next {zone:1431} loop (the {zone:1431} guide)"] = "{npc:267}: {quest:66}, die Fußkiste in {zone:1436}s {area:20}, am westlichen Ende deiner nächsten {zone:1431}-Runde (der {zone:1431}-Führer)",
 	-- {npc:264} Commander Althea Ebonlocke
 	["{npc:264}, in the town hall"] = "{npc:264}, im Rathaus",
 	-- {npc:268} Sirra Von'Indi
@@ -102,7 +102,7 @@ return {
 	["{area:121}: kill these as you meet them"] = "{area:121}: Töte diese, wenn sie dir begegnen",
 	-- {area:42} Darkshire · {npc:302} Blind Mary · {zone:1431} Duskwood · {item:2378} Skeleton Finger
 	-- plural, as words: Skeletal Warriors = {npc:48} Skeletal Warrior · Skeletal Mages = {npc:203} Skeletal Mage
-	["Skeletal Warriors and Skeletal Mages walk among the graves south-east of {area:42}, below {npc:302}'s house on the hill. Every skeleton in {zone:1431} can drop a {item:2378}.\nCareful: Because the skeletons stand near each other, running straight in tends to pull several at once."] = "Skeletal Warriors und Skeletal Mages laufen zwischen den Gräbern südöstlich von {area:42}, unterhalb des Hauses von {npc:302} auf dem Hügel. Jedes Skelett im {zone:1431} kann einen {item:2378} fallen lassen.\nVorsicht: Weil die Skelette nah beieinander stehen, zieht man beim direkten Hineinrennen oft mehrere auf einmal.",
+	["Skeletal Warriors and Skeletal Mages walk among the graves south-east of {area:42}, below {npc:302}'s house on the hill. Every skeleton in {zone:1431} can drop a {item:2378}.\nCareful: Because the skeletons stand near each other, running straight in tends to pull several at once."] = "Skelettkrieger und Skelettmagier laufen zwischen den Gräbern südöstlich von {area:42}, unterhalb des Hauses von {npc:302} auf dem Hügel. Jedes Skelett im {zone:1431} kann einen {item:2378} fallen lassen.\nVorsicht: Weil die Skelette nah beieinander stehen, zieht man beim direkten Hineinrennen oft mehrere auf einmal.",
 
 	-- Step 17: Watcher Dodds
 	-- {npc:888} Watcher Dodds · {area:245} Yorgen Farmstead
@@ -125,10 +125,10 @@ return {
 	["{area:1097}: kill these as you meet them"] = "{area:1097}: Töte diese, wenn sie dir begegnen",
 	-- {npc:289} Abercrombie · {area:1097} The Hushed Bank · {quest:163} Raven Hill · {npc:311} Sven Yorgen · {zone:1436} Westfall
 	-- plural, as words: Pygmy Venom Web Spiders = {npc:539} Pygmy Venom Web Spider
-	["Rabid Dire Wolves roam the woods around the cemetery and {npc:289}, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders are the small spiders, and few: most crawl along the {area:1097} west of {quest:163}, fewer up north towards {npc:311}'s camp; they drop the venom too. Every ghoul of the cemetery's northern half can drop a fang. Wolves and the bigger spiders share the {zone:1436} border, so pull with care."] = "Rabid Dire Wolves streifen durch die Wälder um den Friedhof und {npc:289}, Starving Dire Wolves durch die Hügel nordöstlich von ihm. Pygmy Venom Web Spiders sind die kleinen Spinnen, und es gibt wenige: Die meisten krabbeln an der {area:1097} westlich von {quest:163}, weniger weiter nördlich Richtung Lager von {npc:311}; auch sie lassen das Gift fallen. Jeder Ghul in der nördlichen Hälfte des Friedhofs kann einen Fangzahn fallen lassen. Wölfe und die größeren Spinnen teilen sich die Grenze zu {zone:1436}, zieh also mit Vorsicht.",
+	["Rabid Dire Wolves roam the woods around the cemetery and {npc:289}, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders are the small spiders, and few: most crawl along the {area:1097} west of {quest:163}, fewer up north towards {npc:311}'s camp; they drop the venom too. Every ghoul of the cemetery's northern half can drop a fang. Wolves and the bigger spiders share the {zone:1436} border, so pull with care."] = "Rabid Dire Wolves streifen durch die Wälder um den Friedhof und {npc:289}, Starving Dire Wolves durch die Hügel nordöstlich von ihm. Zwerggiftweberspinnen sind die kleinen Spinnen, und es gibt wenige: Die meisten krabbeln an der {area:1097} westlich von {quest:163}, weniger weiter nördlich Richtung Lager von {npc:311}; auch sie lassen das Gift fallen. Jeder Ghul in der nördlichen Hälfte des Friedhofs kann einen Fangzahn fallen lassen. Wölfe und die größeren Spinnen teilen sich die Grenze zu {zone:1436}, zieh also mit Vorsicht.",
 	-- {item:1130} Vial of Spider Venom
 	-- plural, as words: Pygmy Venom Web Spiders = {npc:539} Pygmy Venom Web Spider · Venom Web Spiders = {npc:217} Venom Web Spider · Green Recluses = {npc:569} Green Recluse
-	["{item:1130}: Pygmy Venom Web Spiders, Venom Web Spiders and Green Recluses"] = "{item:1130}: Pygmy Venom Web Spiders, Venom Web Spiders und Green Recluses",
+	["{item:1130}: Pygmy Venom Web Spiders, Venom Web Spiders and Green Recluses"] = "{item:1130}: Zwerggiftweberspinnen, Giftweberspinnen und Grüne Eremiten",
 	-- {item:2251} Gooey Spider Leg · {npc:272} Chef Grual · {area:42} Darkshire
 	["{item:2251}: keep the ones these spiders drop, for {npc:272} in {area:42}"] = "{item:2251}: Behalte die, die diese Spinnen fallen lassen, für {npc:272} in {area:42}",
 
@@ -157,9 +157,9 @@ return {
 	["{npc:272}, in the Scarlet Raven Tavern"] = "{npc:272}, in der Scarlet Raven Tavern",
 	-- {npc:272} Chef Grual · {zone:1431} Duskwood
 	-- plural, as words: Gooey Spider Legs = {item:2251} Gooey Spider Leg
-	["{npc:272}: six Gooey Spider Legs, which {zone:1431}'s spiders drop even without the quest"] = "{npc:272}: sechs Gooey Spider Legs, die die Spinnen im {zone:1431} auch ohne die Quest fallen lassen",
+	["{npc:272}: six Gooey Spider Legs, which {zone:1431}'s spiders drop even without the quest"] = "{npc:272}: sechs klebrige Spinnenbeine, die die Spinnen im {zone:1431} auch ohne die Quest fallen lassen",
 	-- {npc:272} Chef Grual · {area:1097} The Hushed Bank
-	["{npc:272}: the six legs from the {area:1097}"] = "",
+	["{npc:272}: the six legs from the {area:1097}"] = "{npc:272}: die sechs Beine aus dem {area:1097}",
 	-- {npc:288} Jitters · {quest:163} Raven Hill · {zone:1431} Duskwood
 	["For {npc:288}, at {quest:163} on the next {zone:1431} loop"] = "Für {npc:288}, bei {quest:163} auf der nächsten Runde durch den {zone:1431}",
 	-- {npc:663} Calor
@@ -178,7 +178,7 @@ return {
 	["{area:68}'s murlocs: kill these as you meet them"] = "Die Murlocs von {area:68}: Töte diese, wenn sie dir begegnen",
 	-- {area:68} Lake Everstill
 	-- plural, as words: Murloc Flesheaters = {npc:422} Murloc Flesheater
-	["Murloc Flesheaters and Tidecallers line the south shore of {area:68}, just east of the gryphons and the bridge. Any of them can carry a fin."] = "Murloc Flesheaters und Tidecallers säumen das Südufer von {area:68}, direkt östlich der Greifen und der Brücke. Jeder von ihnen kann eine Flosse tragen.",
+	["Murloc Flesheaters and Tidecallers line the south shore of {area:68}, just east of the gryphons and the bridge. Any of them can carry a fin."] = "Murlocfleischfresser und Tidecallers säumen das Südufer von {area:68}, direkt östlich der Greifen und der Brücke. Jeder von ihnen kann eine Flosse tragen.",
 
 	-- Step 30: Lakeshire
 	-- {npc:381} Dockmaster Baren · {npc:900} Bailiff Conacher · {npc:342} Martie Jainrose · {npc:382} Marshal Marris · {npc:341} Foreman Oslow · {quest:98386} Alther's Mill
@@ -210,7 +210,7 @@ return {
 	-- Step 34: Alther's Mill
 	-- {quest:98386} Alther's Mill
 	-- plural, as words: Greater Tarantulas = {npc:505} Greater Tarantula · Tarantula Eggs = {object:673101} Tarantula Egg
-	["Greater Tarantulas crawl on the slopes around {quest:98386}, north-east of the lake; their Tarantula Eggs lie on the ground among them: click six."] = "Greater Tarantulas krabbeln an den Hängen um {quest:98386}, nordöstlich des Sees; ihre Tarantula Eggs liegen zwischen ihnen auf dem Boden: Klick sechs an.",
+	["Greater Tarantulas crawl on the slopes around {quest:98386}, north-east of the lake; their Tarantula Eggs lie on the ground among them: click six."] = "Große Taranteln krabbeln an den Hängen um {quest:98386}, nordöstlich des Sees; ihre Tarantula Eggs liegen zwischen ihnen auf dem Boden: Klick sechs an.",
 
 	-- Step 35: Blackrock camps
 	["Blackrock camps"] = "Blackrock-Lager",
@@ -241,17 +241,17 @@ return {
 	-- Step 40: Stonewatch Keep
 	-- {npc:334} Gath'Ilzogg
 	-- plural, as words: Blackrock Shadowcasters = {npc:436} Blackrock Shadowcaster
-	["The keep stands beside the tower. {npc:334} (elite) waits in the keep's top room with two guards and a dragon; Blackrock Shadowcasters (elite) and Sentries stand on its west side, so pull one at a time on the way in, and hug the right wall as you enter his room so you don't pull him at once. Elite: group up if you can."] = "Die Festung steht neben dem Turm. {npc:334} (Elite) wartet im obersten Raum der Festung mit zwei Wachen und einem Drachen; Blackrock Shadowcasters (Elite) und Sentries stehen auf ihrer Westseite, zieh also auf dem Weg hinein einen nach dem anderen, und halte dich beim Betreten seines Raums an die rechte Wand, damit du ihn nicht sofort ziehst. Elite: Bilde wenn möglich eine Gruppe.",
+	["The keep stands beside the tower. {npc:334} (elite) waits in the keep's top room with two guards and a dragon; Blackrock Shadowcasters (elite) and Sentries stand on its west side, so pull one at a time on the way in, and hug the right wall as you enter his room so you don't pull him at once. Elite: group up if you can."] = "Die Festung steht neben dem Turm. {npc:334} (Elite) wartet im obersten Raum der Festung mit zwei Wachen und einem Drachen; Schattenzauberer der Blackrock (Elite) und Wachen stehen auf ihrer Westseite, zieh also auf dem Weg hinein einen nach dem anderen, und halte dich beim Betreten seines Raums an die rechte Wand, damit du ihn nicht sofort ziehst. Elite: Bilde wenn möglich eine Gruppe.",
 
 	-- Step 41: Yowler
 	-- {area:95} Redridge Canyons · {area:997} Render's Valley · {npc:518} Yowler
 	-- plural, as words: Redridge Alphas = {npc:445} Redridge Alpha
-	["From the keep head back west along the lake's north shore and north up the {area:95}. Just south of {area:997}, {npc:518}, a level 25 gnoll, walks among the Redridge Alphas and Mystics."] = "Geh von der Festung zurück nach Westen am Nordufer des Sees entlang und nach Norden den {area:95} hinauf. Direkt südlich von {area:997} läuft {npc:518}, ein Gnoll der Stufe 25, zwischen den Redridge Alphas und Mystics umher.",
+	["From the keep head back west along the lake's north shore and north up the {area:95}. Just south of {area:997}, {npc:518}, a level 25 gnoll, walks among the Redridge Alphas and Mystics."] = "Geh von der Festung zurück nach Westen am Nordufer des Sees entlang und nach Norden den {area:95} hinauf. Direkt südlich von {area:997} läuft {npc:518}, ein Gnoll der Stufe 25, zwischen den Alphas der Rotkammgnolle und Mystikern umher.",
 
 	-- Step 42: Render's Valley
 	-- {area:95} Redridge Canyons · {area:997} Render's Valley · {area:69} Lakeshire
 	-- plural, as words: Blackrock Champions = {npc:435} Blackrock Champion
-	["From the keep head back west along the lake's north shore and north up the {area:95} to {area:997}; {area:69}'s hand-ins wait for Keeshan's escort, which ends there. Blackrock Champions camp in the valley."] = "Geh von der Festung zurück nach Westen am Nordufer des Sees entlang und nach Norden den {area:95} hinauf bis {area:997}; die Abgaben in {area:69} warten auf Keeshans Eskorte, die dort endet. Blackrock Champions lagern im Tal.",
+	["From the keep head back west along the lake's north shore and north up the {area:95} to {area:997}; {area:69}'s hand-ins wait for Keeshan's escort, which ends there. Blackrock Champions camp in the valley."] = "Geh von der Festung zurück nach Westen am Nordufer des Sees entlang und nach Norden den {area:95} hinauf bis {area:997}; die Abgaben in {area:69} warten auf Keeshans Eskorte, die dort endet. Helden der Blackrock lagern im Tal.",
 	-- {npc:435} Blackrock Champion
 	["{npc:435}, below ground"] = "{npc:435}, unter der Erde",
 
@@ -275,7 +275,7 @@ return {
 	-- {npc:903} Guard Howe
 	["{npc:903}, by the gryphons south of the bridge"] = "{npc:903}, bei den Greifen südlich der Brücke",
 	-- {area:42} Darkshire · {zone:1431} Duskwood
-	["Next: the gryphon to {area:42} for {zone:1431}'s second loop (the {zone:1431} guide)."] = "",
+	["Next: the gryphon to {area:42} for {zone:1431}'s second loop (the {zone:1431} guide)."] = "Als Nächstes: der Greif nach {area:42} für die zweite Runde von {zone:1431} (den {zone:1431}-Guide).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Already carrying six? Hand them in now"] = "Schon sechs dabei? Gib sie jetzt ab",

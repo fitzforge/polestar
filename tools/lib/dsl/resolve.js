@@ -1116,7 +1116,10 @@ function resolveGuide(ast, data, diag, opts = {}) {
 			}
 			// A `skill … nearest` step's gotos are its places, each on its own map: no zone to match.
 			const nearestPlace = g.verb === 'goto' && s.goals.some((x) => x.verb === 'skill' && x.nearest);
-			if (goal.map !== undefined && zoneId !== null && goal.map !== zoneId && !zonesSet.has(goal.map) && !nearestPlace) {
+			// A step on the world map (`zone Azeroth`: a profession guide's trainer visit, which pins each faction
+			// to its teacher in another zone) spans every zone.
+			const worldStep = zoneId !== null && ((data.zone(zoneId) || {}).type ?? 3) <= 1;
+			if (goal.map !== undefined && zoneId !== null && goal.map !== zoneId && !zonesSet.has(goal.map) && !nearestPlace && !worldStep) {
 				const name = (id) => {
 					const z = data.zone(id);
 					return z && z.name ? `${id} (${z.name})` : String(id);

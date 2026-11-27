@@ -169,11 +169,14 @@ function legsRaces(g) {
 	return RACE_FILES.filter((r) => RACE_BY_FILE[r].sides[g.faction] !== undefined);
 }
 
-// <packDir>/retired.json: the ids of guides a cutover removed, ["<id>", ...]
+// <packDir>/retired.json: the ids of guides a cutover removed, ["<id>", ...],
+// an entry { "id": "<old id>", "to": "<new id>" } naming the guide it became
 // (Polestar opens a saved tab of one as its successor: Core/Guides.lua
-// Guides.Successor). An id one of the pack's guides still has warns; a file
-// that is no list of guide ids is an error. -> [id] ([] without the file)
+// Guides.Successor). An id one of the pack's guides still has warns; a `to`
+// that is none of them, or a file that is no such list, is an error.
+// -> [{ id, to? }] by id ([] without the file)
 const RETIRED_FILE = 'retired.json';
+const GUIDE_ID = /^[a-z0-9_-]+(?:\/[a-z0-9_-]+)*$/;
 function readRetired(packDir, guides, diag) {
 	const file = path.join(packDir, RETIRED_FILE);
 	const { text, error } = readPackFile(packDir, RETIRED_FILE);
@@ -189,13 +192,27 @@ function readRetired(packDir, guides, diag) {
 		diag.error(file, 1, `${RETIRED_FILE} is not JSON${jsonErrorAt(e, text)}`);
 		return [];
 	}
-	if (!Array.isArray(list) || !list.every((id) => typeof id === 'string' && /^[a-z0-9_-]+(?:\/[a-z0-9_-]+)*$/.test(id))) {
-		diag.error(file, 1, `${RETIRED_FILE} must be a list of guide ids`, 'write ["forever/horde/02-the-barrens", ...]');
+	const entry = (e) => {
+		if (typeof e === 'string') return GUIDE_ID.test(e) ? { id: e } : null;
+		const ok = e && typeof e === 'object' && !Array.isArray(e) && Object.keys(e).length === 2
+			&& typeof e.id === 'string' && GUIDE_ID.test(e.id) && typeof e.to === 'string' && GUIDE_ID.test(e.to);
+		return ok ? { id: e.id, to: e.to } : null;
+	};
+	const entries = Array.isArray(list) ? list.map(entry) : [null];
+	if (entries.includes(null)) {
+		diag.error(file, 1, `${RETIRED_FILE} must be a list of guide ids, or of { "id": <old id>, "to": <new id> }`,
+			'write ["forever/horde/02-the-barrens", { "id": "forever/class/old-name", "to": "forever/miscellaneous/new-name" }, ...]');
 		return [];
 	}
 	const live = new Set(guides.map((g) => g.id));
-	for (const id of list) if (live.has(id)) diag.warn(file, 1, `retired guide id "${id}" is still a guide of the pack: Polestar keeps opening it`);
-	return [...new Set(list)].sort();
+	const out = new Map();
+	for (const r of entries) {
+		if (live.has(r.id)) diag.warn(file, 1, `retired guide id "${r.id}" is still a guide of the pack: Polestar keeps opening it`);
+		if (r.to && !live.has(r.to)) diag.error(file, 1, `retired guide id "${r.id}" goes to "${r.to}", which is not a guide of the pack`, 'name the guide it became, or leave `to` out');
+		const had = out.get(r.id);
+		if (!had || (!had.to && r.to)) out.set(r.id, r);
+	}
+	return [...out.values()].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
 }
 
 // Parse and resolve sources into guides of `pack` (ours when absent); a
@@ -534,7 +551,8 @@ function textsDirRefusal(dir, packId) {
 
 // Addon folders of the release: always these (Polestar_Nav is committed:
 // Polestar's walking router and maps, `nav pack`; Polestar_Options is the
-// settings window, loaded on demand; the game looks, the Skin API's checks
+// settings window and Polestar_FreeMode Free mode and the finished-quest planner, both loaded
+// on demand; the game looks, the Skin API's checks
 // and the tab styles are inside Polestar since 0.4.3), Polestar_Skins (our
 // skins and layouts, loaded on demand) and Polestar_Arcade
 // (Freedoom Arcade by petllama, loaded on demand) when there, plus the generated
@@ -543,7 +561,7 @@ function textsDirRefusal(dir, packId) {
 // Dungeons and Rares read: forge-release's codex_refusal), the language
 // folders last (our guides' texts and the game's names, `forge guide
 // compile` and `forge data names`, committed; the client loads only its own).
-const RELEASE_ADDONS = ['Polestar', 'Polestar_Guides', 'Polestar_Nav', 'Polestar_Options'];
+const RELEASE_ADDONS = ['Polestar', 'Polestar_Guides', 'Polestar_Nav', 'Polestar_FreeMode', 'Polestar_Options'];
 // forge-release addons.rs SKINS and ARCADE.
 const SKINS = 'Polestar_Skins';
 const ARCADE = 'Polestar_Arcade';

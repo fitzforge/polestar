@@ -118,7 +118,6 @@ return {
 
 	-- Step 17: The Great Outdoors
 	-- {npc:265811} Lyreena Duskblade · {npc:6286} Zarrin · {skill:129} First Aid · {npc:6094} Byancie · {zone:1457} Darnassus · {area:442} Auberdine
-	-- was: ["With a profession learned, {npc:265811} also offers its Camping 101, which its trainer takes: alchemy and herbalism beside {npc:6286}, {skill:129} with {npc:6094} in the inn, skinning and leatherworking at the Maneweavers' camp on the road west."] = "Con una profesión aprendida, {npc:265811} también ofrece su Acampada 101, que recibe su instructor: alquimia y herboristería junto a {npc:6286}, {skill:129} con {npc:6094} en la posada, desuello y peletería en el campamento de los Tejecrín, en el camino al oeste."
 	["With a profession learned, {npc:265811} also offers its Camping 101, which its trainer takes: alchemy and herbalism beside {npc:6286}, {skill:129} with {npc:6094} in the inn, skinning and leatherworking at the Maneweavers' camp on the road west, fishing and tailoring in {zone:1457}, enchanting north of the city, blacksmithing, mining and engineering in {area:442}."] = "Con una profesión aprendida, {npc:265811} también ofrece su Campamento 101, que recoge su instructor: alquimia y herboristería junto a {npc:6286}, {skill:129} con {npc:6094} en la posada, desuello y peletería en el campamento de los Tejecrines en el camino del oeste, pesca y sastrería en {zone:1457}, encantamiento al norte de la ciudad, herrería, minería e ingeniería en {area:442}.",
 	-- {npc:265811} Lyreena Duskblade · {spell:1229451} Boosted Rest
 	["/sit by {npc:265811}'s campfire until you get {spell:1229451}"] = "/sentarse junto a la hoguera de {npc:265811} hasta que tengas {spell:1229451}",
@@ -207,6 +206,8 @@ return {
 	["{npc:6094}, in the inn"] = "{npc:6094}, en la posada",
 
 	-- Step 33: Dolanaar
+	-- {quest:5621} Garments of the Moon · {spell:613} Lesser Heal · {npc:3600} Laurna Morninglight
+	["Priests: {quest:5621} counts only {spell:613} (Rank 2). {npc:3600} trains priests too: learn it from her now if you have not yet."] = "",
 	-- {npc:3515} Corithras Moonrage
 	["{npc:3515}, south of the inn"] = "{npc:3515}, al sur de la posada",
 	-- {npc:3608} Aldia

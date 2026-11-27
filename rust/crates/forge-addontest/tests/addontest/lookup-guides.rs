@@ -141,6 +141,25 @@ fn ctx() -> Ctx {
 			{ "type": "event", "count": 1, "text": "Bottles delivered" },
 			{ "type": "kill", "id": 5014, "count": 1, "text": "Marsh Creeper" }
 		], "pre": [], "preAny": [], "zone": home, "rewards": [], "choices": [] });
+	// #4270: Powering the Pylons with what the Codex reads from our public mechanics: each pylon is a use of the
+	// Pylon Parts, which spends four Mana Crystals gathered from the Mana Rifts with the Mana Sieve (an item
+	// objective) first.
+	codex["npcs"]["5017"] = json!({ "id": 5017, "name": "Mana Rift", "level": 1, "levelMax": 1, "faction": null, "rare": false, "elite": false, "boss": false, "instance": null, "roles": [],
+		"spawns": [{ "map": home, "x": 45, "y": 45, "f": "e" }, { "map": home, "x": 60, "y": 35, "f": "e" }] });
+	codex["npcs"]["5018"] = json!({ "id": 5018, "name": "Sieve Keeper", "level": 20, "levelMax": 20, "faction": null, "rare": false, "elite": false, "boss": false, "instance": null, "roles": [],
+		"spawns": [{ "map": home, "x": 50, "y": 80, "f": "e" }] });
+	for (id, name) in [(8022, "Mana Sieve"), (8023, "Mana Crystal"), (8024, "Pylon Parts")] {
+		codex["items"][id.to_string().as_str()] = json!({ "id": id, "name": name, "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [] });
+	}
+	codex["items"]["8022"]["sources"] = json!([{ "type": "drop", "npc": 5018, "chance": 100 }]);
+	let reagent = json!({ "item": 8023, "count": 4, "npc": 5017 });
+	codex["quests"]["7015"] = json!({ "id": 7015, "title": "Mana for the Pylons", "level": 18, "minLevel": 15, "faction": "A", "races": null, "classes": null,
+		"start": { "npc": [5008], "object": [], "item": [] }, "end": { "npc": [5008], "object": [] },
+		"objectives": [
+			{ "type": "item", "id": 8022, "count": 1, "text": "Mana Sieve" },
+			{ "type": "event", "count": 1, "text": "Western pylon repaired", "map": home, "x": 40, "y": 40, "f": "e", "useItem": 8024, "reagent": reagent },
+			{ "type": "event", "count": 1, "text": "Eastern pylon repaired", "map": home, "x": 70, "y": 30, "f": "e", "useItem": 8024, "reagent": reagent }
+		], "pre": [], "preAny": [], "zone": home, "rewards": [], "choices": [] });
 	let mut frames: Vec<(i64, Value)> = codex["frames"].as_object().unwrap().iter().map(|(k, f)| (k.parse::<i64>().unwrap(), f.clone())).collect();
 	frames.sort_by_key(|(id, _)| *id);
 	let maps = frames
@@ -167,6 +186,48 @@ fn world(c: &Ctx, tail: &str) -> String {
 	format!("{}\nlocal w = stub.world\n{}\n", c.pack.stub_lua, c.maps) + tail
 }
 
+#[test]
+fn quest_menu_starts_a_guide_or_opens_search_when_lookup_is_disabled() {
+	let c = ctx();
+	let r = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: world(&c, &format!("w.level = 20\nw.moveTo({}, 50, 50)", c.home))
+			+ r#"
+questMenus = {}
+Menu = { ModifyMenu = function(tag, build) questMenus[tag] = build end }
+"#,
+		addons: vec!["Polestar".into()],
+		script: r#"
+stub.login()
+local function questButtons()
+	local buttons = {}
+	questMenus.MENU_QUEST_MAP_LOG_TITLE({ questID = 7009 }, {
+		QueueDivider = function() end,
+		CreateButton = function(_, label, action) buttons[label] = action end,
+	})
+	return buttons
+end
+local label = "Polestar: Start quest guide"
+local start = questButtons()[label]
+start()
+local active = Polestar.Engine.GetGuide().id
+Polestar.Set("lookup.enabled", false)
+assert(questButtons()[label] == nil)
+Polestar.Compat.GetQuestTitle = function() return "Taming the Beast" end
+start()
+emit({ active = active, after = Polestar.Engine.GetGuide().id,
+	shown = PolestarPicker:IsShown(), query = Polestar.UI.Picker.Query() })
+"#
+		.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(r["active"], "lookup/quest/7009");
+	assert_eq!(r["after"], r["active"]);
+	assert_eq!(r["shown"], true);
+	assert_eq!(r["query"], "Taming the Beast");
+}
+
 const PLAY: &str = r#"
 stub.login()
 local id, why = Polestar.Lookup.Guide(@KIND@, @ID@, @INDEX@)
@@ -191,7 +252,7 @@ fn play(c: &Ctx, kind: &str, id: &Value, level: i64, setup: &str) -> (Value, Val
 		stubs: vec!["stub_world.lua"],
 		before: world(c, &format!("w.level = {level}\nw.moveTo({}, 50, 50)\n{setup}", c.home)),
 		addons: vec!["Polestar".into()],
-		script: PLAY.replace("@KIND@", &lua_value(&json!(kind))).replace("@ID@", &lua_value(id)).replace("@INDEX@", index) + SIMULATE,
+		script: PLAY.replace("@KIND@", &lua_value(&json!(kind))).replace("@ID@", &lua_value(id)).replace("@INDEX@", index) + SIMULATE.as_str(),
 		..Default::default()
 	});
 	let built = out.remove(0);
@@ -433,6 +494,50 @@ fn a_quest_with_two_placed_events_has_a_goal_at_each_and_moves_on_as_each_ticks_
 	assert_eq!(got["before"][1], json!("active"), "the western pylon first: {}", got["before"]);
 	assert_eq!(got["after"][1], json!("done"), "{}", got["after"]);
 	assert_eq!(got["after"][2], json!("active"), "then the eastern one: {}", got["after"]);
+}
+
+// #4270 (imp, Maraudon's pick-up guide): Powering the Pylons never said to gather the four Coalesced Mana Crystals
+// each pylon's repair takes, and the arrow toured the pylons from wherever the player stood, the far one first. With
+// the Codex's use and reagent, each pylon is a use of the Pylon Parts with a gather of four crystals before it, from
+// the rifts: the Sieve first, then the crystals, then the western pylon, crystals again (the repair spent them),
+// then the eastern one, in the quest log's order, even standing beside the eastern pylon.
+#[test]
+fn each_pylon_gathers_the_crystals_its_repair_spends_then_uses_the_parts_in_the_log_s_order_4270() {
+	let c = ctx();
+	let got = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: world(&c, &format!("w.level = 20\nw.moveTo({}, 70, 31)\n", c.home)),
+		addons: vec!["Polestar".into()],
+		script: r#"stub.login()
+			local E, w = Polestar.Engine, stub.world
+			local id = Polestar.Lookup.Guide("quest", 7015)
+			local step = Polestar.Guides.Get(id).steps[1]
+			local goals = {}
+			for _, g in ipairs(step.goals) do
+				goals[#goals + 1] = table.concat({ g.t, tostring(g.item or ""), tostring(g.count or ""), tostring(g.oi or ""), tostring(g.npc or "") }, " ")
+			end
+			w.accept(7015, { { text = "Mana Sieve: 0/1", required = 1 }, { text = "Western pylon repaired: 0/1", required = 1 }, { text = "Eastern pylon repaired: 0/1", required = 1 } }); stub.advance(0.6)
+			local function now() return E.GetStepView(1).current or false end
+			local trail = { now() }
+			w.addItem(8022, 1); w.progress(7015, 1, 1); stub.advance(0.6)
+			trail[#trail + 1] = now()
+			w.addItem(8023, 4); stub.advance(0.6)
+			trail[#trail + 1] = now()
+			w.removeItem(8023); w.progress(7015, 2, 1); stub.advance(0.6)
+			trail[#trail + 1] = now()
+			w.addItem(8023, 4); stub.advance(0.6)
+			trail[#trail + 1] = now()
+			emit({ goals = goals, trail = trail })"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(
+		got["goals"],
+		json!(["accept    5008", "collect 8022 1 1 ", "collect 8023 4  5017", "use 8024 1 2 ", "collect 8023 4  5017", "use 8024 1 3 ", "turnin    5008"]),
+		"a gather of four crystals from the rifts before each pylon's use"
+	);
+	assert_eq!(got["trail"], json!([2, 3, 4, 5, 6]), "Sieve, crystals, western pylon, crystals again, eastern pylon: {}", got["trail"]);
 }
 
 // #2505 (kaigltv, Hot Wolf Ribs): every recipe went to the profession trainer, though most are taught by a recipe

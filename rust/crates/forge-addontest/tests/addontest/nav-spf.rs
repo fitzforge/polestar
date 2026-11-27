@@ -1275,7 +1275,7 @@ fn unavailable_and_failed_walks_point_straight_and_are_asked_again_later() {
 		false,
 		false,
 	);
-	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight, as before 0.4.2.
 	assert_eq!(none, json!([["travel", 600, 0, -600], true]));
 
 	let out = run(r#"
@@ -1300,7 +1300,7 @@ fn unavailable_and_failed_walks_point_straight_and_are_asked_again_later() {
 		target(0, 400)
 		r.error = aim()
 		emit(r)"#);
-	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight, as before 0.4.2.
 	assert_eq!(out["nodata"], json!([["travel", 600, 0, -600], 0]));
 	assert_eq!(out["unreachable"], json!(["travel", 500, 0, -500]));
 	assert_eq!(out["soon"], 1, "a failed search is not repeated at once");
@@ -1308,7 +1308,7 @@ fn unavailable_and_failed_walks_point_straight_and_are_asked_again_later() {
 	assert_eq!(out["error"], json!(["travel", 440, 0, 400]));
 }
 
-// #3409, Fitz's ruling: wherever no walk is found the arrow points straight, as before 0.4.2, and says why under
+// #3409, Fitz's ruling: wherever no walk is found the arrow points straight, as before 0.4.2, with nothing said under
 // its label; the line is drawn straight. Here a walk refused with a reason (Safe's blockedReason). Main, 2026-11-21,
 // Fitz: "go back to our original danger pathing": no reason is the other faction's ground any more, and the arrow
 // says what it says for any walk it did not find (0.4.2: "No safe walking route").
@@ -1332,7 +1332,7 @@ fn a_walk_refused_with_a_reason_points_straight_says_why_and_draws_its_line() {
 		r.drawn = { leg and leg.straight or false, leg and #leg.pts or 0 }
 		emit(r)"#);
 	assert_eq!(out["aim"], json!(["travel", 500, 0, -500]), "straight at the target");
-	assert!(out["label"].as_str().unwrap_or("").contains("The last steps here aren't mapped"), "and why: {}", out["label"]);
+	assert!(!out["label"].as_str().unwrap_or("").contains("aren't mapped"), "nothing says the steps aren't mapped: {}", out["label"]);
 	assert_eq!(out["line"], true);
 	assert_eq!(out["drawn"], json!([true, 2]), "its line straight from the player");
 }
@@ -1376,7 +1376,7 @@ fn a_refusal_no_policy_gave_is_asked_again_once_after_2_s_standing_still_a_polic
 
 // #3553: a goal whose floor no walk reaches though no policy says no (Foggy MacKreel on a broken section of the
 // Thandol Span: the maps hold the deck above him and the water below, not his ledge) is asked once more without its
-// height, as before strict searches, and the arrow says the last steps aren't mapped. A policy refusal stays final.
+// height, as before strict searches, and the last steps are unmapped (kept in the debug log, not said). A policy refusal stays final.
 #[test]
 fn a_goal_floor_no_walk_reaches_is_walked_to_without_its_height_a_policy_refusal_is_not() {
 	let out = run(r#"
@@ -1406,7 +1406,7 @@ fn a_goal_floor_no_walk_reaches_is_walked_to_without_its_height_a_policy_refusal
 	assert_eq!(out["again"], json!([2, "nil"]), "asked again without it");
 	assert_eq!(head(&out["aim"], 2), json!(["travel", 500]), "and walked: {}", out["aim"]);
 	heads(&out["aim"], (0.0, 0.0), (0.0, -500.0), "along the walk to the goal's spot");
-	assert!(out["label"].as_str().unwrap_or("").contains("The last steps here aren't mapped"), "saying so: {}", out["label"]);
+	assert!(!out["label"].as_str().unwrap_or("").contains("aren't mapped"), "nothing said: {}", out["label"]);
 	assert_eq!(out["policy"], true, "a policy refusal is not asked again without the height");
 }
 
@@ -1993,7 +1993,7 @@ fn t_180_a_target_set_by_hand_at_an_npc_with_its_height_nav_settarget_s_z_a_clas
 }
 
 // Z2: a goal's height that finds no walk at all is asked once more without it (the maps miss its floor's join: a walk
-// to the spot beats the straight arrow), and the arrow says the last steps aren't mapped.
+// to the spot beats the straight arrow), and the last steps are unmapped (kept in the debug log, not said).
 #[test]
 fn z2_a_search_with_the_height_that_fails_is_asked_once_more_without_it_and_that_answer_stands() {
 	let out = run(&[
@@ -2038,7 +2038,7 @@ fn z2_a_failure_without_the_height_too_points_straight_with_no_third_search() {
 		emit({ aim(), calls() })"#,
 	]
 	.concat());
-	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight, as before 0.4.2.
 	assert_eq!(out, json!([["travel", 600, 0, -600], 2]));
 }
 
@@ -3647,7 +3647,7 @@ fn searches_carry_the_player_faction_and_an_unknown_faction_gets_the_straight_be
 	assert_eq!(out["hordeAim"], "travel");
 	assert_eq!(out["pending"], json!(["routing", true, "routing", true, "Finding a walking route"]), "straight at the target meanwhile");
 	assert_eq!(out["reason"], "unknown faction");
-	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight, as before 0.4.2.
 	assert_eq!(out["settled"], json!(["travel", true, "travel", true, "200 yd"]));
 	assert_eq!(out["batch"], "Alliance", "the planner's measure too");
 }
@@ -5726,7 +5726,7 @@ fn city_a1_a_goal_without_a_height_in_a_capital_ends_on_the_trail_floor_with_the
 // (3,515 yd for a 356 yd walk). In a capital the goal's height stays: the router's reach (10 yd) ends the walk at the
 // nearest surface on its level it reaches. With none, the walk without his height is asked once (#2143) and kept only
 // when it is no detour (city.FLAT times the straight way plus city.SLACK): over the mountain it is not, so the arrow
-// says the last steps aren't mapped and the walk is not marked unreachable (the plan would go round it).
+// keeps the last steps unmapped (debug log only) and the walk is not marked unreachable (the plan would go round it).
 #[test]
 fn city_a2_a_capital_s_goal_keeps_its_height_with_the_reach_and_says_the_last_steps_are_not_mapped_2860() {
 	let out = run(&[
@@ -5760,6 +5760,9 @@ fn city_a2_a_capital_s_goal_keeps_its_height_with_the_reach_and_says_the_last_st
 		N.Sample()
 		stub.advance(0.3)
 		r.failed = { aim()[1], (N.walk.Unmapped()), said(), r.unreachable or false }
+		-- The fact is kept for the report: one line in the debug log.
+		r.logged = 0
+		for _, line in ipairs(Polestar.DebugLog()) do if line:find("the last steps here aren't mapped", 1, true) then r.logged = r.logged + 1 end end
 		-- Found through the reach (job.reached): its walk is the arrow's, said.
 		N.SetTarget(m, x, y, "Daryl Riknussun", nil, "trainer", 65)
 		N.Sample()
@@ -5791,12 +5794,13 @@ fn city_a2_a_capital_s_goal_keeps_its_height_with_the_reach_and_says_the_last_st
 	assert_eq!(out["asked"], json!([66, 10]), "at his height, with the router's reach");
 	assert_eq!(out["startRetry"], json!([1, "none", 40, 66, 10]), "the tracked start's retry: from the surfaces near its floor, his height kept");
 	assert_eq!(out["flatRetry"], json!([2, "none", false, 66]), "then from no start height, his height kept");
-	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight, as before 0.4.2.
 	assert_eq!(out["flatAsk"], json!([1, "none"]), "once more without his height (#2143)");
-	assert_eq!(out["failed"], json!(["travel", true, true, false]), "a detour over the mountain is not kept: the straight bearing, the missing walk explained");
-	assert_eq!(out["reached"], json!([0, "travel", true, true]), "the walk to the nearest reachable surface on his level, said");
+	assert_eq!(out["failed"], json!(["travel", true, false, false]), "a detour over the mountain is not kept: the straight bearing, nothing said");
+	assert_eq!(out["logged"], 1, "the report's debug log has the unmapped spot, once");
+	assert_eq!(out["reached"], json!([0, "travel", true, false]), "the walk to the nearest reachable surface on his level, nothing said");
 	assert_eq!(out["onFloor"], json!([false, false]));
-	assert_eq!(out["offFloor"], json!([0, true]), "kept, said");
+	assert_eq!(out["offFloor"], json!([0, true]), "kept, nothing said");
 }
 
 // #2143 (Rilli Greasygob in the Valley of Honor): the floor players walk at her spot is one the maps don't join, so

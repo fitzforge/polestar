@@ -926,5 +926,218 @@
 			}
 		],
 		"note": "Twilight Tablet Fragments (Twilight Geolords, 8284) lie on the ground in Silithus' Twilight camps; a player who killed the elementals there got none (#3773). Only pfQuest lists the three elementals, each at 100, so the step's arrow sent players to kill Dust Stormers and Desert Rumblers instead of picking the fragments up."
+	},
+	"159": {
+		"removeVendors": [
+			4963
+		],
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-25: merchant windows of 4963 86 people, none listing item 159; 213 other merchants listed it"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB: npc_vendor has no row for item 159 at npc 4963"
+			}
+		],
+		"note": "Refreshing Spring Water: Mikhail does not sell it on Forever: players' recorded merchant windows never list it, and Forever's world data has no such sale. The merged data still had these sales, which sent the profession guides' shopping steps there."
+	},
+	"2324": {
+		"removeVendors": [
+			4897
+		],
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-25: merchant windows of 4897 42 people, none listing item 2324; 73 other merchants listed it"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB: npc_vendor has no row for item 2324 at npc 4897"
+			}
+		],
+		"note": "Bleach: Helenia Olden does not sell it on Forever: players' recorded merchant windows never list it, and Forever's world data has no such sale. The merged data still had these sales, which sent the profession guides' shopping steps there."
+	},
+	"2325": {
+		"removeVendors": [
+			4775,
+			5163
+		],
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-25: merchant windows of 4775 136 people; 5163 11 people, none listing item 2325; 83 other merchants listed it"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB: npc_vendor has no row for item 2325 at npc 4775, 5163"
+			}
+		],
+		"note": "Black Dye: Felicia Doan and Burbik Gearspanner do not sell it on Forever: players' recorded merchant windows never list it, and Forever's world data has no such sale. The merged data still had these sales, which sent the profession guides' shopping steps there."
+	},
+	"2604": {
+		"removeVendors": [
+			5163
+		],
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-25: merchant windows of 5163 11 people, none listing item 2604; 98 other merchants listed it"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB: npc_vendor has no row for item 2604 at npc 5163"
+			}
+		],
+		"note": "Red Dye: Burbik Gearspanner does not sell it on Forever: players' recorded merchant windows never list it, and Forever's world data has no such sale. The merged data still had these sales, which sent the profession guides' shopping steps there."
+	},
+	"4536": {
+		"removeVendors": [
+			4195
+		],
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-25: merchant windows of 4195 44 people, none listing item 4536; 64 other merchants listed it"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB: npc_vendor has no row for item 4536 at npc 4195"
+			}
+		],
+		"note": "Shiny Red Apple: Tiyani does not sell it on Forever: players' recorded merchant windows never list it, and Forever's world data has no such sale. The merged data still had these sales, which sent the profession guides' shopping steps there."
+	},
+	"5956": {
+		"removeVendors": [
+			1148,
+			2810,
+			2821,
+			3954,
+			3955,
+			4897,
+			11189,
+			12245,
+			12941,
+			15179
+		],
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-25: merchant windows of 1148 47 people; 2810 42 people; 2821 26 people; 3954 20 people; 3955 48 people; 4897 42 people; 11189 7 people; 12245 17 people; 12941 13 people; 15179 3 people, none listing item 5956; 95 other merchants listed it"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB: npc_vendor has no row for item 5956 at npc 1148, 2810, 2821, 3954, 3955, 4897, 11189, 12245, 12941, 15179"
+			}
+		],
+		"note": "Blacksmith Hammer: Nerrist, Hammon Karwn, Keena, Dalria, Shandrina, Helenia Olden, Qia, Vendor-Tron 1000, Jase Farlane and Mishta do not sell it on Forever: players' recorded merchant windows never list it, and Forever's world data has no such sale. The merged data still had these sales, which sent the profession guides' shopping steps there."
+	},
+	"6217": {
+		"removeVendors": [
+			4216,
+			5138
+		],
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-25: merchant windows of 4216 9 people; 5138 38 people, none listing item 6217; 67 other merchants listed it"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB: npc_vendor has no row for item 6217 at npc 4216, 5138"
+			}
+		],
+		"note": "Copper Rod: Chardryn and Gwina Stonebranch do not sell it on Forever: players' recorded merchant windows never list it, and Forever's world data has no such sale. The merged data still had these sales, which sent the profession guides' shopping steps there."
+	},
+	"7005": {
+		"removeVendors": [
+			5163
+		],
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-25: merchant windows of 5163 11 people, none listing item 7005; 95 other merchants listed it"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB: npc_vendor has no row for item 7005 at npc 5163"
+			}
+		],
+		"note": "Skinning Knife: Burbik Gearspanner does not sell it on Forever: players' recorded merchant windows never list it, and Forever's world data has no such sale. The merged data still had these sales, which sent the profession guides' shopping steps there."
+	},
+	"8343": {
+		"removeVendors": [
+			4775,
+			5163
+		],
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-25: merchant windows of 4775 136 people; 5163 11 people, none listing item 8343; 83 other merchants listed it"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB: npc_vendor has no row for item 8343 at npc 4775, 5163"
+			}
+		],
+		"note": "Heavy Silken Thread: Felicia Doan and Burbik Gearspanner do not sell it on Forever: players' recorded merchant windows never list it, and Forever's world data has no such sale. The merged data still had these sales, which sent the profession guides' shopping steps there."
+	},
+	"8925": {
+		"removeVendors": [
+			4775,
+			5163
+		],
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-25: merchant windows of 4775 136 people; 5163 11 people, none listing item 8925; 73 other merchants listed it"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB: npc_vendor has no row for item 8925 at npc 4775, 5163"
+			}
+		],
+		"note": "Crystal Vial: Felicia Doan and Burbik Gearspanner do not sell it on Forever: players' recorded merchant windows never list it, and Forever's world data has no such sale. The merged data still had these sales, which sent the profession guides' shopping steps there."
+	},
+	"14341": {
+		"removeVendors": [
+			989,
+			1148,
+			1286,
+			2810,
+			2821,
+			3367,
+			3954,
+			3955,
+			4229,
+			4561,
+			4775,
+			4897,
+			5163,
+			5817,
+			6301,
+			7947,
+			8145,
+			8363,
+			8934,
+			11189,
+			12022,
+			12028,
+			12245,
+			12941,
+			15179
+		],
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-25: merchant windows of 989 5 people; 1148 47 people; 1286 125 people; 2810 42 people; 2821 26 people; 3367 86 people; 3954 20 people; 3955 48 people; 4229 13 people; 4561 68 people; 4775 136 people; 4897 42 people; 5163 11 people; 5817 40 people; 6301 75 people; 7947 17 people; 8145 14 people; 8363 59 people; 8934 88 people; 11189 7 people; 12022 20 people; 12028 29 people; 12245 17 people; 12941 13 people; 15179 3 people, none listing item 14341; 55 other merchants listed it"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB: npc_vendor has no row for item 14341 at npc 989, 1148, 1286, 2810, 2821, 3367, 3954, 3955, 4229, 4561, 4775, 4897, 5163, 5817, 6301, 7947, 8145, 8363, 8934, 11189, 12022, 12028, 12245, 12941, 15179"
+			}
+		],
+		"note": "Rune Thread is sold by tailoring and leatherworking suppliers on Forever. The other vendors on its list (Edna Mullby, Helenia Olden and 23 more) never list it in players' recorded merchant windows, and Forever's world data has no such sale. The merged data still had these sales, which sent the Tailoring and Leatherworking guides' shopping steps to them (#4040)."
 	}
 }

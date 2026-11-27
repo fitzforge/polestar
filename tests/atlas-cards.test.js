@@ -199,3 +199,38 @@ emit({ house = house, classic = classic })`,
 	assert.equal(out.house.lineX, 0, 'the house look: the progress line from the window\'s edge');
 	assert.equal(out.classic.lineX, out.classic.seam, 'Classic: the progress line starts inside the rim');
 });
+
+// A card folds to its heading (a click on it) and opens again (a click on
+// the folded card); the fold is kept per card (ui.atlasFolded.<card>), the
+// × still closes the card for the step.
+test('a card folds to its heading and count, and a click opens it again', () => {
+	const out = run(`
+local function card(f)
+	local b = f:GetParent()
+	return { shown = f:IsShown(), h = b:GetHeight() }
+end
+local optional = stack.opt
+local openH = optional:GetParent():GetHeight()
+local head = optional:GetParent().Fold
+local headShown = head:IsShown()
+stub.RunScript(head, "OnClick", "LeftButton")
+draw()
+local strip = stack.folds and stack.folds.opt
+local folded = { opt = optional:IsShown(), strip = strip and strip:IsShown() or false, text = strip and strip.Label:GetText() or false,
+	h = strip and strip:GetParent():GetHeight() or 0, saved = Polestar.Get("ui.atlasFolded.opt") }
+local alongShown = parts.along:IsShown()
+stub.RunScript(strip, "OnClick", "LeftButton")
+draw()
+emit({ openH = openH, headShown = headShown, folded = folded, alongShown = alongShown,
+	reopened = optional:IsShown(), stripAfter = strip:IsShown(), saved = Polestar.Get("ui.atlasFolded.opt") or false })`);
+	assert.equal(out.headShown, true, "the open card's heading folds it");
+	assert.equal(out.folded.opt, false, 'folded: its rows hide');
+	assert.equal(out.folded.strip, true, 'folded: its heading strip shows');
+	assert.equal(out.folded.text, 'OPTIONAL  ·  1', 'the heading and its count');
+	assert.ok(out.folded.h < out.openH, `the folded card is shorter: ${out.folded.h} vs ${out.openH}`);
+	assert.equal(out.folded.saved, true, 'the fold is kept');
+	assert.equal(out.alongShown, true, 'the other cards stay open');
+	assert.equal(out.reopened, true, 'a click on the folded card opens it');
+	assert.equal(out.stripAfter, false);
+	assert.equal(out.saved, false);
+});

@@ -823,7 +823,10 @@ fn the_route_line_draws_the_walks_sketch_while_its_search_is_still_out() {
 // continents): a journey to the other continent searches and measures only the walks on the player's own, so only its
 // part of Polestar_Nav loads (Polestar_Nav_EK in Brill, its regions inside it, unpacked as its walks touch them); the
 // walk at the far end keeps the planner's straight estimate. The other part loads once the player is there
-// (Nav/Walk.lua canSearch, Path.Resident). No other addon loads: 0.4.2's region addons are gone (#3396).
+// (Nav/Walk.lua canSearch, Path.Resident). No other walking-map addon loads: 0.4.2's region addons are gone (#3396).
+// Only Polestar_Nav's parts are counted: the level-up to 20 runs the dungeon card's check (UI/DungeonToast.lua), which
+// loads the Codex by design once no class quest card holds the level-up (#3940 made the Warrior's level-20 chain
+// optional, so nothing does any more).
 #[test]
 fn a_journey_to_the_other_continent_loads_only_the_players_continents_walking_maps_the_other_part_on_arrival() {
 	skip_unless_ready!();
@@ -837,7 +840,7 @@ fn a_journey_to_the_other_continent_loads_only_the_players_continents_walking_ma
 		w.faction = "Horde"
 		local loads, asked = {}, {}
 		local load = C_AddOns.LoadAddOn
-		C_AddOns.LoadAddOn = function(name) loads[#loads + 1] = name return load(name) end
+		C_AddOns.LoadAddOn = function(name) if name:find("^Polestar_Nav") then loads[#loads + 1] = name end return load(name) end
 		for _, name in ipairs({ "FindMany", "FindCoarse", "FindCost" }) do
 			local real = E[name]
 			E[name] = function(map, ...) asked[map] = (asked[map] or 0) + 1 return real(map, ...) end
@@ -2110,6 +2113,39 @@ fn t_1784_floor_walked_onto_silverpines_covered_bridge_from_the_south_bank_the_w
 	assert!((f(&out["z"]) - 56.0).abs() <= 3.0, "the walk starts on the deck ({})", out["z"]);
 	assert!(f(&out["south"]) >= 838.0, "and never turns back south off the bridge ({})", out["south"]);
 	assert!(f(&out["top"]) <= 59.0, "nor stands on the roof ({})", out["top"]);
+}
+
+// Menethil Harbor's long pier (its deck at 6-8, the sea at 0 in every cell under it). With the floor unknown on the
+// deck (standing still while the ship came in, then a step), seed took the lowest surface: the sea under the pier.
+// The arrow's walk to the dock's board point then swam out to the shore and walked the pier back to the player, and
+// the minimap drew that loop. Out of the water (IsSwimming false) the sea is no floor where the deck lies over it.
+fn floor_pier(swimming: bool) -> Value {
+	let script = r#"
+		Polestar.Set("nav.travel", false)
+		w.setLevel(30)
+		w.faction = "Alliance"
+		IsSwimming = function() return @SWIM end
+		N.SetTarget(1437, 20, 50, "Inland")
+		place(1437, -3755, -637, 0)
+		stub.advance(3)
+		aim()
+		walkTo(1437, { { -3735, -608 } })
+		local f = walkFor(1437, -3717.7, -584.4, "Boat to Auberdine", 4.9)
+		emit({ z = f.from[3] or false, yards = floor(length(f.points or {})) })"#
+		.replace("@SWIM", if swimming { "true" } else { "false" });
+	run(&format!("{FLOOR_WALK}{script}"), true)
+}
+
+#[test]
+fn floor_on_menethils_pier_out_of_the_water_the_walk_to_the_board_point_starts_on_the_deck_not_the_sea_under_it() {
+	skip_unless_ready!();
+	let out = floor_pier(false);
+	eprintln!("on the deck: from z {}, {} yd", out["z"], out["yards"]);
+	assert!((f(&out["z"]) - 6.0).abs() <= 3.0, "searched from the deck ({})", out["z"]);
+	assert!(f(&out["yards"]) < 40.0, "straight along the deck, not out to the shore and back ({} yd)", out["yards"]);
+	let out = floor_pier(true);
+	eprintln!("swimming: from z {}, {} yd", out["z"], out["yards"]);
+	assert!(f(&out["z"]).abs() <= 1.0, "swimming under the pier, the sea is the floor ({})", out["z"]);
 }
 
 // The pattern sweep's worst Undercity start (hop|forever/class/rogue/plundering-the-plunderers|17, real z -62.2, its
@@ -4837,4 +4873,78 @@ fn border_sweep() {
 	let stalled = results.iter().filter(|r| r["stalled"].as_f64().is_some()).count();
 	let flips: f64 = results.iter().map(|r| r["flips"].as_f64().unwrap_or(0.0)).sum();
 	eprintln!("border sweep: {} starts, {arrived} arrived, {stalled} stalled, {flips} flips -> {out_file}", results.len());
+}
+
+/// #4227 (Winnersville), an Alliance level 47 at Southshore with Aerie Peak's flight path known, to Rhapsody Shindigger
+/// (The Hinterlands 26.84,48.45). Steps, as players take them: the target is set at Southshore's flight master; a flight
+/// to Menethil Harbor and the flight back (Travel.TakeOff and Travel.Landed, as the taxi's start and end call them);
+/// then the walk into Southshore to where he stood (54.82,53.39). `back`: also back at Southshore's flight master.
+/// The route's legs (kind|label|seconds) after each.
+fn southshore_menethil_and_back(back: bool) -> Value {
+	run(
+		&format!(
+			r#"
+		w.faction = "Alliance"
+		w.setLevel(47)
+		Polestar.Set("nav.routeStyle", "fastest")
+		local known = {{}}
+		for _, id in ipairs({{ 2, 4, 5, 6, 7, 8, 12, 14, 16, 19, 43, 45, 66, 71, 3276 }}) do known[id] = true end
+		Polestar.CharState().flags.taxi = known
+		Polestar.CharState().flags.taxiSeen = {{ [0] = true }}
+		local T = N.travel
+		local southshore, menethil = N.GetTaxiNode(14), N.GetTaxiNode(7)
+		local function settle()
+			T.Replan()
+			for _ = 1, 400 do stub.advance(0.05); aim() end
+			local legs, ci = N.GetRoute()
+			local list = {{}}
+			for i = ci or 1, #(legs or {{}}) do list[#list + 1] = legs[i].kind .. "|" .. tostring(legs[i].label) .. "|" .. tostring(legs[i].seconds) end
+			return list
+		end
+		place(1424, southshore.wx, southshore.wy)
+		N.SetTarget(1425, 26.84, 48.45, "Rhapsody Shindigger")
+		local out = {{ start = settle() }}
+		T.TakeOff()
+		place(1437, menethil.wx, menethil.wy)
+		T.Landed()
+		out.menethil = settle()
+		T.TakeOff()
+		place(1424, southshore.wx, southshore.wy)
+		T.Landed()
+		local c, wx, wy = C.MapToWorld(1424, 54.82, 53.39)
+		place(1424, wx, wy)
+		out.town = settle()
+		if {back} then
+			place(1424, southshore.wx, southshore.wy)
+			out.back = settle()
+		end
+		emit(out)"#
+		),
+		true,
+	)
+}
+
+/// His travel line was "Ride to The Hinterlands 3:01 · Ride to The Hinterlands 1:15 · Turn in “Rhapsody Shindigger”
+/// 1:51": the flight to Menethil and back left Southshore's flight master behind (Travel.Behind, #1890), for good
+/// with that target, so the route rode round into the Hinterlands. A flight master left behind counts again once
+/// the player is back at it: landed there, or standing within its LEARN_FP yards.
+#[test]
+fn travel_4227_back_at_southshore_after_a_flight_to_menethil_the_route_flies_to_aerie_peak() {
+	skip_unless_ready!();
+	let out = southshore_menethil_and_back(true);
+	let flies = |k: &str| strs(&out[k]).iter().any(|l| l.starts_with("fly|Fly to Aerie Peak"));
+	assert!(flies("start"), "from Southshore's flight master it flies to Aerie Peak: {}", out["start"]);
+	assert!(flies("town"), "after Menethil and back, from where he stood in Southshore, it flies again: {}", out["town"]);
+	assert!(flies("back"), "and at the flight master: {}", out["back"]);
+}
+
+/// #1890 still holds away from it: right after the flight from Southshore lands at Menethil Harbor, the route to
+/// Rhapsody never flies from Southshore or through it.
+#[test]
+fn travel_4227_a_flight_master_left_behind_stays_out_while_the_player_is_away_from_it_1890() {
+	skip_unless_ready!();
+	let out = southshore_menethil_and_back(false);
+	let legs = strs(&out["menethil"]);
+	assert!(!legs.is_empty(), "a route from Menethil Harbor");
+	assert!(legs.iter().all(|l| !l.contains("Southshore")), "no leg names Southshore: {}", legs.join(" / "));
 }

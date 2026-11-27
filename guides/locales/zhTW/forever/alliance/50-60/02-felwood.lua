@@ -50,8 +50,9 @@ return {
 	["Careful: {npc:9454} (54) stands at the back of the {area:2481}, at about 32.2,67.1, with Shadowstalkers around him: clear them one at a time, then pull him alone at full health."] = "小心：{npc:9454}（54級）站在{area:2481}後方，約32.2,67.1，周圍有暗影潛行者：一次清掉一隻，然後在滿血時單獨拉他。",
 
 	-- Step 8: Jaedenar
-	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge
-	["{area:1763} is the ruined temple north of the glen.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him."] = "",
+	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge · {item:11948} Empty Tainted Ooze Jar
+	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
+	["{area:1763} is the ruined temple north of the glen.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him.\nTainted Oozes slide about {area:1763}'s fel pools: kill them and use the {item:11948} on their remains."] = "",
 	-- {item:11949} Filled Tainted Ooze Jar · {area:1763} Jaedenar
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
 	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "{item:11949}：汙染軟泥怪在{area:1763}的邪能水池裡四處遊蕩",
@@ -241,8 +242,8 @@ return {
 	["The giant {npc:7765} sits just north-west of {npc:7775}'s camp."] = "巨人{npc:7765}就坐在{npc:7775}營地的西北邊。",
 
 	-- Step 51: Evoroot
-	-- {item:11242} Evoroot · {npc:7765} Rockbiter
-	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "{item:11242}生長在{npc:7765}北邊一棟廢墟建築裡：從旁邊的岩架穿過牆上的破口爬進去。",
+	-- {item:11242} Evoroot · {npc:7765} Rockbiter · {npc:9467} Miblon Snarltooth
+	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it.\nOr the front door: {npc:9467} guards it, and the Bait Gregan sells draws him off when you use it beside him. Half the players in our recordings went in that way, half through the wall."] = "",
 
 	-- Step 52: Shay Leafrunner
 	-- {npc:7774} Shay Leafrunner · {item:9189} Shay's Bell
@@ -286,6 +287,7 @@ return {
 	-- ["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. The Avengers can drop a {quest:8470}."] = "{area:1762}的死木熊怪佈滿洞穴西邊的山丘。死木復仇者可能掉落{quest:8470}。",
 	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back."] = "碧火薩特佔據道路西邊的山谷，{npc:9454}在山谷深處。",
 	-- ["The vial is filled in {zone:1457}: keep it; inside"] = "瓶子在{zone:1457}裝滿：保留此任務；在裡面",
+	-- ["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "{item:11242}生長在{npc:7765}北邊一棟廢墟建築裡：從旁邊的岩架穿過牆上的破口爬進去。",
 	-- ["Top up here to level 52.69 before the hand-ins at {area:1763}: they take you to level 53."] = "在這裡補到52.69級，再去{area:1763}交任務，交完會升到53級。",
 	-- ["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}. If you freed {npc:11018}, go back into {area:1770} for the succubus {npc:9518}; Trey Lightforge's remains lie beside her."] = "在{area:1763}中央的腐化月井使用{item:12922}。如果你釋放了{npc:11018}，回到{area:1770}找魅魔{npc:9518}；特雷·萊弗治的殘骸就在她旁邊。",
 	-- ["grind on {npc:7109}"] = "刷{npc:7109}",

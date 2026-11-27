@@ -247,6 +247,7 @@ step Camping 101: Fishing
 step Razor Hill
   accept 96822                        -- Turroc, on the east side of town; inside
   turnin 5649 only Troll,Priest       -- Tai'jin, in the barracks beside Turroc
+  tip Priests: Garments of Spirituality counts only Lesser Heal (Rank 2). Tai'jin trains priests too: learn it from her now if you have not yet.
   accept 5648 only Troll,Priest
   turnin 823                          -- Orgnil Soulscar
   accept 784

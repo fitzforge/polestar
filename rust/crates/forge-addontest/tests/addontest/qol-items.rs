@@ -230,6 +230,32 @@ fn a_grey_quest_starter_or_quest_item_is_never_sold() {
 	assert_eq!(out[0], json!({ "cudgel": 0, "bone": 0, "fangs": 1, "shell": 1 }), "the quest items stay, the other greys sell");
 }
 
+// #3997 (Liquidor): a worn Frayed Robe sells for 2c, not its 4c vendor price, as its tooltip says. Bag space priced
+// it at 4c, so the shell (3c) was the cheapest junk, and the merchant's line counted 4c for it.
+#[test]
+fn a_damaged_item_is_priced_at_what_the_merchant_pays_for_it_3997() {
+	let out = run(&[
+		BAGS,
+		r#"
+		local S = QoL.Space
+		q.items[6] = { name = "Frayed Robe", quality = 0, price = 4 }
+		fill(3)
+		q.addItem(0, 14, 6, 1)
+		q.bags[0].slots[14].worn = 2
+		bagsChanged()
+		local j = S.Junk()
+		emit({ junk = j and j.id or false, value = j and j.value or false })
+		q.money = 0
+		q.openMerchant()
+		stub.advance(3)
+		emit({ money = q.money, said = printed("Sold 4 grey items for 19c") })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "junk": 6, "value": 2 }), "the worn robe (2c) is cheaper than the shell (3c)");
+	assert_eq!(out[1], json!({ "money": 19, "said": true }), "two fangs (14c), the shell (3c) and the worn robe (2c)");
+}
+
 #[test]
 fn marks_ctrl_alt_click_cycles_junk_keep_and_clear_junk_is_sold_kept_greys_are_not_and_never_deleted() {
 	let out = run(&[
@@ -582,6 +608,46 @@ fn wear_offers_new_gear_from_loot_puts_it_on_only_when_taken_and_remembers_a_no(
 	assert_eq!(out[6], true, "Gear advice off: no offers");
 }
 
+#[test]
+fn wear_uses_the_clients_required_level_when_itemdb_is_out_of_date() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_qol.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Gear/Gear.xml", "QoL/QoL.xml"])],
+		before: r#"
+		stub.qol.level = 37
+		UnitClass = function() return "Warlock", "WARLOCK", 9 end
+		"#
+		.into(),
+		login: true,
+		script: format!(
+			"{PRELUDE}{}",
+			r#"
+		Polestar.ItemDB.Register({ schema = 1, build = "test" }, {
+			[5608] = "1 40 35 2 4 1 sta11 spi10 armor43",
+			[4491] = "1 1 20 1 12 0 uniq1", -- Simulate a stale positive requirement for the goggles.
+		})
+		q.items[5608] = { name = "Living Cowl", equipLoc = "INVTYPE_HEAD", minLevel = 39 }
+		q.items[4491] = { name = "Goggles of Gem Hunting", equipLoc = "INVTYPE_HEAD", minLevel = 0 }
+		q.addItem(0, 1, 5608, 1); bagsChanged()
+		local link = C_Container.GetContainerItemInfo(0, 1).hyperlink
+		emit({ Polestar.Gear.CompareToEquipped(link).minLevel, QoL.Wear.Offer() ~= nil })
+
+		q.bags[0].slots[1] = nil; bagsChanged()
+		q.level = 39
+		stub.fire("PLAYER_LEVEL_UP", q.level)
+		q.addItem(0, 1, 5608, 1); bagsChanged()
+		local offer = QoL.Wear.Offer()
+		emit(offer and offer.id or false)
+		emit(Polestar.Gear.GetItemInfo(4491).req)
+	"#
+		),
+		..Default::default()
+	});
+	assert_eq!(out[0], json!([39, false]), "the client requires level 39 and the player is level 37");
+	assert_eq!(out[1], 5608, "a fresh copy is offered at the required level");
+	assert_eq!(out[2], 0, "a client requirement of zero still wins over ItemDB");
+}
+
 // A level 20 character with a gun: water at three levels, bread, shot, arrows and a reagent for sale.
 const GOODS: &str = r#"
 	q.level = 20
@@ -743,6 +809,24 @@ fn banner_bags_full_offers_the_two_click_delete_and_close_dismisses_it() {
 	assert_eq!(out[0], json!({ "shown": true, "text": "Your bags are full.  ·  Cheapest junk: [Broken Fang] x2 (14c)", "jump": "Delete it", "close": true }));
 	assert_eq!(out[1], "Click again to delete it");
 	assert_eq!(out[2], json!({ "shown": false, "log": ["press", "dismiss"] }));
+}
+
+// #4314 (Shuurajou, Atlas): with the action on the right (guideWindow.bannerLinks "right", Atlas's), the armed
+// "Click again to delete it" was cut at the right's room and read "Click again to…". A label longer than that room
+// goes under the text at the right, whole.
+#[test]
+fn banner_bags_with_the_action_on_the_right_the_armed_delete_link_reads_whole_4314() {
+	let out = run_ui(
+		r#"
+		Polestar.Set("guideWindow.bannerLinks", "right")
+		bags = { free = 0, junk = { id = 2, count = 2, value = 14, link = "[Broken Fang]" }, armed = false }
+		Polestar.Fire("BAG_SPACE")
+		B.Jump:Click()
+		local point, rel, relPoint = B.Jump:GetPoint(1)
+		emit({ text = B.Jump.Label:GetText(), cut = B.Jump.Label:IsTruncated(), point = point, under = rel == B.Text, relPoint = relPoint })
+	"#,
+	);
+	assert_eq!(out[0], json!({ "text": "Click again to delete it", "cut": false, "point": "TOPRIGHT", "under": true, "relPoint": "BOTTOMRIGHT" }));
 }
 
 // Without junk or a spare bag the notice is the news alone: one line, no link row under it.

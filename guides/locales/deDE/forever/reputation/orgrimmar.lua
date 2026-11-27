@@ -101,7 +101,7 @@ return {
 	["{quest:827}: the {item:14544}"] = "{quest:827}: das {item:14544}",
 	-- {quest:827} Skull Rock · {faction:76} Orgrimmar
 	-- plural, as words: Burning Blade Fanatics = {npc:3197} Burning Blade Fanatic
-	["{quest:827} is the cave just east of {faction:76}. Burning Blade Fanatics and Apprentices inside drop the insignia about one kill in five."] = "{quest:827} ist die Höhle gleich östlich von {faction:76}. Die Burning Blade Fanatics und Apprentices darin lassen das Abzeichen bei etwa jedem fünften Kill fallen.",
+	["{quest:827} is the cave just east of {faction:76}. Burning Blade Fanatics and Apprentices inside drop the insignia about one kill in five."] = "{quest:827} ist die Höhle gleich östlich von {faction:76}. Die Fanatiker und Lehrlinge der Burning Blade darin lassen das Abzeichen bei etwa jedem fünften Kill fallen.",
 
 	-- Step 15: Orgrimmar: Thrall and Neeru Fireblade
 	-- {faction:76} Orgrimmar · {npc:4949} Thrall · {npc:3216} Neeru Fireblade
@@ -179,7 +179,7 @@ return {
 	-- Step 27: Stormy Potential
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak
 	-- plural, as words: Charged Thunder Lizard Organs = {item:277665} Charged Thunder Lizard Organ
-	["The Charged Thunder Lizard Organs come from the thunder lizards on {area:369}, just west of {npc:3293}."] = "Die Charged Thunder Lizard Organs stammen von den Donnerechsen auf {area:369}, gleich westlich von {npc:3293}.",
+	["The Charged Thunder Lizard Organs come from the thunder lizards on {area:369}, just west of {npc:3293}."] = "Die geladenen Donnerechsenorgane stammen von den Donnerechsen auf {area:369}, gleich westlich von {npc:3293}.",
 
 	-- Step 29: Skull Rock
 	-- {quest:828} Margoz · {quest:827} Skull Rock · {faction:76} Orgrimmar
@@ -219,7 +219,7 @@ return {
 	["Zhevras, quilboars, harpies and the {area:1697}"] = "Zhevras, Stacheleber, Harpyien und die {area:1697}",
 	-- {npc:3438} Kreenig Snarlsnout · {quest:3281} Stolen Silver · {area:1697} Raptor Grounds · {area:378} Camp Taurajo
 	-- plural, as words: Zhevra Runners = {npc:3242} Zhevra Runner · Witchwing Slayers = {npc:3278} Witchwing Slayer
-	["Zhevra Runners graze south and west of the town. {npc:3438} leads the Razormane camps north-east. The Witchwing Slayers carry the rings. The {quest:3281} is in the {area:1697} east of {area:378}: follow the nest-lined path on its left side to the last nest."] = "Zhevra Runners grasen südlich und westlich der Stadt. {npc:3438} führt die Lager der Razormane im Nordosten an. Die Witchwing Slayers tragen die Ringe. Die {quest:3281} ist in den {area:1697} östlich von {area:378}: Folge dem von Nestern gesäumten Pfad auf seiner linken Seite bis zum letzten Nest.",
+	["Zhevra Runners graze south and west of the town. {npc:3438} leads the Razormane camps north-east. The Witchwing Slayers carry the rings. The {quest:3281} is in the {area:1697} east of {area:378}: follow the nest-lined path on its left side to the last nest."] = "Zhevra-Läufer grasen südlich und westlich der Stadt. {npc:3438} führt die Lager der Razormane im Nordosten an. Die Töterinnen der Hexenschwingen tragen die Ringe. Die {quest:3281} ist in den {area:1697} östlich von {area:378}: Folge dem von Nestern gesäumten Pfad auf seiner linken Seite bis zum letzten Nest.",
 
 	-- Step 37: The Crossroads: hand in again
 	-- {area:380} The Crossroads
@@ -230,7 +230,7 @@ return {
 	["Prowlers, {npc:3452} and {quest:881}"] = "Prowlers, {npc:3452} und {quest:881}",
 	-- {quest:876} Serena Bloodfeather · {npc:3338} Sergra Darkthorn · {item:10327} Horn of Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
 	-- plural, as words: Savannah Prowlers = {npc:3425} Savannah Prowler
-	["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "Savannah Prowlers sind westlich und nördlich des Crossroads. {quest:876} führt die Witchwing-Harpyien im äußersten Nordwesten an. Dann gibt dir {npc:3338} das {item:10327}: Blas es neben den Kodoknochen bei {object:147524}, nördlich der Stadt, und töte den weißen Löwen.",
+	["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "Savannenstreuner sind westlich und nördlich des Crossroads. {quest:876} führt die Witchwing-Harpyien im äußersten Nordwesten an. Dann gibt dir {npc:3338} das {item:10327}: Blas es neben den Kodoknochen bei {object:147524}, nördlich der Stadt, und töte den weißen Löwen.",
 
 	-- Step 39: Chen's Empty Keg (optional hub)
 	-- {quest:819} Chen's Empty Keg
@@ -250,13 +250,13 @@ return {
 	["{area:392}: the repeatable keg"] = "{area:392}: das wiederholbare Fass",
 	-- {item:4897} Thunderhawk Saliva Gland · {item:4896} Kodo Liver · {npc:3238} Stormhide · {area:378} Camp Taurajo · {area:392} Ratchet
 	-- plural, as words: Lightning Glands = {item:4898} Lightning Gland · Greater Thunderhawks = {npc:3249} Greater Thunderhawk
-	["From now on Drohn takes 5 Lightning Glands, a {item:4897} and a {item:4896} for 50, as often as you like. The {npc:3238} thunder lizards (a gland about every other kill), the Greater Thunderhawks and the kodos south of {area:378} drop them. Gather several sets before you head back to {area:392}."] = "Ab jetzt nimmt Drohn 5 Lightning Glands, eine {item:4897} und eine {item:4896} für 50 an, so oft du willst. Die Donnerechsen {npc:3238} (etwa jeder zweite Kill gibt eine Drüse), die Greater Thunderhawks und die Kodos südlich von {area:378} lassen sie fallen. Sammle mehrere Sätze, bevor du zurück nach {area:392} gehst.",
+	["From now on Drohn takes 5 Lightning Glands, a {item:4897} and a {item:4896} for 50, as often as you like. The {npc:3238} thunder lizards (a gland about every other kill), the Greater Thunderhawks and the kodos south of {area:378} drop them. Gather several sets before you head back to {area:392}."] = "Ab jetzt nimmt Drohn 5 Blitzschlag-Drüsen, eine {item:4897} und eine {item:4896} für 50 an, so oft du willst. Die Donnerechsen {npc:3238} (etwa jeder zweite Kill gibt eine Drüse), die Großen Donnerfalken und die Kodos südlich von {area:378} lassen sie fallen. Sammle mehrere Sätze, bevor du zurück nach {area:392} gehst.",
 	-- {item:4898} Lightning Gland
 	-- plural, as words: Stormhides = {npc:3238} Stormhide
-	["{item:4898}, from Stormhides"] = "{item:4898}, von Stormhides",
+	["{item:4898}, from Stormhides"] = "{item:4898}, von Sturmechsen",
 	-- {item:4897} Thunderhawk Saliva Gland
 	-- plural, as words: Greater Thunderhawks = {npc:3249} Greater Thunderhawk
-	["{item:4897}, from Greater Thunderhawks"] = "{item:4897}, von Greater Thunderhawks",
+	["{item:4897}, from Greater Thunderhawks"] = "{item:4897}, von Großen Donnerfalken",
 	-- {item:4896} Kodo Liver
 	["{item:4896}, from the kodos"] = "{item:4896}, von den Kodos",
 
@@ -293,7 +293,7 @@ return {
 	["{zone:1452}: owlbeasts"] = "{zone:1452}: Eulenbestien",
 	-- {area:2255} Everlook
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast · Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
-	["Raging Owlbeasts north-west of {area:2255}, Ragged Owlbeasts further west."] = "Raging Owlbeasts nordwestlich von {area:2255}, Ragged Owlbeasts weiter westlich.",
+	["Raging Owlbeasts north-west of {area:2255}, Ragged Owlbeasts further west."] = "Tobende Eulenbestien nordwestlich von {area:2255}, struppige Eulenbestien weiter westlich.",
 
 	-- Step 49: Bloodvenom Post: hand in
 	-- {area:1997} Bloodvenom Post
@@ -305,7 +305,7 @@ return {
 	["{zone:1452}: Moontouched Owlbeasts"] = "{zone:1452}: Moontouched-Eulenbestien",
 	-- {area:2255} Everlook
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
-	["Moontouched Owlbeasts north of {area:2255} and south of it."] = "Moontouched Owlbeasts nördlich von {area:2255} und südlich davon.",
+	["Moontouched Owlbeasts north of {area:2255} and south of it."] = "Mondbestrahlte Eulenbestien nördlich von {area:2255} und südlich davon.",
 
 	-- Step 51: Bloodvenom Post: hand in again
 	-- {area:1997} Bloodvenom Post
@@ -317,7 +317,7 @@ return {
 	["{zone:1452}: Berserk Owlbeasts"] = "{zone:1452}: Berserk-Eulenbestien",
 	-- {area:2255} Everlook · {item:12558} Blue-feathered Necklace · {quest:4882} Guarding Secrets
 	-- plural, as words: Berserk Owlbeasts = {npc:7454} Berserk Owlbeast
-	["Most Berserk Owlbeasts are north of {area:2255}. A {item:12558} may drop from the owlbeasts now: use it to start {quest:4882}."] = "Die meisten Berserk Owlbeasts sind nördlich von {area:2255}. Jetzt kann eine {item:12558} von den Eulenbestien fallen: Benutze sie, um {quest:4882} zu starten.",
+	["Most Berserk Owlbeasts are north of {area:2255}. A {item:12558} may drop from the owlbeasts now: use it to start {quest:4882}."] = "Die meisten Berserkereulenbestien sind nördlich von {area:2255}. Jetzt kann eine {item:12558} von den Eulenbestien fallen: Benutze sie, um {quest:4882} zu starten.",
 
 	-- Step 53: Bloodvenom Post: last hand-in
 	-- {area:1997} Bloodvenom Post

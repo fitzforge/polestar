@@ -164,6 +164,22 @@ static TEXT: &[(&str, [&str; 9], [&str; 9])] = &[
 			"Polestar 的一部分：設定視窗、外觀頁面及其預覽。開啟設定時載入。",
 		],
 	),
+	// The quest-log modes (#3701): Free mode and the finished-quest guide's planner, loaded when one opens.
+	(
+		"Polestar_FreeMode",
+		["Polestar-Freimodus", "Polestar: modo libre", "Polestar: modo libre", "Polestar : mode libre", "Polestar 자유 모드", "Polestar: modo livre", "Polestar: свободный режим", "Polestar 自由模式", "Polestar 自由模式"],
+		[
+			"Teil von Polestar: der Freimodus, deine eigenen Quests als Guide, und der Guide zum Abgeben erledigter Quests. Wird geladen, wenn einer davon geöffnet wird.",
+			"Parte de Polestar: el modo libre, tus propias misiones como guía, y la guía para entregar tus misiones completadas. Se carga al abrir uno de ellos.",
+			"Parte de Polestar: el modo libre, tus propias misiones como guía, y la guía para entregar tus misiones terminadas. Se carga al abrir uno de ellos.",
+			"Fait partie de Polestar : le mode libre, vos propres quêtes comme guide, et le guide pour rendre vos quêtes terminées. Chargé à l'ouverture de l'un d'eux.",
+			"Polestar의 일부: 자유 모드(내가 받은 퀘스트를 가이드로)와 완료한 퀘스트 제출 가이드. 둘 중 하나를 열 때 불러옵니다.",
+			"Parte do Polestar: o modo livre, suas próprias missões como guia, e o guia para entregar suas missões concluídas. Carregado ao abrir um deles.",
+			"Часть Polestar: свободный режим, ваши собственные задания как гайд, и гайд для сдачи выполненных заданий. Загружается при открытии одного из них.",
+			"Polestar 的组成部分：自由模式（把你自己的任务当作指南）和交还已完成任务的指南。打开其中之一时加载。",
+			"Polestar 的一部分：自由模式（把你自己的任務當作指南）和繳交已完成任務的指南。開啟其中之一時載入。",
+		],
+	),
 	// Polestar's ten skins and the Atlas layout (one folder since 0.4.3, #3507): loaded with the first one used or
 	// listed.
 	(

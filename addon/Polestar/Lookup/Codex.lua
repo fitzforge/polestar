@@ -328,7 +328,8 @@ local function decodeItem(group, id, s)
 end
 
 -- An NPC record: level;levelMax;faction;flags;instance;roles;loot;spawn groups...[;z<heights>][;t<subName>]
--- [;v<quest>]. flags: r rare, e elite, b boss, g seen only by a dead character (#558: Franclorn Forgewright);
+-- [;v<quest>]. flags: r rare, e elite, b boss, g seen only by a dead character (#558: Franclorn Forgewright),
+-- s a rare spawn on a player faction's side, no rare to hunt (#4388: Pexmit);
 -- v: the quest after which it sells (#3138: Zorbin Fandazzle after Zapped Giants).
 local function decodeNpc(group, id, s)
 	local t, n = split(s, ";")
@@ -352,6 +353,7 @@ local function decodeNpc(group, id, s)
 		elite = find(flags, "e", 1, true) ~= nil,
 		boss = find(flags, "b", 1, true) ~= nil,
 		ghostOnly = find(flags, "g", 1, true) ~= nil or nil,
+		rareSpawn = find(flags, "s", 1, true) ~= nil or nil,
 		vendorAfter = vendorAfter,
 		instance = unesc(t[5]),
 		roles = roles,
@@ -428,15 +430,26 @@ local function decodeQuest(group, id, s)
 		elseif lead == "v" then
 			-- One of a set its giver offers one at a time (#3601: Pix's weekly In Demand quests): v<set name>.
 			rec.rotation = unesc(sub(f, 2))
+		elseif f == "n" then
+			-- No recording has shown it on Forever yet (the Nightmare Incursion missions).
+			rec.unseen = true
 		elseif f == "t" then
 			-- The kill objective before it is a beast to tame (Taming the Beast).
 			local o = rec.objectives[#rec.objectives]
 			if o then o.tame = true end
 		elseif lead == "a" then
-			-- The kill objective before it is done by using this item on the
-			-- NPC (the Codex build's useItem, #2468): a<item>.
+			-- The kill or event objective before it is done by using this item
+			-- (the Codex build's useItem: on the NPC, #2468; at the event's
+			-- place, #4270: the Pile of Pylon Parts at each pylon): a<item>.
 			local o = rec.objectives[#rec.objectives]
 			if o then o.useItem = tonumber(sub(f, 2)) end
+		elseif lead == "j" then
+			-- What that use spends, gathered before it (the Codex build's
+			-- reagent, #4270: four Coalesced Mana Crystals from the Unstable
+			-- Mana Rifts for each pylon): j<item>,<count>,<npc>.
+			local o = rec.objectives[#rec.objectives]
+			local _, _, item, count, npc = find(f, "^j(%d+),(%d+),(%d+)$")
+			if o and item then o.reagent = { item = tonumber(item), count = tonumber(count), npc = tonumber(npc) } end
 		elseif lead == "m" then
 			-- The kill objective before it is of a target this item calls up
 			-- (the Codex build's summonItem, #2326: Yeh'kinya's Bramble on a dead
@@ -448,6 +461,12 @@ local function decodeQuest(group, id, s)
 			-- bramble is used on, dead): g<npc>,<npc>...
 			local o = rec.objectives[#rec.objectives]
 			if o then o.summonOn = numbers(sub(f, 2)) end
+		elseif lead == "f" then
+			-- The items the item objective before it is made from, that the
+			-- quest needs (the Codex build's madeFrom, #4148: the Essence of
+			-- Hakkar fills the Egg of Hakkar): f<item>,<item>...
+			local o = rec.objectives[#rec.objectives]
+			if o then o.madeFrom = numbers(sub(f, 2)) end
 		elseif lead == "p" then
 			-- Where the objective before it is done (an event's area): p<map>,<x>,<y>,<f>.
 			local o = rec.objectives[#rec.objectives]

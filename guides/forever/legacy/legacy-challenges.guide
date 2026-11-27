@@ -157,38 +157,42 @@ step Adventure: Saving the Best for Last (Alliance)
   tip Deliana then offers your class's Saving the Best for Last, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them.
   turnin 8997                 -- Deliana, Ironforge: Back to the Beginning
   level 58
-  accept 8999 only Druid optional
-  collect 16720 quest 8999.1 only Druid optional  -- Wildheart Cowl
-  collect 16706 quest 8999.2 only Druid optional  -- Wildheart Vest
-  turnin 8999 only Druid optional
-  accept 9000 only Hunter optional
-  collect 16677 quest 9000.1 only Hunter optional  -- Beaststalker's Cap
-  collect 16674 quest 9000.2 only Hunter optional  -- Beaststalker's Tunic
-  turnin 9000 only Hunter optional
-  accept 9001 only Mage optional
-  collect 16686 quest 9001.1 only Mage optional  -- Magister's Crown
-  collect 16688 quest 9001.2 only Mage optional  -- Magister's Robes
-  turnin 9001 only Mage optional
-  accept 9002 only Paladin optional
-  collect 16727 quest 9002.1 only Paladin optional  -- Lightforge Helm
-  collect 16726 quest 9002.2 only Paladin optional  -- Lightforge Breastplate
-  turnin 9002 only Paladin optional
-  accept 9003 only Priest optional
-  collect 16693 quest 9003.1 only Priest optional  -- Devout Crown
-  collect 16690 quest 9003.2 only Priest optional  -- Devout Robe
-  turnin 9003 only Priest optional
-  accept 9004 only Rogue optional
-  collect 16707 quest 9004.1 only Rogue optional  -- Shadowcraft Cap
-  collect 16721 quest 9004.2 only Rogue optional  -- Shadowcraft Tunic
-  turnin 9004 only Rogue optional
-  accept 9005 only Warlock optional
-  collect 16698 quest 9005.1 only Warlock optional  -- Dreadmist Mask
-  collect 16700 quest 9005.2 only Warlock optional  -- Dreadmist Robe
-  turnin 9005 only Warlock optional
-  accept 9006 only Warrior optional
-  collect 16731 quest 9006.1 only Warrior optional  -- Helm of Valor
-  collect 16730 quest 9006.2 only Warrior optional  -- Breastplate of Valor
-  turnin 9006 only Warrior optional
+  accept 84195 only Druid optional
+  collect 16720 quest 84195.1 only Druid optional  -- Wildheart Cowl
+  collect 16706 quest 84195.2 only Druid optional  -- Wildheart Vest
+  turnin 84195 only Druid optional
+  accept 84196 only Hunter optional
+  collect 16677 quest 84196.1 only Hunter optional  -- Beaststalker's Cap
+  collect 16674 quest 84196.2 only Hunter optional  -- Beaststalker's Tunic
+  turnin 84196 only Hunter optional
+  accept 84197 only Mage optional
+  collect 16686 quest 84197.1 only Mage optional  -- Magister's Crown
+  collect 16688 quest 84197.2 only Mage optional  -- Magister's Robes
+  turnin 84197 only Mage optional
+  accept 84198 only Paladin optional
+  collect 16727 quest 84198.1 only Paladin optional  -- Lightforge Helm
+  collect 16726 quest 84198.2 only Paladin optional  -- Lightforge Breastplate
+  turnin 84198 only Paladin optional
+  accept 84199 only Priest optional
+  collect 16693 quest 84199.1 only Priest optional  -- Devout Crown
+  collect 16690 quest 84199.2 only Priest optional  -- Devout Robe
+  turnin 84199 only Priest optional
+  accept 84200 only Rogue optional
+  collect 16707 quest 84200.1 only Rogue optional  -- Shadowcraft Cap
+  collect 16721 quest 84200.2 only Rogue optional  -- Shadowcraft Tunic
+  turnin 84200 only Rogue optional
+  accept 97450 only Shaman optional
+  collect 16667 quest 97450.1 only Shaman optional  -- Coif of Elements
+  collect 16666 quest 97450.2 only Shaman optional  -- Vest of Elements
+  turnin 97450 only Shaman optional
+  accept 84201 only Warlock optional
+  collect 16698 quest 84201.1 only Warlock optional  -- Dreadmist Mask
+  collect 16700 quest 84201.2 only Warlock optional  -- Dreadmist Robe
+  turnin 84201 only Warlock optional
+  accept 84202 only Warrior optional
+  collect 16731 quest 84202.1 only Warrior optional  -- Helm of Valor
+  collect 16730 quest 84202.2 only Warrior optional  -- Breastplate of Valor
+  turnin 84202 only Warrior optional
 
 step Adventure: Saving the Best for Last (Horde)
   only Horde
@@ -196,38 +200,42 @@ step Adventure: Saving the Best for Last (Horde)
   tip Mokvar then offers your class's Saving the Best for Last, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them.
   turnin 8998                 -- Mokvar, Orgrimmar: Back to the Beginning
   level 58
-  accept 9007 only Druid optional
-  collect 16720 quest 9007.1 only Druid optional  -- Wildheart Cowl
-  collect 16706 quest 9007.2 only Druid optional  -- Wildheart Vest
-  turnin 9007 only Druid optional
-  accept 9008 only Hunter optional
-  collect 16677 quest 9008.1 only Hunter optional  -- Beaststalker's Cap
-  collect 16674 quest 9008.2 only Hunter optional  -- Beaststalker's Tunic
-  turnin 9008 only Hunter optional
-  accept 9014 only Mage optional
-  collect 16686 quest 9014.1 only Mage optional  -- Magister's Crown
-  collect 16688 quest 9014.2 only Mage optional  -- Magister's Robes
-  turnin 9014 only Mage optional
-  accept 9009 only Priest optional
-  collect 16693 quest 9009.1 only Priest optional  -- Devout Crown
-  collect 16690 quest 9009.2 only Priest optional  -- Devout Robe
-  turnin 9009 only Priest optional
-  accept 9010 only Rogue optional
-  collect 16707 quest 9010.1 only Rogue optional  -- Shadowcraft Cap
-  collect 16721 quest 9010.2 only Rogue optional  -- Shadowcraft Tunic
-  turnin 9010 only Rogue optional
-  accept 9011 only Shaman optional
-  collect 16667 quest 9011.1 only Shaman optional  -- Coif of Elements
-  collect 16666 quest 9011.2 only Shaman optional  -- Vest of Elements
-  turnin 9011 only Shaman optional
-  accept 9012 only Warlock optional
-  collect 16698 quest 9012.1 only Warlock optional  -- Dreadmist Mask
-  collect 16700 quest 9012.2 only Warlock optional  -- Dreadmist Robe
-  turnin 9012 only Warlock optional
-  accept 9013 only Warrior optional
-  collect 16731 quest 9013.1 only Warrior optional  -- Helm of Valor
-  collect 16730 quest 9013.2 only Warrior optional  -- Breastplate of Valor
-  turnin 9013 only Warrior optional
+  accept 84203 only Druid optional
+  collect 16720 quest 84203.1 only Druid optional  -- Wildheart Cowl
+  collect 16706 quest 84203.2 only Druid optional  -- Wildheart Vest
+  turnin 84203 only Druid optional
+  accept 84204 only Hunter optional
+  collect 16677 quest 84204.1 only Hunter optional  -- Beaststalker's Cap
+  collect 16674 quest 84204.2 only Hunter optional  -- Beaststalker's Tunic
+  turnin 84204 only Hunter optional
+  accept 84205 only Mage optional
+  collect 16686 quest 84205.1 only Mage optional  -- Magister's Crown
+  collect 16688 quest 84205.2 only Mage optional  -- Magister's Robes
+  turnin 84205 only Mage optional
+  accept 97414 only Paladin optional
+  collect 16727 quest 97414.1 only Paladin optional  -- Lightforge Helm
+  collect 16726 quest 97414.2 only Paladin optional  -- Lightforge Breastplate
+  turnin 97414 only Paladin optional
+  accept 84206 only Priest optional
+  collect 16693 quest 84206.1 only Priest optional  -- Devout Crown
+  collect 16690 quest 84206.2 only Priest optional  -- Devout Robe
+  turnin 84206 only Priest optional
+  accept 84207 only Rogue optional
+  collect 16707 quest 84207.1 only Rogue optional  -- Shadowcraft Cap
+  collect 16721 quest 84207.2 only Rogue optional  -- Shadowcraft Tunic
+  turnin 84207 only Rogue optional
+  accept 84208 only Shaman optional
+  collect 16667 quest 84208.1 only Shaman optional  -- Coif of Elements
+  collect 16666 quest 84208.2 only Shaman optional  -- Vest of Elements
+  turnin 84208 only Shaman optional
+  accept 84209 only Warlock optional
+  collect 16698 quest 84209.1 only Warlock optional  -- Dreadmist Mask
+  collect 16700 quest 84209.2 only Warlock optional  -- Dreadmist Robe
+  turnin 84209 only Warlock optional
+  accept 84210 only Warrior optional
+  collect 16731 quest 84210.1 only Warrior optional  -- Helm of Valor
+  collect 16730 quest 84210.2 only Warrior optional  -- Breastplate of Valor
+  turnin 84210 only Warrior optional
 
 # ---------------------------------------------------------------- Dungeons
 

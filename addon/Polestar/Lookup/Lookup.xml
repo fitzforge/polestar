@@ -2,6 +2,8 @@
 	<Script file="Codex.lua"/>
 	<Script file="Sources.lua"/>
 	<Script file="Guide.lua"/>
+	<Script file="Handins.lua"/>
+	<Script file="Free.lua"/>
 	<Script file="Spotter.lua"/>
 	<Script file="Options.lua"/>
 </Ui>

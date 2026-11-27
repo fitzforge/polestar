@@ -40,18 +40,18 @@ return {
 	-- {npc:5638} Kreldig Ungor
 	["For {npc:5638}, at the end of this guide"] = "交给{npc:5638}，在本指南结尾",
 	-- {object:177787} Rackmore's Log
-	["{object:177787}, beside the chest: its two keys drop only while you have the quest"] = "",
+	["{object:177787}, beside the chest: its two keys drop only while you have the quest"] = "{object:177787}，在箱子旁边：它的两把钥匙只有在你带着任务时才会掉落",
 
 	-- Step 8: Rackmore's Silver Key
 	-- {item:15878} Rackmore's Silver Key
 	-- plural, as words: Drysnap Crawlers = {npc:11562} Drysnap Crawler
-	["West to the shore: the Drysnap Crawlers and Pincers (33-35) on the beach and the clam beds around the wreck carry {item:15878}, about one in seven."] = "",
+	["West to the shore: the Drysnap Crawlers and Pincers (33-35) on the beach and the clam beds around the wreck carry {item:15878}, about one in seven."] = "向西到海边：海滩上和沉船周围蚌床一带的枯钳龙虾人（33–35）带着{item:15878}，大约七只掉一把。",
 	-- {item:15878} Rackmore's Silver Key
 	["{item:15878}, from the Drysnap crabs"] = "{item:15878}，击杀干钳蟹获取",
 
 	-- Step 9: Sar'theris Strand
 	-- {area:598} Sar'theris Strand · {item:15881} Rackmore's Golden Key
-	["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it. Work the Naga, Sorceresses and Warriors (32-34) of the strand's southern half until it drops.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), and Tidehunters (36-37) swim off the northern tip: on the way to the chest, keep to the beach and swim straight across."] = "",
+	["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it. Work the Naga, Sorceresses and Warriors (32-34) of the strand's southern half until it drops.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), and Tidehunters (36-37) swim off the northern tip: on the way to the chest, keep to the beach and swim straight across."] = "继续向北到{area:598}获取{item:15881}：任何滑刃纳迦都可能掉落。刷海岸南半段的纳迦、巫师和战士（32–34）直到掉落。\n注意：滑刃侍从（34–35）与滑刃海巫、滑刃神谕者（34–36，施法者）盘踞海滩北半段，滑刃潮汐猎手（36–37）在北端外海游弋：去箱子的一路上贴着海滩走，径直游过去。",
 	-- {item:15881} Rackmore's Golden Key
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881}，击杀滑刃纳迦获取",
 
@@ -61,7 +61,7 @@ return {
 
 	-- Step 11: Dalinda Malem
 	-- {npc:11863} Azore Aldamort · {npc:5644} Dalinda Malem
-	["Back south-east past {npc:11863}'s tower to the Burning Blade's fortress: {npc:5644} hides inside it."] = "",
+	["Back south-east past {npc:11863}'s tower to the Burning Blade's fortress: {npc:5644} hides inside it."] = "向东南返回，路过{npc:11863}的塔，前往火刃要塞：{npc:5644}藏在要塞里。",
 	["Inside"] = "在里面",
 
 	-- Step 12: Tyranis Malem and the Seer
@@ -85,13 +85,13 @@ return {
 
 	-- Step 14: Azore Aldamort
 	-- {npc:11863} Azore Aldamort · {area:2407} Kormek's Hut
-	["Back west up the hill to {npc:11863}'s tower with the sceptre, then south along the road to {area:2407}."] = "",
+	["Back west up the hill to {npc:11863}'s tower with the sceptre, then south along the road to {area:2407}."] = "带着权杖向西上山，回到{npc:11863}的塔，再沿路向南到{area:2407}。",
 	-- {npc:11863} Azore Aldamort · {npc:12369} Lord Kragaru · {object:177673} Serpent Statue
-	["{npc:11863}: {npc:12369} (38) rises at the {object:177673}, for the south loop at the end of 30-40 (06b): keep it"] = "",
+	["{npc:11863}: {npc:12369} (38) rises at the {object:177673}, for the south loop at the end of 30-40 (06b): keep it"] = "{npc:11863}：{npc:12369}（38）会在{object:177673}处出现，留给 30–40 末尾的南部环线（06b）：保留此任务",
 
 	-- Step 15: Bibbly F'utzbuckle
 	-- {area:2407} Kormek's Hut · {npc:11596} Smeed Scrabblescrew · {npc:11438} Bibbly F'utzbuckle · {object:176751} Kodo Bones · {area:596} Kodo Graveyard
-	["{area:2407} stands by the road south of the fortress, on the way to {npc:11596}'s camp. {npc:11438} collects {object:176751}; they lie among the skeletons of the {area:596}, where {npc:11596}'s kodos are."] = "",
+	["{area:2407} stands by the road south of the fortress, on the way to {npc:11596}'s camp. {npc:11438} collects {object:176751}; they lie among the skeletons of the {area:596}, where {npc:11596}'s kodos are."] = "{area:2407}在要塞以南的路边、去{npc:11596}营地的路上。{npc:11438}在收集{object:176751}；它们散落在{area:596}的骸骨堆里，那里有{npc:11596}的科多兽。",
 
 	-- Step 16: Smeed Scrabblescrew
 	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:596} Kodo Graveyard
@@ -99,16 +99,16 @@ return {
 
 	-- Step 17: Kodo Bones
 	-- {area:596} Kodo Graveyard · {npc:11438} Bibbly F'utzbuckle · {object:176751} Kodo Bones · {object:417353} Extinguished Campfire (no name in this language: may be words) · {quest:79229} Highway Robbery
-	["West into the {area:596} first: {npc:11438}'s {object:176751} lie among the skeletons on its western side. Just north of them an {object:417353} starts {quest:79229}, also for {npc:11438}."] = "",
+	["West into the {area:596} first: {npc:11438}'s {object:176751} lie among the skeletons on its western side. Just north of them an {object:417353} starts {quest:79229}, also for {npc:11438}."] = "先向西进入{area:596}：{npc:11438}要的{object:176751}散落在西侧的骸骨堆中。就在其北面，一堆熄灭的营火能开启{quest:79229}，同样是{npc:11438}的任务。",
 	-- {item:13703} Kodo Bone
-	["{item:13703}, among the skeletons"] = "",
+	["{item:13703}, among the skeletons"] = "{item:13703}，在骸骨堆里",
 	-- {quest:79229} Highway Robbery · {object:417353} Extinguished Campfire (no name in this language: may be words)
-	["{quest:79229}: the {object:417353}"] = "",
+	["{quest:79229}: the {object:417353}"] = "{quest:79229}：那堆熄灭的营火",
 
 	-- Step 18: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
 	-- plural, as words: Ancient Kodos = {npc:4702} Ancient Kodo
-	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: the Ancient Kodos (36-37) hit hard: tame them, don't fight them."] = "对年老、垂死或上古的科多兽（{npc:4702}）使用{npc:11596}的{item:13892}：它会变成跟随你的驯服科多兽。把它带回{npc:11596}的营地；在那里与科多兽对话：这样会计数并让你驯服下一只。共五只，一次一只。小心：上古科多兽（36-37）攻击很重：驯服它们，别和它们战斗。",
+	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: the Ancient Kodos (36-37) hit hard: tame them, don't fight them."] = "对老迈的科多兽、濒死的科多兽或{npc:4702}使用{npc:11596}给的{item:13892}，驯服后它就会跟着你。带回{npc:11596}的营地，再与科多兽交谈才计入进度，也才能驯服下一只。共需五只，一次一只。注意：远古科多兽（36–37级）伤害很高，直接驯服，别打。",
 	-- {npc:4702} Ancient Kodo
 	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "对墓地里的老迈的科多兽、濒死的科多兽或{npc:4702}使用；不要击杀",
 	-- {npc:11596} Smeed Scrabblescrew
@@ -118,18 +118,18 @@ return {
 	-- {area:596} Kodo Graveyard
 	["{area:596}: hides and venom"] = "{area:596}：兽皮和毒液",
 	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher · Ancient Kodos = {npc:4702} Ancient Kodo
-	["The Aged Kodos in the graveyard drop the hides, and the Scorpashi Lashers that hunt around it carry the venom. Careful: the Ancient Kodos (36-37) hit hard: fight only the Aged Kodos."] = "墓地里的老科多兽（{npc:4700}）掉落兽皮，在周围狩猎的鞭笞者斯克巴希（{npc:4697}）身上有毒液。小心：上古科多兽（{npc:4702}，36-37）攻击很重：只打老科多兽。",
+	["The Aged Kodos in the graveyard drop the hides, and the Scorpashi Lashers that hunt around it carry the venom. Careful: the Ancient Kodos (36-37) hit hard: fight only the Aged Kodos."] = "在墓地击杀老迈的科多兽收集皮，墓地周围的荒土鞭尾蝎会掉落毒液。注意：远古科多兽（36–37级）伤害很高，收集皮时只打老迈的科多兽。",
 
 	-- Step 21: Kolkar Village
 	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:5752} Corporal Melkins · {quest:93224} Carved Centaur Totems · {npc:5396} Captain Pentigast
 	-- plural, as words: Centaur Ears = {item:6067} Centaur Ear
-	["North-east from {npc:11596}'s camp to {area:609}, on the way back to {area:608}: every Kolkar drops Centaur Ears for {npc:5752} and {quest:93224} for {npc:5396}. The Magram south-east of {npc:11596}'s camp drop them too, but their village holds Necromancers (42-43) and Guardians (39-41): stay with the Kolkar (30-35)."] = "",
+	["North-east from {npc:11596}'s camp to {area:609}, on the way back to {area:608}: every Kolkar drops Centaur Ears for {npc:5752} and {quest:93224} for {npc:5396}. The Magram south-east of {npc:11596}'s camp drop them too, but their village holds Necromancers (42-43) and Guardians (39-41): stay with the Kolkar (30-35)."] = "从{npc:11596}的营地向东北前往{area:609}，就在返回{area:608}的路上。所有科卡尔半人马都会掉落「半人马的耳朵」，交给{npc:5752}。它们也会掉落{quest:93224}所需的物品，交给{npc:5396}。{npc:11596}营地东南方的玛格拉姆半人马也会掉落这些东西，但村里有42–43级的通灵师和39–41级的守卫，打30–35级的科卡尔半人马即可。",
 
 	-- Step 22: Kormek's Hut
 	-- {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:11438} Bibbly F'utzbuckle · {area:2407} Kormek's Hut · {area:35} Booty Bay
-	["North-west from {area:609} back along the road to {area:608}: {npc:11438} waits at {area:2407}. He sends you after the robber to {area:35}, where the next guide ends: keep it."] = "",
+	["North-west from {area:609} back along the road to {area:608}: {npc:11438} waits at {area:2407}. He sends you after the robber to {area:35}, where the next guide ends: keep it."] = "从{area:609}向西北沿路返回{area:608}：{npc:11438}在{area:2407}等你。他会派你去{area:35}追捕劫匪，下一份指南在那里结束：保留此任务",
 	-- {npc:11438} Bibbly F'utzbuckle · {area:35} Booty Bay
-	["{npc:11438}: Tokal waits in {area:35}, at the end of the next guide"] = "",
+	["{npc:11438}: Tokal waits in {area:35}, at the end of the next guide"] = "{npc:11438}：托卡尔在{area:35}等着，在下一份指南的结尾",
 
 	-- Step 23: Nijel's Point
 	-- {npc:5638} Kreldig Ungor · {zone:1443} Desolace

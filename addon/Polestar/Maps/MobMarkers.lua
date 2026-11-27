@@ -286,8 +286,9 @@ end
 local function logQuests(out)
 	wipe(out)
 	local only = opt("stepOnly") and stepQuests()
-	for _, qid in ipairs(Compat.GetLogQuests()) do
-		if not Compat.IsQuestReadyForTurnIn(qid) and (not only or only[qid]) then out[#out + 1] = qid end
+	if only and not next(only) then return out end
+	for _, qid in ipairs(Compat.GetLogQuests(only)) do
+		if not Compat.IsQuestReadyForTurnIn(qid) then out[#out + 1] = qid end
 	end
 	return out
 end
@@ -319,8 +320,8 @@ local function previewQuests(mapID)
 end
 
 -- Rebuilds the marks; false when the quests, their finished objectives and the palettes are what they
--- were, so the quest log's frequent updates (every kill and loot) and the guide's step changes cost nothing
--- and make no garbage. force: rebuild anyway. Off (or no Codex), every mark goes.
+-- were. A refresh checks only the selected quests for readiness and finished
+-- objectives. force: rebuild anyway. Off (or no Codex), every mark goes.
 local built = false
 local logIds, lastIds, lastDone = {}, {}, {}
 local lastQP, lastMP
@@ -445,6 +446,7 @@ local function tooltip(self)
 	GameTooltip:AddLine(m[5], 1, 0.84, 0.45)
 	GameTooltip:AddLine(m[6], 0.97, 0.97, 0.99)
 	if m[9] then GameTooltip:AddLine((m[11] and L["Gives %s"] or L["Drops %s"]):format(m[9]), 0.77, 0.79, 0.87) end
+	if ns.Theme then ns.Theme.TipDots(GameTooltip) end
 	GameTooltip:Show()
 end
 

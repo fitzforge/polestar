@@ -50,8 +50,9 @@ return {
 	["Careful: {npc:9454} (54) stands at the back of the {area:2481}, at about 32.2,67.1, with Shadowstalkers around him: clear them one at a time, then pull him alone at full health."] = "Cuidado: {npc:9454} (54) fica no fundo de {area:2481}, por volta de 32.2,67.1, com Espreitadores Sombrios ao redor: elimine-os um de cada vez e depois puxe-o sozinho com a vida cheia.",
 
 	-- Step 8: Jaedenar
-	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge
-	["{area:1763} is the ruined temple north of the glen.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him."] = "",
+	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge · {item:11948} Empty Tainted Ooze Jar
+	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
+	["{area:1763} is the ruined temple north of the glen.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him.\nTainted Oozes slide about {area:1763}'s fel pools: kill them and use the {item:11948} on their remains."] = "",
 	-- {item:11949} Filled Tainted Ooze Jar · {area:1763} Jaedenar
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
 	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "{item:11949}: Gosmas Maculadas deslizam pelas poças vis de {area:1763}",
@@ -242,8 +243,8 @@ return {
 	["The giant {npc:7765} sits just north-west of {npc:7775}'s camp."] = "O gigante {npc:7765} fica logo a noroeste do acampamento de {npc:7775}.",
 
 	-- Step 51: Evoroot
-	-- {item:11242} Evoroot · {npc:7765} Rockbiter
-	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "O {item:11242} cresce dentro de uma construção em ruínas ao norte de {npc:7765}: entre pela abertura na parede, a partir da saliência ao lado.",
+	-- {item:11242} Evoroot · {npc:7765} Rockbiter · {npc:9467} Miblon Snarltooth
+	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it.\nOr the front door: {npc:9467} guards it, and the Bait Gregan sells draws him off when you use it beside him. Half the players in our recordings went in that way, half through the wall."] = "",
 
 	-- Step 52: Shay Leafrunner
 	-- {npc:7774} Shay Leafrunner · {item:9189} Shay's Bell
@@ -292,6 +293,7 @@ return {
 	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back."] = "Os sátiros Flamejade ocupam o vale a oeste da estrada, com {npc:9454} no fundo.",
 	-- ["The vial is filled in {zone:1457}: keep it"] = "A ampola é enchida em {zone:1457}: guarde-a",
 	-- ["The vial is filled in {zone:1457}: keep it; inside"] = "O frasco se enche em {zone:1457}: guarde; lá dentro",
+	-- ["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "O {item:11242} cresce dentro de uma construção em ruínas ao norte de {npc:7765}: entre pela abertura na parede, a partir da saliência ao lado.",
 	-- ["Top up here to level 52.69 before the hand-ins at {area:1763}: they take you to level 53."] = "Complete aqui até o nível 52.69 antes das entregas em {area:1763}: elas levam você ao nível 53.",
 	-- ["Top up here to level 52.9 before the hand-ins at {area:2479}: they take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Complete aqui até o nível 52.9 antes das entregas em {area:2479}: elas levam você ao nível 53. Ou, com um grupo, faça a masmorra {area:1417} ou a masmorra {area:2100}.",
 	-- ["Trey Lightforge's remains lie beside her."] = "Os restos mortais de Trey Forjaleve estão ao lado dela.",

@@ -27,7 +27,7 @@ return {
 
 	-- Step 4: Windfury Cones
 	-- plural, as words: Windfury Cones = {item:206170} Windfury Cone
-	["Windfury Cones"] = "Windfury Cones",
+	["Windfury Cones"] = "Windzornzapfen",
 	-- {area:819} Windfury Ridge · {zone:1456} Thunder Bluff · {item:206176} Mortar and Pestle
 	-- plural, as words: Windfury Cones = {item:206170} Windfury Cone
 	["Windfury Cones lie on the ground under the harpies' nest trees on {area:819}, north-west of {zone:1456}; the harpies do not drop them. The Windfury Sorceresses (level 9-10) and Matriarchs (10-11) there stand close together: pick the cones from the edges. Once you have eight, use the {item:206176} to grind them."] = "Windfury Cones liegen am Boden unter den Nestbäumen der Harpyien auf {area:819}, nordwestlich von {zone:1456}; die Harpyien lassen sie nicht fallen. Die Windfury Sorceresses (Stufe 9-10) und Matriarchs (10-11) dort stehen dicht beieinander: Sammle die Zapfen an den Rändern auf. Hast du acht, zermahle sie mit dem {item:206176}.",

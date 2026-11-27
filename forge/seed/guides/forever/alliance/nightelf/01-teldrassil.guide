@@ -241,6 +241,7 @@ step Dolanaar
   accept 932                                  -- Tallonkai Swiftroot, upstairs
   accept 98391                                -- Laurna Morninglight, inside
   turnin 5622 only Priest                     -- Laurna Morninglight
+  tip Priests: Garments of the Moon counts only Lesser Heal (Rank 2). Laurna Morninglight trains priests too: learn it from her now if you have not yet.
   accept 5621 only Priest                     -- Laurna Morninglight: heal Sentinel Shaya by Lake Al'Ameth
 
 step Dolanaar

@@ -75,6 +75,28 @@ fn the_step_s_use_item_glows_in_the_bags_the_next_step_s_quest_item_takes_over_o
 	assert!(is_empty(&out[2]), "nothing glows");
 }
 
+// #4207 in the game's bags: the glow rings the whole slot (centred, the border texture at 1.9 times the button, added
+// light), so a stack of the step's quest item keeps its count in the bottom-right corner, shown and unchanged.
+#[test]
+fn the_game_s_bags_ring_the_step_s_quest_item_and_leave_its_stack_count_alone() {
+	let out = run(r#"
+		Polestar.Engine.Goto(2); stub.advance(0.1)
+		local b = g.bagButton(0, 5)
+		b:SetSize(37, 37)
+		b.Count = b:CreateFontString(nil, "ARTWORK")
+		b.Count:SetPoint("BOTTOMRIGHT", -5, 2); b.Count:SetText("3"); b.Count:Show()
+		g.bag(0, 5, "item:5101"); g.openBag(0); stub.advance(0.1)
+		local ring
+		for _, r in ipairs(b.regions) do
+			if r.texture == "Interface\\Buttons\\UI-ActionButton-Border" then ring = r end
+		end
+		local point, host = ring:GetPoint(1)
+		emit({ shown = ring:IsShown(), point = point, onButton = host == b, blend = ring.blend,
+			width = math.floor(ring:GetWidth() * 10 + 0.5) / 10, count = b.Count:IsShown() and b.Count:GetText() })
+	"#);
+	assert_eq!(out[0], json!({ "shown": true, "point": "CENTER", "onButton": true, "blend": "ADD", "width": 70.3, "count": "3" }));
+}
+
 #[test]
 fn inactive_highlights_skip_guide_reads_and_resume_on_the_current_item() {
 	let out = run(r#"

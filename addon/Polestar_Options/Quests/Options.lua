@@ -116,6 +116,8 @@ if Q then
 			controls = {
 				{ kind = "toggle", key = "qol.questLevels", label = L["Quest levels"], search = "quest log, level numbers, show level",
 					help = L["Show quest levels, like [12], wherever the game lists quests without them."] },
+				{ kind = "toggle", key = "qol.questGuides", label = L["Guides for each quest"], search = "which guide, guides, quest log, tracker, tooltip, pre-quest, later, drop, abandon",
+					help = L["Name the Polestar guides that pick up, work or hand in a quest: on its tooltips, under its details, and as a mark after its title in the quest log, the tracker and quest givers' lists."] },
 				{ kind = "toggle", key = "qol.questTimerAlerts", label = L["Timed quest alerts"], search = "timer, timed quest, countdown, time limit, time left, alarm",
 					help = L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] },
 			},
@@ -123,6 +125,29 @@ if Q then
 	}) do
 		ns.RegisterOptions(spec)
 	end
+end
+
+-- Free mode (Lookup/Free.lua): the switch (its tab), the order and what it shows.
+if ns.Free then
+	local F = ns.Free
+	local SEARCH = "free mode, no guide, own quests, quest log, nearest quest, xp per minute"
+	-- Its start is a button: the tab is the character's, no setting holds it; a second press goes back.
+	local ok, err = ns.RegisterOptions({
+		page = L["Questing"], tab = L["Quests"], section = L["Free mode"],
+		controls = {
+			{ kind = "button", icon = "icon-explore", button = L["Start"], label = L["Free mode"], search = SEARCH,
+				help = L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."],
+				onClick = function() F.Toggle() end },
+			{ kind = "dropdown", key = "free.pick", label = L["Which quest first"], search = SEARCH,
+				choices = { { value = "near", label = L["Nearest first"] }, { value = "xp", label = L["Most XP a minute first"] } },
+				help = L["Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes."] },
+			{ kind = "toggle", key = "free.hints", label = L["Zone hints"], search = SEARCH .. ", zone, where to quest",
+				help = L["With no quest near, the zone with the most quests for your level comes first, the arrow to its givers."] },
+			{ kind = "toggle", key = "free.details", label = L["XP and drop rates"], search = SEARCH .. ", drop chance",
+				help = L["The XP each hand-in pays, and a collect whose items rarely drop says so."] },
+		},
+	})
+	if not ok and geterrorhandler then geterrorhandler()(err) end
 end
 
 -- The Group and Party chat sections of the Questing page, its Group tab. `search`: more words the settings search finds

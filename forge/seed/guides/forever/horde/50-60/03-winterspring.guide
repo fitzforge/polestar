@@ -107,7 +107,7 @@ step Raging Owlbeasts
 step Donova Snowden
   tip Donova camps among the steaming pools of Frostfire Hot Springs, in the west of the valley.
   turnin 980                          -- From Krakle in Un'Goro
-  turnin 3908                         -- Linken's letter
+  turnin 3908 -- Linken's Training Sword
   turnin 6603
   accept 3909
   accept 4842
@@ -181,6 +181,7 @@ step Gregan Brewspewer
 step Evoroot
   when onquest 3909
   tip The Evoroot grows inside a ruined building north of Gregan's camp, east of the harpies' Ruins of Ravenwind: climb in through the broken part of its wall.
+  tip Or the front door: Miblon Snarltooth guards it, and the Bait Gregan sells draws him off when you use it beside him. Half the players in our recordings went in that way, half through the wall.
   collect 11242 quest 4041.1 @44.5,10.2 map 1444
 
 step Fly to Camp Mojache
@@ -212,6 +213,7 @@ step Rumstag Proudstrider
   turnin 7822 optional
 
 step Bluff Runner Windstrider
+  tip Bluff Runner Windstrider and Rumstag Proudstrider stand on the central rise, not on Hunter Rise. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest.
   accept 1000
 
 step Elder Rise
@@ -224,7 +226,7 @@ step Elder Rise
   note Rabine Saturna waits in Moonglade: keep it for later.
 
 step Bashana Runetotem
-  tip Bashana buys Morrowgrain grown from your Un'Goro Soil. Morrowgrain Research wants ten, and the Evergreen Pouch gives one try every ten minutes: take it only if you already have the grain.
+  tip Hand Bashana the Seed Voucher for her packets of Tharlendris Seeds. Morrowgrain Research gives you the Evergreen Pouch: use it with a seed packet and two Un'Goro Soil in your bags to grow a random herb, sometimes Morrowgrain, once every ten minutes. She wants ten, so the quest is optional: take it if you have spare Un'Goro Soil and want to keep growing it over the next guides.
   turnin 3782
   accept 3786
   complete 3786

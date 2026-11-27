@@ -13,7 +13,7 @@ return {
 	["{npc:3649}, north end of the village: {npc:1646}'s reply"] = "{npc:3649}，在村庄北端：{npc:1646}的回信",
 	["The WANTED poster"] = "通缉布告",
 	-- {npc:8997} Gershala Nightwhisper · {npc:3693} Terenthis · {zone:1453} Stormwind
-	["{npc:8997}, a short walk west of {npc:3693}: Argos's message from {zone:1453}"] = "",
+	["{npc:8997}, a short walk west of {npc:3693}: Argos's message from {zone:1453}"] = "{npc:8997}在{npc:3693}往西几步。把从{zone:1453}带来的阿古斯的口信交给她。",
 	-- {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
 	["{npc:3694}, beside {npc:3693} if she is there: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}，如果她在{npc:3693}旁边：交给{area:415}的{npc:3691}，见下一篇指南",
 
@@ -40,7 +40,6 @@ return {
 	-- Step 6: The Master's Glaive
 	-- {object:12666} Twilight Tome · {quest:948} Onu · {item:5251} Phial of Scrying · {object:10076} Scrying Bowl
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	-- was: ["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater; {npc:3584} stands on its north side. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "月夜猎豹首领在战刃周围的树林里游荡。{object:12666}位于陨石坑底部；{npc:3584}站在坑的北侧。为了{quest:948}的任务，在陨石坑底部使用{item:5251}：它会召唤出{object:10076}，然后向水盆交任务。"
 	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "月夜猎豹雄兽在主宰之剑周围的树林中游荡。{object:12666}在弹坑底部。为了{quest:948}的任务，在弹坑底部使用{item:5251}：它会生成{object:10076}，你把任务交给这个碗。",
 	-- plural, as words: Fine Moonstalker Pelts = {item:5386} Fine Moonstalker Pelt
 	["Fine Moonstalker Pelts"] = "{item:5386}",

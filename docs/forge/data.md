@@ -485,7 +485,7 @@ single-file form, and a checkout without the folder still has its
 
 | Section (file) | Keyed by | What an entry can do |
 |---|---|---|
-| `quests` | quest ID | `set`: replace fields (races, classes, prerequisites, objectives, `sourceItem`: the item the quest hands over when taken, …); `escort`: `true` or `false` when the quest's own text gets it wrong; `direct`: `true` or `false` for a quest handed in on the spot from its giver's window, never in the log (the knowledge base sets `true` from the Forever TDB's quest type 0; the writer then writes only `turnin <id> direct`, #1699); `remove: true`, alone: the quest is not in the game, so it leaves the data and every other quest's link to it (`pre`, `preAny`, `preAll`, `excl`, `next`, breadcrumbs, `children`, `parent`) goes |
+| `quests` | quest ID | `set`: replace fields (races, classes, prerequisites, objectives, `sourceItem`: the item the quest hands over when taken, …); `escort`: `true` or `false` when the quest's own text gets it wrong; `direct`: `true` or `false` for a quest handed in on the spot from its giver's window, never in the log (the knowledge base sets `true` from the Forever TDB's quest type 0; the writer then writes only `turnin <id> direct`, #1699); `unseen`: `true` for a quest the data keeps that no recording or player report has shown on Forever yet (the Nightmare Incursion missions): the Codex packs it (`n`) and Lookup's quest page says "Not seen on Forever yet"; `forge data build` drops it from a quest a recording shows (any `recorder` tag in its `source`); `remove: true`, alone: the quest is not in the game, so it leaves the data and every other quest's link to it (`pre`, `preAny`, `preAll`, `excl`, `next`, breadcrumbs, `children`, `parent`) goes |
 | `npcs`, `objects` | NPC or object ID | `set`: replace fields (an elite or rare `rank`; an NPC's `roles`, such as `["flightmaster"]` for a flight master the merged data has without its role, so `forge data travel` matches it to its flight point; an object's `lock: { item }`, the key that opens it); `addSpawns`: `{ "<uiMapID>": { f, pts } }` adds a map's spawn points, or replaces that map's points |
 | `items` | item ID | `removeDrops`: `{ npc: [ids], object: [ids] }`; `removeVendors`: `[ids]` (drop wrong sources the merge kept); `addDrops`: `{ npc: [ids], object: [ids] }` (droppers every source missed, such as recorded loot; added with no rate, a listed one keeps its rate); `dropRequires`: `{ npc: { "<id>": [quest ids] }, object: { "<id>": [quest ids] } }` (source-specific loot requirements; each quest must be held or completed) |
 | `mechanics` | quest ID | `params`: `[{ kind, … }]` adds or replaces a mechanic (for example `delayed-offer` with `after`, `npc`, `sec`); `steps`: `{ "<n>": { set } }` changes step `n` |
@@ -625,6 +625,12 @@ Collecting Kelp (112):
 It is merged over the private mechanics layers by their rules: the kind gains the source `public`;
 it drives the route when it is high or another source agrees; the server's data can refute a kind,
 and a refuted kind is not added. A step with the same `n` as a known step replaces it.
+
+The steps' `fact`s, in step order, are the quest's `how` in the Codex (the note on Lookup's steps). One
+pair of steps is read for its ids too: a `collect` step with an NPC `target`, an `item` and a `count`,
+followed by a `use-item` step with no target, makes each of the quest's event objectives a use of the
+second step's item, with the gather before it (Powering the Pylons, 96018: four Coalesced Mana
+Crystals from the Unstable Mana Rifts before each pylon, then the Pile of Pylon Parts at it).
 
 Hand-checked fixes that win over every layer and always drive the route live in
 `forever-db/corrections/mechanics.json`, by quest id, each with its `source` and `note`: `params`

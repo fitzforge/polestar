@@ -53,7 +53,7 @@ local ADDON, ns = ...
 local Nav = ns.Nav
 local L = ns.L
 
-local exp, sin, abs, floor, min, max, pi = math.exp, math.sin, math.abs, math.floor, math.min, math.max, math.pi
+local exp, sin, abs, floor, min, max, pi, sqrt = math.exp, math.sin, math.abs, math.floor, math.min, math.max, math.pi, math.sqrt
 local wrap = Nav.WrapAngle
 local MEDIA = Nav.MEDIA
 
@@ -782,26 +782,13 @@ local loneSeen = -1   -- Travel.version a lone walk's warning was last asked for
 local WARN_SECONDS = 8 -- a walk's "Hostile town" warning stays under its step this long
 local warning, warnUntil -- the warning being said (Travel.TakeWarning) and until when (GetTime)
 local style = "3d"    -- nav.arrowStyle (D.style)
-local noteSeen = 0    -- Walk.Unmapped's version the label shows
-local stoppedUnmapped = false -- the unmapped warning is the status, not a second line under the target
-local noWalkShown -- Nav.noWalk under the label while the arrow points straight for want of a walk (#3409)
 
 -- A target's own warning (Nav.SetTarget's `warning`: a dungeon whose way in
 -- lies in the other faction's land) stays under the label while it is the
--- target, and so does "The last steps here aren't mapped" while the current walk
--- ends short of its goal's floor, or a capital walk found none (Walk.Unmapped).
--- The walk's hostile-town warning (`warning`) comes after them. While no walk
--- was found (Nav.noWalk) and the arrow points straight, why: "The last steps
--- here aren't mapped" (#3409).
+-- target; the walk's hostile-town warning (`warning`) comes after it.
 local function withTargetWarning(text)
 	local t = Nav.GetTarget()
 	local tw = t and t.warning
-	local W = Nav.walk
-	local note
-	if noWalkShown == "unmapped" or (not stoppedUnmapped and W and W.Unmapped and W.Unmapped()) then
-		note = L["The last steps here aren't mapped"]
-	end
-	if note then tw = tw and (tw .. "\n" .. note) or note end
 	if not tw then return text end
 	return text ~= "" and (text .. "\n" .. tw) or tw
 end
@@ -893,7 +880,8 @@ local function setMode(m)
 		distText:SetText(L["Finding a walking route"])
 	elseif m == "unmapped" then
 		distText:SetTextColor(Nav.RGB("textDim"))
-		distText:SetText(L["The last steps here aren't mapped"])
+		distText:SetText("")
+		lastYards = nil
 	elseif m == "nopos" then
 		-- Nothing to point at or measure; the label (target or route leg) stays.
 		distText:SetTextColor(Nav.RGB("textDim"))
@@ -1014,15 +1002,6 @@ local function syncLabel(T, routed)
 		warning = nil
 		routeSeen = -2
 	end
-	-- The walk's "last steps aren't mapped" came or went (Walk.Unmapped): the label is set again.
-	local W = Nav.walk
-	if W and W.Unmapped then
-		local _, nv = W.Unmapped()
-		if nv ~= noteSeen then
-			noteSeen = nv
-			routeSeen = -2
-		end
-	end
 	if routed then
 		if T.version ~= routeSeen then
 			routeSeen = T.version
@@ -1086,18 +1065,18 @@ local function sample(elapsed)
 		setMode(state)
 		return true
 	end
-	if stoppedUnmapped ~= (state == "unmapped") then
-		stoppedUnmapped = state == "unmapped"
-		routeSeen = -2
-	end
-	local nw = state == "travel" and Nav.noWalk or nil
-	if nw ~= noWalkShown then
-		noWalkShown = nw
-		routeSeen = -2
-	end
 	syncLabel(T, routed)
 	if state == "far" or state == "arrived" or state == "search" or state == "nopos" or state == "unmapped" then
 		setMode(state)
+		if state == "unmapped" then
+			-- No walk to measure along: the straight-line distance to the target.
+			local dn, dw = Nav.TargetOffset()
+			local yards = dn and floor(sqrt(dn * dn + dw * dw) + 0.5)
+			if yards ~= lastYards then
+				lastYards = yards
+				distText:SetText(yards and ns.FormatDistance(yards) or "")
+			end
+		end
 		return true
 	end
 	if state == "instruction" then
@@ -1249,6 +1228,7 @@ frame:SetScript("OnEnter", function(self)
 	GameTooltip:AddLine(ns.Get("ui.lockHud") and L["Shift-drag to move."] or L["Drag to move."], Nav.RGB("text"))
 	local target = Nav.GetTarget()
 	if target and target.spots then GameTooltip:AddLine(L["Click for the next spot."], Nav.RGB("text")) end
+	if ns.Theme then ns.Theme.TipDots(GameTooltip) end
 	GameTooltip:Show()
 end)
 

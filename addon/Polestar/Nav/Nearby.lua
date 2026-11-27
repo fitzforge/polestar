@@ -6,7 +6,7 @@
 -- entry and the command), here on Polestar's own data.
 -- Portions Copyright (C) 2026 Cillian Berragan (Shortest Path Forever, GPL-3.0-or-later); adapted for Polestar, 2026-10-15.
 --
---   /polestar near <kind> [profession]   kinds: trainer, class, repair, reagents, vendor,
+--   /polestar near <kind> [profession]   kinds: trainer, class, riding, repair, reagents, vendor,
 --                                        innkeeper, bank, mailbox, auction, flight, stable, transmog;
 --                                        `/polestar near mining` = trainer mining
 --   Nearby.Find(kind, line) -> place, seconds, rank | nil, reason, rank
@@ -56,7 +56,7 @@ ns.RegisterDefaults("nav", { nearbyMenu = true, nearbyButton = true })
 local RANKED = 6
 local RUN_SPEED = 7
 local SAME_PLACE = 50 -- yards: one spawn on two maps (the Codex's SAME_PLACE)
-local RIDING = 762 -- Compat.SKILL_LINES' riding: no trainer role
+local RIDING = 762 -- Riding has its own service, outside the profession list.
 local FACTION = { Alliance = "A", Horde = "H" }
 
 -- `stop`: the stop kind the target carries (Nav.SetTarget), for Shortest Path Forever's badge.
@@ -71,6 +71,7 @@ local KINDS = {
 	{ key = "trainer", label = L["Profession trainer"], stop = "trainer" },
 	{ key = "class", label = L["Class trainer"], stop = "trainer" },
 	{ key = "weapon", label = L["Weapon master"], stop = "trainer" },
+	{ key = "riding", label = L["Riding trainer"], stop = "trainer" },
 	{ key = "repair", role = "repair", label = L["Repair"] },
 	{ key = "reagents", role = "vendor", only = "reagentVendors", label = L["Reagents"] },
 	{ key = "vendor", role = "vendor", without = "trainer", titled = true, label = L["Vendor"] },
@@ -275,24 +276,32 @@ end
 -- The spawns of the Codex NPCs with `role` on the player's side, outside
 -- instances. A class's own flight master (Nav.TaxiNpcClass: Nighthaven's fly
 -- Druids only, from their gossip) is a flight master for that class alone.
--- A rare whose spawns lie more than WANDER yards apart is no service place: it
--- wanders between them and is often not up (#3432: Mount Hyjal's Pexmit,
--- "Someone's Minion", a rare merchant with 8 spawns across the zone, met at
--- 11 spots, where "Sell before heading out" sent players). One that stays at
--- one spot keeps its place (Riverglades' stablemaster Reginald Holmsby).
+-- A rare whose spawns lie more than WANDER yards from their middle is no
+-- service place: it wanders between them and is often not up (#3432: Mount
+-- Hyjal's Pexmit, "Someone's Minion", a rare merchant with 8 spawns across the
+-- zone, met at 11 spots, where "Sell before heading out" sent players). One
+-- that stays at one spot keeps its place (Riverglades' stablemaster Reginald
+-- Holmsby, ten spawns about his stable, up to 107 yd apart; Malgin Barleybrew,
+-- one spawn on the Barrens' and Dustwallow Marsh's maps). The Codex calls no
+-- NPC on a player's side a rare (#2929), only a rare spawn (#4388: Pexmit).
 local WANDER = 100
 local function wanders(npc, C)
-	if not npc.rare then return false end
-	local c0, x0, y0
+	if not (npc.rare or npc.rareSpawn) then return false end
+	local c0, pts = nil, {}
+	local sx, sy = 0, 0
 	for _, s in ipairs(npc.spawns or {}) do
 		local c, wx, wy = C.MapToWorld(s.map, s.x, s.y, s.f)
 		if c then
-			if not c0 then
-				c0, x0, y0 = c, wx, wy
-			elseif c ~= c0 or (wx - x0) ^ 2 + (wy - y0) ^ 2 > WANDER * WANDER then
-				return true
-			end
+			if c0 and c ~= c0 then return true end
+			c0 = c
+			pts[#pts + 1] = { wx, wy }
+			sx, sy = sx + wx, sy + wy
 		end
+	end
+	if #pts == 0 then return false end
+	local mx, my = sx / #pts, sy / #pts
+	for _, p in ipairs(pts) do
+		if (p[1] - mx) ^ 2 + (p[2] - my) ^ 2 > WANDER * WANDER then return true end
 	end
 	return false
 end
@@ -355,6 +364,17 @@ ns.On("NAME_LEARNED", function(kind) if kind == "npc" then index = {} end end)
 
 -- The candidate places of a kind: list | nil, reason.
 local function candidates(kind, line)
+	if kind.key == "riding" then
+		local C, Q, N = ns.Compat, ns.QoL, ns.Names
+		local info = C.GetPlayerInfo and C.GetPlayerInfo()
+		local trainer = Q and Q.Riding and info and Q.Riding.TrainerFor(info.race, info.faction)
+		if not trainer then return nil, "none" end
+		local c, wx, wy = C.MapToWorld(trainer.map, trainer.x, trainer.y, trainer.f)
+		if not c then return nil, "none" end
+		local name = (N and N.Npc and N.Npc(trainer.npc)) or trainer.npcName
+		return { { id = trainer.npc, name = name, map = trainer.map, x = trainer.x, y = trainer.y,
+			f = trainer.f, c = c, wx = wx, wy = wy } }
+	end
 	local ok, why = codexReady()
 	if not ok then return nil, why end
 	if kind.key == "trainer" then
@@ -568,7 +588,7 @@ function Nearby.Go(key, line)
 	if not place then
 		local why = seconds
 		if why == "kind" then
-			ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | general | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] .. " | transmog")
+			ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | general | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] .. " | transmog | riding")
 		elseif why == "combat" then
 			ns.Print(L["Nearby services can be looked up after combat."])
 		elseif why == "missing" then
@@ -604,12 +624,34 @@ function Nearby.Go(key, line)
 	return true
 end
 
+-- The friendly vendors on continent c that the Codex says sell item `id`
+-- (their spawns, as PlacesOn's): the list, kept until the index is dropped |
+-- nil, reason.
+function Nearby.Sellers(id, c)
+	local at = "sells:" .. tostring(id) .. ":" .. tostring(c)
+	if index[at] then return index[at] end
+	local ok, why = codexReady()
+	if not ok then return nil, why end
+	local item = ns.Codex.Item(id)
+	if not item then return nil, "none" end
+	local sells = {}
+	for _, s in ipairs(item.sources or {}) do
+		if s.type == "vendor" and s.npc then sells[s.npc] = true end
+	end
+	local list = {}
+	for _, p in ipairs(rolePlaces("vendor")) do
+		if p.c == c and sells[p.id] then list[#list + 1] = p end
+	end
+	index[at] = list
+	return list
+end
+
 -- "/polestar near <kind> [profession]"; a profession alone means its trainer.
 function Nearby.Command(rest)
 	local text = lower((rest or ""):match("^%s*(.-)%s*$"))
 	local word, more = text:match("^(%S+)%s*(.-)$")
 	if not word then
-		ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | general | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] .. " | transmog")
+		ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | general | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] .. " | transmog | riding")
 		return
 	end
 	local key = ALIAS[word] or word
@@ -676,9 +718,9 @@ Nearby.AddMenu = addMenu
 -- profession trainer when it has none), then the rest. Each entry is
 -- { key, line, label, icon }, for Nearby.Go(key, line); the vendor and the
 -- weapon master are pages of their own (`page`, `weapons`).
-local BUTTON_ORDER = { "vendor", "repair", "innkeeper", "flight", "class", "trainer", "weapon", "-", "reagents", "bank", "mailbox", "auction", "stable", "transmogrifier" }
+local BUTTON_ORDER = { "vendor", "repair", "innkeeper", "flight", "class", "trainer", "riding", "weapon", "-", "reagents", "bank", "mailbox", "auction", "stable", "transmogrifier" }
 local ICONS = { vendor = "icon-vendor", repair = "icon-buy", innkeeper = "icon-sethome", flight = "icon-fly",
-	class = "icon-train", trainer = "icon-skill", weapon = "icon-train" }
+	class = "icon-train", trainer = "icon-skill", riding = "icon-train", weapon = "icon-train" }
 
 function Nearby.MenuItems()
 	local items = {}

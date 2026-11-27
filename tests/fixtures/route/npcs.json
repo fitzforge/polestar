@@ -272,5 +272,73 @@
 			}
 		},
 		"title": "Priest Trainer"
+	},
+	"13": {
+		"id": 13,
+		"name": "Peddler Voss",
+		"level": 20,
+		"faction": "A",
+		"spawns": {
+			"9001": {
+				"f": "e",
+				"pts": [
+					[
+						90,
+						90
+					]
+				]
+			}
+		}
+	},
+	"14": {
+		"id": 14,
+		"name": "Grocer Hale",
+		"level": 20,
+		"faction": "A",
+		"spawns": {
+			"9001": {
+				"f": "e",
+				"pts": [
+					[
+						56,
+						54
+					]
+				]
+			}
+		}
+	},
+	"15": {
+		"id": 15,
+		"name": "Trader Zug",
+		"level": 20,
+		"faction": "H",
+		"spawns": {
+			"9001": {
+				"f": "e",
+				"pts": [
+					[
+						52,
+						51
+					]
+				]
+			}
+		}
+	},
+	"16": {
+		"id": 16,
+		"name": "Chandler Roe",
+		"level": 20,
+		"faction": "A",
+		"spawns": {
+			"9002": {
+				"f": "e",
+				"pts": [
+					[
+						45,
+						50
+					]
+				]
+			}
+		}
 	}
 }

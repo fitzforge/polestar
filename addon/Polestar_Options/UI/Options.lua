@@ -325,10 +325,12 @@ local BUILTIN = {
 			help = L["Also a spot near you where a herb, ore vein or fishing pool you can gather can spawn: one may be up there, or gathered already. With Find Herbs or Find Minerals on, the line says so; it says one is up when the Interact Key picks it."],
 			search = "herbs, herbalism, ore, mining, fishing pools, nodes, gathering, farm, spots, tracking, find herbs, find minerals, interact key",
 			disabled = function() return not ns.Get("behavior.whileHere") end },
-		-- 0.4.0's sell and repair reminders (Engine Own.hereVendor, #2344): on by default.
+		-- 0.4.0's sell and repair reminders (Engine Own.hereVendor, #2344): on by default. The rune stop
+		-- (Nav/RuneStop.lua, #3547) needs it on too, so its sentence is here: off, a Mage would not know why.
 		{ kind = "toggle", key = "behavior.whileHereVendors", label = L["Sell and repair reminders"], new = "0.4.0",
-			help = L["When the guide is about to head out of town with your bags nearly full or your gear worn, a merchant or repairer on the way, once per visit. Click it to point the arrow there."],
-			search = "sell, repair, vendor, merchant, repairer, durability, broken gear, bags full, bag space, free slots, junk, before heading out",
+			help = L["When the guide is about to head out of town with your bags nearly full or your gear worn, a merchant or repairer on the way, once per visit. Click it to point the arrow there."]
+				.. " " .. L["For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route."],
+			search = "sell, repair, vendor, merchant, repairer, durability, broken gear, bags full, bag space, free slots, junk, before heading out, mage, rune of teleportation, teleport, reagent",
 			disabled = function() return not ns.Get("behavior.whileHere") end,
 			children = {
 				{ kind = "slider", key = "behavior.whileHereSellSlots", label = L["Sell: fewer free bag slots than"], min = 0, max = 16, step = 1, new = "0.4.0",
@@ -517,6 +519,10 @@ local BUILTIN = {
 		{ kind = "toggle", key = "nav.worldPins", label = L["Guide pins on the world map"], search = "map pins, icons, markers, waypoint, world map, guide pins, target, on the world map",
 			help = L["The arrow's target, the stops of its travel route, the step's other goals, the areas their mobs and objects spawn in, and the route lines."] },
 		{ kind = "toggle", key = "nav.minimapPins", label = L["Guide pin on the minimap"], help = L["The arrow's target, the areas it spawns in, and the route line."], search = "map pins, icons, markers, waypoint, minimap, guide pins, target, on the minimap" },
+		{ kind = "toggle", key = "nav.hidePinsWithGuide", label = L["Hide the pins with the guide"],
+			help = L["When the guide window is hidden, hide the guide's pins and route lines on the world map and the minimap too."],
+			search = "hide with guide, guide hidden, window closed, map pins, route lines, minimap, world map, clutter",
+			disabled = function() return not ns.Get("nav.worldPins") and not ns.Get("nav.minimapPins") end },
 		H({ kind = "toggle", key = "nav.minimapRoute", label = L["Route line on the minimap"],
 			help = L["The way to the goal on the minimap. Off keeps the guide pin there and the line on the world map. Its colour, opacity and size: the gear beside Guide > Arrow & routes > Route lines."],
 			search = "route line, path, dots, minimap, herbs, gathering, mining, clutter, route on the minimap, radar",
@@ -865,7 +871,8 @@ local function buildAbout(view)
 		.. L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] .. "\n"
 		.. L["Discord and its logo are trademarks of Discord Inc.; the logo marks the link to the Polestar Discord."] .. "\n"
 		.. L["With EllesmereUI installed, Polestar can follow its accent, font and panel colour through its public skinning API."] .. "\n"
-		.. L["Gear scores from Forever Leveling BiS by Timearc when it is installed, through its public API."])
+		.. L["Gear scores from Forever Leveling BiS by Timearc when it is installed, through its public API."] .. "\n"
+		.. L["Profession routes: based on the guides by Peter at WoW-Professions.com."])
 	-- Special thanks (UI/Thanks.lua), under the credits: one supporter or
 	-- contributor a time the page opens, a link to Guiding Stars.
 	local thanksLead = W.Text(view, "note", "textDim")
@@ -3900,7 +3907,13 @@ function Undo.rowLinks(on)
 				w.UndoB = b
 			end
 			b:ClearAllPoints()
-			b:SetPoint("LEFT", w.Label, "LEFT", math.ceil(w.Label:GetStringWidth()) + 8, 0)
+			-- After the row's (i) when it has one, not on top of it.
+			local info = rawget(w, "Info")
+			if info and info:IsShown() then
+				b:SetPoint("LEFT", info, "RIGHT", 6, 0)
+			else
+				b:SetPoint("LEFT", w.Label, "LEFT", math.ceil(w.Label:GetStringWidth()) + 8, 0)
+			end
 			b:Show()
 			Undo.links[w] = true
 		end
