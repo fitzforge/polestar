@@ -896,7 +896,7 @@ function Own.skipMark(goal)
 	local m = Own.skipMarks[q]
 	if not m then
 		m = { reason = "skipped" }
-		Own.skipMarks[q] = m
+		if not Own.readingProgress then Own.skipMarks[q] = m end
 	end
 	-- The accept the text and the undo go by: this one, else this guide's.
 	local a = goal.t == "accept" and goal or nil
@@ -904,7 +904,9 @@ function Own.skipMark(goal)
 		local list = layoutOf(guide).accepts[q]
 		a = list and list[1] and list[1].goal or nil
 	end
-	m.accept = a or m.accept or goal
+	local accept = a or m.accept or goal
+	if Own.readingProgress then return { reason = "skipped", accept = accept } end
+	m.accept = accept
 	return m
 end
 
@@ -914,7 +916,7 @@ function Own.closedMark(q, a, by)
 	local u = unavailable[q]
 	if not (u and u.reason == "closed" and u.accept == a and u.by == by) then
 		u = { reason = "closed", accept = a, by = by }
-		unavailable[q] = u
+		if not Own.readingProgress then unavailable[q] = u end
 	end
 	return u
 end
@@ -987,7 +989,7 @@ local function unavailableFor(goal, depth)
 	if u and (u.reason == "closed" or (u.reason == "pre" and u.pre ~= nil and u.pre == tonumber(u.accept.parent) and C.IsOnQuest(u.pre))) then
 		-- Its closing quest was abandoned since (or it is another tab's mark),
 		-- or the parent its giver wanted in the log is taken now.
-		unavailable[q] = nil
+		if not Own.readingProgress then unavailable[q] = nil end
 		u = nil
 	end
 	if u or Own.offered[q] then return u end
@@ -3360,7 +3362,7 @@ local function pickFor(goal)
 		table.sort(list, better)
 	end
 	p = { list = list, i = #list > 0 and 1 or 0, gen = contextGen, tier = tier }
-	picks[goal] = p
+	if not Own.readingProgress then picks[goal] = p end
 	return p
 end
 
@@ -3606,7 +3608,7 @@ function Spots.repick(goal, c, px, py, moveOn)
 	-- On another continent nothing is measurable: the spot holds (ranking by
 	-- list order alone would walk to the next spot at every poll).
 	if cur and not curD and not moveOn then return false end
-	if c and spread then
+	if c and spread and not Own.readingProgress then
 		for _, s in ipairs(spots) do
 			local d = Spots.edge(goal, s, c, px, py)
 			if d and d <= reach then Spots.seen[s] = now end
@@ -3664,6 +3666,7 @@ function Spots.repick(goal, c, px, py, moveOn)
 	local new = cur
 	if best and (moveOn or not cur or not fresh(cur) or not curD or (not stale and bestKey < curD - Spots.SWITCH) or (cap and (cur.lvl or lvl or 0) > cap)) then new = best end
 	new = new or spots[1]
+	if Own.readingProgress then return new ~= cur, new end
 	if new == cur then return false end
 	Spots.chosen[goal] = new
 	return true
@@ -3671,8 +3674,10 @@ end
 
 -- The goal's spot, picked from where the player stands on first use.
 function Spots.get(goal)
-	if not Spots.chosen[goal] then Spots.repick(goal, Compat().GetPlayerWorldPosition()) end
-	return Spots.chosen[goal]
+	local spot = Spots.chosen[goal]
+	if spot then return spot end
+	local _, projected = Spots.repick(goal, Compat().GetPlayerWorldPosition())
+	return projected or Spots.chosen[goal]
 end
 
 -- Position of the goal's spot in goal.spots.
@@ -3854,7 +3859,7 @@ local function liveXY(goal)
 			local x, y = C.WorldToMap(c, wx, wy, goal.map)
 			if x then p = { x, y } end
 		end
-		livePos[goal] = p
+		if not Own.readingProgress then livePos[goal] = p end
 	end
 	if not p then return nil end
 	return p[1], p[2]
@@ -4706,7 +4711,7 @@ function Own.useHolds(s, g)
 		cur = c
 	end
 	if not cur or cur > h.n or GetTime() - h.at > Own.USE_HOLD then
-		Own.useHeld[key] = nil
+		if not Own.readingProgress then Own.useHeld[key] = nil end
 		return false
 	end
 	return true
@@ -11455,6 +11460,8 @@ function Engine.Outgrown(g, p)
 	return true
 end
 
+local scheduled = false
+
 -- Evaluate every tab, the active one last. In combat, background tabs wait for
 -- PLAYER_REGEN_ENABLED to avoid frame hitches.
 Own.backgroundTabsDirty = false
@@ -11540,9 +11547,9 @@ local function evaluate()
 			end
 		end
 	end
+	Own.captureProgress()
 end
 
-local scheduled = false
 local function flush()
 	scheduled = false
 	evaluate()
@@ -17675,6 +17682,119 @@ end
 -- The live step: the first applicable, not skipped, not done one (nil when
 -- the guide is complete), whatever step the player is looking at.
 function Engine.GetLiveStep() return computed end
+
+-- Public snapshot projection. It runs at the end of the active tab's
+-- evaluation, outside message dispatch, using the same applicability and
+-- done rules as the engine. A consumer only copies the resulting data.
+Own.progressSchema = 1
+Own.progressGoalLimit, Own.progressStepLimit, Own.progressScanLimit = 8, 3, 32
+
+function Own.progressValue(value, kind)
+	value = Compat().Readable(value)
+	if type(value) == kind then return value end
+end
+
+function Own.progressStep(i, numbers)
+	local step = guide.steps[i]
+	return { index = i, number = not numbers.hidden[i] and numbers.of[i] or nil,
+		title = Own.progressValue(step.title, "string"), zoneMapID = Own.progressValue(step.zone, "number") }
+end
+
+function Own.progressGoal(s, g, goal, marks)
+	local status, cur, max = goalStatus(s, g, goal, true)
+	if status == "active" or status == "pending" then status = "open" end
+	if status == "na" then status = "not_applicable" end
+	local mark = marks and marks[Own.key(s, g)]
+	local result = {
+		index = g, action = goal.t, status = status or "unknown",
+		text = Own.progressValue(goal.text, "string") or Own.progressValue(goal.title, "string")
+			or Own.progressValue(goal.target, "string") or Own.progressValue(goal.location, "string"),
+		questID = Own.progressValue(goal.quest, "number"), npcID = Own.progressValue(goal.npc, "number"),
+		optional = not not goal.optional, manuallySkipped = Own.goalSkipped(s, g),
+	}
+	if mark == "tick" then result.manualTick = true
+	elseif mark == nil then result.manualTick = false end
+	cur, max = Own.progressValue(cur, "number"), Own.progressValue(max, "number")
+	if cur and max then result.progress = { current = cur, required = max } end
+	local map = Own.progressValue(goal.map, "number")
+	if map and Own.progressValue(goal.x, "number") and Own.progressValue(goal.y, "number") then
+		local x, y = liveXY(goal)
+		x, y = Own.progressValue(x, "number"), Own.progressValue(y, "number")
+		if x and y and x >= 0 and x <= 100 and y >= 0 and y <= 100 then
+			result.location = { uiMapID = map, x = x / 100, y = y / 100 }
+		end
+	end
+	return result
+end
+
+function Own.projectProgress()
+	local numbers = Own.numbersOf(guide)
+	local low, high = Guides.Levels(guide, player.faction)
+	local out = {
+		schemaVersion = Own.progressSchema, state = computed and "active" or "no_live_step",
+		guide = { id = guide.id, title = guide.title, zoneMapID = Own.progressValue(guide.zone, "number"),
+			zoneName = Own.progressValue(guide.zoneName, "string"),
+			minLevel = low, maxLevel = high, stepTotal = numbers.total },
+	}
+	if current and current ~= computed then out.viewed = Own.progressStep(current, numbers) end
+	if not computed then return out end
+
+	local live = Own.progressStep(computed, numbers)
+	local goals = guide.steps[computed].goals
+	local marks = manualFor(guide.id)
+	live.goals, live.goalsTruncated = {}, #goals > Own.progressGoalLimit
+	for g = 1, math.min(#goals, Own.progressGoalLimit) do
+		live.goals[g] = Own.progressGoal(computed, g, goals[g], marks)
+	end
+	out.live, out.upcoming = live, {}
+	local last = math.min(#guide.steps, computed + Own.progressScanLimit)
+	for i = computed + 1, last do
+		if not numbers.hidden[i] and not isSkipped(i) and stepApplies(guide.steps[i]) and not stepDone(i) then
+			out.upcoming[#out.upcoming + 1] = Own.progressStep(i, numbers)
+			if #out.upcoming == Own.progressStepLimit then break end
+		end
+	end
+	out.upcomingComplete = #out.upcoming == Own.progressStepLimit or last == #guide.steps
+	return out
+end
+
+function Own.captureProgress()
+	Own.progressSnapshot, Own.progressGeneration = nil, generation
+	if not guide or not logReady or placing or scheduled then return end
+	local done, pass, coming = Own.doneMemo, Own.passMemo, Own.comingSeen
+	Own.doneMemo, Own.passMemo, Own.comingSeen = {}, { done = {}, transit = {} }, {}
+	-- The shared goal/travel rules can normally persist marks or choose a
+	-- navigation point. During projection their answers are provisional.
+	Own.readingProgress = true
+	local ok, snapshot = pcall(Own.projectProgress)
+	Own.readingProgress = nil
+	Own.doneMemo, Own.passMemo, Own.comingSeen = done, pass, coming
+	if ok then Own.progressSnapshot = snapshot end
+end
+
+-- Copy the small tree of scalars and plain tables, never a guide or goal.
+function Own.copyProgress(value)
+	if type(value) ~= "table" then return value end
+	local out = {}
+	for k, v in pairs(value) do out[k] = Own.copyProgress(v) end
+	return out
+end
+
+function Engine.GetProgressSnapshot()
+	local state
+	if not ns.IsLoggedIn() or ns.Dispatching() or scheduled then
+		state = "not_ready"
+	elseif not guide then
+		state = "no_guide"
+	elseif not logReady or placing or Own.progressGeneration ~= generation then
+		state = "not_ready"
+	elseif Own.progressSnapshot then
+		return Own.copyProgress(Own.progressSnapshot)
+	else
+		state = "unavailable"
+	end
+	return { schemaVersion = Own.progressSchema, state = state }
+end
 
 -- Whether step i of the active guide is for this character (the step's
 -- `only` and `when`) and, given goal g, that goal too (its `only`,

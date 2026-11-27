@@ -1,7 +1,8 @@
 //! Polestar's API for other addons (docs/API.md, Core/API.lua): every call the doc lists is there, takes the
 //! arguments it says and answers and fires what it says; Polestar.API.ReplaceSteps gives a guide new steps in
 //! its own tab, keeping the player's place, done steps, ticks and skips by the steps' goals. Only Core and
-//! Lookup load: none of these calls may need the guide window.
+//! Lookup load: none of these calls may need the guide window. The progress snapshot is a detached read
+//! of the settled engine state, even while the player views a different step.
 
 use forge_addontest::run::root;
 use forge_addontest::{emitted, Addon, RunAddon};
@@ -331,4 +332,188 @@ fn replace_steps_refuses_an_unknown_guide_polestar_s_own_guides_bad_steps_and_ca
 	assert_eq!(out["busy"], json!([false, "busy"]));
 	assert_eq!(out["heard"], json!({}), "nothing fired");
 	assert_eq!(out["views"], json!(["Take A: done", "Talk to Bob: done", "Take B: skipped", "Take C: current", "Take D: upcoming", "Turn in A: upcoming"]), "nothing changed");
+}
+
+#[test]
+fn progress_snapshot_distinguishes_unready_no_guide_and_no_live_step() {
+	let out = run(
+		false,
+		r#"
+		local P = Polestar
+		local E, read = P.Engine, P.API.GetProgressSnapshot
+		local r = { beforeLogin = read() }
+		stub.login()
+		r.noGuide = read()
+		local during
+		P.On("GUIDE_CHANGED", function(id) if id then during = read() end end)
+		assert(P.RegisterGuide({ id = "lookup/snapshot/1", pack = "lookup", title = "Finish",
+			steps = { { goals = { { t = "task", text = "Check this" } } } } }))
+		assert(E.SetGuide("lookup/snapshot/1"))
+		r.placing, r.during = read(), during
+		stub.fire("QUEST_LOG_UPDATE")
+		r.queued = read()
+		stub.advance(0.25)
+		r.active = read()
+		E.ToggleGoal(1, 1)
+		stub.advance(0.25)
+		r.finished = read()
+		E.SetGuide(nil)
+		r.closed = read()
+		emit(r)
+		"#,
+	);
+	let waiting = json!({ "schemaVersion": 1, "state": "not_ready" });
+	for phase in ["beforeLogin", "placing", "during", "queued"] {
+		assert_eq!(out[phase], waiting, "{phase}");
+	}
+	for phase in ["noGuide", "closed"] {
+		assert_eq!(out[phase], json!({ "schemaVersion": 1, "state": "no_guide" }), "{phase}");
+	}
+	assert_eq!(out["active"]["state"], "active");
+	assert_eq!(out["active"]["live"]["index"], 1);
+	assert_eq!(out["active"]["upcomingComplete"], true);
+	assert_eq!(out["finished"]["state"], "no_live_step");
+	assert_eq!(out["finished"]["guide"]["id"], "lookup/snapshot/1");
+	assert!(out["finished"].get("live").is_none());
+	assert!(out["finished"].get("upcoming").is_none());
+}
+
+#[test]
+fn progress_snapshot_uses_live_step_and_returns_detached_data_without_side_effects() {
+	let out = run(
+		false,
+		r#"
+		local P, w = Polestar, stub.world
+		local E, read = P.Engine, P.API.GetProgressSnapshot
+		w.onQuest(101, { { required = 5, fulfilled = 0 } })
+		stub.login()
+		stub.fire("QUEST_LOG_UPDATE")
+		assert(P.RegisterGuide({ id = "lookup/snapshot/2", pack = "lookup", title = "Route", zone = 1429,
+			minLevel = 1, maxLevel = 10, steps = {
+				{ title = "Work", goals = {
+					{ t = "kill", target = "Wolf", quest = 101, oi = 1, npc = 601, map = 1429, x = 0, y = 60 },
+					{ t = "task", text = "Check this", optional = true },
+					{ t = "task", text = "Set aside", optional = true },
+				} },
+				{ title = "Wrong faction", only = { factions = { "Horde" } }, goals = { { t = "task", text = "Other" } } },
+				{ title = "Side task", along = true, goals = { { t = "task", text = "Aside" } } },
+				{ title = "Skipped", goals = { { t = "task", text = "Skip it" } } },
+				{ title = "Done", goals = { { t = "task", text = "Do it early" } } },
+				{ title = "Next", goals = { { t = "task", text = "Up next" } } },
+				{ title = "Later", goals = { { t = "task", text = "Later" } } },
+				{ title = "Last", goals = { { t = "task", text = "Last" } } },
+				{ title = "Beyond horizon", goals = { { t = "task", text = "Beyond" } } },
+			} }))
+		E.SetGuide("lookup/snapshot/2")
+		stub.advance(0.25)
+		E.ToggleGoal(1, 2)
+		E.SkipGoal(1, 3)
+		E.Goto(4)
+		E.Skip()
+		E.ToggleGoal(5, 1)
+		E.Goto(7)
+		stub.advance(0.25)
+		local function same(a, b)
+			if type(a) ~= "table" then return a == b end
+			if type(b) ~= "table" then return false end
+			for k, v in pairs(a) do if not same(v, b[k]) then return false end end
+			for k in pairs(b) do if a[k] == nil then return false end end
+			return true
+		end
+		local function copy(a)
+			if type(a) ~= "table" then return a end
+			local b = {}; for k, v in pairs(a) do b[k] = copy(v) end; return b
+		end
+		local saved, account = copy(PolestarCharDB), copy(PolestarDB)
+		local guide, waypoint, moment = E.GetGuide(), E.GetWaypoint(), P.Moment()
+		local before = read()
+		for _ = 1, 5 do
+			local other = read()
+			assert(same(other, before))
+			other.guide.title = "changed"
+			other.live.goals[1].location.y = 0
+			other.live.goals[1].progress.required = 1
+			other.upcoming[1].title = "changed"
+			other.viewed.index = 1
+		end
+		local stable = same(before, read()) and same(saved, PolestarCharDB)
+			and same(account, PolestarDB) and E.GetGuide() == guide and E.GetWaypoint() == waypoint
+			and P.Moment() == moment and E.GetStepIndex() == 7 and E.GetLiveStep() == 1
+		w.progress(101, 1, 2)
+		local pending = read().state
+		stub.advance(0.25)
+		emit({ snapshot = before, stable = stable, headless = PolestarGuideFrame == nil,
+			pending = pending, nextCount = read().live.goals[1].progress.current })
+		"#,
+	);
+	assert_eq!(out["stable"], true);
+	assert_eq!(out["headless"], true);
+	assert_eq!(out["pending"], "not_ready");
+	assert_eq!(out["nextCount"], 2);
+	let snapshot = &out["snapshot"];
+	assert_eq!(snapshot["state"], "active");
+	assert_eq!(
+		snapshot["guide"],
+		json!({
+			"id": "lookup/snapshot/2", "title": "Route", "zoneMapID": 1429,
+			"minLevel": 1, "maxLevel": 10, "stepTotal": 7,
+		})
+	);
+	assert_eq!(snapshot["live"]["index"], 1);
+	assert_eq!(snapshot["viewed"]["index"], 7);
+	assert_eq!(snapshot["viewed"]["number"], 5);
+	assert_eq!(
+		snapshot["live"]["goals"][0],
+		json!({
+			"index": 1, "action": "kill", "status": "open", "text": "Wolf", "questID": 101, "npcID": 601,
+			"optional": false, "manualTick": false, "manuallySkipped": false,
+			"location": { "uiMapID": 1429, "x": 0, "y": 0.6 },
+			"progress": { "current": 0, "required": 5 },
+		})
+	);
+	assert_eq!(snapshot["live"]["goals"][1]["manualTick"], true);
+	assert_eq!(snapshot["live"]["goals"][1]["optional"], true);
+	assert_eq!(snapshot["live"]["goals"][1]["status"], "done");
+	assert_eq!(snapshot["live"]["goals"][2]["manuallySkipped"], true);
+	assert_eq!(snapshot["live"]["goals"][2]["status"], "skipped");
+	let indexes: Vec<_> = snapshot["upcoming"].as_array().unwrap().iter().map(|s| &s["index"]).collect();
+	assert_eq!(indexes, vec![&json!(6), &json!(7), &json!(8)]);
+	assert_eq!(snapshot["upcomingComplete"], true);
+}
+
+#[test]
+fn progress_snapshot_bounds_goals_and_lookahead_and_omits_missing_fields() {
+	let out = run(
+		false,
+		r#"
+		local P = Polestar
+		local E, read = P.Engine, P.API.GetProgressSnapshot
+		stub.login()
+		stub.fire("QUEST_LOG_UPDATE")
+		local goals = {}
+		for i = 1, 10 do goals[i] = { t = "task", text = "Task " .. i } end
+		local steps = { { goals = goals } }
+		for i = 2, 33 do
+			steps[i] = { only = { factions = { "Horde" } }, goals = { { t = "task", text = "Other" } } }
+		end
+		steps[33].only = nil  -- last candidate inside the scan
+		steps[34] = { goals = { { t = "task", text = "Beyond" } } }
+		assert(P.RegisterGuide({ id = "lookup/snapshot/3", pack = "lookup", title = "Long gap", steps = steps }))
+		P.CharState().manual["lookup/snapshot/3"] = { ["1:2"] = true }
+		E.SetGuide("lookup/snapshot/3")
+		stub.advance(0.25)
+		emit(read())
+		"#,
+	);
+	assert_eq!(out["live"]["goalsTruncated"], true);
+	assert_eq!(out["live"]["goals"].as_array().unwrap().len(), 8);
+	assert!(out["live"].get("title").is_none());
+	assert!(out["live"]["goals"][0].get("location").is_none());
+	assert!(out["live"]["goals"][0].get("questID").is_none());
+	assert_eq!(out["live"]["goals"][0]["manualTick"], false);
+	assert!(out["live"]["goals"][1].get("manualTick").is_none());
+	assert!(out.get("viewed").is_none());
+	assert_eq!(out["upcoming"].as_array().unwrap().len(), 1);
+	assert_eq!(out["upcoming"][0]["index"], 33);
+	assert_eq!(out["upcomingComplete"], false);
 }

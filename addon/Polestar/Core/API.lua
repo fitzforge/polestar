@@ -11,6 +11,7 @@
 --       id, same tab, the player's place, done steps and skips kept
 --       (Engine.ReplaceSteps). Refused from inside a Polestar message
 --       handler ("busy"): the GUIDE_CHANGED it fires would call it again.
+--   API.GetProgressSnapshot() -> a detached, versioned active-guide snapshot
 
 local ADDON, ns = ...
 
@@ -20,4 +21,8 @@ ns.API = API
 function API.ReplaceSteps(guideId, steps)
 	if ns.Dispatching() then return false, "busy" end
 	return ns.Engine.ReplaceSteps(guideId, steps)
+end
+
+function API.GetProgressSnapshot()
+	return ns.Engine.GetProgressSnapshot()
 end

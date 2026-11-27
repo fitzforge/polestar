@@ -38,6 +38,7 @@ Polestar.Lookup.BuildGuide(kind, id) -> guide | nil, reason
 Polestar.RegisterGuide(guide) -> true | false, reason
 Polestar.Engine.SetGuide(guideId) -> true | false
 Polestar.API.ReplaceSteps(guideId, steps) -> true | false, reason
+Polestar.API.GetProgressSnapshot() -> snapshot
 Polestar.Compat.IsOnQuest(questID) -> boolean
 Polestar.Compat.IsQuestCompleted(questID) -> boolean
 Polestar.Compat.IsQuestReadyForTurnIn(questID) -> boolean
@@ -118,6 +119,47 @@ when the guide is in the active tab, and `STEP_CHANGED` when the step shown
 changes; for a guide in another tab only `TABS_CHANGED`. After a `/reload`
 the guide is what your addon registers again, and the ticks and skips saved
 on it carry over to the steps it kept, as for any guide that changed.
+
+### Read the active guide's progress
+
+`Polestar.API.GetProgressSnapshot()` returns a fresh copy of the active
+tab's progress from the engine's last settled evaluation. It works with the
+guide window closed and without the navigation UI. The getter's only
+operation is copying the snapshot in memory.
+
+| Field | Meaning |
+| --- | --- |
+| `schemaVersion` | Integer, currently `1`. Check this before reading the payload. The new call is additive, so `Polestar.API.version` stays at `1`. Older builds with API version 1 may lack the function. |
+| `state` | `active` has a live step. `no_guide` means no active tab. `no_live_step` means the active guide has no live step left (including when the remaining work was skipped). `not_ready` means login, quest-log placement or an evaluation is pending, or the call was made inside a Polestar message handler. Read again after the handler returns and the engine settles. `unavailable` means the engine could not build the snapshot. |
+| `guide` | Present with `active` or `no_live_step`. Contains `id`, `title`, and `stepTotal` in the player's step numbering. Optional fields are `zoneMapID`, `zoneName`, `minLevel`, and `maxLevel`. The level range uses the player's faction. |
+| `live`, `viewed` | A step reference has `index` (one-based within this evaluation's guide), plus `number` (the displayed number), `title` and `zoneMapID` where available. `live` is the progression step. `viewed` is present only if another step is being browsed, even with the window closed. Step indexes can change when routes change. |
+| `live.goals`, `live.goalsTruncated` | The first eight goals in guide order, with a flag when more exist. See the goal fields below. |
+| `upcoming`, `upcomingComplete` | In the `active` state, up to three step references after the live step in the same guide. Hidden, skipped, inapplicable and already resolved steps are left out. At most 32 subsequent positions are considered for inclusion. `upcomingComplete` is true when three are found or the guide ends within the scan. A false value means the scan cap prevented either. This is a preview of the current evaluation. Branches may change as the character plays. |
+
+Each goal has an `index` (one-based in the step), `action` (guide verb),
+`status` (`open`, `done`, `skipped`, `not_applicable` or `unknown`),
+`optional`, and `manuallySkipped` (a goal dismissed individually).
+`manualTick` is true for an explicit player check-off, false when there
+is no stored mark, and omitted for other stored marks. A `skipped` goal
+may be unavailable to the character or skipped by another rule. Goal
+status and optional `progress = { current, required }` describe the
+engine's view of the guide. Use the quest state API below for game facts.
+
+Where present, `text` is a guide-provided label, `questID` and `npcID`
+identify the goal's quest and NPC, and `location = { uiMapID, x, y }`
+is the written point mapped to Forever coordinates (0–1 fractions).
+Missing optional fields are omitted. False and zero are returned as values. Display a verb and ID if the guide provides no label.
+
+```lua
+local api = Polestar and Polestar.API
+local snapshot = api and api.version == 1 and api.GetProgressSnapshot
+    and api.GetProgressSnapshot()
+if snapshot and snapshot.schemaVersion == 1 and snapshot.state == "active" then
+    local live = snapshot.live
+    local viewed = snapshot.viewed
+    -- live.index is the progression step. viewed.index may differ.
+end
+```
 
 ### Quest state
 
