@@ -4198,10 +4198,10 @@ test('Zephras Isle, both factions: flow re-order: Fendaal on the road in, no alo
 
 // Aggressive Encroachment: the Scrawny Ursera are on the slope west of
 // Thendal Village (Forever's quest data), not in the village. That spawn fix is
-// in the private corrections overlay, so this needs it.
+// in the maintainers' corrections overlay, so this needs it.
 test('Sato\'s report: the Scrawny Ursera step leads to the slope west of Thendal Village', { skip }, (t) => {
 	const fix = (loadCorrections().npcs[250926] || {}).addSpawns;
-	if (!fix) return t.skip('needs the private corrections overlay (data/local/corrections-private.json)');
+	if (!fix) return t.skip('maintainer-only input, skipped (the corrections overlay)');
 	const fixed = fix[2521].pts;
 	assert.ok(fixed.every(([x]) => x <= 41.6), 'the corrected spawns are all west of the village');
 	for (const guide of [ZEPHRAS_HORDE, ZEPHRAS_ALLIANCE]) {
