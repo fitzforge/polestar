@@ -10,7 +10,7 @@ page says which part is which.
 
 | Folder | What it holds | Built by | In git | Ships |
 |---|---|---|---|---|
-| `Polestar` | The addon: guide engine, waypoint arrow and travel planner, quest markers, gear advice, world map, quality of life, Lookup, Dungeons, Rares, Talents, Characters and every window but the settings window (`Polestar_Options`); also the game looks and Hearth (`Theme/Looks`), the Skin API's checks (`Theme/SkinCheck.lua`), the guide window's tab styles (`UI/TabStyles`) and Polestar's experimental guides (`Experimental/`), each its own addon before 0.4.3. | Hand-written, apart from the generated files listed below | yes | yes, in `Polestar-<version>.zip` |
+| `Polestar` | The addon: guide engine, waypoint arrow and travel planner, quest markers, gear advice, world map, quality of life, Lookup, Dungeons, Rares, Talents, Characters and every window but the settings and Lookup windows (`Polestar_Options`, `Polestar_Lookup`); also the game looks and Hearth (`Theme/Looks`), the Skin API's checks (`Theme/SkinCheck.lua`), the guide window's tab styles (`UI/TabStyles`) and Polestar's experimental guides (`Experimental/`), each its own addon before 0.4.3. | Hand-written, apart from the generated files listed below | yes | yes, in `Polestar-<version>.zip` |
 | `Polestar_Guides` | Polestar's own guide pack (pack id `guides`): every guide under `guides/`, compiled to Lua: the factionless guides here, each faction's leveling guides in its faction part. Loads with Polestar. | `compile`, from `guides/` | yes (generated) | yes, in `Polestar-<version>.zip` |
 | `Polestar_Guides_Alliance`, `Polestar_Guides_Horde` | Each faction's guides of `Polestar_Guides` (`Guides.lua`), and for each race of that faction its guides (`Guides_<Race>.lua`) and the baked walks into every leveling step (`Legs_<Race>.lua`, `Polestar.RegisterLegs`), each race's files read only for a character of that race (their own `Polestar_Guides_<Race>` folders before 0.4.3); the player's faction's part loads with the pack, on demand. | `forge guide compile`, the walks from `guides/legs.json` (`forge guide bake`) | yes (generated) | yes, in `Polestar-<version>.zip` |
 | `Polestar/Experimental` (inside `Polestar`) | Polestar's experimental guides (pack id `polestar-experimental`): guides for Forever's new zones in testing (alpha), from `experimental/`; none at the moment (Mount Hyjal joined both routes in 0.4.3). Registered at login, its guides read once shown and out of combat, unless the player switches them off (Options > Guide > Show experimental guides, on by default); listed with Polestar's guides under Leveling with a purple Experimental chip; never suggested, picked or put in a route for the player, though "Choose your path" may offer its zone. `Polestar.toc` lists its files; it has no TOC of its own. | `forge guide compile experimental` and `forge release pack`, from `experimental/` | yes (generated) | yes, in `Polestar-<version>.zip` |
@@ -22,6 +22,7 @@ page says which part is which.
 | `Polestar_Nav_EK`, `Polestar_Nav_Kalimdor` | Each continent's map parts of Leffe's maps; Polestar_Nav's router loads the player's continent's the first time it searches there (never in combat). | `forge nav pack --leffe` | yes (generated) | yes, in `Polestar-<version>.zip` |
 | `Polestar_Travel` | Zone crossings for the travel planner, from the optional local crossings file `data/local/crossings.json`. Loads with Polestar. | `travel build` | no (gitignored, built locally) | no: `install` copies it when built, `pack` never packages it |
 | `Polestar_Options` | The settings window: its pages, the Look pages with their previews and presets, the Profiles page and profile strings, Move frames. Loaded on demand the first time the settings open (`UI/OptionsLoader.lua` in `Polestar` is its door). | Hand-written | yes | yes, in `Polestar-<version>.zip` |
+| `Polestar_Lookup` | The hub's Lookup window (`UI/LookupWindow.lua`): its results, the selection's details, sources and quest chain. Loaded on demand the first time Lookup opens (`UI/Lookup.lua` in `Polestar` is its door and keeps the guide menu's Codex rows). | Hand-written | yes | yes, in `Polestar-<version>.zip` |
 | `Polestar_FreeMode` | The quest-log modes: Free mode (#3701: the character's own quest log as a guide in a tab of its own, the pick rule, pins and quests left out, zone hints; `Free.lua`) and the finished-quest guide's planner (#2486: finished quests grouped by recipient, their stops ordered by estimated travel time; `Route.lua`, `Handins.lua`). Loaded on demand when either guide opens or a saved tab of one comes back (`Lookup/Free.lua` and `Lookup/Handins.lua` in `Polestar` are their doors). | Hand-written | yes | yes, in `Polestar-<version>.zip` |
 | `Polestar_Skins` | The ten skins that ship with Polestar (`Skins/<Name>`: Vellum, Lumen, Beacon, Aurora, Hairline, Umbra, Waymark, Lanterns, Sheen, Atlas, named in its TOC's `## X-Polestar-Skin`) and the Atlas layout (`Layouts/Atlas`), each its own addon before 0.4.3. Loaded on demand when one of them is wanted: at login when one is in use, on a pick, and when the settings list the skins. | Hand-written | yes | yes, in `Polestar-<version>.zip` |
 | `Polestar_Recorder` | An optional, standalone recorder (no dependency on Polestar): quests, routes, world data and, while Polestar runs, guide progress, as compact records into `PolestarRecorderDB` (schema 2, [docs/RECORDING.md](../docs/RECORDING.md)). Off until turned on (`/psrec on`, or Polestar Client's share flag: sharing is on by default in the client; `/psrec off` always wins). Polestar Client sends it; `forge record import` reads what it wrote. `Ack.lua` is the client's acknowledgement and share flag, shipped empty. | Hand-written | yes | yes, as its own `Polestar_Recorder-<version>.zip`; `install --recorder` |
@@ -67,7 +68,7 @@ never in saved variables.
 | 7 | QoL | `QoL/QoL.xml` | `QoL` | Quality of life helpers: action buttons, XP and pace, merchant, reward marks, flight masters, death helper, toggles, requests from other players |
 | 8 | Lookup | `Lookup/Lookup.xml` | `Codex`, `Lookup` | The Codex reader, where things come from, generated guides, mount spotting |
 | 9 | Dungeons | `Dungeons/Dungeons.xml` | `Dungeons` | A quest journal per dungeon and raid, and the guide that picks up a dungeon's quests |
-| 10 | UI | `UI/UI.xml` | `UI` | The guide window, the hub and its Guides, Lookup and Dungeons sections, zone art, route choice, Install, problem report, heads-up cards, the settings window's door (the window itself is `Polestar_Options`) |
+| 10 | UI | `UI/UI.xml` | `UI` | The guide window, the hub and its Guides, Lookup and Dungeons sections, zone art, route choice, Install, problem report, heads-up cards, the settings window's and Lookup's doors (the windows themselves are `Polestar_Options` and `Polestar_Lookup`) |
 | 11 | Rares | `Rares/Rares.xml` | `Rares` | Rare NPCs and treasures: detection, pins, alerts and the hub's Rares section |
 | 12 | Talents | `Talents/Talents.xml` | `Talents` | Talent plans for every class: the hub's Talents section, marks and tooltip lines on the talent frame, a reminder when a point waits |
 | 13 | Alts | `Alts/Alts.xml` | `Alts` | A snapshot of each character on the account and the hub's Characters section |
@@ -289,7 +290,7 @@ never in saved variables.
 | `GearAdjust.lua` | `UI.ShowAdjust` | The Adjust weights window |
 | `Picker.lua` | `UI.Picker` | The hub: its section rail, sidebar and search, and its built-in Guides section (the guide menu); defines `UI.RegisterSection` |
 | `QuestLinks.lua` | (local) | Quest actions in the quest log and objective tracker menus and behind the round button in the quest details header: open guide search or start a quest guide, falling back to search if needed |
-| `Lookup.lua` | `UI.Lookup` | The hub's Lookup section |
+| `Lookup.lua` | `UI.Lookup` | The hub's Lookup section's door: the rail entry, `UI.ShowLookup` and the rows and painters the guide menu's search shares with the window; loads `Polestar_Lookup` (the window) the first time Lookup opens |
 | `Dungeons.lua` | `UI.DungeonsSection` | The hub's Dungeons section |
 | `RouteChoice.lua` | `UI.RouteChoice` | "Choose your path": one card per zone where a guide offers several next guides |
 | `Welcome.lua` | `UI.Welcome` | Install: the setup a character gets the first time Polestar meets it, a page at a time (`/polestar install`) |
@@ -337,13 +338,14 @@ icon, order, build, render, ... })` from its own file:
 | Section | Order | File |
 |---|---|---|
 | Guides | 10 | `UI/Picker.lua` (built in) |
-| Lookup | 20 | `UI/Lookup.lua` |
+| Lookup | 20 | `UI/Lookup.lua` (rail entry), `Polestar_Lookup/UI/LookupWindow.lua` (window) |
 | Dungeons | 30 | `UI/Dungeons.lua` |
 | Talents | 40 | `Talents/View.lua` |
 | Rares | 50 | `Rares/View.lua` |
 | Characters | 60 | `Alts/View.lua` |
 
-Lookup and Dungeons keep their screens in `UI/`; Rares, Talents and Characters keep their
+Lookup loads its window from `Polestar_Lookup` the first time its section opens; Dungeons keeps its
+screen in `UI/`; Rares, Talents and Characters keep their
 screens in their own modules, which works because `Rares.xml`,
 `Talents.xml` and `Alts.xml` load after `UI.xml`. A new
 section registers the same way, from a file that loads after `UI/Picker.lua`.
