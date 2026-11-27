@@ -1309,7 +1309,7 @@ local models = {
 	} },
 	trainer = { title = "Journeyman Leatherworking", rank = 2, level = 50, npc = "Simon Tanner", map = 1453, due = false, toGo = 19, step = 4, goalIndex = 1 },
 	stretch = { item = 2304, name = "Light Armor Kit", colour = "orange", yellow = 30, green = 45, grey = 60, moveOn = 51, from = 20, rank = 31,
-		reagents = { { item = 2318, count = 1, name = "Light Leather" } }, made = 4, expected = 45, canMake = 12, spell = "Leatherworking", step = 3,
+		reagents = { { item = 2318, count = 1, name = "Light Leather" } }, made = 4, left = 35, expected = 45, canMake = 12, spell = "Leatherworking", step = 3,
 		flow = "Skin 34 Light Leather (Skinning 50 to 72), then craft 45 Light Armor Kits (Leatherworking 20 to 51)",
 		note = "34 Light Leather for Leatherworking 20-51: 53 Light Armor Kits. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them. Or buy them at the Auction House." },
 	supplies = { title = 51, titleKind = "skill", way = "mix", rows = { leather }, choosable = true, from = "from your skinning on the way: 12 of 34 Light Leather" },
