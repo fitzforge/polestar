@@ -87,29 +87,20 @@ const HIDE_LEVELS = [
 	{ re: /^Rugged (Leather|Hide)$/, min: 48, max: 60 },
 ];
 
-// Disenchanting an uncommon (green) armour piece gives the material when the piece asks for these character
-// levels (its "Requires Level" line, which the game shows; Forever's server data by item level, disenchant.json,
-// is about five above it). Shards come mostly from rare items.
-const DISENCHANT_LEVELS = [
-	{ re: /^Strange Dust$/, min: 1, max: 20 },
-	{ re: /^(Lesser|Greater) Magic Essence$/, min: 1, max: 15 },
-	{ re: /^(Lesser|Greater) Astral Essence$/, min: 16, max: 25 },
-	{ re: /^Soul Dust$/, min: 21, max: 30 },
-	{ re: /^(Lesser|Greater) Mystic Essence$/, min: 26, max: 35 },
-	{ re: /^Vision Dust$/, min: 31, max: 40 },
-	{ re: /^(Lesser|Greater) Nether Essence$/, min: 36, max: 45 },
-	{ re: /^Dream Dust$/, min: 41, max: 50 },
-	{ re: /^(Lesser|Greater) Eternal Essence$/, min: 46, max: 60 },
-	{ re: /^Illusion Dust$/, min: 51, max: 60 },
-	{ re: /^Small Glimmering Shard$/, min: 11, max: 20 },
-	{ re: /^Large Glimmering Shard$/, min: 21, max: 25 },
-	{ re: /^Small Glowing Shard$/, min: 26, max: 30 },
-	{ re: /^Large Glowing Shard$/, min: 31, max: 35 },
-	{ re: /^Small Radiant Shard$/, min: 36, max: 40 },
-	{ re: /^Large Radiant Shard$/, min: 41, max: 45 },
-	{ re: /^Small Brilliant Shard$/, min: 46, max: 50 },
-	{ re: /^Large Brilliant Shard$/, min: 51, max: 60 },
-];
+// The character levels ("Requires Level", the line the game shows) of the green armour that disenchants into
+// a dust, essence or shard, or of green weapons when no armour gives it: data/disenchant.json (the client's
+// disenchant bands by item level with the server's loot), the item level about five above the level asked.
+// -> { min, max } or null.
+const DISENCHANT = require('../../../data/disenchant.json');
+function disenchantLevels(name) {
+	const id = Number(Object.keys(DISENCHANT.names).find((k) => DISENCHANT.names[k] === name));
+	if (!id) return null;
+	const greens = (cls) => DISENCHANT.bands.filter((b) => b.class === cls && b.quality === 2 && b.loot.some((l) => l.item === id));
+	const bands = greens(4).length ? greens(4) : greens(2);
+	if (!bands.length) return null;
+	const req = (ilvl) => Math.max(1, Math.min(60, ilvl - 5));
+	return { min: req(Math.min(...bands.map((b) => b.ilvl[0]))), max: req(Math.max(...bands.map((b) => b.ilvl[1]))) };
+}
 
 function zoneName(data, map) {
 	const z = (data.zones || {})[map];
@@ -208,7 +199,7 @@ function sourceText(data, item, m, src, side, { zones: withZones = true, marked 
 			return lv ? `humanoids of level ${lv[0]}-${lv[1]} drop it${ah}` : `humanoids drop it${ah}`;
 		}
 		case 'disenchant': {
-			const t = DISENCHANT_LEVELS.find((h) => h.re.test(name));
+			const t = disenchantLevels(name);
 			return `Enchanting: disenchant green armour${t ? ` that requires level ${t.min}-${t.max}` : ''}${ah}`;
 		}
 		case 'fishing':
@@ -244,4 +235,4 @@ function rankTrainers(data, rank, side, prof) {
 	return [...new Set(ids.map((id) => npcPlace(data, id)).filter(Boolean))].sort();
 }
 
-module.exports = { SIDES, money, list, article, crafts, sourceText, townVendors, mainTown, rankTrainers, npcPlace, nodeZones, nodesUp, nodeTable, nodeNames, nodeSkill, CLOTH_LEVELS, HIDE_LEVELS, DISENCHANT_LEVELS, zoneName };
+module.exports = { SIDES, money, list, article, crafts, sourceText, townVendors, mainTown, rankTrainers, npcPlace, nodeZones, nodesUp, nodeTable, nodeNames, nodeSkill, CLOTH_LEVELS, HIDE_LEVELS, disenchantLevels, zoneName };

@@ -114,7 +114,7 @@ return {
 	["{spell:13501} to 150"] = "{spell:13501} bis 150",
 	-- {spell:13501} Enchant Bracer - Lesser Stamina · {item:11083} Soul Dust · {item:6339} Runed Silver Rod · {item:10938} Lesser Magic Essence · {skill:333} Enchanting
 	-- was: ["{spell:13501} is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:6339} first: the recipe needs it in your bags, so keep it there. {item:10938} (4 for 75-150): Alliance: {skill:333}: disenchant green items of item level 5-15; or the Auction House. Enchant any item for that slot in your bags, even a grey one. {skill:333} 150 is a Legacy System milestone."] = "{spell:13501} ist bei 130 orange (gelb 155, grün 175, grau 195): etwa 20 Herstellungen bis 150, ein Punkt pro Herstellung. Jede benötigt 1 {item:11083}. Ein {item:11083} pro Herstellung (grüne Gegenstände der Stufen 21-30). Stell zuerst {item:6339} her: Das Rezept braucht sie in deinen Taschen, behalte sie also dort. {item:10938} (4 für 75-150): Allianz: {skill:333}: grüne Gegenstände der Gegenstandsstufe 5-15 entzaubern; oder im Auktionshaus. Verzauber irgendeinen Gegenstand für diesen Platz in deinen Taschen, auch einen grauen. {skill:333} 150 ist ein Meilenstein des Vermächtnissystems."
-	["{spell:13501} is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:6339} first: the recipe needs it in your bags, so keep it there. {item:10938} (4 for 75-150): Alliance: {skill:333}: disenchant green armour that requires level 1-15; or the Auction House. Enchant any item for that slot in your bags, even a grey one. {skill:333} 150 is a Legacy System milestone."] = "",
+	["{spell:13501} is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:6339} first: the recipe needs it in your bags, so keep it there. {item:10938} (4 for 75-150): Alliance: {skill:333}: disenchant green armour that requires level 1-10; or the Auction House. Enchant any item for that slot in your bags, even a grey one. {skill:333} 150 is a Legacy System milestone."] = "",
 
 	-- Step 18: Get Iridescent Pearl (Alliance)
 	-- {item:5500} Iridescent Pearl
@@ -133,7 +133,7 @@ return {
 	-- {item:11082} Greater Astral Essence
 	["Get {item:11082}"] = "",
 	-- {item:11082} Greater Astral Essence · {skill:333} Enchanting · {item:11130} Runed Golden Rod
-	["1 {item:11082} for {skill:333} 150-225: {item:11130}. {skill:333}: disenchant green armour that requires level 16-25. Or buy it at the Auction House."] = "",
+	["1 {item:11082} for {skill:333} 150-225: {item:11130}. {skill:333}: disenchant green armour that requires level 21-25. Or buy it at the Auction House."] = "",
 
 	-- Step 21: Get Soul Dust
 	-- {item:11083} Soul Dust · {skill:333} Enchanting · {item:11130} Runed Golden Rod · {spell:13501} Enchant Bracer - Lesser Stamina · {spell:13637} Enchant Boots - Lesser Agility
@@ -149,13 +149,13 @@ return {
 	-- {item:11134} Lesser Mystic Essence
 	["Get {item:11134}"] = "",
 	-- {item:11134} Lesser Mystic Essence · {skill:333} Enchanting · {spell:13663} Enchant Chest - Greater Intellect
-	["10 {item:11134} for {skill:333} 150-225: 10 {spell:13663}. {skill:333}: disenchant green armour that requires level 26-35. Or buy them at the Auction House."] = "",
+	["10 {item:11134} for {skill:333} 150-225: 10 {spell:13663}. {skill:333}: disenchant green armour that requires level 26-30. Or buy them at the Auction House."] = "",
 
 	-- Step 24: Get Greater Mystic Essence
 	-- {item:11135} Greater Mystic Essence
 	["Get {item:11135}"] = "",
 	-- {item:11135} Greater Mystic Essence · {skill:333} Enchanting · {item:11145} Runed Truesilver Rod
-	["1 {item:11135} for {skill:333} 150-225: {item:11145}. {skill:333}: disenchant green armour that requires level 26-35. Or buy it at the Auction House."] = "",
+	["1 {item:11135} for {skill:333} 150-225: {item:11145}. {skill:333}: disenchant green armour that requires level 31-35. Or buy it at the Auction House."] = "",
 
 	-- Step 25: Get Vision Dust
 	-- {item:11137} Vision Dust

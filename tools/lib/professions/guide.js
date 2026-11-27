@@ -471,10 +471,10 @@ function taughtFloor(prof, taughtBy = {}) {
 }
 
 // ` levels a-b` for a disenchanted material: the "Requires Level" of the green armour that breaks into it
-// (describe.js DISENCHANT_LEVELS). A `gather Enchanting 1 levels a-b` collect is the disenchant way (the guide
+// (describe.js disenchantLevels). A `gather Enchanting 1 levels a-b` collect is the disenchant way (the guide
 // window's "Disenchant green armour, Requires Level a-b" row).
 function deLevels(name) {
-	const t = D.DISENCHANT_LEVELS.find((h) => h.re.test(name));
+	const t = D.disenchantLevels(name);
 	return t ? ` levels ${t.min}-${t.max}` : '';
 }
 
