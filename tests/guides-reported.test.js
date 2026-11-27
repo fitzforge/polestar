@@ -19989,3 +19989,14 @@ test("forever/horde/30-40/02-thousand-needles.guide: Oscure3's report: the carap
 	const take = list[at(list, 'accept 1148 (Parts of the Swarm)', is('accept', 1148))];
 	for (const { step } of [carapace, take]) assert.ok(holdsQuest(step, 1147), `${step.title}: only with The Swarm Grows (1147) in the log`);
 });
+
+// #4439 (Meta, 0.4.3.1): the Veteran of the Third War (255009), who gives Anywhere But Here (92100), was not at the
+// guide's one spot. Players' recordings open his window at 30 places across Mourning's Rest, from 19.9,59.6 to
+// 25.1,51.5 (30 people); the step says so instead of "where the recording met him".
+test("forever/50-60/mount-hyjal.guide: Meta's report: the step says where in Mourning's Rest the Veteran can be (#4439)", { skip }, () => {
+	const list = goals('forever/50-60/mount-hyjal.guide');
+	const { step } = list[at(list, 'accept 92100 (Anywhere But Here)', is('accept', 92100))];
+	const tip = [step.tip, step.note].flat().filter(Boolean).join(' ');
+	assert.doesNotMatch(tip, /where the recording met him/, tip);
+	assert.match(tip, /\(20,60\).*25,51/, tip);
+});
