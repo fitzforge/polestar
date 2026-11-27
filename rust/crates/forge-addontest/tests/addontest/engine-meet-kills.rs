@@ -108,3 +108,30 @@ fn hillsbrad_fields_the_nearest_farm_leads_as_before() {
 	let out = run(HILLSBRAD, "w.level = 24; w.onQuest(527, { 6, 6 }); w.moveTo(1429, 50, 50)", r#"E.SetGuide("test/hills"); flush(); emit({ at = at(50) })"#);
 	assert_eq!(out["at"], json!([2, 60]));
 }
+
+// Hawdyha's Jadefire Run (#4268): Xavaric drops the Flute of Xavaric, and his kill is a goal of the step too. The arrow
+// leads to the flute as "Kill Xavaric for Flute of Xavaric"; the kills named under it leave Xavaric out (that kill is
+// the flute's own), the satyrs stay.
+const JADEFIRE: &str = r#"
+Polestar.RegisterGuide({ id = "test/jadefire", pack = "test", title = "Felwood", zone = 1429, steps = {
+	{ title = "Jadefire Run: kill these as you meet them", goals = {
+		{ t = "kill", target = "Xavaric", npc = 10648, count = 1, quest = 4906, oi = 4, map = 1429, x = 60, y = 50 },
+		{ t = "kill", target = "Jadefire Trickster", npc = 7107, count = 8, quest = 4906, oi = 3, map = 1429, x = 50, y = 50, spread = true,
+			spots = { { x = 50, y = 50, r = 300, n = 10 } } },
+		{ t = "collect", item = 11668, itemName = "Flute of Xavaric", count = 1, map = 1429, x = 60, y = 50,
+			from = "Xavaric", fromKind = "npc", fromId = 10648, fromNpcs = { { npc = 10648, npcName = "Xavaric" } } },
+	} },
+	{ goals = { { t = "level", level = 60 } } },
+} })
+"#;
+
+#[test]
+fn the_kills_under_the_arrow_leave_out_the_mob_its_item_comes_from_4268() {
+	let out = run(
+		JADEFIRE,
+		"w.level = 54; w.onQuest(4906, { 8, 8, 8, 1 }); w.moveTo(1429, 50, 50)",
+		r#"E.SetGuide("test/jadefire"); flush(); emit({ at = at(50), note = label() })"#,
+	);
+	assert_eq!(out["at"], json!([3, 60]), "the flute leads: {out}");
+	assert_eq!(out["note"], json!("Kill Xavaric for Flute of Xavaric · kill Jadefire Trickster as you meet them"), "{out}");
+}
