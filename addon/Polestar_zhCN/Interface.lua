@@ -49,7 +49,7 @@
 --   %s. Optional: the route doesn't need it.
 --   Kept for %s
 --   Hand in %s to %s, who walks around here: look inside the circle on the map
---   A quest you carry that the route does not work here: its work is nearby.
+--   A quest in your log with an objective nearby that the route doesn't do here.
 --   %s at %s
 --   Only visible while dead: die nearby and talk to them as a ghost.
 --   Under water nearby: swim down to it
@@ -705,7 +705,7 @@ L["%s; 1 in %d runs fails"] = "%s；每 %d 次有 1 次失败"
 L["%s. Optional: the route doesn't need it."] = "%s。可选：路线不需要它。"
 L["Kept for %s"] = "留给 %s"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "把 %s 交还给 %s，此人在附近走动：在地图上的圆圈里找"
-L["A quest you carry that the route does not work here: its work is nearby."] = "你身上的一个任务，路线不在这里做：它的目标就在附近。"
+L["A quest in your log with an objective nearby that the route doesn't do here."] = "你身上的一个任务，路线不在这里做：它的目标就在附近。"
 L["%s at %s"] = "%2$s 处的 %1$s"
 L["Buy a rune at %s"] = "在%s处购买符文"
 L["Buy a rune and cast %s to save about %s"] = "购买符文并施放%s，约可节省%s"
@@ -5648,6 +5648,13 @@ L["Kept for %s: the route hands it in there."] = "留给 %s：路线会在那里
 L["No quests in your log are ready to hand in."] = "任务日志中没有可交还的任务。"
 L["Wait until combat ends to load the quest data."] = "请等战斗结束后再加载任务数据。"
 L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "交还任务指南无法加载。请检查插件 Polestar_FreeMode 是否已安装并启用。"
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["None of these has a known place to hand it in."] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
 
 -- Lookup/Free.lua
 L["Free mode starts after combat."] = "自由模式将在战斗结束后启动。"
@@ -5659,6 +5666,33 @@ L["Free mode: follow your own quests (on, off, nearest, xp)"] = "自由模式：
 -- UI/QuestLinks.lua
 L["Start quest guide"] = "开始任务指南"
 L["Click to show quest guide actions."] = "点击显示任务指南操作。"
+
+-- Free.lua
+-- L["Low drop rate: %s"] = ""
+-- L["1 quest for your level: %s gives it."] = ""
+-- L["%d quests for your level, all here."] = ""
+-- L["%d quests for your level, %d of them here."] = ""
+-- L["Quests for your level"] = ""
+-- L["About %s XP a minute"] = ""
+-- L["Order: nearest first"] = ""
+-- L["Order: most XP a minute first"] = ""
+-- L["Bring back left-out quests (%d)"] = ""
+-- L["Unpin"] = ""
+-- L["Pin to the top"] = ""
+-- L["Free mode takes this quest first, whatever the order."] = ""
+-- L["Leave out of Free mode"] = ""
+-- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = ""
+
+-- Layouts/Atlas/Atlas.lua
+-- L["Get ahead, if possible"] = ""
+-- L["Still open from steps you have passed"] = ""
+L["1 quest off-guide"] = "1 个指南外任务"
+L["%d quests off-guide"] = "%d 个指南外任务"
+-- L["View"] = ""
+L["Training due"] = "职业训练"
+L["New spells at your class trainer"] = "职业训练师处有新法术可学"
+-- L["Optional objectives during this step"] = ""
+-- L["Class quest"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐页重新设置 Polestar。每项选择立即生效。"

@@ -3021,9 +3021,16 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   is part of the step signature, so arriving re-renders the window and lifts
   it, and once a quest of it is taken it does not come back. In such a guide
   a goal whose quest the character can never take (the quest database's race,
-  class or faction: the Human class letters for a Night Elf Warrior) does not
-  apply, like another class's (`Own.barred`, in `goalApplies` and the
-  orphaned turn-in check; without the database those goals stay); steps for
+  class or faction: the Human class letters for a Night Elf Warrior, the Night
+  Elf druids' Body and Heart for a Skyborne druid) does not apply, like
+  another class's (`Own.barred`, in `goalApplies` and the orphaned turn-in
+  check; without the database those goals stay). So do the goals that only
+  serve such quests: in a step whose quest goals are all barred, the travel
+  and item goals without a quest (`Own.SERVES`: goto, fly, use, enter, hearth,
+  kill, collect, interact, talk, level, cast), so the Moonkin Stone step's
+  flight to Auberdine and its Cenarion Moondust go with Body and Heart; a
+  step with one quest the character can take keeps all its goals, and a goal
+  that stands alone (train, vendor, getfp, sethome) stays. Steps for
   the guide's race only (`only Human`) never applied. No class steps are made
   for classes the guide's race does not play. Its `next` hand-off is unchanged:
   the shared route it leads to fits every race of the faction.

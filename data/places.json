@@ -3300,6 +3300,19 @@
 				{ "kind": "recording", "ref": "players' recordings: 'Eye of Kilrogg guided to the road' ticks, then the hand-in at npc 271181 on the road" }
 			],
 			"issue": 4115
+		},
+		{
+			"id": "4381-tirisfal-bareth-top-floor-giver",
+			"faction": "Horde",
+			"quest": 99144,
+			"objective": "giver",
+			"at": { "map": 1420, "x": 31.8, "y": 45.9, "frame": "era" },
+			"note": "Seeking Refuge: Bareth Dawnstone (275954) offers it held on the top floor of the Crusader's Outpost tower (31.76,45.89, height 40.3). The merged data's nearest spawn to the route was 33.28,47.65 on the ground outside, where the escort ends, so the arrow led below and away from him (#4381).",
+			"source": [
+				{ "kind": "tdb", "ref": "creature 275954: five spawns, 31.76,45.89 at z 40.3 on the tower's top floor; 33.28,47.65 at z 31.9 on the ground" },
+				{ "kind": "in-game-check", "ref": "#4381 (GustavoCampos1999, 0.4.3.1): the quest is taken up on the tower, the reporter standing at 31.99,46.36" }
+			],
+			"issue": 4381
 		}
 	]
 }
