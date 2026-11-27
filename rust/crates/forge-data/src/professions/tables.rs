@@ -368,12 +368,32 @@ pub struct Loaded {
 	pub build: String,
 	pub era_build: String,
 	pub tables: Tables,
-	/// `Number(Spell)` of Era's SkillLineAbility rows from SOD_SPELL_MIN (nk keys).
+	/// `Number(Spell)` of Era's SkillLineAbility rows from SOD_SPELL_MIN, less the ones Forever teaches itself
+	/// (season_spells; nk keys).
 	pub season: FxHashSet<u64>,
 	/// Era's SkillLineAbility: spell -> TrivialSkillLineRankLow (yellow), for the Classic learn-skill
 	/// estimate (extract.rs).
 	pub era_yellow: FxHashMap<i64, i64>,
 	pub warnings: Vec<String>,
+}
+
+/// Season of Discovery recipes players' recordings show Forever teaching: Major Discolored Healing Potion, learned
+/// by 3 people with Odd Child's trainer window open (builds 70959 and 71037) and crafted with points up to 299.
+const TAUGHT_ON_FOREVER: [i64; 1] = [1231583];
+
+/// The recipes extract.rs leaves out as Season of Discovery's: Era's SkillLineAbility spells from SOD_SPELL_MIN,
+/// less the ones Forever teaches itself. Those have a recipe item of Forever's own (an item whose use teaches the
+/// spell, ItemEffect TriggerType 6, that Forever's ItemSparse has and Era's does not: Formula: Enchant Gloves - Holy
+/// Power is 249536 on Forever, sold by Beneris, where Era's is 233998), or players' recordings show Forever
+/// teaching them (TAUGHT_ON_FOREVER). Forever's own rows of ItemEffect, ItemXItemEffect and ItemSparse, before
+/// Era fills them. -> `Number(Spell)` (nk keys)
+fn season_spells(era_abilities: &[Ability], item_effect: &[ItemEffect], item_x: &[ItemXItemEffect], sparse: &[ItemSparse], era_sparse: &[ItemSparse]) -> FxHashSet<u64> {
+	let era_items: FxHashSet<u64> = era_sparse.iter().map(|r| nk(r.id_n)).collect();
+	let own_items: FxHashSet<u64> = sparse.iter().map(|r| nk(r.id_n)).filter(|id| !era_items.contains(id)).collect();
+	let teaches: FxHashMap<i64, i64> = item_effect.iter().filter(|e| e.trigger_type == 6).map(|e| (e.id, e.spell)).collect();
+	let mut forever: FxHashSet<i64> = item_x.iter().filter(|x| own_items.contains(&nk(x.item_n))).filter_map(|x| teaches.get(&x.effect).copied()).collect();
+	forever.extend(TAUGHT_ON_FOREVER);
+	era_abilities.iter().filter(|r| r.spell_n >= super::extract::SOD_SPELL_MIN as f64 && !forever.contains(&r.spell)).map(|r| nk(r.spell_n)).collect()
 }
 
 /// Forever's own tables: TABLES less the ones that may come whole from Era (SpellTotems,
@@ -496,7 +516,7 @@ pub fn load(sources: &Path, build: Option<&str>) -> Result<Loaded, String> {
 	let era_item = read::<Item>(&root, &eb, "Item")?;
 	let era_item_effect = read::<ItemEffect>(&root, &eb, "ItemEffect")?;
 
-	let season = era_abilities.iter().filter(|r| r.spell_n >= super::extract::SOD_SPELL_MIN as f64).map(|r| nk(r.spell_n)).collect();
+	let season = season_spells(&era_abilities, &item_effect, &item_x, &sparse, &era_sparse);
 	let era_yellow = era_abilities.iter().filter(|r| r.low > 0).map(|r| (r.spell, r.low)).collect();
 
 	// fillFromEra: per spell (a spell Forever's SpellEffect has is wholly Forever's) and per id.
@@ -567,5 +587,20 @@ mod tests {
 		assert!(forever_family("1.60.1.70450") && !forever_family("1.15.9.1"));
 		assert!(era_family("1.15.9.70003") && !era_family("1.16.0.1") && !era_family("5.5.1.1"));
 		assert!(is_build("1.2") && !is_build("1") && !is_build("1..2"));
+	}
+
+	// Forever sells Formula: Enchant Gloves - Holy Power (its own item 249536, not Era's 233998) and players learned
+	// Major Discolored Healing Potion at a Forever trainer: neither is a Season of Discovery leftover. Crimson Silk
+	// Robe's pattern is Era's item too, and an item of Forever's own that only uses a spell (TriggerType 0) teaches
+	// nothing: both stay out.
+	#[test]
+	fn season_spells_keep_the_recipes_forever_teaches_itself() {
+		let era: Vec<Ability> = parse("SkillLine,Spell,AcquireMethod,TrivialSkillLineRankLow,TrivialSkillLineRankHigh\n333,1213622,0,320,360\n197,439085,0,220,250\n171,1231583,0,270,290\n333,1219577,0,320,360\n197,2389,0,65,100").unwrap();
+		let effects: Vec<ItemEffect> = parse("ID,SpellID,TriggerType\n1,1213622,6\n2,439085,6\n3,1219577,0").unwrap();
+		let x: Vec<ItemXItemEffect> = parse("ID,ItemEffectID,ItemID\n1,1,249536\n2,2,217244\n3,3,273598").unwrap();
+		let sparse: Vec<ItemSparse> = parse("ID,Display_lang\n249536,Formula: Enchant Gloves - Holy Power\n217244,Pattern: Crimson Silk Robe\n273598,Enchant Off-Hand - Superior Intellect").unwrap();
+		let era_sparse: Vec<ItemSparse> = parse("ID,Display_lang\n217244,Pattern: Crimson Silk Robe\n233998,Formula: Enchant Gloves - Holy Power").unwrap();
+		let want: FxHashSet<u64> = [nk(439085.0), nk(1219577.0)].into_iter().collect();
+		assert_eq!(season_spells(&era, &effects, &x, &sparse, &era_sparse), want);
 	}
 }
