@@ -704,6 +704,9 @@ end
 -- (ready: finished, to hand in). Picked up off the route; the player keeps
 -- or abandons them. nil when it can't say (no guide, a guide of a chain not
 -- loaded). Only when the end card or the guide-end window shows.
+-- With guideWindow.offRouteDungeons off (#4288), a dungeon's quest or one
+-- that leads to it (Dungeons.QuestMark, the dungeon mark) is left out: kept
+-- for a later run, not counted as off the route.
 function Plan.OffRoute(id)
 	local E, C, G = ns.Engine, ns.Compat, ns.Guides
 	local active = (id and G.Get(id)) or (E and E.GetGuide and E.GetGuide())
@@ -718,8 +721,10 @@ function Plan.OffRoute(id)
 		end
 	end
 	local dungeons, out = elsewhere(active).dungeons, {}
+	local D = ns.Dungeons
+	local skipDungeon = ns.Get("guideWindow.offRouteDungeons") == false and D and D.QuestMark
 	for _, q in ipairs(C.GetLogQuests() or {}) do
-		local used = dungeons[q] ~= nil
+		local used = dungeons[q] ~= nil or (skipDungeon and D.QuestMark(q) ~= nil) or false
 		for _, set in ipairs(sets) do
 			if used then break end
 			used = set[q] == true
