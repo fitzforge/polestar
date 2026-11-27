@@ -4688,12 +4688,16 @@ end
 -- (`use <item>`) and is done: the collect is then done too, so a quest whose
 -- work was the use, done before (Trial of the Lake's Shrine Bauble for a
 -- Druid who did the chain, #2099), never leaves the collect holding the step
--- and the trip to it.
+-- and the trip to it. A gather whose item another item's use spends
+-- (`spentBy`, Lookup's steps: four Coalesced Mana Crystals before each of
+-- Powering the Pylons' pylons, the Pile of Pylon Parts' repair using them up,
+-- #4270) goes with the first use of that item after it.
 function Own.usedLaterDone(s, g, goal)
 	local goals = guide.steps[s].goals
+	local item = goal.spentBy or goal.item
 	for j = g + 1, #goals do
 		local later = goals[j]
-		if later.t == "use" and later.item == goal.item and goalApplies(later) then
+		if later.t == "use" and later.item == item and goalApplies(later) then
 			return goalDone(s, j, later) and true or false
 		end
 	end
@@ -4732,7 +4736,11 @@ end
 -- one of 20 spears, #2633). Its met bag count is then not latched
 -- (latchInStep), so using the item up sends the arrow back to fetch the
 -- next; Own.usedLaterDone closes it with the objective.
+-- A gather another item's use spends (`spentBy`, #4270) is never latched
+-- either: the crystals for the second pylon are fetched again after the first
+-- repair used them up, though the bags held enough for both rows before it.
 function Own.refetch(s, g, goal)
+	if goal.t == "collect" and not goal.quest and goal.spentBy then return true end
 	if goal.t ~= "collect" or goal.quest or not goal.item or (goal.count or 1) > 1 then return false end
 	local goals = guide.steps[s].goals
 	for j = g + 1, #goals do
@@ -7090,13 +7098,18 @@ function Own.currentGoal(s, groups, focus)
 				header = header or g
 			elseif not goal.optional then
 				first = first or g
-				if Own.isField(goal) and not barrier then
+				-- A gather another item's use spends (`spentBy`, #4270) is taken in
+				-- its order, never toured: it may need what a goal before it
+				-- fetches (the Mana Sieve before the Coalesced Mana Crystals), and
+				-- the use after it needs what it gathers.
+				local spent = goal.t == "collect" and not goal.quest and goal.spentBy ~= nil
+				if Own.isField(goal) and not spent and not barrier then
 					fields = fields or {}
 					fields[#fields + 1] = g
 					-- One item for no quest (Cozzle's Key, the Excavation Tools): what
 					-- comes after it needs it, so the tour stops there (#1953).
 					if goal.t == "collect" and not goal.quest and (goal.count or 1) == 1 then barrier = true end
-				elseif not Own.isField(goal) and not (g == first and goal.t == "goto" and Own.grindAfter(s, grp, g)) then
+				elseif (spent or not Own.isField(goal)) and not (g == first and goal.t == "goto" and Own.grindAfter(s, grp, g)) then
 					barrier = true
 				end
 			else
