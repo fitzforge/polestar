@@ -1322,6 +1322,48 @@ fn a_tab_s_close_button_shows_faintly_at_rest_and_in_full_under_the_pointer() {
 	assert_eq!(out["call"], json!(["CloseTab", 2]));
 }
 
+// imp on Discord (#4369): with the window at the top of the screen, a tab's tooltip covered the tab. The strip's
+// tooltips (a tab's, its close's, New tab's) open above their button while the screen has room for them there, under
+// it when it has not, in the underline and edge styles alike, and at a window scale other than 1.
+#[test]
+fn the_tab_strip_s_tooltips_open_under_their_button_when_the_screen_has_no_room_above_it() {
+	let out = run(r#"
+		uistub.openTabs(TABS, 1)
+		GameTooltip:SetHeight(60)
+		-- The button's top `gap` under the screen's, in the button's own units.
+		local function anchorAt(b, gap)
+			b.y = UIParent:GetTop() / b:GetEffectiveScale() - b:GetHeight() - gap
+			stub.RunScript(b, "OnEnter")
+			local r = GameTooltip:GetOwner() == b and GameTooltip.anchor or false
+			stub.RunScript(b, "OnLeave")
+			return r
+		end
+		local function probe(b, room, top) return { room = anchorAt(b, room), top = anchorAt(b, top) } end
+		local out = {}
+		local tab = shownTabs()[2]
+		out.underline = { tab = probe(tab, 200, 5), close = probe(tab.Close, 200, 5), add = probe(GF.parts.strip.Add, 200, 5) }
+		-- Window scale 2: 50 of the tab's units is 100 on screen, room for the 60-high tooltip; 20 is 40, too little.
+		F:SetScale(2)
+		out.scale = tab:GetEffectiveScale()
+		out.scaled = probe(tab, 50, 20)
+		F:SetScale(1)
+		Polestar.Set("guideWindow.tabStyle", "edge")
+		stub.advance(1)
+		local e
+		for _, t in ipairs(GF.parts.tabEdge.tabs) do if t:IsShown() and t.psIndex == 2 then e = t end end
+		out.edge = { tab = probe(e, 200, 5), add = probe(GF.parts.tabEdge.Add, 200, 5) }
+		emit(out)"#)
+	.remove(0);
+	let flips = json!({ "room": "ANCHOR_TOP", "top": "ANCHOR_BOTTOM" });
+	for (style, buttons) in [("underline", &["tab", "close", "add"][..]), ("edge", &["tab", "add"][..])] {
+		for button in buttons {
+			assert_eq!(out[style][button], flips, "{style} {button}");
+		}
+	}
+	assert_eq!(out["scale"], 2.0);
+	assert_eq!(out["scaled"], flips, "at window scale 2");
+}
+
 #[test]
 fn a_narrow_tab_truncates_its_title_and_keeps_its_level_range_whole_also_with_the_close_button_shown() {
 	let out = run(r#"

@@ -3453,6 +3453,7 @@ GF.Part(function(GF)
 		strip.Add = W.IconButton(strip, "plus", 24, L["Open a guide in a new tab"], function()
 			UI.ShowPicker({ newTab = true })
 		end, 12)
+		strip.Add.psOnEnter = function(self) GF.IconTipAbove(self) end
 		hoverable(strip.Add)
 		chrome[#chrome + 1] = strip
 		-- The Forever skin positions its border below the tab strip; expose the strip.
