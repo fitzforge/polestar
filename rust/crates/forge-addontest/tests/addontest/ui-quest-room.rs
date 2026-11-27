@@ -220,10 +220,18 @@ Polestar.RoutePlan.Ender = function() return nil end
 local start = Polestar.Handins.Start
 Polestar.Handins.Start = function(...) starts = starts + 1; return start(...) end
 local room = measure()
--- Simulate a wider label so the footer needs a second line.
+-- Simulate a wider label, as a translation gives: the footer stays on one line and the wider label is cut short.
 F.GuideMe:SetWidth(220)
 local carried = measure("carried")
-local stacked = select(5, F.Switch:GetPoint()) < select(5, F.GuideMe:GetPoint()) - F.GuideMe:GetHeight()
+local cut = {}
+for _, b in ipairs({ F.Switch, F.GuideMe }) do
+	if b.psFooterCut then cut[#cut + 1] = b.psTip == b.Label:GetText() and not b.Label:GetWordWrap() end
+end
+local oneLine = {
+	sameTop = select(5, F.Switch:GetPoint()) == select(5, F.GuideMe:GetPoint()),
+	fits = F.Switch:GetWidth() + 16 + F.GuideMe:GetWidth() <= F:GetWidth() - 48 + 0.5,
+	cut = cut,
+}
 local label = F.GuideMe.Label:GetText()
 local before, hint, why = starts, F.Hint:GetText(), F.rows[1].Why:GetText()
 F.GuideMe:Click()
@@ -235,11 +243,14 @@ for _, s in ipairs(guide.steps) do
 end
 table.sort(quests)
 emit({ room = room, carried = carried, before = before, starts = starts, allCalls = allCalls,
-	hint = hint, why = why, shown = F:IsShown(), label = label, stacked = stacked,
+	hint = hint, why = why, shown = F:IsShown(), label = label, oneLine = oneLine,
 	id = guide.id, quests = quests, manual = manual })"#,
 	);
 	assert_eq!(out["label"], "Guide me to all", "{out}");
-	assert_eq!(out["stacked"], true, "a wider localized footer label must not overlap the switch: {out}");
+	assert_eq!(out["oneLine"]["sameTop"], true, "a wider label keeps the footer on one line: {out}");
+	assert_eq!(out["oneLine"]["fits"], true, "the two buttons fit beside each other: {out}");
+	let cut = out["oneLine"]["cut"].as_array().unwrap();
+	assert!(!cut.is_empty() && cut.iter().all(|c| c == true), "the wider label(s) are cut short, whole in the tooltip: {out}");
 	assert_eq!(out["id"], "lookup/carried/log", "{out}");
 	assert_eq!(out["quests"], json!([9005, 9010, 9015, 9020, 9025, 9030]), "{out}");
 	assert_eq!(out["manual"], true, "{out}");

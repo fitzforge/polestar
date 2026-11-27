@@ -50,6 +50,7 @@ local ROW_GAP = 6
 local MAX_ROWS = 9 -- rows in view at most; more scroll
 local MARGIN = 24 -- kept clear above and below the window on a short screen
 local BUTTON_H = 28
+local FOOT_GAP = 16 -- between the footer's two buttons, as between the settings footer's groups
 
 local F
 
@@ -335,13 +336,20 @@ function UI.LayoutQuestRoom()
 	-- Make room: every finished quest in the log, when there are any.
 	local finished = not (carried or ending) and ns.RoutePlan.Carried(true) or nil
 	local switch = carried or (finished ~= nil and #finished > 0)
+	-- The footer, on one line: the switch at the left, Guide me to all at the
+	-- right. While they and the gap between are wider than the list, the
+	-- wider label is cut short, whole in its tooltip (the settings window
+	-- footer's way, W.CutWidestButtons); each gets its own width back first.
+	W.ShellUncutFooter(F.Switch)
+	W.ShellUncutFooter(F.GuideMe)
 	if switch then
 		W.SetButtonText(F.Switch, carried and L["Make room in your quest log"] or L["Finished quests you're still carrying (%d)"]:format(#finished))
 	end
-	-- Wider translations can put the switch on its own line.
-	local stacked = guided and switch and F.Switch:GetWidth() + F.GuideMe:GetWidth() + ROW_GAP > rowW
-	local footerRows = stacked and 2 or (guided or switch) and 1 or 0
-	local foot = footerRows * (BUTTON_H + ROW_GAP)
+	local shown, need = {}, 0
+	if switch then shown[#shown + 1], need = F.Switch, F.Switch:GetWidth() end
+	if guided then shown[#shown + 1], need = F.GuideMe, need + F.GuideMe:GetWidth() + (switch and FOOT_GAP or 0) end
+	W.CutWidestButtons(shown, need - rowW)
+	local foot = #shown > 0 and (BUTTON_H + ROW_GAP) or 0
 	-- The list: every row, at most MAX_ROWS of them in view, and no taller
 	-- than the screen leaves room for (MARGIN above and below the window).
 	local screen = UIParent:GetHeight() or 0
@@ -359,7 +367,7 @@ function UI.LayoutQuestRoom()
 	F.GuideMe:SetShown(guided)
 	if switch then
 		F.Switch:ClearAllPoints()
-		F.Switch:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -(under + (stacked and BUTTON_H + ROW_GAP or 0)))
+		F.Switch:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -under)
 	end
 	F.Switch:SetShown(switch)
 	F:SetHeight(under + foot + PAD - 6)
