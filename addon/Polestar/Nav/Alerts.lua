@@ -97,8 +97,9 @@ local function paintRing(f)
 	local Theme, W = ns.Theme, ns.Widgets
 	local skin = Theme.SkinKey()
 	local color = f.psNotice and "accent" or "place"
-	f.Glyph:SetTexture(Theme.Media(f.psNotice and "logo" or "icon-boat"))
-	f.Glyph:SetSize(f.psNotice and 20 or 16, f.psNotice and 20 or 16)
+	f.Glyph:SetTexture(Theme.Media(f.psNotice and "emblem" or "icon-boat"))
+	f.Glyph:SetSize(f.psNotice and 26 or 16, f.psNotice and 26 or 16)
+	f.Hot:SetShown(f.psNotice and true or false)
 	if skin == "polestar" then
 		f.Ring:SetTexture(Theme.Media("qol-ring"))
 		f.Ring:SetSize(RING, RING)
@@ -110,9 +111,8 @@ local function paintRing(f)
 		if skin == "halo" then W.Color(f.Ring, "accent") else W.Uncolor(f.Ring); f.Ring:SetVertexColor(0.78, 0.612, 0.243, 1) end
 	end
 	if f.psNotice then
-		-- The emblem in its own colours: W.Uncolor only stops the theme following it.
-		W.Uncolor(f.Glyph)
-		f.Glyph:SetVertexColor(1, 1, 1, 1)
+		-- The hub's own mark: the emblem in the accent, its hot centre over it.
+		W.Color(f.Glyph, "accent")
 	else
 		W.Color(f.Glyph, skin == "polestar" and "place" or "accent")
 	end
@@ -177,6 +177,9 @@ local function newBanner(parent, name, sandbox)
 	f.Glyph = W.Tex(head, "OVERLAY", "icon-boat", "place")
 	f.Glyph:SetSize(16, 16)
 	f.Glyph:SetPoint("CENTER", f.Ring, "CENTER", 0, 0)
+	f.Hot = W.Tex(head, "OVERLAY", "emblem-hot")
+	f.Hot:SetAllPoints(f.Glyph)
+	f.Hot:SetVertexColor(1, 0.93, 0.76)
 
 	-- In the skins (DIRECTION_B_HALO.md §3, DIRECTION_A_BLIZZARD.md §5): Halo's
 	-- 30-unit ring in the accent; Hearth's and the game's looks' 32-unit ring

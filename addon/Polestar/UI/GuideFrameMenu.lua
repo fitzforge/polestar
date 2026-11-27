@@ -26,7 +26,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			{ text = L["Transparent"], icon = "layers", checked = clear, onClick = function() ns.Set("ui.style", clear and "standard" or "transparent") end },
 			{ text = L["Lock window"], icon = "lock", checked = ns.Get("ui.locked") and true or false, onClick = function() ns.Set("ui.locked", not ns.Get("ui.locked")) end },
 			-- Pause (Core/Init.lua): the arrow, this window and its nudges step aside until you are back out of a dungeon alive.
-			{ text = L["Pause"], icon = "icon-dungeon", checked = paused, onClick = function() ns.TogglePaused() end },
+			{ text = L["Pause"], icon = "pause", checked = paused, onClick = function() ns.TogglePaused() end },
 		} }
 	end
 

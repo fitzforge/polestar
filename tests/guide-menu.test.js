@@ -119,7 +119,7 @@ test('a toggle bar: its buttons light while on, hovering one names it and its st
 		W.ShowMenu(anchor, {
 			{ caption = "Window", bar = {
 				{ text = "Compact mode", icon = "compact", checked = false, onClick = function() clicked = "compact" end },
-				{ text = "Pause", icon = "icon-dungeon", checked = true },
+				{ text = "Pause", icon = "pause", checked = true },
 				{ text = "Hide window", icon = "close" },
 			} },
 			{ separator = true },
@@ -147,13 +147,13 @@ test('a toggle bar: its buttons light while on, hovering one names it and its st
 		W.ShowMenu(anchor, { { text = "Close tab" } })
 		local gone = not bar:IsShown()
 		-- No caption of its own: no caption row, and a hover is a tooltip.
-		W.ShowMenu(anchor, { { bar = { { text = "Pause", icon = "icon-dungeon", checked = true } } }, { text = "Options" } }, { short = true })
+		W.ShowMenu(anchor, { { bar = { { text = "Pause", icon = "pause", checked = true } } }, { text = "Options" } }, { short = true })
 		local plain = m.Bar
 		local capH = bar:GetHeight()
 		stub.RunScript(plain.buttons[1], "OnEnter")
 		local tipText = GameTooltip.lines[1]
 		stub.RunScript(plain.buttons[1], "OnLeave")
-		W.ShowMenu(anchor, { { caption = "Window", bar = { { text = "Pause", icon = "icon-dungeon", checked = true } } }, { text = "Options" } }, { short = true })
+		W.ShowMenu(anchor, { { caption = "Window", bar = { { text = "Pause", icon = "pause", checked = true } } }, { text = "Options" } }, { short = true })
 		local capH2 = m.Bar:GetHeight()
 		emit({ plainH = capH, capH = capH2, tipText = tipText, rest = rest, hoverOff = hoverOff, back = back, hoverOn = hoverOn, hoverAction = hoverAction, lit = lit, fits = fits,
 			rowBelow = rowBelow, after = after, gone = gone })`);
