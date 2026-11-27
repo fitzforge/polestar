@@ -761,9 +761,48 @@ local function chipsFrame(owner)
 end
 
 -- The step on screen (guideRender), per window: a card closed with its ×
--- stays closed on that step.
+-- stays closed on that step. The party card is not per step (below).
 local stepOf = setmetatable({}, { __mode = "k" })
 local closedOn = {} -- card -> the step it was closed on
+
+-- The party card closed with its ×: what the line held then ({ who, marks },
+-- Party.StepLine's third value). It stays closed whatever the step, until the
+-- group's members change or the line holds a state it did not: Waiting on
+-- someone at once, a member ahead, behind or on another guide once that has
+-- held for PARTY_SETTLE seconds (when you finish a step a member is a step
+-- behind for the few seconds their own message takes, at every step: that is
+-- not news). "With Ana" and "Everyone's ready" never bring it back. Kept for
+-- the session, so for the character logged in (a reload or another login
+-- starts open).
+local PARTY_SETTLE = 6
+local partyShut
+local partySeen -- new mark -> GetTime() it was first held
+local function partyOpens()
+	partyShut, partySeen = nil, nil
+	return false
+end
+local function partyStaysShut(state)
+	local shut = partyShut
+	if not shut then return false end
+	-- A window with no state of its own (the settings' preview) neither keeps nor forgets it.
+	if not state then return false end
+	if state.who ~= shut.who then return partyOpens() end
+	local now, seen, first = GetTime(), nil, false
+	for mark in pairs(state.marks) do
+		if not shut.marks[mark] then
+			if mark:sub(1, 5) == "wait:" then return partyOpens() end
+			local since = partySeen and partySeen[mark]
+			if not since then since, first = now, true end
+			if now - since >= PARTY_SETTLE then return partyOpens() end
+			seen = seen or {}
+			seen[mark] = since
+		end
+	end
+	partySeen = seen
+	-- Laid out again once it has held long enough: nothing else says so.
+	if first and C_Timer and C_Timer.After then C_Timer.After(PARTY_SETTLE + 0.1, Core.relayout) end
+	return true
+end
 
 -- The parts the window handed over at this layout (guidePlace), taken up by
 -- the cards at guideLayout.
@@ -1855,7 +1894,6 @@ local function layoutStack(parts)
 	if closedOn.here and closedOn.here ~= step then closedOn.here = nil end
 	if closedOn.opt and closedOn.opt ~= step then closedOn.opt = nil end
 	if closedOn.along and closedOn.along ~= step then closedOn.along = nil end
-	if closedOn.party and closedOn.party ~= step then closedOn.party = nil end
 	local list = {}
 	local function add(f, close) list[#list + 1] = { f = f, close = close } end
 	local function relay() Core.relayout() end
@@ -1886,8 +1924,12 @@ local function layoutStack(parts)
 	elseif stack.train then
 		stack.train:Hide()
 	end
-	if s.party and isUnder(s.party, window) and closedOn.party ~= step then
-		add(partyCard(stack, s.party), function() closedOn.party = step relay() end)
+	if s.party and isUnder(s.party, window) and not partyStaysShut(s.party.psState) then
+		local part = s.party
+		add(partyCard(stack, part), function()
+			partyShut, partySeen = part.psState, nil
+			relay()
+		end)
 	elseif s.party then
 		s.party:Hide()
 	end
