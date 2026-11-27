@@ -17,7 +17,8 @@
 //! strings (Core/ProfileStrings.lua) and the skin picker's cards and presets (Theme/SkinPicker.lua); the Skin
 //! API's checks went to their own load-on-demand part, loaded only when another addon brought a skin (back in the
 //! core since 0.4.3, #3507: 62 KiB); our own skins and the Atlas layout are one folder of their own,
-//! Polestar_Skins, never loaded with it.
+//! Polestar_Skins, never loaded with it. The Lookup window is its own load-on-demand addon too (Polestar_Lookup,
+//! loaded the first time Lookup opens): not loaded at login either.
 
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::Value;
@@ -163,15 +164,43 @@ emit({ core = base, loaded = loaded, opened = opened, peak = peak, shown = Poles
 	assert!(over.is_empty(), "over budget: {}", over.join(", "));
 }
 
+// The Lookup window (Polestar_Lookup, load on demand like the settings) is paid for when Lookup first opens, not at
+// login: printed beside the core at login (loaded, then opened at an empty search). No budget of its own yet: budgets
+// are set at a release's code freeze (docs/CI.md, "Memory budgets").
+#[test]
+fn the_lookup_windows_memory_is_paid_only_after_it_opens() {
+	let out = run(r#"
+local base = full()
+local door = Polestar.UI.ShowLookup
+assert(Polestar.Data.Pack("Polestar_Lookup"))
+local loaded = full() - base
+Polestar.UI.ShowLookup()
+stub.advance(0.5)
+local opened = full() - base
+emit({ core = base, loaded = loaded, opened = opened, replaced = Polestar.UI.ShowLookup ~= door,
+	shown = PolestarPicker:IsShown() and Polestar.UI.Picker.Section() == "Lookup", loads = count("Polestar_Lookup") })"#);
+	assert_eq!(out["shown"], true);
+	assert_eq!(out["replaced"], true, "the window's UI.ShowLookup takes the core's place");
+	assert_eq!(out["loads"], 1);
+	for k in ["loaded", "opened"] {
+		eprintln!("Polestar_Lookup {k}: {:.0} KiB (core at login {:.0})", n(&out[k]), n(&out["core"]));
+	}
+	// A real cost moved out of the login (the window's code is not a few lines).
+	assert!(n(&out["loaded"]) > 50.0, "the window's addon holds the window: {}", out["loaded"]);
+}
+
 // The core at login holds none of the settings window (its pages, previews, widgets, every module's rows, the
 // profile strings and Unlock mode load with the settings) and stays within its budget.
 #[test]
 fn at_login_the_core_holds_none_of_the_settings_window_and_stays_within_its_budget() {
 	let out = run(r#"
-emit({ core = full(), loaded = C_AddOns.IsAddOnLoaded("Polestar_Options"), loads = count("Polestar_Options") })"#);
+emit({ core = full(), loaded = C_AddOns.IsAddOnLoaded("Polestar_Options"), loads = count("Polestar_Options"),
+	lookupLoaded = C_AddOns.IsAddOnLoaded("Polestar_Lookup"), lookupLoads = count("Polestar_Lookup") })"#);
 	let core = n(&out["core"]);
 	eprintln!("core at login: {core:.0} KiB (the 0.3.7 base {LOGIN_BASE:.0}, budget {LOGIN:.0}, {:+.0} over the base)", core - LOGIN_BASE);
 	assert_eq!(out["loaded"], false, "the settings' addon is not loaded at login");
 	assert_eq!(out["loads"], 0);
+	assert_eq!(out["lookupLoaded"], false, "the Lookup window's addon is not loaded at login");
+	assert_eq!(out["lookupLoads"], 0);
 	assert!(core <= LOGIN, "the core at login: {core:.0} KiB, over its budget {LOGIN:.0} ({:+.0} over the 0.3.7 base)", core - LOGIN_BASE);
 }
