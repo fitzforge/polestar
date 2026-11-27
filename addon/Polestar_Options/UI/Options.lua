@@ -1062,7 +1062,7 @@ local function available(c)
 	if c.kind == "binding" then return ns.Gamepad ~= nil and ns.Gamepad.BindingRow ~= nil end
 	-- A toggle, slider, dropdown or cards with get/set and no key holds state
 	-- that is no setting (per character, or a preset the cards' get recognises).
-	if (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and not c.key and c.get and c.set then return true end
+	if (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards" or c.kind == "text") and not c.key and c.get and c.set then return true end
 	return ns.GetDefault and ns.GetDefault(c.key) ~= nil
 end
 
@@ -1113,6 +1113,8 @@ local function makeControl(parent, c)
 	elseif c.kind == "cards" then
 		local choices = type(c.choices) == "function" and function() return choicesOf(c) end or choicesOf(c)
 		w = W.Cards(parent, labelOf(c), c.key, choices, c.help, { get = getset and getset.get, set = getset and getset.set, art = c.art, grid = c.grid })
+	elseif c.kind == "text" then
+		w = W.TextRow(parent, labelOf(c), c.key, c.help, { get = c.get, set = c.set, tip = c.tip })
 	elseif c.kind == "color" then
 		w = W.Swatch(parent, labelOf(c), c.key, c.help, { shown = c.shown, source = c.source, linked = c.linked, alpha = c.alpha })
 	elseif c.kind == "button" then
@@ -1862,7 +1864,7 @@ do
 			else
 				if nest then placed[c] = true end
 				local w = rowOf(view, c)
-				if not S.two or c.wide or c.kind == "cards" then
+				if not S.two or c.wide or c.kind == "cards" or c.kind == "text" then
 					Lay.close(S)
 					Lay.openKids(S)
 					Lay.endRun(S)

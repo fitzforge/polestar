@@ -93,6 +93,8 @@ function other(c, cur)
 		if type(cur) == "table" and cur[1] == 1 and (cur[2] or 0) == 0 then return { 0, 1, 0, 1 } end
 		return { 1, 0, 0, 1 }
 	end
+	-- A line typed (the group finder's messages): another line than the one it holds.
+	if c.kind == "text" then return cur == "A line" and "B line" or "A line" end
 end
 function write(c, v)
 	if c.set then c.set(v) elseif c.key then Polestar.Set(c.key, v) end
@@ -152,6 +154,7 @@ function values(c)
 		return out
 	end
 	if c.kind == "color" then return { { 1, 0, 0, 1 }, { 0, 1, 0, 0.5 }, { 0.2, 0.4, 0.6 } } end
+	if c.kind == "text" then return { "A line", "", "B {quests}" } end
 	return {}
 end
 -- Kept outside the settings, so a reload of PolestarDB alone does not bring them back: the game's image sharpening

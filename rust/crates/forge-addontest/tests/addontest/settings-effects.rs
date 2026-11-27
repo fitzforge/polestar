@@ -207,6 +207,8 @@ local function other(c, cur)
 		if type(cur) == "table" and cur[1] == 1 and (cur[2] or 0) == 0 then return { 0, 1, 0, 1 } end
 		return { 1, 0, 0, 1 }
 	end
+	-- A line typed (the group finder's messages): another line than the one it holds.
+	if c.kind == "text" then return cur == "A line" and "B line" or "A line" end
 end
 local function write(c, v)
 	if c.set then c.set(v) elseif c.key then Polestar.Set(c.key, v) end
