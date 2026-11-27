@@ -108,6 +108,12 @@ runs:
           --out data/forever/professions.json; then
           echo "::warning::$SIDE: no professions.json (see the step's log): profession lines do not resolve"
         fi
+        # Travel reads the cached builder tables offline. Keep the generated Lua in runner temp
+        # so addon tests still use the checkout's own TravelData.lua and FlightPaths.lua.
+        if ! "$FORGE" data travel --root . --sources "$GITHUB_WORKSPACE/data/sources" --grid none \
+          --lua "$RUNNER_TEMP/public-travel/TravelData.lua"; then
+          echo "::warning::$SIDE: no travel.json (see the step's log): travel tests may skip or fail"
+        fi
         ls data/forever
 
     # The compile reads the data's own client build beside it (<root>/data/sources/wago/<build>:
