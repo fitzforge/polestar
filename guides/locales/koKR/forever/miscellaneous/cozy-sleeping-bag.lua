@@ -69,19 +69,23 @@ return {
 	-- {area:146} Stonewrought Dam
 	["The figurine is on a ledge just below the top of the {area:146}, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "",
 
-	-- Step 11: Out of the river
+	-- Step 11: The dam in Loch Modan
+	-- {area:836} Dun Algaz
+	["Careful: Mountaineers (level 30) guard both ends of the {area:836} pass and stand along the top of the dam, and they attack Horde. Most Horde players below level 27 died to them here: come at 27 or later and run straight through without stopping. The figurine is on a ledge just below the top of the dam, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "",
+
+	-- Step 12: Out of the river
 	["Out of the river"] = "강에서 나오기",
 	-- {zone:1437} Wetlands · {area:880} Thandol Span · {area:272} Tarren Mill
 	["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi, or hearth if your Hearthstone is set at {area:272}."] = "주의: 댐의 바위턱에서 떨어지면 그 아래 {zone:1437}의 강에 떨어집니다. 약 65,77의 폭포에 한참 못 미친 곳에서 서쪽 기슭으로 올라오십시오. 폭포에서 떨어지면 죽습니다. 그다음 북서쪽 길로 가서 길을 따라 북쪽으로 {area:880}을(를) 건너 아라시로 가거나, 귀환석이 {area:272}에 설정되어 있다면 귀환하십시오.",
 	["West bank, before the waterfall"] = "폭포 전의 서쪽 기슭",
 	["West bank"] = "서쪽 기슭",
 
-	-- Step 12: Thoradin's Wall
+	-- Step 13: Thoradin's Wall
 	-- {area:1057} Thoradin's Wall · {area:287} Hillsbrad
 	["At the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "아라시와 {area:287} 사이 {area:1057}의 관문에서 북쪽으로 꺾어 {area:287} 쪽 성벽을 따라가면 성벽에 기대 쓰러진 수레가 있습니다. 수레와 사다리를 밟고 성벽 위로 올라간 뒤, 바위를 넘어 숨겨진 야영지로 가세요. 일부 캐릭터는 야영지의 화물 그물 아래를 지나갈 수 없으니, 다른 종족이나 더 작은 변신 형태로 지나가세요.",
 	["Fallen cart"] = "",
 
-	-- Step 13: The hidden camp
+	-- Step 14: The hidden camp
 	["The hidden camp"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
