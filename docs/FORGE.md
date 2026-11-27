@@ -449,6 +449,7 @@ A fix goes into a record the next build applies, whoever builds:
 | the check that pins it | `tests/guides-reported.test.js`, and the report's entry in `tests/reported-gate.json` (`npm run test:reported`) |
 | an arrow point: where an objective is done, or where a giver or ender stands; a road the target walks; an objective that needs its own goal line | `data/places.json` |
 | a step's tip, a goal's note (`goalNote`), an optional goal (`optional: true`), a `level` gate before a goal, or a `when` condition on the goal's step (also on a flight step with `at: { guide, goal: "fly", fly }`) | `data/guide-fixes.json` |
+| a hearthstone bind's note (`goalNote`, on `at: { goal: "sethome", sethome: "<inn>" }`, with an optional `guide`); word it with a floor word ("main floor", "one floor below") so the floor-note pass does not add "upstairs" | `data/guide-fixes.json` |
 | who a goal is for by race (`races`: `"all"` drops a stale race filter, a list sets one), on one goal or on every goal of the quest (`at.goal: "quest"`) | `data/guide-fixes.json` |
 | where a goal or a step goes: right after another goal (`follows`), a step split before a goal (`split`), a whole step moved or copied after another goal's step, into another guide too (`step`) | `data/guide-fixes.json` |
 | where the walk to a step ends (`way`): off a town of the other faction, or at a camp's edge; who makes the walk (`way.when`): only whoever carries the quest it leads to | `data/guide-fixes.json` |

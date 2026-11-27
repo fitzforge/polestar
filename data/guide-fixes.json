@@ -7,12 +7,27 @@
 				"goal": "sethome",
 				"sethome": "Booty Bay"
 			},
-			"goalNote": "Innkeeper Skindle, downstairs in The Salty Sailor Tavern",
-			"note": "Both Alliance Stranglethorn hearthstone binds say upstairs. Skindle stands on the lower floor beside Crank Fizzlebub, below Krazek and Kebok.",
+			"goalNote": "Innkeeper Skindle, at the bar on the Salty Sailor's main floor, one floor below Krazek and Kebok",
+			"note": "Both Alliance Stranglethorn hearthstone binds say upstairs, and the floor-note pass would add it again to a note without a floor word. Skindle stands on the lower floor beside Crank Fizzlebub, below Krazek and Kebok.",
 			"source": [
 				{
 					"kind": "client",
 					"ref": "forever-db/data/spawn.jsonl: Skindle (6807) and Crank Fizzlebub (2498) are at z 15.2; Krazek (773) and Kebok (737) are at z 26.4"
+				}
+			]
+		},
+		{
+			"id": "booty-bay-nixxrax-floor",
+			"at": {
+				"quest": 98463,
+				"goal": "turnin"
+			},
+			"goalNote": "Nixxrax Fillamug, at the bar on the Salty Sailor's main floor, one floor below Krazek and Kebok",
+			"note": "Talk of the Town is handed in on the Salty Sailor Tavern's lower floor, beside Skindle, not upstairs.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "forever-db/data/spawn.jsonl: Nixxrax Fillamug (2832) shares the inn's lower floor with Skindle (6807); Krazek (773) and Kebok (737) are at z 26.4"
 				}
 			]
 		},

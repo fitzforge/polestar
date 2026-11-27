@@ -1732,7 +1732,7 @@ mod tests {
 		] {
 			let (out, rows) = run(seed, json!({}), fixes.clone(), &[]);
 			let old = seed.lines().find(|l| l.starts_with("  sethome \"Booty Bay\"")).unwrap();
-			let new = "  sethome \"Booty Bay\" -- Innkeeper Skindle, downstairs in The Salty Sailor Tavern";
+			let new = "  sethome \"Booty Bay\" -- Innkeeper Skindle, at the bar on the Salty Sailor's main floor, one floor below Krazek and Kebok";
 			assert_eq!(out, seed.replace(old, new));
 			assert_eq!(rows[0].state, "applied");
 		}
@@ -1740,6 +1740,17 @@ mod tests {
 		let (out, rows) = run(seed, json!({}), fixes, &[]);
 		assert_eq!(out, seed);
 		assert_eq!(rows[0].state, "not for this start");
+	}
+
+	#[test]
+	fn booty_bay_hand_in_note_names_the_main_floor() {
+		let all: Value = serde_json::from_str(include_str!("../../../../data/guide-fixes.json")).unwrap();
+		let record = all["fixes"].as_array().unwrap().iter().find(|r| r["id"] == "booty-bay-nixxrax-floor").unwrap();
+		let seed = include_str!("../../../../forge/seed/guides/forever/alliance/30-40/04-stranglethorn-vale.guide");
+		let (out, rows) = run(seed, json!({}), json!({ "fixes": [record] }), &[]);
+		let line = out.lines().find(|l| l.starts_with("  turnin 98463 ")).unwrap();
+		assert!(line.ends_with("-- Nixxrax Fillamug, at the bar on the Salty Sailor's main floor, one floor below Krazek and Kebok"), "{line}");
+		assert_eq!(rows[0].state, "applied");
 	}
 
 	#[test]
