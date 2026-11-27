@@ -800,7 +800,7 @@ local find = string.find
 
 -- Does pack `packId` own guide id `guideId`? Ours (`guides`) owns forever/
 -- and draft/, the internal `lookup` pack lookup/, the `imported` pack (guides
--- pasted on the Import page, Core/Import.lua) every `<author>/` that is a
+-- pasted in Settings, Community guides, Core/Import.lua) every `<author>/` that is a
 -- valid pack id no one reserved, every other pack `<id>/`.
 function Guides.OwnsId(packId, guideId)
 	if type(packId) ~= "string" or type(guideId) ~= "string" then return false end
@@ -925,7 +925,7 @@ function ns.RegisterPack(meta)
 		r.status = "on"
 		return true
 	end
-	-- The guides pasted on the Import page (Core/Import.lua), registered as
+	-- The guides pasted in Settings, Community guides (Core/Import.lua), registered as
 	-- its file loads, before any pack can: listed in the guide menu as
 	-- "Imported", never on the Community guides page, never suggested.
 	if id == "imported" and meta.imported and not packs[id] then

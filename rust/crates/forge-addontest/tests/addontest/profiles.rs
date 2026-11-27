@@ -437,7 +437,7 @@ fn a_malformed_or_hostile_string_is_refused_and_changes_nothing() {
 	let why = &out["why"];
 	assert_eq!(why["empty"], "Paste a profile string.");
 	assert_eq!(why["words"], "This is not a Polestar profile string.");
-	assert_eq!(why["guide"], "This is a guide import string: paste it on the Import page.");
+	assert_eq!(why["guide"], "This is a guide import string: paste it under Settings, Community guides, Import a guide.");
 	assert_eq!(why["newer"], "This profile string needs a newer Polestar.");
 	assert_eq!(why["newerFormat"], "This profile string needs a newer Polestar.");
 	for k in ["checksum", "cut", "notJson", "noSettings", "deep", "code"] {

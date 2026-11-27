@@ -225,11 +225,12 @@ ns.UI.GuideFrame.Part(function(GF)
 		if bags then return "bags", bags end
 		local wear = Q and Q.Wear and Q.Wear.Offer and Q.Wear.Offer()
 		if wear then return "wear", wear end
-		-- Free mode (Lookup/Free.lua) shown: what leads the arrow, the way back to the
-		-- guide and the other order; until closed for the session.
+		-- Free mode (Lookup/Free.lua) just started: one line saying so, until
+		-- closed; gone until the next start (FREE_MODE). The way back and the
+		-- order are in the window's menu and on the Free mode page.
 		local FM = ns.Free
-		if FM and g ~= nil and FM.IsGuide(g.id) and not notices.freeSeen then
-			return "free", { back = FM.ReturnTitle(), xp = ns.Get("free.pick") == "xp" }
+		if FM and g ~= nil and FM.IsGuide(g.id) and notices.freeWelcome then
+			return "free", true
 		end
 		-- A newer Polestar (UI/UpdateCard.lua): last, so it waits for every other.
 		local UC = UI.UpdateCard
@@ -798,17 +799,16 @@ ns.UI.GuideFrame.Part(function(GF)
 			placeLink(banner.Later, L["Not this one"], w + 10, -4)
 			banner.Close:Show()
 		elseif kind == "free" then
-			banner.Icon:SetTexture(Theme.Media("icon-explore"))
-			banner.Text:SetText(n.xp and L["Free mode: the arrow takes your own quests, the most XP a minute first."]
-				or L["Free mode: the arrow takes your own quests, nearest first."])
-			local other = n.xp and L["Nearest first"] or L["Most XP a minute first"]
-			if n.back then
-				local w = placeLink(banner.Jump, string.format(L["Return to %s"], n.back), 0, -4)
-				placeLink(banner.Later, other, w + 10, -4)
-			else
-				placeLink(banner.Jump, other, 0, -4)
-			end
+			-- Free mode just started: what it is, once; no links (the way back
+			-- and the order are in the menu and on the Free mode page).
+			banner.Icon:SetTexture(Theme.Media("icon-freemode"))
+			banner.Text:SetText(L["You're in Free mode: your own quests, planned for you."])
+			banner.Jump:Hide()
+			banner.Later:Hide()
 			banner.Close:Show()
+			local h = floor(9 + banner.Text:GetStringHeight() + 9 + 0.5)
+			banner:SetHeight(h)
+			return h
 		elseif kind == "update" then
 			banner.Icon:SetTexture(Theme.Media("reset"))
 			banner.Text:SetText(UI.UpdateCard.BannerText(n))
@@ -945,8 +945,6 @@ ns.UI.GuideFrame.Part(function(GF)
 			ns.QoL.Space.Press()
 		elseif kind == "wear" then
 			ns.QoL.Wear.Take()
-		elseif kind == "free" then
-			if n.back then ns.Free.Stop() else ns.Free.SetPick(n.xp and "near" or "xp") end
 		elseif kind == "update" then
 			UI.UpdateCard.Show(true)
 		end
@@ -970,9 +968,6 @@ ns.UI.GuideFrame.Part(function(GF)
 			GF.Layout()
 		elseif kind == "wear" then
 			ns.QoL.Wear.Decline()
-			GF.Layout()
-		elseif kind == "free" then
-			ns.Free.SetPick(n.xp and "near" or "xp")
 			GF.Layout()
 		elseif kind == "away" and n.live then
 			-- A skipped step looked at: back to the live one, the skip kept.
@@ -1022,7 +1017,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		elseif kind == "wear" then
 			ns.QoL.Wear.Dismiss()
 		elseif kind == "free" then
-			notices.freeSeen = true
+			notices.freeWelcome = nil
 		elseif kind == "update" then
 			UI.UpdateCard.DismissBanner()
 		elseif kind == "fresh" then
@@ -1128,6 +1123,12 @@ ns.UI.GuideFrame.Part(function(GF)
 		ns.On("CLASS_QUEST_READY", function(notice)
 			if not F then return end
 			notices.classQuest = notice
+			if ns.IsLoggedIn() then GF.Layout() end
+		end)
+		-- FREE_MODE(on): Free mode started (its welcome line, once) or stopped.
+		ns.On("FREE_MODE", function(on)
+			if not F then return end
+			notices.freeWelcome = on and true or nil
 			if ns.IsLoggedIn() then GF.Layout() end
 		end)
 		-- ROUTE_CHANGED(legs): a flight the route takes from, through or to a flight

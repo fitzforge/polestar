@@ -984,7 +984,7 @@ A skin may paint any kind itself through `paint.<kind>`:
 | `sidebar` | the settings' and guide menu's sidebar | |
 | `inset` | wells inside a window | |
 | `button` | buttons, cards, rows that act as buttons | `psTextButton` (a text button, as opposed to a card or row) |
-| `tile` | action tiles | |
+| `tile` | action tiles: the settings' resets, the Free mode page's hand-in card | |
 | `dropdown` | dropdown controls | |
 | `editbox` | edit boxes | `psFocused` (has the cursor) |
 | `checkbox` | check boxes (the base builds the box in `frame.psSkin.box`) | |

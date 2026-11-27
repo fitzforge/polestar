@@ -458,9 +458,14 @@ local function header(parts)
 		-- On the menu button, so it fades with the bars (a transparent
 		-- window's chrome shows only under the pointer; ui.barShown keeps it).
 		own.emblem = nav.Menu:CreateTexture(nil, "ARTWORK")
-		own.emblem:SetTexture(Theme.Media("emblem"))
 		own.emblem:SetSize(16, 16)
 	end
+	-- The guide's own glyph where it has one (Free mode's running figure,
+	-- UI.GuideGlyph), in the title's colour; else the emblem.
+	local u = ui()
+	local glyph = u and u.GuideGlyph and u.GuideGlyph()
+	own.emblem:SetTexture(Theme.Media(glyph or "emblem"))
+	if glyph then own.emblem:SetVertexColor(Theme.Color("textDim")) else own.emblem:SetVertexColor(1, 1, 1) end
 	own.emblem:ClearAllPoints()
 	own.emblem:SetPoint("LEFT", nav, "LEFT", 10, 0)
 	own.emblem:Show()

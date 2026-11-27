@@ -162,7 +162,8 @@ Messages:
 | `SHOW_REPORT` | — | `/polestar report` → UI/Report.lua |
 | `SHOW_DISCORD` | — | `/polestar discord` → UI/Report.lua |
 | `SHOW_QUEST_ROOM` | — | `/polestar questlog`, the full-log banner's Make room → UI/QuestRoom.lua |
-| `SHOW_IMPORT` | — | `/polestar import` (Core/Import.lua) → UI/Import.lua: the hub at Import |
+| `SHOW_IMPORT` | — | `/polestar import` (Core/Import.lua) → UI/Import.lua: Settings > Community guides at its Import a guide section |
+| `FREE_CHANGED` | — | Free mode's pin or left-out quests changed (Polestar_FreeMode/Free.lua) → its page (Page.lua) draws again |
 | `TOGGLE_PICKER` / `TOGGLE_OPTIONS` | — | key bindings and gamepad chords (`POLESTAR_MENU`, `POLESTAR_OPTIONS`) → UI: open, or close when open |
 | `TOGGLE_FOCUS` | — | `POLESTAR_FOCUS` → UI/GamepadGuide.lua (focus mode) |
 
@@ -202,7 +203,7 @@ keeps yards for whoever reads it.
 `PolestarCharDB = { schema = 1, guide = id|nil, tabs = { guideId, ... }, activeTab = n, absentAt = { [guideId] = place }, closedTabs = { { id, at }, ... }, manual = { [guideId] = { ["s:g"] = true|"tick" } }, skipped = { [guideId] = { [stepIndex] = true, ["s:g"] = true } }, pins = { [guideId] = { step, done } }, offers = { [questID] = true }, skippedQuests = { [questID] = true }, shapes = { [guideId] = shape }, stepKeys = { [guideId] = { hash, ... } }, guideDone = { [guideId] = true }, flags = { fp = { [name] = true }, ... }, dungeons = { [mapId] = true }, welcomeSeen = 0|1 }`
 
 `packs[<id>].off` hides a pack's guides account-wide (the Community guides page's
-switch). `imports` holds the guides pasted on the Import page, as decoded
+switch). `imports` holds the guides pasted in Settings, Community guides, Import a guide, as decoded
 ("The guide registry", imported guides). `welcomeSeen` (UI/Welcome.lua) is the version of Install (the
 welcome it grew out of, whose flag it keeps) last seen: in `PolestarDB`, the account has had its Install
 (later characters get only their own choices: the stat weights); in `PolestarCharDB`, this character has
@@ -1780,8 +1781,8 @@ Polestar.Guides.DropImported(id) -> bool    -- takes an imported guide out (Impo
 ```
 
 **Imported guides** (`Core/Import.lua`; the string's format: PACK_FORMAT.md,
-"Import strings"). A guide shared as one line of text and pasted on the
-Import page belongs to the reserved pack `imported`, which Import.lua
+"Import strings"). A guide shared as one line of text and pasted in Settings, Community guides,
+Import a guide, belongs to the reserved pack `imported`, which Import.lua
 registers (`imported = true`) as its file loads, before any pack can. Its
 guides keep their authors' ids (`yendi/cozy-sleeping-bag`), carry
 `license` (the string's) and are kept in `PolestarDB.imports[id]` as
@@ -8641,9 +8642,9 @@ it unchanged (the arrow, the target button, While you're here, auto accept
 and hand-in, party, Make room). Built from ideas and tests of AreChen's
 prototype (#4104).
 
-Its code is the load-on-demand folder `Polestar_FreeMode` (`Free.lua`), the
-quest-log modes' one folder, beside the finished-quest guide's planner
-(`Route.lua`, `Handins.lua`, #2486); `Lookup/Free.lua` in the core is its
+Its code is the load-on-demand folder `Polestar_FreeMode` (`Order.lua`, the
+pick rule; `Free.lua`), the quest-log modes' one folder, beside the
+finished-quest guide's planner (`Route.lua`, `Handins.lua`, #2486); `Lookup/Free.lua` in the core is its
 door (settings, `/polestar free`, the planner kind, the window's rows before
 it loads), `Lookup/Handins.lua` the hand-in guide's. Either guide opening (or
 its saved tab coming back) loads the folder. It ships in every release and the
@@ -8653,16 +8654,26 @@ hand-in guide behind the guide menu's "Hand in finished quests" is in it.
 ```lua
 Polestar.Free.GUIDE                            -- "lookup/free/log"
 Polestar.Free.Start() -> true | nil, reason     -- the Codex loads, the tab opens active; reason "combat" | "missing" | "login"
-Polestar.Free.Stop()                            -- the tab closes; the tab the player came from (else the first other) is active
+Polestar.Free.Stop()                            -- the tab closes; the way back (below) is active
 Polestar.Free.Toggle() ; Polestar.Free.IsOn() -> bool ; Polestar.Free.IsGuide(id) -> bool
 Polestar.Free.ReturnTitle() -> title | nil      -- the guide Stop hands back to
+Polestar.Free.State() -> CharState().free ; Polestar.Free.IsBackTarget(guideId) -> bool
+Polestar.Free.Used() -> bool ; Polestar.Free.MarkUsed()   -- started once on this account (PolestarDB.freeUsed)
 Polestar.Free.Pin(questID, on) ; Polestar.Free.Pinned() -> questID | nil
 Polestar.Free.LeaveOut(questID, on) ; Polestar.Free.LeftOut() -> { questID, ... }
-Polestar.Free.SetPick("near" | "xp")            -- setting free.pick
-Polestar.Free.Steps(from?) -> steps, info       -- a plan as it stands (info.rows in order, info.hint, info.first)
+Polestar.Free.SetPick("balanced" | "near" | "xp") -- setting free.pick
+Polestar.Free.Pick() -> rule ; Polestar.Free.NextPick(rule?) -> rule ; Polestar.Free.PickLabel(rule) -> text ; Polestar.Free.PickRule(rule) -> text
+Polestar.Free.Why() -> text | nil              -- "Why <quest> first: <reasons>", the last plan's
+Polestar.Free.Reasons(rows, i) -> text | nil   -- why rows[i] comes where it does ("ready to hand in · most XP for the trip")
+Polestar.Free.Route() -> rows, info            -- the quests in Free mode's order: the last plan's while on, else the plan Start would make
+Polestar.Free.HandinTrip() -> seconds, stops | nil  -- the finished quests' trip, the page's hand-in card
+Polestar.Free.Quests() -> rows ; Polestar.Free.Zones()      -- the quests page's rows (quest, title, level, zone, zoneName, ready, group, out, pinned); the zones of those in the loop
+Polestar.Free.LeaveOutZone(map) ; Polestar.Free.LeaveOutGroup() ; Polestar.Free.BringBack()  -- the quick actions
+Polestar.Free.Steps(from?) -> steps, info       -- a plan as it stands (info.rows in order, info.hint, info.first, info.why)
 Polestar.Free.Plan(force?)                      -- plan again when what it reads moved
 Polestar.Free.MenuItems() ; Polestar.Free.RowItems(questID) -- the guide window's menu rows; a quest line's right-click rows
-/polestar free [on | off | back | nearest | xp]
+Polestar.FreeOrder.Sort(rows, rule, pin, last, dist) ; .Why(rows, rule, pin) ; .Effort(lines, ready, level) -- Order.lua, pure
+/polestar free [on | off | back | balanced | nearest | xp]
 ```
 
 - **Steps.** One per held quest (the log as listed, plus quests under a folded
@@ -8674,22 +8685,53 @@ Polestar.Free.MenuItems() ; Polestar.Free.RowItems(questID) -- the guide window'
   `rewards.xp` (the Codex's XP times `Levels.Share` at the player's level) and a
   collect whose best placed source gives the item under 20% says "Low drop
   rate: N%". An empty plan is one note step ("Pick up quests…"), and the
-  window's finished card then reads "No quests to lead to" with Return to
-  <guide> or Choose a guide.
-- **The pick rule** (`free.pick`). Each quest's next place: the hand-in when
-  ready, else its open objective nearest in a straight line; its travel is the
-  walking planner's (`Nav.EstimateTravel`, budgeted; else the straight line).
-  Tiers first: at the player's level on this continent; then a quest 3+ levels
-  above or with an elite target; then another continent or nowhere placed.
-  Nearest first: the travel less 10 s for each other quest's place within 150
-  yd (at most 3) and 6 s for a hand-in; after the first, each next quest is
-  the nearest to the last one's place, tier by tier. Most XP a minute: XP times
-  60 over the travel and the work left (15 s, then 27 s a kill, 22 s an item,
-  12 s anything else; 6 s a hand-in). The last plan's first quest stays first
-  while it scores within 1.2 times the best and 6 s (nearest; most XP: a rate
-  within a fifth), so a few yards never flip the arrow. A pinned quest
-  (`CharState().free.pin`) comes first; quests left out (`CharState().free.out`)
-  are not listed. Both go when the quest leaves the log.
+  window's finished card then reads "No quests to lead to", the guide turning
+  it off goes back to on its line, with Turn off Free mode and Choose a guide.
+- **The pick rule** (`free.pick`, `Order.lua`: its numbers in one table each,
+  `Order.EFFORT`, `Order.NEAR`, `Order.HOLD`, `Order.BALANCED`). Each quest's
+  next place: the hand-in when ready, else its open objective nearest in a
+  straight line; its travel is the walking planner's (`Nav.EstimateTravel`,
+  budgeted; else the straight line). Tiers first: at the player's level on
+  this continent; then a quest 3+ levels above or with an elite target; then
+  another continent or nowhere placed. The work left: 15 s, then each count
+  left of an open line at the seconds players' recordings show one takes at
+  the player's level (a kill 23 s at levels 1-9 up to 48 s at 50-60, an item
+  36 s up to 67 s), 12 s anything else; 6 s a hand-in.
+  **Balanced** (the default): the XP a stop pays a minute of the walk times 2
+  and the work left, the XP raised by 0.35 for each other held quest with an
+  open objective within 150 yd or the same mobs (at most 3), 0.15 for progress
+  made and 0.25 for an NPC on the way that takes 2+ finished quests; a
+  finished quest's stop counts every finished quest that NPC takes; while
+  another open quest is within 45 s, a stop further than that also costs 4
+  times its walk (the way back). Each stop scores the better of itself and
+  itself with the best next stop from its place; after the first, each next
+  quest scores from the last one's place, tier by tier.
+  **Nearest first**: the travel less 10 s for each other quest's place within
+  150 yd (at most 3) and 6 s for a hand-in; after the first, each next quest
+  is the nearest to the last one's place, tier by tier. **Most XP a minute**:
+  XP times 60 over the travel and the work left. The last plan's first quest
+  stays first while it scores within 1.2 times the best and 6 s (nearest;
+  balanced and most XP: a rate within a fifth), so a few yards never flip the
+  arrow. A pinned quest (`CharState().free.pin`) comes first; quests left out
+  (`CharState().free.out`) are not listed. Both go when the quest leaves the
+  log. The straight lines a plan measures read each place's world position
+  once a plan.
+- **Why** (`Order.Why`, `Free.Why`, `Free.Reasons`). The 1-3 strongest reasons
+  a quest comes where it does, against the quests after it: pinned; N
+  hand-ins at one stop; ready to hand in; N of your quests here; hand-in on
+  the way; started; nearest; most XP for the trip (the order's own score:
+  Balanced's with its weights); kept while you walk (the hold, when nothing
+  else says it). The first quest's step carries them as `chosen` ("Why first:
+  …"), the Engine's view passes it on and the guide window shows it as one dim
+  line under the step's header (in `person.Why`, after the Engine's own `why`).
+- **The way back** (`CharState().free.from`, the door's `TABS_CHANGED`): the
+  last guide of a pack the player had in front, whatever tab Free mode starts
+  from; a tab Polestar builds (`lookup/<kind>/<id>`: the hand-in route, a
+  dungeon's pick-up run, a Lookup "Guide me") is never one. Stop selects it if
+  its tab is open, else the first open tab of a pack; with none, Stop just
+  closes Free mode's tab. The menu's and the empty window's "Turn off Free
+  mode" name the guide it goes back to beside the button ("Takes you back to
+  <guide>", or "Leaves you with no guide open: pick one under Guides.").
 - **Zone hints** (`free.hints`). With no quest placed, or the first more than
   300 s away, the first step is "Quests for your level": a `goto` to the hub of
   the zone with the most quests for the trip (its count over 1 + the straight
@@ -8708,15 +8750,78 @@ Polestar.Free.MenuItems() ; Polestar.Free.RowItems(questID) -- the guide window'
   `MoveTab`), as Lookup's generated guides reopen: placed from the quest log,
   the first open quest live. While no Free mode tab is open the quest log's
   events cost one flag test (`TABS_CHANGED` keeps it).
-- **The window.** The guide menu's "Free mode" row (on/off) and, while it is on,
-  the other order and "Bring back left-out quests (N)"; with no guide open, the
-  empty card's "Or follow your own quests: Free mode"; while it is the guide
-  shown, the banner (after every other notice but the update's) "Free mode: the
-  arrow takes your own quests, nearest first." with Return to <guide> and the
-  other order, closed for the session by its ×; a quest line's right-click has
-  Pin to the top / Unpin and Leave out of Free mode in place of Skip this
-  quest. Settings: Questing > Quests > Free mode (the switch, `free.pick`,
-  `free.hints`, `free.details`).
+- **The window.** The guide menu's "Turn on Free mode" row starts it; while it
+  is on the menu holds "Free mode page", "Turn off Free mode" (its tooltip the
+  guide it goes back to), the
+  three orders ("Order: balanced", "Order: nearest first", "Order: most XP a
+  minute first", the one in use checked) and "Bring back left-out quests (N)";
+  with no guide open, the empty card's "Or follow your own quests: Free mode".
+  When Free mode starts (`FREE_MODE` true) the banner says once "You're in Free
+  mode: your own quests, planned for you." with its × and no links; closed, it
+  is gone until the next start (a saved tab coming back after /reload is no
+  start). Free mode's tab and, in Atlas, the window's header glyph are the
+  running figure (`icon-freemode`, `UI.GuideGlyph`); the hand-in route's tab
+  wears the "?" (`icon-turnin`). A quest line's right-click has Pin to the top
+  / Unpin and Leave out of Free mode in place of Skip this quest. Settings:
+  Questing > Quests > Free mode (the switch, `free.pick`, `free.hints`,
+  `free.details`).
+- **The page** (`Polestar_FreeMode/Page.lua`, door `UI/FreeMode.lua`, a hub
+  section under Guides with the glyph `icon-freemode`; `Free.Page.Build(parent,
+  hub)`, `Render()`, `Shown()`, `Nav()`, `Jump(key)`). Loads with the folder,
+  the first time the page shows (without it the page says why). Its header:
+  "Free mode", "Your own quests, planned for you." Laid out by who arrives:
+  **intro** (never started on this account, `PolestarDB.freeUsed` unset): "Quest
+  your own way", three points (you pick up quests; Polestar plans the order;
+  the arrow leads), when it suits and the way back, with "Start Free mode";
+  beside it "Your quests in Free mode": "With your N quests, Free mode starts
+  with <quest>." and the first three in its order (`Free.Route()`: the plan
+  Start would make). **ready** (started before, off): Start with Which quest
+  first beside it (Balanced | Nearest first | Most XP a minute first,
+  `free.pick`, one line under it on what the order does, `Free.PickRule`),
+  then "First up", the first three. **on**: "Free mode is on · following N
+  quests" with Back to <guide> (or Stop Free mode), the order, then "Your
+  route": every quest in the plan's order, numbered, the one the arrow leads to
+  now (the first, unless a zone hint leads) on the selection wash with the 2px
+  accent bar; each row the title in the quest log's difficulty colour
+  (`UI.QuestDifficulty`), the reasons that tell it from the rows shown
+  (`Free.ReasonList`: one every shown row has is left out, the first row
+  keeping its strongest; "ready to hand in" never beside Ready; two at most;
+  the tooltip has them all), its progress (the
+  objective counts summed, "3/8" and a slim bar; "Ready"), its walk ("4 min"),
+  its XP and zone, then a quiet flag (`Free.Pin`) and tick (leaving it out,
+  `Free.LeaveOut`); a click on the row pins it. Finished quests one after
+  another for the same NPC stand under "Hand in to <NPC> · <zone>". In every
+  layout the hand-in card while quests are finished: "Hand in finished quests
+  (N)", "About 6 min, 2 stops" (`Free.HandinTrip`: the nearest NPC next,
+  straight lines' running time, 6 s a quest), Route (`UI.GuideCarried`); none
+  with nothing finished. In ready and on: "Left out (N)", folded, a row each
+  with Bring back, and at its right the quick actions Leave out a zone (a menu
+  of the zones of the quests in the loop, `Free.LeaveOutZone`), Leave out group
+  quests (`Free.LeaveOutGroup`: a quest still to do with an elite, a boss or an
+  instance objective), Bring back left-out quests (N); last "What is Free
+  mode?", folded, the intro's points under it. Hovering a row, or a gamepad's
+  focus on it (`psOnPadFocus`), shows the game's quest tooltip (`W.QuestTip`:
+  the quest's link) with Polestar's lines: its zone and walk, its reasons, its
+  objectives with their counts. The sidebar lists the page's sections (Your
+  route or First up, Hand-ins, Left out, About Free mode; never started:
+  About Free mode, Your quests in Free mode); a click opens a folded one and
+  scrolls to it. All of it is the saved state of Free mode (`CharState().free`,
+  per character, kept over /reload and logout); nothing is stored by the page.
+  A change fires `FREE_CHANGED`, which draws an open page again. With a
+  gamepad A on a row pins it, X leaves it out (`psPadX`, handed over by the
+  guide menu's X); a row is one frame per quest, so the focus stays on its
+  quest as the route reorders.
+- **The world map.** A left click on a held quest's pin or objective area on
+  Polestar's own map pins (the objective and hand-in layers of
+  `Quests/Tracker.lua`; areas and hulls take it through `Nav/Pins.lua`'s
+  release test, `world.areaAt`; not with Shift, Alt or Ctrl, not on the
+  minimap) is Pin to the top for its first quest (or the one pinned when several
+  meet), and again unpins it. The pin's tooltip says which.
+- **The guide window's hand-in row** (`guideWindow.handinRow`, Guide window >
+  Parts > Quest log notices): with 2 or more quests in the log finished (`Handins.Ready()`)
+  and none of them a goal of the step on screen, a slim line "N quests ready to
+  hand in . Route" under the step's lines; a click opens the hand-in guide
+  (`UI.GuideCarried`), its close button hides it until the number changes.
 - **After /reload.** A saved Free mode tab is rebuilt by Lookup's planner tabs
   at ADDON_LOADED (the Codex loads then) and fills at the first quest-log event.
 
@@ -10126,18 +10231,25 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   A section registered with `foot = true` sits at the rail's foot, above
   Options, instead of among the sections (`P.FootItems(onOptions)`: Options,
   then each foot section, from the bottom up).
-- **Import** (`UI/Import.lua`, a foot section, order 90; `/polestar import`
-  and `SHOW_IMPORT` open it). The two ways to bring someone else's guides
-  into Polestar side by side (an import string for one small guide, a
-  community addon for a route or a set), then a single-line box: what is
-  pasted is read at once (`Import.Preview`) and shown before anything is
-  saved ("Title · by Author · N steps · levels a–b · faction · licence"),
-  with Import (Update when an older version is imported; nothing for the
-  same or a newer one, with a line saying so) and Cancel, or the reason it
-  is refused. Enter imports. Below, "Your imported guides" (title, "By
-  author · version · licence", why a stored guide did not register,
-  Delete with a second click to confirm), then "Want more than one guide?"
-  (community addons in three steps and the GUIDE_PACKS.md link).
+- **Free mode** (`UI/FreeMode.lua` the door, `Polestar_FreeMode/Page.lua` the
+  page; order 15, right under Guides). See "Free mode".
+- **Import** is no section of the hub (it was a foot section until 0.4.4). Its
+  code (`UI/Import.lua`, `UI.Import`) is built into Settings > Community guides
+  (`UI/Packs.lua`: `UI.Import.Build(view)` once, `UI.Import.Layout(x, y,
+  width)` with each layout of the page, `UI.Import.onChange` for the page to lay
+  out again), as the section "Import a guide" between the installed community
+  addons and the suggestions. `/polestar import`, `SHOW_IMPORT`, `UI.Import.Show()`,
+  Home's "Import a guide" button and the guide list's last row, "+ Import a
+  guide" (under the Community guides heading, which now always shows; not a
+  category: `P.categories` leaves it out), open that page scrolled to it. The
+  section is the way in for one small guide: what is pasted is read at once
+  (`Import.Preview`) and shown before anything is saved ("Title · by Author · N
+  steps · levels a–b · faction · licence"), with Import (Update when an older
+  version is imported; nothing for the same or a newer one, with a line saying
+  so) and Cancel, or the reason it is refused. Enter imports. Below, "Your
+  imported guides" (title, "By author · version · licence", why a stored guide
+  did not register, Delete with a second click to confirm). A community addon,
+  for a route or a set, is the page's own "About community guides".
 - **Guide menu** (the Guides section): three panes. Left: the categories with
   counts. Middle: Home (continue and suggested), Browse, Current (open tabs),
   Recent (the tabs closed, newest first, then the last guides loaded) tabs

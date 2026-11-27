@@ -602,7 +602,7 @@ function P.Import(text)
 	if #s > LIMITS.length then return nil, L["This profile string holds too much to be a Polestar profile."] end
 	local version = s:match("^!PSS(%d+)!")
 	if not version then
-		if s:match("^!PS%d+!") then return nil, L["This is a guide import string: paste it on the Import page."] end
+		if s:match("^!PS%d+!") then return nil, L["This is a guide import string: paste it under Settings, Community guides, Import a guide."] end
 		return nil, L["This is not a Polestar profile string."]
 	end
 	if version ~= "1" then return nil, L["This profile string needs a newer Polestar."] end

@@ -1325,15 +1325,87 @@ do
 	-- Pins.OnWorldClick(fn): fn(pin, layer, button) -> true takes a click
 	-- on a world map pin before the pin's onClick (Nav/Journey.lua: Shift
 	-- lets the target go).
+	-- Areas and hulls whose pin has an onClick (the objective areas of
+	-- Quests/Tracker.lua) take a left click where no pin is: they are no
+	-- frames the mouse reads (a map click must still pass them), so the
+	-- release is tested against them, the cursor in percent of the viewed
+	-- map, when it lands within a few pixels of its press, over the map and
+	-- not on a button. (On `world`: the main chunk is at Lua's 200 locals.)
+	function world.cursor()
+		local v = wView
+		local canvas = v and v.canvas
+		local w, h = v and v.width or 0, v and v.height or 0
+		if not (canvas and w > 0 and h > 0 and GetCursorPosition) then return nil end
+		local cl, ct, cs = canvas:GetLeft(), canvas:GetTop(), canvas:GetEffectiveScale()
+		if not (cl and ct and cs and cs > 0) then return nil end
+		local mx, my = GetCursorPosition()
+		return (mx - cl * cs) / (w * cs) * 100, (ct * cs - my) / (h * cs) * 100, mx, my
+	end
+
+	-- The pin of the area or hull under (x, y) percent, or nil.
+	function world.areaAt(x, y)
+		local w, h = wView.width, wView.height
+		for i = 1, wAreas.n or 0 do
+			local f = wAreas[i]
+			local d = f:IsShown() and f.data
+			if d and d.pin and d.pin.onClick then
+				local dx, dy, r = (x - d.x) / 100 * w, (y - d.y) / 100 * h, d.dx / 100 * w
+				if dx * dx + dy * dy <= r * r then return d.pin end
+			end
+		end
+		for i = 1, wHulls.n or 0 do
+			local f = wHulls[i]
+			local d = f:IsShown() and f.data
+			if d and d.pin and d.pin.onClick and d.n and d.n >= 3 then
+				-- Inside a convex polygon: the point is on one side of every edge.
+				local side, inside = 0, true
+				for k = 1, d.n do
+					local a, b = k, k % d.n + 1
+					local cross = (d.xs[b] - d.xs[a]) * (y - d.ys[a]) - (d.ys[b] - d.ys[a]) * (x - d.xs[a])
+					local s = cross > 0 and 1 or cross < 0 and -1 or 0
+					if s ~= 0 then
+						if side == 0 then side = s elseif s ~= side then inside = false break end
+					end
+				end
+				if inside then return d.pin end
+			end
+		end
+		return nil
+	end
+
 	local mousePin, pressedPin, pressedButton
 	ns.RegisterEvent("GLOBAL_MOUSE_DOWN", function(_, button)
 		if button == "RightButton" then return end
 		pressedPin, pressedButton = mousePin, button
+		if not mousePin and GetCursorPosition then
+			world.downX, world.downY = GetCursorPosition()
+		else
+			world.downX = nil
+		end
 	end)
 	ns.RegisterEvent("GLOBAL_MOUSE_UP", function(_, button)
 		local f = pressedPin
 		pressedPin = nil
-		if not (f and f == mousePin and button == pressedButton and f:IsVisible()) then return end
+		if not f then
+			-- Not on a pin: an area or hull with a click.
+			local downX, downY = world.downX, world.downY
+			world.downX = nil
+			if not (downX and button == pressedButton and button == "LeftButton" and wView.frame:IsVisible()) then return end
+			local x, y, mx, my = world.cursor()
+			if not (x and math.abs(mx - downX) <= 4 and math.abs(my - downY) <= 4) then return end
+			local map = wView.map
+			local scroll = map and map.ScrollContainer
+			if scroll and scroll.IsMouseOver and not scroll:IsMouseOver() then return end
+			local foci = GetMouseFoci and GetMouseFoci() or { GetMouseFocus and GetMouseFocus() }
+			for i = 1, #foci do
+				local kind = foci[i].GetObjectType and foci[i]:GetObjectType()
+				if kind == "Button" or kind == "CheckButton" then return end
+			end
+			local p = world.areaAt(x, y)
+			if p then click(p, button, nil) end
+			return
+		end
+		if not (f == mousePin and button == pressedButton and f:IsVisible()) then return end
 		local d = f.data
 		for i = 1, #clickFilters do
 			if clickFilters[i](d.pin, d.layer, button) then return end

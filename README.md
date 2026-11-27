@@ -454,9 +454,9 @@ from authors you trust.
 ### Import strings
 
 A short guide shared as a single line of text (a quest chain, an item, a
-mount, an errand) can be pasted on the **Import page** without installing
-anything: `/polestar import` opens it, or follow the foot of the hub's left
-rail above Options. Polestar shows what the guide is before saving it, says
+mount, an errand) can be pasted under **Settings, Community guides, Import a guide**
+without installing anything: `/polestar import` opens it, or follow the last
+row of the guide menu's Community guides list. Polestar shows what the guide is before saving it, says
 why when it turns one down, offers **Update** for a newer version and keeps
 your progress, and lists your imported guides with **Delete**. Imported guides
 appear in the guide menu under **Community guides > Imported**, credited to
@@ -1356,7 +1356,7 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `talents` | Open the Talents section (talent plans: coming soon) |
 | `questdb` | Quest database status |
 | `packs` | Open Options > Community guides |
-| `import` | Open the Import page: paste a shared guide string to save it without installing an addon; `import clear` or `import delete` to remove it |
+| `import` | Open Settings, Community guides, Import a guide: paste a shared guide string to save it without installing an addon; `import clear` or `import delete` to remove it |
 | `gamepad` | Open Options > Gamepad: button names and key bindings |
 | `install` | Set Polestar up again, a page at a time (Install) |
 | `welcome` | Opens Install, as `install` does |

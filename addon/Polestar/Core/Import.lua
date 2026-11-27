@@ -1,5 +1,5 @@
 -- Import strings: a small guide shared as one line of text, pasted on the
--- Import page (UI/Import.lua, `/polestar import`) instead of installed as a
+-- Import a guide section of Settings (UI/Import.lua, `/polestar import`) instead of installed as a
 -- community addon. Contract: docs/PACK_FORMAT.md, "Import strings"; the
 -- writer is tools/lib/pack/importstring.js (`polestar export`).
 --
@@ -786,7 +786,7 @@ end
 
 -- At login (Guides.lua): every stored guide through the same checks as a
 -- pasted string, then registered. One that fails stays stored, listed on the
--- Import page with why.
+-- Import a guide section of Settings with why.
 function Import.Load()
 	local t = store(false)
 	if not t then return end
@@ -833,4 +833,4 @@ ns.RegisterCommand("import", function(rest)
 	else
 		ns.Fire("SHOW_IMPORT")
 	end
-end, L["Open the Import page; import clear / import delete <id>: remove imports"])
+end, L["Open Settings, Community guides, Import a guide; import clear / import delete <id>: remove imports"])

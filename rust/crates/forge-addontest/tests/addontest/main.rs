@@ -248,6 +248,8 @@ mod faction_guides;
 mod flight_map_notice;
 #[path = "free-mode.rs"]
 mod free_mode;
+#[path = "free-mode-menu.rs"]
+mod free_mode_menu;
 mod gamepad;
 #[path = "gamepad-ui.rs"]
 mod gamepad_ui;

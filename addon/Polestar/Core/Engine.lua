@@ -13656,8 +13656,9 @@ function Own.stepView(i)
 	-- current step only); `skipped`: the player skipped this step (Unskip);
 	-- `image`: the step's picture ({ file, w, h, texture }, Guides.lua);
 	-- `why`: why the step holds nothing for this character now, one line
-	-- (Own.stepWhy); `section`: the skill-range heading it is under
-	-- (Engine.GetSection).
+	-- (Own.stepWhy); `chosen`: why a planner put the step here (Free mode's
+	-- first quest, step.chosen), one line; `section`: the skill-range
+	-- heading it is under (Engine.GetSection).
 	return {
 		index = i, title = step.title, note = step.note, image = step.image, status = status, goals = goals,
 		groups = outGroups, focus = focus,
@@ -13665,6 +13666,7 @@ function Own.stepView(i)
 		skipped = isSkipped(i), live = computed,
 		along = step.along, label = step.label,
 		why = Own.stepWhy(step, goals),
+		chosen = type(step.chosen) == "string" and step.chosen or nil,
 		section = Engine.GetSection(i),
 	}
 end

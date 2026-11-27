@@ -119,10 +119,11 @@ fn the_community_guides_heading_and_one_entry_per_shown_pack_title_author_hiding
 		emit({ shown = shown, hidden = { nav = nav(), category = P.Category(), joe = rowFor("Joe's Barrens") ~= nil,
 			all = titles(P.Entries("", "All")) } })"#);
 	let nav = out["shown"]["nav"].as_array().unwrap();
-	assert_eq!(json!(&nav[nav.len() - 2..]), json!(["# Community guides", "Joe's Routes  ·  Joe"]));
+	assert_eq!(json!(&nav[nav.len() - 3..]), json!(["# Community guides", "Joe's Routes  ·  Joe", "Import a guide"]), "the list ends with its Import row");
 	assert_eq!(out["shown"]["title"], "Joe's Routes");
 	assert_eq!(out["shown"]["joe"], true);
-	assert!(!has(&out["hidden"]["nav"], "# Community guides"), "{}", strs(&out["hidden"]["nav"]).join(", "));
+	assert!(!has(&out["hidden"]["nav"], "Joe's Routes  ·  Joe"), "{}", strs(&out["hidden"]["nav"]).join(", "));
+	assert!(has(&out["hidden"]["nav"], "# Community guides") && has(&out["hidden"]["nav"], "Import a guide"), "the heading stays for the Import row: {}", strs(&out["hidden"]["nav"]).join(", "));
 	assert!(!strs(&out["hidden"]["nav"]).iter().any(|l| l.starts_with("Joe's Routes")));
 	assert_eq!(out["hidden"]["category"], "All");
 	assert_eq!(out["hidden"]["joe"], false);
@@ -146,7 +147,7 @@ fn our_pack_switched_off_while_one_of_our_categories_is_selected_back_to_all_not
 }
 
 #[test]
-fn no_heading_without_a_shown_pack_that_has_guides() {
+fn without_a_shown_pack_that_has_guides_the_community_guides_heading_holds_only_the_import_row() {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
 		addons: vec![Addon::files("Polestar", FILES)],
@@ -164,7 +165,9 @@ fn no_heading_without_a_shown_pack_that_has_guides() {
 		..Default::default()
 	})
 	.remove(0);
-	assert!(!has(&out, "Community guides"), "{}", strs(&out).join(", "));
+	let all = strs(&out);
+	let at = all.iter().position(|n| *n == "Community guides").unwrap_or_else(|| panic!("{}", all.join(", ")));
+	assert_eq!(all[at + 1..], ["Import a guide"], "no pack row (Empty has no guide): {}", all.join(", "));
 }
 
 #[test]
@@ -215,7 +218,7 @@ fn a_in_a_pack_title_and_source_prints_literally_in_the_sidebar_the_header_a_row
 	// Every "|" doubled once: the client prints "||" as one "|", so no colour or link starts.
 	let title = "Joe ||cffff0000Red||r Routes";
 	let nav = out["nav"].as_array().unwrap();
-	assert_eq!(nav[nav.len() - 1], format!("{title}  ·  Joe").as_str());
+	assert_eq!(nav[nav.len() - 2], format!("{title}  ·  Joe").as_str());
 	assert_eq!(out["title"], title);
 	assert_eq!(out["note"], title);
 	assert_eq!(out["credits"], format!("By Joe  ·  {title} 1.2.0  ·  CC-BY-4.0").as_str());

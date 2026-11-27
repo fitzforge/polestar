@@ -971,6 +971,8 @@ function GameTooltip.ClearLines(self) self.lines = {} end
 function GameTooltip.AddLine(self, text) table.insert(self.lines, tostring(text)) end
 function GameTooltip.AddDoubleLine(self, l, r) table.insert(self.lines, tostring(l) .. " | " .. tostring(r)) end
 function GameTooltip.SetText(self, text) self.lines = { tostring(text) } end
+-- The link the tooltip was last set to (W.QuestTip, W.ItemTip); its lines are the client's, not drawn here.
+function GameTooltip.SetHyperlink(self, link) self.link = link end
 function GameTooltip.GetOwner(self) return self.owner end
 DEFAULT_CHAT_FRAME = CreateFrame("Frame", "ChatFrame1", UIParent)
 function DEFAULT_CHAT_FRAME.AddMessage(_, msg) table.insert(stub.messages, tostring(msg)) end

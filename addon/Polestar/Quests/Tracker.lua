@@ -473,6 +473,42 @@ end
 -- Markers
 ---------------------------------------------------------------------------
 
+-- The quest a click on a held quest's pin or area works on: the first of its
+-- refs (a pin where several quests meet), the one Free mode has pinned when
+-- it is among them. -> questID, pinned | nil
+local function clickQuest(pin)
+	local first
+	for i = 1, #(pin.refs or {}) do
+		local q = pin.refs[i]
+		q = type(q) == "table" and q.q or q
+		if type(q) == "number" then
+			if ns.Free and ns.Free.Pinned() == q then return q, true end
+			first = first or q
+		end
+	end
+	return first, false
+end
+
+-- Whether the pin's quest is pinned in Free mode (nil: no quest, or no Free
+-- mode to pin it in).
+function Q.PinnedQuest(pin)
+	if not (ns.Free and ns.Free.Pin) then return nil end
+	local q, pinned = clickQuest(pin)
+	if not q then return nil end
+	return pinned
+end
+
+-- A left click on a held quest's objective area or pin (a mouse on the world
+-- map; not with a modifier, Journey's) makes it Free mode's first quest (the
+-- existing Pin to the top); clicked again, it is unpinned.
+function Q.PinClick(pin, button, owner)
+	if button ~= "LeftButton" or IsShiftKeyDown() or IsAltKeyDown() or IsControlKeyDown() then return end
+	local P = ns.Pins
+	if owner and not (P and P.WorldPinOf and P.WorldPinOf(owner)) then return end
+	local q, pinned = clickQuest(pin)
+	if q and ns.Free and ns.Free.Pin then ns.Free.Pin(q, not pinned) end
+end
+
 local function addTooltipLines(tt, pin)
 	local head = pin.header
 	if head then tt:AddLine(head, 1, 1, 1) end
@@ -493,6 +529,11 @@ local function addTooltipLines(tt, pin)
 			local what = ref.name and (ref.name .. ": ") or ""
 			tt:AddLine("  " .. what .. Q.ProgressText(ref), dim.r, dim.g, dim.b)
 		end
+	end
+	-- A held quest's pin: a click pins it in Free mode (Q.PinClick).
+	local free = pin.kind ~= "available" and Q.PinnedQuest(pin)
+	if free ~= nil then
+		tt:AddLine(free and ns.L["Click to unpin it from Free mode"] or ns.L["Click to make it Free mode's first quest"], dim.r, dim.g, dim.b)
 	end
 end
 
@@ -539,6 +580,7 @@ local function newPin(layer, key, kind, style, map, f, x, y, header, byKey, radi
 		local C = ns.Compat
 		if C and C.MapToWorld then pin.c, pin.wx, pin.wy = C.MapToWorld(map, x, y, f) end
 		pin.tooltip = function(tt) addTooltipLines(tt, pin) end
+		if layer ~= LAYER_AVAILABLE then pin.onClick = function(button, owner) Q.PinClick(pin, button, owner) end end
 		pool[key] = pin
 	end
 	pin.gen = poolGen
@@ -760,6 +802,7 @@ local function addRegion(cr, members)
 	if not g then
 		g = { refs = {} }
 		g.area = { c = rg.c, wx = rg.wx, wy = rg.wy, hull = rg.hull, areaOnly = true, refs = g.refs }
+		g.area.onClick = function(button, owner) Q.PinClick(g.area, button, owner) end
 		regionPool[cr.sig] = g
 	end
 	g.gen = regionGen

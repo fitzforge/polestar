@@ -983,8 +983,8 @@ is refused.
 
 ## Import strings
 
-One compiled guide as one line of text, for a player to paste on Polestar's
-Import page instead of installing an addon (GUIDE_PACKS.md, "Import
+One compiled guide as one line of text, for a player to paste under Polestar's
+Settings, Community guides, Import a guide instead of installing an addon (GUIDE_PACKS.md, "Import
 strings"). `polestar export <file.guide>` writes it
 (`tools/lib/pack/importstring.js`); `addon/Polestar/Core/Import.lua` reads
 it.

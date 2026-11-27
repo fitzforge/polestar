@@ -184,34 +184,8 @@ local function hexOf(r, g, b)
 	return format("ff%02x%02x%02x", floor(r * 255 + 0.5), floor(g * 255 + 0.5), floor(b * 255 + 0.5))
 end
 
--- The client's difficulty colour for a quest level, as the quest log draws
--- it (GetQuestDifficultyColor; its QuestDifficultyColors by level gap
--- otherwise), lifted.
-local function difficulty(level, plevel)
-	local r, g, b
-	if type(level) == "number" then
-		if GetQuestDifficultyColor then
-			local ok, c = pcall(GetQuestDifficultyColor, level)
-			if ok and type(c) == "table" and type(c.r) == "number" and not secret(c.r) then r, g, b = c.r, c.g, c.b end
-		end
-		local t = not r and QuestDifficultyColors
-		if type(t) == "table" then
-			local d = level - plevel
-			local key
-			if d >= 5 then key = "impossible"
-			elseif d >= 3 then key = "verydifficult"
-			elseif d >= -4 then key = "difficult"
-			else
-				local C = ns.Compat
-				key = (C and C.IsQuestTrivial and C.IsQuestTrivial(level, plevel)) and "trivial" or "standard"
-			end
-			local c = t[key]
-			if type(c) == "table" and type(c.r) == "number" then r, g, b = c.r, c.g, c.b end
-		end
-	end
-	if not r then r, g, b = Theme.Color("quest") end
-	return lift(r, g, b)
-end
+-- The client's difficulty colour for a quest level, lifted (UI.QuestDifficulty).
+local difficulty = UI.QuestDifficulty
 
 local function paintRGB(fs, r, g, b)
 	W.Uncolor(fs)

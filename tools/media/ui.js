@@ -186,6 +186,18 @@ const GLYPHS = {
 		ring(12, 12, 9, 1.8),
 		subtract(poly([[12, 4.6], [15, 12], [12, 19.4], [9, 12]]), dot(12, 12, 1.1)),
 	),
+	// Free mode, your own way: a figure running to the right, the head
+	// ahead of the body, one arm and one leg thrown forward, the others back.
+	// Strokes a touch heavier than the line glyphs' so it holds at 16 px.
+	'icon-freemode': union(
+		dot(15.4, 4.3, 2.45),
+		line(13.7, 8.6, 10.9, 13.9, 3.2),
+		polyline([[13.2, 9.4], [9.5, 10.1], [7.1, 12.9]], 2.5),
+		polyline([[13.3, 9.4], [16.4, 11.9], [19.2, 10.4]], 2.5),
+		polyline([[10.9, 13.9], [14.9, 15.8], [14.1, 20.8]], 2.7),
+		line(14.1, 20.8, 16.6, 20.8, 2.5),
+		polyline([[10.9, 13.9], [8.7, 17.9], [4.4, 19.1]], 2.7),
+	),
 	// A dungeon or raid entrance: an archway open at the ground, a portal
 	// spark inside it.
 	'icon-dungeon': union(

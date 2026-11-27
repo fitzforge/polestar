@@ -270,6 +270,10 @@ GF.Part(function(GF)
 	-- The off-route line closed by its ×: how many quests were off the route
 	-- then; it comes back when more are (this session).
 	GF.offRouteClosed = nil
+	-- The finished quests' row (#4112's neighbour): from this many finished
+	-- quests in the log, none in the step; closed by its ×, the count then.
+	GF.HANDIN_ROW_MIN = 2
+	GF.handinClosed = nil
 	GF.CONTENT = { "GetGuide", "GetTabs", "GetStepIndex", "GetLiveStep", "GetStepCount", "GetStepView", "StepNumber", "StepTotal",
 		"GetProgress", "GetAlong", "GetWhileHereList", "LeftOutHere", "Pace", "XPStats", "RestParts", "Target" }
 	local DERIVED = GF.live and {
@@ -334,7 +338,7 @@ GF.Part(function(GF)
 		-- The quest log notices (#4112): the off-route line and the finished
 		-- quests' row, the end card's off-route line, all off at once; the
 		-- guide menu keeps their lists.
-		questLogNotices = true,
+		questLogNotices = true, handinRow = true,
 		bgColor = false, bgOpacity = false, border = true, idleAlpha = 1, combatAlpha = 0.35, veil = 0.68, shade = 0.2,
 		stepAnim = true, animSpeed = 1, foldAnim = true, rules = true, hideTaxi = false, leftOut = true, lastSteps = 0,
 		-- The step card's gaps, each its whole size in px (GF.Gap); false: the
@@ -1401,6 +1405,10 @@ GF.Part(function(GF)
 				ns.Set("behavior.skipGrey", false)
 				return
 			end
+			if self.psHandins then
+				UI.GuideCarried()
+				return
+			end
 			if self.psRoom then
 				UI.ShowQuestRoom("offroute")
 				return
@@ -1442,6 +1450,9 @@ GF.Part(function(GF)
 				end
 			elseif self.psOutFix then
 				tips[1] = L["Brings back the quests it leaves out. Settings, Automation turns it on again."]
+			elseif self.psHandins then
+				tips[1] = L["Every finished quest in your log, none of them part of this step."]
+				tips[2] = { L["Click for the shortest trip through their hand-ins"], Theme.Accent() }
 			elseif self.psRoom then
 				for i = 1, min(#self.psRoom, 12) do tips[#tips + 1] = self.psRoom[i].title or ("#" .. self.psRoom[i].quest) end
 				tips[#tips + 1] = { L["Click to see them, each with an Abandon button"], Theme.Accent() }
@@ -1504,13 +1515,13 @@ GF.Part(function(GF)
 			l.Close = CreateFrame("Button", nil, l)
 			l.Close:SetSize(ICON + 6, lh)
 			l.Close:SetPoint("CENTER", l.Icon, "CENTER", 0, 0)
-			l.Close:SetScript("OnClick", function() GF.DismissOffRoute() end)
+			l.Close:SetScript("OnClick", function() if l.psHandins then GF.DismissHandins() else GF.DismissOffRoute() end end)
 			l.Close:SetScript("OnEnter", function(self)
 				W.Color(l.Icon, "text")
-				W.Tooltip(self, "ANCHOR_TOP", L["Close"], { L["Hides this line until more quests are off your route."] })
+				W.Tooltip(self, "ANCHOR_TOP", L["Close"], { l.psHandins and L["Hides this line until the number of finished quests changes."] or L["Hides this line until more quests are off your route."] })
 			end)
 			l.Close:SetScript("OnLeave", function(self)
-				W.Color(l.Icon, "textMuted")
+				W.Color(l.Icon, l.psHandins and "success" or "textMuted")
 				W.HideTooltip(self)
 			end)
 			l.Close:Hide()
@@ -2082,7 +2093,7 @@ GF.Part(function(GF)
 			if ns.Free then
 				if not rawget(empty, "FreeLink") then
 					empty.FreeLink = W.Link(empty, "", empty.act, { role = "note" })
-					empty.FreeLink.psTip = L["Your own quests as a guide: the arrow leads to the nearest one, then the next."]
+					empty.FreeLink.psTip = L["Your own quests, planned for you: pick up what you like, Polestar orders them and the arrow leads."]
 				end
 				W.SetLinkText(empty.FreeLink, L["Or follow your own quests: Free mode"])
 				empty.FreeLink.psAction = function() ns.Free.Toggle() end
@@ -2143,20 +2154,20 @@ GF.Part(function(GF)
 			empty.Secondary.psAction = function() UI.ShowPicker() end
 			empty.Secondary:Show()
 		elseif kind == "complete" and ns.Free and E and E.GetGuide and ns.Free.IsGuide((E.GetGuide() or {}).id) then
-			-- Free mode with nothing in the log to lead to: pick up quests, or go
-			-- back to a guide.
-			glyph = "icon-explore"
+			-- Free mode with nothing in the log to lead to: pick up quests, turn it
+			-- off (back to the guide the player came from, named on the line), or
+			-- choose a guide.
+			glyph = "icon-freemode"
 			empty.Title:SetText(L["No quests to lead to"])
-			empty.Text:SetText(L["Pick up quests and Free mode leads you to them."])
 			local back = ns.Free.ReturnTitle()
-			W.SetButtonText(empty.Primary, back and string.format(L["Return to %s"], back) or L["Choose a guide"])
-			empty.Primary.psAction = function() if back then ns.Free.Stop() else UI.ShowPicker() end end
+			empty.Text:SetText(L["Pick up quests and Free mode leads you to them."] .. "\n"
+				.. (back and string.format(L["Takes you back to %s"], "|c" .. Theme.Hex("text") .. back .. "|r") or L["Leaves you with no guide open: pick one under Guides."]))
+			W.SetButtonText(empty.Primary, L["Turn off Free mode"])
+			empty.Primary.psAction = function() ns.Free.Stop() end
 			empty.Primary:Show()
-			if back then
-				W.SetButtonText(empty.Secondary, L["Choose a guide"])
-				empty.Secondary.psAction = function() UI.ShowPicker() end
-				empty.Secondary:Show()
-			end
+			W.SetButtonText(empty.Secondary, L["Choose a guide"])
+			empty.Secondary.psAction = function() UI.ShowPicker() end
+			empty.Secondary:Show()
 		elseif kind == "complete" then
 			glyph, color = "check", "success"
 			local guide = E and E.GetGuide and E.GetGuide()
@@ -2696,7 +2707,7 @@ GF.Part(function(GF)
 	-- it. The dungeon line (key "dungeon") is a link: its chevron points on.
 	local function paintLine(l, key, icon, iconColor, text, list, title, open)
 		l.psKey, l.psGoals, l.psTitle, l.psDungeon = key, list, title, nil
-		l.psOut, l.psOutItem, l.psOutFix, l.psRoom, l.psInfo, l.psNear, l.psBack = nil, nil, nil, nil, nil, nil, nil
+		l.psOut, l.psOutItem, l.psOutFix, l.psRoom, l.psHandins, l.psInfo, l.psNear, l.psBack = nil, nil, nil, nil, nil, nil, nil, nil
 		if l.Close then l.Close:Hide() end
 		l.Icon:SetTexture((icon == "check" or icon == "icon-dungeon" or icon == "skip" or icon == "cross") and Theme.Media(icon) or Theme.VerbIcon(icon))
 		W.Color(l.Icon, iconColor)
@@ -2731,8 +2742,9 @@ GF.Part(function(GF)
 		person.psHeaderGoal = header
 		paintPerson(g)
 		-- Under the header: why a step that depends on what the player does
-		-- holds nothing for them now (the Engine's `why`, #942).
-		local why = view.why
+		-- holds nothing for them now (the Engine's `why`, #942), else why a
+		-- planner put it here (Free mode's first quest: `chosen`).
+		local why = view.why or view.chosen
 		person.Why:SetText(why or "")
 		person.Why:SetShown(why ~= nil)
 		local E = Engine()
@@ -3122,6 +3134,34 @@ GF.Part(function(GF)
 			-- Read afresh once the line is back on.
 			model.offRoute = nil
 		end
+		-- The finished quests' row (guideWindow.handinRow): with HANDIN_ROW_MIN
+		-- or more quests in the log finished and none of them part of this
+		-- step, one slim line, "N quests ready to hand in . Route", that opens
+		-- the hand-in guide (UI.GuideCarried). Its × hides it until the count
+		-- changes. Read on every fill: a quest finishing changes it at once.
+		model.handins = nil
+		if GF.live and GF.On("handinRow") and ns.Handins and ns.Handins.Ready then
+			local ready = ns.Handins.Ready()
+			local inStep = {}
+			for _, goal in ipairs(view.goals) do
+				if goal.quest then inStep[goal.quest] = true end
+			end
+			local n = #ready
+			for _, q in ipairs(ready) do
+				if inStep[q] then n = 0 end
+			end
+			if n < GF.HANDIN_ROW_MIN then GF.handinClosed = nil end
+			if n >= GF.HANDIN_ROW_MIN then
+				model.handins = n
+				if n ~= GF.handinClosed then
+					local text = string.format(L["%d quests ready to hand in"], n) .. DOT .. "|c" .. Theme.Hex("accent") .. L["Route"] .. "|r"
+					local l = addLine("handins", "check", "success", text, nil, L["Finished quests"], false)
+					l.psHandins = n
+					l.Chevron:SetTexture(Theme.Media("chevron-right"))
+					if l.Close then l.Close:Show() end
+				end
+			end
+		end
 		for gi, goal in ipairs(view.goals) do model.last[gi] = goal.status end
 		for i = n + 1, #rows do
 			local r = rows[i]
@@ -3273,6 +3313,12 @@ GF.Part(function(GF)
 	function GF.DismissOffRoute()
 		local off = model and model.offRoute
 		GF.offRouteClosed = type(off) == "table" and #off or math.huge
+		GF.Refill()
+	end
+
+	-- The hand-in row's ×: closes it until the number of finished quests changes.
+	function GF.DismissHandins()
+		GF.handinClosed = model and model.handins or math.huge
 		GF.Refill()
 	end
 
