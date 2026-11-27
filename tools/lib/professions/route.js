@@ -269,7 +269,7 @@ function routeGuide(name, data, opts = {}) {
 				out.push(`  auction ${item} x${count}`);
 			} else if (way === 'disenchant') {
 				// The disenchant way: green armour of these "Requires Level"s breaks into it (the window's row).
-				const t = D.DISENCHANT_LEVELS.find((h) => h.re.test(itemName(item)));
+				const t = D.disenchantLevels(itemName(item));
 				if (!t) throw new Error(`${P}: ${itemName(item)} is not a disenchanted material`);
 				out.push(`  collect ${item} x${count} anywhere gather Enchanting 1 levels ${t.min}-${t.max}`);
 			} else if (way === 'vendor') {

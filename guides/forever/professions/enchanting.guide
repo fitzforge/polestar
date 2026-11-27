@@ -161,7 +161,7 @@ step Enchanting recipes at 130
   learn 13501
 
 step Enchant Bracer - Lesser Stamina to 150
-  tip Enchant Bracer - Lesser Stamina is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 Soul Dust. One Soul Dust a craft (level 21-30 greens). Make the Runed Silver Rod first: the recipe needs it in your bags, so keep it there. Lesser Magic Essence (4 for 75-150): Alliance: Enchanting: disenchant green armour that requires level 1-15; or the Auction House. Enchant any item for that slot in your bags, even a grey one. Enchanting 150 is a Legacy System milestone.
+  tip Enchant Bracer - Lesser Stamina is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 Soul Dust. One Soul Dust a craft (level 21-30 greens). Make the Runed Silver Rod first: the recipe needs it in your bags, so keep it there. Lesser Magic Essence (4 for 75-150): Alliance: Enchanting: disenchant green armour that requires level 1-10; or the Auction House. Enchant any item for that slot in your bags, even a grey one. Enchanting 150 is a Legacy System milestone.
   craft 7795 x1 -- a tool: keep it in your bags
   craft 13501 until 150
   skill Enchanting 150
@@ -185,8 +185,8 @@ step Get Iridescent Pearl (Horde)
 
 step Get Greater Astral Essence
   zone Azeroth
-  tip 1 Greater Astral Essence for Enchanting 150-225: Runed Golden Rod. Enchanting: disenchant green armour that requires level 16-25. Or buy it at the Auction House.
-  collect 11082 x1 anywhere gather Enchanting 1 levels 16-25
+  tip 1 Greater Astral Essence for Enchanting 150-225: Runed Golden Rod. Enchanting: disenchant green armour that requires level 21-25. Or buy it at the Auction House.
+  collect 11082 x1 anywhere gather Enchanting 1 levels 21-25
   auction 11082 x1
 
 step Get Soul Dust
@@ -200,13 +200,13 @@ step Get Golden Rod
   auction 11128 x1
 
 step Get Lesser Mystic Essence
-  tip 10 Lesser Mystic Essence for Enchanting 150-225: 10 Enchant Chest - Greater Intellect. Enchanting: disenchant green armour that requires level 26-35. Or buy them at the Auction House.
-  collect 11134 x10 anywhere gather Enchanting 1 levels 26-35
+  tip 10 Lesser Mystic Essence for Enchanting 150-225: 10 Enchant Chest - Greater Intellect. Enchanting: disenchant green armour that requires level 26-30. Or buy them at the Auction House.
+  collect 11134 x10 anywhere gather Enchanting 1 levels 26-30
   auction 11134 x10
 
 step Get Greater Mystic Essence
-  tip 1 Greater Mystic Essence for Enchanting 150-225: Runed Truesilver Rod. Enchanting: disenchant green armour that requires level 26-35. Or buy it at the Auction House.
-  collect 11135 x1 anywhere gather Enchanting 1 levels 26-35
+  tip 1 Greater Mystic Essence for Enchanting 150-225: Runed Truesilver Rod. Enchanting: disenchant green armour that requires level 31-35. Or buy it at the Auction House.
+  collect 11135 x1 anywhere gather Enchanting 1 levels 31-35
   auction 11135 x1
 
 step Get Vision Dust
