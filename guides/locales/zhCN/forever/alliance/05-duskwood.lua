@@ -43,7 +43,7 @@ return {
 	["{area:492}: kill these as you meet them"] = "{area:492}：沿途击杀以下目标",
 	-- {npc:311} Sven Yorgen · {area:94} Raven Hill · {npc:522} Mor'Ladim
 	-- plural, as words: Skeletal Fiends = {npc:531} Skeletal Fiend · Skeletal Horrors = {npc:202} Skeletal Horror
-	["On the way west to {npc:311}: Skeletal Fiends and Skeletal Horrors walk the cemetery's southern half, north of {area:94}. {npc:522}, an elite, wanders the graves: keep away from him."] = "向西去{npc:311}的路上：骸骨魔和骸骨恐怖怪在墓地南半部游荡，在{area:94}以北。{npc:522}是精英，在墓地里游荡：离他远点。",
+	["On the way west to {npc:311}: Skeletal Fiends and Skeletal Horrors walk the cemetery's southern half, north of {area:94}. {npc:522}, an elite, wanders the graves: keep away from him."] = "向西去{npc:311}的路上：骸骨魔和恐怖骸骨在墓地南半部游荡，在{area:94}以北。{npc:522}是精英，在墓地里游荡：离他远点。",
 
 	-- Step 8: Gooey Spider Legs
 	-- plural, as words: Gooey Spider Legs = {item:2251} Gooey Spider Leg
