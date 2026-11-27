@@ -13249,8 +13249,8 @@ end
 -- step list ("Not for you: needs "Goblin Invasion" handed in (The Barrens
 -- guide)") and the end card: what its quest needs, with the guide of the
 -- route that takes the quest when that is another guide (RoutePlan.TakenIn,
--- the quest named as that guide's accept names it). Any other kind: that
--- its conditions don't hold. -> text, whether another guide is named
+-- the quest named as that guide's accept names it). Any other kind: nil
+-- (Own.passedLine shows Own.whenText's line). -> text, whether another guide is named
 function Own.passedReason(p)
 	local q = Own.chainQuest(p)
 	local P = ns.RoutePlan
@@ -13269,7 +13269,7 @@ function Own.passedReason(p)
 	elseif p.k == "onquest" and p.neg and type(p.q) == "table" and #p.q == 1 then
 		text = L["only without %s in your quest log"]:format(ns.Quoted(titleOfQuest(p.q[1])))
 	else
-		return L["its conditions don't hold for this character"], false
+		return nil, false
 	end
 	local other = id ~= nil and id ~= guide.id
 	if other then text = L["%s (%s guide)"]:format(text, title) end
@@ -13278,12 +13278,16 @@ end
 
 -- Step `step`'s line for the step list, its card and the banner when the
 -- route passed it (Own.passedBy): "Not for you: " and why (Own.passedReason)
--- while its `when` fails, else that the guide passed it before its
--- condition held (it holds now, or fails only on quest work under way),
--- which the player may bring back (Unskip). -> text, whether it holds now
+-- while its `when` fails on a quest, Own.whenText's line on any other kind;
+-- else that the guide passed it before its condition held (it holds now, or
+-- fails only on quest work under way), which the player may bring back
+-- (Unskip). -> text, whether it holds now
 function Own.passedLine(step)
 	local p = Own.whenFails(step)
-	if p and not Own.failsForNow(step) then return L["Not for you: %s"]:format((Own.passedReason(p))), false end
+	if p and not Own.failsForNow(step) then
+		local reason = Own.passedReason(p)
+		return reason and L["Not for you: %s"]:format(reason) or Own.whenText(p), false
+	end
 	return L["Passed by the guide: its condition did not hold when you got there"], true
 end
 

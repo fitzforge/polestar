@@ -176,7 +176,7 @@ fn a_step_the_route_passed_says_why_with_no_unskip_and_the_player_s_own_skip_kee
 			{ "tab": "5 \u{b7} Gerenzo", "lines": [not_for_you(WHY90)], "unskip": [false] },
 			{ "tab": "6 \u{b7} Flying Machine", "lines": [not_for_you(WHY90)], "unskip": [false] },
 			{ "tab": "7 \u{b7} Far errand", "lines": [not_for_you("needs \u{201c}Quest 80\u{201d} handed in")], "unskip": [false] },
-			{ "tab": "8 \u{b7} Fly to Ratchet", "lines": ["Not for you: its conditions don't hold for this character"], "unskip": [false] },
+			{ "tab": "8 \u{b7} Fly to Ratchet", "lines": ["Skipped for your character: its conditions do not hold"], "unskip": [false] },
 			{ "tab": "9 \u{b7} Ready", "lines": [ready], "unskip": [false] },
 		]),
 		"the guide that takes the quest is named only when it is another guide: {out}"
@@ -299,7 +299,7 @@ fn the_end_card_lists_the_chains_left_out_other_guides_first_and_counts_what_it_
 		.join("\n"),
 		"{out}"
 	);
-	assert_eq!(out["late"], json!({ "tab": "11 \u{b7} Late", "lines": ["Not for you: its conditions don't hold for this character"], "unskip": [false] }), "{out}");
+	assert_eq!(out["late"], json!({ "tab": "11 \u{b7} Late", "lines": ["Only from level 50"], "unskip": [false] }), "{out}");
 	assert_eq!(out["below"], true, "{out}");
 }
 
