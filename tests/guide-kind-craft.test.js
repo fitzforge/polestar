@@ -133,7 +133,7 @@ test('a short farm says the minutes for the rest; a disenchant way says the gree
 	const short = run('E.KindAccess.farm = function(goal) if goal.item == 2592 then return { minutes = 30, kills = 200 } end end', `${GET_ROWS}
 GF.Layout(); stub.advance(1)
 emit({ rows = getRows() })`);
-	assert.equal(short.rows[1].sub, 'Blackrock Grunt  ·  Elwynn Forest  ·  ~30 min for the rest');
+	assert.equal(short.rows[1].sub, 'Blackrock Grunt  ·  Elwynn Forest  ·  about 30 min for the rest');
 	assert.equal(short.rows[1].on, true, 'Mix farms a short farm');
 	const dust = run('', `${GET_ROWS}
 at(6); GF.Layout(); stub.advance(1)
