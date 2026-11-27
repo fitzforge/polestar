@@ -19,5 +19,7 @@ return {
 	settle = 0.3,
 	probes = {
 		["guideWindow.journeyStyle"] = { value = "foot", probe = journeyShown },
+		-- Fold finished goals (#4450): the layout's answer whether done goals keep their rows in full mode.
+		["guideWindow.foldDone"] = function() return Polestar.UI.GuideFrame.Shows("done", false) end,
 	},
 }

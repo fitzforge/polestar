@@ -51,7 +51,7 @@ return {
 
 	-- Step 9: Sar'theris Strand
 	-- {area:598} Sar'theris Strand · {item:15881} Rackmore's Golden Key
-	["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it. Work the Naga, Sorceresses and Warriors (32-34) of the strand's southern half until it drops.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), and Tidehunters (36-37) swim off the northern tip: on the way to the chest, keep to the beach and swim straight across."] = "",
+	["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it. Work the Naga, Sorceresses and Warriors (32-34) of the strand's southern half until it drops.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), and Tidehunters (36-37) swim off the northern tip: on the way to the chest, keep to the beach and swim straight across."] = "Geh weiter nach Norden bis {area:598}, um {item:15881} zu bekommen: Jede Slitherblade kann ihn fallen lassen. Bearbeite die Naga, Sorceresses und Warriors (32-34) der südlichen Hälfte des Ufers, bis er fällt.\nVorsicht: Die Myrmidons (34-35) halten die Nordhälfte des Strands mit den Sea Witches und Oracles (34-36, Zauberwirker), und Tidehunters (36-37) schwimmen vor der Nordspitze: Auf dem Weg zur Truhe bleib am Strand und schwimm direkt hindurch.",
 	-- {item:15881} Rackmore's Golden Key
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881}, von den Schlangenschuppen-Naga",
 
@@ -87,7 +87,7 @@ return {
 	-- {npc:11863} Azore Aldamort · {area:2407} Kormek's Hut
 	["Back west up the hill to {npc:11863}'s tower with the sceptre, then south along the road to {area:2407}."] = "Rückwärts westlich auf den Hügel zum Tränkenstab von {npc:11863}, dann südlich der Straße zu {area:2407}.",
 	-- {npc:11863} Azore Aldamort · {npc:12369} Lord Kragaru · {object:177673} Serpent Statue
-	["{npc:11863}: {npc:12369} (38) rises at the {object:177673}, for the south loop at the end of 30-40 (06b): keep it"] = "",
+	["{npc:11863}: {npc:12369} (38) rises at the {object:177673}, for the south loop at the end of 30-40 (06b): keep it"] = "{npc:11863}: {npc:12369} (38) erscheint am {object:177673}, für die Südschleife am Ende von 30-40 (06b): behalte es",
 
 	-- Step 15: Bibbly F'utzbuckle
 	-- {area:2407} Kormek's Hut · {npc:11596} Smeed Scrabblescrew · {npc:11438} Bibbly F'utzbuckle · {object:176751} Kodo Bones · {area:596} Kodo Graveyard
@@ -123,7 +123,7 @@ return {
 	-- Step 21: Kolkar Village
 	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:5752} Corporal Melkins · {quest:93224} Carved Centaur Totems · {npc:5396} Captain Pentigast
 	-- plural, as words: Centaur Ears = {item:6067} Centaur Ear
-	["North-east from {npc:11596}'s camp to {area:609}, on the way back to {area:608}: every Kolkar drops Centaur Ears for {npc:5752} and {quest:93224} for {npc:5396}. The Magram south-east of {npc:11596}'s camp drop them too, but their village holds Necromancers (42-43) and Guardians (39-41): stay with the Kolkar (30-35)."] = "",
+	["North-east from {npc:11596}'s camp to {area:609}, on the way back to {area:608}: every Kolkar drops Centaur Ears for {npc:5752} and {quest:93224} for {npc:5396}. The Magram south-east of {npc:11596}'s camp drop them too, but their village holds Necromancers (42-43) and Guardians (39-41): stay with the Kolkar (30-35)."] = "Nach Nordosten von {npc:11596}s Lager nach {area:609}, auf dem Weg zurück nach {area:608}: Jeder Kolkar lässt Zentaurenohren für {npc:5752} und {quest:93224} für {npc:5396} fallen. Auch die Magram südöstlich von {npc:11596}s Lager lassen sie fallen, aber ihr Dorf beherbergt Nekromanten (42-43) und Wächter (39-41): Bleibe bei den Kolkar (30-35).",
 
 	-- Step 22: Kormek's Hut
 	-- {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:11438} Bibbly F'utzbuckle · {area:2407} Kormek's Hut · {area:35} Booty Bay
@@ -133,8 +133,7 @@ return {
 
 	-- Step 23: Nijel's Point
 	-- {npc:5638} Kreldig Ungor · {zone:1443} Desolace
-	-- was: ["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it"] = "{npc:5638}: Die Tasche liegt vor der Nordwestküste, auf der Südschleife am Ende von 30-40 (06-badlands): Behalte sie"
-	["{npc:5638}: the satchel lies off the north-west coast, on {zone:1443}'s south loop at the end of 30-40: keep it"] = "",
+	["{npc:5638}: the satchel lies off the north-west coast, on {zone:1443}'s south loop at the end of 30-40: keep it"] = "{npc:5638}: Die Tasche liegt vor der Nordwestküste, auf der Südschleife von {zone:1443} am Ende von 30-40: Behalte sie",
 
 	-- Step 24: Fly to Auberdine
 	-- {area:442} Auberdine

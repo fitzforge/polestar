@@ -132,7 +132,7 @@
 --   %s. Optional: the route doesn't need it.
 --   Kept for %s
 --   Hand in %s to %s, who walks around here: look inside the circle on the map
---   A quest you carry that the route does not work here: its work is nearby.
+--   A quest in your log with an objective nearby that the route doesn't do here.
 --   %s at %s
 --   Only visible while dead: die nearby and talk to them as a ghost.
 --   Under water nearby: swim down to it
@@ -552,6 +552,7 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+--   Profession routes: based on the guides by Peter at WoW-Professions.com.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "ruRU") then return end
@@ -788,7 +789,7 @@ L["%s; 1 in %d runs fails"] = "%s; проваливается 1 раз из %d"
 L["%s. Optional: the route doesn't need it."] = "%s. Необязательно: маршруту это не нужно."
 L["Kept for %s"] = "Оставлено для «%s»"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "Сдайте «%s»: %s ходит поблизости, ищите внутри круга на карте"
-L["A quest you carry that the route does not work here: its work is nearby."] = "Задание из вашего журнала, которое маршрут здесь не выполняет: его цель рядом."
+L["A quest in your log with an objective nearby that the route doesn't do here."] = "Задание из вашего журнала, которое маршрут здесь не выполняет: его цель рядом."
 L["%s at %s"] = "%s у %s"
 L["Buy a rune at %s"] = "Купить руну у %s"
 L["Buy a rune and cast %s to save about %s"] = "Купите руну и примените %s — это сэкономит около %s"
@@ -923,7 +924,6 @@ L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the 
 L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."] = "Polestar на паузе: стрелка снова последует за гайдом, когда вы живым выйдете из подземелья, или после /polestar resume."
 
 -- Nav/Arrow.lua
-L["The last steps here aren't mapped"] = "Последние шаги здесь не нанесены на карту"
 L["Search here"] = "Ищите здесь"
 L["Arrived"] = "На месте"
 L["Click the arrow for the next spot"] = "Щелкните стрелку для следующей точки"
@@ -3048,6 +3048,7 @@ L["Quest and map data includes pfQuest by shagu (MIT License)."] = "Данные
 L["Discord and its logo are trademarks of Discord Inc.; the logo marks the link to the Polestar Discord."] = "Discord и его логотип — товарные знаки Discord Inc.; логотип обозначает ссылку на Discord Polestar."
 L["With EllesmereUI installed, Polestar can follow its accent, font and panel colour through its public skinning API."] = "С установленным EllesmereUI Polestar может следовать его акценту, шрифту и цвету панели через открытый API оформления."
 L["Gear scores from Forever Leveling BiS by Timearc when it is installed, through its public API."] = "Оценки экипировки из Forever Leveling BiS от Timearc, если он установлен, через его открытый API."
+L["Profession routes: based on the guides by Peter at WoW-Professions.com."] = "Маршруты профессий: по руководствам Peter с WoW-Professions.com."
 L["Maintenance"] = "Обслуживание"
 L["Reset all settings"] = "Сбросить все настройки"
 L["Every Polestar setting back to default. Progress is kept."] = "Все настройки Polestar по умолчанию. Прогресс сохраняется."
@@ -5057,7 +5058,6 @@ L["Title menu"] = "Меню названия"
 L["On the top edge"] = "На верхнем краю"
 L["Down the left side"] = "Слева"
 L["Default (%s)"] = "По умолчанию (%s)"
-L["A button in the step bar that opens every step of the guide in one list. The step number and the guide menu open it too."] = "Кнопка на панели шагов, открывающая все шаги гайда одним списком. Номер шага и меню гайда тоже открывают его."
 L["Steps before"] = "Предыдущие шаги"
 L["How many of the steps before this one show over it, one dimmed line each, done or skipped; 0 turns them off. Click one to go back to it."] = "Сколько предыдущих шагов показывается над этим, по одной тусклой строке, выполненные или пропущенные; 0 отключает их. Нажмите на шаг, чтобы вернуться к нему."
 L["Journey style"] = "Стиль пути"
@@ -5601,7 +5601,6 @@ L["%d changed"] = "изменено: %d"
 L["What Polestar does for you while you level: suggestions, quests, rewards, buttons, rares."] = "Что Polestar делает для вас, пока вы качаетесь: подсказки, задания, награды, кнопки, редкие противники."
 L["The arrow, its routes, and what Polestar draws on the world map and the minimap."] = "Стрелка, её маршруты и то, что Polestar рисует на карте мира и миникарте."
 L["The theme every Polestar window wears, the action buttons, the alert cards and the trackers."] = "Тема всех окон Polestar, кнопки действий, карточки оповещений и трекеры."
-L["Profiles, other addons, community guides and gamepad."] = "Профили, другие аддоны, гайды сообщества и геймпад."
 L["Pinned"] = "Закреплённые"
 L["Pinned, not available here: %d"] = "Закреплённые, недоступные здесь: %d"
 L["Pin a setting with the flag on its row."] = "Закрепите настройку флажком в её строке."
@@ -5731,6 +5730,13 @@ L["Kept for %s: the route hands it in there."] = "Оставлено для «%s
 L["No quests in your log are ready to hand in."] = "В журнале нет заданий, готовых к сдаче."
 L["Wait until combat ends to load the quest data."] = "Дождитесь конца боя, чтобы загрузить данные заданий."
 L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "Не удалось загрузить гайд по сдаче заданий. Проверьте, что аддон Polestar_FreeMode установлен и включен."
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["None of these has a known place to hand it in."] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
 
 -- Lookup/Free.lua
 L["Free mode starts after combat."] = "Свободный режим запустится после боя."
@@ -5742,6 +5748,33 @@ L["Free mode: follow your own quests (on, off, nearest, xp)"] = "Свободн�
 -- UI/QuestLinks.lua
 L["Start quest guide"] = "Начать гайд по заданию"
 L["Click to show quest guide actions."] = "Нажмите, чтобы показать действия гайда по заданию."
+
+-- Free.lua
+-- L["Low drop rate: %s"] = ""
+-- L["1 quest for your level: %s gives it."] = ""
+-- L["%d quests for your level, all here."] = ""
+-- L["%d quests for your level, %d of them here."] = ""
+-- L["Quests for your level"] = ""
+-- L["About %s XP a minute"] = ""
+-- L["Order: nearest first"] = ""
+-- L["Order: most XP a minute first"] = ""
+-- L["Bring back left-out quests (%d)"] = ""
+-- L["Unpin"] = ""
+-- L["Pin to the top"] = ""
+-- L["Free mode takes this quest first, whatever the order."] = ""
+-- L["Leave out of Free mode"] = ""
+-- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = ""
+
+-- Layouts/Atlas/Atlas.lua
+-- L["Get ahead, if possible"] = ""
+-- L["Still open from steps you have passed"] = ""
+-- L["1 quest off-guide"] = ""
+-- L["%d quests off-guide"] = ""
+-- L["View"] = ""
+-- L["Training due"] = ""
+-- L["New spells at your class trainer"] = ""
+-- L["Optional objectives during this step"] = ""
+-- L["Class quest"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Заново настроить Polestar, страница за страницей. Каждый выбор действует сразу."
@@ -6018,6 +6051,7 @@ L["Click to show quest guide actions."] = "Нажмите, чтобы показ
 -- L["Max height"] = "Макс. высота"
 -- L["%s: on this step"] = "%s: на этом шаге"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "Ваши собственные задания как гайд, на отдельной вкладке: стрелка ведет к ближайшему, затем к следующему (/polestar free)."
+-- L["The last steps here aren't mapped"] = "Последние шаги здесь не нанесены на карту"
 -- L["None of these has a known place to hand it in."] = "Ни для одного из них неизвестно, где его сдать."
 -- L["Travel time to this hand-in is unknown. Its location is still shown."] = "Время пути до места сдачи неизвестно. Его местоположение по-прежнему показано."
 -- L["Hand-ins without a known location"] = "Сдача без известного места"

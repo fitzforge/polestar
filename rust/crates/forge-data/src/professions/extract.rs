@@ -8,7 +8,8 @@
 //! the skill a player's trainer window showed (CHECKED_LEARN, learnedAtFrom "in-game"), else
 //! MinSkillLineRank, else Classic's trainer skill moved as far as Forever moved the yellow rank
 //! (learnedAtEstimated, learnedAtFrom "classic"), else yellow (learnedAtEstimated). AcquireMethod 3
-//! (retired) and Season of Discovery recipes are left out.
+//! (retired) and Season of Discovery recipes are left out, not those Forever teaches itself (tables.rs
+//! season_spells).
 
 use forge_guide::js::{Arr, Obj, V};
 use rustc_hash::{FxHashMap, FxHashSet};

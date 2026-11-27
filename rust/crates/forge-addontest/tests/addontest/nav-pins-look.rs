@@ -308,6 +308,7 @@ fn the_preview_paints_sandbox_pins_with_the_pins_code_and_repaints_only_while_sh
 		"nav.areaAlpha",
 		"nav.areaColor",
 		"nav.badgeSize",
+		"nav.hidePinsWithGuide",
 		"nav.mapIcons",
 		"nav.medalColor",
 		"nav.minimapArrowFade",

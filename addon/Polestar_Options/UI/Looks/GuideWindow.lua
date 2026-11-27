@@ -26,6 +26,7 @@ local floor, max, min, ipairs = math.floor, math.max, math.min, ipairs
 
 local PAGE = L["Guide window"]
 local NEW = "0.3.8"
+local HEADER_NEW = "0.4.4" -- the header's buttons, each in the header or the guide menu
 
 local function percent(v) return floor(v * 100 + 0.5) .. "%" end
 local function px(v) return string.format(L["%d px"], floor(v + 0.5)) end
@@ -65,7 +66,8 @@ local PREVIEW_H = 250 -- the drawing's height until its band lays it out
 -- part as the window names it (GF.Placed).
 local PART_OF = {}
 for part, keys in pairs({
-	bars = { "tabs", "tabStyle", "tabHeight", "navHeight", "barTextSize", "stepCount", "guideTitle", "skipButton", "reportButton", "allStepsButton" },
+	bars = { "tabs", "tabStyle", "tabHeight", "navHeight", "barTextSize", "stepCount", "guideTitle", "skipButton", "reportButton", "allStepsButton",
+		"lookupButton", "settingsButton", "quickSettingsButton", "handInButton", "chooseGuideButton" },
 	person = { "titleSize", "glyphSize", "lastSteps" },
 	goals = { "goalSize", "detailSize", "rowSpacing", "lineSpacing", "checkSize", "targetBar", "targetBarWidth", "targetBarColor" },
 	tip = { "noteSize" },
@@ -307,6 +309,12 @@ function UI.GuideWindowScene(band)
 		hot(P.tip, "guideWindow.noteSize")
 		hot(up, "guideWindow.upSize")
 		hot(foot, "guideWindow.progressHeight")
+		-- The Journey's sample route (GF.journeySample: made on the copy's
+		-- first draw with the Journey on), in the window or on a layout's
+		-- card joined under it (Atlas: folded).
+		local js = G.journeySample
+		local journey = js and js.frame
+		hot(journey, "guideWindow.journeyStyle")
 		local rows, texts, subs, icons, checks, marks = {}, {}, { person.Where }, { person.Icon }, {}, {}
 		for i, r in ipairs(G.rows) do
 			rows[i], texts[i], checks[i], marks[i] = r, r.Text, r.Check, r.Mark
@@ -339,24 +347,26 @@ function UI.GuideWindowScene(band)
 			["guideWindow.combatAlpha"] = window, ["ui.instance"] = window, ["guideWindow.hideTaxi"] = window, ["ui.growUp"] = window,
 			["ui.barsBottom"] = { P.strip, nav }, ["guideWindow.stepAnim"] = moving, ["guideWindow.animSpeed"] = moving,
 			-- A goal done shuts into the done line.
-			["guideWindow.foldAnim"] = { G.lines[1] or person }, ["guideWindow.leftOut"] = { G.lines[1] or person },
+			["guideWindow.foldAnim"] = { G.lines[1] or person }, ["guideWindow.foldDone"] = { G.lines[1] or person }, ["guideWindow.leftOut"] = { G.lines[1] or person },
 			["guideWindow.tabs"] = { P.strip }, ["guideWindow.otherTabNear"] = window, ["guideWindow.tabStyle"] = styled,
 			["guideWindow.tabHeight"] = { P.strip }, ["guideWindow.navHeight"] = { nav },
 			["guideWindow.barTextSize"] = bars, ["guideWindow.stepCount"] = { nav.Steps }, ["guideWindow.guideTitle"] = { nav.Title },
 			["guideWindow.skipButton"] = { nav.Skip }, ["guideWindow.reportButton"] = { nav.Report }, ["guideWindow.allStepsButton"] = { nav.AllSteps },
+			["guideWindow.lookupButton"] = { nav.Lookup }, ["guideWindow.settingsButton"] = { nav.Settings },
+			["guideWindow.quickSettingsButton"] = { nav.QuickSettings }, ["guideWindow.handInButton"] = { nav.HandIn },
+			["guideWindow.chooseGuideButton"] = { nav.ChooseGuide }, ["nav.nearbyButton"] = { nav.Nearby },
 			["guideWindow.titleSize"] = { person.Name }, ["guideWindow.lastSteps"] = { person, P.last }, ["guideWindow.goalSize"] = texts, ["guideWindow.detailSize"] = details,
 			["guideWindow.glyphSize"] = icons, ["guideWindow.rowSpacing"] = rows, ["guideWindow.lineSpacing"] = spacing,
 			["guideWindow.checkSize"] = checks, ["guideWindow.targetBar"] = marks, ["guideWindow.targetBarWidth"] = marks,
 			["guideWindow.targetBarColor"] = marks, ["guideWindow.noteSize"] = { P.tip }, ["ui.showNotes"] = { P.tip },
 			["ui.upcoming"] = { up }, ["guideWindow.upSize"] = { up }, ["guideWindow.progress"] = { foot },
+			["guideWindow.journeyStyle"] = { journey }, ["nav.journeySteps"] = { journey },
 			["guideWindow.progressHeight"] = { foot }, ["guideWindow.progressColor"] = { foot.Line }, ["guideWindow.progressPct"] = { foot.Pct },
 			["guideWindow.pace"] = { G.xp }, ["guideWindow.xpLine"] = { G.xp }, ["guideWindow.stillToDo"] = { P.along },
-			["guideWindow.questLogNotices"] = { G.lines[1] or person, P.along },
+			["guideWindow.questLogNotices"] = { G.lines[1] or person, P.along }, ["guideWindow.offRouteDungeons"] = { G.lines[1] or person },
 			-- The window itself shown and held in place; the step's goals, whole or one person's; the tip and Up next open.
 			["ui.shown"] = window, ["ui.locked"] = window, ["ui.wholeStep"] = moving, ["ui.notesOpen"] = { P.tip },
 			["ui.upcomingOpen"] = { up },
-			-- The sample Journey (made with the first layout that shows it).
-			["guideWindow.journeyStyle"] = { G.journeySample and G.journeySample.frame },
 		}) do
 			light(key, parts)
 		end
@@ -448,6 +458,10 @@ end
 
 local function accentNow() return Theme.Color("accent") end
 local function accentSource() return L["Accent"] end
+-- Polestar's own progress line, which the game's looks (Theme.GameSkin) swap for the game's status bar: its
+-- thickness, colour and percent are off there, and say why (#4317: Thickness did nothing in WoW Forever).
+local function gameBar() return Theme.GameSkin() and true or false end
+local function gameBarWhy() return L["The game's looks keep their own bar."] end
 
 -- A row's `disabled` while a guide window setting is off (look(key) == false).
 -- The rows under their parent are children now; other branches' rows (Tab style)
@@ -669,14 +683,39 @@ local SPECS = {
 		{ kind = "toggle", key = "guideWindow.reportButton", label = L["Report"], new = NEW,
 			help = L["The bug button that reports a problem with the step. The guide menu still has it."], search = "bug, report, problem, button, report button" },
 		{ kind = "toggle", key = "guideWindow.allStepsButton", label = L["All steps"], new = NEW,
-			help = L["A button in the step bar that opens every step of the guide in one list. The step number and the guide menu open it too."],
+			help = L["A button in the step bar that opens every step of the guide in one list. Off, the guide menu has it; the step number opens it too."],
 			search = "all steps, browse, step list, list, every step, button" },
+		-- The header's other actions: on, a button in the header; off, a row
+		-- in the guide menu.
+		{ kind = "toggle", key = "guideWindow.lookupButton", label = L["Lookup"], new = HEADER_NEW,
+			help = L["The search button in the step bar. Off, the guide menu has it."], search = "lookup, search, button, header, menu" },
+		W.Ref("toggle", "nav.nearbyButton", { label = L["Nearby services"], new = HEADER_NEW,
+			help = L["The Nearby services button in the step bar. Off, the guide menu has it."] }),
+		{ kind = "toggle", key = "guideWindow.settingsButton", label = L["Settings"], new = HEADER_NEW,
+			help = L["A Settings button in the step bar. Off, the guide menu has it."], search = "settings, options, gear, button, header, menu" },
+		{ kind = "toggle", key = "guideWindow.quickSettingsButton", label = L["Quick settings"], new = HEADER_NEW,
+			help = L["A Quick settings button in the step bar. Off, the guide menu has it."], search = "quick settings, sliders, button, header, menu" },
+		{ kind = "toggle", key = "guideWindow.handInButton", label = L["Hand in finished quests"], new = HEADER_NEW,
+			help = L["A Hand in button in the step bar. Off, the guide menu has it."], search = "hand in, turn in, finished quests, button, header, menu" },
+		{ kind = "toggle", key = "guideWindow.chooseGuideButton", label = L["Choose guide"], new = HEADER_NEW,
+			help = L["A Choose guide button in the step bar. Off, the guide menu has it."], search = "choose guide, guide picker, button, header, menu" },
 	} },
 	-- The step card, split along its parent rows: its text, its spacing, the target bar.
 	{ page = PAGE, tab = L["Parts"], section = L["Step text"], controls = {
 		{ kind = "toggle", key = "ui.wholeStep", label = L["Show the whole step"],
 			help = L["Every goal of the step at once, finished ones kept, instead of one person at a time with the others on one line each."],
 			search = "whole step, every goal, all goals, one person at a time, hub, expand" },
+		{ kind = "toggle", key = "guideWindow.foldDone", label = L["Fold finished goals"], new = "0.4.4",
+			-- Only a layout that keeps finished goals in place (its defaults name it) offers it.
+			disabled = function()
+				local T = ns.Theme
+				local id = T and T.LayoutId and T.LayoutId()
+				local info = id and T.LayoutInfo and T.LayoutInfo(id)
+				return not (info and info.defaults and info.defaults["guideWindow.foldDone"] ~= nil)
+			end,
+			offWhy = L["Polestar's layout always folds finished goals into one line. Pick a layout that keeps them, such as Atlas, in Presets."],
+			help = L["Finished goals fold into one \"✓ N done\" line, as in compact mode, instead of staying in place."],
+			search = "fold, done goals, finished goals, completed objectives, compact, collapse, hide done, atlas" },
 		{ kind = "slider", key = "guideWindow.lastSteps", label = L["Steps before"], min = 0, max = 5, step = 1, format = "%d", new = NEW,
 			help = L["How many of the steps before this one show over it, one dimmed line each, done or skipped; 0 turns them off. Click one to go back to it."],
 			search = "steps before, last step, previous steps, step before, done steps, history, back" },
@@ -766,7 +805,12 @@ local SPECS = {
 	{ page = PAGE, tab = L["Parts"], section = L["Quest log notices"], controls = {
 		{ kind = "toggle", key = "guideWindow.questLogNotices", label = L["Quest log notices"], new = "0.4.4",
 			help = L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."],
-			search = "quest log notices, quest log, clean up, cleanup, aren't part of your route, off route, finished quests, carried, hand in elsewhere, hide notices" },
+			search = "quest log notices, quest log, clean up, cleanup, aren't part of your route, off route, finished quests, carried, hand in elsewhere, hide notices",
+			children = {
+				{ kind = "toggle", key = "guideWindow.offRouteDungeons", label = L["Count dungeon quests"], new = "0.4.4",
+					help = L["Dungeon quests, and the quests that lead to them, count among the quests that aren't part of your route. Off, they are left out of that line and its list: kept for a later run."],
+					search = "dungeon quests, dungeons, off route, aren't part of your route, ignore dungeon quests, clean up, keep" },
+			} },
 	} },
 	{ page = PAGE, tab = L["Parts"], section = L["Progress & pace"], controls = {
 		{ kind = "toggle", key = "guideWindow.progress", label = L["Progress bar"], new = NEW,
@@ -774,12 +818,12 @@ local SPECS = {
 			children = {
 				{ kind = "slider", key = "guideWindow.progressHeight", label = L["Thickness"], min = 1, max = 12, step = 1, format = px, new = NEW,
 					help = L["The guide's progress at the bottom of the window: its thickness. The game's looks keep their own bar."],
-					search = "progress, progress bar, bar, footer, completion, thickness, height, thicker, thinner, progress line" },
+					search = "progress, progress bar, bar, footer, completion, thickness, height, thicker, thinner, progress line", disabled = gameBar, offWhy = gameBarWhy },
 				{ kind = "color", key = "guideWindow.progressColor", label = L["Colour"], new = NEW,
 					help = L["Its own colour; unset, the accent."],
-					search = "progress colour, fill colour, bar colour", shown = accentNow, source = accentSource },
+					search = "progress colour, fill colour, bar colour", shown = accentNow, source = accentSource, disabled = gameBar, offWhy = gameBarWhy },
 				{ kind = "toggle", key = "guideWindow.progressPct", label = L["Percent"], new = NEW,
-					help = L["The percent beside the progress bar."], search = "percent, number, percentage" },
+					help = L["The percent beside the progress bar."], search = "percent, number, percentage", disabled = gameBar, offWhy = gameBarWhy },
 			} },
 		{ kind = "toggle", key = "guideWindow.xpLine", label = L["XP line"], new = "0.4.3",
 			help = L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."],

@@ -286,14 +286,20 @@ local function pixel(f) return Theme.Pixel and Theme.Pixel(f) or 1 end
 -- The header: no backdrop and no rule; the guide's emblem and title on the
 -- left, then the step count with its arrows, Skip as its glyph alone, and
 -- the menu on the right. The player's own switches (guideWindow.skipButton,
--- .reportButton, .rules, nav.nearbyButton) say what shows; Atlas only sets
--- it out. Lookup is in the menu.
+-- .reportButton, .lookupButton, .rules, nav.nearbyButton and the rest) say
+-- what shows; Atlas only sets it out. Lookup starts in the menu (spec.defaults).
 ---------------------------------------------------------------------------
 
 on("guideTitle", function(nav, parts)
 	if parts.band then parts.band:Hide() end
 	if parts.bar then parts.bar:Hide() end
 end)
+
+-- The header's buttons between the menu and Skip, from the menu leftwards:
+-- Polestar's list (nav.psButtons), else its older fixed set.
+local function buttons(nav)
+	return nav.psButtons or { nav.Lookup, nav.Report, nav.Nearby, nav.AllSteps }
+end
 
 local function stepsMode(nav, own, mode)
 	local count = nav.Steps.Count
@@ -324,18 +330,20 @@ local function navBack(nav)
 	Theme.Font(nav.Steps.Count, "number")
 	nav.Steps:ClearAllPoints()
 	nav.Steps:SetPoint("LEFT", nav, "LEFT", 8, 0)
-	-- Polestar's own order right of the count: Skip, Nearby, Report, Lookup.
-	nav.Report:ClearAllPoints()
-	nav.Report:SetPoint("RIGHT", nav.Lookup, "LEFT", 0, 0)
-	nav.Nearby:ClearAllPoints()
-	nav.Nearby:SetPoint("RIGHT", nav.Report, "LEFT", 0, 0)
-	nav.Skip:ClearAllPoints()
-	nav.Skip:SetPoint("RIGHT", (nav.Nearby:IsShown() and nav.Nearby) or (nav.Report:IsShown() and nav.Report) or nav.Menu, "LEFT", -2, 0)
+	-- Polestar's own order right of the count (nav.psButtons): Skip, then the
+	-- buttons shown, the menu last.
 	if nav.Skip.Label then
 		nav.Skip.Label:Show()
 		nav.Skip:SetWidth(math.floor(7 + 11 + 5 + nav.Skip.Label:GetStringWidth() + 8 + 0.5))
 	end
-	nav.Lookup:Show()
+	local prev = nav.Menu
+	for _, b in ipairs(buttons(nav)) do
+		b:ClearAllPoints()
+		b:SetPoint("RIGHT", prev, "LEFT", 0, 0)
+		if b:IsShown() then prev = b end
+	end
+	nav.Skip:ClearAllPoints()
+	nav.Skip:SetPoint("RIGHT", prev, "LEFT", -2, 0)
 	Theme.Font(nav.Title, "small")
 end
 onLeave(function(parts) navBack(parts.nav) end)
@@ -387,7 +395,10 @@ local function fitRow(nav, own, prev)
 	if not steps:IsShown() or navW <= 0 then return end
 	local _, _, _, menuX = nav.Menu:GetPoint(1)
 	local right = -(tonumber(menuX) or -8) + 2
-	for _, b in ipairs({ nav.Menu, nav.Report, nav.Nearby, nav.AllSteps, nav.Skip }) do
+	for _, b in ipairs({ nav.Menu, nav.Skip }) do
+		if b:IsShown() then right = right + b:GetWidth() end
+	end
+	for _, b in ipairs(buttons(nav)) do
 		if b:IsShown() then right = right + b:GetWidth() end
 	end
 	local room = navW - (10 + 16 + 8) - right - 8
@@ -427,7 +438,10 @@ end
 
 local function navRow(nav)
 	local prev = nav.Menu
-	for _, b in ipairs({ nav.Report, nav.Nearby, nav.AllSteps, nav.Skip }) do
+	local row = {}
+	for _, b in ipairs(buttons(nav)) do row[#row + 1] = b end
+	row[#row + 1] = nav.Skip
+	for _, b in ipairs(row) do
 		if b == nav.Skip then
 			if b.Label then b.Label:Hide() end
 			b:SetWidth(SKIP_W)
@@ -464,7 +478,8 @@ local function header(parts)
 	own.emblem:ClearAllPoints()
 	own.emblem:SetPoint("LEFT", nav, "LEFT", 10, 0)
 	own.emblem:Show()
-	nav.Lookup:Hide()
+	-- A Polestar without the Lookup switch: Lookup is in the menu.
+	if not nav.psButtons then nav.Lookup:Hide() end
 	-- The step count at the title's size, beside it, at the player's size
 	-- for it (guideWindow.stepNumberSize, Atlas's default 75%); at least 40
 	-- wide at that size, so the arrows hold still as the number changes.
@@ -761,9 +776,48 @@ local function chipsFrame(owner)
 end
 
 -- The step on screen (guideRender), per window: a card closed with its ×
--- stays closed on that step.
+-- stays closed on that step. The party card is not per step (below).
 local stepOf = setmetatable({}, { __mode = "k" })
 local closedOn = {} -- card -> the step it was closed on
+
+-- The party card closed with its ×: what the line held then ({ who, marks },
+-- Party.StepLine's third value). It stays closed whatever the step, until the
+-- group's members change or the line holds a state it did not: Waiting on
+-- someone at once, a member ahead, behind or on another guide once that has
+-- held for PARTY_SETTLE seconds (when you finish a step a member is a step
+-- behind for the few seconds their own message takes, at every step: that is
+-- not news). "With Ana" and "Everyone's ready" never bring it back. Kept for
+-- the session, so for the character logged in (a reload or another login
+-- starts open).
+local PARTY_SETTLE = 6
+local partyShut
+local partySeen -- new mark -> GetTime() it was first held
+local function partyOpens()
+	partyShut, partySeen = nil, nil
+	return false
+end
+local function partyStaysShut(state)
+	local shut = partyShut
+	if not shut then return false end
+	-- A window with no state of its own (the settings' preview) neither keeps nor forgets it.
+	if not state then return false end
+	if state.who ~= shut.who then return partyOpens() end
+	local now, seen, first = GetTime(), nil, false
+	for mark in pairs(state.marks) do
+		if not shut.marks[mark] then
+			if mark:sub(1, 5) == "wait:" then return partyOpens() end
+			local since = partySeen and partySeen[mark]
+			if not since then since, first = now, true end
+			if now - since >= PARTY_SETTLE then return partyOpens() end
+			seen = seen or {}
+			seen[mark] = since
+		end
+	end
+	partySeen = seen
+	-- Laid out again once it has held long enough: nothing else says so.
+	if first and C_Timer and C_Timer.After then C_Timer.After(PARTY_SETTLE + 0.1, Core.relayout) end
+	return true
+end
 
 -- The parts the window handed over at this layout (guidePlace), taken up by
 -- the cards at guideLayout.
@@ -815,6 +869,86 @@ local function closeButton(parent)
 	return x
 end
 
+-- A card folded to its heading: a click on the heading folds it, a click
+-- on the folded card opens it. Kept per card across steps and reloads
+-- (ui.atlasFolded.<card>); the × still closes the card for the step.
+local function folded(key) return Core.setting("ui.atlasFolded." .. key) == true end
+local function setFolded(key, on)
+	if P.Set then P.Set("ui.atlasFolded." .. key, on and true or nil) end
+	Core.relayout()
+end
+
+-- The tooltip over a card's heading: what the card holds (its info, if
+-- any), then what a click does.
+local function foldTip(owner, info, hint)
+	if not GameTooltip then return end
+	GameTooltip:SetOwner(owner, "ANCHOR_NONE")
+	GameTooltip:ClearAllPoints()
+	GameTooltip:SetPoint("BOTTOMLEFT", owner, "TOPLEFT", 0, 4)
+	if info then
+		GameTooltip:SetText(info, 1, 1, 1, 1, true)
+		GameTooltip:AddLine(hint, Theme.Accent())
+	else
+		GameTooltip:SetText(hint, Theme.Accent())
+	end
+	if Theme.TipDots then Theme.TipDots(GameTooltip) end
+	GameTooltip:Show()
+end
+
+-- The open card's heading as a button that folds it (placed at layoutStack,
+-- over the heading and its chevron).
+local function foldButton(b)
+	local f = CreateFrame("Button", nil, b)
+	f.Chevron = f:CreateTexture(nil, "ARTWORK")
+	f.Chevron:SetTexture(Theme.Media("chevron-up"))
+	f.Chevron:SetSize(10, 10)
+	f.Chevron:SetPoint("RIGHT", f, "RIGHT", -2, 0)
+	f:SetScript("OnClick", function(self) if self.psKey then setFolded(self.psKey, true) end end)
+	f:SetScript("OnEnter", function(self)
+		if self.psLabel then self.psLabel:SetTextColor(Theme.Color("textDim")) end
+		foldTip(self, self.psInfo, tr("Click to fold them away"))
+	end)
+	f:SetScript("OnLeave", function(self)
+		if self.psLabel then self.psLabel:SetTextColor(Theme.Color("textMuted")) end
+		if GameTooltip then GameTooltip:Hide() end
+	end)
+	f:Hide()
+	return f
+end
+
+-- A folded card: its heading and count, a chevron; a click opens it.
+local function foldStrip(stack, key, text, count, info)
+	stack.folds = stack.folds or {}
+	local f = stack.folds[key]
+	if not f then
+		f = CreateFrame("Button", nil, stack)
+		f.Label = f:CreateFontString(nil, "OVERLAY")
+		f.Label:SetWordWrap(false)
+		f.Chevron = f:CreateTexture(nil, "ARTWORK")
+		f.Chevron:SetTexture(Theme.Media("chevron-down"))
+		f.Chevron:SetSize(10, 10)
+		f:SetScript("OnClick", function() setFolded(key, false) end)
+		f:SetScript("OnEnter", function(self)
+			self.Label:SetTextColor(Theme.Color("textDim"))
+			foldTip(self, self.psInfo, tr("Click to list them"))
+		end)
+		f:SetScript("OnLeave", function(self)
+			self.Label:SetTextColor(Theme.Color("textMuted"))
+			if GameTooltip then GameTooltip:Hide() end
+		end)
+		stack.folds[key] = f
+	end
+	f.psInfo = info
+	capsLabel(f.Label)
+	f.Label:SetText(Core.upper(text or "") .. ((count and count > 0) and ("  \194\183  " .. count) or ""))
+	local y = cardHead(f, f.Label)
+	f.Chevron:SetVertexColor(Theme.Color("textMuted"))
+	f.Chevron:ClearAllPoints()
+	f.Chevron:SetPoint("LEFT", f.Label, "LEFT", math.ceil(f.Label:GetStringWidth() or 0) + 6, 0)
+	f:SetHeight(cardFoot(y))
+	return f
+end
+
 -- Card i's backing, with its ×.
 local function backing(stack, i)
 	local b = stack.cards[i]
@@ -829,13 +963,16 @@ local function backing(stack, i)
 		b.Close = closeButton(b)
 		b.Close:SetPoint("TOPRIGHT", b, "TOPRIGHT", -4, -4)
 		b.Close:SetScript("OnClick", function(self) if self.psClose then self.psClose() end end)
-		-- The × shows while the pointer is on the card.
+		b.Fold = foldButton(b)
+		-- The × and the heading's chevron show while the pointer is on the card.
 		b.Close:SetAlpha(0)
+		b.Fold.Chevron:SetAlpha(0)
 		b:SetScript("OnUpdate", function(self)
 			local over = self:IsMouseOver() and true or false
 			if over == self.psOver then return end
 			self.psOver = over
 			self.Close:SetAlpha(over and 1 or 0)
+			self.Fold.Chevron:SetAlpha(over and 1 or 0)
 		end)
 		stack.cards[i] = b
 	end
@@ -1855,10 +1992,30 @@ local function layoutStack(parts)
 	if closedOn.here and closedOn.here ~= step then closedOn.here = nil end
 	if closedOn.opt and closedOn.opt ~= step then closedOn.opt = nil end
 	if closedOn.along and closedOn.along ~= step then closedOn.along = nil end
-	if closedOn.party and closedOn.party ~= step then closedOn.party = nil end
 	local list = {}
 	local function add(f, close) list[#list + 1] = { f = f, close = close } end
 	local function relay() Core.relayout() end
+	for _, strip in pairs(stack.folds or {}) do strip:Hide() end
+	-- A card that folds (While you're here, Along the way, Optional, Party):
+	-- folded, its heading alone on a strip of Atlas's own; open, its heading
+	-- folds it. `count`: its rows.
+	local function fold(key, f, close, label, count)
+		local info = stores[f] and stores[f].info and stores[f].info.psTip or nil
+		if not (label and label:IsShown()) then
+			add(f, close)
+		elseif folded(key) then
+			f:Hide()
+			add(foldStrip(stack, key, label:GetText(), count, info), close)
+		else
+			add(f, close)
+			list[#list].fold = { key = key, label = label, info = info }
+		end
+	end
+	local function shown(rows)
+		local n = 0
+		for _, r in ipairs(rows or {}) do if r:IsShown() then n = n + 1 end end
+		return n
+	end
 	local s = slots
 	-- A banner notice keeps its own × (and Later): none of the card's.
 	if s.banner and isUnder(s.banner, window) then add(s.banner, nil) end
@@ -1874,20 +2031,36 @@ local function layoutStack(parts)
 		add(s.class, function() if key then classShut[key] = true end relay() end)
 	end
 	if s.here and isUnder(s.here, window) then
-		if closedOn.here == step then s.here:Hide() else add(s.here, function() closedOn.here = step relay() end) end
+		if closedOn.here == step then
+			s.here:Hide()
+		else
+			fold("here", s.here, function() closedOn.here = step relay() end, s.here.Label, shown(rawget(s.here, "Rows")))
+		end
 	end
 	if s.along and isUnder(s.along, window) then
-		if closedOn.along == step then s.along:Hide() else add(s.along, function() closedOn.along = step relay() end) end
+		if closedOn.along == step then
+			s.along:Hide()
+		else
+			fold("along", s.along, function() closedOn.along = step relay() end, s.along.Label, #alongRowList(s.along))
+		end
 	end
 	local optional = layoutOptional(stack, window, step)
-	if optional then add(optional, function() closedOn.opt = step relay() end) end
+	if optional then
+		local o = opt[window]
+		fold("opt", optional, function() closedOn.opt = step relay() end, optional.Label, o and #o.goals or 0)
+	end
 	if s.train and isUnder(s.train, window) then
 		add(fillTrain(trainCard(stack), window:GetWidth() or 300), Core.laterNotice)
 	elseif stack.train then
 		stack.train:Hide()
 	end
-	if s.party and isUnder(s.party, window) and closedOn.party ~= step then
-		add(partyCard(stack, s.party), function() closedOn.party = step relay() end)
+	if s.party and isUnder(s.party, window) and not partyStaysShut(s.party.psState) then
+		local part = s.party
+		local c = partyCard(stack, part)
+		fold("party", c, function()
+			partyShut, partySeen = part.psState, nil
+			relay()
+		end, c.Label)
 	elseif s.party then
 		s.party:Hide()
 	end
@@ -1910,6 +2083,19 @@ local function layoutStack(parts)
 		b.Close.Icon:SetVertexColor(Theme.Color("textMuted"))
 		b.Close:SetFrameLevel(b:GetFrameLevel() + 5)
 		b.Close:SetShown(list[i].close ~= nil)
+		-- An open card's heading folds it.
+		local fd, fb = list[i].fold, b.Fold
+		fb.psKey, fb.psInfo, fb.psLabel = fd and fd.key, fd and fd.info, fd and fd.label
+		fb:SetShown(fd ~= nil)
+		if fd then
+			local lw = math.ceil(fd.label:GetStringWidth() or 0)
+			fb:ClearAllPoints()
+			fb:SetPoint("TOPLEFT", fd.label, "TOPLEFT", -4, 4)
+			-- Air over the heading, none under: the first row starts at its foot (CARD_UNDER).
+			fb:SetSize(lw + 24, math.floor(fd.label:GetStringHeight() or 10) + 4)
+			fb:SetFrameLevel(b:GetFrameLevel() + 6)
+			fb.Chevron:SetVertexColor(Theme.Color("textMuted"))
+		end
 		f:SetParent(b)
 		f:SetFrameLevel(b:GetFrameLevel() + 1)
 		f:ClearAllPoints()
@@ -2293,6 +2479,9 @@ end
 
 local function countColumn(row, goal, info)
 	local own = store(row)
+	-- A reused row keeps no count, nor room for one, it no longer shows.
+	row.psRightMin = nil
+	if own.count then own.count:Hide() end
 	if row.Check and row.Check:IsShown() then
 		row.Check:SetAlpha(0)
 		row.Check:Disable()
@@ -2421,11 +2610,13 @@ on("guideInset", function(name)
 	if name == "upnext" then return UP_X end
 end)
 
--- Done goals stay in place. On the rail Up next shows its heading only while
--- folded (ui.upcomingOpen off), as the handle that opens it; open, its rows
--- stand on the rail without one.
+-- Done goals stay in place; in compact mode, or with Fold finished goals on
+-- (guideWindow.foldDone, #4450), they fold into "✓ N done", as Polestar's
+-- own. On the rail Up next shows its heading only while folded
+-- (ui.upcomingOpen off), as the handle that opens it; open, its rows stand
+-- on the rail without one.
 on("guideShows", function(what, shown)
-	if what == "done" then return true end
+	if what == "done" then return not (compact() or Core.setting("guideWindow.foldDone") == true) end
 	if what == "progressFoot" then return false end
 	if what == "markWash" then return true end
 	-- The game looks' quest tracker band behind the title: Atlas's title has
@@ -3138,12 +3329,15 @@ local function spec(hooks)
 			["guideWindow.tabs"] = true,
 			["guideWindow.tabStyle"] = "strip",
 			["guideWindow.reportButton"] = false,
+			-- Lookup in the guide menu: the header keeps room for the title.
+			["guideWindow.lookupButton"] = false,
 			-- Up next starts open on the rail; folded, the rail shows its heading.
 			["ui.upcomingOpen"] = true,
 			["guideWindow.allStepsButton"] = true,
 			["guideWindow.lastSteps"] = 1,
 			["guideWindow.stepNumberSize"] = 0.75,
 			["guideWindow.journeyStyle"] = "folded",
+			["guideWindow.foldDone"] = false,
 			["guideWindow.bannerLinks"] = "right",
 			-- The step card's air out of compact mode, each gap's whole size in
 			-- px: over the title, between it and its line, over the tip, round

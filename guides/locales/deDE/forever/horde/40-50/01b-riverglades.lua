@@ -185,7 +185,7 @@ return {
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["{npc:259158} wants out of {area:16723}: lead him west to his treasure at the edge of town and keep the cultists off him."] = "{npc:259158} will raus aus {area:16723}: Führ ihn nach Westen zu seinem Schatz am Stadtrand und halte die Kultisten von ihm fern.",
 	-- {npc:259158} Fuzzle
-	["{npc:259158} in his cage"] = "",
+	["{npc:259158} in his cage"] = "{npc:259158} in seinem Käfig",
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["lead {npc:259158} out of {area:16723} to his treasure, west of the town"] = "Führ {npc:259158} aus {area:16723} hinaus zu seinem Schatz westlich der Stadt",
 
@@ -384,8 +384,7 @@ return {
 	-- Step 81: The pirates' ships
 	["The pirates' ships"] = "Die Schiffe der Piraten",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
-	-- was: ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "Noch einmal hinaus zu den Klippen der Piraten. Platziere Whizzbuzz' Sprengladungen auf den drei Schiffen, die unterhalb des Lagers vor Anker liegen, von Süden nach Norden; {quest:95124} steht beim mittleren, ihre Beutetruhe neben ihr. Halte unterwegs Ausschau nach {npc:259758}.\nVorsicht: {quest:95124} ist Stufe 45, hier ein oder zwei Stufen über dir: Räum zuerst das Deck um sie herum und geh mit voller Gesundheit rein."
-	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "",
+	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "Noch einmal hinaus zu den Klippen der Piraten. Platziere Whizzbuzz' Ladungen auf den drei Schiffen unterhalb des Lagers, von Süden nach Norden. {quest:95124} läuft auf dem Oberdeck des mittleren Schiffs; ihre Beutekiste liegt unter Deck. Halt auf dem Weg nach {npc:259758} Ausschau.\nVorsicht: {quest:95124} ist Stufe 45, hier ein oder zwei Stufen über dir: räume zuerst das Deck um sie herum und komm mit voller Gesundheit heran.",
 	["on board, at the arrow"] = "an Bord, am Pfeil",
 	-- {item:268505} Remote Explosive Charge
 	["Plant a {item:268505} on the southern ship"] = "Lege ein {item:268505} aufs südlich Schiffe",

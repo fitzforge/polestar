@@ -13,7 +13,7 @@ return {
 	["{npc:3649}, north end of the village: {npc:1646}'s reply"] = "{npc:3649}，在村庄北端：{npc:1646}的回信",
 	["The WANTED poster"] = "通缉布告",
 	-- {npc:8997} Gershala Nightwhisper · {npc:3693} Terenthis · {zone:1453} Stormwind
-	["{npc:8997}, a short walk west of {npc:3693}: Argos's message from {zone:1453}"] = "",
+	["{npc:8997}, a short walk west of {npc:3693}: Argos's message from {zone:1453}"] = "{npc:8997}在{npc:3693}往西几步。把从{zone:1453}带来的阿古斯的口信交给她。",
 	-- {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
 	["{npc:3694}, beside {npc:3693} if she is there: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}，如果她在{npc:3693}旁边：交给{area:415}的{npc:3691}，见下一篇指南",
 

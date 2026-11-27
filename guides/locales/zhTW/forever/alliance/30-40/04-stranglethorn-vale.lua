@@ -13,9 +13,8 @@ return {
 	["The boat from {area:392}'s dock crosses to {area:35}, on Stranglethorn's southern cape."] = "{area:392}碼頭的船橫渡到荊棘谷南角的{area:35}。",
 
 	-- Step 2: Booty Bay
-	-- {npc:4631} Wharfmaster Lozgil
-	-- was: ["Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "在旅店繫結爐石：路線末尾從叢林北邊返回這裡就靠它。"
-	["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "",
+	-- {npc:4631} Wharfmaster Lozgil · {zone:1443} Desolace
+	["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of this loop, and again at the end of the second loop, after {zone:1443}."] = "",
 	-- {npc:4631} Wharfmaster Lozgil
 	["{npc:4631}, on the dock"] = "",
 	-- {npc:4631} Wharfmaster Lozgil · {npc:2496} Baron Revilgaz

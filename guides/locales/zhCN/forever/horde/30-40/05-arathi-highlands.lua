@@ -26,9 +26,9 @@ return {
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "飞往{area:272}",
 	-- {npc:4486} Genavie Callow · {area:340} Kargath
-	["Warriors, Paladins, Rogues, Priests, Mages and Warlocks (not Hunters, Shamans or Druids): {npc:4486} stands beside the flight master. The Dabyrie family's farm lies on the road east through Arathi later in this guide, and your level 40 training brings you back to this flight master from {area:340}: she takes the heads then."] = "",
+	["Warriors, Paladins, Rogues, Priests, Mages and Warlocks (not Hunters, Shamans or Druids): {npc:4486} stands beside the flight master. The Dabyrie family's farm lies on the road east through Arathi later in this guide, and your level 40 training brings you back to this flight master from {area:340}: she takes the heads then."] = "战士、圣骑士、潜行者、牧师、法师和术士（猎人、萨满祭司或德鲁伊跳过）找飞行管理员旁的{npc:4486}。按本指南稍后沿路向东穿过阿拉希高地时，会经过达比雷家的农场。到40级从{area:340}回来训练时，会再到这个飞行点，到时把头颅交给她。",
 	-- {npc:4486} Genavie Callow
-	["{npc:4486}, beside the flight master"] = "",
+	["{npc:4486}, beside the flight master"] = "{npc:4486}在飞行管理员旁",
 	-- {zone:1458} Undercity
 	["{zone:1458} flight master"] = "{zone:1458}飞行管理员",
 
@@ -123,13 +123,13 @@ return {
 
 	-- Step 20: Dabyrie's Farmstead
 	-- {npc:4481} Marcel Dabyrie · {npc:4479} Fardel Dabyrie · {npc:4480} Kenata Dabyrie
-	["On along the road east: the Dabyrie farm lies just north of it. {npc:4481} (34) and {npc:4479} (33) Dabyrie walk the farm's western yard among their Laborers and Militia (30-32); {npc:4480} (35) stands at the farm's north-eastern edge."] = "",
+	["On along the road east: the Dabyrie farm lies just north of it. {npc:4481} (34) and {npc:4479} (33) Dabyrie walk the farm's western yard among their Laborers and Militia (30-32); {npc:4480} (35) stands at the farm's north-eastern edge."] = "继续沿路向东，达比雷家的农场就在路北不远处。{npc:4481}（34级）和{npc:4479}（33级）在农场西边的院子里走动，周围是达比雷劳工和达比雷民兵（30-32级）。{npc:4480}（35级）在农场东北边缘。",
 	-- {item:5832} Marcel's Head · {npc:4481} Marcel Dabyrie
-	["{item:5832}, from {npc:4481}"] = "",
+	["{item:5832}, from {npc:4481}"] = "{item:5832}由{npc:4481}掉落",
 	-- {item:5831} Fardel's Head · {npc:4479} Fardel Dabyrie
-	["{item:5831}, from {npc:4479}"] = "",
+	["{item:5831}, from {npc:4479}"] = "{item:5831}由{npc:4479}掉落",
 	-- {item:5830} Kenata's Head · {npc:4480} Kenata Dabyrie
-	["{item:5830}, from {npc:4480}"] = "",
+	["{item:5830}, from {npc:4480}"] = "{item:5830}由{npc:4480}掉落",
 
 	-- Step 21: The Shards of Myzrael
 	-- {object:138492} Shards of Myzrael
@@ -246,7 +246,7 @@ return {
 	-- {area:328} The Drowned Reef
 	["{area:328}: kill these as you meet them"] = "{area:328}：沿途击杀以下目标",
 	-- plural, as words: Daggerspine Raiders = {npc:2595} Daggerspine Raider
-	["Careful: west of the cove the Daggerspine Raiders and Sorceresses (38-40) stand close together on the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks.\nCareful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy."] = "",
+	["Careful: west of the cove the Daggerspine Raiders and Sorceresses (38-40) stand close together on the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks.\nCareful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy."] = "小心，小海湾西侧的岸边，刺脊袭击者和刺脊巫师（38-40级）站得很近，一次只拉一只。两艘沉船都在岸外的浅水中，海图和航海日志在船里，宝石在沉船周围的海底。\n小心，海图和航海日志在船舱深处。留意呼吸条，两艘船之间先浮出水面换气，带一瓶水下呼吸药剂会轻松些。",
 	["Underwater"] = "在水下",
 
 	-- Step 43: Faldir's Cove

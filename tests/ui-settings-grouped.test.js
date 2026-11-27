@@ -50,7 +50,7 @@ test('the new page lists groups, each open on its pages, and a page shows its ow
 		lookHas = has.guidewindow == true and has.alerts == true
 		emit({ groups = groups, open = open, guidingPages = tree.guiding, crumb = O.frame.Title:GetText(), page = p.key,
 			tab = t.name, tabs = tabs, lookHas = lookHas, navKey = G.NavKey() })`);
-	assert.deepEqual(out.groups, ['b:guiding', 'b:qol', 'b:look', 'b:setup'], 'About and Guiding Stars stand at the foot, not as a group');
+	assert.deepEqual(out.groups, ['b:guiding', 'b:qol', 'b:look', 'b:setup', 'b:addons'], 'About and Guiding Stars stand at the foot, not as a group');
 	assert.deepEqual(out.guidingPages, ['guide', 'questing', 'map', 'discovery']);
 	assert.deepEqual(out.open, out.guidingPages, 'the group shown, Guiding, lists its pages');
 	assert.equal(out.crumb, 'Guiding › Questing');
@@ -91,7 +91,7 @@ test('groups come from G.TREE: a fifth group and a moved page need only a table 
 		for _, it in ipairs(G.NavItems()) do if it.key == "discovery" then orphan = true end end
 		emit({ groups = groups, guidingPages = guiding, crumbQol = crumbQol, orphanShown = orphan and guiding[#guiding] == "discovery",
 			crumbOrphan = O.frame.Title:GetText() })`);
-	assert.deepEqual(out.groups, ['b:guiding', 'b:look', 'b:setup', 'b:extra']);
+	assert.deepEqual(out.groups, ['b:guiding', 'b:look', 'b:setup', 'b:addons', 'b:extra']);
 	assert.equal(out.guidingPages.includes('qualityoflife'), false);
 	assert.ok(out.crumbQol.startsWith('Quality of Life \u203a ') && !out.crumbQol.includes('Quality of Life \u203a Quality of Life'),
 		`the label falls back to the page name, said once, then the tab (${out.crumbQol})`);
@@ -141,8 +141,8 @@ test('the switch lays the open window out in groups and back, with the same rows
 		emit({ nav = nav, on = on, look = look, changed = changed, titles = titles, back = back,
 			stepped = stepped, steppedTab = steppedTab.name, jumped = jumped,
 			off = { layout = PolestarDB.optionsLayout or false, title = O.frame.Title:GetText() } })`);
-	assert.deepEqual(out.nav, ['b:guiding', 'guide', 'questing', 'map', 'discovery', 'b:qol', 'b:look', 'b:setup', 'about', 'thanks', 'profile'],
-		'four groups, Guiding open on its pages, then About, Guiding Stars and the profile at the foot');
+	assert.deepEqual(out.nav, ['b:guiding', 'guide', 'questing', 'map', 'discovery', 'b:qol', 'b:look', 'b:setup', 'b:addons', 'about', 'thanks', 'profile'],
+		'five groups, Guiding open on its pages, then About, Guiding Stars and the profile at the foot');
 	assert.equal(out.on.layout, 'grouped', 'the choice is saved for the account');
 	assert.equal(out.on.title, 'Guiding › Guide', 'the Guide page stays on screen');
 	assert.ok(out.on.rows > 0 && out.look.rows > 0, 'the pages show their rows');
@@ -202,12 +202,12 @@ test("at 860 wide the longest page breadcrumb reads whole in German and Russian"
 // Each tab of Guide window names its sections once, so none reads as "Tab ›
 // Section"; a map entry's `title` renames a section there and keeps its rows,
 // the ones registered in it.
-test("a long tab's index lights its last sections at the end, and folds what doesn't fit under More", () => {
+test("a long tab shows no section index under its tabs, and no empty run past its last section", () => {
 	const [out] = run(`
 		local G = O.Grouped
 		Polestar.UI.ShowOptions("guide")
 		G.SetOn(true)
-		-- A tab of many sections: 36 rows, over the index's 30.
+		-- A tab of many sections: 36 rows.
 		for i = 1, 12 do
 			local rows = {}
 			for j = 1, 3 do rows[j] = { kind = "button", button = "Go", label = "Row " .. j, onClick = function() end } end
@@ -218,40 +218,13 @@ test("a long tab's index lights its last sections at the end, and folds what doe
 		local last
 		for _, c in ipairs(O.view.cards) do if c:IsShown() and (not last or (c.psTop or 0) > (last.psTop or 0)) then last = c end end
 		local range = math.max(0, (sf.psContent or 0) - (sf.psView or 0))
-		local function links()
-			local lit, final, n = nil, nil, 0
-			for _, s in ipairs({ Polestar.Widgets.ShellPreviewSlot(O.frame):GetChildren() }) do
-				if rawget(s, "Count") then
-					for _, l in ipairs({ s:GetChildren() }) do
-						if l:IsShown() and rawget(l, "psOn") ~= nil then
-							n = n + 1
-							final = l.Label:GetText()
-							if l.psOn then lit = l.Label:GetText() end
-						end
-					end
-				end
-			end
-			return { lit = lit, final = final, n = n }
+		local shownSlot = 0
+		for _, s in ipairs({ Polestar.Widgets.ShellPreviewSlot(O.frame):GetChildren() }) do
+			if s:IsShown() then shownSlot = shownSlot + 1 end
 		end
-		Polestar.Widgets.ScrollTo(sf, range)
-		local atEnd = links()
-		Polestar.Widgets.ScrollTo(sf, 0)
-		local atTop = links()
-		-- A narrow window: the links fold under More.
-		O.frame:SetWidth(860)
-		O.Select("long")
-		Polestar.Widgets.ScrollTo(sf, math.max(0, (sf.psContent or 0) - (sf.psView or 0)))
-		local narrow = links()
-		narrow.entries = #Polestar.UI.Options.Grouped._entries()
-		emit({ top = last.psTop or 0, bottom = (last.psTop or 0) + last:GetHeight(), range = range, view = sf.psView or 0,
-			lastName = last.psSection and last.psSection.name, atEnd = atEnd, atTop = atTop, narrow = narrow, more = Polestar.L["More"] })`);
-	assert.ok(out.atEnd.n > 2, `the tab has an index (${out.atEnd.n} links)`);
+		emit({ bottom = (last.psTop or 0) + last:GetHeight(), range = range, view = sf.psView or 0, slot = shownSlot })`);
+	assert.equal(out.slot, 0, 'nothing stands in the slot under the tabs');
 	assert.ok(out.range + out.view <= out.bottom + 64, `no empty run past the last section (${out.range} + ${out.view} vs ${out.bottom})`);
-	assert.equal(out.atEnd.lit, out.atEnd.final, 'scrolled to the end, the last link is lit');
-	assert.notEqual(out.atTop.lit, out.atEnd.lit, 'at the top another one is');
-	assert.ok(out.narrow.n < out.narrow.entries, `narrow: More stands for the folded ones (${out.narrow.n} links of ${out.narrow.entries})`);
-	assert.equal(out.narrow.lit, out.narrow.final, 'narrow: More, last, is lit');
-	assert.notEqual(out.narrow.final, out.more, 'and takes the lit section\'s name');
 });
 
 // Closing the window after a Guide window or Look setting changed offers a
@@ -364,8 +337,8 @@ test('pinned settings sit under the tree, with the profile last', () => {
 		G.Pin("nav.arrowScale", false)
 		emit({ empty = empty, pinned = pinned, saved = saved or false, went = went, after = PolestarDB.optionsPins[1] or false })`);
 	const L = { pinned: 'h:Pinned', hint: 'h:Pin a setting with the flag on its row.' };
-	assert.deepEqual(out.empty, ['b:guiding', 'b:qol', 'b:look', 'b:setup', L.pinned, L.hint, 'fill', 'about', 'thanks', 'profile:Default'], 'with none pinned the heading says how');
-	assert.deepEqual(out.pinned.slice(4), [L.pinned, 'pin:nav.arrowScale', 'fill', 'about', 'thanks', 'profile:Default'], 'a pinned setting under its heading');
+	assert.deepEqual(out.empty, ['b:guiding', 'b:qol', 'b:look', 'b:setup', 'b:addons', L.pinned, L.hint, 'fill', 'about', 'thanks', 'profile:Default'], 'with none pinned the heading says how');
+	assert.deepEqual(out.pinned.slice(5), [L.pinned, 'pin:nav.arrowScale', 'fill', 'about', 'thanks', 'profile:Default'], 'a pinned setting under its heading');
 	assert.equal(out.saved, 'nav.arrowScale', 'saved for the account');
 	assert.equal(out.went, 'Look › Arrow', "its sidebar row goes to the setting's page");
 	assert.equal(out.after, false, 'and unpins');
@@ -523,7 +496,7 @@ test('the new page says Settings, never Options', () => {
 		PolestarDB.optionsLayout = "grouped"
 		Polestar.UI.ShowOptions()
 		local texts = {}
-		for _, key in ipairs({ "b:guiding", "b:qol", "b:look", "b:setup" }) do O.Select(key); for _, t in ipairs(O.Grouped.NewPageText(O.frame)) do texts[#texts + 1] = t end end
+		for _, key in ipairs({ "b:guiding", "b:qol", "b:look", "b:setup", "b:addons" }) do O.Select(key); for _, t in ipairs(O.Grouped.NewPageText(O.frame)) do texts[#texts + 1] = t end end
 		emit({ texts = texts })`);
 	assert.deepEqual(out.texts.filter((t) => /\bOptions\b/.test(t)), []);
 });

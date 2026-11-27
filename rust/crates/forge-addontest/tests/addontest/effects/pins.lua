@@ -103,6 +103,8 @@ return {
 			end },
 		["nav.worldPins"] = function() return #world("nav.target") end,
 		["nav.minimapPins"] = function() return #minimap("nav.target") end,
+		-- The guide window hidden: the target pin stays on the world map, or goes with it.
+		["nav.hidePinsWithGuide"] = { with = { ["ui.shown"] = false }, probe = function() return #world("nav.target") end },
 		["nav.areaAlpha"] = function() local a = nav.pins("areas")[1]; return a and rgba(a.tex) or false end,
 		["nav.areaColor"] = function() local a = nav.pins("areas")[1]; return a and rgba(a.tex) or false end,
 		["nav.trailDots"] = function() return trail().n end,

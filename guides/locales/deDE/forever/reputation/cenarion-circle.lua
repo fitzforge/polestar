@@ -36,7 +36,7 @@ return {
 	["The cultist camp west of {area:3425}"] = "Das Kultistenlager westlich von {area:3425}",
 	-- {item:20404} Encrypted Twilight Text · {npc:11804} Twilight Keeper Havunth
 	-- plural, as words: Wind Stones = {object:180461} Wind Stone
-	["The nearest Twilight's Hammer camp lies just south-west of the Hold. Avengers, Geolords and Stonecallers (level 57 to 59) each drop an {item:20404} about a third of the time, and every cultist kill is 1 reputation. {npc:11804} walks the edge of the camp. Keep every cultist robe, cowl and mantle you loot: they are the Twilight Trappings for the Wind Stones later."] = "Das nächste Lager von Twilight's Hammer liegt direkt südwestlich der Feste. Avengers, Geolords und Stonecallers (Stufe 57 bis 59) lassen etwa bei jedem dritten Mal einen {item:20404} fallen, und jeder Kultist-Kill bringt 1 Ruf. {npc:11804} läuft am Rand des Lagers entlang. Behalte jede Robe, Kapuze und jeden Mantel von Kultisten, die du erbeutest: Es sind die Twilight Trappings für die Wind Stones später.",
+	["The nearest Twilight's Hammer camp lies just south-west of the Hold. Avengers, Geolords and Stonecallers (level 57 to 59) each drop an {item:20404} about a third of the time, and every cultist kill is 1 reputation. {npc:11804} walks the edge of the camp. Keep every cultist robe, cowl and mantle you loot: they are the Twilight Trappings for the Wind Stones later."] = "Das nächste Lager von Twilight's Hammer liegt direkt südwestlich der Feste. Avengers, Geolords und Stonecallers (Stufe 57 bis 59) lassen etwa bei jedem dritten Mal einen {item:20404} fallen, und jeder Kultist-Kill bringt 1 Ruf. {npc:11804} läuft am Rand des Lagers entlang. Behalte jede Robe, Kapuze und jeden Mantel von Kultisten, die du erbeutest: Es sind die Twilight Trappings für die Windsteine später.",
 
 	-- Step 5: Back to Cenarion Hold
 	-- {area:3425} Cenarion Hold
@@ -59,7 +59,7 @@ return {
 	-- Step 7: Vyral the Vile
 	-- {quest:8321} Vyral the Vile · {area:3446} Twilight's Run · {zone:1451} Silithus
 	-- plural, as words: Twilight Masters = {npc:11883} Twilight Master
-	["{quest:8321} (level 61, not elite) waits at the back of {area:3446}, the cave in the north-east of {zone:1451}. Flamereavers and Twilight Masters guard the way: the Flamereavers count until the top of Honored, the Masters stop at the top of Friendly like the other cultists."] = "{quest:8321} (Stufe 61, keine Elite) wartet hinten in {area:3446}, der Höhle im Nordosten von {zone:1451}. Flamereavers und Twilight Masters bewachen den Weg: Die Flamereavers zählen bis zum Ende von Wohlwollend, die Masters hören wie die anderen Kultisten am Ende von Freundlich auf.",
+	["{quest:8321} (level 61, not elite) waits at the back of {area:3446}, the cave in the north-east of {zone:1451}. Flamereavers and Twilight Masters guard the way: the Flamereavers count until the top of Honored, the Masters stop at the top of Friendly like the other cultists."] = "{quest:8321} (Stufe 61, keine Elite) wartet hinten in {area:3446}, der Höhle im Nordosten von {zone:1451}. Flammenhäscher und Meister der Twilight bewachen den Weg: Die Flammenhäscher zählen bis zum Ende von Wohlwollend, die Meister hören wie die anderen Kultisten am Ende von Freundlich auf.",
 
 	-- Step 8: Silithus quests at Cenarion Hold
 	-- {zone:1451} Silithus · {area:3425} Cenarion Hold
@@ -78,7 +78,7 @@ return {
 	["Around {area:3425}"] = "Um {area:3425}",
 	-- {object:180503} Sandy Cookbook
 	-- plural, as words: Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer · Dredge Strikers = {npc:11740} Dredge Striker
-	["Stonelash Scorpids and Sand Skitterers roam the sands around the Hold; Dredge Strikers dig north-east of it. The {object:180503} lies in the cultist camp south-west of the Hold."] = "Stonelash Scorpids und Sand Skitterers streifen durch den Sand um die Feste; Dredge Strikers graben nordöstlich davon. Das {object:180503} liegt im Kultistenlager südwestlich der Feste.",
+	["Stonelash Scorpids and Sand Skitterers roam the sands around the Hold; Dredge Strikers dig north-east of it. The {object:180503} lies in the cultist camp south-west of the Hold."] = "Steinpanzerskorpide und Sandhuscher streifen durch den Sand um die Feste; Baggerschläger graben nordöstlich davon. Das {object:180503} liegt im Kultistenlager südwestlich der Feste.",
 
 	-- Step 10: Back at the Hold
 	["Back at the Hold"] = "Zurück in der Feste",
@@ -87,9 +87,9 @@ return {
 
 	-- Step 11: Stonelash and Dredge Crushers
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher
-	["Stonelash and Dredge Crushers"] = "Stonelash und Dredge Crushers",
+	["Stonelash and Dredge Crushers"] = "Steinpanzerschinder und Baggerbrecher",
 	-- plural, as words: Stonelash Flayers = {npc:11737} Stonelash Flayer · Rock Stalkers = {npc:11739} Rock Stalker · Dredge Crushers = {npc:11741} Dredge Crusher
-	["Stonelash Flayers, Pincers and Rock Stalkers live south and south-west of the Hold; their stingers and fangs drop about one time in ten. Dredge Crushers dig south and west of the Hold."] = "Stonelash Flayers, Pincers und Rock Stalkers leben südlich und südwestlich der Feste; ihre Stachel und Fangzähne fallen bei etwa jedem zehnten Mal. Dredge Crushers graben südlich und westlich der Feste.",
+	["Stonelash Flayers, Pincers and Rock Stalkers live south and south-west of the Hold; their stingers and fangs drop about one time in ten. Dredge Crushers dig south and west of the Hold."] = "Steinpanzerschinder, Zangenklauer und Felspirscher leben südlich und südwestlich der Feste; ihre Stachel und Fangzähne fallen bei etwa jedem zehnten Mal. Baggerbrecher graben südlich und westlich der Feste.",
 	-- {item:20452} Smoked Desert Dumplings · {object:180503} Sandy Cookbook
 	["{item:20452}, from the {object:180503}"] = "{item:20452}, aus dem {object:180503}",
 	-- {item:20452} Smoked Desert Dumplings · {item:20424} Sandworm Meat · {item:3713} Soothing Spices
@@ -106,7 +106,7 @@ return {
 	["The {area:3100}"] = "Das {area:3100}",
 	-- {zone:1451} Silithus
 	-- plural, as words: Twilight Tablet Fragments = {item:20378} Twilight Tablet Fragment
-	["The broken camp in the far north-west of {zone:1451}: the Twilight Tablet Fragments lie on the ground among the ruins."] = "Das zerstörte Lager im äußersten Nordwesten von {zone:1451}: Die Twilight Tablet Fragments liegen zwischen den Ruinen auf dem Boden.",
+	["The broken camp in the far north-west of {zone:1451}: the Twilight Tablet Fragments lie on the ground among the ruins."] = "Das zerstörte Lager im äußersten Nordwesten von {zone:1451}: Die Schrifttafelfragmente der Twilight liegen zwischen den Ruinen auf dem Boden.",
 
 	-- Step 14: Larksbane
 	["Larksbane"] = "Larksbane",
@@ -175,7 +175,7 @@ return {
 	-- Step 26: Southwind Village
 	-- {area:2738} Southwind Village · {area:3425} Cenarion Hold · {object:178553} Hive'Ashi Pod
 	-- plural, as words: Tortured Druids = {npc:12178} Tortured Druid
-	["The Tortured Druids and Sentinels roam the ruins of {area:2738}, south-east of {area:3425}; the {object:178553} sits on the top floor of its wasp-circled tower."] = "Die Tortured Druids und Sentinels streifen durch die Ruinen von {area:2738}, südöstlich von {area:3425}; die {object:178553} liegt im obersten Stockwerk ihres von Wespen umkreisten Turms.",
+	["The Tortured Druids and Sentinels roam the ruins of {area:2738}, south-east of {area:3425}; the {object:178553} sits on the top floor of its wasp-circled tower."] = "Die gequälten Druiden und Wachen streifen durch die Ruinen von {area:2738}, südöstlich von {area:3425}; die {object:178553} liegt im obersten Stockwerk ihres von Wespen umkreisten Turms.",
 
 	-- Step 27: Umber in Nighthaven
 	-- {npc:11939} Umber · {area:2361} Nighthaven
@@ -201,7 +201,7 @@ return {
 	["{quest:8507}, level 60"] = "{quest:8507}, Stufe 60",
 	-- {npc:15540} Windcaller Kaldon · {area:3425} Cenarion Hold · {quest:8507} Field Duty · {npc:15440} Captain Blackanvil · {area:2743} Hive'Zora · {npc:15612} Krug Skullsplit · {area:2744} Hive'Regal · {item:20809} Tactical Assignment · {item:7936} Ornate Mithril Boots · {npc:15542} Twilight Marauder · {quest:9338} Allegiance to Cenarion Circle
 	-- plural, as words: Heavy Runecloth Bandages = {item:14530} Heavy Runecloth Bandage
-	["{npc:15540} stands by the moonwell of {area:3425}. {quest:8507} (25 reputation, repeatable) sends you with unsigned papers to your side's captain: {npc:15440}'s Ironforge Brigade outside {area:2743} (Alliance) or {npc:15612}'s Orgrimmar Legion outside {area:2744} (Horde). Use the papers first, then talk to the captain: a level 60 elite silithid attacks; keep the captain alive and he signs. Kaldon then lets you pick a Combat, Logistics or {item:20809}, each holding a random briefing worth 50 reputation and a badge: 30 hive silithid kills (elites), goods such as 30 Heavy Runecloth Bandages or 3 {item:7936}, or one Templar, {npc:15542} or scout report. One badge of each kind buys {quest:9338} at Kaldon: 200 reputation, repeatable. A full round is about 375 reputation."] = "{npc:15540} steht am Mondbrunnen von {area:3425}. {quest:8507} (25 Ruf, wiederholbar) schickt dich mit ungezeichneten Papieren zum Hauptmann deiner Seite: zur Eisenschmiede-Brigade von {npc:15440} vor {area:2743} (Allianz) oder zur Orgrimmar-Legion von {npc:15612} vor {area:2744} (Horde). Benutze zuerst die Papiere und sprich dann mit dem Hauptmann: Ein Stockinsektoid der Stufe 60 (Elite) greift an; halte den Hauptmann am Leben, dann unterschreibt er. Kaldon lässt dich dann eine Combat-, Logistics- oder {item:20809} wählen, jede mit einer zufälligen Einweisung im Wert von 50 Ruf und einem Abzeichen: 30 Kills von Stockinsektoiden (Elites), Waren wie 30 Heavy Runecloth Bandages oder 3 {item:7936}, oder ein Bericht über einen Templar, {npc:15542} oder Späher. Ein Abzeichen jeder Art kauft bei Kaldon {quest:9338}: 200 Ruf, wiederholbar. Eine volle Runde bringt etwa 375 Ruf.",
+	["{npc:15540} stands by the moonwell of {area:3425}. {quest:8507} (25 reputation, repeatable) sends you with unsigned papers to your side's captain: {npc:15440}'s Ironforge Brigade outside {area:2743} (Alliance) or {npc:15612}'s Orgrimmar Legion outside {area:2744} (Horde). Use the papers first, then talk to the captain: a level 60 elite silithid attacks; keep the captain alive and he signs. Kaldon then lets you pick a Combat, Logistics or {item:20809}, each holding a random briefing worth 50 reputation and a badge: 30 hive silithid kills (elites), goods such as 30 Heavy Runecloth Bandages or 3 {item:7936}, or one Templar, {npc:15542} or scout report. One badge of each kind buys {quest:9338} at Kaldon: 200 reputation, repeatable. A full round is about 375 reputation."] = "{npc:15540} steht am Mondbrunnen von {area:3425}. {quest:8507} (25 Ruf, wiederholbar) schickt dich mit ungezeichneten Papieren zum Hauptmann deiner Seite: zur Eisenschmiede-Brigade von {npc:15440} vor {area:2743} (Allianz) oder zur Orgrimmar-Legion von {npc:15612} vor {area:2744} (Horde). Benutze zuerst die Papiere und sprich dann mit dem Hauptmann: Ein Stockinsektoid der Stufe 60 (Elite) greift an; halte den Hauptmann am Leben, dann unterschreibt er. Kaldon lässt dich dann eine Combat-, Logistics- oder {item:20809} wählen, jede mit einer zufälligen Einweisung im Wert von 50 Ruf und einem Abzeichen: 30 Kills von Stockinsektoiden (Elites), Waren wie 30 schwere Runenstoffverbände oder 3 {item:7936}, oder ein Bericht über einen Templar, {npc:15542} oder Späher. Ein Abzeichen jeder Art kauft bei Kaldon {quest:9338}: 200 Ruf, wiederholbar. Eine volle Runde bringt etwa 375 Ruf.",
 	["Allegiance: one Combat, Logistics and Tactical badge, 200"] = "Allegiance: je ein Combat-, Logistics- und Tactical-Abzeichen, 200",
 	-- {quest:8800} Cenarion Battlegear · {npc:15176} Vargus
 	["{quest:8800}: {npc:15176}'s badge gear"] = "{quest:8800}: Abzeichen-Ausrüstung von {npc:15176}",

@@ -45,7 +45,7 @@ step Boat to Booty Bay
 
 step Booty Bay
   zone Stranglethorn Vale
-  tip Wharfmaster Lozgil stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop.
+  tip Wharfmaster Lozgil stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of this loop, and again at the end of the second loop, after Desolace.
   turnin 1180                         -- Wharfmaster Lozgil, on the dock
   accept 1181                         -- Wharfmaster Lozgil: for Baron Revilgaz, upstairs in the tavern
   turnin 1040                         -- Caravaneer Ruzzgot, on the dock

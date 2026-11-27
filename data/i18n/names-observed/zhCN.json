@@ -667,6 +667,10 @@
 		{"token": "npc:256390", "name": "玛尔希·贝克", "source": "client-wdb", "build": "1.60.1.70938", "sha256": "e147facd427e1f662f91fbece132956eab3f54e321225ee76bfe2a655bce32a0", "ref": 3133},
 		{"token": "npc:256736", "name": "休伊·阳光谷", "source": "client-wdb", "build": "1.60.1.70938", "sha256": "e147facd427e1f662f91fbece132956eab3f54e321225ee76bfe2a655bce32a0", "ref": 3133},
 		{"token": "npc:256742", "name": "黛安·轻步", "source": "client-wdb", "build": "1.60.1.70938", "sha256": "e147facd427e1f662f91fbece132956eab3f54e321225ee76bfe2a655bce32a0", "ref": 3133},
-		{"token": "quest:93862", "name": "归还箱子", "source": "client-wdb", "build": "1.60.1.70938", "sha256": "95cd11cce55c7346504924c6611a02f5014150baf7ab5adc09a987886621c1ae", "ref": 3133}
+		{"token": "quest:93862", "name": "归还箱子", "source": "client-wdb", "build": "1.60.1.70938", "sha256": "95cd11cce55c7346504924c6611a02f5014150baf7ab5adc09a987886621c1ae", "ref": 3133},
+		{"token": "npc:215643", "name": "托卡尔", "source": "client-wdb", "build": "1.60.1.71139", "sha256": "ca9f394ec1fa55b31a47f7843f0d36b245835b4443afb03b55fbf316ae45e20f", "ref": 4253},
+		{"token": "quest:79229", "name": "高岭越货案", "source": "client-wdb", "build": "1.60.1.71139", "sha256": "7d6858cfb5bc4a327e8b98c2501cecb01675a348022cfdf8c874cf7d4ff73022", "ref": 4253},
+		{"token": "quest:94961", "name": "反咬一口", "source": "client-wdb", "build": "1.60.1.71139", "sha256": "7d6858cfb5bc4a327e8b98c2501cecb01675a348022cfdf8c874cf7d4ff73022", "ref": 4253},
+		{"token": "quest:95124", "name": "拉莫拉海军上将", "source": "client-wdb", "build": "1.60.1.71139", "sha256": "7d6858cfb5bc4a327e8b98c2501cecb01675a348022cfdf8c874cf7d4ff73022", "ref": 4253}
 	]
 }

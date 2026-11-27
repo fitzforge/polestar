@@ -98,8 +98,7 @@ return {
 
 	-- Step 17: High Executor Darthalia
 	-- {area:287} Hillsbrad · {quest:527} Battle of Hillsbrad
-	-- was: ["You missed Darthalia's first errands, from the 22-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "Du hast Darthalias erste Aufträge aus dem Guide {area:287} 22-25 verpasst: Sie kommen jetzt zuerst. Sie liegen ein paar Stufen unter dir, gehen schnell und öffnen den Rest von {quest:527} in diesem Guide."
-	["You missed Darthalia's first errands, from the 23-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "",
+	["You missed Darthalia's first errands, from the 23-25 {area:287} guide: they come first now. They are a few levels below you and quick, and they open the rest of the {quest:527} in this guide."] = "Du hast Darthalias erste Aufträge aus dem {area:287}-Guide für 23-25 verpasst: Sie kommen jetzt zuerst. Sie sind ein paar Stufen unter dir und schnell erledigt, und sie öffnen den Rest der {quest:527} in diesem Guide.",
 
 	-- Step 18: Krusk
 	-- {npc:2229} Krusk · {area:275} Durnholde Keep
@@ -225,7 +224,7 @@ return {
 	-- Step 39: Level 30
 	["Level 30"] = "Stufe 30",
 	-- {npc:2410} Magus Wordeen Voidglare · {zone:1454} Orgrimmar · {area:272} Tarren Mill · {zone:1437} Wetlands
-	["{npc:2410}'s quests in the inn and Alliance Relations in {zone:1454}, the next guide's first stop, are offered from level 30. Still short of 30 after these hand-ins? The Snapjaws (29-31) line the river just east and south of {area:272}: kill them until level 30, then walk back into town. Or, with a group, run the Excavation Site dungeon (in the {zone:1437}) instead."] = "",
+	["{npc:2410}'s quests in the inn and Alliance Relations in {zone:1454}, the next guide's first stop, are offered from level 30. Still short of 30 after these hand-ins? The Snapjaws (29-31) line the river just east and south of {area:272}: kill them until level 30, then walk back into town. Or, with a group, run the Excavation Site dungeon (in the {zone:1437}) instead."] = "{npc:2410}s Quests im Gasthaus und Alliance Relations in {zone:1454}, dem ersten Halt des nächsten Guides, werden ab Stufe 30 angeboten. Noch nicht 30 nach diesen Abgaben? Die Snapjaws (29-31) säumen den Fluss gleich östlich und südlich von {area:272}: Töte sie bis Stufe 30 und geh dann zurück in die Stadt. Oder lauf mit einer Gruppe stattdessen den Dungeon Excavation Site (im {zone:1437}).",
 	["Snapjaws"] = "Schnappkiefer",
 	["grind on Snapjaw"] = "Ertüchtigung auf Snapjaw",
 

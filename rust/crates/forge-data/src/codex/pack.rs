@@ -334,13 +334,15 @@ fn encode_spawns(spawns: &V) -> Result<Vec<String>, String> {
 }
 
 fn encode_npc(rec: &V) -> Result<String, String> {
-	// r rare, e elite, b boss, g seen only by a dead character (#558: Franclorn Forgewright).
+	// r rare, e elite, b boss, g seen only by a dead character (#558: Franclorn Forgewright), s a rare spawn on a
+	// player faction's side, which is no rare to hunt (#4388: Pexmit).
 	let flags = format!(
-		"{}{}{}{}",
+		"{}{}{}{}{}",
 		if rec.get("rare").truthy() { "r" } else { "" },
 		if rec.get("elite").truthy() { "e" } else { "" },
 		if rec.get("boss").truthy() { "b" } else { "" },
-		if rec.get("ghostOnly").truthy() { "g" } else { "" }
+		if rec.get("ghostOnly").truthy() { "g" } else { "" },
+		if rec.get("rareSpawn").truthy() { "s" } else { "" }
 	);
 	let fac = rec.get("faction");
 	let mut parts = vec![
@@ -418,11 +420,18 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 		if o.get("tame").truthy() {
 			parts.push("t".into());
 		}
-		// The item the kill objective before it is really a use of (merge.rs `use_item_on`, #2468):
-		// a<item>. An older reader skips it (no objective kind is a).
+		// The item the kill or event objective before it is really a use of (merge.rs `use_item_on`, #2468;
+		// `event_use`, #4270): a<item>. An older reader skips it (no objective kind is a).
 		let use_item = o.get("useItem");
 		if use_item.truthy() {
 			parts.push(format!("a{}", num(&use_item)?));
+		}
+		// What that use spends, gathered before it (merge.rs `event_use`, #4270: four Coalesced Mana Crystals from
+		// the Unstable Mana Rifts for each pylon): j<item>,<count>,<npc>. An older reader skips it (no objective kind
+		// is j).
+		let reagent = o.get("reagent");
+		if reagent.truthy() {
+			parts.push(format!("j{},{},{}", num(&reagent.get("item"))?, num(&reagent.get("count"))?, num(&reagent.get("npc"))?));
 		}
 		// The item that calls the kill objective's target up (merge.rs `summon_item_for`, #2326): m<item>.
 		// An older reader skips it (no objective kind is m).
@@ -1042,6 +1051,7 @@ mod tests {
 		assert_eq!(npc(""), "60;;AH;;;;");
 		assert_eq!(npc(r#", "ghostOnly": true"#), "60;;AH;g;;;", "Franclorn Forgewright: seen only by the dead");
 		assert_eq!(npc(r#", "vendorAfter": 7003"#), "60;;AH;;;;;v7003", "Zorbin Fandazzle sells after Zapped Giants");
+		assert_eq!(npc(r#", "rareSpawn": true"#), "60;;AH;s;;;", "#4388: Pexmit, a rare spawn both sides deal with");
 	}
 
 	#[test]
@@ -1051,6 +1061,16 @@ mod tests {
 		)
 		.unwrap();
 		assert!(encode_quest(&rec).unwrap().ends_with(";vpix-weekly"), "{}", encode_quest(&rec).unwrap());
+	}
+
+	#[test]
+	fn an_event_objective_carries_its_use_and_what_it_spends_4270() {
+		let rec = forge_guide::js::parse_json(
+			r#"{ "id": 96018, "level": 43, "minLevel": 35, "faction": null, "races": null, "classes": null, "zone": 2652, "start": { "npc": [253471], "object": [], "item": [] }, "end": { "npc": [253471], "object": [] }, "pre": [], "rewards": [], "choices": [], "preAny": [], "objectives": [{ "type": "event", "id": null, "count": 1, "text": "Western pylon repaired", "map": 2652, "x": 44, "y": 35.6, "f": "l", "useItem": 271882, "reagent": { "item": 255667, "count": 4, "npc": 264149 } }] }"#,
+		)
+		.unwrap();
+		let line = encode_quest(&rec).unwrap();
+		assert!(line.ends_with(";e,1,Western pylon repaired;p2652,440,356,l;a271882;j255667,4,264149"), "{line}");
 	}
 
 	#[test]

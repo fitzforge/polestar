@@ -38,7 +38,7 @@
 --   %s. Optional: the route doesn't need it.
 --   Kept for %s
 --   Hand in %s to %s, who walks around here: look inside the circle on the map
---   A quest you carry that the route does not work here: its work is nearby.
+--   A quest in your log with an objective nearby that the route doesn't do here.
 --   %s at %s
 --   Only visible while dead: die nearby and talk to them as a ghost.
 --   Under water nearby: swim down to it
@@ -458,6 +458,7 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+--   Profession routes: based on the guides by Peter at WoW-Professions.com.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "esMX") then return end
@@ -716,7 +717,7 @@ L["%s; 1 in %d runs fails"] = "%s; falla 1 de cada %d intentos"
 L["%s. Optional: the route doesn't need it."] = "%s. Opcional: la ruta no la necesita."
 L["Kept for %s"] = "Guardada para %s"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "Entrega %s a %s, que deambula por aquí: busca dentro del círculo del mapa"
-L["A quest you carry that the route does not work here: its work is nearby."] = "Una misión que llevas y que la ruta no hace aquí: su tarea está cerca."
+L["A quest in your log with an objective nearby that the route doesn't do here."] = "Una misión que llevas y que la ruta no hace aquí: su tarea está cerca."
 L["%s at %s"] = "%s en %s"
 L["Buy a rune at %s"] = "Comprar una runa a %s"
 L["Buy a rune and cast %s to save about %s"] = "Compra una runa y lanza %s para ahorrar unos %s"
@@ -1154,7 +1155,6 @@ L["Player"] = "Jugador"
 L["Cursor"] = "Cursor"
 
 -- Nav/Arrow.lua
-L["The last steps here aren't mapped"] = "Los últimos pasos aquí no están en el mapa"
 L["Search here"] = "Busca aquí"
 L["Arrived"] = "Llegaste"
 L["Click the arrow for the next spot"] = "Haz clic en la flecha para el siguiente lugar"
@@ -2465,6 +2465,7 @@ L["Quest and map data includes pfQuest by shagu (MIT License)."] = "Los datos de
 L["Discord and its logo are trademarks of Discord Inc.; the logo marks the link to the Polestar Discord."] = "Discord y su logotipo son marcas comerciales de Discord Inc.; el logotipo marca el enlace al Discord de Polestar."
 L["With EllesmereUI installed, Polestar can follow its accent, font and panel colour through its public skinning API."] = "Con EllesmereUI instalado, Polestar puede seguir su acento, su fuente y su color de panel a través de su API pública de aspecto."
 L["Gear scores from Forever Leveling BiS by Timearc when it is installed, through its public API."] = "Puntuaciones de equipo de Forever Leveling BiS, de Timearc, cuando está instalado, mediante su API pública."
+L["Profession routes: based on the guides by Peter at WoW-Professions.com."] = "Rutas de profesiones: basadas en las guías de Peter en WoW-Professions.com."
 L["Maintenance"] = "Mantenimiento"
 L["Reset all settings"] = "Restablecer toda la configuración"
 L["Every Polestar setting back to default. Progress is kept."] = "Todos los ajustes de Polestar vuelven a su valor predeterminado. El progreso se conserva."
@@ -4961,7 +4962,6 @@ L["Title menu"] = "Menú del título"
 L["On the top edge"] = "En el borde superior"
 L["Down the left side"] = "En el lado izquierdo"
 L["Default (%s)"] = "Predeterminado (%s)"
-L["A button in the step bar that opens every step of the guide in one list. The step number and the guide menu open it too."] = "Un botón en la barra de pasos que abre todos los pasos de la guía en una lista. El número del paso y el menú de la guía también la abren."
 L["Steps before"] = "Pasos anteriores"
 L["How many of the steps before this one show over it, one dimmed line each, done or skipped; 0 turns them off. Click one to go back to it."] = "Cuántos de los pasos anteriores a este se muestran encima, una línea atenuada cada uno, hechos u omitidos; 0 los oculta. Haz clic en uno para regresar a él."
 L["Journey style"] = "Estilo del trayecto"
@@ -5513,7 +5513,6 @@ L["%d changed"] = "%d cambiados"
 L["What Polestar does for you while you level: suggestions, quests, rewards, buttons, rares."] = "Lo que Polestar hace por ti mientras subes de nivel: sugerencias, misiones, recompensas, botones, raros."
 L["The arrow, its routes, and what Polestar draws on the world map and the minimap."] = "La flecha, sus rutas y lo que Polestar dibuja en el mapa del mundo y el minimapa."
 L["The theme every Polestar window wears, the action buttons, the alert cards and the trackers."] = "El tema que lleva cada ventana de Polestar, los botones de acción, las tarjetas de aviso y los rastreadores."
-L["Profiles, other addons, community guides and gamepad."] = "Perfiles, otros addons, guías de la comunidad y control."
 L["Pinned"] = "Fijados"
 L["Pinned, not available here: %d"] = "Fijados, no disponibles aquí: %d"
 L["Pin a setting with the flag on its row."] = "Fija un ajuste con la bandera de su fila."
@@ -5637,6 +5636,13 @@ L["Kept for %s: the route hands it in there."] = "Guardada para %s: la ruta la e
 L["No quests in your log are ready to hand in."] = "No hay misiones en tu registro listas para entregar."
 L["Wait until combat ends to load the quest data."] = "Espera a que termine el combate para cargar los datos de misiones."
 L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "La guía de entregas no se pudo cargar. Revisa que el addon Polestar_FreeMode esté instalado y activado."
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["None of these has a known place to hand it in."] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
 
 -- Lookup/Free.lua
 L["Free mode starts after combat."] = "El modo libre se inicia después del combate."
@@ -5648,6 +5654,33 @@ L["Free mode: follow your own quests (on, off, nearest, xp)"] = "Modo libre: sig
 -- UI/QuestLinks.lua
 L["Start quest guide"] = "Iniciar guía de misión"
 L["Click to show quest guide actions."] = "Haz clic para ver las acciones de la guía de misión."
+
+-- Free.lua
+-- L["Low drop rate: %s"] = ""
+-- L["1 quest for your level: %s gives it."] = ""
+-- L["%d quests for your level, all here."] = ""
+-- L["%d quests for your level, %d of them here."] = ""
+-- L["Quests for your level"] = ""
+-- L["About %s XP a minute"] = ""
+-- L["Order: nearest first"] = ""
+-- L["Order: most XP a minute first"] = ""
+-- L["Bring back left-out quests (%d)"] = ""
+-- L["Unpin"] = ""
+-- L["Pin to the top"] = ""
+-- L["Free mode takes this quest first, whatever the order."] = ""
+-- L["Leave out of Free mode"] = ""
+-- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = ""
+
+-- Layouts/Atlas/Atlas.lua
+-- L["Get ahead, if possible"] = ""
+-- L["Still open from steps you have passed"] = ""
+-- L["1 quest off-guide"] = ""
+-- L["%d quests off-guide"] = ""
+-- L["View"] = ""
+-- L["Training due"] = ""
+-- L["New spells at your class trainer"] = ""
+-- L["Optional objectives during this step"] = ""
+-- L["Class quest"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Volver a configurar Polestar, una página a la vez. Cada opción se aplica al instante."
@@ -5958,6 +5991,7 @@ L["Click to show quest guide actions."] = "Haz clic para ver las acciones de la 
 -- L["Max height"] = "Altura máx."
 -- L["%s: on this step"] = "%s: en este paso"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "Tus propias misiones como guía, en una pestaña propia: la flecha va a la más cercana y luego a la siguiente (/polestar free)."
+-- L["The last steps here aren't mapped"] = "Los últimos pasos aquí no están en el mapa"
 -- L["None of these has a known place to hand it in."] = "Ninguna tiene un lugar conocido donde entregarla."
 -- L["Travel time to this hand-in is unknown. Its location is still shown."] = "Se desconoce el tiempo de viaje a esta entrega. Su ubicación se sigue mostrando."
 -- L["Hand-ins without a known location"] = "Entregas sin ubicación conocida"

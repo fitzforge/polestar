@@ -1194,7 +1194,9 @@ test('Atlas writes its caps labels through Polestar.Upper, so accents and Cyrill
 // Compact mode under Atlas is the full window with the current step alone:
 // the cards above (Still to do), the XP row and the Journey keep their places
 // (GF.Shows "along", "xp", "journey"); Polestar's own layout leaves them out.
-test('Atlas compact mode keeps Still to do, the XP row and the Journey; Polestar compact leaves them out', () => {
+// Done goals fold into "✓ N done" in compact mode (GF.Shows "done"), and in
+// full mode with Fold finished goals on (guideWindow.foldDone, #4450).
+test('Atlas compact mode keeps Still to do, the XP row and the Journey, folds done goals; Polestar compact leaves them out', () => {
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
 		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
@@ -1206,13 +1208,18 @@ local function state()
 	GF.xp.psHas = true
 	GF.Layout()
 	return { along = GF.Shows("along", not Polestar.Get("ui.compact")), xpShows = GF.Shows("xp", not Polestar.Get("ui.compact")), journey = GF.Shows("journey", not Polestar.Get("ui.compact")),
-		xp = GF.xp:IsShown() }
+		xp = GF.xp:IsShown(), done = GF.Shows("done", false) }
 end
 Polestar.Set("ui.shown", true)
 Polestar.Set("ui.skin", "atlas")
 T.SetLayout("atlas")
 draw()
 local out = { full = state() }
+-- Fold finished goals (#4450): full mode folds them too.
+Polestar.Set("guideWindow.foldDone", true)
+draw()
+out.fullFold = GF.Shows("done", false)
+Polestar.Set("guideWindow.foldDone", false)
 Polestar.Set("ui.compact", true)
 draw()
 out.compact = state()
@@ -1226,6 +1233,9 @@ emit(out)`,
 	assert.deepEqual([out.full.xpShows, out.full.journey, out.full.xp], [true, true, true], 'full mode: both');
 	assert.deepEqual([out.compact.along, out.compact.xpShows, out.compact.journey], [true, true, true], 'Atlas compact: the cards above (Still to do), the XP row and the Journey kept');
 	assert.equal(out.compact.xp, true, 'the XP row shows in compact mode');
+	assert.equal(out.full.done, true, 'full mode: done goals stay in place');
+	assert.equal(out.compact.done, false, 'Atlas compact: done goals fold into the done line, as Polestar\'s own');
+	assert.equal(out.fullFold, false, 'full mode with Fold finished goals on: done goals fold too');
 	assert.deepEqual([out.house.along, out.house.xpShows, out.house.journey, out.house.xp], [false, false, false, false], "Polestar's own compact: none");
 });
 
@@ -1547,6 +1557,69 @@ emit(out)`,
 	assert.equal(out.here.subAfter, 0, 'and still unseen when Polestar shows it again');
 });
 
+// Atlas sets the header's row out itself, from Polestar's list of buttons
+// (nav.psButtons): Lookup starts in the menu (its spec.defaults), a menu
+// action the player puts in the header joins the row with no gap, Skip left
+// of the last, and leaving gives Polestar's own row back with Lookup as the
+// player has it.
+test('under Atlas the header actions the player picks line up, Lookup in the menu by default', () => {
+	const [out] = runAddon({
+		stubs: ['stub_world.lua'],
+		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
+		script: `${GUIDE}
+local T, GF = Polestar.Theme, Polestar.UI.GuideFrame
+local function draw()
+	GF.Layout()
+	GF.Render()
+	stub.advance(1)
+end
+Polestar.Set("ui.shown", true)
+Polestar.Set("ui.skin", "atlas")
+T.SetLayout("atlas")
+draw()
+local nav = T.GuideParts().nav
+local names = { [nav.Menu] = "Menu" }
+for _, b in ipairs(nav.psButtons) do
+	for k, v in pairs(nav) do if v == b then names[b] = k end end
+end
+local function row()
+	local shown, leftOf = {}, {}
+	for _, b in ipairs(nav.psButtons) do
+		if b:IsShown() then
+			shown[#shown + 1] = names[b]
+			local _, rel = b:GetPoint(1)
+			leftOf[names[b]] = names[rel] or "?"
+		end
+	end
+	local _, rel = nav.Skip:GetPoint(1)
+	leftOf.Skip = names[rel] or "?"
+	return { shown = shown, leftOf = leftOf }
+end
+local out = { start = row() }
+Polestar.Set("guideWindow.settingsButton", true)
+Polestar.Set("guideWindow.chooseGuideButton", true)
+draw()
+out.picked = row()
+Polestar.Set("guideWindow.lookupButton", true)
+T.SetLayout()
+Polestar.Set("ui.skin", "polestar")
+draw()
+out.back = row()
+emit(out)`,
+	}).emitted;
+	assert.ok(!out.start.shown.includes('Lookup'), `Lookup starts in the menu under Atlas: ${out.start.shown}`);
+	for (const k of ['Settings', 'ChooseGuide']) assert.ok(out.picked.shown.includes(k), `${k} in the row: ${out.picked.shown}`);
+	for (const r of [out.picked, out.back]) {
+		let prev = 'Menu';
+		for (const k of r.shown) {
+			assert.equal(r.leftOf[k], prev, `${k} sits left of ${prev} (${r.shown})`);
+			prev = k;
+		}
+		assert.equal(r.leftOf.Skip, prev, 'Skip left of the last button');
+	}
+	assert.ok(out.back.shown.includes('Lookup'), `Lookup back in the header as the player has it: ${out.back.shown}`);
+});
+
 // Every button of the header bar takes the skin's plate alike: Hearth's plank
 // on all of them (Skip and All steps with Menu, Lookup, Report, Nearby), none
 // of them in another skin.
@@ -1558,12 +1631,12 @@ Polestar.UI.GuideFrame.Layout()
 stub.advance(1)
 local nav = Polestar.Theme.GuideParts().nav
 local out = {}
-for _, key in ipairs({ "Menu", "Lookup", "Report", "Nearby", "AllSteps", "Skip" }) do
+for _, key in ipairs({ "Menu", "Lookup", "Report", "Nearby", "AllSteps", "Settings", "QuickSettings", "HandIn", "ChooseGuide", "Skip" }) do
 	local f = rawget(nav[key], "psFrame")
 	out[key] = f ~= nil and f:IsShown() and true or false
 end
 emit(out)`;
-	const keys = ['Menu', 'Lookup', 'Report', 'Nearby', 'AllSteps', 'Skip'];
+	const keys = ['Menu', 'Lookup', 'Report', 'Nearby', 'AllSteps', 'Settings', 'QuickSettings', 'HandIn', 'ChooseGuide', 'Skip'];
 	for (const [skin, want] of [['hearth', true], ['polestar', false]]) {
 		const [out] = runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar'], script: script(skin) }).emitted;
 		for (const k of keys) assert.equal(out[k], want, `${skin}: ${k}`);
@@ -1716,4 +1789,53 @@ emit(out)`,
 	assert.equal(out['200'].title, false, 'only then the title goes');
 	assert.equal(out['200'].count, '108');
 	assert.deepEqual(out.back, out['900'], 'widening again gives everything back');
+});
+
+// Atlas moves a goal's count to a column at the row's right edge; an optional
+// goal's Skip (and Share) stands left of that column, never on the count.
+test("under Atlas an optional goal's Skip stands left of its count", () => {
+	const [out] = runAddon({
+		stubs: ['stub_world.lua'],
+		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
+		script: `${GUIDE}
+local T, GF, E = Polestar.Theme, Polestar.UI.GuideFrame, Polestar.Engine
+Polestar.Set("ui.shown", true)
+T.SetLayout("atlas")
+-- The row stays in the window, as it does when the Optional card does not take it.
+local hookValue = T.SkinHookValue
+T.SkinHookValue = function(name, ...)
+	if name == "guideTakes" then return false end
+	return hookValue(name, ...)
+end
+local view = E.GetStepView
+E.GetStepView = function(index, ...)
+	local v = view(index, ...)
+	if not v or v.index ~= E.GetStepIndex() then return v end
+	local copy = {}
+	for k, x in pairs(v) do copy[k] = x end
+	-- The step's one goal: a group of its own, not a summary line under another giver.
+	copy.goals = { { index = 1, optional = true, status = "active", t = "loot",
+		text = "Collect Murloc Fin |cffffffff3/10|r", progress = { cur = 3, max = 10 } } }
+	return copy
+end
+GF.Layout(); if GF.Render then GF.Render() end; stub.advance(1); GF.Layout(); stub.advance(1)
+local out = false
+for _, row in ipairs(T.GuideParts().rows or {}) do
+	if row:IsShown() and (row.Text:GetText() or ""):find("Murloc Fin", 1, true) then
+		local count
+		for _, r in ipairs({ row:GetRegions() }) do
+			if r.GetText and r ~= row.Text and r:IsShown() and r:GetText() == "3/10" then count = r end
+		end
+		local _, _, _, sx = row.Skip:GetPoint(1)
+		local cx = 0
+		if count then cx = select(4, count:GetPoint(2)) end
+		out = { skip = row.Skip:IsShown(), count = count ~= nil, skipRight = -sx,
+			countLeft = count and (-cx + count:GetUnboundedStringWidth()) or false }
+	end
+end
+emit(out)`,
+	}).emitted;
+	assert.ok(out, 'the optional row is drawn');
+	assert.ok(out.skip && out.count, `Skip and the count both show (${JSON.stringify(out)})`);
+	assert.ok(out.skipRight >= out.countLeft, `Skip ends at ${out.skipRight} from the edge, left of the count at ${out.countLeft}`);
 });

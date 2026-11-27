@@ -265,9 +265,12 @@ ns.UI.GuideFrame.Part(function(GF)
 	GF.LOOK_STYLE = { tabStyle = true, outline = true, bgColor = true, bgOpacity = true, border = true, veil = true, shade = true, rules = true }
 	GF.LOOK_PAINT = { targetBar = true, targetBarColor = true, targetBarWidth = true, progressColor = true }
 	GF.LOOK_LATER = { stepAnim = true, animSpeed = true, foldAnim = true } -- read when they play
+	GF.LOOK_HEADER = { lookupButton = true, settingsButton = true, quickSettingsButton = true, handInButton = true, chooseGuideButton = true }
 	function GF.ApplyLook(key)
 		if not F or (key and GF.LOOK_LATER[key]) then return end
 		if key == "hideTaxi" then return GF.ApplyVisibility() end
+		-- A header action moved between the header and the menu.
+		if not key or GF.LOOK_HEADER[key] then GF.ApplyHeader() end
 		-- The XP line and its pace part (#3304; #2371, #2379): the XP row's text
 		-- read anew, also when every setting changes at once (a profile switch,
 		-- Reset all).
@@ -432,7 +435,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		nav.Next:SetPoint("LEFT", nav.Steps.Count, "RIGHT", gap, 0)
 		local iw, ih, ig = Theme.Metric("guideIconBtnW", 24), Theme.Metric("guideIconBtnH", 24), Theme.Metric("guideIcon", 14)
 		-- The icon buttons right of Skip share the skin's sizes.
-		for _, key in ipairs({ "Menu", "Lookup", "Report", "Nearby", "AllSteps" }) do
+		for _, key in ipairs({ "Menu", "Lookup", "Report", "Nearby", "AllSteps", "Settings", "QuickSettings", "HandIn", "ChooseGuide" }) do
 			local b = rawget(nav, key)
 			if b then
 				b:SetSize(iw, ih)

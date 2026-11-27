@@ -30,11 +30,11 @@ return {
 	-- {npc:9116} Eridan Bluewind
 	["{npc:9116}, inside"] = "{npc:9116}：在屋内",
 	-- {quest:4084} Silver Heart · {item:11172} Silvery Claws · {item:11173} Irontree Heart · {area:1767} Irontree Woods · {npc:9116} Eridan Bluewind
-	["{quest:4084}'s {item:11172} and {item:11173} come from {area:1767} on this guide's ride north; {npc:9116} takes them at the end of the guide, back here."] = "",
+	["{quest:4084}'s {item:11172} and {item:11173} come from {area:1767} on this guide's ride north; {npc:9116} takes them at the end of the guide, back here."] = "做{quest:4084}需要的{item:11172}和{item:11173}，在跟随本指南向北骑行时去{area:1767}收集。到本指南末尾再回这里交给{npc:9116}。",
 
 	-- Step 7: Rakaiah
 	-- {npc:11019} Jessir Moonbow · {npc:9518} Rakaiah · {item:13140} Blood Red Key · {area:1763} Jaedenar · {area:1770} Shadow Hold
-	["Only if {npc:11019} sent you after {npc:9518} (the {item:13140}'s chain): on the ride north, turn west into {area:1763} and go into {area:1770}, the cave at the back of the camp. {npc:9518} (56) and the remains of Trey Lightforge are inside: kill her first, then the remains take her quest and give the next, which goes back to {npc:11019} at the end of this guide."] = "",
+	["Only if {npc:11019} sent you after {npc:9518} (the {item:13140}'s chain): on the ride north, turn west into {area:1763} and go into {area:1770}, the cave at the back of the camp. {npc:9518} (56) and the remains of Trey Lightforge are inside: kill her first, then the remains take her quest and give the next, which goes back to {npc:11019} at the end of this guide."] = "只有{npc:11019}派你去找{npc:9518}时才做，这是{item:13140}的任务链。向北骑行途中，往西拐进{area:1763}，再进入营地后方的洞穴{area:1770}。{npc:9518}（56级）和特雷·莱弗治的残骸都在里面。先击杀她，再到残骸处交任务并接后续。到本指南末尾回去找{npc:11019}交后续任务。",
 
 	-- Step 9: Trull Failbane
 	-- {area:1763} Jaedenar · {area:1997} Bloodvenom Post
@@ -43,13 +43,12 @@ return {
 	-- Step 10: Bloodvenom Post
 	-- {npc:10306} Trull Failbane · {quest:4721} Wild Guardians · {area:2255} Everlook · {zone:1452} Winterspring
 	-- plural, as words: Berserk Owlbeasts = {npc:7454} Berserk Owlbeast
-	["{npc:10306}'s last {quest:4721} are the Berserk Owlbeasts north of {area:2255}, on this guide's {zone:1452} loop; he takes them at the end of the guide, back here."] = "",
+	["{npc:10306}'s last {quest:4721} are the Berserk Owlbeasts north of {area:2255}, on this guide's {zone:1452} loop; he takes them at the end of the guide, back here."] = "{npc:10306}的最后一步{quest:4721}要击杀狂暴枭兽。它们在{area:2255}北边，本指南的{zone:1452}环线会经过那里。到本指南末尾再回这里找他交任务。",
 
 	-- Step 11: Toxic Horrors
 	-- {zone:1448} Felwood · {area:1767} Irontree Woods · {quest:5086} Toxic Horrors · {npc:9116} Eridan Bluewind · {item:11173} Irontree Heart · {item:11172} Silvery Claws · {npc:14524} Vartrus the Ancient
 	-- plural, as words: Irontree Wanderers = {npc:7138} Irontree Wanderer · Ancient Irontree Walkers = {npc:235912} Ancient Irontree Walker
-	-- was: ["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "沿{zone:1448}的道路向北骑往{area:1767}；{quest:5086}在树木之间蠕动，大多数都会掉落一份液滴。\n小心：59级精英远古铁木行者在{quest:5086}之间走动，{npc:14524}（63级，精英）在树林中游荡：在{area:1767}的最北端一次打一只。"
-	["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet. The Irontree Wanderers and Stompers (52-53) there carry {npc:9116}'s {item:11173}, the Angerclaw bears and Felpaw wolves his {item:11172}.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "",
+	["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet. The Irontree Wanderers and Stompers (52-53) there carry {npc:9116}'s {item:11173}, the Angerclaw bears and Felpaw wolves his {item:11172}.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "沿{zone:1448}的道路向北骑到{area:1767}。{quest:5086}的软泥怪在树间蠕动，多数会掉落一份液滴。这里的铁木游荡者和铁木践踏者（52-53级）携带{npc:9116}要的{item:11173}，怒爪熊和魔爪狼携带他要的{item:11172}。\n小心59级精英 远古铁木漫步者，它们在{quest:5086}的任务怪之间走动。{npc:14524}（63级精英）也在林中游荡。到{area:1767}最北端打软泥怪，一次只打一只。",
 
 	-- Step 13: Umber
 	-- {zone:1450} Moonglade · {npc:11939} Umber · {area:2361} Nighthaven
@@ -67,7 +66,7 @@ return {
 	-- Step 19: Donova Snowden
 	-- {zone:1452} Winterspring · {npc:9298} Donova Snowden
 	["Back into the Timbermaw tunnel and take the {zone:1452} exit; {npc:9298} camps by the hot springs just outside."] = "回到木喉隧道，走{zone:1452}出口；{npc:9298}就在出口外的温泉旁扎营。",
-	["From Krakle in Un'Goro, if you didn't bring it to her earlier"] = "",
+	["From Krakle in Un'Goro, if you didn't bring it to her earlier"] = "任务来自安戈洛环形山的克拉兰克。如果之前没交给多诺瓦，现在交。",
 
 	-- Step 20: Winterfall Runners
 	-- {area:1769} Timbermaw Hold · {area:2244} Winterfall Village · {npc:9298} Donova Snowden · {spell:5384} Feign Death
@@ -84,29 +83,28 @@ return {
 
 	-- Step 23: Kernda
 	-- {area:1762} Felpaw Village · {area:1769} Timbermaw Hold · {npc:11558} Kernda
-	["The Deadwood totem from {area:1762}, if you are Neutral with the Timbermaw now (the {area:1769} reputation guide gets you there): {npc:11558} waits at the tunnel mouth of {area:1769}."] = "",
+	["The Deadwood totem from {area:1762}, if you are Neutral with the Timbermaw now (the {area:1769} reputation guide gets you there): {npc:11558} waits at the tunnel mouth of {area:1769}."] = "从{area:1762}拿到的死木仪祭图腾，等木喉要塞声望达到中立再交（按{area:1769}声望指南即可达到）。{npc:11558}在{area:1769}隧道口等候。",
 	-- {npc:11558} Kernda
 	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558}在附近巡逻，请在地图标示的圆圈内寻找",
 
 	-- Step 24: Witch Doctor Mau'ari
 	-- {area:2255} Everlook · {npc:11755} Harlo Wigglesworth · {npc:10307} Witch Doctor Mau'ari · {area:2249} Frostwhisper Gorge
-	["Ride east along the road to {area:2255}: {npc:11755} sends you to {npc:10307}, who stands in the town, on the way to {area:2249}."] = "",
+	["Ride east along the road to {area:2255}: {npc:11755} sends you to {npc:10307}, who stands in the town, on the way to {area:2249}."] = "沿道路向东骑往{area:2255}。{npc:11755}会让你找镇上的{npc:10307}，去{area:2249}的路上顺路过去。",
 
 	-- Step 26: Darkwhisper Gorge
 	-- {area:2249} Frostwhisper Gorge · {area:2256} Darkwhisper Gorge
-	-- was: ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "向东骑行，然后向南下到{area:2249}。那里的霜槌巨人是59级精英：走在中间，保持移动。奇怪的源头在南端{area:2256}的入口处。"
-	["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59-60: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "",
+	["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59-60: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "向东骑行，再沿{area:2249}向南下行。那里的霜槌巨人是59-60级精英，走中间，一直往前。奇怪的源头在南端{area:2256}的入口处。",
 
 	-- Step 27: Frostmaul Shards
 	-- {area:2249} Frostwhisper Gorge · {npc:10198} Kashoch the Reaver
 	-- plural, as words: Frostmaul Giants = {npc:7428} Frostmaul Giant
-	["The shards lie on the ground along the west side of {area:2249}, among the Frostmaul Giants and Preservers. Careful: the giants are elites of 59-60: pick up the shards that lie clear of them, wait for a patrol to pass, and leave {npc:10198} (60, east side) alone."] = "",
+	["The shards lie on the ground along the west side of {area:2249}, among the Frostmaul Giants and Preservers. Careful: the giants are elites of 59-60: pick up the shards that lie clear of them, wait for a patrol to pass, and leave {npc:10198} (60, east side) alone."] = "碎片散落在{area:2249}西侧的地上，周围有霜槌巨人和霜槌保卫者。小心，这些巨人是59-60级精英。等巡逻怪走过，捡离它们较远的碎片，避开{npc:10198}（60级，在东侧）。",
 
 	-- Step 28: Level 59.7
-	["Level 59.7"] = "",
+	["Level 59.7"] = "升到59.7级",
 	-- {area:2244} Winterfall Village · {npc:9298} Donova Snowden · {npc:11556} Salfa · {npc:10306} Trull Failbane · {npc:9116} Eridan Bluewind · {area:2249} Frostwhisper Gorge · {area:1769} Timbermaw Hold · {area:2057} Scholomance · {area:2279} Stratholme
 	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth
-	["Top up here to about level 59.7 before the last hand-ins: Umi, Vizzie, Mau'ari, {area:2244}, {npc:9298}, {npc:11556}, {npc:10306} and {npc:9116} take you the rest of the way to 60. The Rabid Shardtooths (59) of {area:2249}, just north of the strange source, give far more experience than the furbolgs by {area:1769}. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "",
+	["Top up here to about level 59.7 before the last hand-ins: Umi, Vizzie, Mau'ari, {area:2244}, {npc:9298}, {npc:11556}, {npc:10306} and {npc:9116} take you the rest of the way to 60. The Rabid Shardtooths (59) of {area:2249}, just north of the strange source, give far more experience than the furbolgs by {area:1769}. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "在这里把经验补到约59.7级，再去交最后几站的任务。在乌米、维兹奇、玛艾里、{area:2244}、{npc:9298}、{npc:11556}、{npc:10306}和{npc:9116}这几站交完就能到60级。{area:2249}里，奇怪的源头北边不远处有疯狂的碎齿熊（59级），它们给的经验比{area:1769}旁的熊怪多得多。组队的话，也可以改打{area:2057}或{area:2279}副本。",
 	-- {npc:7446} Rabid Shardtooth
 	["grind on {npc:7446}"] = "击杀{npc:7446}刷经验",
 
@@ -114,7 +112,7 @@ return {
 	["Ice Thistle yetis"] = "冰蓟雪人",
 	-- {area:2255} Everlook · {item:258323} Missing Mail
 	-- plural, as words: Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti
-	["On the ride north to {area:2255}, the Ice Thistle Yetis (55-56) in the hills south-east of the town carry Vizzie's {item:258323}: four pieces."] = "",
+	["On the ride north to {area:2255}, the Ice Thistle Yetis (55-56) in the hills south-east of the town carry Vizzie's {item:258323}: four pieces."] = "向北骑往{area:2255}的路上，到镇东南的山丘打冰蓟雪人（55-56级），收集四封维兹奇要的{item:258323}。",
 
 	-- Step 30: Are We There, Yeti?
 	-- {area:2255} Everlook
@@ -124,19 +122,18 @@ return {
 
 	-- Step 31: Everlook
 	-- {npc:11118} Innkeeper Vizzie · {quest:93406} Unfrozen Deliveries
-	["{npc:11118}, in the inn: {quest:93406}"] = "",
+	["{npc:11118}, in the inn: {quest:93406}"] = "在旅店找{npc:11118}交{quest:93406}",
 
 	-- Step 33: Winterfall Village
 	-- {area:2255} Everlook · {quest:5121} High Chief Winterfall
-	-- was: ["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} (59, elite) and Xandivious (62) are in the cave at the back: stay out."] = "熊怪村庄占满了{area:2255}东北的山谷。先杀萨满，他们会治疗。{npc:10738}（59级，精英）和山迪维斯（62级）在后面的洞里：别进去。"
-	["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {quest:5121} (59, elite) and Xandivious (62) are in the cave at the back: stay out."] = "",
+	["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {quest:5121} (59, elite) and Xandivious (62) are in the cave at the back: stay out."] = "熊怪村庄坐落在{area:2255}东北的山谷里。先打冬泉萨满祭司，他们会治疗。{quest:5121}（59级精英）和沙迪维尔斯（62级）在村子后方的洞里，别进洞。",
 
 	-- Step 34: Berserk Owlbeasts
 	-- plural, as words: Berserk Owlbeasts = {npc:7454} Berserk Owlbeast
-	["Berserk Owlbeasts"] = "",
+	["Berserk Owlbeasts"] = "狂暴枭兽",
 	-- {area:2241} Frostsaber Rock · {area:2255} Everlook · {item:12558} Blue-feathered Necklace · {quest:4882} Guarding Secrets
 	-- plural, as words: Berserk Owlbeasts = {npc:7454} Berserk Owlbeast
-	["The Berserk Owlbeasts (58-59) roam the slopes of {area:2241}, north of {area:2255} and west of the furbolg valley. Now and then an owlbeast drops a {item:12558}: use it to start {quest:4882}."] = "",
+	["The Berserk Owlbeasts (58-59) roam the slopes of {area:2241}, north of {area:2255} and west of the furbolg valley. Now and then an owlbeast drops a {item:12558}: use it to start {quest:4882}."] = "狂暴枭兽（58-59级）在{area:2241}的山坡上游荡，位置在{area:2255}以北、熊怪山谷以西。枭兽偶尔会掉落{item:12558}，使用它可开启{quest:4882}。",
 
 	-- Step 35: Donova Snowden
 	-- {area:2246} Frostfire Hot Springs
@@ -144,14 +141,14 @@ return {
 
 	-- Step 36: High Chief Winterfall
 	-- {npc:9298} Donova Snowden · {quest:5121} High Chief Winterfall · {area:2244} Winterfall Village · {area:2255} Everlook · {npc:10920} Kelek Skykeeper · {area:2479} Emerald Sanctuary
-	["A group choice: {npc:9298} sends you after {quest:5121} (59, elite, with his guards) in the cave at the back of {area:2244}, back east past {area:2255}; Xandivious (62) shares the cave: leave him. The High Chief carries a log for {npc:9298}, and her next errand goes to {npc:10920} at the {area:2479}, this guide's last stop."] = "",
+	["A group choice: {npc:9298} sends you after {quest:5121} (59, elite, with his guards) in the cave at the back of {area:2244}, back east past {area:2255}; Xandivious (62) shares the cave: leave him. The High Chief carries a log for {npc:9298}, and her next errand goes to {npc:10920} at the {area:2479}, this guide's last stop."] = "组队可做。{npc:9298}让你击杀{quest:5121}（59级精英，身边有守卫）。他在{area:2244}后方的洞穴里，往东折返，经过{area:2255}就能到。沙迪维尔斯（62级）也在洞里，别打他。酋长身上有一本日志，带回给{npc:9298}。她给的后续任务要找{npc:10920}，他在本指南的最后一站{area:2479}。",
 	-- {quest:5121} High Chief Winterfall
-	["{quest:5121}, in the cave"] = "",
-	["the log he carries"] = "",
+	["{quest:5121}, in the cave"] = "{quest:5121}在洞里",
+	["the log he carries"] = "他携带的日志",
 	-- {npc:9298} Donova Snowden
-	["{npc:9298}, back west at the hot springs"] = "",
+	["{npc:9298}, back west at the hot springs"] = "向西返回温泉找{npc:9298}",
 	-- {npc:10920} Kelek Skykeeper · {area:2479} Emerald Sanctuary
-	["for {npc:10920} at the {area:2479}"] = "",
+	["for {npc:10920} at the {area:2479}"] = "交给{npc:10920}，他在{area:2479}",
 
 	-- Step 37: Salfa
 	-- {zone:1452} Winterspring
@@ -164,29 +161,29 @@ return {
 
 	-- Step 40: Trull Failbane
 	-- {zone:1448} Felwood · {area:1997} Bloodvenom Post
-	["Back through the Timbermaw tunnel and south down the {zone:1448} road to {area:1997}."] = "",
+	["Back through the Timbermaw tunnel and south down the {zone:1448} road to {area:1997}."] = "穿过木喉隧道返回，沿{zone:1448}的道路向南到{area:1997}。",
 
 	-- Step 41: Trull Failbane
 	-- {quest:4882} Guarding Secrets · {item:12558} Blue-feathered Necklace
-	["{quest:4882}, from the {item:12558}"] = "",
+	["{quest:4882}, from the {item:12558}"] = "{quest:4882}由{item:12558}开启",
 	-- {quest:4882} Guarding Secrets · {npc:5770} Nara Wildmane · {zone:1456} Thunder Bluff
-	["{quest:4882} goes on to {npc:5770} in {zone:1456}, off this route: leave it."] = "",
+	["{quest:4882} goes on to {npc:5770} in {zone:1456}, off this route: leave it."] = "{quest:4882}的后续要去找{npc:5770}，地点在{zone:1456}。这趟要绕路，跳过。",
 
 	-- Step 42: Jessir Moonbow
 	-- {area:2479} Emerald Sanctuary · {npc:11019} Jessir Moonbow
-	["South along the road to the {area:2479}: {npc:11019}, at its east side, takes Trey Lightforge's remains."] = "",
+	["South along the road to the {area:2479}: {npc:11019}, at its east side, takes Trey Lightforge's remains."] = "沿道路向南前往{area:2479}，把特雷·莱弗治的残骸交给东侧的{npc:11019}。",
 
 	-- Step 43: Kelek Skykeeper
 	-- {npc:10920} Kelek Skykeeper · {area:2479} Emerald Sanctuary
-	["{npc:10920}, at the {area:2479}, takes the High Chief's words."] = "",
+	["{npc:10920}, at the {area:2479}, takes the High Chief's words."] = "{npc:10920}在{area:2479}，把熊怪酋长的话转告给他。",
 
 	-- Step 44: Eridan Bluewind
 	-- {area:2479} Emerald Sanctuary
-	["South along the road to the {area:2479}."] = "",
+	["South along the road to the {area:2479}."] = "沿道路向南前往{area:2479}。",
 	-- {npc:9116} Eridan Bluewind · {zone:1446} Tanaris
-	["{npc:9116}'s Aquementas leads on to {zone:1446} and Un'Goro: leave it."] = "",
+	["{npc:9116}'s Aquementas leads on to {zone:1446} and Un'Goro: leave it."] = "{npc:9116}的任务《亚奎门塔斯》要去{zone:1446}和安戈洛环形山，跳过。",
 	-- {zone:1454} Orgrimmar · {area:431} Splintertree Post
-	["In {zone:1454}: fly from {area:431}"] = "",
+	["In {zone:1454}: fly from {area:431}"] = "从{area:431}飞往{zone:1454}",
 	-- {zone:1456} Thunder Bluff
 	["In {zone:1456}"] = "",
 

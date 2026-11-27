@@ -89,93 +89,93 @@ return {
 
 	-- Step 15: To Azshara
 	-- {zone:1447} Azshara
-	["To {zone:1447}"] = "",
+	["To {zone:1447}"] = "Nach {zone:1447}",
 	-- {area:1225} Ursolan · {zone:1447} Azshara · {npc:11555} Gorn One Eye · {faction:576} Timbermaw Hold · {area:1237} Valormok · {area:3137} Talrendis Point · {npc:235903} Ekkal
-	["Neutral opens {area:1225}, the camp of the Blackmaw furbolgs in northern {zone:1447}: their quests and {npc:11555}'s in {faction:576} are levels 53-55, about 50,000 experience below level 60, all outdoors. Below Neutral the Blackmaw attack you. The nearest flight masters are {area:1237} (Horde) and {area:3137} (Alliance); {npc:235903} camps by the road between them and {area:1225}."] = "",
+	["Neutral opens {area:1225}, the camp of the Blackmaw furbolgs in northern {zone:1447}: their quests and {npc:11555}'s in {faction:576} are levels 53-55, about 50,000 experience below level 60, all outdoors. Below Neutral the Blackmaw attack you. The nearest flight masters are {area:1237} (Horde) and {area:3137} (Alliance); {npc:235903} camps by the road between them and {area:1225}."] = "Neutral erschließt {area:1225}, das Lager der Schwarzmaul-Furbolgs im Norden von {zone:1447}: ihre Quests und die von {npc:11555} in {faction:576} sind Stufe 53-55, etwa 50.000 Erfahrung unter Stufe 60, alles draußen. Unter Neutral greifen die Schwarzmaul dich an. Die nächsten Flugmeister sind {area:1237} (Horde) und {area:3137} (Allianz); {npc:235903} lagert an der Straße zwischen ihnen und {area:1225}.",
 	-- {npc:235903} Ekkal
-	["{npc:235903}'s camp"] = "",
+	["{npc:235903}'s camp"] = "{npc:235903}s Lager",
 
 	-- Step 16: Ekkal
 	-- {npc:235903} Ekkal · {zone:1447} Azshara · {area:1219} Legashi Encampment
 	-- plural, as words: Legashi Satyrs = {npc:6200} Legashi Satyr
-	["{npc:235903} camps by the road in the middle of {zone:1447}. His satyrs come first: the Legashi Satyrs, Rogues and Hellcallers (51-53) of the {area:1219}, north-east of him."] = "",
+	["{npc:235903} camps by the road in the middle of {zone:1447}. His satyrs come first: the Legashi Satyrs, Rogues and Hellcallers (51-53) of the {area:1219}, north-east of him."] = "{npc:235903} lagert an der Straße in der Mitte von {zone:1447}. Seine Satyrn kommen zuerst: die Satyrn der Legashi, ihre Schurken und Höllenrufer (51-53) vom {area:1219}, nordöstlich von ihm.",
 
 	-- Step 17: The Legashi Encampment
 	-- {area:1219} Legashi Encampment
-	["The {area:1219}"] = "",
+	["The {area:1219}"] = "Das {area:1219}",
 
 	-- Step 20: Ursolan
 	-- {area:1225} Ursolan · {npc:235909} Furze · {npc:236573} Gatekeeper Rageroar · {npc:235906} Elder Bramblesnap
-	["Ride north up the road to {area:1225}. {npc:235909} sits on the camp's south-east side; {npc:236573} and {npc:235906} stand together on its west side."] = "",
+	["Ride north up the road to {area:1225}. {npc:235909} sits on the camp's south-east side; {npc:236573} and {npc:235906} stand together on its west side."] = "Reite die Straße nach Norden zu {area:1225}. {npc:235909} sitzt an der Südostseite des Lagers; {npc:236573} und {npc:235906} stehen zusammen an seiner Westseite.",
 
 	-- Step 21: The Legashi Cauldron
 	-- {object:506307} Legashi Cauldron (no name in this language: may be words)
-	["The {object:506307}"] = "",
+	["The {object:506307}"] = "Der {object:506307}",
 	-- {area:1219} Legashi Encampment
-	["Ride east to the {area:1219}: the satyrs' cauldron stands in the middle of their camp."] = "",
+	["Ride east to the {area:1219}: the satyrs' cauldron stands in the middle of their camp."] = "Reite nach Osten zum {area:1219}: Der Kessel der Satyrn steht in der Mitte ihres Lagers.",
 
 	-- Step 22: The Legashi Encampment
-	["Any of the encampment's satyrs may carry the recipe."] = "",
+	["Any of the encampment's satyrs may carry the recipe."] = "Jeder Satyr im Lager kann das Rezept haben.",
 
 	-- Step 24: Satyrweed
 	-- plural, as words: Satyrweed Brambles = {object:507746} Satyrweed Bramble
-	["The Satyrweed Brambles grow all around the encampment."] = "",
+	["The Satyrweed Brambles grow all around the encampment."] = "Die Satyrkraut-Dornen wachsen rings um das Lager.",
 
 	-- Step 25: Korsa
 	-- {area:16234} Legashi Stronghold · {npc:236770} Korsa
-	["East to the {area:16234}: {npc:236770}, the missing Blackmaw scout, waits outside it."] = "",
+	["East to the {area:16234}: {npc:236770}, the missing Blackmaw scout, waits outside it."] = "Nach Osten zum {area:16234}: {npc:236770}, der vermisste Schwarzmaul-Kundschafter, wartet draußen.",
 
 	-- Step 26: Graal
 	-- {npc:237007} Graal · {npc:235892} Prince Halanox
-	["{npc:237007} is held at the north end of the stronghold: free {npc:237007} and see the breakout through. Careful: {npc:235892} (55, elite) stands just south of there, around 67,19."] = "",
+	["{npc:237007} is held at the north end of the stronghold: free {npc:237007} and see the breakout through. Careful: {npc:235892} (55, elite) stands just south of there, around 67,19."] = "{npc:237007} wird am Nordende der Festung festgehalten: Befreie {npc:237007} und bleibe bis zum Durchbruch. Vorsicht: {npc:235892} (55, Elite) steht direkt südlich davon, etwa 67,19.",
 
 	-- Step 27: The Legashi Stronghold: kill these as you meet them
 	-- {area:16234} Legashi Stronghold
-	["The {area:16234}: kill these as you meet them"] = "",
+	["The {area:16234}: kill these as you meet them"] = "Die {area:16234}: Töte sie, wie du ihnen begegnest",
 	-- {npc:235892} Prince Halanox
-	["The Hellraisers, Soulstealers and Blackguards (53-54) hold the stronghold. Careful: {npc:235892} (55, elite) stands at its north-east end, around 67,19: leave him be."] = "",
+	["The Hellraisers, Soulstealers and Blackguards (53-54) hold the stronghold. Careful: {npc:235892} (55, elite) stands at its north-east end, around 67,19: leave him be."] = "Die Höllenstifter, Seelendiebe und Schwarzgewänder (53-54) halten die Festung. Vorsicht: {npc:235892} (55, Elite) steht an ihrem Nordostende, etwa 67,19: Lass ihn in Ruhe.",
 
 	-- Step 28: Master Feardred
 	-- {quest:86777} Master Feardred · {item:235471} Fel Mote
-	["{quest:86777} (53) walks the stronghold's south side; the {item:235471} floats nearby."] = "",
+	["{quest:86777} (53) walks the stronghold's south side; the {item:235471} floats nearby."] = "{quest:86777} (53) geht auf der Südseite der Festung umher; der {item:235471} schwebt in der Nähe.",
 
 	-- Step 30: The Legashi Cauldron
-	["Back west to the cauldron."] = "",
+	["Back west to the cauldron."] = "Zurück nach Westen zum Kessel.",
 
 	-- Step 31: Ursolan
 	-- {area:1225} Ursolan
-	["Back west to {area:1225}."] = "",
+	["Back west to {area:1225}."] = "Zurück nach Westen zu {area:1225}.",
 	-- {npc:11555} Gorn One Eye · {faction:576} Timbermaw Hold
-	["For {npc:11555} in {faction:576}, at the end of this part"] = "",
+	["For {npc:11555} in {faction:576}, at the end of this part"] = "Für {npc:11555} in {faction:576}, am Ende dieses Teils",
 
 	-- Step 32: Mosshoof Coursers
 	-- plural, as words: Mosshoof Coursers = {npc:8761} Mosshoof Courser
 	["Mosshoof Coursers"] = "Mooshufrenner",
 	-- {area:1225} Ursolan · {item:221199} Satyrweed Tincture
 	-- plural, as words: Mosshoof Coursers = {npc:8761} Mosshoof Courser · Thunderhead Skystormers = {npc:6378} Thunderhead Skystormer
-	["The Mosshoof Coursers (52-53) and Thunderhead Skystormers (50-52) graze just east of {area:1225}: bring one low, then use the {item:221199} on it. Three times."] = "",
+	["The Mosshoof Coursers (52-53) and Thunderhead Skystormers (50-52) graze just east of {area:1225}: bring one low, then use the {item:221199} on it. Three times."] = "Die Mooshufrenner (52-53) und Donnerkopfhimmelsstürmer (50-52) grasen direkt östlich von {area:1225}: Schwäche einen und benutze dann den {item:221199} auf ihn. Dreimal.",
 
 	-- Step 34: Furze
 	-- {npc:235909} Furze
-	["Give {npc:235909} the panacea."] = "",
+	["Give {npc:235909} the panacea."] = "Gib {npc:235909} das Gegenmittel.",
 
 	-- Step 36: To Timbermaw Hold
 	-- {area:1769} Timbermaw Hold
-	["To {area:1769}"] = "",
+	["To {area:1769}"] = "Nach {area:1769}",
 	-- {zone:1448} Felwood · {area:1997} Bloodvenom Post · {area:1998} Talonbranch Glade
-	["Back to {zone:1448}: fly to {area:1997} (Horde) or {area:1998} (Alliance) and ride north up the road to the {zone:1448} mouth of the tunnel."] = "",
+	["Back to {zone:1448}: fly to {area:1997} (Horde) or {area:1998} (Alliance) and ride north up the road to the {zone:1448} mouth of the tunnel."] = "Zurück nach {zone:1448}: Flieg nach {area:1997} (Horde) oder {area:1998} (Allianz) und reite die Straße nach Norden zum Tunneleingang in {zone:1448}.",
 
 	-- Step 37: Gorn One Eye
 	-- {npc:11555} Gorn One Eye · {npc:11558} Kernda · {npc:11557} Meilosh
-	["{npc:11555} stands just inside the tunnel, by {npc:11558} and {npc:11557}."] = "",
+	["{npc:11555} stands just inside the tunnel, by {npc:11558} and {npc:11557}."] = "{npc:11555} steht direkt im Tunnel, bei {npc:11558} und {npc:11557}.",
 
 	-- Step 38: Chieftain Bloodmaw
 	-- {npc:9462} Chieftain Bloodmaw
-	["{npc:9462} (55-56) leads the Deadwood of Felpaw Village, just west of the tunnel."] = "",
+	["{npc:9462} (55-56) leads the Deadwood of Felpaw Village, just west of the tunnel."] = "{npc:9462} (55-56) führt die Totenwaldfelle von Teufelspfotendorf, direkt westlich des Tunnels.",
 
 	-- Step 39: Gorn One Eye
 	-- {zone:1447} Azshara · {npc:235892} Prince Halanox
-	["His next task, Blackmaw Counter-Offensive, sends you back to {zone:1447} against {npc:235892}, a level 55 elite: bring a friend."] = "",
+	["His next task, Blackmaw Counter-Offensive, sends you back to {zone:1447} against {npc:235892}, a level 55 elite: bring a friend."] = "Seine nächste Aufgabe, „Gegenoffensive der Schwarzmaul“, schickt dich zurück nach {zone:1447} gegen {npc:235892}, einen Elite der Stufe 55: Nimm einen Freund mit.",
 
 	-- Step 40: Neutral to Friendly
 	["Neutral to Friendly"] = "Neutral bis Freundlich",

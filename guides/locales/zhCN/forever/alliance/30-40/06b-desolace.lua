@@ -26,19 +26,19 @@ return {
 
 	-- Step 4: Nijel's Point
 	-- {npc:5638} Kreldig Ungor · {zone:1443} Desolace · {npc:11863} Azore Aldamort
-	["{npc:5638}, if the first {zone:1443} visit didn't take it: the wreck lies below {npc:11863}'s tower"] = "",
+	["{npc:5638}, if the first {zone:1443} visit didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}，如果第一次来{zone:1443}时没有接：沉船就在{npc:11863}的塔下方",
 	-- {npc:5396} Captain Pentigast · {zone:1443} Desolace
-	["{npc:5396}, if the first {zone:1443} visit didn't give it"] = "",
+	["{npc:5396}, if the first {zone:1443} visit didn't give it"] = "{npc:5396}，如果第一次来{zone:1443}时没有给",
 
 	-- Step 5: Bibbly F'utzbuckle
 	-- {area:2407} Kormek's Hut
 	["Follow the road south to {area:2407}."] = "沿道路向南前往{area:2407}。",
 	-- {npc:11438} Bibbly F'utzbuckle · {zone:1443} Desolace
-	["{npc:11438}, if the first {zone:1443} visit didn't give it"] = "",
+	["{npc:11438}, if the first {zone:1443} visit didn't give it"] = "{npc:11438}，如果第一次来{zone:1443}时没有给",
 
 	-- Step 6: Kodo Graveyard
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard · {area:2407} Kormek's Hut · {object:176751} Kodo Bones
-	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons.\nCareful: Rexxar (62, elite), the Horde's champion, walks the road past the graveyard with his bear Misha and attacks Alliance players: when he comes by, step well away from the road and let him pass."] = "",
+	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons.\nCareful: Rexxar (62, elite), the Horde's champion, walks the road past the graveyard with his bear Misha and attacks Alliance players: when he comes by, step well away from the road and let him pass."] = "{npc:6019}站在{area:596}的边缘、{area:2407}西南方；{object:176751}散落在骸骨堆里。\n注意：部落的勇士雷克萨（62，精英）带着他的熊米莎，沿着墓地旁的路巡逻，见到联盟玩家就会攻击：他经过时离路远一点，让他过去。",
 
 	-- Step 7: Hornizz Brimbuzzle
 	-- {quest:6134} Ghost-o-plasm Round Up · {area:2657} Valley of Bones
@@ -94,7 +94,7 @@ return {
 	-- {npc:11863} Azore Aldamort · {area:2405} Ethel Rethor · {zone:1443} Desolace
 	["{npc:11863}'s tower stands on the hill at the ruins of {area:2405}, west across the north of {zone:1443}."] = "{npc:11863}的塔楼位于{area:2405}废墟的山上，横穿{zone:1443}北部向西。",
 	-- {npc:11863} Azore Aldamort · {zone:1443} Desolace
-	["{npc:11863}, if the first {zone:1443} visit didn't take the sceptre back to him"] = "",
+	["{npc:11863}, if the first {zone:1443} visit didn't take the sceptre back to him"] = "{npc:11863}，如果第一次来{zone:1443}时没有把权杖交还给他",
 
 	-- Step 18: Azore Aldamort
 	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
@@ -102,7 +102,7 @@ return {
 	-- {npc:11863} Azore Aldamort · {quest:93464} The Visiting Mage · {zone:1435} Swamp of Sorrows
 	["{npc:11863}: {quest:93464}, from Magtoor in the {zone:1435}"] = "{npc:11863}：{quest:93464}，来自{zone:1435}的玛格图尔",
 	-- {npc:11863} Azore Aldamort · {zone:1443} Desolace
-	["{npc:11863}, if the first {zone:1443} visit didn't give it"] = "",
+	["{npc:11863}, if the first {zone:1443} visit didn't give it"] = "{npc:11863}，如果第一次来{zone:1443}时没有给",
 
 	-- Step 19: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
@@ -112,7 +112,7 @@ return {
 	-- {object:177787} Rackmore's Log · {object:35251} Karnitol's Chest · {zone:1443} Desolace
 	["{object:177787} lies beside {object:35251}, if you didn't take it on your first {zone:1443} visit. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "如果第一次来{zone:1443}时没有拿，{object:177787}在{object:35251}旁边。他的银钥匙由沉船周围的干钳蟹掉落；金钥匙则来自西北海岸的滑刃纳迦，下一步就去。",
 	-- {object:177787} Rackmore's Log · {zone:1443} Desolace
-	["{object:177787}, if the first {zone:1443} visit didn't take it"] = "",
+	["{object:177787}, if the first {zone:1443} visit didn't take it"] = "{object:177787}，如果第一次来{zone:1443}时没有接",
 	["Underwater"] = "在水下",
 
 	-- Step 21: Sar'theris Strand: kill these as you meet them

@@ -26,8 +26,7 @@ return {
 	-- Step 2: Sentry Point
 	-- {area:503} Sentry Point · {quest:1265} The Missing Diplomat · {npc:4967} Archmage Tervosh
 	-- plural, as words: Mudrock Burrowers = {npc:4398} Mudrock Burrower
-	-- was: ["Follow the road north-west out of Theramore to the watchtower at {area:503}. Mudrock Burrowers roam the marsh around it.\n{npc:4967} waits at the foot of the tower: once you have looked around, hand the quest in to him there, not in Theramore."] = "Folge der Straße nach Nordwesten aus Theramore hinaus zum Wachturm bei {area:503}. Schlammpanzereinbuddler streifen durch den Sumpf darum herum.\n{npc:4967} wartet am Fuß des Turms: Sobald du dich umgesehen hast, gib die Quest dort bei ihm ab, nicht in Theramore."
-	["Follow the road north-west out of Theramore to the watchtower at {area:503}. Mudrock Burrowers roam the marsh around it.\nIf {quest:1265} isn't done yet: {npc:4967} waits at the foot of the tower once you have looked around. Hand the quest in to him there, not in Theramore, and take his next errand on the spot."] = "",
+	["Follow the road north-west out of Theramore to the watchtower at {area:503}. Mudrock Burrowers roam the marsh around it.\nIf {quest:1265} isn't done yet: {npc:4967} waits at the foot of the tower once you have looked around. Hand the quest in to him there, not in Theramore, and take his next errand on the spot."] = "Folge der Straße nach Nordwesten aus Theramore bis zum Wachturm bei {area:503}. Schlammpanzereinbuddler streifen durch den Sumpf darum herum.\nFalls {quest:1265} noch nicht gemacht ist: {npc:4967} wartet am Fuß des Turms, sobald du dich umgesehen hast. Gib die Quest dort bei ihm ab, nicht in Theramore, und nimm seinen nächsten Auftrag gleich dort an.",
 	-- {npc:4967} Archmage Tervosh
 	["{npc:4967}, at the tower"] = "{npc:4967}, am Turm",
 
@@ -90,7 +89,7 @@ return {
 
 	-- Step 15: Foothold Citadel
 	-- {npc:4944} Captain Garran Vimes · {area:514} Foothold Citadel
-	["Back east along the road to Theramore: {npc:4944} takes the deserters' news on the top floor of {area:514}, and the flight master stands by its gate."] = "",
+	["Back east along the road to Theramore: {npc:4944} takes the deserters' news on the top floor of {area:514}, and the flight master stands by its gate."] = "Zurück nach Osten entlang der Straße nach Theramore: {npc:4944} nimmt die Neuigkeiten der Deserteure im oberen Stockwerk von {area:514} entgegen, und der Flugmeister steht an seinem Tor.",
 	-- {npc:4944} Captain Garran Vimes
 	["{npc:4944}, on the top floor"] = "{npc:4944}, im obersten Stockwerk",
 
@@ -101,12 +100,11 @@ return {
 
 	-- Step 18: Fly to Ratchet
 	-- {npc:6236} Klannoc Macleod · {area:720} Fray Island · {area:392} Ratchet · {area:150} Menethil Harbor
-	["{npc:6236}'s Affray first: {area:720} lies just south of {area:392}. The boat to {area:150} leaves from Theramore afterwards."] = "",
+	["{npc:6236}'s Affray first: {area:720} lies just south of {area:392}. The boat to {area:150} leaves from Theramore afterwards."] = "Zuerst {npc:6236}s Auseinandersetzung: {area:720} liegt direkt südlich von {area:392}. Das Boot nach {area:150} fährt danach von Theramore ab.",
 
 	-- Step 20: The Affray
 	-- {area:720} Fray Island · {area:391} Merchant Coast · {area:392} Ratchet · {npc:6236} Klannoc Macleod · {npc:6238} Big Will
-	-- was: ["On the ride north to {area:392}, {area:720} lies off the {area:391} south of the town: wade over the sand bar shallows. {npc:6236} sends four challengers and then {npc:6238} (level 33) at you, one at a time."] = "Auf dem Ritt nach Norden nach {area:392} liegt {area:720} vor der {area:391} südlich des Orts: Wate über die Untiefen der Sandbank. {npc:6236} schickt dir nacheinander vier Herausforderer und dann {npc:6238} (Stufe 33) entgegen."
-	["{area:720} lies off the {area:391} just south of {area:392}: wade over the sand bar shallows. {npc:6236} sends four challengers and then {npc:6238} (level 33) at you, one at a time."] = "",
+	["{area:720} lies off the {area:391} just south of {area:392}: wade over the sand bar shallows. {npc:6236} sends four challengers and then {npc:6238} (level 33) at you, one at a time."] = "{area:720} liegt vor der {area:391} gleich südlich von {area:392}: Wate über die Untiefen der Sandbank. {npc:6236} schickt dir nacheinander vier Herausforderer und dann {npc:6238} (Stufe 33) entgegen.",
 	-- {npc:6238} Big Will
 	["Defeat the challengers and {npc:6238}"] = "Besiege die Herausforderer und {npc:6238}",
 	-- {npc:6236} Klannoc Macleod
@@ -115,7 +113,7 @@ return {
 	-- Step 21: Fly to Theramore
 	["Fly to Theramore"] = "Flieg nach Theramore",
 	-- {area:150} Menethil Harbor
-	["Back to Theramore for the boat to {area:150}."] = "",
+	["Back to Theramore for the boat to {area:150}."] = "Zurück nach Theramore, um das Boot nach {area:150} zu nehmen.",
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "Flugmeister in {area:392}",
 
@@ -148,7 +146,7 @@ return {
 	-- {area:35} Booty Bay
 	["Boat to {area:35}"] = "Boot nach {area:35}",
 	-- {area:35} Booty Bay · {area:392} Ratchet · {zone:1413} Barrens
-	["The boat to {area:35} leaves from {area:392}'s dock, below the flight master. Without the {area:392} flight path: follow the road west out of the marsh into the {zone:1413} and north up the coast to {area:392}, and learn it there."] = "",
+	["The boat to {area:35} leaves from {area:392}'s dock, below the flight master. Without the {area:392} flight path: follow the road west out of the marsh into the {zone:1413} and north up the coast to {area:392}, and learn it there."] = "Das Boot nach {area:35} legt am Dock von {area:392} ab, unterhalb des Flugmeisters. Ohne die Flugroute nach {area:392}: Folge der Straße nach Westen aus dem Sumpf in den {zone:1413} und dann nach Norden die Küste entlang bis {area:392}, und lerne sie dort.",
 
 	-- Step 28: Boat to Booty Bay
 	-- {npc:4732} Randal Hunter · {area:88} Eastvale Logging Camp · {zone:1429} Elwynn Forest
@@ -166,22 +164,22 @@ return {
 	-- {npc:770} Corporal Kaleb · {area:99} Rebel Camp
 	["for {npc:770} at the {area:99}, on the northern loop"] = "für {npc:770} beim {area:99}, auf der nördlichen Runde",
 	-- {npc:2494} Privateer Bloads · {area:35} Booty Bay
-	["{npc:2494}' Akiris by the Bundle waits for the level-48 {area:35} stop (its naga are 43-44): leave it for now."] = "",
+	["{npc:2494}' Akiris by the Bundle waits for the level-48 {area:35} stop (its naga are 43-44): leave it for now."] = "{npc:2494}' Akiris vom Bündel wartet auf den Stopp der Stufe 48 in {area:35} (die Naga dort sind 43-44): lass es vorerst.",
 	-- {npc:2487} Fleet Master Seahorn · {quest:669} Sunken Treasure · {area:327} Faldir's Cove
 	["{npc:2487}, top floor: {quest:669}, if you did {area:327} with a group"] = "{npc:2487}, oberstes Stockwerk: {quest:669}, falls du {area:327} mit einer Gruppe gemacht hast",
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs: the Skullsplitter trolls, on the northern loop"] = "{npc:737}, oben: die Skullsplitter-Trolle, auf der nördlichen Runde",
 	-- {npc:737} Kebok · {area:37} Lake Nazferiti
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
-	["{npc:737}: the Tumbled Crystals, at {area:37} on the northern loop"] = "",
+	["{npc:737}: the Tumbled Crystals, at {area:37} on the northern loop"] = "{npc:737}: die Gerommelten Kristalle, bei {area:37} auf der nördlichen Runde",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}'s Zanzil's Secret waits for the same stop (Zanzil's village is 43-44): leave it for now."] = "",
+	["{npc:2498}'s Zanzil's Secret waits for the same stop (Zanzil's village is 43-44): leave it for now."] = "{npc:2498}s Zanzil's Secret wartet auf denselben Halt (Zanzils Dorf ist 43-44): Lass es vorerst liegen.",
 	["Seahorn's next errand goes back to Arathi: skip it."] = "Seehorns nächster Auftrag führt zurück nach Arathi: Überspring ihn.",
 
 	-- Step 32: Kebok
 	-- {npc:737} Kebok
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
-	["Already have all eight Tumbled Crystals? Hand them to {npc:737} now."] = "",
+	["Already have all eight Tumbled Crystals? Hand them to {npc:737} now."] = "Hast du schon alle acht Gerommelte Kristalle? Gib sie jetzt an {npc:737}.",
 
 	-- Step 33: Booty Bay
 	-- {npc:2542} Catelyn the Blade
@@ -195,7 +193,7 @@ return {
 
 	-- Step 35: Booty Bay
 	-- {quest:597} The Bloodsail Buccaneers · {area:35} Booty Bay · {area:43} Wild Shore
-	["Seahorn's next task, {quest:597}, waits for the level-48 {area:35} stop with the {area:43} camp (41-43): leave it for now."] = "",
+	["Seahorn's next task, {quest:597}, waits for the level-48 {area:35} stop with the {area:43} camp (41-43): leave it for now."] = "Seahorns nächste Aufgabe, {quest:597}, wartet auf den Stopp bei Stufe 48 in {area:35} mit dem {area:43}-Lager (41-43): Lass sie vorerst.",
 	-- {npc:2488} Deeg
 	["{npc:2488}, on the top floor"] = "{npc:2488}, im obersten Stockwerk",
 	-- {npc:2624} Gazban
@@ -208,8 +206,7 @@ return {
 	-- Step 37: Bloodsail pirates: kill these as you meet them
 	["Bloodsail pirates: kill these as you meet them"] = "Blutsegelbukaniere: Töte diese, sobald sie dir begegnen",
 	-- {npc:2493} Dizzy One-Eye · {area:43} Wild Shore
-	-- was: ["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "Jeder Blutsegelbukanier lässt Schnupftabak fallen, und einer von ihnen trägt das Auge von {npc:2493}: Hol sie dir von den Plünderern und Magiern (39-41) im Lager der Blutsegelbukaniere am Strand direkt nördlich des Ortes, wo du den Brief gefunden hast. Spar dir das Lager an der {area:43} südlich des Ortes (Hexenmeister und Swashbuckler 41-43) für den Besuch auf Stufe 48 auf."
-	["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit.\nCareful: Rippa (44, a rare crocolisk) swims the shore beside the camp: stay out of the water."] = "",
+	["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit.\nCareful: Rippa (44, a rare crocolisk) swims the shore beside the camp: stay out of the water."] = "Jeder Blutsegel lässt Schnupftabak fallen und einer von ihnen trägt {npc:2493}s Auge: nimm sie von den Räubern und Magiern (39-41) im Blutsegel-Lager am Strand nördlich der Stadt, wo du den Brief gefunden hast. Lass das Lager in {area:43} südlich der Stadt (Hexenmeister und Haudegen 41-43) für den Besuch auf Stufe 48.\nVorsicht: Rippa (44, ein seltenes Krokodil) schwimmt entlang des Ufers neben dem Lager: bleib aus dem Wasser.",
 
 	-- Step 38: Gorilla hills
 	["Gorilla hills"] = "Gorillahügel",
@@ -218,17 +215,17 @@ return {
 
 	-- Step 39: Booty Bay
 	-- {npc:2488} Deeg
-	["Back down to town: Shaky stands at the tunnel mouth; {npc:2488} and MacKinley are on the top floor."] = "",
+	["Back down to town: Shaky stands at the tunnel mouth; {npc:2488} and MacKinley are on the top floor."] = "Wieder hinab in die Stadt: Shaky steht am Tunnelmund; {npc:2488} und MacKinley sind im obersten Stockwerk.",
 	-- {npc:2486} Fin Fizracket · {npc:1514} Mokk the Savage · {area:35} Booty Bay
 	["{npc:2486}'s Stranglethorn Fever ({npc:1514}) waits for the level-48 {area:35} stop: leave it for now."] = "Das Schlingendornfieber von {npc:2486} ({npc:1514}) wartet auf den Halt in {area:35} auf Stufe 48: Lass es vorerst liegen.",
 	-- {area:35} Booty Bay
-	["MacKinley's Voodoo Dues waits for the level-48 {area:35} stop, with Zanzil's village: leave it for now."] = "",
+	["MacKinley's Voodoo Dues waits for the level-48 {area:35} stop, with Zanzil's village: leave it for now."] = "MacKinleys Voodoo Dues wartet auf den Halt in {area:35} auf Stufe 48, zusammen mit Zanzils Dorf: Lass es vorerst liegen.",
 
 	-- Step 40: Stoley's Debt
 	-- {quest:2872} Stoley's Debt · {area:35} Booty Bay
-	["\"Sea Wolf\" MacKinley, on the top floor, offers {quest:2872} from level 40 (under 40, this guide's last {area:35} stop offers it again)."] = "",
+	["\"Sea Wolf\" MacKinley, on the top floor, offers {quest:2872} from level 40 (under 40, this guide's last {area:35} stop offers it again)."] = "\"Sea Wolf\" MacKinley, oben, bietet {quest:2872} ab Stufe 40 an (unter Stufe 40 bietet es der letzte {area:35}-Stopp dieses Guides erneut an).",
 	-- {zone:1446} Tanaris
-	["\"Sea Wolf\" MacKinley: for Stoley in {zone:1446}, keep it"] = "",
+	["\"Sea Wolf\" MacKinley: for Stoley in {zone:1446}, keep it"] = "\"Sea Wolf\" MacKinley: für Stoley in {zone:1446}, behalte es",
 
 	-- Step 41: Jungle Stalkers
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
@@ -264,7 +261,7 @@ return {
 
 	-- Step 46: Ajeck Rouack
 	-- {npc:717} Ajeck Rouack
-	["{npc:717}, beside the other hunters"] = "",
+	["{npc:717}, beside the other hunters"] = "{npc:717}, neben den anderen Jägern",
 
 	-- Step 49: Arbor Tarantula
 	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
@@ -297,7 +294,7 @@ return {
 	-- Step 53: Lake Nazferiti
 	-- {area:37} Lake Nazferiti
 	-- plural, as words: Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal · Venture Co. Agents = {npc:260429} Venture Co. Agent · Shadowmaw Panthers = {npc:684} Shadowmaw Panther
-	["Head south from the compound to {area:37}. The Venture Co. Geologists in the shore camps carry the Tumbled Crystals; Venture Co. Agents (39) walk among them. Stay on the shore: stealthed Shadowmaw Panthers prowl the jungle south and east of the lake."] = "",
+	["Head south from the compound to {area:37}. The Venture Co. Geologists in the shore camps carry the Tumbled Crystals; Venture Co. Agents (39) walk among them. Stay on the shore: stealthed Shadowmaw Panthers prowl the jungle south and east of the lake."] = "Geh vom Lager nach Süden nach {area:37}. Die Geologen der Venture Co. in den Strandlagern tragen die Gerommelten Kristalle; Venture Co. Agents (39) laufen unter ihnen umher. Bleibe am Ufer: getarnte Schattentatzenpanther streifen durch den Dschungel südlich und östlich des Sees.",
 
 	-- Step 54: Panther Mastery
 	-- {npc:728} Bhag'thera
@@ -328,7 +325,7 @@ return {
 
 	-- Step 63: Kebok
 	-- {area:37} Lake Nazferiti
-	["The crystals gathered at {area:37}"] = "",
+	["The crystals gathered at {area:37}"] = "Die bei {area:37} gesammelten Kristalle",
 
 	-- Step 64: Booty Bay
 	-- {npc:773} Krazek · {quest:2864} Tran'rek · {zone:1446} Tanaris
@@ -336,7 +333,7 @@ return {
 
 	-- Step 65: Stoley's Debt
 	-- {quest:2872} Stoley's Debt
-	["If you didn't take {quest:2872} on the earlier stop: \"Sea Wolf\" MacKinley, on the top floor."] = "",
+	["If you didn't take {quest:2872} on the earlier stop: \"Sea Wolf\" MacKinley, on the top floor."] = "Falls du {quest:2872} nicht am früheren Stopp angenommen hast: \"Sea Wolf\" MacKinley, im obersten Stockwerk.",
 
 	-- Step 66: Fly to Stormwind
 	-- {area:35} Booty Bay
@@ -404,7 +401,7 @@ return {
 
 	-- Step 85: Amaryllis Webb
 	-- {npc:217412} Amaryllis Webb · {quest:93176} My Little Friends · {zone:1417} Arathi Highlands
-	["{npc:217412}: {quest:93176}, from the {zone:1417} guide"] = "",
+	["{npc:217412}: {quest:93176}, from the {zone:1417} guide"] = "{npc:217412}: {quest:93176}, aus dem {zone:1417}-Führer",
 
 	-- Step 86: Watcher Biggs
 	-- {npc:5476} Watcher Biggs
@@ -425,22 +422,22 @@ return {
 
 	-- Step 89: Watcher Biggs
 	-- {area:1438} Nethergarde Keep
-	["for {area:1438}, just south of the swamp"] = "",
+	["for {area:1438}, just south of the swamp"] = "für {area:1438}, direkt südlich des Sumpfes",
 
 	-- Step 90: Into the Blasted Lands
 	-- {zone:1419} Blasted Lands
-	["Into the {zone:1419}"] = "",
+	["Into the {zone:1419}"] = "Nach {zone:1419}",
 	-- {zone:1419} Blasted Lands · {area:75} Stonard · {area:1438} Nethergarde Keep · {npc:5982} Black Slayer
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang
-	["Follow the road south-east from Biggs to the pass into the {zone:1419}, keeping clear of {area:75}, the Horde town to the north-east.\nDown the pass, the road bends east to {area:1438}. Careful: {npc:5982} vultures (46) and Starving Snickerfangs (45) hunt in the dry hills south of the road: stay on it and keep moving."] = "",
+	["Follow the road south-east from Biggs to the pass into the {zone:1419}, keeping clear of {area:75}, the Horde town to the north-east.\nDown the pass, the road bends east to {area:1438}. Careful: {npc:5982} vultures (46) and Starving Snickerfangs (45) hunt in the dry hills south of the road: stay on it and keep moving."] = "Folge der Straße nach Südosten von Biggs zum Pass in den {zone:1419} und meide {area:75}, die Hordestadt im Nordosten.\nDen Pass hinunter biegt die Straße nach Osten zu {area:1438}. Vorsicht: {npc:5982}-Geier (46) und Verhungernde Kicherfänge (45) jagen in den trockenen Hügeln südlich der Straße: Bleib auf ihr und bleib in Bewegung.",
 	-- {zone:1419} Blasted Lands
-	["The pass to the {zone:1419}"] = "",
+	["The pass to the {zone:1419}"] = "Der Pass zur {zone:1419}",
 	-- {area:1438} Nethergarde Keep
-	["The road to {area:1438}"] = "",
+	["The road to {area:1438}"] = "Die Straße nach {area:1438}",
 
 	-- Step 91: Nethergarde Keep
 	-- {npc:5385} Watcher Mahar Ba · {npc:5393} Quartermaster Lungertz
-	["{npc:5385} is upstairs in the keep and {npc:5393} inside it; the gryphon master stands south of the keep."] = "",
+	["{npc:5385} is upstairs in the keep and {npc:5393} inside it; the gryphon master stands south of the keep."] = "{npc:5385} ist oben in der Festung und {npc:5393} drinnen; der Greifenmeister steht südlich der Festung.",
 	-- {npc:5385} Watcher Mahar Ba
 	["{npc:5385}, upstairs"] = "{npc:5385}, oben",
 

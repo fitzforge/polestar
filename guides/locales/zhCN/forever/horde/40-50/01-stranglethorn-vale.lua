@@ -14,9 +14,9 @@ return {
 
 	-- Step 2: Genavie Callow
 	-- {npc:4486} Genavie Callow · {zone:1417} Arathi Highlands
-	["{npc:4486} stands beside the flight master you land at: the Dabyrie heads from the {zone:1417}."] = "",
+	["{npc:4486} stands beside the flight master you land at: the Dabyrie heads from the {zone:1417}."] = "落地后找飞行管理员旁的{npc:4486}，把在{zone:1417}收集的达比雷一家头颅交给她。",
 	-- {npc:4486} Genavie Callow
-	["{npc:4486}, beside the flight master"] = "",
+	["{npc:4486}, beside the flight master"] = "{npc:4486}在飞行管理员旁",
 
 	-- Step 3: Undercity trainers
 	-- {zone:1458} Undercity
@@ -42,14 +42,16 @@ return {
 	["{area:340} flight master"] = "{area:340}的飞行管理员",
 
 	-- Step 7: Grom'gol Base Camp
+	-- {npc:5814} Innkeeper Thulbek
+	["{npc:5814}, by the flight master: hearth back here after the trainer trip at 40"] = "",
 	-- {npc:2519} Kin'weelay · {npc:1061} Gan'zulah
 	["{npc:2519}: the legend lies in Zul'Kunda, where this guide goes for {npc:1061}"] = "{npc:2519}：传说就在祖昆达废墟，本指南会去那里找{npc:1061}",
 	-- {object:2076} Bubbling Cauldron · {npc:2519} Kin'weelay · {quest:1261} Marg Speaks · {npc:4791} Nazeer Bloodpike · {area:496} Brackenwall Village
-	["the {object:2076} beside {npc:2519}: {quest:1261}, for {npc:4791} in {area:496} on the Dustwallow guide, where the crabs drop the pendant"] = "",
+	["the {object:2076} beside {npc:2519}: {quest:1261}, for {npc:4791} in {area:496} on the Dustwallow guide, where the crabs drop the pendant"] = "{object:2076}在{npc:2519}旁边，从大锅接{quest:1261}。按尘泥沼泽指南交给{npc:4791}，他在{area:496}，那里的螃蟹会掉落吊坠",
 	-- {npc:2519} Kin'weelay · {quest:598} Split Bone Necklace
-	["{npc:2519}: {quest:598}, the trophy skulls stand in the Skullsplitter ruins, on this guide's second loop"] = "",
+	["{npc:2519}: {quest:598}, the trophy skulls stand in the Skullsplitter ruins, on this guide's second loop"] = "找{npc:2519}接{quest:598}。按本指南走第二圈时，去劈颅废墟找颅骨堆",
 	-- {npc:2497} Nimboya · {quest:2932} Grim Message · {zone:1425} Hinterlands
-	["{npc:2497}: {quest:2932}, for the {zone:1425}, around level 48"] = "",
+	["{npc:2497}: {quest:2932}, for the {zone:1425}, around level 48"] = "找{npc:2497}接{quest:2932}，留到去{zone:1425}时做，大约48级",
 
 	-- Step 8: Jungle Stalkers
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
@@ -98,7 +100,7 @@ return {
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, on the balcony beside MacKinley"] = "{npc:2496}，在马克基雷旁边的阳台上",
 	-- {npc:2496} Baron Revilgaz · {area:37} Lake Nazferiti
-	["{npc:2496}: Cozzle's footlocker is in his house by {area:37}, on your way north to Nesingwary"] = "",
+	["{npc:2496}: Cozzle's footlocker is in his house by {area:37}, on your way north to Nesingwary"] = "{npc:2496}的任务要找考兹尔的箱子，箱子在{area:37}旁考兹尔的屋里。往北去找奈辛瓦里时顺路拿",
 	["Inside"] = "在里面",
 
 	-- Step 16: Bloodsail Correspondence
@@ -114,11 +116,11 @@ return {
 	["Keep fangs from these same elders for Unbagwa ({quest:348}, with a group)."] = "从这些长者身上留着獠牙给安巴格瓦（{quest:348}，需要组队）。",
 
 	-- Step 19: Mistvale giblets
-	["Mistvale giblets"] = "",
+	["Mistvale giblets"] = "迷雾谷猩猩的内脏",
 
 	-- Step 20: Mistvale gorillas at 39
-	["Mistvale gorillas at 39"] = "",
-	["Look for lone level 40 elders in this same camp for the sinew and giblets. Leave level 41 gorillas alone; don't stay just for extra fangs."] = "",
+	["Mistvale gorillas at 39"] = "39级打迷雾谷猩猩",
+	["Look for lone level 40 elders in this same camp for the sinew and giblets. Leave level 41 gorillas alone; don't stay just for extra fangs."] = "在这个营地找落单的40级老迈的迷雾谷猩猩，打肌腱和内脏。避开41级的猩猩，别为了多打猩猩牙在这里多留。",
 
 	-- Step 21: Venture Co. mine
 	["Venture Co. mine"] = "风险投资公司矿洞",
@@ -141,12 +143,12 @@ return {
 
 	-- Step 25: Foreman Cozzle's house
 	-- {npc:4723} Foreman Cozzle
-	["{npc:4723}'s house"] = "",
+	["{npc:4723}'s house"] = "{npc:4723}的房屋",
 	-- {npc:4723} Foreman Cozzle · {area:37} Lake Nazferiti
 	-- plural, as words: Venture Co. Agents = {npc:260429} Venture Co. Agent
-	["On the way north, a short way east of the road: {npc:4723}'s house stands on the north shore of {area:37}. {npc:4723} (38) carries the key to his footlocker, inside the house; the Venture Co. Agents (39) stand in and around it: pull them one at a time. Then on north-west to Nesingwary's camp."] = "",
+	["On the way north, a short way east of the road: {npc:4723}'s house stands on the north shore of {area:37}. {npc:4723} (38) carries the key to his footlocker, inside the house; the Venture Co. Agents (39) stand in and around it: pull them one at a time. Then on north-west to Nesingwary's camp."] = "往北走时，从大路往东走一小段。{npc:4723}的房屋就在{area:37}北岸。{npc:4723}（38级）带着屋内箱子的钥匙。屋里和屋外都有风险投资公司密探（39级），一次只引一个。之后往西北去奈辛瓦里的营地。",
 	-- {object:20691} Cozzle's Footlocker
-	["{object:20691}, inside the house"] = "",
+	["{object:20691}, inside the house"] = "{object:20691}在屋里",
 
 	-- Step 26: Nesingwary's camp
 	["Nesingwary's camp"] = "奈辛瓦里的营地",
@@ -194,38 +196,42 @@ return {
 	-- {object:2076} Bubbling Cauldron · {npc:2497} Nimboya
 	["the {object:2076}, beside {npc:2497}"] = "{object:2076}，在{npc:2497}旁边",
 	-- {npc:2519} Kin'weelay
-	["{npc:2519}, if you didn't take it on the first stop: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "",
+	["{npc:2519}, if you didn't take it on the first stop: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "如果第一趟没接，这次找{npc:2519}接。沿这条环线继续走，颅骨堆在劈颅废墟",
 	-- {npc:2519} Kin'weelay · {area:104} Vile Reef
 	["{npc:2519}: the cavern entrance under the {area:104}, west of the camp"] = "{npc:2519}：洞穴入口在营地西边的{area:104}下方",
 
 	-- Step 39: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {npc:4752} Kildar · {object:172958} Valley of Honor · {npc:3362} Ogunaro Wolfrunner · {zone:1444} Feralas
-	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454}: {npc:4752} teaches Orcs in the {object:172958}, by {npc:3362}'s kennel (wolves 20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "骑术需要40级，花费100金；学会后会获得一匹坐骑，而荆棘谷之后的{zone:2548}没有坐骑要走很久。从{object:3202}的塔乘飞艇前往{zone:1454}：{npc:4752}在{object:172958}的{npc:3362}狼舍旁教兽人骑术（狼每只20金）。然后乘飞艇返回{object:3202}。金币不够？跳过此步骤：{zone:1444}指南会在45级左右再次经过{zone:1454}。",
+	-- was: ["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454}: {npc:4752} teaches Orcs in the {object:172958}, by {npc:3362}'s kennel (wolves 20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "骑术需要40级，花费100金；学会后会获得一匹坐骑，而荆棘谷之后的{zone:2548}没有坐骑要走很久。从{object:3202}的塔乘飞艇前往{zone:1454}：{npc:4752}在{object:172958}的{npc:3362}狼舍旁教兽人骑术（狼每只20金）。然后乘飞艇返回{object:3202}。金币不够？跳过此步骤：{zone:1444}指南会在45级左右再次经过{zone:1454}。"
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454}: {npc:4752} teaches Orcs in the {object:172958}, by {npc:3362}'s kennel (wolves 20 gold each). Then hearth back to {object:3202}, or take the zeppelin if your hearthstone is cooling down. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "",
 	-- {npc:4752} Kildar
 	["{npc:4752}, riding trainer"] = "{npc:4752}，骑术训练师",
 
 	-- Step 40: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1411} Durotar · {area:367} Sen'jin Village · {npc:7953} Xar'Ti · {zone:1444} Feralas
-	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454} and go south down the {zone:1411} road to {area:367}: {npc:7953} teaches Trolls there, with Zjolnir's raptors (20 gold each). Then back to the zeppelin for {object:3202}. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "骑术需要40级，花费100金；学会后会获得一匹坐骑，而荆棘谷之后的{zone:2548}没有坐骑要走很久。从{object:3202}的塔乘飞艇前往{zone:1454}，沿{zone:1411}的道路向南前往{area:367}：{npc:7953}在那里教巨魔骑术，旁边有卓尼尔的迅猛龙（每只20金）。然后返回飞艇前往{object:3202}。金币不够？跳过此步骤：{zone:1444}指南会在45级左右再次经过{zone:1454}。",
+	-- was: ["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454} and go south down the {zone:1411} road to {area:367}: {npc:7953} teaches Trolls there, with Zjolnir's raptors (20 gold each). Then back to the zeppelin for {object:3202}. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "骑术需要40级，花费100金；学会后会获得一匹坐骑，而荆棘谷之后的{zone:2548}没有坐骑要走很久。从{object:3202}的塔乘飞艇前往{zone:1454}，沿{zone:1411}的道路向南前往{area:367}：{npc:7953}在那里教巨魔骑术，旁边有卓尼尔的迅猛龙（每只20金）。然后返回飞艇前往{object:3202}。金币不够？跳过此步骤：{zone:1444}指南会在45级左右再次经过{zone:1454}。"
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454} and go south down the {zone:1411} road to {area:367}: {npc:7953} teaches Trolls there, with Zjolnir's raptors (20 gold each). Then hearth back to {object:3202}, or take the zeppelin from {zone:1454} if your hearthstone is cooling down. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "",
 	-- {npc:7953} Xar'Ti
 	["{npc:7953}, riding trainer"] = "{npc:7953}，骑术训练师",
 
 	-- Step 41: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {area:222} Bloodhoof Village · {npc:3690} Kar Stormsinger · {npc:3685} Harb Clawhoof · {zone:1444} Feralas
-	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454}, fly to {zone:1456} and ride down to {area:222}: {npc:3690} teaches Tauren there, with {npc:3685}'s kodos (20 gold each). Then fly back to {zone:1454} for the {object:3202} zeppelin. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1456} again at about 45."] = "骑术需要40级，花费100金；学会后会获得一匹坐骑，而荆棘谷之后的{zone:2548}没有坐骑要走很久。从{object:3202}的塔乘飞艇前往{zone:1454}，飞往{zone:1456}再骑行下山前往{area:222}：{npc:3690}在那里教牛头人骑术，旁边有{npc:3685}的科多兽（每只20金）。然后飞回{zone:1454}乘飞艇前往{object:3202}。金币不够？跳过此步骤：{zone:1444}指南会在45级左右再次经过{zone:1456}。",
+	-- was: ["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454}, fly to {zone:1456} and ride down to {area:222}: {npc:3690} teaches Tauren there, with {npc:3685}'s kodos (20 gold each). Then fly back to {zone:1454} for the {object:3202} zeppelin. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1456} again at about 45."] = "骑术需要40级，花费100金；学会后会获得一匹坐骑，而荆棘谷之后的{zone:2548}没有坐骑要走很久。从{object:3202}的塔乘飞艇前往{zone:1454}，飞往{zone:1456}再骑行下山前往{area:222}：{npc:3690}在那里教牛头人骑术，旁边有{npc:3685}的科多兽（每只20金）。然后飞回{zone:1454}乘飞艇前往{object:3202}。金币不够？跳过此步骤：{zone:1444}指南会在45级左右再次经过{zone:1456}。"
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454}, fly to {zone:1456} and ride down to {area:222}: {npc:3690} teaches Tauren there, with {npc:3685}'s kodos (20 gold each). Then hearth back to {object:3202}, or fly back to {zone:1454} for the {object:3202} zeppelin if your hearthstone is cooling down. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1456} again at about 45."] = "",
 	-- {npc:3690} Kar Stormsinger
 	["{npc:3690}, riding trainer"] = "{npc:3690}，骑术训练师",
 
 	-- Step 42: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {zone:1444} Feralas
-	["Riding needs level 40 and costs 100 gold; learning it gives you a Galestrider, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454} and fly to {zone:1456}: the skyboat to {zone:2521} leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes, and {npc:265756} teaches Skyborne at the {area:17684} in {area:16638}. Then back to {zone:1454} for the {object:3202} zeppelin. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "骑术需要40级，花费100金；学会后会获得一匹疾风行者，而荆棘谷之后的{zone:2548}没有坐骑要走很久。从{object:3202}的塔乘飞艇前往{zone:1454}，再飞往{zone:1456}：前往{zone:2521}的天空之船大约每五分钟从{zone:1456}北边、{area:17045}南面的悬崖出发，{npc:265756}在{area:16638}的{area:17684}教天裔骑术。然后返回{zone:1454}乘飞艇前往{object:3202}。金币不够？跳过此步骤：{zone:1444}指南会在45级左右再次经过{zone:1454}。",
+	-- was: ["Riding needs level 40 and costs 100 gold; learning it gives you a Galestrider, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454} and fly to {zone:1456}: the skyboat to {zone:2521} leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes, and {npc:265756} teaches Skyborne at the {area:17684} in {area:16638}. Then back to {zone:1454} for the {object:3202} zeppelin. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "骑术需要40级，花费100金；学会后会获得一匹疾风行者，而荆棘谷之后的{zone:2548}没有坐骑要走很久。从{object:3202}的塔乘飞艇前往{zone:1454}，再飞往{zone:1456}：前往{zone:2521}的天空之船大约每五分钟从{zone:1456}北边、{area:17045}南面的悬崖出发，{npc:265756}在{area:16638}的{area:17684}教天裔骑术。然后返回{zone:1454}乘飞艇前往{object:3202}。金币不够？跳过此步骤：{zone:1444}指南会在45级左右再次经过{zone:1454}。"
+	["Riding needs level 40 and costs 100 gold; learning it gives you a Galestrider, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454} and fly to {zone:1456}: the skyboat to {zone:2521} leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes, and {npc:265756} teaches Skyborne at the {area:17684} in {area:16638}. Then hearth back to {object:3202}, or go back to {zone:1454} for the {object:3202} zeppelin if your hearthstone is cooling down. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "",
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
 	["{npc:265756}, riding trainer, at the {area:17684} in {area:16638}"] = "{npc:265756}，骑术训练师，在{area:16638}的{area:17684}",
 
 	-- Step 43: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1458} Undercity · {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {zone:1444} Feralas · {zone:1446} Tanaris
-	-- was: ["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {area:1497}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1435} guide passes the {area:1497} again at about 47."] = "骑术需要40级，花费100金；学会后会获得一匹坐骑，而荆棘谷之后的{zone:2548}没有坐骑要走很久。从{object:3202}的塔乘飞艇前往{area:1497}的飞艇塔：{npc:4773}在北边不远的{area:159}教被遗忘者骑术，旁边有{npc:4731}的骸骨战马（每匹20金）。然后乘飞艇返回{object:3202}。金币不够？跳过此步骤：{zone:1435}指南会在47级左右再次经过{area:1497}。"
-	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {zone:1458}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1444} & {zone:1446} guide passes the {zone:1458} again at about 45."] = "",
+	-- was: ["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {zone:1458}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1444} & {zone:1446} guide passes the {zone:1458} again at about 45."] = "骑术需要40级，花费100金，学会后会获得一匹坐骑。没坐骑的话，离开荆棘谷后走{zone:2548}这段路要很久。从{object:3202}的飞艇塔乘飞艇去{zone:1458}的飞艇塔。{npc:4773}在{area:159}教被遗忘者骑术，往北骑一小段就到。{npc:4731}也在那里卖骸骨军马(每匹20金)。然后乘飞艇返回{object:3202}。金币不够就跳过这步，{zone:1444}和{zone:1446}指南还会经过{zone:1458}，那时大约45级。"
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {zone:1458}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then hearth back to {object:3202}, or take the zeppelin if your hearthstone is cooling down. Short of gold? Skip this step: the {zone:1444} & {zone:1446} guide passes the {zone:1458} again at about 45."] = "",
 
 	-- Step 44: Your mount at 40
 	["Your mount at 40"] = "40级的坐骑",
@@ -251,9 +257,9 @@ return {
 	-- {area:35} Booty Bay
 	["Head south to {area:35}. Shaky Phillipe waits on the docks."] = "向南前往 {area:35}。“病鬼”菲利普 在码头等着。",
 	-- {npc:2496} Baron Revilgaz
-	["{npc:2496}, on the balcony"] = "",
+	["{npc:2496}, on the balcony"] = "{npc:2496}在阳台上",
 	-- {npc:2496} Baron Revilgaz · {area:2240} Mirage Raceway · {zone:1444} Feralas · {zone:1446} Tanaris
-	["{npc:2496}: for Pozzik at the {area:2240}, on the {zone:1444} & {zone:1446} guide's way"] = "",
+	["{npc:2496}: for Pozzik at the {area:2240}, on the {zone:1444} & {zone:1446} guide's way"] = "在{npc:2496}处接，之后交给{area:2240}的普兹克。按{zone:1444}和{zone:1446}指南走时会顺路经过",
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs: the tusks come from the Skullsplitters, later on this loop"] = "{npc:737}在楼上：獠牙来自劈颅巨魔，本轮路线稍后会经过",
 	["MacKinley: keep it, the ghost pirates (43-44) wait for your Stranglethorn stop at about 45"] = "麦金雷：保留任务，幽灵海盗（43-44级）留到约45级再来荆棘谷时处理",
@@ -268,13 +274,13 @@ return {
 
 	-- Step 48: Whiskey Slim and Fin Fizracket
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
-	["{npc:2491} and {npc:2486}"] = "",
+	["{npc:2491} and {npc:2486}"] = "{npc:2491}和{npc:2486}",
 	-- {npc:2491} Whiskey Slim · {zone:1444} Feralas · {zone:1446} Tanaris · {area:35} Booty Bay
 	["{npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "旅店里的{npc:2491}和顶楼的“海狼”马克基雷从40级起提供这些任务：现在就接。不到40级的话，{zone:1444}和{zone:1446}指南的{area:35}那一站会再次提供。",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "{npc:2491}在旅店里：他的酒瓶被冲到了{zone:1425}海岸，约48级时再去",
 	-- {quest:2872} Stoley's Debt · {zone:1446} Tanaris
-	["MacKinley, on the top floor: {quest:2872}, for Stoley in {zone:1446}"] = "",
+	["MacKinley, on the top floor: {quest:2872}, for Stoley in {zone:1446}"] = "在顶层的马克基雷处接{quest:2872}，交给{zone:1446}的斯杜雷",
 
 	-- Step 49: Fin Fizracket
 	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
@@ -297,12 +303,12 @@ return {
 
 	-- Step 52: Zul'Mamwe
 	["Zul'Mamwe"] = "祖玛维废墟",
-	["The warriors in the northern ruins (39-40) drop both tusks and necklaces. Pull from the edge; leave the chief and his two guards to the south alone."] = "",
+	["The warriors in the northern ruins (39-40) drop both tusks and necklaces. Pull from the edge; leave the chief and his two guards to the south alone."] = "北边废墟的战士(39-40)既掉獠牙，也掉项链。从外围引怪，避开南边的首领和他的两名守卫。",
 
 	-- Step 53: Zul'Mamwe and Balia'mah trophy skulls
-	["Zul'Mamwe and Balia'mah trophy skulls"] = "",
+	["Zul'Mamwe and Balia'mah trophy skulls"] = "祖玛维和巴里亚曼的颅骨堆",
 	-- {object:3202} Grom'gol
-	["Look for the trophy skulls in the small ruins north of Zul'Mamwe's warriors.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "",
+	["Look for the trophy skulls in the small ruins north of Zul'Mamwe's warriors.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "去祖玛维战士营地北边的小废墟找颅骨堆。\n最后的颅骨堆在西边走不远的废墟里，就在回{object:3202}的路上。",
 
 	-- Step 54: Kin'weelay
 	-- {object:3202} Grom'gol
@@ -369,30 +375,29 @@ return {
 
 	-- Step 78: Harborage
 	-- {area:657} Harborage · {zone:1430} Deadwind Pass
-	-- was: ["Ride west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}."] = "沿道路向西骑往{area:657}的德莱尼营地，靠近{zone:1430}的入口。"
-	["Head west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}."] = "",
+	["Head west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}."] = "沿路向西前往{area:657}的德莱尼营地，就在从{zone:1430}进来的路口附近。",
 
 	-- Step 79: Pool of Tears
 	-- {area:75} Stonard · {quest:1424} Pool of Tears
-	["Back east along the road, past {area:75}: the Atal'ai artifacts lie in the water and on the banks of the {quest:1424}. Only Sawfin Frenzies (38-40) swim there."] = "",
+	["Back east along the road, past {area:75}: the Atal'ai artifacts lie in the water and on the banks of the {quest:1424}. Only Sawfin Frenzies (38-40) swim there."] = "沿路向东返回，经过{area:75}。阿塔莱神器在{quest:1424}的水里和岸边，水里只有锯鳍狂鱼(38-40)。",
 
 	-- Step 80: Misty Reed Post
 	-- {npc:5592} Tok'Kar · {npc:5593} Katar
-	["Follow the road south-east to the small Horde post on the shore: {npc:5592} takes the crocolisk flanks, and {npc:5593} stands beside him."] = "",
+	["Follow the road south-east to the small Horde post on the shore: {npc:5592} takes the crocolisk flanks, and {npc:5593} stands beside him."] = "沿路往东南走，到岸边的部落小哨站。{npc:5592}收新鲜的盐齿鳄鱼肉，{npc:5593}就在他旁边。",
 
 	-- Step 81: Sawtooth snappers
 	["Sawtooth snappers"] = "盐齿钳嘴鳄",
 	-- {npc:272377} Methuselah Crab
 	-- plural, as words: Sawtooth Snappers = {npc:1087} Sawtooth Snapper
-	["The Sawtooth Snappers (41-42) line the strand south of the post; nearly every one drops a claw. Leave the murlocs further along the shore for your next swamp visit.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "",
+	["The Sawtooth Snappers (41-42) line the strand south of the post; nearly every one drops a claw. Leave the murlocs further along the shore for your next swamp visit.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "哨站以南的岸边都是盐齿钳嘴鳄(41-42)，几乎每只都会掉一只爪子。沿海岸再往前的鱼人留到下次来沼泽再打。\n小心，东南边的岸上有一只{npc:272377}(60级)在巡游，绕远一点。",
 
 	-- Step 82: Misty Reed Post
 	-- {npc:5593} Katar
-	["{npc:5593}: the murlocs (41-44) wait for your next swamp visit"] = "",
+	["{npc:5593}: the murlocs (41-44) wait for your next swamp visit"] = "{npc:5593}的任务要打鱼人(41-44)，留到下次来沼泽再做",
 
 	-- Step 83: Stonard
 	-- {area:75} Stonard · {npc:1443} Fel'zerul · {quest:1430} Fresh Meat · {npc:5593} Katar
-	["Back north-west along the road to {area:75}: {npc:1443}, on the top floor, takes the artifacts. {quest:1430}'s crawlers and {npc:5593}'s murlocs wait for your next swamp visit."] = "",
+	["Back north-west along the road to {area:75}: {npc:1443}, on the top floor, takes the artifacts. {quest:1430}'s crawlers and {npc:5593}'s murlocs wait for your next swamp visit."] = "沿路往西北回到{area:75}，把神器交给顶层的{npc:1443}。{quest:1430}的螃蟹和{npc:5593}任务里的鱼人都留到下次来沼泽再打。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Below ground"] = "在地下",
@@ -434,7 +439,12 @@ return {
 	-- ["Ride west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}."] = "沿道路向西骑往{area:657}的德莱尼营地，靠近{zone:1430}的入口。",
 	-- ["Ride west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}. {quest:698} goes to {npc:5592} at {area:1978} on the next swamp visit: keep the flanks."] = "沿路骑行向西，前往{area:657}的德莱尼营地，靠近从{zone:1430}过来的入口。{quest:698}留到下次来沼泽时，交给{area:1978}的{npc:5592}；保留鳄鱼肉。",
 	-- ["Ride west to {object:3202}."] = "向西骑往{object:3202}。",
+	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a Galestrider, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454} and fly to {zone:1456}: the skyboat to {zone:2521} leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes, and {npc:265756} teaches Skyborne at the {area:17684} in {area:16638}. Then back to {zone:1454} for the {object:3202} zeppelin. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "骑术需要40级，花费100金；学会后会获得一匹疾风行者，而荆棘谷之后的{zone:2548}没有坐骑要走很久。从{object:3202}的塔乘飞艇前往{zone:1454}，再飞往{zone:1456}：前往{zone:2521}的天空之船大约每五分钟从{zone:1456}北边、{area:17045}南面的悬崖出发，{npc:265756}在{area:16638}的{area:17684}教天裔骑术。然后返回{zone:1454}乘飞艇前往{object:3202}。金币不够？跳过此步骤：{zone:1444}指南会在45级左右再次经过{zone:1454}。",
 	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {area:1497}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1435} guide passes the {area:1497} again at about 47."] = "骑术需要40级，花费100金；学会后会获得一匹坐骑，而荆棘谷之后的{zone:2548}没有坐骑要走很久。从{object:3202}的塔乘飞艇前往{area:1497}的飞艇塔：{npc:4773}在北边不远的{area:159}教被遗忘者骑术，旁边有{npc:4731}的骸骨战马（每匹20金）。然后乘飞艇返回{object:3202}。金币不够？跳过此步骤：{zone:1435}指南会在47级左右再次经过{area:1497}。",
+	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {zone:1458}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1444} & {zone:1446} guide passes the {zone:1458} again at about 45."] = "骑术需要40级，花费100金，学会后会获得一匹坐骑。没坐骑的话，离开荆棘谷后走{zone:2548}这段路要很久。从{object:3202}的飞艇塔乘飞艇去{zone:1458}的飞艇塔。{npc:4773}在{area:159}教被遗忘者骑术，往北骑一小段就到。{npc:4731}也在那里卖骸骨军马(每匹20金)。然后乘飞艇返回{object:3202}。金币不够就跳过这步，{zone:1444}和{zone:1446}指南还会经过{zone:1458}，那时大约45级。",
+	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454} and go south down the {zone:1411} road to {area:367}: {npc:7953} teaches Trolls there, with Zjolnir's raptors (20 gold each). Then back to the zeppelin for {object:3202}. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "骑术需要40级，花费100金；学会后会获得一匹坐骑，而荆棘谷之后的{zone:2548}没有坐骑要走很久。从{object:3202}的塔乘飞艇前往{zone:1454}，沿{zone:1411}的道路向南前往{area:367}：{npc:7953}在那里教巨魔骑术，旁边有卓尼尔的迅猛龙（每只20金）。然后返回飞艇前往{object:3202}。金币不够？跳过此步骤：{zone:1444}指南会在45级左右再次经过{zone:1454}。",
+	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454}, fly to {zone:1456} and ride down to {area:222}: {npc:3690} teaches Tauren there, with {npc:3685}'s kodos (20 gold each). Then fly back to {zone:1454} for the {object:3202} zeppelin. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1456} again at about 45."] = "骑术需要40级，花费100金；学会后会获得一匹坐骑，而荆棘谷之后的{zone:2548}没有坐骑要走很久。从{object:3202}的塔乘飞艇前往{zone:1454}，飞往{zone:1456}再骑行下山前往{area:222}：{npc:3690}在那里教牛头人骑术，旁边有{npc:3685}的科多兽（每只20金）。然后飞回{zone:1454}乘飞艇前往{object:3202}。金币不够？跳过此步骤：{zone:1444}指南会在45级左右再次经过{zone:1456}。",
+	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454}: {npc:4752} teaches Orcs in the {object:172958}, by {npc:3362}'s kennel (wolves 20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "骑术需要40级，花费100金；学会后会获得一匹坐骑，而荆棘谷之后的{zone:2548}没有坐骑要走很久。从{object:3202}的塔乘飞艇前往{zone:1454}：{npc:4752}在{object:172958}的{npc:3362}狼舍旁教兽人骑术（狼每只20金）。然后乘飞艇返回{object:3202}。金币不够？跳过此步骤：{zone:1444}指南会在45级左右再次经过{zone:1454}。",
 	-- ["Skullsplitter warriors"] = "劈颅战士",
 	-- ["South of Booty Bay the Bloodsail swashbucklers camp on the {area:43}; the charts and the orders lie in their tents and in the rowboat beside the larger camp. Any Bloodsail can carry snuff and {npc:2493}'s eye, so keep killing until you have both."] = "在藏宝海湾南边，血帆流氓在{area:43}扎营；血帆海图和血帆计划书就在他们的帐篷里，以及较大营地旁的小船里。任何血帆海盗都可能携带鼻烟和{npc:2493}的眼睛，所以一直杀到两样都拿到为止。",
 	-- ["Take the road north out of {area:35}; Unbagwa sits on a hill in {area:1737}, east of the road."] = "沿道路向北离开{area:35}；安巴格瓦坐在道路东边{area:1737}的一座山丘上。",

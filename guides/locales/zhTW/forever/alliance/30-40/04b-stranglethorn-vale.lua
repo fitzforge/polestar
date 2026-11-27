@@ -136,7 +136,7 @@ return {
 	["Snapjaw Crocolisks"] = "鉗嘴鱷魚",
 	-- {area:35} Booty Bay
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
-	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}."] = "鉗嘴鱷魚在叢林中央的河邊曬太陽，就在往南前往{area:35}的路上。",
+	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}. Then hearth back to {area:35}: the hearthstone is still bound there from the first loop."] = "",
 
 	-- Step 21: Tokal
 	-- {npc:215643} Tokal · {object:56910} Salty Sailor Tavern · {item:4600} Cherry Grog · {npc:2832} Nixxrax Fillamug
@@ -172,6 +172,7 @@ return {
 	-- ["North along the coast to the ruins on the hill: the last two tablets lie there. Pick up Green Hills pages as they drop."] = "沿著海岸向北前往山丘上的廢墟：最後兩塊石板就在那裡。綠色山丘的書頁掉落時記得撿起來。",
 	-- ["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}, then lead him out of the ruins. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "沿海岸向北前往山丘上的廢墟：最後兩塊石板就在那裡。哥布林{npc:268992}被關在第三塊石板旁的籠子裡：任何血頂食人妖都可能掉落他的{item:277957}，之後帶他走出廢墟。遭竊的貨物在廢墟東緣。綠丘書頁掉落時順手撿起。\n小心：血頂狂戰士、獵頭者和巫醫（36-37級）盤踞廢墟中心：一次拉一隻。",
 	-- ["Skullsplitter trolls"] = "劈顱食人妖",
+	-- ["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}."] = "鉗嘴鱷魚在叢林中央的河邊曬太陽，就在往南前往{area:35}的路上。",
 	-- ["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, and the Shadowmaw Panthers prowl stealthed in the jungle south and east of it."] = "從營地向南前往{area:37}：湖岸營地中的風險投資公司地質學家身上帶著打磨過的水晶，深喉獵豹則潛行在湖泊南邊和東邊的叢林中。",
 	-- ["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals. Careful: Venture Co. Agents (39) walk among them: take the Geologists on the camps' edges, one at a time. Shadowmaw Panthers (37-38) prowl stealthed in the jungle south and east of the lake: keep to the shore camps."] = "從營地向南前往{area:37}：湖岸營地中的風險投資公司地質學家身上帶著打磨過的水晶。小心：風險投資公司特務（39級）在他們之間走動：從營地邊緣一次拉一個地質學家。深喉獵豹（37-38級）潛行在湖泊南邊和東邊的叢林中：待在湖岸營地就好。",
 	-- ["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "劈顱食人妖佔據奈辛瓦里與{object:3202}之間道路東邊的廢墟。",

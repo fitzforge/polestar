@@ -300,6 +300,8 @@ mod lookup_codex;
 mod lookup_elites;
 #[path = "lookup-guides.rs"]
 mod lookup_guides;
+#[path = "lookup-skyborne.rs"]
+mod lookup_skyborne;
 #[path = "lookup-tooltip-performance.rs"]
 mod lookup_tooltip_performance;
 #[path = "lua-helper-paths.rs"]
@@ -386,6 +388,8 @@ mod packs_registry;
 #[path = "packs-visibility.rs"]
 mod packs_visibility;
 mod party;
+#[path = "party-card.rs"]
+mod party_card;
 #[path = "party-chat.rs"]
 mod party_chat;
 #[path = "party-group.rs"]
@@ -414,6 +418,8 @@ mod qol_spells;
 mod qol_target_list;
 #[path = "quest-links.rs"]
 mod quest_links;
+#[path = "quest-races.rs"]
+mod quest_races;
 #[path = "questdb-memory.rs"]
 mod questdb_memory;
 mod quests;
