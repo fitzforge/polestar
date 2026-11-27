@@ -7181,10 +7181,7 @@ t.guides["forever/professions/blacksmithing"] = (function() return {
 		["{skill:164} recipes at 100"] = "{skill:164}: рецепты на 100",
 		["{skill:164} recipes at 175"] = "{skill:164}: рецепты на 175",
 		["{skill:164} recipes at 185"] = "{skill:164}: рецепты на 185",
-		["{skill:164} recipes at 35"] = "{skill:164}: рецепты на 35",
-		["{spell:2660} to 35"] = "{spell:2660} до 35",
 		["{spell:2666} to 100"] = "{spell:2666} до 100",
-		["{spell:3320} to 75"] = "{spell:3320} до 75",
 		["{spell:3501} to 175"] = "{spell:3501} до 175",
 } end)()
 t.guides["forever/professions/cooking"] = (function() return {

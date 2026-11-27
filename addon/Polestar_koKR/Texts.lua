@@ -7345,7 +7345,6 @@ t.guides["forever/professions/alchemy"] = (function() return {
 } end)()
 t.guides["forever/professions/blacksmithing"] = (function() return {
 		["Artisan {skill:164}"] = "전문 {skill:164}",
-		["Back to a {skill:164} trainer: {spell:3320} (from 25, 1s). Also learn {spell:1230171} (1s): Forever's {skill:164} camp item, 1 {item:2835} and 1 {item:2840}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:164} quest from your starting area's camping guide (after The Great Outdoors) sends you to a blacksmithing trainer who teaches it free."] = "{skill:164} 상급자에게 돌아가세요: {spell:3320}(25부터, 1s). {spell:1230171}(1s)도 배우세요. Forever의 {skill:164} 야영 아이템으로, {item:2835} 1개와 {item:2840} 1개가 들고 모닥불 옆 야영지에 설치하면 강화 효과를 줍니다. 시작 지역의 야영 가이드에 있는 야영 기초 101: {skill:164} 퀘스트(위대한 야외 다음)가 대장장이 상급자에게 보내며, 거기서 무료로 가르칩니다.",
 		["Expert {skill:164}"] = "숙련 {skill:164}",
 		["Journeyman {skill:164}"] = "수습 {skill:164}",
 		["Learn {skill:164}"] = "{skill:164} 배우기",
@@ -7358,10 +7357,7 @@ t.guides["forever/professions/blacksmithing"] = (function() return {
 		["{skill:164} recipes at 100"] = "100에서 {skill:164} 제조법",
 		["{skill:164} recipes at 175"] = "175에서 {skill:164} 제조법",
 		["{skill:164} recipes at 185"] = "185에서 {skill:164} 제조법",
-		["{skill:164} recipes at 35"] = "35에서 {skill:164} 제조법",
-		["{spell:2660} to 35"] = "{spell:2660}: 35까지",
 		["{spell:2666} to 100"] = "{spell:2666}: 100까지",
-		["{spell:3320} to 75"] = "{spell:3320}: 75까지",
 		["{spell:3501} to 175"] = "{spell:3501}: 175까지",
 } end)()
 t.guides["forever/professions/cooking"] = (function() return {

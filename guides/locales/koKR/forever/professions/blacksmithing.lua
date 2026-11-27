@@ -9,45 +9,52 @@ return {
 	-- Step 1: Learn Blacksmithing
 	-- {skill:164} Blacksmithing
 	["Learn {skill:164}"] = "{skill:164} 배우기",
-	-- {skill:164} Blacksmithing · {item:5956} Blacksmith Hammer · {skill:186} Mining · {item:2835} Rough Stone · {item:2770} Copper Ore
+	-- {skill:164} Blacksmithing · {item:5956} Blacksmith Hammer · {skill:186} Mining · {item:2835} Rough Stone · {item:2770} Copper Ore · {item:2836} Coarse Stone
 	-- plural, as words: Copper Veins = {object:1731} Copper Vein
 	-- was: ["Apprentice {skill:164} lets you craft up to 75 for 10c, at any character level. Any {skill:164} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} (any blacksmithing supplier) and pair it with {skill:186}: {item:2835} and {item:2770} come from the Copper Veins of every starting zone. 1-75 takes about 1s of recipes, plus 286 {item:2835} to gather or buy."] = "{skill:164} 초급 단계는 10코퍼로 75까지 제작할 수 있게 해 주며, 캐릭터 레벨 제한이 없습니다. 당신 진영의 어떤 {skill:164} 상급자든 가르치며, 화살표가 가장 가까운 이를 가리킵니다. {item:5956}을(를) 대장기술 용품 상인에게서 사서 {skill:186}과(와) 함께 쓰세요. {item:2835}과(와) {item:2770}은(는) 모든 시작 지역의 구리 광맥에서 나옵니다. 1-75에는 제조법 약 1실버와 {item:2835} 286개를 채집하거나 구매해야 합니다."
-	["Apprentice {skill:164} lets you craft up to 75 for 10c, at any character level. Any {skill:164} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} (any blacksmithing supplier) and pair it with {skill:186}: {item:2835} and {item:2770} come from the Copper Veins of every starting zone. 1-75 takes about 1s of recipes, plus 195 {item:2835} to gather or buy."] = "",
+	["Apprentice {skill:164} lets you craft up to 75 for 10c, at any character level. Any {skill:164} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} (any blacksmithing supplier) and pair it with {skill:186}: {item:2835} and {item:2770} come from the Copper Veins of every starting zone. 1-75 takes about 2s 50c of recipes, plus 111 {item:2835} and 114 {item:2836} to gather or buy."] = "",
 
 	-- Step 2: Get Rough Stone
 	-- {item:2835} Rough Stone
 	["Get {item:2835}"] = "",
 	-- {item:2835} Rough Stone · {skill:164} Blacksmithing · {skill:186} Mining · {object:1731} Copper Vein · {zone:1426} Dun Morogh · {zone:1429} Elwynn Forest · {zone:2521} Zephras Isle
-	-- plural, as words: Rough Sharpening Stones = {spell:2660} Rough Sharpening Stone · Rough Grinding Stones = {spell:3320} Rough Grinding Stone
-	["195 {item:2835} for {skill:164} 1-75: 47 Rough Sharpening Stones and 74 Rough Grinding Stones. {skill:186}: {object:1731} (skill 1) in {zone:1426} (1-10), {zone:1429} (1-10) and {zone:2521} (1-15). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- plural, as words: Rough Sharpening Stones = {spell:2660} Rough Sharpening Stone
+	["111 {item:2835} for {skill:164} 1-75: 111 Rough Sharpening Stones. {skill:186}: {object:1731} (skill 1) in {zone:1426} (1-10), {zone:1429} (1-10) and {zone:2521} (1-15). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
-	-- Step 3: Rough Sharpening Stone to 35
+	-- Step 3: Get Coarse Stone
+	-- {item:2836} Coarse Stone
+	["Get {item:2836}"] = "",
+	-- {item:2836} Coarse Stone · {skill:164} Blacksmithing · {spell:2672} Patterned Bronze Bracers · {skill:186} Mining · {object:1732} Tin Vein · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills · {zone:1437} Wetlands
+	-- plural, as words: Coarse Grinding Stones = {spell:3326} Coarse Grinding Stone
+	["114 {item:2836} for {skill:164} 1-75: 46 Coarse Grinding Stones and 25 {spell:2672} (22 of them for 75-150: get them all now). {skill:186}: {object:1732} (skill 65) in {zone:1440} (18-30), {zone:1424} (20-30) and {zone:1437} (20-30). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+
+	-- Step 4: Rough Sharpening Stone to 50
 	-- {spell:2660} Rough Sharpening Stone
-	["{spell:2660} to 35"] = "{spell:2660}: 35까지",
+	["{spell:2660} to 50"] = "",
 	-- {spell:2660} Rough Sharpening Stone · {item:2835} Rough Stone
-	["{spell:2660} is orange at 1 (yellow 15, green 35, grey 55): about 42 crafts to 35, up to 47 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:2835}. One {item:2835} a craft, a point every craft to 15."] = "",
+	["{spell:2660} is orange at 1 (yellow 15, green 35, grey 55): about 94 crafts to 50, up to 111 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:2835}. One {item:2835} a craft, a point every craft to 15."] = "",
 
-	-- Step 4: Blacksmithing recipes at 35
+	-- Step 5: Blacksmithing recipes at 50
 	-- {skill:164} Blacksmithing
-	["{skill:164} recipes at 35"] = "35에서 {skill:164} 제조법",
-	-- {skill:164} Blacksmithing · {spell:3320} Rough Grinding Stone · {spell:1230171} Sharpening Wheel · {item:2835} Rough Stone · {item:2840} Copper Bar
-	["Back to a {skill:164} trainer: {spell:3320} (from 25, 1s). Also learn {spell:1230171} (1s): Forever's {skill:164} camp item, 1 {item:2835} and 1 {item:2840}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:164} quest from your starting area's camping guide (after The Great Outdoors) sends you to a blacksmithing trainer who teaches it free."] = "{skill:164} 상급자에게 돌아가세요: {spell:3320}(25부터, 1s). {spell:1230171}(1s)도 배우세요. Forever의 {skill:164} 야영 아이템으로, {item:2835} 1개와 {item:2840} 1개가 들고 모닥불 옆 야영지에 설치하면 강화 효과를 줍니다. 시작 지역의 야영 가이드에 있는 야영 기초 101: {skill:164} 퀘스트(위대한 야외 다음)가 대장장이 상급자에게 보내며, 거기서 무료로 가르칩니다.",
+	["{skill:164} recipes at 50"] = "",
+	-- {skill:164} Blacksmithing · {spell:3326} Coarse Grinding Stone · {spell:1230171} Sharpening Wheel · {item:2835} Rough Stone · {item:2840} Copper Bar
+	-- was: ["Back to a {skill:164} trainer: {spell:3320} (from 25, 1s). Also learn {spell:1230171} (1s): Forever's {skill:164} camp item, 1 {item:2835} and 1 {item:2840}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:164} quest from your starting area's camping guide (after The Great Outdoors) sends you to a blacksmithing trainer who teaches it free."] = "{skill:164} 상급자에게 돌아가세요: {spell:3320}(25부터, 1s). {spell:1230171}(1s)도 배우세요. Forever의 {skill:164} 야영 아이템으로, {item:2835} 1개와 {item:2840} 1개가 들고 모닥불 옆 야영지에 설치하면 강화 효과를 줍니다. 시작 지역의 야영 가이드에 있는 야영 기초 101: {skill:164} 퀘스트(위대한 야외 다음)가 대장장이 상급자에게 보내며, 거기서 무료로 가르칩니다."
+	["Back to a {skill:164} trainer: {spell:3326} (from 50, 2s 50c). Also learn {spell:1230171} (1s): Forever's {skill:164} camp item, 1 {item:2835} and 1 {item:2840}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:164} quest from your starting area's camping guide (after The Great Outdoors) sends you to a blacksmithing trainer who teaches it free."] = "",
 
-	-- Step 5: Rough Grinding Stone to 75
-	-- {spell:3320} Rough Grinding Stone
-	["{spell:3320} to 75"] = "{spell:3320}: 75까지",
-	-- {spell:3320} Rough Grinding Stone · {item:2835} Rough Stone
-	-- was: ["{spell:3320} is orange at 35 (yellow 45, green 65, grey 85): about 64 crafts to 75. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320}은(는) 35에 주황색입니다(노란색 45, 초록색 65, 회색 85). 75까지 약 64번 만드세요. 한 번에 {item:2835} 2개. 제작당 {item:2835} 두 개. 숫돌은 이후 제조법의 재료이며, 남는 것은 상인에게 팔립니다."
-	["{spell:3320} is orange at 35 (yellow 45, green 65, grey 85): about 64 crafts to 75, up to 74 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "",
+	-- Step 6: Coarse Grinding Stone to 75
+	-- {spell:3326} Coarse Grinding Stone
+	["{spell:3326} to 75"] = "",
+	-- {spell:3326} Coarse Grinding Stone · {item:2836} Coarse Stone
+	["{spell:3326} is yellow at 50 (yellow 50, green 70, grey 90): about 39 crafts to 75, up to 46 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:2836}. The trainer teaches it, and it is the cheapest way through these points in the data."] = "",
 
-	-- Step 6: Journeyman Blacksmithing
+	-- Step 7: Journeyman Blacksmithing
 	-- {skill:164} Blacksmithing
 	["Journeyman {skill:164}"] = "수습 {skill:164}",
-	-- {skill:164} Blacksmithing · {npc:3136} Clarise Gnarltree · {zone:1431} Duskwood · {npc:252479} Daeann Steelwind · {zone:2521} Zephras Isle · {npc:10276} Rotgath Stonebeard · {zone:1455} Ironforge · {npc:5511} Therum Deepforge · {zone:1453} Stormwind City · {npc:276067} Angus Hammerhand · {zone:1420} Tirisfal Glades · {npc:4596} James Van Brunt · {zone:1458} Undercity · {npc:2998} Karn Stonehoof · {zone:1456} Thunder Bluff · {npc:1383} Snarl · {zone:1454} Orgrimmar · {npc:3478} Traugh · {zone:1413} The Barrens · {spell:2666} Runed Copper Belt · {spell:3326} Coarse Grinding Stone · {item:2319} Medium Leather · {item:2836} Coarse Stone · {item:2840} Copper Bar · {item:2841} Bronze Bar
+	-- {skill:164} Blacksmithing · {npc:3136} Clarise Gnarltree · {zone:1431} Duskwood · {npc:252479} Daeann Steelwind · {zone:2521} Zephras Isle · {npc:10276} Rotgath Stonebeard · {zone:1455} Ironforge · {npc:5511} Therum Deepforge · {zone:1453} Stormwind City · {npc:276067} Angus Hammerhand · {zone:1420} Tirisfal Glades · {npc:4596} James Van Brunt · {zone:1458} Undercity · {npc:2998} Karn Stonehoof · {zone:1456} Thunder Bluff · {npc:1383} Snarl · {zone:1454} Orgrimmar · {npc:3478} Traugh · {zone:1413} The Barrens · {spell:2666} Runed Copper Belt · {item:2319} Medium Leather · {item:2840} Copper Bar · {item:2841} Bronze Bar
 	-- was: ["Journeyman raises the cap from 75 to 150 for 5s; it needs {skill:164} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:164} trainer teaches it: Alliance {npc:3136} ({zone:1431}), {npc:252479} ({zone:2521}), {npc:10276} ({zone:1455}) and {npc:5511} ({zone:1453}); Horde {npc:276067} ({zone:1420}), {npc:252479} ({zone:2521}), {npc:4596} ({zone:1458}), {npc:2998} ({zone:1456}), {npc:1383} ({zone:1454}) and {npc:3478} ({zone:1413}). The arrow picks the nearest of your faction. Learn now: {spell:2666} (from 45, 2s) and {spell:3326} (from 50, 2s 50c). 75-150 takes about 19s 50c of recipes and 18c of vendor goods, plus 256 {item:2836}, 28 {item:2838}, 210 {item:2840} and 320 {item:2841} to gather or buy."] = "수습 단계는 5실버로 최대 숙련도를 75에서 150으로 올립니다. {skill:164} 50과 캐릭터 레벨 10이 필요하므로, 50이 되면 언제 들러도 배울 수 있습니다. 모든 {skill:164} 상급자가 가르치지는 않습니다: 얼라이언스는 {npc:3136}({zone:1431}), {npc:252479}({zone:2521}), {npc:10276}({zone:1455}), {npc:5511}({zone:1453}), 호드는 {npc:276067}({zone:1420}), {npc:252479}({zone:2521}), {npc:4596}({zone:1458}), {npc:2998}({zone:1456}), {npc:1383}({zone:1454}), {npc:3478}({zone:1413})입니다. 화살표가 진영의 가장 가까운 상급자를 가리킵니다. 지금 배우세요: {spell:2666}(45부터, 2실버), {spell:3326}(50부터, 2실버 50코퍼). 75-150에는 제조법 약 19실버 50코퍼와 상인 재료 약 18코퍼, 그리고 채집하거나 살 {item:2836} 256개, {item:2838} 28개, {item:2840} 210개, {item:2841} 320개가 듭니다."
-	["Journeyman raises the cap from 75 to 150 for 5s; it needs {skill:164} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:164} trainer teaches it: Alliance {npc:3136} ({zone:1431}), {npc:252479} ({zone:2521}), {npc:10276} ({zone:1455}) and {npc:5511} ({zone:1453}); Horde {npc:276067} ({zone:1420}), {npc:252479} ({zone:2521}), {npc:4596} ({zone:1458}), {npc:2998} ({zone:1456}), {npc:1383} ({zone:1454}) and {npc:3478} ({zone:1413}). The arrow picks the nearest of your faction. Learn now: {spell:2666} (from 45, 2s) and {spell:3326} (from 50, 2s 50c). 75-150 takes about 12s of recipes and 5g 18c of vendor goods, plus 25 {item:2319}, 100 {item:2836}, 320 {item:2840} and 325 {item:2841} to gather or buy."] = "",
+	["Journeyman raises the cap from 75 to 150 for 5s; it needs {skill:164} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:164} trainer teaches it: Alliance {npc:3136} ({zone:1431}), {npc:252479} ({zone:2521}), {npc:10276} ({zone:1455}) and {npc:5511} ({zone:1453}); Horde {npc:276067} ({zone:1420}), {npc:252479} ({zone:2521}), {npc:4596} ({zone:1458}), {npc:2998} ({zone:1456}), {npc:1383} ({zone:1454}) and {npc:3478} ({zone:1413}). The arrow picks the nearest of your faction. Learn now: {spell:2666} (from 45, 2s). 75-150 takes about 9s 50c of recipes and 5g 18c of vendor goods, plus 25 {item:2319}, 320 {item:2840} and 325 {item:2841} to gather or buy."] = "",
 
-	-- Step 7: Blacksmithing 75-150: vendor goods
+	-- Step 8: Blacksmithing 75-150: vendor goods
 	-- {skill:164} Blacksmithing
 	["{skill:164} 75-150: vendor goods"] = "{skill:164} 75-150: 상인 재료",
 	-- {item:3466} Strong Flux · {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:1286} Edna Mullby · {npc:5512} Kaita Deepforge · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:5817} Shimra · {npc:3413} Sovik
@@ -55,18 +62,12 @@ return {
 	["Buy the whole bracket's share in one go: 25 {item:3466} (5g) and {item:5956} (a tool: one, kept in your bags, 18c); about 5g 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:1286} and {npc:5512}; {zone:1454}: {npc:3367}, {npc:5817} and {npc:3413})."] = "",
 	["a tool, keep it in your bags"] = "도구이니 가방에 두세요",
 
-	-- Step 8: Get Medium Leather
+	-- Step 9: Get Medium Leather
 	-- {item:2319} Medium Leather
 	["Get {item:2319}"] = "",
 	-- {item:2319} Medium Leather · {skill:164} Blacksmithing · {skill:393} Skinning
 	-- plural, as words: Bronze Warhammers = {item:7956} Bronze Warhammer
 	["25 {item:2319} for {skill:164} 75-150: 25 Bronze Warhammers. {skill:393}: beasts of level 18-30. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
-
-	-- Step 9: Get Coarse Stone
-	-- {item:2836} Coarse Stone
-	["Get {item:2836}"] = "",
-	-- {item:2836} Coarse Stone · {skill:164} Blacksmithing · {spell:2672} Patterned Bronze Bracers · {skill:186} Mining · {object:1732} Tin Vein · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills · {zone:1437} Wetlands
-	["100 {item:2836} for {skill:164} 75-150: 25 {spell:2672}. {skill:186}: {object:1732} (skill 65) in {zone:1440} (18-30), {zone:1424} (20-30) and {zone:1437} (20-30). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 10: Get Copper Bar
 	-- {item:2840} Copper Bar
@@ -101,7 +102,7 @@ return {
 	["{spell:2672} to 125"] = "",
 	-- {spell:2672} Patterned Bronze Bracers · {item:2841} Bronze Bar · {spell:3326} Coarse Grinding Stone · {item:2836} Coarse Stone
 	-- plural, as words: Coarse Grinding Stones = {spell:3326} Coarse Grinding Stone · Tin Veins = {object:1732} Tin Vein
-	["{spell:2672} is orange at 100 (yellow 125, green 140, grey 155): about 25 crafts to 125, a point every craft. Each takes 5 {item:2841} and 2 {spell:3326}. Make the 50 {spell:3326} first. Each bracer takes two Coarse Grinding Stones ({item:2836} from Tin Veins): make them first; they give points too. Needs an anvil nearby."] = "",
+	["{spell:2672} is orange at 100 (yellow 125, green 140, grey 155): about 25 crafts to 125, a point every craft. Each takes 5 {item:2841} and 2 {spell:3326}. Make the 11 {spell:3326} first. Use the 39 {spell:3326} you made earlier; the counts above leave them out. Each bracer takes two Coarse Grinding Stones ({item:2836} from Tin Veins): make them first; they give points too. Needs an anvil nearby. If you got here without learning {spell:3326}, learn it now: an earlier step teaches it."] = "",
 
 	-- Step 15: Bronze Warhammer to 150
 	-- {item:7956} Bronze Warhammer
@@ -423,6 +424,7 @@ return {
 	-- ["Back to a {skill:164} trainer: {spell:2672} (from 95, 5s)."] = "{skill:164} 상급자에게 돌아가세요: {spell:2672}(95부터, 5실버).",
 	-- ["Back to a {skill:164} trainer: {spell:2674} (from 100, 10s)."] = "{skill:164} 상급자에게 돌아가세요: {spell:2674}(100부터, 10실버).",
 	-- ["Back to a {skill:164} trainer: {spell:3117} is taught from {skill:164} 100."] = "{skill:164} 상급자에게 돌아가세요. {spell:3117}은(는) {skill:164} 100부터 배울 수 있습니다.",
+	-- ["Back to a {skill:164} trainer: {spell:3320} (from 25, 1s). Also learn {spell:1230171} (1s): Forever's {skill:164} camp item, 1 {item:2835} and 1 {item:2840}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:164} quest from your starting area's camping guide (after The Great Outdoors) sends you to a blacksmithing trainer who teaches it free."] = "{skill:164} 상급자에게 돌아가세요: {spell:3320}(25부터, 1s). {spell:1230171}(1s)도 배우세요. Forever의 {skill:164} 야영 아이템으로, {item:2835} 1개와 {item:2840} 1개가 들고 모닥불 옆 야영지에 설치하면 강화 효과를 줍니다. 시작 지역의 야영 가이드에 있는 야영 기초 101: {skill:164} 퀘스트(위대한 야외 다음)가 대장장이 상급자에게 보내며, 거기서 무료로 가르칩니다.",
 	-- ["Back to a {skill:164} trainer: {spell:7223} (from 160)."] = "{skill:164} 상급자에게 돌아가세요: {spell:7223}(160부터).",
 	-- ["Back to a {skill:164} trainer: {spell:9916} is taught from {skill:164} 200."] = "{skill:164} 상급자에게 돌아가세요. {spell:9916}은(는) {skill:164} 200부터 배울 수 있습니다.",
 	-- ["Back to a {skill:164} trainer: {spell:9918} (from 175)."] = "{skill:164} 상급자에게 돌아가세요: {spell:9918}(175부터).",
@@ -534,6 +536,7 @@ return {
 	-- ["{skill:164} recipes at 210"] = "210에서 {skill:164} 제조법",
 	-- ["{skill:164} recipes at 230"] = "230에서 {skill:164} 제조법",
 	-- ["{skill:164} recipes at 268"] = "268에서 {skill:164} 제조법",
+	-- ["{skill:164} recipes at 35"] = "35에서 {skill:164} 제조법",
 	-- ["{skill:164} recipes at 45"] = "45에서 {skill:164} 제조법",
 	-- ["{skill:164} recipes at 83"] = "83에서 {skill:164} 제조법",
 	-- ["{skill:164} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 17s in all."] = "{skill:164}은(는) 레벨업과 함께 진행합니다. Forever의 유산 시스템은 제작 전문 기술 숙련도 150, 225, 300(수습, 숙련, 전문 최대치)에 보상을 주므로, 각 단계가 중요합니다. 1-75 재료는 모두 약 17실버입니다.",
@@ -547,6 +550,7 @@ return {
 	-- ["{skill:202}: {item:249432} (or the Auction House)"] = "{skill:202}: {item:249432} (또는 경매장)",
 	-- ["{skill:393} (or the Auction House)"] = "{skill:393} (또는 경매장)",
 	-- ["{spell:2660} is orange at 1 (yellow 15, green 35, grey 55): about 42 crafts to 35. Each takes 1 {item:2835}. One {item:2835} a craft, a point every craft to 15."] = "{spell:2660}은(는) 1에 주황색입니다(노란색 15, 초록색 35, 회색 55). 35까지 약 42번 만드세요. 한 번에 {item:2835} 1개. 제작당 {item:2835} 한 개. 15까지 매번 포인트가 오릅니다.",
+	-- ["{spell:2660} to 35"] = "{spell:2660}: 35까지",
 	-- ["{spell:2666} is orange at 83 (yellow 85, green 105, grey 125): about 21 crafts to 100. Each takes 10 {item:2840}. Forever teaches {spell:2666} from 45; it stays orange to 85. Ten Copper Bars a craft: smelt your {item:2770}. Needs an anvil nearby. {item:5956} is a tool: keep it in your bags."] = "{spell:2666}은(는) 83에 주황색입니다(노란색 85, 초록색 105, 회색 125). 100까지 약 21번 만드세요. 한 번에 {item:2840} 10개. Forever는 {spell:2666}을(를) 45에서 가르치며 85까지 주황색입니다. 제작당 구리 주괴 열 개. {item:2770}을(를) 제련하세요. 근처에 모루가 필요합니다. {item:5956}은(는) 도구이니 가방에 두세요.",
 	-- ["{spell:2668} to 121"] = "{spell:2668}: 121까지",
 	-- ["{spell:2672} is orange at 113 (yellow 125, green 140, grey 155): about 64 crafts to 150. Each takes 5 {item:2841} and 2 {spell:3326}. Make the 128 {spell:3326} first. Each bracer takes two Coarse Grinding Stones ({item:2836} from Tin Veins): make them first; they give points too. Needs an anvil nearby. {skill:164} 150 is a Legacy System milestone."] = "{spell:2672}은(는) 113에 주황색입니다(노란색 125, 초록색 140, 회색 155). 150까지 약 64번 만드세요. 한 번에 {item:2841} 5개, {spell:3326} 2개. 먼저 {spell:3326} 128개를 만드세요. 팔보호구 하나에 조잡한 숫돌 두 개({item:2836}, 주석 광맥에서)가 듭니다. 먼저 만드세요. 포인트도 줍니다. 근처에 모루가 필요합니다. {skill:164} 150은(는) 유산 시스템 이정표입니다.",
@@ -557,6 +561,7 @@ return {
 	-- ["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320}은(는) 75에서 초록색입니다(노란색 45, 초록색 65, 회색 85). 83까지 약 58번 만드세요. 한 번에 {item:2835} 2개. 제작당 {item:2835} 두 개. 숫돌은 이후 제조법의 재료이며, 남는 것은 상인에게 팔립니다.",
 	-- ["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors. If you got here without learning {spell:3320}, learn it now: an earlier step teaches it."] = "{spell:3320}은(는) 75에서 초록색입니다(노란색 45, 초록색 65, 회색 85): 83까지 약 58번 제작. 매번 {item:2835} 2개가 필요합니다. 제작마다 {item:2835} 두 개. 연마석은 나중 도면의 재료이고 남는 것은 상인에게 팝니다. {spell:3320}을(를) 배우지 않고 여기까지 왔다면 지금 배우십시오: 앞의 단계에서 가르칩니다.",
 	-- ["{spell:3320} is orange at 35 (yellow 45, green 65, grey 85): about 64 crafts to 75. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320}은(는) 35에 주황색입니다(노란색 45, 초록색 65, 회색 85). 75까지 약 64번 만드세요. 한 번에 {item:2835} 2개. 제작당 {item:2835} 두 개. 숫돌은 이후 제조법의 재료이며, 남는 것은 상인에게 팔립니다.",
+	-- ["{spell:3320} to 75"] = "{spell:3320}: 75까지",
 	-- ["{spell:3320} to 83"] = "{spell:3320}: 83까지",
 	-- ["{spell:3333} to 155"] = "{spell:3333}: 155까지",
 	-- ["{spell:3501} is orange at 150 (yellow 165, green 177, grey 190): about 28 crafts to 175. Each takes 6 {item:3575} and 1 {item:2605}. Six Iron Bars and a {item:2605} a craft; {item:2605} comes from tailoring, leatherworking and trade supplies vendors. Orange to 165 on Forever, so a point every craft for the first fifteen. Needs an anvil nearby."] = "{spell:3501}은(는) 150에 주황색입니다(노란색 165, 초록색 177, 회색 190). 175까지 약 28번 만드세요. 한 번에 {item:3575} 6개, {item:2605} 1개. 제작당 철 주괴 여섯 개와(과) {item:2605} 한 개. {item:2605}은(는) 재봉술, 가죽세공, 무역 용품 상인에게서. Forever에서는 165까지 주황색이니 처음 열다섯 번은 매번 포인트가 오릅니다. 근처에 모루가 필요합니다.",

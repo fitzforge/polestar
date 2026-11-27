@@ -9,45 +9,52 @@ return {
 	-- Step 1: Learn Blacksmithing
 	-- {skill:164} Blacksmithing
 	["Learn {skill:164}"] = "{skill:164} lernen",
-	-- {skill:164} Blacksmithing · {item:5956} Blacksmith Hammer · {skill:186} Mining · {item:2835} Rough Stone · {item:2770} Copper Ore
+	-- {skill:164} Blacksmithing · {item:5956} Blacksmith Hammer · {skill:186} Mining · {item:2835} Rough Stone · {item:2770} Copper Ore · {item:2836} Coarse Stone
 	-- plural, as words: Copper Veins = {object:1731} Copper Vein
 	-- was: ["Apprentice {skill:164} lets you craft up to 75 for 10c, at any character level. Any {skill:164} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} (any blacksmithing supplier) and pair it with {skill:186}: {item:2835} and {item:2770} come from the Copper Veins of every starting zone. 1-75 takes about 1s of recipes, plus 286 {item:2835} to gather or buy."] = "Die Lehrlingsstufe von {skill:164} erlaubt dir, bis 75 herzustellen, für 10c, auf jeder Charakterstufe. Jeder {skill:164}-Lehrer deiner Fraktion bringt sie dir bei; der Pfeil wählt den nächsten. Kauf einen {item:5956} (bei jedem Schmiedebedarfshändler) und kombiniere ihn mit {skill:186}: {item:2835} und {item:2770} stammen aus den Kupferadern jedes Startgebiets. 1-75 kostet etwa 1s an Rezepten, dazu 286 {item:2835} zum Sammeln oder Kaufen."
-	["Apprentice {skill:164} lets you craft up to 75 for 10c, at any character level. Any {skill:164} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} (any blacksmithing supplier) and pair it with {skill:186}: {item:2835} and {item:2770} come from the Copper Veins of every starting zone. 1-75 takes about 1s of recipes, plus 195 {item:2835} to gather or buy."] = "",
+	["Apprentice {skill:164} lets you craft up to 75 for 10c, at any character level. Any {skill:164} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} (any blacksmithing supplier) and pair it with {skill:186}: {item:2835} and {item:2770} come from the Copper Veins of every starting zone. 1-75 takes about 2s 50c of recipes, plus 111 {item:2835} and 114 {item:2836} to gather or buy."] = "",
 
 	-- Step 2: Get Rough Stone
 	-- {item:2835} Rough Stone
 	["Get {item:2835}"] = "",
 	-- {item:2835} Rough Stone · {skill:164} Blacksmithing · {skill:186} Mining · {object:1731} Copper Vein · {zone:1426} Dun Morogh · {zone:1429} Elwynn Forest · {zone:2521} Zephras Isle
-	-- plural, as words: Rough Sharpening Stones = {spell:2660} Rough Sharpening Stone · Rough Grinding Stones = {spell:3320} Rough Grinding Stone
-	["195 {item:2835} for {skill:164} 1-75: 47 Rough Sharpening Stones and 74 Rough Grinding Stones. {skill:186}: {object:1731} (skill 1) in {zone:1426} (1-10), {zone:1429} (1-10) and {zone:2521} (1-15). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- plural, as words: Rough Sharpening Stones = {spell:2660} Rough Sharpening Stone
+	["111 {item:2835} for {skill:164} 1-75: 111 Rough Sharpening Stones. {skill:186}: {object:1731} (skill 1) in {zone:1426} (1-10), {zone:1429} (1-10) and {zone:2521} (1-15). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
-	-- Step 3: Rough Sharpening Stone to 35
+	-- Step 3: Get Coarse Stone
+	-- {item:2836} Coarse Stone
+	["Get {item:2836}"] = "",
+	-- {item:2836} Coarse Stone · {skill:164} Blacksmithing · {spell:2672} Patterned Bronze Bracers · {skill:186} Mining · {object:1732} Tin Vein · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills · {zone:1437} Wetlands
+	-- plural, as words: Coarse Grinding Stones = {spell:3326} Coarse Grinding Stone
+	["114 {item:2836} for {skill:164} 1-75: 46 Coarse Grinding Stones and 25 {spell:2672} (22 of them for 75-150: get them all now). {skill:186}: {object:1732} (skill 65) in {zone:1440} (18-30), {zone:1424} (20-30) and {zone:1437} (20-30). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+
+	-- Step 4: Rough Sharpening Stone to 50
 	-- {spell:2660} Rough Sharpening Stone
-	["{spell:2660} to 35"] = "{spell:2660} bis 35",
+	["{spell:2660} to 50"] = "",
 	-- {spell:2660} Rough Sharpening Stone · {item:2835} Rough Stone
-	["{spell:2660} is orange at 1 (yellow 15, green 35, grey 55): about 42 crafts to 35, up to 47 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:2835}. One {item:2835} a craft, a point every craft to 15."] = "",
+	["{spell:2660} is orange at 1 (yellow 15, green 35, grey 55): about 94 crafts to 50, up to 111 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:2835}. One {item:2835} a craft, a point every craft to 15."] = "",
 
-	-- Step 4: Blacksmithing recipes at 35
+	-- Step 5: Blacksmithing recipes at 50
 	-- {skill:164} Blacksmithing
-	["{skill:164} recipes at 35"] = "{skill:164}-Rezepte bei 35",
-	-- {skill:164} Blacksmithing · {spell:3320} Rough Grinding Stone · {spell:1230171} Sharpening Wheel · {item:2835} Rough Stone · {item:2840} Copper Bar
-	["Back to a {skill:164} trainer: {spell:3320} (from 25, 1s). Also learn {spell:1230171} (1s): Forever's {skill:164} camp item, 1 {item:2835} and 1 {item:2840}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:164} quest from your starting area's camping guide (after The Great Outdoors) sends you to a blacksmithing trainer who teaches it free."] = "Zurück zu einem {skill:164}-Lehrer: {spell:3320} (ab 25, 1s). Lerne außerdem {spell:1230171} (1s): Forevers {skill:164}-Lagergegenstand, 1 {item:2835} und 1 {item:2840}, der für seinen Buff an einem Lagerplatz neben einem Lagerfeuer aufgestellt wird. Die Quest Camping 101: {skill:164} aus dem Camping-Guide deines Startgebiets (nach The Great Outdoors) schickt dich zu einem Schmiedekunstlehrer, der sie dir kostenlos beibringt.",
+	["{skill:164} recipes at 50"] = "",
+	-- {skill:164} Blacksmithing · {spell:3326} Coarse Grinding Stone · {spell:1230171} Sharpening Wheel · {item:2835} Rough Stone · {item:2840} Copper Bar
+	-- was: ["Back to a {skill:164} trainer: {spell:3320} (from 25, 1s). Also learn {spell:1230171} (1s): Forever's {skill:164} camp item, 1 {item:2835} and 1 {item:2840}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:164} quest from your starting area's camping guide (after The Great Outdoors) sends you to a blacksmithing trainer who teaches it free."] = "Zurück zu einem {skill:164}-Lehrer: {spell:3320} (ab 25, 1s). Lerne außerdem {spell:1230171} (1s): Forevers {skill:164}-Lagergegenstand, 1 {item:2835} und 1 {item:2840}, der für seinen Buff an einem Lagerplatz neben einem Lagerfeuer aufgestellt wird. Die Quest Camping 101: {skill:164} aus dem Camping-Guide deines Startgebiets (nach The Great Outdoors) schickt dich zu einem Schmiedekunstlehrer, der sie dir kostenlos beibringt."
+	["Back to a {skill:164} trainer: {spell:3326} (from 50, 2s 50c). Also learn {spell:1230171} (1s): Forever's {skill:164} camp item, 1 {item:2835} and 1 {item:2840}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:164} quest from your starting area's camping guide (after The Great Outdoors) sends you to a blacksmithing trainer who teaches it free."] = "",
 
-	-- Step 5: Rough Grinding Stone to 75
-	-- {spell:3320} Rough Grinding Stone
-	["{spell:3320} to 75"] = "{spell:3320} bis 75",
-	-- {spell:3320} Rough Grinding Stone · {item:2835} Rough Stone
-	-- was: ["{spell:3320} is orange at 35 (yellow 45, green 65, grey 85): about 64 crafts to 75. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320} ist bei 35 orange (gelb 45, grün 65, grau 85): etwa 64 Herstellungen bis 75. Jede benötigt 2 {item:2835}. Zwei {item:2835} pro Herstellung. Schleifsteine sind Teile für spätere Pläne; die überzähligen verkaufst du an Händler."
-	["{spell:3320} is orange at 35 (yellow 45, green 65, grey 85): about 64 crafts to 75, up to 74 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "",
+	-- Step 6: Coarse Grinding Stone to 75
+	-- {spell:3326} Coarse Grinding Stone
+	["{spell:3326} to 75"] = "",
+	-- {spell:3326} Coarse Grinding Stone · {item:2836} Coarse Stone
+	["{spell:3326} is yellow at 50 (yellow 50, green 70, grey 90): about 39 crafts to 75, up to 46 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:2836}. The trainer teaches it, and it is the cheapest way through these points in the data."] = "",
 
-	-- Step 6: Journeyman Blacksmithing
+	-- Step 7: Journeyman Blacksmithing
 	-- {skill:164} Blacksmithing
 	["Journeyman {skill:164}"] = "{skill:164} (Geselle)",
-	-- {skill:164} Blacksmithing · {npc:3136} Clarise Gnarltree · {zone:1431} Duskwood · {npc:252479} Daeann Steelwind · {zone:2521} Zephras Isle · {npc:10276} Rotgath Stonebeard · {zone:1455} Ironforge · {npc:5511} Therum Deepforge · {zone:1453} Stormwind City · {npc:276067} Angus Hammerhand · {zone:1420} Tirisfal Glades · {npc:4596} James Van Brunt · {zone:1458} Undercity · {npc:2998} Karn Stonehoof · {zone:1456} Thunder Bluff · {npc:1383} Snarl · {zone:1454} Orgrimmar · {npc:3478} Traugh · {zone:1413} The Barrens · {spell:2666} Runed Copper Belt · {spell:3326} Coarse Grinding Stone · {item:2319} Medium Leather · {item:2836} Coarse Stone · {item:2840} Copper Bar · {item:2841} Bronze Bar
+	-- {skill:164} Blacksmithing · {npc:3136} Clarise Gnarltree · {zone:1431} Duskwood · {npc:252479} Daeann Steelwind · {zone:2521} Zephras Isle · {npc:10276} Rotgath Stonebeard · {zone:1455} Ironforge · {npc:5511} Therum Deepforge · {zone:1453} Stormwind City · {npc:276067} Angus Hammerhand · {zone:1420} Tirisfal Glades · {npc:4596} James Van Brunt · {zone:1458} Undercity · {npc:2998} Karn Stonehoof · {zone:1456} Thunder Bluff · {npc:1383} Snarl · {zone:1454} Orgrimmar · {npc:3478} Traugh · {zone:1413} The Barrens · {spell:2666} Runed Copper Belt · {item:2319} Medium Leather · {item:2840} Copper Bar · {item:2841} Bronze Bar
 	-- was: ["Journeyman raises the cap from 75 to 150 for 5s; it needs {skill:164} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:164} trainer teaches it: Alliance {npc:3136} ({zone:1431}), {npc:252479} ({zone:2521}), {npc:10276} ({zone:1455}) and {npc:5511} ({zone:1453}); Horde {npc:276067} ({zone:1420}), {npc:252479} ({zone:2521}), {npc:4596} ({zone:1458}), {npc:2998} ({zone:1456}), {npc:1383} ({zone:1454}) and {npc:3478} ({zone:1413}). The arrow picks the nearest of your faction. Learn now: {spell:2666} (from 45, 2s) and {spell:3326} (from 50, 2s 50c). 75-150 takes about 19s 50c of recipes and 18c of vendor goods, plus 256 {item:2836}, 28 {item:2838}, 210 {item:2840} and 320 {item:2841} to gather or buy."] = "Die Gesellenstufe erhöht das Limit von 75 auf 150 für 5s; sie erfordert {skill:164} 50 und Charakterstufe 10, du kannst sie also bei jedem Besuch ab 50 nehmen. Nicht jeder {skill:164}-Lehrer bringt sie bei: Allianz {npc:3136} ({zone:1431}), {npc:252479} ({zone:2521}), {npc:10276} ({zone:1455}) und {npc:5511} ({zone:1453}); Horde {npc:276067} ({zone:1420}), {npc:252479} ({zone:2521}), {npc:4596} ({zone:1458}), {npc:2998} ({zone:1456}), {npc:1383} ({zone:1454}) und {npc:3478} ({zone:1413}). Der Pfeil wählt den nächsten deiner Fraktion. Lerne jetzt: {spell:2666} (ab 45, 2s) und {spell:3326} (ab 50, 2s 50c). 75-150 kostet etwa 19s 50c an Rezepten und 18c an Händlerwaren, dazu 256 {item:2836}, 28 {item:2838}, 210 {item:2840} und 320 {item:2841} zum Sammeln oder Kaufen."
-	["Journeyman raises the cap from 75 to 150 for 5s; it needs {skill:164} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:164} trainer teaches it: Alliance {npc:3136} ({zone:1431}), {npc:252479} ({zone:2521}), {npc:10276} ({zone:1455}) and {npc:5511} ({zone:1453}); Horde {npc:276067} ({zone:1420}), {npc:252479} ({zone:2521}), {npc:4596} ({zone:1458}), {npc:2998} ({zone:1456}), {npc:1383} ({zone:1454}) and {npc:3478} ({zone:1413}). The arrow picks the nearest of your faction. Learn now: {spell:2666} (from 45, 2s) and {spell:3326} (from 50, 2s 50c). 75-150 takes about 12s of recipes and 5g 18c of vendor goods, plus 25 {item:2319}, 100 {item:2836}, 320 {item:2840} and 325 {item:2841} to gather or buy."] = "",
+	["Journeyman raises the cap from 75 to 150 for 5s; it needs {skill:164} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:164} trainer teaches it: Alliance {npc:3136} ({zone:1431}), {npc:252479} ({zone:2521}), {npc:10276} ({zone:1455}) and {npc:5511} ({zone:1453}); Horde {npc:276067} ({zone:1420}), {npc:252479} ({zone:2521}), {npc:4596} ({zone:1458}), {npc:2998} ({zone:1456}), {npc:1383} ({zone:1454}) and {npc:3478} ({zone:1413}). The arrow picks the nearest of your faction. Learn now: {spell:2666} (from 45, 2s). 75-150 takes about 9s 50c of recipes and 5g 18c of vendor goods, plus 25 {item:2319}, 320 {item:2840} and 325 {item:2841} to gather or buy."] = "",
 
-	-- Step 7: Blacksmithing 75-150: vendor goods
+	-- Step 8: Blacksmithing 75-150: vendor goods
 	-- {skill:164} Blacksmithing
 	["{skill:164} 75-150: vendor goods"] = "{skill:164} 75-150: Händlerwaren",
 	-- {item:3466} Strong Flux · {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:1286} Edna Mullby · {npc:5512} Kaita Deepforge · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:5817} Shimra · {npc:3413} Sovik
@@ -55,18 +62,12 @@ return {
 	["Buy the whole bracket's share in one go: 25 {item:3466} (5g) and {item:5956} (a tool: one, kept in your bags, 18c); about 5g 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:1286} and {npc:5512}; {zone:1454}: {npc:3367}, {npc:5817} and {npc:3413})."] = "",
 	["a tool, keep it in your bags"] = "ein Werkzeug, behalte es in deinen Taschen",
 
-	-- Step 8: Get Medium Leather
+	-- Step 9: Get Medium Leather
 	-- {item:2319} Medium Leather
 	["Get {item:2319}"] = "",
 	-- {item:2319} Medium Leather · {skill:164} Blacksmithing · {skill:393} Skinning
 	-- plural, as words: Bronze Warhammers = {item:7956} Bronze Warhammer
 	["25 {item:2319} for {skill:164} 75-150: 25 Bronze Warhammers. {skill:393}: beasts of level 18-30. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
-
-	-- Step 9: Get Coarse Stone
-	-- {item:2836} Coarse Stone
-	["Get {item:2836}"] = "",
-	-- {item:2836} Coarse Stone · {skill:164} Blacksmithing · {spell:2672} Patterned Bronze Bracers · {skill:186} Mining · {object:1732} Tin Vein · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills · {zone:1437} Wetlands
-	["100 {item:2836} for {skill:164} 75-150: 25 {spell:2672}. {skill:186}: {object:1732} (skill 65) in {zone:1440} (18-30), {zone:1424} (20-30) and {zone:1437} (20-30). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 10: Get Copper Bar
 	-- {item:2840} Copper Bar
@@ -101,7 +102,7 @@ return {
 	["{spell:2672} to 125"] = "",
 	-- {spell:2672} Patterned Bronze Bracers · {item:2841} Bronze Bar · {spell:3326} Coarse Grinding Stone · {item:2836} Coarse Stone
 	-- plural, as words: Coarse Grinding Stones = {spell:3326} Coarse Grinding Stone · Tin Veins = {object:1732} Tin Vein
-	["{spell:2672} is orange at 100 (yellow 125, green 140, grey 155): about 25 crafts to 125, a point every craft. Each takes 5 {item:2841} and 2 {spell:3326}. Make the 50 {spell:3326} first. Each bracer takes two Coarse Grinding Stones ({item:2836} from Tin Veins): make them first; they give points too. Needs an anvil nearby."] = "",
+	["{spell:2672} is orange at 100 (yellow 125, green 140, grey 155): about 25 crafts to 125, a point every craft. Each takes 5 {item:2841} and 2 {spell:3326}. Make the 11 {spell:3326} first. Use the 39 {spell:3326} you made earlier; the counts above leave them out. Each bracer takes two Coarse Grinding Stones ({item:2836} from Tin Veins): make them first; they give points too. Needs an anvil nearby. If you got here without learning {spell:3326}, learn it now: an earlier step teaches it."] = "",
 
 	-- Step 15: Bronze Warhammer to 150
 	-- {item:7956} Bronze Warhammer
@@ -425,6 +426,7 @@ return {
 	-- ["Back to a {skill:164} trainer: {spell:2672} is taught from {skill:164} 120."] = "Zurück zu einem Lehrer für {skill:164}: {spell:2672} wird ab {skill:164} 120 gelehrt.",
 	-- ["Back to a {skill:164} trainer: {spell:2674} (from 100, 10s)."] = "Zurück zu einem {skill:164}-Lehrer: {spell:2674} (ab 100, 10s).",
 	-- ["Back to a {skill:164} trainer: {spell:3117} is taught from {skill:164} 100."] = "Zurück zu einem Lehrer für {skill:164}: {spell:3117} wird ab {skill:164} 100 gelehrt.",
+	-- ["Back to a {skill:164} trainer: {spell:3320} (from 25, 1s). Also learn {spell:1230171} (1s): Forever's {skill:164} camp item, 1 {item:2835} and 1 {item:2840}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:164} quest from your starting area's camping guide (after The Great Outdoors) sends you to a blacksmithing trainer who teaches it free."] = "Zurück zu einem {skill:164}-Lehrer: {spell:3320} (ab 25, 1s). Lerne außerdem {spell:1230171} (1s): Forevers {skill:164}-Lagergegenstand, 1 {item:2835} und 1 {item:2840}, der für seinen Buff an einem Lagerplatz neben einem Lagerfeuer aufgestellt wird. Die Quest Camping 101: {skill:164} aus dem Camping-Guide deines Startgebiets (nach The Great Outdoors) schickt dich zu einem Schmiedekunstlehrer, der sie dir kostenlos beibringt.",
 	-- ["Back to a {skill:164} trainer: {spell:3320} is taught from {skill:164} 45."] = "Zurück zu einem Lehrer für {skill:164}: {spell:3320} wird ab {skill:164} 45 gelehrt.",
 	-- ["Back to a {skill:164} trainer: {spell:7223} (from 160)."] = "Zurück zu einem {skill:164}-Lehrer: {spell:7223} (ab 160).",
 	-- ["Back to a {skill:164} trainer: {spell:7223} is taught from {skill:164} 185."] = "Zurück zu einem Lehrer für {skill:164}: {spell:7223} wird ab {skill:164} 185 gelehrt.",
@@ -549,6 +551,7 @@ return {
 	-- ["{skill:164} recipes at 230"] = "Rezepte für {skill:164} bei 230",
 	-- ["{skill:164} recipes at 235"] = "Rezepte für {skill:164} bei 235",
 	-- ["{skill:164} recipes at 268"] = "Rezepte für {skill:164} bei 268",
+	-- ["{skill:164} recipes at 35"] = "{skill:164}-Rezepte bei 35",
 	-- ["{skill:164} recipes at 45"] = "Rezepte für {skill:164} bei 45",
 	-- ["{skill:164} recipes at 83"] = "Rezepte für {skill:164} bei 83",
 	-- ["{skill:164} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 17s in all."] = "{skill:164} läuft neben dem Leveln her. Forevers Vermächtnissystem belohnt herstellende Berufe bei Fertigkeit 150, 225 und 300 (die Obergrenzen für Geselle, Experte und Fachmann), daher zählt jeder dieser Kontrollpunkte. Die Materialien für 1-75 sind insgesamt etwa 17s wert.",
@@ -562,6 +565,7 @@ return {
 	-- ["{skill:202}: {item:249432} (or the Auction House)"] = "{skill:202}: {item:249432} (oder das Auktionshaus)",
 	-- ["{skill:393} (or the Auction House)"] = "{skill:393} (oder das Auktionshaus)",
 	-- ["{spell:2660} is orange at 1 (yellow 15, green 35, grey 55): about 42 crafts to 35. Each takes 1 {item:2835}. One {item:2835} a craft, a point every craft to 15."] = "{spell:2660} ist bei 1 orange (gelb 15, grün 35, grau 55): etwa 42 Herstellungen bis 35. Jede benötigt 1 {item:2835}. Ein {item:2835} pro Herstellung, bis 15 ein Punkt pro Herstellung.",
+	-- ["{spell:2660} to 35"] = "{spell:2660} bis 35",
 	-- ["{spell:2660} to 45"] = "{spell:2660} bis 45",
 	-- ["{spell:2666} is orange at 83 (yellow 85, green 105, grey 125): about 21 crafts to 100. Each takes 10 {item:2840}. Forever teaches {spell:2666} from 45; it stays orange to 85. Ten Copper Bars a craft: smelt your {item:2770}. Needs an anvil nearby. {item:5956} is a tool: keep it in your bags."] = "{spell:2666} ist bei 83 orange (gelb 85, grün 105, grau 125): etwa 21 Herstellungen bis 100. Jede benötigt 10 {item:2840}. Forever bringt {spell:2666} ab 45 bei; es bleibt orange bis 85. Zehn Kupferbarren pro Herstellung: Schmelze dein {item:2770}. Braucht einen Amboss in der Nähe. {item:5956} ist ein Werkzeug: Behalte ihn in deinen Taschen.",
 	-- ["{spell:2668} to 121"] = "{spell:2668} bis 121",
@@ -573,6 +577,7 @@ return {
 	-- ["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320} ist bei 75 grün (gelb 45, grün 65, grau 85): etwa 58 Herstellungen bis 83. Jede benötigt 2 {item:2835}. Zwei {item:2835} pro Herstellung. Schleifsteine sind Teile für spätere Pläne; die überzähligen verkaufst du an Händler.",
 	-- ["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors. If you got here without learning {spell:3320}, learn it now: an earlier step teaches it."] = "{spell:3320} ist grün bei 75 (gelb 45, grün 65, grau 85): ungefähr 58 Handwerke bis 83. Jeder Tausch kostet 2 {item:2835}. Zwei {item:2835} pro Handwerk. Mahlsteine sind Teile für spätere Pläne; Reste verkaufe man Händlern. Falls du {spell:3320} noch nicht gelernt hast: ein früherer Schritt teacht es.",
 	-- ["{spell:3320} is orange at 35 (yellow 45, green 65, grey 85): about 64 crafts to 75. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320} ist bei 35 orange (gelb 45, grün 65, grau 85): etwa 64 Herstellungen bis 75. Jede benötigt 2 {item:2835}. Zwei {item:2835} pro Herstellung. Schleifsteine sind Teile für spätere Pläne; die überzähligen verkaufst du an Händler.",
+	-- ["{spell:3320} to 75"] = "{spell:3320} bis 75",
 	-- ["{spell:3320} to 83"] = "{spell:3320} bis 83",
 	-- ["{spell:3333} to 155"] = "{spell:3333} bis 155",
 	-- ["{spell:3501} is orange at 150 (yellow 165, green 177, grey 190): about 28 crafts to 175. Each takes 6 {item:3575} and 1 {item:2605}. Six Iron Bars and a {item:2605} a craft; {item:2605} comes from tailoring, leatherworking and trade supplies vendors. Orange to 165 on Forever, so a point every craft for the first fifteen. Needs an anvil nearby."] = "{spell:3501} ist bei 150 orange (gelb 165, grün 177, grau 190): etwa 28 Herstellungen bis 175. Jede benötigt 6 {item:3575} und 1 {item:2605}. Sechs Eisenbarren und ein {item:2605} pro Herstellung; {item:2605} gibt es bei Schneider-, Lederer- und Handwerkswarenhändlern. In Forever bis 165 orange, also die ersten fünfzehn Male ein Punkt pro Herstellung. Braucht einen Amboss in der Nähe.",

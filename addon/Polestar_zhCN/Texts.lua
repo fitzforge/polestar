@@ -9194,7 +9194,6 @@ t.guides["forever/professions/alchemy"] = (function() return {
 } end)()
 t.guides["forever/professions/blacksmithing"] = (function() return {
 		["Artisan {skill:164}"] = "专家级{skill:164}",
-		["Back to a {skill:164} trainer: {spell:3320} (from 25, 1s). Also learn {spell:1230171} (1s): Forever's {skill:164} camp item, 1 {item:2835} and 1 {item:2840}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:164} quest from your starting area's camping guide (after The Great Outdoors) sends you to a blacksmithing trainer who teaches it free."] = "返回 {skill:164} 训练师处：学习 {spell:3320}（25起，1银币）。同时学习 {spell:1230171}（1银币）：这是无限服的 {skill:164} 露营物品，需1块 {item:2835} 和1块 {item:2840}，在营地营火旁放置可获得增益。起始地区露营指南中的“露营 101：{skill:164}”任务（在“广阔天地”之后）会派你去找锻造训练师，可免费学会它。",
 		["Expert {skill:164}"] = "高级{skill:164}",
 		["Journeyman {skill:164}"] = "中级{skill:164}",
 		["Learn {skill:164}"] = "学习{skill:164}",
@@ -9208,10 +9207,7 @@ t.guides["forever/professions/blacksmithing"] = (function() return {
 		["{skill:164} recipes at 175"] = "175点的{skill:164}配方",
 		["{skill:164} recipes at 185"] = "185点的{skill:164}配方",
 		["{skill:164} recipes at 200"] = "200点的{skill:164}配方",
-		["{skill:164} recipes at 35"] = "{skill:164}：技能 35 时学习的配方",
-		["{spell:2660} to 35"] = "制作{spell:2660}，提升至 35",
 		["{spell:2666} to 100"] = "{spell:2666}练到100",
-		["{spell:3320} to 75"] = "{spell:3320}练到75",
 		["{spell:3501} to 175"] = "将{spell:3501}做到 175",
 } end)()
 t.guides["forever/professions/cooking"] = (function() return {

@@ -9126,7 +9126,6 @@ t.guides["forever/professions/alchemy"] = (function() return {
 } end)()
 t.guides["forever/professions/blacksmithing"] = (function() return {
 		["Artisan {skill:164}"] = "{skill:164} (Artífice)",
-		["Back to a {skill:164} trainer: {spell:3320} (from 25, 1s). Also learn {spell:1230171} (1s): Forever's {skill:164} camp item, 1 {item:2835} and 1 {item:2840}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:164} quest from your starting area's camping guide (after The Great Outdoors) sends you to a blacksmithing trainer who teaches it free."] = "De volta a um instrutor de {skill:164}: {spell:3320} (a partir de 25, 1s). Aprenda também {spell:1230171} (1s): o item de acampamento de {skill:164} do Forever, 1 {item:2835} e 1 {item:2840}, colocado num acampamento ao lado de uma fogueira para dar o benefício. A missão Introdução ao acampamento: {skill:164}, do guia de acampamento da sua área inicial (depois de Vida ao ar livre), manda você a um instrutor de ferraria que ensina de graça.",
 		["Expert {skill:164}"] = "{skill:164} (Perito)",
 		["Journeyman {skill:164}"] = "{skill:164} (Profissional)",
 		["Learn {skill:164}"] = "Aprender {skill:164}",
@@ -9140,10 +9139,7 @@ t.guides["forever/professions/blacksmithing"] = (function() return {
 		["{skill:164} recipes at 175"] = "Receitas de {skill:164} em 175",
 		["{skill:164} recipes at 185"] = "Receitas de {skill:164} em 185",
 		["{skill:164} recipes at 200"] = "Receitas de {skill:164} em 200",
-		["{skill:164} recipes at 35"] = "Receitas de {skill:164} em 35",
-		["{spell:2660} to 35"] = "{spell:2660} até 35",
 		["{spell:2666} to 100"] = "{spell:2666} até 100",
-		["{spell:3320} to 75"] = "{spell:3320} até 75",
 		["{spell:3501} to 175"] = "{spell:3501} até 175",
 } end)()
 t.guides["forever/professions/cooking"] = (function() return {
