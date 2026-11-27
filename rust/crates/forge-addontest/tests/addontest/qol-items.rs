@@ -125,7 +125,10 @@ fn bag_button_tooltip_refreshes_with_coin_icons_when_the_stack_price_loads() {
 	]
 	.concat());
 	assert_eq!(out[0], "Vendor price | ?", "the vendor price is unknown while item info loads");
-	assert_eq!(out[1], r"Vendor price | 1 |TInterface\MoneyFrame\UI-GoldIcon:12:12|t 2 |TInterface\MoneyFrame\UI-SilverIcon:12:12|t 34 |TInterface\MoneyFrame\UI-CopperIcon:12:12|t", "the open tooltip shows the value of both fangs after the event");
+	assert_eq!(
+		out[1], r"Vendor price | 1 |TInterface\MoneyFrame\UI-GoldIcon:12:12|t 2 |TInterface\MoneyFrame\UI-SilverIcon:12:12|t 34 |TInterface\MoneyFrame\UI-CopperIcon:12:12|t",
+		"the open tooltip shows the value of both fangs after the event"
+	);
 }
 
 #[test]
