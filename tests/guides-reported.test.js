@@ -4267,10 +4267,18 @@ test('Phear\'s report: a kill or collect leads to the camp that holds its mobs, 
 // calibrated level model).
 const H40 = (n) => `forever/horde/40-50/${n}.guide`;
 
-test('Horde 40-50 binds: Stranglethorn sets none, Camp Mojache is bound once (0.4.0 route audit)', { skip }, () => {
-	// The travel sweep found no trip in 30-40/06 or 40-50/01 that hearths back to Grom'gol, Booty Bay or Stonard.
-	const stv = goals(H40('01-stranglethorn-vale')).filter(({ goal }) => goal.t === 'sethome');
-	assert.deepEqual(stv.map(({ goal }) => goal.location), [], '40-50/01 leaves the hearthstone where it is');
+// #4479: the riding trainer trip at 40 (Orgrimmar, Sen'jin, Bloodhoof, Valanaar or Brill) comes back to Grom'gol; with
+// the hearthstone left at Tarren Mill it came back by zeppelin (players' recordings), so the first Grom'gol stop binds
+// there and the riding steps say to hearth back. Camp Mojache stays bound once on 40-50/02 (0.4.0 route audit).
+test('Horde 40-50 binds: Stranglethorn binds Grom\'gol on its first stop for the riding trip back, Camp Mojache is bound once (#4479)', { skip }, () => {
+	const list = goals(H40('01-stranglethorn-vale'));
+	const stv = list.filter(({ goal }) => goal.t === 'sethome');
+	assert.deepEqual(stv.map(({ goal }) => goal.location), ["Grom'gol Base Camp"], '40-50/01 binds once, at Grom\'gol');
+	const bind = at(list, 'the Grom\'gol bind', (g) => g.t === 'sethome');
+	assert.equal(list[bind].s, list[at(list, 'turnin 1240 (Kin\'weelay)', is('turnin', 1240))].s, 'on the first Grom\'gol stop');
+	const trips = [...new Set(list.slice(bind).filter(({ step }) => step.title === 'Riding at 40').map(({ step }) => step))];
+	assert.ok(trips.length >= 5, `every race's riding step comes after the bind (${trips.length})`);
+	for (const step of trips) assert.match(step.note || '', /hearth back to Grom'gol/, `${(step.only && step.only.races || []).join(',')}: the riding step says to hearth back`);
 	const binds = goals(H40('02-feralas')).filter(({ goal }) => goal.t === 'sethome');
 	assert.deepEqual(binds.map(({ goal }) => goal.location), ['Camp Mojache'], '40-50/02 binds Camp Mojache once, at Innkeeper Greul');
 });
@@ -18215,6 +18223,25 @@ test('#2419: Stranglethorn (Alliance): the first loop starts at Booty Bay, never
 	// What Booty Bay sends north is done on the first visits there, not on a trip back.
 	assert.ok(at(list, 'complete 201', is('complete', 201)) < at(list, 'accept 185', is('accept', 185)), 'Investigate the Camp on the first Nesingwary stop');
 	assert.ok(at(list, 'turnin 198', is('turnin', 198)) < at(list, 'Kurzen kills', (g) => g.t === 'kill' && g.quest === 203), 'Thorsen\'s supplies on the first Rebel Camp stop');
+});
+
+// #4479 (a Discord report, Alliance Stranglethorn 32-45: "in Booty Bay I had to make the full trip like 3 times"): the
+// second loop (30-40/04b) ends with the walk from the north of the jungle down to Booty Bay, about 8 minutes on foot,
+// and 30-40/02-desolace between the loops bound the hearthstone at Nijel's Point, whose own walks back take 3 minutes or
+// less. Players' recordings: 10 people walked that last leg, 9 of them bound at Nijel's Point with the stone ready. Booty
+// Bay's bind from the first loop now stands through Desolace, and the step says to hearth back.
+test('#4479: Stranglethorn (Alliance): the first loop\'s Booty Bay bind brings the second loop back from the north', { skip }, () => {
+	const first = goals('forever/alliance/30-40/04-stranglethorn-vale.guide');
+	assert.deepEqual(first.filter(({ goal }) => goal.t === 'sethome').map(({ goal }) => goal.location), ['Booty Bay'], 'the first loop binds Booty Bay');
+	assert.equal(compiled('forever/alliance/30-40/04-stranglethorn-vale.guide').next, 'forever/alliance/30-40/02-desolace');
+	const desolace = goals('forever/alliance/30-40/02-desolace.guide');
+	assert.deepEqual(desolace.filter(({ goal }) => goal.t === 'sethome').map(({ goal }) => goal.location), [], 'Desolace leaves the hearthstone in Booty Bay');
+	assert.equal(compiled('forever/alliance/30-40/02-desolace.guide').next, 'forever/alliance/30-40/04b-stranglethorn-vale');
+	const second = goals('forever/alliance/30-40/04b-stranglethorn-vale.guide');
+	const handIn = at(second, 'turnin 577 (Drizzlik)', is('turnin', 577));
+	assert.ok(!second.slice(0, handIn).some(({ goal }) => goal.t === 'sethome'), 'no bind before the Booty Bay hand-ins');
+	const crocs = second[at(second, 'the Snapjaw Crocolisk skins', (g) => g.t === 'collect' && g.quest === 577)];
+	assert.match(crocs.step.note || '', /hearth back to Booty Bay/, 'the last northern step says to hearth back');
 });
 
 // #2587 (swork1, 0.4.0, Alliance Wetlands): the Dun Modr stop offered Spark of Freedom to a group but not Motley's The

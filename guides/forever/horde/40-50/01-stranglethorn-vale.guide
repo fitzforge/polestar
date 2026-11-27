@@ -67,6 +67,7 @@ step Fly to Grom'gol
   zone Stranglethorn Vale
 
 step Grom'gol Base Camp
+  sethome "Grom'gol Base Camp" npc 5814 -- Innkeeper Thulbek, by the flight master: hearth back here after the trainer trip at 40
   turnin 1240                           -- Kin'weelay
   accept 95748 npc 2519                 -- Kin'weelay: the legend lies in Zul'Kunda, where this guide goes for Gan'zulah
   accept 1261                           -- the Bubbling Cauldron beside Kin'weelay: Marg Speaks, for Nazeer Bloodpike in Brackenwall Village on the Dustwallow guide, where the crabs drop the pendant
@@ -159,10 +160,11 @@ step Booty Bay
 #   the same Zul'Mamwe loop, so merging saves a later trip from Grom'gol.
 # - Witch Doctor Unbagwa's part of Stranglethorn Fever (349) waits for 40-50/02's Grom'gol stop with Mokk (44):
 #   keep the gorilla fangs from this guide's Mistvale loop for it.
-# - Binds: none in this guide (0.4.0 route audit): the hearthstone stays
-#   where the previous guides set it. The travel sweep found no trip here
-#   that hearths back to Grom'gol, Booty Bay or Stonard, and 40-50/02 binds
-#   at Camp Mojache before its first hearth.
+# - Binds (#4479): Grom'gol's inn on the first stop. The riding trainer trip at 40
+#   (Orgrimmar, Sen'jin, Bloodhoof, Valanaar or Brill) comes back to Grom'gol by
+#   Hearthstone instead of the zeppelin: about 5 minutes per branch with the addon's
+#   planner, and players bound at Tarren Mill took the zeppelin back (players' recordings).
+#   40-50/02 binds at Camp Mojache before its first hearth.
 # - Swamp of Sorrows: the strongbox on the way back west, the Harborage,
 #   then one ride east: the Pool of Tears, Misty Reed Post and Stonard
 #   (fix round, 2026-11-20). Lack of Surplus (698) is worked here and its
@@ -374,7 +376,7 @@ step Riding at 40
   zone Orgrimmar
   when level>=40
   when !skill Riding 1
-  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the Riverglades after Stranglethorn are a long walk without one. Take the zeppelin from Grom'gol's tower to Orgrimmar: Kildar teaches Orcs in the Valley of Honor, by Ogunaro Wolfrunner's kennel (wolves 20 gold each). Then the zeppelin back to Grom'gol. Short of gold? Skip this step: the Feralas guide passes Orgrimmar again at about 45.
+  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the Riverglades after Stranglethorn are a long walk without one. Take the zeppelin from Grom'gol's tower to Orgrimmar: Kildar teaches Orcs in the Valley of Honor, by Ogunaro Wolfrunner's kennel (wolves 20 gold each). Then hearth back to Grom'gol, or take the zeppelin if your hearthstone is cooling down. Short of gold? Skip this step: the Feralas guide passes Orgrimmar again at about 45.
   train 4752                            -- Kildar, riding trainer
 
 step Riding at 40
@@ -382,7 +384,7 @@ step Riding at 40
   zone Durotar
   when level>=40
   when !skill Riding 1
-  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the Riverglades after Stranglethorn are a long walk without one. Take the zeppelin from Grom'gol's tower to Orgrimmar and go south down the Durotar road to Sen'jin Village: Xar'Ti teaches Trolls there, with Zjolnir's raptors (20 gold each). Then back to the zeppelin for Grom'gol. Short of gold? Skip this step: the Feralas guide passes Orgrimmar again at about 45.
+  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the Riverglades after Stranglethorn are a long walk without one. Take the zeppelin from Grom'gol's tower to Orgrimmar and go south down the Durotar road to Sen'jin Village: Xar'Ti teaches Trolls there, with Zjolnir's raptors (20 gold each). Then hearth back to Grom'gol, or take the zeppelin from Orgrimmar if your hearthstone is cooling down. Short of gold? Skip this step: the Feralas guide passes Orgrimmar again at about 45.
   train 7953                            -- Xar'Ti, riding trainer
 
 step Riding at 40
@@ -390,7 +392,7 @@ step Riding at 40
   zone Mulgore
   when level>=40
   when !skill Riding 1
-  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the Riverglades after Stranglethorn are a long walk without one. Take the zeppelin from Grom'gol's tower to Orgrimmar, fly to Thunder Bluff and ride down to Bloodhoof Village: Kar Stormsinger teaches Tauren there, with Harb Clawhoof's kodos (20 gold each). Then fly back to Orgrimmar for the Grom'gol zeppelin. Short of gold? Skip this step: the Feralas guide passes Thunder Bluff again at about 45.
+  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the Riverglades after Stranglethorn are a long walk without one. Take the zeppelin from Grom'gol's tower to Orgrimmar, fly to Thunder Bluff and ride down to Bloodhoof Village: Kar Stormsinger teaches Tauren there, with Harb Clawhoof's kodos (20 gold each). Then hearth back to Grom'gol, or fly back to Orgrimmar for the Grom'gol zeppelin if your hearthstone is cooling down. Short of gold? Skip this step: the Feralas guide passes Thunder Bluff again at about 45.
   train 3690                            -- Kar Stormsinger, riding trainer
 
 step Riding at 40
@@ -398,7 +400,7 @@ step Riding at 40
   zone Zephras Isle
   when level>=40
   when !skill Riding 1
-  tip Riding needs level 40 and costs 100 gold; learning it gives you a Galestrider, and the Riverglades after Stranglethorn are a long walk without one. Take the zeppelin from Grom'gol's tower to Orgrimmar and fly to Thunder Bluff: the skyboat to Zephras Isle leaves the cliffs south of Skywatcher Plateau, north of Thunder Bluff, about every five minutes, and Genn Fairweather teaches Skyborne at the Fairweather Stables in Valanaar. Then back to Orgrimmar for the Grom'gol zeppelin. Short of gold? Skip this step: the Feralas guide passes Orgrimmar again at about 45.
+  tip Riding needs level 40 and costs 100 gold; learning it gives you a Galestrider, and the Riverglades after Stranglethorn are a long walk without one. Take the zeppelin from Grom'gol's tower to Orgrimmar and fly to Thunder Bluff: the skyboat to Zephras Isle leaves the cliffs south of Skywatcher Plateau, north of Thunder Bluff, about every five minutes, and Genn Fairweather teaches Skyborne at the Fairweather Stables in Valanaar. Then hearth back to Grom'gol, or go back to Orgrimmar for the Grom'gol zeppelin if your hearthstone is cooling down. Short of gold? Skip this step: the Feralas guide passes Orgrimmar again at about 45.
   train 265756                          -- Genn Fairweather, riding trainer, at the Fairweather Stables in Valanaar
 
 step Riding at 40
@@ -406,7 +408,7 @@ step Riding at 40
   zone Tirisfal Glades
   when level>=40
   when !skill Riding 1
-  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the Riverglades after Stranglethorn are a long walk without one. Take the zeppelin from Grom'gol's tower to the Undercity's towers: Velma Warnam teaches the Forsaken in Brill, a short ride north, with Zachariah Post's skeletal horses (20 gold each). Then the zeppelin back to Grom'gol. Short of gold? Skip this step: the Feralas & Tanaris guide passes the Undercity again at about 45.
+  tip Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the Riverglades after Stranglethorn are a long walk without one. Take the zeppelin from Grom'gol's tower to the Undercity's towers: Velma Warnam teaches the Forsaken in Brill, a short ride north, with Zachariah Post's skeletal horses (20 gold each). Then hearth back to Grom'gol, or take the zeppelin if your hearthstone is cooling down. Short of gold? Skip this step: the Feralas & Tanaris guide passes the Undercity again at about 45.
   train 4773                            -- Velma Warnam, riding trainer
 
 step Your mount at 40
