@@ -104,7 +104,7 @@ step Fish in the mid-level waters until 225
   loop Stranglethorn Vale lvl 41 lap 527 gain 4.6 only Alliance r 15 at 22.4,52.6 26.9,42.0 26.9,44.7 26.1,48.3 24.6,50.1
   loop Swamp of Sorrows lvl 44 lap 913 gain 4.6 only Alliance r 15 at 89.6,21.2 90.7,25.2 94.5,41.3 79.2,7.4 78.3,5.3
   loop Alterac Mountains lvl 37 lap 1489 gain 4.6 only Horde r 15 at 27.9,41.3 30.8,35.5 34.3,28.0 36.0,24.1 31.1,32.9
-  loop Desolace lvl 21 lap 605 gain 4.6 only Horde r 15 at 21.5,73.8 22.1,73.1 22.3,72.3 23.9,73.2 25.9,78.3
+  loop Desolace lvl 31 lap 605 gain 4.6 only Horde r 15 at 21.5,73.8 22.1,73.1 22.3,72.3 23.9,73.2 25.9,78.3
   loop Stranglethorn Vale lvl 41 lap 529 gain 4.6 only Horde r 15 at 26.9,42.0 26.9,44.7 26.1,48.3 22.4,52.6 24.6,50.1
   loop Swamp of Sorrows lvl 44 lap 913 gain 4.6 only Horde r 15 at 79.2,7.4 78.3,5.3 89.6,21.2 90.7,25.2 94.5,41.3
   skill Fishing 225
@@ -192,5 +192,5 @@ step Buy 16 Bright Baubles
 step Fish in the high-level waters until 300
   tip Fish get away here without a lure.
   loop Feralas lvl 49 lap 218 gain 1.2 only Alliance,Horde r 15 at 48.0,53.5 44.6,48.0
-  loop Tanaris lvl 36 lap 364 gain 2.4 only Alliance,Horde r 15 at 71.2,41.4 72.6,43.6 72.8,44.1 73.2,44.2
+  loop Tanaris lvl 41 lap 364 gain 2.4 only Alliance,Horde r 15 at 71.2,41.4 72.6,43.6 72.8,44.1 73.2,44.2
   skill Fishing 300

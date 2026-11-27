@@ -163,11 +163,14 @@ function renderRoute(ctx, prof, route) {
 	const fishWatersAt = new Map();
 	const fishWaters = (from, e) => {
 		if (fishWatersAt.has(e)) return fishWatersAt.get(e);
-		const band = { from, to: e.gather, level: e.level || 1, want: [] };
+		// A round asks at least the route's level and the zone's own (its creatures' lowest: a level-21 round in
+		// Desolace, whose creatures start at 30, would undersell it).
+		const bandIn = (map) => ({ from, to: e.gather, level: Math.max(e.level || 1, (ZONES[map] || {}).min || 1), want: [] });
 		const out = [];
 		for (const side of FACTIONS) {
 			for (const name of (e.zones || {})[side] || []) {
 				const map = zoneId(ctx, name, true);
+				const band = bandIn(map);
 				let w = null;
 				try {
 					w = FR.asLoop(ctx, band, side, FR.roundAt(ctx, map, side, band));

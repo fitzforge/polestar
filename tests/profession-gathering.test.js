@@ -411,6 +411,7 @@ test('generated profession guides are up to date and compile', { skip: hasData ?
 		'fishing.guide',
 		'herbalism-alchemy.guide',
 		'herbalism.guide',
+		'lockpicking.guide',
 		'mining-blacksmithing.guide',
 		'mining-engineering.guide',
 		'mining.guide',
