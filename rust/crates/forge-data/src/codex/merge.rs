@@ -618,7 +618,7 @@ pub struct Merged {
 	pub factions: Obj,
 	pub spells: Obj,
 	pub frames: Obj,
-	/// Each profession's per-rank trainers and its trainerSkill gates (#3784).
+	/// Each profession's rank trainers, trainerSkill gates and per-recipe teachers.
 	pub professions: Obj,
 	/// evidence.noPvp, evidence.cut.{drop, rare, treasure} (parity's).
 	pub no_pvp: Vec<f64>,
@@ -841,11 +841,17 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 	let professions = Obj::new();
 	for (id, p) in oentries(&fv.professions) {
 		set_skill(&mut skill_line_of, &p.get("name").to_js_string(), str_to_num(&id));
-		// The per-rank trainer lists and trainerSkill (#3784): secondary professions (First Aid, Cooking,
-		// Fishing) have no trainers object on Expert and Artisan, so they get no record.
+		// Keep recipe teachers even when a profession lacks a full set of rank trainer lists.
 		let ranks = p.get("ranks").items();
 		let sided = |r: &V| r.get("trainers").is_obj() && (r.get("trainers").has("Alliance") || r.get("trainers").has("Horde"));
-		if ranks.len() == 4 && ranks.iter().all(sided) {
+		let recipe_trainers = Obj::new();
+		for recipe in p.get("recipes").items() {
+			if recipe.get("trainers").is_obj() {
+				recipe_trainers.set(&kstr(&recipe.get("spell")), recipe.get("trainers"));
+			}
+		}
+		let has_ranks = ranks.len() == 4 && ranks.iter().all(sided);
+		if has_ranks || !recipe_trainers.is_empty() {
 			let ids_of = |r: &V, side: &str| {
 				let mut v: Vec<f64> = r.get("trainers").get(side).items().iter().filter_map(int).collect();
 				v.sort_by(|a, b| by_num(*a, *b));
@@ -854,6 +860,7 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			};
 			let rank_vs: Vec<V> = ranks
 				.iter()
+				.filter(|_| has_ranks)
 				.map(|r| {
 					let o = Obj::new();
 					let nn = |v: V| if v.is_nullish() { V::Num(0.0) } else { v };
@@ -872,6 +879,9 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			rec.set("ranks", V::Arr(forge_guide::js::Arr::from_vec(rank_vs)));
 			let gates = p.get("trainerSkill");
 			rec.set("trainerSkill", if gates.is_obj() { gates } else { V::obj() });
+			if !recipe_trainers.is_empty() {
+				rec.set("recipeTrainers", recipe_trainers);
+			}
 			professions.set(&id, V::Obj(rec));
 		}
 		let mut trainers: Vec<V> = Vec::new();

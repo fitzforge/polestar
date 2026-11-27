@@ -828,6 +828,20 @@ pub fn emit_pack(codex: &PackCodex, version: &str, build: &V, extra_files: &[(St
 	if !profession_entries.is_empty() {
 		emit_group("profession", &profession_entries, "Professions", &mut out, &mut order);
 	}
+	// Exact recipe teachers, separate from profession ranks so older packs remain readable.
+	let mut recipe_trainers: Vec<Entry> = Vec::new();
+	for (_, p) in oentries(codex.professions) {
+		for (spell, sides) in oentries(&p.get("recipeTrainers")) {
+			let mut ids: Vec<f64> = ["Alliance", "Horde"].iter().flat_map(|side| sides.get(side).items()).map(|id| id.num()).collect();
+			ids.sort_by(|a, b| by_num(*a, *b));
+			ids.dedup();
+			recipe_trainers.push((spell.to_string(), V::str(&ids.iter().map(|id| num_str(*id)).collect::<Vec<_>>().join(",")), None, String::new()));
+		}
+	}
+	recipe_trainers.sort_by(|a, b| by_num(str_to_num(&a.0), str_to_num(&b.0)));
+	if !recipe_trainers.is_empty() {
+		emit_group("recipeTrainer", &recipe_trainers, "RecipeTrainers", &mut out, &mut order);
+	}
 	let obj_ids = sorted_ids(objects);
 	let obj_entries = |treasure: bool| -> Result<Vec<Entry>, String> {
 		let mut v = Vec::new();

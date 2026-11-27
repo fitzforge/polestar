@@ -238,7 +238,7 @@ fn num(n: i64) -> V {
 /// Adds a trainer to { Alliance, Horde } trainer lists (a rank's and the profession's; ascending, once
 /// each) on the sides its npcs.json faction serves; an NPC of no side, without spawns (Vaelan, linked
 /// to the mining list in Blackrock Spire) or not in npcs.json is left out.
-fn add_trainer(rank: &V, prof: &V, ctx: &Ctx, creature: i64) {
+fn add_trainer(lists: &[&V], ctx: &Ctx, creature: i64) {
 	let npc = ctx.npcs.get(&creature.to_string());
 	if npc.get("spawns").keys().is_empty() {
 		return;
@@ -249,7 +249,7 @@ fn add_trainer(rank: &V, prof: &V, ctx: &Ctx, creature: i64) {
 		Some("AH") => &["Alliance", "Horde"],
 		_ => return,
 	};
-	for lists in [rank, prof] {
+	for lists in lists {
 		for side in sides {
 			let mut ids: Vec<f64> = lists.get(side).items().iter().map(|v| v.num()).collect();
 			if ids.contains(&(creature as f64)) {
@@ -669,6 +669,18 @@ fn js_trim(s: &str) -> &str {
 /// extractProfessions(tables, { items, npcs, objects, stock, season, trainers }).
 pub fn extract(t: &Tables, ctx: &Ctx) -> Extracted {
 	let ix = index(t);
+	// Reverse the positive Forever lists once, including Effect 36 teaching wrappers.
+	let mut recipe_teachers: FxHashMap<i64, Vec<i64>> = FxHashMap::default();
+	// Older rows supply a teacher only when that creature has no sniffed list of its own.
+	let fallback = ctx.trainer_any.iter().filter(|(creature, _)| !ctx.trainer_lists.contains_key(*creature));
+	for (&creature, spells) in ctx.trainer_lists.iter().chain(fallback) {
+		for spell in spells {
+			recipe_teachers.entry(*spell).or_default().push(creature);
+			for effect in ix.effects.get(spell).into_iter().flatten().filter(|e| e.effect == 36 && e.trigger > 0) {
+				recipe_teachers.entry(effect.trigger).or_default().push(creature);
+			}
+		}
+	}
 	let finder = Finder::new(ctx.npcs);
 	let mut warnings = Vec::new();
 	let mut report = Vec::new();
@@ -701,6 +713,17 @@ pub fn extract(t: &Tables, ctx: &Ctx) -> Extracted {
 			}
 		}
 		recipes.sort_by(|a, b| a.learned_at.cmp(&b.learned_at).then(a.yellow.unwrap_or(0).cmp(&b.yellow.unwrap_or(0))).then(a.spell.cmp(&b.spell)));
+		// A profession/rank trainer need not teach this recipe (#4214). Keep only positive
+		// Forever list evidence, including the teaching spell's Effect 36 wrapper.
+		for recipe in &recipes {
+			let teachers = V::obj();
+			for creature in recipe_teachers.get(&recipe.spell).into_iter().flatten() {
+				add_trainer(&[&teachers], ctx, *creature);
+			}
+			if !teachers.keys().is_empty() {
+				recipe.obj.set("trainers", teachers);
+			}
+		}
 		for r in &recipes {
 			if let Some(item) = r.item {
 				let o = Obj::new();
@@ -738,7 +761,7 @@ pub fn extract(t: &Tables, ctx: &Ctx) -> Extracted {
 						}
 						for (creature, spells) in ctx.trainer_lists {
 							if spells.iter().any(teaches) {
-								add_trainer(&rk.get("trainers"), &tr.trainers, ctx, *creature);
+								add_trainer(&[&rk.get("trainers"), &tr.trainers], ctx, *creature);
 							}
 						}
 					}
@@ -766,7 +789,9 @@ pub fn extract(t: &Tables, ctx: &Ctx) -> Extracted {
 		let mut gated: Vec<(i64, f64)> = ctx.trainer_skill.iter().filter(|(_, &(l, _))| l == id).map(|(&c, &(_, k))| (c, k)).collect();
 		gated.sort_by_key(|&(c, _)| c);
 		for (c, k) in gated {
-			let listed = ["Alliance", "Horde"].iter().any(|s| tr.trainers.get(s).items().iter().any(|v| v.num() == c as f64));
+			let listed = ["Alliance", "Horde"]
+				.iter()
+				.any(|s| tr.trainers.get(s).items().iter().any(|v| v.num() == c as f64) || recipes.iter().any(|r| r.obj.get("trainers").get(s).items().iter().any(|v| v.num() == c as f64)));
 			if listed {
 				skill.set(&c.to_string(), V::Num(k));
 			}

@@ -55,6 +55,19 @@ fn loot_source_requirements_survive_the_codex_build_and_pack() {
 }
 
 #[test]
+fn exact_recipe_teachers_survive_the_codex_build_and_pack_4214() {
+	let (root, data) = setup("codex-recipe-teachers");
+	let file = data.join("professions.json");
+	let mut professions: serde_json::Value = serde_json::from_str(&std::fs::read_to_string(&file).unwrap()).unwrap();
+	professions["197"]["recipes"] = serde_json::json!([{ "spell": 8762, "trainers": { "Alliance": [1346], "Horde": [4576] } }]);
+	std::fs::write(file, professions.to_string()).unwrap();
+	let out = codex::build_logged(&options(&root, &data), &|_| {}).unwrap();
+	let professions: serde_json::Value = serde_json::from_str(&out.json.iter().find(|(name, _)| name == "professions.json").unwrap().1).unwrap();
+	assert_eq!(professions["197"]["recipeTrainers"]["8762"], serde_json::json!({ "Alliance": [1346], "Horde": [4576] }));
+	assert!(out.pack.iter().any(|(_, text)| text.contains("recipeTrainer") && text.contains("1346,4576")));
+}
+
+#[test]
 fn codex_matches_golden() {
 	let (root, data) = setup("codex");
 	let out = codex::build_logged(&options(&root, &data), &|_| {}).unwrap();
