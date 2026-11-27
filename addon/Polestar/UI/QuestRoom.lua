@@ -108,7 +108,7 @@ local function build()
 	F.GuideMe = W.Button(F, L["Guide me to all"], function()
 		if UI.GuideCarried() then F:Hide() end
 	end, { height = BUTTON_H })
-	F.GuideMe.psTip = L["Hand in all finished quests"]
+	F.GuideMe.psTip = L["Hand in your finished quests"]
 	F.GuideMe.psTipLines = { L["Get an estimated travel order for all finished quests in your log, including those kept for a later guide."] }
 	F.GuideMe:Hide()
 	-- Between the two lists: the finished quests while Make room is shown, and back.
