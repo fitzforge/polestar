@@ -417,7 +417,7 @@ local SPECS = {
 			} },
 		{ kind = "toggle", key = "nav.spawnSpots", label = L["Spawn spots"], new = NEW,
 			search = "spawn spots, spots, numbered, marks, places, search here, other spawns, world map, clutter, show, hide",
-			help = L["Small marks on the world map where the target also spawns, each numbered in its tooltip. Click one to search there next."] },
+			help = L["Small marks on zone maps where the target also spawns, each numbered in its tooltip. Click one to search there next."] },
 		-- The trail stands in for route lines: shown while route lines are off.
 		{ kind = "slider", key = "nav.trailDotSize", label = L["Trail dots"], min = 0.5, max = 2.5, step = 0.05, format = percent, new = NEW,
 			needs = function() return not ns.Get("nav.routeLines") end,
@@ -545,11 +545,11 @@ if ns.MobMarkers then
 	table.insert(SPECS, 3, { page = PAGE, tab = L["Pins"], section = L["Spawn markers"],
 		toggle = { kind = "toggle", key = "mobMarkers.enabled", label = L["Spawn markers for your quests"], new = "0.4.3",
 			search = "mob markers, spawn markers, spawn points, every spawn, kill, skull, mobs, quest mobs, objects, legend",
-			help = L["A skull on the world map and the minimap at every spawn of the mobs your quests need, one colour per quest and a ring per mob; the things you pick up or use get the pickup bag. Their size and opacity are on the Icons tab."] },
+			help = L["A skull on zone maps and the minimap at every spawn of the mobs your quests need, one colour per quest and a ring per mob; the things you pick up or use get the pickup bag. Their size and opacity are on the Icons tab."] },
 		controls = {
 		{ kind = "toggle", key = "mobMarkers.showMinimap", label = L["On the minimap"], new = "0.4.3", disabled = off,
 			search = "mob markers, spawn markers, minimap, radar",
-			help = L["Off: the spawn markers show on the world map only."] },
+			help = L["Off: the spawn markers show on zone maps only."] },
 		{ kind = "toggle", key = "mobMarkers.showLegend", label = L["Legend on the world map"], new = "0.4.3", disabled = off,
 			search = "mob markers, spawn markers, legend, key, list",
 			help = L["Lists the quests and mobs on the shown map. Hover a row to highlight its markers, click it to turn them off or on."] },

@@ -1342,6 +1342,7 @@ Compat.GetMapName(uiMapID)      -> string | nil
 Compat.MapName(uiMapID)         -> string | nil   (the client's name, else the Codex zone's)
 Compat.GetAreaName(areaID)      -> string | nil   (C_Map.GetAreaInfo: the area's name in the client's language)
 Compat.GetContinentMap(uiMapID) -> continent uiMapID | nil
+Compat.IsWideMap(uiMapID)       -> bool   (a continent or wider: UIMapType below Zone; false for a zone, narrower, or unknown)
 Compat.GetUnitMapPosition(unit) -> uiMapID, x, y | nil      (a party unit's place, 0-100; nil in instances / unknown)
 Compat.GetUnitZone(unit)        -> zone uiMapID | nil        (its best map climbed to Enum.UIMapType.Zone)
 Compat.GetPlayerFacing()        -> radians | nil   (0 = north, counter-clockwise positive)
@@ -4836,7 +4837,7 @@ or the minimap.
 
 ```lua
 Polestar.Pins.SetLayer(layer, pins, opts)   -- replace a layer; opts = { world = true, minimap = true, edge = false, scale = 1,
-                                            --   minimapAreas = false, minMapType = nil, worldLayout = nil, summary = nil }
+                                            --   minimapAreas = false, minMapType = nil, dense = false, worldLayout = nil, summary = nil }
 Polestar.Pins.ClearLayer(layer)
 Polestar.Pins.SetLayerVisible(layer, visible)
 -- pin = { map, x, y, f, icon (Theme.Media name, texture path, or "map:<name>": a map mark), size, minimapSize,
@@ -4919,7 +4920,12 @@ Pins are drawn on the world map for the map being viewed (converted through Comp
 for other maps). Optional `worldLayout(projected, view)` receives this layer's
 `{ pin, x, y }` entries in viewed-map percentages and returns its world-map
 layout; map and canvas-size changes run it again. It never changes minimap
-pins. `minMapType` hides world pins on broader views. `summary` (what the
+pins. `minMapType` hides world pins on broader views. `dense` marks a layer of
+many pins (rare and treasure spawns, a target's spawn spots): it is a
+`minMapType` of Zone, so it shows on zone maps, narrower views and the
+minimap and never on a continent or the world map, where its pins buried the
+zone names and levels; the route, the target and the zone levels stay there.
+`summary` (what the
 layer's pins are, as the player reads them: the quest layers' "Hand-ins",
 "Objectives", "Available quests") gathers the pins of every such layer into
 one pin per zone on a continent or world map: a medallion with a glyph per
@@ -7531,7 +7537,7 @@ flight timer and the instance tracker are set under Quality of Life.
   `Maps/MobMarkers.lua`, rohkin's Mob Markers, #1129; settings on the Map pins
   page's Pins tab): a skull on its medallion at every spawn of the mobs and
   objects the quests shown need (the quest log's open quests, only the guide
-  step's with `mobMarkers.stepOnly`), on the world map and the minimap; skull
+  step's with `mobMarkers.stepOnly`), on the world map's zone views and the minimap (never on a continent or the world: `Compat.IsWideMap`); skull
   colour per quest, a ring per mob (`Media/Map/mob-ring16/32/64`, from
   `tools/media/map.js`), the pickup bag for an object. Data: the Codex's quest
   objectives, an item's drops and giving objects, and their spawns (world yards
@@ -11105,7 +11111,7 @@ Polestar.Rares.FounderSighting(unit, source, guid)  -- a player unit from Detect
   own unit menu targets a surnamed player by first name when regional
   unique names are off), `/wave`. Only the player's click runs it.
 - **Pins**: layers `rares.rare` and `rares.treasure` through `Polestar.Pins`,
-  world map and minimap per kind (`rares.worldRares`, `worldTreasures`,
+  zone views of the world map and the minimap per kind (`rares.worldRares`, `worldTreasures`,
   `minimapRares`, `minimapTreasures`; all off by default, Map → Rares, travel & zones →
   Rares and treasures); one pin per distinct spawn (spawns of
   one rare within 1.5 map percent share it), rares at grey levels left out
