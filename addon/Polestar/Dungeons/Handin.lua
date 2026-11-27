@@ -136,6 +136,15 @@ local function carried(rec)
 	return true
 end
 
+-- Whether the character holds the standing quest record `rec` names (the
+-- Codex's `r` field), true when it names none: Master Smith Burninate takes
+-- Gaining Acceptance's Dark Iron Residue only from one Friendly with the
+-- Thorium Brotherhood (#3914). As the pick-up guide's errands (Pickup.lua).
+local function standingHeld(rec)
+	if not (rec.repFaction and rec.repStanding) then return true end
+	return (tonumber((ns.Compat.GetFactionStanding(rec.repFaction))) or 4) >= rec.repStanding
+end
+
 -- The client's quest-log lines of quest record `rec`'s objectives `objs`, as
 -- { [oi] = line }: the line labelled with the objective's words (its text, or
 -- its item's, NPC's or object's name in the client's language: Polestar.Names)
@@ -375,9 +384,11 @@ function Dungeons.HandinPlan(key)
 			-- One handed in at one talk and never in the log (the page's
 			-- `direct`: Pozzik's Indurium Ore, #2241), once the bags hold
 			-- every item it asks and its giver would take it (Lookup's
-			-- QuestBlock, its prerequisites done): handed in at its ender.
+			-- QuestBlock, the standing it names, its prerequisites done):
+			-- handed in at its ender.
 			local rec = C.Quest(pq.id)
-			if rec and #(rec.objectives or {}) > 0 and carried(rec) and not Lk.QuestBlock(rec, p) and Dungeons.PreDone(rec) then
+			if rec and #(rec.objectives or {}) > 0 and carried(rec) and not Lk.QuestBlock(rec, p) and standingHeld(rec)
+				and Dungeons.PreDone(rec) then
 				local ender = Dungeons.Ender(pq, from, rec)
 				if ender then plan.hand[#plan.hand + 1] = { quest = pq, rec = rec, ender = ender, direct = true } end
 			end
