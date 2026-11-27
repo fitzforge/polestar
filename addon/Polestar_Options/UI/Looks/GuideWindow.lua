@@ -357,6 +357,8 @@ function UI.GuideWindowScene(band)
 			["ui.upcomingOpen"] = { up },
 			-- The sample Journey (made with the first layout that shows it).
 			["guideWindow.journeyStyle"] = { G.journeySample and G.journeySample.frame },
+			-- The cards stand round the window: the window lights.
+			["guideWindow.cardsPlace"] = window,
 		}) do
 			light(key, parts)
 		end
@@ -758,6 +760,21 @@ local SPECS = {
 				{ value = "folded", label = L["Under the window, folded"] },
 				{ value = "rail", label = L["On the timeline"] },
 				{ value = "foot", label = L["In the foot"] },
+			} },
+		{ kind = "dropdown", key = "guideWindow.cardsPlace", label = L["Cards"], new = "0.4.4",
+			-- Only a layout that stacks cards round the window (its defaults name it) offers it.
+			disabled = function()
+				local T = ns.Theme
+				local id = T and T.LayoutId and T.LayoutId()
+				local info = id and T.LayoutInfo and T.LayoutInfo(id)
+				return not (info and info.defaults and info.defaults["guideWindow.cardsPlace"])
+			end,
+			offWhy = L["Polestar's layout keeps its notices on the window. Pick a layout with cards, such as Atlas, in Presets."],
+			help = L["Where the cards round the window stand (Optional, While you're here, Along the way, notices): above the window or below it."],
+			search = "cards, popups, notices, optional, while you're here, along the way, above, below, under the window",
+			choices = {
+				{ value = "above", label = L["Above the window"] },
+				{ value = "below", label = L["Below the window"] },
 			} },
 	} },
 	-- The Still to do rows over Along the way (#3303).

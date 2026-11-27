@@ -515,6 +515,10 @@ local function seamOf(window)
 	return (window and not window.psBare and Theme.KitSeam) and Theme.KitSeam(window) or 0
 end
 local function gapOf(window) return GAP - 2 * seamOf(window) end
+-- Where the cards stand (guideWindow.cardsPlace): "above" the window (the
+-- default) or "below" it, under the Journey's card when that shows, the
+-- card nearest the step on top.
+local function cardsBelow() return Core.setting("guideWindow.cardsPlace") == "below" end
 local OPT_ROW, OPT_PAD = 23, 14
 -- Optional's heading this far under its card's top; the card's foot this far under its last row.
 local OPT_TOP, OPT_FOOT = 9, 6
@@ -829,17 +833,48 @@ local function stackFrame(window)
 		own.stack:SetHeight(1)
 		own.stack.cards = {}
 	end
-	-- Above the window's own parts past its top edge (the On the top edge
-	-- tabs: Theme.GuideReach, set before this layout), its gap over them.
-	local reach = Theme.GuideReach and Theme.GuideReach(window) or 0
-	local at = gapOf(window) + reach
-	if own.stackAt ~= at then
-		own.stackAt = at
-		own.stack:ClearAllPoints()
-		own.stack:SetPoint("BOTTOMLEFT", window, "TOPLEFT", 0, at)
-		own.stack:SetPoint("BOTTOMRIGHT", window, "TOPRIGHT", 0, at)
-	end
 	return own.stack
+end
+
+-- Above: over the window's own parts past its top edge (the On the top edge
+-- tabs: Theme.GuideReach, set before this layout), its gap over them.
+-- Below: its gap under the Journey's card when that shows (layoutBottom,
+-- so this runs after it), else under the window's own parts past its foot.
+local function anchorStack(window)
+	local own = store(window)
+	local stack = own.stack
+	if not stack then return end
+	local below = cardsBelow()
+	local edge, at = window, nil
+	if below then
+		local b = own.bottom
+		if b and b:IsShown() then
+			edge, at = b, -gapOf(window)
+		else
+			at = -(gapOf(window) + (tonumber(window.psBottomReach) or 0))
+		end
+	else
+		at = gapOf(window) + (Theme.GuideReach and Theme.GuideReach(window) or 0)
+	end
+	-- Whether it hangs from the Journey's card, not the edge frame itself: the
+	-- store's frames all hide when the layout is left (hideAll), the window too.
+	local onCard = edge ~= window
+	if own.stackAt ~= at or own.stackOnCard ~= onCard or own.stackBelow ~= below then
+		own.stackAt, own.stackOnCard, own.stackBelow = at, onCard, below
+		stack:ClearAllPoints()
+		if below then
+			stack:SetPoint("TOPLEFT", edge, "BOTTOMLEFT", 0, at)
+			stack:SetPoint("TOPRIGHT", edge, "BOTTOMRIGHT", 0, at)
+		else
+			stack:SetPoint("BOTTOMLEFT", edge, "TOPLEFT", 0, at)
+			stack:SetPoint("BOTTOMRIGHT", edge, "TOPRIGHT", 0, at)
+		end
+	end
+	-- Below, the room it takes under the window (GF.Below) grows by it.
+	if below and stack:IsShown() then
+		local under = edge == window and -at or ((tonumber(window.psBelow) or 0) - at)
+		window.psBelow = under + (stack:GetHeight() or 0)
+	end
 end
 
 local function closeButton(parent)
@@ -1939,12 +1974,19 @@ local function layoutStack(parts)
 	slots = {}
 	local width = window:GetWidth() or 300
 	local y, gap = 0, gapOf(window)
+	-- Nearest the window first: up from the stack's foot above it, down from
+	-- its top below it.
+	local below = cardsBelow()
 	for i = #list, 1, -1 do
 		local f = list[i].f
 		local h = f:GetHeight() or 0
 		local b = backing(stack, i)
 		b:ClearAllPoints()
-		b:SetPoint("BOTTOMLEFT", stack, "BOTTOMLEFT", 0, y)
+		if below then
+			b:SetPoint("TOPLEFT", stack, "TOPLEFT", 0, -y)
+		else
+			b:SetPoint("BOTTOMLEFT", stack, "BOTTOMLEFT", 0, y)
+		end
 		b:SetSize(width, h)
 		dress(b, window)
 		b:Show()
@@ -2077,6 +2119,7 @@ on("guideLayout", function(parts)
 	local journey, foot = slots.journey, slots.journeyFoot
 	layoutStack(parts)
 	layoutBottom(parts, journey, foot)
+	anchorStack(parts.window)
 end)
 
 -- The folded header follows the leg you are on, once a second with the panel.
@@ -2089,8 +2132,10 @@ do
 	end
 end
 
--- The heads-up card stands on the stack, over the cards.
+-- The heads-up card stands on the stack, over the cards (with the cards
+-- below the window, on the window as Polestar places it).
 on("guideAnchor", function()
+	if cardsBelow() then return end
 	local parts = Theme.GuideParts and Theme.GuideParts()
 	local own = parts and parts.window and stores[parts.window]
 	if own and own.stack and own.stack:IsShown() then return own.stack end
@@ -3186,6 +3231,7 @@ local function spec(hooks)
 			["guideWindow.lastSteps"] = 1,
 			["guideWindow.stepNumberSize"] = 0.75,
 			["guideWindow.journeyStyle"] = "folded",
+			["guideWindow.cardsPlace"] = "above",
 			["guideWindow.bannerLinks"] = "right",
 			-- The step card's air out of compact mode, each gap's whole size in
 			-- px: over the title, between it and its line, over the tip, round
