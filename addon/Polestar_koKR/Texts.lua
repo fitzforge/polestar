@@ -7594,7 +7594,6 @@ t.guides["forever/professions/leatherworking"] = (function() return {
 		["{skill:165} recipes at 180"] = "180에서 {skill:165} 제조법",
 		["{skill:165} recipes at 213"] = "213에서 {skill:165} 제조법",
 		["{skill:165} recipes at 51"] = "51에서 {skill:165} 제조법",
-		["{spell:10548} (from 210) is taught only by the Artisan trainers: Alliance {npc:11097} ({zone:1425}); Horde {npc:11098} ({zone:1444}). You can train Artisan there now if you are level 35 (it needs {skill:165} 200), which saves the trip at 225."] = "{spell:10548}(210부터)은(는) 전문 상급자만 가르칩니다: 얼라이언스 {npc:11097}({zone:1425}), 호드 {npc:11098}({zone:1444}). 35레벨이라면 지금 그곳에서 전문 단계를 배울 수 있으며({skill:165} 200 필요), 225에 다시 찾아갈 필요가 없어집니다.",
 		["{spell:2152} to 51"] = "{spell:2152}: 51까지",
 		["{spell:3756} to 75"] = "{spell:3756}: 75까지",
 		["{spell:3763} to 102"] = "{spell:3763}: 102까지",

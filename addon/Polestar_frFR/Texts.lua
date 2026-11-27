@@ -9575,7 +9575,6 @@ t.guides["forever/professions/leatherworking"] = (function() return {
 		["{skill:165} recipes at 180"] = "Recettes de {skill:165} à 180",
 		["{skill:165} recipes at 213"] = "Recettes de {skill:165} à 213",
 		["{skill:165} recipes at 51"] = "{skill:165} : recettes à 51",
-		["{spell:10548} (from 210) is taught only by the Artisan trainers: Alliance {npc:11097} ({zone:1425}); Horde {npc:11098} ({zone:1444}). You can train Artisan there now if you are level 35 (it needs {skill:165} 200), which saves the trip at 225."] = "{spell:10548} (à partir de 210) n'est enseigné que par les maîtres artisans : Alliance {npc:11097} ({zone:1425}) ; Horde {npc:11098} ({zone:1444}). Vous pouvez y apprendre le rang Artisan dès maintenant si vous êtes niveau 35 (il demande {skill:165} 200), ce qui vous épargne le trajet à 225.",
 		["{spell:2152} to 51"] = "{spell:2152} jusqu'à 51",
 		["{spell:3756} to 75"] = "{spell:3756} jusqu'à 75",
 		["{spell:3763} to 102"] = "{spell:3763} jusqu'à 102",

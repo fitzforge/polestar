@@ -9444,7 +9444,6 @@ t.guides["forever/professions/leatherworking"] = (function() return {
 		["{skill:165} recipes at 180"] = "{skill:165}180的配方",
 		["{skill:165} recipes at 213"] = "{skill:165}213的配方",
 		["{skill:165} recipes at 51"] = "{skill:165}：技能 51 时学习的配方",
-		["{spell:10548} (from 210) is taught only by the Artisan trainers: Alliance {npc:11097} ({zone:1425}); Horde {npc:11098} ({zone:1444}). You can train Artisan there now if you are level 35 (it needs {skill:165} 200), which saves the trip at 225."] = "{spell:10548}（210起）只有大师级训练师教授：联盟{npc:11097}（{zone:1425}）；部落{npc:11098}（{zone:1444}）。如果你已满35级（需要{skill:165} 200），现在就可以在那里学习大师级，省得225时再跑一趟。",
 		["{spell:2152} to 51"] = "制作{spell:2152}，提升至 51",
 		["{spell:3756} to 75"] = "{spell:3756}练到75",
 		["{spell:3763} to 102"] = "制作{spell:3763}，提升至 102",
