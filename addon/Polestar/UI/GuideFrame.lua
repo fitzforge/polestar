@@ -2154,20 +2154,20 @@ GF.Part(function(GF)
 			empty.Secondary.psAction = function() UI.ShowPicker() end
 			empty.Secondary:Show()
 		elseif kind == "complete" and ns.Free and E and E.GetGuide and ns.Free.IsGuide((E.GetGuide() or {}).id) then
-			-- Free mode with nothing in the log to lead to: pick up quests, or go
-			-- back to a guide.
+			-- Free mode with nothing in the log to lead to: pick up quests, turn it
+			-- off (back to the guide the player came from, named on the line), or
+			-- choose a guide.
 			glyph = "icon-freemode"
 			empty.Title:SetText(L["No quests to lead to"])
-			empty.Text:SetText(L["Pick up quests and Free mode leads you to them."])
 			local back = ns.Free.ReturnTitle()
-			W.SetButtonText(empty.Primary, back and string.format(L["Back to %s"], back) or L["Choose a guide"])
-			empty.Primary.psAction = function() if back then ns.Free.Stop() else UI.ShowPicker() end end
+			empty.Text:SetText(L["Pick up quests and Free mode leads you to them."] .. "\n"
+				.. (back and string.format(L["Takes you back to %s"], "|c" .. Theme.Hex("text") .. back .. "|r") or L["Leaves you with no guide open: pick one under Guides."]))
+			W.SetButtonText(empty.Primary, L["Turn off Free mode"])
+			empty.Primary.psAction = function() ns.Free.Stop() end
 			empty.Primary:Show()
-			if back then
-				W.SetButtonText(empty.Secondary, L["Choose a guide"])
-				empty.Secondary.psAction = function() UI.ShowPicker() end
-				empty.Secondary:Show()
-			end
+			W.SetButtonText(empty.Secondary, L["Choose a guide"])
+			empty.Secondary.psAction = function() UI.ShowPicker() end
+			empty.Secondary:Show()
 		elseif kind == "complete" then
 			glyph, color = "check", "success"
 			local guide = E and E.GetGuide and E.GetGuide()

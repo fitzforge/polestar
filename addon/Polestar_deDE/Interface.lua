@@ -418,6 +418,13 @@
 --   Your own quests, planned for you: pick up what you like, Polestar orders them and the arrow leads.
 --   Your quests in Free mode
 --   Your route, the order and the quests left out.
+-- Machine-translated, to be reviewed (the guide window menu's Turn on and Turn off Free mode, 0.4.4, 27 Nov 2026):
+-- translated by an AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native
+-- speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   Leaves you with no guide open: pick one under Guides.
+--   Takes you back to %s
+--   Turn off Free mode
+--   Turn on Free mode
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "deDE") then return end
@@ -5649,6 +5656,10 @@ L["Why first: %s"] = "Warum zuerst: %s"
 L["Free mode page"] = "Freimodus-Seite"
 L["Your route, the order and the quests left out."] = "Deine Route, die Reihenfolge und die ausgelassenen Quests."
 L["Stop Free mode"] = "Freimodus beenden"
+L["Turn on Free mode"] = "Freimodus einschalten"
+L["Turn off Free mode"] = "Freimodus ausschalten"
+L["Takes you back to %s"] = "Bringt dich zurück zu %s"
+L["Leaves you with no guide open: pick one under Guides."] = "Danach ist kein Guide offen: Wähle einen unter Guides."
 
 -- Page.lua
 L["Hand in finished quests"] = "Erledigte Quests abgeben"

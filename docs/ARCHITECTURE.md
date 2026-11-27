@@ -8675,8 +8675,8 @@ Polestar.FreeOrder.Sort(rows, rule, pin, last, dist) ; .Why(rows, rule, pin) ; .
   `rewards.xp` (the Codex's XP times `Levels.Share` at the player's level) and a
   collect whose best placed source gives the item under 20% says "Low drop
   rate: N%". An empty plan is one note step ("Pick up quests…"), and the
-  window's finished card then reads "No quests to lead to" with Back to
-  <guide> or Choose a guide.
+  window's finished card then reads "No quests to lead to", the guide turning
+  it off goes back to on its line, with Turn off Free mode and Choose a guide.
 - **The pick rule** (`free.pick`, `Order.lua`: its numbers in one table each,
   `Order.EFFORT`, `Order.NEAR`, `Order.HOLD`, `Order.BALANCED`). Each quest's
   next place: the hand-in when ready, else its open objective nearest in a
@@ -8719,7 +8719,9 @@ Polestar.FreeOrder.Sort(rows, rule, pin, last, dist) ; .Why(rows, rule, pin) ; .
   from; a tab Polestar builds (`lookup/<kind>/<id>`: the hand-in route, a
   dungeon's pick-up run, a Lookup "Guide me") is never one. Stop selects it if
   its tab is open, else the first open tab of a pack; with none, Stop just
-  closes Free mode's tab and the window offers Stop Free mode, not Back to.
+  closes Free mode's tab. The menu's and the empty window's "Turn off Free
+  mode" name the guide it goes back to beside the button ("Takes you back to
+  <guide>", or "Leaves you with no guide open: pick one under Guides.").
 - **Zone hints** (`free.hints`). With no quest placed, or the first more than
   300 s away, the first step is "Quests for your level": a `goto` to the hub of
   the zone with the most quests for the trip (its count over 1 + the straight
@@ -8738,8 +8740,9 @@ Polestar.FreeOrder.Sort(rows, rule, pin, last, dist) ; .Why(rows, rule, pin) ; .
   `MoveTab`), as Lookup's generated guides reopen: placed from the quest log,
   the first open quest live. While no Free mode tab is open the quest log's
   events cost one flag test (`TABS_CHANGED` keeps it).
-- **The window.** The guide menu's "Free mode" row starts it; while it is on
-  the menu holds "Free mode page", "Back to <guide>" (or "Stop Free mode"), the
+- **The window.** The guide menu's "Turn on Free mode" row starts it; while it
+  is on the menu holds "Free mode page", "Turn off Free mode" (its tooltip the
+  guide it goes back to), the
   three orders ("Order: balanced", "Order: nearest first", "Order: most XP a
   minute first", the one in use checked) and "Bring back left-out quests (N)";
   with no guide open, the empty card's "Or follow your own quests: Free mode".

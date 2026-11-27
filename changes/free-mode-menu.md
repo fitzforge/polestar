@@ -21,8 +21,9 @@ section: players
   settings.
 - In Free mode the guide window says so once, when it starts ("You're in Free
   mode: your own quests, planned for you."), and the step shows why its quest
-  comes first in one line under the header. The way back and the order are in
-  the window's menu.
+  comes first in one line under the header. The window's menu has "Turn on
+  Free mode" and, while it's on, "Turn off Free mode" (naming the guide it
+  takes you back to) and the order.
 - Import moved into Settings, Community guides, and the guide menu's Community
   guides list ends with "+ Import a guide". The Import page in the main
   window is gone; `/polestar import` opens the new place.

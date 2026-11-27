@@ -644,6 +644,13 @@
 --   Your own quests, planned for you: pick up what you like, Polestar orders them and the arrow leads.
 --   Your quests in Free mode
 --   Your route, the order and the quests left out.
+-- Machine-translated, to be reviewed (the guide window menu's Turn on and Turn off Free mode, 0.4.4, 27 Nov 2026):
+-- translated by an AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native
+-- speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   Leaves you with no guide open: pick one under Guides.
+--   Takes you back to %s
+--   Turn off Free mode
+--   Turn on Free mode
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "koKR") then return end
@@ -5879,6 +5886,10 @@ L["Why first: %s"] = "먼저인 이유: %s"
 L["Free mode page"] = "자유 모드 페이지"
 L["Your route, the order and the quests left out."] = "내 경로, 순서, 제외한 퀘스트."
 L["Stop Free mode"] = "자유 모드 끄기"
+L["Turn on Free mode"] = "자유 모드 켜기"
+L["Turn off Free mode"] = "자유 모드 끄기"
+L["Takes you back to %s"] = "%s(으)로 돌아갑니다"
+L["Leaves you with no guide open: pick one under Guides."] = "열린 가이드가 없게 됩니다: 가이드에서 하나를 고르세요."
 
 -- Page.lua
 L["Hand in finished quests"] = "완료한 퀘스트 제출"

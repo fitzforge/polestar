@@ -644,6 +644,13 @@
 --   Your own quests, planned for you: pick up what you like, Polestar orders them and the arrow leads.
 --   Your quests in Free mode
 --   Your route, the order and the quests left out.
+-- Machine-translated, to be reviewed (the guide window menu's Turn on and Turn off Free mode, 0.4.4, 27 Nov 2026):
+-- translated by an AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native
+-- speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   Leaves you with no guide open: pick one under Guides.
+--   Takes you back to %s
+--   Turn off Free mode
+--   Turn on Free mode
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhTW") then return end
@@ -5879,6 +5886,10 @@ L["Why first: %s"] = "為何優先：%s"
 L["Free mode page"] = "自由模式頁面"
 L["Your route, the order and the quests left out."] = "你的路線、順序和已排除的任務。"
 L["Stop Free mode"] = "停止自由模式"
+L["Turn on Free mode"] = "開啟自由模式"
+L["Turn off Free mode"] = "關閉自由模式"
+L["Takes you back to %s"] = "將帶你回到%s"
+L["Leaves you with no guide open: pick one under Guides."] = "關閉後不會開啟任何指南：請在「指南」中選擇一個。"
 
 -- Page.lua
 L["Hand in finished quests"] = "繳交已完成的任務"

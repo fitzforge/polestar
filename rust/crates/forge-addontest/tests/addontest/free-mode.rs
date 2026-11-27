@@ -375,7 +375,8 @@ emit({ guide = E.GetGuide().id, tabs = tabs, label = label(), on = F.IsOn() })
 
 // try4: started from the hand-in route's tab, the way back read "Return to Hand in your finished quests". The way
 // back is the last guide of a pack the player had in front; a tab Polestar builds (the hand-in route, a dungeon's
-// pick-up run, a Lookup guide) is never one. With only those open there is no way back to name: Stop.
+// pick-up run, a Lookup guide) is never one. With only those open there is no guide to go back to: the menu's Turn
+// off Free mode says so in its tooltip.
 #[test]
 fn the_way_back_is_the_last_guide_of_a_pack_never_the_hand_in_route() {
 	let out = run(r#"
@@ -402,9 +403,9 @@ for i, t in ipairs(E.GetTabs()) do if t.guideId == "test/route" then E.CloseTab(
 stub.advance(1)
 assert(F.Start())
 stub.advance(1)
-local menu = {}
-for _, it in ipairs(F.MenuItems()) do menu[#menu + 1] = it.text end
-emit({ first = first, back = F.ReturnTitle() or false, menu = menu })
+local menu, tips = {}, {}
+for _, it in ipairs(F.MenuItems()) do menu[#menu + 1] = it.text; tips[#tips + 1] = it.tip or "" end
+emit({ first = first, back = F.ReturnTitle() or false, menu = menu, tips = tips })
 "#);
 	let o = &out[0];
 	assert_eq!(text(&o["first"]["from"]), "lookup/carried/log", "started from the hand-in route's tab");
@@ -412,7 +413,8 @@ emit({ first = first, back = F.ReturnTitle() or false, menu = menu })
 	assert_eq!(text(&o["first"]["saved"]), "test/route");
 	assert_eq!(text(&o["first"]["after"]), "test/route", "Stop hands the arrow back to it");
 	assert_eq!(o["back"], false);
-	assert_eq!(strs(&o["menu"])[1], "Stop Free mode", "no guide to go back to: Stop");
+	assert_eq!(strs(&o["menu"])[1], "Turn off Free mode", "the action, never a guide's name");
+	assert_eq!(strs(&o["tips"])[1], "Leaves you with no guide open: pick one under Guides.", "no guide to go back to");
 }
 
 #[test]
@@ -437,8 +439,8 @@ emit({ first = first, titles = titles(), live = live() })
 fn the_guide_window_says_free_mode_once_puts_why_on_the_step_and_keeps_the_way_back_and_the_order_in_its_menu() {
 	// The whole addon: the empty window's link; on start one line saying Free mode is on (no links), gone once
 	// closed until the next start; why the first quest is first as one line under the step's header; the menu's
-	// way back and the three orders; a quest line's right-click rows (pin, leave out; no Skip, which skips the
-	// quest in every guide).
+	// Turn on / Turn off (the guide it goes back to in its tooltip) and the three orders; a quest line's
+	// right-click rows (pin, leave out; no Skip, which skips the quest in every guide).
 	let out = run_with(
 		r#"
 stub.advance(2)
@@ -460,10 +462,11 @@ local text = GF.parts.banner.Text:GetText()
 local links = GF.parts.banner.Jump:IsShown() or GF.parts.banner.Later:IsShown()
 local view = E.GetStepView(E.GetStepIndex())
 local why = { chosen = view.chosen, shown = GF.parts.person.Why:IsShown() and GF.parts.person.Why:GetText() or false }
-local menuOn, checked, rowsOn = {}, {}, {}
+local menuOn, checked, rowsOn, tipOff = {}, {}, {}, nil
 for _, it in ipairs(F.MenuItems()) do
 	menuOn[#menuOn + 1] = it.text
 	if it.checked then checked[#checked + 1] = it.text end
+	if it.text == "Turn off Free mode" then tipOff = it.tip end
 end
 for _, it in ipairs(F.RowItems(7001) or {}) do rowsOn[#rowsOn + 1] = it.text end
 -- Closed: gone while Free mode stays on (a later plan, Start pressed again); back with the next start.
@@ -479,24 +482,66 @@ local after = E.GetGuide().id
 assert(F.Start())
 stub.advance(1)
 emit({ menuOff = menuOff, rowsOff = rowsOff, banner = kind, n = n, text = text, links = links, why = why, menuOn = menuOn, checked = checked,
-	rowsOn = rowsOn, closed = closed, after = after, again = GF.BannerNotice() or false })
+	tipOff = tipOff, rowsOn = rowsOn, closed = closed, after = after, again = GF.BannerNotice() or false })
 "#,
 		&Opts { files: None, ..Default::default() },
 	);
 	let o = &out[0];
-	assert_eq!(strs(&o["menuOff"]), ["Free mode"]);
+	assert_eq!(strs(&o["menuOff"]), ["Turn on Free mode"], "the action it takes");
 	assert!(o["rowsOff"].is_null());
 	assert_eq!(text(&o["banner"]), "free");
 	assert_eq!(text(&o["text"]), "You're in Free mode: your own quests, planned for you.");
 	assert_eq!(o["links"], false, "no Return or order links on it");
 	assert_eq!(text(&o["why"]["chosen"]), "Why first: nearest \u{b7} most XP for the trip");
 	assert_eq!(o["why"]["shown"], o["why"]["chosen"], "one dim line under the step's header");
-	assert_eq!(strs(&o["menuOn"]), ["Free mode page", "Back to Route", "Order: balanced", "Order: nearest first", "Order: most XP a minute first"]);
+	assert_eq!(strs(&o["menuOn"]), ["Free mode page", "Turn off Free mode", "Order: balanced", "Order: nearest first", "Order: most XP a minute first"]);
+	assert_eq!(text(&o["tipOff"]), "Takes you back to Route", "the guide it goes back to, in its tooltip");
 	assert_eq!(strs(&o["checked"]), ["Order: balanced"]);
 	assert_eq!(strs(&o["rowsOn"]), ["Pin to the top", "Leave out of Free mode"]);
 	assert_ne!(o["closed"], "free", "closed: gone while Free mode stays on");
 	assert_eq!(text(&o["after"]), "test/route");
 	assert_eq!(text(&o["again"]), "free", "the next start says it once more");
+}
+
+// The empty guide window in Free mode (nothing in the log to lead to): Turn off Free mode, which goes back to the guide
+// the player came from (named on the line above it, never on the button), and Choose a guide.
+#[test]
+fn the_empty_free_mode_window_turns_it_off_back_to_the_guide_it_names_on_its_line() {
+	let out = run_with(
+		r#"
+stub.advance(2)
+local GF = Polestar.UI.GuideFrame
+Polestar.RegisterPack({ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" })
+assert(Polestar.RegisterGuide({ id = "test/route", pack = "test", title = "Route", minLevel = 1, maxLevel = 60, steps = {
+	{ title = "Go west", goals = { { t = "goto", map = 9001, x = 10, y = 90, text = "West camp" } } },
+} }))
+E.SetGuide("test/route")
+-- No zone hint either: the log holds nothing to lead to.
+Polestar.Set("free.hints", false)
+stub.advance(1)
+assert(F.Start())
+stub.advance(1)
+GF.Refill()
+local e = GF.parts.empty
+local got = { shown = e:IsShown(), title = e.Title:GetText(), text = e.Text:GetText(), primary = e.Primary.Label:GetText(),
+	secondary = e.Secondary:IsShown() and e.Secondary.Label:GetText() or false }
+e.Primary.psAction()
+stub.advance(1)
+got.after, got.on = E.GetGuide().id, F.IsOn()
+emit(got)
+"#,
+		&Opts { files: None, ..Default::default() },
+	);
+	let o = &out[0];
+	assert_eq!(o["shown"], true);
+	assert_eq!(text(&o["title"]), "No quests to lead to");
+	let line = text(&o["text"]);
+	assert!(line.starts_with("Pick up quests and Free mode leads you to them.\nTakes you back to "), "{line}");
+	assert!(line.contains("Route"), "the guide turning it off goes back to: {line}");
+	assert_eq!(text(&o["primary"]), "Turn off Free mode", "the action, never Back to <guide>");
+	assert_eq!(text(&o["secondary"]), "Choose a guide");
+	assert_eq!(text(&o["after"]), "test/route", "Turn off hands the arrow back");
+	assert!(!truthy(&o["on"]));
 }
 
 #[test]
