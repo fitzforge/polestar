@@ -45,7 +45,7 @@ return {
 	-- Step 8: Rackmore's Silver Key
 	-- {item:15878} Rackmore's Silver Key
 	-- plural, as words: Drysnap Crawlers = {npc:11562} Drysnap Crawler
-	["West to the shore: the Drysnap Crawlers and Pincers (33-35) on the beach and the clam beds around the wreck carry {item:15878}, about one in seven."] = "向西到海边：海滩上和沉船周围蚌床一带的干钳蟹（33–35）带着{item:15878}，大约七只掉一把。",
+	["West to the shore: the Drysnap Crawlers and Pincers (33-35) on the beach and the clam beds around the wreck carry {item:15878}, about one in seven."] = "向西到海边：海滩上和沉船周围蚌床一带的枯钳龙虾人（33–35）带着{item:15878}，大约七只掉一把。",
 	-- {item:15878} Rackmore's Silver Key
 	["{item:15878}, from the Drysnap crabs"] = "{item:15878}，击杀干钳蟹获取",
 
