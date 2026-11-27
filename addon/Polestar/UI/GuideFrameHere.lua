@@ -131,6 +131,20 @@ ns.UI.GuideFrame.Part(function(GF)
 
 	function GF.FillHere(E)
 		local list = E.GetWhileHereList()
+		-- A guide whose kind has no quest rows here (a profession guide: Core/Guides.lua, GuideKinds) keeps
+		-- its own work and leaves out quests to take, do or hand in. `at`: each row's place in the Engine's
+		-- list, which Aim and Not now go by.
+		local at = {}
+		if list and list[1] and not GF.KindHas("whileHereQuests") then
+			local kept = {}
+			for i, v in ipairs(list) do
+				if not (v.quest or v.here == "turnin") then
+					kept[#kept + 1] = v
+					at[#kept] = i
+				end
+			end
+			list = kept
+		end
 		local Timed = GF.live and ns.Timed or nil
 		if Timed and Timed.OffRoute and not GF.InCombat() then GF.offs = Timed.OffRoute(GF.offs) end
 		local offs = Timed and GF.offs or {}
@@ -176,7 +190,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		for i, v in ipairs(list) do
 			local r = GF.HereRow(nOff + i)
-			r.psView, r.psOff, r.psAt = v, nil, i
+			r.psView, r.psOff, r.psAt = v, nil, at[i] or i
 			keys[nOff + i] = v.step .. ":" .. v.index
 			r.Icon:SetTexture(Theme.VerbIcon(v.here == "turnin" and "turnin" or v.t))
 			UI.SetCounted(r.Text, v.here ~= "work" and UI.HereText(v) or UI.GoalLine(v, nil, true))
