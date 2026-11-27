@@ -134,6 +134,16 @@ return {
 			for _, t in ipairs(T.Teleports(T.Now())) do out[#out + 1] = t.name end
 			return table.concat(out, ",")
 		end },
+		-- A Mage resting in an inn, on the long way to the goal across the sea, with no scroll: told to buy some.
+		["nav.liminalScroll"] = function()
+			local class, resting = UnitClass, IsResting
+			UnitClass = function() return "Mage", "MAGE" end
+			IsResting = function() return true end
+			target()
+			local offer = N.liminal.Find()
+			UnitClass, IsResting = class, resting
+			return offer and offer.kind or false
+		end,
 		-- A guildmate's sighting of the Menethil boat's loop (path-292), on a realm with none of its own: the boat's
 		-- caption is timed from it, or stays an average wait.
 		["nav.shareTransit"] = function()

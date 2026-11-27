@@ -30,6 +30,7 @@
 	<Script file="SpellCards.lua"/>
 	<Script file="UpdateCard.lua"/>
 	<Script file="AuctionBuys.lua"/>
+	<Script file="LiminalCard.lua"/>
 	<Script file="JourneyPanel.lua"/>
 	<Script file="GamepadGuide.lua"/>
 	<Script file="GearPick.lua"/>

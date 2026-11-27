@@ -165,7 +165,7 @@ test('Alert for rares, While you\'re here, Show arrow, Plan travel routes and Mi
 	assert.deepEqual(out['behavior.whileHereTurnins'], ['behavior.whileHereTurninSeconds']);
 	assert.deepEqual(out['behavior.whileHereVendors'], ['behavior.whileHereSellSlots', 'behavior.whileHereRepairPercent']);
 	assert.deepEqual(out['nav.arrow'], ['nav.hideArrowWithGuide']);
-	assert.deepEqual(out['nav.travel'], ['nav.teleports', 'nav.detourCaption']);
+	assert.deepEqual(out['nav.travel'], ['nav.teleports', 'nav.liminalScroll', 'nav.detourCaption']);
 	assert.deepEqual(out['nav.routeLines'], ['nav.lineStyle']);
 	assert.deepEqual(out['nav.tomtom'], ['nav.useTomTomArrow']);
 });

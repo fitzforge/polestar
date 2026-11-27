@@ -2184,6 +2184,16 @@ function Nav.BoundInn()
 	return (bindInn())
 end
 
+-- The known inn nearest to a place (continent c, world wx, wy) within maxYards, or nil.
+function Nav.InnNear(c, wx, wy, maxYards)
+	local best, bestYards = nil, maxYards
+	for _, inn in ipairs(inns) do
+		local d = yards(c, wx, wy, inn.c, inn.wx, inn.wy)
+		if d <= bestYards then best, bestYards = inn, d end
+	end
+	return best
+end
+
 -- Bound at an innkeeper: remember which inn that bind location means.
 local function onBound()
 	local C = ns.Compat
@@ -2193,13 +2203,7 @@ local function onBound()
 		local inn = npc and innByNpc[npc]
 		if not inn and C.GetPlayerWorldPosition then
 			local pc, px, py = C.GetPlayerWorldPosition()
-			local best = BIND_MATCH
-			for _, candidate in ipairs(inns) do
-				local d = yards(pc, px, py, candidate.c, candidate.wx, candidate.wy)
-				if d <= best then
-					best, inn = d, candidate
-				end
-			end
+			inn = Nav.InnNear(pc, px, py, BIND_MATCH)
 		end
 		if inn then
 			local flags = ns.CharState().flags
