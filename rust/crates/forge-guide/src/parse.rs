@@ -52,8 +52,9 @@ fn is_num(s: &str) -> bool {
 	}
 }
 
-pub const HEADER_KEYS: [&str; 21] =
-	["guide", "title", "levels", "zone", "faction", "race", "class", "next", "category", "kind", "folder", "keywords", "collects", "reward", "why", "author", "version", "coords", "pitch", "pro", "con"];
+pub const HEADER_KEYS: [&str; 21] = [
+	"guide", "title", "levels", "zone", "faction", "race", "class", "next", "category", "kind", "folder", "keywords", "collects", "reward", "why", "author", "version", "coords", "pitch", "pro", "con",
+];
 /// Lines inside a step that are not goals.
 /// `loop`: the step's `goto` points are the spawn areas of its kill, collect
 /// and interact goals (resolve.rs, applyLoop).

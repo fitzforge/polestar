@@ -388,7 +388,8 @@ fn the_work_out_in_the_world_before_each_dungeon_s_way_in_is_placed_outside_ever
 			packs_lua(),
 			maps_lua()
 		);
-		let out = emitted(&RunAddon { stubs: vec!["stub_world.lua", "stub_quests.lua"], before, addons: vec![Addon::name("Polestar")], login: false, script: OUTSIDE.into(), ..Default::default() }).remove(0);
+		let out = emitted(&RunAddon { stubs: vec!["stub_world.lua", "stub_quests.lua"], before, addons: vec![Addon::name("Polestar")], login: false, script: OUTSIDE.into(), ..Default::default() })
+			.remove(0);
 		for r in out["rows"].as_array().into_iter().flatten() {
 			eprintln!("{faction}\t{}", r.as_str().unwrap_or(""));
 		}

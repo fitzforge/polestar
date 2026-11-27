@@ -373,7 +373,13 @@ fn krol_dok_moulding_from_tunk_inside_is_on_krol_dok_strongholds_page_picked_up_
 fn the_rows_put_quests_whose_item_lies_in_an_object_inside_on_their_dungeons_pages() {
 	let f = fixture("dungeons.json");
 	let (mut c, mut i) = (f["codex"].clone(), f["inputs"].clone());
-	for (key, name, map) in [("shadowfang-keep", "Shadowfang Keep", 33), ("scarlet-monastery", "Scarlet Monastery", 189), ("stratholme", "Stratholme", 329), ("scholomance", "Scholomance", 289), ("blackmaw-hold", "Blackmaw Hold", 2974)] {
+	for (key, name, map) in [
+		("shadowfang-keep", "Shadowfang Keep", 33),
+		("scarlet-monastery", "Scarlet Monastery", 189),
+		("stratholme", "Stratholme", 329),
+		("scholomance", "Scholomance", 289),
+		("blackmaw-hold", "Blackmaw Hold", 2974),
+	] {
 		c["instances"][key] = json!({ "key": key, "name": name, "kind": "dungeon", "forever": false, "areaId": null, "map": map, "entrance": null, "levels": [20, 25, 60], "bosses": [] });
 		i["client"]["instanceMaps"].as_array_mut().unwrap().push(json!({ "id": map, "name": name, "raid": false, "players": 5, "area": null, "areas": [], "inner": [], "zones": [], "corpse": null }));
 	}

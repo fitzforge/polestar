@@ -792,11 +792,7 @@ emit(out)"#),
 		Opts::default(),
 	)
 	.remove(0);
-	assert_eq!(
-		out,
-		json!(["accept:90730@60 collect:8100@60.2", "collect:8101@70"]),
-		"the crate at the giver's feet with the accept, not the tubers inside; the far crate a step of its own"
-	);
+	assert_eq!(out, json!(["accept:90730@60 collect:8100@60.2", "collect:8101@70"]), "the crate at the giver's feet with the accept, not the tubers inside; the far crate a step of its own");
 }
 
 // #4042 (Iriael, Razorfen Kraul's pick-up guide): with Blueleaf Tubers taken long before, the guide only named it as
