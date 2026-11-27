@@ -4,8 +4,8 @@
 //! the skin in use (one hidden by a closed window above it as that window shows), the floating ones on the window
 //! skin (Halo's veil, not a menu's fill), and the quest item and
 //! travel buttons' hover wash follows the skin's.
-//! A profession guide's regions (UI/GuideFrameKindCraft.lua) are swept too: the craft row's Open button, a way's
-//! button and the shopping list's button, in every built-in look and every look of Polestar_Skins, and a paired
+//! A profession guide's regions (UI/GuideFrameKindCraft.lua) are swept too: the craft row's Open button and a way's
+//! button, each on its own step, in every built-in look and every look of Polestar_Skins, and a paired
 //! profession guide's two skill lines (a line each: the name's skill colour, the bar's track wash).
 
 use forge_addontest::{emitted, Addon, RunAddon};
@@ -48,13 +48,21 @@ Polestar.Engine.Goto(2); stub.advance(0.5)
 GF.Render(); GF.Layout()
 Polestar.Engine.Goto(1); stub.advance(0.5)
 GF.Render(); GF.Layout()
-local stretch, get, shop = GF.RegionFrame("stretch"), GF.RegionFrame("get"), GF.RegionFrame("shopping")
-local kind = {
-	open = stretch and stretch.Row.psOpen, way = get and get.Ways[1] and get.Ways[1].psButton, buy = shop and shop.Buy,
-}
+-- Each part as it shows on its own step: the craft step's Open Tailoring, the get step's first way button shown (the
+-- Auction House's Buy list: the farm here has no spot to lead to).
+local function shownSkin(f) return f and f:IsVisible() and f.psSkin and f.psSkin.skin or false end
 local function kindSkins()
 	local k = {}
-	for name, f in pairs(kind) do k[name] = f and f.psSkin and f.psSkin.skin or false end
+	Polestar.Engine.Goto(2); stub.advance(0.2); GF.Render(); GF.Layout()
+	local stretch = GF.RegionFrame("stretch")
+	k.open = shownSkin(stretch and stretch.Row.psOpen)
+	Polestar.Engine.Goto(1); stub.advance(0.2); GF.Render(); GF.Layout()
+	local get = GF.RegionFrame("get")
+	local way = false
+	for _, r in ipairs(get and get.Ways or {}) do
+		if not way and r.psButton:IsVisible() then way = shownSkin(r.psButton) end
+	end
+	k.way = way
 	return k
 end
 -- The swept frames by global name: a name that is gone (a renamed frame) is reported missing, not skipped.
@@ -70,9 +78,10 @@ for k, name in pairs(NAMES) do
 	if f then named[k] = f else missing[#missing + 1] = k end
 end
 table.sort(missing)
--- Every frame a skin painted.
+-- Every frame a skin painted (a look's own pieces inside one, as the house look's tick box in a goal row's check,
+-- carry its state without being painted themselves).
 local painted = {}
-for _, f in ipairs(stub.frames) do if rawget(f, "psSkin") then painted[#painted + 1] = f end end
+for _, f in ipairs(stub.frames) do if rawget(f, "psSkin") and f.psSkin.skin then painted[#painted + 1] = f end end
 local function hover(b) local hl = b and rawget(b, "Hl"); return hl and { hl:GetVertexColor() } or false end
 local out = { missing = table.concat(missing, ","), painted = #painted, skins = {} }
 for _, key in ipairs(T.SKIN_ORDER) do
@@ -195,10 +204,10 @@ fn switching_the_skin_restyles_the_flight_timer_and_every_polestar_frame_live_13
 				assert_eq!(s[b], s["wash"], "{key}: the {b} button's hover wash is the skin's");
 			}
 		}
-		// The guide kinds' parts (UI/GuideFrameKindCraft.lua): the craft row's Open button, a way's button and the
-		// shopping list's button, each in the skin in use.
+		// The guide kinds' parts (UI/GuideFrameKindCraft.lua): the craft row's Open button and a way's button, each in
+		// the skin in use.
 		let kind = s["kind"].as_object().unwrap();
-		assert_eq!(kind.len(), 3, "{key}: every kind part reported");
+		assert_eq!(kind.len(), 2, "{key}: every kind part reported");
 		for (name, skin) in kind {
 			assert_eq!(skin, &json!(key), "{key}: the profession guide's {name} painted in it");
 		}
