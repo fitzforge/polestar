@@ -1547,7 +1547,7 @@ fn check_places(ck: &mut Ck, d: &V) {
 	}
 }
 
-/// A top-level guide-fix condition uses this subset of the guide's step predicates.
+/// A guide-fix condition uses this subset of the guide's step predicates.
 fn check_guide_when(ck: &mut Ck, at: &str, when: &V) {
 	let text = when.as_str().filter(|w| !w.contains(['\r', '\n'])).unwrap_or("");
 	let parsed = forge_guide::when::parse_when(text);
@@ -1569,13 +1569,16 @@ fn check_guide_when(ck: &mut Ck, at: &str, when: &V) {
 				ck.refers(at, "items", &p.get("item"));
 				return;
 			}
-			Some("knows") => return,
+			Some("knows" | "zone") => return,
 			_ => {}
 		}
 	}
 	ck.err(
 		at,
-		format!("{}: `level>=N` (levels 2 to 60, including fractional progress), `onquest Q[,Q...]`, `[!]complete Q`, `[!]turnedin Q`, `[!]knows S`, `[!]group Q` or `[!]has I [xN]`", show(when)),
+		format!(
+			"{}: `level>=N` (levels 2 to 60, including fractional progress), `onquest Q[,Q...]`, `[!]complete Q`, `[!]turnedin Q`, `[!]knows S`, `[!]group Q`, `[!]has I [xN]` or `[!]zone \"Name\"`",
+			show(when)
+		),
 	);
 }
 
@@ -1601,9 +1604,9 @@ fn check_guide_when(ck: &mut Ck, at: &str, when: &V) {
 /// goal line of the quest, and then no other `races` record names the quest. Three kinds move what a
 /// step holds, each alone on its record: `follows: { quest, goal, objective? }` (the anchored goal line
 /// right after that goal's line), `split: { title, tip? }` (the anchored goal and the lines after it in
-/// its step become a step of their own) and `step: { after: { quest, goal, objective? }, guide?,
-/// copy?: true, way?: true, tip? }` (the anchored goal's whole step, or a copy, right after `after`'s
-/// step in the guide `guide` names). `way: { at: { map, x, y, frame? }, label?, title? }` (alone): the
+/// its step become a step of their own) and `step: { after | before, guide?, copy?: true, way?: true,
+/// tip?, when? }` (the anchored goal's whole step, or a copy, right after `after`'s step or before
+/// the approach to `before`'s step in the guide `guide` names). `way: { at: { map, x, y, frame? }, label?, title? }` (alone): the
 /// end of the walk right before the anchored goal's step. `at.guide` narrows any record to the guide
 /// with that id.
 fn check_guide_fixes(ck: &mut Ck, d: &V) {
@@ -1824,8 +1827,13 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 				}
 				(true, true) if !r.get("step").is_undef() => {
 					let s = r.get("step");
-					ck.keys(&format!("{at}.step"), &s, &["after", "guide", "copy", "way", "tip"]);
-					check_goal_ref(ck, &format!("{at}.step.after"), &s.get("after"));
+					ck.keys(&format!("{at}.step"), &s, &["after", "before", "guide", "copy", "way", "tip", "when"]);
+					let (after, before) = (s.get("after"), s.get("before"));
+					match (after.is_undef(), before.is_undef()) {
+						(false, true) => check_goal_ref(ck, &format!("{at}.step.after"), &after),
+						(true, false) => check_goal_ref(ck, &format!("{at}.step.before"), &before),
+						_ => ck.err(format!("{at}.step"), "name one placement goal with `after` or `before`"),
+					}
 					for k in ["copy", "way"] {
 						if !s.get(k).is_undef() && !matches!(s.get(k), V::Bool(true)) {
 							ck.err(format!("{at}.step.{k}"), format!("`{k}` is true, or left out"));
@@ -1836,6 +1844,10 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 						if !v.is_undef() && (!has_text(&v) || v.as_str().is_some_and(|t| t.contains('\n'))) {
 							ck.err(format!("{at}.step.{k}"), "one line of text");
 						}
+					}
+					let condition = s.get("when");
+					if !condition.is_undef() {
+						check_guide_when(ck, &format!("{at}.step.when"), &condition);
 					}
 					"step"
 				}

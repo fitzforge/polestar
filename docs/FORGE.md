@@ -450,7 +450,7 @@ A fix goes into a record the next build applies, whoever builds:
 | an arrow point: where an objective is done, or where a giver or ender stands; a road the target walks; an objective that needs its own goal line | `data/places.json` |
 | a step's tip, a goal's note (`goalNote`), an optional goal (`optional: true`), a `level` gate before a goal, or a `when` condition on the goal's step (also on a flight step with `at: { guide, goal: "fly", fly }`) | `data/guide-fixes.json` |
 | who a goal is for by race (`races`: `"all"` drops a stale race filter, a list sets one), on one goal or on every goal of the quest (`at.goal: "quest"`) | `data/guide-fixes.json` |
-| where a goal or a step goes: right after another goal (`follows`), a step split before a goal (`split`), a whole step moved or copied after another goal's step, into another guide too (`step`) | `data/guide-fixes.json` |
+| where a goal or a step goes: right after another goal (`follows`), a step split before a goal (`split`), a whole step moved or copied after another goal's step or before its approach, into another guide too (`step`) | `data/guide-fixes.json` |
 | where the walk to a step ends (`way`): off a town of the other faction, or at a camp's edge; who makes the walk (`way.when`): only whoever carries the quest it leads to | `data/guide-fixes.json` |
 | a guide's top level in its header (`levels`, on `at: { goal: "levels", guide }`): where players leave it, when that is above where the route ends it | `data/guide-fixes.json` |
 
@@ -553,14 +553,14 @@ twice), or a goal moved into another step there; a step left with no goal goes. 
 anchored goal and the lines after it in its step a step of their own right after it, titled
 `split.title` (with `split.tip`), repeating the step's `only` and `when` lines and the zone it is in
 there: a town stop split in walking order, or hand-ins cut off a later stop, which `step` then moves.
-`step` moves the anchored goal's whole step to right after the step of `step.after`'s goal, in the
-guide `step.guide` names (its id; the same guide when it names none), with `step.tip` as its tip;
-with `"copy": true` a copy goes there and the step stays (a class step done on an earlier walk past
+`step` moves the anchored goal's whole step right after the step of `step.after`'s goal or before
+the approach to `step.before`'s goal. The destination is the guide `step.guide` names (its id or the
+same guide by default). `step.tip` sets the destination step's tip and `step.when` adds a condition there.
+With `"copy": true` a copy goes there and the step stays (a class step done on an earlier walk past
 the same NPC, the later one kept, gated `when onquest`, for whoever still carries the quest). The
 travel-only steps right before it for the same players, the walk to it, go with it with `"way":
-true`; else they go when it moves. Where the step already follows `after`'s step, only its tip is
-set. `at.guide` (a guide's id) narrows any record to that guide: these records name the guide they
-are for.
+true`; else they go when it moves. Where the step is already in place, the record updates its tip
+and adds its condition if specified. `at.guide` narrows any record to the source guide it names.
 
 `way` sets where the walk right before the anchored goal's step ends (a travel-only step for the same
 players): its last `goto` takes `way.at` (`{ map, x, y, frame }`) and `way.label`, the step

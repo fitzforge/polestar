@@ -38,9 +38,9 @@
 //!   step goes with it): `follows: { quest, goal, objective? }` puts the anchored goal line right
 //!   after that goal's line in the guide (in-step order); `split: { title, tip? }` makes the anchored
 //!   goal and the lines after it in its step a step of their own (a town stop split in walking
-//!   order, or hand-ins cut off a later stop); `step: { after: { quest, goal, objective? }, guide?,
-//!   copy?, way?, tip? }` moves the anchored goal's whole step, or a copy of it (`copy: true`), to
-//!   right after `after`'s step in the guide `guide` names ([`apply_step`]). `way: { at: { map, x, y,
+//!   order, or hand-ins cut off a later stop). A `step` moves the anchored goal's whole step, or a
+//!   copy (`copy: true`), to `after`'s step or before `before`'s approach in the guide `guide` names
+//!   ([`apply_step`]). `way: { at: { map, x, y,
 //!   frame? }, label?, title? }`, applied after those, moves the end of the walk right before the
 //!   anchored goal's step (a travel-only step for the same players): off a town of the other faction,
 //!   which the writer warns about (travel::hostile_town_ways), or to a camp's edge. `at.guide` narrows
@@ -420,6 +420,19 @@ fn along_step(lines: &[String], s: (usize, usize)) -> bool {
 	(s.0 + 1..s.1).any(|k| re!(r"^\s+along\b").is_match(&lines[k]))
 }
 
+fn insert_when(lines: &mut Vec<String>, (start, end): (usize, usize), ind: &str, when: &str) -> Option<usize> {
+	let line = format!("{ind}when {when}");
+	if (start + 1..end).any(|k| trim(&lines[k]) == trim(&line)) {
+		return None;
+	}
+	let mut k = start + 1;
+	while k < end && re!(r"^\s+(only|zone|when)\s").is_match(&lines[k]) {
+		k += 1;
+	}
+	lines.insert(k, line);
+	Some(k)
+}
+
 fn apply_fix(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> {
 	let mut changed = Vec::new();
 	// Goal modifiers and notes cover every copy, including one listed along the way; unlike a
@@ -481,19 +494,10 @@ fn apply_fix(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> 
 				}
 			}
 		}
-		// (A `when`: the goal's step shows only from that level, after its title and `only`/`zone`.)
-		if let Some(w) = r["when"].as_str() {
-			let line = format!("{ind}when {w}");
-			if !(step.0 + 1..step.1).any(|k| trim(&lines[k]) == trim(&line)) {
-				let mut k = step.0 + 1;
-				while k < step.1 && re!(r"^\s+(only|zone|when)\s").is_match(&lines[k]) {
-					k += 1;
-				}
-				lines.insert(k, line);
-				changed.push(k);
-				i += 1;
-				step.1 += 1;
-			}
+		if let Some(k) = r["when"].as_str().and_then(|w| insert_when(lines, step, &ind, w)) {
+			changed.push(k);
+			i += 1;
+			step.1 += 1;
 		}
 		if let Some(lv) = r["level"].as_u64() {
 			let gate = format!("{ind}level {lv}{}", r["only"].as_str().map_or(String::new(), |o| format!(" only {o}")));
@@ -1049,18 +1053,20 @@ fn apply_split(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize
 }
 
 /// A `step` record: the anchored goal's whole step goes right after the step of `step.after`'s goal
-/// in the guide `step.guide` (its id; with none, the step's own guide), with `step.tip` its tip; with
+/// or before the travel to `step.before`'s goal, in the guide `step.guide` (its id; with none, the
+/// step's own guide), with `step.tip` its tip; with
 /// `copy: true` a copy goes and the step stays (a Paladin's class step on an earlier walk that passes
 /// the same NPC, the later one kept for whoever still carries the quest). The source is the first
 /// anchored step, in the guide `at.guide` when the record names one; a copy is not taken from the
 /// guide it goes to. The travel-only steps right before it for the same players (the walk to it) go
 /// with it with `way: true`; else they go when it moves (they led to where it was). Where the step
-/// already follows `after`'s step (past such walks), only its tip is set. -> (found, changed, guide
-/// here).
+/// already stands there (past such walks), only its tip and condition are set. -> (found, changed,
+/// guide here).
 fn apply_step(tree: &mut BTreeMap<String, String>, files: &[String], r: &Value, anchor: &Anchor) -> (bool, bool, bool) {
 	let sp = &r["step"];
-	let Some(after) = goal_anchor(&sp["after"]) else { return (false, false, false) };
-	let (copy, way, tip) = (sp["copy"] == true, sp["way"] == true, sp["tip"].as_str());
+	let before = !sp["before"].is_null();
+	let Some(relative) = goal_anchor(&sp[if before { "before" } else { "after" }]) else { return (false, false, false) };
+	let (copy, way) = (sp["copy"] == true, sp["way"] == true);
 	let split = |f: &String| -> Vec<String> { tree[f].split('\n').map(str::to_string).collect() };
 	let has_id = |f: &String, id: &str| tree.get(f).is_some_and(|t| t.lines().any(|l| l.trim_end().strip_prefix("guide ").is_some_and(|g| g.trim() == id)));
 	let target_of = |src: &String| sp["guide"].as_str().map_or(Some(src.clone()), |id| files.iter().find(|f| has_id(f, id)).cloned());
@@ -1083,15 +1089,33 @@ fn apply_step(tree: &mut BTreeMap<String, String>, files: &[String], r: &Value, 
 	let mut tl = split(&tf);
 	let Some(src) = step_body(&sl, si) else { return (false, false, guide_here) };
 	let only = step_only_line(&sl, src);
-	// (`after` in the step that would move is no place for it.)
-	let afters = anchor_lines(&tl, &after);
-	if afters.is_empty() || (sf == tf && !copy && afters.iter().all(|&a| (src.0..src.1).contains(&a))) {
+	let ind = sl[si][..sl[si].len() - sl[si].trim_start().len()].to_string();
+	let decorate = |mut step: Vec<String>| {
+		if let Some(when) = sp["when"].as_str() {
+			let end = step.len();
+			insert_when(&mut step, (0, end), &ind, when);
+		}
+		if let Some(tip) = sp["tip"].as_str() {
+			step = with_tip(step, tip);
+		}
+		step
+	};
+	// An anchor in the step that would move is no place for it.
+	let relatives = anchor_lines(&tl, &relative);
+	if relatives.is_empty() || (sf == tf && !copy && relatives.iter().all(|&a| (src.0..src.1).contains(&a))) {
 		return (false, false, guide_here);
 	}
-	// Already there: the step after `after`'s step, past walks for the same players, holds the anchor.
+	let approach = |lines: &[String], st: (usize, usize)| ways_before(lines, st).first().map_or(st.0, |w| w.0);
+	// Already there: look beside the placement anchor, past the travel to it or to the copied step.
 	let there = |lines: &[String]| -> Option<(usize, usize)> {
-		let a = *anchor_lines(lines, &after).first()?;
-		let mut k = step_body(lines, a)?.1;
+		let a = *anchor_lines(lines, &relative).first()?;
+		let target = step_body(lines, a)?;
+		if before {
+			let prev = (0..approach(lines, target)).rev().find(|&k| is_step(&lines[k]))?;
+			let st = step_body(lines, prev)?;
+			return (!anchor_lines(&lines[st.0..st.1], anchor).is_empty()).then_some(st);
+		}
+		let mut k = target.1;
 		loop {
 			let st = step_body(lines, (k..lines.len()).find(|&j| is_step(&lines[j]))?)?;
 			if !anchor_lines(&lines[st.0..st.1], anchor).is_empty() {
@@ -1104,8 +1128,7 @@ fn apply_step(tree: &mut BTreeMap<String, String>, files: &[String], r: &Value, 
 		}
 	};
 	if let Some(st) = there(&tl) {
-		let Some(t) = tip else { return (true, false, true) };
-		let step = with_tip(tl[st.0..st.1].to_vec(), t);
+		let step = decorate(tl[st.0..st.1].to_vec());
 		if step[..] == tl[st.0..st.1] {
 			return (true, false, true);
 		}
@@ -1122,11 +1145,7 @@ fn apply_step(tree: &mut BTreeMap<String, String>, files: &[String], r: &Value, 
 		}
 	}
 	block.push(String::new());
-	let body = sl[src.0..src.1].to_vec();
-	block.extend(match tip {
-		Some(t) => with_tip(body, t),
-		None => body,
-	});
+	block.extend(decorate(sl[src.0..src.1].to_vec()));
 	if !copy {
 		let from = ways.first().map_or(src.0, |w| w.0);
 		sl.drain(from..src.1);
@@ -1136,8 +1155,14 @@ fn apply_step(tree: &mut BTreeMap<String, String>, files: &[String], r: &Value, 
 			tree.insert(sf, one_blank(sl).join("\n"));
 		}
 	}
-	let Some(a) = anchor_lines(&tl, &after).first().copied() else { return (false, false, guide_here) };
-	let Some(at) = step_body(&tl, a).map(|s| s.1) else { return (false, false, guide_here) };
+	let Some(a) = anchor_lines(&tl, &relative).first().copied() else { return (false, false, guide_here) };
+	let Some(st) = step_body(&tl, a) else { return (false, false, guide_here) };
+	let at = if before {
+		block.push(String::new());
+		approach(&tl, st)
+	} else {
+		st.1
+	};
 	tl.splice(at..at, block);
 	tree.insert(tf, one_blank(tl).join("\n"));
 	(true, true, true)
@@ -2253,6 +2278,33 @@ mod tests {
 		let (again, states) = fix_all(&files2, &fixes);
 		assert_eq!(again, out);
 		assert_eq!(states, ["redundant"; 6]);
+	}
+
+	#[test]
+	fn badlands_direct_start_gets_find_agmond_before_the_pass() {
+		let arathi = include_str!("../../../../guides/forever/alliance/30-40/05-arathi-highlands.guide");
+		let badlands = include_str!("../../../../guides/forever/alliance/30-40/06-badlands.guide");
+		let all: Value = serde_json::from_str(include_str!("../../../../data/guide-fixes.json")).unwrap();
+		let fix = all["fixes"].as_array().unwrap().iter().find(|r| r["id"] == "alliance-badlands-find-agmond-on-entry").unwrap();
+		let fixes = json!({ "fixes": [fix] });
+		let files = [("forever/alliance/30-40/05-arathi-highlands.guide", arathi), ("forever/alliance/30-40/06-badlands.guide", badlands)];
+		let (out, states) = fix_all(&files, &fixes);
+		assert!(matches!(states[0].as_str(), "applied" | "redundant"));
+		assert_eq!(out[0], arathi, "the continuous route still picks up Find Agmond on its original stop");
+		let condition = "  when !zone \"Badlands\"\n";
+		let gate = out[1].find(condition).unwrap();
+		let breadcrumb = out[1].find("  turnin 707\n").unwrap();
+		let pickup = out[1].find("  accept 738 ").unwrap();
+		let crossing = out[1].find("step Into Badlands\n").unwrap();
+		let dorgaron = out[1].find("  accept 97617 ").unwrap();
+		assert!(gate < breadcrumb && breadcrumb < pickup && pickup < crossing && crossing < dorgaron, "Ironband's stop is only for players outside Badlands and comes before the pass");
+		let unguarded = out[1].replacen(condition, "", 1);
+		let (updated, states) = fix_all(&[(files[0].0, &out[0]), (files[1].0, &unguarded)], &fixes);
+		assert_eq!(updated, out);
+		assert_eq!(states, ["applied"]);
+		let (again, states) = fix_all(&[(files[0].0, &out[0]), (files[1].0, &out[1])], &fixes);
+		assert_eq!(again, out);
+		assert_eq!(states, ["redundant"]);
 	}
 
 	#[test]
