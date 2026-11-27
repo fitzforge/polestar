@@ -3924,7 +3924,6 @@ L["Lists the quests in your log the route doesn't need: those it never hands in,
 L["Where it is turned in is not known"] = "Unbekannt, wo sie abgegeben wird"
 L["Finished quests you're still carrying"] = "Erledigte Quests, die du noch dabeihast"
 L["The route hands in every finished quest in your log."] = "Die Route gibt jede erledigte Quest in deinem Log ab."
-L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "Erledigt, und die Route voraus gibt diese nie ab: Hier steht, bei wem du jede abgibst. „Führe mich“ bringt dich hin, die nächste zuerst. Eine graue gibt kaum noch EP: Brich sie ab, wenn du nicht vorbeikommst."
 L["Finished quests you're still carrying (%d)"] = "Erledigte Quests, die du noch dabeihast (%d)"
 L["Hand in your finished quests"] = "Erledigte Quests abgeben"
 L["Handed in in %s"] = "Abgabe in %s"
@@ -3935,8 +3934,6 @@ L["Every quest in your log is part of your route."] = "Jede Quest in deinem Ques
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "Kein Guide deiner Route nimmt sie an, erledigt sie oder gibt sie ab. Behalte, was du willst; Abbrechen fragt zuerst im eigenen Fenster des Spiels."
 L["Finished: no guide of your route hands it in"] = "Erledigt: Kein Guide deiner Route gibt sie ab"
 L["Not in any guide of your route"] = "In keinem Guide deiner Route"
-L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = "„Führe mich“ öffnet eine Reisereihenfolge für alle erledigten Quests in deinem Log, auch die für einen späteren Guide behaltenen."
-L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = "Jede erledigte Quest in deinem Log, auch die auf deiner Route. „Führe mich“ schätzt eine Reisereihenfolge; Quests mit unbekanntem Ort bleiben zur Abgabe von Hand aufgelistet. Eine graue bringt kaum noch EP."
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "NEUE FÄHIGKEIT"
@@ -5899,3 +5896,6 @@ L["Click to show quest guide actions."] = "Klicken, um die Aktionen des Quest-Gu
 -- L["Free mode takes this quest first, whatever the order."] = "Der Freimodus nimmt diese Quest zuerst, egal in welcher Reihenfolge."
 -- L["Leave out of Free mode"] = "Aus dem Freimodus auslassen"
 -- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "Der Freimodus führt diese Quest nicht mehr auf. „Ausgelassene Quests zurückholen“ im Menü führt sie wieder auf."
+-- L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "Erledigt, und die Route voraus gibt diese nie ab: Hier steht, bei wem du jede abgibst. „Führe mich“ bringt dich hin, die nächste zuerst. Eine graue gibt kaum noch EP: Brich sie ab, wenn du nicht vorbeikommst."
+-- L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = "„Führe mich“ öffnet eine Reisereihenfolge für alle erledigten Quests in deinem Log, auch die für einen späteren Guide behaltenen."
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = "Jede erledigte Quest in deinem Log, auch die auf deiner Route. „Führe mich“ schätzt eine Reisereihenfolge; Quests mit unbekanntem Ort bleiben zur Abgabe von Hand aufgelistet. Eine graue bringt kaum noch EP."

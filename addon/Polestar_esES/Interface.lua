@@ -4183,7 +4183,6 @@ L["Lists the quests in your log the route doesn't need: those it never hands in,
 L["Where it is turned in is not known"] = "No se sabe dónde se entrega"
 L["Finished quests you're still carrying"] = "Misiones completadas que aún llevas"
 L["The route hands in every finished quest in your log."] = "La ruta entrega todas las misiones completadas de tu registro."
-L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "Terminadas, y la ruta por delante nunca las entrega: aquí tienes a quién entregar cada una. Guíame te lleva hasta ellos, del más cercano al más lejano. Una gris ya casi no da XP: abandónala si no vas a pasar por allí."
 L["Finished quests you're still carrying (%d)"] = "Misiones completadas que aún llevas (%d)"
 L["Hand in your finished quests"] = "Entrega tus misiones completadas"
 L["Handed in in %s"] = "Se entrega en %s"
@@ -4194,8 +4193,6 @@ L["Every quest in your log is part of your route."] = "Todas las misiones de tu 
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "Ninguna guía de tu ruta las acepta, las hace ni las entrega. Conserva las que quieras; Abandona pregunta primero en la ventana del propio juego."
 L["Finished: no guide of your route hands it in"] = "Completada: ninguna guía de tu ruta la entrega"
 L["Not in any guide of your route"] = "No está en ninguna guía de tu ruta"
-L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = "Guíame abre un orden de viaje para todas las misiones terminadas de tu registro, incluidas las que guardas para una guía posterior."
-L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = "Todas las misiones terminadas de tu registro, incluidas las de tu ruta. Guíame estima un orden de viaje; las misiones sin ubicación conocida siguen en la lista para entregarlas a mano. Una gris ya casi no da XP."
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "NUEVA HABILIDAD"
@@ -6076,3 +6073,6 @@ L["Click to show quest guide actions."] = "Haz clic para ver las acciones de la 
 -- L["Free mode takes this quest first, whatever the order."] = "El modo libre hace primero esta misión, sea cual sea el orden."
 -- L["Leave out of Free mode"] = "Omitir del modo libre"
 -- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "El modo libre deja de mostrar esta misión. «Recuperar misiones omitidas» en el menú la vuelve a mostrar."
+-- L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."] = "Terminadas, y la ruta por delante nunca las entrega: aquí tienes a quién entregar cada una. Guíame te lleva hasta ellos, del más cercano al más lejano. Una gris ya casi no da XP: abandónala si no vas a pasar por allí."
+-- L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = "Guíame abre un orden de viaje para todas las misiones terminadas de tu registro, incluidas las que guardas para una guía posterior."
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = "Todas las misiones terminadas de tu registro, incluidas las de tu ruta. Guíame estima un orden de viaje; las misiones sin ubicación conocida siguen en la lista para entregarlas a mano. Una gris ya casi no da XP."
