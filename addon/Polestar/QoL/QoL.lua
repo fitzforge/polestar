@@ -57,6 +57,7 @@ local defaults = {
 	stepInteract = false,    -- the step key talks to, loots and accepts with its target (QoL/Buttons.lua)
 	buttonScale = 1,
 	buttonTextSide = "right", -- which side of the button its name sits on
+	buttonDock = false,      -- the buttons in a row along the guide window's bottom (QoL/Buttons.lua)
 	xpTracker = true,
 	xpTargetMark = true,     -- the guide's level target on the game's XP bar
 	questXPOverlay = true,

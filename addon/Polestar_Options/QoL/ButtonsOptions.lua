@@ -282,7 +282,7 @@ local function buildActionBand(view)
 	f:Light("buttons.targetSize", idle.rows.mark, fight.rows.mark)
 	local boxes = { idle.box, fight.box }
 	for key, parts in pairs({
-		["qol.buttonScale"] = boxes, ["buttons.layout"] = boxes, ["buttons.spacing"] = boxes,
+		["qol.buttonScale"] = boxes, ["buttons.layout"] = boxes, ["buttons.spacing"] = boxes, ["qol.buttonDock"] = boxes,
 		["buttons.idleAlpha"] = { idle.box }, ["buttons.alpha"] = { fight.box },
 		["buttons.itemSize"] = both("item"), ["buttons.hearthSize"] = both("hearth"), ["buttons.targetSize"] = both("target"),
 		["buttons.rareSize"] = both("rare"), ["buttons.bagSize"] = both("bag"),
@@ -501,8 +501,11 @@ local SPECS = {
 			help = L["How the set lines up from the quest item button: a column (Hearthstone above, target below) or a row either way. In a row, names read best above or below."],
 			search = "layout, direction, growth, grow, stack, column, row, horizontal, vertical, orientation",
 			choices = { { value = "column", label = L["Column"] }, { value = "row", label = L["Row"] }, { value = "rowReverse", label = L["Row, reversed"] } } },
+		{ kind = "toggle", key = "qol.buttonDock", label = L["Dock to window"], new = "0.4.3",
+			help = L["The buttons sit in a row along the bottom of the guide window and move with it. While the window is hidden they float where you last put them."],
+			search = "dock, attach, anchor, guide window, button row, buttons bar, follow the window, stick" },
 		{ kind = "toggle", key = "buttons.listUp", label = L["Target list upward"], new = "0.4.1",
-			disabled = function() return not QoL.On("targetButton") or QoL.On("targetSimple") end,
+			disabled = function() return not QoL.On("targetButton") or QoL.On("targetSimple") or QoL.On("buttonDock") end,
 			help = L["The target list's names go up from the target button instead of down, for buttons near the bottom of the screen."],
 			search = "target list, grow up, upward, upwards, above, direction, names, bottom of the screen" },
 		{ kind = "slider", key = "buttons.spacing", label = L["Spacing"], min = 0, max = 40, step = 1, format = px, new = NEW,

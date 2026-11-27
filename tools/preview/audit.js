@@ -136,6 +136,19 @@ Polestar.UI.UpdateCard.Show(true)`,
 	{ key: 'guide-hub', title: 'the guide window on a hub step', family: 'guide', ...scene('guide.svg', 1) },
 	{ key: 'guide-card', title: "a class quest's card in the guide window", family: 'guide', ...scene('guide-class-card.svg', 0) },
 	{
+		// The action buttons docked in a row along the guide window's bottom
+		// (qol.buttonDock, #2242): the window keeps a strip for the row and
+		// nothing of the row covers its controls; the single target button's
+		// goal wears its crosshair in the window.
+		key: 'guide-dock', title: 'the guide window with the action buttons docked along its bottom (0.4.3)', family: 'guide',
+		roots: GUIDE, files: P.MODULE_FILES, needs: 'Polestar.QoL.Buttons.Docked',
+		script: `${TABS}
+Polestar.Set("qol.targetSimple", true)
+Polestar.Set("qol.buttonDock", true)
+stub.advance(1)
+assert(Polestar.QoL.Buttons.Docked(), "the buttons did not dock")`,
+	},
+	{
 		key: 'banner-closed', title: 'the closed tab banner (Reopen) on the guide window', family: 'guide', roots: GUIDE,
 		script: `${TABS}
 Polestar.Fire("TAB_CLOSED", uistub.tailoring)`,

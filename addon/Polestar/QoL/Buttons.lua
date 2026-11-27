@@ -101,6 +101,21 @@
 -- it, to its own saved spot (by default two slots above the item, where it
 -- sat in the set).
 --
+-- Docked (qol.buttonDock, off by default, #2242): while the guide window is
+-- shown, the set lies in a row along its bottom instead: the target button
+-- (or the target list's Polestar mark) at the left, the rare button beside it
+-- while one is up, then the name: the rare's while one is up, else the
+-- target's; the quest item, Hearthstone and bag at the right end, the bag
+-- outermost and its "press again" right-aligned beside them. The target
+-- list hangs under the row, outside the window. With the single button, the
+-- goal it takes next wears its crosshair in the guide window
+-- (Buttons.AimedGoal). The window keeps that strip free (Buttons.DockHeight,
+-- read by its layout). Nothing secure is anchored to the window, so it can
+-- still grow, fade or hide in a fight: the holder is placed at the window's
+-- corner by coordinates, out of combat only, whenever the window says it
+-- moved or changed size (GUIDE_WINDOW_PLACED). A drag does not move a
+-- docked set; with the window hidden it floats at its own saved spots.
+--
 -- Their look is the Buttons page's (QoL/ButtonsOptions.lua, the buttons.*
 -- settings): sizes, spacing and layout move protected frames, so they wait
 -- out combat with the rest (place()); backing, border, text, glow and
@@ -176,6 +191,13 @@ local DEFAULT_POS = { "CENTER", "CENTER", 260, -140 }
 local SLOT = { bag = 2, hearth = 1, item = 0, target = -1, rare = -2 }
 local BAG_LIFT = 2 * (SIZE + 8)
 local BAG_DEFAULT_POS = { DEFAULT_POS[1], DEFAULT_POS[2], DEFAULT_POS[3], DEFAULT_POS[4] + BAG_LIFT }
+
+-- Docked (qol.buttonDock): DK.on while the set lies in the guide window's
+-- row (place(), out of combat); the kinds from the left and from the right
+-- end (bag outermost); the strip's padding round the row and the gap between
+-- two buttons, in button pixels; x0, x1: the room the names have between the
+-- two ends (holder units, set by the last placing).
+local DK = { on = false, LEFT = { "target", "rare" }, RIGHT = { "bag", "hearth", "item" }, PAD = 8, GAP = 6, x0 = 0, x1 = 0 }
 
 -- How the buttons look (the Buttons page, QoL/ButtonsOptions.lua). Sizes are
 -- pixels before qol.buttonScale; colours false for the theme's, else
@@ -351,6 +373,8 @@ end
 -- row (buttons.layout) under it, reaching away from the quest item button
 -- ("below": rightwards, "belowLeft": leftwards in a reversed row).
 function TL.side()
+	-- Docked: under the row, outside the window.
+	if DK.on then return "below" end
 	local l = ns.Get("buttons.layout")
 	if l == "row" then return "below" elseif l == "rowReverse" then return "belowLeft" end
 	return ns.Get("qol.buttonTextSide") == "left" and "left" or "right"
@@ -359,7 +383,7 @@ end
 -- Whether the list grows up from the target button (buttons.listUp, #2590):
 -- beside it, the first row level with its bottom and each next one above;
 -- in a row, over it instead of under it.
-function TL.up() return ns.Get("buttons.listUp") == true end
+function TL.up() return ns.Get("buttons.listUp") == true and not DK.on end
 
 -- The rows' box for n rows from the target button's centre, in button
 -- pixels before qol.buttonScale (y up): x0, x1, y0, y1; nil for none. The
@@ -497,14 +521,146 @@ end
 -- Buttons.Covers reads where they are without forcing that layout early.
 local placedSoon = QoL.Coalesce(function() ns.Fire("QUEST_BUTTONS_PLACED") end)
 
+---------------------------------------------------------------------------
+-- Docked in the guide window's row (qol.buttonDock)
+---------------------------------------------------------------------------
+
+-- The guide window the set docks to: with qol.buttonDock, while it is shown
+-- and placed; else nil.
+function DK.window()
+	if not QoL.On("buttonDock") then return nil end
+	local GF = ns.UI and ns.UI.GuideFrame
+	local F = GF and GF.frame
+	if not (F and F:IsShown() and F:GetLeft() and F:GetBottom()) then return nil end
+	return F
+end
+
+-- The row's height: the largest button, so a button coming or going never
+-- changes the strip.
+function DK.rowSize()
+	local m = 0
+	for _, kind in ipairs(DK.LEFT) do m = math.max(m, Buttons.Size(kind)) end
+	for _, kind in ipairs(DK.RIGHT) do m = math.max(m, Buttons.Size(kind)) end
+	return m
+end
+
+-- Whether the row has anything to show: a button, or the target list's mark.
+function DK.anyShown()
+	for i = 1, set and #set or 0 do
+		if set[i]:IsShown() then return true end
+	end
+	return TL.anchor ~= nil and TL.anchor:IsShown() or false
+end
+
+-- The strip the guide window keeps free at its bottom for the row, in units
+-- of F (its scale may differ from the buttons'): 0 when the buttons do not
+-- dock or none is shown.
+function Buttons.DockHeight(F)
+	if not (F and set and QoL.On("buttonDock") and DK.anyShown()) then return 0 end
+	local s = (ns.Get("qol.buttonScale") or 1) * UIParent:GetEffectiveScale()
+	return (DK.rowSize() + 2 * DK.PAD) * s / F:GetEffectiveScale()
+end
+
+-- Whether the set lies in the guide window's row now.
+function Buttons.Docked() return DK.on end
+
+-- A tooltip's last line: what a click does (click: "next", "target" or
+-- "settings"; nil for none) and how to move the set; docked there is nothing
+-- to drag, so the click's alone (nil: no line).
+function DK.hint(click)
+	local lock = ns.Get("ui.lockHud")
+	if click == "next" then
+		if DK.on then return L["Click again for the next name."] end
+		return lock and L["Click again for the next name. Shift-drag to move."] or L["Click again for the next name. Drag to move."]
+	elseif click == "target" then
+		if DK.on then return L["Click to target it."] end
+		return lock and L["Click to target it. Shift-drag to move."] or L["Click to target it. Drag to move."]
+	elseif click == "settings" then
+		if DK.on then return L["Right-click for its settings."] end
+		return lock and L["Right-click for its settings. Shift-drag to move."] or L["Right-click for its settings. Drag to move."]
+	end
+	if DK.on then return nil end
+	return lock and L["Shift-drag to move."] or L["Drag to move."]
+end
+
+-- The row in window F: the holder at its bottom-left corner inside the
+-- padding (in the holder's own units), the target and rare buttons packed
+-- from the left, the bag, Hearthstone and quest item from the right end; a
+-- hidden button leaves no gap (a button shows or hides only out of combat,
+-- QoL.Secure, so the row never shifts in a fight). Each centred on the row's
+-- height, over the window (same strata, higher level), so the window takes
+-- neither their clicks nor their hover. Secure, as placeNow.
+function DK.placeRow(F, s)
+	local item = Buttons.Size("item")
+	holder:SetScale(s)
+	holder:SetSize(item, item)
+	holder:SetClampRectInsets(0, 0, 0, 0)
+	holder.psDragInsets = { 0, 0, 0, 0 }
+	holder:ClearAllPoints()
+	local k = F:GetEffectiveScale() / holder:GetEffectiveScale()
+	local pad, gap, row = DK.PAD, DK.GAP, DK.rowSize()
+	holder:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", F:GetLeft() * k + pad, F:GetBottom() * k + pad)
+	local strata, level = F:GetFrameStrata(), F:GetFrameLevel() + 20
+	local byKind = {}
+	for i = 1, #set do byKind[set[i].psKind] = set[i] end
+	local function put(b, x)
+		local size = Buttons.Size(b.psKind)
+		b:SetScale(s)
+		b:SetSize(size, size)
+		b:ClearAllPoints()
+		b:SetPoint("BOTTOMLEFT", holder, "BOTTOMLEFT", x, (row - size) / 2)
+		b:SetFrameStrata(strata)
+		b:SetFrameLevel(level)
+		return size
+	end
+	local x = 0
+	for _, kind in ipairs(DK.LEFT) do
+		local b = byKind[kind]
+		local size = put(b, x)
+		-- Beside the list the target button hides and its mark takes the slot.
+		if b:IsShown() or (kind == "target" and TL.anchor and TL.anchor:IsShown()) then x = x + size + gap end
+	end
+	local right = F:GetWidth() * k - 2 * pad
+	for _, kind in ipairs(DK.RIGHT) do
+		local b = byKind[kind]
+		local size = put(b, right - Buttons.Size(kind))
+		if b:IsShown() then right = right - size - gap end
+	end
+	DK.x0, DK.x1 = x, right
+	if TL.anchor then
+		TL.anchor:SetFrameStrata(strata)
+		TL.anchor:SetFrameLevel(level + 1)
+	end
+end
+
 -- Holder position and scale, and the buttons at their sizes in their slots
 -- (Buttons.Offsets). The holder takes the button scale too, so the saved
 -- offsets and the slot spacing scale with the buttons; its clamp covers
 -- every slot of the set and the target list's rows. The bag button on its
 -- own spot, at its size and the same scale; the target list's mark and rows
--- beside the target button (Buttons.PlaceList). Secure: run it through
--- QoL.Secure (place), or from code that already is.
+-- beside the target button (Buttons.PlaceList). Docked, the row in the
+-- guide window instead (DK.placeRow). Secure: run it through QoL.Secure
+-- (place), or from code that already is.
 local function placeNow()
+	local F = DK.window()
+	local was = DK.on
+	DK.on = F ~= nil
+	if DK.on then
+		DK.placeRow(F, ns.Get("qol.buttonScale") or 1)
+		for i = 1, #set do placeLabel(set[i]) end
+		Buttons.PlaceList(Buttons.target, TL.anchor, TL.rows, ns.Get("qol.buttonScale") or 1)
+		placedSoon()
+		ns.Fire("TARGET_AIM")
+		-- The window may have measured its strip before the row settled (a
+		-- button shown later, a fight in between): when the strip it keeps is
+		-- not the row's height, it lays out again.
+		if F.psDock and F.psDock ~= math.floor(Buttons.DockHeight(F) + 0.5) then ns.Fire("ACTION_DOCK") end
+		return
+	end
+	if was then
+		for i = 1, #set do set[i]:SetFrameStrata("MEDIUM") end
+		ns.Fire("TARGET_AIM")
+	end
 	local p, s = savedPos(), ns.Get("qol.buttonScale") or 1
 	local n = TL.count()
 	local at, item = Buttons.Offsets(n), Buttons.Size("item")
@@ -558,6 +714,8 @@ local function place()
 	-- An Above name follows whether the bag button stands over the set.
 	if relabel then relabel() end
 end
+-- Docked: once a frame at most, however often the window moved in it.
+DK.soon = QoL.Coalesce(place)
 
 -- The frame a drag carries (the holder, or the bag button) and where its
 -- spot is saved. It follows the pointer as ns.DragWindow moves a window (the
@@ -648,8 +806,9 @@ local function onDragStart(b)
 	if inCombat and b ~= TL.anchor then return end
 	b.dragging = true
 	if not inCombat then useOnKeyDown(b, true) end
-	-- Locked: still a drag, so its release uses nothing, but the set stays.
-	if ns.DragLocked() then return end
+	-- Locked, or docked in the guide window: still a drag, so its release
+	-- uses nothing, but the set stays.
+	if ns.DragLocked() or DK.on then return end
 	if inCombat then TL.startCombatDrag(b); return end
 	local f = b == bag and bag or holder
 	if ns.StartDrag(b, f, nil, b.psPressX, b.psPressY) then moving = f end
@@ -737,6 +896,8 @@ local function bagOverSet()
 end
 
 function placeLabel(b)
+	-- Docked, the row's names (DK.label); back as they were once undocked.
+	if b.psLive and DK.label(b) then return end
 	local a = LABEL_SIDE[ns.Get("qol.buttonTextSide")] or LABEL_SIDE.right
 	local column = Buttons.Column()
 	-- The rare button sits under the target button, whose name has the space
@@ -1030,7 +1191,15 @@ local function wire(b, onEnter)
 		applyAlpha(self)
 		hoverStart(self)
 		if GameTooltip and onEnter then
-			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			-- Docked, the row's names sit to the right: the tooltip opens below
+			-- the row instead. The target list hangs there: its rows and its
+			-- mark keep theirs (beside the list the row has no name).
+			if DK.on and self.psLive and self.psKind ~= "targetRow" and self.psKind ~= "targetMark" then
+				GameTooltip:SetOwner(self, "ANCHOR_NONE")
+				GameTooltip:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -(DK.PAD + 4))
+			else
+				GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			end
 			onEnter(self, GameTooltip)
 			if ns.Theme then ns.Theme.TipDots(GameTooltip) end
 			GameTooltip:Show()
@@ -1119,7 +1288,8 @@ end
 local function itemTooltip(b, tip)
 	if b.itemID and tip.SetItemByID then tip:SetItemByID(b.itemID) end
 	if b.itemID and b.itemID == b.glowID then tip:AddLine(L["You can take the quest this item starts. Click to read it."], 1, 1, 1, true) end
-	tip:AddLine(ns.Get("ui.lockHud") and L["Shift-drag to move."] or L["Drag to move."], 0.6, 0.6, 0.6)
+	local hint = DK.hint()
+	if hint then tip:AddLine(hint, 0.6, 0.6, 0.6) end
 end
 
 local function newItemButton(name, kind)
@@ -1341,7 +1511,8 @@ local function addName(n, id, special, chance)
 	if not TL.keep then return end
 	local info = TL.info[n]
 	if not info then
-		TL.info[n] = { npc = id, item = TL.item, chance = chance, progress = TL.progress }
+		-- step, goal: the goal that named it first (Buttons.AimedGoal).
+		TL.info[n] = { npc = id, item = TL.item, chance = chance, progress = TL.progress, step = goalStep[goalCount], goal = goalIndex[goalCount] }
 		return
 	end
 	-- A later source of the same mob fills in what the first one lacked: a
@@ -1941,6 +2112,18 @@ end
 -- The single button that cycles (qol.targetSimple) instead of the list.
 local function simple() return QoL.On("targetSimple") end
 
+-- Docked, the goal the single target button takes next, for the guide
+-- window's crosshair: its step index and the goal's index. nil otherwise
+-- (beside the list the button takes the first name that is close, and the
+-- rows show who).
+function Buttons.AimedGoal()
+	local b = Buttons.target
+	if not (DK.on and b and simple() and b:IsShown() and b.applied) then return nil end
+	local info = target.info[b.applied]
+	if not (info and info.step and info.goal) then return nil end
+	return info.step, info.goal
+end
+
 -- A fallback can acquire a different kind from the preferred name. Match
 -- against the macro's applied snapshot: desired names may change in combat
 -- before its secure attributes can. A secret or unknown name keeps the
@@ -2187,6 +2370,78 @@ function paintTarget(b)
 	for k = shown + 1, #b.Minis do b.Minis[k]:Hide() end
 	b.miniCount = shown
 	placeLabel(b)
+end
+
+-- Docked: the row's one line of names between its two ends (DK.x0..DK.x1,
+-- holder units; one line, cut with "..."): the rare's while one is up, else
+-- the single target button's, its next names' icons under it; the bag's
+-- "press again" (or "press to equip") right-aligned against the right end,
+-- the names giving way while it shows. The quest item and Hearthstone have
+-- no name. -> true while docked (the name is placed); undocked, a name the
+-- row had goes back to the button's own and false.
+function DK.label(b)
+	local l, kind = b.Label, b.psKind
+	if not DK.on then
+		if b.psDockLabel then
+			l:SetWidth(0)
+			l:SetJustifyH(b.psDockLabel)
+			l:SetWordWrap(true)
+			l:Show()
+			b.psDockLabel = nil
+			if b.psDockHidden then
+				b.psDockHidden = nil
+				paintTarget(b)
+			end
+		end
+		return false
+	end
+	if not b.psDockLabel then b.psDockLabel = l:GetJustifyH() or "CENTER" end
+	local bagB, rareB = Buttons.bag, Buttons.rare
+	local bagText = bagB and bagB:IsShown() and (bagB.Label:GetText() or "") ~= "" or false
+	local rareUp = rareB and rareB:IsShown() or false
+	local show = false
+	if kind == "bag" then
+		show = bagText
+	elseif kind == "rare" then
+		show = rareUp and not bagText
+	elseif kind == "target" then
+		show = not rareUp and not bagText
+	end
+	local row = DK.rowSize()
+	l:ClearAllPoints()
+	l:SetWordWrap(false)
+	l:SetWidth(math.max(1, DK.x1 - DK.x0))
+	if kind == "bag" then
+		l:SetJustifyH("RIGHT")
+		l:SetPoint("RIGHT", holder, "BOTTOMLEFT", DK.x1, row / 2)
+	else
+		-- The target's next names' icons on a second line: the name moves up
+		-- half of them, as beside a floating button.
+		local lift = (kind == "target" and (b.miniCount or 0) > 0) and math.floor(num("buttons.miniSize", 8, 32, MINI) / 2) or 0
+		l:SetJustifyH("LEFT")
+		l:SetPoint("LEFT", holder, "BOTTOMLEFT", DK.x0, row / 2 + lift)
+	end
+	l:SetShown(show)
+	if kind ~= "target" then return true end
+	local minis = b.Minis
+	for k = 1, #minis do
+		local m = minis[k]
+		m:ClearAllPoints()
+		if k == 1 then m:SetPoint("TOPLEFT", l, "BOTTOMLEFT", 0, -3) else m:SetPoint("LEFT", minis[k - 1], "RIGHT", MINI_GAP, 0) end
+	end
+	if not show then
+		-- The next names' icons and their faces go with the name; the button's
+		-- own face stays.
+		for k = 1, #minis do minis[k]:Hide() end
+		for n, tex in pairs(portraits) do
+			if n ~= b.applied then tex:Hide() end
+		end
+		b.psDockHidden = true
+	elseif b.psDockHidden then
+		b.psDockHidden = nil
+		paintTarget(b)
+	end
+	return true
 end
 
 
@@ -2796,8 +3051,7 @@ do
 		if r.all and #r.all > 1 then
 			tip:AddLine(L["Folded: targets the first of %d names that is close. Left-click the Polestar mark to show them all."]:format(#r.all), 1, 1, 1, true)
 		end
-		tip:AddLine(ns.Get("ui.lockHud") and L["Click to target it. Shift-drag to move."]
-			or L["Click to target it. Drag to move."], 0.6, 0.6, 0.6)
+		tip:AddLine(DK.hint("target"), 0.6, 0.6, 0.6)
 	end
 
 	-- A row's face: ground, the green wash and its flash, the crosshair, the
@@ -3051,8 +3305,7 @@ do
 		else
 			tip:AddLine(folded() and L["Left-click to show the whole list."] or L["Left-click to fold the list to one row."], 1, 1, 1, true)
 		end
-		tip:AddLine(ns.Get("ui.lockHud") and L["Right-click for its settings. Shift-drag to move."]
-			or L["Right-click for its settings. Drag to move."], 0.6, 0.6, 0.6)
+		tip:AddLine(DK.hint("settings"), 0.6, 0.6, 0.6)
 		if QoL.InLockdown() then
 			tip:AddLine(L["Dragging the Polestar mark in combat places the buttons after the fight."], 1, 1, 1, true)
 		end
@@ -3178,6 +3431,8 @@ do
 				if TL.anchor.wanted then TL.anchor:Show() else TL.anchor:Hide() end
 			end
 			applyRows()
+			-- Docked, the guide window's crosshair follows the next name.
+			if DK.on then ns.Fire("TARGET_AIM") end
 		end)
 	end
 
@@ -3238,10 +3493,10 @@ ns.RegisterEvent("NAME_PLATE_UNIT_ADDED", function(_, unit) if type(unit) == "st
 
 local function targetTooltip(b, tip)
 	tip:SetText(L["Target"])
-	local locked = ns.Get("ui.lockHud")
 	if not simple() then
 		tip:AddLine(L["Targets the first name in the list that is close. Click a name to target that one."], 1, 1, 1, true)
-		tip:AddLine(locked and L["Shift-drag to move."] or L["Drag to move."], 0.6, 0.6, 0.6)
+		local hint = DK.hint()
+		if hint then tip:AddLine(hint, 0.6, 0.6, 0.6) end
 		return
 	end
 	local T = Theme()
@@ -3266,8 +3521,7 @@ local function targetTooltip(b, tip)
 			tip:AddLine(L["Marks nothing: in a raid only the leader and assistants set icons."], 0.6, 0.6, 0.6, true)
 		end
 	end
-	tip:AddLine(locked and L["Click again for the next name. Shift-drag to move."]
-		or L["Click again for the next name. Drag to move."], 0.6, 0.6, 0.6)
+	tip:AddLine(DK.hint("next"), 0.6, 0.6, 0.6)
 end
 
 ---------------------------------------------------------------------------
@@ -3325,8 +3579,7 @@ end
 local function rareTooltip(b, tip)
 	tip:SetText(isFounder(b.applied) and L["Target and wave"] or L["Target rare"])
 	for i = 1, #rare.list do tip:AddLine(rare.list[i], 1, 1, 1) end
-	tip:AddLine(ns.Get("ui.lockHud") and L["Click again for the next name. Shift-drag to move."]
-		or L["Click again for the next name. Drag to move."], 0.6, 0.6, 0.6)
+	tip:AddLine(DK.hint("next"), 0.6, 0.6, 0.6)
 end
 
 ---------------------------------------------------------------------------
@@ -3354,6 +3607,8 @@ local function applyBag(b)
 	QoL.Secure("bag", function()
 		if b.spare or b.junk then b:Show() else b:Hide() end
 	end)
+	-- Docked, its "press again" takes the row's names' place, or gives it back.
+	if DK.on and relabel then relabel() end
 end
 
 local function bagTooltip(b, tip)
@@ -3370,7 +3625,8 @@ local function bagTooltip(b, tip)
 		tip:AddLine(string.format(L["Cheapest junk: %s (%s)"], Space.ItemText(j), j.value < math.huge and QoL.Money(j.value) or "?"), 1, 1, 1)
 		tip:AddLine(L["Press twice to delete it."], 0.6, 0.6, 0.6)
 	end
-	tip:AddLine(ns.Get("ui.lockHud") and L["Shift-drag to move."] or L["Drag to move."], 0.6, 0.6, 0.6)
+	local hint = DK.hint()
+	if hint then tip:AddLine(hint, 0.6, 0.6, 0.6) end
 end
 
 ---------------------------------------------------------------------------
@@ -3847,17 +4103,29 @@ local function create()
 	QB.Add(bagButton, { force = true, enabled = function() return QoL.On("bagSpace") end,
 		wanted = function(b) return b.junk ~= nil end, icon = useIcon })
 	-- An Above name moves when a button over it comes or goes, and the
-	-- heads-up card may take another side (Buttons.Covers).
+	-- heads-up card may take another side (Buttons.Covers). Docked, the row
+	-- packs again, and the guide window lays out again when the row comes or
+	-- goes (the first button shown, the last one hidden).
 	local function placeLabels() for i = 1, #set do placeLabel(set[i]) end end
 	local function cameOrWent()
 		placeLabels()
 		placedSoon()
+		if DK.on then DK.soon() end
+		local any = DK.anyShown()
+		if any ~= DK.any then
+			DK.any = any
+			if QoL.On("buttonDock") then ns.Fire("ACTION_DOCK") end
+		end
 	end
 	for i = 1, #set do
 		set[i].psStack = set
 		set[i]:HookScript("OnShow", cameOrWent)
 		set[i]:HookScript("OnHide", cameOrWent)
 	end
+	-- Beside the list its mark stands in the target button's slot.
+	TL.anchor:HookScript("OnShow", cameOrWent)
+	TL.anchor:HookScript("OnHide", cameOrWent)
+	DK.any = DK.anyShown()
 	fighting = QoL.InLockdown()
 	for i = 1, #set do applyAlpha(set[i]) end
 	placeLabels()
@@ -3927,6 +4195,12 @@ ns.On("SETTING_CHANGED", function(path)
 	if PLACE_KEYS[path] or path == "qol.buttonTextSide" or path == "qol.targetListStyle" or path == "qol" or path == "buttons" or all then
 		place()
 	end
+	-- The guide window keeps the row's strip, or gives it back (a size or
+	-- the scale changes its height).
+	if path == "qol.buttonDock" or path == "qol" or all or (QoL.On("buttonDock") and (PLACE_KEYS[path] or path == "buttons")) then
+		if path == "qol.buttonDock" then place() end
+		ns.Fire("ACTION_DOCK")
+	end
 	-- (And a whole profile's or section's change: path "" or "qol".)
 	local section = path == "" or path == "qol"
 	if path == "qol.targetCloseName" or section then TL.paintLooks() end
@@ -3949,6 +4223,13 @@ ns.On("SETTING_CHANGED", function(path)
 		or path == "behavior.whileHereStepKey" or path == "behavior" or path == "" then refreshSoon() end
 end)
 ns.On("GUIDE_SHOWN", function() if itemButton then refreshSoon() end end) -- an instance hide (ns.GuideShown)
+-- The guide window moved, changed size, showed or hid: a docked set
+-- follows, out of combat. While the window is dragged this comes every
+-- frame (now), so the row moves with it rather than after it.
+ns.On("GUIDE_WINDOW_PLACED", function(now)
+	if not (itemButton and (QoL.On("buttonDock") or DK.on)) then return end
+	if now then place() else DK.soon() end
+end)
 
 -- Back to the default spots (options button): the set's and the bag button's.
 function Buttons.ResetPositions()

@@ -451,7 +451,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		return y
 	end
 
-	local function placeBars(showFoot)
+	-- dock: the strip kept free under everything for the docked action
+	-- buttons (QoL/Buttons.lua, Buttons.DockHeight), 0 without them.
+	local function placeBars(showFoot, dock)
+		dock = dock or 0
 		local flip = barsBottom()
 		strip:ClearAllPoints()
 		nav:ClearAllPoints()
@@ -466,8 +469,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		nav.Rule:SetPoint(edge .. "LEFT", nav, edge .. "LEFT", 0, 0)
 		nav.Rule:SetPoint(edge .. "RIGHT", nav, edge .. "RIGHT", 0, 0)
 		if flip then
-			strip:SetPoint("BOTTOMLEFT", F, "BOTTOMLEFT", 0, 0)
-			strip:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", 0, 0)
+			strip:SetPoint("BOTTOMLEFT", F, "BOTTOMLEFT", 0, dock)
+			strip:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", 0, dock)
 			nav:SetPoint("BOTTOMLEFT", strip, "TOPLEFT", 0, 0)
 			nav:SetPoint("BOTTOMRIGHT", strip, "TOPRIGHT", 0, 0)
 			foot:SetPoint("BOTTOMLEFT", nav, "TOPLEFT", 0, 0)
@@ -480,15 +483,15 @@ ns.UI.GuideFrame.Part(function(GF)
 				body:SetPoint("TOPLEFT", F, "TOPLEFT", 0, 0)
 				body:SetPoint("TOPRIGHT", F, "TOPRIGHT", 0, 0)
 			end
-			band:SetPoint("BOTTOMLEFT", F, "BOTTOMLEFT", 1, 1)
-			band:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", -1, 1)
+			band:SetPoint("BOTTOMLEFT", F, "BOTTOMLEFT", 1, 1 + dock)
+			band:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", -1, 1 + dock)
 		else
 			strip:SetPoint("TOPLEFT", F, "TOPLEFT", 0, 0)
 			strip:SetPoint("TOPRIGHT", F, "TOPRIGHT", 0, 0)
 			nav:SetPoint("TOPLEFT", strip, "BOTTOMLEFT", 0, 0)
 			nav:SetPoint("TOPRIGHT", strip, "BOTTOMRIGHT", 0, 0)
-			foot:SetPoint("BOTTOMLEFT", F, "BOTTOMLEFT", 0, 0)
-			foot:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", 0, 0)
+			foot:SetPoint("BOTTOMLEFT", F, "BOTTOMLEFT", 0, dock)
+			foot:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", 0, dock)
 			if fit.follow and ns.Get("ui.growUp") then
 				-- The goals sit on the bar at the pinned bottom edge, the free room above them.
 				body:SetPoint("BOTTOMLEFT", foot, "TOPLEFT", 0, 0)
@@ -563,7 +566,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		local mode = ns.Get("ui.heightMode")
 		local up = ns.Get("ui.growUp") and (mode == "fixed" or mode == "auto")
 		grip:ClearAllPoints()
-		grip:SetPoint("BOTTOMRIGHT", F, up and "TOPRIGHT" or "BOTTOMRIGHT", -1, 1)
+		grip:SetPoint("BOTTOMRIGHT", F, up and "TOPRIGHT" or "BOTTOMRIGHT", -1, 1 + (up and 0 or F.psDock or 0))
 		grip.Icon:SetTexCoord(0, 1, up and 1 or 0, up and 0 or 1)
 	end
 
@@ -644,10 +647,15 @@ ns.UI.GuideFrame.Part(function(GF)
 		local content = 0
 		-- The step browser (UI/StepList.lua) in place of the card and what
 		-- follows it: the live window's alone.
+		-- The docked action buttons' strip under everything (QoL/Buttons.lua):
+		-- the live window's alone.
+		local QB = GF.live and ns.QoL and ns.QoL.Buttons
+		local dock = QB and QB.DockHeight and floor(QB.DockHeight(F) + 0.5) or 0
+		F.psDock = dock
 		local list = GF.live and UI.StepList and UI.StepList.Place(body, state == "steps" or state == "complete" or state == "skippedout")
 		if list then
 			for _, f in ipairs({ card, after, along, GF.here, upnext, empty, UI.JourneyPanel and UI.JourneyPanel.frame }) do f:Hide() end
-			local outer = (showStrip and SH or 0) + NAV_H + PROG_H
+			local outer = (showStrip and SH or 0) + NAV_H + PROG_H + dock
 			local kept = UI.StepList.height or F:GetHeight()
 			local limit = max(outer + GF.MIN_BODY_H, roomAbove() or math.huge)
 			if isCompact then
@@ -709,7 +717,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			and GF.Shows("progressFoot", true)
 		foot:SetShown(showFoot)
 		local stripH = showStrip and SH or 0
-		fit.outer = stripH + NAV_H + (showFoot and PROG_H or 0)
+		fit.outer = stripH + NAV_H + (showFoot and PROG_H or 0) + dock
 		fit.limit = roomAbove()
 		-- ui.heightMode (the live window): "fixed" keeps the window at
 		-- its height; with the progress bar under the last goal (ui.footAt) the
@@ -740,7 +748,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		else
 			sizeWindow(y)
 		end
-		placeBars(showFoot)
+		placeBars(showFoot, dock)
 		GF.PlaceGrip()
 		band:SetHeight(stripH + NAV_H)
 		local x0, x1, y0, y1 = Theme.BandCoords(width - 2, stripH + NAV_H, 30)
@@ -750,6 +758,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		GF.PaintProgress(false)
 		if GF.live and UI.NameTargets then UI.NameTargets.Refresh() end
 		GF.PaintShades()
+		-- Docked action buttons follow the window's new size (QoL/Buttons.lua).
+		if GF.live then ns.Fire("GUIDE_WINDOW_PLACED") end
 	end
 
 	-- Where the window's parts sit, for a host that shows only some of it (the
