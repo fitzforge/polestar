@@ -1163,7 +1163,7 @@ fn secure_buttons_answer_only_the_left_and_the_right_button_so_the_game_s_ping_k
 	for (i, clicks) in o["clicks"].as_array().unwrap().iter().enumerate() {
 		assert_eq!(clicks, "LeftButtonDown,LeftButtonUp,RightButtonDown,RightButtonUp", "button {i} is registered for the left and the right button only");
 	}
-	assert_eq!(o["ran"], json!([]), "no other mouse button runs an action");
+	assert!(o["ran"] == json!({}) || o["ran"] == json!([]), "no other mouse button runs an action: {}", o["ran"]);
 	assert_eq!(o["calls"], json!(0), "none of their hooks calls SetRaidTarget");
 	assert_eq!(o["unchanged"], json!(true), "the macros are left alone");
 }
