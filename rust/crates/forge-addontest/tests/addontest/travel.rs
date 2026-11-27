@@ -1403,3 +1403,104 @@ fn a_class_flight_node_flies_that_class_alone_with_no_path_learnt() {
 	assert_eq!(out["warrior"], json!(["walk|Kobolds"]));
 	assert!(out["druid"].as_array().unwrap().iter().any(|l| l.as_str().is_some_and(|s| s.starts_with("fly|"))), "{}", out["druid"]);
 }
+
+// The live route's walks are timed at the character's own ground speed (Travel.GroundSpeed): mounted, a way with
+// more riding is no dearer than it is. cjtylr (#3913, Human Hunter 53, Farholde Keep known): from Stormwind's Trade
+// District to Fizzledowser in Gadgetzan the arrow flew to Booty Bay for the boat to Ratchet and the flight on, though
+// on a mount the flight to Farholde Keep, the ride to Powderfuse Port and the boat to Steamwheedle Port is two minutes
+// sooner; every walk was timed as if run.
+#[test]
+fn a_mounted_character_is_routed_by_its_mount_speed_stormwind_to_gadgetzan() {
+	let out = run_real(
+		r#"
+		local N, nav = Polestar.Nav, stub.nav
+		nav.faction, nav.level = "Alliance", 53
+		local flags = Polestar.CharState().flags
+		flags.taxi, flags.taxiSeen = {}, { [0] = true, [1] = true }
+		for _, node in ipairs(N.GetTravelData().taxi) do
+			if not node.class and (node.faction == 1 or node.faction == 3) then flags.taxi[node.id] = true end
+		end
+		-- Fizzledowser (npc 7724) at Tanaris 50.18, 27.49; the player in the Trade District, Stormwind 71.06, 72.50.
+		nav.era[1446] = { c = 1, top = -5875, bottom = -10475, left = -218.75, right = -7118.75 }
+		nav.place(-8835.6, 488.2, 0)
+		function nav.Compat.GetPlayerMapPosition() return 1453, 71.06, 72.5 end
+		local function way(rank)
+			function nav.Compat.GetSkillRank(line) if line == 762 and rank > 0 then return rank, rank end end
+			N.SetTarget(1446, 50.18, 27.49, "Fizzledowser", "e")
+			N.travel.Replan()
+			local out = {}
+			for _, leg in ipairs(N.GetRoute() or {}) do
+				out[#out + 1] = leg.kind .. (leg.kind == "fly" and ">" .. leg.to.id or leg.kind == "boat" and ">" .. leg.transport.id or "")
+			end
+			return table.concat(out, ",")
+		end
+		emit({ foot = way(0), apprentice = way(75), journeyman = way(150) })"#,
+	);
+	assert_eq!(out["foot"], "walk,fly>19,walk,boat>boat-bootybay-ratchet,walk,fly>39,walk", "on foot, as before: {out}");
+	for k in ["apprentice", "journeyman"] {
+		assert_eq!(out[k], "walk,fly>3276,walk,boat>boat-tanaris-powderfuse,walk", "{k}: by Farholde Keep: {out}");
+	}
+}
+
+// xaring (#3920, Tauren Druid 58, every flight path known): from Moonglade to Mourning's Rest in Mount Hyjal the
+// arrow walked, 24 minutes, though Faustron's flight to the Tainted Foothills takes 11. The walk was priced by its
+// straight line (2,999 yd x1.25: 9 minutes; the measure of the walks into the goal prices its 16 nearest places,
+// and the player was not among them), and its real length (10,090 yd along the arrow's own path) never reached the
+// planner. Now the arrow's path measuring the walk far longer than priced plans the way again with that length,
+// and later plans keep it (less the ground covered since: the player walking off toward the goal itself is no
+// nearer along the path than that); a teleport forgets it.
+#[test]
+fn a_walk_the_arrows_path_finds_far_longer_plans_again_moonglade_to_mount_hyjal() {
+	let out = run_real(
+		r#"
+		local N, nav = Polestar.Nav, stub.nav
+		nav.faction, nav.level, nav.class = "Horde", 58, "DRUID"
+		local flags = Polestar.CharState().flags
+		flags.taxi, flags.taxiSeen = {}, { [0] = true, [1] = true }
+		for _, node in ipairs(N.GetTravelData().taxi) do
+			if not node.class and (node.faction == 2 or node.faction == 3) then flags.taxi[node.id] = true end
+		end
+		-- Mount Hyjal 26.8, 57.8 (Mourning's Rest); the player in Moonglade at 52, 40.
+		nav.maps[2482] = { c = 1, top = 6304.166, bottom = 3989.583, left = -922.916, right = -4395.834 }
+		nav.place(7875.8, -2581.6, 1)
+		function nav.Compat.GetPlayerMapPosition() return 1450, 52, 40 end
+		N.SetTarget(2482, 26.8, 57.8, "Forgotten Soldier")
+		N.travel.Replan()
+		local function kinds()
+			local out = {}
+			for _, leg in ipairs(N.GetRoute() or {}) do out[#out + 1] = leg.kind .. (leg.kind == "fly" and ">" .. leg.from.id or "") end
+			return table.concat(out, ",")
+		end
+		local first = kinds()
+		-- The arrow's own path into the goal lands: 10,090 yd from where the player stands, no chokepoint on it.
+		local tc, tx, ty = N.GetTargetWorld()
+		N.travel.SplitWalk(tc, tx, ty, {}, 10090)
+		local measured = N.GetRoute()[1].seconds
+		N.travel:Refresh()
+		local legs = N.GetRoute()
+		local after, total = kinds(), legs[1].seconds + legs[1].rest
+		-- Walking off straight toward the goal for 30 s (10 yd a second), each second's tick, then planned again.
+		for i = 1, 30 do
+			local f = i * 10 / 2999
+			nav.place(7875.8 + (tx - 7875.8) * f, -2581.6 + (ty + 2581.6) * f, 1)
+			stub.advance(1)
+			N.travel:Refresh()
+		end
+		N.travel.Replan()
+		local onWay = kinds()
+		-- A teleport to the Tainted Foothills' flight master: no ground of the player's, the walk from there unknown.
+		local tf = N.GetTaxiNode(3242)
+		nav.place(tf.wx, tf.wy, 1)
+		stub.advance(1)
+		N.travel:Refresh()
+		N.travel.Replan()
+		emit({ first = first, measured = measured, after = after, total = total, onWay = onWay, teleported = kinds() })"#,
+	);
+	assert_eq!(out["first"], "walk", "priced straight, the walk: {out}");
+	assert_eq!(out["measured"], 1441, "10,090 yd at run speed: {out}");
+	let after = out["after"].as_str().unwrap_or("");
+	assert!(after.starts_with("walk,fly>69,"), "walked to Faustron and flown: {out}");
+	assert!(out["total"].as_f64().unwrap() < 900.0, "well under the walk's 24 minutes: {out}");
+	assert_ne!(out["onWay"], "walk", "300 yd on, the walk straight to the goal is still priced by its path: {out}");
+	assert_eq!(out["teleported"], "walk", "from the Tainted Foothills, the walk: {out}");
+}
