@@ -1332,7 +1332,8 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `way <x> <y> [label]` | Point the arrow at x y on your current map (no argument clears it) |
 | `arrow show\|hide\|reset` | The waypoint arrow (drag it to move it); while the guide hides it (**Hide the arrow with the guide**) or Polestar is hidden, these commands, `way` and `near` say so |
 | `unlock`, `lock` | Move Polestar's frames: a box over the guide window, the arrow, the buttons, the alerts and the trackers to drag where you want them, with a grid and snapping; arrow keys nudge the one you clicked, right-click puts one back. `unlock` again, `lock`, Escape or a fight locks them |
-| `reset` | Clear ticks and skips for the current guide |
+| `reset` | Reset everything: clear all ticks and skips for the current guide, then start at the first quest you can take (the guide menu's Reset everything) |
+| `resetfrom` | Reset from here: clear ticks and skips from your last quest progress on; older skips stay |
 | `pause [on\|off]`, `resume` | Pause the guide: the arrow, the guide window and its nudges step aside, and it resumes by itself when you leave the dungeon alive; `resume` ends it early |
 | `xp` | XP per hour, time to level and level splits |
 | `bags` | Free bag slots and the cheapest junk |

@@ -1412,6 +1412,8 @@ function ns.CharState()
 	if type(s.dungeons) ~= "table" then s.dungeons = {} end
 	-- Quest id -> "do" | "skip": the player's answer at a group quest in leveling guides (`when group`; Engine.AnswerGroup).
 	if type(s.groupQuests) ~= "table" then s.groupQuests = {} end
+	-- Guide id -> { [questID] = true | "dismissed" | "taken" }: the open accepts placement passed behind the player's progress (#86; Engine.lua, Own.mergeEarlier): listed as skipped earlier, put out of the route by the player, or taken back into it.
+	if type(s.earlier) ~= "table" then s.earlier = {} end
 	if type(s.flags) ~= "table" then s.flags = {} end
 	-- Quest id -> true: the quests the player pinned as along the way (#644; Engine.PinQuest).
 	if type(s.pinnedQuests) ~= "table" then s.pinnedQuests = {} end

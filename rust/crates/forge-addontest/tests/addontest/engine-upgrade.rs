@@ -3,7 +3,7 @@
 //! (CharState().shapes and stepKeys, no shapeVersions) loads the new one: what the update added behind the
 //! player passes for them (Own.noteAdded, Own.passAdded), what it added ahead stays, a quest they carry keeps
 //! its work, and check-offs, skips and the saved view of changed steps go to the step that has the same goal
-//! now (Own.remap with Core/LegacySteps.lua). A save with no older shape (a fresh load) keeps today's placement.
+//! now (Own.remap with Core/LegacySteps.lua). A save with no older shape (a fresh load) is placed by the quest history (#86).
 //! Safety: the mapping runs once (the save is stamped with the pack's version), an error in it falls back to
 //! the plain restore by kept steps with one debug-log line, and Reset progress undoes what it passed.
 
@@ -97,11 +97,12 @@ fn an_update_never_moves_the_player_back_its_new_quests_behind_them_pass_and_tho
 }
 
 #[test]
-fn a_fresh_load_of_the_guide_keeps_today_s_placement() {
-	// No older shape in the save: the new accept 108 is the guide's own first open step.
+fn a_fresh_load_of_the_guide_places_by_quest_history() {
+	// No older shape in the save: the new accept 108 is the guide's own first open step, but the player's
+	// quests (100 and 102 done, 103 carried) are past it: it reads as skipped earlier (#86), not as the start.
 	let out = run(None);
-	assert_eq!(out["live"], 2, "{out}");
-	assert_eq!(out["behind"], "active");
+	assert_eq!(out["live"], 8, "{out}");
+	assert_eq!(out["behind"], "na");
 }
 
 #[test]
@@ -314,9 +315,10 @@ fn reset_progress_brings_back_what_an_update_passed() {
 		),
 	});
 	assert_eq!(out[0]["status"][1], "na", "{}", out[0]);
-	// The player's own correction: Reset progress places the guide as if just opened, 108's accept included.
+	// The player's own correction: Reset progress places the guide as if just opened. 108's accept, never
+	// taken, is a quest skipped earlier (#86) there, so the start is still the carried quest's hand-in.
 	assert_eq!(out[1]["gone"], false, "{}", out[1]);
-	assert_eq!(out[1]["live"], 2, "{}", out[1]);
+	assert_eq!(out[1]["live"], 8, "{}", out[1]);
 }
 
 // The upgrade check on the final candidate (Skyborne Druid, Zephras Isle): the player skipped 0.3.5's Raan Wildwind

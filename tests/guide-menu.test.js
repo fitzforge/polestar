@@ -67,7 +67,7 @@ test('the guide menu: the window bar on top, then groups, the reset alone and in
 	assert.equal(where('Open in new tab'), 0);
 	assert.ok(where('Settings') > 0);
 	if (where('Quick settings') !== -1) assert.equal(where('Quick settings'), where('Settings'));
-	assert.deepEqual(groups[groups.length - 1], ['Reset guide progress', '(danger,confirm)'], 'the reset stands alone, last, in the danger colour, asking twice');
+	assert.deepEqual(groups[groups.length - 1], ['Reset from here', '(danger,confirm)', 'Reset everything', '(danger,confirm)'], 'the two resets stand alone, last, in the danger colour, asking twice');
 });
 
 test('rows the header shows as buttons stay out of the menu, and come back when those buttons are off', () => {

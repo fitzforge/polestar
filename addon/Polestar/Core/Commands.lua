@@ -111,11 +111,18 @@ ns.RegisterCommand("skip", function()
 	if needGuide() and not Engine.Skip() then ns.Print(L["Nothing to skip: the guide has no step open."]) end
 end, L["Skip the step shown, for good (the window offers the undo)"])
 
+-- Both clear the guide's marks, the first all of them (#4111), the second the ones from the last quest progress on (#1764).
 ns.RegisterCommand("reset", function()
+	if not needGuide() then return end
+	Engine.ResetProgress(true)
+	ns.Print(L["Cleared every tick, skip and saved step for this guide. It starts at the first quest you can take."])
+end, L["Clear ticks and skips for the current guide"])
+
+ns.RegisterCommand("resetfrom", function()
 	if not needGuide() then return end
 	Engine.ResetProgress()
 	ns.Print(L["Cleared ticks, skips and the step you were looking at for this guide."])
-end, L["Clear ticks and skips for the current guide"])
+end, L["Reset from here: clear ticks and skips from your last quest progress on"])
 
 ns.RegisterCommand("guide", function(rest)
 	local id = rest and rest:match("^%s*(%S+)")

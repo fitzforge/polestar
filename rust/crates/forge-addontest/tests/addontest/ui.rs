@@ -1860,25 +1860,28 @@ fn the_header_menu_picker_new_tab_compact_transparent_lock_destructive_items_ask
 		barPick("Lock window")
 		barPick("Transparent")
 		local style = Polestar.Get("ui.style")
-		local reset = menuPick("Reset guide progress")
+		local reset = menuPick("Reset from here")
 		local armed = { label = reset.Text:GetText(), open = PolestarMenu:IsShown() }
 		reset:Click()
+		local from = lastCall("ResetProgress")
+		menuPick("Reset everything"):Click()
 		menuPick("Choose guide")
 		local picker = PolestarPicker:IsShown()
 		menuPick("Settings")
-		emit({ items = items, bar = bar, locked = Polestar.Get("ui.locked"), style = style, armed = armed, reset = lastCall("ResetProgress"),
+		emit({ items = items, bar = bar, locked = Polestar.Get("ui.locked"), style = style, armed = armed, reset = from, everything = lastCall("ResetProgress"),
 			picker = picker, options = PolestarOptions:IsShown(), pickerAfter = PolestarPicker:IsShown() })"#)
 	.remove(0);
 	assert_eq!(
 		out["items"],
-		json!(["Choose guide", "Open in new tab", "None to hand in", "Quest log is clean", "Quick settings", "Settings", "Reset window size", "Reset guide progress"]),
+		json!(["Choose guide", "Open in new tab", "None to hand in", "Quest log is clean", "Quick settings", "Settings", "Reset window size", "Reset from here", "Reset everything"]),
 		"Skip, the bug and Lookup are in the header, so not in the menu; the quest log rows are always there, off when they have nothing to do; #3095's Reset window size in the settings group"
 	);
 	assert_eq!(out["bar"], json!(["Compact mode", "Transparent", "Lock window", "Pause"]), "the window's toggles are the bar on top");
 	assert_eq!(out["locked"], true);
 	assert_eq!(out["style"], "transparent");
 	assert_eq!(out["armed"], json!({ "label": "Click again to confirm", "open": true }));
-	assert_eq!(out["reset"], json!(["ResetProgress"]));
+	assert_eq!(out["reset"], json!(["ResetProgress"]), "Reset from here: the call without the argument");
+	assert_eq!(out["everything"], json!(["ResetProgress", true]), "Reset everything: the call with it (#4111)");
 	assert_eq!(out["picker"], true);
 	assert_eq!(out["options"], true);
 	assert_eq!(out["pickerAfter"], true, "the settings window is a window of its own: the guide menu stays");
