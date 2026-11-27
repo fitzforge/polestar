@@ -7,11 +7,6 @@
 -- reworded that this file still showed in English, translated by an AI model (Claude Opus 5.5)
 -- in this file's own wording, and waiting for a native speaker's check. Reviewing one: keep or
 -- fix its line below, and take its key off this list.
---   Requires level %d: kept for a later guide
---   Arrived underwater
---   %s · at level %d
---   %s (level %d)
---   %s takes these once you reach their level: %s
 --
 -- Machine-translated, to be reviewed (0.4.3 guide titles, 24 Nov 2026): translated by an AI model
 -- (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing
@@ -852,7 +847,7 @@ L["Drag to move."] = "拖动以移动。"
 L["Click for the next spot."] = "点击前往下一地点。"
 L["Shift-drag to move."] = "按住 Shift 拖动可移动。"
 L["No waypoint"] = "没有路径点"
-L["Arrived underwater"] = "已在水下到达"
+L["Arrived underwater"] = "已到达水下地点"
 L["Under water nearby: swim down to it"] = "附近水下：向下游过去"
 L["%d yd below you: swim down"] = "在你下方 %d 码：向下游"
 
