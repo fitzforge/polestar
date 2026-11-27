@@ -88,7 +88,9 @@ test('a pull request: its title, description, branch name and every commit messa
 });
 
 test('the commit-msg hook runs the check from the clone, and the hooks are executable', () => {
-	for (const h of ['commit-msg', 'pre-push']) assert.ok(fs.statSync(path.join(ROOT, 'tools', 'hooks', h)).mode & 0o111, `tools/hooks/${h} is executable`);
+	// fs.stat on Windows sets no execute bits; there the git index mode, which a clone gets, says it
+	const executable = (h) => process.platform === 'win32' ? spawnSync('git', ['ls-files', '-s', `tools/hooks/${h}`], { cwd: ROOT, encoding: 'utf8' }).stdout.startsWith('100755 ') : fs.statSync(path.join(ROOT, 'tools', 'hooks', h)).mode & 0o111;
+	for (const h of ['commit-msg', 'pre-push']) assert.ok(executable(h), `tools/hooks/${h} is executable`);
 	const bad = run([file('hook-bad', `${MSG.match[0]}\n`)], {}, 'sh', [HOOK]);
 	assert.equal(bad.status, 1);
 	assert.match(bad.out, new RegExp(`public-text rule ${MSG.id}`));

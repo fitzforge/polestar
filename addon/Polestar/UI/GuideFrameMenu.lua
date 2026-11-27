@@ -7,8 +7,9 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- The pin glyph the menu's pin rows wear (Media/UI has none of its own).
 	local PIN_ICON = "Interface\\AddOns\\" .. ADDON .. "\\Media\\Map\\icon-pin-small"
 
-	-- Is the header's button `key` (nav.Skip, nav.Report, nav.Lookup) on
-	-- screen? Its menu row then goes: the header already offers it.
+	-- Is the header's button `key` (nav.Skip, nav.Report, nav.Lookup,
+	-- nav.Settings...) on screen? Its menu row then goes: the header already
+	-- offers it.
 	local function inHeader(key)
 		local nav = GF.menuButton and GF.menuButton:GetParent()
 		local b = nav and nav[key]
@@ -64,10 +65,12 @@ ns.UI.GuideFrame.Part(function(GF)
 		local items = {
 			windowBar(clear),
 			{ separator = true },
-			{ text = L["Choose guide"], icon = "search", onClick = function() UI.ShowPicker() end },
-			several and { text = string.format(L["Open tabs (%d)"], #open) .. "  \226\128\186", icon = "guides", onClick = function() openTabsPage(button) end }
-				or { text = L["Open in new tab"], icon = "plus", disabled = not (E and E.OpenTab), onClick = function() UI.ShowPicker({ newTab = true }) end },
 		}
+		if not inHeader("ChooseGuide") then
+			items[#items + 1] = { text = L["Choose guide"], icon = "search", onClick = function() UI.ShowPicker() end }
+		end
+		items[#items + 1] = several and { text = string.format(L["Open tabs (%d)"], #open) .. "  \226\128\186", icon = "guides", onClick = function() openTabsPage(button) end }
+				or { text = L["Open in new tab"], icon = "plus", disabled = not (E and E.OpenTab), onClick = function() UI.ShowPicker({ newTab = true }) end }
 		local function add(it) items[#items + 1] = it end
 		local function group() if #items > 0 and not items[#items].separator then add({ separator = true }) end end
 		local reopen = not several and GF.ReopenItem()
@@ -77,6 +80,14 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- A header with no Lookup (a skin's layout hid it) has it here.
 		if not inHeader("Lookup") then
 			add({ text = L["Lookup"], icon = "search", onClick = function() UI.ShowLookup() end })
+		end
+		-- Nearby services and All steps, while the header does not show them:
+		-- Nearby's own page of services (openNearby), the step browser.
+		if not inHeader("Nearby") then
+			add({ text = L["Nearby services"] .. "  \226\128\186", icon = "icon-goto", onClick = function() GF.OpenNearby(button) end })
+		end
+		if hasGuide and UI.StepList and not inHeader("AllSteps") then
+			add({ text = L["All steps"], icon = "layers", checked = UI.StepList.On() or nil, onClick = function() UI.StepList.Toggle() end })
 		end
 		group()
 		-- No step on screen (a finished guide): nothing to skip, as with the navigator's Skip.
@@ -89,11 +100,14 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- Every ready quest, even with no guide or a hand-in already planned.
 		-- Count the live quest ids without building their recipient rows; the
 		-- shared Guide me action opens the one carried/log planner.
-		local ready = ns.Handins and ns.Handins.Ready()
-		if ready and #ready > 0 then
-			add({ text = L["Hand in finished quests (%d)"]:format(#ready), icon = "icon-turnin", onClick = function() UI.GuideCarried() end })
-		else
-			add({ text = L["None to hand in"], icon = "icon-turnin", disabled = true })
+		-- Not while the header's Hand in button shows.
+		if not inHeader("HandIn") then
+			local ready = ns.Handins and ns.Handins.Ready()
+			if ready and #ready > 0 then
+				add({ text = L["Hand in finished quests (%d)"]:format(#ready), icon = "icon-turnin", onClick = function() UI.GuideCarried() end })
+			else
+				add({ text = L["None to hand in"], icon = "icon-turnin", disabled = true })
+			end
 		end
 		-- The quest log cleanup (UI/QuestRoom.lua), over the quests it can list.
 		local unneeded = ns.RoutePlan and ns.RoutePlan.Unneeded() or nil
@@ -110,10 +124,12 @@ ns.UI.GuideFrame.Part(function(GF)
 		for _, it in ipairs(mats or {}) do add(it) end
 		group()
 		-- The few settings changed mid-play (UI/QuickSettings.lua), by the button, just before Settings.
-		if UI.QuickSettings then
+		if UI.QuickSettings and not inHeader("QuickSettings") then
 			add({ text = L["Quick settings"], icon = "sliders", onClick = function() UI.QuickSettings.Show(button) end })
 		end
-		add({ text = L["Settings"], icon = "gear", onClick = function() UI.ShowOptions() end })
+		if not inHeader("Settings") then
+			add({ text = L["Settings"], icon = "gear", onClick = function() UI.ShowOptions() end })
+		end
 		-- Width, scale and height cap back to their defaults (GF.ResetSize).
 		add({ text = L["Reset window size"], icon = "reset", disabled = not GF.SizeChanged(), onClick = function() GF.ResetSize() end })
 		if not inHeader("Report") then

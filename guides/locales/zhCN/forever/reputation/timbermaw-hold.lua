@@ -89,93 +89,93 @@ return {
 
 	-- Step 15: To Azshara
 	-- {zone:1447} Azshara
-	["To {zone:1447}"] = "",
+	["To {zone:1447}"] = "前往{zone:1447}",
 	-- {area:1225} Ursolan · {zone:1447} Azshara · {npc:11555} Gorn One Eye · {faction:576} Timbermaw Hold · {area:1237} Valormok · {area:3137} Talrendis Point · {npc:235903} Ekkal
-	["Neutral opens {area:1225}, the camp of the Blackmaw furbolgs in northern {zone:1447}: their quests and {npc:11555}'s in {faction:576} are levels 53-55, about 50,000 experience below level 60, all outdoors. Below Neutral the Blackmaw attack you. The nearest flight masters are {area:1237} (Horde) and {area:3137} (Alliance); {npc:235903} camps by the road between them and {area:1225}."] = "",
+	["Neutral opens {area:1225}, the camp of the Blackmaw furbolgs in northern {zone:1447}: their quests and {npc:11555}'s in {faction:576} are levels 53-55, about 50,000 experience below level 60, all outdoors. Below Neutral the Blackmaw attack you. The nearest flight masters are {area:1237} (Horde) and {area:3137} (Alliance); {npc:235903} camps by the road between them and {area:1225}."] = "声望达到中立后，可在{zone:1447}北部{area:1225}的黑喉熊怪营地接任务。那里的任务和{faction:576}里{npc:11555}的任务都是53-55级，在60级前完成约有50,000经验，全都在野外。声望低于中立时，黑喉熊怪会攻击你。最近的飞行点是{area:1237}（部落）和{area:3137}（联盟）。{npc:235903}在这两个飞行点通往{area:1225}的路边扎营。",
 	-- {npc:235903} Ekkal
-	["{npc:235903}'s camp"] = "",
+	["{npc:235903}'s camp"] = "{npc:235903}的营地",
 
 	-- Step 16: Ekkal
 	-- {npc:235903} Ekkal · {zone:1447} Azshara · {area:1219} Legashi Encampment
 	-- plural, as words: Legashi Satyrs = {npc:6200} Legashi Satyr
-	["{npc:235903} camps by the road in the middle of {zone:1447}. His satyrs come first: the Legashi Satyrs, Rogues and Hellcallers (51-53) of the {area:1219}, north-east of him."] = "",
+	["{npc:235903} camps by the road in the middle of {zone:1447}. His satyrs come first: the Legashi Satyrs, Rogues and Hellcallers (51-53) of the {area:1219}, north-east of him."] = "{npc:235903}在{zone:1447}中部的路边扎营。先做他给的萨特任务，去他东北方的{area:1219}打雷加斯萨特、雷加斯潜行者和雷加斯唤魔者（51-53级）。",
 
 	-- Step 17: The Legashi Encampment
 	-- {area:1219} Legashi Encampment
-	["The {area:1219}"] = "",
+	["The {area:1219}"] = "{area:1219}",
 
 	-- Step 20: Ursolan
 	-- {area:1225} Ursolan · {npc:235909} Furze · {npc:236573} Gatekeeper Rageroar · {npc:235906} Elder Bramblesnap
-	["Ride north up the road to {area:1225}. {npc:235909} sits on the camp's south-east side; {npc:236573} and {npc:235906} stand together on its west side."] = "",
+	["Ride north up the road to {area:1225}. {npc:235909} sits on the camp's south-east side; {npc:236573} and {npc:235906} stand together on its west side."] = "沿路向北到{area:1225}。{npc:235909}坐在营地东南侧，{npc:236573}和{npc:235906}一起站在西侧。",
 
 	-- Step 21: The Legashi Cauldron
 	-- {object:506307} Legashi Cauldron (no name in this language: may be words)
-	["The {object:506307}"] = "",
+	["The {object:506307}"] = "{object:506307}",
 	-- {area:1219} Legashi Encampment
-	["Ride east to the {area:1219}: the satyrs' cauldron stands in the middle of their camp."] = "",
+	["Ride east to the {area:1219}: the satyrs' cauldron stands in the middle of their camp."] = "向东前往{area:1219}。萨特的大锅在营地中央。",
 
 	-- Step 22: The Legashi Encampment
-	["Any of the encampment's satyrs may carry the recipe."] = "",
+	["Any of the encampment's satyrs may carry the recipe."] = "营地里任何萨特都可能掉落配方。",
 
 	-- Step 24: Satyrweed
 	-- plural, as words: Satyrweed Brambles = {object:507746} Satyrweed Bramble
-	["The Satyrweed Brambles grow all around the encampment."] = "",
+	["The Satyrweed Brambles grow all around the encampment."] = "营地四周都长着萨特草棘刺。",
 
 	-- Step 25: Korsa
 	-- {area:16234} Legashi Stronghold · {npc:236770} Korsa
-	["East to the {area:16234}: {npc:236770}, the missing Blackmaw scout, waits outside it."] = "",
+	["East to the {area:16234}: {npc:236770}, the missing Blackmaw scout, waits outside it."] = "向东前往{area:16234}。失踪的黑喉侦察兵{npc:236770}就在要塞外。",
 
 	-- Step 26: Graal
 	-- {npc:237007} Graal · {npc:235892} Prince Halanox
-	["{npc:237007} is held at the north end of the stronghold: free {npc:237007} and see the breakout through. Careful: {npc:235892} (55, elite) stands just south of there, around 67,19."] = "",
+	["{npc:237007} is held at the north end of the stronghold: free {npc:237007} and see the breakout through. Careful: {npc:235892} (55, elite) stands just south of there, around 67,19."] = "{npc:237007}被关在要塞北端，救出{npc:237007}并护送他逃出去。小心，{npc:235892}（55级精英）就在南边不远，约在67,19。",
 
 	-- Step 27: The Legashi Stronghold: kill these as you meet them
 	-- {area:16234} Legashi Stronghold
-	["The {area:16234}: kill these as you meet them"] = "",
+	["The {area:16234}: kill these as you meet them"] = "{area:16234}：沿途遇到就打",
 	-- {npc:235892} Prince Halanox
-	["The Hellraisers, Soulstealers and Blackguards (53-54) hold the stronghold. Careful: {npc:235892} (55, elite) stands at its north-east end, around 67,19: leave him be."] = "",
+	["The Hellraisers, Soulstealers and Blackguards (53-54) hold the stronghold. Careful: {npc:235892} (55, elite) stands at its north-east end, around 67,19: leave him be."] = "雷加斯地狱使者、雷加斯窃魂者和雷加斯黑卫士（53-54级）守在要塞里。小心，{npc:235892}（55级精英）在要塞东北端，约在67,19，绕开他。",
 
 	-- Step 28: Master Feardred
 	-- {quest:86777} Master Feardred · {item:235471} Fel Mote
-	["{quest:86777} (53) walks the stronghold's south side; the {item:235471} floats nearby."] = "",
+	["{quest:86777} (53) walks the stronghold's south side; the {item:235471} floats nearby."] = "{quest:86777}（53级）在要塞南侧走动，{item:235471}就浮在附近。",
 
 	-- Step 30: The Legashi Cauldron
-	["Back west to the cauldron."] = "",
+	["Back west to the cauldron."] = "向西回到大锅旁。",
 
 	-- Step 31: Ursolan
 	-- {area:1225} Ursolan
-	["Back west to {area:1225}."] = "",
+	["Back west to {area:1225}."] = "向西返回{area:1225}。",
 	-- {npc:11555} Gorn One Eye · {faction:576} Timbermaw Hold
-	["For {npc:11555} in {faction:576}, at the end of this part"] = "",
+	["For {npc:11555} in {faction:576}, at the end of this part"] = "本段路线结束时，交给{faction:576}的{npc:11555}",
 
 	-- Step 32: Mosshoof Coursers
 	-- plural, as words: Mosshoof Coursers = {npc:8761} Mosshoof Courser
 	["Mosshoof Coursers"] = "苔蹄快步者",
 	-- {area:1225} Ursolan · {item:221199} Satyrweed Tincture
 	-- plural, as words: Mosshoof Coursers = {npc:8761} Mosshoof Courser · Thunderhead Skystormers = {npc:6378} Thunderhead Skystormer
-	["The Mosshoof Coursers (52-53) and Thunderhead Skystormers (50-52) graze just east of {area:1225}: bring one low, then use the {item:221199} on it. Three times."] = "",
+	["The Mosshoof Coursers (52-53) and Thunderhead Skystormers (50-52) graze just east of {area:1225}: bring one low, then use the {item:221199} on it. Three times."] = "苔蹄快步者（52-53级）和雷首天鸣者（50-52级）就在{area:1225}东边吃草。先把其中一只打到低血量，再对它使用{item:221199}。共做三次。",
 
 	-- Step 34: Furze
 	-- {npc:235909} Furze
-	["Give {npc:235909} the panacea."] = "",
+	["Give {npc:235909} the panacea."] = "让{npc:235909}服下万灵药。",
 
 	-- Step 36: To Timbermaw Hold
 	-- {area:1769} Timbermaw Hold
-	["To {area:1769}"] = "",
+	["To {area:1769}"] = "前往{area:1769}",
 	-- {zone:1448} Felwood · {area:1997} Bloodvenom Post · {area:1998} Talonbranch Glade
-	["Back to {zone:1448}: fly to {area:1997} (Horde) or {area:1998} (Alliance) and ride north up the road to the {zone:1448} mouth of the tunnel."] = "",
+	["Back to {zone:1448}: fly to {area:1997} (Horde) or {area:1998} (Alliance) and ride north up the road to the {zone:1448} mouth of the tunnel."] = "返回{zone:1448}。部落飞到{area:1997}，联盟飞到{area:1998}，再沿路向北到隧道在{zone:1448}一侧的入口。",
 
 	-- Step 37: Gorn One Eye
 	-- {npc:11555} Gorn One Eye · {npc:11558} Kernda · {npc:11557} Meilosh
-	["{npc:11555} stands just inside the tunnel, by {npc:11558} and {npc:11557}."] = "",
+	["{npc:11555} stands just inside the tunnel, by {npc:11558} and {npc:11557}."] = "{npc:11555}就在隧道入口内侧，旁边是{npc:11558}和{npc:11557}。",
 
 	-- Step 38: Chieftain Bloodmaw
 	-- {npc:9462} Chieftain Bloodmaw
-	["{npc:9462} (55-56) leads the Deadwood of Felpaw Village, just west of the tunnel."] = "",
+	["{npc:9462} (55-56) leads the Deadwood of Felpaw Village, just west of the tunnel."] = "{npc:9462}（55-56级）是魔爪村死木熊怪的首领，就在隧道西边不远。",
 
 	-- Step 39: Gorn One Eye
 	-- {zone:1447} Azshara · {npc:235892} Prince Halanox
-	["His next task, Blackmaw Counter-Offensive, sends you back to {zone:1447} against {npc:235892}, a level 55 elite: bring a friend."] = "",
+	["His next task, Blackmaw Counter-Offensive, sends you back to {zone:1447} against {npc:235892}, a level 55 elite: bring a friend."] = "他的后续任务《黑喉的反攻》要你回到{zone:1447}对付{npc:235892}（55级精英），带个队友一起去。",
 
 	-- Step 40: Neutral to Friendly
 	["Neutral to Friendly"] = "中立到友善",

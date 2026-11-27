@@ -308,7 +308,7 @@ return {
 	-- Step 53: Zul'Mamwe and Balia'mah trophy skulls
 	["Zul'Mamwe and Balia'mah trophy skulls"] = "Trophäen-Skelette von Zul'Mamwe und Balia'mah",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["Look for the trophy skulls in the small ruins north of Zul'Mamwe's warriors.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "",
+	["Look for the trophy skulls in the small ruins north of Zul'Mamwe's warriors.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "Suche die Trophäenschädel in den kleinen Ruinen nördlich von Zul'Mamwes Kriegern.\nDie letzten Schädel sind in den Ruinen, einen kurzen Weg westlich, auf dem Rückweg zu {object:3202}.",
 
 	-- Step 54: Kin'weelay
 	-- {object:3202} Grom'gol (no name in this language: may be words)
@@ -379,7 +379,7 @@ return {
 
 	-- Step 79: Pool of Tears
 	-- {area:75} Stonard · {quest:1424} Pool of Tears
-	["Back east along the road, past {area:75}: the Atal'ai artifacts lie in the water and on the banks of the {quest:1424}. Only Sawfin Frenzies (38-40) swim there."] = "",
+	["Back east along the road, past {area:75}: the Atal'ai artifacts lie in the water and on the banks of the {quest:1424}. Only Sawfin Frenzies (38-40) swim there."] = "Zurück nach Osten entlang der Straße, an {area:75} vorbei: die Atal'ai-Artefakte liegen im Wasser und an den Ufern des {quest:1424}. Nur Sawfin-Frenzies (38-40) schwimmen dort.",
 
 	-- Step 80: Misty Reed Post
 	-- {npc:5592} Tok'Kar · {npc:5593} Katar
@@ -389,11 +389,11 @@ return {
 	["Sawtooth snappers"] = "Sägezahnschnapper",
 	-- {npc:272377} Methuselah Crab
 	-- plural, as words: Sawtooth Snappers = {npc:1087} Sawtooth Snapper
-	["The Sawtooth Snappers (41-42) line the strand south of the post; nearly every one drops a claw. Leave the murlocs further along the shore for your next swamp visit.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "",
+	["The Sawtooth Snappers (41-42) line the strand south of the post; nearly every one drops a claw. Leave the murlocs further along the shore for your next swamp visit.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "Die Sägezahnschnapper (41-42) säumen den Strand südlich des Postens; fast jeder lässt eine Klaue fallen. Heb dir die Murlocs weiter an der Küste für deinen nächsten Besuch im Sumpf auf.\nVorsicht: Ein {npc:272377} (Stufe 60) läuft am südöstlichen Strand: Geh ihm möglichst aus dem Weg.",
 
 	-- Step 82: Misty Reed Post
 	-- {npc:5593} Katar
-	["{npc:5593}: the murlocs (41-44) wait for your next swamp visit"] = "",
+	["{npc:5593}: the murlocs (41-44) wait for your next swamp visit"] = "{npc:5593}: Die Murlocs (41-44) warten auf deinen nächsten Sumpfbesuch",
 
 	-- Step 83: Stonard
 	-- {area:75} Stonard · {npc:1443} Fel'zerul · {quest:1430} Fresh Meat · {npc:5593} Katar

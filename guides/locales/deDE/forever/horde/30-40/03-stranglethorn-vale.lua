@@ -122,8 +122,7 @@ return {
 	["{area:301}: kill these as you meet them"] = "{area:301}: Töte diese, sobald sie dir begegnen",
 	-- {npc:729} Sin'Dall
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
-	-- was: ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Westlich am Lager vorbei sitzen Kristallrückenbasilisken (34-35) auf den Felsen; jeder Bloodscalp im Dorf dahinter kann ein Ohr fallen lassen.\nLass {npc:729}, den Tiger der Stufe 37 auf dem Hügel südwestlich des Lagers, vorerst in Ruhe: Er ist hier zwei Stufen über dir, und der Schlingendorn-Guide für 40-50 kommt zu ihm zurück.\nVorsicht: Das Raptornest hat junge Raptoren, die in den Kampf eingreifen, wenn du die ausgewachsenen angreifst."
-	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and this guide comes back to him at its end, from level 36.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "",
+	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and this guide comes back to him at its end, from level 36.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Westlich am Lager vorbei sitzen Kristallrückenbasilisken (34-35) auf den Felsen; jeder Bloodscalp im Dorf dahinter kann ein Ohr fallen lassen.\nLass {npc:729}, den Tiger der Stufe 37 auf dem Hügelgipfel südwestlich des Lagers, vorerst: Er ist hier zwei Stufen über dir, und dieser Führer kommt am Ende, ab Stufe 36, auf ihn zurück.\nVorsicht: Im Raptor-Nest gibt es junge Raptoren, die in den Kampf eingreifen, wenn du die ausgewachsenen angreifst.",
 
 	-- Step 20: Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark · {area:102} Ruins of Zul'Kunda · {item:277957} Primitive Key · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
@@ -223,8 +222,7 @@ return {
 	["Level 36"] = "Stufe 36",
 	-- {npc:729} Sin'Dall · {object:3202} Grom'gol (no name in this language: may be words)
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
-	-- was: ["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36, then walk back to the zeppelin tower. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "Die Quests in Düstermarschen sind Stufe 35-38. Nach den Abgaben in {object:3202} noch unter Stufe 36? Die Schnappkieferkrokilisken (35-36) säumen den Fluss direkt östlich des Lagers, unterhalb der Mosh'Ogg-Hügel: Töte sie bis Stufe 36 und lauf dann zurück zum Zeppelinturm. Lass die Mosh'Ogg-Oger (36-37) darüber in Ruhe."
-	["Dustwallow's quests are 35-38, and {npc:729} (37) is next. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "",
+	["Dustwallow's quests are 35-38, and {npc:729} (37) is next. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "Die Quests in Dustwallow sind 35-38, und als Nächstes kommt {npc:729} (37). Noch unter 36 nach den Abgaben bei {object:3202}? Die Schnappkiefer-Krokodile (35-36) säumen den Fluss direkt östlich des Lagers, unterhalb der Mosh'Ogg-Hügel: töte sie bis Stufe 36. Lass die Mosh'Ogg-Oger (36-37) darüber in Ruhe.",
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks"] = "Schnappkieferkrokilisken",
 	-- {npc:1152} Snapjaw Crocolisk
@@ -233,7 +231,7 @@ return {
 	-- Step 36: Sin'Dall
 	-- {object:3202} Grom'gol (no name in this language: may be words) · {npc:729} Sin'Dall
 	-- plural, as words: Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger
-	["North from {object:3202} to the hilltop just south-west of Nesingwary's camp: {npc:729} prowls there alone.\nCareful: {npc:729} (37) is a level over you: pull him at full health, clear of the Elder Stranglethorn Tigers (34-35) on the hill's slopes."] = "",
+	["North from {object:3202} to the hilltop just south-west of Nesingwary's camp: {npc:729} prowls there alone.\nCareful: {npc:729} (37) is a level over you: pull him at full health, clear of the Elder Stranglethorn Tigers (34-35) on the hill's slopes."] = "Nach Norden von {object:3202} zum Gipfel direkt südwestlich von Nesingwarys Lager: {npc:729} streift dort allein umher.\nVorsicht: {npc:729} (37) ist eine Stufe über dir: Zieh ihn bei voller Gesundheit, abseits der Alten Schlingendorntiger (34-35) an den Hängen des Hügels.",
 
 	-- Step 37: Nesingwary's camp
 	-- {npc:717} Ajeck Rouack · {object:3202} Grom'gol (no name in this language: may be words)

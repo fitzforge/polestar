@@ -48,7 +48,7 @@ return {
 	-- {npc:4964} Commander Samaul
 	["{npc:4964}, on the top floor"] = "{npc:4964}，位于最顶层",
 	-- {npc:4964} Commander Samaul · {area:503} Sentry Point
-	["{npc:4964}: {area:503} is the watchtower on the road west, next"] = "",
+	["{npc:4964}: {area:503} is the watchtower on the road west, next"] = "{npc:4964}：{area:503}是西边路上的瞭望塔，下一个目标",
 	-- {quest:1132} Fiora Longears
 	["{quest:1132}, inside the inn in the north of town"] = "{quest:1132}，在镇子北部的旅店里",
 	-- {npc:4456} Fiora Longears · {area:415} Astranaar
@@ -58,19 +58,19 @@ return {
 
 	-- Step 10: Sentry Point
 	-- {area:503} Sentry Point · {area:403} Shady Rest Inn · {npc:4967} Archmage Tervosh
-	["Follow the road north-west out of Theramore to the watchtower at {area:503}, where the road to the {area:403} turns west. Look around the tower: {npc:4967} appears at its foot, and you hand the quest in to him there."] = "",
+	["Follow the road north-west out of Theramore to the watchtower at {area:503}, where the road to the {area:403} turns west. Look around the tower: {npc:4967} appears at its foot, and you hand the quest in to him there."] = "从塞拉摩沿路向西北出城，到{area:503}的瞭望塔，那里有向西去{area:403}的岔路。环顾塔周：{npc:4967}会出现在塔脚下，就在那里把任务交给他。",
 	-- {npc:4967} Archmage Tervosh
-	["{npc:4967}, at the foot of the tower"] = "",
+	["{npc:4967}, at the foot of the tower"] = "{npc:4967}，在塔脚下",
 	-- {npc:4967} Archmage Tervosh · {npc:4966} Private Hendel · {area:504} North Point Tower · {zone:1445} Dustwallow Marsh
-	["{npc:4967}: {npc:4966} holds {area:504}, for the {zone:1445} visit at 39"] = "",
+	["{npc:4967}: {npc:4966} holds {area:504}, for the {zone:1445} visit at 39"] = "{npc:4967}：{npc:4966}守着{area:504}，留给 39 级那次{zone:1445}之行",
 	-- {npc:4966} Private Hendel · {zone:1445} Dustwallow Marsh
-	["Take Tervosh's next errand now: he stands here only right after the hand-in. {npc:4966} waits for the next {zone:1445} visit, at about 39."] = "",
+	["Take Tervosh's next errand now: he stands here only right after the hand-in. {npc:4966} waits for the next {zone:1445} visit, at about 39."] = "现在就接特沃什的下一件差事：他只在交完任务后短暂站在这里。{npc:4966}要等下一次{zone:1445}之行，大约 39 级。",
 
 	-- Step 11: The Shady Rest Inn
 	-- {zone:1413} Barrens
-	["Follow the road west to the burned inn on the road toward the {zone:1413}: the black shield and Reethe's guard badge lie in the ashes and the hoofprints are in the mud beside the inn."] = "",
+	["Follow the road west to the burned inn on the road toward the {zone:1413}: the black shield and Reethe's guard badge lie in the ashes and the hoofprints are in the mud beside the inn."] = "沿路向西，前往通往{zone:1413}的路上那家被烧毁的旅店：黑色盾牌和里瑟的卫兵徽章在灰烬里，马蹄印在旅店旁的泥地上。",
 	-- {object:21042} Theramore Guard Badge
-	["{object:21042}: for Captain Vimes, on the way back through Theramore"] = "",
+	["{object:21042}: for Captain Vimes, on the way back through Theramore"] = "{object:21042}：回去路过塞拉摩时交给维姆斯上尉",
 
 	-- Step 12: Into Barrens
 	-- {zone:1413} Barrens
@@ -87,21 +87,21 @@ return {
 	-- Step 14: Myriam Moonsinger
 	-- {npc:12866} Myriam Moonsinger · {area:1316} Razorfen Downs · {area:485} Great Lift
 	-- plural, as words: Razorfen Battleguards = {npc:7873} Razorfen Battleguard · Death's Head Cultists = {npc:7872} Death's Head Cultist
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:12866} stands by the entrance of {area:1316}, a few hundred yards north-east of the top of the {area:485}; the Razorfen Battleguards, Thornweavers and Death's Head Cultists (33-34, elite) hold the thorny slopes around her. Skip it if you are alone."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:12866} stands by the entrance of {area:1316}, a few hundred yards north-east of the top of the {area:485}; the Razorfen Battleguards, Thornweavers and Death's Head Cultists (33-34, elite) hold the thorny slopes around her. Skip it if you are alone."] = "这些都是精英怪：建议组队，找人一起做。{npc:12866}站在{area:1316}入口旁，在{area:485}顶端东北几百码处；剃刀沼泽护卫者、荆棘织网者和亡首教徒（33–34，精英）盘踞她周围的荆棘坡地。独自一人就跳过。",
 
 	-- Step 15: Henrig Lonebrow's Journal
 	-- {area:485} Great Lift · {zone:1441} Thousand Needles · {item:5791} Henrig Lonebrow's Journal · {area:2097} Darkcloud Pinnacle
-	["Down the {area:485} into {zone:1441}. Careful: wait on the platform until the lift is level with it before you step on, and stay on it until it stops; the drop beside it kills. {item:5791} lies a couple of hundred yards north-east of the lift's foot, in {area:2097}, where the Grimtotems (25-27) camp."] = "",
+	["Down the {area:485} into {zone:1441}. Careful: wait on the platform until the lift is level with it before you step on, and stay on it until it stops; the drop beside it kills. {item:5791} lies a couple of hundred yards north-east of the lift's foot, in {area:2097}, where the Grimtotems (25-27) camp."] = "乘{area:485}下去进入{zone:1441}。注意：站在平台上等升降梯与平台齐平了再迈上去，上去后待着别动，直到它停稳；旁边的落差会摔死人。{item:5791}在升降梯脚下东北几百码的{area:2097}，恐怖图腾（25–27）在那里扎营。",
 	-- {item:5791} Henrig Lonebrow's Journal · {npc:4048} Falfindel Waywarder · {area:482} Highperch
-	["{item:5791}: for {npc:4048}, just past {area:482}"] = "",
+	["{item:5791}: for {npc:4048}, just past {area:482}"] = "{item:5791}：交给{npc:4048}，就在{area:482}过去一点",
 
 	-- Step 16: Highperch
 	-- {area:482} Highperch
-	["West to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "",
+	["West to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "向西前往{area:482}的双足飞龙峭壁。那里的每只双足飞龙都可能掉落毒囊。",
 
 	-- Step 17: Falfindel Waywarder
 	-- {npc:4048} Falfindel Waywarder · {area:482} Highperch · {zone:1444} Feralas · {area:489} Thalanaar · {area:1717} Razorfen Kraul
-	["{npc:4048} camps north of {area:482}, just over the border into {zone:1444} on the path up to {area:489}: hand him the journal. His next quest is inside {area:1717}: leave it."] = "",
+	["{npc:4048} camps north of {area:482}, just over the border into {zone:1444} on the path up to {area:489}: hand him the journal. His next quest is inside {area:1717}: leave it."] = "{npc:4048}在{area:482}以北扎营，刚过边界进入{zone:1444}、在上{area:489}的小路上：把日记交给他。他的下一个任务在{area:1717}里面：别接。",
 
 	-- Step 18: Thousand Needles
 	-- {area:484} Freewind Post
@@ -120,8 +120,7 @@ return {
 	["{area:2240}: kill these as you meet them"] = "{area:2240}：沿途击杀以下目标",
 	-- {object:19868} Rocket Car Rubble · {npc:5935} Ironeye the Invincible
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Gazers = {npc:4150} Saltstone Gazer · Scorpid Terrors = {npc:4139} Scorpid Terror
-	-- was: ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "{object:19868}散落在整片盐滩上。恐蝎劫掠者和盐湖食腐鹫在北半部游荡，盐壳龟（30-31级）在盐滩中部：猎杀它们获取龟壳。注意：盐壳钳嘴龟（34-35级）在整片盐滩游荡，盐石凝视者（34-35级）和恐蝎（33-34级）占据最南端：别惹它们，待在北半部。"
-	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half.\nCareful: {npc:5935} (37, rare) roams the south-east of the flats, around 83-88,71-84: leave it be."] = "",
+	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half.\nCareful: {npc:5935} (37, rare) roams the south-east of the flats, around 83-88,71-84: leave it be."] = "{object:19868}散落在整片盐滩上。恐蝎劫掠者和盐湖食腐鹫在北半部游荡，盐壳龟（30–31）在盐滩中部：猎杀它们获取龟壳。注意：盐壳钳嘴龟（34–35）在整片盐滩游荡，盐石凝视者（34–35）和恐蝎（33–34）占据最南端：别惹它们，待在北半部。\n注意：{npc:5935}（37，稀有）在盐滩东南部约 83–88，71–84 一带游荡：别招惹它。",
 	-- {item:5795} Hardened Tortoise Shell
 	-- plural, as words: Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise
 	["{item:5795}, from the Sparkleshell Tortoises"] = "{item:5795}，盐壳龟掉落",
@@ -131,11 +130,11 @@ return {
 
 	-- Step 22: Mirage Raceway
 	-- {npc:4452} Kravel Koalbeard · {quest:1111} Wharfmaster Dizzywig · {area:392} Ratchet
-	["{npc:4452}: for {quest:1111} on {area:392}'s dock, where this guide ends"] = "",
+	["{npc:4452}: for {quest:1111} on {area:392}'s dock, where this guide ends"] = "{npc:4452}：交给{area:392}码头上的{quest:1111}，本指南在那里结束",
 	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands
 	["{npc:4454}: for Martek in the {zone:1418}, at the end of 30-40"] = "{npc:4454}：交给{zone:1418}的马特克，在30-40路线末尾完成",
 	-- {npc:4630} Pozzik · {npc:3391} Gazlowe · {area:392} Ratchet
-	["{npc:4630}: for {npc:3391} in {area:392}, on the way to the boat"] = "",
+	["{npc:4630}: for {npc:3391} in {area:392}, on the way to the boat"] = "{npc:4630}：交给{area:392}的{npc:3391}，在去乘船的路上",
 
 	-- Step 23: Into Tanaris
 	-- {zone:1446} Tanaris
@@ -154,22 +153,21 @@ return {
 
 	-- Step 26: Theramore
 	-- {npc:4456} Fiora Longears · {npc:4948} Adjutant Tesoran · {area:514} Foothold Citadel · {npc:4941} Caz Twosprocket
-	["{npc:4456} is in the north of town, Captain Vimes and {npc:4948} on the top floor of {area:514}; {npc:4941} stands in the town."] = "",
+	["{npc:4456} is in the north of town, Captain Vimes and {npc:4948} on the top floor of {area:514}; {npc:4941} stands in the town."] = "{npc:4456}在镇子北边，维姆斯上尉和{npc:4948}在{area:514}的顶层；{npc:4941}站在镇子里。",
 	-- {zone:1445} Dustwallow Marsh
-	["Vimes's next errand, The Deserters, is for the {zone:1445} visit at 39: leave it."] = "",
+	["Vimes's next errand, The Deserters, is for the {zone:1445} visit at 39: leave it."] = "维姆斯关于逃兵的下一件差事，留给 39 级那次{zone:1445}之行：别接。",
 
 	-- Step 27: Ratchet
 	-- {zone:1413} Barrens · {area:392} Ratchet · {area:35} Booty Bay · {npc:3391} Gazlowe · {quest:1111} Wharfmaster Dizzywig
-	-- was: ["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock."] = "从塞拉摩沿路向西北穿过沼泽进入{zone:1413}，再沿海岸北上到{area:392}：荆棘谷从海对面的{area:35}开始。{area:392}的狮鹫管理员站在码头上方。"
-	["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock; {npc:3391} is upstairs in the house above it; {quest:1111} waits on the dock by the boat."] = "",
+	["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock; {npc:3391} is upstairs in the house above it; {quest:1111} waits on the dock by the boat."] = "从塞拉摩沿路向西北穿过沼泽进入{zone:1413}，再沿海岸北上到{area:392}：荆棘谷从海对面的{area:35}开始。{area:392}的狮鹫管理员站在码头上方；{npc:3391}在他上方屋子的楼上；{quest:1111}在码头边船旁等着。",
 	-- {npc:3391} Gazlowe · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
-	["{npc:3391}: for {npc:4631}, on {area:35}'s dock where the boat lands"] = "",
+	["{npc:3391}: for {npc:4631}, on {area:35}'s dock where the boat lands"] = "{npc:3391}：交给{npc:4631}，在{area:35}船靠岸的码头上",
 	-- {quest:1111} Wharfmaster Dizzywig · {quest:1039} The Barrens Port · {npc:8026} Thyn'tel Bladeweaver · {zone:1457} Darnassus
-	["{quest:1111}: {quest:1039}, from {npc:8026} in {zone:1457}"] = "",
+	["{quest:1111}: {quest:1039}, from {npc:8026} in {zone:1457}"] = "{quest:1111}：{quest:1039}，由{zone:1457}的{npc:8026}给予",
 	-- {quest:1111} Wharfmaster Dizzywig · {npc:3945} Caravaneer Ruzzgot · {area:35} Booty Bay
-	["{quest:1111}: for {npc:3945} in {area:35}, where the boat lands"] = "",
+	["{quest:1111}: for {npc:3945} in {area:35}, where the boat lands"] = "{quest:1111}：交给{area:35}的{npc:3945}，在船靠岸处",
 	-- {area:2240} Mirage Raceway
-	["Dizzywig's next errand goes back to the {area:2240}, which the route next visits at 45: leave it."] = "",
+	["Dizzywig's next errand goes back to the {area:2240}, which the route next visits at 45: leave it."] = "迪兹维格的下一件差事要回{area:2240}，路线在 45 级时还会再去：别接。",
 
 	-- Step 28: Boat to Booty Bay
 	-- {area:35} Booty Bay

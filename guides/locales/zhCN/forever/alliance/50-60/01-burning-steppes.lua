@@ -14,22 +14,21 @@ return {
 	-- {zone:1455} Ironforge
 	["To {zone:1455}"] = "前往{zone:1455}",
 	-- {zone:1455} Ironforge · {zone:1425} Hinterlands
-	-- was: ["Your Hearthstone is set at {zone:1455} (the {zone:1425} guide binds it there): hearth back to the inn."] = "你的炉石绑定在{zone:1455}（{zone:1425}指南会把它绑在那里）：用炉石回到旅店。"
-	["Your Hearthstone is set at {zone:1455} (the {zone:1425} guide binds it there): hearth back to the inn from Un'Goro."] = "",
+	["Your Hearthstone is set at {zone:1455} (the {zone:1425} guide binds it there): hearth back to the inn from Un'Goro."] = "炉石已绑定在{zone:1455}(按{zone:1425}指南绑定)。在安戈洛环形山用炉石回旅店。",
 	-- {zone:1455} Ironforge
 	["{zone:1455} inn"] = "{zone:1455}旅店",
 
 	-- Step 2: Mystic Ward
 	-- {npc:11406} High Priest Rohan · {npc:8405} Ogtinc · {zone:1447} Azshara
-	["{npc:11406}: for {npc:8405} in {zone:1447}, at the end of this guide: keep it"] = "",
+	["{npc:11406}: for {npc:8405} in {zone:1447}, at the end of this guide: keep it"] = "在{npc:11406}处接了先留着，本指南最后到{zone:1447}时交给{npc:8405}",
 	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
-	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, at the end of this guide: keep it"] = "",
+	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, at the end of this guide: keep it"] = "在法师训练师{npc:7312}处接了先留着，本指南最后到{zone:1447}时交给{npc:8395}",
 
 	-- Step 4: Courier Hammerfall
 	-- {npc:10877} Courier Hammerfall
-	["{npc:10877} rides around the city's ring on his ram: catch him as he passes."] = "",
+	["{npc:10877} rides around the city's ring on his ram: catch him as he passes."] = "{npc:10877}骑着山羊绕城内环道走，趁他经过时找他。",
 	-- {npc:10838} Commander Ashlam Valorfist · {area:3197} Chillwind Camp
-	["For {npc:10838} at {area:3197}, the next stop"] = "",
+	["For {npc:10838} at {area:3197}, the next stop"] = "下一站交给{area:3197}的{npc:10838}",
 
 	-- Step 5: Royal Historian Archesonus
 	-- {object:171709} High Seat
@@ -54,9 +53,9 @@ return {
 
 	-- Step 10: The Super Snapper FX
 	-- {item:9328} Super Snapper FX · {zone:1425} Hinterlands · {area:307} Overlook Cliffs
-	["Gammerita need not die: target her and use the {item:9328}. She is a level 48 elite, so keep your distance.\nGammerita walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "",
+	["Gammerita need not die: target her and use the {item:9328}. She is a level 48 elite, so keep your distance.\nGammerita walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "加莫里塔不用杀，选中她后使用{item:9328}。她是48级精英，注意保持距离。\n加莫里塔沿{zone:1425}的{area:307}下方海岸活动，从箭头位置往南到约75,66，往北到约82,52。箭头处没看到她，就沿海岸找。",
 	-- {item:9328} Super Snapper FX
-	["the {item:9328} on Gammerita: no kill"] = "",
+	["the {item:9328} on Gammerita: no kill"] = "对加莫里塔使用{item:9328}，不用击杀",
 
 	-- Step 11: Fly to Southshore
 	-- {area:348} Aerie Peak
@@ -79,13 +78,12 @@ return {
 	["{area:197}: kill these as you meet them"] = "{area:197}：沿途击杀以下目标",
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul · Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
-	-- was: ["Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones.\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.\nCareful: The {npc:10411} (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts."] = "骷髅剥皮者和被奴役的食尸鬼在营地北侧田野活动，这里的天灾亡灵都会掉落天灾石。\n注意：这些亡灵的警戒距离很远，拉到一只时，周围亡灵也会参战。\n注意：{npc:10411}有三个刷新点，每 15 分钟刷新一次，非战斗时会隐形，开战后召唤石翼石像鬼。"
-	["Skeletal Flayers and Slavering Ghouls (50) roam the fields north of the camp; all the Scourge here drop Scourgestones.\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.\nCareful: The {npc:10411} (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts."] = "",
+	["Skeletal Flayers and Slavering Ghouls (50) roam the fields north of the camp; all the Scourge here drop Scourgestones.\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.\nCareful: The {npc:10411} (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts."] = "骷髅剥皮者和被奴役的食尸鬼(50级)在营地北面的田野活动，这里的天灾亡灵都会掉落天灾石。\n小心，这些亡灵的警戒距离很远，引到一只时，附近的亡灵也会参战。\n小心，{npc:10411}(3个刷新点，15分钟刷新)在非战斗时会隐形，开战后召来石翼石像鬼。",
 
 	-- Step 16: Chillwind Camp
 	["Ride back south to the camp."] = "向南骑回营地。",
 	-- {area:199} Felstone Field · {zone:1422} Western Plaguelands
-	["keep it: the {area:199} cauldron waits for the {zone:1422} guide"] = "",
+	["keep it: the {area:199} cauldron waits for the {zone:1422} guide"] = "先留着，按{zone:1422}指南走到{area:199}的大锅时再做",
 
 	-- Step 17: Fly to Morgan's Vigil
 	-- {area:2418} Morgan's Vigil
@@ -110,7 +108,7 @@ return {
 	-- Step 21: Dreadmaul Rock
 	-- {area:249} Dreadmaul Rock · {npc:9602} Hahk'Zor · {npc:9604} Gorgon'och
 	-- plural, as words: Firegut Ogres = {npc:7033} Firegut Ogre · Escaped Core Hounds = {npc:227746} Escaped Core Hound
-	["The Firegut ogres hold the great rock north of the Vigil, with the Brutes on its east side.\nCareful: the Firegut Ogres are 50 and the Ogre Mages 51, but the Brutes on the rock's east side are 52: take the ogres on the near side first and pull the Brutes one at a time.\nCareful: Escaped Core Hounds (level 60) roam the Steppes, a few on the slopes west and south of {area:249}: pull the ogres on the rock itself and look around before each pull.\nCareful: the Firegut chiefs {npc:9602} and {npc:9604} (54) stand on the rock's east side among the Brutes: leave them be."] = "",
+	["The Firegut ogres hold the great rock north of the Vigil, with the Brutes on its east side.\nCareful: the Firegut Ogres are 50 and the Ogre Mages 51, but the Brutes on the rock's east side are 52: take the ogres on the near side first and pull the Brutes one at a time.\nCareful: Escaped Core Hounds (level 60) roam the Steppes, a few on the slopes west and south of {area:249}: pull the ogres on the rock itself and look around before each pull.\nCareful: the Firegut chiefs {npc:9602} and {npc:9604} (54) stand on the rock's east side among the Brutes: leave them be."] = "火腹食人魔占据摩根的岗哨北边的巨岩，火腹蛮兵在巨岩东侧。\n小心，火腹食人魔50级，火腹食人魔法师51级，巨岩东侧的火腹蛮兵52级。先打近侧的食人魔，再一次引一只蛮兵。\n小心，Escaped Core Hound（60级）在燃烧平原游荡，有几只在{area:249}西边和南边的山坡上。引巨岩上的食人魔，每次引怪前先观察四周。\n小心，火腹首领{npc:9602}和{npc:9604}(54级)就在巨岩东侧的蛮兵中间，别招惹他们。",
 	-- {npc:7034} Firegut Ogre Mage
 	["{npc:7034}, below ground"] = "{npc:7034}：在地下",
 
@@ -127,8 +125,7 @@ return {
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "{area:250}：沿途击杀以下目标",
 	-- {item:12284} Draco-Incarcinatrix 900 · {npc:7047} Black Broodling · {area:251} Flame Crest · {npc:8981} Malfunctioning Reaver · {npc:7040} Black Dragonspawn
-	-- was: ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "在{area:251}东侧山坡，将{npc:7047}打到濒死时对它使用{item:12284}，再拾取留下的精华。\n注意：一只{npc:8981}（56级，稀有）在小龙附近的山坡上走动，周围的{npc:7040}和龙人都是精英：在边缘对一只小龙使用龙灵采集器，每次拉怪前先观察四周。"
-	["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, Volchan (60, a rare fire elemental) roams the hills east of {area:251}, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "",
+	["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, Volchan (60, a rare fire elemental) roams the hills east of {area:251}, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "在{area:251}东侧的山坡上，把一只{npc:7047}打到濒死，对它使用{item:12284}，再拾取它留下的精华。\n小心，一只{npc:8981}(56级稀有)在小龙附近的山坡上走动，沃尔查(60级稀有火元素)在{area:251}以东的山丘上游荡，周围的{npc:7040}和龙族都是精英。挑边缘的小龙使用龙灵采集器，每次引怪前先观察四周。",
 
 	-- Step 25: Ruins of Thaurissan
 	-- {area:250} Ruins of Thaurissan · {area:251} Flame Crest · {npc:8978} Thauris Balgarr · {object:147516} Dark Iron
@@ -141,15 +138,14 @@ return {
 
 	-- Step 27: Cyrus Therepentous
 	-- {item:10569} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
-	["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight.\nCareful: Volchan (60, a rare fire elemental) roams the hills around {npc:9459}'s cave: if he is about, wait for him to pass."] = "",
+	["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight.\nCareful: Volchan (60, a rare fire elemental) roams the hills around {npc:9459}'s cave: if he is about, wait for him to pass."] = "打开从{zone:1427}拿到的{item:10569}，取出里面的{item:10575}，再告诉{npc:9459}你带来了功绩的证明。这里不用打幼龙。\n小心，沃尔查(60级稀有火元素)在{npc:9459}的洞穴周围游荡。如果他在附近，等他走过去再行动。",
 	["Below ground"] = "在地下",
 	-- {item:10575} Black Dragonflight Molt
 	["{item:10575}, from the hoard"] = "{item:10575}：从宝藏中获取",
 
 	-- Step 29: A Taste of Flame
 	-- {npc:9461} Frenzied Black Drake
-	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:9461} is a level 54 elite: most classes solo it at level 56, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:9461}是 54 级精英，多数职业到 56 级可以尝试单独击败，但可能仍需帮助。独自一人时可跳过，路线会安排刷怪补回经验。"
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:9461} is a level 54 elite: most classes solo it at level 56, but you may need help. Skip it if you are alone."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:9461} is a level 54 elite: most classes solo it at level 56, but you may need help. Skip it if you are alone."] = "这里都是精英怪，建议找人组队。{npc:9461}是54级精英，多数职业到56级能单挑，但也可能需要帮忙。只有一个人就跳过。",
 
 	-- Step 31: Morgan's Vigil
 	["Ride back east along the road to the Vigil."] = "沿道路向东骑回守望堡。",
@@ -162,7 +158,7 @@ return {
 	-- {area:1438} Nethergarde Keep
 	["Ardalan is inside {area:1438}."] = "阿尔达兰在{area:1438}里面。",
 	-- {npc:266524} Lieutenant Connar · {npc:266508} Sergeant Danneth · {area:1440} Serpent's Coil
-	["{npc:266524}: {npc:266508} is in the {area:1440} caverns, on this loop"] = "",
+	["{npc:266524}: {npc:266508} is in the {area:1440} caverns, on this loop"] = "在{npc:266524}处接任务，本段路线会到{area:1440}的洞穴找{npc:266508}",
 	-- {quest:2990} Thadius Grimshade
 	["{quest:2990}, at the top of the keep"] = "{quest:2990}，在城堡顶层",
 	-- {npc:8022} Thadius Grimshade · {item:9471} Nekrum's Medallion · {area:978} Zul'Farrak
@@ -186,9 +182,9 @@ return {
 	["{zone:1419}: kill these as you meet them"] = "{zone:1419}：沿途击杀以下目标",
 	-- {zone:1419} Blasted Lands · {npc:5982} Black Slayer · {npc:221740} Calefactus the Unleashed · {npc:247015} Vek'zol · {npc:8301} Clack the Reaver · {npc:8298} Akubar the Seer · {area:1440} Serpent's Coil · {item:8244} Flawless Draenethyst Sphere
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger · Ashmane Boars = {npc:5992} Ashmane Boar · Redstone Basilisks = {npc:5990} Redstone Basilisk · Snickerfang Matriarchs = {npc:272386} Snickerfang Matriarch
-	["Ride back south into the {zone:1419} for the bloodmages' beasts: Starving Snickerfangs roam the dry hills south of the bloodmages' camp, Scorpok Stingers scuttle across the middle of the north and {npc:5982} vultures circle over all of it. Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep.\nCareful: two elites roam here: {npc:221740} (50) in the middle of the zone around 44,34, and {npc:247015} (55) on the ridge around 39,32. When you see one, hunt somewhere else.\nCareful: {npc:8301} (53, a rare scorpid) walks the north around 47,36, {npc:8298} (54, rare) the middle around 45,48, and Snickerfang Matriarchs (60) roam the ground east of here, between Kum'isha's hill and the {area:1440} (about 54-62, 31-47): give them room.\nAny mob here may drop a {item:8244}: keep it for Kum'isha."] = "",
+	["Ride back south into the {zone:1419} for the bloodmages' beasts: Starving Snickerfangs roam the dry hills south of the bloodmages' camp, Scorpok Stingers scuttle across the middle of the north and {npc:5982} vultures circle over all of it. Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep.\nCareful: two elites roam here: {npc:221740} (50) in the middle of the zone around 44,34, and {npc:247015} (55) on the ridge around 39,32. When you see one, hunt somewhere else.\nCareful: {npc:8301} (53, a rare scorpid) walks the north around 47,36, {npc:8298} (54, rare) the middle around 45,48, and Snickerfang Matriarchs (60) roam the ground east of here, between Kum'isha's hill and the {area:1440} (about 54-62, 31-47): give them room.\nAny mob here may drop a {item:8244}: keep it for Kum'isha."] = "向南返回{zone:1419}，打血法师要的野兽。饥饿的弯牙土狼在血法师营地南边干燥的山丘上游荡，厚甲毒刺蝎在北部中段爬行，秃鹫{npc:5982}在这片区域上空盘旋。灰鬃野猪和红石蜥蜴都在要塞西南的山坡上。\n小心，这里有两只精英游荡。{npc:221740}(50级)在地图中部44,34附近，{npc:247015}(55级)在39,32附近的山脊上。遇到就换个地方打。\n小心，{npc:8301}(53级稀有蝎子)在北部47,36附近游荡，{npc:8298}(54级稀有)在中部45,48附近。弯牙土狼族母(60级)在这里以东、库米沙的山丘和{area:1440}之间游荡(约54-62, 31-47)，离它们远一点。\n这里的怪都有可能掉落{item:8244}，留给库米沙。",
 	-- {item:8244} Flawless Draenethyst Sphere
-	["{item:8244}, a rare drop"] = "",
+	["{item:8244}, a rare drop"] = "{item:8244}，低概率掉落",
 
 	-- Step 39: Kum'isha the Collector
 	-- {area:2517} Rise of the Defiler · {zone:1419} Blasted Lands · {npc:7664} Razelikh the Defiler · {spell:2691} Mana Burn · {spell:8255} Strong Cleave · {object:141891} Razelikh's Tear · {spell:10854} Flames of Chaos · {npc:247015} Vek'zol
@@ -199,23 +195,23 @@ return {
 
 	-- Step 40: Kum'isha the Collector
 	-- {zone:1419} Blasted Lands · {item:8244} Flawless Draenethyst Sphere
-	["A {zone:1419} mob dropped a {item:8244}: Kum'isha pays for it too."] = "",
+	["A {zone:1419} mob dropped a {item:8244}: Kum'isha pays for it too."] = "在{zone:1419}打到的{item:8244}也可以交给库米沙换奖励。",
 
 	-- Step 41: Sergeant Danneth
 	-- {area:1440} Serpent's Coil · {area:1438} Nethergarde Keep · {npc:7728} Kirith the Damned · {npc:7666} Archmage Allistarj
 	-- plural, as words: Snickerfang Matriarchs = {npc:272386} Snickerfang Matriarch · Shadowsworn Cultists = {npc:6004} Shadowsworn Cultist
-	["Ride east from Kum'isha's hill to the mouth of the {area:1440} caverns, due south of {area:1438}: Danneth hides just inside.\nCareful: Snickerfang Matriarchs (60) roam the ground between Kum'isha's hill and the caverns: watch for them on the ride and go round them, there and back.\nCareful: Shadowsworn Cultists, Thugs and Adepts (51-52) guard the caves, and the deeper chambers hold {npc:7728} (55, elite) and {npc:7666} (58, elite): stay near the mouth, pull one at a time, and lead Danneth straight out.\nWalk him out of the caves and north to {area:1438}: Connar takes him there."] = "",
+	["Ride east from Kum'isha's hill to the mouth of the {area:1440} caverns, due south of {area:1438}: Danneth hides just inside.\nCareful: Snickerfang Matriarchs (60) roam the ground between Kum'isha's hill and the caverns: watch for them on the ride and go round them, there and back.\nCareful: Shadowsworn Cultists, Thugs and Adepts (51-52) guard the caves, and the deeper chambers hold {npc:7728} (55, elite) and {npc:7666} (58, elite): stay near the mouth, pull one at a time, and lead Danneth straight out.\nWalk him out of the caves and north to {area:1438}: Connar takes him there."] = "从库米沙的山丘往东到{area:1440}洞口，就在{area:1438}正南方。丹内斯中士躲在洞口里面不远处。\n小心，弯牙土狼族母(60级)在库米沙的山丘和洞穴之间游荡，来回路上都要留意并绕开。\n小心，魔誓祭司、魔誓暴徒和魔誓专家(51-52级)守着洞穴。深处还有{npc:7728}(55级精英)和{npc:7666}(58级精英)。留在洞口附近，一次只引一只怪，直接把丹内斯中士带出去。\n步行护送他出洞，再向北到{area:1438}，在那里把他交给康纳尔。",
 
 	-- Step 42: Nethergarde Keep
 	-- {area:1438} Nethergarde Keep · {npc:3546} Bernie Heisten
-	["Back north into {area:1438}: Connar, then Danneth again once he is home. {npc:3546} takes his scales here too."] = "",
+	["Back north into {area:1438}: Connar, then Danneth again once he is home. {npc:3546} takes his scales here too."] = "向北返回{area:1438}，先找康纳尔，等丹内斯中士回到要塞后再找他。鳞片也在这里交给{npc:3546}。",
 	-- {npc:34365} Orphan Matron Aria · {zone:1423} Eastern Plaguelands · {area:3197} Chillwind Camp
-	["For {npc:34365} in Alterac, on the Western & {zone:1423} guide's ride to {area:3197}: keep it"] = "",
+	["For {npc:34365} in Alterac, on the Western & {zone:1423} guide's ride to {area:3197}: keep it"] = "留给奥特兰克的{npc:34365}。按西瘟疫之地和{zone:1423}指南前往{area:3197}时顺路交",
 
 	-- Step 43: The bloodmages
 	["The bloodmages"] = "血法师",
 	-- {zone:1419} Blasted Lands
-	["Ride west out of the keep to the bloodmages' camp beside the road into the {zone:1419}."] = "",
+	["Ride west out of the keep to the bloodmages' camp beside the road into the {zone:1419}."] = "从要塞向西出来，到通往{zone:1419}的道路旁找血法师营地。",
 	["The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it."] = "血法师的第二阶段用增益物品而不是经验来交换同样的材料：跳过。",
 
 	-- Step 44: To Ironforge
@@ -244,7 +240,7 @@ return {
 	-- {area:415} Astranaar
 	["Fly to {area:415}"] = "飞往{area:415}",
 	-- {area:442} Auberdine · {area:415} Astranaar · {zone:1448} Felwood · {zone:1457} Darnassus
-	["The boat lands in {area:442}: fly straight on to {area:415}. Erelas, Jenal and Gracina take their deliveries on the {zone:1448} guide's {zone:1457} stop, which goes there anyway."] = "",
+	["The boat lands in {area:442}: fly straight on to {area:415}. Erelas, Jenal and Gracina take their deliveries on the {zone:1448} guide's {zone:1457} stop, which goes there anyway."] = "船到{area:442}后直接飞往{area:415}。按{zone:1448}指南走时本来就会到{zone:1457}，届时再分别交给艾瑞拉斯、耶纳尔和格拉希娜。",
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "{area:442}的飞行管理员",
 
@@ -288,9 +284,9 @@ return {
 	-- {area:3137} Talrendis Point
 	["Back south-west to {area:3137}."] = "向西南返回{area:3137}。",
 	-- {npc:239822} Commander Truesong · {quest:88809} Preserving Eldarath · {area:1221} Ruins of Eldarath
-	["{npc:239822}: {quest:88809}, the relics drop from the naga of the {area:1221} ahead"] = "",
+	["{npc:239822}: {quest:88809}, the relics drop from the naga of the {area:1221} ahead"] = "在{npc:239822}处接{quest:88809}，前面{area:1221}的纳迦会掉落圣物",
 	-- {npc:239822} Commander Truesong · {quest:92345} Beneath Nordrassil · {npc:4217} Mathrengyl Bearwalker · {zone:1457} Darnassus · {zone:1448} Felwood
-	["{npc:239822}: {quest:92345}, for {npc:4217} in {zone:1457}, on the {zone:1448} guide: keep it"] = "",
+	["{npc:239822}: {quest:92345}, for {npc:4217} in {zone:1457}, on the {zone:1448} guide: keep it"] = "在{npc:239822}处接{quest:92345}，先留着，按{zone:1448}指南到{zone:1457}时交给{npc:4217}",
 
 	-- Step 63: Ogtinc
 	-- {npc:8405} Ogtinc · {area:1224} Bear's Head
@@ -309,14 +305,12 @@ return {
 	-- {area:1221} Ruins of Eldarath
 	["The {area:1221}"] = "{area:1221}",
 	-- {area:1221} Ruins of Eldarath · {item:13815} Some Rune · {item:10445} Drawing Kit
-	-- was: ["The Spitelash naga of the {area:1221} carry {item:13815}. {npc:8507}'s four runes stand among the ruins: use his {item:10445} on each."] = "{area:1221}的恶鞭纳迦携带{item:13815}。{npc:8507}的四个符文立在废墟中：对每个使用他的{item:10445}。"
-	["The Spitelash naga of the {area:1221} carry {item:13815}. Tymor's runes stand among the ruins: use his {item:10445} on each."] = "",
+	["The Spitelash naga of the {area:1221} carry {item:13815}. Tymor's runes stand among the ruins: use his {item:10445} on each."] = "{area:1221}的恶鞭纳迦身上有{item:13815}。泰摩尔的符文就在废墟里，用他的{item:10445}逐个描下来。",
 
 	-- Step 67: Lord Sarthiss
 	-- {npc:239939} Lord Sarthiss
 	-- plural, as words: Eldarath Relics = {item:280608} Eldarath Relic
-	-- was: ["The Spitelash naga of these ruins drop Truesong's Eldarath Relics, top-up or not. {npc:239939} (52) stands in the ruins of Eldarath, south-west of the Myrmidons: pull him alone."] = "无论是否在补经验，这片废墟的恶鞭纳迦都会掉落埃达拉斯圣物。{npc:239939}（52级）站在埃达拉斯废墟中，恶鞭侍从的西南方：单独把他拉出来。"
-	["The Spitelash naga of these ruins drop Truesong's Eldarath Relics. {npc:239939} (52) stands in the ruins of Eldarath, south-west of the Myrmidons: pull him alone."] = "",
+	["The Spitelash naga of these ruins drop Truesong's Eldarath Relics. {npc:239939} (52) stands in the ruins of Eldarath, south-west of the Myrmidons: pull him alone."] = "这片废墟的恶鞭纳迦会掉落真歌要的埃达拉斯圣物。{npc:239939}(52级)在埃达拉斯废墟里，位于恶鞭侍从的西南边。单独把他引出来。",
 
 	-- Step 68: Ekkal
 	-- {npc:235903} Ekkal · {npc:8420} Kim'jael
@@ -327,8 +321,7 @@ return {
 	["Mosshoof Coursers"] = "苔蹄快步者",
 	-- {area:1224} Bear's Head · {area:1219} Legashi Encampment
 	-- plural, as words: Mosshoof Coursers = {npc:8761} Mosshoof Courser
-	-- was: ["The nearest Mosshoof Coursers graze the hills north-east of the {area:1224}, toward the {area:1219}; a larger herd roams the open ground to the south.\nCareful: the Mosshoof Coursers are 52-53, a level or two over you here: pull them one at a time from the herd's edge."] = "最近的苔蹄快步者在{area:1224}东北方的山丘上吃草，朝{area:1219}方向；更大的一群在南边的开阔地游荡。\n注意：苔蹄快步者是52-53级，比你高一两级：从兽群边缘一只一只地拉。"
-	["The nearest Mosshoof Coursers graze the hills north-east of the {area:1224}, toward the {area:1219}; a larger herd roams the open ground to the south.\nCareful: the Mosshoof Coursers are 52-53: pull them one at a time from the herd's edge."] = "",
+	["The nearest Mosshoof Coursers graze the hills north-east of the {area:1224}, toward the {area:1219}; a larger herd roams the open ground to the south.\nCareful: the Mosshoof Coursers are 52-53: pull them one at a time from the herd's edge."] = "最近的苔蹄快步者在{area:1224}东北边、朝{area:1219}方向的山丘上吃草。更大的一群在南边的开阔地游荡。\n小心，苔蹄快步者是52-53级，从兽群边缘一次引一只。",
 
 	-- Step 72: Kim'jael
 	-- {npc:8420} Kim'jael · {area:1219} Legashi Encampment · {area:1220} Thalassian Base Camp · {npc:6647} Magister Hawkhelm · {npc:235903} Ekkal
@@ -358,7 +351,7 @@ return {
 
 	-- Step 80: Sanath Lim-yo
 	-- {npc:8395} Sanath Lim-yo
-	["Back north to {npc:8395}'s camp at the foot of the cliff and get off your mount: he teleports you up to Xylem again."] = "",
+	["Back north to {npc:8395}'s camp at the foot of the cliff and get off your mount: he teleports you up to Xylem again."] = "向北回到崖脚下{npc:8395}的营地，下坐骑。他会再次把你传送到克希雷姆那里。",
 
 	-- Step 81: Archmage Xylem
 	-- {npc:8395} Sanath Lim-yo
@@ -370,11 +363,11 @@ return {
 	-- {zone:1447} Azshara · {npc:8392} Pilot Xiggs Fuselighter · {item:10444} Standard Issue Flare Gun
 	["Swim to the small island off the southern tip of {zone:1447}. If {npc:8392} isn't there, fire your {item:10444} to signal him, and wait for him to land."] = "游到{zone:1447}南端外的小岛。如果{npc:8392}不在那里，就发射你的{item:10444}向他发出信号，然后等他降落。",
 	-- {zone:1455} Ironforge · {zone:1422} Western Plaguelands
-	["Tymor in {zone:1455}, on the {zone:1422} guide's {zone:1455} stop: keep it"] = "",
+	["Tymor in {zone:1455}, on the {zone:1422} guide's {zone:1455} stop: keep it"] = "先留着，交给{zone:1455}的泰摩尔。按{zone:1422}指南到{zone:1455}时再交",
 
 	-- Step 84: Talrendis Point
 	-- {area:3137} Talrendis Point · {zone:1448} Felwood
-	["Back to Truesong at {area:3137}: {zone:1448}, the next guide, is a short ride west."] = "",
+	["Back to Truesong at {area:3137}: {zone:1448}, the next guide, is a short ride west."] = "回{area:3137}找真歌。下一份指南的{zone:1448}往西一小段就到。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to Truesong at {area:3137} before you hearth."] = "用炉石前先回{area:3137}找真歌指挥官。",

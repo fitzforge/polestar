@@ -14,7 +14,7 @@ return {
 	-- {area:340} Kargath
 	["Fly to {area:340}"] = "飞往{area:340}",
 	-- {zone:2548} Riverglades · {area:3} Badlands · {area:75} Stonard · {area:340} Kargath
-	["The {zone:2548} lie south of the {area:3}. Fly from {area:75} to {area:340}: the way down into the zone starts there."] = "",
+	["The {zone:2548} lie south of the {area:3}. Fly from {area:75} to {area:340}: the way down into the zone starts there."] = "{zone:2548}位于{area:3}以南。从{area:75}飞往{area:340}，进入该地区的下坡路就从那里开始。",
 	-- {area:75} Stonard
 	["{area:75} flight master"] = "{area:75}的飞行管理员",
 
@@ -173,9 +173,9 @@ return {
 
 	-- Step 40: Fuzzle
 	-- {area:16723} Sunnyglade · {npc:259158} Fuzzle
-	["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, waits in a cage at the arrow."] = "",
+	["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, waits in a cage at the arrow."] = "暮光教派占据了洛格玛以西的农镇{area:16723}。{npc:259158}是个想逃出去的狗头人，就关在箭头指向的笼子里。",
 	-- {quest:94961} Biting the Hand · {npc:259158} Fuzzle
-	["{quest:94961}, {npc:259158} in his cage"] = "",
+	["{quest:94961}, {npc:259158} in his cage"] = "{quest:94961}，找笼子里的{npc:259158}接取",
 
 	-- Step 41: Sunnyglade
 	-- {npc:256899} Chogg'Zac · {area:16723} Sunnyglade
@@ -212,10 +212,10 @@ return {
 
 	-- Step 47: Twilight No More!
 	-- {npc:256899} Chogg'Zac · {area:16723} Sunnyglade · {npc:260931} Clubtoe · {quest:95420} Land of Giants · {npc:255829} Clugfist · {quest:94668} Bloodmaster's Ring · {area:16726} Bolder'ok · {npc:258570} Da'grosh
-	["{npc:256899}, the two-headed ogre at the western edge of {area:16723}, is an elite (level 41): grouping up is advised. {npc:260931} wants both his heads, and the rest of the zone's ogre story waits on them: {quest:95420}, {npc:255829}'s quests and the {quest:94668} in {area:16726}, then {npc:258570}'s camp in the west (about 21,000 XP in all). Skip him and the guide leaves those out."] = "",
+	["{npc:256899}, the two-headed ogre at the western edge of {area:16723}, is an elite (level 41): grouping up is advised. {npc:260931} wants both his heads, and the rest of the zone's ogre story waits on them: {quest:95420}, {npc:255829}'s quests and the {quest:94668} in {area:16726}, then {npc:258570}'s camp in the west (about 21,000 XP in all). Skip him and the guide leaves those out."] = "{npc:256899}是{area:16723}西缘的双头食人魔，41级精英，建议组队。{npc:260931}要他的两颗头，交齐后才能继续本区的食人魔剧情，包括{quest:95420}、{npc:255829}的任务和{quest:94668}（在{area:16726}），之后再去西边{npc:258570}的营地（总计约21,000经验）。跳过他，指南就会略过这些内容。",
 
 	-- Step 48: Chogg'Zac
-	["Clear the cultists around him first and come in with full health and mana."] = "",
+	["Clear the cultists around him first and come in with full health and mana."] = "先清掉他周围的教徒，回满生命值和法力值再上。",
 
 	-- Step 49: Clubtoe
 	-- {quest:95418} Spread the Word · {npc:256710} Tran'gul · {area:16743} Rog'mar
@@ -264,7 +264,7 @@ return {
 
 	-- Step 58: Jom-jom's Escape
 	-- {npc:258048} Jom-jom · {npc:256728} Na'zok · {area:16726} Bolder'ok
-	["{npc:258048} waits at the back of the cave by the Twilight ogres' camp north-east of {npc:256728}: go all the way in to find him, then take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "",
+	["{npc:258048} waits at the back of the cave by the Twilight ogres' camp north-east of {npc:256728}: go all the way in to find him, then take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "{npc:258048}在洞穴最深处，洞就在{npc:256728}东北方的暮光食人魔营地旁。走到洞底找到他，护送他回{area:16726}，别让教徒攻击他。如果他倒下，就找他重新接任务。",
 	-- {npc:258048} Jom-jom
 	["{npc:258048}, in the cave"] = "{npc:258048}，在洞里",
 	-- {npc:258048} Jom-jom · {area:16726} Bolder'ok
@@ -299,18 +299,18 @@ return {
 	-- {quest:94962} Bloodmaster's Ring · {npc:258626} Mog'thar
 	["The {quest:94962}: {npc:258626}"] = "{quest:94962}：{npc:258626}",
 	-- {npc:258626} Mog'thar · {npc:257058} Gobam · {npc:263440} Hamur
-	["{npc:258626} is a level 43 elite, at or above your level here: a hard one-on-one fight in the ring, where nobody can help you. Take it only rested, with full health and mana; {npc:257058}'s and {npc:263440}'s errands and the last two bouts come after him."] = "",
+	["{npc:258626} is a level 43 elite, at or above your level here: a hard one-on-one fight in the ring, where nobody can help you. Take it only rested, with full health and mana; {npc:257058}'s and {npc:263440}'s errands and the last two bouts come after him."] = "{npc:258626}是43级精英，你到这里时，他的等级至少和你一样高。擂台上只能单挑，没人能帮你，这场很难打。休整好、回满生命值和法力值后再打。打赢后才会有{npc:257058}和{npc:263440}的任务，以及最后两场比试。",
 
 	-- Step 64: Gobam and Hamur
 	-- {npc:257058} Gobam · {npc:263440} Hamur
-	["{npc:257058} and {npc:263440}"] = "",
+	["{npc:257058} and {npc:263440}"] = "{npc:257058}和{npc:263440}",
 	-- {npc:258626} Mog'thar · {npc:257062} Jezap Jinglesprocket · {npc:257058} Gobam · {npc:263440} Hamur · {area:16727} Powderfuse Port · {item:265806} Riverweed · {area:16743} Rog'mar · {area:16726} Bolder'ok
-	["With {npc:258626} beaten, {npc:257062} sends you to {npc:257058}, who keeps the Ring's beasts a few steps north-east of the ring; {npc:263440}, just south of the ring, wants good rock. {npc:257058}'s boar treat needs Sweetberries from the pirates' slopes north of {area:16727} and {item:265806} from the river between {area:16743} and {area:16726}: this guide gathers both and brings you back here after the port, for the Ring's last two bouts."] = "",
+	["With {npc:258626} beaten, {npc:257062} sends you to {npc:257058}, who keeps the Ring's beasts a few steps north-east of the ring; {npc:263440}, just south of the ring, wants good rock. {npc:257058}'s boar treat needs Sweetberries from the pirates' slopes north of {area:16727} and {item:265806} from the river between {area:16743} and {area:16726}: this guide gathers both and brings you back here after the port, for the Ring's last two bouts."] = "打败{npc:258626}后，{npc:257062}会让你去找{npc:257058}，他在擂台东北几步远的地方照看擂台的野兽。{npc:263440}就在擂台南边，他需要好石料。{npc:257058}做野猪零食需要两样材料。甜浆果去{area:16727}北边海盗出没的山坡上找，{item:265806}去{area:16743}和{area:16726}之间的河道找。按这篇指南收齐两样材料，走完港口的步骤后再回这里打最后两场比试。",
 
 	-- Step 65: The rock piles
-	["The rock piles"] = "",
+	["The rock piles"] = "石堆",
 	-- {area:16726} Bolder'ok · {npc:263440} Hamur
-	["South-east from {area:16726} on the way down to the port: {npc:263440}'s rock piles lie in the hills just south of the town and on the slopes west of the Twilight ogres' camp."] = "",
+	["South-east from {area:16726} on the way down to the port: {npc:263440}'s rock piles lie in the hills just south of the town and on the slopes west of the Twilight ogres' camp."] = "从{area:16726}向东南下坡去港口。{npc:263440}要找的石堆在镇南不远的丘陵上，以及暮光食人魔营地西侧的山坡上。",
 
 	-- Step 66: Powderfuse Port
 	-- {area:16727} Powderfuse Port · {npc:255897} Friz Frazzlespark · {npc:259962} Fimbo Greasemitz · {npc:259961} Wharfmaster Whizzbuzz
@@ -368,9 +368,9 @@ return {
 	["North along the coast from the port: the Eastsea raiders and bombardiers have dug in on the slopes west of the buccaneers' camp, among their powder kegs. Watch for {npc:259758} on these cliffs.\nCareful: the Eastsea Raiders are level 44-45, a level or two over you here: pull them one at a time from the edge of the slopes and keep clear of the camp behind them."] = "从港口沿海岸向北：东海劫掠者和投弹手在海盗营地西边的山坡上据守，四周堆着火药桶。在这些悬崖上留意{npc:259758}。\n小心：东海劫掠者为44-45级，比你高一两级：从山坡边缘一次拉一个，远离它们身后的营地。",
 
 	-- Step 78: Sweetberries
-	["Sweetberries"] = "",
+	["Sweetberries"] = "甜浆果",
 	-- {npc:257058} Gobam · {item:265808} Sweetberry
-	["{npc:257058}'s {item:265808} bushes grow on these slopes among the raiders' powder kegs, the last one a little to the north."] = "",
+	["{npc:257058}'s {item:265808} bushes grow on these slopes among the raiders' powder kegs, the last one a little to the north."] = "{npc:257058}要的{item:265808}就长在这片山坡的灌木上，灌木散布在袭击者的火药桶之间，最后一丛稍偏北。",
 
 	-- Step 79: Captain Bentcoin
 	-- {npc:260390} Captain Bentcoin · {npc:260391} Captain Haynes
@@ -384,8 +384,7 @@ return {
 	-- Step 81: The pirates' ships
 	["The pirates' ships"] = "海盗船",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
-	-- was: ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "再次前往海盗的悬崖。从南到北在营地下方停泊的三艘船上安放威兹巴兹的炸药；{quest:95124}站在中间那艘船旁，身边有她的战利品箱。路上留意{npc:259758}。\n小心：{quest:95124}为45级，比你高一两级：先清理她周围的甲板，满血再上。"
-	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "",
+	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "再次前往海盗营地所在的悬崖。按从南到北的顺序，把维兹巴兹的炸药安放在营地下方停泊的三艘船上。{quest:95124}在中间那艘船的顶层甲板上走动，她的战利品箱在甲板下方。路上留意{npc:259758}。\n小心，{quest:95124}是45级，比你高一两级。先清掉她周围甲板上的敌人，满血再上。",
 	["on board, at the arrow"] = "在船上，箭头处",
 	-- {item:268505} Remote Explosive Charge
 	["Plant a {item:268505} on the southern ship"] = "在南边的船上安放{item:268505}",
@@ -419,38 +418,37 @@ return {
 
 	-- Step 87: The river: Riverweed
 	-- {item:265806} Riverweed
-	["The river: {item:265806}"] = "",
+	["The river: {item:265806}"] = "河边：{item:265806}",
 	-- {area:16726} Bolder'ok · {npc:257058} Gobam · {item:265806} Riverweed · {area:16743} Rog'mar
-	["From the port, ride north-west to the river and follow it upstream towards {area:16726}: {npc:257058}'s {item:265806} grows along its banks between {area:16743} and {area:16726}."] = "",
+	["From the port, ride north-west to the river and follow it upstream towards {area:16726}: {npc:257058}'s {item:265806} grows along its banks between {area:16743} and {area:16726}."] = "从港口向西北骑到河边，沿河逆流而上前往{area:16726}。{npc:257058}需要的{item:265806}长在{area:16743}与{area:16726}之间的河岸上。",
 
 	-- Step 89: Gobam
 	-- {area:16726} Bolder'ok · {npc:263440} Hamur · {npc:257058} Gobam · {npc:257062} Jezap Jinglesprocket
-	["North up the river to {area:16726}: {npc:263440} just south of the ring, {npc:257058} north-east of it, then {npc:257062}."] = "",
+	["North up the river to {area:16726}: {npc:263440} just south of the ring, {npc:257058} north-east of it, then {npc:257062}."] = "沿河向北到{area:16726}。先找擂台正南边的{npc:263440}，再找擂台东北边的{npc:257058}，最后找{npc:257062}。",
 
 	-- Step 90: The Bloodmaster's Ring: Snufflesnout
 	-- {quest:94965} Bloodmaster's Ring
-	["The {quest:94965}: Snufflesnout"] = "",
-	["Snufflesnout (44) is elite: a hard one-on-one fight in the ring, where nobody can help you. Come in rested, with full health and mana."] = "",
+	["The {quest:94965}: Snufflesnout"] = "{quest:94965}：嗅鼻",
+	["Snufflesnout (44) is elite: a hard one-on-one fight in the ring, where nobody can help you. Come in rested, with full health and mana."] = "嗅鼻（44级）是精英。擂台上只能单挑，没人能帮你，这场很难打。休整好、回满生命值和法力值后再打。",
 	["Snufflesnout (44)"] = "嗅嗅鼻（44）",
 
 	-- Step 91: The Bloodmaster's Ring: Chub'chob
 	-- {quest:94965} Bloodmaster's Ring · {npc:257059} Chub'chob
-	["The {quest:94965}: {npc:257059}"] = "",
+	["The {quest:94965}: {npc:257059}"] = "{quest:94965}：{npc:257059}",
 	-- {npc:257059} Chub'chob
-	["{npc:257059} (45) is elite: a hard one-on-one fight in the ring, where nobody can help you. Come in rested, with full health and mana."] = "",
+	["{npc:257059} (45) is elite: a hard one-on-one fight in the ring, where nobody can help you. Come in rested, with full health and mana."] = "{npc:257059}（45级）是精英。擂台上只能单挑，没人能帮你，这场很难打。休整好、回满生命值和法力值后再打。",
 	-- {npc:255829} Clugfist
 	["{npc:255829}, on the hill"] = "{npc:255829}，在山丘上",
 
 	-- Step 92: Rog'mar
 	-- {area:16743} Rog'mar · {area:16726} Bolder'ok · {npc:256418} Krom'rosh · {npc:255829} Clugfist · {npc:258570} Da'grosh
-	-- was: ["Back to {area:16743} from the port, where your Hearthstone is set. {npc:256418} in the middle of the fort: {npc:255829}'s word sends him looking for {npc:258570}, his warrior in the west."] = "从港口返回{area:16743}，你的炉石绑定在那里。{npc:256418}在要塞中央：{npc:255829}的消息让他去寻找他在西边的战士{npc:258570}。"
-	["Back to {area:16743}: from {area:16726} south-west down the river, or from the port, where your Hearthstone is set. {npc:256418} in the middle of the fort: {npc:255829}'s word sends him looking for {npc:258570}, his warrior in the west."] = "",
+	["Back to {area:16743}: from {area:16726} south-west down the river, or from the port, where your Hearthstone is set. {npc:256418} in the middle of the fort: {npc:255829}'s word sends him looking for {npc:258570}, his warrior in the west."] = "返回{area:16743}。从{area:16726}出发就沿河往西南走，从港口出发就用绑定在要塞的炉石。{npc:256418}在要塞中央。听到{npc:255829}捎来的消息后，他要去找在西边的部下{npc:258570}。",
 	-- {quest:94744} The Wayward Warrior · {npc:258570} Da'grosh · {area:16723} Sunnyglade
 	["{quest:94744}: for {npc:258570}, west of {area:16723}"] = "{quest:94744}：交给{area:16723}西边的{npc:258570}",
 
 	-- Step 94: Fly to Kargath
 	-- {npc:258570} Da'grosh · {npc:256899} Chogg'Zac · {zone:2548} Riverglades · {area:16743} Rog'mar · {npc:255993} Grakna · {area:340} Kargath · {area:3} Badlands
-	["The rest of this guide is {npc:258570}'s camp in the west, which waits on {npc:256899}: without him the {zone:2548} end here. Back to {area:16743} from the port, where your Hearthstone is set: {npc:255993}, the wind rider master in the middle of the fort, flies to {area:340} in the {area:3}, where the next guide starts."] = "",
+	["The rest of this guide is {npc:258570}'s camp in the west, which waits on {npc:256899}: without him the {zone:2548} end here. Back to {area:16743} from the port, where your Hearthstone is set: {npc:255993}, the wind rider master in the middle of the fort, flies to {area:340} in the {area:3}, where the next guide starts."] = "本篇后续路线要去西边{npc:258570}的营地，须先击败{npc:256899}。跳过他的话，{zone:2548}路线就到这里。从港口用炉石返回{area:16743}，炉石已绑在那里。找要塞中央的驭风者管理员{npc:255993}，飞到{area:340}（位于{area:3}），下一篇指南从那里开始。",
 
 	-- Step 95: Da'grosh
 	-- {area:16743} Rog'mar · {area:16723} Sunnyglade · {area:16685} Twilight's Shroud · {npc:258570} Da'grosh · {npc:256418} Krom'rosh
@@ -464,8 +462,7 @@ return {
 	["The Twilight camps"] = "暮光营地",
 	-- {npc:258570} Da'grosh · {item:265821} Twilight Key · {npc:257450} Rog'mar Scout · {npc:256881} Overlord Kilgar · {npc:256891} Executioner Morg · {npc:258023} Sergeant Riftan
 	-- plural, as words: Twilight Champions = {npc:256799} Twilight Champion · Twilight Enforcers = {npc:256800} Twilight Enforcer · Farholde Lookouts = {npc:258686} Farholde Lookout
-	-- was: ["The cult's camps fill the valley south and west of {npc:258570}. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it."] = "暮光教派的营地遍布{npc:258570}南边和西边的山谷。沿途遇到被俘的洛格玛斥候就把他们救出来。暮光执行者（精英，45级）在营地间巡逻：每次拉怪前先看清它们的路线。{npc:256881}和{npc:256891}（精英，46级）据守山谷尽头的堡垒：把教徒从他们身边拉开。{npc:258023}的联盟营地位于山谷南端，那里的法霍德瞭望者（46级）会攻击部落：待在营地北边。"
-	["The cult's camps fill the valley south and west of {npc:258570}. Twilight Champions drop the {item:265821} that frees a captive {npc:257450}: free them as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it."] = "",
+	["The cult's camps fill the valley south and west of {npc:258570}. Twilight Champions drop the {item:265821} that frees a captive {npc:257450}: free them as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it."] = "暮光教派的营地遍布{npc:258570}南边和西边的山谷。暮光勇士会掉落{item:265821}，用它解救被俘的{npc:257450}，沿途遇到就救。暮光执行者（45级精英）在营地间巡逻，每次拉怪前先看清它们的路线。{npc:256881}和{npc:256891}（46级精英）据守山谷尽头的堡垒，把教徒拉离他们再打。{npc:258023}的联盟营地在山谷南端，那里的法霍德瞭望者（46级）会攻击部落玩家，留在营地北边。",
 	-- plural, as words: Rog'mar Scouts = {npc:257450} Rog'mar Scout
 	["free five captive Rog'mar Scouts"] = "救出五名被俘的洛格玛斥候",
 
@@ -482,7 +479,7 @@ return {
 
 	-- Step 102: Twilight's Shroud
 	-- {area:340} Kargath · {area:3} Badlands · {area:16685} Twilight's Shroud · {npc:258570} Da'grosh · {area:16743} Rog'mar · {area:16723} Sunnyglade
-	["The next guide flies from {area:340} in the {area:3}: up through {area:16685}, the pass at the valley's north-west end, just north of {npc:258570}'s camp. Coming from {area:16743}, ride west through {area:16723} and keep north of the Twilight camps below the pass."] = "",
+	["The next guide flies from {area:340} in the {area:3}: up through {area:16685}, the pass at the valley's north-west end, just north of {npc:258570}'s camp. Coming from {area:16743}, ride west through {area:16723} and keep north of the Twilight camps below the pass."] = "下一篇指南从{area:3}的{area:340}搭飞行路线。去那里时沿{area:16685}上山，山口就在山谷西北端、{npc:258570}营地北边。从{area:16743}出发的话，向西经过{area:16723}，走山口下方暮光营地的北侧。",
 
 	-- Step 103: Kargath
 	-- {area:3} Badlands · {area:340} Kargath

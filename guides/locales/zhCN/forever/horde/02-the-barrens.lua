@@ -8,15 +8,15 @@
 return {
 	-- Step 1: Razor Hill
 	-- {zone:1454} Orgrimmar · {zone:1411} Durotar · {area:814} Southfury River · {area:362} Razor Hill · {npc:3336} Takrin Pathseeker · {npc:3142} Orgnil Soulscar
-	["Leave {zone:1454} by the main gate and follow the road south through {zone:1411}. Before it turns west to the {area:814} bridge, step east into {area:362}: {npc:3336} stands on the west side of town, {npc:3142} in the middle."] = "",
+	["Leave {zone:1454} by the main gate and follow the road south through {zone:1411}. Before it turns west to the {area:814} bridge, step east into {area:362}: {npc:3336} stands on the west side of town, {npc:3142} in the middle."] = "从正门离开{zone:1454}，沿路向南穿过{zone:1411}。在道路向西拐往{area:814}上的桥之前，向东进入{area:362}。{npc:3336}在镇西边，{npc:3142}在镇中央。",
 	-- {npc:3336} Takrin Pathseeker · {npc:3337} Kargal Battlescar · {area:379} Far Watch Post
-	["{npc:3336}: {npc:3337} at {area:379}, on the way"] = "",
+	["{npc:3336}: {npc:3337} at {area:379}, on the way"] = "{npc:3336}：顺路到{area:379}找{npc:3337}",
 
 	-- Step 2: Orgnil Soulscar
 	-- {npc:3142} Orgnil Soulscar · {area:362} Razor Hill
 	["{npc:3142} stands in the middle of {area:362}."] = "{npc:3142}站在{area:362}中央。",
 	-- {npc:3142} Orgnil Soulscar · {quest:99051} Threat from Below · {zone:1411} Durotar
-	["{npc:3142}: {quest:99051}, from {zone:1411}'s naga beach"] = "",
+	["{npc:3142}: {quest:99051}, from {zone:1411}'s naga beach"] = "{npc:3142}：交{quest:99051}，任务目标在{zone:1411}的娜迦海滩",
 
 	-- Step 4: Uzzek
 	-- {npc:5810} Uzzek · {area:379} Far Watch Post · {npc:3337} Kargal Battlescar · {quest:809} Ak'Zeloth
@@ -24,7 +24,7 @@ return {
 
 	-- Step 5: Far Watch Post
 	-- {area:814} Southfury River · {area:379} Far Watch Post · {zone:1413} The Barrens · {npc:3337} Kargal Battlescar · {quest:809} Ak'Zeloth · {npc:5810} Uzzek
-	["Back west to the road and over the {area:814} bridge: {area:379} sits just above it on the {zone:1413} side. {npc:3337}, {quest:809} and {npc:5810} stand together."] = "",
+	["Back west to the road and over the {area:814} bridge: {area:379} sits just above it on the {zone:1413} side. {npc:3337}, {quest:809} and {npc:5810} stand together."] = "向西回到大路，过{area:814}上的桥。{area:379}就在{zone:1413}一侧的桥头上方。{npc:3337}、{quest:809}和{npc:5810}站在一起。",
 	-- {quest:809} Ak'Zeloth · {npc:3337} Kargal Battlescar · {npc:3216} Neeru Fireblade · {zone:1454} Orgrimmar
 	["{quest:809}, beside {npc:3337}: from {npc:3216} in {zone:1454}"] = "{quest:809}，在{npc:3337}旁边：来自{zone:1454}的{npc:3216}",
 
@@ -86,7 +86,7 @@ return {
 	-- {area:380} The Crossroads · {npc:3338} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3615} Devrak · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:3448} Tonga Runetotem
 	["{area:380} is your base for this guide. Everyone you need stands within a few steps of the inn: {npc:3338} by the inn, Helbrim and {npc:3464} by the north gate, then up the tower to {npc:3615}, the wind rider master, {npc:3429} and {npc:3449}, and {npc:3448} at the south gate on the way out."] = "{area:380}是本指南的大本营。要找的人都在旅店几步之内：{npc:3338}在旅店旁，赫布瑞姆和{npc:3464}在北门旁，然后上塔找双足飞龙管理员{npc:3615}、{npc:3429}和{npc:3449}，出门时再找南门的{npc:3448}。",
 	-- {quest:860} Sergra Darkthorn · {quest:842} Crossroads Conscription · {area:379} Far Watch Post
-	["{quest:860}: {quest:842}, from {area:379}"] = "",
+	["{quest:860}: {quest:842}, from {area:379}"] = "{quest:860}：交在{area:379}接的{quest:842}",
 	-- {npc:3429} Thork
 	["{npc:3429}, at the top of the tower"] = "{npc:3429}，在塔顶",
 
@@ -122,8 +122,7 @@ return {
 
 	-- Step 30: Ratchet
 	-- {area:392} Ratchet · {npc:3391} Gazlowe · {npc:7161} Wrenix the Wretched · {npc:3442} Sputtervalve · {npc:16227} Bragok · {npc:3446} Mebok Mizzyrix · {quest:1492} Wharfmaster Dizzywig
-	-- was: ["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "沿路向东南前往海岸的{area:392}：镇子北端找{npc:3391}和{npc:7161}，然后是{npc:3442}和{npc:16227}、{npc:3446}和{object:3972}告示，最后向南离开时在码头找{quest:1492}。"
-	["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the WANTED poster, then {quest:1492} on the dock on the way out south."] = "",
+	["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the WANTED poster, then {quest:1492} on the dock on the way out south."] = "沿路向东南前往海边的{area:392}。先在镇北端找{npc:3391}和{npc:7161}，再找{npc:3442}和{npc:16227}，然后找{npc:3446}和通缉告示。最后往南离开时，在码头找{quest:1492}。",
 	-- {npc:3391} Gazlowe
 	["{npc:3391}, upstairs"] = "{npc:3391}：在楼上",
 	-- {npc:3442} Sputtervalve · {area:382} Sludge Fen
@@ -131,11 +130,9 @@ return {
 	-- {npc:16227} Bragok · {npc:3442} Sputtervalve
 	["{npc:16227}, beside {npc:3442}"] = "{npc:16227}，在{npc:3442}旁边",
 	-- {npc:3446} Mebok Mizzyrix · {area:392} Ratchet
-	-- was: ["{npc:3446}, beside the {object:3972} poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "{object:3972}告示旁的{npc:3446}：赤鳞迅猛龙留到下一次来{area:392}时（18级）再做"
-	["{npc:3446}, beside the WANTED poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "",
+	["{npc:3446}, beside the WANTED poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "{npc:3446}在通缉告示旁。赤鳞迅猛龙的任务留到18级，再回{area:392}时做",
 	-- {npc:3467} Baron Longshore · {area:392} Ratchet
-	-- was: ["The {object:3972} poster: {npc:3467} comes on the next {area:392} stop too"] = "{object:3972}告示：{npc:3467}也留到下一次来{area:392}时再做"
-	["The WANTED poster: {npc:3467} comes on the next {area:392} stop too"] = "",
+	["The WANTED poster: {npc:3467} comes on the next {area:392} stop too"] = "通缉告示：{npc:3467}也留到下次来{area:392}时再打",
 	-- {quest:1492} Wharfmaster Dizzywig
 	["{quest:1492}, on the dock"] = "{quest:1492}，在码头上",
 	-- {quest:1492} Wharfmaster Dizzywig · {area:381} Boulder Lode Mine
@@ -286,7 +283,7 @@ return {
 	["Crossroads flight master"] = "十字路口飞行管理员",
 
 	-- Step 59: Ratchet
-	["WANTED poster"] = "",
+	["WANTED poster"] = "通缉告示",
 
 	-- Step 60: Mebok Mizzyrix
 	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix · {quest:1491} Smart Drinks
@@ -327,7 +324,7 @@ return {
 	-- {area:392} Ratchet
 	["Back north along the beach to {area:392}."] = "沿海滩向北回到{area:392}。",
 	-- {npc:3446} Mebok Mizzyrix
-	["{npc:3446}, beside the WANTED poster"] = "",
+	["{npc:3446}, beside the WANTED poster"] = "{npc:3446}，在通缉告示旁",
 
 	-- Step 73: Dreadmist Peak
 	-- {area:384} Dreadmist Peak · {item:15842} Empty Dreadmist Peak Sampler · {object:19464} Dreadmist Peak Pool · {npc:3448} Tonga Runetotem · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
@@ -535,8 +532,7 @@ return {
 	-- {area:392} Ratchet · {area:718} Wailing Caverns
 	["{area:392}: {area:718} quests"] = "{area:392}：{area:718}任务",
 	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix · {npc:3665} Crane Operator Bigglefuzz · {npc:3396} Hezrul Bloodmark
-	-- was: ["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the {object:3972} poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "你的{area:718}任务，如果还没接：{object:3972}告示旁的{npc:3446}，以及飞行管理员旁码头上的{npc:3665}。地下城之行在本指南稍后，在{npc:3396}之后。"
-	["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the WANTED poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "",
+	["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the WANTED poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "如果还没接{area:718}的任务，就去找通缉告示旁的{npc:3446}，以及飞行管理员旁边码头上的{npc:3665}。本指南稍后会安排打副本，在{npc:3396}之后。",
 
 	-- Step 121: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet

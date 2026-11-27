@@ -16,9 +16,9 @@ return {
 
 	-- Step 2: The Scythe of Elune
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {zone:1430} Deadwind Pass · {npc:661} Jonathan Carevin
-	["South from {area:42} to the {area:121}, on the way to {zone:1430}: the mound of dirt by the Nightbane worgen (29-31) holds the evidence {npc:661} wants."] = "",
+	["South from {area:42} to the {area:121}, on the way to {zone:1430}: the mound of dirt by the Nightbane worgen (29-31) holds the evidence {npc:661} wants."] = "从{area:42}向南到{area:121}，在去{zone:1430}的路上：夜行狼人（29–31）旁的土堆里有{npc:661}要的证据。",
 	-- {object:19030} Mound of Dirt
-	["the {object:19030}"] = "",
+	["the {object:19030}"] = "{object:19030}",
 
 	-- Step 4: Watcher Biggs
 	-- {npc:5476} Watcher Biggs · {npc:217412} Amaryllis Webb · {quest:93176} My Little Friends
@@ -83,9 +83,9 @@ return {
 
 	-- Step 15: Jonathan Carevin
 	-- {npc:661} Jonathan Carevin · {area:42} Darkshire
-	["{npc:661}, in {area:42}"] = "",
+	["{npc:661}, in {area:42}"] = "{npc:661}，在{area:42}",
 	-- {zone:1457} Darnassus
-	["His next errand goes to {zone:1457}, off this route: leave it."] = "",
+	["His next errand goes to {zone:1457}, off this route: leave it."] = "他下一件差事去{zone:1457}，不在这条路线上：别接。",
 
 	-- Step 16: Fly to Stormwind
 	-- {zone:1453} Stormwind
@@ -131,7 +131,7 @@ return {
 
 	-- Step 25: Southshore
 	-- {npc:2276} Magistrate Henry Maleb · {zone:1424} Hillsbrad Foothills
-	["{npc:2276}, inside, if the {zone:1424} guide didn't take it: the Syndicate camp is on the way to Arathi"] = "",
+	["{npc:2276}, inside, if the {zone:1424} guide didn't take it: the Syndicate camp is on the way to Arathi"] = "{npc:2276}，在里面，如果{zone:1424}指南里没接：辛迪加营地在去阿拉希的路上",
 
 	-- Step 26: Shadowy Assassin
 	-- {npc:2434} Shadowy Assassin · {area:271} Southshore · {npc:2276} Magistrate Henry Maleb
@@ -241,7 +241,7 @@ return {
 	-- Step 51: The Drowned Reef: kill these as you meet them
 	-- {area:328} The Drowned Reef
 	["{area:328}: kill these as you meet them"] = "{area:328}：沿途击杀以下目标",
-	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay.\nCareful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy."] = "",
+	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay.\nCareful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy."] = "两艘沉船在小海湾以西的海里。海图和航海日志在船里面；宝石在它们周围的海底。刺脊纳迦在整个海湾游弋。\n注意：海图和日志在沉船深处：盯着呼吸条，两艘之间上来换气；有水下呼吸药水就轻松了。",
 	-- {npc:2595} Daggerspine Raider
 	["{npc:2595}, underwater"] = "{npc:2595}：在水下",
 	-- {item:4492} Elven Gem

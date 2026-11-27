@@ -162,7 +162,7 @@ return {
 
 	-- Step 30: Goaz Warders
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
-	["Goaz Warders"] = "Goaz Warders",
+	["Goaz Warders"] = "Goazwärter",
 	-- {item:279996} Goaz Stone · {npc:270892} Goaz Warder
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
 	["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one.\n{npc:270892} is elite: grouping up is advised."] = "Die Goaz Warders stehen direkt westlich von Whelgars Lager: Benutze den {item:279996}, den er dir gegeben hat, neben einem von ihnen.\n{npc:270892} ist ein Elite: Eine Gruppe wird empfohlen.",

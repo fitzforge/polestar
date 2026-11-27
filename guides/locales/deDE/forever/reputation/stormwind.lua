@@ -60,7 +60,7 @@ return {
 	["Northshire: Echo Ridge, {npc:103} and the vineyard"] = "Nordhain: Echo Ridge, {npc:103} und der Weinberg",
 	-- {area:34} Echo Ridge Mine · {npc:103} Garrick Padfoot · {quest:3904} Milly's Harvest · {object:83763} Stolen Books
 	-- plural, as words: Kobold Workers = {npc:257} Kobold Worker
-	["The Kobold Workers are in {area:34} north of the abbey; {npc:103} stands in the Defias camp east of the vineyard; {quest:3904} crates lie in the vineyard; the rats carrying the {object:83763} run about the abbey grounds."] = "Die Kobold Workers sind in {area:34} nördlich der Abtei; {npc:103} steht im Defias-Lager östlich des Weinbergs; die Kisten von {quest:3904} liegen im Weinberg; die Ratten mit den {object:83763} laufen auf dem Abteigelände herum.",
+	["The Kobold Workers are in {area:34} north of the abbey; {npc:103} stands in the Defias camp east of the vineyard; {quest:3904} crates lie in the vineyard; the rats carrying the {object:83763} run about the abbey grounds."] = "Die Koboldtagelöhner sind in {area:34} nördlich der Abtei; {npc:103} steht im Defias-Lager östlich des Weinbergs; die Kisten von {quest:3904} liegen im Weinberg; die Ratten mit den {object:83763} laufen auf dem Abteigelände herum.",
 
 	-- Step 9: Northshire: second hand-in
 	["Northshire: second hand-in"] = "Nordhain: zweite Abgabe",
@@ -80,7 +80,7 @@ return {
 	["Northshire: the books end in {area:87}"] = "Nordhain: die Bücher enden in {area:87}",
 	-- {npc:240} Marshal Dughan · {area:87} Goldshire · {area:57} Fargodeep Mine
 	-- plural, as words: Lost Books = {item:248001} Lost Book
-	["{npc:240} stands in front of the Lion's Pride Inn in {area:87}. The Lost Books drop from the kobolds of {area:57} south of {area:87}; the picture book and the two rare books from the named kobolds there."] = "{npc:240} steht vor dem Gasthaus Lion's Pride in {area:87}. Die Lost Books droppen von den Kobolden in {area:57} südlich von {area:87}; das Bilderbuch und die zwei seltenen Bücher von den benannten Kobolden dort.",
+	["{npc:240} stands in front of the Lion's Pride Inn in {area:87}. The Lost Books drop from the kobolds of {area:57} south of {area:87}; the picture book and the two rare books from the named kobolds there."] = "{npc:240} steht vor dem Gasthaus Lion's Pride in {area:87}. Die verlorenen Bücher droppen von den Kobolden in {area:57} südlich von {area:87}; das Bilderbuch und die zwei seltenen Bücher von den benannten Kobolden dort.",
 	["Arcane Explainer"] = "Arcane Explainer",
 	-- {npc:951} Brother Paxton
 	["{npc:951}, back at the abbey"] = "{npc:951}, zurück an der Abtei",
@@ -145,14 +145,14 @@ return {
 	["Eastvale: the work"] = "Osttal: die Arbeit",
 	-- {area:91} Tower of Azora · {area:54} Jasperlode Mine
 	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear · Kobold Geomancers = {npc:476} Kobold Geomancer
-	["The murlocs along the river south of the bridge drop the fins; Prowlers and Young Forest Bears roam the woods; the Defias around the Brackwell farm and the {area:91} carry the bandanas; the enchanting supplies lie in their camps north of the tower; the Kobold Geomancers dig at {area:54}; the tools and the river finds lie along the river north of the logging camp."] = "Die Murlocs am Fluss südlich der Brücke droppen die Flossen; Prowlers und Young Forest Bears streifen durch die Wälder; die Defias rund um die Brackwell-Farm und den {area:91} tragen die Bandanas; die Verzauberungsmaterialien liegen in ihren Lagern nördlich des Turms; die Kobold Geomancers graben bei {area:54}; die Werkzeuge und die Flussfunde liegen am Fluss nördlich des Holzfällerlagers.",
+	["The murlocs along the river south of the bridge drop the fins; Prowlers and Young Forest Bears roam the woods; the Defias around the Brackwell farm and the {area:91} carry the bandanas; the enchanting supplies lie in their camps north of the tower; the Kobold Geomancers dig at {area:54}; the tools and the river finds lie along the river north of the logging camp."] = "Die Murlocs am Fluss südlich der Brücke droppen die Flossen; Streuner und Junge Waldbären streifen durch die Wälder; die Defias rund um die Brackwell-Farm und den {area:91} tragen die Bandanas; die Verzauberungsmaterialien liegen in ihren Lagern nördlich des Turms; die Koboldgeomanten graben bei {area:54}; die Werkzeuge und die Flussfunde liegen am Fluss nördlich des Holzfällerlagers.",
 
 	-- Step 24: Eastvale: hand in
 	["Eastvale: hand in"] = "Osttal: abgeben",
 
 	-- Step 25: Eastvale: Defias Rogue Wizards
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["Eastvale: Defias Rogue Wizards"] = "Osttal: Defias Rogue Wizards",
+	["Eastvale: Defias Rogue Wizards"] = "Osttal: Abtrünnige Hexer der Defias",
 	["opens with Thomas' report"] = "beginnt mit Thomas' Bericht",
 	-- {item:780} Torn Murloc Fin
 	["{item:780}, from the murlocs south of the bridge"] = "{item:780}, von den Murlocs südlich der Brücke",
@@ -168,7 +168,7 @@ return {
 	["Inside the {area:717}"] = "Im {area:717}",
 	-- {npc:1716} Bazil Thredd
 	-- plural, as words: Red Wool Bandanas = {item:2909} Red Wool Bandana
-	["Kill the prisoners, convicts and insurgents in the cells; the Red Wool Bandanas drop from the Defias inside. {npc:1716} waits in the far end."] = "Töte die Gefangenen, Sträflinge und Aufständischen in den Zellen; die Red Wool Bandanas droppen von den Defias drinnen. {npc:1716} wartet am hinteren Ende.",
+	["Kill the prisoners, convicts and insurgents in the cells; the Red Wool Bandanas drop from the Defias inside. {npc:1716} waits in the far end."] = "Töte die Gefangenen, Sträflinge und Aufständischen in den Zellen; die roten Wollkopftücher droppen von den Defias drinnen. {npc:1716} wartet am hinteren Ende.",
 
 	-- Step 28: Stockade: hand in
 	-- {area:717} Stockade
@@ -189,7 +189,7 @@ return {
 	-- Step 32: Chillwind Camp: Clear the Way
 	-- {npc:10838} Commander Ashlam Valorfist · {npc:11053} High Priestess MacDonnell · {area:3197} Chillwind Camp · {zone:1422} Western Plaguelands · {faction:72} Stormwind · {object:92525} Argent Dawn
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul
-	["These quests are level 52 to 58, so they pay in full at 60. {npc:10838} and {npc:11053} at {area:3197}, in the south of the {zone:1422}, send you against the four Scourge cauldrons: 820 {faction:72} reputation in all and 600 {object:92525} on the side. The Skeletal Flayers and Slavering Ghouls roam the fields north of the camp."] = "Diese Quests sind Stufe 52 bis 58, zahlen also auf Stufe 60 voll. {npc:10838} und {npc:11053} bei {area:3197}, im Süden des {zone:1422}, schicken dich gegen die vier Kessel der Geißel: insgesamt 820 Ruf bei {faction:72} und nebenbei 600 bei der {object:92525}. Die Skeletal Flayers und Slavering Ghouls streifen durch die Felder nördlich des Lagers.",
+	["These quests are level 52 to 58, so they pay in full at 60. {npc:10838} and {npc:11053} at {area:3197}, in the south of the {zone:1422}, send you against the four Scourge cauldrons: 820 {faction:72} reputation in all and 600 {object:92525} on the side. The Skeletal Flayers and Slavering Ghouls roam the fields north of the camp."] = "Diese Quests sind Stufe 52 bis 58, zahlen also auf Stufe 60 voll. {npc:10838} und {npc:11053} bei {area:3197}, im Süden des {zone:1422}, schicken dich gegen die vier Kessel der Geißel: insgesamt 820 Ruf bei {faction:72} und nebenbei 600 bei der {object:92525}. Die Skelettschinder und sabbernden Ghule streifen durch die Felder nördlich des Lagers.",
 
 	-- Step 33: Andorhal and Felstone Field
 	-- {area:199} Felstone Field
@@ -248,7 +248,7 @@ return {
 	-- Step 42: Morgan's Vigil: Dragonkin Menace
 	-- {npc:9562} Helendis Riverhorn · {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {quest:4183} The True Masters · {area:69} Lakeshire · {object:2117} Stormwind Keep · {faction:72} Stormwind · {zone:1457} Darnassus · {npc:7044} Black Drake · {npc:7040} Black Dragonspawn · {npc:7041} Black Wyrmkin
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
-	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: a chain to {area:69} and {object:2117}, 175 {faction:72} and 175 {zone:1457} reputation (level 54). The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "{npc:9562} bei {area:2418}, im Südosten des {zone:1428}, startet {quest:4183}: eine Questreihe nach {area:69} und {object:2117}, 175 Ruf bei {faction:72} und 175 bei {zone:1457} (Stufe 54). Die Black Broodlings und die {npc:7044} leben an den Hängen nördlich der Wache; die {npc:7040} und {npc:7041} westlich davon, in der Mitte des Gebiets.",
+	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: a chain to {area:69} and {object:2117}, 175 {faction:72} and 175 {zone:1457} reputation (level 54). The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "{npc:9562} bei {area:2418}, im Südosten des {zone:1428}, startet {quest:4183}: eine Questreihe nach {area:69} und {object:2117}, 175 Ruf bei {faction:72} und 175 bei {zone:1457} (Stufe 54). Die schwarzen Brutlinge und die {npc:7044} leben an den Hängen nördlich der Wache; die {npc:7040} und {npc:7041} westlich davon, in der Mitte des Gebiets.",
 
 	-- Step 43: Lakeshire: Magistrate Solomon
 	-- {npc:344} Magistrate Solomon · {area:69} Lakeshire

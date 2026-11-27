@@ -22,16 +22,15 @@ return {
 
 	-- Step 6: Astranaar
 	-- {area:413} Maestra's Post · {npc:3845} Shindrell Swiftfire · {npc:4079} Sentinel Thenysil · {npc:3996} Faldreas Goeth'Shael · {npc:3691} Raene Wolfrunner · {npc:3894} Pelturas Whitemoon
-	-- was: ["The road from {area:413} comes in by the flight master: {npc:3845} and {npc:4079} stand there, {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "从{area:413}过来的道路通向飞行管理员旁：{npc:3845}和{npc:4079}站在那里，{npc:3691}在旅店，{npc:3894}在旅店后方的建筑内。"
-	["The road from {area:413} comes in by the flight master: {npc:3845} and {npc:4079} stand there, {npc:3996} just east of them, {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "",
+	["The road from {area:413} comes in by the flight master: {npc:3845} and {npc:4079} stand there, {npc:3996} just east of them, {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "从{area:413}沿路进镇，就到飞行管理员旁。{npc:3845}和{npc:4079}就在那里，{npc:3996}在他们东边不远，{npc:3691}在旅店里，{npc:3894}在旅店后方的建筑内。",
 	-- {npc:3996} Faldreas Goeth'Shael · {npc:3994} Keeper Albagorm · {area:467} Stonetalon Peak
-	["{npc:3996}: for {npc:3994} at {area:467}, at the end of the Stonetalon trip"] = "",
+	["{npc:3996}: for {npc:3994} at {area:467}, at the end of the Stonetalon trip"] = "{npc:3996}：石爪山脉这趟行程的最后一站，在{area:467}交给{npc:3994}。",
 	-- {npc:3691} Raene Wolfrunner
 	["{npc:3691}, in the inn"] = "{npc:3691}，在旅店里",
 	-- {npc:3691} Raene Wolfrunner · {quest:990} Trek to Ashenvale · {area:442} Auberdine
 	["{npc:3691}: {quest:990}, from {area:442}"] = "{npc:3691}：从{area:442}接取的{quest:990}",
 	-- {npc:3691} Raene Wolfrunner · {npc:3987} Dal Bloodclaw
-	["{npc:3691}: {npc:3987}, north of town, at the end of this visit"] = "",
+	["{npc:3691}: {npc:3987}, north of town, at the end of this visit"] = "{npc:3691}：这趟最后再去镇北打{npc:3987}。",
 	-- {npc:3894} Pelturas Whitemoon
 	["{npc:3894}, inside"] = "{npc:3894}：在屋内",
 
@@ -41,36 +40,34 @@ return {
 
 	-- Step 8: Astranaar
 	-- {area:415} Astranaar · {npc:3894} Pelturas Whitemoon
-	["Back to {area:415} on the way to the west: {npc:3894} is inside the building beyond the inn."] = "",
+	["Back to {area:415} on the way to the west: {npc:3894} is inside the building beyond the inn."] = "往西走时顺路回{area:415}，{npc:3894}在旅店后方的建筑内。",
 
 	-- Step 9: The Ruins of Stardust
 	-- {area:415} Astranaar · {area:421} Mystral Lake
 	-- plural, as words: Shadethicket Raincallers = {npc:3783} Shadethicket Raincaller
-	["South-west from {area:415}: west of {area:421}, the stardust bushes grow among the ruins.\nCareful: Shadethicket Raincallers and Wood Shapers (22–24) stand among the bushes. Clear one bush at a time; don’t run through the camp."] = "",
+	["South-west from {area:415}: west of {area:421}, the stardust bushes grow among the ruins.\nCareful: Shadethicket Raincallers and Wood Shapers (22–24) stand among the bushes. Clear one bush at a time; don’t run through the camp."] = "从{area:415}向西南走。星尘灌木长在{area:421}西边的废墟里。\n小心，招雨沼泽兽和噬木沼泽兽（22至24级）就站在灌木丛间。每次只清一处灌木旁的怪，别直接从营地里冲过去。",
 
 	-- Step 10: Ilkrud Magthrull
 	-- {area:418} The Ruins of Stardust · {area:417} Fire Scar Shrine · {npc:3664} Ilkrud Magthrull
-	["From the {area:418} head north-west to the {area:417} and go in from the east side: {npc:3664} and his guards hold a hill inside it. Pull his guards first."] = "",
+	["From the {area:418} head north-west to the {area:417} and go in from the east side: {npc:3664} and his guards hold a hill inside it. Pull his guards first."] = "从{area:418}向西北走到{area:417}，从东侧进去。{npc:3664}和他的卫兵守着里面的一座小山。先把卫兵拉出来。",
 
 	-- Step 11: Shrine of Aessina
 	-- {area:417} Fire Scar Shrine · {npc:3585} Therysil · {area:416} Shrine of Aessina
-	["North of the {area:417}, {npc:3585} waits at the {area:416}."] = "",
+	["North of the {area:417}, {npc:3585} waits at the {area:416}."] = "{npc:3585}在{area:417}北面的{area:416}等候。",
 
 	-- Step 12: Teronis' Corpse
 	-- {area:441} Lake Falathim · {item:5463} Glowing Gem
-	-- was: ["Head west to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "向西前往{area:441}岸边。泰洛尼斯躺在盐沫鱼人之间，任意鱼人均有几率掉落{item:5463}。"
-	["North again to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "",
+	["North again to the shore of {area:441}. Teronis lies among the Saltspittle murlocs; any murloc can drop the {item:5463}."] = "继续向北到{area:441}岸边。泰洛尼斯躺在盐沫鱼人中间，这里的鱼人都有可能掉落{item:5463}。",
 
 	-- Step 13: Maestra's Post
 	-- {area:413} Maestra's Post
-	["North-east from the lake to {area:413}."] = "",
+	["North-east from the lake to {area:413}."] = "从湖边向东北走到{area:413}。",
 	-- {npc:3663} Delgren the Purifier · {zone:1440} Ashenvale
-	-- was: ["{npc:3663}: its circles are for your next {zone:1440} visit, at about 28"] = "{npc:3663}：法阵留到下次来{zone:1440}时处理，约28级"
-	["{npc:3663}: its circles are for your next {zone:1440} visit, at about 30"] = "",
+	["{npc:3663}: its circles are for your next {zone:1440} visit, at about 30"] = "{npc:3663}：法阵留到下次来{zone:1440}时处理，约30级。",
 
 	-- Step 14: The Zoram Strand
 	-- {area:413} Maestra's Post · {area:414} Zoram Strand · {npc:3846} Talen
-	["West from {area:413} to the coast, then north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "",
+	["West from {area:413} to the coast, then north to the {area:414}. {npc:3846} camps on the beach; Wrathtail nagas fill the shore."] = "从{area:413}往西走到海岸，再沿岸向北到{area:414}。{npc:3846}在沙滩上扎营，岸边到处都是怒尾纳迦。",
 	-- {item:5424} Ancient Statuette
 	["{item:5424}, in the ruins on the shore"] = "{item:5424}，在岸边的废墟里",
 	-- {item:5490} Wrathtail Head
@@ -90,11 +87,11 @@ return {
 
 	-- Step 19: Astranaar
 	-- {area:415} Astranaar · {area:414} Zoram Strand · {npc:3845} Shindrell Swiftfire · {npc:3691} Raene Wolfrunner · {npc:3894} Pelturas Whitemoon
-	["Hearth to {area:415}, where your hearthstone is bound, or follow the road east from the {area:414}: {npc:3845} stands by the flight master, {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "",
+	["Hearth to {area:415}, where your hearthstone is bound, or follow the road east from the {area:414}: {npc:3845} stands by the flight master, {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "用炉石回绑定的{area:415}，或从{area:414}沿路向东走。{npc:3845}在飞行管理员旁，{npc:3691}在旅店里，{npc:3894}在旅店后方的建筑内。",
 	-- {npc:3845} Shindrell Swiftfire
-	["{npc:3845}: the Pridewings, on the way north through Stonetalon"] = "",
+	["{npc:3845}: the Pridewings, on the way north through Stonetalon"] = "{npc:3845}：向北穿过石爪山脉时，顺路打巨翼双足飞龙。",
 	-- {npc:3691} Raene Wolfrunner
-	["{npc:3691}: the Foulweald, after Stonetalon"] = "",
+	["{npc:3691}: the Foulweald, after Stonetalon"] = "{npc:3691}：去过石爪山脉后，再去污林打熊怪。",
 
 	-- Step 20: Stonetalon Mountains
 	-- {area:421} Mystral Lake · {area:1276} Talondeep Path · {area:461} Windshear Crag · {area:2160} Windshear Mine
@@ -132,46 +129,46 @@ return {
 
 	-- Step 27: Night Elf Courier
 	-- {area:1076} Webwinder Path · {npc:16458} Innkeeper Faralia · {area:467} Stonetalon Peak
-	["West from the {area:1076} along the road, past the Pridewing slopes: the courier waits by the road on their west side. His supplies drop from the Pridewings, and {npc:16458} at {area:467}, at the end of the road north, takes them."] = "",
+	["West from the {area:1076} along the road, past the Pridewing slopes: the courier waits by the road on their west side. His supplies drop from the Pridewings, and {npc:16458} at {area:467}, at the end of the road north, takes them."] = "从{area:1076}沿路向西，经过巨翼双足飞龙栖息的山坡。信使在山坡西侧的路边等候。巨翼双足飞龙会掉落他的补给，沿路向北走到尽头，在{area:467}交给{npc:16458}。",
 
 	-- Step 28: The Pridewings
-	["The Pridewings"] = "",
+	["The Pridewings"] = "巨翼双足飞龙",
 	-- {npc:5928} Sorrow Wing
 	-- plural, as words: Pridewing Wyverns = {npc:4012} Pridewing Wyvern
-	["Pridewing Wyverns (21-22) and Consorts (22-23) nest on the slopes either side of the road, Skyhunters (23-24) a little further north-east. Any of them drops the venom sacs and the courier's supplies: start with the Consorts right beside the courier and work back along the road.\nCareful: {npc:5928}, a rare elite wyvern (27), flies over the Pridewing slopes and the road north: leave it alone."] = "",
+	["Pridewing Wyverns (21-22) and Consorts (22-23) nest on the slopes either side of the road, Skyhunters (23-24) a little further north-east. Any of them drops the venom sacs and the courier's supplies: start with the Consorts right beside the courier and work back along the road.\nCareful: {npc:5928}, a rare elite wyvern (27), flies over the Pridewing slopes and the road north: leave it alone."] = "巨翼双足飞龙（21-22级）和雄性巨翼双足飞龙（22-23级）在道路两侧的山坡上筑巢，巨翼捕猎者（23-24级）在更往东北一点的地方。三种都掉落毒囊和信使的补给。先打信使身边的雄性巨翼双足飞龙，再沿路往回打。\n注意：{npc:5928}是27级稀有精英双足飞龙，会飞过巨翼双足飞龙栖息的山坡和北面的道路。避开它。",
 
 	-- Step 29: Stonetalon Peak
 	-- {area:467} Stonetalon Peak · {npc:3994} Keeper Albagorm · {npc:16458} Innkeeper Faralia
-	["North along the road to {area:467}: {npc:3994} stands by the flight master, {npc:16458} in the inn just west of them."] = "",
+	["North along the road to {area:467}: {npc:3994} stands by the flight master, {npc:16458} in the inn just west of them."] = "沿路向北前往{area:467}。{npc:3994}在飞行管理员身边，{npc:16458}在西边不远的旅店里。",
 	-- {npc:16458} Innkeeper Faralia
-	["{npc:16458}, in the inn"] = "",
+	["{npc:16458}, in the inn"] = "{npc:16458}在旅店里",
 
 	-- Step 30: Fly to Astranaar
 	-- {area:415} Astranaar
 	["Fly to {area:415}"] = "飞往{area:415}",
 	-- {area:467} Stonetalon Peak
-	["{area:467} flight master"] = "",
+	["{area:467} flight master"] = "{area:467}的飞行管理员",
 
 	-- Step 31: Shindrell Swiftfire
 	-- {npc:3845} Shindrell Swiftfire
-	["{npc:3845} stands by the flight master where you land."] = "",
+	["{npc:3845} stands by the flight master where you land."] = "{npc:3845}就在落地处的飞行管理员身边。",
 
 	-- Step 32: The Foulweald
 	["The Foulweald"] = "污林",
 	-- {area:415} Astranaar
-	["South-east from {area:415}, south of the road: the Foulweald furbolgs live in the woods. The Den Watcher and the Ursas guard the den at its north-west corner.\nCareful: The Den Watcher and the Ursas (24-25) stand together at the den: pull them one at a time."] = "",
+	["South-east from {area:415}, south of the road: the Foulweald furbolgs live in the woods. The Den Watcher and the Ursas guard the den at its north-west corner.\nCareful: The Den Watcher and the Ursas (24-25) stand together at the den: pull them one at a time."] = "从{area:415}向东南走，污林熊怪住在道路南侧的树林里。污林卫兵和污林巨熊怪守在树林西北角的洞穴旁。\n注意：污林卫兵和污林巨熊怪（24-25级）聚在洞穴旁，一次只引一个。",
 
 	-- Step 33: Gleaming Crescent Pendant
 	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
 	-- plural, as words: Shadethicket Bark Rippers = {npc:3784} Shadethicket Bark Ripper
-	["South-east of the Foulweald, the {object:669176} lies in the grass: {npc:3961}, in {area:415}'s inn, takes it.\nCareful: two Shadethicket Bark Rippers (26-27) stand within a few steps of it: pull them one at a time before you pick it up."] = "",
+	["South-east of the Foulweald, the {object:669176} lies in the grass: {npc:3961}, in {area:415}'s inn, takes it.\nCareful: two Shadethicket Bark Rippers (26-27) stand within a few steps of it: pull them one at a time before you pick it up."] = "{object:669176}在污林东南方的草地上，拿到后交给{area:415}旅店里的{npc:3961}。\n注意：两只裂木沼泽兽（26-27级）就在几步之外，先逐只引开，再拾取坠饰。",
 	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
 	["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}：交给{area:415}的{npc:3961}",
 
 	-- Step 34: Mystral Lake
 	-- {npc:3885} Sentinel Velene Starstrike · {area:420} Silverwind Refuge · {area:421} Mystral Lake · {npc:12759} Tideress
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
-	["{npc:3885} stands at the {area:420} on the east shore of {area:421}. Befouled Water Elementals (23-25) wade in the lake.\nCareful: {npc:12759}, a level 27 water elemental, walks the lake's west shore among them: leave it be."] = "",
+	["{npc:3885} stands at the {area:420} on the east shore of {area:421}. Befouled Water Elementals (23-25) wade in the lake.\nCareful: {npc:12759}, a level 27 water elemental, walks the lake's west shore among them: leave it be."] = "{npc:3885}在{area:421}东岸的{area:420}。污浊的水元素（23-25级）在湖中涉水活动。\n注意：27级水元素{npc:12759}会在湖西岸的水元素之间走动，避开它。",
 	["Underwater"] = "在水下",
 	-- {item:5456} Divining Scroll
 	-- plural, as words: Intact Elemental Bracers = {item:12220} Intact Elemental Bracer
@@ -179,11 +176,11 @@ return {
 
 	-- Step 35: Dal Bloodclaw
 	-- {area:421} Mystral Lake · {area:415} Astranaar · {npc:3987} Dal Bloodclaw
-	["North from {area:421}, past {area:415}'s east side, to the Thistlefur camp: {npc:3987} leads the furbolgs there. Then south to {area:415}.\nCareful: Dal is level 25, and the furbolgs near him usually join in when he is pulled. Kill the ones along his path first so you fight him alone."] = "",
+	["North from {area:421}, past {area:415}'s east side, to the Thistlefur camp: {npc:3987} leads the furbolgs there. Then south to {area:415}.\nCareful: Dal is level 25, and the furbolgs near him usually join in when he is pulled. Kill the ones along his path first so you fight him alone."] = "从{area:421}向北，经过{area:415}东侧，前往蓟皮熊怪营地。{npc:3987}是那里的熊怪首领。之后向南前往{area:415}。\n注意：达尔是25级，引他时附近的熊怪通常也会参战。先清掉他巡逻路上的熊怪，再单独对付他。",
 
 	-- Step 36: Astranaar
 	-- {npc:3987} Dal Bloodclaw · {area:415} Astranaar · {npc:3691} Raene Wolfrunner · {npc:3961} Maliynn
-	["South from {npc:3987}'s camp to {area:415}: {npc:3691} and {npc:3961} are in the inn, the flight master at the west end."] = "",
+	["South from {npc:3987}'s camp to {area:415}: {npc:3691} and {npc:3961} are in the inn, the flight master at the west end."] = "从{npc:3987}的营地向南前往{area:415}。{npc:3691}和{npc:3961}在旅店里，飞行管理员在镇子西端。",
 	-- {npc:3961} Maliynn
 	["{npc:3961}, in the inn"] = "{npc:3961}，在旅店里",
 
@@ -219,11 +216,11 @@ return {
 	-- {npc:1239} First Mate Fitzsimmons
 	["{npc:1239}, in the inn"] = "{npc:1239}，在旅店里",
 	-- {npc:1239} First Mate Fitzsimmons
-	["{npc:1239}: a flagon of the inn's mead"] = "",
+	["{npc:1239}: a flagon of the inn's mead"] = "{npc:1239}要一壶旅店的蜜酒",
 	-- {item:2594} Flagon of Dwarven Honeymead · {npc:1464} Innkeeper Helbrek
 	["{item:2594}, from {npc:1464}"] = "{item:2594}，向{npc:1464}购买",
 	-- {npc:1239} First Mate Fitzsimmons · {zone:1437} Wetlands
-	["{npc:1239}: the Cursed Crew is for your next {zone:1437} visit, at about 29"] = "",
+	["{npc:1239}: the Cursed Crew is for your next {zone:1437} visit, at about 29"] = "{npc:1239}的「被诅咒的船员」留到约29级、下次来{zone:1437}时再做",
 	-- {npc:2096} Tarrel Rockweaver
 	["{npc:2096}: he won't offer 305 while you carry it"] = "{npc:2096}：任务 305 已在日志中时，他不会再次提供",
 	-- {npc:2096} Tarrel Rockweaver
@@ -259,8 +256,7 @@ return {
 
 	-- Step 47: Ormer Ironbraid
 	-- {npc:1078} Ormer Ironbraid · {zone:1437} Wetlands
-	-- was: ["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 27"] = "{npc:1078}：挖掘场西边山谷里的较大迅猛龙，留到下次来{zone:1437}时击杀，约27级"
-	["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 29"] = "",
+	["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 29"] = "{npc:1078}：挖掘场西边山谷里的大迅猛龙，留到约29级、下次来{zone:1437}时再打",
 
 	-- Step 48: The Green Belt
 	-- {npc:2093} Einar Stonegrip · {npc:1244} Rethiel the Greenwarden

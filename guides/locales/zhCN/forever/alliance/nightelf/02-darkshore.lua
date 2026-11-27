@@ -40,10 +40,10 @@ return {
 
 	-- Step 8: Darkshore Threshers
 	-- plural, as words: Darkshore Threshers = {npc:2185} Darkshore Thresher
-	["Darkshore Threshers"] = "",
+	["Darkshore Threshers"] = "黑海岸蛇颈龙",
 	-- {quest:983} Buzzbox 827 · {area:452} Mist's Edge · {quest:1001} Buzzbox 411 · {quest:954} Bashal'Aran
 	-- plural, as words: Thresher Eyes = {item:5412} Thresher Eye · Darkshore Threshers = {npc:2185} Darkshore Thresher
-	["{quest:983} stands on the beach just south of the docks: once his crawler legs are in, he asks for Thresher Eyes. The Darkshore Threshers (12-14) swim in the shallows off the docks and up the shore to {area:452}; {quest:1001}, who takes the eyes, stands north of {quest:954} at the end of the first loop."] = "",
+	["{quest:983} stands on the beach just south of the docks: once his crawler legs are in, he asks for Thresher Eyes. The Darkshore Threshers (12-14) swim in the shallows off the docks and up the shore to {area:452}; {quest:1001}, who takes the eyes, stands north of {quest:954} at the end of the first loop."] = "{quest:983}在码头南边不远的海滩上。交完蟹腿后，它会让你收集蛇颈龙的眼球。黑海岸蛇颈龙（12-14级）在码头外的浅水里活动，沿岸向北直到{area:452}都能遇到。第一圈路线终点的{quest:1001}在{quest:954}北边，眼球交给它。",
 	-- plural, as words: Thresher Eyes = {item:5412} Thresher Eye
 	["Thresher Eyes; underwater"] = "收集蛇颈龙的眼球，在水下",
 
@@ -51,8 +51,7 @@ return {
 	["Bears and the Blackwood camp"] = "熊和黑木营地",
 	-- {area:442} Auberdine · {quest:2139} Tharnariun's Hope
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	-- was: ["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "狂暴蓟熊在{area:442}南边的山丘上游荡：对其中一只使用{item:7586}将其捕获。然后走到它们东边不远处的熊怪营地：暂时无需击杀任何怪物。"
-	["Rabid Thistle Bears roam the hills south of {area:442}: use {quest:2139} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "",
+	["Rabid Thistle Bears roam the hills south of {area:442}: use {quest:2139} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "狂暴蓟熊在{area:442}南边的山丘上游荡。对其中一只使用{quest:2139}将它捕获，再走到它们东边不远的熊怪营地。现在还不用杀怪。",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "{npc:3701} 附近的狂暴蓟熊",
@@ -75,8 +74,7 @@ return {
 	-- Step 12: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
 	-- plural, as words: Wild Grells = {npc:2190} Wild Grell · Vile Sprites = {npc:2189} Vile Sprite · Deth'ryll Satyrs = {npc:2212} Deth'ryll Satyr
-	-- was: ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {object:17183} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "沿山丘向北，{npc:3650}在{quest:954}废墟内等候。野生劣魔和恶灵劣魔遍布废墟，戴瑟雷萨特在东缘活动。{object:17183}位于废墟西侧路边，前去途中，海岸上还有一处{quest:4723}。"
-	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road north-north-west of {npc:3650}; a {quest:4723} lies on the shore on the way to him."] = "",
+	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road north-north-west of {npc:3650}; a {quest:4723} lies on the shore on the way to him."] = "沿山丘向北。{npc:3650}在{quest:954}的废墟里等候，废墟里满是野生劣魔和恶灵劣魔，东缘有戴瑟雷萨特。{quest:1001}在{npc:3650}西北偏北方向的路旁，去找他的路上，岸边有一只{quest:4723}。",
 	-- plural, as words: Grell Earrings = {item:5336} Grell Earring
 	["Grell Earrings"] = "{item:5336}",
 	-- {item:5338} Ancient Moonstone Seal
@@ -86,24 +84,24 @@ return {
 	-- Step 13: Buzzbox 411
 	-- {quest:4723} Beached Sea Creature · {quest:1001} Buzzbox 411 · {area:442} Auberdine
 	-- plural, as words: Moonstalker Fangs = {item:5413} Moonstalker Fang
-	["North-north-west of Asterion by the road, past the {quest:4723}: {quest:1001} wants Moonstalker Fangs next, from the second loop's hills. Then south-west down to {area:442}."] = "",
+	["North-north-west of Asterion by the road, past the {quest:4723}: {quest:1001} wants Moonstalker Fangs next, from the second loop's hills. Then south-west down to {area:442}."] = "从阿斯特利安处往西北偏北走，经过{quest:4723}后，在路旁找{quest:1001}。它接下来要月夜猛虎的牙齿，第二圈路线的山丘上能打到。然后向西南下到{area:442}。",
 
 	-- Step 14: Auberdine
 	-- {npc:3693} Terenthis · {npc:3649} Thundris Windweaver
-	["{npc:3693}: for {npc:3649}, at the north end of the village"] = "",
+	["{npc:3693}: for {npc:3649}, at the north end of the village"] = "在{npc:3693}处接任务，交给村子北端的{npc:3649}",
 	-- {npc:6301} Gorbold Steelhand · {zone:1439} Darkshore
-	["{npc:6301}, on the way north: the bay wrecks, on your next {zone:1439} visit"] = "",
+	["{npc:6301}, on the way north: the bay wrecks, on your next {zone:1439} visit"] = "向北走时顺路找{npc:6301}接任务，下次来{zone:1439}时再去海湾里的沉船",
 
 	-- Step 15: Auberdine
 	-- {npc:3701} Tharnariun Treetender
-	["{npc:3701}: the bears are on the loop ahead"] = "",
+	["{npc:3701}: the bears are on the loop ahead"] = "找{npc:3701}接任务，接下来这圈路线会经过熊出没的地方",
 	-- {npc:3649} Thundris Windweaver · {area:445} Cliffspring Falls
-	["{npc:3649}: his sample comes from the {area:445}, at the end of the next loop"] = "",
+	["{npc:3649}: his sample comes from the {area:445}, at the end of the next loop"] = "找{npc:3649}接任务，在下一圈路线终点的{area:445}采样",
 	["Fill the tube at the moonwell in the village"] = "在村里的月亮井装满试管",
 
 	-- Step 16: Cerellean Whiteclaw
 	-- {npc:3644} Cerellean Whiteclaw · {npc:3667} Anaya Dawnrunner · {area:447} Ameth'Aran · {zone:1439} Darkshore
-	["{npc:3644} waits where the pier meets the shore. {npc:3667} (16), whose pendant he wants, walks {area:447} on the loop ahead: from level 14.5 you take it there, else on your next {zone:1439} visit."] = "",
+	["{npc:3644} waits where the pier meets the shore. {npc:3667} (16), whose pendant he wants, walks {area:447} on the loop ahead: from level 14.5 you take it there, else on your next {zone:1439} visit."] = "{npc:3644}在码头和岸边相接处等候。他要的坠饰在{npc:3667}（16级）身上，她就在接下来这圈路线上的{area:447}游荡。达到14.5级就这趟拿，等级不够就等下次来{zone:1439}再拿。",
 	-- {npc:3644} Cerellean Whiteclaw
 	["{npc:3644}, on the pier"] = "{npc:3644}，在码头上",
 
@@ -112,10 +110,10 @@ return {
 	["{npc:2164} on the way"] = "顺路击杀{npc:2164}",
 
 	-- Step 18: Moonstalkers on the way
-	["Moonstalkers on the way"] = "",
+	["Moonstalkers on the way"] = "沿途的月夜猛虎",
 	-- {area:442} Auberdine · {area:456} Cliffspring River
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	["The Moonstalkers (14-15) roam the hills of the loop ahead, south of {area:442} and around the {area:456} at its end: any of them drops the fangs. Leave the Moonstalker Sires (17-18) and Matriarchs (19-20) south of the Grove."] = "",
+	["The Moonstalkers (14-15) roam the hills of the loop ahead, south of {area:442} and around the {area:456} at its end: any of them drops the fangs. Leave the Moonstalker Sires (17-18) and Matriarchs (19-20) south of the Grove."] = "月夜猛虎（14-15级）在接下来这圈路线的山丘上游荡，在{area:442}南边和路线终点的{area:456}附近都能遇到。这些月夜猛虎都会掉牙齿。避开古树之林南边的月夜雄虎（17-18级）和月夜雌虎（19-20级）。",
 	-- plural, as words: Moonstalker Fangs = {item:5413} Moonstalker Fang
 	["Moonstalker Fangs"] = "{item:5413}",
 
@@ -123,8 +121,7 @@ return {
 	["Blackwood furbolgs"] = "黑木熊怪",
 	-- {area:442} Auberdine
 	-- plural, as words: Blackwood Pathfinders = {npc:2167} Blackwood Pathfinder · Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	-- was: ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "黑木探路者和黑木风语者占据着{area:442}东南方的营地。\n小心：风语者（13-14级）会远程施法，熊怪成对站着：一次拉一只。"
-	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}; Rabid Thistle Bears roam the hills around it.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "",
+	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}; Rabid Thistle Bears roam the hills around it.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "黑木探路者和黑木风语者占据着{area:442}东南边的营地，周围的山丘上有狂暴蓟熊游荡。\n小心：黑木风语者（13-14级）会远程施法，熊怪两两站在一起。每次只引一只。",
 
 	-- Step 20: The southern beaches
 	["The southern beaches"] = "南部海滩",
@@ -135,7 +132,7 @@ return {
 	-- Step 21: Onu
 	-- {quest:952} Grove of the Ancients · {npc:3616} Onu · {npc:11218} Kerlonian Evershade
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	["From the beached creature, head east to the {quest:952}. Watch for level 16 bears and level 17 Moonstalker Sires between the beach and the grove; go around them. {npc:3616} stands beside Arbal and the sleeping {npc:11218}."] = "",
+	["From the beached creature, head east to the {quest:952}. Watch for level 16 bears and level 17 Moonstalker Sires between the beach and the grove; go around them. {npc:3616} stands beside Arbal and the sleeping {npc:11218}."] = "从搁浅的生物处向东前往{quest:952}。海滩和树林之间有16级的熊和17级的月夜雄虎，绕开它们。{npc:3616}就在阿尔巴尔和睡着的{npc:11218}旁边。",
 
 	-- Step 22: Ameth'Aran
 	-- {area:447} Ameth'Aran
@@ -143,44 +140,44 @@ return {
 
 	-- Step 23: Anaya's Pendant
 	-- {npc:3667} Anaya Dawnrunner · {npc:2184} Lady Moongazer
-	["Careful: {npc:3667} (16) is over you: pull her on her own at full health. {npc:2184}, a rare (17), also walks the ruins: leave her be."] = "",
+	["Careful: {npc:3667} (16) is over you: pull her on her own at full health. {npc:2184}, a rare (17), also walks the ruins: leave her be."] = "小心：{npc:3667}（16级）比你等级高，满血时再把她单独引过来。稀有怪{npc:2184}（17级）也在废墟里游荡，避开她。",
 	-- {item:5382} Anaya's Pendant · {npc:3667} Anaya Dawnrunner
-	["{item:5382}: {npc:3667}'s ghost walks the ruins"] = "",
+	["{item:5382}: {npc:3667}'s ghost walks the ruins"] = "{item:5382}：{npc:3667}的幽灵在废墟里游荡",
 
 	-- Step 24: The red crystal
 	["Back north-east into the mountains to the crystal."] = "向东北回到山里的水晶处。",
 
 	-- Step 26: Bashal'Aran
 	-- {npc:3650} Asterion · {area:456} Cliffspring River
-	["North along the hills to {npc:3650}, then on north-east to the {area:456}."] = "",
+	["North along the hills to {npc:3650}, then on north-east to the {area:456}."] = "沿山丘向北找到{npc:3650}，再继续向东北前往{area:456}。",
 
 	-- Step 27: Cliffspring Falls
 	-- {area:456} Cliffspring River · {npc:6788} Den Mother
 	-- plural, as words: Encrusted Tide Crawlers = {npc:2233} Encrusted Tide Crawler
-	["North-east up the {area:456} to the falls: fill the sampler at the water there. Moonstalkers (14-15) roam the hills around the river.\nCareful: Encrusted Tide Crawlers (17-20) line the shore below the falls and the {npc:6788}'s bears (18-19) lair in the hills south of them: keep to the river."] = "",
+	["North-east up the {area:456} to the falls: fill the sampler at the water there. Moonstalkers (14-15) roam the hills around the river.\nCareful: Encrusted Tide Crawlers (17-20) line the shore below the falls and the {npc:6788}'s bears (18-19) lair in the hills south of them: keep to the river."] = "沿{area:456}向东北走到上游的瀑布，在水边装满采样管。月夜猛虎（14-15级）在河边山丘上游荡。\n小心：硬壳潮行蟹（17-20级）沿瀑布下方的海岸分布，再往南的山丘上栖息着{npc:6788}一带的熊（18-19级）。沿河走。",
 	-- {item:12349} Cliffspring River Sample
 	["{item:12349}, at the waterfall"] = "{item:12349}，在瀑布处",
 
 	-- Step 28: Buzzbox 323
 	-- {quest:1002} Buzzbox 323 · {object:17185} Buzzbox 525 · {zone:1439} Darkshore
-	["{quest:1002} stands on the hill above the falls. He offers {object:17185} next: its bears are far south, for your next {zone:1439} visit."] = "",
+	["{quest:1002} stands on the hill above the falls. He offers {object:17185} next: its bears are far south, for your next {zone:1439} visit."] = "{quest:1002}在瀑布上方的山丘上，可以在那儿接到{object:17185}的后续任务。任务要找的熊在很远的南边，下次来{zone:1439}再做。",
 	-- plural, as words: Moonstalker Fangs = {item:5413} Moonstalker Fang
-	["Moonstalker Fangs: the Moonstalkers around the river"] = "",
+	["Moonstalker Fangs: the Moonstalkers around the river"] = "月夜猛虎的牙齿：河流附近的月夜猛虎掉落",
 
 	-- Step 29: Beached Sea Turtle
 	-- {quest:4725} Beached Sea Turtle · {quest:954} Bashal'Aran · {area:442} Auberdine
 	-- plural, as words: Reef Crawlers = {npc:2235} Reef Crawler · Greymist Warriors = {npc:2205} Greymist Warrior
-	["West along the north shore: the {quest:4725} lies on the beach north of {quest:954}, among Reef Crawlers and Greymist Warriors (15). Then south-west down to {area:442}."] = "",
+	["West along the north shore: the {quest:4725} lies on the beach north of {quest:954}, among Reef Crawlers and Greymist Warriors (15). Then south-west down to {area:442}."] = "沿北岸向西走，{quest:4725}就在{quest:954}北边的海滩上，周围有暗礁蟹和灰雾战士（15级）。然后向西南下到{area:442}。",
 
 	-- Step 30: Auberdine
 	-- {npc:3657} Sentinel Elissa Starbreeze · {npc:3693} Terenthis · {area:444} Tower of Althalaxx · {zone:1439} Darkshore
-	["{npc:3657}, beside {npc:3693}: for Balthule at the {area:444}, on your next {zone:1439} visit"] = "",
+	["{npc:3657}, beside {npc:3693}: for Balthule at the {area:444}, on your next {zone:1439} visit"] = "找{npc:3693}旁边的{npc:3657}接任务，下次来{zone:1439}时再去{area:444}找巴苏尔交任务",
 	-- {npc:3701} Tharnariun Treetender · {npc:6788} Den Mother · {zone:1439} Darkshore
-	["{npc:3701}: the {npc:6788}, on your next {zone:1439} visit"] = "",
+	["{npc:3701}: the {npc:6788}, on your next {zone:1439} visit"] = "找{npc:3701}接任务，下次来{zone:1439}时再去找{npc:6788}",
 	-- {npc:3583} Barithras Moonshade · {area:445} Cliffspring Falls · {zone:1439} Darkshore
-	["{npc:3583}: the cave by the {area:445}, on your next {zone:1439} visit"] = "",
+	["{npc:3583}: the cave by the {area:445}, on your next {zone:1439} visit"] = "找{npc:3583}接任务，下次来{zone:1439}时再去{area:445}旁的洞穴",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston · {zone:1453} Stormwind
-	["{npc:3649}: for {npc:1646} in {zone:1453}, on the walk from the boat"] = "",
+	["{npc:3649}: for {npc:1646} in {zone:1453}, on the walk from the boat"] = "找{npc:3649}接任务，到{zone:1453}下船后顺路交给{npc:1646}",
 
 	-- Step 31: Elisa Steelhand
 	["talk to the trainer"] = "与训练师交谈",
@@ -195,14 +192,13 @@ return {
 
 	-- Step 34: Thundris Windweaver
 	-- {npc:3649} Thundris Windweaver · {quest:4763} The Blackwood Corrupted · {zone:1439} Darkshore
-	["From level 15 {npc:3649} also has {quest:4763}: its samples come from the northern Blackwood camp on your next {zone:1439} visit. Fill its bowl at the moonwell in the middle of the village now."] = "",
+	["From level 15 {npc:3649} also has {quest:4763}: its samples come from the northern Blackwood camp on your next {zone:1439} visit. Fill its bowl at the moonwell in the middle of the village now."] = "15级起，{npc:3649}还会给{quest:4763}。下次来{zone:1439}时，到北边的黑木营地采集样本。现在先在村子中央的月亮井把任务用的碗装满。",
 	-- {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell
 	["{item:12347}: fill the {item:12346} at the {object:174795}"] = "{item:12347}：在{object:174795}装满{item:12346}",
 
 	-- Step 35: Cerellean Whiteclaw
 	-- {npc:3644} Cerellean Whiteclaw
-	-- was: ["{npc:3644}, where the pier meets the shore, on the way to the boat"] = "{npc:3644}，在码头与岸边相接处，去坐船时顺路经过"
-	["{npc:3644} waits where the pier meets the shore, on the way to the boat."] = "",
+	["{npc:3644} waits where the pier meets the shore, on the way to the boat."] = "{npc:3644}就在码头和岸边相接处，去坐船时会经过。",
 
 	-- Step 36: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
@@ -222,12 +218,11 @@ return {
 
 	-- Step 39: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:2096} Trade District · {zone:1436} Westfall · {npc:3649} Thundris Windweaver · {area:442} Auberdine
-	-- was: ["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way."] = "{npc:1646}站在{object:2096}西边的{object:2098}。他的罗盘在{zone:1436}的旧居里，途中会经过。"
-	["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way. His reply to {npc:3649} goes back to {area:442} with you."] = "",
+	["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way. His reply to {npc:3649} goes back to {area:442} with you."] = "{npc:1646}在{object:2098}，位于{object:2096}西边。他的罗盘在{zone:1436}的旧居里，顺路去取。把他给{npc:3649}的回信带回{area:442}。",
 	-- {npc:1646} Baros Alexston · {npc:3649} Thundris Windweaver
-	["{npc:1646}: {npc:3649}'s letter"] = "",
+	["{npc:1646}: {npc:3649}'s letter"] = "{npc:1646}：交{npc:3649}的信",
 	-- {npc:1646} Baros Alexston · {quest:97926} Making Do · {npc:3649} Thundris Windweaver · {zone:1439} Darkshore
-	["{npc:1646}: {quest:97926}, for {npc:3649} on your next {zone:1439} visit"] = "",
+	["{npc:1646}: {quest:97926}, for {npc:3649} on your next {zone:1439} visit"] = "{npc:1646}：{quest:97926}，下次去{zone:1439}时交给{npc:3649}",
 
 	-- Step 40: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District

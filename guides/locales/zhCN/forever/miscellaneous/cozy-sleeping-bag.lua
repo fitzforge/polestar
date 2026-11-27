@@ -54,8 +54,8 @@ return {
 	-- Step 8: A hundred paces north
 	["A hundred paces north"] = "向北一百步",
 	-- {object:424005} Pocket Litter · {object:424012} Mound of Dirt
-	["From the {object:424005} walk to the camp's western edge, where the arrow points first, and drop carefully down the steep slope north to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up."] = "",
-	["The drop to the ledge"] = "",
+	["From the {object:424005} walk to the camp's western edge, where the arrow points first, and drop carefully down the steep slope north to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up."] = "从{object:424005}走到营地西边缘，先跟着箭头走。再小心沿北侧陡坡下去，到下方岩架上找{object:424012}。跳偏了会滑下去，贴着崖壁走回上面即可。",
+	["The drop to the ledge"] = "下到岩架",
 
 	-- Step 9: Tarren Mill on the way
 	-- {area:272} Tarren Mill

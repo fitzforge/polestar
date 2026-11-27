@@ -51,7 +51,7 @@ return {
 	-- Step 8: Jaedenar
 	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge · {item:11948} Empty Tainted Ooze Jar
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["{area:1763} is the ruined temple north of the glen.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him.\nTainted Oozes slide about {area:1763}'s fel pools: kill them and use the {item:11948} on their remains."] = "",
+	["{area:1763} is the ruined temple north of the glen.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him.\nTainted Oozes slide about {area:1763}'s fel pools: kill them and use the {item:11948} on their remains."] = "{area:1763} ist der zerstörte Tempel nördlich der Schlucht.\nVorsicht: Der {npc:11141} (53, Elite) spukt am Westende von {area:1763}, etwa 35,60: arbeite im Südosten, wo der Pfeil zeigt, und zieh die Kultisten und Hunde von ihm weg.\nBesudelte Brühschlammer gleiten durch die Teufelsseen von {area:1763}: Töte sie und benutze den {item:11948} auf ihre Überreste.",
 	-- {item:11949} Filled Tainted Ooze Jar · {area:1763} Jaedenar
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
 	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "{item:11949}: Tainted Oozes gleiten durch die Teufelsteiche von {area:1763}",
@@ -102,7 +102,7 @@ return {
 
 	-- Step 18: Felpaw Village
 	-- {area:1762} Felpaw Village
-	["The Deadwood furbolgs of {area:1762} fill the hills west of the cave.\nCareful: Den Watchers are level 53-54 and the Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "",
+	["The Deadwood furbolgs of {area:1762} fill the hills west of the cave.\nCareful: Den Watchers are level 53-54 and the Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "Die Deadwood-Furbolgs von {area:1762} füllen die Hügel westlich der Höhle.\nVorsicht: Den Watchers sind Stufe 53-54 und die Avengers 54-55; sie rufen Verbündete in 25 Yard herbei, sobald sie unter 50% Gesundheit sind, und laufen unter 15% los, Hilfe zu holen.",
 
 	-- Step 19: Deadwood Ritual Totem
 	-- {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
@@ -219,7 +219,7 @@ return {
 	["{area:1108}: kill these as you meet them"] = "{area:1108}: Töte diese, sobald sie dir begegnen",
 	-- {item:18904} Zorbin's Ultra-Shrinker · {npc:14637} Zorbin Fandazzle
 	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray · Water Elemental Cores = {item:18958} Water Elemental Core · Sea Elementals = {npc:5461} Sea Elemental · Deep Striders = {npc:5360} Deep Strider
-	["The Sea Sprays (46-47) wash along the shore just south of the dock: they drop the Water Elemental Cores as well as the Sea Elementals (47) do. The Wave and Deep Striders (47) wade in the water off the same beach: zap them with {item:18904} first, and shrunken they lose their elite strength.\nThe Ultra-Shrinker lasts two hours: hand both quests back to {npc:14637} before you leave the coast."] = "",
+	["The Sea Sprays (46-47) wash along the shore just south of the dock: they drop the Water Elemental Cores as well as the Sea Elementals (47) do. The Wave and Deep Striders (47) wade in the water off the same beach: zap them with {item:18904} first, and shrunken they lose their elite strength.\nThe Ultra-Shrinker lasts two hours: hand both quests back to {npc:14637} before you leave the coast."] = "Die Meeresschauer (46-47) spülen entlang des Ufers direkt südlich des Stegs: sie lassen die Wasserelementar-Kerne genauso fallen wie die Meereselementare (47). Die Wave- und Deep-Strider (47) waten im Wasser vor demselben Strand: schockiere sie zuerst mit {item:18904}, und geschrumpft verlieren sie ihre Elite-Stärke.\nDer Ultra-Shrinker hält zwei Stunden: gib beide Quests bei {npc:14637} ab, bevor du die Küste verlässt.",
 	-- {item:18958} Water Elemental Core
 	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray
 	["{item:18958}, from the Sea Sprays"] = "{item:18958}, von den Meeresschauern",
@@ -241,7 +241,7 @@ return {
 
 	-- Step 51: Evoroot
 	-- {item:11242} Evoroot · {npc:7765} Rockbiter · {npc:9467} Miblon Snarltooth
-	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it.\nOr the front door: {npc:9467} guards it, and the Bait Gregan sells draws him off when you use it beside him. Half the players in our recordings went in that way, half through the wall."] = "",
+	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it.\nOr the front door: {npc:9467} guards it, and the Bait Gregan sells draws him off when you use it beside him. Half the players in our recordings went in that way, half through the wall."] = "Die {item:11242} wächst in einem verfallenen Gebäude nördlich von {npc:7765}: Klettere von dem Felsvorsprung daneben durch das Loch in der Wand.\nOder durch die Vordertür: {npc:9467} bewacht sie, und der Köder, den Gregan verkauft, lockt ihn weg, wenn du ihn neben ihm benutzt. Die Hälfte der Spieler in unseren Aufzeichnungen ging so, die andere Hälfte durch die Wand.",
 
 	-- Step 52: Shay Leafrunner
 	-- {npc:7774} Shay Leafrunner · {item:9189} Shay's Bell

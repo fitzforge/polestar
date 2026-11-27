@@ -16,9 +16,9 @@ return {
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston · {zone:1453} Stormwind
 	["{npc:3649}: for {npc:1646} in {zone:1453}"] = "{npc:3649}: für {npc:1646} in {zone:1453}",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston · {zone:1453} Stormwind
-	["{npc:3649}: {npc:1646}'s reply, if you brought it (Night Elves, from Night Elf Darkshore's {zone:1453} walk)"] = "",
+	["{npc:3649}: {npc:1646}'s reply, if you brought it (Night Elves, from Night Elf Darkshore's {zone:1453} walk)"] = "{npc:3649}: {npc:1646}s Antwort, falls du sie dabei hast (Nachtelfen, vom Nachtelf-Darkshore-Weg durch {zone:1453})",
 	-- {npc:3657} Sentinel Elissa Starbreeze · {npc:3693} Terenthis
-	["{npc:3657}, beside {npc:3693}"] = "",
+	["{npc:3657}, beside {npc:3693}"] = "{npc:3657}, neben {npc:3693}",
 	["The WANTED poster outside the inn"] = "Der Steckbrief vor dem Gasthaus",
 	-- {npc:3666} Wizbang Cranktoggle
 	["{npc:3666}, upstairs in the inn"] = "{npc:3666}, oben im Gasthaus",
@@ -44,7 +44,7 @@ return {
 	-- Step 5: Auberdine
 	-- {quest:3524} Washed Ashore
 	-- plural, as words: Beached Sea Turtles = {quest:4722} Beached Sea Turtle
-	["{quest:3524}: the Beached Sea Turtles up the coast offer their quests only once it is handed in"] = "{quest:3524}: Die Beached Sea Turtles weiter oben an der Küste bieten ihre Quests erst an, wenn sie abgegeben ist",
+	["{quest:3524}: the Beached Sea Turtles up the coast offer their quests only once it is handed in"] = "{quest:3524}: Die gestrandeten Meeresschildkröten weiter oben an der Küste bieten ihre Quests erst an, wenn sie abgegeben ist",
 
 	-- Step 6: The skeletal turtle
 	["The skeletal turtle"] = "Die Skelettschildkröte",
@@ -58,7 +58,7 @@ return {
 	["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "Tollwütige Distelbären streifen durch die Hügel gleich östlich von {area:442}. Benutze {quest:2139} an einem und führe ihn zu ihm zurück.",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["the Rabid Thistle Bears nearest {npc:3701}"] = "die Rabid Thistle Bears in der Nähe von {npc:3701}",
+	["the Rabid Thistle Bears nearest {npc:3701}"] = "die tollwütigen Distelbären in der Nähe von {npc:3701}",
 
 	-- Step 8: Rabid Thistle Bear on the way
 	-- {npc:2164} Rabid Thistle Bear
@@ -88,8 +88,7 @@ return {
 	-- Step 13: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
 	-- plural, as words: Wild Grells = {npc:2190} Wild Grell · Vile Sprites = {npc:2189} Vile Sprite · Deth'ryll Satyrs = {npc:2212} Deth'ryll Satyr
-	-- was: ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "Nach Norden durch die Hügel. {npc:3650} wartet in den Ruinen von {quest:954}; Wilde Grells und Üble Grimmlinge füllen sie, Satyrn der Deth'ryll den Ostrand. {quest:1001} steht an der Straße westlich der Ruinen; eine {quest:4723} liegt auf dem Weg zu ihm am Ufer."
-	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road north-north-west of {npc:3650}; a {quest:4723} lies on the shore on the way to him."] = "",
+	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road north-north-west of {npc:3650}; a {quest:4723} lies on the shore on the way to him."] = "Nach Norden entlang der Hügel. {npc:3650} wartet in den Ruinen von {quest:954}; Wilde Grells und Üble Grimmlinge füllen sie, Deth'ryll-Satyrn den östlichen Rand. {quest:1001} steht an der Straße nordnordwestlich von {npc:3650}; ein {quest:4723} liegt am Ufer auf dem Weg zu ihm.",
 	-- plural, as words: Grell Earrings = {item:5336} Grell Earring
 	["Grell Earrings"] = "Grell-Ohrringe",
 	-- {item:5338} Ancient Moonstone Seal
@@ -98,7 +97,7 @@ return {
 
 	-- Step 14: Auberdine
 	-- {npc:3657} Sentinel Elissa Starbreeze · {npc:3693} Terenthis · {npc:3701} Tharnariun Treetender
-	["{npc:3657}, beside {npc:3693} and {npc:3701}"] = "",
+	["{npc:3657}, beside {npc:3693} and {npc:3701}"] = "{npc:3657}, neben {npc:3693} und {npc:3701}",
 	["Fill the tube at the moonwell in the village"] = "Fülle die Phiole am Mondbrunnen im Dorf",
 
 	-- Step 15: A Lesson to Learn
@@ -112,7 +111,7 @@ return {
 	-- Step 19: Trial of the Lake
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:656} Lake Elune'ara · {area:2362} Shrine of Remulos · {npc:11799} Tajarri · {quest:29} Trial of the Lake · {area:442} Auberdine
 	-- plural, as words: Shrine Baubles = {item:15877} Shrine Bauble
-	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. {quest:29} runs on a timer: no teleport or Hearthstone until {npc:11799} has it. Then fly back to {area:442} from {area:2361}."] = "{npc:11802} steht oben in seinem Gebäude in {area:2361}: Geh drinnen nach oben, der Pfeil kann die Stockwerke nicht unterscheiden. Shrine Baubles liegen in den Behältern auf dem Grund von {area:656}, unterhalb von {area:2361}: Bring eines zum {area:2362} im Nordwesten, benutze es dort und sprich mit {npc:11799}. {quest:29} läuft auf Zeit: Kein Teleport und kein Ruhestein, bis {npc:11799} sie hat. Flieg danach von {area:2361} zurück nach {area:442}.",
+	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. {quest:29} runs on a timer: no teleport or Hearthstone until {npc:11799} has it. Then fly back to {area:442} from {area:2361}."] = "{npc:11802} steht oben in seinem Gebäude in {area:2361}: Geh drinnen nach oben, der Pfeil kann die Stockwerke nicht unterscheiden. Schrein-Schmuckstücke liegen in den Behältern auf dem Grund von {area:656}, unterhalb von {area:2361}: Bring eines zum {area:2362} im Nordwesten, benutze es dort und sprich mit {npc:11799}. {quest:29} läuft auf Zeit: Kein Teleport und kein Ruhestein, bis {npc:11799} sie hat. Flieg danach von {area:2361} zurück nach {area:442}.",
 	-- {quest:6122} The Principal Source · {area:445} Cliffspring Falls
 	["{quest:6122}: fill the sampler at {area:445}"] = "{quest:6122}: Fülle das Probenfläschchen an den {area:445}",
 	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container
@@ -153,20 +152,20 @@ return {
 
 	-- Step 26: Mist's Edge
 	-- plural, as words: Thresher Eyes = {item:5412} Thresher Eye
-	["Thresher Eyes; underwater"] = "Thresher Eyes; unter Wasser",
+	["Thresher Eyes; underwater"] = "Drescheraugen; unter Wasser",
 
 	-- Step 27: The bay wrecks
 	["The bay wrecks"] = "Die Wracks in der Bucht",
 	-- {area:442} Auberdine
 	-- plural, as words: Reef Crawlers = {npc:2235} Reef Crawler · Encrusted Tide Crawlers = {npc:2233} Encrusted Tide Crawler
-	["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore.\nCareful: The murlocs inside the wrecks are close together and fast. They often swim through the hull walls and holes, so you will usually pull extra murlocs."] = "Zwei Wracks liegen auf dem Meeresgrund in der Bucht nördlich von {area:442}; jedes enthält eine Schließkassette. Reef Crawlers und Encrusted Tide Crawlers säumen dieses Ufer.\nVorsicht: Die Murlocs in den Wracks stehen dicht beieinander und sind schnell. Sie schwimmen oft durch die Rumpfwände und Löcher, du ziehst also meist zusätzliche Murlocs.",
+	["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore.\nCareful: The murlocs inside the wrecks are close together and fast. They often swim through the hull walls and holes, so you will usually pull extra murlocs."] = "Zwei Wracks liegen auf dem Meeresgrund in der Bucht nördlich von {area:442}; jedes enthält eine Schließkassette. Riffkriecher und verkrustete Gezeitenkriecher säumen dieses Ufer.\nVorsicht: Die Murlocs in den Wracks stehen dicht beieinander und sind schnell. Sie schwimmen oft durch die Rumpfwände und Löcher, du ziehst also meist zusätzliche Murlocs.",
 	-- {item:12191} Silver Dawning's Lockbox
 	["{item:12191}; underwater"] = "{item:12191}; unter Wasser",
 	-- {item:12192} Mist Veil's Lockbox
 	["{item:12192}; underwater"] = "{item:12192}; unter Wasser",
 	-- {item:12237} Fine Crab Chunks
 	-- plural, as words: Reef Crawlers = {npc:2235} Reef Crawler · Encrusted Tide Crawlers = {npc:2233} Encrusted Tide Crawler
-	["{item:12237} from the Reef Crawlers and Encrusted Tide Crawlers on this shore, if you still need them"] = "",
+	["{item:12237} from the Reef Crawlers and Encrusted Tide Crawlers on this shore, if you still need them"] = "{item:12237} von den Riffkriechern und Verkrustete Gezeitenkriecher an dieser Küste, falls du sie noch brauchst",
 
 	-- Step 29: Darkshore: kill these as you meet them
 	-- {zone:1439} Darkshore
@@ -178,7 +177,7 @@ return {
 
 	-- Step 31: Beached Sea Turtle
 	-- {quest:4727} Beached Sea Turtle · {npc:10219} Gwennyth Bly'Leggonde · {area:442} Auberdine
-	["North from the falls to the shore: the {quest:4727} lies on the beach there, for {npc:10219} in {area:442}."] = "",
+	["North from the falls to the shore: the {quest:4727} lies on the beach there, for {npc:10219} in {area:442}."] = "Nördlich von den Wasserfällen bis zur Küste: Die {quest:4727} liegt dort am Strand, für {npc:10219} in {area:442}.",
 
 	-- Step 32: The Tower of Althalaxx
 	-- {npc:3661} Balthule Shadowstrike · {zone:1440} Ashenvale · {npc:3660} Athrikus Narassin
@@ -195,7 +194,7 @@ return {
 	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
 	["The cave lies south of the falls: Scaber Stalks grow all through it, the {item:5270} at the very back. The {npc:6788} lairs in the hills south of the falls."] = "Die Höhle liegt südlich der Fälle: Überall darin wachsen Schorfstängel, {item:5270} ganz hinten. {npc:6788} haust in den Hügeln südlich der Fälle.",
 	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
-	["Scaber Stalks; below ground"] = "Scaber Stalks; unter der Erde",
+	["Scaber Stalks; below ground"] = "Schorfstänglinge; unter der Erde",
 	-- {item:5270} Death Cap
 	["{item:5270}; below ground"] = "{item:5270}; unter der Erde",
 
