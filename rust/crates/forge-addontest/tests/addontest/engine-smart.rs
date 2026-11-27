@@ -245,6 +245,27 @@ fn guide_outleveled_fires_once_per_guide_three_levels_past_its_top_never_at_two(
 	assert_eq!(out, json!({ "at8": 0, "at9": 1, "fired": ["test/low>test/mid"], "guide": "test/low", "margin": 3 }));
 }
 
+#[test]
+fn a_miscellaneous_item_collection_guide_does_not_show_the_outleveled_notice_4284() {
+	let out = run(
+		"stub.world.level = 32",
+		r#"
+			Polestar.RegisterGuide({ id = "test/bag", pack = "test", title = "Sleeping Bag", category = "Miscellaneous",
+				minLevel = 14, maxLevel = 32, collects = { 211527, 221498 }, steps = { { goals = { { t = "level", level = 60 } } } } })
+		"#,
+		SKIP_GREY_OFF,
+		r#"
+			local notices = 0
+			Polestar.On("GUIDE_OUTLEVELED", function() notices = notices + 1 end)
+			E.SetGuide("test/bag"); flush()
+			stub.world.setLevel(35); flush()
+			emit({ E.GetGuide().id, notices })
+		"#,
+		true,
+	);
+	assert_eq!(out, json!(["test/bag", 0]));
+}
+
 // #3845 (Fitz, 23 Nov): a Class guide is outgrown 5 levels past its top, as its offer stops, and never while a
 // spell it rewards is unknown: the window's notice comes then, not at 3 past.
 #[test]

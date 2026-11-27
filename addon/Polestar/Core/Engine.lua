@@ -11439,6 +11439,8 @@ end
 function Engine.Outgrown(g, p)
 	local _, top = Guides.Levels(g, p.faction)
 	if not top then return false end
+	-- Item hunts such as the Cozy Sleeping Bag remain useful above their quest levels.
+	if g.category == "Miscellaneous" and g.collects and #g.collects > 0 then return false end
 	local level = p.level or 1
 	if g.category ~= "Class" then return level >= top + Engine.OUTGROWN end
 	if level < top + Engine.CLASS_OUTGROWN then return false end
