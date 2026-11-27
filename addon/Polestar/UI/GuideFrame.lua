@@ -224,7 +224,10 @@ GF.Part(function(GF)
 
 	local F, strip, nav, body, card, person, after, along, upnext, empty, grip, band, banner, foot, goals
 	local rows, upRows, alongRows, tabButtons, lines = {}, {}, {}, {}, {}
+	-- The goal rows the guide kinds' regions made (GF.NewGoalRow): the look passes dress them with the goals area's.
+	local kindRows = {}
 	GF.rows, GF.upRows, GF.alongRows, GF.tabs, GF.lines = rows, upRows, alongRows, tabButtons, lines -- the pools, for inspection (tests, preview)
+	GF.kindRows = kindRows
 	local view -- the step view on screen
 	local focusGroup -- the group on screen
 	local shownIndex, shownGuide, shownFocus -- what the card shows, to tell a change from an update
@@ -878,7 +881,11 @@ GF.Part(function(GF)
 		r:SetScript("OnLeave", rowLeave)
 		return r
 	end
-	GF.NewGoalRow = buildRow
+	function GF.NewGoalRow(parent)
+		local r = buildRow(parent)
+		kindRows[#kindRows + 1] = r
+		return r
+	end
 
 	local function goalRow(i)
 		local r = rows[i]

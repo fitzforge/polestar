@@ -5,6 +5,8 @@ local ADDON, ns = ...
 ns.UI.GuideFrame.Part(function(GF)
 	local UI, Theme, W, Anim, floor, max, min = ns.UI, ns.Theme, ns.Widgets, ns.Anim, math.floor, math.max, math.min
 	local transparent, placeCheck, CARD, twoLines, rows = GF.Transparent, GF.PlaceCheck, GF.CARD, GF.TwoLines, GF.rows
+	-- Every goal row: the goals area's and the guide kinds' regions' (GF.NewGoalRow).
+	local ROW_POOLS = { rows, GF.kindRows }
 	local tabButtons, lines, texts, chrome = GF.tabs, GF.lines, GF.texts, GF.chrome
 
 	-- The window's parts and sizes, handed over by the core (GF.Bind).
@@ -244,10 +246,12 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- Tick boxes on the world: a scrim inside and an ink edge. The house
 		-- look's lit goal goes with the ground (GF.PaintMark).
 		if person.Mark.psLit then GF.PaintMark(person.Mark) end
-		for _, r in ipairs(rows) do
-			r.Check.psOnWorld = clear
-			Theme.Repaint(r.Check)
-			if r.Mark.psLit then GF.PaintMark(r.Mark) end
+		for _, pool in ipairs(ROW_POOLS) do
+			for _, r in ipairs(pool) do
+				r.Check.psOnWorld = clear
+				Theme.Repaint(r.Check)
+				if r.Mark.psLit then GF.PaintMark(r.Mark) end
+			end
 		end
 		if not clear and GF.Num("idleAlpha") >= 1 then
 			watcher:SetScript("OnUpdate", nil)
@@ -280,7 +284,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		if not key or GF.LOOK_PAINT[key] then
 			GF.PaintMark(person.Mark)
-			for _, r in ipairs(rows) do GF.PaintMark(r.Mark) end
+			for _, pool in ipairs(ROW_POOLS) do
+				for _, r in ipairs(pool) do GF.PaintMark(r.Mark) end
+			end
 			GF.PaintProgressFill(foot.Line.Fill)
 			if key then return end
 		end
@@ -482,12 +488,14 @@ ns.UI.GuideFrame.Part(function(GF)
 			l.Text:SetPoint("TOPLEFT", l, "TOPLEFT", TEXT_X, -twoLines(l.Text, lh))
 			l.Chevron:SetPoint("CENTER", l, "TOPRIGHT", -PAD - 5, -lh / 2)
 		end
-		for _, r in ipairs(rows) do
-			r.Icon:SetPoint("CENTER", r, "TOPLEFT", PAD + ICON / 2, -GF.GlyphY())
-			r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", TEXT_X, -4 - ROW_PAD)
-			r.Check:SetSize(CHECK, CHECK)
-			placeCheck(r)
-			Theme.Repaint(r.Check)
+		for _, pool in ipairs(ROW_POOLS) do
+			for _, r in ipairs(pool) do
+				r.Icon:SetPoint("CENTER", r, "TOPLEFT", PAD + ICON / 2, -GF.GlyphY())
+				r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", TEXT_X, -4 - ROW_PAD)
+				r.Check:SetSize(CHECK, CHECK)
+				placeCheck(r)
+				Theme.Repaint(r.Check)
+			end
 		end
 		-- The progress bar: the game's status bar in Hearth and the game's looks.
 		local bliz = Theme.GameSkin()
