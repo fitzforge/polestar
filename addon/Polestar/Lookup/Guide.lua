@@ -1392,9 +1392,12 @@ builders.craft = function(ctx, row)
 				for _, s in ipairs(more or {}) do steps[#steps + 1] = s end
 			end
 			note = format(L["Use %s to learn it."], recipeName)
-		elseif trainer then
-			g.npc, g.npcName = trainer.id, trainer.name
-			at(g, trainerAt)
+		elseif row.recipeTrainer then
+			local teacher = C.Npc(row.recipeTrainer)
+			if teacher then
+				g.npc, g.npcName = teacher.id, teacher.name
+				at(g, row.recipeTrainerAt)
+			end
 		end
 		goals[#goals + 1] = g
 	end

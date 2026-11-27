@@ -16,7 +16,7 @@ return {
 	-- {npc:2216} Apothecary Lydon
 	-- plural, as words: Syndicate Shadow Mages = {npc:2244} Syndicate Shadow Mage
 	["{npc:2216}: the vials come from the Syndicate Shadow Mages on the way to Durnholde"] = "{npc:2216}：药瓶由前往敦霍尔德路上的辛迪加暗影法师掉落",
-	["The WANTED poster by the inn"] = "",
+	["The WANTED poster by the inn"] = "旅店旁的通缉告示",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "{npc:2229}：在屋内",
 
@@ -56,13 +56,11 @@ return {
 	["{area:286}: kill these as you meet them"] = "{area:286}：沿途遇到就击杀",
 	-- {area:287} Hillsbrad
 	-- plural, as words: Kirin Tor Guards = {npc:246848} Kirin Tor Guard
-	-- was: ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "农夫在农舍南边的田地里干活。{area:287}的所有人类都会掉落头骨，其中农夫掉落最频繁。\n注意：逃跑的农夫如果跑到市政厅，可能会带回许多敌人，包括{area:287}的步兵；减速、定身等效果能阻止他们逃跑。肯瑞托卫兵（55级）站在农场北边通往奥特兰克的路上：待在田地里。"
-	["The Peasants work the fields south of the farmhouses.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "",
+	["The Peasants work the fields south of the farmhouses.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "希尔斯布莱德农民在农舍南边的田里干活。\n小心，农民逃到市政厅可能会引来一大群敌人，包括{area:287}的步兵。用减速、定身等效果拦住他们。农场北边通往奥特兰克的上坡路上有肯瑞托卫兵（55级），留在田里。",
 
 	-- Step 9: Tarren Mill
 	-- {quest:528} Battle of Hillsbrad
-	-- was: ["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "达萨利亚的下一个{quest:528}和林度恩的苦痛药剂留到约30级下次来时再做。"
-	["Darthalia's next {quest:528}, Samsa's Souvenirs of Death and Lydon's Elixir of Agony are for the next visit, at about 30."] = "",
+	["Darthalia's next {quest:528}, Samsa's Souvenirs of Death and Lydon's Elixir of Agony are for the next visit, at about 30."] = "达萨利亚的下一环{quest:528}、沙穆萨的《死亡的纪念品》和林度恩的《苦楚药剂》都留到下次来时再做，那时大约30级。",
 
 	-- Step 10: Durnholde Keep: kill these as you meet them
 	-- {area:275} Durnholde Keep

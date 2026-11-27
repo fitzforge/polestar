@@ -7,6 +7,33 @@ use crate::common;
 use forge_data::professions::{build, require_trainer_costs, Options};
 
 #[test]
+fn exact_recipe_teachers_use_forever_lists_and_teaching_wrappers_4214() {
+	let fixture = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../../tests/fixtures/professions");
+	let root = common::scratch("profession-recipe-teachers");
+	common::copy_tree(&fixture, &root);
+	let file = root.join("forever-tdb/extract.json");
+	let mut extract: serde_json::Value = serde_json::from_str(&std::fs::read_to_string(&file).unwrap()).unwrap();
+	extract["professionTrainers"] = serde_json::json!({ "1346": [2389], "9999": [2389] });
+	// 3363 has only an older list. 1346 has both: its older recipe 2392 must stay out.
+	extract["professionTrainersAny"] = serde_json::json!({ "1346": [2389, 2392], "3363": [900001], "9999": [2389] });
+	std::fs::write(file, extract.to_string()).unwrap();
+	let effects = root.join("wago/1.60.1.1/SpellEffect.csv");
+	let mut csv = std::fs::read_to_string(&effects).unwrap();
+	csv.push_str("\n999999,0,0,36,1,0,2389,0,900001\n");
+	std::fs::write(effects, csv).unwrap();
+	let mut options = Options::new(&root);
+	options.sources = root.clone();
+	options.data = root.join("data");
+	options.tdb = root.join("no-tdb.sqlite");
+	let out = build(&options).unwrap();
+	let professions: serde_json::Value = serde_json::from_str(&out.files[0].1).unwrap();
+	let recipes = professions["197"]["recipes"].as_array().unwrap();
+	let robe = recipes.iter().find(|r| r["spell"] == 2389).unwrap();
+	assert_eq!(robe["trainers"], serde_json::json!({ "Alliance": [1346], "Horde": [3363] }));
+	assert!(recipes.iter().find(|r| r["spell"] == 2392).unwrap()["trainers"].is_null(), "1346 has a sniffed list, so its older list cannot add another recipe");
+}
+
+#[test]
 fn professions_match_golden() {
 	let g = common::golden("professions");
 	let input = g.join("input");

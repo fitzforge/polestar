@@ -27,7 +27,7 @@ return {
 	["The road west: feathers, furs and horns"] = "Die westliche Straße: Federn, Pelze und Hörner",
 	-- {npc:9298} Donova Snowden · {item:12366} Thick Yeti Fur · {item:12444} Uncracked Chillwind Horn · {npc:10468} Felnok Steelspring
 	-- plural, as words: Moontouched Feathers = {item:12383} Moontouched Feather · Ragged Owlbeasts = {npc:7450} Ragged Owlbeast · Rogue Ice Thistles = {npc:7457} Rogue Ice Thistle · Fledgling Chillwinds = {npc:7447} Fledgling Chillwind
-	["Moontouched Feathers lie on the ground all along the road west to {npc:9298}, where the Ragged Owlbeasts (53) roam: pick them up as you ride.\nThe same road crosses the Rogue Ice Thistles' ground (about one in three drops a {item:12366} for Umi) and the Fledgling Chillwinds' (about one in five drops an {item:12444} for {npc:10468}): work both here, around the road's middle.\nCareful: both are 53-55: pull the lower ones and take them one at a time."] = "",
+	["Moontouched Feathers lie on the ground all along the road west to {npc:9298}, where the Ragged Owlbeasts (53) roam: pick them up as you ride.\nThe same road crosses the Rogue Ice Thistles' ground (about one in three drops a {item:12366} for Umi) and the Fledgling Chillwinds' (about one in five drops an {item:12444} for {npc:10468}): work both here, around the road's middle.\nCareful: both are 53-55: pull the lower ones and take them one at a time."] = "Mondberührte Federn liegen überall entlang der Straße nach Westen zu {npc:9298}, wo die Struppigen Eulenbestien (53) umherstreifen: Sammle sie beim Reiten auf.\nDieselbe Straße führt durch das Gebiet der Wilden Eisdistelyetis (etwa einer von drei lässt {item:12366} für Umi fallen) und der Eiswindjunge (etwa einer von fünf lässt {item:12444} für {npc:10468} fallen): Erledige beides hier, in der Mitte der Straße.\nVorsicht: Beide sind 53-55: Ziehe die schwächeren und nimm sie einzeln.",
 	-- {item:12366} Thick Yeti Fur
 	-- plural, as words: Rogue Ice Thistles = {npc:7457} Rogue Ice Thistle
 	["{item:12366}, from the Rogue Ice Thistles"] = "{item:12366} von den bösen Eiszapfen",
@@ -50,7 +50,7 @@ return {
 	["{area:2246}: kill these as you meet them"] = "{area:2246}: Töte sie, wenn du ihnen begegnest",
 	-- {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {item:14047} Runecloth · {npc:11557} Meilosh
 	-- plural, as words: Winterfall Ritual Totems = {quest:8471} Winterfall Ritual Totem
-	["The western Winterfall camp sits in the hills between {npc:9298} and the tunnel. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need): right-click it. They also drop Winterfall Ritual Totems (about one in thirty) and {item:14047}, which only matter if you are Neutral (the totem) or Friendly ({npc:11557}'s {item:14047}) with the Timbermaw: keep them then.\nCareful: the Pathfinders are 53 and the Totemics 54, but the Den Watchers inside the camp are 55: take the camp from its edge and pull one at a time."] = "",
+	["The western Winterfall camp sits in the hills between {npc:9298} and the tunnel. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need): right-click it. They also drop Winterfall Ritual Totems (about one in thirty) and {item:14047}, which only matter if you are Neutral (the totem) or Friendly ({npc:11557}'s {item:14047}) with the Timbermaw: keep them then.\nCareful: the Pathfinders are 53 and the Totemics 54, but the Den Watchers inside the camp are 55: take the camp from its edge and pull one at a time."] = "Das westliche Winterfall-Lager liegt in den Hügeln zwischen {npc:9298} und dem Tunnel. Jeder Furbolg hier kann einen {item:12771} fallen lassen (etwa bei jedem zehnten: Er kommt innerhalb der Kills, die diese Quests brauchen): Klicke mit der rechten Maustaste darauf. Sie lassen auch Ritualtoteme der Winterfelle (etwa bei jedem dreißigsten) und {item:14047} fallen, die nur wichtig sind, wenn du bei den Timbermaw Neutral (das Totem) oder Freundlich ({npc:11557}s {item:14047}) bist: Behalte sie dann.\nVorsicht: Die Pathfinders sind 53 und die Totemics 54, aber die Den Watchers im Lager sind 55: Nimm das Lager vom Rand her und zieh einen nach dem anderen.",
 	-- {item:14047} Runecloth · {npc:11557} Meilosh
 	["{item:14047}, for {npc:11557}, if you are Friendly with the Timbermaw"] = "{item:14047} für {npc:11557}, falls du Freundlich mit den Timbermaw bist",
 
@@ -150,7 +150,7 @@ return {
 	-- Step 25: Northern Pylon
 	["Northern Pylon"] = "Nördlicher Kristallpylon",
 	-- {npc:9166} Pterrordax · {npc:9997} Spraggle Frock · {npc:6584} King Mosh
-	["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997}.\nCareful: {npc:6584} (60), a rare devilsaur, roams the crater's west around 27,46: if you meet him, ride away."] = "",
+	["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997}.\nCareful: {npc:6584} (60), a rare devilsaur, roams the crater's west around 27,46: if you meet him, ride away."] = "Der Pylon steht am Hang östlich des Refugiums. {npc:9166} kreisen die Hänge darum: sie zählen für {npc:9997}.\nVorsicht: {npc:6584} (60), ein seltener Devilsaur, streift im Westen des Kraters um 27,46 umher: wenn du ihm begegnest, reite weg.",
 
 	-- Step 26: A-Me 01
 	-- {area:1943} Ironstone Plateau
@@ -208,7 +208,7 @@ return {
 
 	-- Step 38: Lar'korwi
 	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder · {item:11568} Torwa's Pouch
-	["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there.\nCareful: {npc:9684} is level 56, a level or two over you here: start at full health, and clear the raptors around the lair first."] = "",
+	["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there.\nCareful: {npc:9684} is level 56, a level or two over you here: start at full health, and clear the raptors around the lair first."] = "{npc:9684}s Höhle liegt im Dschungel nördlich von {npc:9619}, unter den östlichen Klippen: Benutze {item:11568} dort.\nVorsicht: {npc:9684} ist Stufe 56, hier eine oder zwei Stufen über dir: Beginne mit voller Gesundheit und beseitige zuerst die Raptoren um die Höhle.",
 
 	-- Step 39: Eastern Pylon and the crate
 	["Eastern Pylon and the crate"] = "Östlicher Pylon und die Kiste",
@@ -231,7 +231,7 @@ return {
 	["Bones and equipment"] = "Knochen und Ausrüstung",
 	-- {item:11112} Research Equipment
 	-- plural, as words: Dinosaur Bones = {item:11114} Dinosaur Bone
-	["West across the south of the crater: Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from the Diemetradons. The expedition's {item:11112} lies in the south-west jungle.\nCareful: Gruff (57), a rare devilsaur, prowls the south around 38,75: if you meet him, ride away."] = "",
+	["West across the south of the crater: Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from the Diemetradons. The expedition's {item:11112} lies in the south-west jungle.\nCareful: Gruff (57), a rare devilsaur, prowls the south around 38,75: if you meet him, ride away."] = "Nach Westen durch den Süden des Kraters: Dinosaurierknochen liegen im Südwesten auf dem Boden, zwischen den Stegodonten: die sind Elite, sammle die Knochen um sie herum auf und nimm den Rest von den Diemetradonen. Der {item:11112} der Expedition liegt im Südwesten des Dschungels.\nVorsicht: Gruff (57), ein seltener Teufelssaurier, pirscht im Süden um 38,75 herum: wenn du ihm begegnest, reite weg.",
 
 	-- Step 44: Western Pylon
 	["Western Pylon"] = "Westlicher Kristallpylon",
@@ -305,7 +305,7 @@ return {
 	["{area:1770} braziers"] = "Kohlenbecken in {area:1770}",
 	-- {area:1770} Shadow Hold · {area:1763} Jaedenar · {item:12906} Purified Moonwell Water · {item:13140} Blood Red Key · {npc:11018} Arko'narin
 	-- plural, as words: Jaedenar Darkweavers = {npc:7118} Jaedenar Darkweaver
-	["{area:1770} is the cave at the back of {area:1763}, west of the road. Use the {item:12906} on the four braziers inside.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns: pull at the edge of each group and fight one pack at a time.\nThe Jaedenar Darkweavers, Warlocks and Enforcers in here drop a {item:13140}, about one kill in thirty: keep killing them until it drops. It opens the cell of {npc:11018}, the night elf held in the cave."] = "",
+	["{area:1770} is the cave at the back of {area:1763}, west of the road. Use the {item:12906} on the four braziers inside.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns: pull at the edge of each group and fight one pack at a time.\nThe Jaedenar Darkweavers, Warlocks and Enforcers in here drop a {item:13140}, about one kill in thirty: keep killing them until it drops. It opens the cell of {npc:11018}, the night elf held in the cave."] = "{area:1770} ist die Höhle am hinteren Ende von {area:1763}, westlich der Straße. Benutze {item:12906} an den vier Wachkohlenbecken drinnen.\nVorsicht: Mobs des Shadow Council der Stufen 53-55 füllen die Höhle und kommen oft in großen verbundenen Gruppen, viele mit Betäubungen: Ziehe am Rand jeder Gruppe und bekämpfe eine Gruppe nach der anderen.\nDie Dunkelwirker von Jaedenar, Warlocks und Enforcers hier lassen {item:13140} fallen, etwa eine von dreißig Tötungen: Töte sie weiter, bis es fällt. Es öffnet die Zelle von {npc:11018}, der Nachtelfe, die in der Höhle festgehalten wird.",
 	-- {object:176159} Brazier of Malice
 	["{object:176159}, below ground"] = "{object:176159}, unterirdisch",
 	-- {object:176160} Brazier of Suffering
@@ -329,7 +329,7 @@ return {
 
 	-- Step 63: Rakaiah
 	-- {area:1770} Shadow Hold · {npc:9518} Rakaiah
-	["Back into {area:1770}: the succubus {npc:9518} (56) waits on the way to its deepest chamber, with Trey Lightforge's remains beside her.\nCareful: {npc:9518} is level 56: clear the cultists around her first and fight her at full health."] = "",
+	["Back into {area:1770}: the succubus {npc:9518} (56) waits on the way to its deepest chamber, with Trey Lightforge's remains beside her.\nCareful: {npc:9518} is level 56: clear the cultists around her first and fight her at full health."] = "Zurück in {area:1770}: Die Succubus {npc:9518} (56) wartet auf dem Weg zur tiefsten Kammer, mit Trey Lightfords Überresten neben ihr.\nVorsicht: {npc:9518} ist Stufe 56: Räum zuerst die Kultisten um sie herum weg und kämpfe mit voller Gesundheit gegen sie.",
 	-- {npc:9518} Rakaiah
 	["{npc:9518}, below ground"] = "{npc:9518}, unterirdisch",
 	-- {npc:11020} Remains of Trey Lightforge
@@ -337,7 +337,7 @@ return {
 
 	-- Step 64: A Final Blow
 	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {npc:9518} Rakaiah
-	["{npc:9861} and {npc:9860} guard {npc:9517} in {area:1770}'s deepest chamber, just past {npc:9518}.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "",
+	["{npc:9861} and {npc:9860} guard {npc:9517} in {area:1770}'s deepest chamber, just past {npc:9518}.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "{npc:9861} und {npc:9860} bewachen {npc:9517} in der tiefsten Kammer von {area:1770}, direkt hinter {npc:9518}.\nVorsicht: Die drei Bosse kämpfen als Gruppe. Töte zuerst die Mobs in der Nähe, damit du keine zusätzlichen Gegner ziehst.",
 	-- {npc:9861} Moora
 	["{npc:9861}, below ground"] = "{npc:9861}, unterirdisch",
 	-- {npc:9860} Salia
@@ -385,7 +385,7 @@ return {
 
 	-- Step 74: Felwood
 	-- {zone:1448} Felwood · {area:1998} Talonbranch Glade · {quest:5086} Toxic Horrors · {area:1767} Irontree Woods
-	["Back through the tunnel to {zone:1448} and south past {area:1998}: the {quest:5086} (53) roam the north-eastern tip of {area:1767}."] = "",
+	["Back through the tunnel to {zone:1448} and south past {area:1998}: the {quest:5086} (53) roam the north-eastern tip of {area:1767}."] = "Zurück durch den Tunnel nach {zone:1448} und nach Süden an {area:1998} vorbei: Die {quest:5086} (53) streifen durch die nordöstliche Spitze von {area:1767}.",
 	-- {quest:5086} Toxic Horrors
 	["The {quest:5086}"] = "{quest:5086}",
 
@@ -402,7 +402,7 @@ return {
 	-- {zone:1452} Winterspring
 	["{zone:1452}: kill these as you meet them"] = "{zone:1452}: Töte sie, wenn du ihnen begegnest",
 	-- {quest:5087} Winterfall Runners · {area:2246} Frostfire Hot Springs · {zone:1448} Felwood · {spell:5384} Feign Death
-	["The {quest:5087} (57) carry their crates along the road between {area:2246} and {zone:1448}'s tunnel.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest.\nCareful: the {quest:5087} are 57, over you here: pull one at a time, away from the camp."] = "",
+	["The {quest:5087} (57) carry their crates along the road between {area:2246} and {zone:1448}'s tunnel.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest.\nCareful: the {quest:5087} are 57, over you here: pull one at a time, away from the camp."] = "Die {quest:5087} (57) tragen ihre Kisten entlang der Straße zwischen {area:2246} und dem Tunnel von {zone:1448}.\nVorsicht: Bei der Abgabe erscheinen drei oder vier Winterfelle-Hinterhalter der Stufe 56-57, die dich angreifen; du kannst ihnen zu Pferde, in Tarnung oder mit {spell:5384} entkommen, und dann sammeln sie sich am See, damit du die nächste Quest annehmen kannst.\nVorsicht: Die {quest:5087} sind 57, hier über dir: zieh einen nach dem anderen weg vom Lager.",
 
 	-- Step 80: Everlook
 	-- {area:2255} Everlook
@@ -427,7 +427,7 @@ return {
 	["The road to {area:2255}: furs and horns"] = "Die Straße zu {area:2255}: Pelze und Hörner",
 	-- {area:2255} Everlook · {npc:9298} Donova Snowden
 	-- plural, as words: Thick Yeti Furs = {item:12366} Thick Yeti Fur · Uncracked Chillwind Horns = {item:12444} Uncracked Chillwind Horn · Rogue Ice Thistles = {npc:7457} Rogue Ice Thistle · Fledgling Chillwinds = {npc:7447} Fledgling Chillwind · Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti · Chillwind Chimaeras = {npc:7448} Chillwind Chimaera
-	["Still short of Thick Yeti Furs or Uncracked Chillwind Horns? The Rogue Ice Thistles and the Fledgling Chillwinds (both 53-55) live along the road west of {area:2255}, toward {npc:9298}. The hills east of {area:2255} hold only the Ice Thistle Yetis (55-56), Matriarchs and Patriarchs, and the Chillwind Chimaeras (55-57) and Ravagers (57-59): don't hunt the furs and horns there."] = "",
+	["Still short of Thick Yeti Furs or Uncracked Chillwind Horns? The Rogue Ice Thistles and the Fledgling Chillwinds (both 53-55) live along the road west of {area:2255}, toward {npc:9298}. The hills east of {area:2255} hold only the Ice Thistle Yetis (55-56), Matriarchs and Patriarchs, and the Chillwind Chimaeras (55-57) and Ravagers (57-59): don't hunt the furs and horns there."] = "Fehlen dir noch Dicke Yetifelle oder Unversehrte Chillwindhörner? Die Wilden Eisdistelyetis und die Eiswindjunge (beide 53-55) leben entlang der Straße westlich von {area:2255}, Richtung {npc:9298}. In den Hügeln östlich von {area:2255} gibt es nur die Eisdistelyetis (55-56), Matriarchinnen und Patriarchen, sowie die Eiswindschimären (55-57) und Ravagers (57-59): Jage dort nicht nach Fellen und Hörnern.",
 
 	-- Step 85: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn

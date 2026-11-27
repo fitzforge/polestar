@@ -569,6 +569,7 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+--   Profession routes: based on the guides by Peter at WoW-Professions.com.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhTW") then return end
@@ -1735,7 +1736,6 @@ L["Pick what the step asks for"] = "選擇步驟要求的選項"
 L["At the step's NPC, picks the chat option the guide names, or opens the goods or training the step needs. Only on the step the guide is at. Hold Shift to choose yourself."] = "在步驟的 NPC 處，選擇指南指定的對話選項，或開啟步驟需要的商品或訓練。僅限指南目前所在的步驟。按住 Shift 可自行選擇。"
 L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = "自動選擇沒有任務的 NPC 唯一的選項。按住 Shift 可閱讀內容。關閉時遊戲仍會自行跳過部分對話，「選擇步驟要求的選項」仍會選擇步驟的選項，飛行管理員則依「開啟飛行地圖」設定。"
 L["Click objectives to target"] = "點擊任務目標以選取"
-L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "在戰鬥外點擊任務目標列或 NPC 標題時，也會選取該 NPC，並使用與目標按鈕相同的標記設定。這會取代你目前的目標；搜尋失敗時會清除目標。"
 L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "目標按鈕與步驟鍵會在其選取的怪物與 NPC 上標記團隊圖示；非戰鬥中，若按下時兩者都找不到會清除你的目標。再按一次不會移除圖示。在你不是隊長的小隊中，只有沒有圖示的單位會被標記；在團隊中，僅限你是隊長或助理時。"
 L["Ping what they target"] = "對選取的目標發送信號"
 L["Show quest-starting loot"] = "顯示開始任務的戰利品"
@@ -1790,6 +1790,7 @@ L["Equip a spare bag first"] = "先裝備備用背包"
 L["When your bags are nearly full and a bag sits in them while a bag slot is empty, the bag button and the guide window offer to put it on before any junk. Nothing happens until you press."] = "當背包快滿、背包中有一個背包而背包欄位又有空位時，背包按鈕與指南視窗會先提議裝上它，再處理垃圾。在你按下之前不會有任何動作。"
 L["Step errands"] = "步驟雜務"
 L["Level pace"] = "升級節奏"
+-- L["Clicking an objective row, an NPC heading or a While you're here line also targets its mob or NPC outside combat, using the Target button's marking settings. This replaces your current target. A failed search clears it."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "僅限聯盟"
@@ -3063,6 +3064,7 @@ L["Quest and map data includes pfQuest by shagu (MIT License)."] = "任務與地
 L["Discord and its logo are trademarks of Discord Inc.; the logo marks the link to the Polestar Discord."] = "Discord 及其標誌為 Discord Inc. 的商標；此標誌代表前往 Polestar Discord 的連結。"
 L["With EllesmereUI installed, Polestar can follow its accent, font and panel colour through its public skinning API."] = "安裝 EllesmereUI 時，Polestar 可透過其公開的外觀 API 跟隨其強調色、字型與面板顏色。"
 L["Gear scores from Forever Leveling BiS by Timearc when it is installed, through its public API."] = "安裝 Forever Leveling BiS（作者 Timearc）時，透過其公開 API 取得裝備評分。"
+L["Profession routes: based on the guides by Peter at WoW-Professions.com."] = "專業技能路線：根據 WoW-Professions.com 的 Peter 的指南。"
 L["Maintenance"] = "維護"
 L["Reset all settings"] = "重置所有設定"
 L["Every Polestar setting back to default. Progress is kept."] = "所有 Polestar 設定回到預設。進度會保留。"
@@ -5072,7 +5074,6 @@ L["Title menu"] = "標題選單"
 L["On the top edge"] = "上邊緣"
 L["Down the left side"] = "左側"
 L["Default (%s)"] = "預設（%s）"
-L["A button in the step bar that opens every step of the guide in one list. The step number and the guide menu open it too."] = "步驟列中的一個按鈕，可在一個清單中開啟指南的所有步驟。步驟編號和指南選單也能開啟它。"
 L["Steps before"] = "之前的步驟"
 L["How many of the steps before this one show over it, one dimmed line each, done or skipped; 0 turns them off. Click one to go back to it."] = "在此步驟上方顯示多少個之前的步驟，每個一行淡色，已完成或已跳過；0 表示關閉。點擊一個可返回該步驟。"
 L["Journey style"] = "旅程樣式"
@@ -5617,7 +5618,6 @@ L["%d changed"] = "%d 項已變更"
 L["What Polestar does for you while you level: suggestions, quests, rewards, buttons, rares."] = "升級時 Polestar 為你做的事：建議、任務、獎勵、按鈕、稀有怪。"
 L["The arrow, its routes, and what Polestar draws on the world map and the minimap."] = "箭頭、它的路線，以及 Polestar 在世界地圖和小地圖上繪製的內容。"
 L["The theme every Polestar window wears, the action buttons, the alert cards and the trackers."] = "每個 Polestar 視窗使用的主題、動作按鈕、提醒卡片和追蹤器。"
-L["Profiles, other addons, community guides and gamepad."] = "設定檔、其他插件、社群指南和手把。"
 L["Pinned"] = "已釘選"
 L["Pinned, not available here: %d"] = "已釘選但此處無法使用：%d"
 L["Pin a setting with the flag on its row."] = "用設定列上的旗標將其釘選。"
@@ -6061,6 +6061,7 @@ L["Click to show quest guide actions."] = "點擊顯示任務指南操作。"
 -- L["Max height"] = "最大高度"
 -- L["%s: on this step"] = "%s：在此步驟"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "把你自己的任務當作指南，在單獨的分頁中：箭頭指向最近的任務，然後是下一個（/polestar free）。"
+-- L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "在戰鬥外點擊任務目標列或 NPC 標題時，也會選取該 NPC，並使用與目標按鈕相同的標記設定。這會取代你目前的目標；搜尋失敗時會清除目標。"
 -- L["The last steps here aren't mapped"] = "這裡最後幾步沒有地圖"
 -- L["None of these has a known place to hand it in."] = "這些任務都沒有已知的繳交地點。"
 -- L["Travel time to this hand-in is unknown. Its location is still shown."] = "前往此繳交處的路程時間未知。仍會顯示它的位置。"

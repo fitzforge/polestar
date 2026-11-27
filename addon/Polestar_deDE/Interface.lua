@@ -343,6 +343,7 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+--   Profession routes: based on the guides by Peter at WoW-Professions.com.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "deDE") then return end
@@ -1748,6 +1749,7 @@ L["Quest and map data includes pfQuest by shagu (MIT License)."] = "Quest- und K
 L["Discord and its logo are trademarks of Discord Inc.; the logo marks the link to the Polestar Discord."] = "Discord und sein Logo sind Marken von Discord Inc.; das Logo kennzeichnet den Link zum Polestar-Discord."
 L["With EllesmereUI installed, Polestar can follow its accent, font and panel colour through its public skinning API."] = "Ist EllesmereUI installiert, kann Polestar über dessen öffentliche Skinning-API seinem Akzent, seiner Schrift und seiner Fensterfarbe folgen."
 L["Gear scores from Forever Leveling BiS by Timearc when it is installed, through its public API."] = "Ausrüstungswertungen von Forever Leveling BiS von Timearc, wenn es installiert ist, über seine öffentliche API."
+L["Profession routes: based on the guides by Peter at WoW-Professions.com."] = "Berufsrouten: nach den Guides von Peter auf WoW-Professions.com."
 L["Maintenance"] = "Wartung"
 L["Reset all settings"] = "Alle Einstellungen zurücksetzen"
 L["Every Polestar setting back to default. Progress is kept."] = "Jede Polestar-Einstellung zurück auf den Standard. Der Fortschritt bleibt erhalten."
@@ -2304,7 +2306,6 @@ L["At the step's NPC, picks the chat option the guide names, or opens the goods 
 L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = "Wählt die einzige Option von NPCs ohne Quests. Halte Umschalt gedrückt, um sie zu lesen. Aus überspringt das Spiel manche trotzdem selbst, „Wählen, was der Schritt verlangt“ wählt weiter die Option des Schritts, und Flugmeister folgen „Flugkarte öffnen“."
 L["Reset"] = "Zurücksetzen"
 L["Click objectives to target"] = "Ziele per Klick anvisieren"
-L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Ein Klick auf eine Zielzeile oder eine NPC-Überschrift visiert außerhalb des Kampfes auch den NPC an, mit denselben Markierungseinstellungen wie der Ziel-Button. Das ersetzt dein aktuelles Ziel; eine erfolglose Suche hebt es auf."
 L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "Der Ziel-Button und die Schrittetaste setzen ein Schlachtzugssymbol auf den Mob und den NPC, die sie anvisieren; außerhalb des Kampfes löscht ein Druck, der keines von beiden findet, dein Ziel. Erneutes Drücken nimmt nie ein Symbol weg. In einer Gruppe, die du nicht führst, bekommt nur eine Einheit ohne Symbol eines; in einem Schlachtzug nur, wenn du führst oder Assistent bist."
 L["Ping what they target"] = "Anvisiertes pingen"
 L["Show quest-starting loot"] = "Beute anzeigen, die eine Quest startet"
@@ -2359,6 +2360,7 @@ L["Equip a spare bag first"] = "Zuerst eine Ersatztasche anlegen"
 L["When your bags are nearly full and a bag sits in them while a bag slot is empty, the bag button and the guide window offer to put it on before any junk. Nothing happens until you press."] = "Wenn deine Taschen fast voll sind und eine Tasche darin liegt, während ein Taschenplatz leer ist, bieten der Taschen-Button und das Guide-Fenster an, sie vor jedem Plunder anzulegen. Nichts passiert, bevor du drückst."
 L["Step errands"] = "Schritterledigungen"
 L["Level pace"] = "Stufentempo"
+-- L["Clicking an objective row, an NPC heading or a While you're here line also targets its mob or NPC outside combat, using the Target button's marking settings. This replaces your current target. A failed search clears it."] = ""
 
 -- Rares/View.lua, Rares/Options.lua
 L["Seen"] = "Gesehen"
@@ -4832,7 +4834,6 @@ L["Title menu"] = "Titelmenü"
 L["On the top edge"] = "Am oberen Rand"
 L["Down the left side"] = "Links an der Seite"
 L["Default (%s)"] = "Standard (%s)"
-L["A button in the step bar that opens every step of the guide in one list. The step number and the guide menu open it too."] = "Ein Button in der Schrittleiste, der alle Schritte des Guides in einer Liste öffnet. Die Schrittnummer und das Guide-Menü öffnen sie ebenfalls."
 L["Steps before"] = "Vorherige Schritte"
 L["How many of the steps before this one show over it, one dimmed line each, done or skipped; 0 turns them off. Click one to go back to it."] = "Wie viele der Schritte vor diesem darüber stehen, je eine abgeblendete Zeile für erledigte oder übersprungene; 0 schaltet sie aus. Klicke einen an, um zurückzuspringen."
 L["Journey style"] = "Reise-Stil"
@@ -5380,7 +5381,6 @@ L["%d changed"] = "%d geändert"
 L["What Polestar does for you while you level: suggestions, quests, rewards, buttons, rares."] = "Was Polestar beim Leveln für dich tut: Vorschläge, Quests, Belohnungen, Buttons, seltene Gegner."
 L["The arrow, its routes, and what Polestar draws on the world map and the minimap."] = "Der Pfeil, seine Routen und was Polestar auf die Weltkarte und die Minikarte zeichnet."
 L["The theme every Polestar window wears, the action buttons, the alert cards and the trackers."] = "Das Design aller Polestar-Fenster, die Aktionsbuttons, die Hinweiskarten und die Tracker."
-L["Profiles, other addons, community guides and gamepad."] = "Profile, andere Addons, Community-Guides und Gamepad."
 L["Pinned"] = "Angeheftet"
 L["Pinned, not available here: %d"] = "Angeheftet, hier nicht verfügbar: %d"
 L["Pin a setting with the flag on its row."] = "Hefte eine Einstellung mit der Fahne in ihrer Zeile an."
@@ -5879,6 +5879,7 @@ L["Click to show quest guide actions."] = "Klicken, um die Aktionen des Quest-Gu
 -- L["Layout"] = "Layout"
 -- L["Your current design"] = "Dein aktuelles Design"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "Deine eigenen Quests als Guide, in einem eigenen Tab: Der Pfeil führt zur nächsten, dann zur folgenden (/polestar free)."
+-- L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Ein Klick auf eine Zielzeile oder eine NPC-Überschrift visiert außerhalb des Kampfes auch den NPC an, mit denselben Markierungseinstellungen wie der Ziel-Button. Das ersetzt dein aktuelles Ziel; eine erfolglose Suche hebt es auf."
 -- L["The last steps here aren't mapped"] = "Die letzten Schritte hier sind nicht kartiert"
 -- L["None of these has a known place to hand it in."] = "Für keine davon ist bekannt, wo man sie abgibt."
 -- L["Travel time to this hand-in is unknown. Its location is still shown."] = "Die Reisezeit zu dieser Abgabe ist unbekannt. Ihr Ort wird trotzdem angezeigt."

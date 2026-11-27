@@ -19,9 +19,9 @@ return {
 	-- Step 3: Rigglefuzz: Pearl Diving
 	-- {npc:2817} Rigglefuzz
 	-- plural, as words: Blue Pearls = {item:4611} Blue Pearl · Giant Clams = {object:2744} Giant Clam
-	["{npc:2817} buys nine Blue Pearls (Giant Clams on the sea floor, or the Auction House): this step shows only when you carry them."] = "",
+	["{npc:2817} buys nine Blue Pearls (Giant Clams on the sea floor, or the Auction House): this step shows only when you carry them."] = "{npc:2817} kauft neun Blaue Perlen (Riesenmuscheln auf dem Meeresboden oder im Auktionshaus): dieser Schritt wird nur angezeigt, wenn du sie bei dir trägst.",
 	-- {item:4611} Blue Pearl
-	["{item:4611}, in your bags"] = "",
+	["{item:4611}, in your bags"] = "{item:4611}, in deinen Taschen",
 
 	-- Step 4: The Dustbowl
 	-- {area:340} Kargath · {npc:2921} Lotwil Veriatus · {area:1878} The Dustbowl
@@ -29,23 +29,23 @@ return {
 
 	-- Step 5: Lotwil Veriatus: Coolant Heads Prevail
 	-- {npc:2921} Lotwil Veriatus · {item:3829} Frost Oil · {skill:171} Alchemy
-	["{npc:2921} wants a {item:3829} ({skill:171} or the Auction House): this step shows only when you carry one."] = "",
+	["{npc:2921} wants a {item:3829} ({skill:171} or the Auction House): this step shows only when you carry one."] = "{npc:2921} will einen {item:3829} ({skill:171} oder das Auktionshaus): dieser Schritt erscheint nur, wenn du einen dabei hast.",
 	-- {item:3829} Frost Oil
-	["{item:3829}, in your bags"] = "",
+	["{item:3829}, in your bags"] = "{item:3829}, in deinen Taschen",
 
 	-- Step 6: Lotwil Veriatus: Gyro... What?
 	-- {item:4389} Gyrochronatom · {skill:202} Engineering
-	["Then a {item:4389} ({skill:202}, or the engineering supply vendors): this step shows only when you carry one."] = "",
+	["Then a {item:4389} ({skill:202}, or the engineering supply vendors): this step shows only when you carry one."] = "Dann ein {item:4389} ({skill:202} oder die Versorgungshändler der Ingenieurskunst): Dieser Schritt erscheint nur, wenn du einen dabei hast.",
 	-- {item:4389} Gyrochronatom
-	["{item:4389}, in your bags"] = "",
+	["{item:4389}, in your bags"] = "{item:4389}, in deinen Beuteln",
 
 	-- Step 7: Lucien Tosselwrench: Liquid Stone
 	-- {npc:2921} Lotwil Veriatus · {item:929} Healing Potion · {item:3823} Lesser Invisibility Potion · {skill:171} Alchemy
-	["Lucien, beside {npc:2921}, wants a {item:929} and a {item:3823} ({skill:171} or the Auction House): this step shows only when you carry both."] = "",
+	["Lucien, beside {npc:2921}, wants a {item:929} and a {item:3823} ({skill:171} or the Auction House): this step shows only when you carry both."] = "Lucien neben {npc:2921} will einen {item:929} und einen {item:3823} ({skill:171} oder das Auktionshaus): Dieser Schritt erscheint nur, wenn du beides bei dir hast.",
 	-- {item:929} Healing Potion
-	["{item:929}, in your bags"] = "",
+	["{item:929}, in your bags"] = "{item:929}, in deinen Taschen",
 	-- {item:3823} Lesser Invisibility Potion
-	["{item:3823}, in your bags"] = "",
+	["{item:3823}, in your bags"] = "{item:3823}, in deinen Taschen",
 
 	-- Step 8: Kargath
 	-- {area:340} Kargath · {quest:1418} Neeka Bloodscar
@@ -67,8 +67,7 @@ return {
 	["{zone:1418}: kill these as you meet them"] = "{zone:1418}: Töte diese, wenn sie dir begegnen",
 	-- {area:1878} The Dustbowl · {zone:1418} Badlands · {npc:2817} Rigglefuzz
 	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard · Malevolent Mirages = {npc:269756} Malevolent Mirage
-	-- was: ["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth.\nCareful: the Giant Buzzards are 39-41, and the 41s are two over you at 39: pick the 39s and 40s and pull them one at a time. The Buzzards (37) you kill later for {npc:2817}'s wings drop gizzards too, more rarely."] = "Die Alten Klippenkojoten und Riesenbussarde streifen durch das Becken südlich von {area:1878}. Kojoten lassen sowohl die Kieferknochen als auch die Reißzähne fallen; die Riesenbussarde die Kröpfe. Vorsicht: Bösartige Trugbilder (42, Elite) treiben durch {zone:1418}: Mach einen weiten Bogen um sie.\nVorsicht: Die Riesenbussarde sind 39-41, und die 41er liegen mit 39 zwei Stufen über dir: Nimm die 39er und 40er und zieh sie einzeln. Die Bussarde (37), die du später für die Flügel von {npc:2817} tötest, lassen ebenfalls Kröpfe fallen, nur seltener."
-	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth.\nCareful: the Giant Buzzards are 39-41, and the 41s are two over you at 39: pick the 39s and 40s and pull them one at a time. The Buzzards (37) you kill later for {npc:2817}'s wings drop gizzards too, more rarely.\nCareful: Zaricotl (55, a rare buzzard) circles over the {zone:1418} too: if you see him, keep away."] = "",
+	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth.\nCareful: the Giant Buzzards are 39-41, and the 41s are two over you at 39: pick the 39s and 40s and pull them one at a time. The Buzzards (37) you kill later for {npc:2817}'s wings drop gizzards too, more rarely.\nCareful: Zaricotl (55, a rare buzzard) circles over the {zone:1418} too: if you see him, keep away."] = "Die Alten Klippenkojoten und Riesenbussarde streifen durch das Becken südlich von {area:1878}. Kojoten lassen sowohl die Kieferknochen als auch die Reißzähne fallen; die Riesenbussarde die Kröpfe. Vorsicht: Bösartige Trugbilder (42, Elite) treiben durch {zone:1418}: Mach einen weiten Bogen um sie.\nVorsicht: Die Riesenbussarde sind 39-41, und die 41er liegen mit 39 zwei Stufen über dir: Nimm die 39er und 40er und zieh sie einzeln. Die Bussarde (37), die du später für {npc:2817}s Schwingen tötest, lassen ebenfalls Kröpfe fallen, seltener.\nVorsicht: Zaricotl (55, ein seltener Bussard) kreist ebenfalls über {zone:1418}: Wenn du ihn siehst, halt dich fern.",
 
 	-- Step 12: Rock Elementals
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental
@@ -114,7 +113,7 @@ return {
 	-- {area:340} Kargath · {npc:5394} Neeka Bloodscar
 	["Head west back to {area:340}. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "Geh nach Westen zurück nach {area:340}. {npc:5394} steht auf der oberen Ebene von {area:340}, hoch über dem Flugmeister: Nimm die Rampen nach oben, der Pfeil kann die Ebenen nicht unterscheiden.",
 	-- {area:340} Kargath · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1458} Undercity · {npc:4486} Genavie Callow
-	["The next guide flies from {area:340} to {object:3202}; Warriors, Paladins, Rogues, Priests, Mages and Warlocks go by the {zone:1458} first, for their training and {npc:4486}."] = "",
+	["The next guide flies from {area:340} to {object:3202}; Warriors, Paladins, Rogues, Priests, Mages and Warlocks go by the {zone:1458} first, for their training and {npc:4486}."] = "Der nächste Guide fliegt von {area:340} nach {object:3202}; Krieger, Paladine, Schurken, Priester, Magier und Hexenmeister gehen zuerst in die {zone:1458}, für ihre Ausbildung und {npc:4486}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Keep north on the road; the chest lies in the {area:1517} dig site, at the foot of the ruins north-west of the road."] = "Bleib auf der Straße nach Norden; die Truhe liegt in der Grabungsstätte von {area:1517}, am Fuß der Ruinen nordwestlich der Straße.",

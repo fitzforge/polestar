@@ -69,7 +69,7 @@ return {
 
 	-- Step 16: Mulgris Deepriver
 	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {zone:1423} Eastern Plaguelands
-	["{npc:10739} waits inside the farmhouse at the {area:202}, by the cauldron; his bears roam the hills north and east of it, towards the {zone:1423}."] = "",
+	["{npc:10739} waits inside the farmhouse at the {area:202}, by the cauldron; his bears roam the hills north and east of it, towards the {zone:1423}."] = "{npc:10739} wartet im Bauernhaus beim {area:202}, am Kessel; seine Bären streifen durch die Hügel nördlich und östlich davon, Richtung {zone:1423}.",
 
 	-- Step 17: Diseased Grizzlies
 	["Diseased Grizzlies"] = "Kranke Grizzlys",
@@ -167,9 +167,9 @@ return {
 	["{zone:1423}: kill these as you meet them"] = "{zone:1423}: Töte sie, wenn du ihnen begegnest",
 	-- {item:12957} Shattered Sword of Marduk · {area:2264} Corin's Crossing
 	-- plural, as words: Plaguehounds = {npc:8597} Plaguehound · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub
-	["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground. The {item:12957} lies at the bottom of the gorge west of {area:2264}. Careful: the biggest Plaguehounds are 56, pull them one at a time."] = "",
+	["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground. The {item:12957} lies at the bottom of the gorge west of {area:2264}. Careful: the biggest Plaguehounds are 56, pull them one at a time."] = "Seuchenhunde und ihre Welpen streifen um den See südwestlich der Kapelle; Seuchenfledermäuse und Aaslarven teilen sich den Boden. Die {item:12957} liegt am Grund der Schlucht westlich von {area:2264}. Vorsicht: Die größten Seuchenhunde sind Stufe 56, zieh sie einzeln.",
 	-- {area:2264} Corin's Crossing
-	["At the bottom of the gorge west of {area:2264}"] = "",
+	["At the bottom of the gorge west of {area:2264}"] = "Am Grund der Schlucht westlich von {area:2264}",
 
 	-- Step 39: Nathanos Blightcaller
 	-- {npc:15193} The Banshee Queen · {area:2260} Marris Stead · {area:2261} Undercroft
@@ -183,8 +183,7 @@ return {
 	-- Step 41: Egan
 	-- {npc:11140} Egan · {area:2627} Terrordale · {npc:12384} Augustus the Touched · {npc:16184} Nerubian Overseer · {area:2626} Terrorweb Tunnel
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit · Crypt Horrors = {npc:8557} Crypt Horror · Crypt Walkers = {npc:8556} Crypt Walker
-	-- was: ["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut.\nCareful: Terrordale Spirits (59-60) drift through the north-west corner just north of {npc:11140}'s hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time."] = "{npc:11140}, der Geist, steht bei einer Hütte in {area:2627}, in der Nordwestecke; {npc:12384} sitzt in der Hütte.\nVorsicht: Terrordaler Geister (59-60) treiben durch die Nordwestecke knapp nördlich von {npc:11140}s Hütte, und Gruftschrecken (57-58) sowie Gruftläufer (55-56) stehen um sie herum; manche von ihnen wurzeln dich. Geh langsam hinein und zieh sie einzeln."
-	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut.\nCareful: Terrordale Spirits (59-60) drift through the north-west corner just north of {npc:11140}'s hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time.\nCareful: a {npc:16184} (60, elite) walks {area:2627} and the {area:2626} south-west of it. Look for him before you ride in, and wait for him to pass."] = "",
+	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut.\nCareful: Terrordale Spirits (59-60) drift through the north-west corner just north of {npc:11140}'s hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time.\nCareful: a {npc:16184} (60, elite) walks {area:2627} and the {area:2626} south-west of it. Look for him before you ride in, and wait for him to pass."] = "{npc:11140}, der Geist, steht bei einer Hütte in {area:2627}, in der Nordwestecke; {npc:12384} sitzt in der Hütte.\nVorsicht: Schreckenstalgeister (59-60) treiben durch die Nordwestecke knapp nördlich von {npc:11140}s Hütte, und Gruftschrecken (57-58) sowie Gruftwandler (55-56) stehen um sie herum; manche von ihnen wurzeln dich. Geh langsam hinein und zieh sie einzeln.\nVorsicht: Ein {npc:16184} (60, Elite) läuft durch {area:2627} und das südwestlich davon liegende {area:2626}. Such ihn, bevor du hineinreitest, und warte, bis er vorbeigeht.",
 	-- {npc:12384} Augustus the Touched
 	["{npc:12384}, inside"] = "{npc:12384}, drinnen",
 
@@ -266,7 +265,7 @@ return {
 	-- Step 58: Scarlet Crusade
 	["Scarlet Crusade"] = "Scharlachroter Kreuzzug",
 	-- {area:192} Northridge Lumber Camp · {npc:11615} Mickey Levine · {item:15044} Barrel of Plagueland Termites · {object:177491} Termite Barrel · {quest:5902} A Plague Upon Thee · {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
-	["Back north-east to the {area:192}: knights and magi work the camp, the medics and hunters camp south of it. In the middle of the lumber mill, stand by the crate and use {npc:11615}'s {item:15044} from your bags to set it on top; then click the {object:177491} that appears: it finishes {quest:5902} and gives the next part for {npc:11615}. Careful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}: give it room."] = "",
+	["Back north-east to the {area:192}: knights and magi work the camp, the medics and hunters camp south of it. In the middle of the lumber mill, stand by the crate and use {npc:11615}'s {item:15044} from your bags to set it on top; then click the {object:177491} that appears: it finishes {quest:5902} and gives the next part for {npc:11615}. Careful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}: give it room."] = "Zurück nach Nordosten zum {area:192}: Ritter und Magier arbeiten im Lager, die Mediker und Jäger lagern südlich davon. In der Mitte des Sägewerks steh bei der Kiste und benutze {npc:11615}s {item:15044} aus deinen Taschen, um sie daraufzustellen; klicke dann das erscheinende {object:177491} an: Es schließt {quest:5902} ab und gibt den nächsten Teil für {npc:11615}. Vorsicht: Ein {npc:10996}, ein Elite der Stufe 58-59, kann am Holzfällerlager stehen, wie an vielen anderen Orten des {zone:1422}: Gib ihm Raum.",
 
 	-- Step 60: Radley and Durgen
 	["Radley and Durgen"] = "Radley und Durgen",
@@ -342,7 +341,7 @@ return {
 
 	-- Step 75: Dousing the Flames of Protection
 	-- {area:1763} Jaedenar · {area:1770} Shadow Hold · {item:12906} Purified Moonwell Water
-	["Ride north-west to {area:1763} and go down into {area:1770}, the cave in its north: the four braziers stand inside. Use Greta's {item:12906} from your bags on each one. Careful: Shadow Council mobs of level 53-55 fill the cave and often come in linked groups, many with stuns: pull them one group at a time."] = "",
+	["Ride north-west to {area:1763} and go down into {area:1770}, the cave in its north: the four braziers stand inside. Use Greta's {item:12906} from your bags on each one. Careful: Shadow Council mobs of level 53-55 fill the cave and often come in linked groups, many with stuns: pull them one group at a time."] = "Reite nach Nordwesten zu {area:1763} und geh in {area:1770} hinab, die Höhle im Norden: Die vier Kohlenpfannen stehen darin. Benutze Gretas {item:12906} aus deinen Taschen auf jede davon. Vorsicht: Mobs des Schattenrats der Stufen 53-55 füllen die Höhle und kommen oft in verbundenen Gruppen, viele mit Betäubungen: Zieh sie eine Gruppe nach der anderen.",
 
 	-- Step 76: Greta Mosshoof
 	["Back south to the Sanctuary, a short ride."] = "Zurück nach Süden zum Refugium, ein kurzer Ritt.",
@@ -350,8 +349,7 @@ return {
 	-- Step 77: A Final Blow
 	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {area:1763} Jaedenar · {npc:9529} Maybess Riverbreeze · {item:11511} Cenarion Beacon
 	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
-	-- was: ["{npc:9861}, {npc:9860} and {npc:9517} (57) wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "{npc:9861}, {npc:9860} und {npc:9517} (57) warten am Ende von {area:1770}, der Höhle im Norden von {area:1763}. Räume den Tunnel auf dem Weg ab.\nVorsicht: Die drei Bosse kämpfen als Gruppe. Töte zuerst die nahen Mobs, damit du keine zusätzlichen Gegner anziehst."
-	["{npc:9861}, {npc:9860} and {npc:9517} (57) wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go. Careful: the three bosses fight as a group: kill the nearby mobs first so you don't pull extra enemies. The cultists' Corrupted Soul Shards show only while you carry {npc:9529}'s {item:11511} (from Cleansing Felwood): without it, skip them."] = "",
+	["{npc:9861}, {npc:9860} and {npc:9517} (57) wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go. Careful: the three bosses fight as a group: kill the nearby mobs first so you don't pull extra enemies. The cultists' Corrupted Soul Shards show only while you carry {npc:9529}'s {item:11511} (from Cleansing Felwood): without it, skip them."] = "{npc:9861}, {npc:9860} und {npc:9517} (57) warten am Ende von {area:1770}, der Höhle im Norden von {area:1763}. Räume den Tunnel auf dem Weg ab. Vorsicht: Die drei Bosse kämpfen als Gruppe: Töte zuerst die nahen Mobs, damit du keine zusätzlichen Gegner anziehst. Die verdorbenen Seelenscherben der Kultisten erscheinen nur, solange du {npc:9529}s {item:11511} (aus „Reinigung des Teufelswalds“) bei dir trägst: ohne es lass sie aus.",
 	-- {npc:9529} Maybess Riverbreeze
 	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
 	["Corrupted Soul Shards from the cultists, for {npc:9529}' Salve via Hunting"] = "Verdorbene Seelensplitter von den Kultisten, für {npc:9529}s Salve via Hunting",
@@ -369,7 +367,7 @@ return {
 
 	-- Step 80: Rescue From Jaedenar
 	-- {npc:11018} Arko'narin · {npc:11019} Jessir Moonbow · {area:2479} Emerald Sanctuary
-	["Escort {npc:11018}: she first goes to where Lightforge and her gear are held, then out through the cave. Keep her alive: she fights beside you, and the cultists you didn't clear on the way in come at you both. {npc:11019} takes her report at the {area:2479}, next."] = "",
+	["Escort {npc:11018}: she first goes to where Lightforge and her gear are held, then out through the cave. Keep her alive: she fights beside you, and the cultists you didn't clear on the way in come at you both. {npc:11019} takes her report at the {area:2479}, next."] = "Begleite {npc:11018}: Sie geht zuerst dorthin, wo Lightforge und ihre Ausrüstung festgehalten werden, und dann aus der Höhle heraus. Halte sie am Leben: Sie kämpft an deiner Seite, und die Kultisten, die du auf dem Weg nicht beseitigt hast, greifen euch beide an. {npc:11019} nimmt ihren Bericht beim {area:2479} entgegen, danach.",
 	-- {area:1770} Shadow Hold
 	["out of {area:1770}, at its mouth"] = "aus {area:1770}, am Eingang",
 

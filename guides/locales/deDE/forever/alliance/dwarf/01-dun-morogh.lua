@@ -243,7 +243,7 @@ return {
 	["{area:1}: kill these as you meet them"] = "{area:1}: töte diese, wo du sie triffst",
 	-- {area:131} Kharanos
 	-- plural, as words: Crag Boars = {npc:1125} Crag Boar · Young Black Bears = {npc:1128} Young Black Bear
-	["Crag Boars and Young Black Bears roam the fields from Rumbleshot's camp north-east to {area:131} and the depot: kill them on the walk back."] = "Crag Boars und Young Black Bears streifen über die Felder von Rumbleshots Lager nach Nordosten bis {area:131} und zum Depot: Töte sie auf dem Rückweg.",
+	["Crag Boars and Young Black Bears roam the fields from Rumbleshot's camp north-east to {area:131} and the depot: kill them on the walk back."] = "Klippeneber und Junge Schwarzbären streifen über die Felder von Rumbleshots Lager nach Nordosten bis {area:131} und zum Depot: Töte sie auf dem Rückweg.",
 
 	-- Step 40: Mountaineer Dolf
 	-- {npc:12427} Mountaineer Dolf · {area:131} Kharanos · {spell:613} Lesser Heal · {spell:1243} Power Word: Fortitude
@@ -254,7 +254,7 @@ return {
 	-- Step 41: Thunderbrew Distillery
 	-- {npc:1267} Ragnar Thunderbrew · {npc:1699} Gremlock Pilsnor · {skill:185} Cooking
 	-- plural, as words: Crag Boars = {npc:1125} Crag Boar
-	["Kill the Crag Boars on the way: their ribs drop before you have {npc:1267}'s quest and count toward it. Back in the distillery: {npc:1699} teaches {skill:185}, then the ribs go to {npc:1267}."] = "Töte die Crag Boars auf dem Weg: Ihre Rippchen fallen, noch bevor du die Quest von {npc:1267} hast, und zählen dafür. Zurück in der Brennerei: {npc:1699} bringt dir {skill:185} bei, dann gehen die Rippchen an {npc:1267}.",
+	["Kill the Crag Boars on the way: their ribs drop before you have {npc:1267}'s quest and count toward it. Back in the distillery: {npc:1699} teaches {skill:185}, then the ribs go to {npc:1267}."] = "Töte die Klippeneber auf dem Weg: Ihre Rippchen fallen, noch bevor du die Quest von {npc:1267} hast, und zählen dafür. Zurück in der Brennerei: {npc:1699} bringt dir {skill:185} bei, dann gehen die Rippchen an {npc:1267}.",
 	-- {item:2894} Rhapsody Malt · {npc:1247} Innkeeper Belm
 	["{item:2894}, from {npc:1247}; upstairs"] = "{item:2894}, von {npc:1247}; oben",
 	-- {npc:1699} Gremlock Pilsnor
@@ -305,7 +305,7 @@ return {
 	-- Step 49: Shimmerweed
 	-- {item:2676} Shimmerweed · {area:802} Shimmer Ridge · {area:131} Kharanos
 	-- plural, as words: Frostmane Seers = {npc:1397} Frostmane Seer
-	["The {item:2676} grows in baskets up on {area:802}, the snowy slope north of the road between {area:131} and Brewnall: climb from the road west of {area:131}. The Frostmane Seers camped on the ridge drop it too."] = "{item:2676} wächst in Körben auf {area:802}, dem verschneiten Hang nördlich der Straße zwischen {area:131} und Brewnall: Klettere von der Straße westlich von {area:131} hinauf. Die Frostmane Seers auf dem Kamm lassen es auch fallen.",
+	["The {item:2676} grows in baskets up on {area:802}, the snowy slope north of the road between {area:131} and Brewnall: climb from the road west of {area:131}. The Frostmane Seers camped on the ridge drop it too."] = "{item:2676} wächst in Körben auf {area:802}, dem verschneiten Hang nördlich der Straße zwischen {area:131} und Brewnall: Klettere von der Straße westlich von {area:131} hinauf. Die Seher der Frostmane auf dem Kamm lassen es auch fallen.",
 
 	-- Step 52: The Gnomeregan road
 	-- {area:133} Gnomeregan
@@ -323,8 +323,7 @@ return {
 	-- Step 53: Frostmane Hold
 	-- {area:135} Frostmane Hold · {area:137} Brewnall Village
 	-- plural, as words: Frostmane Hideskinners = {npc:1122} Frostmane Hideskinner
-	-- was: ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} ist die Trollhöhle in den Hügeln südwestlich von {area:137}. Töte Kopfjäger an ihrem Eingang und geh bis zu ihrem hinteren Ende durch.\nVorsicht: Die Balgabzieher der Frostmane in der Höhle sind Stufe 9-10 und stehen paarweise: Zieh sie einzeln zurück zum Eingang."
-	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth, then walk through the cave to its far end: Fully explore {area:135} ticks only in there, not on the hill above it.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "",
+	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth, then walk through the cave to its far end: Fully explore {area:135} ticks only in there, not on the hill above it.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} ist die Trollhöhle in den Hügeln südwestlich von {area:137}. Töte Kopfjäger an ihrem Eingang und geh bis zum hinteren Ende der Höhle durch: 'Fully explore {area:135}' zählt nur dort drinnen, nicht auf dem Hügel darüber.\nVorsicht: Die Balgabzieher der Frostmane in der Feste sind Stufe 9-10 und stehen paarweise: Zieh sie einzeln zurück zum Eingang.",
 	-- {npc:1123} Frostmane Headhunter
 	["{npc:1123}, below ground"] = "{npc:1123}, unterirdisch",
 
@@ -370,7 +369,7 @@ return {
 	["{area:138}: kill these as you meet them"] = "{area:138}: Töte sie, wenn du ihnen begegnest",
 	-- {quest:99160} Rime's Wrath
 	-- plural, as words: Minor Ice Elementals = {npc:276003} Minor Ice Elemental
-	["The three rifles lie in the snow around the frozen lake by the refuge. Minor Ice Elementals drift around the lake and along the way: kill them as you go for {quest:99160}.\nFinish off the Minor Ice Elementals around the small lake just west of the refuge if you are still short."] = "Die drei Gewehre liegen im Schnee um den gefrorenen See beim Zufluchtsort. Minor Ice Elementals treiben um den See und entlang des Weges: Töte sie im Vorbeigehen für {quest:99160}.\nBeende die Minor Ice Elementals am kleinen See gleich westlich des Zufluchtsorts, falls dir noch welche fehlen.",
+	["The three rifles lie in the snow around the frozen lake by the refuge. Minor Ice Elementals drift around the lake and along the way: kill them as you go for {quest:99160}.\nFinish off the Minor Ice Elementals around the small lake just west of the refuge if you are still short."] = "Die drei Gewehre liegen im Schnee um den gefrorenen See beim Zufluchtsort. Kleine Eiselementare treiben um den See und entlang des Weges: Töte sie im Vorbeigehen für {quest:99160}.\nBeende die kleinen Eiselementare am kleinen See gleich westlich des Zufluchtsorts, falls dir noch welche fehlen.",
 	-- {npc:276003} Minor Ice Elemental
 	["{npc:276003}, around the small lake"] = "{npc:276003}, rund um den kleinen See",
 
@@ -408,12 +407,12 @@ return {
 	["The quarry troggs"] = "Die Troggs im Steinbruch",
 	-- {item:268548} Empty Powder Keg
 	-- plural, as words: Rockjaw Skullthumpers = {npc:1115} Rockjaw Skullthumper
-	["Rockjaw Skullthumpers, Bonesnappers and Ambushers share the quarry and the slopes north of it; the Ambushers drop the {item:268548}."] = "Rockjaw Skullthumpers, Bonesnappers und Ambushers teilen sich den Steinbruch und die Hänge nördlich davon; die Ambushers lassen {item:268548} fallen.",
+	["Rockjaw Skullthumpers, Bonesnappers and Ambushers share the quarry and the slopes north of it; the Ambushers drop the {item:268548}."] = "Schädelhauer der Felsenkiefer, Bonesnappers und Wegelagerer teilen sich den Steinbruch und die Hänge nördlich davon; die Wegelagerer lassen {item:268548} fallen.",
 
 	-- Step 76: Helm's Bed Lake
 	-- {area:212} Helm's Bed Lake · {quest:95214} Stolen Blasting Powder · {item:274268} Dark Iron Map
 	-- plural, as words: Rockjaw Ambushers = {npc:1116} Rockjaw Ambusher · Rockjaw Backbreakers = {npc:1118} Rockjaw Backbreaker
-	["Rockjaw Ambushers by {area:212}, north of the quarry, and Rockjaw Backbreakers further east drop the {quest:95214}. Dark Iron Spies sneak around the lake shore east of the quarry; one of them drops the {item:274268}."] = "Rockjaw Ambushers bei {area:212}, nördlich des Steinbruchs, und Rockjaw Backbreakers weiter östlich lassen {quest:95214} fallen. Dark Iron Spies schleichen am Seeufer östlich des Steinbruchs umher; einer von ihnen lässt {item:274268} fallen.",
+	["Rockjaw Ambushers by {area:212}, north of the quarry, and Rockjaw Backbreakers further east drop the {quest:95214}. Dark Iron Spies sneak around the lake shore east of the quarry; one of them drops the {item:274268}."] = "Wegelagerer der Felsenkiefer bei {area:212}, nördlich des Steinbruchs, und Kreuzbrecher der Felsenkiefer weiter östlich lassen {quest:95214} fallen. Spione des Dunklen Eis schleichen am Seeufer östlich des Steinbruchs umher; einer von ihnen lässt {item:274268} fallen.",
 
 	-- Step 77: Dun Morogh: kill these as you meet them
 	-- {item:2770} Copper Ore
@@ -453,7 +452,7 @@ return {
 	-- Step 90: Stonesplinter troggs
 	["Stonesplinter troggs"] = "Stonesplinter-Troggs",
 	-- plural, as words: Stonesplinter Scouts = {npc:1162} Stonesplinter Scout
-	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.\nCareful: pull the Stonesplinter Scouts and Troggs one at a time. Stay at the north edge of the valley; Headsplitter patrols the deeper camps."] = "",
+	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.\nCareful: pull the Stonesplinter Scouts and Troggs one at a time. Stay at the north edge of the valley; Headsplitter patrols the deeper camps."] = "Nördlich des Posts, westlich der Straße: die Stonesplinter-Troggs und -Späher lagern in den Hügeln. Beide lassen die Trogg Stone Teeth fallen.\nVorsicht: ziehe die Späher der Splittersteintroggs und Troggs einzeln. Bleib am Nordrand des Tals; Headsplitter patrouilliert durch die tiefer gelegenen Lager.",
 
 	-- Step 91: Linen for John Turner
 	-- {npc:6175} John Turner
@@ -478,18 +477,18 @@ return {
 	["The west hills and the {area:925}"] = "Die westlichen Hügel und der {area:925}",
 	-- {npc:1343} Mountaineer Stormpike · {area:925} Algaz Station
 	-- plural, as words: Elder Black Bears = {npc:1186} Elder Black Bear · Mountain Boars = {npc:1190} Mountain Boar · Forest Lurkers = {npc:1195} Forest Lurker
-	["North through the hills west of the road to {npc:1343} at the {area:925}. The Tunnel Rat kobolds dig in the hills on the way; Elder Black Bears, Mountain Boars and Forest Lurkers roam the same ground."] = "Nördlich durch die Hügel westlich der Straße zu {npc:1343} am {area:925}. Die Tunnel Rat-Kobolde graben unterwegs in den Hügeln; Elder Black Bears, Mountain Boars und Forest Lurkers streifen durch dasselbe Gelände.",
+	["North through the hills west of the road to {npc:1343} at the {area:925}. The Tunnel Rat kobolds dig in the hills on the way; Elder Black Bears, Mountain Boars and Forest Lurkers roam the same ground."] = "Nördlich durch die Hügel westlich der Straße zu {npc:1343} am {area:925}. Die Tunnel Rat-Kobolde graben unterwegs in den Hügeln; Alte Schwarzbären, Bergeber und Waldlauerer streifen durch dasselbe Gelände.",
 	-- {item:3110} Tunnel Rat Ear
 	["{item:3110}: Tunnel Rat kobolds"] = "{item:3110}: Tunnel Rat-Kobolde",
 	-- {item:3172} Boar Intestines
 	-- plural, as words: Mountain Boars = {npc:1190} Mountain Boar
-	["{item:3172}: Mountain Boars"] = "{item:3172}: Mountain Boars",
+	["{item:3172}: Mountain Boars"] = "{item:3172}: Bergeber",
 	-- {item:3173} Bear Meat
 	-- plural, as words: Elder Black Bears = {npc:1186} Elder Black Bear
-	["{item:3173}: Elder Black Bears"] = "{item:3173}: Elder Black Bears",
+	["{item:3173}: Elder Black Bears"] = "{item:3173}: Alte Schwarzbären",
 	-- {item:3174} Spider Ichor
 	-- plural, as words: Forest Lurkers = {npc:1195} Forest Lurker
-	["{item:3174}: Forest Lurkers"] = "{item:3174}: Forest Lurkers",
+	["{item:3174}: Forest Lurkers"] = "{item:3174}: Waldlauerer",
 	-- {npc:5413} Furen Longbeard · {zone:1453} Stormwind
 	["{npc:5413} in {zone:1453} takes it"] = "{npc:5413} in {zone:1453} nimmt es an",
 

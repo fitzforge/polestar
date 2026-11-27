@@ -136,7 +136,7 @@ return {
 	["Snapjaw Crocolisks"] = "{npc:1152}",
 	-- {area:35} Booty Bay
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
-	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}."] = "{area:35}(으)로 남쪽으로 가는 길에, 밀림 한가운데 강가에서 무쇠턱 악어가 햇볕을 쬐고 있습니다.",
+	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}. Then hearth back to {area:35}: the hearthstone is still bound there from the first loop."] = "",
 
 	-- Step 21: Tokal
 	-- {npc:215643} Tokal · {object:56910} Salty Sailor Tavern · {item:4600} Cherry Grog · {npc:2832} Nixxrax Fillamug
@@ -172,6 +172,7 @@ return {
 	-- ["North along the coast to the ruins on the hill: the last two tablets lie there. Pick up Green Hills pages as they drop."] = "해안을 따라 북쪽으로 언덕 위 폐허로 가세요. 마지막 두 석판이 그곳에 있습니다. 녹색 언덕 페이지가 나오면 주워 두세요.",
 	-- ["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}, then lead him out of the ruins. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "해안을 따라 북쪽의 언덕 위 폐허로 가세요. 마지막 석판 두 개가 그곳에 있습니다. 고블린 {npc:268992}은(는) 세 번째 석판 옆에 갇혀 있습니다. 붉은머리부족 누구나 {item:277957}을(를) 떨어뜨릴 수 있으니, 그를 풀어 폐허 밖으로 데리고 나가세요. 도난당한 화물은 폐허 동쪽 끝에 있습니다. 푸른 언덕 페이지가 떨어지면 주우세요.\n주의: 붉은머리부족 광전사, 머리사냥꾼, 의술사(36-37)가 폐허 중심부를 지키니 하나씩 끌어오세요.",
 	-- ["Skullsplitter trolls"] = "백골가루부족 트롤",
+	-- ["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}."] = "{area:35}(으)로 남쪽으로 가는 길에, 밀림 한가운데 강가에서 무쇠턱 악어가 햇볕을 쬐고 있습니다.",
 	-- ["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, and the Shadowmaw Panthers prowl stealthed in the jungle south and east of it."] = "주둔지에서 남쪽의 {area:37}(으)로 가세요. 호숫가 야영지의 투자개발회사 지질학자가 연마된 수정을 가지고 있으며, 어둠아귀 표범은 호수 남쪽과 동쪽 밀림에서 은신한 채 어슬렁거립니다.",
 	-- ["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals. Careful: Venture Co. Agents (39) walk among them: take the Geologists on the camps' edges, one at a time. Shadowmaw Panthers (37-38) prowl stealthed in the jungle south and east of the lake: keep to the shore camps."] = "주둔지에서 남쪽의 {area:37}(으)로 가세요. 호숫가 야영지의 투자개발회사 지질학자가 연마된 수정을 가지고 있습니다. 주의: 투자개발회사 요원(39)이 그 사이를 돌아다니니 야영지 가장자리의 지질학자를 하나씩 잡으세요. 그림자퓨마(37-38)가 호수 남쪽과 동쪽 밀림에서 은신한 채 어슬렁거리니 호숫가 야영지에 머무르세요.",
 	-- ["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "백골가루부족 트롤은 네싱워리와 {object:3202} 사이 길 동쪽의 폐허를 차지하고 있습니다.",

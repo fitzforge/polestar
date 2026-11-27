@@ -796,6 +796,10 @@ pub fn build_pack_files(
 	// Polestar's own pack is written for memory (format 8): spawn spots as strings, and each faction's
 	// guides in a load-on-demand part Polestar loads for a player of that faction only.
 	let ours = manifest.get("id").as_str() == Some("guides");
+	// A community pack that asks for it (pack.json `load`: "on-demand") is written the same way, and
+	// every guide's steps deferred as our side shelves' are (emit.rs emit_on_demand_guides).
+	let on_demand = !ours && manifest.get("load").as_str() == Some(crate::manifest::LOAD_ON_DEMAND);
+	let lean = ours || on_demand;
 	let entry = |g: &V| {
 		let loc = g.hidden("_localised");
 		let ast = g.hidden("_ast");
@@ -836,7 +840,7 @@ pub fn build_pack_files(
 			}
 		}
 		match race_part(g) {
-			None => match faction_part(g).filter(|_| ours) {
+			None => match faction_part(g).filter(|_| lean) {
 				Some(f) => match factions.iter_mut().find(|(k, _)| *k == f) {
 					Some((_, l)) => l.push(g.clone()),
 					None => factions.push((f, vec![g.clone()])),
@@ -852,7 +856,7 @@ pub fn build_pack_files(
 	}
 	// The first format the guides need, at least PACKED_FORMAT for ours and LEGS_FORMAT with baked legs.
 	let mut format = crate::format::format_for(guides);
-	if ours {
+	if lean {
 		format = format.max(crate::format::PACKED_FORMAT);
 	}
 	if !leg_parts.is_empty() {
@@ -908,7 +912,13 @@ pub fn build_pack_files(
 		part_index.sort_by(|a, b| crate::js::cmp_utf16(&a.0, &b.0));
 	}
 	let main_entries: Vec<V> = main.iter().map(entry).collect();
-	let mut gl = if ours { crate::emit::emit_own_guides(&main_entries) } else { crate::emit::emit_guides_with(&main_entries, false, false) };
+	let mut gl = if on_demand {
+		crate::emit::emit_on_demand_guides(&main_entries)
+	} else if ours {
+		crate::emit::emit_own_guides(&main_entries)
+	} else {
+		crate::emit::emit_guides_with(&main_entries, false, false)
+	};
 	if !retired.is_empty() {
 		gl.push_str(&crate::emit::emit_retired(&id, retired));
 	}
@@ -963,7 +973,8 @@ pub fn build_pack_files(
 		let names: Vec<&str> = mine.iter().map(|(_, n, _)| n.as_str()).collect();
 		files.push((format!("../{name}/{name}.toc"), t(crate::emit::emit_faction_toc(manifest, faction, iface, &names))));
 		let es: Vec<V> = list.iter().map(entry).collect();
-		files.push((format!("../{name}/Guides.lua"), t(crate::emit::emit_own_guides(&es))));
+		let gl = if on_demand { crate::emit::emit_on_demand_guides(&es) } else { crate::emit::emit_own_guides(&es) };
+		files.push((format!("../{name}/Guides.lua"), t(gl)));
 		for (_, file, text) in mine {
 			files.push((format!("../{name}/{file}"), t(text.clone())));
 		}
@@ -979,7 +990,7 @@ pub fn build_pack_files(
 		files.push((format!("../{name}/{name}.toc"), t(crate::emit::emit_part_toc(manifest, race, iface, own.is_some(), legs.is_some()))));
 		if let Some(list) = own {
 			let es: Vec<V> = list.iter().map(entry).collect();
-			files.push((format!("../{name}/Guides.lua"), t(crate::emit::emit_guides_with(&es, true, ours))));
+			files.push((format!("../{name}/Guides.lua"), t(crate::emit::emit_guides_with(&es, true, lean))));
 		}
 		if let Some(list) = legs {
 			files.push((format!("../{name}/Legs.lua"), t(crate::emit::emit_legs(&id, list))));

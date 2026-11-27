@@ -6467,7 +6467,6 @@ do
 					note = "Follow the road west past {area:460} (Horde) and south-west through the {area:465} into {zone:1443}; {area:608} stands at the top of the pass.",
 					goals = {
 						{ t = "getfp", npc = 6706, npcName = "Baritanas Skyriver", location = "Nijel's Point", node = 37, area = 608, map = 1443, x = 64.58, y = 10.61, z = 193.6 },
-						{ t = "sethome", npc = 11103, npcName = "Innkeeper Lyshaerya", location = "Nijel's Point", area = 608, map = 1443, x = 66.19, y = 6.67, z = 192.2 },
 						{ t = "turnin", quest = 1453, title = "Reclaimers' Business in Desolace", npc = 5638, npcName = "Kreldig Ungor", map = 1443, x = 66.08, y = 9.65, z = 166.8 },
 						{ t = "accept", quest = 1458, title = "Reagents for Reclaimers Inc.", npc = 5638, npcName = "Kreldig Ungor", minLevel = 30, qlvl = 33, pre = { 1453 }, preTitles = { [1453] = "Reclaimers' Business in Desolace" }, map = 1443, x = 66.08, y = 9.65, z = 166.8 },
 						{ t = "accept", quest = 1454, title = "The Karnitol Shipwreck", npc = 5638, npcName = "Kreldig Ungor", minLevel = 30, qlvl = 39, pre = { 1453 }, preTitles = { [1453] = "Reclaimers' Business in Desolace" }, map = 1443, x = 66.08, y = 9.65, z = 166.8, note = "{npc:5638}: the wreck's chest lies below {npc:11863}'s tower, on the way to {area:599}" },
@@ -6984,7 +6983,7 @@ do
 				},
 				{
 					title = "{area:35}",
-					note = "{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop.",
+					note = "{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of this loop, and again at the end of the second loop, after {zone:1443}.",
 					goals = {
 						{ t = "turnin", quest = 1180, title = "Goblin Sponsorship", npc = 4631, npcName = "Wharfmaster Lozgil", map = 1434, x = 26.3, y = 73.49, z = 8.9, note = "{npc:4631}, on the dock" },
 						{ t = "accept", quest = 1181, title = "Goblin Sponsorship", npc = 4631, npcName = "Wharfmaster Lozgil", minLevel = 29, qlvl = 37, pre = { 1180 }, preTitles = { [1180] = "Goblin Sponsorship" }, map = 1434, x = 26.3, y = 73.49, z = 8.9, note = "{npc:4631}: for {npc:2496}, upstairs in the tavern" },
@@ -7461,7 +7460,7 @@ do
 				},
 				{
 					title = "Snapjaw Crocolisks",
-					note = "Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}.",
+					note = "Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}. Then hearth back to {area:35}: the hearthstone is still bound there from the first loop.",
 					goals = {
 						{ t = "collect", quest = 577, title = "Some Assembly Required", item = 4104, itemName = "Snapjaw Crocolisk Skin", count = 5, oi = 1, map = 1434, x = 39.84, y = 15.97, z = 11.8, f = "e", spotsPacked = "40.2,17,,52,3;41.93,15.96,12.6,44,1;41.1,20.6,,97,6;40.3,23.7,,79,4;39.7,28.5,,64,5;38.8,31.3,,83,5", spread = true, lvl = 36, from = "Snapjaw Crocolisk", fromKind = "npc", fromId = 1152, fromNpcs = { { npc = 1152, npcName = "Snapjaw Crocolisk" } } },
 					},

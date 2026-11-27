@@ -35,6 +35,7 @@ ns.RegisterDefaults("qol", {
 	nameplateIcons = false, -- quest icon on nameplates of objective mobs
 	nameplateIconSide = "left", -- ... left or right of the health bar, or above the name
 	questLevels = true, -- "[12]" before quest titles the client lists without a level (gossip, greeting, details)
+	questGuides = true, -- which guides pick up, work or hand in a quest: tooltips, quest details, a mark after quest titles
 	guideHighlight = true, -- the active guide step's quests stand out on the maps
 	guideDim = false, -- ... and every other quest marker dims while a guide runs
 })

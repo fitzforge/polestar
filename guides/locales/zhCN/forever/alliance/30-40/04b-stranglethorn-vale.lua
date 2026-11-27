@@ -21,9 +21,9 @@ return {
 
 	-- Step 3: Clerk Daltry
 	-- {npc:267} Clerk Daltry · {area:42} Darkshire · {npc:661} Jonathan Carevin
-	["{npc:267} works in {area:42}'s town hall, a short walk from the flight master; {npc:661} stands just east of it."] = "",
+	["{npc:267} works in {area:42}'s town hall, a short walk from the flight master; {npc:661} stands just east of it."] = "{npc:267}在{area:42}的市政厅工作，离飞行管理员不远；{npc:661}就站在市政厅东边。",
 	-- {npc:661} Jonathan Carevin · {area:121} Tranquil Gardens Cemetery · {zone:1435} Swamp of Sorrows
-	["{npc:661}: the evidence lies in the {area:121}, on the next guide's way to the {zone:1435}: keep it"] = "",
+	["{npc:661}: the evidence lies in the {area:121}, on the next guide's way to the {zone:1435}: keep it"] = "{npc:661}：证据在{area:121}，在下一份指南去{zone:1435}的路上：保留此任务",
 
 	-- Step 4: Clerk Daltry
 	-- {npc:267} Clerk Daltry · {area:42} Darkshire · {npc:661} Jonathan Carevin
@@ -37,7 +37,7 @@ return {
 	-- {zone:1431} Duskwood
 	["From {zone:1431} take the road south; the camp sits in the hills west of the road."] = "从{zone:1431}沿路向南；营地在道路西边的山丘中。",
 	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
-	["{npc:770}, if the first Stranglethorn loop didn't give it: for {npc:773} in {area:35}"] = "",
+	["{npc:770}, if the first Stranglethorn loop didn't give it: for {npc:773} in {area:35}"] = "{npc:770}，如果荆棘谷第一圈没给：交给{area:35}的{npc:773}",
 
 	-- Step 7: Nesingwary's Expedition
 	-- {npc:717} Ajeck Rouack
@@ -46,7 +46,7 @@ return {
 	["{npc:717}. Keep it for the later visit if you skip {npc:729} on the raptor hill."] = "{npc:717}。如果没打迅猛龙附近山丘上的{npc:729}，就把任务留到下次再做。",
 	-- {npc:715} Hemet Nesingwary
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{npc:715}, if the first Stranglethorn loop didn't give it: the Lashtail Raptors, after the jungle ruins"] = "",
+	["{npc:715}, if the first Stranglethorn loop didn't give it: the Lashtail Raptors, after the jungle ruins"] = "{npc:715}，如果荆棘谷第一圈没给：鞭尾迅猛龙，在丛林废墟之后",
 
 	-- Step 8: Bookie Herod
 	-- {area:101} Kurzen's Compound
@@ -136,13 +136,13 @@ return {
 	["Snapjaw Crocolisks"] = "钳嘴鳄鱼",
 	-- {area:35} Booty Bay
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
-	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}."] = "钳嘴鳄鱼在丛林中央河流两侧晒太阳，向南前往{area:35}时会经过。",
+	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}. Then hearth back to {area:35}: the hearthstone is still bound there from the first loop."] = "",
 
 	-- Step 21: Tokal
 	-- {npc:215643} Tokal · {object:56910} Salty Sailor Tavern · {item:4600} Cherry Grog · {npc:2832} Nixxrax Fillamug
-	["{npc:215643}, whom Bibbly sent you to find, waits by the {object:56910}. He asks for a {item:4600}: {npc:2832} sells it in the tavern, a few steps away."] = "",
+	["{npc:215643}, whom Bibbly sent you to find, waits by the {object:56910}. He asks for a {item:4600}: {npc:2832} sells it in the tavern, a few steps away."] = "{npc:215643}，比布里派你来找的人，在{object:56910}旁等着。他要一杯{item:4600}：{npc:2832}就在几步外的旅店里卖。",
 	-- {item:4600} Cherry Grog · {npc:2832} Nixxrax Fillamug
-	["{item:4600}, from {npc:2832}"] = "",
+	["{item:4600}, from {npc:2832}"] = "{item:4600}，找{npc:2832}买",
 
 	-- Step 22: Booty Bay
 	-- {npc:2495} Drizzlik
@@ -178,6 +178,7 @@ return {
 	-- ["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}, then lead him out of the ruins. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "沿海岸向北前往山丘上的废墟：最后两块石板在那里。地精{npc:268992}被关在第三块石板旁的笼子里：任何血顶巨魔都可能掉落他的{item:277957}，之后护送他离开废墟。被盗的货物在废墟东边缘。掉落《荆棘谷的青山》书页时记得拾取。\n小心：血顶狂战士、猎头者和巫医（36-37级）占据废墟中心：一次拉一个。",
 	-- ["Skullsplitter trolls"] = "劈颅巨魔",
 	-- ["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to the Skullsplitter ruins."] = "钳嘴鳄鱼在丛林中央河流两侧晒太阳，向南前往劈颅废墟时会经过。",
+	-- ["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}."] = "钳嘴鳄鱼在丛林中央河流两侧晒太阳，向南前往{area:35}时会经过。",
 	-- ["South along the road: the hunters' tents stand just west of it."] = "沿路向南：猎人的帐篷就在道路西侧。",
 	-- ["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, and the Shadowmaw Panthers prowl stealthed in the jungle south and east of it."] = "从营地向南前往{area:37}：湖岸营地中的风险投资公司地质学家携带打磨过的水晶，深喉猎豹潜行在湖南边和东边的丛林中。",
 	-- ["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals. Careful: Venture Co. Agents (39) walk among them: take the Geologists on the camps' edges, one at a time. Shadowmaw Panthers (37-38) prowl stealthed in the jungle south and east of the lake: keep to the shore camps."] = "从营地向南前往{area:37}：湖岸营地中的风险投资公司地质学家携带打磨过的水晶。小心：风险投资公司特工（39级）在他们中间走动：一次只打营地边缘的一个地质学家。深喉猎豹（37-38级）潜行在湖南边和东边的丛林中：沿湖岸营地行动。",

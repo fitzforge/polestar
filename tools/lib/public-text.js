@@ -27,10 +27,10 @@ const SCOPES = ['tree', 'prose', 'message'];
 
 const sha256 = (s) => crypto.createHash('sha256').update(s).digest('hex');
 
-// { hashed: [{ id, scope, phrases: [[token hash, ...], ...] }], rules: [{ id, scope, re, match, pass }] } from file.
+// { hashed: [{ id, scope, phrases: [[token hash, ...], ...] }], rules: [{ id, scope, re, match, pass }], allow: [{ id, rules, phrase, files }] } from file.
 function loadRules(file = RULES_FILE) {
 	const raw = JSON.parse(fs.readFileSync(file, 'utf8'));
-	return { hashed: raw.hashed || [], rules: raw.rules || [] };
+	return { hashed: raw.hashed || [], rules: raw.rules || [], allow: raw.allow || [] };
 }
 
 // Tokens repeat endlessly across a tree: hash each distinct one once.
@@ -85,11 +85,19 @@ function hashedHits(text, groups) {
 }
 
 // Where text breaks the rules of `scopes` -> [{ rule, index }] in text order.
-function hits(text, { hashed, rules }, scopes = SCOPES) {
-	const out = hashedHits(text, hashed.filter((g) => scopes.includes(g.scope)));
+// `file` (a repository-relative path with forward slashes) lets the rules'
+// `allow` entries pass their phrase in the files they name; without a file
+// (a message, a branch name, a pull request) nothing is allowed.
+function hits(text, { hashed, rules, allow = [] }, scopes = SCOPES, file = null) {
+	let out = hashedHits(text, hashed.filter((g) => scopes.includes(g.scope)));
 	for (const r of rules) {
 		if (!scopes.includes(r.scope)) continue;
 		for (const m of text.matchAll(new RegExp(r.re, 'gi'))) out.push({ rule: r.id, index: m.index });
+	}
+	for (const a of allow) {
+		if (file == null || !a.files.some((f) => new RegExp(f).test(file))) continue;
+		const spans = [...text.matchAll(new RegExp(a.phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'))].map((m) => [m.index, m.index + m[0].length]);
+		out = out.filter((h) => !a.rules.includes(h.rule) || !spans.some(([s, e]) => h.index >= s && h.index < e));
 	}
 	return out.sort((a, b) => a.index - b.index);
 }

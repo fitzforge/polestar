@@ -16,14 +16,13 @@ return {
 	-- {skill:333} Enchanting
 	["{skill:333} 1-75: vendor goods"] = "{skill:333} 1-75: Händlerwaren",
 	-- {item:6217} Copper Rod · {item:247786} Mote of Magic · {zone:1453} Stormwind City · {npc:1318} Jessara Cordell · {zone:1454} Orgrimmar · {npc:3346} Kithas
-	-- was: ["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "Kauf den Bedarf für den ganzen Bereich auf einmal: 1 {item:6217} (1s 24c) und 32 {item:247786} (3s 20c); insgesamt etwa 4s 44c. Der Pfeil wählt den nächsten Händler deiner Fraktion ({zone:1453}: {npc:1286} und {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} und {npc:5817})."
-	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1318}; {zone:1454}: {npc:3346})."] = "",
+	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1318}; {zone:1454}: {npc:3346})."] = "Kauf den Bedarf für den ganzen Bereich auf einmal: 1 {item:6217} (1s 24c) und 32 {item:247786} (3s 20c); insgesamt etwa 4s 44c. Der Pfeil wählt den nächsten Händler deiner Fraktion ({zone:1453}: {npc:1318}; {zone:1454}: {npc:3346}).",
 
 	-- Step 3: Get Strange Dust
 	-- {item:10940} Strange Dust
-	["Get {item:10940}"] = "",
+	["Get {item:10940}"] = "Sammle {item:10940}",
 	-- {item:10940} Strange Dust · {skill:333} Enchanting · {spell:7420} Enchant Chest - Inferior Stamina
-	["You need 51 {item:10940} for {skill:333} 1-75: {spell:7420}. {skill:333}: disenchant green items of item level 5-20. Or buy them at the Auction House."] = "",
+	["You need 51 {item:10940} for {skill:333} 1-75: {spell:7420}. {skill:333}: disenchant green items of item level 5-20. Or buy them at the Auction House."] = "Du brauchst 51 {item:10940} für {skill:333} 1-75: {spell:7420}. {skill:333}: grüne Gegenstände der Itemstufe 5-20 entzaubern. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 4: Enchant Bracer - Inferior Stamina to 25
 	-- {spell:7418} Enchant Bracer - Inferior Stamina
@@ -58,31 +57,31 @@ return {
 
 	-- Step 9: Get Shadowgem
 	-- {item:1210} Shadowgem
-	["Get {item:1210}"] = "",
+	["Get {item:1210}"] = "Sammle {item:1210}",
 	-- {item:1210} Shadowgem · {skill:333} Enchanting · {item:6339} Runed Silver Rod · {object:1731} Copper Vein · {object:1732} Tin Vein · {object:1733} Silver Vein
-	["You need 1 {item:1210} for {skill:333} 75-150: {item:6339}. {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining. Or buy it at the Auction House."] = "",
+	["You need 1 {item:1210} for {skill:333} 75-150: {item:6339}. {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining. Or buy it at the Auction House."] = "Du brauchst 1 {item:1210} für {skill:333} 75-150: {item:6339}. {item:1210} taucht in etwa einem von 100 {object:1731}, {object:1732} oder {object:1733} auf: Behalte die, die du beim Abbauen findest. Oder kaufe es im Auktionshaus.",
 
 	-- Step 10: Get Silver Rod
 	-- {item:6338} Silver Rod
-	["Get {item:6338}"] = "",
+	["Get {item:6338}"] = "Sammle {item:6338}",
 	-- {item:6338} Silver Rod · {skill:333} Enchanting · {item:6339} Runed Silver Rod · {skill:164} Blacksmithing
-	["You need 1 {item:6338} for {skill:333} 75-150: {item:6339}. {skill:164}: {item:6338}. Or buy it at the Auction House."] = "",
+	["You need 1 {item:6338} for {skill:333} 75-150: {item:6339}. {skill:164}: {item:6338}. Or buy it at the Auction House."] = "Du brauchst 1 {item:6338} für {skill:333} 75-150: {item:6339}. {skill:164}: {item:6338}. Oder kaufe es im Auktionshaus.",
 
 	-- Step 11: Get Strange Dust
 	-- {item:10940} Strange Dust · {skill:333} Enchanting · {spell:7420} Enchant Chest - Inferior Stamina · {spell:7771} Enchant Cloak - Minor Protection · {item:6339} Runed Silver Rod
-	["You need 121 {item:10940} for {skill:333} 75-150: {spell:7420}, {spell:7771} and {item:6339}. {skill:333}: disenchant green items of item level 5-20. Or buy them at the Auction House."] = "",
+	["You need 121 {item:10940} for {skill:333} 75-150: {spell:7420}, {spell:7771} and {item:6339}. {skill:333}: disenchant green items of item level 5-20. Or buy them at the Auction House."] = "Du brauchst 121 {item:10940} für {skill:333} 75-150: {spell:7420}, {spell:7771} und {item:6339}. {skill:333}: grüne Gegenstände der Itemstufe 5-20 entzaubern. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 12: Get Soul Dust
 	-- {item:11083} Soul Dust
-	["Get {item:11083}"] = "",
+	["Get {item:11083}"] = "Sammle {item:11083}",
 	-- {item:11083} Soul Dust · {skill:333} Enchanting · {spell:13501} Enchant Bracer - Lesser Stamina
-	["You need 20 {item:11083} for {skill:333} 75-150: {spell:13501}. {skill:333}: disenchant green items of item level 21-30. Or buy them at the Auction House."] = "",
+	["You need 20 {item:11083} for {skill:333} 75-150: {spell:13501}. {skill:333}: disenchant green items of item level 21-30. Or buy them at the Auction House."] = "Du brauchst 20 {item:11083} für {skill:333} 75-150: {spell:13501}. {skill:333}: grüne Gegenstände der Itemstufe 21-30 entzaubern. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 13: Enchanting 75-150: Auction House
 	-- {skill:333} Enchanting
 	["{skill:333} 75-150: Auction House"] = "{skill:333} 75-150: Auktionshaus",
 	-- {item:10938} Lesser Magic Essence
-	["What 75-150 takes that the Auction House sells and no step above farms: 4 {item:10938}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 75-150 takes that the Auction House sells and no step above farms: 4 {item:10938}. The counts drop by what your bags, bank and mail hold."] = "Was 75-150 anbelangt, was das Auktionshaus verkauft und kein obiger Schritt abbaut: 4 {item:10938}. Die Zahlen sinken um das, was deine Taschen, deine Bank und deine Post bereits enthalten.",
 
 	-- Step 14: Enchant Chest - Inferior Stamina to 90
 	-- {spell:7420} Enchant Chest - Inferior Stamina
@@ -110,56 +109,54 @@ return {
 
 	-- Step 18: Get Iridescent Pearl (Alliance)
 	-- {item:5500} Iridescent Pearl
-	-- was: ["{item:5500} (Alliance)"] = "{item:5500} (Allianz)"
-	["Get {item:5500} (Alliance)"] = "",
+	["Get {item:5500} (Alliance)"] = "Sammle {item:5500} (Allianz)",
 	-- {item:5500} Iridescent Pearl · {skill:333} Enchanting · {item:11130} Runed Golden Rod
 	-- plural, as words: Giant Clams = {object:2744} Giant Clam
-	["You need 1 {item:5500} for {skill:333} 150-225: {item:11130}. Open the Giant Clams at the marked spot. Or buy it at the Auction House."] = "",
+	["You need 1 {item:5500} for {skill:333} 150-225: {item:11130}. Open the Giant Clams at the marked spot. Or buy it at the Auction House."] = "Du brauchst 1 {item:5500} für {skill:333} 150-225: {item:11130}. Öffne die Riesenmuscheln an der markierten Stelle. Oder kaufe es im Auktionshaus.",
 
 	-- Step 19: Get Iridescent Pearl (Horde)
 	-- {item:5500} Iridescent Pearl
-	-- was: ["{item:5500} (Horde)"] = "{item:5500} (Horde)"
-	["Get {item:5500} (Horde)"] = "",
+	["Get {item:5500} (Horde)"] = "Sammle {item:5500} (Horde)",
 
 	-- Step 20: Get Greater Astral Essence
 	-- {item:11082} Greater Astral Essence
-	["Get {item:11082}"] = "",
+	["Get {item:11082}"] = "Sammle {item:11082}",
 	-- {item:11082} Greater Astral Essence · {skill:333} Enchanting · {item:11130} Runed Golden Rod
-	["You need 1 {item:11082} for {skill:333} 150-225: {item:11130}. {skill:333}: disenchant green items of item level 16-25. Or buy it at the Auction House."] = "",
+	["You need 1 {item:11082} for {skill:333} 150-225: {item:11130}. {skill:333}: disenchant green items of item level 16-25. Or buy it at the Auction House."] = "Du brauchst 1 {item:11082} für {skill:333} 150-225: {item:11130}. {skill:333}: grüne Gegenstände der Itemstufe 16-25 entzaubern. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 21: Get Soul Dust
 	-- {item:11083} Soul Dust · {skill:333} Enchanting · {item:11130} Runed Golden Rod · {spell:13501} Enchant Bracer - Lesser Stamina · {spell:13637} Enchant Boots - Lesser Agility
-	["You need 71 {item:11083} for {skill:333} 150-225: {item:11130}, {spell:13501} and {spell:13637}. {skill:333}: disenchant green items of item level 21-30. Or buy them at the Auction House."] = "",
+	["You need 71 {item:11083} for {skill:333} 150-225: {item:11130}, {spell:13501} and {spell:13637}. {skill:333}: disenchant green items of item level 21-30. Or buy them at the Auction House."] = "Du brauchst 71 {item:11083} für {skill:333} 150-225: {item:11130}, {spell:13501} und {spell:13637}. {skill:333}: grüne Gegenstände der Itemstufe 21-30 entzaubern. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 22: Get Golden Rod
 	-- {item:11128} Golden Rod
-	["Get {item:11128}"] = "",
+	["Get {item:11128}"] = "Sammle {item:11128}",
 	-- {item:11128} Golden Rod · {skill:333} Enchanting · {item:11130} Runed Golden Rod · {skill:164} Blacksmithing
-	["You need 1 {item:11128} for {skill:333} 150-225: {item:11130}. {skill:164}: {item:11128}. Or buy it at the Auction House."] = "",
+	["You need 1 {item:11128} for {skill:333} 150-225: {item:11130}. {skill:164}: {item:11128}. Or buy it at the Auction House."] = "Du brauchst 1 {item:11128} für {skill:333} 150-225: {item:11130}. {skill:164}: {item:11128}. Oder kaufe es im Auktionshaus.",
 
 	-- Step 23: Get Greater Mystic Essence
 	-- {item:11135} Greater Mystic Essence
-	["Get {item:11135}"] = "",
+	["Get {item:11135}"] = "Sammle {item:11135}",
 	-- {item:11135} Greater Mystic Essence · {skill:333} Enchanting · {item:11145} Runed Truesilver Rod
-	["You need 1 {item:11135} for {skill:333} 150-225: {item:11145}. {skill:333}: disenchant green items of item level 26-35. Or buy it at the Auction House."] = "",
+	["You need 1 {item:11135} for {skill:333} 150-225: {item:11145}. {skill:333}: disenchant green items of item level 26-35. Or buy it at the Auction House."] = "Du brauchst 1 {item:11135} für {skill:333} 150-225: {item:11145}. {skill:333}: grüne Gegenstände der Itemstufe 26-35 entzaubern. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 24: Get Vision Dust
 	-- {item:11137} Vision Dust
-	["Get {item:11137}"] = "",
+	["Get {item:11137}"] = "Sammle {item:11137}",
 	-- {item:11137} Vision Dust · {skill:333} Enchanting · {item:11145} Runed Truesilver Rod · {spell:13746} Enchant Cloak - Greater Defense
-	["You need 21 {item:11137} for {skill:333} 150-225: {item:11145} and {spell:13746}. {skill:333}: disenchant green items of item level 31-40. Or buy them at the Auction House."] = "",
+	["You need 21 {item:11137} for {skill:333} 150-225: {item:11145} and {spell:13746}. {skill:333}: disenchant green items of item level 31-40. Or buy them at the Auction House."] = "Du brauchst 21 {item:11137} für {skill:333} 150-225: {item:11145} und {spell:13746}. {skill:333}: grüne Gegenstände der Itemstufe 31-40 entzaubern. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 25: Get Truesilver Rod
 	-- {item:11144} Truesilver Rod
-	["Get {item:11144}"] = "",
+	["Get {item:11144}"] = "Sammle {item:11144}",
 	-- {item:11144} Truesilver Rod · {skill:333} Enchanting · {item:11145} Runed Truesilver Rod · {skill:164} Blacksmithing
-	["You need 1 {item:11144} for {skill:333} 150-225: {item:11145}. {skill:164}: {item:11144}. Or buy it at the Auction House."] = "",
+	["You need 1 {item:11144} for {skill:333} 150-225: {item:11145}. {skill:164}: {item:11144}. Or buy it at the Auction House."] = "Du brauchst 1 {item:11144} für {skill:333} 150-225: {item:11145}. {skill:164}: {item:11144}. Oder kaufe es im Auktionshaus.",
 
 	-- Step 26: Enchanting 150-225: Auction House
 	-- {skill:333} Enchanting
 	["{skill:333} 150-225: Auction House"] = "{skill:333} 150-225: Auktionshaus",
 	-- {item:7971} Black Pearl
-	["What 150-225 takes that the Auction House sells and no step above farms: 1 {item:7971}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 150-225 takes that the Auction House sells and no step above farms: 1 {item:7971}. The counts drop by what your bags, bank and mail hold."] = "Was 150-225 anbelangt, was das Auktionshaus verkauft und kein obiger Schritt abbaut: 1 {item:7971}. Die Zahlen sinken um das, was deine Taschen, deine Bank und deine Post bereits enthalten.",
 
 	-- Step 27: Expert Enchanting
 	-- {skill:333} Enchanting
@@ -219,29 +216,25 @@ return {
 
 	-- Step 37: Get Purple Lotus (Alliance)
 	-- {item:8831} Purple Lotus
-	-- was: ["{item:8831} (Alliance)"] = "{item:8831} (Allianz)"
-	["Get {item:8831} (Alliance)"] = "",
+	["Get {item:8831} (Alliance)"] = "Sammle {item:8831} (Allianz)",
 	-- {item:8831} Purple Lotus · {skill:333} Enchanting · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	-- was: ["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1425} is marked."] = "34 {item:8831} für {item:20747}: {skill:182}: {item:8831} (Fertigkeit 210) in {zone:1425} (40-50), {zone:1444} (40-50) und {zone:1447} (45-55). Das dichteste Vorkommen von {item:8831} in {zone:1425} ist markiert."
-	["You need 34 {item:8831} for {skill:333} 225-300: {item:20747}. {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1425} is marked. Or buy them at the Auction House."] = "",
+	["You need 34 {item:8831} for {skill:333} 225-300: {item:20747}. {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1425} is marked. Or buy them at the Auction House."] = "Du brauchst 34 {item:8831} für {skill:333} 225-300: {item:20747}. {skill:182}: {item:8831} (Fertigkeit 210) in {zone:1425} (40-50), {zone:1444} (40-50) und {zone:1447} (45-55). Das dichteste Vorkommen von {item:8831} in {zone:1425} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 38: Get Purple Lotus (Horde)
 	-- {item:8831} Purple Lotus
-	-- was: ["{item:8831} (Horde)"] = "{item:8831} (Horde)"
-	["Get {item:8831} (Horde)"] = "",
+	["Get {item:8831} (Horde)"] = "Sammle {item:8831} (Horde)",
 	-- {item:8831} Purple Lotus · {skill:333} Enchanting · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	-- was: ["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1444} is marked."] = "34 {item:8831} für {item:20747}: {skill:182}: {item:8831} (Fertigkeit 210) in {zone:1425} (40-50), {zone:1444} (40-50) und {zone:1447} (45-55). Das dichteste Vorkommen von {item:8831} in {zone:1444} ist markiert."
-	["You need 34 {item:8831} for {skill:333} 225-300: {item:20747}. {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1444} is marked. Or buy them at the Auction House."] = "",
+	["You need 34 {item:8831} for {skill:333} 225-300: {item:20747}. {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1444} is marked. Or buy them at the Auction House."] = "Du brauchst 34 {item:8831} für {skill:333} 225-300: {item:20747}. {skill:182}: {item:8831} (Fertigkeit 210) in {zone:1425} (40-50), {zone:1444} (40-50) und {zone:1447} (45-55). Das dichteste Vorkommen von {item:8831} in {zone:1444} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 39: Get Vision Dust
 	-- {item:11137} Vision Dust · {skill:333} Enchanting · {spell:13815} Enchant Gloves - Agility
-	["You need 39 {item:11137} for {skill:333} 225-300: {spell:13815}. {skill:333}: disenchant green items of item level 31-40. Or buy them at the Auction House."] = "",
+	["You need 39 {item:11137} for {skill:333} 225-300: {spell:13815}. {skill:333}: disenchant green items of item level 31-40. Or buy them at the Auction House."] = "Du brauchst 39 {item:11137} für {skill:333} 225-300: {spell:13815}. {skill:333}: grüne Gegenstände der Itemstufe 31-40 entzaubern. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 40: Get Dream Dust
 	-- {item:11176} Dream Dust
-	["Get {item:11176}"] = "",
+	["Get {item:11176}"] = "Sammle {item:11176}",
 	-- {item:11176} Dream Dust · {skill:333} Enchanting · {item:20747} Lesser Mana Oil · {spell:20017} Enchant Shield - Greater Stamina
-	["You need 208 {item:11176} for {skill:333} 225-300: {item:20747} and {spell:20017}. {skill:333}: disenchant green items of item level 41-50. Or buy them at the Auction House."] = "",
+	["You need 208 {item:11176} for {skill:333} 225-300: {item:20747} and {spell:20017}. {skill:333}: disenchant green items of item level 41-50. Or buy them at the Auction House."] = "Du brauchst 208 {item:11176} für {skill:333} 225-300: {item:20747} und {spell:20017}. {skill:333}: grüne Gegenstände der Itemstufe 41-50 entzaubern. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 41: Enchant Gloves - Agility to 253
 	-- {spell:13815} Enchant Gloves - Agility

@@ -263,14 +263,13 @@ return {
 	-- Step 56: Level 10
 	["Level 10"] = "Stufe 10",
 	-- {area:362} Razor Hill · {quest:96825} This Fruit Could Bite Back
-	-- was: ["Top up here to level 10: {quest:840}, at {area:362}, needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "Hol hier Stufe 10 auf: {quest:840} in {area:362} braucht Stufe 10.\nDie Kaktusfeigen für {quest:96825} wachsen bei diesen Hütten: Sammle sie beim Grinden."
-	["Top up here to level 10: your class quest at {area:362} needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "",
+	["Top up here to level 10: your class quest at {area:362} needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "Toppe hier auf Stufe 10 auf: deine Klassenquest bei {area:362} braucht Stufe 10.\nDie Kaktusfeigen für {quest:96825} wachsen bei diesen Hütten: sammle sie beim Grinden.",
 	-- {npc:3111} Razormane Quilboar
 	["grind on {npc:3111}"] = "grinde {npc:3111}",
 
 	-- Step 57: Razor Hill
 	-- {npc:3336} Takrin Pathseeker · {npc:3337} Kargal Battlescar · {npc:5907} Kranal Fiss
-	["{npc:3336}: {npc:3337} is on the way to {npc:5907}"] = "",
+	["{npc:3336}: {npc:3337} is on the way to {npc:5907}"] = "{npc:3336}: {npc:3337} ist auf dem Weg zu {npc:5907}",
 
 	-- Step 58: Far Watch Post
 	-- {area:814} Southfury River · {npc:3337} Kargal Battlescar · {area:379} Far Watch Post · {npc:5907} Kranal Fiss
@@ -342,11 +341,11 @@ return {
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3142} Orgnil Soulscar
 	["Back to {area:362}: {npc:3139}, then {npc:3142}."] = "Zurück nach {area:362}: {npc:3139}, dann {npc:3142}.",
 	-- {npc:3169} Tarshaw Jaggedscar · {npc:5810} Uzzek · {area:379} Far Watch Post
-	["{npc:3169}, inside: for {npc:5810} at {area:379}, on the way out"] = "",
+	["{npc:3169}, inside: for {npc:5810} at {area:379}, on the way out"] = "{npc:3169}, drinnen: für {npc:5810} bei {area:379}, auf dem Weg nach draußen",
 	-- {npc:3294} Ophek · {npc:5875} Gan'rul Bloodeye · {zone:1454} Orgrimmar
-	["{npc:3294}, by the inn: for {npc:5875} in {zone:1454}"] = "",
+	["{npc:3294}, by the inn: for {npc:5875} in {zone:1454}"] = "{npc:3294}, am Gasthaus: für {npc:5875} in {zone:1454}",
 	-- {npc:3336} Takrin Pathseeker · {npc:3337} Kargal Battlescar · {area:379} Far Watch Post · {zone:1413} The Barrens
-	["{npc:3336}: {npc:3337} stands at {area:379}, on the {zone:1413} guide's road"] = "",
+	["{npc:3336}: {npc:3337} stands at {area:379}, on the {zone:1413} guide's road"] = "{npc:3336}: {npc:3337} steht bei {area:379}, an der Straße des {zone:1413}-Führers",
 
 	-- Step 81: Spitelash naga
 	["Spitelash naga"] = "Naga der Grollflossen",
@@ -368,11 +367,11 @@ return {
 
 	-- Step 86: Valley of Strength
 	-- {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:268701} Thatog · {object:172982} Valley of Strength · {object:173016} Borstan's Firepit
-	["{zone:1454}'s main gate is just west of {area:817}. {npc:268701} stands by the bank in the {object:172982}; {object:173016} is a few steps north."] = "",
+	["{zone:1454}'s main gate is just west of {area:817}. {npc:268701} stands by the bank in the {object:172982}; {object:173016} is a few steps north."] = "Das Haupttor von {zone:1454} ist direkt westlich von {area:817}. {npc:268701} steht bei der Bank im {object:172982}; {object:173016} ist ein paar Schritte nördlich.",
 
 	-- Step 87: The Drag
 	-- {npc:3348} Kor'geld · {npc:3347} Yelmak · {npc:11046} Whuut
-	["On through the Drag: {npc:3348} and {npc:3347} run the alchemy shop; {npc:11046} is next door."] = "",
+	["On through the Drag: {npc:3348} and {npc:3347} run the alchemy shop; {npc:11046} is next door."] = "Weiter durch den Drag: {npc:3348} und {npc:3347} betreiben den Alchemieladen; {npc:11046} ist direkt daneben.",
 
 	-- Step 88: Valley of Honor
 	-- {object:172958} Valley of Honor
@@ -380,14 +379,14 @@ return {
 
 	-- Step 90: Thrall
 	-- {object:172957} Valley of Wisdom · {npc:4949} Thrall · {npc:3230} Nazgrel
-	["Grommash Hold stands in the {object:172957} at the end of the Drag: {npc:4949} sits on his throne, {npc:3230} stands beside the door."] = "",
+	["Grommash Hold stands in the {object:172957} at the end of the Drag: {npc:4949} sits on his throne, {npc:3230} stands beside the door."] = "Grommash-Haldi steht im {object:172957} am Ende des Drags: {npc:4949} sitzt auf seinem Thron, {npc:3230} steht neben der Tür.",
 	-- {npc:3230} Nazgrel · {quest:831} The Admiral's Orders
-	["{npc:3230}, in Grommash Hold: {quest:831}"] = "",
+	["{npc:3230}, in Grommash Hold: {quest:831}"] = "{npc:3230}, in der Grommash Hold: {quest:831}",
 
 	-- Step 91: Valley of Wisdom
 	-- {npc:268684} Thra · {npc:268682} Migi
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
-	["{npc:268684} and {npc:268682} sit behind Grommash Hold; the Smooth Boulders lie around them."] = "",
+	["{npc:268684} and {npc:268682} sit behind Grommash Hold; the Smooth Boulders lie around them."] = "{npc:268684} und {npc:268682} sitzen hinter Grommash Hold; die Glatten Felsbrocken liegen um sie herum.",
 
 	-- Step 92: Back to Durotar
 	-- {zone:1411} Durotar
@@ -401,7 +400,7 @@ return {
 	-- {quest:827} Skull Rock · {item:4871} Searing Collar · {npc:3204} Gazz'uz · {item:4903} Eye of Burning Shadow
 	["Burning Blade cultists hold the caves of {quest:827}; any of them drops a {item:4871}. {npc:3204}, a level 14 warlock, stands deep inside and drops the {item:4903}.\nCareful: voidwalkers fight beside the Burning Blade cultists in {quest:827} and {npc:3204} (14) waits at the back with his own: pull one cultist at a time near the entrance for the collars. The {item:4903} is optional: leave {npc:3204} unless you are 13 or have a friend."] = "Kultisten der Burning Blade halten die Höhlen von {quest:827}; jeder lässt {item:4871} fallen. {npc:3204}, ein Hexenmeister der Stufe 14, steht tief drinnen und lässt {item:4903} fallen.\nVorsicht: In {quest:827} kämpfen Leerwandler an der Seite der Kultisten der Burning Blade, und {npc:3204} (14) wartet hinten mit seinem eigenen: Zieh die Kultisten für die Halsbänder einzeln nahe dem Eingang. {item:4903} ist optional: Lass {npc:3204} in Ruhe, außer du bist 13 oder hast einen Freund dabei.",
 	-- {item:14544} Lieutenant's Insignia
-	["{item:14544}, from the same cultists; below ground"] = "",
+	["{item:14544}, from the same cultists; below ground"] = "{item:14544}, von denselben Kultisten; unter der Erde",
 
 	-- Step 95: Tablet of Verga
 	-- {object:58595} Burning Blade Stash · {area:817} Skull Rock
@@ -409,11 +408,11 @@ return {
 
 	-- Step 97: Razor Hill
 	-- {area:362} Razor Hill · {npc:3171} Thotar · {npc:5810} Uzzek · {area:379} Far Watch Post · {quest:99051} Threat from Below · {npc:3142} Orgnil Soulscar · {zone:1413} The Barrens
-	["Back to {area:362}: {npc:3171}'s next beast and {npc:5810}'s road to {area:379} start here. Everyone else hands {quest:99051} to {npc:3142} when the {zone:1413} guide passes {area:362} on its way out."] = "",
+	["Back to {area:362}: {npc:3171}'s next beast and {npc:5810}'s road to {area:379} start here. Everyone else hands {quest:99051} to {npc:3142} when the {zone:1413} guide passes {area:362} on its way out."] = "Zurück nach {area:362}: {npc:3171}s nächstes Tier und {npc:5810}s Straße nach {area:379} beginnen hier. Alle anderen geben {quest:99051} an {npc:3142} ab, wenn der {zone:1413}-Guide auf dem Weg nach draußen an {area:362} vorbeikommt.",
 
 	-- Step 98: Razor Hill
 	-- {npc:3142} Orgnil Soulscar · {quest:99051} Threat from Below
-	["{npc:3142}: {quest:99051}, if not handed in yet"] = "",
+	["{npc:3142}: {quest:99051}, if not handed in yet"] = "{npc:3142}: {quest:99051}, falls noch nicht abgegeben",
 	-- {npc:3142} Orgnil Soulscar · {npc:275666} Aggor the Young
 	["{npc:3142}: {npc:275666}, an elite sea giant"] = "{npc:3142}: {npc:275666}, ein Elite-Meeresriese",
 
@@ -442,8 +441,7 @@ return {
 
 	-- Step 104: Ormak Grimshot
 	-- {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor
-	-- was: ["Follow the road north from {area:362} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Folge der Straße von {area:362} nach Norden zum Haupttor von {zone:1454}, gleich westlich von {area:817}. {npc:3352} steht bei den Jägerlehrern im {object:172958}."
-	["Head to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "",
+	["Head to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Geh zum Haupttor von {zone:1454}, direkt westlich von {area:817}. {npc:3352} steht mit den Jägerausbildern im {object:172958}.",
 
 	-- Step 105: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
@@ -453,8 +451,7 @@ return {
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "Nach {zone:1454}",
 	-- {zone:1454} Orgrimmar · {area:817} Skull Rock · {area:379} Far Watch Post · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
-	-- was: ["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "Folge der Straße von {area:379} nach Norden zum Haupttor von {zone:1454}. Der nächste Guide beginnt in {zone:1454}: {quest:829} nimmt die Quest der Kultisten an, die Lehrer bringen dir deine neuen Ränge bei, und der Zeppelin nach {zone:1420} und {zone:1421} fährt von den Türmen vor dem Tor ab. {zone:1413} kommt nach Silverpine."
-	["Head to {zone:1454}'s main gate, just west of {area:817} (Warriors: north along the road from {area:379}). The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "",
+	["Head to {zone:1454}'s main gate, just west of {area:817} (Warriors: north along the road from {area:379}). The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "Geh zum Haupttor von {zone:1454}, direkt westlich von {area:817} (Krieger: nach Norden entlang der Straße von {area:379}). Der nächste Führer beginnt in {zone:1454}: {quest:829} nimmt die Quest der Kultisten an, die Trainer lehren deine neuen Ränge, und der Zeppelin startet von den Türmen außerhalb des Tors nach {zone:1420} und {zone:1421}. {zone:1413} kommt nach Silverpine.",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "{object:172982} von {zone:1454}",
 

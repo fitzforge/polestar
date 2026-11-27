@@ -48,7 +48,7 @@ return {
 
 	-- Step 13: First Mate Fitzsimmons
 	-- {quest:288} The Third Fleet · {zone:1440} Ashenvale · {npc:1239} First Mate Fitzsimmons · {item:2594} Flagon of Dwarven Honeymead · {npc:1464} Innkeeper Helbrek
-	["{quest:288}, if the {zone:1440} guide's Menethil stop didn't do it: {npc:1239} wants a {item:2594} from {npc:1464}, both in the inn."] = "",
+	["{quest:288}, if the {zone:1440} guide's Menethil stop didn't do it: {npc:1239} wants a {item:2594} from {npc:1464}, both in the inn."] = "如果按{zone:1440}指南经过米奈希尔港时还没做{quest:288}，就向{npc:1464}买一份{item:2594}交给{npc:1239}。两人都在旅店里。",
 	-- {npc:1239} First Mate Fitzsimmons
 	["{npc:1239}, in the inn"] = "{npc:1239}，在旅店里",
 	-- {item:2594} Flagon of Dwarven Honeymead · {npc:1464} Innkeeper Helbrek
@@ -72,7 +72,7 @@ return {
 
 	-- Step 16: Glorin Steelbrow
 	-- {quest:270} The Doomed Fleet · {npc:1212} Bishop Farthing · {zone:1453} Stormwind · {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern · {quest:321} Lightforge Iron · {item:279915} Nord'el
-	["{quest:270}, from {npc:1212} in {zone:1453}: {npc:1217} stands in the {area:2104}, south of the keep. His {quest:321} lies in the wreck just south of town, by {item:279915}."] = "",
+	["{quest:270}, from {npc:1212} in {zone:1453}: {npc:1217} stands in the {area:2104}, south of the keep. His {quest:321} lies in the wreck just south of town, by {item:279915}."] = "{quest:270}从{zone:1453}的{npc:1212}处接取。{npc:1217}在要塞南边的{area:2104}。他要找的{quest:321}就在城南不远的沉船里，靠近{item:279915}。",
 	["Inside"] = "在里面",
 
 	-- Step 17: Glorin Steelbrow
@@ -89,21 +89,21 @@ return {
 
 	-- Step 20: Waterlogged Chest
 	-- {item:279915} Nord'el
-	["The wreck of the Flying Osprey lies in the shallows south of the keep, beside {item:279915}."] = "",
+	["The wreck of the Flying Osprey lies in the shallows south of the keep, beside {item:279915}."] = "飞翔鱼鹰号的残骸在要塞南边的浅水里，就在{item:279915}旁。",
 
 	-- Step 21: Lightforge Ingots
 	-- plural, as words: Lightforge Ingots = {item:2702} Lightforge Ingot
 	["Lightforge Ingots"] = "{item:2702}",
 	-- plural, as words: Bluegill Raiders = {npc:1418} Bluegill Raider
-	["The Bluegill Raiders (28-29) on the beach south-west of Menethil carry the ingots."] = "",
+	["The Bluegill Raiders (28-29) on the beach south-west of Menethil carry the ingots."] = "米奈希尔港西南海滩上的蓝腮袭击者（28-29级）身上有光铸铁锭。",
 	-- {item:2702} Lightforge Ingot
 	["{item:2702}; underwater"] = "{item:2702}：在水下",
 
 	-- Step 22: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
-	["Back north through Menethil: {npc:1217} is in the {area:2104}, on the way to the hovels."] = "",
+	["Back north through Menethil: {npc:1217} is in the {area:2104}, on the way to the hovels."] = "向北折返，穿过米奈希尔港。{npc:1217}就在去鱼人小屋途中经过的{area:2104}里。",
 	-- {npc:1416} Grimand Elmore · {zone:1453} Stormwind
-	["For {npc:1416} in {zone:1453}, on this guide's {zone:1453} stop"] = "",
+	["For {npc:1416} in {zone:1453}, on this guide's {zone:1453} stop"] = "交给{zone:1453}的{npc:1416}，在本指南到访{zone:1453}时完成",
 
 	-- Step 23: The Bluegill hovels
 	["The Bluegill hovels"] = "蓝腮鱼人小屋",
@@ -133,7 +133,7 @@ return {
 	-- {object:2117} Stormwind Keep
 	["For Bolvar Fordragon in {object:2117}: keep it"] = "交给{object:2117}的伯瓦尔·弗塔根公爵：先留着",
 	-- {npc:1239} First Mate Fitzsimmons · {npc:1160} Captain Halyndor
-	["{npc:1239}: {npc:1160} (30) is for the end of this visit, from level 29"] = "",
+	["{npc:1239}: {npc:1160} (30) is for the end of this visit, from level 29"] = "{npc:1239}的任务留到这趟行程末尾，29级起可去打{npc:1160}（30级）",
 
 	-- Step 26: Raptor valley
 	["Raptor valley"] = "迅猛龙山谷",
@@ -197,8 +197,7 @@ return {
 	-- plural, as words: Razormaw Incisors = {item:280103} Razormaw Incisor · Fen Creepers = {npc:1040} Fen Creeper
 	["Razormaw Incisors: from the raptors by the {area:1038}, after the Fen Creepers"] = "打完沼泽爬行者后，去{area:1038}附近击杀迅猛龙，收集刺喉龙门牙。",
 	-- {quest:98246} Trying Times
-	-- was: ["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}：同一趟路线上的刺喉龙蛋"
-	["{quest:98246}: the Razormaw eggs, on the same walk"] = "",
+	["{quest:98246}: the Razormaw eggs, on the same walk"] = "{quest:98246}：这趟路上顺手拾取刺喉龙蛋",
 
 	-- Step 37: Einar Stonegrip
 	-- {npc:270637} Howin Kindfeather · {npc:2093} Einar Stonegrip
@@ -222,52 +221,52 @@ return {
 	["{area:1038}: kill these as you meet them"] = "{area:1038}：沿途击杀以下目标",
 	-- {npc:1244} Rethiel the Greenwarden · {area:1036} Angerfang Encampment · {area:205} Dun Modr · {quest:98283} Carnage · {npc:270892} Goaz Warder · {area:1038} Dragonmaw Gates · {npc:270637} Howin Kindfeather
 	-- plural, as words: Crimson Whelps = {npc:1069} Crimson Whelp · Highland Razormaws = {npc:1018} Highland Razormaw · Perfect Razormaw Eggs = {item:280132} Perfect Razormaw Egg
-	["East from {npc:1244}: the Crimson Whelps (25-26) nest in the hills north-east of the {area:1036}, and the Highland Razormaws (27-28) hunt the highlands north of them, towards {area:205}. The Perfect Razormaw Eggs lie in the raptors' nests.\nCareful: {quest:98283}, an elite raptor, prowls the hills north of the whelps, and Ados, an elite {npc:270892} guardian, stands at the {area:1038}: give both room. The Dragonmaw east of {npc:270637} are elite too."] = "",
+	["East from {npc:1244}: the Crimson Whelps (25-26) nest in the hills north-east of the {area:1036}, and the Highland Razormaws (27-28) hunt the highlands north of them, towards {area:205}. The Perfect Razormaw Eggs lie in the raptors' nests.\nCareful: {quest:98283}, an elite raptor, prowls the hills north of the whelps, and Ados, an elite {npc:270892} guardian, stands at the {area:1038}: give both room. The Dragonmaw east of {npc:270637} are elite too."] = "从{npc:1244}向东走。深红雏龙（25-26级）在{area:1036}东北的山丘上筑巢，高地刺喉龙（27-28级）在雏龙以北、靠{area:205}方向的高地上觅食。完美的刺喉龙蛋就在迅猛龙的巢里。\n注意：精英迅猛龙{quest:98283}在雏龙北面的山丘上游荡，精英{npc:270892}阿度斯守在{area:1038}，都要远远避开。{npc:270637}东面的龙喉兽人也是精英。",
 
 	-- Step 41: Longbraid the Grim
 	-- {area:205} Dun Modr · {npc:1071} Longbraid the Grim · {npc:1075} Rhag Garmason · {object:147516} Dark Iron
-	["North-west to the road and north along it to {area:205}. {npc:1071} and {npc:1075} stand together in the dwarves' camp on the east side of the road; the {object:147516} ruins west of it are full of elites: keep to the road.\nCareful: Modr (32, elite) walks the {object:147516} ruins about 55 yards west of {npc:1075}; players have met it from the camp and the road: stay on the camp's east side."] = "",
+	["North-west to the road and north along it to {area:205}. {npc:1071} and {npc:1075} stand together in the dwarves' camp on the east side of the road; the {object:147516} ruins west of it are full of elites: keep to the road.\nCareful: Modr (32, elite) walks the {object:147516} ruins about 55 yards west of {npc:1075}; players have met it from the camp and the road: stay on the camp's east side."] = "先向西北走到路上，再沿路向北前往{area:205}。{npc:1071}和{npc:1075}站在路东侧的矮人营地里。路西的{object:147516}废墟遍布精英，沿大路走。\n注意：莫德尔（32级精英）在{npc:1075}以西约55码的{object:147516}废墟里巡逻。有玩家在营地和路上都遇到过它，尽量待在营地东侧。",
 
 	-- Step 42: Dun Modr
 	-- {npc:1075} Rhag Garmason · {npc:1071} Longbraid the Grim · {area:205} Dun Modr · {object:147516} Dark Iron
-	["{npc:1075} stands beside {npc:1071} in the dwarves' camp at {area:205}, east of the road; keep out of the {object:147516} ruins west of it, where Modr (32, elite) walks."] = "",
+	["{npc:1075} stands beside {npc:1071} in the dwarves' camp at {area:205}, east of the road; keep out of the {object:147516} ruins west of it, where Modr (32, elite) walks."] = "{npc:1075}和{npc:1071}都在{area:205}路东侧的矮人营地，两人站在一起。别进路西的{object:147516}废墟，莫德尔（32级精英）在那里巡逻。",
 
 	-- Step 43: Ebenezer Rustlocke
 	["Ebenezer Rustlocke"] = "伊贝尼瑟的尸体",
 	-- {area:205} Dun Modr · {area:880} Thandol Span · {npc:1075} Rhag Garmason
 	-- plural, as words: Dark Iron Saboteurs = {npc:1052} Dark Iron Saboteur
-	["North along the road from {area:205} towards the {area:880}: Ebenezer Rustlocke's corpse lies under the span. His parchment goes back to {npc:1075}.\nCareful: Two elite Dark Iron Saboteurs (28-29) stand by the corpse inside the span: loot the corpse and walk straight out without fighting, or, from level 31, pull them one at a time."] = "",
+	["North along the road from {area:205} towards the {area:880}: Ebenezer Rustlocke's corpse lies under the span. His parchment goes back to {npc:1075}.\nCareful: Two elite Dark Iron Saboteurs (28-29) stand by the corpse inside the span: loot the corpse and walk straight out without fighting, or, from level 31, pull them one at a time."] = "从{area:205}沿路向北前往{area:880}。伊贝尼瑟的尸体在桥下，把他身上的羊皮纸带回去交给{npc:1075}。\n注意：桥体内有两名精英黑铁破坏者（28-29级）守在尸体旁。可以拾取尸体上的东西后直接离开，避开战斗。到了31级，也可以逐个引来打。",
 	-- {object:2652} Ebenezer Rustlocke's Corpse
 	["{object:2652}, inside"] = "{object:2652}，在里面",
 	["the same corpse"] = "同一具尸体",
 
 	-- Step 44: Rhag Garmason
 	-- {area:205} Dun Modr · {npc:1075} Rhag Garmason · {object:147516} Dark Iron
-	["Back down the road to {area:205}: {npc:1075} wants the {object:147516} explosives under the far end of the span destroyed. Keep to the camp's east side, away from Modr (32, elite) in the ruins."] = "",
+	["Back down the road to {area:205}: {npc:1075} wants the {object:147516} explosives under the far end of the span destroyed. Keep to the camp's east side, away from Modr (32, elite) in the ruins."] = "沿路向南返回{area:205}。{npc:1075}要你摧毁桥另一端下方的{object:147516}炸药。走营地东侧，避开废墟里的莫德尔（32级精英）。",
 
 	-- Step 45: The Cache of Explosives
 	-- {object:2704} Cache of Explosives
 	["The {object:2704}"] = "{object:2704}",
 	-- {area:880} Thandol Span
 	-- plural, as words: Dark Irons = {object:147516} Dark Iron · Dark Iron Shadowcasters = {npc:2577} Dark Iron Shadowcaster
-	["Over the {area:880}: the Dark Irons' cache of explosives sits by its Arathi end.\nCareful: Dark Iron Shadowcasters (31-32) and Bombardiers (30-31), who fight from range, and a Supplier (31-32) stand within 15-25 yards of the cache: pull them one at a time to the bridge before you touch it."] = "",
+	["Over the {area:880}: the Dark Irons' cache of explosives sits by its Arathi end.\nCareful: Dark Iron Shadowcasters (31-32) and Bombardiers (30-31), who fight from range, and a Supplier (31-32) stand within 15-25 yards of the cache: pull them one at a time to the bridge before you touch it."] = "穿过{area:880}，黑铁矮人的爆炸品就在靠阿拉希高地的那一端。\n注意：爆炸品周围15-25码处有远程攻击的黑铁暗法师（31-32级）和黑铁投弹手（30-31级），还有一名黑铁后勤兵（31-32级）。先把它们逐个引到桥上，再去处理爆炸品。",
 
 	-- Step 46: Waterlogged Envelope
 	-- {item:4433} Waterlogged Envelope · {npc:2695} Sara Balloo · {zone:1455} Ironforge
-	["In the river under the Arathi end of the span, a {item:4433} lies on the bottom: {npc:2695} in {zone:1455}, at the end of this guide, takes it."] = "",
+	["In the river under the Arathi end of the span, a {item:4433} lies on the bottom: {npc:2695} in {zone:1455}, at the end of this guide, takes it."] = "桥靠阿拉希高地那一端下方的河底有一个{item:4433}。在本指南末尾，到{zone:1455}交给{npc:2695}。",
 	["Underwater"] = "在水下",
 
 	-- Step 47: Rhag Garmason again
 	-- {npc:1075} Rhag Garmason
 	["{npc:1075} again"] = "再次找{npc:1075}",
 	-- {area:205} Dun Modr
-	["Back over the span and down the road to {area:205}, on the camp's east side, away from Modr (32, elite) in the ruins."] = "",
+	["Back over the span and down the road to {area:205}, on the camp's east side, away from Modr (32, elite) in the ruins."] = "过桥后沿路向南返回{area:205}。走营地东侧，避开废墟里的莫德尔（32级精英）。",
 	-- {npc:2700} Captain Nials · {area:320} Refuge Pointe · {zone:1417} Arathi Highlands
-	["For {npc:2700} at {area:320}, on your {zone:1417} visit (30-40)"] = "",
+	["For {npc:2700} at {area:320}, on your {zone:1417} visit (30-40)"] = "30-40级去{zone:1417}时，交给{area:320}的{npc:2700}",
 
 	-- Step 48: Howin Kindfeather
 	-- {area:1025} Green Belt · {npc:270637} Howin Kindfeather · {npc:1244} Rethiel the Greenwarden
-	["South along the road to the {area:1025}: {npc:270637} camps among the Fenrunners, just west of {npc:1244}."] = "",
+	["South along the road to the {area:1025}: {npc:270637} camps among the Fenrunners, just west of {npc:1244}."] = "沿路向南前往{area:1025}。{npc:270637}就在{npc:1244}西边不远处扎营，周围是藓皮沼泽行者。",
 
 	-- Step 49: Rethiel the Greenwarden
 	-- {area:17732} Excavation Site: Wetlands · {npc:1244} Rethiel the Greenwarden · {npc:260808} Highland Horror
@@ -295,8 +294,7 @@ return {
 
 	-- Step 53: Captain Stoutfist
 	-- {area:150} Menethil Harbor · {area:2104} Deepwater Tavern · {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep · {npc:2094} James Halloran
-	-- was: ["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks on the way to the boat."] = "若已在{area:2104}绑定炉石，就用炉石返回{area:150}；否则沿道路向西步行。{npc:2104}在{area:2103}的顶层，{npc:2094}在前往乘船处途中的码头旁。"
-	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks."] = "",
+	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks."] = "若已在{area:2104}绑定炉石，可以用炉石返回{area:150}。也可以沿路向西步行。{npc:2104}在{area:2103}顶层，{npc:2094}在码头旁。",
 	["On the top floor"] = "在最顶层",
 	-- {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
 	["For the Dragonmaw catapult, on the {zone:1437} loop of the {zone:1424} guide"] = "走{zone:1424}路线的{zone:1437}环线时，再去处理龙喉投石车。",
@@ -304,7 +302,7 @@ return {
 	-- Step 54: Captain Halyndor
 	-- {npc:1160} Captain Halyndor · {npc:270589} Nightveiled Rotheap · {zone:1437} Wetlands
 	-- plural, as words: Cursed Marines = {npc:1158} Cursed Marine
-	["From level 29: north along the coast from Menethil to the wreck of the Intrepid. {npc:1160} (30) is aboard, and the locked strongbox sits in the wreck.\nCareful: Cursed Marines (27-28) crowd the deck around him: clear them first. {npc:270589}, a level 31-32 elite, roams the {zone:1437}: give it a wide berth."] = "",
+	["From level 29: north along the coast from Menethil to the wreck of the Intrepid. {npc:1160} (30) is aboard, and the locked strongbox sits in the wreck.\nCareful: Cursed Marines (27-28) crowd the deck around him: clear them first. {npc:270589}, a level 31-32 elite, roams the {zone:1437}: give it a wide berth."] = "29级起，从米奈希尔港沿海岸向北前往无畏号残骸。{npc:1160}（30级）在船上，上锁的保险箱就在残骸里。\n注意：他周围的甲板上挤满了被诅咒的水兵（27-28级），先清掉它们。{npc:270589}是31-32级精英，会在{zone:1437}游荡，远远绕开。",
 	-- {item:2629} Intrepid Strongbox Key · {npc:1160} Captain Halyndor
 	["{item:2629}, from {npc:1160}"] = "{item:2629}：从{npc:1160}处获得",
 
@@ -447,7 +445,7 @@ return {
 	["{area:432}: kill these as you meet them"] = "{area:432}：沿途击杀以下目标",
 	-- {area:2358} Forest Song · {object:19021} Rusty Chest
 	-- plural, as words: Rotting Slimes = {npc:3928} Rotting Slime
-	["The Forsaken's camp lies in the woods south of {area:2358}.\nRotting Slimes in and around the Barrow Den leave a {object:19021} when they die: open the chests until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "",
+	["The Forsaken's camp lies in the woods south of {area:2358}.\nRotting Slimes in and around the Barrow Den leave a {object:19021} when they die: open the chests until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "被遗忘者的营地在{area:2358}南面的树林里。\n朵丹尼尔兽穴内外的腐烂的泥浆怪死后会留下{object:19021}。逐个开箱，直到找到铁质柄头。\n注意：营地有约28-30级的非精英被遗忘者把守。部分敌人处于潜行状态，桌子周围的敌人往往会一起参战。",
 
 	-- Step 82: Fallen Sky Lake
 	-- {npc:3931} Shadethicket Oracle · {quest:1035} Fallen Sky Lake · {object:669176} Gleaming Crescent Pendant
@@ -505,7 +503,7 @@ return {
 
 	-- Step 94: Raene Wolfrunner
 	-- {zone:1440} Ashenvale · {npc:3691} Raene Wolfrunner · {quest:1025} An Aggressive Defense · {npc:3897} Krolg · {quest:1054} Culling the Threat · {npc:3987} Dal Bloodclaw · {area:413} Maestra's Post
-	["Not done on your first {zone:1440} visit? {npc:3691} also has {quest:1025} (the Foulweald, on the way to {npc:3897}) and {quest:1054} ({npc:3987}, on the way back from {area:413})."] = "",
+	["Not done on your first {zone:1440} visit? {npc:3691} also has {quest:1025} (the Foulweald, on the way to {npc:3897}) and {quest:1054} ({npc:3987}, on the way back from {area:413})."] = "如果第一次来{zone:1440}时没做，还可以从{npc:3691}接取{quest:1025}（去找{npc:3897}时顺路去污林）和{quest:1054}（从{area:413}回来时顺路打{npc:3987}）。",
 
 	-- Step 95: The Foulweald
 	["The Foulweald"] = "污林",
@@ -534,7 +532,7 @@ return {
 	-- {npc:3897} Krolg · {area:416} Shrine of Aessina · {npc:3901} Illiyana
 	["West from {npc:3897} along the southern hills to the {area:416}: Melyria and {npc:3901} stand together by it."] = "从{npc:3897}沿南面山丘向西前往{area:416}：哨兵梅丽瑞亚·霜影和{npc:3901}一起站在旁边。",
 	-- {npc:3880} Sentinel Melyria Frostshadow · {npc:8026} Thyn'tel Bladeweaver · {zone:1457} Darnassus · {area:442} Auberdine
-	["{npc:3880}: for {npc:8026} in {zone:1457}, a hop from {area:442} on the way to the boat"] = "",
+	["{npc:3880}: for {npc:8026} in {zone:1457}, a hop from {area:442} on the way to the boat"] = "{npc:3880}：去坐船时，从{area:442}顺路去一趟不远的{zone:1457}，交给{npc:8026}",
 
 	-- Step 101: Illiyana
 	-- {npc:3901} Illiyana
@@ -568,8 +566,7 @@ return {
 
 	-- Step 107: Astranaar
 	-- {area:413} Maestra's Post · {area:415} Astranaar · {npc:3691} Raene Wolfrunner
-	-- was: ["South-east along the road to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "沿路向东南前往{area:415}：{npc:3691}在旅店里，飞行管理员在西端。"
-	["Back east along the road from {area:413} to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "",
+	["Back east along the road from {area:413} to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "从{area:413}沿路向东返回{area:415}。{npc:3691}在旅店里，飞行管理员在镇子西端。",
 
 	-- Step 108: Fly to Auberdine
 	-- {area:442} Auberdine
@@ -579,15 +576,15 @@ return {
 
 	-- Step 109: Fly to Rut'theran Village
 	-- {area:442} Auberdine · {area:702} Rut'theran Village
-	["From {area:442}'s flight master, a short flight over the water to {area:702}."] = "",
+	["From {area:442}'s flight master, a short flight over the water to {area:702}."] = "从{area:442}的飞行管理员处起飞，飞过水面，很快就到{area:702}。",
 
 	-- Step 110: Into Darnassus
 	-- {area:702} Rut'theran Village · {zone:1457} Darnassus
-	["Through the pink portal at {area:702}, up into {zone:1457}."] = "",
+	["Through the pink portal at {area:702}, up into {zone:1457}."] = "穿过{area:702}的粉色传送门，上去就是{zone:1457}。",
 
 	-- Step 111: Thyn'tel Bladeweaver
 	-- {npc:8026} Thyn'tel Bladeweaver · {area:1660} Warrior's Terrace · {object:19877} Velinde's Locker
-	["{npc:8026} stands on the {area:1660} in the north of the city; {object:19877} is in the south of it."] = "",
+	["{npc:8026} stands on the {area:1660} in the north of the city; {object:19877} is in the south of it."] = "{npc:8026}站在城北的{area:1660}上，{object:19877}在那片平台的南侧。",
 
 	-- Step 112: Velinde's Locker
 	-- {item:5520} Velinde's Journal · {object:19877} Velinde's Locker
@@ -595,11 +592,11 @@ return {
 
 	-- Step 113: Thyn'tel Bladeweaver
 	-- {npc:8026} Thyn'tel Bladeweaver · {npc:3453} Wharfmaster Dizzywig · {area:392} Ratchet · {zone:1445} Dustwallow Marsh
-	["{npc:8026}: for {npc:3453} in {area:392}, on your {zone:1445} trip at about 33 (30-40)"] = "",
+	["{npc:8026}: for {npc:3453} in {area:392}, on your {zone:1445} trip at about 33 (30-40)"] = "{npc:8026}：约33级走{zone:1445}路线（30-40级）时，交给{area:392}的{npc:3453}",
 
 	-- Step 114: Fly to Auberdine
 	-- {area:702} Rut'theran Village · {area:442} Auberdine
-	["Back through the portal to {area:702} and fly to {area:442} for the boat."] = "",
+	["Back through the portal to {area:702} and fly to {area:442} for the boat."] = "穿过传送门返回{area:702}，再飞到{area:442}坐船。",
 
 	-- Step 116: Caitlin Grassman
 	-- {npc:1480} Caitlin Grassman
@@ -625,13 +622,13 @@ return {
 
 	-- Step 121: Sara Balloo
 	-- {area:880} Thandol Span · {npc:2695} Sara Balloo · {zone:1455} Ironforge
-	["Sully Balloo's letter, from the {area:880}: {npc:2695} takes it here in {zone:1455}."] = "",
+	["Sully Balloo's letter, from the {area:880}: {npc:2695} takes it here in {zone:1455}."] = "从{area:880}拿到的苏利·巴鲁的信，在{zone:1455}交给{npc:2695}。",
 	-- {npc:2695} Sara Balloo · {zone:1455} Ironforge
 	["{npc:2695}: for King Magni, on the same {zone:1455} stop"] = "{npc:2695}：交给国王麦格尼·铜须，在同一次{zone:1455}行程中",
 
 	-- Step 122: King Magni Bronzebeard
 	-- {npc:2784} King Magni Bronzebeard · {object:171709} High Seat
-	["{npc:2784} holds court in the {object:171709}."] = "",
+	["{npc:2784} holds court in the {object:171709}."] = "{npc:2784}在{object:171709}理政。",
 
 	-- Step 123: Tram to Stormwind
 	-- {zone:1453} Stormwind
@@ -645,9 +642,9 @@ return {
 
 	-- Step 125: Grimand Elmore
 	-- {object:28027} Dwarven District · {npc:1416} Grimand Elmore
-	["The tram comes in at the {object:28027}: {npc:1416} works at the forge there."] = "",
+	["The tram comes in at the {object:28027}: {npc:1416} works at the forge there."] = "地铁在{object:28027}停靠，{npc:1416}就在那里的铁匠铺干活。",
 	-- {npc:1416} Grimand Elmore · {quest:322} Blessed Arm · {npc:1217} Glorin Steelbrow
-	["{npc:1416}: {quest:322}, from {npc:1217} in Menethil"] = "",
+	["{npc:1416}: {quest:322}, from {npc:1217} in Menethil"] = "找{npc:1416}交{quest:322}，任务是在米奈希尔的{npc:1217}处接的。",
 
 	-- Step 126: Cathedral of Light
 	["Cathedral of Light"] = "光明大教堂",
@@ -658,7 +655,7 @@ return {
 
 	-- Step 127: Archbishop Benedictus
 	-- {quest:293} Cleansing the Eye · {npc:1217} Glorin Steelbrow · {npc:1284} Archbishop Benedictus
-	["{quest:293}, from {npc:1217} in Menethil: {npc:1284} stands in the Cathedral of Light."] = "",
+	["{quest:293}, from {npc:1217} in Menethil: {npc:1284} stands in the Cathedral of Light."] = "{quest:293}是在米奈希尔的{npc:1217}处接的，去光明大教堂找{npc:1284}。",
 
 	-- Step 128: Stormwind Keep
 	-- {quest:337} An Old History Book · {zone:1431} Duskwood

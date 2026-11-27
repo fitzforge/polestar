@@ -19,9 +19,9 @@ return {
 	-- Step 3: Rigglefuzz: Pearl Diving
 	-- {npc:2817} Rigglefuzz
 	-- plural, as words: Blue Pearls = {item:4611} Blue Pearl · Giant Clams = {object:2744} Giant Clam
-	["{npc:2817} buys nine Blue Pearls (Giant Clams on the sea floor, or the Auction House): this step shows only when you carry them."] = "",
+	["{npc:2817} buys nine Blue Pearls (Giant Clams on the sea floor, or the Auction House): this step shows only when you carry them."] = "{npc:2817}收九颗蓝珍珠（可从海底的巨型蚌壳取得，也可去拍卖行买）。带齐后才显示这一步。",
 	-- {item:4611} Blue Pearl
-	["{item:4611}, in your bags"] = "",
+	["{item:4611}, in your bags"] = "背包里有{item:4611}",
 
 	-- Step 4: The Dustbowl
 	-- {area:340} Kargath · {npc:2921} Lotwil Veriatus · {area:1878} The Dustbowl
@@ -29,23 +29,23 @@ return {
 
 	-- Step 5: Lotwil Veriatus: Coolant Heads Prevail
 	-- {npc:2921} Lotwil Veriatus · {item:3829} Frost Oil · {skill:171} Alchemy
-	["{npc:2921} wants a {item:3829} ({skill:171} or the Auction House): this step shows only when you carry one."] = "",
+	["{npc:2921} wants a {item:3829} ({skill:171} or the Auction House): this step shows only when you carry one."] = "{npc:2921}要一瓶{item:3829}（可用{skill:171}制作，也可去拍卖行买）。带在身上才显示这一步。",
 	-- {item:3829} Frost Oil
-	["{item:3829}, in your bags"] = "",
+	["{item:3829}, in your bags"] = "背包里有{item:3829}",
 
 	-- Step 6: Lotwil Veriatus: Gyro... What?
 	-- {item:4389} Gyrochronatom · {skill:202} Engineering
-	["Then a {item:4389} ({skill:202}, or the engineering supply vendors): this step shows only when you carry one."] = "",
+	["Then a {item:4389} ({skill:202}, or the engineering supply vendors): this step shows only when you carry one."] = "接着要一个{item:4389}（可用{skill:202}制作，也可找工程学供应商买）。带在身上才显示这一步。",
 	-- {item:4389} Gyrochronatom
-	["{item:4389}, in your bags"] = "",
+	["{item:4389}, in your bags"] = "背包里有{item:4389}",
 
 	-- Step 7: Lucien Tosselwrench: Liquid Stone
 	-- {npc:2921} Lotwil Veriatus · {item:929} Healing Potion · {item:3823} Lesser Invisibility Potion · {skill:171} Alchemy
-	["Lucien, beside {npc:2921}, wants a {item:929} and a {item:3823} ({skill:171} or the Auction House): this step shows only when you carry both."] = "",
+	["Lucien, beside {npc:2921}, wants a {item:929} and a {item:3823} ({skill:171} or the Auction House): this step shows only when you carry both."] = "{npc:2921}旁的卢希恩要一瓶{item:929}和一瓶{item:3823}（可用{skill:171}制作，也可去拍卖行买）。两种都带齐才显示这一步。",
 	-- {item:929} Healing Potion
-	["{item:929}, in your bags"] = "",
+	["{item:929}, in your bags"] = "背包里有{item:929}",
 	-- {item:3823} Lesser Invisibility Potion
-	["{item:3823}, in your bags"] = "",
+	["{item:3823}, in your bags"] = "背包里有{item:3823}",
 
 	-- Step 8: Kargath
 	-- {area:340} Kargath · {quest:1418} Neeka Bloodscar
@@ -67,8 +67,7 @@ return {
 	["{zone:1418}: kill these as you meet them"] = "{zone:1418}：沿途击杀以下目标",
 	-- {area:1878} The Dustbowl · {zone:1418} Badlands · {npc:2817} Rigglefuzz
 	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard · Malevolent Mirages = {npc:269756} Malevolent Mirage
-	-- was: ["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth.\nCareful: the Giant Buzzards are 39-41, and the 41s are two over you at 39: pick the 39s and 40s and pull them one at a time. The Buzzards (37) you kill later for {npc:2817}'s wings drop gizzards too, more rarely."] = "老峭壁山狗和巨型秃鹫在{area:1878}南面的盆地中游荡。山狗同时掉落颚骨和尖牙，巨型秃鹫掉落胃。小心：恶毒幻象（42级，精英）在{zone:1418}各处飘荡：远远绕开它们。\n小心：巨型秃鹫为39-41级，你39级时41级的比你高两级：挑39和40级的打，一次引一只。之后为{npc:2817}的翅膀击杀的秃鹫（37级）也会掉落胃，但几率较低。"
-	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth.\nCareful: the Giant Buzzards are 39-41, and the 41s are two over you at 39: pick the 39s and 40s and pull them one at a time. The Buzzards (37) you kill later for {npc:2817}'s wings drop gizzards too, more rarely.\nCareful: Zaricotl (55, a rare buzzard) circles over the {zone:1418} too: if you see him, keep away."] = "",
+	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth.\nCareful: the Giant Buzzards are 39-41, and the 41s are two over you at 39: pick the 39s and 40s and pull them one at a time. The Buzzards (37) you kill later for {npc:2817}'s wings drop gizzards too, more rarely.\nCareful: Zaricotl (55, a rare buzzard) circles over the {zone:1418} too: if you see him, keep away."] = "老峭壁山狗和巨型秃鹫在{area:1878}南边的盆地游荡。颚骨和尖牙都由山狗掉落，胃由巨型秃鹫掉落。小心，Malevolent Mirage（42级精英）在{zone:1418}各处游荡，远远绕开。\n小心，巨型秃鹫是39-41级，其中41级的比39级的你高两级。挑39和40级的打，一次拉一只。之后为{npc:2817}收集翅膀时打的秃鹫（37级）也会掉落胃，但几率较低。\n小心，扎里科特（55级稀有秃鹫）也在{zone:1418}上空盘旋，看见它就离远些。",
 
 	-- Step 12: Rock Elementals
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental
@@ -114,7 +113,7 @@ return {
 	-- {area:340} Kargath · {npc:5394} Neeka Bloodscar
 	["Head west back to {area:340}. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "向西返回{area:340}。{npc:5394}在{area:340}的上层，远高于飞行管理员所在位置；沿坡道上去，箭头无法区分高度。",
 	-- {area:340} Kargath · {object:3202} Grom'gol · {zone:1458} Undercity · {npc:4486} Genavie Callow
-	["The next guide flies from {area:340} to {object:3202}; Warriors, Paladins, Rogues, Priests, Mages and Warlocks go by the {zone:1458} first, for their training and {npc:4486}."] = "",
+	["The next guide flies from {area:340} to {object:3202}; Warriors, Paladins, Rogues, Priests, Mages and Warlocks go by the {zone:1458} first, for their training and {npc:4486}."] = "下一份指南会从{area:340}飞往{object:3202}。战士、圣骑士、潜行者、牧师、法师和术士先去{zone:1458}训练，顺便找{npc:4486}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Every rock elemental in the {zone:1418} drops {npc:6868}'s shards: the Lesser Rock Elementals (37) on the flats west of {npc:2921}'s camp are the safe ones, about one kill in five. Only the Greater Rock Elementals (42-44, well above you) in the south-western gulches drop {npc:2921}'s bracers, also about one kill in five: pull one at a time and rest between fights, or leave them. Keep killing coyotes and buzzards you still need on the way."] = "{zone:1418} 的所有石元素都会掉落 {npc:6868} 所需的碎片：{npc:2921} 营地西侧平地上的次级石元素（37 级）较为安全，掉落概率约为五分之一。只有西南部峡谷中的巨型石元素（42-44 级，远高于你当前等级）会掉落 {npc:2921} 所需的护腕，概率也约为五分之一：逐个拉怪，每次战斗后休息，或暂时不打。沿途继续击杀你还需要的土狼和秃鹫。",

@@ -185,6 +185,8 @@ ql.quests[600] = {{ title = "Ore", level = 40 }}; ql.quests[601] = {{ title = "O
 fn the_quest_log_and_tracker_say_a_carried_quest_is_kept_for_the_guide_that_hands_it_in() {
 	let out = run_labels(
 		r#"
+		-- The guides' own lines (qol.questGuides, Quests/QuestGuides.lua) left out: this reads Kept for alone.
+		Polestar.Set("qol.questGuides", false)
 		ql.updateLog(); ql.updateTracker(600); ql.updateTracker(601)
 		emit({ log = { ql.logText(600), ql.logText(601) }, tracker = { ql.trackerText(600), ql.trackerText(601) },
 			tip = ql.hoverLog(600), other = ql.hoverLog(601) })
