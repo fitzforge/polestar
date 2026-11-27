@@ -728,7 +728,7 @@ function city.GoalZ(P, c, x, y)
 	return ok and type(tz) == "number" and tz or nil
 end
 
--- The arrow's walk ends short of its goal (or found none): said under the arrow (Walk.Unmapped).
+-- The arrow's walk ends short of its goal (or found none): Walk.Unmapped, and a line in the debug log.
 function city.Note(on, approachZ)
 	city.approachZ = approachZ
 	if not on then city.partialAskX, city.partialAskY = nil, nil end
@@ -736,6 +736,8 @@ function city.Note(on, approachZ)
 	if city.note ~= on then
 		city.note = on
 		city.noteVersion = city.noteVersion + 1
+		-- Not shown to the player; the report's debug log keeps where the walk ended short.
+		if on then ns.Debug("Walk: the last steps here aren't mapped (the walk ends short of its goal's floor, or none was found)") end
 	end
 end
 
@@ -1319,8 +1321,8 @@ function city.MeasureZ(P, c, x, y, z)
 	return z
 end
 
--- The arrow says when the last steps aren't mapped: a reachable approach on a different floor, or no walk at the
--- requested height. The version changes when the note does (Nav/Arrow.lua).
+-- Whether the last steps aren't mapped: a reachable approach on a different floor, or no walk at the
+-- requested height. The version changes when the note does. Not shown to the player (the debug log has it).
 function Walk.Unmapped()
 	return gc ~= nil and city.note == true, city.noteVersion
 end

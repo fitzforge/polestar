@@ -49,7 +49,7 @@
 --   %s. Optional: the route doesn't need it.
 --   Kept for %s
 --   Hand in %s to %s, who walks around here: look inside the circle on the map
---   A quest you carry that the route does not work here: its work is nearby.
+--   A quest in your log with an objective nearby that the route doesn't do here.
 --   %s at %s
 --   Only visible while dead: die nearby and talk to them as a ghost.
 --   Under water nearby: swim down to it
@@ -803,7 +803,7 @@ L["%s; 1 in %d runs fails"] = "%s；每 %d 次有 1 次失败"
 L["%s. Optional: the route doesn't need it."] = "%s。可选：路线不需要它。"
 L["Kept for %s"] = "留给 %s"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "把 %s 交还给 %s，此人在附近走动：在地图上的圆圈里找"
-L["A quest you carry that the route does not work here: its work is nearby."] = "你身上的一个任务，路线不在这里做：它的目标就在附近。"
+L["A quest in your log with an objective nearby that the route doesn't do here."] = "你身上的一个任务，路线不在这里做：它的目标就在附近。"
 L["%s at %s"] = "%2$s 处的 %1$s"
 L["Buy a rune at %s"] = "在%s处购买符文"
 L["Buy a rune and cast %s to save about %s"] = "购买符文并施放%s，约可节省%s"
@@ -938,7 +938,6 @@ L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the 
 L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."] = "Polestar 已暂停：当你活着离开地下城，或输入 /polestar resume 后，箭头会重新跟随指南。"
 
 -- Nav/Arrow.lua
-L["The last steps here aren't mapped"] = "这里最后几步没有地图"
 L["Search here"] = "在此搜索"
 L["Arrived"] = "已到达"
 L["Click the arrow for the next spot"] = "点击箭头前往下一地点"
@@ -5742,6 +5741,13 @@ L["Kept for %s: the route hands it in there."] = "留给 %s：路线会在那里
 L["No quests in your log are ready to hand in."] = "任务日志中没有可交还的任务。"
 L["Wait until combat ends to load the quest data."] = "请等战斗结束后再加载任务数据。"
 L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "交还任务指南无法加载。请检查插件 Polestar_FreeMode 是否已安装并启用。"
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["None of these has a known place to hand it in."] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
 
 -- Lookup/Free.lua
 L["Free mode starts after combat."] = "自由模式将在战斗结束后启动。"
@@ -5832,6 +5838,32 @@ L["About Free mode"] = "关于自由模式"
 
 -- UI/FreeMode.lua
 L["Your own quests, planned for you."] = "为你规划的你自己的任务。"
+-- Free.lua
+-- L["Low drop rate: %s"] = ""
+-- L["1 quest for your level: %s gives it."] = ""
+-- L["%d quests for your level, all here."] = ""
+-- L["%d quests for your level, %d of them here."] = ""
+-- L["Quests for your level"] = ""
+-- L["About %s XP a minute"] = ""
+-- L["Order: nearest first"] = ""
+-- L["Order: most XP a minute first"] = ""
+-- L["Bring back left-out quests (%d)"] = ""
+-- L["Unpin"] = ""
+-- L["Pin to the top"] = ""
+-- L["Free mode takes this quest first, whatever the order."] = ""
+-- L["Leave out of Free mode"] = ""
+-- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = ""
+
+-- Layouts/Atlas/Atlas.lua
+-- L["Get ahead, if possible"] = ""
+-- L["Still open from steps you have passed"] = ""
+L["1 quest off-guide"] = "1 个指南外任务"
+L["%d quests off-guide"] = "%d 个指南外任务"
+-- L["View"] = ""
+L["Training due"] = "职业训练"
+L["New spells at your class trainer"] = "职业训练师处有新法术可学"
+-- L["Optional objectives during this step"] = ""
+-- L["Class quest"] = ""
 
 -- Hero.lua
 L["Activate Free mode"] = "启用自由模式"
@@ -6171,6 +6203,7 @@ L["Turn Free mode off on its Main page or from the guide window's menu: the arro
 -- L["Ready to hand in"] = "可交还"
 -- L["Left out of Free mode. Click to bring it back."] = "已从自由模式中排除。点击恢复。"
 -- L["Stop"] = "停止"
+-- L["The last steps here aren't mapped"] = "这里最后几步没有地图"
 -- L["None of these has a known place to hand it in."] = "这些任务都没有已知的交还地点。"
 -- L["Travel time to this hand-in is unknown. Its location is still shown."] = "前往此交任务处的路程时间未知。仍会显示它的位置。"
 -- L["Hand-ins without a known location"] = "位置未知的交任务"

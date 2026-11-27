@@ -283,8 +283,8 @@ pub struct Issue {
 	/// COMPLETED, NOT_PLANNED, DUPLICATE or REOPENED; None while it never closed.
 	pub state_reason: Option<String>,
 	pub labels: Vec<String>,
-	/// The pull requests that closed it.
-	pub closing_prs: usize,
+	/// The numbers of the pull requests that closed it.
+	pub closed_by: Vec<u64>,
 	/// The comments by the repository's owner, members and collaborators.
 	pub maintainer_comments: Vec<String>,
 	/// A pull request folded into the release ref closes it once it merges ([`fixed_on_ref`]).
@@ -321,7 +321,7 @@ pub fn parse_issues(json: &str) -> Result<Vec<Issue>, String> {
 			state: text(i, "state").unwrap_or_default(),
 			state_reason: text(i, "stateReason").filter(|r| !r.is_empty()),
 			labels: i.get("labels").and_then(Value::as_array).map(|a| a.iter().filter_map(|l| text(l, "name")).collect()).unwrap_or_default(),
-			closing_prs: i.get("closedByPullRequestsReferences").and_then(Value::as_array).map_or(0, Vec::len),
+			closed_by: i.get("closedByPullRequestsReferences").and_then(Value::as_array).map(|a| a.iter().filter_map(|r| r.get("number").and_then(Value::as_u64)).collect()).unwrap_or_default(),
 			maintainer_comments: i.get("comments").and_then(Value::as_array).map(|a| a.iter().filter(maintainer).filter_map(|c| text(c, "body")).collect()).unwrap_or_default(),
 			fixed_on_ref: false,
 		})
@@ -334,17 +334,20 @@ fn unescape_cell(s: &str) -> String {
 	s.replace("\\|", "|").replace("@\u{200d}", "@").replace("#\u{200d}", "#").replace("&lt;", "<").replace("&gt;", ">").replace("&amp;", "&")
 }
 
-/// Who reported an issue: the Discord name in the bot's first line ("**Reported by <name> on
-/// [Discord](...)**"), else the GitHub login that opened it. The Discord name is folded to NFKC, so
-/// styled letters (𝔄𝔫𝔫𝔦𝔢) come out as the plain ones the game's fonts draw (Annie).
-pub fn reporter(issue: &Issue) -> Option<String> {
+/// The Discord name in the bot's first line ("**Reported by <name> on [Discord](...)**") of an issue it
+/// filed from a Discord post, unescaped and folded to NFKC, so styled letters (𝔄𝔫𝔫𝔦𝔢) come out as the
+/// plain ones the game's fonts draw (Annie). None for an issue a person opened on GitHub.
+pub fn relay_name(issue: &Issue) -> Option<String> {
 	let first = issue.body.lines().next().unwrap_or_default().trim();
-	if let Some(rest) = first.strip_prefix("**Reported by ") {
-		if let Some(at) = rest.find(" on [Discord](") {
-			return Some(unescape_cell(&rest[..at]).nfkc().collect::<String>().trim().to_string());
-		}
-	}
-	issue.author.clone()
+	let rest = first.strip_prefix("**Reported by ")?;
+	let at = rest.find(" on [Discord](")?;
+	Some(unescape_cell(&rest[..at]).nfkc().collect::<String>().trim().to_string())
+}
+
+/// Who reported an issue: the Discord name in the bot's first line ([`relay_name`]), else the GitHub
+/// login that opened it.
+pub fn reporter(issue: &Issue) -> Option<String> {
+	relay_name(issue).or_else(|| issue.author.clone())
 }
 
 /// A maintainer's comment saying the bug is fixed ("Fixed in 0.3.5", "This is already fixed"), and
@@ -391,7 +394,7 @@ pub fn useful_report(issue: &Issue) -> bool {
 	(issue.state == "OPEN" && issue.fixed_on_ref)
 		|| issue.state == "CLOSED"
 			&& issue.state_reason.as_deref() == Some("COMPLETED")
-			&& (issue.closing_prs > 0 || has_prefix("released:") || issue.maintainer_comments.iter().any(|c| says_fixed(c)))
+			&& (!issue.closed_by.is_empty() || has_prefix("released:") || issue.maintainer_comments.iter().any(|c| says_fixed(c)))
 }
 
 /// Bug reporters by useful reports ([`useful_report`]), most first; a tie goes to whoever reported
@@ -429,7 +432,7 @@ pub fn rank_reporters(issues: &[Issue], src: &Source, cap: usize) -> Vec<(String
 }
 
 /// `names`' shown name for a login or name; `None` when `exclude` leaves it out.
-fn shown(src: &Source, raw: &str) -> Option<String> {
+pub(crate) fn shown(src: &Source, raw: &str) -> Option<String> {
 	let name = src.names.iter().find(|(l, _)| *l == raw).map_or(raw, |(_, n)| n.as_str());
 	let skip = |s: &str| src.exclude.iter().any(|e| e.to_lowercase() == s.to_lowercase());
 	(!skip(raw) && !skip(name)).then(|| name.to_string())
@@ -770,7 +773,7 @@ mod tests {
 		assert!(!useful_report(&discord("a", at, &["bug", "triage"])), "open and unconfirmed");
 		let mut by_pr = closed(discord("a", at, &["bug"]), "COMPLETED");
 		assert!(!useful_report(&by_pr), "closed as completed with no fix shown");
-		by_pr.closing_prs = 1;
+		by_pr.closed_by = vec![5];
 		assert!(useful_report(&by_pr));
 		assert!(useful_report(&closed(discord("a", at, &["bug", "released:v0.3.4"]), "COMPLETED")));
 		let mut said = closed(discord("a", at, &["bug"]), "COMPLETED");
@@ -804,7 +807,7 @@ mod tests {
 	fn duplicates_rejections_feature_requests_and_needs_info_never_count() {
 		let at = "2026-10-01T00:00:00Z";
 		let mut dup = closed(discord("a", at, &["bug", "confirmed"]), "DUPLICATE");
-		dup.closing_prs = 1;
+		dup.closed_by = vec![5];
 		assert!(!useful_report(&dup), "closed as a duplicate");
 		assert!(!useful_report(&closed(discord("a", at, &["bug", "duplicate"]), "NOT_PLANNED")));
 		assert!(!useful_report(&closed(discord("a", at, &["bug", "duplicate"]), "COMPLETED")), "the duplicate label");
@@ -858,7 +861,7 @@ mod tests {
 		.unwrap();
 		assert_eq!(got[0].author.as_deref(), Some("ann"));
 		assert_eq!((got[0].number, got[1].number), (7, 0));
-		assert_eq!((got[0].state.as_str(), got[0].state_reason.as_deref(), got[0].closing_prs), ("CLOSED", Some("COMPLETED"), 1));
+		assert_eq!((got[0].state.as_str(), got[0].state_reason.as_deref(), got[0].closed_by.clone()), ("CLOSED", Some("COMPLETED"), vec![5]));
 		assert_eq!(got[0].labels, ["bug"]);
 		assert_eq!(got[0].maintainer_comments, ["Fixed."]);
 		assert!(got[1].author.is_none() && got[1].state_reason.is_none());

@@ -95,6 +95,80 @@ fn the_committed_traveldata_lua_has_the_forever_ships_on_their_dock_maps() {
 	}
 }
 
+// #4344 (Meta): the Riverglades boat's arrow led to its wharfmasters, 68 and 83 yd from where the boat docks. Every
+// ship's end in the committed TravelData.lua (its board point where it has one) is where the ship stops, its
+// timetable stop (TaxiPathNode's docked point), within 30 yd (BOARD_YARDS): for a boat, the pier beside it; for a
+// zeppelin or an airship, the master on the tower or platform beside the ship.
+#[test]
+fn every_ship_s_end_in_the_committed_traveldata_lua_is_where_the_ship_stops_4344() {
+	let file = forge_addontest::run::root().join("addon/Polestar/Nav/TravelData.lua");
+	let out = nav_run(&format!(
+		r#"
+		local got
+		local T = Polestar.Transit
+		local reg = T.Register
+		T.Register = function(d) got = d; return reg(d) end
+		assert(loadfile({}))("Polestar", Polestar)
+		local far, seen, done = {{}}, 0, {{}}
+		for _, t in ipairs(Polestar.Nav.GetTravelData().transports) do
+			local s = got.services[t.id]
+			local r = s and s.routes and s.routes[1]
+			local route = r and got.routes[r.route]
+			if t.kind ~= "tram" and route and not done[t.id] then
+				done[t.id] = true
+				for side, e in pairs({{ a = t.a, b = t.b }}) do
+					local stop = route.stops[r[side][1]]
+					local p = e.board or e
+					local d = (p.c == stop[3]) and math.floor(((p.wx - stop[4]) ^ 2 + (p.wy - stop[5]) ^ 2) ^ 0.5 + 0.5) or -1
+					seen = seen + 1
+					if d < 0 or d > 30 then far[#far + 1] = t.id .. " " .. e.name .. " " .. d .. " yd" end
+				end
+			end
+		end
+		table.sort(far)
+		emit({{ far = #far > 0 and far or false, seen = seen }})"#,
+		forge_addontest::lua_string(&file.to_string_lossy())
+	));
+	assert!(out["seen"].as_i64().unwrap_or(0) >= 28, "every ship's two ends: {out}");
+	assert_eq!(out["far"], false, "ends more than 30 yd from where their ship stops");
+}
+
+// #4344: in Powderfuse Port, bound for Gadgetzan, the arrow's walk to the boat ends on the pier where the boat docks,
+// a few yards from where Meta stood when it came in (Riverglades 80.27,54.34), not at Wharfmaster Whizzbuzz on the
+// quay (79.45,52.71, 66 yd from there).
+#[test]
+fn in_powderfuse_port_the_walk_to_the_boat_ends_where_it_docks_4344() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_nav.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Nav/Nav.xml"])],
+		login: true,
+		script: r#"
+			local nav = stub.nav
+			nav.useGameGround()
+			nav.maps[2548] = { c = 0, top = -6466.666, bottom = -9700, left = -1891.666, right = -6741.666, name = "Riverglades" }
+			nav.era[1446] = { c = 1, top = -5875, bottom = -10475, left = -218.75, right = -7118.75, name = "Tanaris" }
+			nav.faction = "Horde"
+			local C = nav.Compat
+			local _, wx, wy = C.MapToWorld(2548, 77.5, 52, "l") -- in the port, 100 yd inland from Whizzbuzz
+			nav.place(wx, wy, 0)
+			Polestar.Nav.SetTarget(1446, 52.5, 28, "Gadgetzan", "e")
+			local _, mx, my = C.MapToWorld(2548, 80.27, 54.34, "l")
+			local out, legs = {}, Polestar.Nav.GetRoute() or {}
+			for i, l in ipairs(legs) do
+				local nxt = legs[i + 1]
+				if l.kind == "walk" and nxt and nxt.transport then
+					out = { nxt.transport.id, math.floor(((l.to.wx - mx) ^ 2 + (l.to.wy - my) ^ 2) ^ 0.5 + 0.5) }
+				end
+			end
+			emit(out)"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out[0], "boat-tanaris-powderfuse", "{out}");
+	assert!(out[1].as_i64().is_some_and(|d| d <= 10), "the walk ends within 10 yd of where the boat docks: {out}");
+}
+
 // The flight points Forever added (`forge data travel`: the Forever client's TaxiNodes rows the Era client lacks,
 // with their TaxiPath flights) leave every Era node and flight as the Era client has them: 63 flight masters and
 // 268 flights between them, the lengths below the committed file's before they came (0.3.7), among them the

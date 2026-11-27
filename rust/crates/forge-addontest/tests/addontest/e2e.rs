@@ -161,6 +161,18 @@ step Kobolds
   kill 95003 "Kill the Elite Kobold again"
 "#;
 
+// A dungeon quest's accept in a leveling route (the compiler flags the guide `group`): no Group tag in the list or on the details card.
+const GROUP_LEVELING_GUIDE: &str = r#"guide forever/alliance/hollow-route
+title Hollow Route
+category Leveling
+faction Alliance
+levels 1-60
+zone Elwynn Forest
+
+step Marshal McBride
+  accept 9600
+"#;
+
 const GROUP_SCRIPT: &str = r#"
 				${loads}
 				stub.login()
@@ -185,22 +197,26 @@ const GROUP_SCRIPT: &str = r#"
 				local kills = subs()
 				Polestar.UI.ShowPicker()
 				Polestar.UI.Picker.SetCategory("All")
-				local chips = {}
+				local chips, groups = {}, {}
 				for _, f in ipairs(stub.frames) do
 					-- The list's rows, not the Play next card above them.
 					if f.psGuide and rawget(f, "Range") and not rawget(f, "psPlayNext") and f:IsShown() then
 						chips[f.psGuide.id] = f.Group:IsShown() and f.Group.Text:GetText() or false
+						groups[f.psGuide.id] = f.psGuide.group == true
 					end
 				end
 				Polestar.UI.Picker.Select("forever/class/hollow")
 				local details = {}
 				for _, c in ipairs(Polestar.UI.Picker.details.Chips) do if c:IsShown() then details[#details + 1] = c.Text:GetText() end end
-				emit({ accepts = accepts, kills = kills, chips = chips, details = details })"#;
+				Polestar.UI.Picker.Select("forever/alliance/hollow-route")
+				local levelingDetails = {}
+				for _, c in ipairs(Polestar.UI.Picker.details.Chips) do if c:IsShown() then levelingDetails[#levelingDetails + 1] = c.Text:GetText() end end
+				emit({ accepts = accepts, kills = kills, chips = chips, groups = groups, details = details, levelingDetails = levelingDetails })"#;
 
 #[test]
 fn a_compiled_guide_with_group_content_shows_the_group_line_once_per_run_and_the_menu_s_group_chip() {
 	let data = group_data();
-	let r = forge_addontest::dsl::compile_with(&[("e2e.guide", GUIDE), ("hollow.guide", GROUP_GUIDE)], &data, None);
+	let r = forge_addontest::dsl::compile_with(&[("e2e.guide", GUIDE), ("hollow.guide", GROUP_GUIDE), ("route.guide", GROUP_LEVELING_GUIDE)], &data, None);
 	assert_eq!(errors(&r), Vec::<String>::new());
 	let pack = write_test_pack(&r.guides, &data, &our_manifest());
 	let out = &run_pack(&pack.scripts, GROUP_SCRIPT)[0];
@@ -211,9 +227,13 @@ fn a_compiled_guide_with_group_content_shows_the_group_line_once_per_run_and_the
 	assert_eq!(out["accepts"], json!([dungeon, none, { "sub": "Raid: Molten Core", "coloured": true }, none]));
 	// The author's group size wins over the elite the data names.
 	assert_eq!(out["kills"], json!([{ "sub": "Group of 3 advised", "coloured": true }, { "sub": "Elite: group advised", "coloured": true }]));
-	assert_eq!(out["chips"], json!({ "forever/class/hollow": "Group", "forever/alliance/human/01-northshire": false }));
+	assert_eq!(out["chips"], json!({ "forever/class/hollow": "Group", "forever/alliance/hollow-route": false, "forever/alliance/human/01-northshire": false }));
+	// The leveling route does carry group content (so its missing chip is the rule, not an empty flag).
+	assert_eq!(out["groups"]["forever/alliance/hollow-route"], json!(true));
 	let details = out["details"].as_array().unwrap();
 	assert_eq!(Value::from(details[..2].to_vec()), json!(["Levels 1\u{2013}60", "Group"]));
+	let leveling: Vec<&str> = out["levelingDetails"].as_array().unwrap().iter().map(|c| c.as_str().unwrap()).collect();
+	assert!(!leveling.contains(&"Group"), "a leveling route never wears the Group tag: {leveling:?}");
 }
 
 // Escort quests: the compiler marks an escort quest's accept and complete (tools/lib/dsl/escort.js); the

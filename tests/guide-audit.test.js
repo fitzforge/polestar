@@ -64,7 +64,7 @@ test("a banner's second action that would be cut takes its own line, and the ban
 });
 
 // Two links never overlap, in either link mode, however long the first's label and however narrow the window
-// (the Free mode banner's "Return to <guide>" + "Most XP a minute first", the gear offer's "Wear it" + "Not this one").
+// (the gear offer's "Wear it" + "Not this one"; the Free mode banner has no links since the menu).
 test("a banner's two links never overlap: right or under mode, long names, narrow widths", () => {
 	const rows = run(`
 		uistub.setGuide(uistub.elwynn, 3)
@@ -80,8 +80,8 @@ test("a banner's two links never overlap: right or under mode, long names, narro
 			return { l = -1e9, r = -1e9, t = 1e9, b = 1e9 } -- beside the text, by the x: no row under it
 		end
 		local cases = {
-			{ "free", { xp = true, back = "Western Elwynn, Westfall and the Road to Darkshire" } },
-			{ "free", { xp = true, back = "Kobold Camp" } },
+			{ "wear", { link = "[Sword of the Crown of Western Elwynn, Westfall and the Road to Darkshire]", pct = 12, slot = "MainHandSlot" } },
+			{ "wear", { link = "[Kobold Camp Candle]", pct = 12, slot = "MainHandSlot" } },
 			{ "wear", { link = "[Sword of the Crown]", pct = 12, slot = "MainHandSlot" } },
 		}
 		for _, mode in ipairs({ "right", "under" }) do

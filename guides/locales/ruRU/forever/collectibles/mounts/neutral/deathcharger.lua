@@ -17,7 +17,7 @@ return {
 
 	-- Step 2: Stratholme: Baron Rivendare
 	-- {area:2279} Stratholme · {object:175461} Service Entrance · {object:175440} Elders' Square · {zone:1423} Eastern Plaguelands · {npc:10440} Baron Rivendare
-	["{area:2279} is a group of five, level 58-60. The {object:175461} at {object:175440}, in north-western {zone:1423}, leads to the undead side; {npc:10440} waits in the Slaughter House at its end. Our data gives the reins a 0.02% drop chance (pfQuest, Era): one in about five thousand kills. Nothing shows Forever changing it."] = "{area:2279} – подземелье для группы из пяти, 58-60-й уровень. {object:175461} ({object:175440}) на северо-западе зоны {zone:1423} ведет на сторону нежити; {npc:10440} ждет на бойне в ее конце. По нашим данным, шанс выпадения поводьев – 0,02% (pfQuest, Era): примерно одно на пять тысяч убийств. Ничто не указывает, что в Forever это изменилось.",
+	["{area:2279} is a group of five, level 58-60. The {object:175461} at {object:175440}, in north-western {zone:1423}, leads to the undead side; {npc:10440} waits in the Slaughter House at its end. Our data gives the reins a 0.02% drop chance (Era): one in about five thousand kills. Nothing shows Forever changing it."] = "{area:2279} – подземелье для группы из пяти, 58-60-й уровень. {object:175461} ({object:175440}) на северо-западе зоны {zone:1423} ведет на сторону нежити; {npc:10440} ждет на бойне в ее конце. По нашим данным, шанс выпадения поводьев – 0,02% (Era): примерно одно на пять тысяч убийств. Ничто не указывает, что в Forever это изменилось.",
 	-- {object:175461} Service Entrance
 	["Stratholme {object:175461}"] = "Стратхольм: {object:175461}",
 }

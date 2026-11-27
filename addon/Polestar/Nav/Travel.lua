@@ -112,6 +112,7 @@ end
 local BIND_MATCH = 60
 local REPLAN_AFTER, REPLAN_MOVED = 30, 50 -- seconds, yards: moved this far since a plan this old, plan again
 local LEARN_FP = 60          -- yards: a flight path learned this close to a flight master is that one
+Travel.LEARN_FP = LEARN_FP -- the planner's copy (planBody is at Lua 5.1's upvalue limit)
 -- The near walk over a zone border the crossing data closes (Nav.PlanRoute's p.nearWalk, #1543): a target within
 -- CROSS straight yards (Walk.lua's MEASURE_NEAR: so near, no walk is measured) is walked to straight once the walking
 -- engine has found that walk at most SLACK x the straight yards + PAD long, or longer but within the hold all the way
@@ -464,8 +465,10 @@ end
 --       noStone = true: no Hearthstone in the bags (`hearth` is then only where a
 --         teleport to the bind point lands),
 --       skip = { spells = { [id] = true }, transports = { [t] = true }, taxi = { [nodeID] = true },
---         cross = { [crossing end] = true } }: left out for this target (skipped legs;
---         a skipped crossing end lets a start nearer the partner than the ends
+--         behind = { [nodeID] = true }, cross = { [crossing end] = true } }: left out for this target (skipped
+--         legs; behind: flight masters flown from that the trip has left behind (Travel.Behind), left out
+--         except while the start stands within LEARN_FP yards of one: back there, flying from it is no
+--         going back (#4227); a skipped crossing end lets a start nearer the partner than the ends
 --         are to each other walk straight to the partner),
 --       teleports = { { spell, name, to = point, cast, ready, bind, length }, ... } or nil
 --         (`bind`: lands at `hearth`, weighed as the Hearthstone is),
@@ -904,8 +907,9 @@ local function planBody(p, S)
 	local taxiV, learnV, maybeV = {}, {}, {}
 	local skip, maybe, seen, level = p.skip, p.maybe, p.seen, p.level
 	for _, node in ipairs((walkOnly or p.noFlights) and {} or taxiList) do
-		if skip and skip.taxi[node.id] then
-			-- skipped: never flown from or through
+		if skip and (skip.taxi[node.id] or (skip.behind and skip.behind[node.id]
+			and yards(p.c, p.wx, p.wy, node.c, node.wx, node.wy) > Travel.LEARN_FP)) then
+			-- skipped, or left behind and the start is not back at it: never flown from or through
 		elseif not allowed(node.faction, faction, node.class) then
 			-- the other faction's, or another class's
 		elseif known[node.id] or node.class then
@@ -2224,7 +2228,7 @@ local planSpeed = RUN_SPEED
 local planAt, planC, planX, planY = 0, nil, 0, 0 -- when and where the route was planned
 local lastMoveCheck = 0
 local skipFor      -- the target the skipped legs below were for
-local skipped = { hearth = false, spells = {}, transports = {}, taxi = {}, cross = {} } -- left out of its plans
+local skipped = { hearth = false, spells = {}, transports = {}, taxi = {}, behind = {}, cross = {} } -- left out of its plans
 local noWalkFor    -- the target the portals below were found for
 local noWalk = {}  -- [portal] = true: the walking engine found no walk from the player to its entrance (Travel.WalkUnreachable)
 local noDirect = false -- the walking engine found no walk from the player to the target itself (Travel.WalkUnreachable)
@@ -2604,7 +2608,7 @@ local function plan(target, held)
 	-- Off that ground (the measure taken again finds no walk) it counts again.
 	local skip = skipped
 	if noWalkFor == target and next(noWalk) and walkCost and type(walkCost(pc, px, py, true, pz)) == "number" then
-		skip = { hearth = skipped.hearth, spells = skipped.spells, transports = {}, taxi = skipped.taxi, cross = skipped.cross }
+		skip = { hearth = skipped.hearth, spells = skipped.spells, transports = {}, taxi = skipped.taxi, behind = skipped.behind, cross = skipped.cross }
 		for t in pairs(skipped.transports) do skip.transports[t] = true end
 		for t in pairs(noWalk) do skip.transports[t] = true end
 	end
@@ -2737,7 +2741,7 @@ function Travel.Replan()
 	local target = Nav.GetTarget()
 	if skipFor ~= target then
 		skipFor = nil
-		skipped = { hearth = false, spells = {}, transports = {}, taxi = {}, cross = {} }
+		skipped = { hearth = false, spells = {}, transports = {}, taxi = {}, behind = {}, cross = {} }
 	end
 	-- The live route hearths for this target: the hearth stays while it saves any time (#1915, no flip back and forth).
 	local held = was and (was.kind == "hearth" or was.bind) and legsFor == target
@@ -3603,7 +3607,7 @@ end
 local function passCrossing(id, side, through)
 	local target = Nav.GetTarget()
 	if skipFor ~= target then
-		skipped = { hearth = false, spells = {}, transports = {}, taxi = {}, cross = {} }
+		skipped = { hearth = false, spells = {}, transports = {}, taxi = {}, behind = {}, cross = {} }
 	end
 	local cross = skipped.cross
 	for _, e in ipairs(crossEnds) do
@@ -3654,15 +3658,19 @@ end
 -- route leaves from the flight master within LEARN_FP yards of where it took off. Travel.Landed leaves it out, but
 -- not after a flight that came down within LEARN_FP yards of it: one that never got away), a ride's boat, zeppelin,
 -- tram or portal once it has arrived (Travel.Aim). From Stormwind the route flew to Sentinel Hill, and on landing it
--- planned the flight back, and there the flight to Sentinel Hill again (#1890). Another target may use them again.
+-- planned the flight back, and there the flight to Sentinel Hill again (#1890). Another target may use them again. A
+-- flight master left behind counts again once the player is back at it: landed there (Travel.Landed), or standing
+-- within LEARN_FP yards of it (planBody); from there, flying from it goes nowhere it has been. From Southshore a flight
+-- to Menethil Harbor and back left Southshore out, and the route rode round into the Hinterlands instead of flying to
+-- Aerie Peak (#4227).
 -- (Fields, not locals: the file's main chunk keeps clear of Lua 5.1's 200.)
 function Travel.Behind(node, transport)
 	local target = Nav.GetTarget()
 	if not (target and (node or transport)) then return end
 	if skipFor ~= target then
-		skipped = { hearth = false, spells = {}, transports = {}, taxi = {}, cross = {} }
+		skipped = { hearth = false, spells = {}, transports = {}, taxi = {}, behind = {}, cross = {} }
 	end
-	if node then skipped.taxi[node.id] = true end
+	if node then skipped.behind[node.id] = true end
 	if transport then skipped.transports[transport] = true end
 	skipFor = target
 end
@@ -3689,6 +3697,13 @@ function Travel.Landed()
 	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
 	-- A flight lands at a flight master the character has: known, whatever the saved data said (#3632).
 	Travel.LearnAt(pc, px, py)
+	-- Landed back at a flight master left behind for this target: it counts again (#4227).
+	if pc and skipFor == Nav.GetTarget() then
+		for id in pairs(skipped.behind) do
+			local t = taxi[id]
+			if t and yards(pc, px, py, t.c, t.wx, t.wy) <= LEARN_FP then skipped.behind[id] = nil end
+		end
+	end
 	if not (node and target == Nav.GetTarget()) then return end
 	if pc and yards(pc, px, py, node.c, node.wx, node.wy) <= LEARN_FP then return end
 	Travel.Behind(node)

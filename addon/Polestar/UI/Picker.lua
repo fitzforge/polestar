@@ -145,7 +145,7 @@ local categoryOf = UI.Category
 -- the "Community guides" heading, one entry per pack (key "pack:<id>"); All,
 -- Favorites and search cover every shown guide.
 local PACK = "pack:"
-local IMPORT = "import:" -- the guide list's "+ Import a guide" row, which is no category
+P.IMPORT = "import:" -- the guide list's "+ Import a guide" row, which is no category
 
 -- The community pack a guide (header) comes from; nil for ours (`guides`),
 -- Polestar's internal packs and its extra packs (Guides.OWN_EXTRA: the
@@ -165,6 +165,14 @@ P.PackOf = packOf
 local function isExperimental(g)
 	local G = ns.Guides
 	return G and G.IsExperimental and G.IsExperimental(g) or false
+end
+
+-- The Group tag: a guide that needs a group (dungeon and raid quests, elites).
+-- The leveling routes (Horde, Alliance, the starting zones) never wear it: a
+-- leveling player expects group quests along the way, so the tag says nothing
+-- there. Every other category keeps it.
+local function showsGroup(g)
+	return g.group == true and g.category ~= nil and g.category ~= "Leveling"
 end
 
 -- A guide in one of Forever's new zones (Guides.InForeverZone): the Forever
@@ -1208,7 +1216,7 @@ local function paintRow(r, g, note, width, title, home, suggested)
 	r.Range:SetText(lv and ("(" .. lv .. ")") or "")
 	local expW = inForeverZone(g) and (FOREVER_W + 4 + 4) or 0
 	r.Forever:SetShown(expW > 0)
-	local groupW = g.group == true and (W.SetChip(r.Group, L["Group"], "dungeon") + 6) or 0
+	local groupW = showsGroup(g) and (W.SetChip(r.Group, L["Group"], "dungeon") + 6) or 0
 	r.Group:SetShown(groupW > 0)
 	r.Group:ClearAllPoints()
 	r.Group:SetPoint("LEFT", expW > 0 and r.Forever or r.Range, "RIGHT", expW > 0 and 2 or 6, 0)
@@ -1361,7 +1369,7 @@ local function heroTitle(c, g, title)
 	local inner = c:GetWidth() - HERO_PAD * 2
 	local lv = UI.GuideLevels(g)
 	c.Range:SetText(lv and ("(" .. lv .. ")") or "")
-	local groupW = g.group == true and (W.SetChip(c.Group, L["Group"], "dungeon") + 8) or 0
+	local groupW = showsGroup(g) and (W.SetChip(c.Group, L["Group"], "dungeon") + 8) or 0
 	c.Group:SetShown(groupW > 0)
 	c.Title:SetWidth(0)
 	c.Title:SetText(title)
@@ -2008,7 +2016,7 @@ local function renderDetails(byId, tabs, active)
 	end
 	if inForeverZone(g) then addChip(L["Forever"]) end
 	if isExperimental(g) then addChip(L["Experimental"], "experimental") end
-	if g.group == true then addChip(L["Group"], "dungeon") end
+	if showsGroup(g) then addChip(L["Group"], "dungeon") end
 	addChip(ns.FactionName(g.faction) or L["Both factions"])
 	if type(g.races) == "table" then for _, race in ipairs(g.races) do addChip(UI.RaceName(race)) end end
 	if type(g.classes) == "table" then for _, cl in ipairs(g.classes) do addChip(UI.ClassName(cl)) end end
@@ -2302,7 +2310,7 @@ local function navItems(counts, total)
 		if r.author then label = label .. DOT .. r.author end
 		items[#items + 1] = { key = PACK .. r.id, label = label, icon = "layers", count = counts[PACK .. r.id] or 0, oneLine = true }
 	end
-	items[#items + 1] = { key = IMPORT, label = L["Import a guide"], icon = "plus", action = true }
+	items[#items + 1] = { key = P.IMPORT, label = L["Import a guide"], icon = "plus", action = true }
 	P.categories = {}
 	for _, it in ipairs(items) do
 		if not (it.heading or it.action) then P.categories[#P.categories + 1] = it.key end
@@ -2620,7 +2628,7 @@ local function render()
 	local total = 0
 	for c, k in pairs(counts) do if c ~= "Favorites" then total = total + k end end
 	W.ShellNav(win, navItems(counts, total), view == "browse" and category or nil, function(key)
-		if key == IMPORT then UI.Import.Show() else P.SetCategory(key) end
+		if key == P.IMPORT then UI.Import.Show() else P.SetCategory(key) end
 	end)
 	local tabsList = {}
 	for i, v in ipairs(VIEWS) do tabsList[i] = { key = v, label = VIEW_LABEL[v] } end

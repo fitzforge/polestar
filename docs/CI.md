@@ -30,6 +30,12 @@ or none.
   `.github/ISSUE_TEMPLATE/`, a `.md` at the root or under `.github/`) that
   no Node test and no check of `ci.yml` reads runs only the checks every
   tracked file gets (wording, names, SVGs: about a minute and a half).
+- **bot**: the Discord bot alone (`tools/discord-bot/`, `tests/discord-*.test.js`,
+  `tests/helpers/discord-fakes.js`, `changes/*bot*`, `.github/workflows/discord-*.yml`)
+  runs only this GitHub-hosted job: the bot's Node tests and the checks every
+  tracked file gets. Every other step is skipped, and `Format, lints, tests`
+  skips as for documentation; `Base branch` and the public-text check run as
+  always.
 - **part**: guides, Lua, data, fragments, Node test files and documentation
   only. forge comes
   from the Actions cache (keyed by `rust/` and the Lua it embeds; next's
@@ -384,11 +390,22 @@ together.
 
 The route-speed, cadence and stretch gates' harnesses and baselines come
 from the release gates and live with the runner (`$POLESTAR_GATES`), not in
-the repository. Their Lua is the kit's own Lua 5.1.5 built from lua.org's source
-(`$POLESTAR_GATES/lua51/lua`, set as `LUA` by `run.sh`; the distro's `lua5.1`
-segfaulted on the runner in the route-speed `:reload` cases on 26 Nov 2026),
-and the distro's binary is the fallback when the kit has none. A gate that cannot run (no data, no harness) fails like one
+the repository. Their Lua is the distro's `lua5.1`. A gate that cannot run (no data, no harness) fails like one
 that finds something: nothing is skipped quietly.
+
+On 26 Nov 2026 the route-speed `:reload` cases died with a SIGSEGV in `lua5.1` on
+the runner (3 to 4 per run; elsewhere never, and a source-built Lua 5.1.5 died
+too). The cause is Lua 5.1's `lua_setupvalue`, which stores into an upvalue
+without the collector's write barrier: `tests/lua/stub_alloc.lua` swaps
+`wow_stub.lua`'s `RunScript` with `debug.setupvalue`, and a collector cycle that
+had already marked the upvalue never marked the new closure, freed it, and the
+next call ran freed memory. Where the cycle stands at that moment moves with every
+allocation before it, so the crash came and went with the length of a path
+(the tree's, the script's); it was no property of the runner. The stub now keeps
+the wrapper in a table, whose store has its barrier
+(`tests/stub-alloc-gc.test.js` replays the swap at every phase of a cycle). A
+case whose `lua5.1` dies by a signal is still run again, up to 5 times, and
+labelled, so a crash is never read as a route.
 
 Each gate runs whatever the others did; the run's summary has a row per
 gate. A failing run turns the badge above red and files an issue labelled

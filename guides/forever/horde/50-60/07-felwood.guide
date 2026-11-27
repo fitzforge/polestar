@@ -203,8 +203,8 @@ step Kernda
 step Witch Doctor Mau'ari
   zone Winterspring
   tip Ride east along the road to Everlook: Harlo Wigglesworth sends you to Witch Doctor Mau'ari, who stands in the town, on the way to Frostwhisper Gorge.
-  accept 6606                         -- Harlo Wigglesworth: A Little Luck
-  turnin 6606                         -- Witch Doctor Mau'ari
+  accept 6606 optional                -- Harlo Wigglesworth: A Little Luck
+  turnin 6606 optional                -- Witch Doctor Mau'ari
   accept 969
 
 step Winterspring
