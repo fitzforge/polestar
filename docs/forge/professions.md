@@ -4,13 +4,56 @@ Polestar's profession guides (`guides/forever/professions/`) are generated, neve
 
 | Guides | Built by | From |
 |---|---|---|
-| Alchemy, Blacksmithing, Enchanting, Engineering, Leatherworking, Tailoring | `node tools/polestar.js profession draft <Profession> --out` | `tools/lib/professions/` (plan.js, guide.js, specs.js) |
+| Blacksmithing | `node tools/polestar.js profession draft Blacksmithing --out` | its route file, `tools/lib/professions/routes/blacksmithing.json`, through `route.js` (see "Route files") |
+| Alchemy, Enchanting, Engineering, Leatherworking, Tailoring (until each has a route file) | `node tools/polestar.js profession draft <Profession> --out` | `tools/lib/professions/` (plan.js, guide.js, specs.js) |
 | Mining, Herbalism, Skinning, Fishing, Cooking, First Aid, Fishing + Cooking | `node tools/polestar.js profession gathering build` | `tools/lib/professions/gathering/` |
 | Herbalism + Alchemy, Mining + Blacksmithing, Mining + Engineering, Skinning + Leatherworking, Tailoring + Enchanting | `node tools/polestar.js profession gathering build` | `tools/lib/professions/pairs.js` over the two above |
 
-Every rule below is held by a test (`tests/profession-audit.test.js`, `tests/profession-pairs.test.js`,
-`tests/profession-gathering.test.js`, `tests/profession-getit.test.js`) or by the generator throwing at
-build time. A new profession guide, or a change to a generator, keeps all of them.
+Every rule below is held by a test (`tests/profession-route.test.js`, `tests/profession-audit.test.js`,
+`tests/profession-pairs.test.js`, `tests/profession-gathering.test.js`, `tests/profession-getit.test.js`)
+or by the generator throwing at build time. A new profession guide, or a change to a generator, keeps all
+of them.
+
+## Route files
+
+A crafting profession's route is curated, not planned: `tools/lib/professions/routes/<profession>.json`
+lists the bands to craft and everything a first-timer needs around them, and `route.js` turns it into
+the guide. Every fact in it is checked against data/forever when the guide is built; `checkRoute` stops
+the build on any fact the data does not bear out:
+a recipe that is not the profession's, a band's materials that are not its count times the recipe's
+reagents, a recipe learned after its band starts, a band past the recipe's grey (unless `colours` gives
+the colour players' recordings show), a trainer or vendor who does not serve the side or does not
+train or sell the thing, a quest not in the data, a material with no way to get it.
+
+| Field | What it holds |
+|---|---|
+| `profession`, `intro` | The profession's name; the header's paragraphs |
+| `tools` | `{ item, at: "learn", vendors: { Alliance, Horde } }`: a tool bought on the first trainer visit; the vendors are the ones by each trainer (checked; the step itself takes the nearest seller) |
+| `sections` | One per rank: `{ rank, from, to, level, cost?, teachers: { Alliance, Horde }, route }`. `teachers` are the trainers who teach that rank's recipes: the trainer a player starts with teaches only the first ones (Blacksmithing: up to 50), and a recipe may be taught by fewer trainers than its rank (Mithril Coif: Brikk Keencraft only) |
+| band | `{ from, to, recipe, count, mats, keep?, note?, quests?, alternative? }`: craft `count` of `recipe` from `from` to `to`; `mats` is item -> count (checked); `keep` and `note` are its one-line tip; `quests` hand over its plans (their items join the get); `alternative` is another recipe for the same points, kept for reference |
+| make | `{ make, count, mats, for }`: parts crafted for a later band (no skill points) |
+| fork | `{ fork, ways: [{ name, plans?, why?, route }] }`: from here the route goes one of several ways; a way with `plans` (world drops) is taken when the player buys them at the Auction House, the last way is the one that always works |
+| `materials` | item -> its ways in order: `gather` (the gathering guides' loops; a bar: its ore's), `drop` (farm spots), `disenchant`, `vendor`, `auction` |
+| `vendors`, `smelt`, `colours` | Who sells a vendor good (checked); a bar's smelting extras (Coal for Steel, from a Mining skill); a recipe's grey where recordings show the client table is wrong, with the evidence |
+
+The steps, one action each, each answering on its own what to do, where (a place the arrow and the map
+pin lead to, or any station with the nearest pinned), how many, and what finishes it:
+
+- **Learn <Profession>** (`train`), then **Buy a <tool>** (`buy … nearest`).
+- **Get N <material>**: one material, its ways as the window's choice rows; sized to the crafts up to the
+  next trainer visit (bands of one material that only a recipe visit separates share it). A fork way's
+  steps and every band have their own section, so a get's count is what the bags must hold.
+- **Buy N <vendor good>**: a section's vendor goods at one stop.
+- **Train <Rank> <Profession>** after the first gets of its section (one trip trains it and learns the
+  first recipe); **Learn <recipe>** (`learn <spell> npc <the section's teachers>`, or from plans in the bags).
+- **Go to an anvil** (`goto … nearest` over the stations of the recipe's spell focus, `stations.json`, in
+  towns with a trainer or tool seller), before a craft that needs one unless the step before was a craft
+  there; the engine finishes it on arrival at any of them.
+- **Craft N <recipe> until <skill>**; **Craft N <part>** for parts.
+- **Buy <plans> at the Auction House** (`auction … either` beside a "none listed" task), **Hand in <quest>**.
+
+Tips are at most one short line (120 characters) of why or a heads-up ("Keep all 60: the bracers at 95 and
+115 use them"), never an instruction: an action is a step or a goal. Costs and totals go in the header.
 
 ## Profession guide rules
 
@@ -77,8 +120,9 @@ professions' ranks trained on one visit when both are due.
   (one trip); otherwise it gets its own step where the gathering guide trains it. The smelts a bar needs
   are learned before the stretch that smelts it.
 - **Tailoring + Enchanting** flows the other way: each rank bracket levels Tailoring, then Enchanting, and
-  the green armour Tailoring made is disenchanted for Enchanting's dust (`disenchant.json`: Forever's
-  server data per item level; the client's item levels). The Enchanting steps say how much of what they ask
+  the green armour Tailoring made is disenchanted for Enchanting's dust (`data/disenchant.json`: the
+  client's disenchant bands with the server's loot; `tailoring-item-levels.json`: the client's item levels).
+  The Enchanting steps say how much of what they ask
   those crafts give; the rest is looted or bought.
 - **Header.** `kind profession` and `skills <Gathering>, <Crafting>`; a paired guide's sections alternate
   between its two skills, each rising in order (lint checks each profession's order on its own).
