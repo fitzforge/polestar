@@ -762,7 +762,7 @@ local function soon()
 	ns.After(0.5, keepUp)
 end
 ns.RegisterEvent("QUEST_ACCEPTED", soon)
-ns.RegisterEvent("QUEST_LOG_UPDATE", soon)
+ns.On("QUEST_LOG_REFRESH", soon)
 ns.On("GUIDE_CHANGED", soon)
 
 -- The handin kind builds only while Dungeons is on.

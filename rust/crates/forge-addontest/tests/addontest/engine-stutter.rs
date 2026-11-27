@@ -297,3 +297,25 @@ fn the_while_here_build_reads_the_quest_log_once() {
 	// Base: 7 reads of the log over the update.
 	assert_eq!(out, json!({ "reads": 3, "step": 1, "lines": 3 }));
 }
+
+#[test]
+fn quest_log_refresh_reads_the_end_of_each_burst_and_allows_an_update_during_refresh() {
+	let out = run(
+		vec![Addon::files("Polestar", &["Core/Init.lua"])],
+		r#"
+		local events, seen = 0, {}
+		Polestar.RegisterEvent("QUEST_LOG_UPDATE", function() events = events + 1 end)
+		Polestar.On("QUEST_LOG_REFRESH", function()
+			seen[#seen + 1] = events
+			if #seen == 1 then stub.fire("QUEST_LOG_UPDATE") end
+		end)
+		for _ = 1, 50 do stub.fire("QUEST_LOG_UPDATE") end
+		local immediate = { events, #seen }
+		stub.advance(0.1)
+		stub.fire("QUEST_LOG_UPDATE")
+		stub.advance(0.1)
+		emit({ immediate, seen })
+		"#,
+	);
+	assert_eq!(out, json!([[50, 0], [50, 51, 52]]));
+}

@@ -4083,7 +4083,7 @@ GF.Part(function(GF)
 		ns.On("CARRIED_CHANGED", whenReady(GF.Update))
 		-- A finished guide's card counts the quests in the log (GF.EndQuestLines):
 		-- one taken, handed in or abandoned paints it afresh. Only on that card.
-		ns.RegisterEvent("QUEST_LOG_UPDATE", function()
+		ns.On("QUEST_LOG_REFRESH", function()
 			if state == "complete" and F and F:IsShown() and ns.IsLoggedIn() then GF.Render() end
 		end)
 		ns.On("GUIDES_REGISTERED", whenReady(GF.Render))

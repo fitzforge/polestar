@@ -867,6 +867,22 @@ fn a_travel_step_says_what_its_flight_is_for_1588() {
 	);
 }
 
+#[test]
+fn a_controls_view_skips_the_travel_subline_without_hiding_it_from_the_guide_window() {
+	let out = run(
+		PURPOSE,
+		r#"
+		E.SetGuide("test/feegly"); flush()
+		Polestar.NewMoment()
+		local controls = E.GetStepView(1, true, true)
+		local again = E.GetStepView(1, true, true)
+		local window = E.GetStepView(1, true)
+		emit({ controls.goals[2].purposeText or false, again == controls, window.goals[2].purposeText, E.GetStepView(1, true, true) == window })
+		"#,
+	);
+	assert_eq!(out, json!([false, true, "For Feegly the Exiled's quests", true]));
+}
+
 // A step with quest work of its own says nothing more, nor does a travel step looked at ahead of the live one.
 #[test]
 fn a_step_with_work_of_its_own_or_one_looked_at_ahead_has_no_purpose_line() {

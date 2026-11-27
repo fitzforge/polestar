@@ -369,4 +369,4 @@ function UI.GuideCarried()
 end
 
 ns.On("SHOW_QUEST_ROOM", function() UI.ShowQuestRoom() end)
-ns.RegisterEvent("QUEST_LOG_UPDATE", function() UI.LayoutQuestRoom() end)
+ns.On("QUEST_LOG_REFRESH", function() UI.LayoutQuestRoom() end)
