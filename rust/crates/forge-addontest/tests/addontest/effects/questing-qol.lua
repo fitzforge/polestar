@@ -152,7 +152,6 @@ return {
 			return after - before
 		end,
 		["qol.markTarget"] = function() return { macro(PolestarTargetButton), macro(PolestarStepButton) } end,
-		["qol.pingTarget"] = function() return macro(PolestarTargetButton) end,
 		["qol.markMob"] = { with = { ["qol.markTarget"] = true }, probe = function() return macro(PolestarTargetButton) end },
 		["qol.markNpc"] = { with = { ["qol.markTarget"] = true }, probe = function()
 			npcStep()

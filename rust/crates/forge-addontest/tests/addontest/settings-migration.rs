@@ -1,6 +1,6 @@
 //! Every setting a player could have saved before the settings window keeps its value. The fixture
 //! (settings-0.3.6.lua) is every setting Polestar 0.3.6 registered (next before the settings window: 267
-//! defaults; nav.minimapRouteSize is left out, 0.3.6 itself moves it into the per-style sizes at every
+//! defaults, less qol.pingTarget, which 0.4.4 drops with a migration; nav.minimapRouteSize is left out, 0.3.6 itself moves it into the per-style sizes at every
 //! login) plus the four positions and states it saved with no default, each with a value its own controls
 //! could have written (another choice, the far end of a slider, the other state of a switch, a colour, a
 //! dragged position). Loaded into PolestarDB.settings as 0.3.6 left it, every one must read
@@ -102,7 +102,7 @@ local n = 0
 for _ in pairs(__FIXTURE) do n = n + 1 end
 emit({ count = n, wrong = check("after login"), unknown = unknown, profile = Polestar.Profiles and Polestar.Profiles.Active() or "none",
 	moved = PolestarDB.profiles ~= nil and next(PolestarDB.profiles) ~= nil })"#);
-	assert_eq!(out["count"], 271, "the fixture: 267 settings and 4 saved positions or states");
+	assert_eq!(out["count"], 270, "the fixture: 266 settings and 4 saved positions or states");
 	let wrong = list(&out["wrong"]);
 	assert!(wrong.is_empty(), "{} settings lost their saved value:\n{}", wrong.len(), wrong.join("\n"));
 	let retired = crate::settings_coverage::retired();

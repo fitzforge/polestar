@@ -1439,7 +1439,7 @@ end
 
 local function deliver(f, ran, mouse)
 	mouse = mouse or "LeftButton"
-	local digit = ({ LeftButton = "1", RightButton = "2", MiddleButton = "3" })[mouse]
+	local digit = ({ LeftButton = "1", RightButton = "2", MiddleButton = "3", Button4 = "4", Button5 = "5" })[mouse]
 	for _, down in ipairs({ true, false }) do
 		local c = f.clicks or { LeftButtonUp = true }
 		if c[down and "AnyDown" or "AnyUp"] or c[mouse .. (down and "Down" or "Up")] then

@@ -36,8 +36,8 @@
 --      line under it on what a click and the key do; it follows the
 --      switches under it at once: the target button (qol.targetButton), the
 --      single button (qol.targetSimple, its child) and who it targets
---      (qol.targetPlate, the single button's), its mark and its ping
---      (qol.markTarget, qol.pingTarget), and a line naming the step key's
+--      (qol.targetPlate, the single button's), its mark
+--      (qol.markTarget), and a line naming the step key's
 --      binding, which targets the same without it, and Move frames;
 --   4. groups: while the guides have group quests, the guide window's card
 --      at one (the first of the character's guides) as the choice in use
@@ -1680,8 +1680,6 @@ do
 			W.SetDisabledWhen(F.TargetPlate, function() return not ns.Get("qol.targetSimple") end)
 			F.MarkTarget = toggleRow(p, L["Mark what the target button finds"], "qol.markTarget",
 				L["A skull on the enemy, a star on the friendly NPC. In a group it never takes another player's icon."])
-			F.PingTarget = toggleRow(p, L["Ping it for my group"], "qol.pingTarget",
-				L["Your group sees what the target button and the step key found, even behind rocks and buildings."])
 			p.StepKey = para(p, "note", "textMuted", CW, 3)
 			p.StepKey:SetText((L["No button? The key \"%s\" (Key Bindings, Polestar) targets the same names. Move frames, in Settings, moves the button."]):format(L["Use the step button"]))
 			p.Keep = keepLine(p)
@@ -1694,7 +1692,7 @@ do
 			p.Stage.psLaid, p.Stage.psExtra = true, grow
 			local stageH = layStage(p.Stage, grow)
 			paintStage(p.Stage)
-			local y = layRows({ F.TargetButton, F.TargetSimple, F.TargetPlate, F.MarkTarget, F.PingTarget }, stageH + 8) + 10
+			local y = layRows({ F.TargetButton, F.TargetSimple, F.TargetPlate, F.MarkTarget }, stageH + 8) + 10
 			place(p.StepKey, 0, y)
 			y = y + p.StepKey:GetStringHeight() + 14
 			place(p.Keep, 0, y)

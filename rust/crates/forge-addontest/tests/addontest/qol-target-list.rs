@@ -28,6 +28,16 @@ local function rows()
 	end
 	return out
 end
+-- The rows' right-click macros (macrotext2): the same names and marks with the ping.
+local function pinged()
+	local out = {}
+	for i, r in ipairs(B.rows) do
+		if r:IsShown() then
+			out[#out + 1] = { r.Name:GetText(), r.Note:GetText(), r:GetAttribute("macrotext2"), r.npc or false }
+		end
+	end
+	return out
+end
 local function macro() return t:GetAttribute("macrotext") end
 -- A row's face (the creature id its model drew, a portrait, or false) and
 -- the crosshair behind it: green while a living one is close, else red.
@@ -893,15 +903,15 @@ fn target_list_names_the_step_s_npcs_when_it_has_no_mob_with_the_npc_mark_and_th
 	let out = run_with(
 		r#"
 		set("markTarget", true)
-		set("pingTarget", true)
+		-- The right click pings; the left click never does.
 		q.step({
 			{ t = "turnin", quest = 9, npc = 240, npcName = "Marshal Dughan" },
 			{ t = "talk", npc = 241, npcName = "Gryan Stoutmantle" },
 		})
-		emit(rows())
+		emit(pinged())
 		kobolds()
-		local r = rows()
-		emit({ #r, r[1][1], r[1][3] })
+		local r = pinged()
+		emit({ #r, r[1][1], r[1][3], rows()[1][3] })
 	"#,
 		"SLASH_PING1 = \"/ping\"",
 	);
@@ -912,9 +922,13 @@ fn target_list_names_the_step_s_npcs_when_it_has_no_mob_with_the_npc_mark_and_th
 			["Marshal Dughan", "", format!("/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/ping [@target]\n{npc_mark}"), 240],
 			["Gryan Stoutmantle", "", format!("/cleartarget [nocombat][dead]\n/targetexact Gryan Stoutmantle\n/cleartarget [dead]\n/ping [@target]\n{npc_mark}"), 241]
 		]),
-		"no mob: the step's NPCs, each row with the NPC's mark and, with Ping on, the ping (#2036: NPCs are pinged too)"
+		"no mob: the step's NPCs, each row's right click with the NPC's mark and the ping (#2036: NPCs are pinged too)"
 	);
-	assert_eq!(out[1], json!([3, "Kobold Vermin", format!("{VERMIN}\n/ping [@target]\n/tm [@target,harm,nodead] !8")]), "mobs: the mob's mark, and the ping");
+	assert_eq!(
+		out[1],
+		json!([3, "Kobold Vermin", format!("{VERMIN}\n/ping [@target]\n/tm [@target,harm,nodead] !8"), format!("{VERMIN}\n/tm [@target,harm,nodead] !8")]),
+		"mobs: the right click has the mob's mark and the ping, the left click the mark alone"
+	);
 }
 
 #[test]
@@ -1242,7 +1256,7 @@ fn target_list_a_step_s_npc_and_while_you_re_here_mobs_each_row_with_its_own_kin
 			"{TONES}{}",
 			r#"
 		set("markTarget", true)
-		set("pingTarget", true)
+		-- The right click pings; the left click never does.
 		local shown = {}
 		q.Engine.GetWhileHereList = function() return shown end
 		q.Engine.AlongGoal = function(s, g)
@@ -1254,7 +1268,7 @@ fn target_list_a_step_s_npc_and_while_you_re_here_mobs_each_row_with_its_own_kin
 		shown = { { t = "kill", subject = "Bluegill Murloc", step = 41, index = 1, status = "active", raw = { npc = 1024 } } }
 		Polestar.Fire("WHILE_HERE_CHANGED")
 		stub.runTimers()
-		local r = rows()
+		local r = pinged()
 		emit({ r[1][1], r[1][3], r[2][1], r[2][3] })
 		emit({ tones(1), tones(2) })
 		local kinds = {}
@@ -1276,7 +1290,7 @@ fn target_list_a_step_s_npc_and_while_you_re_here_mobs_each_row_with_its_own_kin
 			"Bluegill Murloc",
 			"/cleartarget [nocombat][dead]\n/targetexact Bluegill Murloc\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8"
 		]),
-		"the NPC first (no place known: near), with its mark; the row's mob after, with the mob's mark; both pinged with Ping on (#2036)"
+		"the NPC first (no place known: near), with its mark; the row's mob after, with the mob's mark; both pinged on the right click (#2036)"
 	);
 	assert_eq!(out[1], json!([["Marshal Dughan", "success", "textDim", false], ["Bluegill Murloc", "danger", "danger", false]]));
 	assert_eq!(out[2], json!(["npc", "mob"]), "each row's click advances its own kind's mark");
@@ -1424,11 +1438,11 @@ fn target_list_a_name_that_turns_from_an_npc_goal_into_a_kill_takes_the_mob_s_ma
 			"{TONES}{}",
 			r#"
 		set("markTarget", true)
-		set("pingTarget", true)
+		-- The right click pings; the left click never does.
 		q.step({ { t = "talk", npc = 77, npcName = "Same Name" } })
-		emit({ B.rows[1]:GetAttribute("macrotext"), tones(1) })
+		emit({ B.rows[1]:GetAttribute("macrotext2"), tones(1) })
 		q.step({ { t = "kill", target = "Same Name", npc = 77 } })
-		emit({ B.rows[1]:GetAttribute("macrotext"), tones(1) })
+		emit({ B.rows[1]:GetAttribute("macrotext2"), tones(1) })
 	"#
 		),
 		"SLASH_PING1 = \"/ping\"",
@@ -1654,27 +1668,28 @@ fn target_list_preview_faces_are_plain_frames_drawn_and_laid_out_by_the_live_lis
 }
 
 // #2036 (on dev-040): the target button marks what it targets by default, a skull on a mob and a star on a friendly
-// NPC, and pings only with Ping on; a row's click follows the same settings for its own kind.
+// NPC; a row's left click follows the same for its own kind and never pings, its right click pings both kinds.
 #[test]
-fn target_list_rows_mark_by_default_a_skull_on_a_mob_and_a_star_on_an_npc_and_ping_only_with_ping_on() {
+fn target_list_rows_mark_by_default_a_skull_on_a_mob_and_a_star_on_an_npc_and_ping_only_on_the_right_click() {
 	let out = run_with(
 		r#"
 		set("markTarget", Polestar.GetDefault("qol.markTarget"))
 		q.step({ { t = "kill", target = "Kobold Vermin", npc = 6 }, { t = "turnin", quest = 9, npc = 240, npcName = "Marshal Dughan" } })
-		local function macros() local out = {} for i, r in ipairs(B.rows) do if r:IsShown() then out[#out + 1] = r:GetAttribute("macrotext") end end return out end
-		emit({ Polestar.GetDefault("qol.markTarget"), Polestar.GetDefault("qol.pingTarget"), macros() })
+		local function macros(attr) local out = {} for i, r in ipairs(B.rows) do if r:IsShown() then out[#out + 1] = r:GetAttribute(attr) end end return out end
+		emit({ Polestar.GetDefault("qol.markTarget"), Polestar.GetDefault("qol.pingTarget") == nil, macros("macrotext"), macros("macrotext2") })
 		q.step({ { t = "talk", npc = 240, npcName = "Marshal Dughan" } })
-		emit(macros())
-		set("pingTarget", true)
-		emit(macros())
+		emit({ macros("macrotext"), macros("macrotext2") })
 	"#,
 		"SLASH_PING1 = \"/ping\"",
 	);
 	let skull = "/tm [@target,harm,nodead] !8";
 	let star = "/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1";
-	assert_eq!(out[0], json!([true, false, [format!("{VERMIN}\n{skull}")]]), "mark on and ping off by default: the mob's row with the skull");
-	assert_eq!(out[1], json!([format!("/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n{star}")]), "an NPC's row: the star");
-	assert_eq!(out[2], json!([format!("/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/ping [@target]\n{star}")]), "with Ping on, the NPC is pinged too");
+	assert_eq!(out[0][0], json!(true), "mark on by default");
+	assert_eq!(out[0][1], json!(true), "the ping setting is gone");
+	assert_eq!(out[0][2], json!([format!("{VERMIN}\n{skull}")]), "the mob's row with the skull, no ping on the left click");
+	assert_eq!(out[0][3], json!([format!("{VERMIN}\n/ping [@target]\n{skull}")]), "its right click pings");
+	assert_eq!(out[1][0], json!([format!("/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n{star}")]), "an NPC's row: the star");
+	assert_eq!(out[1][1], json!([format!("/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/ping [@target]\n{star}")]), "its right click pings the NPC too");
 }
 
 // Compact styles (qol.targetListStyle): slim rows, and portrait tiles in a

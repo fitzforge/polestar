@@ -172,7 +172,6 @@ return {
 	["qol.nameplateIcons"] = { default = false, value = true, kind = "toggle" },
 	["qol.objectiveAreaAlpha"] = { default = 0.6, value = 1, kind = "slider" },
 	["qol.objectiveSpots"] = { default = "groups", value = "areas", kind = "dropdown" },
-	["qol.pingTarget"] = { default = false, value = true, kind = "toggle" },
 	["qol.questBagMarks"] = { default = true, value = false, kind = "toggle" },
 	["qol.questDB"] = { default = true, value = false, kind = "toggle" },
 	["qol.questLevelWindow"] = { default = 5, value = 10, kind = "slider" },

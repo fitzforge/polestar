@@ -7646,13 +7646,25 @@ flight timer and the instance tracker are set under Quality of Life.
 The Target button, the step key and a folded target list can try NPC goals and
 While you're here mobs in one press. `Buttons.MarkedMacro(list, first, kindOf,
 ping)` builds their macro: one block of names (`Buttons.TargetMacro`) with the
-ping, then the mark of the first name's kind, or, when the names the macro holds
+ping (`ping` is `Buttons.PingLine()` for a right click's macro, nil for the left
+click's), then the mark of the first name's kind, or, when the names the macro holds
 are of both kinds, both kinds' lines (`Buttons.MixedMarkLines`):
 `/tm [@target,harm,nodead]` with the mob's icon, then `/tm [@target,noharm,nodead]`
 with the NPC's. They never both match, so a fallback mob gets the mob's icon and
 a friendly fallback NPC the NPC's (#2152); a neutral NPC that can be attacked
-gets the mob's. Both kinds are pinged, as on a single name. Keeping one block
+gets the mob's. Both kinds are pinged on a right click, as on a single name. Keeping one block
 keeps a mixed list within the macro's 255 bytes as often as a list of one kind.
+
+The target button, its rows and the step key set both macros as secure
+attributes (`Buttons.SetMacros`: `type`/`macrotext` for the left click,
+`type2`/`macrotext2` for the right, which is the same names and mark with the
+ping line between them), so both work in a fight; a right-click binding exists
+for the two keys (`CLICK PolestarTargetButton:RightButton`, `CLICK
+PolestarStepButton:RightButton`). `Buttons.WireCycle` cycles a living target's
+name for either button (`macrotext2` on a right click). Every secure button of
+Polestar's registers for the left and the right button only: the game's ping
+key can be a mouse button, and any other button pressed over one used to fire
+its click, its PreClick/PostClick hooks and their calls (#4252).
 
 After a press, the icon cycle (`Buttons.AdvanceMark`) uses the kind of the name
 the press acquired (`Buttons.AcquiredIndex`: the target's readable name against
@@ -7763,10 +7775,10 @@ Buttons, where Targeting is (`SHOW_OPTIONS "targeting"`, also `/polestar
 options targeting`). The rows are the button's names, so on a step
 with no mob they are its NPC goals' NPCs, and the While you're here rows' mobs
 follow the step's own (before a far NPC, after a near one, #1623). Each row's
-macro is `Buttons.TargetMacro({ name }, 1, Buttons.MarkLine(kind),
-Buttons.QuestPingLine())` with its own name's kind (`targetKind`), as the
-button's: a skull on a mob and a star on an NPC with `qol.markTarget` (on by
-default, #2036), the ping on both with `qol.pingTarget` (off by default); a
+macro is `Buttons.TargetMacro({ name }, 1, Buttons.MarkLine(kind))` with its
+own name's kind (`targetKind`), as the button's: a skull on a mob and a star on
+an NPC with `qol.markTarget` (on by default, #2036); its right click runs the
+same with the ping (`macrotext2`); a
 release advances that kind's mark (`r.kind`).
 A row's name wears its kind's colour as the simple button's plate has it
 (`Buttons.TargetLook`: success for an NPC, quest for an elite, rare or boss,
@@ -10372,8 +10384,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `qol.targetSimple` of the single button's face and plate,
   `Buttons.NewFace`, faint while it is off; `qol.targetSimple` and
   `qol.targetPlate` as its children, greyed while the button is off, who it
-  targets also while the single button is; `qol.markTarget` and
-  `qol.pingTarget`; a line that the step key targets the same names without
+  targets also while the single button is; `qol.markTarget`; a line that the step key targets the same names without
   the button and that Move frames moves it); Groups and dungeons
   (`behavior.dungeons` as Skip them, Ask me and Run them once that setting
   exists, `ns.dungeonRoute` is on and `Engine.GuideDungeons()` has any; with
@@ -11058,9 +11069,9 @@ Polestar.Rares.FounderSighting(unit, source, guid)  -- a player unit from Detect
   whatever `ActionButtonUseKeyDown` says) over the card's own
   runs `QoL.Buttons.RareCardMacro` (`/targetexact` the name, `/ping
   [@target]` where the client has `SLASH_PING1`, always, as the rare button
-  does; the Target button and step key ping mobs only with `qol.pingTarget`,
-  off by default, never for a raid member without lead or assist:
-  `Buttons.QuestPingLine`; the mob's `/tm` with `qol.markTarget`); for the founder it runs `Buttons.FounderMacro`.
+  does; the Target button, its rows and the step key ping only on a right
+  click (`Buttons.SetMacros`: `type2`/`macrotext2` beside the left click's
+  `type`/`macrotext`; the left click never pings); the mob's `/tm` with `qol.markTarget`); for the founder it runs `Buttons.FounderMacro`.
   An `unnamed` alert has no Target until `RARE_NAMED` names it (the card keeps
   its time left; no second sound). Its
   macro and its anchor to the card are set only out of combat;

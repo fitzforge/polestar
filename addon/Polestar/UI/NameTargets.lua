@@ -55,7 +55,10 @@ local function createButton(i)
 	end
 	local b = CreateFrame("Button", nil, holder, "SecureActionButtonTemplate")
 	b:Hide()
-	b:RegisterForClicks("AnyUp", "AnyDown")
+	-- Left and right (the right one is the row's own action) and the middle one's
+	-- release (it opens the quest log, #3281); no other button: the game's ping key
+	-- can be a mouse button (#4252).
+	b:RegisterForClicks("LeftButtonUp", "LeftButtonDown", "RightButtonUp", "RightButtonDown", "MiddleButtonUp")
 	b:SetAttribute("useOnKeyDown", false)
 	b:SetAttribute("type1", "macro")
 	b:SetScript("OnEnter", enter)

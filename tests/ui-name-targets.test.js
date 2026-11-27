@@ -519,6 +519,31 @@ test('an objective overlay runs its macro once per mouse click, on the release, 
 	}
 });
 
+test('an objective overlay answers the left, right and middle buttons (the middle click opens the quest log) and no other: the game ping key can be a mouse button (#4252)', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		settle()
+		local button = assert(targetFor(rowFor("Kobold Vermin")), "missing mob overlay")
+		local keys = {}
+		for k in pairs(button.clicks) do keys[#keys + 1] = k end
+		table.sort(keys)
+		local posts = 0
+		button:HookScript("PostClick", function() posts = posts + 1 end)
+		local ran = {}
+		for _, mouse in ipairs({ "MiddleButton", "RightButton", "Button4", "Button5" }) do
+			stub.qol.ran = {}
+			posts = 0
+			stub.qol.mouseClick(button, mouse)
+			ran[mouse] = { macros = #stub.qol.ran, posts = posts }
+		end
+		emit({ keys = keys, ran = ran })`);
+	assert.deepEqual(out.keys, ['LeftButtonDown', 'LeftButtonUp', 'MiddleButtonUp', 'RightButtonDown', 'RightButtonUp']);
+	assert.equal(out.ran.MiddleButton.posts, 1, 'the middle release reaches PostClick, so the row can open the quest log');
+	assert.equal(out.ran.RightButton.posts, 2, 'a right click reaches PostClick (press and release)');
+	for (const mouse of ['MiddleButton', 'RightButton', 'Button4', 'Button5']) assert.equal(out.ran[mouse].macros, 0, `${mouse} runs no macro`);
+	for (const mouse of ['Button4', 'Button5']) assert.equal(out.ran[mouse].posts, 0, `${mouse} reaches no hook`);
+});
+
 test('a non-quest objective still toggles completion directly through the overlay', () => {
 	const [out] = run(`
 		uistub.guides[uistub.elwynn].steps[3].goals[3].quest = nil

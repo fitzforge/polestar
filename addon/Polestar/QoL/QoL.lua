@@ -51,7 +51,6 @@ local defaults = {
 	rareButton = true,       -- target button for a rare the addon spotted
 	hearthButton = true,     -- Hearthstone button while a hearth goal is active
 	markTarget = true,       -- raid icon on what the target button, step key and objective clicks target
-	pingTarget = false,      -- /ping the mob the target button and step key target (QoL/Buttons.lua)
 	markMob = "8",           -- its icon on mobs (1-8, "cycle"): skull
 	markNpc = "1",           -- and on NPCs: star
 	stepInteract = false,    -- the step key talks to, loots and accepts with its target (QoL/Buttons.lua)
@@ -100,6 +99,17 @@ for key in pairs(COVERED) do
 	if defaults[key] and QoL.CoveredBy(key) then defaults[key] = false end
 end
 ns.RegisterDefaults("qol", defaults)
+
+-- "Ping what they target" is gone: a right click on the target button, its
+-- rows and the step key's right-click binding pings (QoL/Buttons.lua). A
+-- migration (Core/Profiles.lua): saved profiles and profile strings drop its
+-- value without a word.
+if ns.RegisterMigration then
+	ns.RegisterMigration("pingTargetGone", function(s)
+		local q = s.qol
+		if type(q) == "table" then q.pingTarget = nil end
+	end)
+end
 
 local paths = {}
 -- Setting "qol.<key>" as a boolean.

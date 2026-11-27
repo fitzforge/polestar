@@ -595,7 +595,7 @@ for rank, keys in ipairs({
 		"qol.mapObjectives", "qol.minimapObjectives", "qol.objectiveSpots", "qol.questTooltips", "qol.questSellWarning",
 		"qol.questBagMarks", "qol.questLevels", "qol.questTimerAlerts", "qol.instanceTrack", "qol.hideQuestTracker",
 		"qol.guideHighlight", "qol.guideDim", "qol.nameplateIcons", "ui.newInForever" },
-	{ "qol.targetButton", "qol.targetPlate", "qol.targetAnnounce", "qol.guideNameTarget", "qol.markTarget", "qol.pingTarget",
+	{ "qol.targetButton", "qol.targetPlate", "qol.targetAnnounce", "qol.guideNameTarget", "qol.markTarget",
 		"qol.markMob", "qol.markNpc", "qol.itemButton", "qol.questLoot", "qol.bagGlow", "qol.rareButton", "qol.hearthButton" },
 	{ "qol.wearOffer", "qol.rewardHighlight" },
 }) do

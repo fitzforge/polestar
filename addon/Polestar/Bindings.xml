@@ -43,9 +43,11 @@
 	</Binding>
 	<Binding name="CLICK PolestarQuestItemButton:LeftButton" category="Polestar"/>
 	<Binding name="CLICK PolestarTargetButton:LeftButton" category="Polestar"/>
+	<Binding name="CLICK PolestarTargetButton:RightButton" category="Polestar"/>
 	<Binding name="CLICK PolestarRareButton:LeftButton" category="Polestar"/>
 	<Binding name="CLICK PolestarHearthButton:LeftButton" category="Polestar"/>
 	<Binding name="CLICK PolestarStepButton:LeftButton" category="Polestar"/>
+	<Binding name="CLICK PolestarStepButton:RightButton" category="Polestar"/>
 	<Binding name="CLICK PolestarTravelButton:LeftButton" category="Polestar"/>
 	<Binding name="CLICK PolestarBagButton:LeftButton" category="Polestar"/>
 </Bindings>

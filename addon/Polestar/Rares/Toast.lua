@@ -166,7 +166,7 @@ local function buildSecure()
 	-- the release only, a press-acting button did nothing (0.3.6: Target on
 	-- the card never targeted). Both are registered, and arm() sets
 	-- useOnKeyDown false: one action, on the release, whatever the CVar.
-	s:RegisterForClicks("AnyUp", "AnyDown")
+	s:RegisterForClicks("LeftButtonUp", "LeftButtonDown", "RightButtonUp", "RightButtonDown")
 	-- The card's button draws it: hover reaches it from here.
 	s:SetScript("OnEnter", function()
 		f.Target:LockHighlight()
