@@ -72,11 +72,11 @@ end
 -- guides. The empty states and a question at login turn it back on.
 local OWN = "Polestar_Guides"
 
--- The parts every release needs beside the guides: the settings window
--- (load on demand). An update can leave it
--- unticked (#2594, on GeForce NOW): Options then cannot open. Polestar asks
--- before it turns it back on, never on its own.
-local NEEDED = { Polestar_Options = true }
+-- The parts every release needs beside the guides: the settings and Lookup
+-- windows (Polestar_Options, Polestar_Lookup: load on demand). An update can
+-- leave one unticked (#2594, on GeForce NOW): that window then cannot open.
+-- Polestar asks before it turns it back on, never on its own.
+local NEEDED = { Polestar_Options = true, Polestar_Lookup = true }
 
 -- Ours to turn on with it: its faction parts, the walking packs
 -- (Polestar_Nav*) and the needed parts, never the 0.2.x language folders a
@@ -137,8 +137,8 @@ end
 -- answer is kept per account until the guides are on again, so a player who
 -- keeps them off on purpose is asked once. Never with the gamepad interface
 -- (its focus owns the game's dialogs): the guide window's button stays.
--- The same question covers the needed parts, and opening Options while one
--- is off asks again whatever the answer was.
+-- The same question covers the needed parts, and opening Options or Lookup
+-- while one is off asks again whatever the answer was.
 local POPUP = "POLESTAR_GUIDES_OFF"
 local askPending = false
 
@@ -159,7 +159,20 @@ local function question()
 	end
 	local needed = P.NeededOff()
 	if #needed == 0 then return nil end
-	return string.format(L["Part of Polestar is turned off in the AddOns list (%s), so its settings cannot open. Turn it on for all your characters and reload?"], titles(needed))
+	-- What cannot open: the settings, Lookup, or both.
+	local settings, lookup = false, false
+	for _, name in ipairs(needed) do
+		if name == "Polestar_Lookup" then lookup = true else settings = true end
+	end
+	local text
+	if lookup and settings then
+		text = L["Part of Polestar is turned off in the AddOns list (%s), so its settings and Lookup cannot open. Turn it on for all your characters and reload?"]
+	elseif lookup then
+		text = L["Part of Polestar is turned off in the AddOns list (%s), so Lookup cannot open. Turn it on for all your characters and reload?"]
+	else
+		text = L["Part of Polestar is turned off in the AddOns list (%s), so its settings cannot open. Turn it on for all your characters and reload?"]
+	end
+	return string.format(text, titles(needed))
 end
 
 local function showQuestion()
@@ -188,7 +201,8 @@ local function ask()
 	showQuestion()
 end
 
--- Options could not load: ask now when a needed part is off (true: asked).
+-- Options or Lookup could not load: ask now when a needed part is off (true:
+-- asked).
 function P.AskNeeded()
 	if ns.Compat.InCombat() or #P.NeededOff() == 0 then return false end
 	return showQuestion()

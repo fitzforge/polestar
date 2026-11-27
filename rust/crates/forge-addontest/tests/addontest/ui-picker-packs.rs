@@ -592,3 +592,89 @@ fn settings_off_and_asked_before_opening_options_asks_again() {
 	);
 	assert_eq!(out, json!({ "atLogin": 0, "after": 1, "options": false }));
 }
+
+// The Lookup window is its own load-on-demand folder too (Polestar_Lookup): an update that leaves it unticked would
+// lose Lookup, which lived in the core before. The same question covers it, in its own words, and opening Lookup asks
+// again after a "Not now".
+fn lookup_off(addons: &str, script: &str, saved: Option<&str>) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		before: format!(
+			r#"stub.addons = {{
+	{{ name = "Polestar", loaded = true }},
+	{{ name = "Polestar_Guides", loaded = true }},
+	{addons}
+	{{ name = "Polestar_Recorder", reason = "DISABLED" }},
+}}"#
+		),
+		saved: saved.map(|s| vec![("Polestar".to_string(), s.to_string())]).unwrap_or_default(),
+		addons: vec![Addon::files("Polestar", FILES)],
+		script: format!("uistub.install()\nPolestar.Guides = uistub.realGuides\n{script}"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+const ASK_AND_ACCEPT: &str = r#"
+		stub.login()
+		stub.advance(3)
+		local p = stub.popups[1]
+		local dialog = p and StaticPopupDialogs[p.which]
+		if dialog then dialog.OnAccept() end
+		emit({ popups = #stub.popups, text = p and p.args[1], enabled = stub.enabledAddOns, reloaded = stub.reloaded == true })"#;
+
+#[test]
+fn lookup_off_asked_at_login_and_yes_turns_it_on_and_reloads() {
+	let out = lookup_off(
+		r#"{ name = "Polestar_Options", title = "Polestar Settings" },
+	{ name = "Polestar_Lookup", title = "Polestar Lookup", reason = "DISABLED" },"#,
+		ASK_AND_ACCEPT,
+		None,
+	);
+	assert_eq!(out["popups"], 1);
+	assert_eq!(out["text"], "Part of Polestar is turned off in the AddOns list (Polestar Lookup), so Lookup cannot open. Turn it on for all your characters and reload?");
+	assert_eq!(out["enabled"], json!(["Polestar_Lookup"]), "never the Recorder");
+	assert_eq!(out["reloaded"], true);
+}
+
+#[test]
+fn settings_and_lookup_off_are_asked_about_together() {
+	let out = lookup_off(
+		r#"{ name = "Polestar_Options", title = "Polestar Settings", reason = "DISABLED" },
+	{ name = "Polestar_Lookup", title = "Polestar Lookup", reason = "DISABLED" },"#,
+		ASK_AND_ACCEPT,
+		None,
+	);
+	assert_eq!(
+		out["text"],
+		"Part of Polestar is turned off in the AddOns list (Polestar Settings, Polestar Lookup), so its settings and Lookup cannot open. Turn it on for all your characters and reload?"
+	);
+	assert_eq!(out["enabled"], json!(["Polestar_Options", "Polestar_Lookup"]));
+}
+
+#[test]
+fn lookup_off_and_asked_before_opening_lookup_asks_again() {
+	let out = lookup_off(
+		r#"{ name = "Polestar_Options", title = "Polestar Settings" },
+	{ name = "Polestar_Lookup", title = "Polestar Lookup", reason = "DISABLED" },"#,
+		r#"
+		-- the game refuses to load a switched-off addon
+		local load = C_AddOns.LoadAddOn
+		function C_AddOns.LoadAddOn(name)
+			local _, _, _, _, reason = C_AddOns.GetAddOnInfo(name)
+			if reason == "DISABLED" then return false, "DISABLED" end
+			return load(name)
+		end
+		stub.login()
+		stub.advance(3)
+		local atLogin = #stub.popups
+		Polestar.UI.ShowLookup()
+		emit({ atLogin = atLogin, after = #stub.popups, text = stub.popups[1] and stub.popups[1].args[1],
+			loaded = C_AddOns.IsAddOnLoaded("Polestar_Lookup") })"#,
+		Some("PolestarDB = { schema = 1, guidesOffAsked = true }"),
+	);
+	assert_eq!(out["atLogin"], 0);
+	assert_eq!(out["after"], 1);
+	assert_eq!(out["loaded"], false);
+	assert_eq!(out["text"], "Part of Polestar is turned off in the AddOns list (Polestar Lookup), so Lookup cannot open. Turn it on for all your characters and reload?");
+}

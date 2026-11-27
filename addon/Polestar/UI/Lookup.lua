@@ -357,6 +357,8 @@ local function loadLookup(retry)
 		return false
 	end
 	ns.Print(format(L["Polestar's Lookup could not be loaded (%s): is the Polestar_Lookup folder installed and enabled?"], tostring(why or "error")))
+	-- Switched off in the AddOns list (an update can leave it so): offer to turn it back on.
+	if UI.Packs and UI.Packs.AskNeeded then UI.Packs.AskNeeded() end
 	return false
 end
 
