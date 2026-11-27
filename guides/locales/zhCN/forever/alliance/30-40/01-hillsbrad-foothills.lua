@@ -8,11 +8,11 @@
 return {
 	-- Step 1: Angerfang Encampment
 	-- {object:671518} Tattered Spellbook · {npc:2104} Captain Stoutfist
-	["{object:671518}: for {npc:2104}"] = "{object:671518}：交给{npc:2104}",
+	["{object:671518}: for {npc:2104}"] = "破损的法术书：交给{npc:2104}",
 
 	-- Step 2: Angerfang Encampment
 	-- {area:1036} Angerfang Encampment · {object:671518} Tattered Spellbook
-	["South-east from Menethil to the Dragonmaw's {area:1036}: the first catapult stands on the way, and the {object:671518} lies in the camp."] = "从米奈希尔向东南前往龙喉的{area:1036}：第一辆投石车在途中，{object:671518}在营地内。",
+	["South-east from Menethil to the Dragonmaw's {area:1036}: the first catapult stands on the way, and the {object:671518} lies in the camp."] = "从米奈希尔向东南前往龙喉的{area:1036}：第一辆投石车在途中，破损的法术书在营地内（如果接不到，先等一会儿；还没有的话，就把杀酋长的任务接了再试试）。",
 
 	-- Step 4: Defeat Nek'rosh
 	-- {npc:2091} Chieftain Nek'rosh
@@ -31,7 +31,7 @@ return {
 	["{area:1038}: kill these as you meet them"] = "{area:1038}：沿途击杀以下目标",
 	-- {area:1036} Angerfang Encampment · {area:205} Dun Modr · {area:1025} Green Belt · {item:280331} Malignant Rotclaw Flesh · {quest:98283} Carnage
 	-- plural, as words: Maddened Rotclaws = {npc:271334} Maddened Rotclaw
-	["The whelps nest in the hills north-east of the {area:1036}, and the Razormaw raptors hunt the highlands on the way north to {area:205}. The Maddened Rotclaws that roam these hills and the {area:1025} drop the {item:280331} that calls {quest:98283} out.\n{quest:98283} is elite: grouping up is advised."] = "幼龙在{area:1036}东北方的山丘中筑巢，剃刀之喉迅猛龙在向北前往{area:205}途中的高地上狩猎。在这些山丘和{area:1025}游荡的发狂腐爪（{npc:271334}）会掉落{item:280331}，用来召唤{quest:98283}。\n{quest:98283}是精英：建议组队。",
+	["The whelps nest in the hills north-east of the {area:1036}, and the Razormaw raptors hunt the highlands on the way north to {area:205}. The Maddened Rotclaws that roam these hills and the {area:1025} drop the {item:280331} that calls {quest:98283} out.\n{quest:98283} is elite: grouping up is advised."] = "幼龙在{area:1036}东北方的山丘中筑巢，剃刀之喉迅猛龙在向北前往{area:205}途中的高地上狩猎。在这些山丘和{area:1025}游荡的疯狂的腐爪（{npc:271334}）会掉落{item:280331}，用来召唤{quest:98283}。\n{quest:98283}是精英：建议组队。",
 	-- {item:280331} Malignant Rotclaw Flesh · {quest:98283} Carnage
 	["{item:280331}, for {quest:98283}"] = "{item:280331}，用于{quest:98283}",
 
@@ -44,22 +44,22 @@ return {
 	["Use the {item:280331} at {quest:98283}'s lair"] = "在{quest:98283}的巢穴处使用{item:280331}",
 
 	-- Step 9: Razormaw nests
-	["Razormaw nests"] = "刺喉龙巢",
+	["Razormaw nests"] = "刺喉龙巢穴",
 	-- {quest:98246} Trying Times · {quest:98283} Carnage
 	-- plural, as words: Perfect Razormaw Eggs = {item:280132} Perfect Razormaw Egg
-	["The Perfect Razormaw Eggs for {quest:98246} lie in the raptors' nests in the hills around {quest:98283}."] = "{quest:98246}需要的完美的刺喉龙蛋位于{quest:98283}周围山丘上的迅猛龙巢中。",
+	["The Perfect Razormaw Eggs for {quest:98246} lie in the raptors' nests in the hills around {quest:98283}."] = "{quest:98246}需要的{item:280132}就在{quest:98283}周围山丘上的迅猛龙巢穴里。",
 
 	-- Step 10: Neru
 	-- {npc:271458} Neru · {area:1038} Dragonmaw Gates · {area:205} Dun Modr · {item:279996} Goaz Stone
-	["{npc:271458} stands in the hills between the {area:1038} and {area:205} (use the {item:279996})."] = "{npc:271458}位于{area:1038}与{area:205}之间的山丘，使用{item:279996}召唤。",
+	["{npc:271458} stands in the hills between the {area:1038} and {area:205} (use the {item:279996})."] = "{npc:271458}位于{area:1038}与{area:205}之间的山丘上，在其近旁使用{item:279996}召唤。",
 
 	-- Step 11: Rethiel the Greenwarden
 	-- {quest:98283} Carnage
-	["With {quest:98283}'s head and the flesh"] = "带上{quest:98283}所需的头颅和肉",
+	["With {quest:98283}'s head and the flesh"] = "带上{quest:98283}的头和那块肉",
 
 	-- Step 12: Dun Modr
 	-- {area:205} Dun Modr · {npc:1071} Longbraid the Grim · {npc:1075} Rhag Garmason · {object:147516} Dark Iron
-	["North along the road to {area:205}. {npc:1071} and {npc:1075} stand together in the dwarves' camp on the east side of the road; the {object:147516} ruins west of it are full of elites."] = "沿路向北前往{area:205}。{npc:1071}和{npc:1075}一起站在道路东侧的矮人营地里；西侧的{object:147516}废墟中满是精英。",
+	["North along the road to {area:205}. {npc:1071} and {npc:1075} stand together in the dwarves' camp on the east side of the road; the {object:147516} ruins west of it are full of elites."] = "沿道路向北到{area:205}。{npc:1071}和{npc:1075}一起站在路东侧的矮人营地里；路西侧的{object:147516}废墟里满是精英。",
 
 	-- Step 13: Motley Garmason
 	-- {quest:303} The Dark Iron War
@@ -80,7 +80,7 @@ return {
 
 	-- Step 16: Modr
 	-- {npc:271460} Modr · {area:205} Dun Modr · {item:279996} Goaz Stone
-	["{npc:271460} stands in the ruins of {area:205} (use the {item:279996})."] = "{npc:271460}位于{area:205}废墟内，使用{item:279996}召唤。",
+	["{npc:271460} stands in the ruins of {area:205} (use the {item:279996})."] = "{npc:271460}位于{area:205}的废墟内，在其近旁使用{item:279996}召唤。",
 
 	-- Step 17: The Dark Iron War
 	-- {npc:1364} Balgaras the Foul
@@ -95,7 +95,7 @@ return {
 	["Ebenezer Rustlocke"] = "伊贝尼瑟的尸体",
 	-- {area:205} Dun Modr · {area:880} Thandol Span · {npc:1075} Rhag Garmason
 	-- plural, as words: Dark Iron Saboteurs = {npc:1052} Dark Iron Saboteur
-	["North along the road from {area:205} towards the {area:880}: Ebenezer Rustlocke's corpse lies under the span. Rustlocke's parchment goes back to {npc:1075}.\nTwo elite Dark Iron Saboteurs stand by the corpse inside the span: pull them one at a time, or loot the corpse and run out."] = "从{area:205}沿路向北前往{area:880}：伊贝尼瑟的尸体在桥下。将伊贝尼瑟的羊皮纸带回给{npc:1075}。\n两名精英黑铁破坏者守在桥体内的尸体旁：逐个引开，或拾取尸体后跑出去。",
+	["North along the road from {area:205} towards the {area:880}: Ebenezer Rustlocke's corpse lies under the span. Rustlocke's parchment goes back to {npc:1075}.\nTwo elite Dark Iron Saboteurs stand by the corpse inside the span: pull them one at a time, or loot the corpse and run out."] = "沿道路从{area:205}向{area:880}方向走：伊贝尼瑟的尸体就躺在大桥下方。他留下的羊皮纸要带回给{npc:1075}。\n桥内尸体旁守着两名精英{npc:1052}：逐个拉出来打，或者拾取尸体后直接跑出去。",
 	-- {object:2652} Ebenezer Rustlocke's Corpse
 	["{object:2652}, inside"] = "{object:2652}，在里面",
 	["the same corpse"] = "同一具尸体",
@@ -113,7 +113,7 @@ return {
 	["The {object:2704}"] = "{object:2704}",
 	-- {area:880} Thandol Span
 	-- plural, as words: Dark Irons = {object:147516} Dark Iron
-	["Over the {area:880}: the Dark Irons' cache of explosives sits by its Arathi end."] = "穿过{area:880}：黑铁的炸药堆就在大桥阿拉希一端旁边。",
+	["Over the {area:880}: the Dark Irons' cache of explosives sits by its Arathi end."] = "越过{area:880}：{object:147516}的炸药堆就在大桥阿拉希一端旁。",
 
 	-- Step 24: Waterlogged Envelope
 	["Underwater"] = "在水下",
@@ -132,7 +132,7 @@ return {
 
 	-- Step 28: Howin Kindfeather
 	-- {quest:98246} Trying Times
-	["{quest:98246}: the eggs"] = "{quest:98246}：收集蛋",
+	["{quest:98246}: the eggs"] = "{quest:98246}：完美的刺喉龙蛋",
 
 	-- Step 29: Howin Kindfeather
 	-- {quest:98291} Death to the Dragonmaw · {area:17716} Dragonmaw Retreat · {npc:270637} Howin Kindfeather
@@ -170,7 +170,7 @@ return {
 
 	-- Step 36: Menethil Harbor
 	-- {npc:4455} Red Jack Flint · {quest:1132} Fiora Longears
-	["{npc:4455}, by the keep's door: for {quest:1132} in Theramore, in the next guide"] = "{npc:4455}，在城堡门旁：下一份指南会去塞拉摩交还{quest:1132}",
+	["{npc:4455}, by the keep's door: for {quest:1132} in Theramore, in the next guide"] = "{npc:4455}，在要塞门口：对应下一本指南中塞拉摩的{quest:1132}",
 
 	-- Step 37: Menethil Harbor
 	-- {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep
@@ -211,7 +211,7 @@ return {
 
 	-- Step 44: Southshore
 	-- {npc:2711} Phin Odelic · {npc:2430} Chef Jessen · {npc:2382} Darren Malvew · {npc:2381} Micha Yance · {npc:2438} Bartolo Ginsetti · {npc:2366} Barkeep Kelly · {quest:98463} Talk of the Town
-	["Off the boat, walk up the pier into town: {npc:2711} and Lieutenant Farren stand by the inn, {npc:2430} upstairs, {npc:2382} east of it; the flight master is at the north end, {npc:2381} and {npc:2438} between her and the inn, Maleb in the town hall at the west side.\n{npc:2366} may not offer {quest:98463} on Forever: if she doesn't, skip it."] = "下船后沿码头走进镇子：{npc:2711}和法尔林·奥里涅尔中尉站在旅店旁，{npc:2430}在楼上，{npc:2382}在旅店东边；飞行管理员在北端，{npc:2381}和{npc:2438}在她和旅店之间，赫尼·马雷布镇长在西侧的市政厅。\n在无限服，{npc:2366}可能不提供{quest:98463}：如果没有，就跳过。",
+	["Off the boat, walk up the pier into town: {npc:2711} and Lieutenant Farren stand by the inn, {npc:2430} upstairs, {npc:2382} east of it; the flight master is at the north end, {npc:2381} and {npc:2438} between her and the inn, Maleb in the town hall at the west side.\n{npc:2366} may not offer {quest:98463} on Forever: if she doesn't, skip it."] = "下船后沿码头走进镇子：{npc:2711}和法尔林中尉站在旅店旁，{npc:2430}在楼上，{npc:2382}在旅店东边；飞行管理员在镇子北端，{npc:2381}和{npc:2438}在她与旅店之间，马雷布在西侧的市政厅里。\n{npc:2366}在Forever上可能不提供{quest:98463}：如果她不给，就跳过。",
 	-- {npc:2711} Phin Odelic
 	["{npc:2711}: his trail leads to Arathi"] = "{npc:2711}：他的线索指向阿拉希高地",
 	-- {npc:2228} Lieutenant Farren Orinelle
@@ -229,9 +229,9 @@ return {
 
 	-- Step 45: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {skill:165} Leatherworking · {item:2997} Bolt of Woolen Cloth · {skill:197} Tailoring
-	["{npc:2438} makes a yeti fur cloak for anyone who brings a {item:3719} ({skill:165}) and a {item:2997} ({skill:197}); no vendor sells either, so this step shows only when you carry both."] = "带来一件{item:3719}（{skill:165}制作）和一卷{item:2997}（{skill:197}制作），{npc:2438}就会制作雪人毛皮披风。这两样都没有商人出售，因此只有同时携带两样物品时才会显示本步骤。",
+	["{npc:2438} makes a yeti fur cloak for anyone who brings a {item:3719} ({skill:165}) and a {item:2997} ({skill:197}); no vendor sells either, so this step shows only when you carry both."] = "{npc:2438}会为带来{item:3719}（{skill:165}）和{item:2997}（{skill:197}）的人做一件雪人毛皮披风；这两样东西没有商人出售，所以只有当你把两样都带在身上时，这一步才会显示。",
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {item:2997} Bolt of Woolen Cloth
-	["{npc:2438}, between the flight master and the inn: he wants a {item:3719} and a {item:2997} too"] = "{npc:2438}，在飞行管理员与旅店之间：他还需要一件{item:3719}和一卷{item:2997}",
+	["{npc:2438}, between the flight master and the inn: he wants a {item:3719} and a {item:2997} too"] = "{npc:2438}，在飞行管理员和旅店之间：他还需要{item:3719}和{item:2997}",
 
 	-- Step 46: Torn Fin murlocs
 	["Torn Fin murlocs"] = "碎鳍鱼人",
@@ -307,14 +307,14 @@ return {
 
 	-- Step 67: Dashel Stonefist
 	-- {npc:4961} Dashel Stonefist · {object:2100} Old Town
-	["{npc:4961} waits in the Pig and Whistle tavern in {object:2100}; he and his two thugs fight you, but stop once beaten."] = "{npc:4961}在{object:2100}的酒馆里等候；他和两个打手会和你打，但被打败后就会住手。",
+	["{npc:4961} waits in the Pig and Whistle tavern in {object:2100}; he and his two thugs fight you, but stop once beaten."] = "{npc:4961}在{object:2100}的猪和哨声旅店里等候；他和两个打手会和你打，但被打败后就会住手。",
 	-- {npc:4961} Dashel Stonefist
-	["Beat {npc:4961} and his thugs: they give up"] = "击败{npc:4961}和他的打手，他们会投降",
+	["Beat {npc:4961} and his thugs: they give up"] = "击败{npc:4961}和他的打手：他们会认输停手",
 
 	-- Step 68: The Islander
 	-- {npc:5479} Wu Shen · {object:2100} Old Town · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens · {area:392} Ratchet · {zone:1434} Stranglethorn Vale
 	-- was: ["{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (40-50/01)."] = "{npc:5479}在{object:2100}的酒馆旁训练战士。{npc:6236}在{zone:1413}的{area:720}等候，在很久之后去{area:392}的路上（40-50/01）。"
-	["{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (the 40-50 {zone:1434} guide)."] = "",
+	["{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (the 40-50 {zone:1434} guide)."] = "{npc:5479}在{object:2100}训练战士，旁边就是猪和哨声旅店。{npc:6236}在{zone:1413}的{area:720}等候，是之后前往{area:392}的路上会遇到的（40–50 级{zone:1434}指南）。",
 
 	-- Step 70: Cathedral of Light
 	["Cathedral of Light"] = "光明大教堂",
