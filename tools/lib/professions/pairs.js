@@ -610,6 +610,7 @@ function renderPair(ctx, pair) {
 		let snap = null;
 		let way = null;
 		let learnedG = false;
+		let ends = []; // the state at the end of each way of the current fork
 		const last = (x) => x && x.kind === 'craft' && x.band && x.band.to === 300;
 		draft.blocks.forEach((b, i) => {
 			const next = draft.blocks[i + 1];
@@ -620,13 +621,26 @@ function renderPair(ctx, pair) {
 				return;
 			}
 			if ((b.way || null) !== way) {
+				// A fork: each way starts from the state at the fork; after it, what follows goes on from what every
+				// way leaves (the lowest skill and skill floor, the least of each material in the bags, the recipes
+				// all of them learned), as a player may come from any of them.
 				const fork = (x) => (x ? x.split(':')[0] : null);
-				if (b.way && !way) snap = { st: clone(st), report: snapReport() };
-				else if (b.way && fork(b.way) === fork(way) && snap) {
+				if (way) ends.push(clone(st));
+				if (b.way && fork(b.way) === fork(way) && snap) {
 					if (!reportA) reportA = snapReport();
 					st = clone(snap.st);
 					Object.assign(report, { ...snap.report, gathered: new Map(snap.report.gathered) });
-				} else if (b.way && snap) snap = { st: clone(st), report: snapReport() };
+				} else if (b.way) {
+					snap = { st: clone(st), report: snapReport() };
+					ends = [];
+				} else if (ends.length) {
+					const lo = ends.slice().sort((x, y) => x.g - y.g)[0];
+					st = clone(lo);
+					st.floor = Math.min(...ends.map((s) => s.floor));
+					st.stock = new Map([...new Set(ends.flatMap((s) => [...s.stock.keys()]))].map((k) => [k, Math.min(...ends.map((s) => s.stock.get(k) || 0))]));
+					st.learned = new Set([...lo.learned].filter((x) => ends.every((s) => s.learned.has(x))));
+					ends = [];
+				}
 				way = b.way || null;
 			}
 			when = b.when.length ? b.when : null;

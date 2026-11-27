@@ -216,8 +216,8 @@ step Enchanting 1-75: vendor goods
   buy 247786 x32 nearest
 
 step Get Strange Dust
-  tip 52 Strange Dust for Enchanting 1-75: 52 Enchant Chest - Inferior Stamina. Enchanting: disenchant green items of item level 5-20. Or buy them at the Auction House.
-  collect 10940 x52 anywhere gather Enchanting 1
+  tip 52 Strange Dust for Enchanting 1-75: 52 Enchant Chest - Inferior Stamina. Enchanting: disenchant green armour that requires level 1-20. Or buy them at the Auction House.
+  collect 10940 x52 anywhere gather Enchanting 1 levels 1-20
   auction 10940 x52
 
 step Enchant Bracer - Inferior Stamina to 25
@@ -317,13 +317,13 @@ step Get Silver Rod
   auction 6338 x1
 
 step Get Strange Dust
-  tip 136 Strange Dust for Enchanting 75-150: 27 Enchant Chest - Inferior Stamina, 53 Enchant Cloak - Minor Protection and Runed Silver Rod. Disenchanting your Tailoring crafts of this bracket gives about 64 of them (see Journeyman Enchanting); the other 72 come from greens you loot or the Auction House. Enchanting: disenchant green items of item level 5-20. Or buy them at the Auction House.
-  collect 10940 x136 anywhere gather Enchanting 1
+  tip 136 Strange Dust for Enchanting 75-150: 27 Enchant Chest - Inferior Stamina, 53 Enchant Cloak - Minor Protection and Runed Silver Rod. Disenchanting your Tailoring crafts of this bracket gives about 64 of them (see Journeyman Enchanting); the other 72 come from greens you loot or the Auction House. Enchanting: disenchant green armour that requires level 1-20. Or buy them at the Auction House.
+  collect 10940 x136 anywhere gather Enchanting 1 levels 1-20
   auction 10940 x136
 
 step Get Soul Dust
-  tip 20 Soul Dust for Enchanting 75-150: 20 Enchant Bracer - Lesser Stamina. Disenchanting your Tailoring crafts of this bracket gives about 19 of them (see Journeyman Enchanting); the other 1 come from greens you loot or the Auction House. Enchanting: disenchant green items of item level 21-30. Or buy them at the Auction House.
-  collect 11083 x20 anywhere gather Enchanting 1
+  tip 20 Soul Dust for Enchanting 75-150: 20 Enchant Bracer - Lesser Stamina. Disenchanting your Tailoring crafts of this bracket gives about 19 of them (see Journeyman Enchanting); the other 1 come from greens you loot or the Auction House. Enchanting: disenchant green armour that requires level 21-30. Or buy them at the Auction House.
+  collect 11083 x20 anywhere gather Enchanting 1 levels 21-30
   auction 11083 x20
 
 step Enchanting 75-150: Auction House
@@ -345,7 +345,7 @@ step Enchanting recipes at 130
   learn 13501
 
 step Enchant Bracer - Lesser Stamina to 150
-  tip Enchant Bracer - Lesser Stamina is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 Soul Dust. One Soul Dust a craft (level 21-30 greens). Make the Runed Silver Rod first: the recipe needs it in your bags, so keep it there. Lesser Magic Essence (4 for 75-150): Alliance: Enchanting: disenchant green items of item level 5-15; or the Auction House. Enchant any item for that slot in your bags, even a grey one. Enchanting 150 is a Legacy System milestone.
+  tip Enchant Bracer - Lesser Stamina is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 Soul Dust. One Soul Dust a craft (level 21-30 greens). Make the Runed Silver Rod first: the recipe needs it in your bags, so keep it there. Lesser Magic Essence (4 for 75-150): Alliance: Enchanting: disenchant green armour that requires level 1-10; or the Auction House. Enchant any item for that slot in your bags, even a grey one. Enchanting 150 is a Legacy System milestone.
   craft 7795 x1 -- a tool: keep it in your bags
   craft 13501 until 150
   skill Enchanting 150
@@ -430,13 +430,13 @@ step Get Iridescent Pearl (Horde)
 
 step Get Greater Astral Essence
   zone Azeroth
-  tip 1 Greater Astral Essence for Enchanting 150-225: Runed Golden Rod. Enchanting: disenchant green items of item level 16-25. Or buy it at the Auction House.
-  collect 11082 x1 anywhere gather Enchanting 1
+  tip 1 Greater Astral Essence for Enchanting 150-225: Runed Golden Rod. Enchanting: disenchant green armour that requires level 21-25. Or buy it at the Auction House.
+  collect 11082 x1 anywhere gather Enchanting 1 levels 21-25
   auction 11082 x1
 
 step Get Soul Dust
-  tip 55 Soul Dust for Enchanting 150-225: Runed Golden Rod, 12 Enchant Bracer - Lesser Stamina and 42 Enchant Boots - Lesser Agility. Disenchanting your Tailoring crafts of this bracket gives about 55 of them (see Expert Enchanting); that covers them. Enchanting: disenchant green items of item level 21-30. Or buy them at the Auction House.
-  collect 11083 x55 anywhere gather Enchanting 1
+  tip 55 Soul Dust for Enchanting 150-225: Runed Golden Rod, 12 Enchant Bracer - Lesser Stamina and 42 Enchant Boots - Lesser Agility. Disenchanting your Tailoring crafts of this bracket gives about 55 of them (see Expert Enchanting); that covers them. Enchanting: disenchant green armour that requires level 21-30. Or buy them at the Auction House.
+  collect 11083 x55 anywhere gather Enchanting 1 levels 21-30
   auction 11083 x55
 
 step Get Golden Rod
@@ -445,18 +445,18 @@ step Get Golden Rod
   auction 11128 x1
 
 step Get Lesser Mystic Essence
-  tip 10 Lesser Mystic Essence for Enchanting 150-225: 10 Enchant Chest - Greater Intellect. Disenchanting your Tailoring crafts of this bracket gives about 7 of them (see Expert Enchanting); the other 3 come from greens you loot or the Auction House. Enchanting: disenchant green items of item level 26-35. Or buy them at the Auction House.
-  collect 11134 x10 anywhere gather Enchanting 1
+  tip 10 Lesser Mystic Essence for Enchanting 150-225: 10 Enchant Chest - Greater Intellect. Disenchanting your Tailoring crafts of this bracket gives about 7 of them (see Expert Enchanting); the other 3 come from greens you loot or the Auction House. Enchanting: disenchant green armour that requires level 26-30. Or buy them at the Auction House.
+  collect 11134 x10 anywhere gather Enchanting 1 levels 26-30
   auction 11134 x10
 
 step Get Greater Mystic Essence
-  tip 1 Greater Mystic Essence for Enchanting 150-225: Runed Truesilver Rod. Enchanting: disenchant green items of item level 26-35. Or buy it at the Auction House.
-  collect 11135 x1 anywhere gather Enchanting 1
+  tip 1 Greater Mystic Essence for Enchanting 150-225: Runed Truesilver Rod. Enchanting: disenchant green armour that requires level 31-35. Or buy it at the Auction House.
+  collect 11135 x1 anywhere gather Enchanting 1 levels 31-35
   auction 11135 x1
 
 step Get Vision Dust
-  tip 21 Vision Dust for Enchanting 150-225: Runed Truesilver Rod and 20 Enchant Cloak - Greater Defense. Disenchanting your Tailoring crafts of this bracket gives about 21 of them (see Expert Enchanting); that covers them. Enchanting: disenchant green items of item level 31-40. Or buy them at the Auction House.
-  collect 11137 x21 anywhere gather Enchanting 1
+  tip 21 Vision Dust for Enchanting 150-225: Runed Truesilver Rod and 20 Enchant Cloak - Greater Defense. Disenchanting your Tailoring crafts of this bracket gives about 21 of them (see Expert Enchanting); that covers them. Enchanting: disenchant green armour that requires level 31-40. Or buy them at the Auction House.
+  collect 11137 x21 anywhere gather Enchanting 1 levels 31-40
   auction 11137 x21
 
 step Get Truesilver Rod
@@ -591,13 +591,13 @@ step Get Purple Lotus
   auction 8831 x41
 
 step Get Vision Dust
-  tip 45 Vision Dust for Enchanting 225-300: 45 Enchant Gloves - Agility. Enchanting: disenchant green items of item level 31-40. Or buy them at the Auction House.
-  collect 11137 x45 anywhere gather Enchanting 1
+  tip 45 Vision Dust for Enchanting 225-300: 45 Enchant Gloves - Agility. Enchanting: disenchant green armour that requires level 31-40. Or buy them at the Auction House.
+  collect 11137 x45 anywhere gather Enchanting 1 levels 31-40
   auction 11137 x45
 
 step Get Dream Dust
-  tip 233 Dream Dust for Enchanting 225-300: 41 Lesser Mana Oils and 32 Enchant Shield - Greater Stamina. Disenchanting your Tailoring crafts of this bracket gives about 142 of them (see Artisan Enchanting); the other 91 come from greens you loot or the Auction House. Enchanting: disenchant green items of item level 41-50. Or buy them at the Auction House.
-  collect 11176 x233 anywhere gather Enchanting 1
+  tip 233 Dream Dust for Enchanting 225-300: 41 Lesser Mana Oils and 32 Enchant Shield - Greater Stamina. Disenchanting your Tailoring crafts of this bracket gives about 142 of them (see Artisan Enchanting); the other 91 come from greens you loot or the Auction House. Enchanting: disenchant green armour that requires level 41-50. Or buy them at the Auction House.
+  collect 11176 x233 anywhere gather Enchanting 1 levels 41-50
   auction 11176 x233
 
 step Enchant Gloves - Agility to 253
