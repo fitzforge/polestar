@@ -5175,6 +5175,7 @@ L["Quest log notices"] = "Заметки о журнале заданий"
 L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = "Строки о журнале заданий: задания вне вашего маршрута — на шаге и когда гайд завершен, — и выполненные задания, которые не примет ни один следующий гайд. Если выключено, в меню окна гайда остаются «Очистить журнал заданий» и «Сдать выполненные задания»."
 L["Hand-in row"] = "Строка сдачи"
 L["A slim line under the step when 2 or more quests in your log are finished and none is part of this step: how many, and Route, the shortest trip through their hand-ins. Its close button hides it until that number changes."] = "Тонкая строка под шагом, когда в журнале 2 или больше выполненных заданий и ни одно не входит в этот шаг: сколько их и Маршрут — кратчайший путь по местам их сдачи. Кнопка закрытия скрывает её, пока это число не изменится."
+-- L["The game's looks keep their own bar."] = ""
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "Стопка оповещений"
@@ -5824,13 +5825,7 @@ L["Kept for %s: the route hands it in there."] = "Оставлено для «%s
 L["No quests in your log are ready to hand in."] = "В журнале нет заданий, готовых к сдаче."
 L["Wait until combat ends to load the quest data."] = "Дождитесь конца боя, чтобы загрузить данные заданий."
 L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "Не удалось загрузить гайд по сдаче заданий. Проверьте, что аддон Polestar_FreeMode установлен и включен."
--- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
--- L["Hand-ins without a known location"] = ""
 -- L["None of these has a known place to hand it in."] = ""
--- L["Refining the travel order. Travel times are estimates."] = ""
--- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
--- L["Waiting for your quest log."] = ""
--- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
 
 -- Lookup/Free.lua
 L["Free mode starts after combat."] = "Свободный режим запустится после боя."
@@ -5853,7 +5848,6 @@ L["Refining the travel order. Travel times are estimates."] = "Уточняем 
 L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = "Оценки пути неполные. Порядок использует доступные оценки и приблизительные расстояния."
 L["Waiting for your quest log."] = "Ожидание журнала заданий."
 L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = "Не удалось загрузить гайд по сдаче заданий. Проверьте, что аддон Polestar_Codex установлен и включен."
--- L["None of these has a known place to hand it in."] = ""
 
 -- Free.lua
 L["Low drop rate: %s"] = "Низкий шанс добычи: %s"
@@ -5921,21 +5915,6 @@ L["About Free mode"] = "О свободном режиме"
 
 -- UI/FreeMode.lua
 L["Your own quests, planned for you."] = "Ваши задания, спланированные для вас."
--- Free.lua
--- L["Low drop rate: %s"] = ""
--- L["1 quest for your level: %s gives it."] = ""
--- L["%d quests for your level, all here."] = ""
--- L["%d quests for your level, %d of them here."] = ""
--- L["Quests for your level"] = ""
--- L["About %s XP a minute"] = ""
--- L["Order: nearest first"] = ""
--- L["Order: most XP a minute first"] = ""
--- L["Bring back left-out quests (%d)"] = ""
--- L["Unpin"] = ""
--- L["Pin to the top"] = ""
--- L["Free mode takes this quest first, whatever the order."] = ""
--- L["Leave out of Free mode"] = ""
--- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = ""
 
 -- Layouts/Atlas/Atlas.lua
 -- L["Get ahead, if possible"] = ""
@@ -5971,6 +5950,10 @@ L["No route to keep to: pick up what looks fun and Polestar finds the way."] = "
 L["When to use it"] = "Когда пригодится"
 L["Back to your guide"] = "Назад к гайду"
 L["Turn Free mode off on its Main page or from the guide window's menu: the arrow goes back to the guide you had open, where you left it."] = "Выключите свободный режим на его главной странице или через меню окна гайда: стрелка вернётся к открытому гайду, туда, где вы остановились."
+
+-- UI/GuideFrameTabs.lua
+-- L["Move up"] = ""
+-- L["Move down"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Back to %s"] = "Назад к %s"

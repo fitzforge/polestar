@@ -5191,6 +5191,7 @@ L["Quest log notices"] = "任務日誌提示"
 L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = "關於任務日誌的提示行：不在你路線上的任務（在步驟中以及指南完成時），以及之後沒有指南會接收的已完成任務。關閉後，指南視窗的選單中仍有「清理任務日誌」和「繳交已完成的任務」。"
 L["Hand-in row"] = "繳交提示列"
 L["A slim line under the step when 2 or more quests in your log are finished and none is part of this step: how many, and Route, the shortest trip through their hand-ins. Its close button hides it until that number changes."] = "當任務日誌中有 2 個或更多任務已完成，且其中沒有屬於目前步驟的任務時，在步驟下方顯示的一列：數量，以及路線（依序繳交它們的最短路線）。關閉按鈕會將其隱藏，直到該數量改變。"
+-- L["The game's looks keep their own bar."] = ""
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "警示列"
@@ -5841,13 +5842,7 @@ L["Kept for %s: the route hands it in there."] = "保留給 %s：路線會在那
 L["No quests in your log are ready to hand in."] = "任務日誌中沒有可繳交的任務。"
 L["Wait until combat ends to load the quest data."] = "請等戰鬥結束後再載入任務資料。"
 L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "繳交任務指南無法載入。請檢查插件 Polestar_FreeMode 是否已安裝並啟用。"
--- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
--- L["Hand-ins without a known location"] = ""
 -- L["None of these has a known place to hand it in."] = ""
--- L["Refining the travel order. Travel times are estimates."] = ""
--- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
--- L["Waiting for your quest log."] = ""
--- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
 
 -- Lookup/Free.lua
 L["Free mode starts after combat."] = "自由模式將在戰鬥結束後啟動。"
@@ -5870,7 +5865,6 @@ L["Refining the travel order. Travel times are estimates."] = "正在優化路�
 L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = "路程估算不完整。順序使用現有的估算和大致距離。"
 L["Waiting for your quest log."] = "正在等待你的任務日誌。"
 L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = "繳交任務指南無法載入。請檢查插件 Polestar_Codex 是否已安裝並啟用。"
--- L["None of these has a known place to hand it in."] = ""
 
 -- Free.lua
 L["Low drop rate: %s"] = "掉落率低：%s"
@@ -5938,21 +5932,6 @@ L["About Free mode"] = "關於自由模式"
 
 -- UI/FreeMode.lua
 L["Your own quests, planned for you."] = "為你規劃的你自己的任務。"
--- Free.lua
--- L["Low drop rate: %s"] = ""
--- L["1 quest for your level: %s gives it."] = ""
--- L["%d quests for your level, all here."] = ""
--- L["%d quests for your level, %d of them here."] = ""
--- L["Quests for your level"] = ""
--- L["About %s XP a minute"] = ""
--- L["Order: nearest first"] = ""
--- L["Order: most XP a minute first"] = ""
--- L["Bring back left-out quests (%d)"] = ""
--- L["Unpin"] = ""
--- L["Pin to the top"] = ""
--- L["Free mode takes this quest first, whatever the order."] = ""
--- L["Leave out of Free mode"] = ""
--- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = ""
 
 -- Layouts/Atlas/Atlas.lua
 -- L["Get ahead, if possible"] = ""
@@ -5988,6 +5967,10 @@ L["No route to keep to: pick up what looks fun and Polestar finds the way."] = "
 L["When to use it"] = "何時使用"
 L["Back to your guide"] = "回到你的指南"
 L["Turn Free mode off on its Main page or from the guide window's menu: the arrow goes back to the guide you had open, where you left it."] = "在自由模式的主頁或指南視窗的選單中關閉它：箭頭會回到你先前開啟的指南，從你離開的地方繼續。"
+
+-- UI/GuideFrameTabs.lua
+-- L["Move up"] = ""
+-- L["Move down"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Back to %s"] = "返回%s"

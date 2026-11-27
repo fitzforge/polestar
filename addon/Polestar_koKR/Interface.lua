@@ -5191,6 +5191,7 @@ L["Quest log notices"] = "퀘스트 목록 알림"
 L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = "퀘스트 목록에 관한 줄: 경로에 없는 퀘스트(단계에서, 그리고 가이드를 마쳤을 때)와 앞으로 어느 가이드도 받지 않는 완료한 퀘스트. 끄면 가이드 창 메뉴에 퀘스트 목록 정리와 완료한 퀘스트 제출이 그대로 있습니다."
 L["Hand-in row"] = "제출 줄"
 L["A slim line under the step when 2 or more quests in your log are finished and none is part of this step: how many, and Route, the shortest trip through their hand-ins. Its close button hides it until that number changes."] = "퀘스트 목록에서 완료한 퀘스트가 2개 이상이고 그중 이 단계에 포함된 것이 없을 때 단계 아래에 나오는 얇은 줄입니다. 몇 개인지와 제출 장소를 도는 가장 짧은 경로인 경로를 보여줍니다. 닫기 버튼으로 숨기면 그 수가 바뀔 때까지 숨겨집니다."
+-- L["The game's looks keep their own bar."] = ""
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "알림 줄"
@@ -5841,13 +5842,7 @@ L["Kept for %s: the route hands it in there."] = "%s용으로 보관: 경로가 
 L["No quests in your log are ready to hand in."] = "퀘스트 목록에 제출할 준비가 된 퀘스트가 없습니다."
 L["Wait until combat ends to load the quest data."] = "퀘스트 데이터를 불러오려면 전투가 끝날 때까지 기다리세요."
 L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "퀘스트 제출 가이드를 불러오지 못했습니다. Polestar_FreeMode 애드온이 설치되어 켜져 있는지 확인하세요."
--- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
--- L["Hand-ins without a known location"] = ""
 -- L["None of these has a known place to hand it in."] = ""
--- L["Refining the travel order. Travel times are estimates."] = ""
--- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
--- L["Waiting for your quest log."] = ""
--- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
 
 -- Lookup/Free.lua
 L["Free mode starts after combat."] = "자유 모드는 전투가 끝난 뒤 시작합니다."
@@ -5870,7 +5865,6 @@ L["Refining the travel order. Travel times are estimates."] = "이동 순서를 
 L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = "이동 추정이 완전하지 않습니다. 가능한 추정치와 대략적인 거리로 순서를 정합니다."
 L["Waiting for your quest log."] = "퀘스트 목록을 기다리는 중입니다."
 L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = "퀘스트 제출 가이드를 불러오지 못했습니다. Polestar_Codex 애드온이 설치되어 켜져 있는지 확인하세요."
--- L["None of these has a known place to hand it in."] = ""
 
 -- Free.lua
 L["Low drop rate: %s"] = "낮은 획득 확률: %s"
@@ -5938,21 +5932,6 @@ L["About Free mode"] = "자유 모드 소개"
 
 -- UI/FreeMode.lua
 L["Your own quests, planned for you."] = "내 퀘스트를 나에게 맞게 계획합니다."
--- Free.lua
--- L["Low drop rate: %s"] = ""
--- L["1 quest for your level: %s gives it."] = ""
--- L["%d quests for your level, all here."] = ""
--- L["%d quests for your level, %d of them here."] = ""
--- L["Quests for your level"] = ""
--- L["About %s XP a minute"] = ""
--- L["Order: nearest first"] = ""
--- L["Order: most XP a minute first"] = ""
--- L["Bring back left-out quests (%d)"] = ""
--- L["Unpin"] = ""
--- L["Pin to the top"] = ""
--- L["Free mode takes this quest first, whatever the order."] = ""
--- L["Leave out of Free mode"] = ""
--- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = ""
 
 -- Layouts/Atlas/Atlas.lua
 -- L["Get ahead, if possible"] = ""
@@ -5988,6 +5967,10 @@ L["No route to keep to: pick up what looks fun and Polestar finds the way."] = "
 L["When to use it"] = "이럴 때 쓰세요"
 L["Back to your guide"] = "가이드로 돌아가기"
 L["Turn Free mode off on its Main page or from the guide window's menu: the arrow goes back to the guide you had open, where you left it."] = "메인 페이지나 가이드 창 메뉴에서 자유 모드를 끄세요: 화살표가 열어 둔 가이드의 멈춘 곳으로 돌아갑니다."
+
+-- UI/GuideFrameTabs.lua
+-- L["Move up"] = ""
+-- L["Move down"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Back to %s"] = "%s(으)로 돌아가기"

@@ -5203,6 +5203,7 @@ L["Quest log notices"] = "Notes du journal de quêtes"
 L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = "Les lignes sur votre journal de quêtes : les quêtes hors de votre itinéraire, sur l'étape et quand un guide est terminé, et les quêtes terminées qu'aucun guide à venir ne reprend. Désactivé, le menu de la fenêtre du guide garde Nettoyer le journal des quêtes et Rendre les quêtes terminées."
 L["Hand-in row"] = "Ligne de remises"
 L["A slim line under the step when 2 or more quests in your log are finished and none is part of this step: how many, and Route, the shortest trip through their hand-ins. Its close button hides it until that number changes."] = "Une ligne fine sous l'étape quand au moins 2 quêtes de votre journal sont terminées et qu'aucune ne fait partie de cette étape : combien, et Itinéraire, le trajet le plus court entre leurs remises. Son bouton de fermeture la masque jusqu'à ce que ce nombre change."
+-- L["The game's looks keep their own bar."] = ""
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "File d'alertes"
@@ -5853,13 +5854,7 @@ L["Kept for %s: the route hands it in there."] = "Gardée pour %s : l'itinérair
 L["No quests in your log are ready to hand in."] = "Aucune quête de votre journal n'est prête à être rendue."
 L["Wait until combat ends to load the quest data."] = "Attendez la fin du combat pour charger les données des quêtes."
 L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "Le guide des quêtes à rendre n'a pas pu se charger. Vérifiez que l'addon Polestar_FreeMode est installé et activé."
--- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
--- L["Hand-ins without a known location"] = ""
 -- L["None of these has a known place to hand it in."] = ""
--- L["Refining the travel order. Travel times are estimates."] = ""
--- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
--- L["Waiting for your quest log."] = ""
--- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
 
 -- Lookup/Free.lua
 L["Free mode starts after combat."] = "Le mode libre démarre après le combat."
@@ -5882,7 +5877,6 @@ L["Refining the travel order. Travel times are estimates."] = "Affinage de l'ord
 L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = "Les estimations de trajet sont incomplètes. L'ordre utilise les estimations disponibles et des distances approximatives."
 L["Waiting for your quest log."] = "En attente de votre journal de quêtes."
 L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = "Le guide des quêtes à rendre n'a pas pu se charger. Vérifiez que l'addon Polestar_Codex est installé et activé."
--- L["None of these has a known place to hand it in."] = ""
 
 -- Free.lua
 L["Low drop rate: %s"] = "Butin rare : %s"
@@ -5950,21 +5944,6 @@ L["About Free mode"] = "À propos du mode libre"
 
 -- UI/FreeMode.lua
 L["Your own quests, planned for you."] = "Vos propres quêtes, planifiées pour vous."
--- Free.lua
--- L["Low drop rate: %s"] = ""
--- L["1 quest for your level: %s gives it."] = ""
--- L["%d quests for your level, all here."] = ""
--- L["%d quests for your level, %d of them here."] = ""
--- L["Quests for your level"] = ""
--- L["About %s XP a minute"] = ""
--- L["Order: nearest first"] = ""
--- L["Order: most XP a minute first"] = ""
--- L["Bring back left-out quests (%d)"] = ""
--- L["Unpin"] = ""
--- L["Pin to the top"] = ""
--- L["Free mode takes this quest first, whatever the order."] = ""
--- L["Leave out of Free mode"] = ""
--- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = ""
 
 -- Layouts/Atlas/Atlas.lua
 -- L["Get ahead, if possible"] = ""
@@ -6000,6 +5979,10 @@ L["No route to keep to: pick up what looks fun and Polestar finds the way."] = "
 L["When to use it"] = "Quand l'utiliser"
 L["Back to your guide"] = "Revenir à votre guide"
 L["Turn Free mode off on its Main page or from the guide window's menu: the arrow goes back to the guide you had open, where you left it."] = "Désactivez le mode libre sur sa page principale ou depuis le menu de la fenêtre de guide : la flèche revient au guide que vous aviez ouvert, là où vous l'aviez laissé."
+
+-- UI/GuideFrameTabs.lua
+-- L["Move up"] = ""
+-- L["Move down"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Back to %s"] = "Retour à %s"
