@@ -58,6 +58,14 @@ zone Westfall
 #   2,870 yards against 3,100), and it stays clear of Stranglethorn's level 30+
 #   jungle and of Duskwood, so Horde get a goto on the coast; it drops once
 #   they are in Westfall.
+# - Horde at the dam: players' recordings (2026-11-27). 34 Horde players on
+#   this guide died 75 times to Mountaineers (level 30): at both ends of the
+#   Dun Algaz pass (Wetlands about 55.5,84.5, Loch Modan about 25.3,1 to 6) and
+#   along the top of the Stonewrought Dam (Loch Modan 43.4,11 to 49.4,14.3),
+#   where Mountaineers Haggis, Barn, Morlic and Angst stand. 33 of them were
+#   level 14 to 25. Of the 14 Horde players who came through without dying, 12
+#   were level 27 to 37. So the Horde dam step warns of them and says to come
+#   at 27 or later.
 # Not play-tested on Forever yet.
 
 step The note in Westfall
@@ -128,8 +136,16 @@ step Tarren Mill on the way
   sethome "Tarren Mill" npc 2388      -- Innkeeper Shay
 
 step The dam in Loch Modan
+  only Alliance
   zone Loch Modan
   tip The figurine is on a ledge just below the top of the Stonewrought Dam, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge.
+  turnin 79974
+  accept 79975
+
+step The dam in Loch Modan
+  only Horde
+  zone Loch Modan
+  tip Careful: Mountaineers (level 30) guard both ends of the Dun Algaz pass and stand along the top of the dam, and they attack Horde. Most Horde players below level 27 died to them here: come at 27 or later and run straight through without stopping. The figurine is on a ledge just below the top of the dam, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge.
   turnin 79974
   accept 79975
 
