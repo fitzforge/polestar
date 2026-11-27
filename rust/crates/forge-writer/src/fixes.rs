@@ -440,6 +440,19 @@ fn apply_fix(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> 
 				changed.push(i);
 			}
 		}
+		if let Some(item) = r["equip"].as_u64() {
+			for &i in found.iter().rev() {
+				let Some((start, end)) = step_of(lines, i) else { continue };
+				let (code, _) = split_comment(&lines[i]);
+				let ind = &code[..code.len() - code.trim_start().len()];
+				let only = code.split('"').step_by(2).find_map(|part| re!(r"(?:^|\s)only\s+(\S+)").captures(part)).map_or(String::new(), |m| format!(" only {}", &m[1]));
+				let equip = format!("{ind}equip {item} optional{only}");
+				if !(start + 1..end).any(|k| trim(split_comment(&lines[k]).0) == trim(&equip)) {
+					lines.insert(i, equip);
+					changed.push(i);
+				}
+			}
+		}
 		return changed;
 	}
 	// A tip or gate is for the goal's own step: an along step's copy of it (an `early` take) keeps its
@@ -1712,6 +1725,25 @@ mod tests {
 		let (again, rows) = run(&out, json!({}), fixes, &[627]);
 		assert_eq!(again, out);
 		assert_eq!(rows[0].state, "redundant");
+	}
+
+	#[test]
+	fn elven_gem_collection_gets_optional_goggles_on_both_routes() {
+		let alliance = include_str!("../../../../guides/forever/alliance/30-40/05-arathi-highlands.guide");
+		let horde = include_str!("../../../../guides/forever/horde/30-40/05-arathi-highlands.guide");
+		let all: Value = serde_json::from_str(include_str!("../../../../data/guide-fixes.json")).unwrap();
+		let record = all["fixes"].as_array().unwrap().iter().find(|r| r["id"] == "arathi-elven-gems-equip-goggles").unwrap();
+		let fixes = json!({ "fixes": [record] });
+		for source in [alliance, horde] {
+			let (out, rows) = run(source, json!({}), fixes.clone(), &[666]);
+			let mut lines = out.lines().map(str::trim);
+			assert_eq!(lines.find(|line| *line == "equip 4491 optional"), Some("equip 4491 optional"));
+			assert!(lines.next().is_some_and(|line| line.starts_with("collect 4492 quest 666") && line.ends_with(record["goalNote"].as_str().unwrap())));
+			assert!(matches!(rows[0].state.as_str(), "applied" | "redundant"));
+			let (again, rows) = run(&out, json!({}), fixes.clone(), &[666]);
+			assert_eq!(again, out);
+			assert_eq!(rows[0].state, "redundant");
+		}
 	}
 
 	#[test]

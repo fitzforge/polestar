@@ -1628,6 +1628,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 				"at",
 				"tip",
 				"goalNote",
+				"equip",
 				"optional",
 				"level",
 				"after",
@@ -1685,6 +1686,13 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 		check_record(ck, &at, r, &mut ids);
 		let a = r.get("at");
 		ck.keys(&format!("{at}.at"), &a, &["quest", "goal", "objective", "guide", "fly", "item"]);
+		let equip = r.get("equip");
+		if !equip.is_undef() {
+			if a.get("goal").as_str() != Some("collect") {
+				ck.err(format!("{at}.equip"), "an optional equip goal needs a collect anchor and its goalNote");
+			}
+			ck.refers(&format!("{at}.equip"), "items", &equip);
+		}
 		let fly = matches!(a.get("goal").as_str(), Some("fly" | "levels"));
 		if !a.get("item").is_undef() && a.get("goal").as_str() != Some("collect") {
 			ck.err(format!("{at}.at.item"), "item is only valid on a collect anchor");
@@ -2400,6 +2408,9 @@ mod tests {
 	fn collect_notes_require_a_known_item_and_a_note() {
 		let good = r#"{ "fixes": [{ "id": "2107-test", "at": { "quest": 10, "goal": "collect", "item": 40 }, "goalNote": "Kill the summoned creature, then open its bag.", "source": { "kind": "in-game-check", "ref": "issue 2107" }, "note": "checked", "issue": 2107 }] }"#;
 		assert_eq!(record_findings(None, Some(good)), Vec::<String>::new());
+		let equip = good.replace("\"goalNote\":", "\"equip\": 40, \"goalNote\":");
+		assert!(record_findings(None, Some(&equip)).is_empty());
+		assert!(record_findings(None, Some(&equip.replace("\"equip\": 40", "\"equip\": 999999"))).iter().any(|f| f.contains(".equip")));
 		assert!(!record_findings(None, Some(&good.replace("\"item\": 40", "\"item\": 999999"))).is_empty());
 		assert!(!record_findings(None, Some(&good.replace("\"goalNote\":", "\"tip\":"))).is_empty());
 	}
