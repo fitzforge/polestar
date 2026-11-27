@@ -1798,6 +1798,8 @@ The walks baked into the guides are drawn on Leffe's navigation maps (and on
 Polestar's own maps where his have no way), used with Leffe's full
 permission; his map files are not part of the addon.
 
+Profession routes: based on the guides by Peter at WoW-Professions.com.
+
 [LICENSE-EXCEPTION.md](LICENSE-EXCEPTION.md) adds a permission under section
 7: guide packs produced by Polestar's compiler and import strings produced by
 its tools, including the reference data they place in them, may be

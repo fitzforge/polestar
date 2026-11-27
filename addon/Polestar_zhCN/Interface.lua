@@ -426,6 +426,7 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+--   Profession routes: based on the guides by Peter at WoW-Professions.com.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhCN") then return end
@@ -2921,6 +2922,7 @@ L["Quest and map data includes pfQuest by shagu (MIT License)."] = "任务和地
 L["Discord and its logo are trademarks of Discord Inc.; the logo marks the link to the Polestar Discord."] = "Discord 及其标志是 Discord Inc. 的商标；该标志用于标示 Polestar Discord 的链接。"
 L["With EllesmereUI installed, Polestar can follow its accent, font and panel colour through its public skinning API."] = "安装 EllesmereUI 后，Polestar 可通过其公开的皮肤 API 跟随其强调色、字体和面板颜色。"
 L["Gear scores from Forever Leveling BiS by Timearc when it is installed, through its public API."] = "安装 Forever Leveling BiS（作者 Timearc）后，通过其公开 API 获取装备评分。"
+L["Profession routes: based on the guides by Peter at WoW-Professions.com."] = "专业技能路线：基于 WoW-Professions.com 的 Peter 的指南。"
 L["Maintenance"] = "维护"
 L["Reset all settings"] = "重置所有设置"
 L["Every Polestar setting back to default. Progress is kept."] = "所有 Polestar 设置恢复默认。进度保留。"

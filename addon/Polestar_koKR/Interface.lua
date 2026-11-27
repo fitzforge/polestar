@@ -569,6 +569,7 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+--   Profession routes: based on the guides by Peter at WoW-Professions.com.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "koKR") then return end
@@ -3063,6 +3064,7 @@ L["Quest and map data includes pfQuest by shagu (MIT License)."] = "퀘스트 �
 L["Discord and its logo are trademarks of Discord Inc.; the logo marks the link to the Polestar Discord."] = "Discord와 로고는 Discord Inc.의 상표입니다. 로고는 Polestar Discord 링크를 나타냅니다."
 L["With EllesmereUI installed, Polestar can follow its accent, font and panel colour through its public skinning API."] = "EllesmereUI가 설치되어 있으면 Polestar가 공개 스킨 API로 그 강조색, 글꼴, 패널 색을 따를 수 있습니다."
 L["Gear scores from Forever Leveling BiS by Timearc when it is installed, through its public API."] = "Forever Leveling BiS(Timearc 제작)가 설치되어 있으면 공개 API로 장비 점수를 가져옵니다."
+L["Profession routes: based on the guides by Peter at WoW-Professions.com."] = "전문 기술 루트: WoW-Professions.com의 Peter의 가이드를 바탕으로 합니다."
 L["Maintenance"] = "관리"
 L["Reset all settings"] = "모든 설정 초기화"
 L["Every Polestar setting back to default. Progress is kept."] = "모든 Polestar 설정을 기본값으로. 진행 상황은 유지됩니다."
