@@ -104,6 +104,31 @@ return {
 		["qol.nameplateIconSide"] = { with = { ["qol.nameplateIcons"] = true }, value = "right", probe = plate },
 		-- The quest log drawn: Kobold Camp Cleanup's title.
 		["qol.questLevels"] = function() ql.updateLog(); return ql.logText(7) end,
+		-- In place of Questie's lines (Quests/QuestieLines.lua): a stand-in Questie whose Kobold Vermin tooltip has an
+		-- entry for Kobold Camp Cleanup (Polestar's own line names it) and one for a quest Polestar does not; the
+		-- entries Questie builds its lines from, counted.
+		["qol.questTooltipsQuestie"] = {
+			prepare = function()
+				if not _G.psQuestieTooltips then
+					local QT = { lookupByKey = { m_6 = { { questId = 7 }, { questId = 999999 } } } }
+					function QT.GetTooltip(key)
+						local n = 0
+						for _ in pairs(QT.lookupByKey[key] or {}) do n = n + 1 end
+						return n
+					end
+					_G.psQuestieTooltips = QT
+				end
+				_G.QuestieLoader = { ImportModule = function() return _G.psQuestieTooltips end }
+				local A = C_AddOns
+				A.psIsAddOnLoaded = A.psIsAddOnLoaded or A.IsAddOnLoaded
+				A.IsAddOnLoaded = function(name) if name == "Questie" then return true end return A.psIsAddOnLoaded(name) end
+				Polestar.QuestieLines.Wrap()
+			end,
+			probe = function() return _G.psQuestieTooltips.GetTooltip("m_6") end,
+			cleanup = function()
+				local A = C_AddOns
+				A.IsAddOnLoaded, A.psIsAddOnLoaded = A.psIsAddOnLoaded, nil
+			end },
 		-- The delivery taken, five minutes on: a chat line (and a sound) with five minutes left.
 		["qol.questTimerAlerts"] = function()
 			local before = said("5 minutes left")

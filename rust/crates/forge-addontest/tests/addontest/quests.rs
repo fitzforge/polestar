@@ -643,9 +643,9 @@ emit(sq.hoverUnit(6, true))         -- GUID is a secret value (combat): no lines
 "#,
 		"w.complete({ 783 })",
 	);
-	assert_eq!(out[0], json!(["?", "Kobold Camp Cleanup: | Kill Kobold Vermin 3/10", "Kobold Candles: | Large Candle 0/8"]));
-	assert_eq!(out[1], json!(["?", "Kobold Candles: | 0/8"]));
-	assert_eq!(out[2], json!(["?", "Starts a quest: | A Strange Note"]));
+	assert_eq!(out[0], json!(["?", "[2] Kobold Camp Cleanup: | Kill Kobold Vermin 3/10", "[4] Kobold Candles: | Large Candle 0/8"]));
+	assert_eq!(out[1], json!(["?", "[4] Kobold Candles: | 0/8"]));
+	assert_eq!(out[2], json!(["?", "Starts a quest: | [3] A Strange Note"]));
 	assert_eq!(out[3], json!([true, true, true, true]), "title in the quest colour; progress textDim, success once done");
 	assert_eq!(out[4], json!(["?"]));
 	assert_eq!(out[5], json!(["?"]));
@@ -683,14 +683,14 @@ emit(sq.hoverUnit(6))
 	);
 	assert_eq!(out[0], json!([40, 20.5, true, true]), "a dropper's chance in percent; none for another mob or an unknown item");
 	assert_eq!(out[1], false);
-	assert_eq!(out[2], json!(["?", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10", "Kobold Candles: | Large Candle 3/8"]), "off: the lines as they were");
-	assert_eq!(out[3], json!(["?", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10", "Kobold Candles: | Large Candle 3/8  40%"]), "on the item's line only, never on a kill");
-	assert_eq!(out[4], json!(["?", "Kobold Candles: | Large Candle 3/8  21%"]), "each dropper its own chance, whole percents from 10 up");
-	assert_eq!(out[5], json!(["?", "Kobold Candles: | 3/8"]), "the item's own tooltip has no mob to speak for");
+	assert_eq!(out[2], json!(["?", "[2] Kobold Camp Cleanup: | Kill Kobold Vermin 0/10", "[4] Kobold Candles: | Large Candle 3/8"]), "off: the lines as they were");
+	assert_eq!(out[3], json!(["?", "[2] Kobold Camp Cleanup: | Kill Kobold Vermin 0/10", "[4] Kobold Candles: | Large Candle 3/8  40%"]), "on the item's line only, never on a kill");
+	assert_eq!(out[4], json!(["?", "[4] Kobold Candles: | Large Candle 3/8  21%"]), "each dropper its own chance, whole percents from 10 up");
+	assert_eq!(out[5], json!(["?", "[4] Kobold Candles: | 3/8"]), "the item's own tooltip has no mob to speak for");
 	assert_eq!(out[6], json!([100, true, true]), "an object the item comes out of has its own chance; a mob is no object");
-	assert_eq!(out[7], json!(["?", "Kobold Candles: | Large Candle 3/8  100%"]), "on the object's tooltip too");
-	assert_eq!(out[8], json!(["?", "Kobold Candles: | Large Candle 3/8"]), "an object hovered without an id cannot be looked up: no chance");
-	assert_eq!(out[9], json!(["?", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10", "Kobold Candles: | Large Candle 8/8"]), "nothing left to drop for: no chance");
+	assert_eq!(out[7], json!(["?", "[4] Kobold Candles: | Large Candle 3/8  100%"]), "on the object's tooltip too");
+	assert_eq!(out[8], json!(["?", "[4] Kobold Candles: | Large Candle 3/8"]), "an object hovered without an id cannot be looked up: no chance");
+	assert_eq!(out[9], json!(["?", "[2] Kobold Camp Cleanup: | Kill Kobold Vermin 0/10", "[4] Kobold Candles: | Large Candle 8/8"]), "nothing left to drop for: no chance");
 }
 
 // qol.questTooltipsReplace (off by default): the client names a mob's quests itself (a title row, then its
@@ -743,19 +743,19 @@ emit(sq.hoverUnit(6, true, rows()))                                  -- secret G
 "#,
 		"",
 	);
-	let both = json!(["?", "Kobold Camp Cleanup", "0/10 Kobold Vermin slain", "Someone Else's Quest", "0/1 Something", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10"]);
+	let both = json!(["?", "Kobold Camp Cleanup", "0/10 Kobold Vermin slain", "Someone Else's Quest", "0/1 Something", "[2] Kobold Camp Cleanup: | Kill Kobold Vermin 0/10"]);
 	assert_eq!(out[0], false);
 	assert_eq!(out[1], both, "off: the client's rows and Polestar's line");
 	assert_eq!(
 		out[2],
-		json!(["?", "Someone Else's Quest", "0/1 Something", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10"]),
+		json!(["?", "Someone Else's Quest", "0/1 Something", "[2] Kobold Camp Cleanup: | Kill Kobold Vermin 0/10"]),
 		"the quest Polestar names shows once; the other keeps the client's rows"
 	);
-	assert_eq!(out[3], json!(["?", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10"]), "the rows under a hidden title go with it");
-	assert_eq!(out[4], json!(["?", "Kobold Camp Cleanup", "0/10 Kobold Vermin slain", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10"]), "no quest id on the title: its rows stay");
+	assert_eq!(out[3], json!(["?", "[2] Kobold Camp Cleanup: | Kill Kobold Vermin 0/10"]), "the rows under a hidden title go with it");
+	assert_eq!(out[4], json!(["?", "Kobold Camp Cleanup", "0/10 Kobold Vermin slain", "[2] Kobold Camp Cleanup: | Kill Kobold Vermin 0/10"]), "no quest id on the title: its rows stay");
 	assert_eq!(out[5], json!(["?", "0/1 Untitled", "Friend"]), "untitled rows on the next tooltip stay, on a mob Polestar names nothing on");
-	assert_eq!(out[6], json!(["?", "0/1 Untitled", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10"]), "and on one it does name a quest on");
-	assert_eq!(out[7], json!(["?", "Gathering Wood: | Not done"]), "objects too");
+	assert_eq!(out[6], json!(["?", "0/1 Untitled", "[2] Kobold Camp Cleanup: | Kill Kobold Vermin 0/10"]), "and on one it does name a quest on");
+	assert_eq!(out[7], json!(["?", "[3] Gathering Wood: | Not done"]), "objects too");
 	assert_eq!(out[8], json!(["?", "Kobold Camp Cleanup", "0/10 Kobold Vermin slain", "Someone Else's Quest", "0/1 Something"]), "nothing of Polestar's to show: nothing left out");
 	assert_eq!(out[9], 6, "in a group the client's rows carry the party's progress: all stay");
 	assert_eq!(out[10], 5, "quest tooltips off: the client's rows alone");
@@ -802,12 +802,12 @@ emit(sq.hoverUnit(196))
 	assert_eq!(out[2], json!([[7, 10, 12, 13], [14, 15, 18, 19, 33], true]), "every quest an NPC starts, whoever may take it");
 	assert_eq!(
 		out[3],
-		json!(["?", "Starts a quest: | Either This", "Starts a quest: | Or That", "Starts a quest: | Gathering Wood", "Starts a quest: | Wolves Across the Border"]),
+		json!(["?", "Starts a quest: | [2] Either This", "Starts a quest: | [2] Or That", "Starts a quest: | [3] Gathering Wood", "Starts a quest: | [2] Wolves Across the Border"]),
 		"the ones this character can take now: 19 waits for 33 or 60"
 	);
 	assert_eq!(out[4], json!(["?"]));
-	assert_eq!(out[5], json!(["?", "A Threat Within: | Turn in"]), "a finished quest it takes");
-	assert_eq!(out[6], json!(["?", "Starts a quest: | Kobold Camp Cleanup"]), "handed in: the quest it opens is offered at once, with no scan");
+	assert_eq!(out[5], json!(["?", "[1] A Threat Within: | Turn in"]), "a finished quest it takes");
+	assert_eq!(out[6], json!(["?", "Starts a quest: | [2] Kobold Camp Cleanup"]), "handed in: the quest it opens is offered at once, with no scan");
 	assert_eq!(out[7], json!(["?"]));
 	assert_eq!(out[8], json!(["?"]), "quest tooltips off: none of it");
 }
@@ -834,9 +834,9 @@ emit(sq.hoverUnit(6))
 		"w.complete({ 783 })",
 	);
 	let mark = " |TInterface\\AddOns\\Polestar\\Media\\UI\\icon-forever:8:16:0:0|t";
-	assert_eq!(out[0], json!(["?", format!("Kobold Camp Cleanup{mark}: | Kill Kobold Vermin 0/10"), "Kobold Candles: | Large Candle 0/8"]));
-	assert_eq!(out[1], json!(["?", format!("Starts a quest: | A Strange Note{mark}")]));
-	assert_eq!(out[2], json!(["?", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10", "Kobold Candles: | Large Candle 0/8"]));
+	assert_eq!(out[0], json!(["?", format!("[2] Kobold Camp Cleanup{mark}: | Kill Kobold Vermin 0/10"), "[4] Kobold Candles: | Large Candle 0/8"]));
+	assert_eq!(out[1], json!(["?", format!("Starts a quest: | [3] A Strange Note{mark}")]));
+	assert_eq!(out[2], json!(["?", "[2] Kobold Camp Cleanup: | Kill Kobold Vermin 0/10", "[4] Kobold Candles: | Large Candle 0/8"]));
 }
 
 // An item a quest still needs is marked in the bags and named on its tooltip
@@ -866,8 +866,8 @@ emit({ Q.IsItemNeeded(772) })
 "#,
 		"w.complete({ 783 })",
 	);
-	assert_eq!(out[0], json!([true, ["?", "Kobold Candles: | 0/8 (not accepted)"]]));
-	assert_eq!(out[1], json!([true, ["?", "Kobold Candles: | 0/8"]]));
+	assert_eq!(out[0], json!([true, ["?", "[4] Kobold Candles: | 0/8 (not accepted)"]]));
+	assert_eq!(out[1], json!([true, ["?", "[4] Kobold Candles: | 0/8"]]));
 	assert_eq!(out[2], json!([false, ["?"]]));
 	assert_eq!(out[3], json!([false]));
 }
@@ -908,7 +908,7 @@ emit({ Q.IsItemNeeded(772) })
 	);
 	assert_eq!(out[0], json!([false]), "a quest behind the live step is not ahead, whichever step is on screen");
 	assert_eq!(out[1], json!([false]), "a step that is not for this character is left out");
-	assert_eq!(out[2], json!(["?", "Kobold Candles: | 3/8 (not accepted)"]));
+	assert_eq!(out[2], json!(["?", "[4] Kobold Candles: | 3/8 (not accepted)"]));
 	assert_eq!(out[3], json!([true]), "qol.questBagMarks off hides only the marks");
 }
 
@@ -1086,8 +1086,8 @@ emit(sq.hoverObject(nil, "Bundle of Wood"))
 "#,
 		"",
 	);
-	assert_eq!(out[0], json!(["?", "Gathering Wood: | Not done"]));
-	assert_eq!(out[1], json!(["?", "Gathering Wood: | Not done"]));
+	assert_eq!(out[0], json!(["?", "[3] Gathering Wood: | Not done"]));
+	assert_eq!(out[1], json!(["?", "[3] Gathering Wood: | Not done"]));
 }
 
 // Sapphires of Aku'Mai (6563): the sapphire drops from three objects that
@@ -1117,8 +1117,8 @@ emit(sq.hoverObject(78, "Candle Crate"))
 "#,
 		"w.complete({ 783 })",
 	);
-	assert_eq!(out[0], json!(["?", "Kobold Candles: | Large Candle 0/8"]));
-	assert_eq!(out[1], json!(["?", "Kobold Candles: | Large Candle 0/8"]));
+	assert_eq!(out[0], json!(["?", "[4] Kobold Candles: | Large Candle 0/8"]));
+	assert_eq!(out[1], json!(["?", "[4] Kobold Candles: | Large Candle 0/8"]));
 }
 
 // Object 7983211 (Flintfire's Shipment, 98321) has no name in QuestieDB: the record's name was nil, and the
@@ -1156,10 +1156,10 @@ emit(#layer("quests.objectives") > 0)
 		"",
 	);
 	assert_eq!(out[0], json!({}), "the database has no name for either");
-	assert_eq!(out[1], json!(["?", "Kobold Candles: | 0/8"]), "the item's tooltip still lists the quest");
-	assert_eq!(out[2], json!(["?", "Kobold Candles: | Large Candle 0/8"]), "the object's own tooltip, by its id");
+	assert_eq!(out[1], json!(["?", "[4] Kobold Candles: | 0/8"]), "the item's tooltip still lists the quest");
+	assert_eq!(out[2], json!(["?", "[4] Kobold Candles: | Large Candle 0/8"]), "the object's own tooltip, by its id");
 	assert_eq!(out[3], json!(["?"]), "a name the database does not know indexes nothing");
-	assert_eq!(out[4], json!(["?", "Kobold Camp Cleanup: | 0/10", "Kobold Candles: | Large Candle 0/8"]), "the mob's tooltip: its kill line unnamed, the candle it drops still named");
+	assert_eq!(out[4], json!(["?", "[2] Kobold Camp Cleanup: | 0/10", "[4] Kobold Candles: | Large Candle 0/8"]), "the mob's tooltip: its kill line unnamed, the candle it drops still named");
 	assert_eq!(out[5], json!(true), "the map markers are drawn");
 }
 
@@ -2002,11 +2002,11 @@ emit(sq.hoverUnit(197))
 	);
 	assert_eq!(out[0], json!(["talk", 197, "kill", 6]), "the talk keeps line 1, the kill stays line 2");
 	assert_eq!(out[1], json!([true, "Kobold Vermin"]), "a talk names no mob; line 2's mob is the kill's");
-	assert_eq!(out[2], json!(["?", "Hear Him Out: | Talk to Marshal McBride Not done"]));
+	assert_eq!(out[2], json!(["?", "[2] Hear Him Out: | Talk to Marshal McBride Not done"]));
 	assert_eq!(out[3], json!([true, true, true]), "the NPC is in the talk index, never the mob index");
 	assert_eq!(out[4], json!(["nameplate1"]), "the kobold's plate only, no skull over Marshal McBride");
 	assert_eq!(out[5], json!([false, true]), "no map marker on the NPC; the kobolds keep theirs");
-	assert_eq!(out[6], json!(["?", "Hear Him Out: | Talk to Marshal McBride Done"]));
+	assert_eq!(out[6], json!(["?", "[2] Hear Him Out: | Talk to Marshal McBride Done"]));
 }
 
 // #2543: a pinned quest's talk line, built from the quest database (no guide step does it), says "Talk to" the NPC

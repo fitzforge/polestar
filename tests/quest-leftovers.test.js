@@ -119,6 +119,7 @@ test('the bag-space button offers a leftover no quest in the log asks for, never
 		C.NumSlots = function() return #bag end
 		C.SlotInfo = function(_, slot) return bag[slot] end
 		C.SellPrice = function() return 5 end
+		C.SlotSellPrice = function() return 5 end
 		C.SlotQuest = function(_, slot) return bag[slot].itemID ~= 77 end
 		C.SlotStartsQuest = function(_, slot) return starter[slot] end
 		Polestar.QoL.Marks = { Protected = function() return false end, Junk = function() return false end }
