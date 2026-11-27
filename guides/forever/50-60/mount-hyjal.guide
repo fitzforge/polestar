@@ -582,6 +582,18 @@ step Owl feathers
   collect 253341 x9 quest 95027.1 only Alliance  -- Hyjal Owl Feather
   collect 253341 x9 quest 92609.1 only Horde
 
+step Shalla'kal and Galvinquam
+  tip East past Mourning's Rest into the Cradle of Tranquility: Shalla'kal, the great cat, waits by the path, and Galvinquam Leafsyre rests in the ruins just south of her.
+  accept 93615                          -- Shalla'kal: Kits and Cats
+  accept 96979                          -- Galvinquam Leafsyre: Sacred Refreshment
+
+step Jereman
+  when onquest 96931
+  tip North to the old bridge over the Cradle: touch the crow effigy on it and Jereman, the crow wild god, appears.
+  turnin 96931                          -- Jereman
+  accept 96939                          -- The Balance of Life and Death
+  accept 96978                          -- Violent Venison
+
 step Unmarked Grave
   only Alliance
   tip At the northern end of Mourning's Rest: something has dug up the grave. The Fleshflay Raveners around it carry what was taken.
@@ -690,21 +702,9 @@ step The overlook
   talk 255038                           -- Veteran of the Third War
   turnin 96550
 
-step Shalla'kal and Galvinquam
-  tip East past Mourning's Rest into the Cradle of Tranquility: Shalla'kal, the great cat, waits by the path, and Galvinquam Leafsyre rests in the ruins just south of her.
-  accept 93615                          -- Shalla'kal: Kits and Cats
-  accept 96979                          -- Galvinquam Leafsyre: Sacred Refreshment
-
 step Lisbael Highfeather
   tip East across the Cradle to Lisbael Highfeather.
   accept 96145                          -- Past Wing and Claw: for Phoebe Highfeather, later in this guide; keep it
-
-step Jereman
-  when onquest 96931
-  tip North to the old bridge over the Cradle: touch the crow effigy on it and Jereman, the crow wild god, appears.
-  turnin 96931                          -- Jereman
-  accept 96939                          -- The Balance of Life and Death
-  accept 96978                          -- Violent Venison
 
 step The falls and the first kitten
   tip Fill Galvinquam's gourd at the falls beside the bridge. Solstice, one of Shalla'kal's kittens, plays just west of the falls: walk up to her.
