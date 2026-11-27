@@ -11,9 +11,10 @@
 // - `stands`: where players stood when they caught fish. The Recorder writes a `loot` record for every
 //   catch with the player's position (Polestar_Recorder/Finds.lua); those positions, per map, are
 //   clustered at STAND_YARDS around the densest ones, and a stand is kept when at least MIN_PEOPLE
-//   independent people fished there (the recordings' spot threshold). Each stand has its catches and the
-//   items caught there. A stand is a place on a shore, a dock or a boat within cast range of the water,
-//   so the arrow can lead there.
+//   independent people fished there (the recordings' spot threshold). Each stand has its catches, the
+//   items caught there and `deaths`: the deaths the recordings place within DEATH_YARDS of it (any
+//   session's, World.lua's `death` record; left out at none). A stand is a place on a shore, a dock or a
+//   boat within cast range of the water, so the arrow can lead there.
 //
 // People: the contributors, installs and characters of the session file names joined (one person may
 // record from several installs and characters); the archive's config.json `exclude` contributors are
@@ -25,9 +26,10 @@ const { dist } = require('../../route/geo');
 
 const FILE = path.join(__dirname, 'fishing-waters.json');
 const ABOUT =
-	"Fishing waters per zone map: full (the Fishing skill from which the zone loses no fish: the Forever TrinityCore world database's base skill + 95), loot (its fishing loot, percent) and stands (where players stood when they caught fish, from Polestar_Recorder sessions: clusters of catch positions kept at 3 or more people, with catches and the items caught). Written by `node tools/polestar.js profession gathering waters` (tools/lib/professions/gathering/waters.js); read by the Fishing + Cooking guide.";
+	"Fishing waters per zone map: full (the Fishing skill from which the zone loses no fish: the Forever TrinityCore world database's base skill + 95), loot (its fishing loot, percent) and stands (where players stood when they caught fish, from Polestar_Recorder sessions: clusters of catch positions kept at 3 or more people, with catches, the items caught and the deaths recorded within 30 yards). Written by `node tools/polestar.js profession gathering waters` (tools/lib/professions/gathering/waters.js); read by the Fishing + Cooking guide.";
 const STAND_YARDS = 20;
 const MIN_PEOPLE = 3;
+const DEATH_YARDS = 30;
 const MIN_LOOT = 0.5;
 
 const round1 = (v) => Math.round(v * 10) / 10;
@@ -127,37 +129,48 @@ function peopleOf(names) {
 	return { person: (name) => (byFile.has(name) ? find(byFile.get(name)) : null), contributor: (name) => byFile.get(name) || null };
 }
 
-// Every catch in the archive's session files: { map, x, y (live frame), person, items: [[item, n]] }.
+// Every catch and death in the archive's session files: { catches: [{ map, x, y (live frame), person,
+// items: [[item, n]] }], deaths: [{ map, x, y }] }.
 function readCatches(dir) {
 	const names = fs.readdirSync(dir).filter((n) => n.endsWith('.json') && n !== 'config.json').sort();
 	const cfgFile = path.join(dir, 'config.json');
 	const exclude = new Set(fs.existsSync(cfgFile) ? JSON.parse(fs.readFileSync(cfgFile, 'utf8')).exclude || [] : []);
 	const P = peopleOf(names);
-	const out = [];
+	const catches = [];
+	const deaths = [];
 	for (const name of names) {
 		if (exclude.has(P.contributor(name))) continue;
 		const text = fs.readFileSync(path.join(dir, name), 'utf8');
-		if (!/"gather":\s*"fish"/.test(text)) continue;
+		const fished = /"gather":\s*"fish"/.test(text);
+		if (!fished && !/"e":\s*"death"/.test(text)) continue;
 		const s = JSON.parse(text);
 		if (exclude.has(s.contributor)) continue;
 		const person = P.person(name) || s.contributor;
 		for (const e of s.events || []) {
-			if (!e || e.e !== 'drop' || e.gather !== 'fish' || !Number.isFinite(e.x) || !Number.isFinite(e.y) || !e.map) continue;
-			out.push({ map: e.map, x: e.x, y: e.y, person, items: (e.items || []).map((i) => [i.item, i.count || 1]) });
+			if (!e || !Number.isFinite(e.x) || !Number.isFinite(e.y) || !e.map) continue;
+			if (e.e === 'death') deaths.push({ map: e.map, x: e.x, y: e.y });
+			else if (fished && e.e === 'drop' && e.gather === 'fish') catches.push({ map: e.map, x: e.x, y: e.y, person, items: (e.items || []).map((i) => [i.item, i.count || 1]) });
 		}
 	}
-	return out;
+	return { catches, deaths };
 }
 
 // Catches -> { <uiMap>: [stand] }: per map, each catch's neighbours within STAND_YARDS (a grid of that
 // size); the densest catch not yet taken seeds a stand of every untaken catch within STAND_YARDS of it.
-// The stand is the seed's position (a place a player stood). Kept at MIN_PEOPLE people.
-function stands(catches, project) {
+// The stand is the seed's position (a place a player stood). Kept at MIN_PEOPLE people. `deaths`: the
+// deaths within DEATH_YARDS of the stand.
+function stands(catches, project, deaths = []) {
 	const byMap = new Map();
 	for (const c of catches) {
 		const pt = project.point(c.map, c.x, c.y, 'l');
 		if (!byMap.has(pt.map)) byMap.set(pt.map, []);
 		byMap.get(pt.map).push({ ...c, pt });
+	}
+	const died = new Map();
+	for (const d of deaths) {
+		const pt = project.point(d.map, d.x, d.y, 'l');
+		if (!died.has(pt.map)) died.set(pt.map, []);
+		died.get(pt.map).push(pt);
 	}
 	const out = {};
 	for (const map of [...byMap.keys()].sort((a, b) => a - b)) {
@@ -192,6 +205,8 @@ function stands(catches, project) {
 			stand.people = people.size;
 			stand.catches = members.length;
 			stand.fish = Object.fromEntries(Object.entries(fish).sort((a, b) => b[1] - a[1] || a[0] - b[0]));
+			const deathsHere = (died.get(map) || []).filter((d) => dist(d, seed.pt) <= DEATH_YARDS).length;
+			if (deathsHere) stand.deaths = deathsHere;
 			list.push(stand);
 		}
 		if (list.length) out[map] = list.sort((a, b) => b.people - a.people || b.catches - a.catches || a.x - b.x || a.y - b.y);
@@ -202,7 +217,8 @@ function stands(catches, project) {
 // The table: { maps: { <uiMap>: { area, full, loot, stands } } }.
 function derive({ tdbFile, recordingsDir, zones, project }) {
 	const maps = zoneWaters(tdbFile, zones);
-	const st = stands(readCatches(recordingsDir), project);
+	const { catches, deaths } = readCatches(recordingsDir);
+	const st = stands(catches, project, deaths);
 	for (const [map, list] of Object.entries(st)) {
 		if (!maps[map]) maps[map] = { area: null, full: null, loot: {} };
 		maps[map].stands = list;

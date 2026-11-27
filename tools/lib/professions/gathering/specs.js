@@ -9,7 +9,6 @@ const N = require('./nodes');
 const { SKINNING_POINTS } = require('./skinning');
 const { GATHERING_NOTE } = require('./notes');
 const fishing = require('./fishing');
-const fishingCooking = require('./fishing-cooking');
 const secondary = require('./secondary');
 const { money, zoneName } = require('./common');
 
@@ -299,10 +298,10 @@ const skinning = {
 	],
 };
 
-// The paired guides (a gathering profession with the crafting one it feeds, and Tailoring + Enchanting):
-// built from the single guides' plans (../pairs.js).
+// The paired guides (a gathering profession with the crafting one it feeds, Fishing + Cooking among them,
+// and Tailoring + Enchanting): built from the single guides' plans (../pairs.js).
 const { PAIR_SPECS } = require('../pairs');
 
-const SPECS = [mining, herbalism, skinning, fishing, secondary.cooking, secondary.firstAid, fishingCooking, ...PAIR_SPECS];
+const SPECS = [mining, herbalism, skinning, fishing, secondary.cooking, secondary.firstAid, ...PAIR_SPECS];
 
 module.exports = { SPECS };

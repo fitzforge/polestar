@@ -17,6 +17,7 @@ const PAIRS = [
 	['mining-blacksmithing', 'Mining', 'Blacksmithing'],
 	['mining-engineering', 'Mining', 'Engineering'],
 	['skinning-leatherworking', 'Skinning', 'Leatherworking'],
+	['fishing-cooking', 'Fishing', 'Cooking'],
 	['tailoring-enchanting', 'Tailoring', 'Enchanting'],
 ];
 const skip = needs('professions.json', 'items.json');
@@ -131,15 +132,59 @@ test('no crafting step asks for a material no step before it gathers, buys or cr
 	}
 });
 
+test('before each crafting step, the gathering steps of its section hold what the section\'s crafts so far take', { skip }, () => {
+	const professions = json('professions');
+	const recipe = new Map();
+	for (const p of Object.values(professions)) for (const r of p.recipes) recipe.set(r.spell, r);
+	for (const [file, g] of PAIRS.filter((p) => p[1] !== 'Tailoring')) {
+		const bad = [];
+		const all = steps(read(file));
+		for (const w of paths(all)) {
+			let section = null;
+			let have = new Map(); // item -> the section's gather count so far (counts are cumulative in a section)
+			let made = new Map(); // item -> what the section's crafts so far make of it (Light Leather from scraps)
+			let need = new Map(); // item -> what the section's crafts so far take, at their expected counts
+			// Each `only` of a step is its own way through (a starting area's variant): counted apart.
+			const onlyOf = (s) => (s.lines.find((l) => /^only /.test(l)) || '').slice(5);
+			for (const s of all.filter((x) => x.when === null || x.when === w)) {
+				if (s.section !== section) {
+					section = s.section;
+					have = new Map();
+					made = new Map();
+					need = new Map();
+				}
+				const key = (item) => `${onlyOf(s)}|${item}`;
+				for (const l of s.lines) {
+					const c = new RegExp(`^collect (\\d+) x(\\d+) (?:anywhere )?gather ${g} `).exec(l);
+					if (c) have.set(key(Number(c[1])), Math.max(have.get(key(Number(c[1]))) || 0, Number(c[2])));
+				}
+				const craft = s.lines.map((l) => /^craft (\d+) until/.exec(l)).find(Boolean);
+				const about = /about (\d+) crafts to/.exec(s.lines.find((l) => /^tip /.test(l)) || '');
+				if (!craft || !about) continue;
+				const r = recipe.get(Number(craft[1]));
+				for (const x of (r && r.reagents) || []) {
+					const k = key(x.item);
+					if (!have.has(k)) continue;
+					need.set(k, (need.get(k) || 0) + Number(about[1]) * x.count);
+					const got = have.get(k) + (made.get(k) || 0);
+					if (got < need.get(k)) bad.push(`${file} ${s.title}: ${need.get(k)} item ${x.item} by now, ${got} gathered or made in ${section}`);
+				}
+				if (r && r.item) made.set(key(r.item), (made.get(key(r.item)) || 0) + Number(about[1]) * (r.itemCount || 1));
+			}
+		}
+		assert.deepEqual(bad, []);
+	}
+});
+
 test('every gathering step leads with its count and what it is for', { skip }, () => {
 	for (const [file, g, c] of PAIRS.filter((p) => p[1] !== 'Tailoring')) {
-		const verb = { Herbalism: 'Pick', Mining: 'Mine', Skinning: 'Skin' }[g];
+		const verb = { Herbalism: 'Pick', Mining: 'Mine', Skinning: 'Skin', Fishing: 'Fish' }[g];
 		const gathers = steps(read(file)).filter((s) => s.title.startsWith(`${verb} `));
 		assert.ok(gathers.length >= 5, `${file}: ${gathers.length} gathering steps`);
 		for (const s of gathers) {
 			const tip = s.lines.find((l) => /^tip /.test(l)) || '';
 			assert.match(tip, new RegExp(`^tip \\d+ .+? for ${c} \\d+-\\d+: [^.]+\\.`), `${file} ${s.title}`);
-			assert.ok(s.lines.some((l) => /^loop /.test(l)), `${file} ${s.title}: its loops`);
+			assert.ok(s.lines.some((l) => /^loop /.test(l) || /^goto /.test(l)), `${file} ${s.title}: its loops, or the one stand it is fished at`);
 		}
 	}
 });

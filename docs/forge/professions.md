@@ -5,8 +5,8 @@ Polestar's profession guides (`guides/forever/professions/`) are generated, neve
 | Guides | Built by | From |
 |---|---|---|
 | Alchemy, Blacksmithing, Enchanting, Engineering, Leatherworking, Tailoring | `node tools/polestar.js profession draft <Profession> --out` | `tools/lib/professions/` (plan.js, guide.js, specs.js) |
-| Mining, Herbalism, Skinning, Fishing, Cooking, First Aid, Fishing + Cooking | `node tools/polestar.js profession gathering build` | `tools/lib/professions/gathering/` |
-| Herbalism + Alchemy, Mining + Blacksmithing, Mining + Engineering, Skinning + Leatherworking, Tailoring + Enchanting | `node tools/polestar.js profession gathering build` | `tools/lib/professions/pairs.js` over the two above |
+| Mining, Herbalism, Skinning, Fishing, Cooking, First Aid | `node tools/polestar.js profession gathering build` | `tools/lib/professions/gathering/` |
+| Herbalism + Alchemy, Mining + Blacksmithing, Mining + Engineering, Skinning + Leatherworking, Fishing + Cooking, Tailoring + Enchanting | `node tools/polestar.js profession gathering build` | `tools/lib/professions/pairs.js` over the two above (Fishing + Cooking: `pair-fishing.js` over `gathering/fish-rounds.js`) |
 
 Every rule below is held by a test (`tests/profession-audit.test.js`, `tests/profession-pairs.test.js`,
 `tests/profession-gathering.test.js`, `tests/profession-getit.test.js`) or by the generator throwing at
@@ -40,10 +40,10 @@ build time. A new profession guide, or a change to a generator, keeps all of the
 6. **Specialisations at the skill the data asks** (Armorsmith/Weaponsmith, Gnomish/Goblin,
    Dragonscale/Elemental/Tribal at 225), and the cheapest start the data allows (Light Leather from
    Ruined Leather Scraps for Leatherworking 1-20).
-7. **Gathering and crafting blend** (the paired guides and Fishing + Cooking): the arrow stays on the
-   loop while gathering (a gathering step's loops are its one target); a gathering step holds until the
-   next crafting stretch's materials are in the bags; a crafting step comes only after the steps that
-   supply its materials (or the player chose to buy them); level gates are asked once.
+7. **Gathering and crafting blend** (the paired guides): the arrow stays on the loop while gathering (a
+   gathering step's loops are its one target); a gathering step holds until the next crafting stretch's
+   materials are in the bags; a crafting step comes only after the steps that supply its materials (or
+   the player chose to buy them); level gates are asked once.
 8. **Why lines.** Every Get it and gathering step leads with its count and what it is for ("57 Wool Cloth
    for Tailoring 75-150: 40 Woolen Capes"); a paired step adds what the gathering on the way already gave
    ("from your skinning on the way: 40 of 60").
@@ -80,5 +80,20 @@ professions' ranks trained on one visit when both are due.
   the green armour Tailoring made is disenchanted for Enchanting's dust (`disenchant.json`: Forever's
   server data per item level; the client's item levels). The Enchanting steps say how much of what they ask
   those crafts give; the rest is looted or bought.
+- **Fishing + Cooking** (`pair-fishing.js`) is blended the same way. Its track is the Fishing bands
+  (`gathering/fish-rounds.js`): per band and faction, every water of the side that gives the band's fish
+  as a farming loop of its stands (where players stood when they caught fish, `fishing-waters.json`), a
+  catch its node; the arrow takes the one water that gets the fish soonest, travel included. A stand is
+  left out near a hostile creature above the band's level (an elite counts three levels higher), the other
+  faction's towns and guards (an NPC of a side at level 50 or more with three spawns on the map) and boat
+  docks; a loop's lap adds 20 s for each hostile creature by a stand that is not grey to the loop's level
+  and three minutes for each death recorded within 30 yd of a stand, per catch, so the quieter water wins
+  a close call. Its draft is the cooking plan (vendor recipes whose fish the band gives), cut into the
+  Cooking ranks' sections; where the starting areas' fish differ, each group's stretches are a variant
+  (`variant <only>`: the same state for each, the least of what they leave after). Fishing's ranks are
+  their own steps (Journeyman at a trainer from level 10, Expert from its book, Artisan from Nat Pagle).
 - **Header.** `kind profession` and `skills <Gathering>, <Crafting>`; a paired guide's sections alternate
   between its two skills, each rising in order (lint checks each profession's order on its own).
+- **The Materials way.** A material a paired guide gathers itself (`collect … gather` beside an
+  `auction`) is gathered by default, whatever Options' default for new guides says: the guide is there to
+  level the gathering skill too. Mix's per-item pick (Buy) and Buy all still buy it.

@@ -1,13 +1,13 @@
 'use strict';
 // The farming-loop builder (tools/lib/professions/gathering/loop.js), the fishing waters table
-// (waters.js) and the Fishing + Cooking pairing (fishing-cooking.js), on synthetic data: no reference data.
+// (waters.js) and the Fishing + Cooking rounds and pairing (fish-rounds.js), on synthetic data: no reference data.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 
-const { buildLoop, hazards, pointLevels, levelFor } = require('../tools/lib/professions/gathering/loop');
+const { buildLoop, hazards, pointLevels, levelFor, threats } = require('../tools/lib/professions/gathering/loop');
 const Wt = require('../tools/lib/professions/gathering/waters');
-const { chance, cookingPlan } = require('../tools/lib/professions/gathering/fishing-cooking');
+const { chance, cookingPlan, asLoop, loopOnly, sideOf } = require('../tools/lib/professions/gathering/fish-rounds');
 const { makeProjector, dist } = require('../tools/lib/route/geo');
 const { pathLength } = require('../tools/lib/route/tour');
 
@@ -82,6 +82,43 @@ test('hazards and levels: hostile creatures above the level, the other side\'s t
 	assert.equal(hazards(ctx, 1, { level: 29, faction: 'Alliance' }).filter((a) => a.yards === 30).length, 0);
 });
 
+test('hazards (strict, the fishing rounds): an elite counts three levels higher; a guard of the other side is a hazard on its own, a lone keeper is none', () => {
+	const ctx = ctxWith(
+		[
+			npc(40, 20, null, 52, 50, { rank: 1 }), // a level-20 elite 20 yd from the stand at 50,50
+			npc(41, 20, null, 80, 50), // a level-20 creature
+			{ id: 50, name: 'Orgrimmar Grunt', level: 55, faction: 'H', spawns: { 1: { pts: [[20, 80], [21, 80], [20, 81]] } } }, // a guard post of three
+			npc(51, 60, 'H', 80, 80), // one keeper of the other side
+		],
+		[40, 41],
+	);
+	const [elite, plain, post, keeper] = [at(50, 50), at(78, 50), at(22, 82), at(80, 82)];
+	assert.deepEqual(pointLevels(ctx, 1, [elite, plain, post, keeper], 'Alliance', { strict: true }), [22, 19, null, 1], 'the elite asks 22, the creature 19; the guards are never safe, the keeper is no town');
+	assert.deepEqual(pointLevels(ctx, 1, [elite, post], 'Alliance'), [19, 1], 'not strict (the herb, ore and skinning loops): the plain rule');
+	assert.deepEqual(pointLevels(ctx, 1, [post], 'Horde', { strict: true }), [1], 'their own guards are no hazard');
+	const h = hazards(ctx, 1, { level: 21, faction: 'Alliance', strict: true });
+	assert.equal(h.filter((a) => a.yards === 30).length, 1, 'the elite, not the plain creature, at level 21');
+	assert.equal(h.filter((a) => a.yards === 150).length, 3, 'the three guards');
+	// Threats: creatures at a stop not grey to the player (six levels or more below).
+	assert.equal(threats(ctx, 1, [elite, plain], 20), 2);
+	assert.equal(threats(ctx, 1, [elite, plain], 26), 1, 'the creature is grey at 26, the elite (23) is not');
+	assert.equal(threats(ctx, 1, [keeper], 20), 0);
+});
+
+test('fish rounds: a lap counts a fight for each threat by a stop and the deaths recorded at its stands', () => {
+	const ctx = ctxWith([npc(40, 20, null, 50, 52)], [40]);
+	const band = { from: 75, to: 150 };
+	const stop = (x, y, stand) => ({ pt: project.point(1, x, y, 'e'), stand, pool: null });
+	const round = (stops) => ({ map: 1, level: 20, stops, fish: {}, full: null });
+	const quiet = asLoop(ctx, band, 'Alliance', round([stop(10, 10, { catches: 100 }), stop(10, 20, { catches: 100 })]));
+	const busy = asLoop(ctx, band, 'Alliance', round([stop(50, 50, { catches: 100, deaths: 4 }), stop(50, 60, { catches: 100 })]));
+	assert.equal(quiet.fights, 0);
+	assert.equal(busy.fights, 1);
+	assert.equal(busy.deaths, 0.2, 'four deaths in 100 catches, five casts a stop');
+	// Same walk and casts: the busy round's lap is a fight (20 s) and its deaths (180 s each) longer.
+	assert.equal(busy.seconds - quiet.seconds, 20 + 36);
+});
+
 test('waters: a loot group\'s rows without a chance share what the others leave', () => {
 	const rows = [
 		{ item: 1, chance: 40, g: 1 },
@@ -118,7 +155,7 @@ test('waters: zone loot and the no-loss skill from the world database', () => {
 	}
 });
 
-test('waters: stands are the densest catch positions three or more people fished at', () => {
+test('waters: stands are the densest catch positions three or more people fished at, with the deaths recorded by them', () => {
 	const catches = [];
 	const add = (person, x, y, item, n = 1) => {
 		for (let i = 0; i < n; i++) catches.push({ map: 1, x, y, person, items: [[item, 1]] });
@@ -129,10 +166,17 @@ test('waters: stands are the densest catch positions three or more people fished
 	add('c', 51, 51, 6289, 1);
 	add('a', 80, 80, 6291, 9);
 	add('b', 80, 80, 6291, 9);
+	// Two deaths within 30 yd of the stand, one 100 yd off.
+	const deaths = [
+		{ map: 1, x: 52, y: 50 },
+		{ map: 1, x: 50, y: 52.5 },
+		{ map: 1, x: 60, y: 50 },
+	];
 	const lp = makeProjector({ era: { 1: { c: 0, left: 0, right: -1000, top: 0, bottom: -1000 } }, forever: { 1: { c: 0, left: 0, right: -1000, top: 0, bottom: -1000 } } });
-	const st = Wt.stands(catches, lp);
+	const st = Wt.stands(catches, lp, deaths);
 	assert.equal(st[1].length, 1);
-	assert.deepEqual({ x: st[1][0].x, y: st[1][0].y, people: st[1][0].people, catches: st[1][0].catches, fish: st[1][0].fish }, { x: 50, y: 50, people: 3, catches: 8, fish: { 6289: 1, 6291: 7 } });
+	assert.deepEqual({ x: st[1][0].x, y: st[1][0].y, people: st[1][0].people, catches: st[1][0].catches, fish: st[1][0].fish, deaths: st[1][0].deaths }, { x: 50, y: 50, people: 3, catches: 8, fish: { 6289: 1, 6291: 7 }, deaths: 2 });
+	assert.equal(Wt.stands(catches, lp)[1][0].deaths, undefined, 'no deaths: no field');
 });
 
 test('waters: one person behind several contributors, installs and characters', () => {
@@ -143,7 +187,7 @@ test('waters: one person behind several contributors, installs and characters', 
 	assert.notEqual(P.person('20261104T000000Z-dddd-inst3-charC.json'), first);
 });
 
-// Cooking recipes as fishing-cooking.js reads them (professions.json, with fish/extra split).
+// Cooking recipes as fish-rounds.js reads them (professions.json, with fish/extra split).
 const rec = (spell, name, item, learnedAt, yellow, green, grey) => ({ spell, name, learnedAt, yellow, green, grey, fish: [{ item, count: 1 }], extra: [] });
 const SMALLFISH = rec(1, 'Smallfish', 6291, 1, 45, 65, 85);
 const LONGJAW = rec(2, 'Longjaw', 6289, 50, 90, 110, 130);
@@ -176,7 +220,6 @@ test('pairing: fish kept from an earlier band count, and a gap no fish covers is
 });
 
 test('farming loops: who may take a water, and which side it is on', () => {
-	const { loopOnly, sideOf } = require('../tools/lib/professions/gathering/fishing-cooking');
 	// Zephras Isle is the Skyborne start on both sides: only they reach its water.
 	assert.equal(loopOnly(2521, 'Alliance'), 'Skyborne,Alliance');
 	assert.equal(loopOnly(2521, 'Horde'), 'Skyborne,Horde');
