@@ -248,34 +248,6 @@ fn a_do_answer_names_the_quest_at_its_step_and_a_later_skip_passes_it() {
 	assert_eq!(out[2], json!({ "at": 3, "q": false }));
 }
 
-// An elite goal (the compiled `group`, kind "elite") in the live step, with no `when group` question: Engine.GroupDoing
-// names its quest too ("elite", its rank), so the banner offers "No group? Skip it"; skipped (Engine.SkipQuest), the
-// route goes on. An object among elites (`near`) needs no group and is not named.
-const ELITE_GUIDE: &str = r#"
-Polestar.RegisterGuide({
-	id = "test/group", pack = "test", title = "Group", minLevel = 1, maxLevel = 10,
-	steps = {
-		{ title = "The elite", goals = {
-			{ t = "kill", quest = 783, title = "A Threat Within", target = "Big Kobold", npc = 99999, count = 1, oi = 1, map = 1429, x = 40, y = 40, group = { kind = "elite", lvl = 5, rank = 1 } },
-		} },
-		{ title = "Onward", goals = { { t = "task", text = "Carry on" } } },
-	},
-})
-"#;
-
-#[test]
-fn an_elite_goal_in_the_live_step_is_named_for_no_group_skip_it_and_skipping_its_quest_passes_it() {
-	let out = run(Opts {
-		guide: ELITE_GUIDE,
-		before: "w.onQuest(783, { 1 })",
-		..opts(r#"emit({ at(), E.GroupDoing() }); E.SkipQuest(783, true); flush(); emit({ at = at(), q = E.GroupDoing() or false })"#)
-	});
-	assert_eq!(out[0], json!([1, 783, "A Threat Within", "elite", 1]));
-	assert_eq!(out[1], json!({ "at": 2, "q": false }));
-	let near = run(Opts { guide: &ELITE_GUIDE.replace("rank = 1 }", "rank = 1, near = true }"), before: "w.onQuest(783, { 1 })", ..opts("emit(E.GroupDoing() or false)") });
-	assert_eq!(near[0], json!(false), "an object among elites needs no group");
-}
-
 #[test]
 fn the_answer_is_kept_per_character_and_asked_for_no_more() {
 	let out = run(Opts { saved: json!({ "schema": 1, "guide": "test/group", "groupQuests": { "7": "skip" } }), ..opts("emit({ at = at(), q = E.GroupQuestion() or false })") });

@@ -2907,27 +2907,6 @@ In your route: the guide takes you to it. Bring a group.", "link": "No group? Sk
 	assert_eq!(out["answer"], "do", "{out}");
 }
 
-// An elite in the live step, asked about or not (Engine.GroupDoing's "elite"): the banner names its rank's line and
-// offers "No group? Skip it", which skips its quest (Engine.SkipQuest, whose notice offers the undo).
-#[test]
-fn an_elite_at_the_live_step_offers_no_group_skip_it_which_skips_its_quest() {
-	let out = run(r#"
-		uistub.eliteGoal = { quest = 3906, title = "Disharmony of Flame", rank = 1 }
-		uistub.openTabs(TABS, 1)
-		local B = GF.parts.banner
-		local shown = { kind = GF.BannerNotice() or false, text = B.Text:GetText(), link = B.Jump.Label:GetText() }
-		B.Jump:Click()
-		emit({ shown = shown, call = lastCall("SkipQuest") })"#)
-	.remove(0);
-	assert_eq!(
-		out["shown"],
-		json!({ "kind": "groupDo", "text": "Group quest: “Disharmony of Flame”
-Elite: group advised", "link": "No group? Skip it" }),
-		"{out}"
-	);
-	assert_eq!(out["call"], json!(["SkipQuest", 3906, true]), "{out}");
-}
-
 // The group quest's skip, undone from the banner (#2404): the quest is unanswered again, so the step asks once more.
 // Not undone, the undo goes after 20 seconds and the skip stands.
 #[test]

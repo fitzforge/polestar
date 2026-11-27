@@ -24,14 +24,14 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- moving on from a finished leveling guide (for SKIPPED_SECONDS); the group
 	-- quest the live step waits on
 	-- (`when group`: Skip it, the default, or Do it with a group; it cannot be
-	-- dismissed; after Skip it, its undo for SKIPPED_SECONDS); at the live
-	-- step's group quest answered Do it with a group, or its elite, "No group?
-	-- Skip it" (closed: for that quest, this session); the dungeon it
+	-- dismissed; after Skip it, its undo for SKIPPED_SECONDS); the dungeon it
 	-- waits on ("Dungeons in my route": Ask me; Run
 	-- it or Skip it, never dismissed), and after "No group? Skip it" the
 	-- dungeon's quests kept in the log; the step the player just skipped, with
 	-- its undo; why the guide just moved past a quest (while that step's guide
-	-- and next step are on screen); the step on screen when it is not the live
+	-- and next step are on screen); at the live step's group quest answered Do
+	-- it with a group, "No group? Skip it" (closed: for that quest, this
+	-- session); the step on screen when it is not the live
 	-- one (skipped: unskip it; looked at with ‹ ›: back to the live step); at a
 	-- chosen dungeon's run, until inside, "No group? Skip it", and a few steps
 	-- before it the start-looking line; then the end of a leveling
@@ -50,8 +50,6 @@ ns.UI.GuideFrame.Part(function(GF)
 	---------------------------------------------------------------------------
 
 	local SKIPPED_SECONDS = 20 -- how long the "Skipped …" notices stay
-	-- An elite's line by its rank, as under the goal (UI.GroupLine)
-	local ELITE_LINE = { [1] = L["Elite: group advised"], [2] = L["Rare elite: group advised"], [3] = L["Boss: group advised"] }
 	local notices = { closedTab = nil, questSkip = nil, groupSkip = nil, groupDoSeen = nil, stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil, dungeonKept = nil, soonSeen = nil, freshSeen = {}, taxiMap = nil }
 	GF.notices = notices
 
@@ -187,10 +185,6 @@ ns.UI.GuideFrame.Part(function(GF)
 		local gq, gtitle, ginfo
 		if E and E.GroupQuestion then gq, gtitle, ginfo = E.GroupQuestion() end
 		if gq then return "group", { quest = gq, title = gtitle, escort = ginfo and ginfo.escort or nil, note = ginfo and ginfo.text or nil } end
-		-- At the live step's group quest answered "do", or its elite: "No group? Skip it" (closed: for that quest, this session).
-		local doq, dotitle, dokind, dorank
-		if E and E.GroupDoing then doq, dotitle, dokind, dorank = E.GroupDoing() end
-		if doq and notices.groupDoSeen ~= doq then return "groupDo", { quest = doq, title = dotitle, elite = dokind == "elite", rank = dorank } end
 		-- A dungeon in the route not answered yet (Engine.DungeonQuestion): the guide waits and asks.
 		-- None of the dungeon notices while dungeons in the route are held back (ns.dungeonRoute).
 		local dq = ns.dungeonRoute and E and E.DungeonQuestion and E.DungeonQuestion()
@@ -201,6 +195,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		if k and g ~= nil and g.id == k.guideId and (not view or view.index ~= k.step) then return "stepSkip", k end
 		local s = notices.skipped
 		if s and g ~= nil and g.id == s.guideId and E.GetStepIndex() == s.to then return "skipped", s end
+		-- At the live step's group quest answered "do": "No group? Skip it" (closed: for that quest, this session).
+		local doq, dotitle
+		if E and E.GroupDoing then doq, dotitle = E.GroupDoing() end
+		if doq and notices.groupDoSeen ~= doq then return "groupDo", { quest = doq, title = dotitle } end
 		local a = E and awayNotice(E, g)
 		if a then return "away", a end
 		-- At a chosen dungeon's run, until inside: "No group? Skip it"; a few steps before it: start looking for a group.
@@ -593,9 +591,9 @@ ns.UI.GuideFrame.Part(function(GF)
 			placeLink(banner.Later, L["Do it with a group"], w + 10, -4)
 			banner.Close:Hide()
 		elseif kind == "groupDo" then
-			-- A group quest answered "do", or an elite, at the live step: the way out when no group comes.
+			-- A group quest answered "do", at the live step: the way out when no group comes.
 			banner.Icon:SetTexture(Theme.Media("icon-kill"))
-			local line = n.elite and (ELITE_LINE[n.rank] or ELITE_LINE[1]) or L["In your route: the guide takes you to it. Bring a group."]
+			local line = L["In your route: the guide takes you to it. Bring a group."]
 			banner.Text:SetText(string.format(L["Group quest: %s"], ns.Quoted(n.title) or "") .. "\n" .. line)
 			placeLink(banner.Jump, L["No group? Skip it"], 0, -4)
 			banner.Close:Show()
@@ -888,11 +886,8 @@ ns.UI.GuideFrame.Part(function(GF)
 				if GF.live then groupSkipped(n.quest, n.title) end
 			end
 		elseif kind == "groupDo" then
-			-- No group after all: skipped, with the usual undo (an elite's quest:
-			-- Engine.SkipQuest, whose PLAYER_SKIPPED_QUEST offers it).
-			if n.elite then
-				if E and E.SkipQuest then E.SkipQuest(n.quest, true) end
-			elseif E and E.AnswerGroup then
+			-- No group after all: skipped, with the usual undo.
+			if E and E.AnswerGroup then
 				E.AnswerGroup(n.quest, "skip")
 				if GF.live then groupSkipped(n.quest, n.title) end
 			end

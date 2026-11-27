@@ -682,14 +682,10 @@ function Engine.GroupQuestion()
 	if not g or Polestar.CharState().groupQuests[g.quest] ~= nil then return nil end
 	return g.quest, g.title
 end
--- uistub.eliteGoal = { quest, title, rank }: an elite goal in the live step
--- (Engine.GroupDoing's "elite"), until its quest is skipped.
-uistub.eliteGoal = nil
+-- Engine.GroupDoing: the stub's group question while it is answered "do".
 function Engine.GroupDoing()
 	local g = uistub.groupQuestion
 	if g and Polestar.CharState().groupQuests[g.quest] == "do" then return g.quest, g.title end
-	local e = uistub.eliteGoal
-	if e and not uistub.skippedQuests[e.quest] then return e.quest, e.title, "elite", e.rank end
 	return nil
 end
 function Engine.GroupAnswer(q) return Polestar.CharState().groupQuests[q] end

@@ -12171,11 +12171,7 @@ end
 -- The group quest the live step takes the player to because the answer is
 -- "do" (`when group`, per character or behavior.groupQuests), while it still
 -- has work (Own.groupOpen): its id and title, or nil. The banner offers
--- "No group? Skip it" there, so a "do" answer is never final. Else the first
--- elite goal of the live step not done yet (the compiled `group`, kind
--- "elite" and not `near`: an object among elites needs no group; not
--- optional, its quest not skipped): its quest, title, "elite" and the rank,
--- for the same offer (Engine.SkipQuest).
+-- "No group? Skip it" there, so a "do" answer is never final.
 function Engine.GroupDoing()
 	local step = guide and computed and guide.steps[computed]
 	if not step or step.along then return nil end
@@ -12186,13 +12182,6 @@ function Engine.GroupDoing()
 			end
 			local a = layoutOf(guide).accepts[p.q]
 			return p.q, (a and questTitle(a[1].goal)) or step.title
-		end
-	end
-	for g, goal in ipairs(step.goals) do
-		local grp = goal.group
-		if type(goal.quest) == "number" and type(grp) == "table" and grp.kind == "elite" and not grp.near and not goal.optional
-			and goalApplies(goal) and not Own.questSkipped(goal.quest) and not goalDone(computed, g, goal) then
-			return goal.quest, questTitle(goal), "elite", grp.rank
 		end
 	end
 	return nil
