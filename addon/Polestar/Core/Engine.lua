@@ -4729,6 +4729,43 @@ function Own.usedQuestDone(s, g, goal)
 	return false
 end
 
+-- The quests of the `turnin` goals at or after goal g of step s that ask for
+-- the one item untied collect goal g gathers (QuestDB.Asks), each once: a
+-- library book, whose quest the librarian offers only while the book is in
+-- the bags (#4280). The collect is done once one of them is handed in: the
+-- hand-in took the item. A `direct` or `repeatable` hand-in is left out: the
+-- client never flags a repeatable completed, but questDone reads the
+-- session's hand-ins (turnedIn) too, so one round would collect every later
+-- round's item (the insignias handed in again and again). Nil for any other
+-- goal, with no such hand-in, or without the quest database (read live,
+-- remembered per goal once it has answered).
+Own.handInsFor = setmetatable({}, { __mode = "k" })
+function Own.handInsOf(s, g, goal)
+	if goal.t ~= "collect" or goal.quest or not goal.item or (goal.count or 1) ~= 1 then return nil end
+	local hit = Own.handInsFor[goal]
+	if hit ~= nil then return hit or nil end
+	local Q = ns.QuestDB
+	if not (Q and Q.IsLoaded()) then return nil end
+	hit = false
+	for t = s, #guide.steps do
+		local goals = guide.steps[t].goals
+		for j = t == s and g + 1 or 1, #goals do
+			local later = goals[j]
+			local q = later.quest
+			if later.t == "turnin" and q and not later.direct and not later.repeatable and Q.Asks(q, goal.item) then
+				hit = hit or {}
+				local seen = false
+				for _, h in ipairs(hit) do
+					if h == q then seen = true end
+				end
+				if not seen then hit[#hit + 1] = q end
+			end
+		end
+	end
+	Own.handInsFor[goal] = hit
+	return hit or nil
+end
+
 -- Whether untied collect goal g of step s (one item at a time) feeds a later
 -- `use <item> quest Q.O` of its step whose objective takes more than one and
 -- is not done: each use spends the item and the next has to be fetched
@@ -4842,6 +4879,9 @@ function Own.goalDoneLive(s, g, goal)
 		end
 		if Own.starterTaken(s, g, goal) then return true end
 		if Own.usedLaterDone(s, g, goal) or Own.usedQuestDone(s, g, goal) then return true end
+		for _, q in ipairs(Own.handInsOf(s, g, goal) or NONE) do
+			if questDone(q) then return true end
+		end
 		return countState(goal)
 	elseif t == "buy" or t == "auction" then
 		return countState(goal)
