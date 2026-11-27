@@ -984,11 +984,7 @@ fn right_click_on_the_target_button_and_the_step_key_pings_mobs_and_npcs_the_lef
 	let plain = |name: &str| format!("/cleartarget [nocombat][dead]\n/targetexact {name}\n/cleartarget [dead]");
 	let out = run_with(script, "SLASH_PING1 = \"/ping\"", None);
 	let ping = |name: &str| plain(name) + "\n/ping [@target]";
-	assert_eq!(
-		out[0],
-		json!([true, true, ping("Thuros Lightfingers"), false]),
-		"the setting is gone, marking is on by default (Fitz, 2026-11-13), the rare button always pings on its left click"
-	);
+	assert_eq!(out[0], json!([true, true, ping("Thuros Lightfingers"), false]), "the setting is gone, marking is on by default (Fitz, 2026-11-13), the rare button always pings on its left click");
 	let both = |left: &str, right: &str| json!([[left, right, "macro", "macro"], [left, right, "macro", "macro"]]);
 	assert_eq!(out[1], both(&plain("Kobold Vermin"), &ping("Kobold Vermin")), "left: no ping; right: the same with the ping, at once (no setting)");
 	let marked = plain("Kobold Vermin") + "\n/tm [@target,harm,nodead] !8";

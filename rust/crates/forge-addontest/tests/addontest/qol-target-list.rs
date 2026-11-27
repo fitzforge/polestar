@@ -1689,11 +1689,7 @@ fn target_list_rows_mark_by_default_a_skull_on_a_mob_and_a_star_on_an_npc_and_pi
 	assert_eq!(out[0][2], json!([format!("{VERMIN}\n{skull}")]), "the mob's row with the skull, no ping on the left click");
 	assert_eq!(out[0][3], json!([format!("{VERMIN}\n/ping [@target]\n{skull}")]), "its right click pings");
 	assert_eq!(out[1][0], json!([format!("/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n{star}")]), "an NPC's row: the star");
-	assert_eq!(
-		out[1][1],
-		json!([format!("/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/ping [@target]\n{star}")]),
-		"its right click pings the NPC too"
-	);
+	assert_eq!(out[1][1], json!([format!("/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/ping [@target]\n{star}")]), "its right click pings the NPC too");
 }
 
 // Compact styles (qol.targetListStyle): slim rows, and portrait tiles in a
