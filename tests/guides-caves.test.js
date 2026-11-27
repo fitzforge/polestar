@@ -156,6 +156,13 @@ const FLOORS = [
 		target: (g) => g.t === 'collect' && g.item === item && g.quest === 98342,
 		z,
 	})),
+	{
+		// Manafire Lightbound (#4390): the Mana Sieve is upstairs in Shen'dralas's temple, and the walk ended on the floor
+		// below it. Its object has no spawn data: data/goal-heights.json's record, from players' recordings.
+		guide: 'forever/40-50/shendralas.guide',
+		target: (g) => g.t === 'collect' && g.item === 255662,
+		z: 169,
+	},
 ];
 
 for (const c of FLOORS) {

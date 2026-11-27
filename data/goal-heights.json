@@ -338,6 +338,19 @@
 				"ref": "#3394: 187 of 190 kills of Cinderscale dragonkin at this spot by 74 people were indoors; of the walking grid's indoor floors here (about 168, 172 and 189), 189 is the hollow's, the floor of the Cubic Draconia 20 yards away and of the whelps' point"
 			},
 			"note": "40-50/01b-riverglades (both factions), step \"The Cinderscale hollow\": the warriors' kill point by the Cubic Draconia."
+		},
+		{
+			"id": "rec-2652-45.9-78.2",
+			"map": 2652,
+			"x": 45.9,
+			"y": 78.2,
+			"frame": "live",
+			"z": 169,
+			"source": {
+				"kind": "recording",
+				"ref": "#4390: 95 people looted the Mana Sieve (object 584729, no spawn height) here, and 87 of the 97 loots are followed within 25 seconds by a fall: players jump down from the upper floor. The walking grid's floors here are 147 and 169; a walk with no height ends on the 147 floor under it (the report: the Sieve is upstairs, the arrow led below it), and 169 is the upper floor's"
+			},
+			"note": "40-50/shendralas (both factions), step \"The temple: the Mana Sieve\": the Sieve's collect point."
 		}
 	]
 }
