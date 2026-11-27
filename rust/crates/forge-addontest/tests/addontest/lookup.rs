@@ -324,6 +324,42 @@ emit({ map = rows[1].map, goals = Polestar.Engine.GetGuide().steps[1].goals })
 }
 
 #[test]
+fn crafting_trains_the_missing_rank_and_learns_the_recipe_from_distinct_teachers_4214() {
+	let mut c = codex();
+	c["npcs"]["5010"]["spawns"] = json!([{ "map": 9001, "x": 50, "y": 50, "f": "e" }]);
+	let mut teacher = c["npcs"]["5010"].clone();
+	teacher["id"] = json!(5011);
+	teacher["name"] = json!("Recipe Teacher");
+	teacher["spawns"] = json!([{ "map": 9001, "x": 70, "y": 70, "f": "e" }]);
+	c["npcs"]["5011"] = teacher;
+	c["professions"] = json!({ "197": { "id": 197, "name": "Tailoring", "ranks": [
+		{ "minSkill": 0, "max": 75, "trainers": { "Alliance": [5010], "Horde": [] } },
+		{ "minSkill": 50, "max": 150, "trainers": { "Alliance": [5010], "Horde": [] } }
+	], "trainerSkill": {}, "recipeTrainers": { "9601": { "Alliance": [5011], "Horde": [] } } } });
+	let pack = write_codex_pack(&c, &CodexOpts::default());
+	let out = run_with(
+		r#"
+local rows = Polestar.Lookup.Sources("item", 8005)
+Polestar.Lookup.Guide("item", 8005)
+emit({ trainer = rows[1].trainer, teacher = rows[1].recipeTrainer, goals = Polestar.Engine.GetGuide().steps[1].goals })
+"#,
+		&Opts { with_pack: false, setup: format!("{}\nw.learnSkill(197, \"Tailoring\", 60, 75)", pack.stub_lua), ..Default::default() },
+	)
+	.remove(0);
+	assert_eq!(out["trainer"], 5010);
+	assert_eq!(out["teacher"], 5011);
+	assert_eq!(
+		pick(&out["goals"], &["t", "npc", "map", "x", "y"]),
+		json!([
+			{ "t": "train", "npc": 5010, "map": 9001, "x": 50, "y": 50 },
+			{ "t": "skill", "npc": null, "map": null, "x": null, "y": null },
+			{ "t": "learn", "npc": 5011, "map": 9001, "x": 70, "y": 70 },
+			{ "t": "craft", "npc": null, "map": null, "x": null, "y": null }
+		])
+	);
+}
+
+#[test]
 fn sources_reputation_and_the_faction_of_a_reputation_gate_a_source() {
 	let [before, wolf] = first::<2>(run(r#"emit((rows("tabard", 8006))); emit((rows("mount", 8012)))"#));
 	let after = run_with(r#"emit((rows("tabard", 8006)))"#, &Opts { setup: r#"w.setRep(9100, "Vale Wardens", 7, 0, 0, 21000)"#.into(), ..Default::default() }).remove(0);

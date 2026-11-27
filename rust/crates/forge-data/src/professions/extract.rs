@@ -670,7 +670,9 @@ pub fn extract(t: &Tables, ctx: &Ctx) -> Extracted {
 	let ix = index(t);
 	// Reverse the positive Forever lists once, including Effect 36 teaching wrappers.
 	let mut recipe_teachers: FxHashMap<i64, Vec<i64>> = FxHashMap::default();
-	for (&creature, spells) in ctx.trainer_lists {
+	// Older rows supply a teacher only when that creature has no sniffed list of its own.
+	let fallback = ctx.trainer_any.iter().filter(|(creature, _)| !ctx.trainer_lists.contains_key(*creature));
+	for (&creature, spells) in ctx.trainer_lists.iter().chain(fallback) {
 		for spell in spells {
 			recipe_teachers.entry(*spell).or_default().push(creature);
 			for effect in ix.effects.get(spell).into_iter().flatten().filter(|e| e.effect == 36 && e.trigger > 0) {

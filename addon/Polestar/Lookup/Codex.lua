@@ -22,11 +22,11 @@
 --       spawn there, nil when not known or the pack predates it)
 --   Codex.FollowUps(questId) -> { quest, ... }   -- the quests whose pre or preAny names it
 --   Codex.Spell(spellId) -> { id, kind, item, name, class } | nil
---   Codex.Profession(skillLine) -> { id, name, ranks = { { minSkill, max, A = { npc, ... }, H = { ... } } x4 },
---       trainerSkill = { [npc] = skill } } | nil   -- nil for a profession without rank lists, or a pack from before #3784
+--   Codex.Profession(skillLine) -> { id, name, ranks = { { minSkill, max, A = { npc, ... }, H = { ... } } },
+--       trainerSkill = { [npc] = skill } } | nil   -- ranks may be empty when the pack records only recipe teachers
 --   Codex.RecipeItems(spellId) -> { itemId, ... } | nil   -- the recipe items that teach a craft
---   Codex.RecipeTrainers(spellId) -> { npcId, ... } | nil -- exact teachers; absent in older packs
 --       (each recipe item's record names its spell), in pack order; built on the first ask (#2505)
+--   Codex.RecipeTrainers(spellId) -> { npcId, ... } | nil -- exact teachers; absent in older packs
 --   Codex.Name(kind, id) -> name | nil   -- no decoding; "item" spans every item kind,
 --                                           "npc" npc + rare, "object" object + treasure
 --   Codex.EnglishName(kind, id) -> name | nil   -- as Name, always the pack's English (a

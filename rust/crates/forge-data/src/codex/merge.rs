@@ -592,7 +592,7 @@ pub struct Merged {
 	pub factions: Obj,
 	pub spells: Obj,
 	pub frames: Obj,
-	/// Each profession's per-rank trainers and its trainerSkill gates (#3784).
+	/// Each profession's rank trainers, trainerSkill gates and per-recipe teachers.
 	pub professions: Obj,
 	/// evidence.noPvp, evidence.cut.{drop, rare, treasure} (parity's).
 	pub no_pvp: Vec<f64>,
@@ -815,8 +815,7 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 	let professions = Obj::new();
 	for (id, p) in oentries(&fv.professions) {
 		set_skill(&mut skill_line_of, &p.get("name").to_js_string(), str_to_num(&id));
-		// The per-rank trainer lists and trainerSkill (#3784): secondary professions (First Aid, Cooking,
-		// Fishing) have no trainers object on Expert and Artisan, so they get no record.
+		// Keep recipe teachers even when a profession lacks a full set of rank trainer lists.
 		let ranks = p.get("ranks").items();
 		let sided = |r: &V| r.get("trainers").is_obj() && (r.get("trainers").has("Alliance") || r.get("trainers").has("Horde"));
 		let recipe_trainers = Obj::new();

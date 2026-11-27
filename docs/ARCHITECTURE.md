@@ -11755,7 +11755,9 @@ extended cost, which sell for a currency such as Merchant's Favor rather than go
 whose item only they sell has `source: "currency"` and no `cost`); ranks carry `minSkill`, `spell`, `trainers { A, H }`, `cost`
 (copper, the sniffed trainer lists' price of the spell that teaches the rank; the rank's
 `trainers` also gain every spawned creature whose sniffed list teaches it, such as Zephras Isle's) and,
-for secondary skills, `book`/`quest`; recipes may carry `enchant`,
+for secondary skills, `book`/`quest`. `recipes[].trainers` lists the NPC IDs for each faction
+(`Alliance`, `Horde`) known to teach that spell. Each NPC's sniffed list takes precedence over its
+other lists; the field is omitted if no eligible teacher is known. Recipes may carry `enchant`,
 `learnedAtEstimated`, `learnedAtFrom`, `requires` (specialisation), `reputation { faction,
 standing }`, `tools`, `focus`, `races`, `classes`, `skillUps`. A trainer recipe's
 `learnedAt` and `cost` come from the Forever TrinityCore world DB's sniffed
