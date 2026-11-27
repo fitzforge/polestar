@@ -2281,7 +2281,8 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 			}
 			let gmap = goal.get("map");
 			// A `skill … nearest` step's gotos are its places, each on its own map: no zone to match.
-			let nearest_place = g.get("verb").as_str() == Some("goto") && (g.get("nearest").truthy() || s.get("goals").items().iter().any(|x| x.get("verb").as_str() == Some("skill") && x.get("nearest").truthy()));
+			let nearest_place =
+				g.get("verb").as_str() == Some("goto") && (g.get("nearest").truthy() || s.get("goals").items().iter().any(|x| x.get("verb").as_str() == Some("skill") && x.get("nearest").truthy()));
 			// A step on the world map (`zone Azeroth`: a profession guide's trainer visit, which pins each faction
 			// to its teacher in another zone) spans every zone.
 			let world_step = !matches!(zone_id, V::Null) && data.zone(&zone_id).get("type").as_num().is_some_and(|t| t <= 1.0);

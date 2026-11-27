@@ -1543,7 +1543,8 @@ fn parse_goal(verb: &str, line: &[u16], lex: &Lex, ln: f64, cx: &mut Cx) -> Opti
 					fail!(format!("`{w}` already given positionally"));
 				}
 				// `learn <spell> npc <id>,<id>…`: several trainers, the arrow takes the nearest of them.
-				let list = toks.get(i + 1).filter(|t| w == "npc" && verb == "learn" && !t.quoted && t.text.contains(',') && t.text.split(',').all(|p| !p.is_empty() && p.bytes().all(|b| b.is_ascii_digit())));
+				let list =
+					toks.get(i + 1).filter(|t| w == "npc" && verb == "learn" && !t.quoted && t.text.contains(',') && t.text.split(',').all(|p| !p.is_empty() && p.bytes().all(|b| b.is_ascii_digit())));
 				if let Some(t) = list {
 					let ids: Vec<V> = t.text.split(',').map(|p| V::from(p.parse::<f64>().unwrap())).collect();
 					goal.set("npcs", ids);
