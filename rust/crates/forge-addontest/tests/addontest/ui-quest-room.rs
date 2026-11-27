@@ -177,16 +177,27 @@ local point, relative, relPoint, x = guide:GetPoint()
 local left = row:GetWidth() + x - guide:GetWidth()
 local fits = point == "RIGHT" and relative == row and relPoint == "RIGHT" and row.Abandon:IsShown()
 	and x < -row.Abandon:GetWidth() and row.Title:GetWidth() < left and row.Why:GetWidth() < left
+local D = Polestar.Dungeons
+local mark, tooltip = D.QuestMark, D.MarkTooltip
+D.QuestMark = function(q) if q == 9005 then return { key = "gnomeregan" } end return mark(q) end
+D.MarkTooltip = function(q) if q == 9005 then return "Part of the Gnomeregan quests" end return tooltip(q) end
+Polestar.UI.LayoutQuestRoom()
+local _, neighbor, _, gap = row.Dungeon:GetPoint()
+local dungeonLeft = row:GetWidth() - row.Abandon:GetWidth() + gap - row.Dungeon:GetWidth()
+local guideRight = row:GetWidth() + select(4, guide:GetPoint())
+local allFit = row.Dungeon:IsShown() and neighbor == row.Abandon and gap < 0 and guideRight < dungeonLeft
+	and row.Title:GetWidth() < guideRight - guide:GetWidth() and row.Why:GetWidth() < guideRight - guide:GetWidth()
 local carried = click(row)
 measure("elsewhere")
 local elsewhere = click(F.rows[2])
 measure()
-emit({ carried = carried, elsewhere = elsewhere, fits = fits, tip = tip or false,
+emit({ carried = carried, elsewhere = elsewhere, fits = fits, allFit = allFit, tip = tip or false,
 	hidden = not F.rows[1].GuideMe:IsShown() })"#,
 	);
 	assert_eq!(out["carried"], json!({ "id": "lookup/carried/9005", "quests": [9005], "map": 1429, "closed": true }), "{out}");
 	assert_eq!(out["elsewhere"], json!({ "id": "lookup/carried/9010", "quests": [9010], "map": false, "closed": true }), "{out}");
 	assert_eq!(out["fits"], true, "the text ends left of Guide me, which ends left of Abandon: {out}");
+	assert_eq!(out["allFit"], true, "the layout also makes space for the dungeon shortcut: {out}");
 	assert_eq!(out["tip"], "Guide me to this hand-in", "{out}");
 	assert_eq!(out["hidden"], true, "reused Make room rows hide the button: {out}");
 }
