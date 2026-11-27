@@ -242,9 +242,11 @@ pub fn point_height(data: &Data, goal: &V) -> Option<V> {
 	best.map(|b| b.1)
 }
 
-/// The goal's height, or None (entities, else the one creature's walk, else point_height).
+/// The goal's height, or None (entities, else point_height, else the one creature's walk: a record from players'
+/// recordings at the point says more than a height lent from a spawn up to 100 yd off, which can fall between two
+/// floors there, as at Harbinger Balthazad's point in the Trade Quarter, 5 yd from both the floors at -62 and -52).
 pub fn goal_height(data: &Data, goal: &V) -> Option<V> {
-	nearest_height(data, &entities(data, goal), goal).or_else(|| walk_height(data, goal, goal)).or_else(|| point_height(data, goal))
+	nearest_height(data, &entities(data, goal), goal).or_else(|| point_height(data, goal)).or_else(|| walk_height(data, goal, goal))
 }
 
 /// A spawn spot's height ({ x, y, r } of the goal's `spots`, on the goal's map and frame), or None: the nearest spawn

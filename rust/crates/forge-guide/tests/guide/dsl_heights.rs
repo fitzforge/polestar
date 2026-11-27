@@ -269,6 +269,12 @@ fn an_npc_to_talk_to_with_one_spawn_with_a_height_lends_it_to_its_points_within_
 	let (talk, kill) = zs(&data);
 	assert_eq!(talk, Some(json!(5)), "his one spawn 60 yd off");
 	assert_eq!(kill, None, "a kill's target is many creatures, its one spawn 40 yd off says nothing");
+	// A goal-heights.json record at the point (players' floor there) wins over the lent height, which can fall between
+	// two floors (Balthazad's point: -57.1 between the Trade Quarter's -62 and -52).
+	let mut rec = height_data();
+	rec.spawnz = data.spawnz.clone();
+	rec.goal_heights = v(&json!([{ "id": "rec", "map": 1429, "x": 48.94, "y": 40.17, "frame": "era", "z": 7.5, "source": { "kind": "recording", "ref": "fixture" } }]));
+	assert_eq!(zs(&rec).0, Some(json!(7.5)), "the record at his point");
 	data.spawnz.get("npc").set("196", v(&json!([[1415, e.0 + 60.0, e.1, 5], [1415, e.0 - 60.0, e.1, 9]])));
 	assert_eq!(zs(&data).0, None, "two spawns, neither within 15 yd: which one is unknown");
 	data.spawnz.get("npc").set("196", v(&json!([[1415, e.0 + 110.0, e.1, 5]])));

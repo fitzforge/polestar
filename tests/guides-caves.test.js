@@ -184,12 +184,13 @@ const SPOTS = [
 		z: [136.1, 151.4, 166.3, 168.1],
 	},
 	{
-		// gidi_ (#4363): Harbinger Balthazad walks round the Undercity's Trade Quarter; his points take his one spawn's
-		// height, not the ruins' above.
+		// gidi_ (#4363): Harbinger Balthazad walks round the Undercity's Trade Quarter; his spots take his one spawn's
+		// height, not the ruins' above, and his point the floor players stand on there (a goal-heights.json record: the
+		// spawn's -57.1 falls between the point's two floors, -62 and -52).
 		guide: 'forever/horde/50-60/01-un-goro-crater.guide',
 		target: (g) => g.t === 'accept' && g.npc === 10879,
 		z: [-57.1, -57.1, -57.1],
-		point: -57.1,
+		point: -62,
 	},
 ];
 

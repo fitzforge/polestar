@@ -181,13 +181,15 @@ function pointHeight(data, goal) {
 	return best ? best.z : undefined;
 }
 
-// The goal's height, or undefined (entities, else the one creature's walk,
-// else pointHeight).
+// The goal's height, or undefined (entities, else pointHeight, else the one
+// creature's walk: a record from players' recordings at the point says more
+// than a height lent from a spawn up to 100 yd off, which can fall between
+// two floors there, as at Harbinger Balthazad's point in the Trade Quarter).
 function goalHeight(data, goal) {
 	const z = nearestHeight(data, entities(data, goal), goal);
 	if (z !== undefined) return z;
-	const w = walkHeight(data, goal, goal);
-	return w !== undefined ? w : pointHeight(data, goal);
+	const p = pointHeight(data, goal);
+	return p !== undefined ? p : walkHeight(data, goal, goal);
 }
 
 // A spawn spot's height ({ x, y, r } of the goal's `spots`, on the goal's map

@@ -13151,7 +13151,7 @@ do
 				{
 					title = "{npc:10879}",
 					goals = {
-						{ t = "accept", quest = 5094, title = "A Call to Arms: The Plaguelands!", npc = 10879, npcName = "Harbinger Balthazad", minLevel = 50, qlvl = 50, closedBy = { 5096, 5093, 5095 }, endNpcs = { 10837 }, xp = 470, preTitles = { [5093] = "A Call to Arms: The Plaguelands!", [5095] = "A Call to Arms: The Plaguelands!", [5096] = "Scarlet Diversions" }, map = 1458, x = 67.01, y = 42.74, z = -57.1, spotsPacked = "66.1,39.5,-57.1,58,11;72.6,43.5,-57.1,31,4;63.1,53.4,-57.1,18,3", note = "{npc:10879}, the {object:36078}, beside the bat master" },
+						{ t = "accept", quest = 5094, title = "A Call to Arms: The Plaguelands!", npc = 10879, npcName = "Harbinger Balthazad", minLevel = 50, qlvl = 50, closedBy = { 5096, 5093, 5095 }, endNpcs = { 10837 }, xp = 470, preTitles = { [5093] = "A Call to Arms: The Plaguelands!", [5095] = "A Call to Arms: The Plaguelands!", [5096] = "Scarlet Diversions" }, map = 1458, x = 67.01, y = 42.74, z = -62, spotsPacked = "66.1,39.5,-57.1,58,11;72.6,43.5,-57.1,31,4;63.1,53.4,-57.1,18,3", note = "{npc:10879}, the {object:36078}, beside the bat master" },
 					},
 				},
 				{
