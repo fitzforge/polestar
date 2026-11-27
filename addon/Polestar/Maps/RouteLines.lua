@@ -58,7 +58,7 @@
 --
 -- nav.dangerLine (off by default) adds, under the walk, the way the walk did
 -- not take: the stretch of the straight line through each hostile town it goes
--- round, as a red dashed line, labelled "Danger: <town>" on the world map. Only
+-- round, as a red dotted line with a cross, labelled "Danger: <town>" on the world map. Only
 -- the re-routed walks carry one (geometry leg.danger); display only, in the
 -- line and dots styles (the sparkle style draws none).
 --

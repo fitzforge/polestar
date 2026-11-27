@@ -1782,10 +1782,11 @@ fn walking_on_and_beside_the_path_every_style_always_shows_marks_by_the_arrow() 
 	}
 }
 
-// The red dashed stretch through a hostile town a walk goes round (nav.dangerLine, the geometry leg's `danger`):
-// dashes in every style, in its own colour, named on the world map, and only on a walk that has one.
+// The red stretch through a hostile town a walk goes round (nav.dangerLine, the geometry leg's `danger`): round dots
+// with a cross at its middle in every style, in its own colour, never a dash (a guessed walk's), named on the world
+// map, and only on a walk that has one.
 #[test]
-fn a_danger_stretch_is_dashed_in_its_own_colour_not_dots_not_a_solid_line() {
+fn a_danger_stretch_is_red_dots_with_a_cross_never_a_dash() {
 	let out = strokes(
 		r#"
 		local RED = { 1, 0, 0 }
@@ -1793,25 +1794,26 @@ fn a_danger_stretch_is_dashed_in_its_own_colour_not_dots_not_a_solid_line() {
 		for _, style in ipairs({ "line", "dots" }) do
 			local buf = S.New()
 			S.Map(buf, { path("danger", { { 100, 500 }, { 900, 500 } }) }, view({ style = style ~= "dots" and style or nil, colors = { danger = RED } }))
-			local r = { n = buf.n, dots = 0, red = 0, longest = 0, gaps = 0 }
+			local r = { n = buf.n, dots = 0, red = 0, crossX = 0, crossStrokes = 0 }
 			for i = 1, buf.n do
-				if buf.dot[i] then r.dots = r.dots + 1 end
+				if buf.dot[i] then r.dots = r.dots + 1 else
+					r.crossStrokes = r.crossStrokes + 1
+					r.crossX = r.crossX + (buf.x1[i] + buf.x2[i]) / 2
+				end
 				if buf.color[i] == RED then r.red = r.red + 1 end
-				local len = math.abs(buf.x2[i] - buf.x1[i])
-				if len > r.longest then r.longest = len end
-				if i > 1 and buf.x1[i] - buf.x2[i - 1] > 0.5 then r.gaps = r.gaps + 1 end
 			end
+			if r.crossStrokes > 0 then r.crossX = r.crossX / r.crossStrokes end
 			out[style] = r
 		end
 		emit(out)"#,
 	);
 	for style in ["line", "dots"] {
 		let r = &out[style];
-		assert!(f(&r["n"]) > 10.0, "{style}: a dashed run of {} strokes", r["n"]);
-		assert_eq!(r["dots"], 0, "{style}: no breadcrumbs");
+		assert!(f(&r["dots"]) > 10.0, "{style}: a run of round dots ({})", r["dots"]);
+		assert_eq!(r["crossStrokes"], 2, "{style}: one cross, two strokes, besides the dots");
 		assert_eq!(r["red"], r["n"], "{style}: every stroke in the danger colour");
-		assert!(f(&r["longest"]) <= 7.0 + 1e-6, "{style}: no stroke longer than a dash ({})", r["longest"]);
-		assert!(f(&r["gaps"]) > 10.0, "{style}: gaps between the dashes ({})", r["gaps"]);
+		// The map's units are fractions of the width (1000 here): the cross sits at the middle of 100..900.
+		assert!((f(&r["crossX"]) - 500.0).abs() < 1.0, "{style}: the cross at the middle of the stretch ({})", r["crossX"]);
 	}
 }
 

@@ -512,8 +512,8 @@ register(L["Route lines"], {
 		help = L["The dark edge under the line and dots (the line's soft shadow), so they stand out on bright ground. 0% takes it away."],
 		search = "shadow, outline, border, contrast, edge, stroke, readability, dark edge, halo" },
 	{ kind = "toggle", key = "nav.dangerLine", label = L["Danger lines"], disabled = off,
-		help = L["On the world map and the minimap, draw the straight way through the other faction's town that a walk goes round as a red dashed line, and on the world map name it: \"Danger: Southshore\". It only shows it: the route and the arrow stay as they are. Needs route lines."],
-		search = "danger, red line, dashed, enemy town, hostile town, avoid, detour, map" },
+		help = L["On the world map and the minimap, draw the straight way through the other faction's town that a walk goes round as a red dotted line with a cross at its middle, and on the world map name it: \"Danger: Southshore\". It only shows it: the route and the arrow stay as they are. Needs route lines."],
+		search = "danger, red line, dotted, cross, enemy town, hostile town, avoid, detour, map" },
 }, { toggle = Ref("toggle", "nav.routeLines", { label = L["Route lines"] }) })
 
 -- The walks' own colour and the route colour presets (nav.dotColor): the

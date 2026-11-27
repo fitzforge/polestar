@@ -447,8 +447,9 @@ local function modeOf(path)
 	if kind == "walk" then return lined and "line" or "dots" end
 	-- A flight in the line style: dashed, or (view.dash false) a line as the walk's, in its own colour.
 	if kind == "flight" and lined then return dashFlights and "dash" or "line" end
-	-- The way round a hostile town (RouteLines, nav.dangerLine): dashed in every style.
-	if kind == "danger" then return "dash" end
+	-- The way round a hostile town (RouteLines, nav.dangerLine): round dots in every style, with
+	-- a cross at its middle, so it never reads as a guessed walk (a wide faded dash).
+	if kind == "danger" then return "dots" end
 	return "solid"
 end
 
@@ -478,6 +479,14 @@ local function Tail(path, index, bx, by, point, kx, ky, line, color)
 			bx, by = ax, ay
 		end
 	end
+end
+
+-- A cross, CROSS px a side, at x, y (the painter's units): the mark of a danger stretch.
+local CROSS = 4
+local function Cross(x, y, color)
+	local h = CROSS / scale
+	Stroke(x - h, y - h, x + h, y + h, color)
+	Stroke(x - h, y + h, x + h, y - h, color)
 end
 
 ---------------------------------------------------------------------------
@@ -559,6 +568,11 @@ function Strokes.Map(buffer, paths, view)
 						pc, px, py = c, x, y
 					end
 				end
+			end
+			if kind == "danger" and path.n >= 2 then
+				local ax, ay = position(path.c[1], path.x[1], path.y[1])
+				local bx, by = position(path.c[path.n], path.x[path.n], path.y[path.n])
+				if ax and bx then Cross((ax + bx) / 2 * width, -(ay + by) / 2 * height, color) end
 			end
 		end
 	end
@@ -718,6 +732,14 @@ function Strokes.Minimap(buffer, paths, view)
 						if px and bx and pc == ci then MinimapSegment(px, py, bx, by, color, mode) end
 						pc, px, py = ci, bx, by
 					end
+				end
+			end
+			if kind == "danger" and path.n >= 2 and cs[1] == c and cs[path.n] == c then
+				local ax, ay = Project(xs[1], ys[1], x, y, radius, cosine, sine)
+				local bx, by = Project(xs[path.n], ys[path.n], x, y, radius, cosine, sine)
+				local mx, my = (ax + bx) / 2, (ay + by) / 2
+				if abs(mx) <= mmWithin and abs(my) <= mmWithin and (mmSquare or mx * mx + my * my <= mmWithin * mmWithin) then
+					Cross((mx + 1) * width / 2, (my - 1) * height / 2, color)
 				end
 			end
 		end
