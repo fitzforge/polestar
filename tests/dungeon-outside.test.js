@@ -192,6 +192,8 @@ local taken = rows()
 local p = GF.RegionFrame("pickups")
 local _, rel = p:GetPoint(1)
 local entrance = GF.RegionFrame("entrance")
+Polestar.Dungeons.SetPickupsOpen(INSIDE, true)
+GF.Update()
 local sub = {}
 for i = 1, p.psRows do sub[i] = p.Rows[i].Sub:GetText():gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "") end
 emit({ titles = titles, step = v.title, first = first, rows = taken, pickupsUnder = rel == GF.parts.goals or rel == GF.parts.card.Tip,
@@ -214,6 +216,7 @@ test('a pick-up ticks when accepted and stays until the step moves on; the count
 QUESTS[95216].start.npc = { 266484 }
 w.moveTo(1458, 57, 89)
 Polestar.Set("ui.shown", true)
+Polestar.Dungeons.SetPickupsOpen(INSIDE, true)
 Polestar.Dungeons.PickUp(INSIDE)
 stub.advance(0.5)
 GF.Render() GF.Layout()
@@ -248,6 +251,7 @@ emit(out)
 test("a click on a pick-up points the arrow at its giver, or at its chain's giver while it waits on one, as a goal row's click does", () => {
 	const [out] = run(`
 Polestar.Set("ui.shown", true)
+Polestar.Dungeons.SetPickupsOpen(INSIDE, true)
 Polestar.Dungeons.PickUp(INSIDE)
 stub.advance(0.5)
 GF.Render() GF.Layout()
@@ -302,4 +306,65 @@ emit({ steps = steps })
 	const work = steps.indexOf("The Pariah's Instructions");
 	assert.ok(work >= 0, steps.join(' | '));
 	assert.equal(steps[steps.length - 1], 'Maraudon', 'the way in last');
+});
+
+const ACCEPTS = `
+local function accepts(def)
+	local out = {}
+	for i, s in ipairs(def.steps) do
+		local q = {}
+		for _, g in ipairs(s.goals) do if g.t == "accept" then q[#q + 1] = g.quest end end
+		out[i] = { title = s.title, accepts = q }
+	end
+	return out
+end
+`;
+
+test('the step is one stop: with the quests for the run folded it shows that stop\'s quests only (Tabitha\'s first), the rest are the one row', () => {
+	const [out] = run(CHAINS_DONE + ACCEPTS + `
+w.moveTo(1421, 44.5, 42.9)
+Polestar.Set("ui.shown", true)
+Polestar.Dungeons.PickUp(INSIDE)
+stub.advance(0.5)
+GF.Render() GF.Layout()
+local rows = {}
+for _, r in ipairs(GF.rows) do
+	if r:IsShown() and r.psGoal then rows[#rows + 1] = (r.Text:GetText():gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) end
+end
+local p = GF.RegionFrame("pickups")
+local v = E.GetStepView(E.GetStepIndex())
+local quests = {}
+for _, g in ipairs(v.goals) do if g.t == "accept" then quests[#quests + 1] = g.quest end end
+emit({ steps = accepts(E.GetGuide()), step = v.title, quests = quests, rows = rows, head = p.Head.Text:GetText(), right = p.Head.Right:GetText(), listed = p.psRows })
+`);
+	assert.equal(out.step, 'Tabitha Heartweaver');
+	assert.deepEqual(out.quests, [92401], "the stop's one quest");
+	assert.equal(out.rows.length, 1, out.rows.join(' | '));
+	assert.match(out.rows[0], /Accept.*A Frightened Request/);
+	assert.equal(out.head, 'Quests for the run');
+	assert.equal(out.right, '0 / 4');
+	assert.equal(out.listed, 0, 'the others are in the folded row, not the page');
+	assert.equal(out.steps.length, 5, 'four stops and the way in: four separate stops are four steps');
+	assert.deepEqual(out.steps.slice(0, 4).map((s) => s.accepts.length), [1, 1, 1, 1]);
+});
+
+test("givers who stand together are one step: within the leveling stop's 60 yards, not beyond; the same NPC as before", () => {
+	const [near, far, same] = run(CHAINS_DONE + ACCEPTS + `
+local def = function() Polestar.KindDungeon.Forget(); return accepts(Polestar.Dungeons.PickupGuide(INSIDE)) end
+-- A yard is 20 map units here (maps 2000 yards wide): Theodore 58 yards from Morbin, then 64.
+NPCS[11835].spawns = { { map = 1458, x = 57.9 + 2.9, y = 89.5 } }
+emit(def())
+NPCS[11835].spawns = { { map = 1458, x = 57.9 + 3.2, y = 89.5 } }
+emit(def())
+-- Morbin gives The New Plague as well: one NPC, one step.
+NPCS[11835].spawns = { { map = 1458, x = 20, y = 20 } }
+QUESTS[95216].start.npc = { 266484 }
+emit(def())
+`);
+	const together = (steps) => steps.some((s) => { const a = Object.values(s.accepts); return a.includes(92421) && a.includes(95216); });
+	assert.equal(together(near), true, 'Morbin and Theodore 58 yards apart: one step');
+	assert.equal(near.length, 4, JSON.stringify(near));
+	assert.equal(together(far), false, '64 yards apart: two steps');
+	assert.equal(far.length, 5);
+	assert.equal(together(same), true, 'one NPC giving two: one step');
 });

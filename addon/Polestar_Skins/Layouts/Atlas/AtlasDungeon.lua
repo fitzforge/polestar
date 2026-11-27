@@ -1,6 +1,6 @@
 -- Atlas's dungeon parts (docs/DESIGN.md, "The Guide Window" and "The Dungeon
 -- Tracker"; Polestar/UI/GuideFrameKindDungeon.lua, Polestar/UI/DungeonTracker.lua):
--- a dungeon guide's quests to pick up as a card above the window, and the
+-- a dungeon guide's quests for the run as a card above the window, and the
 -- floating dungeon tracker's loot, quests and bosses as three stacked cards,
 -- with no head of the tracker's over them (their headings say what it would;
 -- the tracker's frame shrinks to the cards' anchor and the cards move it).
@@ -17,7 +17,7 @@ S.atlasParts[#S.atlasParts + 1] = function(on, onLeave, Core)
 	local tr = Core.tr
 
 	---------------------------------------------------------------------------
-	-- The quests to pick up: a card above the window
+	-- The quests for the run: a card above the window
 	---------------------------------------------------------------------------
 
 	local styled = setmetatable({}, { __mode = "k" }) -- region frame -> true while dressed as a card
@@ -27,7 +27,7 @@ S.atlasParts[#S.atlasParts + 1] = function(on, onLeave, Core)
 		if name ~= "pickups" then return nil end
 		local head = rawget(part, "Head")
 		if head then
-			-- Its head line is the card's caps heading: "QUESTS TO PICK UP", the count at the right.
+			-- Its head line is the card's caps heading: "QUESTS FOR THE RUN", the count at the right.
 			head.Text:SetText(Core.upper(tr(rawget(part, "psCardHead") or "")))
 			Core.capsLabel(head.Text)
 			head.Text:ClearAllPoints()

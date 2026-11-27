@@ -8850,8 +8850,9 @@ Orgrimmar and in. Stops: each prerequisite once, after the one before it in
 its chain (a full quest step, `Lookup.QuestStep`, from its giver nearest the
 player; the player then stands at its turn-in), and a giver once per set of
 prerequisites its quests wait on (one step with an accept per quest; the
-giver comes up again for a quest still waiting, and visits to the same giver
-in a row are one step). The last step names the carried quests in one line,
+giver comes up again for a quest still waiting, and visits to the same giver,
+or to givers within 60 yards of one another (the leveling stop's reach,
+`SAME_STOP`), in a row are one step). The last step names the carried quests in one line,
 its note (#1591: not a row each above the way in), goes to the entrance and
 says where the hand-in guide is (a note naming
 `/polestar dungeons <name>`). Nothing to take: nil, "nothing". The route is
@@ -9712,7 +9713,10 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   (Dungeons.Art); `ready.under` (below the floor); `pickups` adds `waiting`,
   `skipped`, `far` (the count over `Dungeons.PICKUP_DETOUR`, 10 minutes), `inGuide`
   (the open guide is its pick-up guide), each missing quest `far` and `current`
-  (the step accepts it), `plan` and `covers` (the step's accepts); the entries are the
+  (the step accepts it), `plan` and `covers` (the step's accepts, while the row is open), `open` (the
+  "Quests for the run" row is open: `Dungeons.PickupsOpen(key)`, `CharState().dungeonPickupOpen[key]`,
+  `Dungeons.SetPickupsOpen`; folded by default and again when the run ends, in Compact never open); the entries
+  (the open list's) are the
   leveling view's goal rows (`GF.NewGoalRow`, `GF.PaintGoalRow`, `GF.MeasureRow`): `gv` the
   step's accept of it, `taken` the page quests the step took (ticked until the step moves
   on), `after` the chain quest it waits on (`Dungeons.OutsideWork`), `point` where a click

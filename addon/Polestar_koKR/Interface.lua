@@ -568,27 +568,23 @@
 --   %s off route
 --   %s · your level
 --   %s, on your way
---   All %d quests are in your log
 --   Bring back the far ones (%d)
 --   Group %d of %d
 --   Group %d/%d
 --   Group of %d
 --   Group: none yet
---   Its quest is in your log
 --   Level %d · best at %d
 --   Level %d: come back at %d
 --   Needs %s
 --   No quests to pick up
 --   Pick them up
---   Pick up %d more quests
---   Pick up 1 more quest
 --   Quests open at a later level: %d
 --   Skip the far one
 --   best %d
 --   from %d
 --   instances this hour: %d of %d
 --   on your way
---   Quests to pick up
+--   Quests for the run
 --   %d / %d bosses
 --   All %d quests ready to turn in: hand them in after the run
 --   Every boss is down
@@ -5845,27 +5841,23 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 L["%s off route"] = "경로에서 %s 벗어남"
 L["%s · your level"] = "%s · 내 레벨"
 L["%s, on your way"] = "%s, 가는 길"
-L["All %d quests are in your log"] = "퀘스트 %d개가 모두 목록에 있음"
 L["Bring back the far ones (%d)"] = "먼 퀘스트 되돌리기 (%d)"
 L["Group %d of %d"] = "파티 %d / %d"
 L["Group %d/%d"] = "파티 %d/%d"
 L["Group of %d"] = "%d인 파티"
 L["Group: none yet"] = "파티: 아직 없음"
-L["Its quest is in your log"] = "퀘스트가 목록에 있음"
 L["Level %d · best at %d"] = "레벨 %d · 적정 레벨 %d"
 L["Level %d: come back at %d"] = "레벨 %d: %d레벨에 다시 오세요"
 L["Needs %s"] = "필요: %s"
 L["No quests to pick up"] = "수락할 퀘스트 없음"
 L["Pick them up"] = "수락하러 가기"
-L["Pick up %d more quests"] = "퀘스트 %d개 더 수락"
-L["Pick up 1 more quest"] = "퀘스트 1개 더 수락"
 L["Quests open at a later level: %d"] = "나중 레벨에 열리는 퀘스트: %d"
 L["Skip the far one"] = "먼 퀘스트 건너뛰기"
 L["best %d"] = "적정 %d"
 L["from %d"] = "%d부터"
 L["instances this hour: %d of %d"] = "이번 시간 인스턴스: %d / %d"
 L["on your way"] = "가는 길"
-L["Quests to pick up"] = "수락할 퀘스트"
+L["Quests for the run"] = "던전 퀘스트"
 
 -- UI/DungeonTracker.lua
 L["%d / %d bosses"] = "우두머리 %d / %d"

@@ -551,27 +551,23 @@
 --   %s off route
 --   %s · your level
 --   %s, on your way
---   All %d quests are in your log
 --   Bring back the far ones (%d)
 --   Group %d of %d
 --   Group %d/%d
 --   Group of %d
 --   Group: none yet
---   Its quest is in your log
 --   Level %d · best at %d
 --   Level %d: come back at %d
 --   Needs %s
 --   No quests to pick up
 --   Pick them up
---   Pick up %d more quests
---   Pick up 1 more quest
 --   Quests open at a later level: %d
 --   Skip the far one
 --   best %d
 --   from %d
 --   instances this hour: %d of %d
 --   on your way
---   Quests to pick up
+--   Quests for the run
 --   %d / %d bosses
 --   All %d quests ready to turn in: hand them in after the run
 --   Every boss is down
@@ -5828,27 +5824,23 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 L["%s off route"] = "%s в стороне от маршрута"
 L["%s · your level"] = "%s · ваш уровень"
 L["%s, on your way"] = "%s, по пути"
-L["All %d quests are in your log"] = "Все задания (%d) в журнале"
 L["Bring back the far ones (%d)"] = "Вернуть дальние (%d)"
 L["Group %d of %d"] = "Группа %d из %d"
 L["Group %d/%d"] = "Группа %d/%d"
 L["Group of %d"] = "Группа из %d"
 L["Group: none yet"] = "Группа: пока нет"
-L["Its quest is in your log"] = "Его задание в журнале"
 L["Level %d · best at %d"] = "Уровень %d · лучше всего %d"
 L["Level %d: come back at %d"] = "Уровень %d: возвращайтесь на %d"
 L["Needs %s"] = "Нужно: %s"
 L["No quests to pick up"] = "Нет заданий для взятия"
 L["Pick them up"] = "Взять их"
-L["Pick up %d more quests"] = "Взять ещё заданий: %d"
-L["Pick up 1 more quest"] = "Взять ещё 1 задание"
 L["Quests open at a later level: %d"] = "Задания на более позднем уровне: %d"
 L["Skip the far one"] = "Пропустить дальнее"
 L["best %d"] = "лучше %d"
 L["from %d"] = "с %d"
 L["instances this hour: %d of %d"] = "подземелий за час: %d из %d"
 L["on your way"] = "по пути"
-L["Quests to pick up"] = "Задания для взятия"
+L["Quests for the run"] = "Задания для забега"
 
 -- UI/DungeonTracker.lua
 L["%d / %d bosses"] = "Боссы: %d / %d"

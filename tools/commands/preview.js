@@ -1418,9 +1418,13 @@ ITEMS[17758] = { id = 17758, name = "Amulet of Union", sources = {} }
 QUESTS[7067] = quest(7067, "The Pariah's Instructions", 13717, { { type = "item", id = 17758, count = 1, text = "Amulet of Union", madeFrom = { 17761, 17762, 17763, 17764, 17765, 17757 } } }, {}, 48)
 usePage({ key = K, name = "Maraudon", map = 349, minLevel = 46, maxLevel = 55, floor = 48, players = 5, zone = 1443, zoneName = "Desolace",
 	entrance = { map = 1443, x = 31, y = 60.8 }, quests = { pq(7067, "The Pariah's Instructions") } })`;
-// Each case in the house look and Blizzard's, Standard and Compact.
-const outsidePanels = (world, key) => ['polestar', 'blizzard'].flatMap((skin) => [false, true].map((compact) =>
-	kindPanel(`${world}\n${look(skin)}${compact ? '; Polestar.Set("ui.compact", true)' : ''}`, { key })));
+// The quests for the run row: folded until it is opened (Dungeons.SetPickupsOpen).
+const OPEN_ROW = (key) => `Polestar.Dungeons.SetPickupsOpen("${key}", true)`;
+// Each case in the house look and Blizzard's: Standard folded and open, and Compact.
+const outsidePanels = (world, key) => ['polestar', 'blizzard'].flatMap((skin) => [
+	{ open: false, compact: false }, { open: true, compact: false }, { open: false, compact: true },
+].map(({ open, compact }) =>
+	kindPanel(`${world}\n${look(skin)}${compact ? '; Polestar.Set("ui.compact", true)' : ''}${open ? `; ${OPEN_ROW(key)}` : ''}`, { key })));
 // Inside: the tracker's made-up run (UI.DungeonTracker.SAMPLE), floating with the guide window hidden,
 // or docked in the window on the Barrens guide.
 const trackerFloat = (extra = '') => `Polestar.Set("ui.shown", false)
@@ -1460,16 +1464,17 @@ const SCENES = [
 	},
 	{
 		file: 'guide-kind-dungeon.svg',
-		title: 'Dungeon guide, outside: the picture, your level against the range, the group, the quests to pick up (on your way, minutes off the route), the way in; Compact; Atlas; under the floor with a key missing',
+		title: 'Dungeon guide, outside: the picture, your level against the range, the group, the quests for the run folded to one row and open (on your way, minutes off the route), the way in; Compact; Atlas; under the floor with a key missing; Skip the far one in the open list',
 		panels: [
 			kindPanel(''),
+			kindPanel(OPEN_ROW('wailing-caverns')),
 			kindPanel('Polestar.Set("ui.compact", true)'),
 			kindPanel(ATLAS_LAYOUT, { roots: [...GUIDE, 'PolestarGuideFrameCards'] }),
 			kindPanel(`uistub.player.level = 15; UnitLevel = function() return 15 end
 Polestar.Dungeons.Attunements = function() return { { kind = "key", name = "Prison Cell Key", item = { name = "Prison Cell Key" } } } end
 Polestar.Dungeons.AttunementState = function() return { done = false } end`),
-			kindPanel(FAR, { run: true }),
-			kindPanel(FAR, { run: true, after: SKIP_FAR }),
+			kindPanel(`${FAR}; ${OPEN_ROW('wailing-caverns')}`, { run: true }),
+			kindPanel(`${FAR}; ${OPEN_ROW('wailing-caverns')}`, { run: true, after: SKIP_FAR }),
 		],
 	},
 	{
@@ -1484,12 +1489,12 @@ Polestar.Dungeons.AttunementState = function() return { done = false } end`),
 	},
 	{
 		file: 'guide-kind-dungeon-chains.svg',
-		title: "Dungeon guide, outside, the Ruins of Lordaeron for a level 15 Forsaken: Rear Guard Patrol's step as the leveling view shows it, the pick-ups naming the chains they wait on, no way in yet; then with the chains done, the four pick-ups (house look and Blizzard's, Standard and Compact)",
+		title: "Dungeon guide, outside, the Ruins of Lordaeron for a level 15 Forsaken: Rear Guard Patrol's step as the leveling view shows it, the quests for the run folded to one row and open, naming the chains they wait on, no way in yet; then with the chains done, each stop's step and the four quests (house look and Blizzard's, Standard folded and open, and Compact)",
 		panels: [...outsidePanels(ROL, 'ruins-of-lordaeron'), ...outsidePanels(ROL_DONE, 'ruins-of-lordaeron')],
 	},
 	{
 		file: 'guide-kind-dungeon-outside.svg',
-		title: "Dungeon guide, outside, Maraudon: The Pariah's Instructions' gems out in the outer caves before the way in (house look and Blizzard's, Standard and Compact)",
+		title: "Dungeon guide, outside, Maraudon: The Pariah's Instructions' gems out in the outer caves before the way in (house look and Blizzard's, Standard folded and open, and Compact)",
 		panels: outsidePanels(MARAUDON, 'maraudon'),
 	},
 	{

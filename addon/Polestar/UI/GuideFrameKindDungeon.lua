@@ -9,18 +9,23 @@
 --   (step)    the step's own header and goal rows, as the leveling view shows
 --             them (GF.REGIONS' "step"): a prerequisite's accept and kills, a
 --             page quest's work out in the world (Dungeons.OutsideWork)
---   pickups   "Pick up 2 more quests 4 / 6", one entry per quest not in the log,
---             each the leveling view's goal row (GF.NewGoalRow, its tick box: a
---             quest the step took stays, ticked, until the step moves on), the
---             giver and where under it (on your way, N min off the route, or the
---             prerequisite it waits on: "After “Rear Guard Patrol” · Chain: 1 of 2");
---             a click points the arrow at the giver as a goal row's does. Pick
+--   pickups   one row, "Quests for the run 1 / 4" and the Journey row's chevron, folded: the quests of the whole
+--             run are the overview, and the step above shows only the stop's own. A
+--             click (the gamepad's A) opens it (Dungeons.PickupsOpen: kept for the
+--             character and the dungeon until the run ends, as the Journey row keeps
+--             its own): one entry per quest not in the log, each the leveling view's
+--             goal row (GF.NewGoalRow, its tick box: a quest the step took stays,
+--             ticked, until the step moves on), the giver and where under it (on your
+--             way, N min off the route, or the prerequisite it waits on: "After
+--             “Rear Guard Patrol” · Chain: 1 of 2"); a click points the arrow at the
+--             giver as a goal row's does. Open, they stand for the step's accepts. Pick
 --             them up (the dungeon's pick-up guide in a tab) and Skip the far one
---             (Dungeons.SkipFar: over Dungeons.PICKUP_DETOUR minutes off the way)
+--             (Dungeons.SkipFar: over Dungeons.PICKUP_DETOUR minutes off the way) are
+--             in the open list
 --   entrance  the way in: its zone, the travel time, the instances this hour, a
 --             key or attunement still missing; Guide me to the entrance once
 --             nothing is left before the door (no pick-up, no work out in the world)
--- Compact: one line each (the pick-ups' head line alone). The regions' own rows
+-- Compact: one line each (the pick-ups' row alone, no fold). The regions' own rows
 -- are goal-like (24px) and painted as goal rows; a skin's guideKindRow hook
 -- dresses each (info.kind "ready" | "pickup"), its guideRow hook the entries.
 -- Every control is a button, so the gamepad's focus reaches it.
@@ -45,8 +50,8 @@ ns.UI.GuideFrame.Part(function(GF)
 
 	-- A goal-like row: glyph, text, a right-hand figure, the 2px accent bar
 	-- of the row the step works on, and a second line under the text.
-	local function row(parent)
-		local r = CreateFrame("Frame", nil, parent)
+	local function row(parent, button)
+		local r = CreateFrame(button and "Button" or "Frame", nil, parent)
 		r:SetHeight(ROW)
 		r.Icon = W.Tex(r, "ARTWORK")
 		r.Text = W.Text(r, "goal", "text")
@@ -58,8 +63,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		r.Bar:Hide()
 		return r
 	end
-	-- Lays r out `width` wide from y, one line or two. -> its height
-	local function place(r, parent, y, width, twoLines)
+	-- Lays r out `width` wide from y, one line or two, `extra` room kept at its right edge (a
+	-- fold row's chevron). -> its height
+	local function place(r, parent, y, width, twoLines, extra)
+		extra = extra or 0
 		r:ClearAllPoints()
 		r:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, -y)
 		r:SetPoint("TOPRIGHT", parent, "TOPRIGHT", 0, -y)
@@ -67,11 +74,11 @@ ns.UI.GuideFrame.Part(function(GF)
 		r.Icon:ClearAllPoints()
 		r.Icon:SetPoint("CENTER", r, "TOPLEFT", PAD + ICON / 2, -ROW / 2)
 		r.Right:ClearAllPoints()
-		r.Right:SetPoint("RIGHT", r, "TOPRIGHT", -PAD, -ROW / 2)
+		r.Right:SetPoint("RIGHT", r, "TOPRIGHT", -(PAD + extra), -ROW / 2)
 		local rw = r.Right:GetText() and r.Right:GetText() ~= "" and floor(r.Right:GetStringWidth() + 0.5) + 8 or 0
 		r.Text:ClearAllPoints()
 		r.Text:SetPoint("LEFT", r, "TOPLEFT", TEXT_X, -ROW / 2)
-		r.Text:SetWidth(max(20, width - TEXT_X - PAD - rw))
+		r.Text:SetWidth(max(20, width - TEXT_X - PAD - extra - rw))
 		local h = ROW
 		r.Sub:SetShown(twoLines and true or false)
 		if twoLines then
@@ -299,42 +306,82 @@ ns.UI.GuideFrame.Part(function(GF)
 			map = p and p.map, x = p and p.x, y = p and p.y, f = p and p.f, z = p and p.z }, true
 	end
 
+	-- The Journey row's chevron: 12px, up while open.
+	local CHEVRON = 12
+	-- Opens or folds the list (the row's click, the gamepad's A): kept for the dungeon, per character.
+	local function toggle(f)
+		local m = f.psModel
+		local Dg = D()
+		if not (m and Dg and f.psFold) then return end
+		Dg.SetPickupsOpen(m.plan.dungeon.key, not m.open)
+		GF.Update()
+	end
+
 	GF.RegisterRegion("pickups", {
 		build = function(parent)
 			local f = CreateFrame("Frame", nil, parent)
-			f.Head = row(f)
+			-- The fold row: the Journey row's expander (UI/JourneyPanel.lua): a hover wash, the chevron
+			-- at the right, its tooltip "Click to expand" / "Click to collapse".
+			local h = row(f, true)
+			f.Head = h
+			W.Hover(h, 0.7)
+			h.Chevron = W.Tex(h, "ARTWORK", nil, "textMuted")
+			h.Chevron:SetSize(CHEVRON, CHEVRON)
+			h.Chevron:SetPoint("RIGHT", h, "TOPRIGHT", -PAD, -ROW / 2)
+			h:SetScript("OnClick", function() toggle(f) end)
+			h:SetScript("OnEnter", function(self)
+				if not f.psFold then return end
+				W.Color(self.Chevron, "text")
+				local m = f.psModel
+				W.Tooltip(self, GF.TooltipAnchor and GF.TooltipAnchor() or "ANCHOR_RIGHT", L["Quests for the run"],
+					{ m and m.open and L["Click to collapse"] or L["Click to expand"] })
+				if GF.HoverIn then GF.HoverIn() end
+			end)
+			h:SetScript("OnLeave", function(self)
+				W.Color(self.Chevron, "textMuted")
+				W.HideTooltip(self)
+			end)
 			f.Rows = {}
 			f.Pick = W.Button(f, L["Pick them up"], function() local m = f.psModel; if m then openPickup(m.plan.dungeon.key) end end, { height = 24 })
 			f.Skip = plainLink(f, L["Skip the far one"], function() skipFar(f) end)
 			f.Back = plainLink(f, "", function() unskip(f) end)
 			-- Its heading where a layout puts it on a card (guidePlace "pickups"; Atlas).
-			f.psCardHead = L["Quests to pick up"]
+			f.psCardHead = L["Quests for the run"]
 			return f
 		end,
-		model = model("pickups"),
+		-- Compact folds it: the step keeps its own rows under the one line.
+		model = function(view, kind)
+			local m = model("pickups")(view, kind)
+			if m and GF.Compact() then m.open, m.covers = false, {} end
+			return m
+		end,
 		paint = function(f, m, mode)
 			f.psModel = m
 			local left = m.total - m.held
 			local h = f.Head
-			if left > 0 then
-				glyph(h, "icon-accept", "quest")
-				h.Text:SetText(left == 1 and L["Pick up 1 more quest"] or format(L["Pick up %d more quests"], left))
-			elseif m.total > 0 then
-				glyph(h, "check", "success")
-				h.Text:SetText(m.total == 1 and L["Its quest is in your log"] or format(L["All %d quests are in your log"], m.total))
+			-- "Quests for the run 1 / 4": the one row, folded until it is opened; compact has the line
+			-- alone. No quest to take: a plain line, nothing to open.
+			f.psFold = m.total > 0 and mode ~= "compact"
+			if m.total > 0 then
+				glyph(h, left > 0 and "icon-accept" or "check", left > 0 and "quest" or "success")
+				h.Text:SetText(L["Quests for the run"])
 			else
 				glyph(h, "icon-accept", "textMuted")
 				h.Text:SetText(m.waiting > 0 and format(L["Quests open at a later level: %d"], m.waiting) or L["No quests to pick up"])
 			end
 			h.Right:SetText(m.total > 0 and format("%d / %d", m.held, m.total) or "")
-			-- The step works on this region while quests are left (the pick-up guide's accepts).
-			h.Bar:SetShown(left > 0)
-			hook(h, m, { kind = "pickup", current = left > 0, done = left == 0 and m.total > 0 })
+			h:SetEnabled(f.psFold)
+			h:EnableMouse(f.psFold)
+			h.Chevron:SetShown(f.psFold)
+			if f.psFold then h.Chevron:SetTexture(Theme.Media(m.open and "chevron-up" or "chevron-down")) end
+			-- Open, the list stands for the step's accepts: the step works on this region while quests are left.
+			h.Bar:SetShown(m.open and left > 0)
+			hook(h, m, { kind = "pickup", current = m.open and left > 0, done = left == 0 and m.total > 0 })
 			-- The entries are the leveling view's goal rows (GF.NewGoalRow): the ones the step took,
 			-- ticked, then those still to pick up; the step's first open accept is the arrow's.
-			-- Compact lists no entries: the head line says it.
+			-- Only while the row is open.
 			local list = {}
-			if mode ~= "compact" then
+			if m.open and mode ~= "compact" then
 				for _, q in ipairs(m.taken or {}) do list[#list + 1] = q end
 				for _, q in ipairs(m.missing) do list[#list + 1] = q end
 			end
@@ -365,7 +412,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			W.SetLinkText(f.Back, m.skipped > 0 and format(L["Bring back the far ones (%d)"], m.skipped) or "")
 		end,
 		layout = function(f, m, width, mode)
-			local y = place(f.Head, f, 0, width)
+			local y = place(f.Head, f, 0, width, false, f.psFold and (CHEVRON + 8) or 0)
 			local compact = mode == "compact"
 			for i = 1, f.psRows or 0 do
 				local r = f.Rows[i]
@@ -381,9 +428,10 @@ ns.UI.GuideFrame.Part(function(GF)
 				r:Show()
 				y = y + h
 			end
-			local pick = not compact and not m.inGuide and #m.missing > 0
-			local skip = not compact and m.far > 0
-			local back = not compact and m.skipped > 0 and not skip
+			local open = m.open and not compact
+			local pick = open and not m.inGuide and #m.missing > 0
+			local skip = open and m.far > 0
+			local back = open and m.skipped > 0 and not skip
 			f.Pick:SetShown(pick)
 			f.Skip:SetShown(skip)
 			f.Back:SetShown(back)

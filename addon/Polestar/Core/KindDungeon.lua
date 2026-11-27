@@ -9,7 +9,7 @@
 --       under: the character is below the dungeon's floor (come back at `floor`);
 --       group.n: 0 alone, else the members with the player; names: the others'
 --   pickups  = { held, total, missing = { { quest, title, npc, where, onWay, minutesOff, far, current, after, goal, gv, point } },
---                taken = { { quest, title, held, goal, gv } }, waiting, skipped, far, inGuide, work }
+--                taken = { { quest, title, held, goal, gv } }, waiting, skipped, far, inGuide, work, open }
 --       held/total: the page's quests in the log of those this character may take now
 --       (held + the plan's takes, Dungeons.PickupPlan); missing: the takes, with
 --       Dungeons.PickupDetours' minutes off the way; far: over Dungeons.PICKUP_DETOUR
@@ -23,7 +23,10 @@
 --       (its giver, the first open prerequisite's while it waits on one: Dungeons.GiverTarget); taken: the page
 --       quests the step accepted, in the log now (ticked rows until the step moves on);
 --       work: the quests with work out in the world still open before the way in (a
---       chain's quest open now, a page quest's objectives done only outside: Dungeons.OutsideWork)
+--       chain's quest open now, a page quest's objectives done only outside: Dungeons.OutsideWork);
+--       open: the window's "Quests for the run" row is open (Dungeons.PickupsOpen): the list of
+--       all of them shows and stands for the step's accepts (`covers`); folded, the step keeps
+--       its own rows and `covers` is empty
 --   entrance = { map, x, y, eta, zone, cap = { used, max }, needs, go }
 --       eta: seconds of travel from here (nil: unknown); cap: new instances this hour and the
 --       cap (Maps/Instances.lua); needs: the key or attunement this character still lacks;
@@ -171,7 +174,8 @@ function M.pickups(view)
 	local now = inGuide and stepAccepts(view) or {}
 	local covers = {}
 	local m = { held = #plan.carried, total = #plan.carried + #plan.take, missing = {}, waiting = plan.later or 0,
-		skipped = #(plan.skipped or {}), far = 0, inGuide = inGuide, work = 0 }
+		skipped = #(plan.skipped or {}), far = 0, inGuide = inGuide, work = 0,
+		open = Dg.PickupsOpen and Dg.PickupsOpen(key) or false }
 	-- The work out in the world (Dungeons.OutsideWork, kept with the plan): each take's chain quest open now.
 	local work = cached(key, "outside", function() return Dg.OutsideWork and Dg.OutsideWork(plan) or {} end) or {}
 	local after = {}
@@ -210,7 +214,8 @@ function M.pickups(view)
 		-- The pick-up guide's accept of it reads as this row, not twice.
 		if now[t.quest.id] then covers[#covers + 1] = now[t.quest.id] end
 	end
-	m.plan, m.covers = plan, covers
+	-- Folded, the step shows its own accepts; open, the list below stands for them.
+	m.plan, m.covers = plan, m.open and covers or {}
 	return m
 end
 

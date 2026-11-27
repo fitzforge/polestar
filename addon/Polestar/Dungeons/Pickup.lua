@@ -99,6 +99,9 @@
 --       (CharState().dungeonPickupSkip[key][questId]); PickupPlan then lists them as
 --       `skipped` (not for the heads-up's `offer`). Dungeons.Unskip(key) brings them back.
 --       Dungeons.Skipped(key) -> { [questId] = true } | nil
+--   Dungeons.PickupsOpen(key) -> bool, Dungeons.SetPickupsOpen(key, open)   -- whether the dungeon
+--       window's "Quests for the run" row is open (CharState().dungeonPickupOpen[key]): per
+--       character and dungeon, folded again when the run ends (Dungeons.Run leaves the instance)
 --   Dungeons.OutsideWork(plan) -> { { quest, title, rec, goals, take, optional, chain = { n, of }, opens } }
 --       what is done out in the world before the way in (#4379), in the plan's order:
 --       for each take, the quests of its chain open now (its `pre` none of the others
@@ -2032,8 +2035,21 @@ end
 -- route (each prerequisite a stop of its own, as before), so it is never
 -- longer than that one. Steps: a quest's parts in a row are one step, titled
 -- with the quest (as before); an accept or a turn-in on its own is a step at
--- its NPC, one with the givers' accepts and other such stops at that NPC in
--- a row.
+-- its place, one with the givers' accepts and other such stops at that NPC, or
+-- within SAME_STOP yards of where the step stands, in a row.
+local SAME_STOP = 60 -- yards: a leveling stop's reach (forge-judge's SAME_PLACE_YD)
+local function lastPlaced(goals)
+	for i = #goals, 1, -1 do if located(goals[i]) then return goals[i] end end
+end
+local function firstPlaced(goals)
+	for _, g in ipairs(goals) do if located(g) then return g end end
+end
+-- Whether the goals `b` begin where the goals `a` end, within the stop's reach.
+local function sameStop(a, b)
+	local p, q = lastPlaced(a), firstPlaced(b)
+	local d = p and q and yards(p, q)
+	return d ~= nil and d <= SAME_STOP
+end
 local function route(key, plan, outside)
 	local from = ns.PlayerPoint()
 	local whole = stopsOf(plan, from, outside)
@@ -2117,7 +2133,7 @@ local function route(key, plan, outside)
 		end
 		pos = s.outP or pos
 	end
-	-- Steps: lone stops at the same NPC in a row are one step.
+	-- Steps: lone stops at the same NPC, or at one place (SAME_STOP), in a row are one step.
 	local steps = {}
 	local prev
 	for _, u in ipairs(units) do
@@ -2127,7 +2143,7 @@ local function route(key, plan, outside)
 			-- An accept the Engine may take from another of its givers (#3368) keeps the quest's title.
 			name = g and not g.candidates and (g.npcName or g.objName) or nil
 		end
-		if u.lone and prev and prev.lone and prev.npcKey and prev.npcKey == u.npcKey then
+		if u.lone and prev and prev.lone and ((prev.npcKey and prev.npcKey == u.npcKey) or sameStop(prev.step.goals, u.goals)) then
 			for _, g in ipairs(u.goals) do prev.step.goals[#prev.step.goals + 1] = g end
 			if u.note then prev.step.note = prev.step.note and (prev.step.note .. " " .. u.note) or u.note end
 		else
@@ -2228,6 +2244,21 @@ function Dungeons.Unskip(key)
 	if type(all) == "table" and all[key] then
 		all[key] = nil
 		ns.Fire("DUNGEON_PICKUPS_CHANGED", key)
+	end
+end
+
+function Dungeons.PickupsOpen(key)
+	local all = ns.CharState().dungeonPickupOpen
+	return type(all) == "table" and all[key] == true
+end
+
+function Dungeons.SetPickupsOpen(key, open)
+	local cs = ns.CharState()
+	if open then
+		cs.dungeonPickupOpen = type(cs.dungeonPickupOpen) == "table" and cs.dungeonPickupOpen or {}
+		cs.dungeonPickupOpen[key] = true
+	elseif type(cs.dungeonPickupOpen) == "table" then
+		cs.dungeonPickupOpen[key] = nil
 	end
 end
 

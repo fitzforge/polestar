@@ -278,7 +278,7 @@ emit(pickups())
 	assert.equal(back.total, 3);
 });
 
-test('outside: the pick-up guide is a dungeon guide: its regions show, its accepts and the way in read as their rows', () => {
+test('outside: the pick-up guide is a dungeon guide: its regions show; the quests for the run are one folded row, open they are the goal rows, and the way in follows', () => {
 	const [out] = run(OUTSIDE + `
 Polestar.Set("ui.shown", true)
 Polestar.Dungeons.PickUp("wailing-caverns")
@@ -288,26 +288,95 @@ GF.Render()
 local shown = {}
 for _, id in ipairs({ "brief", "ready", "pickups", "entrance" }) do shown[id] = GF.RegionShown(id) end
 local p = GF.RegionFrame("pickups")
-local pickRows = {}
-for i = 1, p.psRows do pickRows[i] = p.Rows[i].psGoal and p.Rows[i].psGoal.t or false end
+local function look()
+	local rows = {}
+	for i = 1, p.psRows do rows[i] = p.Rows[i].psGoal and p.Rows[i].psGoal.t or false end
+	return { head = p.Head.Text:GetText(), right = p.Head.Right:GetText(), chevron = p.Head.Chevron:IsShown() and p.Head.Chevron:GetTexture() or false,
+		covers = #GF.RegionModel("pickups").covers, bar = p.Head.Bar:IsShown(), rows = rows, open = GF.RegionModel("pickups").open,
+		pick = p.Pick:IsShown(), skip = p.Skip:IsShown() }
+end
+GF.Layout()
+local folded = look()
+p.Head:GetScript("OnClick")(p.Head, "LeftButton")
+GF.Layout()
+local open = look()
 local go = GF.RegionFrame("entrance").Go:IsShown()
+p.Head:GetScript("OnClick")(p.Head, "LeftButton")
+GF.Layout()
+local again = look()
+p.Head:GetScript("OnClick")(p.Head, "LeftButton")
 Polestar.Set("ui.compact", true)
 GF.Render() GF.Layout()
-local compactRows = p.psRows
-emit({ kind = E.GuideKind(), shown = shown, head = p.Head.Text:GetText(), right = p.Head.Right:GetText(),
-	covers = #GF.RegionModel("pickups").covers, headBar = p.Head.Bar:IsShown(), entries = pickRows,
-	way = GF.RegionFrame("entrance").Way.Text:GetText(), go = go, compactRows = compactRows })
+emit({ kind = E.GuideKind(), shown = shown, folded = folded, open = open, again = again, compact = look(),
+	way = GF.RegionFrame("entrance").Way.Text:GetText(), go = go, compactEnabled = p.Head:IsEnabled() })
 `);
 	assert.equal(out.kind, 'dungeon');
 	assert.deepEqual(out.shown, { brief: true, ready: true, pickups: true, entrance: true });
-	assert.equal(out.head, 'Pick up 3 more quests');
-	assert.equal(out.right, '0 / 3');
-	assert.ok(out.covers >= 1, 'the step accept is the pick-up row');
-	assert.equal(out.headBar, true, 'the 2px bar is on the "Pick up N more" row');
-	assert.deepEqual(out.entries, ['accept', 'accept', 'accept'], "each entry is the leveling view's accept row");
+	assert.equal(out.folded.head, 'Quests for the run');
+	assert.equal(out.folded.right, '0 / 3');
+	assert.deepEqual(Object.values(out.folded.rows), [], 'folded by default: the one row alone');
+	assert.equal(out.folded.open, false);
+	assert.equal(out.folded.covers, 0, "folded, the step keeps the stop's own rows");
+	assert.equal(out.folded.bar, false);
+	assert.match(out.folded.chevron, /chevron-down/, "the Journey row's chevron: it opens");
+	assert.equal(out.folded.pick, false, 'Pick them up and Skip the far one are in the open list');
+	assert.equal(out.folded.skip, false);
+	assert.equal(out.open.open, true);
+	assert.equal(out.open.right, '0 / 3', 'the count is the same open');
+	assert.ok(out.open.covers >= 1, 'open, the list stands for the step accept');
+	assert.equal(out.open.bar, true, 'the 2px bar is on the row while quests are left and it is open');
+	assert.match(out.open.chevron, /chevron-up/);
+	assert.deepEqual(out.open.rows, ['accept', 'accept', 'accept'], "each entry is the leveling view's accept row");
+	assert.equal(out.open.skip, true, 'Skip the far one comes with the list');
 	assert.equal(out.go, false, 'quests left to pick up: the way in is information only');
-	assert.equal(out.compactRows, 0, 'compact: the head line alone');
+	assert.equal(out.again.open, false, 'a second click folds it again');
+	assert.deepEqual(Object.values(out.again.rows), []);
+	assert.deepEqual(Object.values(out.compact.rows), [], 'compact: the one line, no list');
+	assert.equal(out.compact.chevron, false, 'compact: no chevron');
+	assert.equal(out.compactEnabled, false, 'compact: nothing to click, nothing for the gamepad');
+	assert.equal(out.compact.covers, 0);
 	assert.equal(out.way, 'Entrance', "the zone is the brief chip's: the way in does not repeat it");
+});
+
+test('outside: the quests for the run row opens with the gamepad\'s A, is remembered for the dungeon until the run ends, and the count follows the log while it is folded', () => {
+	const [out] = run(OUTSIDE + `
+Polestar.Set("ui.shown", true)
+Polestar.Dungeons.PickUp("wailing-caverns")
+stub.advance(0.5)
+local GF = Polestar.UI.GuideFrame
+GF.Render() GF.Layout()
+local p = GF.RegionFrame("pickups")
+local G = Polestar.Gamepad
+local pad = {}
+for _, b in ipairs(G.Collect(_G.PolestarGuideFrame)) do if b == p.Head then pad.found = true end end
+local function state() return Polestar.Dungeons.PickupsOpen("wailing-caverns") end
+local before = state()
+p.Head:GetScript("OnClick")(p.Head, "LeftButton")
+local opened = state()
+-- A fresh window render keeps it open: the state is the character's, not the frame's.
+GF.Render() GF.Layout()
+local kept = { open = GF.RegionModel("pickups").open, rows = p.psRows }
+p.Head:GetScript("OnClick")(p.Head, "LeftButton")
+local folded = state()
+-- Open again, the log changes while it is folded: the count follows.
+w.accept(1486, {}, "Deviate Hides")
+stub.advance(0.5)
+Polestar.KindDungeon.Forget()
+GF.Render() GF.Layout()
+local count = p.Head.Right:GetText()
+p.Head:GetScript("OnClick")(p.Head, "LeftButton")
+-- The run ends: into the instance and out again, and it is folded.
+enter()
+leave()
+emit({ gamepad = pad.found, before = before, opened = opened, kept = kept, folded = folded, count = count, afterRun = state(), openedAgain = true })
+`);
+	assert.equal(out.gamepad, true, "the row is a button the gamepad's focus reaches");
+	assert.equal(out.before, false);
+	assert.equal(out.opened, true);
+	assert.deepEqual(out.kept, { open: true, rows: 3 });
+	assert.equal(out.folded, false);
+	assert.equal(out.count, '1 / 3', 'a quest just picked up ticks the count, folded');
+	assert.equal(out.afterRun, false, 'the run is over: folded again');
 });
 
 test('outside: under the floor and alone; a key still missing', () => {

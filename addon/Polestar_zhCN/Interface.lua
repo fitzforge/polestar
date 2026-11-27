@@ -468,27 +468,23 @@
 --   %s off route
 --   %s · your level
 --   %s, on your way
---   All %d quests are in your log
 --   Bring back the far ones (%d)
 --   Group %d of %d
 --   Group %d/%d
 --   Group of %d
 --   Group: none yet
---   Its quest is in your log
 --   Level %d · best at %d
 --   Level %d: come back at %d
 --   Needs %s
 --   No quests to pick up
 --   Pick them up
---   Pick up %d more quests
---   Pick up 1 more quest
 --   Quests open at a later level: %d
 --   Skip the far one
 --   best %d
 --   from %d
 --   instances this hour: %d of %d
 --   on your way
---   Quests to pick up
+--   Quests for the run
 --   %d / %d bosses
 --   All %d quests ready to turn in: hand them in after the run
 --   Every boss is down
@@ -5745,27 +5741,23 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 L["%s off route"] = "偏离路线 %s"
 L["%s · your level"] = "%s · 你的等级"
 L["%s, on your way"] = "%s，顺路"
-L["All %d quests are in your log"] = "全部 %d 个任务已在任务日志中"
 L["Bring back the far ones (%d)"] = "找回较远的任务（%d）"
 L["Group %d of %d"] = "队伍 %d / %d"
 L["Group %d/%d"] = "队伍 %d/%d"
 L["Group of %d"] = "%d 人队伍"
 L["Group: none yet"] = "队伍：尚无"
-L["Its quest is in your log"] = "它的任务已在任务日志中"
 L["Level %d · best at %d"] = "等级 %d · 最佳 %d"
 L["Level %d: come back at %d"] = "等级 %d：%d 级再来"
 L["Needs %s"] = "需要 %s"
 L["No quests to pick up"] = "没有可接的任务"
 L["Pick them up"] = "去接任务"
-L["Pick up %d more quests"] = "还需接取 %d 个任务"
-L["Pick up 1 more quest"] = "还需接取 1 个任务"
 L["Quests open at a later level: %d"] = "更高等级开放的任务：%d"
 L["Skip the far one"] = "跳过远的"
 L["best %d"] = "最佳 %d"
 L["from %d"] = "%d 级起"
 L["instances this hour: %d of %d"] = "本小时副本：%d / %d"
 L["on your way"] = "顺路"
-L["Quests to pick up"] = "待接取的任务"
+L["Quests for the run"] = "本次副本的任务"
 
 -- UI/DungeonTracker.lua
 L["%d / %d bosses"] = "首领 %d / %d"

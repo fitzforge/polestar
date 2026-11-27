@@ -342,27 +342,23 @@
 --   %s off route
 --   %s · your level
 --   %s, on your way
---   All %d quests are in your log
 --   Bring back the far ones (%d)
 --   Group %d of %d
 --   Group %d/%d
 --   Group of %d
 --   Group: none yet
---   Its quest is in your log
 --   Level %d · best at %d
 --   Level %d: come back at %d
 --   Needs %s
 --   No quests to pick up
 --   Pick them up
---   Pick up %d more quests
---   Pick up 1 more quest
 --   Quests open at a later level: %d
 --   Skip the far one
 --   best %d
 --   from %d
 --   instances this hour: %d of %d
 --   on your way
---   Quests to pick up
+--   Quests for the run
 --   %d / %d bosses
 --   All %d quests ready to turn in: hand them in after the run
 --   Every boss is down
@@ -5615,27 +5611,23 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 L["%s off route"] = "%s abseits der Route"
 L["%s · your level"] = "%s · deine Stufe"
 L["%s, on your way"] = "%s, auf deinem Weg"
-L["All %d quests are in your log"] = "Alle %d Quests sind in deinem Log"
 L["Bring back the far ones (%d)"] = "Die entfernten zurückholen (%d)"
 L["Group %d of %d"] = "Gruppe %d von %d"
 L["Group %d/%d"] = "Gruppe %d/%d"
 L["Group of %d"] = "Gruppe aus %d"
 L["Group: none yet"] = "Gruppe: noch keine"
-L["Its quest is in your log"] = "Ihre Quest ist in deinem Log"
 L["Level %d · best at %d"] = "Stufe %d · am besten mit %d"
 L["Level %d: come back at %d"] = "Stufe %d: komm mit %d wieder"
 L["Needs %s"] = "Braucht %s"
 L["No quests to pick up"] = "Keine Quests anzunehmen"
 L["Pick them up"] = "Annehmen"
-L["Pick up %d more quests"] = "Noch %d Quests annehmen"
-L["Pick up 1 more quest"] = "Noch 1 Quest annehmen"
 L["Quests open at a later level: %d"] = "Quests ab späterer Stufe: %d"
 L["Skip the far one"] = "Die entfernte auslassen"
 L["best %d"] = "am besten %d"
 L["from %d"] = "ab %d"
 L["instances this hour: %d of %d"] = "Instanzen diese Stunde: %d von %d"
 L["on your way"] = "auf deinem Weg"
-L["Quests to pick up"] = "Anzunehmende Quests"
+L["Quests for the run"] = "Quests für den Lauf"
 
 -- UI/DungeonTracker.lua
 L["%d / %d bosses"] = "%d / %d Bosse"
