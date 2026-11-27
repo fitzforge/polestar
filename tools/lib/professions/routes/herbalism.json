@@ -1,0 +1,75 @@
+{
+	"profession": "Herbalism",
+	"kind": "gathering",
+	"intro": [
+		"Herbalism picks herbs from the plants that grow across the world. Alchemy brews them into potions and elixirs, so the two go well together. It needs no tool.",
+		"Ranks: Apprentice at any level; Journeyman from skill 50, Expert from 125 and Artisan from 200, at the trainers in every capital and the larger towns. The trainers in the starting areas teach only up to 75. Tanaris and Searing Gorge have no trainer, so Artisan comes before the trip there. On Zephras Isle the quest Harvesting Windstones offers Wild Harvest, which teaches Herbalism.",
+		"Optional skill bonuses: Enchant Gloves - Herbalism (+2) or Advanced Herbalism (+5), Herbalist's Gloves (+5, a world drop), Apothecary Gloves (+2, from the Horde quest Serpentbloom in Thunder Bluff) and Goldthorn Tea (+15 for a while; its recipe comes from Henry Stern in Razorfen Downs and needs Cooking 175). With +5, Kingsblood can be picked from 120."
+	],
+	"starter": { "quest": 93552, "item": 247841 },
+	"sections": [
+		{
+			"from": 1,
+			"to": 70,
+			"steps": [
+				{ "train": "Apprentice", "tip": "No character level needed. On Zephras Isle, Wild Harvest from Harvesting Windstones teaches it too." },
+				{ "track": 2383, "name": "Find Herbs", "tip": "Herbs show on the minimap. Dying turns it off, and only one kind of tracking is on at a time." },
+				{ "gather": 15, "title": "Peacebloom and Silverleaf", "zones": { "Horde": ["Durotar", "Mulgore", "Tirisfal Glades", "Zephras Isle"], "Alliance": ["Elwynn Forest", "Dun Morogh", "Teldrassil", "Zephras Isle"] }, "tip": "Every starting area is full of herbs, and they come back fast." },
+				{ "gather": 50, "title": "Peacebloom and Silverleaf", "zones": { "Horde": ["Durotar", "Mulgore", "Tirisfal Glades", "Zephras Isle"], "Alliance": ["Elwynn Forest", "Dun Morogh", "Teldrassil", "Zephras Isle"] }, "tip": "Earthroot needs Herbalism skill 15." },
+				{ "train": "Journeyman", "tip": "Needs Herbalism skill 50. The trainers in the starting areas teach only up to 75." },
+				{ "gather": 70, "zones": { "Horde": ["Silverpine Forest"], "Alliance": ["Loch Modan", "Darkshore"] } }
+			]
+		},
+		{
+			"from": 70,
+			"to": 115,
+			"steps": [
+				{ "gather": 100, "zones": { "Horde": ["Silverpine Forest"], "Alliance": ["Loch Modan", "Darkshore"] }, "tip": "Briarthorn needs Herbalism skill 70." },
+				{ "gather": 115, "zones": { "Horde": ["Silverpine Forest"], "Alliance": ["Loch Modan", "Darkshore"] }, "tip": "Stranglekelp needs Herbalism skill 85; it grows underwater along the shore." }
+			]
+		},
+		{
+			"from": 115,
+			"to": 170,
+			"steps": [
+				{ "gather": 125, "zones": { "Horde": ["Hillsbrad Foothills", "Stonetalon Mountains"], "Alliance": ["Hillsbrad Foothills", "Stonetalon Mountains"] } },
+				{ "train": "Expert", "tip": "Needs Herbalism skill 125; past 150 nothing gives points without it." },
+				{ "gather": 150, "zones": { "Horde": ["Hillsbrad Foothills", "Stonetalon Mountains"], "Alliance": ["Hillsbrad Foothills", "Stonetalon Mountains"] }, "tip": "Kingsblood needs Herbalism skill 125." },
+				{ "gather": 160, "zones": { "Horde": ["Hillsbrad Foothills", "Stonetalon Mountains"], "Alliance": ["Hillsbrad Foothills", "Stonetalon Mountains"] }, "tip": "Liferoot needs Herbalism skill 150." },
+				{ "gather": 170, "zones": { "Horde": ["Hillsbrad Foothills", "Stonetalon Mountains"], "Alliance": ["Hillsbrad Foothills", "Stonetalon Mountains"] } }
+			]
+		},
+		{
+			"from": 170,
+			"to": 210,
+			"steps": [
+				{ "gather": 185, "zones": { "Horde": ["Stranglethorn Vale", "Arathi Highlands"], "Alliance": ["Stranglethorn Vale", "Arathi Highlands"] }, "tip": "Fadeleaf needs Herbalism skill 160, Goldthorn 170." },
+				{ "gather": 200, "zones": { "Horde": ["Stranglethorn Vale", "Arathi Highlands"], "Alliance": ["Stranglethorn Vale", "Arathi Highlands"] }, "tip": "Khadgar's Whisker needs Herbalism skill 185." },
+				{ "train": "Artisan", "tip": "Needs Herbalism skill 200. Tanaris and Searing Gorge have no Herbalism trainer." },
+				{ "gather": 210, "tip": "Tanaris and Searing Gorge come at 210, once the loops there suit your level." }
+			]
+		},
+		{
+			"from": 210,
+			"to": 230,
+			"steps": [
+				{ "gather": 230, "zones": { "Horde": ["Tanaris", "Searing Gorge"], "Alliance": ["Tanaris", "Searing Gorge"] }, "tip": "Purple Lotus needs Herbalism skill 210, Firebloom 205." }
+			]
+		},
+		{
+			"from": 230,
+			"to": 260,
+			"steps": [
+				{ "gather": 260, "zones": { "Horde": ["The Hinterlands"], "Alliance": ["The Hinterlands"] }, "tip": "Sungrass needs Herbalism skill 230; Ghost Mushroom 245, and many grow in caves." }
+			]
+		},
+		{
+			"from": 260,
+			"to": 300,
+			"steps": [
+				{ "gather": 285, "zones": { "Horde": ["Felwood"], "Alliance": ["Felwood"] }, "tip": "Golden Sansam needs Herbalism skill 260, Dreamfoil 270." },
+				{ "gather": 300, "zones": { "Horde": ["Felwood"], "Alliance": ["Felwood"] }, "tip": "Mountain Silversage needs Herbalism skill 280, Plaguebloom 285." }
+			]
+		}
+	]
+}

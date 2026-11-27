@@ -63,10 +63,9 @@ function npcsByName(npcs) {
 	return map;
 }
 
-// Hostile, non-elite spawns on `map` of the listed beasts, weighted for the
-// band [from, to). Point fields: name, req, level, w, pt.
-function SKINNING_POINTS(ctx, map, from, to) {
-	const names = BEASTS[map] || [];
+// Hostile, non-elite spawns on `map` of the listed beasts (the zone's curated list, or `names`: a route's
+// own beasts, steps.js), weighted for the band [from, to). Point fields: name, req, level, w, pt.
+function SKINNING_POINTS(ctx, map, from, to, names = BEASTS[map] || []) {
 	const index = npcsByName(ctx.data.npcs);
 	const out = [];
 	for (const name of names) {

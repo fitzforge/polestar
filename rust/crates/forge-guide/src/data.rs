@@ -11,7 +11,7 @@ pub const FILES: [&str; 7] = ["quests", "npcs", "objects", "items", "zones", "ma
 pub const OPTIONAL: [&str; 7] = ["professions", "factions", "trainers", "races", "travel", "spawnz", "moves"];
 
 /// Classic skill lines (game facts), so `skill <Profession> <N>` resolves without professions.json.
-pub const BUILTIN_PROFESSIONS: [(u32, &str); 13] = [
+pub const BUILTIN_PROFESSIONS: [(u32, &str); 14] = [
 	(171, "Alchemy"),
 	(164, "Blacksmithing"),
 	(333, "Enchanting"),
@@ -25,6 +25,7 @@ pub const BUILTIN_PROFESSIONS: [(u32, &str); 13] = [
 	(356, "Fishing"),
 	(129, "First Aid"),
 	(762, "Riding"),
+	(633, "Lockpicking"),
 ];
 
 fn builtin(i: usize) -> V {

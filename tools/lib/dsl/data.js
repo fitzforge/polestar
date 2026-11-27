@@ -39,6 +39,7 @@ const BUILTIN_PROFESSIONS = [
 	{ id: 356, name: 'Fishing' },
 	{ id: 129, name: 'First Aid' },
 	{ id: 762, name: 'Riding' },
+	{ id: 633, name: 'Lockpicking' },
 ];
 
 function zoneTypeRank(type) {

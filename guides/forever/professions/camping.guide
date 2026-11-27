@@ -1,0 +1,328 @@
+guide forever/professions/camping
+title Camping
+category Professions
+keywords camping, campfire, Basic Campfire Kit, Camp Benefits, camp item, Lodestone, Incense Candle, Camp Chair, Camp Tent, Mana Well, Sharpening Wheel, Enchanted Lute, Reagent Bot, Faction Banner, First Aid Kit, Fish Bowl, blueprint, Camping 101, The Great Outdoors
+collects 279981
+why A campfire, your profession's camp item and an hour of Camp Benefits.
+levels 1-60
+zone Stormwind City
+next forever/miscellaneous/cozy-sleeping-bag
+
+# Camping is Forever's own: someone places a campfire, everyone near it may place one camp item of
+# their own profession, and sitting by the fire for about a minute gives Camp Benefits, one buff for an
+# hour with what every camp item there adds. A camp item buff is a weaker form of a class buff and does
+# not stack with it. Each player places one camp item; placing it starts an hour before the next.
+#
+# The campfire comes with Cooking: the Basic Campfire Kit (1 Simple Wood, Cooking 1) holds three camp
+# items. The Journeyman Campfire Kit (Cooking 90, 1 Star Wood) holds five; its blueprint drops from Lord
+# Serpentis in Wailing Caverns. The Expert Campfire Kit (learned at Cooking 200, used from 220, 1 Thick
+# Logs) holds ten; its blueprint drops from Slavecrusher Grox in Krol'dok Stronghold.
+#
+# Every profession's first camp item is taught by its trainer from skill 20 (this guide's steps show
+# only those of the professions you have at 20). The starting areas' Camping 101 quests teach the same
+# recipe for free; the buffs work without them. Better camp items come from blueprints that bosses drop:
+# Fermenter (Rath'mael), Alchemy Laboratory (Ras Frostwhisper), Anvil (Gilnid), Master Forge (Golem Lord
+# Argelmach), Arcane Salvager (Shade of the Archmage), Arcane Forge (Nanaya), Repair Bot (Sneed),
+# Anarchist's Workbench (Ezra Grimm), Tanning Rack (Razorclaw the Butcher), Sewing Machine (Vectus),
+# Spinning Wheel (Unstable Sentinel), Loom (Baroness Anastari), Greenhouse (Shadetooth), Seed Hybridizer
+# (Tendris Warpwood), Rock Garden (Relic Guardian), Molten Foundry (Ambassador Flamelash), Field Guide
+# (Lady Anacondra) and Trapper's Workbench (Houndmaster Loksey or The Beast). Each also gives its
+# profession's first camp item buff.
+#
+# Item, recipe and blueprint ids, reagents and drops: data/forever (professions.json, items.json).
+# Camp Benefits is the client's spell 1229741. The Cozy Sleeping Bag guide is offered when this one ends.
+
+step Learn Cooking
+  tip The Basic Campfire Kit comes with Cooking at skill 1. No character level needed.
+  train Cooking Apprentice
+
+step Buy 5 Simple Wood
+  tip One Simple Wood makes one Basic Campfire Kit.
+  buy 4470 x5 nearest
+
+step Craft 5 Basic Campfire Kits
+  tip Kits stack in one bag slot, and friends can use the spares.
+  craft 1229737 x5
+
+step Learn Mana Well
+  tip Your Alchemy trainer teaches this camp item from Alchemy skill 20.
+  when skill Alchemy 20
+  when !knows 1230564
+  learn 1230564
+
+step Get 1 Peacebloom
+  tip Gathered or made by players; the Auction House sells it.
+  when skill Alchemy 20
+  collect 2447 x1 anywhere
+  auction 2447 x1
+
+step Buy 1 Empty Vial
+  when skill Alchemy 20
+  buy 3371 x1 nearest
+
+step Craft 1 Mana Well
+  when skill Alchemy 20
+  craft 1230564 x1
+
+step Learn Sharpening Wheel
+  tip Your Blacksmithing trainer teaches this camp item from Blacksmithing skill 20.
+  when skill Blacksmithing 20
+  when !knows 1230171
+  learn 1230171
+
+step Get 1 Rough Stone
+  tip Gathered or made by players; the Auction House sells it.
+  when skill Blacksmithing 20
+  collect 2835 x1 anywhere
+  auction 2835 x1
+
+step Get 1 Copper Bar
+  tip Gathered or made by players; the Auction House sells it.
+  when skill Blacksmithing 20
+  collect 2840 x1 anywhere
+  auction 2840 x1
+
+step Craft 1 Sharpening Wheel
+  when skill Blacksmithing 20
+  craft 1230171 x1
+
+step Learn Enchanted Lute
+  tip Your Enchanting trainer teaches this camp item from Enchanting skill 20.
+  when skill Enchanting 20
+  when !knows 1230643
+  learn 1230643
+
+step Buy 1 Simple Wood
+  when skill Enchanting 20
+  buy 4470 x1 nearest
+
+step Buy 1 Strange Dust
+  when skill Enchanting 20
+  buy 10940 x1 nearest
+
+step Craft 1 Enchanted Lute
+  when skill Enchanting 20
+  craft 1230643 x1
+
+step Learn Reagent Bot
+  tip Your Engineering trainer teaches this camp item from Engineering skill 20.
+  when skill Engineering 20
+  when !knows 1230656
+  learn 1230656
+
+step Get 1 Handful of Copper Bolts
+  tip Gathered or made by players; the Auction House sells it.
+  when skill Engineering 20
+  collect 4359 x1 anywhere
+  auction 4359 x1
+
+step Buy 1 Copper Tube
+  when skill Engineering 20
+  buy 4361 x1 nearest
+
+step Craft 1 Reagent Bot
+  when skill Engineering 20
+  craft 1230656 x1
+
+step Learn Camp Tent
+  tip Your Leatherworking trainer teaches this camp item from Leatherworking skill 20.
+  when skill Leatherworking 20
+  when !knows 1229432
+  learn 1229432
+
+step Get 5 Light Leathers
+  tip Gathered or made by players; the Auction House sells it.
+  when skill Leatherworking 20
+  collect 2318 x5 anywhere
+  auction 2318 x5
+
+step Craft 1 Camp Tent
+  when skill Leatherworking 20
+  craft 1229432 x1
+
+step Learn Faction Banner
+  tip Your Tailoring trainer teaches this camp item from Tailoring skill 20.
+  when skill Tailoring 20
+  when !knows 1229504
+  learn 1229504
+
+step Get 1 Bolt of Linen Cloth
+  tip Gathered or made by players; the Auction House sells it.
+  when skill Tailoring 20
+  collect 2996 x1 anywhere
+  auction 2996 x1
+
+step Buy 1 Coarse Thread
+  when skill Tailoring 20
+  buy 2320 x1 nearest
+
+step Craft 1 Faction Banner
+  when skill Tailoring 20
+  craft 1229504 x1
+
+step Learn Incense Candle
+  tip Your Herbalism trainer teaches this camp item from Herbalism skill 20.
+  when skill Herbalism 20
+  when !knows 1229705
+  learn 1229705
+
+step Get 1 Peacebloom
+  tip Gathered or made by players; the Auction House sells it.
+  when skill Herbalism 20
+  collect 2447 x1 anywhere
+  auction 2447 x1
+
+step Get 1 Silverleaf
+  tip Gathered or made by players; the Auction House sells it.
+  when skill Herbalism 20
+  collect 765 x1 anywhere
+  auction 765 x1
+
+step Craft 1 Incense Candle
+  when skill Herbalism 20
+  craft 1229705 x1
+
+step Learn Lodestone
+  tip Your Mining trainer teaches this camp item from Mining skill 20.
+  when skill Mining 20
+  when !knows 1230161
+  learn 1230161
+
+step Get 1 Rough Stone
+  tip Gathered or made by players; the Auction House sells it.
+  when skill Mining 20
+  collect 2835 x1 anywhere
+  auction 2835 x1
+
+step Get 1 Copper Bar
+  tip Gathered or made by players; the Auction House sells it.
+  when skill Mining 20
+  collect 2840 x1 anywhere
+  auction 2840 x1
+
+step Craft 1 Lodestone
+  when skill Mining 20
+  craft 1230161 x1
+
+step Learn Camp Chair
+  tip Your Skinning trainer teaches this camp item from Skinning skill 20.
+  when skill Skinning 20
+  when !knows 1229517
+  learn 1229517
+
+step Get 3 Light Leathers
+  tip Gathered or made by players; the Auction House sells it.
+  when skill Skinning 20
+  collect 2318 x3 anywhere
+  auction 2318 x3
+
+step Buy 2 Simple Woods
+  when skill Skinning 20
+  buy 4470 x2 nearest
+
+step Craft 1 Camp Chair
+  when skill Skinning 20
+  craft 1229517 x1
+
+step Learn First Aid Kit
+  tip Your First Aid trainer teaches this camp item from First Aid skill 20.
+  when skill "First Aid" 20
+  when !knows 1230117
+  learn 1230117
+
+step Get 3 Linen Bandages
+  tip Gathered or made by players; the Auction House sells it.
+  when skill "First Aid" 20
+  collect 1251 x3 anywhere
+  auction 1251 x3
+
+step Buy 1 Refreshing Spring Water
+  when skill "First Aid" 20
+  buy 159 x1 nearest
+
+step Craft 1 First Aid Kit
+  when skill "First Aid" 20
+  craft 1230117 x1
+
+step Learn Fish Bowl
+  tip Your Fishing trainer teaches this camp item from Fishing skill 20.
+  when skill Fishing 20
+  when !knows 1229745
+  learn 1229745
+
+step Get 1 Raw Brilliant Smallfish
+  tip Gathered or made by players; the Auction House sells it.
+  when skill Fishing 20
+  collect 6291 x1 anywhere
+  auction 6291 x1
+
+step Buy 1 Empty Vial
+  when skill Fishing 20
+  buy 3371 x1 nearest
+
+step Craft 1 Fish Bowl
+  when skill Fishing 20
+  craft 1229745 x1
+
+step Place a Basic Campfire
+  tip It holds three camp items, one for each player at it.
+  use 279981
+
+step Place your Mana Well by the campfire
+  tip One camp item a player; placing it starts an hour before the next.
+  when skill Alchemy 20
+  use 279956
+
+step Place your Sharpening Wheel by the campfire
+  tip One camp item a player; placing it starts an hour before the next.
+  when skill Blacksmithing 20
+  use 279944
+
+step Place your Enchanted Lute by the campfire
+  tip One camp item a player; placing it starts an hour before the next.
+  when skill Enchanting 20
+  use 279976
+
+step Place your Reagent Bot by the campfire
+  tip One camp item a player; placing it starts an hour before the next.
+  when skill Engineering 20
+  use 279950
+
+step Place your Camp Tent by the campfire
+  tip One camp item a player; placing it starts an hour before the next.
+  when skill Leatherworking 20
+  use 279978
+
+step Place your Faction Banner by the campfire
+  tip One camp item a player; placing it starts an hour before the next.
+  when skill Tailoring 20
+  use 279972
+
+step Place your Incense Candle by the campfire
+  tip One camp item a player; placing it starts an hour before the next.
+  when skill Herbalism 20
+  use 279962
+
+step Place your Lodestone by the campfire
+  tip One camp item a player; placing it starts an hour before the next.
+  when skill Mining 20
+  use 279960
+
+step Place your Camp Chair by the campfire
+  tip One camp item a player; placing it starts an hour before the next.
+  when skill Skinning 20
+  use 279979
+
+step Place your First Aid Kit by the campfire
+  tip One camp item a player; placing it starts an hour before the next.
+  when skill "First Aid" 20
+  use 279968
+
+step Place your Fish Bowl by the campfire
+  tip One camp item a player; placing it starts an hour before the next.
+  when skill Fishing 20
+  use 279967
+
+step Sit by the campfire until Camp Benefits starts
+  tip After about a minute of /sit beside the fire: one buff for an hour with what each camp item there gives.
+  buff 1229741 "Camp Benefits"

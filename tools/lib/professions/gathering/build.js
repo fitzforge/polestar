@@ -18,6 +18,8 @@
 // (`train <Profession> <Rank>`, `buy … nearest`): the engine picks the nearest
 // one of the player's faction at runtime.
 
+const fs = require('node:fs');
+const path = require('node:path');
 const { ZONES, RANKS, color, bandWeight } = require('./tables');
 const { RACE_GROUPS, REGIONS, SIDE, maxZoneLevel } = require('./groups');
 const N = require('./nodes');
@@ -506,12 +508,32 @@ function gatherLoops(ctx) {
 	return out;
 }
 
-// Every generated profession guide: { 'mining.guide': text, ... }.
-function buildAll(ctx) {
+// Every generated profession guide: { 'mining.guide': text, ... }. A profession with a gathering route file
+// (routes/<file>.json, `"kind": "gathering"`) is written from it (steps.js), and so is a gathering route with
+// no spec (Lockpicking: the route says everything); `notes` collects the route zones that have no safe loop.
+function buildAll(ctx, notes = []) {
 	const { SPECS } = require('./specs');
+	const { loadRoute } = require('../route');
+	const { renderRoute } = require('./steps');
 	const out = {};
-	for (const prof of SPECS) out[`${prof.file}.guide`] = prof.render ? prof.render(ctx) : render(ctx, prof);
+	const put = (prof, route) => {
+		const r = renderRoute(ctx, prof, route);
+		notes.push(...r.notes);
+		out[`${prof.file}.guide`] = r.text;
+	};
+	for (const prof of SPECS) {
+		const route = prof.skill && prof.file ? loadRoute(prof.file) : null;
+		if (route && route.kind === 'gathering') put(prof, route);
+		else out[`${prof.file}.guide`] = prof.render ? prof.render(ctx) : render(ctx, prof);
+	}
+	const dir = path.join(__dirname, '..', 'routes');
+	for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.json')).sort()) {
+		const file = f.slice(0, -5);
+		if (SPECS.some((p) => p.file === file)) continue;
+		const route = loadRoute(file);
+		if (route.kind === 'gathering') put({ file, skill: route.profession }, route);
+	}
 	return out;
 }
 
-module.exports = { plan, render, buildAll, gatherLoops, zonePicks, partLoops, partPoints, rareKinds, startParts, bandYield, coversTop, loopLine, lapSeconds, nodeSummary, OUT_DIR };
+module.exports = { plan, render, buildAll, gatherLoops, zonePicks, partLoops, partPoints, pointsOf, farmIn, rareKinds, startParts, bandYield, coversTop, loopLine, lapSeconds, nodeSummary, OUT_DIR };

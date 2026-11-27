@@ -1204,11 +1204,12 @@ fn read_taught_spells(data: &Data) -> V {
 	out
 }
 
-/// A profession's skill line ([`crate::data::BUILTIN_PROFESSIONS`]; Riding teaches no recipe): its spells are
-/// recipes. Not SkillLine's CategoryID: its secondary skills (9) also hold Comprehension, Poisons and Riding.
+/// A profession's skill line ([`crate::data::BUILTIN_PROFESSIONS`]; Riding and Lockpicking teach no recipe): its
+/// spells are recipes. Not SkillLine's CategoryID: its secondary skills (9) also hold Comprehension, Poisons and
+/// Riding.
 #[cfg(feature = "native")]
 fn recipe_line(line: f64) -> bool {
-	crate::data::BUILTIN_PROFESSIONS.iter().any(|&(id, name)| f64::from(id) == line && name != "Riding")
+	crate::data::BUILTIN_PROFESSIONS.iter().any(|&(id, name)| f64::from(id) == line && name != "Riding" && name != "Lockpicking")
 }
 
 #[cfg(not(feature = "native"))]

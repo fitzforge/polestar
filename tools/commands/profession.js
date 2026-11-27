@@ -127,7 +127,9 @@ function runGathering(rest) {
 		return reportSync({ [S.OUT_FILE]: S.render(ctx) }, S.OUT_DIR, { check: values.check === true, command: 'profession gathering spots' });
 	}
 	const { buildAll, OUT_DIR } = require('../lib/professions/gathering/build');
-	const files = buildAll(ctx);
+	const notes = [];
+	const files = buildAll(ctx, notes);
+	for (const n of notes) console.error(`note: ${n}`);
 	if (values.stdout) {
 		for (const [name, text] of Object.entries(files)) process.stdout.write(`==> ${name}\n${text}\n`);
 		return 0;

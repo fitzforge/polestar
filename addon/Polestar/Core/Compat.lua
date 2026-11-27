@@ -1320,7 +1320,7 @@ local SKILL_LINES = {
 	alchemy = 171, blacksmithing = 164, enchanting = 333, engineering = 202,
 	herbalism = 182, leatherworking = 165, mining = 186, skinning = 393,
 	tailoring = 197, cooking = 185, fishing = 356, ["first aid"] = 129,
-	riding = 762,
+	riding = 762, lockpicking = 633,
 }
 Compat.SKILL_LINES = SKILL_LINES
 
