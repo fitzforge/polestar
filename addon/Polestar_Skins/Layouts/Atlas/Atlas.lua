@@ -2110,10 +2110,12 @@ on("guideAnchor", function()
 	if own and own.stack and own.stack:IsShown() then return own.stack end
 end)
 
--- The class quest card's own "Later" row: the × does it.
+-- The class quest card's own "Later" row: the × does it. A paired profession guide's two skills stand in the XP
+-- row (its star and line, kept in compact mode too), not as two meters in the window.
 on("guideShows", function(what, shown, ...)
 	if what == "classCardLater" then return false end
 	if what == "bannerClose" and select(1, ...) == "away" then return false end
+	if what == "pairMeter" then return false end
 	return shown
 end)
 

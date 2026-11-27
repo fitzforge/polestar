@@ -10,6 +10,11 @@
 -- set to Buy). Reputation: "meter" (the standing), "turnin" (the step's turn-in), "supplies" (its items), "more"
 -- (the guide's other quests for the faction).
 --
+-- A paired guide (`skills Skinning, Leatherworking`, compiled as `skillLines`) levels two skills: the meter is
+-- `{ pair = { gathering, crafting } }`, a stretch is of its own craft's skill (its rank decides when it is done), the
+-- trainer line takes the next rank of either, and the step's tip gives the stretch card its flow line and the
+-- materials their "from your skinning on the way" clause (KC.TipParts).
+--
 -- The stretch: the first `craft … until` goal from the step in view on that the skill is under. Its colours
 -- (Classic's): orange below `yellow`, yellow below green ((yellow + grey) / 2), green below `grey`, grey from
 -- there. Crafts expected (Engine's craftsFrom, the skill-up chance) from the stretch's start; made = the casts
@@ -20,7 +25,7 @@
 
 local _, ns = ...
 local Engine, Materials = ns.Engine, ns.Materials
-local floor, ceil, max, min = math.floor, math.ceil, math.max, math.min
+local floor, ceil, max, min, format = math.floor, math.ceil, math.max, math.min, string.format
 local pairs, ipairs, type = pairs, ipairs, type
 
 local KC = {}
@@ -93,26 +98,55 @@ function KC.Stretches()
 	return list
 end
 
--- The stretch the skill is in from step `index` on: the entry and its place in the list; nil without one.
+-- The stretch the skills are in from step `index` on: the entry and its place in the list; nil without one.
+-- `rank`: the rank held, a number for every skill line or { [skillLine] = rank } (a paired guide's two skills);
+-- a stretch is the next one whose own skill line is under its move-on.
 function KC.Stretch(index, rank)
 	local list = KC.Stretches()
-	rank = rank or 0
-	for k, st in ipairs(list) do
-		if st.s >= (index or 1) and st.goal.untilSkill > rank then return st, k end
+	local function under(st)
+		local r = type(rank) == "table" and (rank[st.goal.skillLine or 0] or rank[0]) or rank
+		return st.goal.untilSkill > (r or 0)
 	end
 	for k, st in ipairs(list) do
-		if st.goal.untilSkill > rank then return st, k end
+		if st.s >= (index or 1) and under(st) then return st, k end
+	end
+	for k, st in ipairs(list) do
+		if under(st) then return st, k end
 	end
 	return nil
 end
 
--- The skill the guide levels: line, rank (nil: not learned), cap.
-local function skill()
-	local b = Engine.SkillBar and Engine.SkillBar()
-	if not b then return nil end
-	local rank, cap = C().GetSkillRank(b.line)
-	if type(rank) ~= "number" or rank <= 0 then rank = nil end
-	return b, rank, cap
+-- The skills the guide levels, one per skill line (a paired guide's gathering skill, then its crafting one):
+-- { b = Engine.SkillBar's bar, rank (nil: not learned), cap }.
+local function skills()
+	local out = {}
+	local first, second
+	if Engine.SkillBar then first, second = Engine.SkillBar() end
+	for _, bar in ipairs({ first, second }) do
+		local rank, cap = C().GetSkillRank(bar.line)
+		if type(rank) ~= "number" or rank <= 0 then rank = nil end
+		out[#out + 1] = { b = bar, rank = rank, cap = cap }
+	end
+	return out
+end
+
+-- The skill of skill line `line` among `list`; a goal without a skill line is the last one's (a paired guide's
+-- crafting skill).
+local function skillOf(list, line)
+	for _, s in ipairs(list) do
+		if s.b.line == line then return s end
+	end
+	return list[#list]
+end
+
+-- The ranks held, { [skillLine] = rank } (0: not learned), and [0], the last skill's, for a goal with no skill line.
+local function ranksOf(list)
+	local r = {}
+	for _, s in ipairs(list) do
+		r[s.b.line] = s.rank or 0
+		r[0] = s.rank or 0
+	end
+	return r
 end
 
 local function craftName(goal)
@@ -158,15 +192,18 @@ local function maker(G, item)
 end
 
 -- The next profession rank the guide trains from step `index` on, above `cap`: { s, g, goal, cap, level, rank }.
-local function nextTrain(index, cap)
+-- `cap`: the cap held, a number for every skill line or { [skillLine] = cap } (a paired guide's two skills);
+-- `line`: only that skill line's ranks.
+local function nextTrain(index, cap, line)
 	local a = access()
 	local G = a.guide()
 	for s = index or 1, #G.steps do
 		local step = G.steps[s]
 		if a.stepApplies(step) then
 			for g, goal in ipairs(step.goals or {}) do
-				local top = goal.t == "train" and (goal.rankMax or a.rankCap(goal))
-				if top and top > (cap or 0) and a.goalApplies(goal) and not a.goalDone(s, g, goal) then
+				local top = goal.t == "train" and (not line or not goal.skillLine or goal.skillLine == line) and (goal.rankMax or a.rankCap(goal))
+				local held = type(cap) == "table" and (cap[goal.skillLine or 0] or cap[0]) or cap
+				if top and top > (held or 0) and a.goalApplies(goal) and not a.goalDone(s, g, goal) then
 					local r = tonumber(goal.rank)
 					return { s = s, g = g, goal = goal, cap = top, rank = r, level = (r and r >= 2) and max(1, top - 100) or 0 }
 				end
@@ -174,6 +211,81 @@ local function nextTrain(index, cap)
 		end
 	end
 	return nil
+end
+
+---------------------------------------------------------------------------
+-- A paired guide's step tip: the flow line and the "from your ... on the way" clause
+---------------------------------------------------------------------------
+
+-- A paired guide's gathering step says its cycle in its tip: "34 Light Leather for Leatherworking 20-51: 53 Light
+-- Armor Kits; from your skinning on the way: 12 of 34 Light Leather. Skin 34 Light Leather (Skinning 50 to 72), then
+-- craft 45 Light Armor Kits (Leatherworking 20 to 51). The arrow takes ...". The window says the cycle on the stretch
+-- card (the flow line, the sentence with the craft's own range in brackets: `from` to `to`, the skill the stretch
+-- starts and ends at) and the clause after the first sentence's `;` in the materials, and leaves the rest as the tip.
+-- Found by those numbers, not by words: the guide's texts are in every language of the addon.
+-- -> { flow, gather = { from, to } | nil, from = the clause | nil, rest = the tip left } or nil (no such sentence).
+local tipCache = {}
+local function trim(s) return (s:gsub("^%s+", ""):gsub("%s+$", "")) end
+local CJK_STOP, WIDE_SEMI = "\227\128\130", "\239\188\155"
+-- Where the last sentence of `s` starts: after the last full stop and its space, or the last CJK full stop; 1 for
+-- one sentence alone.
+local function sentenceStart(s)
+	local at = 1
+	for p in s:gmatch("()%.%s") do at = p + 2 end
+	for p in s:gmatch("()" .. CJK_STOP) do at = max(at, p + 3) end
+	return at
+end
+-- The text without its closing full stop (an ordinary or a CJK one).
+local function unstop(s)
+	if s:sub(-3) == CJK_STOP then return s:sub(1, -4) end
+	if s:sub(-1) == "." then return s:sub(1, -2) end
+	return s
+end
+function KC.TipParts(note, from, to)
+	if type(note) ~= "string" or type(from) ~= "number" or type(to) ~= "number" then return nil end
+	local key = format("%d:%d", from, to)
+	local hit = tipCache[note]
+	if hit and hit.key == key then return hit.parts or nil end
+	local text = note:gsub("\239\188\136", "("):gsub("\239\188\137", ")")
+	-- The last bracket holding `from` and then `to`: the craft's range.
+	local pattern = format("%%([^()]-%%f[%%d]%d%%f[%%D][^()%%d]-%%f[%%d]%d%%f[%%D][^()]-%%)", from, to)
+	local s0, e0, pos = nil, nil, 1
+	while true do
+		local s, e = text:find(pattern, pos)
+		if not s then break end
+		s0, e0, pos = s, e, e + 1
+	end
+	local parts
+	if s0 then
+		-- The flow sentence: from after the stop before the bracket to the stop after it.
+		local startAt = sentenceStart(text:sub(1, s0 - 1))
+		local stop = text:sub(e0 + 1):match("^%s*%.") or text:sub(e0 + 1):match("^%s*" .. CJK_STOP) or ""
+		local flow = trim(text:sub(startAt, e0))
+		local head, tail = trim(text:sub(1, startAt - 1)), trim(text:sub(e0 + #stop + 1))
+		-- Its gathering range: the bracket before the craft's ("Skinning 50 to 72"), when the flow has two.
+		local brackets = {}
+		for inner in flow:gmatch("%(([^()]-)%)") do brackets[#brackets + 1] = inner end
+		local gather
+		if #brackets >= 2 then
+			local g0, g1 = brackets[1]:match("%f[%d](%d+)%f[%D]%D-%f[%d](%d+)")
+			if g0 then gather = { tonumber(g0), tonumber(g1) } end
+		end
+		-- The clause: what follows the first sentence's last `;` (a full-width one too).
+		local why, clause = head, nil
+		local semi, wide = 0, false
+		for p in why:gmatch("();") do semi = p end
+		for p in why:gmatch("()" .. WIDE_SEMI) do
+			if p > semi then semi, wide = p, true end
+		end
+		if semi > 0 then
+			clause = unstop(trim(why:sub(semi + (wide and 3 or 1))))
+			local cjk = why:sub(-3) == CJK_STOP
+			why = trim(why:sub(1, semi - 1)) .. (cjk and CJK_STOP or ".")
+		end
+		parts = { flow = unstop(flow), gather = gather, from = clause, rest = trim(why .. " " .. tail) }
+	end
+	tipCache[note] = { key = key, parts = parts or false }
+	return parts
 end
 
 -- A profession rank's title, a literal key each (the translations' check finds only those).
@@ -270,9 +382,10 @@ function Engine.FarmMinutes(item)
 		local fv = a.farm(gg)
 		if not (fv and fv.minutes) or fv.loop then return nil end
 		local missing = a.needOf(gg) - bags(item)
-		local b, rank = skill()
-		local st = b and KC.Stretch(a.current(), rank)
+		local list = skills()
+		local st = list[1] and KC.Stretch(a.current(), ranksOf(list))
 		if st and missing > 0 then
+			local rank = skillOf(list, st.goal.skillLine).rank
 			for _, r in ipairs(KC.StretchNeeds(st, rank)) do
 				if r.item == item then return ceil(fv.minutes * max(0, r.need - r.have) / missing) end
 			end
@@ -402,21 +515,43 @@ end
 
 local M = Engine.KindModels
 
-local function professionMeter(view)
-	local b, rank, cap = skill()
-	if not b then return nil end
+-- The caps held, { [skillLine] = cap } (0: not learned), and [0], the last skill's, for a goal with no skill line.
+local function capsOf(list)
+	local c = {}
+	for _, s in ipairs(list) do
+		c[s.b.line] = s.rank and s.cap or 0
+		c[0] = c[s.b.line]
+	end
+	return c
+end
+
+-- The paired guide's tip parts for the stretch in view (KC.TipParts), nil for any other guide or step.
+local function tipOf(list, view, st)
+	if #list < 2 or not (view and st and view.note) then return nil end
+	return KC.TipParts(view.note, st.from, st.goal.untilSkill)
+end
+
+-- One skill's meter: its rank against its cap, the stretch still to go lit to its move-on, ticks at the move-on and
+-- the next trainer rank, and the recipes ahead. A paired guide's gathering skill moves on where its gathering for
+-- the stretch ends (the tip's "Skinning 50 to 72", else its next `skill` goal) and has no recipes.
+local function skillMeter(s, list, view, ranks, parts)
+	local b, rank, cap = s.b, s.rank, s.cap
 	local name = KC.SkillName(b.line)
-	local covers = coverTypes(view, { skill = true })
 	if not rank then
 		return { kind = "skill", name = name, nameKind = "skill", value = 0, max = cap or 0, frac = 0, seg = { 0, 0 }, ticks = {}, line = {},
-			learned = false, skillLine = b.line, covers = covers }
+			learned = false, skillLine = b.line }
 	end
 	cap = (type(cap) == "number" and cap > 0) and cap or max(rank, 1)
-	local st, k = KC.Stretch(view and view.index, rank)
+	local st, k = KC.Stretch(view and view.index, ranks)
+	if st and (st.goal.skillLine or b.line) ~= b.line then st, k = nil, nil end
+	local gathering = #list == 2 and s == list[1]
 	local moveOn = st and st.goal.untilSkill
-	local tr = nextTrain(view and view.index or 1, cap)
+	if gathering then
+		moveOn = parts and parts.gather and parts.gather[2] > rank and parts.gather[2] or b.next
+	end
+	local tr = nextTrain(view and view.index or 1, cap, b.line)
 	local ticks = {}
-	if moveOn and moveOn < cap then ticks[#ticks + 1] = { at = moveOn, what = "moveOn" } end
+	if moveOn and moveOn < cap then ticks[#ticks + 1] = { at = moveOn, what = gathering and "gathered" or "moveOn" } end
 	if tr and tr.level > rank and tr.level <= cap and tr.level ~= moveOn then ticks[#ticks + 1] = { at = tr.level, what = "train" } end
 	local line = {}
 	if st then
@@ -426,7 +561,23 @@ local function professionMeter(view)
 	end
 	return { kind = "skill", name = name, nameKind = "skill", value = rank, max = cap, frac = min(1, rank / cap),
 		seg = { min(1, rank / cap), moveOn and min(1, moveOn / cap) or min(1, rank / cap) }, ticks = ticks, line = line, learned = true,
-		skillLine = b.line, covers = covers }
+		skillLine = b.line }
+end
+
+-- The skill meter: one skill's, or a paired guide's two (`pair`: the gathering skill's, then the crafting one's).
+local function professionMeter(view)
+	local list = skills()
+	if #list == 0 then return nil end
+	local ranks = ranksOf(list)
+	local covers = coverTypes(view, { skill = true })
+	if #list == 1 then
+		local m = skillMeter(list[1], list, view, ranks, nil)
+		m.covers = covers
+		return m
+	end
+	local parts = tipOf(list, view, KC.Stretch(view and view.index, ranks))
+	return { kind = "skill", pair = { skillMeter(list[1], list, view, ranks, parts), skillMeter(list[2], list, view, ranks, parts) },
+		covers = covers }
 end
 
 M.meter = function(view, kind)
@@ -437,8 +588,8 @@ end
 
 M.trainer = function(view, kind)
 	if kind ~= "profession" then return nil end
-	local b, rank, cap = skill()
-	if not b then return nil end
+	local list = skills()
+	if #list == 0 then return nil end
 	local a = access()
 	local G = a.guide()
 	-- Recipes the step in view learns: due now.
@@ -453,25 +604,34 @@ M.trainer = function(view, kind)
 	local covers = coverTypes(view, { train = true, learn = true, level = true })
 	if lg then
 		local npc, map = placeOf(lg)
-		return { title = table.concat(learns, ", "), learn = true, level = rank or 0, npc = npc, map = map, due = true, toGo = 0,
-			step = view.index, goalIndex = lgi, covers = covers }
+		return { title = table.concat(learns, ", "), learn = true, level = skillOf(list, lg.skillLine).rank or 0, npc = npc, map = map, due = true,
+			toGo = 0, step = view.index, goalIndex = lgi, covers = covers }
 	end
-	local tr = nextTrain(view and view.index or 1, rank and cap or 0)
+	local tr = nextTrain(view and view.index or 1, capsOf(list))
 	if not tr then return nil end
+	-- The skill that rank is of: a paired guide trains each of its two.
+	local own = skillOf(list, tr.goal.skillLine)
+	local rank, cap = own.rank, own.cap
 	local npc, map = placeOf(tr.goal)
 	local due = not rank or (rank or 0) >= tr.level or (rank and cap and rank >= cap) or false
-	local gate = b.gate
-	return { title = rankTitle(tr.rank) or tostring(tr.goal.rank or ""), rank = tr.rank, level = tr.level,
+	local gate = own.b.gate
+	local title = rankTitle(tr.rank) or tostring(tr.goal.rank or "")
+	-- A paired guide trains both its skills: the rank says whose.
+	if #list == 2 then title = title .. " " .. (KC.SkillName(own.b.line) or "") end
+	return { title = title, rank = tr.rank, level = tr.level,
 		npc = npc, map = map, due = due, toGo = max(0, tr.level - (rank or 0)), step = tr.s, goalIndex = tr.g,
 		needsLevel = gate and gate.step == tr.s and gate.level or nil, covers = covers }
 end
 
 M.stretch = function(view, kind)
 	if kind ~= "profession" then return nil end
-	local b, rank = skill()
-	if not (b and rank) then return nil end
-	local st = KC.Stretch(view and view.index, rank)
+	local list = skills()
+	if #list == 0 then return nil end
+	local st = KC.Stretch(view and view.index, ranksOf(list))
 	if not st then return nil end
+	local own = skillOf(list, st.goal.skillLine)
+	local rank = own.rank
+	if not rank then return nil end
 	local a = access()
 	local G = a.guide()
 	local goal = st.goal
@@ -499,16 +659,22 @@ M.stretch = function(view, kind)
 		end
 	end
 	local covers = coverTypes(view, { craft = true })
+	-- A paired guide's step says its cycle in its tip: the card says it, and the tip keeps the rest.
+	local parts = tipOf(list, view, st)
 	return { item = goal.item, recipe = goal.spell, name = craftName(goal), quality = goal.item and quality(goal.item), colour = colour,
 		yellow = goal.yellow, green = green, grey = goal.grey, reagents = reagents, made = made,
 		expected = expected and max(made, floor(expected + 0.5)) or nil, moveOn = goal.untilSkill, from = st.from, rank = rank,
-		canMake = canMake or 0, makeFirst = makeFirst, spell = KC.SkillName(b.line), step = st.s, covers = covers }
+		canMake = canMake or 0, makeFirst = makeFirst, spell = KC.SkillName(own.b.line), step = st.s, covers = covers,
+		flow = parts and parts.flow or nil, note = parts and parts.rest or nil }
 end
 
 local function professionSupplies(view)
-	local b, rank = skill()
-	if not (b and rank) then return nil end
-	local st = KC.Stretch(view and view.index, rank)
+	local list = skills()
+	if #list == 0 then return nil end
+	local ranks = ranksOf(list)
+	local st = KC.Stretch(view and view.index, ranks)
+	local rank = skillOf(list, st and st.goal.skillLine).rank
+	if not rank then return nil end
 	local a = access()
 	local G = a.guide()
 	local needs = st and KC.StretchNeeds(st, rank) or {}
@@ -532,8 +698,10 @@ local function professionSupplies(view)
 	for gi, gv in ipairs(view and view.goals or {}) do
 		if (gv.t == "collect" or gv.t == "auction" or gv.t == "buy") and seen[gv.item] then covers[#covers + 1] = gi end
 	end
+	local parts = tipOf(list, view, st)
 	return { title = st and st.goal.untilSkill, titleKind = "skill", way = mode == "gather" and "gather" or mode, rows = rows, focus = focus,
-		buyList = buyListOf(rows), selfFound = Materials.SelfFound(), choosable = Materials.Choosable(G), covers = covers }
+		buyList = buyListOf(rows), selfFound = Materials.SelfFound(), choosable = Materials.Choosable(G), covers = covers,
+		from = parts and parts.from or nil }
 end
 
 M.supplies = function(view, kind)

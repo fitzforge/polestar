@@ -2,17 +2,20 @@
 -- contract in docs/ARCHITECTURE.md, "Guide kind regions"; the models in Core/KindCraft.lua).
 --
 -- Profession: the skill meter (the skill, the stretch still to go lit to its move-on, ticks at the move-on and the
--- next trainer rank), the trainer line, the stretch card (the recipe now, its colour chip, "6 of about 32 made",
--- "You can make 3 now" with Open <Profession>, the window's one secure button), the materials (a row each, have /
--- need, the Buy | Farm toggle; the split under the row in focus: a verdict line over a Buy and a Farm column, the
--- way it takes lit), the buy list line. Reputation: the standing meter, the turn-in card, its items (the same rows
--- and split), More reputation.
+-- next trainer rank; a paired guide's two skills as two compact meters stacked, or in a layout that says them in the
+-- XP row (GF.Shows "pairMeter", Atlas) none), the trainer line, the stretch card (the recipe now, its colour chip, a
+-- paired guide's flow line under its name, "6 of about 32 made", "You can make 3 now" with Open <Profession>, the
+-- window's one secure button), the materials (a row each, have / need, the Buy | Farm toggle; the split under the row
+-- in focus: a verdict line over a Buy and a Farm column, the way it takes lit; a paired guide's "from your skinning on
+-- the way" under the heading), the buy list line. Reputation: the standing meter, the turn-in card, its items (the
+-- same rows and split), More reputation.
 --
--- Compact mode: one line per thing (the skill, the recipe, each material still short); the trainer line only when
--- due; no split (a material row opens the Materials window). Every colour is a Theme token, every ground a kit
--- painter (`button` for the cards, `inset` for the split's well, `tab` for the segments), so each look paints
--- them its own way; the rows go to the skin's guideKindRow hook and the meters to guideMeter. Nothing here builds a
--- string while the window is being resized: `paint` writes the text on a render, `layout` measures and anchors.
+-- Compact mode: one line per thing (the skill, or a paired guide's two on one line; the recipe, each material still
+-- short); the trainer line only when due; no split (a material row opens the Materials window). Every colour is a
+-- Theme token, every ground a kit painter (`button` for the cards, `inset` for the split's well, `tab` for the
+-- segments), so each look paints them its own way; the rows go to the skin's guideKindRow hook and the meters to
+-- guideMeter. Nothing here builds a string while the window is being resized: `paint` writes the text on a render,
+-- `layout` measures and anchors.
 
 local ADDON, ns = ...
 ns.UI.GuideFrame.Part(function(GF)
@@ -218,6 +221,106 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- Meter: the skill or the standing
 	---------------------------------------------------------------------------
 
+	-- A tick's tooltip line, a literal key each (the translations' check finds only those).
+	local function tickText(tk)
+		if tk.what == "train" then return format(L["%d: the trainer's next rank"], tk.at) end
+		if tk.what == "gathered" then return format(L["%d: enough gathered, craft next"], tk.at) end
+		return format(L["%d: move on to the next recipe"], tk.at)
+	end
+	-- A meter's tooltip: its ticks; a paired guide's two, each line led by its skill.
+	local function meterTip(self, m)
+		if not m then return end
+		local lines = {}
+		for _, s in ipairs(m.pair or { m }) do
+			for _, tk in ipairs(s.ticks or {}) do
+				lines[#lines + 1] = m.pair and ((s.name or "") .. " " .. tickText(tk)) or tickText(tk)
+			end
+		end
+		W.Tip(self, m.pair and ((m.pair[1].name or "") .. DOT .. (m.pair[2].name or "")) or m.name, lines)
+	end
+	-- A compact meter of a paired guide's skill: its glyph, name, bar, rank / max.
+	local function pairRow(parent)
+		local r = CreateFrame("Frame", nil, parent)
+		r.Glyph = glyph(r, "skill", 13)
+		r.Name = W.Text(r, "name", "skill")
+		r.Value = W.Text(r, "title", "text")
+		r.Max = W.Text(r, "label", "textDim")
+		r.Bar = meterBar(r, 3)
+		r:EnableMouse(true)
+		r:SetScript("OnEnter", function(self) meterTip(self, self.psModel) end)
+		r:SetScript("OnLeave", function(self) W.TipHide(self) end)
+		return r
+	end
+	-- What a paired guide's meter says: a row each (name in the skill's colour, the rank, the stretch still to go lit,
+	-- ticks), and in compact mode one line: "Skinning 72 · Leatherworking 51".
+	local function paintPair(f, m)
+		local words = {}
+		for i, sub in ipairs(m.pair) do
+			local r = f.PairRows[i]
+			r.psModel = sub
+			W.Color(r.Name, sub.nameKind or "skill")
+			local learned = sub.learned ~= false
+			r.Name:SetText(learned and (sub.name or "") or format(L["Learn %s"], sub.name or ""))
+			r.Value:SetText(learned and tostring(sub.value) or "")
+			r.Max:SetText(learned and ("/ " .. tostring(sub.max)) or "")
+			local name = hexed(sub.nameKind or "skill", sub.name or "")
+			words[i] = learned and (name .. " " .. tostring(sub.value)) or format(L["Learn %s"], name)
+			GF.Hook("guideMeter", f, { kind = sub.kind, frac = sub.frac, seg = sub.seg, ticks = sub.ticks, bar = r.Bar, pair = i })
+		end
+		f.PairLine:SetText(table.concat(words, DOT))
+	end
+	local function layoutPair(f, m, width, mode)
+		-- A layout that says the two skills in the XP row (GF.Shows "pairMeter", Atlas) leaves the window none.
+		if not GF.Shows("pairMeter", true) then return 0 end
+		local compact = mode == "compact"
+		for _, r in ipairs(f.PairRows) do r:SetShown(not compact) end
+		f.PairLine:SetShown(compact)
+		f.PairGlyph:SetShown(compact)
+		local textX = PAD + 22
+		if compact then
+			local h = 24
+			f.PairGlyph:ClearAllPoints()
+			f.PairGlyph:SetPoint("LEFT", f, "TOPLEFT", PAD, -h / 2)
+			f.PairLine:ClearAllPoints()
+			f.PairLine:SetPoint("LEFT", f, "TOPLEFT", textX, -h / 2)
+			f.PairLine:SetWidth(max(40, width - textX - PAD))
+			return h
+		end
+		-- The two rows share their columns: names, then the bars, then the ranks, so the bars line up.
+		local nameW, maxW, valW = 0, 0, 0
+		for _, r in ipairs(f.PairRows) do
+			nameW = max(nameW, r.Name:GetStringWidth())
+			maxW = max(maxW, r.Max:GetStringWidth())
+			valW = max(valW, r.Value:GetStringWidth())
+		end
+		nameW = min(nameW, max(40, (width - textX - PAD) * 0.4))
+		local rowH, y = 24, 4
+		for i, r in ipairs(f.PairRows) do
+			local sub = m.pair[i]
+			r:ClearAllPoints()
+			r:SetPoint("TOPLEFT", f, "TOPLEFT", 0, -y)
+			r:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, -y)
+			r:SetHeight(rowH)
+			r.Glyph:ClearAllPoints()
+			r.Glyph:SetPoint("LEFT", r, "LEFT", PAD, 0)
+			r.Name:ClearAllPoints()
+			r.Name:SetPoint("LEFT", r, "LEFT", textX, 0)
+			r.Name:SetWidth(nameW)
+			r.Max:ClearAllPoints()
+			r.Max:SetPoint("RIGHT", r, "RIGHT", -PAD, -1)
+			r.Value:ClearAllPoints()
+			r.Value:SetPoint("RIGHT", r.Max, "LEFT", -3, 1)
+			local bx = textX + nameW + 10
+			local bw = width - PAD - maxW - valW - 3 - 10 - bx
+			r.Bar:ClearAllPoints()
+			r.Bar:SetPoint("LEFT", r, "LEFT", bx, 0)
+			r.Bar:SetShown(bw > 20 and sub.learned ~= false)
+			placeBar(r.Bar, bw, sub.frac, sub.seg, sub.ticks, sub.max, false)
+			y = y + rowH
+		end
+		return y + 6
+	end
+
 	GF.RegisterRegion("meter", {
 		build = function(parent)
 			local f = CreateFrame("Frame", nil, parent)
@@ -228,16 +331,12 @@ ns.UI.GuideFrame.Part(function(GF)
 			f.Rank = W.Text(f, "label", "textDim")
 			f.Bar = meterBar(f, 3)
 			f.Line = W.Text(f, "small", "textDim")
+			-- A paired guide's two skills: two compact meters, or one line.
+			f.PairRows = { pairRow(f), pairRow(f) }
+			f.PairGlyph = glyph(f, "skill", 14)
+			f.PairLine = W.Text(f, "goal", "text")
 			f:EnableMouse(true)
-			f:SetScript("OnEnter", function(self)
-				local m = self.psModel
-				if not m then return end
-				local lines = {}
-				for _, tk in ipairs(m.ticks or {}) do
-					lines[#lines + 1] = tk.what == "train" and format(L["%d: the trainer's next rank"], tk.at) or format(L["%d: move on to the next recipe"], tk.at)
-				end
-				W.Tip(self, m.name, lines)
-			end)
+			f:SetScript("OnEnter", function(self) meterTip(self, self.psModel) end)
 			f:SetScript("OnLeave", function(self) W.TipHide(self) end)
 			return f
 		end,
@@ -247,6 +346,24 @@ ns.UI.GuideFrame.Part(function(GF)
 		end,
 		paint = function(f, m, mode)
 			f.psModel = m
+			-- One skill's widgets, or a paired guide's (the single's go quiet).
+			local pair = m.pair ~= nil
+			if f.psPair ~= pair then
+				f.psPair = pair
+				for _, w in ipairs({ f.Glyph, f.Name, f.Value, f.Max }) do w:SetShown(not pair) end
+				if pair then
+					f.Rank:Hide()
+					f.Bar:Hide()
+					f.Line:Hide()
+				end
+				for _, r in ipairs(f.PairRows) do r:SetShown(pair) end
+				f.PairGlyph:SetShown(pair)
+				f.PairLine:SetShown(pair)
+			end
+			if pair then
+				paintPair(f, m)
+				return
+			end
 			f.Glyph:SetTexture(Theme.VerbIcon(m.kind == "rep" and "rep" or "skill"))
 			W.Color(f.Glyph, m.done and "success" or "textDim")
 			W.Color(f.Name, m.nameKind or "skill")
@@ -286,6 +403,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			GF.Hook("guideMeter", f, { kind = m.kind, frac = m.frac, seg = m.seg, ticks = m.ticks, bar = f.Bar })
 		end,
 		layout = function(f, m, width, mode)
+			if m.pair then return layoutPair(f, m, width, mode) end
 			local x = PAD
 			f.Glyph:ClearAllPoints()
 			f.Name:ClearAllPoints()
@@ -541,6 +659,11 @@ ns.UI.GuideFrame.Part(function(GF)
 			end)
 			f.Chip:SetScript("OnLeave", function(self) W.TipHide(self) end)
 			f.Uses = W.Text(f.Card, "small", "textDim")
+			-- A paired guide's flow line, the card's subtitle: "Skin 34 Light Leather (Skinning 50 to 72), then craft ...".
+			f.Flow = W.Text(f.Card, "small", "textDim")
+			f.Flow:SetWordWrap(true)
+			f.Flow:SetJustifyH("LEFT")
+			f.Flow:SetMaxLines(3)
 			f.Progress = W.ProgressLine(f.Card, 2)
 			f.Count = W.Text(f.Card, "label", "text")
 			f.MoveOn = W.Text(f.Card, "small", "textMuted")
@@ -568,6 +691,8 @@ ns.UI.GuideFrame.Part(function(GF)
 			local parts = {}
 			for _, r in ipairs(m.reagents or {}) do parts[#parts + 1] = format(L["%d %s"], r.count, itemHex(r.item, r.name)) end
 			f.Uses:SetText(table.concat(parts, " + "))
+			f.Flow:SetText(m.flow or "")
+			f.psFlow = m.flow ~= nil
 			local exp = m.expected
 			-- Under 300 wide the count's short form (layout picks): numbers never cut.
 			f.psCountLong = exp and format(L["%s of about %d made"], hexed("text", m.made), exp) or format(L["%d made"], m.made)
@@ -606,6 +731,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			f.Card:SetShown(not compact)
 			if compact then
 				setOpen(f, nil, false)
+				f.Flow:Hide()
 				local h = 24
 				f.LineGlyph:ClearAllPoints()
 				f.LineGlyph:SetPoint("LEFT", f, "TOPLEFT", PAD, -h / 2)
@@ -630,10 +756,19 @@ ns.UI.GuideFrame.Part(function(GF)
 			f.Name:ClearAllPoints()
 			f.Name:SetPoint("TOPLEFT", f.Card, "TOPLEFT", tx, -10)
 			f.Name:SetWidth(max(40, cw - tx - inner - chipW))
+			-- The flow line stands under the name; the materials it uses under that.
+			local flowH = 0
+			f.Flow:SetShown(f.psFlow == true)
+			if f.psFlow then
+				f.Flow:ClearAllPoints()
+				f.Flow:SetPoint("TOPLEFT", f.Name, "BOTTOMLEFT", 0, -2)
+				f.Flow:SetWidth(max(40, cw - tx - inner))
+				flowH = 2 + f.Flow:GetStringHeight()
+			end
 			f.Uses:ClearAllPoints()
-			f.Uses:SetPoint("TOPLEFT", f.Name, "BOTTOMLEFT", 0, -3)
+			f.Uses:SetPoint("TOPLEFT", f.psFlow and f.Flow or f.Name, "BOTTOMLEFT", 0, -3)
 			f.Uses:SetWidth(max(40, cw - tx - inner))
-			local y = 10 + f.Name:GetStringHeight() + 3 + f.Uses:GetStringHeight() + 10
+			local y = 10 + f.Name:GetStringHeight() + flowH + 3 + f.Uses:GetStringHeight() + 10
 			y = max(y, 12 + 32 + 8)
 			f.Progress:ClearAllPoints()
 			f.Progress:SetPoint("TOPLEFT", f.Card, "TOPLEFT", tx, -y)
@@ -653,6 +788,10 @@ ns.UI.GuideFrame.Part(function(GF)
 			f.Make:SetShown(makeShown)
 			local iconOnly = narrow(width)
 			setOpen(f, m.spell, f.psCan, iconOnly)
+			-- A long profession's name ("Open Leatherworking") leaves "You can make 12 now" no room: the icon alone.
+			if not iconOnly and makeShown and f.psOpen:IsShown() and f.Make:GetStringWidth() > cw - inner * 2 - 20 - f.psOpen:GetWidth() - 8 then
+				setOpen(f, m.spell, f.psCan, true)
+			end
 			if makeShown then
 				f.Rule:ClearAllPoints()
 				f.Rule:SetPoint("TOPLEFT", f.Card, "TOPLEFT", inner, -y)
@@ -1172,6 +1311,11 @@ ns.UI.GuideFrame.Part(function(GF)
 			local f = CreateFrame("Frame", nil, parent)
 			f.Head = W.Text(f, "heading", "text")
 			f.HeadRule = W.Divider(f)
+			-- A paired guide's "from your skinning on the way: 78 of 150 Medium Leather".
+			f.From = W.Text(f, "small", "textDim")
+			f.From:SetWordWrap(true)
+			f.From:SetJustifyH("LEFT")
+			f.From:SetMaxLines(3)
 			f.Modes = {}
 			for k, mode in ipairs({ "buy", "gather", "mix" }) do
 				local b = CreateFrame("Button", nil, f)
@@ -1260,6 +1404,8 @@ ns.UI.GuideFrame.Part(function(GF)
 				title = L["Materials"]
 			end
 			f.Head:SetText(title)
+			f.From:SetText(m.from and (m.from:gsub("^%l", string.upper)) or "")
+			f.psFrom = m.from ~= nil
 			for _, b in ipairs(f.Modes) do
 				b.Label:SetText(wayLabel(b.psMode))
 				b:SetWidth(floor(b.Label:GetStringWidth() + 18 + 0.5))
@@ -1294,6 +1440,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			local compact = mode == "compact"
 			f.Head:SetShown(not compact)
 			f.HeadRule:SetShown(not compact)
+			f.From:SetShown(f.psFrom == true and not compact)
 			f.ModeDrop:Hide()
 			if not compact then
 				local headH = 32
@@ -1322,6 +1469,12 @@ ns.UI.GuideFrame.Part(function(GF)
 				f.HeadRule:ClearAllPoints()
 				f.HeadRule:SetPoint("TOPLEFT", f, "TOPLEFT", PAD, -y)
 				f.HeadRule:SetPoint("TOPRIGHT", f, "TOPRIGHT", -PAD, -y)
+				if f.psFrom then
+					f.From:ClearAllPoints()
+					f.From:SetPoint("TOPLEFT", f, "TOPLEFT", PAD, -(y + 8))
+					f.From:SetWidth(max(40, width - PAD * 2))
+					y = y + 8 + f.From:GetStringHeight() + 6
+				end
 			end
 			local rowH = compact and 24 or GF.Space("supplyRow", 46)
 			local gap = GF.Space("splitGap", 8)

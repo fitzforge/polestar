@@ -9673,14 +9673,17 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   goes too. A region frame is a part in `Theme.GuideParts()` under its id and
   is offered to `guidePlace` by its id (Atlas places `meter`, `supplies`,
   `turnin`, `pickups` and `trainer` in cards). `layout` never builds
-  strings: `paint` does, on a render, not on a drag-resize. Model shapes:
+  strings: `paint` does, on a render, not on a drag-resize. A model's `note`
+  stands for the step's tip text (`GF.RegionNote`). Model shapes:
 
   ```lua
   meter    = { kind = "skill"|"rep", name, nameKind, value, max, rank, frac, seg = { a, b }, ticks = { { at, what } }, line }
+             | { kind = "skill", pair = { meter, meter }, covers }   -- a paired guide: its gathering skill's, then its crafting one's
   trainer  = { title, level, npc, map, due, toGo }
   stretch  = { item, recipe, name, quality, colour = "orange"|"yellow"|"green"|"grey", yellow, green, grey,
-               reagents = { { item, count } }, made, expected, moveOn, canMake, spell }
-  supplies = { title, way = "mix"|"buy"|"gather", rows = { { item, name, quality, have, need,
+               reagents = { { item, count } }, made, expected, moveOn, canMake, spell,
+               flow, note }                                          -- a paired guide: the flow line, the tip left
+  supplies = { title, from, way = "mix"|"buy"|"gather", rows = { { item, name, quality, have, need,
                parts = { bags, bank, mail, coming, made }, way = "buy"|"gather"|"vendor"|"make", choosable,
                reason, split = { buy = { count, copper, each, age, source } | false,
                                  farm = { count, minutes, kills, npc, map, lvl, second, above } | false,

@@ -1286,6 +1286,48 @@ E.KindModel = function(region, view)
 end
 uistub.update()`;
 }
+// A paired profession guide (Skinning + Leatherworking): its two skill meters, the stretch card with the flow line
+// under the recipe's name, the materials with "from your skinning on the way". Models as Core/KindCraft.lua hands
+// them; the numbers are the guide's own first Light Leather stretch (Skinning 50 to 72, then Light Armor Kits from
+// Leatherworking 20 to 51), the character at Skinning 58 and Leatherworking 31. Atlas says both skills in its XP slot
+// (Engine.SkillBar's two bars, GF.SkillText).
+function kindPair() {
+	return `${KIND_MAPS}
+${TABS}
+uistub.setGuide(uistub.tailoring, 2)
+local function covers(view) local c = {} for i in ipairs(view and view.goals or {}) do c[#c + 1] = i end return c end
+local leather = { item = 2318, name = "Light Leather", have = 12, need = 34, toGet = 22, parts = { bags = 12, bank = 0, mail = 0, coming = 0, made = 0 },
+	way = "gather", choosable = true, reason = "mix",
+	split = { buy = { count = 22, copper = 22 * 26, each = 26, age = 5400, source = "search" },
+		farm = { count = 22, minutes = 17, kills = 52, npc = "Mottled Raptor", map = 1433, lvl = { min = 8, max = 11 }, step = 2, index = 2 }, verdict = "farm" } }
+local models = {
+	meter = { kind = "skill", covers = covers, pair = {
+		{ kind = "skill", name = "Skinning", nameKind = "skill", value = 58, max = 75, frac = 58 / 75, seg = { 58 / 75, 72 / 75 },
+			ticks = { { at = 72, what = "gathered" } }, line = {}, learned = true },
+		{ kind = "skill", name = "Leatherworking", nameKind = "skill", value = 31, max = 75, frac = 31 / 75, seg = { 31 / 75, 51 / 75 },
+			ticks = { { at = 50, what = "train" }, { at = 51, what = "moveOn" } }, line = { { name = "Light Armor Kit", to = 51, item = 2304 } }, learned = true },
+	} },
+	trainer = { title = "Journeyman Leatherworking", rank = 2, level = 50, npc = "Simon Tanner", map = 1453, due = false, toGo = 19, step = 4, goalIndex = 1 },
+	stretch = { item = 2304, name = "Light Armor Kit", colour = "orange", yellow = 30, green = 45, grey = 60, moveOn = 51, from = 20, rank = 31,
+		reagents = { { item = 2318, count = 1, name = "Light Leather" } }, made = 4, expected = 45, canMake = 12, spell = "Leatherworking", step = 3,
+		flow = "Skin 34 Light Leather (Skinning 50 to 72), then craft 45 Light Armor Kits (Leatherworking 20 to 51)",
+		note = "34 Light Leather for Leatherworking 20-51: 53 Light Armor Kits. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them. Or buy them at the Auction House." },
+	supplies = { title = 51, titleKind = "skill", way = "mix", rows = { leather }, choosable = true, from = "from your skinning on the way: 12 of 34 Light Leather" },
+}
+local E = Polestar.Engine
+E.GuideKind = function() return "profession" end
+E.SkillBar = function() return { line = 393, rank = 58, max = 75, next = 75 }, { line = 165, rank = 31, max = 75, next = 51 } end
+local names = { [393] = "Skinning", [165] = "Leatherworking" }
+Polestar.Compat.GetSkillLineName = function(line) return names[line] end
+E.KindModel = function(region, view)
+	local m = models[region]
+	if type(m) == "table" then m.covers = covers(view) end
+	return m
+end
+uistub.update()
+-- The XP row (Atlas's XP slot) reads Engine.SkillBar through GF.SkillText: the live window updates it on its events.
+Polestar.UI.GuideFrame.UpdateXP()`;
+}
 const ATLAS = [{ name: 'Polestar_Skins', files: ['Layouts/Atlas/Atlas.lua'] }];
 const GUIDE_CARDS = ['PolestarGuideFrame', 'PolestarGuideFrameCards'];
 // The farm spots' and towns' names (the preview's maps have none of their own).
@@ -1447,6 +1489,16 @@ const SCENES = [
 			{ roots: GUIDE, script: kindRep('ready') },
 			{ roots: GUIDE, script: `Polestar.Set("ui.compact", true); ${kindRep('short')}` },
 			{ roots: GUIDE_CARDS, addons: ATLAS, script: `Polestar.Set("ui.layout", "atlas"); ${kindRep('short')}` },
+		],
+	},
+	{
+		file: 'guide-kind-pair.svg',
+		title: 'A paired profession guide (Skinning + Leatherworking): two skill meters, the flow line on the stretch card, "from your skinning on the way" in the materials; compact; the Atlas layout, standard and compact: both skills in its XP slot',
+		panels: [
+			{ roots: GUIDE, script: kindPair() },
+			{ roots: GUIDE, script: `Polestar.Set("ui.compact", true); ${kindPair()}` },
+			{ roots: GUIDE_CARDS, addons: ATLAS, script: `Polestar.Set("ui.layout", "atlas"); ${kindPair()}` },
+			{ roots: GUIDE_CARDS, addons: ATLAS, script: `Polestar.Set("ui.layout", "atlas"); Polestar.Set("ui.compact", true); ${kindPair()}` },
 		],
 	},
 	{

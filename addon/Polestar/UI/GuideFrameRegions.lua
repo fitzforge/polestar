@@ -87,7 +87,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		local list = view and GF.RegionsFor(view, kind) or EMPTY
 		if next(covered) then wipe(covered) end
 		coveredView = view
-		local hadMeter = GF.RegionShown("meter")
+		local hadRow = GF.SkillInRow()
 		active.n = 0
 		local n, m = 0, mode()
 		for _, id in ipairs(list) do
@@ -107,8 +107,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		for i = n + 1, #active do active[i] = nil end
 		active.n = n
-		-- The XP row leaves the skill out while the meter shows (UI/GuideFrameStatus.lua).
-		if hadMeter ~= GF.RegionShown("meter") and GF.UpdateXP then GF.UpdateXP() end
+		-- The XP row takes the skill over from the meter, and gives it back (UI/GuideFrameStatus.lua).
+		if hadRow ~= GF.SkillInRow() and GF.UpdateXP then GF.UpdateXP() end
 		for id, f in pairs(frames) do
 			if not GF.RegionShown(id) then f:Hide() end
 		end
@@ -130,6 +130,24 @@ ns.UI.GuideFrame.Part(function(GF)
 	function GF.RegionModel(id)
 		for i = 1, active.n do
 			if active[i].id == id then return active[i].model end
+		end
+		return nil
+	end
+
+	-- Whether the XP row says the skill: no meter shows, or a layout takes a paired guide's two skills into the row
+	-- (GF.Shows "pairMeter", default true: the meter stacks them in the window).
+	function GF.SkillInRow()
+		local m = GF.RegionModel("meter")
+		if not m then return true end
+		return m.pair ~= nil and not GF.Shows("pairMeter", true)
+	end
+
+	-- The step's tip as a region leaves it (the stretch card says a paired guide's flow line itself): the text, or
+	-- nil when no region has any.
+	function GF.RegionNote()
+		for i = 1, active.n do
+			local note = active[i].model.note
+			if type(note) == "string" then return note end
 		end
 		return nil
 	end

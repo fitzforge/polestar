@@ -5,7 +5,8 @@
 //! skin (Halo's veil, not a menu's fill), and the quest item and
 //! travel buttons' hover wash follows the skin's.
 //! A profession guide's regions (UI/GuideFrameKindCraft.lua) are swept too: its stretch card, the split's well, the
-//! segments, a material's toggle and a button, in every built-in look and every look of Polestar_Skins.
+//! segments, a material's toggle and a button, in every built-in look and every look of Polestar_Skins, and a paired
+//! profession guide's two skill meters (a row each: the name's skill colour, the bar's track wash).
 
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
@@ -115,6 +116,46 @@ for _, key in ipairs({ "vellum", "lumen", "beacon", "aurora", "hairline", "umbra
 	Polestar.Set("ui.skin", key)
 	out.own[key] = { registered = T.SkinInfo(key) ~= nil, kind = kindSkins() }
 end
+-- A paired profession guide (Skinning + Leatherworking) open after them: its two skill meters, a row each
+-- (UI/GuideFrameKindCraft.lua): the name in the skill colour and the bar's track wash, repainted with the skin like
+-- every other part, in every look.
+Polestar.RegisterGuide({ id = "test/pair", pack = "test", title = "Skinning + Leatherworking 1-300", minLevel = 5, maxLevel = 60, category = "Professions",
+	kind = "profession", skillLines = { 393, 165 },
+	sections = { { skill = "Leatherworking", skillLine = 165, from = 20, to = 75 } },
+	steps = {
+		{ title = "Skin Light Leather (Skinning 50-72)", section = 1, goals = {
+			{ t = "collect", item = 2318, itemName = "Light Leather", count = 34, gather = { skill = "Skinning", skillLine = 393, rank = 50 } } } },
+		{ title = "Light Armor Kit to 51", section = 1, goals = { { t = "craft", spell = 2152, spellName = "Light Armor Kit", item = 2304, itemName = "Light Armor Kit",
+			skillLine = 165, untilSkill = 51, yellow = 30, grey = 60, reagents = { { item = 2318, itemName = "Light Leather", count = 1 } } } } },
+	} })
+local rank0 = Polestar.Compat.GetSkillRank
+Polestar.Compat.GetSkillRank = function(line)
+	if line == 393 or line == "Skinning" then return 55, 75 end
+	if line == 165 or line == "Leatherworking" then return 32, 75 end
+	return rank0(line)
+end
+Polestar.Engine.SetGuide("test/pair")
+stub.advance(1)
+GF.Render(); GF.Layout()
+local pairRows = GF.RegionFrame("meter").PairRows
+local function rgb(r, g, b) return string.format("%.3f %.3f %.3f", r or -1, g or -1, b or -1) end
+local function pairSkins()
+	local p = { name = {}, track = {}, shown = GF.RegionFrame("meter"):IsShown() and pairRows[1]:IsShown() and pairRows[2]:IsShown() }
+	for i, r in ipairs(pairRows) do
+		p.name[i] = rgb(r.Name:GetTextColor()) == rgb(T.Color("skill"))
+		p.track[i] = rgb(r.Bar.Track:GetVertexColor()) == rgb(T.Wash("progress"))
+	end
+	return p
+end
+out.pair = {}
+for _, key in ipairs(T.SKIN_ORDER) do
+	Polestar.Set("ui.skin", key)
+	out.pair[key] = pairSkins()
+end
+for _, key in ipairs({ "vellum", "lumen", "beacon", "aurora", "hairline", "umbra", "waymark", "lanterns", "sheen", "atlas" }) do
+	Polestar.Set("ui.skin", key)
+	out.pair[key] = pairSkins()
+end
 emit(out)
 "#;
 
@@ -160,6 +201,13 @@ fn switching_the_skin_restyles_the_flight_timer_and_every_polestar_frame_live_13
 		for (name, skin) in kind {
 			assert_eq!(skin, &json!(key), "{key}: the profession guide's {name} painted in it");
 		}
+	}
+	// A paired guide's two skill meters (UI/GuideFrameKindCraft.lua): both rows shown, their names in the skill colour and
+	// their bars' tracks in the progress wash of the skin in use, in every look.
+	let pair = out["pair"].as_object().unwrap();
+	assert_eq!(pair.len(), 16, "every look swept");
+	for (key, p) in pair {
+		assert_eq!(p, &json!({ "shown": true, "name": [true, true], "track": [true, true] }), "{key}: the paired guide's meters painted in it");
 	}
 	assert_ne!(skins["polestar"]["wash"], skins["hearth"]["wash"], "the skins' hover washes differ");
 	assert!(skins["polestar"]["item"] != json!(false), "the quest item button was built");

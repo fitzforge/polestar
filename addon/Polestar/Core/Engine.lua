@@ -11686,37 +11686,52 @@ function Engine.GuideKind()
 	return K and guide and K.Of(guide) or "leveling"
 end
 
--- A profession guide's skill for the guide window's skill line, or nil (no
--- skill line, no guide): { line, rank, max, next, gate = { step, level, title } }.
--- `next`: the end of the stretch ahead (the first `craft … until` above the
--- skill from the current step on); `gate`: the first step ahead whose `level`
--- goal the character is under (a rank its trainer teaches from that level),
--- with the step's title when the step trains a rank.
+-- A profession guide's skills for the guide window's skill line: one bar per skill line the guide levels (the
+-- gathering skill, then the crafting one, for a paired guide), or nil (no skill line, no guide):
+-- { line, rank, max, next, gate = { step, level, title } }.
+-- `next`: the end of the stretch ahead (the first `craft … until` above the skill from the current step on; for a
+-- paired guide's gathering skill, the first `skill` goal above it); `gate`: the first step ahead whose `level` goal
+-- the character is under (a rank its trainer teaches from that level), with the step's title when the step trains
+-- a rank; a paired guide gives it to the skill that step trains (the first, for a step that trains none).
 function Engine.SkillBar()
 	local K = ns.GuideKinds
-	local line = guide and K and K.SkillLine(guide)
-	if not line then return nil end
+	local first, second = nil, nil
+	if guide and K then first, second = K.SkillLine(guide) end
+	if not first then return nil end
 	local C = Compat()
-	local rank, max = C.GetSkillRank(line)
-	local out = { line = line, rank = rank or 0, max = max }
 	local level = UnitLevel and UnitLevel("player") or 0
-	for s = current or 1, #(guide.steps or {}) do
-		local step = guide.steps[s]
-		if stepApplies(step) then
-			local trains = false
-			for _, g in ipairs(step.goals or {}) do
-				if g.t == "train" then trains = true end
-			end
-			for _, g in ipairs(step.goals or {}) do
-				if not out.next and type(g.untilSkill) == "number" and g.untilSkill > out.rank then out.next = g.untilSkill end
-				if not out.gate and g.t == "level" and type(g.level) == "number" and g.level > level then
-					out.gate = { step = s, level = g.level, title = trains and step.title or nil }
+	local pair = second ~= nil
+	local function bar(line)
+		local rank, max = C.GetSkillRank(line)
+		local out = { line = line, rank = rank or 0, max = max }
+		for s = current or 1, #(guide.steps or {}) do
+			local step = guide.steps[s]
+			if stepApplies(step) then
+				local trains = {}
+				for _, g in ipairs(step.goals or {}) do
+					if g.t == "train" then trains[#trains + 1] = g.skillLine or false end
+				end
+				local mine = not pair or #trains == 0 and line == first
+				for _, tl in ipairs(trains) do
+					if tl == line then mine = true end
+				end
+				for _, g in ipairs(step.goals or {}) do
+					if not out.next and type(g.untilSkill) == "number" and g.untilSkill > out.rank and (not pair or g.skillLine == line) then
+						out.next = g.untilSkill
+					end
+					if not out.next and pair and g.t == "skill" and g.skillLine == line and type(g.level) == "number" and g.level > out.rank then
+						out.next = g.level
+					end
+					if not out.gate and mine and g.t == "level" and type(g.level) == "number" and g.level > level then
+						out.gate = { step = s, level = g.level, title = #trains > 0 and step.title or nil }
+					end
 				end
 			end
+			if out.next and out.gate then break end
 		end
-		if out.next and out.gate then break end
+		return out
 	end
-	return out
+	return bar(first), second and bar(second) or nil
 end
 
 -- A guide kind's region models for the guide window (UI/GuideFrameRegions.lua; docs/ARCHITECTURE.md, "Guide

@@ -3152,7 +3152,8 @@ GF.Part(function(GF)
 			i = i + 1
 		end
 		local shown = ns.Get("ui.showNotes") and GF.Shows("tip", not compact()) or false
-		local note = shown and view.note or nil
+		-- A kind's region may say part of the tip itself (a paired guide's flow line on the stretch card).
+		local note = shown and (GF.RegionNote() or view.note) or nil
 		if note == "" then note = nil end
 		-- The step's picture (a file in its pack's addon folder, Guides.lua): one
 		-- the client cannot load leaves the tip as it was without one.

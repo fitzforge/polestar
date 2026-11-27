@@ -341,3 +341,204 @@ while p do if p == GF.frame then under = true end p = p:GetParent() end
 emit({ shown = slot:IsShown(), text = slot.Label:GetText(), secure = b ~= nil, under = under, spell = b and b:GetAttribute("spell") or false })`);
 	assert.deepEqual(out, { shown: true, text: 'Open Tailoring', secure: true, under: false, spell: 'Tailoring' });
 });
+
+// A paired guide (`skills Skinning, Leatherworking`, compiled as `skillLines = { 393, 165 }`): the window shows both
+// skills, and the step's flow line stands on the stretch card instead of in the tip. The tip is the generator's
+// own: the why line with its "from your skinning" clause, the flow line, then the arrow's sentence.
+const WHY = '34 Light Leather for Leatherworking 20-51: 53 Light Armor Kits; from your skinning on the way: 12 of 34 Light Leather.';
+const FLOW = 'Skin 34 Light Leather (Skinning 50 to 72), then craft 45 Light Armor Kits (Leatherworking 20 to 51).';
+const ARROW = 'The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them. Or buy them at the Auction House.';
+const PAIR = `{ id = "test/pair", pack = "test", title = "Skinning + Leatherworking 1-300", minLevel = 5, maxLevel = 60, category = "Professions",
+	kind = "profession", skillLines = { 393, 165 },
+	sections = { { skill = "Leatherworking", skillLine = 165, from = 20, to = 75 } },
+	steps = {
+		{ title = "Skin Light Leather (Skinning 50-72)", section = 1, note = "${WHY} ${FLOW} ${ARROW}", goals = {
+			{ t = "collect", item = 2318, itemName = "Light Leather", count = 34, gather = { skill = "Skinning", skillLine = 393, rank = 50 } },
+			{ t = "auction", item = 2318, itemName = "Light Leather", count = 34 } } },
+		{ title = "Light Armor Kit to 51", section = 1, note = "Light Armor Kit is orange at 20 (yellow 30, green 45, grey 60): about 45 crafts to 51.", goals = {
+			{ t = "craft", spell = 2152, spellName = "Light Armor Kit", item = 2304, itemName = "Light Armor Kit", skillLine = 165, untilSkill = 51,
+				yellow = 30, grey = 60, reagents = { { item = 2318, itemName = "Light Leather", count = 1 } } } } },
+		{ title = "Skinning 72-75", section = 1, goals = { { t = "skill", skill = "Skinning", skillLine = 393, level = 75 } } },
+		{ title = "Journeyman Skinning", section = 1, goals = { { t = "train", skill = "Skinning", skillLine = 393, rank = 2, rankMax = 150 } } },
+		{ title = "Journeyman Leatherworking", section = 1, goals = { { t = "level", level = 10 }, { t = "train", skill = "Leatherworking", skillLine = 165, rank = 2, rankMax = 150 } } },
+	} }`;
+
+const pairScript = (setup, body, guide = PAIR) => `
+w = stub.world
+w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
+w.moveTo(1429, 48, 42)
+w.setLevel(24)
+Polestar.RegisterPack({ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" })
+Polestar.RegisterGuide(${guide})
+stub.login()
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)
+Polestar.Set("ui.shown", true)
+local C = Polestar.Compat
+C.GetSkillRank = function(line) if line == 393 or line == "Skinning" then return 55, 75 end if line == 165 or line == "Leatherworking" then return 32, 75 end return nil end
+C.GetSkillLineName = function(line) return line == 393 and "Skinning" or line == 165 and "Leatherworking" or nil end
+w.items[2318] = 20
+local E = Polestar.Engine
+${setup}
+E.SetGuide("test/pair")
+stub.advance(1)
+local GF = Polestar.UI.GuideFrame
+local view = E.GetStepView(E.GetStepIndex())
+local function plain(s) return s and (s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("\\194\\160", " "):gsub("  +", " ")) or s end
+${body}`;
+const runPair = (setup, body, extra = {}) => runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar'], script: pairScript(setup, body, extra.guide), ...extra.opts }).emitted[0];
+
+test('a paired guide: GuideKinds.SkillLine and Engine.SkillBar give both skills, gathering first; a single guide one', () => {
+	const out = run('', `
+local K = Polestar.GuideKinds
+local single = { K.SkillLine(Polestar.Guides.Get("test/craft")) }
+local a, b = E.SkillBar()
+emit({ single = single, singleBar2 = select(2, E.SkillBar()) or false, singleLine = a.line })`);
+	assert.deepEqual(out.single, [197]);
+	assert.equal(out.singleBar2, false);
+	assert.equal(out.singleLine, 197);
+	const pair = runPair('', `
+local K = Polestar.GuideKinds
+local lines = { K.SkillLine(Polestar.Guides.Get("test/pair")) }
+local a, b = E.SkillBar()
+emit({ lines = lines, bars = { a.line, b.line }, ranks = { a.rank, b.rank }, next = { a.next or false, b.next or false }, kind = E.GuideKind() })`);
+	assert.deepEqual(pair.lines, [393, 165]);
+	assert.deepEqual(pair.bars, [393, 165]);
+	assert.deepEqual(pair.ranks, [55, 32]);
+	// The gathering skill moves on at its next `skill` goal; the crafting one at its craft's `until`.
+	assert.deepEqual(pair.next, [75, 51]);
+	assert.equal(pair.kind, 'profession');
+});
+
+const PAIR_MODELS = `
+local meter = E.KindModel("meter", view, "profession")
+local stretch = E.KindModel("stretch", view, "profession")
+local sup = E.KindModel("supplies", view, "profession")
+local trainer = E.KindModel("trainer", view, "profession")
+local function brief(m) return { name = m.name, value = m.value, max = m.max, seg = m.seg, ticks = m.ticks, line = m.line[1] and m.line[1].to or false } end
+emit({ pair = meter.pair and { brief(meter.pair[1]), brief(meter.pair[2]) } or false, covers = #meter.covers,
+	flow = stretch and stretch.flow or false, note = stretch and stretch.note or false, from = sup and sup.from or false,
+	moveOn = stretch and stretch.moveOn, spell = stretch and stretch.spell, trainer = trainer and { title = trainer.title, due = trainer.due, level = trainer.level } or false })`;
+
+test('a paired guide: two meters (gathering to where its stretch ends, crafting to its move-on), the flow line, the clause', () => {
+	const out = runPair('', PAIR_MODELS);
+	assert.equal(out.pair.length, 2);
+	const [skin, leather] = out.pair;
+	assert.deepEqual([skin.name, skin.value, skin.max], ['Skinning', 55, 75]);
+	// Skinning's stretch ends where the tip's "(Skinning 50 to 72)" says; no recipe in its line.
+	assert.deepEqual(skin.ticks, [{ at: 72, what: 'gathered' }]);
+	assert.equal(skin.line, false);
+	assert.ok(Math.abs(skin.seg[0] - 55 / 75) < 1e-9 && Math.abs(skin.seg[1] - 72 / 75) < 1e-9);
+	assert.deepEqual([leather.name, leather.value, leather.max], ['Leatherworking', 32, 75]);
+	assert.deepEqual(leather.ticks, [{ at: 51, what: 'moveOn' }, { at: 50, what: 'train' }]);
+	assert.equal(leather.line, 51);
+	assert.equal(out.covers, 0);
+	assert.equal(out.flow, 'Skin 34 Light Leather (Skinning 50 to 72), then craft 45 Light Armor Kits (Leatherworking 20 to 51)');
+	assert.equal(out.note, `34 Light Leather for Leatherworking 20-51: 53 Light Armor Kits. ${ARROW}`, 'the tip keeps the rest, without the flow line or the clause');
+	assert.equal(out.from, 'from your skinning on the way: 12 of 34 Light Leather');
+	assert.equal(out.moveOn, 51);
+	assert.equal(out.spell, 'Leatherworking', 'Open Leatherworking, not Open Skinning');
+	// The trainer line: the next rank of either skill, in guide order, named by its skill.
+	assert.deepEqual(out.trainer, { title: 'Journeyman Skinning', due: true, level: 50 });
+});
+
+test('a paired guide, off its gathering step: no flow line, the tip as written; Skinning moves on at its next skill goal', () => {
+	const out = runPair('E.Goto(2)', PAIR_MODELS.replace('E.KindModel("meter", view', 'E.KindModel("meter", E.GetStepView(2)').replace('E.KindModel("stretch", view', 'E.KindModel("stretch", E.GetStepView(2)').replace('E.KindModel("supplies", view', 'E.KindModel("supplies", E.GetStepView(2)'));
+	assert.equal(out.flow, false);
+	assert.equal(out.note, false);
+	assert.equal(out.from, false);
+	// Nothing in the tip to say it: Skinning's next `skill` goal (75, its cap: no tick over the bar's end).
+	assert.equal(Object.keys(out.pair[0].ticks).length, 0);
+	assert.ok(Math.abs(out.pair[0].seg[1] - 1) < 1e-9);
+});
+
+const PAIR_WINDOW = `
+GF.Render(); GF.Layout(); stub.advance(1)
+local m = GF.RegionFrame("meter")
+local st = GF.RegionFrame("stretch")
+local sup = GF.RegionFrame("supplies")
+local rows = {}
+for i, r in ipairs(m.PairRows) do
+	rows[i] = { shown = r:IsShown(), name = r.Name:GetText(), value = r.Value:GetText(), max = r.Max:GetText(), bar = r.Bar:IsShown(), h = r:GetHeight(),
+		fill = r.Bar.Fill:GetWidth(), seg = r.Bar.Seg:IsShown(), ticks = #r.Bar.Ticks }
+end
+emit({ meterShown = m:IsShown(), meterH = m:GetHeight(), rows = rows, single = m.Name:IsShown(), line = plain(m.PairLine:GetText()), lineShown = m.PairLine:IsShown(),
+	flow = st.Flow:IsShown() and plain(st.Flow:GetText()) or false, from = sup.From:IsShown() and plain(sup.From:GetText()) or false,
+	tip = plain(GF.parts.card.Tip.Text:GetText()), xp = GF.xp.psHas and plain(GF.xp.Text:GetText()) or false })`;
+
+test('a paired guide, in the window: two compact meters stacked, the flow line under the recipe\'s name, the tip without it', () => {
+	const out = runPair('', PAIR_WINDOW);
+	assert.equal(out.meterShown, true);
+	assert.equal(out.single, false, 'the single meter\'s widgets stay quiet');
+	assert.deepEqual(out.rows.map((r) => [r.shown, r.name, r.value, r.max, r.bar, r.seg]), [
+		[true, 'Skinning', '55', '/ 75', true, true],
+		[true, 'Leatherworking', '32', '/ 75', true, true],
+	]);
+	assert.ok(out.rows[0].ticks >= 1 && out.rows[1].ticks >= 1, 'a tick at each move-on');
+	assert.equal(out.lineShown, false, 'the one line is the compact window\'s');
+	assert.equal(out.meterH, 4 + 24 * 2 + 6);
+	assert.equal(out.flow, 'Skin 34 Light Leather (Skinning 50 to 72), then craft 45 Light Armor Kits (Leatherworking 20 to 51)');
+	assert.equal(out.from, 'From your skinning on the way: 12 of 34 Light Leather');
+	assert.equal(out.tip, `34 Light Leather for Leatherworking 20-51: 53 Light Armor Kits. ${ARROW}`);
+	assert.ok(!out.xp || !String(out.xp).includes('Skinning'), 'the meters say the skills, not the XP row');
+});
+
+test('a paired guide, compact: one line, "Skinning 55 · Leatherworking 32"', () => {
+	const out = runPair('Polestar.Set("ui.compact", true)', PAIR_WINDOW);
+	assert.equal(out.lineShown, true);
+	assert.equal(out.line, 'Skinning 55 · Leatherworking 32');
+	assert.deepEqual(out.rows.map((r) => r.shown), [false, false]);
+	assert.equal(out.meterH, 24);
+	assert.equal(out.flow, false, 'the compact card is one line');
+});
+
+test('a paired guide in Atlas: both skills in the XP slot, none stacked in the window; compact too', () => {
+	for (const compact of [false, true]) {
+		const out = runAddon({
+			stubs: ['stub_world.lua'],
+			addons: ['Polestar', { name: 'Polestar_Skins', files: ['Layouts/Atlas/Atlas.lua'] }],
+			script: pairScript(`Polestar.Set("ui.layout", "atlas")${compact ? '; Polestar.Set("ui.compact", true)' : ''}`, `
+GF.Render(); GF.Layout(); stub.advance(1); GF.Layout()
+local m = GF.RegionFrame("meter")
+emit({ meter = m:IsShown(), xpHas = GF.xp.psHas, xpShown = GF.xp:IsShown(), text = plain(GF.xp.Text:GetText()) })`),
+		}).emitted[0];
+		assert.equal(out.meter, false, `compact ${compact}: the meter leaves the window`);
+		assert.equal(out.xpHas, true);
+		assert.equal(out.xpShown, true);
+		assert.match(out.text, /Skinning 55 \/ 75 · Leatherworking 32 \/ 75/);
+		assert.match(out.text, /next stretch to 51/);
+	}
+});
+
+test('a single-skill guide is unchanged: one meter, no pair, no flow, its tip whole, the skill in no XP row', () => {
+	const out = run('', `
+GF.Render(); GF.Layout(); stub.advance(1)
+local m = E.KindModel("meter", view, "profession")
+local f = GF.RegionFrame("meter")
+local st = E.KindModel("stretch", view, "profession")
+emit({ pair = m.pair or false, flow = st.flow or false, note = st.note or false, shown = f:IsShown(), single = f.Name:IsShown(), rows = f.PairRows[1]:IsShown(),
+	xp = GF.xp.psHas and GF.xp.Text:GetText() or false })`);
+	assert.deepEqual([out.pair, out.flow, out.note], [false, false, false]);
+	assert.deepEqual([out.shown, out.single, out.rows], [true, true, false]);
+	assert.ok(!out.xp || !String(out.xp).includes('Tailoring'));
+});
+
+test('the flow line is found by its numbers, in any language: another stop, full-width brackets, no clause', () => {
+	const out = runPair('', `
+local KC = Polestar.KindCraft
+local de = KC.TipParts("34 Light Leather für Lederverarbeitung 20-51: 53 Leichte Rüstungssätze. Erbeute 34 Leichtes Leder (Kürschnerei 50 bis 72), dann stelle 45 Leichte Rüstungssätze her (Lederverarbeitung 20 bis 51). Der Pfeil führt dich.", 20, 51)
+local zh = KC.TipParts("34 块轻皮；用你的剥皮顺带：12 / 34 块轻皮。剥 34 块轻皮（剥皮 50 到 72），然后制作 45 个轻型护甲片（制皮 20 到 51）。箭头带你去。", 20, 51)
+local none = KC.TipParts("Light Armor Kit is orange at 20 (yellow 30, green 45, grey 60): about 45 crafts to 51.", 20, 51)
+local first = KC.TipParts("Your bags hold it already, then craft 24 Nimble Leather Gloves (Leatherworking 102 to 125). The arrow takes you.", 102, 125)
+emit({ de = de and { flow = de.flow, gather = de.gather, from = de.from or false, rest = de.rest } or false,
+	zh = zh and { flow = zh.flow, gather = zh.gather, from = zh.from, rest = zh.rest } or false, none = none or false,
+	first = first and { flow = first.flow, gather = first.gather or false, rest = first.rest } or false })`);
+	assert.deepEqual(out.de, {
+		flow: 'Erbeute 34 Leichtes Leder (Kürschnerei 50 bis 72), dann stelle 45 Leichte Rüstungssätze her (Lederverarbeitung 20 bis 51)',
+		gather: [50, 72], from: false, rest: '34 Light Leather für Lederverarbeitung 20-51: 53 Leichte Rüstungssätze. Der Pfeil führt dich.',
+	});
+	assert.deepEqual(out.zh.gather, [50, 72]);
+	assert.equal(out.zh.flow, '剥 34 块轻皮（剥皮 50 到 72），然后制作 45 个轻型护甲片（制皮 20 到 51）'.replace(/（/g, '(').replace(/）/g, ')'));
+	assert.equal(out.zh.from, '用你的剥皮顺带：12 / 34 块轻皮');
+	assert.equal(out.none, false, 'a craft step\'s own numbers in a tip are not a flow line');
+	assert.deepEqual(out.first, { flow: 'Your bags hold it already, then craft 24 Nimble Leather Gloves (Leatherworking 102 to 125)', gather: false, rest: 'The arrow takes you.' });
+});

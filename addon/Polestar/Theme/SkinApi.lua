@@ -71,9 +71,10 @@ I.PAINT_KINDS, I.HOOKS, I.LAYOUT_HOOKS, I.LAYOUTS = PAINT_KINDS, HOOKS, LAYOUT_H
 -- The guide kinds' regions (UI/GuideFrameRegions.lua, docs/skins/reference.md): a kind's row once painted
 -- (guideKindRow(row, item, info): info.kind "supply" | "pickup" | "ready" | "more" | "boss" | "objective", done,
 -- current, way) and its skill or standing meter (guideMeter(meter, info): info.kind "skill" | "rep", frac, seg,
--- ticks, bar). A skin or a layout may set them; their parts are in Theme.GuideParts() (capability
--- "guideParts.kind"). guidePlace is also asked for "meter", "supplies", "turnin", "pickups" and "trainer",
--- guideShows for "split" and "trainer", guideSpace for "supplyRow", "splitGap" and "bossRow".
+-- ticks, bar; a paired guide's two skills call it once each, info.pair 1 | 2). A skin or a layout may set them; their
+-- parts are in Theme.GuideParts() (capability "guideParts.kind"). guidePlace is also asked for "meter", "supplies",
+-- "turnin", "pickups" and "trainer", guideShows for "split", "trainer" and "pairMeter", guideSpace for "supplyRow",
+-- "splitGap" and "bossRow".
 HOOKS.guideKindRow, HOOKS.guideMeter = true, true
 LAYOUT_HOOKS.guideKindRow, LAYOUT_HOOKS.guideMeter = true, true
 

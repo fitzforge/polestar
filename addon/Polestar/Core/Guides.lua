@@ -652,6 +652,12 @@ local function validate(def)
 	if def.kind ~= nil and not isStr(def.kind) then return "bad kind" end
 	if def.pitch ~= nil and not isStr(def.pitch) then return "bad pitch" end
 	if def.folder ~= nil and not isStr(def.folder) then return "bad folder" end
+	if def.skillLines ~= nil then
+		if type(def.skillLines) ~= "table" or #def.skillLines < 1 then return "bad skillLines" end
+		for i = 1, #def.skillLines do
+			if not isNum(def.skillLines[i]) then return "bad skillLines" end
+		end
+	end
 	if def.collects ~= nil then
 		if type(def.collects) ~= "table" then return "bad collects" end
 		for i = 1, #def.collects do
@@ -2395,11 +2401,15 @@ function GuideKinds.Lead(kind)
 	return k.lead or {}
 end
 
--- The skill line a profession guide levels: its sections' (a `section` named
--- for a profession band), else its first `skill`, `train` or `craft … until`
--- goal's, or nil.
+-- The skill lines a profession guide levels, up to two: its `skillLines` (a paired guide's: the gathering skill,
+-- then the crafting one), else the one its sections name (a `section` for a profession band), else its first
+-- `skill`, `train` or `craft … until` goal's; none when it has no skill line. -> line, second line
 function GuideKinds.SkillLine(def)
 	if type(def) ~= "table" then return nil end
+	local lines = def.skillLines
+	if type(lines) == "table" and type(lines[1]) == "number" then
+		return lines[1], type(lines[2]) == "number" and lines[2] or nil
+	end
 	for _, s in ipairs(type(def.sections) == "table" and def.sections or {}) do
 		if type(s.skillLine) == "number" then return s.skillLine end
 	end

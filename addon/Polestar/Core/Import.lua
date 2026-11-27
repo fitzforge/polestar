@@ -255,7 +255,7 @@ local IMAGE = rec({ file = S, w = N, h = N })
 local STEP = rec({ title = S, note = S, image = IMAGE, label = S, only = ONLY, when = list(WHEN), along = BS, skipto = list(rec({ to = S, when = WHEN })), section = N, goals = list(GOAL) })
 local LEVELS = rec({ min = N, max = N })
 local GUIDE = rec({
-	id = S, title = S, faction = S, races = LS, classes = LS, minLevel = N, maxLevel = N, factionLevels = rec({ Alliance = LEVELS, Horde = LEVELS }), category = S, kind = S, folder = S, keywords = LS,
+	id = S, title = S, faction = S, races = LS, classes = LS, minLevel = N, maxLevel = N, factionLevels = rec({ Alliance = LEVELS, Horde = LEVELS }), category = S, kind = S, skillLines = LN, folder = S, keywords = LS,
 	collects = LN, reward = list(rec({ item = N, itemName = S, quality = N, choice = B, spell = N, spellName = S, text = S })),
 	why = S, zone = N, zoneName = S, next = S, nextChoices = LS, nextWhen = { map = list(WHEN) }, pitch = S, pros = LS, cons = LS, author = S, version = N, group = B,
 	names = { map = SM }, written = { map = S }, sections = list(rec({ skill = S, skillLine = N, from = N, to = N })),

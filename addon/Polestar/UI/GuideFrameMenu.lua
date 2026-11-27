@@ -84,11 +84,13 @@ ns.UI.GuideFrame.Part(function(GF)
 				for _, it in ipairs(mats or {}) do lead[#lead + 1] = it end
 				led.materials = true
 			elseif entry == "trainer" then
-				local line = K.SkillLine(hasGuide)
 				local Nearby = ns.Nav and ns.Nav.nearby
-				if line and Nearby and Nearby.Go then
-					lead[#lead + 1] = { text = string.format(L["Nearest %s trainer"], Nearby.ProfessionName(line)), icon = "icon-skill",
-						onClick = function() Nearby.Go("trainer", line) end }
+				-- One entry per skill the guide levels (a paired guide: both).
+				for _, line in ipairs({ K.SkillLine(hasGuide) }) do
+					if Nearby and Nearby.Go then
+						lead[#lead + 1] = { text = string.format(L["Nearest %s trainer"], Nearby.ProfessionName(line)), icon = "icon-skill",
+							onClick = function() Nearby.Go("trainer", line) end }
+					end
 				end
 			end
 		end

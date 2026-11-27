@@ -80,18 +80,23 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- A profession guide's skill line (Engine.SkillBar), in the XP row's place:
 	-- "Tailoring 87 / 150  ·  next stretch to 100", then the first step ahead
 	-- the character's level holds back: "step 29 needs level 35 (Artisan
-	-- Tailoring)". nil with no profession skill in the guide.
+	-- Tailoring)". A paired guide says both skills ("Skinning 72 / 150  ·  Leatherworking 51 / 75"), the
+	-- stretch of the crafting one. nil with no profession skill in the guide.
 	function GF.SkillText()
 		local E = Engine()
-		local b = E and E.SkillBar and E.SkillBar()
-		if not b then return nil end
+		local first, second
+		if E and E.SkillBar then first, second = E.SkillBar() end
+		if not first then return nil end
 		local C, Nearby = ns.Compat, ns.Nav and ns.Nav.nearby
-		local name = (Nearby and Nearby.ProfessionName and Nearby.ProfessionName(b.line)) or (C.GetSkillLineName and C.GetSkillLineName(b.line)) or nil
 		local parts = {}
-		local have = b.max and b.max > 0 and string.format(L["%d / %d"], b.rank, b.max) or tostring(b.rank)
-		parts[1] = name and (name .. " " .. have) or have
-		if b.next then parts[#parts + 1] = string.format(L["next stretch to %d"], b.next) end
-		local g = b.gate
+		for _, b in ipairs({ first, second }) do
+			local name = (Nearby and Nearby.ProfessionName and Nearby.ProfessionName(b.line)) or (C.GetSkillLineName and C.GetSkillLineName(b.line)) or nil
+			local have = b.max and b.max > 0 and string.format(L["%d / %d"], b.rank, b.max) or tostring(b.rank)
+			parts[#parts + 1] = name and (name .. " " .. have) or have
+		end
+		local nextTo = (second or first).next
+		if nextTo then parts[#parts + 1] = string.format(L["next stretch to %d"], nextTo) end
+		local g = first.gate or (second and second.gate)
 		if g then
 			local stepNo = UI.StepNo(g.step, E)
 			parts[#parts + 1] = g.title and string.format(L["step %d needs level %d (%s)"], stepNo, g.level, g.title)
@@ -108,7 +113,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- A profession guide's skill line first (GF.SkillText), where its kind
 		-- has one (Core/Guides.lua, GuideKinds).
 		-- The kind's skill meter (UI/GuideFrameKindCraft.lua) says it instead while it shows.
-		local skill = GF.KindHas("skillBar") and not GF.RegionShown("meter") and GF.SkillText()
+		local skill = GF.KindHas("skillBar") and GF.SkillInRow() and GF.SkillText()
 		if skill then parts[#parts + 1] = skill end
 		-- The XP line (XP an hour, time to level, the pace) unless turned off
 		-- (guideWindow.xpLine, #3304) or the guide's kind has none; Boosted

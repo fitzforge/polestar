@@ -656,6 +656,11 @@
 --   %d more
 --   About %s for %d at your level.
 --   %d %s already made
+
+-- Machine-translated, to be reviewed (a paired profession guide's two skill meters, 27 Nov 2026): translated by an
+-- AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
+-- keep or fix its line below, and take its key off this list.
+--   %d: enough gathered, craft next
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "esES") then return end
 local L = ns.L
@@ -5996,6 +6001,9 @@ L["seen %d min ago"] = "visto hace %d min"
 L["%d more"] = "%d más"
 L["About %s for %d at your level."] = "Unos %s para %d a tu nivel."
 L["%d %s already made"] = "%d %s ya fabricados"
+
+-- UI/GuideFrameKindCraft.lua
+L["%d: enough gathered, craft next"] = "%d: ya hay suficiente, a fabricar"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Volver a configurar Polestar, página a página. Cada opción se aplica al momento."
