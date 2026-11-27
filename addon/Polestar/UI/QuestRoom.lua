@@ -141,18 +141,15 @@ local function rowEnter(self)
 end
 
 -- The row's dungeon button: shown for a dungeon's quest or one needed before
--- one (Dungeons.QuestMark), it opens that dungeon's page. -> its width and gap, or 0
-local function dungeonButton(r, quest, right)
+-- one (Dungeons.QuestMark), it opens that dungeon's page.
+local function dungeonButton(r, quest)
 	local D = ns.Dungeons
 	local m = D and D.QuestMark and D.QuestMark(quest)
 	local b = r.Dungeon
-	b:ClearAllPoints()
-	if not m then b:Hide(); return 0 end
+	if not m then b:Hide(); return end
 	b.psKey = m.key
 	b.psTip, b.psTipLines = D.MarkTooltip(quest), { L["Click to open its dungeon page."] }
-	if right then b:SetPoint("RIGHT", right, "LEFT", -6, 0) else b:SetPoint("RIGHT", r, "RIGHT", 0, 0) end
 	b:Show()
-	return b:GetWidth() + 6
 end
 
 -- A Make room or Not part of your route row: its plain-word worth
@@ -190,7 +187,6 @@ local function row(i)
 	r.Abandon = W.Button(r, L["Abandon"], function(self)
 		if not ns.Compat.AskAbandonQuest(self.psQuest) then ns.Print(L["Abandon it from your quest log."]) end
 	end, { ghost = true, danger = true, height = 24 })
-	r.Abandon:SetPoint("RIGHT", r, "RIGHT", 0, 0)
 	r.Dungeon = W.IconButton(r, "icon-dungeon", 24, nil, function(self)
 		if self.psKey and ns.Dungeons and ns.Dungeons.Open then ns.Dungeons.Open(self.psKey) end
 	end, 16)
@@ -315,13 +311,18 @@ function UI.LayoutQuestRoom()
 			r.Why:SetText(why)
 			r.Abandon:Show()
 		end
-		-- Fit both lines to the left of the visible buttons.
-		local abandon = r.Abandon:IsShown() and r.Abandon or nil
-		local buttonW = (abandon and abandon:GetWidth() + 8 or 0) + dungeonButton(r, u.quest, abandon)
+		-- The visible buttons, right to left: on the finished-quest lists the
+		-- quest's Guide me always takes the right edge and other icons go to
+		-- its left, then Abandon. Both lines fit to the left of them all.
+		dungeonButton(r, u.quest)
 		r.GuideMe:SetShown(carried)
-		if carried then
-			r.GuideMe:SetPoint("RIGHT", r, "RIGHT", -buttonW, 0)
-			buttonW = buttonW + r.GuideMe:GetWidth() + 8
+		local right, buttonW = nil, 0
+		for _, b in ipairs(carried and { r.GuideMe, r.Dungeon, r.Abandon } or { r.Abandon, r.Dungeon }) do
+			b:ClearAllPoints()
+			if b:IsShown() then
+				if right then b:SetPoint("RIGHT", right, "LEFT", -6, 0) else b:SetPoint("RIGHT", r, "RIGHT", 0, 0) end
+				right, buttonW = b, buttonW + b:GetWidth() + (buttonW > 0 and 6 or 8)
+			end
 		end
 		local textW = rowW - buttonW
 		r.Title:SetWidth(textW)

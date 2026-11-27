@@ -173,20 +173,23 @@ local guide = assert(rawget(row, "GuideMe"), "a finished row has a Guide me butt
 stub.RunScript(guide, "OnEnter")
 local tip = GameTooltip:GetOwner() == guide and GameTooltip.lines[1]
 stub.RunScript(guide, "OnLeave")
-local point, relative, relPoint, x = guide:GetPoint()
-local left = row:GetWidth() + x - guide:GetWidth()
-local fits = point == "RIGHT" and relative == row and relPoint == "RIGHT" and row.Abandon:IsShown()
-	and x < -row.Abandon:GetWidth() and row.Title:GetWidth() < left and row.Why:GetWidth() < left
+-- What a button is anchored to, and whether both text lines end left of the given buttons.
+local function anchor(b) local _, rel, relPoint = b:GetPoint(); return rel, relPoint end
+local function textFits(...)
+	local w = 2
+	for _, b in ipairs({ ... }) do w = w + b:GetWidth() + 6 end
+	return row.Title:GetWidth() <= row:GetWidth() - w and row.Why:GetWidth() <= row:GetWidth() - w
+end
+local guideRel, guidePoint = anchor(guide)
+local fits = row.Abandon:IsShown() and guideRel == row and guidePoint == "RIGHT" and anchor(row.Abandon) == guide
+	and textFits(guide, row.Abandon)
 local D = Polestar.Dungeons
 local mark, tooltip = D.QuestMark, D.MarkTooltip
 D.QuestMark = function(q) if q == 9005 then return { key = "gnomeregan" } end return mark(q) end
 D.MarkTooltip = function(q) if q == 9005 then return "Part of the Gnomeregan quests" end return tooltip(q) end
 Polestar.UI.LayoutQuestRoom()
-local _, neighbor, _, gap = row.Dungeon:GetPoint()
-local dungeonLeft = row:GetWidth() - row.Abandon:GetWidth() + gap - row.Dungeon:GetWidth()
-local guideRight = row:GetWidth() + select(4, guide:GetPoint())
-local allFit = row.Dungeon:IsShown() and neighbor == row.Abandon and gap < 0 and guideRight < dungeonLeft
-	and row.Title:GetWidth() < guideRight - guide:GetWidth() and row.Why:GetWidth() < guideRight - guide:GetWidth()
+local allFit = row.Dungeon:IsShown() and anchor(guide) == row and anchor(row.Dungeon) == guide
+	and anchor(row.Abandon) == row.Dungeon and textFits(guide, row.Dungeon, row.Abandon)
 local carried = click(row)
 measure("elsewhere")
 local elsewhere = click(F.rows[2])
@@ -196,8 +199,8 @@ emit({ carried = carried, elsewhere = elsewhere, fits = fits, allFit = allFit, t
 	);
 	assert_eq!(out["carried"], json!({ "id": "lookup/carried/9005", "quests": [9005], "map": 1429, "closed": true }), "{out}");
 	assert_eq!(out["elsewhere"], json!({ "id": "lookup/carried/9010", "quests": [9010], "map": false, "closed": true }), "{out}");
-	assert_eq!(out["fits"], true, "the text ends left of Guide me, which ends left of Abandon: {out}");
-	assert_eq!(out["allFit"], true, "the layout also makes space for the dungeon shortcut: {out}");
+	assert_eq!(out["fits"], true, "Guide me takes the right edge, Abandon sits left of it, and the text ends before both: {out}");
+	assert_eq!(out["allFit"], true, "the dungeon icon goes left of Guide me, Abandon left of that, and the text ends before all three: {out}");
 	assert_eq!(out["tip"], "Guide me to this hand-in", "{out}");
 	assert_eq!(out["hidden"], true, "reused Make room rows hide the button: {out}");
 }
