@@ -951,8 +951,15 @@ local function unavailableFor(goal, depth)
 		-- A quest's starting item waits with the quest (#1531: Ursangous's Paw
 		-- for The Hunt Continues, which needs The Hunt Begins first), and so
 		-- does an item it works with (Own.usedBy, #2670: the Shrine Bauble
-		-- with Trial of the Lake, level 16).
+		-- with Trial of the Lake, level 16), and a quest's reward with that
+		-- quest's accept in this guide (`rewardOf`, Lookup's item guides,
+		-- #4505: the Curio-Adorned Necklace once Scraps of Knowledge, the
+		-- start of its chain, was skipped).
 		local a = goal.t == "collect" and guide and layoutOf(guide).starters[goal] or Own.usedBy(goal)
+		if not a and goal.rewardOf and guide then
+			local list = layoutOf(guide).accepts[goal.rewardOf]
+			a = list and list[1] and list[1].goal
+		end
 		if a and not questDone(a.quest) and not Compat().IsOnQuest(a.quest) then return unavailableFor(a, depth) end
 		return nil
 	end
