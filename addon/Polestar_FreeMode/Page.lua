@@ -1,36 +1,39 @@
--- The Free mode page of the main window (the section under Guides; its door is
--- Polestar/UI/FreeMode.lua, which loads this folder when the page first
--- shows). One page, two states:
+-- The Free mode section of the main window (under Guides; its door is
+-- Polestar/UI/FreeMode.lua, which loads this folder when the section first
+-- shows). Three pages, the sidebar's three entries, the same whether Free
+-- mode is on or off (P.Nav, P.Open):
 --
---   off      the intro, every time, whether or not Free mode was used before:
---            the hero (Hero.lua): "Quest your own way", the player's own first
---            three quests in Free mode's order as stars on a dotted path, one
---            Activate under them, the three points (you pick up quests,
---            Polestar plans the order, the arrow leads)
---   on       "Free mode is on · following N quests" with Back to <guide>, the
---            order, then the whole route: numbered in Free mode's order (the
---            plan the arrow follows, Free.Route), the quest it leads to now
---            marked, each row its title in its difficulty colour, why it is
---            there, its progress, the walk, its XP and zone; the finished ones
---            one NPC takes under that NPC's name
+--   main     where Free mode is turned on and off: the hero (Hero.lua), the
+--            player's own first three quests in Free mode's order as stars
+--            on a dotted path. Off: Activate Free mode at its centre and how
+--            to turn it off again. On: "Free mode is on · following N
+--            quests" over Turn off Free mode (Free.Stop: back to the guide
+--            the player came from) and the guide that is, as a plain line.
+--            Then the three points.
+--   quests   Your quests: whether Free mode is on (off: Activate beside it),
+--            which quest first, the hand-in card while quests are finished
+--            (their count, the trip's time, Route: UI.GuideCarried), then
+--            every quest numbered in Free mode's order (on: the plan the
+--            arrow follows, Free.Route; off: the plan it would make), the
+--            quest it leads to now marked, each row its title in its
+--            difficulty colour, why it is there, its progress, the walk, its
+--            XP and zone; the finished ones one NPC takes under that NPC's
+--            name; then the quests left out folded under their own header
+--            with Bring back, and the quick actions (leave out a zone, the
+--            quests that take a group)
+--   about    About Free mode (About.lua): how it works in four drawn beats,
+--            when to use it, how to get back to a guide
 --
--- In both: the hand-in card while quests are finished (their count, the
--- trip's time, Route: UI.GuideCarried). While on, also the quests left out
--- folded under their own header with Bring back, and the quick actions (leave
--- out a zone, the quests that take a group), then "What is Free mode?" folded.
 -- A row's tick leaves it out, its flag pins it first (Free.Pin); a click on
 -- the row pins it too. Hovering a row, or a gamepad's focus on it, shows the
 -- game's quest tooltip with Polestar's lines (where, why, the objectives).
---
--- The sidebar lists the page's sections (P.Nav: while on Your route, Hand-ins,
--- Left out, About Free mode; while off About Free mode, Your quests); a click
--- scrolls to one.
 --
 -- A gamepad: the D-pad moves between rows, A pins the row (a left-out row:
 -- brings it back), X leaves it out (UI/Picker.lua hands X to psPadX).
 --
 --   Free.Page.Build(parent, hub) ; Free.Page.Render() ; Free.Page.Refresh()
---   Free.Page.Nav() -> items, activeKey ; Free.Page.Jump(key)
+--   Free.Page.Nav() -> items, page ; Free.Page.Open(page)   -- the sidebar
+--   Free.Page.SetPage(page) ; Free.Page.Current() -> page   -- without a draw
 --   Free.Page.Shown() -> what the page shows (the tests read it)
 
 local ns = Polestar
@@ -65,8 +68,10 @@ local parts = {}
 local rows, groups, outRows = {}, {}, {}
 local rowOf, outRowOf = {}, {}
 local shown = {}
-local anchors = {} -- section key -> its y in the body (P.Jump)
-local aboutOpen, outOpen, navKey = false, false, nil
+local outOpen = false
+-- The page shown: "main" (on and off, Hero.lua), "quests" (Your quests), "about" (About.lua).
+local PAGES = { main = true, quests = true, about = true }
+local page = "main"
 local countW = 36 -- the progress count's width: its longest text, measured (measureCount)
 
 local function mainWidth()
@@ -112,7 +117,7 @@ function P.Start()
 	P.Refresh()
 end
 
-function P.Back()
+function P.Stop()
 	Free.Stop()
 	P.Refresh()
 end
@@ -304,21 +309,6 @@ local function foldHeader(label)
 	return h
 end
 
--- One point of the intro: a glyph in the gutter, a title, a line under it.
-local function point(icon, title, text)
-	local p = CreateFrame("Frame", nil, body)
-	p.Icon = W.Tex(p, "ARTWORK", icon, "accent")
-	p.Icon:SetSize(16, 16)
-	p.Icon:SetPoint("TOPLEFT", p, "TOPLEFT", 0, -1)
-	p.Title = oneLine(W.Text(p, "body", "text"))
-	p.Title:SetPoint("TOPLEFT", p, "TOPLEFT", GUTTER, 0)
-	p.Title:SetText(title)
-	p.Text = wrapped(W.Text(p, "note", "textDim"))
-	p.Text:SetPoint("TOPLEFT", p.Title, "BOTTOMLEFT", 0, -4)
-	p.Text:SetText(text)
-	return p
-end
-
 function P.Build(parent, shell)
 	if root then return root end
 	hub = shell
@@ -330,30 +320,15 @@ function P.Build(parent, shell)
 	body = scroll.Child
 	body:SetWidth(mainWidth())
 
-	-- What Free mode is (the intro's text under "What is Free mode?").
-	parts.IntroLead = wrapped(W.Text(body, "note", "textDim"))
-	parts.IntroLead:SetText(L["Pick up whatever quests you like. Free mode puts them in a smart order and the arrow takes you through them, one after another."])
-	parts.Points = {
-		point("icon-accept", L["You pick up quests"], L["Any quest, anywhere: Free mode follows your quest log, not a guide."]),
-		point("sliders", L["Polestar plans the order"], L["The best trip for the walk, planned again whenever your log changes."]),
-		point("icon-goto", L["The arrow leads"], L["To each objective and hand-in in turn, as in any guide."]),
-	}
-	parts.When = wrapped(W.Text(body, "note", "textDim"))
-	parts.When:SetText(L["Good for when you're off your guide's route, questing with friends, or doing your own thing."])
-	parts.BackNote = wrapped(W.Text(body, "small", "textMuted"))
-	parts.BackNote:SetText(L["Back to your guide any time, from the guide window's menu or this page."])
-	parts.About = foldHeader(L["What is Free mode?"])
-	parts.About:SetScript("OnClick", function()
-		aboutOpen = not aboutOpen
-		P.Render()
-	end)
-
-	-- Activate (the hero's centrepiece, Hero.lua), the state while on, the way back.
+	-- Activate: the hero's centrepiece (Hero.lua), and the one Your quests and
+	-- About show while off; Turn off, the hero's centrepiece while on.
 	parts.Start = W.Button(body, L["Activate Free mode"], function() P.Start() end, { primary = true, height = START_H, icon = "icon-freemode" })
+	parts.Activate = W.Button(body, L["Activate Free mode"], function() P.Start() end, { primary = true, height = START_H, icon = "icon-freemode" })
+	parts.Stop = W.Button(body, L["Turn off Free mode"], function() P.Stop() end, { height = START_H, icon = "close" })
+	-- Your quests: whether Free mode is on.
 	parts.StatusIcon = W.Tex(body, "ARTWORK", "icon-freemode", "accent")
 	parts.StatusIcon:SetSize(16, 16)
 	parts.Status = oneLine(W.Text(body, "body", "text"))
-	parts.Back = W.Button(body, "", function() P.Back() end, { height = SEG_H, icon = "chevron-left" })
 
 	-- Which quest first, and what the chosen order does.
 	parts.PickLabel = oneLine(W.Text(body, "label", "textDim"))
@@ -427,9 +402,9 @@ local function paintSegment(b, on)
 	W.Color(b.Label, on and "text" or "textDim")
 end
 
--- A route row from its entry; `full`: the columns and controls (the preview
--- beside the intro shows the title, the why and the XP alone).
-local function paintRow(r, e, width, full)
+-- A route row from its entry: the number, the title over its why line, the
+-- columns and the flag and tick.
+local function paintRow(r, e, width)
 	r.psQuest, r.psPinned, r.psEntry = e.quest, e.pinned, e
 	r:SetWidth(width)
 	r.Num:SetText(e.n)
@@ -442,70 +417,57 @@ local function paintRow(r, e, width, full)
 	local cr, cg, cb = UI.QuestDifficulty(e.level, e.plevel)
 	r.Title:SetTextColor(cr, cg, cb, 1)
 	r.Why:SetText(e.why or "")
-	local right = width - 8
-	if full then
-		r.Check:ClearAllPoints()
-		r.Check:SetPoint("RIGHT", r, "RIGHT", -12, 0)
-		r.Check:SetChecked(true)
-		r.Check:SetAlpha(QUIET)
-		r.Check:Show()
-		r.Pin:ClearAllPoints()
-		r.Pin:SetPoint("RIGHT", r, "RIGHT", -34, 0)
-		W.SetIconState(r.Pin, e.pinned, true)
-		r.Pin:SetAlpha(e.pinned and 1 or QUIET)
-		r.Pin:Show()
-		r.Pin.psTip = e.pinned and L["Unpin"] or L["Pin to the top"]
-		r.Pin.psTipLines = { L["Free mode takes this quest first, whatever the order."] }
-		r.Check.psTip = L["Leave out"]
-		r.Check.psTipLines = { L["In Free mode. Click to leave it out."] }
-		right = width - CTRL_W
-		r.Zone:ClearAllPoints()
-		r.Zone:SetPoint("TOPRIGHT", r, "TOPLEFT", right, -11)
-		r.Zone:SetText(e.zone or "")
-		r.Zone:Show()
-		right = right - ZONE_W - 12
-	else
-		r.Check:Hide()
-		r.Pin:Hide()
-		r.Zone:Hide()
-	end
+	r.Check:ClearAllPoints()
+	r.Check:SetPoint("RIGHT", r, "RIGHT", -12, 0)
+	r.Check:SetChecked(true)
+	r.Check:SetAlpha(QUIET)
+	r.Check:Show()
+	r.Pin:ClearAllPoints()
+	r.Pin:SetPoint("RIGHT", r, "RIGHT", -34, 0)
+	W.SetIconState(r.Pin, e.pinned, true)
+	r.Pin:SetAlpha(e.pinned and 1 or QUIET)
+	r.Pin:Show()
+	r.Pin.psTip = e.pinned and L["Unpin"] or L["Pin to the top"]
+	r.Pin.psTipLines = { L["Free mode takes this quest first, whatever the order."] }
+	r.Check.psTip = L["Leave out"]
+	r.Check.psTipLines = { L["In Free mode. Click to leave it out."] }
+	local right = width - CTRL_W
+	r.Zone:ClearAllPoints()
+	r.Zone:SetPoint("TOPRIGHT", r, "TOPLEFT", right, -11)
+	r.Zone:SetText(e.zone or "")
+	r.Zone:Show()
+	right = right - ZONE_W - 12
 	r.XP:ClearAllPoints()
 	r.XP:SetPoint("TOPRIGHT", r, "TOPLEFT", right, -10)
 	r.XP:SetText(e.xp and format(L["%s XP"], ns.Thousands(e.xp)) or "")
 	right = right - XP_W - 8
-	if full then
-		r.Walk:ClearAllPoints()
-		r.Walk:SetPoint("TOPRIGHT", r, "TOPLEFT", right, -10)
-		r.Walk:SetText(e.travel and minutes(e.travel) or "")
-		r.Walk:Show()
-		right = right - WALK_W - 12
-		r.Track:ClearAllPoints()
-		r.Track:SetPoint("TOPRIGHT", r, "TOPLEFT", right, -17)
-		r.Count:ClearAllPoints()
-		r.Count:SetWidth(countW)
-		r.Count:SetPoint("TOPRIGHT", r.Track, "TOPLEFT", -COUNT_GAP, 7)
-		if e.ready then
-			r.Count:SetText(L["Ready"])
-			W.Color(r.Count, "success")
-			W.Color(r.Track.Fill, "success")
-			W.SetProgress(r.Track, 1, TRACK_W)
-		elseif e.total then
-			r.Count:SetText(format("%d/%d", e.done, e.total))
-			W.Color(r.Count, "text")
-			W.Color(r.Track.Fill, "accent")
-			W.SetProgress(r.Track, e.done / e.total, TRACK_W)
-		end
-		r.Count:SetShown(e.ready or e.total ~= nil)
-		r.Track:SetShown(e.ready or e.total ~= nil)
-		right = right - (countW + COUNT_GAP + TRACK_W)
-	else
-		r.Walk:Hide()
-		r.Count:Hide()
-		r.Track:Hide()
+	r.Walk:ClearAllPoints()
+	r.Walk:SetPoint("TOPRIGHT", r, "TOPLEFT", right, -10)
+	r.Walk:SetText(e.travel and minutes(e.travel) or "")
+	r.Walk:Show()
+	right = right - WALK_W - 12
+	r.Track:ClearAllPoints()
+	r.Track:SetPoint("TOPRIGHT", r, "TOPLEFT", right, -17)
+	r.Count:ClearAllPoints()
+	r.Count:SetWidth(countW)
+	r.Count:SetPoint("TOPRIGHT", r.Track, "TOPLEFT", -COUNT_GAP, 7)
+	if e.ready then
+		r.Count:SetText(L["Ready"])
+		W.Color(r.Count, "success")
+		W.Color(r.Track.Fill, "success")
+		W.SetProgress(r.Track, 1, TRACK_W)
+	elseif e.total then
+		r.Count:SetText(format("%d/%d", e.done, e.total))
+		W.Color(r.Count, "text")
+		W.Color(r.Track.Fill, "accent")
+		W.SetProgress(r.Track, e.done / e.total, TRACK_W)
 	end
+	r.Count:SetShown(e.ready or e.total ~= nil)
+	r.Track:SetShown(e.ready or e.total ~= nil)
+	right = right - (countW + COUNT_GAP + TRACK_W)
 	r.Title:SetWidth(max(80, right - GUTTER - 12))
 	-- The why line runs under the columns too (they sit on the title's line), up to the flag and tick.
-	r.Why:SetWidth(max(80, width - GUTTER - (full and CTRL_W or 8)))
+	r.Why:SetWidth(max(80, width - GUTTER - CTRL_W))
 	r.psPadLabel = e.pinned and L["Unpin"] or L["Pin to the top"]
 	r:Show()
 end
@@ -562,29 +524,13 @@ end
 
 local function hideAll()
 	Free.Hero.Hide()
+	if Free.About then Free.About.Hide() end
 	for _, f in pairs(parts) do
 		if type(f) == "table" and f.Hide then f:Hide() end
 	end
-	for _, p in ipairs(parts.Points) do p:Hide() end
 	for _, r in ipairs(rows) do r:Hide() end
 	for _, g in ipairs(groups) do g:Hide() end
 	for _, r in ipairs(outRows) do r:Hide() end
-end
-
--- The intro's text, from x at y in `width` -> the y under it.
-local function layIntro(x, y, width)
-	parts.IntroLead:SetWidth(width)
-	at(parts.IntroLead, x, y)
-	y = y + parts.IntroLead:GetStringHeight() + 20
-	for _, p in ipairs(parts.Points) do
-		p.Text:SetWidth(width - GUTTER)
-		p:SetSize(width, 18 + p.Text:GetStringHeight())
-		at(p, x - GUTTER, y)
-		y = y + p:GetHeight() + 14
-	end
-	parts.When:SetWidth(width)
-	at(parts.When, x, y + 2)
-	return y + 2 + parts.When:GetStringHeight() + 16
 end
 
 -- The order: its label, the segments and the line under them, from x at y -> the y under it.
@@ -620,14 +566,13 @@ local function layHandin(x, y, width, ready)
 	h.Text:ClearAllPoints()
 	h.Text:SetPoint(sub ~= "" and "TOPLEFT" or "LEFT", h, sub ~= "" and "TOPLEFT" or "LEFT", 48, sub ~= "" and -13 or 0)
 	h.Sub:SetShown(sub ~= "")
-	anchors.handins = y
 	shown.handin = { count = #ready, text = h.Text:GetText(), sub = sub, shown = true }
 	return y + CARD_H + 24
 end
 
 -- The route rows from y (first..last of `list`), the finished quests one NPC
 -- takes under its line -> the y under them.
-local function layRoute(list, first, last, x, y, width, full)
+local function layRoute(list, first, last, x, y, width)
 	local gi = 0
 	shown.groups = {}
 	local i = first
@@ -635,7 +580,7 @@ local function layRoute(list, first, last, x, y, width, full)
 		local e = list[i]
 		-- Two or more finished quests one after another for the same NPC: its line first.
 		local j = i
-		if full and e.ready and e.ender then
+		if e.ready and e.ender then
 			while j < last and list[j + 1].ready and list[j + 1].ender == e.ender do j = j + 1 end
 		end
 		if j > i then
@@ -652,7 +597,7 @@ local function layRoute(list, first, last, x, y, width, full)
 		end
 		for k = i, j do
 			local r = rowOf[list[k].quest] or newRow(list[k].quest)
-			paintRow(r, list[k], width, full)
+			paintRow(r, list[k], width)
 			at(r, x, y)
 			y = y + ROW_H
 			local s = list[k]
@@ -672,7 +617,6 @@ local function layOut(x, y, width, quests)
 		if q.out then out[#out + 1] = q end
 		if q.group and not q.out then group = group + 1 end
 	end
-	anchors.out = y
 	local h = parts.OutH
 	h:SetWidth(width)
 	h.Count:SetText(#out > 0 and tostring(#out) or "")
@@ -723,23 +667,6 @@ local function layOut(x, y, width, quests)
 	return y + 16
 end
 
--- "What is Free mode?", folded, and the intro under it while open -> the y under it.
-local function layAbout(x, y, width)
-	anchors.about = y
-	local h = parts.About
-	h:SetWidth(width + GUTTER)
-	h.Chevron:SetTexture(Theme.Media(aboutOpen and "chevron-down" or "chevron-right"))
-	at(h, x - GUTTER, y)
-	y = y + 40
-	if aboutOpen then
-		y = layIntro(x, y + 4, width)
-		parts.BackNote:SetWidth(width)
-		at(parts.BackNote, x, y - 6)
-		y = y + parts.BackNote:GetStringHeight() + 10
-	end
-	return y
-end
-
 -- The progress count's width: the widest of "Ready" and a count at its longest
 -- ("888/888"), in the look's own number font, so no look or language cuts it.
 local function measureCount()
@@ -748,55 +675,49 @@ local function measureCount()
 	countW = ceil(w) + 2
 end
 
-function P.Render()
-	if not root then return end
-	for k in pairs(shown) do shown[k] = nil end
-	for k in pairs(anchors) do anchors[k] = nil end
-	W.ShellTitle(hub, L["Free mode"], L["Your own quests, planned for you."])
-	local MW = mainWidth()
-	body:SetWidth(MW)
-	local width = MW - PAD * 2
-	local on = Free.IsOn()
-	local quests = Free.Quests()
-	local byQuest = {}
-	for _, q in ipairs(quests) do byQuest[q.quest] = q end
-	local list, info = Free.Route()
-	info = info or {}
-	local route = entries(list or {}, byQuest, on, info, on and #(list or {}) or PREVIEW_ROWS)
-	local ready = ns.Handins and ns.Handins.Ready() or {}
-	hideAll()
-	shown.mode, shown.on, shown.count = on and "on" or "intro", on, #route
-	local y = 24
+local function statusText(n)
+	return n == 1 and L["Free mode is on \194\183 following 1 quest"] or format(L["Free mode is on \194\183 following %d quests"], n)
+end
 
-	if not on then
-		-- Off: the intro, every time (Hero.lua): the hero with Activate at its centre.
-		anchors.about = 0
-		y = Free.Hero.Lay({ body = body, x = PAD, y = y, width = width, route = route, start = parts.Start, shown = shown })
-		y = layHandin(PAD, y, width, ready)
-		shown.intro = true
-		W.SetScrollContent(scroll, y + 24)
-		return
+-- Main: the hero (Hero.lua), its button Activate off and Turn off on -> the y under it.
+local function layMain(on, route, y, width)
+	local c = { body = body, x = PAD, y = y, width = width, route = route, on = on, shown = shown }
+	if on then
+		local back = Free.ReturnTitle()
+		c.button, c.label, c.status = parts.Stop, L["Turn off Free mode"], statusText(#route)
+		c.note = back and format(L["Takes you back to %s"], back) or L["Leaves you with no guide open: pick one under Guides."]
+	else
+		c.button, c.label = parts.Start, L["Activate Free mode"]
+		c.note = L["Turn it off any time, here or from the guide window's menu."]
 	end
+	return Free.Hero.Lay(c)
+end
 
-	-- Free mode is on: what it follows, and the way back.
+-- Your quests: whether Free mode is on (off: Activate beside it), the order,
+-- the hand-in card, the route, the quests left out -> the y under them.
+local function layQuests(on, route, quests, ready, y, width)
 	measureCount()
 	at(parts.StatusIcon, PAD, y + 6)
-	parts.Status:SetText(#route == 1 and L["Free mode is on \194\183 following 1 quest"] or format(L["Free mode is on \194\183 following %d quests"], #route))
+	local room = width - GUTTER
+	if not on then
+		local b = parts.Activate
+		at(b, PAD + width - b:GetWidth(), y - 2)
+		room = room - b:GetWidth() - 16
+		shown.start = L["Activate Free mode"]
+	end
+	parts.Status:SetText(on and statusText(#route) or L["Free mode is off \194\183 the order it would take"])
+	parts.Status:SetWidth(room)
 	parts.Status:ClearAllPoints()
 	parts.Status:SetPoint("LEFT", body, "TOPLEFT", PAD + GUTTER, -(y + 14))
 	parts.Status:Show()
-	local back = Free.ReturnTitle()
-	W.SetButtonText(parts.Back, back and format(L["Back to %s"], back) or L["Stop Free mode"])
-	at(parts.Back, PAD + width - parts.Back:GetWidth(), y)
-	shown.status, shown.back = parts.Status:GetText(), parts.Back.Label:GetText()
+	shown.status = parts.Status:GetText()
 	y = y + SEG_H + 20
 	y = layOrder(PAD, y, Free.Pick()) + 24
 	y = layHandin(PAD, y, width, ready)
 	local H = parts.RouteH
 	H:SetWidth(width)
-	W.SetSection(H, L["Your route"], #route > 0 and #route or nil)
+	W.SetSection(H, L["Your quests"], #route > 0 and #route or nil)
 	at(H, PAD, y - 18)
-	anchors.route = max(0, y - 24)
 	y = y + 34
 	if #route == 0 then
 		at(parts.EmptyTitle, PAD, y)
@@ -805,53 +726,76 @@ function P.Render()
 		y = y + 30 + parts.EmptyNote:GetStringHeight() + 20
 		shown.empty = true
 	else
-		y = layRoute(route, 1, #route, PAD - GUTTER, y, width + GUTTER, true) + 24
+		y = layRoute(route, 1, #route, PAD - GUTTER, y, width + GUTTER) + 24
 	end
-	y = layOut(PAD - GUTTER, y, width + GUTTER, quests)
-	y = layAbout(PAD, y + 8, width)
-	shown.about = aboutOpen
+	return layOut(PAD - GUTTER, y, width + GUTTER, quests)
+end
+
+function P.Render()
+	if not root then return end
+	for k in pairs(shown) do shown[k] = nil end
+	W.ShellTitle(hub, L["Free mode"], L["Your own quests, planned for you."])
+	local MW = mainWidth()
+	body:SetWidth(MW)
+	local width = MW - PAD * 2
+	local on = Free.IsOn()
+	hideAll()
+	shown.page, shown.on = page, on
+	local y = 24
+	if page == "about" then
+		y = Free.About.Lay({ body = body, x = PAD, y = y, width = width, on = on, start = parts.Activate, shown = shown })
+		W.SetScrollContent(scroll, y + 24)
+		return
+	end
+	local quests = Free.Quests()
+	local byQuest = {}
+	for _, q in ipairs(quests) do byQuest[q.quest] = q end
+	local list, info = Free.Route()
+	list, info = list or {}, info or {}
+	local route = entries(list, byQuest, on, info, page == "quests" and #list or PREVIEW_ROWS)
+	shown.count = #route
+	if page == "main" then
+		y = layMain(on, route, y, width)
+	else
+		y = layQuests(on, route, quests, ns.Handins and ns.Handins.Ready() or {}, y, width)
+	end
 	W.SetScrollContent(scroll, y + 24)
 end
 
--- What the page shows: its layout (mode: intro | on), Start or the
--- status and Back, the order and its line, the hand-in card, the route rows
--- in order (the array part: { n, quest, title, why, current, pinned, ready,
--- progress, travel, xp, zone }), the NPC lines, the quests left out.
+-- What the page shows: which page (page: main | quests | about) and whether
+-- Free mode is on; main: the hero's (Hero.lua: start or status, stop and
+-- note); quests: the status (and start while off), the order and its line,
+-- the hand-in card, the route rows in order (the array part: { n, quest,
+-- title, why, current, pinned, ready, progress, travel, xp, zone }), the NPC
+-- lines, the quests left out; about: About.lua's.
 function P.Shown() return shown end
 P.rows, P.groups, P.outRows = rows, groups, outRows
 P.parts = parts
 
 ---------------------------------------------------------------------------
--- The sidebar: the page's sections
+-- The sidebar: the three pages
 ---------------------------------------------------------------------------
 
 function P.Nav()
-	local items = {}
-	if Free.IsOn() then
-		local list = Free.Route()
-		items[#items + 1] = { key = "route", label = L["Your route"], icon = "icon-freemode", count = #(list or {}) }
-		local ready = ns.Handins and ns.Handins.Ready() or {}
-		if #ready > 0 then items[#items + 1] = { key = "handins", label = L["Hand-ins"], icon = "icon-turnin", count = #ready } end
-		local out = #Free.LeftOut()
-		if out > 0 then items[#items + 1] = { key = "out", label = L["Left out"], icon = "close", count = out } end
-		items[#items + 1] = { key = "about", label = L["About Free mode"], icon = "info" }
-	else
-		items[#items + 1] = { key = "about", label = L["About Free mode"], icon = "info" }
-		items[#items + 1] = { key = "route", label = L["Your quests"], icon = "icon-freemode", count = #(Free.Route() or {}) }
-	end
-	local active = navKey
-	local found = false
-	for _, it in ipairs(items) do if it.key == active then found = true end end
-	return items, found and active or items[1].key
+	return {
+		{ key = "main", label = L["Main page"], icon = "house" },
+		{ key = "quests", label = L["Your quests"], icon = "icon-freemode", count = #(Free.Route() or {}) },
+		{ key = "about", label = L["About Free mode"], icon = "info" },
+	}, page
 end
 
--- A section of the sidebar: open it if it folds, then scroll to it.
-function P.Jump(key)
-	navKey = key
-	if key == "out" then outOpen = true end
-	if key == "about" and Free.IsOn() then aboutOpen = true end
+function P.Current() return page end
+
+-- The page to show next, without drawing (UI.ShowFreeMode before the hub draws).
+function P.SetPage(key)
+	page = PAGES[key] and key or "main"
+	if scroll then W.ScrollTo(scroll, 0) end
+end
+
+-- A page of the sidebar: shown from its top.
+function P.Open(key)
+	P.SetPage(key)
 	if UI.Picker and UI.Picker.Render then UI.Picker.Render() else P.Render() end
-	if scroll then W.ScrollTo(scroll, anchors[key] or 0) end
 end
 
 ---------------------------------------------------------------------------

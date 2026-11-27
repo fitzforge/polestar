@@ -1,8 +1,10 @@
--- The Free mode page's hero, shown every time the page opens while Free mode
--- is off (Page.lua's intro): the one primary "Activate Free mode" at the centre of the
--- page, the Polestar emblem and a faint constellation around it, the tagline,
--- and under it the three points and the player's own quests in Free mode's
--- order. Drawn only from the addon's own art (the emblem, its engraving, the
+-- The hero of the Free mode section's Main page (Page.lua), off and on: the
+-- Polestar emblem and a faint constellation around it, the tagline, the
+-- player's own first quests in Free mode's order as stars, one big button at
+-- the centre (off: Activate Free mode; on: Turn off Free mode, under the line
+-- "Free mode is on · following N quests"), a plain line under it (off: how to
+-- turn it off again; on: the guide turning it off goes back to) and the three
+-- points. Drawn only from the addon's own art (the emblem, its engraving, the
 -- glow, a dot) and painted through Theme tokens, so the gold follows each
 -- look's accent and the stars its star colour; the button is the Skin API's.
 --
@@ -16,14 +18,18 @@
 --   seal     the button at the heart of the emblem's engraving, the tagline
 --            above it inside the ring, a dotted orbit round it
 --
+-- The drawing kit (H.Kit) is the About page's too (About.lua): textures from
+-- a pool on one frame, stars, dotted paths, the emblem in its glow.
+--
 --   Free.Hero.Lay(c) -> the y under the hero (c: Page.lua's context)
 --   Free.Hero.Direction() -> the composition shown
+--   Free.Hero.Kit(frame) -> kit
 
 local ns = Polestar
 local UI, Theme, W, L = ns.UI, ns.Theme, ns.Widgets, ns.L
 local Free = ns.Free
 if not (UI and Theme and W and W.SHELL and Free) then return end
-local max, min, floor, sqrt, cos, sin, rad, ipairs, format = math.max, math.min, math.floor, math.sqrt, math.cos, math.sin, math.rad, ipairs, string.format
+local max, min, floor, sqrt, cos, sin, rad, ipairs, pairs, format = math.max, math.min, math.floor, math.sqrt, math.cos, math.sin, math.rad, ipairs, pairs, string.format
 
 local H = {}
 Free.Hero = H
@@ -39,75 +45,18 @@ function H.Direction()
 	return DIRECTIONS[d] and d or H.DEFAULT
 end
 
-local art -- the frame every hero texture sits on (over the body, under its text)
-local pool, used = {}, 0
-local parts = {}
-H.parts = parts
+---------------------------------------------------------------------------
+-- The drawing kit
+---------------------------------------------------------------------------
 
 local function house()
 	return Theme.SkinKey() == "polestar"
-end
-
--- The next texture of the pool, `media` on it, in `layer`/`sub`.
-local function tex(media, layer, sub)
-	used = used + 1
-	local t = pool[used]
-	if not t then
-		t = art:CreateTexture(nil, "ARTWORK")
-		pool[used] = t
-	end
-	t:SetDrawLayer(layer or "ARTWORK", sub or 0)
-	t:SetTexture(Theme.Media(media))
-	t:SetTexCoord(0, 1, 0, 1)
-	t:SetRotation(0)
-	t:SetBlendMode("BLEND")
-	t:ClearAllPoints()
-	t:Show()
-	return t
-end
-
-local function place(t, x, y, w, h)
-	t:SetSize(w, h or w)
-	t:SetPoint("CENTER", art, "TOPLEFT", x, -y)
-	return t
 end
 
 local function tint(t, token, alpha)
 	local r, g, b = Theme.Color(token)
 	t:SetVertexColor(r, g, b, alpha or 1)
 	return t
-end
-
--- A star: a core in `token` (the star colour unless given) in its soft light.
-local function star(x, y, r, token, alpha)
-	token = token or "star"
-	tint(place(tex("glow", "BORDER", 1), x, y, r * 7), token, 0.28 * (alpha or 1))
-	tint(place(tex("circle", "BORDER", 2), x, y, max(2, r * 2)), token, alpha or 1)
-end
-
--- A dotted path through `pts` ({ x, y } in art space): a dot every DOT_GAP,
--- `fade` (0..1) of the way the dots thin to nothing at its end.
-local function dots(pts, token, alpha, fade, size)
-	local total = 0
-	for i = 2, #pts do
-		local dx, dy = pts[i][1] - pts[i - 1][1], pts[i][2] - pts[i - 1][2]
-		total = total + sqrt(dx * dx + dy * dy)
-	end
-	local walked, carry = 0, DOT_GAP / 2
-	for i = 2, #pts do
-		local ax, ay, bx, by = pts[i - 1][1], pts[i - 1][2], pts[i][1], pts[i][2]
-		local len = sqrt((bx - ax) ^ 2 + (by - ay) ^ 2)
-		local d = carry
-		while d <= len do
-			local f = (walked + d) / max(1, total)
-			local a = alpha
-			if fade and fade > 0 and f > 1 - fade then a = alpha * max(0, (1 - f) / fade) end
-			if a > 0.02 then tint(place(tex("circle", "BORDER", 0), ax + (bx - ax) * d / len, ay + (by - ay) * d / len, size or 2), token, a) end
-			d = d + DOT_GAP
-		end
-		carry = d - len
-		walked = walked + len
-	end
 end
 
 -- A smooth path through `pts`: each corner rounded by a quadratic curve, cut
@@ -130,30 +79,138 @@ local function smooth(pts)
 	return out
 end
 
--- The emblem, `size` across, centred at (x, y), in its glow (`bloom` across);
--- in the house look its hot centre and a 1px beam rising `beam` above it.
-local function emblem(x, y, size, bloom, beam)
-	local glow = place(tex("glow", "BACKGROUND", 2), x, y, bloom)
-	local r, g, b = Theme.Accent()
-	glow:SetVertexColor(r, g, b, house() and 0.3 or 0.16)
-	parts.Glow = glow
-	local e = tint(place(tex("emblem", "ARTWORK", 1), x, y, size), "accent")
-	parts.Emblem = e
-	local hr, hg, hb = W.AccentHi()
-	local hot = place(tex("emblem-hot", "ARTWORK", 2), x, y, size)
-	hot:SetVertexColor(hr, hg, hb, 1)
-	hot:SetShown(house())
-	if beam and beam > 0 and house() then
-		local t = tex("white", "BORDER", 3)
-		t:SetSize(1, beam)
-		t:SetPoint("BOTTOM", art, "TOPLEFT", x, -(y - size * 0.47))
-		if t.SetGradient and CreateColor then
-			t:SetVertexColor(1, 1, 1, 1)
-			t:SetGradient("VERTICAL", CreateColor(hr, hg, hb, 0.6), CreateColor(r, g, b, 0))
-		else
-			t:SetVertexColor(r, g, b, 0.3)
+-- A kit drawing on `frame` (its TOPLEFT is (0, 0), y down): every texture
+-- comes from its pool; K.Reset() hides them all for the next draw.
+function H.Kit(frame)
+	local K = { frame = frame, house = house, tint = tint, smooth = smooth }
+	local pool, used = {}, 0
+
+	-- The next texture of the pool, `media` on it, in `layer`/`sub`.
+	function K.Tex(media, layer, sub)
+		used = used + 1
+		local t = pool[used]
+		if not t then
+			t = frame:CreateTexture(nil, "ARTWORK")
+			pool[used] = t
+		end
+		t:SetDrawLayer(layer or "ARTWORK", sub or 0)
+		t:SetTexture(Theme.Media(media))
+		t:SetTexCoord(0, 1, 0, 1)
+		t:SetRotation(0)
+		t:SetBlendMode("BLEND")
+		t:ClearAllPoints()
+		t:Show()
+		return t
+	end
+
+	function K.Place(t, x, y, w, h)
+		t:SetSize(w, h or w)
+		t:SetPoint("CENTER", frame, "TOPLEFT", x, -y)
+		return t
+	end
+
+	-- A star: a core in `token` (the star colour unless given) in its soft light.
+	function K.Star(x, y, r, token, alpha)
+		token = token or "star"
+		tint(K.Place(K.Tex("glow", "BORDER", 1), x, y, r * 7), token, 0.28 * (alpha or 1))
+		return tint(K.Place(K.Tex("circle", "BORDER", 2), x, y, max(2, r * 2)), token, alpha or 1)
+	end
+
+	-- A dotted path through `pts` ({ x, y }): a dot every DOT_GAP, `fade`
+	-- (0..1) of the way the dots thin to nothing at its end.
+	function K.Dots(pts, token, alpha, fade, size)
+		local total = 0
+		for i = 2, #pts do
+			local dx, dy = pts[i][1] - pts[i - 1][1], pts[i][2] - pts[i - 1][2]
+			total = total + sqrt(dx * dx + dy * dy)
+		end
+		local walked, carry = 0, DOT_GAP / 2
+		for i = 2, #pts do
+			local ax, ay, bx, by = pts[i - 1][1], pts[i - 1][2], pts[i][1], pts[i][2]
+			local len = sqrt((bx - ax) ^ 2 + (by - ay) ^ 2)
+			local d = carry
+			while d <= len do
+				local f = (walked + d) / max(1, total)
+				local a = alpha
+				if fade and fade > 0 and f > 1 - fade then a = alpha * max(0, (1 - f) / fade) end
+				if a > 0.02 then tint(K.Place(K.Tex("circle", "BORDER", 0), ax + (bx - ax) * d / len, ay + (by - ay) * d / len, size or 2), token, a) end
+				d = d + DOT_GAP
+			end
+			carry = d - len
+			walked = walked + len
 		end
 	end
+
+	-- A hairline from a to b ({ x, y }), the lines a guide draws between stars.
+	function K.Line(a, b, token, alpha)
+		local t = K.Tex("white", "BORDER", 0)
+		local dx, dy = b[1] - a[1], b[2] - a[2]
+		t:SetSize(sqrt(dx * dx + dy * dy), Theme.Pixel(frame))
+		t:SetPoint("CENTER", frame, "TOPLEFT", (a[1] + b[1]) / 2, -(a[2] + b[2]) / 2)
+		t:SetRotation(-math.atan2(dy, dx))
+		return tint(t, token, alpha)
+	end
+
+	-- The emblem, `size` across, centred at (x, y), in its glow (`bloom`
+	-- across); in the house look its hot centre and a 1px beam rising `beam`
+	-- above it. -> the emblem, its glow
+	function K.Emblem(x, y, size, bloom, beam)
+		local glow = K.Place(K.Tex("glow", "BACKGROUND", 2), x, y, bloom)
+		local r, g, b = Theme.Accent()
+		glow:SetVertexColor(r, g, b, house() and 0.3 or 0.16)
+		local e = tint(K.Place(K.Tex("emblem", "ARTWORK", 1), x, y, size), "accent")
+		local hr, hg, hb = W.AccentHi()
+		local hot = K.Place(K.Tex("emblem-hot", "ARTWORK", 2), x, y, size)
+		hot:SetVertexColor(hr, hg, hb, 1)
+		hot:SetShown(house())
+		if beam and beam > 0 and house() then
+			local t = K.Tex("white", "BORDER", 3)
+			t:SetSize(1, beam)
+			t:SetPoint("BOTTOM", frame, "TOPLEFT", x, -(y - size * 0.47))
+			if t.SetGradient and CreateColor then
+				t:SetVertexColor(1, 1, 1, 1)
+				t:SetGradient("VERTICAL", CreateColor(hr, hg, hb, 0.6), CreateColor(r, g, b, 0))
+			else
+				t:SetVertexColor(r, g, b, 0.3)
+			end
+		end
+		return e, glow
+	end
+
+	-- A frame or text with its `point` (TOPLEFT unless given) at (x, y).
+	function K.At(f, x, y, point)
+		f:ClearAllPoints()
+		f:SetPoint(point or "TOPLEFT", frame, "TOPLEFT", x, -y)
+		f:Show()
+	end
+
+	-- A centred line of text `width` wide, its top at y -> the y under it.
+	function K.Centred(fs, cx, y, width)
+		fs:SetWidth(width)
+		K.At(fs, cx - width / 2, y)
+		return y + fs:GetStringHeight()
+	end
+
+	function K.Reset()
+		for i = 1, used do pool[i]:Hide() end
+		used = 0
+	end
+
+	return K
+end
+
+---------------------------------------------------------------------------
+-- The hero's parts
+---------------------------------------------------------------------------
+
+local art -- the frame every hero texture sits on (over the body, under its text)
+local K
+local parts = {}
+H.parts = parts
+
+local function emblem(x, y, size, bloom, beam)
+	local e, glow = K.Emblem(x, y, size, bloom, beam)
+	parts.Emblem, parts.Glow = e, glow
 	return e
 end
 
@@ -163,6 +220,7 @@ local function build(body)
 	art:SetPoint("TOPLEFT", body, "TOPLEFT", 0, 0)
 	art:SetSize(1, 1)
 	art:SetFrameLevel(body:GetFrameLevel())
+	K = H.Kit(art)
 	parts.Title = W.Text(body, "hero", "text")
 	parts.Title:SetJustifyH("CENTER")
 	parts.Lead = W.Text(body, "note", "textDim")
@@ -170,11 +228,17 @@ local function build(body)
 	parts.Lead:SetWordWrap(true)
 	parts.Lead:SetSpacing(3)
 	parts.Lead:SetText(L["Pick up whatever quests you like. Free mode puts them in a smart order and the arrow takes you through them, one after another."])
+	-- On: the state over the button, the running figure before it.
+	parts.StatusIcon = W.Tex(body, "ARTWORK", "icon-freemode", "accent")
+	parts.StatusIcon:SetSize(16, 16)
+	parts.Status = W.Text(body, "body", "text")
+	parts.Status:SetJustifyH("CENTER")
+	parts.Status:SetWordWrap(false)
+	-- Under the button: off how to turn it off again, on where turning it off goes.
 	parts.Back = W.Text(body, "small", "textMuted")
 	parts.Back:SetJustifyH("CENTER")
 	parts.Back:SetWordWrap(true)
 	parts.Back:SetSpacing(2)
-	parts.Back:SetText(L["Back to your guide any time, from the guide window's menu or this page."])
 	-- The three points, side by side: a glyph over a title over a line.
 	parts.Points = {}
 	for i, p in ipairs({
@@ -220,8 +284,7 @@ local function build(body)
 end
 
 local function hide()
-	for i = 1, used do pool[i]:Hide() end
-	used = 0
+	K.Reset()
 	for k, f in pairs(parts) do
 		if k ~= "Points" and k ~= "Labels" and type(f) == "table" and f.Hide then f:Hide() end
 	end
@@ -233,22 +296,13 @@ local function hide()
 end
 H.Hide = function() if art then hide() end end
 
-local function at(f, x, y, point)
-	f:ClearAllPoints()
-	f:SetPoint(point or "TOPLEFT", art, "TOPLEFT", x, -y)
-	f:Show()
-end
+local function at(f, x, y, point) K.At(f, x, y, point) end
+local function centred(fs, cx, y, width) return K.Centred(fs, cx, y, width) end
+local function star(x, y, r, token, alpha) return K.Star(x, y, r, token, alpha) end
 
--- A centred line of text `width` wide, its top at y -> the y under it.
-local function centred(fs, cx, y, width)
-	fs:SetWidth(width)
-	at(fs, cx - width / 2, y)
-	return y + fs:GetStringHeight()
-end
-
--- The button, `y` its top, centred on cx -> the y under it.
+-- The button (c.button, reading c.label), `y` its top, centred on cx -> the y under it.
 local function button(c, cx, y)
-	local b = c.start
+	local b = c.button
 	if not b.psHero then
 		b.psHero = true
 		b.psHeight = BUTTON_H
@@ -256,11 +310,31 @@ local function button(c, cx, y)
 		Theme.Font(b.Label, "title")
 		if b.Icon then b.Icon:SetSize(16, 16) end
 	end
-	W.SetButtonText(b, L["Activate Free mode"])
+	W.SetButtonText(b, c.label)
 	b:SetWidth(max(BUTTON_W, b:GetWidth() + 32))
 	at(b, cx - b:GetWidth() / 2, y)
-	c.shown.start = L["Activate Free mode"]
+	c.shown[c.on and "stop" or "start"] = c.label
 	return y + BUTTON_H
+end
+
+-- On: "Free mode is on · following N quests", centred on cx at y, the
+-- running figure before it -> the y under it (off: y).
+local function status(c, cx, y)
+	if not c.on then return y end
+	parts.Status:SetText(c.status)
+	local w = W.TextWidth and W.TextWidth(parts.Status) or parts.Status:GetStringWidth()
+	parts.Status:SetWidth(w + 4)
+	at(parts.Status, cx + 12 - (w + 4) / 2, y)
+	at(parts.StatusIcon, cx + 12 - (w + 4) / 2 - 24, y - 1)
+	c.shown.status = c.status
+	return y + 18
+end
+
+-- The line under the button, centred on cx at y in `width` -> the y under it.
+local function note(c, cx, y, width)
+	parts.Back:SetText(c.note)
+	c.shown.note = c.note
+	return centred(parts.Back, cx, y, width)
 end
 
 -- The three points side by side across `width` from x -> the y under them.
@@ -279,8 +353,14 @@ end
 
 local function hex(name) return "|c" .. Theme.Hex(name) end
 
--- The intro's preview strip: a hairline, then "Free mode would start with
--- <quest> · why" and under it the next ones -> the y under it.
+-- The first quest, as the preview line names it: off "Free mode would start
+-- with <quest>", on "Free mode is leading you to <quest>".
+local function leadLine(c, title)
+	return format(c.on and L["Free mode is leading you to %s"] or L["Free mode would start with %s"], title)
+end
+
+-- The preview strip: a hairline, then the lead line with why the first quest
+-- is first, and under it the next ones -> the y under it.
 local function strip(c, x, y, width)
 	local route = c.route
 	local cx = x + width / 2
@@ -294,10 +374,10 @@ local function strip(c, x, y, width)
 		c.shown.empty = true
 	else
 		local first = route[1]
-		local line = format(L["Free mode would start with %s"], hex("quest") .. first.title .. "|r")
+		local line = leadLine(c, hex("quest") .. first.title .. "|r")
 		if first.why then line = line .. hex("textDim") .. "  \194\183  " .. first.why .. "|r" end
 		parts.Strip:SetText(line)
-		c.shown.lead = parts.Strip:GetText()
+		c.shown.lead = leadLine(c, first.title)
 	end
 	local textW = min(width - 48, 640)
 	local sy = centred(parts.Strip, cx + 12, y, textW)
@@ -359,7 +439,7 @@ local function sky(c, x, y, width, h)
 	local tail = pt(SKY.tail)
 	if n == 0 then tail = pt(SKY[1]) end
 	path[#path + 1] = tail
-	dots(smooth(path), "star", 0.55, n > 3 and 0.25 or 0.45)
+	K.Dots(smooth(path), "star", 0.55, n > 3 and 0.25 or 0.45)
 	for i, p in ipairs(stars) do
 		star(p[1], p[2], 2.6, "quest", 1)
 		local l, s = parts.Labels[i], c.route[i]
@@ -400,12 +480,11 @@ local function laySky(c)
 	y = centred(parts.Lead, cx, y, min(width, 520)) + 14
 	sky(c, x, y, width, 200)
 	record(c, 3)
-	if #c.route > 0 then
-		local first = c.route[1]
-		c.shown.lead = format(L["Free mode would start with %s"], first.title)
-	end
-	y = button(c, cx, y + 200 + 4)
-	y = centred(parts.Back, cx, y + 10, min(width, 520)) + 28
+	if #c.route > 0 then c.shown.lead = leadLine(c, c.route[1].title) end
+	y = y + 200 + 4
+	if c.on then y = status(c, cx, y) + 12 end
+	y = button(c, cx, y)
+	y = note(c, cx, y + 10, min(width, 520)) + 28
 	y = points(x, y, width)
 	return y + 32
 end
@@ -429,7 +508,7 @@ local function polaris(c, x, y, width, h, size)
 		if i < #POLARIS_PATH then star(pts[i][1], pts[i][2], i == 1 and 1.2 or 1.6, "star", 0.9) end
 	end
 	pts[#pts] = { cx - size * 0.62, ey }
-	dots(smooth(pts), "star", 0.5)
+	K.Dots(smooth(pts), "star", 0.5)
 	-- The fixed lines a guide draws, on the right: a few stars joined by hairlines.
 	local right = {}
 	for i, p in ipairs(POLARIS_RIGHT) do
@@ -437,13 +516,7 @@ local function polaris(c, x, y, width, h, size)
 		star(right[i][1], right[i][2], p[3], "star", 0.75)
 	end
 	for _, link in ipairs(POLARIS_LINKS) do
-		local a, b = right[link[1]], right[link[2]]
-		local t = tex("white", "BORDER", 0)
-		local dx, dy = b[1] - a[1], b[2] - a[2]
-		t:SetSize(sqrt(dx * dx + dy * dy), Theme.Pixel(art))
-		t:SetPoint("CENTER", art, "TOPLEFT", (a[1] + b[1]) / 2, -(a[2] + b[2]) / 2)
-		t:SetRotation(-math.atan2(dy, dx))
-		tint(t, "star", 0.2)
+		K.Line(right[link[1]], right[link[2]], "star", 0.2)
 	end
 end
 
@@ -455,8 +528,9 @@ local function layPolaris(c)
 	parts.Title:SetText(L["Quest your own way"])
 	y = centred(parts.Title, cx, y, width) + 8
 	y = centred(parts.Lead, cx, y, min(width, 520)) + 20
+	if c.on then y = status(c, cx, y) + 12 end
 	y = button(c, cx, y)
-	y = centred(parts.Back, cx, y + 10, min(width, 520)) + 36
+	y = note(c, cx, y + 10, min(width, 520)) + 36
 	y = points(x, y, width) + 28
 	record(c, 3)
 	return strip(c, x, y, width) + 28
@@ -467,18 +541,18 @@ end
 ---------------------------------------------------------------------------
 
 local function seal(c, cx, cy, size)
-	local glow = place(tex("glow", "BACKGROUND", 1), cx, cy, size * 1.3)
+	local glow = K.Place(K.Tex("glow", "BACKGROUND", 1), cx, cy, size * 1.3)
 	local r, g, b = Theme.Accent()
 	glow:SetVertexColor(r, g, b, house() and 0.16 or 0.1)
 	parts.Glow = glow
-	local e = place(tex("watermark", "BACKGROUND", 3), cx, cy, size)
+	local e = K.Place(K.Tex("watermark", "BACKGROUND", 3), cx, cy, size)
 	e:SetVertexColor(r, g, b, house() and 0.3 or 0.24)
 	parts.Emblem = e
 	-- A dotted orbit round the ring: your own path, a star on it now and then.
 	local R = size * 0.5
 	local pts = {}
 	for a = 200, 520, 4 do pts[#pts + 1] = { cx + cos(rad(a)) * R, cy + sin(rad(a)) * R * 0.92 } end
-	dots(pts, "star", 0.45, 0.3)
+	K.Dots(pts, "star", 0.45, 0.3)
 	for _, a in ipairs({ 214, 300, 382, 455 }) do
 		star(cx + cos(rad(a)) * R, cy + sin(rad(a)) * R * 0.92, 1.7, "star", 0.9)
 	end
@@ -496,7 +570,9 @@ local function laySeal(c)
 	parts.Title:SetText(L["Quest your own way"])
 	centred(parts.Title, cx, cy - 66, width)
 	button(c, cx, cy - BUTTON_H / 2 + 2)
-	centred(parts.Back, cx, cy + 36, 250)
+	-- On, the state under the button (the tagline holds the room over it).
+	local ny = status(c, cx, cy + 36)
+	note(c, cx, ny + (c.on and 6 or 0), 250)
 	y = cy + size / 2 + 20
 	y = points(x, y, width) + 28
 	record(c, 3)
@@ -506,7 +582,8 @@ end
 local LAY = { sky = laySky, polaris = layPolaris, seal = laySeal }
 
 -- Lay the hero from c.y: c = { body, x, y, width, route (Page's entries),
--- start (the button), shown } -> the y under it.
+-- on, button (Activate off, Turn off on), label (its text), status (on: the
+-- state line), note (the line under the button), shown } -> the y under it.
 function H.Lay(c)
 	if not art then build(c.body) end
 	hide()

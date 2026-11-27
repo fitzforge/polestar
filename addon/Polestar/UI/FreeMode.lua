@@ -1,11 +1,11 @@
 -- The Free mode section of the hub (docs/ARCHITECTURE.md, "Free mode"), right
--- under Guides on the rail. This is its door: the page itself (what Free mode
--- is, Start or the route it follows, the order, the hand-in card, the quests
--- left out) is Polestar_FreeMode/Page.lua, which loads, like the mode, the
--- first time the page shows; its sections are the sidebar's index (Page.Nav).
--- Without the folder the page says why.
+-- under Guides on the rail. This is its door: the pages themselves (Main page,
+-- where Free mode is turned on and off; Your quests; About Free mode) are
+-- Polestar_FreeMode/Page.lua, which loads, like the mode, the first time the
+-- section shows; they are the sidebar's three entries (Page.Nav, Page.Open).
+-- Without the folder the section says why.
 --
---   UI.ShowFreeMode()   -- the hub on this section
+--   UI.ShowFreeMode(page?)   -- the hub on this section; page: "main" | "quests" | "about"
 
 local ADDON, ns = ...
 local UI, W = ns.UI, ns.Widgets
@@ -14,7 +14,7 @@ local SH = W.SHELL
 local Free = ns.Free
 
 local KEY = "FreeMode"
-local frame, hub, note, built, why
+local frame, hub, note, built, why, want
 
 local function ensure()
 	if built then return true end
@@ -25,6 +25,10 @@ local function ensure()
 	end
 	Free.Page.Build(frame, hub)
 	built = true
+	if want then
+		Free.Page.SetPage(want)
+		want = nil
+	end
 	return true
 end
 
@@ -58,7 +62,12 @@ local function render()
 	note:Show()
 end
 
-function UI.ShowFreeMode()
+function UI.ShowFreeMode(page)
+	want = page
+	if built and want then
+		Free.Page.SetPage(want)
+		want = nil
+	end
 	local P = UI.Picker
 	local win = PolestarPicker
 	local was = win and win:IsShown()
@@ -66,14 +75,14 @@ function UI.ShowFreeMode()
 	if not was and UI.ShowPicker then UI.ShowPicker() end
 end
 
--- The sidebar: the page's sections, a click scrolls to one (Page.Nav, Page.Jump).
+-- The sidebar: the section's three pages, a click shows one (Page.Nav, Page.Open).
 local function nav()
 	if built and Free.Page then return Free.Page.Nav() end
 	return { { key = KEY, label = L["Free mode"], icon = "icon-freemode" } }, KEY
 end
 
 local function onNav(key)
-	if built and Free.Page then Free.Page.Jump(key) end
+	if built and Free.Page then Free.Page.Open(key) end
 end
 
 if UI.RegisterSection and Free then
