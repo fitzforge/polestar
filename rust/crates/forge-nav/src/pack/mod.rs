@@ -119,7 +119,7 @@ pub fn node_class(surface_flags: u8, tslope: u8, road: bool, area_city: bool, hu
 	base | (hub_bits & (HUB_ALLIANCE | HUB_HORDE))
 }
 
-/// A hub of hubs.json: { id, side, name, areaId, disks: [[x, y, r]] }.
+/// A hub of hubs.json: { id, side, name, areaId, disks: [[x, y, r]], passage? }.
 #[derive(Clone, Debug)]
 pub struct Hub {
 	pub id: Value,
@@ -128,6 +128,8 @@ pub struct Hub {
 	/// Number(areaId) || 0.
 	pub area_id: f64,
 	pub disks: Vec<[f64; 3]>,
+	/// A road passage's hub (hubs.rs Passage): listed, but its disks mark no cell (cells.rs mark_hubs).
+	pub passage: bool,
 }
 
 impl Hub {
@@ -143,6 +145,7 @@ impl Hub {
 			name: v["name"].clone(),
 			area_id: if area.is_nan() { 0.0 } else { area },
 			disks: v["disks"].as_array().into_iter().flatten().map(|d| [0, 1, 2].map(|i| d[i].as_f64().unwrap_or(f64::NAN))).collect(),
+			passage: v["passage"] == true,
 		}
 	}
 }

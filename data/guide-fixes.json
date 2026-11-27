@@ -19052,6 +19052,16 @@
 				{ "kind": "in-game-check", "ref": "#4343 (Sekyno, 0.4.3.1)" }
 			],
 			"issue": 4343
+		},
+		{
+			"id": "cozy-sleeping-bag-horde-dam-mountaineers",
+			"faction": "Horde",
+			"at": { "quest": 79974, "goal": "turnin", "guide": "forever/miscellaneous/cozy-sleeping-bag" },
+			"tip": "Careful: Mountaineers (level 30) guard both ends of the Dun Algaz pass and stand along the top of the dam, and they attack Horde. Most Horde players below level 27 died to them here: come at 27 or later and run straight through without stopping. The figurine is on a ledge just below the top of the dam, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge.",
+			"note": "The Horde dam step (its own step since the Alliance one needs no warning): Horde on the way to the Stonewrought Dam walk the Dun Algaz pass from the Wetlands and the length of the dam's top, past Mountaineers (level 30) hostile to them. The chain opens at level 14.",
+			"source": [
+				{ "kind": "recording", "ref": "players' recordings (2026-11-27): 34 Horde players on this guide died 75 times to Mountaineers at both ends of the Dun Algaz pass (Wetlands about 55.5,84.5; Loch Modan about 25.3,1 to 6) and on the dam's top (Loch Modan 43.4,11 to 49.4,14.3; Mountaineers Haggis, Barn, Morlic and Angst), 33 of them at levels 14 to 25; of the 14 Horde players who came through without dying, 12 were level 27 to 37" }
+			]
 		}
 	]
 }

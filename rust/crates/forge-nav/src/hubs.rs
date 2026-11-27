@@ -335,6 +335,44 @@ fn slug(s: &str) -> String {
 	}
 }
 
+/// A road passage (hub-passages.json, compiled in): a hostile post the only road between two parts of a continent
+/// runs through. Every hub of `side` on `map` whose disks `road` crosses is written with "passage": true, and its
+/// disks price no walk (pack mark_hubs, cost.rs Ground, router.js readHubs): the walk keeps to the road.
+pub struct Passage {
+	pub id: String,
+	pub side: String,
+	pub map: u32,
+	pub road: Vec<[f64; 2]>,
+}
+
+/// The road passages of hub-passages.json.
+pub fn passages() -> Vec<Passage> {
+	let v: Value = serde_json::from_str(include_str!("hub-passages.json")).expect("hub-passages.json");
+	let num = |q: &Value, k: usize| q[k].as_f64().expect("hub-passages.json: a road point is [x, y]");
+	v["passages"]
+		.as_array()
+		.expect("hub-passages.json: passages")
+		.iter()
+		.map(|p| Passage {
+			id: p["id"].as_str().expect("hub-passages.json: id").to_string(),
+			side: p["side"].as_str().expect("hub-passages.json: side").to_string(),
+			map: p["map"].as_u64().expect("hub-passages.json: map") as u32,
+			road: p["road"].as_array().expect("hub-passages.json: road").iter().map(|q| [num(q, 0), num(q, 1)]).collect(),
+		})
+		.collect()
+}
+
+/// Whether the polyline `road` comes within a disk [x, y, r] (a point of it at most r from the centre).
+pub fn road_crosses(road: &[[f64; 2]], d: &[f64; 3]) -> bool {
+	road.windows(2).any(|w| {
+		let ([ax, ay], [bx, by]) = (w[0], w[1]);
+		let (dx, dy) = (bx - ax, by - ay);
+		let l2 = dx * dx + dy * dy;
+		let t = if l2 > 0.0 { (((d[0] - ax) * dx + (d[1] - ay) * dy) / l2).clamp(0.0, 1.0) } else { 0.0 };
+		(ax + dx * t - d[0]).hypot(ay + dy * t - d[1]) <= d[2]
+	})
+}
+
 fn tenth(v: f64) -> f64 {
 	let r = js_round(v * 10.0) / 10.0;
 	if r == 0.0 {
@@ -409,6 +447,7 @@ pub fn build_hubs(i: &HubsIn) -> Result<Vec<(u32, Vec<Value>)>, String> {
 		}
 		hubs.sort_by(|a, b| locale_cmp(&a.0, &b.0).then_with(|| locale_cmp(&a.1, &b.1)).then(a.5[0][0].partial_cmp(&b.5[0][0]).unwrap()).then(a.5[0][1].partial_cmp(&b.5[0][1]).unwrap()));
 		let mut used: FxHashMap<String, usize> = FxHashMap::default();
+		let ps = passages();
 		let list = hubs
 			.into_iter()
 			.map(|(side, name, area_id, guards, services, disks)| {
@@ -424,6 +463,9 @@ pub fn build_hubs(i: &HubsIn) -> Result<Vec<(u32, Vec<Value>)>, String> {
 				m.insert("guards".into(), json!(guards));
 				m.insert("services".into(), json!(services));
 				m.insert("disks".into(), Value::Array(disks.iter().map(|d| Value::Array(d.iter().map(|&v| jnum(v)).collect())).collect()));
+				if ps.iter().any(|p| p.map == c && p.side == side && disks.iter().any(|d| road_crosses(&p.road, d))) {
+					m.insert("passage".into(), json!(true));
+				}
 				Value::Object(m)
 			})
 			.collect();
@@ -582,6 +624,7 @@ pub fn rules() -> Value {
 		"name": "AreaTable: the capital (Flags_0 & 0x100) at least half the spawns stand in (chunk area or zone map), else the subzone under the centroid, else the most common subzone, else the zone",
 		"disks": format!("{GUARD_RADIUS} yd around a guard, {SERVICE_RADIUS} yd around a service NPC"),
 		"forever": "Forever's own NPCs (forever-db's npc and spawn tables, the ids classic-db lacks): a guard by its name, a service NPC by its codex roles (vendor, flight master, trainer, innkeeper, banker, repair) or as a quest's giver; one with no faction template is the side the codex has it friendly to, when only one",
+		"passage": "a hub of `side` whose disks a road passage's road crosses (hub-passages.json: the only road through a hostile post) is written with passage true: listed, its disks price no walk",
 	})
 }
 

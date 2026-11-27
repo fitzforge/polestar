@@ -4,7 +4,7 @@
 
 use super::golden_dir;
 use forge_nav::grid::{cell_of, Grid};
-use forge_nav::hubs::{add_forever, build_hubs, csv_rows, forever_flags, forever_sides, guard_name, hubs_doc, role_of, Hostility, HubsIn};
+use forge_nav::hubs::{add_forever, build_hubs, csv_rows, forever_flags, forever_sides, guard_name, hubs_doc, passages, road_crosses, role_of, Hostility, HubsIn};
 use forge_nav::pack::layers::Frames;
 use serde_json::{json, Value};
 
@@ -201,4 +201,26 @@ fn the_built_layer_alliance_and_horde_towns_are_hubs_of_their_side_goblin_towns_
 		let over: Vec<&Value> = hubs[c].as_array().unwrap().iter().filter(|h| disks(h).iter().any(|&(hx, hy, r)| (x - hx).hypot(y - hy) <= r + 100.0)).collect();
 		assert!(over.is_empty(), "no hub within 100 yd of {name}");
 	}
+}
+
+// A road passage (hub-passages.json): the only road through a hostile post. Its hubs stay listed, and are written with
+// passage true when the road crosses one of their disks; the pack marks no cell for them (Hub.passage).
+#[test]
+fn road_passages_flag_the_hubs_their_road_crosses_and_the_pack_reads_the_flag() {
+	let all = passages();
+	let algaz = all.iter().find(|p| p.id == "dun-algaz").expect("the Dun Algaz pass is a road passage");
+	assert_eq!((algaz.side.as_str(), algaz.map), ("Alliance", 0));
+	assert!(algaz.road.len() >= 2);
+	let road = [[0.0, 0.0], [100.0, 0.0]];
+	assert!(road_crosses(&road, &[50.0, 40.0, 50.0]), "a disk the road runs through");
+	assert!(road_crosses(&road, &[130.0, 0.0, 50.0]), "a disk past the road's end that reaches it");
+	assert!(!road_crosses(&road, &[50.0, 60.0, 50.0]), "a disk beside the road");
+	let hub = |passage: Option<bool>| {
+		let mut v = json!({ "id": "alliance-x", "side": "Alliance", "name": "X", "areaId": 1, "disks": [[0, 0, 50]] });
+		if let Some(p) = passage {
+			v["passage"] = json!(p);
+		}
+		forge_nav::pack::Hub::from_json(&v).passage
+	};
+	assert_eq!((hub(Some(true)), hub(None), hub(Some(false))), (true, false, false));
 }

@@ -69,19 +69,23 @@ return {
 	-- {area:146} Stonewrought Dam
 	["The figurine is on a ledge just below the top of the {area:146}, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "A estatueta fica numa saliência logo abaixo do topo de {area:146}, na face norte. Desça devagar; andar de costas evita que você passe da saliência.",
 
-	-- Step 11: Out of the river
+	-- Step 11: The dam in Loch Modan
+	-- {area:836} Dun Algaz
+	["Careful: Mountaineers (level 30) guard both ends of the {area:836} pass and stand along the top of the dam, and they attack Horde. Most Horde players below level 27 died to them here: come at 27 or later and run straight through without stopping. The figurine is on a ledge just below the top of the dam, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "",
+
+	-- Step 12: Out of the river
 	["Out of the river"] = "Saindo do rio",
 	-- {zone:1437} Wetlands · {area:880} Thandol Span · {area:272} Tarren Mill
 	["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi, or hearth if your Hearthstone is set at {area:272}."] = "Cuidado: ao sair da beirada da represa, você cai no rio abaixo dela, em {zone:1437}. Saia pela margem oeste bem antes da cachoeira, por volta de 65,77: a queda mata. Depois siga para noroeste até a estrada e siga-a para o norte por {area:880} até Arathi, ou use a Pedra de Regresso se ela estiver vinculada a {area:272}.",
 	["West bank, before the waterfall"] = "Margem oeste, antes da cachoeira",
 	["West bank"] = "Margem oeste",
 
-	-- Step 12: Thoradin's Wall
+	-- Step 13: Thoradin's Wall
 	-- {area:1057} Thoradin's Wall · {area:287} Hillsbrad
 	["At the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "No portão de {area:1057}, entre Arathi e {area:287}, vire para o norte e siga a muralha pelo lado de {area:287} até uma carroça caída encostada nela. Suba pela carroça e pela escada até a muralha e depois passe pelas pedras até o acampamento escondido. Alguns personagens não cabem embaixo da rede de carga do acampamento; outra raça ou uma forma menor passa.",
 	["Fallen cart"] = "Carroça caída",
 
-	-- Step 13: The hidden camp
+	-- Step 14: The hidden camp
 	["The hidden camp"] = "O acampamento escondido",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

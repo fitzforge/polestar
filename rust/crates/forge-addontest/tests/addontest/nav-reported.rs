@@ -33,10 +33,11 @@ local Path = Polestar_NavEngine
 local frames = {}
 Path.after = function(fn) frames[#frames + 1] = fn end
 local got = false
-Path.Find(@C, @FROM, @TO, function(points, cost)
+Path.Find(@C, @FROM, @TO, function(points, cost, job)
 	if points then
-		got = { points = {}, cost = cost }
+		got = { points = {}, cost = cost, hubs = {} }
 		for i, p in ipairs(points) do got.points[i] = { p.x, p.y, p.z or false } end
+		for i, h in ipairs(job and job.hubs or {}) do got.hubs[i] = h.id end
 	end
 end@PROFILE)
 while #frames > 0 do table.remove(frames, 1)() end
@@ -918,4 +919,64 @@ fn arathi_the_walk_to_foggy_mackreel_on_thandol_spans_broken_section_is_found_bo
 	joined_both_ways(arathi, foggy, Some("Alliance"), "Foggy MacKreel's ledge");
 	let yards = yards_of(&points(&walk(arathi, foggy, Some("Alliance"))));
 	assert!(yards < 250.0, "the walk is {yards:.0} yd (players: about 180)");
+}
+
+// The hostile towns a walk enters (Path.Find's job.hubs, by id), in path order.
+fn hubs_of(got: &Value) -> Vec<String> {
+	got["hubs"].as_array().map(|a| a.iter().filter_map(|h| h.as_str().map(String::from)).collect()).unwrap_or_default()
+}
+
+// Horde 30-40/06 Badlands, step 1: the walk from Thandol Span to the Valley of Fangs went 19,014 yd round the coast past
+// Stormwind, through Elwynn and Redridge, since the only road south (the Dun Algaz pass, Loch Modan, the pass into the
+// Badlands, about 5,700 yd) runs through the Alliance's Dun Algaz posts, priced 20 times a yard for the Horde. The pass
+// is a road passage of the hubs layer now (hub-passages.json): its posts are still reported, but price no walk, so the
+// walk keeps to the road; Thelsamar, which has a way round, is still kept out of.
+#[test]
+fn badlands_the_horde_walk_from_thandol_span_keeps_to_the_dun_algaz_road_and_round_thelsamar() {
+	let span = Pt { c: 0, x: -2478.7, y: -2478.0, z: None }; // Wetlands 50.5, 12 (live map): Thandol Span's south end
+	let fangs = Pt { c: 0, x: -6765.2, y: -3131.4, z: None }; // Badlands 42.3, 52.8 (live map): the Valley of Fangs
+	let got = walk(span, fangs, Some("Horde"));
+	assert!(truthy(&got), "the engine finds the walk");
+	let yards = yards_of(&points(&got));
+	assert!(yards < 6000.0, "the walk is {yards:.0} yd (the road: about 5,700)");
+	let hubs = hubs_of(&got);
+	assert!(hubs.iter().any(|h| h.starts_with("alliance-dun-algaz")), "it takes the Dun Algaz pass, which is still reported: {hubs:?}");
+	assert!(!hubs.iter().any(|h| h == "alliance-thelsamar"), "it goes round Thelsamar: {hubs:?}");
+}
+
+// Two more Horde guide walks between the Eastern Kingdoms' north and south that went round the coast: 40-50/05's start,
+// from the Searing Gorge (38.8, 27.6) into the Hinterlands (26.7, 48.6; 23,764 yd, 10,011 with no hostile town priced),
+// and Stranglethorn Vale's step 6, from Tirisfal (61.8, 59.2) to Kargath (Badlands 4.1, 44.9; 26,438 yd, 13,100). Both
+// keep to the Dun Algaz road now (11,566 and 13,194 yd on these maps).
+#[test]
+fn the_horde_walks_between_the_eastern_kingdoms_north_and_south_take_the_dun_algaz_pass() {
+	for (from, to, most) in [
+		(Pt { c: 0, x: -6511.0, y: -1188.0, z: None }, Pt { c: 0, x: 219.0, y: -2603.0, z: None }, 12500.0),
+		(Pt { c: 0, x: 2054.0, y: 241.0, z: None }, Pt { c: 0, x: -6634.0, y: -2181.0, z: None }, 14000.0),
+	] {
+		let got = walk(from, to, Some("Horde"));
+		assert!(truthy(&got), "the engine finds the walk from {:.0},{:.0}", from.x, from.y);
+		let yards = yards_of(&points(&got));
+		assert!(yards < most, "the walk from {:.0},{:.0} is {yards:.0} yd (at most {most:.0}: the coast walk was twice that)", from.x, from.y);
+		let hubs = hubs_of(&got);
+		assert!(hubs.iter().any(|h| h.starts_with("alliance-dun-algaz")), "it takes the Dun Algaz pass: {hubs:?}");
+	}
+}
+
+// Ashenvale, Horde: the road from Zoram'gar Outpost to Splintertree Post passes Maestra's Post and Astranaar, where a
+// short way round each keeps the walk clear of their Sentinels (241 and 354 yd): a road passage is no reason to walk
+// through a post with a way round.
+#[test]
+fn ashenvale_the_horde_walk_from_zoramgar_to_splintertree_goes_round_maestras_post_and_astranaar() {
+	let zoramgar = Pt { c: 1, x: 3373.7, y: 996.5, z: None }; // Ashenvale 12.2, 33.8 (live map)
+	let splintertree = Pt { c: 1, x: 2309.0, y: -2521.2, z: None }; // 73.2, 61.5
+	let got = walk(zoramgar, splintertree, Some("Horde"));
+	assert!(truthy(&got), "the engine finds the walk");
+	let hubs = hubs_of(&got);
+	assert!(!hubs.iter().any(|h| h == "alliance-astranaar" || h == "alliance-maestras-post"), "the walk keeps out of Astranaar and Maestra's Post: {hubs:?}");
+	let pts = points(&got);
+	for (name, x, y) in [("Maestra's Post", 3223.5, 229.0), ("Astranaar", 2851.5, -343.0)] {
+		let off = off_path(&pts, Pt { c: 1, x, y, z: None });
+		assert!(off >= 200.0, "the walk passes {off:.0} yd from {name}'s Sentinel at {x},{y}");
+	}
 }

@@ -69,19 +69,23 @@ return {
 	-- {area:146} Stonewrought Dam
 	["The figurine is on a ledge just below the top of the {area:146}, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "",
 
-	-- Step 11: Out of the river
+	-- Step 11: The dam in Loch Modan
+	-- {area:836} Dun Algaz
+	["Careful: Mountaineers (level 30) guard both ends of the {area:836} pass and stand along the top of the dam, and they attack Horde. Most Horde players below level 27 died to them here: come at 27 or later and run straight through without stopping. The figurine is on a ledge just below the top of the dam, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "",
+
+	-- Step 12: Out of the river
 	["Out of the river"] = "Выбраться из реки",
 	-- {zone:1437} Wetlands · {area:880} Thandol Span · {area:272} Tarren Mill
 	["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi, or hearth if your Hearthstone is set at {area:272}."] = "Осторожно: спрыгнув с уступа плотины, вы окажетесь в реке под ней ({zone:1437}). Выбирайтесь на западный берег задолго до водопада около 65,77: падение смертельно. Затем идите на северо-запад к дороге и по ней на север через {area:880} в Арати или вернитесь камнем возвращения, если он привязан к месту {area:272}.",
 	["West bank, before the waterfall"] = "Западный берег, до водопада",
 	["West bank"] = "Западный берег",
 
-	-- Step 12: Thoradin's Wall
+	-- Step 13: Thoradin's Wall
 	-- {area:1057} Thoradin's Wall · {area:287} Hillsbrad
 	["At the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "У ворот ({area:1057}) между Арати и местом {area:287} поверните на север и идите вдоль стены со стороны {area:287} к упавшей телеге, прислоненной к ней. Запрыгните на телегу и по ее лестнице на стену, затем по скалам к тайному лагерю. Некоторые персонажи не пролезают под грузовой сеткой в лагере; другая раса или облик поменьше проходит.",
 	["Fallen cart"] = "",
 
-	-- Step 13: The hidden camp
+	-- Step 14: The hidden camp
 	["The hidden camp"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

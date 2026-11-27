@@ -969,7 +969,8 @@ pub fn cell_grid(tiles: &[(u32, u32)], load: &dyn Fn(u32, u32) -> Result<LoadedT
 	Ok((cg, st))
 }
 
-/// The hub bits: every cell a hub's disk touches, on every surface of the cell. -> cells marked.
+/// The hub bits: every cell a hub's disk touches, on every surface of the cell; none for a road passage's hub
+/// (hubs.rs Passage: the only road through a hostile post, listed but priced as open ground). -> cells marked.
 pub fn mark_hubs(cg: &mut CellGrid, hubs: &[Hub]) -> usize {
 	let cs = T / cg.c as f64;
 	let x0 = cg.cx0 as f64 * T;
@@ -981,7 +982,7 @@ pub fn mark_hubs(cg: &mut CellGrid, hubs: &[Hub]) -> usize {
 			"Horde" => HUB_HORDE,
 			_ => 0,
 		};
-		if bits == 0 {
+		if bits == 0 || hub.passage {
 			continue;
 		}
 		let mut cells: rustc_hash::FxHashSet<(i64, i64)> = Default::default();

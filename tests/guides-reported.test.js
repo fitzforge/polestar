@@ -6290,6 +6290,23 @@ test("forever/miscellaneous/cozy-sleeping-bag.guide: Schenkee's report (#1982): 
 	assert.ok((way.step.when || []).some((p) => p.k === 'zone' && p.neg && p.name === 'Westfall'), 'only while the character is not in Westfall yet');
 });
 
+// Cozy Sleeping Bag, Horde at the Stonewrought Dam: players' recordings (2026-11-27) hold 34 Horde players on this guide
+// who died 75 times to Mountaineers (level 30) at both ends of the Dun Algaz pass and along the dam's top, 33 of them
+// at levels 14 to 25; of the 14 who came through without dying, 12 were 27 or higher. The Horde dam step says so; the
+// Alliance one (Mountaineers are friendly to them) keeps its plain tip.
+test('forever/miscellaneous/cozy-sleeping-bag.guide: the Horde dam step warns of the Mountaineers at Dun Algaz and on the dam', { skip }, () => {
+	const list = goals('forever/miscellaneous/cozy-sleeping-bag.guide');
+	const dam = list.filter(({ goal }) => is('turnin', 79974)(goal));
+	const side = (f) => dam.filter(({ step, goal }) => [step.only, goal.only].some((o) => o && o.factions && o.factions.includes(f)));
+	assert.equal(side('Horde').length, 1, 'one Horde hand-in at the dam');
+	assert.equal(side('Alliance').length, 1, 'one Alliance hand-in at the dam');
+	const horde = side('Horde')[0].step.note || '';
+	assert.match(horde, /Mountaineers \(level 30\)/);
+	assert.match(horde, /Dun Algaz/);
+	assert.match(horde, /27/, 'the level that got through');
+	assert.doesNotMatch(side('Alliance')[0].step.note || '', /Mountaineer/);
+});
+
 // Syrael (#575): "Collect the ghost plasma is in the wrong spot, it shows the
 // same spot as for the collect the kodo bone quest above it." The Horde guide
 // had a bare `complete 6134` in the Kodo Graveyard step, so it had no place
@@ -13309,7 +13326,9 @@ test("#1466: Infiltration is accepted at 30 but Valik and the missive wait for t
 test("forever/miscellaneous/cozy-sleeping-bag.guide: the step after the dam's note warns of the waterfall below it and gives the way out", { skip }, () => {
 	const guide = 'forever/miscellaneous/cozy-sleeping-bag.guide';
 	const list = goals(guide);
-	const dam = at(list, 'accept 79975', is('accept', 79975));
+	// The dam's note is a step per side (the Horde one warns of the Mountaineers): the step after the last one.
+	const dam = list.findLastIndex(({ goal }) => is('accept', 79975)(goal));
+	assert.ok(dam >= 0, 'accept 79975 is in the guide');
 	const next = list.find(({ s }) => s === list[dam].s + 1);
 	assert.ok(next, 'a step follows the dam');
 	const tip = [].concat(next.step.note || []).join(' ');

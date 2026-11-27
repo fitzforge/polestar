@@ -69,19 +69,23 @@ return {
 	-- {area:146} Stonewrought Dam
 	["The figurine is on a ledge just below the top of the {area:146}, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "雕像位于{area:146}北侧、接近坝顶的岩台上。慢慢挪下边缘，倒退走可以避免冲过头。",
 
-	-- Step 11: Out of the river
+	-- Step 11: The dam in Loch Modan
+	-- {area:836} Dun Algaz
+	["Careful: Mountaineers (level 30) guard both ends of the {area:836} pass and stand along the top of the dam, and they attack Horde. Most Horde players below level 27 died to them here: come at 27 or later and run straight through without stopping. The figurine is on a ledge just below the top of the dam, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "",
+
+	-- Step 12: Out of the river
 	["Out of the river"] = "离开河流",
 	-- {zone:1437} Wetlands · {area:880} Thandol Span · {area:272} Tarren Mill
 	["Careful: off the dam's ledge you land in the river below it, in the {zone:1437}. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over {area:880} into Arathi, or hearth if your Hearthstone is set at {area:272}."] = "小心：从大坝的岩台下来，你会落入下方{zone:1437}的河中。在约65,77处的瀑布之前尽早从西岸爬上去：掉下瀑布会摔死。然后向西北走到道路上，沿路向北经过{area:880}进入阿拉希；如果炉石绑定在{area:272}，也可以直接用炉石。",
 	["West bank, before the waterfall"] = "西岸，瀑布之前",
 	["West bank"] = "西岸",
 
-	-- Step 12: Thoradin's Wall
+	-- Step 13: Thoradin's Wall
 	-- {area:1057} Thoradin's Wall · {area:287} Hillsbrad
 	["At the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through."] = "在阿拉希与{area:287}之间的{area:1057}关口转向北，沿{area:287}这一侧的城墙走，找到倚在墙边的翻倒货车。跳上货车，再沿梯子登上城墙，越过岩石到达隐蔽营地。部分角色的体型无法穿过营地的货网；其他种族或较小的形态可以通过。",
 	["Fallen cart"] = "翻倒的货车",
 
-	-- Step 13: The hidden camp
+	-- Step 14: The hidden camp
 	["The hidden camp"] = "隐蔽营地",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
