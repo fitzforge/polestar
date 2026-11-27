@@ -334,13 +334,15 @@ fn encode_spawns(spawns: &V) -> Result<Vec<String>, String> {
 }
 
 fn encode_npc(rec: &V) -> Result<String, String> {
-	// r rare, e elite, b boss, g seen only by a dead character (#558: Franclorn Forgewright).
+	// r rare, e elite, b boss, g seen only by a dead character (#558: Franclorn Forgewright), s a rare spawn on a
+	// player faction's side, which is no rare to hunt (#4388: Pexmit).
 	let flags = format!(
-		"{}{}{}{}",
+		"{}{}{}{}{}",
 		if rec.get("rare").truthy() { "r" } else { "" },
 		if rec.get("elite").truthy() { "e" } else { "" },
 		if rec.get("boss").truthy() { "b" } else { "" },
-		if rec.get("ghostOnly").truthy() { "g" } else { "" }
+		if rec.get("ghostOnly").truthy() { "g" } else { "" },
+		if rec.get("rareSpawn").truthy() { "s" } else { "" }
 	);
 	let fac = rec.get("faction");
 	let mut parts = vec![
@@ -1049,6 +1051,7 @@ mod tests {
 		assert_eq!(npc(""), "60;;AH;;;;");
 		assert_eq!(npc(r#", "ghostOnly": true"#), "60;;AH;g;;;", "Franclorn Forgewright: seen only by the dead");
 		assert_eq!(npc(r#", "vendorAfter": 7003"#), "60;;AH;;;;;v7003", "Zorbin Fandazzle sells after Zapped Giants");
+		assert_eq!(npc(r#", "rareSpawn": true"#), "60;;AH;s;;;", "#4388: Pexmit, a rare spawn both sides deal with");
 	}
 
 	#[test]

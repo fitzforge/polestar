@@ -328,7 +328,8 @@ local function decodeItem(group, id, s)
 end
 
 -- An NPC record: level;levelMax;faction;flags;instance;roles;loot;spawn groups...[;z<heights>][;t<subName>]
--- [;v<quest>]. flags: r rare, e elite, b boss, g seen only by a dead character (#558: Franclorn Forgewright);
+-- [;v<quest>]. flags: r rare, e elite, b boss, g seen only by a dead character (#558: Franclorn Forgewright),
+-- s a rare spawn on a player faction's side, no rare to hunt (#4388: Pexmit);
 -- v: the quest after which it sells (#3138: Zorbin Fandazzle after Zapped Giants).
 local function decodeNpc(group, id, s)
 	local t, n = split(s, ";")
@@ -352,6 +353,7 @@ local function decodeNpc(group, id, s)
 		elite = find(flags, "e", 1, true) ~= nil,
 		boss = find(flags, "b", 1, true) ~= nil,
 		ghostOnly = find(flags, "g", 1, true) ~= nil or nil,
+		rareSpawn = find(flags, "s", 1, true) ~= nil or nil,
 		vendorAfter = vendorAfter,
 		instance = unesc(t[5]),
 		roles = roles,
