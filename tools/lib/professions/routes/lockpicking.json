@@ -4,7 +4,7 @@
 	"title": "Lockpicking 1-300",
 	"class": "Rogue",
 	"levels": "16-60",
-	"zone": "The Barrens",
+	"zone": "Azeroth",
 	"levelCap": 5,
 	"intro": [
 		"Lockpicking is a Rogue skill: Pick Lock opens locked boxes, chests and doors, and every lock that is not too easy for you raises the skill. The skill can never go past five times your level (100 at level 20, 150 at 30, 225 at 45, 300 at 60), so the guide asks for those levels as it goes.",

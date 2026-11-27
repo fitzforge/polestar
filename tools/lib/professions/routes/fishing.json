@@ -3,7 +3,7 @@
 	"kind": "gathering",
 	"title": "Fishing 1-300",
 	"levels": "1-60",
-	"zone": "Ironforge",
+	"zone": "Azeroth",
 	"intro": [
 		"Fishing catches fish from any lake, river or coast; Cooking turns them into food. Every catch below skill 75 gives a point; from there, fewer do, and harder water lets fish get away below its skill unless a lure on the pole makes up the gap.",
 		"Ranks: Apprentice at any level and Journeyman from skill 50 and level 10, at the fishing trainers by the water near every starting area and in every capital. Expert comes from the book Expert Fishing - The Bass and You (skill 125, level 20), sold by Old Man Heming in Booty Bay. Artisan comes from Nat Pagle in Dustwallow Marsh after his quest (skill 225, level 35).",

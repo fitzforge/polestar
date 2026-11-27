@@ -73,7 +73,8 @@ const MODS = {
 	goto: [...COMMON, 'map', 'r', 'frame', 'nearest'],
 	talk: [...COMMON, ...COORDS, 'gossip', 'quest', 'upto'],
 	interact: [...COMMON, ...COORDS, 'quest', 'upto'],
-	use: [...COMMON, ...COORDS, 'quest', 'upto'],
+	// `use <item> anywhere`: used where the player stands (a crate to fill, a lure, a campfire kit): no place.
+	use: [...COMMON, ...COORDS, 'quest', 'upto', 'anywhere'],
 	sethome: [...COMMON, ...COORDS, 'npc'],
 	hearth: [...COMMON],
 	// `die "<Graveyard>" @x,y`: die and take the Spirit Healer's resurrection there (a deathskip).

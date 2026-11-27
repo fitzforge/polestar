@@ -104,7 +104,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `quest <quest>.<objective>` | Counts the goal by that quest objective, numbered as the quest log lists them (`quest <quest>` alone lets the data find it) | `interact 1617 quest 9400.1` |
 | `collect <item> ["Name"]` | Gather or loot items; without `quest`, counted in the bags | `collect 750 x8` |
 | `nearest` | On `collect`: the closest place mobs drop the item, by level and faction | `collect 4306 x10 nearest` |
-| `anywhere` | On `collect`: counted in the bags, with no place; the arrow never leads to it (0.3.7) | `collect 2589 x41 anywhere` |
+| `anywhere` | On `collect`: counted in the bags, with no place; the arrow never leads to it (0.3.7). On `use`: used where the player stands (a crate to fill, a lure) | `collect 2589 x41 anywhere` |
 | `gather` | On `collect`: the item's gather way in a profession guide, which an `auction` goal for the item buys instead when the player buys materials; `gather <Profession> <rank>` and `gather levels <min>-<max>` say what it takes (needs Polestar 0.4.0) | `collect 4306 x10 nearest gather levels 25-45` |
 | `interact <object>` | Click a game object | `interact 2843` |
 | `use <item>` | Use an item | `use 1210 @47.6,35.1` |

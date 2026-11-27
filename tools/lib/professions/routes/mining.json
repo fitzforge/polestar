@@ -1,6 +1,7 @@
 {
 	"profession": "Mining",
 	"kind": "gathering",
+	"zone": "Azeroth",
 	"intro": [
 		"Mining gathers ore and stone from veins and smelts the ore into bars at a forge. Blacksmithing and Engineering use both, so it pairs well with either.",
 		"Ranks: Apprentice at any level; Journeyman from skill 50, Expert from 125 and Artisan from 200, at the trainers in the capitals and the larger towns. The trainers in the starting areas teach only up to 75. Darnassus has no Mining trainer: the nearest is in Auberdine. On Zephras Isle the quest Harvesting Windstones offers Mining for Dummies, which teaches Mining.",

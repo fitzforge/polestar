@@ -1,6 +1,7 @@
 {
 	"profession": "Skinning",
 	"kind": "gathering",
+	"zone": "Azeroth",
 	"intro": [
 		"Skinning takes leather and hides from the beasts you kill. Leatherworking turns them into armour, so the two go well together.",
 		"Ranks: Apprentice at any level; Journeyman from skill 50, Expert from 125 and Artisan from 200, at the trainers in the capitals and the larger towns. The trainers in the starting areas teach only up to 75. On Zephras Isle the quest Harvesting Windstones offers Pelt Collecting for Beginners, which teaches Skinning.",

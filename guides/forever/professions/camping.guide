@@ -32,6 +32,7 @@ next forever/miscellaneous/cozy-sleeping-bag
 # Item, recipe and blueprint ids, reagents and drops: data/forever (professions.json, items.json).
 # Camp Benefits is the client's spell 1229741. The Cozy Sleeping Bag guide is offered when this one ends.
 
+
 step Learn Cooking
   tip The Basic Campfire Kit comes with Cooking at skill 1. No character level needed.
   train Cooking Apprentice
@@ -266,62 +267,62 @@ step Craft 1 Fish Bowl
 
 step Place a Basic Campfire
   tip It holds three camp items, one for each player at it.
-  use 279981
+  use 279981 anywhere
 
 step Place your Mana Well by the campfire
   tip One camp item a player; placing it starts an hour before the next.
   when skill Alchemy 20
-  use 279956
+  use 279956 anywhere
 
 step Place your Sharpening Wheel by the campfire
   tip One camp item a player; placing it starts an hour before the next.
   when skill Blacksmithing 20
-  use 279944
+  use 279944 anywhere
 
 step Place your Enchanted Lute by the campfire
   tip One camp item a player; placing it starts an hour before the next.
   when skill Enchanting 20
-  use 279976
+  use 279976 anywhere
 
 step Place your Reagent Bot by the campfire
   tip One camp item a player; placing it starts an hour before the next.
   when skill Engineering 20
-  use 279950
+  use 279950 anywhere
 
 step Place your Camp Tent by the campfire
   tip One camp item a player; placing it starts an hour before the next.
   when skill Leatherworking 20
-  use 279978
+  use 279978 anywhere
 
 step Place your Faction Banner by the campfire
   tip One camp item a player; placing it starts an hour before the next.
   when skill Tailoring 20
-  use 279972
+  use 279972 anywhere
 
 step Place your Incense Candle by the campfire
   tip One camp item a player; placing it starts an hour before the next.
   when skill Herbalism 20
-  use 279962
+  use 279962 anywhere
 
 step Place your Lodestone by the campfire
   tip One camp item a player; placing it starts an hour before the next.
   when skill Mining 20
-  use 279960
+  use 279960 anywhere
 
 step Place your Camp Chair by the campfire
   tip One camp item a player; placing it starts an hour before the next.
   when skill Skinning 20
-  use 279979
+  use 279979 anywhere
 
 step Place your First Aid Kit by the campfire
   tip One camp item a player; placing it starts an hour before the next.
   when skill "First Aid" 20
-  use 279968
+  use 279968 anywhere
 
 step Place your Fish Bowl by the campfire
   tip One camp item a player; placing it starts an hour before the next.
   when skill Fishing 20
-  use 279967
+  use 279967 anywhere
 
 step Sit by the campfire until Camp Benefits starts
   tip After about a minute of /sit beside the fire: one buff for an hour with what each camp item there gives.

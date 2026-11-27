@@ -4,7 +4,7 @@ title Fishing 1-300
 category Professions
 coords era
 levels 1-60
-zone Ironforge
+zone Azeroth
 
 # Fishing catches fish from any lake, river or coast; Cooking turns them into food. Every catch below
 # skill 75 gives a point; from there, fewer do, and harder water lets fish get away below its skill
@@ -44,7 +44,7 @@ step Equip the Fishing Pole
 
 step Put a Shiny Bauble on the pole
   tip It lasts ten minutes.
-  use 6529
+  use 6529 anywhere
 
 step Fish near your starting area until 75
   tip The bobber splashes when a fish bites; a right-click on it lands the catch. Every catch gives a point.

@@ -311,7 +311,7 @@ function renderRoute(ctx, prof, route) {
 				} else if (e.equip) {
 					step('equip', `Equip the ${itemName(e.equip)}`, e.tip, [`  equip ${e.equip}`]);
 				} else if (e.use) {
-					step('use', e.title || `Use ${/^[aeiou]/i.test(itemName(e.use)) ? 'an' : 'a'} ${itemName(e.use)}`, e.tip, [`  use ${e.use}`]);
+					step('use', e.title || `Use ${/^[aeiou]/i.test(itemName(e.use)) ? 'an' : 'a'} ${itemName(e.use)}`, e.tip, [`  use ${e.use} anywhere`]);
 				} else if (e.level) {
 					reach(e.level, e.tip);
 				} else if (e.spell) {

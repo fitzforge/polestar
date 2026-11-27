@@ -6,7 +6,8 @@ Polestar's profession guides (`guides/forever/professions/`) are generated, neve
 |---|---|---|
 | Blacksmithing | `node tools/polestar.js profession draft Blacksmithing --out` | its route file, `tools/lib/professions/routes/blacksmithing.json`, through `route.js` (see "Route files") |
 | Alchemy, Enchanting, Engineering, Leatherworking, Tailoring (until each has a route file) | `node tools/polestar.js profession draft <Profession> --out` | `tools/lib/professions/` (plan.js, guide.js, specs.js) |
-| Mining, Herbalism, Skinning, Fishing, Cooking, First Aid | `node tools/polestar.js profession gathering build` | `tools/lib/professions/gathering/` |
+| Mining, Herbalism, Skinning, Fishing, Lockpicking | `node tools/polestar.js profession gathering build` | their gathering route files, `tools/lib/professions/routes/<profession>.json`, through `gathering/steps.js` (see "Gathering route files"), with the loops of `tools/lib/professions/gathering/` |
+| Cooking, First Aid | `node tools/polestar.js profession gathering build` | `tools/lib/professions/gathering/` |
 | Herbalism + Alchemy, Mining + Blacksmithing, Mining + Engineering, Skinning + Leatherworking, Fishing + Cooking, Tailoring + Enchanting | `node tools/polestar.js profession gathering build` | `tools/lib/professions/pairs.js` over the two above (Fishing + Cooking: `pair-fishing.js` over `gathering/fish-rounds.js`) |
 
 Every rule below is held by a test (`tests/profession-route.test.js`, `tests/profession-audit.test.js`,
@@ -72,6 +73,38 @@ pin lead to, or any station with the nearest pinned), how many, and what finishe
 
 Tips are at most one short line (120 characters) of why or a heads-up ("Keep all 60: the bracers at 95 and
 115 use them"), never an instruction: an action is a step or a goal. Costs and totals go in the header.
+
+## Gathering route files
+
+A gathering profession's route (`"kind": "gathering"` in its route file) says what a first-timer does, in
+order; its bands are zones and loops, not recipes. `gathering/steps.js` writes the guide. The farming loops
+are the gathering planner's (`build.js` plan: the densest safe ground per band, the same loops the paired
+guides and the crafting guides' Get steps use); a zone the route names adds a loop built the same way, with
+the same stand safety, or is reported by the build (`note: … has no safe loop`) when none is safe.
+
+| Field | What it holds |
+|---|---|
+| `profession`, `kind`, `intro` | The profession, `"gathering"`, the header's paragraphs; `title`, `levels`, `zone`, `class` where no spec gives them |
+| `starter` | `{ quest, item }`: a starting-area quest whose reward choice teaches the profession (checked) |
+| `tools` | `{ item, vendors }`: the tool and the sellers by its trainers (checked: they sell it and serve the side) |
+| `levelCap` | The skill stops at this many times the character level (Lockpicking: 5); a level step comes first where a target asks it |
+| `sections` | `{ from, to, steps }`; each step is one of the entries below |
+
+| Entry | Step |
+|---|---|
+| `{ train: <Rank> }` | **Learn <Profession>** / **Train <Rank> <Profession>** (checked against the rank's skill; the rank sets the cap the next targets must stay under) |
+| `{ learn: <spell> }` | **Learn <recipe>** on the same trainer visit; the build fails when a recipe that gives points was learnable on that visit and is missing, or when one is learned on a later visit than it could have been |
+| `{ tool: <item> }`, `{ buy: <item>, count }` | **Buy a <tool>** / **Buy N <item>** (`buy … nearest`) |
+| `{ track: <spell>, name }` | **Turn on <tracking>** (`cast`) |
+| `{ get: <ore>, count, rank }` | **Get N <ore>**: `collect … gather` on the loops that give it, and `auction` |
+| `{ smelt: <spell>, count, to }` | **Go to a forge** (once before a run of smelts) and **Smelt N <bars>**; the ore must be in the bags from a get before it |
+| `{ gather: N, zones?, mobs?, title? }` | **Mine / Pick / Skin … until N** (`skill` on the loops of the planner's band ending at N; `zones` per side add loops, `mobs` per zone puts a Skinning loop on those beasts); Fishing: **Fish … until N** on the rounds of the named waters (`fish-rounds.js`), with the band's `level` |
+| `{ lure: <item> }` | **Buy N <lures>**: enough for the next fishing step's catches below its waters' no-getaway skill |
+| `{ equip: <item> }`, `{ use: <item> }`, `{ level: N }` | **Equip the <item>**, a use (a lure on the pole), **Reach level N** |
+| `{ book: <item> }` | **Buy <book>** and **Read <book>**, the rank the book teaches (professions.json rank `book`) |
+| `{ pagle: true, where }` | Artisan Fishing: the fishing trainer's quest, Nat Pagle's, a step per fish, the hand-in and the rank |
+| `{ spell, name, minLevel }` | **Learn <class spell>** at the class trainer, skipped once known (Pick Lock) |
+| `{ pick: N, at: [{ object, map, label, only? }], title }` | **Pick … until N** at the boxes' places (each object's spawns on that map) |
 
 ## Profession guide rules
 

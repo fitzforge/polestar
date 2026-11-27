@@ -1,6 +1,7 @@
 {
 	"profession": "Herbalism",
 	"kind": "gathering",
+	"zone": "Azeroth",
 	"intro": [
 		"Herbalism picks herbs from the plants that grow across the world. Alchemy brews them into potions and elixirs, so the two go well together. It needs no tool.",
 		"Ranks: Apprentice at any level; Journeyman from skill 50, Expert from 125 and Artisan from 200, at the trainers in every capital and the larger towns. The trainers in the starting areas teach only up to 75. Tanaris and Searing Gorge have no trainer, so Artisan comes before the trip there. On Zephras Isle the quest Harvesting Windstones offers Wild Harvest, which teaches Herbalism.",

@@ -87,7 +87,8 @@ pub const MODS: [(&str, &[&str]); 36] = [
 	("goto", &["text", "optional", "only", "group", "either", "map", "r", "frame", "nearest"]),
 	("talk", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "gossip", "quest", "upto"]),
 	("interact", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "quest", "upto"]),
-	("use", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "quest", "upto"]),
+	// `use <item> anywhere`: used where the player stands (a crate to fill, a lure, a campfire kit): no place.
+	("use", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "quest", "upto", "anywhere"]),
 	("sethome", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc"]),
 	("hearth", &["text", "optional", "only", "group", "either"]),
 	// `die "<Graveyard>" @x,y`: die and take the Spirit Healer's resurrection there (a deathskip).
