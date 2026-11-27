@@ -5,8 +5,10 @@
 // data, Rust, a changelog fragment, a Node test file; anything else (the Node tools, the tests' helpers and
 // fixtures, workflows, the apps) has none.
 //
-// ci.yml's Tests job takes one of three lanes:
+// ci.yml's Tests job takes one of four lanes:
 //   docs   documentation alone: the checks every tracked file gets (DOCS_TESTS: wording, names, SVGs)
+//   bot    the Discord bot alone (BOT_PATHS): DOCS_TESTS and the bot's own tests (tests/discord-*.test.js), nothing
+//          else; the bot is not shipped in the addon, so no guide, data or forge check has anything to say about it
 //   part   guides, Lua, data, fragments, test files and documentation only: forge from the cache, the Node tests
 //          the changes can break (tools/testsel.js's selection, a changed test file itself, plus DOCS_TESTS), the
 //          changelog and translation checks, and each area's own checks (AREAS below, `areas=` on the output)
@@ -43,6 +45,9 @@ const DOCS_TESTS = ['tests/wording.test.js', 'tests/nameguard.test.js', 'tests/s
 const CI_READS = ['CHANGELOG.md'];
 // Name documents without reading them: this script's own test, whose example paths testsel takes for reads.
 const NOT_READERS = ['tests/ci-lane.test.js'];
+// The Discord bot's own files, as GitHub path globs: the bot, its tests and test fakes, its changelog fragments and its
+// workflows. A pull request that changes only these takes the bot lane.
+const BOT_PATHS = ['tools/discord-bot/**', 'tests/discord-*.test.js', 'tests/helpers/discord-fakes.js', 'changes/*bot*', '.github/workflows/discord-*.yml'];
 // The documents the Rust tests read (tests/ci-lane.test.js holds this list to every document a Rust test reads).
 const RUST_DOCS = ['docs/FORGE.md', 'docs/forge/**', 'docs/API.md', 'docs/GUIDE_FORMAT.md', 'docs/PACK_FORMAT.md', 'docs/PACKS.md', 'README.md', 'THIRD_PARTY.md'];
 // What makes forge.yml run everything, as GitHub path globs (`*` within a folder, `**` across folders): the Rust
@@ -68,13 +73,14 @@ const areaOf = (f) => (AREAS.find((a) => a.re.test(f)) || {}).area || null;
 const isDocPath = (f) => f.startsWith('docs/') || f.startsWith('.github/ISSUE_TEMPLATE/') || (f.endsWith('.md') && (!f.includes('/') || f.startsWith('.github/')));
 // A GitHub path glob as a regular expression.
 const globRe = (g) => new RegExp(`^${g.replace(/[.+^${}()|[\]\\]/g, '\\$&').replace(/\*\*/g, '\u0000').replace(/\*/g, '[^/]*').replace(/\u0000/g, '.*')}$`);
+const BOT_RES = BOT_PATHS.map(globRe);
 const FORGE_RES = FORGE_PATHS.map(globRe);
 const RUST_RES = RUST_PATHS.map(globRe);
 
 const changedList = (files) => [...new Set(files.map((f) => f.trim()).filter(Boolean))];
 const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
 
-// files: changed paths relative to the repository -> { lane: 'docs' | 'part' | 'full', areas: [area], reasons:
+// files: changed paths relative to the repository -> { lane: 'docs' | 'bot' | 'part' | 'full', areas: [area], reasons:
 // [string], tests: [path] }. select: tools/testsel.js's select (a parameter for the tests); exists: whether a test
 // file is in the checkout under test (a pull request may delete one).
 function lane(files, { select = require('./testsel').select, exists = (rel) => fs.existsSync(rel) } = {}) {
@@ -82,6 +88,11 @@ function lane(files, { select = require('./testsel').select, exists = (rel) => f
 	if (!changed.length) return { lane: 'full', areas: [], reasons: ['no changed files listed'], tests: [] };
 	const root = path.join(__dirname, '..');
 	const relTest = (t) => path.relative(root, t).split(path.sep).join('/');
+	if (changed.every((f) => BOT_RES.some((re) => re.test(f)))) {
+		const botTests = fs.readdirSync(path.join(root, 'tests')).filter((f) => /^discord-.*\.test\.js$/.test(f)).map((f) => `tests/${f}`);
+		const tests = [...DOCS_TESTS, ...botTests].sort();
+		return { lane: 'bot', areas: [], reasons: [`the Discord bot only (${plural(changed.length, 'file')}): ${plural(tests.length, 'Node test file')}, no other check`], tests };
+	}
 	const full = [];
 	const areas = new Set();
 	for (const f of changed) {
@@ -146,7 +157,7 @@ function main(argv) {
 	const name = forge ? `forge: ${r.forge}` : `lane: ${r.lane}${r.areas.length ? ` (${r.areas.join(', ')})` : ''}`;
 	console.log(name);
 	for (const why of r.reasons) console.log(`  ${why}`);
-	if (!forge && r.lane === 'part') for (const t of r.tests) console.log(`  ${t}`);
+	if (!forge && (r.lane === 'part' || r.lane === 'bot')) for (const t of r.tests) console.log(`  ${t}`);
 	if (github) {
 		const locales = guideTextLocales(files);
 		fs.appendFileSync(process.env.GITHUB_OUTPUT, forge ? `forge=${r.forge}\n` : `lane=${r.lane}\nareas=${r.areas.join(',')}\ntests=${r.tests.join(' ')}\nlocales=${r.lane === 'full' ? 'all' : Array.isArray(locales) ? locales.join(' ') : locales}\n`);
@@ -159,4 +170,4 @@ function main(argv) {
 
 if (require.main === module) process.exitCode = main(process.argv.slice(2));
 
-module.exports = { lane, forgeLane, guideTextLocales, areaOf, isDocPath, globRe, DOCS_TESTS, CI_READS, FORGE_PATHS, RUST_PATHS };
+module.exports = { lane, forgeLane, guideTextLocales, areaOf, isDocPath, globRe, DOCS_TESTS, CI_READS, FORGE_PATHS, RUST_PATHS, BOT_PATHS };

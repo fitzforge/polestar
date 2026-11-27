@@ -92,12 +92,17 @@ function load() {
 	}
 }
 
-// Could one character see both guides on their own faction's list?
+// Could one character see both guides on their own faction's list? A character has one class: the Dungeon Set 2
+// guides, one per class, share one chain (Components of Importance and its copies, each for a few classes, are
+// exclusive with each other), and no character sees two of them.
 function sameAudience(a, b) {
 	const fa = a.ast.header.faction, fb = b.ast.header.faction;
 	if (fa && fb && fa !== fb) return false;
 	const ra = a.ast.header.races, rb = b.ast.header.races;
 	if (ra && rb && !ra.some((r) => rb.includes(r))) return false;
+	const up = (l) => l && l.map((c) => c.toUpperCase());
+	const ca = up(a.ast.header.classes), cb = up(b.ast.header.classes);
+	if (ca && cb && !ca.some((c) => cb.includes(c))) return false;
 	return true;
 }
 

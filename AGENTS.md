@@ -30,6 +30,14 @@ The rules that hold for every task:
 - Pull requests go to `next`, never to `main` (`release/` and `hotfix/`
   branches only when a maintainer asks). Never push to a merged pull request
   again.
+- Some inputs are maintainer-only: players' recordings (privacy), Leffe's
+  navigation maps (his, shared privately; the data pack carries the walks),
+  and cached web pages plus the private corrections overlay (facts we may use
+  but not republish). Tests that need them skip ("maintainer-only input,
+  skipped"). Never recreate them, and never add data from other addons or
+  scraped sites to make a test run. `forge data fetch` and `forge data build`
+  give you the public data; `forge doctor` shows what is missing
+  (CONTRIBUTING.md, "Data you won't have").
 - Never claim a check passed that you did not run, and never invent quest
   ids, coordinates or names.
 - A human reads every comment before it is posted.

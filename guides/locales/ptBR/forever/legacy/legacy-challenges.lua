@@ -90,29 +90,24 @@ return {
 	-- Step 15: Adventure: Lord Valthalak
 	-- {npc:16042} Lord Valthalak
 	["Adventure: {npc:16042}"] = "Aventura: {npc:16042}",
-	-- {npc:16042} Lord Valthalak · {quest:9001} Saving the Best for Last · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
-	-- was: ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:8999}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:8999}."] = "A linha de missões de {npc:16042} vale um ponto. É a cadeia do conjunto de masmorra de nível 60, de Uma proposta honesta até {quest:8999} da sua classe: {npc:16013} ({zone:1455}) ou {npc:16012} ({zone:1454}) mandam você por À procura de Anthion e As últimas palavras de Anthion até {npc:16033}, em {area:254}, cujas Três reis das chamas, Peça Esquerda e Direita do Amuleto do Lorde Valthalak, Preparativos finais e {quest:8995} terminam com {quest:8996}. {quest:8997} leva então a {quest:8999}."
-	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:9001}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:9001}."] = "",
+	-- {npc:16042} Lord Valthalak · {quest:84195} Saving the Best for Last · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
+	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:84195}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:84195}."] = "A linha de missões de {npc:16042} vale um ponto. É a cadeia do conjunto de masmorra de nível 60, de Uma proposta honesta até {quest:84195} da sua classe: {npc:16013} ({zone:1455}) ou {npc:16012} ({zone:1454}) mandam você por À procura de Anthion e As últimas palavras de Anthion até {npc:16033}, em {area:254}, cujas Três reis das chamas, Peça Esquerda e Direita do Amuleto do Lorde Valthalak, Preparativos finais e {quest:8995} terminam com {quest:8996}. {quest:8997} leva então a {quest:84195}.",
 	-- {npc:16073} Spirit of Lord Valthalak · {npc:16033} Bodley · {area:254} Blackrock Mountain
 	["{npc:16073}, inside Upper Blackrock Spire after Mea Culpa (no spawn in the data: the arrow leads to {npc:16033}'s {area:254})"] = "{npc:16073}, no Pico da Rocha Negra Superior, depois de Mea Culpa (sem ponto de surgimento nos dados: a seta leva a {npc:16033}, em {area:254})",
 	-- {npc:16033} Bodley · {quest:8996} Return to Bodley
 	["{npc:16033} offers it once {quest:8996} is turned in"] = "{npc:16033} a oferece depois que {quest:8996} for entregue",
 
 	-- Step 16: Adventure: Saving the Best for Last (Alliance)
-	-- {quest:9001} Saving the Best for Last
-	-- was: ["Adventure: {quest:8999} (Alliance)"] = "Aventura: {quest:8999} (Aliança)"
-	["Adventure: {quest:9001} (Alliance)"] = "",
-	-- {npc:16013} Deliana · {quest:9001} Saving the Best for Last
-	-- was: ["{npc:16013} then offers your class's {quest:8999}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "{npc:16013} oferece então {quest:8999} da sua classe, a última missão do desafio: ela pega o elmo e o peitoral do conjunto de masmorra da sua classe e os melhora."
-	["{npc:16013} then offers your class's {quest:9001}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "",
+	-- {quest:84195} Saving the Best for Last
+	["Adventure: {quest:84195} (Alliance)"] = "Aventura: {quest:84195} (Aliança)",
+	-- {npc:16013} Deliana · {quest:84195} Saving the Best for Last
+	["{npc:16013} then offers your class's {quest:84195}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "{npc:16013} oferece então {quest:84195} da sua classe, a última missão do desafio: ela pega o elmo e o peitoral do conjunto de masmorra da sua classe e os melhora.",
 
 	-- Step 17: Adventure: Saving the Best for Last (Horde)
-	-- {quest:9008} Saving the Best for Last
-	-- was: ["Adventure: {quest:9007} (Horde)"] = "Aventura: {quest:9007} (Horda)"
-	["Adventure: {quest:9008} (Horde)"] = "",
-	-- {npc:16012} Mokvar · {quest:9008} Saving the Best for Last
-	-- was: ["{npc:16012} then offers your class's {quest:9007}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "{npc:16012} oferece então {quest:9007} da sua classe, a última missão do desafio: ela pega o elmo e o peitoral do conjunto de masmorra da sua classe e os melhora."
-	["{npc:16012} then offers your class's {quest:9008}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "",
+	-- {quest:84203} Saving the Best for Last
+	["Adventure: {quest:84203} (Horde)"] = "Aventura: {quest:84203} (Horda)",
+	-- {npc:16012} Mokvar · {quest:84203} Saving the Best for Last
+	["{npc:16012} then offers your class's {quest:84203}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "{npc:16012} oferece então {quest:84203} da sua classe, a última missão do desafio: ela pega o elmo e o peitoral do conjunto de masmorra da sua classe e os melhora.",
 
 	-- Step 18: Dungeons: level 15-25
 	["Dungeons: level 15-25"] = "Masmorras: nível 15-25",

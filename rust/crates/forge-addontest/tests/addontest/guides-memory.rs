@@ -43,10 +43,14 @@ fn pack_files(name: &str) -> String {
 /// either faction (the same harness, the same runtime).
 /// The 1-60 routes and their baked legs grew the pack; 0.4.3's side shelves (#1863) took about 5,700 KiB a faction
 /// back. Measured on next f5bd74406e (2026-11-26, #4143; three runs reading the same): Alliance
-/// resident 13,938, peak 27,342, read 19,808; Horde resident 13,004, peak 24,904, read 19,070. Each budget is that
-/// figure plus 3 % (docs/CI.md, "Memory budgets").
+/// resident 13,938, peak 27,342, read 19,808; Horde resident 13,004, peak 24,904, read 19,070. Moved once between
+/// freezes (Tier 0.5 class guides, Fitz approved 26 Nov 2026: "360 KB is tiny"): the nine class guides (#4248, one
+/// per class, each for both sides, so in the pack every character loads) and their last quests (#4300) add about
+/// 800 KiB a faction, 360 past the old budgets. Measured with both (three runs reading the same): Alliance resident
+/// 14,750, peak 28,305, read 20,620; Horde resident 13,812, peak 25,972, read 19,880. Each budget is that figure plus
+/// 3 %, rounded up (docs/CI.md, "Memory budgets").
 const BUDGET: [(&str, &str, [(&str, f64); 3]); 2] =
-	[("Alliance", "Human", [("resident", 14360.0), ("peak", 28170.0), ("read", 20410.0)]), ("Horde", "Orc", [("resident", 13400.0), ("peak", 25660.0), ("read", 19650.0)])];
+	[("Alliance", "Human", [("resident", 15200.0), ("peak", 29160.0), ("read", 21240.0)]), ("Horde", "Orc", [("resident", 14230.0), ("peak", 26760.0), ("read", 20480.0)])];
 
 #[test]
 fn the_guide_pack_stays_within_its_memory_budget_for_each_faction_693() {
