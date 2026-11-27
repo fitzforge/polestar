@@ -770,7 +770,9 @@ forge nav layers hubs --dir data/local/nav4
   classic-db spawns and creature templates (the cached dump under `data/sources/cmangos`), judged by
   the client's FactionTemplate table and named by the AreaTable area under them (the grid's area
   ids; the tables cached for the grid's build under `data/sources/wago`). It writes
-  `nav-layers/hubs.json`.
+  `nav-layers/hubs.json`. A hub's disks: 50 yd around a guard, 100 yd around a guard of level 50 or
+  more (a town's level-55 guards, which kill players walking past their posts' edges), 25 yd around a
+  service NPC.
 
   A **road passage** (`rust/crates/forge-nav/src/hub-passages.json`, compiled in) is a hostile post the
   only road between two parts of a continent runs through. Every hub of the passage's side whose disks

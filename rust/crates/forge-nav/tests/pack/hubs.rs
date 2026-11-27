@@ -124,7 +124,9 @@ fn issue_1961_forever_npcs_classic_db_lacks_join_the_hubs_kirin_tor_guards_make_
 		(Some("Dalaran"), Some(2), Some(0)),
 		"the Kirin Tor Guards; the Arcane Sentry is no guard by name"
 	);
-	assert_eq!(dalaran[0]["disks"], json!([[-27.5, 33, 50], [-12, 80, 50]]));
+	// Level 55: a guard of HIGH_GUARD_LEVEL or more keeps walks HIGH_GUARD_RADIUS (100) yd away; the golden's level 30
+	// guards keep GUARD_RADIUS (50).
+	assert_eq!(dalaran[0]["disks"], json!([[-27.5, 33, 100], [-12, 80, 100]]));
 	let camp: Vec<&Value> = hubs.iter().filter(|h| h["side"] == "Horde" && h["disks"][0][0] == 2000).collect();
 	assert_eq!(camp.len(), 1, "four Forever service NPCs of the Horde are a hub: {hubs:?}");
 	assert_eq!(camp[0]["services"], 4);
