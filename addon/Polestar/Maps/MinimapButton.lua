@@ -132,7 +132,7 @@ function Maps.ShowMenu(anchor)
 	items[#items + 1] = { text = L["Keep the arrow when hidden"], checked = ns.HideKeepsArrow(),
 		onClick = function() ns.SetHideKeepsArrow(not ns.HideKeepsArrow()) end }
 	-- Pause (Core/Init.lua), apart from hiding: the guide steps aside and resumes once you are back out of a dungeon alive.
-	items[#items + 1] = { text = L["Pause"], icon = "icon-dungeon", checked = ns.Paused() ~= nil,
+	items[#items + 1] = { text = L["Pause"], icon = "pause", checked = ns.Paused() ~= nil,
 		onClick = function() ns.TogglePaused() end }
 	items[#items + 1] = { separator = true }
 	items[#items + 1] = { text = L["Guides"], icon = "guides", onClick = open("SHOW_PICKER") }

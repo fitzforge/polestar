@@ -260,6 +260,8 @@ const GLYPHS = {
 	),
 	search: union(ring(10.5, 10.5, 6, 2.4), line(15, 15, 20.2, 20.2, 2.8)),
 	lock: union(box(12, 15.4, 7.2, 5.6, 1.4), arc(12, 9, 4.2, -180, 0, 2.3), line(7.8, 9, 7.8, 10.4, 2.3), line(16.2, 9, 16.2, 10.4, 2.3)),
+	// Pause (the guide window's menu bar, the minimap menu): two bars.
+	pause: union(box(8.5, 12, 2.5, 7.6, 1), box(15.5, 12, 2.5, 7.6, 1)),
 	// Move (a setting's frame, placed in Move frames): a cross with an
 	// arrowhead at each of its four ends.
 	move: union(
