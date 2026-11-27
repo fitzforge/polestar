@@ -19915,3 +19915,19 @@ test("forever/alliance/50-60/02-felwood.guide: Pokey's report: both ooze steps s
 		assert.match(jar.step.note || '', /use (Laris's|the) Empty (Tainted )?Ooze Jar on their remains/, `the jar of objective ${oi}: how to fill it`);
 	}
 });
+
+// #4343 (Sekyno, 0.4.3.1): A Little Luck (6606, Harlo Wigglesworth) only sends you to Witch Doctor Mau'ari, who gives
+// Luck Be With You (969) without it: players' recordings have 969 taken at Mau'ari by 15 people and 6606 by none. A
+// player who already had 969 was held at Harlo's accept with no way on. The lead-in is optional (guide-fixes
+// 4343-a-little-luck-optional), so the step is done once 969 is taken; the Darkspear Trolls reputation guide the same.
+for (const guide of ['forever/horde/50-60/07-felwood.guide', 'forever/reputation/darkspear-trolls.guide']) {
+	test(`${guide}: Sekyno's report: A Little Luck never holds the step at Harlo Wigglesworth (#4343)`, { skip }, () => {
+		const list = goals(guide);
+		const take = list[at(list, 'accept 6606 (A Little Luck)', is('accept', 6606))];
+		const give = list[at(list, 'turnin 6606 (A Little Luck)', is('turnin', 6606))];
+		const luck = list[at(list, 'accept 969 (Luck Be With You)', is('accept', 969))];
+		assert.ok(take.goal.optional && give.goal.optional, 'the lead-in\'s accept and hand-in are optional');
+		assert.ok(!luck.goal.optional, 'Luck Be With You is still taken');
+		assert.equal(luck.step, take.step, 'on the same visit to Everlook');
+	});
+}
