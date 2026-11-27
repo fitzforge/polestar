@@ -191,6 +191,24 @@
 		"source": { "kind": "recording", "ref": "#3189; Burkrum: 66 people recorded his stock." },
 		"note": "Burkrum sells armor and shields. His recorded stock and the server vendor list both omit Small Quiver."
 	},
+	"10551": {
+		"removeDrops": {
+			"npc": [
+				15692
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (maintainer's count on #3860): no one has met a Dark Iron Kidnapper (15692); 42 people met Dark Iron Geologists (5839), mostly at the dig site around 60-65,56-65 in the Searing Gorge"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3860 (Olivia, 0.4.2.2): the arrow led to the Kidnappers' camp in the east, and no Kidnapper was found there"
+			}
+		],
+		"note": "Thorium Plated Dagger (Forging the Shaft, 3443) was led to the Dark Iron Kidnappers' camp in the east of the Searing Gorge (68-70,33-36), because the data lists them as droppers with spawns there; no player has ever met one, and the reporter found none. Without them the goal goes to the Dark Iron dwarves players do meet: the Geologists' dig site, the Steamsmiths and the rest of the droppers."
+	},
 	"11285": {
 		"removeVendors": [6028],
 		"source": { "kind": "recording", "ref": "#3189; Burkrum: 66 people recorded his stock." },
