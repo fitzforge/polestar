@@ -149,7 +149,7 @@
 --   %s. Optional: the route doesn't need it.
 --   Kept for %s
 --   Hand in %s to %s, who walks around here: look inside the circle on the map
---   A quest you carry that the route does not work here: its work is nearby.
+--   A quest in your log with an objective nearby that the route doesn't do here.
 --   %s at %s
 --   Only visible while dead: die nearby and talk to them as a ghost.
 --   Under water nearby: swim down to it
@@ -805,7 +805,7 @@ L["%s; 1 in %d runs fails"] = "%s; falla 1 de cada %d intentos"
 L["%s. Optional: the route doesn't need it."] = "%s. Opcional: la ruta no la necesita."
 L["Kept for %s"] = "Guardada para %s"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "Entrega %s a %s, que deambula por aquí: busca dentro del círculo del mapa"
-L["A quest you carry that the route does not work here: its work is nearby."] = "Una misión que llevas y que la ruta no hace aquí: su tarea está cerca."
+L["A quest in your log with an objective nearby that the route doesn't do here."] = "Una misión que llevas y que la ruta no hace aquí: su tarea está cerca."
 L["%s at %s"] = "%s en %s"
 L["Buy a rune at %s"] = "Comprar una runa a %s"
 L["Buy a rune and cast %s to save about %s"] = "Compra una runa y lanza %s para ahorrar unos %s"

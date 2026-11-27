@@ -149,7 +149,7 @@
 --   %s. Optional: the route doesn't need it.
 --   Kept for %s
 --   Hand in %s to %s, who walks around here: look inside the circle on the map
---   A quest you carry that the route does not work here: its work is nearby.
+--   A quest in your log with an objective nearby that the route doesn't do here.
 --   %s at %s
 --   Only visible while dead: die nearby and talk to them as a ghost.
 --   Under water nearby: swim down to it
@@ -805,7 +805,7 @@ L["%s; 1 in %d runs fails"] = "%s; %d번에 1번 실패"
 L["%s. Optional: the route doesn't need it."] = "%s. 선택 사항: 경로에 필요하지 않습니다."
 L["Kept for %s"] = "%s용으로 보관"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "%s 퀘스트를 %s에게 제출하십시오. 이 근처를 돌아다닙니다: 지도의 원 안을 살펴보십시오"
-L["A quest you carry that the route does not work here: its work is nearby."] = "경로가 여기서 진행하지 않는, 가지고 있는 퀘스트입니다: 할 일이 근처에 있습니다."
+L["A quest in your log with an objective nearby that the route doesn't do here."] = "경로가 여기서 진행하지 않는, 가지고 있는 퀘스트입니다: 할 일이 근처에 있습니다."
 L["%s at %s"] = "%s - %s"
 L["Buy a rune at %s"] = "%s에게서 룬 구입"
 L["Buy a rune and cast %s to save about %s"] = "룬을 사서 %s 시전, 약 %s 절약"

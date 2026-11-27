@@ -132,7 +132,7 @@
 --   %s. Optional: the route doesn't need it.
 --   Kept for %s
 --   Hand in %s to %s, who walks around here: look inside the circle on the map
---   A quest you carry that the route does not work here: its work is nearby.
+--   A quest in your log with an objective nearby that the route doesn't do here.
 --   %s at %s
 --   Only visible while dead: die nearby and talk to them as a ghost.
 --   Under water nearby: swim down to it
@@ -788,7 +788,7 @@ L["%s; 1 in %d runs fails"] = "%s; проваливается 1 раз из %d"
 L["%s. Optional: the route doesn't need it."] = "%s. Необязательно: маршруту это не нужно."
 L["Kept for %s"] = "Оставлено для «%s»"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "Сдайте «%s»: %s ходит поблизости, ищите внутри круга на карте"
-L["A quest you carry that the route does not work here: its work is nearby."] = "Задание из вашего журнала, которое маршрут здесь не выполняет: его цель рядом."
+L["A quest in your log with an objective nearby that the route doesn't do here."] = "Задание из вашего журнала, которое маршрут здесь не выполняет: его цель рядом."
 L["%s at %s"] = "%s у %s"
 L["Buy a rune at %s"] = "Купить руну у %s"
 L["Buy a rune and cast %s to save about %s"] = "Купите руну и примените %s — это сэкономит около %s"

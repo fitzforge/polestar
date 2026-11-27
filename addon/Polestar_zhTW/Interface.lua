@@ -149,7 +149,7 @@
 --   %s. Optional: the route doesn't need it.
 --   Kept for %s
 --   Hand in %s to %s, who walks around here: look inside the circle on the map
---   A quest you carry that the route does not work here: its work is nearby.
+--   A quest in your log with an objective nearby that the route doesn't do here.
 --   %s at %s
 --   Only visible while dead: die nearby and talk to them as a ghost.
 --   Under water nearby: swim down to it
@@ -805,7 +805,7 @@ L["%s; 1 in %d runs fails"] = "%s；每 %d 次有 1 次失敗"
 L["%s. Optional: the route doesn't need it."] = "%s。可選：路線不需要它。"
 L["Kept for %s"] = "保留給 %s"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "把 %s 繳交給 %s，此人在附近走動：在地圖上的圓圈裡找"
-L["A quest you carry that the route does not work here: its work is nearby."] = "你身上的一個任務，路線不在這裡做：它的目標就在附近。"
+L["A quest in your log with an objective nearby that the route doesn't do here."] = "你身上的一個任務，路線不在這裡做：它的目標就在附近。"
 L["%s at %s"] = "%2$s 處的 %1$s"
 L["Buy a rune at %s"] = "在%s處購買符文"
 L["Buy a rune and cast %s to save about %s"] = "購買符文並施放%s，約可節省%s"

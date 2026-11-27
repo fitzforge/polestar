@@ -15030,7 +15030,7 @@ function Own.hereOffRoute(list, n, live)
 								budget = Own.hereSeconds, xp = false, soon = false, visit = false, detour = 0, town = false, near = false,
 								key = q .. ":o" .. line,
 								sub = later and L["Handed in later on the route"] or L["Not handed in on the route ahead"],
-								tip = L["A quest you carry that the route does not work here: its work is nearby."],
+								tip = L["A quest in your log with an objective nearby that the route doesn't do here."],
 								opened = false, on = false, since = 0, yards = 0, serial = 0, view = false }
 						end
 					end
