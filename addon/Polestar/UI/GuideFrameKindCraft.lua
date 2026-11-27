@@ -334,8 +334,19 @@ ns.UI.GuideFrame.Part(function(GF)
 		secure:SetAttribute("type", "spell")
 		secure:Hide()
 		-- Its look is the row's button under it: the hover lights that one.
-		secure:SetScript("OnEnter", function(self) local v = self.psSlot; if v then v.psLit = true; W.Color(v.Label, "text") end end)
-		secure:SetScript("OnLeave", function(self) local v = self.psSlot; if v then v.psLit = nil; W.Color(v.Label, "buttonText") end end)
+		-- Without its words (the narrow and compact window) the icon says what it opens.
+		secure:SetScript("OnEnter", function(self)
+			local v = self.psSlot
+			if not v then return end
+			v.psLit = true
+			W.Color(v.Label, "text")
+			if v.psIconOnly and v.psSpell then W.Tooltip(self, GF.TooltipAnchor and GF.TooltipAnchor() or "ANCHOR_RIGHT", format(L["Open %s"], v.psSpell)) end
+		end)
+		secure:SetScript("OnLeave", function(self)
+			local v = self.psSlot
+			if v then v.psLit = nil; W.Color(v.Label, "buttonText") end
+			W.HideTooltip(self)
+		end)
 		return secure
 	end
 	-- The secure button over the row's (`slot`), or hidden. Out of combat only.
@@ -397,8 +408,19 @@ ns.UI.GuideFrame.Part(function(GF)
 			b.psSpell = spell
 			b.Label:SetText(format(L["Open %s"], spell))
 			b.Label:SetShown(not iconOnly)
-			b.Icon:SetTexture(Theme.VerbIcon("craft"))
-			W.Color(b.Icon, "buttonText")
+			b.psIconOnly = iconOnly and true or nil
+			-- The profession's own icon (its spell's, once learned); our anvil only where the client gives none.
+			local icon = iconOnly and C().SpellIcon and C().SpellIcon(spell)
+			if icon then
+				b.Icon:SetTexture(icon)
+				b.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+				W.Uncolor(b.Icon)
+				b.Icon:SetVertexColor(1, 1, 1, 1)
+			else
+				b.Icon:SetTexture(Theme.VerbIcon("craft"))
+				b.Icon:SetTexCoord(0, 1, 0, 1)
+				W.Color(b.Icon, "buttonText")
+			end
 			b.Icon:SetShown(iconOnly)
 			b:SetWidth(iconOnly and 30 or floor(b.Label:GetStringWidth() + 2 * Theme.Metric("buttonPad", 16) + 0.5))
 			b:Show()
@@ -425,17 +447,11 @@ ns.UI.GuideFrame.Part(function(GF)
 			local r = f.Row
 			local g = r.psGoal or {}
 			g.t, g.index, g.status = "craft", m.goalIndex, m.done and "done" or "active"
-			g.subject, g.subjectKind, g.item, g.spell = m.name, "item", m.item, m.recipe
+			g.subject, g.subjectKind, g.item, g.spell = m.name, m.item and "item" or "spell", m.item, m.recipe
 			local mark = not m.done and skillUpMarkup(m.colour) or ""
 			g.text = format(L["Craft %s until %d"], m.name, m.moveOn) .. (mark ~= "" and "  " .. mark or "")
+			-- The row wears the recipe's icon (its item's, else its spell's) and hovers as it: GF.GoalIcon, GF.RecipeSpell.
 			GF.PaintGoalRow(r, g, not m.done)
-			-- The recipe's icon where the verb's glyph sits.
-			local icon = not m.done and m.item and C().ItemIcon and C().ItemIcon(m.item)
-			if icon then
-				r.Icon:SetTexture(icon)
-				W.Uncolor(r.Icon)
-				r.Icon:SetVertexColor(1, 1, 1, 1)
-			end
 			-- About how many crafts the skill still takes to the move-on (whatever made its points so far), then
 			-- "M made" once the recipe's casts were counted; before the skill is learned, that it comes first.
 			local sub
