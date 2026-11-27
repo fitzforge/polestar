@@ -2,9 +2,12 @@
 
 ## Issues
 
-<!-- One line per issue this fixes: "closes #N". That lists this pull request on the issue. "See #N" is only a link. -->
+<!-- One line per issue this fixes, written "Fixes #N" (one issue per line): that lists this pull request on the issue. "See #N" is only a link. -->
+
+Fixes #
 
 - [ ] I checked for open pull requests on the same issue (`gh pr list --state open --search "<N>"`, the issue's `has-pr` label) and found none, or say here how this one differs:
+- [ ] **Feature? Wait for the fit answer.** Something Polestar doesn't do yet gets the maintainer's yes, no or later within three days, before the review; hold off on more work until the yes (CONTRIBUTING.md, "Before you build a feature"). Its idea issue or #suggestions post, if any:
 
 ## What and why
 

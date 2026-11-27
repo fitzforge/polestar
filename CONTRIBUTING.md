@@ -4,6 +4,45 @@ Polestar is a guide addon for WoW: Forever: a Lua 5.1 addon in `addon/`, the
 guides in `guides/`, and Node tools in `tools/` that check, compile, play and
 package them. You can help without touching any code.
 
+## Before you build a feature
+
+Read this before you write code for something Polestar doesn't do yet. A fix
+for something broken (a bug, a wrong step, a translation) doesn't need it: go
+straight to [Before you start](#before-you-start).
+
+> **What Polestar is.** Polestar is a leveling guide and its arrow. That's
+> the job: get you from 1 to 60 on Forever on a route that makes sense, with
+> an arrow that gets you there. If your feature makes the guide, the route or
+> the arrow better, it goes in. New windows, games, data sets and
+> integrations with other addons are later by default. That isn't a no, but
+> they need my yes before you build them, because every one of them is
+> something I keep working for every player long after it's merged. *Fitz*
+
+1. **Fit first.** Every feature pull request gets the maintainer's answer,
+   yes, no or later, within three days of opening, before any technical
+   review. Nobody asks you for changes until the answer is yes, so you
+   don't spend rounds of work on something that may not go in; hold off on
+   more work yourself until then too.
+2. **What fits is written down:** the paragraph above. Anything outside it
+   is later by default, and only the maintainer turns that into a yes.
+3. **Ideas go to issues.** A design, a proposal or an idea is an issue (the
+   "Feature request" form) or a post in the #suggestions forum on the
+   [Polestar Discord](https://discord.gg/polestar): post the idea first,
+   pull request after the yes. It is talked through there until the
+   maintainer says build it. Pull requests are for code that is already
+   agreed. One that comes first is still welcome and gets its fit answer
+   like any other.
+4. **No open-ended "later".** A later names the release it is for ("later:
+   0.5"), or it is a no. Nothing waits in review for a month.
+5. **Only the maintainer declines people's work.** Reviewers and the
+   maintainer's agents read the code, merge work that has its yes, and
+   prepare the maintainer's list of fit decisions
+   ([docs/process/fit-list.md](docs/process/fit-list.md)); they never
+   decline, close or mark "not planned" a contribution or an idea. A no
+   comes from the maintainer, in his own words.
+
+Why these rules: [docs/process/README.md](docs/process/README.md).
+
 ## Ways to help
 
 - **Report a wrong step.** A quest that is not where the guide says, a step
@@ -34,8 +73,10 @@ package them. You can help without touching any code.
   and French, and AI-made languages need native speakers to check them.
   [docs/TRANSLATING.md](docs/TRANSLATING.md) shows the file to edit: a text
   editor is enough.
-- **Suggest a feature.** Open an issue with the "Feature request" form, so the
-  idea and the date it was asked stay in one place and anyone can pick it up.
+- **Suggest a feature.** Open an issue with the "Feature request" form, or
+  post in #suggestions on the Discord, so the idea and the date it was asked
+  stay in one place. Once the maintainer says yes, anyone can pick it up
+  ([Before you build a feature](#before-you-build-a-feature)).
 
 ## A good wrong-step report
 
@@ -490,6 +531,10 @@ your request matches it; to be sure, name it: "use polestar-triage on #123".
   same way.
 
 ## How a pull request is reviewed
+
+A feature pull request first gets its fit answer
+([Before you build a feature](#before-you-build-a-feature)); the review
+below starts after the yes. Fixes go straight to it.
 
 Every pull request is read for safety **before any of its code is run**:
 its tests run Node tools on the maintainer's machine and Lua in the test
