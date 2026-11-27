@@ -145,7 +145,7 @@ local categoryOf = UI.Category
 -- the "Community guides" heading, one entry per pack (key "pack:<id>"); All,
 -- Favorites and search cover every shown guide.
 local PACK = "pack:"
-local IMPORT = "import:" -- the guide list's "+ Import a guide" row, which is no category
+P.IMPORT = "import:" -- the guide list's "+ Import a guide" row, which is no category
 
 -- The community pack a guide (header) comes from; nil for ours (`guides`),
 -- Polestar's internal packs and its extra packs (Guides.OWN_EXTRA: the
@@ -2310,7 +2310,7 @@ local function navItems(counts, total)
 		if r.author then label = label .. DOT .. r.author end
 		items[#items + 1] = { key = PACK .. r.id, label = label, icon = "layers", count = counts[PACK .. r.id] or 0, oneLine = true }
 	end
-	items[#items + 1] = { key = IMPORT, label = L["Import a guide"], icon = "plus", action = true }
+	items[#items + 1] = { key = P.IMPORT, label = L["Import a guide"], icon = "plus", action = true }
 	P.categories = {}
 	for _, it in ipairs(items) do
 		if not (it.heading or it.action) then P.categories[#P.categories + 1] = it.key end
@@ -2628,7 +2628,7 @@ local function render()
 	local total = 0
 	for c, k in pairs(counts) do if c ~= "Favorites" then total = total + k end end
 	W.ShellNav(win, navItems(counts, total), view == "browse" and category or nil, function(key)
-		if key == IMPORT then UI.Import.Show() else P.SetCategory(key) end
+		if key == P.IMPORT then UI.Import.Show() else P.SetCategory(key) end
 	end)
 	local tabsList = {}
 	for i, v in ipairs(VIEWS) do tabsList[i] = { key = v, label = VIEW_LABEL[v] } end
