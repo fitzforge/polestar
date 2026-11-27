@@ -47,6 +47,10 @@ Polestar.RegisterGuide({ id = "test/b", pack = "test", title = "B", faction = "A
 Polestar.RegisterGuide({ id = "test/c", pack = "test", title = "C", faction = "Alliance", minLevel = 11, maxLevel = 15, steps = {
 	{ title = "Kept", goals = { { t = "turnin", quest = 50, title = "Kept Errand", npc = 998, npcName = "Third", map = E1, x = 10, y = 10 } } },
 } })
+-- A side trip (#3999): no leveling guide, done already (51 was turned in).
+Polestar.RegisterGuide({ id = "test/d", pack = "test", title = "D", category = "Class", faction = "Alliance", minLevel = 1, maxLevel = 60, steps = {
+	{ title = "Done", goals = { { t = "turnin", quest = 51, title = "Done Errand", npc = 240, npcName = "Someone", map = E1, x = 42, y = 35 } } },
+} })
 "#;
 
 const STUBS: &str = r#"
@@ -234,4 +238,35 @@ fn the_guide_end_window_lists_the_quests_not_part_of_the_route_and_opens_their_l
 	assert_eq!(out["none"]["head"], false, "{out}");
 	assert_eq!(out["none"]["link"], false, "{out}");
 	assert!(out["tall"].as_f64().unwrap() > out["none"]["tall"].as_f64().unwrap(), "{out}");
+}
+
+// #3999: the end of a side trip (a dungeon's, a hand-in, a class guide) is no time to clean up the log: no line on
+// its end card. And with a side trip active, the log is judged against the leveling route, the leveling tab's or
+// the character's leveling guide now, not the side trip's quests alone.
+#[test]
+fn a_side_trip_s_end_says_nothing_of_the_log_and_is_judged_against_the_leveling_route_3999() {
+	let out = run(r#"
+		local GF = UI.GuideFrame
+		local r = {}
+		-- test/a's tab, then the class guide in a tab of its own, active.
+		E.OpenTab("test/d", true); flush(); flush()
+		GF.Layout(); flush()
+		local empty = GF.parts.empty
+		r.card = { shown = empty:IsShown(), title = plain(empty.Title:GetText()), carried = empty.Carried:IsShown(), stray = empty.Stray:IsShown() }
+		r.withTab = ids(P.OffRoute())
+		-- The class guide alone: the leveling guide for the character now stands in for the route.
+		for i, t in ipairs(E.GetTabs()) do
+			if t.guideId == "test/a" then E.CloseTab(i, true) break end
+		end
+		flush(); flush()
+		r.tabs = #E.GetTabs()
+		local alone = {}
+		for _, q in ipairs(P.OffRoute("test/d") or {}) do alone[q.quest] = true end
+		r.alone = { kept = alone[50] or false, next = alone[44] or false, stray = alone[19] or false }
+		emit(r)
+	"#);
+	assert_eq!(out["card"], json!({ "shown": true, "title": "Guide complete", "carried": false, "stray": false }), "{out}");
+	assert_eq!(out["withTab"], json!([19, 33, 60, 304]), "test/a's route, as from its own tab; {out}");
+	assert_eq!(out["tabs"], 1, "{out}");
+	assert_eq!(out["alone"], json!({ "kept": false, "next": false, "stray": true }), "the leveling route's quests stay, the stray one is listed; {out}");
 }

@@ -2203,8 +2203,10 @@ GF.Part(function(GF)
 				empty.Text:SetText(L["Nice work. Pick your next guide to keep going."])
 				GF.PlayNext.Paint(nil, guide.id)
 			end
-			-- A leveling guide's end: the quests left in the log, said.
-			if guide and not (back or afterRun) then GF.EndQuestLines(guide.id) end
+			-- A leveling guide's end: the quests left in the log, said. Not at the
+			-- end of a side trip (a dungeon's, a hand-in, a Lookup or class guide,
+			-- #3999): its end is no time to clean up the log.
+			if guide and (guide.category or "Leveling") == "Leveling" and not (back or afterRun) then GF.EndQuestLines(guide.id) end
 		end
 		empty.Glyph:SetTexture(Theme.Media(glyph))
 		W.Color(empty.Glyph, color)

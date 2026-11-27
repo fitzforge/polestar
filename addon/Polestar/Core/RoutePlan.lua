@@ -700,7 +700,12 @@ end
 
 -- The quests in the log that no guide of the route uses (chainQuests of
 -- guide `id`, else the active tab's guide), nor any other open tab's chain
--- or a dungeon open in a tab: { { quest, title, ready }, ... } in log order
+-- or a dungeon open in a tab: { { quest, title, ready }, ... } in log order.
+-- A guide that is no leveling guide (a dungeon's, a hand-in, a Lookup or
+-- class guide) is a side trip: the log is judged against the character's
+-- leveling route too, the first leveling tab's, else the leveling guide for
+-- the character now (Guides.Suggest), not that guide alone (#3999: with only
+-- a dungeon tab open, every quest of the leveling route read as off-route)
 -- (ready: finished, to hand in). Picked up off the route; the player keeps
 -- or abandons them. nil when it can't say (no guide, a guide of a chain not
 -- loaded). Only when the end card or the guide-end window shows.
@@ -710,7 +715,23 @@ function Plan.OffRoute(id)
 	if not active then return nil end
 	local sets = { chainQuests(active) }
 	if not sets[1] then return nil end
-	for _, t in ipairs(E.TabLiveSteps and E.TabLiveSteps() or {}) do
+	local tabs = E.TabLiveSteps and E.TabLiveSteps() or {}
+	if not leveling(active) then
+		local route
+		for _, t in ipairs(tabs) do
+			if t.guide and leveling(t.guide) then route = t.guide; break end
+		end
+		if not route then
+			local suggested = G.Suggest and G.Suggest()
+			route = suggested and G.Get(suggested)
+			if route then
+				local set = chainQuests(route)
+				if not set then return nil end
+				sets[#sets + 1] = set
+			end
+		end
+	end
+	for _, t in ipairs(tabs) do
 		if t.guide and t.guide.id ~= active.id then
 			local set = chainQuests(t.guide)
 			if not set then return nil end
