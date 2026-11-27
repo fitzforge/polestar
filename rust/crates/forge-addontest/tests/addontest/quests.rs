@@ -1852,6 +1852,69 @@ emit(look().opts)
 }
 
 #[test]
+fn overlapping_witherbark_sources_share_a_compact_marker_and_keep_the_camp_area() {
+	let data = data_with(|raw| {
+		let npcs = raw.get_mut("npcs.json").unwrap();
+		let base = npcs["40"].clone();
+		// The small Hammerfall clusters are at 74.1,45.7, 74.1,45.8 and 74.2,45.9 in the packed data.
+		for (id, name, camp_x, x, y) in [(2552, "Witherbark Troll", 66.0, 74.1, 45.7), (2553, "Witherbark Shadowcaster", 68.0, 74.1, 45.8), (2556, "Witherbark Headhunter", 70.0, 74.2, 45.9)] {
+			let mut npc = base.clone();
+			npc["id"] = json!(id);
+			npc["name"] = json!(name);
+			npc["spawns"] = json!({ "1417": { "f": "e", "pts": [[camp_x, 80.0], [x, y]] } });
+			npcs[id.to_string()] = npc;
+		}
+		let items = raw.get_mut("items.json").unwrap();
+		items["4503"] = json!({ "id": 4503, "name": "Witherbark Tusk", "drops": { "npc": { "2552": 37, "2553": 13, "2556": 28 }, "object": {} }, "vendors": [] });
+		let quests = raw.get_mut("quests.json").unwrap();
+		let mut quest = quests["60"].clone();
+		quest["id"] = json!(691);
+		quest["title"] = json!("Worth Its Weight in Gold");
+		quest["zone"] = json!(1417);
+		quest["objectives"] = json!([{ "type": "item", "id": 4503, "count": 10, "text": "Witherbark Tusk" }]);
+		quests["691"] = quest;
+		raw.get_mut("map-frames.json").unwrap()["era"]["1417"] = json!({ "c": 0, "left": -866.667, "right": -4466.667, "top": -133.333, "bottom": -2533.333 });
+	});
+	let out = run(
+		&build_db(data.path()),
+		&format!(
+			r#"{SPOTS_LOOK}
+w.accept(691, {{ {{ text = "Witherbark Tusk", type = "item", required = 10 }} }})
+stub.advance(0.3)
+local _, x, y = Polestar.Compat.MapToWorld(1417, 74.1, 45.8, "e")
+for _, p in ipairs(layer("quests.objectives")) do
+	if p.spots and math.abs(p.wx - x) < 15 and math.abs(p.wy - y) < 15 then
+		emit({{ p.size, p.minimapSize, p.spots, p.header, sq.pinTooltip(p) }})
+	end
+end
+emit(look())
+emit(#Q.GetMarkers(1417, "objectives"))
+Polestar.Set("qol.objectiveSpots", "icons"); stub.advance(0.3)
+emit(look())
+Polestar.Set("qol.objectiveSpots", "areas"); stub.advance(0.3)
+emit(look())
+"#
+		),
+		r#"w.addMap(1417, { name = "Arathi Highlands", c = 0, left = -866.667, right = -4466.667, top = -133.333, bottom = -2533.333 })
+w.moveTo(1417, 74, 46)
+w.titles[691] = "Worth Its Weight in Gold""#,
+	);
+	let compact = arr(&out[0]);
+	assert_eq!(&compact[..3], &[json!(12), json!(10.5), json!(3)]);
+	for name in ["Witherbark Troll", "Witherbark Shadowcaster", "Witherbark Headhunter"] {
+		assert!(compact[3].as_str().unwrap().contains(name));
+	}
+	assert!(arr(&compact[4]).iter().any(|line| *line == "Worth Its Weight in Gold"));
+	assert_eq!(arr(&out[1]["icons"]).len(), 2, "the compact spot and the village camp each have a marker");
+	assert_eq!(arr(&out[1]["areas"]).len(), 1, "only the larger village camp draws an area by default");
+	assert_eq!(out[2], json!(6), "the source clusters are all still in the quest data");
+	assert_eq!(arr(&out[3]["icons"]).len(), 6, "Icons mode draws every spot");
+	assert!(arr(&out[3]["areas"]).is_empty());
+	assert!(arr(&out[4]["icons"]).is_empty());
+	assert_eq!(arr(&out[4]["areas"]).len(), 2, "Areas mode still shows both regions");
+}
+
+#[test]
 fn objective_spot_regions_group_only_the_objectives_a_quest_log_change_brought_never_on_a_setting_a_step_change_or_a_kill_count() {
 	let db = spots_db();
 	let out = run(
