@@ -67,14 +67,7 @@ fn run(script: &str) -> Value {
 }
 
 fn run_with(addons: Vec<Addon>, script: &str) -> Value {
-	emitted(&RunAddon {
-		stubs: vec!["stub_world.lua"],
-		before: WORLD.to_string(),
-		addons,
-		script: [TEST_PACK, TEST_SOURCE, GUIDES, HELPERS, script].join("\n"),
-		..Default::default()
-	})
-	.remove(0)
+	emitted(&RunAddon { stubs: vec!["stub_world.lua"], before: WORLD.to_string(), addons, script: [TEST_PACK, TEST_SOURCE, GUIDES, HELPERS, script].join("\n"), ..Default::default() }).remove(0)
 }
 
 // A character with none of the quests: the earlier guide opens at First Link, the first step they can start the
@@ -158,7 +151,9 @@ fn the_prereq_command_opens_the_earlier_guide_for_the_active_guide_or_the_one_na
 // The full addon: the banner's "Open The Barrens" opens the earlier guide at First Link, not at its first step.
 #[test]
 fn the_banners_link_opens_the_earlier_guide_at_the_chain() {
-	let out = run_with(vec![Addon::name("Polestar")], r#"
+	let out = run_with(
+		vec![Addon::name("Polestar")],
+		r#"
 		local GF = Polestar.UI.GuideFrame
 		local B = GF.parts.banner
 		Polestar.Set("ui.shown", true)
@@ -167,7 +162,8 @@ fn the_banners_link_opens_the_earlier_guide_at_the_chain() {
 		B.Jump:Click(); flush()
 		r.opened = { E.GetGuide().id, E.GetLiveStep(), jumps() }
 		emit(r)
-	"#);
+	"#,
+	);
 	assert_eq!(out["banner"], json!("Open The Barrens"), "{out}");
 	assert_eq!(out["opened"], json!(["test/barrens", 3, "jump jump nil nil nil nil nil"]), "{out}");
 }
