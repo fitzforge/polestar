@@ -87,10 +87,7 @@ fn dense_layers_show_on_zone_maps_and_the_minimap_never_on_a_continent_the_world
 	"#);
 	let zone = "nav.route nav.target rares.rare rares.rare";
 	let wide = "nav.route nav.target";
-	assert_eq!(
-		out,
-		json!({ "world": [[9000, zone, 1], [9002, wide, 0], [9003, wide, 0], [9006, wide, 0], [9004, zone, 1], [9005, zone, 1], [9000, zone, 1]], "minimap": 2 })
-	);
+	assert_eq!(out, json!({ "world": [[9000, zone, 1], [9002, wide, 0], [9003, wide, 0], [9006, wide, 0], [9004, zone, 1], [9005, zone, 1], [9000, zone, 1]], "minimap": 2 }));
 }
 
 // #2973: on a continent's map the quest layers' pins (summary layers) are one pin per zone, its badge their count and

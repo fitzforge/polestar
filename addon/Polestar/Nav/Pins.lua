@@ -221,7 +221,6 @@ end
 local layers = {}  -- name -> layer
 local order = {}   -- layer names, in first-SetLayer order
 local hidden = {}  -- name -> true (SetLayerVisible(false) may precede SetLayer)
-local DENSE_MAP_TYPE = 3 -- Enum.UIMapType.Zone: the widest view a dense layer shows on
 
 local refreshWorld, refreshMinimap -- forward
 local drawTrailWorld, updateTrailDriver -- forward (trail)
@@ -309,7 +308,8 @@ function Pins.SetLayer(name, pins, opts)
 	layer.world = opts.world ~= false
 	layer.dense = opts.dense == true
 	layer.minMapType = tonumber(opts.minMapType)
-	if layer.dense and not (layer.minMapType and layer.minMapType >= DENSE_MAP_TYPE) then layer.minMapType = DENSE_MAP_TYPE end
+	-- A dense layer's widest view is a zone's (Enum.UIMapType.Zone = 3).
+	if layer.dense and not (layer.minMapType and layer.minMapType >= 3) then layer.minMapType = 3 end
 	layer.worldLayout = type(opts.worldLayout) == "function" and opts.worldLayout or nil
 	layer.summary = type(opts.summary) == "string" and opts.summary ~= "" and opts.summary or nil
 	layer.minimap = opts.minimap ~= false
