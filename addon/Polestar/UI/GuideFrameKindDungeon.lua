@@ -250,10 +250,11 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- on: never cut), and the line without the name for a window too narrow for any of it.
 	local function whereParts(q)
 		if q.after then
+			-- "After “Rear Guard Patrol” · Chain: 1 of 2": the title gives way, the chain's count stays.
 			local a = q.after
-			local tail = format(L["After %s"], ns.Quoted(a.title) or "")
-			if (a.of or 0) > 1 then tail = tail .. DOT .. format(L["Chain: %d of %d"], a.n, a.of) end
-			return "", nil, tail
+			local chain = (a.of or 0) > 1 and format(L["Chain: %d of %d"], a.n, a.of) or nil
+			local pre, post = format(L["After %s"], "\1"):match("^(.-)\1(.*)$")
+			return pre or "", ns.Quoted(a.title) or a.title, (post or "") .. (chain and (DOT .. chain) or ""), chain
 		elseif q.onWay then
 			if not q.where then return "", nil, L["on your way"] end
 			local a, b = format(L["%s, on your way"], "\1"):match("^(.-)\1(.*)$")
@@ -287,13 +288,15 @@ ns.UI.GuideFrame.Part(function(GF)
 	end
 
 	-- An entry's goal view: the step's own accept of it (the pick-up guide's stop), else one in the
-	-- same fields, ticked once the quest is in the log, its place the one a click points the arrow at.
+	-- same fields (the Engine's words, quest name quoted), ticked once the quest is in the log, its
+	-- place the one a click points the arrow at. Its tick box shows the state; a click on it does nothing
+	-- (no goal of the step to tick).
 	local function entryGoal(q)
-		if q.gv then return q.gv end
+		if q.gv then return q.gv, false end
 		local p = q.point
-		return { t = "accept", quest = q.quest, title = q.title, verb = L["Accept"], subject = q.title, subjectKind = "quest",
-			status = q.held and "done" or "pending", tickable = false,
-			map = p and p.map, x = p and p.x, y = p and p.y, f = p and p.f, z = p and p.z }
+		return { t = "accept", quest = q.quest, title = q.title, text = L["Accept"] .. " " .. (ns.Quoted(q.title) or q.title or ""),
+			verb = L["Accept"], subject = q.title, subjectKind = "quest", status = q.held and "done" or "pending", tickable = true,
+			map = p and p.map, x = p and p.x, y = p and p.y, f = p and p.f, z = p and p.z }, true
 	end
 
 	GF.RegisterRegion("pickups", {
@@ -344,10 +347,11 @@ ns.UI.GuideFrame.Part(function(GF)
 					r.Sub:SetWordWrap(false)
 					f.Rows[i] = r
 				end
-				local goal = entryGoal(q)
+				local goal, own = entryGoal(q)
 				local current = not lit and q.gv ~= nil and goal.status ~= "done" and goal.status ~= "skipped"
 				if current then lit = true end
 				GF.PaintGoalRow(r, goal, current)
+				if own then r.Check:Disable() end
 				if not q.held then
 					local pre, place, post, bare = whereParts(q)
 					r.psNpc, r.psPre, r.psPlace, r.psPost, r.psBare = q.npc and col("npc", q.npc) or nil, pre, place, post, bare

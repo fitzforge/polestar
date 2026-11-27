@@ -1299,7 +1299,7 @@ const ATLAS_LAYOUT = `${INSTALLED_SKINS}; Polestar.Set("ui.layout", "atlas")`;
 // Pick them up; after: Lua run once the guide is open (then the window draws again).
 const RUN_GUIDE = `{ id = "test/wailing-caverns", pack = "test", title = "Wailing Caverns", kind = "dungeon", dungeon = "wailing-caverns",
 	minLevel = 17, maxLevel = 24, steps = { { title = "Wailing Caverns", goals = { { t = "goto", text = "Wailing Caverns", map = 1413, x = 46, y = 36, entrance = true } } } } }`;
-const kindDungeon = (extra = '', { run = false, after = '' } = {}) => `${clientArtLua()}${DUNGEONS_SETUP}
+const kindDungeon = (extra = '', { run = false, after = '', key = 'wailing-caverns' } = {}) => `${clientArtLua()}${DUNGEONS_SETUP}
 local E, RE = Polestar.Engine, uistub.realEngine
 E.KindModel = function(r, v, k) return RE.KindModel(r, v, k) end
 E.GuideKind = function() return Polestar.GuideKinds.Of(E.GetGuide()) end
@@ -1310,8 +1310,23 @@ Polestar.TravelCost = function(a, b)
 end
 Polestar.Compat.MapName = Polestar.Compat.GetMapName
 ${extra}
-local def = ${run ? RUN_GUIDE : 'Polestar.Dungeons.PickupGuide("wailing-caverns")'}
-${run ? '' : 'def.id, def.pack = "lookup/pickup/wailing-caverns", "lookup"'}
+local def = ${run ? RUN_GUIDE : `Polestar.Dungeons.PickupGuide("${key}")`}
+${run ? '' : `def.id, def.pack = "lookup/pickup/${key}", "lookup"`}
+-- The window's Engine stand-in shows a step's goals as given: each gets the words and state the real Engine
+-- gives its view (the verb and subject, a count's 0/N, the first goal the one to do now).
+local VERB = { accept = "Accept", turnin = "Turn in", kill = "Kill", collect = "Collect", use = "Use", talk = "Talk to", interact = "Click", ["goto"] = "Enter" }
+for _, s in ipairs(def.steps) do
+	for gi, g in ipairs(s.goals) do
+		if VERB[g.t] and not g.verb then
+			g.verb = VERB[g.t]
+			g.subject = (g.t == "kill" and g.target) or ((g.t == "collect" or g.t == "use") and g.itemName) or (g.t == "talk" and g.npcName)
+				or (g.t == "interact" and g.objName) or (g.t == "goto" and g.text) or g.title
+			g.subjectKind = (g.t == "accept" or g.t == "turnin") and "quest" or ((g.t == "kill" or g.t == "talk") and "npc") or (g.t == "goto" and "place") or "item"
+			if (g.count or 1) > 1 then g.progress = { cur = 0, max = g.count } end
+			g.status = g.status or (gi == 1 and "active" or "pending")
+		end
+	end
+end
 uistub.guides[def.id] = def
 uistub.setGuide(def.id, 1)
 ${after}`;
@@ -1322,6 +1337,90 @@ const kindPanel = (extra, opts = {}) => ({ dungeons: true, roots: GUIDE, files: 
 // Leaders of the Fang left in Thunder Bluff (out of the log): a giver a flight away, past Skip the far one's 10 minutes.
 const FAR = 'log[914] = nil';
 const SKIP_FAR = 'Polestar.Dungeons.SkipFar(Polestar.Engine.KindModel("pickups", nil, "dungeon").plan); Polestar.UI.GuideFrame.Render()';
+// The work out in the world before the way in (#4379): the Ruins of Lordaeron for a level 15 Forsaken warrior by
+// Deathguard Linnea in Tirisfal (game names; places from the Codex, the chains' mobs and items sample ones):
+// The Wrath of Rath'mael waits on Rear Guard Patrol (8 + 8 kills) and its follow-up, The New Plague on the
+// three parts of A Recipe For Death. ROL_DONE: the chains done, the four pick-ups alone. MARAUDON: The Pariah's
+// Instructions' Amulet of Union from five gems, Kolk's out in the outer caves, Maraudos's inside.
+const OUTSIDE_WORLD = `uistub.player.level, uistub.player.race, uistub.player.class, uistub.player.faction = 15, "Scourge", "WARRIOR", "Horde"
+UnitRace = function() return "Undead", "Scourge", 5 end
+UnitLevel = function() return 15 end
+local C, D = Polestar.Codex, Polestar.Dungeons
+local function npc(id, name, map, x, y) return { id = id, name = name, faction = "H", spawns = { { map = map, x = x, y = y } } } end
+local function mob(id, name, map, x, y) return { id = id, name = name, spawns = { { map = map, x = x, y = y } } } end
+local function inside(id, name, key) return { id = id, name = name, instance = key, spawns = {} } end
+local function drop(id, name, from) return { id = id, name = name, sources = { { type = "drop", npc = from, chance = 60 } } } end
+local function quest(id, title, giver, objectives, pre, level)
+	return { id = id, title = title, level = level or 22, minLevel = 6, faction = "H", start = { npc = { giver }, object = {}, item = {} },
+		["end"] = { npc = { giver }, object = {} }, objectives = objectives, pre = pre or {}, preAny = {} }
+end
+local function pq(id, title) return { id = id, title = title, faction = "Horde", level = 22, minLevel = 15, chain = {} } end
+NPCS, ITEMS, QUESTS, DONE = {}, {}, {}, {}
+C.Quest = function(id) return QUESTS[id] end
+C.Npc = function(id) return NPCS[id] end
+C.Item = function(id) return ITEMS[id] end
+C.Object = function() return nil end
+Polestar.Compat.IsQuestCompleted = function(id) return DONE[id] or false end
+Polestar.Compat.IsOnQuest = function() return false end
+Polestar.Compat.IsQuestReadyForTurnIn = function() return false end
+function usePage(page)
+	local by = {}
+	for _, q in ipairs(page.quests) do by[q.id] = q end
+	D.Get = function(k) return k == page.key and page or nil end
+	D.List = function() return { page } end
+	D.Find = function(t) return (t == page.name or t == page.key) and page.key or nil end
+	D.Quests = function(k) return k == page.key and page.quests or {} end
+	D.Quest = function(k, id) return k == page.key and by[id] or nil end
+	D.Bosses = function() return {} end
+	D.Art = function() return nil end
+	D.Entrance = function() local e = page.entrance; return e.map, e.x, e.y end
+	D.Attunements = function() return {} end
+end`;
+const ROL = `${OUTSIDE_WORLD}
+Polestar.Compat.GetPlayerMapPosition = function() return 1420, 65, 61 end
+local K = "ruins-of-lordaeron"
+for id, n in pairs({ [1495] = npc(1495, "Deathguard Linnea", 1420, 65.4, 60.2), [251001] = npc(251001, "Deathguard Kristof", 1420, 65.1, 60.2),
+	[1518] = npc(1518, "Apothecary Johaan", 1420, 59.4, 52.4), [11835] = npc(11835, "Theodore Griffs", 1458, 46.5, 71.6),
+	[250686] = npc(250686, "Tabitha Heartweaver", 1421, 44.5, 42.9), [266484] = npc(266484, "Morbin Lightbane", 1458, 57.9, 89.5),
+	[1529] = mob(1529, "Bleeding Horror", 1420, 72, 62), [1532] = mob(1532, "Wandering Spirit", 1420, 74, 60), [90002] = mob(90002, "Riptear", 1420, 70, 66),
+	[1553] = mob(1553, "Greater Duskbat", 1420, 52, 58), [1508] = mob(1508, "Young Scavenger", 1420, 55, 45), [1778] = mob(1778, "Ferocious Grizzled Bear", 1421, 40, 30),
+	[250657] = inside(250657, "Rath'mael", K), [250483] = inside(250483, "Witherfang", K), [90001] = inside(90001, "Stitched Horror", K) }) do NPCS[id] = n end
+ITEMS[286326], ITEMS[3264], ITEMS[3265], ITEMS[3253] = drop(286326, "Riptear's Heart", 90002), drop(3264, "Duskbat Wing", 1553), drop(3265, "Scavenger Paw", 1508), drop(3253, "Grizzled Bear Heart", 1778)
+ITEMS[275443] = { id = 275443, name = "Highly Toxic Strain", sources = { { type = "drop", npc = 250483, chance = 100, instance = K } } }
+ITEMS[268580] = { id = 268580, name = "Intact Limbs", sources = { { type = "drop", npc = 90001, chance = 50, instance = K } } }
+QUESTS[356] = quest(356, "Rear Guard Patrol", 1495, { { type = "kill", id = 1529, count = 8, text = "Bleeding Horror" }, { type = "kill", id = 1532, count = 8, text = "Wandering Spirit" } }, {}, 11)
+QUESTS[99156] = quest(99156, "Rear Guard Patrol", 1495, { { type = "item", id = 286326, count = 1, text = "Riptear's Heart" } }, { 356 }, 13)
+QUESTS[92422] = quest(92422, "The Wrath of Rath'mael", 251001, { { type = "kill", id = 250657, count = 1, text = "Rath'mael" } }, { 99156 })
+QUESTS[447] = quest(447, "A Recipe For Death", 1518, { { type = "item", id = 3264, count = 6, text = "Duskbat Wing" } }, {}, 12)
+QUESTS[450] = quest(450, "A Recipe For Death", 1518, { { type = "item", id = 3265, count = 6, text = "Scavenger Paw" } }, { 447 }, 13)
+QUESTS[451] = quest(451, "A Recipe For Death", 1518, { { type = "item", id = 3253, count = 1, text = "Grizzled Bear Heart" } }, { 450 }, 14)
+QUESTS[95216] = quest(95216, "The New Plague", 11835, { { type = "item", id = 275443, count = 1, text = "Highly Toxic Strain" } }, { 451 })
+QUESTS[92401] = quest(92401, "A Frightened Request", 250686, {})
+QUESTS[92421] = quest(92421, "Light's Justice", 266484, { { type = "item", id = 268580, count = 25, text = "Intact Limbs" } })
+usePage({ key = K, name = "Ruins of Lordaeron", map = 2999, minLevel = 15, maxLevel = 22, floor = 18, players = 5, zone = 1458, zoneName = "Undercity",
+	entrance = { map = 1458, x = 72.8, y = 11.5 },
+	quests = { pq(92401, "A Frightened Request"), pq(92421, "Light's Justice"), pq(92422, "The Wrath of Rath'mael"), pq(95216, "The New Plague") } })`;
+const ROL_DONE = `${ROL}
+for _, id in ipairs({ 356, 99156, 447, 450, 451 }) do DONE[id] = true end`;
+const MARAUDON = `${OUTSIDE_WORLD}
+uistub.player.level = 46; UnitLevel = function() return 46 end
+Polestar.Compat.GetPlayerMapPosition = function() return 1443, 44, 84 end
+local K = "maraudon"
+NPCS[13717] = npc(13717, "Centaur Pariah", 1443, 46.1, 86.4)
+NPCS[13742], NPCS[13741], NPCS[13740] = mob(13742, "Kolk", 1443, 29.8, 60.3), mob(13741, "Gelk", 1443, 29.1, 57.2), mob(13740, "Magra", 1443, 35.2, 60.2)
+NPCS[13739], NPCS[13738] = inside(13739, "Maraudos", K), inside(13738, "Veng", K)
+NPCS[13718] = mob(13718, "The Nameless Prophet", 1443, 28.1, 63)
+ITEMS[17761], ITEMS[17762], ITEMS[17763] = drop(17761, "Gem of the First Khan", 13742), drop(17762, "Gem of the Second Khan", 13741), drop(17763, "Gem of the Third Khan", 13740)
+ITEMS[17764] = { id = 17764, name = "Gem of the Fourth Khan", sources = { { type = "drop", npc = 13739, chance = 100, instance = K } } }
+ITEMS[17765] = { id = 17765, name = "Gem of the Fifth Khan", sources = { { type = "drop", npc = 13738, chance = 100, instance = K } } }
+ITEMS[17757] = drop(17757, "Amulet of Spirits", 13718)
+ITEMS[17758] = { id = 17758, name = "Amulet of Union", sources = {} }
+QUESTS[7067] = quest(7067, "The Pariah's Instructions", 13717, { { type = "item", id = 17758, count = 1, text = "Amulet of Union", madeFrom = { 17761, 17762, 17763, 17764, 17765, 17757 } } }, {}, 48)
+usePage({ key = K, name = "Maraudon", map = 349, minLevel = 46, maxLevel = 55, floor = 48, players = 5, zone = 1443, zoneName = "Desolace",
+	entrance = { map = 1443, x = 31, y = 60.8 }, quests = { pq(7067, "The Pariah's Instructions") } })`;
+// Each case in the house look and Blizzard's, Standard and Compact.
+const outsidePanels = (world, key) => ['polestar', 'blizzard'].flatMap((skin) => [false, true].map((compact) =>
+	kindPanel(`${world}\n${look(skin)}${compact ? '; Polestar.Set("ui.compact", true)' : ''}`, { key })));
 // Inside: the tracker's made-up run (UI.DungeonTracker.SAMPLE), floating with the guide window hidden,
 // or docked in the window on the Barrens guide.
 const trackerFloat = (extra = '') => `Polestar.Set("ui.shown", false)
@@ -1382,6 +1481,16 @@ Polestar.Dungeons.AttunementState = function() return { done = false } end`),
 		file: 'guide-kind-dungeon-scales.svg',
 		title: 'Dungeon guide, outside, at UI scale 0.64 and 1.5, Standard and Compact',
 		panels: [0.64, 1.5].flatMap((s) => [kindPanel(`Polestar.Set("ui.scale", ${s})`), kindPanel(`Polestar.Set("ui.scale", ${s}); Polestar.Set("ui.compact", true)`)]),
+	},
+	{
+		file: 'guide-kind-dungeon-chains.svg',
+		title: "Dungeon guide, outside, the Ruins of Lordaeron for a level 15 Forsaken: Rear Guard Patrol's step as the leveling view shows it, the pick-ups naming the chains they wait on, no way in yet; then with the chains done, the four pick-ups (house look and Blizzard's, Standard and Compact)",
+		panels: [...outsidePanels(ROL, 'ruins-of-lordaeron'), ...outsidePanels(ROL_DONE, 'ruins-of-lordaeron')],
+	},
+	{
+		file: 'guide-kind-dungeon-outside.svg',
+		title: "Dungeon guide, outside, Maraudon: The Pariah's Instructions' gems out in the outer caves before the way in (house look and Blizzard's, Standard and Compact)",
+		panels: outsidePanels(MARAUDON, 'maraudon'),
 	},
 	{
 		file: 'dungeon-tracker.svg',

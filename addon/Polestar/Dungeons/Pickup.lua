@@ -108,7 +108,7 @@
 --       only out in the world and not done yet (an NPC or object placed outside every
 --       instance, an item no source inside any instance gives; an item placed nowhere
 --       but made from parts: a collect of each part only the world gives, The Pariah's
---       Instructions' three Khans' gems). optional: none of its places in the
+--       Instructions' three Khans' gems; an item collected at its giver is that stop's, #4042). optional: none of its places in the
 --       entrance's zone and the trip there from the entrance and back over
 --       PICKUP_DETOUR minutes (each goal carries `optional` then). The pick-up guide
 --       makes each page quest's work a step of its own, after its accept, on the
@@ -1543,7 +1543,11 @@ local function partGoal(itemId, here)
 		local x = (src.type == "drop" and src.npc and C.Npc(src.npc)) or (src.type == "object" and src.object and C.Object(src.object)) or nil
 		if placedOutside(x) then
 			local s, t = Lk.Nearest(x.spawns, here)
-			if s and (not best or (t and (not bestT or t < bestT))) then best, bestT, bestSrc = s, t, { src = src, rec = x } end
+			-- A spawn on the way in's own map before one the data has on another map of the same place (a
+			-- continent's: the Khans' spirits).
+			local better = s and (not best or (here and s.map == here.map and best.map ~= here.map)
+				or ((not here or (s.map == here.map) == (best.map == here.map)) and t and (not bestT or t < bestT)))
+			if better then best, bestT, bestSrc = s, t, { src = src, rec = x } end
 		end
 	end
 	if not best then return nil end
@@ -1601,10 +1605,19 @@ function Dungeons.OutsideWork(plan)
 	local e = plan.dungeon.entrance
 	local here = located(e) and { map = e.map, x = e.x, y = e.y, f = e.f == "e" and "e" or nil } or nil
 	local seen = {}
-	local function work(r, take)
+	-- giver: where the quest is taken (the take's, the page's for a carried one): an item collected right
+	-- there (atGiver, #4042: Blueleaf Tubers' crate, manual and stick) is that stop's, not work of its own.
+	local function work(r, take, giver)
 		if not r or seen[r.id] then return end
 		seen[r.id] = true
 		local goals = workGoals(r, here)
+		if giver then
+			local there = {}
+			for _, g in ipairs(atGiver(r, giver)) do if g.item then there[g.item] = true end end
+			local kept = {}
+			for _, g in ipairs(goals) do if not (g.item and there[g.item]) then kept[#kept + 1] = g end end
+			goals = kept
+		end
 		if #goals == 0 then return end
 		local far = farWork(goals, e)
 		if far then for _, g in ipairs(goals) do g.optional = true end end
@@ -1630,10 +1643,13 @@ function Dungeons.OutsideWork(plan)
 					chain = { n = n, of = math.max(n, of) }, opens = t.quest.id }
 			end
 		end
-		work(t.rec or C.Quest(t.quest.id), true)
+		work(t.rec or C.Quest(t.quest.id), true, t.giver)
 	end
 	for _, pq in ipairs(plan.carried or {}) do
-		if not (ns.Compat.IsQuestReadyForTurnIn and ns.Compat.IsQuestReadyForTurnIn(pq.id)) then work(C.Quest(pq.id), false) end
+		if not (ns.Compat.IsQuestReadyForTurnIn and ns.Compat.IsQuestReadyForTurnIn(pq.id)) then
+			local r = C.Quest(pq.id)
+			work(r, false, r and Dungeons.Giver(pq, here, r))
+		end
 	end
 	return out
 end

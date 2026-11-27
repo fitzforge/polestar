@@ -343,3 +343,58 @@ fn every_class_at_58_and_60_sees_each_dungeon_pick_up_quest_once_and_only_its_ow
 	}
 	assert!(bad.is_empty(), "{} pick-up steps with another class's copy or one title twice:\n{}", bad.len(), bad.join("\n"));
 }
+
+const OUTSIDE: &str = r#"
+stub.login()
+local D, C, Q = Polestar.Dungeons, Polestar.Codex, Polestar.QuestDB
+if Q and Q.Load then Q.Load() end
+local rows, bad = {}, {}
+for _, d in ipairs(D.List()) do
+	local plan = D.PickupPlan(d.key)
+	for _, w in ipairs(plan and D.OutsideWork(plan) or {}) do
+		local g = {}
+		for _, x in ipairs(w.goals) do
+			local what = x.t .. " " .. tostring(x.target or x.npcName or x.itemName or x.objName or x.title or "")
+			if x.count and x.count > 1 then what = what .. " x" .. x.count end
+			g[#g + 1] = what
+			-- A page quest's work out in the world: every goal placed, none on an NPC or object the Codex puts
+			-- inside an instance (a chain's quest is the prerequisite step it always was).
+			local placed = x.map and x.x and x.y
+			local inside = (x.npc and (C.Npc(x.npc) or {}).instance) or (x.object and (C.Object(x.object) or {}).instance)
+			if not w.chain and (not placed or inside) then
+				bad[#bad + 1] = string.format("%s %d %s: %s %s", d.key, w.quest, tostring(w.title), what, placed and ("inside " .. tostring(inside)) or "unplaced")
+			end
+		end
+		local kind = w.chain and string.format("chain %d of %d", w.chain.n, w.chain.of) or (w.take and "take" or "carried")
+		rows[#rows + 1] = string.format("%s\t%d\t%s\t%s%s\t%s", d.key, w.quest, tostring(w.title), kind, w.optional and ", optional" or "", table.concat(g, "; "))
+	end
+end
+emit({ rows = rows, bad = bad })
+"#;
+
+// #4379 sweep: every dungeon's and raid's work out in the world before the way in (Dungeons.OutsideWork) on the
+// real Codex, for a character of each faction at 60 holding nothing: each goal is placed out in the world, none on
+// an NPC or object the Codex puts inside an instance (the run's work stays the run's). The list prints for the
+// review (cargo test -- --nocapture).
+#[test]
+fn the_work_out_in_the_world_before_each_dungeon_s_way_in_is_placed_outside_every_instance() {
+	if skip() {
+		return;
+	}
+	let mut bad: Vec<String> = Vec::new();
+	for (race, cls, faction, map, x, y) in [HORDE[1], ALLIANCE[0]] {
+		let before = format!(
+			"{}\nlocal w = stub.world\n{}\nw.level, w.race, w.raceName, w.faction = 60, {race:?}, {race:?}, {faction:?}\nw.class, w.className = {cls:?}, {cls:?}\nw.moveTo({map}, {x}, {y})",
+			packs_lua(),
+			maps_lua()
+		);
+		let out = emitted(&RunAddon { stubs: vec!["stub_world.lua", "stub_quests.lua"], before, addons: vec![Addon::name("Polestar")], login: false, script: OUTSIDE.into(), ..Default::default() }).remove(0);
+		for r in out["rows"].as_array().into_iter().flatten() {
+			eprintln!("{faction}\t{}", r.as_str().unwrap_or(""));
+		}
+		for b in out["bad"].as_array().into_iter().flatten() {
+			bad.push(format!("{faction}: {}", b.as_str().unwrap_or("")));
+		}
+	}
+	assert!(bad.is_empty(), "work out in the world that is not:\n{}", bad.join("\n"));
+}

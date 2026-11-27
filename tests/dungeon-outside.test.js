@@ -205,7 +205,7 @@ emit({ titles = titles, step = v.title, first = first, rows = taken, pickupsUnde
 	assert.equal(out.pickupsUnder, true, "the pick-ups sit under the step's rows");
 	assert.equal(out.go, false, 'Guide me to the entrance hides while work is left');
 	assert.equal(out.checks, true, 'each pick-up is a goal row with its tick box');
-	assert.ok(out.subs.some((s) => /After .Rear Guard Patrol. · Chain: 1 of 2/.test(s)), out.subs.join(' | '));
+	assert.ok(out.subs.some((s) => /^Deathguard Kristof · (After .* · )?Chain: 1 of 2$/.test(s)), `the title may give way, the chain's count stays: ${out.subs.join(' | ')}`);
 });
 
 test('a pick-up ticks when accepted and stays until the step moves on; the count follows', () => {
