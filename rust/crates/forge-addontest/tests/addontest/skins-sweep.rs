@@ -213,9 +213,8 @@ fn the_free_mode_page_and_its_step_line_follow_every_skin_live_through_skin_part
 
 // The Free mode page's hero (off: Polestar_FreeMode/Hero.lua), through every skin, live, in each of its
 // compositions: Activate is the skin's button (`button`), and the art and text paint from the skin's tokens (the
-// emblem and its glow in the accent, the quests' stars' names in the quest colour, the tagline in text, the lead and
-// the points' lines in textDim, the points' glyphs in the accent), so a skin or scheme restyles the hero without a
-// part of its own.
+// emblem and its glow in the accent, the quests' stars' names in the quest colour, the tagline in text, the lead in
+// textDim, the line under the button in textMuted), so a skin or scheme restyles the hero without a part of its own.
 const HERO: &str = r#"
 local T, F, UI = Polestar.Theme, Polestar.Free, Polestar.UI
 w.accept(7001, { { text = "Ridge Gnoll slain: 0/5", required = 5 } }, "Gnoll Trouble")
@@ -243,8 +242,7 @@ for _, d in ipairs({ "sky", "polaris", "seal" }) do
 			glow = same(rgb(H.Glow:GetVertexColor()), accent),
 			title = same(rgb(H.Title:GetTextColor()), rgb(T.Color("text"))),
 			lead = same(rgb(H.Lead:GetTextColor()), rgb(T.Color("textDim"))),
-			point = same(rgb(H.Points[2].Text:GetTextColor()), rgb(T.Color("textDim"))),
-			glyph = same(rgb(H.Points[2].Icon:GetVertexColor()), accent),
+			note = same(rgb(H.Back:GetTextColor()), rgb(T.Color("textMuted"))),
 			quest = d ~= "sky" or same(rgb(H.Labels[1].title:GetTextColor()), rgb(T.Color("quest"))),
 		}
 	end
@@ -267,7 +265,7 @@ fn the_free_mode_hero_follows_every_skin_live_in_each_composition_through_the_sk
 	for (k, s) in all {
 		let skin = k.split(':').nth(1).unwrap();
 		assert_eq!(s["button"], json!(skin), "{k}: Activate painted by the skin in use");
-		for token in ["emblem", "glow", "title", "lead", "point", "glyph", "quest"] {
+		for token in ["emblem", "glow", "title", "lead", "note", "quest"] {
 			assert_eq!(s[token], true, "{k}: {token} in the skin's own token");
 		}
 	}

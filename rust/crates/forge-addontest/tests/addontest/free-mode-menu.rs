@@ -1,7 +1,7 @@
 //! Free mode in the main window (addon/Polestar/UI/FreeMode.lua, Polestar_FreeMode/Page.lua): its menu item right under
 //! Guides with its running figure, and its three pages, the sidebar's three entries whether Free mode is on or off:
-//! Main page (the hero: the log's first quests in Free mode's order as stars; off one Activate at its centre and the
-//! three points, every time, used before or not; on the same hero with "Free mode is on · following N quests" over one
+//! Main page (the hero: the log's first quests in Free mode's order as stars; off one Activate at its centre, every
+//! time, used before or not, how it works left to the About page; on the same hero with "Free mode is on · following N quests" over one
 //! Turn off Free mode that goes back to the guide named on the line under it), Your quests (on or off: the route
 //! numbered in Free mode's order, the quest it leads to marked while on, the order, the hand-in card and the NPC lines
 //! over finished quests, the quests left out folded with Bring back; off, Activate beside it) and About Free mode (its
@@ -175,7 +175,7 @@ for _, r in ipairs(s) do rows[#rows + 1] = { r.n, r.title } end
 local labels = {}
 for i = 1, 3 do labels[i] = H.Labels[i].title:IsShown() and H.Labels[i].title:GetText() or false end
 local got = { page = s.page, on = s.on, hero = s.hero, lead = s.lead, more = s.more, start = s.start, note = s.note, rows = rows, order = order, labels = labels,
-	intro = { H.Title:IsShown(), H.Lead:IsShown(), H.Points[1]:IsShown(), H.Points[3]:IsShown(), H.Back:IsShown(), H.Emblem:IsShown() },
+	intro = { H.Title:IsShown(), H.Lead:IsShown(), H.Back:IsShown(), H.Emblem:IsShown() }, points = H.Points ~= nil,
 	button = P.parts.Start:IsShown() and P.parts.Start.Label:GetText() or false, order_shown = P.parts.Near:IsShown(),
 	stop = P.parts.Stop:IsShown(), status = H.Status:IsShown() }
 P.parts.Start:Click()
@@ -187,7 +187,8 @@ emit(got)
 	assert_eq!(text(&o["page"]), "main");
 	assert_eq!(o["on"], false);
 	assert_eq!(text(&o["hero"]), "sky", "the constellation by default");
-	assert_eq!(o["intro"], json!([true, true, true, true, true, true]), "the tagline and lead, the three points, the line under the button, the emblem");
+	assert_eq!(o["intro"], json!([true, true, true, true]), "the tagline and its subtitle, the line under the button, the emblem");
+	assert_eq!(o["points"], false, "how it works is the About page's, not the Main page's");
 	let order = strs(&o["order"]);
 	assert_eq!(o["rows"], json!([[1, order[0]], [2, order[1]], [3, order[2]]]), "the first three in Free mode's own order");
 	assert_eq!(o["labels"], json!([order[0], order[1], order[2]]), "a star each, named, in that order");
@@ -217,7 +218,7 @@ local function intro()
 	P.Render()
 	local s = P.Shown()
 	return { page = s.page, on = s.on, hero = s.hero, lead = s.lead, more = s.more, start = s.start, count = #s, note = s.note,
-		title = H.Title:IsShown(), points = H.Points[1]:IsShown() and H.Points[3]:IsShown(), emblem = H.Emblem:IsShown(),
+		title = H.Title:IsShown(), subtitle = H.Lead:IsShown(), points = H.Points ~= nil, emblem = H.Emblem:IsShown(),
 		order = P.parts.Near:IsShown(), left_out = P.parts.OutH:IsShown(), route = P.parts.RouteH:IsShown(),
 		button = P.parts.Start:IsShown() and P.parts.Start.Label:GetText() or false, nav = keys() }
 end
@@ -240,7 +241,8 @@ emit({ first = first, on = on, again = again, kept = F.Used ~= nil or F.MarkUsed
 	assert_eq!(text(&a["button"]), "Activate Free mode");
 	assert_eq!(a["count"], 3, "the first three it would take");
 	assert_eq!(a["more"], 1);
-	assert_eq!((a["title"].clone(), a["points"].clone(), a["emblem"].clone()), (json!(true), json!(true), json!(true)), "the tagline, the three points, the emblem");
+	assert_eq!((a["title"].clone(), a["subtitle"].clone(), a["emblem"].clone()), (json!(true), json!(true), json!(true)), "the tagline, its subtitle, the emblem");
+	assert_eq!(a["points"], false, "no how-it-works points on the Main page");
 	assert_eq!((a["order"].clone(), a["left_out"].clone(), a["route"].clone()), (json!(false), json!(false), json!(false)), "no order, folds or route rows on the Main page");
 	assert_eq!(strs(&a["nav"]), ["main", "quests", "about"], "the same sidebar off as on");
 	assert_eq!(o["kept"], false, "nothing remembers a first use any more");
@@ -346,6 +348,86 @@ emit(out)
 	assert!(strs(&o["backs"]).is_empty(), "no Back to <guide> button: {}", o["backs"]);
 	assert_eq!(o["back"], false, "the Back button is gone");
 	assert_eq!(o["after"], json!(["test/route", false, "main", "Activate Free mode"]), "Turn off hands the arrow back; the page is the intro again");
+}
+
+// Fitz, try7: "The Gnoll Bounty star should be centred, inline with everything else on the page." The hero's trail
+// stands on the page's centre axis, the axis of the tagline, the state line and the button: three quests' middle star
+// on it, two quests' midpoint, a lone quest's star; the emblem and the path's end two steps either side, so the trail
+// is even about the axis; "and N more" inside the content's right edge with room to spare. At the hub's least width and
+// a wide one, scale 0.64 and 1, the house look and the game's, off and on.
+#[test]
+fn the_hero_s_trail_stands_on_the_page_s_centre_axis_with_one_two_or_three_quests_at_every_width() {
+	let out = run(r#"
+local P = page()
+local H = F.Hero.parts
+local function mid(f)
+	local _, _, _, x = f:GetPoint(1)
+	return x + f:GetWidth() / 2
+end
+local out = {}
+local function measure(tag)
+	for _, w in ipairs({ 860, 1600 }) do
+		PolestarPicker:SetSize(w, 760)
+		P.Render()
+		local s = P.Shown()
+		local b = F.IsOn() and P.parts.Stop or P.parts.Start
+		local stars = {}
+		for i, x in ipairs(s.stars or {}) do stars[i] = x end
+		local labels = {}
+		for i = 1, #stars do labels[i] = mid(H.Labels[i].title) end
+		out[#out + 1] = { tag = tag, w = w, n = #stars, centre = P.parts.Start:GetParent():GetWidth() / 2, title = mid(H.Title), button = mid(b),
+			stars = stars, labels = labels, more = s.moreRight or false, right = s.right or false }
+	end
+end
+take(7001)
+measure("1")
+take(7002)
+measure("2")
+take(7003)
+measure("3")
+Polestar.Set("ui.pickerScale", 0.64)
+Polestar.Set("ui.skin", "blizzard")
+stub.advance(0.3)
+measure("3 at 0.64, blizzard")
+Polestar.Set("ui.pickerScale", 1)
+Polestar.Set("ui.skin", "polestar")
+take(7101)
+measure("4")
+assert(F.Start())
+stub.advance(1)
+page()
+measure("4, on")
+emit(out)
+"#);
+	let all = out[0].as_array().unwrap();
+	assert_eq!(all.len(), 12, "six cases at two widths");
+	let f = |v: &Value| v.as_f64().unwrap();
+	for o in all {
+		let what = format!("{} quests at {}", text(&o["tag"]), o["w"]);
+		let c = f(&o["centre"]);
+		assert!((f(&o["title"]) - c).abs() <= 1.0, "{what}: the tagline on the axis: {o}");
+		assert!((f(&o["button"]) - c).abs() <= 1.0, "{what}: the button on the axis: {o}");
+		let stars: Vec<f64> = o["stars"].as_array().unwrap().iter().map(f).collect();
+		let labels: Vec<f64> = o["labels"].as_array().unwrap().iter().map(f).collect();
+		let middle = match stars.len() {
+			1 => stars[0],
+			2 => (stars[0] + stars[1]) / 2.0,
+			_ => stars[1],
+		};
+		assert!((middle - c).abs() <= 1.0, "{what}: the middle star (or midpoint) on the page's centre: {middle} vs {c}");
+		if stars.len() == 3 {
+			assert!(((c - stars[0]) - (stars[2] - c)).abs() <= 1.0, "{what}: the first and third stars even about it: {o}");
+		}
+		for (s, l) in stars.iter().zip(&labels) {
+			assert!((s - l).abs() <= 1.0, "{what}: each name centred on its star: {o}");
+		}
+		if o["more"] != json!(false) {
+			assert!(f(&o["more"]) <= f(&o["right"]) - 16.0, "{what}: and N more inside the content, clear of its edge: {o}");
+		}
+	}
+	let ns: Vec<i64> = all.iter().map(|o| o["n"].as_i64().unwrap()).collect();
+	assert_eq!(ns, [1, 1, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3]);
+	assert!(all[8]["more"] != json!(false) && all[10]["more"] != json!(false), "four quests: and 1 more, off and on");
 }
 
 #[test]

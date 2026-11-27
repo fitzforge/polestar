@@ -8769,10 +8769,10 @@ Polestar.FreeOrder.Sort(rows, rule, pin, last, dist) ; .Why(rows, rule, pin) ; .
   **Main page** (`Polestar_FreeMode/Hero.lua`): "Quest your own way" over the
   lead, the sky (the first three quests in Free mode's order, `Free.Route()`,
   as stars on a dotted path the Polestar emblem leads, each named with why it
-  comes there, "and N more"), one big button under it, a plain line under the
-  button and the three points (you pick up quests; Polestar plans the order;
-  the arrow leads). Off, every time (whether or not Free mode was used
-  before): "Activate Free mode" and "Turn it off any time, here or from the
+  comes there, "and N more"), one big button under it and a plain line under
+  the button; how Free mode works is the About page's. Off, every time
+  (whether or not Free mode was used before): "Activate Free mode" and "Turn
+  it off any time, here or from the
   guide window's menu." On: "Free mode is on · following N quests" over "Turn
   off Free mode" (`Free.Stop`) and "Takes you back to <guide>"
   (`Free.ReturnTitle`). The dev switch `PolestarDB.devFreeHero` ("sky" by

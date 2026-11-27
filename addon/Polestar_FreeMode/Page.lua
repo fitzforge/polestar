@@ -9,7 +9,7 @@
 --            to turn it off again. On: "Free mode is on · following N
 --            quests" over Turn off Free mode (Free.Stop: back to the guide
 --            the player came from) and the guide that is, as a plain line.
---            Then the three points.
+--            How it works is the About page's.
 --   quests   Your quests: whether Free mode is on (off: Activate beside it),
 --            which quest first, the hand-in card while quests are finished
 --            (their count, the trip's time, Route: UI.GuideCarried), then

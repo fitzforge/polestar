@@ -2237,7 +2237,7 @@ local r = b.Chains[1]; r:GetScript("OnEnter")(r)`) },
 	},
 	{
 		file: 'free-mode.svg',
-		title: 'The Free mode section of the hub, its three pages (the sidebar\'s Main page, Your quests, About Free mode): the Main page off (the hero: the log\'s first three quests as stars on a dotted path the emblem leads, one big Activate Free mode under them, the three points) and on (the same hero, "Free mode is on · following five quests" over one Turn off Free mode, the guide it goes back to as a plain line); Your quests off (the order Free mode would take, Activate beside it) and on (the order, the hand-in card, the route numbered with the current quest marked, two hand-ins under Marshal Hale, Ogre Menace left out); About Free mode (four drawn beats, when to use it, the way back)',
+		title: 'The Free mode section of the hub, its three pages (the sidebar\'s Main page, Your quests, About Free mode): the Main page off (the hero: the log\'s first three quests as stars on a dotted path the emblem leads, one big Activate Free mode under them) and on (the same hero, "Free mode is on · following five quests" over one Turn off Free mode, the guide it goes back to as a plain line); Your quests off (the order Free mode would take, Activate beside it) and on (the order, the hand-in card, the route numbered with the current quest marked, two hand-ins under Marshal Hale, Ogre Menace left out); About Free mode (four drawn beats, when to use it, the way back)',
 		panels: [
 			{ free: true, roots: PICKER, script: freeScene(freePage('main')) },
 			{ free: true, roots: PICKER, script: freeScene(`${FREE_ON}; ${freePage('main')}`) },

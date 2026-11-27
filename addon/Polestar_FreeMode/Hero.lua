@@ -2,11 +2,12 @@
 -- Polestar emblem and a faint constellation around it, the tagline, the
 -- player's own first quests in Free mode's order as stars, one big button at
 -- the centre (off: Activate Free mode; on: Turn off Free mode, under the line
--- "Free mode is on · following N quests"), a plain line under it (off: how to
--- turn it off again; on: the guide turning it off goes back to) and the three
--- points. Drawn only from the addon's own art (the emblem, its engraving, the
--- glow, a dot) and painted through Theme tokens, so the gold follows each
--- look's accent and the stars its star colour; the button is the Skin API's.
+-- "Free mode is on · following N quests"), and a plain line under it (off:
+-- how to turn it off again; on: the guide turning it off goes back to); how
+-- Free mode works is the About page's (About.lua). Drawn only from the
+-- addon's own art (the emblem, its engraving, the glow, a dot) and painted
+-- through Theme tokens, so the gold follows each look's accent and the stars
+-- its star colour; the button is the Skin API's.
 --
 -- Three compositions, one shown (dev switch: PolestarDB.devFreeHero, "sky",
 -- "polaris" or "seal"; unset is "sky"):
@@ -239,29 +240,6 @@ local function build(body)
 	parts.Back:SetJustifyH("CENTER")
 	parts.Back:SetWordWrap(true)
 	parts.Back:SetSpacing(2)
-	-- The three points, side by side: a glyph over a title over a line.
-	parts.Points = {}
-	for i, p in ipairs({
-		{ "icon-accept", L["You pick up quests"], L["Any quest, anywhere: Free mode follows your quest log, not a guide."] },
-		{ "sliders", L["Polestar plans the order"], L["The best trip for the walk, planned again whenever your log changes."] },
-		{ "icon-goto", L["The arrow leads"], L["To each objective and hand-in in turn, as in any guide."] },
-	}) do
-		local f = CreateFrame("Frame", nil, body)
-		f.Icon = W.Tex(f, "ARTWORK", p[1], "accent")
-		f.Icon:SetSize(16, 16)
-		f.Icon:SetPoint("TOP", f, "TOP", 0, 0)
-		f.Title = W.Text(f, "body", "text")
-		f.Title:SetJustifyH("CENTER")
-		f.Title:SetPoint("TOP", f, "TOP", 0, -24)
-		f.Title:SetText(p[2])
-		f.Text = W.Text(f, "small", "textDim")
-		f.Text:SetJustifyH("CENTER")
-		f.Text:SetWordWrap(true)
-		f.Text:SetSpacing(2)
-		f.Text:SetPoint("TOP", f.Title, "BOTTOM", 0, -5)
-		f.Text:SetText(p[3])
-		parts.Points[i] = f
-	end
 	-- The preview of the player's own quests: a hairline, the running
 	-- figure, the first quest and why, then the next ones.
 	parts.Rule = W.Divider(body)
@@ -286,9 +264,8 @@ end
 local function hide()
 	K.Reset()
 	for k, f in pairs(parts) do
-		if k ~= "Points" and k ~= "Labels" and type(f) == "table" and f.Hide then f:Hide() end
+		if k ~= "Labels" and type(f) == "table" and f.Hide then f:Hide() end
 	end
-	for _, p in ipairs(parts.Points or {}) do p:Hide() end
 	for _, l in ipairs(parts.Labels or {}) do
 		l.title:Hide()
 		l.why:Hide()
@@ -335,20 +312,6 @@ local function note(c, cx, y, width)
 	parts.Back:SetText(c.note)
 	c.shown.note = c.note
 	return centred(parts.Back, cx, y, width)
-end
-
--- The three points side by side across `width` from x -> the y under them.
-local function points(x, y, width)
-	local colW = floor(width / 3)
-	local bottom = y
-	for i, p in ipairs(parts.Points) do
-		p.Text:SetWidth(colW - 40)
-		p.Title:SetWidth(colW - 24)
-		p:SetSize(colW, 24 + 18 + 5 + p.Text:GetStringHeight())
-		at(p, x + (i - 1) * colW, y)
-		bottom = max(bottom, y + p:GetHeight())
-	end
-	return bottom
 end
 
 local function hex(name) return "|c" .. Theme.Hex(name) end
@@ -411,9 +374,18 @@ end
 -- sky: your quests as a constellation
 ---------------------------------------------------------------------------
 
--- The stars' places across the sky, as shares of its width from its centre
--- and units down from its top: the emblem, the three quests, the path's end.
-local SKY = { emblem = { -0.36, 92 }, { -0.15, 58 }, { 0.04, 128 }, { 0.23, 62 }, tail = { 0.40, 112 } }
+-- The trail on the page's centre axis (the axis of the tagline, the state line
+-- and the button), as shares of the sky's width from its centre and units down
+-- from its top. The quests' stars sit on it STEP apart, the middle one (or the
+-- midpoint of two, or a lone one) on the axis itself; the emblem leads two
+-- steps left of it and the path ends two steps right, so the whole trail is
+-- even about the axis. Each star's height is its slot's: up, down, up.
+local STEP = 0.17
+local SKY = { emblem = { -2 * STEP, 92 }, tail = { 2 * STEP, 112 } }
+local SLOT_Y = { 58, 128, 62 }
+-- The quests' places across the sky, by how many there are (three at most).
+local SLOT_X = { { 0 }, { -STEP / 2, STEP / 2 }, { -STEP, 0, STEP } }
+local MORE_GAP = 24 -- "and N more" keeps this clear of the content's right edge
 -- The background stars, unlinked: share of the width, y, radius.
 local FIELD = { { -0.46, 30, 1 }, { -0.27, 150, 1.2 }, { -0.05, 24, 0.9 }, { 0.19, 182, 1 }, { 0.33, 22, 1.1 }, { 0.46, 160, 0.9 },
 	{ -0.42, 170, 0.8 }, { 0.47, 70, 1 } }
@@ -430,14 +402,16 @@ local function sky(c, x, y, width, h)
 	local n = #c.route
 	local path = { { e[1] + 30, e[2] - 6 } }
 	local stars = {}
-	for i = 1, 3 do
-		if i <= n then
-			stars[i] = pt(SKY[i])
-			path[#path + 1] = stars[i]
-		end
+	local xs = SLOT_X[min(n, 3)] or {}
+	c.shown.centre, c.shown.stars = cx, {}
+	for i, share in ipairs(xs) do
+		stars[i] = pt({ share, SLOT_Y[i] })
+		path[#path + 1] = stars[i]
+		c.shown.stars[i] = stars[i][1]
 	end
 	local tail = pt(SKY.tail)
-	if n == 0 then tail = pt(SKY[1]) end
+	-- An empty log: the path ends at a dim star on the axis.
+	if n == 0 then tail = pt({ 0, SLOT_Y[2] }) end
 	path[#path + 1] = tail
 	K.Dots(smooth(path), "star", 0.55, n > 3 and 0.25 or 0.45)
 	for i, p in ipairs(stars) do
@@ -462,12 +436,17 @@ local function sky(c, x, y, width, h)
 	end
 	if n > 3 then
 		parts.More:SetText(format(L["and %d more"], n - 3))
-		at(parts.More, tail[1] - 4, tail[2] + 8)
-		c.shown.more = n - 3
+		parts.More:SetJustifyH("LEFT")
+		local tw = W.TextWidth and W.TextWidth(parts.More) or parts.More:GetStringWidth()
+		parts.More:SetWidth(tw + 2)
+		local mx = min(tail[1] - 4, x + width - MORE_GAP - tw)
+		at(parts.More, mx, tail[2] + 8)
+		c.shown.more, c.shown.moreRight, c.shown.right = n - 3, mx + tw, x + width
 	elseif n == 0 then
-		parts.More:SetText(L["Pick up quests and Free mode leads you to them."])
 		star(tail[1], tail[2], 1.6, "star", 0.6)
-		at(parts.More, tail[1] + 14, tail[2] - 7)
+		parts.More:SetText(L["Pick up quests and Free mode leads you to them."])
+		parts.More:SetJustifyH("CENTER")
+		centred(parts.More, tail[1], tail[2] + 14, min(width, 400))
 		c.shown.empty = true
 	end
 end
@@ -484,8 +463,7 @@ local function laySky(c)
 	y = y + 200 + 4
 	if c.on then y = status(c, cx, y) + 12 end
 	y = button(c, cx, y)
-	y = note(c, cx, y + 10, min(width, 520)) + 28
-	y = points(x, y, width)
+	y = note(c, cx, y + 10, min(width, 520))
 	return y + 32
 end
 
@@ -531,7 +509,6 @@ local function layPolaris(c)
 	if c.on then y = status(c, cx, y) + 12 end
 	y = button(c, cx, y)
 	y = note(c, cx, y + 10, min(width, 520)) + 36
-	y = points(x, y, width) + 28
 	record(c, 3)
 	return strip(c, x, y, width) + 28
 end
@@ -574,7 +551,6 @@ local function laySeal(c)
 	local ny = status(c, cx, cy + 36)
 	note(c, cx, ny + (c.on and 6 or 0), 250)
 	y = cy + size / 2 + 20
-	y = points(x, y, width) + 28
 	record(c, 3)
 	return strip(c, x, y, width) + 28
 end
