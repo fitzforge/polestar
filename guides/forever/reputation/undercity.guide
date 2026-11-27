@@ -272,6 +272,8 @@ step Plaguebats, Quel'Lithien Lodge and Corin's Crossing
   kill 8565 x8 quest 6133.1           -- Pathstrider
   kill 8563 x8 quest 6133.3           -- Woodsman
   collect 15847 quest 6133.4          -- Quel'Thalas Registry
+  collect 15447 x7
+  use 15454 quest 6022.1 @52.6,58.6
   collect 15448 quest 6022.1 @52.6,58.6 -- Coagulated Rot: 7 Living Rot and the Mortar and Pestle
 
 step Nathanos: hand in

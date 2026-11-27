@@ -137,6 +137,7 @@ step Field of Giants
   zone The Barrens
   tip South of Camp Taurajo, on the road to Gann, the Silithid Mounds dot the Field of Giants; the eggs lie in them, and Silithid Swarmers come out to defend them.
   tip Careful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit.
+  use 5059 quest 868.1 @44.9,69.4 map 1413
   collect 5058 quest 868.1
 
 step The Barrens
@@ -362,6 +363,7 @@ step The Charred Vale: kill these as you meet them
   collect 16312 quest 6393
   collect 277936 quest 86576.1        -- Glittering Sunstone, from any Bloodfury harpy
   kill 4022 quest 6282.1
+  use 16208 quest 6381.1 @35.2,63.7 map 1442
   interact 177929 quest 6381          -- Gaea Dirt Mounds
   kill 4023 quest 6282.4
   kill 4024 quest 6282.3

@@ -270,6 +270,7 @@ step Mystral Lake
   tip Careful: Tideress, a level 27 water elemental, walks the lake's west shore among them: leave it be.
   accept 1016                             -- Sentinel Velene Starstrike
   collect 12220 x5 optional           -- Underwater
+  use 5456 quest 1016.1 @49.6,71.3
   collect 5455 quest 1016 @49.6,71.3      -- Kill the elementals for 5 Intact Elemental Bracers, then use the Divining Scroll
   turnin 1016
 

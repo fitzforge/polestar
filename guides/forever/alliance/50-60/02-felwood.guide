@@ -59,6 +59,8 @@ step Jadefire Glen
   tip Careful: Jadefire Shadowstalkers (level 51-52) use Sneak and Slowing Poison and are stealthed, so they often join fights uninvited.
   tip Cursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains.
   kill 7109 quest 4421.1              -- Jadefire Felsworn
+  use 11912 @40.4,72.5 map 1448
+  use 11914 quest 4512.1 @40.4,72.5 map 1448
   collect 11947 quest 4512.1          -- Filled Cursed Ooze Jar
 
 step Ruins of Constellas
@@ -75,6 +77,7 @@ step Jaedenar
   kill 7113 quest 5155.2 @38.5,61.1   -- Jaedenar Guardian
   kill 7115 quest 5155.3 @38.2,61.5   -- Jaedenar Adept
   kill 7112 quest 5155.4 @38.2,61.1   -- Jaedenar Cultist
+  use 11948 quest 4512.2 @40.3,58.9 map 1448
   collect 11949 quest 4512.2          -- Filled Tainted Ooze Jar: Tainted Oozes slide about Jaedenar's fel pools
 
 step Putrescent organs: kill these as you meet them

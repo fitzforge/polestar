@@ -301,6 +301,7 @@ step Defias Trappers and Smugglers
   kill 504 quest 12
 
 step Molsen Farm's well
+  use 254545 quest 92742.2 @46.1,38.2
   collect 254547 quest 92742.2 @46.1,38.2     -- Fill the vial at the farm's well
 
 step The gnoll hills
@@ -326,6 +327,7 @@ step Furlbrow's Wardrobe
 
 step The Jansen Stead
   collect 1528 quest 151 @56.9,20.7           -- Sacks of Oats in the fields around the farm
+  use 254545 quest 92742.1 @56.6,18.6
   collect 254546 quest 92742.1 @56.6,18.6     -- Fill the vial at the well
   turnin 64                                   -- Farmer Furlbrow
   turnin 151                                  -- Verna Furlbrow

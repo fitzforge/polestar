@@ -179,5 +179,6 @@ step Good Luck Other-Half-Charm
   tip Jabbering Ghouls on Felstone Farm carry the Good Luck Other-Half-Charm: kill them until one drops it, then right-click the halves in your bags to join them into the Good Luck Charm, and take it to Janice upstairs.
   when onquest 5051
   collect 12722 x1 "Good Luck Other-Half-Charm"
+  use 12722 quest 5051.1 @38.4,54.0 map 1422
   complete 5051
   turnin 5051

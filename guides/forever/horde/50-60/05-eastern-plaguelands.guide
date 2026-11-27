@@ -164,6 +164,7 @@ step Pamela's Doll
   collect 12886                       -- Inside
   collect 12887
   collect 12888                       -- Inside
+  use 12886 quest 5149.1 @38.5,91.4 map 1423
   collect 12885 quest 5149 @38.5,91.4
 
 step Pamela Redpath
@@ -329,6 +330,7 @@ step Terrordale: kill these as you meet them
   tip The Large Termite Mounds stand all over the hills east of Terrordale. Use the Empty Termite Jar on each mound you pass.
   tip Careful: Ziggurat Protectors (58, elite) stand by the ziggurats east and north-east of the town: take the mounds nearer the town and stay clear of them.
   collect 15884 quest 6164 @17.4,31.1 -- Upstairs
+  use 15042 quest 5901.1 @15.9,26.8 map 1423 live
   collect 15043 quest 5901
   collect 12840 x20 optional -- Minion's Scourgestones: the Terrordale undead drop them while you wear the Argent Dawn Commission
 
@@ -362,6 +364,7 @@ step Corin's Crossing
   kill 8531 optional                  -- Gibbering Ghoul: leaves a spirit too
   kill 8532 optional                  -- Diseased Flayer: leaves a spirit too
   collect 15447 x7
+  use 15454 quest 6022.1 @52.3,58.2 live
   complete 6022
 
 step Carlin Redpath
