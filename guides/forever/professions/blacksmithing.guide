@@ -51,6 +51,9 @@ zone Azeroth
 #   with Plans: Radiant Boots and Plans: Radiant Leggings:
 #    270-290 22 Radiant Boots: 88 Heart of Fire, 308 Thorium Bar
 #    290-300 10 Radiant Leggings: 40 Heart of Fire, 200 Thorium Bar
+#   with Plans: Radiant Boots:
+#    270-290 22 Radiant Boots: 88 Heart of Fire, 308 Thorium Bar
+#    290-300 10 Imperial Plate Leggings: 20 Star Ruby, 440 Thorium Bar
 #   with Plans: Thorium Leggings:
 #    270-275 11 Imperial Plate Bracers: 11 Star Ruby, 220 Thorium Bar
 #    275-300 27 Thorium Leggings: 108 Red Power Crystal, 702 Thorium Bar
@@ -440,12 +443,17 @@ step Get 60 Solid Stone
 step Learn Solid Grinding Stone
   learn 9920 npc 4258,3355
 
+step Learn Solid Sharpening Stone
+  tip For 180-185: taught here now, so no second trip.
+  learn 9918 npc 4258,3355
+
+step Learn Golden Scale Bracers
+  tip For 185-195: taught here now, so no second trip.
+  learn 7223 npc 4258,3355
+
 step Craft 8 Solid Grinding Stones until 180
   tip About 8 crafts. Keep all 8 for the step at 210.
   craft 9920 until 180
-
-step Learn Solid Sharpening Stone
-  learn 9918 npc 4258,3355
 
 step Craft 28 Solid Sharpening Stones until 185
   tip About 28 crafts. Green from 180: short of 185? A few more do it.
@@ -472,9 +480,6 @@ step Get 75 Steel Bar
   loop Riverglades lvl 39 lap 310 yield 2.0 only Horde live r 60 at 69.3,61.7 71.3,60.1 72.6,58.5 69.9,54.1 70.1,48.8 64.2,48.8 64.4,66.6 65.7,71.9 66.7,68.3 67.8,65.1
   loop Alterac Mountains lvl 38 lap 641 yield 3.6 only Horde r 60 at 50.9,44.2 53.2,48.4 54.1,45.6 55.1,40.6 52.7,36.8 48.0,33.1 42.8,34.7 37.9,32.5 35.6,39.7 33.3,43.9 39.5,38.0 45.4,39.8
   auction 3859 x75
-
-step Learn Golden Scale Bracers
-  learn 7223 npc 4258,3355
 
 step Go to an anvil
   goto 51.8,40.8 "Anvil" map 1411 nearest only Horde
@@ -1197,12 +1202,14 @@ step Learn Radiant Boots
 
 step Get 88 Heart of Fire
   when knows 16656
+  when has 12713
   tip For 22 Radiant Boots.
   collect 7077 x88 nearest gather levels 44-55
   auction 7077 x88
 
 step Get 308 Thorium Bar
   when knows 16656
+  when has 12713
   tip For 22 Radiant Boots. No Mining? The bars, not the ore.
   collect 12359 x308 gather Mining 250
   loop Winterspring lvl 59 lap 705 yield 4.9 only Alliance r 60 at 70.4,40.3 69.1,39.8 56.3,25.6 57.3,32.8 56.0,49.0 55.5,50.7 54.1,50.4 56.0,53.8 57.8,61.1 56.9,50.4 58.4,46.6 69.4,41.9
@@ -1218,6 +1225,7 @@ step Get 308 Thorium Bar
 
 step Go to an anvil
   when knows 16656
+  when has 12713
   goto 51.8,40.8 "Anvil" map 1411 nearest only Horde
   goto 56.3,74.4 "Anvil" map 1411 nearest only Horde
   goto 51.2,28.9 "Anvil" map 1413 nearest only Horde
@@ -1255,6 +1263,7 @@ step Go to an anvil
 
 step Craft 22 Radiant Boots until 290
   when knows 16656
+  when has 12713
   tip About 22 crafts.
   craft 16656 until 290
 
@@ -1262,12 +1271,14 @@ section Blacksmithing 290-300
 
 step Get 40 Heart of Fire
   when knows 16656
+  when has 12713
   tip For 10 Radiant Leggings.
   collect 7077 x40 nearest gather levels 44-55
   auction 7077 x40
 
 step Get 200 Thorium Bar
   when knows 16656
+  when has 12713
   tip For 10 Radiant Leggings. No Mining? The bars, not the ore.
   collect 12359 x200 gather Mining 250
   loop Winterspring lvl 59 lap 705 yield 4.9 only Alliance r 60 at 70.4,40.3 69.1,39.8 56.3,25.6 57.3,32.8 56.0,49.0 55.5,50.7 54.1,50.4 56.0,53.8 57.8,61.1 56.9,50.4 58.4,46.6 69.4,41.9
@@ -1283,11 +1294,13 @@ step Get 200 Thorium Bar
 
 step Learn Radiant Leggings
   when knows 16656
+  when has 12713
   tip From the plans in your bags.
   learn 16725
 
 step Go to an anvil
   when knows 16656
+  when knows 16725
   goto 51.8,40.8 "Anvil" map 1411 nearest only Horde
   goto 56.3,74.4 "Anvil" map 1411 nearest only Horde
   goto 51.2,28.9 "Anvil" map 1413 nearest only Horde
@@ -1325,8 +1338,168 @@ step Go to an anvil
 
 step Craft 10 Radiant Leggings until 300
   when knows 16656
+  when knows 16725
   tip About 10 crafts.
   craft 16725 until 300
+
+section Blacksmithing 270-290
+
+step Get 88 Heart of Fire
+  when !has 12713
+  when !knows 16725
+  when knows 16656
+  tip For 22 Radiant Boots.
+  collect 7077 x88 nearest gather levels 44-55
+  auction 7077 x88
+
+step Get 308 Thorium Bar
+  when !has 12713
+  when !knows 16725
+  when knows 16656
+  tip For 22 Radiant Boots. No Mining? The bars, not the ore.
+  collect 12359 x308 gather Mining 250
+  loop Winterspring lvl 59 lap 705 yield 4.9 only Alliance r 60 at 70.4,40.3 69.1,39.8 56.3,25.6 57.3,32.8 56.0,49.0 55.5,50.7 54.1,50.4 56.0,53.8 57.8,61.1 56.9,50.4 58.4,46.6 69.4,41.9
+  loop Un'Goro Crater lvl 56 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
+  loop Felwood lvl 54 lap 811 yield 3.5 only Alliance r 60 at 57.6,17.3 59.2,19.4 61.3,21.3 58.7,22.8 43.8,62.1 38.9,55.1 43.2,46.7 43.4,41.2 38.1,32.2 39.8,22.3 46.2,13.5 48.6,23.8
+  loop Azshara lvl 55 lap 688 yield 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
+  loop Winterspring lvl 58 lap 621 yield 4.0 only Horde r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
+  loop Burning Steppes lvl 53 lap 615 yield 1.9 only Horde r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
+  loop The Hinterlands lvl 51 lap 718 yield 2.2 only Horde r 60 at 54.9,67.3 52.1,65.4 33.7,65.0 37.1,67.5 57.9,84.2 72.6,61.9 65.5,41.2 59.1,41.5 57.0,43.1 66.8,52.4 64.4,64.2 56.6,68.6
+  loop Felwood lvl 52 lap 616 yield 1.8 only Horde r 60 at 36.2,68.9 37.9,68.0 38.3,70.6 40.1,74.1 42.1,78.4 39.7,81.0 42.8,84.1 44.9,85.5 47.3,76.1 45.2,66.6 43.8,62.1 36.6,62.7
+  loop Tanaris lvl 50 lap 965 yield 2.7 only Horde r 60 at 57.2,68.7 56.5,73.2 55.4,73.0 29.7,68.4 29.4,64.8 31.0,63.8 33.4,46.1 35.1,46.8 62.7,48.5 64.4,47.1 65.5,52.3 64.0,53.3
+  auction 12359 x308
+
+step Go to an anvil
+  when !has 12713
+  when !knows 16725
+  when knows 16656
+  goto 51.8,40.8 "Anvil" map 1411 nearest only Horde
+  goto 56.3,74.4 "Anvil" map 1411 nearest only Horde
+  goto 51.2,28.9 "Anvil" map 1413 nearest only Horde
+  goto 62.3,37.6 "Anvil" map 1413 nearest
+  goto 60,53.3 "Anvil" map 1420 nearest only Horde
+  goto 60.8,71.6 "Anvil" map 1420 nearest only Horde
+  goto 64,81.1 "Anvil" map 1420 nearest only Horde
+  goto 71.1,49.8 "Anvil" map 1423 live nearest
+  goto 51.2,57.3 "Anvil" map 1424 nearest only Alliance
+  goto 14,44.2 "Anvil" map 1425 nearest only Alliance
+  goto 77.2,80.1 "Anvil" map 1425 nearest only Horde
+  goto 28.7,67.7 "Anvil" map 1426 nearest only Alliance
+  goto 45.2,51.6 "Anvil" map 1426 nearest only Alliance
+  goto 38.7,28.5 "Anvil" map 1427 nearest
+  goto 41.3,65.7 "Anvil" map 1429 nearest only Alliance
+  goto 73.7,48.4 "Anvil" map 1431 nearest only Alliance
+  goto 34.5,46.6 "Anvil" map 1432 nearest only Alliance
+  goto 25.4,47.1 "Anvil" map 1433 live nearest only Alliance
+  goto 28.9,75.5 "Anvil" map 1434 nearest
+  goto 45.1,51.2 "Anvil" map 1435 nearest only Horde
+  goto 54.6,53.6 "Anvil" map 1436 nearest only Alliance
+  goto 11.4,59.7 "Anvil" map 1437 nearest only Alliance
+  goto 38.2,40.9 "Anvil" map 1439 nearest only Alliance
+  goto 45.9,59.2 "Anvil" map 1442 nearest only Horde
+  goto 25.6,71.8 "Anvil" map 1443 nearest only Horde
+  goto 51.4,28.7 "Anvil" map 1446 nearest
+  goto 51.3,38.8 "Anvil" map 1451 nearest
+  goto 60.9,38.8 "Anvil" map 1452 nearest
+  goto 59.8,33.9 "Anvil" map 1453 live nearest only Alliance
+  goto 79.7,23.1 "Anvil" map 1454 nearest only Horde
+  goto 49.8,43.6 "Anvil" map 1455 nearest only Alliance
+  goto 38.8,56.1 "Anvil" map 1456 nearest only Horde
+  goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
+  goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
+
+step Craft 22 Radiant Boots until 290
+  when !has 12713
+  when !knows 16725
+  when knows 16656
+  tip About 22 crafts.
+  craft 16656 until 290
+
+section Blacksmithing 290-300
+
+step Get 20 Star Ruby
+  when !has 12713
+  when !knows 16725
+  when knows 16656
+  tip For 10 Imperial Plate Leggings.
+  auction 7910 x20
+
+step Get 500 Thorium Bar
+  when !has 12713
+  when !knows 16725
+  when knows 16656
+  tip For 10 Imperial Plate Leggings and the plans. No Mining? The bars, not the ore.
+  collect 12359 x500 gather Mining 250
+  loop Winterspring lvl 59 lap 705 yield 4.9 only Alliance r 60 at 70.4,40.3 69.1,39.8 56.3,25.6 57.3,32.8 56.0,49.0 55.5,50.7 54.1,50.4 56.0,53.8 57.8,61.1 56.9,50.4 58.4,46.6 69.4,41.9
+  loop Un'Goro Crater lvl 56 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
+  loop Felwood lvl 54 lap 811 yield 3.5 only Alliance r 60 at 57.6,17.3 59.2,19.4 61.3,21.3 58.7,22.8 43.8,62.1 38.9,55.1 43.2,46.7 43.4,41.2 38.1,32.2 39.8,22.3 46.2,13.5 48.6,23.8
+  loop Azshara lvl 55 lap 688 yield 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
+  loop Winterspring lvl 58 lap 621 yield 4.0 only Horde r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
+  loop Burning Steppes lvl 53 lap 615 yield 1.9 only Horde r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
+  loop The Hinterlands lvl 51 lap 718 yield 2.2 only Horde r 60 at 54.9,67.3 52.1,65.4 33.7,65.0 37.1,67.5 57.9,84.2 72.6,61.9 65.5,41.2 59.1,41.5 57.0,43.1 66.8,52.4 64.4,64.2 56.6,68.6
+  loop Felwood lvl 52 lap 616 yield 1.8 only Horde r 60 at 36.2,68.9 37.9,68.0 38.3,70.6 40.1,74.1 42.1,78.4 39.7,81.0 42.8,84.1 44.9,85.5 47.3,76.1 45.2,66.6 43.8,62.1 36.6,62.7
+  loop Tanaris lvl 50 lap 965 yield 2.7 only Horde r 60 at 57.2,68.7 56.5,73.2 55.4,73.0 29.7,68.4 29.4,64.8 31.0,63.8 33.4,46.1 35.1,46.8 62.7,48.5 64.4,47.1 65.5,52.3 64.0,53.3
+  auction 12359 x500
+
+step Hand in Imperial Plate Leggings
+  when !has 12713
+  when !knows 16725
+  when knows 16656
+  when has 12359 x60
+  turnin 7658 direct
+
+step Learn Imperial Plate Leggings
+  when !has 12713
+  when !knows 16725
+  when knows 16656
+  tip From the plans in your bags.
+  learn 16730
+
+step Go to an anvil
+  when !has 12713
+  when !knows 16725
+  when knows 16656
+  goto 51.8,40.8 "Anvil" map 1411 nearest only Horde
+  goto 56.3,74.4 "Anvil" map 1411 nearest only Horde
+  goto 51.2,28.9 "Anvil" map 1413 nearest only Horde
+  goto 62.3,37.6 "Anvil" map 1413 nearest
+  goto 60,53.3 "Anvil" map 1420 nearest only Horde
+  goto 60.8,71.6 "Anvil" map 1420 nearest only Horde
+  goto 64,81.1 "Anvil" map 1420 nearest only Horde
+  goto 71.1,49.8 "Anvil" map 1423 live nearest
+  goto 51.2,57.3 "Anvil" map 1424 nearest only Alliance
+  goto 14,44.2 "Anvil" map 1425 nearest only Alliance
+  goto 77.2,80.1 "Anvil" map 1425 nearest only Horde
+  goto 28.7,67.7 "Anvil" map 1426 nearest only Alliance
+  goto 45.2,51.6 "Anvil" map 1426 nearest only Alliance
+  goto 38.7,28.5 "Anvil" map 1427 nearest
+  goto 41.3,65.7 "Anvil" map 1429 nearest only Alliance
+  goto 73.7,48.4 "Anvil" map 1431 nearest only Alliance
+  goto 34.5,46.6 "Anvil" map 1432 nearest only Alliance
+  goto 25.4,47.1 "Anvil" map 1433 live nearest only Alliance
+  goto 28.9,75.5 "Anvil" map 1434 nearest
+  goto 45.1,51.2 "Anvil" map 1435 nearest only Horde
+  goto 54.6,53.6 "Anvil" map 1436 nearest only Alliance
+  goto 11.4,59.7 "Anvil" map 1437 nearest only Alliance
+  goto 38.2,40.9 "Anvil" map 1439 nearest only Alliance
+  goto 45.9,59.2 "Anvil" map 1442 nearest only Horde
+  goto 25.6,71.8 "Anvil" map 1443 nearest only Horde
+  goto 51.4,28.7 "Anvil" map 1446 nearest
+  goto 51.3,38.8 "Anvil" map 1451 nearest
+  goto 60.9,38.8 "Anvil" map 1452 nearest
+  goto 59.8,33.9 "Anvil" map 1453 live nearest only Alliance
+  goto 79.7,23.1 "Anvil" map 1454 nearest only Horde
+  goto 49.8,43.6 "Anvil" map 1455 nearest only Alliance
+  goto 38.8,56.1 "Anvil" map 1456 nearest only Horde
+  goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
+  goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
+
+step Craft 10 Imperial Plate Leggings until 300
+  when !has 12713
+  when !knows 16725
+  when knows 16656
+  tip About 10 crafts.
+  craft 16730 until 300
 
 section Blacksmithing 270-275
 

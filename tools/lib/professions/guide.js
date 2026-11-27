@@ -1562,6 +1562,7 @@ function draftData(dataDir) {
 		items: loadJson('items'),
 		quests: loadJson('quests'),
 		mapFrames: loadJson('map-frames'),
+		instances: loadJson('instances'), // a rank trainer inside a dungeon: its entrances (route.js)
 	};
 	const { loadData } = require('../dsl/data');
 	const { farmSpots, MIN_SPAWNS } = require('../dsl/farmspots');

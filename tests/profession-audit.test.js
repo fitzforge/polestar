@@ -267,8 +267,9 @@ test('Blacksmithing 225-300: Derotain\'s belt and bracers from 240 on one visit,
 	const at = (q) => all.findIndex((s) => s.lines.includes(`turnin ${q} direct`));
 	assert.ok(at(7653) > 0 && at(7655) === at(7653) + 1, 'the bracers plans come on the belt plans\' visit');
 	assert.ok(all.some((s) => s.lines.includes('craft 16647 until 245')) && all.some((s) => s.lines.includes('craft 16649 until 270')), 'belt to 245, bracers to 270');
-	const thorium = (w) => all.filter((s) => s.section && s.section[0] >= 270 && /^Get \d+ Thorium Bar$/.test(s.title) && s.lines.includes(w)).reduce((a, s) => a + Number(/x(\d+)/.exec(s.lines.find((l) => l.startsWith('collect 12359 ')))[1]), 0);
-	assert.equal(thorium('when knows 16656'), 508, 'the Radiant way: 508 Thorium Bars');
+	const thorium = (...w) => all.filter((s) => s.section && s.section[0] >= 270 && /^Get \d+ Thorium Bar$/.test(s.title) && w.every((x) => s.lines.includes(x))).reduce((a, s) => a + Number(/x(\d+)/.exec(s.lines.find((l) => l.startsWith('collect 12359 ')))[1]), 0);
+	assert.equal(thorium('when knows 16656', 'when has 12713'), 508, 'the Radiant way: 508 Thorium Bars');
+	assert.equal(thorium('when knows 16656', 'when !has 12713'), 808, 'Radiant Boots without the leggings plans: the boots, then Derotain\'s leggings and their quest\'s 60');
 	assert.equal(thorium('when !knows 16662'), 1220, 'Derotain\'s boots and leggings, their quests\' 100 included');
 	assert.ok(!all.some((s) => s.lines.some((l) => /^(buy (12819|12823)|learn (16969|16971))\b/.test(l))), 'no Magnus Frostwake plans');
 	assert.equal(json('quests')[7653].skillLevel, 240, 'the data build applies the Derotain correction');
