@@ -2,8 +2,9 @@
 //! tools/lib/professions/extract.js; schema: docs/ARCHITECTURE.md, Toolchain -> Reference data).
 //!
 //! A recipe is a SkillLineAbility row of a profession skill line whose spell creates an item
-//! (SpellEffect 24) or enchants one (53). yellow/grey are the trivial ranks, green their floored
-//! mean. The orange threshold comes from the recipe item (RequiredSkillRank), 1 for recipes known
+//! (SpellEffect 24) or enchants one (53). yellow/grey are the trivial ranks (grey as players' recordings
+//! show it where the table is off, CHECKED_GREY), green their floored mean. The orange threshold comes
+//! from the recipe item (RequiredSkillRank), 1 for recipes known
 //! with the skill, else the skill a sniffed Forever trainer list asks for it (with its cost), else
 //! the skill a player's trainer window showed (CHECKED_LEARN, learnedAtFrom "in-game"), else
 //! MinSkillLineRank, else Classic's trainer skill moved as far as Forever moved the yellow rank
@@ -70,6 +71,16 @@ const CHECKED_LEARN: [(i64, i64, &str); 20] = [
 /// The learn skill seen for `spell` and where (CHECKED_LEARN), if any.
 fn checked_learn(spell: i64) -> Option<(i64, &'static str)> {
 	CHECKED_LEARN.iter().find(|(s, ..)| *s == spell).map(|&(_, skill, from)| (skill, from))
+}
+
+/// Grey ranks players' recordings show where the client table is off: spell, grey (green follows as the mean of
+/// yellow and grey). Coarse Grinding Stone: the table says grey at 75, but crafts at 75-89 still gave points (54 of
+/// 256, 9 to 14 people in each 5 skill) and none from 90 on (0 of 1,419), at the rate a grey of 90 predicts.
+const CHECKED_GREY: [(i64, i64); 1] = [(3326, 90)];
+
+/// The grey rank players' recordings show for `spell` (CHECKED_GREY), if any.
+fn checked_grey(spell: i64) -> Option<i64> {
+	CHECKED_GREY.iter().find(|(s, _)| *s == spell).map(|&(_, g)| g)
 }
 
 /// Official hotfixes the client tables predate: spell, learn skill, yellow, green, grey. The Tanning Rack
@@ -292,7 +303,7 @@ fn extract_recipe(ix: &Ix, row: &Ability, ctx: &Ctx) -> Result<Recipe, &'static 
 			return Err("season");
 		}
 	}
-	let (yellow, grey) = (row.low, row.high);
+	let (yellow, grey) = (row.low, checked_grey(spell).unwrap_or(row.high));
 	// Recipe items (Item ClassID 9) whose use teaches the spell, in items.json only.
 	let mut recipe_items: Vec<i64> = Vec::new();
 	for &id in ix.taught_by.get(&spell).map(Vec::as_slice).unwrap_or(&[]) {
@@ -853,5 +864,12 @@ mod checked_learn_tests {
 	#[test]
 	fn black_mageweave_headband_is_learned_at_200_3923() {
 		assert_eq!(checked_learn(12072), Some((200, "recordings")));
+	}
+
+	// Players' recordings: Coarse Grinding Stone gives points to 89 (the table's grey says 75).
+	#[test]
+	fn coarse_grinding_stone_gives_points_to_89() {
+		assert_eq!(checked_grey(3326), Some(90));
+		assert_eq!(checked_grey(3320), None, "Rough Grinding Stone: the table's grey stands");
 	}
 }
