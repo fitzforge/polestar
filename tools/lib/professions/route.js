@@ -742,7 +742,14 @@ function routeGuide(name, data, opts = {}) {
 				ahead();
 			}
 		} else {
-			step('train', `Train ${sec.rank} ${P}`, { tip: sec.level > level ? `Needs level ${sec.level}.` : null, lines: [`  train ${P} ${sec.rank}`] });
+			// A rank whose section has one teacher a side, each a trainer of the rank, is trained at that teacher (one
+			// visit trains it and teaches the recipes): no other trainer of the rank the data lists (Charles Worth, whom
+			// the data lists for Expert Tailoring and players meet in Alterac) is offered.
+			const rank = (prof.ranks || []).find((x) => x.name === sec.rank) || {};
+			const pins = SIDES.map((s) => sec.teachers[s] || []);
+			const pinned = pins.every((ids, i) => ids.length === 1 && ((rank.trainers || {})[SIDES[i]] || []).includes(ids[0]));
+			const lines = !pinned ? [`  train ${P} ${sec.rank}`] : pins[0][0] === pins[1][0] ? [`  train ${P} ${sec.rank} npc ${pins[0][0]}`] : SIDES.map((s, i) => `  train ${P} ${sec.rank} npc ${pins[i][0]} only ${s}`);
+			step('train', `Train ${sec.rank} ${P}`, { tip: sec.level > level ? `Needs level ${sec.level}.` : null, lines });
 			ahead();
 		}
 		level = Math.max(level, sec.level);

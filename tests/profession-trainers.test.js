@@ -32,8 +32,12 @@ const GUIDES = path.join(__dirname, '..', 'addon', 'Polestar_Guides', 'Guides.lu
 // The Artisan trainers who also teach Expert (Rogvar, Kylanna Windwhisper,
 // Brikk Keencraft, Buzzek Bracketswing, Drakk Stonehand, Hahrana Ironhide,
 // Daryl Stack, Timothy Worthington) train from 200: Expert is not theirs.
+// Master Mycologist Shurome (Emerald Sanctuary, Felwood) is Forever's new
+// Artisan Alchemy trainer for both factions: not in that world DB copy, but in
+// the reference data's rank trainers, and players' recordings meet him
+// friendly there (62 people).
 const FOREVER = {
-	Alchemy: { 3: [4160, 4611], 4: [1386, 7948] },
+	Alchemy: { 3: [4160, 4611], 4: [1386, 7948, 259585] },
 	Blacksmithing: { 3: [3355, 4258], 4: [2836] },
 	Enchanting: { 3: [11072, 11074] },
 	Engineering: { 3: [5174, 11017], 4: [8736] },
@@ -160,13 +164,14 @@ test("Pyzx's report (#1956): recipes only the Artisan trainers teach are learned
 		// the boots are on the same Artisan-only list.
 		['blacksmithing.guide', 9968, [2836], 'Heavy Mithril Boots: Brikk Keencraft'],
 		['leatherworking.guide', 10548, [11097, 11098], 'Nightscape Pants: Drakk Stonehand, Hahrana Ironhide'],
-		['tailoring.guide', 12072, [11052, 2399], 'Black Mageweave Headband: Timothy Worthington, Daryl Stack'],
+		// The route's Tailoring 200-205 is Black Mageweave Shoulders (the Headband left it in 0.4.4), on the same list.
+		['tailoring.guide', 12074, [11052, 2399], 'Black Mageweave Shoulders: Timothy Worthington, Daryl Stack'],
 	]) {
 		const lines = learns(file, spell);
 		assert.ok(lines.length, `${what}: learned in ${file}`);
 		for (const l of lines) {
-			const m = l.match(/\bnpc (\d+)/);
-			assert.ok(m && npcs.includes(Number(m[1])), `${what}: ${l.trim()}`);
+			const m = l.match(/\bnpc ([\d,]+)/);
+			assert.ok(m && m[1].split(',').every((id) => npcs.includes(Number(id))), `${what}: ${l.trim()}`);
 		}
 	}
 });
