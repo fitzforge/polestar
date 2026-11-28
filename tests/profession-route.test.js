@@ -136,7 +136,12 @@ test('the route rules: recipe learnable, materials got, tools and stations befor
 				if (g.verb === 'goto' && / nearest\b/.test(g.rest)) station = /"([^"]+)"/.exec(g.rest)[1];
 				if (g.verb === 'craft') {
 					const r = recipes.get(id);
-					if (!r) continue; // the other profession of a pair
+					if (!r) {
+						// The other profession of a pair: what it makes is got (Mining's smelts make the bars).
+						const other = Object.values(d.professions).flatMap((p) => (p && p.recipes) || []).find((x) => x.spell === id);
+						if (other && other.item) got.add(other.item);
+						continue;
+					}
 					assert.ok(known.has(id), `${at}: crafts ${r.name} before any step learns it`);
 					for (const rg of r.reagents) {
 						const part = prof.recipes.some((x) => x.item === rg.item);

@@ -517,8 +517,12 @@ function renderPair(ctx, pair) {
 					...ores.slice(1).map((o) => `  collect ${o.raw} x${o.n} anywhere gather ${G} ${ask(main)}`),
 					...ores.map((o) => `  auction ${o.raw} x${o.n}`),
 				]);
+				// Each smelt learned again first, for a player who loads the guide past the visit that taught it (shown
+				// only while unknown; #3401), then the forge and the smelts.
+				const chain = smeltChain(main.item, main.count);
+				for (const { r } of chain) if (Number(r.learnedAt) > 1) push([`step Learn ${r.name}`, `  when !knows ${r.spell}`, `  tip Taught at Mining ${r.learnedAt}, before the part of the guide you started from.`, `  learn ${r.spell}`]);
 				push([`step Go to a forge`, `  tip Smelting needs a forge.`, ...forgeLines()]);
-				for (const { r, n } of smeltChain(main.item, main.count)) push([`step Smelt ${D.crafts(n, itemName(r.item))}`, `  craft ${r.spell} x${n}`]);
+				for (const { r, n } of chain) push([`step Smelt ${D.crafts(n, itemName(r.item))}`, `  craft ${r.spell} x${n}`]);
 			}
 		} else {
 			const title = `${pair.verb} ${D.list(raws)}${bars.length ? `, smelt ${D.list(bars)}` : ''}${g1 > g0 ? ` (${G} ${g0}-${g1})` : ''}`;

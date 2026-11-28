@@ -7,7 +7,7 @@ const assert = require('node:assert/strict');
 
 const { buildLoop, hazards, pointLevels, levelFor, threats } = require('../tools/lib/professions/gathering/loop');
 const Wt = require('../tools/lib/professions/gathering/waters');
-const { chance, cookingPlan, asLoop, loopOnly, sideOf } = require('../tools/lib/professions/gathering/fish-rounds');
+const { chance, bandCooking, asLoop, loopOnly, sideOf } = require('../tools/lib/professions/gathering/fish-rounds');
 const { makeProjector, dist } = require('../tools/lib/route/geo');
 const { pathLength } = require('../tools/lib/route/tour');
 
@@ -201,22 +201,23 @@ test('pairing: the skill-up chance is the Classic one', () => {
 	assert.equal(chance(LONGJAW, 130), 0);
 });
 
-test('pairing: each point cooks the best recipe of a fish the round gives, the orange one longest', () => {
+test('pairing: each cooking stretch cooks the first of its recipes whose fish the round gives', () => {
 	const bites = (item) => [6289, 6308].includes(item);
-	const { segs, used } = cookingPlan([SMALLFISH, LONGJAW, CATFISH], 50, 140, bites, {});
+	const band = { from: 75, to: 150, cook: [{ spells: [2], from: 50, to: 100 }, { spells: [3], from: 100, to: 140 }] };
+	const { segs, used } = bandCooking([SMALLFISH, LONGJAW, CATFISH], band, bites, {});
 	assert.deepEqual(segs.map((s) => [s.recipe.name, s.from, s.to]), [['Longjaw', 50, 100], ['Catfish', 100, 140]]);
 	assert.equal(segs[0].crafts, 52, '40 orange, then ten yellow at (130 - s) / 40');
 	assert.equal(Math.ceil(used[6308]), 40);
-	// Cod and Trout both orange at 175: Trout stays orange to 215, so one recipe does it all.
-	const both = cookingPlan([COD, TROUT], 175, 225, () => true, {});
+	// Trout listed first and its fish bites: Trout, though Cod is listed too.
+	const both = bandCooking([COD, TROUT], { from: 225, to: 255, cook: [{ spells: [5, 4], from: 175, to: 225 }] }, () => true, {});
 	assert.deepEqual(both.segs.map((s) => s.recipe.name), ['Trout']);
 });
 
-test('pairing: fish kept from an earlier band count, and a gap no fish covers is an error', () => {
+test('pairing: fish kept from an earlier band count, and a stretch no fish covers is an error', () => {
 	const none = () => false;
-	const { segs } = cookingPlan([SMALLFISH, LONGJAW], 50, 60, none, { 6289: 10 });
+	const { segs } = bandCooking([SMALLFISH, LONGJAW], { from: 75, to: 130, cook: [{ spells: [2], from: 50, to: 60 }] }, none, { 6289: 10 });
 	assert.deepEqual(segs.map((s) => [s.recipe.name, s.from, s.to, s.crafts]), [['Longjaw', 50, 60, 10]]);
-	assert.throws(() => cookingPlan([SMALLFISH, LONGJAW], 50, 70, none, { 6289: 10 }), /no fish recipe carries Cooking 60/);
+	assert.throws(() => bandCooking([SMALLFISH, LONGJAW], { from: 75, to: 130, cook: [{ spells: [2], from: 50, to: 70 }] }, none, { 6289: 10 }), /no fish for Cooking 50-70/);
 });
 
 test('farming loops: who may take a water, and which side it is on', () => {
