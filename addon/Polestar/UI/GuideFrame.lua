@@ -561,9 +561,9 @@ GF.Part(function(GF)
 	end
 
 	-- A profession guide's stations, by the label its `goto` steps write (in the guide's language too), wear the game's
-	-- own art: the anvil the minimap marks a repairer with, Smelting's flame for a forge, Basic Campfire's fire for a
-	-- cooking fire. -> the art, or nil (the pin stays: a named place).
-	GF.STATION_ART = { { "Anvil", "Interface\\Minimap\\Tracking\\Repair" }, { "Forge", nil, 2656 }, { "Cooking Fire", nil, 818 } }
+	-- own art, a spell's icon: Blacksmithing's hammer and anvil for an anvil, Smelting's flame for a forge, Basic
+	-- Campfire's fire for a cooking fire. -> the art, or nil (the pin stays: a named place).
+	GF.STATION_ART = { { "Anvil", 2018 }, { "Forge", 2656 }, { "Cooking Fire", 818 } }
 	function GF.StationArt(goal)
 		local name = goal and goal.subject
 		if type(name) ~= "string" then return nil end
@@ -572,7 +572,7 @@ GF.Part(function(GF)
 		local pack = guide and guide.pack
 		for _, s in ipairs(GF.STATION_ART) do
 			if name == s[1] or (pack and GT and GT.PackText and GT.PackText(pack, s[1]) == name) then
-				return s[2] or (C.SpellIcon and C.SpellIcon(s[3])) or nil
+				return C.SpellIcon and C.SpellIcon(s[2]) or nil
 			end
 		end
 		return nil
