@@ -86,7 +86,7 @@ emit({ meter = { value = meter.value, max = meter.max, learned = meter.learned, 
 	assert.equal(out.stretch, false, 'the craft row belongs to the craft step');
 	// 265 of the step's 288 once the crafts made to 87 are counted; 58 in the bags.
 	assert.deepEqual(out.item, { need: 265, have: 58, done: false });
-	// Mix buys a farm longer than 45 minutes: the Auction House is the way taken.
+	// A farm longer than 45 minutes is bought: the Auction House is the way taken, with nothing asked first.
 	assert.deepEqual(out.ways, [
 		{ way: 'gather', current: false, verb: 'farm', npc: 'Blackrock Grunt', minutes: 200, rate: 62, toGet: false },
 		{ way: 'buy', current: true, verb: false, npc: false, minutes: false, rate: false, toGet: 197 },
@@ -114,20 +114,87 @@ emit({ regions = { meter = shown("meter"), stretch = shown("stretch"), get = sho
 		'away from an Auction House the button says where to go');
 });
 
-test('a way row\'s click picks it: the item takes that way and the arrow follows its goal', () => {
+test('a way row\'s click picks it: the item takes that way, the arrow follows its goal, and the pick is kept', () => {
 	const out = run('', `${GET_ROWS}
 GF.Layout(); stub.advance(1)
 local farm = GF.RegionFrame("get").List[2]
 farm:Click()
 stub.advance(0.5); GF.Layout(); stub.advance(0.5)
-local _, _, pick = Polestar.Materials.Mode("test/craft", 2592)
+local pick = Polestar.Materials.Pick("test/craft", 2592)
 local view = E.GetStepView(E.GetStepIndex())
-emit({ pick = pick or false, rows = getRows(), applies = view.goals[1].status ~= "na", auction = view.goals[2].status, pad = farm.psPadLabel })`);
+local saved = PolestarCharDB.materials.guides["test/craft"]
+local picked = { pick = pick or false, rows = getRows(), applies = view.goals[1].status ~= "na", auction = view.goals[2].status, pad = farm.psPadLabel,
+	saved = saved and saved.ways and { [2592] = saved.ways[2592] } or false, mode = saved and saved.mode or false }
+-- Another guide, then this one again: the pick still holds.
+Polestar.RegisterGuide({ id = "test/other", pack = "test", title = "Other", minLevel = 1, maxLevel = 60, category = "Professions",
+	steps = { { title = "Bolts", goals = { { t = "craft", spell = 2964, spellName = "Bolt of Woolen Cloth", item = 2997, itemName = "Bolt of Woolen Cloth", skillLine = 197, count = 1 } } } } })
+E.SetGuide("test/other"); stub.advance(1)
+E.SetGuide("test/craft"); stub.advance(1); GF.Layout(); stub.advance(0.5)
+local back = getRows()
+-- The Auction House row picked: the pick changes and is kept the same way.
+GF.RegionFrame("get").List[3]:Click()
+stub.advance(0.5); GF.Layout(); stub.advance(0.5)
+emit({ picked = picked, back = { back[2].on, back[3].on }, again = Polestar.Materials.Pick("test/craft", 2592) or false,
+	auction = E.GetStepView(E.GetStepIndex()).goals[2].status })`);
+	assert.equal(out.picked.pick, 'gather');
+	assert.equal(out.picked.applies, true, 'the farm goal applies now');
+	assert.equal(out.picked.auction, 'na');
+	assert.deepEqual([out.picked.rows[1].on, out.picked.rows[2].on], [true, false]);
+	assert.equal(out.picked.pad, 'Guide me');
+	assert.deepEqual(out.picked.saved, { 2592: 'gather' }, 'kept per character and guide');
+	assert.equal(out.picked.mode, false, 'a pick is the material\'s alone: no way for the whole guide');
+	assert.deepEqual(out.back, [true, false], 'the pick holds across a guide switch');
+	assert.equal(out.again, 'buy');
+	assert.notEqual(out.auction, 'na');
+});
+
+// Fitz (0.4.4): each get step asks how to get its material, so the profession guide no longer asks it again in a
+// heads-up card, a Materials window or the guide window's menu.
+test('a profession guide with a material to gather or buy shows no materials card, no Materials window, and no materials rows in its menu', () => {
+	const out = run('', `
+local CT, shown = Polestar.UI.ClassToast, {}
+local showCard = CT.ShowCard
+CT.ShowCard = function(m, ...) shown[#shown + 1] = { kind = m.kind or false, title = m.title or false } return showCard(m, ...) end
+-- Past the old card's delay after the guide opened, and again after a guide switch.
+stub.advance(10)
+E.SetGuide(nil); stub.advance(1); E.SetGuide("test/craft"); stub.advance(10)
+local W, got = Polestar.Widgets, nil
+local showMenu = W.ShowMenu
+W.ShowMenu = function(_, items) got = items end
+GF.OpenMenu(CreateFrame("Button", nil, UIParent))
+W.ShowMenu = showMenu
+local menu = {}
+for _, it in ipairs(got or {}) do if it.text then menu[#menu + 1] = it.text end end
+emit({ shown = shown, current = CT.current and CT.current.kind or false, window = PolestarMaterials ~= nil, ui = Polestar.UI.Materials ~= nil,
+	menu = menu, setting = Polestar.Get("professions.materials") or false })`);
+	const cards = Object.values(out.shown);
+	assert.ok(!cards.some((c) => c.kind === 'materials' || c.title === 'How do you want to get them?'), JSON.stringify(cards));
+	assert.notEqual(out.current, 'materials');
+	assert.equal(out.window, false, 'no PolestarMaterials frame');
+	assert.equal(out.ui, false);
+	const menu = Object.values(out.menu);
+	assert.ok(menu.includes('Nearest Tailoring trainer'), menu.join(' | '));
+	assert.ok(!menu.some((t) => /materials|Mix/i.test(t)), menu.join(' | '));
+	assert.equal(out.setting, false, 'no Options default for the materials');
+});
+
+test('saved before 0.4.4: the per-material picks stay, the guide-wide way, the card\'s Later and the Options default go', () => {
+	const out = runAddon({
+		stubs: ['stub_world.lua'], addons: ['Polestar'],
+		saved: { Polestar: `PolestarDB = { schema = 1, settings = { professions = { materials = "buy", altMaterials = true } } }
+PolestarCharDB = { schema = 1, materials = { guides = { ["test/craft"] = { mode = "buy", asked = true, ways = { [2592] = "gather" } }, ["test/later"] = { mode = "mix", asked = true } } } }` },
+		script: script('', `${GET_ROWS}
+GF.Layout(); stub.advance(1)
+local g = PolestarCharDB.materials.guides
+emit({ craft = g["test/craft"], later = g["test/later"] or false, pick = Polestar.Materials.Pick("test/craft", 2592) or false, rows = getRows(),
+	setting = PolestarDB.settings.professions.materials or false, alts = Polestar.Get("professions.altMaterials") })`),
+	}).emitted[0];
+	assert.deepEqual(out.craft, { ways: { 2592: 'gather' } });
+	assert.equal(out.later, false, 'a guide with no pick left is dropped');
 	assert.equal(out.pick, 'gather');
-	assert.equal(out.applies, true, 'the farm goal applies now');
-	assert.equal(out.auction, 'na');
-	assert.deepEqual([out.rows[1].on, out.rows[2].on], [true, false]);
-	assert.equal(out.pad, 'Guide me');
+	assert.deepEqual([out.rows[1].on, out.rows[2].on], [true, false], 'the farm stays picked');
+	assert.equal(out.setting, false);
+	assert.equal(out.alts, true, 'the other characters\' counts setting stays');
 });
 
 test('the Auction House way\'s button away from an Auction House leads the arrow to the nearest auctioneer; at one it reads Buy list and searches', () => {
@@ -174,7 +241,7 @@ test('a short farm says the minutes for the rest; a disenchant way says the gree
 GF.Layout(); stub.advance(1)
 emit({ rows = getRows() })`);
 	assert.equal(short.rows[1].sub, 'Blackrock Grunt  ·  Elwynn Forest  ·  about 30 min for the rest');
-	assert.equal(short.rows[1].on, true, 'Mix farms a short farm');
+	assert.equal(short.rows[1].on, true, 'a short farm is farmed');
 	const dust = run('', `${GET_ROWS}
 at(6); GF.Layout(); stub.advance(1)
 emit({ rows = getRows() })`);

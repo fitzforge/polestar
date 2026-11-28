@@ -70,7 +70,7 @@ test('no player-visible "~" is written into the text at the sites: each takes Th
 	const sites = [
 		'Polestar/Maps/FlightTimer.lua', 'Polestar/Maps/TravelPins.lua', 'Polestar/QoL/Death.lua', 'Polestar/Quests/Timed.lua',
 		'Polestar/UI/GuideFrameStatus.lua', 'Polestar/UI/RouteChoice.lua', 'Polestar_Options/UI/Looks/Trackers.lua',
-		'Polestar/UI/Materials.lua', 'Polestar/UI/AuctionBuys.lua', 'Polestar/UI/UI.lua',
+		'Polestar/UI/AuctionBuys.lua', 'Polestar/UI/UI.lua',
 	];
 	for (const rel of sites) {
 		const code = fs.readFileSync(path.join(ADDON, rel), 'utf8').split('\n').filter((l) => !/^\s*--/.test(l)).join('\n');
@@ -84,8 +84,8 @@ test('no player-visible "~" is written into the text at the sites: each takes Th
 });
 
 // #3039: the price of a material ("≈ 87c") wrote the sign into the translated
-// text. The four lines that show one: the guide window's material goal, the
-// Materials window's row, and the Auction House list's quest and profession rows.
+// text. The three lines that show one: the guide window's material goal and
+// the Auction House list's quest and profession rows.
 test('a material\'s price takes the sign of the face it is drawn in, on each line that shows one', () => {
 	const script = `local P = Polestar
 P.AuctionBuys.On = function() return true end
@@ -95,14 +95,13 @@ P.Materials.Price = function() return 87 end
 P.UI.AuctionBuys.Show()
 emit({
 	goal = P.UI.MaterialsLine({ t = "auction", materials = { bank = 0, mail = 0, alts = {}, toGet = 5, price = 87 } }),
-	row = P.UI.Materials.RowText({ toGet = 5, held = 0, way = "buy", price = 87, reason = "picked" }),
 	quest = PolestarAuctionBuys.rows[1].Why:GetText(),
 	profession = PolestarAuctionBuys.mrows[1].Why:GetText(),
 })`;
 	const [inter] = lua(script);
 	const [ru] = lua(`Polestar.Set("ui.font", "game"); ${script}`,
 		'function GetLocale() return "ruRU" end\nSTANDARD_TEXT_FONT = "Fonts\\\\FRIZQT___CYR.TTF"');
-	for (const line of ['goal', 'row', 'quest', 'profession']) {
+	for (const line of ['goal', 'quest', 'profession']) {
 		assert.ok(inter[line].includes(`${APPROX} 87`), `${line}, Inter: ${inter[line]}`);
 		assert.ok(ru[line].includes('~ 87') && !ru[line].includes(APPROX), `${line}, the ruRU game font: ${ru[line]}`);
 	}

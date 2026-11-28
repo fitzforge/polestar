@@ -1,11 +1,11 @@
 -- env: world
--- The Guide page's Professions tab (Core/Materials.lua, Engine.MaterialRows; UI/Materials.lua's window, which its
--- last row opens), as ui-materials.rs plays it: a level 10 Human with Tailoring 1 on a Tailoring guide that buys
--- Linen Cloth or gathers it from mobs of level 5-15; another character of the realm and side holds 30 of it.
+-- The Guide page's Profession guides section (Core/Materials.lua, Engine.MaterialRows): a level 10 Human with
+-- Tailoring 1 on a Tailoring guide that buys Linen Cloth or gathers it from mobs of level 5-15; another character
+-- of the realm and side holds 30 of it.
 local E
--- The cloth as the Materials window lists it: its way, and how many are still to get.
+-- The cloth as the shopping list at the Auction House counts it: how many are still to get.
 local function linen()
-	for _, sec in ipairs(E.MaterialRows("rest")) do
+	for _, sec in ipairs(E.MaterialRows()) do
 		for _, r in ipairs(sec.items) do
 			if r.item == 2589 then return { r.way, r.toGet } end
 		end
@@ -34,14 +34,7 @@ return {
 	end,
 	settle = 0.3,
 	probes = {
-		-- A guide never answered: Ask (Mix meanwhile) gathers the cloth at level 10; Buy buys it.
-		["professions.materials"] = { probe = function() return linen()[1] end, value = "buy" },
 		-- The other character's 30 count toward the 40.
 		["professions.altMaterials"] = function() return linen()[2] end,
-		-- The last row's Show opens the Materials window.
-		["Guide:Materials window"] = { press = true,
-			prepare = function() if PolestarMaterials then PolestarMaterials:Hide() end end,
-			probe = function() return PolestarMaterials ~= nil and PolestarMaterials:IsShown() and true or false end,
-			cleanup = function() if PolestarMaterials then PolestarMaterials:Hide() end end },
 	},
 }

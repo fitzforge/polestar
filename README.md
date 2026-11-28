@@ -642,16 +642,15 @@ its source is in [apps/client](apps/client).
   goal's cycle button picks another. In the starting zones, a character who
   already has a profession gets its Camping 101 quest at the campfire too,
   handed in at the trainer on the way.
-- **Materials and the Auction House.** A crafting, Cooking or First Aid
-  guide asks once how to get its materials: Mix, Gather, Buy or Later. Every
-  skill range has an Auction House step for what it can buy there, gather
-  steps name the skill they need, and counts include your bank, mail and
-  what you bought. The Materials window (`/polestar materials`) lists every
-  material ahead with what is still to get, and a shopping list stands
-  beside the game's Auction House window (`/polestar ah`), sent to
-  Auctionator when it is installed. Quest items better bought than farmed
-  get a reminder in cities with an Auction House. The default for new
-  guides is under Options > Guide > Professions.
+- **Materials and the Auction House.** In a crafting, Cooking or First Aid
+  guide each material's step shows its ways (farm it, gather it, the Auction
+  House, a vendor) and you pick one per material, any time; until you do,
+  the guide gathers what you can and buys the rest. Every skill range has an
+  Auction House step for what it can buy there, gather steps name the skill
+  they need, and counts include your bank, mail and what you bought. A
+  shopping list stands beside the game's Auction House window
+  (`/polestar ah`), sent to Auctionator when it is installed. Quest items
+  better bought than farmed get a reminder in cities with an Auction House.
 - **Class training reminder** every two levels (configurable): when your
   guide trains you within a few steps it says so, else it names the class
   trainer that fits your route. At
@@ -1338,7 +1337,6 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `bags` | Free bag slots and the cheapest junk |
 | `restock` | Amounts to restock at merchants: drink, food, ammo or an item |
 | `questlog` | List the quests in your log the route never hands in, each with Abandon |
-| `materials` | Show how the profession guide gets its materials (the Materials window) |
 | `ah` | Show the quest items and materials to buy at the Auction House |
 | `party [debug]` | Show or hide the party panel: each party member who also runs Polestar (level, step, what they still need); `debug` prints what party sync sends and hears, for a report |
 | `gear [item link]` | Gear advice: the weights in use, or compare an item |

@@ -19,7 +19,7 @@
 -- the points so far; made = the casts of the recipe counted (UNIT_SPELLCAST_SUCCEEDED, per character), never a
 -- guess from the skill (points since the stretch's start may come from other recipes or trainers).
 --
--- Engine.FarmMinutes(item): the minutes farming what is still needed takes, for Materials.Way's "long" (Mix buys
+-- Engine.FarmMinutes(item): the minutes farming what is still needed takes, for Materials.Way's "long" (bought
 -- past Materials.LONG): what the stretch still needs of it, else what its gather goal still needs.
 
 local _, ns = ...

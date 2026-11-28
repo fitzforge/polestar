@@ -1,11 +1,12 @@
 //! Materials gathered or bought (docs/GUIDE_FORMAT.md, "Materials"; addon/Polestar/Core/Materials.lua and the
 //! Engine's Own.materialApplies): an item a profession guide both gathers (`collect … gather`) and buys (`auction`)
-//! takes one way at a time, and only that way's goals apply. Mix, the way before an answer, gathers what the
-//! character can at its level and with its professions and buys the rest; Gather all and Buy all clear the picks; a
-//! pick takes the route back to the Auction House step or on to the gather steps; a Self-Found character gathers
-//! everything. The bags, the bank (a snapshot away from it), the mail and the purchases on their way count, and the
-//! arrow fetches what waits in the mail or the bank; other characters' counts show, and count only when switched on.
-//! Prices are for the count still to buy, from the player's own searches, else Auctionator's.
+//! takes one way at a time, and only that way's goals apply. With no pick, nothing is asked: the character gathers
+//! what it can at its level and with its professions and buys the rest; a pick (the get step's ways) takes the
+//! route back to the Auction House step or on to the gather steps, and clearing it brings the automatic way back; a
+//! Self-Found character gathers everything. The bags, the bank (a snapshot away from it), the mail and the
+//! purchases on their way count, and the arrow fetches what waits in the mail or the bank; other characters' counts
+//! show, and count only when switched on. Prices are for the count still to buy, from the player's own searches,
+//! else Auctionator's.
 //! Real Core manifest, stub world (a level 10 Human Warrior).
 
 use forge_addontest::{emitted, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
@@ -82,27 +83,23 @@ emit(r)"#
 }
 
 #[test]
-fn each_material_takes_one_way_and_the_route_follows_a_pick_the_mode_the_level_and_self_found() {
+fn each_material_takes_one_way_and_the_route_follows_a_pick_the_level_and_self_found() {
 	let out = run(
 		CORE,
 		"",
 		r#"
-		r.asks = M.Asks(ID)
-		r.mix = open()
+		r.auto = open()
 		r.leatherWhy = E.GetStepView(4).why or false
 		w.learnSkill(393, "Skinning", 1, 75); flush()
 		r.skinner = open()
 		r.ahWhy = E.GetStepView(2).why or false
 		M.SetWay(ID, 2589, "buy"); flush()
 		r.picked = open()
-		r.pick = { M.Mode(ID, 2589) }
-		r.asked = M.Asks(ID)
-		M.SetMode(ID, "gather"); flush()
-		r.gatherAll = open()
-		r.cleared = { M.Mode(ID, 2589) }
-		M.SetMode(ID, "buy"); flush()
-		r.buyAll = open()
-		M.SetMode(ID, "mix"); flush()
+		r.pick = M.Pick(ID, 2589) or false
+		M.SetWay(ID, 2318, "buy"); flush()
+		r.bothBought = open()
+		M.SetWay(ID, 2589, nil); M.SetWay(ID, 2318, nil); flush()
+		r.cleared = { open(), M.Pick(ID, 2589) or false, Polestar.CharState().materials.guides[ID] or false }
 		w.setLevel(2); flush()
 		r.low = { open(), E.GetStepView(3).why or false }
 		w.setLevel(20); flush()
@@ -112,33 +109,33 @@ fn each_material_takes_one_way_and_the_route_follows_a_pick_the_mode_the_level_a
 		local P = Polestar.Compat.GetPlayerInfo()
 		r.noGather = { M.Way({ id = "x/buy", steps = { { goals = { { t = "auction", item = 1 } } } } }, 1, P) }
 		r.noBuy = { M.Way({ id = "x/gather", steps = { { goals = { { t = "collect", item = 2, gather = true } } } } }, 2, P) }
+		r.bad = { M.SetWay(ID, 2589, "mix"), M.SetWay(ID, "2589", "buy"), M.SetWay(nil, 2589, "buy") }
 		C_PlayerInfo = C_PlayerInfo or {}
 		C_PlayerInfo.IsSelfFoundActive = function() return true end
-		M.SetMode(ID, "buy"); flush()
+		M.SetWay(ID, 2589, "buy"); flush()
 		r.selfFound = { open(), E.GetStepView(2).why or false }
 		"#,
 	);
-	assert_eq!(out["asks"], true, "no answer yet, and Options' default asks");
-	// Mix: Linen Cloth drops at the character's level (gathered); Light Leather takes Skinning (bought).
-	assert_eq!(out["mix"], json!({ "at": 2, "open": ["Buy Light Leather 0/10"] }));
+	// Nothing asked: Linen Cloth drops at the character's level (gathered); Light Leather takes Skinning (bought).
+	assert_eq!(out["auto"], json!({ "at": 2, "open": ["Buy Light Leather 0/10"] }));
 	assert_eq!(out["leatherWhy"], "Bought at the Auction House: needs Skinning 1");
 	// Skinning learned: the leather is gathered too, and the Auction House step passes.
 	assert_eq!(out["skinner"], json!({ "at": 3, "open": ["Collect Linen Cloth 0/40"] }));
 	assert_eq!(out["ahWhy"], "Gathering this yourself");
-	// Buy instead on the Linen Cloth step: back to the Auction House step.
+	// Buy picked on the Linen Cloth step: back to the Auction House step.
 	assert_eq!(out["picked"], json!({ "at": 2, "open": ["Buy Linen Cloth 0/40"] }));
-	assert_eq!(out["pick"], json!(["mix", true, "buy"]));
-	assert_eq!(out["asked"], false, "a pick answers the guide");
-	assert_eq!(out["gatherAll"], json!({ "at": 3, "open": ["Collect Linen Cloth 0/40"] }));
-	assert_eq!(out["cleared"], json!(["gather", true]), "Gather all clears the picks");
-	assert_eq!(out["buyAll"], json!({ "at": 2, "open": ["Buy Linen Cloth 0/40", "Buy Light Leather 0/10"] }));
-	// Mix by level: Linen Cloth's humanoids are level 5-15.
+	assert_eq!(out["pick"], "buy");
+	assert_eq!(out["bothBought"], json!({ "at": 2, "open": ["Buy Linen Cloth 0/40", "Buy Light Leather 0/10"] }));
+	// Both picks cleared: the automatic ways, and nothing kept for the guide.
+	assert_eq!(out["cleared"], json!([{ "at": 3, "open": ["Collect Linen Cloth 0/40"] }, false, false]));
+	// By level: Linen Cloth's humanoids are level 5-15.
 	assert_eq!(out["low"], json!([{ "at": 2, "open": ["Buy Linen Cloth 0/40"] }, "Bought at the Auction House: it drops from level 5"]));
 	assert_eq!(out["past"], json!([{ "at": 2, "open": ["Buy Linen Cloth 0/40"] }, "Bought at the Auction House: you're past its levels"]));
 	assert_eq!(out["within"], json!({ "at": 3, "open": ["Collect Linen Cloth 0/40"] }));
 	assert_eq!(out["noGather"], json!(["buy", "noGather"]));
 	assert_eq!(out["noBuy"], json!(["gather", "noBuy"]));
-	// Self-Found: no Auction House, even in Buy all.
+	assert_eq!(out["bad"], json!([false, false, false]), "a pick is gather or buy, for an item of a guide");
+	// Self-Found: no Auction House, even with Buy picked.
 	assert_eq!(out["selfFound"], json!([{ "at": 3, "open": ["Collect Linen Cloth 0/40"] }, "No Auction House for self-found characters"]));
 }
 
@@ -161,7 +158,7 @@ fn the_bank_the_mail_and_purchases_count_the_arrow_fetches_what_waits_and_other_
 			if kind == "bank" then return { id = 2455, name = "Olivia Burnside", map = 1453, x = 57.4, y = 72.6 } end
 			return { id = 143981, name = "Mailbox", map = 1453, x = 60.1, y = 70.2 }
 		end
-		M.SetMode(ID, "buy"); flush()
+		M.SetWay(ID, 2589, "buy"); M.SetWay(ID, 2318, "buy"); flush()
 		r.alts = goal(2, 1)
 		Polestar.Set("professions.altMaterials", true); flush()
 		r.counted = goal(2, 1)
@@ -216,7 +213,7 @@ fn the_bank_the_mail_and_purchases_count_the_arrow_fetches_what_waits_and_other_
 		"bank": 0, "mail": 40, "toGet": 0, "alts": kaelia, "price": false });
 	assert_eq!(out["bought"], mailbox, "the purchase is on its way by mail: nothing left to buy");
 	assert_eq!(out["arrived"], mailbox, "the inbox now lists it");
-	// Taken from the mail: the step is done and the route goes on to the crafts (Buy all: the gather steps pass).
+	// Taken from the mail: the step is done and the route goes on to the crafts (both bought: the gather steps pass).
 	assert_eq!(out["taken"], json!([5, "done"]));
 	assert_eq!(out["latched"], json!([5, "done"]), "crafting the cloth away never reopens the step");
 	assert_eq!(out["own"], json!({ "leather": 10, "linen": false }));
@@ -334,7 +331,7 @@ fn the_materials_counted_are_every_profession_guide_s_and_the_tabs_items_without
 	assert_eq!(out["counts"], json!([7, 5, 5]), "the bank snapshot holds the guide's item");
 	assert_eq!(out["opened"], json!([true, true]));
 	assert_eq!(out["closed"], json!([false, false]), "a released guide's items are no longer counted");
-	assert_eq!(out["way"], json!(["gather", "mix"]));
+	assert_eq!(out["way"], json!(["gather", "can"]));
 	assert_eq!(out["indexed"], json!([true, true]));
 	assert_eq!(out["replaced"], json!([true]));
 	assert_eq!(out["after"], json!([true, false, "buy"]));
@@ -346,7 +343,7 @@ fn prices_are_for_the_count_cheapest_first_auctionator_fills_in_and_counts_shrin
 		WITH_UI,
 		"",
 		r#"
-		M.SetMode(ID, "buy"); flush()
+		M.SetWay(ID, 2589, "buy"); M.SetWay(ID, 2318, "buy"); flush()
 		M.NoteSearch(2318, { { price = 150, quantity = 100 }, { price = 100, quantity = 3 } })
 		r.leather = { M.Price(2318, 10) }
 		r.few = { M.Price(2318, 200) }
@@ -374,27 +371,26 @@ fn prices_are_for_the_count_cheapest_first_auctionator_fills_in_and_counts_shrin
 }
 
 #[test]
-fn the_rows_split_what_the_character_holds_over_the_ranges_ahead_and_the_buy_rows_list_what_mix_buys() {
+fn the_rows_split_what_the_character_holds_over_the_ranges_ahead_and_the_buy_rows_list_what_is_bought() {
 	let out = run(
 		CORE,
 		"",
 		r#"
 		-- One row a material a range: its need, what the bags hold toward it, its way and why.
-		local function rows(scope)
+		local function rows()
 			local out = {}
-			for _, sec in ipairs(E.MaterialRows(scope)) do
+			for _, sec in ipairs(E.MaterialRows()) do
 				local items = {}
 				for _, x in ipairs(sec.items) do
-					items[#items + 1] = { x.item, x.need, x.held, x.toGet, x.way, x.reason, x.buy or false, x.canGather or false, x.gatherWhy or false }
+					items[#items + 1] = { x.item, x.need, x.held, x.toGet, x.way, x.reason, x.buy or false }
 				end
 				out[#out + 1] = { sec.title, sec.rank, items }
 			end
 			return out
 		end
 		w.addItem(2589, 25); flush()
-		r.mix = rows("rest")
+		r.auto = rows()
 		r.buy = M.BuyRows()
-		r.choosable = { M.Choosable(E.GetGuide()), M.Choosable({ steps = { { goals = { { t = "auction", item = 1 } } } } }) }
 		-- Two ranges buying Linen Cloth: the 40 in the bags go to the first range's 30 first.
 		Polestar.RegisterGuide({ id = "test/two", pack = "test", title = "Two ranges", category = "Professions", minLevel = 1, maxLevel = 60,
 			sections = { { skill = "Tailoring", skillLine = 197, from = 1, to = 50 }, { skill = "Tailoring", skillLine = 197, from = 50, to = 75 } },
@@ -406,54 +402,20 @@ fn the_rows_split_what_the_character_holds_over_the_ranges_ahead_and_the_buy_row
 			} })
 		E.SetGuide("test/two"); flush()
 		w.addItem(2589, 15); flush()
-		r.split = rows("rest")
-		r.first = rows("section")
+		r.split = rows()
 		"#,
 	);
 	assert_eq!(
-		out["mix"],
-		json!([["Tailoring 1-75", 1, [[2589, 40, 25, 15, "gather", "mix", true, true, false], [2318, 10, 0, 10, "buy", "skill", true, false, "skill"],]]]),
-		"Mix gathers the cloth at level 10 and buys the leather a character without Skinning can't skin"
+		out["auto"],
+		json!([["Tailoring 1-75", 1, [[2589, 40, 25, 15, "gather", "can", true], [2318, 10, 0, 10, "buy", "skill", true],]]]),
+		"the cloth is gathered at level 10 and the leather bought: a character without Skinning can't skin"
 	);
 	assert_eq!(
 		out["buy"],
 		json!([{ "guide": "test/tailoring", "guideTitle": "Tailoring 1-75", "section": "Tailoring 1-75", "item": 2318, "name": "Light Leather",
 			"toBuy": 10, "need": 10, "have": 0 }])
 	);
-	assert_eq!(out["choosable"], json!([true, false]), "a guide that only buys has nothing to choose");
-	assert_eq!(
-		out["split"],
-		json!([["Tailoring 1-50", 1, [[2589, 30, 30, 0, "gather", "mix", true, true, false]]], ["Tailoring 50-75", 1, [[2589, 20, 10, 10, "gather", "mix", true, true, false]]],])
-	);
-	assert_eq!(out["first"], json!([["Tailoring 1-50", 1, [[2589, 30, 30, 0, "gather", "mix", true, true, false]]]]), "this range only");
-}
-
-#[test]
-fn the_guide_asks_until_answered_or_told_later_and_never_a_self_found_character() {
-	let out = run(
-		CORE,
-		"",
-		r#"
-		r.asks = M.Asks(ID)
-		M.Dismiss(ID)
-		r.later = { M.Asks(ID), M.Mode(ID) }
-		r.other = M.Asks("test/other")
-		M.SetMode("test/other", "gather")
-		r.answered = M.Asks("test/other")
-		Polestar.Set("professions.materials", "mix")
-		r.default = M.Asks("test/third")
-		Polestar.Set("professions.materials", nil)
-		C_PlayerInfo = C_PlayerInfo or {}
-		C_PlayerInfo.IsSelfFoundActive = function() return true end
-		r.selfFound = M.Asks("test/third")
-		"#,
-	);
-	assert_eq!(out["asks"], json!(true));
-	assert_eq!(out["later"], json!([false, "mix", false]), "Later keeps Mix, unanswered, and asks no more");
-	assert_eq!(out["other"], json!(true));
-	assert_eq!(out["answered"], json!(false));
-	assert_eq!(out["default"], json!(false), "an Options default other than Ask answers every new guide");
-	assert_eq!(out["selfFound"], json!(false));
+	assert_eq!(out["split"], json!([["Tailoring 1-50", 1, [[2589, 30, 30, 0, "gather", "can", true]]], ["Tailoring 50-75", 1, [[2589, 20, 10, 10, "gather", "can", true]]],]));
 }
 
 #[test]
@@ -538,10 +500,10 @@ fn in_gamepad_mode_a_search_is_only_the_game_s_browse_query_by_name_3700() {
 
 // A gather way whose profession (and rank) the guide itself trains or raises in an earlier step is one the character
 // will have when the guide gets there: a guide shown ahead of its own train step (Fitz's try6, Skinning +
-// Leatherworking: the window said "Buy Ruined Leather Scraps 0/57" at step 1, before Skinning was trained) gathers in
-// every mode. A guide that never trains it keeps "skill".
+// Leatherworking: the window said "Buy Ruined Leather Scraps 0/57" at step 1, before Skinning was trained) gathers
+// it. A guide that never trains it keeps "skill"; a pick still wins.
 #[test]
-fn a_gather_way_the_guide_trains_in_an_earlier_step_is_available_before_that_step_in_every_mode() {
+fn a_gather_way_the_guide_trains_in_an_earlier_step_is_available_before_that_step() {
 	let out = run(
 		CORE,
 		"",
@@ -565,28 +527,25 @@ fn a_gather_way_the_guide_trains_in_an_earlier_step_is_available_before_that_ste
 		Polestar.RegisterGuide({ id = "test/untrained", pack = "test", title = "Tailoring", category = "Professions", minLevel = 1, maxLevel = 60,
 			steps = steps({ title = "Learn Tailoring", goals = { { t = "train", skill = "Tailoring", skillLine = 197, rank = 1, rankMax = 75 } } }) })
 		local P = Polestar.Compat.GetPlayerInfo()
-		local function ways(id, mode)
-			M.SetMode(id, mode)
+		local function ways(id)
 			local g = Polestar.Guides.Get(id)
 			local out = {}
 			for _, item in ipairs({ 2934, 2318, 2319 }) do out[#out + 1] = table.concat({ M.Way(g, item, P) }, "/") end
 			return out
 		end
-		r.gather, r.mix, r.buy = ways("test/skinner", "gather"), ways("test/skinner", "mix"), ways("test/skinner", "buy")
-		r.untrained = { gather = ways("test/untrained", "gather"), mix = ways("test/untrained", "mix") }
+		r.auto, r.untrained = ways("test/skinner"), ways("test/untrained")
+		M.SetWay("test/untrained", 2319, "gather")
+		r.picked = ways("test/untrained")
 		E.SetGuide("test/skinner"); flush()
-		M.SetMode("test/skinner", "gather"); flush()
 		r.window = { at = E.GetLiveStep() or false, why = E.GetStepView(2).why or false }
 		w.learnSkill(393, "Skinning", 1, 75); flush()
-		r.learned = ways("test/skinner", "gather")
+		r.learned = ways("test/skinner")
 		"#,
 	);
 	// Rank 1 (trained at step 1) and rank 50 (Skinning 50 reached at step 4) are the guide's own; rank 100 is not.
-	assert_eq!(out["gather"], json!(["gather/mode", "gather/mode", "buy/skill"]), "Gather all: only what the guide does not bring is bought");
-	assert_eq!(out["mix"], json!(["gather/mix", "gather/mix", "buy/skill"]));
-	assert_eq!(out["buy"], json!(["buy/mode", "buy/mode", "buy/mode"]));
-	assert_eq!(out["untrained"]["gather"], json!(["buy/skill", "buy/skill", "buy/skill"]), "a guide that never trains Skinning: missing as before");
-	assert_eq!(out["untrained"]["mix"], json!(["buy/skill", "buy/skill", "buy/skill"]));
+	assert_eq!(out["auto"], json!(["gather/can", "gather/can", "buy/skill"]), "only what the guide does not bring is bought");
+	assert_eq!(out["untrained"], json!(["buy/skill", "buy/skill", "buy/skill"]), "a guide that never trains Skinning: missing as before");
+	assert_eq!(out["picked"], json!(["buy/skill", "buy/skill", "gather/picked"]), "the player's pick beats the missing skill");
 	assert_eq!(out["window"]["at"], json!(1), "the guide starts at its train step, not at the Auction House");
-	assert_eq!(out["learned"], json!(["gather/mode", "gather/mode", "buy/skill"]));
+	assert_eq!(out["learned"], json!(["gather/can", "gather/can", "buy/skill"]));
 }

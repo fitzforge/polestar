@@ -134,7 +134,7 @@ After the arguments, in any order.
 | `only <condition>, ...` | The goal is only for matching characters |
 | `nearest` | The closest vendor, trainer or drop place, picked in game |
 | `anywhere` | On `collect`: a bag count with no place; the arrow never leads to it (cloth a profession guide counts as you loot it while levelling) (Polestar 0.3.7) |
-| `gather [<Profession> <rank>] [levels <min>-<max>]` | On `collect`: the item's gather way in a profession guide, beside an `auction` goal for the same item; Polestar applies one of the two per item, by what the player chose (gather, buy or mix). `gather Mining 1` names the profession it takes, `gather levels 15-30` the levels of the mobs it drops from (Polestar 0.4.0) |
+| `gather [<Profession> <rank>] [levels <min>-<max>]` | On `collect`: the item's gather way in a profession guide, beside an `auction` goal for the same item; Polestar applies one of the two per item: the player's pick on the step, else gathered when the character can. `gather Mining 1` names the profession it takes, `gather levels 15-30` the levels of the mobs it drops from (Polestar 0.4.0) |
 | `until <N>` | On `craft`: until the profession reaches N |
 | `grind <npc>` | On `level`: the mob the level is reached on; the arrow leads to its nearest spawn area, the step's goto only when the data has none (Polestar 0.3.7) |
 | `criteria <n>` | On `achieve`: one criterion |

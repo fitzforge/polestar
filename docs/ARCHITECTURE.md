@@ -4349,19 +4349,15 @@ An item a profession guide both gathers (`collect … gather`) and buys
 (`auction`) takes one way at a time (GUIDE_FORMAT.md, "Materials"), and only
 the goals of that way apply (`Own.materialApplies` in `goalApplies`), so a
 step whose goals all take the other way passes as one for another class does,
-and changing a way moves the route at once: Buy on a gather step brings the
-route back to the section's Auction House step, Gather on it goes on to the
-gather steps. The way is never stored on a step; only the goals' own bag-count
+and changing a way moves the route at once: Buy picked on a get step brings
+the route back to the section's Auction House step, the farm picked goes on
+to the gather steps. The way is never stored on a step; only the goals' own bag-count
 latches are, as for `collect` and `buy`.
 
 ```lua
-Polestar.Materials.Way(guide, item, player[, farmMinutes]) -> "gather" | "buy", reason   -- first rule that fits: Self-Found (C_PlayerInfo.IsSelfFoundActive) gathers ("selfFound"); no auction goal for the character gathers ("noBuy"), no gather goal buys ("noGather"); the player's pick ("picked"); Buy all ("mode"); Gather all, buying what takes a profession or rank the character lacks ("skill"); Mix: that too, mobs more than Materials.LOW (2) levels above ("low"), a bag count with no place more than Materials.PAST (5) levels past its mobs ("past"), a farm of what is still needed longer than Materials.LONG (45) minutes ("long": farmMinutes(), the Engine's Engine.FarmMinutes(item): the current stretch's need at the farm spot's rate, Core/KindCraft.lua), else gather ("mix")
-Polestar.Materials.Mode(guideId[, item]) -> mode, answered, pick   -- the character's answer for the guide (CharState().materials.guides[guideId] = { mode, ways }), else Options' default (`professions.materials`: "ask", the default, reads Mix)
-Polestar.Materials.Asks(guideId) -> bool                         -- no answer yet, the default is to ask and Later never told it (never Self-Found)
-Polestar.Materials.Dismiss(guideId)                              -- Later on the card: the default stays, the guide asks no more
-Polestar.Materials.Choosable(guide) -> bool                      -- some material of it is both gathered and bought
-Polestar.Materials.SetMode(guideId, "gather" | "buy" | "mix")    -- Gather all and Buy all clear the picks; MATERIALS_CHANGED, Engine.RefreshMaterials
-Polestar.Materials.SetWay(guideId, item, "gather" | "buy" | nil) -- a pick (nil: back to the default); the guide's way becomes Mix
+Polestar.Materials.Way(guide, item, player[, farmMinutes]) -> "gather" | "buy", reason   -- first rule that fits: Self-Found (C_PlayerInfo.IsSelfFoundActive) gathers ("selfFound"); no auction goal for the character gathers ("noBuy"), no gather goal buys ("noGather"); the player's pick ("picked"); else bought when the character can't gather it: a profession or rank it lacks ("skill"), mobs more than Materials.LOW (2) levels above ("low"), a bag count with no place more than Materials.PAST (5) levels past its mobs ("past"), a farm of what is still needed longer than Materials.LONG (45) minutes ("long": farmMinutes(), the Engine's Engine.FarmMinutes(item): the current stretch's need at the farm spot's rate, Core/KindCraft.lua); else gather ("can")
+Polestar.Materials.Pick(guideId, item) -> "gather" | "buy" | nil  -- the player's pick (CharState().materials.guides[guideId] = { ways = { [item] = way } })
+Polestar.Materials.SetWay(guideId, item, "gather" | "buy" | nil) -- a pick from the get step's ways (nil: back to the automatic way); MATERIALS_CHANGED, Engine.RefreshMaterials
 Polestar.Materials.Have(item) -> total, { bags, bank, mail, coming, alts = { { name, count } }, altsCounted }
 Polestar.Materials.Stored(item) -> bank, mail, coming
 Polestar.Materials.Price(item, count) -> copper | nil, { each, age, source = "search" | "auctionator", short }
@@ -4369,7 +4365,7 @@ Polestar.Materials.NoteSearch(item, rows)                        -- a search's l
 Polestar.Materials.BuyRows() -> { { guide, guideTitle, section, item, name, toBuy, need, have, price, info } }  -- the running guide's materials whose way is Buy, still to buy, the earliest section first (the shopping list at the Auction House)
 Polestar.Materials.Search(item, count) -> bool                   -- at the open Auction House: the game's own buy view of the item, the count filled in once its listings come
 Polestar.Materials.ToAuctionator(title, { { item, name, count } }) -> bool  -- Auctionator's shopping list, while it is installed
-Polestar.Engine.MaterialRows(scope) -> { { n, title, from, to, rank, items = { { item, name, need, held, toGet, way, reason, pick, buy, gatherGoal, canGather, gatherWhy, price, info } } } }  -- the sections the skill has not passed ("section": the first only); what the character holds counts toward the earliest section first
+Polestar.Engine.MaterialRows() -> { { n, title, from, to, rank, items = { { item, name, need, held, toGet, way, reason, buy, price, info } } } }  -- the sections the skill has not passed; what the character holds counts toward the earliest section first
 Polestar.Engine.RefreshMaterials()                               -- the ways changed: forget them, evaluate
 ```
 
@@ -4424,24 +4420,16 @@ Polestar.Engine.RefreshMaterials()                               -- the ways cha
   (`CommoditiesQuantitySelectionChanged`) once the listings are there.
   Buying stays the game's Buy Now, the player's own click; nothing else of the
   Auction House is touched (no scans, no favourites).
-- **On screen** (`UI/Materials.lua`). The card: the first time a guide with a
-  material to choose for is the running guide of a character that never
-  answered for it (`Materials.Asks`), with something still to get, the
-  heads-up card (`UI/ClassToast.lua`, kind "materials", `answers`: its third
-  answer before Later) asks how to get them, four seconds after the guide
-  opens: what the rest of the guide takes, what Mix gathers and buys for this
-  character, the cost of buying it all when every price is known; Mix (opens
-  the window), Gather, Buy; Later, the close button or its time running out
-  keep the default for good (`Materials.Dismiss`); another guide running takes
-  it away unanswered. The window (`PolestarMaterials`, `/polestar materials`):
-  Gather all, Buy all, Mix; each material of the sections ahead (or this one)
-  with what is still to get, what the character holds toward it, its way lit
-  (Gather | Buy, a way it cannot take off) and why; a pick is
-  `Materials.SetWay`, a right-click takes it back; what buying costs, and the
-  list for Auctionator or the copy window. The guide window's menu: "Gather
-  materials", "Buy materials", "Mix: choose per material". Options: Guide ›
-  Professions › Materials (`professions.materials`,
-  `professions.altMaterials`, and a Show button that opens the window).
+- **On screen.** The get step's ways (`UI/GuideFrameKindCraft.lua`, the
+  `get` region over `KindCraft`'s model: GUIDE_FORMAT.md, "Materials") are
+  the one place a way is picked, a click on one is `Materials.SetWay`; the
+  shopping list beside the Auction House reads `Materials.BuyRows`. Nothing
+  asks for a guide-wide way (0.4.4 took away the heads-up card, the Materials
+  window, its menu rows, `/polestar materials` and `professions.materials`;
+  the migration `materialsAskGone` drops that setting, and the login drops
+  the saved guide-wide `mode` and the card's `asked`, keeping the picks).
+  Options: Guide › Automation › Profession guides
+  (`professions.altMaterials`).
 
 ### Nav API — journeys for players and other addons
 

@@ -48,7 +48,6 @@
 	<Script file="LayoutCard.lua"/>
 	<Script file="Copy.lua"/>
 	<Script file="QuestRoom.lua"/>
-	<Script file="Materials.lua"/>
 	<Script file="GearScales.lua"/>
 	<Script file="GearAdjust.lua"/>
 	<Script file="Report.lua"/>

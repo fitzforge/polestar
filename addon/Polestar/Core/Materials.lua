@@ -1,17 +1,14 @@
 -- Materials: a profession guide's materials, gathered or bought (docs/GUIDE_FORMAT.md, "Materials"). An item a
--- guide both gathers (`collect … gather`) and buys (`auction`) takes one way at a time: the player's pick for it,
--- else the way they chose for the guide (Gather, Buy or Mix; for a guide they never answered, Options' default, Mix
--- while that default is to ask). Mix gathers what the character can (the profession and rank its `gather` names,
--- the levels of the mobs it drops from) and buys the rest. The Engine applies only the goals of the way an item
--- takes (Engine.lua, Own.materialApplies); the windows read the counts and prices here.
+-- guide both gathers (`collect … gather`) and buys (`auction`) takes one way at a time: the player's pick for it
+-- (the get step's ways, UI/GuideFrameKindCraft.lua), else gathered when the character can (the profession and rank
+-- its `gather` names, the levels of the mobs it drops from, a farm no longer than Materials.LONG) and bought
+-- otherwise. The Engine applies only the goals of the way an item takes (Engine.lua, Own.materialApplies); the
+-- windows read the counts and prices here.
 --
 --   Materials.Way(guide, item, player[, farmMinutes]) -> "gather" | "buy", reason
---   Materials.Mode(guideId[, item]) -> mode ("gather" | "buy" | "mix"), answered, pick ("gather" | "buy" | nil)
---   Materials.Asks(guideId) -> true while the guide's way is still to ask for (no answer, Options' default "ask",
---     not dismissed with Later: Materials.Dismiss(guideId))
---   Materials.Choosable(guide) -> true when some material of it is both gathered and bought
---   Materials.SetMode(guideId, mode), Materials.SetWay(guideId, item, way | nil) -> true | false
---     (MATERIALS_CHANGED, guideId; Gather all and Buy all clear the picks, Mix keeps them)
+--   Materials.Pick(guideId, item) -> "gather" | "buy" | nil: the player's pick for the item in that guide
+--   Materials.SetWay(guideId, item, way | nil) -> true | false (MATERIALS_CHANGED, guideId; nil: back to the
+--     automatic way)
 --   Materials.BuyRows() -> the running guide's materials to buy, for the shopping list at the Auction House
 --   Materials.Search(item, count) -> true: the game's buy view of item at the open Auction House, count filled in
 --   Materials.ToAuctionator(title, list) -> true: Auctionator's shopping list of { { item, name, count } }
@@ -25,12 +22,11 @@
 --   Materials.OwnCounts() -> { [item] = n } | nil: this character's (bags, bank, mail), for the Characters page
 --
 -- Reasons: "selfFound" (a Self-Found character has no Auction House), "noBuy" (nothing buys it in this guide),
--- "noGather" (nothing gathers it in this guide), "picked" (the player's pick), "mode" (the guide's way), "skill"
--- (the profession or rank its gather way takes is missing, and the guide's earlier steps do not train or raise it),
--- "low" (its mobs more than Materials.LOW levels above the character), "past" (looted while levelling, cloth or
--- meat, and the character Materials.PAST levels beyond
--- its mobs), "mix" (Mix gathers it), "long" (Mix buys it: farming what is still needed takes over Materials.LONG
--- minutes).
+-- "noGather" (nothing gathers it in this guide), "picked" (the player's pick), "skill" (the profession or rank its
+-- gather way takes is missing, and the guide's earlier steps do not train or raise it), "low" (its mobs more than
+-- Materials.LOW levels above the character), "past" (looted while levelling, cloth or meat, and the character
+-- Materials.PAST levels beyond its mobs), "long" (farming what is still needed takes over Materials.LONG minutes),
+-- "can" (the character can gather it).
 --
 -- Counts: the bags live; the bank live while it is open, else as at the character's last visit (BANKFRAME_OPENED,
 -- PLAYERBANKSLOTS_CHANGED, BANKFRAME_CLOSED; before the first, what the client reports); the mail as at the last
@@ -55,12 +51,16 @@ local Materials = {}
 ns.Materials = Materials
 
 ns.RegisterDefaults("professions", {
-	materials = "ask", -- a guide never answered: "ask" (the guide asks; Mix meanwhile) | "mix" | "gather" | "buy"
 	altMaterials = false, -- other characters' materials count toward what is still to get
 })
 
-local MODES = { gather = true, buy = true, mix = true }
--- LONG: minutes of farming past which Mix buys a material instead.
+-- Before 0.4.4 a guide asked how to get its materials (a card, a window, Options' default for new guides); the
+-- get step's ways ask now, per material.
+ns.RegisterMigration("materialsAskGone", function(s)
+	if type(s.professions) == "table" then s.professions.materials = nil end
+end)
+
+-- LONG: minutes of farming past which a material is bought instead.
 Materials.LOW, Materials.PAST, Materials.LONG = 2, 5, 45
 local PRICE_DAYS = 14
 local PRICE_ROWS = 40 -- listings kept per item, cheapest first: enough to price a bracket's cloth
@@ -70,7 +70,7 @@ local CALLER = "Polestar" -- the caller id Auctionator's API asks for
 -- State
 ---------------------------------------------------------------------------
 
--- Per character: guides[guideId] = { mode, ways = { [item] = way } }; the bank, mail and coming counts per item;
+-- Per character: guides[guideId] = { ways = { [item] = way } }; the bank, mail and coming counts per item;
 -- bankSeen once the bank was looked at.
 local function state()
 	local s = ns.CharState()
@@ -85,6 +85,15 @@ local function state()
 	if type(m.coming) ~= "table" then m.coming = {} end
 	return m
 end
+
+-- Saved before 0.4.4: a guide's way for every material (mode) and the card's Later (asked); only the picks stay.
+ns.OnLogin(function()
+	local g = state().guides
+	for id, c in pairs(g) do
+		if type(c) == "table" then c.mode, c.asked = nil, nil end
+		if type(c) ~= "table" or type(c.ways) ~= "table" or next(c.ways) == nil then g[id] = nil end
+	end
+end)
 
 -- Per account: prices[house][item] = { t = time seen, rows = { { p = unit copper, q = quantity } } }.
 local function prices()
@@ -214,36 +223,14 @@ function Materials.CanGather(g, player)
 	return true
 end
 
-function Materials.Mode(guideId, item)
+function Materials.Pick(guideId, item)
 	local c = guideId and state().guides[guideId]
-	local mode = type(c) == "table" and MODES[c.mode] and c.mode or nil
-	local answered = mode ~= nil
-	if not mode then
-		local d = ns.Get("professions.materials")
-		mode = MODES[d] and d or "mix"
-	end
-	local pick = item and answered and type(c.ways) == "table" and c.ways[item] or nil
-	return mode, answered, (pick == "gather" or pick == "buy") and pick or nil
+	local pick = type(c) == "table" and type(c.ways) == "table" and c.ways[item] or nil
+	return (pick == "gather" or pick == "buy") and pick or nil
 end
 
--- Later (or the card's close button) leaves the guide on the default and never asks again for it.
-function Materials.Asks(guideId)
-	local c = guideId and state().guides[guideId]
-	if type(c) == "table" and c.asked then return false end
-	local _, answered = Materials.Mode(guideId)
-	return not answered and ns.Get("professions.materials") == "ask" and not Materials.SelfFound()
-end
-
--- Whether the guide has a material to choose a way for: one it both gathers and buys.
-function Materials.Choosable(guide)
-	for _, e in pairs(Materials.Index(guide)) do
-		if #e.gather > 0 and #e.auction > 0 then return true end
-	end
-	return false
-end
-
--- farmMinutes (optional): a function giving the minutes farming what is still needed takes (nil: not known); Mix
--- buys a material whose farm is longer than Materials.LONG ("long") when it can be bought.
+-- farmMinutes (optional): a function giving the minutes farming what is still needed takes (nil: not known); a
+-- material whose farm is longer than Materials.LONG ("long") is bought when it can be.
 function Materials.Way(guide, item, player, farmMinutes)
 	local e = guide and item and Materials.Index(guide)[item]
 	if not e then return "gather", "noBuy" end
@@ -251,21 +238,15 @@ function Materials.Way(guide, item, player, farmMinutes)
 	if not firstFor(e.auction, player) then return "gather", "noBuy" end
 	local g = firstFor(e.gather, player)
 	if not g then return "buy", "noGather" end
-	local mode, _, pick = Materials.Mode(guide.id, item)
+	local pick = Materials.Pick(guide.id, item)
 	if pick then return pick, "picked" end
-	if mode == "buy" then return "buy", "mode" end
 	local can, why = Materials.CanGather(g, player)
-	if mode == "gather" then
-		-- Gather all still buys what takes a profession the character lacks: there is no gathering it.
-		if why == "skill" then return "buy", "skill" end
-		return "gather", "mode"
-	end
 	if not can then return "buy", why end
-	if mode == "mix" and type(farmMinutes) == "function" then
+	if type(farmMinutes) == "function" then
 		local m = farmMinutes()
 		if type(m) == "number" and m > Materials.LONG then return "buy", "long" end
 	end
-	return "gather", "mix"
+	return "gather", "can"
 end
 
 local function changed(guideId)
@@ -274,52 +255,28 @@ local function changed(guideId)
 	if E and E.RefreshMaterials then E.RefreshMaterials() end
 end
 
-local function choiceFor(guideId)
-	local g = state().guides
-	local c = g[guideId]
-	if type(c) ~= "table" then
-		c = {}
-		g[guideId] = c
-	end
-	return c
-end
-
-function Materials.SetMode(guideId, mode)
-	if not (type(guideId) == "string" and MODES[mode]) then return false end
-	local c = choiceFor(guideId)
-	c.mode = mode
-	if mode ~= "mix" then c.ways = nil end
-	changed(guideId)
-	return true
-end
-
--- A pick answers the guide too: Mix with that pick when it had no answer or was Gather all or Buy all.
 function Materials.SetWay(guideId, item, way)
 	if not (type(guideId) == "string" and type(item) == "number") or (way ~= nil and way ~= "gather" and way ~= "buy") then return false end
-	local c = choiceFor(guideId)
-	c.mode = "mix"
+	local g = state().guides
+	local c = g[guideId]
 	if way then
+		if type(c) ~= "table" then
+			c = {}
+			g[guideId] = c
+		end
 		if type(c.ways) ~= "table" then c.ways = {} end
 		c.ways[item] = way
-	elseif type(c.ways) == "table" then
+	elseif type(c) == "table" and type(c.ways) == "table" then
 		c.ways[item] = nil
-		if next(c.ways) == nil then c.ways = nil end
+		if next(c.ways) == nil then g[guideId] = nil end
 	end
 	changed(guideId)
 	return true
 end
 
--- Later on the card: the guide stays on the default way and is never asked about again (Materials.Asks).
-function Materials.Dismiss(guideId)
-	if type(guideId) ~= "string" then return false end
-	choiceFor(guideId).asked = true
-	ns.Fire("MATERIALS_CHANGED", guideId)
-	return true
-end
-
--- Options' default for new guides and the other characters' counts change ways and counts in every guide.
+-- The other characters' counts change what is still to get in every guide.
 ns.On("SETTING_CHANGED", function(path)
-	if path == "professions.materials" or path == "professions.altMaterials" or path == "professions" or path == "" then changed(nil) end
+	if path == "professions.altMaterials" or path == "professions" or path == "" then changed(nil) end
 end)
 
 ---------------------------------------------------------------------------
@@ -633,7 +590,7 @@ function Materials.BuyRows()
 	local E = ns.Engine
 	local g = E and E.GetGuide and E.GetGuide()
 	if not (g and E.MaterialRows) or Materials.SelfFound() then return out end
-	for _, sec in ipairs(E.MaterialRows("rest")) do
+	for _, sec in ipairs(E.MaterialRows()) do
 		for _, row in ipairs(sec.items) do
 			if row.way == "buy" and row.toGet > 0 then
 				out[#out + 1] = { guide = g.id, guideTitle = g.title, section = sec.title, item = row.item, name = row.name, toBuy = row.toGet,

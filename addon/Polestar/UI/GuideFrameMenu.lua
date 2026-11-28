@@ -72,18 +72,13 @@ ns.UI.GuideFrame.Part(function(GF)
 		local function group() if #items > 0 and not items[#items].separator then add({ separator = true }) end end
 		-- The guide's kind (Core/Guides.lua, GuideKinds) leaves entries out (a
 		-- profession guide has no Free mode or quest hand-ins) and puts its own
-		-- first: a profession guide's materials and its nearest trainer.
+		-- first: a profession guide's nearest trainer.
 		local K = ns.GuideKinds
 		local kind = E and E.GuideKind and E.GuideKind() or "leveling"
 		local function has(entry) return not K or K.Menu(kind, entry) end
-		local led = {}
 		local lead = {}
 		for _, entry in ipairs(K and K.Lead(kind) or {}) do
-			if entry == "materials" then
-				local mats = UI.Materials and UI.Materials.MenuItems()
-				for _, it in ipairs(mats or {}) do lead[#lead + 1] = it end
-				led.materials = true
-			elseif entry == "trainer" then
+			if entry == "trainer" then
 				local Nearby = ns.Nav and ns.Nav.nearby
 				-- One entry per skill the guide levels (a paired guide: both).
 				for _, line in ipairs({ K.SkillLine(hasGuide) }) do
@@ -140,11 +135,6 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- The quest items to buy at the auction house (UI/AuctionBuys.lua), while there are any.
 		local ah = UI.AuctionBuys and UI.AuctionBuys.MenuItem()
 		if ah then add(ah) end
-		-- Gather, buy or mix, for a guide with a material to choose a way for (UI/Materials.lua), unless the kind led with them.
-		if has("materials") and not led.materials then
-			local mats = UI.Materials and UI.Materials.MenuItems()
-			for _, it in ipairs(mats or {}) do add(it) end
-		end
 		group()
 		-- The few settings changed mid-play (UI/QuickSettings.lua), by the button, just before Settings.
 		if UI.QuickSettings then

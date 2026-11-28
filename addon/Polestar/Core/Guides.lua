@@ -2344,8 +2344,8 @@ end
 -- shopping list). A part may be decided by the guide: a function of it (a
 -- guide that levels one gathering profession has no shopping list: its tools
 -- and lures are steps). Menu entries: "free" (Free mode), "handins"
--- (Hand in finished quests), "questLog" (Clean up quest log), "materials"
--- (Gather, buy or mix), "trainer" (the profession's nearest trainer).
+-- (Hand in finished quests), "questLog" (Clean up quest log), "trainer" (the
+-- profession's nearest trainer).
 -- A part's own setting (guideWindow.xpLine, .pace, .stillToDo) still turns it off for every kind (GF.KindHas).
 ---------------------------------------------------------------------------
 
@@ -2358,7 +2358,7 @@ GuideKinds.KINDS = {
 		parts = { xp = false, pace = false, skillBar = true, whileHereQuests = false, stillToDo = false,
 			shoppingList = function(def) return not GuideKinds.GatheringOnly(def) end },
 		menu = { free = false, handins = false, questLog = false },
-		lead = { "materials", "trainer" },
+		lead = { "trainer" },
 	},
 	reputation = { parts = { pace = false } },
 	dungeon = { parts = { pace = false } },

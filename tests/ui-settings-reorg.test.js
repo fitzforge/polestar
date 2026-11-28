@@ -356,7 +356,7 @@ test('misplaced settings sit in their new home', () => {
 	assert.equal(out.sectionOf['qol.questSellWarning'], 'Quest items');
 	assert.equal(out.sectionOf['qol.auctionBuys'], 'Quest items');
 	assert.equal(has('guide', 'Professions'), false);
-	assert.equal(out.home['professions.materials'], 'guide › Automation › Profession guides');
+	assert.equal(out.home['professions.materials'], undefined, 'no default way for profession guides: each get step asks');
 	assert.equal(out.home['professions.altMaterials'], 'guide › Automation › Profession guides');
 });
 
