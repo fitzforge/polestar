@@ -269,7 +269,7 @@ return {
 
 	-- Step 44: Get Wool Cloth
 	-- {item:2592} Wool Cloth
-	["Get {item:2592}"] = "",
+	["Get {item:2592}"] = "获取{item:2592}",
 	-- {item:2592} Wool Cloth · {skill:202} Engineering · {spell:3953} Bronze Framework
 	["You need 19 {item:2592} for {skill:202} 150-225: {spell:3953}. Humanoids of level 15-30 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
@@ -450,7 +450,7 @@ return {
 
 	-- Step 74: Get Runecloth
 	-- {item:14047} Runecloth
-	["Get {item:14047}"] = "",
+	["Get {item:14047}"] = "获取{item:14047}",
 	-- {item:14047} Runecloth · {skill:202} Engineering · {item:15994} Thorium Widget
 	["You need 24 {item:14047} for {skill:202} 225-300: {item:15994}. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 

@@ -328,7 +328,7 @@ return {
 
 	-- Step 53: Get Shadowgem
 	-- {item:1210} Shadowgem
-	["Get {item:1210}"] = "",
+	["Get {item:1210}"] = "获取{item:1210}",
 	-- {item:1210} Shadowgem · {skill:164} Blacksmithing · {item:7945} Big Black Mace · {object:1731} Copper Vein · {object:1732} Tin Vein · {object:1733} Silver Vein
 	["You need 44 {item:1210} for {skill:164} 225-300: {item:7945}. {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining. Or buy them at the Auction House."] = "",
 

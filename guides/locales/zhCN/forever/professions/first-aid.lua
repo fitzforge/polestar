@@ -15,7 +15,7 @@ return {
 
 	-- Step 2: Get Linen Cloth
 	-- {item:2589} Linen Cloth
-	["Get {item:2589}"] = "",
+	["Get {item:2589}"] = "获取{item:2589}",
 	-- {item:2589} Linen Cloth · {item:1251} Linen Bandage
 	["You need 41 {item:2589} for {item:1251} (1-40). {item:2589} drops from humanoids of level 5-20, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2589} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
@@ -48,7 +48,7 @@ return {
 
 	-- Step 9: Get Wool Cloth
 	-- {item:2592} Wool Cloth
-	["Get {item:2592}"] = "",
+	["Get {item:2592}"] = "获取{item:2592}",
 	-- {item:2592} Wool Cloth · {spell:3277} Wool Bandage
 	["You need 49 {item:2592} for {spell:3277} (80-115). {item:2592} drops from humanoids of level 15-30, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
@@ -82,7 +82,7 @@ return {
 
 	-- Step 16: Get Silk Cloth
 	-- {item:4306} Silk Cloth
-	["Get {item:4306}"] = "",
+	["Get {item:4306}"] = "获取{item:4306}",
 	-- {item:4306} Silk Cloth · {item:6450} Silk Bandage
 	["You need 42 {item:4306} for {item:6450} (150-180). {item:4306} drops from humanoids of level 25-45, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4306} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
@@ -100,7 +100,7 @@ return {
 
 	-- Step 20: Get Mageweave Cloth
 	-- {item:4338} Mageweave Cloth
-	["Get {item:4338}"] = "",
+	["Get {item:4338}"] = "获取{item:4338}",
 	-- {item:4338} Mageweave Cloth · {item:8544} Mageweave Bandage
 	["You need 18 {item:4338} for {item:8544} (210-225). {item:4338} drops from humanoids of level 35-50, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4338} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
@@ -156,7 +156,7 @@ return {
 
 	-- Step 32: Get Runecloth
 	-- {item:14047} Runecloth
-	["Get {item:14047}"] = "",
+	["Get {item:14047}"] = "获取{item:14047}",
 	-- {item:14047} Runecloth · {item:14529} Runecloth Bandage
 	["You need 65 {item:14047} for {item:14529} (260-300). {item:14047} drops from humanoids of level 45-60, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
