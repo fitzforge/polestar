@@ -1165,8 +1165,14 @@ gets no `spots`, except an NPC who walks around:
   picks one when the step comes up, again on a zone change, a level-up and
   from the window's "Other": travel there from where the player is plus the
   laps left times `lap` (seconds a lap takes), as for farm spots (`collect …
-  nearest`), with a loop whose `lvl` (its strongest creature) is 2 or more
-  above the player only when every loop is. The picked loop's points, in
+  nearest`), among the loops whose `lvl` is at most the player's level. `lvl`
+  is the least character level safe along the loop: no creature that can
+  reach its walk or its nodes is more than a level above the player, and no
+  elite stands by it (the profession builder works it out from the creature
+  spawns). A loop above the player is never taken; with none at their level
+  the goal has no place, and the window says from which level one is safe
+  ("Safe Copper Ore loop from level 6"), beside the step's other ways (the
+  Auction House). The picked loop's points, in
   order, each `r` yards wide (default 30), are the goal's spawn areas, as in a
   Loop step; `only` limits a loop to some characters (the other faction's
   towns differ). Points are Era-frame unless `live`. The window names the loop,

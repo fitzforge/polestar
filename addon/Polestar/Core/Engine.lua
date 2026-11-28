@@ -3197,11 +3197,23 @@ Own.TOO_HIGH = 2
 -- Farming loops (`loop <zone> …`, docs/GUIDE_FORMAT.md "Farming loops";
 -- #3661): candidates with `lap` (the seconds a lap takes) and `gain` (skill
 -- points a lap, a `skill` goal) or `yield` (the goal's items a lap, a
--- `collect` goal); `lvl` is the strongest creature along the walk. A goal
--- whose candidates are loops ranks them as farm spots.
+-- `collect` goal); `lvl` is the least character level safe along the loop
+-- (the builder's rule: no creature that can reach it more than a level above
+-- the player, no elite by it). A goal whose candidates are loops ranks them
+-- as farm spots, and never takes one whose `lvl` is above the character's
+-- level, whatever else is left (Polestar 0.4.4: a level 3 Tauren was sent on
+-- Mulgore's level 8 loop): with none at their level it has no place, and the
+-- window says from which level one is safe (Own.farmView `safeFrom`).
 function Own.isLoopGoal(goal)
 	local c = goal.candidates and goal.candidates[1]
 	return c ~= nil and c.lap ~= nil
+end
+
+-- A loop candidate's `lvl`: the least character level safe on it.
+function Own.loopLevel(c)
+	local l = c.lvl
+	if type(l) == "table" then l = l[1] or l.min end
+	return tonumber(l) or 1
 end
 
 -- What a loop goal still needs: skill points to its `skill` target, or items.
@@ -3255,12 +3267,20 @@ local function pickFor(goal)
 	local hereCont = here and C.GetContinentMap and C.GetContinentMap(here.map)
 	local hc, hx, hy
 	if here then hc, hx, hy = C.MapToWorld(here.map, here.x, here.y, here.f) end
-	local farm = (goal.t == "collect" and not goal.quest) or Own.isLoopGoal(goal)
+	local loopGoal = Own.isLoopGoal(goal)
+	local farm = (goal.t == "collect" and not goal.quest) or loopGoal
 	local zoneLevels = ns.Maps and ns.Maps.GetZoneLevels
 	local list, tier, cost, extra, order, gap = {}, {}, {}, {}, {}, {}
 	local reasonable = false
+	local level, safeFrom = player.level or 1, nil
 	for i, c in ipairs(goal.candidates) do
-		if Guides.CandidateMatches(c, player) then
+		local usable = Guides.CandidateMatches(c, player)
+		if usable and loopGoal and Own.loopLevel(c) > level then
+			local l = Own.loopLevel(c)
+			if not safeFrom or l < safeFrom then safeFrom = l end
+			usable = false
+		end
+		if usable then
 			list[#list + 1] = c
 			order[c] = i * 1e-6 -- stable among equals
 			if farm then
@@ -3337,7 +3357,7 @@ local function pickFor(goal)
 		end
 		table.sort(list, better)
 	end
-	p = { list = list, i = #list > 0 and 1 or 0, gen = contextGen, tier = tier }
+	p = { list = list, i = #list > 0 and 1 or 0, gen = contextGen, tier = tier, safeFrom = safeFrom }
 	picks[goal] = p
 	Own.applyLoop(goal, list[p.i])
 	return p
@@ -3355,15 +3375,20 @@ end
 -- kill yields), how many levels its weakest mobs are above the player (nil at
 -- or below), and the second choice: the next spot of the ranking on another
 -- map, else the next one. A farming loop instead: `loop` (what it gathers:
--- the skill, or the item), its lap in minutes, the laps and minutes left.
--- Nil for no farm goal, no usable spot, or nothing left to farm.
+-- the skill, or the item), its lap in minutes, the laps and minutes left;
+-- with no loop safe at the character's level, `safeFrom`: the level the first
+-- one opens at (pickFor). Nil for no farm goal, no usable spot, or nothing
+-- left to farm.
 function Own.farmView(goal)
 	if not goal.candidates then return nil end
 	local loop = Own.isLoopGoal(goal)
 	if not loop and (goal.t ~= "collect" or goal.quest) then return nil end
 	local p = pickFor(goal)
 	local c = p.list[p.i]
-	if not c then return nil end
+	if not c then
+		if loop and p.safeFrom and Own.loopNeed(goal) >= 1 then return { loop = true, safeFrom = p.safeFrom } end
+		return nil
+	end
 	local need = loop and Own.loopNeed(goal) or Own.needOf(goal) - (goal.item and Compat().GetItemCount(goal.item) or 0)
 	if need < 1 then return nil end
 	local secs, gap = farmSeconds(goal, c)
@@ -3483,10 +3508,23 @@ local Spots = {
 -- The farming loop a goal's pick chose (`loop <zone> …`, pickFor): its stops
 -- become the goal's spawn areas and its first stop the goal's point, so the
 -- arrow walks that loop as a `loop` step's (Spots). A new loop starts with no
--- spot chosen. No-op for another candidate or the loop already on.
-Own.loopOn = setmetatable({}, { __mode = "k" }) -- goal -> its candidate on
+-- spot chosen. No-op for another candidate or the loop already on. None
+-- (no loop safe at the character's level): the goal's own spawn areas (the
+-- compiler's copy of its first loop's) go, so nothing leads to or marks a loop
+-- above the player.
+Own.loopOn = setmetatable({}, { __mode = "k" }) -- goal -> its candidate on (false: none safe)
 function Own.applyLoop(goal, c)
-	if not (c and c.lap) or Own.loopOn[goal] == c then return end
+	if not c then
+		if Own.loopOn[goal] ~= false and Own.isLoopGoal(goal) then
+			rawset(goal, "spotsPacked", nil)
+			rawset(goal, "spots", nil)
+			goal.spread = nil
+			Spots.chosen[goal], Spots.pinned[goal], Spots.stay[goal] = nil, nil, nil
+			Own.loopOn[goal] = false
+		end
+		return
+	end
+	if not c.lap or Own.loopOn[goal] == c then return end
 	local spots = Guides.CandidateSpots(c)
 	if not spots then return end
 	goal.map, goal.x, goal.y, goal.f = c.map, c.x, c.y, c.f
@@ -3762,8 +3800,10 @@ local function posOf(goal)
 	local shop = Own.recipeVendor(goal)
 	if shop then return posOf(shop) end
 	local c = chosen(goal)
-	-- A farming loop's place is its spawn areas (Own.applyLoop), below.
+	-- A farming loop's place is its spawn areas (Own.applyLoop), below; with
+	-- none safe at the character's level, it has none.
 	if c and not c.lap then return c.map, c.x, c.y, c.f, nil, c.z end
+	if not c and goal.candidates and Own.isLoopGoal(goal) then return nil end
 	local s = goal.spots and Spots.get(goal)
 	if s and Own.onePlace(goal) then
 		if #goal.spots == 1 and goal.x then return goal.map, goal.x, goal.y, goal.f, nil, goal.z end
