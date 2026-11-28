@@ -112,6 +112,14 @@ const mining = {
 	role: 'mine',
 	tool: { item: 2901, name: 'Mining Pick', why: 'keep it in your bags, you cannot mine without it.' },
 	shortName: shortOre,
+	// Area tuning (areas.js DEFAULTS), found by sweeping the knobs over every band, faction and race of the guide.
+	// Ore is sparse, a few veins to a hill, so the areas start small and grow: patchYards 300 (the 400 default leaves a
+	// hill's veins in one patch that an elite or the other faction's town at its edge rules out whole), minNodes 2 and
+	// minUp 1 (a pair of veins is an area where ore is this sparse), mergeYards 1200 and maxSpan 2200 (neighbouring
+	// patches of one name join while the ground stays clear), tierGrowth 0.1 (an area is offered again at a higher
+	// level once it holds a tenth more veins), levelShare 0.85 and groundShare 0.4 (the share of its veins its level
+	// covers, and the quantile of the ground between them it counts).
+	areaTuning: { patchYards: 300, minNodes: 2, minUp: 1, mergeYards: 1200, maxSpan: 2200, tierGrowth: 0.1, levelShare: 0.85, groundShare: 0.4 },
 	// Yards' worth of time to stop at a node and gather it (about 5 seconds at a run).
 	stopYards: 35,
 	points(ctx, map, from, to) {
