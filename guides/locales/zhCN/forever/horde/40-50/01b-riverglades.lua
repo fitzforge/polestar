@@ -156,7 +156,7 @@ return {
 	["The training grounds"] = "训练场",
 	-- {npc:256655} Gorg · {item:265066} Hearty Stew · {npc:263380} Ghostmaw
 	-- plural, as words: Rog'mar Trainees = {npc:256749} Rog'mar Trainee
-	["North of the fort the Rog'mar Trainees drill: use {npc:256655}'s {item:265066} on them.\nCareful: {npc:263380}, an elite (level 42), can come up from the river south of the fort: let him pass."] = "罗格玛新兵在堡垒北边操练：对他们使用{npc:256655}的{item:265066}。\n小心：精英{npc:263380}（42级）可能从堡垒南边的河里上来：让他过去。",
+	["North of the fort the Rog'mar Trainees drill: use {npc:256655}'s {item:265066} on them.\nCareful: {npc:263380}, an elite (level 42), can come up from the river south of the fort: let him pass."] = "洛格玛受训者在堡垒北边操练：对他们使用{npc:256655}的{item:265066}。\n小心：精英{npc:263380}（42级）可能从堡垒南边的河里上来：让他过去。",
 
 	-- Step 35: The river and the Farholde camp
 	["The river and the Farholde camp"] = "河流与远岸营地",
@@ -246,7 +246,7 @@ return {
 	["The Twilight ogres' camp"] = "暮光食人魔的营地",
 	-- {npc:256728} Na'zok · {npc:260973} Klunk · {item:269257} Skullbasher · {npc:260211} Scoutmaster Vargas
 	-- plural, as words: Twilight Maulers = {npc:260968} Twilight Mauler · Farholde Ambushers = {npc:260023} Farholde Ambusher
-	["The Twilight Maulers and Firecallers camp on the ridge east of {npc:256728}. {npc:260973}, who carries the {item:269257}, stands among them. Just south of the ogres, {npc:260211} (an Alliance elite, level 42) and his Farholde Ambushers hold the scouts' camp: keep north of it unless you came with a group for him."] = "暮光重锤者和暮光召火者在{npc:256728}东边的山脊上扎营。携带{item:269257}的{npc:260973}就站在他们中间。食人魔营地南边不远处，{npc:260211}（联盟精英，42级）和他的法尔霍德伏击者占据着斥候营地：除非你组了小队来打他，否则待在营地北边。",
+	["The Twilight Maulers and Firecallers camp on the ridge east of {npc:256728}. {npc:260973}, who carries the {item:269257}, stands among them. Just south of the ogres, {npc:260211} (an Alliance elite, level 42) and his Farholde Ambushers hold the scouts' camp: keep north of it unless you came with a group for him."] = "暮光虐待者和暮光召火者在{npc:256728}东边的山脊上扎营。携带{item:269257}的{npc:260973}就站在他们中间。食人魔营地南边不远处，{npc:260211}（联盟精英，42级）和他的法尔霍德伏击者占据着斥候营地：除非你组了小队来打他，否则待在营地北边。",
 	-- {item:269257} Skullbasher · {npc:260973} Klunk
 	["{item:269257}, from {npc:260973}"] = "{item:269257}：从{npc:260973}身上获得",
 
@@ -365,7 +365,7 @@ return {
 	["The pirates' second wave"] = "海盗的第二波",
 	-- {npc:259758} Gul'gash
 	-- plural, as words: Eastsea Raiders = {npc:257915} Eastsea Raider
-	["North along the coast from the port: the Eastsea raiders and bombardiers have dug in on the slopes west of the buccaneers' camp, among their powder kegs. Watch for {npc:259758} on these cliffs.\nCareful: the Eastsea Raiders are level 44-45, a level or two over you here: pull them one at a time from the edge of the slopes and keep clear of the camp behind them."] = "从港口沿海岸向北：东海劫掠者和投弹手在海盗营地西边的山坡上据守，四周堆着火药桶。在这些悬崖上留意{npc:259758}。\n小心：东海劫掠者为44-45级，比你高一两级：从山坡边缘一次拉一个，远离它们身后的营地。",
+	["North along the coast from the port: the Eastsea raiders and bombardiers have dug in on the slopes west of the buccaneers' camp, among their powder kegs. Watch for {npc:259758} on these cliffs.\nCareful: the Eastsea Raiders are level 44-45, a level or two over you here: pull them one at a time from the edge of the slopes and keep clear of the camp behind them."] = "从港口沿海岸向北：东海袭击者和投弹手在海盗营地西边的山坡上据守，四周堆着火药桶。在这些悬崖上留意{npc:259758}。\n小心：东海袭击者为44-45级，比你高一两级：从山坡边缘一次拉一个，远离它们身后的营地。",
 
 	-- Step 78: Sweetberries
 	["Sweetberries"] = "甜浆果",

@@ -139,7 +139,7 @@ return {
 	["The coyote den"] = "郊狼巢穴",
 	-- {npc:258522} Sootfur
 	-- plural, as words: Plains Coyotes = {npc:259267} Plains Coyote
-	["The coyotes den in the hills south of the farm: {npc:258522}, the big dark one, sits at the back of it; the Plains Coyotes around it drop the pelts."] = "郊狼的巢穴在农场南边的山丘里：{npc:258522}是那只深色的大郊狼，待在巢穴深处；周围的平原郊狼掉落毛皮。",
+	["The coyotes den in the hills south of the farm: {npc:258522}, the big dark one, sits at the back of it; the Plains Coyotes around it drop the pelts."] = "郊狼的巢穴在农场南边的山丘里：{npc:258522}是那只深色的大郊狼，待在巢穴深处；周围的平原山狗掉落毛皮。",
 
 	-- Step 30: The lost horse
 	["The lost horse"] = "走失的马",
@@ -291,7 +291,7 @@ return {
 	["Coyote pelts"] = "郊狼皮",
 	-- {area:16725} Wheeler's Grange
 	-- plural, as words: Plains Coyotes = {npc:259267} Plains Coyote
-	["The Plains Coyotes roam west and south-west of the keep, towards {area:16725}."] = "平原郊狼在城堡西边和西南边游荡，一直到{area:16725}附近。",
+	["The Plains Coyotes roam west and south-west of the keep, towards {area:16725}."] = "平原山狗在城堡西边和西南边游荡，一直到{area:16725}附近。",
 
 	-- Step 55: Tessa Dawnbright
 	-- {quest:95961} Stepped Out · {npc:263120} Gray Dawnbright · {area:16727} Powderfuse Port
@@ -507,7 +507,7 @@ return {
 	-- Step 99: The ogre mine
 	["The ogre mine"] = "食人魔矿洞",
 	-- plural, as words: Twilight Subjugators = {npc:260996} Twilight Subjugator · Twilight Enforcers = {npc:256800} Twilight Enforcer
-	["North of the camps the cult works ogre miners in a mine, driven by the Twilight Subjugators.\nCareful: Twilight Enforcers (elites, level 45) walk past the mine's mouth on their way through the camps. Wait for one to pass before you go in, and pull the miners and Subjugators back out to you."] = "营地北边，教派在一座矿洞里驱使食人魔矿工干活，由暮光征服者监工。\n小心：暮光执行者（精英，45级）穿行营地时会经过矿洞口。等它走过再进去，把矿工和征服者拉到外面打。",
+	["North of the camps the cult works ogre miners in a mine, driven by the Twilight Subjugators.\nCareful: Twilight Enforcers (elites, level 45) walk past the mine's mouth on their way through the camps. Wait for one to pass before you go in, and pull the miners and Subjugators back out to you."] = "营地北边，教派在一座矿洞里驱使食人魔矿工干活，由暮光制服者监工。\n小心：暮光执行者（精英，45级）穿行营地时会经过矿洞口。等它走过再进去，把矿工和暮光制服者拉到外面打。",
 
 	-- Step 101: Bring Me His Head
 	-- {npc:256881} Overlord Kilgar
