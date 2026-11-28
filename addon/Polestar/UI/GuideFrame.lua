@@ -356,7 +356,7 @@ GF.Part(function(GF)
 
 	function GF.On(key) return ns.Get("guideWindow." .. key) ~= false end
 	-- Whether the window shows part `part` for the guide in view (Core/Guides.lua, GuideKinds:
-	-- "xp", "pace", "skillBar", "handinRow", "whileHereQuests", "stillToDo"): its kind has it, and
+	-- "xp", "pace", "skillBar", "whileHereQuests", "stillToDo"): its kind has it, and
 	-- `key`'s setting (guideWindow.<key>), when it has one, is on. The setting still turns the part
 	-- off for every kind.
 	function GF.KindHas(part, key)

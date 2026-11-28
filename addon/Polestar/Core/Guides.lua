@@ -2332,8 +2332,8 @@ end
 -- category's. Each kind leaves parts of the window and entries of its menu
 -- out (a part or entry not named is shown); `lead` puts menu entries first.
 -- Parts: "xp" (the XP line), "pace" (the route's pace), "skillBar" (the
--- profession's skill, off unless a kind turns it on), "handinRow" (the
--- finished quests' row), "whileHereQuests" (While you're here rows of quests),
+-- profession's skill, off unless a kind turns it on), "whileHereQuests"
+-- (While you're here rows of quests),
 -- "stillToDo" (Still to do rows). Menu entries: "free" (Free mode), "handins"
 -- (Hand in finished quests), "questLog" (Clean up quest log), "materials"
 -- (Gather, buy or mix), "trainer" (the profession's nearest trainer).
@@ -2346,7 +2346,7 @@ ns.GuideKinds = GuideKinds
 GuideKinds.KINDS = {
 	leveling = {},
 	profession = {
-		parts = { xp = false, pace = false, skillBar = true, handinRow = false, whileHereQuests = false, stillToDo = false },
+		parts = { xp = false, pace = false, skillBar = true, whileHereQuests = false, stillToDo = false },
 		menu = { free = false, handins = false, questLog = false },
 		lead = { "materials", "trainer" },
 	},
