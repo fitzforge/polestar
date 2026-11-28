@@ -338,6 +338,32 @@
 				"ref": "#3394: 187 of 190 kills of Cinderscale dragonkin at this spot by 74 people were indoors; of the walking grid's indoor floors here (about 168, 172 and 189), 189 is the hollow's, the floor of the Cubic Draconia 20 yards away and of the whelps' point"
 			},
 			"note": "40-50/01b-riverglades (both factions), step \"The Cinderscale hollow\": the warriors' kill point by the Cubic Draconia."
+		},
+		{
+			"id": "rec-2652-45.9-78.2",
+			"map": 2652,
+			"x": 45.9,
+			"y": 78.2,
+			"frame": "live",
+			"z": 169,
+			"source": {
+				"kind": "recording",
+				"ref": "#4390: 95 people looted the Mana Sieve (object 584729, no spawn height) here, and 87 of the 97 loots are followed within 25 seconds by a fall: players jump down from the upper floor. The walking grid's floors here are 147 and 169; a walk with no height ends on the 147 floor under it (the report: the Sieve is upstairs, the arrow led below it), and 169 is the upper floor's"
+			},
+			"note": "40-50/shendralas (both factions), step \"The temple: the Mana Sieve\": the Sieve's collect point."
+		},
+		{
+			"id": "rec-1458-67.01-42.74",
+			"map": 1458,
+			"x": 67.01,
+			"y": 42.74,
+			"frame": "live",
+			"z": -62,
+			"source": {
+				"kind": "recording",
+				"ref": "#4363: players who talked to Harbinger Balthazad round the Trade Quarter stood at -60.8 to -62.2 (their last steps before his window, map-matched on the walking grid); the grid's floors at this point are -62 and -52, and his one spawn's height (-57.1, 31 yd away) lies between them, where no walk ends"
+			},
+			"note": "horde/50-60/01-un-goro-crater, the accept of A Call to Arms: The Plaguelands! at Harbinger Balthazad's point."
 		}
 	]
 }

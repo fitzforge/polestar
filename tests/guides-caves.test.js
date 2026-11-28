@@ -156,6 +156,13 @@ const FLOORS = [
 		target: (g) => g.t === 'collect' && g.item === item && g.quest === 98342,
 		z,
 	})),
+	{
+		// Manafire Lightbound (#4390): the Mana Sieve is upstairs in Shen'dralas's temple, and the walk ended on the floor
+		// below it. Its object has no spawn data: data/goal-heights.json's record, from players' recordings.
+		guide: 'forever/40-50/shendralas.guide',
+		target: (g) => g.t === 'collect' && g.item === 255662,
+		z: 169,
+	},
 ];
 
 for (const c of FLOORS) {
@@ -163,6 +170,36 @@ for (const c of FLOORS) {
 		const goal = compiled(c.guide).steps.flatMap((step) => step.goals).find(c.target);
 		assert.ok(goal, 'the target goal is in the guide');
 		assert.equal(goal.z, c.z, JSON.stringify(goal));
+	});
+}
+
+// Goals whose spawn spots lie off their spawns: each spot carries its floor's height (heights.js spotHeight), so the
+// walk to the spot the arrow picks ends there, not on the ground above.
+const SPOTS = [
+	{
+		// gidi_ (#4352): the Incendosaurs' camps are in the tunnels under Searing Gorge, their centres 19 to 26 yd from
+		// the nearest spawn: each takes the nearest within its own radius.
+		guide: 'forever/horde/40-50/04-tanaris.guide',
+		target: (g) => g.t === 'kill' && g.npc === 9318,
+		z: [136.1, 151.4, 166.3, 168.1],
+	},
+	{
+		// gidi_ (#4363): Harbinger Balthazad walks round the Undercity's Trade Quarter; his spots take his one spawn's
+		// height, not the ruins' above, and his point the floor players stand on there (a goal-heights.json record: the
+		// spawn's -57.1 falls between the point's two floors, -62 and -52).
+		guide: 'forever/horde/50-60/01-un-goro-crater.guide',
+		target: (g) => g.t === 'accept' && g.npc === 10879,
+		z: [-57.1, -57.1, -57.1],
+		point: -62,
+	},
+];
+
+for (const c of SPOTS) {
+	test(`${c.guide}: every spawn spot of the goal carries its floor's height (${c.z.join(', ')})`, { skip }, () => {
+		const goal = compiled(c.guide).steps.flatMap((step) => step.goals).find(c.target);
+		assert.ok(goal, 'the target goal is in the guide');
+		assert.deepEqual((goal.spots || []).map((s) => s.z), c.z, JSON.stringify(goal.spots));
+		if (c.point !== undefined) assert.equal(goal.z, c.point, JSON.stringify(goal));
 	});
 }
 

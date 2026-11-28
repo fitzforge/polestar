@@ -1,6 +1,8 @@
 //! Port of tools/lib/dsl/heights.js.
 //! Goal heights (docs/GUIDE_FORMAT.md, "Heights"): a goal whose point stands for an NPC or object gets `z`,
-//! the height of that entity's spawn within HEIGHT_YARDS of its world point (spawnz.json), never a guess.
+//! the height of that entity's spawn within HEIGHT_YARDS of its world point (spawnz.json); a spawn spot's centre, the
+//! nearest within the spot's own radius (#4352); an NPC met to talk to with one spawn with a height on the map, that
+//! spawn's within WALK_HEIGHT_YARDS (#4363).
 //! A `use` or `interact` bound to a quest objective (`quest Q.O`) whose target is an object or a creature stands
 //! for that one (#1782: the Rod of Helcular used at the Flame of Azel, in the Foothill Caverns under Darrow Hill);
 //! one bound to an item objective, for the objects the item comes out of (#2126: the Filled Etched Phial used on the
@@ -153,11 +155,16 @@ fn entities(data: &Data, goal: &V) -> Vec<(&'static str, V)> {
 
 /// The height at `point` of the nearest spawn of any of `list` within HEIGHT_YARDS, or None.
 fn nearest_height(data: &Data, list: &[(&'static str, V)], point: &V) -> Option<V> {
-	if list.is_empty() {
-		return None;
-	}
 	if list.len() == 1 {
 		return spawn_height(data, list[0].0, &list[0].1, point);
+	}
+	nearest_within(data, list, point, HEIGHT_YARDS)
+}
+
+/// The height at `point` of the nearest spawn of any of `list` within `yards`, or None.
+fn nearest_within(data: &Data, list: &[(&'static str, V)], point: &V, yards: f64) -> Option<V> {
+	if list.is_empty() {
+		return None;
 	}
 	let p = world_point(data, point);
 	if !data.spawnz.truthy() || !p.truthy() {
@@ -171,12 +178,38 @@ fn nearest_height(data: &Data, list: &[(&'static str, V)], point: &V) -> Option<
 				continue;
 			}
 			let d = hypot(e.at(1).num() - wx, e.at(2).num() - wy);
-			if d <= HEIGHT_YARDS && best.as_ref().is_none_or(|b| d < b.0) {
+			if d <= yards && best.as_ref().is_none_or(|b| d < b.0) {
 				best = Some((d, e.at(3)));
 			}
 		}
 	}
 	best.map(|b| b.1)
+}
+
+/// Yards from its one spawn with a height within which the points of an NPC met to talk to (any height verb but
+/// `kill`) take that spawn's height: such an NPC is one creature, and the data's other points for it are where it
+/// walks (#4363: Harbinger Balthazad's 18 points round the Undercity's Trade Quarter, up to 84 yd from the one
+/// spawn with a height).
+pub const WALK_HEIGHT_YARDS: f64 = 100.0;
+
+/// The height at `point` of the NPC a goal is met at (not a kill: a creature to kill is many), when that NPC has one
+/// spawn with a height on the point's instance map, within WALK_HEIGHT_YARDS; else None.
+fn walk_height(data: &Data, goal: &V, point: &V) -> Option<V> {
+	let (kind, id) = height_entity(goal)?;
+	if kind != "npc" || goal.get("t").as_str() == Some("kill") || !data.spawnz.truthy() {
+		return None;
+	}
+	let p = world_point(data, point);
+	if !p.truthy() {
+		return None;
+	}
+	let c = p.get("c");
+	let list = data.spawnz.get("npc").get(&id.to_js_string()).items();
+	let mut on_map = list.iter().filter(|e| e.at(0).strict_eq(&c));
+	let (Some(e), None) = (on_map.next(), on_map.next()) else {
+		return None;
+	};
+	(hypot(e.at(1).num() - p.get("wx").num(), e.at(2).num() - p.get("wy").num()) <= WALK_HEIGHT_YARDS).then(|| e.at(3))
 }
 
 /// Yards within which a goal's point is a goal-heights.json point.
@@ -209,12 +242,17 @@ pub fn point_height(data: &Data, goal: &V) -> Option<V> {
 	best.map(|b| b.1)
 }
 
-/// The goal's height, or None (entities, else point_height).
+/// The goal's height, or None (entities, else point_height, else the one creature's walk: a record from players'
+/// recordings at the point says more than a height lent from a spawn up to 100 yd off, which can fall between two
+/// floors there, as at Harbinger Balthazad's point in the Trade Quarter, 5 yd from both the floors at -62 and -52).
 pub fn goal_height(data: &Data, goal: &V) -> Option<V> {
-	nearest_height(data, &entities(data, goal), goal).or_else(|| point_height(data, goal))
+	nearest_height(data, &entities(data, goal), goal).or_else(|| point_height(data, goal)).or_else(|| walk_height(data, goal, goal))
 }
 
-/// A spawn spot's height ({ x, y } of the goal's `spots`, on the goal's map and frame), or None.
+/// A spawn spot's height ({ x, y, r } of the goal's `spots`, on the goal's map and frame), or None: the nearest spawn
+/// of the goal's entities within HEIGHT_YARDS, else within the spot's own radius (a camp's centre between its
+/// spawns: #4352, the Incendosaurs' camps in the tunnels under Searing Gorge, 19 to 26 yd from the nearest), else
+/// the one creature's walk (walk_height).
 pub fn spot_height(data: &Data, goal: &V, spot: &V) -> Option<V> {
 	let list = entities(data, goal);
 	if list.is_empty() {
@@ -222,6 +260,8 @@ pub fn spot_height(data: &Data, goal: &V, spot: &V) -> Option<V> {
 	}
 	let point: V = obj! { "map" => goal.get("map"), "x" => spot.get("x"), "y" => spot.get("y"), "f" => goal.get("f") }.into();
 	nearest_height(data, &list, &point)
+		.or_else(|| spot.get("r").as_num().filter(|r| *r > HEIGHT_YARDS).and_then(|r| nearest_within(data, &list, &point, r)))
+		.or_else(|| walk_height(data, goal, &point))
 }
 
 /// A smart target's candidate's height ({ npc, map, x, y, f }), or None: by its own NPC.

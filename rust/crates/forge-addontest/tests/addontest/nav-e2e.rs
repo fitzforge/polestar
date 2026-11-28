@@ -5058,3 +5058,51 @@ fn sapphires_of_aku_mai_from_the_zoram_strand_the_route_goes_down_the_sunken_rui
 	}
 	assert!(out["down"].as_array().is_some_and(|d| d.len() == 5 && d.iter().all(|m| m == false)), "walking down, never back up to the stairs: {out}");
 }
+
+/// #4457 (Yeeshak, 0.4.3.1), Azshara: the way down from Archmage Xylem's tower (3980,-4761, 305 yd up) is Nyrill's
+/// Return Trip at the top of the plateau, which lands beside Sanath Lim-yo (the way up is Sanath's teleport, #4366).
+/// The travel data had only the way up, so the arrow to Jediga walked down the cliffs ("Through the pass to Bear's
+/// Head", 270 yd through the mountain; the reporter's steps on the cliffs were "where the map says blocked"). Now the
+/// route walks to Nyrill on the plateau, asks him, and walks on from Sanath's camp: no walk of the route goes below
+/// the plateau.
+#[test]
+fn azshara_from_archmage_xylem_s_tower_the_route_down_to_jediga_asks_nyrill_for_the_return_trip_not_the_cliffs_4457() {
+	skip_unless_ready!();
+	if !addons_dir().join("Polestar_Nav_Kalimdor").is_dir() {
+		eprintln!("skipped: no continent parts (the walking maps are not Leffe's)");
+		return;
+	}
+	let out = run(
+		r#"
+		w.faction = "Horde"
+		w.race, w.raceName = "Tauren", "Tauren"
+		w.setLevel(57)
+		Polestar.CharState().flags.taxiSeen = { [0] = true, [1] = true }
+		place(1447, 3980.4, -4761.3, 304.8) -- Archmage Xylem's door, the report's first spot
+		stub.fire("ZONE_CHANGED_NEW_AREA")
+		stub.advance(1)
+		N.Sample()
+		N.SetTarget(1447, 22.43, 51.46, "Jediga", "e")
+		for _ = 1, 400 do N.Sample(); stub.advance(0.05) end
+		local legs, ci = N.GetRoute()
+		local r = { legs = {}, low = math.huge, searches = 0 }
+		for i = ci or 1, #(legs or {}) do r.legs[#r.legs + 1] = legs[i].kind .. "|" .. legs[i].label end
+		-- The walks searched from the tower to Nyrill (3777, -4619): the lowest height any of them reaches. The planner
+		-- also prices the walk all the way to Jediga, which does go down the cliffs, to prefer the teleport to it.
+		for _, rec in ipairs(finds) do
+			if rec.points and rec.from[3] and rec.from[3] > 215 and dist(rec.to[1], rec.to[2], 3777, -4619) < 40 then
+				r.searches = r.searches + 1
+				for _, p in ipairs(rec.points) do if p.z and p.z < r.low then r.low = p.z end end
+			end
+		end
+		emit(r)"#,
+		true,
+	);
+	assert_eq!(
+		out["legs"],
+		serde_json::json!(["walk|Walk to Nyrill", "portal|Ask Nyrill to teleport you to Sanath Lim-yo's camp", "walk|Jediga"]),
+		"to Nyrill, ask him, then on to Jediga: {out}"
+	);
+	assert!(f(&out["searches"]) >= 1.0, "the walk to Nyrill is searched on the maps: {out}");
+	assert!(f(&out["low"]) > 215.0, "no walk of the route leaves the plateau down the cliffs: {out}");
+}

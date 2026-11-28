@@ -77,7 +77,7 @@ fn z3_an_npc_goal_with_a_spawn_on_its_map_within_15_yards_gets_that_z_20_yards_a
 	let g = goals(&r);
 	assert_eq!(find(&g, "accept", None)["z"], 12.3, "the quest giver Marshal McBride: his nearest spawn, 3 yd off");
 	assert_eq!(find(&g, "talk", Some(197))["z"], 12.3);
-	assert!(find(&g, "talk", Some(196)).get("z").is_none(), "a spawn 20 yd away is another one");
+	assert_eq!(find(&g, "talk", Some(196))["z"], 5, "his one spawn, 20 yd away: the one creature, where he walks (#4363)");
 	assert!(find(&g, "talk", Some(152)).get("z").is_none(), "a spawn on another map says nothing");
 	assert!(find(&g, "goto", None).get("z").is_none(), "a goto is a place, never an NPC");
 	assert!(find(&g, "collect", None).get("z").is_none(), "a collect spot is no single NPC");
@@ -155,9 +155,9 @@ fn a_goto_takes_the_height_of_the_goal_it_leads_to_in_its_step_or_the_next_withi
 		"step Marshal",
 		"  talk 197",
 		"step Far",
-		"  goto 48.94,40.17 \"Eagan\"",
-		"step Eagan",
-		"  talk 196",
+		"  goto 47.5,41.6 \"Danil\"",
+		"step Danil",
+		"  talk 152",
 		"step Two on",
 		"  goto 48.92,41.61 \"Two steps from the marshal\"",
 		"step Between",
@@ -171,7 +171,7 @@ fn a_goto_takes_the_height_of_the_goal_it_leads_to_in_its_step_or_the_next_withi
 	let z = |i: usize| gotos[i].get("z").cloned();
 	assert_eq!(z(0), None, "the marshal's talk comes before it: {}", gotos[0]);
 	assert_eq!(z(1), Some(json!(12.3)), "the next step's talk, 3 yd off: {}", gotos[1]);
-	assert_eq!(z(2), None, "a goal with no height (his spawn 20 yd away): {}", gotos[2]);
+	assert_eq!(z(2), None, "a goal with no height (his spawn on another map): {}", gotos[2]);
 	assert_eq!(z(3), None, "the marshal two steps on: {}", gotos[3]);
 }
 
@@ -216,24 +216,69 @@ fn smart_target_candidate_on_a_spawn_of_its_npc_gets_that_z_one_with_no_spawn_wi
 	assert_match(&emit(&r.guides), r#"\{ npc = 152, npcName = "Brother Danil", map = \d+, x = [\d.]+, y = [\d.]+, z = 8\.5, f = "e""#);
 }
 
+/// #4352 (gidi_, Searing Gorge): the Incendosaurs' camps in the tunnels under the Cauldron had no height, as each
+/// camp's centre lies 19 to 26 yd from its nearest spawn, so the walk to a camp ended on the ground above. A spot is
+/// a cluster of the target's spawns and its radius covers them: past 15 yd, the nearest spawn within the radius
+/// gives the camp's floor.
 #[test]
-fn spawn_spots_get_the_z_of_a_spawn_within_15_yards_a_clusters_centre_farther_from_both_none_a_collects_by_its_sources() {
+fn spawn_spots_get_the_z_of_a_spawn_within_15_yards_else_within_their_own_radius_4352_a_collects_by_its_sources() {
 	let r = compile_with(&src(), &height_data());
 	let g = goals(&r);
 	let kill = find(&g, "kill", None);
 	let spot = |x: f64, y: f64| kill["spots"].as_array().unwrap().iter().find(|s| s["x"] == x && s["y"] == y).unwrap().clone();
 	assert_eq!(spot(45.1, 33.9)["z"], 1, "a lone spawn: its z");
 	assert_eq!(spot(52.3, 26.8)["z"], 1);
-	assert!(spot(48.3, 31.8).get("z").is_none(), "the centre between two spawns some 30 yd apart: none");
+	let centre = spot(48.3, 31.8);
+	assert!(centre["r"].as_f64().unwrap() > 15.0, "the camp's radius covers its two spawns some 30 yd apart: {centre}");
+	assert_eq!(centre["z"], 1, "the centre between them: the nearest spawn within its radius: {centre}");
 	// A collect's spots: those at a spawn of one of its sources (the Timber Wolves at 45,40 and 44,45) take that
-	// spawn's z (#1782); the rest none.
+	// spawn's z (#1782), and so does a camp with a wolf within its radius (#4352); the rest none.
 	let collect = find(&g, "collect", None);
 	let spots = collect["spots"].as_array().cloned().unwrap_or_default();
 	assert!(!spots.is_empty(), "the collect has spots: {collect}");
+	let d = height_data();
+	let wolves = [at(&d, 45.0, 40.0), at(&d, 44.0, 45.0)];
 	for s in &spots {
-		let at_wolf = (s["x"] == 45.0 && s["y"] == 40.0) || (s["x"] == 44.0 && s["y"] == 45.0);
-		assert_eq!(s.get("z").cloned(), if at_wolf { Some(json!(2)) } else { None }, "spot {s}");
+		let p = at(&d, s["x"].as_f64().unwrap(), s["y"].as_f64().unwrap());
+		let reach = s["r"].as_f64().unwrap_or(0.0).max(15.0);
+		let near_wolf = wolves.iter().any(|w| (w.0 - p.0).hypot(w.1 - p.1) <= reach);
+		assert_eq!(s.get("z").cloned(), if near_wolf { Some(json!(2)) } else { None }, "spot {s}");
 	}
+}
+
+/// #4363 (gidi_, Undercity): Harbinger Balthazad walks round the Trade Quarter; the data has 18 points for him and a
+/// height for one spawn, 31 to 84 yd from the goal's point and spots, so they had none and the walk to him ended in
+/// the ruins above. An NPC met to talk to with one spawn with a height on the map is that one creature: its other
+/// points take that height within 100 yd. A kill's target is many creatures, and an NPC with two such spawns, or one
+/// farther, says nothing.
+#[test]
+fn an_npc_to_talk_to_with_one_spawn_with_a_height_lends_it_to_its_points_within_100_yards_4363() {
+	let src = guide_text(&["step Walker", "  talk 196", "  accept 7", "  kill 6 x10 quest 7.1"]);
+	let eagan = |data: &Data| at(data, 48.94, 40.17);
+	let zs = |data: &Data| {
+		let r = compile_with(&src, data);
+		assert!(r.errors.is_empty(), "{}", r.text);
+		let g = goals(&r);
+		(find(&g, "talk", Some(196)).get("z").cloned(), find(&g, "kill", None).get("z").cloned())
+	};
+	let data = height_data();
+	let e = eagan(&data);
+	data.spawnz.get("npc").set("196", v(&json!([[1415, e.0 + 60.0, e.1, 5]])));
+	let k = at(&data, 47.6, 31.2);
+	data.spawnz.get("npc").set("6", v(&json!([[1415, k.0 + 40.0, k.1, 1]])));
+	let (talk, kill) = zs(&data);
+	assert_eq!(talk, Some(json!(5)), "his one spawn 60 yd off");
+	assert_eq!(kill, None, "a kill's target is many creatures, its one spawn 40 yd off says nothing");
+	// A goal-heights.json record at the point (players' floor there) wins over the lent height, which can fall between
+	// two floors (Balthazad's point: -57.1 between the Trade Quarter's -62 and -52).
+	let mut rec = height_data();
+	rec.spawnz = data.spawnz.clone();
+	rec.goal_heights = v(&json!([{ "id": "rec", "map": 1429, "x": 48.94, "y": 40.17, "frame": "era", "z": 7.5, "source": { "kind": "recording", "ref": "fixture" } }]));
+	assert_eq!(zs(&rec).0, Some(json!(7.5)), "the record at his point");
+	data.spawnz.get("npc").set("196", v(&json!([[1415, e.0 + 60.0, e.1, 5], [1415, e.0 - 60.0, e.1, 9]])));
+	assert_eq!(zs(&data).0, None, "two spawns, neither within 15 yd: which one is unknown");
+	data.spawnz.get("npc").set("196", v(&json!([[1415, e.0 + 110.0, e.1, 5]])));
+	assert_eq!(zs(&data).0, None, "one spawn 110 yd off");
 }
 
 #[test]

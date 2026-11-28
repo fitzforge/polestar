@@ -157,6 +157,28 @@ test("npc floors: one level most people stood on, 3+ people and 70% of them; the
 	assert.deepEqual(spawnz[11957].length, 1, 'the spawn table itself is untouched');
 });
 
+// #4323 (Recep Efendi): Lady Dena Kennedy (15991, the ender of Crest of Lordaeron) stands by the Deeprun Tram's building
+// in Stormwind, on the level of the Keep's approach. No spawn source gives her a height, so the hand-in guide's walk
+// ended on the level below her, by the tram. data/npc-floors.json gives her floor at both her places (from the players
+// who talked to her there: 9 of 9 and 18 of 18 on one level, beside the Royal Guards' spawns at 123.8); the data build
+// merges it into spawnz.json, where Lookup.SpawnZ finds it within 15 yd of each of her spots.
+test("#4323: Lady Dena Kennedy's two places have her floor within 15 yd of each spot", { skip: require('./helpers/data').needs('map-frames.json') }, () => {
+	const { withFloors, HEIGHT_YARDS } = require('../tools/lib/nav/city/npcfloors');
+	const root = path.join(__dirname, '..');
+	const doc = JSON.parse(fs.readFileSync(path.join(root, 'data', 'npc-floors.json'), 'utf8'));
+	const spots = JSON.parse(fs.readFileSync(path.join(root, 'forever-db', 'corrections', 'npcs.json'), 'utf8'))['15991'].set.spawns['1453'];
+	const fr = JSON.parse(fs.readFileSync(path.join(root, 'data', 'forever', 'map-frames.json'), 'utf8')).forever['1453'];
+	const rows = withFloors({}, doc)['15991'] || [];
+	assert.equal(spots.pts.length, 2);
+	for (const [x, y] of spots.pts) {
+		const wx = fr.top + ((fr.bottom - fr.top) * y) / 100;
+		const wy = fr.left + ((fr.right - fr.left) * x) / 100;
+		const near = rows.filter((r) => r[0] === fr.c && Math.hypot(r[1] - wx, r[2] - wy) <= HEIGHT_YARDS);
+		assert.ok(near.length, `a floor within ${HEIGHT_YARDS} yd of her spot ${x},${y}: ${JSON.stringify(rows)}`);
+		assert.ok(near.every((r) => r[3] === 122.3), JSON.stringify(near));
+	}
+});
+
 test("the city gate's judge: a long straight line follows the ground between its points, not its chord; a step no surface walks stays judged on the chord", () => {
 	const { judge } = require('../tools/lib/nav/city/gate');
 	// one row of 2.08 yd columns, one walked (3+ people) surface each: ground(x) its height

@@ -17,7 +17,10 @@
 //   interact         the object
 //   buy, train, vendor, sethome, getfp, learn   the named npc
 // Their spawn spots (`spots`, the other places the entity spawns) get one by
-// the same rule, each from its own point. A smart target's candidates
+// the same rule, each from its own point, else from the nearest spawn within
+// the spot's own radius (a camp's centre, #4352). An NPC met to talk to (not a
+// kill) with one spawn with a height on the map lends it to its other points
+// within WALK_HEIGHT_YARDS: they are where it walks (#4363). A smart target's candidates
 // (`candidates` with an npc: trainers, vendors, innkeepers, and
 // Core/ClassTrainers.lua's) get one each, from their own NPC (#180).
 // A use or interact bound to a quest objective (`quest Q.O`, no npc or object
@@ -119,8 +122,13 @@ function entities(data, goal) {
 
 // The height at point of the nearest spawn of any of list within HEIGHT_YARDS.
 function nearestHeight(data, list, point) {
-	if (!list.length) return undefined;
 	if (list.length === 1) return spawnHeight(data, list[0].kind, list[0].id, point);
+	return nearestWithin(data, list, point, HEIGHT_YARDS);
+}
+
+// The height at point of the nearest spawn of any of list within `yards`.
+function nearestWithin(data, list, point, yards) {
+	if (!list.length) return undefined;
 	const p = data.spawnz && worldPoint(data, point);
 	if (!p) return undefined;
 	let best = null;
@@ -128,10 +136,31 @@ function nearestHeight(data, list, point) {
 		for (const [map, x, y, z] of (data.spawnz[kind] || {})[id] || []) {
 			if (map !== p.c) continue;
 			const d = Math.hypot(x - p.wx, y - p.wy);
-			if (d <= HEIGHT_YARDS && (!best || d < best.d)) best = { d, z };
+			if (d <= yards && (!best || d < best.d)) best = { d, z };
 		}
 	}
 	return best ? best.z : undefined;
+}
+
+// Yards from its one spawn with a height within which the points of an NPC
+// met to talk to (any height verb but kill) take that spawn's height: such an
+// NPC is one creature, and the data's other points for it are where it walks
+// (#4363: Harbinger Balthazad's 18 points round the Undercity's Trade
+// Quarter, up to 84 yd from the one spawn with a height).
+const WALK_HEIGHT_YARDS = 100;
+
+// The height at point of the NPC a goal is met at (not a kill: a creature to
+// kill is many), when that NPC has one spawn with a height on the point's
+// instance map, within WALK_HEIGHT_YARDS; else undefined.
+function walkHeight(data, goal, point) {
+	const e = heightEntity(goal);
+	if (!e || e.kind !== 'npc' || goal.t === 'kill' || !data.spawnz) return undefined;
+	const p = worldPoint(data, point);
+	if (!p) return undefined;
+	const onMap = ((data.spawnz.npc || {})[e.id] || []).filter((s) => s[0] === p.c);
+	if (onMap.length !== 1) return undefined;
+	const [, x, y, z] = onMap[0];
+	return Math.hypot(x - p.wx, y - p.wy) <= WALK_HEIGHT_YARDS ? z : undefined;
 }
 
 // The height data/goal-heights.json gives a goal's point (a record within
@@ -152,16 +181,29 @@ function pointHeight(data, goal) {
 	return best ? best.z : undefined;
 }
 
-// The goal's height, or undefined (entities, else pointHeight).
+// The goal's height, or undefined (entities, else pointHeight, else the one
+// creature's walk: a record from players' recordings at the point says more
+// than a height lent from a spawn up to 100 yd off, which can fall between
+// two floors there, as at Harbinger Balthazad's point in the Trade Quarter).
 function goalHeight(data, goal) {
 	const z = nearestHeight(data, entities(data, goal), goal);
-	return z !== undefined ? z : pointHeight(data, goal);
+	if (z !== undefined) return z;
+	const p = pointHeight(data, goal);
+	return p !== undefined ? p : walkHeight(data, goal, goal);
 }
 
-// A spawn spot's height ({ x, y } of the goal's `spots`, on the goal's map
-// and frame), or undefined: by the goal's own NPC or object.
+// A spawn spot's height ({ x, y, r } of the goal's `spots`, on the goal's map
+// and frame), or undefined: the nearest spawn of the goal's entities within
+// HEIGHT_YARDS, else within the spot's own radius (a camp's centre between
+// its spawns: #4352, the Incendosaurs' camps in the tunnels under Searing
+// Gorge, 19 to 26 yd from the nearest), else the one creature's walk.
 function spotHeight(data, goal, spot) {
-	return nearestHeight(data, entities(data, goal), { map: goal.map, x: spot.x, y: spot.y, f: goal.f });
+	const list = entities(data, goal);
+	if (!list.length) return undefined;
+	const point = { map: goal.map, x: spot.x, y: spot.y, f: goal.f };
+	let z = nearestHeight(data, list, point);
+	if (z === undefined && typeof spot.r === 'number' && spot.r > HEIGHT_YARDS) z = nearestWithin(data, list, point, spot.r);
+	return z !== undefined ? z : walkHeight(data, goal, point);
 }
 
 // A goto without a height that leads to a goal with one (a later goal of its
@@ -222,4 +264,4 @@ function heightCounts(guides) {
 	return n;
 }
 
-module.exports = { HEIGHT_YARDS, HEIGHT_VERBS, heightEntity, worldPoint, spawnHeight, goalHeight, spotHeight, candidateHeight, gotoHeights, heightCounts };
+module.exports = { HEIGHT_YARDS, HEIGHT_VERBS, WALK_HEIGHT_YARDS, heightEntity, worldPoint, spawnHeight, goalHeight, spotHeight, candidateHeight, gotoHeights, heightCounts };
