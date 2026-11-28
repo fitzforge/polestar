@@ -1647,7 +1647,7 @@ as on a bag item (`W.ItemClick`: Shift links, Ctrl tries it on, Alt guides;
 | `turnin` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `rewards = { choices = { { item, itemName, quality } }, items = { ... }, xp, money }` (copper), `direct`, with `direct` its giver's wait as an accept's (`pre`, `preAll`, `parent`) | completed; `direct` (never accepted): its QUEST_TURNED_IN during the step (latched) or the completed flag, not the session's turn-ins, so one hand-in of a repeatable closes one goal. It reads "Hand in" with `directText` ("<giver> offers it and takes it back in one talk: it never goes in your quest log", on `UI.GoalSubline`), and is orphaned only through the quest its giver waits on: one this guide accepts that the character neither has nor has done and does not take at or before the step (`Own.directOrphaned`: Unbagwa's Stranglethorn Fever 349 without Fin Fizracket's 348) |
 | `complete` | `quest`, `title` | — | ready for turn-in or completed |
 | `kill` | `target` | `npc`, `count`, `quest`, `oi` | its objective finished (the quest-log line named after `target`, else line `oi`), or quest ready/completed (not while the log lists no objectives yet, right after the accept); without `quest`: manual |
-| `collect` | `item`, `itemName` | `count`, `quest`, `oi`, `gather` (`true` or `{ skill, skillLine, rank, min, max }`: the item's gather way, applying only while its way is gather; see "Materials") | objective finished (the line named after the item, else `oi`) / quest ready (as `kill`) / completed; without `quest`: item count ≥ `count`, or, for a single item the step's next `accept … item` starts its quest with (paired as in the step view), that quest in the log or done (accepting uses the item up); for a single item a later `turnin` of the guide asks for (`QuestDB.Asks`, `Own.handInsOf`: a library book, #4280), also that quest handed in (not a `direct` or `repeatable` hand-in: the client never flags those completed, but the session's hand-ins (`turnedIn`) count for `questDone`, so one round would collect every later round's item; without the quest database, the bag count alone). The bank never counts: the hand-in takes the item from the bags |
+| `collect` | `item`, `itemName` | `count`, `quest`, `oi`, `gather` (`true` or `{ skill, skillLine, rank, min, max }`: the item's gather way, applying only while its way is gather; see "Materials"), `rewardOf` (the awarding quest, Lookup's item guides; the collect follows its accept's availability, #4505) | objective finished (the line named after the item, else `oi`) / quest ready (as `kill`) / completed; without `quest`: item count ≥ `count`, or, for a single item the step's next `accept … item` starts its quest with (paired as in the step view), that quest in the log or done (accepting uses the item up). A reward collect counts the item in the bags. |
 | `goto` | `map`, `x`, `y` | `text`, `r` (default 8 yd), `area` (its name in the client's language shows instead of `text`) | within radius, **or** gone into its `area` (subzone text equals the client's name of it, not the zone's, while indoors, after being seen elsewhere since the step came up; not for a goto after one into the same area in the step), **or** any later goal in the step is done, **or**, when only gotos, notes and goals that do not apply follow it in the step, the next step that applies is done with a quest goal of it done (`Own.nextStepDone`, counted as anchorStep counts: not a skipped step or one with `only`, not a goal with `only`; a cave's mouth or a dock ahead of work done ahead of the guide, #240) |
 | `talk` | `npc`, `npcName` | — | the player acts at that NPC during this step: a gossip option picked (`C_GossipInfo.SelectOption`/`SelectOptionByIndex`, `SelectGossipOption`, post-hooked), a quest accepted, completed or handed in there (`AcceptQuest`, `CompleteQuest`, `GetQuestReward`, QUEST_ACCEPTED / QUEST_TURNED_IN while its window is open or within 2 s of it closing), or its trainer, merchant or flight window opened; a gossip or quest window only opened is no check-off (#741); else manual |
 | `interact` | `object`, `objName` | `quest`, `oi` | objective state if `quest` (the line named after the object, else `oi`); else manual |
@@ -10622,7 +10622,8 @@ skill range (`section`, the view's `section` from `Engine.GetSection`) is a
 heading over the first card under it, the range the player's skill is in
 (`state` "current") in the accent colour, the others muted.
 A card whose step has quests left out (`Engine.LeftOutHere(i, true)`) ends in
-a muted "N left out here" line, each quest and why in its tooltip.
+a muted "N left out here" line, each quest and why in its tooltip. A skipped
+prerequisite also has an "Unskip it" link, even on a folded card.
 
 ### What the guide leaves out
 
@@ -10635,7 +10636,10 @@ unavailableText's wording), `when` (a step's `when` that fails,
 `Own.whenText`) and the plan's quests left out with their steps for a
 prerequisite from an earlier guide (`Own.hiddenAt`: at the step standing where
 their accept was). Fixes: `{ kind = "chain", quest }` (`UI.LeftOutGuide`:
-Lookup's guide to the quest through what it needs, else its Lookup page) and
+Lookup's guide to the quest through what it needs, else its Lookup page),
+`{ kind = "unskip", quest[, guide, step[, goal]] }` (#4505, the skipped
+prerequisite's quest id, with the guide and indices for a step or optional
+goal skip saved in the loaded guide), and
 `{ kind = "skipGrey" }` (the setting off; `SETTING_CHANGED` clears the
 catch-up's quests at once). It takes the step's own hidden quests (Skip grey
 quests, the catch-up, an accept waiting for a level) and the steps the route
@@ -10645,8 +10649,11 @@ a step or goal for another class or race, a dungeon run not taken, or a
 quest done. Kept per evaluation (`generation`) and level.
 The guide window's card (live window, `guideWindow.leftOut`, on by
 default) shows a dim "N left out here" line that opens in place to a line per
-quest ("title · why", "Guide me" on a `chain` fix) and "Turn off Skip grey
-quests"; under an open `level` goal, `Engine.GrindHint(i)`'s "You're 31: the
+quest ("title · why", "Guide me" on a `chain` fix, "Unskip it" on an
+`unskip` fix) and "Turn off Skip grey quests". The guide window also offers
+"Unskip it" when a skipped prerequisite leaves out a Lookup reward at the
+end of its guide.
+Under an open `level` goal, `Engine.GrindHint(i)`'s "You're 31: the
 quests after this are level 32–35" (the levels of the next
 `Own.GRIND_NEXT` accepts) and "Worth doing near here" (this guide's quests the
 character can take now with their giver within `Own.GRIND_NEAR_YD` of the player, a catch-up detour
