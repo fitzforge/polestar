@@ -9,185 +9,254 @@ return {
 	-- Step 1: Learn First Aid
 	-- {skill:129} First Aid
 	["Learn {skill:129}"] = "Изучите: {skill:129}",
-	-- {skill:129} First Aid · {item:118} Minor Healing Potion · {item:2447} Peacebloom · {item:2678} Mild Spices · {item:3371} Empty Vial · {skill:182} Herbalism
-	-- plural, as words: Linen Bandages = {item:1251} Linen Bandage
-	["Any {skill:129} trainer of your faction teaches Apprentice {skill:129} (any character level, 1s); the arrow picks the nearest. Forever teaches {item:118} with it: {item:2447}, {item:2678} and an {item:3371}, orange to 55. With {skill:182} it can replace the Linen Bandages below."] = "Любой учитель навыка {skill:129} вашей фракции обучает уровню «Ученик» ({skill:129}) (любой уровень персонажа, 1с); стрелка указывает на ближайшего. На Forever вместе с ним изучается {item:118}: {item:2447}, {item:2678} и {item:3371}, оранжевый до 55. С навыком {skill:182} это может заменить льняные бинты ниже.",
+	["No character level needed."] = "",
 
-	-- Step 2: Get Linen Cloth
+	-- Step 2: Get 144 Linen Cloth
 	-- {item:2589} Linen Cloth
-	["Get {item:2589}"] = "",
-	-- {item:2589} Linen Cloth · {item:1251} Linen Bandage
-	["You need 167 {item:2589}: 43 for {item:1251} (1-40) and 124 for the later bandages on {item:2589}: get them all now, one farm. {item:2589} drops from humanoids of level 5-20, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2589} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["Get 144 {item:2589}"] = "",
+	-- plural, as words: Linen Bandages = {item:1251} Linen Bandage · Heavy Linen Bandages = {item:2581} Heavy Linen Bandage
+	["For 50 Linen Bandages and 47 Heavy Linen Bandages."] = "",
 
-	-- Step 3: Linen Bandage (1-40)
-	-- {item:1251} Linen Bandage · {item:279968} First Aid Kit · {skill:129} First Aid · {item:159} Refreshing Spring Water
+	-- Step 3: Craft 50 Linen Bandages until 40
 	-- plural, as words: Linen Bandages = {item:1251} Linen Bandage
-	-- was: ["{item:1251} is orange from 1 (yellow at 30, green at 45, grey at 60): about 41 crafts to 40. Bandages need no fire: craft them anywhere. At 20 the trainer also teaches {item:279968} (1s; the Camping 101: {skill:129} quest at your starting area's camp teaches it free), Forever's camping item for {skill:129}: three Linen Bandages and a {item:159}; it gives a few points until 25."] = "{item:1251} — оранжевый с 1 (желтый с 30, зеленый с 45, серый с 60): около 41 изготовления до 40. Бинтам не нужен огонь: делайте их где угодно. На 20 учитель также обучает рецепту {item:279968} (1с; задание «Camping 101: {skill:129}» в лагере стартовой зоны обучает бесплатно) — походный предмет Forever для навыка {skill:129}: три льняных бинта и {item:159}; дает немного очков до 25."
-	["{item:1251} is orange from 1 (yellow at 30, green at 45, grey at 60): about 41 crafts to 40, up to 43 for 9 players in 10 (the ingredients to farm count that many). Bandages need no fire: craft them anywhere. At 20 the trainer also teaches {item:279968} (1s; the Camping 101: {skill:129} quest at your starting area's camp teaches it free), Forever's camping item for {skill:129}: three Linen Bandages and a {item:159}; it gives a few points until 25."] = "",
+	["Craft 50 Linen Bandages until 40"] = "",
+	["About 50 crafts."] = "",
 
-	-- Step 4: Get Linen Cloth
-	-- {item:2589} Linen Cloth · {item:2581} Heavy Linen Bandage
-	["You need 124 {item:2589}: 20 for {item:2581} (40-50) and 104 for the later bandages on {item:2589}: get them all now, one farm. {item:2589} drops from humanoids of level 5-20, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2589} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- Step 4: Learn Heavy Linen Bandage
+	-- {spell:3276} Heavy Linen Bandage
+	["Learn {spell:3276}"] = "",
 
-	-- Step 5: Heavy Linen Bandage (40-50)
-	-- {item:2581} Heavy Linen Bandage · {skill:129} First Aid
-	["{item:2581} is orange from 40 (yellow at 50, green at 75, grey at 100): about 10 crafts to 50. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 40 for 1s; the arrow picks the nearest."] = "{item:2581} — оранжевый с 40 (желтый с 50, зеленый с 75, серый с 100): около 10 изготовлений до 50. Бинтам не нужен огонь: делайте их где угодно. Любой учитель навыка {skill:129} вашей фракции обучает этому с навыка 40 за 1с; стрелка указывает на ближайшего.",
+	-- Step 5: Craft 47 Heavy Linen Bandages until 75
+	-- plural, as words: Heavy Linen Bandages = {item:2581} Heavy Linen Bandage
+	["Craft 47 Heavy Linen Bandages until 75"] = "",
+	["About 47 crafts."] = "",
 
-	-- Step 6: Journeyman First Aid
+	-- Step 6: Get 26 Linen Cloth
+	-- {item:2589} Linen Cloth
+	["Get 26 {item:2589}"] = "",
+	-- plural, as words: Heavy Linen Bandages = {item:2581} Heavy Linen Bandage
+	["For 13 Heavy Linen Bandages."] = "",
+
+	-- Step 7: Train Journeyman First Aid
 	-- {skill:129} First Aid
-	["Journeyman {skill:129}"] = "{skill:129}: подмастерье",
-	-- {skill:129} First Aid
-	["Journeyman {skill:129} raises the cap to 150; it needs skill 50 and no character level: the arrow picks the nearest {skill:129} trainer of your faction; training costs 5s."] = "Уровень «Подмастерье» ({skill:129}) повышает предел до 150; нужен навык 50, уровень персонажа не требуется: стрелка указывает на ближайшего учителя навыка {skill:129} вашей фракции; обучение стоит 5с.",
+	-- was: ["Journeyman {skill:129}"] = "{skill:129}: подмастерье"
+	["Train Journeyman {skill:129}"] = "",
 
-	-- Step 7: Get Linen Cloth
-	-- {item:2589} Linen Cloth · {item:2581} Heavy Linen Bandage
-	["You need 104 {item:2589}: 104 for {item:2581} (50-80). {item:2589} drops from humanoids of level 5-20, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2589} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- Step 8: Learn Heavy Linen Bandage
+	["Taught at 40; done at once if you learned it then."] = "",
 
-	-- Step 8: Heavy Linen Bandage (50-80)
-	-- {item:2581} Heavy Linen Bandage · {skill:129} First Aid · {item:858} Lesser Healing Potion · {item:2450} Briarthorn · {item:2678} Mild Spices · {item:3371} Empty Vial
-	-- was: ["{item:2581} is yellow from 50 (yellow at 50, green at 75, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: any {skill:129} trainer of your faction teaches it for 1s; the arrow picks the nearest. Herbalists: {item:858} (from 55, 1s 50c; {item:2450}, two {item:2678} and an {item:3371}) is orange to 85."] = "{item:2581}: желтые с 50 (желтые на 50, зеленые на 75, серые на 100): около 46 изготовлений до 80. Бинтам не нужен огонь: делайте их где угодно. Если вы дошли сюда, не выучив их, выучите сейчас: любой учитель навыка «{skill:129}» вашей фракции учит за 1с; стрелка выбирает ближайшего. Травникам: {item:858} (с 55, 1с 50м; {item:2450}, два {item:2678} и {item:3371}) оранжевое до 85."
-	["{item:2581} is yellow from 50 (yellow at 50, green at 75, grey at 100): about 46 crafts to 80, up to 52 for 9 players in 10 (the ingredients to farm count that many). Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: any {skill:129} trainer of your faction teaches it for 1s; the arrow picks the nearest. Herbalists: {item:858} (from 55, 1s 50c; {item:2450}, two {item:2678} and an {item:3371}) is orange to 85."] = "",
+	-- Step 9: Craft 13 Heavy Linen Bandages until 80
+	-- plural, as words: Heavy Linen Bandages = {item:2581} Heavy Linen Bandage
+	["Craft 13 Heavy Linen Bandages until 80"] = "",
+	["About 13 crafts."] = "",
 
-	-- Step 9: Get Wool Cloth
+	-- Step 10: Get 154 Wool Cloth
 	-- {item:2592} Wool Cloth
-	["Get {item:2592}"] = "",
-	-- {item:2592} Wool Cloth · {spell:3277} Wool Bandage
-	["You need 166 {item:2592}: 54 for {spell:3277} (80-115) and 112 for the later bandages on {item:2592}: get them all now, one farm. {item:2592} drops from humanoids of level 15-30, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["Get 154 {item:2592}"] = "",
+	-- plural, as words: Wool Bandages = {spell:3277} Wool Bandage · Heavy Wool Bandages = {spell:3278} Heavy Wool Bandage
+	["For 52 Wool Bandages and 51 Heavy Wool Bandages."] = "",
 
-	-- Step 10: Wool Bandage (80-115)
-	-- {spell:3277} Wool Bandage · {skill:129} First Aid · {item:6452} Anti-Venom · {item:1475} Small Venom Sac · {spell:9810} Touch of Zanzil
-	-- was: ["{spell:3277} is yellow from 80 (yellow at 80, green at 115, grey at 150): about 49 crafts to 115. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 80 for 2s 50c; the arrow picks the nearest. {item:6452} ({item:1475}, from spiders) is taught at 80 too: Rogues need it for {spell:9810}, and it sells."] = "{spell:3277} — желтый с 80 (желтый с 80, зеленый с 115, серый с 150): около 49 изготовлений до 115. Бинтам не нужен огонь: делайте их где угодно. Любой учитель навыка {skill:129} вашей фракции обучает этому с навыка 80 за 2с 50м; стрелка указывает на ближайшего. {item:6452} ({item:1475}, с пауков) тоже изучается на 80: он нужен разбойникам для {spell:9810}, и он хорошо продается."
-	["{spell:3277} is yellow from 80 (yellow at 80, green at 115, grey at 150): about 49 crafts to 115, up to 54 for 9 players in 10 (the ingredients to farm count that many). Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 80 for 2s 50c; the arrow picks the nearest. {item:6452} ({item:1475}, from spiders) is taught at 80 too: Rogues need it for {spell:9810}, and it sells."] = "",
+	-- Step 11: Learn Wool Bandage
+	-- {spell:3277} Wool Bandage
+	["Learn {spell:3277}"] = "",
 
-	-- Step 11: Get Wool Cloth
-	-- {item:2592} Wool Cloth · {spell:3278} Heavy Wool Bandage
-	["You need 112 {item:2592}: 24 for {spell:3278} (115-125) and 88 for the later bandages on {item:2592}: get them all now, one farm. {item:2592} drops from humanoids of level 15-30, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- Step 12: Craft 52 Wool Bandages until 115
+	-- plural, as words: Wool Bandages = {spell:3277} Wool Bandage
+	["Craft 52 Wool Bandages until 115"] = "",
+	["About 52 crafts."] = "",
 
-	-- Step 12: Heavy Wool Bandage (115-125)
-	-- {spell:3278} Heavy Wool Bandage · {skill:129} First Aid · {item:929} Healing Potion · {item:2453} Bruiseweed · {item:2692} Hot Spices · {item:3372} Leaded Vial
-	-- was: ["{spell:3278} is yellow from 115 (yellow at 115, green at 150, grey at 185): about 11 crafts to 125. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 115 for 10s; the arrow picks the nearest. Herbalists: {item:929} (from 110, 8s; {item:2453}, {item:2692} and a {item:3372}) is orange to 135."] = "{spell:3278} — желтый с 115 (желтый с 115, зеленый с 150, серый с 185): около 11 изготовлений до 125. Бинтам не нужен огонь: делайте их где угодно. Любой учитель навыка {skill:129} вашей фракции обучает этому с навыка 115 за 10с; стрелка указывает на ближайшего. Травникам: {item:929} (с 110, 8с; {item:2453}, {item:2692} и {item:3372}) — оранжевый до 135."
-	["{spell:3278} is yellow from 115 (yellow at 115, green at 150, grey at 185): about 11 crafts to 125, up to 12 for 9 players in 10 (the ingredients to farm count that many). Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 115 for 10s; the arrow picks the nearest. Herbalists: {item:929} (from 110, 8s; {item:2453}, {item:2692} and a {item:3372}) is orange to 135."] = "",
+	-- Step 13: Learn Heavy Wool Bandage
+	-- {spell:3278} Heavy Wool Bandage
+	["Learn {spell:3278}"] = "",
 
-	-- Step 13: Expert First Aid
-	-- {skill:129} First Aid
-	["Expert {skill:129}"] = "{skill:129}: умелец",
-	-- {skill:129} First Aid · {item:16084} Expert First Aid - Under Wraps · {item:8544} Mageweave Bandage · {npc:2805} Deneb Walker · {zone:1417} Arathi Highlands · {npc:13476} Balai Lok'Wein · {area:496} Brackenwall Village · {zone:1445} Dustwallow Marsh
-	["Expert {skill:129} raises the cap to 225; it needs skill 125 and character level 20: it is a book, {item:16084} (1g); the arrow picks its nearest seller for your faction. Buy it and read it. The same vendor sells the Heavy Silk and {item:8544} manuals (22s and 50s): buy both now, you read them at 180 and 210. The book's sellers stand in zones above a level-20 character: {npc:2805} in Stromgarde ({zone:1417}, creatures of level 30-40) and {npc:13476} in {area:496} ({zone:1445}, 35-45). Take the flight path or keep to the road, buy, and leave the same way."] = "",
-	-- {item:16084} Expert First Aid - Under Wraps · {skill:129} First Aid
-	["Buy and read {item:16084} (Expert {skill:129})"] = "Купите и прочтите {item:16084} (уровень «Умелец», {skill:129})",
+	-- Step 14: Craft 51 Heavy Wool Bandages until 150
+	-- plural, as words: Heavy Wool Bandages = {spell:3278} Heavy Wool Bandage
+	["Craft 51 Heavy Wool Bandages until 150"] = "",
+	["About 51 crafts."] = "",
 
-	-- Step 14: Get Wool Cloth
-	-- {item:2592} Wool Cloth · {spell:3278} Heavy Wool Bandage
-	["You need 88 {item:2592}: 88 for {spell:3278} (125-150). {item:2592} drops from humanoids of level 15-30, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
-
-	-- Step 15: Heavy Wool Bandage (125-150)
-	-- {spell:3278} Heavy Wool Bandage · {skill:129} First Aid
-	-- was: ["{spell:3278} is yellow from 125 (yellow at 115, green at 150, grey at 185): about 38 crafts to 150. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: any {skill:129} trainer of your faction teaches it for 10s; the arrow picks the nearest."] = "{spell:3278}: желтые с 125 (желтые на 115, зеленые на 150, серые на 185): около 38 изготовлений до 150. Бинтам не нужен огонь: делайте их где угодно. Если вы дошли сюда, не выучив их, выучите сейчас: любой учитель навыка «{skill:129}» вашей фракции учит за 10с; стрелка выбирает ближайшего."
-	["{spell:3278} is yellow from 125 (yellow at 115, green at 150, grey at 185): about 38 crafts to 150, up to 44 for 9 players in 10 (the ingredients to farm count that many). Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: any {skill:129} trainer of your faction teaches it for 10s; the arrow picks the nearest."] = "",
-
-	-- Step 16: Get Silk Cloth
+	-- Step 15: Get 132 Silk Cloth
 	-- {item:4306} Silk Cloth
-	["Get {item:4306}"] = "",
-	-- {item:4306} Silk Cloth · {item:6450} Silk Bandage
-	["You need 141 {item:4306}: 47 for {item:6450} (150-180) and 94 for the later bandages on {item:4306}: get them all now, one farm. {item:4306} drops from humanoids of level 25-45, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4306} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["Get 132 {item:4306}"] = "",
+	-- plural, as words: Silk Bandages = {item:6450} Silk Bandage · Heavy Silk Bandages = {item:6451} Heavy Silk Bandage
+	["For 44 Silk Bandages and 44 Heavy Silk Bandages."] = "",
 
-	-- Step 17: Silk Bandage (150-180)
-	-- {item:6450} Silk Bandage · {skill:129} First Aid
-	-- was: ["{item:6450} is yellow from 150 (yellow at 150, green at 180, grey at 210): about 42 crafts to 180. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 150 for 50s; the arrow picks the nearest."] = "{item:6450} — желтый с 150 (желтый с 150, зеленый с 180, серый с 210): около 42 изготовлений до 180. Бинтам не нужен огонь: делайте их где угодно. Любой учитель навыка {skill:129} вашей фракции обучает этому с навыка 150 за 50с; стрелка указывает на ближайшего."
-	["{item:6450} is yellow from 150 (yellow at 150, green at 180, grey at 210): about 42 crafts to 180, up to 47 for 9 players in 10 (the ingredients to farm count that many). Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 150 for 50s; the arrow picks the nearest."] = "",
+	-- Step 16: Learn Silk Bandage
+	-- {spell:7928} Silk Bandage
+	["Learn {spell:7928}"] = "",
+	["For 150-180: the trainers teach it, not the book's seller."] = "",
 
-	-- Step 18: Get Silk Cloth
-	-- {item:4306} Silk Cloth · {item:6451} Heavy Silk Bandage
-	["You need 94 {item:4306}: 94 for {item:6451} (180-210). {item:4306} drops from humanoids of level 25-45, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4306} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- Step 17: Buy Expert First Aid - Under Wraps · Deneb Walker
+	-- {item:16084} Expert First Aid - Under Wraps · {npc:2805} Deneb Walker
+	["Buy {item:16084} · {npc:2805}"] = "",
 
-	-- Step 19: Heavy Silk Bandage (180-210)
-	-- {item:6451} Heavy Silk Bandage · {item:16112} Manual: Heavy Silk Bandage · {skill:129} First Aid
-	-- was: ["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere. Read the {item:16112} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "{item:6451}: желтые с 180 (желтые на 180, зеленые на 210, серые на 240): около 42 изготовлений до 210. Бинтам не нужен огонь: делайте их где угодно. Прочтите {item:16112}, купленное вместе с книгой эксперта по навыку «{skill:129}», чтобы выучить их; если его нет, его продает тот же торговец, что продал вам книгу."
-	["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210, up to 47 for 9 players in 10 (the ingredients to farm count that many). Bandages need no fire: craft them anywhere. Read the {item:16112} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "",
+	-- Step 18: Buy Expert First Aid - Under Wraps · Balai Lok'Wein
+	-- {item:16084} Expert First Aid - Under Wraps · {npc:13476} Balai Lok'Wein
+	["Buy {item:16084} · {npc:13476}"] = "",
 
-	-- Step 20: Get Mageweave Cloth
-	-- {item:4338} Mageweave Cloth
-	["Get {item:4338}"] = "",
-	-- {item:4338} Mageweave Cloth · {item:8544} Mageweave Bandage
-	["You need 105 {item:4338}: 20 for {item:8544} (210-225) and 85 for the later bandages on {item:4338}: get them all now, one farm. {item:4338} drops from humanoids of level 35-50, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4338} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
-
-	-- Step 21: Mageweave Bandage (210-225)
-	-- {item:8544} Mageweave Bandage · {item:16113} Manual: Mageweave Bandage · {skill:129} First Aid
-	-- was: ["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere. Read the {item:16113} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "{item:8544}: желтые с 210 (желтые на 210, зеленые на 240, серые на 270): около 18 изготовлений до 225. Бинтам не нужен огонь: делайте их где угодно. Прочтите {item:16113}, купленное вместе с книгой эксперта по навыку «{skill:129}», чтобы выучить их; если его нет, его продает тот же торговец, что продал вам книгу."
-	["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225, up to 20 for 9 players in 10 (the ingredients to farm count that many). Bandages need no fire: craft them anywhere. Read the {item:16113} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "",
-
-	-- Step 22: Trauma
-	["Trauma"] = "Травма",
-	-- {skill:129} First Aid · {quest:6624} Triage · {zone:1455} Ironforge · {item:14047} Runecloth
-	-- was: ["Artisan {skill:129} comes from the {quest:6624} quest. It needs skill 225 and level 35; the {skill:129} trainer in {zone:1455} sends you to the doctor in Theramore. Bring the Mageweave (about 74) and {item:14047} (about 65) for 225-300 now: bandages need no fire, so you craft 225-300 beside the doctor, who teaches the Artisan bandages."] = "Уровень «Искусник» ({skill:129}) дает задание {quest:6624}. Нужен навык 225 и уровень 35; учитель навыка {skill:129} — {zone:1455} — отправит вас к доктору в Терамор. Возьмите сразу магическую ткань (около 74) и {item:14047} (около 65) для 225-300: бинтам не нужен огонь, так что 225-300 вы прокачаете рядом с доктором, который обучает бинтам искусника."
-	["Artisan {skill:129} comes from the {quest:6624} quest. It needs skill 225 and level 35; the {skill:129} trainer in {zone:1455} sends you to the doctor in Theramore. Bring the Mageweave (about 85) and {item:14047} (about 75) for 225-300 now: bandages need no fire, so you craft 225-300 beside the doctor, who teaches the Artisan bandages."] = "",
-
-	-- Step 23: Trauma
-	-- {skill:129} First Aid · {quest:6622} Triage · {zone:1454} Orgrimmar · {area:321} Hammerfall · {item:14047} Runecloth
-	-- was: ["Artisan {skill:129} comes from the {quest:6622} quest. It needs skill 225 and level 35; the {skill:129} trainer in {zone:1454} sends you to the doctor in {area:321}. Bring the Mageweave (about 74) and {item:14047} (about 65) for 225-300 now: bandages need no fire, so you craft 225-300 beside the doctor, who teaches the Artisan bandages."] = "Уровень «Искусник» ({skill:129}) дает задание {quest:6622}. Нужен навык 225 и уровень 35; учитель навыка {skill:129} — {zone:1454} — отправит вас к доктору ({area:321}). Возьмите сразу магическую ткань (около 74) и {item:14047} (около 65) для 225-300: бинтам не нужен огонь, так что 225-300 вы прокачаете рядом с доктором, который обучает бинтам искусника."
-	["Artisan {skill:129} comes from the {quest:6622} quest. It needs skill 225 and level 35; the {skill:129} trainer in {zone:1454} sends you to the doctor in {area:321}. Bring the Mageweave (about 85) and {item:14047} (about 75) for 225-300 now: bandages need no fire, so you craft 225-300 beside the doctor, who teaches the Artisan bandages."] = "",
-
-	-- Step 24: Triage
-	-- {quest:6624} Triage
-	-- plural, as words: Triage Bandages = {item:16991} Triage Bandage
-	["{quest:6624}: the doctor hands you Triage Bandages; use those, not your own. Fifteen wounded soldiers lie inside: bandage the critically injured first, then the badly injured, then the injured, before any die (show the health bars with Ctrl+V). Turn the quest in the moment fifteen are saved: the others keep dying, and too many deaths fail it even after it reads complete. If it fails, abandon it and take it again."] = "{quest:6624}: доктор выдаст вам бинты для сортировки раненых; используйте их, а не свои. Внутри лежат пятнадцать раненых солдат: перевязывайте сначала тяжелораненых при смерти, затем тяжелораненых, затем раненых, пока никто не умер (полосы здоровья — Ctrl+V). Сдайте задание сразу, как спасете пятнадцать: остальные продолжают умирать, и слишком много смертей проваливают задание даже после пометки «выполнено». При провале откажитесь от задания и возьмите его снова.",
+	-- Step 19: Read Expert First Aid - Under Wraps
+	-- {item:16084} Expert First Aid - Under Wraps
+	["Read {item:16084}"] = "",
 	-- {skill:129} First Aid
-	["Artisan {skill:129}"] = "{skill:129}: искусник",
+	["It teaches Expert {skill:129} from your bags."] = "",
 
-	-- Step 25: Triage
-	-- {quest:6622} Triage
-	-- plural, as words: Triage Bandages = {item:16991} Triage Bandage
-	["{quest:6622}: the doctor hands you Triage Bandages; use those, not your own. Fifteen wounded soldiers lie on the floor inside: bandage the critically injured first, then the badly injured, then the injured, before any die (show the health bars with Ctrl+V). Turn the quest in the moment fifteen are saved: the others keep dying, and too many deaths fail it even after it reads complete. If it fails, abandon it and take it again."] = "{quest:6622}: доктор выдаст вам бинты для сортировки раненых; используйте их, а не свои. Внутри на полу лежат пятнадцать раненых солдат: перевязывайте сначала тяжелораненых при смерти, затем тяжелораненых, затем раненых, пока никто не умер (полосы здоровья — Ctrl+V). Сдайте задание сразу, как спасете пятнадцать: остальные продолжают умирать, и слишком много смертей проваливают задание даже после пометки «выполнено». При провале откажитесь от задания и возьмите его снова.",
+	-- Step 20: Buy Manual: Heavy Silk Bandage · Deneb Walker
+	-- {item:16112} Manual: Heavy Silk Bandage · {npc:2805} Deneb Walker
+	["Buy {item:16112} · {npc:2805}"] = "",
 
-	-- Step 26: Get Mageweave Cloth
-	-- {item:4338} Mageweave Cloth · {item:8544} Mageweave Bandage
-	["You need 85 {item:4338}: 29 for {item:8544} (225-240) and 56 for the later bandages on {item:4338}: get them all now, one farm. {item:4338} drops from humanoids of level 35-50, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4338} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- Step 21: Buy Manual: Heavy Silk Bandage · Balai Lok'Wein
+	-- {item:16112} Manual: Heavy Silk Bandage · {npc:13476} Balai Lok'Wein
+	["Buy {item:16112} · {npc:13476}"] = "",
 
-	-- Step 27: Mageweave Bandage (225-240)
-	-- {item:8544} Mageweave Bandage · {item:16113} Manual: Mageweave Bandage · {skill:129} First Aid
+	-- Step 22: Buy Manual: Mageweave Bandage · Deneb Walker
+	-- {item:16113} Manual: Mageweave Bandage · {npc:2805} Deneb Walker
+	["Buy {item:16113} · {npc:2805}"] = "",
+
+	-- Step 23: Buy Manual: Mageweave Bandage · Balai Lok'Wein
+	-- {item:16113} Manual: Mageweave Bandage · {npc:13476} Balai Lok'Wein
+	["Buy {item:16113} · {npc:13476}"] = "",
+
+	-- Step 24: Craft 44 Silk Bandages until 180
+	-- plural, as words: Silk Bandages = {item:6450} Silk Bandage
+	["Craft 44 Silk Bandages until 180"] = "",
+	["About 44 crafts."] = "",
+
+	-- Step 25: Learn Heavy Silk Bandage
+	-- {spell:7929} Heavy Silk Bandage
+	["Learn {spell:7929}"] = "",
+	["From the manual in your bags."] = "",
+
+	-- Step 26: Craft 44 Heavy Silk Bandages until 210
+	-- plural, as words: Heavy Silk Bandages = {item:6451} Heavy Silk Bandage
+	["Craft 44 Heavy Silk Bandages until 210"] = "",
+
+	-- Step 27: Get 19 Mageweave Cloth
+	-- {item:4338} Mageweave Cloth
+	["Get 19 {item:4338}"] = "",
 	-- plural, as words: Mageweave Bandages = {item:8544} Mageweave Bandage
-	-- was: ["{item:8544} is yellow from 225 (yellow at 210, green at 240, grey at 270): about 24 crafts to 240. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: read the {item:16113} (the vendor who sold you the Expert {skill:129} book sells it). {item:8544} turns green at 240: switch to Heavy Mageweave there, which costs less cloth than green Mageweave Bandages to 260."] = "{item:8544}: желтые с 225 (желтые на 210, зеленые на 240, серые на 270): около 24 изготовлений до 240. Бинтам не нужен огонь: делайте их где угодно. Если вы дошли сюда, не выучив их, выучите сейчас: прочтите {item:16113} (его продает тот же торговец, что продал вам книгу эксперта по навыку «{skill:129}»). {item:8544} зеленеют на 240: там переходите на «Плотные бинты из магической ткани», которые до 260 требуют меньше ткани, чем зеленые бинты из магической ткани."
-	["{item:8544} is yellow from 225 (yellow at 210, green at 240, grey at 270): about 24 crafts to 240, up to 29 for 9 players in 10 (the ingredients to farm count that many). Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: read the {item:16113} (the vendor who sold you the Expert {skill:129} book sells it). {item:8544} turns green at 240: switch to Heavy Mageweave there, which costs less cloth than green Mageweave Bandages to 260."] = "",
+	["For 19 Mageweave Bandages."] = "",
 
-	-- Step 28: Heavy Mageweave Bandage
-	-- {spell:10841} Heavy Mageweave Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall
-	["{spell:10841} (skill 240) is an Artisan recipe: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "{spell:10841} (навык 240) — рецепт искусника: ему обучает только доктор из задания {quest:6622} ({npc:12939} в Тераморе, {npc:12920} — {area:321}).",
+	-- Step 28: Learn Mageweave Bandage
+	-- {spell:10840} Mageweave Bandage
+	["Learn {spell:10840}"] = "",
 
-	-- Step 29: Get Mageweave Cloth
-	-- {item:4338} Mageweave Cloth · {item:8545} Heavy Mageweave Bandage
-	["You need 56 {item:4338}: 56 for {item:8545} (240-260). {item:4338} drops from humanoids of level 35-50, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4338} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- Step 29: Craft 19 Mageweave Bandages until 225
+	-- plural, as words: Mageweave Bandages = {item:8544} Mageweave Bandage
+	["Craft 19 Mageweave Bandages until 225"] = "",
+	["About 19 crafts."] = "",
 
-	-- Step 30: Heavy Mageweave Bandage (240-260)
-	-- {item:8545} Heavy Mageweave Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall
-	-- was: ["{item:8545} is yellow from 240 (yellow at 240, green at 270, grey at 300): about 25 crafts to 260. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "{item:8545}: желтые с 240 (желтые на 240, зеленые на 270, серые на 300): около 25 изготовлений до 260. Бинтам не нужен огонь: делайте их где угодно. Если вы дошли сюда, не выучив их, выучите сейчас: учит только врач из задания {quest:6622} ({npc:12939} на Тераморе, {npc:12920} в месте {area:321})."
-	["{item:8545} is yellow from 240 (yellow at 240, green at 270, grey at 300): about 25 crafts to 260, up to 28 for 9 players in 10 (the ingredients to farm count that many). Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "",
+	-- Step 30: Get 86 Mageweave Cloth
+	-- {item:4338} Mageweave Cloth
+	["Get 86 {item:4338}"] = "",
+	-- plural, as words: Mageweave Bandages = {item:8544} Mageweave Bandage · Heavy Mageweave Bandages = {item:8545} Heavy Mageweave Bandage
+	["For 26 Mageweave Bandages and 30 Heavy Mageweave Bandages."] = "",
 
-	-- Step 31: Runecloth Bandage
-	-- {spell:18629} Runecloth Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall
-	["{spell:18629} (skill 260) is an Artisan recipe: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "{spell:18629} (навык 260) — рецепт искусника: ему обучает только доктор из задания {quest:6622} ({npc:12939} в Тераморе, {npc:12920} — {area:321}).",
+	-- Step 31: Reach level 35
+	["Reach level 35"] = "",
+	-- {quest:6622} Triage
+	["{quest:6622} asks for level 35."] = "",
 
-	-- Step 32: Get Runecloth
+	-- Step 32: Accept Alliance Trauma
+	-- {quest:6625} Alliance Trauma
+	["Accept {quest:6625}"] = "",
+
+	-- Step 33: Hand in Alliance Trauma
+	-- {quest:6625} Alliance Trauma
+	["Hand in {quest:6625}"] = "",
+
+	-- Step 34: Accept Triage
+	-- {quest:6624} Triage
+	["Accept {quest:6624}"] = "",
+
+	-- Step 35: Complete Triage
+	-- {quest:6624} Triage
+	["Complete {quest:6624}"] = "",
+	-- plural, as words: Triage Bandages = {item:16991} Triage Bandage
+	["Use his Triage Bandages, the worst wounds first: 15 saved completes it, and 6 deaths fail it."] = "",
+
+	-- Step 36: Hand in Triage
+	-- {quest:6624} Triage
+	["Hand in {quest:6624}"] = "",
+	-- {skill:129} First Aid
+	["It teaches Artisan {skill:129}."] = "",
+
+	-- Step 37: Accept Horde Trauma
+	-- {quest:6623} Horde Trauma
+	["Accept {quest:6623}"] = "",
+
+	-- Step 38: Hand in Horde Trauma
+	-- {quest:6623} Horde Trauma
+	["Hand in {quest:6623}"] = "",
+
+	-- Step 39: Accept Triage
+	-- {quest:6622} Triage
+	["Accept {quest:6622}"] = "",
+
+	-- Step 40: Complete Triage
+	-- {quest:6622} Triage
+	["Complete {quest:6622}"] = "",
+
+	-- Step 41: Hand in Triage
+	-- {quest:6622} Triage
+	["Hand in {quest:6622}"] = "",
+
+	-- Step 42: Learn Mageweave Bandage
+	["Taught at 210; done at once if you learned it then."] = "",
+
+	-- Step 43: Craft 26 Mageweave Bandages until 240
+	-- plural, as words: Mageweave Bandages = {item:8544} Mageweave Bandage
+	["Craft 26 Mageweave Bandages until 240"] = "",
+	["About 26 crafts. The doctor teaches the next bandages at 240, 260 and 290: crafting beside him saves trips."] = "",
+
+	-- Step 44: Learn Heavy Mageweave Bandage
+	-- {spell:10841} Heavy Mageweave Bandage
+	["Learn {spell:10841}"] = "",
+
+	-- Step 45: Craft 30 Heavy Mageweave Bandages until 260
+	-- plural, as words: Heavy Mageweave Bandages = {item:8545} Heavy Mageweave Bandage
+	["Craft 30 Heavy Mageweave Bandages until 260"] = "",
+	["About 30 crafts."] = "",
+
+	-- Step 46: Get 71 Runecloth
 	-- {item:14047} Runecloth
-	["Get {item:14047}"] = "",
-	-- {item:14047} Runecloth · {item:14529} Runecloth Bandage
-	["You need 75 {item:14047}: 75 for {item:14529} (260-300). {item:14047} drops from humanoids of level 45-60, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["Get 71 {item:14047}"] = "",
+	-- plural, as words: Runecloth Bandages = {item:14529} Runecloth Bandage · Heavy Runecloth Bandages = {item:14530} Heavy Runecloth Bandage
+	["For 47 Runecloth Bandages and 12 Heavy Runecloth Bandages."] = "",
 
-	-- Step 33: Runecloth Bandage (260-300)
-	-- {item:14529} Runecloth Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall · {item:14047} Runecloth · {item:14530} Heavy Runecloth Bandage
-	-- was: ["{item:14529} is yellow from 260 (yellow at 260, green at 290, grey at 320): about 65 crafts to 300. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321}). {item:14529} turns green at 290, yet to 300 it takes about the same {item:14047} as switching to {item:14530} (the doctor teaches it at 290): one recipe is enough."] = "{item:14529}: желтые с 260 (желтые на 260, зеленые на 290, серые на 320): около 65 изготовлений до 300. Бинтам не нужен огонь: делайте их где угодно. Если вы дошли сюда, не выучив их, выучите сейчас: учит только врач из задания {quest:6622} ({npc:12939} на Тераморе, {npc:12920} в месте {area:321}). {item:14529} зеленеют на 290, но до 300 они требуют примерно столько же {item:14047}, сколько переход на {item:14530} (врач учит их на 290): достаточно одного рецепта."
-	["{item:14529} is yellow from 260 (yellow at 260, green at 290, grey at 320): about 65 crafts to 300, up to 75 for 9 players in 10 (the ingredients to farm count that many). Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321}). {item:14529} turns green at 290, yet to 300 it takes about the same {item:14047} as switching to {item:14530} (the doctor teaches it at 290): one recipe is enough."] = "",
+	-- Step 47: Learn Runecloth Bandage
+	-- {spell:18629} Runecloth Bandage
+	["Learn {spell:18629}"] = "",
+
+	-- Step 48: Craft 47 Runecloth Bandages until 290
+	-- plural, as words: Runecloth Bandages = {item:14529} Runecloth Bandage
+	["Craft 47 Runecloth Bandages until 290"] = "",
+
+	-- Step 49: Learn Heavy Runecloth Bandage
+	-- {spell:18630} Heavy Runecloth Bandage
+	["Learn {spell:18630}"] = "",
+
+	-- Step 50: Craft 12 Heavy Runecloth Bandages until 300
+	-- plural, as words: Heavy Runecloth Bandages = {item:14530} Heavy Runecloth Bandage
+	["Craft 12 Heavy Runecloth Bandages until 300"] = "",
+	["About 12 crafts."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Any {skill:129} trainer of your faction teaches Apprentice {skill:129} (any character level, 1s); the arrow picks the nearest. Forever teaches {item:118} with it: {item:2447}, {item:2678} and an {item:3371}, orange to 55. With {skill:182} it can replace the Linen Bandages below."] = "Любой учитель навыка {skill:129} вашей фракции обучает уровню «Ученик» ({skill:129}) (любой уровень персонажа, 1с); стрелка указывает на ближайшего. На Forever вместе с ним изучается {item:118}: {item:2447}, {item:2678} и {item:3371}, оранжевый до 55. С навыком {skill:182} это может заменить льняные бинты ниже.",
 	-- ["Any {skill:129} trainer of your faction teaches Apprentice {skill:129} (character level 5); the arrow picks the nearest."] = "Любой учитель профессии «{skill:129}» вашей фракции обучает уровню «Ученик» ({skill:129}; 5-й уровень персонажа); стрелка выбирает ближайшего.",
 	-- ["Any {skill:129} trainer of your faction teaches Apprentice {skill:129} (character level 5, 1s); the arrow picks the nearest. Forever teaches {item:118} with it: {item:2447}, {item:2678} and an {item:3371}, orange to 55. With {skill:182} it can replace the Linen Bandages below."] = "Любой учитель навыка {skill:129} вашей фракции обучает уровню «Ученик» ({skill:129}) (уровень персонажа 5, 1с); стрелка указывает на ближайшего. На Forever вместе с ним изучается {item:118}: {item:2447}, {item:2678} и {item:3371}, оранжевый до 55. С навыком {skill:182} это может заменить льняные бинты ниже.",
+	-- ["Artisan {skill:129}"] = "{skill:129}: искусник",
 	-- ["Artisan {skill:129} comes from the {quest:6622} quest. It needs skill 225 and level 35; the {skill:129} trainer in {zone:1454} sends you to the doctor in {area:321}. Bring the Mageweave (about 74) and {item:14047} (about 65) for 225-300 now: bandages need no fire, so you craft 225-300 beside the doctor, who teaches the Artisan bandages."] = "Уровень «Искусник» ({skill:129}) дает задание {quest:6622}. Нужен навык 225 и уровень 35; учитель навыка {skill:129} — {zone:1454} — отправит вас к доктору ({area:321}). Возьмите сразу магическую ткань (около 74) и {item:14047} (около 65) для 225-300: бинтам не нужен огонь, так что 225-300 вы прокачаете рядом с доктором, который обучает бинтам искусника.",
 	-- ["Artisan {skill:129} comes from the {quest:6622} quest. It needs skill 225 and level 40; the {skill:129} trainer in {zone:1454} sends you to the doctor in {area:321}."] = "Уровень «Искусник» ({skill:129}) дается за задание {quest:6622}. Нужен навык 225 и 40-й уровень; учитель профессии «{skill:129}» в городе {zone:1454} отправляет вас к доктору: {area:321}.",
 	-- ["Artisan {skill:129} comes from the {quest:6624} quest. It needs skill 225 and level 35; the {skill:129} trainer in {zone:1455} sends you to the doctor in Theramore. Bring the Mageweave (about 74) and {item:14047} (about 65) for 225-300 now: bandages need no fire, so you craft 225-300 beside the doctor, who teaches the Artisan bandages."] = "Уровень «Искусник» ({skill:129}) дает задание {quest:6624}. Нужен навык 225 и уровень 35; учитель навыка {skill:129} — {zone:1455} — отправит вас к доктору в Терамор. Возьмите сразу магическую ткань (около 74) и {item:14047} (около 65) для 225-300: бинтам не нужен огонь, так что 225-300 вы прокачаете рядом с доктором, который обучает бинтам искусника.",
 	-- ["Artisan {skill:129} comes from the {quest:6624} quest. It needs skill 225 and level 40; the {skill:129} trainer in {zone:1455} sends you to the doctor in Theramore."] = "Уровень «Искусник» ({skill:129}) дается за задание {quest:6624}. Нужен навык 225 и 40-й уровень; учитель профессии «{skill:129}» в городе {zone:1455} отправляет вас к доктору в Терамор.",
+	-- ["Buy and read {item:16084} (Expert {skill:129})"] = "Купите и прочтите {item:16084} (уровень «Умелец», {skill:129})",
+	-- ["Expert {skill:129}"] = "{skill:129}: умелец",
 	-- ["Expert {skill:129} raises the cap to 225; it needs skill 125 and character level 20: it is a book, {item:16084} (1g); the arrow picks its nearest seller for your faction. Buy it and read it. The same vendor sells the Heavy Silk and {item:8544} manuals (22s and 50s): buy both now, you read them at 180 and 210."] = "Уровень «Умелец» ({skill:129}) повышает предел до 225; нужен навык 125 и уровень персонажа 20: это книга {item:16084} (1з); стрелка указывает на ближайшего продавца вашей фракции. Купите и прочтите ее. Тот же торговец продает руководства по плотным шелковым бинтам и {item:8544} (22с и 50с): купите оба сейчас, прочтете их на 180 и 210.",
 	-- ["Expert {skill:129} raises the cap to 225; it needs skill 125 and character level 20: it is a book, {item:16084}; the arrow picks its nearest seller for your faction. Buy it and read it. The same vendor sells the Heavy Silk and {item:8544} manuals: buy both now, you read them at 180 and 210."] = "Уровень «Умелец» ({skill:129}) поднимает предел до 225; нужен навык 125 и 20-й уровень персонажа: это книга, {item:16084}; стрелка выбирает ближайшего продавца вашей фракции. Купите и прочтите ее. Тот же торговец продает учебники по плотным шелковым бинтам и {item:8544}: купите оба сейчас, прочтете их на 180 и 210.",
+	-- ["Journeyman {skill:129}"] = "{skill:129}: подмастерье",
 	-- ["Journeyman {skill:129} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:129} trainer of your faction. Learn {spell:3276} on the same visit."] = "Уровень «Подмастерье» ({skill:129}) поднимает предел до 150; нужен навык 50 и 10-й уровень персонажа: стрелка выбирает ближайшего учителя профессии «{skill:129}» вашей фракции. За тот же визит изучите {spell:3276}.",
 	-- ["Journeyman {skill:129} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:129} trainer of your faction; training costs 5s."] = "Уровень «Подмастерье» ({skill:129}) повышает предел до 150; нужен навык 50 и уровень персонажа 10: стрелка указывает на ближайшего учителя навыка {skill:129} вашей фракции; обучение стоит 5с.",
+	-- ["Journeyman {skill:129} raises the cap to 150; it needs skill 50 and no character level: the arrow picks the nearest {skill:129} trainer of your faction; training costs 5s."] = "Уровень «Подмастерье» ({skill:129}) повышает предел до 150; нужен навык 50, уровень персонажа не требуется: стрелка указывает на ближайшего учителя навыка {skill:129} вашей фракции; обучение стоит 5с.",
+	-- ["Trauma"] = "Травма",
 	-- ["What {item:1251} takes that the Auction House sells: 41 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {item:1251} и продается на аукционе: 41 {item:2589}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 	-- ["What {item:14529} takes that the Auction House sells: 65 {item:14047}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {item:14529} и продается на аукционе: 65 {item:14047}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 	-- ["What {item:2581} takes that the Auction House sells: 20 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {item:2581} и продается на аукционе: 20 {item:2589}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
@@ -215,6 +284,7 @@ return {
 	-- ["{item:14529} is yellow from 260 (yellow at 260, grey at 320): about 65 crafts to 300. Bandages need no fire: craft them anywhere. {item:14529} stays yellow to 320, so it carries you to 300 without a trip for Heavy Runecloth."] = "{item:14529}: желтый с 260 (желтый с 260, серый с 320) – около 65 изготовлений до 300. Бинтам не нужен огонь: делайте их где угодно. {item:14529} остается желтым до 320, так что доведет вас до 300 без похода за плотными бинтами из рунной ткани.",
 	-- ["{item:14529}: Auction House"] = "{item:14529}: аукцион",
 	-- ["{item:14529}: cloth"] = "{item:14529}: ткань",
+	-- ["{item:2581} is orange from 40 (yellow at 50, green at 75, grey at 100): about 10 crafts to 50. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 40 for 1s; the arrow picks the nearest."] = "{item:2581} — оранжевый с 40 (желтый с 50, зеленый с 75, серый с 100): около 10 изготовлений до 50. Бинтам не нужен огонь: делайте их где угодно. Любой учитель навыка {skill:129} вашей фракции обучает этому с навыка 40 за 1с; стрелка указывает на ближайшего.",
 	-- ["{item:2581} is yellow from 50 (yellow at 50, green at 75, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere. Herbalists: {item:858} (from 55, 1s 50c; {item:2450}, two {item:2678} and an {item:3371}) is orange to 85."] = "{item:2581} — желтый с 50 (желтый с 50, зеленый с 75, серый с 100): около 46 изготовлений до 80. Бинтам не нужен огонь: делайте их где угодно. Травникам: {item:858} (с 55, 1с 50м; {item:2450}, два {item:2678} и {item:3371}) — оранжевый до 85.",
 	-- ["{item:2581} is yellow from 50 (yellow at 50, green at 75, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: any {skill:129} trainer of your faction teaches it for 1s; the arrow picks the nearest. Herbalists: {item:858} (from 55, 1s 50c; {item:2450}, two {item:2678} and an {item:3371}) is orange to 85."] = "{item:2581}: желтые с 50 (желтые на 50, зеленые на 75, серые на 100): около 46 изготовлений до 80. Бинтам не нужен огонь: делайте их где угодно. Если вы дошли сюда, не выучив их, выучите сейчас: любой учитель навыка «{skill:129}» вашей фракции учит за 1с; стрелка выбирает ближайшего. Травникам: {item:858} (с 55, 1с 50м; {item:2450}, два {item:2678} и {item:3371}) оранжевое до 85.",
 	-- ["{item:2581} is yellow from 50 (yellow at 50, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere."] = "{item:2581} — желтый с 50 (желтый с 50, серый с 100): примерно 46 изготовлений до 80. Для бинтов не нужен огонь: делайте их где угодно.",
@@ -245,8 +315,12 @@ return {
 	-- ["{item:8545} is yellow from 240 (yellow at 240, green at 270, grey at 300): about 25 crafts to 260. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "{item:8545}: желтые с 240 (желтые на 240, зеленые на 270, серые на 300): около 25 изготовлений до 260. Бинтам не нужен огонь: делайте их где угодно. Если вы дошли сюда, не выучив их, выучите сейчас: учит только врач из задания {quest:6622} ({npc:12939} на Тераморе, {npc:12920} в месте {area:321}).",
 	-- ["{item:8545}: Auction House"] = "{item:8545}: аукцион",
 	-- ["{item:8545}: cloth"] = "{item:8545}: ткань",
+	-- ["{quest:6622}: the doctor hands you Triage Bandages; use those, not your own. Fifteen wounded soldiers lie on the floor inside: bandage the critically injured first, then the badly injured, then the injured, before any die (show the health bars with Ctrl+V). Turn the quest in the moment fifteen are saved: the others keep dying, and too many deaths fail it even after it reads complete. If it fails, abandon it and take it again."] = "{quest:6622}: доктор выдаст вам бинты для сортировки раненых; используйте их, а не свои. Внутри на полу лежат пятнадцать раненых солдат: перевязывайте сначала тяжелораненых при смерти, затем тяжелораненых, затем раненых, пока никто не умер (полосы здоровья — Ctrl+V). Сдайте задание сразу, как спасете пятнадцать: остальные продолжают умирать, и слишком много смертей проваливают задание даже после пометки «выполнено». При провале откажитесь от задания и возьмите его снова.",
 	-- ["{quest:6622}: treat the wounded soldiers in the doctor's tent with the bandages the doctor gives you, the most critical first, before any of them die."] = "{quest:6622}: лечите раненых солдат в палатке доктора выданными бинтами, сначала самых тяжелых, пока никто не умер.",
+	-- ["{quest:6624}: the doctor hands you Triage Bandages; use those, not your own. Fifteen wounded soldiers lie inside: bandage the critically injured first, then the badly injured, then the injured, before any die (show the health bars with Ctrl+V). Turn the quest in the moment fifteen are saved: the others keep dying, and too many deaths fail it even after it reads complete. If it fails, abandon it and take it again."] = "{quest:6624}: доктор выдаст вам бинты для сортировки раненых; используйте их, а не свои. Внутри лежат пятнадцать раненых солдат: перевязывайте сначала тяжелораненых при смерти, затем тяжелораненых, затем раненых, пока никто не умер (полосы здоровья — Ctrl+V). Сдайте задание сразу, как спасете пятнадцать: остальные продолжают умирать, и слишком много смертей проваливают задание даже после пометки «выполнено». При провале откажитесь от задания и возьмите его снова.",
 	-- ["{quest:6624}: treat the wounded soldiers in the doctor's tent with the bandages the doctor gives you, the most critical first, before any of them die."] = "{quest:6624}: лечите раненых солдат в палатке доктора выданными бинтами, сначала самых тяжелых, пока никто не умер.",
+	-- ["{spell:10841} (skill 240) is an Artisan recipe: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "{spell:10841} (навык 240) — рецепт искусника: ему обучает только доктор из задания {quest:6622} ({npc:12939} в Тераморе, {npc:12920} — {area:321}).",
+	-- ["{spell:18629} (skill 260) is an Artisan recipe: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "{spell:18629} (навык 260) — рецепт искусника: ему обучает только доктор из задания {quest:6622} ({npc:12939} в Тераморе, {npc:12920} — {area:321}).",
 	-- ["{spell:3277} is yellow from 80 (yellow at 80, green at 115, grey at 150): about 49 crafts to 115. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 80 for 2s 50c; the arrow picks the nearest. {item:6452} ({item:1475}, from spiders) is taught at 80 too: Rogues need it for {spell:9810}, and it sells."] = "{spell:3277} — желтый с 80 (желтый с 80, зеленый с 115, серый с 150): около 49 изготовлений до 115. Бинтам не нужен огонь: делайте их где угодно. Любой учитель навыка {skill:129} вашей фракции обучает этому с навыка 80 за 2с 50м; стрелка указывает на ближайшего. {item:6452} ({item:1475}, с пауков) тоже изучается на 80: он нужен разбойникам для {spell:9810}, и он хорошо продается.",
 	-- ["{spell:3277} is yellow from 80 (yellow at 80, grey at 150): about 49 crafts to 115. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it; the arrow picks the nearest."] = "{spell:3277} — желтый с 80 (желтый с 80, серый с 150): примерно 49 изготовлений до 115. Для бинтов не нужен огонь: делайте их где угодно. Ему обучает любой учитель профессии «{skill:129}» вашей фракции; стрелка выбирает ближайшего.",
 	-- ["{spell:3277}: Auction House"] = "{spell:3277}: аукцион",

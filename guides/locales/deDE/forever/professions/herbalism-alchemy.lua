@@ -6,303 +6,420 @@
 -- A token marked "no name in this language" would show in English: write that name in German words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Step 1: Learn Herbalism and Alchemy
-	-- {skill:182} Herbalism · {skill:171} Alchemy
-	["Learn {skill:182} and {skill:171}"] = "",
-	-- {skill:171} Alchemy · {npc:1215} Alchemist Mallory · {zone:1429} Elwynn Forest · {npc:3603} Cyndra Kindwhisper · {zone:1438} Teldrassil · {npc:1470} Ghak Healtouch · {zone:1432} Loch Modan · {npc:253004} Iaadaria Bitterwind · {zone:2521} Zephras Isle · {npc:11041} Milla Fairancora · {zone:1457} Darnassus · {npc:257019} Nyassa Swiftdraught · {npc:5500} Tel'Athir · {zone:1453} Stormwind City · {npc:257005} Valiena Swiftgale · {npc:1246} Vosur Brakthel · {zone:1455} Ironforge · {npc:2132} Carolai Anise · {zone:1420} Tirisfal Glades · {npc:11044} Doctor Martin Felben · {zone:1458} Undercity · {npc:11047} Kray · {zone:1456} Thunder Bluff · {npc:3184} Miao'zan · {zone:1411} Durotar · {npc:11046} Whuut · {zone:1454} Orgrimmar · {skill:182} Herbalism · {item:2447} Peacebloom · {item:765} Silverleaf
-	-- plural, as words: Empty Vials = {item:3371} Empty Vial
-	["Apprentice {skill:171} lets you craft up to 75 for 10c, at any character level. Not every {skill:171} trainer teaches it: Alliance {npc:1215} ({zone:1429}), {npc:3603} ({zone:1438}), {npc:1470} ({zone:1432}), {npc:253004} ({zone:2521}), {npc:11041} ({zone:1457}), {npc:257019} ({zone:2521}), {npc:5500} ({zone:1453}), {npc:257005} ({zone:2521}) and {npc:1246} ({zone:1455}); Horde {npc:2132} ({zone:1420}), {npc:11044} ({zone:1458}), {npc:11047} ({zone:1456}), {npc:3184} ({zone:1411}), {npc:257019} ({zone:2521}), {npc:257005} ({zone:2521}) and {npc:11046} ({zone:1454}). The arrow picks the nearest of your faction. Pair it with {skill:182}: {item:2447} and {item:765} grow in every starting zone, and Empty Vials cost 4c at any alchemy or trade supplies vendor. 1-75 takes about 3s 28c of vendor goods, plus 87 {item:765} and 110 {item:2447} to gather or buy. Learn Apprentice {skill:182} on the same trip: any {skill:182} trainer of your faction teaches it at any level, and the arrow picks the nearest."] = "",
-
-	-- Step 2: Alchemy 1-75: vendor goods
+	-- Step 1: Learn Alchemy
 	-- {skill:171} Alchemy
-	["{skill:171} 1-75: vendor goods"] = "",
-	-- {item:3371} Empty Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 82 {item:3371} (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Learn {skill:171}"] = "",
+	["No character level needed."] = "",
 
-	-- Step 3: Herbalism 1-15: Stunted Silverleaf & Wilted Peacebloom
-	-- {skill:182} Herbalism · {item:5997} Elixir of Minor Defense · {item:765} Silverleaf · {item:2447} Peacebloom
-	["Pick from {skill:182} 1 to 15 for {item:5997}: this loop gives {item:765} and {item:2447}, and the next one the rest from {skill:182} 15. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
-
-	-- Step 4: Herbalism 15-50: Peacebloom & Stunted Silverleaf
-	-- {skill:182} Herbalism · {item:5997} Elixir of Minor Defense · {item:765} Silverleaf · {item:2447} Peacebloom
-	["Pick from {skill:182} 15 to 50 for {item:5997}: this loop gives {item:765} and {item:2447}, and the next one the rest from {skill:182} 50. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
-
-	-- Step 5: Herbalism 50-70: Mageroyal
-	-- {skill:182} Herbalism · {item:5997} Elixir of Minor Defense · {item:765} Silverleaf
-	["Pick from {skill:182} 50 to 70 for {item:5997}: this loop gives {item:765}, and the next one the rest from {skill:182} 70. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
-
-	-- Step 6: Journeyman Herbalism
+	-- Step 2: Learn Herbalism
 	-- {skill:182} Herbalism
-	["Journeyman {skill:182}"] = "",
+	["Learn {skill:182}"] = "",
+
+	-- Step 3: Buy 54 Empty Vial
+	-- {item:3371} Empty Vial
+	["Buy 54 {item:3371}"] = "",
+	["For 9 Elixirs of Minor Force and 45 Elixirs of Minor Defense."] = "",
+
+	-- Step 4: Pick until Herbalism 15
 	-- {skill:182} Herbalism
-	["Journeyman {skill:182} raises {skill:182}'s cap to 150, needs {skill:182} 50 and costs 5s (the arrow picks the nearest {skill:182} trainer of your faction)."] = "",
+	["Pick until {skill:182} 15"] = "",
+	-- {item:765} Silverleaf · {skill:182} Herbalism
+	["This loop gives the {item:765} to {skill:182} 15; the next one the rest."] = "",
 
-	-- Step 7: Herbalism 70-100: Mageroyal & Briarthorn
-	-- {skill:182} Herbalism · {item:5997} Elixir of Minor Defense · {item:765} Silverleaf
-	["Pick from {skill:182} 70 to 100 for {item:5997}: this loop gives {item:765}, and the next one the rest from {skill:182} 100. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
+	-- Step 5: Pick 9 Silverleaf
+	-- {item:765} Silverleaf
+	["Pick 9 {item:765}"] = "",
+	["For 9 Elixirs of Minor Force."] = "",
 
-	-- Step 8: Pick Silverleaf and Peacebloom
-	-- {item:765} Silverleaf · {item:2447} Peacebloom
-	["Pick {item:765} and {item:2447}"] = "",
-	-- {item:765} Silverleaf · {item:2447} Peacebloom · {skill:171} Alchemy · {skill:182} Herbalism
-	["87 {item:765} and 87 {item:2447} for {skill:171} 1-75: 87 Elixirs of Minor Defense. Pick 87 {item:765} and 87 {item:2447} ({skill:182} 100), then craft 82 Elixirs of Minor Defense ({skill:171} 1 to 75). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- Step 6: Craft 9 Elixirs of Minor Force until 10
+	["Craft 9 Elixirs of Minor Force until 10"] = "",
+	["About 9 crafts."] = "",
 
-	-- Step 9: Elixir of Minor Defense to 75
-	-- {item:5997} Elixir of Minor Defense
-	["{item:5997} to 75"] = "",
-	-- {item:5997} Elixir of Minor Defense · {item:765} Silverleaf · {item:2447} Peacebloom · {item:3371} Empty Vial
-	["{item:5997} is orange at 1 (yellow 55, green 75, grey 95): about 82 crafts to 75, up to 87 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:765}, 1 {item:2447} and 1 {item:3371}. Known from the start and the cheapest way through the Apprentice range. Keep the elixirs (armour while you level) or sell them."] = "",
+	-- Step 7: Pick until Herbalism 50
+	-- {skill:182} Herbalism
+	["Pick until {skill:182} 50"] = "",
+	-- {item:765} Silverleaf · {skill:182} Herbalism
+	["This loop gives the {item:765} to {skill:182} 50; the next one the rest."] = "",
 
-	-- Step 10: Journeyman Alchemy
+	-- Step 8: Pick 45 Silverleaf
+	-- {item:765} Silverleaf
+	["Pick 45 {item:765}"] = "",
+	-- {skill:182} Herbalism
+	["For 45 Elixirs of Minor Defense. {skill:182} 50 to 67 on the way."] = "",
+
+	-- Step 9: Pick 45 Peacebloom
+	-- {item:2447} Peacebloom
+	["Pick 45 {item:2447}"] = "",
+	["For 45 Elixirs of Minor Defense."] = "",
+
+	-- Step 10: Craft 45 Elixirs of Minor Defense until 55
+	["Craft 45 Elixirs of Minor Defense until 55"] = "",
+	["About 45 crafts."] = "",
+
+	-- Step 11: Buy 98 Empty Vial
+	-- {item:3371} Empty Vial
+	["Buy 98 {item:3371}"] = "",
+	-- plural, as words: Minor Mana Potions = {spell:2331} Minor Mana Potion · Lesser Mana Potions = {spell:3173} Lesser Mana Potion · Fire Oils = {item:6371} Fire Oil
+	["For 10 Minor Mana Potions, 28 Elixirs of Minor Fortitude, 30 Elixirs of Wisdom, 10 Lesser Mana Potions and 20 Fire Oils."] = "",
+
+	-- Step 12: Pick 10 Mageroyal
+	-- {item:785} Mageroyal
+	["Pick 10 {item:785}"] = "",
+	-- plural, as words: Minor Mana Potions = {spell:2331} Minor Mana Potion
+	["For 10 Minor Mana Potions."] = "",
+
+	-- Step 13: Pick 10 Peacebloom
+	-- {item:2447} Peacebloom
+	["Pick 10 {item:2447}"] = "",
+
+	-- Step 14: Train Journeyman Alchemy
 	-- {skill:171} Alchemy
-	["Journeyman {skill:171}"] = "",
-	-- {skill:171} Alchemy · {npc:4900} Alchemist Narett · {zone:1445} Dustwallow Marsh · {npc:2837} Jaxin Chong · {zone:1434} Stranglethorn Vale · {npc:3964} Kylanna · {zone:1440} Ashenvale · {npc:5499} Lilyssia Nightbreeze · {zone:1453} Stormwind City · {npc:11042} Sylvanna Forestmoon · {zone:1457} Darnassus · {npc:5177} Tally Berryfizz · {zone:1455} Ironforge · {npc:3009} Bena Winterhoof · {zone:1456} Thunder Bluff · {npc:4609} Doctor Marsh · {zone:1458} Undercity · {npc:2391} Serge Hinott · {zone:1424} Hillsbrad Foothills · {npc:3347} Yelmak · {zone:1454} Orgrimmar · {spell:2334} Elixir of Minor Fortitude · {spell:1230564} Mana Well · {item:2447} Peacebloom · {item:3371} Empty Vial · {item:785} Mageroyal · {item:2449} Earthroot · {item:2450} Briarthorn · {item:2453} Bruiseweed
-	["Journeyman raises the cap from 75 to 150 for 4s 50c (Classic's price; Forever's is not in the data); it needs {skill:171} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:171} trainer teaches it: Alliance {npc:4900} ({zone:1445}), {npc:2837} ({zone:1434}), {npc:3964} ({zone:1440}), {npc:5499} ({zone:1453}), {npc:11042} ({zone:1457}) and {npc:5177} ({zone:1455}); Horde {npc:3009} ({zone:1456}), {npc:4609} ({zone:1458}), {npc:2837} ({zone:1434}), {npc:2391} ({zone:1424}) and {npc:3347} ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:2334} (from 50, 2s 50c). Also learn {spell:1230564} (1s): Forever's {skill:171} camp item, 1 {item:2447} and 1 {item:3371}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:171} quest from your starting area's camping guide (after The Great Outdoors) sends you to an alchemy trainer who teaches it free. 75-150 takes about 2s 50c of recipes and 8s 68c of vendor goods, plus 50 {item:785}, 46 {item:2449}, 158 {item:2450} and 58 {item:2453} to gather or buy."] = "",
+	["Train Journeyman {skill:171}"] = "",
+	["Needs level 10."] = "",
 
-	-- Step 11: Alchemy 75-150: vendor goods
-	-- {skill:171} Alchemy
-	["{skill:171} 75-150: vendor goods"] = "",
-	-- {item:3371} Empty Vial · {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 67 {item:3371} (2s 68c) and 15 {item:3372} (6s); about 8s 68c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	-- Step 15: Train Journeyman Herbalism
+	-- {skill:182} Herbalism
+	["Train Journeyman {skill:182}"] = "",
 
-	-- Step 12: Pick Peacebloom and Earthroot
-	-- {item:2447} Peacebloom · {item:2449} Earthroot
-	["Pick {item:2447} and {item:2449}"] = "",
-	-- {item:2447} Peacebloom · {item:2449} Earthroot · {skill:171} Alchemy · {skill:182} Herbalism
-	["23 {item:2447} and 46 {item:2449} for {skill:171} 75-92: 23 Elixirs of Minor Fortitude; from your herbalism on the way: 44 of 46 {item:2449}. Pick 23 {item:2447} and 3 {item:2449} at the loops of {skill:182} 1-15, the richest in it (they give no more points), then craft 20 Elixirs of Minor Fortitude ({skill:171} 75 to 92). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- Step 16: Learn Minor Mana Potion
+	-- {spell:2331} Minor Mana Potion
+	["Learn {spell:2331}"] = "",
 
-	-- Step 13: Elixir of Minor Fortitude to 92
+	-- Step 17: Learn Elixir of Minor Fortitude
 	-- {spell:2334} Elixir of Minor Fortitude
-	["{spell:2334} to 92"] = "",
-	-- {spell:2334} Elixir of Minor Fortitude · {item:2449} Earthroot · {item:2447} Peacebloom · {item:3371} Empty Vial
-	["{spell:2334} is orange at 75 (yellow 80, green 100, grey 120): about 20 crafts to 92, up to 23 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:2449}, 1 {item:2447} and 1 {item:3371}. Two {item:2449} and a {item:2447} a craft, herbs of the starting zones and the 10-20 zones; orange to 80."] = "",
+	["Learn {spell:2334}"] = "",
+	["For 65-90: taught here now, so no second trip."] = "",
 
-	-- Step 14: Herbalism 100-115: Stranglekelp & Bruiseweed
-	-- {skill:182} Herbalism · {spell:3171} Elixir of Wisdom · {item:2450} Briarthorn
-	["Pick from {skill:182} 100 to 115 for {spell:3171}: this loop gives {item:2450}, and the next one the rest from {skill:182} 115. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
+	-- Step 18: Craft 10 Minor Mana Potions until 65
+	-- plural, as words: Minor Mana Potions = {spell:2331} Minor Mana Potion
+	["Craft 10 Minor Mana Potions until 65"] = "",
+	["About 10 crafts."] = "",
 
-	-- Step 15: Herbalism 115-125: Stranglekelp & Bruiseweed
-	-- {skill:182} Herbalism · {spell:3171} Elixir of Wisdom · {item:2450} Briarthorn
-	["Pick from {skill:182} 115 to 125 for {spell:3171}: this loop gives {item:2450}, and the next one the rest from {skill:182} 125. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
+	-- Step 19: Pick 28 Peacebloom
+	-- {item:2447} Peacebloom
+	["Pick 28 {item:2447}"] = "",
+	["For 28 Elixirs of Minor Fortitude."] = "",
 
-	-- Step 16: Herbalism 125-150: Bruiseweed & Kingsblood
-	-- {skill:182} Herbalism · {spell:3171} Elixir of Wisdom · {item:2450} Briarthorn
-	["Pick from {skill:182} 125 to 150 for {spell:3171}: this loop gives {item:2450}, and the next one the rest from {skill:182} 150. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
-
-	-- Step 17: Expert Herbalism
+	-- Step 20: Pick until Herbalism 70
 	-- {skill:182} Herbalism
-	["Expert {skill:182}"] = "",
+	["Pick until {skill:182} 70"] = "",
+	-- {item:2449} Earthroot · {skill:182} Herbalism
+	["This loop gives the {item:2449} to {skill:182} 70; the next one the rest."] = "",
+
+	-- Step 21: Pick until Herbalism 100
 	-- {skill:182} Herbalism
-	["Expert {skill:182} raises {skill:182}'s cap to 225, needs {skill:182} 125 and costs 50s (the arrow picks the nearest {skill:182} trainer of your faction)."] = "",
+	["Pick until {skill:182} 100"] = "",
+	-- {item:2449} Earthroot · {skill:182} Herbalism
+	["This loop gives the {item:2449} to {skill:182} 100; the next one the rest."] = "",
 
-	-- Step 18: Herbalism 150-160: Kingsblood & Liferoot
-	-- {skill:182} Herbalism · {spell:3171} Elixir of Wisdom · {item:2450} Briarthorn
-	["Pick from {skill:182} 150 to 160 for {spell:3171}: this loop gives {item:2450}, and the next one the rest from {skill:182} 160. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
+	-- Step 22: Pick 56 Earthroot
+	-- {item:2449} Earthroot
+	["Pick 56 {item:2449}"] = "",
 
-	-- Step 19: Pick Mageroyal and Briarthorn
-	-- {item:785} Mageroyal · {item:2450} Briarthorn
-	["Pick {item:785} and {item:2450}"] = "",
-	-- {item:785} Mageroyal · {item:2450} Briarthorn · {skill:171} Alchemy · {skill:182} Herbalism
-	["50 {item:785} and 100 {item:2450} for {skill:171} 92-135: 50 Elixirs of Wisdom; from your herbalism on the way: 50 of 50 {item:785} and 29 of 100 {item:2450}. Pick 71 {item:2450} at the loops of {skill:182} 70-100, the richest in it (they give no more points), then craft 47 Elixirs of Wisdom ({skill:171} 92 to 135). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- Step 23: Learn Elixir of Minor Fortitude
+	["Taught at 55; done at once if you learned it then."] = "",
 
-	-- Step 20: Alchemy recipes at 92
-	-- {skill:171} Alchemy
-	["{skill:171} recipes at 92"] = "",
-	-- {skill:171} Alchemy · {spell:3171} Elixir of Wisdom
-	["Back to an {skill:171} trainer: {spell:3171} (from 90)."] = "",
+	-- Step 24: Craft 28 Elixirs of Minor Fortitude until 90
+	["Craft 28 Elixirs of Minor Fortitude until 90"] = "",
+	["About 28 crafts. No points past 75 until Journeyman is trained."] = "",
 
-	-- Step 21: Elixir of Wisdom to 135
+	-- Step 25: Pick 30 Mageroyal
+	-- {item:785} Mageroyal
+	["Pick 30 {item:785}"] = "",
+	["For 30 Elixirs of Wisdom."] = "",
+
+	-- Step 26: Pick until Herbalism 115
+	-- {skill:182} Herbalism
+	["Pick until {skill:182} 115"] = "",
+	-- {item:2450} Briarthorn · {skill:182} Herbalism
+	["This loop gives the {item:2450} to {skill:182} 115; the next one the rest."] = "",
+
+	-- Step 27: Pick until Herbalism 125
+	-- {skill:182} Herbalism
+	["Pick until {skill:182} 125"] = "",
+	-- {item:2450} Briarthorn · {skill:182} Herbalism
+	["This loop gives the {item:2450} to {skill:182} 125; the next one the rest."] = "",
+
+	-- Step 28: Pick until Herbalism 150
+	-- {skill:182} Herbalism
+	["Pick until {skill:182} 150"] = "",
+	-- {item:2450} Briarthorn · {skill:182} Herbalism
+	["This loop gives the {item:2450} to {skill:182} 150; the next one the rest."] = "",
+
+	-- Step 29: Train Expert Herbalism
+	-- {skill:182} Herbalism
+	["Train Expert {skill:182}"] = "",
+
+	-- Step 30: Pick until Herbalism 160
+	-- {skill:182} Herbalism
+	["Pick until {skill:182} 160"] = "",
+	-- {item:2450} Briarthorn · {skill:182} Herbalism
+	["This loop gives the {item:2450} to {skill:182} 160; the next one the rest."] = "",
+
+	-- Step 31: Pick 60 Briarthorn
+	-- {item:2450} Briarthorn
+	["Pick 60 {item:2450}"] = "",
+
+	-- Step 32: Learn Elixir of Wisdom
 	-- {spell:3171} Elixir of Wisdom
-	["{spell:3171} to 135"] = "",
-	-- {spell:3171} Elixir of Wisdom · {item:785} Mageroyal · {item:2450} Briarthorn · {item:3371} Empty Vial
-	["{spell:3171} is orange at 92 (yellow 120, green 140, grey 160): about 47 crafts to 135, up to 50 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:785}, 2 {item:2450} and 1 {item:3371}. Two {item:2450} and a {item:785} a craft, both from the 10-25 zones; orange to 120."] = "",
+	["Learn {spell:3171}"] = "",
 
-	-- Step 22: Pick Briarthorn and Bruiseweed
-	-- {item:2450} Briarthorn · {item:2453} Bruiseweed
-	["Pick {item:2450} and {item:2453}"] = "",
-	-- {item:2450} Briarthorn · {item:2453} Bruiseweed · {skill:171} Alchemy · {skill:182} Herbalism
-	-- plural, as words: Lesser Troll's Blood Elixirs = {spell:3176} Lesser Troll's Blood Elixir
-	["30 {item:2450} and 30 {item:2453} for {skill:171} 135-150: 15 Lesser Troll's Blood Elixirs; from your herbalism on the way: 30 of 30 {item:2453}. Pick 30 {item:2450} at the loops of {skill:182} 70-100, the richest in it (they give no more points), then craft 15 Lesser Troll's Blood Elixirs ({skill:171} 135 to 150). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- Step 33: Craft 30 Elixirs of Wisdom until 120
+	["Craft 30 Elixirs of Wisdom until 120"] = "",
+	["About 30 crafts."] = "",
 
-	-- Step 23: Alchemy recipes at 135
+	-- Step 34: Pick 10 Mageroyal
+	-- plural, as words: Lesser Mana Potions = {spell:3173} Lesser Mana Potion
+	["For 10 Lesser Mana Potions."] = "",
+
+	-- Step 35: Pick 10 Stranglekelp
+	-- {object:2045} Stranglekelp
+	["Pick 10 {object:2045}"] = "",
+
+	-- Step 36: Learn Lesser Mana Potion
+	-- {spell:3173} Lesser Mana Potion
+	["Learn {spell:3173}"] = "",
+
+	-- Step 37: Craft 10 Lesser Mana Potions until 130
+	-- plural, as words: Lesser Mana Potions = {spell:3173} Lesser Mana Potion
+	["Craft 10 Lesser Mana Potions until 130"] = "",
+
+	-- Step 38: Get 40 Firefin Snapper
+	-- {item:6359} Firefin Snapper
+	["Get 40 {item:6359}"] = "",
+	-- plural, as words: Fire Oils = {item:6371} Fire Oil
+	["For 20 Fire Oils."] = "",
+
+	-- Step 39: Learn Fire Oil
+	-- {spell:7837} Fire Oil
+	["Learn {spell:7837}"] = "",
+
+	-- Step 40: Craft 20 Fire Oils until 150
+	-- plural, as words: Fire Oils = {item:6371} Fire Oil
+	["Craft 20 Fire Oils until 150"] = "",
+	["About 20 crafts. Each craft makes 2 oils. Keep 30: the Elixirs of Fire Power at 150 use them."] = "",
+
+	-- Step 41: Buy 87 Leaded Vial
+	-- {item:3372} Leaded Vial
+	["Buy 87 {item:3372}"] = "",
+	-- plural, as words: Mana Potions = {spell:3452} Mana Potion · Nature Protection Potions = {item:6052} Nature Protection Potion
+	["For 15 Elixirs of Fire Power, 36 Mana Potions and 36 Nature Protection Potions."] = "",
+
+	-- Step 42: Pick 15 Kingsblood
+	-- {item:3356} Kingsblood
+	["Pick 15 {item:3356}"] = "",
+	["For 15 Elixirs of Fire Power."] = "",
+
+	-- Step 43: Train Expert Alchemy
 	-- {skill:171} Alchemy
-	["{skill:171} recipes at 135"] = "",
-	-- {skill:171} Alchemy · {spell:3176} Lesser Troll's Blood Elixir
-	["Back to an {skill:171} trainer: {spell:3176} (from 125)."] = "",
+	["Train Expert {skill:171}"] = "",
+	["Needs level 20."] = "",
 
-	-- Step 24: Lesser Troll's Blood Elixir to 150
-	-- {spell:3176} Lesser Troll's Blood Elixir
-	["{spell:3176} to 150"] = "",
-	-- {spell:3176} Lesser Troll's Blood Elixir · {item:2453} Bruiseweed · {item:2450} Briarthorn · {item:3372} Leaded Vial · {skill:171} Alchemy
-	["{spell:3176} is orange at 135 (yellow 150, green 170, grey 190): about 15 crafts to 150, a point every craft. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. {skill:171} 150 is a Legacy System milestone."] = "",
+	-- Step 44: Learn Elixir of Fire Power
+	-- {spell:7845} Elixir of Fire Power
+	["Learn {spell:7845}"] = "",
 
-	-- Step 25: Alchemy 150-225: vendor goods
-	-- {skill:171} Alchemy
-	["{skill:171} 150-225: vendor goods"] = "",
-	-- {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	-- Step 45: Craft 15 Elixirs of Fire Power until 165
+	["Craft 15 Elixirs of Fire Power until 165"] = "",
+	["About 15 crafts."] = "",
 
-	-- Step 26: Expert Alchemy
-	-- {skill:171} Alchemy
-	["Expert {skill:171}"] = "",
-	-- {skill:171} Alchemy · {npc:4160} Ainethil · {zone:1457} Darnassus · {npc:4611} Doctor Herbert Halsey · {zone:1458} Undercity · {object:1623} Wild Steelbloom · {item:3356} Kingsblood · {object:2045} Stranglekelp · {object:2046} Goldthorn
-	["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:171} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:4160} ({zone:1457}); Horde {npc:4611} ({zone:1458}). This route trains it at {npc:4160} ({zone:1457}) for the Alliance and {npc:4611} ({zone:1458}) for the Horde, who also teach the recipes of 150-225: one trainer for every visit. 150-225 takes about 33s 20c of vendor goods, plus 45 {object:1623}, 42 {item:3356}, 42 {object:2045} and 45 {object:2046} to gather or buy. The gathering steps below come between the visits: learn each recipe when you are back for it."] = "",
+	-- Step 46: Pick until Herbalism 170
+	-- {skill:182} Herbalism
+	["Pick until {skill:182} 170"] = "",
+	-- {item:3356} Kingsblood · {skill:182} Herbalism
+	["This loop gives the {item:3356} to {skill:182} 170; the next one the rest."] = "",
 
-	-- Step 27: Pick Briarthorn and Bruiseweed
-	-- {item:2450} Briarthorn · {item:2453} Bruiseweed · {skill:171} Alchemy · {skill:182} Herbalism
-	-- plural, as words: Lesser Troll's Blood Elixirs = {spell:3176} Lesser Troll's Blood Elixir
-	["28 {item:2450} and 28 {item:2453} for {skill:171} 150-160: 14 Lesser Troll's Blood Elixirs; from your herbalism on the way: 26 of 28 {item:2453}. Pick 28 {item:2450} and 3 {item:2453} at the loops of {skill:182} 70-100, the richest in it (they give no more points), then craft 12 Lesser Troll's Blood Elixirs ({skill:171} 150 to 160). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
-
-	-- Step 28: Lesser Troll's Blood Elixir to 160
-	-- {spell:3176} Lesser Troll's Blood Elixir
-	["{spell:3176} to 160"] = "",
-	-- {spell:3176} Lesser Troll's Blood Elixir · {item:2453} Bruiseweed · {item:2450} Briarthorn · {item:3372} Leaded Vial
-	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160, up to 14 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. If you got here without learning {spell:3176}, learn it now: an earlier step teaches it."] = "",
-
-	-- Step 29: Pick Kingsblood and Stranglekelp (Herbalism 160-169)
-	-- {item:3356} Kingsblood · {object:2045} Stranglekelp · {skill:182} Herbalism
-	["Pick {item:3356} and {object:2045} ({skill:182} 160-169)"] = "",
-	-- {item:3356} Kingsblood · {object:2045} Stranglekelp · {skill:171} Alchemy · {skill:182} Herbalism
+	-- Step 47: Pick 36 Kingsblood
+	-- {item:3356} Kingsblood
+	["Pick 36 {item:3356}"] = "",
 	-- plural, as words: Mana Potions = {spell:3452} Mana Potion
-	["42 {item:3356} and 42 {object:2045} for {skill:171} 160-195: 42 Mana Potions; from your herbalism on the way: 36 of 42 {item:3356} and 18 of 42 {object:2045}. Pick 7 {item:3356} and 24 {object:2045} ({skill:182} 160 to 169) at the loops of {skill:182} 100-115, the richest in it (they give no more points), then craft 39 Mana Potions ({skill:171} 160 to 195). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["For 36 Mana Potions."] = "",
 
-	-- Step 30: Alchemy recipes at 160
-	-- {skill:171} Alchemy
-	["{skill:171} recipes at 160"] = "",
+	-- Step 48: Pick 36 Stranglekelp
+	-- {object:2045} Stranglekelp
+	["Pick 36 {object:2045}"] = "",
+
+	-- Step 49: Learn Mana Potion
 	-- {spell:3452} Mana Potion
-	["Back to the Expert trainer: {spell:3452} (from 160)."] = "",
+	["Learn {spell:3452}"] = "",
 
-	-- Step 31: Mana Potion to 195
-	-- {spell:3452} Mana Potion
-	["{spell:3452} to 195"] = "",
-	-- {spell:3452} Mana Potion · {item:3820} Stranglekelp · {item:3356} Kingsblood · {item:3372} Leaded Vial
-	["{spell:3452} is orange at 160 (yellow 180, green 200, grey 220): about 39 crafts to 195, up to 42 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:3820}, 1 {item:3356} and 1 {item:3372}. {item:3820} grows under water along the coasts: bring a water breathing elixir or come up for air. {item:3356} grows in the 20-40 zones."] = "",
+	-- Step 50: Craft 36 Mana Potions until 195
+	-- plural, as words: Mana Potions = {spell:3452} Mana Potion
+	["Craft 36 Mana Potions until 195"] = "",
+	["About 36 crafts."] = "",
 
-	-- Step 32: Herbalism 169-170: Kingsblood & Liferoot
-	-- {skill:182} Herbalism · {item:8951} Elixir of Defense · {object:2046} Goldthorn
-	["{skill:182} 169 to 170 before {item:8951}: its {object:2046} come from {skill:182} 170. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
-
-	-- Step 33: Herbalism 170-185: Liferoot & Goldthorn
-	-- {skill:182} Herbalism · {item:8951} Elixir of Defense · {object:2046} Goldthorn
-	["Pick from {skill:182} 170 to 185 for {item:8951}: this loop gives {object:2046}, and the next one the rest from {skill:182} 185. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
-
-	-- Step 34: Herbalism 185-200: Goldthorn & Khadgar's Whisker
-	-- {skill:182} Herbalism · {item:8951} Elixir of Defense · {object:2046} Goldthorn
-	["Pick from {skill:182} 185 to 200 for {item:8951}: this loop gives {object:2046}, and the next one the rest from {skill:182} 200. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
-
-	-- Step 35: Herbalism 200-210: Goldthorn & Khadgar's Whisker
-	-- {skill:182} Herbalism · {item:8951} Elixir of Defense · {object:2046} Goldthorn
-	["Pick from {skill:182} 200 to 210 for {item:8951}: this loop gives {object:2046}, and the next one the rest from {skill:182} 210. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
-
-	-- Step 36: Artisan Herbalism
+	-- Step 51: Pick until Herbalism 185
 	-- {skill:182} Herbalism
-	["Artisan {skill:182}"] = "",
+	["Pick until {skill:182} 185"] = "",
+	-- {item:3357} Liferoot · {skill:182} Herbalism
+	["This loop gives the {item:3357} to {skill:182} 185; the next one the rest."] = "",
+
+	-- Step 52: Pick 36 Liferoot
+	-- {item:3357} Liferoot
+	["Pick 36 {item:3357}"] = "",
+	-- plural, as words: Nature Protection Potions = {item:6052} Nature Protection Potion
+	["For 36 Nature Protection Potions."] = "",
+
+	-- Step 54: Buy Recipe: Nature Protection Potion · Alchemist Pestlezugg, Glyx Brewright or Logannas
+	-- {item:6057} Recipe: Nature Protection Potion · {npc:5594} Alchemist Pestlezugg · {npc:2848} Glyx Brewright · {npc:8157} Logannas
+	["Buy {item:6057} · {npc:5594}, {npc:2848} or {npc:8157}"] = "",
+	["It binds when picked up."] = "",
+
+	-- Step 55: Buy Recipe: Nature Protection Potion · Alchemist Pestlezugg, Glyx Brewright or Bronk
+	-- {item:6057} Recipe: Nature Protection Potion · {npc:5594} Alchemist Pestlezugg · {npc:2848} Glyx Brewright · {npc:8158} Bronk
+	["Buy {item:6057} · {npc:5594}, {npc:2848} or {npc:8158}"] = "",
+
+	-- Step 56: Learn Nature Protection Potion
+	-- {spell:7259} Nature Protection Potion
+	["Learn {spell:7259}"] = "",
+	["From the recipe in your bags."] = "",
+
+	-- Step 57: Craft 36 Nature Protection Potions until 225
+	-- plural, as words: Nature Protection Potions = {item:6052} Nature Protection Potion
+	["Craft 36 Nature Protection Potions until 225"] = "",
+
+	-- Step 58: Buy 73 Leaded Vial
+	-- {item:3372} Leaded Vial
+	["Buy 73 {item:3372}"] = "",
+	-- plural, as words: Nature Protection Potions = {item:6052} Nature Protection Potion · Stonescale Oils = {item:13423} Stonescale Oil
+	["For 26 Nature Protection Potions and 47 Stonescale Oils."] = "",
+
+	-- Step 59: Buy 69 Crystal Vial
+	-- {item:8925} Crystal Vial
+	["Buy 69 {item:8925}"] = "",
+	["For 25 Elixirs of Greater Intellect and 44 Elixirs of Greater Defense."] = "",
+
+	-- Step 60: Pick until Herbalism 200
 	-- {skill:182} Herbalism
-	["Artisan {skill:182} raises {skill:182}'s cap to 300, needs {skill:182} 200 and costs 5g (the arrow picks the nearest {skill:182} trainer of your faction)."] = "",
+	["Pick until {skill:182} 200"] = "",
+	-- {item:3357} Liferoot · {skill:182} Herbalism
+	["This loop gives the {item:3357} to {skill:182} 200; the next one the rest."] = "",
 
-	-- Step 37: Pick Wild Steelbloom and Goldthorn (Herbalism 210-227)
-	-- {item:3355} Wild Steelbloom · {object:2046} Goldthorn · {skill:182} Herbalism
-	["Pick {item:3355} and {object:2046} ({skill:182} 210-227)"] = "",
-	-- {item:3355} Wild Steelbloom · {object:2046} Goldthorn · {skill:171} Alchemy · {skill:182} Herbalism
-	["34 {item:3355} and 34 {object:2046} for {skill:171} 195-225: 34 Elixirs of Defense; from your herbalism on the way: 24 of 34 {item:3355}. Pick 11 {item:3355} and 34 {object:2046} ({skill:182} 210 to 227), then craft 32 Elixirs of Defense ({skill:171} 195 to 225). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- Step 61: Pick 26 Liferoot
+	-- {item:3357} Liferoot
+	["Pick 26 {item:3357}"] = "",
+	-- plural, as words: Nature Protection Potions = {item:6052} Nature Protection Potion
+	["For 26 Nature Protection Potions."] = "",
 
-	-- Step 38: Alchemy recipes at 195
+	-- Step 62: Pick 26 Stranglekelp
+	-- {object:2045} Stranglekelp
+	["Pick 26 {object:2045}"] = "",
+
+	-- Step 63: Train Artisan Alchemy
 	-- {skill:171} Alchemy
-	["{skill:171} recipes at 195"] = "",
-	-- {spell:11450} Elixir of Defense
-	["Back to the Expert trainer: {spell:11450} (from 195)."] = "",
+	["Train Artisan {skill:171}"] = "",
+	["Needs level 35."] = "",
 
-	-- Step 39: Elixir of Defense to 225
-	-- {item:8951} Elixir of Defense
-	["{item:8951} to 225"] = "",
-	-- {item:8951} Elixir of Defense · {item:3355} Wild Steelbloom · {item:3821} Goldthorn · {item:3372} Leaded Vial · {zone:1418} Badlands · {skill:171} Alchemy
-	["{item:8951} is orange at 195 (yellow 215, green 235, grey 255): about 32 crafts to 225, up to 34 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). {skill:171} 225 is a Legacy System milestone."] = "",
+	-- Step 64: Train Artisan Herbalism
+	-- {skill:182} Herbalism
+	["Train Artisan {skill:182}"] = "",
 
-	-- Step 40: Alchemy 225-300: vendor goods
-	-- {skill:171} Alchemy
-	["{skill:171} 225-300: vendor goods"] = "",
-	-- {item:3372} Leaded Vial · {item:8925} Crystal Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	-- Step 65: Learn Nature Protection Potion
+	["Taught at 195; done at once if you learned it then."] = "",
 
-	-- Step 41: Recipe: Elixir of Superior Defense
-	-- {item:13478} Recipe: Elixir of Superior Defense · {item:13445} Elixir of Greater Defense · {skill:171} Alchemy · {npc:5178} Soolie Berryfizz · {zone:1455} Ironforge · {npc:3348} Kor'geld · {zone:1454} Orgrimmar
-	["{item:13478} teaches {item:13445} ({skill:171} 265) for 1g 30s. Sold by Alliance: {npc:5178} ({zone:1455}), limited stock; Horde: {npc:3348} ({zone:1454}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; the Auction House often has it too."] = "",
+	-- Step 66: Craft 26 Nature Protection Potions until 235
+	-- plural, as words: Nature Protection Potions = {item:6052} Nature Protection Potion
+	["Craft 26 Nature Protection Potions until 235"] = "",
+	["About 26 crafts. Green for the last 5 points: short of 235? A few more do it."] = "",
 
-	-- Step 42: Get Stonescale Eel
+	-- Step 67: Pick 15 Khadgar's Whisker
+	-- {object:2043} Khadgar's Whisker
+	["Pick 15 {object:2043}"] = "",
+	["For 15 Elixirs of Greater Intellect."] = "",
+
+	-- Step 68: Pick until Herbalism 210
+	-- {skill:182} Herbalism
+	["Pick until {skill:182} 210"] = "",
+	-- {skill:182} Herbalism · {item:9179} Elixir of Greater Intellect · {item:8839} Blindweed
+	["{skill:182} 200 to 210 before {item:9179}: its {item:8839} come from {skill:182} 260."] = "",
+
+	-- Step 69: Pick until Herbalism 230
+	-- {skill:182} Herbalism
+	["Pick until {skill:182} 230"] = "",
+	-- {skill:182} Herbalism · {item:9179} Elixir of Greater Intellect · {item:8839} Blindweed
+	["{skill:182} 210 to 230 before {item:9179}: its {item:8839} come from {skill:182} 260."] = "",
+
+	-- Step 70: Pick until Herbalism 260
+	-- {skill:182} Herbalism
+	["Pick until {skill:182} 260"] = "",
+	-- {skill:182} Herbalism · {item:9179} Elixir of Greater Intellect · {item:8839} Blindweed
+	["{skill:182} 230 to 260 before {item:9179}: its {item:8839} come from {skill:182} 260."] = "",
+
+	-- Step 71: Pick 15 Blindweed
+	-- {item:8839} Blindweed
+	["Pick 15 {item:8839}"] = "",
+	-- {skill:182} Herbalism
+	["For 15 Elixirs of Greater Intellect. {skill:182} 260 to 281 on the way."] = "",
+
+	-- Step 72: Learn Elixir of Greater Intellect
+	-- {spell:11465} Elixir of Greater Intellect
+	["Learn {spell:11465}"] = "",
+
+	-- Step 73: Craft 15 Elixirs of Greater Intellect until 250
+	["Craft 15 Elixirs of Greater Intellect until 250"] = "",
+
+	-- Step 74: Get 47 Stonescale Eel
 	-- {item:13422} Stonescale Eel
-	["Get {item:13422}"] = "",
-	-- {item:13422} Stonescale Eel · {skill:171} Alchemy · {object:180712} Stonescale Eel Swarm
-	["48 {item:13422} for {skill:171} 225-300: 48 Elixirs of Greater Defense. Fish them from the {object:180712} pools at the marked spot. Or buy them at the Auction House."] = "",
+	["Get 47 {item:13422}"] = "",
+	-- plural, as words: Stonescale Oils = {item:13423} Stonescale Oil
+	["For 47 Stonescale Oils."] = "",
 
-	-- Step 43: Artisan Alchemy
-	-- {skill:171} Alchemy
-	["Artisan {skill:171}"] = "",
-	-- {skill:171} Alchemy · {npc:7948} Kylanna Windwhisper · {zone:1444} Feralas · {npc:259585} Master Mycologist Shurome · {zone:1448} Felwood · {npc:1386} Rogvar · {zone:1435} Swamp of Sorrows · {item:8831} Purple Lotus · {item:8838} Sungrass · {item:13422} Stonescale Eel
-	["Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs {skill:171} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:7948} ({zone:1444}) and {npc:259585} ({zone:1448}); Horde {npc:259585} ({zone:1448}) and {npc:1386} ({zone:1435}). This route trains it at {npc:7948} ({zone:1444}) for the Alliance and {npc:1386} ({zone:1435}) for the Horde, who also teach the recipes of 225-300: one trainer for every visit. 225-300 takes about 1g 30s of recipes and 4g 50s 40c of vendor goods, plus 144 {item:8831}, 48 {item:8838} and 48 {item:13422} to gather or buy. The gathering steps below come between the visits: learn each recipe when you are back for it."] = "",
-
-	-- Step 44: Herbalism 227-230: Khadgar's Whisker & Purple Lotus
-	-- {skill:182} Herbalism · {item:8951} Elixir of Defense · {object:2046} Goldthorn
-	["Pick from {skill:182} 227 to 230 for {item:8951}: this loop gives {object:2046}, and the next one the rest from {skill:182} 230. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
-
-	-- Step 45: Pick Wild Steelbloom and Goldthorn
-	-- {object:1623} Wild Steelbloom · {item:3821} Goldthorn
-	["Pick {object:1623} and {item:3821}"] = "",
-	-- {object:1623} Wild Steelbloom · {item:3821} Goldthorn · {skill:171} Alchemy · {skill:182} Herbalism
-	["11 {object:1623} and 11 {item:3821} for {skill:171} 225-230: 11 Elixirs of Defense. Pick 11 {object:1623} and 11 {item:3821} at the loops of {skill:182} 150-160, the richest in it (they give no more points), then craft 8 Elixirs of Defense ({skill:171} 225 to 230). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
-
-	-- Step 46: Elixir of Defense to 230
-	-- {item:8951} Elixir of Defense
-	["{item:8951} to 230"] = "",
-	-- {item:8951} Elixir of Defense · {item:3355} Wild Steelbloom · {item:3821} Goldthorn · {item:3372} Leaded Vial · {zone:1418} Badlands
-	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230, up to 11 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). If you got here without learning {item:8951}, learn it now: an earlier step teaches it."] = "",
-
-	-- Step 47: Herbalism 230-260: Purple Lotus & Sungrass
-	-- {skill:182} Herbalism · {item:12190} Dreamless Sleep Potion · {item:8831} Purple Lotus
-	["Pick from {skill:182} 230 to 260 for {item:12190}: this loop gives {item:8831}, and the next one the rest from {skill:182} 260. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
-
-	-- Step 48: Pick Purple Lotus
-	-- {item:8831} Purple Lotus
-	["Pick {item:8831}"] = "",
-	-- {item:8831} Purple Lotus · {skill:171} Alchemy · {skill:182} Herbalism
-	-- plural, as words: Dreamless Sleep Potions = {item:12190} Dreamless Sleep Potion
-	["144 {item:8831} for {skill:171} 230-265: 48 Dreamless Sleep Potions; from your herbalism on the way: 26 of 144 {item:8831}. Pick 119 {item:8831} at the loops of {skill:182} 210-230, the richest in it (they give no more points), then craft 43 Dreamless Sleep Potions ({skill:171} 230 to 265). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
-
-	-- Step 49: Alchemy recipes at 230
-	-- {skill:171} Alchemy
-	["{skill:171} recipes at 230"] = "",
-	-- {spell:15833} Dreamless Sleep Potion
-	["Back to the Artisan trainer: {spell:15833} (from 230)."] = "",
-
-	-- Step 50: Dreamless Sleep Potion to 265
-	-- {item:12190} Dreamless Sleep Potion
-	["{item:12190} to 265"] = "",
-	-- {item:12190} Dreamless Sleep Potion · {item:8831} Purple Lotus · {item:8925} Crystal Vial · {skill:182} Herbalism · {zone:1425} Hinterlands · {zone:1444} Feralas · {item:8838} Sungrass
-	["{item:12190} is orange at 230 (yellow 245, green 265, grey 285): about 43 crafts to 265, up to 48 for 9 players in 10 (the gathered materials above count that many). Each takes 3 {item:8831} and 1 {item:8925}. Three {item:8831} a craft ({skill:182} 210: the {zone:1425} and {zone:1444}, mobs of level 44-47) and a {item:8925} from an alchemy vendor. The {skill:182} guide's loops there give {item:8838} for the last stretch too."] = "",
-
-	-- Step 51: Pick Sungrass
-	-- {item:8838} Sungrass
-	["Pick {item:8838}"] = "",
-	-- {item:8838} Sungrass · {skill:171} Alchemy · {skill:182} Herbalism
-	["48 {item:8838} for {skill:171} 265-300: 48 Elixirs of Greater Defense; from your herbalism on the way: 45 of 48 {item:8838}. Pick 4 {item:8838} at the loops of {skill:182} 230-260, the richest in it (they give no more points), then craft 43 Elixirs of Greater Defense ({skill:171} 265 to 300). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
-
-	-- Step 52: Herbalism 260-285: Blindweed & Gromsblood
-	-- {skill:182} Herbalism · {skill:171} Alchemy · {item:8838} Sungrass · {item:8831} Purple Lotus · {object:2046} Goldthorn · {item:13464} Golden Sansam
-	["{skill:182} 260 to 285 before the last stretch: the guide ends with {skill:171}, so finish {skill:182} here. The loop also gives about 15 {item:8838}, 5 {item:8831}, 5 {object:2046} and 5 {item:13464}: keep them, the next stretches use them. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
-
-	-- Step 53: Herbalism 285-300: Mountain Silversage & Plaguebloom
-	-- {skill:182} Herbalism · {skill:171} Alchemy · {item:8831} Purple Lotus · {item:13465} Mountain Silversage · {item:13464} Golden Sansam · {item:13463} Dreamfoil
-	["{skill:182} 285 to 300 before the last stretch: the guide ends with {skill:171}, so finish {skill:182} here. The loop also gives about 10 {item:8831}, 5 {item:13465}, 5 {item:13464} and 5 {item:13463}: keep them, the next stretches use them. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
-
-	-- Step 54: Alchemy recipes at 265
-	-- {skill:171} Alchemy
-	["{skill:171} recipes at 265"] = "",
+	-- Step 75: Learn Stonescale Oil
 	-- {spell:17551} Stonescale Oil
-	["Back to the Artisan trainer: {spell:17551} (from 250)."] = "",
+	["Learn {spell:17551}"] = "",
 
-	-- Step 55: Elixir of Greater Defense to 300
+	-- Step 76: Craft 47 Stonescale Oils until 260
+	-- plural, as words: Stonescale Oils = {item:13423} Stonescale Oil
+	["Craft 47 Stonescale Oils until 260"] = "",
+	["About 47 crafts. Each craft makes 2 oils. Keep all of them: the elixirs at 265 use 88."] = "",
+
+	-- Step 77: Pick 10 Khadgar's Whisker
+	-- {object:2043} Khadgar's Whisker
+	["Pick 10 {object:2043}"] = "",
+	["For 10 Elixirs of Greater Intellect."] = "",
+
+	-- Step 78: Pick until Herbalism 285
+	-- {skill:182} Herbalism
+	["Pick until {skill:182} 285"] = "",
+	-- {item:8839} Blindweed · {skill:182} Herbalism
+	["This loop gives the {item:8839} to {skill:182} 285; the next one the rest."] = "",
+
+	-- Step 79: Pick 10 Blindweed
+	-- {item:8839} Blindweed
+	["Pick 10 {item:8839}"] = "",
+
+	-- Step 80: Learn Elixir of Greater Intellect
+	["Taught at 235; done at once if you learned it then."] = "",
+
+	-- Step 81: Craft 10 Elixirs of Greater Intellect until 265
+	["Craft 10 Elixirs of Greater Intellect until 265"] = "",
+
+	-- Step 82: Pick 44 Sungrass
+	-- {item:8838} Sungrass
+	["Pick 44 {item:8838}"] = "",
+	["For 44 Elixirs of Greater Defense."] = "",
+
+	-- Step 83: Buy Recipe: Elixir of Superior Defense · Soolie Berryfizz
+	-- {item:13478} Recipe: Elixir of Superior Defense · {npc:5178} Soolie Berryfizz
+	["Buy {item:13478} · {npc:5178}"] = "",
 	-- {item:13445} Elixir of Greater Defense
-	["{item:13445} to 300"] = "",
-	-- {item:13445} Elixir of Greater Defense · {item:13423} Stonescale Oil · {item:8838} Sungrass · {item:8925} Crystal Vial · {item:13422} Stonescale Eel · {skill:171} Alchemy
-	["{item:13445} is orange at 265 (yellow 280, green 300, grey 320): about 43 crafts to 300, up to 48 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:13423}, 1 {item:8838} and 1 {item:8925}. Make the 86 {item:13423} (43 crafts) first. {item:13422} comes from the {item:13422} schools on the coasts of the 40-55 zones, or the Auction House (fishers sell them in stacks). {item:8838} grows in the 40-55 zones. {skill:171} 300 is a Legacy System milestone."] = "",
-	["from the recipe in your bags"] = "",
+	["Its name says Superior Defense; it teaches the {item:13445}."] = "",
+
+	-- Step 84: Buy Recipe: Elixir of Superior Defense · Kor'geld
+	-- {item:13478} Recipe: Elixir of Superior Defense · {npc:3348} Kor'geld
+	["Buy {item:13478} · {npc:3348}"] = "",
+
+	-- Step 85: Learn Elixir of Greater Defense
+	-- {spell:17554} Elixir of Greater Defense
+	["Learn {spell:17554}"] = "",
+
+	-- Step 86: Pick until Herbalism 300
+	-- {skill:182} Herbalism
+	["Pick until {skill:182} 300"] = "",
+	-- {skill:182} Herbalism · {skill:171} Alchemy
+	["{skill:182} 300 before the last stretch: the guide ends with {skill:171}."] = "",
+
+	-- Step 87: Craft 44 Elixirs of Greater Defense until 300
+	["Craft 44 Elixirs of Greater Defense until 300"] = "",
+	["About 44 crafts. Yellow from 280: short of 300? A few more do it."] = "",
 }
