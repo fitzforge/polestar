@@ -211,6 +211,7 @@ step A Wrecked Raft
   accept 3844
   turnin 3844                         -- Underwater
   accept 3845
+  use 11107 quest 3845.1 @63.1,69.1
   collect 11104 quest 3845 @63.1,69.1
   collect 11105 quest 3845 @63.1,69.1
   collect 11106 quest 3845 @63.1,69.1

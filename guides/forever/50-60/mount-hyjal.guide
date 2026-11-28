@@ -980,7 +980,7 @@ step Bethra'zel
   when onquest 96003
   tip Bethra'zel and Mazzogore are level 60 elites until Bethra'zel is drained. Doomguard Xarkul, a level 61 elite, patrols this corner of Dae'gun.
   tip Legion Hulks (level 60 rare elites) roam Dae'gun's camps.
-  use 271879 quest 96003.1 @57.4,36.3 map 2482 live
+  use 271879 quest 96003.1 @58.6,32.3 map 2482 live
   kill 263394 quest 96003.1             -- Bethra'zel
 
 step Maerion Thaelemaches

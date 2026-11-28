@@ -18861,6 +18861,8 @@ for (const [guide, item, quest, oi, verb] of [
 	['forever/horde/04-the-barrens.guide', 5021, 849, 1, 'use'], // Revenge of Gann: the explosive stick
 	['forever/reputation/centaur-clans.guide', 258661, 93062, 1, 'use'], // Bone Burying
 	// The fifth batch.
+	['forever/horde/50-60/01-un-goro-crater.guide', 11107, 3845, 1, 'use'], // It's a Secret to Everybody: A Small Pack opened (#4528)
+	['forever/alliance/40-50/07-un-goro-crater.guide', 11107, 3845, 1, 'use'],
 	['forever/40-50/shendralas.guide', 286648, 99258, 1, 'use'], // Mana Mania: the crystal heart into a rift
 	['forever/50-60/mount-hyjal.guide', 267079, 92169, 2, 'use'], // Paying Back the Pact: Tiala's staff
 	['forever/alliance/06-wetlands.guide', 279996, 98216, 1, 'use'], // the Goaz Stone by a Warder

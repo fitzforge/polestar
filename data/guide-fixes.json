@@ -22993,6 +22993,74 @@
 					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
 				}
 			]
+		},
+		{
+			"id": "use-row-3845-1-01-un-goro-crater",
+			"faction": "Horde",
+			"at": {
+				"quest": 3845,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/01-un-goro-crater"
+			},
+			"rows": {
+				"before": [
+					"use 11107 quest 3845.1 @63.1,69.1"
+				]
+			},
+			"note": "It's a Secret to Everybody (3845, #4528): the compass, map and key come out of A Small Pack (11107), the item the quest hands over (its source item), which the player opens; the step listed only the three collects, so players looked for them in the lake. Opening the pack is a row of its own before the first collect, so the quest item button and the step key offer it.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "forever-db items.json: Large Compass (11104), Curled Map Parchment (11105) and Lion-headed Key (11106) are the contents of the container A Small Pack (11107); quests.json: 3845's source item is 11107"
+				}
+			],
+			"issue": 4528
+		},
+		{
+			"id": "use-row-3845-1-07-un-goro-crater",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3845,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/07-un-goro-crater"
+			},
+			"rows": {
+				"before": [
+					"use 11107 quest 3845.1 @63.1,69.1"
+				]
+			},
+			"note": "It's a Secret to Everybody (3845, #4528): the compass, map and key come out of A Small Pack (11107), the item the quest hands over (its source item), which the player opens; the step listed only the three collects, so players looked for them in the lake. Opening the pack is a row of its own before the first collect, so the quest item button and the step key offer it.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "forever-db items.json: Large Compass (11104), Curled Map Parchment (11105) and Lion-headed Key (11106) are the contents of the container A Small Pack (11107); quests.json: 3845's source item is 11107"
+				}
+			],
+			"issue": 4528
+		},
+		{
+			"id": "talk-row-4102-turnin-03-winterspring",
+			"faction": "Horde",
+			"at": {
+				"quest": 4102,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"rows": {
+				"after": [
+					"talk 9529 gossip 96156 optional"
+				]
+			},
+			"note": "A Final Blow (4102, #4551): the Corrupted Soul Shards drop only with a Cenarion Beacon from Maybess (gossip option 96156, which casts 15120); the step named no way to get one. The beacon's talk is an optional row after the Cleansing Felwood hand-in, for players who want Salve via Hunting.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings: gossip option 96156 picked at Maybess Riverbreeze (9529) while 4102's shards were wanted; the Forever TDB's gossip menu 2207 casts 15120 (Cenarion Beacon)"
+				}
+			],
+			"issue": 4551
 		}
 	]
 }

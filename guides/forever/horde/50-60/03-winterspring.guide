@@ -180,6 +180,7 @@ step Greta Mosshoof
 step Maybess Riverbreeze
   when complete 4102
   turnin 4102                         -- Maybess Riverbreeze, on the west side of the Sanctuary
+  talk 9529 gossip 96156 optional     -- Maybess: a Cenarion Beacon, for Salve via Hunting
 
 step Kelek Skykeeper
   when complete 86577
