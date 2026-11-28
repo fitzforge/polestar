@@ -628,7 +628,7 @@ step Get 60 Mithril Bar
 step Learn Solid Grinding Stone
   when knows 9964
   tip Taught at 175; done at once if you learned it then.
-  learn 9920 npc 4258,3355
+  learn 9920 npc 2836
 
 step Craft 37 Solid Grinding Stones
   when knows 9964
@@ -729,12 +729,17 @@ step Get 112 Mithril Bar
 step Learn Solid Grinding Stone
   when knows 9964
   tip Taught at 175; done at once if you learned it then.
-  learn 9920 npc 4258,3355
+  learn 9920 npc 2836
 
 step Craft 84 Solid Grinding Stones
   when knows 9964
   tip Parts for the spurs; no skill points from these.
   craft 9920 x84
+
+step Learn Mithril Spurs
+  when knows 9964
+  tip Taught at 210; done at once if you learned it then.
+  learn 9964
 
 step Go to an anvil
   when knows 9964
@@ -1386,6 +1391,13 @@ step Get 308 Thorium Bar
   loop Felwood lvl 52 lap 616 yield 1.8 only Horde r 60 at 36.2,68.9 37.9,68.0 38.3,70.6 40.1,74.1 42.1,78.4 39.7,81.0 42.8,84.1 44.9,85.5 47.3,76.1 45.2,66.6 43.8,62.1 36.6,62.7
   loop Tanaris lvl 50 lap 965 yield 2.7 only Horde r 60 at 57.2,68.7 56.5,73.2 55.4,73.0 29.7,68.4 29.4,64.8 31.0,63.8 33.4,46.1 35.1,46.8 62.7,48.5 64.4,47.1 65.5,52.3 64.0,53.3
   auction 12359 x308
+
+step Learn Radiant Boots
+  when !has 12713
+  when !knows 16725
+  when knows 16656
+  tip Taught at 270; done at once if you learned it then.
+  learn 16656
 
 step Go to an anvil
   when !has 12713

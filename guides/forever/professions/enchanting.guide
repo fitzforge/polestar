@@ -108,7 +108,7 @@ step Learn Enchant Cloak - Minor Protection
 
 step Learn Enchant Chest - Inferior Stamina
   tip Taught at 20; done at once if you learned it then.
-  learn 7420 npc 11068,11065,11070,3606,1317,5157,4213,257004,257020,11066,11067,11071,266881,5695,3345,4616,3011
+  learn 7420 npc 1317,5157,4213,3345,4616,3011
 
 step Craft 21 Enchant Chest - Inferior Stamina until 85
   tip About 21 crafts.
@@ -233,7 +233,7 @@ step Buy Formula: Minor Mana Oil · Kithas, Nata Dawnstrider, Thaddeus Webb, Lil
 
 step Learn Minor Mana Oil
   tip From the formula in your bags.
-  learn 25125 nearest
+  learn 25125
 
 step Craft 16 Minor Mana Oils until 165
   tip About 16 crafts.
@@ -292,7 +292,7 @@ step Buy Formula: Lesser Wizard Oil · Kithas, Nata Dawnstrider, Thaddeus Webb, 
 
 step Learn Lesser Wizard Oil
   tip From the formula in your bags.
-  learn 25126 nearest
+  learn 25126
 
 step Craft 25 Lesser Wizard Oils until 220
   tip About 25 crafts.
@@ -354,7 +354,7 @@ step Buy Formula: Lesser Mana Oil · Kania
 
 step Learn Lesser Mana Oil
   tip From the formula in your bags.
-  learn 25127 nearest
+  learn 25127
 
 step Craft 26 Lesser Mana Oils until 270
   tip About 26 crafts.
@@ -379,7 +379,7 @@ step Buy Formula: Enchant Shield - Greater Stamina · Daniel Bartlett
 
 step Learn Enchant Shield - Greater Stamina
   tip From the formula in your bags.
-  learn 20017 nearest
+  learn 20017
 
 step Craft 5 Enchant Shield - Greater Stamina until 275
   tip About 5 crafts. Any shield you carry takes them all; they come back at 295.
@@ -405,7 +405,7 @@ step Buy Formula: Wizard Oil · Kania
 
 step Learn Wizard Oil
   tip From the formula in your bags.
-  learn 25128 nearest
+  learn 25128
 
 step Craft 26 Wizard Oils until 295
   tip About 26 crafts.
@@ -420,7 +420,7 @@ step Get 48 Dream Dust
 
 step Learn Enchant Shield - Greater Stamina
   tip Taught at 270; done at once if you learned it then.
-  learn 20017 nearest
+  learn 20017
 
 step Craft 8 Enchant Shield - Greater Stamina until 299
   tip About 8 crafts. No use for the rod yet? One more shield gives the last point.
@@ -462,7 +462,7 @@ step Buy Formula: Runed Arcanite Rod · Lorelae Wintersong
 
 step Learn Runed Arcanite Rod
   tip From the formula in your bags.
-  learn 20051 nearest
+  learn 20051
 
 step Craft 1 Runed Arcanite Rod until 300
   tip A tool: many enchants at 300 need this rod.

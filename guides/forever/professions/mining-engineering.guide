@@ -1162,7 +1162,7 @@ step Buy Schematic: Thorium Widget · Sovik
 
 step Learn Thorium Widget
   tip From the schematic in your bags.
-  learn 19791 nearest
+  learn 19791
 
 step Go to an anvil
   goto 51.8,40.8 "Anvil" map 1411 nearest only Horde
@@ -1295,7 +1295,7 @@ step Buy Schematic: Thorium Tube · Xizzer Fizzbolt
 step Learn Thorium Tube
   when !knows 19800
   tip From the schematic in your bags.
-  learn 19795 nearest
+  learn 19795
 
 step Go to an anvil
   when !knows 19800

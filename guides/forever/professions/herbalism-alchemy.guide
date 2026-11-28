@@ -500,7 +500,7 @@ step Buy Recipe: Nature Protection Potion · Alchemist Pestlezugg, Glyx Brewrigh
 
 step Learn Nature Protection Potion
   tip From the recipe in your bags.
-  learn 7259 nearest
+  learn 7259
 
 step Craft 36 Nature Protection Potions until 225
   tip About 36 crafts.
@@ -561,7 +561,7 @@ step Train Artisan Herbalism
 
 step Learn Nature Protection Potion
   tip Taught at 195; done at once if you learned it then.
-  learn 7259 nearest
+  learn 7259
 
 step Craft 26 Nature Protection Potions until 235
   tip About 26 crafts. Green for the last 5 points: short of 235? A few more do it.
@@ -613,7 +613,7 @@ step Pick until Herbalism 260
 
 step Pick 15 Blindweed
   tip For 15 Elixirs of Greater Intellect. Herbalism 260 to 281 on the way.
-  collect 8839 x15 gather Herbalism 260 only Horde
+  collect 8839 x15 gather Herbalism 260
   loop Swamp of Sorrows lvl 43 lap 414 yield 16.2 only Horde r 60 at 32.8,49.1 54.1,38.6 61.2,34.5 56.2,31.8 50.4,34.0 44.4,39.8 38.9,36.5 34.8,34.5 34.2,40.7 30.1,38.3 10.3,35.1 15.4,37.4
   auction 8839 x15
 
@@ -661,7 +661,7 @@ step Pick until Herbalism 285
 
 step Pick 10 Blindweed
   tip For 10 Elixirs of Greater Intellect.
-  collect 8839 x10 gather Herbalism 260 only Horde
+  collect 8839 x10 gather Herbalism 260
   loop Swamp of Sorrows lvl 43 lap 414 yield 16.2 only Horde r 60 at 32.8,49.1 54.1,38.6 61.2,34.5 56.2,31.8 50.4,34.0 44.4,39.8 38.9,36.5 34.8,34.5 34.2,40.7 30.1,38.3 10.3,35.1 15.4,37.4
   auction 8839 x10
 
@@ -700,7 +700,7 @@ step Buy Recipe: Elixir of Superior Defense · Kor'geld
 
 step Learn Elixir of Greater Defense
   tip From the recipe in your bags.
-  learn 17554 nearest
+  learn 17554
 
 step Pick until Herbalism 300
   tip Herbalism 300 before the last stretch: the guide ends with Alchemy.

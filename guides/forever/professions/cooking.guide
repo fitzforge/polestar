@@ -53,7 +53,7 @@ step Buy Recipe: Brilliant Smallfish · Sewa Mistrunner, Lizbeth Cromwell, Harn 
 
 step Learn Brilliant Smallfish
   tip From the recipe in your bags.
-  learn 7751 nearest
+  learn 7751
 
 step Go to a cooking fire
   tip A Basic Campfire Kit placed from your bags counts too.
@@ -99,7 +99,7 @@ step Buy Recipe: Longjaw Mud Snapper · Naal Mistrunner, Lizbeth Cromwell, Harn 
 
 step Learn Longjaw Mud Snapper
   tip From the recipe in your bags.
-  learn 7753 nearest
+  learn 7753
 
 step Go to a cooking fire
   tip A Basic Campfire Kit placed from your bags counts too.
@@ -142,7 +142,7 @@ step Buy Recipe: Bristle Whisker Catfish · Naal Mistrunner, Ronald Burch, Derak
 
 step Learn Bristle Whisker Catfish
   tip From the recipe in your bags.
-  learn 7755 nearest
+  learn 7755
 
 step Go to a cooking fire
   tip A Basic Campfire Kit placed from your bags counts too.
@@ -236,7 +236,7 @@ step Buy Recipe: Roast Raptor · Keena, Ogg'marr, Nerrist or Vendor-Tron 1000
 
 step Learn Roast Raptor
   tip From the recipe in your bags.
-  learn 15855 nearest
+  learn 15855
 
 step Go to a cooking fire
   tip A Basic Campfire Kit placed from your bags counts too.
@@ -317,7 +317,7 @@ step Buy Recipe: Spotted Yellowtail · Gikkix
 
 step Learn Spotted Yellowtail
   tip From the recipe in your bags.
-  learn 18238 nearest
+  learn 18238
 
 step Go to a cooking fire
   tip A Basic Campfire Kit placed from your bags counts too.
@@ -354,7 +354,7 @@ step Buy Recipe: Nightfin Soup · Gikkix
 
 step Learn Nightfin Soup
   tip From the recipe in your bags.
-  learn 18243 nearest
+  learn 18243
 
 step Go to a cooking fire
   tip A Basic Campfire Kit placed from your bags counts too.

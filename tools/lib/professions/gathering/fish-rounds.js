@@ -405,7 +405,9 @@ function plan(ctx) {
 				for (const s of segs) for (const x of s.recipe.extra) extras.set(x.item, (extras.get(x.item) || 0) + x.count * s.crafts);
 				// The band's farming loops (the arrow picks one; [] when the planned round is no loop of two
 				// stops), and the lure for the water among them that loses fish longest.
-				const loops = candidateRounds(ctx, band, faction, round, Object.fromEntries(Object.entries(need).filter(([item]) => bites(item))));
+				// The other waters give what the band cooks and the fish it is after for later (the capitals' catfish).
+				const wanted = [...new Set([...Object.keys(need), ...band.want.map(String)])].filter((item) => bites(item));
+				const loops = candidateRounds(ctx, band, faction, round, Object.fromEntries(wanted.map((item) => [item, need[item] || 0])));
 				const waters = loops.length ? loops : [round];
 				const full = Math.max(0, ...waters.map((w) => w.full || 0));
 				const gap = full > band.from ? full - band.from : 0;

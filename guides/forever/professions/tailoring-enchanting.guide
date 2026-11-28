@@ -330,7 +330,7 @@ step Learn Enchant Cloak - Minor Protection
 
 step Learn Enchant Chest - Inferior Stamina
   tip Taught at 20; done at once if you learned it then.
-  learn 7420 npc 11068,11065,11070,3606,1317,5157,4213,257004,257020,11066,11067,11071,266881,5695,3345,4616,3011
+  learn 7420 npc 1317,5157,4213,3345,4616,3011
 
 step Craft 21 Enchant Chest - Inferior Stamina until 85
   tip About 21 crafts.
@@ -402,7 +402,7 @@ step Get 320 Silk Cloth
 
 step Learn Bolt of Silk Cloth
   tip Taught at 100; done at once if you learned it then.
-  learn 3839 npc 5567,5153,4159,3363,11049,3004
+  learn 3839 npc 1346,4576
 
 step Craft 80 Bolts of Silk Cloth
   tip Parts for the vests; no skill points from these.
@@ -424,7 +424,7 @@ step Get 272 Silk Cloth
 
 step Learn Bolt of Silk Cloth
   tip Taught at 100; done at once if you learned it then.
-  learn 3839 npc 5567,5153,4159,3363,11049,3004
+  learn 3839 npc 1346,4576
 
 step Craft 68 Bolts of Silk Cloth
   tip Parts for the pantaloons; no skill points from these.
@@ -501,7 +501,7 @@ step Learn Red Mageweave Bag
 
 step Learn Bolt of Mageweave
   tip Taught at 140; done at once if you learned it then.
-  learn 3865 npc 1346,4576
+  learn 3865 npc 11052,2399
 
 step Craft 15 Bolts of Mageweave
   tip Parts for the shoulders; no skill points from these.
@@ -534,7 +534,7 @@ step Get 340 Mageweave Cloth
 
 step Learn Bolt of Mageweave
   tip Taught at 140; done at once if you learned it then.
-  learn 3865 npc 1346,4576
+  learn 3865 npc 11052,2399
 
 step Craft 68 Bolts of Mageweave
   tip Parts for the bags; no skill points from these.
@@ -606,7 +606,7 @@ step Buy Formula: Minor Mana Oil · Kithas, Nata Dawnstrider, Thaddeus Webb, Lil
 
 step Learn Minor Mana Oil
   tip From the formula in your bags.
-  learn 25125 nearest
+  learn 25125
 
 step Craft 16 Minor Mana Oils until 165
   tip About 16 crafts.
@@ -665,7 +665,7 @@ step Buy Formula: Lesser Wizard Oil · Kithas, Nata Dawnstrider, Thaddeus Webb, 
 
 step Learn Lesser Wizard Oil
   tip From the formula in your bags.
-  learn 25126 nearest
+  learn 25126
 
 step Craft 25 Lesser Wizard Oils until 220
   tip About 25 crafts.
@@ -732,7 +732,7 @@ step Buy Pattern: Runecloth Gloves · Qia
 
 step Learn Runecloth Gloves
   tip From the pattern in your bags.
-  learn 18417 nearest
+  learn 18417
 
 step Craft 11 Runecloth Gloves until 250
   tip About 11 crafts.
@@ -765,7 +765,7 @@ step Buy Pattern: Runecloth Cuffs · Pexmit
 
 step Learn Runecloth Cuffs
   tip From the pattern in your bags.
-  learn 1257487 nearest
+  learn 1257487
 
 step Craft 39 Runecloth Cuffs until 280
   tip About 39 crafts.
@@ -842,7 +842,7 @@ step Buy Formula: Lesser Mana Oil · Kania
 
 step Learn Lesser Mana Oil
   tip From the formula in your bags.
-  learn 25127 nearest
+  learn 25127
 
 step Craft 26 Lesser Mana Oils until 270
   tip About 26 crafts.
@@ -867,7 +867,7 @@ step Buy Formula: Enchant Shield - Greater Stamina · Daniel Bartlett
 
 step Learn Enchant Shield - Greater Stamina
   tip From the formula in your bags.
-  learn 20017 nearest
+  learn 20017
 
 step Craft 5 Enchant Shield - Greater Stamina until 275
   tip About 5 crafts. Any shield you carry takes them all; they come back at 295.
@@ -893,7 +893,7 @@ step Buy Formula: Wizard Oil · Kania
 
 step Learn Wizard Oil
   tip From the formula in your bags.
-  learn 25128 nearest
+  learn 25128
 
 step Craft 26 Wizard Oils until 295
   tip About 26 crafts.
@@ -908,7 +908,7 @@ step Get 48 Dream Dust
 
 step Learn Enchant Shield - Greater Stamina
   tip Taught at 270; done at once if you learned it then.
-  learn 20017 nearest
+  learn 20017
 
 step Craft 8 Enchant Shield - Greater Stamina until 299
   tip About 8 crafts. No use for the rod yet? One more shield gives the last point.
@@ -950,7 +950,7 @@ step Buy Formula: Runed Arcanite Rod · Lorelae Wintersong
 
 step Learn Runed Arcanite Rod
   tip From the formula in your bags.
-  learn 20051 nearest
+  learn 20051
 
 step Craft 1 Runed Arcanite Rod until 300
   tip A tool: many enchants at 300 need this rod.
@@ -1039,6 +1039,12 @@ step Craft 348 Bolts of Runecloth
   tip Parts for the turbans; no skill points from these.
   craft 18401 x348
 
+step Learn Wizardweave Turban
+  when !knows 18449
+  when knows 18450
+  tip Taught at 280; done at once if you learned it then.
+  learn 18450
+
 step Craft 58 Wizardweave Turbans until 300
   when !knows 18449
   when knows 18450
@@ -1083,7 +1089,7 @@ step Learn Runecloth Cuffs
   when !knows 18449
   when !knows 18450
   tip Taught at 250; done at once if you learned it then.
-  learn 1257487 nearest
+  learn 1257487
 
 step Craft 31 Runecloth Cuffs until 290
   when !knows 18449

@@ -897,33 +897,36 @@ return {
 	["Craft 348 Bolts of Runecloth"] = "",
 	["Parts for the turbans; no skill points from these."] = "",
 
-	-- Step 194: Craft 58 Wizardweave Turbans until 300
+	-- Step 194: Learn Wizardweave Turban
+	["Taught at 280; done at once if you learned it then."] = "",
+
+	-- Step 195: Craft 58 Wizardweave Turbans until 300
 	-- plural, as words: Wizardweave Turbans = {item:14130} Wizardweave Turban
 	["Craft 58 Wizardweave Turbans until 300"] = "",
 
-	-- Step 195: Buy 31 Rune Thread
+	-- Step 196: Buy 31 Rune Thread
 	-- {item:14341} Rune Thread
 	["Buy 31 {item:14341}"] = "",
 	-- {item:254123} Runecloth Cuffs
 	["For 31 {item:254123}."] = "",
 
-	-- Step 196: Get 775 Runecloth
+	-- Step 197: Get 775 Runecloth
 	-- {item:14047} Runecloth
 	["Get 775 {item:14047}"] = "",
 	["For 155 Bolts of Runecloth."] = "",
 
-	-- Step 197: Get 31 Ironweb Spider Silk
+	-- Step 198: Get 31 Ironweb Spider Silk
 	-- {item:14227} Ironweb Spider Silk
 	["Get 31 {item:14227}"] = "",
 
-	-- Step 199: Craft 155 Bolts of Runecloth
+	-- Step 200: Craft 155 Bolts of Runecloth
 	["Craft 155 Bolts of Runecloth"] = "",
 	["Parts for the last cuffs; no skill points from these."] = "",
 
-	-- Step 200: Learn Runecloth Cuffs
+	-- Step 201: Learn Runecloth Cuffs
 	["Taught at 250; done at once if you learned it then."] = "",
 
-	-- Step 201: Craft 31 Runecloth Cuffs until 290
+	-- Step 202: Craft 31 Runecloth Cuffs until 290
 	-- {item:254123} Runecloth Cuffs
 	["Craft 31 {item:254123} until 290"] = "",
 	["About 31 crafts. Green now. Past 290 a point is rare: only the two Auction House patterns reach 300."] = "",

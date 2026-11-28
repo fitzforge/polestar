@@ -142,7 +142,7 @@ step Craft 44 Silk Bandages until 180
 
 step Learn Heavy Silk Bandage
   tip From the manual in your bags.
-  learn 7929 nearest
+  learn 7929
 
 step Craft 44 Heavy Silk Bandages until 210
   tip About 44 crafts.
@@ -157,7 +157,7 @@ step Get 19 Mageweave Cloth
 
 step Learn Mageweave Bandage
   tip From the manual in your bags.
-  learn 10840 nearest
+  learn 10840
 
 step Craft 19 Mageweave Bandages until 225
   tip About 19 crafts.
@@ -220,7 +220,7 @@ step Hand in Triage
 
 step Learn Mageweave Bandage
   tip Taught at 210; done at once if you learned it then.
-  learn 10840 nearest
+  learn 10840
 
 step Craft 26 Mageweave Bandages until 240
   tip About 26 crafts. The doctor teaches the next bandages at 240, 260 and 290: crafting beside him saves trips.

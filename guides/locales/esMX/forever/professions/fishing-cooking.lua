@@ -81,11 +81,11 @@ return {
 	-- {skill:356} Fishing · {skill:185} Cooking · {item:6303} Raw Slitherskin Mackerel · {zone:1411} Durotar
 	["{skill:356} 51 to 75 where you are: the next {skill:185} stretches' fish come from waters that ask {skill:356} 75. The loop also gives about 25 {item:6303}: keep them, the next stretches use them. The arrow leads to the stand players fish at in {zone:1411}: stay there while you catch fish."] = "",
 
-	-- Step 17: Fish Raw Longjaw Mud Snapper (Fishing 75-102)
+	-- Step 17: Fish Raw Longjaw Mud Snapper (Fishing 75-98)
 	-- {item:6289} Raw Longjaw Mud Snapper · {skill:356} Fishing
-	["Fish {item:6289} ({skill:356} 75-102)"] = "",
+	["Fish {item:6289} ({skill:356} 75-98)"] = "",
 	-- {item:6289} Raw Longjaw Mud Snapper · {skill:185} Cooking · {item:4592} Longjaw Mud Snapper · {skill:356} Fishing
-	["25 {item:6289} for {skill:185} 50-75: 25 {item:4592}. Fish 25 {item:6289} ({skill:356} 75 to 102), then craft 25 {item:4592} ({skill:185} 50 to 75). The arrow takes the {skill:356} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Or buy them at the Auction House."] = "",
+	["25 {item:6289} for {skill:185} 50-75: 25 {item:4592}. Fish 25 {item:6289} ({skill:356} 75 to 98), then craft 25 {item:4592} ({skill:185} 50 to 75). The arrow takes the {skill:356} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Or buy them at the Auction House."] = "",
 
 	-- Step 18: Cooking recipes at 50
 	-- {skill:185} Cooking
@@ -105,13 +105,31 @@ return {
 	-- {skill:185} Cooking
 	["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and no character level, and costs 5s. The arrow picks the nearest {skill:185} trainer of your faction."] = "",
 
-	-- Step 21: Fishing 102-130: Raw Longjaw Mud Snapper and Raw Bristle Whisker Catfish water
-	-- {skill:356} Fishing · {item:6289} Raw Longjaw Mud Snapper · {item:6308} Raw Bristle Whisker Catfish
-	["{skill:356} 102-130: {item:6289} and {item:6308} water"] = "",
-	-- {skill:356} Fishing · {item:4592} Longjaw Mud Snapper · {item:6289} Raw Longjaw Mud Snapper
-	["Fish from {skill:356} 102 to 130 for {item:4592}: this loop gives {item:6289}, and the next one the rest from {skill:356} 130. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
+	-- Step 21: Fish Raw Longjaw Mud Snapper (Fishing 98-125)
+	-- {item:6289} Raw Longjaw Mud Snapper · {skill:356} Fishing
+	["Fish {item:6289} ({skill:356} 98-125)"] = "",
+	-- {item:6289} Raw Longjaw Mud Snapper · {skill:185} Cooking · {item:4592} Longjaw Mud Snapper · {skill:356} Fishing
+	["28 {item:6289} for {skill:185} 75-100: 28 {item:4592}. Fish 28 {item:6289} ({skill:356} 98 to 125), then craft 27 {item:4592} ({skill:185} 75 to 100). The arrow takes the {skill:356} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Or buy them at the Auction House."] = "",
 
-	-- Step 22: Expert Fishing
+	-- Step 22: Longjaw Mud Snapper to 100
+	-- {item:4592} Longjaw Mud Snapper
+	["{item:4592} to 100"] = "",
+	-- {item:4592} Longjaw Mud Snapper · {item:6289} Raw Longjaw Mud Snapper · {object:29784} Basic Campfire
+	["{item:4592} is orange at 75 (yellow 90, green 110, grey 130): about 27 crafts to 100, up to 28 for 9 players in 10 (the fish above count that many). Each takes 1 {item:6289}. Cook at any fire: a town hearth or your own {object:29784}. If you got here without learning {item:4592}, learn it now: an earlier step teaches it."] = "",
+
+	-- Step 23: Lures for Fishing 130-205
+	-- {skill:356} Fishing
+	["Lures for {skill:356} 130-205"] = "",
+	-- {skill:356} Fishing · {item:6529} Shiny Bauble
+	["Some of these waters lose fish below {skill:356} 150: a lure on the pole adds to your skill for ten minutes. {item:6529} (+25, 50c each) closes the gap from 130: about 2 see you to 150 (18 minutes of fishing)."] = "",
+
+	-- Step 24: Fishing 125-130: Raw Longjaw Mud Snapper and Raw Bristle Whisker Catfish water
+	-- {skill:356} Fishing · {item:6289} Raw Longjaw Mud Snapper · {item:6308} Raw Bristle Whisker Catfish
+	["{skill:356} 125-130: {item:6289} and {item:6308} water"] = "",
+	-- {skill:356} Fishing · {item:4593} Bristle Whisker Catfish · {item:6308} Raw Bristle Whisker Catfish
+	["Fish from {skill:356} 125 to 130 for {item:4593}: this loop gives {item:6308}, and the next one the rest from {skill:356} 130. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
+
+	-- Step 25: Expert Fishing
 	-- {skill:356} Fishing
 	["Expert {skill:356}"] = "Experto de {skill:356}",
 	-- {skill:356} Fishing · {item:16083} Expert Fishing - The Bass and You · {npc:2626} Old Man Heming · {zone:1434} Stranglethorn Vale · {area:35} Booty Bay · {area:392} Ratchet · {zone:1413} The Barrens · {item:6532} Bright Baubles · {item:279965} Fishing Rack · {area:2797} Blackfathom Deeps
@@ -119,29 +137,11 @@ return {
 	-- {item:16083} Expert Fishing - The Bass and You · {skill:356} Fishing
 	["Buy and read {item:16083} (Expert {skill:356})"] = "Compra y lee {item:16083} (Experto de {skill:356})",
 
-	-- Step 23: Fish Raw Longjaw Mud Snapper (Fishing 130-131)
-	-- {item:6289} Raw Longjaw Mud Snapper · {skill:356} Fishing
-	["Fish {item:6289} ({skill:356} 130-131)"] = "",
-	-- {item:6289} Raw Longjaw Mud Snapper · {skill:185} Cooking · {item:4592} Longjaw Mud Snapper · {skill:356} Fishing
-	["28 {item:6289} for {skill:185} 75-100: 28 {item:4592}. Fish 28 {item:6289} ({skill:356} 130 to 131), then craft 27 {item:4592} ({skill:185} 75 to 100). The arrow takes the {skill:356} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Or buy them at the Auction House."] = "",
-
-	-- Step 24: Longjaw Mud Snapper to 100
-	-- {item:4592} Longjaw Mud Snapper
-	["{item:4592} to 100"] = "",
-	-- {item:4592} Longjaw Mud Snapper · {item:6289} Raw Longjaw Mud Snapper · {object:29784} Basic Campfire
-	["{item:4592} is orange at 75 (yellow 90, green 110, grey 130): about 27 crafts to 100, up to 28 for 9 players in 10 (the fish above count that many). Each takes 1 {item:6289}. Cook at any fire: a town hearth or your own {object:29784}. If you got here without learning {item:4592}, learn it now: an earlier step teaches it."] = "",
-
-	-- Step 25: Lures for Fishing 130-205
-	-- {skill:356} Fishing
-	["Lures for {skill:356} 130-205"] = "",
-	-- {skill:356} Fishing · {item:6529} Shiny Bauble
-	["Some of these waters lose fish below {skill:356} 150: a lure on the pole adds to your skill for ten minutes. {item:6529} (+25, 50c each) closes the gap from 130: about 2 see you to 150 (18 minutes of fishing)."] = "",
-
-	-- Step 26: Fish Raw Bristle Whisker Catfish (Fishing 131-157)
+	-- Step 26: Fish Raw Bristle Whisker Catfish (Fishing 130-149)
 	-- {item:6308} Raw Bristle Whisker Catfish · {skill:356} Fishing
-	["Fish {item:6308} ({skill:356} 131-157)"] = "",
+	["Fish {item:6308} ({skill:356} 130-149)"] = "",
 	-- {item:6308} Raw Bristle Whisker Catfish · {skill:185} Cooking · {item:4593} Bristle Whisker Catfish · {skill:356} Fishing
-	["53 {item:6308} for {skill:185} 100-150: 53 {item:4593}; from your fishing on the way: 12 of 53 {item:6308}. Fish 41 {item:6308} ({skill:356} 131 to 157), then craft 52 {item:4593} ({skill:185} 100 to 150). The arrow takes the {skill:356} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Or buy them at the Auction House."] = "",
+	["53 {item:6308} for {skill:185} 100-150: 53 {item:4593}; from your fishing on the way: 20 of 53 {item:6308}. Fish 33 {item:6308} ({skill:356} 130 to 149), then craft 52 {item:4593} ({skill:185} 100 to 150). The arrow takes the {skill:356} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Or buy them at the Auction House."] = "",
 
 	-- Step 27: Cooking recipes at 100
 	-- {skill:185} Cooking
@@ -163,29 +163,29 @@ return {
 	-- {item:16072} Expert Cookbook · {skill:185} Cooking
 	["Buy and read {item:16072} (Expert {skill:185})"] = "Compra y lee {item:16072} (Experto de {skill:185})",
 
-	-- Step 30: Fishing 157-205: Raw Bristle Whisker Catfish water
-	-- {skill:356} Fishing · {item:6308} Raw Bristle Whisker Catfish
-	["{skill:356} 157-205: {item:6308} water"] = "",
-	-- {skill:356} Fishing · {item:4593} Bristle Whisker Catfish · {item:6308} Raw Bristle Whisker Catfish
-	["Fish from {skill:356} 157 to 205 for {item:4593}: this loop gives {item:6308}, and the next one the rest from {skill:356} 205. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
-
-	-- Step 31: Fish Raw Bristle Whisker Catfish (Fishing 205-211)
+	-- Step 30: Fish Raw Bristle Whisker Catfish (Fishing 149-202)
 	-- {item:6308} Raw Bristle Whisker Catfish · {skill:356} Fishing
-	["Fish {item:6308} ({skill:356} 205-211)"] = "",
+	["Fish {item:6308} ({skill:356} 149-202)"] = "",
 	-- {item:6308} Raw Bristle Whisker Catfish · {skill:185} Cooking · {item:4593} Bristle Whisker Catfish · {skill:356} Fishing
-	["86 {item:6308} for {skill:185} 150-175: 86 {item:4593}. Fish 86 {item:6308} ({skill:356} 205 to 211), then craft 69 {item:4593} ({skill:185} 150 to 175). The arrow takes the {skill:356} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Or buy them at the Auction House."] = "",
+	["86 {item:6308} for {skill:185} 150-175: 86 {item:4593}. Fish 86 {item:6308} ({skill:356} 149 to 202), then craft 69 {item:4593} ({skill:185} 150 to 175). The arrow takes the {skill:356} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Or buy them at the Auction House."] = "",
 
-	-- Step 32: Bristle Whisker Catfish to 175
+	-- Step 31: Bristle Whisker Catfish to 175
 	-- {item:4593} Bristle Whisker Catfish
 	["{item:4593} to 175"] = "",
 	-- {item:4593} Bristle Whisker Catfish · {item:6308} Raw Bristle Whisker Catfish · {object:29784} Basic Campfire
 	["{item:4593} is yellow at 150 (yellow 140, green 160, grey 180): about 69 crafts to 175, up to 86 for 9 players in 10 (the fish above count that many). Each takes 1 {item:6308}. Cook at any fire: a town hearth or your own {object:29784}. If you got here without learning {item:4593}, learn it now: an earlier step teaches it."] = "",
 
-	-- Step 33: Fish Raw Mithril Head Trout (Fishing 211-225)
+	-- Step 32: Fishing 202-205: Raw Bristle Whisker Catfish water
+	-- {skill:356} Fishing · {item:6308} Raw Bristle Whisker Catfish
+	["{skill:356} 202-205: {item:6308} water"] = "",
+	-- {skill:356} Fishing · {spell:20916} Mithril Headed Trout · {item:8365} Raw Mithril Head Trout · {item:6289} Raw Longjaw Mud Snapper · {item:6308} Raw Bristle Whisker Catfish
+	["{skill:356} 202 to 205 before {spell:20916}: its {item:8365} come from {skill:356} 205. The loop also gives about 5 {item:6289} and 5 {item:6308}: keep them, the next stretches use them. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
+
+	-- Step 33: Fish Raw Mithril Head Trout (Fishing 205-221)
 	-- {item:8365} Raw Mithril Head Trout · {skill:356} Fishing
-	["Fish {item:8365} ({skill:356} 211-225)"] = "",
+	["Fish {item:8365} ({skill:356} 205-221)"] = "",
 	-- {item:8365} Raw Mithril Head Trout · {skill:185} Cooking · {spell:20916} Mithril Headed Trout · {skill:356} Fishing
-	["53 {item:8365} for {skill:185} 175-225: 53 {spell:20916}; from your fishing on the way: 5 of 53 {item:8365}. Fish 49 {item:8365} ({skill:356} 211 to 225), then craft 52 {spell:20916} ({skill:185} 175 to 225). The arrow takes the {skill:356} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Or buy them at the Auction House."] = "",
+	["53 {item:8365} for {skill:185} 175-225: 53 {spell:20916}. Fish 53 {item:8365} ({skill:356} 205 to 221), then craft 52 {spell:20916} ({skill:185} 175 to 225). The arrow takes the {skill:356} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Or buy them at the Auction House."] = "",
 
 	-- Step 34: Cooking recipes at 175
 	-- {skill:185} Cooking
@@ -221,67 +221,67 @@ return {
 	-- {skill:356} Fishing · {item:6530} Nightcrawlers
 	["This water loses fish below {skill:356} 300: a lure on the pole adds to your skill for ten minutes. {item:6530} (+50 from skill 50, 1s each) closes the gap from 255: about 11 see you to 300 (102 minutes of fishing)."] = "",
 
-	-- Step 40: Nat Pagle, Angler Extreme
-	-- {skill:356} Fishing · {npc:12919} Nat Pagle · {zone:1445} Dustwallow Marsh · {zone:1455} Ironforge
-	["Artisan {skill:356} (cap 300) comes from {npc:12919} in {zone:1445}. The fishing trainer in {zone:1455} sends you to him; the quest needs skill 225 and level 35."] = "Artesano de {skill:356} (límite 300) lo da {npc:12919} en {zone:1445}. El instructor de pesca de {zone:1455} te envía con él; la misión requiere habilidad 225 y nivel 35.",
-
-	-- Step 41: Nat Pagle, Angler Extreme
-	-- {skill:356} Fishing · {npc:12919} Nat Pagle · {zone:1445} Dustwallow Marsh · {zone:1454} Orgrimmar
-	["Artisan {skill:356} (cap 300) comes from {npc:12919} in {zone:1445}. The fishing trainer in {zone:1454} sends you to him; the quest needs skill 225 and level 35."] = "Artesano de {skill:356} (límite 300) lo da {npc:12919} en {zone:1445}. El instructor de pesca de {zone:1454} te envía con él; la misión requiere habilidad 225 y nivel 35.",
-
-	-- Step 42: Nat Pagle
-	-- {npc:12919} Nat Pagle
-	["{npc:12919} fishes from the shore of a small island off the east coast, south of Theramore; swim over from the coast."] = "{npc:12919} pesca desde la orilla de una islita frente a la costa este, al sur de Theramore; cruza nadando desde la costa.",
-
-	-- Step 43: Sar'theris Striker
-	-- {zone:1443} Desolace · {area:598} Sar'theris Strand · {area:2408} Shadowprey Village · {item:16968} Sar'theris Striker
-	["Fish along the coast of {zone:1443} ({area:598} in the north-west, or the shore west of {area:2408}) until you catch a {item:16968}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "Pesca a lo largo de la costa de {zone:1443} ({area:598} en el noroeste, o la orilla al oeste de {area:2408}) hasta sacar {item:16968}: más o menos una de cada cinco capturas allí lo trae, y no pica en ningún otro lugar. Con habilidad 225 aquí no se escapa nada.",
-
-	-- Step 45: Feralas Ahi
-	-- {area:2521} Verdantis River · {zone:1444} Feralas · {area:2577} Dire Maul · {item:16967} Feralas Ahi · {item:6532} Bright Baubles
-	["Fish along the {area:2521} in {zone:1444} (south-east of {area:2577}) until you catch a {item:16967}: about one catch in five there brings it up, and it bites nowhere else. This water loses fish below skill 300: at 225 most get away, so put {item:6532} (+75) on the pole first."] = "Pesca a lo largo de {area:2521} en {zone:1444} (al sureste de {area:2577}) hasta sacar {item:16967}: más o menos una de cada cinco capturas allí lo trae, y no pica en ningún otro lugar. En esta agua se escapan peces por debajo de habilidad 300: a 225 se escapan la mayoría, así que pon primero {item:6532} (+75) en la caña.",
-
-	-- Step 46: Savage Coast Blue Sailfin
-	-- {zone:1434} Stranglethorn Vale · {area:301} Savage Coast · {item:16969} Savage Coast Blue Sailfin
-	["Fish along {zone:1434}'s {area:301} (the west shore) until you catch a {item:16969}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "Pesca a lo largo de {area:301} de {zone:1434} (la orilla oeste) hasta sacar {item:16969}: más o menos una de cada cinco capturas allí lo trae, y no pica en ningún otro lugar. Con habilidad 225 aquí no se escapa nada.",
-
-	-- Step 48: Misty Reed Mahi Mahi
-	-- {area:300} Misty Reed Strand · {zone:1435} Swamp of Sorrows · {item:16970} Misty Reed Mahi Mahi
-	["Fish along the {area:300} (the east shore of {zone:1435}) until you catch a {item:16970}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "Pesca a lo largo de {area:300} (la orilla este de {zone:1435}) hasta sacar {item:16970}: más o menos una de cada cinco capturas allí lo trae, y no pica en ningún otro lugar. Con habilidad 225 aquí no se escapa nada.",
-
-	-- Step 49: Nat Pagle
-	-- {skill:356} Fishing
-	["Artisan {skill:356}"] = "Artesano de {skill:356}",
-
-	-- Step 50: Fish Raw Mithril Head Trout (Fishing 225-248)
+	-- Step 40: Fish Raw Mithril Head Trout (Fishing 221-225)
 	-- {item:8365} Raw Mithril Head Trout · {skill:356} Fishing
-	["Fish {item:8365} ({skill:356} 225-248)"] = "",
+	["Fish {item:8365} ({skill:356} 221-225)"] = "",
 	-- {item:8365} Raw Mithril Head Trout · {skill:185} Cooking · {spell:20916} Mithril Headed Trout · {skill:356} Fishing
-	["86 {item:8365} for {skill:185} 225-250: 86 {spell:20916}. Fish 86 {item:8365} ({skill:356} 225 to 248), then craft 69 {spell:20916} ({skill:185} 225 to 250). The arrow takes the {skill:356} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Or buy them at the Auction House."] = "",
+	["86 {item:8365} for {skill:185} 225-250: 86 {spell:20916}. Fish 86 {item:8365} ({skill:356} 221 to 225), then craft 69 {spell:20916} ({skill:185} 225 to 250). The arrow takes the {skill:356} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Or buy them at the Auction House."] = "",
 
-	-- Step 51: Dirge Quikcleave
+	-- Step 41: Dirge Quikcleave
 	-- {skill:185} Cooking · {npc:8125} Dirge Quikcleave · {area:976} Gadgetzan · {zone:1446} Tanaris · {zone:1455} Ironforge
 	["Artisan {skill:185} comes from {npc:8125} in {area:976} ({zone:1446}). The cooking trainer in {zone:1455} sends you; it needs skill 225 and level 35."] = "Artesano de {skill:185} se obtiene de {npc:8125} en {area:976} ({zone:1446}). El instructor de cocina de {zone:1455} te envía; requiere habilidad 225 y nivel 35.",
 
-	-- Step 52: Dirge Quikcleave
+	-- Step 42: Dirge Quikcleave
 	-- {skill:185} Cooking · {npc:8125} Dirge Quikcleave · {area:976} Gadgetzan · {zone:1446} Tanaris · {zone:1454} Orgrimmar
 	["Artisan {skill:185} comes from {npc:8125} in {area:976} ({zone:1446}). The cooking trainer in {zone:1454} sends you; it needs skill 225 and level 35."] = "Artesano de {skill:185} se obtiene de {npc:8125} en {area:976} ({zone:1446}). El instructor de cocina de {zone:1454} te envía; requiere habilidad 225 y nivel 35.",
 
-	-- Step 53: Clamlette Surprise
+	-- Step 43: Clamlette Surprise
 	-- {skill:185} Cooking
 	["Artisan {skill:185}"] = "Artesano de {skill:185}",
 
-	-- Step 54: Mithril Headed Trout to 250
+	-- Step 44: Mithril Headed Trout to 250
 	-- {spell:20916} Mithril Headed Trout
 	["{spell:20916} to 250"] = "",
 	-- {spell:20916} Mithril Headed Trout · {item:8365} Raw Mithril Head Trout · {object:29784} Basic Campfire
 	["{spell:20916} is yellow at 225 (yellow 215, green 235, grey 255): about 69 crafts to 250, up to 86 for 9 players in 10 (the fish above count that many). Each takes 1 {item:8365}. Cook at any fire: a town hearth or your own {object:29784}. If you got here without learning {spell:20916}, learn it now: an earlier step teaches it."] = "",
 
-	-- Step 55: Fishing 248-255: Raw Mithril Head Trout water
+	-- Step 45: Nat Pagle, Angler Extreme
+	-- {skill:356} Fishing · {npc:12919} Nat Pagle · {zone:1445} Dustwallow Marsh · {zone:1455} Ironforge
+	["Artisan {skill:356} (cap 300) comes from {npc:12919} in {zone:1445}. The fishing trainer in {zone:1455} sends you to him; the quest needs skill 225 and level 35."] = "Artesano de {skill:356} (límite 300) lo da {npc:12919} en {zone:1445}. El instructor de pesca de {zone:1455} te envía con él; la misión requiere habilidad 225 y nivel 35.",
+
+	-- Step 46: Nat Pagle, Angler Extreme
+	-- {skill:356} Fishing · {npc:12919} Nat Pagle · {zone:1445} Dustwallow Marsh · {zone:1454} Orgrimmar
+	["Artisan {skill:356} (cap 300) comes from {npc:12919} in {zone:1445}. The fishing trainer in {zone:1454} sends you to him; the quest needs skill 225 and level 35."] = "Artesano de {skill:356} (límite 300) lo da {npc:12919} en {zone:1445}. El instructor de pesca de {zone:1454} te envía con él; la misión requiere habilidad 225 y nivel 35.",
+
+	-- Step 47: Nat Pagle
+	-- {npc:12919} Nat Pagle
+	["{npc:12919} fishes from the shore of a small island off the east coast, south of Theramore; swim over from the coast."] = "{npc:12919} pesca desde la orilla de una islita frente a la costa este, al sur de Theramore; cruza nadando desde la costa.",
+
+	-- Step 48: Sar'theris Striker
+	-- {zone:1443} Desolace · {area:598} Sar'theris Strand · {area:2408} Shadowprey Village · {item:16968} Sar'theris Striker
+	["Fish along the coast of {zone:1443} ({area:598} in the north-west, or the shore west of {area:2408}) until you catch a {item:16968}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "Pesca a lo largo de la costa de {zone:1443} ({area:598} en el noroeste, o la orilla al oeste de {area:2408}) hasta sacar {item:16968}: más o menos una de cada cinco capturas allí lo trae, y no pica en ningún otro lugar. Con habilidad 225 aquí no se escapa nada.",
+
+	-- Step 50: Feralas Ahi
+	-- {area:2521} Verdantis River · {zone:1444} Feralas · {area:2577} Dire Maul · {item:16967} Feralas Ahi · {item:6532} Bright Baubles
+	["Fish along the {area:2521} in {zone:1444} (south-east of {area:2577}) until you catch a {item:16967}: about one catch in five there brings it up, and it bites nowhere else. This water loses fish below skill 300: at 225 most get away, so put {item:6532} (+75) on the pole first."] = "Pesca a lo largo de {area:2521} en {zone:1444} (al sureste de {area:2577}) hasta sacar {item:16967}: más o menos una de cada cinco capturas allí lo trae, y no pica en ningún otro lugar. En esta agua se escapan peces por debajo de habilidad 300: a 225 se escapan la mayoría, así que pon primero {item:6532} (+75) en la caña.",
+
+	-- Step 51: Savage Coast Blue Sailfin
+	-- {zone:1434} Stranglethorn Vale · {area:301} Savage Coast · {item:16969} Savage Coast Blue Sailfin
+	["Fish along {zone:1434}'s {area:301} (the west shore) until you catch a {item:16969}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "Pesca a lo largo de {area:301} de {zone:1434} (la orilla oeste) hasta sacar {item:16969}: más o menos una de cada cinco capturas allí lo trae, y no pica en ningún otro lugar. Con habilidad 225 aquí no se escapa nada.",
+
+	-- Step 53: Misty Reed Mahi Mahi
+	-- {area:300} Misty Reed Strand · {zone:1435} Swamp of Sorrows · {item:16970} Misty Reed Mahi Mahi
+	["Fish along the {area:300} (the east shore of {zone:1435}) until you catch a {item:16970}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "Pesca a lo largo de {area:300} (la orilla este de {zone:1435}) hasta sacar {item:16970}: más o menos una de cada cinco capturas allí lo trae, y no pica en ningún otro lugar. Con habilidad 225 aquí no se escapa nada.",
+
+	-- Step 54: Nat Pagle
+	-- {skill:356} Fishing
+	["Artisan {skill:356}"] = "Artesano de {skill:356}",
+
+	-- Step 55: Fishing 225-255: Raw Mithril Head Trout water
 	-- {skill:356} Fishing · {item:8365} Raw Mithril Head Trout
-	["{skill:356} 248-255: {item:8365} water"] = "",
-	-- {skill:356} Fishing · {item:13930} Filet of Redgill · {item:13758} Raw Redgill · {item:6308} Raw Bristle Whisker Catfish · {item:8365} Raw Mithril Head Trout · {item:21153} Raw Greater Sagefish
-	["{skill:356} 248 to 255 before {item:13930}: its {item:13758} come from {skill:356} 255. The loop also gives about 15 {item:6308}, 25 {item:8365} and 5 {item:21153}: keep them, the next stretches use them. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
+	["{skill:356} 225-255: {item:8365} water"] = "",
+	-- {skill:356} Fishing · {item:13930} Filet of Redgill · {item:13758} Raw Redgill · {item:3820} Stranglekelp · {item:6308} Raw Bristle Whisker Catfish · {item:8365} Raw Mithril Head Trout · {item:21150} Iron Bound Trunk
+	["{skill:356} 225 to 255 before {item:13930}: its {item:13758} come from {skill:356} 255. The loop also gives about 5 {item:3820}, 60 {item:6308}, 110 {item:8365} and 5 {item:21150}: keep them, the next stretches use them. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
 
 	-- Step 56: Fish Raw Redgill (Fishing 255-264)
 	-- {item:13758} Raw Redgill · {skill:356} Fishing

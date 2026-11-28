@@ -217,7 +217,7 @@ step Learn Fine Leather Belt
 
 step Learn Embossed Leather Gloves
   tip Taught at 40; done at once if you learned it then.
-  learn 3756 npc 1466,1632,3605,3967,4212,5127,5564,11081,11083,11096,11097,251993,252376,223,1385,3007,3008,3069,3365,3549,3703,4588,5811,11084,11098
+  learn 3756 npc 5564,5127,11081,3365,4588,11084
 
 step Craft 10 Embossed Leather Gloves until 70
   tip About 10 crafts.
@@ -552,7 +552,7 @@ step Buy Pattern: Wicked Leather Gauntlets · Werg Thickblade
 
 step Learn Wicked Leather Gauntlets
   tip From the pattern in your bags.
-  learn 19049 nearest
+  learn 19049
 
 step Craft 36 Wicked Leather Gauntlets until 265
   tip About 36 crafts.
@@ -581,7 +581,7 @@ step Buy Pattern: Runic Leather Headband · Jase Farlane
 
 step Learn Runic Leather Headband
   tip From the pattern in your bags.
-  learn 19082 nearest
+  learn 19082
 
 step Craft 49 Runic Leather Headbands until 300
   tip About 49 crafts. Yellow from 285, green from 295: short of 300? A few more do it.

@@ -767,7 +767,7 @@ step Mine and smelt 60 Mithril Bar
 step Learn Solid Grinding Stone
   when knows 9964
   tip Taught at 175; done at once if you learned it then.
-  learn 9920 npc 4258,3355
+  learn 9920 npc 2836
 
 step Craft 37 Solid Grinding Stones
   when knows 9964
@@ -869,12 +869,17 @@ step Mine and smelt 112 Mithril Bar
 step Learn Solid Grinding Stone
   when knows 9964
   tip Taught at 175; done at once if you learned it then.
-  learn 9920 npc 4258,3355
+  learn 9920 npc 2836
 
 step Craft 84 Solid Grinding Stones
   when knows 9964
   tip Parts for the spurs; no skill points from these.
   craft 9920 x84
+
+step Learn Mithril Spurs
+  when knows 9964
+  tip Taught at 210; done at once if you learned it then.
+  learn 9964
 
 step Go to an anvil
   when knows 9964
@@ -1551,6 +1556,13 @@ step Mine and smelt 308 Thorium Bar
   loop Winterspring lvl 58 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Burning Steppes lvl 53 lap 615 yield 1.9 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
   auction 12359 x308
+
+step Learn Radiant Boots
+  when !has 12713
+  when !knows 16725
+  when knows 16656
+  tip Taught at 270; done at once if you learned it then.
+  learn 16656
 
 step Go to an anvil
   when !has 12713

@@ -87,15 +87,13 @@ const FROM = [
 	['Fish Raw Longjaw Mud Snapper (Fishing 75', 'Horde', 'Orc', 12, 'Durotar', 52, 42, 'Orgrimmar'],
 	['Fish Raw Longjaw Mud Snapper (Fishing 75', 'Horde', 'Undead', 12, 'Tirisfal Glades', 60, 52, 'Silverpine Forest'],
 	['Fish Raw Longjaw Mud Snapper (Fishing 75', 'Horde', 'Tauren', 12, 'Mulgore', 47, 58, 'Thunder Bluff'],
-	['Fish Raw Bristle Whisker Catfish (Fishing 150', 'Alliance', 'Human', 22, 'Redridge Mountains', 30, 45, 'Redridge Mountains'],
-	['Fish Raw Bristle Whisker Catfish (Fishing 150', 'Horde', 'Orc', 22, 'The Barrens', 52, 30, null],
+	['Fish Raw Bristle Whisker Catfish (Fishing 130', 'Alliance', 'Human', 22, 'Redridge Mountains', 30, 45, 'Redridge Mountains'],
+	// From the Barrens: Stonetalon's lake by Sun Rock Retreat, the band's catfish water, a short ride west.
+	['Fish Raw Bristle Whisker Catfish (Fishing 130', 'Horde', 'Orc', 22, 'The Barrens', 52, 30, 'Stonetalon Mountains'],
 	['Fish Raw Mithril Head Trout', 'Horde', 'Orc', 32, 'Desolace', 25, 72, 'Desolace'],
-	// Dustwallow's stands by Theramore ask level 42: at 40 the safe water is the pick, across the sea.
-	['Fish Raw Spotted Yellowtail', 'Alliance', 'Human', 40, 'Dustwallow Marsh', 66, 50, 'Stranglethorn Vale'],
-	['Fish Raw Spotted Yellowtail', 'Alliance', 'Human', 44, 'Dustwallow Marsh', 66, 50, 'Dustwallow Marsh'],
-	// Desolace's coast gives twice the Yellowtail a lap: from Brackenwall it finishes sooner, at 40 and at 44.
-	['Fish Raw Spotted Yellowtail', 'Horde', 'Orc', 40, 'Dustwallow Marsh', 36, 31, 'Desolace'],
-	['Fish Raw Spotted Yellowtail', 'Horde', 'Orc', 44, 'Dustwallow Marsh', 36, 31, 'Desolace'],
+	// Feralas to 300: Redgill and Nightfin Snapper water by Feathermoon and by Camp Mojache.
+	['Fish Raw Redgill', 'Alliance', 'Human', 45, 'Feralas', 31, 45, 'Feralas'],
+	['Fish Raw Redgill', 'Horde', 'Orc', 45, 'Feralas', 75, 44, 'Feralas'],
 ];
 
 test('from where each side levels in a band, the arrow picks the nearby water of that side, safe at the player\'s level', { skip }, () => {
