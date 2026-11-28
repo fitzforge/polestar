@@ -354,9 +354,11 @@ GF.Part(function(GF)
 		-- The finished quests' row (guideWindow.handinRow, a 0.4.4 preview) is gone: the guide window's menu
 		-- (Hand in finished quests), its header button and the main window's quest room are the way in. A
 		-- saved switch for it goes with it.
-		ns.RegisterMigration("handinRowGone", function(s)
-			if type(s.guideWindow) == "table" then s.guideWindow.handinRow = nil end
-		end)
+		if ns.RegisterMigration then
+			ns.RegisterMigration("handinRowGone", function(s)
+				if type(s.guideWindow) == "table" then s.guideWindow.handinRow = nil end
+			end)
+		end
 	end
 
 	function GF.On(key) return ns.Get("guideWindow." .. key) ~= false end
