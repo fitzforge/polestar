@@ -1336,7 +1336,8 @@ local function stale() LK.gen = LK.gen + 1 end
 -- filled for the rows drawn only (Search.Subtitle).
 local cache = {}
 local function current()
-	if cache.query == query and cache.kind == kind and cache.gen == LK.gen then return cache end
+	if cache.query == query and cache.kind == kind and cache.gen == LK.gen
+		and (cache.reason ~= "combat" or ns.Compat.InCombat()) then return cache end
 	local all, counts, list = {}, {}, {}
 	if query ~= "" then
 		all, counts = search(query, nil, { perKind = GROUP_MAX, limit = GROUP_MAX * #kinds(), subtitles = false })
