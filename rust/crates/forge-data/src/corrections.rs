@@ -1961,15 +1961,18 @@ fn check_goal_ref(ck: &mut Ck, at: &str, v: &V) {
 }
 
 /// The goal verbs a guide fix's `rows` may add: the actions a tip used to describe (an item to use, an
-/// object to click, an NPC to talk to, something to wear, a spell or emote) and the kill, loot or walk
-/// that brings them about, each with the table its id names.
-const ROW_VERBS: [(&str, Option<&str>); 11] = [
+/// object to click, an NPC to talk to, something to wear, a spell or emote), the kill, loot or walk
+/// that brings them about, and the accept and hand-in of a quest that gets an item back (Another Power
+/// Source? before Tanaris Field Sampling, #4577), each with the table its id names.
+const ROW_VERBS: [(&str, Option<&str>); 13] = [
 	("use", Some("items")),
 	("interact", Some("objects")),
 	("talk", Some("npcs")),
 	("equip", Some("items")),
 	("collect", Some("items")),
 	("kill", Some("npcs")),
+	("accept", Some("quests")),
+	("turnin", Some("quests")),
 	("cast", None),
 	("buff", None),
 	("task", None),
@@ -2682,11 +2685,11 @@ mod tests {
 	fn rows_guide_fixes_are_checked() {
 		let src = r#""source": { "kind": "recording", "ref": "r" }, "note": "checked""#;
 		let good = format!(
-			r#"{{ "fixes": [ {{ "id": "r-1", "at": {{ "quest": 10, "goal": "objective", "objective": 1 }}, "rows": {{ "before": ["collect 40 @50.2,31.6 map 1446", "use 40 quest 10.1 @50.2,31.6 map 1446"] }}, {src} }}, {{ "id": "r-2", "at": {{ "quest": 11, "goal": "turnin" }}, "rows": {{ "after": ["equip 40", "task \"Wave at the guard\""] }}, {src} }} ] }}"#
+			r#"{{ "fixes": [ {{ "id": "r-1", "at": {{ "quest": 10, "goal": "objective", "objective": 1 }}, "rows": {{ "before": ["collect 40 @50.2,31.6 map 1446", "use 40 quest 10.1 @50.2,31.6 map 1446"] }}, {src} }}, {{ "id": "r-2", "at": {{ "quest": 11, "goal": "turnin" }}, "rows": {{ "after": ["equip 40", "task \"Wave at the guard\""] }}, {src} }}, {{ "id": "r-3", "at": {{ "quest": 11, "goal": "accept" }}, "rows": {{ "before": ["accept 10 optional", "turnin 10 optional"] }}, {src} }} ] }}"#
 		);
 		assert_eq!(record_findings(None, Some(&good)), Vec::<String>::new());
 		let bad = format!(
-			r#"{{ "fixes": [ {{ "id": "r-1", "at": {{ "quest": 10, "goal": "objective", "objective": 1 }}, "rows": {{}}, {src} }}, {{ "id": "r-2", "at": {{ "quest": 10, "goal": "accept" }}, "rows": {{ "before": ["fly Gadgetzan", "  use 40", "use 40\nuse 40", "use 999999"] }}, {src} }}, {{ "id": "r-3", "at": {{ "quest": 11, "goal": "accept" }}, "rows": {{ "after": ["use 40"] }}, "tip": "A tip.", {src} }}, {{ "id": "r-4", "at": {{ "quest": 11, "goal": "turnin" }}, "rows": {{ "after": [] }}, {src} }} ] }}"#
+			r#"{{ "fixes": [ {{ "id": "r-1", "at": {{ "quest": 10, "goal": "objective", "objective": 1 }}, "rows": {{}}, {src} }}, {{ "id": "r-2", "at": {{ "quest": 10, "goal": "accept" }}, "rows": {{ "before": ["fly Gadgetzan", "  use 40", "use 40\nuse 40", "use 999999", "accept 999999 optional"] }}, {src} }}, {{ "id": "r-3", "at": {{ "quest": 11, "goal": "accept" }}, "rows": {{ "after": ["use 40"] }}, "tip": "A tip.", {src} }}, {{ "id": "r-4", "at": {{ "quest": 11, "goal": "turnin" }}, "rows": {{ "after": [] }}, {src} }} ] }}"#
 		);
 		let f = record_findings(None, Some(&bad));
 		let has = |s: &str| f.iter().any(|x| x.contains(s));
@@ -2697,6 +2700,7 @@ mod tests {
 			"fixes[1].rows.before[1]: a goal line: one line of text with no indent",
 			"fixes[1].rows.before[2]: a goal line: one line of text with no indent",
 			"fixes[1].rows.before[3]: no item 999999 in the data",
+			"fixes[1].rows.before[4]: no quest 999999 in the data",
 			"fixes[2].rows: a `rows` fix uses a record of its own",
 			"fixes[3].rows.after: a list of goal lines",
 		] {

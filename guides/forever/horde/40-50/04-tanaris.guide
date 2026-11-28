@@ -247,6 +247,9 @@ step OOX-17/TN
 
 step Tanaris Field Sampling
   tip A sample can fail, so it can take several tries to get eight of each.
+  accept 841 optional                   -- Only without a power source (Tanaris Field Sampling abandoned, or its two hours ran out): Chief Engineer Bilgewhizzle
+  collect 8483 x10 quest 841.1 optional -- Wastewander Water Pouches, from the Wastewander camps east of Gadgetzan
+  turnin 841 optional                   -- Chief Engineer Bilgewhizzle: a new Model 4711-FTZ Power Source
   accept 654 -- Use the Model 4711-FTZ Power Source: it starts the quest and its two-hour timer. No power source, or the timer ran out? Another Power Source? from Chief Engineer Bilgewhizzle trades a new one for ten Wastewander Water Pouches, from the Wastewander camps east of Gadgetzan, once Tanaris Field Sampling is out of your log.
   collect 9439 @52.9,32.4 map 1446
   use 9439 quest 654.2 @52.9,32.4 map 1446

@@ -6243,6 +6243,29 @@ local function stepGroups(s)
 		grp.pending, grp.done = pending, pending == 0
 		if not focus and pending > held then focus = grp.index end
 	end
+	-- An accept its quest's item starts waits while the bags lack the item: an
+	-- earlier group with an open optional goal, the way to a new one (Another
+	-- Power Source? at Bilgewhizzle before Tanaris Field Sampling, #4577), takes
+	-- the focus instead (Own.currentGoal then leads its first open optional goal).
+	if focus then
+		local lacking
+		for _, g in ipairs(groups[focus].goals) do
+			if stillBlocks(s, g, goals[g]) then
+				lacking = Own.startLacking(goals[g])
+				break
+			end
+		end
+		for i = 1, lacking and focus - 1 or 0 do
+			for _, g in ipairs(groups[i].goals) do
+				local goal = goals[g]
+				if goal.optional and goalApplies(goal) and not unavailableFor(goal) and not Own.goalSkipped(s, g) and not goalDone(s, g, goal) then
+					focus = i
+					break
+				end
+			end
+			if focus == i then break end
+		end
+	end
 	return groups, focus, groupOf
 end
 
@@ -7191,6 +7214,10 @@ function Own.currentGoal(s, groups, focus)
 		end
 	end
 	if first and step.goals[first].t == "goto" then first = Own.grindAfter(s, grp, first) or first end
+	-- An accept the quest's own item starts waits for that item: while the bags
+	-- lack it, an open optional goal before it leads instead, the way to a new
+	-- one (Another Power Source? before Tanaris Field Sampling, #4577).
+	if first and optional and optional < first and Own.startLacking(step.goals[first]) then return optional, header end
 	if first then
 		Own.meetKills[step] = nil
 		if fields and #fields >= 2 and fields[1] == first then
@@ -7201,6 +7228,12 @@ function Own.currentGoal(s, groups, focus)
 		return first, header or Own.headerOf(s, grp, first)
 	end
 	return optional or header, header
+end
+
+-- Whether goal is an accept its quest's item starts (no giver) and the bags
+-- hold none of that item.
+function Own.startLacking(goal)
+	return goal.t == "accept" and goal.item ~= nil and not goal.npc and not goal.object and (Compat().GetItemCount(goal.item) or 0) < 1
 end
 
 -- The placed field goal (collect, kill, interact) of step s that counts the

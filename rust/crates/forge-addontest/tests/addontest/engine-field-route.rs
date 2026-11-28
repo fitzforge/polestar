@@ -588,3 +588,25 @@ assert(E.GetWaypoint().goalIndex == 1, "the use keeps its place: " .. tostring(E
 "#,
 	);
 }
+
+// #4577 (Feels): Tanaris Field Sampling (654) starts from the Model 4711-FTZ Power Source. After an abandon the
+// player has none, and the step waited on that accept. Another Power Source? (841) gives a new one; its rows are
+// optional, before the accept. While the bags lack the item they lead; with it, the accept leads again.
+#[test]
+fn issue_4577_an_accept_whose_start_item_is_missing_gives_way_to_the_optional_way_to_it() {
+	let goals = r#"{ t = "accept", quest = 841, title = "Another Power Source?", npc = 7407, optional = true, map = 1429, x = 52, y = 28 },
+		{ t = "turnin", quest = 841, title = "Another Power Source?", npc = 7407, optional = true, map = 1429, x = 52, y = 28 },
+		{ t = "accept", quest = 654, title = "Tanaris Field Sampling", item = 8524, itemName = "Model 4711-FTZ Power Source" },
+		{ t = "kill", target = "Hyena", npc = 5, count = 1, quest = 654, oi = 1, map = 1429, x = 60, y = 50 }"#;
+	check(
+		goals,
+		"",
+		END,
+		r#"
+assert(E.GetStepView(1).current == 1, "no power source: Another Power Source? leads: " .. tostring(E.GetStepView(1).current))
+assert(E.GetWaypoint().goalIndex == 1)
+w.addItem(8524, 1); flush()
+assert(E.GetStepView(1).current == 3, "with the power source its accept leads: " .. tostring(E.GetStepView(1).current))
+"#,
+	);
+}

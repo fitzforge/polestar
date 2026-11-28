@@ -1,5 +1,5 @@
 {
-	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. rows: { before?: [line], after?: [line] } (alone on its record) puts goal lines (use, interact, talk, equip, collect, kill, cast, buff, task, note or goto, no indent) right before and right after the anchored goal line in its step, each once: an action a tip used to describe, as a goal of its own (Tanaris Field Sampling's untested samples, looted and used before each count). at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote or rows. A sethome anchor names an inn (at: { goal: \"sethome\", sethome, guide? }) and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
+	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. rows: { before?: [line], after?: [line] } (alone on its record) puts goal lines (use, interact, talk, equip, collect, kill, accept, turnin, cast, buff, task, note or goto, no indent) right before and right after the anchored goal line in its step, each once: an action a tip used to describe, as a goal of its own (Tanaris Field Sampling's untested samples, looted and used before each count). at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote or rows. A sethome anchor names an inn (at: { goal: \"sethome\", sethome, guide? }) and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
 			"id": "booty-bay-innkeeper-floor",
@@ -23061,6 +23061,34 @@
 				}
 			],
 			"issue": 4551
+		},
+		{
+			"id": "another-power-source-rows-04-tanaris",
+			"faction": "Horde",
+			"at": {
+				"quest": 654,
+				"goal": "accept",
+				"guide": "forever/horde/40-50/04-tanaris"
+			},
+			"rows": {
+				"before": [
+					"accept 841 optional -- Only without a power source (Tanaris Field Sampling abandoned, or its two hours ran out): Chief Engineer Bilgewhizzle",
+					"collect 8483 x10 quest 841.1 optional -- Wastewander Water Pouches, from the Wastewander camps east of Gadgetzan",
+					"turnin 841 optional -- Chief Engineer Bilgewhizzle: a new Model 4711-FTZ Power Source"
+				]
+			},
+			"note": "#4577 (Feels): after Tanaris Field Sampling (654) was abandoned, or its power source lost or its two hours run out, the step waited on 654's accept from the Model 4711-FTZ Power Source (8524) the player no longer had, and only the accept's note named Another Power Source? (841: Chief Engineer Bilgewhizzle, ten Wastewander Water Pouches, rewards a new 8524; it cannot be taken while 654 is in the log). Its accept, pouches and hand-in are optional rows before 654's accept; while the bags lack the power source the arrow leads through them (Engine: an item-started accept with its item missing gives way to an open optional goal before it).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "#4577's report: quest log with 841 0/1 and no 654, the step on 654's accept from item 8524; players' recordings: 12 abandons of 654 in 33 accepts"
+				},
+				{
+					"kind": "questie",
+					"ref": "quest 841: giver and ender Chief Engineer Bilgewhizzle (7407), objective 10 Wastewander Water Pouches (8483), reward 8524, exclusive with 654"
+				}
+			],
+			"issue": 4577
 		}
 	]
 }

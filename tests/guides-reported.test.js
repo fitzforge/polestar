@@ -19208,6 +19208,25 @@ test('forever/horde/40-50/04-tanaris.guide: Tanaris Field Sampling\'s step says 
 	assert.match(text, /Wastewander Water Pouches|\{item:8483\}/, 'and what it takes');
 });
 
+// #4577 (Feels): after an abandon the step waited on 654's accept from a power source the player no longer had.
+// Another Power Source? (841) is optional rows before that accept: its accept, the ten pouches and the hand-in at
+// Bilgewhizzle, which the Engine leads through while the bags lack the power source (engine-field-route #4577).
+test('forever/horde/40-50/04-tanaris.guide: Another Power Source? rows lead back to Tanaris Field Sampling after an abandon (#4577)', { skip }, () => {
+	const list = goals('forever/horde/40-50/04-tanaris.guide');
+	const accept = at(list, 'accept 654', is('accept', 654));
+	const rows = ['accept 841', 'collect 8483 quest 841', 'turnin 841'].map((what, k) => {
+		const i = at(list, what, k === 1 ? (g) => g.t === 'collect' && g.item === 8483 && g.quest === 841 : is(what.split(' ')[0], 841));
+		assert.ok(i < accept && list[i].s === list[accept].s, `${what} before 654's accept, in its step`);
+		assert.ok(list[i].goal.optional, `${what} is optional`);
+		return i;
+	});
+	assert.ok(rows[0] < rows[1] && rows[1] < rows[2], 'accept, pouches, hand-in');
+	assert.equal(list[rows[1]].goal.count, 10, 'ten pouches');
+	assert.equal(list[accept].goal.item, 8524, '654 starts from the power source');
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	assert.ok(fixes.some((f) => f.issue === 4577 && f.at.quest === 654 && f.at.goal === 'accept' && f.rows), 'and its record');
+});
+
 // #3279 (beardedoak): the Horde Un'Goro guide hands Lines of Communication (2995) in at Oran Snakewrithe, but its three
 // Highvale objectives are only in the Hinterlands guide's Highvale step, which the player had already left; the arrow
 // went to the Undercity for a quest he could not finish there. The hand-in says where the work is (bumblei3, #3305).
