@@ -422,9 +422,18 @@ local function sky(c, x, y, width, h)
 		l.title:SetText(s.title)
 		l.title:SetWidth(lw)
 		l.title:SetJustifyH("CENTER")
-		l.why:SetText(s.why or "")
 		l.why:SetWidth(lw)
 		l.why:SetJustifyH("CENTER")
+		-- One line as wide as the slot: the strongest reasons that fit (Order.Why's order), never an ellipsis
+		-- nothing on the page opens.
+		local why = s.why
+		l.why:SetText(why or "")
+		while why and l.why:GetStringWidth() > lw do
+			local fewer = why:match("^(.*) \194\183 ")
+			if not fewer then break end
+			why = fewer
+			l.why:SetText(why)
+		end
 		if up then
 			at(l.why, p[1] - lw / 2, p[2] - 14 - 14, "TOPLEFT")
 			at(l.title, p[1] - lw / 2, p[2] - 14 - 14 - 18, "TOPLEFT")
