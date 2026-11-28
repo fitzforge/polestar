@@ -205,7 +205,7 @@ function draft(name) {
 function getIts(text, material) {
 	return text
 		.split('\n\n')
-		.filter((b) => new RegExp(`^step Get (\\d+ )?${material}(\\n| \\()`).test(b))
+		.filter((b) => new RegExp(`^step Get (\\d+ )?${material}s?(\\n| \\()`).test(b))
 		.map((b) => {
 			const lines = b.split('\n');
 			const val = (k) => (lines.find((l) => l.startsWith(`  ${k} `)) || '').slice(k.length + 3) || null;

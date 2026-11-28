@@ -247,7 +247,7 @@ test('Tailoring 75-150 levels on the bolts the later stretches use: under 300 Wo
 	const all = steps(read('tailoring'));
 	const n = all.filter((s) => /^Get \d+ Wool Cloth$/.test(s.title)).reduce((a, s) => a + Number(/^collect 2592 x(\d+)/.exec(s.lines.find((l) => /^collect 2592 /.test(l)))[1]), 0);
 	assert.ok(n <= 300, `75-150 asks ${n} Wool Cloth`);
-	assert.ok(all.some((s) => s.lines.includes('craft 3839 until 120')), 'Bolt of Silk Cloth to 120');
+	assert.ok(all.some((s) => s.lines.includes('craft 3839 x55') && / · keep them for the hoods and packs$/.test(s.title)), 'Bolt of Silk Cloth 100-120, kept for the hoods and packs');
 	assert.ok(all.some((s) => s.lines.includes('craft 8760 until 125')), 'Azure Silk Hood to 125');
 	assert.ok(!all.some((s) => s.lines.some((l) => /^craft 3866 until/.test(l))), 'no Stylish Red Shirt stretch');
 });
@@ -262,7 +262,7 @@ test('Blacksmithing 225-300: Derotain\'s belt and bracers from 240 on one visit,
 	const at = (q) => all.findIndex((s) => s.lines.includes(`turnin ${q} direct`));
 	assert.ok(at(7653) > 0 && at(7655) === at(7653) + 1, 'the bracers plans come on the belt plans\' visit');
 	assert.ok(all.some((s) => s.lines.includes('craft 16647 until 245')) && all.some((s) => s.lines.includes('craft 16649 until 270')), 'belt to 245, bracers to 270');
-	const thorium = (...w) => all.filter((s) => s.section && s.section[0] >= 270 && /^Get \d+ Thorium Bar$/.test(s.title) && w.every((x) => s.lines.includes(x))).reduce((a, s) => a + Number(/x(\d+)/.exec(s.lines.find((l) => l.startsWith('collect 12359 ')))[1]), 0);
+	const thorium = (...w) => all.filter((s) => s.section && s.section[0] >= 270 && /^Get \d+ Thorium Bars$/.test(s.title) && w.every((x) => s.lines.includes(x))).reduce((a, s) => a + Number(/x(\d+)/.exec(s.lines.find((l) => l.startsWith('collect 12359 ')))[1]), 0);
 	assert.equal(thorium('when knows 16656', 'when has 12713'), 508, 'the Radiant way: 508 Thorium Bars');
 	assert.equal(thorium('when knows 16656', 'when !has 12713'), 808, 'Radiant Boots without the leggings plans: the boots, then Derotain\'s leggings and their quest\'s 60');
 	assert.equal(thorium('when !knows 16662'), 1220, 'Derotain\'s boots and leggings, their quests\' 100 included');

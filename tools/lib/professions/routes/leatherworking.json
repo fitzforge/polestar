@@ -18,8 +18,8 @@
 				"Horde": [223, 1385, 3007, 3008, 3069, 3365, 3549, 3703, 4588, 5811, 11084, 11098, 251993, 252376]
 			},
 			"route": [
-				{ "from": 1, "to": 30, "recipe": 2881, "count": 35, "mats": { "2934": 105 }, "keep": "Keep the leather: the gloves at 40 use it." },
-				{ "from": 30, "to": 40, "recipe": 3816, "count": 10, "mats": { "783": 10, "4289": 10 }, "keep": "Keep all 10 hides for the Embossed Leather Pants at 70." },
+				{ "from": 1, "to": 30, "recipe": 2881, "count": 35, "mats": { "2934": 105 }, "keep": "it for the gloves" },
+				{ "from": 30, "to": 40, "recipe": 3816, "count": 10, "mats": { "783": 10, "4289": 10 }, "keep": "them for the pants at 70" },
 				{ "from": 40, "to": 60, "recipe": 3756, "count": 20, "mats": { "2318": 60, "2320": 40 } }
 			]
 		},
@@ -35,11 +35,11 @@
 			"route": [
 				{ "from": 60, "to": 70, "recipe": 3756, "count": 10, "mats": { "2318": 30, "2320": 20 } },
 				{ "from": 70, "to": 80, "recipe": 3759, "count": 10, "mats": { "4231": 10, "2318": 60, "2320": 20 }, "note": "No points past 75 until Journeyman is trained." },
-				{ "from": 80, "to": 95, "recipe": 3817, "count": 20, "mats": { "4232": 20, "4289": 20 }, "keep": "Keep all 20 hides for the Dark Leather Belts at 105." },
-				{ "from": 95, "to": 105, "recipe": 3763, "count": 22, "mats": { "2318": 132, "2320": 44 }, "keep": "Keep 20 belts: the Dark Leather Belts at 105 are made from them." },
+				{ "from": 80, "to": 95, "recipe": 3817, "count": 20, "mats": { "4232": 20, "4289": 20 }, "keep": "them for the belts at 105" },
+				{ "from": 95, "to": 105, "recipe": 3763, "count": 22, "mats": { "2318": 132, "2320": 44 }, "keep": "20 for the Dark Leather Belts" },
 				{ "from": 105, "to": 125, "recipe": 3766, "count": 20, "mats": { "4246": 20, "4233": 20, "2321": 40, "4340": 20 } },
-				{ "from": 125, "to": 130, "recipe": 20649, "count": 8, "mats": { "2319": 40 }, "keep": "Keep the Heavy Leather for the shoulders at 150." },
-				{ "from": 130, "to": 143, "recipe": 3818, "count": 25, "mats": { "4235": 25, "4289": 75 }, "keep": "Keep all 25: 15 for the shoulders at 150, 10 for the gloves at 165." },
+				{ "from": 125, "to": 130, "recipe": 20649, "count": 8, "mats": { "2319": 40 }, "keep": "it for the shoulders at 150" },
+				{ "from": 130, "to": 143, "recipe": 3818, "count": 25, "mats": { "4235": 25, "4289": 75 }, "keep": "them for the shoulders and gloves" },
 				{ "from": 143, "to": 150, "recipe": 3764, "count": 8, "mats": { "2319": 112, "2321": 32 } }
 			]
 		},

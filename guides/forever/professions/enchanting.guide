@@ -54,13 +54,13 @@ step Buy 1 Copper Rod
   tip For 1 Runed Copper Rod.
   buy 6217 x1 nearest
 
-step Buy 19 Mote of Magic
+step Buy 19 Motes of Magic
   tip For 1 Runed Copper Rod and 18 Enchant Bracer - Inferior Stamina.
   buy 247786 x19 nearest
 
-step Craft 1 Runed Copper Rod until 2
-  tip A tool: it stays in your bags, and every enchant needs it.
-  craft 7421 until 2
+step Craft 1 Runed Copper Rod
+  tip It takes Enchanting to about 2. A tool: it stays in your bags, and every enchant needs it.
+  craft 7421 x1
 
 section Enchanting 2-20
 
@@ -70,7 +70,7 @@ step Disenchant your green items until 20
   task "No green items left to break" either
 
 step Craft 18 Enchant Bracer - Inferior Stamina until 20
-  tip About 18 crafts. Any bracer you wear or carry takes them all, one over the last.
+  tip Only if disenchanting didn't get you to 20. Any bracer you wear or carry takes them all, one over the last.
   craft 7418 until 20
 
 section Enchanting 20-70
@@ -107,7 +107,8 @@ step Learn Enchant Cloak - Minor Protection
   learn 7771 npc 1317,5157,4213,3345,4616,3011
 
 step Learn Enchant Chest - Inferior Stamina
-  tip Taught at 20; done at once if you learned it then.
+  when !knows 7420
+  tip Taught at 20, before the part of the guide you started from.
   learn 7420 npc 1317,5157,4213,3345,4616,3011
 
 step Craft 21 Enchant Chest - Inferior Stamina until 85
@@ -132,7 +133,7 @@ step Get 1 Silver Rod
   tip For 1 Runed Silver Rod.
   auction 6338 x1
 
-step Get 4 Lesser Magic Essence
+step Get 4 Lesser Magic Essences
   tip For 1 Runed Silver Rod.
   collect 10938 x4 anywhere gather Enchanting 1 levels 1-10
   auction 10938 x4
@@ -145,9 +146,9 @@ step Get 3 Strange Dust
 step Learn Runed Silver Rod
   learn 7795 npc 1317,5157,4213,3345,4616,3011
 
-step Craft 1 Runed Silver Rod until 110
-  tip A tool: the enchants from 130 need this rod in your bags.
-  craft 7795 until 110
+step Craft 1 Runed Silver Rod
+  tip It takes Enchanting to about 110. A tool: the enchants from 130 need this rod in your bags.
+  craft 7795 x1
 
 section Enchanting 110-150
 
@@ -157,7 +158,8 @@ step Get 138 Strange Dust
   auction 10940 x138
 
 step Learn Enchant Cloak - Minor Protection
-  tip Taught at 70; done at once if you learned it then.
+  when !knows 7771
+  tip Taught at 70, before the part of the guide you started from.
   learn 7771 npc 1317,5157,4213,3345,4616,3011
 
 step Craft 29 Enchant Cloak - Minor Protection until 130
@@ -173,15 +175,15 @@ step Craft 20 Enchant Boots - Minor Stamina until 150
 
 section Enchanting 150-151
 
-step Buy 41 Leaded Vial
+step Buy 41 Leaded Vials
   tip For 16 Minor Mana Oils and 25 Lesser Wizard Oils.
   buy 3372 x41 nearest
 
-step Buy 32 Maple Seed
+step Buy 32 Maple Seeds
   tip For 16 Minor Mana Oils.
   buy 17034 x32 nearest
 
-step Buy 50 Stranglethorn Seed
+step Buy 50 Stranglethorn Seeds
   tip For 25 Lesser Wizard Oils.
   buy 17035 x50 nearest
 
@@ -210,9 +212,9 @@ step Train Expert Enchanting
 step Learn Runed Golden Rod
   learn 13628 npc 11072,11074
 
-step Craft 1 Runed Golden Rod until 151
-  tip A tool: the enchants from 160 need this rod in your bags.
-  craft 13628 until 151
+step Craft 1 Runed Golden Rod
+  tip It takes Enchanting to about 151. A tool: the enchants from 160 need this rod in your bags.
+  craft 13628 x1
 
 section Enchanting 151-200
 
@@ -269,9 +271,9 @@ step Get 1 Truesilver Rod
 step Learn Runed Truesilver Rod
   learn 13702 npc 11072,11074
 
-step Craft 1 Runed Truesilver Rod until 201
-  tip A tool: the enchants from 205 need this rod in your bags.
-  craft 13702 until 201
+step Craft 1 Runed Truesilver Rod
+  tip It takes Enchanting to about 201. A tool: the enchants from 205 need this rod in your bags.
+  craft 13702 x1
 
 section Enchanting 201-225
 
@@ -307,7 +309,7 @@ step Craft 5 Enchant Cloak - Greater Defense until 225
 
 section Enchanting 225-250
 
-step Buy 52 Crystal Vial
+step Buy 52 Crystal Vials
   tip For 26 Lesser Mana Oils and 26 Wizard Oils.
   buy 8925 x52 nearest
 
@@ -419,7 +421,8 @@ step Get 48 Dream Dust
   auction 11176 x48
 
 step Learn Enchant Shield - Greater Stamina
-  tip Taught at 270; done at once if you learned it then.
+  when !knows 20017
+  tip Taught at 270, before the part of the guide you started from.
   learn 20017
 
 step Craft 8 Enchant Shield - Greater Stamina until 299
@@ -432,17 +435,17 @@ step Get 1 Golden Pearl
   tip For 1 Runed Arcanite Rod.
   auction 13926 x1
 
-step Get 4 Small Brilliant Shard
+step Get 4 Small Brilliant Shards
   tip For 1 Runed Arcanite Rod.
   collect 14343 x4 anywhere gather Enchanting 1 levels 46-50
   auction 14343 x4
 
-step Get 2 Large Brilliant Shard
+step Get 2 Large Brilliant Shards
   tip For 1 Runed Arcanite Rod.
   collect 14344 x2 anywhere gather Enchanting 1 levels 51-60
   auction 14344 x2
 
-step Get 4 Greater Eternal Essence
+step Get 4 Greater Eternal Essences
   tip For 1 Runed Arcanite Rod.
   collect 16203 x4 anywhere gather Enchanting 1 levels 51-60
   auction 16203 x4

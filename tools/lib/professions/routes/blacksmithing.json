@@ -41,10 +41,10 @@
 				"Horde": [1383, 4596, 2998, 276067, 252479]
 			},
 			"route": [
-				{ "from": 75, "to": 84, "recipe": 3326, "count": 60, "mats": { "2836": 120 }, "keep": "Keep all 60: the bracers at 95 and 115 and the gauntlets at 125 use them." },
+				{ "from": 75, "to": 84, "recipe": 3326, "count": 60, "mats": { "2836": 120 }, "keep": "them for the bracers and gauntlets" },
 				{ "from": 84, "to": 95, "recipe": 2668, "count": 11, "mats": { "2841": 66 }, "note": "Short of 84 after the stones? These leggings carry on from where you are." },
 				{ "from": 95, "to": 100, "recipe": 2672, "count": 5, "mats": { "2841": 25, "3478": 10 } },
-				{ "from": 100, "to": 115, "recipe": 3337, "count": 30, "mats": { "2838": 90 }, "keep": "Keep all 30 for the Golden Scale Bracers at 185." },
+				{ "from": 100, "to": 115, "recipe": 3337, "count": 30, "mats": { "2838": 90 }, "keep": "them for the bracers at 185" },
 				{ "from": 115, "to": 125, "recipe": 2672, "count": 10, "mats": { "2841": 50, "3478": 20 } },
 				{ "from": 125, "to": 140, "recipe": 3333, "count": 15, "mats": { "2841": 120, "2842": 15, "3478": 30 }, "note": "Silver Bar dear? 15 Bronze Warhammers reach 140 too.", "alternative": { "recipe": 9985, "count": 15, "mats": { "2841": 120, "3466": 15, "2319": 15 }, "why": "price" } }
 			]
@@ -61,9 +61,9 @@
 			},
 			"route": [
 				{ "from": 140, "to": 175, "recipe": 3501, "count": 40, "mats": { "3575": 240, "2605": 40 } },
-				{ "from": 175, "to": 180, "recipe": 9920, "count": 8, "mats": { "7912": 32 }, "keep": "Keep all 8 for the step at 210." },
+				{ "from": 175, "to": 180, "recipe": 9920, "count": 8, "mats": { "7912": 32 }, "keep": "them for 210" },
 				{ "from": 180, "to": 185, "recipe": 9918, "count": 28, "mats": { "7912": 28 }, "note": "Green from 180: short of 185? A few more do it." },
-				{ "from": 185, "to": 195, "recipe": 7223, "count": 15, "mats": { "3859": 75, "3486": 30 }, "keep": "Alliance smiths who want Armorsmithing later: keep 6." },
+				{ "from": 185, "to": 195, "recipe": 7223, "count": 15, "mats": { "3859": 75, "3486": 30 }, "note": "The Alliance Armorsmithing quest asks for 6 of these." },
 				{ "from": 195, "to": 210, "recipe": 9931, "count": 17, "mats": { "3860": 204 }, "note": "Armorsmith or Weaponsmith opens at 200 and level 40; optional." }
 			]
 		},
@@ -95,10 +95,10 @@
 						{
 							"name": "Heavy Mithril",
 							"route": [
-								{ "from": 210, "to": 215, "recipe": 9993, "count": 6, "mats": { "3860": 72, "3864": 12, "7966": 6, "4234": 24 }, "keep": "Weaponsmithing later? Keep 2: its quest asks for them." },
-								{ "from": 215, "to": 225, "recipe": 9961, "count": 10, "mats": { "3860": 100, "4338": 60 }, "keep": "Armorsmithing later? Keep 2: its quest asks for them." },
+								{ "from": 210, "to": 215, "recipe": 9993, "count": 6, "mats": { "3860": 72, "3864": 12, "7966": 6, "4234": 24 }, "note": "The Weaponsmithing quest asks for 2 of these." },
+								{ "from": 215, "to": 225, "recipe": 9961, "count": 10, "mats": { "3860": 100, "4338": 60 }, "note": "The Armorsmithing quest asks for 2 of these." },
 								{ "from": 225, "to": 235, "recipe": 16641, "count": 16, "mats": { "12365": 16 } },
-								{ "from": 235, "to": 240, "recipe": 9968, "count": 11, "mats": { "3860": 154, "4304": 44 }, "keep": "Armorsmithing later? Keep 2: its quest asks for them." },
+								{ "from": 235, "to": 240, "recipe": 9968, "count": 11, "mats": { "3860": 154, "4304": 44 }, "note": "The Armorsmithing quest asks for 2 of these." },
 								{ "from": 240, "to": 245, "recipe": 16647, "count": 5, "mats": { "12359": 110, "8170": 30, "7909": 5 }, "quests": [7652, 7653, 7655] }
 							]
 						}

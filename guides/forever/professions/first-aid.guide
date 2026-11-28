@@ -65,7 +65,8 @@ step Train Journeyman First Aid
   train First Aid Journeyman
 
 step Learn Heavy Linen Bandage
-  tip Taught at 40; done at once if you learned it then.
+  when !knows 3276
+  tip Taught at 40, before the part of the guide you started from.
   learn 3276 npc 2327,5150,4211,2329,2326,6094,3181,257007,257018,3373,4591,2798,5943,5939,5759
 
 step Craft 13 Heavy Linen Bandages until 80
@@ -110,7 +111,7 @@ step Buy Expert First Aid - Under Wraps · Deneb Walker
 
 step Buy Expert First Aid - Under Wraps · Balai Lok'Wein
   only Horde
-  buy 16084 x1 npc 13476
+  buy 16084 x1 npc 13476 map 1445
 
 step Read Expert First Aid - Under Wraps
   tip It teaches Expert First Aid from your bags.
@@ -124,7 +125,7 @@ step Buy Manual: Heavy Silk Bandage · Deneb Walker
 step Buy Manual: Heavy Silk Bandage · Balai Lok'Wein
   when !knows 7929
   only Horde
-  buy 16112 x1 npc 13476
+  buy 16112 x1 npc 13476 map 1445
 
 step Buy Manual: Mageweave Bandage · Deneb Walker
   when !knows 10840
@@ -134,7 +135,7 @@ step Buy Manual: Mageweave Bandage · Deneb Walker
 step Buy Manual: Mageweave Bandage · Balai Lok'Wein
   when !knows 10840
   only Horde
-  buy 16113 x1 npc 13476
+  buy 16113 x1 npc 13476 map 1445
 
 step Craft 44 Silk Bandages until 180
   tip About 44 crafts.
@@ -189,7 +190,7 @@ step Accept Triage
 step Complete Triage
   only Alliance
   tip Use his Triage Bandages, the worst wounds first: 15 saved completes it, and 6 deaths fail it.
-  complete 6624
+  complete 6624 @67.79,49.06 era map 1445
 
 step Hand in Triage
   only Alliance
@@ -211,7 +212,7 @@ step Accept Triage
 step Complete Triage
   only Horde
   tip Use his Triage Bandages, the worst wounds first: 15 saved completes it, and 6 deaths fail it.
-  complete 6622
+  complete 6622 @73.4,36.8 era map 1417
 
 step Hand in Triage
   only Horde
@@ -219,7 +220,8 @@ step Hand in Triage
   turnin 6622
 
 step Learn Mageweave Bandage
-  tip Taught at 210; done at once if you learned it then.
+  when !knows 10840
+  tip Taught at 210, before the part of the guide you started from.
   learn 10840
 
 step Craft 26 Mageweave Bandages until 240
@@ -235,7 +237,7 @@ step Craft 30 Heavy Mageweave Bandages until 260
 
 section "First Aid" 260-300
 
-step Get 71 Runecloth
+step Get 71 Runecloths
   tip For 47 Runecloth Bandages and 12 Heavy Runecloth Bandages.
   collect 14047 x71 nearest gather levels 45-60
   auction 14047 x71

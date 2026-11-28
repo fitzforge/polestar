@@ -219,7 +219,7 @@ step Craft 28 Goblin Deviled Clams until 175
 
 section Cooking 175-225
 
-step Get 55 Raptor Flesh
+step Get 55 Raptor Fleshes
   tip For 55 Roast Raptors.
   collect 12184 x55 nearest gather levels 30-50
   auction 12184 x55
@@ -271,7 +271,7 @@ step Get 72 Raw Spotted Yellowtail
   tip For 72 Spotted Yellowtail.
   auction 4603 x72
 
-step Get 12 Giant Egg
+step Get 12 Giant Eggs
   tip For Clamlette Surprise, which teaches Artisan Cooking.
   collect 12207 x12 nearest gather levels 41-58
   auction 12207 x12

@@ -74,13 +74,13 @@ step Get 56 Rough Stone
   loop Mulgore lvl 8 lap 540 yield 9.7 only Horde r 60 at 41.8,79.8 33.5,58.2 31.6,60.9 34.0,66.5 33.2,70.1 34.1,72.7 32.9,76.2 33.7,81.2 34.6,79.8 41.2,82.0 49.0,92.8 49.2,87.7
   auction 2835 x56
 
-step Craft 56 Rough Blasting Powder until 35
-  tip About 56 crafts. Keep all 56: the bombs at 56 use them.
-  craft 3918 until 35
+step Craft 56 Rough Blasting Powder · keep them for the bombs at 56
+  tip They take Engineering to about 35.
+  craft 3918 x56
 
 section Engineering 35-56
 
-step Get 34 Copper Bar
+step Get 34 Copper Bars
   tip For 28 Handfuls of Copper Bolts and 1 Arclight Spanner. No Mining? The bars, not the ore.
   collect 2840 x34 gather Mining 1
   loop Zephras Isle lvl 5 lap 310 yield 36.4 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
@@ -131,9 +131,9 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 28 Handfuls of Copper Bolts until 55
-  tip About 28 crafts. Keep all 28 for the bombs at 56.
-  craft 3922 until 55
+step Craft 28 Handfuls of Copper Bolts · keep them for the bombs at 56
+  tip They take Engineering to about 55.
+  craft 3922 x28
 
 step Learn Arclight Spanner
   learn 7430 npc 11026,11028,1702,11037,251684,5518,11029,1676,2857,4586,11025,10993,11017,11031
@@ -174,9 +174,9 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 1 Arclight Spanner until 56
-  tip A tool: it stays in your bags, and many recipes need it.
-  craft 7430 until 56
+step Craft 1 Arclight Spanner
+  tip It takes Engineering to about 56. A tool: it stays in your bags, and many recipes need it.
+  craft 7430 x1
 
 section Engineering 56-75
 
@@ -189,7 +189,7 @@ step Get 28 Linen Cloth
   collect 2589 x28 nearest gather levels 5-20
   auction 2589 x28
 
-step Get 28 Copper Bar
+step Get 28 Copper Bars
   tip For 28 Rough Copper Bombs. No Mining? The bars, not the ore.
   collect 2840 x28 gather Mining 1
   loop Zephras Isle lvl 5 lap 310 yield 36.4 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
@@ -270,9 +270,9 @@ step Learn Coarse Dynamite
   tip For 90-100: taught here now, so no second trip.
   learn 3931 npc 5518,11029,1676,11017,11031
 
-step Craft 51 Coarse Blasting Powder until 90
-  tip About 51 crafts. Keep all 51 for the dynamite at 90.
-  craft 3929 until 90
+step Craft 51 Coarse Blasting Powder · keep them for the dynamite at 90
+  tip They take Engineering to about 90.
+  craft 3929 x51
 
 section Engineering 90-100
 
@@ -282,7 +282,8 @@ step Get 17 Linen Cloth
   auction 2589 x17
 
 step Learn Coarse Dynamite
-  tip Taught at 75; done at once if you learned it then.
+  when !knows 3931
+  tip Taught at 75, before the part of the guide you started from.
   learn 3931 npc 5518,11029,1676,11017,11031
 
 step Craft 17 Coarse Dynamites until 100
@@ -291,7 +292,7 @@ step Craft 17 Coarse Dynamites until 100
 
 section Engineering 100-105
 
-step Get 5 Silver Bar
+step Get 5 Silver Bars
   tip For 5 Silver Contacts.
   auction 2842 x5
 
@@ -304,7 +305,7 @@ step Craft 5 Silver Contacts until 105
 
 section Engineering 105-125
 
-step Get 50 Bronze Bar
+step Get 50 Bronze Bars
   tip For 25 Bronze Tubes. No Mining? The bars, not the ore.
   collect 2841 x50 gather Mining 65
   loop Zephras Isle lvl 5 lap 310 yield 72.8 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
@@ -355,9 +356,9 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 25 Bronze Tubes until 125
-  tip About 25 crafts. Keep 10 for the scopes at 125.
-  craft 3938 until 125
+step Craft 25 Bronze Tubes · keep 10 for the scopes at 125
+  tip They take Engineering to about 125.
+  craft 3938 x25
 
 section Engineering 125-135
 
@@ -402,7 +403,7 @@ step Get 15 Wool Cloth
   collect 2592 x15 nearest gather levels 15-30
   auction 2592 x15
 
-step Get 30 Bronze Bar
+step Get 30 Bronze Bars
   tip For 15 Whirring Bronze Gizmos. No Mining? The bars, not the ore.
   collect 2841 x30 gather Mining 65
   loop Zephras Isle lvl 5 lap 310 yield 72.8 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
@@ -415,15 +416,17 @@ step Get 30 Bronze Bar
   auction 2841 x30
 
 step Learn Heavy Blasting Powder
-  tip Taught at 125; done at once if you learned it then.
+  when !knows 3945
+  tip Taught at 125, before the part of the guide you started from.
   learn 3945 npc 5518,11029,1676,11017,11031
 
-step Craft 40 Heavy Blasting Powder
-  tip These give points too. Keep all 40: the sheep at 160 use 30 and the grenades at 193 use 3.
+step Craft 40 Heavy Blasting Powder · keep them for the sheep and grenades
+  tip These give points too.
   craft 3945 x40
 
 step Learn Whirring Bronze Gizmo
-  tip Taught at 125; done at once if you learned it then.
+  when !knows 3942
+  tip Taught at 125, before the part of the guide you started from.
   learn 3942 npc 5518,11029,1676,11017,11031
 
 step Go to an anvil
@@ -462,9 +465,9 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 15 Whirring Bronze Gizmos until 150
-  tip About 15 crafts. Keep all 15 for the sheep at 160.
-  craft 3942 until 150
+step Craft 15 Whirring Bronze Gizmos · keep them for the sheep at 160
+  tip They take Engineering to about 150.
+  craft 3942 x15
 
 section Engineering 150-160
 
@@ -488,7 +491,7 @@ step Get 15 Wool Cloth
   collect 2592 x15 nearest gather levels 15-30
   auction 2592 x15
 
-step Get 30 Bronze Bar
+step Get 30 Bronze Bars
   tip For 15 Bronze Frameworks. No Mining? The bars, not the ore.
   collect 2841 x30 gather Mining 65
   loop Zephras Isle lvl 5 lap 310 yield 72.8 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
@@ -511,9 +514,9 @@ step Learn Explosive Sheep
   tip For 160-175: taught here now, so no second trip.
   learn 3955 npc 5174,11017
 
-step Craft 15 Bronze Frameworks until 160
-  tip About 15 crafts. Keep all 15 for the sheep next.
-  craft 3953 until 160
+step Craft 15 Bronze Frameworks · keep them for the sheep next
+  tip They take Engineering to about 160.
+  craft 3953 x15
 
 section Engineering 160-175
 
@@ -523,7 +526,8 @@ step Get 30 Wool Cloth
   auction 2592 x30
 
 step Learn Explosive Sheep
-  tip Taught at 150; done at once if you learned it then.
+  when !knows 3955
+  tip Taught at 150, before the part of the guide you started from.
   learn 3955 npc 5174,11017
 
 step Go to an anvil
@@ -563,7 +567,7 @@ step Go to an anvil
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
 step Craft 15 Explosive Sheeps until 175
-  tip About 15 crafts. Goblin Engineering at 200 asks for some; keep 5 if you want it.
+  tip About 15 crafts. Goblin Engineering at 200 asks for 5 of these.
   craft 3955 until 175
 
 section Engineering 175-193
@@ -590,9 +594,9 @@ step Learn Iron Grenade
   tip For 194-195: taught here now, so no second trip.
   learn 3962 npc 5174,11017
 
-step Craft 61 Solid Blasting Powder until 193
-  tip About 61 crafts. Keep all 61: the triggers at 200 and the bombs at 238 use them.
-  craft 12585 until 193
+step Craft 61 Solid Blasting Powder · keep them for the triggers and bombs
+  tip They take Engineering to about 193.
+  craft 12585 x61
 
 section Engineering 193-194
 
@@ -601,7 +605,7 @@ step Buy 4 Coal
   tip Smelting Steel Bar takes 1 Coal a bar.
   buy 3857 x4 nearest
 
-step Get 4 Steel Bar
+step Get 4 Steel Bars
   tip For 1 Gyromatic Micro-Adjustor. No Mining? The bars, not the ore.
   collect 3859 x4 gather Mining 165
   loop Alterac Mountains lvl 37 lap 631 yield 5.2 only Alliance r 60 at 52.4,46.3 52.9,49.8 37.6,67.0 33.7,55.3 31.8,53.6 33.2,47.2 32.9,39.9 39.5,38.0 40.2,30.7 47.9,33.2 45.2,39.2 49.8,44.0
@@ -617,7 +621,8 @@ step Get 4 Steel Bar
   auction 3859 x4
 
 step Learn Gyromatic Micro-Adjustor
-  tip Taught at 175; done at once if you learned it then.
+  when !knows 12590
+  tip Taught at 175, before the part of the guide you started from.
   learn 12590 npc 5174,11017
 
 step Go to an anvil
@@ -662,7 +667,7 @@ step Craft 1 Gyromatic Micro-Adjustor until 194
 
 section Engineering 194-195
 
-step Get 3 Iron Bar
+step Get 3 Iron Bars
   tip For 3 Iron Grenades. No Mining? The bars, not the ore.
   collect 3575 x3 gather Mining 125
   loop Alterac Mountains lvl 37 lap 631 yield 5.2 only Alliance r 60 at 52.4,46.3 52.9,49.8 37.6,67.0 33.7,55.3 31.8,53.6 33.2,47.2 32.9,39.9 39.5,38.0 40.2,30.7 47.9,33.2 45.2,39.2 49.8,44.0
@@ -683,7 +688,8 @@ step Get 3 Silk Cloth
   auction 4306 x3
 
 step Learn Iron Grenade
-  tip Taught at 175; done at once if you learned it then.
+  when !knows 3962
+  tip Taught at 175, before the part of the guide you started from.
   learn 3962 npc 5174,11017
 
 step Go to an anvil
@@ -728,7 +734,7 @@ step Craft 3 Iron Grenades until 195
 
 section Engineering 195-200
 
-step Get 18 Mithril Bar
+step Get 18 Mithril Bars
   tip For 6 Mithril Tubes. No Mining? The bars, not the ore.
   collect 3860 x18 gather Mining 175
   loop Badlands lvl 45 lap 633 yield 5.9 r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 42.2,80.0 34.4,23.3 15.6,35.2 12.1,35.1 14.3,39.8 7.6,73.3 6.1,77.3 4.0,80.4
@@ -779,12 +785,12 @@ step Go to an anvil
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
 step Craft 6 Mithril Tubes until 200
-  tip About 6 crafts. Gnomish Engineering at 200 asks for some; keep all 6 if you want it.
+  tip About 6 crafts. Gnomish Engineering at 200 asks for 6 of these.
   craft 12589 until 200
 
 section Engineering 200-215
 
-step Get 21 Mithril Bar
+step Get 21 Mithril Bars
   tip For 21 Unstable Triggers. No Mining? The bars, not the ore.
   collect 3860 x21 gather Mining 175
   loop Badlands lvl 45 lap 633 yield 5.9 r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 42.2,80.0 34.4,23.3 15.6,35.2 12.1,35.1 14.3,39.8 7.6,73.3 6.1,77.3 4.0,80.4
@@ -843,13 +849,13 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 21 Unstable Triggers until 215
-  tip About 21 crafts. Keep 20 for the bombs at 238.
-  craft 12591 until 215
+step Craft 21 Unstable Triggers · keep 20 for the bombs at 238
+  tip They take Engineering to about 215.
+  craft 12591 x21
 
 section Engineering 215-238
 
-step Get 120 Mithril Bar
+step Get 120 Mithril Bars
   tip For 40 Mithril Casings. No Mining? The bars, not the ore.
   collect 3860 x120 gather Mining 175
   loop Badlands lvl 45 lap 633 yield 5.9 r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 42.2,80.0 34.4,23.3 15.6,35.2 12.1,35.1 14.3,39.8 7.6,73.3 6.1,77.3 4.0,80.4
@@ -899,9 +905,9 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 40 Mithril Casings until 238
-  tip About 40 crafts. Keep all 40 for the bombs at 238.
-  craft 12599 until 238
+step Craft 40 Mithril Casings · keep them for the bombs at 238
+  tip They take Engineering to about 238.
+  craft 12599 x40
 
 section Engineering 238-250
 
@@ -965,12 +971,12 @@ step Learn Dense Blasting Powder
   learn 19788 npc 8736
 
 step Craft 44 Dense Blasting Powder until 260
-  tip About 44 crafts. Keep 14: the Thorium Shells at 286 use them, if you get those plans.
+  tip About 44 crafts. The Thorium Shells at 286 use 14 of these, if you get those plans.
   craft 19788 until 260
 
 section Engineering 260-286
 
-step Get 84 Thorium Bar
+step Get 84 Thorium Bars
   tip For 28 Thorium Widgets. No Mining? The bars, not the ore.
   collect 12359 x84 gather Mining 250
   loop Winterspring lvl 59 lap 705 yield 4.9 only Alliance r 60 at 70.4,40.3 69.1,39.8 56.3,25.6 57.3,32.8 56.0,49.0 55.5,50.7 54.1,50.4 56.0,53.8 57.8,61.1 56.9,50.4 58.4,46.6 69.4,41.9
@@ -984,7 +990,7 @@ step Get 84 Thorium Bar
   loop Tanaris lvl 50 lap 965 yield 2.7 only Horde r 60 at 57.2,68.7 56.5,73.2 55.4,73.0 29.7,68.4 29.4,64.8 31.0,63.8 33.4,46.1 35.1,46.8 62.7,48.5 64.4,47.1 65.5,52.3 64.0,53.3
   auction 12359 x84
 
-step Get 28 Runecloth
+step Get 28 Runecloths
   tip For 28 Thorium Widgets.
   collect 14047 x28 nearest gather levels 45-60
   auction 14047 x28
@@ -1055,7 +1061,7 @@ step Learn Thorium Shells
   tip From the schematic in your bags.
   learn 19800
 
-step Get 28 Thorium Bar
+step Get 28 Thorium Bars
   when knows 19800
   tip For 14 Thorium Shells. No Mining? The bars, not the ore.
   collect 12359 x28 gather Mining 250
@@ -1114,7 +1120,7 @@ step Craft 14 Thorium Shells until 300
 
 section Engineering 286-300
 
-step Get 90 Thorium Bar
+step Get 90 Thorium Bars
   when !knows 19800
   tip For 15 Thorium Tubes. No Mining? The bars, not the ore.
   collect 12359 x90 gather Mining 250

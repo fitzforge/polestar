@@ -70,22 +70,22 @@ step Get 105 Ruined Leather Scraps
   loop Tirisfal Glades lvl 5 lap 1129 yield 57.6 only Horde r 80 at 29.5,63.4 27.8,64.2 29.0,68.4 30.7,69.3 29.4,72.5 32.0,71.2 35.5,71.2 34.7,68.6 35.0,62.5 37.3,60.0 34.2,57.8 31.2,58.0
   auction 2934 x105
 
-step Craft 35 Light Leather until 30
-  tip About 35 crafts. Keep the leather: the gloves at 40 use it.
-  craft 2881 until 30
+step Craft 35 Light Leather · keep it for the gloves
+  tip They take Leatherworking to about 30.
+  craft 2881 x35
 
 section Leatherworking 30-40
 
-step Get 10 Light Hide
+step Get 10 Light Hides
   tip For 10 Cured Light Hides.
   auction 783 x10
 
 step Learn Cured Light Hide
   learn 3816 npc 1466,1632,3605,3967,4212,5127,5564,11081,11083,11096,11097,251993,252376,223,1385,3007,3008,3069,3365,3549,3703,4588,5811,11084,11098
 
-step Craft 10 Cured Light Hides until 40
-  tip About 10 crafts. Keep all 10 hides for the Embossed Leather Pants at 70.
-  craft 3816 until 40
+step Craft 10 Cured Light Hides · keep them for the pants at 70
+  tip They take Leatherworking to about 40.
+  craft 3816 x10
 
 section Leatherworking 40-60
 
@@ -153,8 +153,9 @@ step Learn Fine Leather Belt
   learn 3763 npc 5564,5127,11081,3365,4588,11084
 
 step Learn Embossed Leather Gloves
-  tip Taught at 40; done at once if you learned it then.
-  learn 3756 npc 1466,1632,3605,3967,4212,5127,5564,11081,11083,11096,11097,251993,252376,223,1385,3007,3008,3069,3365,3549,3703,4588,5811,11084,11098
+  when !knows 3756
+  tip Taught at 40, before the part of the guide you started from.
+  learn 3756 npc 5564,5127,11081,3365,4588,11084
 
 step Craft 10 Embossed Leather Gloves until 70
   tip About 10 crafts.
@@ -166,16 +167,16 @@ step Craft 10 Embossed Leather Pants until 80
 
 section Leatherworking 80-95
 
-step Get 20 Medium Hide
+step Get 20 Medium Hides
   tip For 20 Cured Medium Hides.
   auction 4232 x20
 
 step Learn Cured Medium Hide
   learn 3817 npc 5564,5127,11081,3365,4588,11084
 
-step Craft 20 Cured Medium Hides until 95
-  tip About 20 crafts. Keep all 20 hides for the Dark Leather Belts at 105.
-  craft 3817 until 95
+step Craft 20 Cured Medium Hides · keep them for the belts at 105
+  tip They take Leatherworking to about 95.
+  craft 3817 x20
 
 section Leatherworking 95-105
 
@@ -193,12 +194,13 @@ step Get 132 Light Leather
   auction 2318 x132
 
 step Learn Fine Leather Belt
-  tip Taught at 60; done at once if you learned it then.
+  when !knows 3763
+  tip Taught at 60, before the part of the guide you started from.
   learn 3763 npc 5564,5127,11081,3365,4588,11084
 
-step Craft 22 Fine Leather Belts until 105
-  tip About 22 crafts. Keep 20 belts: the Dark Leather Belts at 105 are made from them.
-  craft 3763 until 105
+step Craft 22 Fine Leather Belts · keep 20 for the Dark Leather Belts
+  tip They take Leatherworking to about 105.
+  craft 3763 x22
 
 section Leatherworking 105-125
 
@@ -237,23 +239,24 @@ step Learn Hillman's Leather Gloves
   tip For 143-150: taught here now, so no second trip.
   learn 3764 npc 5564,5127,11081,3365,4588,11084
 
-step Craft 8 Heavy Leather until 130
-  tip About 8 crafts. Keep the Heavy Leather for the shoulders at 150.
-  craft 20649 until 130
+step Craft 8 Heavy Leather · keep it for the shoulders at 150
+  tip They take Leatherworking to about 130.
+  craft 20649 x8
 
 section Leatherworking 130-143
 
-step Get 25 Heavy Hide
+step Get 25 Heavy Hides
   tip For 25 Cured Heavy Hides.
   auction 4235 x25
 
 step Learn Cured Heavy Hide
-  tip Taught at 125; done at once if you learned it then.
+  when !knows 3818
+  tip Taught at 125, before the part of the guide you started from.
   learn 3818 npc 5564,5127,11081,3365,4588,11084
 
-step Craft 25 Cured Heavy Hides until 143
-  tip About 25 crafts. Keep all 25: 15 for the shoulders at 150, 10 for the gloves at 165.
-  craft 3818 until 143
+step Craft 25 Cured Heavy Hides · keep them for the shoulders and gloves
+  tip They take Leatherworking to about 143.
+  craft 3818 x25
 
 section Leatherworking 143-150
 
@@ -273,7 +276,8 @@ step Get 112 Medium Leather
   auction 2319 x112
 
 step Learn Hillman's Leather Gloves
-  tip Taught at 125; done at once if you learned it then.
+  when !knows 3764
+  tip Taught at 125, before the part of the guide you started from.
   learn 3764 npc 5564,5127,11081,3365,4588,11084
 
 step Craft 8 Hillman's Leather Gloves until 150
@@ -344,12 +348,13 @@ step Get 140 Heavy Leather
   loop Alterac Mountains lvl 31 lap 543 yield 3.2 only Horde r 80 at 80.0,58.9 76.8,63.7 73.5,67.0 84.3,51.6 90.0,46.5
   auction 4234 x140
 
-step Get 10 Iron Buckle
+step Get 10 Iron Buckles
   tip For 10 Barbaric Harness.
   auction 7071 x10
 
 step Learn Barbaric Harness
-  tip Taught at 165; done at once if you learned it then.
+  when !knows 6661
+  tip Taught at 165, before the part of the guide you started from.
   learn 6661 npc 4212,3007
 
 step Craft 10 Barbaric Harness until 185
@@ -438,11 +443,11 @@ step Buy Pattern: Wicked Leather Gauntlets · Werg Thickblade
   when !knows 19049
   only Horde
   tip It binds when picked up.
-  buy 15725 x1 npc 12943
+  buy 15725 x1 npc 12943 map 1420
 
 step Learn Wicked Leather Gauntlets
   tip From the pattern in your bags.
-  learn 19049 nearest
+  learn 19049
 
 step Craft 36 Wicked Leather Gauntlets until 265
   tip About 36 crafts.
@@ -460,7 +465,7 @@ step Get 686 Rugged Leather
   loop Azshara lvl 57 lap 443 yield 1.5 only Horde r 80 at 22.5,62.5 19.7,66.4 20.5,69.6
   auction 8170 x686
 
-step Get 490 Runecloth
+step Get 490 Runecloths
   tip For 49 Runic Leather Headbands.
   collect 14047 x490 nearest gather levels 45-60
   auction 14047 x490
@@ -472,7 +477,7 @@ step Buy Pattern: Runic Leather Headband · Jase Farlane
 
 step Learn Runic Leather Headband
   tip From the pattern in your bags.
-  learn 19082 nearest
+  learn 19082
 
 step Craft 49 Runic Leather Headbands until 300
   tip About 49 crafts. Yellow from 285, green from 295: short of 300? A few more do it.

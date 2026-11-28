@@ -30,6 +30,7 @@
 
 const { draftGuide, draftData, itemLoops } = require('./guide');
 const B = require('./gathering/build');
+const { HERB_NODES, MINING_NODES } = require('./gathering/tables');
 const { GUIDE_HEADER, money, fmt, rankInfo } = require('./gathering/common');
 const D = require('./describe');
 const { fishingSide } = require('./pair-fishing');
@@ -275,12 +276,19 @@ function renderPair(ctx, pair) {
 		report.seconds += (n / e.rate.up) * e.rate.lap;
 		return { from, to: st.g };
 	};
-	// What a band's loops are worked for, in a skill step's title ("Mine Copper until Mining 50"): the ore or
-	// herb its loops give most of (a Mining band's ore without " Ore"); none for skinning.
-	const nodeWord = (e) => {
-		if (G !== 'Mining' && G !== 'Herbalism') return '';
-		const top = [...((e.rate && e.rate.items) || [])].filter(([item]) => (G === 'Mining' ? / Ore$/.test(itemName(item)) : true)).sort((a, b) => b[1] - a[1])[0];
-		return top ? itemName(top[0]).replace(/ Ore$/, '') : '';
+	// What a band's loops gather, as a routed row names it: every herb or ore kind that still gives points there
+	// (rare ones aside), or for Skinning the levels of the beasts the loops hold ("beasts of level 1-4").
+	const shortNode = (n) => n.replace(/ (Mineral Vein|Vein|Deposit)$/, '').replace(/^(Wilted|Stunted|Poor|Large) /, '');
+	const whatOf = (e) => {
+		if (e.title || e.solo || !e.loops) return e.title || null;
+		const nodes = B.nodeSummary(gprof, e.loops.flatMap((l) => l.farm.on), e.from, e.to);
+		const live = nodes.filter((n) => n.color && n.color !== 'grey' && n.gain > 0);
+		const use = live.length ? live : nodes;
+		if (gprof.skins) {
+			const lv = use.map((n) => n.level).filter((x) => x != null);
+			return lv.length ? `beasts of level ${Math.min(...lv)}-${Math.max(...lv)}` : 'beasts';
+		}
+		return D.list([...new Set((use.some((n) => !n.rare) ? use.filter((n) => !n.rare) : use).map((n) => shortNode(n.name)))]);
 	};
 	// The smelts that turn ore into `n` of a bar, in order (Copper and Tin before Bronze): [{ r, n }].
 	const smeltChain = (item, n) => {
@@ -300,11 +308,21 @@ function renderPair(ctx, pair) {
 		}
 		return forges;
 	};
+	// A routed gathering row says what to gather; its tip only why: it names no herb or ore the row leaves out and
+	// gives no beast levels (the build stops otherwise).
+	const KINDS = [...new Set(Object.keys(G === 'Mining' ? MINING_NODES : G === 'Herbalism' ? HERB_NODES : {}).map(shortNode))];
+	const checkRow = (title, tip) => {
+		for (const k of KINDS) if (new RegExp(`\\b${k}\\b`).test(tip) && !title.includes(k)) throw new Error(`${pair.file}: "${title}": the tip names ${k}, which the row does not: "${tip}"`);
+		if (gprof.skins && /\blevels? \d/.test(tip)) throw new Error(`${pair.file}: "${title}": beast levels belong in the row, not the tip: "${tip}"`);
+	};
 	// A skill-only step on band e's loops from skill `from` to `to` (catch-up, the end, or a floor).
 	const skillStep = (e, from, to, tip) => {
 		const title = e.title || gprof.bandTitle(B.nodeSummary(gprof, e.loops.flatMap((l) => l.farm.on), e.from, e.to), e);
 		const short = single ? (tip.length <= 120 ? tip : `${G} ${to} first: the next loops need it.`) : tip;
-		push([single ? `step ${pair.verb}${nodeWord(e) ? ` ${nodeWord(e)}` : ''} until ${G} ${to}` : `step ${G} ${from}-${to}: ${title}`, `  tip ${short}`, ...loopsGain(e), `  skill ${G} ${to}`]);
+		const what = single && !side ? whatOf(e) : null;
+		const row = single ? `${pair.verb}${what ? ` ${what}` : ''} until ${G} ${to}` : null;
+		if (row && !side) checkRow(row, short);
+		push([single ? `step ${row}` : `step ${G} ${from}-${to}: ${title}`, `  tip ${short}`, ...loopsGain(e), `  skill ${G} ${to}`]);
 		st.floor = Math.max(st.floor, to);
 		st.sinceTrainer = true;
 	};
@@ -376,7 +394,7 @@ function renderPair(ctx, pair) {
 					// A band above gives it: catch up there first.
 					const next = up.map(([, x]) => x).sort((a, b) => a.from - b.from)[0];
 					const names = D.list(up.filter(([, x]) => x === next).map(([raw]) => itemName(raw)));
-					raiseTo(next.from, (a, b) => `${G} ${a} to ${b} before ${seg.recipe.name}: its ${names} come from ${G} ${next.from}.`);
+					raiseTo(next.from, (a, b) => (routed ? `What ${seg.recipe.name} needs comes from ${G} ${next.from}.` : `${G} ${a} to ${b} before ${seg.recipe.name}: its ${names} come from ${G} ${next.from}.`));
 					continue;
 				}
 				// The skill is past the bands that give it best: farm it there, no skill-ups.
@@ -413,7 +431,7 @@ function renderPair(ctx, pair) {
 			// The band ends first: gather it to its end (skill goal), then on in the next band.
 			const a = Math.floor(st.g);
 			gatherNodes(e, toEnd);
-			skillStep(e, a, e.to, single ? `This loop gives the ${D.list(here_.map(itemName))} to ${G} ${e.to}; the next one the rest.` : `${pair.verb} from ${G} ${a} to ${e.to} for ${seg.recipe.name}: this loop gives ${D.list(here_.map(itemName))}, and the next one the rest from ${G} ${e.to}. ${pickOf(e)}`);
+			skillStep(e, a, e.to, single ? `This loop gives part of what ${seg.recipe.name} needs; the next one the rest.` : `${pair.verb} from ${G} ${a} to ${e.to} for ${seg.recipe.name}: this loop gives ${D.list(here_.map(itemName))}, and the next one the rest from ${G} ${e.to}. ${pickOf(e)}`);
 			settle();
 		}
 		range = range || [st.g, st.g];
@@ -472,9 +490,13 @@ function renderPair(ctx, pair) {
 			const forTip = routedTip || `For ${D.crafts(seg.count90 || seg.count, seg.recipe.name)}.`;
 			const tip = `${forTip}${rise}`.length <= 120 ? `${forTip}${rise}` : forTip;
 			if (!made(main)) {
-				// One stand (no loop): the arrow goes there and the catch is a bag count.
+				// Skinning names the beasts ("Skin beasts for 105 Ruined Leather Scraps"); herbs, ore and fish are the
+				// row's own. One stand (no loop): the arrow goes there and the catch is a bag count.
+				const count = D.items(main.total, itemName(main.item), true);
+				const row = gprof.skins ? `${pair.verb} beasts for ${count}` : `${pair.verb} ${count}`;
+				if (!side) checkRow(row, tip);
 				const at = solo ? [`  zone ${solo.zone}`, `  goto ${solo.at} r 15`] : [];
-				push([`step ${pair.verb} ${main.total} ${itemName(main.item)}`, `  tip ${tip}`, ...at, `  collect ${main.item} x${main.total}${solo ? ' anywhere' : ''} gather ${G} ${ask(main)}${onlySide}`, ...loops, `  auction ${main.item} x${main.total}`]);
+				push([`step ${row}`, `  tip ${tip}`, ...at, `  collect ${main.item} x${main.total}${solo ? ' anywhere' : ''} gather ${G} ${ask(main)}${onlySide}`, ...loops, `  auction ${main.item} x${main.total}`]);
 			} else {
 				// A bar is two actions: the ore mined (its loops, or bought), then smelted at a forge, a smelt each.
 				const ores = main.raws.map((r) => ({ raw: r.raw, n: Math.ceil(main.total / r.per) })).sort((a, b) => b.n - a.n || a.raw - b.raw);
@@ -485,8 +507,10 @@ function renderPair(ctx, pair) {
 					const l = itemLoops(data, lead.raw, 1);
 					oreLoops = l ? l.lines : loops;
 				}
+				const row = `${pair.verb} ${D.list(ores.map((o) => D.items(o.n, itemName(o.raw), true)))}`;
+				if (!side) checkRow(row, tip);
 				push([
-					`step ${pair.verb} ${D.list(ores.map((o) => `${o.n} ${itemName(o.raw)}`))}`,
+					`step ${row}`,
 					`  tip ${tip}`,
 					`  collect ${lead.raw} x${lead.n} gather ${G} ${ask(main)}${onlySide}`,
 					...oreLoops,

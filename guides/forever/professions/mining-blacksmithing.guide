@@ -99,8 +99,8 @@ step Buy a Mining Pick
   tip A tool: it stays in your bags, and mining needs it.
   buy 2901 x1 nearest
 
-step Mine until Mining 50
-  tip This loop gives the Rough Stone to Mining 50; the next one the rest.
+step Mine Chunk of Amber and Copper until Mining 50
+  tip This loop gives part of what Rough Sharpening Stone needs; the next one the rest.
   loop Zephras Isle lvl 5 lap 310 gain 29.8 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
   loop Teldrassil lvl 6 lap 500 gain 32.2 only Alliance r 60 at 56.9,26.3 56.0,25.0 56.2,28.8 53.5,48.5 54.0,51.3 56.8,31.9 57.7,29.1 58.2,27.2
   loop Dun Morogh lvl 5 lap 333 gain 12.9 only Alliance r 60 at 27.3,80.1 28.7,83.0 30.1,80.5 29.6,75.7 27.1,63.9 26.7,66.0 26.4,67.8 19.7,75.4 22.0,79.3
@@ -110,8 +110,8 @@ step Mine until Mining 50
   loop Mulgore lvl 3 lap 301 gain 3.8 only Horde r 60 at 41.8,79.8 41.2,82.0 48.4,74.4 43.8,72.8
   skill Mining 50
 
-step Mine until Mining 65
-  tip This loop gives the Rough Stone to Mining 65; the next one the rest.
+step Mine Chunk of Amber and Copper until Mining 65
+  tip This loop gives part of what Rough Sharpening Stone needs; the next one the rest.
   loop Zephras Isle lvl 5 lap 310 gain 6.7 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
   loop Teldrassil lvl 11 lap 569 gain 9.5 only Alliance r 60 at 56.9,26.3 56.0,25.0 56.2,28.8 51.4,49.1 52.3,51.7 54.5,51.9 52.9,49.3 56.8,31.9 57.7,29.1 58.2,27.2
   loop Dun Morogh lvl 5 lap 333 gain 2.9 only Alliance r 60 at 27.3,80.1 28.7,83.0 30.1,80.5 29.6,75.7 27.1,63.9 26.7,66.0 26.4,67.8 19.7,75.4 22.0,79.3
@@ -155,8 +155,8 @@ step Craft 84 Rough Grinding Stones until 75
 
 section Blacksmithing 75-84
 
-step Mine until Mining 125
-  tip This loop gives the Coarse Stone to Mining 125; the next one the rest.
+step Mine Copper, Incendicite and Tin until Mining 125
+  tip This loop gives part of what Coarse Grinding Stone needs; the next one the rest.
   loop Loch Modan lvl 15 lap 465 gain 1.6 only Alliance r 60 at 25.7,45.5 26.0,50.9 26.7,57.4 29.3,72.4 35.1,57.1 45.8,61.5 36.2,23.3 36.0,16.8 23.1,24.5 22.7,31.5 26.0,31.3 23.7,36.7
   loop The Barrens lvl 14 lap 371 gain 0.7 only Horde r 60 at 45.0,23.0 43.7,22.7 43.0,21.1 44.8,21.3 45.3,22.3 46.2,20.7 47.2,22.7 44.9,25.1
   loop Darkshore lvl 18 lap 405 gain 2.2 only Alliance r 60 at 56.0,34.3 55.7,36.3 54.6,37.0 52.4,36.3 49.1,37.9 47.8,32.8 48.2,29.1 51.3,30.3 51.7,28.1 50.7,26.2 52.1,26.1 53.7,26.0
@@ -176,8 +176,8 @@ step Train Expert Mining
 step Learn Smelt Iron
   learn 3307
 
-step Mine until Mining 155
-  tip This loop gives the Coarse Stone to Mining 155; the next one the rest.
+step Mine Tin and Iron until Mining 155
+  tip This loop gives part of what Coarse Grinding Stone needs; the next one the rest.
   loop Thousand Needles lvl 28 lap 626 gain 3.0 only Horde r 60 at 42.7,33.7 44.6,39.3 40.2,50.8 37.0,54.3 35.8,50.7 34.4,53.4 33.0,51.2 30.1,45.9 23.7,44.8 23.9,23.4 28.1,28.1 34.6,26.7
   loop Duskwood lvl 25 lap 611 gain 1.1 only Alliance r 60 at 86.1,48.7 85.5,54.0 84.1,58.3 82.7,53.0 79.5,40.5 82.9,35.9
   loop Thousand Needles lvl 30 lap 621 gain 3.0 only Alliance r 60 at 26.9,52.6 16.6,40.9 21.8,41.2 23.7,44.8 26.4,47.0 28.8,49.0 30.1,45.9 33.0,51.2 35.8,50.7 38.2,51.5 37.0,54.3 34.4,53.4
@@ -212,13 +212,13 @@ step Learn Smelt Gold
 step Learn Coarse Grinding Stone
   learn 3326 npc 5511,10276,252479,1383,4596,2998,276067
 
-step Craft 60 Coarse Grinding Stones until 84
-  tip About 60 crafts. Keep all 60: the bracers at 95 and 115 and the gauntlets at 125 use them.
-  craft 3326 until 84
+step Craft 60 Coarse Grinding Stones · keep them for the bracers and gauntlets
+  tip They take Blacksmithing to about 84.
+  craft 3326 x60
 
 section Blacksmithing 84-100
 
-step Mine and smelt 91 Bronze Bar
+step Mine and smelt 91 Bronze Bars
   tip For 11 Rough Bronze Leggings and 5 Patterned Bronze Bracers.
   collect 2841 x91 gather Mining 65
   loop Zephras Isle lvl 5 lap 310 yield 72.8 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
@@ -318,8 +318,8 @@ step Craft 5 Patterned Bronze Bracers until 100
 
 section Blacksmithing 100-115
 
-step Mine until Mining 175
-  tip This loop gives the Heavy Stone to Mining 175; the next one the rest.
+step Mine Incendicite, Tin, Silver and Iron until Mining 175
+  tip This loop gives part of what Heavy Grinding Stone needs; the next one the rest.
   loop Thousand Needles lvl 31 lap 715 gain 4.0 only Horde r 60 at 26.9,53.2 26.3,55.7 11.1,38.5 10.1,36.0 10.9,32.2 23.9,23.4 34.6,26.9 42.6,33.4 44.7,39.2 53.9,45.6 55.6,49.6 35.9,50.7
   loop Wetlands lvl 32 lap 619 gain 2.7 only Alliance r 60 at 69.5,28.9 63.0,25.2 61.5,24.0 53.2,52.1 49.4,52.2 48.6,50.3 41.9,46.2 38.1,45.4 46.7,62.8 50.6,61.9 69.6,33.2 67.9,31.6
   loop Thousand Needles lvl 31 lap 624 gain 2.5 only Alliance r 60 at 26.9,53.2 26.3,55.7 16.6,40.9 21.8,41.2 23.7,44.8 26.4,47.0 28.8,49.0 30.1,45.9 33.0,51.2 35.9,50.7 37.0,54.3 34.4,53.4
@@ -331,8 +331,8 @@ step Mine until Mining 175
   loop Badlands lvl 42 lap 628 gain 3.4 only Horde r 60 at 15.6,34.9 14.8,48.6 15.0,54.5 20.2,63.0 23.7,61.3 34.9,53.0 42.2,78.9 22.6,73.3 18.5,74.8 18.0,70.3 12.9,58.9 10.8,55.3
   skill Mining 175
 
-step Mine until Mining 200
-  tip This loop gives the Heavy Stone to Mining 200; the next one the rest.
+step Mine Iron, Gold and Mithril until Mining 200
+  tip This loop gives part of what Heavy Grinding Stone needs; the next one the rest.
   loop Alterac Mountains lvl 36 lap 647 gain 5.7 only Alliance r 60 at 50.9,44.2 53.2,48.4 37.0,73.7 32.3,65.0 30.8,56.5 33.3,43.9 35.6,39.7 37.9,32.5 42.8,34.7 45.4,39.8 48.0,33.1 52.7,36.8
   loop Alterac Mountains lvl 36 lap 632 gain 3.7 only Horde r 60 at 50.9,44.2 49.1,45.2 45.4,39.8 48.0,33.1 52.7,36.8 55.1,40.6 54.1,45.6 53.2,48.4 51.2,47.3
   loop Stonetalon Mountains lvl 28 lap 616 gain 2.6 r 60 at 37.7,69.6 36.4,76.2 33.6,75.7 29.0,73.7 25.9,70.8 26.8,67.0 29.8,66.3 27.1,63.2 30.1,59.8 32.6,58.9 35.9,61.4 34.9,66.7
@@ -342,8 +342,8 @@ step Mine until Mining 200
 step Train Artisan Mining
   train Mining Artisan
 
-step Mine until Mining 230
-  tip This loop gives the Heavy Stone to Mining 230; the next one the rest.
+step Mine Iron, Gold and Mithril until Mining 230
+  tip This loop gives part of what Heavy Grinding Stone needs; the next one the rest.
   loop Alterac Mountains lvl 37 lap 648 gain 3.1 only Alliance r 60 at 50.9,44.2 53.2,48.4 37.0,73.7 32.3,65.0 30.8,56.5 33.3,43.9 35.6,39.7 37.9,32.5 42.8,34.7 45.4,39.8 48.0,33.1 52.7,36.8
   loop Alterac Mountains lvl 38 lap 641 gain 2.7 only Horde r 60 at 50.9,44.2 53.2,48.4 54.1,45.6 55.1,40.6 52.7,36.8 48.0,33.1 42.8,34.7 37.9,32.5 35.6,39.7 33.3,43.9 39.5,38.0 45.4,39.8
   loop Badlands lvl 42 lap 637 gain 2.3 r 60 at 15.6,35.0 12.1,35.1 14.3,39.8 23.9,66.4 15.1,81.7 20.8,82.2 42.2,79.6 44.3,75.3 45.4,84.6 64.3,70.4 62.4,63.8 34.4,23.3
@@ -367,13 +367,13 @@ step Mine 90 Heavy Stone
 step Learn Heavy Grinding Stone
   learn 3337 npc 5511,10276,252479,1383,4596,2998,276067
 
-step Craft 30 Heavy Grinding Stones until 115
-  tip About 30 crafts. Keep all 30 for the Golden Scale Bracers at 185.
-  craft 3337 until 115
+step Craft 30 Heavy Grinding Stones · keep them for the bracers at 185
+  tip They take Blacksmithing to about 115.
+  craft 3337 x30
 
 section Blacksmithing 115-125
 
-step Mine and smelt 50 Bronze Bar
+step Mine and smelt 50 Bronze Bars
   tip For 10 Patterned Bronze Bracers.
   collect 2841 x50 gather Mining 65
   loop Zephras Isle lvl 5 lap 310 yield 72.8 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
@@ -386,7 +386,8 @@ step Mine and smelt 50 Bronze Bar
   auction 2841 x50
 
 step Learn Patterned Bronze Bracers
-  tip Taught at 95; done at once if you learned it then.
+  when !knows 2672
+  tip Taught at 95, before the part of the guide you started from.
   learn 2672 npc 5511,10276,252479,1383,4596,2998,276067
 
 step Go to an anvil
@@ -431,7 +432,7 @@ step Craft 10 Patterned Bronze Bracers until 125
 
 section Blacksmithing 125-140
 
-step Mine and smelt 120 Bronze Bar
+step Mine and smelt 120 Bronze Bars
   tip For 15 Silvered Bronze Gauntlets.
   collect 2841 x120 gather Mining 65
   loop Zephras Isle lvl 5 lap 310 yield 72.8 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
@@ -443,7 +444,7 @@ step Mine and smelt 120 Bronze Bar
   loop Mulgore lvl 8 lap 540 yield 23.6 only Horde r 60 at 41.8,79.8 33.5,58.2 31.6,60.9 34.0,66.5 33.2,70.1 34.1,72.7 32.9,76.2 33.7,81.2 34.6,79.8 41.2,82.0 49.0,92.8 49.2,87.7
   auction 2841 x120
 
-step Get 15 Silver Bar
+step Get 15 Silver Bars
   tip For 15 Silvered Bronze Gauntlets.
   auction 2842 x15
 
@@ -496,7 +497,7 @@ step Buy 40 Green Dye
   tip For 40 Green Iron Bracers.
   buy 2605 x40 nearest
 
-step Mine and smelt 240 Iron Bar
+step Mine and smelt 240 Iron Bars
   tip For 40 Green Iron Bracers.
   collect 3575 x240 gather Mining 155
   loop Thousand Needles lvl 31 lap 715 yield 5.5 only Horde r 60 at 26.9,53.2 26.3,55.7 11.1,38.5 10.1,36.0 10.9,32.2 23.9,23.4 34.6,26.9 42.6,33.4 44.7,39.2 53.9,45.6 55.6,49.6 35.9,50.7
@@ -581,9 +582,9 @@ step Learn Golden Scale Bracers
   tip For 185-195: taught here now, so no second trip.
   learn 7223 npc 4258,3355
 
-step Craft 8 Solid Grinding Stones until 180
-  tip About 8 crafts. Keep all 8 for the step at 210.
-  craft 9920 until 180
+step Craft 8 Solid Grinding Stones · keep them for 210
+  tip They take Blacksmithing to about 180.
+  craft 9920 x8
 
 step Craft 28 Solid Sharpening Stones until 185
   tip About 28 crafts. Green from 180: short of 185? A few more do it.
@@ -600,7 +601,7 @@ step Learn Smelt Steel
   tip The bars next are smelted from what you mine.
   learn 3569
 
-step Mine and smelt 75 Steel Bar
+step Mine and smelt 75 Steel Bars
   tip For 15 Golden Scale Bracers.
   collect 3859 x75 gather Mining 165
   loop Thousand Needles lvl 31 lap 715 yield 5.5 only Horde r 60 at 26.9,53.2 26.3,55.7 11.1,38.5 10.1,36.0 10.9,32.2 23.9,23.4 34.6,26.9 42.6,33.4 44.7,39.2 53.9,45.6 55.6,49.6 35.9,50.7
@@ -615,7 +616,8 @@ step Mine and smelt 75 Steel Bar
   auction 3859 x75
 
 step Learn Golden Scale Bracers
-  tip Taught at 175; done at once if you learned it then.
+  when !knows 7223
+  tip Taught at 175, before the part of the guide you started from.
   learn 7223 npc 4258,3355
 
 step Go to an anvil
@@ -655,7 +657,7 @@ step Go to an anvil
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
 step Craft 15 Golden Scale Bracers until 195
-  tip About 15 crafts. Alliance smiths who want Armorsmithing later: keep 6.
+  tip About 15 crafts. The Alliance Armorsmithing quest asks for 6 of these.
   craft 7223 until 195
 
 section Blacksmithing 195-210
@@ -664,8 +666,8 @@ step Learn Smelt Mithril
   tip The bars next are smelted from what you mine.
   learn 10097
 
-step Mine until Mining 245
-  tip This loop gives the Mithril Ore to Mining 245; the next one the rest.
+step Mine Gold, Mithril, Dark Iron and Truesilver until Mining 245
+  tip This loop gives part of what Mithril Plate Pants needs; the next one the rest.
   loop Badlands lvl 45 lap 633 gain 1.2 r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 42.2,80.0 34.4,23.3 15.6,35.2 12.1,35.1 14.3,39.8 7.6,73.3 6.1,77.3 4.0,80.4
   loop Alterac Mountains lvl 37 lap 628 gain 1.1 only Alliance r 60 at 50.9,44.2 53.6,48.5 37.0,73.7 32.3,65.0 30.8,56.5 33.3,43.9 35.6,39.7 37.9,32.5 42.8,34.7 45.6,40.6 48.1,33.1 52.7,36.8
   loop Desolace lvl 43 lap 627 gain 1.1 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
@@ -673,7 +675,7 @@ step Mine until Mining 245
   loop Searing Gorge lvl 57 lap 616 gain 1.0 r 60 at 64.1,61.6 57.5,68.4 57.1,81.6 49.5,75.9 48.7,51.7 52.0,49.5 55.0,51.2 61.1,42.8 56.9,41.2 56.0,30.6 67.9,32.3 73.2,73.0
   skill Mining 245
 
-step Mine and smelt 204 Mithril Bar
+step Mine and smelt 204 Mithril Bars
   tip For 17 Mithril Plate Pants.
   collect 3860 x204 gather Mining 230
   loop Badlands lvl 45 lap 633 yield 5.9 r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 42.2,80.0 34.4,23.3 15.6,35.2 12.1,35.1 14.3,39.8 7.6,73.3 6.1,77.3 4.0,80.4
@@ -753,7 +755,7 @@ step Mine 148 Solid Stone
   loop Searing Gorge lvl 57 lap 616 yield 2.3 r 60 at 64.1,61.6 57.5,68.4 57.1,81.6 49.5,75.9 48.7,51.7 52.0,49.5 55.0,51.2 61.1,42.8 56.9,41.2 56.0,30.6 67.9,32.3 73.2,73.0
   auction 7912 x148
 
-step Mine and smelt 60 Mithril Bar
+step Mine and smelt 60 Mithril Bars
   when knows 9964
   tip For 15 Mithril Spurs.
   collect 3860 x60 gather Mining 230
@@ -766,7 +768,8 @@ step Mine and smelt 60 Mithril Bar
 
 step Learn Solid Grinding Stone
   when knows 9964
-  tip Taught at 175; done at once if you learned it then.
+  when !knows 9920
+  tip Taught at 175, before the part of the guide you started from.
   learn 9920 npc 2836
 
 step Craft 37 Solid Grinding Stones
@@ -854,7 +857,7 @@ step Mine 336 Solid Stone
   loop Searing Gorge lvl 57 lap 616 yield 2.3 r 60 at 64.1,61.6 57.5,68.4 57.1,81.6 49.5,75.9 48.7,51.7 52.0,49.5 55.0,51.2 61.1,42.8 56.9,41.2 56.0,30.6 67.9,32.3 73.2,73.0
   auction 7912 x336
 
-step Mine and smelt 112 Mithril Bar
+step Mine and smelt 112 Mithril Bars
   when knows 9964
   tip For 28 Mithril Spurs.
   collect 3860 x112 gather Mining 175
@@ -868,7 +871,8 @@ step Mine and smelt 112 Mithril Bar
 
 step Learn Solid Grinding Stone
   when knows 9964
-  tip Taught at 175; done at once if you learned it then.
+  when !knows 9920
+  tip Taught at 175, before the part of the guide you started from.
   learn 9920 npc 2836
 
 step Craft 84 Solid Grinding Stones
@@ -878,7 +882,8 @@ step Craft 84 Solid Grinding Stones
 
 step Learn Mithril Spurs
   when knows 9964
-  tip Taught at 210; done at once if you learned it then.
+  when !knows 9964
+  tip Taught at 210, before the part of the guide you started from.
   learn 9964
 
 step Go to an anvil
@@ -925,7 +930,7 @@ step Craft 28 Mithril Spurs until 245
 
 section Blacksmithing 210-215
 
-step Mine and smelt 72 Mithril Bar
+step Mine and smelt 72 Mithril Bars
   when !knows 9964
   tip For 6 Heavy Mithril Axes.
   collect 3860 x72 gather Mining 230
@@ -1000,12 +1005,12 @@ step Go to an anvil
 
 step Craft 6 Heavy Mithril Axes until 215
   when !knows 9964
-  tip About 6 crafts. Weaponsmithing later? Keep 2: its quest asks for them.
+  tip About 6 crafts. The Weaponsmithing quest asks for 2 of these.
   craft 9993 until 215
 
 section Blacksmithing 215-225
 
-step Mine and smelt 100 Mithril Bar
+step Mine and smelt 100 Mithril Bars
   when !knows 9964
   tip For 10 Mithril Coifs.
   collect 3860 x100 gather Mining 230
@@ -1065,7 +1070,7 @@ step Go to an anvil
 
 step Craft 10 Mithril Coifs until 225
   when !knows 9964
-  tip About 10 crafts. Armorsmithing later? Keep 2: its quest asks for them.
+  tip About 10 crafts. The Armorsmithing quest asks for 2 of these.
   craft 9961 until 225
 
 section Blacksmithing 225-235
@@ -1095,7 +1100,7 @@ step Craft 16 Dense Sharpening Stones until 235
 
 section Blacksmithing 235-240
 
-step Mine and smelt 154 Mithril Bar
+step Mine and smelt 154 Mithril Bars
   when !knows 9964
   tip For 11 Heavy Mithril Boots.
   collect 3860 x154 gather Mining 230
@@ -1163,7 +1168,7 @@ step Go to an anvil
 
 step Craft 11 Heavy Mithril Boots until 240
   when !knows 9964
-  tip About 11 crafts. Armorsmithing later? Keep 2: its quest asks for them.
+  tip About 11 crafts. The Armorsmithing quest asks for 2 of these.
   craft 9968 until 240
 
 section Blacksmithing 240-245
@@ -1189,9 +1194,9 @@ step Learn Smelt Thorium
   tip The bars next are smelted from what you mine.
   learn 16153
 
-step Mine until Mining 275
+step Mine Mithril, Truesilver and Small Thorium until Mining 275
   when !knows 9964
-  tip This loop gives the Thorium Ore to Mining 275; the next one the rest.
+  tip This loop gives part of what Imperial Plate Belt needs; the next one the rest.
   loop Tanaris lvl 50 lap 965 gain 3.1 r 60 at 57.2,68.7 56.5,73.2 55.4,73.0 29.7,68.4 29.4,64.8 31.0,63.8 33.4,46.1 35.1,46.8 62.7,48.5 64.4,47.1 65.5,52.3 64.0,53.3
   loop The Hinterlands lvl 51 lap 718 gain 3.0 r 60 at 54.9,67.3 52.1,65.4 33.7,65.0 37.1,67.5 57.9,84.2 72.6,61.9 65.5,41.2 59.1,41.5 57.0,43.1 66.8,52.4 64.4,64.2 56.6,68.6
   loop Burning Steppes lvl 53 lap 627 gain 2.9 r 60 at 80.3,44.7 80.9,48.5 84.8,48.8 83.7,46.1 82.8,42.4 82.3,40.2 86.0,37.1 80.2,35.4 80.3,40.7 77.4,42.9 76.7,47.4
@@ -1202,16 +1207,16 @@ step Mine until Mining 275
   loop Winterspring lvl 58 lap 615 gain 2.7 only Horde r 60 at 70.4,40.3 70.9,37.5 66.7,28.2 63.6,25.6 64.6,29.7 64.6,34.6 66.5,37.5 68.0,35.6 67.7,38.6 67.7,41.5 69.4,41.9 69.1,39.8
   skill Mining 275
 
-step Mine until Mining 300
+step Mine Dark Iron, Truesilver, Small Thorium and Rich Thorium until Mining 300
   when !knows 9964
-  tip This loop gives the Thorium Ore to Mining 300; the next one the rest.
+  tip This loop gives part of what Imperial Plate Belt needs; the next one the rest.
   loop Un'Goro Crater lvl 56 lap 621 gain 2.6 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
   loop Azshara lvl 55 lap 688 gain 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
   loop Winterspring lvl 58 lap 621 gain 2.8 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Burning Steppes lvl 53 lap 615 gain 1.2 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
   skill Mining 300
 
-step Mine and smelt 150 Thorium Bar
+step Mine and smelt 150 Thorium Bars
   when !knows 9964
   tip For 5 Imperial Plate Belts and the plans.
   collect 12359 x150 gather Mining 275
@@ -1297,8 +1302,8 @@ step Learn Smelt Thorium
   tip The bars next are smelted from what you mine.
   learn 16153
 
-step Mine until Mining 275
-  tip This loop gives the Thorium Ore to Mining 275; the next one the rest.
+step Mine Mithril, Truesilver and Small Thorium until Mining 275
+  tip This loop gives part of what Imperial Plate Bracers needs; the next one the rest.
   loop Tanaris lvl 50 lap 965 gain 3.1 r 60 at 57.2,68.7 56.5,73.2 55.4,73.0 29.7,68.4 29.4,64.8 31.0,63.8 33.4,46.1 35.1,46.8 62.7,48.5 64.4,47.1 65.5,52.3 64.0,53.3
   loop The Hinterlands lvl 51 lap 718 gain 3.0 r 60 at 54.9,67.3 52.1,65.4 33.7,65.0 37.1,67.5 57.9,84.2 72.6,61.9 65.5,41.2 59.1,41.5 57.0,43.1 66.8,52.4 64.4,64.2 56.6,68.6
   loop Burning Steppes lvl 53 lap 627 gain 2.9 r 60 at 80.3,44.7 80.9,48.5 84.8,48.8 83.7,46.1 82.8,42.4 82.3,40.2 86.0,37.1 80.2,35.4 80.3,40.7 77.4,42.9 76.7,47.4
@@ -1309,15 +1314,15 @@ step Mine until Mining 275
   loop Winterspring lvl 58 lap 615 gain 2.7 only Horde r 60 at 70.4,40.3 70.9,37.5 66.7,28.2 63.6,25.6 64.6,29.7 64.6,34.6 66.5,37.5 68.0,35.6 67.7,38.6 67.7,41.5 69.4,41.9 69.1,39.8
   skill Mining 275
 
-step Mine until Mining 300
-  tip This loop gives the Thorium Ore to Mining 300; the next one the rest.
+step Mine Dark Iron, Truesilver, Small Thorium and Rich Thorium until Mining 300
+  tip This loop gives part of what Imperial Plate Bracers needs; the next one the rest.
   loop Un'Goro Crater lvl 56 lap 621 gain 2.6 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
   loop Azshara lvl 55 lap 688 gain 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
   loop Winterspring lvl 58 lap 621 gain 2.8 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Burning Steppes lvl 53 lap 615 gain 1.2 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
   skill Mining 300
 
-step Mine and smelt 560 Thorium Bar
+step Mine and smelt 560 Thorium Bars
   tip For 27 Imperial Plate Bracers and the plans.
   collect 12359 x560 gather Mining 275
   loop Un'Goro Crater lvl 56 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
@@ -1403,14 +1408,14 @@ step Learn Radiant Boots
   tip From the plans in your bags.
   learn 16656
 
-step Get 88 Heart of Fire
+step Get 88 Hearts of Fire
   when knows 16656
   when has 12713
   tip For 22 Radiant Boots.
   collect 7077 x88 nearest gather levels 44-55
   auction 7077 x88
 
-step Mine and smelt 308 Thorium Bar
+step Mine and smelt 308 Thorium Bars
   when knows 16656
   when has 12713
   tip For 22 Radiant Boots.
@@ -1467,14 +1472,14 @@ step Craft 22 Radiant Boots until 290
 
 section Blacksmithing 290-300
 
-step Get 40 Heart of Fire
+step Get 40 Hearts of Fire
   when knows 16656
   when has 12713
   tip For 10 Radiant Leggings.
   collect 7077 x40 nearest gather levels 44-55
   auction 7077 x40
 
-step Mine and smelt 200 Thorium Bar
+step Mine and smelt 200 Thorium Bars
   when knows 16656
   when has 12713
   tip For 10 Radiant Leggings.
@@ -1537,7 +1542,7 @@ step Craft 10 Radiant Leggings until 300
 
 section Blacksmithing 270-290
 
-step Get 88 Heart of Fire
+step Get 88 Hearts of Fire
   when !has 12713
   when !knows 16725
   when knows 16656
@@ -1545,7 +1550,7 @@ step Get 88 Heart of Fire
   collect 7077 x88 nearest gather levels 44-55
   auction 7077 x88
 
-step Mine and smelt 308 Thorium Bar
+step Mine and smelt 308 Thorium Bars
   when !has 12713
   when !knows 16725
   when knows 16656
@@ -1561,7 +1566,8 @@ step Learn Radiant Boots
   when !has 12713
   when !knows 16725
   when knows 16656
-  tip Taught at 270; done at once if you learned it then.
+  when !knows 16656
+  tip Taught at 270, before the part of the guide you started from.
   learn 16656
 
 step Go to an anvil
@@ -1619,7 +1625,7 @@ step Get 20 Star Ruby
   tip For 10 Imperial Plate Leggings.
   auction 7910 x20
 
-step Mine and smelt 500 Thorium Bar
+step Mine and smelt 500 Thorium Bars
   when !has 12713
   when !knows 16725
   when knows 16656
@@ -1699,7 +1705,7 @@ step Get 11 Star Ruby
   tip For 11 Imperial Plate Bracers.
   auction 7910 x11
 
-step Mine and smelt 220 Thorium Bar
+step Mine and smelt 220 Thorium Bars
   when !knows 16656
   when has 12704
   tip For 11 Imperial Plate Bracers.
@@ -1713,7 +1719,8 @@ step Mine and smelt 220 Thorium Bar
 step Learn Imperial Plate Bracers
   when !knows 16656
   when has 12704
-  tip Taught at 245; done at once if you learned it then.
+  when !knows 16649
+  tip Taught at 245, before the part of the guide you started from.
   learn 16649
 
 step Go to an anvil
@@ -1762,13 +1769,13 @@ step Craft 11 Imperial Plate Bracers until 275
 
 section Blacksmithing 275-300
 
-step Get 108 Red Power Crystal
+step Get 108 Red Power Crystals
   when !knows 16656
   when has 12704
   tip For 27 Thorium Leggings.
   auction 11186 x108
 
-step Mine and smelt 702 Thorium Bar
+step Mine and smelt 702 Thorium Bars
   when !knows 16656
   when has 12704
   tip For 27 Thorium Leggings.
@@ -1845,7 +1852,7 @@ step Get 20 Star Ruby
   tip For 20 Imperial Plate Boots.
   auction 7910 x20
 
-step Mine and smelt 720 Thorium Bar
+step Mine and smelt 720 Thorium Bars
   when !knows 16656
   when !has 12704
   when !knows 16662
@@ -1926,7 +1933,7 @@ step Get 20 Star Ruby
   tip For 10 Imperial Plate Leggings.
   auction 7910 x20
 
-step Mine and smelt 500 Thorium Bar
+step Mine and smelt 500 Thorium Bars
   when !knows 16656
   when !has 12704
   when !knows 16662
