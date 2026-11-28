@@ -67,14 +67,14 @@ return {
 	["{zone:1418}: kill these as you meet them"] = "{zone:1418}：沿途击杀以下目标",
 	-- {area:1878} The Dustbowl · {zone:1418} Badlands · {npc:2817} Rigglefuzz
 	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard · Malevolent Mirages = {npc:269756} Malevolent Mirage
-	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth.\nCareful: the Giant Buzzards are 39-41, and the 41s are two over you at 39: pick the 39s and 40s and pull them one at a time. The Buzzards (37) you kill later for {npc:2817}'s wings drop gizzards too, more rarely.\nCareful: Zaricotl (55, a rare buzzard) circles over the {zone:1418} too: if you see him, keep away."] = "老峭壁山狗和巨型秃鹫在{area:1878}南边的盆地游荡。颚骨和尖牙都由山狗掉落，胃由巨型秃鹫掉落。小心，Malevolent Mirage（42级精英）在{zone:1418}各处游荡，远远绕开。\n小心，巨型秃鹫是39-41级，其中41级的比39级的你高两级。挑39和40级的打，一次拉一只。之后为{npc:2817}收集翅膀时打的秃鹫（37级）也会掉落胃，但几率较低。\n小心，扎里科特（55级稀有秃鹫）也在{zone:1418}上空盘旋，看见它就离远些。",
+	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth.\nCareful: the Giant Buzzards are 39-41, and the 41s are two over you at 39: pick the 39s and 40s and pull them one at a time. The Buzzards (37) you kill later for {npc:2817}'s wings drop gizzards too, more rarely.\nCareful: Zaricotl (55, a rare buzzard) circles over the {zone:1418} too: if you see him, keep away."] = "老峭壁山狗和巨型秃鹫在{area:1878}南边的盆地游荡。颚骨和尖牙都由山狗掉落，胃由巨型秃鹫掉落。小心，恶毒魅影（42级精英）在{zone:1418}各处游荡，远远绕开。\n小心，巨型秃鹫是39-41级，其中41级的比39级的你高两级。挑39和40级的打，一次拉一只。之后为{npc:2817}收集翅膀时打的秃鹫（37级）也会掉落胃，但几率较低。\n小心，扎里科特（55级稀有秃鹫）也在{zone:1418}上空盘旋，看见它就离远些。",
 
 	-- Step 12: Rock Elementals
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental
 	["Rock Elementals"] = "{npc:92}",
 	-- {area:345} Agmond's End · {npc:6868} Jarkal Mossmeld
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard · Malevolent Mirages = {npc:269756} Malevolent Mirage
-	["South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of {area:345}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards. Careful: Malevolent Mirages (42, elite) drift across these slopes too."] = "向东南穿过盆地，较大的石元素（39级）在{area:345}西边的斜坡上，每只都会掉落一块石板。所有石元素都可能掉落{npc:6868}需要的石元素的碎片。小心：恶毒幻象（42级，精英）也会飘过这些斜坡。",
+	["South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of {area:345}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards. Careful: Malevolent Mirages (42, elite) drift across these slopes too."] = "向东南穿过盆地，较大的石元素（39级）在{area:345}西边的斜坡上，每只都会掉落一块石板。所有石元素都可能掉落{npc:6868}需要的石元素的碎片。小心：恶毒魅影（42级，精英）也会飘过这些斜坡。",
 
 	-- Step 13: Agmond's End
 	-- {area:345} Agmond's End · {area:1517} Uldaman
