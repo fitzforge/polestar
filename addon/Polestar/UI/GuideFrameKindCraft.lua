@@ -5,8 +5,8 @@
 -- line on top ("Blacksmithing 12 / 75", "Not learned yet"); then the step: a train, learn, buy or go-to step is
 -- the step's own rows (UI/GuideFrameRegions.lua, "step"); a get step is "Get 200 Rough Stone 64/200" with a row
 -- per way its goals allow, picked like an option (a radio mark), each with one button ("Guide me"; the Auction
--- House's "Buy list" at an open Auction House, else "Show me the auction house", the arrow to the nearest
--- auctioneer of the character's side) and
+-- House's "Buy list" at an open Auction House, else "Guide me" too, the arrow to the nearest auctioneer of the
+-- character's side: a longer label cut the way's own words) and
 -- a short line ("Durotar loop on your map  ·  about 25 min for the rest", "136 more, about 14s at your last search");
 -- a craft step is "Craft Rough Sharpening Stone until 35" with the recipe's icon, the client's skill-up arrow,
 -- "about 42 to go" and Open <Profession> (the window's one secure button). Under it one folded row, the shopping
@@ -607,7 +607,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		return f.Items[i]
 	end
 	-- A way's row: a click picks it; its button leads the arrow there ("Guide me") or puts it on the buy list: the
-	-- search at an open Auction House, else the arrow to the nearest auctioneer ("Show me the auction house").
+	-- search at an open Auction House, else ("Guide me") the arrow to the nearest auctioneer.
 	local function wayRow(f, i)
 		local r = f.Ways[i]
 		if r then return r end
@@ -674,7 +674,7 @@ ns.UI.GuideFrame.Part(function(GF)
 						UI.SetCounted(wr.Sub, sub or "")
 						wr.Sub:SetShown(sub ~= nil)
 						wr.psWay, wr.psItem = w, e
-						W.SetButtonText(wr.psButton, w.way == "buy" and (searchable() and L["Buy list"] or L["Show me the auction house"]) or L["Guide me"])
+						W.SetButtonText(wr.psButton, w.way == "buy" and searchable() and L["Buy list"] or L["Guide me"])
 						wr.psButton:SetShown(w.way == "buy" or w.map ~= nil)
 						list[#list + 1] = wr
 					end
@@ -1040,7 +1040,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			if secure and secure.psSlot then placeSecure(secure.psSlot) end
 			if GF.RegionShown("stretch") then again() end
 		end)
-		-- The Auction House way's button: Buy list while an Auction House is open, else Show me the auction house
+		-- The Auction House way's button: Buy list while an Auction House is open, else Guide me
 		-- (a frame later: the game's window shows or hides on the same event).
 		local function auction() if GF.RegionShown("get") then ns.After(0, again) end end
 		ns.RegisterEvent("AUCTION_HOUSE_SHOW", auction)
