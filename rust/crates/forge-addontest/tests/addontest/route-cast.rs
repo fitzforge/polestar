@@ -244,8 +244,6 @@ fn a_guide_hearth_goal_still_wins_the_slot_and_the_key_over_the_route_s_teleport
 		r.button = button()
 		r.key = key()
 		r.forbidden = table.concat(forbidden, ", ")
-		local v = E.GetStepView(E.GetStepIndex() or 1)
-		r.goal = { E.GetGuide() and E.GetGuide().id or false, v and v.goals[1] and v.goals[1].t or false, v and v.goals[1] and v.goals[1].status or false, B.WantsHearth(), E.GetStepIndex() or false, Polestar.QoL.Client.ItemCount(6948), Polestar.QoL.CurrentStep() ~= nil }
 		emit(r)"#,
 	) else {
 		return;

@@ -3208,8 +3208,8 @@ function Travel.LegIcon(leg)
 	return nil
 end
 
--- A hearth or teleport leg still ahead waits on its cooldown.
-function Travel.Waiting()
+-- A hearth or teleport leg still ahead waits on its cooldown (not Travel.Waiting: the hold on a landing's walk).
+function Travel.CastWaits()
 	if not (legs and ci) then return false end
 	for k = ci, #legs do
 		local wait = Travel.LegWait(legs[k])
@@ -3223,10 +3223,10 @@ end
 -- (ROUTE_CHANGED, ROUTE_ADVANCED); the plan itself is made again as the Hearthstone comes ready (Travel.Aim's
 -- lastHearth) or a teleport does (Transit's NAV_TRANSIT), and a plan that no longer waits stops it.
 function Travel.WatchWait()
-	if Travel.Waiting() then
+	if Travel.CastWaits() then
 		if Travel.waitTicker then return end
 		Travel.waitTicker = ns.NewTicker(1, function()
-			local still = Travel.Waiting()
+			local still = Travel.CastWaits()
 			if not still and Travel.waitTicker then
 				Travel.waitTicker:Cancel()
 				Travel.waitTicker = nil
