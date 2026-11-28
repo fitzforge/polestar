@@ -10,6 +10,9 @@
 --       guides list their quests); one that fits the character first
 --   Lookup.BuildGuide(kind, id, ranked) -> def | nil, reason
 --       ranked: a row of Lookup.Sources(kind, id), its index, or nil (best)
+--       A quest reward's collect carries `rewardOf`, the awarding quest.
+--       It follows that quest's availability and counts the reward in the
+--       bags.
 --   Lookup.Guide(kind, id, index) -> guideId | nil, reason
 --       curated when one collects it (index nil), else built from source
 --       `index` (default: the best available guideable one), registered

@@ -3,7 +3,7 @@
 //! own reason (Engine.LeftOutHere), the bug report carries the same lines, and the catch-up keeps every quest
 //! still paying full XP.
 
-use forge_addontest::{emitted, Addon, RunAddon};
+use forge_addontest::{emitted, Addon, RunAddon, TEST_PACK};
 use serde_json::{json, Value};
 
 const NEEDLES: &str = "forever/horde/30-40/02-thousand-needles";
@@ -169,4 +169,65 @@ end
 emit({ catchup = kinds.catchup or false, grey = kinds.grey or false, charm = STATUS(6462) })"#,
 	);
 	assert_eq!(out, json!({ "catchup": false, "grey": false, "charm": "pending" }));
+}
+
+#[test]
+fn left_out_here_undoes_only_the_optional_goal_skip_it_names_4505() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		addons: vec!["Polestar".into()],
+		script: [
+			TEST_PACK,
+			r#"
+stub.login()
+local E, GF, SL = Polestar.Engine, Polestar.UI.GuideFrame, Polestar.UI.StepList
+local id = "test/optional-prerequisite"
+assert(Polestar.RegisterGuide({ id = id, pack = "test", title = "Optional prerequisite", category = "Quest", steps = {
+	{ title = "Test of Faith", goals = {
+		{ t = "turnin", quest = 1149, title = "Test of Faith", optional = true },
+		{ t = "collect", item = 10621, itemName = "Runed Scroll", optional = true },
+	} },
+	{ title = "Test of Endurance", goals = {
+		{ t = "accept", quest = 1150, title = "Test of Endurance", pre = { 1149 } },
+	} },
+	{ title = "Level up", goals = { { t = "level", level = 60 } } },
+} }))
+assert(E.SetGuide(id))
+assert(E.SkipGoal(1, 1), "could not skip the optional turn-in")
+assert(E.SkipGoal(1, 2), "could not skip the optional collect")
+stub.advance(0.5)
+local row = E.LeftOutHere(3)[1]
+SL.Toggle(true)
+local card = SL.rowOf[2]
+local browser = false
+for _, g in ipairs(card.G) do
+	if g.Unskip:IsShown() and g.Unskip.Label:GetText() == "Unskip it" then browser = true end
+end
+SL.Toggle(false)
+local function lineFor(needle)
+	for _, line in ipairs(GF.lines) do
+		if line:IsShown() and line.Text:GetText():find(needle, 1, true) then return line end
+	end
+end
+local summary = lineFor("1 left out here")
+if summary then stub.RunScript(summary, "OnClick", "LeftButton") end
+local action = lineFor("Unskip it")
+if action then stub.RunScript(action, "OnClick", "LeftButton") end
+local repeated = row and row.fix and row.fix.kind == "unskip" and Polestar.UI.UnskipLeftOut(row.fix)
+local sk = Polestar.CharState().skipped[id] or {}
+local nextRow = E.LeftOutHere(3)[1]
+emit({ fix = row and row.fix, browser = browser, shown = action ~= nil, rootSkipped = sk["1:1"] == true,
+	otherSkipped = sk["1:2"] == true, repeated = repeated, nextFix = nextRow and nextRow.fix.kind, live = E.GetLiveStep() })"#,
+		]
+		.join("\n"),
+		..Default::default()
+	});
+	let out = &out[0];
+	assert_eq!(out["fix"], json!({"kind": "unskip", "quest": 1149, "guide": "test/optional-prerequisite", "step": 1, "goal": 1}), "{out}");
+	assert_eq!(out["browser"], true, "the passed quest's card offers the same undo: {out}");
+	assert_eq!(out["shown"], true, "{out}");
+	assert_eq!(out["rootSkipped"], false);
+	assert_eq!(out["otherSkipped"], true);
+	assert_eq!(out["repeated"], false);
+	assert_eq!(out["nextFix"], "chain");
 }

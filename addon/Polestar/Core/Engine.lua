@@ -510,7 +510,7 @@ local function layoutOf(g)
 					list = {}
 					by[goal.quest] = list
 				end
-				list[#list + 1] = { s = s, key = s .. ":" .. gi, step = step, goal = goal }
+				list[#list + 1] = { s = s, g = gi, key = s .. ":" .. gi, step = step, goal = goal }
 			end
 			if goal.t == "accept" and goal.quest then
 				local pre, all = type(goal.pre) == "table" and goal.pre or NONE, type(goal.preAll) == "table" and goal.preAll or NONE
@@ -602,6 +602,24 @@ function Own.usedBy(goal)
 	end
 	Own.usedFor[goal] = hit
 	return hit or nil
+end
+
+-- The accept whose availability an untied item goal follows: its starter
+-- (#1531), the quest that works with it (#2670), or, for a Lookup reward
+-- (`rewardOf`), that quest's accept in this guide (#4505). The reward still
+-- counts the bags and comes after its quest, so it never feeds the starter
+-- plan. Every reader of a goal's availability asks this one.
+function Own.availabilityQuest(goal)
+	if goal.quest or not guide then return nil end
+	if goal.t == "collect" then
+		local l = layoutOf(guide)
+		if l.starters[goal] then return l.starters[goal] end
+		if goal.rewardOf then
+			local list = l.accepts[goal.rewardOf]
+			return list and list[1] and list[1].goal or nil
+		end
+	end
+	return Own.usedBy(goal)
 end
 
 -- The quest goal an untied `collect` gathers its item for: the accept the item
@@ -744,10 +762,8 @@ local function goalApplies(goal)
 	if not Guides.Matches(goal.only, player) or Own.barred(goal) or Own.gone(goal) then return false end
 	-- An escort the player chose to skip (Own.escortChoice, #3439): its accept, work and hand-in are out.
 	if goal.quest and Own.escortChoice(goal.quest) and Own.groupAnswer(goal.quest) == "skip" then return false end
-	-- The item a quest starts from is collected only for that quest (#1531),
-	-- and so is one it works with (Own.usedBy, #2670).
-	local starts = goal.t == "collect" and not goal.quest and guide and layoutOf(guide).starters[goal] or Own.usedBy(goal)
-	if starts and not goalApplies(starts) then return false end
+	local related = Own.availabilityQuest(goal)
+	if related and not goalApplies(related) then return false end
 	-- A purchase goes with the quests that ask for it (Own.boughtFor, #3458): one of them still the character's.
 	local fors = goal.t == "buy" and Own.boughtFor(goal)
 	if fors then
@@ -955,13 +971,13 @@ local function unavailableFor(goal, depth)
 		-- with Trial of the Lake, level 16), and a quest's reward with that
 		-- quest's accept in this guide (`rewardOf`, Lookup's item guides,
 		-- #4505: the Curio-Adorned Necklace once Scraps of Knowledge, the
-		-- start of its chain, was skipped).
-		local a = goal.t == "collect" and guide and layoutOf(guide).starters[goal] or Own.usedBy(goal)
-		if not a and goal.rewardOf and guide then
-			local list = layoutOf(guide).accepts[goal.rewardOf]
-			a = list and list[1] and list[1].goal
-		end
-		if a and not questDone(a.quest) and not Compat().IsOnQuest(a.quest) then return unavailableFor(a, depth) end
+		-- start of its chain, was skipped). Own.availabilityQuest finds it.
+		local a = Own.availabilityQuest(goal)
+		if not a then return nil end
+		-- A reward follows its own quest's skip even with the quest in the log
+		-- or handed in for a different choice.
+		if goal.rewardOf and Own.questSkipped(a.quest) then return Own.skipMark(a) end
+		if not questDone(a.quest) and not Compat().IsOnQuest(a.quest) then return unavailableFor(a, depth) end
 		return nil
 	end
 	if Own.questSkipped(q) and not questDone(q) then return Own.skipMark(goal) end
@@ -2062,6 +2078,8 @@ end
 -- skipped a step with its accept or turn-in (not a step with a `when`: a
 -- failed condition is stored as a skip too), else what left p's accept out
 -- down the chain (A skipped leaves out B, B leaves out C: C's is A).
+-- -> quest[, step[, goal index]]. Step and goal skips belong to this guide.
+-- A quest skip belongs to the character across guides (#4505).
 function Own.skipRoot(p, depth)
 	depth = depth or 0
 	if depth > 8 or questDone(p) then return nil end
@@ -2070,14 +2088,19 @@ function Own.skipRoot(p, depth)
 	local l = layoutOf(guide)
 	for _, list in ipairs({ l.turnins[p] or NONE, l.accepts[p] or NONE }) do
 		for _, t in ipairs(list) do
-			if skipped and (skipped[t.key] or (skipped[t.s] and t.step.when == nil)) and stepApplies(t.step) and Guides.Matches(t.goal.only, player) then return p end
+			local stepSkip = skipped and skipped[t.s] == true and t.step.when == nil
+			local goalSkip = skipped and skipped[t.key]
+			if (stepSkip or goalSkip) and stepApplies(t.step) and Guides.Matches(t.goal.only, player) then
+				if stepSkip then return p, t.s end
+				return p, t.s, t.g
+			end
 		end
 	end
 	for _, t in ipairs(l.accepts[p] or NONE) do
 		local u = unavailableFor(t.goal, depth + 1)
 		if u and u.reason == "pre" and u.pre then
-			local root = Own.skipRoot(u.pre, depth + 1)
-			if root then return root end
+			local root, step, goal = Own.skipRoot(u.pre, depth + 1)
+			if root then return root, step, goal end
 		end
 	end
 	return nil
@@ -6319,11 +6342,15 @@ function Own.enderName(p)
 	return obj and (N.Object(obj) or (X.Object and X.Object(obj) or NONE).name) or nil
 end
 
--- A "pre" mark's quest the player skipped (Own.skipRoot), as its title; nil
--- when the route simply never brings the prerequisite.
-function Own.skippedWithTitle(u)
+-- A "pre" mark's quest the player skipped, with its skip (Own.skipRoot).
+function Own.skippedWithRoot(u)
 	local pre = u.pre or missingPre(u.accept)
-	local root = pre and guide and Own.skipRoot(pre)
+	if pre and guide then return Own.skipRoot(pre) end
+end
+
+-- Its title; nil when the route simply never brings the prerequisite.
+function Own.skippedWithTitle(u)
+	local root = Own.skippedWithRoot(u)
 	return root and titleOfQuest(root, u.accept.preTitles) or nil
 end
 
@@ -6813,8 +6840,8 @@ local function goalView(s, g, goal, stepStatus, group)
 	-- "Requires level" line is the one thing the step says.
 	-- `waitsLevel`: the level a hidden one waits for (playtest.js's SIMULATE levels the player to it).
 	local waitsLevel
-	if unavail and unavail.reason == "level" and (goal.t == "accept" or goal.direct or layoutOf(guide).starters[goal] or Own.usedBy(goal)) and not Own.waitsOnLevel(s) then
-		status, unavail, waitsLevel = "na", nil, tonumber(goal.minLevel)
+	if unavail and unavail.reason == "level" and (goal.t == "accept" or goal.direct or Own.availabilityQuest(goal)) and not Own.waitsOnLevel(s) then
+		status, unavail, waitsLevel = "na", nil, tonumber(goal.minLevel or (goal.rewardOf and unavail.accept.minLevel))
 	end
 	-- A goal of a quest that left the log, held for the player's answer.
 	local lost = status == "skipped" and not unavail and Own.lostGoal(goal)
@@ -6916,12 +6943,23 @@ local function goalView(s, g, goal, stepStatus, group)
 	}
 end
 
+-- A reward still missing when its awarding quest is unavailable (#4505).
+-- The route passes the work, but the step has not earned the item.
+function Own.unavailableReward(s)
+	for g, goal in ipairs(guide.steps[s].goals) do
+		if goal.rewardOf and goalApplies(goal) and not goalDone(s, g, goal) then
+			local u = unavailableFor(goal)
+			if u then return Own.availabilityQuest(goal), u end
+		end
+	end
+end
+
 local function stepStatusOf(s)
 	local step = guide.steps[s]
 	if not stepApplies(step) then return "na" end
 	if s == current then return "current" end
 	if current and s > current then return "upcoming" end
-	if stepDone(s) then return "done" end
+	if stepDone(s) then return Own.unavailableReward(s) and "skipped" or "done" end
 	-- Behind a look-ahead: still to do. Otherwise passed without being done:
 	-- skipped, or live state regressed since the last evaluation (the next
 	-- one corrects it).
@@ -10598,9 +10636,8 @@ Own.skipQueue = {}
 -- Queue the unavailable quests of step s the route just moved past: its
 -- blocking goals that apply, not done, unavailable (once per quest). A step
 -- the player skipped, or one not for the character, says nothing. A quest's
--- starting item (a `collect` with no quest, unavailableFor's starter) speaks
--- for the quest it starts (#1724: its nil quest as a key raised "table
--- index is nil" and stopped the evaluation); a goal with neither says nothing.
+-- item speaks for the quest it follows (Own.availabilityQuest, #1724);
+-- a goal with neither says nothing.
 -- An accept waiting for the character's level in a leveling guide says what
 -- happens to it (Own.waitText).
 function Own.queueSkips(s)
@@ -10609,7 +10646,7 @@ function Own.queueSkips(s)
 	local q = Own.skipQueue[guide.id]
 	for g, goal in ipairs(step.goals) do
 		local u = blocks(goal) and goalApplies(goal) and unavailableFor(goal)
-		local a = u and (goal.quest and goal or layoutOf(guide).starters[goal] or Own.usedBy(goal))
+		local a = u and (goal.quest and goal or Own.availabilityQuest(goal))
 		local quest = a and a.quest
 		if quest and not (q and q.seen[quest]) and not goalDone(s, g, goal) then
 			if not q then
@@ -13447,8 +13484,11 @@ end
 -- goal with no reason the engine knows. -> { { quest, title, kind ("catchup" |
 -- "grey" | "pre" | "closed" | "level" | "skipped" | "when"), text, fix = nil |
 -- { kind = "chain", quest } (Lookup's guide to the quest through what it
--- needs) | { kind = "skipGrey" } (turn the setting off), step }, ... }.
+-- needs) | { kind = "skipGrey" } (turn the setting off) |
+-- { kind = "unskip", quest[, guide, step[, goal]] } (undo the root's skip,
+-- #4505, with guide and indices for a skip saved in this guide), step }, ... }.
 -- Kept per step for the evaluation (the window asks it on every refill).
+-- A passed reward step names its own awarding quest first (#4505).
 -- alone: step i's own quests only (the step browser's card for it), all of a
 -- step the route passed over.
 Own.LEFT_OUT_STEPS = 25
@@ -13471,6 +13511,19 @@ function Engine.LeftOutHere(i, alone)
 		seen[q] = true
 		out[#out + 1] = { quest = q, title = titleOfQuest(q, goal.preTitles), kind = kind, text = text, fix = fix, step = s }
 	end
+	local function addUnavailable(s, goal, u, onlyUnskip)
+		if u.reason == "pre" then
+			local root, step, gi = Own.skippedWithRoot(u)
+			if root then
+				local title = titleOfQuest(root, u.accept.preTitles)
+				return add(s, goal, "pre", L["Left out because you skipped %s"]:format(ns.Quoted(title)),
+					{ kind = "unskip", quest = root, guide = step and guide.id, step = step, goal = gi })
+			end
+			if not onlyUnskip then return add(s, goal, "pre", unavailableText(u), { kind = "chain", quest = u.accept.quest or goal.quest }) end
+		elseif not onlyUnskip then
+			return add(s, goal, u.reason, unavailableText(u))
+		end
+	end
 	-- One goal of step s: whole, the route passed the step over.
 	local function judge(s, goal, whole, when)
 		local q = goal.quest
@@ -13489,14 +13542,10 @@ function Engine.LeftOutHere(i, alone)
 		end
 		local u = unavailableFor(goal)
 		if not u then return end
-		-- On the step itself only an accept waiting for a level is out of sight (goalView).
-		if not whole and not (u.reason == "level" and goal.t == "accept" and not Own.waitsOnLevel(s)) then return end
-		if u.reason == "pre" then
-			local root = Own.skippedWithTitle(u)
-			if root then return add(s, goal, "pre", L["Left out because you skipped %s"]:format(ns.Quoted(root))) end
-			return add(s, goal, "pre", unavailableText(u), { kind = "chain", quest = u.accept.quest or q })
-		end
-		return add(s, goal, u.reason, unavailableText(u))
+		-- On the step itself only a hidden level wait is listed. The browser
+		-- also offers the undo on a passed step the route counts as done (#4505).
+		if whole or (u.reason == "level" and goal.t == "accept" and not Own.waitsOnLevel(s)) then return addUnavailable(s, goal, u) end
+		if alone and u.reason == "pre" and (not computed or s < computed) then return addUnavailable(s, goal, u, true) end
 	end
 	-- The quests the plan left out with all their goals (Own.feederPlan's
 	-- `hidden`: a prerequisite from an earlier guide not put in), at the step
@@ -13512,6 +13561,10 @@ function Engine.LeftOutHere(i, alone)
 		end
 	end
 	local steps = guide.steps
+	if (not computed or i < computed) and stepApplies(steps[i]) then
+		local award, u = Own.unavailableReward(i)
+		if award then addUnavailable(i, award, u) end
+	end
 	if alone then
 		planned(i)
 		if stepApplies(steps[i]) and not (Own.hiddenStep(steps[i]) or Own.dungeonHidden(steps[i])) then
@@ -18122,26 +18175,31 @@ end
 -- complete". Only in a guide that is no leveling guide (Own.everyStep): a
 -- leveling guide the player skipped to its end finishes and hands off as
 -- before, its end window asking (Own.noteEnd). Tried on the saved skips
--- and put straight back, as Engine.SkipLoses does. -> { step, title } | nil
+-- and put straight back, as Engine.SkipLoses does. An unavailable final
+-- reward also keeps the guide open as unfinished (#4505); its reason is
+-- the awarding quest's LeftOutHere row. -> { step, title, reward } | nil
 function Engine.SkippedOut()
 	if not guide or computed or not Own.everyStep(guide) then return nil end
-	local sk = skippedFor(guide.id)
-	if not sk then return nil end
 	if not player then refreshPlayer() end
 	local steps, found = guide.steps, nil
-	for s = 1, #steps do
-		if sk[s] == true and steps[s].when == nil and stepApplies(steps[s]) then
-			sk[s] = nil
-			local ok, opens = pcall(nextOpen, s)
-			sk[s] = true
-			if ok and opens then
-				found = s
-				break
+	local sk = skippedFor(guide.id)
+	if sk then
+		for s = 1, #steps do
+			if sk[s] == true and steps[s].when == nil and stepApplies(steps[s]) then
+				sk[s] = nil
+				local ok, opens = pcall(nextOpen, s)
+				sk[s] = true
+				if ok and opens then
+					found = s
+					break
+				end
 			end
 		end
+		nextOpen(0) -- the marks the try left (Own.preMarks' prerequisite) read the real state again
 	end
-	nextOpen(0) -- the marks the try left (Own.preMarks' prerequisite) read the real state again
-	return found and { step = found, title = steps[found].title } or nil
+	local last = #steps
+	local reward = steps[last] and stepApplies(steps[last]) and Own.unavailableReward(last) and Engine.LeftOutHere(last, true)[1]
+	if found or reward then return { step = found, title = found and steps[found].title, reward = reward } end
 end
 
 -- One applicable step forward, done, skipped or open alike: a look at it
@@ -18360,22 +18418,25 @@ end
 -- Skip an optional goal, or bring it back: it no longer leads the arrow and
 -- reads as skipped (saved as CharState().skipped[guideId]["s:g"]). A quest
 -- started by an item is one thing to do: its accept and the collect of its
--- item in the same step skip and come back together. False for goals that
--- are not optional.
-function Engine.SkipGoal(stepIndex, goalIndex)
+-- item in the same step skip and come back together. Pass on = false to
+-- undo only a saved skip (#4505). False for goals that are not optional, or
+-- already open when undoing.
+function Engine.SkipGoal(stepIndex, goalIndex, on)
 	if not guide then return false end
 	local step = guide.steps[stepIndex]
 	local goal = step and step.goals[goalIndex]
 	if not (goal and goal.optional) then return false end
-	local sk = skippedFor(guide.id, true)
-	local on = not sk[stepIndex .. ":" .. goalIndex] or nil
+	local sk = skippedFor(guide.id, on ~= false)
+	local was = sk and sk[Own.key(stepIndex, goalIndex)]
+	if on == false and not was then return false end
+	local skip = not was or nil
 	local starter = goal.item and ((goal.t == "accept" and not goal.npc and not goal.object) or (goal.t == "collect" and not goal.quest))
 	for g, other in ipairs(step.goals) do
 		local partner = starter and other ~= goal and other.item == goal.item and other.optional
 			and ((other.t == "accept" and not other.npc and not other.object) or (other.t == "collect" and not other.quest))
 			and other.t ~= goal.t
 		if g == goalIndex or partner then
-			sk[stepIndex .. ":" .. g] = on
+			sk[Own.key(stepIndex, g)] = skip
 			if aim == other then aim = nil end
 		end
 	end

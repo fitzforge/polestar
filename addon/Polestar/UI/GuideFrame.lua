@@ -1411,7 +1411,8 @@ GF.Part(function(GF)
 			-- "Left out here" (#2634): a quest's fix, or the setting off.
 			local item, fix = self.psOutItem, self.psOutFix
 			if item then
-				if item.fix and item.fix.kind == "chain" then UI.LeftOutGuide(item.fix.quest) end
+				if item.fix and item.fix.kind == "chain" then UI.LeftOutGuide(item.fix.quest)
+				elseif item.fix and item.fix.kind == "unskip" then UI.UnskipLeftOut(item.fix) end
 				return
 			end
 			if fix then
@@ -1456,6 +1457,8 @@ GF.Part(function(GF)
 				tips[1] = item.text
 				if item.fix and item.fix.kind == "chain" then
 					tips[2] = { L["Click for a guide to it, through what it needs first"], Theme.Accent() }
+				elseif item.fix and item.fix.kind == "unskip" then
+					tips[2] = { L["Unskip it"], Theme.Accent() }
 				end
 			elseif self.psOutFix then
 				tips[1] = L["Brings back the quests it leaves out. Settings, Automation turns it on again."]
@@ -2071,7 +2074,7 @@ GF.Part(function(GF)
 		empty.LeftOut:Show()
 	end
 
-	local function setEmpty(kind)
+	local function setEmpty(kind, skipped)
 		state = kind
 		local E, G = Engine(), ns.Guides
 		empty.Primary:Hide()
@@ -2184,22 +2187,32 @@ GF.Part(function(GF)
 			empty.Primary.psAction = function() UI.ShowPicker() end
 			empty.Primary:Show()
 		elseif kind == "skippedout" then
-			-- The player's skip of a step left every later one without its
-			-- quest (Engine.SkippedOut): the guide is not done; the undo brings
-			-- the step back, and taking its quests by hand brings the rest.
+			-- The guide ended with a reward or later steps left out (Engine.SkippedOut).
 			glyph = "skip"
-			local out = E and E.SkippedOut and E.SkippedOut() or {}
-			empty.Title:SetText(L["The rest of this guide follows from a skipped step"])
-			empty.Text:SetText(string.format(L["You skipped %s, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."],
-				"|c" .. Theme.Hex("text") .. (out.title or "") .. "|r"))
-			W.SetButtonText(empty.Primary, L["Undo the skip"])
-			empty.Primary.psAction = function()
-				if out.step and E.Unskip then E.Unskip(out.step) end
+			local reward = skipped.reward
+			if reward then
+				empty.Title:SetText(L["Left out here"])
+				empty.Text:SetText(reward.title .. "\n" .. reward.text)
+			else
+				empty.Title:SetText(L["The rest of this guide follows from a skipped step"])
+				empty.Text:SetText(string.format(L["You skipped %s, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."],
+					"|c" .. Theme.Hex("text") .. (skipped.title or "") .. "|r"))
 			end
-			empty.Primary:Show()
-			W.SetButtonText(empty.Secondary, L["Choose a guide"])
-			empty.Secondary.psAction = function() UI.ShowPicker() end
-			empty.Secondary:Show()
+			local fix = reward and reward.fix
+			local unskip = fix and fix.kind == "unskip"
+			if unskip then
+				W.SetButtonText(empty.Primary, L["Unskip it"])
+				empty.Primary.psAction = function() UI.UnskipLeftOut(fix) end
+				empty.Primary:Show()
+			elseif skipped.step then
+				W.SetButtonText(empty.Primary, L["Undo the skip"])
+				empty.Primary.psAction = function() if E.Unskip then E.Unskip(skipped.step) end end
+				empty.Primary:Show()
+			end
+			local choose = (unskip or skipped.step) and empty.Secondary or empty.Primary
+			W.SetButtonText(choose, L["Choose a guide"])
+			choose.psAction = function() UI.ShowPicker() end
+			choose:Show()
 		elseif kind == "complete" and ns.Free and E and E.GetGuide and ns.Free.IsGuide((E.GetGuide() or {}).id) then
 			-- Free mode with nothing in the log to lead to: pick up quests, or go
 			-- back to a guide.
@@ -3136,8 +3149,8 @@ GF.Part(function(GF)
 		-- What the route leaves out here (#2634, Engine.LeftOutHere): one dim
 		-- line, "N left out here", on the live window with guideWindow.leftOut
 		-- on. Opened, a line per quest with why; a quest that needs another
-		-- first opens a guide to it (UI.LeftOutGuide), and "Turn off Skip grey
-		-- quests" brings back the low ones.
+		-- first opens a guide to it (UI.LeftOutGuide) or offers to undo its skip
+		-- (#4505). "Turn off Skip grey quests" brings back the low ones.
 		local outList = GF.live and GF.On("leftOut") and E.LeftOutHere and E.LeftOutHere(view.index) or nil
 		if outList and #outList > 0 then
 			local open = model.open.leftOut
@@ -3146,14 +3159,15 @@ GF.Part(function(GF)
 			if open then
 				local grey = false
 				for k, o in ipairs(outList) do
-					local chain = o.fix and o.fix.kind == "chain"
+					local kind = o.fix and o.fix.kind
+					local action = kind == "chain" and L["Guide me"] or kind == "unskip" and L["Unskip it"]
 					local text = "|c" .. Theme.Hex("text") .. o.title .. "|r" .. DOT .. o.text
-					if chain then text = text .. DOT .. "|c" .. Theme.Hex("accent") .. L["Guide me"] .. "|r" end
+					if action then text = text .. DOT .. "|c" .. Theme.Hex("accent") .. action .. "|r" end
 					local il = addLine("leftOut" .. k, "accept", "textMuted", text, nil, o.title, false)
 					il.psOutItem = o
 					il.Chevron:SetTexture(Theme.Media("chevron-right"))
-					il.Chevron:SetShown(chain)
-					grey = grey or (o.fix ~= nil and o.fix.kind == "skipGrey")
+					il.Chevron:SetShown(not not action)
+					grey = grey or kind == "skipGrey"
 				end
 				if grey then
 					local fl = addLine("leftOutFix", "skip", "accent", "|c" .. Theme.Hex("accent") .. L["Turn off Skip grey quests"] .. "|r", nil, L["Skip grey quests"], false)
@@ -3246,9 +3260,8 @@ GF.Part(function(GF)
 		local v = index and E.GetStepView(index, true)
 		if not v then
 			view, shownIndex, shownGuide, shownFocus = nil, nil, guide.id, nil
-			-- No live step only because a step skip left the rest out (#1372):
-			-- not "Guide complete", but the skip and its undo.
-			setEmpty(E.SkippedOut and E.SkippedOut() and "skippedout" or "complete")
+			local skipped = E.SkippedOut and E.SkippedOut()
+			setEmpty(skipped and "skippedout" or "complete", skipped)
 			showSteps(false)
 			GF.Layout()
 			GF.PaintProgress(true)
