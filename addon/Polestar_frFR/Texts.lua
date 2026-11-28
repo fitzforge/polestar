@@ -2181,7 +2181,6 @@ t.guides["forever/alliance/40-50/07-un-goro-crater"] = (function() return {
 		["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}, au fond de la grotte ; sous terre",
 		["{npc:9117}, below ground"] = "{npc:9117}, sous terre",
 		["{npc:9998}: his scales come from the young beasts of the eastern jungle"] = "{npc:9998} : ses écailles viennent des jeunes bêtes de la jungle à l'est",
-		["{object:161504}, underwater"] = "{object:161504}, sous l'eau",
 		["{quest:3362}: kill these as you meet them"] = "{quest:3362} : tuez-les au passage",
 		["{quest:3764}, from the Threshers and the dirt piles"] = "{quest:3764}, sur les Batteurs et les tas de terre",
 		["{quest:87494}, if a ravasaur dropped the scale"] = "{quest:87494}, si un ravasaure a laissé tomber l'écaille",

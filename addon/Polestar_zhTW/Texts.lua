@@ -1985,7 +1985,6 @@ t.guides["forever/alliance/40-50/07-un-goro-crater"] = (function() return {
 		["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}，在洞穴深處；在地下",
 		["{npc:9117}, below ground"] = "{npc:9117}，地下",
 		["{npc:9998}: his scales come from the young beasts of the eastern jungle"] = "{npc:9998}：他要的鱗片來自東部叢林的幼獸",
-		["{object:161504}, underwater"] = "{object:161504}，水下",
 		["{quest:3362}: kill these as you meet them"] = "{quest:3362}：遇到就殺",
 		["{quest:3764}, from the Threshers and the dirt piles"] = "{quest:3764}，來自打穀者和泥土堆",
 		["{quest:87494}, if a ravasaur dropped the scale"] = "{quest:87494}，如果暴掠龍掉落了鱗片",

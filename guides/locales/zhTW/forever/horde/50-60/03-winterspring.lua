@@ -98,6 +98,8 @@ return {
 	-- Step 16: Maybess Riverbreeze
 	-- {npc:9529} Maybess Riverbreeze
 	["{npc:9529}, on the west side of the Sanctuary"] = "{npc:9529}，在聖地西側",
+	-- {npc:9529} Maybess Riverbreeze · {item:11511} Cenarion Beacon
+	["{npc:9529}: a {item:11511}, for Salve via Hunting"] = "",
 
 	-- Step 18: Emerald Sanctuary
 	-- {quest:5158} Seeking Spiritual Aid · {npc:5901} Islen Waterseer · {area:392} Ratchet

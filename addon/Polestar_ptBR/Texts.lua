@@ -1983,7 +1983,6 @@ t.guides["forever/alliance/40-50/07-un-goro-crater"] = (function() return {
 		["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}, no fundo da caverna; no subterrâneo",
 		["{npc:9117}, below ground"] = "{npc:9117}, no subterrâneo",
 		["{npc:9998}: his scales come from the young beasts of the eastern jungle"] = "{npc:9998}: as escamas dele vêm das feras jovens da selva leste",
-		["{object:161504}, underwater"] = "{object:161504}, debaixo d'água",
 		["{quest:3362}: kill these as you meet them"] = "{quest:3362}: vá matando estes pelo caminho",
 		["{quest:3764}, from the Threshers and the dirt piles"] = "{quest:3764}, das Debulhadoras e dos montes de terra",
 		["{quest:87494}, if a ravasaur dropped the scale"] = "{quest:87494}, se um ravassauro deixou cair a escama",

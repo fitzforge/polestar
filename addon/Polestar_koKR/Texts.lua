@@ -1701,7 +1701,6 @@ t.guides["forever/alliance/40-50/07-un-goro-crater"] = (function() return {
 		["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}, 동굴 안쪽, 지하",
 		["{npc:9117}, below ground"] = "{npc:9117}, 지하",
 		["{npc:9998}: his scales come from the young beasts of the eastern jungle"] = "{npc:9998}: 비늘은 동쪽 밀림의 어린 야수에게서 얻습니다",
-		["{object:161504}, underwater"] = "{object:161504}, 물속",
 		["{quest:3362}: kill these as you meet them"] = "{quest:3362}: 만나는 대로 처치하세요",
 		["{quest:3764}, from the Threshers and the dirt piles"] = "{quest:3764}, 타작 덩굴손과 흙더미에서 획득",
 		["{quest:87494}, if a ravasaur dropped the scale"] = "{quest:87494}, 라바사우루스가 비늘을 떨어뜨렸다면",

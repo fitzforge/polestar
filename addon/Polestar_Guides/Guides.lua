@@ -1472,8 +1472,8 @@ do
 					note = "{npc:263394} and {npc:252457} are level 60 elites until {npc:263394} is drained. {npc:267439}, a level 61 elite, patrols this corner of {area:16866}.\nLegion Hulks (level 60 rare elites) roam {area:16866}'s camps.",
 					when = { { k = "onquest", q = { 96003 } } },
 					goals = {
-						{ t = "use", quest = 96003, title = "Drawing Down the Malevolent", item = 271879, itemName = "Eye of Endless Influence", oi = 1, map = 2482, x = 57.4, y = 36.3 },
-						{ t = "kill", quest = 96003, title = "Drawing Down the Malevolent", target = "Bethra'zel the Feeble", npc = 263394, count = 1, oi = 1, map = 2482, x = 57.41, y = 36.26, spotsPacked = "57.9,35.7,,24,2;58.6,32.44,,21,5", lvl = 60, note = "{npc:263394}", group = { kind = "elite", lvl = 60, rank = 1 } },
+						{ t = "use", quest = 96003, title = "Drawing Down the Malevolent", item = 271879, itemName = "Eye of Endless Influence", oi = 1, map = 2482, x = 58.6, y = 32.3 },
+						{ t = "kill", quest = 96003, title = "Drawing Down the Malevolent", target = "Bethra'zel the Feeble", npc = 263394, count = 1, oi = 1, map = 2482, x = 58.59, y = 32.08, spotsPacked = "58.6,32.44,,21,5;57.9,35.7,,24,2", lvl = 60, note = "{npc:263394}", group = { kind = "elite", lvl = 60, rank = 1 } },
 					},
 				},
 				{

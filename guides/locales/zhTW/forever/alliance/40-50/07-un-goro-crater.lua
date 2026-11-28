@@ -105,8 +105,9 @@ return {
 	-- {npc:9619} Torwa Pathfinder · {npc:8737} Linken · {item:11116} A Mangled Journal
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["The Lar'korwi Mates prowl the jungle west of {npc:9619}. The wrecked raft lies on the shore of the lake there; the small pack sits in the water beside it. Keep the compass, map and key for {npc:8737}. Any beast in the crater may drop {item:11116}: right-click it."] = "拉克維的配偶在{npc:9619}西邊的叢林中徘徊。破碎的木筏在那裡的湖岸上；小包就在旁邊的水裡。把指南針、地圖和鑰匙留給{npc:8737}。環形山的任何野獸都可能掉落{item:11116}：右鍵點擊它。",
-	-- {object:161504} A Small Pack
-	["{object:161504}, underwater"] = "{object:161504}，水下",
+	-- {item:11107} A Small Pack
+	-- was: ["{object:161504}, underwater"] = "{object:161504}，水下"
+	["{item:11107}, underwater"] = "",
 
 	-- Step 23: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
@@ -233,5 +234,6 @@ return {
 	-- ["{npc:9998}, at the refuge entrance"] = "{npc:9998}，在避難營入口",
 	-- ["{npc:9998}, at the refuge's entrance"] = "{npc:9998}，在避難營入口",
 	-- ["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999}坐在環形山中央{area:537}的東南坡上。",
+	-- ["{object:161504}, underwater"] = "{object:161504}，水下",
 	-- ["{zone:1455} flight master"] = "{zone:1455}飛行管理員",
 }

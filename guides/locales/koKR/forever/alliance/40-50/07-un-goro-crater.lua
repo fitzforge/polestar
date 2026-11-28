@@ -105,8 +105,9 @@ return {
 	-- {npc:9619} Torwa Pathfinder · {npc:8737} Linken · {item:11116} A Mangled Journal
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["The Lar'korwi Mates prowl the jungle west of {npc:9619}. The wrecked raft lies on the shore of the lake there; the small pack sits in the water beside it. Keep the compass, map and key for {npc:8737}. Any beast in the crater may drop {item:11116}: right-click it."] = "{npc:9683}은(는) {npc:9619} 서쪽 밀림을 어슬렁거립니다. 부서진 뗏목은 그곳 호숫가에 있고, 작은 꾸러미는 그 옆 물속에 있습니다. 나침반, 지도, 열쇠는 {npc:8737}에게 주도록 보관하세요. 분화구의 어떤 야수든 {item:11116}을(를) 떨어뜨릴 수 있습니다. 오른쪽 클릭하세요.",
-	-- {object:161504} A Small Pack
-	["{object:161504}, underwater"] = "{object:161504}, 물속",
+	-- {item:11107} A Small Pack
+	-- was: ["{object:161504}, underwater"] = "{object:161504}, 물속"
+	["{item:11107}, underwater"] = "",
 
 	-- Step 23: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
@@ -233,5 +234,6 @@ return {
 	-- ["{npc:9998}, at the refuge entrance"] = "{npc:9998}, 야영지 입구",
 	-- ["{npc:9998}, at the refuge's entrance"] = "{npc:9998}, 야영지 입구",
 	-- ["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999}은(는) 분화구 한가운데 {area:537}의 남동쪽 비탈에 앉아 있습니다.",
+	-- ["{object:161504}, underwater"] = "{object:161504}, 물속",
 	-- ["{zone:1455} flight master"] = "{zone:1455} 비행 조련사",
 }

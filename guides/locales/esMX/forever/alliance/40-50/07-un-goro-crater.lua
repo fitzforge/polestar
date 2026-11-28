@@ -104,8 +104,9 @@ return {
 	-- {npc:9619} Torwa Pathfinder · {npc:8737} Linken · {item:11116} A Mangled Journal
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["The Lar'korwi Mates prowl the jungle west of {npc:9619}. The wrecked raft lies on the shore of the lake there; the small pack sits in the water beside it. Keep the compass, map and key for {npc:8737}. Any beast in the crater may drop {item:11116}: right-click it."] = "Las Compañeras de Lar'korwi ({npc:9683}) merodean por la jungla al oeste de {npc:9619}. La balsa destrozada está en la orilla del lago de allí; la mochila pequeña está en el agua a su lado. Guarda la brújula, el mapa y la llave para {npc:8737}. Cualquier bestia del cráter puede soltar {item:11116}: haz clic derecho en él.",
-	-- {object:161504} A Small Pack
-	["{object:161504}, underwater"] = "{object:161504}, bajo el agua",
+	-- {item:11107} A Small Pack
+	-- was: ["{object:161504}, underwater"] = "{object:161504}, bajo el agua"
+	["{item:11107}, underwater"] = "",
 
 	-- Step 23: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
@@ -246,5 +247,6 @@ return {
 	-- ["{npc:9998}, at the refuge entrance"] = "{npc:9998}, en la entrada del refugio",
 	-- ["{npc:9998}, at the refuge's entrance"] = "{npc:9998}, en la entrada del refugio",
 	-- ["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999} está sentado en la ladera sureste de {area:537}, en medio del cráter.",
+	-- ["{object:161504}, underwater"] = "{object:161504}, bajo el agua",
 	-- ["{zone:1455} flight master"] = "Maestro de vuelo de {zone:1455}",
 }

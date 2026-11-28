@@ -2482,7 +2482,6 @@ t.guides["forever/alliance/40-50/07-un-goro-crater"] = (function() return {
 		["{npc:9117}, below ground"] = "{npc:9117}, unter der Erde",
 		["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 54."] = "{npc:9272}, {npc:9271}, {npc:9270} und {npc:9618} haben Quests bei Mobs der Stufe 51-55: Heb sie dir für den späteren Un'Goro-Besuch auf, bei etwa Stufe 54.",
 		["{npc:9998}: his scales come from the young beasts of the eastern jungle"] = "{npc:9998}: Seine Schuppen stammen von den jungen Tieren im östlichen Dschungel",
-		["{object:161504}, underwater"] = "{object:161504}, unter Wasser",
 		["{quest:3362}: kill these as you meet them"] = "{quest:3362}: Töte diese, sobald sie dir begegnen",
 		["{quest:3444} stands on the hill just south-west of the flight master."] = "{quest:3444} steht auf dem Hügel direkt südwestlich des Flugmeisters.",
 		["{quest:3764}, from the Threshers and the dirt piles"] = "{quest:3764}, von den Dreschern und den Erdhaufen",
