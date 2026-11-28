@@ -43,7 +43,7 @@ return {
 	["{item:20613} and Bloodvenom"] = "{item:20613} und Blutgift",
 	-- {area:1767} Irontree Woods · {zone:1448} Felwood · {area:1998} Talonbranch Glade · {item:20613} Rotting Wood · {npc:7149} Withered Protector · {npc:14470} Impsy
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["The Irontree treants (level 52) of {area:1767}, in northern {zone:1448} west of {area:1998}, drop {item:20613} one time in four; the big {npc:7149} (55) often drops three at once but hits hard and dazes. The Tainted Oozes (51) around {npc:14470} and along the Bloodvenom drop the essence one time in five."] = "Die Irontree-Treants (Stufe 52) von {area:1767} im nördlichen {zone:1448} westlich von {area:1998} lassen {item:20613} bei jedem vierten Kill fallen; der große {npc:7149} (55) lässt oft drei auf einmal fallen, schlägt aber hart zu und betäubt. Die Tainted Oozes (51) um {npc:14470} und entlang der Bloodvenom lassen die Essenz bei jedem fünften Kill fallen.",
+	["The Irontree treants (level 52) of {area:1767}, in northern {zone:1448} west of {area:1998}, drop {item:20613} one time in four; the big {npc:7149} (55) often drops three at once but hits hard and dazes. The Tainted Oozes (51) around {npc:14470} and along the Bloodvenom drop the essence one time in five."] = "Die Irontree-Treants (Stufe 52) von {area:1767} im nördlichen {zone:1448} westlich von {area:1998} lassen {item:20613} bei jedem vierten Kill fallen; der große {npc:7149} (55) lässt oft drei auf einmal fallen, schlägt aber hart zu und betäubt. Die besudelten Brühschlammer (51) um {npc:14470} und entlang der Bloodvenom lassen die Essenz bei jedem fünften Kill fallen.",
 
 	-- Step 9: Impsy again
 	-- {npc:14470} Impsy
@@ -58,11 +58,11 @@ return {
 	["The {area:1417} ({area:1477}, level 50-56, a group of five) stands in the middle of the {area:74}: swim down into the temple and take the stairs to the entrance. The six troll guardians (level 51-52, elite) stand on the balconies around the central pit, each with adds; each drops his feather every time: Gasher and {npc:5716} the Amber, Hukku and Mijan the Blue, Zolo and Loro the Green. Not soloable at 52."] = "Der {area:1417} ({area:1477}, Stufe 50-56, Gruppe aus fünf) liegt mitten im {area:74}: Tauch in den Tempel hinunter und nimm die Treppe zum Eingang. Die sechs Troll-Wächter (Stufe 51-52, Elite) stehen auf den Balkonen um die zentrale Grube, jeder mit Adds; jeder lässt seine Feder jedes Mal fallen: Gasher und {npc:5716} die Bernsteinfarbene, Hukku und Mijan die Blaue, Zolo und Loro die Grüne. Mit 52 nicht solo machbar.",
 	-- {npc:5716} Zul'Lor
 	-- plural, as words: Amber Voodoo Feathers = {item:20606} Amber Voodoo Feather
-	["Amber Voodoo Feathers: Gasher, {npc:5716}"] = "Amber Voodoo Feathers: Gasher, {npc:5716}",
+	["Amber Voodoo Feathers: Gasher, {npc:5716}"] = "Gelbe Voodoofedern: Gasher, {npc:5716}",
 	-- plural, as words: Blue Voodoo Feathers = {item:20607} Blue Voodoo Feather
-	["Blue Voodoo Feathers: Hukku, Mijan"] = "Blue Voodoo Feathers: Hukku, Mijan",
+	["Blue Voodoo Feathers: Hukku, Mijan"] = "Blaue Voodoofedern: Hukku, Mijan",
 	-- plural, as words: Green Voodoo Feathers = {item:20608} Green Voodoo Feather
-	["Green Voodoo Feathers: Zolo, Loro"] = "Green Voodoo Feathers: Zolo, Loro",
+	["Green Voodoo Feathers: Zolo, Loro"] = "Grüne Voodoofedern: Zolo, Loro",
 
 	-- Step 11: Trolls of a Feather
 	-- {item:20536} Soul Harvester · {item:20534} Abyss Shard · {item:20530} Robes of Servitude
