@@ -177,6 +177,9 @@ const mining = {
 	],
 };
 
+// Zone map ids the Herbalism bands add (`also`).
+const ZONE = { Redridge: 1433, Wetlands: 1437, Duskwood: 1431, Hillsbrad: 1424, Stonetalon: 1442, Ashenvale: 1440, Darkshore: 1439, Desolace: 1443, Swamp: 1435, Dustwallow: 1445, Stranglethorn: 1434, Feralas: 1444, Hinterlands: 1425, Azshara: 1447 };
+
 const herbalism = {
 	file: 'herbalism',
 	skill: 'Herbalism',
@@ -188,17 +191,20 @@ const herbalism = {
 	points(ctx, map, from, to) {
 		return N.nodePoints(ctx.project, { table: HERB_NODES, map, from, to });
 	},
+	// `also`: zones the planner offers on top of its ranking (build.js zonePicks), so the paired and crafting guides
+	// reach them as the gathering guide's route does: Kalimdor and Eastern Kingdoms places for the characters of
+	// each continent who have the skill before the level for the ranked zones (areas keep to what is safe).
 	bands: [
 		{ from: 1, to: 50, scope: 'start' },
 		{ from: 50, to: 100, scope: 'next' },
-		{ from: 100, to: 125, scope: 'region' },
-		{ from: 125, to: 160, scope: 'faction' },
-		{ from: 160, to: 185, scope: 'faction' },
-		{ from: 185, to: 210, scope: 'faction' },
-		{ from: 210, to: 230, scope: 'faction' },
-		{ from: 230, to: 260, scope: 'faction' },
-		{ from: 260, to: 285, scope: 'faction' },
-		{ from: 285, to: 300, scope: 'faction' },
+		{ from: 100, to: 125, scope: 'region', also: { Alliance: [ZONE.Darkshore] } },
+		{ from: 125, to: 160, scope: 'faction', also: { Alliance: [ZONE.Redridge, ZONE.Wetlands, ZONE.Ashenvale], Horde: [ZONE.Ashenvale] } },
+		{ from: 160, to: 185, scope: 'faction', also: { Alliance: [ZONE.Ashenvale, ZONE.Stonetalon, ZONE.Hillsbrad, ZONE.Desolace, ZONE.Duskwood], Horde: [ZONE.Ashenvale, ZONE.Stonetalon, ZONE.Hillsbrad, ZONE.Desolace] } },
+		{ from: 185, to: 210, scope: 'faction', also: { Alliance: [ZONE.Ashenvale, ZONE.Stonetalon, ZONE.Hillsbrad, ZONE.Desolace, ZONE.Duskwood, ZONE.Swamp, ZONE.Dustwallow], Horde: [ZONE.Ashenvale, ZONE.Stonetalon, ZONE.Hillsbrad, ZONE.Desolace, ZONE.Swamp, ZONE.Dustwallow] } },
+		{ from: 210, to: 230, scope: 'faction', also: { Alliance: [ZONE.Stranglethorn, ZONE.Swamp, ZONE.Dustwallow, ZONE.Desolace], Horde: [ZONE.Stranglethorn, ZONE.Swamp, ZONE.Dustwallow, ZONE.Desolace] } },
+		{ from: 230, to: 260, scope: 'faction', also: { Alliance: [ZONE.Stranglethorn, ZONE.Dustwallow, ZONE.Feralas], Horde: [ZONE.Stranglethorn, ZONE.Dustwallow, ZONE.Feralas] } },
+		{ from: 260, to: 285, scope: 'faction', also: { Alliance: [ZONE.Feralas, ZONE.Hinterlands, ZONE.Azshara], Horde: [ZONE.Feralas, ZONE.Hinterlands, ZONE.Azshara] } },
+		{ from: 285, to: 300, scope: 'faction', also: { Alliance: [ZONE.Hinterlands, ZONE.Azshara], Horde: [ZONE.Hinterlands, ZONE.Azshara] } },
 	],
 	bandTitle(nodes) {
 		return title(nodes, (n) => n);

@@ -92,7 +92,8 @@
 				{ "gather": 115,
 					"zones": {
 						"Horde": [
-							"Silverpine Forest"
+							"Silverpine Forest",
+							"The Barrens"
 						],
 						"Alliance": [
 							"Loch Modan",
@@ -115,7 +116,8 @@
 						],
 						"Alliance": [
 							"Hillsbrad Foothills",
-							"Stonetalon Mountains"
+							"Stonetalon Mountains",
+							"Darkshore"
 						]
 					}
 				},
@@ -126,11 +128,15 @@
 					"zones": {
 						"Horde": [
 							"Hillsbrad Foothills",
-							"Stonetalon Mountains"
+							"Stonetalon Mountains",
+							"Ashenvale"
 						],
 						"Alliance": [
 							"Hillsbrad Foothills",
-							"Stonetalon Mountains"
+							"Stonetalon Mountains",
+							"Redridge Mountains",
+							"Wetlands",
+							"Ashenvale"
 						]
 					}
 				},
@@ -138,11 +144,15 @@
 					"zones": {
 						"Horde": [
 							"Hillsbrad Foothills",
-							"Stonetalon Mountains"
+							"Stonetalon Mountains",
+							"Ashenvale"
 						],
 						"Alliance": [
 							"Hillsbrad Foothills",
-							"Stonetalon Mountains"
+							"Stonetalon Mountains",
+							"Redridge Mountains",
+							"Wetlands",
+							"Ashenvale"
 						]
 					}
 				},
@@ -150,11 +160,15 @@
 					"zones": {
 						"Horde": [
 							"Hillsbrad Foothills",
-							"Stonetalon Mountains"
+							"Stonetalon Mountains",
+							"Ashenvale"
 						],
 						"Alliance": [
 							"Hillsbrad Foothills",
-							"Stonetalon Mountains"
+							"Stonetalon Mountains",
+							"Redridge Mountains",
+							"Wetlands",
+							"Ashenvale"
 						]
 					}
 				}
@@ -168,11 +182,20 @@
 					"zones": {
 						"Horde": [
 							"Stranglethorn Vale",
-							"Arathi Highlands"
+							"Arathi Highlands",
+							"Hillsbrad Foothills",
+							"Ashenvale",
+							"Stonetalon Mountains",
+							"Desolace"
 						],
 						"Alliance": [
 							"Stranglethorn Vale",
-							"Arathi Highlands"
+							"Arathi Highlands",
+							"Hillsbrad Foothills",
+							"Ashenvale",
+							"Stonetalon Mountains",
+							"Desolace",
+							"Duskwood"
 						]
 					}
 				},
@@ -180,11 +203,20 @@
 					"zones": {
 						"Horde": [
 							"Stranglethorn Vale",
-							"Arathi Highlands"
+							"Arathi Highlands",
+							"Hillsbrad Foothills",
+							"Ashenvale",
+							"Stonetalon Mountains",
+							"Desolace"
 						],
 						"Alliance": [
 							"Stranglethorn Vale",
-							"Arathi Highlands"
+							"Arathi Highlands",
+							"Hillsbrad Foothills",
+							"Ashenvale",
+							"Stonetalon Mountains",
+							"Desolace",
+							"Duskwood"
 						]
 					}
 				},
@@ -192,7 +224,19 @@
 					"tip": "Needs Herbalism skill 200. Tanaris and Searing Gorge have no Herbalism trainer."
 				},
 				{ "gather": 210,
-					"tip": "Tanaris and Searing Gorge come at 210, once the areas there suit your level."
+					"tip": "Tanaris comes next, at 210, once the areas there suit your level.",
+					"zones": {
+						"Horde": [
+							"Desolace",
+							"Swamp of Sorrows",
+							"Dustwallow Marsh"
+						],
+						"Alliance": [
+							"Desolace",
+							"Swamp of Sorrows",
+							"Dustwallow Marsh"
+						]
+					}
 				}
 			]
 		},
@@ -204,11 +248,17 @@
 					"zones": {
 						"Horde": [
 							"Tanaris",
-							"Searing Gorge"
+							"Stranglethorn Vale",
+							"Swamp of Sorrows",
+							"Dustwallow Marsh",
+							"Desolace"
 						],
 						"Alliance": [
 							"Tanaris",
-							"Searing Gorge"
+							"Stranglethorn Vale",
+							"Swamp of Sorrows",
+							"Dustwallow Marsh",
+							"Desolace"
 						]
 					}
 				}
@@ -221,10 +271,16 @@
 				{ "gather": 260,
 					"zones": {
 						"Horde": [
-							"The Hinterlands"
+							"The Hinterlands",
+							"Stranglethorn Vale",
+							"Dustwallow Marsh",
+							"Feralas"
 						],
 						"Alliance": [
-							"The Hinterlands"
+							"The Hinterlands",
+							"Stranglethorn Vale",
+							"Dustwallow Marsh",
+							"Feralas"
 						]
 					},
 					"tip": "Many herbs here grow in caves."
@@ -238,20 +294,30 @@
 				{ "gather": 285,
 					"zones": {
 						"Horde": [
-							"Felwood"
+							"Felwood",
+							"Feralas",
+							"The Hinterlands",
+							"Azshara"
 						],
 						"Alliance": [
-							"Felwood"
+							"Felwood",
+							"Feralas",
+							"The Hinterlands",
+							"Azshara"
 						]
 					}
 				},
 				{ "gather": 300,
 					"zones": {
 						"Horde": [
-							"Felwood"
+							"Felwood",
+							"The Hinterlands",
+							"Azshara"
 						],
 						"Alliance": [
-							"Felwood"
+							"Felwood",
+							"The Hinterlands",
+							"Azshara"
 						]
 					}
 				}
