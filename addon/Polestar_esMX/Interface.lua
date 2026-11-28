@@ -3062,6 +3062,7 @@ L["or %s"] = "o %s"
 -- L["Farming loop"] = ""
 -- L["%d min a lap"] = ""
 -- L["about %d laps"] = ""
+-- L["Safe %s loop from level %d"] = ""
 
 -- UI/Welcome.lua
 L["level %d %s"] = "personaje de nivel %d (%s)"

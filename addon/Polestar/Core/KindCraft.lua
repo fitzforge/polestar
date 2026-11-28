@@ -375,7 +375,8 @@ end
 
 -- A get step: per item of the step's material goals, "Get 42 Rough Stone" with the bags' count, and the ways the
 -- item's goals in the step allow, each a choice: { way = "gather", verb, npc, map, loop, minutes (for the rest at
--- the chosen spot), rate (an hour there), levels (a disenchant's green items: { min, max } Requires Level) } |
+-- the chosen spot), rate (an hour there), levels (a disenchant's green items: { min, max } Requires Level),
+-- safeFrom (farming loops with none safe at the character's level yet: the level the first opens at; no map) } |
 -- { way = "buy", toGet (what the bags, bank and mail still lack), copper } | { way = "vendor", npc, map };
 -- `current` the way the guide takes now (the goal that applies: the player's pick, else the guide's way). The
 -- Auction House is no way for a Self-Found character.
@@ -410,7 +411,10 @@ M.get = function(view, kind)
 				w = { way = "gather", verb = KC.GatherVerb(goal), npc = npc, map = map }
 				local fv = a.farm(goal)
 				local missing = a.needOf(goal) - bags(goal.item)
-				if fv and fv.minutes and fv.minutes > 0 and missing > 0 then
+				if fv and fv.safeFrom then
+					-- No loop safe at the character's level yet: no place to lead to, and the level one opens at.
+					w.map, w.safeFrom = nil, fv.safeFrom
+				elseif fv and fv.minutes and fv.minutes > 0 and missing > 0 then
 					w.minutes, w.loop = fv.minutes, fv.loop or nil
 					w.rate = max(1, floor(missing * 60 / fv.minutes + 0.5))
 				end

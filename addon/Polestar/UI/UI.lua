@@ -417,7 +417,9 @@ end
 -- still missing take there, then the second choice ("or Riverpaw Gnoll
 -- (Westfall)"). A farming loop instead names itself, its zone and lap, the
 -- laps left and the second choice's zone ("Mining loop · Westfall · 5 min a
--- lap · about 4 laps · or Loch Modan"). A (non-loop) farm longer than
+-- lap · about 4 laps · or Loch Modan"); with none safe at the character's
+-- level yet, from which level one is ("Safe Copper Ore loop from level 6").
+-- A (non-loop) farm longer than
 -- UI.FARM_LONG minutes is no plan to send a player on: it says where the rest
 -- really comes from instead ("Most of it drops as you level 15-30  ·  or the
 -- Auction House"), no kills, minutes or second farm. Nil without one.
@@ -425,6 +427,10 @@ UI.FARM_LONG = 60
 function UI.FarmLine(goal)
 	local f = type(goal.farm) == "table" and goal.farm
 	if not f then return nil end
+	if f.safeFrom then
+		local what = type(goal.subject) == "string" and goal.subject ~= "" and goal.subject or ""
+		return string.format(L["Safe %s loop from level %d"], what, f.safeFrom)
+	end
 	local parts = {}
 	local above = tonumber(f.above)
 	if above and above >= 2 then

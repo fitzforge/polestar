@@ -1989,6 +1989,7 @@ L["or %s"] = "或%s"
 -- L["Farming loop"] = ""
 -- L["%d min a lap"] = ""
 -- L["about %d laps"] = ""
+-- L["Safe %s loop from level %d"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"

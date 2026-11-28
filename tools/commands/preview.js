@@ -992,6 +992,71 @@ stub.advance(0.5)`;
 function minimapRouteScene(script) {
 	return questScene(['Minimap'], script, undefined, ROUTE_FILES);
 }
+// Farming loops being walked (Polestar 0.4.4): the real Engine picks a starting area's own loop for a new
+// character over the zone's higher ones (lvl: the least level safe on each), its closed track drawn in the flight
+// lines' style with a mark on each point, the arrow a short way ahead on it. The loop lines are the generated
+// guides' own (guides/forever/professions/), as the compiler turns them into candidates (loopCandidate).
+// place: the zone (frame: its Era bounds); goal: the step's goal (Lua fields); loops: its loop lines; at: where the
+// player walks, on the starter loop's track.
+function loopCandidate(line, map) {
+	const m = line.match(/ lvl (\d+) lap (\d+) (gain|yield) ([\d.]+)(?: only (\S+))?.*? r (\d+) at (.+)$/);
+	const pts = m[7].trim().split(/\s+/);
+	const side = /Horde/.test(m[5] || '') ? 'H' : /Alliance/.test(m[5] || '') ? 'A' : 'AH';
+	const [x, y] = pts[0].split(',');
+	return `{ map = ${map}, x = ${x}, y = ${y}, f = "e", faction = "${side}", lvl = { min = ${m[1]}, max = ${m[1]} }, lap = ${m[2]}, ${m[3]} = ${m[4]}, spotsPacked = "${pts.map((p) => `${p},,${m[6]}`).join(';')}" }`;
+}
+function loopTrack(place, { race, faction, level, title, goal, loops, at }) {
+	return `local w = stub.world
+Polestar.RegisterMapFrames({ era = { [${place.map}] = { ${place.frame} } } })
+w.race, w.raceName, w.faction = "${race}", "${race}", "${faction}"
+w.setLevel(${level})
+Polestar.Set("nav.lineStyle", "line")
+Polestar.RegisterPack({ addon = "Polestar_Preview", id = "preview", format = 1, title = "Preview", author = "Polestar", version = "1", license = "GPL-3.0-only" })
+Polestar.RegisterGuide({ id = "preview/loop", pack = "preview", title = "${title}", category = "Professions", minLevel = 1, maxLevel = 60, zone = ${place.map}, steps = {
+	{ title = "${title}", goals = { { ${goal}, candidates = { ${loops.map((l) => loopCandidate(l, place.map)).join(', ')} } } } },
+} })
+Polestar.Engine.SetGuide("preview/loop")
+stub.advance(0.3)
+${at.map(([x, y]) => `w.moveTo(${place.map}, ${x}, ${y}); stub.advance(1)`).join('\n')}`;
+}
+const MULGORE = { map: 1412, name: 'Mulgore', frame: 'c = 1, left = 2047.917, right = -3089.583, top = -272.917, bottom = -3697.917', player: { x: 45.5, y: 83.8 } };
+// Mining: Get Copper Ore (the Blacksmithing guide's), a level 3 Tauren on Red Cloud Mesa's starter loop.
+const LOOP_MINING = loopTrack(MULGORE, {
+	race: 'Tauren', faction: 'Horde', level: 3, title: 'Get Copper Ore',
+	goal: 't = "collect", item = 2770, itemName = "Copper Ore", count = 140, gather = { rank = 1, skill = "Mining", skillLine = 186 }',
+	loops: [
+		'loop Mulgore lvl 9 lap 322 yield 6.0 only Horde r 60 at 62.7,41.1 61.1,40.1 61.5,51.0 57.6,43.0 56.6,40.4 56.9,38.6 57.9,35.4 59.3,30.9 59.4,33.7 61.2,36.6 62.7,38.3 65.5,38.2',
+		'loop Mulgore lvl 2 lap 307 yield 5.6 only Horde r 60 at 49.0,92.8 49.2,87.7 41.8,79.8 41.2,82.0',
+	],
+	at: [[45.5, 83.8], [45.0, 83.2]],
+});
+// Herbalism: Peacebloom and Silverleaf until 15 (the Herbalism guide's), a level 1 Orc on the Valley of Trials'
+// starter loop (lvl 1) beside Durotar's lvl 3 loop.
+const DUROTAR = { map: 1411, name: 'Durotar', frame: 'c = 1, left = -1962.5, right = -7250, top = 1808.333, bottom = -1716.667', player: { x: 42.7, y: 72.7 } };
+const LOOP_HERBS = loopTrack(DUROTAR, {
+	race: 'Orc', faction: 'Horde', level: 1, title: 'Pick Peacebloom and Silverleaf until 15',
+	goal: 't = "skill", skill = "Herbalism", skillLine = 182, level = 15',
+	loops: [
+		'loop Durotar lvl 3 lap 323 gain 12.3 only Horde r 60 at 40.1,68.1 41.7,72.9 43.7,72.5 44.2,70.3 45.3,71.0 51.0,66.8 44.6,67.3 43.0,64.2',
+		'loop Durotar lvl 1 lap 301 gain 8.0 only Horde r 60 at 41.7,72.9 43.7,72.5 44.2,70.3 44.6,67.3 43.0,64.2',
+	],
+	at: [[42.7, 72.7], [43.1, 72.6]],
+});
+// Skinning: beasts of level 1-6 until 50 (the Skinning guide's), a level 2 Tauren on Red Cloud Mesa's starter loop
+// over its beasts (lvl 1), not the zone's lvl 3 loop.
+const SKIN_MULGORE = { ...MULGORE, player: { x: 52.7, y: 83.8 } };
+const LOOP_SKINS = loopTrack(SKIN_MULGORE, {
+	race: 'Tauren', faction: 'Horde', level: 2, title: 'Skin beasts of level 1-6 until 50',
+	goal: 't = "skill", skill = "Skinning", skillLine = 393, level = 50',
+	loops: [
+		'loop Mulgore lvl 3 lap 1886 gain 89.3 only Horde r 80 at 52.7,89.4 48.6,90.1 45.4,88.6 50.4,86.1 49.0,83.5 49.4,80.4 52.4,80.3 54.0,82.4 53.5,86.1 56.2,86.3 59.0,89.1 56.5,90.7',
+		'loop Mulgore lvl 1 lap 1414 gain 62.7 only Horde r 80 at 53.4,85.7 52.0,81.9 49.6,77.7 47.3,75.6 45.0,73.8 46.5,78.8 43.0,81.3 45.2,85.1 46.2,81.9 48.9,82.9 47.7,87.3 50.6,85.9',
+	],
+	at: [[52.7, 83.8], [52.5, 83.2]],
+});
+function loopTrackScene(root, script = LOOP_MINING, place = MULGORE) {
+	return questScene([root], script, place, ROUTE_FILES);
+}
 // The route line's three looks (nav.lineStyle) on one route: a walk bending
 // along its path to the guide pin, then a flight on (its own colour, dashed
 // in the line style). The geometry stands in for Nav's (Nav.GetRouteGeometry)
@@ -1207,7 +1272,9 @@ const WARRIOR_CARD = `${CLASS_CARD}; uistub.player.class, uistub.player.race, ui
 // Woolen Cape (yellow 80, grey 115) to 100 from 75, about 21 crafts still to go at 87; Wool Cloth from Blackrock
 // Grunts in Redridge (19-23), 38 minutes for the rest; the section's shopping list.
 // state: "get" (the get step: Mix farms the wool), "buy" (the player picked the Auction House, priced), "craft"
-// (the craft step), "selfFound" (no Auction House way), "learn" (the skill not learned yet, the craft step).
+// (the craft step), "selfFound" (no Auction House way), "learn" (the skill not learned yet, the craft step),
+// "loop" (a Mining get step on Mulgore's starter loop, a level 3 Tauren), "safe" (the same at level 2: no loop safe
+// yet, the level one opens at; the Auction House stays a way).
 function kindProfession(state = 'get') {
 	return `${KIND_MAPS}
 ${TABS}
@@ -1220,12 +1287,22 @@ local ways = {
 	{ way = "buy", toGet = 36, copper = S == "buy" and 36 * 38 or nil, current = S == "buy", goalIndex = 2 },
 }
 if S == "selfFound" then ways[2] = nil end
+local item = { item = 2592, name = "Wool Cloth", need = 66, have = 30 }
+if S == "loop" or S == "safe" then
+	item = { item = 2770, name = "Copper Ore", need = 140, have = 12 }
+	ways = {
+		S == "loop" and { way = "gather", verb = "mine", map = 1412, loop = true, minutes = 81, rate = 95, current = true, goalIndex = 1 }
+			or { way = "gather", verb = "mine", safeFrom = 3, current = false, goalIndex = 1 },
+		{ way = "buy", toGet = 128, current = S == "safe", goalIndex = 2 },
+	}
+end
 local models = {
-	meter = { kind = "skill", name = "Tailoring", nameKind = "skill", value = S == "learn" and 0 or 87, max = S == "learn" and 0 or 150,
+	meter = item.item == 2770 and { kind = "skill", name = "Mining", nameKind = "skill", value = 12, max = 75, frac = 12 / 75, learned = true }
+		or { kind = "skill", name = "Tailoring", nameKind = "skill", value = S == "learn" and 0 or 87, max = S == "learn" and 0 or 150,
 		frac = S == "learn" and 0 or 87 / 150, learned = S ~= "learn" },
 	stretch = craft and { item = 2584, name = "Woolen Cape", colour = S ~= "learn" and "yellow" or nil, yellow = 80, green = 97, grey = 115, moveOn = 100,
 		rank = 87, made = 13, left = 21, learned = S ~= "learn", spell = "Tailoring", step = 2, goalIndex = 2, done = false } or nil,
-	get = not craft and { items = { { item = 2592, name = "Wool Cloth", need = 66, have = 30, goalIndex = 1, done = false, ways = ways } } } or nil,
+	get = not craft and { items = { { item = item.item, name = item.name, need = item.need, have = item.have, goalIndex = 1, done = false, ways = ways } } } or nil,
 	shopping = { met = 1, rows = {
 		{ item = 2592, name = "Wool Cloth", have = 30, need = 66, toGet = 36, way = S == "buy" and "buy" or "gather" },
 		{ item = 2321, name = "Fine Thread", have = 68, need = 68, toGet = 0, way = "vendor" },
@@ -1307,7 +1384,7 @@ Polestar.UI.GuideFrame.UpdateXP()`;
 const ATLAS = [{ name: 'Polestar_Skins', files: ['Layouts/Atlas/Atlas.lua'] }];
 const GUIDE_CARDS = ['PolestarGuideFrame', 'PolestarGuideFrameCards'];
 // The farm spots' and towns' names (the preview's maps have none of their own).
-const KIND_MAPS = `local KIND_MAPS = { [1433] = "Redridge Mountains", [1431] = "Duskwood", [1453] = "Stormwind City" }
+const KIND_MAPS = `local KIND_MAPS = { [1433] = "Redridge Mountains", [1431] = "Duskwood", [1453] = "Stormwind City", [1412] = "Mulgore" }
 local mapName = Polestar.Compat.GetMapName
 Polestar.Compat.GetMapName = function(id) return KIND_MAPS[id] or (mapName and mapName(id)) end`;
 // Hillsbrad Foothills (Horde 29-33) for a character who did the 22-25 guide: steps 10-20 are the
@@ -2252,6 +2329,26 @@ Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/h
 			minimapLookScene('dots', BARRENS, `${styleSize(0.8)}\nPolestar.Set("ui.reduceMotion", nil)`),
 			minimapLookScene('dots', BARRENS, `${styleSize(0.8)}\nPolestar.Set("ui.reduceMotion", nil)\nstub.advance(0.4)`),
 			minimapLookScene('dots', BARRENS, `${styleSize(0.8)}\nPolestar.Set("ui.reduceMotion", nil)\nstub.advance(0.8)`),
+		],
+	},
+	{
+		file: 'loop-track.svg',
+		title: 'A farming loop being walked: a level 3 Tauren mining Copper on Red Cloud Mesa\'s starter loop (never Mulgore\'s level 9 loop), its closed track on the zone map and the minimap in the flight lines\' style, a mark on each point, the arrow a short way ahead along it; the Get step on the loop, and at level 2 before any loop is safe',
+		panels: [
+			loopTrackScene('WorldMapFrame'),
+			loopTrackScene('Minimap'),
+			{ roots: GUIDE, script: kindProfession('loop') },
+			{ roots: GUIDE, script: kindProfession('safe') },
+		],
+	},
+	{
+		file: 'loop-track-herbs-skins.svg',
+		title: 'Herbalism and Skinning loops being walked: a level 1 Orc picking Peacebloom on the Valley of Trials\' starter loop, a level 2 Tauren skinning on Red Cloud Mesa\'s, each loop\'s closed track on the zone map and the minimap, a mark on each point, the arrow a short way ahead along it',
+		panels: [
+			loopTrackScene('WorldMapFrame', LOOP_HERBS, DUROTAR),
+			loopTrackScene('Minimap', LOOP_HERBS, DUROTAR),
+			loopTrackScene('WorldMapFrame', LOOP_SKINS, SKIN_MULGORE),
+			loopTrackScene('Minimap', LOOP_SKINS, SKIN_MULGORE),
 		],
 	},
 	{

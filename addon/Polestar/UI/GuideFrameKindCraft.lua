@@ -677,8 +677,11 @@ ns.UI.GuideFrame.Part(function(GF)
 	end
 
 	-- A way's short line: where and how long (a farm), what is left and its price (the Auction House, counting the
-	-- bank and the mail), where (a vendor). `toGet`: what the bags still lack.
-	local function waySub(w, toGet)
+	-- bank and the mail), where (a vendor); farming loops none of which is safe at the character's level yet say
+	-- from which level one is ("Safe Copper Ore loop from level 6"). `toGet`: what the bags still lack; `name`: the
+	-- item's.
+	local function waySub(w, toGet, name)
+		if w.safeFrom then return format(L["Safe %s loop from level %d"], name or "", w.safeFrom) end
 		local parts = {}
 		if w.way == "buy" then
 			local n = w.toGet or toGet
@@ -792,7 +795,7 @@ ns.UI.GuideFrame.Part(function(GF)
 						GF.PaintGoalRow(wr, wg, false)
 						radio(wr, w.current)
 						W.Color(wr.Text, w.current and "text" or "textDim")
-						local sub = waySub(w, max(0, e.need - e.have))
+						local sub = waySub(w, max(0, e.need - e.have), e.name)
 						UI.SetCounted(wr.Sub, sub or "")
 						wr.Sub:SetShown(sub ~= nil)
 						wr.psWay, wr.psItem = w, e

@@ -1166,12 +1166,25 @@ gets no `spots`, except an NPC who walks around:
   picks one when the step comes up, again on a zone change, a level-up and
   from the window's "Other": travel there from where the player is plus the
   laps left times `lap` (seconds a lap takes), as for farm spots (`collect …
-  nearest`), with a loop whose `lvl` (its strongest creature) is 2 or more
-  above the player only when every loop is. The picked loop's points, in
-  order, each `r` yards wide (default 30), are the goal's spawn areas, as in a
-  Loop step; `only` limits a loop to some characters (the other faction's
-  towns differ). Points are Era-frame unless `live`. The window names the loop,
-  its zone, its lap and the laps left, and the next choice.
+  nearest`), among the loops whose `lvl` is at most the player's level. `lvl`
+  is the least character level safe along the loop: no creature that can
+  reach its walk or its nodes is more than a level above the player, and no
+  elite stands by it (the profession builder works it out from the creature
+  spawns). A loop above the player is never taken; with none at their level
+  the goal has no place, and the window says from which level one is safe
+  ("Safe Copper Ore loop from level 6"), beside the step's other ways (the
+  Auction House). The picked loop is one closed track through its points in
+  order (its nodes lie within `r` yards of them, default 30): the arrow joins
+  it at the nearest point and runs round it the points' way, always a short
+  way ahead along the line (40 yards), with no stop at a point, lap after lap
+  until the goal is done; off the track it leads back to the nearest point
+  ahead. With TomTom's arrow, a hand-off or the travel planner off, the next
+  point is a plain waypoint instead. Only the loop being walked is drawn: its
+  track on zone maps and the minimap in the flight lines' style, a small mark
+  on each point, and no shaded spawn areas. `only` limits a loop to some
+  characters (the other faction's towns differ). Points are Era-frame unless
+  `live`. The window names the loop, its zone, its lap and the laps left, and
+  the next choice.
 
   ```
   step Copper & Tin (65-125)

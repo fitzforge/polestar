@@ -16,6 +16,7 @@
 	<Script file="Import.lua"/>
 	<Script file="Search.lua"/>
 	<Script file="FieldRoute.lua"/>
+	<Script file="LoopTrack.lua"/>
 	<Script file="Engine.lua"/>
 	<Script file="API.lua"/>
 	<Script file="Materials.lua"/>
