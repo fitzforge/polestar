@@ -69,6 +69,8 @@ test('no hand-in row in the guide window: two finished quests in the log, none i
 			and Polestar.GetDefault("guideWindow.handinRow") == nil })`) });
 	const [window, menu] = out.emitted;
 	assert.ok(window.gone, 'the row, its count and its close state are gone, and so is its setting');
-	assert.deepEqual(window.shown.filter((t) => /ready to hand in/i.test(t)), [], window.shown.join(' | '));
+	// An empty Lua table is emitted as {}, not []: the lines shown, as a list.
+	const shown = Object.values(window.shown);
+	assert.deepEqual(shown.filter((t) => /ready to hand in/i.test(t)), [], shown.join(' | '));
 	assert.deepEqual(menu, { text: 'Hand in finished quests (2)', disabled: false, guided: 'carried/log' });
 });
