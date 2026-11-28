@@ -329,8 +329,6 @@ mod names_shown;
 mod nav;
 #[path = "nav-arrow-look.rs"]
 mod nav_arrow_look;
-#[path = "nav-loop-calm.rs"]
-mod nav_loop_calm;
 #[path = "nav-crossings.rs"]
 mod nav_crossings;
 #[path = "nav-e2e.rs"]
