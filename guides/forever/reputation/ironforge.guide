@@ -252,10 +252,11 @@ step Thaurissan and Blackrock Stronghold
   collect 11467 x50 quest 4283.1      -- Blackrock Medallion
 
 step Morgan's Vigil: hand in
-  tip Plant Gor'tesh's head on the soft dirt mound at the top of Dreadmaul Rock.
+  tip The soft dirt mound is at the top of Dreadmaul Rock.
   turnin 4283
   turnin 3824
   accept 3825                         -- Ogre Head On A Stick = Party, +100
+  use 11079 quest 3825.1 @81.0,46.8 map 1428
   interact 160840 quest 3825.1        -- Soft Dirt Mound
   turnin 3825
 

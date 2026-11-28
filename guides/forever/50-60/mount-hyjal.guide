@@ -156,7 +156,8 @@ step Ketharas
   accept 95611                          -- Rites of Respect
 
 step Ketharas's shrine
-  tip The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost: bury the remains there.
+  tip The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost.
+  use 269998 @66.7,84.3
   complete 95611 @66.7,84.3
 
 step Ketharas
@@ -164,11 +165,12 @@ step Ketharas
   accept 90487                          -- Ancient Allies
 
 step The ancients' outpost
-  tip West to the outpost.
+  tip The outpost is to the west.
   turnin 90487                          -- Fraxinus
   turnin 91754                          -- Hyacinth
   turnin 91755
   accept 91770                          -- Bark Bite
+  use 247963 quest 91770.1 @53.4,84.3
   complete 91770 @53.4,84.3             -- put the poultice on Fraxinus
   turnin 91770
 
@@ -710,7 +712,8 @@ step Jereman
   accept 96978                          -- Violent Venison
 
 step The falls and the first kitten
-  tip Fill Galvinquam's gourd at the falls beside the bridge. Solstice, one of Shalla'kal's kittens, plays just west of the falls: walk up to her.
+  tip The falls are beside the bridge. Solstice, one of Shalla'kal's kittens, plays just west of the falls.
+  use 275991 @41.6,44.6
   complete 96979 @41.6,44.6             -- fill the gourd
   talk 255685 quest 93615.1 @38.5,47.3  -- Solstice
 

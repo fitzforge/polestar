@@ -812,7 +812,8 @@ step Jennea Cannon
 step Mirror Lake
   only Mage
   zone Elwynn Forest
-  tip Leave Stormwind by the main gate. The Mirror Lake waterfall is south-west of the gates, on the way west to Westfall: fill Jennea's Flask at its base.
+  tip The Mirror Lake waterfall is south-west of Stormwind's main gate, on the way west to Westfall.
+  use 7207 quest 1861.1 @28.6,61.4 map 1429
   collect 7206 quest 1861.1                   -- Mirror Lake Water Sample
 
 step Westfall

@@ -295,7 +295,8 @@ step Krakle
 
 step Krakle's Thermometer
   when onquest 974
-  tip Ride east to Fire Plume Ridge, climb it and use Krakle's Thermometer at the lava vent near the top, then ride back west to Krakle.
+  tip The lava vent is near the top of Fire Plume Ridge, east of Krakle.
+  use 12472 quest 974.1 @49.7,45.6
   complete 974 @49.7,45.6
 
 step Krakle

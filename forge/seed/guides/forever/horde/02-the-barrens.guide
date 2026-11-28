@@ -1053,9 +1053,10 @@ step Cry of the Thunderhawk
 step Brine
   only Shaman
   zone The Barrens
-  tip Brine's hut stands on the ridge above the quilboar watering hole, south of Camp Taurajo: fill the Empty Brown Waterskin at the watering hole below it.
+  tip Brine's hut is on the ridge above the quilboar watering hole, south of Camp Taurajo.
   turnin 1530                         -- Brine
   accept 1535
+  use 7766 quest 1535.1 @44.3,76.8
   collect 7769 quest 1535.1 @44.3,76.8 -- Fill the Empty Brown Waterskin at the quilboar watering hole
   turnin 1535
   accept 1536                         -- Keep it: the Spring Well is beside Tarren Mill, on the Hillsbrad guide

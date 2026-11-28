@@ -243,7 +243,8 @@ step Tinker Town: the second jars
 
 step Un'Goro Crater: Primal Oozes
   zone Un'Goro Crater
-  tip The Primal Oozes live in the pools around Fire Plume Ridge in the middle of the crater; the Muculent and Glutinous Oozes fill the jars too. Kill one and use a jar on its remains.
+  tip Primal Oozes live in the pools around Fire Plume Ridge in the middle of the crater. Muculent and Glutinous Oozes also fill the jars.
+  use 11953 quest 4513.1 @67.7,37.8 map 1449
   collect 11954 x10 quest 4513.1      -- Filled Pure Sample Jar
 
 step Tinker Town: hand in

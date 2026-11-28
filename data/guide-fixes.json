@@ -2330,7 +2330,7 @@
 				"objective": 1,
 				"guide": "forever/alliance/40-50/01b-riverglades"
 			},
-			"tip": "Back north-east to the loose soil west of Elbrim's farm: bury the Farmers' Mementos there, one in each grave.",
+			"tip": "The loose soil is north-east, west of Elbrim's farm, and each grave takes one memento.",
 			"when": "has 266148",
 			"note": "#3550: the Loose Soil step only with a Farmers' Memento in the bags, and its tip.",
 			"source": [
@@ -21743,6 +21743,388 @@
 			},
 			"tip": "Canaga stands outside the Den, and Spirit Rock is the hill just south of it. The Earth Sapta reveals the Minor Manifestation of Earth there.",
 			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, where the seed's step has another title.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "use-row-94829-1-01b-riverglades",
+			"faction": "Alliance",
+			"at": {
+				"quest": 94829,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/01b-riverglades"
+			},
+			"rows": {
+				"before": [
+					"use 266148 quest 94829.1 @48.2,44.6"
+				]
+			},
+			"note": "What We Lost (94829): objective 1 ticks when item 266148 is used (Burying, 1277874); the step had the objective's line only. The use is a row of its own before it, so the quest item button and the step key offer the item.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 94829.1 ticked within 3 s of a cast of 1277874 313 times of 390, for 74 people; 75 people took 94829, 3 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 266148's use is spell 1277874 (Burying)"
+				}
+			]
+		},
+		{
+			"id": "use-row-974-1-06-silithus",
+			"faction": "Horde",
+			"at": {
+				"quest": 974,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/06-silithus"
+			},
+			"rows": {
+				"before": [
+					"use 12472 quest 974.1 @49.7,45.6"
+				]
+			},
+			"note": "Finding the Source (974): objective 1 ticks when item 12472 is used (Temperature Reading, 16378); the step had the objective's line only. The use is a row of its own before it, so the quest item button and the step key offer the item.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 974.1 ticked within 3 s of a cast of 16378 35 times of 40, for 40 people; 44 people took 974, 2 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 12472's use is spell 16378 (Temperature Reading)"
+				}
+			]
+		},
+		{
+			"id": "use-row-95642-1-01b-riverglades",
+			"faction": "Alliance",
+			"at": {
+				"quest": 95642,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/01b-riverglades"
+			},
+			"rows": {
+				"before": [
+					"use 269990 quest 95642.1 @47.8,50.0"
+				]
+			},
+			"note": "Abominable Magics (95642): objective 1 ticks when item 269990 is used (Channeling, 1287557); the step had the objective's line only. The use is a row of its own before it, so the quest item button and the step key offer the item.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 95642.1 ticked within 3 s of a cast of 1287557 597 times of 843, for 75 people; 76 people took 95642, 0 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 269990's use is spell 1287557 (Channeling)"
+				}
+			]
+		},
+		{
+			"id": "use-row-3463-1-01-un-goro-crater",
+			"faction": "Horde",
+			"at": {
+				"quest": 3463,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/01-un-goro-crater"
+			},
+			"rows": {
+				"before": [
+					"use 10515 quest 3463.1 @35.7,60.7 map 1427"
+				]
+			},
+			"note": "Set Them Ablaze! (3463): objective 1 ticks when item 10515 is used (Flames of Retribution, 12534); the step had the objective's line only. The use is a row of its own before it, so the quest item button and the step key offer the item.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 3463.1 ticked within 3 s of a cast of 12534 24 times of 45, for 45 people; 3463.2 ticked within 3 s of a cast of 12534 22 times of 45, for 45 people; 3463.3 ticked within 3 s of a cast of 12534 19 times of 45, for 45 people; 3463.4 ticked within 3 s of a cast of 12534 27 times of 45, for 45 people; 46 people took 3463, 1 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 10515's use is spell 12534 (Flames of Retribution)"
+				}
+			]
+		},
+		{
+			"id": "use-row-3463-4-01-un-goro-crater",
+			"faction": "Horde",
+			"at": {
+				"quest": 3463,
+				"goal": "objective",
+				"objective": 4,
+				"guide": "forever/horde/50-60/01-un-goro-crater"
+			},
+			"rows": {
+				"before": [
+					"use 10515 quest 3463.4 @33.3,54.5 map 1427"
+				]
+			},
+			"note": "Set Them Ablaze! (3463): objective 4 ticks when item 10515 is used (Flames of Retribution, 12534); the step had the objective's line only. The use is a row of its own before it, so the quest item button and the step key offer the item.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 3463.1 ticked within 3 s of a cast of 12534 24 times of 45, for 45 people; 3463.2 ticked within 3 s of a cast of 12534 22 times of 45, for 45 people; 3463.3 ticked within 3 s of a cast of 12534 19 times of 45, for 45 people; 3463.4 ticked within 3 s of a cast of 12534 27 times of 45, for 45 people; 46 people took 3463, 1 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 10515's use is spell 12534 (Flames of Retribution)"
+				}
+			]
+		},
+		{
+			"id": "use-row-1536-1-06-hillsbrad-foothills",
+			"faction": "Horde",
+			"at": {
+				"quest": 1536,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/06-hillsbrad-foothills"
+			},
+			"rows": {
+				"before": [
+					"use 7768 quest 1536.1 @62.2,20.8 map 1424 only Shaman"
+				]
+			},
+			"note": "Call of Water (1536): objective 1 ticks when item 7768 is used (Water Sample, 9583); the step had the objective's line only. The use is a row of its own before it, so the quest item button and the step key offer the item.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 1536.1 ticked within 3 s of a cast of 9583 16 times of 16, for 16 people; 17 people took 1536, 0 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 7768's use is spell 9583 (Water Sample)"
+				}
+			]
+		},
+		{
+			"id": "use-row-1861-1-01-dun-morogh",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1861,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/gnome/01-dun-morogh"
+			},
+			"rows": {
+				"before": [
+					"use 7207 quest 1861.1 @28.6,61.4 map 1429"
+				]
+			},
+			"note": "Mirror Lake (1861): objective 1 ticks when item 7207 is used (Fill Jennea's Flask, 8919); the step had the objective's line only. The use is a row of its own before it, so the quest item button and the step key offer the item.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 1861.1 ticked within 3 s of a cast of 8919 11 times of 13, for 13 people; 13 people took 1861, 2 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 7207's use is spell 8919 (Fill Jennea's Flask)"
+				}
+			]
+		},
+		{
+			"id": "use-row-1861-1-01-elwynn-forest",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1861,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/human/01-elwynn-forest"
+			},
+			"rows": {
+				"before": [
+					"use 7207 quest 1861.1 @28.6,61.4 map 1429"
+				]
+			},
+			"note": "Mirror Lake (1861): objective 1 ticks when item 7207 is used (Fill Jennea's Flask, 8919); the step had the objective's line only. The use is a row of its own before it, so the quest item button and the step key offer the item.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 1861.1 ticked within 3 s of a cast of 8919 11 times of 13, for 13 people; 13 people took 1861, 2 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 7207's use is spell 8919 (Fill Jennea's Flask)"
+				}
+			]
+		},
+		{
+			"id": "use-row-1861-1-01-zephras-isle",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1861,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/skyborne/01-zephras-isle"
+			},
+			"rows": {
+				"before": [
+					"use 7207 quest 1861.1 @28.6,61.4 map 1429"
+				]
+			},
+			"note": "Mirror Lake (1861): objective 1 ticks when item 7207 is used (Fill Jennea's Flask, 8919); the step had the objective's line only. The use is a row of its own before it, so the quest item button and the step key offer the item.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 1861.1 ticked within 3 s of a cast of 8919 11 times of 13, for 13 people; 13 people took 1861, 2 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 7207's use is spell 8919 (Fill Jennea's Flask)"
+				}
+			]
+		},
+		{
+			"id": "use-row-1534-1-07-ashenvale",
+			"faction": "Horde",
+			"at": {
+				"quest": 1534,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/07-ashenvale"
+			},
+			"rows": {
+				"before": [
+					"use 7767 quest 1534.1 @33.5,67.5 map 1440"
+				]
+			},
+			"note": "Call of Water (1534): objective 1 ticks when item 7767 is used (Water Sample, 9584); the step had the objective's line only. The use is a row of its own before it, so the quest item button and the step key offer the item.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 1534.1 ticked within 3 s of a cast of 9584 14 times of 18, for 18 people; 17 people took 1534, 0 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 7767's use is spell 9584 (Water Sample)"
+				}
+			]
+		},
+		{
+			"id": "use-row-97222-1-02-darkshore",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97222,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/nightelf/02-darkshore"
+			},
+			"rows": {
+				"before": [
+					"use 277198 quest 97222.1 @66.5,74.8 map 1453 live"
+				]
+			},
+			"note": "Gatehouse Goods (97222): objective 1 ticks when item 277198 is used (Gatehouse Shipment Placed, 1301784); the step had the objective's line only. The use is a row of its own before it, so the quest item button and the step key offer the item.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 97222.1 ticked within 3 s of a cast of 1301784 44 times of 44, for 41 people; 43 people took 97222, 2 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 277198's use is spell 1301784 (Gatehouse Shipment Placed)"
+				}
+			]
+		},
+		{
+			"id": "use-row-849-1-04-the-barrens",
+			"faction": "Horde",
+			"at": {
+				"quest": 849,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/04-the-barrens"
+			},
+			"rows": {
+				"before": [
+					"use 5021 quest 849.1 @47.0,85.6 map 1413"
+				]
+			},
+			"note": "Revenge of Gann (849): objective 1 ticks when item 5021 is used (Detonate, 5140); the step had the objective's line only. The use is a row of its own before it, so the quest item button and the step key offer the item.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 849.1 ticked within 3 s of a cast of 5140 79 times of 103, for 99 people; 99 people took 849, 0 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 5021's use is spell 5140 (Detonate)"
+				}
+			]
+		},
+		{
+			"id": "use-row-97257-1-01-zephras-isle",
+			"faction": "Horde",
+			"at": {
+				"quest": 97257,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/skyborne/01-zephras-isle"
+			},
+			"rows": {
+				"before": [
+					"use 277329 quest 97257.1 @58.4,78.8"
+				]
+			},
+			"note": "Call of Fire (97257): objective 1 ticks when item 277329 is used (Bearing the Flame, 1302112); the step had the objective's line only. The use is a row of its own before it, so the quest item button and the step key offer the item.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 97257.1 ticked within 3 s of a cast of 1302112 8 times of 8, for 8 people; 8 people took 97257, 1 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 277329's use is spell 1302112 (Bearing the Flame)"
+				}
+			]
+		},
+		{
+			"id": "use-row-1535-1-02-the-barrens",
+			"faction": "Horde",
+			"at": {
+				"quest": 1535,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/02-the-barrens"
+			},
+			"rows": {
+				"before": [
+					"use 7766 quest 1535.1 @44.3,76.8"
+				]
+			},
+			"note": "Call of Water (1535): objective 1 ticks when item 7766 is used (Water Sample, 9586); the step had the objective's line only. The use is a row of its own before it, so the quest item button and the step key offer the item.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 1535.1 ticked within 3 s of a cast of 9586 16 times of 17, for 17 people; 17 people took 1535, 0 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 7766's use is spell 9586 (Water Sample)"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-04-the-barrens-gh036-barrens-gann-explosive-stick",
+			"faction": "Horde",
+			"at": {
+				"quest": 849,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/04-the-barrens"
+			},
+			"tip": "The dwarves' flying machine sits on its platform inside the dig site.",
+			"note": "The step's goal rows do every action now (the item uses of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over gh036-barrens-gann-explosive-stick's tip.",
 			"source": [
 				{
 					"kind": "in-game-check",

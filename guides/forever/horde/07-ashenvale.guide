@@ -150,7 +150,8 @@ step Je'neu Sancrea
 step Ruins of Stardust fountain
   zone Ashenvale
   only Shaman
-  tip The fountain stands in the middle of the Ruins of Stardust, where Ursangous roams: use the Empty Blue Waterskin there.
+  tip The fountain is in the middle of the Ruins of Stardust, where Ursangous roams.
+  use 7767 quest 1534.1 @33.5,67.5 map 1440
   collect 7770 quest 1534.1
 
 step Ursangous

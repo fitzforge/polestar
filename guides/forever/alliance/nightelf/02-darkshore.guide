@@ -277,6 +277,7 @@ step Stormwind flight master
   getfp "Stormwind" only NightElf
   turnin 97220                                -- Elaine Trias, in her cheese shop
   accept 97222
+  use 277198 quest 97222.1 @66.5,74.8 map 1453 live
   interact 460004 quest 97222.1               -- Up the stairs in her shop: leave the shipment at the Gatehouse Door
   turnin 97222
 

@@ -18847,6 +18847,12 @@ for (const [guide, item, quest, oi, verb] of [
 	['forever/class/warlock/incubus-horde.guide', 190187, 65604, 1, 'use'], // The Binding: the Withered Scarf
 	['forever/horde/50-60/06-silithus.guide', 11804, 4491, 1, 'use'], // A Little Help From My Friends: Spraggle's Canteen
 	['forever/50-60/mount-hyjal.guide', 271879, 96003, 1, 'use'], // Drawing Down the Malevolent: the Eye of Endless Influence
+	// The fourth batch: objectives players' recordings show ticking on an item's use.
+	['forever/alliance/40-50/01b-riverglades.guide', 266148, 94829, 1, 'use'], // What We Lost: the mementos in the soil
+	['forever/horde/06-hillsbrad-foothills.guide', 7768, 1536, 1, 'use'], // Call of Water: the red waterskin
+	['forever/alliance/human/01-elwynn-forest.guide', 7207, 1861, 1, 'use'], // Mirror Lake: Jennea's flask
+	['forever/horde/04-the-barrens.guide', 5021, 849, 1, 'use'], // Revenge of Gann: the explosive stick
+	['forever/reputation/centaur-clans.guide', 258661, 93062, 1, 'use'], // Bone Burying
 ]) {
 	test(`${guide}: ${verb} ${item} right before the line of quest ${quest}.${oi} (tip-only actions sweep)`, { skip }, () => {
 		const list = goals(guide);

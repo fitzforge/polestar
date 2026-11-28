@@ -576,9 +576,10 @@ step Zephras Isle
 step The Eternal Flame
   zone Zephras Isle
   only Shaman
-  tip Back to Olariaan. Wait for him to light the Brazier of Offering, then carry the flame straight to the Brazier of Eternal Flame beside Sessaria in Valanaar before the timer runs out.
+  tip Olariaan lights the Brazier of Offering. The flame is on a timer, and the Brazier of Eternal Flame is beside Sessaria in Valanaar.
   turnin 97245                        -- Olariaan Swiftburn
   accept 97257
+  use 277329 quest 97257.1 @58.4,78.8
   complete 97257
   turnin 97257 reward 5176 263412     -- Sessaria Skystride: Searing Totem, your Fire Totem and the Totem of Charged Flames
 
