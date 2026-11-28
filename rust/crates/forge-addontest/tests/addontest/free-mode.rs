@@ -569,6 +569,76 @@ emit({ xp = xp, on = on, first = first, near = near, pick = Polestar.Get("free.p
 }
 
 #[test]
+fn turning_free_mode_on_and_off_sounds_once_by_any_way_and_a_restored_tab_is_silent() {
+	let script = r#"
+SOUNDKIT = { IG_QUEST_LOG_OPEN = 8441, IG_QUEST_LOG_CLOSE = 8451 }
+local function kits() local out = {} for i, k in ipairs(stub.sounds) do out[i] = k end stub.sounds = {} return out end
+stub.sounds = {}
+stub.advance(1)
+local got = {}
+assert(F.Start())
+stub.advance(1)
+got.start = kits()
+assert(F.Start())
+got.again = kits()
+F.Stop()
+stub.advance(1)
+got.stop = kits()
+F.Stop()
+got.stopAgain = kits()
+SlashCmdList.POLESTAR("free")
+stub.advance(1)
+got.slashOn = kits()
+SlashCmdList.POLESTAR("free off")
+stub.advance(1)
+got.slashOff = kits()
+SlashCmdList.POLESTAR("free on")
+stub.advance(1)
+got.slashOnWord = kits()
+local items = F.MenuItems()
+items[2].onClick()
+stub.advance(1)
+got.menuOff = kits()
+F.Toggle()
+stub.advance(1)
+got.toggleOn = kits()
+F.Toggle()
+stub.advance(1)
+got.toggleOff = kits()
+emit(got)
+"#;
+	let out = run(script);
+	let got = &out[0];
+	for (k, want) in [
+		("start", vec![8441]),
+		("again", vec![]),
+		("stop", vec![8451]),
+		("stopAgain", vec![]),
+		("slashOn", vec![8441]),
+		("slashOff", vec![8451]),
+		("slashOnWord", vec![8441]),
+		("menuOff", vec![8451]),
+		("toggleOn", vec![8441]),
+		("toggleOff", vec![8451]),
+	] {
+		let have: Vec<i64> = got[k].as_array().map(|a| a.iter().map(|v| v.as_i64().unwrap()).collect()).unwrap_or_default();
+		assert_eq!(have, want, "{k}");
+	}
+	let restored = run_with(
+		r#"
+SOUNDKIT = { IG_QUEST_LOG_OPEN = 8441, IG_QUEST_LOG_CLOSE = 8451 }
+stub.advance(2)
+local n = 0
+for _, k in ipairs(stub.sounds) do if k == 8441 or k == 8451 then n = n + 1 end end
+emit({ on = F.IsOn(), n = n })
+"#,
+		&Opts { saved: Some(r#"PolestarCharDB = { tabs = { "lookup/free/log" }, activeTab = 1, guide = "lookup/free/log" }"#), ..Default::default() },
+	);
+	assert!(truthy(&restored[0]["on"]));
+	assert_eq!(restored[0]["n"], 0, "restoring the tab at login plays nothing");
+}
+
+#[test]
 fn the_settings_button_opens_the_main_page_beside_the_order_and_details() {
 	// Settings > Questing > Quests > Free mode (Polestar_Options/Quests/Options.lua): Open, which shows the Free mode
 	// section's Main page (Free mode is turned on and off there, not by a second switch here), then the order, zone

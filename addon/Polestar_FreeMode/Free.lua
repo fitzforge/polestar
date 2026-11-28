@@ -744,6 +744,15 @@ end)
 -- On and off
 ---------------------------------------------------------------------------
 
+-- The sound of the mode turning on or off: Start and Stop are the one place
+-- the state really changes (a tab the client restores never comes through
+-- them), so every way to turn it on or off sounds it once, and only then.
+-- The quest log's open and close, as the Classic Era client names them.
+local function chime(on)
+	local kit = SOUNDKIT or {}
+	pcall(ns.PlaySound, on and (kit.IG_QUEST_LOG_OPEN or 844) or (kit.IG_QUEST_LOG_CLOSE or 845), "SFX")
+end
+
 function Free.Start()
 	local E, C = Engine(), Codex()
 	if not (E and E.OpenTab and ns.IsLoggedIn()) then return nil, "login" end
@@ -759,6 +768,7 @@ function Free.Start()
 	local ok, err = Lookup.Guide(KIND, ID)
 	if not ok then return nil, err end
 	planned = signature()
+	chime(true)
 	ns.Fire("FREE_MODE", true)
 	return true
 end
@@ -795,6 +805,7 @@ function Free.Stop()
 	end
 	E.CloseTab(i, true)
 	planned, lastFirst, lastWhy, lastRows, lastInfo = nil, nil, nil, nil, nil
+	chime(false)
 	ns.Fire("FREE_MODE", false)
 end
 
