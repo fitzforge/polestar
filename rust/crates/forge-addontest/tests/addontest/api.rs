@@ -516,4 +516,144 @@ fn progress_snapshot_bounds_goals_and_lookahead_and_omits_missing_fields() {
 	assert_eq!(out["upcoming"].as_array().unwrap().len(), 1);
 	assert_eq!(out["upcoming"][0]["index"], 33);
 	assert_eq!(out["upcomingComplete"], false);
+	assert_eq!(out["upcomingStop"], "scan_limit");
+}
+
+#[test]
+fn progress_snapshot_is_lazy_and_reused_until_the_engine_settles_again() {
+	let out = story(
+		false,
+		r#"
+		local P, read = Polestar, API.GetProgressSnapshot
+		local own
+		for i = 1, 30 do
+			local key, value = debug.getupvalue(E.GetProgressSnapshot, i)
+			if key == "Own" then own = value; break end
+		end
+		assert(own and own.captureProgress)
+		assert(own.progressSnapshot == nil)
+		local captures, capture = 0, own.captureProgress
+		own.captureProgress = function()
+			captures = captures + 1
+			return capture()
+		end
+		for _ = 1, 5 do E.RequestUpdate(); flush() end
+		local r = { idle = captures, first = read().live.index }
+		for _ = 1, 5 do assert(read().live.index == r.first) end
+		r.repeatReads = captures
+		P.After(0, function() end); flush()
+		r.unrelatedTimer = read().live.index
+		r.afterTimer = captures
+		E.Next(); flush()
+		local browsed = read()
+		r.browse = { browsed.live.index, browsed.viewed.index, captures }
+		E.ToggleGoal(2, 1); flush()
+		r.ticked = { read().live.index, captures }
+		local extra = Lk.BuildGuide("story", 2)
+		assert(P.RegisterGuide(extra))
+		E.OpenTab(extra.id); flush()
+		r.guide = { read().guide.id, captures }
+		E.SelectTab(1); flush()
+		r.back = { read().guide.id, captures }
+		local saved = PolestarCharDB
+		PolestarCharDB = nil
+		r.character = read().state
+		r.untouchedSave = PolestarCharDB == nil
+		PolestarCharDB = saved
+		P.RegisterEvent("QUEST_LOG_UPDATE", function() r.during = read().state end)
+		stub.fire("QUEST_LOG_UPDATE")
+		r.pending = read().state
+		r.pendingCaptures = captures
+		flush()
+		r.settled = read().state
+		r.afterUpdate = captures
+		emit(r)
+		"#,
+	);
+	assert_eq!(
+		out,
+		json!({
+			"idle": 0, "first": 2, "repeatReads": 1, "unrelatedTimer": 2, "afterTimer": 1,
+			"browse": [2, 3, 2], "ticked": [3, 3], "guide": ["lookup/story/2", 4],
+			"back": ["lookup/story/1", 5], "character": "not_ready", "untouchedSave": true,
+			"during": "not_ready", "pending": "not_ready", "pendingCaptures": 5,
+			"settled": "active", "afterUpdate": 6,
+		})
+	);
+}
+
+#[test]
+fn progress_snapshot_stops_at_the_indirect_work_budget_and_keeps_the_confirmed_prefix() {
+	let out = run(
+		false,
+		r#"
+		local P = Polestar
+		local E, read = P.Engine, P.API.GetProgressSnapshot
+		stub.login()
+		stub.fire("QUEST_LOG_UPDATE")
+		local steps = {
+			{title = "Live", goals = {{ t = "task", text = "Current" }}},
+			{title = "Confirmed", goals = {{ t = "task", text = "Next" }}}
+		}
+		for i = 3, 100 do
+			steps[i] = { title = "Travel " .. i, when = {{ k = "level", op = ">=", n = 1 }},
+				goals = {{ t = "goto", text = "Walk", map = 1429, x = 40 + i / 10, y = 60 }} }
+		end
+		steps[101] = { title = "Finish", goals = {{ t = "task", text = "Finish" }} }
+		assert(P.RegisterGuide({ id = "lookup/snapshot/4", pack = "lookup", title = "Travel", steps = steps }))
+		E.SetGuide("lookup/snapshot/4")
+		stub.advance(0.25)
+		local before, waypoint = P.Moment(), E.GetWaypoint()
+		local snapshot = read()
+		local clean = P.Moment() == before and E.GetWaypoint() == waypoint and E.GetLiveStep() == 1
+		emit({ snapshot = snapshot, clean = clean, repeatStop = read().upcomingStop })
+		"#,
+	);
+	assert_eq!(out["clean"], true);
+	assert_eq!(out["snapshot"]["state"], "active");
+	assert_eq!(out["snapshot"]["upcoming"], json!([{ "index": 2, "number": 2, "title": "Confirmed" }]));
+	assert_eq!(out["snapshot"]["upcomingComplete"], false);
+	assert_eq!(out["snapshot"]["upcomingStop"], "budget");
+	assert_eq!(out["repeatStop"], "budget");
+}
+
+#[test]
+fn progress_snapshot_does_not_start_cooldown_watches_or_keep_working_past_the_deadline() {
+	let out = story(
+		false,
+		r#"
+		local P, read = Polestar, API.GetProgressSnapshot
+		local own
+		for i = 1, 30 do
+			local key, value = debug.getupvalue(E.GetProgressSnapshot, i)
+			if key == "Own" then own = value; break end
+		end
+		assert(own)
+		local route = Lk.BuildGuide("story", 2)
+		route.steps = {
+			{goals = {{t = "task", text = "Live"}}},
+			{title = "Confirmed", goals = {{t = "task", text = "Next"}}},
+			{when = {{k = "cooldown", item = 6948}}, goals = {{t = "task", text = "Wait for cooldown"}}},
+			{goals = {{t = "task", text = "Later"}}},
+		}
+		assert(P.RegisterGuide(route))
+		assert(E.SetGuide(route.id))
+		flush()
+		local moment, asked, wake = P.Moment(), own.cooldownAsked, own.cooldownWake
+		local cooldown = read()
+		local stable = P.Moment() == moment and own.cooldownAsked == asked and own.cooldownWake == wake
+		E.RequestUpdate(); flush()
+		local clock, calls = debugprofilestop, 0
+		debugprofilestop = function()
+			calls = calls + 1
+			return calls >= 4 and 2 or 0
+		end
+		local deadline = read()
+		debugprofilestop = clock
+		local settled = read()
+		emit({ stable = stable, cooldown = cooldown.upcomingStop, count = #cooldown.upcoming,
+			deadline = deadline.upcomingStop, deadlineCount = #deadline.upcoming, cached = settled.upcomingStop })
+		"#,
+	);
+	assert_eq!(out, json!({ "stable": true, "cooldown": "unavailable", "count": 1, "deadline": "budget", "deadlineCount": 0, "cached": "budget" }));
 }

@@ -143,6 +143,7 @@ end
 -- hold (Own.whenHolds: as stored once the route passed the step, else live).
 -- A step an update added behind the player is not (Own.passAdded).
 local function stepApplies(step)
+	if Own.readingProgress then Own.spendProgressWork() end
 	if Own.gone(step) then return false end
 	return Guides.Matches(step.only, player) and (step.when == nil or Own.whenHolds(step))
 end
@@ -153,6 +154,7 @@ end
 -- and its hand-in are behind the player (Betrayed taken early in Orgrimmar and
 -- carried on to Ag'tor's part before the guide reached it, #2461).
 local function questDone(q)
+	if Own.readingProgress then Own.spendProgressWork() end
 	return turnedIn[q] or Compat().IsQuestCompleted(q) or Own.chainPast(q) ~= nil
 end
 
@@ -175,6 +177,9 @@ function Own.laterOf(q)
 	local Q = ns.QuestDB
 	if not (Q and Q.IsLoaded and Q.IsLoaded()) then return Own.NO_LATER end
 	local cache, ids = Own.laterCache, Q.QuestIds()
+	if Own.readingProgress and not (cache.ids == ids and cache.lists[q]) then
+		cache = Own.progressLaterCache
+	end
 	if cache.ids ~= ids then
 		cache.ids, cache.lists, cache.ctx = ids, {}, Q.PlayerContext(Compat().GetPlayerInfo())
 	end
@@ -191,10 +196,12 @@ function Own.laterOf(q)
 		local r = Q.QuestRecord(s)
 		if not (r and Q.IsEligible(r, ctx)) then return false end
 		for _, x in Q.Each(r[F.PRE_ALL]) do
+			if Own.readingProgress then Own.spendProgressWork() end
 			if x == p then return true end
 		end
 		local named = false
 		for _, x in Q.Each(r[F.PRE]) do
+			if Own.readingProgress then Own.spendProgressWork() end
 			if x == p then
 				named = true
 			elseif eligible(x) then
@@ -206,6 +213,7 @@ function Own.laterOf(q)
 	local seen, queue, head = { [q] = true }, { q }, 1
 	local own = F.DONE_BY and Q.QuestRecord(q)
 	for _, s in Q.Each(own and own[F.DONE_BY] or nil) do
+		if Own.readingProgress then Own.spendProgressWork() end
 		if not seen[s] then
 			seen[s] = true
 			list[#list + 1] = s
@@ -213,9 +221,11 @@ function Own.laterOf(q)
 		end
 	end
 	while queue[head] and #list < Own.LATER_MAX do
+		if Own.readingProgress then Own.spendProgressWork() end
 		local p = queue[head]
 		head = head + 1
 		for _, s in ipairs(Q.FollowUps(p) or Own.NO_LATER) do
+			if Own.readingProgress then Own.spendProgressWork() end
 			if not seen[s] and needs(s, p) then
 				seen[s] = true
 				list[#list + 1] = s
@@ -239,17 +249,19 @@ function Own.chainPast(q)
 	if not (Q and Q.IsLoaded and Q.IsLoaded()) then return nil end
 	local C = Compat()
 	if C.IsOnQuest(q) then return nil end
+	if Own.readingProgress and not (Q.FollowUpsReady and Q.FollowUpsReady()) then error(Own.progressUnreadable, 0) end
 	local ids, stamp = Q.QuestIds(), Own.logStamp
-	if Own.pastIds ~= ids then Own.pastIds, Own.pastGen, Own.pastVal = ids, {}, {} end
-	if Own.pastGen[q] == stamp then return Own.pastVal[q] or nil end
+	if Own.pastIds == ids and Own.pastGen[q] == stamp then return Own.pastVal[q] or nil end
+	if Own.pastIds ~= ids and not Own.readingProgress then Own.pastIds, Own.pastGen, Own.pastVal = ids, {}, {} end
 	local found = false
 	for _, s in ipairs(Own.laterOf(q)) do
+		if Own.readingProgress then Own.spendProgressWork() end
 		if turnedIn[s] or C.IsOnQuest(s) or C.IsQuestCompleted(s) then
 			found = s
 			break
 		end
 	end
-	Own.pastGen[q], Own.pastVal[q] = stamp, found
+	if not Own.readingProgress then Own.pastGen[q], Own.pastVal[q] = stamp, found end
 	return found or nil
 end
 for _, event in ipairs({ "QUEST_LOG_UPDATE", "QUEST_ACCEPTED", "QUEST_TURNED_IN", "QUEST_REMOVED" }) do
@@ -312,6 +324,7 @@ function Own.chainOf(g)
 	if c and c.chain then
 		local stale = false
 		for _, o in ipairs(c.open) do
+			if Own.readingProgress then Own.spendProgressWork() end
 			if (o.offer and Own.offerTaken(o.from, o.id) ~= o.taken) or (not o.offer and Own.optionClosed(o.from, o.id)) then
 				stale = true
 				break
@@ -320,6 +333,7 @@ function Own.chainOf(g)
 		if not stale then return c.chain end
 		c = nil
 	end
+	if Own.readingProgress then error(Own.progressUnreadable, 0) end
 	if not c then
 		c = {}
 		chainNeedsCache[g.steps] = c
@@ -427,6 +441,7 @@ local function chainNeeds(g, level)
 	local c = chainNeedsCache[g.steps]
 	local set = c[level]
 	if set then return set end
+	if Own.readingProgress then error(Own.progressUnreadable, 0) end
 	-- The accepts that are not grey, needed as they are.
 	local open = {}
 	for _, goal in ipairs(chain.accepts) do
@@ -501,7 +516,9 @@ local function layoutOf(g)
 	l = { stepOf = {}, accepts = {}, turnins = {}, abandons = {}, starters = {}, at = {}, needs = {} }
 	local firstCollect = {}
 	for s, step in ipairs(g.steps) do
+		if Own.readingProgress then Own.spendProgressWork() end
 		for gi, goal in ipairs(step.goals) do
+			if Own.readingProgress then Own.spendProgressWork() end
 			l.stepOf[goal] = s
 			local by = goal.quest and (goal.t == "accept" and l.accepts or goal.t == "turnin" and l.turnins or goal.t == "abandon" and l.abandons)
 			if by then
@@ -515,6 +532,7 @@ local function layoutOf(g)
 			if goal.t == "accept" and goal.quest then
 				local pre, all = type(goal.pre) == "table" and goal.pre or NONE, type(goal.preAll) == "table" and goal.preAll or NONE
 				for i = #pre == 1 and 0 or 1, #all do
+					if Own.readingProgress then Own.spendProgressWork() end
 					local p = i == 0 and pre[1] or all[i]
 					local list = l.needs[p]
 					if not list then
@@ -543,6 +561,7 @@ local function layoutOf(g)
 			end
 			if goal.t == "collect" and not goal.quest and goal.item and (goal.count or 1) == 1 then
 				for j = gi + 1, #step.goals do
+					if Own.readingProgress then Own.spendProgressWork() end
 					local a = step.goals[j]
 					if a.item == goal.item then
 						if a.t == "accept" and a.quest and not a.npc and not a.object then l.starters[goal] = a end
@@ -567,12 +586,16 @@ local function layoutOf(g)
 	-- escort.rs choice_quests lists the same in a deferred guide's header.
 	l.escorts = {}
 	for q, list in pairs(l.accepts) do
+		if Own.readingProgress then Own.spendProgressWork() end
 		for _, e in ipairs(list) do
+			if Own.readingProgress then Own.spendProgressWork() end
 			if e.goal.escort and not e.goal.optional then l.escorts[q] = true end
 		end
 	end
 	for _, step in ipairs(g.steps) do
+		if Own.readingProgress then Own.spendProgressWork() end
 		for _, p in ipairs(step.when or NONE) do
+			if Own.readingProgress then Own.spendProgressWork() end
 			if p.k == "group" and p.q then l.escorts[p.q] = nil end
 		end
 	end
@@ -597,6 +620,7 @@ function Own.usedBy(goal)
 	if not (s and Q and Q.IsLoaded()) then return nil end
 	hit = false
 	for _, a in ipairs(guide.steps[s].goals) do
+		if Own.readingProgress then Own.spendProgressWork() end
 		if a == goal then break end
 		if a.t == "accept" and a.quest and Q.HandsOver(a.quest, goal.item) then hit = a end
 	end
@@ -640,6 +664,7 @@ function Own.boughtFor(goal)
 	if not (l.stepOf[goal] and Q and Q.IsLoaded() and Q.Asks) then return nil end
 	hit = false
 	for q, list in pairs(l.accepts) do
+		if Own.readingProgress then Own.spendProgressWork() end
 		if Q.Asks(q, goal.item) then
 			hit = hit or {}
 			for _, a in ipairs(list) do hit[#hit + 1] = a.goal end
@@ -679,6 +704,7 @@ function Own.acceptMissing(q, s, l)
 	if C.IsOnQuest(q) or questDone(q) then return false end
 	local skipped = ns.CharState().skipped[guide.id]
 	for _, a in ipairs(list) do
+		if Own.readingProgress then Own.spendProgressWork() end
 		-- An accept an update passed (Own.passAdded) is none: its quest's later
 		-- goals go with it, whether the pass took its step or only the accept.
 		if a.s <= s and not a.goal.optional and not a.goal.either and not (skipped and skipped[a.s])
@@ -741,6 +767,7 @@ end
 -- quest the character can never take is not theirs either (Own.barred).
 -- (Inline: the main chunk is at Lua's 200 locals.)
 local function goalApplies(goal)
+	if Own.readingProgress then Own.spendProgressWork() end
 	if not Guides.Matches(goal.only, player) or Own.barred(goal) or Own.gone(goal) then return false end
 	-- An escort the player chose to skip (Own.escortChoice, #3439): its accept, work and hand-in are out.
 	if goal.quest and Own.escortChoice(goal.quest) and Own.groupAnswer(goal.quest) == "skip" then return false end
@@ -949,6 +976,7 @@ end
 -- in it is closed.
 -- `depth`: how far Own.coming has followed a chain of prerequisites.
 local function unavailableFor(goal, depth)
+	if Own.readingProgress then Own.spendProgressWork() end
 	local q = goal.quest
 	if not q then
 		-- A quest's starting item waits with the quest (#1531: Ursangous's Paw
@@ -973,15 +1001,18 @@ local function unavailableFor(goal, depth)
 	local own = goal.t == "accept" or goal.direct
 	local list = not own and guide and layoutOf(guide).accepts[q] or NONE
 	for i = 1, own and 1 or #list do
+		if Own.readingProgress then Own.spendProgressWork() end
 		local a = own and goal or list[i].goal
 		if type(a.closedBy) == "table" then
 			for _, by in ipairs(a.closedBy) do
+				if Own.readingProgress then Own.spendProgressWork() end
 				if C.IsOnQuest(by) or questDone(by) then return Own.closedMark(q, a, by) end
 			end
 		end
 		local parent = tonumber(a.parent)
 		if parent and questDone(parent) then return Own.closedMark(q, a, parent) end
 		for _, by in ipairs(guide and layoutOf(guide).needs[q] or NONE) do
+			if Own.readingProgress then Own.spendProgressWork() end
 			if C.IsOnQuest(by) or questDone(by) then return Own.closedMark(q, a, by) end
 		end
 	end
@@ -995,13 +1026,14 @@ local function unavailableFor(goal, depth)
 	if u or Own.offered[q] then return u end
 	local level = player and player.level
 	for i = 1, level and (own and 1 or #list) or 0 do
+		if Own.readingProgress then Own.spendProgressWork() end
 		local a = own and goal or list[i].goal
 		local lvl = tonumber(a.minLevel)
 		if lvl and level < lvl then
 			local m = Own.levelMarks[a]
 			if not m then
 				m = { reason = "level", accept = a }
-				Own.levelMarks[a] = m
+				if not Own.readingProgress then Own.levelMarks[a] = m end
 			end
 			return m
 		end
@@ -1009,12 +1041,14 @@ local function unavailableFor(goal, depth)
 	-- A chain followed this deep (or looping in the data) proves nothing.
 	if (depth or 0) > 8 then return nil end
 	for i = 1, own and 1 or #list do
+		if Own.readingProgress then Own.spendProgressWork() end
 		local a = own and goal or list[i].goal
 		local parent = tonumber(a.parent)
 		local pre = parent and not C.IsOnQuest(parent) and not Own.coming(parent, depth) and parent
 			or (a.pre or a.preAll) and Own.preBlocked(a, depth)
 			or Own.crumbHeld(a, depth)
 		if pre then
+			if Own.readingProgress then return { reason = "pre", accept = a, pre = pre } end
 			local m = Own.preMarks[a]
 			if not m then
 				m = { reason = "pre", accept = a }
@@ -1058,6 +1092,7 @@ function Own.availableNow(p)
 	if missingPre(p) then return false end
 	if p.parent and not C.IsOnQuest(p.parent) then return false end
 	for _, by in ipairs(type(p.closedBy) == "table" and p.closedBy or NONE) do
+		if Own.readingProgress then Own.spendProgressWork() end
 		if C.IsOnQuest(by) or questDone(by) then return false end
 	end
 	return true
@@ -1113,7 +1148,9 @@ end
 -- the player decides.
 function Own.isUpgrade(item)
 	local G, link = ns.Gear, "item:" .. item
-	if not (G and G.IsEnabled and G.IsEnabled() and G.CompareToEquipped(link)) then return true end
+	if not (G and G.IsEnabled and G.IsEnabled()) then return true end
+	if Own.readingProgress then error(Own.progressUnreadable, 0) end
+	if not G.CompareToEquipped(link) then return true end
 	return G.IsUpgrade(link) and true or false
 end
 
@@ -1122,6 +1159,7 @@ end
 -- holds asks for an update when it ends; one starting comes with
 -- BAG_UPDATE_COOLDOWN or SPELL_UPDATE_COOLDOWN, heard once a guide has asked.
 function Own.onCooldown(p)
+	if Own.readingProgress then error(Own.progressUnreadable, 0) end
 	Own.cooldownAsked = true
 	local C = Compat()
 	local start, duration
@@ -1165,11 +1203,13 @@ end
 function Own.groupPending(step)
 	if step.along then return nil end
 	for _, p in ipairs(step.when or NONE) do
+		if Own.readingProgress then Own.spendProgressWork() end
 		if p.k == "group" and Own.groupAnswer(p.q) == nil and Own.groupOpen(step, p.q) and not Own.groupAskedLater(step, p.q) then return p.q end
 	end
 	local esc = guide and layoutOf(guide).escorts
 	if esc and next(esc) then
 		for _, goal in ipairs(step.goals) do
+			if Own.readingProgress then Own.spendProgressWork() end
 			local q = goal.t == "accept" and goal.quest
 			if q and esc[q] and Own.groupAnswer(q) == nil and goalApplies(goal) and Own.groupOpen(step, q) and not Own.groupAskedLater(step, q) then return q end
 		end
@@ -1353,6 +1393,7 @@ end
 function Own.dungeonPending(step)
 	if step.along or not step.when then return nil end
 	for _, p in ipairs(step.when) do
+		if Own.readingProgress then Own.spendProgressWork() end
 		if p.k == "dungeon" and not p.neg and Own.dungeonAnswer(p.map) == nil and Own.dungeonAsks(step) and Own.dungeonOpen(step) then return p end
 	end
 	return nil
@@ -1374,6 +1415,7 @@ function Own.predicateHolds(p)
 		return (op == "<" and money < n) or (op == "<=" and money <= n) or (op == ">" and money > n) or (op == ">=" and money >= n)
 	elseif k == "onquest" then
 		for _, q in ipairs(p.q) do
+			if Own.readingProgress then Own.spendProgressWork() end
 			if C.IsOnQuest(q) then
 				ok = true
 				break
@@ -1452,6 +1494,7 @@ end
 -- step that hands in the quest its `when onquest` / `when complete` names is
 -- kept by its hand-in instead: Own.holdOnQuest.)
 function Own.predicateFails(step, p)
+	if Own.readingProgress then Own.spendProgressWork() end
 	if p.k == "dungeon" and not p.neg and Own.dungeonAnswer(p.map) == nil then
 		return not (Own.dungeonAsks(step) and Own.dungeonOpen(step))
 	end
@@ -1519,7 +1562,10 @@ function Own.stepNumber(step)
 	local map = Own.stepNumbers[guide.steps]
 	if not map then
 		map = {}
-		for s, st in ipairs(guide.steps) do map[st] = s end
+		for s, st in ipairs(guide.steps) do
+			if Own.readingProgress then Own.spendProgressWork() end
+			map[st] = s
+		end
 		Own.stepNumbers[guide.steps] = map
 	end
 	return map[step]
@@ -1715,7 +1761,10 @@ function Own.fpKnown(goal)
 		return type(taxi) == "table" and taxi[goal.node] == true
 	end
 	local want = (goal.location or goal.name):lower()
-	for name in pairs(fpTable()) do
+	local paths = ns.CharState().flags.fp
+	if not Own.readingProgress then paths = fpTable() end
+	for name in pairs(type(paths) == "table" and paths or NONE) do
+		if Own.readingProgress then Own.spendProgressWork() end
 		local n = name:lower()
 		if n == want or n:match("^([^,]+)") == want then return true end
 	end
@@ -1780,6 +1829,7 @@ function Own.marksOf()
 	if not m then
 		m = { labels = {}, along = {} }
 		for s, st in ipairs(guide.steps) do
+			if Own.readingProgress then Own.spendProgressWork() end
 			if type(st.label) == "string" then m.labels[st.label] = s end
 			if st.along then m.along[#m.along + 1] = s end
 		end
@@ -2040,6 +2090,7 @@ end
 -- or nil when it cannot tell.
 function Own.endersOf(p)
 	local X = ns.Codex
+	if Own.readingProgress and X and X.Quest and not (X.IsLoaded and X.IsLoaded()) then error(Own.progressUnreadable, 0) end
 	local rec = X and X.Quest and X.Quest(p)
 	local e = rec and rec["end"]
 	if type(e) ~= "table" or #(e.npc or NONE) + #(e.object or NONE) == 0 then return nil end
@@ -2052,6 +2103,7 @@ end
 -- the giver's window as before.
 function Own.notMine(p)
 	local X, Lk = ns.Codex, ns.Lookup
+	if Own.readingProgress and X and X.Quest and not (X.IsLoaded and X.IsLoaded()) then error(Own.progressUnreadable, 0) end
 	local rec = X and X.Quest and Lk and Lk.QuestBlock and X.Quest(p)
 	if not rec then return true end
 	local why = Lk.QuestBlock(rec, player)
@@ -3274,6 +3326,7 @@ end
 local function pickFor(goal)
 	local p = picks[goal]
 	if p and p.gen == contextGen then return p end
+	if Own.readingProgress then error(Own.progressUnreadable, 0) end
 	local C = Compat()
 	local here = ns.PlayerPoint()
 	local hereCont = here and C.GetContinentMap and C.GetContinentMap(here.map)
@@ -3362,7 +3415,7 @@ local function pickFor(goal)
 		table.sort(list, better)
 	end
 	p = { list = list, i = #list > 0 and 1 or 0, gen = contextGen, tier = tier }
-	if not Own.readingProgress then picks[goal] = p end
+	picks[goal] = p
 	return p
 end
 
@@ -3608,7 +3661,7 @@ function Spots.repick(goal, c, px, py, moveOn)
 	-- On another continent nothing is measurable: the spot holds (ranking by
 	-- list order alone would walk to the next spot at every poll).
 	if cur and not curD and not moveOn then return false end
-	if c and spread and not Own.readingProgress then
+	if c and spread then
 		for _, s in ipairs(spots) do
 			local d = Spots.edge(goal, s, c, px, py)
 			if d and d <= reach then Spots.seen[s] = now end
@@ -3666,7 +3719,6 @@ function Spots.repick(goal, c, px, py, moveOn)
 	local new = cur
 	if best and (moveOn or not cur or not fresh(cur) or not curD or (not stale and bestKey < curD - Spots.SWITCH) or (cap and (cur.lvl or lvl or 0) > cap)) then new = best end
 	new = new or spots[1]
-	if Own.readingProgress then return new ~= cur, new end
 	if new == cur then return false end
 	Spots.chosen[goal] = new
 	return true
@@ -3674,10 +3726,11 @@ end
 
 -- The goal's spot, picked from where the player stands on first use.
 function Spots.get(goal)
-	local spot = Spots.chosen[goal]
-	if spot then return spot end
-	local _, projected = Spots.repick(goal, Compat().GetPlayerWorldPosition())
-	return projected or Spots.chosen[goal]
+	if not Spots.chosen[goal] then
+		if Own.readingProgress then error(Own.progressUnreadable, 0) end
+		Spots.repick(goal, Compat().GetPlayerWorldPosition())
+	end
+	return Spots.chosen[goal]
 end
 
 -- Position of the goal's spot in goal.spots.
@@ -3723,7 +3776,9 @@ function Own.recipeVendor(goal)
 		if not guide then return nil end
 		local mine = false
 		for _, step in ipairs(guide.steps) do
+			if Own.readingProgress then Own.spendProgressWork() end
 			for _, g in ipairs(step.goals) do
+				if Own.readingProgress then Own.spendProgressWork() end
 				if g == goal then
 					mine = true
 				elseif not found and g.t == "buy" and g.item == goal.item and g.candidates then
@@ -3942,6 +3997,7 @@ function Own.sharedCollect(goal)
 	local C, total = Compat(), 0
 	if not C.IsOnQuest(goal.quest) or Own.questSkipped(goal.quest) then return end
 	for q, g in pairs(wants) do
+		if Own.readingProgress then Own.spendProgressWork() end
 		if C.IsOnQuest(q) and not Own.questSkipped(q) and not Own.bagCollect(g) then
 			total = total + (g.count or 1)
 		end
@@ -4158,6 +4214,12 @@ end
 -- that item still needed.
 function Own.sectionDemand(n, k, untilOnly)
 	local plan = Own.sectionPlan()
+	if Own.readingProgress then
+		local key = (untilOnly and "u" or "") .. n .. ":" .. k
+		local memo = plan.memoGen == generation and plan.memo[key]
+		if memo then return memo end
+		error(Own.progressUnreadable, 0)
+	end
 	-- The memo lives for one evaluation pass (generation), recalculated when step outcomes change.
 	if plan.memoGen ~= generation then
 		plan.memo = {}
@@ -4199,6 +4261,7 @@ function Own.needOf(goal)
 	local count = goal.count or 1
 	if not guide or not guide.sections or (goal.t ~= "collect" and goal.t ~= "buy" and goal.t ~= "auction") then return count end
 	if not player then refreshPlayer() end
+	if Own.readingProgress and not Own.sectionPlans[guide] then error(Own.progressUnreadable, 0) end
 	local n = Own.sectionPlan().goals[goal]
 	local sec = n and guide.sections[n]
 	local rank = sec and skillRank(sec)
@@ -4225,6 +4288,7 @@ function Own.materialWay(goal)
 	local M = ns.Materials
 	if not (M and guide and goal.item and (goal.t == "auction" or goal.gather)) then return nil end
 	local c = Own.wayCache[guide]
+	if Own.readingProgress and not (c and c.gen == generation and c[goal.item]) then error(Own.progressUnreadable, 0) end
 	if not c or c.gen ~= generation then
 		c = { gen = generation }
 		Own.wayCache[guide] = c
@@ -4256,6 +4320,7 @@ function Own.materialPlace(goal)
 	if not (M and goal.item) then return nil end
 	local p = Own.matPlaces[goal]
 	if p and p.gen == generation then return p.place or nil end
+	if Own.readingProgress then error(Own.progressUnreadable, 0) end
 	local kind
 	local need, bags = Own.needOf(goal), Compat().GetItemCount(goal.item)
 	if bags < need then
@@ -4633,9 +4698,11 @@ function Own.levelCover(s, goal)
 	local c = Own.coverOf[goal]
 	if c and c.gen == generation and c.guide == guide then return c.xp, c.covered end
 	local C, r = Compat(), Own.readyNow
+	if Own.readingProgress and r.gen ~= generation then r = {} end
 	if r.gen ~= generation then
 		local set = {}
 		for _, q in ipairs(C.GetLogQuests()) do
+			if Own.readingProgress then Own.spendProgressWork() end
 			if C.IsQuestReadyForTurnIn(q) then set[q] = true end
 		end
 		r.gen, r.set = generation, set
@@ -4645,10 +4712,12 @@ function Own.levelCover(s, goal)
 	if next(ready) ~= nil then
 		local steps, lvl = guide.steps, player.level or 1
 		for i = s + 1, #steps do
+			if Own.readingProgress then Own.spendProgressWork() end
 			local step = steps[i]
 			if stepApplies(step) and not isSkipped(i) then
 				local stop = false
 				for j, other in ipairs(step.goals) do
+					if Own.readingProgress then Own.spendProgressWork() end
 					local t, q = other.t, other.quest
 					if (t == "level" or t == "accept" or (t == "turnin" and q and ready[q] and not seen[q])) and goalApplies(other) and not Own.goalSkipped(i, j) then
 						if t == "level" or (t == "accept" and (tonumber(other.minLevel) or 0) > lvl) then
@@ -4665,6 +4734,7 @@ function Own.levelCover(s, goal)
 	end
 	local left = Own.xpLeft(goal)
 	local covered = left ~= nil and xp > 0 and xp >= left
+	if Own.readingProgress then return xp, covered end
 	if not c then
 		c = setmetatable({}, Own.coverValues)
 		Own.coverOf[goal] = c
@@ -4710,7 +4780,7 @@ function Own.useHolds(s, g)
 		local _, c = goalDone(s, j, feed)
 		cur = c
 	end
-	if not cur or cur > h.n or GetTime() - h.at > Own.USE_HOLD then
+	if not cur or cur > h.n or (Own.readingProgress and lastEval or GetTime()) - h.at > Own.USE_HOLD then
 		if not Own.readingProgress then Own.useHeld[key] = nil end
 		return false
 	end
@@ -4781,14 +4851,17 @@ function Own.handInsOf(s, g, goal)
 	if not (Q and Q.IsLoaded()) then return nil end
 	hit = false
 	for t = s, #guide.steps do
+		if Own.readingProgress then Own.spendProgressWork() end
 		local goals = guide.steps[t].goals
 		for j = t == s and g + 1 or 1, #goals do
+			if Own.readingProgress then Own.spendProgressWork() end
 			local later = goals[j]
 			local q = later.quest
 			if later.t == "turnin" and q and not later.direct and not later.repeatable and Q.Asks(q, goal.item) then
 				hit = hit or {}
 				local seen = false
 				for _, h in ipairs(hit) do
+					if Own.readingProgress then Own.spendProgressWork() end
 					if h == q then seen = true end
 				end
 				if not seen then hit[#hit + 1] = q end
@@ -4855,6 +4928,7 @@ goalDone = function(s, g, goal)
 	return a, b, c, d, e
 end
 function Own.goalDoneLive(s, g, goal)
+	if Own.readingProgress then Own.spendProgressWork() end
 	local t = goal.t
 	local C = Compat()
 	-- One of a set (`either`): done once any other goal of the set is.
@@ -4913,6 +4987,7 @@ function Own.goalDoneLive(s, g, goal)
 		if Own.starterTaken(s, g, goal) then return true end
 		if Own.usedLaterDone(s, g, goal) or Own.usedQuestDone(s, g, goal) then return true end
 		for _, q in ipairs(Own.handInsOf(s, g, goal) or NONE) do
+			if Own.readingProgress then Own.spendProgressWork() end
 			if questDone(q) then return true end
 		end
 		return countState(goal)
@@ -4927,6 +5002,7 @@ function Own.goalDoneLive(s, g, goal)
 		local goals = guide.steps[s].goals
 		local leads = true -- nothing but gotos after it: it leads into the next step
 		for j = g + 1, #goals do
+			if Own.readingProgress then Own.spendProgressWork() end
 			local later = goals[j]
 			if later.t == "goto" then
 				if (arrived[later] or checked(s, j)) and goalApplies(later) then return true end
@@ -4965,7 +5041,7 @@ function Own.goalDoneLive(s, g, goal)
 		local secs = tonumber(goal.seconds) or 0
 		local at = Own.waitStart[goal]
 		if not at then return false, secs, secs, nil, "wait" end
-		local left = secs - (GetTime() - at)
+		local left = secs - ((Own.readingProgress and lastEval or GetTime()) - at)
 		if left <= 0 then return true end
 		return false, math.ceil(left), secs, nil, "wait"
 	elseif t == "abandon" then
@@ -5015,6 +5091,7 @@ function Own.goalDoneLive(s, g, goal)
 		-- goals count by their own place or check-off only (no recursion).
 		local goals = guide.steps[s].goals
 		for j = g + 1, #goals do
+			if Own.readingProgress then Own.spendProgressWork() end
 			local later = goals[j]
 			if goalApplies(later) then
 				local lt = later.t
@@ -5090,6 +5167,7 @@ function Own.eitherDone(s, g)
 	if Own.eitherIn[s] then return false end
 	local goals = guide.steps[s].goals
 	for j = 1, #goals do
+		if Own.readingProgress then Own.spendProgressWork() end
 		local other = goals[j]
 		if j ~= g and other.either and goalApplies(other) and Own.ownDone(s, j, other) then return true end
 	end
@@ -5150,6 +5228,7 @@ end
 function Own.goalsDone(s)
 	local goals = guide.steps[s].goals
 	for g = 1, #goals do
+		if Own.readingProgress then Own.spendProgressWork() end
 		local goal = goals[g]
 		if Own.holds(s, goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(s, g, goal) then return false end
 	end
@@ -5160,6 +5239,7 @@ end
 -- travel checks ask the steps after it again: Own.travelOnto), as
 -- Own.doneMemo keeps each goal's.
 local function stepDoneLive(s)
+	if Own.readingProgress then Own.spendProgressWork() end
 	-- The route passes over an along step (Own.alongListed), a hearth-only
 	-- one (Own.hearthOnly: the arrow's route hearths when it pays), a
 	-- travel step the route flies past (Own.flightPassed), a walk to a stop
@@ -5224,10 +5304,12 @@ function Own.nextStepDone(s)
 	local steps = guide.steps
 	local sk = skippedFor(guide.id)
 	for n = s + 1, #steps do
+		if Own.readingProgress then Own.spendProgressWork() end
 		local step = steps[n]
 		if stepApplies(step) then
 			if step.only or (sk and sk[n]) then return false end
 			for g, goal in ipairs(step.goals) do
+				if Own.readingProgress then Own.spendProgressWork() end
 				if not goal.only and blocks(goal) and isQuestGoal(goal) and goalApplies(goal) and goalDone(n, g, goal) then
 					return stepDone(n)
 				end
@@ -9168,6 +9250,7 @@ function Own.goneOf()
 		if mine then
 			set = {}
 			for j, st in ipairs(guide.steps) do
+				if Own.readingProgress then Own.spendProgressWork() end
 				-- A passed step the plan brought back on the way (Own.goneSource)
 				-- is the guide's again, though it carries the same goals.
 				local e = st.feeder ~= guide.id and Own.stepIn(mine, j) or nil
@@ -9175,6 +9258,7 @@ function Own.goneOf()
 					set[st] = true
 				elseif type(e) == "table" then
 					for _, goal in ipairs(st.goals) do
+						if Own.readingProgress then Own.spendProgressWork() end
 						if e[Own.goalId(goal)] == true then set[goal] = true end
 					end
 				end
@@ -11547,7 +11631,11 @@ local function evaluate()
 			end
 		end
 	end
-	Own.captureProgress()
+	-- Record the settled context without preparing or allocating a snapshot.
+	Own.progressSettled, Own.progressCharacter = generation, PolestarCharDB
+	Own.progressGuide, Own.progressSteps = guide, guide and guide.steps
+	Own.progressLive, Own.progressViewed = computed, current
+	Own.progressSnapshot, Own.progressGeneration = nil, nil
 end
 
 local function flush()
@@ -12575,6 +12663,7 @@ function Own.hearthOnly(step, who)
 	who = who or player
 	local any = false
 	for _, goal in ipairs(step.goals) do
+		if Own.readingProgress then Own.spendProgressWork() end
 		if Guides.Matches(goal.only, who) then
 			if goal.t ~= "hearth" then return false end
 			any = true
@@ -12706,6 +12795,7 @@ end
 -- The taxi node a `fly` goal lands at (Nav/Travel.lua's data), while the
 -- character knows it; else nil.
 function Own.knownLanding(goal)
+	if goal and Own.readingProgress then error(Own.progressUnreadable, 0) end
 	local nav = ns.Nav
 	local node = goal and nav.GetTaxiNode(goal.node)
 	return node and nav.GetKnownTaxiNodes()[goal.node] and node or nil
@@ -12742,7 +12832,9 @@ Own.ledAsTravel = setmetatable({}, { __mode = "k" })
 function Own.landingReached(goal)
 	if arrived[goal] then return true end
 	local nav = ns.Nav
-	return Own.ledAsTravel[goal] == true and nav and nav.GetKnownTaxiNodes and nav.GetKnownTaxiNodes()[goal.node] and true or false
+	if not (Own.ledAsTravel[goal] == true and nav and nav.GetKnownTaxiNodes) then return false end
+	if Own.readingProgress then error(Own.progressUnreadable, 0) end
+	return nav.GetKnownTaxiNodes()[goal.node] and true or false
 end
 
 -- The continent travel step s starts on (its first open goal) or, with
@@ -12796,6 +12888,7 @@ end
 
 -- How many flight paths the character knows (a verdict holds until it changes).
 function Own.knownCount()
+	if Own.readingProgress then error(Own.progressUnreadable, 0) end
 	local n = 0
 	for _ in pairs(ns.Nav.GetKnownTaxiNodes()) do n = n + 1 end
 	return n
@@ -12821,6 +12914,7 @@ end
 function Own.writtenTravel(step)
 	local kind
 	for _, goal in ipairs(step.goals) do
+		if Own.readingProgress then Own.spendProgressWork() end
 		local t = goal.t
 		if t ~= "note" and Guides.Matches(goal.only, player) then
 			if t == "fly" then
@@ -12881,6 +12975,7 @@ function Own.stopEmpty(s)
 	local stop, real, last = false, false, s
 	local leftOut = guide.leftOut
 	for n = s + 1, #steps do
+		if Own.readingProgress then Own.spendProgressWork() end
 		if leftOut and leftOut[n] then stop, real = true, true end
 		local step = steps[n]
 		if not Own.hiddenStep(step) then
@@ -12896,6 +12991,7 @@ function Own.stopEmpty(s)
 			else
 				local work = false
 				for _, goal in ipairs(step.goals) do
+					if Own.readingProgress then Own.spendProgressWork() end
 					if goal.t ~= "note" and Guides.Matches(goal.only, player) then
 						work = true
 						break
@@ -12953,9 +13049,11 @@ function Own.atDock(c, x, y)
 	if not d then return false end
 	local reach, near = Own.DOCK_REACH * Own.DOCK_REACH, Own.nearEnd
 	for _, t in ipairs(d.transports or NONE) do
+		if Own.readingProgress then Own.spendProgressWork() end
 		if near(t.a, c, x, y, reach) or near(t.b, c, x, y, reach) then return true end
 	end
 	for _, t in ipairs(d.portals or NONE) do
+		if Own.readingProgress then Own.spendProgressWork() end
 		if near(t.a, c, x, y, reach) then return true end
 	end
 	return false
@@ -12966,6 +13064,7 @@ end
 function Own.stepContinent(n)
 	local C = Compat()
 	for g, goal in ipairs(guide.steps[n].goals) do
+		if Own.readingProgress then Own.spendProgressWork() end
 		if blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(n, g, goal) then
 			if goal.t == "fly" then
 				local node = ns.Nav and ns.Nav.GetTaxiNode and ns.Nav.GetTaxiNode(goal.node)
@@ -12997,6 +13096,7 @@ function Own.farDock(c, x, y, wx, wy)
 	local reach = Own.DOCK_REACH * Own.DOCK_REACH
 	local fx, fy, best
 	for _, t in ipairs(d and d.transports or NONE) do
+		if Own.readingProgress then Own.spendProgressWork() end
 		local a, b = t.a, t.b
 		if a and b and a.c == c and b.c == c and a.wx and a.wy and b.wx and b.wy then
 			local far
@@ -13012,6 +13112,7 @@ function Own.farDock(c, x, y, wx, wy)
 		end
 	end
 	for _, t in ipairs(d and d.portals or NONE) do
+		if Own.readingProgress then Own.spendProgressWork() end
 		local a, b = t.a, t.b
 		if a and b and a.c == c and b.c == c and a.wx and a.wy and b.wx and b.wy and (a.wx - x) ^ 2 + (a.wy - y) ^ 2 <= reach then
 			local dd = (b.wx - wx) ^ 2 + (b.wy - wy) ^ 2
@@ -13245,6 +13346,7 @@ function Own.numbersOf(g)
 	if n and n.key == key then return n end
 	n = { key = key, of = {}, hidden = {}, total = 0 }
 	for s, step in ipairs(g.steps) do
+		if Own.readingProgress then Own.spendProgressWork() end
 		if Own.hiddenStep(step) or Own.dungeonHidden(step) then
 			n.hidden[s] = true
 			n.of[s] = n.total + 1
@@ -17683,11 +17785,25 @@ end
 -- the guide is complete), whatever step the player is looking at.
 function Engine.GetLiveStep() return computed end
 
--- Public snapshot projection. It runs at the end of the active tab's
--- evaluation, outside message dispatch, using the same applicability and
--- done rules as the engine. A consumer only copies the resulting data.
+-- The first reader of a settled evaluation projects it using the engine's
+-- own rules. The remaining readers of that evaluation copy its result.
 Own.progressSchema = 1
 Own.progressGoalLimit, Own.progressStepLimit, Own.progressScanLimit = 8, 3, 32
+Own.progressWorkLimit, Own.progressTimeLimit = 256, 1.5 -- per phase, in work units and milliseconds
+Own.progressExhausted, Own.progressUnreadable = {}, {}
+
+function Own.startProgressBudget()
+	Own.progressWork = Own.progressWorkLimit
+	Own.progressDeadline = debugprofilestop and debugprofilestop() + Own.progressTimeLimit
+end
+
+function Own.spendProgressWork()
+	local left = Own.progressWork
+	if left <= 0 or (left % 16 == 0 and Own.progressDeadline and debugprofilestop() >= Own.progressDeadline) then
+		error(Own.progressExhausted, 0)
+	end
+	Own.progressWork = left - 1
+end
 
 function Own.progressValue(value, kind)
 	value = Compat().Readable(value)
@@ -17728,6 +17844,7 @@ function Own.progressGoal(s, g, goal, marks)
 end
 
 function Own.projectProgress()
+	Own.startProgressBudget()
 	local numbers = Own.numbersOf(guide)
 	local low, high = Guides.Levels(guide, player.faction)
 	local out = {
@@ -17747,29 +17864,37 @@ function Own.projectProgress()
 		live.goals[g] = Own.progressGoal(computed, g, goals[g], marks)
 	end
 	out.live, out.upcoming = live, {}
+	Own.startProgressBudget()
+	local ok, reason = pcall(Own.projectUpcoming, out, numbers)
+	if not ok then
+		out.upcomingComplete = false
+		out.upcomingStop = reason == Own.progressExhausted and "budget" or "unavailable"
+	end
+	return out
+end
+
+function Own.projectUpcoming(out, numbers)
 	local last = math.min(#guide.steps, computed + Own.progressScanLimit)
 	for i = computed + 1, last do
+		Own.spendProgressWork()
 		if not numbers.hidden[i] and not isSkipped(i) and stepApplies(guide.steps[i]) and not stepDone(i) then
 			out.upcoming[#out.upcoming + 1] = Own.progressStep(i, numbers)
 			if #out.upcoming == Own.progressStepLimit then break end
 		end
 	end
 	out.upcomingComplete = #out.upcoming == Own.progressStepLimit or last == #guide.steps
-	return out
+	if not out.upcomingComplete then out.upcomingStop = "scan_limit" end
 end
 
 function Own.captureProgress()
-	Own.progressSnapshot, Own.progressGeneration = nil, generation
-	if not guide or not logReady or placing or scheduled then return end
-	local done, pass, coming = Own.doneMemo, Own.passMemo, Own.comingSeen
-	Own.doneMemo, Own.passMemo, Own.comingSeen = {}, { done = {}, transit = {} }, {}
-	-- The shared goal/travel rules can normally persist marks or choose a
-	-- navigation point. During projection their answers are provisional.
+	local done, pass, coming, asking = Own.doneMemo, Own.passMemo, Own.comingSeen, Own.asking
+	Own.doneMemo, Own.passMemo, Own.comingSeen, Own.asking = {}, { done = {}, transit = {} }, {}, {}
+	Own.progressLaterCache = { lists = {} }
 	Own.readingProgress = true
 	local ok, snapshot = pcall(Own.projectProgress)
-	Own.readingProgress = nil
-	Own.doneMemo, Own.passMemo, Own.comingSeen = done, pass, coming
-	if ok then Own.progressSnapshot = snapshot end
+	Own.readingProgress, Own.progressLaterCache, Own.progressWork, Own.progressDeadline = nil, nil, nil, nil
+	Own.doneMemo, Own.passMemo, Own.comingSeen, Own.asking = done, pass, coming, asking
+	return ok and snapshot or false
 end
 
 -- Copy the small tree of scalars and plain tables, never a guide or goal.
@@ -17780,18 +17905,31 @@ function Own.copyProgress(value)
 	return out
 end
 
+function Own.progressReady()
+	return logReady and not placing and not scheduled and Own.progressSettled == generation
+		and Own.progressCharacter == PolestarCharDB and Own.progressGuide == guide and Own.progressSteps == guide.steps
+		and Own.progressLive == computed and Own.progressViewed == current
+end
+
 function Engine.GetProgressSnapshot()
 	local state
-	if not ns.IsLoggedIn() or ns.Dispatching() or scheduled then
+	if not ns.IsLoggedIn() or ns.Dispatching() or ns.EventDispatching() or scheduled or Own.readingProgress then
 		state = "not_ready"
 	elseif not guide then
 		state = "no_guide"
-	elseif not logReady or placing or Own.progressGeneration ~= generation then
+	elseif not Own.progressReady() then
 		state = "not_ready"
-	elseif Own.progressSnapshot then
-		return Own.copyProgress(Own.progressSnapshot)
 	else
-		state = "unavailable"
+		if Own.progressGeneration ~= generation then
+			local settled, moment = generation, ns.Moment()
+			local snapshot = Own.captureProgress()
+			if generation == settled and Own.progressReady() and moment == ns.Moment() then
+				Own.progressSnapshot, Own.progressGeneration = snapshot, generation
+			end
+		end
+		if Own.progressGeneration ~= generation then state = "not_ready"
+		elseif Own.progressSnapshot then return Own.copyProgress(Own.progressSnapshot)
+		else state = "unavailable" end
 	end
 	return { schemaVersion = Own.progressSchema, state = state }
 end

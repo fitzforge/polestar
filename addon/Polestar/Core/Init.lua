@@ -782,6 +782,7 @@ function ns.Dispatching() return busDepth > 0 end
 
 local buses = {} -- unit or "" -> { frame, handlers = { event -> { { fn, live }, ... } } }
 local eventDepth, eventsDirty = 0, false
+function ns.EventDispatching() return eventDepth > 0 end
 
 local function settle(bus, event)
 	local list = bus.handlers[event]

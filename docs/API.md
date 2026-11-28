@@ -124,17 +124,34 @@ on it carry over to the steps it kept, as for any guide that changed.
 
 `Polestar.API.GetProgressSnapshot()` returns a fresh copy of the active
 tab's progress from the engine's last settled evaluation. It works with the
-guide window closed and without the navigation UI. The getter's only
-operation is copying the snapshot in memory.
+guide window closed and without the navigation UI. The first read of a
+settled evaluation prepares the snapshot. Further reads reuse that snapshot
+and each caller receives its own copy. The quest and character events that
+schedule an evaluation invalidate access while it is pending. A newly
+settled evaluation replaces the cache, including after a guide or tab
+change, browsing another step, or changing the character's context.
+Call outside event handlers and defer a read prompted by a game event until
+the other handlers have run. A read neither schedules nor runs a guide
+evaluation.
 
 | Field | Meaning |
 | --- | --- |
 | `schemaVersion` | Integer, currently `1`. Check this before reading the payload. The new call is additive, so `Polestar.API.version` stays at `1`. Older builds with API version 1 may lack the function. |
-| `state` | `active` has a live step. `no_guide` means no active tab. `no_live_step` means the active guide has no live step left (including when the remaining work was skipped). `not_ready` means login, quest-log placement or an evaluation is pending, or the call was made inside a Polestar message handler. Read again after the handler returns and the engine settles. `unavailable` means the engine could not build the snapshot. |
+| `state` | `active` has a live step. `no_guide` means no active tab. `no_live_step` means the active guide has no live step left (including when the remaining work was skipped). `not_ready` means login, quest-log placement or an evaluation is pending, or the call was made during Polestar message or game event dispatch. Read again after the handler returns and the engine settles. `unavailable` means the engine could not build the snapshot. |
 | `guide` | Present with `active` or `no_live_step`. Contains `id`, `title`, and `stepTotal` in the player's step numbering. Optional fields are `zoneMapID`, `zoneName`, `minLevel`, and `maxLevel`. The level range uses the player's faction. |
 | `live`, `viewed` | A step reference has `index` (one-based within this evaluation's guide), plus `number` (the displayed number), `title` and `zoneMapID` where available. `live` is the progression step. `viewed` is present only if another step is being browsed, even with the window closed. Step indexes can change when routes change. |
 | `live.goals`, `live.goalsTruncated` | The first eight goals in guide order, with a flag when more exist. See the goal fields below. |
-| `upcoming`, `upcomingComplete` | In the `active` state, up to three step references after the live step in the same guide. Hidden, skipped, inapplicable and already resolved steps are left out. At most 32 subsequent positions are considered for inclusion. `upcomingComplete` is true when three are found or the guide ends within the scan. A false value means the scan cap prevented either. This is a preview of the current evaluation. Branches may change as the character plays. |
+| `upcoming`, `upcomingComplete` | In the `active` state, up to three step references after the live step in the same guide. Hidden, skipped, inapplicable and already resolved steps are left out. At most 32 subsequent positions are considered for inclusion. `upcomingComplete` is true when three are found or the guide ends within the scan. A false value means the preview is partial. The confirmed prefix is still returned. This is a preview of the current evaluation. Branches may change as the character plays. |
+
+When `upcomingComplete` is false, `upcomingStop` is `scan_limit` if the
+32-position scan ended first, `budget` if the work allowance ran out, or
+`unavailable` if a candidate could not be evaluated without side effects.
+A work unit covers a step, goal, predicate or quest check, or an iteration
+of a traversal needed by those checks. The live step and the upcoming scan
+each have 256 units and a cooperative 1.5 ms elapsed-time limit when the
+client exposes its profiling clock. The engine checks time at checkpoints
+between calls. If the live step cannot be read safely within its allowance,
+the whole snapshot is `unavailable` until the next evaluation.
 
 Each goal has an `index` (one-based in the step), `action` (guide verb),
 `status` (`open`, `done`, `skipped`, `not_applicable` or `unknown`),
