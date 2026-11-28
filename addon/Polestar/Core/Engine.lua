@@ -7207,11 +7207,13 @@ end
 -- same quest objective as its use goal g, or nil: the use is done when that
 -- objective is, so the arrow leads by the field goal's spots and the use has
 -- no place of its own (ArrowCheck10: Gloomrise's toxin samples). A field goal
--- the player skipped or that does not apply leaves the use its own place.
+-- the player skipped or that does not apply leaves the use its own place, and
+-- so does a use with a search loop of its own (Own.isSearch: the Temporal
+-- Displacer walked over the rifts before its parasites), which leads as it is.
 function Own.useCompanion(s, g)
 	local step = guide.steps[s]
 	local goal = step.goals[g]
-	if goal.t ~= "use" or not goal.quest or not goal.oi then return nil end
+	if goal.t ~= "use" or not goal.quest or not goal.oi or Own.isSearch(goal) then return nil end
 	for j, other in ipairs(step.goals) do
 		if j ~= g and other.quest == goal.quest and other.oi == goal.oi and Own.FIELD[other.t] and Own.isField(other)
 			and goalApplies(other) and not unavailableFor(other) and not Own.goalSkipped(s, j) then
