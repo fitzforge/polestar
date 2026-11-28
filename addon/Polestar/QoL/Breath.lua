@@ -101,7 +101,7 @@ end
 local function onStart(_, timer, value, cap, scale, paused)
 	if timer ~= "BREATH" then return end
 	if type(scale) ~= "number" or scale >= 0 or type(value) ~= "number"
-		or type(cap) ~= "number" or cap <= 0 or value < 0 or value > cap then return stop() end
+		or value < 0 then return stop() end
 	secondsLeft = value / 1000 / -scale
 	startedAt = nil
 	-- A fresh dive's worth of breath: the marks can be said again.

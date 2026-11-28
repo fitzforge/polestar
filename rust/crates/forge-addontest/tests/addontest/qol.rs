@@ -5745,6 +5745,19 @@ fn breath_warns_once_at_ten_and_four_seconds_for_each_dive() {
 }
 
 #[test]
+fn breath_warns_at_ten_and_four_seconds_when_the_start_value_exceeds_the_max() {
+	let out = run(r#"
+		set("breathWarning", true)
+		stub.fire("MIRROR_TIMER_START", "BREATH", 70000, 60000, -1, 0, "Breath")
+		for _, seconds in ipairs({ 59.75, 0.5, 5.5, 0.5 }) do
+			stub.advance(seconds)
+			emit(#stub.sounds)
+		end
+	"#);
+	assert_eq!(out, vec![json!(0), json!(1), json!(1), json!(2)]);
+}
+
+#[test]
 fn breath_uses_the_current_value_and_drain_rate_and_waits_while_paused_or_refilling() {
 	let out = run(r#"
 		set("breathWarning", true)
