@@ -15902,9 +15902,10 @@ test('Durotar (Orc, Troll): the Eye of Burning Shadow from Gazz\'uz is optional,
 });
 
 // #2000 and the 0.4.0 start audit: a flight path is learnt on the walk that passes its master. The Undead casters walk
-// down into the Undercity past Michael Garrett, the bat handler, for their class turn-ins at the end of Tirisfal Glades;
-// the Skyborne pass Omusa Thunderhorn at Camp Taurajo on the road from Mulgore to the Crossroads. Each step learns it.
-test('#2000: the Undercity flight path on the Undead casters\' Undercity stop, Camp Taurajo\'s on the Skyborne walk', { skip }, () => {
+// down into the Undercity past Michael Garrett, the bat handler, for their class turn-ins at the end of Tirisfal Glades.
+// The Skyborne used to pass Omusa Thunderhorn at Camp Taurajo on the road from Mulgore to the Crossroads; they now fly
+// from Thunder Bluff to Orgrimmar (2026-11-28), and the Barrens guide learns Camp Taurajo's on its first stop there.
+test('#2000: the Undercity flight path on the Undead casters\' Undercity stop, Camp Taurajo\'s on the first stop that passes Omusa', { skip }, () => {
 	for (const cls of ['WARLOCK', 'PRIEST', 'MAGE']) {
 		const list = goals(TIRISFAL).filter(forClass(cls));
 		const fp = at(list, `${cls}: getfp Undercity`, (g) => g.t === 'getfp' && g.location === 'Undercity');
@@ -15912,10 +15913,12 @@ test('#2000: the Undercity flight path on the Undead casters\' Undercity stop, C
 		assert.ok(first >= 0 && list[fp].s === list[first].s, `${cls}: learnt on the first Undercity stop`);
 	}
 	const sky = goals('forever/horde/skyborne/01-zephras-isle.guide');
-	const taurajo = at(sky, 'getfp Camp Taurajo', (g) => g.t === 'getfp' && g.location === 'Camp Taurajo');
-	const crossroads = at(sky, 'getfp Crossroads', (g) => g.t === 'getfp' && g.location === 'Crossroads');
-	assert.ok(taurajo < crossroads, 'on the walk north, before the Crossroads');
-	for (const [file, name] of [['undead/01-tirisfal-glades', 'Undercity'], ['skyborne/01-zephras-isle', 'Camp Taurajo']]) {
+	assert.ok(!sky.some(({ goal }) => goal.map === 1413), 'the Skyborne opener no longer walks through the Barrens');
+	const barrens = goals('forever/horde/02-the-barrens.guide');
+	const taurajo = at(barrens, 'getfp Camp Taurajo', (g) => g.t === 'getfp' && g.location === 'Camp Taurajo');
+	const first = barrens.findIndex(({ goal }) => goal.map === 1413 && Math.hypot(goal.x - 44.45, goal.y - 59.12) <= 1.5);
+	assert.ok(first >= 0 && barrens[taurajo].s === barrens[first].s, 'Camp Taurajo\'s flight path on the Barrens guide\'s first stop beside Omusa');
+	for (const [file, name] of [['undead/01-tirisfal-glades', 'Undercity'], ['02-the-barrens', 'Camp Taurajo']]) {
 		const seed = fs.readFileSync(path.join(__dirname, '..', 'forge', 'seed', 'guides', 'forever', 'horde', `${file}.guide`), 'utf8');
 		assert.match(seed, new RegExp(`getfp "${name}"`), `${file}: the seed carries the getfp, so the build writes it where the seed has it`);
 	}
@@ -16267,22 +16270,45 @@ test('#2151: Linen Cloth and Runecloth goals in Alliance guides lead to the Auct
 
 // #2264 (rhoot, Skyborne Druid 14): the walk from Thunder Bluff to the Barrens went by "Into Mulgore" at 42.1,20.2,
 // down the north lift's ramp to the plain north-east of it and back up over the ledge south-east; rhoot stood at a
-// spot with nothing there and turned round. On the walking grid the quickest way from Eylah Sunhorn and Ansekhwa
-// (Zephras Isle's last stops) is the west lift and the road at its foot (4 s over the free walk; 54 s by 42.1,20.2),
-// and from Elder Rise (Mulgore's) the north lift and the ledge east of its foot (0 s; 13 s by 42.1,20.2).
-test('#2264: the walk from Thunder Bluff to the Barrens takes the lift on its way, in both start guides and their seeds', () => {
-	for (const [rel, at, lift] of [
-		['forever/horde/skyborne/01-zephras-isle.guide', '37.6,33.0', /west lift/],
-		['forever/horde/tauren/01-mulgore.guide', '42.3,21.7', /north lift/],
-	]) {
+// spot with nothing there and turned round. From Elder Rise (Mulgore's) the quickest way is the north lift and the
+// ledge east of its foot (0 s; 13 s by 42.1,20.2). The Skyborne opener no longer walks down at all: it flies from
+// Thunder Bluff to Orgrimmar (2026-11-28).
+test('#2264: the walk from Thunder Bluff to the Barrens takes the lift on its way, and the Skyborne fly instead, in the guides and their seeds', () => {
+	const stepOf = (file, title) => fs.readFileSync(file, 'utf8').split(/\n(?=step )/).find((s) => s.startsWith(`step ${title}\n`));
+	for (const [rel, at, lift] of [['forever/horde/tauren/01-mulgore.guide', '42.3,21.7', /north lift/]]) {
 		for (const file of [path.join(OFFICIAL_DIR, rel), path.join(__dirname, '..', 'forge', 'seed', 'guides', rel)]) {
-			const step = fs.readFileSync(file, 'utf8').split(/\n(?=step )/).find((s) => s.startsWith('step Into Mulgore\n'));
+			const step = stepOf(file, 'Into Mulgore');
 			assert.ok(step, `${file}: an Into Mulgore step`);
 			assert.ok(step.includes(`\n  goto ${at} "Into Mulgore"\n`), `${file}: Into Mulgore at ${at}`);
 			assert.match(step, lift, `${file}: the tip names the lift`);
 			assert.doesNotMatch(step, /42\.1,20\.2/, `${file}: not the north lift's ramp`);
 		}
 	}
+	const rel = 'forever/horde/skyborne/01-zephras-isle.guide';
+	for (const file of [path.join(OFFICIAL_DIR, rel), path.join(__dirname, '..', 'forge', 'seed', 'guides', rel)]) {
+		assert.equal(stepOf(file, 'Into Mulgore'), undefined, `${file}: no walk down into Mulgore`);
+		assert.match(stepOf(file, 'Fly to Orgrimmar') || '', /\n {2}fly "Orgrimmar"\n/, `${file}: flies from Thunder Bluff to Orgrimmar`);
+	}
+});
+
+// A player on X (0.4.3.1, Skyborne Shaman): long runs on Zephras Isle and the Shaman class quests late. Call of Fire's
+// Faladiel stands 350 yd from Belathaan, and the route took her heart only on the East Pylon trip, then went back for
+// Olariaan and Kuramaa after the turncoat: the Searing Totem came about 90 minutes after level 10. Now the heart is
+// taken on Belathaan's trip and the chain is finished from Valanaar right after, before the East Pylon. After Thunder
+// Bluff the opener walked Mulgore, Camp Taurajo, the Crossroads and Durotar to Orgrimmar; Skyborne know Orgrimmar's
+// flight path from the start, so it flies.
+test('Zephras Isle (Horde): Call of Fire finished before the East Pylon, and the opener flies from Thunder Bluff to Orgrimmar', { skip }, () => {
+	const list = goals(ZEPHRAS_HORDE).filter(forClass('SHAMAN'));
+	const pos = (verb, q) => at(list, `${verb} ${q}`, is(verb, q));
+	const heart = at(list, 'collect Faladiel\'s Heart', (g) => g.t === 'collect' && g.item === 277267);
+	assert.ok(pos('accept', 93737) < pos('accept', 97243), 'Call of Fire taken after Riaani, on the way out to the orchard');
+	assert.ok(pos('accept', 93746) < heart && heart < pos('turnin', 93746), 'Faladiel\'s Heart on Belathaan\'s trip');
+	assert.ok(pos('turnin', 97257) < pos('turnin', 92871), 'the Searing Totem before the East Pylon trip');
+	assert.ok(pos('turnin', 97257) < pos('accept', 92643), 'and before the turncoat');
+	const all = goals(ZEPHRAS_HORDE);
+	const fly = at(all, 'fly Orgrimmar', (g) => g.t === 'fly' && /Orgrimmar/.test(g.location || g.name || g.to || ''));
+	assert.ok(at(all, 'turnin 97485', is('turnin', 97485)) < fly && fly < at(all, 'accept 834', is('accept', 834)), 'flies after Thunder Bluff, before Rezlak');
+	assert.ok(!all.some(({ goal }) => goal.t === 'getfp' && ['Camp Taurajo', 'Crossroads'].includes(goal.location)), 'no walk to the Barrens flight paths');
 });
 
 // Alliance 1-12 audit (0.4.0, #2025, bind points the route never hearths back to): the Night Elves' first Auberdine
