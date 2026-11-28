@@ -126,6 +126,8 @@ ns.UI.GuideFrame.Part(function(GF)
 	function GF.RegionCovers(view, index)
 		return view ~= nil and view == coveredView and covered[index] == true
 	end
+	-- Whether the regions shown stand for any goal of the step on the card.
+	function GF.RegionsCoverAny() return next(covered) ~= nil end
 
 	-- Whether region `id` shows now; its model.
 	function GF.RegionShown(id)

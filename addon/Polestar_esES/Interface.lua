@@ -566,6 +566,7 @@
 -- Machine-translated, to be reviewed (the profession and reputation guides' window, 26 Nov 2026): translated by an
 -- AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
 -- keep or fix its line below, and take its key off this list.
+--   Smelt
 --   %d made
 --   %d ready
 --   %s a turn-in
@@ -710,6 +711,7 @@ L["Learn"] = "Aprende"
 L["until %s %d"] = "hasta %s %d"
 L["until skill %d"] = "hasta %d de habilidad"
 L["Craft"] = "Crea"
+L["Smelt"] = "Funde"
 L["Reach %s with"] = "Alcanza %s con"
 L["Explore"] = "Explora"
 L["elite"] = "élite"

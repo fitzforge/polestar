@@ -6704,7 +6704,12 @@ local function describe(goal, s)
 			local name = skillName(goal)
 			detail = name and L["until %s %d"]:format(name, goal.untilSkill) or fmt(L["until skill %d"], goal.untilSkill)
 		end
-		return L["Craft"], N.Spell(goal.spell) or goal.spellName, "spell", detail
+		-- A recipe that makes an item names the item, as the game's profession window lists it ("Craft Bolt of Linen
+		-- Cloth"; never the spell's "Craft Smelt Copper"); Mining's recipes are smelts: "Smelt Copper Bar".
+		local verb = goal.skillLine == 186 and L["Smelt"] or L["Craft"]
+		local item = type(goal.item) == "number" and (N.Item(goal.item) or goal.itemName) or nil
+		if item then return verb, item, "item", detail end
+		return verb, N.Spell(goal.spell) or goal.spellName, "spell", detail
 	elseif t == "rep" then
 		if goal.points then
 			return L["Reach %d points into %s with"]:format(goal.points, standingName(goal.standing)), N.Faction(goal.faction) or goal.factionName, "faction", nil
