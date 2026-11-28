@@ -208,8 +208,13 @@ const REAGENT_KEYS: [&str; 3] = ["item", "itemName", "count"];
 /// A `complete` goal's `objs`: each objective's text and count.
 const OBJ_KEYS: [&str; 2] = ["text", "count"];
 /// `z` (heights.js) follows y in candidates and spawn areas as in goals. A farming loop (`loop <zone> …`) adds
-/// `lap` (seconds), `gain` (skill points) or `yield` (items) a lap, and its stops as `spotsPacked`.
-pub const CANDIDATE_KEYS: [&str; 17] = ["npc", "npcName", "map", "x", "y", "z", "f", "faction", "races", "classes", "lvl", "rate", "spawns", "lap", "gain", "yield", "spotsPacked"];
+/// `lap` (seconds), `gain` (skill points) or `yield` (items) a lap, and its stops as `spotsPacked`; a gathering area
+/// (`area <zone> "<name>" …`) its `respawn`, `starter`, name (`area`, `aid`, `near`), `count`, beasts' `levels`,
+/// `items`, outline (`poly`) and node spots (`dots`).
+pub const CANDIDATE_KEYS: [&str; 27] = [
+	"npc", "npcName", "map", "x", "y", "z", "f", "faction", "races", "classes", "lvl", "rate", "spawns", "lap", "gain", "yield", "spotsPacked", "respawn", "starter", "area", "aid", "near", "count",
+	"levels", "items", "poly", "dots",
+];
 /// A collect's `fromNpcs`: the creatures its point and spawn areas belong to.
 const SOURCE_NPC_KEYS: [&str; 2] = ["npc", "npcName"];
 /// Spawn areas: map-percent centre in the goal's map and frame, its height,

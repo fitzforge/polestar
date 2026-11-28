@@ -907,8 +907,6 @@ function applyLoopCandidates(step, s, err, faction, resolveZone) {
 		c.lvl = { min: l.lvl, max: l.lvl };
 		c.lap = l.lap;
 		c[per] = l[per];
-		if (l.respawn) c.respawn = l.respawn;
-		if (l.starter) c.starter = true;
 		c.spotsPacked = spots.map((p) => [p.x, p.y, '', p.r].map((v) => (v === '' ? v : luaNumber(v, 2))).join(',')).join(';');
 		out.push({ c, spots });
 	}
@@ -924,6 +922,82 @@ function applyLoopCandidates(step, s, err, faction, resolveZone) {
 	delete goal.lvl;
 	delete goal.z;
 	goal.candidates = out.map((e) => e.c);
+}
+
+// `area <zone> "<name>" … at …` lines (parse.js parseAreaCandidate; resolve.rs apply_area_candidates): gathering
+// areas the step's `skill` goal (with `gain`) or unpinned `collect` goal (with `yield`) picks from at runtime,
+// the Engine's farm ranking (pickFor): one `candidates` entry per area, { map, x, y, f, faction, races, classes,
+// lvl: { min, max }, lap, gain | yield, respawn?, starter?, area: its name, aid: its AreaTable id (the client
+// names it in the player's language), near?, count, levels?: { min, max }, poly: "x,y;x,y;…" (its outline),
+// dots: "x,y;…" (its node spots) }, x, y the middle of its outline. The goal's own place is the first area's
+// until the Engine picks; an area goal has no spawn areas.
+function applyAreaCandidates(step, s, err, faction, resolveZone, data) {
+	const { luaNumber } = require('./emit');
+	const firstLine = s.areas[0].line;
+	if (s.loops || s.loop) return err(firstLine, 'gathering areas (`area <zone> "<name>" …`) and `loop` lines are two kinds of place: use one kind in a step');
+	const targets = [];
+	step.goals.forEach((g, i) => {
+		const free = !s.goals[i].explicitCoords && !s.goals[i].anywhere && !g.candidates;
+		if (free && g.t === 'skill') targets.push([g, 'gain']);
+		else if (free && g.t === 'collect') targets.push([g, 'yield']);
+	});
+	if (targets.length !== 1) return err(firstLine, 'gathering areas (`area <zone> "<name>" …`) need exactly one unpinned `skill` or `collect` goal in their step', 'the areas pick the place of that one goal');
+	if (step.goals.some((g) => g.t === 'goto')) return err(firstLine, 'gathering areas (`area <zone> "<name>" …`) carry their own outline: drop the step\'s `goto` lines');
+	const [goal, per] = targets[0];
+	const out = [];
+	const seen = new Set();
+	const pack = (pts) => pts.map(([x, y]) => `${luaNumber(x, 2)},${luaNumber(y, 2)}`).join(';');
+	for (const a of s.areas) {
+		if (!a[per]) {
+			err(a.line, `an area for a \`${goal.t}\` goal takes \`${per}\`, not \`${per === 'gain' ? 'yield' : 'gain'}\``);
+			continue;
+		}
+		const zone = resolveZone(a.zone);
+		if (!zone) continue;
+		const o = a.only || {};
+		const key = `${zone.id}|${a.name}|${a.near ? 1 : 0}|${a.lvl}|${(o.factions || []).join(',')}|${(o.races || []).join(',')}`;
+		if (seen.has(key)) {
+			err(a.line, `the area "${a.name}" at level ${a.lvl} is listed twice in this step for the same characters`);
+			continue;
+		}
+		seen.add(key);
+		const xs = a.poly.map((p) => p[0]);
+		const ys = a.poly.map((p) => p[1]);
+		const mid = (v) => Math.round(((Math.min(...v) + Math.max(...v)) / 2) * 100) / 100;
+		const c = { map: zone.id, x: mid(xs), y: mid(ys) };
+		if (!a.live) c.f = 'e';
+		const sides = o.factions || (faction ? [faction] : null);
+		c.faction = sides && sides.length === 1 ? SIDE_TAG[sides[0]] : 'AH';
+		if (o.races) c.races = o.races;
+		if (o.classes) c.classes = o.classes;
+		c.lvl = { min: a.lvl, max: a.lvl };
+		c.lap = a.lap;
+		c[per] = a[per];
+		if (a.respawn) c.respawn = a.respawn;
+		if (a.starter) c.starter = true;
+		c.area = a.name;
+		const sub = data && data.areas ? areaNamed(data.areas, a.name, zone.areaId) : null;
+		if (sub) c.aid = sub.id;
+		if (a.near) c.near = true;
+		c.count = a.count;
+		if (a.levels) c.levels = { min: a.levels[0], max: a.levels[1] };
+		if (a.items) c.items = a.items.join(',');
+		c.poly = pack(a.poly);
+		if (a.dots && a.dots.length) c.dots = pack(a.dots);
+		out.push(c);
+	}
+	if (!out.length) return;
+	const c0 = out[0];
+	goal.map = c0.map;
+	goal.x = c0.x;
+	goal.y = c0.y;
+	if (c0.f) goal.f = c0.f;
+	else delete goal.f;
+	delete goal.spots;
+	delete goal.spread;
+	delete goal.lvl;
+	delete goal.z;
+	goal.candidates = out;
 }
 
 // The levels a guide's header spans: its plain `levels` and every `levels <min>-<max> <Faction>` together. -> [min, max] | null
@@ -1209,7 +1283,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 				prof: profProgress,
 				zoneId,
 				loop: !!s.loop,
-				loops: !!s.loops,
+				loops: !!(s.loops || s.areas),
 			};
 			const goal = resolveGoal(g, zoneId, at.prev, data, err, warn, ctx);
 			hidden(goal, '_line', g.line);
@@ -1273,6 +1347,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 			if (last) for (const c of moves) c.prev = { map: last.map, x: last.x, y: last.y };
 		}
 		if (s.loops) applyLoopCandidates(step, s, err, guide.faction, resolveZone);
+		if (s.areas) applyAreaCandidates(step, s, err, guide.faction, resolveZone, data);
 		applyNearest(step, s, err, guide.faction);
 		applyGotoNearest(step, s, err, guide.faction);
 		guide.steps.push(step);

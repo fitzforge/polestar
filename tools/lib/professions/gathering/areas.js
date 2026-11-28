@@ -32,24 +32,24 @@ const { pointLevels } = require('./loop');
 const { ZONES } = require('./tables');
 const { SOURCES } = require('../../paths');
 
-const PATCH_YARDS = 400;
-const MERGE_YARDS = 900;
-const LEVEL_SHARE = 0.8;
+// The knobs a profession may set in its spec (`areaTuning`: { patchYards, … }, specs.js); areasIn reads them into T
+// for the call. patchYards: a patch's reach round its seed; mergeYards: how far apart patches of one name (or a
+// sparse one and its neighbour) still join; levelShare: the share of an area's nodes its level covers; minNodes,
+// minUp: the least an area holds (points, nodes up at once); tierGrowth, groundShare: below; goodUp: a patch with
+// fewer nodes up joins its neighbour (growSmall); maxSpan: the widest two joined patches may be.
+const DEFAULTS = { patchYards: 400, mergeYards: 900, levelShare: 0.8, minNodes: 3, minUp: 1.5, tierGrowth: 0.25, groundShare: 0.5, goodUp: 6, maxSpan: 1500 };
+let T = DEFAULTS;
 const SAMPLE_YARDS = 30;
 const MAX_SAMPLES = 600;
 const PAD_YARDS = 30;
 const MAX_CORNERS = 10;
 const MAX_DOTS = 40;
-const MIN_NODES = 3;
-const MIN_UP = 1.5;
 // A sweep through more nodes than this follows the heaviest ones (the rest lie on its way).
 const MAX_TOUR = 60;
-// A level cuts its own areas when this much more of the nodes (by how often each is up) open there than at the
-// level before; an area cut again at a higher level must hold this much more.
-const TIER_GROWTH = 0.25;
-// The ground between the nodes counts at its median: the half of it a character roams most (the camps at its
-// edges are what the nodes' own level already keeps them from).
-const GROUND_SHARE = 0.5;
+// tierGrowth: a level cuts its own areas when this much more of the nodes (by how often each is up) open there than
+// at the level before; an area cut again at a higher level must hold this much more. groundShare: the ground
+// between the nodes counts at its median, the half of it a character roams most (the camps at its edges are what
+// the nodes' own level already keeps them from).
 // Nodes this near an elite or a town inside an area leave it (and its outline with them), at most this many times.
 const CLEAR_YARDS = 90;
 const CLEAR_TRIES = 3;
@@ -315,6 +315,7 @@ function areasIn(ctx, prof, map, points, { faction = null, respawn = 300, maxLev
 	let byKey = memo.get(points);
 	if (!byKey) memo.set(points, (byKey = new Map()));
 	if (byKey.has(key)) return byKey.get(key);
+	T = { ...DEFAULTS, ...(prof.areaTuning || {}) };
 	const lv = pointLevels(ctx, map, points, faction);
 	const all = [];
 	points.forEach((p, i) => {
@@ -327,7 +328,7 @@ function areasIn(ctx, prof, map, points, { faction = null, respawn = 300, maxLev
 	let last = 0;
 	for (const l of [...new Set(all.map((p) => p.lv))].sort((a, b) => a - b)) {
 		const w = all.reduce((s, p) => s + (p.lv <= l ? up(p) : 0), 0);
-		if (!tiers.length || w >= last * (1 + TIER_GROWTH)) {
+		if (!tiers.length || w >= last * (1 + T.tierGrowth)) {
 			tiers.push(l);
 			last = w;
 		}
@@ -338,7 +339,7 @@ function areasIn(ctx, prof, map, points, { faction = null, respawn = 300, maxLev
 			// The same area at a higher level (by its name, or by most of its nodes under another name) only when it
 			// holds TIER_GROWTH more nodes than at a lower one.
 			const lower = found.filter((b) => (b.name === a.name && b.near === a.near) || shared(a, b) >= SAME_SHARE);
-			if (lower.some((b) => b.level === a.level || a.up < b.up * (1 + TIER_GROWTH))) continue;
+			if (lower.some((b) => b.level === a.level || a.up < b.up * (1 + T.tierGrowth))) continue;
 			found.push(a);
 		}
 	}
@@ -364,7 +365,7 @@ function clearGround(ctx, map, list, faction) {
 // area; null when too few nodes are left or the ground is still not clear.
 function cleaned(ctx, map, list, faction) {
 	for (let k = 0; k <= CLEAR_TRIES; k++) {
-		if (list.length < MIN_NODES) return null;
+		if (list.length < T.minNodes) return null;
 		const ground = samples(outline(list));
 		const gl = pointLevels(ctx, map, ground, faction);
 		if (!gl.some((l) => l === null)) return list;
@@ -379,8 +380,6 @@ function cleaned(ctx, map, list, faction) {
 // ground inside stays clear (`ok`) and they lie in one subzone or one of them in open ground (`subOf`: the subzone
 // holding most of a patch, or null), so an area is a stretch worth roaming, not a pair of veins, and a subzone of
 // its own (Red Cloud Mesa) keeps its name.
-const GOOD_UP = 6;
-const MAX_SPAN = 1500;
 function growSmall(groups, ok, subOf) {
 	const g = groups.map((list) => ({ list, c: centroid(list), up: list.reduce((s, p) => s + up(p), 0), sub: subOf(list) }));
 	const span = (a, b) => {
@@ -396,10 +395,10 @@ function growSmall(groups, ok, subOf) {
 			for (let j = i + 1; j < g.length; j++) {
 				const a = g[i];
 				const b = g[j];
-				if (Math.min(a.up, b.up) >= GOOD_UP || a.c.c !== b.c.c || refused.has(`${a.c.wx},${b.c.wx}`)) continue;
+				if (Math.min(a.up, b.up) >= T.goodUp || a.c.c !== b.c.c || refused.has(`${a.c.wx},${b.c.wx}`)) continue;
 				if (a.sub && b.sub && a.sub !== b.sub) continue;
 				const d = dist(a.c, b.c);
-				if (d > MERGE_YARDS || (best && d >= best.d) || span(a, b) > MAX_SPAN) continue;
+				if (d > T.mergeYards || (best && d >= best.d) || span(a, b) > T.maxSpan) continue;
 				best = { i, j, d };
 			}
 		}
@@ -432,7 +431,7 @@ function tierAreas(ctx, prof, map, open, { faction, respawn, maxLevel }) {
 		for (const [s, w] of by) if (!best || w > by.get(best)) best = s;
 		return best && by.get(best) >= total / 2 ? best : null;
 	};
-	const clean = patches(open, PATCH_YARDS)
+	const clean = patches(open, T.patchYards)
 		.map((list) => cleaned(ctx, map, list, faction))
 		.filter(Boolean);
 	const named = growSmall(clean, ok, subOf).map(({ list, sub }) => {
@@ -447,7 +446,7 @@ function tierAreas(ctx, prof, map, open, { faction, respawn, maxLevel }) {
 	const merged = [];
 	for (const p of named) {
 		const name = p.sub ? `${p.sub.id}|${p.near}` : 'zone';
-		const into = merged.find((m) => m.name === name && dist(m.c, p.c) <= MERGE_YARDS);
+		const into = merged.find((m) => m.name === name && dist(m.c, p.c) <= T.mergeYards);
 		if (into && ok([...into.list, ...p.list])) into.list.push(...p.list);
 		else if (!merged.some((m) => m.name === name)) merged.push({ ...p, list: p.list.slice(), name });
 	}
@@ -458,17 +457,17 @@ function tierAreas(ctx, prof, map, open, { faction, respawn, maxLevel }) {
 		let level = quantile(
 			m.list.map((p) => p.lv),
 			m.list.map((p) => up(p) || 1e-3),
-			LEVEL_SHARE,
+			T.levelShare,
 		);
 		let list = m.list.filter((p) => p.lv <= level);
-		if (list.length < MIN_NODES || list.reduce((s, p) => s + up(p), 0) < MIN_UP) continue;
+		if (list.length < T.minNodes || list.reduce((s, p) => s + up(p), 0) < T.minUp) continue;
 		const gl = pointLevels(ctx, map, samples(outline(list)), faction);
 		if (gl.some((l) => l === null)) continue;
-		if (gl.length) level = Math.max(level, quantile(gl, gl.map(() => 1), GROUND_SHARE));
+		if (gl.length) level = Math.max(level, quantile(gl, gl.map(() => 1), T.groundShare));
 		level = Math.max(level, floorOf(map));
 		if (level > maxLevel) continue;
 		list = list.filter((p) => p.lv <= level);
-		if (list.length < MIN_NODES) continue;
+		if (list.length < T.minNodes) continue;
 		const poly = outline(list);
 		const nodes = list.reduce((s, p) => s + up(p), 0);
 		const gain = list.reduce((s, p) => s + p.w, 0);
@@ -505,4 +504,4 @@ function tierAreas(ctx, prof, map, open, { faction, respawn, maxLevel }) {
 	return out;
 }
 
-module.exports = { areasIn, rankScore, skillLevel, sweepSeconds, subzonesOf, floorOf, RUN, LEVEL_DECAY, PATCH_YARDS };
+module.exports = { areasIn, rankScore, skillLevel, sweepSeconds, subzonesOf, floorOf, RUN, LEVEL_DECAY, DEFAULTS };

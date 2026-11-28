@@ -46,6 +46,8 @@ mod dsl_farm;
 mod dsl_gossip_wait;
 #[path = "dsl-guide-reward.rs"]
 mod dsl_guide_reward;
+#[path = "dsl-areas.rs"]
+mod dsl_areas;
 #[path = "dsl-loop.rs"]
 mod dsl_loop;
 #[path = "dsl-loops.rs"]
