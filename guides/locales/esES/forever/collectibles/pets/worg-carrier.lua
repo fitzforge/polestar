@@ -15,8 +15,8 @@ return {
 	-- Step 2: Lower Blackrock Spire: Halycon's pups
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}: Halycon's pups"] = "Parte baja de {area:1583}: las crías de Halycon",
-	-- {npc:10584} Urok Doomhowl · {npc:10221} Bloodaxe Worg Pup
-	["The pups are in Lower Blackrock Spire (a group of five, level 55-60), not Upper: they run with Halycon, the great worg, deep in the dungeon beyond {npc:10584}'s ogres. Use the cage on a living {npc:10221} before the pack is dead. Taking damage interrupts the cast, so let the tank hold the pups and cage one from the side. A rogue or druid can sneak in, cage a pup from a corner, then vanish."] = "Las crías están en la parte baja de Roca Negra (grupo de cinco, nivel 55-60), no en la alta: corren con Halycon, el gran worg, en lo profundo de la mazmorra tras los ogros de {npc:10584}. Usa la jaula sobre un {npc:10221} vivo antes de que muera la manada. Recibir daño interrumpe el lanzamiento, así que deja que el tanque retenga a las crías y enjaula una desde un lado. Un pícaro o un druida puede colarse, enjaular una cría desde una esquina y luego desvanecerse.",
+	-- {npc:10584} Urok Doomhowl
+	["Halycon's pups are deep in Lower Blackrock Spire (not Upper), beyond {npc:10584}'s ogres: a group dungeon for five, level 55-60. The cage works only on a living pup, and taking damage interrupts it."] = "",
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}"] = "{area:1583} inferior",
 
@@ -25,6 +25,7 @@ return {
 	["Back to {npc:10260}"] = "Vuelve con {npc:10260}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The pups are in Lower Blackrock Spire (a group of five, level 55-60), not Upper: they run with Halycon, the great worg, deep in the dungeon beyond {npc:10584}'s ogres. Use the cage on a living {npc:10221} before the pack is dead. Taking damage interrupts the cast, so let the tank hold the pups and cage one from the side. A rogue or druid can sneak in, cage a pup from a corner, then vanish."] = "Las crías están en la parte baja de Roca Negra (grupo de cinco, nivel 55-60), no en la alta: corren con Halycon, el gran worg, en lo profundo de la mazmorra tras los ogros de {npc:10584}. Usa la jaula sobre un {npc:10221} vivo antes de que muera la manada. Recibir daño interrumpe el lanzamiento, así que deja que el tanque retenga a las crías y enjaula una desde un lado. Un pícaro o un druida puede colarse, enjaular una cría desde una esquina y luego desvanecerse.",
 	-- ["Upper {area:1583}"] = "Parte superior de {area:1583}",
 	-- ["Upper {area:1583} is a raid group of up to ten, level 58-60. Use {npc:10260}'s cage on a {npc:10221} (Halycon's den) to get the {item:12263}."] = "La parte superior de {area:1583} es para un grupo de banda de hasta diez, nivel 58-60. Usa la jaula de {npc:10260} en un {npc:10221} (la guarida de Halycon) para conseguir el {item:12263}.",
 	-- ["{npc:10260} stands at {area:251} in northern {zone:1428}, near the {area:254} path."] = "{npc:10260} está en {area:251}, al norte de {zone:1428}, cerca del camino a {area:254}.",

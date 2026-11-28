@@ -36,7 +36,8 @@ step Back to Thendal Grove
   accept 92474                                -- Myriaal Mistwake
 
 step Rorian the Dayseeker
-  tip Jump off the top of the watchtower and use Walk on Air to float down to Rorian, west of the tower.
+  tip Walk on Air floats down from the top of the watchtower to Rorian, west of the tower.
+  cast 1259416 "Walk on Air"
   complete 92474 @43.7,24.1
   turnin 92461                                -- Rorian the Dayseeker
   turnin 92474
@@ -804,7 +805,8 @@ step Jennea Cannon
 step Mirror Lake
   only Mage
   zone Elwynn Forest
-  tip Leave Stormwind by the main gate. The Mirror Lake waterfall is south-west of the gates, on the way west to Westfall: fill Jennea's Flask at its base.
+  tip The Mirror Lake waterfall is south-west of Stormwind's main gate, on the way west to Westfall.
+  use 7207 quest 1861.1 @28.6,61.4 map 1429
   collect 7206 quest 1861.1                   -- Mirror Lake Water Sample
 
 step Westfall

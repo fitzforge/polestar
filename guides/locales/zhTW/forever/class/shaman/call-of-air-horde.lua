@@ -73,7 +73,8 @@ return {
 	-- Step 17: The steam pools
 	["The steam pools"] = "蒸氣池",
 	-- {npc:5905} Prate Cloudseer · {item:268582} Corrupted Totems · {area:484} Freewind Post · {npc:216474} Ravaging Tempest · {item:212792} Eye of the Tempest
-	["{npc:5905} hands you the {item:268582}. Place the {item:268582} at the steam pools north-west of {area:484} to call the corrupted elementals and then the {npc:216474}; Razormane quilboar join the fight while the ritual runs. A group quest: bring at least one or two friends. The {item:212792} drops about every other kill, and every group member can loot it."] = "{npc:5905}把{item:268582}交給你。在{area:484}西北的蒸汽池放上{item:268582}，召喚被腐蝕的元素，然後是{npc:216474}；儀式進行時鋼鬃野豬人會加入戰鬥。這是組隊任務：至少帶一兩個朋友。{item:212792}大約每兩次擊殺掉落一次，隊裡每個人都能拾取。",
+	-- was: ["{npc:5905} hands you the {item:268582}. Place the {item:268582} at the steam pools north-west of {area:484} to call the corrupted elementals and then the {npc:216474}; Razormane quilboar join the fight while the ritual runs. A group quest: bring at least one or two friends. The {item:212792} drops about every other kill, and every group member can loot it."] = "{npc:5905}把{item:268582}交給你。在{area:484}西北的蒸汽池放上{item:268582}，召喚被腐蝕的元素，然後是{npc:216474}；儀式進行時鋼鬃野豬人會加入戰鬥。這是組隊任務：至少帶一兩個朋友。{item:212792}大約每兩次擊殺掉落一次，隊裡每個人都能拾取。"
+	["{npc:5905} hands over the {item:268582}. The totems at the steam pools north-west of {area:484} call the corrupted elementals and then the {npc:216474}; Razormane quilboar join the fight while the ritual runs. A group quest: one or two friends at least. The {item:212792} drops about every other kill, and every group member can loot it."] = "",
 	-- {item:212792} Eye of the Tempest · {npc:216474} Ravaging Tempest
 	["{item:212792}, from the {npc:216474}"] = "{item:212792}，來自{npc:216474}",
 
@@ -90,6 +91,7 @@ return {
 	-- ["The Maraudine centaurs of western {zone:1443} carry the Twisted Air Totems."] = "{zone:1443}西部的瑪洛迪半人馬身上帶著扭曲風之圖騰。",
 	-- ["The Mirefin murlocs of northern {zone:1445} carry the Twisted Water Totems."] = "{zone:1445}北部的黑鰭魚人身上帶著扭曲水之圖騰。",
 	-- ["The Stonevault troggs in the south of the {zone:1418} carry the Twisted Fire Totems."] = "{zone:1418}南部的石窟穴居人身上帶著扭曲火焰圖騰。",
+	-- ["{npc:5905} hands you the {item:268582}. Place the {item:268582} at the steam pools north-west of {area:484} to call the corrupted elementals and then the {npc:216474}; Razormane quilboar join the fight while the ritual runs. A group quest: bring at least one or two friends. The {item:212792} drops about every other kill, and every group member can loot it."] = "{npc:5905}把{item:268582}交給你。在{area:484}西北的蒸汽池放上{item:268582}，召喚被腐蝕的元素，然後是{npc:216474}；儀式進行時鋼鬃野豬人會加入戰鬥。這是組隊任務：至少帶一兩個朋友。{item:212792}大約每兩次擊殺掉落一次，隊裡每個人都能拾取。",
 	-- ["{npc:5905} hands you the {item:268582}: place them at the steam pools west of {area:484} and defeat the {npc:216474} they call. {quest:79366} is an elite quest: grouping up is advised."] = "{npc:5905}會交給你{item:268582}：把它們放在{area:484}西邊的蒸氣池，擊敗它們召喚出的{npc:216474}。{quest:79366}是精英任務：建議組隊。",
 	-- ["{npc:6176} camps in the east of {zone:1416}, north-east of {area:272}."] = "{npc:6176}在{zone:1416}東部、{area:272}東北方紮營。",
 	-- ["{npc:6176}: the {item:213086} and your weapon"] = "{npc:6176}：{item:213086}和你的武器",

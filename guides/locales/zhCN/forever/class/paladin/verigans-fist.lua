@@ -11,8 +11,8 @@ return {
 	["The Alliance paladin's rare two-handed mace for the 20s, with a shield and {spell:5502} on the way."] = "联盟圣骑士20多级的稀有双手锤，途中还能拿到一面盾牌和{spell:5502}。",
 
 	-- Step 1: The Tome of Valor (Ironforge)
-	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries · {object:32362} Mystic Ward · {item:6776} Tome of Valor · {npc:6171} Duthorian Rall · {zone:1453} Stormwind · {area:2257} Deeprun Tram · {zone:1455} Ironforge
-	["At 20 {npc:6179}, upstairs in the {object:32386} in the {object:32362}, gives you the {item:6776}. Right-click it: it sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. Take the {area:2257} from {zone:1455} to {zone:1453}."] = "20级时，{object:32362} 内 {object:32386} 楼上的 {npc:6179} 会给你 {item:6776}。右键点击它：它会让你前往 {zone:1453} 的圣光大教堂寻找 {npc:6171}。从 {zone:1455} 搭乘 {area:2257} 前往 {zone:1453}。",
+	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries · {object:32362} Mystic Ward · {item:6776} Tome of Valor · {npc:6171} Duthorian Rall · {zone:1453} Stormwind · {area:2257} Deeprun Tram
+	["At 20 {npc:6179}, upstairs in the {object:32386} in the {object:32362}, gives the {item:6776}, which sends you to {npc:6171} in {zone:1453}'s Cathedral of Light, by the {area:2257}."] = "",
 
 	-- Step 2: The Tome of Valor
 	-- {npc:6171} Duthorian Rall · {item:6776} Tome of Valor
@@ -94,6 +94,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 20 {npc:6179} in the {object:32362} gives you the {item:6776}; it sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. Take the tram from {zone:1455} to {zone:1453}."] = "20级时，{object:32362}的{npc:6179}会给你{item:6776}；它会让你去找{zone:1453}光明大教堂的{npc:6171}。从{zone:1455}乘地铁前往{zone:1453}。",
+	-- ["At 20 {npc:6179}, upstairs in the {object:32386} in the {object:32362}, gives you the {item:6776}. Right-click it: it sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. Take the {area:2257} from {zone:1455} to {zone:1453}."] = "20级时，{object:32362} 内 {object:32386} 楼上的 {npc:6179} 会给你 {item:6776}。右键点击它：它会让你前往 {zone:1453} 的圣光大教堂寻找 {npc:6171}。从 {zone:1455} 搭乘 {area:2257} 前往 {zone:1453}。",
 	-- ["Bring the four parts to {npc:6181} outside {zone:1455}."] = "把四个部件交给{zone:1455}外的{npc:6181}。",
 	-- ["Protect {npc:6182}"] = "保护{npc:6182}",
 	-- ["The Alliance paladin's rare two-handed mace for the 20s, with a shield on the way."] = "联盟圣骑士20多级的稀有双手锤，途中还能拿到一面盾牌。",

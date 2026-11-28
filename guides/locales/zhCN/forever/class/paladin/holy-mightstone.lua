@@ -25,7 +25,7 @@ return {
 	-- {quest:5401} Argent Dawn Commission
 	["The {quest:5401}"] = "{quest:5401}",
 	-- {quest:5401} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:2268} Light's Hope Chapel
-	["The Scourge drop no Scourgestones unless you wear an {quest:5401}. {npc:10840} gives you one through her quest, {quest:5401}, which you hand in straight away (if you already have one from {area:2268}, wear that). Equip it in a trinket slot: it shows as a buff that never runs out. Keep it on until you have 20 stones."] = "除非佩戴{quest:5401}，否则天灾怪物不会掉落天灾石。{npc:10840}会通过她的“{quest:5401}”任务给你一个，该任务可立即交还（如果你已经从{area:2268}拿到一个，就戴那个）。将它装备到饰品栏：会显示为一个永不消失的增益效果。收集满20块石头前一直戴着。",
+	["The Scourge drop no Scourgestones unless an {quest:5401} is worn. {npc:10840} gives one through her quest, {quest:5401}, handed in straight away (one from {area:2268} works the same). It shows as a buff that never runs out, and it stays on until the 20 stones are in."] = "",
 	-- {quest:5401} Argent Dawn Commission
 	["the {quest:5401} trinket: equip it"] = "{quest:5401}饰品：装备上",
 
@@ -61,10 +61,13 @@ return {
 
 	-- Step 9: Forging the Mightstone
 	-- {area:3197} Chillwind Camp · {item:20620} Holy Mightstone · {item:20505} Chivalrous Signet · {item:20504} Lightforged Blade · {item:20512} Sanctified Orb · {area:2279} Stratholme · {area:2057} Scholomance
-	["Back to Ashlam in {area:3197}: he forges the {item:20620}. Look at the reward window before you hand in: Classic also offered the {item:20505}, the {item:20504} or the {item:20512}, and Forever's notes say that choice may be gone. Use the stone before a fight against undead ({area:2279}, {area:2057}): it lasts ten minutes and is gone after one use."] = "回到 {area:3197} 找阿什拉姆：他会铸成 {item:20620}。交还前先查看奖励窗口：经典怀旧服还可以选择 {item:20505}、{item:20504} 或 {item:20512}，而无限的说明称这项选择可能已取消。与亡灵作战前使用这块石头（{area:2279}、{area:2057}）：效果持续十分钟，使用一次就会消失。",
+	-- was: ["Back to Ashlam in {area:3197}: he forges the {item:20620}. Look at the reward window before you hand in: Classic also offered the {item:20505}, the {item:20504} or the {item:20512}, and Forever's notes say that choice may be gone. Use the stone before a fight against undead ({area:2279}, {area:2057}): it lasts ten minutes and is gone after one use."] = "回到 {area:3197} 找阿什拉姆：他会铸成 {item:20620}。交还前先查看奖励窗口：经典怀旧服还可以选择 {item:20505}、{item:20504} 或 {item:20512}，而无限的说明称这项选择可能已取消。与亡灵作战前使用这块石头（{area:2279}、{area:2057}）：效果持续十分钟，使用一次就会消失。"
+	["Back to Ashlam in {area:3197}: he forges the {item:20620}. Classic also offered the {item:20505}, the {item:20504} or the {item:20512}, and Forever's notes say that choice may be gone. The stone is for a fight against undead ({area:2279}, {area:2057}): it lasts ten minutes and is gone after one use."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A one-use stone that makes you much stronger against undead for 10 minutes; the old choice rewards are gone."] = "一次性石头，10分钟内大幅增强你对亡灵的战斗力；旧的可选奖励已经取消。",
+	-- ["Back to Ashlam in {area:3197}: he forges the {item:20620}. Look at the reward window before you hand in: Classic also offered the {item:20505}, the {item:20504} or the {item:20512}, and Forever's notes say that choice may be gone. Use the stone before a fight against undead ({area:2279}, {area:2057}): it lasts ten minutes and is gone after one use."] = "回到 {area:3197} 找阿什拉姆：他会铸成 {item:20620}。交还前先查看奖励窗口：经典怀旧服还可以选择 {item:20505}、{item:20504} 或 {item:20512}，而无限的说明称这项选择可能已取消。与亡灵作战前使用这块石头（{area:2279}、{area:2057}）：效果持续十分钟，使用一次就会消失。",
+	-- ["The Scourge drop no Scourgestones unless you wear an {quest:5401}. {npc:10840} gives you one through her quest, {quest:5401}, which you hand in straight away (if you already have one from {area:2268}, wear that). Equip it in a trinket slot: it shows as a buff that never runs out. Keep it on until you have 20 stones."] = "除非佩戴{quest:5401}，否则天灾怪物不会掉落天灾石。{npc:10840}会通过她的“{quest:5401}”任务给你一个，该任务可立即交还（如果你已经从{area:2268}拿到一个，就戴那个）。将它装备到饰品栏：会显示为一个永不消失的增益效果。收集满20块石头前一直戴着。",
 	-- ["The Scourge throughout the {zone:1422} drop Minion's Scourgestones."] = "{zone:1422}各处的天灾都会掉落{item:12840}。",
 	-- ["{area:1477} lies in the {area:74} in eastern {zone:1435}. Inside, Gasher and {npc:5716} drop the {item:20606}, Hukku and Mijan the Blue, Zolo and Loro the Green."] = "{area:1477}位于{zone:1435}东部的{area:74}。在里面，加什尔和{npc:5716}掉落{item:20606}，胡库和米杉掉落蓝色，祖罗和洛若尔掉落绿色。",
 	-- ["{item:12846}: equip it"] = "{item:12846}：装备上",

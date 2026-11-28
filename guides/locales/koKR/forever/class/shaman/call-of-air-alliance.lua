@@ -63,7 +63,7 @@ return {
 	-- Step 11: The steam pools
 	["The steam pools"] = "증기 웅덩이",
 	-- {npc:259023} Veyric Thunderhame · {item:268582} Corrupted Totems · {zone:1441} Thousand Needles · {area:489} Thalanaar · {zone:1444} Feralas · {area:484} Freewind Post · {npc:216474} Ravaging Tempest · {item:212792} Eye of the Tempest
-	["{npc:259023} hands you the {item:268582}. {zone:1441} is far: the boat to Theramore and the road west, or fly to {area:489} on the {zone:1444} border and head east into the canyon. Place the {item:268582} at the steam pools north-west of {area:484} to call the corrupted elementals and then the {npc:216474}; Razormane quilboar join the fight while the ritual runs. A group quest: bring at least one or two friends. The {item:212792} drops about every other kill, and every group member can loot it."] = "",
+	["{npc:259023} hands over the {item:268582}. {zone:1441} is far: the boat to Theramore and the road west, or the flight to {area:489} on the {zone:1444} border and east into the canyon. The totems at the steam pools north-west of {area:484} call the corrupted elementals and then the {npc:216474}; Razormane quilboar join the fight while the ritual runs. A group quest: one or two friends at least. The {item:212792} drops about every other kill, and every group member can loot it."] = "",
 	-- {item:212792} Eye of the Tempest · {npc:216474} Ravaging Tempest
 	["{item:212792}, from the {npc:216474}"] = "{npc:216474}에게서 얻는 {item:212792}",
 

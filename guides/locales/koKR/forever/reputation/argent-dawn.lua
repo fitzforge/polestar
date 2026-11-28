@@ -16,13 +16,13 @@ return {
 	-- {quest:5401} Argent Dawn Commission
 	["{quest:5401} (Alliance)"] = "{quest:5401} (얼라이언스)",
 	-- {npc:10840} Argent Officer Pureheart · {area:3197} Chillwind Camp · {zone:1422} Western Plaguelands · {object:2160} The Argent Dawn · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel
-	["{npc:10840} stands in {area:3197}, in the south of the {zone:1422}. {object:2160} starts at Neutral 200 for everyone. Wear the Commission trinket while you fight the Scourge: Scourgestones only drop while you wear it. {npc:11039} at {area:2268} gives the same Commission; you can only take one."] = "{npc:10840}은(는) {zone:1422} 남부의 {area:3197}에 서 있습니다. {object:2160}은(는) 모두에게 중립 200에서 시작합니다. 스컬지와 싸울 때는 위임장 장신구를 착용하세요. 스컬지석은 착용하는 동안에만 떨어집니다. {area:2268}의 {npc:11039}도 같은 위임장을 주며, 하나만 받을 수 있습니다.",
+	["{npc:10840} stands in {area:3197}, in the south of the {zone:1422}. {object:2160} starts at Neutral 200 for everyone. Scourgestones only drop while the Commission trinket is worn. {npc:11039} at {area:2268} gives the same Commission; only one can be taken."] = "",
 
 	-- Step 2: Argent Dawn Commission (Horde)
 	-- {quest:5405} Argent Dawn Commission
 	["{quest:5405} (Horde)"] = "{quest:5405} (호드)",
 	-- {npc:10839} Argent Officer Garush · {area:152} Bulwark · {zone:1420} Tirisfal Glades · {zone:1422} Western Plaguelands · {object:2160} The Argent Dawn · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel
-	["{npc:10839} stands at the {area:152}, on the road from {zone:1420} into the {zone:1422}. {object:2160} starts at Neutral 200 for everyone. Wear the Commission trinket while you fight the Scourge: Scourgestones only drop while you wear it. {npc:11039} at {area:2268} gives the same Commission; you can only take one."] = "{npc:10839}은(는) {area:152}, {zone:1420}에서 {zone:1422}로 들어가는 길에 서 있습니다. {object:2160}은(는) 모두에게 중립 200에서 시작합니다. 스컬지와 싸울 때는 위임장 장신구를 착용하세요. 스컬지석은 착용하는 동안에만 떨어집니다. {area:2268}의 {npc:11039}도 같은 위임장을 주며, 하나만 받을 수 있습니다.",
+	["{npc:10839} stands at the {area:152}, on the road from {zone:1420} into the {zone:1422}. {object:2160} starts at Neutral 200 for everyone. Scourgestones only drop while the Commission trinket is worn. {npc:11039} at {area:2268} gives the same Commission; only one can be taken."] = "",
 
 	-- Step 3: Neutral to Friendly: Scourge of the Western Plaguelands
 	-- {zone:1422} Western Plaguelands
@@ -162,6 +162,8 @@ return {
 	-- ["Minion's Scourgestones to Friendly"] = "{item:12840}: 약간 우호적까지",
 	-- ["Run {area:2279} (both wings) and {area:2057}, killing every Scourge you pass."] = "{area:2279}(양쪽 구역)와(과) {area:2057}을(를) 돌며 지나가는 스컬지를 모두 처치하세요.",
 	-- ["{faction:529} to Exalted"] = "{faction:529}: 확고한 동맹까지",
+	-- ["{npc:10839} stands at the {area:152}, on the road from {zone:1420} into the {zone:1422}. {object:2160} starts at Neutral 200 for everyone. Wear the Commission trinket while you fight the Scourge: Scourgestones only drop while you wear it. {npc:11039} at {area:2268} gives the same Commission; you can only take one."] = "{npc:10839}은(는) {area:152}, {zone:1420}에서 {zone:1422}로 들어가는 길에 서 있습니다. {object:2160}은(는) 모두에게 중립 200에서 시작합니다. 스컬지와 싸울 때는 위임장 장신구를 착용하세요. 스컬지석은 착용하는 동안에만 떨어집니다. {area:2268}의 {npc:11039}도 같은 위임장을 주며, 하나만 받을 수 있습니다.",
+	-- ["{npc:10840} stands in {area:3197}, in the south of the {zone:1422}. {object:2160} starts at Neutral 200 for everyone. Wear the Commission trinket while you fight the Scourge: Scourgestones only drop while you wear it. {npc:11039} at {area:2268} gives the same Commission; you can only take one."] = "{npc:10840}은(는) {zone:1422} 남부의 {area:3197}에 서 있습니다. {object:2160}은(는) 모두에게 중립 200에서 시작합니다. 스컬지와 싸울 때는 위임장 장신구를 착용하세요. 스컬지석은 착용하는 동안에만 떨어집니다. {area:2268}의 {npc:11039}도 같은 위임장을 주며, 하나만 받을 수 있습니다.",
 	-- ["{object:2160} starts out Neutral. Take the Commission from {npc:10839} at {area:152} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "{object:2160}은(는) 중립에서 시작합니다. {area:152}의 {npc:10839}에게서 위임장을 받아 착용하세요. 클래식에서는 {quest:5401} 장신구를 착용해야만 스컬지석이 떨어집니다. Forever의 외교관 유산 특전은 평판 획득량을 늘려 줍니다.",
 	-- ["{object:2160} starts out Neutral. Take the Commission from {npc:10840} at {area:3197} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "{object:2160}은(는) 중립에서 시작합니다. {area:3197}의 {npc:10840}에게서 위임장을 받아 착용하세요. 클래식에서는 {quest:5401} 장신구를 착용해야만 스컬지석이 떨어집니다. Forever의 외교관 유산 특전은 평판 획득량을 늘려 줍니다.",
 	-- ["{quest:5401} (Horde)"] = "{quest:5401} (호드)",

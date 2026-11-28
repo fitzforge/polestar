@@ -25,7 +25,7 @@ return {
 	-- {quest:5401} Argent Dawn Commission
 	["The {quest:5401}"] = "{quest:5401}",
 	-- {quest:5401} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:2268} Light's Hope Chapel
-	["The Scourge drop no Scourgestones unless you wear an {quest:5401}. {npc:10840} gives you one through her quest, {quest:5401}, which you hand in straight away (if you already have one from {area:2268}, wear that). Equip it in a trinket slot: it shows as a buff that never runs out. Keep it on until you have 20 stones."] = "除非佩戴{quest:5401}，否則天災怪物不會掉落天災石。{npc:10840}會透過她的“{quest:5401}”任務給你一個，該任務可立即交還（如果你已經從{area:2268}拿到一個，就戴那個）。將它裝備到飾品欄：會顯示為一個永不消失的增益效果。收集滿20塊石頭前一直戴著。",
+	["The Scourge drop no Scourgestones unless an {quest:5401} is worn. {npc:10840} gives one through her quest, {quest:5401}, handed in straight away (one from {area:2268} works the same). It shows as a buff that never runs out, and it stays on until the 20 stones are in."] = "",
 	-- {quest:5401} Argent Dawn Commission
 	["the {quest:5401} trinket: equip it"] = "{quest:5401}的飾品：裝備上它",
 
@@ -61,9 +61,12 @@ return {
 
 	-- Step 9: Forging the Mightstone
 	-- {area:3197} Chillwind Camp · {item:20620} Holy Mightstone · {item:20505} Chivalrous Signet · {item:20504} Lightforged Blade · {item:20512} Sanctified Orb · {area:2279} Stratholme · {area:2057} Scholomance
-	["Back to Ashlam in {area:3197}: he forges the {item:20620}. Look at the reward window before you hand in: Classic also offered the {item:20505}, the {item:20504} or the {item:20512}, and Forever's notes say that choice may be gone. Use the stone before a fight against undead ({area:2279}, {area:2057}): it lasts ten minutes and is gone after one use."] = "回到{area:3197}的阿什蘭處：他鍛造{item:20620}。交任務前先看獎勵視窗：經典版還會提供{item:20505}、{item:20504}或{item:20512}，而Forever的說明稱該選擇可能已經取消。在與亡靈戰鬥前使用石頭（{area:2279}、{area:2057}）：它持續十分鐘，用一次就消失。",
+	-- was: ["Back to Ashlam in {area:3197}: he forges the {item:20620}. Look at the reward window before you hand in: Classic also offered the {item:20505}, the {item:20504} or the {item:20512}, and Forever's notes say that choice may be gone. Use the stone before a fight against undead ({area:2279}, {area:2057}): it lasts ten minutes and is gone after one use."] = "回到{area:3197}的阿什蘭處：他鍛造{item:20620}。交任務前先看獎勵視窗：經典版還會提供{item:20505}、{item:20504}或{item:20512}，而Forever的說明稱該選擇可能已經取消。在與亡靈戰鬥前使用石頭（{area:2279}、{area:2057}）：它持續十分鐘，用一次就消失。"
+	["Back to Ashlam in {area:3197}: he forges the {item:20620}. Classic also offered the {item:20505}, the {item:20504} or the {item:20512}, and Forever's notes say that choice may be gone. The stone is for a fight against undead ({area:2279}, {area:2057}): it lasts ten minutes and is gone after one use."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to Ashlam in {area:3197}: he forges the {item:20620}. Look at the reward window before you hand in: Classic also offered the {item:20505}, the {item:20504} or the {item:20512}, and Forever's notes say that choice may be gone. Use the stone before a fight against undead ({area:2279}, {area:2057}): it lasts ten minutes and is gone after one use."] = "回到{area:3197}的阿什蘭處：他鍛造{item:20620}。交任務前先看獎勵視窗：經典版還會提供{item:20505}、{item:20504}或{item:20512}，而Forever的說明稱該選擇可能已經取消。在與亡靈戰鬥前使用石頭（{area:2279}、{area:2057}）：它持續十分鐘，用一次就消失。",
+	-- ["The Scourge drop no Scourgestones unless you wear an {quest:5401}. {npc:10840} gives you one through her quest, {quest:5401}, which you hand in straight away (if you already have one from {area:2268}, wear that). Equip it in a trinket slot: it shows as a buff that never runs out. Keep it on until you have 20 stones."] = "除非佩戴{quest:5401}，否則天災怪物不會掉落天災石。{npc:10840}會透過她的“{quest:5401}”任務給你一個，該任務可立即交還（如果你已經從{area:2268}拿到一個，就戴那個）。將它裝備到飾品欄：會顯示為一個永不消失的增益效果。收集滿20塊石頭前一直戴著。",
 	-- ["The Scourge throughout the {zone:1422} drop Minion's Scourgestones."] = "{zone:1422}各處的天譴軍團會掉落爪牙的天譴石。",
 	-- ["{area:1477} lies in the {area:74} in eastern {zone:1435}. Inside, Gasher and {npc:5716} drop the {item:20606}, Hukku and Mijan the Blue, Zolo and Loro the Green."] = "{area:1477}位於{zone:1435}東部的{area:74}。在裡面，加什爾和{npc:5716}會掉落{item:20606}，胡庫和米杉掉落藍色的，祖羅和洛若爾掉落綠色的。",
 	-- ["{item:20606}, inside"] = "{item:20606}，在裡面",

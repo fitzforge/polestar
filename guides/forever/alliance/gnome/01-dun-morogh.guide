@@ -718,7 +718,7 @@ step The Tome of Divinity
 step Narm Faulk
   only Paladin
   zone Dun Morogh
-  tip Head back out of Ironforge and east along the road to Helm's Bed Lake. Narm Faulk lies dead by its shore: use the Symbol of Life on him. The Dark Iron Spies sneaking around the lake carry the script.
+  tip Narm Faulk lies dead by the shore of Helm's Bed Lake, east along the road out of Ironforge, and the Symbol of Life raises him. The Dark Iron Spies sneaking around the lake carry the script.
   level 12 only Paladin
 
 step Muiredon Battleforge
@@ -780,9 +780,10 @@ step The Deeprun Tram
 
 step Tram to Stormwind
   zone Ironforge
-  tip On the Ironforge platform of the Deeprun Tram, Monty asks for help with the rats: use his Rat Catcher's Flute on the Deeprun Rats around the platform, hand them in, then take his letter to his brother Nipsy at the Stormwind end. The tram has no map inside. The city markers show the entrances, not the two brothers.
+  tip Monty is on the Ironforge platform of the Deeprun Tram, and his brother Nipsy is at the Stormwind end. The tram has no map inside, so the city markers show the entrances, not the brothers.
   enter "Deeprun Tram" @78.0,51.4 map 1455
   accept 6661 @78.0,51.4                      -- Monty, on the Ironforge platform
+  use 17117 quest 6661.1 @78.0,51.4 map 1455
   kill 13016 x5 quest 6661.1 "Catch Deeprun Rat" -- Deeprun Rat: use the Rat Catcher's Flute
   turnin 6661 @78.0,51.4                      -- Monty
   accept 6662 @78.0,51.4
@@ -879,7 +880,8 @@ step Jennea Cannon
 step Mirror Lake
   only Mage
   zone Elwynn Forest
-  tip Leave Stormwind by the main gate. The Mirror Lake waterfall is south-west of the gates, on the way west to Westfall: fill Jennea's Flask at its base.
+  tip The Mirror Lake waterfall is south-west of Stormwind's main gate, on the way west to Westfall.
+  use 7207 quest 1861.1 @28.6,61.4 map 1429
   collect 7206 quest 1861.1                   -- Mirror Lake Water Sample
 
 step Goldshire

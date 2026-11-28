@@ -8,7 +8,8 @@
 return {
 	-- Step 1: Taskmaster Fizzule
 	-- {area:382} Sludge Fen · {item:8051} Flare Gun
-	["On the way north from Seereth's camp, keep east of the road to the Venture Co. tower north of the {area:382}. Before you go near Fizzule, use {item:8051} to fire two flares, then target him and /salute: he attacks anyone who comes in without signalling first."] = "從塞雷思的營地往北走時，貼著道路東側前往{area:382}以北的風險投資公司塔。靠近菲祖爾之前，先用{item:8051}放出兩支訊號彈，然後選中他並輸入/salute：沒先發訊號就靠近的人他都會攻擊。",
+	["On the way north from Seereth's camp, the Venture Co. tower is north of the {area:382}, east of the road. Fizzule attacks anyone who comes near without the signal: two flares from {item:8051}, then a /salute."] = "",
+	["/salute at Fizzule"] = "",
 	-- {quest:2478} Mission: Possible But Not Probable
 	["{quest:2478} is for level 23 or more: the tower's drones are 25 and Gallywix a 23 elite. Do it when you can, with a group, from the Class guide Poisons (Horde)."] = "{quest:2478}適合23級及以上：塔裡的工蜂是25級，加里維克斯是23級精英。有能力時組隊去做，參見職業指南《毒藥（部落）》。",
 
@@ -229,6 +230,7 @@ return {
 	-- ["Head west along the main road across {zone:1440}, past {area:415} (Alliance: keep to the road), to the coast. {area:2897} is on the {area:414} in the north-west: {npc:12719}, {npc:12721} and {npc:12757} stand around it, the {npc:12863} beside the flight master. Its other quests are for the next visit, at 26."] = "沿著主要道路向西穿過{zone:1440}，經過{area:415}（聯盟據點：沿著道路走），前往海岸。{area:2897}在西北方的{area:414}：{npc:12719}、{npc:12721}和{npc:12757}站在它周圍，{npc:12863}在飛行管理員旁邊。那裡的其他任務留到26級下次造訪再做。",
 	-- ["If you already know the {area:272} flight path, fly there and skip to {area:272}. Otherwise fly from the {zone:1458} to the {area:228} and ride south down the road past Pyrewood. The Ravenclaw undead haunt the ruins of {area:231} east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}."] = "如果你已經知道{area:272}的飛行路線，就飛過去並直接跳到{area:272}。否則從{zone:1458}飛往{area:228}，沿著道路向南騎過焚木村。鴉爪亡靈出沒於森林東南部、道路東邊的{area:231}廢墟；{npc:1973}會掉落{item:271343}，它會帶你找到{object:645153}。",
 	-- ["Keep north on the road. The {npc:12862} waits at the Warsong lumber camp, south of Splintertree."] = "沿著道路繼續向北。{npc:12862}在碎木崗哨南邊的戰歌伐木營地等候。",
+	-- ["On the way north from Seereth's camp, keep east of the road to the Venture Co. tower north of the {area:382}. Before you go near Fizzule, use {item:8051} to fire two flares, then target him and /salute: he attacks anyone who comes in without signalling first."] = "從塞雷思的營地往北走時，貼著道路東側前往{area:382}以北的風險投資公司塔。靠近菲祖爾之前，先用{item:8051}放出兩支訊號彈，然後選中他並輸入/salute：沒先發訊號就靠近的人他都會攻擊。",
 	-- ["Out of the inn to the {area:431} flight master and fly to {area:1637}."] = "走出旅店，去{area:431}的飛行管理員那裡，飛往{area:1637}。",
 	-- ["Ride back down the {area:1076} to {area:2539}."] = "沿著{area:1076}騎回{area:2539}。",
 	-- ["Ride east to the {area:380} and fly to {zone:1454}. Take the zeppelin from the towers outside {zone:1454} to {zone:1420}; the {area:1497} lies below the {area:153}. The bat handler is in the {object:36078}."] = "向東騎往{area:380}，飛往{zone:1454}。在{zone:1454}外的塔搭飛艇前往{zone:1420}；{area:1497}位於{area:153}下方。蝙蝠管理員在{object:36078}。",

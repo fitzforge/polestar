@@ -228,7 +228,7 @@ return {
 
 	-- Step 44: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {zone:1443} Desolace
-	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. Leave the red {object:176581} for now: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "向東前往{area:599}。把一名燃燒之刃信徒打到殘血，在牠死前對牠使用{item:6436}，就能充能一個{item:6435}。{npc:13019}帶著權杖站在要塞的頂樓。信徒偶爾也會掉落{item:20310}（1-5%）；如果掉落了，就閱讀它。紅色的{object:176581}先不要碰：它的{npc:11876}是37級，第二次造訪{zone:1443}時會再回來處理。",
+	["{area:599} is to the east. The {item:6436} fills one {item:6435} from a Burning Blade cultist brought low before it dies. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%), which starts a quest. The red {object:176581} waits: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "",
 	["On the top floor"] = "頂層",
 
 	-- Step 45: Sargeron
@@ -295,7 +295,7 @@ return {
 
 	-- Step 55: Rackmore's Log
 	-- {object:177787} Rackmore's Log · {npc:11863} Azore Aldamort
-	["{object:177787} lies on the ground just south-west of {npc:11863}'s tower, on the way down to the shore: read it. Its two keys drop only while you have the quest."] = "{object:177787}躺在{npc:11863}塔樓西南方不遠處的地上，就在下往海岸的路上：閱讀它。它的兩把鑰匙只有在你接了任務時才會掉落。",
+	["{object:177787} lies on the ground just south-west of {npc:11863}'s tower, on the way down to the shore, and its two keys drop only while its quest is in the log."] = "",
 
 	-- Step 56: Clam beds
 	["Clam beds"] = "蚌床",
@@ -339,6 +339,7 @@ return {
 	-- ["Back south to {npc:11863}'s tower."] = "向南返回{npc:11863}的塔樓。",
 	-- ["Back west to {npc:11863}."] = "向西返回{npc:11863}那裡。",
 	-- ["Head east past {area:599} and along the northern hills to the satyrs' ruins of {area:603}. Kill every kind you meet for {npc:268705}; the Shadowstalkers walk unseen.\nCareful: Hatefury Rogues use Hide when they spawn, so they are stealthed until you find them."] = "向東經過{area:599}，沿北邊的山丘前往{area:603}的薩特廢墟。為了{npc:268705}，遇到的每一種都殺掉；暗影潛伏者無形無蹤。\n注意：憎怒盜賊出現時會使用隱藏，所以在你發現它們之前一直處於潛行狀態。",
+	-- ["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. Leave the red {object:176581} for now: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "向東前往{area:599}。把一名燃燒之刃信徒打到殘血，在牠死前對牠使用{item:6436}，就能充能一個{item:6435}。{npc:13019}帶著權杖站在要塞的頂樓。信徒偶爾也會掉落{item:20310}（1-5%）；如果掉落了，就閱讀它。紅色的{object:176581}先不要碰：它的{npc:11876}是37級，第二次造訪{zone:1443}時會再回來處理。",
 	-- ["Head north along the coast, then inland to the ruined tower of {area:2405}: {npc:11863} waits inside. The coast's clams and naga come after {area:599}, on one walk north to {area:2406}."] = "沿著海岸向北走，然後往內陸前往{area:2405}的廢棄塔樓：{npc:11863}在裡面等你。海岸的蚌和納迦留到{area:599}之後，一路往北走向{area:2406}時再處理。",
 	-- ["Head west to the troll village on the coast, keeping clear of the {area:606} on the way. {npc:268705} stands on the path just north of the village.\n{npc:268705} may not be here on Forever: if {npc:268705} doesn't offer {quest:97265}, skip it."] = "向西到海岸邊的食人妖村，路上避開{area:606}。{npc:268705}站在村子正北的小路上。\n在 Forever 裡{npc:268705}可能不在這裡：如果{npc:268705}不給{quest:97265}，跳過。",
 	-- ["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second {zone:1443} visit, at 38."] = "繼續往北前往{area:598}取得{item:15881}：任何滑刃納迦都可能掉落。\n小心：海灘北半部有滑刃侍衛（34-35級），還有海巫和神諭者（34-36級，施法者），在33級時最多比你高兩級：在南半部打納迦和女巫（32-33級）直到鑰匙掉落，北部留到38級第二次造訪{zone:1443}時再處理。",
@@ -358,4 +359,5 @@ return {
 	-- ["{npc:4877}, the trade supplies vendor, stands inside {area:484}'s inn."] = "商業供應商{npc:4877}站在{area:484}的旅店裡。",
 	-- ["{npc:5395} now offers Centaur Bounty: the second {zone:1443} visit, at 38, takes it on its way to the {area:607}."] = "{npc:5395}現在會提供「半人馬賞金」：38級第二次造訪{zone:1443}時，會在前往{area:607}的路上接取。",
 	-- ["{npc:5641}'s next errand sends you after a demon lord with an elite guard: skip it."] = "{npc:5641}的下一個差事要你去對付一名帶著精英守衛的惡魔領主：跳過它。",
+	-- ["{object:177787} lies on the ground just south-west of {npc:11863}'s tower, on the way down to the shore: read it. Its two keys drop only while you have the quest."] = "{object:177787}躺在{npc:11863}塔樓西南方不遠處的地上，就在下往海岸的路上：閱讀它。它的兩把鑰匙只有在你接了任務時才會掉落。",
 }

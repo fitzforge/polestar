@@ -21,8 +21,9 @@ zone Swamp of Sorrows
 # names and are counted in the bags.
 
 step My Little Friends
-  tip Amaryllis Webb, a Forsaken bug collector, keeps her menagerie in western Swamp of Sorrows. She hands you an Entomology Starter Kit: open it for the tools that catch the three bugs. The bugs are far apart (northern Stranglethorn, Arathi Highlands and Desolace), so do them while you pass. If you lose the kit, she sells another for 50s.
+  tip Amaryllis Webb, a Forsaken bug collector, keeps her menagerie in western Swamp of Sorrows. Her Entomology Starter Kit holds the tools that catch the three bugs, which are far apart (northern Stranglethorn, Arathi Highlands and Desolace), so they fit best on the way. She sells another kit for 50s.
   accept 93176
+  use 213565
 
 step Arbor Tarantula in Stranglethorn Vale
   zone Stranglethorn Vale

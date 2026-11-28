@@ -48,7 +48,7 @@ step Mathias and the Defias
 
 step Agent Kearnen
   zone Westfall
-  tip Kearnen hides stealthed against the west side of a big tree with two small trees in front of it, just north of Klaven Mortwake's Defias tower in the far east of Westfall, by the Duskwood border. Read Kearnen's Journal for the tower's layout if you like.
+  tip Kearnen hides stealthed against the west side of a big tree with two small trees in front of it, just north of Klaven Mortwake's Defias tower in the far east of Westfall, by the Duskwood border. Kearnen's Journal describes the tower's layout.
   turnin 2360                                 -- Agent Kearnen
   accept 2359
 
@@ -67,7 +67,7 @@ step Klaven's Tower, solo
 
 step Master Mathias Shaw
   zone Stormwind City
-  tip Head north through Elwynn to Stormwind; Mathias Shaw is upstairs in SI:7. He teaches Poisons and gives you the Thistle Tea recipe. Poisons are made, not bought: each batch of Instant Poison takes a Dust of Decay and an Empty Vial, which Jasper Fel and Sloan McCoy sell in Old Town next to SI:7. Buy a stack of each, open Poisons from your spellbook to make them, then use a poison on your weapon.
+  tip Mathias Shaw is upstairs in SI:7, north through Elwynn in Stormwind. He teaches Poisons and gives the Thistle Tea recipe. Poisons are made, not bought: each batch of Instant Poison takes a Dust of Decay and an Empty Vial, which Jasper Fel and Sloan McCoy sell in Old Town next to SI:7. A poison from the Poisons window then goes on the weapon.
   turnin 2359 reward 18160                    -- Master Mathias Shaw: Poisons
   accept 2607
 

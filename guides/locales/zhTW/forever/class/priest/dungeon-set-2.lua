@@ -60,20 +60,20 @@ return {
 	["Hand in the parts and pay 40 gold: Mux pays you with {item:22320}, a bag holding 8 {item:9061}, and {quest:8924} hands you the {item:21946}. Each placement of the distiller uses one fuel, so carry spares."] = "交出零件並支付40金幣：穆克斯會給你{item:22320}，一個裝有8個{item:9061}的袋子，{quest:8924}會交給你{item:21946}。每放置一次蒸餾器就消耗一份燃料，所以多帶些備用。",
 
 	-- Step 10: Scorched Ectoplasm
-	-- {area:2738} Southwind Village · {zone:1451} Silithus · {item:21946} Ectoplasmic Distiller
+	-- {area:2738} Southwind Village
 	-- plural, as words: Tortured Druids = {npc:12178} Tortured Druid
-	["The Tortured Druids and Sentinels haunt {area:2738} in {zone:1451} (level 55-57, not elite; silithid can join when they die). Place the {item:21946} among the ghosts, pull them into its glow and kill them there, standing in it yourself: ectoplasm only drops from a ghost that dies inside the glow. It lasts a few minutes, then place it again."] = "受折磨的德魯伊和哨兵在{zone:1451}的{area:2738}遊蕩（55-57級，非精英；牠們死時可能有異種蟲加入）。把{item:21946}放在鬼魂之間，把牠們拉進光圈內擊殺，自己也站在光圈裡：只有死在光圈內的鬼魂才會掉落靈質。它持續幾分鐘，之後再放一次。",
+	["Tortured Druids and Sentinels (level 55-57, not elite) haunt {area:2738}, and silithid can join when they die. Ectoplasm drops only from a ghost that dies inside the Distiller's glow, which lasts a few minutes."] = "",
 
 	-- Step 11: Frozen Ectoplasm and the Fel Elemental Rod
 	-- {item:21936} Frozen Ectoplasm · {item:21939} Fel Elemental Rod
 	["{item:21936} and the {item:21939}"] = "{item:21936}和{item:21939}",
-	-- {spell:17735} Suffering · {npc:7524} Anguished Highborne · {area:2251} Lake Kel'Theril · {zone:1452} Winterspring · {item:21946} Ectoplasmic Distiller · {item:21939} Fel Elemental Rod · {npc:16015} Vi'el · {area:2256} Darkwhisper Gorge · {quest:8928} A Shifty Merchant
-	["The {spell:17735} and {npc:7524} drift around {area:2251} in {zone:1452} (level 54-56, not elite). Place the {item:21946} among the ghosts, pull them into its glow and kill them there, standing in it yourself: ectoplasm only drops from a ghost that dies inside the glow. It lasts a few minutes, then place it again. While you are in {zone:1452}, buy the {item:21939} (40 gold) from {npc:16015}, an imp in the cave at the mouth of {area:2256} in the far south: keep to the right-hand wall to slip past the elite demons in the gorge. {quest:8928} asks for it later, and this saves the trip back."] = "{spell:17735}和{npc:7524}在{zone:1452}的{area:2251}一帶遊蕩（等級54-56，非精英）。把{item:21946}放在鬼魂之間，把它們拉進光芒中擊殺，你自己也站在光芒裡：只有死在光芒中的鬼魂才會掉落靈質。它持續幾分鐘，之後再放一次。在{zone:1452}時，順便向{npc:16015}購買{item:21939}（40金），他是一隻小鬼，在最南邊{area:2256}入口的洞穴裡：沿著右側牆壁走，就能溜過峽谷中的精英惡魔。{quest:8928}之後會要它，這樣可以省下回來的路程。",
+	-- {spell:17735} Suffering · {npc:7524} Anguished Highborne · {area:2251} Lake Kel'Theril · {npc:16015} Vi'el · {area:2256} Darkwhisper Gorge · {quest:8928} A Shifty Merchant
+	["The {spell:17735} and {npc:7524} around {area:2251} are level 54-56, not elite, and ectoplasm drops only from a ghost that dies inside the Distiller's glow. {npc:16015} sells the rod (40 gold) in the cave at the mouth of {area:2256}, with elite demons in the gorge behind. {quest:8928} asks for the rod later, so buying it now saves a trip back."] = "",
 
 	-- Step 12: Stable Ectoplasm
-	-- {zone:1423} Eastern Plaguelands · {area:2272} Northdale · {item:21946} Ectoplasmic Distiller
+	-- {area:2272} Northdale
 	-- plural, as words: Unseen Servants = {npc:8538} Unseen Servant · Eyeless Watchers = {npc:8539} Eyeless Watcher · Death Singers = {npc:8542} Death Singer · Hate Shriekers = {npc:8541} Hate Shrieker
-	["The ghosts and banshees of the {zone:1423} (Unseen Servants, Eyeless Watchers, Death Singers, Hate Shriekers; level 55-59, not elite) drop it; {area:2272} in the north-east is a good spot. The shriekers fear: fight close to the distiller. Place the {item:21946} among the ghosts, pull them into its glow and kill them there, standing in it yourself: ectoplasm only drops from a ghost that dies inside the glow. It lasts a few minutes, then place it again."] = "{zone:1423}的鬼魂和女妖（隱形僕從、無眼觀察者、死亡歌手、仇恨尖叫者；55-59級，非精英）會掉落它；東北的{area:2272}是好地點。尖叫者會恐懼：靠近蒸餾器戰鬥。把{item:21946}放在鬼魂之間，把牠們拉進光圈內擊殺，自己也站在光圈裡：只有死在光圈內的鬼魂才會掉落靈質。它持續幾分鐘，之後再放一次。",
+	["Unseen Servants, Eyeless Watchers, Death Singers and Hate Shriekers (level 55-59, not elite) drop it, many of them around {area:2272} in the north-east. Ectoplasm drops only from a ghost that dies inside the Distiller's glow, which lasts a few minutes, and the Shriekers' fear can carry you out of it."] = "",
 
 	-- Step 13: Mux Manascrambler: Magma Lord Bokk
 	["Bring the distiller back with the ectoplasm: it is handed in too."] = "把蒸餾器連同靈質一起帶回來：它也要繳交。",
@@ -97,8 +97,8 @@ return {
 	["{quest:84171} takes your {item:16696}: a rare drop from the mobs of {area:1583}, or the auction house, and your {item:16692}: {npc:10811} in {area:2279} (about 18%), or the auction house."] = "{quest:84171}需要你的{item:16696}：{area:1583}怪物的稀有掉落，或拍賣行；以及你的{item:16692}：{area:2279}的{npc:10811}（約18%），或拍賣行。",
 
 	-- Step 18: Anthion Harmon
-	-- {npc:16016} Anthion Harmon · {area:2279} Stratholme · {zone:1423} Eastern Plaguelands · {item:22115} Extra-Dimensional Ghost Revealer
-	["{npc:16016}'s ghost waits on the bridge before {area:2279}'s main gate, at the north end of the {zone:1423}. Use the {item:22115} there to see him."] = "{npc:16016}的鬼魂在{zone:1423}北端、{area:2279}正門前的橋上等你。在那裡使用{item:22115}才能看見他。",
+	-- {npc:16016} Anthion Harmon · {area:2279} Stratholme · {item:22115} Extra-Dimensional Ghost Revealer
+	["{npc:16016}'s ghost is on the bridge before {area:2279}'s main gate, and only the {item:22115} shows him."] = "",
 
 	-- Step 19: Dead Man's Plea
 	-- {quest:8945} Dead Man's Plea · {npc:16016} Anthion Harmon · {npc:16031} Ysida Harmon · {npc:10440} Baron Rivendare · {area:2279} Stratholme
@@ -146,7 +146,8 @@ return {
 
 	-- Step 29: The Challenge
 	-- {npc:16032} Falrin Treeshaper · {item:21986} Banner of Provocation · {area:1584} Blackrock Depths
-	["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032}完成{item:21986}：把它插在{area:1584}的秩序競技場。",
+	-- was: ["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032}完成{item:21986}：把它插在{area:1584}的秩序競技場。"
+	["{npc:16032} finishes the {item:21986}, for the Ring of Law in {area:1584}."] = "",
 
 	-- Step 30: Blackrock Depths: the Ring of Law
 	-- {area:1584} Blackrock Depths
@@ -162,13 +163,16 @@ return {
 
 	-- Step 34: Bodley
 	-- {npc:16033} Bodley · {area:1583} Blackrock Spire · {area:254} Blackrock Mountain · {quest:8961} Three Kings of Flame · {item:21987} Incendicite of Incendius · {npc:9017} Lord Incendius · {area:1584} Blackrock Depths · {item:21988} Ember of Emberseer · {npc:9816} Pyroguard Emberseer · {item:21989} Cinder of Cynders · {npc:15206} Duke of Cynders · {zone:1451} Silithus · {item:22014} Hallowed Brazier · {faction:529} Argent Dawn
-	["{npc:16033}'s ghost stands on the ledge before the {area:1583} portal, high inside {area:254}: use the Ghost Revealer there. {quest:8961} wants the {item:21987} ({npc:9017} in {area:1584}), the {item:21988} ({npc:9816} in Upper Blackrock Spire), the {item:21989} (the {npc:15206} in {zone:1451}) and a {item:22014} from the {faction:529}."] = "{npc:16033}的鬼魂站在{area:254}高處、{area:1583}傳送門前的平台上：在那裡使用鬼魂顯形器。{quest:8961}需要{item:21987}（{area:1584}的{npc:9017}）、{item:21988}（黑石塔上層的{npc:9816}）、{item:21989}（{zone:1451}的{npc:15206}），以及{faction:529}的一個{item:22014}。",
+	-- was: ["{npc:16033}'s ghost stands on the ledge before the {area:1583} portal, high inside {area:254}: use the Ghost Revealer there. {quest:8961} wants the {item:21987} ({npc:9017} in {area:1584}), the {item:21988} ({npc:9816} in Upper Blackrock Spire), the {item:21989} (the {npc:15206} in {zone:1451}) and a {item:22014} from the {faction:529}."] = "{npc:16033}的鬼魂站在{area:254}高處、{area:1583}傳送門前的平台上：在那裡使用鬼魂顯形器。{quest:8961}需要{item:21987}（{area:1584}的{npc:9017}）、{item:21988}（黑石塔上層的{npc:9816}）、{item:21989}（{zone:1451}的{npc:15206}），以及{faction:529}的一個{item:22014}。"
+	["{npc:16033}'s ghost stands on the ledge before the {area:1583} portal, high inside {area:254}, and only the Ghost Revealer shows him. {quest:8961} needs the {item:21987} ({npc:9017}, {area:1584}), the {item:21988} ({npc:9816}, Upper Blackrock Spire), the {item:21989} (the {npc:15206}, {zone:1451}) and a {item:22014} from the {faction:529}."] = "",
 
 	-- Step 36: Honored with the Argent Dawn
 	-- {faction:529} Argent Dawn
 	["Honored with the {faction:529}"] = "{faction:529}尊敬",
-	-- {item:22014} Hallowed Brazier · {item:12846} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:3197} Chillwind Camp · {npc:10839} Argent Officer Garush · {area:813} Bulwark · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {area:2279} Stratholme · {area:2057} Scholomance
-	["The {item:22014} is sold only to Honored. Take the {item:12846} ({npc:10840} at {area:3197}, {npc:10839} at the {area:813}, or {npc:11039} at {area:2268}) and wear it: Scourgestones then drop from the Scourge, and the Argent officers take them back for reputation. Every Scourge kill in the Plaguelands counts, {area:2279}'s and {area:2057}'s undead give 5 each up to Honored, and {area:2268}'s dungeon quests give 100-200 each. Polestar's Argent Dawn Reputation guide (Reputation) walks it step by step."] = "{item:22014}只賣給尊敬以上。拿取{item:12846}（{area:3197}的{npc:10840}、{area:813}的{npc:10839}，或{area:2268}的{npc:11039}）並戴上：之後天譴軍會掉落天譴石，銀色黎明的軍官會收下換取聲望。瘟疫之地中每次擊殺天譴軍都算，{area:2279}和{area:2057}的不死生物到尊敬前每隻給5點，{area:2268}的地城任務每個給100-200點。Polestar的銀色黎明聲望指南（聲望）會一步步帶你完成。",
+	-- {item:22014} Hallowed Brazier · {item:12846} Argent Dawn Commission · {area:2279} Stratholme · {area:2057} Scholomance · {area:2268} Light's Hope Chapel
+	["The {item:22014} is sold only at Honored. The Scourge drop Scourgestones for the Argent officers only while the {item:12846} is worn. Every Scourge kill in the Plaguelands counts, {area:2279} and {area:2057} undead give 5 each up to Honored, and {area:2268}'s dungeon quests give 100-200 each."] = "",
+	-- {item:12846} Argent Dawn Commission
+	["{item:12846}, while you fight the Scourge"] = "",
 
 	-- Step 37: Hallowed Brazier
 	-- {object:2160} The Argent Dawn · {area:2268} Light's Hope Chapel · {area:3197} Chillwind Camp · {area:813} Bulwark
@@ -255,6 +259,13 @@ return {
 	-- ["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:234973} yet, so this guide can't track it: {npc:230319} should offer it now. Take it from her and give her your {item:16693} and {item:16690}."] = "Polestar的任務資料還不知道Forever中{npc:234973}的「留到最後」任務，所以本指南無法追蹤它：{npc:230319}現在應該會提供這個任務。從她那裡接取，並把你的{item:16693}和{item:16690}交給她。",
 	-- ["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:235047} yet, so this guide can't track it: {npc:230317} should offer it now. Take it from him and give him your {item:16693} and {item:16690}."] = "Polestar的任務資料還不知道Forever中{npc:235047}的「留到最後」任務，所以本指南無法追蹤它：{npc:230317}現在應該會提供這個任務。從他那裡接取，並把你的{item:16693}和{item:16690}交給他。",
 	-- ["Saving the Best for Last takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "「留到最後」需要你的{item:16693}：{area:2057}的{npc:1853}掉落（約12%），以及你的{item:16690}：黑石塔上層的{npc:10363}掉落（約11%）。",
+	-- ["The Tortured Druids and Sentinels haunt {area:2738} in {zone:1451} (level 55-57, not elite; silithid can join when they die). Place the {item:21946} among the ghosts, pull them into its glow and kill them there, standing in it yourself: ectoplasm only drops from a ghost that dies inside the glow. It lasts a few minutes, then place it again."] = "受折磨的德魯伊和哨兵在{zone:1451}的{area:2738}遊蕩（55-57級，非精英；牠們死時可能有異種蟲加入）。把{item:21946}放在鬼魂之間，把牠們拉進光圈內擊殺，自己也站在光圈裡：只有死在光圈內的鬼魂才會掉落靈質。它持續幾分鐘，之後再放一次。",
+	-- ["The ghosts and banshees of the {zone:1423} (Unseen Servants, Eyeless Watchers, Death Singers, Hate Shriekers; level 55-59, not elite) drop it; {area:2272} in the north-east is a good spot. The shriekers fear: fight close to the distiller. Place the {item:21946} among the ghosts, pull them into its glow and kill them there, standing in it yourself: ectoplasm only drops from a ghost that dies inside the glow. It lasts a few minutes, then place it again."] = "{zone:1423}的鬼魂和女妖（隱形僕從、無眼觀察者、死亡歌手、仇恨尖叫者；55-59級，非精英）會掉落它；東北的{area:2272}是好地點。尖叫者會恐懼：靠近蒸餾器戰鬥。把{item:21946}放在鬼魂之間，把牠們拉進光圈內擊殺，自己也站在光圈裡：只有死在光圈內的鬼魂才會掉落靈質。它持續幾分鐘，之後再放一次。",
+	-- ["The {item:22014} is sold only to Honored. Take the {item:12846} ({npc:10840} at {area:3197}, {npc:10839} at the {area:813}, or {npc:11039} at {area:2268}) and wear it: Scourgestones then drop from the Scourge, and the Argent officers take them back for reputation. Every Scourge kill in the Plaguelands counts, {area:2279}'s and {area:2057}'s undead give 5 each up to Honored, and {area:2268}'s dungeon quests give 100-200 each. Polestar's Argent Dawn Reputation guide (Reputation) walks it step by step."] = "{item:22014}只賣給尊敬以上。拿取{item:12846}（{area:3197}的{npc:10840}、{area:813}的{npc:10839}，或{area:2268}的{npc:11039}）並戴上：之後天譴軍會掉落天譴石，銀色黎明的軍官會收下換取聲望。瘟疫之地中每次擊殺天譴軍都算，{area:2279}和{area:2057}的不死生物到尊敬前每隻給5點，{area:2268}的地城任務每個給100-200點。Polestar的銀色黎明聲望指南（聲望）會一步步帶你完成。",
+	-- ["The {spell:17735} and {npc:7524} drift around {area:2251} in {zone:1452} (level 54-56, not elite). Place the {item:21946} among the ghosts, pull them into its glow and kill them there, standing in it yourself: ectoplasm only drops from a ghost that dies inside the glow. It lasts a few minutes, then place it again. While you are in {zone:1452}, buy the {item:21939} (40 gold) from {npc:16015}, an imp in the cave at the mouth of {area:2256} in the far south: keep to the right-hand wall to slip past the elite demons in the gorge. {quest:8928} asks for it later, and this saves the trip back."] = "{spell:17735}和{npc:7524}在{zone:1452}的{area:2251}一帶遊蕩（等級54-56，非精英）。把{item:21946}放在鬼魂之間，把它們拉進光芒中擊殺，你自己也站在光芒裡：只有死在光芒中的鬼魂才會掉落靈質。它持續幾分鐘，之後再放一次。在{zone:1452}時，順便向{npc:16015}購買{item:21939}（40金），他是一隻小鬼，在最南邊{area:2256}入口的洞穴裡：沿著右側牆壁走，就能溜過峽谷中的精英惡魔。{quest:8928}之後會要它，這樣可以省下回來的路程。",
+	-- ["{npc:16016}'s ghost waits on the bridge before {area:2279}'s main gate, at the north end of the {zone:1423}. Use the {item:22115} there to see him."] = "{npc:16016}的鬼魂在{zone:1423}北端、{area:2279}正門前的橋上等你。在那裡使用{item:22115}才能看見他。",
+	-- ["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032}完成{item:21986}：把它插在{area:1584}的秩序競技場。",
+	-- ["{npc:16033}'s ghost stands on the ledge before the {area:1583} portal, high inside {area:254}: use the Ghost Revealer there. {quest:8961} wants the {item:21987} ({npc:9017} in {area:1584}), the {item:21988} ({npc:9816} in Upper Blackrock Spire), the {item:21989} (the {npc:15206} in {zone:1451}) and a {item:22014} from the {faction:529}."] = "{npc:16033}的鬼魂站在{area:254}高處、{area:1583}傳送門前的平台上：在那裡使用鬼魂顯形器。{quest:8961}需要{item:21987}（{area:1584}的{npc:9017}）、{item:21988}（黑石塔上層的{npc:9816}）、{item:21989}（{zone:1451}的{npc:15206}），以及{faction:529}的一個{item:22014}。",
 	-- ["{npc:230317}: Saving the Best for Last"] = "{npc:230317}：好戲留在最後",
 	-- ["{npc:230319}: Saving the Best for Last"] = "{npc:230319}：好戲留在最後",
 }

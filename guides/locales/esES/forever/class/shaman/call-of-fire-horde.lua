@@ -82,7 +82,7 @@ return {
 	-- {object:61934} Brazier of the Dormant Flame
 	["The {object:61934}"] = "{object:61934}",
 	-- {object:61934} Brazier of the Dormant Flame · {item:277329} Torch of Eternal Flame
-	["Click the {object:61934} on the plateau with the torch in your bags to place the ember, then click it a second time: the next quest does not open by itself. It gives you the lit {item:277329}."] = "Haz clic en {object:61934} de la meseta con la antorcha en tus bolsas para colocar la brasa, y luego vuelve a hacer clic: la siguiente misión no se abre sola. Te da {item:277329} encendida.",
+	["The {object:61934} on the plateau takes the ember with the torch in the bags. The next quest, the lit {item:277329}, does not open by itself: it takes a second click."] = "",
 
 	-- Step 16: Kranal Fiss
 	-- {npc:5907} Kranal Fiss · {item:5176} Fire Totem
@@ -116,8 +116,8 @@ return {
 	-- Step 22: The Eternal Flame
 	-- {object:148418} Eternal Flame
 	["The {object:148418}"] = "{object:148418}",
-	-- {npc:268592} Olariaan Swiftburn · {npc:268762} Brazier of Offering · {object:148418} Eternal Flame · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar
-	["Back to {npc:268592}. Accept the last quest, then wait by the {npc:268762} while he performs the ritual; when the fire spirits light the {object:148418}, hold the torch to it. From then you have six minutes: carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638}, with no detours or fights. Timer out? Abandon the quest and take it again from {npc:268592}."] = "De vuelta con {npc:268592}. Acepta la última misión y luego espera junto al {npc:268762} mientras hace el ritual; cuando los espíritus de fuego enciendan {object:148418}, acerca la antorcha. Desde ahí tienes seis minutos: lleva la llama directo al {npc:268679} junto a {npc:252382} en {area:16638}, sin desvíos ni peleas. ¿Se acabó el tiempo? Abandona la misión y vuelve a tomarla con {npc:268592}.",
+	-- {object:148418} Eternal Flame · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar · {npc:268592} Olariaan Swiftburn
+	["Once taken, the {object:148418} lasts six minutes, so the walk to the {npc:268679} beside {npc:252382} in {area:16638} has no room for detours. If it runs out, the quest can be taken again from {npc:268592}."] = "",
 	-- {npc:268679} Brazier of Eternal Flame · {area:16638} Valanaar
 	["the ritual, then the {npc:268679} in {area:16638}"] = "el ritual, y luego el {npc:268679} en {area:16638}",
 
@@ -126,4 +126,8 @@ return {
 	["Keep the {item:5176} in your bags for good: every fire totem needs it."] = "Guarda {item:5176} en tus bolsas para siempre: todo tótem de fuego lo necesita.",
 	-- {npc:252382} Sessaria Skystride · {spell:3599} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
 	["{npc:252382}: {spell:3599}, your {item:5176} and the {item:263412}"] = "{npc:252382}: {spell:3599}, tu {item:5176} y {item:263412}",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to {npc:268592}. Accept the last quest, then wait by the {npc:268762} while he performs the ritual; when the fire spirits light the {object:148418}, hold the torch to it. From then you have six minutes: carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638}, with no detours or fights. Timer out? Abandon the quest and take it again from {npc:268592}."] = "De vuelta con {npc:268592}. Acepta la última misión y luego espera junto al {npc:268762} mientras hace el ritual; cuando los espíritus de fuego enciendan {object:148418}, acerca la antorcha. Desde ahí tienes seis minutos: lleva la llama directo al {npc:268679} junto a {npc:252382} en {area:16638}, sin desvíos ni peleas. ¿Se acabó el tiempo? Abandona la misión y vuelve a tomarla con {npc:268592}.",
+	-- ["Click the {object:61934} on the plateau with the torch in your bags to place the ember, then click it a second time: the next quest does not open by itself. It gives you the lit {item:277329}."] = "Haz clic en {object:61934} de la meseta con la antorcha en tus bolsas para colocar la brasa, y luego vuelve a hacer clic: la siguiente misión no se abre sola. Te da {item:277329} encendida.",
 }

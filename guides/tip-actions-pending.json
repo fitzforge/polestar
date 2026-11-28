@@ -1,0 +1,75 @@
+{
+	"about": "Tips in Polestar's own guides that tell the player to do something no goal row of their step does yet (forge guide lint's tip rule, rust/crates/forge-guide/src/tipactions.rs): warnings, not errors, until the step gets the action's own row (use, interact, equip, talk, task) and the entry goes. A new tip order is an error. file: the guide's path under guides/; verb: the action's kind (use, click, equip, talk, emote, board); text: the tip's sentence.",
+	"pending": [
+		{
+			"file": "forever/professions/blacksmithing.guide",
+			"verb": "use",
+			"text": "Use the stones on your weapons or sell them."
+		},
+		{
+			"file": "forever/professions/cooking.guide",
+			"verb": "use",
+			"text": "Buy it and read it."
+		},
+		{
+			"file": "forever/professions/engineering.guide",
+			"verb": "use",
+			"text": "Use the 12 Solid Blasting Powder you made earlier;"
+		},
+		{
+			"file": "forever/professions/engineering.guide",
+			"verb": "use",
+			"text": "Use the 19 Solid Blasting Powder you made earlier;"
+		},
+		{
+			"file": "forever/professions/engineering.guide",
+			"verb": "use",
+			"text": "Use the 20 Heavy Blasting Powder you made earlier;"
+		},
+		{
+			"file": "forever/professions/engineering.guide",
+			"verb": "use",
+			"text": "Use the 33 Handful of Copper Bolts you made earlier;"
+		},
+		{
+			"file": "forever/professions/engineering.guide",
+			"verb": "use",
+			"text": "Use the 7 Heavy Blasting Powder you made earlier;"
+		},
+		{
+			"file": "forever/professions/first-aid.guide",
+			"verb": "use",
+			"text": "Buy it and read it."
+		},
+		{
+			"file": "forever/professions/first-aid.guide",
+			"verb": "use",
+			"text": "Read the Manual:"
+		},
+		{
+			"file": "forever/professions/first-aid.guide",
+			"verb": "use",
+			"text": "read the Manual:"
+		},
+		{
+			"file": "forever/professions/first-aid.guide",
+			"verb": "use",
+			"text": "use those, not your own."
+		},
+		{
+			"file": "forever/professions/fishing.guide",
+			"verb": "click",
+			"text": "Fish the pools and open water here until skill 125, about 120 catches:"
+		},
+		{
+			"file": "forever/professions/fishing.guide",
+			"verb": "equip",
+			"text": "Buy a Fishing Pole (23c) from a trade goods or fishing vendor and equip it (you can only fish with a pole in your hands), and two or three Shiny Baubles (+25, 50c each):"
+		},
+		{
+			"file": "forever/professions/fishing.guide",
+			"verb": "use",
+			"text": "Buy it and read it;"
+		}
+	]
+}

@@ -63,9 +63,10 @@ step Valley of Trials (optional hub)
 
 step Boars, weapons and peons
   when done valley
-  tip The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping Lazy Peon and use the Foreman's Blackjack on it.
+  tip The training weapons lie on the ground in the Den and among the boars to the north.
   kill 3098 x10 quest 788.1           -- Mottled Boar
   collect 277653 x6 quest 97279.1     -- Abandoned Training Weapon
+  use 16114 quest 5441.1 @42.3,73.2 map 1411
   kill 10556 x5 quest 5441.1 "Wake Lazy Peon" -- Lazy Peon: hit it with the Foreman's Blackjack
 
 step The Den: hand in
@@ -169,7 +170,7 @@ step Skull Rock: the Lieutenant's Insignia
 step Orgrimmar: Thrall and Neeru
   when done hidden
   zone Orgrimmar
-  tip Neeru Fireblade is in the Cleft of Shadow. Tell him he may speak openly and click through his story.
+  tip Neeru Fireblade is in the Cleft of Shadow, and his whole story counts once he is told he may speak openly.
   turnin 5726                         -- Thrall
   accept 5727                         -- Hidden Enemies, +50
   talk 3216 quest 5727.1              -- Neeru Fireblade: hear him out
@@ -331,7 +332,7 @@ step The Crossroads (optional hub)
 
 step Around the Crossroads
   when done crossroads
-  tip The Razormane camps and the supply crates are north-east of the town; Chol'aruk, an elite boar, sits deep in the Thorn Hill cave there. The Witchwing harpies nest far to the north-west. The Beaten Corpse lies north-east of Camp Taurajo, in the south: right-click it. Raptors and plainstriders are everywhere.
+  tip The Razormane camps and the supply crates are north-east of the town; Chol'aruk, an elite boar, sits deep in the Thorn Hill cave there. The Witchwing harpies nest far to the north-west. The Beaten Corpse lies north-east of Camp Taurajo, in the south. Raptors and plainstriders are everywhere.
   level 14
   collect 5087 x7 quest 844.1         -- Plainstrider Beak
   collect 5062 x12 quest 869.1        -- Raptor Head
@@ -379,13 +380,14 @@ step The Crossroads: hand in again
 
 step Prowlers, Serena and Echeyakee
   when done crossroads
-  tip Savannah Prowlers lie west and north of the Crossroads. Serena Bloodfeather leads the Witchwing harpies in the far north-west. Then Sergra gives you the Horn of Echeyakee: blow it beside the kodo bones at Echeyakee's Lair, north of the town, and kill the white lion.
+  tip Savannah Prowlers roam west and north of the Crossroads, and Serena Bloodfeather leads the Witchwing harpies in the far north-west. Echeyakee, a white lion, appears at the kodo bones of Echeyakee's Lair, north of the town.
   level 19
   collect 5096 x7 quest 903.1         -- Prowler Claws
   collect 5067 quest 876.1            -- Serena's Head
   turnin 903
   accept 881                          -- Echeyakee, +150
   turnin 876
+  use 10327 quest 881.1 @55.8,17.1 map 1413
   collect 5100 quest 881.1            -- Echeyakee's Hide
   turnin 881                          -- Sergra Darkthorn
 
@@ -496,7 +498,7 @@ step Valormok: Betrayed
   accept 3505                         -- Ag'tor Bloodfist: Betrayed, +75
 
 step Magus Rimtori's camp
-  tip Kill the Reclaimers and Surveyors, then walk up to the book inside the ring of stone pillars. Read the Kaldorei Tome of Summoning there to start the next quest: break the crystals around the circle, kill the guard that comes, then Magus Rimtori.
+  tip The Kaldorei Tome of Summoning is the book inside the ring of stone pillars. For Betrayed, breaking the crystals around the circle brings a guard, then Magus Rimtori.
   level 54
   kill 6199 x10 quest 3505.1          -- Blood Elf Reclaimer
   kill 6198 x10 quest 3505.2          -- Blood Elf Surveyor

@@ -14,7 +14,7 @@ return {
 
 	-- Step 1: Aramis Hammerhand
 	-- {npc:1569} Shadow Priest Sarvis · {item:282423} Consecrated Scroll · {quest:364} The Mindless Ones · {npc:244808} Aramis Hammerhand · {npc:259377} Injured Deathguard · {area:154} Deathknell · {spell:635} Holy Light
-	["{npc:1569} gives you a {item:282423} after {quest:364}: read it, then bring it to {npc:244808} by the church. He asks you to heal five {npc:259377} lying around {area:154}. {spell:635} hurts a Forsaken paladin a little each time: watch your health."] = "{npc:1569} vous donne un {item:282423} après {quest:364} : lisez-le, puis apportez-le à {npc:244808} près de l'église. Il vous demande de soigner cinq {npc:259377} étendus autour de {area:154}. {spell:635} blesse un peu un paladin réprouvé à chaque fois : surveillez votre vie.",
+	["{npc:1569}'s {item:282423}, after {quest:364}, goes to {npc:244808} by the church, who wants five {npc:259377} around {area:154} healed. {spell:635} hurts a Forsaken paladin a little each time."] = "",
 	-- {npc:259377} Injured Deathguard · {spell:635} Holy Light
 	["Heal 5 {npc:259377} with {spell:635}"] = "Soignez 5 {npc:259377} avec {spell:635}",
 
@@ -124,7 +124,7 @@ return {
 	-- Step 21: Deathguard Falgan
 	-- {area:812} Venomweb Vale · {item:6866} Symbol of Life
 	-- plural, as words: Scarlet Crusaders = {npc:238286} Scarlet Crusader
-	["{area:812} is at the far east end of the glades, a long walk. Falgan lies dead among the Scarlet Crusaders there: target his body and use the {item:6866}, then talk to him at once, as he does not stay alive long. If he is already up (another player), just talk to him; if he died again, raise him again."] = "La {area:812} se trouve à l'extrémité est des clairières, une longue marche. Falgan gît mort parmi les Croisés écarlates : ciblez son corps et utilisez le {item:6866}, puis parlez-lui aussitôt, car il ne reste pas longtemps en vie. S'il est déjà debout (un autre joueur), parlez-lui simplement ; s'il est de nouveau mort, ranimez-le de nouveau.",
+	["{area:812} is at the far east end of the glades, a long walk. Falgan lies dead among the Scarlet Crusaders there. Raised with the {item:6866}, he does not stay alive long, and another player may have raised him already."] = "",
 
 	-- Step 22: The Scarlet attack plans
 	["The Scarlet attack plans"] = "Les plans d'attaque de la Croisade écarlate",
@@ -149,7 +149,9 @@ return {
 	-- ["Vile Fin Attackers"] = "Attaquants aileron noir",
 	-- ["Vile Fin Seers"] = "Oracles aileron noir",
 	-- ["{area:16602} stands on the bluffs north-west of the {area:156}. {npc:246349} waits at the gate."] = "{area:16602} se dresse sur les falaises au nord-ouest de la {area:156}. {npc:246349} attend à la porte.",
+	-- ["{area:812} is at the far east end of the glades, a long walk. Falgan lies dead among the Scarlet Crusaders there: target his body and use the {item:6866}, then talk to him at once, as he does not stay alive long. If he is already up (another player), just talk to him; if he died again, raise him again."] = "La {area:812} se trouve à l'extrémité est des clairières, une longue marche. Falgan gît mort parmi les Croisés écarlates : ciblez son corps et utilisez le {item:6866}, puis parlez-lui aussitôt, car il ne reste pas longtemps en vie. S'il est déjà debout (un autre joueur), parlez-lui simplement ; s'il est de nouveau mort, ranimez-le de nouveau.",
 	-- ["{area:812} is at the far east end of the glades. Use the {item:6866} on {npc:257663}, then speak to him. If you lose the symbol, {npc:246378} gives you another."] = "La {area:812} se trouve à l'extrémité est des clairières. Utilisez le {item:6866} sur {npc:257663}, puis parlez-lui. Si vous perdez le symbole, {npc:246378} vous en donne un autre.",
+	-- ["{npc:1569} gives you a {item:282423} after {quest:364}: read it, then bring it to {npc:244808} by the church. He asks you to heal five {npc:259377} lying around {area:154}. {spell:635} hurts a Forsaken paladin a little each time: watch your health."] = "{npc:1569} vous donne un {item:282423} après {quest:364} : lisez-le, puis apportez-le à {npc:244808} près de l'église. Il vous demande de soigner cinq {npc:259377} étendus autour de {area:154}. {spell:635} blesse un peu un paladin réprouvé à chaque fois : surveillez votre vie.",
 	-- ["{npc:246152}, who trains Paladins in {area:159}, sends you to the order's keep on the west coast."] = "{npc:246152}, qui forme les paladins à {area:159}, vous envoie au donjon de l'ordre sur la côte ouest.",
 	-- ["{npc:246378} leads the order from inside the keep; {npc:246393} stands beside it."] = "{npc:246378} dirige l'ordre depuis l'intérieur du donjon ; {npc:246393} se tient à côté.",
 	-- ["{npc:246378} offers the first Lesson in Divinity at level 12."] = "{npc:246378} propose la première Leçon de divinité au niveau 12.",

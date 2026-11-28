@@ -38,9 +38,9 @@ return {
 	["Grizzled Scalps"] = "灰色頭皮",
 
 	-- Step 6: The Master's Glaive
-	-- {object:12666} Twilight Tome · {quest:948} Onu · {item:5251} Phial of Scrying · {object:10076} Scrying Bowl
+	-- {object:12666} Twilight Tome · {item:5251} Phial of Scrying · {object:10076} Scrying Bowl · {quest:948} Onu
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "月夜獵豹雄獸在月刃周圍的樹林中遊蕩。{object:12666}在彈坑底部。為了{quest:948}的任務，在彈坑底部使用{item:5251}：它會產生{object:10076}，你把任務繳交給這個碗。",
+	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} is at the bottom of the crater, and the {item:5251} makes the {object:10076} that takes {quest:948}'s quest."] = "",
 	-- plural, as words: Fine Moonstalker Pelts = {item:5386} Fine Moonstalker Pelt
 	["Fine Moonstalker Pelts"] = "優質月夜猛虎毛皮",
 	-- {item:5352} Book: The Powers Below
@@ -118,8 +118,8 @@ return {
 	["{npc:3616}, at the Grove"] = "{npc:3616}，在古樹之林",
 
 	-- Step 21: Volcor
-	-- {npc:3692} Volcor · {area:449} Master's Glaive · {area:455} Blackwood Den
-	["{npc:3692} hides in the hills east of the {area:449}, inside {area:455}."] = "{npc:3692}躲在{area:449}以東的山丘中，在{area:455}裡面。",
+	-- {area:455} Blackwood Den · {area:449} Master's Glaive
+	["{area:455} is in the hills east of the {area:449}."] = "",
 	-- {npc:3692} Volcor · {area:455} Blackwood Den
 	["{npc:3692}, inside {area:455}"] = "{npc:3692}，{area:455}內",
 	-- {npc:12298} Sickly Deer · {item:15826} Curative Animal Salve · {zone:1439} Darkshore
@@ -168,30 +168,35 @@ return {
 	["{quest:98394} (Night Elves) and the {npc:272054} (Skyborne) wait in southern {area:493}. The three relics lie in the {area:2363}, east of them. Reports from the first weeks say a relic gives no loot while another player is looting it: wait a moment and try again."] = "{quest:98394}（夜精靈）和{npc:272054}（天裔精靈）在{area:493}南部等著。三件聖物在它們東邊的{area:2363}。最初幾週的回報指出，當另一名玩家正在拾取時，聖物不會給你任何東西：稍等一下再試。",
 
 	-- Step 33: Trial of the Sea Lion
-	-- {zone:1436} Westfall · {zone:1439} Darkshore · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
-	["Both half pendants in your bags (the {zone:1436} half from your last {zone:1436} visit, the {zone:1439} half from the north coast): stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then take the pendant to {npc:11802} with the {spell:499} hand-in. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "兩半墜飾都在你的背包裡（{zone:1436}那一半來自你上次造訪{zone:1436}，{zone:1439}那一半來自北海岸）：站在湖西北岸的{area:2362}旁，使用其中一半把它們合起來，然後把墜飾連同{spell:499}的任務一起交給{npc:11802}。{npc:11802}站在他建築的樓上：從裡面走上去，箭頭無法分辨樓層。",
 	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
 	["{item:15885}: join the halves at the {area:2362}"] = "{item:15885}：在{area:2362}把兩半合起來",
+
+	-- Step 34: Pendant of the Sea Lion
+	-- {npc:11802} Dendrite Starblaze
+	["{npc:11802} is upstairs in his building, and the arrow cannot tell the floors apart."] = "",
+
+	-- Step 35: Dendrite Starblaze
+	-- {item:15885} Pendant of the Sea Lion · {npc:11802} Dendrite Starblaze · {quest:5061} Aquatic Form
+	["The {item:15885} is already with {npc:11802}: take {quest:5061} from him, upstairs in his building."] = "{item:15885}已經交給{npc:11802}：在他建築的樓上向他接取{quest:5061}。",
 	-- {npc:11802} Dendrite Starblaze · {quest:5061} Aquatic Form · {npc:4217} Mathrengyl Bearwalker
 	["{npc:11802}: {quest:5061}, for {npc:4217}"] = "{npc:11802}：{quest:5061}，交給{npc:4217}",
 
-	-- Step 34: Dendrite Starblaze
-	-- {item:15885} Pendant of the Sea Lion · {npc:11802} Dendrite Starblaze · {quest:5061} Aquatic Form
-	["The {item:15885} is already with {npc:11802}: take {quest:5061} from him, upstairs in his building."] = "{item:15885}已經交給{npc:11802}：在他建築的樓上向他接取{quest:5061}。",
-
-	-- Step 35: Back to Dendrite Starblaze
+	-- Step 36: Back to Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze
 	["Back to {npc:11802}"] = "返回{npc:11802}處",
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
 	["Back to {npc:11802} in {area:2361}, then {npc:11800} there flies Druids straight to {area:702}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "回到{area:2361}的{npc:11802}處，再找那裡的{npc:11800}，他能直接把德魯伊送到{area:702}。{npc:11802}在他那棟樓的樓上：從裡面上樓，箭頭分不清樓層。",
 
-	-- Step 38: To Darnassus
+	-- Step 39: To Darnassus
 	-- {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine · {zone:1440} Ashenvale
 	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}. {npc:4217} is a Druid trainer: learn your new spells from him."] = "透過傳送門上去找 {npc:4217}，再飛回 {area:442}，沿路向南前往 {zone:1440}。{npc:4217} 是德魯伊訓練師：向他學習新法術。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Both half pendants in your bags (the {zone:1436} half from your last {zone:1436} visit, the {zone:1439} half from the north coast): stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then take the pendant to {npc:11802} with the {spell:499} hand-in. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "兩半墜飾都在你的背包裡（{zone:1436}那一半來自你上次造訪{zone:1436}，{zone:1439}那一半來自北海岸）：站在湖西北岸的{area:2362}旁，使用其中一半把它們合起來，然後把墜飾連同{spell:499}的任務一起交給{npc:11802}。{npc:11802}站在他建築的樓上：從裡面走上去，箭頭無法分辨樓層。",
 	-- ["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "施放{spell:18960}。{npc:11802}站在{area:2361}他建築的樓上：從裡面走上去，箭頭無法分辨樓層。如果你還沒有那裡的飛行路線就學起來。",
 	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "月夜雄虎在月刃周圍的樹林中徘徊。{object:10076}和{object:12666}在坑底；{npc:3584}站在北側。",
+	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "月夜獵豹雄獸在月刃周圍的樹林中遊蕩。{object:12666}在彈坑底部。為了{quest:948}的任務，在彈坑底部使用{item:5251}：它會產生{object:10076}，你把任務繳交給這個碗。",
 	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater; {npc:3584} stands on its north side. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "月夜雄虎在月刃周圍的樹林中徘徊。{object:12666}在坑底；{npc:3584}站在北側。進行{quest:948}的任務時，在坑底使用{item:5251}：它會變出{object:10076}，然後把任務交給這個碗。",
+	-- ["{npc:3692} hides in the hills east of the {area:449}, inside {area:455}."] = "{npc:3692}躲在{area:449}以東的山丘中，在{area:455}裡面。",
 	-- ["{npc:3692} hides in the hills east of the {area:449}. Help him back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "{npc:3692}躲在{area:449}東邊的山丘上。幫他回到道路上；他會一路戰鬥出去。{npc:3693}會在下次去{area:442}時接下護送任務。",
 }

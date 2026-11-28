@@ -59,11 +59,14 @@ return {
 	-- {object:61934} Brazier of the Dormant Flame
 	["The {object:61934}"] = "{object:61934}",
 	-- {object:61934} Brazier of the Dormant Flame · {item:277329} Torch of Eternal Flame
-	["Click the {object:61934} atop the shrine with the torch in your bags to place the ember, then click it again for the next quest: the lit {item:277329}."] = "Clique em {object:61934}, no alto do santuário, com a tocha nas suas bolsas, para colocar a brasa, e depois clique de novo para a próxima missão: {item:277329} acesa.",
+	["The {object:61934} is atop the shrine and takes the ember with the torch in the bags, and a second click gives the next quest: the lit {item:277329}."] = "",
 
 	-- Step 10: Bruegs Kindleborn
 	-- {npc:257597} Bruegs Kindleborn · {item:5176} Fire Totem
 	["Back through the South Gate tunnel and up the trail to {npc:257597}' cave. Keep the {item:5176} in your bags for good: every fire totem needs it."] = "De volta pelo túnel do Portão Sul e subindo a trilha até a caverna de {npc:257597}. Guarde {item:5176} nas suas bolsas para sempre: todo totem de fogo precisa dele.",
 	-- {npc:257597} Bruegs Kindleborn · {spell:3599} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
 	["{npc:257597}: {spell:3599}, your {item:5176} and the {item:263412}"] = "{npc:257597}: {spell:3599}, seu {item:5176} e {item:263412}",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Click the {object:61934} atop the shrine with the torch in your bags to place the ember, then click it again for the next quest: the lit {item:277329}."] = "Clique em {object:61934}, no alto do santuário, com a tocha nas suas bolsas, para colocar a brasa, e depois clique de novo para a próxima missão: {item:277329} acesa.",
 }

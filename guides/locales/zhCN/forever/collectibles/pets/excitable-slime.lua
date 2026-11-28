@@ -14,9 +14,13 @@ return {
 
 	-- Step 2: WRIGGLE.
 	-- {npc:269452} Excitable Slime · {npc:4612} Boyle · {quest:97583} WRIGGLE.
-	["Find an {npc:269452}, a little critter in the canal water beside {npc:4612}, target it and /dance at it, again and again, until it dances back and offers {quest:97583}; this takes many tries. Hand in the sludge right away. If the slime seems tired, /dance with it again before you hand in."] = "在 {npc:4612} 旁边的运河水中找一只 {npc:269452}，它是小型环境生物；选中它，反复对它使用 /dance，直到它也跳舞并提供 {quest:97583}；需要尝试很多次。立即交还淤泥。如果软泥怪看起来累了，交还前再与它 /dance 一次。",
+	["An {npc:269452}, a little critter in the canal water beside {npc:4612}, offers {quest:97583} only after many /dance emotes at it, and it takes the sludge only while it still dances."] = "",
+	-- {npc:269452} Excitable Slime · {quest:97583} WRIGGLE.
+	["/dance at an {npc:269452} until it dances back and offers {quest:97583}"] = "",
+	["/dance with the slime again if it seems tired"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Find an {npc:269452}, a little critter in the canal water beside {npc:4612}, target it and /dance at it, again and again, until it dances back and offers {quest:97583}; this takes many tries. Hand in the sludge right away. If the slime seems tired, /dance with it again before you hand in."] = "在 {npc:4612} 旁边的运河水中找一只 {npc:269452}，它是小型环境生物；选中它，反复对它使用 /dance，直到它也跳舞并提供 {quest:97583}；需要尝试很多次。立即交还淤泥。如果软泥怪看起来累了，交还前再与它 /dance 一次。",
 	-- ["Find the {npc:269452}, a critter in the {zone:1458} canals, and /dance with it until it offers WRIGGLE. Buy {item:278265} from a vendor in the canals and bring it back; if the slime seems tired, dance with it again."] = "在{zone:1458}的运河里找到小动物{npc:269452}，对它/dance直到它提供任务。向运河里的商人购买{item:278265}并带回来；如果软泥看起来累了，再对它跳一次舞。",
 	-- ["{item:278265}: {npc:4612}, in the canals beside the slime"] = "{item:278265}：{npc:4612}，在运河里软泥旁边",
 }

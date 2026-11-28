@@ -123,9 +123,10 @@ return {
 	-- Step 21: Draconic for Dummies, Volume II
 	-- {quest:8597} Draconic for Dummies
 	["{quest:8597}, Volume II"] = "{quest:8597}, 2권",
-	-- {quest:8620} The Only Prescription · {quest:8597} Draconic for Dummies · {npc:15552} Doctor Weavil · {area:2079} Alcaz Island · {zone:1419} Blasted Lands · {area:2255} Everlook · {zone:1458} Undercity · {npc:11811} Narain Soothfancy
+	-- {quest:8620} The Only Prescription · {quest:8597} Draconic for Dummies · {npc:15552} Doctor Weavil · {area:2079} Alcaz Island · {zone:1419} Blasted Lands · {area:2255} Everlook · {zone:1458} Undercity
 	-- plural, as words: Felguard Elites = {npc:8717} Felguard Elite · Doomguard Commanders = {npc:12396} Doomguard Commander
-	["{quest:8620} needs the eight chapters of {quest:8597}, Volume II: from {npc:15552} in his house on {area:2079} (a level 63 elite with guards, raid), the Felguard Elites, Doomguard Commanders and Dreadlords of the {zone:1419}, the Hederine south of {area:2255}, and a book in the {zone:1458}. {npc:11811} hands out the binding when you accept."] = "{quest:8620}은(는) {quest:8597} 2권의 여덟 장을 모아야 합니다: {area:2079} 집에 있는 {npc:15552}(경호원이 따른 63레벨 정예, 레이드), {zone:1419}의 정예 지옥군단병, 파멸의수호대 사령관, 공포의 군주, {area:2255} 남쪽의 헤더린, 그리고 {zone:1458}에 있는 책입니다. {npc:11811}이(가) 수락할 때 제본을 나눠 줍니다.",
+	-- was: ["{quest:8620} needs the eight chapters of {quest:8597}, Volume II: from {npc:15552} in his house on {area:2079} (a level 63 elite with guards, raid), the Felguard Elites, Doomguard Commanders and Dreadlords of the {zone:1419}, the Hederine south of {area:2255}, and a book in the {zone:1458}. {npc:11811} hands out the binding when you accept."] = "{quest:8620}은(는) {quest:8597} 2권의 여덟 장을 모아야 합니다: {area:2079} 집에 있는 {npc:15552}(경호원이 따른 63레벨 정예, 레이드), {zone:1419}의 정예 지옥군단병, 파멸의수호대 사령관, 공포의 군주, {area:2255} 남쪽의 헤더린, 그리고 {zone:1458}에 있는 책입니다. {npc:11811}이(가) 수락할 때 제본을 나눠 줍니다."
+	["{quest:8620} needs the eight chapters of {quest:8597}, Volume II. They come from {npc:15552} in his house on {area:2079} (a level 63 elite with guards, raid content), the Felguard Elites, Doomguard Commanders and Dreadlords of the {zone:1419}, the Hederine south of {area:2255}, and a book in the {zone:1458}."] = "",
 	-- {quest:8597} Draconic for Dummies
 	["{quest:8597}: Volume II"] = "{quest:8597}: 2권",
 
@@ -257,4 +258,7 @@ return {
 	["At Exalted, {npc:15192} gives the last ring of your path: The Protector of Kalimdor, The Qiraji Conqueror or The Grand Invoker. Bring the Revered ring; 100 reputation."] = "확고한 동맹이 되면 {npc:15192}이(가) 내 길의 마지막 반지를 줍니다: 칼림도르의 수호자, 킬라지 정복자, 대소환사. 매우 우호적 반지를 가져가세요. 평판 100입니다.",
 	-- {npc:15192} Anachronos
 	["{npc:15192}: the Exalted ring quest of your path"] = "{npc:15192}: 내 길의 확고한 동맹 반지 퀘스트",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{quest:8620} needs the eight chapters of {quest:8597}, Volume II: from {npc:15552} in his house on {area:2079} (a level 63 elite with guards, raid), the Felguard Elites, Doomguard Commanders and Dreadlords of the {zone:1419}, the Hederine south of {area:2255}, and a book in the {zone:1458}. {npc:11811} hands out the binding when you accept."] = "{quest:8620}은(는) {quest:8597} 2권의 여덟 장을 모아야 합니다: {area:2079} 집에 있는 {npc:15552}(경호원이 따른 63레벨 정예, 레이드), {zone:1419}의 정예 지옥군단병, 파멸의수호대 사령관, 공포의 군주, {area:2255} 남쪽의 헤더린, 그리고 {zone:1458}에 있는 책입니다. {npc:11811}이(가) 수락할 때 제본을 나눠 줍니다.",
 }

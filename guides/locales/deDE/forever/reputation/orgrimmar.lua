@@ -32,8 +32,7 @@ return {
 
 	-- Step 3: Boars, weapons and peons
 	["Boars, weapons and peons"] = "Eber, Waffen und Peons",
-	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
-	["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "Die Übungswaffen liegen in der Höhle auf dem Boden und zwischen den Ebern im Norden. Für die Peons: Wähle einen schlafenden {npc:10556} als Ziel und benutze den {item:16114} an ihm.",
+	["The training weapons lie on the ground in the Den and among the boars to the north."] = "",
 	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
 	["{npc:10556}: hit it with the {item:16114}"] = "{npc:10556}: schlag ihn mit dem {item:16114}",
 	-- {npc:10556} Lazy Peon
@@ -107,7 +106,7 @@ return {
 	-- {faction:76} Orgrimmar · {npc:4949} Thrall · {npc:3216} Neeru Fireblade
 	["{faction:76}: {npc:4949} and {npc:3216}"] = "{faction:76}: {npc:4949} und {npc:3216}",
 	-- {npc:3216} Neeru Fireblade · {object:172960} Cleft of Shadow
-	["{npc:3216} is in the {object:172960}. Tell him he may speak openly and click through his story."] = "{npc:3216} ist in der {object:172960}. Sag ihm, er darf offen sprechen, und klick dich durch seine Geschichte.",
+	["{npc:3216} is in the {object:172960}, and his whole story counts once he is told he may speak openly."] = "",
 	-- {npc:3216} Neeru Fireblade
 	["{npc:3216}: hear him out"] = "{npc:3216}: hör ihn an",
 
@@ -206,7 +205,8 @@ return {
 	-- Step 34: Around the Crossroads
 	["Around the Crossroads"] = "Rund ums Crossroads",
 	-- {npc:267307} Chol'aruk · {area:1699} Thorn Hill · {npc:10668} Beaten Corpse · {area:378} Camp Taurajo
-	["The Razormane camps and the supply crates are north-east of the town; {npc:267307}, an elite boar, sits deep in the {area:1699} cave there. The Witchwing harpies nest far to the north-west. The {npc:10668} lies north-east of {area:378}, in the south: right-click it. Raptors and plainstriders are everywhere."] = "Die Lager der Razormane und die Vorratskisten liegen nordöstlich der Stadt; {npc:267307}, ein Elite-Eber, sitzt tief in der Höhle von {area:1699} dort. Die Witchwing-Harpyien nisten weit im Nordwesten. Die {npc:10668} liegt nordöstlich von {area:378}, im Süden: Klick sie mit rechts an. Raptoren und Plainstrider sind überall.",
+	-- was: ["The Razormane camps and the supply crates are north-east of the town; {npc:267307}, an elite boar, sits deep in the {area:1699} cave there. The Witchwing harpies nest far to the north-west. The {npc:10668} lies north-east of {area:378}, in the south: right-click it. Raptors and plainstriders are everywhere."] = "Die Lager der Razormane und die Vorratskisten liegen nordöstlich der Stadt; {npc:267307}, ein Elite-Eber, sitzt tief in der Höhle von {area:1699} dort. Die Witchwing-Harpyien nisten weit im Nordwesten. Die {npc:10668} liegt nordöstlich von {area:378}, im Süden: Klick sie mit rechts an. Raptoren und Plainstrider sind überall."
+	["The Razormane camps and the supply crates are north-east of the town; {npc:267307}, an elite boar, sits deep in the {area:1699} cave there. The Witchwing harpies nest far to the north-west. The {npc:10668} lies north-east of {area:378}, in the south. Raptors and plainstriders are everywhere."] = "",
 	-- {npc:10668} Beaten Corpse
 	["{npc:10668}: right-click it"] = "{npc:10668}: Rechtsklick",
 
@@ -228,9 +228,9 @@ return {
 	-- Step 38: Prowlers, Serena Bloodfeather and Echeyakee
 	-- {npc:3452} Serena Bloodfeather · {quest:881} Echeyakee
 	["Prowlers, {npc:3452} and {quest:881}"] = "Prowlers, {npc:3452} und {quest:881}",
-	-- {quest:876} Serena Bloodfeather · {npc:3338} Sergra Darkthorn · {item:10327} Horn of Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
+	-- {quest:876} Serena Bloodfeather · {quest:881} Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
 	-- plural, as words: Savannah Prowlers = {npc:3425} Savannah Prowler
-	["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "Savannenstreuner sind westlich und nördlich des Crossroads. {quest:876} führt die Witchwing-Harpyien im äußersten Nordwesten an. Dann gibt dir {npc:3338} das {item:10327}: Blas es neben den Kodoknochen bei {object:147524}, nördlich der Stadt, und töte den weißen Löwen.",
+	["Savannah Prowlers roam west and north of the Crossroads, and {quest:876} leads the Witchwing harpies in the far north-west. {quest:881}, a white lion, appears at the kodo bones of {object:147524}, north of the town."] = "",
 
 	-- Step 39: Chen's Empty Keg (optional hub)
 	-- {quest:819} Chen's Empty Keg
@@ -334,8 +334,8 @@ return {
 	-- Step 55: Magus Rimtori's camp
 	-- {npc:8578} Magus Rimtori
 	["{npc:8578}'s camp"] = "Lager von {npc:8578}",
-	-- {object:151286} Kaldorei Tome of Summoning · {npc:8578} Magus Rimtori
-	["Kill the Reclaimers and Surveyors, then walk up to the book inside the ring of stone pillars. Read the {object:151286} there to start the next quest: break the crystals around the circle, kill the guard that comes, then {npc:8578}."] = "Töte die Reclaimers und Surveyors und geh dann zum Buch im Ring aus Steinsäulen. Lies dort das {object:151286}, um die nächste Quest zu starten: Zerbrich die Kristalle um den Kreis, töte die Wache, die kommt, dann {npc:8578}.",
+	-- {object:151286} Kaldorei Tome of Summoning · {quest:3505} Betrayed · {npc:8578} Magus Rimtori
+	["The {object:151286} is the book inside the ring of stone pillars. For {quest:3505}, breaking the crystals around the circle brings a guard, then {npc:8578}."] = "",
 	-- {npc:8578} Magus Rimtori
 	["Find {npc:8578}'s camp"] = "Finde das Lager von {npc:8578}",
 	-- {object:151286} Kaldorei Tome of Summoning
@@ -384,11 +384,16 @@ return {
 	-- ["Fly to {area:1237} in western {zone:1447}. {npc:8576} sends you north-east to the blood elf camp on the bluffs of the northern peninsula."] = "Flieg nach {area:1237} im westlichen {zone:1447}. {npc:8576} schickt dich nordöstlich zum Lager der Blutelfen auf den Klippen der nördlichen Halbinsel.",
 	-- ["Keep handing in {quest:7832} until {faction:76} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Gib weiter {quest:7832} ab, bis {faction:76} auf Ehrfürchtig ist. {item:14047}: Dunkle Adepten und Schattenmagier (Stufe 58-60) in den {zone:1423} oder das Auktionshaus.",
 	-- ["Keep handing in {quest:7832}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Gib weiter {quest:7832} ab, je 20 {item:14047}. {item:14047}: Dunkle Adepten und Schattenmagier (Stufe 58-60) in den {zone:1423} oder das Auktionshaus.",
+	-- ["Kill the Reclaimers and Surveyors, then walk up to the book inside the ring of stone pillars. Read the {object:151286} there to start the next quest: break the crystals around the circle, kill the guard that comes, then {npc:8578}."] = "Töte die Reclaimers und Surveyors und geh dann zum Buch im Ring aus Steinsäulen. Lies dort das {object:151286}, um die nächste Quest zu starten: Zerbrich die Kristalle um den Kreis, töte die Wache, die kommt, dann {npc:8578}.",
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "Kolkar-Zentauren (Stufe 30-33) lassen ihn hier fallen. Das Auktionshaus geht auch.",
+	-- ["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "Savannenstreuner sind westlich und nördlich des Crossroads. {quest:876} führt die Witchwing-Harpyien im äußersten Nordwesten an. Dann gibt dir {npc:3338} das {item:10327}: Blas es neben den Kodoknochen bei {object:147524}, nördlich der Stadt, und töte den weißen Löwen.",
+	-- ["The Razormane camps and the supply crates are north-east of the town; {npc:267307}, an elite boar, sits deep in the {area:1699} cave there. The Witchwing harpies nest far to the north-west. The {npc:10668} lies north-east of {area:378}, in the south: right-click it. Raptors and plainstriders are everywhere."] = "Die Lager der Razormane und die Vorratskisten liegen nordöstlich der Stadt; {npc:267307}, ein Elite-Eber, sitzt tief in der Höhle von {area:1699} dort. Die Witchwing-Harpyien nisten weit im Nordwesten. Die {npc:10668} liegt nordöstlich von {area:378}, im Süden: Klick sie mit rechts an. Raptoren und Plainstrider sind überall.",
+	-- ["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "Die Übungswaffen liegen in der Höhle auf dem Boden und zwischen den Ebern im Norden. Für die Peons: Wähle einen schlafenden {npc:10556} als Ziel und benutze den {item:16114} an ihm.",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "Vollstrecker der Venture Co. in der {area:381} (Stufe 16-17) lassen ihn hier fallen. Das Auktionshaus geht auch.",
 	-- ["{npc:10176}: Your Place in the World, +50"] = "{npc:10176}: Your Place in the World, +50",
 	-- ["{npc:14726} takes cloth for {faction:76} in {faction:76}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7832} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14726} nimmt Stoff für {faction:76} in {faction:76} an. Die ersten Spenden von Wollstoff, Seidenstoff, Magiestoff und {item:14047} (je 60 Stoff) gibt es nur einmal, und sie bringen den meisten Ruf pro Stoff; danach ist {quest:7832} bis Ehrfürchtig wiederholbar. Ehrfürchtig bei der Stadt eines anderen Volkes erlaubt dir, dessen Reittiere zu kaufen. Forevers Vermächtnis-Vorteil „Diplomat“ erhöht den Rufgewinn.",
 	-- ["{npc:14726}: {item:14047} delivered"] = "{npc:14726}: {item:14047} abgeliefert",
+	-- ["{npc:3216} is in the {object:172960}. Tell him he may speak openly and click through his story."] = "{npc:3216} ist in der {object:172960}. Sag ihm, er darf offen sprechen, und klick dich durch seine Geschichte.",
 	-- ["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay in full at 60 too, as every quest does in Forever."] = "{npc:4485} steht im {object:172958} vor der {object:173084}. Die ersten beiden {quest:3504}-Quests sind Stufe 53 und werden auch auf 60 voll ausgezahlt, wie jede Quest in Forever.",
 	-- ["{quest:7832} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7832} nimmt 20 {item:14047} pro Abgabe und ist beliebig oft wiederholbar. Bring {item:14047} in Vielfachen von 20 mit und gib alles auf einmal ab, eine Abgabe nach der anderen. {item:14047}: Dunkle Adepten und Schattenmagier (Stufe 58-60) in den {zone:1423} oder das Auktionshaus.",
 }

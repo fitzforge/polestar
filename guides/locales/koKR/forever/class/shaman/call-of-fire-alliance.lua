@@ -59,7 +59,7 @@ return {
 	-- {object:61934} Brazier of the Dormant Flame
 	["The {object:61934}"] = "{object:61934}",
 	-- {object:61934} Brazier of the Dormant Flame · {item:277329} Torch of Eternal Flame
-	["Click the {object:61934} atop the shrine with the torch in your bags to place the ember, then click it again for the next quest: the lit {item:277329}."] = "",
+	["The {object:61934} is atop the shrine and takes the ember with the torch in the bags, and a second click gives the next quest: the lit {item:277329}."] = "",
 
 	-- Step 10: Bruegs Kindleborn
 	-- {npc:257597} Bruegs Kindleborn · {item:5176} Fire Totem

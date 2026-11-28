@@ -127,7 +127,7 @@ fn quest_item_button_the_current_use_goal_item_else_a_quest_log_item_else_a_usab
 	let out = run(r#"
 		local b = PolestarQuestItemButton
 		q.items[900] = { name = "Torch", classID = 12, spell = 11 }
-		q.items[901] = { name = "Quest Wand", classID = 12 }
+		q.items[901] = { name = "Quest Wand", classID = 12, spell = 14 }
 		q.items[902] = { name = "Bag Quest Thing", classID = 12, spell = 12 }
 		q.items[903] = { name = "Bethor's Potion", classID = 12, spell = 13 }
 		q.addItem(0, 1, 900, 2)
@@ -174,6 +174,60 @@ fn quest_item_button_the_current_use_goal_item_else_a_quest_log_item_else_a_usab
 	assert_eq!(out[4], json!(["item:902", true]));
 	assert_eq!(out[5], json!(["nil", false]));
 	assert_eq!(out[6], json!(["nil", false]));
+}
+
+// Tanaris Field Sampling (654) hands over the Field Testing Kit (8523) at the accept and asks for it back: the
+// Untested Samples its hyenas, basilisks and scorpids drop (9437, 9439, 9442) are tested against it when used. The
+// kit is never offered, even where the client gives it an item spell; a sample in the bags is, by the step's `use`
+// goal, and on a step without one as an item the quest needs (sourceItem and requiredItems: QuestDB.HandsOver).
+// With no sample the item button stays hidden and the step key targets the mobs that drop one. A quest log item
+// with no item spell is never offered either.
+#[test]
+fn quest_item_button_offers_tanaris_untested_sample_never_the_field_testing_kit_it_is_tested_against() {
+	let out = run(r#"
+		local b, B = PolestarQuestItemButton, QoL.Buttons
+		local function key()
+			local k, v = B.StepAction()
+			if k == "target" then return { k, v[1] } end
+			return { k or false, v or false }
+		end
+		q.items[8523] = { name = "Field Testing Kit", classID = 12, spell = 1 }
+		q.items[9439] = { name = "Untested Hyena Sample", classID = 12, spell = 11760 }
+		q.items[9450] = { name = "Quest Wand", classID = 12 }
+		Polestar.QuestDB = {
+			IsLoaded = function() return true end,
+			HandsOver = function(quest, item) return quest == 654 and (item == 8523 or item == 9437 or item == 9439 or item == 9442) end,
+			Asks = function(quest, item) return quest == 654 and (item == 8523 or item == 9438 or item == 9440 or item == 9441) end,
+		}
+		local hyenas = { { npc = 5426, npcName = "Blisterpaw Hyena" }, { npc = 5425, npcName = "Starving Blisterpaw" } }
+		local rows = {
+			{ t = "collect", item = 9439, itemName = "Untested Hyena Sample", fromNpcs = hyenas },
+			{ t = "use", item = 9439, quest = 654, oi = 2 },
+			{ t = "collect", item = 9441, quest = 654, oi = 2 },
+		}
+		-- only the kit in the bags: no item, the key targets the hyenas
+		q.addItem(0, 1, 8523, 1)
+		q.step(rows)
+		emit({ b:IsShown(), b:GetAttribute("item") or false, key(), B.TargetNames()[1] or false })
+		-- a sample looted: the use goal's item, on the button and the key
+		q.addItem(0, 2, 9439, 1)
+		rows[1].status = "done"
+		q.step(rows)
+		emit({ b:IsShown(), b:GetAttribute("item") or false, key() })
+		-- a step with only the sample counts (no use goal): the sample, never the kit before it in the bags
+		q.step({ { t = "collect", item = 9441, quest = 654, oi = 2 } })
+		emit({ b:IsShown(), b:GetAttribute("item") or false })
+		-- the sample used: a quest log item with no item spell is not offered, nor is the kit
+		q.bags[0].slots[2] = nil
+		q.specialItems[654] = 9450
+		q.addItem(0, 3, 9450, 1)
+		q.step({ { t = "collect", item = 9441, quest = 654, oi = 2 } })
+		emit({ b:IsShown(), b:GetAttribute("item") or false })
+	"#);
+	assert_eq!(out[0], json!([false, false, ["target", "Blisterpaw Hyena"], "Blisterpaw Hyena"]), "the kit alone: no button, the key targets");
+	assert_eq!(out[1], json!([true, "item:9439", ["item", 9439]]), "the sample: on the button and the key");
+	assert_eq!(out[2], json!([true, "item:9439"]), "no use goal: the sample the quest needs, not the kit");
+	assert_eq!(out[3], json!([false, false]), "no item spell, or the kit: nothing");
 }
 
 #[test]
@@ -604,7 +658,7 @@ fn step_key_one_binding_does_the_step_s_next_action_the_npc_the_quest_item_the_m
 		local s = PolestarStepButton
 		local function now() return { s:GetAttribute("type") or "nil", s:GetAttribute("item") or s:GetAttribute("macrotext") or "nil" } end
 		q.items[900] = { name = "Torch" }
-		q.items[901] = { name = "Quest Wand", classID = 12 }
+		q.items[901] = { name = "Quest Wand", classID = 12, spell = 14 }
 		q.items[6948] = { name = "Hearthstone" }
 		q.addItem(0, 1, 900, 1)
 		q.addItem(0, 2, 6948, 1)

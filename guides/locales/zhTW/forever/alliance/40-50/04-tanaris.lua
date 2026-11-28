@@ -119,7 +119,7 @@ return {
 	-- {area:1938} Broken Pillar
 	["The {area:1938}"] = "{area:1938}",
 	-- {area:1938} Broken Pillar · {npc:7771} Marvon Rivetseeker · {quest:3161} Gahz'ridian
-	["Ride south to the dig camp at the {area:1938}. {npc:7771} hands you a detector helm: wear it to see the {quest:3161} mounds, which lie thick in the sand around the camp and south-west toward the ogres."] = "向南騎往{area:1938}的挖掘營地。{npc:7771}會給你一頂探測頭盔：戴上它就能看見{quest:3161}土堆，它們密集分布在營地周圍的沙地上，以及往西南方巨魔那邊。",
+	["The dig camp is at the {area:1938}, to the south. {npc:7771}'s detector helm shows the {quest:3161} mounds, which lie thick in the sand around the camp and south-west toward the ogres."] = "",
 	-- {npc:7771} Marvon Rivetseeker · {quest:3380} The Sunken Temple
 	["{npc:7771}: {quest:3380}, from Angelas in Feathermoon"] = "",
 	-- {npc:7771} Marvon Rivetseeker · {item:10556} Stone Circle · {area:392} Ratchet · {area:976} Gadgetzan
@@ -237,6 +237,7 @@ return {
 	-- ["Ride north-west to the Sandfury troll camp at {area:979}. Use the {item:8584} at the edge of its pool; the trolls stand close, so pull the nearest first."] = "向西北騎往{area:979}的沙怒食人妖營地。在水池邊緣使用{item:8584}；食人妖站得很近，先拉最近的。",
 	-- ["Ride south into {quest:3362}. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley. The Thistleshrubs are 48-50, above you: pull one at a time.\nCareful: The other thistleshrub mobs in the area are level 49-50 and wander a lot, so you can easily pull extra mobs."] = "向南騎進{quest:3362}。灌木露水收集者會掉落腺體；只有一部分是飽滿的，所以保留飽滿的露水腺。長瘤的灌木獸和灌木塑根者也在山谷裡。灌木獸是48-50級，比你高：一次拉一隻。\n小心：這一帶其他的灌木怪是49-50級，而且到處遊蕩，很容易多拉到怪。",
 	-- ["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "向南騎過{area:1938}前往{area:981}，也就是哈札里的隧道；謝申克的設備在深處。\n小心：有一隻蟲子守著設備。許多蟲子在隧道裡巡邏，有些是50級，所以戰鬥常常會引來額外的怪。",
+	-- ["Ride south to the dig camp at the {area:1938}. {npc:7771} hands you a detector helm: wear it to see the {quest:3161} mounds, which lie thick in the sand around the camp and south-west toward the ogres."] = "向南騎往{area:1938}的挖掘營地。{npc:7771}會給你一頂探測頭盔：戴上它就能看見{quest:3161}土堆，它們密集分布在營地周圍的沙地上，以及往西南方巨魔那邊。",
 	-- ["Ride south-east off the {area:439} into {area:440}. {area:976} is just inside the border."] = "向東南騎離{area:439}進入{area:440}。{area:976}就在邊界內側。",
 	-- ["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first."] = "向東南騎往{area:985}。{npc:7847}站在南方廢土營地的中央：先清掉他周圍的敵人。",
 	-- ["Ride south-west to the ogre compound. Brutes and Enforcers (46-48) fill it; {npc:12046} (49) stands in the middle with guards around him: clear them first.\nWhy the grind to 47: the {quest:3362} comes next, with mobs of 48-50 and quests of level 50. Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes."] = "向西南騎往巨魔營地。裡面滿是砂槌蠻兵和砂槌執行者（46-48級）；{npc:12046}（49級）站在中央，周圍有守衛：先清掉守衛。\n為什麼要刷到47級：接下來是{quest:3362}，那裡的怪是48-50級，任務是50級。在營地南端較安全的營地刷砂槌巨魔（45-46級），不要刷砂槌蠻兵。",

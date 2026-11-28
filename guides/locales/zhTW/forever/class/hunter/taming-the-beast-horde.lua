@@ -9,37 +9,38 @@ return {
 	-- Guide
 	-- {quest:6061} Taming the Beast
 	["{quest:6061} (Horde)"] = "{quest:6061}（部落）",
-	-- {item:15908} Taming Rod · {spell:1515} Tame Beast · {spell:5149} Beast Training
-	["Your own pet at 10: three practice tames with a {item:15908} teach {spell:1515}, then {spell:5149}."] = "10級獲得自己的寵物：用{item:15908}練習馴服三次，學會{spell:1515}，然後學會{spell:5149}。",
+	-- {item:15914} Taming Rod · {spell:1515} Tame Beast · {spell:5149} Beast Training
+	-- was: ["Your own pet at 10: three practice tames with a {item:15908} teach {spell:1515}, then {spell:5149}."] = "10級獲得自己的寵物：用{item:15908}練習馴服三次，學會{spell:1515}，然後學會{spell:5149}。"
+	["Your own pet at 10: three practice tames with a {item:15914} teach {spell:1515}, then {spell:5149}."] = "",
 
 	-- Step 1: Thotar in Razor Hill
 	-- {npc:3171} Thotar · {area:362} Razor Hill
 	["{npc:3171} in {area:362}"] = "{npc:3171}，在{area:362}",
 	-- {npc:3171} Thotar · {area:362} Razor Hill · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:11814} Kali Remik · {area:367} Sen'jin Village · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff · {quest:6068} The Hunter's Path
 	["At 10 go to {npc:3171}, the hunter trainer inside the barracks in {area:362}. If {npc:3407} in {zone:1454}, {npc:11814} in {area:367} or {npc:3038} in {zone:1456} hands you {quest:6068}, take it and hand it to {npc:3171} for a little experience; it is only a pointer, and you can take the first rod without it."] = "10級時，找 {area:362} 兵營裡的獵人訓練師 {npc:3171}。如果 {zone:1454} 的 {npc:3407}、{area:367} 的 {npc:11814} 或 {zone:1456} 的 {npc:3038} 給你{quest:6068}，就接下並交給 {npc:3171}，獲得少量經驗；這只是引導任務，不做也能拿到第一根馴獸棒。",
-	-- {npc:3171} Thotar · {item:15908} Taming Rod
-	["{npc:3171}: the first {item:15908}"] = "{npc:3171}：第一根{item:15908}",
+	-- {npc:3171} Thotar · {item:15914} Taming Rod
+	["{npc:3171}: the first {item:15914}"] = "",
 
 	-- Step 2: Dire Mottled Boar
-	-- {area:362} Razor Hill · {item:15908} Taming Rod · {npc:3171} Thotar · {spell:75} Auto Shot
+	-- {area:362} Razor Hill · {npc:3171} Thotar · {spell:75} Auto Shot
 	-- plural, as words: Dire Mottled Boars = {npc:3099} Dire Mottled Boar
-	["Dire Mottled Boars (level 6-7) roam just north and west of {area:362}. How the rod works: target a living beast, use the {item:15908} from inside its range and stand still for the whole channel while the beast hits you. Moving, fighting back, a heal from someone else or anyone else hitting the beast breaks it and costs one of the rod's few charges; if they run out, destroy the rod, abandon the quest and take it again from {npc:3171}. The boars charge from 20 yards, so start with the rod, not {spell:75}. The tamed boar becomes your pet for practice. Keep each rod: it goes back to {npc:3171}."] = "兇惡斑紋野豬（6-7級）就在{area:362}北面和西面遊蕩。魔杖用法：選中一隻活著的野獸，在它的範圍內使用{item:15908}，在整個引導期間站著不動、任由野獸攻擊你。移動、還手、他人治療或任何人攻擊該野獸都會中斷，並消耗魔杖少量充能之一；若充能耗盡，就摧毀魔杖、放棄任務並回去找{npc:3171}再接。野豬會從20碼外衝鋒，所以先用魔杖，別用{spell:75}。馴服的野豬會成為你的練習寵物。每根魔杖都留著：要還給{npc:3171}。",
-	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living boar"] = "對活著的野豬使用{item:15908}",
+	["Dire Mottled Boars (level 6-7) roam just north and west of {area:362}. The rod's channel only works on a living beast from inside its range, standing still while the beast hits you. Moving, fighting back, a heal from someone else or anyone else hitting the beast breaks it and costs one of the rod's few charges; with none left, the quest has to be taken again from {npc:3171}. The boars charge from 20 yards, so the rod comes before {spell:75}. The tamed boar becomes your pet for practice. Each rod goes back to {npc:3171}."] = "",
+	-- {item:15917} Taming Rod
+	["Use the {item:15917} on a living boar"] = "",
 
 	-- Step 3: Surf Crawler
 	-- {spell:2641} Dismiss Pet · {area:367} Sen'jin Village · {area:368} Echo Isles
 	-- plural, as words: Surf Crawlers = {npc:3107} Surf Crawler · Pygmy Surf Crawlers = {npc:3106} Pygmy Surf Crawler
 	["First dismiss the boar (right-click your pet's portrait, {spell:2641}): a released practice pet can turn on you. Surf Crawlers (level 7-8) walk the beaches around {area:367} and the {area:368}; the small Pygmy Surf Crawlers do not count. A crawler runs for help at 15% health, so do not hurt it."] = "先解散野豬（右鍵點選寵物頭像，{spell:2641}）：放生的練習寵物可能會反咬你。海濱爬行者（7-8級）在{area:367}和{area:368}周圍的海灘上活動；小型的迷你海濱爬行者不算。爬行者血量到15%會跑去求援，所以別傷它。",
-	-- {item:15908} Taming Rod · {npc:3107} Surf Crawler
-	["Use the {item:15908} on a living {npc:3107}"] = "對活著的{npc:3107}使用{item:15908}",
+	-- {item:15914} Taming Rod · {npc:3107} Surf Crawler
+	["Use the {item:15914} on a living {npc:3107}"] = "",
 
 	-- Step 4: Armored Scorpid
 	-- {area:362} Razor Hill · {spell:1494} Track Beasts
 	-- plural, as words: Armored Scorpids = {npc:3126} Armored Scorpid
 	["Dismiss the crawler. Armored Scorpids (level 7-8) crawl the dry plains west and south-west of {area:362}, some just south of the road west out of town; {spell:1494} shows them. Their hits can break the channel: start at full health and keep still."] = "解散爬行者。裝甲蠍（7-8級）在{area:362}西面和西南面的乾燥平原上爬行，有些就在出鎮西行道路的南側；{spell:1494}能顯示它們。它們的攻擊會打斷引導：滿血開始並保持不動。",
-	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living scorpid"] = "對活著的蠍子使用{item:15908}",
+	-- {item:15914} Taming Rod
+	["Use the {item:15914} on a living scorpid"] = "",
 
 	-- Step 5: Ormak Grimshot in Orgrimmar
 	-- {npc:3352} Ormak Grimshot · {zone:1454} Orgrimmar
@@ -52,29 +53,29 @@ return {
 	["{npc:3065} at Bloodhoof"] = "{npc:3065}，在血蹄村",
 	-- {npc:3065} Yaw Sharpmane · {area:222} Bloodhoof Village · {quest:6065} The Hunter's Path · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:3171} Thotar · {area:362} Razor Hill
 	["At 10 go to {npc:3065}, who stands at the north edge of {area:222}. {quest:6065} from {npc:3038} in {zone:1456}, {npc:3407} in {zone:1454} or {npc:3171} in {area:362} also leads here, for a little experience; it is only a pointer."] = "10級時，找站在 {area:222} 北緣的 {npc:3065}。{zone:1456} 的 {npc:3038}、{zone:1454} 的 {npc:3407} 或 {area:362} 的 {npc:3171} 提供的{quest:6065}也會指引你來這裡，並獎勵少量經驗；它只是引導任務。",
-	-- {npc:3065} Yaw Sharpmane · {item:15908} Taming Rod
-	["{npc:3065}: the first {item:15908}"] = "{npc:3065}：第一根{item:15908}",
+	-- {npc:3065} Yaw Sharpmane · {item:15914} Taming Rod
+	["{npc:3065}: the first {item:15914}"] = "",
 
 	-- Step 7: Adult Plainstrider
-	-- {area:222} Bloodhoof Village · {item:15908} Taming Rod
+	-- {area:222} Bloodhoof Village
 	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
-	["Adult Plainstriders (level 6-7) walk the plains south-west and north-west of {area:222}. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you; moving, fighting back or anyone else's help breaks it and costs one of the rod's few charges (out of charges: destroy the rod, abandon the quest, take it again). A plainstrider flees at 25% health, so do not damage it first. Keep each rod: it goes back to Yaw."] = "成年平原陸行鳥（6-7級）在{area:222}西南和西北的平原上活動。魔杖用法：選中一隻活著的野獸，使用{item:15908}，在整個引導期間站著不動、任由它攻擊你；移動、還手或他人幫忙都會中斷，並消耗魔杖少量充能之一（充能耗盡：摧毀魔杖，放棄任務，再接一次）。平原陸行鳥血量到25%會逃跑，所以不要先傷它。每根魔杖都留著：要還給Yaw。",
-	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living plainstrider"] = "對活著的平原陸行鳥使用{item:15908}",
+	["Adult Plainstriders (level 6-7) walk the plains south-west and north-west of {area:222}. The rod's channel only works on a living beast, standing still while it hits you; moving, fighting back or anyone else's help breaks it and costs one of the rod's few charges, and with none left the quest has to be taken again. A plainstrider flees at 25% health, so damaging it first loses it. Each rod goes back to Yaw."] = "",
+	-- {item:15914} Taming Rod
+	["Use the {item:15914} on a living plainstrider"] = "",
 
 	-- Step 8: Prairie Stalker
 	-- {spell:2641} Dismiss Pet · {area:222} Bloodhoof Village
 	-- plural, as words: Prairie Stalkers = {npc:2959} Prairie Stalker
 	["Dismiss the plainstrider first (right-click the pet portrait, {spell:2641}): a released practice pet may attack you. Prairie Stalkers (level 7-8) roam the grass north of {area:222}."] = "先解散平原陸行鳥（右鍵點選寵物頭像，{spell:2641}）：放生的練習寵物可能會攻擊你。草原潛伏者（7-8級）在{area:222}北面的草地上游蕩。",
-	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living stalker"] = "對活著的潛伏者使用{item:15908}",
+	-- {item:15914} Taming Rod
+	["Use the {item:15914} on a living stalker"] = "",
 
 	-- Step 9: Swoop
 	-- {npc:2970} Swoop
 	-- plural, as words: Swoops = {npc:2970} Swoop · Taloned Swoops = {npc:2971} Taloned Swoop
 	["Dismiss the stalker. Swoops (level 7-9) glide over the plains north-west and north-east of Bloodhoof; the Taloned Swoops do not count. A {npc:2970}'s knockdown breaks the channel, but it lands only once per channel: start the rod just after it has used it."] = "解散潛伏者。俯衝者（7-9級）在血蹄村西北和東北的平原上空滑翔；利爪俯衝者不算。{npc:2970}的擊倒會打斷引導，但每次引導只會命中一次：在它用過擊倒之後再開始用魔杖。",
-	-- {item:15908} Taming Rod · {npc:2970} Swoop
-	["Use the {item:15908} on a living {npc:2970}"] = "對活著的{npc:2970}使用{item:15908}",
+	-- {item:15914} Taming Rod · {npc:2970} Swoop
+	["Use the {item:15914} on a living {npc:2970}"] = "",
 
 	-- Step 10: Holt Thunderhorn in Thunder Bluff
 	-- {npc:3039} Holt Thunderhorn · {zone:1456} Thunder Bluff
@@ -91,15 +92,15 @@ return {
 	["{npc:252389} in {area:16638}"] = "{npc:252389}，在{area:16638}",
 	-- {npc:252389} Quel'ana Quickgale · {area:16638} Valanaar · {npc:254411} Quel'dora Quickgale
 	["{npc:252389} stands with the trainers by {area:16638}'s west gate, {npc:254411} beside her."] = "{npc:252389}和訓練師們一起站在{area:16638}西門旁，{npc:254411}就在她身邊。",
-	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod
-	["{npc:252389}: the first {item:15908}"] = "{npc:252389}：第一根{item:15908}",
+	-- {npc:252389} Quel'ana Quickgale · {item:15914} Taming Rod
+	["{npc:252389}: the first {item:15914}"] = "",
 
 	-- Step 13: Windsong Crawler
-	-- {area:16638} Valanaar · {item:15908} Taming Rod
+	-- {area:16638} Valanaar
 	-- plural, as words: Windsong Crawlers = {npc:254588} Windsong Crawler
-	["Windsong Crawlers live only by water: the nearest scuttle along the shore south-west of {area:16638}, among the crabs. How the rod works: target a living crawler, use the {item:15908} and stand still for the whole channel while it hits you; moving, fighting back or anyone else's help breaks it and costs a charge. Killing one does not count."] = "鳴風爬行者只生活在有水的地方：最近的一群在{area:16638}西南面的岸邊，混在螃蟹之間。魔杖用法：選中一隻活著的爬行者，使用{item:15908}，在整個引導期間站著不動、任由它攻擊你；移動、還手或他人幫忙都會中斷並消耗一次充能。殺死它不算數。",
-	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living crawler"] = "對活著的爬行者使用{item:15908}",
+	["Windsong Crawlers live only by water: the nearest scuttle along the shore south-west of {area:16638}, among the crabs. The rod's channel only works on a living crawler, standing still while it hits you; moving, fighting back or anyone else's help breaks it and costs a charge. Killing one does not count."] = "",
+	-- {item:267272} Taming Rod
+	["Use the {item:267272} on a living crawler"] = "",
 	-- {npc:254588} Windsong Crawler
 	["Tame {npc:254588}"] = "馴服{npc:254588}",
 
@@ -107,8 +108,8 @@ return {
 	-- {spell:2641} Dismiss Pet · {area:16626} Gustberry Lowlands · {area:16638} Valanaar
 	-- plural, as words: Ornery Galestriders = {npc:251707} Ornery Galestrider
 	["Dismiss the crawler first (right-click the pet portrait, {spell:2641}). Ornery Galestriders graze in the {area:16626}, the fields a short walk west and south-west of {area:16638}."] = "先解散爬行者（右鍵點選寵物頭像，{spell:2641}）。暴躁風行者（Ornery Galestrider）在{area:16626}吃草，那片田野就在{area:16638}西面和西南面不遠處。",
-	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living galestrider"] = "對活著的風行者使用{item:15908}",
+	-- {item:15914} Taming Rod
+	["Use the {item:15914} on a living galestrider"] = "",
 	-- {npc:251707} Ornery Galestrider
 	["Tame {npc:251707}"] = "馴服{npc:251707}",
 
@@ -116,8 +117,8 @@ return {
 	-- {area:16626} Gustberry Lowlands
 	-- plural, as words: Vuldren Alphas = {npc:250874} Vuldren Alpha
 	["Dismiss the galestrider. Vuldren Alphas hunt in the same {area:16626}, a little further south."] = "解散風行者。烏爾德倫首領在同一片{area:16626}狩獵，位置稍偏南。",
-	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living alpha"] = "對活著的首領使用{item:15908}",
+	-- {item:15914} Taming Rod
+	["Use the {item:15914} on a living alpha"] = "",
 	-- {npc:250874} Vuldren Alpha
 	["Tame {npc:250874}"] = "馴服{npc:250874}",
 	-- {npc:254411} Quel'dora Quickgale · {spell:5149} Beast Training
@@ -148,4 +149,22 @@ return {
 	["Pet trainers sell {spell:1853} ranks and resistances. Horde: Harruk in {area:362}, {npc:3688} at Bloodhoof, {npc:10088} in {zone:1454}'s {object:172958}, {npc:10086} on {zone:1456}'s {area:1641}, {npc:254411} in {area:16638}, later Grokor in {area:75} and Zudd at {object:3202}."] = "寵物訓練師出售{spell:1853}的各級和抗性。部落：{area:362}的哈魯克、血蹄村的{npc:3688}、{zone:1454}的{object:172958}裡的{npc:10088}、{zone:1456}的{area:1641}上的{npc:10086}、{area:16638}的{npc:254411}，之後還有{area:75}的格羅科爾和{object:3202}的祖德。",
 	-- {spell:883} Call Pet · {spell:2641} Dismiss Pet · {spell:982} Revive Pet · {spell:136} Mend Pet
 	["{spell:883}, {spell:2641} and {spell:982} are in your spellbook now; {spell:136} comes from your trainer at 12. A dead pet needs {spell:982}; one that is away more than about 100 yards is dismissed and comes back with {spell:883}."] = "{spell:883}、{spell:2641}和{spell:982}現在已在你的法術書裡；{spell:136}會在12級時由訓練師教你。死掉的寵物需要{spell:982}；離你超過約100碼的寵物會被解散，用{spell:883}召回。",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Adult Plainstriders (level 6-7) walk the plains south-west and north-west of {area:222}. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you; moving, fighting back or anyone else's help breaks it and costs one of the rod's few charges (out of charges: destroy the rod, abandon the quest, take it again). A plainstrider flees at 25% health, so do not damage it first. Keep each rod: it goes back to Yaw."] = "成年平原陸行鳥（6-7級）在{area:222}西南和西北的平原上活動。魔杖用法：選中一隻活著的野獸，使用{item:15908}，在整個引導期間站著不動、任由它攻擊你；移動、還手或他人幫忙都會中斷，並消耗魔杖少量充能之一（充能耗盡：摧毀魔杖，放棄任務，再接一次）。平原陸行鳥血量到25%會逃跑，所以不要先傷它。每根魔杖都留著：要還給Yaw。",
+	-- ["Dire Mottled Boars (level 6-7) roam just north and west of {area:362}. How the rod works: target a living beast, use the {item:15908} from inside its range and stand still for the whole channel while the beast hits you. Moving, fighting back, a heal from someone else or anyone else hitting the beast breaks it and costs one of the rod's few charges; if they run out, destroy the rod, abandon the quest and take it again from {npc:3171}. The boars charge from 20 yards, so start with the rod, not {spell:75}. The tamed boar becomes your pet for practice. Keep each rod: it goes back to {npc:3171}."] = "兇惡斑紋野豬（6-7級）就在{area:362}北面和西面遊蕩。魔杖用法：選中一隻活著的野獸，在它的範圍內使用{item:15908}，在整個引導期間站著不動、任由野獸攻擊你。移動、還手、他人治療或任何人攻擊該野獸都會中斷，並消耗魔杖少量充能之一；若充能耗盡，就摧毀魔杖、放棄任務並回去找{npc:3171}再接。野豬會從20碼外衝鋒，所以先用魔杖，別用{spell:75}。馴服的野豬會成為你的練習寵物。每根魔杖都留著：要還給{npc:3171}。",
+	-- ["Use the {item:15908} on a living alpha"] = "對活著的首領使用{item:15908}",
+	-- ["Use the {item:15908} on a living boar"] = "對活著的野豬使用{item:15908}",
+	-- ["Use the {item:15908} on a living crawler"] = "對活著的爬行者使用{item:15908}",
+	-- ["Use the {item:15908} on a living galestrider"] = "對活著的風行者使用{item:15908}",
+	-- ["Use the {item:15908} on a living plainstrider"] = "對活著的平原陸行鳥使用{item:15908}",
+	-- ["Use the {item:15908} on a living scorpid"] = "對活著的蠍子使用{item:15908}",
+	-- ["Use the {item:15908} on a living stalker"] = "對活著的潛伏者使用{item:15908}",
+	-- ["Use the {item:15908} on a living {npc:2970}"] = "對活著的{npc:2970}使用{item:15908}",
+	-- ["Use the {item:15908} on a living {npc:3107}"] = "對活著的{npc:3107}使用{item:15908}",
+	-- ["Windsong Crawlers live only by water: the nearest scuttle along the shore south-west of {area:16638}, among the crabs. How the rod works: target a living crawler, use the {item:15908} and stand still for the whole channel while it hits you; moving, fighting back or anyone else's help breaks it and costs a charge. Killing one does not count."] = "鳴風爬行者只生活在有水的地方：最近的一群在{area:16638}西南面的岸邊，混在螃蟹之間。魔杖用法：選中一隻活著的爬行者，使用{item:15908}，在整個引導期間站著不動、任由它攻擊你；移動、還手或他人幫忙都會中斷並消耗一次充能。殺死它不算數。",
+	-- ["Your own pet at 10: three practice tames with a {item:15908} teach {spell:1515}, then {spell:5149}."] = "10級獲得自己的寵物：用{item:15908}練習馴服三次，學會{spell:1515}，然後學會{spell:5149}。",
+	-- ["{npc:252389}: the first {item:15908}"] = "{npc:252389}：第一根{item:15908}",
+	-- ["{npc:3065}: the first {item:15908}"] = "{npc:3065}：第一根{item:15908}",
+	-- ["{npc:3171}: the first {item:15908}"] = "{npc:3171}：第一根{item:15908}",
 }

@@ -111,6 +111,7 @@ step The Scarlet farm
 
 step Marla's Grave
   tip Marla's Grave is in the Deathknell graveyard, beside the church.
+  use 16333 quest 6395.1 @31.2,65.1 map 1420
   interact 178090 quest 6395.1
 
 step Executor Arren
@@ -278,6 +279,7 @@ step Carolai Anise
 
 step Discipline
   goto 60.6,52.0 "Brill"              -- Use the Executor's Motivator on five idle Deathguards around town
+  use 286176 quest 99134.1 @60.6,52.0
   complete 99134
 
 step Executor Zygand
@@ -502,7 +504,8 @@ step Brill
 
 step Ulag the Cleaver
   only Warrior
-  tip Ulag waits in the mausoleum on the hill just north of town: open the gate and fight him.
+  tip Ulag waits in the mausoleum on the hill just north of town, and the gate's trigger lets him out.
+  interact 104593
   kill 6390 quest 1819.1
   turnin 1819                         -- Deathguard Dillinger: Defensive Stance
 

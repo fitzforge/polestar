@@ -38,7 +38,7 @@ return {
 	-- {npc:248755} Lumina Windsinger
 	["Free {npc:248755}"] = "{npc:248755} 풀어주기",
 	-- {npc:248755} Lumina Windsinger · {area:228} Sepulcher
-	["Hand in the key first: starting the escort before that gives the key quest no credit. Then open the cage: {npc:248755} walks out through the keep and its courtyard while the gnolls attack, then runs for the dock and makes her own way back to the {area:228}. Stay close and keep her alive; if she dies, take the quest again when she is back in her cage."] = "",
+	["The key goes in first: starting the escort before that gives the key quest no credit. Once she is out of her cage, {npc:248755} walks out through the keep and its courtyard while the gnolls attack, then runs for the dock and makes her own way back to the {area:228}. If she dies, the quest can be taken again when she is back in her cage."] = "",
 
 	-- Step 6: Back to the Sepulcher
 	-- {area:228} Sepulcher
@@ -116,8 +116,8 @@ return {
 	["The blade is a two-handed sword, and you need the skill to hit a level 25 elite with it. {npc:11870}, the weapon master in the {zone:1458}'s {object:36070}, teaches {spell:202} for a small fee; then swing it on easy mobs until the skill is near its cap (five points per level)."] = "",
 
 	-- Step 18: Old Fire-Eye
-	-- {item:268484} Moonsilver Blade · {quest:95140} Old Fire-Eye · {area:228} Sepulcher · {area:17065} Gilneas
-	["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 25 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "{item:268484}을(를) 장착하세요. 거대한 늑대인간 {quest:95140}은(는) {area:228} 남쪽 숲에서 {area:17065} 관문 쪽으로 돌아다닙니다. 정예(25레벨)입니다. 가이드는 먼저 25레벨까지 기다리며, 파티를 권장합니다. 플레이어들은 22레벨부터 그를 처치했고, 한 명은 도우미가 한 명 더 필요했으며, 다른 한 명은 25레벨에 혼자 잡았습니다. 그 검으로 처음 공격이 적중할 때까지 보라색 보호막이 그를 지킵니다. 보호막이 깨지면 메시지가 나옵니다.",
+	-- {quest:95140} Old Fire-Eye · {area:228} Sepulcher · {area:17065} Gilneas · {item:268484} Moonsilver Blade
+	["{quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until the first swing with the {item:268484} lands, and a message says when it breaks."] = "",
 	-- {npc:259620} Lumina Windsinger · {area:228} Sepulcher
 	["{npc:259620}, the {area:228}"] = "{npc:259620}, {area:228}",
 	-- {quest:95140} Old Fire-Eye · {item:268484} Moonsilver Blade
@@ -129,6 +129,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 22 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "{item:268484}을(를) 장착하세요. 거대한 늑대인간 {quest:95140}은(는) {area:228} 남쪽 숲에서 {area:17065} 관문 쪽으로 돌아다닙니다. 정예(25레벨)입니다. 가이드는 먼저 22레벨까지 기다리며, 파티를 권장합니다. 플레이어들은 22레벨부터 그를 처치했고, 한 명은 도우미가 한 명 더 필요했으며, 다른 한 명은 25레벨에 혼자 잡았습니다. 그 검으로 처음 공격이 적중할 때까지 보라색 보호막이 그를 지킵니다. 보호막이 깨지면 메시지가 나옵니다.",
+	-- ["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 25 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "{item:268484}을(를) 장착하세요. 거대한 늑대인간 {quest:95140}은(는) {area:228} 남쪽 숲에서 {area:17065} 관문 쪽으로 돌아다닙니다. 정예(25레벨)입니다. 가이드는 먼저 25레벨까지 기다리며, 파티를 권장합니다. 플레이어들은 22레벨부터 그를 처치했고, 한 명은 도우미가 한 명 더 필요했으며, 다른 한 명은 25레벨에 혼자 잡았습니다. 그 검으로 처음 공격이 적중할 때까지 보라색 보호막이 그를 지킵니다. 보호막이 깨지면 메시지가 나옵니다.",
 	-- ["Free her with the key, then stay close while she fights her way out of the keep."] = "열쇠로 그녀를 풀어준 뒤, 그녀가 싸우며 성채를 빠져나가는 동안 가까이 있으십시오.",
 	-- ["No item yet: a Forsaken paladin rescue story; its sequel, the {item:268484}, cannot be finished yet."] = "아직 아이템 없음: 포세이큰 성기사 구출 이야기입니다. 후속인 {item:268484}은(는) 아직 완료할 수 없습니다.",
 	-- ["Once she is clear of {area:235}, Lumina waits for you in the {area:228}. Speak with her again to hear what really happened on the road."] = "{area:235}을(를) 벗어나면 Lumina가 {area:228}에서 기다립니다. 다시 대화하여 길에서 실제로 무슨 일이 있었는지 들으십시오.",

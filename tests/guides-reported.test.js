@@ -3056,7 +3056,8 @@ test('Shen\'dralas: Mana Mania\'s tip says the elite comes alone and most player
 });
 // A step shown only while the bags hold an item (`when has I`) stops applying the moment the item is used up, so
 // nothing may follow the goal that uses it up (a `use`, an accept the item starts, a hand-in that takes it) but what
-// that goal hands over (a collect of its reward): the rest of the step would be passed half done.
+// that goal hands over (a collect of its reward): the rest of the step would be passed half done. A goal of the same
+// quest objective as a `use` is no rest: the use is what ticks it (each Farmers' Memento at its grave, What We Lost).
 test('Every guide: a step gated on carrying an item holds no work after the goal that uses the item up (#2561 sweep)', { skip }, () => {
 	const bad = [];
 	for (const guide of allGuides()) {
@@ -3066,7 +3067,9 @@ test('Every guide: a step gated on carrying an item holds no work after the goal
 					|| (g.t === 'turnin' && data.quests[g.quest] && directNeeds(g.quest).has(p.item));
 				const at = st.goals.findIndex(uses);
 				if (at < 0) continue;
-				const after = st.goals.slice(at + 1).filter((g) => !g.optional && g.t !== 'collect' && g.t !== 'note' && !uses(g));
+				const used = st.goals[at];
+				const sameObjective = (g) => used.t === 'use' && used.quest && g.quest === used.quest && g.oi === used.oi;
+				const after = st.goals.slice(at + 1).filter((g) => !g.optional && g.t !== 'collect' && g.t !== 'note' && !uses(g) && !sameObjective(g));
 				if (after.length) bad.push(`${guide} "${st.title}" (has ${p.item}): ${after.map((g) => `${g.t} ${g.quest || g.item || ''}`).join(', ')}`);
 			}
 		}
@@ -6376,12 +6379,13 @@ test(`${ELWYNN}: Nittepitte's report (#612): the Mining Tools are picked up on t
 // #424 sent players to Kerlonian's Chest for the Horn of Awakening. Since Blizzard's 2026-11-06 hotfix the quest hands
 // the horn over on accept and its one objective is the escort (recordings: every objective list uploaded from
 // 2026-11-06 23:08 on), so a `collect 13536` would name a line the quest no longer has and send players to the chest.
+// The horn's use (it wakes him) is a row of its own since the tip-only actions sweep; no line picks it up.
 test(`${ASHENVALE}: The Sleeper Has Awakened gives the Horn of Awakening on accept: no chest step (2026-11-06 hotfix)`, { skip }, () => {
 	const list = goals(ASHENVALE);
-	assert.ok(!list.some(({ goal }) => goal.item === 13536), 'no goal for the Horn of Awakening');
+	assert.ok(!list.some(({ goal }) => goal.item === 13536 && goal.t !== 'use'), 'no goal that picks up the Horn of Awakening');
 	const accept = at(list, 'accept 5321 (Kerlonian Evershade)', is('accept', 5321));
 	const said = [list[accept].step.tip, list[accept].step.note].flat().filter(Boolean).join(' ');
-	assert.ok(/quest: it gives you the Horn of Awakening/.test(said), 'the tip says the quest gives the horn');
+	assert.ok(/quest gives the Horn of Awakening/.test(said), 'the tip says the quest gives the horn');
 	assert.ok(!/chest/i.test(said), 'and no longer sends you to his chest');
 });
 
@@ -9110,10 +9114,10 @@ test('Final route review (Horde 1-30, 0.3.5): Jorn after the eggs, Lydon after H
 	// Ingest 2026-11-08: 8 of 14 players abandoned Egg Hunt, taken at 17 and carried to the eggs at 21. Since the 0.4.0 level
 	// tidy the eggs are on 04-the-barrens' walk south at 25; Korran gives it on 02's last Crossroads stop (the route walks
 	// past him there anyway), so 04's flight from Orgrimmar no longer lands at the Crossroads only for him, and no Crossroads
-	// stop comes between the accept and the eggs.
+	// stop comes between the accept and the eggs (the digging claw's use at the mounds is the eggs' own row).
 	const later = goals('forever/horde/04-the-barrens.guide');
 	const egg = at(barrens, 'accept 868', is('accept', 868));
-	const eggs = at(later, 'collect 5058', (g) => g.t === 'collect' && g.item === 5058);
+	const eggs = at(later, 'the eggs', (g) => (g.t === 'collect' && g.item === 5058) || (g.t === 'use' && g.quest === 868));
 	assert.ok(jorn < egg, 'Egg Hunt on the last Crossroads stop, after the Field of Giants pass');
 	assert.ok(!barrens.slice(egg + 1).some(({ goal }) => goal.quest === 868 || goal.npc === 3338), 'no other Crossroads stop in 02 after the accept');
 	assert.ok(!later.slice(0, eggs).some(({ goal }) => goal.quest === 868 || goal.npc === barrens[egg].goal.npc || goal.npc === 3338), 'no Crossroads stop (Korran, Sergra) in 04 before the eggs');
@@ -16597,8 +16601,12 @@ test(`${DARKSHORE_RETURN}: Trial of the Sea Lion and Aquatic Form on the Cat For
 	const aquatic = at(list, 'Aquatic Form (5061) to Mathrengyl', is('turnin', 5061));
 	const catForm = at(list, 'Cat Form (98397) to Mathrengyl', is('turnin', 98397));
 	assert.ok(sea < aquatic && aquatic < catForm, '272 at Dendrite, then 5061 and Cat Form at Mathrengyl');
-	const when = list[sea].step.when || [];
-	for (const item of [15882, 15883]) assert.ok(when.some((p) => p.k === 'has' && !p.neg && p.item === item), `only with half pendant ${item}`);
+	// The halves are joined in a step of their own (the joining uses them up), and the hand-in waits for the pendant.
+	const join = at(list, 'use 15883 (the halves joined)', (g) => g.t === 'use' && g.item === 15883);
+	assert.ok(join < sea, 'the halves joined before the hand-in');
+	const joinWhen = list[join].step.when || [];
+	for (const item of [15882, 15883]) assert.ok(joinWhen.some((p) => p.k === 'has' && !p.neg && p.item === item), `only with half pendant ${item}`);
+	assert.ok((list[sea].step.when || []).some((p) => p.k === 'has' && !p.neg && p.item === 15885), 'the hand-in only with the Pendant of the Sea Lion');
 	assert.ok(goals(WETLANDS).some(({ goal }) => goal.t === 'turnin' && goal.quest === 272), "06-wetlands keeps its trip for a Druid still on 272");
 });
 
@@ -18776,6 +18784,108 @@ test('forever/horde/50-60/02-felwood.guide: Cuely\'s four vials, each at its tid
 	assert.deepEqual(idx, [...idx].sort((a, b) => a - b), 'in order, south to north');
 });
 
+// CurseForge (0.4.3, 2026-11-27): about two hours on Tanaris Field Sampling. Nothing drops the acceptable samples
+// it counts: each is made by using an Untested Sample (9437, 9439, 9442) the beasts drop, which passes or is lost
+// (players' recordings: the three lines tick on the samples' casts, 11759-11761). The step listed only the counts and
+// kept the use in its tip. Each sample is now looted (the beasts' row, `fromNpcs`), used (the quest item button and
+// the step key take a `use` goal's item) and counted, in that order and in one step; the tip only says why it
+// repeats, and the power source's note stays on the accept (#3619).
+test('Tanaris Field Sampling: each untested sample is looted, used and counted on rows of its own; the tip gives no order (CurseForge, 0.4.3)', { skip }, () => {
+	const list = goals('forever/horde/40-50/04-tanaris.guide');
+	const accept = at(list, 'accept 654', is('accept', 654));
+	for (const [untested, acceptable, oi] of [[9439, 9441, 2], [9437, 9440, 1], [9442, 9438, 3]]) {
+		const loot = at(list, `collect ${untested}`, (g) => g.t === 'collect' && g.item === untested && g.quest === undefined);
+		const use = at(list, `use ${untested}`, (g) => g.t === 'use' && g.item === untested && g.quest === 654 && g.oi === oi);
+		const count = at(list, `collect ${acceptable}`, (g) => g.t === 'collect' && g.item === acceptable && g.quest === 654 && g.oi === oi);
+		assert.deepEqual([use, count], [loot + 1, loot + 2], `${untested}: looted, used, then counted`);
+		assert.ok([loot, use, count].every((i) => list[i].s === list[accept].s), `${untested}: in the accept's step`);
+		assert.ok((list[loot].goal.fromNpcs || []).length > 0, `${untested}: the loot row names the beasts that drop it`);
+	}
+	const tip = list[accept].step.note || '';
+	assert.doesNotMatch(tip, /\b(use|kill|right-click|power source)\b/i, `the tip gives no order: ${tip}`);
+	assert.match(list[accept].goal.note || '', /Another Power Source\?/, 'the power source note stays on the accept');
+});
+
+// The tip-only actions of the same sweep (use or click lines the steps left to their tips), worst first by players'
+// recordings: each action's row sits right before the objective line it works, in the same step.
+for (const [guide, item, quest, oi, verb] of [
+	['forever/horde/04-the-barrens.guide', 5059, 868, 1, 'use'], // Egg Hunt: the Digging Claw on the mounds (47 of 122 abandoned)
+	['forever/alliance/50-60/02-felwood.guide', 11914, 4512, 1, 'use'], // A Little Slime Goes a Long Way: the jars on the oozes' remains
+	['forever/alliance/50-60/02-felwood.guide', 11948, 4512, 2, 'use'],
+	['forever/horde/40-50/06-azshara.guide', 9530, 3062, 1, 'use'], // Dark Heart: the Horn of Hatetalon calls Edana
+	['forever/alliance/50-60/04-western-plaguelands.guide', 15042, 5903, 1, 'use'], // A Plague Upon Thee: the termite jar
+	['forever/horde/50-60/05-eastern-plaguelands.guide', 15042, 5901, 1, 'use'],
+	['forever/alliance/50-60/01-burning-steppes.guide', 10445, 3449, 1, 'use'], // Arcane Runes: the Drawing Kit at each rune
+	['forever/alliance/50-60/01-burning-steppes.guide', 10445, 3449, 4, 'use'],
+	['forever/alliance/nightelf/02-darkshore.guide', 7586, 2118, 1, 'use'], // Plagued Lands: Tharnariun's Hope
+	['forever/alliance/03-darkshore-return.guide', 5251, 944, 1, 'use'], // The Master's Glaive: the Phial of Scrying
+	['forever/alliance/06-ashenvale.guide', 5456, 1016, 1, 'use'], // Elemental Bracers: the Divining Scroll
+	['forever/alliance/02-westfall.guide', 254545, 92742, 2, 'use'], // Testing the Wells: the sample kit at each well
+	['forever/horde/02-the-barrens.guide', 5165, 905, 1, 'use'], // The Angry Scytheclaws: a feather at each nest
+	['forever/horde/02-the-barrens.guide', 5068, 877, 1, 'use'], // The Stagnant Oasis: the seeds at the fissure
+	['forever/horde/tauren/01-mulgore.guide', 4702, 746, 1, 'use'], // Dwarven Digging: each pick at the forge
+	['forever/horde/04-the-barrens.guide', 16208, 6381, 1, 'use'], // New Life: the seeds in the mounds
+	['forever/alliance/03-darkshore.guide', 5338, 957, 1, 'use'], // Bashal'Aran: the seal at the flame
+	['forever/horde/07-ashenvale.guide', 273015, 96241, 1, 'use'], // Talkin' bout Toxins, Mon: the extractor on the corpses
+	['forever/reputation/orgrimmar.guide', 10327, 881, 1, 'use'], // Echeyakee: the horn at his lair
+	// The sweep's second batch.
+	['forever/horde/50-60/02-felwood.guide', 246683, 91568, 1, 'use'], // Long Walks on the Beach: the Treasure Trowel on the sands
+	['forever/horde/50-60/07-felwood.guide', 12928, 5163, 1, 'use'], // Are We There, Yeti?: the yeti beside Legacki
+	['forever/horde/undead/01-tirisfal-glades.guide', 16333, 6395, 1, 'use'], // Marla's Last Wish: the remains at the grave
+	['forever/horde/07-ashenvale.guide', 12942, 5151, 1, 'use'], // Hypercapacitor Gizmo: the panther cage key
+	['forever/alliance/50-60/03-winterspring.guide', 12891, 5245, 1, 'use'], // Troubled Spirits of Kel'Theril: Jaron's Pick at each fragment
+	['forever/horde/30-40/04-dustwallow-marsh.guide', 14547, 5581, 1, 'use'], // Portals of the Legion: the Hand of Iruxos
+	['forever/horde/50-60/06-silithus.guide', 11570, 4292, 1, 'use'], // The Bait for Lar'korwi: the pheromone mixture on the meat
+	['forever/horde/04-the-barrens.guide', 5638, 1086, 1, 'use'], // The Flying Machine Airport: the Toxic Fogger
+	['forever/horde/50-60/01-un-goro-crater.guide', 12807, 5096, 1, 'use'], // Scarlet Diversions: the banner by the tent
+	['forever/alliance/03-darkshore.guide', 15844, 6122, 1, 'use'], // The Principal Source: the sampler at the falls
+	['forever/alliance/50-60/03-winterspring.guide', 12906, 5165, 4, 'use'], // Dousing the Flames of Protection: the water at each brazier
+	['forever/alliance/40-50/06-searing-gorge.guide', 10515, 3463, 1, 'use'], // Set Them Ablaze!: the torch at each brazier
+	['forever/horde/undead/01-tirisfal-glades.guide', 286176, 99134, 1, 'use'], // Discipline: the Executor's Motivator
+	['forever/horde/orc/01-durotar.guide', 16114, 5441, 1, 'use'], // Lazy Peons: the Foreman's Blackjack
+	['forever/alliance/dwarf/01-dun-morogh.guide', 17117, 6661, 1, 'use'], // Deeprun Rat Roundup: the flute
+	['forever/reputation/stormwind.guide', 12815, 5097, 1, 'use'], // All Along the Watchtowers: the Beacon Torch at each tower
+	['forever/class/warlock/orb-of-orahil.guide', 12647, 4962, 1, 'use'], // Shard of a Felhound: the Felhas Ruby
+	// The third batch.
+	['forever/class/druid/dungeon-set-2.guide', 21946, 8924, 1, 'use'], // Hunting for Ectoplasm: the distiller among the ghosts
+	['forever/class/warrior/dungeon-set-2.guide', 21946, 8924, 3, 'use'],
+	['forever/alliance/02-westfall.guide', 6928, 1689, 1, 'use'], // The Binding: the Bloodstone Choker at the circle
+	['forever/alliance/30-40/05-arathi-highlands.guide', 6913, 1739, 1, 'use'], // The Binding: the Heartswood Core
+	['forever/class/warlock/incubus-horde.guide', 190187, 65604, 1, 'use'], // The Binding: the Withered Scarf
+	['forever/horde/50-60/06-silithus.guide', 11804, 4491, 1, 'use'], // A Little Help From My Friends: Spraggle's Canteen
+	['forever/50-60/mount-hyjal.guide', 271879, 96003, 1, 'use'], // Drawing Down the Malevolent: the Eye of Endless Influence
+	// The fourth batch: objectives players' recordings show ticking on an item's use.
+	['forever/alliance/40-50/01b-riverglades.guide', 266148, 94829, 1, 'use'], // What We Lost: the mementos in the soil
+	['forever/horde/06-hillsbrad-foothills.guide', 7768, 1536, 1, 'use'], // Call of Water: the red waterskin
+	['forever/alliance/human/01-elwynn-forest.guide', 7207, 1861, 1, 'use'], // Mirror Lake: Jennea's flask
+	['forever/horde/04-the-barrens.guide', 5021, 849, 1, 'use'], // Revenge of Gann: the explosive stick
+	['forever/reputation/centaur-clans.guide', 258661, 93062, 1, 'use'], // Bone Burying
+	// The fifth batch.
+	['forever/40-50/shendralas.guide', 286648, 99258, 1, 'use'], // Mana Mania: the crystal heart into a rift
+	['forever/50-60/mount-hyjal.guide', 267079, 92169, 2, 'use'], // Paying Back the Pact: Tiala's staff
+	['forever/alliance/06-wetlands.guide', 279996, 98216, 1, 'use'], // the Goaz Stone by a Warder
+	['forever/alliance/40-50/01b-riverglades.guide', 268647, 95267, 1, 'use'], // The Monster Surfaces: the bait
+	['forever/horde/40-50/01b-riverglades.guide', 268647, 95267, 1, 'use'],
+	['forever/alliance/dwarf/01-dun-morogh.guide', 15911, 6064, 1, 'use'], // Taming the Beast: each rod on its beast
+	['forever/alliance/human/01-elwynn-forest.guide', 266158, 94792, 1, 'use'],
+	['forever/alliance/nightelf/01-teldrassil.guide', 15921, 6063, 1, 'use'],
+	['forever/class/hunter/taming-the-beast-horde.guide', 15917, 6062, 1, 'use'],
+	['forever/class/rogue/plundering-the-plunderers.guide', 7970, 2381, 1, 'use'], // the E.C.A.C. on Polly
+	['forever/class/shaman/darkreaver.guide', 18746, 8258, 1, 'use'], // the Divination Scryer
+	['forever/horde/30-40/02-thousand-needles.guide', 6436, 1435, 1, 'use'], // the Burning Gem on a cultist
+	['forever/horde/40-50/05-the-hinterlands.guide', 19036, 7843, 1, 'use'], // the message by Aerie Peak's well
+	['forever/horde/50-60/02-felwood.guide', 249390, 91500, 1, 'use'], // An Explosive Gambit: the seals at a crystal
+	['forever/reputation/centaur-clans.guide', 254870, 92873, 1, 'use'], // Proof of Concept: the necromancy staff
+	['forever/reputation/timbermaw-hold.guide', 21144, 8481, 1, 'use'], // The Root of All Evil: the torch
+]) {
+	test(`${guide}: ${verb} ${item} right before the line of quest ${quest}.${oi} (tip-only actions sweep)`, { skip }, () => {
+		const list = goals(guide);
+		const row = at(list, `${verb} ${item} quest ${quest}.${oi}`, (g) => g.t === verb && (g.item === item || g.object === item) && g.quest === quest && g.oi === oi);
+		const next = list[row + 1];
+		assert.ok(next && next.goal.quest === quest && next.goal.t !== verb && next.s === list[row].s, `the objective's own line follows it in the step: ${next && next.goal.t}`);
+	});
+}
+
 // #3707 (fekz) and #3857: the pools are spell-focus objects, so clicking one does nothing; each Empty Vial Labeled #N
 // (10687-10690, from the Box of Empty Vials the quest hands over) is used at its own pool. The accept says to open the
 // box, and each pool has the vial's `use` right before its collect, in the same step.
@@ -19085,12 +19195,13 @@ test('forever/alliance/02-westfall.guide: one step at the Harvest Watchers for a
 // #3619 (Yeeshak, Discord, Tauren Druid 51): Tanaris Field Sampling (654) starts from the Model 4711-FTZ Power Source
 // (8524), Slake That Thirst's (379) reward. Another Power Source? (841, Chief Engineer Bilgewhizzle, repeatable) is
 // not a prerequisite but the way to a new source when the first is gone or its two hours ran out, and the step said
-// nothing of it. Its tip names the quest and who gives it.
+// nothing of it. The accept's note names the quest and who gives it (the step's tip until the samples got rows of
+// their own: an instruction is no tip).
 test('forever/horde/40-50/04-tanaris.guide: Tanaris Field Sampling\'s step says how to get another power source (#3619)', { skip }, () => {
 	const list = goals('forever/horde/40-50/04-tanaris.guide');
-	const { step } = list[at(list, 'accept 654', is('accept', 654))];
-	const text = [step.note, step.tip].flat().filter(Boolean).join(' ');
-	assert.match(text, /Another Power Source\?|\{quest:841\}/, 'the tip names Another Power Source?');
+	const { step, goal } = list[at(list, 'accept 654', is('accept', 654))];
+	const text = [step.note, step.tip, goal.note].flat().filter(Boolean).join(' ');
+	assert.match(text, /Another Power Source\?|\{quest:841\}/, 'the step names Another Power Source?');
 	assert.match(text, /Bilgewhizzle|\{npc:7407\}/, 'and who gives it');
 	assert.match(text, /Wastewander Water Pouches|\{item:8483\}/, 'and what it takes');
 });
@@ -19247,11 +19358,13 @@ test('Scarlet Diversions: the Flame in a Bottle from the crate next to Derringto
 });
 
 // #3346 (Bussincider): What Is Love?'s figurine is taken by throwing the lit torch onto the archaeologist's cart
-// outside the house; the steps said only where the figurine lies.
+// outside the house; the steps said only where the figurine lies. Since the tip-only actions sweep the throw is the
+// Burning Torch's use, a row of its own in the figurine's step, and the tip names the cart.
 test('What Is Love?: the figurine steps say to throw the lit torch onto the cart (#3346)', { skip }, () => {
 	for (const file of ['forever/class/warlock/incubus-alliance.guide', 'forever/alliance/30-40/04-stranglethorn-vale.guide']) {
 		const st = compiled(file).steps.find((s) => s.goals.some((g) => g.t === 'collect' && g.item === 190309));
-		assert.match([st.note, st.tip].flat().filter(Boolean).join(' '), /throw (the lit torch|it) onto the archaeologist's cart/i, file);
+		assert.ok(st.goals.some((g) => g.t === 'use' && g.item === 190308), `${file}: the Burning Torch's use is a row`);
+		assert.match([st.note, st.tip].flat().filter(Boolean).join(' '), /archaeologist's cart/i, file);
 	}
 });
 
@@ -19271,23 +19384,28 @@ test('Riverglades (#3960): Old Rot-Chum is only handed in once the bounty is com
 });
 
 // #3036 (Joogz): the Monstrous Threshadon is called up from what floats in the water at 74.4,72.4; the step followed
-// his other possible spots instead. Both factions' Riverglades guides lead there and say how.
+// his other possible spots instead. Both factions' Riverglades guides lead there and say how: the bait's use is a row
+// of its own at that spot, right before the head (tip-only actions sweep).
 test('The Monster Surfaces: the head is taken where the Threshadon is called up (#3036)', { skip }, () => {
 	for (const file of ['forever/alliance/40-50/01b-riverglades.guide', 'forever/horde/40-50/01b-riverglades.guide']) {
 		const list = goals(file);
-		const { goal, step } = list[at(list, 'the head', (g) => g.t === 'collect' && g.quest === 95267)];
+		const head = at(list, 'the head', (g) => g.t === 'collect' && g.quest === 95267);
+		const { goal } = list[head];
 		assert.deepEqual([goal.map, goal.x, goal.y], [2548, 74.4, 72.4], file);
-		assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /right-click the thing floating in the water/, file);
+		const bait = list[head - 1];
+		assert.ok(bait && bait.goal.t === 'use' && bait.goal.item === 268647 && bait.s === list[head].s, `${file}: the Big Ball o' Bait is used right before the head`);
+		assert.deepEqual([bait.goal.x, bait.goal.y], [74.4, 72.4], `${file}: at the head's spot`);
 	}
 });
 
 // #3550 (imp): While you're here offered Loose Soil before the player had a Farmers' Memento, which each grave takes.
-// The graves are a step of their own, shown with a Memento in the bags, after the cult step that gathers five.
+// The graves are a step of their own, shown with a Memento in the bags, after the cult step that gathers five. The
+// Memento's own use (Burying) is its row, after the grave's.
 test('forever/alliance/40-50/01b-riverglades.guide: the Loose Soil only with a Farmers\' Memento (#3550)', { skip }, () => {
 	const list = goals('forever/alliance/40-50/01b-riverglades.guide');
 	const soil = list[at(list, 'Loose Soil', (g) => g.t === 'interact' && g.quest === 94829)].step;
 	assert.ok((soil.when || []).some((p) => p.k === 'has' && !p.neg && Number(p.item) === 266148), 'when has 266148');
-	assert.ok(soil.goals.every((g) => g.t === 'interact' || g.t === 'note'), 'the step holds only the graves');
+	assert.ok(soil.goals.every((g) => g.t === 'interact' || g.t === 'note' || (g.t === 'use' && g.item === 266148)), 'the step holds only the graves and the Mementos\' use');
 	assert.ok(at(list, 'Mementos', (g) => g.t === 'collect' && g.item === 266148) < list.findIndex((e) => e.step === soil), 'the Mementos first');
 });
 
@@ -19934,12 +20052,14 @@ test("forever/horde/30-40/04-dustwallow-marsh.guide: EmberVixen's report: Shadow
 
 // #4231 (Pokey, 0.4.3): A Little Slime Goes a Long Way's jars are filled by using the empty jar on an ooze's remains.
 // Jadefire Glen's step said so for the Cursed Oozes; Jaedenar's, where the Tainted Oozes are, only listed the jar
-// (guide-fixes 4231-tainted-ooze-jar-use). Both ooze steps say how to fill their jar.
+// (guide-fixes 4231-tainted-ooze-jar-use). Both ooze steps say how to fill their jar: since the tip-only actions sweep,
+// with the empty jar's use as a row of its own before the filled jar.
 test("forever/alliance/50-60/02-felwood.guide: Pokey's report: both ooze steps say to use the empty jar on the remains (#4231)", { skip }, () => {
 	const list = goals('forever/alliance/50-60/02-felwood.guide');
-	for (const oi of [1, 2]) {
-		const jar = list[at(list, `collect 4512.${oi}`, (g) => g.t === 'collect' && g.quest === 4512 && g.oi === oi)];
-		assert.match(jar.step.note || '', /use (Laris's|the) Empty (Tainted )?Ooze Jar on their remains/, `the jar of objective ${oi}: how to fill it`);
+	for (const [oi, empty] of [[1, 11914], [2, 11948]]) {
+		const at4512 = at(list, `collect 4512.${oi}`, (g) => g.t === 'collect' && g.quest === 4512 && g.oi === oi);
+		const use = list.findIndex(({ goal }) => goal.t === 'use' && goal.item === empty);
+		assert.ok(use >= 0 && use < at4512 && list[use].step === list[at4512].step, `the jar of objective ${oi}: its step uses the empty jar (${empty}) first`);
 	}
 });
 

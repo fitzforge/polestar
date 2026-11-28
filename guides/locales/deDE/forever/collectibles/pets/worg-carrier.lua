@@ -15,8 +15,8 @@ return {
 	-- Step 2: Lower Blackrock Spire: Halycon's pups
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}: Halycon's pups"] = "Untere {area:1583}: Halycons Welpen",
-	-- {npc:10584} Urok Doomhowl · {npc:10221} Bloodaxe Worg Pup
-	["The pups are in Lower Blackrock Spire (a group of five, level 55-60), not Upper: they run with Halycon, the great worg, deep in the dungeon beyond {npc:10584}'s ogres. Use the cage on a living {npc:10221} before the pack is dead. Taking damage interrupts the cast, so let the tank hold the pups and cage one from the side. A rogue or druid can sneak in, cage a pup from a corner, then vanish."] = "Die Welpen sind in der Unteren Schwarzfelsspitze (eine Gruppe von fünf, Stufe 55-60), nicht in der Oberen: Sie laufen mit Halycon, dem großen Worg, tief im Dungeon hinter den Ogern von {npc:10584}. Benutze den Käfig an einem lebenden {npc:10221}, bevor das Rudel tot ist. Schaden unterbricht den Zauber, lass also den Tank die Welpen halten und fange einen von der Seite. Ein Schurke oder Druide kann sich hineinschleichen, einen Welpen aus einer Ecke einfangen und dann verschwinden.",
+	-- {npc:10584} Urok Doomhowl
+	["Halycon's pups are deep in Lower Blackrock Spire (not Upper), beyond {npc:10584}'s ogres: a group dungeon for five, level 55-60. The cage works only on a living pup, and taking damage interrupts it."] = "",
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}"] = "Untere {area:1583}",
 
@@ -25,6 +25,7 @@ return {
 	["Back to {npc:10260}"] = "Zurück zu {npc:10260}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The pups are in Lower Blackrock Spire (a group of five, level 55-60), not Upper: they run with Halycon, the great worg, deep in the dungeon beyond {npc:10584}'s ogres. Use the cage on a living {npc:10221} before the pack is dead. Taking damage interrupts the cast, so let the tank hold the pups and cage one from the side. A rogue or druid can sneak in, cage a pup from a corner, then vanish."] = "Die Welpen sind in der Unteren Schwarzfelsspitze (eine Gruppe von fünf, Stufe 55-60), nicht in der Oberen: Sie laufen mit Halycon, dem großen Worg, tief im Dungeon hinter den Ogern von {npc:10584}. Benutze den Käfig an einem lebenden {npc:10221}, bevor das Rudel tot ist. Schaden unterbricht den Zauber, lass also den Tank die Welpen halten und fange einen von der Seite. Ein Schurke oder Druide kann sich hineinschleichen, einen Welpen aus einer Ecke einfangen und dann verschwinden.",
 	-- ["Upper {area:1583}"] = "Obere {area:1583}",
 	-- ["Upper {area:1583} is a raid group of up to ten, level 58-60. Use {npc:10260}'s cage on a {npc:10221} (Halycon's den) to get the {item:12263}."] = "Die obere {area:1583} ist für eine Schlachtzugsgruppe mit bis zu zehn Spielern, Stufe 58-60. Benutze den Käfig von {npc:10260} an einem {npc:10221} (Halycons Höhle), um {item:12263} zu bekommen.",
 	-- ["{npc:10260} stands at {area:251} in northern {zone:1428}, near the {area:254} path."] = "{npc:10260} steht am {area:251} im Norden von {zone:1428}, nahe dem Weg zu {area:254}.",

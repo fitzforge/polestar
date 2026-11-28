@@ -52,8 +52,8 @@ return {
 	-- Step 9: The Binding: incubus (Orgrimmar)
 	-- {quest:65604} The Binding · {zone:1454} Orgrimmar
 	["{quest:65604}: incubus ({zone:1454})"] = "{quest:65604}: Inkubus ({zone:1454})",
-	-- {npc:5875} Gan'rul Bloodeye · {item:190232} Withered Scarf
-	["Back to {npc:5875} with the scarf, then use the {item:190232} on the same circle in Neeru's tent and defeat the incubus it calls (level 20, not elite) with your voidwalker tanking. Keep the scarf: {npc:5875} takes it back."] = "Zurück zu {npc:5875} mit dem Schal, benutze dann {item:190232} auf demselben Kreis in Neerus Zelt und besiege den Inkubus, den er ruft (Stufe 20, kein Elite), während dein Leerwandler tankt. Behalte den Schal: {npc:5875} nimmt ihn zurück.",
+	-- {npc:5875} Gan'rul Bloodeye
+	["The incubus is level 20 and not elite. {npc:5875} takes the scarf back afterward."] = "",
 	-- {npc:185335} Summoned Incubus
 	["{npc:185335}, at the circle in Neeru's tent"] = "{npc:185335}, am Kreis in Neerus Zelt",
 
@@ -86,8 +86,8 @@ return {
 	-- Step 15: The Binding: incubus (Undercity)
 	-- {quest:65597} The Binding · {zone:1458} Undercity
 	["{quest:65597}: incubus ({zone:1458})"] = "{quest:65597}: Inkubus ({zone:1458})",
-	-- {npc:5675} Carendin Halgar · {item:190181} Lovers' Hearts
-	["Back to {npc:5675} with the lovers' hearts, then place the {item:190181} on the same circle and defeat the incubus they call (level 20, not elite; it can charm you). Keep the hearts: {npc:5675} takes them back."] = "Zurück zu {npc:5675} mit den Herzen der Liebenden, platziere dann {item:190181} auf demselben Kreis und besiege den Inkubus, den sie rufen (Stufe 20, kein Elite; er kann dich bezaubern). Behalte die Herzen: {npc:5675} nimmt sie zurück.",
+	-- {npc:5675} Carendin Halgar
+	["The incubus is level 20 and not elite, but it can charm you. {npc:5675} takes the hearts back at turn-in."] = "",
 	-- {npc:185335} Summoned Incubus · {npc:5675} Carendin Halgar
 	["{npc:185335}, at the circle below {npc:5675}"] = "{npc:185335}, am Kreis unter {npc:5675}",
 
@@ -97,7 +97,9 @@ return {
 	-- ["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1472} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "Mit Stufe 20 schickt dich {npc:5875} im {object:172960} unter {object:172982} zu {npc:5909} ein paar Schritte weiter. Zwei Lehrer starten diese Dämonen, {npc:5875} hier und {npc:5675} in {zone:1458}, und du kannst nur einen nehmen; dieser Guide folgt der Quest {quest:1472}, die du genommen hast. {npc:5909} bietet beide Zweige von {zone:1454} an: Nimm beide.",
 	-- ["Back to {npc:5675} in the {object:36082}. Place the hearts at the summoning circle below him and defeat the incubus they call."] = "Zurück zu {npc:5675} in {object:36082}. Leg die Herzen am Beschwörungskreis unter ihm ab und besiege den Inkubus, den sie rufen.",
 	-- ["Back to {npc:5675} with Dalin's and Corma's hearts. He hands you the {item:6286}: go down to the summoning circle below him, stand on it and use them. Summon your voidwalker first and keep the fight on the circle, or the guards may kill her and the kill does not count. If she wins, use the hearts again; keep them, {npc:5675} takes them back."] = "Zurück zu {npc:5675} mit Dalins und Cormas Herzen. Er gibt dir {item:6286}: Geh hinunter zum Beschwörungskreis unter ihm, stell dich darauf und benutze sie. Beschwöre zuerst deinen Leerwandler und halte den Kampf auf dem Kreis, sonst töten die Wachen sie womöglich, und der Kill zählt nicht. Gewinnt sie, benutze die Herzen erneut; behalte sie, {npc:5675} nimmt sie zurück.",
+	-- ["Back to {npc:5675} with the lovers' hearts, then place the {item:190181} on the same circle and defeat the incubus they call (level 20, not elite; it can charm you). Keep the hearts: {npc:5675} takes them back."] = "Zurück zu {npc:5675} mit den Herzen der Liebenden, platziere dann {item:190181} auf demselben Kreis und besiege den Inkubus, den sie rufen (Stufe 20, kein Elite; er kann dich bezaubern). Behalte die Herzen: {npc:5675} nimmt sie zurück.",
 	-- ["Back to {npc:5875} in the {object:172960}. Take the scarf to the summoning circle in {npc:3216}'s tent nearby and defeat the incubus it calls."] = "Zurück zu {npc:5875} in {object:172960}. Bring den Schal zum Beschwörungskreis im Zelt von {npc:3216} in der Nähe und besiege den Inkubus, den er ruft.",
+	-- ["Back to {npc:5875} with the scarf, then use the {item:190232} on the same circle in Neeru's tent and defeat the incubus it calls (level 20, not elite) with your voidwalker tanking. Keep the scarf: {npc:5875} takes it back."] = "Zurück zu {npc:5875} mit dem Schal, benutze dann {item:190232} auf demselben Kreis in Neerus Zelt und besiege den Inkubus, den er ruft (Stufe 20, kein Elite), während dein Leerwandler tankt. Behalte den Schal: {npc:5875} nimmt ihn zurück.",
 	-- ["Corma Villard (level 22, not elite; Comar in older records) wanders the north of the {zone:1437} just past the {area:881}, to the right as you come off the bridge. From the {zone:1458} head through {area:287} and {zone:1417}, where the mobs are 30 and up. Attacking her flags you for PvP."] = "Corma Villard (Stufe 22, keine Elite; Comar in älteren Datensätzen) wandert im Norden der {zone:1437} direkt hinter der {area:881}, rechts, wenn du von der Brücke kommst. Geh von {zone:1458} durch {area:287} und {zone:1417}, wo die Mobs Stufe 30 und höher sind. Sie anzugreifen markiert dich für PvP.",
 	-- ["Corma's Heart"] = "Cormas Herz",
 	-- ["Incubus (Horde)"] = "Inkubus (Horde)",

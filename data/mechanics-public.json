@@ -1167,6 +1167,26 @@
 				}
 			],
 			"note": "The Return of the King? (95198, Sully McCleary in Theramore, the Alliance's Alcaz Prison chain): the eavesdropping is done in the SI:7 Disguise Kit (269000), relieving the guard at the Theramore Mage Tower. Lookup's pick-up guide only showed the objective's line and place, with no word on the kit or the guard (#4455). Source: the quest's own text (\"Use the SI:7 Disguise Kit to eavesdrop on Jaina and her inner circle at the Theramore Mage Tower\"); the in-game report #4455 (imp, 0.4.3.1: the Theramore Guard is relieved in the disguise); players' in-game recordings to 2026-11-27: 40 people ticked the line 1/1 before handing the quest in to Sully (correction 95198, #3739)."
+		},
+		"654": {
+			"kinds": [
+				{
+					"kind": "crafted",
+					"confidence": "high"
+				}
+			],
+			"params": [
+				{ "kind": "crafted", "item": 9440, "fromItem": 9437, "how": "use item", "spell": 11759 },
+				{ "kind": "crafted", "item": 9441, "fromItem": 9439, "how": "use item", "spell": 11760 },
+				{ "kind": "crafted", "item": 9438, "fromItem": 9442, "how": "use item", "spell": 11761 }
+			],
+			"steps": [
+				{ "n": 1, "action": "kill", "target": { "type": "npc", "id": 5426 }, "fact": "Kill the Blisterpaw hyenas, Glasshide basilisks and scorpids on the dunes south of Gadgetzan: each kind drops its own Untested Sample.", "confidence": "high" },
+				{ "n": 2, "action": "use-item", "item": { "id": 9439 }, "fact": "Use each Untested Hyena Sample: it becomes an Acceptable Hyena Sample (objective 2) or is lost.", "confidence": "high" },
+				{ "n": 3, "action": "use-item", "item": { "id": 9437 }, "fact": "Use each Untested Basilisk Sample: it becomes an Acceptable Basilisk Sample (objective 1) or is lost.", "confidence": "high" },
+				{ "n": 4, "action": "use-item", "item": { "id": 9442 }, "fact": "Use each Untested Scorpid Sample: it becomes an Acceptable Scorpid Sample (objective 3) or is lost.", "confidence": "high" }
+			],
+			"note": "Tanaris Field Sampling (654): nothing drops the acceptable samples it counts; each is made by using an Untested Sample (9437, 9439, 9442), whose use spell (11759, 11760, 11761) creates the acceptable one (the client's ItemEffect and SpellEffect tables, 1.60.1.70532), and players' in-game recordings to 2026-11-27 show the three lines ticking on those casts (530 ticks, 527 within 3 seconds of one, 23-24 people per line), with 1,503 casts by 25 people: a sample often fails. The Field Testing Kit (8523) the quest hands over is never used itself."
 		}
 	}
 }

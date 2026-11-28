@@ -389,7 +389,8 @@ return {
 
 	-- Step 69: Fly to Stormwind
 	-- {area:442} Auberdine · {zone:1439} Darkshore · {zone:1453} Stormwind
-	["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour. Hearthstone ready (bound in {area:442} since the first {zone:1439} visit)? Use it instead: these steps drop once you are in {zone:1439}."] = "返回{area:442}，繼續{zone:1439}南邊的路線：先坐獅鷲到{zone:1453}，再從港口坐船。爐石可用（自第一次來{zone:1439}起就繫結在{area:442}）？那就直接用爐石：一到{zone:1439}，這些步驟就會自動消失。",
+	-- was: ["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour. Hearthstone ready (bound in {area:442} since the first {zone:1439} visit)? Use it instead: these steps drop once you are in {zone:1439}."] = "返回{area:442}，繼續{zone:1439}南邊的路線：先坐獅鷲到{zone:1453}，再從港口坐船。爐石可用（自第一次來{zone:1439}起就繫結在{area:442}）？那就直接用爐石：一到{zone:1439}，這些步驟就會自動消失。"
+	["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour. The hearthstone is bound in {area:442} since the first {zone:1439} visit, and these steps drop once you are in {zone:1439}."] = "",
 	-- {area:69} Lakeshire
 	["{area:69} flight master"] = "{area:69}飛行管理員",
 
@@ -432,6 +433,7 @@ return {
 	["On the way to the harbour: {npc:4984}'s message goes to {npc:8997} in {area:442}, beside Terenthis, where the boat lands."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour. Hearthstone ready (bound in {area:442} since the first {zone:1439} visit)? Use it instead: these steps drop once you are in {zone:1439}."] = "返回{area:442}，繼續{zone:1439}南邊的路線：先坐獅鷲到{zone:1453}，再從港口坐船。爐石可用（自第一次來{zone:1439}起就繫結在{area:442}）？那就直接用爐石：一到{zone:1439}，這些步驟就會自動消失。",
 	-- ["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "威利的迪菲亞兄弟會不會給任務（這條線從{zone:1436}裡{npc:234}的信開始）：跳過{zone:1436}。沿路從{area:87}向北到{zone:1453}：{npc:466}騎在馬上，就在城門外橋的另一端。然後坐{object:2096}裡的獅鷲，回到{area:69}。",
 	-- ["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}."] = "{npc:332}在{object:2100}的軍情七處（SI:7）大樓樓上：樓梯起初不太顯眼。{npc:466}騎著馬守在城門裡大橋的盡頭；之後返回{object:2096}的獅鷲處。",
 }

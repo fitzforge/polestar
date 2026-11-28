@@ -15,8 +15,8 @@ return {
 	-- Step 2: Lower Blackrock Spire: Halycon's pups
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}: Halycon's pups"] = "{area:1583} 하층: 할리콘의 새끼들",
-	-- {npc:10584} Urok Doomhowl · {npc:10221} Bloodaxe Worg Pup
-	["The pups are in Lower Blackrock Spire (a group of five, level 55-60), not Upper: they run with Halycon, the great worg, deep in the dungeon beyond {npc:10584}'s ogres. Use the cage on a living {npc:10221} before the pack is dead. Taking damage interrupts the cast, so let the tank hold the pups and cage one from the side. A rogue or druid can sneak in, cage a pup from a corner, then vanish."] = "새끼들은 상층이 아니라 블랙록 첨탑 하층(5인, 55-60레벨)에 있습니다. {npc:10584}의 오우거 지나 깊은 곳에서 대형 워그 할리콘과 함께 있습니다. 무리가 죽기 전에 살아 있는 {npc:10221}에게 우리를 사용하세요. 피해를 받으면 시전이 끊기니 탱크가 새끼들을 붙잡아 두고 옆에서 우리에 넣으세요. 도적이나 드루이드는 몰래 들어가 구석에서 새끼를 우리에 넣고 은신제를 쓸 수 있습니다.",
+	-- {npc:10584} Urok Doomhowl
+	["Halycon's pups are deep in Lower Blackrock Spire (not Upper), beyond {npc:10584}'s ogres: a group dungeon for five, level 55-60. The cage works only on a living pup, and taking damage interrupts it."] = "",
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}"] = "{area:1583} 하층",
 
@@ -25,6 +25,7 @@ return {
 	["Back to {npc:10260}"] = "{npc:10260}에게 돌아가기",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The pups are in Lower Blackrock Spire (a group of five, level 55-60), not Upper: they run with Halycon, the great worg, deep in the dungeon beyond {npc:10584}'s ogres. Use the cage on a living {npc:10221} before the pack is dead. Taking damage interrupts the cast, so let the tank hold the pups and cage one from the side. A rogue or druid can sneak in, cage a pup from a corner, then vanish."] = "새끼들은 상층이 아니라 블랙록 첨탑 하층(5인, 55-60레벨)에 있습니다. {npc:10584}의 오우거 지나 깊은 곳에서 대형 워그 할리콘과 함께 있습니다. 무리가 죽기 전에 살아 있는 {npc:10221}에게 우리를 사용하세요. 피해를 받으면 시전이 끊기니 탱크가 새끼들을 붙잡아 두고 옆에서 우리에 넣으세요. 도적이나 드루이드는 몰래 들어가 구석에서 새끼를 우리에 넣고 은신제를 쓸 수 있습니다.",
 	-- ["Upper {area:1583}"] = "상층 {area:1583}",
 	-- ["Upper {area:1583} is a raid group of up to ten, level 58-60. Use {npc:10260}'s cage on a {npc:10221} (Halycon's den) to get the {item:12263}."] = "상층 {area:1583}은(는) 58-60레벨, 최대 10인 공격대 던전입니다. {npc:10260}의 우리를 {npc:10221}(할리콘의 굴)에게 사용해 {item:12263}을(를) 얻으세요.",
 	-- ["{npc:10260} stands at {area:251} in northern {zone:1428}, near the {area:254} path."] = "{npc:10260}은(는) {zone:1428} 북부의 {area:251}, {area:254}(으)로 가는 길 근처에 서 있습니다.",

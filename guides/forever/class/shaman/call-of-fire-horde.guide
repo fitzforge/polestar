@@ -141,7 +141,7 @@ step The Minor Manifestation of Fire
 
 step The Brazier of the Dormant Flame
   only Orc,Troll,Tauren
-  tip Click the Brazier of the Dormant Flame on the plateau with the torch in your bags to place the ember, then click it a second time: the next quest does not open by itself. It gives you the lit Torch of Eternal Flame.
+  tip The Brazier of the Dormant Flame on the plateau takes the ember with the torch in the bags. The next quest, the lit Torch of Eternal Flame, does not open by itself: it takes a second click.
   level 11
   turnin 1526                                 -- Brazier of the Dormant Flame
   accept 1527
@@ -189,10 +189,11 @@ step Kuramaa
 
 step The Eternal Flame
   only Skyborne
-  tip Back to Olariaan. Accept the last quest, then wait by the Brazier of Offering while he performs the ritual; when the fire spirits light the Eternal Flame, hold the torch to it. From then you have six minutes: carry the flame straight to the Brazier of Eternal Flame beside Sessaria in Valanaar, with no detours or fights. Timer out? Abandon the quest and take it again from Olariaan.
+  tip Once taken, the Eternal Flame lasts six minutes, so the walk to the Brazier of Eternal Flame beside Sessaria in Valanaar has no room for detours. If it runs out, the quest can be taken again from Olariaan.
   turnin 97245                                -- Olariaan Swiftburn
   accept 97257
   goto 51.2,85.9 "Brazier of Offering"
+  use 277329 quest 97257.1 @58.4,78.8
   complete 97257 @58.4,78.8                   -- the ritual, then the Brazier of Eternal Flame in Valanaar
 
 step Sessaria Skystride

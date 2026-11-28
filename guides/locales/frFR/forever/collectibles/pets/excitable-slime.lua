@@ -14,9 +14,13 @@ return {
 
 	-- Step 2: WRIGGLE.
 	-- {npc:269452} Excitable Slime · {npc:4612} Boyle · {quest:97583} WRIGGLE.
-	["Find an {npc:269452}, a little critter in the canal water beside {npc:4612}, target it and /dance at it, again and again, until it dances back and offers {quest:97583}; this takes many tries. Hand in the sludge right away. If the slime seems tired, /dance with it again before you hand in."] = "Trouvez une {npc:269452}, une petite bestiole dans l'eau du canal à côté de {npc:4612}, ciblez-la et faites /danser sur elle, encore et encore, jusqu'à ce qu'elle danse à son tour et propose {quest:97583} ; cela demande de nombreux essais. Rendez aussitôt la bouillie. Si la gelée semble fatiguée, dansez de nouveau avec elle avant de rendre la quête.",
+	["An {npc:269452}, a little critter in the canal water beside {npc:4612}, offers {quest:97583} only after many /dance emotes at it, and it takes the sludge only while it still dances."] = "",
+	-- {npc:269452} Excitable Slime · {quest:97583} WRIGGLE.
+	["/dance at an {npc:269452} until it dances back and offers {quest:97583}"] = "",
+	["/dance with the slime again if it seems tired"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Find an {npc:269452}, a little critter in the canal water beside {npc:4612}, target it and /dance at it, again and again, until it dances back and offers {quest:97583}; this takes many tries. Hand in the sludge right away. If the slime seems tired, /dance with it again before you hand in."] = "Trouvez une {npc:269452}, une petite bestiole dans l'eau du canal à côté de {npc:4612}, ciblez-la et faites /danser sur elle, encore et encore, jusqu'à ce qu'elle danse à son tour et propose {quest:97583} ; cela demande de nombreux essais. Rendez aussitôt la bouillie. Si la gelée semble fatiguée, dansez de nouveau avec elle avant de rendre la quête.",
 	-- ["Find the {npc:269452}, a critter in the {zone:1458} canals, and /dance with it until it offers WRIGGLE. Buy {item:278265} from a vendor in the canals and bring it back; if the slime seems tired, dance with it again."] = "Trouvez {npc:269452}, une bestiole des canaux de {zone:1458}, et faites /dance avec elle jusqu'à ce qu'elle propose WRIGGLE. Achetez {item:278265} à un marchand des canaux et rapportez-la ; si la gelée semble fatiguée, dansez de nouveau avec elle.",
 	-- ["{item:278265}: {npc:4612}, in the canals beside the slime"] = "{item:278265} : {npc:4612}, dans les canaux à côté du limon",
 }

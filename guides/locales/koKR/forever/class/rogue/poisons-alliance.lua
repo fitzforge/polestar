@@ -17,7 +17,7 @@ return {
 
 	-- Step 2: Agent Kearnen
 	-- {npc:7053} Klaven Mortwake · {zone:1436} Westfall · {zone:1431} Duskwood · {item:8046} Kearnen's Journal
-	["Kearnen hides stealthed against the west side of a big tree with two small trees in front of it, just north of {npc:7053}'s Defias tower in the far east of {zone:1436}, by the {zone:1431} border. Read {item:8046} for the tower's layout if you like."] = "",
+	["Kearnen hides stealthed against the west side of a big tree with two small trees in front of it, just north of {npc:7053}'s Defias tower in the far east of {zone:1436}, by the {zone:1431} border. {item:8046} describes the tower's layout."] = "",
 
 	-- Step 3: Klaven's Tower, with a group
 	-- {quest:2359} Klaven's Tower
@@ -39,7 +39,7 @@ return {
 
 	-- Step 5: Master Mathias Shaw
 	-- {zone:1453} Stormwind · {item:7676} Thistle Tea · {spell:8681} Instant Poison · {item:2928} Dust of Decay · {item:3371} Empty Vial · {npc:1325} Jasper Fel · {npc:1326} Sloan McCoy · {object:2100} Old Town
-	["Head north through Elwynn to {zone:1453}; Mathias Shaw is upstairs in SI:7. He teaches Poisons and gives you the {item:7676} recipe. Poisons are made, not bought: each batch of {spell:8681} takes a {item:2928} and an {item:3371}, which {npc:1325} and {npc:1326} sell in {object:2100} next to SI:7. Buy a stack of each, open Poisons from your spellbook to make them, then use a poison on your weapon."] = "엘윈 숲을 지나 북쪽의 {zone:1453}(으)로 가세요. 마티아스 쇼는 SI:7 위층에 있습니다. 그가 독 조제를 가르쳐 주고 {item:7676} 제조법을 줍니다. 독은 사는 것이 아니라 만드는 것입니다. {spell:8681}을(를) 한 번 만들 때마다 {item:2928}와(과) {item:3371}이(가) 하나씩 필요하며, SI:7 옆 {object:2100}의 {npc:1325}와(과) {npc:1326}이(가) 팝니다. 각각 한 묶음씩 사서 마법책에서 독 조제를 열어 만든 다음, 무기에 독을 바르세요.",
+	["Mathias Shaw is upstairs in SI:7, north through Elwynn in {zone:1453}. He teaches Poisons and gives the {item:7676} recipe. Poisons are made, not bought: each batch of {spell:8681} takes a {item:2928} and an {item:3371}, which {npc:1325} and {npc:1326} sell in {object:2100} next to SI:7. A poison from the Poisons window then goes on the weapon."] = "",
 	-- {npc:332} Master Mathias Shaw
 	["{npc:332}: Poisons"] = "{npc:332}: 독 조제",
 
@@ -62,6 +62,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["/lay down"] = "/lay down",
 	-- ["Everything is in {zone:1453}: the Gumps sell {item:3421}, the {item:8431} lies in the city, and the nearest vendors sell a {item:3372} and a {item:4371}."] = "모두 {zone:1453}에 있습니다: 검프 남매가 {item:3421}을(를) 팔고, {item:8431}은(는) 도시 안에 놓여 있으며, 가까운 상인이 {item:3372}와(과) {item:4371}을(를) 팝니다.",
+	-- ["Head north through Elwynn to {zone:1453}; Mathias Shaw is upstairs in SI:7. He teaches Poisons and gives you the {item:7676} recipe. Poisons are made, not bought: each batch of {spell:8681} takes a {item:2928} and an {item:3371}, which {npc:1325} and {npc:1326} sell in {object:2100} next to SI:7. Buy a stack of each, open Poisons from your spellbook to make them, then use a poison on your weapon."] = "엘윈 숲을 지나 북쪽의 {zone:1453}(으)로 가세요. 마티아스 쇼는 SI:7 위층에 있습니다. 그가 독 조제를 가르쳐 주고 {item:7676} 제조법을 줍니다. 독은 사는 것이 아니라 만드는 것입니다. {spell:8681}을(를) 한 번 만들 때마다 {item:2928}와(과) {item:3371}이(가) 하나씩 필요하며, SI:7 옆 {object:2100}의 {npc:1325}와(과) {npc:1326}이(가) 팝니다. 각각 한 묶음씩 사서 마법책에서 독 조제를 열어 만든 다음, 무기에 독을 바르세요.",
 	-- ["Ride north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "엘윈 숲을 지나 북쪽 {zone:1453}(으)로 달려가십시오. 마티아스 쇼는 {object:2100}의 SI:7에 있습니다.",
 	-- ["{npc:7024} watches {npc:7053}'s tower from the hills in the far east of {zone:1436}, by the {zone:1431} border. The {npc:7051} (level 23) guarding the tower carries its key; Klaven's journal is in the chest at the top."] = "{npc:7024}은(는) {zone:1436} 동쪽 끝, {zone:1431} 경계 근처 언덕에서 {npc:7053}의 탑을 감시합니다. 탑을 지키는 {npc:7051}(레벨 23)이(가) 열쇠를 가지고 있으며, 클라벤의 일지는 꼭대기의 상자에 있습니다.",
 	-- ["{npc:7207} works in the cellar of SI:7, the Barracks. Type /lay down beside him to be examined."] = "{npc:7207}은(는) SI:7 병영 지하실에 있습니다. 그 옆에서 /lay down을 입력해 진찰을 받으십시오.",

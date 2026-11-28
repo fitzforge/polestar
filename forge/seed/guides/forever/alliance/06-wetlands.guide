@@ -56,7 +56,8 @@ step Trial of the Sea Lion
   only NightElf,Skyborne,Druid
   zone Moonglade
   when onquest 272
-  tip Cast Teleport: Moonglade. With both half pendants in your bags, stand by the Shrine of Remulos on the north-west shore of the lake and use a half to join them, then go to Dendrite Starblaze in Nighthaven. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
+  tip Dendrite Starblaze is upstairs in his building in Nighthaven, and the arrow cannot tell the floors apart.
+  use 15883 quest 272.1 @36.0,41.4
   collect 15885 quest 272.1                   -- Pendant of the Sea Lion: join the halves at the Shrine of Remulos
   turnin 272                                  -- Dendrite Starblaze
 
@@ -248,8 +249,9 @@ step Ormer and Whelgar
 step Goaz Warders
   when group 98216
   when onquest 98216
-  tip The Goaz Warders stand just west of Whelgar's camp: use the Goaz Stone he gave you beside one.
+  tip The Goaz Warders stand just west of Whelgar's camp, and his Goaz Stone works beside one.
   tip Goaz Warder is elite: grouping up is advised.
+  use 279996 quest 98216.1
   collect 279993 quest 98216.1            -- Titanic Keystone
 
 step Prospector Whelgar
@@ -613,14 +615,16 @@ step The Foulweald
 step Mystral Lake
   when !turnedin 1016
   zone Ashenvale
-  tip Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake, just north of the road to Krolg. Befouled Water Elementals wade in the lake; Tideress, a level 27 water elemental, walks among them and drops the bracers too.
+  tip Sentinel Velene Starstrike is at Silverwind Refuge on the east shore of Mystral Lake, just north of the road to Krolg. Befouled Water Elementals wade in the lake, and Tideress, a level 27 water elemental among them, also drops the bracers.
   accept 1016                             -- Sentinel Velene Starstrike
   collect 12220 x5 optional           -- Underwater
+  use 5456 quest 1016.1 @49.6,71.3
   collect 5455 quest 1016 @49.6,71.3      -- Kill the elementals for 5 Intact Elemental Bracers, then use the Divining Scroll
   turnin 1016
 
 step Krolg
-  tip Krolg, a furbolg untouched by the corruption, sits south of the road below Mystral Lake. Use Dartol's Rod of Transformation near him first: he only speaks to you in furbolg form.
+  tip Krolg, a furbolg untouched by the corruption, sits south of the road below Mystral Lake. He only speaks to a furbolg, and Dartol's Rod of Transformation makes you one.
+  use 5462 @50.8,75.0 map 1440
   turnin 1030
   accept 1045
 

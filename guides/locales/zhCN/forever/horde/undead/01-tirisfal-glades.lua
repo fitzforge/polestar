@@ -407,7 +407,7 @@ return {
 
 	-- Step 70: Ulag the Cleaver
 	-- {npc:6390} Ulag the Cleaver
-	["{npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:6390}在镇子北边不远处山丘上的陵墓里等候：打开大门与他战斗。",
+	["{npc:6390} waits in the mausoleum on the hill just north of town, and the gate's trigger lets him out."] = "",
 
 	-- Step 71: Carendin Halgar
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter
@@ -615,6 +615,7 @@ return {
 	-- ["{npc:246389} and {npc:259190} camp at the forest's edge, just south of Leonid. Their quests need level 10."] = "{npc:246389}和{npc:259190}在森林边缘扎营，就在莱尼德·巴萨罗梅南边。他们的任务要求10级。",
 	-- ["{npc:267009} stands at {npc:1495}'s camp."] = "{npc:267009}站在{npc:1495}的营地。",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}，双足飞龙管理员",
+	-- ["{npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:6390}在镇子北边不远处山丘上的陵墓里等候：打开大门与他战斗。",
 	-- ["{quest:91208}: the {npc:246143} fled into the hills just west of the church."] = "{quest:91208}：{npc:246143}逃进了教堂西边的山丘。",
 	-- ["{quest:96897} holds the farm just south-east of the camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too."] = "{quest:96897}占据着营地东南方不远处的农场。{item:275851}散落在教徒之间的地面上，教徒身上也带有一些。",
 }

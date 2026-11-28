@@ -450,14 +450,17 @@ step Dun Morogh
 step Taming the Beast
   zone Dun Morogh
   only Hunter
-  tip Each of Grif Wildheart's quests hands you a Taming Rod: use it on the beast he names, then bring the rod back to him at the Kharanos smithy. Large Crag Boars, Snow Leopards and Ice Claw Bears all roam the fields just south and east of Kharanos.
+  tip Each of Grif Wildheart's quests comes with a Taming Rod for the beast he names, and the rod goes back to him at the Kharanos smithy. Large Crag Boars, Snow Leopards and Ice Claw Bears all roam the fields just south and east of Kharanos.
   accept 6064                                 -- Grif Wildheart, at the smithy
+  use 15911 quest 6064.1
   kill 1126 quest 6064.1 "Tame Large Crag Boar" -- Large Crag Boar: tame it with the Taming Rod
   turnin 6064                                 -- Grif Wildheart
   accept 6084
+  use 15913 quest 6084.1
   kill 1201 quest 6084.1 "Tame Snow Leopard"  -- Snow Leopard: tame it with the Taming Rod
   turnin 6084
   accept 6085
+  use 15908 quest 6085.1
   kill 1196 quest 6085.1 "Tame Ice Claw Bear" -- Ice Claw Bear: tame it with the Taming Rod
   turnin 6085                                 -- Tame Beast
   accept 6086                                 -- Belia Thundergranite in Ironforge takes it
@@ -874,9 +877,10 @@ step The Deeprun Tram
 
 step Tram to Stormwind
   zone Ironforge
-  tip On the Ironforge platform of the Deeprun Tram, Monty asks for help with the rats: use his Rat Catcher's Flute on the Deeprun Rats around the platform, hand them in, then take his letter to his brother Nipsy at the Stormwind end. The tram has no map inside. The city markers show the entrances, not the two brothers.
+  tip Monty is on the Ironforge platform of the Deeprun Tram, and his brother Nipsy is at the Stormwind end. The tram has no map inside, so the city markers show the entrances, not the brothers.
   enter "Deeprun Tram" @78.0,51.4 map 1455
   accept 6661 @78.0,51.4                      -- Monty, on the Ironforge platform
+  use 17117 quest 6661.1 @78.0,51.4 map 1455
   kill 13016 x5 quest 6661.1 "Catch Deeprun Rat" -- Deeprun Rat: use the Rat Catcher's Flute
   turnin 6661 @78.0,51.4                      -- Monty
   accept 6662 @78.0,51.4

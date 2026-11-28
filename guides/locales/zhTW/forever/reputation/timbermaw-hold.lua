@@ -151,9 +151,9 @@ return {
 	-- Step 32: Mosshoof Coursers
 	-- plural, as words: Mosshoof Coursers = {npc:8761} Mosshoof Courser
 	["Mosshoof Coursers"] = "苔蹄快步者",
-	-- {area:1225} Ursolan · {item:221199} Satyrweed Tincture
+	-- {area:1225} Ursolan · {item:235509} Satyrweed Tincture
 	-- plural, as words: Mosshoof Coursers = {npc:8761} Mosshoof Courser · Thunderhead Skystormers = {npc:6378} Thunderhead Skystormer
-	["The Mosshoof Coursers (52-53) and Thunderhead Skystormers (50-52) graze just east of {area:1225}: bring one low, then use the {item:221199} on it. Three times."] = "",
+	["The Mosshoof Coursers (52-53) and Thunderhead Skystormers (50-52) graze just east of {area:1225}, and the {item:235509} works on one brought low, three times."] = "",
 
 	-- Step 34: Furze
 	-- {npc:235909} Furze
@@ -223,16 +223,18 @@ return {
 
 	-- Step 47: The Root of All Evil
 	-- {npc:11555} Gorn One Eye · {npc:11557} Meilosh · {quest:8481} The Root of All Evil · {item:21144} Demon Summoning Torch · {npc:10738} High Chief Winterfall · {npc:15623} Xandivious · {item:21326} Defender of the Timbermaw
-	["At Exalted, {npc:11555}, in the tunnel by {npc:11557}, gives {quest:8481}: plant his {item:21144} in the mouth of {npc:10738}'s cave and defeat the demon {npc:15623} (level 62, elite: bring a group). The reward is {item:21326}, a trinket that calls a Timbermaw ally, and 200 reputation."] = "崇拜時，{npc:11555}在隧道裡、{npc:11557}旁邊，給你{quest:8481}：把他的{item:21144}插在{npc:10738}的洞口，並擊敗惡魔{npc:15623}（62級，精英：帶隊伍去）。獎勵是{item:21326}，一枚召喚木喉盟友的飾品，外加200點聲望。",
+	-- was: ["At Exalted, {npc:11555}, in the tunnel by {npc:11557}, gives {quest:8481}: plant his {item:21144} in the mouth of {npc:10738}'s cave and defeat the demon {npc:15623} (level 62, elite: bring a group). The reward is {item:21326}, a trinket that calls a Timbermaw ally, and 200 reputation."] = "崇拜時，{npc:11555}在隧道裡、{npc:11557}旁邊，給你{quest:8481}：把他的{item:21144}插在{npc:10738}的洞口，並擊敗惡魔{npc:15623}（62級，精英：帶隊伍去）。獎勵是{item:21326}，一枚召喚木喉盟友的飾品，外加200點聲望。"
+	["At Exalted, {npc:11555}, in the tunnel by {npc:11557}, gives {quest:8481}: his {item:21144}, planted in the mouth of {npc:10738}'s cave, calls the demon {npc:15623} (level 62, elite, a group's fight). The reward is {item:21326}, a trinket that calls a Timbermaw ally, and 200 reputation."] = "",
 
 	-- Step 48: Xandivious
 	-- {area:2244} Winterfall Village · {npc:15623} Xandivious
-	["{area:2244}, the cave at the back. Clear the furbolgs around the mouth first, plant the torch, kill {npc:15623} and loot the Essence from his Demon Bag."] = "{area:2244}，洞穴深處。先清掉洞口周圍的熊怪，插下火炬，殺掉{npc:15623}，再從它的惡魔包裡拾取精華。",
+	["{area:2244}, the cave at the back, with furbolgs around its mouth. The torch planted there calls {npc:15623}, and the Essence is in his Demon Bag."] = "",
 	-- {npc:15623} Xandivious
 	["{npc:15623}, 25 reputation"] = "{npc:15623}，25點聲望",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Alternate Deadwood feathers ({npc:15395}) and Winterfall beads ({npc:11556}), whichever camp is less crowded."] = "輪流收集死木羽毛（{npc:15395}）和冬泉念珠（{npc:11556}），看哪個營地人比較少。",
+	-- ["At Exalted, {npc:11555}, in the tunnel by {npc:11557}, gives {quest:8481}: plant his {item:21144} in the mouth of {npc:10738}'s cave and defeat the demon {npc:15623} (level 62, elite: bring a group). The reward is {item:21326}, a trinket that calls a Timbermaw ally, and 200 reputation."] = "崇拜時，{npc:11555}在隧道裡、{npc:11557}旁邊，給你{quest:8481}：把他的{item:21144}插在{npc:10738}的洞口，並擊敗惡魔{npc:15623}（62級，精英：帶隊伍去）。獎勵是{item:21326}，一枚召喚木喉盟友的飾品，外加200點聲望。",
 	-- ["Deadwood furbolgs (level 48-50) camp at the southern end of {zone:1448}. Keep every {item:21377} they drop: {npc:11554} and {npc:15395} take them later."] = "死木熊怪（48-50級）在{zone:1448}南端紮營。留著牠們掉落的每一個{item:21377}：{npc:11554}和{npc:15395}之後會收。",
 	-- ["Feathers and beads to Friendly"] = "羽毛和念珠到友好",
 	-- ["Feathers for {npc:11554} and Feathers for {npc:15395} (Deadwood Headdress Feathers) and Beads for {npc:11556} ({item:21383}) repeat as often as you like; every Deadwood or Winterfall kill counts as well. {area:2244} is the densest bead spot."] = "給{npc:11554}的羽毛、給{npc:15395}的羽毛（死木頭飾羽毛）和給{npc:11556}的念珠（{item:21383}）可以無限次重複；每次擊殺死木或冬泉熊怪也會計入。{area:2244}是念珠最密集的地點。",
@@ -241,6 +243,7 @@ return {
 	-- ["Keep turning in feathers and beads until Exalted."] = "持續繳交羽毛和念珠直到崇拜。",
 	-- ["The northern Deadwood camps by the tunnel are the densest feather spot (35% drop chance there). Hand feathers to {npc:15395} at the tunnel, or to {npc:11554} in the south."] = "隧道旁的北方死木營地是羽毛最密集的地點（那裡掉落率35%）。把羽毛交給隧道口的{npc:15395}，或南邊的{npc:11554}。",
 	-- ["{area:2244} sits on the eastern side of {zone:1452}. Keep every {item:21383} you loot: {npc:11556} takes them."] = "{area:2244}位於{zone:1452}東側。留著你拾取的每一個{item:21383}：{npc:11556}會收。",
+	-- ["{area:2244}, the cave at the back. Clear the furbolgs around the mouth first, plant the torch, kill {npc:15623} and loot the Essence from his Demon Bag."] = "{area:2244}，洞穴深處。先清掉洞口周圍的熊怪，插下火炬，殺掉{npc:15623}，再從它的惡魔包裡拾取精華。",
 	-- ["{faction:576} starts out Hostile, and its furbolgs in the tunnels attack until you reach Unfriendly. Every Deadwood and Winterfall furbolg you kill raises it, so the quests below pay twice. Forever's Legacy Diplomat perk increases reputation gains."] = "{faction:576}初始為敵對，在你達到冷淡之前，隧道裡的熊怪會攻擊你。擊殺的每一隻死木和冬泉熊怪都會提升聲望，所以下面的任務有雙重收益。Forever的傳承外交官天賦可提高聲望獲取。",
 	-- ["{faction:576} to Exalted"] = "{faction:576}到崇拜",
 	-- ["{faction:576} to Revered"] = "{faction:576}到崇敬",

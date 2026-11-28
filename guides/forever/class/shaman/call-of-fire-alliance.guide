@@ -77,7 +77,7 @@ step The Shrine of Eternal Flame
   collect 6655 quest 94467.1                  -- Glowing Ember: Minor Manifestation of Fire
 
 step The Brazier of the Dormant Flame
-  tip Click the Brazier of the Dormant Flame atop the shrine with the torch in your bags to place the ember, then click it again for the next quest: the lit Torch of Eternal Flame.
+  tip The Brazier of the Dormant Flame is atop the shrine and takes the ember with the torch in the bags, and a second click gives the next quest: the lit Torch of Eternal Flame.
   turnin 94467                                -- Brazier of the Dormant Flame
   accept 94468
 

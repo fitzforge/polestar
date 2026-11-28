@@ -30,16 +30,16 @@ return {
 	-- Step 4: Back at Aldrassil
 	-- {area:256} Aldrassil
 	["Back at {area:256}"] = "Снова здесь: {area:256}",
-	-- {npc:3595} Shanda · {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light
-	["{npc:3595}'s quest, {quest:97979}, asks for your two night elf racial spells: open your spellbook (P), cast {spell:1259799} and Shadowmeld once each, then hand it back to her."] = "Задание NPC {npc:3595}, {quest:97979}, требует двух расовых заклинаний ночных эльфов: откройте книгу заклинаний (P), примените {spell:1259799} и «Слиться с тенью» по разу, затем сдайте его ей.",
+	-- {npc:3595} Shanda · {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light · {spell:20580} Shadowmeld
+	["{npc:3595}'s quest, {quest:97979}, asks for the two night elf racial spells, {spell:1259799} and {spell:20580}, once each; both are in the spellbook (P)."] = "",
 	-- {npc:2079} Conservator Ilthalaine · {npc:3596} Ayanna Everstride
 	["{npc:2079}: a sigil for {npc:3596}"] = "{npc:2079}: знак для персонажа {npc:3596}",
 	-- {npc:2082} Gilshalan Windwalker
 	["{npc:2082}, on the tree's ramp"] = "{npc:2082} – на пандусе древа",
 	-- {npc:3595} Shanda
 	["{npc:3595}: in at the tree's front entrance and up the ramp; upstairs"] = "",
-	-- {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light · {npc:3595} Shanda
-	["{quest:97979}: cast {spell:1259799} and Shadowmeld, then hand it back to {npc:3595}"] = "{quest:97979}: примените «{spell:1259799}» и «Слиться с тенью», затем сдайте задание: {npc:3595}",
+	-- {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light · {spell:20580} Shadowmeld · {npc:3595} Shanda
+	["{quest:97979}: cast {spell:1259799} and {spell:20580}, then hand it back to {npc:3595}"] = "{quest:97979}: примените «{spell:1259799}» и «{spell:20580}», затем сдайте задание: {npc:3595}",
 	-- {npc:8583} Dirania Silvershine
 	["{npc:8583}, east of the tree"] = "{npc:8583} – к востоку от древа",
 
@@ -461,15 +461,18 @@ return {
 	["North-east from Ursal's den, back to {area:186}. {npc:6094} takes a {item:159} with the fronds and the vial: if you drank yours, buy another from {npc:6736} in this inn before you hand in."] = "От логова Урсала на северо-восток, обратно в {area:186}. {npc:6094} принимает {item:159} вместе с листьями и флаконом: если вы выпили свою, купите еще у NPC {npc:6736} в этой таверне, прежде чем сдавать.",
 
 	-- Step 74: Taming the Beast
-	-- {item:15908} Taming Rod · {area:186} Dolanaar
+	-- {item:15921} Taming Rod · {area:186} Dolanaar
 	-- plural, as words: Webwood Lurkers = {npc:1998} Webwood Lurker · Nightsaber Stalkers = {npc:2043} Nightsaber Stalker · Strigid Screechers = {npc:1996} Strigid Screecher
-	["Each of Dazalar's quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him in {area:186}. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it."] = "Каждое задание Дазалара дает вам предмет {item:15908}: примените его на названном звере, затем верните жезл ему ({area:186}). Чащобные тенетники ползают вокруг деревни, ночные саблезубы-охотники и совы-крикуны бродят по лесу к югу от нее.",
-	-- {npc:1998} Webwood Lurker · {item:15908} Taming Rod
-	["{npc:1998}: tame it with the {item:15908}"] = "{npc:1998}: приручите его с помощью предмета {item:15908}",
-	-- {npc:2043} Nightsaber Stalker · {item:15908} Taming Rod
-	["{npc:2043}: tame it with the {item:15908}"] = "{npc:2043}: приручите его с помощью предмета {item:15908}",
-	-- {npc:1996} Strigid Screecher · {item:15908} Taming Rod
-	["{npc:1996}: tame it with the {item:15908}"] = "{npc:1996}: приручите его с помощью предмета {item:15908}",
+	["Each of Dazalar's quests comes with a {item:15921} for the beast he names, and the rod goes back to him in {area:186}. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it."] = "",
+	-- {npc:1998} Webwood Lurker · {item:15921} Taming Rod
+	-- was: ["{npc:1998}: tame it with the {item:15908}"] = "{npc:1998}: приручите его с помощью предмета {item:15908}"
+	["{npc:1998}: tame it with the {item:15921}"] = "",
+	-- {npc:2043} Nightsaber Stalker · {item:15921} Taming Rod
+	-- was: ["{npc:2043}: tame it with the {item:15908}"] = "{npc:2043}: приручите его с помощью предмета {item:15908}"
+	["{npc:2043}: tame it with the {item:15921}"] = "",
+	-- {npc:1996} Strigid Screecher · {item:15921} Taming Rod
+	-- was: ["{npc:1996}: tame it with the {item:15908}"] = "{npc:1996}: приручите его с помощью предмета {item:15908}"
+	["{npc:1996}: tame it with the {item:15921}"] = "",
 	-- {npc:4146} Jocaste · {zone:1457} Darnassus
 	["{npc:4146} in {zone:1457} takes it"] = "Задание принимает {npc:4146} ({zone:1457})",
 
@@ -615,8 +618,8 @@ return {
 	-- Step 107: The Moonkin Stone
 	-- {object:177525} Moonkin Stone
 	["The {object:177525}"] = "{object:177525}",
-	-- {area:702} Rut'theran Village · {area:442} Auberdine · {object:177525} Moonkin Stone · {item:15208} Cenarion Moondust · {npc:12144} Lunaclaw Spirit
-	["Go back down to {area:702} and fly to {area:442}. The {object:177525} stands in the hills just east of the village: use the {item:15208} there, defeat Lunaclaw and speak to the {npc:12144}."] = "Спуститесь обратно: {area:702}, затем летите сюда: {area:442}. {object:177525} стоит на холмах чуть восточнее деревни: используйте там {item:15208}, победите Лунокогтя и поговорите: {npc:12144}.",
+	-- {object:177525} Moonkin Stone · {area:442} Auberdine · {item:15208} Cenarion Moondust
+	["The {object:177525} stands in the hills just east of {area:442}. The {item:15208} calls Lunaclaw there, and her spirit appears once she is defeated."] = "",
 
 	-- Step 108: Auberdine flight master
 	-- {area:442} Auberdine
@@ -635,6 +638,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Boat to {zone:1453}"] = "Корабль: {zone:1453}",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Then {npc:11800} in {area:2361} flies Druids straight to {area:702}, no flight path needed. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Примените {spell:18960}. {npc:11802} – здесь: {area:2361}; {quest:5929} – в лесу к северо-западу. Затем {npc:11800} ({area:2361}) доставит друидов прямо сюда: {area:702} – маршрут полета не нужен. {npc:11802} стоит наверху в своем здании: поднимитесь внутри, стрелка не различает этажи.",
+	-- ["Each of Dazalar's quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him in {area:186}. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it."] = "Каждое задание Дазалара дает вам предмет {item:15908}: примените его на названном звере, затем верните жезл ему ({area:186}). Чащобные тенетники ползают вокруг деревни, ночные саблезубы-охотники и совы-крикуны бродят по лесу к югу от нее.",
 	-- ["Each of {npc:3601}'s quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him in {area:186}. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it."] = "Каждое задание ({npc:3601}) дает вам предмет {item:15908}: примените его на названном звере, затем верните жезл ему ({area:186}). Чащобные тенетники ползают вокруг деревни, ночные саблезубы-охотники и совы-крикуны бродят по лесу к югу от нее.",
 	-- ["East to {area:260}"] = "На восток: {area:260}",
 	-- ["Fly to {area:702} once more and take the portal up to {npc:4217}, then fly back to {area:442} for the boat."] = "Еще раз летите сюда: {area:702} – и поднимитесь через портал к {npc:4217}, затем летите обратно ({area:442}) к кораблю.",
@@ -642,6 +646,7 @@ return {
 	-- ["Follow the road west into {zone:1457} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "Идите по дороге на запад в город {zone:1457} и используйте {item:279378} у таверны ({area:1659}) и у входа в туннель под местом {area:3425} для последних двух сов. {npc:4241} стоит сразу у входа в город: {area:1659}. {npc:3516} – в северной части города ({area:1658}), {quest:922} – чуть южнее; {npc:4092}, {npc:7999}, {npc:7313} и {npc:8396} – в Храме Луны в южной части.",
 	-- ["From the harbour walk into {object:2100}. {npc:5480} trains warriors there; {npc:6089} and {npc:6090} stand together by the {object:2152}. {npc:6090} fights you for his mug."] = "Из гавани идите сюда: {object:2100}. Там воинов обучает {npc:5480}; {npc:6089} и {npc:6090} стоят вместе у таверны ({object:2152}). {npc:6090} сражается с вами за свою кружку.",
 	-- ["From {area:17203}, ride through the city gates into {zone:1429} and follow the road west to {zone:1436}."] = "От места {area:17203} езжайте через городские ворота в зону {zone:1429} и по дороге на запад: {zone:1436}.",
+	-- ["Go back down to {area:702} and fly to {area:442}. The {object:177525} stands in the hills just east of the village: use the {item:15208} there, defeat Lunaclaw and speak to the {npc:12144}."] = "Спуститесь обратно: {area:702}, затем летите сюда: {area:442}. {object:177525} стоит на холмах чуть восточнее деревни: используйте там {item:15208}, победите Лунокогтя и поговорите: {npc:12144}.",
 	-- ["Hearth to {area:186}"] = "Камень возвращения: {area:186}",
 	-- ["Into {zone:1457}"] = "В зону {zone:1457}",
 	-- ["Learn the {area:442} flight path on the hill south of the inn, then cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn the {area:493} flight path in {area:2361} and fly to {area:702} (by way of {area:442})."] = "Узнайте маршрут полета ({area:442}) на холме к югу от таверны, затем примените {spell:18960}. {npc:11802} – здесь: {area:2361}; {quest:5929} – в лесу к северо-западу. Узнайте маршрут полета ({area:493}) здесь: {area:2361} – и летите сюда: {area:702} (через {area:442}).",
@@ -668,6 +673,9 @@ return {
 	-- ["Young Nightsabers and Young Thistle Boars roam around {area:256}. Grells carry {item:3297} in the woods west of the tree, where the Gnarlpine Totems stand."] = "Вокруг древа ({area:256}) бродят молодые ночные саблезубы и молодые щетинистые вепри. {item:3297} носят грелли в лесу к западу от древа, где стоят тотемы племени Кривой Сосны.",
 	-- ["{area:186} quests"] = "Задания: {area:186}",
 	-- ["{npc:11401}, in the Temple of the Moon: {spell:10797}"] = "{npc:11401} – в Храме Луны: {spell:10797}",
+	-- ["{npc:1996}: tame it with the {item:15908}"] = "{npc:1996}: приручите его с помощью предмета {item:15908}",
+	-- ["{npc:1998}: tame it with the {item:15908}"] = "{npc:1998}: приручите его с помощью предмета {item:15908}",
+	-- ["{npc:2043}: tame it with the {item:15908}"] = "{npc:2043}: приручите его с помощью предмета {item:15908}",
 	-- ["{npc:2150}, on the way back"] = "{npc:2150} – на обратном пути",
 	-- ["{npc:265811}, alchemists: for {npc:3603}"] = "{npc:265811}, алхимики: для персонажа {npc:3603}",
 	-- ["{npc:265811}, herbalists: for {npc:3604}"] = "{npc:265811}, травники: для персонажа {npc:3604}",
@@ -676,6 +684,7 @@ return {
 	-- ["{npc:265811}, {skill:129}: for {npc:6094}"] = "{npc:265811}, {skill:129}: для персонажа {npc:6094}",
 	-- ["{npc:272034} and {npc:272044} fly just west of the moonwell, {npc:272046} further north."] = "{npc:272034} и {npc:272044} летают чуть западнее лунного колодца, {npc:272046} – дальше к северу.",
 	-- ["{npc:3567}, back in {area:186}"] = "{npc:3567} – снова здесь: {area:186}",
+	-- ["{npc:3595}'s quest, {quest:97979}, asks for your two night elf racial spells: open your spellbook (P), cast {spell:1259799} and Shadowmeld once each, then hand it back to her."] = "Задание NPC {npc:3595}, {quest:97979}, требует двух расовых заклинаний ночных эльфов: откройте книгу заклинаний (P), примените {spell:1259799} и «Слиться с тенью» по разу, затем сдайте его ей.",
 	-- ["{npc:3595}, inside the tree"] = "{npc:3595} – внутри древа",
 	-- ["{npc:3595}, the priest trainer, on the ramp on the way down: {npc:3600} in {area:186} takes it"] = "{npc:3595} – учитель жрецов, на пандусе по пути вниз: задание принимает {npc:3600} ({area:186})",
 	-- ["{npc:3603}, beside {npc:6286}: Camping 101, alchemists"] = "{npc:3603} – рядом с персонажем {npc:6286}: «Походное дело для начинающих», алхимики",
@@ -687,5 +696,6 @@ return {
 	-- ["{npc:7318}, in the den"] = "{npc:7318} – в логове",
 	-- ["{object:7510}, beside him"] = "{object:7510} – рядом с ним",
 	-- ["{quest:488} and the Starbreeze moonwell"] = "{quest:488} и лунный колодец Деревни Звездного Ветра",
+	-- ["{quest:97979}: cast {spell:1259799} and Shadowmeld, then hand it back to {npc:3595}"] = "{quest:97979}: примените «{spell:1259799}» и «Слиться с тенью», затем сдайте задание: {npc:3595}",
 	-- ["{quest:97979}: cast {spell:1259799} and {spell:20580}, then hand it back to {npc:3595}"] = "{quest:97979}: примените «{spell:1259799}» и «{spell:20580}», затем сдайте задание: {npc:3595}",
 }

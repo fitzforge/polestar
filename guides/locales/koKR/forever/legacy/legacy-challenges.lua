@@ -59,7 +59,8 @@ return {
 
 	-- Step 10: PvP: battleground reputations (Alliance)
 	["PvP: battleground reputations (Alliance)"] = "PvP: 전장 평판 (얼라이언스)",
-	["Exalted with each of the four battleground factions is worth a point. Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation, Alterac Valley Reputation and Darkspear Islands Reputation (Forever's new battleground, open from level 30). The Diplomat Legacy perk increases reputation gains."] = "네 전장 세력과 확고 관계이면 포인트 1개입니다. Polestar 평판 가이드의 전쟁노래 협곡 평판, 아라시 분지 평판, 알터랙 계곡 평판, 그리고 다크스페이어 제도 평판(Forever의 새 전장, 30레벨부터)을 따르세요. 유산 특전 외교관은 평판 획득량을 늘려 줍니다.",
+	-- was: ["Exalted with each of the four battleground factions is worth a point. Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation, Alterac Valley Reputation and Darkspear Islands Reputation (Forever's new battleground, open from level 30). The Diplomat Legacy perk increases reputation gains."] = "네 전장 세력과 확고 관계이면 포인트 1개입니다. Polestar 평판 가이드의 전쟁노래 협곡 평판, 아라시 분지 평판, 알터랙 계곡 평판, 그리고 다크스페이어 제도 평판(Forever의 새 전장, 30레벨부터)을 따르세요. 유산 특전 외교관은 평판 획득량을 늘려 줍니다."
+	["Exalted with each of the four battleground factions is worth a point. Polestar's Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation, Alterac Valley Reputation and Darkspear Islands Reputation (Forever's new battleground, from level 30) cover them, and the Diplomat Legacy perk increases reputation gains."] = "",
 
 	-- Step 11: PvP: battleground reputations (Horde)
 	["PvP: battleground reputations (Horde)"] = "PvP: 전장 평판 (호드)",
@@ -190,6 +191,7 @@ return {
 	-- ["Adventure: {quest:9007} (Horde)"] = "모험: {quest:9007}(호드)",
 	-- ["Blizzard counts four battleground reputations, but our faction data has three per side ({zone:1460}, {zone:1461}, {zone:1459}). The fourth is likely tied to Forever's new PvP content; check the in-game Legacy panel."] = "블리자드는 전장 평판 4개를 계산하지만, 우리 세력 데이터에는 진영마다 3개({zone:1460}, {zone:1461}, {zone:1459})만 있습니다. 네 번째는 Forever의 새 PvP 콘텐츠와 관련된 것으로 보입니다. 게임 내 유산 창을 확인하십시오.",
 	-- ["Exalted with each battleground faction is worth a point (4 in all; this page shows three, see the note). Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation and Alterac Valley Reputation. The Diplomat Legacy perk increases reputation gains."] = "각 전장 세력과 확고한 동맹이 되면 1점입니다(총 4점, 이 페이지에는 3개만 나옵니다. 참고를 보세요). Polestar 평판 가이드 전쟁노래 협곡 평판, 아라시 분지 평판, 알터랙 계곡 평판을 따르세요. 외교관 유산 특전은 평판 획득량을 늘려 줍니다.",
+	-- ["Exalted with each of the four battleground factions is worth a point. Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation, Alterac Valley Reputation and Darkspear Islands Reputation (Forever's new battleground, open from level 30). The Diplomat Legacy perk increases reputation gains."] = "네 전장 세력과 확고 관계이면 포인트 1개입니다. Polestar 평판 가이드의 전쟁노래 협곡 평판, 아라시 분지 평판, 알터랙 계곡 평판, 그리고 다크스페이어 제도 평판(Forever의 새 전장, 30레벨부터)을 따르세요. 유산 특전 외교관은 평판 획득량을 늘려 줍니다.",
 	-- ["Forever adds the dungeons {area:16919} and {area:153}; their bosses and brackets are not in our data yet."] = "Forever는 던전 {area:16919}와(과) {area:153}을(를) 추가합니다. 그 우두머리와 레벨대는 아직 우리 데이터에 없습니다.",
 	-- ["Forever's new dungeons"] = "Forever의 새 던전",
 	-- ["Killing {npc:10184} is a point. In Classic her lair needs an attunement: {item:16309} for the Alliance, {item:16663} for the Horde."] = "{npc:10184}을(를) 처치하면 1점입니다. 클래식에서 그녀의 둥지에 들어가려면 입장 퀘스트가 필요합니다: 얼라이언스는 {item:16309}, 호드는 {item:16663}.",

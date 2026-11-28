@@ -34,5 +34,9 @@ return {
 
 	-- Step 5: Portal: Thunder Bluff
 	-- {npc:5957} Birgitte Cranston · {area:2197} Pools of Vision · {area:1640} Spirit Rise · {zone:1456} Thunder Bluff · {spell:11420} Portal: Thunder Bluff · {spell:3566} Teleport: Thunder Bluff
-	["At 50 {npc:5957}, down in the {area:2197} under {area:1640} in {zone:1456}, teaches the last one, {spell:11420}, for 3 gold 20 silver. Use your {spell:3566} to get there."] = "Au niveau 50, {npc:5957}, en bas dans les {area:2197} sous la {area:1640} des {zone:1456}, enseigne le dernier, {spell:11420}, pour 3 po 20 pa. Utilisez votre {spell:3566} pour vous y rendre.",
+	-- was: ["At 50 {npc:5957}, down in the {area:2197} under {area:1640} in {zone:1456}, teaches the last one, {spell:11420}, for 3 gold 20 silver. Use your {spell:3566} to get there."] = "Au niveau 50, {npc:5957}, en bas dans les {area:2197} sous la {area:1640} des {zone:1456}, enseigne le dernier, {spell:11420}, pour 3 po 20 pa. Utilisez votre {spell:3566} pour vous y rendre."
+	["At 50 {npc:5957}, down in the {area:2197} under {area:1640} in {zone:1456}, teaches the last one, {spell:11420}, for 3 gold 20 silver. {spell:3566} gets there."] = "",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["At 50 {npc:5957}, down in the {area:2197} under {area:1640} in {zone:1456}, teaches the last one, {spell:11420}, for 3 gold 20 silver. Use your {spell:3566} to get there."] = "Au niveau 50, {npc:5957}, en bas dans les {area:2197} sous la {area:1640} des {zone:1456}, enseigne le dernier, {spell:11420}, pour 3 po 20 pa. Utilisez votre {spell:3566} pour vous y rendre.",
 }

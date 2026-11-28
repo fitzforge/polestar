@@ -53,16 +53,18 @@ why Scourgestones, Scholomance and Stratholme: the shoulder resistance enchants 
 
 step Argent Dawn Commission (Alliance)
   only Alliance
-  tip Argent Officer Pureheart stands in Chillwind Camp, in the south of the Western Plaguelands. The Argent Dawn starts at Neutral 200 for everyone. Wear the Commission trinket while you fight the Scourge: Scourgestones only drop while you wear it. Duke Nicholas Zverenhoff at Light's Hope Chapel gives the same Commission; you can only take one.
+  tip Argent Officer Pureheart stands in Chillwind Camp, in the south of the Western Plaguelands. The Argent Dawn starts at Neutral 200 for everyone. Scourgestones only drop while the Commission trinket is worn. Duke Nicholas Zverenhoff at Light's Hope Chapel gives the same Commission; only one can be taken.
   accept 5401
   turnin 5401
+  equip 12846
 
 step Argent Dawn Commission (Horde)
   only Horde
   zone Tirisfal Glades
-  tip Argent Officer Garush stands at the Bulwark, on the road from Tirisfal Glades into the Western Plaguelands. The Argent Dawn starts at Neutral 200 for everyone. Wear the Commission trinket while you fight the Scourge: Scourgestones only drop while you wear it. Duke Nicholas Zverenhoff at Light's Hope Chapel gives the same Commission; you can only take one.
+  tip Argent Officer Garush stands at the Bulwark, on the road from Tirisfal Glades into the Western Plaguelands. The Argent Dawn starts at Neutral 200 for everyone. Scourgestones only drop while the Commission trinket is worn. Duke Nicholas Zverenhoff at Light's Hope Chapel gives the same Commission; only one can be taken.
   accept 5405
   turnin 5405
+  equip 12846
 
 step Neutral to Friendly: Scourge of the Western Plaguelands
   zone Western Plaguelands

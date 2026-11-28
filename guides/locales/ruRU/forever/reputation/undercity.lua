@@ -34,7 +34,7 @@ return {
 	-- {area:154} Deathknell
 	["Around {area:154}"] = "Вокруг {area:154}",
 	-- {object:164662} Equipment Boxes · {quest:380} Night Web's Hollow · {npc:271961} Webbed Forsaken · {npc:1919} Samuel Fipps · {object:178090} Marla's Grave
-	["The {object:164662} are all around the village. {quest:380} is the mine north-west; the {npc:271961} hang inside. {npc:1919} waits at the ruined camp by the road north-east: bury his remains at {object:178090}, in the front row of the village graveyard."] = "{object:164662} расставлены по всей деревне. {quest:380} — это шахта к северо-западу; внутри висят {npc:271961}. {npc:1919} ждёт на разорённом лагере у дороги к северо-востоку: похороните его останки у {object:178090}, в первом ряду деревенского кладбища.",
+	["The {object:164662} are all around the village. {quest:380} is the mine to the north-west, with the {npc:271961} inside. {npc:1919} is at the ruined camp by the road to the north-east, and {object:178090} is in the front row of the village graveyard."] = "",
 	-- {npc:271961} Webbed Forsaken
 	["{npc:271961} freed"] = "{npc:271961} освобождены",
 	-- {object:178090} Marla's Grave · {item:16333} Samuel's Remains
@@ -62,8 +62,8 @@ return {
 	-- Step 9: Around Brill
 	-- {area:159} Brill
 	["Around {area:159}"] = "Вокруг {area:159}",
-	-- {item:286176} Executor's Motivator · {area:159} Brill · {quest:99141} Patience · {npc:1496} Deathguard Dillinger · {npc:251001} Deathguard Kristof · {npc:10666} Gordo · {npc:1525} Rotting Dead
-	["Use the {item:286176} on five Deathguards around {area:159}. For {quest:99141}, talk to {npc:1496} west of {area:159}, {npc:251001} at the waystation east of it and {npc:10666} on the road. The Rot Hide gnolls dig at the mass grave north of {area:159}. The {npc:1525} walk around the old bridge west of {area:159}; the dry branches lie under the trees there. Darkhounds roam everywhere."] = "Примените {item:286176} к пяти стражам смерти вокруг {area:159}. Для {quest:99141} поговорите с {npc:1496} западнее {area:159}, с {npc:251001} на придорожном посту к востоку от него и с {npc:10666} на дороге. Гноллы Гниющей Шкуры копаются в общей могиле к северу от {area:159}. {npc:1525} ходят вокруг старого моста западнее {area:159}; сухие ветки лежат под деревьями там. Темные гончие бродят повсюду.",
+	-- {area:159} Brill · {npc:10666} Gordo · {npc:1525} Rotting Dead
+	["The Deathguards are around {area:159}: Dillinger west of town, Kristof at the waystation east of it and {npc:10666} on the road. The Rot Hide gnolls dig at the mass grave north of {area:159}, the {npc:1525} walk around the old bridge west of it with the dry branches under the trees there, and Darkhounds roam everywhere."] = "",
 	-- {area:159} Brill
 	["Motivate 5 Deathguards: the Deathguards around {area:159}"] = "Подбодрите 5 стражей смерти: стражи смерти вокруг места {area:159}",
 
@@ -111,8 +111,8 @@ return {
 	["The level 55 to 60 quests pay in full. First the {area:152}: {npc:10879}, by the {faction:68}'s elevators, sends you there. Lady Sylvanas in the {object:36126} gives {quest:5961}, an introduction to {npc:11878}: {quest:6136}, his last quest here, needs it handed in."] = "Задания 55-60-го уровня дают полную репутацию. Сначала {area:152}: туда отправляет {npc:10879} у лифтов города {faction:68}. Леди Сильвана (локация: {object:36126}) дает задание {quest:5961} – рекомендацию к NPC {npc:11878}: без нее нельзя сдать задание {quest:6136}, его последнее здесь.",
 
 	-- Step 18: Bulwark: Scarlet Diversions
-	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {npc:10837} High Executor Derrington · {faction:68} Undercity · {item:12814} Flame in a Bottle · {area:200} Dalson's Tears · {area:199} Felstone Field · {item:12807} Scourge Banner
-	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain sends you against the Scourge cauldrons of the {zone:1422}: about 820 {faction:68} reputation. Take a {item:12814} from the box beside him; burn the command tent of the Scarlet camp between {area:200} and {area:199} and plant the {item:12807} beside it."] = "{area:152} — лагерь Отрекшихся на дороге из Тирисфаля в {zone:1422}. Цепочка {npc:10837} отправляет вас против котлов Плети в {zone:1422}: около 820 репутации {faction:68}. Возьмите {item:12814} из ящика рядом с ним; сожгите командный шатёр лагеря Алого ордена между {area:200} и {area:199} и водрузьте рядом {item:12807}.",
+	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {npc:10837} High Executor Derrington · {faction:68} Undercity
+	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain against the Scourge cauldrons is worth about 820 {faction:68} reputation."] = "",
 	-- {quest:5096} Scarlet Diversions
 	["{quest:5096}, +100 (level 53)"] = "{quest:5096}, +100 (53-й уровень)",
 	-- {object:176088} Scarlet Crusade Forward Camp (no name in this language: may be words)
@@ -127,8 +127,8 @@ return {
 	-- Step 20: Felstone Field and the Andorhal towers
 	-- {area:199} Felstone Field
 	["{area:199} and the Andorhal towers"] = "{area:199} и башни Андорхала",
-	-- {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field · {quest:5230} Return to the Bulwark · {item:12815} Beacon Torch
-	["{npc:11075} guards the cauldron at {area:199}. Click the cauldron after the kill to start {quest:5230}. Mark the four towers of Andorhal with the {item:12815} at their doors."] = "{npc:11075} охраняет котёл в {area:199}. Нажмите на котёл после убийства, чтобы начать {quest:5230}. Отметьте четыре башни Андорхала, применив {item:12815} у их дверей.",
+	-- {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field
+	["{npc:11075} guards the cauldron at {area:199}."] = "",
 	-- {object:176361} Scourge Cauldron
 	["the {object:176361}"] = "{object:176361}",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
@@ -177,9 +177,9 @@ return {
 	-- Step 29: Plaguebats, Quel'Lithien Lodge and Corin's Crossing
 	-- {area:2276} Quel'Lithien Lodge · {area:2264} Corin's Crossing
 	["Plaguebats, {area:2276} and {area:2264}"] = "Чумные нетопыри, {area:2276} и {area:2264}",
-	-- {area:2276} Quel'Lithien Lodge · {area:2268} Light's Hope Chapel · {item:15847} Quel'Thalas Registry · {area:2264} Corin's Crossing · {item:15447} Living Rot · {item:15454} Mortar and Pestle · {item:15448} Coagulated Rot
+	-- {area:2276} Quel'Lithien Lodge · {item:15847} Quel'Thalas Registry · {area:2268} Light's Hope Chapel · {area:2264} Corin's Crossing · {item:15447} Living Rot
 	-- plural, as words: Noxious Plaguebats = {npc:8601} Noxious Plaguebat · Monstrous Plaguebats = {npc:8602} Monstrous Plaguebat
-	["The Noxious Plaguebats fly in the south of the zone, the Monstrous Plaguebats further north-west. {area:2276} is north-west of {area:2268}; the {item:15847} lies inside. Do {area:2264} last: its Scourge drop {item:15447}, which lasts only 10 minutes. With 7 in your bags, use the {item:15454} at once for the {item:15448}."] = "Пагубные нетопыри летают на юге зоны, чудовищные — дальше на северо-запад. {area:2276} находится северо-западнее {area:2268}; внутри лежит {item:15847}. Делайте {area:2264} последним: с его Плети падает {item:15447}, который живёт всего 10 минут. Собрав 7 в сумку, сразу примените {item:15454} для {item:15448}.",
+	["Noxious Plaguebats fly in the south of the zone and Monstrous Plaguebats further north-west. {area:2276}, with the {item:15847} inside, is north-west of {area:2268}. The Scourge at {area:2264} drop {item:15447}, which lasts only 10 minutes."] = "",
 	-- {item:15448} Coagulated Rot · {item:15447} Living Rot · {item:15454} Mortar and Pestle
 	["{item:15448}: 7 {item:15447} and the {item:15454}"] = "{item:15448}: 7 {item:15447} и {item:15454}",
 
@@ -225,13 +225,14 @@ return {
 	-- {area:978} Zul'Farrak · {object:142715} Tablet of Theka
 	["{area:978}: the {object:142715}"] = "{area:978}: {object:142715}",
 	-- {area:978} Zul'Farrak · {zone:1446} Tanaris · {npc:7272} Theka the Martyr · {object:142715} Tablet of Theka
-	["{area:978} is a level 44 to 54 dungeon in northern {zone:1446}; a level 60 can clear the way alone, or bring a group. {npc:7272}, an elite troll, guards his tomb in the instance: kill him and read the {object:142715} there."] = "{area:978} — подземелье 44-54 уровней в северной части {zone:1446}; 60-й уровень может зачистить путь в одиночку или взять группу. {npc:7272}, элитный тролль, охраняет свою гробницу в подземелье: убейте его и прочитайте {object:142715} там.",
+	-- was: ["{area:978} is a level 44 to 54 dungeon in northern {zone:1446}; a level 60 can clear the way alone, or bring a group. {npc:7272}, an elite troll, guards his tomb in the instance: kill him and read the {object:142715} there."] = "{area:978} — подземелье 44-54 уровней в северной части {zone:1446}; 60-й уровень может зачистить путь в одиночку или взять группу. {npc:7272}, элитный тролль, охраняет свою гробницу в подземелье: убейте его и прочитайте {object:142715} там."
+	["{area:978} is a level 44 to 54 dungeon in northern {zone:1446}; a level 60 can clear the way alone, or bring a group. {npc:7272}, an elite troll, guards his tomb and the {object:142715} in the instance."] = "",
 	-- {object:142715} Tablet of Theka
 	["read the {object:142715}"] = "прочитайте {object:142715}",
 
 	-- Step 38: Shadra'Alor: Shadra
-	-- {item:9323} Gadrin's Parchment · {area:353} Shadra'Alor · {npc:2707} Shadra
-	["Read {item:9323} at the altar of {area:353} to call {npc:2707}, an elite level 55 spider: she drops her venom every time."] = "Прочитайте {item:9323} у алтаря {area:353}, чтобы призвать {npc:2707}, элитного паука 55-го уровня: она каждый раз роняет свой яд.",
+	-- {npc:2707} Shadra
+	["{npc:2707}, an elite level 55 spider, always drops her venom."] = "",
 	-- {item:9324} Shadra's Venom · {npc:2707} Shadra
 	["{item:9324}, from {npc:2707}"] = "{item:9324}, у персонажа {npc:2707}",
 
@@ -267,8 +268,15 @@ return {
 	-- ["Keep handing in {quest:7819} until {faction:68} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Продолжайте сдавать {quest:7819}, пока репутация ({faction:68}) не достигнет превознесения. {item:14047}: адепты Тьмы и темные маги (уровень 58-60) в зоне {zone:1423} или аукцион.",
 	-- ["Keep handing in {quest:7819}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Продолжайте сдавать {quest:7819}, по 20 шт. {item:14047}. {item:14047}: адепты Тьмы и темные маги (уровень 58-60) в зоне {zone:1423} или аукцион.",
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "Кентавры из племени Колкар (уровень 30-33) роняют его здесь. Также можно купить на аукционе.",
+	-- ["Read {item:9323} at the altar of {area:353} to call {npc:2707}, an elite level 55 spider: she drops her venom every time."] = "Прочитайте {item:9323} у алтаря {area:353}, чтобы призвать {npc:2707}, элитного паука 55-го уровня: она каждый раз роняет свой яд.",
+	-- ["The Noxious Plaguebats fly in the south of the zone, the Monstrous Plaguebats further north-west. {area:2276} is north-west of {area:2268}; the {item:15847} lies inside. Do {area:2264} last: its Scourge drop {item:15447}, which lasts only 10 minutes. With 7 in your bags, use the {item:15454} at once for the {item:15448}."] = "Пагубные нетопыри летают на юге зоны, чудовищные — дальше на северо-запад. {area:2276} находится северо-западнее {area:2268}; внутри лежит {item:15847}. Делайте {area:2264} последним: с его Плети падает {item:15447}, который живёт всего 10 минут. Собрав 7 в сумку, сразу примените {item:15454} для {item:15448}.",
 	-- ["The Plaguelands' level 55-60 quests and {item:14047} to Exalted, with Tirisfal's old quests as an optional extra."] = "Задания Чумных земель для 55-60 уровня и {item:14047} — до превознесения; старые задания Тирисфальских лесов — по желанию.",
+	-- ["The {object:164662} are all around the village. {quest:380} is the mine north-west; the {npc:271961} hang inside. {npc:1919} waits at the ruined camp by the road north-east: bury his remains at {object:178090}, in the front row of the village graveyard."] = "{object:164662} расставлены по всей деревне. {quest:380} — это шахта к северо-западу; внутри висят {npc:271961}. {npc:1919} ждёт на разорённом лагере у дороги к северо-востоку: похороните его останки у {object:178090}, в первом ряду деревенского кладбища.",
+	-- ["Use the {item:286176} on five Deathguards around {area:159}. For {quest:99141}, talk to {npc:1496} west of {area:159}, {npc:251001} at the waystation east of it and {npc:10666} on the road. The Rot Hide gnolls dig at the mass grave north of {area:159}. The {npc:1525} walk around the old bridge west of {area:159}; the dry branches lie under the trees there. Darkhounds roam everywhere."] = "Примените {item:286176} к пяти стражам смерти вокруг {area:159}. Для {quest:99141} поговорите с {npc:1496} западнее {area:159}, с {npc:251001} на придорожном посту к востоку от него и с {npc:10666} на дороге. Гноллы Гниющей Шкуры копаются в общей могиле к северу от {area:159}. {npc:1525} ходят вокруг старого моста западнее {area:159}; сухие ветки лежат под деревьями там. Темные гончие бродят повсюду.",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "Головорезы Торговой компании в месте {area:381} (уровень 16-17) роняют ее здесь. Также можно купить на аукционе.",
+	-- ["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain sends you against the Scourge cauldrons of the {zone:1422}: about 820 {faction:68} reputation. Take a {item:12814} from the box beside him; burn the command tent of the Scarlet camp between {area:200} and {area:199} and plant the {item:12807} beside it."] = "{area:152} — лагерь Отрекшихся на дороге из Тирисфаля в {zone:1422}. Цепочка {npc:10837} отправляет вас против котлов Плети в {zone:1422}: около 820 репутации {faction:68}. Возьмите {item:12814} из ящика рядом с ним; сожгите командный шатёр лагеря Алого ордена между {area:200} и {area:199} и водрузьте рядом {item:12807}.",
+	-- ["{area:978} is a level 44 to 54 dungeon in northern {zone:1446}; a level 60 can clear the way alone, or bring a group. {npc:7272}, an elite troll, guards his tomb in the instance: kill him and read the {object:142715} there."] = "{area:978} — подземелье 44-54 уровней в северной части {zone:1446}; 60-й уровень может зачистить путь в одиночку или взять группу. {npc:7272}, элитный тролль, охраняет свою гробницу в подземелье: убейте его и прочитайте {object:142715} там.",
+	-- ["{npc:11075} guards the cauldron at {area:199}. Click the cauldron after the kill to start {quest:5230}. Mark the four towers of Andorhal with the {item:12815} at their doors."] = "{npc:11075} охраняет котёл в {area:199}. Нажмите на котёл после убийства, чтобы начать {quest:5230}. Отметьте четыре башни Андорхала, применив {item:12815} у их дверей.",
 	-- ["{npc:14729} takes cloth for {faction:68} in {faction:68}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7819} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14729} принимает ткань для фракции {faction:68} (локация: {faction:68}). Первые пожертвования шерсти, шелкового материала, магической ткани и предмета {item:14047} (по 60 штук) делаются один раз и дают больше всего репутации за единицу ткани; после них {quest:7819} повторяется до превознесения. Превознесение у города другой расы позволяет покупать ее транспорт. Бонус наследия Forever «Дипломат» увеличивает получаемую репутацию.",
 	-- ["{npc:14729}: {item:14047} delivered"] = "{npc:14729}: {item:14047} сдан",
 	-- ["{quest:7819} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7819}: 20 шт. {item:14047} за раз, повторяется сколько угодно. Приносите {item:14047} партиями по 20 и сдавайте все сразу, раз за разом. {item:14047}: адепты Тьмы и темные маги (уровень 58-60) в зоне {zone:1423} или аукцион.",

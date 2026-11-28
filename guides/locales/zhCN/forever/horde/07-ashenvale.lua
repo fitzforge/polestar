@@ -33,8 +33,9 @@ return {
 	["The Sapphires are blue crystals on the walls of the tunnels leading to the {area:2797} portal, underground and outside the instance: swim down from the pit, under the wall, into the cave. The satyrs and naga in the tunnels are elite: grouping up is advised. The crystals respawn quickly, so there is no need to go deep."] = "阿库麦尔蓝宝石是通往{area:2797}传送门的坑道墙壁上的蓝色水晶，位于地下、副本之外：从坑里潜下去，从墙下游进洞穴。坑道里的萨特和纳迦是精英：建议组队。水晶刷新很快，不用深入。",
 
 	-- Step 6: Blackfathom Deeps
-	-- {area:2797} Blackfathom Deeps · {object:177964} Fathom Stone · {item:16762} Fathom Core · {quest:6922} Baron Aquanis · {item:16782} Strange Water Globe · {npc:12736} Je'neu Sancrea · {item:16790} Damp Note · {npc:4787} Argent Guard Thaelrid · {npc:4832} Twilight Lord Kelris · {npc:9087} Bashana Runetotem · {zone:1456} Thunder Bluff · {area:1639} Elder Rise
-	["{area:2797} is a dungeon for a group of five, about levels 22 to 30, and a full run takes about an hour. Its portal is a little further along the tunnels you are in, past the Sapphires.\nInside: the {object:177964} lies under the water of the Moonshrine Ruins' pool, beneath the walkway (clear the crabs first): open it for the {item:16762}, and {quest:6922} comes; open the {item:16782} he drops for a quest for {npc:12736}. The Tide Priestesses sometimes drop a {item:16790}: open it for another quest for {npc:12736}. {npc:4787}, by a campfire in an underwater side room off Ghamoo-ra's room, offers Blackfathom Villainy ({npc:4832}' head, for {npc:9087} on {zone:1456}'s {area:1639})."] = "{area:2797}是适合22-30级左右五人小队的地下城，完整打一次约需一小时。传送门就在你所在的隧道再往前一点，经过蓝宝石之后。\n副本内：{object:177964}在月神圣地废墟水池的水下，走道下方（先清掉螃蟹）：打开它获得{item:16762}，{quest:6922}随即出现；打开他掉落的{item:16782}可获得一个交给{npc:12736}的任务。潮汐女祭司有时会掉落{item:16790}：打开它可获得另一个交给{npc:12736}的任务。{npc:4787}在加摩拉房间旁一个水下侧室的营火边，提供“黑暗深渊的恶行”（{npc:4832}的头颅，交给{zone:1456}{area:1639}的{npc:9087}）。",
+	-- {area:2797} Blackfathom Deeps · {object:177964} Fathom Stone · {item:16762} Fathom Core · {quest:6922} Baron Aquanis · {item:16782} Strange Water Globe · {item:16790} Damp Note · {npc:12736} Je'neu Sancrea · {npc:4787} Argent Guard Thaelrid · {npc:4832} Twilight Lord Kelris · {npc:9087} Bashana Runetotem · {zone:1456} Thunder Bluff · {area:1639} Elder Rise
+	-- was: ["{area:2797} is a dungeon for a group of five, about levels 22 to 30, and a full run takes about an hour. Its portal is a little further along the tunnels you are in, past the Sapphires.\nInside: the {object:177964} lies under the water of the Moonshrine Ruins' pool, beneath the walkway (clear the crabs first): open it for the {item:16762}, and {quest:6922} comes; open the {item:16782} he drops for a quest for {npc:12736}. The Tide Priestesses sometimes drop a {item:16790}: open it for another quest for {npc:12736}. {npc:4787}, by a campfire in an underwater side room off Ghamoo-ra's room, offers Blackfathom Villainy ({npc:4832}' head, for {npc:9087} on {zone:1456}'s {area:1639})."] = "{area:2797}是适合22-30级左右五人小队的地下城，完整打一次约需一小时。传送门就在你所在的隧道再往前一点，经过蓝宝石之后。\n副本内：{object:177964}在月神圣地废墟水池的水下，走道下方（先清掉螃蟹）：打开它获得{item:16762}，{quest:6922}随即出现；打开他掉落的{item:16782}可获得一个交给{npc:12736}的任务。潮汐女祭司有时会掉落{item:16790}：打开它可获得另一个交给{npc:12736}的任务。{npc:4787}在加摩拉房间旁一个水下侧室的营火边，提供“黑暗深渊的恶行”（{npc:4832}的头颅，交给{zone:1456}{area:1639}的{npc:9087}）。"
+	["{area:2797} is a dungeon for a group of five, about levels 22 to 30, and a full run takes about an hour. Its portal is a little further along the tunnels you are in, past the Sapphires.\nInside, the {object:177964} lies under the water of the Moonshrine Ruins' pool, beneath the walkway, among crabs, and opening it for the {item:16762} brings {quest:6922}. His {item:16782} and the {item:16790} the Tide Priestesses sometimes drop each start a quest for {npc:12736}. {npc:4787}, by a campfire in an underwater side room off Ghamoo-ra's room, offers Blackfathom Villainy ({npc:4832}' head, for {npc:9087} on {zone:1456}'s {area:1639})."] = "",
 	-- {quest:6921} Amongst the Ruins · {item:16762} Fathom Core · {object:177964} Fathom Stone
 	["{quest:6921}: the {item:16762}, from the {object:177964}"] = "{quest:6921}：{item:16762}，来自{object:177964}",
 
@@ -67,8 +68,8 @@ return {
 	-- Step 14: Ruins of Stardust fountain
 	-- {area:418} Ruins of Stardust
 	["{area:418} fountain"] = "{area:418}的喷泉",
-	-- {area:418} Ruins of Stardust · {npc:12678} Ursangous · {item:7767} Empty Blue Waterskin
-	["The fountain stands in the middle of the {area:418}, where {npc:12678} roams: use the {item:7767} there."] = "喷泉在{area:418}中央，{npc:12678}在那一带游荡：在那里使用{item:7767}。",
+	-- {npc:12678} Ursangous · {area:418} Ruins of Stardust
+	["{npc:12678} roams the {area:418}."] = "",
 
 	-- Step 15: Ursangous
 	-- {area:415} Astranaar · {npc:12678} Ursangous · {area:418} Ruins of Stardust · {area:421} Mystral Lake
@@ -174,9 +175,8 @@ return {
 	-- Step 45: Gloomrise: kill these as you meet them
 	-- {area:17044} Gloomrise
 	["{area:17044}: kill these as you meet them"] = "{area:17044}：沿途遇到就击杀",
-	-- {area:17044} Gloomrise · {npc:264074} Mazu'kon · {item:273015} Toxin Extractor · {item:273181} Crystalline Silk · {npc:264082} Broodmother Valraxx · {quest:96261} The Broodmother · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
-	-- plural, as words: Gnawed Corpses = {npc:264096} Gnawed Corpse
-	["North of the camp, spiders overrun the burial ground at {area:17044}. Use {npc:264074}'s {item:273015} on the Gnawed Corpses; the Spinners drop the {item:273181}. {npc:264082} (30, elite) sits at the north end: leave her unless you do {quest:96261} with a group; her {item:273658} starts {quest:96294}."] = "在营地北边，蜘蛛占据了{area:17044}的墓地。对被啃咬的尸体使用{npc:264074}的{item:273015}；那里的蜘蛛掉落{item:273181}。{npc:264082}（30级，精英）在北端：除非组队做{quest:96261}，否则别惹她；她的{item:273658}可以开始{quest:96294}。",
+	-- {npc:264082} Broodmother Valraxx · {area:17044} Gloomrise · {quest:96261} The Broodmother · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
+	["{npc:264082} (30, elite) at the north end of {area:17044} is for a group doing {quest:96261}, and her {item:273658} starts {quest:96294}."] = "",
 	-- {item:273181} Crystalline Silk
 	-- plural, as words: Gloomrise Spinners = {npc:264081} Gloomrise Spinner
 	["{item:273181}, from Gloomrise Spinners"] = "{item:273181}，从暮升织网者获取",
@@ -368,7 +368,7 @@ return {
 
 	-- Step 81: Hypercapacitor Gizmo
 	-- {npc:10992} Enraged Panther
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone."] = "这些都是精英怪：建议组队，找人一起完成。{npc:10992}是30级精英：大多数职业到32级可以单独击败，但你可能仍需要帮助。独自一人就跳过。",
+	["The {npc:10992} is a level 30 elite. Most classes can solo it at level 32, but some may need a group."] = "",
 
 	-- Step 82: Whitereach Post
 	-- {npc:10720} Galak Assassin · {npc:10638} Kanati Greycloud
@@ -448,6 +448,7 @@ return {
 	-- ["Level 29"] = "29级",
 	-- ["Level 29.49"] = "等级 29.49",
 	-- ["Naga brazier"] = "纳迦火盆",
+	-- ["North of the camp, spiders overrun the burial ground at {area:17044}. Use {npc:264074}'s {item:273015} on the Gnawed Corpses; the Spinners drop the {item:273181}. {npc:264082} (30, elite) sits at the north end: leave her unless you do {quest:96261} with a group; her {item:273658} starts {quest:96294}."] = "在营地北边，蜘蛛占据了{area:17044}的墓地。对被啃咬的尸体使用{npc:264074}的{item:273015}；那里的蜘蛛掉落{item:273181}。{npc:264082}（30级，精英）在北端：除非组队做{quest:96261}，否则别惹她；她的{item:273658}可以开始{quest:96294}。",
 	-- ["North up the road to {area:431} and {area:428} beside it."] = "沿道路向北前往{area:431}和旁边的{area:428}。",
 	-- ["On the road south to the {area:485}, turn east into the {area:359} dig. {npc:3421} hides at its south edge. {object:3646} stands on the bottom floor of the dwarves' fortress, beside {npc:3414} (30) and his Officers (26): pull them to you one at a time."] = "沿道路向南前往{area:485}，途中向东转入{area:359}挖掘场。{npc:3421}藏在南侧边缘。{object:3646}在矮人要塞的底层，旁边有{npc:3414}（30级）和他的军官（26级）：每次只引一个出来。",
 	-- ["On the way back north-east to Splintertree: {npc:12676} prowls the woods south-east of the Warsong lumber camp."] = "在向东北返回碎木岗哨的路上：{npc:12676}在战歌伐木营地东南的树林里徘徊。",
@@ -461,12 +462,14 @@ return {
 	-- ["South of Darkcloud, the harpies of {area:487}. {npc:4490} (31) walks among them: thin out the harpies around her before you pull her. The Screeching Harpies, Roguefeathers and Windcallers there are {npc:4877}'s; her {quest:98069} lie on the ground along the foot of the cliff and in the cave up on top."] = "黑云峰南侧是 {area:487} 的鹰身人。{npc:4490}（31 级）在它们之间走动：引她之前，先清掉周围的鹰身人。那里的尖啸的鹰身人、尖啸的游荡者和尖啸的唤风者是 {npc:4877} 要你击杀的目标；她的 {quest:98069} 散落在崖脚沿线的地面和崖顶洞穴内。",
 	-- ["Take a lift down from {zone:1456}. The Earthen Ring camp stands north of the bluffs: {npc:264074}, {npc:264072} and {npc:259118}."] = "从{zone:1456}乘升降梯下去。大地之环的营地在高崖北边：{npc:264074}、{npc:264072}和{npc:259118}。",
 	-- ["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks between the camps: kill him when you meet him, his note starts a quest for {area:2237}."] = "加拉克半人马的营地遍布乱风岗北边的峡谷；每个营地都有加拉克斥候、加拉克争斗者和加拉克逐风者。一个落单的{npc:10617}在营地之间走动：遇到就杀死他，他的信件可以开始一个{area:2237}的任务。",
+	-- ["The fountain stands in the middle of the {area:418}, where {npc:12678} roams: use the {item:7767} there."] = "喷泉在{area:418}中央，{npc:12678}在那一带游荡：在那里使用{item:7767}。",
 	-- ["The fountain stands in the middle of the {area:418}: use the {item:7767} there."] = "喷泉在{area:418}中央：在那里使用{item:7767}。",
 	-- ["The next guide flies on from here to the Crossroads and {zone:1454}."] = "下一篇指南会从这里飞往十字路口和 {zone:1454}。",
 	-- ["The next guide flies on from here to {zone:1454}."] = "下一个指南从这里飞往{zone:1454}。",
 	-- ["The next guide opens with Korran's The Swarm Grows at the Crossroads, offered from level 29. Short of 29? The Pesterhide Snarlers (28-29) prowl the canyon floor just north-west of {area:484}: kill them until level 29. Or, with a group, run the {area:2797} dungeon instead."] = "下一个指南从十字路口科兰的“疯狂的虫群”开始，29级起可接。不到29级？{area:484}西北边的峡谷底部有杂毛嚎叫者（28-29级）游荡：杀到29级为止。或者组队去打{area:2797}地下城。",
 	-- ["The salt flats"] = "盐滩",
 	-- ["The {area:1718}"] = "{area:1718}",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone."] = "这些都是精英怪：建议组队，找人一起完成。{npc:10992}是30级精英：大多数职业到32级可以单独击败，但你可能仍需要帮助。独自一人就跳过。",
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "这些都是精英怪：建议组队，找人一起完成。{npc:10992} 是 30 级精英：大多数职业到 32 级可以单独击败，但你可能仍需要帮助。独自一人就跳过：路线会安排刷怪补回这部分经验。",
 	-- ["Thistlefur Hold"] = "蓟皮熊怪的巢穴",
 	-- ["Tideress"] = "泰德雷斯",
@@ -478,6 +481,7 @@ return {
 	-- ["grind on the Grimtotem below {area:2097}"] = "击杀 {area:2097} 下方的恐怖图腾成员刷经验",
 	-- ["grind on {npc:4100}"] = "击杀{npc:4100}刷经验",
 	-- ["grind on {npc:4249}"] = "击杀{npc:4249}刷经验",
+	-- ["{area:2797} is a dungeon for a group of five, about levels 22 to 30, and a full run takes about an hour. Its portal is a little further along the tunnels you are in, past the Sapphires.\nInside: the {object:177964} lies under the water of the Moonshrine Ruins' pool, beneath the walkway (clear the crabs first): open it for the {item:16762}, and {quest:6922} comes; open the {item:16782} he drops for a quest for {npc:12736}. The Tide Priestesses sometimes drop a {item:16790}: open it for another quest for {npc:12736}. {npc:4787}, by a campfire in an underwater side room off Ghamoo-ra's room, offers Blackfathom Villainy ({npc:4832}' head, for {npc:9087} on {zone:1456}'s {area:1639})."] = "{area:2797}是适合22-30级左右五人小队的地下城，完整打一次约需一小时。传送门就在你所在的隧道再往前一点，经过蓝宝石之后。\n副本内：{object:177964}在月神圣地废墟水池的水下，走道下方（先清掉螃蟹）：打开它获得{item:16762}，{quest:6922}随即出现；打开他掉落的{item:16782}可获得一个交给{npc:12736}的任务。潮汐女祭司有时会掉落{item:16790}：打开它可获得另一个交给{npc:12736}的任务。{npc:4787}在加摩拉房间旁一个水下侧室的营火边，提供“黑暗深渊的恶行”（{npc:4832}的头颅，交给{zone:1456}{area:1639}的{npc:9087}）。",
 	-- ["{area:483}: kill these as you meet them"] = "{area:483}：沿途遇到就击杀",
 	-- ["{area:485} detour warning: the arrow may miss the path up {area:2097}. If you are on the canyon floor, follow the path and rope bridges up {area:2097}. {npc:10646} is held captive beside {npc:10896} (29): clear the guards and {npc:10896} first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "{area:485}绕路提醒：箭头可能找不到通往{area:2097}的小路。如果你在峡谷底部，沿小路和绳桥爬上{area:2097}。{npc:10646}被囚禁在{npc:10896}（29级）旁边：先清掉守卫和{npc:10896}，再救出她并在下山路上保护她；途中会有恐怖图腾伏击者袭击你。",
 	-- ["{area:485}, down into {zone:1441}"] = "经{area:485}下到{zone:1441}",

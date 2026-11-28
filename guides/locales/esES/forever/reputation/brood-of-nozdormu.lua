@@ -123,9 +123,10 @@ return {
 	-- Step 21: Draconic for Dummies, Volume II
 	-- {quest:8597} Draconic for Dummies
 	["{quest:8597}, Volume II"] = "{quest:8597}, volumen II",
-	-- {quest:8620} The Only Prescription · {quest:8597} Draconic for Dummies · {npc:15552} Doctor Weavil · {area:2079} Alcaz Island · {zone:1419} Blasted Lands · {area:2255} Everlook · {zone:1458} Undercity · {npc:11811} Narain Soothfancy
+	-- {quest:8620} The Only Prescription · {quest:8597} Draconic for Dummies · {npc:15552} Doctor Weavil · {area:2079} Alcaz Island · {zone:1419} Blasted Lands · {area:2255} Everlook · {zone:1458} Undercity
 	-- plural, as words: Felguard Elites = {npc:8717} Felguard Elite · Doomguard Commanders = {npc:12396} Doomguard Commander
-	["{quest:8620} needs the eight chapters of {quest:8597}, Volume II: from {npc:15552} in his house on {area:2079} (a level 63 elite with guards, raid), the Felguard Elites, Doomguard Commanders and Dreadlords of the {zone:1419}, the Hederine south of {area:2255}, and a book in the {zone:1458}. {npc:11811} hands out the binding when you accept."] = "{quest:8620} necesita los ocho capítulos de {quest:8597}, volumen II: de {npc:15552} en su casa de {area:2079} (un élite de nivel 63 con guardias, incursión), los élites guardia vil, los comandantes guardia apocalíptico y los señores del Terror de {zone:1419}, las Hederine al sur de {area:2255} y un libro en {zone:1458}. {npc:11811} te da la encuadernación al aceptar.",
+	-- was: ["{quest:8620} needs the eight chapters of {quest:8597}, Volume II: from {npc:15552} in his house on {area:2079} (a level 63 elite with guards, raid), the Felguard Elites, Doomguard Commanders and Dreadlords of the {zone:1419}, the Hederine south of {area:2255}, and a book in the {zone:1458}. {npc:11811} hands out the binding when you accept."] = "{quest:8620} necesita los ocho capítulos de {quest:8597}, volumen II: de {npc:15552} en su casa de {area:2079} (un élite de nivel 63 con guardias, incursión), los élites guardia vil, los comandantes guardia apocalíptico y los señores del Terror de {zone:1419}, las Hederine al sur de {area:2255} y un libro en {zone:1458}. {npc:11811} te da la encuadernación al aceptar."
+	["{quest:8620} needs the eight chapters of {quest:8597}, Volume II. They come from {npc:15552} in his house on {area:2079} (a level 63 elite with guards, raid content), the Felguard Elites, Doomguard Commanders and Dreadlords of the {zone:1419}, the Hederine south of {area:2255}, and a book in the {zone:1458}."] = "",
 	-- {quest:8597} Draconic for Dummies
 	["{quest:8597}: Volume II"] = "{quest:8597}: volumen II",
 
@@ -257,4 +258,7 @@ return {
 	["At Exalted, {npc:15192} gives the last ring of your path: The Protector of Kalimdor, The Qiraji Conqueror or The Grand Invoker. Bring the Revered ring; 100 reputation."] = "En Exaltado, {npc:15192} da el último anillo de tu camino: el Protector de Kalimdor, el Conquistador qiraji o el Gran Convocador. Lleva el anillo de Reverenciado; 100 de reputación.",
 	-- {npc:15192} Anachronos
 	["{npc:15192}: the Exalted ring quest of your path"] = "{npc:15192}: la misión del anillo de Exaltado de tu camino",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{quest:8620} needs the eight chapters of {quest:8597}, Volume II: from {npc:15552} in his house on {area:2079} (a level 63 elite with guards, raid), the Felguard Elites, Doomguard Commanders and Dreadlords of the {zone:1419}, the Hederine south of {area:2255}, and a book in the {zone:1458}. {npc:11811} hands out the binding when you accept."] = "{quest:8620} necesita los ocho capítulos de {quest:8597}, volumen II: de {npc:15552} en su casa de {area:2079} (un élite de nivel 63 con guardias, incursión), los élites guardia vil, los comandantes guardia apocalíptico y los señores del Terror de {zone:1419}, las Hederine al sur de {area:2255} y un libro en {zone:1458}. {npc:11811} te da la encuadernación al aceptar.",
 }

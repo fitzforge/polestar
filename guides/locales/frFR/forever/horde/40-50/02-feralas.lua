@@ -127,7 +127,7 @@ return {
 	-- Step 26: Unfinished Wild Shore errands
 	-- {area:43} Wild Shore
 	["Unfinished {area:43} errands"] = "",
-	["If the town rewards just brought you to 42 and you still owe pirate work, use the shore tents, not the ships."] = "",
+	["At 42 with pirate work still owed, the shore tents are the place, not the ships."] = "",
 
 	-- Step 30: Fly to Grom'gol
 	-- {area:35} Booty Bay

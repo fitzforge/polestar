@@ -113,7 +113,7 @@ return {
 	-- {item:11000} Shadowforge Key
 	["The {item:11000}"] = "{item:11000}",
 	-- {npc:12944} Lokhtos Darkbargainer · {npc:8888} Franclorn Forgewright · {area:1445} Blackrock Mountain · {npc:9056} Fineous Darkvire · {area:1584} Blackrock Depths · {item:10999} Ironfel · {item:11000} Shadowforge Key
-	["Optional, and it saves every later trip to {npc:12944} the Ring of Law fight. {npc:8888} is a ghost in the middle of {area:1445}: only the dead see him, so die in the mountain and walk to his tomb as a spirit. He sends you after {npc:9056} in {area:1584}, who always drops {item:10999}; place it on {npc:8888}'s monument in the Shrine of Thaurissan and the {item:11000} falls out. {area:1584} is a five-player dungeon: group up."] = "",
+	["Optional, and it saves every later trip to {npc:12944} the Ring of Law fight. {npc:8888} is a ghost at his tomb in the middle of {area:1445} whom only the dead see. He sends you after {npc:9056} in {area:1584}, who always drops {item:10999}, and {npc:8888}'s monument in the Shrine of Thaurissan takes it and gives the {item:11000}. {area:1584} is a five-player dungeon."] = "",
 	-- {npc:8888} Franclorn Forgewright
 	["{npc:8888}, as a ghost"] = "",
 	-- {item:10999} Ironfel · {npc:9056} Fineous Darkvire · {area:1584} Blackrock Depths

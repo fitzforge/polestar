@@ -17,7 +17,8 @@ return {
 
 	-- Step 2: Agent Kearnen
 	-- {npc:7053} Klaven Mortwake · {zone:1436} Westfall · {zone:1431} Duskwood · {item:8046} Kearnen's Journal
-	["Kearnen hides stealthed against the west side of a big tree with two small trees in front of it, just north of {npc:7053}'s Defias tower in the far east of {zone:1436}, by the {zone:1431} border. Read {item:8046} for the tower's layout if you like."] = "凱爾南潛行躲在一棵大樹西側，樹前有兩棵小樹，就在{zone:1436}最東邊{npc:7053}的迪菲亞塔樓以北、靠近{zone:1431}邊界的地方。想看塔樓佈局的話，讀{item:8046}。",
+	-- was: ["Kearnen hides stealthed against the west side of a big tree with two small trees in front of it, just north of {npc:7053}'s Defias tower in the far east of {zone:1436}, by the {zone:1431} border. Read {item:8046} for the tower's layout if you like."] = "凱爾南潛行躲在一棵大樹西側，樹前有兩棵小樹，就在{zone:1436}最東邊{npc:7053}的迪菲亞塔樓以北、靠近{zone:1431}邊界的地方。想看塔樓佈局的話，讀{item:8046}。"
+	["Kearnen hides stealthed against the west side of a big tree with two small trees in front of it, just north of {npc:7053}'s Defias tower in the far east of {zone:1436}, by the {zone:1431} border. {item:8046} describes the tower's layout."] = "",
 
 	-- Step 3: Klaven's Tower, with a group
 	-- {quest:2359} Klaven's Tower
@@ -39,7 +40,7 @@ return {
 
 	-- Step 5: Master Mathias Shaw
 	-- {zone:1453} Stormwind · {item:7676} Thistle Tea · {spell:8681} Instant Poison · {item:2928} Dust of Decay · {item:3371} Empty Vial · {npc:1325} Jasper Fel · {npc:1326} Sloan McCoy · {object:2100} Old Town
-	["Head north through Elwynn to {zone:1453}; Mathias Shaw is upstairs in SI:7. He teaches Poisons and gives you the {item:7676} recipe. Poisons are made, not bought: each batch of {spell:8681} takes a {item:2928} and an {item:3371}, which {npc:1325} and {npc:1326} sell in {object:2100} next to SI:7. Buy a stack of each, open Poisons from your spellbook to make them, then use a poison on your weapon."] = "穿過艾爾文森林往北前往{zone:1453}；馬迪亞斯·肖爾在軍情七處樓上。他會教你毒藥，並給你{item:7676}配方。毒藥要自己製作，不能直接購買：每批{spell:8681}需要一份{item:2928}和一個{item:3371}，軍情七處旁{object:2100}的{npc:1325}和{npc:1326}都有出售。各買一組，從法術書中開啟毒藥介面製作，然後把毒藥塗在武器上。",
+	["Mathias Shaw is upstairs in SI:7, north through Elwynn in {zone:1453}. He teaches Poisons and gives the {item:7676} recipe. Poisons are made, not bought: each batch of {spell:8681} takes a {item:2928} and an {item:3371}, which {npc:1325} and {npc:1326} sell in {object:2100} next to SI:7. A poison from the Poisons window then goes on the weapon."] = "",
 	-- {npc:332} Master Mathias Shaw
 	["{npc:332}: Poisons"] = "{npc:332}：毒藥",
 
@@ -62,6 +63,8 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["/lay down"] = "/lay down",
 	-- ["Everything is in {zone:1453}: the Gumps sell {item:3421}, the {item:8431} lies in the city, and the nearest vendors sell a {item:3372} and a {item:4371}."] = "全部都在{zone:1453}：加姆一家販售{item:3421}，{item:8431}就在城裡，最近的商人販售{item:3372}和{item:4371}。",
+	-- ["Head north through Elwynn to {zone:1453}; Mathias Shaw is upstairs in SI:7. He teaches Poisons and gives you the {item:7676} recipe. Poisons are made, not bought: each batch of {spell:8681} takes a {item:2928} and an {item:3371}, which {npc:1325} and {npc:1326} sell in {object:2100} next to SI:7. Buy a stack of each, open Poisons from your spellbook to make them, then use a poison on your weapon."] = "穿過艾爾文森林往北前往{zone:1453}；馬迪亞斯·肖爾在軍情七處樓上。他會教你毒藥，並給你{item:7676}配方。毒藥要自己製作，不能直接購買：每批{spell:8681}需要一份{item:2928}和一個{item:3371}，軍情七處旁{object:2100}的{npc:1325}和{npc:1326}都有出售。各買一組，從法術書中開啟毒藥介面製作，然後把毒藥塗在武器上。",
+	-- ["Kearnen hides stealthed against the west side of a big tree with two small trees in front of it, just north of {npc:7053}'s Defias tower in the far east of {zone:1436}, by the {zone:1431} border. Read {item:8046} for the tower's layout if you like."] = "凱爾南潛行躲在一棵大樹西側，樹前有兩棵小樹，就在{zone:1436}最東邊{npc:7053}的迪菲亞塔樓以北、靠近{zone:1431}邊界的地方。想看塔樓佈局的話，讀{item:8046}。",
 	-- ["Ride north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "向北騎過艾爾文森林前往{zone:1453}；馬迪亞斯·肖爾在{object:2100}的軍情七處。",
 	-- ["{npc:7024} watches {npc:7053}'s tower from the hills in the far east of {zone:1436}, by the {zone:1431} border. The {npc:7051} (level 23) guarding the tower carries its key; Klaven's journal is in the chest at the top."] = "{npc:7024}從{zone:1436}最東邊、靠近{zone:1431}邊界的山丘上監視{npc:7053}的塔。守衛塔樓的{npc:7051}（23級）帶著鑰匙；克拉文的日記在塔頂的箱子裡。",
 	-- ["{npc:7207} works in the cellar of SI:7, the Barracks. Type /lay down beside him to be examined."] = "{npc:7207}在軍情七處兵營的地下室工作。在他旁邊輸入 /lay down 接受檢查。",

@@ -45,7 +45,7 @@ step Level 48.27
   level 48.27 grind 5839               -- grind on Dark Iron Geologist
 
 step Dorius Stonetender
-  tip Dorius stands by the road beside the Grimesilt Dig Site. Escort him north-east to Dustfire Valley and keep him alive; when it is over, read the Singed Letter he leaves on the road.
+  tip Dorius stands by the road beside the Grimesilt Dig Site. The escort runs north-east to Dustfire Valley, and the Singed Letter he leaves on the road takes the hand-in.
   accept 3367
   complete 3367
   turnin 3367                         -- Singed Letter
@@ -223,10 +223,14 @@ step Velarok Windblade
 
 step Sentry Braziers
   when onquest 3463
-  tip Carry the Torch of Retribution south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east.
+  tip The four Sentry Braziers sit along the rim of the Cauldron, from the south-west round to the south-east.
+  use 10515 quest 3463.4 @33.3,54.5 map 1427
   interact 149032 quest 3463.4 @33.3,54.5 map 1427
+  use 10515 quest 3463.1 @35.7,60.7 map 1427
   interact 149025 quest 3463.1 @35.7,60.7 map 1427
+  use 10515 quest 3463.2 @44.0,60.9 map 1427
   interact 149030 quest 3463.2 @44.0,60.9 map 1427
+  use 10515 quest 3463.3 @50.1,54.8 map 1427
   interact 149031 quest 3463.3 @50.1,54.8 map 1427
 
 step Level 48.98

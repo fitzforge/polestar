@@ -59,7 +59,7 @@ return {
 	-- {object:61934} Brazier of the Dormant Flame
 	["The {object:61934}"] = "{object:61934}",
 	-- {object:61934} Brazier of the Dormant Flame · {item:277329} Torch of Eternal Flame
-	["Click the {object:61934} atop the shrine with the torch in your bags to place the ember, then click it again for the next quest: the lit {item:277329}."] = "Klicke oben auf dem Schrein mit der Fackel in deinen Taschen auf {object:61934}, um die Glut abzulegen, und klicke dann noch einmal darauf für die nächste Quest: die entzündete {item:277329}.",
+	["The {object:61934} is atop the shrine and takes the ember with the torch in the bags, and a second click gives the next quest: the lit {item:277329}."] = "",
 
 	-- Step 10: Bruegs Kindleborn
 	-- {npc:257597} Bruegs Kindleborn · {item:5176} Fire Totem
@@ -68,6 +68,7 @@ return {
 	["{npc:257597}: {spell:3599}, your {item:5176} and the {item:263412}"] = "{npc:257597}: {spell:3599}, dein {item:5176} und {item:263412}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Click the {object:61934} atop the shrine with the torch in your bags to place the ember, then click it again for the next quest: the lit {item:277329}."] = "Klicke oben auf dem Schrein mit der Fackel in deinen Taschen auf {object:61934}, um die Glut abzulegen, und klicke dann noch einmal darauf für die nächste Quest: die entzündete {item:277329}.",
 	-- ["Climb on past {npc:257808} to the peak. Drink the {item:6636} beside the rock statue there to see the {npc:5893} (level 12): it waits until you strike, but grows stronger the longer it is left, and it is immune to fire. Open at once with Rockbiter Weapon and Earth Shock. Its {item:6655} drops every time."] = "Klettere weiter an {npc:257808} vorbei zum Gipfel. Trink {item:6636} neben der Steinstatue dort, um die {npc:5893} (Stufe 12) zu sehen: Sie wartet, bis du zuschlägst, wird aber stärker, je länger man sie lässt, und ist immun gegen Feuer. Eröffne sofort mit Waffe des Felsbeißers und Erdschock. Ihr {item:6655} fällt jedes Mal.",
 	-- ["The Stonesplinter Seers (level 13-14) stand among the troggs of {area:923} in the south of the loch, and in the trogg camps north-east of {area:144}. They throw Lightning Bolts from 40 yards and run for help when hurt: pull one at a time. Respawn about five minutes."] = "Die Stonesplinter Seers (Stufe 13-14) stehen unter den Troggs von {area:923} im Süden des Sees und in den Trogglagern nordöstlich von {area:144}. Sie werfen Blitzschläge aus 40 Metern und laufen verletzt um Hilfe: Zieh einzeln. Respawn etwa fünf Minuten.",
 	-- ["The Tunnel Rat Geomancers (level 12-13) work only inside the {area:149} at the north end of the loch, past {area:144}. They cast Fire Blast behind a Fire Shield and run for help at low health."] = "Die Tunnel Rat Geomancers (Stufe 12-13) arbeiten nur in der {area:149} am Nordende des Sees, hinter {area:144}. Sie wirken Feuerschlag hinter einem Fire Shield und laufen bei wenig Gesundheit um Hilfe.",

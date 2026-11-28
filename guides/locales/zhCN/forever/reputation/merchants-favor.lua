@@ -40,7 +40,8 @@ return {
 	-- {zone:1431} Duskwood
 	["{zone:1431} writ customers"] = "{zone:1431}的文书委托人",
 	-- {npc:3134} Kzixx · {area:42} Darkshire
-	["{npc:3134} stands about 450 yards north of {area:42}. Customers show no quest mark: right-click them anyway."] = "{npc:3134} 站在 {area:42} 以北约450码处。顾客头顶没有任务标记：仍然右键点击他们。",
+	-- was: ["{npc:3134} stands about 450 yards north of {area:42}. Customers show no quest mark: right-click them anyway."] = "{npc:3134} 站在 {area:42} 以北约450码处。顾客头顶没有任务标记：仍然右键点击他们。"
+	["{npc:3134} stands about 450 yards north of {area:42}. Customers show no quest mark."] = "",
 	-- {item:6048} Shadow Protection Potion
 	["{item:6048}, 75 reputation"] = "{item:6048}，75 点声望",
 	-- {item:4381} Minor Recombobulator
@@ -54,7 +55,8 @@ return {
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434} writ customers"] = "{zone:1434}的文书委托人",
 	-- {area:35} Booty Bay · {npc:7853} Scooty · {npc:2663} Narkk · {npc:14508} Short John Mithril · {area:1741} Gurubashi Arena · {object:3202} Grom'gol · {npc:261961} Hekshi
-	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853}, the goblin transporter's engineer, and {npc:2663}. {npc:14508} stands at the {area:1741}, about 800 yards south of {object:3202}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "{area:35}有三位顾客：“海狼”马金利（在旅店顶层）、地精传送器的工程师{npc:7853}，以及{npc:2663}。{npc:14508}站在{area:1741}，位于{object:3202}以南约800码处；{npc:261961}在荆棘谷北部。顾客头上没有任务标记：照样右键点击他们。",
+	-- was: ["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853}, the goblin transporter's engineer, and {npc:2663}. {npc:14508} stands at the {area:1741}, about 800 yards south of {object:3202}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "{area:35}有三位顾客：“海狼”马金利（在旅店顶层）、地精传送器的工程师{npc:7853}，以及{npc:2663}。{npc:14508}站在{area:1741}，位于{object:3202}以南约800码处；{npc:261961}在荆棘谷北部。顾客头上没有任务标记：照样右键点击他们。"
+	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853}, the goblin transporter's engineer, and {npc:2663}. {npc:14508} stands at the {area:1741}, about 800 yards south of {object:3202}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark."] = "",
 	-- {item:3485} Green Iron Gauntlets
 	["{item:3485}, 75 reputation"] = "{item:3485}，75 点声望",
 	-- {item:7506} Gnomish Universal Remote
@@ -70,7 +72,8 @@ return {
 	-- {zone:1437} Wetlands
 	["{zone:1437} writ customers"] = "{zone:1437}的文书委托人",
 	-- {npc:8305} Kixxle · {area:205} Dun Modr
-	["{npc:8305} stands about 600 yards south of {area:205}. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark: right-click them anyway."] = "{npc:8305}站在{area:205}以南约600码处。有5种中级文书要交给他，是所有客户中最多的。客户不会显示任务标记：直接右键点击即可。",
+	-- was: ["{npc:8305} stands about 600 yards south of {area:205}. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark: right-click them anyway."] = "{npc:8305}站在{area:205}以南约600码处。有5种中级文书要交给他，是所有客户中最多的。客户不会显示任务标记：直接右键点击即可。"
+	["{npc:8305} stands about 600 yards south of {area:205}. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark."] = "",
 	-- {item:5996} Draught of Water Breathing
 	["{item:5996}, 75 reputation"] = "{item:5996}，75 点声望",
 	-- {item:3484} Green Iron Boots
@@ -86,7 +89,8 @@ return {
 	-- {zone:1417} Arathi Highlands
 	["{zone:1417} writ customers"] = "{zone:1417}的文书委托人",
 	-- {npc:257296} Muggol Breezebeard · {area:320} Refuge Pointe · {npc:257304} Alyce
-	["{npc:257296} is about 250 yards south of {area:320}, {npc:257304} about 700 yards north-west of it. Customers show no quest mark: right-click them anyway."] = "{npc:257296} 位于 {area:320} 以南约 250 码，{npc:257304} 位于其西北约 700 码。顾客头上没有任务标记：直接右键交谈。",
+	-- was: ["{npc:257296} is about 250 yards south of {area:320}, {npc:257304} about 700 yards north-west of it. Customers show no quest mark: right-click them anyway."] = "{npc:257296} 位于 {area:320} 以南约 250 码，{npc:257304} 位于其西北约 700 码。顾客头上没有任务标记：直接右键交谈。"
+	["{npc:257296} is about 250 yards south of {area:320}, {npc:257304} about 700 yards north-west of it. Customers show no quest mark."] = "",
 	-- {item:3383} Elixir of Wisdom
 	["{item:3383}, 75 reputation"] = "{item:3383}，75 点声望",
 	-- {item:11128} Golden Rod
@@ -104,7 +108,8 @@ return {
 	-- {zone:1424} Hillsbrad Foothills
 	["{zone:1424} writ customers"] = "{zone:1424}的文书委托人",
 	-- {npc:261932} Gorgrash · {npc:3536} Kris Legace · {npc:261928} Webbed Mudsnout Gnoll · {area:271} Southshore
-	["{npc:261932} and {npc:3536} are in the east of the foothills; the {npc:261928} hangs in a spider cocoon about 500 yards south-east of {area:271}. Customers show no quest mark: right-click them anyway."] = "{npc:261932} 和 {npc:3536} 位于丘陵东部；{npc:261928} 被吊在 {area:271} 东南约 500 码处的蜘蛛茧里。顾客头上没有任务标记：直接右键交谈。",
+	-- was: ["{npc:261932} and {npc:3536} are in the east of the foothills; the {npc:261928} hangs in a spider cocoon about 500 yards south-east of {area:271}. Customers show no quest mark: right-click them anyway."] = "{npc:261932} 和 {npc:3536} 位于丘陵东部；{npc:261928} 被吊在 {area:271} 东南约 500 码处的蜘蛛茧里。顾客头上没有任务标记：直接右键交谈。"
+	["{npc:261932} and {npc:3536} are in the east of the foothills; the {npc:261928} hangs in a spider cocoon about 500 yards south-east of {area:271}. Customers show no quest mark."] = "",
 	-- {item:3491} Heavy Bronze Mace
 	["{item:3491}, 75 reputation"] = "{item:3491}，75 点声望",
 	["bring it: craft it or buy it at the Auction House"] = "带上它：自己制作，或在拍卖行购买",
@@ -119,7 +124,8 @@ return {
 	-- {zone:1416} Alterac Mountains
 	["{zone:1416} writ customers"] = "{zone:1416}的文书委托人",
 	-- {npc:257281} Sos'mol · {npc:257282} Alan Sneeks · {npc:6176} Bath'rah the Windwatcher · {area:272} Tarren Mill
-	["{npc:257281} and {npc:257282} are close together in the south-west of the mountains; Syndicate thugs roam around {npc:257282}. {npc:6176} stands on the eastern edge, above {area:272}. Customers show no quest mark: right-click them anyway."] = "{npc:257281}和{npc:257282}在山脉西南部，彼此很近；{npc:257282}周围有辛迪加暴徒游荡。{npc:6176}站在东缘、{area:272}上方。客户没有任务标记：仍然右键点击他们。",
+	-- was: ["{npc:257281} and {npc:257282} are close together in the south-west of the mountains; Syndicate thugs roam around {npc:257282}. {npc:6176} stands on the eastern edge, above {area:272}. Customers show no quest mark: right-click them anyway."] = "{npc:257281}和{npc:257282}在山脉西南部，彼此很近；{npc:257282}周围有辛迪加暴徒游荡。{npc:6176}站在东缘、{area:272}上方。客户没有任务标记：仍然右键点击他们。"
+	["{npc:257281} and {npc:257282} are close together in the south-west of the mountains; Syndicate thugs roam around {npc:257282}. {npc:6176} stands on the eastern edge, above {area:272}. Customers show no quest mark."] = "",
 	-- {item:3391} Elixir of Ogre Strength
 	["{item:3391}, 75 reputation"] = "{item:3391}，75 点声望",
 	["bring it: leatherworkers make it, or buy it at the Auction House"] = "带上它：找制皮师制作，或在拍卖行购买",
@@ -138,7 +144,8 @@ return {
 	-- {zone:1440} Ashenvale
 	["{zone:1440} writ customers"] = "{zone:1440}的文书委托人",
 	-- {area:431} Splintertree Post · {npc:257315} Ash'alari · {npc:257322} Murache · {npc:257316} Cowardly Peon · {npc:257317} Grembly
-	["All four stand around {area:431}: {npc:257315} about 850 yards south-west of it, {npc:257322} to the south, the {npc:257316} about 350 yards south-east and {npc:257317} about 650 yards north-east. Customers show no quest mark: right-click them anyway."] = "4位都在{area:431}周围：{npc:257315}在其西南约850码，{npc:257322}在南面，{npc:257316}在东南约350码，{npc:257317}在东北约650码。客户不会显示任务标记：直接右键点击即可。",
+	-- was: ["All four stand around {area:431}: {npc:257315} about 850 yards south-west of it, {npc:257322} to the south, the {npc:257316} about 350 yards south-east and {npc:257317} about 650 yards north-east. Customers show no quest mark: right-click them anyway."] = "4位都在{area:431}周围：{npc:257315}在其西南约850码，{npc:257322}在南面，{npc:257316}在东南约350码，{npc:257317}在东北约650码。客户不会显示任务标记：直接右键点击即可。"
+	["All four stand around {area:431}: {npc:257315} about 850 yards south-west of it, {npc:257322} to the south, the {npc:257316} about 350 yards south-east and {npc:257317} about 650 yards north-east. Customers show no quest mark."] = "",
 	-- {item:3385} Lesser Mana Potion
 	["{item:3385}, 75 reputation"] = "{item:3385}，75 点声望",
 	-- {item:7349} Herbalist's Gloves
@@ -160,7 +167,8 @@ return {
 	-- {zone:1442} Stonetalon Mountains
 	["{zone:1442} writ customers"] = "{zone:1442}的文书委托人",
 	-- {npc:4201} Ziz Fizziks · {area:460} Sun Rock Retreat
-	["{npc:4201} has a small hut about 550 yards east of {area:460}. Four Journeyman writs go to him. Customers show no quest mark: right-click them anyway."] = "{npc:4201} 的小屋位于 {area:460} 以东约 550 码。四份中级订单都要交给他。顾客头上没有任务标记：直接右键交谈。",
+	-- was: ["{npc:4201} has a small hut about 550 yards east of {area:460}. Four Journeyman writs go to him. Customers show no quest mark: right-click them anyway."] = "{npc:4201} 的小屋位于 {area:460} 以东约 550 码。四份中级订单都要交给他。顾客头上没有任务标记：直接右键交谈。"
+	["{npc:4201} has a small hut about 550 yards east of {area:460}. Four Journeyman writs go to him. Customers show no quest mark."] = "",
 	-- {item:3390} Elixir of Lesser Agility
 	["{item:3390}, 75 reputation"] = "{item:3390}，75 点声望",
 	-- {item:2865} Rough Bronze Leggings
@@ -174,7 +182,8 @@ return {
 	-- {zone:1441} Thousand Needles
 	["{zone:1441} writ customers"] = "{zone:1441}的文书委托人",
 	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {area:484} Freewind Post · {npc:4720} Rizzle Brassbolts · {npc:4706} Razzeric · {npc:4496} Goblin Pit Boss · {npc:6548} Magus Tirth
-	["All five stand at the {area:2240} on the {area:439}, south-east of {area:484}: {npc:4720}, the chicken \"Plucky\" Johnson, {npc:4706}, the {npc:4496} and {npc:6548}. Customers show no quest mark: right-click them anyway."] = "五名目标都在 {area:484} 东南方、{area:439} 上的 {area:2240}：{npc:4720}、小鸡胆大的约翰森、{npc:4706}、{npc:4496} 和 {npc:6548}。顾客头上没有任务标记：直接右键点击他们。",
+	-- was: ["All five stand at the {area:2240} on the {area:439}, south-east of {area:484}: {npc:4720}, the chicken \"Plucky\" Johnson, {npc:4706}, the {npc:4496} and {npc:6548}. Customers show no quest mark: right-click them anyway."] = "五名目标都在 {area:484} 东南方、{area:439} 上的 {area:2240}：{npc:4720}、小鸡胆大的约翰森、{npc:4706}、{npc:4496} 和 {npc:6548}。顾客头上没有任务标记：直接右键点击他们。"
+	["All five stand at the {area:2240} on the {area:439}, south-east of {area:484}: {npc:4720}, the chicken \"Plucky\" Johnson, {npc:4706}, the {npc:4496} and {npc:6548}. Customers show no quest mark."] = "",
 	-- {item:8951} Elixir of Defense
 	["{item:8951}, 75 reputation"] = "{item:8951}，75 点声望",
 	-- {item:3848} Big Bronze Knife
@@ -198,13 +207,15 @@ return {
 	-- {zone:1431} Duskwood
 	["{zone:1431} writ customers again"] = "再次拜访{zone:1431}的文书委托人",
 	-- {npc:3134} Kzixx · {area:42} Darkshire
-	["{npc:3134} stands about 450 yards north of {area:42}, by the road. Customers show no quest mark: right-click them anyway."] = "{npc:3134} 站在 {area:42} 以北约450码的路边。顾客头顶没有任务标记：仍然右键点击他们。",
+	-- was: ["{npc:3134} stands about 450 yards north of {area:42}, by the road. Customers show no quest mark: right-click them anyway."] = "{npc:3134} 站在 {area:42} 以北约450码的路边。顾客头顶没有任务标记：仍然右键点击他们。"
+	["{npc:3134} stands about 450 yards north of {area:42}, by the road. Customers show no quest mark."] = "",
 
 	-- Step 18: Stranglethorn Vale writ customers again
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434} writ customers again"] = "再次拜访{zone:1434}的文书委托人",
 	-- {area:35} Booty Bay · {npc:7853} Scooty · {npc:2663} Narkk · {npc:14508} Short John Mithril · {object:3202} Grom'gol · {area:1741} Gurubashi Arena · {npc:261961} Hekshi
-	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853} at the zeppelin-style transporter pad and {npc:2663}. {npc:14508} stands about 800 yards south of {object:3202}, by the {area:1741}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "{area:35}有三位顾客：“海狼”马金利（在旅店顶层）、在飞艇式传送平台的{npc:7853}，以及{npc:2663}。{npc:14508}站在{object:3202}以南约800码处，靠近{area:1741}；{npc:261961}在荆棘谷北部。顾客头上没有任务标记：照样右键点击他们。",
+	-- was: ["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853} at the zeppelin-style transporter pad and {npc:2663}. {npc:14508} stands about 800 yards south of {object:3202}, by the {area:1741}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "{area:35}有三位顾客：“海狼”马金利（在旅店顶层）、在飞艇式传送平台的{npc:7853}，以及{npc:2663}。{npc:14508}站在{object:3202}以南约800码处，靠近{area:1741}；{npc:261961}在荆棘谷北部。顾客头上没有任务标记：照样右键点击他们。"
+	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853} at the zeppelin-style transporter pad and {npc:2663}. {npc:14508} stands about 800 yards south of {object:3202}, by the {area:1741}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark."] = "",
 
 	-- Step 19: Wetlands writ customers again
 	-- {zone:1437} Wetlands
@@ -281,6 +292,8 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A {item:18662} for the writ"] = "为文书准备一份 {item:18662}",
 	-- ["A {item:18662} for the writ again"] = "再次为文书准备一份 {item:18662}",
+	-- ["All five stand at the {area:2240} on the {area:439}, south-east of {area:484}: {npc:4720}, the chicken \"Plucky\" Johnson, {npc:4706}, the {npc:4496} and {npc:6548}. Customers show no quest mark: right-click them anyway."] = "五名目标都在 {area:484} 东南方、{area:439} 上的 {area:2240}：{npc:4720}、小鸡胆大的约翰森、{npc:4706}、{npc:4496} 和 {npc:6548}。顾客头上没有任务标记：直接右键点击他们。",
+	-- ["All four stand around {area:431}: {npc:257315} about 850 yards south-west of it, {npc:257322} to the south, the {npc:257316} about 350 yards south-east and {npc:257317} about 650 yards north-east. Customers show no quest mark: right-click them anyway."] = "4位都在{area:431}周围：{npc:257315}在其西南约850码，{npc:257322}在南面，{npc:257316}在东南约350码，{npc:257317}在东北约650码。客户不会显示任务标记：直接右键点击即可。",
 	-- ["An {item:4384} for the writ"] = "为文书准备一个{item:4384}",
 	-- ["An {item:4384} for the writ again"] = "再次为文书准备一个{item:4384}",
 	-- ["Craftsman's Writs are the camp's reputation: 75 for a Journeyman writ, 125 for an Expert, 200 for an Artisan. Each asks for one crafted item, named in its quest (not always the writ's title: a {item:3388} writ wants a Strong Troll's Blood Potion). Make it or buy it on the Auction House; you need not know the profession. Each writ can be done once a day, and any number of different ones. Take the quest only of writs whose item you have or will buy on the way (right-click the writ), keep the writ in your bags, then tick this: the next steps lead to each customer you hold a writ for."] = "工匠文书是营地声望的来源：中级文书奖励75，高级125，大师级200。每份文书要求一件制作物品，以任务中写明的为准（不一定与文书标题一致：例如{item:3388}文书实际需要Strong Troll's Blood Potion）。可以自行制作或到拍卖行购买，无需学会对应专业。每种文书每天可完成一次，不同种类数量不限。只接取你已有所需物品、或准备沿途购买的文书任务（右键点击文书），将文书留在背包里，然后勾选此项：后续步骤会带你拜访所持文书对应的每位客户。",
@@ -296,6 +309,8 @@ return {
 	-- ["Merchant's Favor Reputation"] = "商人青睐声望",
 	-- ["Strong Troll's Blood Potion, 75 reputation"] = "Strong Troll's Blood Potion，75声望",
 	-- ["The {faction:2586} is the Alliance's tradeskill faction in Forever. Its camp is at {area:1002} in western {zone:1433}. From level 10 mobs drop Waylaid Crates: fill each with the goods its label asks for and hand the {object:1561} to {npc:214101} at the camp for reputation and Merchant's Favor. Forever's Legacy Diplomat perk increases reputation gains."] = "{faction:2586}是 Forever 中联盟的商业技能阵营。它的营地位于{zone:1433}西部的{area:1002}。从10级起怪物会掉落{item:248549}：按标签要求装满货物，把{object:1561}交给营地的{npc:214101}以换取声望和Merchant's Favor。Forever的传承外交官特权可提高声望获取。",
+	-- ["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853} at the zeppelin-style transporter pad and {npc:2663}. {npc:14508} stands about 800 yards south of {object:3202}, by the {area:1741}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "{area:35}有三位顾客：“海狼”马金利（在旅店顶层）、在飞艇式传送平台的{npc:7853}，以及{npc:2663}。{npc:14508}站在{object:3202}以南约800码处，靠近{area:1741}；{npc:261961}在荆棘谷北部。顾客头上没有任务标记：照样右键点击他们。",
+	-- ["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853}, the goblin transporter's engineer, and {npc:2663}. {npc:14508} stands at the {area:1741}, about 800 yards south of {object:3202}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "{area:35}有三位顾客：“海狼”马金利（在旅店顶层）、地精传送器的工程师{npc:7853}，以及{npc:2663}。{npc:14508}站在{area:1741}，位于{object:3202}以南约800码处；{npc:261961}在荆棘谷北部。顾客头上没有任务标记：照样右键点击他们。",
 	-- ["{faction:2586} to Exalted"] = "{faction:2586}刷到崇拜",
 	-- ["{faction:2586} to Friendly"] = "{faction:2586}刷到友善",
 	-- ["{faction:2586} to Honored"] = "{faction:2586}刷到尊敬",
@@ -306,4 +321,11 @@ return {
 	-- ["{faction:2587} to Honored"] = "{faction:2587}刷到尊敬",
 	-- ["{faction:2587} to Revered"] = "{faction:2587}刷到崇敬",
 	-- ["{item:13445}, 75 reputation"] = "{item:13445}，75声望",
+	-- ["{npc:257281} and {npc:257282} are close together in the south-west of the mountains; Syndicate thugs roam around {npc:257282}. {npc:6176} stands on the eastern edge, above {area:272}. Customers show no quest mark: right-click them anyway."] = "{npc:257281}和{npc:257282}在山脉西南部，彼此很近；{npc:257282}周围有辛迪加暴徒游荡。{npc:6176}站在东缘、{area:272}上方。客户没有任务标记：仍然右键点击他们。",
+	-- ["{npc:257296} is about 250 yards south of {area:320}, {npc:257304} about 700 yards north-west of it. Customers show no quest mark: right-click them anyway."] = "{npc:257296} 位于 {area:320} 以南约 250 码，{npc:257304} 位于其西北约 700 码。顾客头上没有任务标记：直接右键交谈。",
+	-- ["{npc:261932} and {npc:3536} are in the east of the foothills; the {npc:261928} hangs in a spider cocoon about 500 yards south-east of {area:271}. Customers show no quest mark: right-click them anyway."] = "{npc:261932} 和 {npc:3536} 位于丘陵东部；{npc:261928} 被吊在 {area:271} 东南约 500 码处的蜘蛛茧里。顾客头上没有任务标记：直接右键交谈。",
+	-- ["{npc:3134} stands about 450 yards north of {area:42}, by the road. Customers show no quest mark: right-click them anyway."] = "{npc:3134} 站在 {area:42} 以北约450码的路边。顾客头顶没有任务标记：仍然右键点击他们。",
+	-- ["{npc:3134} stands about 450 yards north of {area:42}. Customers show no quest mark: right-click them anyway."] = "{npc:3134} 站在 {area:42} 以北约450码处。顾客头顶没有任务标记：仍然右键点击他们。",
+	-- ["{npc:4201} has a small hut about 550 yards east of {area:460}. Four Journeyman writs go to him. Customers show no quest mark: right-click them anyway."] = "{npc:4201} 的小屋位于 {area:460} 以东约 550 码。四份中级订单都要交给他。顾客头上没有任务标记：直接右键交谈。",
+	-- ["{npc:8305} stands about 600 yards south of {area:205}. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark: right-click them anyway."] = "{npc:8305}站在{area:205}以南约600码处。有5种中级文书要交给他，是所有客户中最多的。客户不会显示任务标记：直接右键点击即可。",
 }

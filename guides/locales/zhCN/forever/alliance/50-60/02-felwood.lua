@@ -41,17 +41,17 @@ return {
 
 	-- Step 6: Jadefire Glen
 	-- {npc:9454} Xavathras · {spell:7992} Slowing Poison
-	-- plural, as words: Jadefire Shadowstalkers = {npc:7110} Jadefire Shadowstalker · Cursed Oozes = {npc:7086} Cursed Ooze
-	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and {spell:7992} and are stealthed, so they often join fights uninvited.\nCursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains."] = "碧火萨特占据道路西边的山谷，{npc:9454}在山谷深处。\n小心：碧火捕猎者（51-52级）会使用潜行和{spell:7992}，且处于潜行状态，经常不请自来加入战斗。\n被诅咒的软泥怪在山谷的溪流中滑行：杀死它们，对残骸使用拉里斯给的空采样瓶。",
+	-- plural, as words: Cursed Oozes = {npc:7086} Cursed Ooze · Jadefire Shadowstalkers = {npc:7110} Jadefire Shadowstalker
+	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back, and Cursed Oozes roam its streams. Jadefire Shadowstalkers (level 51-52) are stealthed and use Sneak and {spell:7992}, so they often join fights uninvited."] = "",
 
 	-- Step 7: Ruins of Constellas
 	-- {npc:9454} Xavathras · {area:2481} Ruins of Constellas
 	["Careful: {npc:9454} (54) stands at the back of the {area:2481}, at about 32.2,67.1, with Shadowstalkers around him: clear them one at a time, then pull him alone at full health."] = "注意：{npc:9454}（54级）站在{area:2481}后方约32.2,67.1处，周围有暗影猎手：逐个清掉，再在满血时单独拉他。",
 
 	-- Step 8: Jaedenar
-	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge · {item:11948} Empty Tainted Ooze Jar
+	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["{area:1763} is the ruined temple north of the glen.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him.\nTainted Oozes slide about {area:1763}'s fel pools: kill them and use the {item:11948} on their remains."] = "{area:1763}是山谷北边的神殿废墟。\n小心，{npc:11141}（53级精英）在{area:1763}西端约35,60处游荡。去箭头指向的东南部，把教徒和猎犬拉离他再打。\n被污染的软泥怪在{area:1763}的邪能池附近游荡。杀死它们后，对残骸使用{item:11948}。",
+	["{area:1763} is the ruined temple north of the glen, and Tainted Oozes slide around its fel pools. Careful: the {npc:11141} (53, elite) haunts the west end around 35,60."] = "",
 	-- {item:11949} Filled Tainted Ooze Jar · {area:1763} Jaedenar
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
 	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "{item:11949}：被污染的软泥怪在{area:1763}的邪能池中滑行",
@@ -288,6 +288,7 @@ return {
 	-- ["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. The Avengers can drop a {quest:8470}."] = "{area:1762}的死木熊怪遍布洞穴西边的山丘。死木复仇者可能掉落{quest:8470}。",
 	-- ["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. The Avengers can drop a {quest:8470}.\nCareful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "死木熊怪占据{area:1762}洞穴以西的山丘，复仇者有几率掉落{quest:8470}。\n注意：巢穴看守者为 53–54 级，生命值低于 50% 时会呼叫 25 码内的盟友，低于 15% 时逃跑求援。",
 	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back."] = "碧火萨特占据道路西边的山谷，{npc:9454}在山谷深处。",
+	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and {spell:7992} and are stealthed, so they often join fights uninvited.\nCursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains."] = "碧火萨特占据道路西边的山谷，{npc:9454}在山谷深处。\n小心：碧火捕猎者（51-52级）会使用潜行和{spell:7992}，且处于潜行状态，经常不请自来加入战斗。\n被诅咒的软泥怪在山谷的溪流中滑行：杀死它们，对残骸使用拉里斯给的空采样瓶。",
 	-- ["The vial is filled in {zone:1457}: keep it"] = "药瓶在{zone:1457}装满：留着",
 	-- ["The vial is filled in {zone:1457}: keep it; inside"] = "药瓶需在{zone:1457}装满，先保留；任务在屋内接取",
 	-- ["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "{item:11242}长在{npc:7765}北边的一座废墟建筑里：从旁边的岩架穿过墙上的缺口爬进去。",
@@ -301,6 +302,7 @@ return {
 	-- ["grind on {npc:7155}"] = "反复击杀{npc:7155}补足经验",
 	-- ["grind on {npc:9878}"] = "反复击杀{npc:9878}补足经验",
 	-- ["{area:1763} is the ruined temple north of the glen."] = "{area:1763}是谷地北面的神殿废墟。",
+	-- ["{area:1763} is the ruined temple north of the glen.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him.\nTainted Oozes slide about {area:1763}'s fel pools: kill them and use the {item:11948} on their remains."] = "{area:1763}是山谷北边的神殿废墟。\n小心，{npc:11141}（53级精英）在{area:1763}西端约35,60处游荡。去箭头指向的东南部，把教徒和猎犬拉离他再打。\n被污染的软泥怪在{area:1763}的邪能池附近游荡。杀死它们后，对残骸使用{item:11948}。",
 	-- ["{area:1763} is the ruined temple north of the glen. Some of its cultists drop a {item:13140}, about one kill in thirty: it opens {npc:11018}'s cell in {area:1770}, the cave at the back. If it drops, clear the way out before you free her; if not, skip her quests."] = "{area:1763}是山谷北边的废弃神殿。其中一些信徒会掉落{item:13140}，约三十次击杀一次：它能打开后方洞穴{area:1770}中{npc:11018}的牢房。掉落了就先清出退路再放她出来；没掉就跳过她的任务。",
 	-- ["{area:2618} is the satyr valley in the north-west, with {npc:10648} at its far end. He drops the {quest:939}; every Jadefire satyr can drop {item:11674}."] = "{area:2618}是西北部的萨特山谷，{npc:10648}在最深处。他掉落{quest:939}；每个碧火萨特都可能掉落{item:11674}。",
 	-- ["{item:13140}, a rare drop"] = "{item:13140}，稀有掉落",

@@ -21,7 +21,9 @@ step Nutritious Slime Sludge
   buy 278265 x1 npc 4612              -- Nutritious Slime Sludge: Boyle, in the canals
 
 step WRIGGLE.
-  tip Find an Excitable Slime, a little critter in the canal water beside Boyle, target it and /dance at it, again and again, until it dances back and offers WRIGGLE.; this takes many tries. Hand in the sludge right away. If the slime seems tired, /dance with it again before you hand in.
+  tip An Excitable Slime, a little critter in the canal water beside Boyle, offers WRIGGLE. only after many /dance emotes at it, and it takes the sludge only while it still dances.
+  task "/dance at an Excitable Slime until it dances back and offers WRIGGLE." optional
   accept 97583 "WRIGGLE." @57.4,63.6 live
+  task "/dance with the slime again if it seems tired" optional
   turnin 97583 "WRIGGLE." @57.4,63.6 live
   collect 275682 "Excitable Slime" @57.4,63.6 live

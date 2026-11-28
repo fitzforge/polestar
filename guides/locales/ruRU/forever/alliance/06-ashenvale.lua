@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Kerlonian Evershade
-	-- {area:442} Auberdine · {area:448} Grove of the Ancients · {npc:11218} Kerlonian Evershade · {item:13536} Horn of Awakening · {zone:1439} Darkshore · {npc:11219} Liladris Moonriver · {area:413} Maestra's Post
-	["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest: it gives you the {item:13536}. Use the horn to wake him and lead him south along the road to his bag at the southern edge of {zone:1439}; blow it again whenever he falls asleep. Then go on to {npc:11219} at {area:413}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "Возвращайтесь на север от глефы (друиды: на юг по дороге от места {area:442}) сюда: {area:448}, где рядом с Арбалом спит {npc:11218}. Возьмите его задание: оно дает вам предмет {item:13536}. Используйте рог, чтобы разбудить его, и ведите его на юг по дороге к его сумке на южной окраине зоны {zone:1439}; трубите в рог снова каждый раз, когда он засыпает. Затем идите к NPC {npc:11219} ({area:413}).\nОсторожно: на дороге нападают засады по три противника.",
+	-- {npc:11218} Kerlonian Evershade · {area:448} Grove of the Ancients · {area:442} Auberdine · {item:13536} Horn of Awakening · {zone:1439} Darkshore
+	["{npc:11218} sleeps beside Arbal at the {area:448}, back north from the glaive (Druids: south along the road from {area:442}). His quest gives the {item:13536}, which wakes him, and he falls asleep again on the way south to his bag at the southern edge of {zone:1439}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "",
 	-- {npc:11218} Kerlonian Evershade · {zone:1439} Darkshore · {npc:11219} Liladris Moonriver · {area:413} Maestra's Post
 	["Escort {npc:11218} south along the road to his bag at the southern edge of {zone:1439}, then go on to {npc:11219} at {area:413}."] = "",
 
@@ -169,7 +169,7 @@ return {
 	-- Step 34: Mystral Lake
 	-- {npc:3885} Sentinel Velene Starstrike · {area:420} Silverwind Refuge · {area:421} Mystral Lake · {npc:12759} Tideress
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
-	["{npc:3885} stands at the {area:420} on the east shore of {area:421}. Befouled Water Elementals (23-25) wade in the lake.\nCareful: {npc:12759}, a level 27 water elemental, walks the lake's west shore among them: leave it be."] = "",
+	["{npc:3885} is at the {area:420} on the east shore of {area:421}, where Befouled Water Elementals (23-25) wade. {npc:12759}, a level 27 water elemental, walks the west shore among them."] = "",
 	["Underwater"] = "Под водой",
 	-- {item:5456} Divining Scroll
 	-- plural, as words: Intact Elemental Bracers = {item:12220} Intact Elemental Bracer
@@ -373,6 +373,7 @@ return {
 	["Next: training in {zone:1453}, then the road east through Elwynn and south to {zone:1431}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest: it gives you the {item:13536}. Use the horn to wake him and lead him south along the road to his bag at the southern edge of {zone:1439}; blow it again whenever he falls asleep. Then go on to {npc:11219} at {area:413}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "Возвращайтесь на север от глефы (друиды: на юг по дороге от места {area:442}) сюда: {area:448}, где рядом с Арбалом спит {npc:11218}. Возьмите его задание: оно дает вам предмет {item:13536}. Используйте рог, чтобы разбудить его, и ведите его на юг по дороге к его сумке на южной окраине зоны {zone:1439}; трубите в рог снова каждый раз, когда он засыпает. Затем идите к NPC {npc:11219} ({area:413}).\nОсторожно: на дороге нападают засады по три противника.",
 	-- ["Back north through the {area:1276}: west of {area:421}, the stardust bushes grow among the ruins."] = "Назад на север через {area:1276}: к западу от места {area:421} среди руин растут кусты, покрытые звездной пылью.",
 	-- ["Back to the Cathedral of Light: {npc:928} stands inside."] = "Вернитесь в Собор Света: {npc:928} стоит внутри.",
 	-- ["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "Назад на запад по дороге от NPC {npc:3916}: {area:415} по пути к NPC {npc:3664}. {npc:3894} в здании за таверной.",

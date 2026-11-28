@@ -62,7 +62,7 @@ return {
 
 	-- Step 10: Lord Banehollow
 	-- {area:1763} Jaedenar · {area:1997} Bloodvenom Post · {zone:1448} Felwood · {area:1770} Shadow Hold · {item:18802} Shadowy Potion · {spell:23179} Taint of Shadow · {quest:7623} Lord Banehollow
-	["{area:1763} lies just south of {area:1997} in western {zone:1448}, west of the road; of its two caves, {area:1770} is the northern one, further up the hill. Drink a {item:18802} at its mouth: for 20 minutes the Shadow Council there treat you as one of their own ({spell:23179}). The oozes in the red pool and the succubus Rakaiah beyond them still attack: hug the wall past them. Go down past the second, red pool, up the ramp and across two bridges to {quest:7623}, a great winged dreadlord at the back. He talks to you only while the potion lasts."] = "",
+	["{area:1763} lies just south of {area:1997} in western {zone:1448}, west of the road; of its two caves, {area:1770} is the northern one, further up the hill. A {item:18802} makes the Shadow Council there treat you as one of their own for 20 minutes ({spell:23179}), and {quest:7623} talks only while it lasts. The oozes in the red pool and the succubus Rakaiah beyond them still attack. Banehollow, a great winged dreadlord, is at the back: past the second, red pool, up the ramp and across two bridges."] = "",
 
 	-- Step 11: Ulathek the Traitor
 	-- {npc:14523} Ulathek · {spell:23179} Taint of Shadow · {npc:9516} Lord Banehollow
@@ -84,7 +84,7 @@ return {
 	-- {area:2057} Scholomance
 	["The {area:2057}"] = "{area:2057}",
 	-- {area:2057} Scholomance · {area:2298} Caer Darrow · {zone:1422} Western Plaguelands · {item:13704} Skeleton Key · {npc:10508} Ras Frostwhisper · {item:18688} Imp in a Jar · {npc:14500} J'eevee
-	["The {area:2057} (level 58-60, a group of five) lies under {area:2298}, the island town in the south-east of the {zone:1422}: someone needs the {item:13704} or a rogue to open the door. Fight down to {npc:10508}'s room and use the {item:18688} at the alchemy lab tables to the right: {npc:14500} makes the parchment. You need not kill Ras, but it only counts at this lab and only in a party."] = "",
+	["The {area:2057} (level 58-60, a group of five) lies under {area:2298}, the island town in the south-east of the {zone:1422}, and its door needs the {item:13704} or a rogue. The alchemy lab tables are to the right in {npc:10508}'s room, where the {item:18688} lets {npc:14500} make the parchment; Ras need not die, but it only counts at this lab and only in a party."] = "",
 	-- {item:18688} Imp in a Jar
 	["Use the {item:18688} at the alchemy lab inside"] = "Используйте {item:18688} у алхимической лаборатории внутри",
 

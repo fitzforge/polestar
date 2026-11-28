@@ -26,19 +26,20 @@ return {
 
 	-- Step 4: The brown waterskin
 	["The brown waterskin"] = "El odre marrón",
-	-- {item:265732} Unfilled Brown Waterskin · {npc:258203} Hervdana Saegrund · {object:147516} Dark Iron
-	["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "Llena {item:265732} al pie de las cascadas bajo la cueva de {npc:258203}, donde el agua dulce se junta con la salobre. Cerca de las cascadas rondan enanos {object:147516}.",
+	-- {npc:258203} Hervdana Saegrund · {object:147516} Dark Iron
+	-- was: ["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "Llena {item:265732} al pie de las cascadas bajo la cueva de {npc:258203}, donde el agua dulce se junta con la salobre. Cerca de las cascadas rondan enanos {object:147516}."
+	["The water source is at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "",
 
 	-- Step 6: The red waterskin
 	["The red waterskin"] = "El odre rojo",
-	-- {area:71} Stonewatch Falls · {area:68} Lake Everstill · {zone:1455} Ironforge · {area:69} Lakeshire · {item:265747} Unfilled Red Waterskin · {npc:258203} Hervdana Saegrund
+	-- {area:71} Stonewatch Falls · {area:68} Lake Everstill · {npc:258203} Hervdana Saegrund
 	-- plural, as words: Murloc Nightcrawlers = {npc:544} Murloc Nightcrawler
-	["{area:71} pour out of {area:68} at the east end of Redridge (fly from {zone:1455} to {area:69}). Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather; pull the murlocs off the spot first. If the skin vanishes without counting, abandon the quest and take it again from {npc:258203} for a new one."] = "{area:71} brotan de {area:68}, en el extremo este de las Montañas Crestagrana (vuela de {zone:1455} a {area:69}). Llena {item:265747} a su pie, donde se reúnen los reptanoches múrloc; aparta antes a los múrlocs del lugar. Si el odre desaparece sin contar, abandona la misión y vuelve a aceptarla de {npc:258203} para conseguir otro.",
+	["{area:71} pours out of {area:68} at the east end of Redridge, and Murloc Nightcrawlers gather at its foot. If the skin vanishes without counting, {npc:258203} gives a new one when the quest is taken again."] = "",
 
 	-- Step 8: The blue waterskin
 	["The blue waterskin"] = "El odre azul",
-	-- {area:150} Menethil Harbor · {area:442} Auberdine · {area:271} Southshore · {zone:1439} Darkshore · {area:415} Astranaar · {zone:1440} Ashenvale · {item:265772} Unfilled Blue Waterskin
-	["Take the boat from {area:150} to {area:442} (it stops in {area:271} on the way), then fly or walk south through {zone:1439} to {area:415} in {zone:1440}. Fill the {item:265772} in the lake around the town, then the boat back to Menethil."] = "Toma el barco de {area:150} a {area:442} (para en {area:271} por el camino) y luego ve volando o a pie al sur por {zone:1439} hasta {area:415}, en {zone:1440}. Llena {item:265772} en el lago que rodea el pueblo y luego toma el barco de vuelta a Menethil.",
+	-- {area:150} Menethil Harbor · {area:442} Auberdine · {zone:1439} Darkshore · {zone:1440} Ashenvale
+	["The boat from {area:150} goes to {area:442} in {zone:1439}, north of {zone:1440}."] = "",
 
 	-- Step 9: Hervdana Saegrund
 	-- {item:7810} Vial of Purest Water · {npc:258043} Norric Lochthane
@@ -71,6 +72,9 @@ return {
 	["{npc:258043}: {spell:5394} and your {item:5177}"] = "{npc:258043}: {spell:5394} y tu {item:5177}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "Llena {item:265732} al pie de las cascadas bajo la cueva de {npc:258203}, donde el agua dulce se junta con la salobre. Cerca de las cascadas rondan enanos {object:147516}.",
+	-- ["Take the boat from {area:150} to {area:442} (it stops in {area:271} on the way), then fly or walk south through {zone:1439} to {area:415} in {zone:1440}. Fill the {item:265772} in the lake around the town, then the boat back to Menethil."] = "Toma el barco de {area:150} a {area:442} (para en {area:271} por el camino) y luego ve volando o a pie al sur por {zone:1439} hasta {area:415}, en {zone:1440}. Llena {item:265772} en el lago que rodea el pueblo y luego toma el barco de vuelta a Menethil.",
+	-- ["{area:71} pour out of {area:68} at the east end of Redridge (fly from {zone:1455} to {area:69}). Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather; pull the murlocs off the spot first. If the skin vanishes without counting, abandon the quest and take it again from {npc:258203} for a new one."] = "{area:71} brotan de {area:68}, en el extremo este de las Montañas Crestagrana (vuela de {zone:1455} a {area:69}). Llena {item:265747} a su pie, donde se reúnen los reptanoches múrloc; aparta antes a los múrlocs del lugar. Si el odre desaparece sin contar, abandona la misión y vuelve a aceptarla de {npc:258203} para conseguir otro.",
 	-- ["{area:71} pour out of {area:68} at the east end of Redridge. Fill the {item:265747} at their foot, where the Murloc {item:6530} gather."] = "{area:71} brotan de {area:68}, en el extremo este de las Montañas Crestagrana. Llena {item:265747} a su pie, donde se reúnen los múrlocs ({item:6530}).",
 	-- ["{area:919} lies outside {area:20}. Drink the {item:6637} there and defeat the {npc:5894} for its bracers, then place them and the {item:7811} on the {object:619896}. The {npc:5895} it calls forth gives you the {item:7813}."] = "{area:919} está a las afueras de {area:20}. Bebe allí {item:6637} y derrota a {npc:5894} para conseguir sus brazales; después colócalos junto con {item:7811} en {object:619896}. {npc:5895} que aparece te da {item:7813}.",
 }

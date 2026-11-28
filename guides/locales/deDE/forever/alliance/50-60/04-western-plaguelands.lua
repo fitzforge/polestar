@@ -187,7 +187,7 @@ return {
 	-- {npc:10926} Pamela Redpath
 	["{npc:10926}'s doll"] = "{npc:10926}s Puppe",
 	-- {area:2262} Darrowshire
-	["The three pieces of the doll lie in the ruined houses of {area:2262}; picking one up can call out ghosts. Combine them into the doll."] = "Die drei Teile der Puppe liegen in den zerstörten Häusern von {area:2262}; beim Aufheben können Geister erscheinen. Füge sie zur Puppe zusammen.",
+	["The three doll pieces are in the ruined houses of {area:2262}. Picking one up can call out ghosts."] = "",
 	-- {item:12886} Pamela's Doll's Head
 	["{item:12886}; inside"] = "{item:12886}; drinnen",
 	-- {item:12888} Pamela's Doll's Right Side
@@ -392,9 +392,8 @@ return {
 	-- Step 72: Plaguewood: kill these as you meet them
 	-- {area:2277} Plaguewood
 	["{area:2277}: kill these as you meet them"] = "{area:2277}: Töte sie, wenn du ihnen begegnest",
-	-- {area:2277} Plaguewood · {area:2627} Terrordale · {item:15042} Empty Termite Jar
-	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound · Carrion Devourers = {npc:8605} Carrion Devourer
-	["West through the {area:2277} to {area:2627}: fill the {item:15042} at the big termite mounds, and kill the Frenzied Plaguehounds and the Carrion Devourers on the way.\nCareful: the Frenzied Plaguehounds are 57-58: pull them one at a time."] = "Nach Westen durch den {area:2277} zum {area:2627}: Fülle das {item:15042} an den großen Termitenhügeln und töte unterwegs die Rasenden Seuchenhunde und die Aasfresser.\nVorsicht: Die Rasenden Seuchenhunde sind Stufe 57–58: Zieh sie einzeln.",
+	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound
+	["The Frenzied Plaguehounds are level 57-58, so pulling more than one is dangerous."] = "",
 
 	-- Step 73: Augustus the Touched
 	-- {npc:12384} Augustus the Touched · {area:2627} Terrordale · {npc:11140} Egan · {npc:16184} Nerubian Overseer · {area:2626} Terrorweb Tunnel
@@ -581,6 +580,7 @@ return {
 	-- ["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997}."] = "Der Pylon steht am Hang östlich der Zuflucht. {npc:9166} kreisen über den Hängen ringsum: Sie zählen für {npc:9997}.",
 	-- ["The pylon stands on the western cliffs."] = "Der Pylon steht auf den westlichen Klippen.",
 	-- ["The shrunken giants roam the {area:1119}; the sea elementals wade along the coast to the west."] = "Die geschrumpften Riesen streifen durch das Gebiet {area:1119}; die Meereselementare waten westlich davon an der Küste entlang.",
+	-- ["The three pieces of the doll lie in the ruined houses of {area:2262}; picking one up can call out ghosts. Combine them into the doll."] = "Die drei Teile der Puppe liegen in den zerstörten Häusern von {area:2262}; beim Aufheben können Geister erscheinen. Füge sie zur Puppe zusammen.",
 	-- ["The tortured druids and sentinels haunt the ruined village south-west of {npc:13220}."] = "Die Gequälten Druiden und Schildwachen spuken im verfallenen Südwindposten südwestlich von {npc:13220}.",
 	-- ["The wooden sign beside {npc:9997}"] = "Das Holzschild neben {npc:9997}",
 	-- ["The {area:2742} tower"] = "Der Turm von {area:2742}",
@@ -596,6 +596,7 @@ return {
 	-- ["Walk into {area:1769} and take the {zone:1450} branch of the tunnel to {area:2361}."] = "Geh in die {area:1769} und nimm den Tunnelzweig nach {zone:1450} bis nach {area:2361}.",
 	-- ["West across the south of the crater: Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from the Diemetradons. The expedition's {item:11112} lies in the south-west jungle."] = "Nach Westen durch den Süden des Kraters: Dinosaurierknochen liegen im Südwesten zwischen den Stegodons auf dem Boden: Die sind Elite, sammle die Knochen um sie herum auf und hol dir den Rest von den Diemetradons. Die {item:11112} der Expedition liegt im südwestlichen Dschungel.",
 	-- ["West along the south of the crater: the Gorishi hive fills it. Use the Scraping Vial on a hatchery, a chamber with hanging larvae."] = "Nach Westen am Südrand des Kraters entlang: Der Gorishi-Bau füllt ihn. Benutze die Schabphiole an einer Brutstätte, einer Kammer mit hängenden Larven.",
+	-- ["West through the {area:2277} to {area:2627}: fill the {item:15042} at the big termite mounds, and kill the Frenzied Plaguehounds and the Carrion Devourers on the way.\nCareful: the Frenzied Plaguehounds are 57-58: pull them one at a time."] = "Nach Westen durch den {area:2277} zum {area:2627}: Fülle das {item:15042} an den großen Termitenhügeln und töte unterwegs die Rasenden Seuchenhunde und die Aasfresser.\nVorsicht: Die Rasenden Seuchenhunde sind Stufe 57–58: Zieh sie einzeln.",
 	-- ["Western Pylon"] = "Westlicher Kristallpylon",
 	-- ["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "Das hast du beim früheren Besuch der Route hier verpasst: Es kommt jetzt zuerst. Es geht schnell und öffnet die Quests danach.",
 	-- ["Zapped giants and sea elementals"] = "Geschrumpfte Riesen und Meereselementare",

@@ -34,7 +34,7 @@ return {
 	-- {area:154} Deathknell
 	["Around {area:154}"] = "{area:154} 주변",
 	-- {object:164662} Equipment Boxes · {quest:380} Night Web's Hollow · {npc:271961} Webbed Forsaken · {npc:1919} Samuel Fipps · {object:178090} Marla's Grave
-	["The {object:164662} are all around the village. {quest:380} is the mine north-west; the {npc:271961} hang inside. {npc:1919} waits at the ruined camp by the road north-east: bury his remains at {object:178090}, in the front row of the village graveyard."] = "{object:164662}은(는) 마을 주변에 모두 있습니다. {quest:380}은(는) 북서쪽 광산에 있고 {npc:271961}이(가) 안에 매달려 있습니다. {npc:1919}은(는) 북동쪽 도로 옆 폐허 야영지에서 기다립니다. 그의 유해를 마을 묘지 앞줄 {object:178090}에 묻어 주세요.",
+	["The {object:164662} are all around the village. {quest:380} is the mine to the north-west, with the {npc:271961} inside. {npc:1919} is at the ruined camp by the road to the north-east, and {object:178090} is in the front row of the village graveyard."] = "",
 	-- {npc:271961} Webbed Forsaken
 	["{npc:271961} freed"] = "{npc:271961} 해방",
 	-- {object:178090} Marla's Grave · {item:16333} Samuel's Remains
@@ -62,8 +62,8 @@ return {
 	-- Step 9: Around Brill
 	-- {area:159} Brill
 	["Around {area:159}"] = "{area:159} 주변",
-	-- {item:286176} Executor's Motivator · {area:159} Brill · {quest:99141} Patience · {npc:1496} Deathguard Dillinger · {npc:251001} Deathguard Kristof · {npc:10666} Gordo · {npc:1525} Rotting Dead
-	["Use the {item:286176} on five Deathguards around {area:159}. For {quest:99141}, talk to {npc:1496} west of {area:159}, {npc:251001} at the waystation east of it and {npc:10666} on the road. The Rot Hide gnolls dig at the mass grave north of {area:159}. The {npc:1525} walk around the old bridge west of {area:159}; the dry branches lie under the trees there. Darkhounds roam everywhere."] = "{area:159} 주변의 죽음경비병 다섯에게 {item:286176}을(를) 사용하세요. {quest:99141}을(를) 위해 {area:159} 서쪽의 {npc:1496}, 동쪽 여관 지소의 {npc:251001}, 그리고 도로 위의 {npc:10666}과(와) 말을 거세요. 썩은가죽 그놀이 {area:159} 북쪽 공동묘지에서 땅을 팝니다. {npc:1525}가 {area:159} 서쪽 낡은 다리 주변을 거니는데, 마른 가지가 그곳 나무 아래에 있습니다. 어둠개가 어디나 떠돕니다.",
+	-- {area:159} Brill · {npc:10666} Gordo · {npc:1525} Rotting Dead
+	["The Deathguards are around {area:159}: Dillinger west of town, Kristof at the waystation east of it and {npc:10666} on the road. The Rot Hide gnolls dig at the mass grave north of {area:159}, the {npc:1525} walk around the old bridge west of it with the dry branches under the trees there, and Darkhounds roam everywhere."] = "",
 	-- {area:159} Brill
 	["Motivate 5 Deathguards: the Deathguards around {area:159}"] = "죽음의경비병 5명 독려: {area:159} 주변의 죽음의경비병",
 
@@ -111,8 +111,8 @@ return {
 	["The level 55 to 60 quests pay in full. First the {area:152}: {npc:10879}, by the {faction:68}'s elevators, sends you there. Lady Sylvanas in the {object:36126} gives {quest:5961}, an introduction to {npc:11878}: {quest:6136}, his last quest here, needs it handed in."] = "레벨 55~60 퀘스트는 평판을 전부 줍니다. 먼저 {area:152}: {faction:68} 승강기 옆의 {npc:10879}이(가) 그곳으로 보냅니다. {object:36126}의 실바나스 여왕이 {npc:11878} 소개 퀘스트인 {quest:5961}을(를) 줍니다. 그의 여기 마지막 퀘스트인 {quest:6136}은(는) 이를 제출해야 합니다.",
 
 	-- Step 18: Bulwark: Scarlet Diversions
-	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {npc:10837} High Executor Derrington · {faction:68} Undercity · {item:12814} Flame in a Bottle · {area:200} Dalson's Tears · {area:199} Felstone Field · {item:12807} Scourge Banner
-	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain sends you against the Scourge cauldrons of the {zone:1422}: about 820 {faction:68} reputation. Take a {item:12814} from the box beside him; burn the command tent of the Scarlet camp between {area:200} and {area:199} and plant the {item:12807} beside it."] = "{area:152}는 티리스팔에서 {zone:1422}(으)로 가는 도로의 포세이큰 야영지입니다. {npc:10837}의 사슬이 {zone:1422}의 스컬지 가마솥들에 대적하라고 보냅니다: 약 820 {faction:68} 평판. 그 옆 상자에서 {item:12814}를 하나 가져가 {area:200}과(와) {area:199} 사이 붉은십자군 야영지의 지휘 천막을 불태우고 그 옆에 {item:12807}을(를) 세우세요.",
+	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {npc:10837} High Executor Derrington · {faction:68} Undercity
+	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain against the Scourge cauldrons is worth about 820 {faction:68} reputation."] = "",
 	-- {quest:5096} Scarlet Diversions
 	["{quest:5096}, +100 (level 53)"] = "{quest:5096}, +100 (53레벨)",
 	-- {object:176088} Scarlet Crusade Forward Camp (no name in this language: may be words)
@@ -127,8 +127,8 @@ return {
 	-- Step 20: Felstone Field and the Andorhal towers
 	-- {area:199} Felstone Field
 	["{area:199} and the Andorhal towers"] = "{area:199}와(과) 안도르할 탑",
-	-- {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field · {quest:5230} Return to the Bulwark · {item:12815} Beacon Torch
-	["{npc:11075} guards the cauldron at {area:199}. Click the cauldron after the kill to start {quest:5230}. Mark the four towers of Andorhal with the {item:12815} at their doors."] = "{npc:11075}이(가) {area:199}의 가마솥을 지킵니다. 처치 후 가마솥을 클릭해 {quest:5230}을(를) 시작하세요. {item:12815}으로 안도르할의 탑 네 개 문에 표시하세요.",
+	-- {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field
+	["{npc:11075} guards the cauldron at {area:199}."] = "",
 	-- {object:176361} Scourge Cauldron
 	["the {object:176361}"] = "{object:176361}",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
@@ -177,9 +177,9 @@ return {
 	-- Step 29: Plaguebats, Quel'Lithien Lodge and Corin's Crossing
 	-- {area:2276} Quel'Lithien Lodge · {area:2264} Corin's Crossing
 	["Plaguebats, {area:2276} and {area:2264}"] = "역병박쥐, {area:2276}, {area:2264}",
-	-- {area:2276} Quel'Lithien Lodge · {area:2268} Light's Hope Chapel · {item:15847} Quel'Thalas Registry · {area:2264} Corin's Crossing · {item:15447} Living Rot · {item:15454} Mortar and Pestle · {item:15448} Coagulated Rot
+	-- {area:2276} Quel'Lithien Lodge · {item:15847} Quel'Thalas Registry · {area:2268} Light's Hope Chapel · {area:2264} Corin's Crossing · {item:15447} Living Rot
 	-- plural, as words: Noxious Plaguebats = {npc:8601} Noxious Plaguebat · Monstrous Plaguebats = {npc:8602} Monstrous Plaguebat
-	["The Noxious Plaguebats fly in the south of the zone, the Monstrous Plaguebats further north-west. {area:2276} is north-west of {area:2268}; the {item:15847} lies inside. Do {area:2264} last: its Scourge drop {item:15447}, which lasts only 10 minutes. With 7 in your bags, use the {item:15454} at once for the {item:15448}."] = "맹독 역병박쥐는 지역 남부를 날고, 기괴한 역병박쥐는 더 북서쪽을 돕니다. {area:2276}은(는) {area:2268} 북서쪽에 있고 {item:15847}이(가) 안에 있습니다. {area:2264}는 마지막에 하세요. 그곳의 스컬지가 {item:15447}을(를) 떨어뜨리는데 10분만 지속됩니다. 가방에 7개를 넣고 {item:15454}를 즉시 사용해 {item:15448}을(를) 만드세요.",
+	["Noxious Plaguebats fly in the south of the zone and Monstrous Plaguebats further north-west. {area:2276}, with the {item:15847} inside, is north-west of {area:2268}. The Scourge at {area:2264} drop {item:15447}, which lasts only 10 minutes."] = "",
 	-- {item:15448} Coagulated Rot · {item:15447} Living Rot · {item:15454} Mortar and Pestle
 	["{item:15448}: 7 {item:15447} and the {item:15454}"] = "{item:15448}: {item:15447} 7개와 {item:15454}",
 
@@ -225,13 +225,14 @@ return {
 	-- {area:978} Zul'Farrak · {object:142715} Tablet of Theka
 	["{area:978}: the {object:142715}"] = "{area:978}: {object:142715}",
 	-- {area:978} Zul'Farrak · {zone:1446} Tanaris · {npc:7272} Theka the Martyr · {object:142715} Tablet of Theka
-	["{area:978} is a level 44 to 54 dungeon in northern {zone:1446}; a level 60 can clear the way alone, or bring a group. {npc:7272}, an elite troll, guards his tomb in the instance: kill him and read the {object:142715} there."] = "{area:978}은(는) 북부 {zone:1446}의 44~54레벨 던전입니다. 60이면 길을 혼자 공략하거나 파티를 데려가세요. 정예 트롤 {npc:7272}이(가) 인스턴스 안 자기 무덤을 지킵니다. 그를 죽이고 그곳의 {object:142715}을(를) 읽으세요.",
+	-- was: ["{area:978} is a level 44 to 54 dungeon in northern {zone:1446}; a level 60 can clear the way alone, or bring a group. {npc:7272}, an elite troll, guards his tomb in the instance: kill him and read the {object:142715} there."] = "{area:978}은(는) 북부 {zone:1446}의 44~54레벨 던전입니다. 60이면 길을 혼자 공략하거나 파티를 데려가세요. 정예 트롤 {npc:7272}이(가) 인스턴스 안 자기 무덤을 지킵니다. 그를 죽이고 그곳의 {object:142715}을(를) 읽으세요."
+	["{area:978} is a level 44 to 54 dungeon in northern {zone:1446}; a level 60 can clear the way alone, or bring a group. {npc:7272}, an elite troll, guards his tomb and the {object:142715} in the instance."] = "",
 	-- {object:142715} Tablet of Theka
 	["read the {object:142715}"] = "{object:142715} 읽기",
 
 	-- Step 38: Shadra'Alor: Shadra
-	-- {item:9323} Gadrin's Parchment · {area:353} Shadra'Alor · {npc:2707} Shadra
-	["Read {item:9323} at the altar of {area:353} to call {npc:2707}, an elite level 55 spider: she drops her venom every time."] = "{area:353}의 제단에서 {item:9323}을(를) 읽어 정예 55레벨 거미 {npc:2707}을(를) 부르세요. 그녀는 매번 독을 떨어뜨립니다.",
+	-- {npc:2707} Shadra
+	["{npc:2707}, an elite level 55 spider, always drops her venom."] = "",
 	-- {item:9324} Shadra's Venom · {npc:2707} Shadra
 	["{item:9324}, from {npc:2707}"] = "{item:9324}, {npc:2707}에게서",
 
@@ -267,7 +268,14 @@ return {
 	-- ["Keep handing in {quest:7819} until {faction:68} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{faction:68}와(과) 확고한 동맹이 될 때까지 {quest:7819}을(를) 계속 제출하세요. {item:14047}: {zone:1423}의 암흑의 수행사제와 어둠마법사(레벨 58-60) 또는 경매장.",
 	-- ["Keep handing in {quest:7819}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7819}을(를) {item:14047} 20개씩 계속 제출하세요. {item:14047}: {zone:1423}의 암흑의 수행사제와 어둠마법사(레벨 58-60) 또는 경매장.",
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "콜카르 켄타우로스(레벨 30-33)가 여기서 떨어뜨립니다. 경매장에서도 구할 수 있습니다.",
+	-- ["Read {item:9323} at the altar of {area:353} to call {npc:2707}, an elite level 55 spider: she drops her venom every time."] = "{area:353}의 제단에서 {item:9323}을(를) 읽어 정예 55레벨 거미 {npc:2707}을(를) 부르세요. 그녀는 매번 독을 떨어뜨립니다.",
+	-- ["The Noxious Plaguebats fly in the south of the zone, the Monstrous Plaguebats further north-west. {area:2276} is north-west of {area:2268}; the {item:15847} lies inside. Do {area:2264} last: its Scourge drop {item:15447}, which lasts only 10 minutes. With 7 in your bags, use the {item:15454} at once for the {item:15448}."] = "맹독 역병박쥐는 지역 남부를 날고, 기괴한 역병박쥐는 더 북서쪽을 돕니다. {area:2276}은(는) {area:2268} 북서쪽에 있고 {item:15847}이(가) 안에 있습니다. {area:2264}는 마지막에 하세요. 그곳의 스컬지가 {item:15447}을(를) 떨어뜨리는데 10분만 지속됩니다. 가방에 7개를 넣고 {item:15454}를 즉시 사용해 {item:15448}을(를) 만드세요.",
+	-- ["The {object:164662} are all around the village. {quest:380} is the mine north-west; the {npc:271961} hang inside. {npc:1919} waits at the ruined camp by the road north-east: bury his remains at {object:178090}, in the front row of the village graveyard."] = "{object:164662}은(는) 마을 주변에 모두 있습니다. {quest:380}은(는) 북서쪽 광산에 있고 {npc:271961}이(가) 안에 매달려 있습니다. {npc:1919}은(는) 북동쪽 도로 옆 폐허 야영지에서 기다립니다. 그의 유해를 마을 묘지 앞줄 {object:178090}에 묻어 주세요.",
+	-- ["Use the {item:286176} on five Deathguards around {area:159}. For {quest:99141}, talk to {npc:1496} west of {area:159}, {npc:251001} at the waystation east of it and {npc:10666} on the road. The Rot Hide gnolls dig at the mass grave north of {area:159}. The {npc:1525} walk around the old bridge west of {area:159}; the dry branches lie under the trees there. Darkhounds roam everywhere."] = "{area:159} 주변의 죽음경비병 다섯에게 {item:286176}을(를) 사용하세요. {quest:99141}을(를) 위해 {area:159} 서쪽의 {npc:1496}, 동쪽 여관 지소의 {npc:251001}, 그리고 도로 위의 {npc:10666}과(와) 말을 거세요. 썩은가죽 그놀이 {area:159} 북쪽 공동묘지에서 땅을 팝니다. {npc:1525}가 {area:159} 서쪽 낡은 다리 주변을 거니는데, 마른 가지가 그곳 나무 아래에 있습니다. 어둠개가 어디나 떠돕니다.",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "{area:381}의 투자개발회사 집행자(레벨 16-17)가 여기서 떨어뜨립니다. 경매장에서도 구할 수 있습니다.",
+	-- ["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain sends you against the Scourge cauldrons of the {zone:1422}: about 820 {faction:68} reputation. Take a {item:12814} from the box beside him; burn the command tent of the Scarlet camp between {area:200} and {area:199} and plant the {item:12807} beside it."] = "{area:152}는 티리스팔에서 {zone:1422}(으)로 가는 도로의 포세이큰 야영지입니다. {npc:10837}의 사슬이 {zone:1422}의 스컬지 가마솥들에 대적하라고 보냅니다: 약 820 {faction:68} 평판. 그 옆 상자에서 {item:12814}를 하나 가져가 {area:200}과(와) {area:199} 사이 붉은십자군 야영지의 지휘 천막을 불태우고 그 옆에 {item:12807}을(를) 세우세요.",
+	-- ["{area:978} is a level 44 to 54 dungeon in northern {zone:1446}; a level 60 can clear the way alone, or bring a group. {npc:7272}, an elite troll, guards his tomb in the instance: kill him and read the {object:142715} there."] = "{area:978}은(는) 북부 {zone:1446}의 44~54레벨 던전입니다. 60이면 길을 혼자 공략하거나 파티를 데려가세요. 정예 트롤 {npc:7272}이(가) 인스턴스 안 자기 무덤을 지킵니다. 그를 죽이고 그곳의 {object:142715}을(를) 읽으세요.",
+	-- ["{npc:11075} guards the cauldron at {area:199}. Click the cauldron after the kill to start {quest:5230}. Mark the four towers of Andorhal with the {item:12815} at their doors."] = "{npc:11075}이(가) {area:199}의 가마솥을 지킵니다. 처치 후 가마솥을 클릭해 {quest:5230}을(를) 시작하세요. {item:12815}으로 안도르할의 탑 네 개 문에 표시하세요.",
 	-- ["{npc:14729} takes cloth for {faction:68} in {faction:68}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7819} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14729}이(가) {faction:68}에서 {faction:68}을(를) 위해 옷감을 받습니다. 양모 옷감, 비단 옷감, 마법 옷감, {item:14047}의 첫 기부(각 60개)는 한 번만 할 수 있고 옷감당 평판을 가장 많이 줍니다. 그 후에는 {quest:7819}을(를) 확고한 동맹까지 반복합니다. 다른 종족 도시와 확고한 동맹이 되면 그 종족의 탈것을 살 수 있습니다. Forever의 외교관 유산 특전은 평판 획득량을 늘려 줍니다.",
 	-- ["{npc:14729}: {item:14047} delivered"] = "{npc:14729}: {item:14047} 전달",
 	-- ["{quest:7819} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7819}은(는) 한 번에 {item:14047} 20개를 받으며 원하는 만큼 반복할 수 있습니다. {item:14047}을(를) 20개 단위로 모아 한 번에 연달아 제출하세요. {item:14047}: {zone:1423}의 암흑의 수행사제와 어둠마법사(레벨 58-60) 또는 경매장.",

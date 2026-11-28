@@ -14,9 +14,13 @@ return {
 
 	-- Step 2: WRIGGLE.
 	-- {npc:269452} Excitable Slime · {npc:4612} Boyle · {quest:97583} WRIGGLE.
-	["Find an {npc:269452}, a little critter in the canal water beside {npc:4612}, target it and /dance at it, again and again, until it dances back and offers {quest:97583}; this takes many tries. Hand in the sludge right away. If the slime seems tired, /dance with it again before you hand in."] = "Finde einen {npc:269452}, ein kleines Tierchen im Kanalwasser neben {npc:4612}, wähle es als Ziel und tippe wieder und wieder /dance darauf, bis es zurücktanzt und {quest:97583} anbietet; das braucht viele Versuche. Gib den Schlamm sofort ab. Wirkt der Schleim müde, tanze noch einmal mit ihm, bevor du abgibst.",
+	["An {npc:269452}, a little critter in the canal water beside {npc:4612}, offers {quest:97583} only after many /dance emotes at it, and it takes the sludge only while it still dances."] = "",
+	-- {npc:269452} Excitable Slime · {quest:97583} WRIGGLE.
+	["/dance at an {npc:269452} until it dances back and offers {quest:97583}"] = "",
+	["/dance with the slime again if it seems tired"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Find an {npc:269452}, a little critter in the canal water beside {npc:4612}, target it and /dance at it, again and again, until it dances back and offers {quest:97583}; this takes many tries. Hand in the sludge right away. If the slime seems tired, /dance with it again before you hand in."] = "Finde einen {npc:269452}, ein kleines Tierchen im Kanalwasser neben {npc:4612}, wähle es als Ziel und tippe wieder und wieder /dance darauf, bis es zurücktanzt und {quest:97583} anbietet; das braucht viele Versuche. Gib den Schlamm sofort ab. Wirkt der Schleim müde, tanze noch einmal mit ihm, bevor du abgibst.",
 	-- ["Find the {npc:269452}, a critter in the {zone:1458} canals, and /dance with it until it offers WRIGGLE. Buy {item:278265} from a vendor in the canals and bring it back; if the slime seems tired, dance with it again."] = "Such {npc:269452}, ein Kleintier in den Kanälen von {zone:1458}, und mach /dance mit ihm, bis es GLIBBER. anbietet. Kauf {item:278265} bei einem Händler in den Kanälen und bring es zurück; wirkt der Schleim müde, tanz noch einmal mit ihm.",
 	-- ["{item:278265}: {npc:4612}, in the canals beside the slime"] = "{item:278265}: {npc:4612}, in den Kanälen neben dem Schleim",
 }

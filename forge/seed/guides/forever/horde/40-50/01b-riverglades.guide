@@ -591,7 +591,7 @@ step Powderfuse Port
 
 step The Monster Surfaces
   when onquest 95267
-  tip The Monstrous Threshadon comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. Old Rot-Chum, an elite, walks the shore close by: give him room.
+  tip The Monstrous Threshadon only surfaces when called with the bait, in the shallows south-west of the port. Old Rot-Chum, an elite, walks the shore close by.
   collect 268633 quest 95267.1 @74.4,72.4 live -- Sea Monster's Head: the Threshadon surfaces where you call him
 
 step Argo Brinewhistle
@@ -690,8 +690,9 @@ step The Twilight camps
 
 step The ogre mine
   when onquest 95432
-  tip North of the camps the cult works ogre miners in a mine: talk five of them into rising up against their masters.
+  tip North of the camps the cult works ogre miners in a mine, and five of them can be talked into rising up against their masters.
   tip Careful: Twilight Enforcers (elites, level 45) walk past the mine's mouth on their way through the camps. Wait for one to pass before you go in.
+  talk 260995 quest 95432.1
   complete 95432 @26.9,34.9             -- recruit five Ogre Miners
 
 step Crag'rog

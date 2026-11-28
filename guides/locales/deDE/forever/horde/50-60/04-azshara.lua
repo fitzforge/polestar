@@ -123,9 +123,9 @@ return {
 	["Upstairs"] = "Oben",
 
 	-- Step 30: Good Luck Other-Half-Charm
-	-- {item:12722} Good Luck Other-Half-Charm · {item:12723} Good Luck Charm · {npc:10778} Janice Felstone
+	-- {item:12722} Good Luck Other-Half-Charm · {npc:10778} Janice Felstone
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
-	["Jabbering Ghouls on Felstone Farm carry the {item:12722}: kill them until one drops it, then right-click the halves in your bags to join them into the {item:12723}, and take it to {npc:10778} upstairs."] = "Plappernde Ghule auf der Teufelsstein-Farm tragen den {item:12722}: Töte sie, bis einer ihn fallen lässt, und klicke dann die beiden Hälften in deinen Taschen mit der rechten Maustaste zusammen zum {item:12723}. Bring ihn zu {npc:10778} nach oben.",
+	["Jabbering Ghouls on Felstone Farm carry the {item:12722}. {npc:10778} is upstairs."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back north to {npc:8420} with the rune, then south-west along the road."] = "Mit der Rune zurück nach Norden zu {npc:8420}, dann die Straße nach Südwesten.",
@@ -139,6 +139,7 @@ return {
 	-- ["Fly to {zone:1454}; {npc:4485} is in the {object:172958}, {npc:3326} and {npc:8659} in the {object:172960}."] = "Flieg nach {zone:1454}; {npc:4485} ist im {object:172958}, {npc:3326} und {npc:8659} in {object:172960}.",
 	-- ["Fly to {zone:1454}; {npc:4485} is in the {object:172958}."] = "Flieg nach {zone:1454}; {npc:4485} ist im {object:172958}.",
 	-- ["In the {object:172961}. Have the Wool, Silk and Mageweave in your bags."] = "Im {object:172961}. Hab Wolle, Seide und Magiestoff in deinen Taschen.",
+	-- ["Jabbering Ghouls on Felstone Farm carry the {item:12722}: kill them until one drops it, then right-click the halves in your bags to join them into the {item:12723}, and take it to {npc:10778} upstairs."] = "Plappernde Ghule auf der Teufelsstein-Farm tragen den {item:12722}: Töte sie, bis einer ihn fallen lässt, und klicke dann die beiden Hälften in deinen Taschen mit der rechten Maustaste zusammen zum {item:12723}. Bring ihn zu {npc:10778} nach oben.",
 	-- ["Keep the deliveries for {npc:8659}, {npc:6522}, {npc:4485} and {npc:3326}: you pass {zone:1454} and the {zone:1458} next. Magatha's, in {zone:1456}, is off this route: leave it."] = "Behalte die Lieferungen für {npc:8659}, {npc:6522}, {npc:4485} und {npc:3326}: Als Nächstes kommst du durch {zone:1454} und {zone:1458}. Die für Magatha in {zone:1456} liegt nicht auf dieser Route: Lass sie liegen.",
 	-- ["Makrinni Burrowers"] = "Makrinni-Wühler",
 	-- ["On north-east across the middle of {zone:1447}: {npc:235903} camps by the road."] = "Weiter nach Nordosten durch die Mitte von {zone:1447}: {npc:235903} lagert an der Straße.",

@@ -11,8 +11,8 @@ return {
 	["The Alliance paladin's rare two-handed mace for the 20s, with a shield and {spell:5502} on the way."] = "La maza de dos manos rara del paladín de la Alianza para la veintena, con un escudo y {spell:5502} por el camino.",
 
 	-- Step 1: The Tome of Valor (Ironforge)
-	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words) · {item:6776} Tome of Valor · {npc:6171} Duthorian Rall · {zone:1453} Stormwind · {area:2257} Deeprun Tram · {zone:1455} Ironforge
-	["At 20 {npc:6179}, upstairs in the {object:32386} in the {object:32362}, gives you the {item:6776}. Right-click it: it sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. Take the {area:2257} from {zone:1455} to {zone:1453}."] = "A nivel 20 {npc:6179}, en el piso de arriba de {object:32386}, en {object:32362}, te da {item:6776}. Haz clic derecho en él: te envía con {npc:6171} en la Catedral de la Luz de {zone:1453}. Toma el {area:2257} de {zone:1455} a {zone:1453}.",
+	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words) · {item:6776} Tome of Valor · {npc:6171} Duthorian Rall · {zone:1453} Stormwind · {area:2257} Deeprun Tram
+	["At 20 {npc:6179}, upstairs in the {object:32386} in the {object:32362}, gives the {item:6776}, which sends you to {npc:6171} in {zone:1453}'s Cathedral of Light, by the {area:2257}."] = "",
 
 	-- Step 2: The Tome of Valor
 	-- {npc:6171} Duthorian Rall · {item:6776} Tome of Valor
@@ -93,6 +93,7 @@ return {
 	["Bring the four parts to {npc:6181} outside {zone:1455}. Accept his last quest and wait by him while he forges the mace at his anvil."] = "Lleva las cuatro piezas a {npc:6181}, fuera de {zone:1455}. Acepta su última misión y espera a su lado mientras forja la maza en su yunque.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["At 20 {npc:6179}, upstairs in the {object:32386} in the {object:32362}, gives you the {item:6776}. Right-click it: it sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. Take the {area:2257} from {zone:1455} to {zone:1453}."] = "A nivel 20 {npc:6179}, en el piso de arriba de {object:32386}, en {object:32362}, te da {item:6776}. Haz clic derecho en él: te envía con {npc:6171} en la Catedral de la Luz de {zone:1453}. Toma el {area:2257} de {zone:1455} a {zone:1453}.",
 	-- ["Protect {npc:6182}"] = "Protege a {npc:6182}",
 	-- ["The Blackfathom naga by the entrance of {area:2797} on {zone:1440}'s north-west coast drop the {item:6995}. They are elite: grouping up is advised."] = "Los nagas Brazanegra junto a la entrada de {area:2797}, en la costa noroeste de {zone:1440}, sueltan {item:6995}. Son élite: se recomienda ir en grupo.",
 	-- ["The ore crate lies by the trees in the middle of the Mo'grosh ogre camp in north-east {zone:1432}. The Mo'grosh ogres are elite: grouping up is advised."] = "La caja de mineral está junto a los árboles en medio del campamento de ogros Mo'grosh, al noreste de {zone:1432}. Los ogros Mo'grosh son élite: se recomienda ir en grupo.",

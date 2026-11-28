@@ -26,19 +26,20 @@ return {
 
 	-- Step 4: The brown waterskin
 	["The brown waterskin"] = "O odre marrom",
-	-- {item:265732} Unfilled Brown Waterskin · {npc:258203} Hervdana Saegrund · {object:147516} Dark Iron (no name in this language: may be words)
-	["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "Encha o {item:265732} no pé das cachoeiras abaixo da caverna de {npc:258203}, onde a água doce encontra a salobra. Anões {object:147516} rondam perto das cachoeiras.",
+	-- {npc:258203} Hervdana Saegrund · {object:147516} Dark Iron (no name in this language: may be words)
+	-- was: ["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "Encha o {item:265732} no pé das cachoeiras abaixo da caverna de {npc:258203}, onde a água doce encontra a salobra. Anões {object:147516} rondam perto das cachoeiras."
+	["The water source is at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "",
 
 	-- Step 6: The red waterskin
 	["The red waterskin"] = "O odre vermelho",
-	-- {area:71} Stonewatch Falls · {area:68} Lake Everstill · {zone:1455} Ironforge · {area:69} Lakeshire · {item:265747} Unfilled Red Waterskin · {npc:258203} Hervdana Saegrund
+	-- {area:71} Stonewatch Falls · {area:68} Lake Everstill · {npc:258203} Hervdana Saegrund
 	-- plural, as words: Murloc Nightcrawlers = {npc:544} Murloc Nightcrawler
-	["{area:71} pour out of {area:68} at the east end of Redridge (fly from {zone:1455} to {area:69}). Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather; pull the murlocs off the spot first. If the skin vanishes without counting, abandon the quest and take it again from {npc:258203} for a new one."] = "{area:71} jorram de {area:68}, no extremo leste de Cristarrubra (voe de {zone:1455} até {area:69}). Encha {item:265747} ao pé deles, onde se reúnem os Reptantes Murloc; tire os murlocs do ponto primeiro. Se o odre sumir sem contar, abandone a missão e pegue de novo com {npc:258203} para receber um novo.",
+	["{area:71} pours out of {area:68} at the east end of Redridge, and Murloc Nightcrawlers gather at its foot. If the skin vanishes without counting, {npc:258203} gives a new one when the quest is taken again."] = "",
 
 	-- Step 8: The blue waterskin
 	["The blue waterskin"] = "O odre azul",
-	-- {area:150} Menethil Harbor · {area:442} Auberdine · {area:271} Southshore · {zone:1439} Darkshore · {area:415} Astranaar · {zone:1440} Ashenvale · {item:265772} Unfilled Blue Waterskin
-	["Take the boat from {area:150} to {area:442} (it stops in {area:271} on the way), then fly or walk south through {zone:1439} to {area:415} in {zone:1440}. Fill the {item:265772} in the lake around the town, then the boat back to Menethil."] = "Pegue o barco de {area:150} até {area:442} (ele para em {area:271} no caminho), depois voe ou ande para o sul por {zone:1439} até {area:415}, em {zone:1440}. Encha {item:265772} no lago em volta da cidade, depois pegue o barco de volta a Menethil.",
+	-- {area:150} Menethil Harbor · {area:442} Auberdine · {zone:1439} Darkshore · {zone:1440} Ashenvale
+	["The boat from {area:150} goes to {area:442} in {zone:1439}, north of {zone:1440}."] = "",
 
 	-- Step 9: Hervdana Saegrund
 	-- {item:7810} Vial of Purest Water · {npc:258043} Norric Lochthane
@@ -71,6 +72,9 @@ return {
 	["{npc:258043}: {spell:5394} and your {item:5177}"] = "{npc:258043}: {spell:5394} e seu {item:5177}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "Encha o {item:265732} no pé das cachoeiras abaixo da caverna de {npc:258203}, onde a água doce encontra a salobra. Anões {object:147516} rondam perto das cachoeiras.",
+	-- ["Take the boat from {area:150} to {area:442} (it stops in {area:271} on the way), then fly or walk south through {zone:1439} to {area:415} in {zone:1440}. Fill the {item:265772} in the lake around the town, then the boat back to Menethil."] = "Pegue o barco de {area:150} até {area:442} (ele para em {area:271} no caminho), depois voe ou ande para o sul por {zone:1439} até {area:415}, em {zone:1440}. Encha {item:265772} no lago em volta da cidade, depois pegue o barco de volta a Menethil.",
+	-- ["{area:71} pour out of {area:68} at the east end of Redridge (fly from {zone:1455} to {area:69}). Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather; pull the murlocs off the spot first. If the skin vanishes without counting, abandon the quest and take it again from {npc:258203} for a new one."] = "{area:71} jorram de {area:68}, no extremo leste de Cristarrubra (voe de {zone:1455} até {area:69}). Encha {item:265747} ao pé deles, onde se reúnem os Reptantes Murloc; tire os murlocs do ponto primeiro. Se o odre sumir sem contar, abandone a missão e pegue de novo com {npc:258203} para receber um novo.",
 	-- ["{area:71} pour out of {area:68} at the east end of Redridge. Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather."] = "{area:71} jorram de {area:68} no extremo leste de Cristarrubra. Encha o {item:265747} no pé delas, onde se reúnem os Reptantes Murloc.",
 	-- ["{area:919} lies outside {area:20}. Drink the {item:6637} there and defeat the {npc:5894} for its bracers, then place them and the {item:7811} on the {object:619896}. The {npc:5895} it calls forth gives you the {item:7813}."] = "{area:919} fica nos arredores de {area:20}. Beba a {item:6637} lá e derrote a {npc:5894} para pegar as braçadeiras; depois coloque-as junto com as {item:7811} no {object:619896}. A {npc:5895} invocada dá a você o {item:7813}.",
 	-- ["{npc:258043}'s burrow hut stands on the north-western edge of the loch, south of {area:146}."] = "A cabana-toca de {npc:258043} fica na margem noroeste do lago, ao sul de {area:146}.",

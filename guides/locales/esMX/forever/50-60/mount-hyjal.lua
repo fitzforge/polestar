@@ -96,10 +96,9 @@ return {
 	-- Step 15: Ketharas's shrine
 	-- {npc:256222} Ketharas
 	["{npc:256222}'s shrine"] = "El santuario de {npc:256222}",
-	["The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost: bury the remains there."] = "El santuario es un par de piedras erguidas al oeste de la Hermit's Abode, de camino de vuelta al puesto: entierra los restos ahí.",
+	["The shrine is a pair of standing stones west of the Hermit's Abode."] = "",
 
 	-- Step 17: The ancients' outpost
-	["West to the outpost."] = "Al oeste, hasta el puesto.",
 	-- {npc:248366} Fraxinus
 	["put the poultice on {npc:248366}"] = "pon la cataplasma en {npc:248366}",
 
@@ -153,7 +152,7 @@ return {
 	-- Step 33: The bone pile
 	["The bone pile"] = "La pila de huesos",
 	-- {npc:264306} Awakened Fel Ash Slime
-	["West to the bone pile by the slime pools: throw the warlocks' bones on it, then hand the quest in at the pile itself. Handing it in wakes the {npc:264306}, an elite (level 58) that hits hard: unless you are grouped for it, hand in and ride clear at once."] = "Al oeste, hasta la pila de huesos junto a los charcos de babosas: tira encima los huesos de los brujos y luego entrega la misión en la propia pila. Al entregarla despierta el {npc:264306}, un élite (nivel 58) que pega fuerte: salvo que vayas en grupo para él, entrega y aléjate de inmediato.",
+	["Handing the quest in at the pile wakes the {npc:264306}, a level 58 elite that hits hard."] = "",
 
 	-- Step 34: Amalgamated Marrow
 	-- {npc:264306} Awakened Fel Ash Slime
@@ -173,7 +172,6 @@ return {
 
 	-- Step 40: The Ashen workstations
 	["The Ashen workstations"] = "Las estaciones de trabajo Ashen",
-	["Four workstations stand in the Ashen camp: throw a pinecone at each, from the south up."] = "Hay cuatro estaciones de trabajo en el campamento Ashen: tira una piña a cada una, de sur a norte.",
 	["Slime Workstation"] = "Slime Workstation",
 	["Alchemy Workstation"] = "Alchemy Workstation",
 	["Disease Workstation"] = "Disease Workstation",
@@ -272,7 +270,7 @@ return {
 
 	-- Step 59: Fenwick's survival pack
 	["Fenwick's survival pack"] = "La mochila de supervivencia de Fenwick",
-	["His pack fell just north of the tree. Open it, then wait half a minute while its safety lock discharges before you open it again."] = "Su mochila cayó justo al norte del árbol. Ábrela y espera medio minuto a que se descargue su cierre de seguridad antes de volver a abrirla.",
+	["His pack fell just north of the tree. Its safety lock takes half a minute to discharge between the two hand-ins."] = "",
 
 	-- Step 60: Brerufa
 	-- {npc:256978} Brerufa
@@ -406,7 +404,7 @@ return {
 
 	-- Step 90: The overlook
 	["The overlook"] = "El mirador",
-	["West to the overlook above the valley: the veteran's old scabbard lies there. Hand his quest in at the scabbard and take the next from it, then use the scabbard in your bags to call his spirit and listen to his story."] = "Al oeste, hasta el mirador sobre el valle: ahí está la vieja vaina del veterano. Entrega su misión en la vaina y toma la siguiente de ella; luego usa la vaina desde tus bolsas para invocar su espíritu y escuchar su historia.",
+	["The veteran's spirit appears only once the scabbard is used."] = "",
 
 	-- Step 91: Shalla'kal and Galvinquam Leafsyre
 	-- {npc:255683} Shalla'kal · {npc:267109} Galvinquam Leafsyre
@@ -426,8 +424,6 @@ return {
 
 	-- Step 94: The falls and the first kitten
 	["The falls and the first kitten"] = "La cascada y la primera cría",
-	-- {npc:267109} Galvinquam Leafsyre · {npc:255685} Solstice · {npc:255683} Shalla'kal
-	["Fill {npc:267109}'s gourd at the falls beside the bridge. {npc:255685}, one of {npc:255683}'s kittens, plays just west of the falls: walk up to her."] = "Llena el calabacino de {npc:267109} en la cascada junto al puente. {npc:255685}, una de las crías de {npc:255683}, juega justo al oeste de la cascada: acércate a ella.",
 	["fill the gourd"] = "llena el calabacino",
 
 	-- Step 95: Johun "Punchy" Dillas's camp
@@ -579,9 +575,9 @@ return {
 	["{npc:263394} and {npc:252457} are level 60 elites until {npc:263406}'s eye drains them: drain each one first, then fight it. Drained, they are no longer elite and you can take them alone; players in our recordings killed both once drained."] = "{npc:263394} y {npc:252457} son élites de nivel 60 hasta que el ojo de {npc:263406} los drena: drena a cada uno primero y luego lucha. Drenados ya no son élites y puedes con ellos solo; los jugadores de nuestras grabaciones mataron a ambos una vez drenados.",
 
 	-- Step 131: Bethra'zel the Feeble
-	-- {npc:263394} Bethra'zel the Feeble · {npc:263406} Elaena Moonwhisper · {npc:252457} Mazzogore · {npc:267439} Doomguard Xarkul · {area:16866} Dae'gun
+	-- {npc:263394} Bethra'zel the Feeble · {npc:252457} Mazzogore · {npc:267439} Doomguard Xarkul · {area:16866} Dae'gun
 	-- plural, as words: Legion Hulks = {npc:249238} Legion Hulk
-	["North-east to {npc:263394}. Drain him first: use {npc:263406}'s eye on him, and only then fight him. Undrained, he and {npc:252457} are level 60 elites. {npc:267439}, an elite (level 61), walks this corner of {area:16866}: keep out of his way.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room."] = "Al noreste, hasta {npc:263394}. Drénalo primero: usa el ojo de {npc:263406} sobre él, y solo entonces pelea. Sin drenar, él y {npc:252457} son élites de nivel 60. {npc:267439}, un élite (nivel 61), recorre esta esquina de {area:16866}: no te cruces en su camino.\nCuidado: los Legion Hulks (60, élites raros) pisotean los campamentos de {area:16866}: dales espacio.",
+	["{npc:263394} and {npc:252457} are level 60 elites until {npc:263394} is drained. {npc:267439}, a level 61 elite, patrols this corner of {area:16866}.\nLegion Hulks (level 60 rare elites) roam {area:16866}'s camps."] = "",
 
 	-- Step 132: Maerion Thaelemaches
 	-- {npc:267097} Maerion Thaelemaches · {area:16866} Dae'gun · {npc:263394} Bethra'zel the Feeble · {npc:267439} Doomguard Xarkul
@@ -682,7 +678,8 @@ return {
 	-- Step 158: The Blackthorne camps
 	["The Blackthorne camps"] = "Los campamentos Puanegra",
 	-- {npc:260674} Ve'han Talongrasp · {npc:40833} Tiala Whitemane
-	["The Blackthorne cultists camp on the slopes north-east of the Summit (level 60, with elite Outrunners, Priests and a Courier among them: pull carefully). {npc:260674}, an elite (level 60) who leads them, stands among them: leave him be. Ghansurok, an elite chimaera (level 61), also roams the ridge north of the camps.\nUse {npc:40833}'s staff on a Pact member to strip its ward, then kill it, ten times: pick Cultists and Adepts, whom Thisalee wants dead too. The Cultists carry the kris and the Adepts the staff; the thorn seeds lie in the woods there, and the hippogryphs and chimaeras roam the slopes all around. Not finished in our recordings yet: if something here is off, tell us."] = "Los cultores Puanegra acampan en las laderas al noreste de la Cumbre (nivel 60, con avanzados, sacerdotes y un mensajero élites entre ellos: atrae con cuidado). {npc:260674}, un élite (nivel 60) que los dirige, está entre ellos: déjalo tranquilo. Ghansurok, una quimera élite (nivel 61), también ronda la cresta al norte de los campamentos.\nUsa el bastón de {npc:40833} sobre un miembro del Pacto para quitarle su protección y luego mátalo, diez veces: elige cultores y adeptos, a quienes Thisalee también quiere muertos. Los cultores llevan el kris y los adeptos el bastón; las semillas de espino están en el bosque de ahí, y los hipogrifos y las quimeras recorren las laderas de alrededor. Todavía no lo terminamos en nuestras grabaciones: si algo aquí está mal, avísanos.",
+	-- was: ["The Blackthorne cultists camp on the slopes north-east of the Summit (level 60, with elite Outrunners, Priests and a Courier among them: pull carefully). {npc:260674}, an elite (level 60) who leads them, stands among them: leave him be. Ghansurok, an elite chimaera (level 61), also roams the ridge north of the camps.\nUse {npc:40833}'s staff on a Pact member to strip its ward, then kill it, ten times: pick Cultists and Adepts, whom Thisalee wants dead too. The Cultists carry the kris and the Adepts the staff; the thorn seeds lie in the woods there, and the hippogryphs and chimaeras roam the slopes all around. Not finished in our recordings yet: if something here is off, tell us."] = "Los cultores Puanegra acampan en las laderas al noreste de la Cumbre (nivel 60, con avanzados, sacerdotes y un mensajero élites entre ellos: atrae con cuidado). {npc:260674}, un élite (nivel 60) que los dirige, está entre ellos: déjalo tranquilo. Ghansurok, una quimera élite (nivel 61), también ronda la cresta al norte de los campamentos.\nUsa el bastón de {npc:40833} sobre un miembro del Pacto para quitarle su protección y luego mátalo, diez veces: elige cultores y adeptos, a quienes Thisalee también quiere muertos. Los cultores llevan el kris y los adeptos el bastón; las semillas de espino están en el bosque de ahí, y los hipogrifos y las quimeras recorren las laderas de alrededor. Todavía no lo terminamos en nuestras grabaciones: si algo aquí está mal, avísanos."
+	["The Blackthorne cultists camp on the slopes north-east of the Summit (level 60, with elite Outrunners, Priests and a Courier among them: pull carefully). {npc:260674}, an elite (level 60) who leads them, stands among them: leave him be. Ghansurok, an elite chimaera (level 61), also roams the ridge north of the camps.\n{npc:40833}'s staff strips a Pact member's ward, and Cultists and Adepts count for Thisalee too. The Cultists carry the kris and the Adepts the staff; the thorn seeds lie in the woods there, and the hippogryphs and chimaeras roam the slopes all around. Not finished in our recordings yet: if something here is off, tell us."] = "",
 
 	-- Step 159: The Blackthorne camps
 	-- {npc:260674} Ve'han Talongrasp
@@ -699,7 +696,16 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A group choice: {npc:263394} and {npc:252457} are level 60 elites until {npc:263406}'s eye drains them. Drain each one first, then fight it; players in our recordings killed both once drained. Grouping up is advised."] = "Para ir en grupo: {npc:263394} y {npc:252457} son élites de nivel 60 hasta que el ojo de {npc:263406} los drena. Drena a cada uno primero y luego pelea; los jugadores de nuestras grabaciones mataron a los dos una vez drenados. Se recomienda ir en grupo.",
 	-- ["Back to {npc:264089}, then the ghostly {npc:255009} at {area:16868}'s western edge, where the recording met him, on your way west."] = "De vuelta con {npc:264089}, y luego el fantasmal {npc:255009} en el borde oeste de {area:16868}, donde lo encontró la grabación, de camino al oeste.",
+	-- ["Fill {npc:267109}'s gourd at the falls beside the bridge. {npc:255685}, one of {npc:255683}'s kittens, plays just west of the falls: walk up to her."] = "Llena el calabacino de {npc:267109} en la cascada junto al puente. {npc:255685}, una de las crías de {npc:255683}, juega justo al oeste de la cascada: acércate a ella.",
+	-- ["Four workstations stand in the Ashen camp: throw a pinecone at each, from the south up."] = "Hay cuatro estaciones de trabajo en el campamento Ashen: tira una piña a cada una, de sur a norte.",
+	-- ["His pack fell just north of the tree. Open it, then wait half a minute while its safety lock discharges before you open it again."] = "Su mochila cayó justo al norte del árbol. Ábrela y espera medio minuto a que se descargue su cierre de seguridad antes de volver a abrirla.",
+	-- ["North-east to {npc:263394}. Drain him first: use {npc:263406}'s eye on him, and only then fight him. Undrained, he and {npc:252457} are level 60 elites. {npc:267439}, an elite (level 61), walks this corner of {area:16866}: keep out of his way.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room."] = "Al noreste, hasta {npc:263394}. Drénalo primero: usa el ojo de {npc:263406} sobre él, y solo entonces pelea. Sin drenar, él y {npc:252457} son élites de nivel 60. {npc:267439}, un élite (nivel 61), recorre esta esquina de {area:16866}: no te cruces en su camino.\nCuidado: los Legion Hulks (60, élites raros) pisotean los campamentos de {area:16866}: dales espacio.",
 	-- ["South Bonfire"] = "South Bonfire",
 	-- ["South down the west side of the shrub field to the ancients' outpost: kill the {npc:248395} you pass for {npc:249235}. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "Al sur por el lado oeste del campo de arbustos hasta el puesto de los ancianos: mata los {npc:248395} que encuentres para {npc:249235}. {npc:260626}, la maestra de vuelo, espera junto al puesto; {npc:248367} y {npc:265586} están con el anciano {npc:248366}.",
 	-- ["Southeast Bonfire"] = "Southeast Bonfire",
+	-- ["The Blackthorne cultists camp on the slopes north-east of the Summit (level 60, with elite Outrunners, Priests and a Courier among them: pull carefully). {npc:260674}, an elite (level 60) who leads them, stands among them: leave him be. Ghansurok, an elite chimaera (level 61), also roams the ridge north of the camps.\nUse {npc:40833}'s staff on a Pact member to strip its ward, then kill it, ten times: pick Cultists and Adepts, whom Thisalee wants dead too. The Cultists carry the kris and the Adepts the staff; the thorn seeds lie in the woods there, and the hippogryphs and chimaeras roam the slopes all around. Not finished in our recordings yet: if something here is off, tell us."] = "Los cultores Puanegra acampan en las laderas al noreste de la Cumbre (nivel 60, con avanzados, sacerdotes y un mensajero élites entre ellos: atrae con cuidado). {npc:260674}, un élite (nivel 60) que los dirige, está entre ellos: déjalo tranquilo. Ghansurok, una quimera élite (nivel 61), también ronda la cresta al norte de los campamentos.\nUsa el bastón de {npc:40833} sobre un miembro del Pacto para quitarle su protección y luego mátalo, diez veces: elige cultores y adeptos, a quienes Thisalee también quiere muertos. Los cultores llevan el kris y los adeptos el bastón; las semillas de espino están en el bosque de ahí, y los hipogrifos y las quimeras recorren las laderas de alrededor. Todavía no lo terminamos en nuestras grabaciones: si algo aquí está mal, avísanos.",
+	-- ["The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost: bury the remains there."] = "El santuario es un par de piedras erguidas al oeste de la Hermit's Abode, de camino de vuelta al puesto: entierra los restos ahí.",
+	-- ["West to the bone pile by the slime pools: throw the warlocks' bones on it, then hand the quest in at the pile itself. Handing it in wakes the {npc:264306}, an elite (level 58) that hits hard: unless you are grouped for it, hand in and ride clear at once."] = "Al oeste, hasta la pila de huesos junto a los charcos de babosas: tira encima los huesos de los brujos y luego entrega la misión en la propia pila. Al entregarla despierta el {npc:264306}, un élite (nivel 58) que pega fuerte: salvo que vayas en grupo para él, entrega y aléjate de inmediato.",
+	-- ["West to the outpost."] = "Al oeste, hasta el puesto.",
+	-- ["West to the overlook above the valley: the veteran's old scabbard lies there. Hand his quest in at the scabbard and take the next from it, then use the scabbard in your bags to call his spirit and listen to his story."] = "Al oeste, hasta el mirador sobre el valle: ahí está la vieja vaina del veterano. Entrega su misión en la vaina y toma la siguiente de ella; luego usa la vaina desde tus bolsas para invocar su espíritu y escuchar su historia.",
 }

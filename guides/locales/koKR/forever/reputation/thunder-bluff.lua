@@ -113,9 +113,8 @@ return {
 	["{npc:264074}: {quest:96241} (Darkspear +100)"] = "{npc:264074}: {quest:96241} (다크스펠 +100)",
 
 	-- Step 19: Gloomrise
-	-- {area:17044} Gloomrise · {faction:81} Thunder Bluff · {item:273015} Toxin Extractor · {npc:264082} Broodmother Valraxx · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
-	-- plural, as words: Gnawed Corpses = {npc:264096} Gnawed Corpse
-	["{area:17044} is the tauren burial ground north of {faction:81}. Use the {item:273015} on the Gnawed Corpses. {npc:264082} waits at the heart of it; her body carries a {item:273658}: read it to start {quest:96294}."] = "{area:17044}은(는) {faction:81} 북쪽의 타우렌 매지터입니다. 갉아먹힌 시체에게 {item:273015}을(를) 사용하세요. {npc:264082}이(가) 그 심장부에서 기다리고, 그녀의 몸에는 {item:273658}이(가) 있습니다. 읽으면 {quest:96294}가 시작됩니다.",
+	-- {area:17044} Gloomrise · {faction:81} Thunder Bluff · {npc:264082} Broodmother Valraxx · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
+	["{area:17044} is the tauren burial ground north of {faction:81}. {npc:264082} is at its heart, and her body carries a {item:273658} that starts {quest:96294}."] = "",
 	-- {item:273181} Crystalline Silk
 	-- plural, as words: Gloomrise Spinners = {npc:264081} Gloomrise Spinner
 	["{item:273181}, from Gloomrise Spinners"] = "{npc:264081}에게서 얻는 {item:273181}",
@@ -190,8 +189,8 @@ return {
 	["Nearly every beast, plant and silithid in the crater drops {quest:3761}, about one kill in three (the Bloodpetals and the Gorishi wasps about one in two), and the dirt mounds give it too. Take far more than 20: every casing uses 2, about 18 for each {item:11040} hand-in."] = "분화구의 야수, 식물, 실리시드 거의 모두가 {quest:3761}을(를) 떨어뜨리고 처치 셋 중 하나 꼴입니다(피잎과 고리시 말벌은 둘 중 하나). 흙 더미도 줍니다. 20개보다 훨씬 더 가져가세요. 껍질마다 2개, {item:11040} 반납마다 약 18개를 씁니다.",
 
 	-- Step 34: Thunder Bluff: Morrowgrain Research
-	-- {npc:9076} Ghede · {npc:9087} Bashana Runetotem · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {item:11024} Evergreen Herb Casing · {item:11040} Morrowgrain
-	["{npc:9076} takes the soil. {npc:9087} sells the {item:11020} (1 gold) and Packets of Tharlendris Seeds (10 silver each). With a seed packet and 2 {quest:3761} in your bags, use the pouch: it grows an {item:11024}, once every 10 minutes. Open each casing: about one in three holds 1 to 5 {item:11040}, the rest common herbs. Use the pouch whenever it is ready while you follow the rest of this guide."] = "{npc:9076}이(가) 흙을 받습니다. {npc:9087}이(가) {item:11020}(1골)과 탈렌드리스 씨앗 봉지(개당 10실버)를 팝니다. 씨앗 봉지 하나와 가방에 {quest:3761} 둘을 넣고 주머니를 사용하세요. 10분마다 {item:11024}를 하나 키웁니다. 각 껍질을 열면 셋 중 하나꼴로 {item:11040} 1~5개, 나머지는 일반 약초입니다. 이 가이드의 나머지를 따라가며 준비되는 대로 주머니를 사용하세요.",
+	-- {npc:9076} Ghede · {item:11020} Evergreen Pouch · {item:11024} Evergreen Herb Casing · {quest:3761} Un'Goro Soil · {item:11040} Morrowgrain
+	["{npc:9076} takes the soil. The {item:11020} grows an {item:11024} from a seed packet and 2 {quest:3761} once every 10 minutes, and about one casing in three holds 1 to 5 {item:11040}, the rest common herbs."] = "",
 	-- {item:11020} Evergreen Pouch
 	["{item:11020}, 1 gold"] = "{item:11020}, 1골",
 	-- {item:11022} Packet of Tharlendris Seeds
@@ -239,7 +238,9 @@ return {
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "콜카르 켄타우로스(30-33레벨)가 이곳에서 떨어뜨립니다. 경매장도 이용할 수 있습니다.",
 	-- ["The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "정예 파쇄기계 투자개발회사 클리어커터가 피즈스프로킷이 서 있던 곳 너머 광산 깊은 곳에서 일합니다. 그 열쇠가 {quest:98427}용입니다.",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "{area:381}의 {npc:3283}(16-17레벨)이 이곳에서 떨어뜨립니다. 경매장도 이용할 수 있습니다.",
+	-- ["{area:17044} is the tauren burial ground north of {faction:81}. Use the {item:273015} on the Gnawed Corpses. {npc:264082} waits at the heart of it; her body carries a {item:273658}: read it to start {quest:96294}."] = "{area:17044}은(는) {faction:81} 북쪽의 타우렌 매지터입니다. 갉아먹힌 시체에게 {item:273015}을(를) 사용하세요. {npc:264082}이(가) 그 심장부에서 기다리고, 그녀의 몸에는 {item:273658}이(가) 있습니다. 읽으면 {quest:96294}가 시작됩니다.",
 	-- ["{npc:14728} takes cloth for {faction:81} in {faction:81}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7825} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14728}은(는) {faction:81}을(를) 위해 {faction:81}에서 옷감을 받습니다. 양모, 비단, 마법 옷감, {item:14047}의 첫 기부(각 60장)는 한 번만 할 수 있으며 옷감당 평판이 가장 높습니다. 그 뒤에는 {quest:7825}을(를) 확고한 동맹까지 반복합니다. 다른 종족의 도시와 확고한 동맹이 되면 그 종족의 탈것을 살 수 있습니다. Forever의 외교관 유산 특전은 평판 획득량을 늘려 줍니다.",
 	-- ["{npc:14728}: {item:14047} delivered"] = "{npc:14728}: {item:14047} 기부 완료",
+	-- ["{npc:9076} takes the soil. {npc:9087} sells the {item:11020} (1 gold) and Packets of Tharlendris Seeds (10 silver each). With a seed packet and 2 {quest:3761} in your bags, use the pouch: it grows an {item:11024}, once every 10 minutes. Open each casing: about one in three holds 1 to 5 {item:11040}, the rest common herbs. Use the pouch whenever it is ready while you follow the rest of this guide."] = "{npc:9076}이(가) 흙을 받습니다. {npc:9087}이(가) {item:11020}(1골)과 탈렌드리스 씨앗 봉지(개당 10실버)를 팝니다. 씨앗 봉지 하나와 가방에 {quest:3761} 둘을 넣고 주머니를 사용하세요. 10분마다 {item:11024}를 하나 키웁니다. 각 껍질을 열면 셋 중 하나꼴로 {item:11040} 1~5개, 나머지는 일반 약초입니다. 이 가이드의 나머지를 따라가며 준비되는 대로 주머니를 사용하세요.",
 	-- ["{quest:7825} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7825}은(는) 제출할 때마다 {item:14047} 20장을 받으며 원하는 만큼 반복할 수 있습니다. {item:14047}을(를) 20장 단위로 가져와 한 번에 연달아 모두 제출하세요. {item:14047}: {zone:1423}의 {npc:8546}와(과) 어둠마법사(58-60레벨), 또는 경매장.",
 }

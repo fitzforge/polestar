@@ -389,7 +389,8 @@ return {
 
 	-- Step 69: Fly to Stormwind
 	-- {area:442} Auberdine · {zone:1439} Darkshore · {zone:1453} Stormwind
-	["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour. Hearthstone ready (bound in {area:442} since the first {zone:1439} visit)? Use it instead: these steps drop once you are in {zone:1439}."] = "De vuelta a {area:442} para los circuitos del sur de {zone:1439}: el grifo a {zone:1453} y luego el barco desde el puerto. ¿Piedra de hogar lista (vinculada en {area:442} desde la primera visita a {zone:1439})? Úsala en su lugar: estos pasos desaparecen una vez que estés en {zone:1439}.",
+	-- was: ["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour. Hearthstone ready (bound in {area:442} since the first {zone:1439} visit)? Use it instead: these steps drop once you are in {zone:1439}."] = "De vuelta a {area:442} para los circuitos del sur de {zone:1439}: el grifo a {zone:1453} y luego el barco desde el puerto. ¿Piedra de hogar lista (vinculada en {area:442} desde la primera visita a {zone:1439})? Úsala en su lugar: estos pasos desaparecen una vez que estés en {zone:1439}."
+	["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour. The hearthstone is bound in {area:442} since the first {zone:1439} visit, and these steps drop once you are in {zone:1439}."] = "",
 	-- {area:69} Lakeshire
 	["{area:69} flight master"] = "Maestro de vuelo de {area:69}",
 
@@ -432,6 +433,7 @@ return {
 	["On the way to the harbour: {npc:4984}'s message goes to {npc:8997} in {area:442}, beside Terenthis, where the boat lands."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour. Hearthstone ready (bound in {area:442} since the first {zone:1439} visit)? Use it instead: these steps drop once you are in {zone:1439}."] = "De vuelta a {area:442} para los circuitos del sur de {zone:1439}: el grifo a {zone:1453} y luego el barco desde el puerto. ¿Piedra de hogar lista (vinculada en {area:442} desde la primera visita a {zone:1439})? Úsala en su lugar: estos pasos desaparecen una vez que estés en {zone:1439}.",
 	-- ["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "Wiley no da la Hermandad Defias (empieza con la carta de {npc:234} en {zone:1436}): sáltate {zone:1436}. Al norte por el camino desde {area:87} hasta {zone:1453}: {npc:466} está montado en su caballo al final del puente, fuera de la puerta principal. Luego los grifos de {object:2096}, de vuelta a {area:69}.",
 	-- ["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}."] = "{npc:332} está arriba en el edificio del SI:7 en {object:2100}: al principio cuesta ver la escalera. {npc:466} está montado en su caballo al final del puente, fuera de la puerta principal; luego de vuelta a los grifos de {object:2096}.",
 }

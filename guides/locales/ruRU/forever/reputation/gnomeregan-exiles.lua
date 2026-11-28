@@ -121,7 +121,7 @@ return {
 	["{zone:1448}: Cursed and Tainted Oozes"] = "",
 	-- {area:1763} Jaedenar · {area:1765} Bloodvenom Falls
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["The Cursed and Tainted Oozes slide about the streams and fel pools around {area:1763} and {area:1765}: kill one and use an empty jar on its remains."] = "",
+	["Cursed and Tainted Oozes are found around the streams and fel pools near {area:1763} and {area:1765}."] = "",
 
 	-- Step 21: Tinker Town: the second jars
 	-- {object:171524} Tinker Town
@@ -133,7 +133,7 @@ return {
 	["{zone:1449}: Primal Oozes"] = "",
 	-- {area:537} Fire Plume Ridge
 	-- plural, as words: Primal Oozes = {npc:6557} Primal Ooze · Glutinous Oozes = {npc:6559} Glutinous Ooze
-	["The Primal Oozes live in the pools around {area:537} in the middle of the crater; the Muculent and Glutinous Oozes fill the jars too. Kill one and use a jar on its remains."] = "",
+	["Primal Oozes live in the pools around {area:537} in the middle of the crater. Muculent and Glutinous Oozes also fill the jars."] = "",
 
 	-- Step 23: Tinker Town: hand in
 	-- {object:171524} Tinker Town

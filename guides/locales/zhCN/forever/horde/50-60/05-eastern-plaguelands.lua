@@ -20,7 +20,7 @@ return {
 
 	-- Step 2: Dalson's Tears
 	-- {area:199} Felstone Field · {npc:11077} Cauldron Lord Malvinious · {area:200} Dalson's Tears
-	["East along the road past {area:199}, {npc:11077} guards the cauldron at {area:200}: kill him for the key, then use the cauldron."] = "沿路向东经过{area:199}。{npc:11077}守着{area:200}的大锅，杀掉他拿钥匙，再使用大锅。",
+	["East along the road past {area:199}, {npc:11077} carries the key to the cauldron at {area:200}."] = "",
 
 	-- Step 4: Andorhal watchtowers and silos
 	["Andorhal watchtowers and silos"] = "安多哈尔的哨塔和粮仓",
@@ -93,7 +93,7 @@ return {
 
 	-- Step 24: Pamela's Doll
 	-- {npc:10926} Pamela Redpath
-	["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "娃娃的头和两侧身体散落在{npc:10926}周围的房屋里；在背包里把它们组合起来。",
+	["The doll's head and its two sides are in the houses around {npc:10926}."] = "",
 
 	-- Step 25: Pamela Redpath
 	-- {npc:11063} Carlin Redpath · {area:2268} Light's Hope Chapel
@@ -190,9 +190,9 @@ return {
 	-- Step 42: Terrordale: kill these as you meet them
 	-- {area:2627} Terrordale
 	["{area:2627}: kill these as you meet them"] = "{area:2627}：遇到就顺手击杀",
-	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
-	-- plural, as words: Large Termite Mounds = {object:177464} Large Termite Mound · Ziggurat Protectors = {npc:12262} Ziggurat Protector
-	["The book lies in the ruined inn of {area:2627}; the undead in the town are 54-56, so pull them one at a time.\nThe Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass.\nCareful: Ziggurat Protectors (58, elite) stand by the ziggurats east and north-east of the town: take the mounds nearer the town and stay clear of them."] = "书在{area:2627}被毁的旅店里；镇上的亡灵是54-56级，一次引一只。\n大白蚁丘遍布{area:2627}东边的山丘。路过每个白蚁丘时都对它使用{item:15042}。\n小心：通灵塔保护者（58级，精英）守在镇子东边和东北边的通灵塔旁：选靠近镇子的白蚁丘，远离它们。",
+	-- {area:2627} Terrordale
+	-- plural, as words: Ziggurat Protectors = {npc:12262} Ziggurat Protector
+	["The undead in {area:2627} are level 54-56, and elite level 58 Ziggurat Protectors guard the ziggurats east and north-east of town."] = "",
 	-- {quest:5510} Minion's Scourgestones · {area:2627} Terrordale · {item:12846} Argent Dawn Commission
 	["{quest:5510}: the {area:2627} undead drop them while you wear the {item:12846}"] = "{quest:5510}：佩戴{item:12846}时，{area:2627}的亡灵会掉落",
 
@@ -214,9 +214,9 @@ return {
 	["Underwater"] = "在水下",
 
 	-- Step 46: Corin's Crossing
-	-- {area:2264} Corin's Crossing · {item:15447} Living Rot · {item:15454} Mortar and Pestle · {spell:10228} Greater Invisibility · {quest:5211} Defenders of Darrowshire · {npc:11063} Carlin Redpath
-	-- plural, as words: Unseen Servants = {npc:8538} Unseen Servant · Darrowshire Spirits = {npc:11064} Darrowshire Spirit
-	["Ride south to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "沿道路向南骑往{area:2264}。{item:15447}十分钟内就会变质：快速杀死镇上的天灾军团，然后立刻用{item:15454}把七块研磨好。\n小心：无影仆从血量降到40%时会呼叫25码内的同伴求援。脱离战斗时它们还会用{spell:10228}隐形。如果在镇子里触发求援，大量怪物可能加入战斗。在镇子外围战斗可以降低这种风险。\n如果你的任务日志里有{quest:5211}（来自本指南开头的{npc:11063}），镇子周围的天灾军团死后会留下达隆郡居民的灵魂：与每一个交谈以解放它。先解放它们，再开始收集{item:15447}。",
+	-- {item:15447} Living Rot
+	-- plural, as words: Unseen Servants = {npc:8538} Unseen Servant
+	["{item:15447} spoils within ten minutes. Unseen Servants call for help within 25 yd at 40% health and turn invisible out of combat, so a call inside the town can pull many mobs."] = "",
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "解放达隆郡之魂：与它们交谈",
 	-- {npc:8530} Cannibal Ghoul · {npc:11064} Darrowshire Spirit
@@ -264,8 +264,8 @@ return {
 
 	-- Step 58: Scarlet Crusade
 	["Scarlet Crusade"] = "血色十字军",
-	-- {area:192} Northridge Lumber Camp · {npc:11615} Mickey Levine · {item:15044} Barrel of Plagueland Termites · {object:177491} Termite Barrel · {quest:5902} A Plague Upon Thee · {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
-	["Back north-east to the {area:192}: knights and magi work the camp, the medics and hunters camp south of it. In the middle of the lumber mill, stand by the crate and use {npc:11615}'s {item:15044} from your bags to set it on top; then click the {object:177491} that appears: it finishes {quest:5902} and gives the next part for {npc:11615}. Careful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}: give it room."] = "向东北返回{area:192}。骑士和法师在营地活动，医师和猎人在南边扎营。到伐木场中央站在箱子旁，使用背包里{npc:11615}给的{item:15044}，把桶放到箱子上。然后点击出现的{object:177491}，完成{quest:5902}并接后续，再回去找{npc:11615}。小心，58-59级精英{npc:10996}可能出现在伐木营地，{zone:1422}的许多地方也会遇到它，注意保持距离。",
+	-- {area:192} Northridge Lumber Camp · {npc:11615} Mickey Levine · {object:177491} Termite Barrel · {quest:5902} A Plague Upon Thee · {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
+	["Back north-east at the {area:192}, knights and magi work the camp, and the medics and hunters camp south of it. {npc:11615}'s barrel of termites goes on the crate in the middle of the lumber mill, and the {object:177491} that appears finishes {quest:5902} and gives the next part for {npc:11615}. Careful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}."] = "",
 
 	-- Step 60: Radley and Durgen
 	["Radley and Durgen"] = "猎人莱德雷和骑士杜尔根",
@@ -278,7 +278,7 @@ return {
 
 	-- Step 62: Target: Gahrron's Withering
 	-- {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath
-	["Ride south-east to {area:201}, the farm under the eastern hills: {npc:11078} (58) guards its cauldron. Kill him for the key, then use the cauldron.\nCareful: Soulwrath is about two levels over you here: clear the ghouls around the cauldron first, start at full health and use your cooldowns on him."] = "向东南前往东边山脚下的农场{area:201}。{npc:11078}（58级）守着大锅。击杀他拿到钥匙，再使用大锅。\n小心，索瓦斯大约比你高两级。先清掉大锅周围的食尸鬼，满血再开打，把冷却技能用在他身上。",
+	["{area:201} is the farm under the eastern hills to the south-east, and {npc:11078} (58) carries the key to its cauldron.\nCareful: Soulwrath is about two levels over you here, and ghouls stand around the cauldron."] = "",
 
 	-- Step 63: Skeletal Fragments
 	-- {area:200} Dalson's Tears · {area:199} Felstone Field
@@ -340,8 +340,8 @@ return {
 	["{npc:10922}: the Cleansed Water from Islen in the {zone:1413}"] = "找{npc:10922}交净化过的水，水是从{zone:1413}的伊斯伦那里拿的",
 
 	-- Step 75: Dousing the Flames of Protection
-	-- {area:1763} Jaedenar · {area:1770} Shadow Hold · {item:12906} Purified Moonwell Water
-	["Ride north-west to {area:1763} and go down into {area:1770}, the cave in its north: the four braziers stand inside. Use Greta's {item:12906} from your bags on each one. Careful: Shadow Council mobs of level 53-55 fill the cave and often come in linked groups, many with stuns: pull them one group at a time."] = "向西北前往{area:1763}，下到北边的洞穴{area:1770}，四个火盆都在里面。对每个火盆使用背包里格雷塔给的{item:12906}。小心，洞里到处是53-55级的暗影议会怪物，经常成群联动，不少还会用昏迷技能。一次只引一组。",
+	-- {area:1770} Shadow Hold · {item:12906} Purified Moonwell Water
+	["{area:1770} is full of level 53-55 Shadow Council mobs, often in linked groups, and many of them can stun. The braziers take Greta's {item:12906}."] = "",
 
 	-- Step 76: Greta Mosshoof
 	["Back south to the Sanctuary, a short ride."] = "向南回到翡翠圣地，路程很短。",
@@ -426,10 +426,12 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A torn scroll lies at the entrance of the {area:2261}, the crypt south of the {area:2260}."] = "一张破损的卷轴在{area:2260}南边的墓穴{area:2261}的入口处。",
+	-- ["Back north-east to the {area:192}: knights and magi work the camp, the medics and hunters camp south of it. In the middle of the lumber mill, stand by the crate and use {npc:11615}'s {item:15044} from your bags to set it on top; then click the {object:177491} that appears: it finishes {quest:5902} and gives the next part for {npc:11615}. Careful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}: give it room."] = "向东北返回{area:192}。骑士和法师在营地活动，医师和猎人在南边扎营。到伐木场中央站在箱子旁，使用背包里{npc:11615}给的{item:15044}，把桶放到箱子上。然后点击出现的{object:177491}，完成{quest:5902}并接后续，再回去找{npc:11615}。小心，58-59级精英{npc:10996}可能出现在伐木营地，{zone:1422}的许多地方也会遇到它，注意保持距离。",
 	-- ["Back through the tunnel and take the {area:618} exit, then ride south to {area:2246}."] = "穿过隧道回去，走{area:618}出口，然后向南骑往{area:2246}。",
 	-- ["Back through the tunnel and take the {zone:1452} exit: {npc:11556} stands right where it comes out."] = "穿过隧道回去，走{zone:1452}出口：{npc:11556}就站在出口处。",
 	-- ["Back to {area:1638}"] = "返回{area:1638}",
 	-- ["Drink the {item:11243} at the graveyard just east of {area:976}: it kills you, and only as a ghost can you see {npc:9299}, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard."] = "在{area:976}东边不远处的墓地喝下{item:11243}：它会杀死你，只有以鬼魂形态才能看到{npc:9299}，他在墓地正北方山丘中的一道岩缝里。在那里和他交谈，然后跑回尸体处复活：他让你去找的显眼的墓碑就在那片墓地里。",
+	-- ["East along the road past {area:199}, {npc:11077} guards the cauldron at {area:200}: kill him for the key, then use the cauldron."] = "沿路向东经过{area:199}。{npc:11077}守着{area:200}的大锅，杀掉他拿钥匙，再使用大锅。",
 	-- ["Fly to the {zone:1458}, take the zeppelin to {zone:1454} and fly on to {area:1638}."] = "飞往{zone:1458}，乘飞艇前往{zone:1454}，再继续飞往{area:1638}。",
 	-- ["Fly to {area:1099}"] = "飞往{area:1099}",
 	-- ["Fly to {area:1099}. The hippogryph nests are in the south of {zone:1444}; each holds an egg for the {object:142071}."] = "飞往{area:1099}。角鹰兽的巢在{zone:1444}南部；每个巢里都有一个蛋，用于{object:142071}。",
@@ -463,15 +465,20 @@ return {
 	-- ["Ride east out of the {area:1497} along the road; the {area:152} guards the way into the {area:28}."] = "沿道路向东骑出{area:1497}；{area:152}守卫着进入{area:28}的通道。",
 	-- ["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Pull them one at a time.\nCareful: Hailspite, level 60 elites, gather in the snowfields south-east of {area:2255}, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town."] = "向东骑往{area:2255}，再从那里向北出去；月光枭兽在{area:2241}南坡的山丘上游荡。一次引一只。\n小心：60级精英Hailspite聚集在{area:2255}东南方的雪原上，那里也有少量月光枭兽游荡：待在镇子北边的山坡上。",
 	-- ["Ride north up the road. The cauldron stands in {area:1762}, just south-west of {area:1769}; the Deadwood furbolgs there are hostile."] = "沿路向北骑行。大锅在{area:1769}西南不远处的{area:1762}；那里的死木熊怪是敌对的。",
+	-- ["Ride north-west to {area:1763} and go down into {area:1770}, the cave in its north: the four braziers stand inside. Use Greta's {item:12906} from your bags on each one. Careful: Shadow Council mobs of level 53-55 fill the cave and often come in linked groups, many with stuns: pull them one group at a time."] = "向西北前往{area:1763}，下到北边的洞穴{area:1770}，四个火盆都在里面。对每个火盆使用背包里格雷塔给的{item:12906}。小心，洞里到处是53-55级的暗影议会怪物，经常成群联动，不少还会用昏迷技能。一次只引一组。",
 	-- ["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk."] = "从小屋沿道路向南骑往{area:2264}。{item:15447}十分钟内就会变质：快速杀死镇上的天灾军团，然后立刻用{item:15454}把七块研磨好。\n小心：隐形仆从血量降到40%时会呼叫25码内的同伴求援。脱离战斗时它们还会用{spell:10228}隐形。如果在镇子里触发求援，大量怪物可能加入战斗。在镇子外围战斗可以降低这种风险。",
 	-- ["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the end of the Un'Goro guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "从小屋沿道路向南骑往{area:2264}。{item:15447}十分钟内就会变质：快速杀死镇上的天灾军团，然后立刻用{item:15454}把七块研磨好。\n小心：隐形仆从血量降到40%时会呼叫25码内的同伴求援。脱离战斗时它们还会用{spell:10228}隐形。如果在镇子里触发求援，大量怪物可能加入战斗。在镇子外围战斗可以降低这种风险。\n如果你的任务日志里有{quest:5211}（来自安戈洛指南末尾的{npc:11063}），镇子周围的天灾军团死后会留下达隆郡之魂：与每一个交谈以解放它。先解放它们，再开始收集{item:15447}。",
 	-- ["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "从小屋沿道路向南骑往{area:2264}。{item:15447}十分钟内就会变质：快速杀死镇上的天灾军团，然后立刻用{item:15454}把七块研磨好。\n小心：隐形仆从血量降到40%时会呼叫25码内的同伴求援。脱离战斗时它们还会用{spell:10228}隐形。如果在镇子里触发求援，大量怪物可能加入战斗。在镇子外围战斗可以降低这种风险。\n如果你的任务日志里有{quest:5211}（来自本指南开头的{npc:11063}），镇子周围的天灾军团死后会留下达隆郡之魂：与每一个交谈以解放它。先解放它们，再开始收集{item:15447}。",
 	-- ["Ride south from {area:1099}: the hippogryph nests are in the south of {zone:1444}; each holds an egg for the {object:142071}."] = "从{area:1099}向南骑行：角鹰兽的巢在{zone:1444}南部；每个巢里都有一个蛋，用于{object:142071}。",
+	-- ["Ride south to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "沿道路向南骑往{area:2264}。{item:15447}十分钟内就会变质：快速杀死镇上的天灾军团，然后立刻用{item:15454}把七块研磨好。\n小心：无影仆从血量降到40%时会呼叫25码内的同伴求援。脱离战斗时它们还会用{spell:10228}隐形。如果在镇子里触发求援，大量怪物可能加入战斗。在镇子外围战斗可以降低这种风险。\n如果你的任务日志里有{quest:5211}（来自本指南开头的{npc:11063}），镇子周围的天灾军团死后会留下达隆郡居民的灵魂：与每一个交谈以解放它。先解放它们，再开始收集{item:15447}。",
+	-- ["Ride south-east to {area:201}, the farm under the eastern hills: {npc:11078} (58) guards its cauldron. Kill him for the key, then use the cauldron.\nCareful: Soulwrath is about two levels over you here: clear the ghouls around the cauldron first, start at full health and use your cooldowns on him."] = "向东南前往东边山脚下的农场{area:201}。{npc:11078}（58级）守着大锅。击杀他拿到钥匙，再使用大锅。\n小心，索瓦斯大约比你高两级。先清掉大锅周围的食尸鬼，满血再开打，把冷却技能用在他身上。",
 	-- ["Ride south-west to the ruins of {area:2738}. The {object:179565} for {quest:1123} sits inside one of the ruined houses."] = "向西南骑到{area:2738}的废墟，{quest:1123}所需的{object:179565}就在一栋破屋内。",
 	-- ["Ride west to the {area:2260}."] = "向西骑往{area:2260}。",
 	-- ["Scare {npc:7583} with {item:12928}"] = "用{item:12928}吓唬{npc:7583}",
 	-- ["Sword of Marduk"] = "马杜克的破碎之剑",
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "编年史混在安多哈尔市政厅的霉烂的书卷中；逐一打开，直到找到正确的那本。",
+	-- ["The book lies in the ruined inn of {area:2627}; the undead in the town are 54-56, so pull them one at a time.\nThe Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass.\nCareful: Ziggurat Protectors (58, elite) stand by the ziggurats east and north-east of the town: take the mounds nearer the town and stay clear of them."] = "书在{area:2627}被毁的旅店里；镇上的亡灵是54-56级，一次引一只。\n大白蚁丘遍布{area:2627}东边的山丘。路过每个白蚁丘时都对它使用{item:15042}。\n小心：通灵塔保护者（58级，精英）守在镇子东边和东北边的通灵塔旁：选靠近镇子的白蚁丘，远离它们。",
+	-- ["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "娃娃的头和两侧身体散落在{npc:10926}周围的房屋里；在背包里把它们组合起来。",
 	-- ["The flight from {area:1997} lands in {zone:1456}: {npc:3033} (Druids) trains on {area:1639}, {npc:246344} (Paladins) in the city too."] = "从{area:1997}起飞的航班降落在{zone:1456}：{npc:3033}（德鲁伊）在{area:1639}训练，{npc:246344}（圣骑士）也在城里。",
 	-- ["The flight lands at {area:541}: {npc:9997} stands beside the flight master, and {npc:8737} by the cave a few steps away. {npc:9997}'s work is in Un'Goro on the next guide's way back north."] = "飞行落点在{area:541}：{npc:9997}站在飞行管理员旁，{npc:8737}在几步外的洞穴边。{npc:9997}的差事要到安戈洛环形山完成，下份指南向北返回时会顺路去。",
 	-- ["The high elf Rangers, Pathstriders and Woodsmen guard the lodge by {area:2275}; the Registry lies inside. Rangers reach 60: pull one at a time. Noxious Plaguebats fly over the fields on the way."] = "高等精灵游侠、巡路者和护林者守卫着{area:2275}旁的奎尔林斯小屋；奎尔萨拉斯名册就在小屋里。游侠最高60级：一次引一个。路上的田野上空有毒性瘟疫蝙蝠飞过。",

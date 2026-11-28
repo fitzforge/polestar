@@ -97,8 +97,8 @@ return {
 	-- Step 19: The Minor Manifestation of Water
 	-- {npc:5895} Minor Manifestation of Water
 	["The {npc:5895}"] = "{npc:5895}",
-	-- {object:113791} Brazier of Everfount · {npc:5895} Minor Manifestation of Water · {spell:8202} Sapta Sight · {item:7813} Shard of Water · {npc:5901} Islen Waterseer · {quest:63} Call of Water · {quest:972} Water Sapta · {npc:7007} Tiev Mordune
-	["Click the {object:113791} to place the bracers and the drops. A few seconds later the pure {npc:5895} rises on the stone in the middle of the pool: speak to it while the {spell:8202} lasts (drink again by the stone if it has worn off). It gives you the {item:7813} for {npc:5901}. Gone before you could speak to it? Back at {npc:5901} ask for {quest:63} (a fresh {quest:972} for {npc:7007}, who stands just west of the shrine): hand it to Tiev, stay close while he calls the spirit back, then speak to it."] = "",
+	-- {object:113791} Brazier of Everfount · {npc:5895} Minor Manifestation of Water · {spell:8202} Sapta Sight · {item:7813} Shard of Water · {npc:5901} Islen Waterseer · {quest:63} Call of Water · {item:6637} Water Sapta · {npc:7007} Tiev Mordune
+	["The {object:113791} takes the bracers and the drops. A few seconds later the pure {npc:5895} rises on the stone in the middle of the pool: seen only while the {spell:8202} lasts, and it gives the {item:7813} for {npc:5901}. If it is gone first, {npc:5901}'s {quest:63} gives a fresh {item:6637} for {npc:7007}, just west of the shrine, who calls the spirit back."] = "",
 
 	-- Step 20: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet · {item:5177} Water Totem

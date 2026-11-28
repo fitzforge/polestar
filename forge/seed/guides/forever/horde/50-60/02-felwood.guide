@@ -85,8 +85,10 @@ step Janice Felstone
   note Keep the parcel: Royal Overseer Bauhaus is in the Undercity.
 
 step Scarlet forward camp
-  tip The Scarlet Crusade's tents stand between Felstone Field and Dalson's Tears. Torch the command tent with the Box of Incendiaries and plant the Scourge banner.
+  tip The Scarlets around the tents reach level 54, and the Invokers are casters.
   interact 176088
+  use 12814 quest 5096.1 @40.7,51.9 map 1422
+  use 12807 quest 5096.1 @40.7,51.9 map 1422
   complete 5096
 
 step Dalson's Tears farmhouse

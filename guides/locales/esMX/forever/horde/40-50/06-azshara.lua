@@ -216,7 +216,8 @@ return {
 
 	-- Step 53: Edana Hatetalon
 	-- {npc:8075} Edana Hatetalon
-	["{npc:8075} (level 50, elite) roosts on the cliff just north of the harpies' nests. Clear the harpies around her first."] = "{npc:8075} (nivel 50, élite) anida en el acantilado justo al norte de los nidos de las arpías. Limpia primero las arpías a su alrededor.",
+	-- was: ["{npc:8075} (level 50, elite) roosts on the cliff just north of the harpies' nests. Clear the harpies around her first."] = "{npc:8075} (nivel 50, élite) anida en el acantilado justo al norte de los nidos de las arpías. Limpia primero las arpías a su alrededor."
+	["{npc:8075} (level 50, elite) roosts on the cliff just north of the harpies' nests, with harpies around her."] = "",
 
 	-- Step 54: Rage Scar yetis
 	["Rage Scar yetis"] = "Yetis Cicatriz de Rabia",
@@ -323,6 +324,7 @@ return {
 	-- ["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}: los osos están en {zone:1448}",
 	-- ["{npc:7825} stands in the {object:36082}."] = "{npc:7825} está en {object:36082}.",
 	-- ["{npc:7876}'s tar and Pestlezugg's samples come from {zone:1449}."] = "El alquitrán de {npc:7876} y las muestras de Morterozugg vienen de {zone:1449}.",
+	-- ["{npc:8075} (level 50, elite) roosts on the cliff just north of the harpies' nests. Clear the harpies around her first."] = "{npc:8075} (nivel 50, élite) anida en el acantilado justo al norte de los nidos de las arpías. Limpia primero las arpías a su alrededor.",
 	-- ["{npc:8395}, at the east edge of the camp: no experience, only a teleport to Azshara Tower"] = "{npc:8395}, en el borde este del campamento: no da experiencia, solo un teletransporte a una torre de Azshara",
 	-- ["{npc:8659}, in the {object:172960}, has {quest:4300} for later; then your class trainer before you leave for {zone:1447}."] = "{npc:8659}, en la {object:172960}, tiene {quest:4300} para más adelante; luego tu instructor de clase antes de salir hacia {zone:1447}.",
 	-- ["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",

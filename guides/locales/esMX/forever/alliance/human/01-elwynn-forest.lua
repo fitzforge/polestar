@@ -460,16 +460,16 @@ return {
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "Ya que estás aquí: aprende Bastones con {npc:11867} ({object:2096}, 10 de plata); un bastón tiene más estadísticas de hechizo que un arma de una mano mientras subes de nivel.",
 
 	-- Step 91: Mirror Lake
-	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
-	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Sal de {zone:1453} por la puerta principal. La cascada de {quest:1861} está al suroeste de las puertas, de camino al oeste hacia {zone:1436}: llena {item:7207} en su base.",
+	-- {quest:1861} Mirror Lake · {zone:1453} Stormwind · {zone:1436} Westfall
+	["The {quest:1861} waterfall is south-west of {zone:1453}'s main gate, on the way west to {zone:1436}."] = "",
 
 	-- Step 92: Surena Caledon
 	-- {area:87} Goldshire · {area:62} Brackwell Pumpkin Patch · {npc:881} Surena Caledon
 	["Head back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Regresa por {area:87} y hacia el este por el camino hasta {area:62}. {npc:881} (nivel 9) está junto a la granja.",
 
 	-- Step 93: The Binding
-	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb
-	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "Regresa con {npc:6122}. Usa {item:6928} en el círculo de invocación del sótano de {object:2164} y derrota al abisario que convoca.",
+	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {area:1519} Stormwind · {object:2101} Mage Quarter
+	["{npc:6122} and the summoning circle are in the cellar of the {object:2164}, in {area:1519}'s {object:2101}."] = "",
 	["Subdue the voidwalker"] = "Somete al abisario",
 
 	-- Step 94: Back to Elwynn Forest
@@ -477,19 +477,22 @@ return {
 	["Back to {zone:1429}"] = "De vuelta a {zone:1429}",
 
 	-- Step 95: Taming the Beast
-	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {item:15908} Taming Rod · {area:64} Maclure Vineyards · {area:18} Crystal Lake
+	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {item:266158} Taming Rod · {area:64} Maclure Vineyards · {area:18} Crystal Lake
 	-- plural, as words: Rockhide Boars = {npc:524} Rockhide Boar · Young Forest Bears = {npc:822} Young Forest Bear
-	["{npc:251507} stands with the {area:87} trainers. Each of her quests hands you a {item:15908}: use it on the beast she names, then bring the rod back to her. Rockhide Boars and Young Forest Bears roam the hills south of the {area:64}, Gray Forest Wolves the woods east of {area:18}."] = "{npc:251507} está con los instructores de {area:87}. Cada una de sus misiones te da {item:15908}: úsala en la bestia que indica y luego devuélvele la vara. Los Jabalíes Pielroca y los Osos del bosque jóvenes recorren las colinas al sur de {area:64}; los Lobos grisáceos del bosque, el bosque al este de {area:18}.",
-	-- {npc:524} Rockhide Boar · {item:15908} Taming Rod
-	["{npc:524}: tame it with the {item:15908}"] = "{npc:524}: domestícalo con {item:15908}",
+	["{npc:251507} stands with the {area:87} trainers. Each of her quests comes with a {item:266158} for the beast she names, and the rod goes back to her. Rockhide Boars and Young Forest Bears roam the hills south of the {area:64}, Gray Forest Wolves the woods east of {area:18}."] = "",
+	-- {npc:524} Rockhide Boar · {item:266158} Taming Rod
+	-- was: ["{npc:524}: tame it with the {item:15908}"] = "{npc:524}: domestícalo con {item:15908}"
+	["{npc:524}: tame it with the {item:266158}"] = "",
 	-- {npc:524} Rockhide Boar
 	["Tame {npc:524}"] = "Doma un {npc:524}",
-	-- {npc:1922} Gray Forest Wolf · {item:15908} Taming Rod
-	["{npc:1922}: tame it with the {item:15908}"] = "{npc:1922}: domestícalo con {item:15908}",
+	-- {npc:1922} Gray Forest Wolf · {item:266158} Taming Rod
+	-- was: ["{npc:1922}: tame it with the {item:15908}"] = "{npc:1922}: domestícalo con {item:15908}"
+	["{npc:1922}: tame it with the {item:266158}"] = "",
 	-- {npc:1922} Gray Forest Wolf
 	["Tame {npc:1922}"] = "Doma un {npc:1922}",
-	-- {npc:822} Young Forest Bear · {item:15908} Taming Rod
-	["{npc:822}: tame it with the {item:15908}"] = "{npc:822}: domestícalo con {item:15908}",
+	-- {npc:822} Young Forest Bear · {item:266158} Taming Rod
+	-- was: ["{npc:822}: tame it with the {item:15908}"] = "{npc:822}: domestícalo con {item:15908}"
+	["{npc:822}: tame it with the {item:266158}"] = "",
 	-- {npc:822} Young Forest Bear
 	["Tame {npc:822}"] = "Doma un {npc:822}",
 	-- {npc:258930} Isaac Chan · {spell:5149} Beast Training
@@ -536,6 +539,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to the {area:120}, by the road to {zone:1436}. {npc:963} stands outside the barracks, {npc:955} beside him."] = "Regresa al sur hasta {area:120}, junto al camino a {zone:1436}. {npc:963} está afuera del cuartel, con {npc:955} a su lado.",
 	-- ["Back to the Cathedral of Light."] = "De vuelta a la Cathedral of Light.",
+	-- ["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "Regresa con {npc:6122}. Usa {item:6928} en el círculo de invocación del sótano de {object:2164} y derrota al abisario que convoca.",
 	-- ["Bait ingredients"] = "Ingredientes para el cebo",
 	-- ["Boar meat"] = "Carne de jabalí",
 	-- ["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "Los Zahoríes bribones de Defias acampan en las orillas de {area:86}; también sueltan los Pañuelos de lino rojo. {object:56} está en la aldea múrloc de la orilla noreste.",
@@ -555,6 +559,7 @@ return {
 	-- ["If you skipped {quest:91752}, grind here to level 5.77 to stay on the route's plan."] = "Si te saltaste {quest:91752}, mata enemigos aquí hasta el nivel 5.77 para seguir el plan de la ruta.",
 	-- ["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right."] = "Los Obreros kóbold trabajan en los túneles dentro de la mina. {npc:248362} espera al fondo de la segunda curva a la derecha.",
 	-- ["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: leave him unless you have a friend."] = "Los Obreros kóbold trabajan en los túneles dentro de la mina. {npc:248362} espera al fondo de la segunda curva a la derecha.\nCuidado: {npc:248362} (3) es élite: déjalo a menos que tengas un amigo.",
+	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Sal de {zone:1453} por la puerta principal. La cascada de {quest:1861} está al suroeste de las puertas, de camino al oeste hacia {zone:1436}: llena {item:7207} en su base.",
 	-- ["Level 5.48"] = "Nivel 5.48",
 	-- ["Level 5.77"] = "Nivel 5.77",
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way."] = "Los Batidores múrloc y los Rondadores múrloc ocupan el río al sur del puente. {npc:473}, un Defias, recorre {area:62}, al oeste. Termina con los Merodeadores y los Osos del bosque jóvenes por el camino.",
@@ -589,10 +594,12 @@ return {
 	-- ["{npc:1430} cooks in the inn's kitchen."] = "{npc:1430} cocina en la cocina de la posada.",
 	-- ["{npc:1632}: Camping 101, leatherworkers"] = "{npc:1632}: Camping 101, peleteros",
 	-- ["{npc:1651}: Camping 101, fishers"] = "{npc:1651}: Camping 101, pescadores",
+	-- ["{npc:1922}: tame it with the {item:15908}"] = "{npc:1922}: domestícalo con {item:15908}",
 	-- ["{npc:2329}, in the inn: Camping 101, {skill:129}"] = "{npc:2329}, en la posada: Camping 101, {skill:129}",
 	-- ["{npc:247229}, in the library"] = "{npc:247229}, en la biblioteca",
 	-- ["{npc:248277} keeps watch at {area:798}, east of the murloc shore. Then head north-west back to the bridge."] = "{npc:248277} vigila en {area:798}, al este de la orilla de los múrlocs. Después regresa al noroeste, hasta el puente.",
 	-- ["{npc:248415} stands behind the Abbey, by the stables."] = "{npc:248415} está detrás de la abadía, junto a los establos.",
+	-- ["{npc:251507} stands with the {area:87} trainers. Each of her quests hands you a {item:15908}: use it on the beast she names, then bring the rod back to her. Rockhide Boars and Young Forest Bears roam the hills south of the {area:64}, Gray Forest Wolves the woods east of {area:18}."] = "{npc:251507} está con los instructores de {area:87}. Cada una de sus misiones te da {item:15908}: úsala en la bestia que indica y luego devuélvele la vara. Los Jabalíes Pielroca y los Osos del bosque jóvenes recorren las colinas al sur de {area:64}; los Lobos grisáceos del bosque, el bosque al este de {area:18}.",
 	-- ["{npc:263399} camps north-east of the inn. With a profession learned, he also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing on the lake shore, {skill:129} and blacksmithing in {area:87}."] = "{npc:263399} acampa al noreste de la posada. Si ya aprendiste una profesión, también ofrece su Camping 101, que recibe el instructor de esa profesión: desuello, peletería y pesca en la orilla del lago; {skill:129} y herrería en {area:87}.",
 	-- ["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:1632}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town. With a profession learned, Sam also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing here on the shore, {skill:129} and blacksmithing in {area:87}."] = "{npc:263399} acampa al noreste de la posada; {npc:6306}, {npc:1632}, {npc:383} y {npc:1651} están en la orilla de {area:18}, al este del pueblo. Si ya aprendiste una profesión, Sam también ofrece su Camping 101, que recibe el instructor de esa profesión: desuello, peletería y pesca aquí en la orilla; {skill:129} y herrería en {area:87}.",
 	-- ["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town."] = "{npc:263399} acampa al noreste de la posada; {npc:6306}, {npc:383} y {npc:1651} están en la orilla de {area:18}, al este del pueblo.",
@@ -605,9 +612,11 @@ return {
 	-- ["{npc:377}: {npc:376} in {zone:1453} takes both"] = "{npc:377}: {npc:376} en {zone:1453} recibe ambas",
 	-- ["{npc:514}, at the smithy across the road: Camping 101, blacksmiths"] = "{npc:514}, en la herrería al otro lado del camino: Camping 101, herreros",
 	-- ["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, en la herrería junto a Dughan: la recibe {npc:1416} en {zone:1453} (02-westfall)",
+	-- ["{npc:524}: tame it with the {item:15908}"] = "{npc:524}: domestícalo con {item:15908}",
 	-- ["{npc:6171}: Redemption"] = "{npc:6171}: Redención",
 	-- ["{npc:6306}: Camping 101, skinners; inside"] = "{npc:6306}: Camping 101, desolladores; adentro",
 	-- ["{npc:6306}: skinners only, the pelts are skinned"] = "{npc:6306}: solo desolladores; las pieles se obtienen desollando",
+	-- ["{npc:822}: tame it with the {item:15908}"] = "{npc:822}: domestícalo con {item:15908}",
 	-- ["{npc:911}, the warrior trainer"] = "{npc:911}, el instructor de guerreros",
 	-- ["{npc:927}: {npc:6171} in {zone:1453} takes it"] = "{npc:927}: la recibe {npc:6171} en {zone:1453}",
 	-- ["{npc:955}: he wants your {item:247824}"] = "{npc:955}: quiere tu {item:247824}",

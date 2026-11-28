@@ -82,7 +82,7 @@ return {
 	-- {object:61934} Brazier of the Dormant Flame
 	["The {object:61934}"] = "{object:61934}",
 	-- {object:61934} Brazier of the Dormant Flame · {item:277329} Torch of Eternal Flame
-	["Click the {object:61934} on the plateau with the torch in your bags to place the ember, then click it a second time: the next quest does not open by itself. It gives you the lit {item:277329}."] = "确保火炬在背包中，点击高地上的 {object:61934} 放置火种，然后再点击一次：下一个任务不会自动出现。它会给你点燃的 {item:277329}。",
+	["The {object:61934} on the plateau takes the ember with the torch in the bags. The next quest, the lit {item:277329}, does not open by itself: it takes a second click."] = "",
 
 	-- Step 16: Kranal Fiss
 	-- {npc:5907} Kranal Fiss · {item:5176} Fire Totem
@@ -116,8 +116,8 @@ return {
 	-- Step 22: The Eternal Flame
 	-- {object:148418} Eternal Flame
 	["The {object:148418}"] = "{object:148418}",
-	-- {npc:268592} Olariaan Swiftburn · {npc:268762} Brazier of Offering · {object:148418} Eternal Flame · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar
-	["Back to {npc:268592}. Accept the last quest, then wait by the {npc:268762} while he performs the ritual; when the fire spirits light the {object:148418}, hold the torch to it. From then you have six minutes: carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638}, with no detours or fights. Timer out? Abandon the quest and take it again from {npc:268592}."] = "回到 {npc:268592} 处。接受最后一个任务，然后在 {npc:268762} 身旁等他进行仪式；火焰之灵点燃 {object:148418} 时，将火炬靠上去。从那一刻起你有六分钟：径直将火焰送到 {area:16638} 的 {npc:252382} 身旁的 {npc:268679} 处，不要绕路，也不要战斗。如果超时，就放弃任务，再从 {npc:268592} 处重接。",
+	-- {object:148418} Eternal Flame · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar · {npc:268592} Olariaan Swiftburn
+	["Once taken, the {object:148418} lasts six minutes, so the walk to the {npc:268679} beside {npc:252382} in {area:16638} has no room for detours. If it runs out, the quest can be taken again from {npc:268592}."] = "",
 	-- {npc:268679} Brazier of Eternal Flame · {area:16638} Valanaar
 	["the ritual, then the {npc:268679} in {area:16638}"] = "先完成仪式，再去找{area:16638}的{npc:268679}",
 
@@ -126,4 +126,8 @@ return {
 	["Keep the {item:5176} in your bags for good: every fire totem needs it."] = "始终把 {item:5176} 留在背包中：每次使用火焰图腾都需要它。",
 	-- {npc:252382} Sessaria Skystride · {spell:3599} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
 	["{npc:252382}: {spell:3599}, your {item:5176} and the {item:263412}"] = "{npc:252382}：{spell:3599}、你的 {item:5176} 和 {item:263412}",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to {npc:268592}. Accept the last quest, then wait by the {npc:268762} while he performs the ritual; when the fire spirits light the {object:148418}, hold the torch to it. From then you have six minutes: carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638}, with no detours or fights. Timer out? Abandon the quest and take it again from {npc:268592}."] = "回到 {npc:268592} 处。接受最后一个任务，然后在 {npc:268762} 身旁等他进行仪式；火焰之灵点燃 {object:148418} 时，将火炬靠上去。从那一刻起你有六分钟：径直将火焰送到 {area:16638} 的 {npc:252382} 身旁的 {npc:268679} 处，不要绕路，也不要战斗。如果超时，就放弃任务，再从 {npc:268592} 处重接。",
+	-- ["Click the {object:61934} on the plateau with the torch in your bags to place the ember, then click it a second time: the next quest does not open by itself. It gives you the lit {item:277329}."] = "确保火炬在背包中，点击高地上的 {object:61934} 放置火种，然后再点击一次：下一个任务不会自动出现。它会给你点燃的 {item:277329}。",
 }

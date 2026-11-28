@@ -125,7 +125,7 @@ return {
 	-- Step 26: Unfinished Wild Shore errands
 	-- {area:43} Wild Shore
 	["Unfinished {area:43} errands"] = "Unerledigte Aufträge in {area:43}",
-	["If the town rewards just brought you to 42 and you still owe pirate work, use the shore tents, not the ships."] = "Wenn die Belohnungen aus der Stadt dich gerade auf 42 gebracht haben und du Piratenarbeit noch schuldest, nutze die Zelte am Ufer, nicht die Schiffe.",
+	["At 42 with pirate work still owed, the shore tents are the place, not the ships."] = "",
 
 	-- Step 30: Fly to Grom'gol
 	-- {area:35} Booty Bay
@@ -461,6 +461,7 @@ return {
 	-- ["Fly to {zone:1454}. From the flight master: the {object:172960}, then the Drag, then the {object:172958}."] = "Flieg nach {zone:1454}. Vom Flugmeister aus: {object:172960}, dann die Gasse, dann {object:172958}.",
 	-- ["Galestriders: {npc:265756}, in {area:16638} on Zephras Isle."] = "Windschreiter: {npc:265756}, in {area:16638} auf der Insel Zephras.",
 	-- ["Hearth to {area:1099}"] = "Ruhestein zum {area:1099}",
+	-- ["If the town rewards just brought you to 42 and you still owe pirate work, use the shore tents, not the ships."] = "Wenn die Belohnungen aus der Stadt dich gerade auf 42 gebracht haben und du Piratenarbeit noch schuldest, nutze die Zelte am Ufer, nicht die Schiffe.",
 	-- ["In {area:35}: {npc:2494} on the docks, {npc:2486} by the inn, {npc:2498} inside it, MacKinley, {npc:737} and {npc:773} upstairs."] = "In {area:35}: {npc:2494} an den Docks, {npc:2486} beim Gasthaus, {npc:2498} darin, MacKinley, {npc:737} und {npc:773} oben.",
 	-- ["Keep riding west to the coast. The Coast Crawl Deepseers and Snapclaws on the beaches drop OOX-22/FE's distress beacon about one kill in forty: if one drops, use it to start the quest."] = "Reite weiter nach Westen zur Küste. Die Küstenkriechertiefseher und Küstenkriecherschnappklauen an den Stränden lassen etwa bei jedem vierzigsten Kill das Notsignal von OOX-22/FE fallen: Fällt eins, benutze es, um die Quest zu starten.",
 	-- ["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him."] = "Nördlich der Gnolle halten die Oger einen Außenposten auf einem Hügel; zieh die Ogermagier zu dir. Das Kobalt ist in den Erdhügeln um den Außenposten, und die Schriftrolle liegt drinnen auf dem Boden.\nVorsicht: {npc:222233} (Stufe 43, Elite) steht im Außenposten: Zieh die Oger zu dir heraus, weg von ihm.",

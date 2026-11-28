@@ -11,8 +11,8 @@ return {
 	["The Alliance paladin's rare two-handed mace for the 20s, with a shield and {spell:5502} on the way."] = "聯盟聖騎士20多級的稀有雙手錘，途中還能拿到一面盾牌和{spell:5502}。",
 
 	-- Step 1: The Tome of Valor (Ironforge)
-	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries · {object:32362} Mystic Ward · {item:6776} Tome of Valor · {npc:6171} Duthorian Rall · {zone:1453} Stormwind · {area:2257} Deeprun Tram · {zone:1455} Ironforge
-	["At 20 {npc:6179}, upstairs in the {object:32386} in the {object:32362}, gives you the {item:6776}. Right-click it: it sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. Take the {area:2257} from {zone:1455} to {zone:1453}."] = "20級時，{object:32362}{object:32386}樓上的{npc:6179}會給你{item:6776}。右鍵點擊它：它會引導你去找{zone:1453}光明大教堂的{npc:6171}。從{zone:1455}搭{area:2257}前往{zone:1453}。",
+	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries · {object:32362} Mystic Ward · {item:6776} Tome of Valor · {npc:6171} Duthorian Rall · {zone:1453} Stormwind · {area:2257} Deeprun Tram
+	["At 20 {npc:6179}, upstairs in the {object:32386} in the {object:32362}, gives the {item:6776}, which sends you to {npc:6171} in {zone:1453}'s Cathedral of Light, by the {area:2257}."] = "",
 
 	-- Step 2: The Tome of Valor
 	-- {npc:6171} Duthorian Rall · {item:6776} Tome of Valor
@@ -93,6 +93,7 @@ return {
 	["Bring the four parts to {npc:6181} outside {zone:1455}. Accept his last quest and wait by him while he forges the mace at his anvil."] = "把四個部件交給{zone:1455}外的{npc:6181}。接下他的最後一個任務，在他用鐵砧鍛造戰錘時在旁邊等候。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["At 20 {npc:6179}, upstairs in the {object:32386} in the {object:32362}, gives you the {item:6776}. Right-click it: it sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. Take the {area:2257} from {zone:1455} to {zone:1453}."] = "20級時，{object:32362}{object:32386}樓上的{npc:6179}會給你{item:6776}。右鍵點擊它：它會引導你去找{zone:1453}光明大教堂的{npc:6171}。從{zone:1455}搭{area:2257}前往{zone:1453}。",
 	-- ["Protect {npc:6182}"] = "保護{npc:6182}",
 	-- ["The Blackfathom naga by the entrance of {area:2797} on {zone:1440}'s north-west coast drop the {item:6995}. They are elite: grouping up is advised."] = "{zone:1440}西北海岸{area:2797}入口附近的黑暗深淵納迦會掉落{item:6995}。牠們是精英：建議組隊。",
 	-- ["The ore crate lies by the trees in the middle of the Mo'grosh ogre camp in north-east {zone:1432}. The Mo'grosh ogres are elite: grouping up is advised."] = "礦石箱在{zone:1432}東北部莫格羅什巨魔營地中央的樹旁。莫格羅什巨魔是精英：建議組隊。",

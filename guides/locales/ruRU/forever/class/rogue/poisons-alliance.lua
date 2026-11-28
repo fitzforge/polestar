@@ -17,7 +17,7 @@ return {
 
 	-- Step 2: Agent Kearnen
 	-- {npc:7053} Klaven Mortwake · {zone:1436} Westfall · {zone:1431} Duskwood · {item:8046} Kearnen's Journal
-	["Kearnen hides stealthed against the west side of a big tree with two small trees in front of it, just north of {npc:7053}'s Defias tower in the far east of {zone:1436}, by the {zone:1431} border. Read {item:8046} for the tower's layout if you like."] = "",
+	["Kearnen hides stealthed against the west side of a big tree with two small trees in front of it, just north of {npc:7053}'s Defias tower in the far east of {zone:1436}, by the {zone:1431} border. {item:8046} describes the tower's layout."] = "",
 
 	-- Step 3: Klaven's Tower, with a group
 	-- {quest:2359} Klaven's Tower
@@ -39,7 +39,7 @@ return {
 
 	-- Step 5: Master Mathias Shaw
 	-- {zone:1453} Stormwind · {item:7676} Thistle Tea · {spell:8681} Instant Poison · {item:2928} Dust of Decay · {item:3371} Empty Vial · {npc:1325} Jasper Fel · {npc:1326} Sloan McCoy · {object:2100} Old Town
-	["Head north through Elwynn to {zone:1453}; Mathias Shaw is upstairs in SI:7. He teaches Poisons and gives you the {item:7676} recipe. Poisons are made, not bought: each batch of {spell:8681} takes a {item:2928} and an {item:3371}, which {npc:1325} and {npc:1326} sell in {object:2100} next to SI:7. Buy a stack of each, open Poisons from your spellbook to make them, then use a poison on your weapon."] = "Идите на север через Элвиннский лес в город {zone:1453}; Матиас Шоу – наверху в здании ШРУ. Он обучает навыку «Яды» и дает рецепт: {item:7676}. Яды не покупают, а делают: на каждую партию {spell:8681} нужны {item:2928} и {item:3371}, которые продают {npc:1325} и {npc:1326} здесь: {object:2100}, рядом со ШРУ. Купите по стопке каждого, откройте «Яды» в книге заклинаний, чтобы изготовить их, затем нанесите яд на оружие.",
+	["Mathias Shaw is upstairs in SI:7, north through Elwynn in {zone:1453}. He teaches Poisons and gives the {item:7676} recipe. Poisons are made, not bought: each batch of {spell:8681} takes a {item:2928} and an {item:3371}, which {npc:1325} and {npc:1326} sell in {object:2100} next to SI:7. A poison from the Poisons window then goes on the weapon."] = "",
 	-- {npc:332} Master Mathias Shaw
 	["{npc:332}: Poisons"] = "{npc:332}: Яды",
 
@@ -63,6 +63,7 @@ return {
 	-- ["/lay down"] = "/lay down",
 	-- ["Everything is in {zone:1453}: the Gumps sell {item:3421}, the {item:8431} lies in the city, and the nearest vendors sell a {item:3372} and a {item:4371}."] = "Все есть в городе {zone:1453}: {item:3421} продают Гампы, {item:8431} лежит в городе, а {item:3372} и {item:4371} продают ближайшие торговцы.",
 	-- ["Forever teaches {spell:2842} through this chain, not the trainer; the {item:7676} recipe comes with it."] = "В Forever навыку «{spell:2842}» учит эта цепочка, а не учитель; вместе с ним вы получите рецепт: {item:7676}.",
+	-- ["Head north through Elwynn to {zone:1453}; Mathias Shaw is upstairs in SI:7. He teaches Poisons and gives you the {item:7676} recipe. Poisons are made, not bought: each batch of {spell:8681} takes a {item:2928} and an {item:3371}, which {npc:1325} and {npc:1326} sell in {object:2100} next to SI:7. Buy a stack of each, open Poisons from your spellbook to make them, then use a poison on your weapon."] = "Идите на север через Элвиннский лес в город {zone:1453}; Матиас Шоу – наверху в здании ШРУ. Он обучает навыку «Яды» и дает рецепт: {item:7676}. Яды не покупают, а делают: на каждую партию {spell:8681} нужны {item:2928} и {item:3371}, которые продают {npc:1325} и {npc:1326} здесь: {object:2100}, рядом со ШРУ. Купите по стопке каждого, откройте «Яды» в книге заклинаний, чтобы изготовить их, затем нанесите яд на оружие.",
 	-- ["Ride north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "Езжайте на север через Элвиннский лес: {zone:1453}. Мастер Матиас Шоу – в здании ШРУ ({object:2100}).",
 	-- ["{npc:7024} watches {npc:7053}'s tower from the hills in the far east of {zone:1436}, by the {zone:1431} border. The {npc:7051} (level 23) guarding the tower carries its key; Klaven's journal is in the chest at the top."] = "{npc:7024} следит за башней ({npc:7053}) с холмов на дальнем востоке зоны {zone:1436}, у границы зоны {zone:1431}. Ключ от башни у ее охранника – {npc:7051} (23-й уровень); дневник Клавена – в сундуке наверху.",
 	-- ["{npc:7207} works in the cellar of SI:7, the Barracks. Type /lay down beside him to be examined."] = "{npc:7207} работает в подвале здания ШРУ (казармы). Введите /lay down рядом с ним, чтобы он вас осмотрел.",

@@ -32,8 +32,7 @@ return {
 
 	-- Step 3: Boars, weapons and peons
 	["Boars, weapons and peons"] = "野猪、武器与苦工",
-	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
-	["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "训练用武器散落在巢穴内及北面野猪群之间。至于苦工：选中睡着的{npc:10556}，对其使用{item:16114}。",
+	["The training weapons lie on the ground in the Den and among the boars to the north."] = "",
 	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
 	["{npc:10556}: hit it with the {item:16114}"] = "{npc:10556}：用 {item:16114} 击中它",
 	-- {npc:10556} Lazy Peon
@@ -107,7 +106,7 @@ return {
 	-- {faction:76} Orgrimmar · {npc:4949} Thrall · {npc:3216} Neeru Fireblade
 	["{faction:76}: {npc:4949} and {npc:3216}"] = "{faction:76}：{npc:4949} 和 {npc:3216}",
 	-- {npc:3216} Neeru Fireblade · {object:172960} Cleft of Shadow
-	["{npc:3216} is in the {object:172960}. Tell him he may speak openly and click through his story."] = "{npc:3216} 在 {object:172960} 内。告诉他可以直说，逐项点击听完他的故事。",
+	["{npc:3216} is in the {object:172960}, and his whole story counts once he is told he may speak openly."] = "",
 	-- {npc:3216} Neeru Fireblade
 	["{npc:3216}: hear him out"] = "{npc:3216}：听他说完",
 
@@ -206,7 +205,8 @@ return {
 	-- Step 34: Around the Crossroads
 	["Around the Crossroads"] = "十字路口周边",
 	-- {npc:267307} Chol'aruk · {area:1699} Thorn Hill · {npc:10668} Beaten Corpse · {area:378} Camp Taurajo
-	["The Razormane camps and the supply crates are north-east of the town; {npc:267307}, an elite boar, sits deep in the {area:1699} cave there. The Witchwing harpies nest far to the north-west. The {npc:10668} lies north-east of {area:378}, in the south: right-click it. Raptors and plainstriders are everywhere."] = "钢鬃营地和补给箱在镇子东北面；精英野猪{npc:267307}待在那里的{area:1699}洞穴深处。巫翼鹰身人的巢穴在西北远处。{npc:10668}的尸体位于南部、{area:378}东北面：右键点击。迅猛龙和陆行鸟到处都有。",
+	-- was: ["The Razormane camps and the supply crates are north-east of the town; {npc:267307}, an elite boar, sits deep in the {area:1699} cave there. The Witchwing harpies nest far to the north-west. The {npc:10668} lies north-east of {area:378}, in the south: right-click it. Raptors and plainstriders are everywhere."] = "钢鬃营地和补给箱在镇子东北面；精英野猪{npc:267307}待在那里的{area:1699}洞穴深处。巫翼鹰身人的巢穴在西北远处。{npc:10668}的尸体位于南部、{area:378}东北面：右键点击。迅猛龙和陆行鸟到处都有。"
+	["The Razormane camps and the supply crates are north-east of the town; {npc:267307}, an elite boar, sits deep in the {area:1699} cave there. The Witchwing harpies nest far to the north-west. The {npc:10668} lies north-east of {area:378}, in the south. Raptors and plainstriders are everywhere."] = "",
 	-- {npc:10668} Beaten Corpse
 	["{npc:10668}: right-click it"] = "{npc:10668}：右键点击它。",
 
@@ -228,9 +228,9 @@ return {
 	-- Step 38: Prowlers, Serena Bloodfeather and Echeyakee
 	-- {npc:3452} Serena Bloodfeather · {quest:881} Echeyakee
 	["Prowlers, {npc:3452} and {quest:881}"] = "徘徊者、{npc:3452}和{quest:881}",
-	-- {quest:876} Serena Bloodfeather · {npc:3338} Sergra Darkthorn · {item:10327} Horn of Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
+	-- {quest:876} Serena Bloodfeather · {quest:881} Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
 	-- plural, as words: Savannah Prowlers = {npc:3425} Savannah Prowler
-	["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "草原徘徊者在十字路口西侧和北侧活动。{quest:876} 在西北远处率领巫翼鹰身人。随后 {npc:3338} 会给你 {item:10327}：到镇北埃其亚基的巢穴的科多兽骸骨旁吹响它，击杀白狮。",
+	["Savannah Prowlers roam west and north of the Crossroads, and {quest:876} leads the Witchwing harpies in the far north-west. {quest:881}, a white lion, appears at the kodo bones of {object:147524}, north of the town."] = "",
 
 	-- Step 39: Chen's Empty Keg (optional hub)
 	-- {quest:819} Chen's Empty Keg
@@ -334,8 +334,8 @@ return {
 	-- Step 55: Magus Rimtori's camp
 	-- {npc:8578} Magus Rimtori
 	["{npc:8578}'s camp"] = "{npc:8578}的营地",
-	-- {object:151286} Kaldorei Tome of Summoning · {npc:8578} Magus Rimtori
-	["Kill the Reclaimers and Surveyors, then walk up to the book inside the ring of stone pillars. Read the {object:151286} there to start the next quest: break the crystals around the circle, kill the guard that comes, then {npc:8578}."] = "击杀搜寻者和勘测员，然后走近环形石柱内的书。阅读那里的{object:151286}开启后续任务：破坏圆圈周围的水晶，击杀出现的守卫，最后击杀{npc:8578}。",
+	-- {object:151286} Kaldorei Tome of Summoning · {quest:3505} Betrayed · {npc:8578} Magus Rimtori
+	["The {object:151286} is the book inside the ring of stone pillars. For {quest:3505}, breaking the crystals around the circle brings a guard, then {npc:8578}."] = "",
 	-- {npc:8578} Magus Rimtori
 	["Find {npc:8578}'s camp"] = "找到{npc:8578}的营地",
 	-- {object:151286} Kaldorei Tome of Summoning
@@ -390,11 +390,16 @@ return {
 	-- ["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip this. {quest:819} lies on the ground at one of several spots in the central and northern {zone:1413}, most of them by the roads around the Crossroads; once someone takes it, it turns up at another. {npc:3292} in {area:392} pays 250 {faction:76} reputation for the keg and its first filling, then 50 for every filling after, as often as you like (10 at a fifth)."] = "经典旧世中，低于你 6 级及以上的任务奖励会减少（60 级时只有五分之一）；有无限服测试报告称奖励仍全额发放。首次交任务即可确认：若只有五分之一，就跳过此步骤。{quest:819} 出现在 {zone:1413} 中北部若干位置之一的地面上，多数在十字路口周边的路旁；有人拾取后，它会换到另一处出现。{area:392} 的 {npc:3292} 会为酒桶及首次装酒奖励 250 点 {faction:76} 声望，此后每次装酒奖励 50 点，可无限重复（五分之一时为 10 点）。",
 	-- ["Keep handing in {quest:7832} until {faction:76} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "继续交还{quest:7832}，直到{faction:76}达到崇拜。{item:14047}：{zone:1423}的黑暗教徒和暗影法师（58-60级），或拍卖行。",
 	-- ["Keep handing in {quest:7832}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "继续交还{quest:7832}，每次20块{item:14047}。{item:14047}：{zone:1423}的黑暗教徒和暗影法师（58-60级），或拍卖行。",
+	-- ["Kill the Reclaimers and Surveyors, then walk up to the book inside the ring of stone pillars. Read the {object:151286} there to start the next quest: break the crystals around the circle, kill the guard that comes, then {npc:8578}."] = "击杀搜寻者和勘测员，然后走近环形石柱内的书。阅读那里的{object:151286}开启后续任务：破坏圆圈周围的水晶，击杀出现的守卫，最后击杀{npc:8578}。",
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "这里的科卡尔半人马（30-33级）会掉落。也可以去拍卖行购买。",
 	-- ["Level 56-60 quests and {item:14047} to Exalted, with the old {zone:1411} quests as a fast extra if they still pay in full."] = "通过56-60级任务和{item:14047}刷到崇拜；如果{zone:1411}的旧任务仍给全额声望，可以顺手快速做掉。",
+	-- ["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "草原徘徊者在十字路口西侧和北侧活动。{quest:876} 在西北远处率领巫翼鹰身人。随后 {npc:3338} 会给你 {item:10327}：到镇北埃其亚基的巢穴的科多兽骸骨旁吹响它，击杀白狮。",
+	-- ["The Razormane camps and the supply crates are north-east of the town; {npc:267307}, an elite boar, sits deep in the {area:1699} cave there. The Witchwing harpies nest far to the north-west. The {npc:10668} lies north-east of {area:378}, in the south: right-click it. Raptors and plainstriders are everywhere."] = "钢鬃营地和补给箱在镇子东北面；精英野猪{npc:267307}待在那里的{area:1699}洞穴深处。巫翼鹰身人的巢穴在西北远处。{npc:10668}的尸体位于南部、{area:378}东北面：右键点击。迅猛龙和陆行鸟到处都有。",
+	-- ["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "训练用武器散落在巢穴内及北面野猪群之间。至于苦工：选中睡着的{npc:10556}，对其使用{item:16114}。",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "{area:381}的风险投资公司执行者（16-17级）会掉落。也可以去拍卖行购买。",
 	-- ["{npc:14726} takes cloth for {faction:76} in {faction:76}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7832} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14726}在{faction:76}收取布料以提升{faction:76}声望。首次捐献毛料、丝绸、魔纹布和{item:14047}（各60块）只能做一次，每块布给的声望最多；之后{quest:7832}可重复做到崇拜。与其他种族的主城达到崇拜后，可购买该种族的坐骑。Forever的传承外交官特权可提高声望获取。",
 	-- ["{npc:14726}: {item:14047} delivered"] = "{npc:14726}：已交付{item:14047}",
+	-- ["{npc:3216} is in the {object:172960}. Tell him he may speak openly and click through his story."] = "{npc:3216} 在 {object:172960} 内。告诉他可以直说，逐项点击听完他的故事。",
 	-- ["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay a little less at 60 (in Classic 30 and 45); the last two pay in full."] = "{npc:4485}站在{object:172958}的{object:173084}外。前两个{quest:3504}任务为53级，60级时奖励略少（经典版为30和45）；最后两个按全额奖励。",
 	-- ["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay in full at 60 too, as every quest does in Forever."] = "{npc:4485}站在{object:172958}的{object:173084}外。前两个{quest:3504}任务为53级，60级时也提供全额声望，Forever中的所有任务都如此。",
 	-- ["{quest:7832} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7832}每次交还需要20块{item:14047}，可无限重复。按20的倍数带上{item:14047}，一次接一次全部交还。{item:14047}：{zone:1423}的黑暗教徒和暗影法师（58-60级），或拍卖行。",

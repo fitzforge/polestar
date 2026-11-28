@@ -76,8 +76,9 @@ step Wrenix the Wretched
   buy 5060 x1 npc 7166                        -- Thieves' Tools
 
 step Southsea Treasure
-  tip Follow the coast south from Ratchet to the first beached pirate ship, the Tide Razor, and climb aboard up its bow. On the middle deck the Buccaneer's Strongboxes come back fast: pick them until your Lockpicking is about 30 (a few are trapped with a frost nova or turn you into a rat; picking still works as a rat). Keep picking while they still give skill: the poisons job at 20 ends at a lockbox that needs about 75, and these boxes are the closest practice. Then go down to the bottom hold and pick the lock of The Jewel of the Southsea: it is empty, but opening it calls a giant level 50 Polly into the next room. Stay stealthed, put the E.C.A.C. on your action bar, target Polly and use it: the parrot shrinks to level 18. Kill it for the Southsea Treasure.
+  tip Follow the coast south from Ratchet to the first beached pirate ship, the Tide Razor, and climb aboard up its bow. On the middle deck the Buccaneer's Strongboxes come back fast: pick them until your Lockpicking is about 30 (a few are trapped with a frost nova or turn you into a rat; picking still works as a rat). Keep picking while they still give skill: the poisons job at 20 ends at a lockbox that needs about 75, and these boxes are the closest practice. Then go down to the bottom hold and pick the lock of The Jewel of the Southsea: it is empty, but opening it calls a giant level 50 Polly into the next room. The E.C.A.C., used on Polly from stealth, shrinks the parrot to level 18, and it drops the Southsea Treasure.
   level 18
+  use 7970 quest 2381.1
   collect 7968 quest 2381.1                   -- Southsea Treasure: Polly, after the E.C.A.C.
 
 step Back to Wrenix

@@ -144,9 +144,10 @@ step The Binding
   only Gnome,Warlock
   when onquest 1688,1689
   zone Stormwind City
-  tip North along the road from Goldshire to Stormwind: Gakin the Darkbinder waits in the cellar of the Slaughtered Lamb, in the Mage Quarter. Use the Bloodstone Choker at the summoning circle there and defeat the voidwalker it calls, then back south through Goldshire to Westfall.
+  tip Gakin the Darkbinder is in the cellar of the Slaughtered Lamb, in Stormwind's Mage Quarter.
   turnin 1688                                 -- Gakin the Darkbinder
   accept 1689
+  use 6928 quest 1689.1 @39.1,84.4 map 1453 live
   kill 5676 quest 1689.1                      -- Summoned Voidwalker: use the Bloodstone Choker at the circle
   turnin 1689                                 -- Summon Voidwalker
 
@@ -155,8 +156,9 @@ step The Binding
   when turnedin 1688
   when available 1689
   zone Stormwind City
-  tip Surena's Choker is already with Gakin the Darkbinder: take The Binding from him in the cellar of the Slaughtered Lamb, in the Mage Quarter. Use the Bloodstone Choker at the summoning circle there and defeat the voidwalker it calls.
+  tip Gakin the Darkbinder is in the cellar of the Slaughtered Lamb, in Stormwind's Mage Quarter.
   accept 1689
+  use 6928 quest 1689.1 @39.1,84.4 map 1453 live
   kill 5676 quest 1689.1                      -- Summoned Voidwalker: use the Bloodstone Choker at the circle
   turnin 1689                                 -- Summon Voidwalker
 
@@ -301,6 +303,7 @@ step Defias Trappers and Smugglers
   kill 504 quest 12
 
 step Molsen Farm's well
+  use 254545 quest 92742.2 @46.1,38.2
   collect 254547 quest 92742.2 @46.1,38.2     -- Fill the vial at the farm's well
 
 step The gnoll hills
@@ -326,6 +329,7 @@ step Furlbrow's Wardrobe
 
 step The Jansen Stead
   collect 1528 quest 151 @56.9,20.7           -- Sacks of Oats in the fields around the farm
+  use 254545 quest 92742.1 @56.6,18.6
   collect 254546 quest 92742.1 @56.6,18.6     -- Fill the vial at the well
   turnin 64                                   -- Farmer Furlbrow
   turnin 151                                  -- Verna Furlbrow

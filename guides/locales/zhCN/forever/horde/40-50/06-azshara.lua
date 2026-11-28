@@ -216,7 +216,8 @@ return {
 
 	-- Step 53: Edana Hatetalon
 	-- {npc:8075} Edana Hatetalon
-	["{npc:8075} (level 50, elite) roosts on the cliff just north of the harpies' nests. Clear the harpies around her first."] = "{npc:8075}(50级，精英)栖息在鹰身人巢穴北边不远的悬崖上。先清掉她附近的鹰身人。",
+	-- was: ["{npc:8075} (level 50, elite) roosts on the cliff just north of the harpies' nests. Clear the harpies around her first."] = "{npc:8075}(50级，精英)栖息在鹰身人巢穴北边不远的悬崖上。先清掉她附近的鹰身人。"
+	["{npc:8075} (level 50, elite) roosts on the cliff just north of the harpies' nests, with harpies around her."] = "",
 
 	-- Step 54: Rage Scar yetis
 	["Rage Scar yetis"] = "怒痕雪人",
@@ -324,6 +325,7 @@ return {
 	-- ["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}：熊在{zone:1448}",
 	-- ["{npc:7825} stands in the {object:36082}."] = "{npc:7825}站在{object:36082}。",
 	-- ["{npc:7876}'s tar and Pestlezugg's samples come from {zone:1449}."] = "{npc:7876}要的焦油和匹斯特苏格要的样本都来自{zone:1449}。",
+	-- ["{npc:8075} (level 50, elite) roosts on the cliff just north of the harpies' nests. Clear the harpies around her first."] = "{npc:8075}(50级，精英)栖息在鹰身人巢穴北边不远的悬崖上。先清掉她附近的鹰身人。",
 	-- ["{npc:8395}, at the east edge of the camp: no experience, only a teleport to Azshara Tower"] = "{npc:8395}，在营地东缘：没有经验，只能传送到克希雷姆的法师塔",
 	-- ["{npc:8659}, the {object:172960}"] = "{npc:8659}，在{object:172960}",
 	-- ["{object:3202} flight master"] = "{object:3202} 的飞行管理员。",

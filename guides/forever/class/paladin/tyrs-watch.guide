@@ -71,7 +71,7 @@ why Redemption to raise fallen allies, plus a weapon and a shield for a new Fors
 step Aramis Hammerhand
   when level<9
   zone Tirisfal Glades
-  tip Shadow Priest Sarvis gives you a Consecrated Scroll after The Mindless Ones: read it, then bring it to Aramis Hammerhand by the church. He asks you to heal five Injured Deathguard lying around Deathknell. Holy Light hurts a Forsaken paladin a little each time: watch your health.
+  tip Shadow Priest Sarvis's Consecrated Scroll, after The Mindless Ones, goes to Aramis Hammerhand by the church, who wants five Injured Deathguard around Deathknell healed. Holy Light hurts a Forsaken paladin a little each time.
   accept 98601                        -- Shadow Priest Sarvis
   turnin 98601                        -- Aramis Hammerhand
   level 2
@@ -207,8 +207,9 @@ step The Symbol of Life
   accept 94438
 
 step Deathguard Falgan
-  tip Venomweb Vale is at the far east end of the glades, a long walk. Falgan lies dead among the Scarlet Crusaders there: target his body and use the Symbol of Life, then talk to him at once, as he does not stay alive long. If he is already up (another player), just talk to him; if he died again, raise him again.
+  tip Venomweb Vale is at the far east end of the glades, a long walk. Falgan lies dead among the Scarlet Crusaders there. Raised with the Symbol of Life, he does not stay alive long, and another player may have raised him already.
   level 11
+  use 6866 @86.65,47.76 map 1420
   turnin 94438                        -- Deathguard Falgan
   accept 94440
 

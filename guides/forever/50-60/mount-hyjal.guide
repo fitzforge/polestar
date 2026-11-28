@@ -156,7 +156,8 @@ step Ketharas
   accept 95611                          -- Rites of Respect
 
 step Ketharas's shrine
-  tip The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost: bury the remains there.
+  tip The shrine is a pair of standing stones west of the Hermit's Abode.
+  use 269998 @66.7,84.3
   complete 95611 @66.7,84.3
 
 step Ketharas
@@ -164,11 +165,11 @@ step Ketharas
   accept 90487                          -- Ancient Allies
 
 step The ancients' outpost
-  tip West to the outpost.
   turnin 90487                          -- Fraxinus
   turnin 91754                          -- Hyacinth
   turnin 91755
   accept 91770                          -- Bark Bite
+  use 247963 quest 91770.1 @53.4,84.3
   complete 91770 @53.4,84.3             -- put the poultice on Fraxinus
   turnin 91770
 
@@ -254,7 +255,8 @@ step Felflick
   accept 96435 @49.3,77.1               -- A Fitting End
 
 step The bone pile
-  tip West to the bone pile by the slime pools: throw the warlocks' bones on it, then hand the quest in at the pile itself. Handing it in wakes the Awakened Fel Ash Slime, an elite (level 58) that hits hard: unless you are grouped for it, hand in and ride clear at once.
+  tip Handing the quest in at the pile wakes the Awakened Fel Ash Slime, a level 58 elite that hits hard.
+  use 273296 @40.8,80.3
   complete 96435 @40.8,80.3
   turnin 96435                          -- Bone Pile
 
@@ -290,11 +292,11 @@ step The Curious Crow
   turnin 96322
 
 step The Ashen workstations
-  tip Four workstations stand in the Ashen camp: throw a pinecone at each, from the south up.
   goto 42.5,73.1 "Slime Workstation"
   goto 44.3,68.3 "Alchemy Workstation"
   goto 46.6,68.0 "Disease Workstation"
   goto 49.6,69.6 "Vessel Workstation"
+  use 273323 @42.5,73.1
   complete 95316
 
 step The Curious Crow
@@ -461,7 +463,7 @@ step Malorne's Retreat
 
 step Fenwick's survival pack
   only Alliance
-  tip His pack fell just north of the tree. Open it, then wait half a minute while its safety lock discharges before you open it again.
+  tip His pack fell just north of the tree. Its safety lock takes half a minute to discharge between the two hand-ins.
   turnin 96559                          -- Personal Survival Pack
   accept 93383                          -- Contents Under Pressure
   turnin 93383
@@ -684,9 +686,10 @@ step Head Scratcher
   accept 92446                          -- Zet'gan
 
 step The overlook
-  tip West to the overlook above the valley: the veteran's old scabbard lies there. Hand his quest in at the scabbard and take the next from it, then use the scabbard in your bags to call his spirit and listen to his story.
+  tip The veteran's spirit appears only once the scabbard is used.
   turnin 92100                          -- Embroidered Scabbard
   accept 96550                          -- Battle Recall
+  use 274795 @8.8,46.5 map 2482 live
   talk 255038                           -- Veteran of the Third War
   turnin 96550
 
@@ -707,7 +710,7 @@ step Jereman
   accept 96978                          -- Violent Venison
 
 step The falls and the first kitten
-  tip Fill Galvinquam's gourd at the falls beside the bridge. Solstice, one of Shalla'kal's kittens, plays just west of the falls: walk up to her.
+  use 275991 @41.6,44.6
   complete 96979 @41.6,44.6             -- fill the gourd
   talk 255685 quest 93615.1 @38.5,47.3  -- Solstice
 
@@ -975,8 +978,9 @@ step Johun "Punchy" Dillas
 
 step Bethra'zel
   when onquest 96003
-  tip North-east to Bethra'zel. Drain him first: use Elaena's eye on him, and only then fight him. Undrained, he and Mazzogore are level 60 elites. Doomguard Xarkul, an elite (level 61), walks this corner of Dae'gun: keep out of his way.
-  tip Careful: Legion Hulks (60, rare elites) stomp through Dae'gun's camps: give them room.
+  tip Bethra'zel and Mazzogore are level 60 elites until Bethra'zel is drained. Doomguard Xarkul, a level 61 elite, patrols this corner of Dae'gun.
+  tip Legion Hulks (level 60 rare elites) roam Dae'gun's camps.
+  use 271879 quest 96003.1 @57.4,36.3 map 2482 live
   kill 263394 quest 96003.1             -- Bethra'zel
 
 step Maerion Thaelemaches
@@ -1130,7 +1134,8 @@ step The Blackthorne camps
   when group 93584
   when onquest 92169
   tip The Blackthorne cultists camp on the slopes north-east of the Summit (level 60, with elite Outrunners, Priests and a Courier among them: pull carefully). Ve'han Talongrasp, an elite (level 60) who leads them, stands among them: leave him be. Ghansurok, an elite chimaera (level 61), also roams the ridge north of the camps.
-  tip Use Tiala's staff on a Pact member to strip its ward, then kill it, ten times: pick Cultists and Adepts, whom Thisalee wants dead too. The Cultists carry the kris and the Adepts the staff; the thorn seeds lie in the woods there, and the hippogryphs and chimaeras roam the slopes all around. Not finished in our recordings yet: if something here is off, tell us.
+  tip Tiala's staff strips a Pact member's ward, and Cultists and Adepts count for Thisalee too. The Cultists carry the kris and the Adepts the staff; the thorn seeds lie in the woods there, and the hippogryphs and chimaeras roam the slopes all around. Not finished in our recordings yet: if something here is off, tell us.
+  use 267079 quest 92169.2 @75.9,35.4
   complete 92169 @75.9,35.4             -- Paying Back the Pact
   kill 249551 x10 quest 93584.1         -- Blackthorne Cultist
   kill 264570 x10 quest 93584.2         -- Blackthorne Adept

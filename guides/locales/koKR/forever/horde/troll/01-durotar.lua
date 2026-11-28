@@ -98,8 +98,8 @@ return {
 	["the {object:654925} on the ground beside her"] = "그녀 옆 땅바닥의 {object:654925}",
 
 	-- Step 20: Call of Earth
-	-- {npc:5887} Canaga Earthcaller · {area:639} Spirit Rock · {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth · {item:6656} Rough Quartz
-	["{npc:5887} stands outside the Den. {area:639} is the hill just south of it: drink the {item:6635} there to see the {npc:5891}, then take the {item:6656} back to {npc:5887}."] = "{npc:5887}은(는) 동굴 막사 바깥에 서 있습니다. {area:639}은(는) 그 바로 남쪽 언덕입니다. 그곳에서 {item:6635}을(를) 마셔 {npc:5891}을(를) 보고, {item:6656}을(를) {npc:5887}에게 가져가세요.",
+	-- {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth · {area:639} Spirit Rock
+	["Only the {item:6635} shows the {npc:5891} on {area:639}."] = "",
 	-- {npc:5891} Minor Manifestation of Earth · {area:639} Spirit Rock
 	["{npc:5891}, on {area:639}"] = "{npc:5891}, {area:639} 위",
 	-- {npc:5887} Canaga Earthcaller · {npc:5873} Stoneskin Totem · {item:5175} Earth Totem
@@ -502,4 +502,5 @@ return {
 	-- ["{npc:3294}, by the inn"] = "{npc:3294}, 여관 옆",
 	-- ["{npc:3706}, beside {npc:3139}: the {item:16606}"] = "{npc:3706}, {npc:3139} 옆: {item:16606}",
 	-- ["{npc:3706}, in the barracks with {npc:3139}"] = "{npc:3706}, {npc:3139}와(과) 함께 병영 안",
+	-- ["{npc:5887} stands outside the Den. {area:639} is the hill just south of it: drink the {item:6635} there to see the {npc:5891}, then take the {item:6656} back to {npc:5887}."] = "{npc:5887}은(는) 동굴 막사 바깥에 서 있습니다. {area:639}은(는) 그 바로 남쪽 언덕입니다. 그곳에서 {item:6635}을(를) 마셔 {npc:5891}을(를) 보고, {item:6656}을(를) {npc:5887}에게 가져가세요.",
 }

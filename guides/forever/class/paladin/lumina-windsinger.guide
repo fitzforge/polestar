@@ -75,10 +75,11 @@ step Fenris Keep
   collect 267412 quest 91862.1        -- Fenris Isle Key, from the Rot Hide gnolls
 
 step Free Lumina
-  tip Hand in the key first: starting the escort before that gives the key quest no credit. Then open the cage: Lumina walks out through the keep and its courtyard while the gnolls attack, then runs for the dock and makes her own way back to the Sepulcher. Stay close and keep her alive; if she dies, take the quest again when she is back in her cage.
+  tip The key goes in first: starting the escort before that gives the key quest no credit. Once she is out of her cage, Lumina walks out through the keep and its courtyard while the gnolls attack, then runs for the dock and makes her own way back to the Sepulcher. If she dies, the quest can be taken again when she is back in her cage.
   level 21
   turnin 91862                        -- Lumina Windsinger
   accept 96204
+  talk 248755 quest 96204.1
   complete 96204 @65.7,29.7
 
 step Back to the Sepulcher
@@ -168,9 +169,10 @@ step Two-Handed Swords
 
 step Old Fire-Eye
   zone Silverpine Forest
-  tip Equip the Moonsilver Blade. Old Fire-Eye, the great worgen, roams the woods south of the Sepulcher toward the gates of Gilneas. He is elite (level 25): the guide waits for level 25 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke.
+  tip Old Fire-Eye, the great worgen, roams the woods south of the Sepulcher toward the gates of Gilneas. He is elite (level 25): players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until the first swing with the Moonsilver Blade lands, and a message says when it breaks.
   accept 95140                        -- Lumina Windsinger, the Sepulcher
   level 25
+  equip 268484
   kill 259897 quest 95140.1 @47.91,85.33 -- Old Fire-Eye, with the Moonsilver Blade equipped
 
 step Wolfsbane

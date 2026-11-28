@@ -197,7 +197,7 @@ step The Vilebranch temples
   collect 19033 quest 7839.1
 
 step The central hills
-  tip The Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and Skulk Rock. Use the Wildkin Muisek Vessel on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for Otho's second message.
+  tip The Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and Skulk Rock. The Wildkin Muisek Vessel works on owlbeasts once they die, and the Skylords' Long Elegant Feathers count for Otho's second message (ten).
   kill 2926 quest 7828.1
   kill 2929 quest 7829.1
   collect 19025 quest 7830.1
@@ -265,8 +265,9 @@ step Revantusk Village
 # ---------------------------------------------------------------- Aerie Peak
 
 step Aerie Peak
-  tip Ride all the way west to the Wildhammer town of Aerie Peak and place the message by the well in its centre. The town is full of Alliance guards: get in, place it and get out.
+  tip Aerie Peak, the Wildhammer town, is all the way west, and the message goes by the well in its centre. The town is full of Alliance guards.
   goto 14.3,48.1 "Aerie Peak well"
+  use 19036 quest 7843.1 @14.3,48.1
   complete 7843
 
 step Revantusk Village

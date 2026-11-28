@@ -40,7 +40,8 @@ return {
 	-- {zone:1431} Duskwood
 	["{zone:1431} writ customers"] = "{zone:1431} 의뢰서 고객",
 	-- {npc:3134} Kzixx · {area:42} Darkshire
-	["{npc:3134} stands about 450 yards north of {area:42}. Customers show no quest mark: right-click them anyway."] = "{npc:3134}은(는) {area:42}에서 북쪽으로 약 450야드에 서 있습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요.",
+	-- was: ["{npc:3134} stands about 450 yards north of {area:42}. Customers show no quest mark: right-click them anyway."] = "{npc:3134}은(는) {area:42}에서 북쪽으로 약 450야드에 서 있습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요."
+	["{npc:3134} stands about 450 yards north of {area:42}. Customers show no quest mark."] = "",
 	-- {item:6048} Shadow Protection Potion
 	["{item:6048}, 75 reputation"] = "{item:6048}, 평판 75",
 	-- {item:4381} Minor Recombobulator
@@ -54,7 +55,8 @@ return {
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434} writ customers"] = "{zone:1434} 의뢰서 고객",
 	-- {area:35} Booty Bay · {npc:7853} Scooty · {npc:2663} Narkk · {npc:14508} Short John Mithril · {area:1741} Gurubashi Arena · {object:3202} Grom'gol · {npc:261961} Hekshi
-	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853}, the goblin transporter's engineer, and {npc:2663}. {npc:14508} stands at the {area:1741}, about 800 yards south of {object:3202}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "{area:35}에 고객이 세 명 있습니다: \"Sea Wolf\" MacKinley(여관 다락), 고블린 수송업자의 기술자 {npc:7853}, 그리고 {npc:2663}. {npc:14508}은(는) {object:3202}에서 남쪽으로 약 800야드, {area:1741}에 서 있고 {npc:261961}은(는) 북부 스트렝글손에 있습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요.",
+	-- was: ["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853}, the goblin transporter's engineer, and {npc:2663}. {npc:14508} stands at the {area:1741}, about 800 yards south of {object:3202}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "{area:35}에 고객이 세 명 있습니다: \"Sea Wolf\" MacKinley(여관 다락), 고블린 수송업자의 기술자 {npc:7853}, 그리고 {npc:2663}. {npc:14508}은(는) {object:3202}에서 남쪽으로 약 800야드, {area:1741}에 서 있고 {npc:261961}은(는) 북부 스트렝글손에 있습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요."
+	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853}, the goblin transporter's engineer, and {npc:2663}. {npc:14508} stands at the {area:1741}, about 800 yards south of {object:3202}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark."] = "",
 	-- {item:3485} Green Iron Gauntlets
 	["{item:3485}, 75 reputation"] = "{item:3485}, 평판 75",
 	-- {item:7506} Gnomish Universal Remote
@@ -70,7 +72,8 @@ return {
 	-- {zone:1437} Wetlands
 	["{zone:1437} writ customers"] = "{zone:1437} 의뢰서 고객",
 	-- {npc:8305} Kixxle · {area:205} Dun Modr
-	["{npc:8305} stands about 600 yards south of {area:205}. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark: right-click them anyway."] = "{npc:8305}은(는) {area:205}에서 남쪽으로 약 600야드에 서 있습니다. 수습 의뢰서 다섯 개가 그에게 가는데, 어떤 고객보다 많습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요.",
+	-- was: ["{npc:8305} stands about 600 yards south of {area:205}. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark: right-click them anyway."] = "{npc:8305}은(는) {area:205}에서 남쪽으로 약 600야드에 서 있습니다. 수습 의뢰서 다섯 개가 그에게 가는데, 어떤 고객보다 많습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요."
+	["{npc:8305} stands about 600 yards south of {area:205}. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark."] = "",
 	-- {item:5996} Draught of Water Breathing
 	["{item:5996}, 75 reputation"] = "{item:5996}, 평판 75",
 	-- {item:3484} Green Iron Boots
@@ -86,7 +89,8 @@ return {
 	-- {zone:1417} Arathi Highlands
 	["{zone:1417} writ customers"] = "{zone:1417} 의뢰서 고객",
 	-- {npc:257296} Muggol Breezebeard · {area:320} Refuge Pointe · {npc:257304} Alyce
-	["{npc:257296} is about 250 yards south of {area:320}, {npc:257304} about 700 yards north-west of it. Customers show no quest mark: right-click them anyway."] = "{npc:257296}은(는) {area:320}에서 남쪽으로 약 250야드, {npc:257304}은(는) 그에서 북서쪽으로 약 700야드에 있습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요.",
+	-- was: ["{npc:257296} is about 250 yards south of {area:320}, {npc:257304} about 700 yards north-west of it. Customers show no quest mark: right-click them anyway."] = "{npc:257296}은(는) {area:320}에서 남쪽으로 약 250야드, {npc:257304}은(는) 그에서 북서쪽으로 약 700야드에 있습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요."
+	["{npc:257296} is about 250 yards south of {area:320}, {npc:257304} about 700 yards north-west of it. Customers show no quest mark."] = "",
 	-- {item:3383} Elixir of Wisdom
 	["{item:3383}, 75 reputation"] = "{item:3383}, 평판 75",
 	-- {item:11128} Golden Rod
@@ -104,7 +108,8 @@ return {
 	-- {zone:1424} Hillsbrad Foothills
 	["{zone:1424} writ customers"] = "{zone:1424} 의뢰서 고객",
 	-- {npc:261932} Gorgrash · {npc:3536} Kris Legace · {npc:261928} Webbed Mudsnout Gnoll · {area:271} Southshore
-	["{npc:261932} and {npc:3536} are in the east of the foothills; the {npc:261928} hangs in a spider cocoon about 500 yards south-east of {area:271}. Customers show no quest mark: right-click them anyway."] = "{npc:261932}와(과) {npc:3536}은(는) 구릿길 동쪽에 있고, {npc:261928}은(는) {area:271}에서 남동쪽으로 약 500야드의 거미 고치에 매달려 있습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요.",
+	-- was: ["{npc:261932} and {npc:3536} are in the east of the foothills; the {npc:261928} hangs in a spider cocoon about 500 yards south-east of {area:271}. Customers show no quest mark: right-click them anyway."] = "{npc:261932}와(과) {npc:3536}은(는) 구릿길 동쪽에 있고, {npc:261928}은(는) {area:271}에서 남동쪽으로 약 500야드의 거미 고치에 매달려 있습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요."
+	["{npc:261932} and {npc:3536} are in the east of the foothills; the {npc:261928} hangs in a spider cocoon about 500 yards south-east of {area:271}. Customers show no quest mark."] = "",
 	-- {item:3491} Heavy Bronze Mace
 	["{item:3491}, 75 reputation"] = "{item:3491}, 평판 75",
 	["bring it: craft it or buy it at the Auction House"] = "가져오기: 직접 만들거나 경매장에서 사세요",
@@ -119,7 +124,8 @@ return {
 	-- {zone:1416} Alterac Mountains
 	["{zone:1416} writ customers"] = "{zone:1416} 의뢰서 고객",
 	-- {npc:257281} Sos'mol · {npc:257282} Alan Sneeks · {npc:6176} Bath'rah the Windwatcher · {area:272} Tarren Mill
-	["{npc:257281} and {npc:257282} are close together in the south-west of the mountains; Syndicate thugs roam around {npc:257282}. {npc:6176} stands on the eastern edge, above {area:272}. Customers show no quest mark: right-click them anyway."] = "{npc:257281}과(와) {npc:257282}은(는) 산 남서쪽에서 서로 가까이 있고, 신디케이트 깡패들이 {npc:257282} 주변을 어슬렁거립니다. {npc:6176}은(는) 동쪽 가장자리, {area:272} 위에 서 있습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요.",
+	-- was: ["{npc:257281} and {npc:257282} are close together in the south-west of the mountains; Syndicate thugs roam around {npc:257282}. {npc:6176} stands on the eastern edge, above {area:272}. Customers show no quest mark: right-click them anyway."] = "{npc:257281}과(와) {npc:257282}은(는) 산 남서쪽에서 서로 가까이 있고, 신디케이트 깡패들이 {npc:257282} 주변을 어슬렁거립니다. {npc:6176}은(는) 동쪽 가장자리, {area:272} 위에 서 있습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요."
+	["{npc:257281} and {npc:257282} are close together in the south-west of the mountains; Syndicate thugs roam around {npc:257282}. {npc:6176} stands on the eastern edge, above {area:272}. Customers show no quest mark."] = "",
 	-- {item:3391} Elixir of Ogre Strength
 	["{item:3391}, 75 reputation"] = "{item:3391}, 평판 75",
 	["bring it: leatherworkers make it, or buy it at the Auction House"] = "가져오기: 가죽세공사들이 만듭니다. 아니면 경매장에서 사세요",
@@ -138,7 +144,8 @@ return {
 	-- {zone:1440} Ashenvale
 	["{zone:1440} writ customers"] = "{zone:1440} 의뢰서 고객",
 	-- {area:431} Splintertree Post · {npc:257315} Ash'alari · {npc:257322} Murache · {npc:257316} Cowardly Peon · {npc:257317} Grembly
-	["All four stand around {area:431}: {npc:257315} about 850 yards south-west of it, {npc:257322} to the south, the {npc:257316} about 350 yards south-east and {npc:257317} about 650 yards north-east. Customers show no quest mark: right-click them anyway."] = "네 명 모두 {area:431} 주변에 있습니다: {npc:257315}은(는) 그에서 남서쪽으로 약 850야드, {npc:257322}은(는) 남쪽, {npc:257316}은(는) 남동쪽으로 약 350야드, {npc:257317}은(는) 북동쪽으로 약 650야드에 있습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요.",
+	-- was: ["All four stand around {area:431}: {npc:257315} about 850 yards south-west of it, {npc:257322} to the south, the {npc:257316} about 350 yards south-east and {npc:257317} about 650 yards north-east. Customers show no quest mark: right-click them anyway."] = "네 명 모두 {area:431} 주변에 있습니다: {npc:257315}은(는) 그에서 남서쪽으로 약 850야드, {npc:257322}은(는) 남쪽, {npc:257316}은(는) 남동쪽으로 약 350야드, {npc:257317}은(는) 북동쪽으로 약 650야드에 있습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요."
+	["All four stand around {area:431}: {npc:257315} about 850 yards south-west of it, {npc:257322} to the south, the {npc:257316} about 350 yards south-east and {npc:257317} about 650 yards north-east. Customers show no quest mark."] = "",
 	-- {item:3385} Lesser Mana Potion
 	["{item:3385}, 75 reputation"] = "{item:3385}, 평판 75",
 	-- {item:7349} Herbalist's Gloves
@@ -160,7 +167,8 @@ return {
 	-- {zone:1442} Stonetalon Mountains
 	["{zone:1442} writ customers"] = "{zone:1442} 의뢰서 고객",
 	-- {npc:4201} Ziz Fizziks · {area:460} Sun Rock Retreat
-	["{npc:4201} has a small hut about 550 yards east of {area:460}. Four Journeyman writs go to him. Customers show no quest mark: right-click them anyway."] = "{npc:4201}은(는) {area:460}에서 동쪽으로 약 550야드에 작은 오두막을 가지고 있습니다. 수습 의뢰서 네 개가 그에게 갑니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요.",
+	-- was: ["{npc:4201} has a small hut about 550 yards east of {area:460}. Four Journeyman writs go to him. Customers show no quest mark: right-click them anyway."] = "{npc:4201}은(는) {area:460}에서 동쪽으로 약 550야드에 작은 오두막을 가지고 있습니다. 수습 의뢰서 네 개가 그에게 갑니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요."
+	["{npc:4201} has a small hut about 550 yards east of {area:460}. Four Journeyman writs go to him. Customers show no quest mark."] = "",
 	-- {item:3390} Elixir of Lesser Agility
 	["{item:3390}, 75 reputation"] = "{item:3390}, 평판 75",
 	-- {item:2865} Rough Bronze Leggings
@@ -174,7 +182,8 @@ return {
 	-- {zone:1441} Thousand Needles
 	["{zone:1441} writ customers"] = "{zone:1441} 의뢰서 고객",
 	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {area:484} Freewind Post · {npc:4720} Rizzle Brassbolts · {npc:4706} Razzeric · {npc:4496} Goblin Pit Boss · {npc:6548} Magus Tirth
-	["All five stand at the {area:2240} on the {area:439}, south-east of {area:484}: {npc:4720}, the chicken \"Plucky\" Johnson, {npc:4706}, the {npc:4496} and {npc:6548}. Customers show no quest mark: right-click them anyway."] = "다섯 명 모두 {area:484} 남동쪽의 {area:439}에 있는 {area:2240}에 있습니다: 닭 \"Plucky\" 존슨 {npc:4720}, {npc:4706}, {npc:4496}, 그리고 {npc:6548}. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요.",
+	-- was: ["All five stand at the {area:2240} on the {area:439}, south-east of {area:484}: {npc:4720}, the chicken \"Plucky\" Johnson, {npc:4706}, the {npc:4496} and {npc:6548}. Customers show no quest mark: right-click them anyway."] = "다섯 명 모두 {area:484} 남동쪽의 {area:439}에 있는 {area:2240}에 있습니다: 닭 \"Plucky\" 존슨 {npc:4720}, {npc:4706}, {npc:4496}, 그리고 {npc:6548}. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요."
+	["All five stand at the {area:2240} on the {area:439}, south-east of {area:484}: {npc:4720}, the chicken \"Plucky\" Johnson, {npc:4706}, the {npc:4496} and {npc:6548}. Customers show no quest mark."] = "",
 	-- {item:8951} Elixir of Defense
 	["{item:8951}, 75 reputation"] = "{item:8951}, 평판 75",
 	-- {item:3848} Big Bronze Knife
@@ -198,13 +207,15 @@ return {
 	-- {zone:1431} Duskwood
 	["{zone:1431} writ customers again"] = "{zone:1431} 의뢰서 고객 (다시)",
 	-- {npc:3134} Kzixx · {area:42} Darkshire
-	["{npc:3134} stands about 450 yards north of {area:42}, by the road. Customers show no quest mark: right-click them anyway."] = "{npc:3134}은(는) {area:42}에서 북쪽으로 약 450야드에 서 있습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요.",
+	-- was: ["{npc:3134} stands about 450 yards north of {area:42}, by the road. Customers show no quest mark: right-click them anyway."] = "{npc:3134}은(는) {area:42}에서 북쪽으로 약 450야드에 서 있습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요."
+	["{npc:3134} stands about 450 yards north of {area:42}, by the road. Customers show no quest mark."] = "",
 
 	-- Step 18: Stranglethorn Vale writ customers again
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434} writ customers again"] = "{zone:1434} 의뢰서 고객 (다시)",
 	-- {area:35} Booty Bay · {npc:7853} Scooty · {npc:2663} Narkk · {npc:14508} Short John Mithril · {object:3202} Grom'gol · {area:1741} Gurubashi Arena · {npc:261961} Hekshi
-	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853} at the zeppelin-style transporter pad and {npc:2663}. {npc:14508} stands about 800 yards south of {object:3202}, by the {area:1741}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "{area:35}에 고객이 세 명 있습니다: \"Sea Wolf\" MacKinley(여관 다락), 고블린 수송업자의 기술자 {npc:7853}, 그리고 {npc:2663}. {npc:14508}은(는) {object:3202}에서 남쪽으로 약 800야드, {area:1741}에 서 있고 {npc:261961}은(는) 북부 스트렝글손에 있습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요.",
+	-- was: ["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853} at the zeppelin-style transporter pad and {npc:2663}. {npc:14508} stands about 800 yards south of {object:3202}, by the {area:1741}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "{area:35}에 고객이 세 명 있습니다: \"Sea Wolf\" MacKinley(여관 다락), 고블린 수송업자의 기술자 {npc:7853}, 그리고 {npc:2663}. {npc:14508}은(는) {object:3202}에서 남쪽으로 약 800야드, {area:1741}에 서 있고 {npc:261961}은(는) 북부 스트렝글손에 있습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요."
+	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853} at the zeppelin-style transporter pad and {npc:2663}. {npc:14508} stands about 800 yards south of {object:3202}, by the {area:1741}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark."] = "",
 
 	-- Step 19: Wetlands writ customers again
 	-- {zone:1437} Wetlands
@@ -279,6 +290,8 @@ return {
 	["{item:262764}, 200 Merchant's Favor"] = "{item:262764}, 상인의 호의 200",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["All five stand at the {area:2240} on the {area:439}, south-east of {area:484}: {npc:4720}, the chicken \"Plucky\" Johnson, {npc:4706}, the {npc:4496} and {npc:6548}. Customers show no quest mark: right-click them anyway."] = "다섯 명 모두 {area:484} 남동쪽의 {area:439}에 있는 {area:2240}에 있습니다: 닭 \"Plucky\" 존슨 {npc:4720}, {npc:4706}, {npc:4496}, 그리고 {npc:6548}. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요.",
+	-- ["All four stand around {area:431}: {npc:257315} about 850 yards south-west of it, {npc:257322} to the south, the {npc:257316} about 350 yards south-east and {npc:257317} about 650 yards north-east. Customers show no quest mark: right-click them anyway."] = "네 명 모두 {area:431} 주변에 있습니다: {npc:257315}은(는) 그에서 남서쪽으로 약 850야드, {npc:257322}은(는) 남쪽, {npc:257316}은(는) 남동쪽으로 약 350야드, {npc:257317}은(는) 북동쪽으로 약 650야드에 있습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요.",
 	-- ["Dokimi"] = "도키미",
 	-- ["Keep filling Waylaid Crates for Dokimi until Exalted."] = "확고한 동맹이 될 때까지 도키미에게 줄 잘못 놓인 보급품을 계속 채우십시오.",
 	-- ["Keep filling Waylaid Crates for Dokimi."] = "도키미에게 줄 잘못 놓인 보급품을 계속 채우십시오.",
@@ -286,6 +299,8 @@ return {
 	-- ["Keep filling Waylaid Crates for {npc:214101}."] = "{npc:214101}에게 줄 잘못 놓인 보급품을 계속 채우십시오.",
 	-- ["Merchant's Favor Reputation"] = "상인의 호의 평판",
 	-- ["The {faction:2586} is the Alliance's tradeskill faction in Forever. Its camp is at {area:1002} in western {zone:1433}. From level 10 mobs drop Waylaid Crates: fill each with the goods its label asks for and hand the {object:1561} to {npc:214101} at the camp for reputation and Merchant's Favor. Forever's Legacy Diplomat perk increases reputation gains."] = "{faction:2586}은(는) Forever에서 얼라이언스의 전문 기술 세력입니다. 야영지는 {zone:1433} 서부의 {area:1002}에 있습니다. 레벨 10부터 몹이 잘못 놓인 보급품을 떨어뜨립니다. 상자마다 라벨에 적힌 물품을 채운 뒤 {object:1561}을(를) 야영지의 {npc:214101}에게 건네면 평판과 Merchant's Favor를 얻습니다. Forever의 외교관 유산 특전은 평판 획득량을 늘려 줍니다.",
+	-- ["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853} at the zeppelin-style transporter pad and {npc:2663}. {npc:14508} stands about 800 yards south of {object:3202}, by the {area:1741}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "{area:35}에 고객이 세 명 있습니다: \"Sea Wolf\" MacKinley(여관 다락), 고블린 수송업자의 기술자 {npc:7853}, 그리고 {npc:2663}. {npc:14508}은(는) {object:3202}에서 남쪽으로 약 800야드, {area:1741}에 서 있고 {npc:261961}은(는) 북부 스트렝글손에 있습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요.",
+	-- ["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853}, the goblin transporter's engineer, and {npc:2663}. {npc:14508} stands at the {area:1741}, about 800 yards south of {object:3202}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "{area:35}에 고객이 세 명 있습니다: \"Sea Wolf\" MacKinley(여관 다락), 고블린 수송업자의 기술자 {npc:7853}, 그리고 {npc:2663}. {npc:14508}은(는) {object:3202}에서 남쪽으로 약 800야드, {area:1741}에 서 있고 {npc:261961}은(는) 북부 스트렝글손에 있습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요.",
 	-- ["{faction:2586} to Exalted"] = "{faction:2586}: 확고한 동맹까지",
 	-- ["{faction:2586} to Friendly"] = "{faction:2586}: 약간 우호적까지",
 	-- ["{faction:2586} to Honored"] = "{faction:2586}: 우호적까지",
@@ -295,4 +310,11 @@ return {
 	-- ["{faction:2587} to Friendly"] = "{faction:2587}: 약간 우호적까지",
 	-- ["{faction:2587} to Honored"] = "{faction:2587}: 우호적까지",
 	-- ["{faction:2587} to Revered"] = "{faction:2587}: 매우 우호적까지",
+	-- ["{npc:257281} and {npc:257282} are close together in the south-west of the mountains; Syndicate thugs roam around {npc:257282}. {npc:6176} stands on the eastern edge, above {area:272}. Customers show no quest mark: right-click them anyway."] = "{npc:257281}과(와) {npc:257282}은(는) 산 남서쪽에서 서로 가까이 있고, 신디케이트 깡패들이 {npc:257282} 주변을 어슬렁거립니다. {npc:6176}은(는) 동쪽 가장자리, {area:272} 위에 서 있습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요.",
+	-- ["{npc:257296} is about 250 yards south of {area:320}, {npc:257304} about 700 yards north-west of it. Customers show no quest mark: right-click them anyway."] = "{npc:257296}은(는) {area:320}에서 남쪽으로 약 250야드, {npc:257304}은(는) 그에서 북서쪽으로 약 700야드에 있습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요.",
+	-- ["{npc:261932} and {npc:3536} are in the east of the foothills; the {npc:261928} hangs in a spider cocoon about 500 yards south-east of {area:271}. Customers show no quest mark: right-click them anyway."] = "{npc:261932}와(과) {npc:3536}은(는) 구릿길 동쪽에 있고, {npc:261928}은(는) {area:271}에서 남동쪽으로 약 500야드의 거미 고치에 매달려 있습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요.",
+	-- ["{npc:3134} stands about 450 yards north of {area:42}, by the road. Customers show no quest mark: right-click them anyway."] = "{npc:3134}은(는) {area:42}에서 북쪽으로 약 450야드에 서 있습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요.",
+	-- ["{npc:3134} stands about 450 yards north of {area:42}. Customers show no quest mark: right-click them anyway."] = "{npc:3134}은(는) {area:42}에서 북쪽으로 약 450야드에 서 있습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요.",
+	-- ["{npc:4201} has a small hut about 550 yards east of {area:460}. Four Journeyman writs go to him. Customers show no quest mark: right-click them anyway."] = "{npc:4201}은(는) {area:460}에서 동쪽으로 약 550야드에 작은 오두막을 가지고 있습니다. 수습 의뢰서 네 개가 그에게 갑니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요.",
+	-- ["{npc:8305} stands about 600 yards south of {area:205}. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark: right-click them anyway."] = "{npc:8305}은(는) {area:205}에서 남쪽으로 약 600야드에 서 있습니다. 수습 의뢰서 다섯 개가 그에게 가는데, 어떤 고객보다 많습니다. 고객에게는 퀘스트 표시가 없으니 그래도 오른쪽 클릭하세요.",
 }

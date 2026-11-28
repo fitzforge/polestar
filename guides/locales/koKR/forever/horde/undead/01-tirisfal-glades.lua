@@ -408,7 +408,7 @@ return {
 
 	-- Step 70: Ulag the Cleaver
 	-- {npc:6390} Ulag the Cleaver
-	["{npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:6390}은(는) 마을 바로 북쪽 언덕의 묘지에서 기다립니다. 문을 열고 그와 싸우십시오.",
+	["{npc:6390} waits in the mausoleum on the hill just north of town, and the gate's trigger lets him out."] = "",
 
 	-- Step 71: Carendin Halgar
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter
@@ -596,4 +596,5 @@ return {
 	-- ["{npc:244808} and {npc:5667}"] = "{npc:244808}와(과) {npc:5667}",
 	-- ["{npc:244808} and {npc:5667} stand beside the church."] = "{npc:244808}와(과) {npc:5667}이(가) 교회 옆에 서 있습니다.",
 	-- ["{npc:3615}, the wind rider master"] = "와이번 조련사 {npc:3615}",
+	-- ["{npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:6390}은(는) 마을 바로 북쪽 언덕의 묘지에서 기다립니다. 문을 열고 그와 싸우십시오.",
 }

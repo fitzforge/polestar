@@ -67,8 +67,9 @@ step Hervdana Saegrund
   accept 94497
 
 step The brown waterskin
-  tip Fill the Unfilled Brown Waterskin at the bottom of the waterfalls below Hervdana's cave, where the fresh water meets the brackish. Dark Iron dwarves roam near the falls.
+  tip The water source is at the bottom of the waterfalls below Hervdana's cave, where the fresh water meets the brackish. Dark Iron dwarves roam near the falls.
   level 22
+  use 265732 quest 94497.1 @65.8,76.5
   collect 265734 quest 94497.1 @65.8,76.5     -- Full Brown Waterskin
 
 step Hervdana Saegrund
@@ -78,8 +79,9 @@ step Hervdana Saegrund
 
 step The red waterskin
   zone Redridge Mountains
-  tip Stonewatch Falls pour out of Lake Everstill at the east end of Redridge (fly from Ironforge to Lakeshire). Fill the Unfilled Red Waterskin at their foot, where the Murloc Nightcrawlers gather; pull the murlocs off the spot first. If the skin vanishes without counting, abandon the quest and take it again from Hervdana for a new one.
+  tip Stonewatch Falls pours out of Lake Everstill at the east end of Redridge, and Murloc Nightcrawlers gather at its foot. If the skin vanishes without counting, Hervdana gives a new one when the quest is taken again.
   level 22
+  use 265747 quest 94499.1 @71.9,60.3
   collect 265748 quest 94499.1 @71.9,60.3     -- Full Red Waterskin
 
 step Hervdana Saegrund
@@ -90,8 +92,9 @@ step Hervdana Saegrund
 
 step The blue waterskin
   zone Ashenvale
-  tip Take the boat from Menethil Harbor to Auberdine (it stops in Southshore on the way), then fly or walk south through Darkshore to Astranaar in Ashenvale. Fill the Unfilled Blue Waterskin in the lake around the town, then the boat back to Menethil.
+  tip The boat from Menethil Harbor goes to Auberdine in Darkshore, north of Ashenvale.
   level 22
+  use 265772 quest 94500.1 @34.5,48.0
   collect 265773 quest 94500.1 @34.5,48.0     -- Full Blue Waterskin
 
 step Hervdana Saegrund

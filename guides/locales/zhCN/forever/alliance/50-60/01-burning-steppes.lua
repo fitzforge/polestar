@@ -304,8 +304,8 @@ return {
 	-- Step 66: The Ruins of Eldarath
 	-- {area:1221} Ruins of Eldarath
 	["The {area:1221}"] = "{area:1221}",
-	-- {area:1221} Ruins of Eldarath · {item:13815} Some Rune · {item:10445} Drawing Kit
-	["The Spitelash naga of the {area:1221} carry {item:13815}. Tymor's runes stand among the ruins: use his {item:10445} on each."] = "{area:1221}的恶鞭纳迦身上有{item:13815}。泰摩尔的符文就在废墟里，用他的{item:10445}逐个描下来。",
+	-- {area:1221} Ruins of Eldarath
+	["Spitelash naga guard the {area:1221}."] = "",
 
 	-- Step 67: Lord Sarthiss
 	-- {npc:239939} Lord Sarthiss
@@ -411,6 +411,7 @@ return {
 	-- ["Thaurissan Relics"] = "索瑞森遗物",
 	-- ["The Firegut ogres hold the great rock north of the Vigil, with the Brutes on its east side.\nCareful: Escaped Core Hounds (level 60) roam the Steppes, a few on the slopes west and south of {area:249}: pull the ogres on the rock itself and look around before each pull."] = "火腹食人魔占据守望堡北边的巨石，火腹蛮兵在巨石东侧。\n小心：逃脱的熔火恶犬（60级）在燃烧平原游荡，有几只在{area:249}西边和南边的山坡上：就在巨石上拉食人魔，每次拉怪前先观察四周。",
 	-- ["The Highborne ghosts haunt the ruins around the shrine; the Haldarr satyrs hold the camp just north of it."] = "上层精灵的鬼魂在神殿周围的废墟中游荡；哈达尔萨特占据神殿北边不远的营地。",
+	-- ["The Spitelash naga of the {area:1221} carry {item:13815}. Tymor's runes stand among the ruins: use his {item:10445} on each."] = "{area:1221}的恶鞭纳迦身上有{item:13815}。泰摩尔的符文就在废墟里，用他的{item:10445}逐个描下来。",
 	-- ["The Spitelash naga of the {area:1221} carry {item:13815}. {npc:8507}'s four runes stand among the ruins: use his {item:10445} on each."] = "{area:1221}的恶鞭纳迦携带{item:13815}。{npc:8507}的四个符文立在废墟中：对每个使用他的{item:10445}。",
 	-- ["The Spitelash naga of the {area:1221} carry {item:13815}. {npc:8507}'s runes stand among the ruins: use his {item:10445} on each. The naga here are the ones the top-up below asks for, so these kills count towards it."] = "{area:1221}的恶鞭纳迦携带{item:13815}。{npc:8507}的符文立在废墟中：对每个使用他的{item:10445}。这里的纳迦正是下面补经验步骤要刷的目标，击杀数会计入。",
 	-- ["The Spitelash naga of these ruins drop Truesong's Eldarath Relics, top-up or not. {npc:239939} (52) stands in the ruins of Eldarath, south-west of the Myrmidons: pull him alone."] = "无论是否在补经验，这片废墟的恶鞭纳迦都会掉落埃达拉斯圣物。{npc:239939}（52级）站在埃达拉斯废墟中，恶鞭侍从的西南方：单独把他拉出来。",

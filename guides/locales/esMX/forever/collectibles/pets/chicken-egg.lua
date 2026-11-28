@@ -11,12 +11,16 @@ return {
 	["Buy one {item:11109} (25 copper) from {npc:233} at his farm first: it is not a quest item, and the chicken stays friendly only for a short while."] = "Primero compra un {item:11109} (25 de cobre) a {npc:233} en su granja: no es un objeto de misión, y la gallina se queda amistosa solo un rato.",
 
 	-- Step 2: CLUCK!
-	-- {quest:3861} CLUCK! · {item:11110} Chicken Egg
-	["Target one of the chickens around Saldean's farm and type /chicken at it, again and again, until it offers {quest:3861}; this can take several minutes. Then /cheer at a chicken until it turns friendly (green) and hand in the feed; right-clicking a chicken before it is friendly attacks it. The chicken lays an egg on the ground: loot it for your {item:11110}."] = "Selecciona una de las gallinas de la granja de Saldean y escríbele /chicken una y otra vez hasta que te ofrezca {quest:3861}; esto puede tardar varios minutos. Luego hazle /cheer a una gallina hasta que se vuelva amistosa (verde) y entrega el alimento; hacer clic derecho en una gallina antes de que sea amistosa la ataca. La gallina pone un huevo en el suelo: saquéalo para obtener tu {item:11110}.",
+	-- {quest:3861} CLUCK!
+	["A chicken around Saldean's farm offers {quest:3861} only after many /chicken emotes at it, which can take several minutes, and takes the feed only once a /cheer has turned it friendly (green); right-clicking one before that attacks it. The chicken then lays the egg on the ground."] = "",
+	-- {quest:3861} CLUCK!
+	["/chicken at a chicken until it offers {quest:3861}"] = "",
+	["/cheer at the chicken until it turns friendly (green)"] = "",
 	-- {object:161513} Farm Chicken Egg
 	["Loot the {object:161513} the chicken lays"] = "Saquea {object:161513} que pone la gallina",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Find a chicken at {npc:233}'s farm and type /chicken at it until it offers {quest:3861}. Buy {item:11109} from {npc:233}, go back, /cheer at the same chicken, then hand in the feed. The chicken lays an egg: loot it for your {item:11110} pet."] = "Busca una gallina en la granja de {npc:233} y escríbele /chicken hasta que te ofrezca {quest:3861}. Compra {item:11109} a {npc:233}, regresa, haz /cheer a la misma gallina y entrégale el alimento. La gallina pone un huevo: saquéalo para obtener tu mascota {item:11110}.",
+	-- ["Target one of the chickens around Saldean's farm and type /chicken at it, again and again, until it offers {quest:3861}; this can take several minutes. Then /cheer at a chicken until it turns friendly (green) and hand in the feed; right-clicking a chicken before it is friendly attacks it. The chicken lays an egg on the ground: loot it for your {item:11110}."] = "Selecciona una de las gallinas de la granja de Saldean y escríbele /chicken una y otra vez hasta que te ofrezca {quest:3861}; esto puede tardar varios minutos. Luego hazle /cheer a una gallina hasta que se vuelva amistosa (verde) y entrega el alimento; hacer clic derecho en una gallina antes de que sea amistosa la ataca. La gallina pone un huevo en el suelo: saquéalo para obtener tu {item:11110}.",
 	-- ["{item:11109}, from {npc:233}"] = "{item:11109}, de {npc:233}",
 }

@@ -9,37 +9,38 @@ return {
 	-- Guide
 	-- {quest:6061} Taming the Beast
 	["{quest:6061} (Horde)"] = "{quest:6061} (Horda)",
-	-- {item:15908} Taming Rod · {spell:1515} Tame Beast · {spell:5149} Beast Training
-	["Your own pet at 10: three practice tames with a {item:15908} teach {spell:1515}, then {spell:5149}."] = "Seu próprio ajudante no nível 10: três domas de treino com um {item:15908} ensinam {spell:1515}, e depois {spell:5149}.",
+	-- {item:15914} Taming Rod · {spell:1515} Tame Beast · {spell:5149} Beast Training
+	-- was: ["Your own pet at 10: three practice tames with a {item:15908} teach {spell:1515}, then {spell:5149}."] = "Seu próprio ajudante no nível 10: três domas de treino com um {item:15908} ensinam {spell:1515}, e depois {spell:5149}."
+	["Your own pet at 10: three practice tames with a {item:15914} teach {spell:1515}, then {spell:5149}."] = "",
 
 	-- Step 1: Thotar in Razor Hill
 	-- {npc:3171} Thotar · {area:362} Razor Hill
 	["{npc:3171} in {area:362}"] = "{npc:3171} em {area:362}",
 	-- {npc:3171} Thotar · {area:362} Razor Hill · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:11814} Kali Remik · {area:367} Sen'jin Village · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff · {quest:6068} The Hunter's Path
 	["At 10 go to {npc:3171}, the hunter trainer inside the barracks in {area:362}. If {npc:3407} in {zone:1454}, {npc:11814} in {area:367} or {npc:3038} in {zone:1456} hands you {quest:6068}, take it and hand it to {npc:3171} for a little experience; it is only a pointer, and you can take the first rod without it."] = "No nível 10, vá até {npc:3171}, o instrutor de caçador dentro do quartel de {area:362}. Se {npc:3407} em {zone:1454}, {npc:11814} em {area:367} ou {npc:3038} em {zone:1456} der {quest:6068}, pegue e entregue a {npc:3171} por um pouco de experiência; é só uma indicação, e dá para pegar o primeiro bastão sem ela.",
-	-- {npc:3171} Thotar · {item:15908} Taming Rod
-	["{npc:3171}: the first {item:15908}"] = "{npc:3171}: o primeiro {item:15908}",
+	-- {npc:3171} Thotar · {item:15914} Taming Rod
+	["{npc:3171}: the first {item:15914}"] = "",
 
 	-- Step 2: Dire Mottled Boar
-	-- {area:362} Razor Hill · {item:15908} Taming Rod · {npc:3171} Thotar · {spell:75} Auto Shot
+	-- {area:362} Razor Hill · {npc:3171} Thotar · {spell:75} Auto Shot
 	-- plural, as words: Dire Mottled Boars = {npc:3099} Dire Mottled Boar
-	["Dire Mottled Boars (level 6-7) roam just north and west of {area:362}. How the rod works: target a living beast, use the {item:15908} from inside its range and stand still for the whole channel while the beast hits you. Moving, fighting back, a heal from someone else or anyone else hitting the beast breaks it and costs one of the rod's few charges; if they run out, destroy the rod, abandon the quest and take it again from {npc:3171}. The boars charge from 20 yards, so start with the rod, not {spell:75}. The tamed boar becomes your pet for practice. Keep each rod: it goes back to {npc:3171}."] = "Os Mosquetuscos Hediondos (nível 6-7) andam logo ao norte e a oeste de {area:362}. Como o bastão funciona: selecione uma fera viva, use o {item:15908} dentro do alcance e fique parado durante toda a canalização enquanto a fera bate em você. Se mexer, revidar, receber cura de alguém ou alguém bater na fera, quebra e gasta uma das poucas cargas do bastão; se acabarem, destrua o bastão, abandone a missão e pegue de novo com {npc:3171}. Os javalis investem de 20 metros, então comece com o bastão, não com {spell:75}. O javali domado vira seu ajudante de treino. Guarde cada bastão: ele volta para {npc:3171}.",
-	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living boar"] = "Use o {item:15908} num javali vivo",
+	["Dire Mottled Boars (level 6-7) roam just north and west of {area:362}. The rod's channel only works on a living beast from inside its range, standing still while the beast hits you. Moving, fighting back, a heal from someone else or anyone else hitting the beast breaks it and costs one of the rod's few charges; with none left, the quest has to be taken again from {npc:3171}. The boars charge from 20 yards, so the rod comes before {spell:75}. The tamed boar becomes your pet for practice. Each rod goes back to {npc:3171}."] = "",
+	-- {item:15917} Taming Rod
+	["Use the {item:15917} on a living boar"] = "",
 
 	-- Step 3: Surf Crawler
 	-- {spell:2641} Dismiss Pet · {area:367} Sen'jin Village · {area:368} Echo Isles
 	-- plural, as words: Surf Crawlers = {npc:3107} Surf Crawler · Pygmy Surf Crawlers = {npc:3106} Pygmy Surf Crawler
 	["First dismiss the boar (right-click your pet's portrait, {spell:2641}): a released practice pet can turn on you. Surf Crawlers (level 7-8) walk the beaches around {area:367} and the {area:368}; the small Pygmy Surf Crawlers do not count. A crawler runs for help at 15% health, so do not hurt it."] = "Primeiro dispense o javali (botão direito no retrato do ajudante, {spell:2641}): ajudante de treino solto pode se virar contra você. Os Surfatiscos (nível 7-8) andam pelas praias em volta de {area:367} e de {area:368}; os Surfatiscos Pigmeus, pequenos, não contam. O surfatisco foge atrás de ajuda com 15% de vida, então não machuque.",
-	-- {item:15908} Taming Rod · {npc:3107} Surf Crawler
-	["Use the {item:15908} on a living {npc:3107}"] = "Use o {item:15908} num {npc:3107} vivo",
+	-- {item:15914} Taming Rod · {npc:3107} Surf Crawler
+	["Use the {item:15914} on a living {npc:3107}"] = "",
 
 	-- Step 4: Armored Scorpid
 	-- {area:362} Razor Hill · {spell:1494} Track Beasts
 	-- plural, as words: Armored Scorpids = {npc:3126} Armored Scorpid
 	["Dismiss the crawler. Armored Scorpids (level 7-8) crawl the dry plains west and south-west of {area:362}, some just south of the road west out of town; {spell:1494} shows them. Their hits can break the channel: start at full health and keep still."] = "Dispense o surfatisco. Os Escorpídeos Encouraçados (nível 7-8) rastejam pelas planícies secas a oeste e sudoeste de {area:362}, alguns logo ao sul da estrada que sai da cidade para oeste; {spell:1494} mostra onde estão. Os golpes deles podem quebrar a canalização: comece com a vida cheia e fique parado.",
-	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living scorpid"] = "Use o {item:15908} num escorpídeo vivo",
+	-- {item:15914} Taming Rod
+	["Use the {item:15914} on a living scorpid"] = "",
 
 	-- Step 5: Ormak Grimshot in Orgrimmar
 	-- {npc:3352} Ormak Grimshot · {zone:1454} Orgrimmar
@@ -52,29 +53,29 @@ return {
 	["{npc:3065} at Bloodhoof"] = "{npc:3065} em Casco Sangrento",
 	-- {npc:3065} Yaw Sharpmane · {area:222} Bloodhoof Village · {quest:6065} The Hunter's Path · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:3171} Thotar · {area:362} Razor Hill
 	["At 10 go to {npc:3065}, who stands at the north edge of {area:222}. {quest:6065} from {npc:3038} in {zone:1456}, {npc:3407} in {zone:1454} or {npc:3171} in {area:362} also leads here, for a little experience; it is only a pointer."] = "No nível 10, vá até {npc:3065}, que fica na borda norte de {area:222}. {quest:6065}, de {npc:3038} em {zone:1456}, {npc:3407} em {zone:1454} ou {npc:3171} em {area:362}, também traz você aqui, por um pouco de experiência; é só uma indicação.",
-	-- {npc:3065} Yaw Sharpmane · {item:15908} Taming Rod
-	["{npc:3065}: the first {item:15908}"] = "{npc:3065}: o primeiro {item:15908}",
+	-- {npc:3065} Yaw Sharpmane · {item:15914} Taming Rod
+	["{npc:3065}: the first {item:15914}"] = "",
 
 	-- Step 7: Adult Plainstrider
-	-- {area:222} Bloodhoof Village · {item:15908} Taming Rod
+	-- {area:222} Bloodhoof Village
 	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
-	["Adult Plainstriders (level 6-7) walk the plains south-west and north-west of {area:222}. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you; moving, fighting back or anyone else's help breaks it and costs one of the rod's few charges (out of charges: destroy the rod, abandon the quest, take it again). A plainstrider flees at 25% health, so do not damage it first. Keep each rod: it goes back to Yaw."] = "Os Pinotes Adultos (nível 6-7) andam pelas planícies a sudoeste e noroeste de {area:222}. Como o bastão funciona: selecione uma fera viva, use o {item:15908} e fique parado durante toda a canalização enquanto ela bate em você; se mexer, revidar ou receber ajuda de alguém, quebra e gasta uma das poucas cargas do bastão (acabaram as cargas: destrua o bastão, abandone a missão e pegue de novo). O pinote foge com 25% de vida, então não machuque antes. Guarde cada bastão: ele volta para o Yaw.",
-	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living plainstrider"] = "Use o {item:15908} num pinote vivo",
+	["Adult Plainstriders (level 6-7) walk the plains south-west and north-west of {area:222}. The rod's channel only works on a living beast, standing still while it hits you; moving, fighting back or anyone else's help breaks it and costs one of the rod's few charges, and with none left the quest has to be taken again. A plainstrider flees at 25% health, so damaging it first loses it. Each rod goes back to Yaw."] = "",
+	-- {item:15914} Taming Rod
+	["Use the {item:15914} on a living plainstrider"] = "",
 
 	-- Step 8: Prairie Stalker
 	-- {spell:2641} Dismiss Pet · {area:222} Bloodhoof Village
 	-- plural, as words: Prairie Stalkers = {npc:2959} Prairie Stalker
 	["Dismiss the plainstrider first (right-click the pet portrait, {spell:2641}): a released practice pet may attack you. Prairie Stalkers (level 7-8) roam the grass north of {area:222}."] = "Dispense o pinote antes (botão direito no retrato do ajudante, {spell:2641}): ajudante de treino solto pode atacar você. Os Espreitadores-da-pradaria (nível 7-8) andam pelo capim ao norte de {area:222}.",
-	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living stalker"] = "Use o {item:15908} num espreitador vivo",
+	-- {item:15914} Taming Rod
+	["Use the {item:15914} on a living stalker"] = "",
 
 	-- Step 9: Swoop
 	-- {npc:2970} Swoop
 	-- plural, as words: Swoops = {npc:2970} Swoop · Taloned Swoops = {npc:2971} Taloned Swoop
 	["Dismiss the stalker. Swoops (level 7-9) glide over the plains north-west and north-east of Bloodhoof; the Taloned Swoops do not count. A {npc:2970}'s knockdown breaks the channel, but it lands only once per channel: start the rod just after it has used it."] = "Dispense o espreitador. Os Rapineiros (nível 7-9) planam sobre as planícies a noroeste e nordeste de Casco Sangrento; os Rapineiros de Gadanho não contam. A derrubada do {npc:2970} quebra a canalização, mas só acontece uma vez por canalização: comece o bastão logo depois que ele usar.",
-	-- {item:15908} Taming Rod · {npc:2970} Swoop
-	["Use the {item:15908} on a living {npc:2970}"] = "Use o {item:15908} num {npc:2970} vivo",
+	-- {item:15914} Taming Rod · {npc:2970} Swoop
+	["Use the {item:15914} on a living {npc:2970}"] = "",
 
 	-- Step 10: Holt Thunderhorn in Thunder Bluff
 	-- {npc:3039} Holt Thunderhorn · {zone:1456} Thunder Bluff
@@ -91,15 +92,15 @@ return {
 	["{npc:252389} in {area:16638}"] = "{npc:252389} em {area:16638}",
 	-- {npc:252389} Quel'ana Quickgale · {area:16638} Valanaar · {npc:254411} Quel'dora Quickgale
 	["{npc:252389} stands with the trainers by {area:16638}'s west gate, {npc:254411} beside her."] = "{npc:252389} fica com os instrutores junto ao portão oeste de {area:16638}, com {npc:254411} ao lado.",
-	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod
-	["{npc:252389}: the first {item:15908}"] = "{npc:252389}: o primeiro {item:15908}",
+	-- {npc:252389} Quel'ana Quickgale · {item:15914} Taming Rod
+	["{npc:252389}: the first {item:15914}"] = "",
 
 	-- Step 13: Windsong Crawler
-	-- {area:16638} Valanaar · {item:15908} Taming Rod
+	-- {area:16638} Valanaar
 	-- plural, as words: Windsong Crawlers = {npc:254588} Windsong Crawler
-	["Windsong Crawlers live only by water: the nearest scuttle along the shore south-west of {area:16638}, among the crabs. How the rod works: target a living crawler, use the {item:15908} and stand still for the whole channel while it hits you; moving, fighting back or anyone else's help breaks it and costs a charge. Killing one does not count."] = "Os Rastejantes Cantéolo só vivem perto da água: os mais perto correm pela margem a sudoeste de {area:16638}, no meio dos caranguejos. Como o bastão funciona: selecione um rastejante vivo, use o {item:15908} e fique parado durante toda a canalização enquanto ele bate em você; se mexer, revidar ou receber ajuda de alguém, quebra e gasta uma carga. Matar não conta.",
-	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living crawler"] = "Use o {item:15908} num rastejante vivo",
+	["Windsong Crawlers live only by water: the nearest scuttle along the shore south-west of {area:16638}, among the crabs. The rod's channel only works on a living crawler, standing still while it hits you; moving, fighting back or anyone else's help breaks it and costs a charge. Killing one does not count."] = "",
+	-- {item:267272} Taming Rod
+	["Use the {item:267272} on a living crawler"] = "",
 	-- {npc:254588} Windsong Crawler
 	["Tame {npc:254588}"] = "Dome {npc:254588}",
 
@@ -107,8 +108,8 @@ return {
 	-- {spell:2641} Dismiss Pet · {area:16626} Gustberry Lowlands · {area:16638} Valanaar
 	-- plural, as words: Ornery Galestriders = {npc:251707} Ornery Galestrider
 	["Dismiss the crawler first (right-click the pet portrait, {spell:2641}). Ornery Galestriders graze in the {area:16626}, the fields a short walk west and south-west of {area:16638}."] = "Dispense o rastejante antes (botão direito no retrato do ajudante, {spell:2641}). Os Vagaventos Turrões pastam em {area:16626}, os campos a uma curta caminhada a oeste e sudoeste de {area:16638}.",
-	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living galestrider"] = "Use o {item:15908} num vagaventos vivo",
+	-- {item:15914} Taming Rod
+	["Use the {item:15914} on a living galestrider"] = "",
 	-- {npc:251707} Ornery Galestrider
 	["Tame {npc:251707}"] = "Dome {npc:251707}",
 
@@ -116,8 +117,8 @@ return {
 	-- {area:16626} Gustberry Lowlands
 	-- plural, as words: Vuldren Alphas = {npc:250874} Vuldren Alpha
 	["Dismiss the galestrider. Vuldren Alphas hunt in the same {area:16626}, a little further south."] = "Dispense o vagaventos. Os Vuldrens Alfa caçam na mesma {area:16626}, um pouco mais ao sul.",
-	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living alpha"] = "Use o {item:15908} num alfa vivo",
+	-- {item:15914} Taming Rod
+	["Use the {item:15914} on a living alpha"] = "",
 	-- {npc:250874} Vuldren Alpha
 	["Tame {npc:250874}"] = "Dome {npc:250874}",
 	-- {npc:254411} Quel'dora Quickgale · {spell:5149} Beast Training
@@ -148,4 +149,22 @@ return {
 	["Pet trainers sell {spell:1853} ranks and resistances. Horde: Harruk in {area:362}, {npc:3688} at Bloodhoof, {npc:10088} in {zone:1454}'s {object:172958}, {npc:10086} on {zone:1456}'s {area:1641}, {npc:254411} in {area:16638}, later Grokor in {area:75} and Zudd at {object:3202}."] = "Os instrutores de ajudantes vendem níveis de {spell:1853} e resistências. Horda: Harruk em {area:362}, {npc:3688} em Casco Sangrento, {npc:10088} no {object:172958} de {zone:1454}, {npc:10086} em {area:1641}, em {zone:1456}, {npc:254411} em {area:16638}, e mais tarde Grokor em {area:75} e Zudd em {object:3202}.",
 	-- {spell:883} Call Pet · {spell:2641} Dismiss Pet · {spell:982} Revive Pet · {spell:136} Mend Pet
 	["{spell:883}, {spell:2641} and {spell:982} are in your spellbook now; {spell:136} comes from your trainer at 12. A dead pet needs {spell:982}; one that is away more than about 100 yards is dismissed and comes back with {spell:883}."] = "{spell:883}, {spell:2641} e {spell:982} já estão no seu grimório; {spell:136} vem do seu instrutor no nível 12. Ajudante morto precisa de {spell:982}; um que fica a mais de umas 100 metros é dispensado e volta com {spell:883}.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Adult Plainstriders (level 6-7) walk the plains south-west and north-west of {area:222}. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you; moving, fighting back or anyone else's help breaks it and costs one of the rod's few charges (out of charges: destroy the rod, abandon the quest, take it again). A plainstrider flees at 25% health, so do not damage it first. Keep each rod: it goes back to Yaw."] = "Os Pinotes Adultos (nível 6-7) andam pelas planícies a sudoeste e noroeste de {area:222}. Como o bastão funciona: selecione uma fera viva, use o {item:15908} e fique parado durante toda a canalização enquanto ela bate em você; se mexer, revidar ou receber ajuda de alguém, quebra e gasta uma das poucas cargas do bastão (acabaram as cargas: destrua o bastão, abandone a missão e pegue de novo). O pinote foge com 25% de vida, então não machuque antes. Guarde cada bastão: ele volta para o Yaw.",
+	-- ["Dire Mottled Boars (level 6-7) roam just north and west of {area:362}. How the rod works: target a living beast, use the {item:15908} from inside its range and stand still for the whole channel while the beast hits you. Moving, fighting back, a heal from someone else or anyone else hitting the beast breaks it and costs one of the rod's few charges; if they run out, destroy the rod, abandon the quest and take it again from {npc:3171}. The boars charge from 20 yards, so start with the rod, not {spell:75}. The tamed boar becomes your pet for practice. Keep each rod: it goes back to {npc:3171}."] = "Os Mosquetuscos Hediondos (nível 6-7) andam logo ao norte e a oeste de {area:362}. Como o bastão funciona: selecione uma fera viva, use o {item:15908} dentro do alcance e fique parado durante toda a canalização enquanto a fera bate em você. Se mexer, revidar, receber cura de alguém ou alguém bater na fera, quebra e gasta uma das poucas cargas do bastão; se acabarem, destrua o bastão, abandone a missão e pegue de novo com {npc:3171}. Os javalis investem de 20 metros, então comece com o bastão, não com {spell:75}. O javali domado vira seu ajudante de treino. Guarde cada bastão: ele volta para {npc:3171}.",
+	-- ["Use the {item:15908} on a living alpha"] = "Use o {item:15908} num alfa vivo",
+	-- ["Use the {item:15908} on a living boar"] = "Use o {item:15908} num javali vivo",
+	-- ["Use the {item:15908} on a living crawler"] = "Use o {item:15908} num rastejante vivo",
+	-- ["Use the {item:15908} on a living galestrider"] = "Use o {item:15908} num vagaventos vivo",
+	-- ["Use the {item:15908} on a living plainstrider"] = "Use o {item:15908} num pinote vivo",
+	-- ["Use the {item:15908} on a living scorpid"] = "Use o {item:15908} num escorpídeo vivo",
+	-- ["Use the {item:15908} on a living stalker"] = "Use o {item:15908} num espreitador vivo",
+	-- ["Use the {item:15908} on a living {npc:2970}"] = "Use o {item:15908} num {npc:2970} vivo",
+	-- ["Use the {item:15908} on a living {npc:3107}"] = "Use o {item:15908} num {npc:3107} vivo",
+	-- ["Windsong Crawlers live only by water: the nearest scuttle along the shore south-west of {area:16638}, among the crabs. How the rod works: target a living crawler, use the {item:15908} and stand still for the whole channel while it hits you; moving, fighting back or anyone else's help breaks it and costs a charge. Killing one does not count."] = "Os Rastejantes Cantéolo só vivem perto da água: os mais perto correm pela margem a sudoeste de {area:16638}, no meio dos caranguejos. Como o bastão funciona: selecione um rastejante vivo, use o {item:15908} e fique parado durante toda a canalização enquanto ele bate em você; se mexer, revidar ou receber ajuda de alguém, quebra e gasta uma carga. Matar não conta.",
+	-- ["Your own pet at 10: three practice tames with a {item:15908} teach {spell:1515}, then {spell:5149}."] = "Seu próprio ajudante no nível 10: três domas de treino com um {item:15908} ensinam {spell:1515}, e depois {spell:5149}.",
+	-- ["{npc:252389}: the first {item:15908}"] = "{npc:252389}: o primeiro {item:15908}",
+	-- ["{npc:3065}: the first {item:15908}"] = "{npc:3065}: o primeiro {item:15908}",
+	-- ["{npc:3171}: the first {item:15908}"] = "{npc:3171}: o primeiro {item:15908}",
 }

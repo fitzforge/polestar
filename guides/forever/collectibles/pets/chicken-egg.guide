@@ -21,7 +21,9 @@ step Special Chicken Feed
   buy 11109 npc 233                   -- Special Chicken Feed
 
 step CLUCK!
-  tip Target one of the chickens around Saldean's farm and type /chicken at it, again and again, until it offers CLUCK!; this can take several minutes. Then /cheer at a chicken until it turns friendly (green) and hand in the feed; right-clicking a chicken before it is friendly attacks it. The chicken lays an egg on the ground: loot it for your Chicken Egg.
+  tip A chicken around Saldean's farm offers CLUCK! only after many /chicken emotes at it, which can take several minutes, and takes the feed only once a /cheer has turned it friendly (green); right-clicking one before that attacks it. The chicken then lays the egg on the ground.
+  task "/chicken at a chicken until it offers CLUCK!" optional
   accept 3861 @56.1,30
+  task "/cheer at the chicken until it turns friendly (green)" optional
   turnin 3861 @56.1,30
   collect 11110 @56.1,30              -- Loot the Farm Chicken Egg the chicken lays

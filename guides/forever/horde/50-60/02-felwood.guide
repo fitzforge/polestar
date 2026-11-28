@@ -65,8 +65,10 @@ step Box of Incendiaries
 step Scarlet forward camp
   when !turnedin 5096
   zone Western Plaguelands
-  tip From the Bulwark, follow the road east into the Western Plaguelands. The Scarlet Crusade's tents stand just past Felstone Farm, between Felstone Field and Dalson's Tears. Torch the command tent with the Flame in a Bottle and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be.
+  tip The Scarlets around the tents reach level 54, and the Invokers are casters.
   interact 176088
+  use 12814 quest 5096.1 @40.7,51.9 map 1422
+  use 12807 quest 5096.1 @40.7,51.9 map 1422
   complete 5096
 
 step The Bulwark
@@ -141,7 +143,8 @@ step Ruins of Eldarath
   collect 10694 quest 3568.4 @47.4,46.3 map 1447 -- #4
 
 step Makrinni Burrowers
-  tip Izvi's Treasure Trowel 3000, in your bags, digs up the Highborne Treasure Fragments: use it on the sands just east of the ruins, where the Makrinni Burrowers (50-51) dig, on the way north-east. The Burrowers and the buried caches there give fragments too.
+  tip The Makrinni Burrowers (50-51) and the buried caches on these sands also give fragments.
+  use 246683 quest 91568.1 @53.7,41.4 map 1447
   collect 246684 quest 91568
 
 step Ekkal
@@ -164,7 +167,7 @@ step Thalassian Base Camp
   collect 246680 quest 91569.1        -- Mana-Siphoning Wand, from the Blood Elf Arcanists
 
 step Magus Rimtori's camp
-  tip Rimtori's camp is at the east end of the base camp. Read the Kaldorei Tome of Summoning there: on Forever the Sin'dorei Tome beside it then asks for the seals of the camp's three officers.
+  tip Rimtori's camp is at the east end of the base camp. On Forever the Sin'dorei Tome beside the Kaldorei Tome of Summoning then asks for the seals of the camp's three officers.
   complete 3505 @59.53,31.47 map 1447 era
   turnin 3505                         -- Kaldorei Tome of Summoning
   accept 91497                        -- Sin'dorei Tome of Summoning: Seals of the Sin'dorei
@@ -177,9 +180,10 @@ step Seals of the Sin'dorei
   collect 246722 quest 91497.3        -- Seal of the Ranger, from Ranger Lydrea
 
 step Magus Rimtori
-  tip Back to the Sin'dorei Tome: hand in the seals and take An Explosive Gambit, which gives you the Seals of the Sin'dorei. Rimtori does not come from the Tome: stand beside one of the camp's tall crystals and use the Seals of the Sin'dorei from your bags; its crystal explodes and draws her. Which crystal is linked to her is random: each of the other two summons a hostile infernal instead. She is level 55: start at full health.
+  tip An Explosive Gambit gives the Seals of the Sin'dorei. Rimtori does not come from the Tome: the Seals of the Sin'dorei, used beside one of the camp's tall crystals, blow it up and draw her. Which crystal is linked to her is random: each of the other two summons a hostile infernal instead. She is level 55.
   turnin 91497                        -- Sin'dorei Tome of Summoning
   accept 91500                        -- An Explosive Gambit
+  use 249390 quest 91500.1
   collect 10597 quest 91500.1 -- Use the Seals of the Sin'dorei from your bags beside a crystal: Magus Rimtori (55) comes to the explosion and drops her head
   accept 91538                        -- Sin'dorei Tome of Summoning: for Jediga in Valormok
 

@@ -121,7 +121,7 @@ return {
 	["{zone:1448}: Cursed and Tainted Oozes"] = "{zone:1448}: Gosmas Amaldiçoadas e Maculadas",
 	-- {area:1763} Jaedenar · {area:1765} Bloodvenom Falls
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["The Cursed and Tainted Oozes slide about the streams and fel pools around {area:1763} and {area:1765}: kill one and use an empty jar on its remains."] = "As Gosmas Amaldiçoadas e Maculadas deslizam pelos riachos e pelas poças vis perto de {area:1763} e {area:1765}: mate uma e use uma jarra vazia nos restos dela.",
+	["Cursed and Tainted Oozes are found around the streams and fel pools near {area:1763} and {area:1765}."] = "",
 
 	-- Step 21: Tinker Town: the second jars
 	-- {object:171524} Tinker Town
@@ -133,7 +133,7 @@ return {
 	["{zone:1449}: Primal Oozes"] = "{zone:1449}: Gosmas Primevas",
 	-- {area:537} Fire Plume Ridge
 	-- plural, as words: Primal Oozes = {npc:6557} Primal Ooze · Glutinous Oozes = {npc:6559} Glutinous Ooze
-	["The Primal Oozes live in the pools around {area:537} in the middle of the crater; the Muculent and Glutinous Oozes fill the jars too. Kill one and use a jar on its remains."] = "As Gosmas Primevas vivem nas poças perto de {area:537}, no meio da cratera; as Gosmas Muculentas e Pegajosas também enchem as jarras. Mate uma e use uma jarra nos restos dela.",
+	["Primal Oozes live in the pools around {area:537} in the middle of the crater. Muculent and Glutinous Oozes also fill the jars."] = "",
 
 	-- Step 23: Tinker Town: hand in
 	-- {object:171524} Tinker Town
@@ -180,6 +180,8 @@ return {
 	-- ["Optional: {area:131} and the Brewnall and {area:133} roads around it, about 1,300 reputation (260 at a fifth) in 50 minutes at 60. Most givers stand in and around the {area:2102} and at {area:189} east of it. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub."] = "Opcional: {area:131} e as estradas de Brewnall e de {area:133} ao redor, cerca de 1.300 de reputação (260 com um quinto) em 50 minutos no 60. A maioria dos recrutadores de missões fica dentro e em volta de {area:2102} e em {area:189}, a leste dele. No Classic, as missões 6 ou mais níveis abaixo de você pagam menos (um quinto no 60); um relato do beta do Forever diz que pagaram inteiro. Sua primeira entrega mostra qual vale: se pagar um quinto, pule esses polos. Pule este passo para pular o polo.",
 	-- ["Riverpaw Bandits and Taskmasters (level 16-18) drop it here. The Auction House works too."] = "Bandidos e Capatazes Pata Molhada (nível 16-18) o deixam cair aqui. A Casa de Leilões também serve.",
 	-- ["Syndicate Mercenaries at Stromgarde (level 31-32) drop it here. The Auction House works too."] = "Mercenários da Camarilha em Stromgarde (nível 31-32) o deixam cair aqui. A Casa de Leilões também serve.",
+	-- ["The Cursed and Tainted Oozes slide about the streams and fel pools around {area:1763} and {area:1765}: kill one and use an empty jar on its remains."] = "As Gosmas Amaldiçoadas e Maculadas deslizam pelos riachos e pelas poças vis perto de {area:1763} e {area:1765}: mate uma e use uma jarra vazia nos restos dela.",
+	-- ["The Primal Oozes live in the pools around {area:537} in the middle of the crater; the Muculent and Glutinous Oozes fill the jars too. Kill one and use a jar on its remains."] = "As Gosmas Primevas vivem nas poças perto de {area:537}, no meio da cratera; as Gosmas Muculentas e Pegajosas também enchem as jarras. Mate uma e use uma jarra nos restos dela.",
 	-- ["{npc:14724} takes cloth for {faction:54} in {object:171524}, {zone:1455}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7812} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14724} aceita tecido para {faction:54} em {object:171524}, {zone:1455}. Os primeiros donativos de Lã, Seda, Magitrama e {item:14047} (60 tecidos cada) são feitos uma vez só e dão mais reputação por tecido; depois deles, {quest:7812} se repete até Exaltado. Ficar Exaltado com a cidade de outra raça permite comprar as montarias dessa raça. A vantagem de Legado Diplomata do Forever aumenta os ganhos de reputação.",
 	-- ["{npc:14724}: {item:14047} delivered"] = "{npc:14724}: {item:14047} entregue",
 	-- ["{quest:7812} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7812} pede 20 {item:14047} por entrega e se repete quantas vezes você quiser. Traga {item:14047} em múltiplos de 20 e entregue tudo de uma vez, uma entrega após a outra. {item:14047}: Adeptos das Trevas e Umbramantes (nível 58-60) em {zone:1423}, ou a Casa de Leilões.",

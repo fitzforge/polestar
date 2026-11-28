@@ -48,7 +48,8 @@ step Gaeriyan
 step Gaeriyan
   when turnedin 3912
   when available 3913
-  tip Gaeriyan has already met you: drink the Videre Elixir at the graveyard just east of Gadgetzan and find him, as a ghost, in the rocky crevice due north of it.
+  tip Gaeriyan has already met you. He is seen only as a ghost, after the Videre Elixir, in the rocky crevice due north of the graveyard just east of Gadgetzan.
+  use 11243
   accept 3913
 
 step Sprinkle
@@ -97,12 +98,13 @@ step Fly to Marshal's Refuge
 
 step Marshal's Refuge
   zone Un'Goro Crater
-  tip The flight lands at Marshal's Refuge: Linken stands by the cave a few steps from the flight master, J.D. Collie inside it.
+  tip The flight lands at Marshal's Refuge. Linken stands by the cave a few steps from the flight master, and J.D. Collie is inside it.
   turnin 3914                         -- Linken
   accept 3941
   turnin 3941                         -- J.D. Collie, below ground
   accept 3942
   note Keep Linken's Memory: Eridan Bluewind is at the Emerald Sanctuary, on the last guide's way through Felwood.
+  use 12928 quest 5163.3 @43.7,9.4 map 1449
   kill 10977 quest 5163.3 "Scare Quixxil with Umi's Mechanical Yeti" -- Use Umi's Mechanical Yeti on Quixxil
 
 step Layo Starstrike
@@ -199,7 +201,7 @@ step Twilight Outpost
 
 step Sandy Cookbook
   when onquest 8307
-  tip The Sandy Cookbook lies in the outpost: read it and take its torn page back to Calandrath.
+  tip The Sandy Cookbook lies in the outpost, and its torn page goes back to Calandrath.
   turnin 8307 object 180503 @37.9,45.3 map 1451
   accept 8313 object 180503
 
@@ -294,7 +296,8 @@ step Krakle
 
 step Krakle's Thermometer
   when onquest 974
-  tip Ride east to Fire Plume Ridge, climb it and use Krakle's Thermometer at the lava vent near the top, then ride back west to Krakle.
+  tip The lava vent is near the top of Fire Plume Ridge, east of Krakle.
+  use 12472 quest 974.1 @49.7,45.6
   complete 974 @49.7,45.6
 
 step Krakle
@@ -321,7 +324,10 @@ step Torwa Pathfinder
   note Keep the bait for Lar'korwi's lair, next (he is level 56).
 
 step Lar'korwi
-  tip Open Torwa's Pouch: it holds the meat and the pheromone mixture. Lar'korwi's lair is the bone-strewn valley just south of the pylon: place the meat among the bones, then use the mixture on it to call Lar'korwi. He is level 56 and hits hard, so start at full health.
+  tip Torwa's Pouch holds the meat and the pheromone mixture. Lar'korwi is level 56 and hits hard.
+  use 11568 @79.7,49.8 map 1449
+  use 11569 quest 4292.1 @79.7,49.8 map 1449
+  use 11570 quest 4292.1 @79.7,49.8 map 1449
   collect 11510 quest 4292
 
 step Ringo
@@ -332,8 +338,9 @@ step Ringo
 
 step Escort Ringo
   when onquest 4491
-  tip Lead Ringo north to Marshal's Refuge. When he faints, use Spraggle's Canteen on him to wake him.
+  tip Ringo faints along the way to Marshal's Refuge, and Spraggle's Canteen wakes him.
   goto 43.7,8.3
+  use 11804 quest 4491.1 @51.8,49.9 map 1449
   complete 4491
 
 step Marshal's Refuge

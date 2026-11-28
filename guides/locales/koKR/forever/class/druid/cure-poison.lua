@@ -44,8 +44,8 @@ return {
 	["She hands you the {item:15826}: ten doses, one per deer. Destroy any leftover {item:15851}."] = "",
 
 	-- Step 10: Sickly Deer
-	-- {item:15826} Curative Animal Salve · {npc:12298} Sickly Deer · {zone:1439} Darkshore · {area:456} Cliffspring River · {zone:1440} Ashenvale · {area:442} Auberdine · {spell:339} Entangling Roots · {npc:3702} Alanndarian Nightsong
-	["Use the {item:15826} on living {npc:12298} (level 5, a green cloud over them): they roam {zone:1439} from the {area:456} to the {zone:1440} border, many around the Blackwood furbolg camp north-east of {area:442}. Druid trick: root a deer with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time. Lost a dose on a deer that did not count? Abandon the quest and take it again from {npc:3702} for a fresh salve."] = "",
+	-- {npc:12298} Sickly Deer · {zone:1439} Darkshore · {area:456} Cliffspring River · {zone:1440} Ashenvale · {spell:339} Entangling Roots · {npc:3702} Alanndarian Nightsong
+	["{npc:12298} (level 5) have a green cloud over them and roam {zone:1439} from the {area:456} to the {zone:1440} border, many around the Blackwood furbolg camp. A deer rooted by {spell:339} and salved before the roots tick counts twice. {npc:3702} gives a fresh salve if the quest is abandoned and taken again."] = "",
 	-- {item:15826} Curative Animal Salve · {npc:12298} Sickly Deer
 	["Use the {item:15826} on {npc:12298}"] = "{npc:12298}에게 {item:15826} 사용",
 
@@ -94,9 +94,9 @@ return {
 	-- Step 20: Sickly Gazelles
 	-- plural, as words: Sickly Gazelles = {npc:12296} Sickly Gazelle
 	["Sickly Gazelles"] = "병든 가젤",
-	-- {item:15826} Curative Animal Salve · {zone:1440} Ashenvale · {area:392} Ratchet · {spell:339} Entangling Roots · {npc:3448} Tonga Runetotem
+	-- {zone:1440} Ashenvale · {area:392} Ratchet · {spell:339} Entangling Roots · {npc:3448} Tonga Runetotem
 	-- plural, as words: Sickly Gazelles = {npc:12296} Sickly Gazelle
-	["Use the {item:15826} on living Sickly Gazelles (level 3): they graze on both sides of the road north of the Crossroads up to the {zone:1440} border, north-west of the Crossroads and west of {area:392}. Druid trick: root a gazelle with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time, so five gazelles can do. Lost a dose? Abandon and retake the quest from {npc:3448} for a fresh salve."] = "",
+	["Sickly Gazelles (level 3) graze along the road north of the Crossroads up to the {zone:1440} border and west of {area:392}. A gazelle rooted by {spell:339} and salved before the roots tick counts twice. {npc:3448} gives a fresh salve if the quest is abandoned and taken again."] = "",
 	-- {item:15826} Curative Animal Salve
 	-- plural, as words: Sickly Gazelles = {npc:12296} Sickly Gazelle
 	["Use the {item:15826} on Sickly Gazelles"] = "",

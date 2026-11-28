@@ -8,7 +8,8 @@
 return {
 	-- Step 1: Taskmaster Fizzule
 	-- {area:382} Sludge Fen · {item:8051} Flare Gun
-	["On the way north from Seereth's camp, keep east of the road to the Venture Co. tower north of the {area:382}. Before you go near Fizzule, use {item:8051} to fire two flares, then target him and /salute: he attacks anyone who comes in without signalling first."] = "从希雷斯的营地向北走时，沿道路东侧前往{area:382}北边的风险投资公司高塔。靠近费苏勒之前，先用{item:8051}发射两枚信号弹，再选中他并使用/salute：未先发出信号就靠近的人都会遭到他的攻击。",
+	["On the way north from Seereth's camp, the Venture Co. tower is north of the {area:382}, east of the road. Fizzule attacks anyone who comes near without the signal: two flares from {item:8051}, then a /salute."] = "",
+	["/salute at Fizzule"] = "",
 	-- {quest:2478} Mission: Possible But Not Probable
 	["{quest:2478} is for level 23 or more: the tower's drones are 25 and Gallywix a 23 elite. Do it when you can, with a group, from the Class guide Poisons (Horde)."] = "{quest:2478}适合23级及以上：塔内的苦工是25级，加里维克斯是23级精英。等有能力时组队，通过职业指南《制毒（部落）》完成。",
 
@@ -241,6 +242,7 @@ return {
 	-- ["Keep north on the road. The {npc:12862} waits at the Warsong lumber camp, south of Splintertree."] = "继续沿道路向北。{npc:12862}在碎木岗哨南边的战歌伐木营地等候。",
 	-- ["Learn the flight path here while you pick up the outpost's quests."] = "在这里学习飞行路线，同时接取哨站的任务。",
 	-- ["On the ride west, {npc:267214} is stuck in a ravine south of the main road, south-east of {area:415}. Shadowhorn Stags and Ashenvale Bears roam the woods all around it."] = "向西骑行时，{npc:267214}被困在主路南边的一条峡谷里，位于{area:415}东南。黑角鹿和灰谷熊在峡谷周围的林子里游荡。",
+	-- ["On the way north from Seereth's camp, keep east of the road to the Venture Co. tower north of the {area:382}. Before you go near Fizzule, use {item:8051} to fire two flares, then target him and /salute: he attacks anyone who comes in without signalling first."] = "从希雷斯的营地向北走时，沿道路东侧前往{area:382}北边的风险投资公司高塔。靠近费苏勒之前，先用{item:8051}发射两枚信号弹，再选中他并使用/salute：未先发出信号就靠近的人都会遭到他的攻击。",
 	-- ["Out of the inn to the {area:431} flight master and fly to {area:1637}."] = "走出旅店，去{area:431}的飞行管理员处，飞往{area:1637}。",
 	-- ["Paladin trainer"] = "圣骑士训练师",
 	-- ["Ride back down the {area:1076} to {area:2539}."] = "沿{area:1076}骑回{area:2539}。",

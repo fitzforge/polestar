@@ -70,8 +70,9 @@ return {
 	-- {area:1917} Shaol'watha
 	["{area:1917}: kill these as you meet them"] = "{area:1917}：沿途遇到就击杀",
 	-- {area:1884} Agol'watha · {area:1917} Shaol'watha · {area:351} Skulk Rock · {item:9618} Wildkin Muisek Vessel · {npc:14738} Otho Moji'ko · {spell:7367} Infected Bite · {npc:2925} Silvermane Howler
-	-- plural, as words: Silvermane Stalkers = {npc:2926} Silvermane Stalker · Savage Owlbeasts = {npc:2929} Savage Owlbeast · Razorbeak Skylords = {npc:2659} Razorbeak Skylord · Long Elegant Feathers = {item:4589} Long Elegant Feather
-	["West of the island, the Vilebranch scalpers hold the temples of {area:1884} and {area:1917}. Slagtree's tools lie at one of the temples.\nThe Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and {area:351}. Use the {item:9618} on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for {npc:14738}'s second message.\nCareful: Silvermane Stalkers are level 47-48 and stay stealthed while out of combat. Up close they use {spell:7367}. When a {npc:2925} falls to 50% health or lower, it calls for help from anything within 25 yd."] = "岛屿西侧，邪枝剥皮者占据着 {area:1884} 和 {area:1917} 的神庙。斯拉提的工具就在其中一座神庙。\n银鬃捕猎者、野蛮的枭兽和翱翔的锋喙狮鹫共同出没在神庙与 {area:351} 之间的丘陵。对杀死的枭兽使用 {item:9618}。翱翔的锋喙狮鹫还会掉落细长的狮鹫羽毛：保留十根，用于 {npc:14738} 的第二封信。\n小心：银鬃捕猎者为 47-48 级，非战斗状态下会保持潜行，近身时使用 {spell:7367}。{npc:2925} 生命值降到 50% 或以下时，会呼叫 25 码内的所有怪物援助。",
+	-- plural, as words: Silvermane Stalkers = {npc:2926} Silvermane Stalker · Savage Owlbeasts = {npc:2929} Savage Owlbeast · Razorbeak Skylords = {npc:2659} Razorbeak Skylord
+	-- was: ["West of the island, the Vilebranch scalpers hold the temples of {area:1884} and {area:1917}. Slagtree's tools lie at one of the temples.\nThe Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and {area:351}. Use the {item:9618} on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for {npc:14738}'s second message.\nCareful: Silvermane Stalkers are level 47-48 and stay stealthed while out of combat. Up close they use {spell:7367}. When a {npc:2925} falls to 50% health or lower, it calls for help from anything within 25 yd."] = "岛屿西侧，邪枝剥皮者占据着 {area:1884} 和 {area:1917} 的神庙。斯拉提的工具就在其中一座神庙。\n银鬃捕猎者、野蛮的枭兽和翱翔的锋喙狮鹫共同出没在神庙与 {area:351} 之间的丘陵。对杀死的枭兽使用 {item:9618}。翱翔的锋喙狮鹫还会掉落细长的狮鹫羽毛：保留十根，用于 {npc:14738} 的第二封信。\n小心：银鬃捕猎者为 47-48 级，非战斗状态下会保持潜行，近身时使用 {spell:7367}。{npc:2925} 生命值降到 50% 或以下时，会呼叫 25 码内的所有怪物援助。"
+	["West of the island, the Vilebranch scalpers hold the temples of {area:1884} and {area:1917}. Slagtree's tools lie at one of the temples.\nThe Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and {area:351}. The {item:9618} works on owlbeasts once they die, and the Skylords' Long Elegant Feathers count for {npc:14738}'s second message (ten).\nCareful: Silvermane Stalkers are level 47-48 and stay stealthed while out of combat. Up close they use {spell:7367}. When a {npc:2925} falls to 50% health or lower, it calls for help from anything within 25 yd."] = "",
 
 	-- Step 15: Skulk Rock
 	-- {item:8684} Hinterlands Honey Ripple · {area:351} Skulk Rock
@@ -136,7 +137,7 @@ return {
 
 	-- Step 28: Aerie Peak
 	-- {area:348} Aerie Peak
-	["Ride all the way west to the Wildhammer town of {area:348} and place the message by the well in its centre. The town is full of Alliance guards: get in, place it and get out."] = "一路向西骑到蛮锤矮人的城镇{area:348}，把警告放在镇中央的水井旁。镇上全是联盟守卫：进去，放好，然后离开。",
+	["{area:348}, the Wildhammer town, is all the way west, and the message goes by the well in its centre. The town is full of Alliance guards."] = "",
 	-- {area:348} Aerie Peak
 	["{area:348} well"] = "{area:348}水井",
 
@@ -197,6 +198,7 @@ return {
 	-- ["On the way back east, the Vilebranch soothsayers hold the {area:355}, the troll temple south of the central hills. Qiaga and {npc:8636} (elite, 50) stand at its top: take the soothsayers on the lower steps."] = "在东返途中，邪枝占卜者占据着中部山丘南边的巨魔神殿{area:355}。奇尔加和{npc:8636}（精英，50级）站在神殿顶上：只打下层台阶上的占卜者。",
 	-- ["Only if you are not level 48 yet."] = "仅当你还没到48级时。",
 	-- ["Only with the distress beacon: the robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}; its reward waits with Oglethorpe in {area:35}."] = "仅当你有定位器时：机器人在{area:351}西边的河流源头处。护送它向东前往{area:307}另一边的海岸；它的奖励在{area:35}的奥格索普那里。",
+	-- ["Ride all the way west to the Wildhammer town of {area:348} and place the message by the well in its centre. The town is full of Alliance guards: get in, place it and get out."] = "一路向西骑到蛮锤矮人的城镇{area:348}，把警告放在镇中央的水井旁。镇上全是联盟守卫：进去，放好，然后离开。",
 	-- ["Ride north back to {area:75} and fly to the {area:1497}."] = "向北骑回{area:75}，飞往{area:1497}。",
 	-- ["Ride north-east from {area:272} into the {area:47} and east along the road; {npc:7801} camps on the hill south of the elves' {area:350}."] = "从{area:272}向东北骑进{area:47}，再沿道路向东；{npc:7801}在精灵的{area:350}南边的山上扎营。",
 	-- ["Saltwater Snapjaws"] = "海水钳嘴龟",
@@ -217,6 +219,7 @@ return {
 	-- ["Vilebranch soothsayers"] = "邪枝占卜者",
 	-- ["Vulture hills"] = "秃鹫山丘",
 	-- ["West of the island, the Vilebranch scalpers hold the temples of {area:1884} and {area:1917}. Slagtree's tools lie at one of the temples."] = "在小岛西边，邪枝割颅者占据着{area:1884}和{area:1917}的神殿。斯拉提的工具在其中一座神殿里。",
+	-- ["West of the island, the Vilebranch scalpers hold the temples of {area:1884} and {area:1917}. Slagtree's tools lie at one of the temples.\nThe Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and {area:351}. Use the {item:9618} on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for {npc:14738}'s second message.\nCareful: Silvermane Stalkers are level 47-48 and stay stealthed while out of combat. Up close they use {spell:7367}. When a {npc:2925} falls to 50% health or lower, it calls for help from anything within 25 yd."] = "岛屿西侧，邪枝剥皮者占据着 {area:1884} 和 {area:1917} 的神庙。斯拉提的工具就在其中一座神庙。\n银鬃捕猎者、野蛮的枭兽和翱翔的锋喙狮鹫共同出没在神庙与 {area:351} 之间的丘陵。对杀死的枭兽使用 {item:9618}。翱翔的锋喙狮鹫还会掉落细长的狮鹫羽毛：保留十根，用于 {npc:14738} 的第二封信。\n小心：银鬃捕猎者为 47-48 级，非战斗状态下会保持潜行，近身时使用 {spell:7367}。{npc:2925} 生命值降到 50% 或以下时，会呼叫 25 码内的所有怪物援助。",
 	-- ["grind on {npc:5982} at the northern hills, {zone:1419}"] = "在{zone:1419}北部山丘刷{npc:5982}",
 	-- ["{area:1446} flight master"] = "{area:1446}的飞行管理员",
 	-- ["{npc:2926} on the way"] = "顺路击杀{npc:2926}",

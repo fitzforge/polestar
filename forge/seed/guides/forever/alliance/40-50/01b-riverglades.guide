@@ -283,10 +283,11 @@ step Sunnyglade
   accept 94829                          -- Farmer Elbrim: What We Lost
 
 step The Twilight cult
-  tip The cultists fill the streets and fields of Sunnyglade. Start at the ritual circles in the middle (fill Claire's catalyst there), then work west through the burnt houses to the edge of town. The charms, pages and finger bones drop from the cultists; keep the Farmers' Mementos the Twilight Raiders drop: five, one for each grave west of Elbrim's farm.
-  tip Keep the Mageweave Cloth they drop: Brother Lowley in Farholde Keep asks for twenty when you are back there. Now and then a cultist drops the Field Marshal's Log: right-click it to start the quest.
-  tip Careful: Chogg'Zac, an elite ogre (level 41), walks the western streets of Sunnyglade, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.
-  tip Ghostmaw, the river's elite (level 42), can wander up from the south-western fields: let him pass.
+  tip The cultists fill the streets and fields of Sunnyglade, and any of them can drop the charms, pages and finger bones.
+  tip Brother Lowley in Farholde Keep asks for twenty Mageweave Cloth later, and the cultists drop it.
+  tip Danger: Chogg'Zac, an elite level 41 ogre, walks the western streets of Sunnyglade around 44-47,47-52. More players died here than anywhere else in the zone.
+  tip Ghostmaw, a level 42 elite from the river, can wander up from the south-western fields.
+  use 269990 quest 95642.1 @47.8,50.0
   complete 95642 @47.8,50.0             -- fill the Crystal Catalyst at the ritual circles
   kill 261711 x5 quest 95643.1 @47.7,50.6  -- Empowered Brute
   kill 262169 x5 quest 95643.2 @47.3,50.0  -- Twilight Ritualist
@@ -301,7 +302,8 @@ step The Twilight cult
 
 step Loose Soil
   when has 266148
-  tip Back north-east to the loose soil west of Elbrim's farm: bury the Farmers' Mementos there, one in each grave.
+  tip The loose soil is north-east, west of Elbrim's farm, and each grave takes one memento.
+  use 266148 quest 94829.1 @48.2,44.6
   interact 621813 quest 94829.1 @48.2,44.6  -- Loose Soil, west of Elbrim's farm
 
 step Apprentice Claire
@@ -563,7 +565,7 @@ step Powderfuse Port
 
 step The Monster Surfaces
   when onquest 95267
-  tip The Monstrous Threshadon comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. Old Rot-Chum, an elite, walks the shore close by: give him room.
+  tip The Monstrous Threshadon only surfaces when called with the bait, in the shallows south-west of the port. Old Rot-Chum, an elite, walks the shore close by.
   collect 268633 quest 95267.1 @74.4,72.4 live -- Sea Monster's Head: the Threshadon surfaces where you call him
 
 step Argo Brinewhistle
@@ -704,7 +706,7 @@ step Bring Me His Head
   accept 94891                          -- News to Farholde: for Ashe Amberhall
 
 step Back to Farholde Keep
-  tip Your hearthstone is bound at Farholde Keep's inn: use it, or ride back south to the keep.
+  tip The hearthstone is bound at Farholde Keep's inn.
   zone Riverglades
   goto 63.0,83.0 "Farholde Keep"
 

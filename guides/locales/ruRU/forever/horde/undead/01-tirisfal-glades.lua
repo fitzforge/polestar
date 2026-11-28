@@ -408,7 +408,7 @@ return {
 
 	-- Step 70: Ulag the Cleaver
 	-- {npc:6390} Ulag the Cleaver
-	["{npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:6390} ждет в склепе на холме чуть к северу от городка: откройте ворота и сразитесь с ним.",
+	["{npc:6390} waits in the mausoleum on the hill just north of town, and the gate's trigger lets him out."] = "",
 
 	-- Step 71: Carendin Halgar
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter
@@ -607,4 +607,5 @@ return {
 	-- ["{npc:244808} and {npc:5667}"] = "{npc:244808} и {npc:5667}",
 	-- ["{npc:244808} and {npc:5667} stand beside the church."] = "{npc:244808} и {npc:5667} стоят у церкви.",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}, распорядитель полетов",
+	-- ["{npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:6390} ждет в склепе на холме чуть к северу от городка: откройте ворота и сразитесь с ним.",
 }

@@ -52,8 +52,8 @@ return {
 	-- Step 9: The Binding: incubus (Orgrimmar)
 	-- {quest:65604} The Binding · {zone:1454} Orgrimmar
 	["{quest:65604}: incubus ({zone:1454})"] = "{quest:65604}：男魅魔（{zone:1454}）",
-	-- {npc:5875} Gan'rul Bloodeye · {item:190232} Withered Scarf
-	["Back to {npc:5875} with the scarf, then use the {item:190232} on the same circle in Neeru's tent and defeat the incubus it calls (level 20, not elite) with your voidwalker tanking. Keep the scarf: {npc:5875} takes it back."] = "帶著圍巾回到{npc:5875}處，然後在尼魯帳篷裡的同一個法陣上使用{item:190232}，讓你的虛空行者抗住，擊敗它召喚出的男魅魔（20級，非精英）。留著圍巾：{npc:5875}會收回。",
+	-- {npc:5875} Gan'rul Bloodeye
+	["The incubus is level 20 and not elite. {npc:5875} takes the scarf back afterward."] = "",
 	-- {npc:185335} Summoned Incubus
 	["{npc:185335}, at the circle in Neeru's tent"] = "{npc:185335}，在尼魯帳篷裡的法陣處",
 
@@ -86,8 +86,8 @@ return {
 	-- Step 15: The Binding: incubus (Undercity)
 	-- {quest:65597} The Binding · {zone:1458} Undercity
 	["{quest:65597}: incubus ({zone:1458})"] = "{quest:65597}：男魅魔（{zone:1458}）",
-	-- {npc:5675} Carendin Halgar · {item:190181} Lovers' Hearts
-	["Back to {npc:5675} with the lovers' hearts, then place the {item:190181} on the same circle and defeat the incubus they call (level 20, not elite; it can charm you). Keep the hearts: {npc:5675} takes them back."] = "帶著戀人的心臟回到{npc:5675}處，然後把{item:190181}放到同一個法陣上，擊敗它們召喚出的男魅魔（20級，非精英；會魅惑你）。留著心臟：{npc:5675}會收回。",
+	-- {npc:5675} Carendin Halgar
+	["The incubus is level 20 and not elite, but it can charm you. {npc:5675} takes the hearts back at turn-in."] = "",
 	-- {npc:185335} Summoned Incubus · {npc:5675} Carendin Halgar
 	["{npc:185335}, at the circle below {npc:5675}"] = "{npc:185335}，在{npc:5675}下方的法陣處",
 
@@ -96,7 +96,9 @@ return {
 	-- ["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1472} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "20級時，{object:172982}下方{object:172960}的{npc:5875}會派你去找幾步之遙的{npc:5909}。有兩位訓練師提供這些惡魔的任務，這裡的{npc:5875}和{zone:1458}的{npc:5675}，你只能接其中一個；本指南依照你接的{quest:1472}。{npc:5909}會提供{zone:1454}的兩條路線：兩條都接。",
 	-- ["Back to Carendin in the {object:36082}. Place the hearts at the summoning circle below him and defeat the incubus they call."] = "回到{object:36082}找卡蘭丁。把心臟放在他下方的召喚法陣，擊敗它們召喚出的夢魔。",
 	-- ["Back to {npc:5675} in the {object:36082}. Place the hearts at the summoning circle below him and defeat the incubus they call."] = "回到{object:36082}找{npc:5675}。把心臟放在他下方的召喚法陣，擊敗它們召喚出的夢魔。",
+	-- ["Back to {npc:5675} with the lovers' hearts, then place the {item:190181} on the same circle and defeat the incubus they call (level 20, not elite; it can charm you). Keep the hearts: {npc:5675} takes them back."] = "帶著戀人的心臟回到{npc:5675}處，然後把{item:190181}放到同一個法陣上，擊敗它們召喚出的男魅魔（20級，非精英；會魅惑你）。留著心臟：{npc:5675}會收回。",
 	-- ["Back to {npc:5875} in the {object:172960}. Take the scarf to the summoning circle in {npc:3216}'s tent nearby and defeat the incubus it calls."] = "回到{object:172960}找{npc:5875}。把圍巾帶到附近{npc:3216}帳篷裡的召喚法陣，擊敗它召喚出的夢魔。",
+	-- ["Back to {npc:5875} with the scarf, then use the {item:190232} on the same circle in Neeru's tent and defeat the incubus it calls (level 20, not elite) with your voidwalker tanking. Keep the scarf: {npc:5875} takes it back."] = "帶著圍巾回到{npc:5875}處，然後在尼魯帳篷裡的同一個法陣上使用{item:190232}，讓你的虛空行者抗住，擊敗它召喚出的男魅魔（20級，非精英）。留著圍巾：{npc:5875}會收回。",
 	-- ["Incubus (Horde)"] = "夢魔（部落）",
 	-- ["{area:422} lies in southern {zone:1440}, south of {area:431}. The Shadethicket bog beasts around the lake drop the {item:190232}, about one in twenty."] = "{area:422}位於{zone:1440}南部、{area:431}南邊。湖周圍的沼澤獸會掉落{item:190232}，大約二十隻一次。",
 	-- ["{area:422} lies in southern {zone:1440}, south-west of {area:431}. The Shadethicket Stone Movers and Bark Rippers (level 25-27) around the lake drop the {item:190232} about one time in twenty, and the lone {npc:3931} (30) can drop it too: plan on a good number of kills, so the guide waits for level 24 first (Forever made this quest level 27); with the succubus already bound you can leave it for your 20s leveling in {zone:1440}. They respawn in five minutes."] = "{area:422}位於{zone:1440}南部、{area:431}西南方。湖邊的移石沼澤獸和裂木沼澤獸（25-27級）約有二十分之一的機率掉落{item:190232}，單獨出現的{npc:3931}（30級）也可能掉落：預計要殺不少隻，所以指南會先等到24級（Forever把這個任務改成了27級）；若已經綁定了魅魔，可以留到20多級在{zone:1440}練功時再做。牠們五分鐘重生。",

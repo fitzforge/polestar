@@ -125,7 +125,7 @@ return {
 	-- Step 26: Unfinished Wild Shore errands
 	-- {area:43} Wild Shore
 	["Unfinished {area:43} errands"] = "Encargos pendientes de {area:43}",
-	["If the town rewards just brought you to 42 and you still owe pirate work, use the shore tents, not the ships."] = "Si las recompensas del pueblo acaban de llevarte a 42 y todavía te queda trabajo con los piratas, usa las tiendas de la orilla, no los barcos.",
+	["At 42 with pirate work still owed, the shore tents are the place, not the ships."] = "",
 
 	-- Step 30: Fly to Grom'gol
 	-- {area:35} Booty Bay
@@ -461,6 +461,7 @@ return {
 	-- ["Fly to {zone:1454}. From the flight master: the {object:172960}, then the Drag, then the {object:172958}."] = "Vuela a {zone:1454}. Desde el maestro de vuelo: {object:172960}, luego la Calle Mayor, luego {object:172958}.",
 	-- ["Galestriders: {npc:265756}, in {area:16638} on Zephras Isle."] = "Zancavientos: {npc:265756}, en {area:16638}, en la Isla Zephras.",
 	-- ["Hearth to {area:1099}"] = "Usa tu piedra de hogar para ir a {area:1099}",
+	-- ["If the town rewards just brought you to 42 and you still owe pirate work, use the shore tents, not the ships."] = "Si las recompensas del pueblo acaban de llevarte a 42 y todavía te queda trabajo con los piratas, usa las tiendas de la orilla, no los barcos.",
 	-- ["In {area:35}: {npc:2494} on the docks, {npc:2486} by the inn, {npc:2498} inside it, MacKinley, {npc:737} and {npc:773} upstairs."] = "En {area:35}: {npc:2494} en los muelles, {npc:2486} junto a la posada, {npc:2498} dentro, MacKinley, {npc:737} y {npc:773} arriba.",
 	-- ["Keep riding west to the coast. The Coast Crawl Deepseers and Snapclaws on the beaches drop OOX-22/FE's distress beacon about one kill in forty: if one drops, use it to start the quest."] = "Sigue cabalgando al oeste hasta la costa. Los Videnistas Reptacostas ({npc:5328}) y Quebradores de las playas sueltan el localizador de emergencia de OOX-22/FE en una de cada cuarenta muertes: si cae, úsalo para iniciar la misión.",
 	-- ["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him."] = "Al norte de los gnolls, los ogros ocupan una avanzada en una colina; atrae a los ogros magos hacia ti. El cobalto está en los montículos de tierra alrededor de la avanzada y el pergamino está en el suelo, adentro.\nCuidado: {npc:222233} (nivel 43, élite) está en la avanzada: atrae a los ogros hacia ti, lejos de él.",

@@ -25,7 +25,7 @@ return {
 	-- {quest:5401} Argent Dawn Commission
 	["The {quest:5401}"] = "{quest:5401}",
 	-- {quest:5401} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:2268} Light's Hope Chapel
-	["The Scourge drop no Scourgestones unless you wear an {quest:5401}. {npc:10840} gives you one through her quest, {quest:5401}, which you hand in straight away (if you already have one from {area:2268}, wear that). Equip it in a trinket slot: it shows as a buff that never runs out. Keep it on until you have 20 stones."] = "",
+	["The Scourge drop no Scourgestones unless an {quest:5401} is worn. {npc:10840} gives one through her quest, {quest:5401}, handed in straight away (one from {area:2268} works the same). It shows as a buff that never runs out, and it stays on until the 20 stones are in."] = "",
 	-- {quest:5401} Argent Dawn Commission
 	["the {quest:5401} trinket: equip it"] = "",
 
@@ -61,7 +61,7 @@ return {
 
 	-- Step 9: Forging the Mightstone
 	-- {area:3197} Chillwind Camp · {item:20620} Holy Mightstone · {item:20505} Chivalrous Signet · {item:20504} Lightforged Blade · {item:20512} Sanctified Orb · {area:2279} Stratholme · {area:2057} Scholomance
-	["Back to Ashlam in {area:3197}: he forges the {item:20620}. Look at the reward window before you hand in: Classic also offered the {item:20505}, the {item:20504} or the {item:20512}, and Forever's notes say that choice may be gone. Use the stone before a fight against undead ({area:2279}, {area:2057}): it lasts ten minutes and is gone after one use."] = "",
+	["Back to Ashlam in {area:3197}: he forges the {item:20620}. Classic also offered the {item:20505}, the {item:20504} or the {item:20512}, and Forever's notes say that choice may be gone. The stone is for a fight against undead ({area:2279}, {area:2057}): it lasts ten minutes and is gone after one use."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A one-use stone that makes you much stronger against undead for 10 minutes; the old choice rewards are gone."] = "Одноразовый камень, который на 10 минут делает вас намного сильнее против нежити; прежних наград на выбор больше нет.",

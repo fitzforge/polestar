@@ -63,14 +63,10 @@ return {
 	["Follow the road west to {area:87}, on the way to {zone:1436}: {npc:240} stands outside the inn."] = "沿路向西返回{area:87}，順路繼續去{zone:1436}；{npc:240}站在旅店外。",
 
 	-- Step 14: The Binding
-	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6928} Bloodstone Choker · {zone:1436} Westfall
-	["North along the road from {area:87} to {zone:1453}: {npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls, then back south through {area:87} to {zone:1436}."] = "沿著道路從{area:87}向北前往{zone:1453}：{npc:6122}在{object:2101}的{object:2164}地下室等著。在那裡的召喚法陣使用{item:6928}，擊敗它召喚出的虛無行者，然後向南經過{area:87}返回{zone:1436}。",
+	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {zone:1453} Stormwind · {object:2101} Mage Quarter
+	["{npc:6122} is in the cellar of the {object:2164}, in {zone:1453}'s {object:2101}."] = "",
 	-- {npc:5676} Summoned Voidwalker · {item:6928} Bloodstone Choker
 	["{npc:5676}: use the {item:6928} at the circle"] = "{npc:5676}：在法陣使用{item:6928}",
-
-	-- Step 15: The Binding
-	-- {item:6810} Surena's Choker · {npc:6122} Gakin the Darkbinder · {quest:1689} The Binding · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6928} Bloodstone Choker
-	["{item:6810} is already with {npc:6122}: take {quest:1689} from him in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls."] = "{item:6810}已經交給{npc:6122}：在{object:2101}的{object:2164}地窖裡向他接取{quest:1689}。在那裡的召喚法陣處使用{item:6928}，擊敗被召喚出的虛無行者。",
 
 	-- Step 16: The Jansen Stead
 	-- {zone:1436} Westfall · {object:2724} Sack of Oats
@@ -396,6 +392,7 @@ return {
 	-- ["Further north along the road. The Furlbrows sit by their burned farm. Collect the oats from the Sacks of Oats in the fields as you go."] = "沿道路繼續向北。法布隆夫婦坐在被燒毀的農場旁。沿途從田裡的一袋燕麥收集燕麥。",
 	-- ["Harvest Watchers and Golems work the fields around {area:918}; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone."] = "看守傀儡和麥田傀儡在{area:918}周圍的田裡工作；牠們掉落等軸彈簧、陀螺穩定器、{item:732}，有時掉落{item:255155}。{npc:573}是20級稀有怪，在此遊走：別惹它。",
 	-- ["Hearthstone on cooldown? Follow the road north-east."] = "爐石在冷卻中？沿道路往東北走。",
+	-- ["North along the road from {area:87} to {zone:1453}: {npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls, then back south through {area:87} to {zone:1436}."] = "沿著道路從{area:87}向北前往{zone:1453}：{npc:6122}在{object:2101}的{object:2164}地下室等著。在那裡的召喚法陣使用{item:6928}，擊敗它召喚出的虛無行者，然後向南經過{area:87}返回{zone:1436}。",
 	-- ["North of Molsen Farm. Defias Trappers and Smugglers camp outside the mine, Kobold Diggers work inside. {object:290} stands by the ruined house east of the mine."] = "在摩爾森農場北邊。迪菲亞捕獸者和迪菲亞走私者在礦坑外紮營，狗頭人掘地工在礦坑內工作。{object:290}在礦坑東邊的廢墟旁。",
 	-- ["North of Molsen Farm. Defias Trappers and Smugglers camp outside the mine. {object:290} stands by the ruined house east of the mine."] = "在摩爾森農場北邊。迪菲亞捕獸者和迪菲亞走私者在礦坑外紮營。{object:290}在礦坑東邊的廢墟旁。",
 	-- ["On the way south from the {area:916} to {area:107}: Harvest Watchers (level 14-15) and Golems work the fields west of the road; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks these fields: leave it alone."] = "從{area:916}往南前往{area:107}的路上：看守傀儡（14-15級）和麥田傀儡在道路西邊的田裡工作；牠們掉落等軸彈簧、陀螺穩定器、{item:732}，有時掉落{item:255155}。{npc:573}是20級稀有怪，在這些田裡遊走：別惹它。",
@@ -414,6 +411,7 @@ return {
 	-- ["Young Goretusks and Fleshrippers roam the fields around the farm: start on livers and the stew's meat on the way back."] = "幼年血牙野豬和碎屍鳥在農場周圍的田野遊蕩：回程時順便收集肝臟和燉肉用的肉。",
 	-- ["{area:20} and the Defias hills"] = "{area:20}與迪菲亞丘陵",
 	-- ["{item:254676}, from the crates around {area:20}"] = "{item:254676}，來自{area:20}周圍的箱子",
+	-- ["{item:6810} is already with {npc:6122}: take {quest:1689} from him in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls."] = "{item:6810}已經交給{npc:6122}：在{object:2101}的{object:2164}地窖裡向他接取{quest:1689}。在那裡的召喚法陣處使用{item:6928}，擊敗被召喚出的虛無行者。",
 	-- ["{npc:234} and {npc:821} stand at the top of the stone tower. {npc:491} is in the tower, {npc:878} and {npc:253092} on the south side of the hill, next to the inn and {npc:523} the gryphon master."] = "{npc:234}和{npc:821}站在石塔頂端。{npc:491}在塔內，{npc:878}和{npc:253092}在山丘南側，旅店和獅鷲管理員{npc:523}旁邊。",
 	-- ["{npc:237}; Humans took it from {npc:963} in Elwynn"] = "{npc:237}；人類在艾爾文從{npc:963}那裡拿走了它",
 	-- ["{quest:153}: every Defias drops them"] = "{quest:153}：所有迪菲亞都會掉落",

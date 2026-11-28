@@ -14,8 +14,12 @@ return {
 
 	-- Step 2: WRIGGLE.
 	-- {npc:269452} Excitable Slime · {npc:4612} Boyle · {quest:97583} WRIGGLE.
-	["Find an {npc:269452}, a little critter in the canal water beside {npc:4612}, target it and /dance at it, again and again, until it dances back and offers {quest:97583}; this takes many tries. Hand in the sludge right away. If the slime seems tired, /dance with it again before you hand in."] = "{npc:4612} 곁 수로 물속의 작은 생물 {npc:269452}을(를) 찾아 대상으로 /dance를 계속 입력해 춤을 추고 {quest:97583}을(를) 받으세요. 여러 번 시도해야 합니다. 슬라임이 지친 듯하면 제출 전에 다시 /dance 하세요.",
+	["An {npc:269452}, a little critter in the canal water beside {npc:4612}, offers {quest:97583} only after many /dance emotes at it, and it takes the sludge only while it still dances."] = "",
+	-- {npc:269452} Excitable Slime · {quest:97583} WRIGGLE.
+	["/dance at an {npc:269452} until it dances back and offers {quest:97583}"] = "",
+	["/dance with the slime again if it seems tired"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Find an {npc:269452}, a little critter in the canal water beside {npc:4612}, target it and /dance at it, again and again, until it dances back and offers {quest:97583}; this takes many tries. Hand in the sludge right away. If the slime seems tired, /dance with it again before you hand in."] = "{npc:4612} 곁 수로 물속의 작은 생물 {npc:269452}을(를) 찾아 대상으로 /dance를 계속 입력해 춤을 추고 {quest:97583}을(를) 받으세요. 여러 번 시도해야 합니다. 슬라임이 지친 듯하면 제출 전에 다시 /dance 하세요.",
 	-- ["Find the {npc:269452}, a critter in the {zone:1458} canals, and /dance with it until it offers WRIGGLE. Buy {item:278265} from a vendor in the canals and bring it back; if the slime seems tired, dance with it again."] = "{zone:1458} 수로에 있는 동물 {npc:269452}을(를) 찾아 WRIGGLE을 제안할 때까지 함께 /춤 하세요. 수로의 상인에게서 {item:278265}을(를) 사서 가져오세요. 수액괴물이 지쳐 보이면 다시 함께 춤추세요.",
 }

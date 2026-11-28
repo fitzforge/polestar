@@ -11,8 +11,8 @@ return {
 	["The Alliance paladin's rare two-handed mace for the 20s, with a shield and {spell:5502} on the way."] = "20대 얼라이언스 성기사용 희귀 양손 둔기, 도중에 방패와 {spell:5502}도 얻습니다.",
 
 	-- Step 1: The Tome of Valor (Ironforge)
-	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words) · {item:6776} Tome of Valor · {npc:6171} Duthorian Rall · {zone:1453} Stormwind · {area:2257} Deeprun Tram · {zone:1455} Ironforge
-	["At 20 {npc:6179}, upstairs in the {object:32386} in the {object:32362}, gives you the {item:6776}. Right-click it: it sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. Take the {area:2257} from {zone:1455} to {zone:1453}."] = "20레벨에 {object:32362}의 {object:32386} 위층에 있는 {npc:6179}이(가) {item:6776}을(를) 줍니다. 오른쪽 클릭하면 {zone:1453} 빛의 대성당의 {npc:6171}에게 보냅니다. {zone:1455}에서 {area:2257}을(를) 타고 {zone:1453}(으)로 가세요.",
+	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words) · {item:6776} Tome of Valor · {npc:6171} Duthorian Rall · {zone:1453} Stormwind · {area:2257} Deeprun Tram
+	["At 20 {npc:6179}, upstairs in the {object:32386} in the {object:32362}, gives the {item:6776}, which sends you to {npc:6171} in {zone:1453}'s Cathedral of Light, by the {area:2257}."] = "",
 
 	-- Step 2: The Tome of Valor
 	-- {npc:6171} Duthorian Rall · {item:6776} Tome of Valor
@@ -93,6 +93,7 @@ return {
 	["Bring the four parts to {npc:6181} outside {zone:1455}. Accept his last quest and wait by him while he forges the mace at his anvil."] = "네 가지 부품을 {zone:1455} 밖의 {npc:6181}에게 가져가세요. 그의 마지막 퀘스트를 수락하고, 그가 모루에서 둔기를 만드는 동안 곁에서 기다리세요.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["At 20 {npc:6179}, upstairs in the {object:32386} in the {object:32362}, gives you the {item:6776}. Right-click it: it sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. Take the {area:2257} from {zone:1455} to {zone:1453}."] = "20레벨에 {object:32362}의 {object:32386} 위층에 있는 {npc:6179}이(가) {item:6776}을(를) 줍니다. 오른쪽 클릭하면 {zone:1453} 빛의 대성당의 {npc:6171}에게 보냅니다. {zone:1455}에서 {area:2257}을(를) 타고 {zone:1453}(으)로 가세요.",
 	-- ["Protect {npc:6182}"] = "{npc:6182} 보호",
 	-- ["The Blackfathom naga by the entrance of {area:2797} on {zone:1440}'s north-west coast drop the {item:6995}. They are elite: grouping up is advised."] = "{zone:1440} 북서쪽 해안 {area:2797} 입구 옆의 검은심연 나가가 {item:6995}을(를) 떨어뜨립니다. 정예이니 파티를 권장합니다.",
 	-- ["The ore crate lies by the trees in the middle of the Mo'grosh ogre camp in north-east {zone:1432}. The Mo'grosh ogres are elite: grouping up is advised."] = "광석 상자는 {zone:1432} 북동쪽 모그로쉬 오우거 야영지 한가운데의 나무 옆에 있습니다. 모그로쉬 오우거는 정예이니 파티를 권장합니다.",

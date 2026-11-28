@@ -62,7 +62,8 @@ return {
 
 	-- Step 13: Orgrimmar
 	-- {object:405149} Mural of Ta'zo (no name in this language: may be words) · {object:172961} Valley of Spirits
-	["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "{object:405149} — каменная плита, прислонённая к стене в {object:172961}, по пути к учителям магов. Используйте её, чтобы взять книгу.",
+	-- was: ["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "{object:405149} — каменная плита, прислонённая к стене в {object:172961}, по пути к учителям магов. Используйте её, чтобы взять книгу."
+	["The {object:405149}, the stone tablet leaning against the wall in the {object:172961} on the way to the mage trainers, holds the book."] = "",
 
 	-- Step 14: The library: first books
 	["The library: first books"] = "Библиотека: первые книги",
@@ -191,4 +192,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Lost books and scrolls all over the world: each pays experience at the library, and enough of them earn a {quest:78150} reward."] = "По всему миру разбросаны книги и свитки. За них библиотека даёт опыт, а за достаточное количество — награду {quest:78150}.",
+	-- ["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "{object:405149} — каменная плита, прислонённая к стене в {object:172961}, по пути к учителям магов. Используйте её, чтобы взять книгу.",
 }

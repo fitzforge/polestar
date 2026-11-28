@@ -52,8 +52,8 @@ return {
 	-- Step 9: The Binding: incubus (Orgrimmar)
 	-- {quest:65604} The Binding · {zone:1454} Orgrimmar
 	["{quest:65604}: incubus ({zone:1454})"] = "{quest:65604}: íncubo ({zone:1454})",
-	-- {npc:5875} Gan'rul Bloodeye · {item:190232} Withered Scarf
-	["Back to {npc:5875} with the scarf, then use the {item:190232} on the same circle in Neeru's tent and defeat the incubus it calls (level 20, not elite) with your voidwalker tanking. Keep the scarf: {npc:5875} takes it back."] = "De volta a {npc:5875} com o lenço, depois use {item:190232} no mesmo círculo da tenda de Neeru e derrote o íncubo que ele chama (nível 20, não elite) com seu emissário do caos tankando. Guarde o lenço: {npc:5875} pega de volta.",
+	-- {npc:5875} Gan'rul Bloodeye
+	["The incubus is level 20 and not elite. {npc:5875} takes the scarf back afterward."] = "",
 	-- {npc:185335} Summoned Incubus
 	["{npc:185335}, at the circle in Neeru's tent"] = "{npc:185335}, no círculo da tenda de Neeru",
 
@@ -86,8 +86,8 @@ return {
 	-- Step 15: The Binding: incubus (Undercity)
 	-- {quest:65597} The Binding · {zone:1458} Undercity
 	["{quest:65597}: incubus ({zone:1458})"] = "{quest:65597}: íncubo ({zone:1458})",
-	-- {npc:5675} Carendin Halgar · {item:190181} Lovers' Hearts
-	["Back to {npc:5675} with the lovers' hearts, then place the {item:190181} on the same circle and defeat the incubus they call (level 20, not elite; it can charm you). Keep the hearts: {npc:5675} takes them back."] = "De volta a {npc:5675} com os corações dos amantes, depois coloque {item:190181} no mesmo círculo e derrote o íncubo que eles chamam (nível 20, não elite; ele pode enfeitiçar você). Guarde os corações: {npc:5675} pega de volta.",
+	-- {npc:5675} Carendin Halgar
+	["The incubus is level 20 and not elite, but it can charm you. {npc:5675} takes the hearts back at turn-in."] = "",
 	-- {npc:185335} Summoned Incubus · {npc:5675} Carendin Halgar
 	["{npc:185335}, at the circle below {npc:5675}"] = "{npc:185335}, no círculo embaixo de {npc:5675}",
 
@@ -95,7 +95,9 @@ return {
 	-- ["A second seducer demon, the male sayaad, and a soul shard bag to carry your shards."] = "Um segundo demônio sedutor, o sayaad macho, e uma bolsa para guardar seus fragmentos de alma.",
 	-- ["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1472} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "No nível 20, {npc:5875}, na {object:172960} sob o {object:172982}, envia você a {npc:5909}, a poucos passos. Dois instrutores iniciam esses demônios, {npc:5875} aqui e {npc:5675} na {zone:1458}, e você só pode pegar um; este guia segue a {quest:1472} que você pegou. {npc:5909} oferece os dois ramos de {zone:1454}: pegue os dois.",
 	-- ["Back to {npc:5675} in the {object:36082}. Place the hearts at the summoning circle below him and defeat the incubus they call."] = "Volte a {npc:5675} no {object:36082}. Coloque os corações no círculo de evocação abaixo dele e derrote o íncubo que eles chamarem.",
+	-- ["Back to {npc:5675} with the lovers' hearts, then place the {item:190181} on the same circle and defeat the incubus they call (level 20, not elite; it can charm you). Keep the hearts: {npc:5675} takes them back."] = "De volta a {npc:5675} com os corações dos amantes, depois coloque {item:190181} no mesmo círculo e derrote o íncubo que eles chamam (nível 20, não elite; ele pode enfeitiçar você). Guarde os corações: {npc:5675} pega de volta.",
 	-- ["Back to {npc:5875} in the {object:172960}. Take the scarf to the summoning circle in {npc:3216}'s tent nearby and defeat the incubus it calls."] = "Volte a {npc:5875} na {object:172960}. Leve o lenço ao círculo de evocação na tenda de {npc:3216}, ali perto, e derrote o íncubo que ele chamar.",
+	-- ["Back to {npc:5875} with the scarf, then use the {item:190232} on the same circle in Neeru's tent and defeat the incubus it calls (level 20, not elite) with your voidwalker tanking. Keep the scarf: {npc:5875} takes it back."] = "De volta a {npc:5875} com o lenço, depois use {item:190232} no mesmo círculo da tenda de Neeru e derrote o íncubo que ele chama (nível 20, não elite) com seu emissário do caos tankando. Guarde o lenço: {npc:5875} pega de volta.",
 	-- ["Incubus (Horde)"] = "Íncubo (Horda)",
 	-- ["{area:422} lies in southern {zone:1440}, south of {area:431}. The Shadethicket bog beasts around the lake drop the {item:190232}, about one in twenty."] = "{area:422} fica no sul de {zone:1440}, ao sul do {area:431}. As feras do pântano Umbrárvore em volta do lago soltam o {item:190232}, cerca de uma vez em vinte.",
 	-- ["{area:422} lies in southern {zone:1440}, south-west of {area:431}. The Shadethicket Stone Movers and Bark Rippers (level 25-26) around the lake drop the {item:190232} about one time in twenty, and the lone {npc:3931} (30) can drop it too: plan on a good number of kills, so come at 25 or later (Forever made this quest level 27); with the succubus already bound you can leave it for your 20s leveling in {zone:1440}. They respawn in five minutes."] = "{area:422} fica no sul de {zone:1440}, a sudoeste de {area:431}. Os Move-pedras Umbrárvore e Rasga-cascas (nível 25-26) em volta do lago soltam {item:190232} cerca de uma vez em vinte, e o solitário {npc:3931} (30) também pode soltar: conte com bastantes mortes, então venha no 25 ou depois (o Forever deixou esta missão no nível 27); com o súcubo já ligado, você pode deixar para a sua subida de nível nos 20 e tantos em {zone:1440}. Voltam em cinco minutos.",

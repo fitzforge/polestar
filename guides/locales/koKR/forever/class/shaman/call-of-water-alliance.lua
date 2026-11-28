@@ -26,19 +26,20 @@ return {
 
 	-- Step 4: The brown waterskin
 	["The brown waterskin"] = "갈색 물주머니",
-	-- {item:265732} Unfilled Brown Waterskin · {npc:258203} Hervdana Saegrund · {object:147516} Dark Iron
-	["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "{npc:258203}의 동굴 아래 폭포 밑, 민물과 바닷물이 만나는 곳에서 {item:265732}을(를) 채우십시오. {object:147516} 드워프가 폭포 근처를 돌아다닙니다.",
+	-- {npc:258203} Hervdana Saegrund · {object:147516} Dark Iron
+	-- was: ["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "{npc:258203}의 동굴 아래 폭포 밑, 민물과 바닷물이 만나는 곳에서 {item:265732}을(를) 채우십시오. {object:147516} 드워프가 폭포 근처를 돌아다닙니다."
+	["The water source is at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "",
 
 	-- Step 6: The red waterskin
 	["The red waterskin"] = "붉은 물주머니",
-	-- {area:71} Stonewatch Falls · {area:68} Lake Everstill · {zone:1455} Ironforge · {area:69} Lakeshire · {item:265747} Unfilled Red Waterskin · {npc:258203} Hervdana Saegrund
+	-- {area:71} Stonewatch Falls · {area:68} Lake Everstill · {npc:258203} Hervdana Saegrund
 	-- plural, as words: Murloc Nightcrawlers = {npc:544} Murloc Nightcrawler
-	["{area:71} pour out of {area:68} at the east end of Redridge (fly from {zone:1455} to {area:69}). Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather; pull the murlocs off the spot first. If the skin vanishes without counting, abandon the quest and take it again from {npc:258203} for a new one."] = "{area:71}은(는) 붉은마루 동쪽 끝의 {area:68}에서 쏟아져 내립니다({zone:1455}에서 {area:69}(으)로 비행). Murloc Nightcrawler가 모여 있는 폭포 아래에서 {item:265747}을(를) 채우세요. 먼저 멀록을 그 자리에서 끌어내세요. 가죽 부대가 수가 세어지지 않고 사라지면 퀘스트를 포기하고 {npc:258203}에게서 다시 받아 새것을 얻으세요.",
+	["{area:71} pours out of {area:68} at the east end of Redridge, and Murloc Nightcrawlers gather at its foot. If the skin vanishes without counting, {npc:258203} gives a new one when the quest is taken again."] = "",
 
 	-- Step 8: The blue waterskin
 	["The blue waterskin"] = "파란 물주머니",
-	-- {area:150} Menethil Harbor · {area:442} Auberdine · {area:271} Southshore · {zone:1439} Darkshore · {area:415} Astranaar · {zone:1440} Ashenvale · {item:265772} Unfilled Blue Waterskin
-	["Take the boat from {area:150} to {area:442} (it stops in {area:271} on the way), then fly or walk south through {zone:1439} to {area:415} in {zone:1440}. Fill the {item:265772} in the lake around the town, then the boat back to Menethil."] = "{area:150}에서 배를 타고 {area:442}(으)로 간 뒤(도중에 {area:271}에 들릅니다), {zone:1439}을(를) 지나 남쪽으로 날아가거나 걸어서 {zone:1440}의 {area:415}(으)로 가십시오. 마을을 둘러싼 호수에서 {item:265772}을(를) 채운 뒤, 배를 타고 메네실로 돌아가십시오.",
+	-- {area:150} Menethil Harbor · {area:442} Auberdine · {zone:1439} Darkshore · {zone:1440} Ashenvale
+	["The boat from {area:150} goes to {area:442} in {zone:1439}, north of {zone:1440}."] = "",
 
 	-- Step 9: Hervdana Saegrund
 	-- {item:7810} Vial of Purest Water · {npc:258043} Norric Lochthane
@@ -71,5 +72,8 @@ return {
 	["{npc:258043}: {spell:5394} and your {item:5177}"] = "{npc:258043}: {spell:5394}과(와) {item:5177}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "{npc:258203}의 동굴 아래 폭포 밑, 민물과 바닷물이 만나는 곳에서 {item:265732}을(를) 채우십시오. {object:147516} 드워프가 폭포 근처를 돌아다닙니다.",
+	-- ["Take the boat from {area:150} to {area:442} (it stops in {area:271} on the way), then fly or walk south through {zone:1439} to {area:415} in {zone:1440}. Fill the {item:265772} in the lake around the town, then the boat back to Menethil."] = "{area:150}에서 배를 타고 {area:442}(으)로 간 뒤(도중에 {area:271}에 들릅니다), {zone:1439}을(를) 지나 남쪽으로 날아가거나 걸어서 {zone:1440}의 {area:415}(으)로 가십시오. 마을을 둘러싼 호수에서 {item:265772}을(를) 채운 뒤, 배를 타고 메네실로 돌아가십시오.",
+	-- ["{area:71} pour out of {area:68} at the east end of Redridge (fly from {zone:1455} to {area:69}). Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather; pull the murlocs off the spot first. If the skin vanishes without counting, abandon the quest and take it again from {npc:258203} for a new one."] = "{area:71}은(는) 붉은마루 동쪽 끝의 {area:68}에서 쏟아져 내립니다({zone:1455}에서 {area:69}(으)로 비행). Murloc Nightcrawler가 모여 있는 폭포 아래에서 {item:265747}을(를) 채우세요. 먼저 멀록을 그 자리에서 끌어내세요. 가죽 부대가 수가 세어지지 않고 사라지면 퀘스트를 포기하고 {npc:258203}에게서 다시 받아 새것을 얻으세요.",
 	-- ["{area:919} lies outside {area:20}. Drink the {item:6637} there and defeat the {npc:5894} for its bracers, then place them and the {item:7811} on the {object:619896}. The {npc:5895} it calls forth gives you the {item:7813}."] = "{area:919}은(는) {area:20} 외곽에 있습니다. 그곳에서 {item:6637}을(를) 마시고 {npc:5894}을(를) 처치해 손목보호구를 얻은 뒤, 그것과 {item:7811}을(를) {object:619896}에 놓으십시오. 나타난 {npc:5895}이(가) {item:7813}을(를) 줍니다.",
 }

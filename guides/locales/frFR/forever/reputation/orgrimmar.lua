@@ -32,8 +32,7 @@ return {
 
 	-- Step 3: Boars, weapons and peons
 	["Boars, weapons and peons"] = "Sangliers, armes et péons",
-	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
-	["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "Les armes d'entraînement sont posées au sol dans la Tanière et parmi les sangliers au nord. Pour les péons : ciblez un {npc:10556} endormi et utilisez la {item:16114} sur lui.",
+	["The training weapons lie on the ground in the Den and among the boars to the north."] = "",
 	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
 	["{npc:10556}: hit it with the {item:16114}"] = "{npc:10556} : frappez-le avec la {item:16114}",
 	-- {npc:10556} Lazy Peon
@@ -107,7 +106,7 @@ return {
 	-- {faction:76} Orgrimmar · {npc:4949} Thrall · {npc:3216} Neeru Fireblade
 	["{faction:76}: {npc:4949} and {npc:3216}"] = "{faction:76} : {npc:4949} et {npc:3216}",
 	-- {npc:3216} Neeru Fireblade · {object:172960} Cleft of Shadow
-	["{npc:3216} is in the {object:172960}. Tell him he may speak openly and click through his story."] = "{npc:3216} est dans la {object:172960}. Dites-lui qu'il peut parler librement et suivez toute son histoire.",
+	["{npc:3216} is in the {object:172960}, and his whole story counts once he is told he may speak openly."] = "",
 	-- {npc:3216} Neeru Fireblade
 	["{npc:3216}: hear him out"] = "{npc:3216} : écoutez-le jusqu'au bout",
 
@@ -206,7 +205,8 @@ return {
 	-- Step 34: Around the Crossroads
 	["Around the Crossroads"] = "Autour de la Croisée",
 	-- {npc:267307} Chol'aruk · {area:1699} Thorn Hill · {npc:10668} Beaten Corpse · {area:378} Camp Taurajo
-	["The Razormane camps and the supply crates are north-east of the town; {npc:267307}, an elite boar, sits deep in the {area:1699} cave there. The Witchwing harpies nest far to the north-west. The {npc:10668} lies north-east of {area:378}, in the south: right-click it. Raptors and plainstriders are everywhere."] = "Les camps Tranchecrin et les caisses de ravitaillement sont au nord-est de la ville ; {npc:267307}, un sanglier élite, se tient au fond de la grotte de la {area:1699}, par là. Les harpies Ensorçaile nichent loin au nord-ouest. Le {npc:10668} gît au nord-est du {area:378}, au sud : faites un clic droit dessus. Raptors et trotteurs des plaines sont partout.",
+	-- was: ["The Razormane camps and the supply crates are north-east of the town; {npc:267307}, an elite boar, sits deep in the {area:1699} cave there. The Witchwing harpies nest far to the north-west. The {npc:10668} lies north-east of {area:378}, in the south: right-click it. Raptors and plainstriders are everywhere."] = "Les camps Tranchecrin et les caisses de ravitaillement sont au nord-est de la ville ; {npc:267307}, un sanglier élite, se tient au fond de la grotte de la {area:1699}, par là. Les harpies Ensorçaile nichent loin au nord-ouest. Le {npc:10668} gît au nord-est du {area:378}, au sud : faites un clic droit dessus. Raptors et trotteurs des plaines sont partout."
+	["The Razormane camps and the supply crates are north-east of the town; {npc:267307}, an elite boar, sits deep in the {area:1699} cave there. The Witchwing harpies nest far to the north-west. The {npc:10668} lies north-east of {area:378}, in the south. Raptors and plainstriders are everywhere."] = "",
 	-- {npc:10668} Beaten Corpse
 	["{npc:10668}: right-click it"] = "{npc:10668} : faites un clic droit dessus",
 
@@ -228,9 +228,9 @@ return {
 	-- Step 38: Prowlers, Serena Bloodfeather and Echeyakee
 	-- {npc:3452} Serena Bloodfeather · {quest:881} Echeyakee
 	["Prowlers, {npc:3452} and {quest:881}"] = "Rôdeurs, {npc:3452} et {quest:881}",
-	-- {quest:876} Serena Bloodfeather · {npc:3338} Sergra Darkthorn · {item:10327} Horn of Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
+	-- {quest:876} Serena Bloodfeather · {quest:881} Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
 	-- plural, as words: Savannah Prowlers = {npc:3425} Savannah Prowler
-	["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "Les Rôdeurs des savanes se tiennent à l'ouest et au nord de la Croisée. {quest:876} dirige les harpies Ensorçaile loin au nord-ouest. Ensuite, {npc:3338} vous donne la {item:10327} : sonnez-la près des os de kodo de {object:147524}, au nord de la ville, et tuez le lion blanc.",
+	["Savannah Prowlers roam west and north of the Crossroads, and {quest:876} leads the Witchwing harpies in the far north-west. {quest:881}, a white lion, appears at the kodo bones of {object:147524}, north of the town."] = "",
 
 	-- Step 39: Chen's Empty Keg (optional hub)
 	-- {quest:819} Chen's Empty Keg
@@ -334,8 +334,8 @@ return {
 	-- Step 55: Magus Rimtori's camp
 	-- {npc:8578} Magus Rimtori
 	["{npc:8578}'s camp"] = "Le camp de {npc:8578}",
-	-- {object:151286} Kaldorei Tome of Summoning · {npc:8578} Magus Rimtori
-	["Kill the Reclaimers and Surveyors, then walk up to the book inside the ring of stone pillars. Read the {object:151286} there to start the next quest: break the crystals around the circle, kill the guard that comes, then {npc:8578}."] = "Tuez les Récupérateurs et les Arpenteurs, puis allez jusqu'au livre au milieu du cercle de piliers de pierre. Lisez-y le {object:151286} pour lancer la quête suivante : brisez les cristaux autour du cercle, tuez le garde qui arrive, puis {npc:8578}.",
+	-- {object:151286} Kaldorei Tome of Summoning · {quest:3505} Betrayed · {npc:8578} Magus Rimtori
+	["The {object:151286} is the book inside the ring of stone pillars. For {quest:3505}, breaking the crystals around the circle brings a guard, then {npc:8578}."] = "",
 	-- {npc:8578} Magus Rimtori
 	["Find {npc:8578}'s camp"] = "Trouvez le camp de {npc:8578}",
 	-- {object:151286} Kaldorei Tome of Summoning
@@ -389,11 +389,16 @@ return {
 	-- ["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip this. {quest:819} lies on the ground at one of several spots in the central and northern {zone:1413}, most of them by the roads around the {area:380}; once someone takes it, it turns up at another. {npc:3292} in {area:392} pays 250 {faction:76} reputation for the keg and its first filling, then 50 for every filling after, as often as you like (10 at a fifth)."] = "Dans Classic, les quêtes de 6 niveaux ou plus sous le vôtre rapportent moins (un cinquième au niveau 60) ; un retour de la bêta de Forever dit qu'elles rapportaient en entier. Votre première remise vous le montrera : si elle rapporte un cinquième, sautez ceci. Le {quest:819} est posé au sol à l'un des nombreux endroits du centre et du nord des {zone:1413}, la plupart près des routes autour de {area:380} ; une fois que quelqu'un l'a pris, il réapparaît ailleurs. Le {npc:3292}, à {area:392}, rapporte 250 de réputation auprès d'{faction:76} pour le tonneau et son premier remplissage, puis 50 pour chaque remplissage suivant, aussi souvent que vous le voulez (10 à un cinquième).",
 	-- ["Keep handing in {quest:7832} until {faction:76} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Continuez à rendre {quest:7832} jusqu'à être exalté auprès de {faction:76}. {item:14047} : Adeptes noirs et Ombremages (niveau 58-60) en {zone:1423}, ou l'hôtel des ventes.",
 	-- ["Keep handing in {quest:7832}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Continuez à rendre {quest:7832}, 20 {item:14047} à la fois. {item:14047} : Adeptes noirs et Ombremages (niveau 58-60) en {zone:1423}, ou l'hôtel des ventes.",
+	-- ["Kill the Reclaimers and Surveyors, then walk up to the book inside the ring of stone pillars. Read the {object:151286} there to start the next quest: break the crystals around the circle, kill the guard that comes, then {npc:8578}."] = "Tuez les Récupérateurs et les Arpenteurs, puis allez jusqu'au livre au milieu du cercle de piliers de pierre. Lisez-y le {object:151286} pour lancer la quête suivante : brisez les cristaux autour du cercle, tuez le garde qui arrive, puis {npc:8578}.",
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "Les centaures kolkar (niveau 30-33) en laissent tomber ici. L'hôtel des ventes fonctionne aussi.",
 	-- ["Level 56-60 quests and {item:14047} to Exalted, with the old {zone:1411} quests as a fast extra if they still pay in full."] = "Quêtes de niveau 56-60 et {item:14047} jusqu'à Exalté, avec les anciennes quêtes de {zone:1411} en complément rapide si elles rapportent encore en entier.",
+	-- ["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "Les Rôdeurs des savanes se tiennent à l'ouest et au nord de la Croisée. {quest:876} dirige les harpies Ensorçaile loin au nord-ouest. Ensuite, {npc:3338} vous donne la {item:10327} : sonnez-la près des os de kodo de {object:147524}, au nord de la ville, et tuez le lion blanc.",
+	-- ["The Razormane camps and the supply crates are north-east of the town; {npc:267307}, an elite boar, sits deep in the {area:1699} cave there. The Witchwing harpies nest far to the north-west. The {npc:10668} lies north-east of {area:378}, in the south: right-click it. Raptors and plainstriders are everywhere."] = "Les camps Tranchecrin et les caisses de ravitaillement sont au nord-est de la ville ; {npc:267307}, un sanglier élite, se tient au fond de la grotte de la {area:1699}, par là. Les harpies Ensorçaile nichent loin au nord-ouest. Le {npc:10668} gît au nord-est du {area:378}, au sud : faites un clic droit dessus. Raptors et trotteurs des plaines sont partout.",
+	-- ["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "Les armes d'entraînement sont posées au sol dans la Tanière et parmi les sangliers au nord. Pour les péons : ciblez un {npc:10556} endormi et utilisez la {item:16114} sur lui.",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "Les Massacreurs de la KapitalRisk de {area:381} (niveau 16-17) en laissent tomber ici. L'hôtel des ventes fonctionne aussi.",
 	-- ["{npc:14726} takes cloth for {faction:76} in {faction:76}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7832} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14726} prend les étoffes pour {faction:76} à {faction:76}. Les premiers dons d'Etoffe de laine, d'Etoffe de soie, d'Etoffe de tisse-mage et de {item:14047} (60 étoffes chacun) ne se font qu'une fois et donnent le plus de réputation par étoffe ; ensuite, {quest:7832} se répète jusqu'à Exalté. Être exalté auprès de la ville d'une autre race permet d'acheter les montures de cette race. L'atout Diplomate de l'Héritage de Forever augmente les gains de réputation.",
 	-- ["{npc:14726}: {item:14047} delivered"] = "{npc:14726} : {item:14047} livrée",
+	-- ["{npc:3216} is in the {object:172960}. Tell him he may speak openly and click through his story."] = "{npc:3216} est dans la {object:172960}. Dites-lui qu'il peut parler librement et suivez toute son histoire.",
 	-- ["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay in full at 60 too, as every quest does in Forever."] = "{npc:4485} se tient dans la {object:172958}, devant {object:173084}. Les deux premières quêtes {quest:3504} sont de niveau 53 et rapportent elles aussi en entier au niveau 60, comme toute quête dans Forever.",
 	-- ["{quest:7832} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7832} prend 20 {item:14047} par remise et se répète autant que vous voulez. Apportez l'{item:14047} par multiples de 20 et rendez tout d'un coup, une remise après l'autre. {item:14047} : Adeptes noirs et Ombremages (niveau 58-60) en {zone:1423}, ou l'hôtel des ventes.",
 }

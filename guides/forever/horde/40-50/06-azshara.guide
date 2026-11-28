@@ -335,7 +335,9 @@ step Northspring harpies
 
 step Edana Hatetalon
   when group 3062
-  tip Edana Hatetalon (level 50, elite) roosts on the cliff just north of the harpies' nests. Clear the harpies around her first.
+  tip Edana Hatetalon (level 50, elite) roosts on the cliff just north of the harpies' nests, with harpies around her.
+  collect 9530
+  use 9530 quest 3062.1 @40.5,8.6 map 1444
   collect 9528 quest 3062.1 @40.5,8.6 map 1444
 
 step Rage Scar yetis

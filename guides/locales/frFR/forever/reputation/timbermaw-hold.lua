@@ -151,9 +151,9 @@ return {
 	-- Step 32: Mosshoof Coursers
 	-- plural, as words: Mosshoof Coursers = {npc:8761} Mosshoof Courser
 	["Mosshoof Coursers"] = "Coursiers Sabots-de-mousse",
-	-- {area:1225} Ursolan · {item:221199} Satyrweed Tincture
+	-- {area:1225} Ursolan · {item:235509} Satyrweed Tincture
 	-- plural, as words: Mosshoof Coursers = {npc:8761} Mosshoof Courser · Thunderhead Skystormers = {npc:6378} Thunderhead Skystormer
-	["The Mosshoof Coursers (52-53) and Thunderhead Skystormers (50-52) graze just east of {area:1225}: bring one low, then use the {item:221199} on it. Three times."] = "",
+	["The Mosshoof Coursers (52-53) and Thunderhead Skystormers (50-52) graze just east of {area:1225}, and the {item:235509} works on one brought low, three times."] = "",
 
 	-- Step 34: Furze
 	-- {npc:235909} Furze
@@ -223,16 +223,18 @@ return {
 
 	-- Step 47: The Root of All Evil
 	-- {npc:11555} Gorn One Eye · {npc:11557} Meilosh · {quest:8481} The Root of All Evil · {item:21144} Demon Summoning Torch · {npc:10738} High Chief Winterfall · {npc:15623} Xandivious · {item:21326} Defender of the Timbermaw
-	["At Exalted, {npc:11555}, in the tunnel by {npc:11557}, gives {quest:8481}: plant his {item:21144} in the mouth of {npc:10738}'s cave and defeat the demon {npc:15623} (level 62, elite: bring a group). The reward is {item:21326}, a trinket that calls a Timbermaw ally, and 200 reputation."] = "À Exalté, {npc:11555}, dans le tunnel près de {npc:11557}, donne {quest:8481} : plantez sa {item:21144} à l'entrée de la grotte de {npc:10738} et vainquez le démon {npc:15623} (niveau 62, élite : venez en groupe). La récompense est {item:21326}, un bijou qui appelle un allié grumegueule, et 200 de réputation.",
+	-- was: ["At Exalted, {npc:11555}, in the tunnel by {npc:11557}, gives {quest:8481}: plant his {item:21144} in the mouth of {npc:10738}'s cave and defeat the demon {npc:15623} (level 62, elite: bring a group). The reward is {item:21326}, a trinket that calls a Timbermaw ally, and 200 reputation."] = "À Exalté, {npc:11555}, dans le tunnel près de {npc:11557}, donne {quest:8481} : plantez sa {item:21144} à l'entrée de la grotte de {npc:10738} et vainquez le démon {npc:15623} (niveau 62, élite : venez en groupe). La récompense est {item:21326}, un bijou qui appelle un allié grumegueule, et 200 de réputation."
+	["At Exalted, {npc:11555}, in the tunnel by {npc:11557}, gives {quest:8481}: his {item:21144}, planted in the mouth of {npc:10738}'s cave, calls the demon {npc:15623} (level 62, elite, a group's fight). The reward is {item:21326}, a trinket that calls a Timbermaw ally, and 200 reputation."] = "",
 
 	-- Step 48: Xandivious
 	-- {area:2244} Winterfall Village · {npc:15623} Xandivious
-	["{area:2244}, the cave at the back. Clear the furbolgs around the mouth first, plant the torch, kill {npc:15623} and loot the Essence from his Demon Bag."] = "{area:2244}, la grotte du fond. Nettoyez d'abord les furbolgs autour de l'entrée, plantez la torche, tuez {npc:15623} et prenez l'essence dans son sac démoniaque.",
+	["{area:2244}, the cave at the back, with furbolgs around its mouth. The torch planted there calls {npc:15623}, and the Essence is in his Demon Bag."] = "",
 	-- {npc:15623} Xandivious
 	["{npc:15623}, 25 reputation"] = "{npc:15623}, 25 de réputation",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Alternate Deadwood feathers ({npc:15395}) and Winterfall beads ({npc:11556}), whichever camp is less crowded."] = "Alternez plumes Mort-bois ({npc:15395}) et perles Tombe-hiver ({npc:11556}), selon le camp le moins fréquenté.",
+	-- ["At Exalted, {npc:11555}, in the tunnel by {npc:11557}, gives {quest:8481}: plant his {item:21144} in the mouth of {npc:10738}'s cave and defeat the demon {npc:15623} (level 62, elite: bring a group). The reward is {item:21326}, a trinket that calls a Timbermaw ally, and 200 reputation."] = "À Exalté, {npc:11555}, dans le tunnel près de {npc:11557}, donne {quest:8481} : plantez sa {item:21144} à l'entrée de la grotte de {npc:10738} et vainquez le démon {npc:15623} (niveau 62, élite : venez en groupe). La récompense est {item:21326}, un bijou qui appelle un allié grumegueule, et 200 de réputation.",
 	-- ["Deadwood furbolgs (level 48-50) camp at the southern end of {zone:1448}. Keep every {item:21377} they drop: {npc:11554} and {npc:15395} take them later."] = "Les furbolgs Mort-bois (niveau 48-50) campent à l'extrémité sud de {zone:1448}. Gardez chaque {item:21377} qu'ils lâchent : {npc:11554} et {npc:15395} les prennent plus tard.",
 	-- ["Feathers and beads to Friendly"] = "Plumes et perles jusqu'à Amical",
 	-- ["Feathers for {npc:11554} and Feathers for {npc:15395} (Deadwood Headdress Feathers) and Beads for {npc:11556} ({item:21383}) repeat as often as you like; every Deadwood or Winterfall kill counts as well. {area:2244} is the densest bead spot."] = "Des plumes pour {npc:11554} et Des plumes pour {npc:15395} (Coiffures de plumes mort-bois) et Des perles pour {npc:11556} ({item:21383}) se répètent à volonté ; chaque Mort-bois ou Tombe-hiver tué compte aussi. Le {area:2244} est le meilleur endroit pour les perles.",
@@ -242,6 +244,7 @@ return {
 	-- ["The northern Deadwood (level 53-55) hold the camps just south of the tunnel. Keep their feathers too."] = "Les Mort-bois du nord (niveau 53-55) tiennent les camps juste au sud du tunnel. Gardez aussi leurs plumes.",
 	-- ["The northern Deadwood camps by the tunnel are the densest feather spot (35% drop chance there). Hand feathers to {npc:15395} at the tunnel, or to {npc:11554} in the south."] = "Les camps Mort-bois du nord près du tunnel sont le meilleur endroit pour les plumes (35 % de chances de butin). Donnez les plumes à {npc:15395} au tunnel, ou à {npc:11554} au sud.",
 	-- ["{area:2244} sits on the eastern side of {zone:1452}. Keep every {item:21383} you loot: {npc:11556} takes them."] = "Le {area:2244} est à l'est de {zone:1452}. Gardez chaque {item:21383} ramassée : {npc:11556} les prend.",
+	-- ["{area:2244}, the cave at the back. Clear the furbolgs around the mouth first, plant the torch, kill {npc:15623} and loot the Essence from his Demon Bag."] = "{area:2244}, la grotte du fond. Nettoyez d'abord les furbolgs autour de l'entrée, plantez la torche, tuez {npc:15623} et prenez l'essence dans son sac démoniaque.",
 	-- ["{faction:576} starts out Hostile, and its furbolgs in the tunnels attack until you reach Unfriendly. Every Deadwood and Winterfall furbolg you kill raises it, so the quests below pay twice. Forever's Legacy Diplomat perk increases reputation gains."] = "{faction:576} commence Hostile, et ses furbolgs des tunnels attaquent jusqu'à ce que vous soyez Inamical. Chaque furbolg Mort-bois ou Tombe-hiver tué l'augmente : les quêtes ci-dessous rapportent donc deux fois. L'atout Diplomate de l'Héritage de Forever augmente les gains de réputation.",
 	-- ["{faction:576} to Exalted"] = "{faction:576} jusqu'à Exalté",
 	-- ["{faction:576} to Revered"] = "{faction:576} jusqu'à Révéré",

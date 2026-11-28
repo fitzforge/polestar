@@ -487,9 +487,12 @@ step Archmage Xylem
   accept 8251                         -- The blood elves are at the Thalassian Base Camp, on the way to Kim'jael
 
 step The Ruins of Eldarath
-  tip The Spitelash naga of the Ruins of Eldarath carry Some Rune. Tymor's runes stand among the ruins: use his Drawing Kit on each.
+  tip Spitelash naga guard the Ruins of Eldarath.
+  use 10445 quest 3449.1 @36.9,53.2 map 1447
   collect 10563 quest 3449.1          -- Rune of Beth'Amara
+  use 10445 quest 3449.2 @39.6,50.2 map 1447
   collect 10564 quest 3449.2          -- Rune of Jin'yael
+  use 10445 quest 3449.3 @39.4,55.5 map 1447
   collect 10565 quest 3449.3          -- Rune of Markri
 
 step Lord Sarthiss
@@ -547,6 +550,7 @@ step Ekkal
   turnin 86746
 
 step Rubbing: Rune of Sael'hai
+  use 10445 quest 3449.4 @42.4,64.2 map 1447
   collect 10566 quest 3449.4          -- Rune of Sael'hai
   collect 7972 quest 8256.1 only Priest -- Ichor of Undeath: the Lingering Highborne, about 10%
 

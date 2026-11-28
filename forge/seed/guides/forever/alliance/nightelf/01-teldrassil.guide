@@ -40,7 +40,7 @@ step The grells west of the tree
   collect 3297 quest 459.1
 
 step Back at Aldrassil
-  tip Shanda's quest, The Goddess Provides, asks for your two night elf racial spells: open your spellbook (P), cast Elune's Light and Shadowmeld once each, then hand it back to her.
+  tip Shanda's quest, The Goddess Provides, asks for the two night elf racial spells, Elune's Light and Shadowmeld, once each; both are in the spellbook (P).
   turnin 459                                  -- Tarindrella
   turnin 97977
   turnin 456                                  -- Conservator Ilthalaine
@@ -52,6 +52,8 @@ step Back at Aldrassil
   accept 3120 only Druid                      -- Conservator Ilthalaine: Verdant Sigil
   accept 916                                  -- Gilshalan Windwalker, on the tree's ramp
   accept 97979                                -- Shanda: in at the tree's front entrance and up the ramp; upstairs
+  cast 1259799 "Elune's Light"
+  cast 20580 "Shadowmeld"
   complete 97979
   note "The Goddess Provides: cast Elune's Light and Shadowmeld, then hand it back to Shanda"
   turnin 97979
@@ -525,13 +527,16 @@ step Dolanaar again
 
 step Taming the Beast
   only Hunter
-  tip Each of Dazalar's quests hands you a Taming Rod: use it on the beast he names, then bring the rod back to him in Dolanaar. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it.
+  tip Each of Dazalar's quests comes with a Taming Rod for the beast he names, and the rod goes back to him in Dolanaar. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it.
+  use 15921 quest 6063.1
   kill 1998 quest 6063.1 "Tame Webwood Lurker" -- Webwood Lurker: tame it with the Taming Rod
   turnin 6063                                 -- Dazalar
   accept 6101
+  use 15922 quest 6101.1
   kill 2043 quest 6101.1 "Tame Nightsaber Stalker" -- Nightsaber Stalker: tame it with the Taming Rod
   turnin 6101
   accept 6102
+  use 15923 quest 6102.1
   kill 1996 quest 6102.1 "Tame Strigid Screecher" -- Strigid Screecher: tame it with the Taming Rod
   turnin 6102                                 -- Tame Beast
   accept 6103                                 -- Jocaste in Darnassus takes it
@@ -775,9 +780,10 @@ step Rut'theran Village flight master
 step The Moonkin Stone
   only Druid
   zone Darkshore
-  tip Go back down to Rut'theran Village and fly to Auberdine. The Moonkin Stone stands in the hills just east of the village: use the Cenarion Moondust there, defeat Lunaclaw and speak to the Lunaclaw Spirit.
+  tip The Moonkin Stone stands in the hills just east of Auberdine. The Cenarion Moondust calls Lunaclaw there, and her spirit appears once she is defeated.
   fly "Auberdine"
   use 15208 @43.5,46.0                        -- Cenarion Moondust
+  talk 12144 quest 6001.1
   complete 6001
 
 step Auberdine flight master

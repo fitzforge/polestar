@@ -233,9 +233,10 @@ step Durotar
 step Telf Joolam
   only Orc,Troll,Tauren,Shaman
   zone Durotar
-  tip Back east over the bridge and up the trail to Telf's shrine again. Telf makes Fire Sapta from the tar and pouch. Use it by the brazier next to him to reveal the Minor Manifestation of Fire, kill it for the Glowing Ember, then place the ember in the brazier.
+  tip Telf's shrine is back east over the bridge and up the trail, and he makes Fire Sapta from the tar and pouch. The Sapta shows the Minor Manifestation of Fire by the brazier next to him, and its Glowing Ember goes into the brazier.
   turnin 1525
   accept 1526
+  use 6636 quest 1526.1 @38.5,58.9 map 1411
   collect 6655 quest 1526.1
   turnin 1526
   accept 1527
@@ -570,9 +571,13 @@ step Ratchet
 
 # ---------------------------------------------------------------- South-west: the Raptor Grounds, then the beach
 step Raptor nests
-  tip South-west from Ratchet across the plains to the Raptor Grounds: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a Sunscale Feather: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest.
+  tip Sunscale Scytheclaws guard the three nests. Most Sunscale raptors drop a Sunscale Feather, and each nest takes one.
+  collect 5165 x3
+  use 5165 quest 905.1 @52.6,46.1 map 1413
   interact 6907 quest 905.1
+  use 5165 quest 905.2 @52.0,46.5 map 1413
   interact 6908 quest 905.2
+  use 5165 quest 905.3 @52.5,46.6 map 1413
   interact 6906 quest 905.3
 
 step Raptor Grounds: kill these as you meet them
@@ -610,7 +615,8 @@ step The Crossroads
 
 step Dreadmist Peak
   only Tauren,Skyborne,Druid
-  tip Head north from the Crossroads to Dreadmist Peak and fill the Empty Dreadmist Peak Sampler at the Dreadmist Peak Pool, then back to Tonga Runetotem in the Crossroads. No Herbalism? Hula'mahi beside him sells Earthroot, three at a time until he restocks.
+  tip Hula'mahi beside Tonga Runetotem sells Earthroot, three at a time until he restocks.
+  use 15842 quest 6127.1 @48.4,18.9 only Tauren,Skyborne
   collect 15843 quest 6127.1 @48.4,18.9 only Tauren,Skyborne -- Filled Dreadmist Peak Sampler
   turnin 6127 only Tauren,Skyborne -- Tonga Runetotem
   accept 6128 only Tauren,Skyborne
@@ -695,9 +701,11 @@ step the Crossroads
 
 step Verog the Dervish
   zone The Barrens
-  tip Verog doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the Stagnant Oasis, south-east of the Crossroads. Keep killing them around the oasis until he appears. Test Tonga's seeds at the bubbling fissure on the oasis' east bank while you are there.
+  tip Verog doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the Stagnant Oasis.
   collect 5023 quest 851.1
+  use 5068 quest 877.1 @55.6,42.8
   interact 3737 quest 877.1           -- Underwater
+  use 15826 quest 6129.1 @56.9,39.0 map 1413 only Tauren,Skyborne,Druid
   kill 12296 quest 6129.1 "Cure Sickly Gazelle" only Tauren,Skyborne,Druid -- Sickly Gazelle: use the Curative Animal Salve on them; they roam the plains all around the Crossroads
 
 step Bristleback camps
@@ -1046,9 +1054,10 @@ step Cry of the Thunderhawk
 step Brine
   only Shaman
   zone The Barrens
-  tip Brine's hut stands on the ridge above the quilboar watering hole, south of Camp Taurajo: fill the Empty Brown Waterskin at the watering hole below it.
+  tip Brine's hut is on the ridge above the quilboar watering hole, south of Camp Taurajo.
   turnin 1530                         -- Brine
   accept 1535
+  use 7766 quest 1535.1 @44.3,76.8
   collect 7769 quest 1535.1 @44.3,76.8 -- Fill the Empty Brown Waterskin at the quilboar watering hole
   turnin 1535
   accept 1536                         -- Keep it: the Spring Well is beside Tarren Mill, on the Hillsbrad guide

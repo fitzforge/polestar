@@ -38,7 +38,8 @@ step Back to Thendal Village
   accept 92474                        -- Myriaal Mistwake
 
 step Rorian's errands
-  tip Jump off the top of the watchtower and use Walk on Air to float down to Rorian, west of the tower.
+  tip Walk on Air floats down from the top of the watchtower to Rorian, west of the tower.
+  cast 1259416 "Walk on Air"
   complete 92474 @43.7,24.1
   accept 92598                        -- Ventaari Brightwish
   turnin 92461                        -- Rorian the Dayseeker
@@ -583,9 +584,10 @@ step Zephras Isle
 step The Eternal Flame
   zone Zephras Isle
   only Shaman
-  tip Back to Olariaan. Wait for him to light the Brazier of Offering, then carry the flame straight to the Brazier of Eternal Flame beside Sessaria in Valanaar before the timer runs out.
+  tip Once taken, the Eternal Flame lasts six minutes, so the walk to the Brazier of Eternal Flame beside Sessaria in Valanaar has no room for detours. If it runs out, the quest can be taken again from Olariaan.
   turnin 97245                        -- Olariaan Swiftburn
   accept 97257
+  use 277329 quest 97257.1 @58.4,78.8
   complete 97257
   turnin 97257 reward 5176 263412     -- Sessaria Skystride: Searing Totem, your Fire Totem and the Totem of Charged Flames
 
@@ -730,7 +732,7 @@ step Seena Skybreaker
   turnin 94003                        -- Seena Skybreaker: Defensive Stance
 
 step Valanaar
-  tip Ayessa sends you on to Kalimdor. Once you have trained, board the skycutter at the dock on Valanaar's south-west edge: it flies to northern Mulgore, where Alaana Stormwalker waits.
+  tip Ayessa sends you on to Kalimdor. The skycutter at the dock on Valanaar's south-west edge flies to northern Mulgore, where Alaana Stormwalker waits.
   talk 252476 quest 93836.1 @66.17,76.51 -- talk to Talaanis Shadowsong
   turnin 93836                        -- Talaanis Shadowsong, upstairs
   accept 93090
@@ -768,13 +770,14 @@ step Class trainer
 
 step Traditions of the Bluff
   zone Thunder Bluff
-  tip Eylah Sunhorn wants tauren incense: buy its four parts from Nida the herbalist, Nata the enchanting supplier, Mahu the leatherworking supplier and Naal the cooking supplier, then combine them into Prepared Incense.
+  tip Eylah Sunhorn wants tauren incense, made from four parts that Nida the herbalist, Nata the enchanting supplier, Mahu the leatherworking supplier and Naal the cooking supplier sell.
   getfp "Thunder Bluff"
   accept 97485                        -- Eylah Sunhorn
   buy 278079 x1 npc 3014              -- Bundle of Herbs, from Nida Winterhoof
   buy 278080 x1 npc 3012              -- Bundle of Dried Cedar Twigs, from Nata Dawnstrider
   buy 278081 x1 npc 3005              -- Sinew Thread, from Mahu
   buy 278083 x1 npc 3027              -- Ceremonial Flint and Tinder, from Naal Mistrunner
+  use 278079 quest 97485.1
 
 step Turak Runetotem
   only Druid

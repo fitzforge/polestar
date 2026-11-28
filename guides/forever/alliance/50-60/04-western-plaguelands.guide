@@ -259,11 +259,12 @@ step Pamela Redpath
   accept 5149
 
 step Pamela's doll
-  tip The three pieces of the doll lie in the ruined houses of Darrowshire; picking one up can call out ghosts. Combine them into the doll.
+  tip The three doll pieces are in the ruined houses of Darrowshire. Picking one up can call out ghosts.
   goto 36.4,90.8
   collect 12886 x1 optional           -- Pamela's Doll's Head; inside
   collect 12887 x1 optional           -- Pamela's Doll's Left Side
   collect 12888 x1 optional           -- Pamela's Doll's Right Side; inside
+  use 12886 quest 5149.1 @36.4,90.8 optional
   complete 5149
 
 step Pamela Redpath
@@ -545,8 +546,8 @@ step Aurora Skycaller
 
 step Plaguewood: kill these as you meet them
   zone Eastern Plaguelands
-  tip West through the Plaguewood to Terrordale: fill the Empty Termite Jar at the big termite mounds, and kill the Frenzied Plaguehounds and the Carrion Devourers on the way.
-  tip Careful: the Frenzied Plaguehounds are 57-58: pull them one at a time.
+  tip The Frenzied Plaguehounds are level 57-58, so pulling more than one is dangerous.
+  use 15042 quest 5903.1 @42.2,23.9 map 1423 live
   collect 15043 quest 5903.1          -- Plagueland Termites
   kill 8598 quest 5542.3              -- Frenzied Plaguehound
   collect 13853 quest 5544.1          -- Slab of Carrion Worm Meat

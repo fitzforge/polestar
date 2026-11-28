@@ -35,7 +35,7 @@ return {
 
 	-- Step 7: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
-	["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "Dorius steht an der Straße neben der {area:247}. Eskortiere ihn nach Nordosten nach {area:1959} und halte ihn am Leben; wenn es vorbei ist, lies den {object:175704}, den er auf der Straße zurücklässt.",
+	["Dorius stands by the road beside the {area:247}. The escort runs north-east to {area:1959}, and the {object:175704} he leaves on the road takes the hand-in."] = "",
 	-- {npc:8256} Curator Thorius · {zone:1455} Ironforge
 	["For {npc:8256} in {zone:1455}, at the end of this guide"] = "Für {npc:8256} in {zone:1455}, am Ende dieses Guides",
 
@@ -137,9 +137,8 @@ return {
 	-- Step 37: Sentry Braziers
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Sentry Braziers"] = "Wachkohlenbecken",
-	-- {object:149047} Torch of Retribution
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
-	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "Trag die {object:149047} am Rand des Kessels entlang nach Süden und entzünde die vier Wachkohlenbecken, vom Südwesten herum bis zum Südosten.",
+	["The four Sentry Braziers sit along the rim of the Cauldron, from the south-west round to the south-east."] = "",
 
 	-- Step 38: Level 48.98
 	["Level 48.98"] = "Stufe 48,98",
@@ -182,7 +181,9 @@ return {
 	["Xiggs waits in the {object:32359}."] = "Xiggs wartet im {object:32359}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "Trag die {object:149047} am Rand des Kessels entlang nach Süden und entzünde die vier Wachkohlenbecken, vom Südwesten herum bis zum Südosten.",
 	-- ["Dark Iron dwarves: kill these as you meet them"] = "Dunkeleisenzwerge: Töte diese, sobald sie dir begegnen",
+	-- ["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "Dorius steht an der Straße neben der {area:247}. Eskortiere ihn nach Nordosten nach {area:1959} und halte ihn am Leben; wenn es vorbei ist, lies den {object:175704}, den er auf der Straße zurücklässt.",
 	-- ["For {npc:8256} in {area:1537}, later"] = "Für {npc:8256} in {area:1537}, später",
 	-- ["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {zone:1427}. {area:1446} is the scaffolded camp on the north-west rim."] = "Reite von {area:144} nach Süden ins {zone:1418}, dann nach Westen an der Hordestadt {area:340} vorbei (halte Abstand) und den Pfad hinauf in die {zone:1427}. Die {area:1446} ist das eingerüstete Lager am Nordwestrand.",
 	-- ["Greater Lava Spiders"] = "Versengende Lavaspinnen",

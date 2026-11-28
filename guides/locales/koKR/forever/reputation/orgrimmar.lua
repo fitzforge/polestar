@@ -32,8 +32,7 @@ return {
 
 	-- Step 3: Boars, weapons and peons
 	["Boars, weapons and peons"] = "멧돼지, 무기, 일꾼",
-	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
-	["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "훈련용 무기는 굴 안과 북쪽 멧돼지 사이의 땅에 놓여 있습니다. 일꾼에게는: 자고 있는 {npc:10556}을(를) 대상으로 삼고 {item:16114}을(를) 그것에 사용하십시오.",
+	["The training weapons lie on the ground in the Den and among the boars to the north."] = "",
 	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
 	["{npc:10556}: hit it with the {item:16114}"] = "{npc:10556}: {item:16114}(으)로 때리십시오",
 	-- {npc:10556} Lazy Peon
@@ -107,7 +106,7 @@ return {
 	-- {faction:76} Orgrimmar · {npc:4949} Thrall · {npc:3216} Neeru Fireblade
 	["{faction:76}: {npc:4949} and {npc:3216}"] = "{faction:76}: {npc:4949}과(와) {npc:3216}",
 	-- {npc:3216} Neeru Fireblade · {object:172960} Cleft of Shadow
-	["{npc:3216} is in the {object:172960}. Tell him he may speak openly and click through his story."] = "{npc:3216}은(는) {object:172960} 안에 있습니다. 그가 공개적으로 말할 수 있다고 전하고 이야기를 클릭해 넘기십시오.",
+	["{npc:3216} is in the {object:172960}, and his whole story counts once he is told he may speak openly."] = "",
 	-- {npc:3216} Neeru Fireblade
 	["{npc:3216}: hear him out"] = "{npc:3216}: 이야기 듣기",
 
@@ -206,7 +205,8 @@ return {
 	-- Step 34: Around the Crossroads
 	["Around the Crossroads"] = "크로스로드 주변",
 	-- {npc:267307} Chol'aruk · {area:1699} Thorn Hill · {npc:10668} Beaten Corpse · {area:378} Camp Taurajo
-	["The Razormane camps and the supply crates are north-east of the town; {npc:267307}, an elite boar, sits deep in the {area:1699} cave there. The Witchwing harpies nest far to the north-west. The {npc:10668} lies north-east of {area:378}, in the south: right-click it. Raptors and plainstriders are everywhere."] = "레이저메인 야영지와 보급 상자는 마을 북동쪽에 있습니다. 정예 멧돼지 {npc:267307}은(는) 그곳 {area:1699} 동굴 안쪽 깊은 곳에 앉아 있습니다. 칼날바람일족 하피는 훨씬 북서쪽에 둥지를 튑니다. {npc:10668}은(는) {area:378} 북동쪽, 남쪽에 있습니다: 클릭하십시오. 랩터와 들평원조류는 사방에 있습니다.",
+	-- was: ["The Razormane camps and the supply crates are north-east of the town; {npc:267307}, an elite boar, sits deep in the {area:1699} cave there. The Witchwing harpies nest far to the north-west. The {npc:10668} lies north-east of {area:378}, in the south: right-click it. Raptors and plainstriders are everywhere."] = "레이저메인 야영지와 보급 상자는 마을 북동쪽에 있습니다. 정예 멧돼지 {npc:267307}은(는) 그곳 {area:1699} 동굴 안쪽 깊은 곳에 앉아 있습니다. 칼날바람일족 하피는 훨씬 북서쪽에 둥지를 튑니다. {npc:10668}은(는) {area:378} 북동쪽, 남쪽에 있습니다: 클릭하십시오. 랩터와 들평원조류는 사방에 있습니다."
+	["The Razormane camps and the supply crates are north-east of the town; {npc:267307}, an elite boar, sits deep in the {area:1699} cave there. The Witchwing harpies nest far to the north-west. The {npc:10668} lies north-east of {area:378}, in the south. Raptors and plainstriders are everywhere."] = "",
 	-- {npc:10668} Beaten Corpse
 	["{npc:10668}: right-click it"] = "{npc:10668}: 클릭하십시오",
 
@@ -228,9 +228,9 @@ return {
 	-- Step 38: Prowlers, Serena Bloodfeather and Echeyakee
 	-- {npc:3452} Serena Bloodfeather · {quest:881} Echeyakee
 	["Prowlers, {npc:3452} and {quest:881}"] = "밀렵꾼, {npc:3452}, 그리고 {quest:881}",
-	-- {quest:876} Serena Bloodfeather · {npc:3338} Sergra Darkthorn · {item:10327} Horn of Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
+	-- {quest:876} Serena Bloodfeather · {quest:881} Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
 	-- plural, as words: Savannah Prowlers = {npc:3425} Savannah Prowler
-	["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "굶주린 사바나 사자는 크로스로드 서쪽과 북쪽에 있습니다. {quest:876}은(는) 훨씬 북서쪽의 칼날바람일족 하피로 안내합니다. 다음 {npc:3338}이(가) {item:10327}을(를) 줍니다: 마을 북쪽 {object:147524}의 코도 뼈 옆에서 불어 넣고 흰 사자를 처치하십시오.",
+	["Savannah Prowlers roam west and north of the Crossroads, and {quest:876} leads the Witchwing harpies in the far north-west. {quest:881}, a white lion, appears at the kodo bones of {object:147524}, north of the town."] = "",
 
 	-- Step 39: Chen's Empty Keg (optional hub)
 	-- {quest:819} Chen's Empty Keg
@@ -334,8 +334,8 @@ return {
 	-- Step 55: Magus Rimtori's camp
 	-- {npc:8578} Magus Rimtori
 	["{npc:8578}'s camp"] = "{npc:8578}의 야영지",
-	-- {object:151286} Kaldorei Tome of Summoning · {npc:8578} Magus Rimtori
-	["Kill the Reclaimers and Surveyors, then walk up to the book inside the ring of stone pillars. Read the {object:151286} there to start the next quest: break the crystals around the circle, kill the guard that comes, then {npc:8578}."] = "되찾이와 측량사를 처치한 다음 돌기둥 원 안의 책으로 다가가십시오. 거기서 {object:151286}을(를) 읽어 다음 퀘스트를 시작하십시오: 원 주위의 수정을 부수고, 나타나는 경비를 처치한 다음 {npc:8578}에게 가십시오.",
+	-- {object:151286} Kaldorei Tome of Summoning · {quest:3505} Betrayed · {npc:8578} Magus Rimtori
+	["The {object:151286} is the book inside the ring of stone pillars. For {quest:3505}, breaking the crystals around the circle brings a guard, then {npc:8578}."] = "",
 	-- {npc:8578} Magus Rimtori
 	["Find {npc:8578}'s camp"] = "{npc:8578}의 야영지 찾기",
 	-- {object:151286} Kaldorei Tome of Summoning
@@ -383,9 +383,14 @@ return {
 	-- ["Dunemaul ogres (level 45-48) drop it here. The Auction House works too."] = "이곳의 모래망치 오우거(레벨 45-48)가 떨어뜨립니다. 경매장도 이용할 수 있습니다.",
 	-- ["Keep handing in {quest:7832} until {faction:76} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{faction:76}와(과) 확고한 동맹이 될 때까지 {quest:7832}을(를) 계속 제출하십시오. {item:14047}: {zone:1423}의 암흑의 수행사제와 어둠마법사(레벨 58-60) 또는 경매장.",
 	-- ["Keep handing in {quest:7832}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{item:14047} 20개씩 {quest:7832}을(를) 계속 제출하십시오. {item:14047}: {zone:1423}의 암흑의 수행사제와 어둠마법사(레벨 58-60) 또는 경매장.",
+	-- ["Kill the Reclaimers and Surveyors, then walk up to the book inside the ring of stone pillars. Read the {object:151286} there to start the next quest: break the crystals around the circle, kill the guard that comes, then {npc:8578}."] = "되찾이와 측량사를 처치한 다음 돌기둥 원 안의 책으로 다가가십시오. 거기서 {object:151286}을(를) 읽어 다음 퀘스트를 시작하십시오: 원 주위의 수정을 부수고, 나타나는 경비를 처치한 다음 {npc:8578}에게 가십시오.",
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "콜카르 켄타우로스(레벨 30-33)가 떨어뜨립니다. 경매장도 이용할 수 있습니다.",
+	-- ["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "굶주린 사바나 사자는 크로스로드 서쪽과 북쪽에 있습니다. {quest:876}은(는) 훨씬 북서쪽의 칼날바람일족 하피로 안내합니다. 다음 {npc:3338}이(가) {item:10327}을(를) 줍니다: 마을 북쪽 {object:147524}의 코도 뼈 옆에서 불어 넣고 흰 사자를 처치하십시오.",
+	-- ["The Razormane camps and the supply crates are north-east of the town; {npc:267307}, an elite boar, sits deep in the {area:1699} cave there. The Witchwing harpies nest far to the north-west. The {npc:10668} lies north-east of {area:378}, in the south: right-click it. Raptors and plainstriders are everywhere."] = "레이저메인 야영지와 보급 상자는 마을 북동쪽에 있습니다. 정예 멧돼지 {npc:267307}은(는) 그곳 {area:1699} 동굴 안쪽 깊은 곳에 앉아 있습니다. 칼날바람일족 하피는 훨씬 북서쪽에 둥지를 튑니다. {npc:10668}은(는) {area:378} 북동쪽, 남쪽에 있습니다: 클릭하십시오. 랩터와 들평원조류는 사방에 있습니다.",
+	-- ["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "훈련용 무기는 굴 안과 북쪽 멧돼지 사이의 땅에 놓여 있습니다. 일꾼에게는: 자고 있는 {npc:10556}을(를) 대상으로 삼고 {item:16114}을(를) 그것에 사용하십시오.",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "{area:381}의 투자개발회사 집행자(레벨 16-17)가 떨어뜨립니다. 경매장도 이용할 수 있습니다.",
 	-- ["{npc:14726} takes cloth for {faction:76} in {faction:76}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7832} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14726}은(는) {faction:76}에서 {faction:76}을(를) 위한 옷감을 받습니다. 양모, 비단, 마법 옷감, {item:14047}의 첫 기부(각 옷감 60개)는 한 번만 할 수 있고 옷감당 평판이 가장 많습니다. 그 뒤로는 {quest:7832}을(를) 확고한 동맹까지 반복합니다. 다른 종족의 도시와 확고한 동맹이 되면 그 종족의 탈것을 구매할 수 있습니다. Forever의 외교관 유산 특전은 평판 획득량을 늘려 줍니다.",
 	-- ["{npc:14726}: {item:14047} delivered"] = "{npc:14726}: {item:14047} 기부 완료",
+	-- ["{npc:3216} is in the {object:172960}. Tell him he may speak openly and click through his story."] = "{npc:3216}은(는) {object:172960} 안에 있습니다. 그가 공개적으로 말할 수 있다고 전하고 이야기를 클릭해 넘기십시오.",
 	-- ["{quest:7832} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7832}은(는) 한 번에 {item:14047} 20개를 받으며 원하는 만큼 반복할 수 있습니다. {item:14047}을(를) 20개 단위로 가져와 한 번에 연달아 모두 제출하십시오. {item:14047}: {zone:1423}의 암흑의 수행사제와 어둠마법사(레벨 58-60) 또는 경매장.",
 }

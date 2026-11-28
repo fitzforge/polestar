@@ -383,7 +383,7 @@ return {
 	-- Step 66: Taming the Beast
 	-- {item:15908} Taming Rod · {area:131} Kharanos
 	-- plural, as words: Large Crag Boars = {npc:1126} Large Crag Boar · Snow Leopards = {npc:1201} Snow Leopard · Ice Claw Bears = {npc:1196} Ice Claw Bear
-	["Each of Grif Wildheart's quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him at the {area:131} smithy. Large Crag Boars, Snow Leopards and Ice Claw Bears all roam the fields just south and east of {area:131}."] = "Chaque quête de Grif Wildheart vous donne un {item:15908} : utilisez-le sur la bête qu'il désigne, puis rapportez-lui le bâtonnet à la forge de {area:131}. Les Grands sangliers des rochers, les Léopards des neiges et les Ours Griffeglace parcourent tous les champs juste au sud et à l'est de {area:131}.",
+	["Each of Grif Wildheart's quests comes with a {item:15908} for the beast he names, and the rod goes back to him at the {area:131} smithy. Large Crag Boars, Snow Leopards and Ice Claw Bears all roam the fields just south and east of {area:131}."] = "",
 	-- {npc:1231} Grif Wildheart
 	["{npc:1231}, at the smithy"] = "{npc:1231}, à la forge",
 	-- {npc:1126} Large Crag Boar · {item:15908} Taming Rod
@@ -657,10 +657,8 @@ return {
 	-- Step 127: Tram to Stormwind
 	-- {zone:1453} Stormwind
 	["Tram to {zone:1453}"] = "Tram pour {zone:1453}",
-	-- {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:12997} Monty · {item:17117} Rat Catcher's Flute · {npc:13018} Nipsy · {zone:1453} Stormwind
-	-- plural, as words: Deeprun Rats = {npc:13016} Deeprun Rat
-	-- was: ["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end."] = "Sur le quai de {zone:1455} du {area:2257}, {npc:12997} demande de l'aide contre les rats : utilisez son {item:17117} sur les Rats des profondeurs autour du quai, rendez-les-lui, puis portez sa lettre à son frère {npc:13018}, au bout du côté de {zone:1453}."
-	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end. The tram has no map inside. The city markers show the entrances, not the two brothers."] = "",
+	-- {npc:12997} Monty · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:13018} Nipsy · {zone:1453} Stormwind
+	["{npc:12997} is on the {zone:1455} platform of the {area:2257}, and his brother {npc:13018} is at the {zone:1453} end. The tram has no map inside, so the city markers show the entrances, not the brothers."] = "",
 	-- {npc:12997} Monty · {zone:1455} Ironforge
 	["{npc:12997}, on the {zone:1455} platform"] = "{npc:12997}, sur le quai de {zone:1455}",
 	-- {npc:13016} Deeprun Rat · {item:17117} Rat Catcher's Flute
@@ -726,6 +724,7 @@ return {
 	-- ["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls. {area:40} is next, west of {area:87}."] = "Retournez voir {npc:6122}. Utilisez le {item:6928} au cercle d'invocation dans la cave de l'{object:2164} et vainquez le marcheur du Vide qu'il appelle. La {area:40} est la suite, à l'ouest de {area:87}.",
 	-- ["Class trainer"] = "Maître de classe",
 	-- ["Defensive Stance"] = "Posture défensive",
+	-- ["Each of Grif Wildheart's quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him at the {area:131} smithy. Large Crag Boars, Snow Leopards and Ice Claw Bears all roam the fields just south and east of {area:131}."] = "Chaque quête de Grif Wildheart vous donne un {item:15908} : utilisez-le sur la bête qu'il désigne, puis rapportez-lui le bâtonnet à la forge de {area:131}. Les Grands sangliers des rochers, les Léopards des neiges et les Ours Griffeglace parcourent tous les champs juste au sud et à l'est de {area:131}.",
 	-- ["East along the hills to the mine at the north end of the loch: the Miners' League crates sit in its tunnels, among more Tunnel Rats."] = "À l'est le long des collines jusqu'à la mine au nord du loch : les caisses de la Ligue des mineurs se trouvent dans ses tunnels, parmi d'autres Rats des tunnels.",
 	-- ["East through the South Gate tunnel into {zone:1432}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "À l'est par le tunnel de la porte Sud jusqu'au {zone:1432}. {npc:1089} et {npc:1092} se tiennent au poste nain juste après.",
 	-- ["Flintfire's shipments lie on the cave floor, and {npc:278166} is missing somewhere inside.\nCareful: Wendigos stand close together inside the cave, so fights easily pull several at once; drawing them out one at a time with ranged attacks from outside avoids this."] = "Les cargaisons de Tognus reposent sur le sol de la grotte, et {npc:278166} a disparu quelque part à l'intérieur.\nAttention : les wendigos se tiennent serrés dans la grotte, les combats en attirent donc facilement plusieurs à la fois ; les attirer un par un avec des attaques à distance depuis l'extérieur évite ce problème.",

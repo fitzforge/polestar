@@ -16,13 +16,13 @@ return {
 	-- {quest:5401} Argent Dawn Commission
 	["{quest:5401} (Alliance)"] = "{quest:5401}（聯盟）",
 	-- {npc:10840} Argent Officer Pureheart · {area:3197} Chillwind Camp · {zone:1422} Western Plaguelands · {object:2160} The Argent Dawn · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel
-	["{npc:10840} stands in {area:3197}, in the south of the {zone:1422}. {object:2160} starts at Neutral 200 for everyone. Wear the Commission trinket while you fight the Scourge: Scourgestones only drop while you wear it. {npc:11039} at {area:2268} gives the same Commission; you can only take one."] = "{npc:10840}站在{area:3197}，在{zone:1422}南部。{object:2160}對所有人從中立200開始。打天災時戴上委任狀飾品：只有戴著它天災石才會掉落。{area:2268}的{npc:11039}給同樣的委任狀；你只能拿一個。",
+	["{npc:10840} stands in {area:3197}, in the south of the {zone:1422}. {object:2160} starts at Neutral 200 for everyone. Scourgestones only drop while the Commission trinket is worn. {npc:11039} at {area:2268} gives the same Commission; only one can be taken."] = "",
 
 	-- Step 2: Argent Dawn Commission (Horde)
 	-- {quest:5405} Argent Dawn Commission
 	["{quest:5405} (Horde)"] = "{quest:5405}（部落）",
 	-- {npc:10839} Argent Officer Garush · {area:152} Bulwark · {zone:1420} Tirisfal Glades · {zone:1422} Western Plaguelands · {object:2160} The Argent Dawn · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel
-	["{npc:10839} stands at the {area:152}, on the road from {zone:1420} into the {zone:1422}. {object:2160} starts at Neutral 200 for everyone. Wear the Commission trinket while you fight the Scourge: Scourgestones only drop while you wear it. {npc:11039} at {area:2268} gives the same Commission; you can only take one."] = "{npc:10839}站在{area:152}，位於從{zone:1420}進入{zone:1422}的路上。{object:2160}對所有人從中立200開始。打天災時戴上委任狀飾品：只有戴著它天災石才會掉落。{area:2268}的{npc:11039}給同樣的委任狀；你只能拿一個。",
+	["{npc:10839} stands at the {area:152}, on the road from {zone:1420} into the {zone:1422}. {object:2160} starts at Neutral 200 for everyone. Scourgestones only drop while the Commission trinket is worn. {npc:11039} at {area:2268} gives the same Commission; only one can be taken."] = "",
 
 	-- Step 3: Neutral to Friendly: Scourge of the Western Plaguelands
 	-- {zone:1422} Western Plaguelands
@@ -162,6 +162,8 @@ return {
 	-- ["Minion's Scourgestones to Friendly"] = "爪牙的天譴石到友好",
 	-- ["Run {area:2279} (both wings) and {area:2057}, killing every Scourge you pass."] = "跑{area:2279}（兩個區域）和{area:2057}，擊殺沿途每一隻天譴軍團。",
 	-- ["{faction:529} to Exalted"] = "{faction:529}到崇拜",
+	-- ["{npc:10839} stands at the {area:152}, on the road from {zone:1420} into the {zone:1422}. {object:2160} starts at Neutral 200 for everyone. Wear the Commission trinket while you fight the Scourge: Scourgestones only drop while you wear it. {npc:11039} at {area:2268} gives the same Commission; you can only take one."] = "{npc:10839}站在{area:152}，位於從{zone:1420}進入{zone:1422}的路上。{object:2160}對所有人從中立200開始。打天災時戴上委任狀飾品：只有戴著它天災石才會掉落。{area:2268}的{npc:11039}給同樣的委任狀；你只能拿一個。",
+	-- ["{npc:10840} stands in {area:3197}, in the south of the {zone:1422}. {object:2160} starts at Neutral 200 for everyone. Wear the Commission trinket while you fight the Scourge: Scourgestones only drop while you wear it. {npc:11039} at {area:2268} gives the same Commission; you can only take one."] = "{npc:10840}站在{area:3197}，在{zone:1422}南部。{object:2160}對所有人從中立200開始。打天災時戴上委任狀飾品：只有戴著它天災石才會掉落。{area:2268}的{npc:11039}給同樣的委任狀；你只能拿一個。",
 	-- ["{object:2160} starts out Neutral. Take the Commission from {npc:10839} at {area:152} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "{object:2160}初始為中立。向{area:152}的{npc:10839}領取委任狀並裝備：在經典版中，只有裝備{quest:5401}飾品時才會掉落天譴石。Forever的傳承外交官天賦可提高聲望獲取。",
 	-- ["{object:2160} starts out Neutral. Take the Commission from {npc:10840} at {area:3197} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "{object:2160}初始為中立。向{area:3197}的{npc:10840}領取委任狀並裝備：在經典版中，只有裝備{quest:5401}飾品時才會掉落天譴石。Forever的傳承外交官天賦可提高聲望獲取。",
 	-- ["{quest:5401} (Horde)"] = "{quest:5401}（部落）",

@@ -34,8 +34,8 @@ return {
 	-- Step 10: The Moonkin Stone
 	-- {object:177525} Moonkin Stone
 	["The {object:177525}"] = "{object:177525}",
-	-- {area:702} Rut'theran Village · {area:442} Auberdine · {object:177525} Moonkin Stone · {item:15208} Cenarion Moondust · {npc:12144} Lunaclaw Spirit
-	["Fly from {area:702} to {area:442}. The {object:177525} stands inside the nearest moonkin cave east of the village: the northern of two small rock-pile caves where the {area:442} road meets the main north-south road. Moonkin (level 11-13) stand outside, the cave is empty: slip past them. Use the {item:15208} by the stone: Lunaclaw (level 12-13) walks in towards you and stays three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Another druid's Lunaclaw gives you the spirit too."] = "從{area:702}飛往{area:442}。{object:177525}立在村子東邊最近的梟獸洞穴裡：那是兩處小石堆洞穴的北面一個，就在{area:442}道路與南北主路的交匯處。梟獸（11-13級）守在外邊，洞穴裡沒有人：繞過它們。在石旁使用{item:15208}：月爪（12-13級）會朝你走來，停留三分鐘。殺死她，然後與出現的{npc:12144}交談，討要她身體與心靈的力量：對話即算完成。其他德魯伊的月爪也能給你那份精魂。",
+	-- {object:177525} Moonkin Stone · {area:442} Auberdine · {item:15208} Cenarion Moondust
+	["The {object:177525} stands inside the nearest moonkin cave east of {area:442}: the northern of two small rock-pile caves where the {area:442} road meets the main north-south road. Moonkin (level 11-13) stand outside, and the cave is empty. The {item:15208} calls Lunaclaw (level 12-13), who stays three minutes, and the talk with her spirit afterwards, asking for the strength of her body and heart, is the credit. Another druid's Lunaclaw gives you the spirit too."] = "",
 
 	-- Step 11: Body and Heart
 	-- {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker
@@ -58,8 +58,8 @@ return {
 	["Speak with the {quest:5930}"] = "與{quest:5930}交談",
 
 	-- Step 18: The Moonkin Stone
-	-- {object:177525} Moonkin Stone · {zone:1413} Barrens · {area:378} Camp Taurajo · {zone:1412} Mulgore · {item:15710} Cenarion Lunardust · {npc:12144} Lunaclaw Spirit
-	["The {object:177525} stands in the {zone:1413} just south-west of {area:378}, by the road out of {zone:1412}. Level 20 Thunderheads roam close by: clear the way first. Use the {item:15710} by the stone: Lunaclaw (level 12-13) appears for three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Die in the fight? Lunaclaw stays by the stone: run back and finish her."] = "{object:177525}立在{zone:1413}，就在{area:378}西南，位於離開{zone:1412}的路上。20級的Thunderheads在附近遊蕩：先把路清乾淨。在石旁使用{item:15710}：月爪（12-13級）會現身三分鐘。殺死她，然後與出現的{npc:12144}交談，討要她身體與心靈的力量：對話即算完成。戰鬥裡死了？月爪仍守在石旁：跑回去把她了結。",
+	-- {object:177525} Moonkin Stone · {zone:1413} Barrens · {area:378} Camp Taurajo · {zone:1412} Mulgore · {item:15710} Cenarion Lunardust
+	["The {object:177525} stands in the {zone:1413} just south-west of {area:378}, by the road out of {zone:1412}. Level 20 Thunderheads roam close by. The {item:15710} calls Lunaclaw (level 12-13) for three minutes, and the talk with her spirit afterwards, asking for the strength of her body and heart, is the credit. After a death in the fight, Lunaclaw stays by the stone."] = "",
 
 	-- Step 19: Body and Heart
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise
@@ -124,8 +124,10 @@ return {
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn the {area:493} flight path, then fly to {area:702} (by way of {area:442}) and take the portal up to {zone:1457}."] = "施放{spell:18960}。{npc:11802}在{area:2361}；{quest:5929}在西北方的樹林中。學會{area:493}的飛行路線，然後飛往{area:702}（經由{area:442}），走傳送門上到{zone:1457}。",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5930} sits in the woods to the north-west. {npc:11798} in {area:2361} flies druids to {area:1638}."] = "施放{spell:18960}。{npc:11802}在{area:2361}；{quest:5930}在西北方的樹林中。{area:2361}的{npc:11798}會載德魯伊飛往{area:1638}。",
 	-- ["Fly from {area:702} to {area:442}. The {object:177525} stands in the hills just east of the village: use the {item:15208} there, defeat Lunaclaw and speak to the {npc:12144}."] = "從{area:702}飛往{area:442}。{object:177525}位於村莊東邊不遠處的山丘上：在那裡使用{item:15208}，擊敗月爪梟獸並與{npc:12144}交談。",
+	-- ["Fly from {area:702} to {area:442}. The {object:177525} stands inside the nearest moonkin cave east of the village: the northern of two small rock-pile caves where the {area:442} road meets the main north-south road. Moonkin (level 11-13) stand outside, the cave is empty: slip past them. Use the {item:15208} by the stone: Lunaclaw (level 12-13) walks in towards you and stays three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Another druid's Lunaclaw gives you the spirit too."] = "從{area:702}飛往{area:442}。{object:177525}立在村子東邊最近的梟獸洞穴裡：那是兩處小石堆洞穴的北面一個，就在{area:442}道路與南北主路的交匯處。梟獸（11-13級）守在外邊，洞穴裡沒有人：繞過它們。在石旁使用{item:15208}：月爪（12-13級）會朝你走來，停留三分鐘。殺死她，然後與出現的{npc:12144}交談，討要她身體與心靈的力量：對話即算完成。其他德魯伊的月爪也能給你那份精魂。",
 	-- ["The Skyborne Portal takes you to {zone:1453}. {npc:5504} is the city's druid trainer."] = "天裔精靈傳送門會帶你前往{zone:1453}。{npc:5504}是城裡的德魯伊訓練師。",
 	-- ["The {object:177525} stands in the pass from {zone:1412} into the {zone:1413}. Use the {item:15710} there, defeat Lunaclaw and speak to the {npc:12144}."] = "{object:177525}位於從{zone:1412}進入{zone:1413}的山口。在那裡使用{item:15710}，擊敗月爪梟獸並與{npc:12144}交談。",
+	-- ["The {object:177525} stands in the {zone:1413} just south-west of {area:378}, by the road out of {zone:1412}. Level 20 Thunderheads roam close by: clear the way first. Use the {item:15710} by the stone: Lunaclaw (level 12-13) appears for three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Die in the fight? Lunaclaw stays by the stone: run back and finish her."] = "{object:177525}立在{zone:1413}，就在{area:378}西南，位於離開{zone:1412}的路上。20級的Thunderheads在附近遊蕩：先把路清乾淨。在石旁使用{item:15710}：月爪（12-13級）會現身三分鐘。殺死她，然後與出現的{npc:12144}交談，討要她身體與心靈的力量：對話即算完成。戰鬥裡死了？月爪仍守在石旁：跑回去把她了結。",
 	-- ["{npc:255853} waits by the falls north-east of {area:16638}. {npc:258443} prowls the {area:16623}, west of {area:16638}."] = "{npc:255853}在{area:16638}東北方的瀑布旁等候。{npc:258443}在{area:16638}西邊的{area:16623}徘徊。",
 	-- ["{npc:3033} stands on {area:1639}."] = "{npc:3033}站在{area:1639}。",
 	-- ["{npc:3033} trains druids on {area:1639}."] = "{npc:3033}在{area:1639}訓練德魯伊。",
