@@ -104,6 +104,16 @@ test('a level 3 Tauren on Red Cloud Mesa gets Red Cloud Mesa first, and no Durot
 	assert.deepEqual(out.names, ['Red Cloud Mesa', 'Skywatcher Plateau']);
 });
 
+test('a level 3 Tauren is never offered another continent\'s starting area (Deathknell by zeppelin), only its other areas', () => {
+	const DEATHKNELL = withMiddle(area(1420, 'Deathknell', 1, box(30, 60, 40, 70), ', starter = true'));
+	const BRILL = withMiddle(area(1420, 'Brill', 1, box(55, 50, 65, 60)));
+	const tirisfal = 'w.addMap(1420, { name = "Tirisfal Glades", c = 0, left = 0, right = -5000, top = 0, bottom = -5000 })';
+	const out = engine([DEATHKNELL, BRILL, RED_CLOUD], { level: 3, at: [1412, 45, 84] }, 'emit(choices())', tirisfal);
+	assert.equal(out.names[0], 'Red Cloud Mesa');
+	assert.ok(!out.names.includes('Deathknell'), `no Deathknell: ${out.names}`);
+	assert.ok(out.names.includes('Brill'), `an overseas area that is no starting area's own still comes, after: ${out.names}`);
+});
+
 test('a level 26 in Durotar sees several Durotar and Barrens areas, never the Valley of Trials starter', () => {
 	const out = engine([VALLEY, SKULL, THUNDER, BARRENS, RED_CLOUD], { level: 26, at: [1411, 44, 68], race: 'Orc' });
 	assert.ok(out.names.length >= 3, `${out.names}`);

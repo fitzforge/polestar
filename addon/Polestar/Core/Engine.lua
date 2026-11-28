@@ -3633,7 +3633,9 @@ Own.AREA_RESPAWN = { [186] = 300, [182] = 300, [393] = 300 }
 -- yards) other than the player's and the area's own starts at most TRIP_ABOVE levels above the character (its
 -- danger floor, Maps.GetZoneLevels). Without the walking maps: an area on another map than the player's must lie
 -- in a zone that starts at most TRIP_ABOVE above them. True for an area on the player's own map; one on another
--- continent (a boat or a zeppelin away) is ranked after the player's continent's as before.
+-- continent (a boat or a zeppelin away) is ranked after the player's continent's as before; a starting area's own
+-- (`starter`) there is never offered (a level 3 Tauren whose Red Cloud Mesa was mined out was sent by zeppelin to
+-- Deathknell).
 Own.TRIP_STEP, Own.TRIP_ABOVE = 150, 2
 function Own.tripSafe(c, here, hc, hx, hy)
 	if not here or c.map == here.map then return true end
@@ -3644,7 +3646,7 @@ function Own.tripSafe(c, here, hc, hx, hy)
 		return danger or min
 	end
 	local cc, cx, cy = Compat().MapToWorld(c.map, c.x, c.y, c.f)
-	if not (cc and hc and cc == hc) then return true end
+	if not (cc and hc and cc == hc) then return not (c.starter and cc and hc) end
 	-- The zone at a world point: the walking maps' (Nav.danger.ZoneAt), else the client's continent map's
 	-- (C_Map.GetMapInfoAtPosition); nil when neither says.
 	local C = Compat()
