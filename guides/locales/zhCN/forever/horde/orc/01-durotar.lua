@@ -100,8 +100,8 @@ return {
 	["the {object:654925} on the ground beside her"] = "她身旁地上的{object:654925}",
 
 	-- Step 19: Call of Earth
-	-- {npc:5887} Canaga Earthcaller · {area:639} Spirit Rock · {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth · {item:6656} Rough Quartz
-	["{npc:5887} stands outside the Den. {area:639} is the hill just south of it: drink the {item:6635} there to see the {npc:5891}, then take the {item:6656} back to {npc:5887}."] = "{npc:5887}站在洞穴外。{area:639}是洞穴南边的小山：在那里喝下{item:6635}以看到{npc:5891}，然后把{item:6656}带回给{npc:5887}。",
+	-- {npc:5887} Canaga Earthcaller · {area:639} Spirit Rock · {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth
+	["{npc:5887} stands outside the Den, and {area:639} is the hill just south of it. The {item:6635} reveals the {npc:5891}."] = "",
 	-- {npc:5891} Minor Manifestation of Earth · {area:639} Spirit Rock
 	["{npc:5891}, on {area:639}"] = "{npc:5891}，在{area:639}",
 	-- {npc:5887} Canaga Earthcaller · {npc:5873} Stoneskin Totem · {item:5175} Earth Totem
@@ -503,5 +503,6 @@ return {
 	-- ["{npc:3294}, by the inn"] = "{npc:3294}，在旅店旁",
 	-- ["{npc:3337}, beside {npc:5810}"] = "{npc:3337}，在{npc:5810}旁边",
 	-- ["{npc:5884} in {zone:1411}; {area:362} has no mage trainer"] = "{zone:1411} 的 {npc:5884}；{area:362} 没有法师训练师",
+	-- ["{npc:5887} stands outside the Den. {area:639} is the hill just south of it: drink the {item:6635} there to see the {npc:5891}, then take the {item:6656} back to {npc:5887}."] = "{npc:5887}站在洞穴外。{area:639}是洞穴南边的小山：在那里喝下{item:6635}以看到{npc:5891}，然后把{item:6656}带回给{npc:5887}。",
 	-- ["{quest:790}, a large scorpid, prowls the slope south of {npc:3287} among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.\nThe {quest:792} swarm the slope below the {area:365}, the cave on the valley's north side."] = "{quest:790}是一只大型蝎子，在{npc:3287}南方的山坡上、蝎子群中游荡；沿途捡起仙人掌旁的仙人掌果。\n{quest:792}聚集在山谷北侧洞穴{area:365}下方的山坡上。",
 }

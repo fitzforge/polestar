@@ -194,8 +194,8 @@ return {
 	-- Step 33: Andorhal and Felstone Field
 	-- {area:199} Felstone Field
 	["Andorhal and {area:199}"] = "안도르할과 {area:199}",
-	-- {item:12815} Beacon Torch · {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field · {npc:10778} Janice Felstone · {faction:72} Stormwind
-	["Mark the four watchtowers around Andorhal, north of the camp, with the {item:12815} at each door. {npc:11075} guards the cauldron at {area:199}, west of Andorhal; his key opens it. {npc:10778}'s ghost wanders by the Felstone farmhouse, and her parcel lies inside: it goes to {faction:72} for 150 more."] = "야영지 북쪽 안도르할 주변의 망루 네 개를 각 문에 {item:12815}으로 표시하세요. {npc:11075}이(가) 안도르할 서쪽 {area:199}의 가마솥을 지키는데, 그의 열쇠가 그것을 엽니다. {npc:10778}의 유령이 펠스톤 농가 곁을 거니는데, 그녀의 소포는 안에 있습니다: {faction:72}에 150을 더 줍니다.",
+	-- {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field · {npc:10778} Janice Felstone
+	["The four watchtowers stand around Andorhal, north of the camp. {npc:11075} guards the cauldron at {area:199}, west of Andorhal, and {npc:10778}'s ghost wanders by the Felstone farmhouse, where her parcel lies inside."] = "",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
 	["Mark {npc:10902} with the {item:12815}"] = "{item:12815}(으)로 {npc:10902} 표시",
 	-- {npc:10903} Andorhal Tower Two · {item:12815} Beacon Torch
@@ -289,6 +289,7 @@ return {
 	-- ["Dunemaul ogres (level 45-48) drop it here. The Auction House works too."] = "이곳의 모래망치 오우거(45-48레벨)가 떨어뜨립니다. 경매장도 이용할 수 있습니다.",
 	-- ["Keep handing in {quest:7796} until {faction:72} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{faction:72} 평판이 확고한 동맹이 될 때까지 {quest:7796}을(를) 계속 제출하십시오. {item:14047}: {zone:1423}의 암흑의 수행사제와 어둠마법사(58-60레벨), 또는 경매장.",
 	-- ["Keep handing in {quest:7796}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7796}을(를) 계속 제출하십시오. 한 번에 {item:14047} 20개입니다. {item:14047}: {zone:1423}의 암흑의 수행사제와 어둠마법사(58-60레벨), 또는 경매장.",
+	-- ["Mark the four watchtowers around Andorhal, north of the camp, with the {item:12815} at each door. {npc:11075} guards the cauldron at {area:199}, west of Andorhal; his key opens it. {npc:10778}'s ghost wanders by the Felstone farmhouse, and her parcel lies inside: it goes to {faction:72} for 150 more."] = "야영지 북쪽 안도르할 주변의 망루 네 개를 각 문에 {item:12815}으로 표시하세요. {npc:11075}이(가) 안도르할 서쪽 {area:199}의 가마솥을 지키는데, 그의 열쇠가 그것을 엽니다. {npc:10778}의 유령이 펠스톤 농가 곁을 거니는데, 그녀의 소포는 안에 있습니다: {faction:72}에 150을 더 줍니다.",
 	-- ["Riverpaw Bandits and Taskmasters (level 16-18) drop it here. The Auction House works too."] = "이곳의 갈퀴발일족 무법자와 갈퀴발일족 전사(16-18레벨)가 떨어뜨립니다. 경매장도 이용할 수 있습니다.",
 	-- ["Syndicate Mercenaries at Stromgarde (level 31-32) drop it here. The Auction House works too."] = "스트롬가드의 비밀결사대 용병(31-32레벨)이 떨어뜨립니다. 경매장도 이용할 수 있습니다.",
 	-- ["{npc:14722} takes cloth for {faction:72} in {zone:1453}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7796} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{zone:1453}의 {npc:14722}이(가) {faction:72}을(를) 위한 옷감을 받습니다. 양모, 비단, 마법 직물, {item:14047}의 첫 기부(각 60개)는 한 번만 할 수 있으며 옷감당 평판이 가장 높습니다. 그 후에는 확고한 동맹까지 {quest:7796}이(가) 반복됩니다. 다른 종족의 도시와 확고한 동맹이 되면 그 종족의 탈것을 구매할 수 있습니다. Forever의 외교관 유산 특전은 평판 획득량을 늘려 줍니다.",

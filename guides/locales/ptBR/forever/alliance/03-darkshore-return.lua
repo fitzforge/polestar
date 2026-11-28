@@ -40,7 +40,7 @@ return {
 	-- Step 6: The Master's Glaive
 	-- {object:12666} Twilight Tome · {quest:948} Onu · {item:5251} Phial of Scrying · {object:10076} Scrying Bowl
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "Grandes Espreitadores da Lua rondam a floresta ao redor da glaive. {object:12666} fica no fundo da cratera. Para a missão de {quest:948}, use {item:5251} no fundo da cratera: isso cria {object:10076}, e você entrega a missão à tigela.",
+	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} is at the bottom of the crater, and for {quest:948}'s quest the {item:5251} makes the {object:10076} there, which takes the turn-in."] = "",
 	-- plural, as words: Fine Moonstalker Pelts = {item:5386} Fine Moonstalker Pelt
 	["Fine Moonstalker Pelts"] = "Pelagens de Espreitaluna Finas",
 	-- {item:5352} Book: The Powers Below
@@ -118,8 +118,8 @@ return {
 	["{npc:3616}, at the Grove"] = "{npc:3616}, no Bosque",
 
 	-- Step 21: Volcor
-	-- {npc:3692} Volcor · {area:449} Master's Glaive · {area:455} Blackwood Den
-	["{npc:3692} hides in the hills east of the {area:449}, inside {area:455}."] = "{npc:3692} se esconde nas colinas a leste de {area:449}, dentro de {area:455}.",
+	-- {npc:3692} Volcor · {area:455} Blackwood Den · {area:449} Master's Glaive
+	["{npc:3692} is in {area:455}, in the hills east of the {area:449}."] = "",
 	-- {npc:3692} Volcor · {area:455} Blackwood Den
 	["{npc:3692}, inside {area:455}"] = "{npc:3692}, dentro de {area:455}",
 	-- {npc:12298} Sickly Deer · {item:15826} Curative Animal Salve · {zone:1439} Darkshore
@@ -168,8 +168,8 @@ return {
 	["{quest:98394} (Night Elves) and the {npc:272054} (Skyborne) wait in southern {area:493}. The three relics lie in the {area:2363}, east of them. Reports from the first weeks say a relic gives no loot while another player is looting it: wait a moment and try again."] = "{quest:98394} (Elfos Noturnos) e o {npc:272054} (Celonatos) esperam no sul de {area:493}. As três relíquias ficam em {area:2363}, a leste deles. Relatos das primeiras semanas dizem que uma relíquia não dá saque enquanto outro jogador a saqueia: espere um pouco e tente de novo.",
 
 	-- Step 33: Trial of the Sea Lion
-	-- {zone:1436} Westfall · {zone:1439} Darkshore · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
-	["Both half pendants in your bags (the {zone:1436} half from your last {zone:1436} visit, the {zone:1439} half from the north coast): stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then take the pendant to {npc:11802} with the {spell:499} hand-in. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Com as duas metades do pingente nas bolsas (a de {zone:1436}, da sua última visita a {zone:1436}, e a de {zone:1439}, da costa norte): fique junto a {area:2362}, na margem noroeste do lago, e use uma metade para uni-las; depois leve o pingente a {npc:11802} junto com a entrega de {spell:499}. {npc:11802} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
+	-- {zone:1436} Westfall · {zone:1439} Darkshore · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze
+	["The two halves come from {zone:1436} and the north coast of {zone:1439}, and the {area:2362} is on the north-west shore of the lake. {npc:11802} is upstairs in his building, and the arrow cannot tell the floors apart."] = "",
 	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
 	["{item:15885}: join the halves at the {area:2362}"] = "{item:15885}: junte as metades em {area:2362}",
 	-- {npc:11802} Dendrite Starblaze · {quest:5061} Aquatic Form · {npc:4217} Mathrengyl Bearwalker
@@ -190,11 +190,14 @@ return {
 	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}. {npc:4217} is a Druid trainer: learn your new spells from him."] = "Pegue o portal para subir até {npc:4217} e depois voe de volta para {area:442} para a estrada ao sul até {zone:1440}. {npc:4217} é instrutor de druida: aprenda com ele seus feitiços novos.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Both half pendants in your bags (the {zone:1436} half from your last {zone:1436} visit, the {zone:1439} half from the north coast): stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then take the pendant to {npc:11802} with the {spell:499} hand-in. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Com as duas metades do pingente nas bolsas (a de {zone:1436}, da sua última visita a {zone:1436}, e a de {zone:1439}, da costa norte): fique junto a {area:2362}, na margem noroeste do lago, e use uma metade para uni-las; depois leve o pingente a {npc:11802} junto com a entrega de {spell:499}. {npc:11802} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
 	-- ["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "Lance {spell:18960}. {npc:11802} fica no andar de cima do prédio dele em {area:2361}: suba por dentro, a seta não diferencia os andares. Aprenda a rota de voo de lá, se ainda não tiver.",
 	-- ["From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "Do cais (ou da estalagem, se você usou a Pedra de Regresso), suba primeiro até a ponta norte da vila ({npc:3649}, {npc:3702} junto ao poço lunar, {npc:2913}) e depois desça a rua principal: o cartaz de PROCURA-SE do lado de fora da estalagem e {npc:3693} na ponta leste dela, onde a estrada sai para o sul. {npc:3694} fica ao lado de {npc:3693}, junto ao mestre de voo; se ela não estiver lá, foi morta e reaparece em breve: espere um momento.",
 	-- ["From the dock, up to the north end of the village first ({npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south."] = "Do cais, suba primeiro até a ponta norte da vila ({npc:3702}, junto ao poço lunar, e {npc:2913}) e depois desça a rua principal: o cartaz de PROCURA-SE do lado de fora da estalagem e {npc:3693} na ponta leste dela, onde a estrada sai para o sul.",
 	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "Espreitalunas Machos rondam a mata ao redor da glaive. {object:10076} e {object:12666} ficam no fundo da cratera; {npc:3584} fica no lado norte.",
+	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "Grandes Espreitadores da Lua rondam a floresta ao redor da glaive. {object:12666} fica no fundo da cratera. Para a missão de {quest:948}, use {item:5251} no fundo da cratera: isso cria {object:10076}, e você entrega a missão à tigela.",
 	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater; {npc:3584} stands on its north side. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "Espreitalunas Machos rondam a mata ao redor da glaive. {object:12666} fica no fundo da cratera; {npc:3584} fica no lado norte. Para a missão de {quest:948}, use {item:5251} no fundo da cratera: isso cria {object:10076}, e você entrega a missão na tigela.",
+	-- ["{npc:3692} hides in the hills east of the {area:449}, inside {area:455}."] = "{npc:3692} se esconde nas colinas a leste de {area:449}, dentro de {area:455}.",
 	-- ["{npc:3692} hides in the hills east of the {area:449}. Help him back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "{npc:3692} se esconde nas colinas a leste de {area:449}. Ajude-o a voltar à estrada; ele luta no caminho de saída. {npc:3693} assume a escolta em {area:442} na próxima visita lá.",
 	-- ["{npc:3694}, beside {npc:3693}: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}, ao lado de {npc:3693}: para {npc:3691} em {area:415}, no próximo guia",
 }

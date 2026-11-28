@@ -26,19 +26,20 @@ return {
 
 	-- Step 4: The brown waterskin
 	["The brown waterskin"] = "Коричневый бурдюк",
-	-- {item:265732} Unfilled Brown Waterskin · {npc:258203} Hervdana Saegrund · {object:147516} Dark Iron
-	["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "Наполните {item:265732} у подножия водопадов под пещерой {npc:258203}, где пресная вода встречается с солоноватой. У водопадов бродят дворфы ({object:147516}).",
+	-- {npc:258203} Hervdana Saegrund · {object:147516} Dark Iron
+	-- was: ["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "Наполните {item:265732} у подножия водопадов под пещерой {npc:258203}, где пресная вода встречается с солоноватой. У водопадов бродят дворфы ({object:147516})."
+	["The water source is at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "",
 
 	-- Step 6: The red waterskin
 	["The red waterskin"] = "Красный бурдюк",
-	-- {area:71} Stonewatch Falls · {area:68} Lake Everstill · {zone:1455} Ironforge · {area:69} Lakeshire · {item:265747} Unfilled Red Waterskin · {npc:258203} Hervdana Saegrund
+	-- {area:71} Stonewatch Falls · {area:68} Lake Everstill · {npc:258203} Hervdana Saegrund
 	-- plural, as words: Murloc Nightcrawlers = {npc:544} Murloc Nightcrawler
-	["{area:71} pour out of {area:68} at the east end of Redridge (fly from {zone:1455} to {area:69}). Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather; pull the murlocs off the spot first. If the skin vanishes without counting, abandon the quest and take it again from {npc:258203} for a new one."] = "{area:71} вытекает из места {area:68} на восточном краю Красногорья (летите из города {zone:1455} сюда: {area:69}). Наполните {item:265747} у подножия, где собираются мурлоки-следопыты; сначала отманите мурлоков с этого места. Если бурдюк исчезнет, не засчитавшись, откажитесь от задания и возьмите его снова у NPC {npc:258203}, чтобы получить новый.",
+	["{area:71} pours out of {area:68} at the east end of Redridge, and Murloc Nightcrawlers gather at its foot. If the skin vanishes without counting, {npc:258203} gives a new one when the quest is taken again."] = "",
 
 	-- Step 8: The blue waterskin
 	["The blue waterskin"] = "Синий бурдюк",
-	-- {area:150} Menethil Harbor · {area:442} Auberdine · {area:271} Southshore · {zone:1439} Darkshore · {area:415} Astranaar · {zone:1440} Ashenvale · {item:265772} Unfilled Blue Waterskin
-	["Take the boat from {area:150} to {area:442} (it stops in {area:271} on the way), then fly or walk south through {zone:1439} to {area:415} in {zone:1440}. Fill the {item:265772} in the lake around the town, then the boat back to Menethil."] = "Плывите на корабле: {area:150} → {area:442} (по пути он заходит сюда: {area:271}), затем летите или идите на юг через {zone:1439}: {area:415} ({zone:1440}). Наполните {item:265772} в озере вокруг городка, затем на корабле обратно в Гавань Менетилов.",
+	-- {area:415} Astranaar · {zone:1440} Ashenvale · {area:150} Menethil Harbor · {area:442} Auberdine · {zone:1439} Darkshore
+	["The water comes from the lake around {area:415} in {zone:1440}. The boat from {area:150} goes to {area:442} in {zone:1439}, which is north of {zone:1440}."] = "",
 
 	-- Step 9: Hervdana Saegrund
 	-- {item:7810} Vial of Purest Water · {npc:258043} Norric Lochthane
@@ -71,5 +72,8 @@ return {
 	["{npc:258043}: {spell:5394} and your {item:5177}"] = "{npc:258043}: {spell:5394} и ваш {item:5177}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "Наполните {item:265732} у подножия водопадов под пещерой {npc:258203}, где пресная вода встречается с солоноватой. У водопадов бродят дворфы ({object:147516}).",
+	-- ["Take the boat from {area:150} to {area:442} (it stops in {area:271} on the way), then fly or walk south through {zone:1439} to {area:415} in {zone:1440}. Fill the {item:265772} in the lake around the town, then the boat back to Menethil."] = "Плывите на корабле: {area:150} → {area:442} (по пути он заходит сюда: {area:271}), затем летите или идите на юг через {zone:1439}: {area:415} ({zone:1440}). Наполните {item:265772} в озере вокруг городка, затем на корабле обратно в Гавань Менетилов.",
+	-- ["{area:71} pour out of {area:68} at the east end of Redridge (fly from {zone:1455} to {area:69}). Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather; pull the murlocs off the spot first. If the skin vanishes without counting, abandon the quest and take it again from {npc:258203} for a new one."] = "{area:71} вытекает из места {area:68} на восточном краю Красногорья (летите из города {zone:1455} сюда: {area:69}). Наполните {item:265747} у подножия, где собираются мурлоки-следопыты; сначала отманите мурлоков с этого места. Если бурдюк исчезнет, не засчитавшись, откажитесь от задания и возьмите его снова у NPC {npc:258203}, чтобы получить новый.",
 	-- ["{area:919} lies outside {area:20}. Drink the {item:6637} there and defeat the {npc:5894} for its bracers, then place them and the {item:7811} on the {object:619896}. The {npc:5895} it calls forth gives you the {item:7813}."] = "{area:919} — за пределами места {area:20}. Выпейте там {item:6637} и победите противника {npc:5894} ради его наручей, затем положите их и {item:7811} сюда: {object:619896}. Призванный им {npc:5895} даст вам {item:7813}.",
 }

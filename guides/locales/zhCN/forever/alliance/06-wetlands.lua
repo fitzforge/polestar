@@ -11,8 +11,8 @@ return {
 	["Cast {spell:18960}"] = "施放{spell:18960}",
 
 	-- Step 2: Trial of the Sea Lion
-	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. With both half pendants in your bags, stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then go to {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "施放{spell:18960}。背包里带着两半坠饰，站到湖西北岸的{area:2362}旁，使用其中一半将它们合并，再去{area:2361}找{npc:11802}。{npc:11802}在建筑的楼上：从屋内上楼，箭头无法区分楼层。",
+	-- {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
+	["The {area:2362} is on the north-west shore of the lake. {npc:11802} is upstairs in his building in {area:2361}, and the arrow cannot tell the floors apart."] = "",
 	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
 	["{item:15885}: join the halves at the {area:2362}"] = "{item:15885}：在{area:2362}合并两半坠饰",
 
@@ -513,7 +513,7 @@ return {
 	-- Step 96: Mystral Lake
 	-- {npc:3885} Sentinel Velene Starstrike · {area:420} Silverwind Refuge · {area:421} Mystral Lake · {npc:3897} Krolg · {npc:12759} Tideress
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
-	["{npc:3885} stands at the {area:420} on the east shore of {area:421}, just north of the road to {npc:3897}. Befouled Water Elementals wade in the lake; {npc:12759}, a level 27 water elemental, walks among them and drops the bracers too."] = "{npc:3885}站在{area:421}东岸的{area:420}，就在通往{npc:3897}的道路北边。污浊的水元素在湖中游荡；27级水元素{npc:12759}也在其中走动，同样会掉落护腕。",
+	["{npc:3885} is at {area:420} on the east shore of {area:421}, just north of the road to {npc:3897}. Befouled Water Elementals wade in the lake, and {npc:12759}, a level 27 water elemental among them, also drops the bracers."] = "",
 	-- {item:5456} Divining Scroll
 	-- plural, as words: Intact Elemental Bracers = {item:12220} Intact Elemental Bracer
 	["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "击杀元素获得5个{item:12220}，然后使用{item:5456}",
@@ -696,6 +696,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "巴隆斯·阿历克斯顿的回信，如果还带在身上（路线已安排在03-darkshore-return首次到{area:442}时交还）",
 	-- ["Back west along the road to {area:150}: {npc:2104} stands on the top floor of {area:2103}."] = "沿路向西返回{area:150}：{npc:2104}站在{area:2103}顶层。",
+	-- ["Cast {spell:18960}. With both half pendants in your bags, stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then go to {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "施放{spell:18960}。背包里带着两半坠饰，站到湖西北岸的{area:2362}旁，使用其中一半将它们合并，再去{area:2361}找{npc:11802}。{npc:11802}在建筑的楼上：从屋内上楼，箭头无法区分楼层。",
 	-- ["Flagon of Mead, from {npc:1464}"] = "Flagon of Mead，向{npc:1464}购买",
 	-- ["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "用于龙喉投石车，在30-40/01-hillsbrad-foothills的{zone:1437}路线中处理",
 	-- ["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:1217} in the {area:2104} south of it, {npc:2094} by the docks on the way to the boat."] = "若已在{area:2104}绑定炉石，就用炉石返回{area:150}；否则沿道路向西步行。{npc:2104}在{area:2103}的顶层，{npc:1217}在其南侧的{area:2104}内，{npc:2094}在前往乘船处途中的码头旁。",
@@ -727,6 +728,7 @@ return {
 	-- ["{npc:3693} stands by the flight master."] = "{npc:3693}站在飞行管理员旁。",
 	-- ["{npc:3694}: for {npc:3691} in {area:415}"] = "{npc:3694}：交给{area:415}的{npc:3691}",
 	-- ["{npc:3845} stands by {area:415}'s flight master."] = "{npc:3845}站在{area:415}的飞行管理员旁。",
+	-- ["{npc:3885} stands at the {area:420} on the east shore of {area:421}, just north of the road to {npc:3897}. Befouled Water Elementals wade in the lake; {npc:12759}, a level 27 water elemental, walks among them and drops the bracers too."] = "{npc:3885}站在{area:421}东岸的{area:420}，就在通往{npc:3897}的道路北边。污浊的水元素在湖中游荡；27级水元素{npc:12759}也在其中走动，同样会掉落护腕。",
 	-- ["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}."] = "{npc:3897}是一个未受腐蚀的熊怪，坐在{area:421}下方道路的南边。",
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619}率领{area:429}的萨特；树枝在他身上。",
 	-- ["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}：同一趟路线上的刺喉龙蛋",

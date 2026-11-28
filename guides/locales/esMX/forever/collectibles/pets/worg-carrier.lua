@@ -15,8 +15,8 @@ return {
 	-- Step 2: Lower Blackrock Spire: Halycon's pups
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}: Halycon's pups"] = "{area:1583} inferior: los cachorros de Halycon",
-	-- {npc:10584} Urok Doomhowl · {npc:10221} Bloodaxe Worg Pup
-	["The pups are in Lower Blackrock Spire (a group of five, level 55-60), not Upper: they run with Halycon, the great worg, deep in the dungeon beyond {npc:10584}'s ogres. Use the cage on a living {npc:10221} before the pack is dead. Taking damage interrupts the cast, so let the tank hold the pups and cage one from the side. A rogue or druid can sneak in, cage a pup from a corner, then vanish."] = "Los cachorros están en la Cumbre de Roca Negra inferior (un grupo de cinco, nivel 55-60), no en la superior: andan con Halycon, el gran huargo, en lo hondo de la mazmorra, más allá de los ogros de {npc:10584}. Usa la jaula en un {npc:10221} vivo antes de que muera la manada. Recibir daño interrumpe el lanzamiento, así que deja que el tanque contenga a los cachorros y enjaula uno desde un costado. Un pícaro o un druida puede colarse, enjaular un cachorro desde un rincón y luego esfumarse.",
+	-- {npc:10584} Urok Doomhowl
+	["The pups run with Halycon, the great worg, deep in Lower Blackrock Spire (not Upper) beyond {npc:10584}'s ogres; it is a group dungeon for five, level 55-60. The pup must be alive for the cage to work, and taking damage interrupts the cast."] = "",
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}"] = "{area:1583} inferior",
 
@@ -25,6 +25,7 @@ return {
 	["Back to {npc:10260}"] = "Vuelve con {npc:10260}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The pups are in Lower Blackrock Spire (a group of five, level 55-60), not Upper: they run with Halycon, the great worg, deep in the dungeon beyond {npc:10584}'s ogres. Use the cage on a living {npc:10221} before the pack is dead. Taking damage interrupts the cast, so let the tank hold the pups and cage one from the side. A rogue or druid can sneak in, cage a pup from a corner, then vanish."] = "Los cachorros están en la Cumbre de Roca Negra inferior (un grupo de cinco, nivel 55-60), no en la superior: andan con Halycon, el gran huargo, en lo hondo de la mazmorra, más allá de los ogros de {npc:10584}. Usa la jaula en un {npc:10221} vivo antes de que muera la manada. Recibir daño interrumpe el lanzamiento, así que deja que el tanque contenga a los cachorros y enjaula uno desde un costado. Un pícaro o un druida puede colarse, enjaular un cachorro desde un rincón y luego esfumarse.",
 	-- ["Upper {area:1583}"] = "{area:1583} Superior",
 	-- ["Upper {area:1583} is a raid group of up to ten, level 58-60. Use {npc:10260}'s cage on a {npc:10221} (Halycon's den) to get the {item:12263}."] = "{area:1583} Superior es para un grupo de banda de hasta diez, nivel 58-60. Usa la jaula de {npc:10260} en un {npc:10221} (la guarida de Halycon) para obtener el {item:12263}.",
 	-- ["{npc:10260} stands at {area:251} in northern {zone:1428}, near the {area:254} path."] = "{npc:10260} está en {area:251}, al norte de {zone:1428}, cerca del camino a {area:254}.",

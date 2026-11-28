@@ -63,14 +63,14 @@ return {
 	["Follow the road west to {area:87}, on the way to {zone:1436}: {npc:240} stands outside the inn."] = "Siga a estrada para oeste até {area:87}, a caminho de {zone:1436}: {npc:240} fica na frente da estalagem.",
 
 	-- Step 14: The Binding
-	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6928} Bloodstone Choker · {zone:1436} Westfall
-	["North along the road from {area:87} to {zone:1453}: {npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls, then back south through {area:87} to {zone:1436}."] = "Para o norte pela estrada de {area:87} até {zone:1453}: {npc:6122} espera no porão de {object:2164}, em {object:2101}. Use o {item:6928} no círculo de evocação de lá e derrote o emissário do caos que ele invocar; depois volte para o sul por {area:87} até {zone:1436}.",
+	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {area:87} Goldshire
+	["{npc:6122} is in the cellar of the {object:2164}, in the Mage Quarter of Stormwind, north along the road from {area:87}. The summoning circle is there too, and it calls a voidwalker."] = "",
 	-- {npc:5676} Summoned Voidwalker · {item:6928} Bloodstone Choker
 	["{npc:5676}: use the {item:6928} at the circle"] = "{npc:5676}: use o {item:6928} no círculo",
 
 	-- Step 15: The Binding
-	-- {item:6810} Surena's Choker · {npc:6122} Gakin the Darkbinder · {quest:1689} The Binding · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6928} Bloodstone Choker
-	["{item:6810} is already with {npc:6122}: take {quest:1689} from him in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls."] = "{item:6810} já está com {npc:6122}: pegue {quest:1689} com ele no porão de {object:2164}, em {object:2101}. Use {item:6928} no círculo de invocação de lá e derrote o emissário do caos que ele chama.",
+	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6928} Bloodstone Choker
+	["{npc:6122} is in the cellar of the {object:2164} in the {object:2101}, and the summoning circle is there too. The {item:6928} summons a voidwalker that has to be defeated."] = "",
 
 	-- Step 16: The Jansen Stead
 	-- {zone:1436} Westfall · {object:2724} Sack of Oats
@@ -403,6 +403,7 @@ return {
 	-- ["Harvest Watchers and Golems work the fields around {area:918}; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone."] = "Guarda-colheitas e Golens trabalham nos campos ao redor de {area:918}; eles soltam as isomolas, os giroestabilizadores, {item:732} e, às vezes, {item:255155}. {npc:573}, um raro de nível 20, anda por aqui: deixe-o em paz.",
 	-- ["Hearthstone on cooldown? Follow the road north-east."] = "Pedra de Regresso em recarga? Siga a estrada para o nordeste.",
 	-- ["Murloc Coastrunners and Raiders line the beach north of the mine. They flee at low health: pull one at a time."] = "Murlocs Correcosta e Murlocs Saqueadores ocupam a praia ao norte da mina. Eles fogem com pouca vida: puxe um de cada vez.",
+	-- ["North along the road from {area:87} to {zone:1453}: {npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls, then back south through {area:87} to {zone:1436}."] = "Para o norte pela estrada de {area:87} até {zone:1453}: {npc:6122} espera no porão de {object:2164}, em {object:2101}. Use o {item:6928} no círculo de evocação de lá e derrote o emissário do caos que ele invocar; depois volte para o sul por {area:87} até {zone:1436}.",
 	-- ["North of Molsen Farm. Defias Trappers and Smugglers camp outside the mine, Kobold Diggers work inside. {object:290} stands by the ruined house east of the mine."] = "Ao norte da Fazenda dos Peçanha. Coureadores e Contrabandistas Défias acampam do lado de fora da mina; Escavadores Kobold trabalham lá dentro. {object:290} fica junto à casa em ruínas a leste da mina.",
 	-- ["North of Molsen Farm. Defias Trappers and Smugglers camp outside the mine. {object:290} stands by the ruined house east of the mine."] = "Ao norte da Fazenda dos Peçanha. Coureadores e Contrabandistas Défias acampam do lado de fora da mina. {object:290} fica junto à casa em ruínas a leste da mina.",
 	-- ["On the way south from the {area:916} to {area:107}: Harvest Watchers (level 14-15) and Golems work the fields west of the road; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks these fields: leave it alone."] = "No caminho para o sul, de {area:916} até {area:107}: Guarda-colheitas (nível 14-15) e Golens trabalham nos campos a oeste da estrada; eles soltam as isomolas, os giroestabilizadores, {item:732} e, às vezes, {item:255155}. {npc:573}, um raro de nível 20, anda por esses campos: deixe-o em paz.",
@@ -429,6 +430,7 @@ return {
 	-- ["{area:918}'s Harvest Watchers"] = "Guarda-colheitas de {area:918}",
 	-- ["{area:918}: kill these as you meet them"] = "{area:918}: vá matando estes pelo caminho",
 	-- ["{item:254676}, from the crates around {area:20}"] = "{item:254676}, dos caixotes ao redor de {area:20}",
+	-- ["{item:6810} is already with {npc:6122}: take {quest:1689} from him in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls."] = "{item:6810} já está com {npc:6122}: pegue {quest:1689} com ele no porão de {object:2164}, em {object:2101}. Use {item:6928} no círculo de invocação de lá e derrote o emissário do caos que ele chama.",
 	-- ["{npc:234} and {npc:821} stand at the top of the stone tower. {npc:491} is in the tower, {npc:878} and {npc:253092} on the south side of the hill, next to the inn and {npc:523} the gryphon master."] = "{npc:234} e {npc:821} ficam no alto da torre de pedra. {npc:491} está na torre; {npc:878} e {npc:253092}, no lado sul do morro, junto à estalagem e a {npc:523}, o mestre de grifos.",
 	-- ["{npc:234}: from {npc:963} at Westbrook"] = "{npc:234}: de {npc:963}, na Ribeira d'Oeste",
 	-- ["{npc:237}; Humans took it from {npc:963} in Elwynn"] = "{npc:237}; Humanos tomaram de {npc:963} em Elwynn",

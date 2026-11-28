@@ -194,8 +194,8 @@ return {
 	-- Step 33: Andorhal and Felstone Field
 	-- {area:199} Felstone Field
 	["Andorhal and {area:199}"] = "安多哈爾與{area:199}",
-	-- {item:12815} Beacon Torch · {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field · {npc:10778} Janice Felstone · {faction:72} Stormwind
-	["Mark the four watchtowers around Andorhal, north of the camp, with the {item:12815} at each door. {npc:11075} guards the cauldron at {area:199}, west of Andorhal; his key opens it. {npc:10778}'s ghost wanders by the Felstone farmhouse, and her parcel lies inside: it goes to {faction:72} for 150 more."] = "用{item:12815}在營地以北安多哈爾周圍四座瞭望塔的每道門上做標記。{npc:11075}守著安多哈爾以西{area:199}的大鍋；他的鑰匙能開啟。{npc:10778}的鬼魂在邪石農舍旁遊蕩，她的包裹就在裡面：交給{faction:72}可再得150點。",
+	-- {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field · {npc:10778} Janice Felstone
+	["The four watchtowers stand around Andorhal, north of the camp. {npc:11075} guards the cauldron at {area:199}, west of Andorhal, and {npc:10778}'s ghost wanders by the Felstone farmhouse, where her parcel lies inside."] = "",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
 	["Mark {npc:10902} with the {item:12815}"] = "用{item:12815}標記{npc:10902}",
 	-- {npc:10903} Andorhal Tower Two · {item:12815} Beacon Torch
@@ -289,6 +289,7 @@ return {
 	-- ["Dunemaul ogres (level 45-48) drop it here. The Auction House works too."] = "砂槌巨魔（45-48級）在這裡會掉落。拍賣場也買得到。",
 	-- ["Keep handing in {quest:7796} until {faction:72} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "持續繳交{quest:7796}，直到{faction:72}崇拜。{item:14047}：{zone:1423}的黑暗教徒和暗影法師（58-60級），或拍賣場。",
 	-- ["Keep handing in {quest:7796}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "持續繳交{quest:7796}，每次20個{item:14047}。{item:14047}：{zone:1423}的黑暗教徒和暗影法師（58-60級），或拍賣場。",
+	-- ["Mark the four watchtowers around Andorhal, north of the camp, with the {item:12815} at each door. {npc:11075} guards the cauldron at {area:199}, west of Andorhal; his key opens it. {npc:10778}'s ghost wanders by the Felstone farmhouse, and her parcel lies inside: it goes to {faction:72} for 150 more."] = "用{item:12815}在營地以北安多哈爾周圍四座瞭望塔的每道門上做標記。{npc:11075}守著安多哈爾以西{area:199}的大鍋；他的鑰匙能開啟。{npc:10778}的鬼魂在邪石農舍旁遊蕩，她的包裹就在裡面：交給{faction:72}可再得150點。",
 	-- ["Riverpaw Bandits and Taskmasters (level 16-18) drop it here. The Auction House works too."] = "河爪強盜和河爪監工（16-18級）在這裡會掉落。拍賣場也買得到。",
 	-- ["Syndicate Mercenaries at Stromgarde (level 31-32) drop it here. The Auction House works too."] = "激流堡的辛迪加雇傭兵（31-32級）在這裡會掉落。拍賣場也買得到。",
 	-- ["{npc:14722} takes cloth for {faction:72} in {zone:1453}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7796} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14722}在{zone:1453}收取布料以提升{faction:72}聲望。毛料、絲綢、魔紋布和{item:14047}的首次捐獻（各60塊布）只能做一次，每塊布給的聲望最多；之後{quest:7796}可重複到崇拜。與其他種族主城崇拜後，可購買該種族的坐騎。Forever的傳承外交官天賦可提高聲望獲取。",

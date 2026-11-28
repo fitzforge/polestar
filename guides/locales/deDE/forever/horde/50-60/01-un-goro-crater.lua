@@ -159,10 +159,9 @@ return {
 	["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "Der Goblin {npc:10302} sitzt am Ort {area:543}, gleich östlich des Pylons.",
 
 	-- Step 32: Krakle's Thermometer
-	-- {area:537} Fire Plume Ridge · {item:12472} Krakle's Thermometer · {npc:10302} Krakle
+	-- {area:537} Fire Plume Ridge · {npc:10302} Krakle
 	-- plural, as words: Living Blazes = {npc:6521} Living Blaze · Scorching Elementals = {npc:6520} Scorching Elemental
-	-- was: ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}.\nCareful: Living Blazes (54-55) and Scorching Elementals (53-54) burn on the slopes: ride up the path and pull only what stands on it."] = "Reite nach Osten bis {area:537}, steig hinauf und nutze {npc:10541} am Lavaschlot nahe dem Gipfel, dann reite nach Westen zurück zu {npc:10302}.\nVorsicht: Lebende Flammen (54-55) und Versengende Elementare (53-54) brennen an den Hängen: reite den Pfad hoch und zieh nur, was darauf steht."
-	["Ride east to {area:537}, climb it and use {item:12472} at the lava vent near the top, then ride back west to {npc:10302}.\nCareful: Living Blazes (54-55) and Scorching Elementals (53-54) burn on the slopes: ride up the path and pull only what stands on it."] = "",
+	["The lava vent is near the top of {area:537}, east of {npc:10302}. Living Blazes (54-55) and Scorching Elementals (53-54) roam the slopes, and the path up has the fewest."] = "",
 
 	-- Step 33: Krakle
 	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
@@ -175,8 +174,8 @@ return {
 	-- Step 35: Escort Ringo
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "Eskortiere {npc:9999}",
-	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
-	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Führ {npc:9999} nach Norden nach {area:541}. Wenn er ohnmächtig wird, benutze {item:11804} an ihm, um ihn zu wecken.",
+	-- {area:541} Marshal's Refuge · {npc:9999} Ringo · {item:11804} Spraggle's Canteen
+	["{area:541} is to the north. {npc:9999} faints along the way, and {item:11804} wakes him."] = "",
 
 	-- Step 36: J.D. Collie
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:9117} J.D. Collie
@@ -360,8 +359,8 @@ return {
 
 	-- Step 78: Scarlet forward camp
 	["Scarlet forward camp"] = "Vorgeschobenes Lager des Scharlachroten Kreuzzugs",
-	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
-	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "Vom {area:152} über die Straße nach Osten in die {zone:1422}. Das Zeltdorf der Schwarzen Kreuzzüger liegt direkt hinter Felstone Farm, zwischen {area:199} und {area:200}. Brenne das Befehlszelt mit dem {item:12814} nieder und pflanze das Banner der Scourge. Vorsicht: Die Schwarzen Kreuzzüger um die Zelte erreichen Stufe 54 und invokern: komme von der Seite heran, die dem Befehlszelt am nächsten ist, und lasse die anderen unberührt.",
+	-- {area:199} Felstone Field · {area:200} Dalson's Tears · {area:152} The Bulwark
+	["The Scarlet Crusade's tents are just past Felstone Farm, between {area:199} and {area:200}, east of the {area:152} along the road. The Scarlets around the tents are up to level 54 and the Invokers are casters."] = "",
 
 	-- Step 79: Janice Felstone
 	-- {npc:10778} Janice Felstone
@@ -390,6 +389,7 @@ return {
 	-- ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Für deinen Run durch {area:1584}, als Nächstes, auf dem Weg durch {area:254}: Das Plakat {object:164867} in {area:340} will, dass die Anvilrage-Zwerge drinnen dezimiert werden.",
 	-- ["Free Darrowshire Spirits: talk to them"] = "Befreie Geister von Darrowshire: Sprich mit ihnen",
 	-- ["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "Sammle ab jetzt jeden {npc:271301} (blau, grün, rot, gelb) und jeden Haufen {quest:3761} auf deinem Weg ein: insgesamt 25 Erde, 20 für Hamuul und 5 für Pestlezugg.",
+	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "Vom {area:152} über die Straße nach Osten in die {zone:1422}. Das Zeltdorf der Schwarzen Kreuzzüger liegt direkt hinter Felstone Farm, zwischen {area:199} und {area:200}. Brenne das Befehlszelt mit dem {item:12814} nieder und pflanze das Banner der Scourge. Vorsicht: Die Schwarzen Kreuzzüger um die Zelte erreichen Stufe 54 und invokern: komme von der Seite heran, die dem Befehlszelt am nächsten ist, und lasse die anderen unberührt.",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Folge vom {area:152} aus der Straße nach Osten in die {zone:1422}. Die Zelte des Scharlachroten Kreuzzugs stehen gleich hinter dem Hof der Felsteins, zwischen {area:199} und {area:200}. Zünde das Kommandozelt mit {object:176092} an und pflanz das Banner der Geißel auf.",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "Folge vom {area:152} aus der Straße nach Osten in die {zone:1422}. Die Zelte des Scharlachroten Kreuzzugs stehen gleich hinter dem Hof der Felsteins, zwischen {area:199} und {area:200}. Zünde das Kommandozelt mit {object:176092} an und pflanz das Banner der Geißel auf. Vorsicht: Die Scharlachroten um die Zelte sind bis Stufe 54 und die Beschwörer wirken Zauber: Komm von der Seite, die dem Kommandozelt am nächsten ist, und lass die anderen in Ruhe.",
 	-- ["From the {area:1938} ride west to the long ramp that winds down into {area:490}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "Reite von der {area:1938} nach Westen zur langen Rampe, die sich in den {area:490} hinabwindet, und folge dann der Nordwand des Kraters nach {area:541}, einem Lager in den Klippenhöhlen. Alle hier sind neutral.",
@@ -401,7 +401,7 @@ return {
 	-- ["Keep {quest:5152}: Marlene lives at {area:197} in the {zone:1422}."] = "Behalte {quest:5152}: Marlene wohnt am {area:197} im Gebiet {zone:1422}.",
 	-- ["Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "Behalte {quest:5901}: Die Termitenhügel dafür stehen im {area:2627}, auf dem Ritt zu Tirion im nächsten Guide. Der nächste Guide beginnt mit {npc:10739} beim {area:202}, südöstlich von hier.",
 	-- ["Lashers and Threshers"] = "Peitscher und Drescher",
-	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Führe {npc:9999} nach Norden nach {area:541}. Wenn er ohnmächtig wird, benutze {item:11804} an ihm, um ihn zu wecken.",
+	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Führ {npc:9999} nach Norden nach {area:541}. Wenn er ohnmächtig wird, benutze {item:11804} an ihm, um ihn zu wecken.",
 	-- ["Leave the {zone:1458} and ride east along the road through {area:85} to the {area:152}, the Forsaken fort on the border."] = "Verlass {zone:1458} und reite auf der Straße nach Osten durch {area:85} zum {area:152}, der Festung der Verlassenen an der Grenze.",
 	-- ["Level 51"] = "Stufe 51",
 	-- ["North of Torwa, a dead Threshadon lies by the water."] = "Nördlich von Torwa liegt ein toter Dreschadon am Wasser.",

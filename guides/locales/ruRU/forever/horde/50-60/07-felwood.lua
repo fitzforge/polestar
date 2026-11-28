@@ -116,8 +116,8 @@ return {
 	["On the ride north to {area:2255}, the Ice Thistle Yetis (55-56) in the hills south-east of the town carry Vizzie's {item:258323}: four pieces."] = "",
 
 	-- Step 30: Are We There, Yeti?
-	-- {area:2255} Everlook
-	["Ride north to {area:2255}."] = "Езжайте на север сюда: {area:2255}.",
+	-- {npc:10978} Legacki · {area:2255} Everlook
+	["{npc:10978} is in {area:2255}, to the north."] = "",
 	-- {npc:10978} Legacki · {item:12928} Umi's Mechanical Yeti
 	["Scare {npc:10978} with {item:12928}"] = "",
 
@@ -210,6 +210,7 @@ return {
 	-- ["Ride back west to {area:2246}."] = "Возвращайтесь на запад сюда: {area:2246}.",
 	-- ["Ride east along the road to {area:2255}."] = "Езжайте на восток по дороге в {area:2255}.",
 	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "Езжайте на восток, затем на юг через место {area:2249}. Великаны ледяного молота там – элита 59-го уровня: держитесь середины и не останавливайтесь. Странный источник – у входа сюда: {area:2256}, в южном конце.",
+	-- ["Ride north to {area:2255}."] = "Езжайте на север сюда: {area:2255}.",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "Езжайте на северо-запад в {area:1763}. Четыре жаровни стоят среди построек Совета Теней; используйте очищенную воду на каждой.\nОсторожно: пещеру заполняют противники Совета Теней 53-55-го уровня, часто большими связанными группами, многие с оглушением. Рекомендуется группа из 2-3 игроков.",
 	-- ["South to the Sanctuary once more."] = "Еще раз на юг к Святилищу.",
 	-- ["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} (59, elite) and Xandivious (62) are in the cave at the back: stay out."] = "Деревня фурболгов занимает долину к северо-востоку от места {area:2255}. Сначала убивайте шаманов – они лечат. {npc:10738} (59, элитный) и Ксандивиус (62) в пещере в глубине: туда не ходите.",

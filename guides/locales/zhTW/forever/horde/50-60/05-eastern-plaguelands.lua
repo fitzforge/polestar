@@ -93,7 +93,7 @@ return {
 
 	-- Step 24: Pamela's Doll
 	-- {npc:10926} Pamela Redpath
-	["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "娃娃的頭和兩側身體散落在{npc:10926}周圍的房屋裡；在背包中把它們組合起來。",
+	["The doll's head and its two sides are in the houses around {npc:10926}."] = "",
 
 	-- Step 25: Pamela Redpath
 	-- {npc:11063} Carlin Redpath · {area:2268} Light's Hope Chapel
@@ -191,9 +191,9 @@ return {
 	-- Step 42: Terrordale: kill these as you meet them
 	-- {area:2627} Terrordale
 	["{area:2627}: kill these as you meet them"] = "{area:2627}：遇到就擊殺",
-	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
+	-- {area:2627} Terrordale
 	-- plural, as words: Large Termite Mounds = {object:177464} Large Termite Mound · Ziggurat Protectors = {npc:12262} Ziggurat Protector
-	["The book lies in the ruined inn of {area:2627}; the undead in the town are 54-56, so pull them one at a time.\nThe Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass.\nCareful: Ziggurat Protectors (58, elite) stand by the ziggurats east and north-east of the town: take the mounds nearer the town and stay clear of them."] = "書在{area:2627}的旅店廢墟裡；鎮上的不死生物是54-56級，所以一次只拉一隻。\n大白蟻丘遍布{area:2627}東邊的丘陵。經過每個蟻丘時都使用{item:15042}。\n小心：通靈塔保衛者（58級精英）站在城鎮東邊和東北邊的通靈塔旁：選靠近城鎮的蟻丘，離它們遠一點。",
+	["The book lies in the ruined inn of {area:2627}, and the undead in town are level 54-56. Large Termite Mounds stand all over the hills east of {area:2627}, but elite level 58 Ziggurat Protectors guard the ziggurats east and north-east of town."] = "",
 	-- {quest:5510} Minion's Scourgestones · {area:2627} Terrordale · {item:12846} Argent Dawn Commission
 	["{quest:5510}: the {area:2627} undead drop them while you wear the {item:12846}"] = "{quest:5510}：裝備{item:12846}時，{area:2627}的不死生物會掉落",
 
@@ -215,9 +215,9 @@ return {
 	["Underwater"] = "在水下",
 
 	-- Step 46: Corin's Crossing
-	-- {area:2264} Corin's Crossing · {item:15447} Living Rot · {item:15454} Mortar and Pestle · {spell:10228} Greater Invisibility · {quest:5211} Defenders of Darrowshire · {npc:11063} Carlin Redpath
+	-- {area:2264} Corin's Crossing · {item:15447} Living Rot · {quest:5211} Defenders of Darrowshire
 	-- plural, as words: Unseen Servants = {npc:8538} Unseen Servant · Darrowshire Spirits = {npc:11064} Darrowshire Spirit
-	["Ride south to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "沿道路向南騎到{area:2264}。{item:15447}十分鐘內就會腐壞：快速擊殺鎮上的天譴軍團，並立刻用{item:15454}磨碎七份。\n小心：無影僕從的生命值降到40%時，會向25碼內的同伴求救。脫離戰鬥時，牠們還會用{spell:10228}隱形。如果在鎮內發生求救，可能會有大量怪物加入戰鬥。在城鎮外圍戰鬥可以降低這個風險。\n如果任務日誌中有{quest:5211}（來自本指南開頭的{npc:11063}），鎮子周圍的天譴軍團會留下達隆郡居民的靈魂：和每一個交談來解放它們。在開始收集{item:15447}之前先解放它們。",
+	["{area:2264} is south, on the road, and {item:15447} spoils within ten minutes. Unseen Servants call for help within 25 yd at 40% health and turn invisible out of combat, so a call inside the town can pull many mobs, less so on the outskirts; with {quest:5211} in the log, Scourge here leave Darrowshire Spirits."] = "",
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "解放達隆郡之魂：和它們交談",
 	-- {npc:8530} Cannibal Ghoul · {npc:11064} Darrowshire Spirit
@@ -341,8 +341,8 @@ return {
 	["{npc:10922}: the Cleansed Water from Islen in the {zone:1413}"] = "",
 
 	-- Step 75: Dousing the Flames of Protection
-	-- {area:1763} Jaedenar · {area:1770} Shadow Hold · {item:12906} Purified Moonwell Water
-	["Ride north-west to {area:1763} and go down into {area:1770}, the cave in its north: the four braziers stand inside. Use Greta's {item:12906} from your bags on each one. Careful: Shadow Council mobs of level 53-55 fill the cave and often come in linked groups, many with stuns: pull them one group at a time."] = "",
+	-- {area:1770} Shadow Hold · {area:1763} Jaedenar
+	["The four braziers are inside {area:1770}, the cave in the north of {area:1763}. The cave is full of level 53-55 Shadow Council mobs, often in linked groups, and many of them can stun."] = "",
 
 	-- Step 76: Greta Mosshoof
 	["Back south to the Sanctuary, a short ride."] = "向南回到聖地，路程很短。",
@@ -464,11 +464,14 @@ return {
 	-- ["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the end of the Un'Goro guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "從小屋沿道路向南騎到{area:2264}。{item:15447}十分鐘內就會腐壞：快速擊殺鎮上的天譴軍團，並立刻用{item:15454}磨碎七份。\n小心：隱形僕從的生命值降到40%時，會向25碼內的同伴求救。脫離戰鬥時，牠們還會用{spell:10228}隱形。如果在鎮內發生求救，可能會有大量怪物加入戰鬥。在城鎮外圍戰鬥可以降低這個風險。\n如果任務日誌中有{quest:5211}（來自安戈洛指南結尾的{npc:11063}），鎮子周圍的天譴軍團會留下達隆郡之魂：和每一個交談來解放它們。在開始收集{item:15447}之前先解放它們。",
 	-- ["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "從小屋沿道路向南騎到{area:2264}。{item:15447}十分鐘內就會腐壞：快速擊殺鎮上的天譴軍團，並立刻用{item:15454}磨碎七份。\n小心：隱形僕從的生命值降到40%時，會向25碼內的同伴求救。脫離戰鬥時，牠們還會用{spell:10228}隱形。如果在鎮內發生求救，可能會有大量怪物加入戰鬥。在城鎮外圍戰鬥可以降低這個風險。\n如果任務日誌中有{quest:5211}（來自本指南開頭的{npc:11063}），鎮子周圍的天譴軍團會留下達隆郡之魂：和每一個交談來解放它們。在開始收集{item:15447}之前先解放它們。",
 	-- ["Ride south from {area:1099}: the hippogryph nests are in the south of {zone:1444}; each holds an egg for the {object:142071}."] = "從{area:1099}往南騎：角鷹獸巢在{zone:1444}南部；每個巢都有一顆蛋可放進{object:142071}。",
+	-- ["Ride south to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "沿道路向南騎到{area:2264}。{item:15447}十分鐘內就會腐壞：快速擊殺鎮上的天譴軍團，並立刻用{item:15454}磨碎七份。\n小心：無影僕從的生命值降到40%時，會向25碼內的同伴求救。脫離戰鬥時，牠們還會用{spell:10228}隱形。如果在鎮內發生求救，可能會有大量怪物加入戰鬥。在城鎮外圍戰鬥可以降低這個風險。\n如果任務日誌中有{quest:5211}（來自本指南開頭的{npc:11063}），鎮子周圍的天譴軍團會留下達隆郡居民的靈魂：和每一個交談來解放它們。在開始收集{item:15447}之前先解放它們。",
 	-- ["Ride south-west to the ruins of {area:2738}. The {object:179565} for {quest:1123} sits inside one of the ruined houses."] = "向西南騎到{area:2738}的廢墟。{quest:1123}要的{object:179565}在其中一間破屋裡。",
 	-- ["Ride west to the {area:2260}."] = "向西騎到{area:2260}。",
 	-- ["Scare {npc:7583} with {item:12928}"] = "用{item:12928}嚇唬{npc:7583}",
 	-- ["Sword of Marduk"] = "馬杜克的破碎之劍",
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "編年史在安多哈爾市政廳的發霉的書本之間；逐一打開直到找到正確的那本。",
+	-- ["The book lies in the ruined inn of {area:2627}; the undead in the town are 54-56, so pull them one at a time.\nThe Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass.\nCareful: Ziggurat Protectors (58, elite) stand by the ziggurats east and north-east of the town: take the mounds nearer the town and stay clear of them."] = "書在{area:2627}的旅店廢墟裡；鎮上的不死生物是54-56級，所以一次只拉一隻。\n大白蟻丘遍布{area:2627}東邊的丘陵。經過每個蟻丘時都使用{item:15042}。\n小心：通靈塔保衛者（58級精英）站在城鎮東邊和東北邊的通靈塔旁：選靠近城鎮的蟻丘，離它們遠一點。",
+	-- ["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "娃娃的頭和兩側身體散落在{npc:10926}周圍的房屋裡；在背包中把它們組合起來。",
 	-- ["The flight lands at {area:541}: {npc:9997} stands beside the flight master, and {npc:8737} by the cave a few steps away. {npc:9997}'s work is in Un'Goro on the next guide's way back north."] = "飛行點在{area:541}降落：{npc:9997}站在飛行管理員旁，{npc:8737}在幾步外的洞穴旁。{npc:9997}的活在安戈洛，下一篇指南往北回來時做。",
 	-- ["The high elf Rangers, Pathstriders and Woodsmen guard the lodge by {area:2275}; the Registry lies inside. Rangers reach 60: pull one at a time. Noxious Plaguebats fly over the fields on the way.\nThe skull sits in the {area:2622}, among Blighted Horrors and Plague Monstrosities."] = "高等精靈遊俠、巡路者和護林者守衛著{area:2275}旁的小屋；名冊在屋內。遊俠最高60級：一次只拉一隻。途中田野上空有毒性瘟疫蝙蝠飛行。\n頭骨在{area:2622}，周圍有荒蕪恐魔和瘟疫憎惡。",
 	-- ["The pass from Un'Goro comes out at {area:3077}, the graveyard in north-east {zone:1451}. {npc:13220} stands among the graves."] = "從安戈洛來的山道出口在{area:3077}，也就是{zone:1451}東北部的墓地。{npc:13220}站在墳墓之間。",

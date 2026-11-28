@@ -40,7 +40,7 @@ return {
 	-- Step 6: The Master's Glaive
 	-- {object:12666} Twilight Tome · {quest:948} Onu · {item:5251} Phial of Scrying · {object:10076} Scrying Bowl
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "Взрослые лунопарды рыщут в лесу вокруг глефы. {object:12666} – на дне кратера. Для задания {quest:948} используйте {item:5251} на дне кратера: появится {object:10076}, и задание сдается чаше.",
+	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} is at the bottom of the crater, and for {quest:948}'s quest the {item:5251} makes the {object:10076} there, which takes the turn-in."] = "",
 	-- plural, as words: Fine Moonstalker Pelts = {item:5386} Fine Moonstalker Pelt
 	["Fine Moonstalker Pelts"] = "Прекрасные шкуры лунопарда",
 	-- {item:5352} Book: The Powers Below
@@ -118,8 +118,8 @@ return {
 	["{npc:3616}, at the Grove"] = "{npc:3616} – в Роще",
 
 	-- Step 21: Volcor
-	-- {npc:3692} Volcor · {area:449} Master's Glaive · {area:455} Blackwood Den
-	["{npc:3692} hides in the hills east of the {area:449}, inside {area:455}."] = "{npc:3692} прячется в холмах к востоку от места {area:449}, внутри: {area:455}.",
+	-- {npc:3692} Volcor · {area:455} Blackwood Den · {area:449} Master's Glaive
+	["{npc:3692} is in {area:455}, in the hills east of the {area:449}."] = "",
 	-- {npc:3692} Volcor · {area:455} Blackwood Den
 	["{npc:3692}, inside {area:455}"] = "{npc:3692}, внутри: {area:455}",
 	-- {npc:12298} Sickly Deer · {item:15826} Curative Animal Salve · {zone:1439} Darkshore
@@ -168,8 +168,8 @@ return {
 	["{quest:98394} (Night Elves) and the {npc:272054} (Skyborne) wait in southern {area:493}. The three relics lie in the {area:2363}, east of them. Reports from the first weeks say a relic gives no loot while another player is looting it: wait a moment and try again."] = "{quest:98394} (ночные эльфы) и {npc:272054} (небеснорожденные) ждут на юге ({area:493}). Три реликвии лежат к востоку от них ({area:2363}). По отчетам первых недель, реликвия не дает добычи, пока ее обыскивает другой игрок: подождите немного и попробуйте снова.",
 
 	-- Step 33: Trial of the Sea Lion
-	-- {zone:1436} Westfall · {zone:1439} Darkshore · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
-	["Both half pendants in your bags (the {zone:1436} half from your last {zone:1436} visit, the {zone:1439} half from the north coast): stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then take the pendant to {npc:11802} with the {spell:499} hand-in. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Обе половинки подвески в сумках (половинка из зоны {zone:1436} – с последнего визита в зону {zone:1436}, половинка из зоны {zone:1439} – с северного побережья): встаньте у места {area:2362} на северо-западном берегу озера и используйте половинку, чтобы соединить их, затем отнесите подвеску NPC {npc:11802} вместе со сдачей задания на {spell:499}. {npc:11802} стоит на верхнем этаже своего здания: поднимитесь внутри, стрелка не различает этажи.",
+	-- {zone:1436} Westfall · {zone:1439} Darkshore · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze
+	["The two halves come from {zone:1436} and the north coast of {zone:1439}, and the {area:2362} is on the north-west shore of the lake. {npc:11802} is upstairs in his building, and the arrow cannot tell the floors apart."] = "",
 	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
 	["{item:15885}: join the halves at the {area:2362}"] = "{item:15885}: соедините половинки здесь: {area:2362}",
 	-- {npc:11802} Dendrite Starblaze · {quest:5061} Aquatic Form · {npc:4217} Mathrengyl Bearwalker
@@ -190,6 +190,9 @@ return {
 	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}. {npc:4217} is a Druid trainer: learn your new spells from him."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Both half pendants in your bags (the {zone:1436} half from your last {zone:1436} visit, the {zone:1439} half from the north coast): stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then take the pendant to {npc:11802} with the {spell:499} hand-in. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Обе половинки подвески в сумках (половинка из зоны {zone:1436} – с последнего визита в зону {zone:1436}, половинка из зоны {zone:1439} – с северного побережья): встаньте у места {area:2362} на северо-западном берегу озера и используйте половинку, чтобы соединить их, затем отнесите подвеску NPC {npc:11802} вместе со сдачей задания на {spell:499}. {npc:11802} стоит на верхнем этаже своего здания: поднимитесь внутри, стрелка не различает этажи.",
 	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "Взрослые лунопарды рыщут в лесу вокруг глефы. {object:10076} и {object:12666} – на дне кратера; {npc:3584} стоит на его северной стороне.",
+	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "Взрослые лунопарды рыщут в лесу вокруг глефы. {object:12666} – на дне кратера. Для задания {quest:948} используйте {item:5251} на дне кратера: появится {object:10076}, и задание сдается чаше.",
 	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater; {npc:3584} stands on its north side. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "Взрослые лунопарды рыщут в лесу вокруг глефы. {object:12666} – на дне кратера; {npc:3584} стоит на его северной стороне. Для задания {quest:948} примените {item:5251} на дне кратера: так появится {object:10076}, и задание сдается чаше.",
+	-- ["{npc:3692} hides in the hills east of the {area:449}, inside {area:455}."] = "{npc:3692} прячется в холмах к востоку от места {area:449}, внутри: {area:455}.",
 }

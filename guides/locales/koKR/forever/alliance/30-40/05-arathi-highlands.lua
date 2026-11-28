@@ -100,8 +100,8 @@ return {
 	["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}."] = "{npc:6122}은(는) {object:2101}의 {object:2164} 지하실에서 기다립니다.",
 
 	-- Step 19: The Binding
-	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6913} Heartswood Core · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
-	["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}. Use the {item:6913} at the summoning circle there and defeat the succubus it calls. If you took {quest:65602}, hand him the {item:190309} too, place it at the same circle and defeat the incubus."] = "{npc:6122}은(는) {object:2101}에 있는 {object:2164}의 지하실에서 기다립니다. 그곳 소환진에서 {item:6913}을(를) 사용하고 나타나는 서큐버스를 물리치세요. {quest:65602}을(를) 받았다면 그에게 {item:190309}도 건네고, 같은 소환진에 놓은 뒤 인큐버스를 물리치세요.",
+	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {quest:65602} What Is Love?
+	["{npc:6122} is in the {object:2164}'s cellar in the {object:2101}, where the summoning circle is. The incubus from {quest:65602} is summoned at the same circle."] = "",
 	-- {npc:5677} Summoned Succubus
 	["{npc:5677}, at the summoning circle"] = "",
 	-- {quest:65602} What Is Love?
@@ -417,5 +417,6 @@ return {
 	-- ["{npc:217589}: catch it, for {quest:93176}"] = "{npc:217589}: {quest:93176}을(를) 위해 잡으세요",
 	-- ["{npc:2276}, inside, if 30-40/01 didn't take it: the Syndicate camp is on the way to Arathi"] = "{npc:2276}, 내부, 30-40/01에서 수락하지 않았다면: 비밀결사대 야영지는 아라시로 가는 길에 있습니다",
 	-- ["{npc:252085}, in the City of Dalaran"] = "{npc:252085}, 달라란 도시 안",
+	-- ["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}. Use the {item:6913} at the summoning circle there and defeat the succubus it calls. If you took {quest:65602}, hand him the {item:190309} too, place it at the same circle and defeat the incubus."] = "{npc:6122}은(는) {object:2101}에 있는 {object:2164}의 지하실에서 기다립니다. 그곳 소환진에서 {item:6913}을(를) 사용하고 나타나는 서큐버스를 물리치세요. {quest:65602}을(를) 받았다면 그에게 {item:190309}도 건네고, 같은 소환진에 놓은 뒤 인큐버스를 물리치세요.",
 	-- ["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455} and train with {npc:258098}. {npc:1573} in the {object:32372} flies to {area:271} too."] = "{zone:1453}에는 주술사 상급자가 없습니다. {object:28027}에서 {area:2257}을(를) 타고 {zone:1455}(으)로 가서 {npc:258098}에게 훈련을 받으세요. {object:32372}의 {npc:1573}도 {area:271}(으)로 날아갑니다.",
 }

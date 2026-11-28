@@ -468,8 +468,8 @@ return {
 	["Head back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Repassez par {area:87} et allez vers l'est le long de la route jusqu'à {area:62}. {npc:881} (niveau 9) se tient près de la ferme.",
 
 	-- Step 93: The Binding
-	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb
-	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "Retournez voir {npc:6122}. Utilisez l'{item:6928} sur le cercle d'invocation dans la cave de l'{object:2164} et vainquez le marcheur du Vide qu'elle appelle.",
+	-- {object:2164} Slaughtered Lamb
+	["The summoning circle is in the {object:2164}'s cellar, and it calls a voidwalker that has to be defeated."] = "",
 	["Subdue the voidwalker"] = "Soumettez le marcheur du Vide",
 
 	-- Step 94: Back to Elwynn Forest
@@ -536,6 +536,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to the {area:120}, by the road to {zone:1436}. {npc:963} stands outside the barracks, {npc:955} beside him."] = "Retournez au sud jusqu'à la {area:120}, sur la route de la {zone:1436}. {npc:963} se tient devant la caserne, {npc:955} à côté de lui.",
 	-- ["Back to the Cathedral of Light."] = "Retournez à la cathédrale de la Lumière.",
+	-- ["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "Retournez voir {npc:6122}. Utilisez l'{item:6928} sur le cercle d'invocation dans la cave de l'{object:2164} et vainquez le marcheur du Vide qu'elle appelle.",
 	-- ["Bait ingredients"] = "Ingrédients de l'appât",
 	-- ["Boar meat"] = "Viande de sanglier",
 	-- ["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "Les Sorciers-voleurs défias campent sur les rives du {area:86} ; ils laissent aussi tomber les Masques rouges en lin. Le {object:56} gît dans le village murloc de la rive nord-est.",

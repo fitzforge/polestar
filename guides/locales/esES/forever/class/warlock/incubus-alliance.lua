@@ -51,9 +51,8 @@ return {
 	-- Step 7: The Binding: incubus
 	-- {quest:65603} The Binding
 	["{quest:65603}: incubus"] = "{quest:65603}: íncubo",
-	-- {item:190186} Wooden Figurine · {npc:6122} Gakin the Darkbinder
-	-- was: ["Give Gakin the figurine, then use the {item:190309} at the middle of the same circle and defeat the incubus it calls (level 20, not elite; it can charm you) with your voidwalker tanking. Keep the figurine: {npc:6122} takes it back."] = "Dale a Gakin la figurilla, luego usa el {item:190309} en el centro del mismo círculo y derrota al íncubo que llama (nivel 20, no élite; puede hechizarte) con tu abisario como tanque. Guarda la figurilla: {npc:6122} la recupera."
-	["Give Gakin the figurine, then use the {item:190186} at the middle of the same circle and defeat the incubus it calls (level 20, not elite; it can charm you) with your voidwalker tanking. Keep the figurine: {npc:6122} takes it back."] = "",
+	-- {npc:6122} Gakin the Darkbinder
+	["The incubus is level 20 and not elite, but it can charm you. {npc:6122} takes the figurine back afterward."] = "",
 	-- {npc:185335} Summoned Incubus
 	["{npc:185335}, at the circle in the crypt"] = "{npc:185335}, en el círculo de la cripta",
 

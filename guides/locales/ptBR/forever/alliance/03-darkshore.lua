@@ -53,10 +53,9 @@ return {
 
 	-- Step 7: Plagued bears
 	["Plagued bears"] = "Ursos empestados",
-	-- {area:442} Auberdine · {item:7586} Tharnariun's Hope
+	-- {area:442} Auberdine
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	-- was: ["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "Ursocardos Raivosos vagam pelas colinas logo a leste de {area:442}. Use {quest:2139} em um e leve-o de volta até ele."
-	["Rabid Thistle Bears roam the hills just east of {area:442}. Use {item:7586} on one and lead it back to him."] = "",
+	["Rabid Thistle Bears roam the hills just east of {area:442}."] = "",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "os Ursocardos Raivosos mais perto de {npc:3701}",
@@ -83,8 +82,8 @@ return {
 
 	-- Step 11: The red crystal
 	["The red crystal"] = "O cristal vermelho",
-	-- {area:447} Ameth'Aran · {object:175524} Mysterious Red Crystal
-	["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "Suba as montanhas a leste de {area:447}; o {object:175524} fica numa saliência.",
+	-- {object:175524} Mysterious Red Crystal · {area:447} Ameth'Aran
+	["The {object:175524} sits on a ledge in the mountains east of {area:447}."] = "",
 
 	-- Step 13: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
@@ -139,8 +138,8 @@ return {
 	["Back north-east into the mountains to the crystal."] = "Volte para nordeste, pelas montanhas, até o cristal.",
 
 	-- Step 23: Cliffspring Falls
-	-- {area:456} Cliffspring River · {area:443} Ruins of Mathystra · {quest:954} Bashal'Aran
-	["Follow the hills north to the {area:456} and up to the falls. Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "Siga as colinas para o norte até {area:456} e suba até as cachoeiras. Mais dois restos encalhados estão na costa norte: perto de {area:443} e ao norte de {quest:954}.",
+	-- {area:445} Cliffspring Falls · {area:456} Cliffspring River · {area:443} Ruins of Mathystra · {quest:954} Bashal'Aran
+	["{area:445} is north along the hills, up the {area:456}. Two more beached remains lie on the north shore, near the {area:443} and north of {quest:954}."] = "",
 	-- {item:12349} Cliffspring River Sample
 	["{item:12349}, at the waterfall"] = "{item:12349}, na cachoeira",
 	-- {item:15845} Filled Cliffspring Falls Sampler
@@ -224,6 +223,7 @@ return {
 	-- ["Boat to {zone:1453}"] = "Barco para {zone:1453}",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. Then fly back to {area:442} from {area:2361}."] = "Lance {spell:18960}. {npc:11802} está em {area:2361}. Adornos de Altar ficam nos recipientes no fundo de {area:656}, abaixo de {area:2361}: leve um até {area:2362} a noroeste, use-o lá e fale com {npc:11799}. Depois voe de volta para {area:442} a partir de {area:2361}.",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "Lance {spell:18960}. {npc:11802} está em {area:2361}; aprenda a rota de voo de lá se ainda não a tiver.",
+	-- ["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "Suba as montanhas a leste de {area:447}; o {object:175524} fica numa saliência.",
 	-- ["East of Buzzbox 323, {npc:3661} hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in {zone:1440}."] = "A leste de Caixazorra 323, {npc:3661} se esconde ao pé da torre entre os Fanáticos da Linhagem das Trevas. Guarde a carta dele para Dinis, o Purificador, em {zone:1440}.",
 	-- ["Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}"] = "Escolte-a para fora da glaive; Therysil recebe a entrega em {zone:1440}",
 	-- ["Fine Moonstalker Pelts"] = "Pelagens de Espreitaluna Finas",
@@ -232,6 +232,7 @@ return {
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}."] = "Siga a costa para o sul passando por {area:447}: uma {quest:4728} está na costa a oeste do Bosque, outra mais ao sul perto de {area:450}.",
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "Siga a costa para o sul passando por {area:447}: uma {quest:4728} está na costa a oeste do Bosque, outra mais ao sul perto de {area:450}. Mais três restos estão mais a sudoeste, entre Oráculos e Caçamarés Brumagris (18-20): o guia os deixa para a última volta, quando você estiver mais perto do nível deles.",
 	-- ["Follow the hills north to the {area:456} and up to the falls. Three more beached remains lie on the north shore: near the {area:443}, north of {quest:954} and west of {quest:954}."] = "Siga as colinas para o norte até {area:456} e suba até as cachoeiras. Mais três restos encalhados estão na costa norte: perto de {area:443}, ao norte de {quest:954} e a oeste de {quest:954}.",
+	-- ["Follow the hills north to the {area:456} and up to the falls. Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "Siga as colinas para o norte até {area:456} e suba até as cachoeiras. Mais dois restos encalhados estão na costa norte: perto de {area:443} e ao norte de {quest:954}.",
 	-- ["Follow the road north."] = "Siga a estrada para o norte.",
 	-- ["Follow the road south. {quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "Siga a estrada para o sul. {quest:948} é o anciente do Bosque; {npc:270269} e {npc:11218} dormem ao lado dele.",
 	-- ["Grizzled Scalps"] = "Escalpos Grisalhos",

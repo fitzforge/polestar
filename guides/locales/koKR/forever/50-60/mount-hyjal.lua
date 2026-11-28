@@ -153,7 +153,7 @@ return {
 	-- Step 33: The bone pile
 	["The bone pile"] = "",
 	-- {npc:264306} Awakened Fel Ash Slime
-	["West to the bone pile by the slime pools: throw the warlocks' bones on it, then hand the quest in at the pile itself. Handing it in wakes the {npc:264306}, an elite (level 58) that hits hard: unless you are grouped for it, hand in and ride clear at once."] = "",
+	["The bone pile is to the west by the slime pools, and the quest is handed in at the pile itself. Handing it in wakes the {npc:264306}, a level 58 elite that hits hard and is dangerous without a group."] = "",
 
 	-- Step 34: Amalgamated Marrow
 	-- {npc:264306} Awakened Fel Ash Slime
@@ -173,7 +173,7 @@ return {
 
 	-- Step 40: The Ashen workstations
 	["The Ashen workstations"] = "",
-	["Four workstations stand in the Ashen camp: throw a pinecone at each, from the south up."] = "",
+	["Four workstations stand in the Ashen camp, running from south to north."] = "",
 	["Slime Workstation"] = "",
 	["Alchemy Workstation"] = "",
 	["Disease Workstation"] = "",
@@ -406,7 +406,7 @@ return {
 
 	-- Step 90: The overlook
 	["The overlook"] = "",
-	["West to the overlook above the valley: the veteran's old scabbard lies there. Hand his quest in at the scabbard and take the next from it, then use the scabbard in your bags to call his spirit and listen to his story."] = "",
+	["The veteran's old scabbard lies at the overlook above the valley, to the west. The scabbard calls up his spirit, who tells his story."] = "",
 
 	-- Step 91: Shalla'kal and Galvinquam Leafsyre
 	-- {npc:255683} Shalla'kal · {npc:267109} Galvinquam Leafsyre
@@ -579,9 +579,9 @@ return {
 	["{npc:263394} and {npc:252457} are level 60 elites until {npc:263406}'s eye drains them: drain each one first, then fight it. Drained, they are no longer elite and you can take them alone; players in our recordings killed both once drained."] = "{npc:263406}의 눈이 기운을 빨아들이기 전까지 {npc:263394}과(와) {npc:252457}은(는) 60레벨 정예입니다: 먼저 하나씩 빨아들인 다음 싸우십시오. 빨아들이면 더 이상 정예가 아니라 혼자서도 상대할 수 있습니다. 우리 기록의 플레이어들은 빨아들인 뒤 둘 다 처치했습니다.",
 
 	-- Step 131: Bethra'zel the Feeble
-	-- {npc:263394} Bethra'zel the Feeble · {npc:263406} Elaena Moonwhisper · {npc:252457} Mazzogore · {npc:267439} Doomguard Xarkul · {area:16866} Dae'gun
+	-- {npc:263394} Bethra'zel the Feeble · {npc:252457} Mazzogore · {npc:267439} Doomguard Xarkul · {area:16866} Dae'gun
 	-- plural, as words: Legion Hulks = {npc:249238} Legion Hulk
-	["North-east to {npc:263394}. Drain him first: use {npc:263406}'s eye on him, and only then fight him. Undrained, he and {npc:252457} are level 60 elites. {npc:267439}, an elite (level 61), walks this corner of {area:16866}: keep out of his way.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room."] = "",
+	["{npc:263394} is to the north-east. If he isn't drained first, he and {npc:252457} are level 60 elites, and {npc:267439} (level 61 elite) patrols this corner of {area:16866}.\nLegion Hulks (level 60 rare elites) roam {area:16866}'s camps."] = "",
 
 	-- Step 132: Maerion Thaelemaches
 	-- {npc:267097} Maerion Thaelemaches · {area:16866} Dae'gun · {npc:263394} Bethra'zel the Feeble · {npc:267439} Doomguard Xarkul

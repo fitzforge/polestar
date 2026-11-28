@@ -81,8 +81,8 @@ return {
 	["Back east to {area:358}: the Bristleback Shamans stand among the quilboar there."] = "向东返回{area:358}：{npc:2953}站在那里的野猪人中间。",
 
 	-- Step 14: Call of Earth
-	-- {npc:5888} Seer Ravenfeather · {npc:5891} Minor Manifestation of Earth · {item:6635} Earth Sapta · {item:6656} Rough Quartz
-	["Back to {npc:5888} in the camp. The {npc:5891} waits on the mesa east of the camp: drink the {item:6635} there to see it, then take the {item:6656} back to the Seer."] = "回到营地找{npc:5888}。{npc:5891}在营地东边的台地上等候：在那里喝下{item:6635}以看到它，然后把{item:6656}带回给先知。",
+	-- {npc:5888} Seer Ravenfeather · {npc:5891} Minor Manifestation of Earth · {item:6635} Earth Sapta
+	["{npc:5888} is in the camp, and the {npc:5891} is on the mesa east of it. The manifestation can only be seen with the {item:6635}."] = "",
 	-- {npc:5888} Seer Ravenfeather · {npc:5873} Stoneskin Totem · {item:5175} Earth Totem
 	["{npc:5888}: {npc:5873} and your {item:5175}"] = "{npc:5888}：{npc:5873}和你的{item:5175}",
 
@@ -254,7 +254,7 @@ return {
 	-- Step 50: Dwarven Digging
 	-- {area:404} Bael'dun Digsite
 	-- plural, as words: Prospector's Picks = {item:4702} Prospector's Pick
-	["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the dwarves' forge in the digsite."] = "{area:404}的矮人带着勘察员的锄头。在挖掘场里矮人的熔炉上砸碎它们。",
+	["The dwarves of the {area:404} carry the Prospector's Picks, and the dwarves' forge is in the digsite."] = "",
 	-- {item:4703} Broken Tools
 	["{item:4703}, at the digsite forge"] = "{item:4703}，在挖掘场的熔炉旁",
 
@@ -448,6 +448,7 @@ return {
 	-- ["Back south to the {area:396}."] = "向南返回{area:396}。",
 	-- ["Back south-east to the {area:396}."] = "向东南返回{area:396}。",
 	-- ["Back to Bloodhoof"] = "返回血蹄村",
+	-- ["Back to {npc:5888} in the camp. The {npc:5891} waits on the mesa east of the camp: drink the {item:6635} there to see it, then take the {item:6656} back to the Seer."] = "回到营地找{npc:5888}。{npc:5891}在营地东边的台地上等候：在那里喝下{item:6635}以看到它，然后把{item:6656}带回给先知。",
 	-- ["Battleboars graze north of the shrine; the Bristleback quilboar hold the ravine to the north-east. {npc:8554} stands at its eastern end, and the {item:4851} lies on the ground in the camp."] = "斗猪在神龛北边吃草；刺背野猪人占据着东北方的峡谷。{npc:8554}站在峡谷东端，{item:4851}在营地的地上。",
 	-- ["Burning Blade Cultists hold {area:1898}, east of the road north to {zone:1454}; they drop the {item:6652}. The {item:5026} comes from the Razormane on the next guide's first visit to their camp."] = "燃刃信徒占据着{area:1898}，位于向北通往{zone:1454}的道路东侧；它们掉落{item:6652}。{item:5026}要等下一份指南第一次去钢鬃营地时从他们身上获得。",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5930} sits in the north-western woods."] = "施放{spell:18960}。{npc:11802}在{area:2361}；{quest:5930}在西北方的树林里。",
@@ -476,6 +477,7 @@ return {
 	-- ["The Galak centaurs camp on the plains east of the well; Herak leads them."] = "加拉克半人马在水井东边的平原上扎营，掠夺者赫拉克是他们的首领。",
 	-- ["The Galak centaurs camp on the plains east of the well; {npc:275767} leads them."] = "加拉克半人马在水井东边的平原上扎营；{npc:275767}是他们的首领。",
 	-- ["The Galak centaurs camp on the plains north of the {area:821}; Herak leads them. Prairie Wolf Alphas roam among the wolves."] = "加拉克半人马在{area:821}北边的平原上扎营；掠夺者赫拉克是他们的首领。{npc:2960}在狼群中游荡。",
+	-- ["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the dwarves' forge in the digsite."] = "{area:404}的矮人带着勘察员的锄头。在挖掘场里矮人的熔炉上砸碎它们。",
 	-- ["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the forge in {area:222}."] = "{area:404}的矮人带着{item:4702}。在{area:222}的熔炉上砸碎它们。",
 	-- ["The goblins work the mine in the hills north-east of the well. {quest:765} stands in the back of the mine; his {item:281031} start {quest:98424}, and the other pages lie inside the mine."] = "地精在水井东北方的山丘里开矿。{quest:765}站在矿洞深处；他的{item:281031}开始{quest:98424}，其余几页在矿洞里。",
 	-- ["The goblins work the mine in the hills north-east of the well. {quest:765} stands in the back of the mine; his {item:281031} start {quest:98424}, and the other pages lie inside the mine.\nCareful: the goblins stand close together in the tunnels and {quest:765} is level 12: clear the way one pull at a time."] = "地精在水井东北方的山丘里开矿。{quest:765}站在矿洞深处；他的{item:281031}开始{quest:98424}，其余几页在矿洞里。\n小心：地精在坑道里站得很密，{quest:765}是12级：一次拉一波，逐步清出道路。",

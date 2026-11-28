@@ -153,7 +153,7 @@ return {
 	-- Step 33: The bone pile
 	["The bone pile"] = "La pila de huesos",
 	-- {npc:264306} Awakened Fel Ash Slime
-	["West to the bone pile by the slime pools: throw the warlocks' bones on it, then hand the quest in at the pile itself. Handing it in wakes the {npc:264306}, an elite (level 58) that hits hard: unless you are grouped for it, hand in and ride clear at once."] = "Al oeste, hasta la pila de huesos junto a los charcos de babosas: tira encima los huesos de los brujos y luego entrega la misión en la propia pila. Al entregarla despierta el {npc:264306}, un élite (nivel 58) que pega fuerte: salvo que vayas en grupo para él, entrega y aléjate de inmediato.",
+	["The bone pile is to the west by the slime pools, and the quest is handed in at the pile itself. Handing it in wakes the {npc:264306}, a level 58 elite that hits hard and is dangerous without a group."] = "",
 
 	-- Step 34: Amalgamated Marrow
 	-- {npc:264306} Awakened Fel Ash Slime
@@ -173,7 +173,7 @@ return {
 
 	-- Step 40: The Ashen workstations
 	["The Ashen workstations"] = "Las estaciones de trabajo Ashen",
-	["Four workstations stand in the Ashen camp: throw a pinecone at each, from the south up."] = "Hay cuatro estaciones de trabajo en el campamento Ashen: tira una piña a cada una, de sur a norte.",
+	["Four workstations stand in the Ashen camp, running from south to north."] = "",
 	["Slime Workstation"] = "Slime Workstation",
 	["Alchemy Workstation"] = "Alchemy Workstation",
 	["Disease Workstation"] = "Disease Workstation",
@@ -406,7 +406,7 @@ return {
 
 	-- Step 90: The overlook
 	["The overlook"] = "El mirador",
-	["West to the overlook above the valley: the veteran's old scabbard lies there. Hand his quest in at the scabbard and take the next from it, then use the scabbard in your bags to call his spirit and listen to his story."] = "Al oeste, hasta el mirador sobre el valle: ahí está la vieja vaina del veterano. Entrega su misión en la vaina y toma la siguiente de ella; luego usa la vaina desde tus bolsas para invocar su espíritu y escuchar su historia.",
+	["The veteran's old scabbard lies at the overlook above the valley, to the west. The scabbard calls up his spirit, who tells his story."] = "",
 
 	-- Step 91: Shalla'kal and Galvinquam Leafsyre
 	-- {npc:255683} Shalla'kal · {npc:267109} Galvinquam Leafsyre
@@ -579,9 +579,9 @@ return {
 	["{npc:263394} and {npc:252457} are level 60 elites until {npc:263406}'s eye drains them: drain each one first, then fight it. Drained, they are no longer elite and you can take them alone; players in our recordings killed both once drained."] = "{npc:263394} y {npc:252457} son élites de nivel 60 hasta que el ojo de {npc:263406} los drena: drena a cada uno primero y luego lucha. Drenados ya no son élites y puedes con ellos solo; los jugadores de nuestras grabaciones mataron a ambos una vez drenados.",
 
 	-- Step 131: Bethra'zel the Feeble
-	-- {npc:263394} Bethra'zel the Feeble · {npc:263406} Elaena Moonwhisper · {npc:252457} Mazzogore · {npc:267439} Doomguard Xarkul · {area:16866} Dae'gun
+	-- {npc:263394} Bethra'zel the Feeble · {npc:252457} Mazzogore · {npc:267439} Doomguard Xarkul · {area:16866} Dae'gun
 	-- plural, as words: Legion Hulks = {npc:249238} Legion Hulk
-	["North-east to {npc:263394}. Drain him first: use {npc:263406}'s eye on him, and only then fight him. Undrained, he and {npc:252457} are level 60 elites. {npc:267439}, an elite (level 61), walks this corner of {area:16866}: keep out of his way.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room."] = "Al noreste, hasta {npc:263394}. Drénalo primero: usa el ojo de {npc:263406} sobre él, y solo entonces pelea. Sin drenar, él y {npc:252457} son élites de nivel 60. {npc:267439}, un élite (nivel 61), recorre esta esquina de {area:16866}: no te cruces en su camino.\nCuidado: los Legion Hulks (60, élites raros) pisotean los campamentos de {area:16866}: dales espacio.",
+	["{npc:263394} is to the north-east. If he isn't drained first, he and {npc:252457} are level 60 elites, and {npc:267439} (level 61 elite) patrols this corner of {area:16866}.\nLegion Hulks (level 60 rare elites) roam {area:16866}'s camps."] = "",
 
 	-- Step 132: Maerion Thaelemaches
 	-- {npc:267097} Maerion Thaelemaches · {area:16866} Dae'gun · {npc:263394} Bethra'zel the Feeble · {npc:267439} Doomguard Xarkul
@@ -699,7 +699,11 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A group choice: {npc:263394} and {npc:252457} are level 60 elites until {npc:263406}'s eye drains them. Drain each one first, then fight it; players in our recordings killed both once drained. Grouping up is advised."] = "Para ir en grupo: {npc:263394} y {npc:252457} son élites de nivel 60 hasta que el ojo de {npc:263406} los drena. Drena a cada uno primero y luego pelea; los jugadores de nuestras grabaciones mataron a los dos una vez drenados. Se recomienda ir en grupo.",
 	-- ["Back to {npc:264089}, then the ghostly {npc:255009} at {area:16868}'s western edge, where the recording met him, on your way west."] = "De vuelta con {npc:264089}, y luego el fantasmal {npc:255009} en el borde oeste de {area:16868}, donde lo encontró la grabación, de camino al oeste.",
+	-- ["Four workstations stand in the Ashen camp: throw a pinecone at each, from the south up."] = "Hay cuatro estaciones de trabajo en el campamento Ashen: tira una piña a cada una, de sur a norte.",
+	-- ["North-east to {npc:263394}. Drain him first: use {npc:263406}'s eye on him, and only then fight him. Undrained, he and {npc:252457} are level 60 elites. {npc:267439}, an elite (level 61), walks this corner of {area:16866}: keep out of his way.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room."] = "Al noreste, hasta {npc:263394}. Drénalo primero: usa el ojo de {npc:263406} sobre él, y solo entonces pelea. Sin drenar, él y {npc:252457} son élites de nivel 60. {npc:267439}, un élite (nivel 61), recorre esta esquina de {area:16866}: no te cruces en su camino.\nCuidado: los Legion Hulks (60, élites raros) pisotean los campamentos de {area:16866}: dales espacio.",
 	-- ["South Bonfire"] = "South Bonfire",
 	-- ["South down the west side of the shrub field to the ancients' outpost: kill the {npc:248395} you pass for {npc:249235}. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "Al sur por el lado oeste del campo de arbustos hasta el puesto de los ancianos: mata los {npc:248395} que encuentres para {npc:249235}. {npc:260626}, la maestra de vuelo, espera junto al puesto; {npc:248367} y {npc:265586} están con el anciano {npc:248366}.",
 	-- ["Southeast Bonfire"] = "Southeast Bonfire",
+	-- ["West to the bone pile by the slime pools: throw the warlocks' bones on it, then hand the quest in at the pile itself. Handing it in wakes the {npc:264306}, an elite (level 58) that hits hard: unless you are grouped for it, hand in and ride clear at once."] = "Al oeste, hasta la pila de huesos junto a los charcos de babosas: tira encima los huesos de los brujos y luego entrega la misión en la propia pila. Al entregarla despierta el {npc:264306}, un élite (nivel 58) que pega fuerte: salvo que vayas en grupo para él, entrega y aléjate de inmediato.",
+	-- ["West to the overlook above the valley: the veteran's old scabbard lies there. Hand his quest in at the scabbard and take the next from it, then use the scabbard in your bags to call his spirit and listen to his story."] = "Al oeste, hasta el mirador sobre el valle: ahí está la vieja vaina del veterano. Entrega su misión en la vaina y toma la siguiente de ella; luego usa la vaina desde tus bolsas para invocar su espíritu y escuchar su historia.",
 }

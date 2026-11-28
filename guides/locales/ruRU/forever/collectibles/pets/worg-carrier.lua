@@ -15,8 +15,8 @@ return {
 	-- Step 2: Lower Blackrock Spire: Halycon's pups
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}: Halycon's pups"] = "",
-	-- {npc:10584} Urok Doomhowl · {npc:10221} Bloodaxe Worg Pup
-	["The pups are in Lower Blackrock Spire (a group of five, level 55-60), not Upper: they run with Halycon, the great worg, deep in the dungeon beyond {npc:10584}'s ogres. Use the cage on a living {npc:10221} before the pack is dead. Taking damage interrupts the cast, so let the tank hold the pups and cage one from the side. A rogue or druid can sneak in, cage a pup from a corner, then vanish."] = "",
+	-- {npc:10584} Urok Doomhowl
+	["The pups run with Halycon, the great worg, deep in Lower Blackrock Spire (not Upper) beyond {npc:10584}'s ogres; it is a group dungeon for five, level 55-60. The pup must be alive for the cage to work, and taking damage interrupts the cast."] = "",
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}"] = "{area:1583}: нижняя часть",
 

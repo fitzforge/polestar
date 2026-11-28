@@ -52,9 +52,8 @@ return {
 	-- Step 9: The Binding: incubus (Orgrimmar)
 	-- {quest:65604} The Binding · {zone:1454} Orgrimmar
 	["{quest:65604}: incubus ({zone:1454})"] = "{quest:65604}: íncubo ({zone:1454})",
-	-- {npc:5875} Gan'rul Bloodeye · {item:190187} Withered Scarf
-	-- was: ["Back to {npc:5875} with the scarf, then use the {item:190232} on the same circle in Neeru's tent and defeat the incubus it calls (level 20, not elite) with your voidwalker tanking. Keep the scarf: {npc:5875} takes it back."] = "De volta a {npc:5875} com o lenço, depois use {item:190232} no mesmo círculo da tenda de Neeru e derrote o íncubo que ele chama (nível 20, não elite) com seu emissário do caos tankando. Guarde o lenço: {npc:5875} pega de volta."
-	["Back to {npc:5875} with the scarf, then use the {item:190187} on the same circle in Neeru's tent and defeat the incubus it calls (level 20, not elite) with your voidwalker tanking. Keep the scarf: {npc:5875} takes it back."] = "",
+	-- {npc:5875} Gan'rul Bloodeye
+	["The summoning circle is in Neeru's tent. The incubus is level 20 and not elite, and {npc:5875} takes the scarf back afterward."] = "",
 	-- {npc:185335} Summoned Incubus
 	["{npc:185335}, at the circle in Neeru's tent"] = "{npc:185335}, no círculo da tenda de Neeru",
 
@@ -87,8 +86,8 @@ return {
 	-- Step 15: The Binding: incubus (Undercity)
 	-- {quest:65597} The Binding · {zone:1458} Undercity
 	["{quest:65597}: incubus ({zone:1458})"] = "{quest:65597}: íncubo ({zone:1458})",
-	-- {npc:5675} Carendin Halgar · {item:190181} Lovers' Hearts
-	["Back to {npc:5675} with the lovers' hearts, then place the {item:190181} on the same circle and defeat the incubus they call (level 20, not elite; it can charm you). Keep the hearts: {npc:5675} takes them back."] = "De volta a {npc:5675} com os corações dos amantes, depois coloque {item:190181} no mesmo círculo e derrote o íncubo que eles chamam (nível 20, não elite; ele pode enfeitiçar você). Guarde os corações: {npc:5675} pega de volta.",
+	-- {npc:5675} Carendin Halgar
+	["The incubus is level 20 and not elite, but it can charm you. {npc:5675} takes the hearts back at turn-in."] = "",
 	-- {npc:185335} Summoned Incubus · {npc:5675} Carendin Halgar
 	["{npc:185335}, at the circle below {npc:5675}"] = "{npc:185335}, no círculo embaixo de {npc:5675}",
 
@@ -96,6 +95,7 @@ return {
 	-- ["A second seducer demon, the male sayaad, and a soul shard bag to carry your shards."] = "Um segundo demônio sedutor, o sayaad macho, e uma bolsa para guardar seus fragmentos de alma.",
 	-- ["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1472} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "No nível 20, {npc:5875}, na {object:172960} sob o {object:172982}, envia você a {npc:5909}, a poucos passos. Dois instrutores iniciam esses demônios, {npc:5875} aqui e {npc:5675} na {zone:1458}, e você só pode pegar um; este guia segue a {quest:1472} que você pegou. {npc:5909} oferece os dois ramos de {zone:1454}: pegue os dois.",
 	-- ["Back to {npc:5675} in the {object:36082}. Place the hearts at the summoning circle below him and defeat the incubus they call."] = "Volte a {npc:5675} no {object:36082}. Coloque os corações no círculo de evocação abaixo dele e derrote o íncubo que eles chamarem.",
+	-- ["Back to {npc:5675} with the lovers' hearts, then place the {item:190181} on the same circle and defeat the incubus they call (level 20, not elite; it can charm you). Keep the hearts: {npc:5675} takes them back."] = "De volta a {npc:5675} com os corações dos amantes, depois coloque {item:190181} no mesmo círculo e derrote o íncubo que eles chamam (nível 20, não elite; ele pode enfeitiçar você). Guarde os corações: {npc:5675} pega de volta.",
 	-- ["Back to {npc:5875} in the {object:172960}. Take the scarf to the summoning circle in {npc:3216}'s tent nearby and defeat the incubus it calls."] = "Volte a {npc:5875} na {object:172960}. Leve o lenço ao círculo de evocação na tenda de {npc:3216}, ali perto, e derrote o íncubo que ele chamar.",
 	-- ["Back to {npc:5875} with the scarf, then use the {item:190232} on the same circle in Neeru's tent and defeat the incubus it calls (level 20, not elite) with your voidwalker tanking. Keep the scarf: {npc:5875} takes it back."] = "De volta a {npc:5875} com o lenço, depois use {item:190232} no mesmo círculo da tenda de Neeru e derrote o íncubo que ele chama (nível 20, não elite) com seu emissário do caos tankando. Guarde o lenço: {npc:5875} pega de volta.",
 	-- ["Incubus (Horde)"] = "Íncubo (Horda)",

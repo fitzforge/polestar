@@ -11,8 +11,8 @@ return {
 	["Cast {spell:18960}"] = "Lanza {spell:18960}",
 
 	-- Step 2: Trial of the Sea Lion
-	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. With both half pendants in your bags, stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then go to {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Lanza {spell:18960}. Con las dos mitades del colgante en tus bolsas, párate junto a {area:2362}, en la orilla noroeste del lago, y usa una mitad para unirlas; luego ve con {npc:11802} en {area:2361}. {npc:11802} está en el piso de arriba de su edificio: sube por adentro, la flecha no distingue los pisos.",
+	-- {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
+	["The {area:2362} is on the north-west shore of the lake. {npc:11802} is upstairs in his building in {area:2361}, and the arrow cannot tell the floors apart."] = "",
 	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
 	["{item:15885}: join the halves at the {area:2362}"] = "{item:15885}: une las mitades en {area:2362}",
 
@@ -513,7 +513,7 @@ return {
 	-- Step 96: Mystral Lake
 	-- {npc:3885} Sentinel Velene Starstrike · {area:420} Silverwind Refuge · {area:421} Mystral Lake · {npc:3897} Krolg · {npc:12759} Tideress
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
-	["{npc:3885} stands at the {area:420} on the east shore of {area:421}, just north of the road to {npc:3897}. Befouled Water Elementals wade in the lake; {npc:12759}, a level 27 water elemental, walks among them and drops the bracers too."] = "{npc:3885} está en {area:420}, en la orilla este de {area:421}, justo al norte del camino hacia {npc:3897}. Los elementales de agua podrida vadean el lago; {npc:12759}, un elemental de agua de nivel 27, anda entre ellos y también suelta los brazales.",
+	["{npc:3885} is at {area:420} on the east shore of {area:421}, just north of the road to {npc:3897}. Befouled Water Elementals wade in the lake, and {npc:12759}, a level 27 water elemental among them, also drops the bracers."] = "",
 	-- {item:5456} Divining Scroll
 	-- plural, as words: Intact Elemental Bracers = {item:12220} Intact Elemental Bracer
 	["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "Mata a los elementales hasta tener 5 Brazales elementales intactos ({item:12220}) y luego usa el {item:5456}",
@@ -695,6 +695,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "La respuesta de Alexston, si todavía la llevas (la ruta la entrega en la primera parada en {area:442} de 03-darkshore-return)",
+	-- ["Cast {spell:18960}. With both half pendants in your bags, stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then go to {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Lanza {spell:18960}. Con las dos mitades del colgante en tus bolsas, párate junto a {area:2362}, en la orilla noroeste del lago, y usa una mitad para unirlas; luego ve con {npc:11802} en {area:2361}. {npc:11802} está en el piso de arriba de su edificio: sube por adentro, la flecha no distingue los pisos.",
 	-- ["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "Para la catapulta Faucedraco, en el circuito de {zone:1437} de 30-40/01-hillsbrad-foothills",
 	-- ["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:1217} in the {area:2104} south of it, {npc:2094} by the docks on the way to the boat."] = "Usa la piedra de hogar para volver a {area:150} si la vinculaste en {area:2104}, o camina al oeste por el camino: {npc:2104} está en el piso de arriba de {area:2103}, {npc:1217} en {area:2104}, al sur, y {npc:2094} junto a los muelles, de camino al barco.",
 	-- ["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks on the way to the boat."] = "Usa la piedra de hogar para volver a {area:150} si la vinculaste en {area:2104}, o camina al oeste por el camino: {npc:2104} está en el piso de arriba de {area:2103}, y {npc:2094} junto a los muelles, de camino al barco.",
@@ -717,6 +718,7 @@ return {
 	-- ["{npc:3691}: {quest:1054}, {npc:3987} on the way back from {area:413}"] = "{npc:3691}: {quest:1054}, {npc:3987} de vuelta de {area:413}",
 	-- ["{npc:3693} stands by the flight master."] = "{npc:3693} está junto al maestro de vuelo.",
 	-- ["{npc:3845} stands by {area:415}'s flight master."] = "{npc:3845} está junto al maestro de vuelo de {area:415}.",
+	-- ["{npc:3885} stands at the {area:420} on the east shore of {area:421}, just north of the road to {npc:3897}. Befouled Water Elementals wade in the lake; {npc:12759}, a level 27 water elemental, walks among them and drops the bracers too."] = "{npc:3885} está en {area:420}, en la orilla este de {area:421}, justo al norte del camino hacia {npc:3897}. Los elementales de agua podrida vadean el lago; {npc:12759}, un elemental de agua de nivel 27, anda entre ellos y también suelta los brazales.",
 	-- ["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}."] = "{npc:3897}, un fúrbolg libre de la corrupción, está sentado al sur del camino, debajo de {area:421}.",
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619} dirige a los sátiros de {area:429}; él lleva la rama.",
 	-- ["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}: los huevos Tajobuche, en el mismo circuito",

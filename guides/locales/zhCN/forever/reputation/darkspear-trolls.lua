@@ -32,8 +32,8 @@ return {
 
 	-- Step 3: Boars, weapons and peons
 	["Boars, weapons and peons"] = "野猪、武器与苦工",
-	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
-	["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "训练用武器散落在巢穴内及北面野猪群之间。至于苦工：选中睡着的{npc:10556}，对其使用{item:16114}。",
+	-- {quest:5441} Lazy Peons
+	["The training weapons lie on the ground in the Den and among the boars to the north. The {quest:5441} are asleep."] = "",
 	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
 	["{npc:10556}: hit it with the {item:16114}"] = "{npc:10556}：用 {item:16114} 击中它",
 	-- {npc:10556} Lazy Peon
@@ -235,6 +235,7 @@ return {
 	-- ["Makrura and surf crawlers walk the beaches east and south of Sen'jin. The {quest:97223} is east of the village. The Ridgeshade spiders are along the road south of {area:362} and north-east of the Den."] = "龙虾人和海浪蟹在森金村东侧和南侧的海滩活动。{quest:97223} 在村庄东侧。脊影 蜘蛛位于 {area:362} 南侧道路沿线、巢穴东北方。",
 	-- ["The Razormane camps are south-west and west of {area:362}; the Prickly Pear cacti grow among them. Then head to the {area:368} for the {object:3240}: each nest gives an egg every time."] = "钢鬃营地在{area:362}西南方和西侧；营地间长有刺梨仙人掌。然后前往{area:368}寻找{object:3240}：每个巢穴必定提供一个蛋。",
 	-- ["The keep is south of {area:362} on the coast. {npc:3192} is in the keep's only building; his key opens {object:3239} on the roof, and the {item:4881} inside starts {quest:830}. The sailors and marines drop the {item:4870}; the {item:275713}, Battleaxe and Shield lie outside the keep."] = "要塞位于{area:362}南面的海岸。{npc:3192}在要塞唯一的建筑里；他的钥匙能打开屋顶的{object:3239}，里面的{item:4881}可触发{quest:830}。水手和海军陆战队员掉落{item:4870}；{item:275713}、战斧和盾牌在要塞外。",
+	-- ["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "训练用武器散落在巢穴内及北面野猪群之间。至于苦工：选中睡着的{npc:10556}，对其使用{item:16114}。",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "{area:381}的风险投资公司执行者（16-17级）会掉落。也可以去拍卖行购买。",
 	-- ["{item:14047} to Exalted, with the old {zone:1411} quests as a fast extra that pays {zone:1454} too if they still pay in full."] = "用{item:14047}刷到崇拜，{zone:1411}的老任务可作为快速补充，如果仍给全额奖励，还会同时提升{zone:1454}声望。",
 	-- ["{npc:14727} takes cloth for {faction:530} in the {object:172961}, {zone:1454}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7837} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14727}在{zone:1454}的{object:172961}收取布料以提升{faction:530}声望。首次捐献毛料、丝绸、魔纹布和{item:14047}（各60块）只能做一次，每块布给的声望最多；之后{quest:7837}可重复做到崇拜。与其他种族的主城达到崇拜后，可购买该种族的坐骑。Forever的传承外交官特权可提高声望获取。",

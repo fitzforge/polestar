@@ -100,8 +100,8 @@ return {
 	["the {object:654925} on the ground beside her"] = "她旁邊地上的{object:654925}",
 
 	-- Step 19: Call of Earth
-	-- {npc:5887} Canaga Earthcaller · {area:639} Spirit Rock · {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth · {item:6656} Rough Quartz
-	["{npc:5887} stands outside the Den. {area:639} is the hill just south of it: drink the {item:6635} there to see the {npc:5891}, then take the {item:6656} back to {npc:5887}."] = "{npc:5887}站在大獸穴外。{area:639}就是它南邊的山丘：在那裡喝下{item:6635}以看見{npc:5891}，然後把{item:6656}帶回給{npc:5887}。",
+	-- {npc:5887} Canaga Earthcaller · {area:639} Spirit Rock · {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth
+	["{npc:5887} stands outside the Den, and {area:639} is the hill just south of it. The {item:6635} reveals the {npc:5891}."] = "",
 	-- {npc:5891} Minor Manifestation of Earth · {area:639} Spirit Rock
 	["{npc:5891}, on {area:639}"] = "{npc:5891}，在{area:639}上",
 	-- {npc:5887} Canaga Earthcaller · {npc:5873} Stoneskin Totem · {item:5175} Earth Totem
@@ -495,4 +495,5 @@ return {
 	-- ["{npc:265809}: for {npc:7088}"] = "{npc:265809}：交給{npc:7088}",
 	-- ["{npc:3169}, inside"] = "{npc:3169}，在裡面",
 	-- ["{npc:3294}, by the inn"] = "{npc:3294}，在旅店旁",
+	-- ["{npc:5887} stands outside the Den. {area:639} is the hill just south of it: drink the {item:6635} there to see the {npc:5891}, then take the {item:6656} back to {npc:5887}."] = "{npc:5887}站在大獸穴外。{area:639}就是它南邊的山丘：在那裡喝下{item:6635}以看見{npc:5891}，然後把{item:6656}帶回給{npc:5887}。",
 }

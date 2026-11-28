@@ -98,8 +98,8 @@ return {
 	["the {object:654925} on the ground beside her"] = "{object:654925}, en el suelo a su lado",
 
 	-- Step 20: Call of Earth
-	-- {npc:5887} Canaga Earthcaller · {area:639} Spirit Rock · {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth · {item:6656} Rough Quartz
-	["{npc:5887} stands outside the Den. {area:639} is the hill just south of it: drink the {item:6635} there to see the {npc:5891}, then take the {item:6656} back to {npc:5887}."] = "{npc:5887} está fuera de El Cubil. {area:639} es la colina justo al sur: bebe {item:6635} allí para ver a {npc:5891} y lleva {item:6656} a {npc:5887}.",
+	-- {npc:5887} Canaga Earthcaller · {area:639} Spirit Rock · {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth
+	["{npc:5887} stands outside the Den, and {area:639} is the hill just south of it. The {item:6635} reveals the {npc:5891} there."] = "",
 	-- {npc:5891} Minor Manifestation of Earth · {area:639} Spirit Rock
 	["{npc:5891}, on {area:639}"] = "{npc:5891}, en {area:639}",
 	-- {npc:5887} Canaga Earthcaller · {npc:5873} Stoneskin Totem · {item:5175} Earth Totem
@@ -502,4 +502,5 @@ return {
 	-- ["{npc:3294}, by the inn"] = "{npc:3294}, junto a la posada",
 	-- ["{npc:3706}, beside {npc:3139}: the {item:16606}"] = "{npc:3706}, junto a {npc:3139}: {item:16606}",
 	-- ["{npc:3706}, in the barracks with {npc:3139}"] = "{npc:3706}, en el cuartel con {npc:3139}",
+	-- ["{npc:5887} stands outside the Den. {area:639} is the hill just south of it: drink the {item:6635} there to see the {npc:5891}, then take the {item:6656} back to {npc:5887}."] = "{npc:5887} está fuera de El Cubil. {area:639} es la colina justo al sur: bebe {item:6635} allí para ver a {npc:5891} y lleva {item:6656} a {npc:5887}.",
 }

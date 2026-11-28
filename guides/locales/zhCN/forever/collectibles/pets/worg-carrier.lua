@@ -15,8 +15,8 @@ return {
 	-- Step 2: Lower Blackrock Spire: Halycon's pups
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}: Halycon's pups"] = "{area:1583} 下层：哈雷肯的幼崽",
-	-- {npc:10584} Urok Doomhowl · {npc:10221} Bloodaxe Worg Pup
-	["The pups are in Lower Blackrock Spire (a group of five, level 55-60), not Upper: they run with Halycon, the great worg, deep in the dungeon beyond {npc:10584}'s ogres. Use the cage on a living {npc:10221} before the pack is dead. Taking damage interrupts the cast, so let the tank hold the pups and cage one from the side. A rogue or druid can sneak in, cage a pup from a corner, then vanish."] = "幼崽位于黑石塔下层（五人小队，55-60 级），不是上层：它们跟着大座狼哈雷肯，位于地下城深处、{npc:10584} 的食人魔后方。狼群被杀光前，对一只活着的 {npc:10221} 使用笼子。受到伤害会打断施法，因此让坦克拉住幼崽，从侧面捕捉一只。潜行者或德鲁伊可以潜入，从角落捕捉一只后再脱身。",
+	-- {npc:10584} Urok Doomhowl
+	["The pups run with Halycon, the great worg, deep in Lower Blackrock Spire (not Upper) beyond {npc:10584}'s ogres; it is a group dungeon for five, level 55-60. The pup must be alive for the cage to work, and taking damage interrupts the cast."] = "",
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}"] = "{area:1583}下层",
 
@@ -25,6 +25,7 @@ return {
 	["Back to {npc:10260}"] = "回到{npc:10260}处",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The pups are in Lower Blackrock Spire (a group of five, level 55-60), not Upper: they run with Halycon, the great worg, deep in the dungeon beyond {npc:10584}'s ogres. Use the cage on a living {npc:10221} before the pack is dead. Taking damage interrupts the cast, so let the tank hold the pups and cage one from the side. A rogue or druid can sneak in, cage a pup from a corner, then vanish."] = "幼崽位于黑石塔下层（五人小队，55-60 级），不是上层：它们跟着大座狼哈雷肯，位于地下城深处、{npc:10584} 的食人魔后方。狼群被杀光前，对一只活着的 {npc:10221} 使用笼子。受到伤害会打断施法，因此让坦克拉住幼崽，从侧面捕捉一只。潜行者或德鲁伊可以潜入，从角落捕捉一只后再脱身。",
 	-- ["Upper {area:1583}"] = "{area:1583}上层",
 	-- ["Upper {area:1583} is a raid group of up to ten, level 58-60. Use {npc:10260}'s cage on a {npc:10221} (Halycon's den) to get the {item:12263}."] = "{area:1583}上层是最多十人的团队副本，58-60级。对{npc:10221}（哈雷肯的巢穴）使用{npc:10260}的笼子，获得{item:12263}。",
 	-- ["{npc:10260} stands at {area:251} in northern {zone:1428}, near the {area:254} path."] = "{npc:10260}站在{zone:1428}北部的{area:251}，靠近通往{area:254}的路。",

@@ -306,9 +306,8 @@ return {
 	-- Step 66: The Ruins of Eldarath
 	-- {area:1221} Ruins of Eldarath
 	["The {area:1221}"] = "{area:1221}",
-	-- {area:1221} Ruins of Eldarath · {item:13815} Some Rune · {item:10445} Drawing Kit
-	-- was: ["The Spitelash naga of the {area:1221} carry {item:13815}. {npc:8507}'s four runes stand among the ruins: use his {item:10445} on each."] = "{area:1221}의 원한의꼬리일족 나가가 {item:13815}을(를) 가지고 있습니다. {npc:8507}의 룬 네 개는 폐허 사이에 서 있습니다. 각각에 그의 {item:10445}을(를) 사용하세요."
-	["The Spitelash naga of the {area:1221} carry {item:13815}. Tymor's runes stand among the ruins: use his {item:10445} on each."] = "",
+	-- {area:1221} Ruins of Eldarath
+	["Spitelash naga guard the {area:1221}, and Tymor's runes stand among the ruins."] = "",
 
 	-- Step 67: Lord Sarthiss
 	-- {npc:239939} Lord Sarthiss

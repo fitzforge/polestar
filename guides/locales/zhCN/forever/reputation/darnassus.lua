@@ -101,7 +101,7 @@ return {
 	["{area:442}: the coast and the woods"] = "{area:442}：海岸和树林",
 	-- {area:445} Cliffspring Falls
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the {area:445} cave to the north-east."] = "镇子南边的熊怪营地可完成 熊怪的威胁；狂暴蓟熊在镇子南边的森林中游荡；镇子东南方亚米萨兰废墟中的上层精灵幽灵带着遗物，安娜雅的幽灵也在那里走动；骸骨在镇子南边的海滩上；蘑菇长在东北方 {area:445} 的洞穴里。",
+	["The furbolg camp and the Rabid Thistle Bears are in the woods south of town, and the bones lie on the beach south of town. The relics come from the Highborne ghosts of the Ruins of Ameth'Aran to the south-east, where Anaya's ghost also walks, and the mushrooms grow in the {area:445} cave to the north-east."] = "",
 	["the corrupt furbolg camp south of town"] = "镇子南边被腐化的熊怪营地",
 	-- {npc:2164} Rabid Thistle Bear · {item:7586} Tharnariun's Hope · {npc:3701} Tharnariun Treetender
 	-- was: ["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}：对它使用{quest:2139}，再将它带回{npc:3701}处"
@@ -130,7 +130,7 @@ return {
 	["{area:442}: the seal, the {npc:6788} and the pelts"] = "{area:442}：封印、{npc:6788} 和毛皮",
 	-- {item:5338} Ancient Moonstone Seal · {quest:956} Bashal'Aran · {npc:6788} Den Mother · {zone:1439} Darkshore
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	["The {item:5338} drops from the satyrs of {quest:956}; destroy the seal at the flame there. The {npc:6788} lairs north-east of {quest:956}; the Moonstalker Sires and Matriarchs roam the south of {zone:1439}."] = "{item:5338} 由 {quest:956} 的萨特掉落；在那里的火焰处摧毁封印。{npc:6788} 栖息在 {quest:956} 东北；月夜雄虎和月夜雌虎则在 {zone:1439} 南部游荡。",
+	["The {item:5338} drops from the satyrs of {quest:956}, and the flame is there too. The {npc:6788} lairs north-east of {quest:956}, and Moonstalker Sires and Matriarchs roam southern {zone:1439}."] = "",
 	["the seal at the ancient flame"] = "远古火焰处的封印。",
 
 	-- Step 20: A Donation of Silk
@@ -169,6 +169,8 @@ return {
 	["{npc:9047}, beside Fandral in the {area:1658}, takes the soil. {npc:4217} sells the {item:11020} and Packets of Tharlendris Seeds. With a seed packet and 2 {quest:3764} in your bags, use the pouch to grow an {item:11024} and open it: about one casing in three holds {item:11040} (1 to 5), the rest other herbs. The pouch works once every 10 minutes, so use it whenever it is ready while you do other things."] = "{area:1658} 的范达尔身边，{npc:9047} 会收下泥土。{npc:4217} 出售 {item:11020} 和萨伦迪斯种子包。背包里带着一包种子和 2 个 {quest:3764} 时，使用种植袋长出 {item:11024}，再打开：约三分之一的果壳里有 {item:11040}（1 至 5 个），其余是其他草药。种植袋每 10 分钟能用一次，所以做其他事情时，冷却一好就用。",
 
 	-- Step 33: Darnassus: Morrowgrain Research
+	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave · {npc:4217} Mathrengyl Bearwalker · {quest:3764} Un'Goro Soil · {item:11040} Morrowgrain
+	["{npc:9047} is beside Fandral in the {area:1658}, and {npc:4217} sells the pouch and seeds. Each casing needs a seed packet and 2 {quest:3764}, only about one in three holds {item:11040} (1 to 5), and the pouch works once every 10 minutes."] = "",
 	-- {item:11040} Morrowgrain
 	["{item:11040}: grow it here and open the casings"] = "{item:11040}：在这里种植，并打开外壳",
 
@@ -205,6 +207,8 @@ return {
 	-- ["Optional: {area:442} in {zone:1439}, a boat trip from {area:702}, about 1,400 reputation (280 at a fifth) in an hour at 60. The givers stand along the town's street and pier. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub."] = "可选：{zone:1439} 的 {area:442}，从 {area:702} 坐船可到，60级时约一小时获得1,400点声望（若只有五分之一则为280点）。任务给予者站在镇子街道和码头沿线。经典版中，低于你6级或更多的任务奖励会减少（60级时为五分之一）；一份无限服测试报告称会给全额声望。首次交还即可判断：如果只有五分之一，就跳过这些任务点。跳过此步骤即可跳过该任务点。",
 	-- ["Riverpaw Bandits and Taskmasters (level 16-18) drop it here. The Auction House works too."] = "这里的河爪强盗和河爪监工（16-18级）会掉落。也可以去拍卖行购买。",
 	-- ["Syndicate Mercenaries at Stromgarde (level 31-32) drop it here. The Auction House works too."] = "激流堡的辛迪加雇佣兵（31-32级）会掉落。也可以去拍卖行购买。",
+	-- ["The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the {area:445} cave to the north-east."] = "镇子南边的熊怪营地可完成 熊怪的威胁；狂暴蓟熊在镇子南边的森林中游荡；镇子东南方亚米萨兰废墟中的上层精灵幽灵带着遗物，安娜雅的幽灵也在那里走动；骸骨在镇子南边的海滩上；蘑菇长在东北方 {area:445} 的洞穴里。",
+	-- ["The {item:5338} drops from the satyrs of {quest:956}; destroy the seal at the flame there. The {npc:6788} lairs north-east of {quest:956}; the Moonstalker Sires and Matriarchs roam the south of {zone:1439}."] = "{item:5338} 由 {quest:956} 的萨特掉落；在那里的火焰处摧毁封印。{npc:6788} 栖息在 {quest:956} 东北；月夜雄虎和月夜雌虎则在 {zone:1439} 南部游荡。",
 	-- ["{npc:14725} takes cloth for {faction:69} in {faction:69}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7801} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14725}在{faction:69}收取布料以提升{faction:69}声望。首次捐献毛料、丝绸、魔纹布和{item:14047}（各60块）只能做一次，每块布给的声望最多；之后{quest:7801}可重复做到崇拜。与其他种族的主城达到崇拜后，可购买该种族的坐骑。Forever的传承外交官特权可提高声望获取。",
 	-- ["{npc:14725}: {item:14047} delivered"] = "{npc:14725}：已交付{item:14047}",
 	-- ["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}：对它使用{quest:2139}，再将它带回{npc:3701}处",

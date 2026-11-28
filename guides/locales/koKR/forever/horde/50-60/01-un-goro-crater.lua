@@ -159,9 +159,9 @@ return {
 	["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "고블린 {npc:10302}은(는) 수정탑 바로 동쪽 {area:543}에 있습니다.",
 
 	-- Step 32: Krakle's Thermometer
-	-- {area:537} Fire Plume Ridge · {item:12472} Krakle's Thermometer · {npc:10302} Krakle
+	-- {area:537} Fire Plume Ridge · {npc:10302} Krakle
 	-- plural, as words: Living Blazes = {npc:6521} Living Blaze · Scorching Elementals = {npc:6520} Scorching Elemental
-	["Ride east to {area:537}, climb it and use {item:12472} at the lava vent near the top, then ride back west to {npc:10302}.\nCareful: Living Blazes (54-55) and Scorching Elementals (53-54) burn on the slopes: ride up the path and pull only what stands on it."] = "",
+	["The lava vent is near the top of {area:537}, east of {npc:10302}. Living Blazes (54-55) and Scorching Elementals (53-54) roam the slopes, and the path up has the fewest."] = "",
 
 	-- Step 33: Krakle
 	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
@@ -174,9 +174,8 @@ return {
 	-- Step 35: Escort Ringo
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "{npc:9999} 호위",
-	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
-	-- was: ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "{npc:9999}을(를) 북쪽 {area:541}(으)로 데려가세요. 기절하면 {item:11804}을(를) 사용해 깨우세요."
-	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "",
+	-- {area:541} Marshal's Refuge · {npc:9999} Ringo · {item:11804} Spraggle's Canteen
+	["{area:541} is to the north. {npc:9999} faints along the way, and {item:11804} wakes him."] = "",
 
 	-- Step 36: J.D. Collie
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:9117} J.D. Collie
@@ -363,8 +362,8 @@ return {
 
 	-- Step 78: Scarlet forward camp
 	["Scarlet forward camp"] = "붉은십자군 전진 야영지",
-	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
-	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "{area:152}에서 길을 따라 동쪽 {zone:1422}(으)로 가십시오. 붉은십자군의 천막은 펠스톤 농장 바로 너머, {area:199}과(와) {area:200} 사이에 있습니다. {item:12814}(으)로 지휘 천막에 불을 붙이고 스컬지 깃발을 꽂으십시오. 주의: 천막 주변 붉은십자군은 54레벨까지이고 기원사가 주문을 겁니다: 지휘 천막에 가장 가까운 쪽으로 들어가고 나머지는 두십시오.",
+	-- {area:199} Felstone Field · {area:200} Dalson's Tears · {area:152} The Bulwark
+	["The Scarlet Crusade's tents are just past Felstone Farm, between {area:199} and {area:200}, east of the {area:152} along the road. The Scarlets around the tents are up to level 54 and the Invokers are casters."] = "",
 
 	-- Step 79: Janice Felstone
 	-- {npc:10778} Janice Felstone
@@ -389,6 +388,7 @@ return {
 	-- ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "{area:1584} 공략용(다음, {area:254}을(를) 지나는 길): {area:340}의 {object:164867} 전단은 내부의 성난모루 드워프를 처치하기를 원합니다.",
 	-- ["Free Darrowshire Spirits: talk to them"] = "다로우샤이어 영혼 해방: 말 걸기",
 	-- ["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "지금부터 지나가는 {npc:271301}(파랑, 초록, 빨강, 노랑)과 {quest:3761} 더미를 모두 챙기세요. 흙은 모두 25개로, 하뮬에게 20개, 페슬저그에게 5개입니다.",
+	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "{area:152}에서 길을 따라 동쪽 {zone:1422}(으)로 가십시오. 붉은십자군의 천막은 펠스톤 농장 바로 너머, {area:199}과(와) {area:200} 사이에 있습니다. {item:12814}(으)로 지휘 천막에 불을 붙이고 스컬지 깃발을 꽂으십시오. 주의: 천막 주변 붉은십자군은 54레벨까지이고 기원사가 주문을 겁니다: 지휘 천막에 가장 가까운 쪽으로 들어가고 나머지는 두십시오.",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "{area:152}에서 길을 따라 동쪽으로 {zone:1422}(으)로 가세요. 붉은십자군의 천막은 펠스톤 농장을 막 지나 {area:199}와(과) {area:200} 사이에 있습니다. {object:176092}(으)로 지휘 천막을 불태우고 스컬지 깃발을 꽂으세요.",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "{area:152}에서 길을 따라 동쪽으로 {zone:1422}(으)로 가세요. 붉은십자군의 천막은 펠스톤 농장을 막 지나 {area:199}와(과) {area:200} 사이에 있습니다. {object:176092}(으)로 지휘 천막을 불태우고 스컬지 깃발을 꽂으세요. 주의: 천막 주변 붉은십자군은 54레벨까지 있고 기원사는 주문을 시전합니다. 지휘 천막에 가장 가까운 쪽으로 접근하고 나머지는 건드리지 마세요.",
 	-- ["From the {area:1938} ride west to the long ramp that winds down into {area:490}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "{area:1938}에서 서쪽으로 가 {area:490}(으)로 구불구불 내려가는 긴 비탈길을 타고, 분화구 북쪽 벽을 따라 절벽 동굴 속 야영지인 {area:541}(으)로 가세요. 이곳 주민은 모두 중립입니다.",

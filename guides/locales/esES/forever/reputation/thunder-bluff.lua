@@ -113,9 +113,8 @@ return {
 	["{npc:264074}: {quest:96241} (Darkspear +100)"] = "{npc:264074}: {quest:96241} (Lanza Negra +100)",
 
 	-- Step 19: Gloomrise
-	-- {area:17044} Gloomrise · {faction:81} Thunder Bluff · {item:273015} Toxin Extractor · {npc:264082} Broodmother Valraxx · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
-	-- plural, as words: Gnawed Corpses = {npc:264096} Gnawed Corpse
-	["{area:17044} is the tauren burial ground north of {faction:81}. Use the {item:273015} on the Gnawed Corpses. {npc:264082} waits at the heart of it; her body carries a {item:273658}: read it to start {quest:96294}."] = "{area:17044} es el cementerio tauren al norte de {faction:81}. Usa el {item:273015} en los cadáveres roídos. {npc:264082} espera en su centro; su cuerpo lleva un {item:273658}: léelo para iniciar {quest:96294}.",
+	-- {area:17044} Gloomrise · {faction:81} Thunder Bluff · {npc:264082} Broodmother Valraxx · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
+	["{area:17044} is the tauren burial ground north of {faction:81}. {npc:264082} is at its heart, and her body carries a {item:273658} that starts {quest:96294}."] = "",
 	-- {item:273181} Crystalline Silk
 	-- plural, as words: Gloomrise Spinners = {npc:264081} Gloomrise Spinner
 	["{item:273181}, from Gloomrise Spinners"] = "{item:273181}, de {npc:264081}",
@@ -239,6 +238,7 @@ return {
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "Los centauros Kolkar (nivel 30-33) la sueltan aquí. También sirve la casa de subastas.",
 	-- ["The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "La trituradora élite Taladora de la Compañía de Ventura trabaja en lo más hondo de la mina, más allá de donde estaba Fizsprocket: su llave es para {quest:98427}.",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "Los Déspotas de Ventura y Cía. de {area:381} (nivel 16-17) la sueltan aquí. También sirve la casa de subastas.",
+	-- ["{area:17044} is the tauren burial ground north of {faction:81}. Use the {item:273015} on the Gnawed Corpses. {npc:264082} waits at the heart of it; her body carries a {item:273658}: read it to start {quest:96294}."] = "{area:17044} es el cementerio tauren al norte de {faction:81}. Usa el {item:273015} en los cadáveres roídos. {npc:264082} espera en su centro; su cuerpo lleva un {item:273658}: léelo para iniciar {quest:96294}.",
 	-- ["{npc:14728} takes cloth for {faction:81} in {faction:81}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7825} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14728} acepta tela para {faction:81} en {faction:81}. Las primeras donaciones de Paño de lana, Paño de seda, Tela de paño mágico y {item:14047} (60 telas cada una) se hacen una sola vez y dan la mayor reputación por tela; después, {quest:7825} se repite hasta Exaltado. Ser Exaltado con la ciudad de otra raza te permite comprar las monturas de esa raza. La ventaja de Legado Diplomático de Forever aumenta la reputación obtenida.",
 	-- ["{npc:14728}: {item:14047} delivered"] = "{npc:14728}: {item:14047} entregado",
 	-- ["{quest:7825} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7825} pide 20 {item:14047} por entrega y se repite tantas veces como quieras. Lleva {item:14047} en múltiplos de 20 y entrégalo todo de una vez, una entrega tras otra. {item:14047}: Adeptos oscuros y magos oscuros (nivel 58-60) en {zone:1423}, o la casa de subastas.",

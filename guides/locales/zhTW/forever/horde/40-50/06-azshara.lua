@@ -219,7 +219,7 @@ return {
 
 	-- Step 53: Edana Hatetalon
 	-- {npc:8075} Edana Hatetalon
-	["{npc:8075} (level 50, elite) roosts on the cliff just north of the harpies' nests. Clear the harpies around her first."] = "",
+	["{npc:8075} (level 50, elite) roosts on the cliff just north of the harpies' nests, with harpies around her."] = "",
 
 	-- Step 54: Rage Scar yetis
 	["Rage Scar yetis"] = "",

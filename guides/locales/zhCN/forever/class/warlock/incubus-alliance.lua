@@ -51,9 +51,8 @@ return {
 	-- Step 7: The Binding: incubus
 	-- {quest:65603} The Binding
 	["{quest:65603}: incubus"] = "{quest:65603}：梦魇",
-	-- {item:190186} Wooden Figurine · {npc:6122} Gakin the Darkbinder
-	-- was: ["Give Gakin the figurine, then use the {item:190309} at the middle of the same circle and defeat the incubus it calls (level 20, not elite; it can charm you) with your voidwalker tanking. Keep the figurine: {npc:6122} takes it back."] = "把雕像交给黑暗缚灵者加科因，然后在同一个法阵的中央使用{item:190309}，让虚空行者抗住伤害，击败召出的夜魔（20级，非精英；会魅惑你）。保留雕像：要交还给{npc:6122}。"
-	["Give Gakin the figurine, then use the {item:190186} at the middle of the same circle and defeat the incubus it calls (level 20, not elite; it can charm you) with your voidwalker tanking. Keep the figurine: {npc:6122} takes it back."] = "",
+	-- {npc:6122} Gakin the Darkbinder
+	["The incubus is level 20 and not elite, but it can charm you. {npc:6122} takes the figurine back afterward."] = "",
 	-- {npc:185335} Summoned Incubus
 	["{npc:185335}, at the circle in the crypt"] = "{npc:185335}，位于墓穴中的法阵旁。",
 

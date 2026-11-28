@@ -304,8 +304,8 @@ return {
 	-- Step 66: The Ruins of Eldarath
 	-- {area:1221} Ruins of Eldarath
 	["The {area:1221}"] = "{area:1221}",
-	-- {area:1221} Ruins of Eldarath · {item:13815} Some Rune · {item:10445} Drawing Kit
-	["The Spitelash naga of the {area:1221} carry {item:13815}. Tymor's runes stand among the ruins: use his {item:10445} on each."] = "Die Spitelash-Naga von {area:1221} tragen {item:13815}. Tymors Runen stehen zwischen den Ruinen: benutze sein {item:10445} auf jede.",
+	-- {area:1221} Ruins of Eldarath
+	["Spitelash naga guard the {area:1221}, and Tymor's runes stand among the ruins."] = "",
 
 	-- Step 67: Lord Sarthiss
 	-- {npc:239939} Lord Sarthiss
@@ -410,6 +410,7 @@ return {
 	-- ["Thaurissan Relics"] = "Thauris-Relikte",
 	-- ["The Firegut ogres hold the great rock north of the Vigil, with the Brutes on its east side.\nCareful: Escaped Core Hounds (level 60) roam the Steppes, a few on the slopes west and south of {area:249}: pull the ogres on the rock itself and look around before each pull."] = "Die Oger der Feuermägen halten den großen Felsen nördlich der Wacht, mit den Schlägern auf seiner Ostseite.\nVorsicht: Entkommene Kernhunde (Stufe 60) streifen durch die Steppe, ein paar an den Hängen westlich und südlich von {area:249}: Zieh die Oger auf dem Felsen selbst und sieh dich vor jedem Pull um.",
 	-- ["The Highborne ghosts haunt the ruins around the shrine; the Haldarr satyrs hold the camp just north of it."] = "Die Geister der Hochgeborenen spuken in den Ruinen um den Schrein; die Satyrn der Haldarr halten das Lager gleich nördlich davon.",
+	-- ["The Spitelash naga of the {area:1221} carry {item:13815}. Tymor's runes stand among the ruins: use his {item:10445} on each."] = "Die Spitelash-Naga von {area:1221} tragen {item:13815}. Tymors Runen stehen zwischen den Ruinen: benutze sein {item:10445} auf jede.",
 	-- ["The Spitelash naga of the {area:1221} carry {item:13815}. {npc:8507}'s four runes stand among the ruins: use his {item:10445} on each."] = "Die Naga der Grollflossen in {area:1221} tragen {item:13815}. Die vier Runen von {npc:8507} stehen zwischen den Ruinen: Benutze sein {item:10445} an jeder.",
 	-- ["The Spitelash naga of the {area:1221} carry {item:13815}. {npc:8507}'s runes stand among the ruins: use his {item:10445} on each. The naga here are the ones the top-up below asks for, so these kills count towards it."] = "Die Naga der Grollflossen in {area:1221} tragen {item:13815}. Die Runen von {npc:8507} stehen zwischen den Ruinen: Benutze sein {item:10445} an jeder. Die Naga hier sind genau die, die das Grinden unten verlangt, diese Kills zählen also dafür mit.",
 	-- ["The Spitelash naga of these ruins drop Truesong's Eldarath Relics, top-up or not. {npc:239939} (52) stands in the ruins of Eldarath, south-west of the Myrmidons: pull him alone."] = "Die Naga der Grollflossen in diesen Ruinen lassen Relikte von Eldarath fallen, ob du grindest oder nicht. {npc:239939} (52) steht in den Ruinen von Eldarath, südwestlich der Myrmidonen: Zieh ihn allein.",

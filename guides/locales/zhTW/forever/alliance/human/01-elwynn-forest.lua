@@ -468,8 +468,8 @@ return {
 	["Head back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "穿過{area:87}返回，沿路向東到{area:62}。{npc:881}（9級）站在農舍旁。",
 
 	-- Step 93: The Binding
-	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb
-	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "回到{npc:6122}那裡。在{object:2164}地下室的召喚法陣使用{item:6928}，擊敗被召喚出的虛空行者。",
+	-- {object:2164} Slaughtered Lamb
+	["The summoning circle is in the {object:2164}'s cellar, and it calls a voidwalker that has to be defeated."] = "",
 	["Subdue the voidwalker"] = "制服虛空行者",
 
 	-- Step 94: Back to Elwynn Forest
@@ -536,6 +536,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to the {area:120}, by the road to {zone:1436}. {npc:963} stands outside the barracks, {npc:955} beside him."] = "向南回到{area:120}，在通往{zone:1436}的路旁。{npc:963}站在兵營外，{npc:955}在他旁邊。",
 	-- ["Back to the Cathedral of Light."] = "回到光明大教堂。",
+	-- ["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "回到{npc:6122}那裡。在{object:2164}地下室的召喚法陣使用{item:6928}，擊敗被召喚出的虛空行者。",
 	-- ["Bait ingredients"] = "誘餌材料",
 	-- ["Boar meat"] = "野豬肉",
 	-- ["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "迪菲亞流浪巫師在{area:86}岸邊紮營；他們也會掉落紅色亞麻面罩。{object:56}在東北岸的魚人村裡。",

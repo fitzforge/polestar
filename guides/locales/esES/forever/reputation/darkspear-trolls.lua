@@ -32,8 +32,8 @@ return {
 
 	-- Step 3: Boars, weapons and peons
 	["Boars, weapons and peons"] = "Jabalíes, armas y peones",
-	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
-	["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "Las armas de entrenamiento están en el suelo de La Guarida y entre los jabalíes al norte. Para los peones: selecciona un {npc:10556} dormido y usa la {item:16114} sobre él.",
+	-- {quest:5441} Lazy Peons
+	["The training weapons lie on the ground in the Den and among the boars to the north. The {quest:5441} are asleep."] = "",
 	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
 	["{npc:10556}: hit it with the {item:16114}"] = "{npc:10556}: golpéalo con la {item:16114}",
 	-- {npc:10556} Lazy Peon
@@ -228,6 +228,7 @@ return {
 	-- ["Keep handing in {quest:7837} until {faction:530} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Sigue entregando {quest:7837} hasta llegar a Exaltado con {faction:530}. {item:14047}: Adeptos oscuros y Magos oscuros (nivel 58-60) en {zone:1423}, o la casa de subastas.",
 	-- ["Keep handing in {quest:7837}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Sigue entregando {quest:7837}, 20 de {item:14047} cada vez. {item:14047}: Adeptos oscuros y Magos oscuros (nivel 58-60) en {zone:1423}, o la casa de subastas.",
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "Lo sueltan los centauros Kolkar de aquí (nivel 30-33). También puedes comprarlo en la casa de subastas.",
+	-- ["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "Las armas de entrenamiento están en el suelo de La Guarida y entre los jabalíes al norte. Para los peones: selecciona un {npc:10556} dormido y usa la {item:16114} sobre él.",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "Lo sueltan los Déspotas de Ventura y Cía. de la {area:381} (nivel 16-17). También puedes comprarlo en la casa de subastas.",
 	-- ["{npc:14727} takes cloth for {faction:530} in the {object:172961}, {zone:1454}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7837} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14727} recoge paño para {faction:530} en el {object:172961}, {zone:1454}. Las primeras donaciones de lana, seda, paño mágico y {item:14047} (60 paños cada una) se hacen una sola vez y dan la mayor reputación por paño; después, {quest:7837} se repite hasta Exaltado. Ser Exaltado con la ciudad de otra raza te permite comprar sus monturas. La ventaja de Legado Diplomático de Forever aumenta la reputación que ganas.",
 	-- ["{npc:14727}: {item:14047} delivered"] = "{npc:14727}: {item:14047} entregado",

@@ -174,9 +174,8 @@ return {
 	-- Step 45: Gloomrise: kill these as you meet them
 	-- {area:17044} Gloomrise
 	["{area:17044}: kill these as you meet them"] = "{area:17044}：遇到就殺",
-	-- {area:17044} Gloomrise · {npc:264074} Mazu'kon · {item:273015} Toxin Extractor · {item:273181} Crystalline Silk · {npc:264082} Broodmother Valraxx · {quest:96261} The Broodmother · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
-	-- plural, as words: Gnawed Corpses = {npc:264096} Gnawed Corpse
-	["North of the camp, spiders overrun the burial ground at {area:17044}. Use {npc:264074}'s {item:273015} on the Gnawed Corpses; the Spinners drop the {item:273181}. {npc:264082} (30, elite) sits at the north end: leave her unless you do {quest:96261} with a group; her {item:273658} starts {quest:96294}."] = "在營地北邊，蜘蛛佔據了{area:17044}的墓地。對被啃咬的屍體使用{npc:264074}的{item:273015}；紡絲蜘蛛會掉落{item:273181}。{npc:264082}（30級，精英）在北端：除非組隊做{quest:96261}，否則別碰她；她的{item:273658}會開始{quest:96294}。",
+	-- {area:17044} Gloomrise · {item:273181} Crystalline Silk · {npc:264082} Broodmother Valraxx · {quest:96261} The Broodmother · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
+	["Spiders overrun the burial ground at {area:17044}, north of the camp, and the Spinners drop the {item:273181}. {npc:264082} (level 30, elite) sits at the north end and is meant for a group doing {quest:96261}; her {item:273658} starts {quest:96294}."] = "",
 	-- {item:273181} Crystalline Silk
 	-- plural, as words: Gloomrise Spinners = {npc:264081} Gloomrise Spinner
 	["{item:273181}, from Gloomrise Spinners"] = "{item:273181}，來自{npc:264081}",
@@ -368,7 +367,7 @@ return {
 
 	-- Step 81: Hypercapacitor Gizmo
 	-- {npc:10992} Enraged Panther
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone."] = "這些是精英怪：建議組隊，找人一起打。{npc:10992}是30級精英：大多數職業在32級能單刷，但你可能需要幫手。如果你獨自一人就跳過。",
+	["The {npc:10992} is a level 30 elite. Most classes can solo it at level 32, but some may need a group."] = "",
 
 	-- Step 82: Whitereach Post
 	-- {npc:10720} Galak Assassin · {npc:10638} Kanati Greycloud
@@ -440,6 +439,7 @@ return {
 	-- ["Keep {npc:4877}'s two harpy quests and {npc:2986}'s {quest:1150}: {area:487} comes with the next Freewind visit, at about 30, with the {area:2240}'s quests."] = "保留{npc:4877}的兩個鷹身人任務和{npc:2986}的{quest:1150}：{area:487}留到下次來亂風崗時再做，約30級，連同{area:2240}的任務一起。",
 	-- ["Level 29"] = "29級",
 	-- ["Naga brazier"] = "納迦火盆",
+	-- ["North of the camp, spiders overrun the burial ground at {area:17044}. Use {npc:264074}'s {item:273015} on the Gnawed Corpses; the Spinners drop the {item:273181}. {npc:264082} (30, elite) sits at the north end: leave her unless you do {quest:96261} with a group; her {item:273658} starts {quest:96294}."] = "在營地北邊，蜘蛛佔據了{area:17044}的墓地。對被啃咬的屍體使用{npc:264074}的{item:273015}；紡絲蜘蛛會掉落{item:273181}。{npc:264082}（30級，精英）在北端：除非組隊做{quest:96261}，否則別碰她；她的{item:273658}會開始{quest:96294}。",
 	-- ["North up the road to {area:431} and {area:428} beside it."] = "沿著道路向北前往{area:431}和旁邊的{area:428}。",
 	-- ["On the way back north-east to Splintertree: {npc:12676} prowls the woods south-east of the Warsong lumber camp."] = "在往東北回碎木崗哨的路上：{npc:12676}在戰歌伐木營地東南方的樹林中徘徊。",
 	-- ["Pesterhide Snarlers"] = "雜毛嚎叫者",
@@ -452,6 +452,7 @@ return {
 	-- ["The next guide opens with Korran's The Swarm Grows at the Crossroads, offered from level 29. Short of 29? The Pesterhide Snarlers (28-29) prowl the canyon floor just north-west of {area:484}: kill them until level 29. Or, with a group, run the {area:2797} dungeon instead."] = "下一份指南以十字路口科蘭的「瘋狂的蟲群」開始，29級起可接。還沒到29級？{npc:4249}（28-29級）在{area:484}西北方的峽谷底部遊蕩：擊殺牠們直到29級。或者組隊去打{area:2797}地城。",
 	-- ["The salt flats"] = "鹽灘",
 	-- ["The {area:1718}"] = "{area:1718}",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone."] = "這些是精英怪：建議組隊，找人一起打。{npc:10992}是30級精英：大多數職業在32級能單刷，但你可能需要幫手。如果你獨自一人就跳過。",
 	-- ["Thistlefur Hold"] = "薊皮熊怪的巢穴",
 	-- ["Tideress"] = "泰德雷斯",
 	-- ["Ursangous"] = "烏薩苟斯",

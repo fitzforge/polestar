@@ -26,19 +26,20 @@ return {
 
 	-- Step 4: The brown waterskin
 	["The brown waterskin"] = "L'outre marron",
-	-- {item:265732} Unfilled Brown Waterskin · {npc:258203} Hervdana Saegrund · {object:147516} Dark Iron
-	["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "Remplissez l'{item:265732} au pied des chutes sous la grotte de {npc:258203}, là où l'eau douce rencontre l'eau saumâtre. Des nains {object:147516} rôdent près des chutes.",
+	-- {npc:258203} Hervdana Saegrund · {object:147516} Dark Iron
+	-- was: ["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "Remplissez l'{item:265732} au pied des chutes sous la grotte de {npc:258203}, là où l'eau douce rencontre l'eau saumâtre. Des nains {object:147516} rôdent près des chutes."
+	["The water source is at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "",
 
 	-- Step 6: The red waterskin
 	["The red waterskin"] = "L'outre rouge",
-	-- {area:71} Stonewatch Falls · {area:68} Lake Everstill · {zone:1455} Ironforge · {area:69} Lakeshire · {item:265747} Unfilled Red Waterskin · {npc:258203} Hervdana Saegrund
+	-- {area:71} Stonewatch Falls · {area:68} Lake Everstill · {npc:258203} Hervdana Saegrund
 	-- plural, as words: Murloc Nightcrawlers = {npc:544} Murloc Nightcrawler
-	["{area:71} pour out of {area:68} at the east end of Redridge (fly from {zone:1455} to {area:69}). Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather; pull the murlocs off the spot first. If the skin vanishes without counting, abandon the quest and take it again from {npc:258203} for a new one."] = "Les {area:71} s'écoulent du {area:68} à l'extrémité est des Carmines (volez de {zone:1455} à {area:69}). Remplissez l'{item:265747} à leur pied, là où se rassemblent les Marcheurs de l'ombre murlocs ; éloignez d'abord les murlocs de l'endroit. Si l'outre disparaît sans compter, abandonnez la quête et reprenez-la auprès de {npc:258203} pour en avoir une nouvelle.",
+	["{area:71} pours out of {area:68} at the east end of Redridge, and Murloc Nightcrawlers gather at its foot. If the skin vanishes without counting, {npc:258203} gives a new one when the quest is taken again."] = "",
 
 	-- Step 8: The blue waterskin
 	["The blue waterskin"] = "L'outre bleue",
-	-- {area:150} Menethil Harbor · {area:442} Auberdine · {area:271} Southshore · {zone:1439} Darkshore · {area:415} Astranaar · {zone:1440} Ashenvale · {item:265772} Unfilled Blue Waterskin
-	["Take the boat from {area:150} to {area:442} (it stops in {area:271} on the way), then fly or walk south through {zone:1439} to {area:415} in {zone:1440}. Fill the {item:265772} in the lake around the town, then the boat back to Menethil."] = "Prenez le bateau de {area:150} à {area:442} (il fait escale à {area:271} en chemin), puis volez ou marchez vers le sud à travers {zone:1439} jusqu'à {area:415}, en {zone:1440}. Remplissez l'{item:265772} dans le lac autour de la ville, puis reprenez le bateau pour Menethil.",
+	-- {area:415} Astranaar · {zone:1440} Ashenvale · {area:150} Menethil Harbor · {area:442} Auberdine · {zone:1439} Darkshore
+	["The water comes from the lake around {area:415} in {zone:1440}. The boat from {area:150} goes to {area:442} in {zone:1439}, which is north of {zone:1440}."] = "",
 
 	-- Step 9: Hervdana Saegrund
 	-- {item:7810} Vial of Purest Water · {npc:258043} Norric Lochthane
@@ -73,6 +74,9 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 20 {npc:258098}, the shaman trainer in {zone:1455}, sends you to {npc:258043} in {zone:1432}."] = "Au niveau 20, {npc:258098}, le maître des chamans de {zone:1455}, vous envoie voir {npc:258043} au {zone:1432}.",
 	-- ["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish."] = "Remplissez l'{item:265732} au pied des chutes sous la grotte d'{npc:258203}, là où l'eau douce rencontre l'eau saumâtre.",
+	-- ["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "Remplissez l'{item:265732} au pied des chutes sous la grotte de {npc:258203}, là où l'eau douce rencontre l'eau saumâtre. Des nains {object:147516} rôdent près des chutes.",
+	-- ["Take the boat from {area:150} to {area:442} (it stops in {area:271} on the way), then fly or walk south through {zone:1439} to {area:415} in {zone:1440}. Fill the {item:265772} in the lake around the town, then the boat back to Menethil."] = "Prenez le bateau de {area:150} à {area:442} (il fait escale à {area:271} en chemin), puis volez ou marchez vers le sud à travers {zone:1439} jusqu'à {area:415}, en {zone:1440}. Remplissez l'{item:265772} dans le lac autour de la ville, puis reprenez le bateau pour Menethil.",
+	-- ["{area:71} pour out of {area:68} at the east end of Redridge (fly from {zone:1455} to {area:69}). Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather; pull the murlocs off the spot first. If the skin vanishes without counting, abandon the quest and take it again from {npc:258203} for a new one."] = "Les {area:71} s'écoulent du {area:68} à l'extrémité est des Carmines (volez de {zone:1455} à {area:69}). Remplissez l'{item:265747} à leur pied, là où se rassemblent les Marcheurs de l'ombre murlocs ; éloignez d'abord les murlocs de l'endroit. Si l'outre disparaît sans compter, abandonnez la quête et reprenez-la auprès de {npc:258203} pour en avoir une nouvelle.",
 	-- ["{area:71} pour out of {area:68} at the east end of Redridge. Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather."] = "{area:71} se déversent du {area:68} à l'extrémité est des Carmines. Remplissez {item:265747} à leur pied, là où se rassemblent les Marcheurs de l'ombre murlocs ({npc:544}).",
 	-- ["{area:71} pour out of {area:68} at the east end of Redridge. Fill the {item:265747} at their foot, where the Murloc {item:6530} gather."] = "Les {area:71} s'écoulent du {area:68}, à l'est des Carmines. Remplissez l'{item:265747} à leur pied, où se rassemblent les Marcheurs de l'ombre murlocs ({item:6530}).",
 	-- ["{area:919} lies outside {area:20}. Drink the {item:6637} there and defeat the {npc:5894} for its bracers, then place them and the {item:7811} on the {object:619896}. The {npc:5895} it calls forth gives you the {item:7813}."] = "L'{area:919} se trouve à l'extérieur de {area:20}. Buvez-y le {item:6637} et vainquez la {npc:5894} pour ses brassards, puis posez-les avec les {item:7811} sur le {object:619896}. La {npc:5895} ainsi appelée vous donne l'{item:7813}.",

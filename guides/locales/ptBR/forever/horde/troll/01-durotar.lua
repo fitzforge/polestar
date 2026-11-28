@@ -98,8 +98,8 @@ return {
 	["the {object:654925} on the ground beside her"] = "o {object:654925} no chão ao lado dela",
 
 	-- Step 20: Call of Earth
-	-- {npc:5887} Canaga Earthcaller · {area:639} Spirit Rock · {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth · {item:6656} Rough Quartz
-	["{npc:5887} stands outside the Den. {area:639} is the hill just south of it: drink the {item:6635} there to see the {npc:5891}, then take the {item:6656} back to {npc:5887}."] = "{npc:5887} fica do lado de fora d'O Covil. {area:639} é a colina logo ao sul: beba a {item:6635} lá para ver a {npc:5891}, depois leve o {item:6656} de volta para {npc:5887}.",
+	-- {npc:5887} Canaga Earthcaller · {area:639} Spirit Rock · {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth
+	["{npc:5887} stands outside the Den, and {area:639} is the hill just south of it. The {item:6635} reveals the {npc:5891} there."] = "",
 	-- {npc:5891} Minor Manifestation of Earth · {area:639} Spirit Rock
 	["{npc:5891}, on {area:639}"] = "{npc:5891}, na {area:639}",
 	-- {npc:5887} Canaga Earthcaller · {npc:5873} Stoneskin Totem · {item:5175} Earth Totem
@@ -511,5 +511,6 @@ return {
 	-- ["{npc:3706}, beside {npc:3139}: the {item:16606}"] = "{npc:3706}, ao lado de {npc:3139}: o {item:16606}",
 	-- ["{npc:3706}, in the barracks with {npc:3139}"] = "{npc:3706}, no quartel com {npc:3139}",
 	-- ["{npc:5884} in {zone:1411}; {area:362} has no mage trainer"] = "{npc:5884} em {zone:1411}; {area:362} não tem instrutor de mago",
+	-- ["{npc:5887} stands outside the Den. {area:639} is the hill just south of it: drink the {item:6635} there to see the {npc:5891}, then take the {item:6656} back to {npc:5887}."] = "{npc:5887} fica do lado de fora d'O Covil. {area:639} é a colina logo ao sul: beba a {item:6635} lá para ver a {npc:5891}, depois leve o {item:6656} de volta para {npc:5887}.",
 	-- ["{quest:790}, a large scorpid, prowls the slope south of {npc:3287} among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.\nThe {quest:792} swarm the slope below the {area:365}, the cave on the valley's north side."] = "{quest:790}, um escorpídeo graúdo, ronda a encosta ao sul de {npc:3287} no meio dos Escorpídeos Operários; colha as Sabras nos cactos pelo caminho.\nOs {quest:792} infestam a encosta abaixo de {area:365}, a caverna no lado norte do vale.",
 }

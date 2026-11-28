@@ -189,7 +189,7 @@ return {
 	-- {npc:10926} Pamela Redpath
 	["{npc:10926}'s doll"] = "Poupée de {npc:10926}",
 	-- {area:2262} Darrowshire
-	["The three pieces of the doll lie in the ruined houses of {area:2262}; picking one up can call out ghosts. Combine them into the doll."] = "Les trois morceaux de la poupée sont dans les maisons en ruine de {area:2262} ; en ramasser un peut faire surgir des fantômes. Assemblez-les pour obtenir la poupée.",
+	["The three doll pieces are in the ruined houses of {area:2262}. Picking one up can call out ghosts."] = "",
 	-- {item:12886} Pamela's Doll's Head
 	["{item:12886}; inside"] = "{item:12886} ; à l'intérieur",
 	-- {item:12888} Pamela's Doll's Right Side
@@ -397,9 +397,9 @@ return {
 	-- Step 72: Plaguewood: kill these as you meet them
 	-- {area:2277} Plaguewood
 	["{area:2277}: kill these as you meet them"] = "{area:2277} : tuez-les au passage",
-	-- {area:2277} Plaguewood · {area:2627} Terrordale · {item:15042} Empty Termite Jar
-	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound · Carrion Devourers = {npc:8605} Carrion Devourer
-	["West through the {area:2277} to {area:2627}: fill the {item:15042} at the big termite mounds, and kill the Frenzied Plaguehounds and the Carrion Devourers on the way.\nCareful: the Frenzied Plaguehounds are 57-58: pull them one at a time."] = "",
+	-- {area:2627} Terrordale · {area:2277} Plaguewood
+	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound
+	["{area:2627} is west through the {area:2277}, and the big termite mounds are on the way. The Frenzied Plaguehounds are level 57-58, so pulling more than one is dangerous."] = "",
 
 	-- Step 73: Augustus the Touched
 	-- {npc:12384} Augustus the Touched · {area:2627} Terrordale · {npc:11140} Egan · {npc:16184} Nerubian Overseer · {area:2626} Terrorweb Tunnel
@@ -593,6 +593,7 @@ return {
 	-- ["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997}."] = "Le pylône se dresse sur la pente à l'est du refuge. Les {npc:9166} tournent au-dessus des pentes alentour : ils comptent pour {npc:9997}.",
 	-- ["The pylon stands on the western cliffs."] = "Le pylône se dresse sur les falaises ouest.",
 	-- ["The shrunken giants roam the {area:1119}; the sea elementals wade along the coast to the west."] = "Les géants rétrécis errent autour de {area:1119} ; les élémentaires des mers longent la côte à l'ouest.",
+	-- ["The three pieces of the doll lie in the ruined houses of {area:2262}; picking one up can call out ghosts. Combine them into the doll."] = "Les trois morceaux de la poupée sont dans les maisons en ruine de {area:2262} ; en ramasser un peut faire surgir des fantômes. Assemblez-les pour obtenir la poupée.",
 	-- ["The tortured druids and sentinels haunt the ruined village south-west of {npc:13220}."] = "Les Druides torturés et les Sentinelles torturées hantent le village en ruine au sud-ouest de {npc:13220}.",
 	-- ["The wooden sign beside {npc:9997}"] = "Le panneau en bois à côté de {npc:9997}",
 	-- ["The {area:2742} tower"] = "La tour de {area:2742}",

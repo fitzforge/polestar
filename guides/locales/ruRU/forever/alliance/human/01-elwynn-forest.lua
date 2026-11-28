@@ -468,8 +468,8 @@ return {
 	["Head back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Возвращайтесь через {area:87} и на восток вдоль дороги к {area:62}. {npc:881} (9 уровня) стоит у фермерского домика.",
 
 	-- Step 93: The Binding
-	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb
-	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "Назад к {npc:6122}. Используйте {item:6928} у круга призыва в подвале ({object:2164}) и победите призванного демона Бездны.",
+	-- {object:2164} Slaughtered Lamb
+	["The summoning circle is in the {object:2164}'s cellar, and it calls a voidwalker that has to be defeated."] = "",
 	["Subdue the voidwalker"] = "Одолейте демона Бездны",
 
 	-- Step 94: Back to Elwynn Forest
@@ -536,6 +536,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to the {area:120}, by the road to {zone:1436}. {npc:963} stands outside the barracks, {npc:955} beside him."] = "Назад на юг. Цель: {area:120}, у дороги в зону {zone:1436}. {npc:963} стоит у казарм, {npc:955} – рядом с ним.",
 	-- ["Back to the Cathedral of Light."] = "Назад в Собор Света.",
+	-- ["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "Назад к {npc:6122}. Используйте {item:6928} у круга призыва в подвале ({object:2164}) и победите призванного демона Бездны.",
 	-- ["Bait ingredients"] = "Ингредиенты для приманки",
 	-- ["Boar meat"] = "Кабанина",
 	-- ["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "Волшебники-плуты из Братства Справедливости стоят лагерем на берегах ({area:86}); с них падают и красные льняные банданы. {object:56} лежит в деревне мурлоков на северо-восточном берегу.",

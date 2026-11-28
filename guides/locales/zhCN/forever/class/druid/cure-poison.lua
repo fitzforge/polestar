@@ -44,8 +44,8 @@ return {
 	["She hands you the {item:15826}: ten doses, one per deer. Destroy any leftover {item:15851}."] = "她会给你 {item:15826}：共十剂，每只鹿用一剂。销毁剩余的 {item:15851}。",
 
 	-- Step 10: Sickly Deer
-	-- {item:15826} Curative Animal Salve · {npc:12298} Sickly Deer · {zone:1439} Darkshore · {area:456} Cliffspring River · {zone:1440} Ashenvale · {area:442} Auberdine · {spell:339} Entangling Roots · {npc:3702} Alanndarian Nightsong
-	["Use the {item:15826} on living {npc:12298} (level 5, a green cloud over them): they roam {zone:1439} from the {area:456} to the {zone:1440} border, many around the Blackwood furbolg camp north-east of {area:442}. Druid trick: root a deer with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time. Lost a dose on a deer that did not count? Abandon the quest and take it again from {npc:3702} for a fresh salve."] = "对活着的 {npc:12298} 使用 {item:15826}（5级，身上有绿色云雾）：它们在 {zone:1439} 的 {area:456} 到 {zone:1440} 边界之间游荡，{area:442} 东北方的黑木熊怪营地周围尤其多。德鲁伊技巧：用 {spell:339} 缠住一只鹿，在缠绕伤害生效前涂上药膏，之后缠绕将其击杀时还会再计数一次。如果药膏用在一只鹿上却没计数，浪费了一次剂量，可以放弃任务，再从 {npc:3702} 处重接以获得一份新药膏。",
+	-- {npc:12298} Sickly Deer · {zone:1439} Darkshore · {area:456} Cliffspring River · {zone:1440} Ashenvale · {area:442} Auberdine · {npc:3702} Alanndarian Nightsong
+	["{npc:12298} are level 5 with a green cloud over them, and they roam {zone:1439} from the {area:456} to the {zone:1440} border, with many around the Blackwood furbolg camp north-east of {area:442}. If a dose is lost on a deer that does not count, {npc:3702} gives a fresh salve when the quest is abandoned and accepted again."] = "",
 	-- {item:15826} Curative Animal Salve · {npc:12298} Sickly Deer
 	["Use the {item:15826} on {npc:12298}"] = "对{npc:12298}使用{item:15826}",
 
@@ -94,9 +94,9 @@ return {
 	-- Step 20: Sickly Gazelles
 	-- plural, as words: Sickly Gazelles = {npc:12296} Sickly Gazelle
 	["Sickly Gazelles"] = "生病的瞪羚",
-	-- {item:15826} Curative Animal Salve · {zone:1440} Ashenvale · {area:392} Ratchet · {spell:339} Entangling Roots · {npc:3448} Tonga Runetotem
+	-- {zone:1440} Ashenvale · {area:392} Ratchet · {spell:339} Entangling Roots · {npc:3448} Tonga Runetotem
 	-- plural, as words: Sickly Gazelles = {npc:12296} Sickly Gazelle
-	["Use the {item:15826} on living Sickly Gazelles (level 3): they graze on both sides of the road north of the Crossroads up to the {zone:1440} border, north-west of the Crossroads and west of {area:392}. Druid trick: root a gazelle with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time, so five gazelles can do. Lost a dose? Abandon and retake the quest from {npc:3448} for a fresh salve."] = "对活着的生病的瞪羚（3级）使用{item:15826}：它们在十字路口以北、直到{zone:1440}交界处的道路两侧，以及十字路口西北方和{area:392}西侧吃草。德鲁伊技巧：先用{spell:339}缠住瞪羚，在缠绕造成伤害前涂上药膏；随后缠绕击杀它时还会再计数一次，因此五只瞪羚就可能够了。浪费了一剂？放弃任务，再从{npc:3448}处重接，即可获得新的药膏。",
+	["Sickly Gazelles (level 3) graze on both sides of the road north of the Crossroads up to the {zone:1440} border, north-west of the Crossroads and west of {area:392}. For Druids, a gazelle rooted by {spell:339} and salved before the roots tick counts twice, so five gazelles are enough. Abandoning and retaking the quest from {npc:3448} gives a fresh salve if a dose is lost."] = "",
 	-- {item:15826} Curative Animal Salve
 	-- plural, as words: Sickly Gazelles = {npc:12296} Sickly Gazelle
 	["Use the {item:15826} on Sickly Gazelles"] = "对生病的瞪羚使用{item:15826}",
@@ -125,6 +125,8 @@ return {
 	-- ["The Lunar Fungal Blooms grow in the moonkin caves in the hills just east of {area:442}; the moonkin there are irritable. {item:2449} needs {skill:182}: herbalists pick it all over {zone:1439}, anyone else buys it from {npc:1313} (Alchemy Supplies) in {zone:1453} or on the Auction House."] = "{object:177750}长在{area:442}东边山丘里的枭兽洞穴中；那里的枭兽脾气暴躁。{item:2449}需要{skill:182}：草药师在{zone:1439}各处都能采到，其他人可以在{zone:1453}向{npc:1313}（炼金用品）购买，或去拍卖行买。",
 	-- ["The Lunar Fungal Blooms grow in the moonkin caves in the hills just east of {area:442}; the moonkin there are irritable. {item:2449} needs {skill:182}: herbalists pick it all over {zone:1439}, anyone else buys it from {npc:1313} ({skill:171} Supplies) in {zone:1453} or on the Auction House."] = "月光蘑菇花生长在{area:442}东边山丘的枭兽洞穴里；那里的枭兽很暴躁。{item:2449}需要{skill:182}：草药师在{zone:1439}各处都能采到，其他人可以在{zone:1453}向{npc:1313}（{skill:171}用品）购买，或在拍卖行购买。",
 	-- ["Use the {item:15826} on Sickly Gazelles: they graze north of the road that runs east and west through the {area:380}."] = "对生病的瞪羚使用{item:15826}：它们在贯穿{area:380}东西向道路的北边吃草。",
+	-- ["Use the {item:15826} on living Sickly Gazelles (level 3): they graze on both sides of the road north of the Crossroads up to the {zone:1440} border, north-west of the Crossroads and west of {area:392}. Druid trick: root a gazelle with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time, so five gazelles can do. Lost a dose? Abandon and retake the quest from {npc:3448} for a fresh salve."] = "对活着的生病的瞪羚（3级）使用{item:15826}：它们在十字路口以北、直到{zone:1440}交界处的道路两侧，以及十字路口西北方和{area:392}西侧吃草。德鲁伊技巧：先用{spell:339}缠住瞪羚，在缠绕造成伤害前涂上药膏；随后缠绕击杀它时还会再计数一次，因此五只瞪羚就可能够了。浪费了一剂？放弃任务，再从{npc:3448}处重接，即可获得新的药膏。",
+	-- ["Use the {item:15826} on living {npc:12298} (level 5, a green cloud over them): they roam {zone:1439} from the {area:456} to the {zone:1440} border, many around the Blackwood furbolg camp north-east of {area:442}. Druid trick: root a deer with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time. Lost a dose on a deer that did not count? Abandon the quest and take it again from {npc:3702} for a fresh salve."] = "对活着的 {npc:12298} 使用 {item:15826}（5级，身上有绿色云雾）：它们在 {zone:1439} 的 {area:456} 到 {zone:1440} 边界之间游荡，{area:442} 东北方的黑木熊怪营地周围尤其多。德鲁伊技巧：用 {spell:339} 缠住一只鹿，在缠绕伤害生效前涂上药膏，之后缠绕将其击杀时还会再计数一次。如果药膏用在一只鹿上却没计数，浪费了一次剂量，可以放弃任务，再从 {npc:3702} 处重接以获得一份新药膏。",
 	-- ["Use the {item:15826} on {npc:12298}. They roam {zone:1439} from the {area:456} in the north to the {zone:1440} border in the south."] = "对{npc:12298}使用{item:15826}。它们在{zone:1439}游荡，北起{area:456}，南至{zone:1440}边界。",
 	-- ["{npc:12296}: use the salve on them"] = "{npc:12296}：对它们使用药膏",
 	-- ["{npc:12298}: use the salve on them"] = "{npc:12298}：对它们使用药膏",

@@ -115,8 +115,8 @@ return {
 	["On the ride north to {area:2255}, the Ice Thistle Yetis (55-56) in the hills south-east of the town carry Vizzie's {item:258323}: four pieces."] = "Auf der nordwärts fahrenden Routen zu {area:2255} tragen die Eististel-Jetzt (55-56) im Südosten des Dorfes Vizzie's {item:258323}: vier Stücke.",
 
 	-- Step 30: Are We There, Yeti?
-	-- {area:2255} Everlook
-	["Ride north to {area:2255}."] = "Reite nach Norden nach {area:2255}.",
+	-- {npc:10978} Legacki · {area:2255} Everlook
+	["{npc:10978} is in {area:2255}, to the north."] = "",
 	-- {npc:10978} Legacki · {item:12928} Umi's Mechanical Yeti
 	["Scare {npc:10978} with {item:12928}"] = "",
 
@@ -211,6 +211,7 @@ return {
 	-- ["Ride back west to {area:2246}."] = "Reite zurück nach Westen zu {area:2246}.",
 	-- ["Ride east along the road to {area:2255}."] = "Reite auf der Straße nach Osten nach {area:2255}.",
 	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "Reite nach Osten, dann nach Süden die {area:2249} hinunter. Die Frosthagelriesen dort sind Elite der Stufe 59: Halte dich in der Mitte und bleib in Bewegung. Die seltsame Quelle ist am Eingang von {area:2256}, am Südende.",
+	-- ["Ride north to {area:2255}."] = "Reite nach Norden nach {area:2255}.",
 	-- ["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "Reite die Straße von {zone:1448} nach Norden zu {area:1767}; die {quest:5086} sickern zwischen den Bäumen umher, und die meisten lassen ein Tröpfchen fallen.\nVorsicht: Uralte Eisenbaumwandler, Elites der Stufe 59, laufen zwischen den {quest:5086} umher, und {npc:14524} (63, Elite) streift durch die Wälder: Kümmere dich einzeln um die Schrecken an der Nordspitze von {area:1767}.",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one."] = "Reite nach Nordwesten nach {area:1763}. Die vier Kohlenbecken stehen zwischen den Gebäuden des Schattenrats; benutze das gereinigte Wasser an jedem.",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "Reite nach Nordwesten zu {area:1763}. Die vier Feuerschalen stehen zwischen den Gebäuden des Shadow Council; benutze das Cleansed Water an jeder einzelnen.\nVorsicht: Mobs des Shadow Council der Stufen 53-55 füllen die Höhle und kommen oft in großen verbundenen Gruppen, viele mit Betäubungen. Eine Gruppe aus 2-3 Spielern ist empfohlen.",

@@ -49,10 +49,9 @@ return {
 
 	-- Step 9: Bears and the Blackwood camp
 	["Bears and the Blackwood camp"] = "Медведи и лагерь Чернолесья",
-	-- {area:442} Auberdine · {item:7586} Tharnariun's Hope
+	-- {area:442} Auberdine
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	-- was: ["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "Бешеные косолапы бродят по холмам к югу от {area:442}: используйте {item:7586} на одном из них, чтобы поймать его. Затем поднимитесь к лагерю фурболгов чуть восточнее: пока никого убивать не нужно."
-	["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "",
+	["Rabid Thistle Bears roam the hills south of {area:442}, and the furbolg camp is just east of them. Nothing at the camp needs killing yet."] = "",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "",
@@ -69,8 +68,8 @@ return {
 
 	-- Step 11: The red crystal
 	["The red crystal"] = "Красный кристалл",
-	-- {area:447} Ameth'Aran · {object:175524} Mysterious Red Crystal
-	["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "Поднимитесь в горы к востоку (ориентир: {area:447}); {object:175524} лежит на уступе.",
+	-- {object:175524} Mysterious Red Crystal · {area:447} Ameth'Aran
+	["The {object:175524} sits on a ledge in the mountains east of {area:447}."] = "",
 
 	-- Step 12: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
@@ -138,7 +137,7 @@ return {
 
 	-- Step 22: Ameth'Aran
 	-- {area:447} Ameth'Aran
-	["Back north to {area:447}: the flame burns in the south of the ruins."] = "Обратно на север в {area:447}: пламя горит в южной части руин.",
+	["The flame burns in the south of the {area:447} ruins, to the north."] = "",
 
 	-- Step 23: Anaya's Pendant
 	-- {npc:3667} Anaya Dawnrunner · {npc:2184} Lady Moongazer
@@ -249,8 +248,10 @@ return {
 	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "{npc:257446} ({zone:1426}); {area:87}: учителя шаманов нет",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north to {area:447}: the flame burns in the south of the ruins."] = "Обратно на север в {area:447}: пламя горит в южной части руин.",
 	-- ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "Землепроходцы и заклинатели ветра из племени Чернолесья занимают лагерь к юго-востоку (ориентир: {area:442}).",
 	-- ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "Землепроходцы и говорящие с ветром из племени Чернолесья занимают лагерь к юго-востоку от места {area:442}.\nОсторожно: говорящие с ветром (13-14) атакуют издалека, а фурболги стоят парами: выманивайте их по одному.",
+	-- ["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "Поднимитесь в горы к востоку (ориентир: {area:447}); {object:175524} лежит на уступе.",
 	-- ["Into {area:148}"] = "Путь в {area:148}",
 	-- ["North along the hills to {npc:3650}, then west down to {area:442}."] = "На север вдоль холмов к NPC {npc:3650}, затем на запад вниз в {area:442}.",
 	-- ["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "Бешеные косолапы бродят по холмам к югу от {area:442}: используйте {item:7586} на одном из них, чтобы поймать его. Затем поднимитесь к лагерю фурболгов чуть восточнее: пока никого убивать не нужно.",

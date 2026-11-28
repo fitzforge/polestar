@@ -52,9 +52,8 @@ return {
 	-- Step 9: The Binding: incubus (Orgrimmar)
 	-- {quest:65604} The Binding · {zone:1454} Orgrimmar
 	["{quest:65604}: incubus ({zone:1454})"] = "{quest:65604}：梦魇（{zone:1454}）",
-	-- {npc:5875} Gan'rul Bloodeye · {item:190187} Withered Scarf
-	-- was: ["Back to {npc:5875} with the scarf, then use the {item:190232} on the same circle in Neeru's tent and defeat the incubus it calls (level 20, not elite) with your voidwalker tanking. Keep the scarf: {npc:5875} takes it back."] = "带着围巾返回 {npc:5875} 处，再到尼尔鲁帐篷中的同一个法阵上使用 {item:190232}，击败召来的梦魇（20 级，非精英），让虚空行者扛住攻击。保留围巾：{npc:5875} 会收回它。"
-	["Back to {npc:5875} with the scarf, then use the {item:190187} on the same circle in Neeru's tent and defeat the incubus it calls (level 20, not elite) with your voidwalker tanking. Keep the scarf: {npc:5875} takes it back."] = "",
+	-- {npc:5875} Gan'rul Bloodeye
+	["The summoning circle is in Neeru's tent. The incubus is level 20 and not elite, and {npc:5875} takes the scarf back afterward."] = "",
 	-- {npc:185335} Summoned Incubus
 	["{npc:185335}, at the circle in Neeru's tent"] = "{npc:185335}，在尼尔鲁帐篷里的法阵处",
 
@@ -87,8 +86,8 @@ return {
 	-- Step 15: The Binding: incubus (Undercity)
 	-- {quest:65597} The Binding · {zone:1458} Undercity
 	["{quest:65597}: incubus ({zone:1458})"] = "{quest:65597}：梦魇（{zone:1458}）",
-	-- {npc:5675} Carendin Halgar · {item:190181} Lovers' Hearts
-	["Back to {npc:5675} with the lovers' hearts, then place the {item:190181} on the same circle and defeat the incubus they call (level 20, not elite; it can charm you). Keep the hearts: {npc:5675} takes them back."] = "带着恋人的心脏返回 {npc:5675} 处，再将 {item:190181} 放在同一个法阵上，击败召来的梦魇（20 级，非精英；会魅惑你）。保留心脏：{npc:5675} 会收回它们。",
+	-- {npc:5675} Carendin Halgar
+	["The incubus is level 20 and not elite, but it can charm you. {npc:5675} takes the hearts back at turn-in."] = "",
 	-- {npc:185335} Summoned Incubus · {npc:5675} Carendin Halgar
 	["{npc:185335}, at the circle below {npc:5675}"] = "{npc:185335}，在 {npc:5675} 下方法阵处",
 
@@ -97,6 +96,7 @@ return {
 	-- ["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers offer the incubus, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one: this guide follows whichever {quest:1472} you took."] = "20级时，{object:172982}下方{object:172960}的{npc:5875}会让你去找几步之外的{npc:5909}。有两位训练师提供夜魔任务，这里的{npc:5875}和{zone:1458}的{npc:5675}，你只能接其中一个：本指南会跟随你接的那个{quest:1472}。",
 	-- ["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1472} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "达到 20 级后，{object:172982} 下方 {object:172960} 中的 {npc:5875} 会让你去找几步之外的 {npc:5909}。两名训练师可开启这些恶魔任务，分别是这里的 {npc:5875} 和 {zone:1458} 的 {npc:5675}，但你只能选择其中一人；本指南会跟随你已接受的 {quest:1472} 继续引导。{npc:5909} 提供 {zone:1454} 的两个分支：两个都接。",
 	-- ["Back to {npc:5675} in the {object:36082}. Place the hearts at the summoning circle below him and defeat the incubus they call."] = "回到{object:36082}找{npc:5675}。把心脏放在他下方的召唤法阵上，击败它们召唤出的夜魔。",
+	-- ["Back to {npc:5675} with the lovers' hearts, then place the {item:190181} on the same circle and defeat the incubus they call (level 20, not elite; it can charm you). Keep the hearts: {npc:5675} takes them back."] = "带着恋人的心脏返回 {npc:5675} 处，再将 {item:190181} 放在同一个法阵上，击败召来的梦魇（20 级，非精英；会魅惑你）。保留心脏：{npc:5675} 会收回它们。",
 	-- ["Back to {npc:5875} in the {object:172960}. Take the scarf to the summoning circle in {npc:3216}'s tent nearby and defeat the incubus it calls."] = "回到{object:172960}找{npc:5875}。把围巾带到附近{npc:3216}帐篷里的召唤法阵，击败它召唤出的夜魔。",
 	-- ["Back to {npc:5875} with the scarf, then use the {item:190232} on the same circle in Neeru's tent and defeat the incubus it calls (level 20, not elite) with your voidwalker tanking. Keep the scarf: {npc:5875} takes it back."] = "带着围巾返回 {npc:5875} 处，再到尼尔鲁帐篷中的同一个法阵上使用 {item:190232}，击败召来的梦魇（20 级，非精英），让虚空行者扛住攻击。保留围巾：{npc:5875} 会收回它。",
 	-- ["Incubus (Horde)"] = "夜魔（部落）",

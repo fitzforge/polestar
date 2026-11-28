@@ -63,14 +63,14 @@ return {
 	["Follow the road west to {area:87}, on the way to {zone:1436}: {npc:240} stands outside the inn."] = "Идите по дороге на запад до {area:87}, по пути в {zone:1436}: {npc:240} стоит у таверны.",
 
 	-- Step 14: The Binding
-	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6928} Bloodstone Choker · {zone:1436} Westfall
-	["North along the road from {area:87} to {zone:1453}: {npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls, then back south through {area:87} to {zone:1436}."] = "На север по дороге из места {area:87} в город {zone:1453}: {npc:6122} ждет в подвале здания {object:2164} ({object:2101}). Используйте там {item:6928} у круга призыва и победите вызванного демона Бездны, затем назад на юг через {area:87} в зону {zone:1436}.",
+	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {area:87} Goldshire
+	["{npc:6122} is in the cellar of the {object:2164}, in the Mage Quarter of Stormwind, north along the road from {area:87}. The summoning circle is there too, and it calls a voidwalker."] = "",
 	-- {npc:5676} Summoned Voidwalker · {item:6928} Bloodstone Choker
 	["{npc:5676}: use the {item:6928} at the circle"] = "{npc:5676}: используйте {item:6928} у круга",
 
 	-- Step 15: The Binding
-	-- {item:6810} Surena's Choker · {npc:6122} Gakin the Darkbinder · {quest:1689} The Binding · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6928} Bloodstone Choker
-	["{item:6810} is already with {npc:6122}: take {quest:1689} from him in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls."] = "{item:6810} уже у NPC {npc:6122}: возьмите у него задание {quest:1689} в подвале ({object:2164}, {object:2101}). Используйте {item:6928} у круга призыва там и победите вызванного демона Бездны.",
+	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6928} Bloodstone Choker
+	["{npc:6122} is in the cellar of the {object:2164} in the {object:2101}, and the summoning circle is there too. The {item:6928} summons a voidwalker that has to be defeated."] = "",
 
 	-- Step 16: The Jansen Stead
 	-- {zone:1436} Westfall · {object:2724} Sack of Oats
@@ -403,6 +403,7 @@ return {
 	-- ["Harvest Watchers and Golems work the fields around {area:918}; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone."] = "Дозорные полей и големы работают на полях вокруг {area:918}; с них падают изопружины, гиростабилизаторы, {item:732} и иногда {item:255155}. Здесь ходит {npc:573}, редкий противник 20 уровня: не трогайте его.",
 	-- ["Hearthstone on cooldown? Follow the road north-east."] = "Камень возвращения перезаряжается? Идите по дороге на северо-восток.",
 	-- ["Murloc Coastrunners and Raiders line the beach north of the mine. They flee at low health: pull one at a time."] = "На пляже к северу от рудника полно мурлоков-береговиков и мурлоков-налетчиков. При низком здоровье они убегают: выманивайте по одному.",
+	-- ["North along the road from {area:87} to {zone:1453}: {npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls, then back south through {area:87} to {zone:1436}."] = "На север по дороге из места {area:87} в город {zone:1453}: {npc:6122} ждет в подвале здания {object:2164} ({object:2101}). Используйте там {item:6928} у круга призыва и победите вызванного демона Бездны, затем назад на юг через {area:87} в зону {zone:1436}.",
 	-- ["North of Molsen Farm. Defias Trappers and Smugglers camp outside the mine, Kobold Diggers work inside. {object:290} stands by the ruined house east of the mine."] = "К северу от фермы Мольсена. Звероловы и контрабандисты из Братства Справедливости стоят лагерем у входа в рудник, внутри работают кобольды-землекопы. {object:290} – у разрушенного дома к востоку от рудника.",
 	-- ["North of Molsen Farm. Defias Trappers and Smugglers camp outside the mine. {object:290} stands by the ruined house east of the mine."] = "К северу от фермы Мольсена. Звероловы и контрабандисты из Братства Справедливости стоят лагерем у входа в рудник. {object:290} – у разрушенного дома к востоку от рудника.",
 	-- ["On the way south from the {area:916} to {area:107}: Harvest Watchers (level 14-15) and Golems work the fields west of the road; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks these fields: leave it alone."] = "По пути на юг от места {area:916} к месту {area:107}: Дозорные полей (14-15 уровень) и големы работают на полях к западу от дороги; с них падают изопружины, гиростабилизаторы, {item:732} и иногда {item:255155}. По этим полям ходит {npc:573}, редкий противник 20 уровня: не трогайте его.",
@@ -430,6 +431,7 @@ return {
 	-- ["{area:918}'s Harvest Watchers"] = "Дозорные полей ({area:918})",
 	-- ["{area:918}: kill these as you meet them"] = "{area:918}: убивайте этих по пути",
 	-- ["{item:254676}, from the crates around {area:20}"] = "{item:254676}: из ящиков вокруг поселения {area:20}",
+	-- ["{item:6810} is already with {npc:6122}: take {quest:1689} from him in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls."] = "{item:6810} уже у NPC {npc:6122}: возьмите у него задание {quest:1689} в подвале ({object:2164}, {object:2101}). Используйте {item:6928} у круга призыва там и победите вызванного демона Бездны.",
 	-- ["{npc:234} and {npc:821} stand at the top of the stone tower. {npc:491} is in the tower, {npc:878} and {npc:253092} on the south side of the hill, next to the inn and {npc:523} the gryphon master."] = "{npc:234} и {npc:821} стоят на вершине каменной башни. {npc:491} – в башне; {npc:878} и {npc:253092} – на южном склоне холма, рядом с таверной и укротителем грифонов (это {npc:523}).",
 	-- ["{npc:234}: from {npc:963} at Westbrook"] = "{npc:234}: от {npc:963} у Западного ручья",
 	-- ["{npc:237}; Humans took it from {npc:963} in Elwynn"] = "{npc:237}; люди взяли это у {npc:963} в Элвинне",

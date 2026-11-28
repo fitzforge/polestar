@@ -11,8 +11,8 @@ return {
 	["Cast {spell:18960}"] = "{spell:18960}을(를) 시전하세요",
 
 	-- Step 2: Trial of the Sea Lion
-	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. With both half pendants in your bags, stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then go to {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{spell:18960}을(를) 시전하세요. 두 조각 모두 가방에 있으면 호수 북서쪽 기슭의 {area:2362} 옆에 서서 조각 하나를 사용해 합치고, {area:2361}의 {npc:11802}에게 가세요. {npc:11802}은(는) 자기 건물 위층에 서 있습니다. 건물 안에서 올라가세요. 화살표는 층을 구분하지 못합니다.",
+	-- {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
+	["The {area:2362} is on the north-west shore of the lake. {npc:11802} is upstairs in his building in {area:2361}, and the arrow cannot tell the floors apart."] = "",
 	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
 	["{item:15885}: join the halves at the {area:2362}"] = "{item:15885}: {area:2362}에서 반쪽 합치기",
 
@@ -516,7 +516,7 @@ return {
 	-- Step 96: Mystral Lake
 	-- {npc:3885} Sentinel Velene Starstrike · {area:420} Silverwind Refuge · {area:421} Mystral Lake · {npc:3897} Krolg · {npc:12759} Tideress
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
-	["{npc:3885} stands at the {area:420} on the east shore of {area:421}, just north of the road to {npc:3897}. Befouled Water Elementals wade in the lake; {npc:12759}, a level 27 water elemental, walks among them and drops the bracers too."] = "{npc:3885}은(는) {area:421} 동쪽 호숫가의 {area:420}, {npc:3897}에게 가는 길 바로 북쪽에 서 있습니다. 타락한 물의 정령이 호수를 돌아다니며, 27레벨 물의 정령인 {npc:12759}도 그들 사이를 돌아다니고 팔보호구를 떨어뜨립니다.",
+	["{npc:3885} is at {area:420} on the east shore of {area:421}, just north of the road to {npc:3897}. Befouled Water Elementals wade in the lake, and {npc:12759}, a level 27 water elemental among them, also drops the bracers."] = "",
 	-- {item:5456} Divining Scroll
 	-- plural, as words: Intact Elemental Bracers = {item:12220} Intact Elemental Bracer
 	["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "정령을 처치해 {item:12220} 5개를 모은 뒤 {item:5456}을(를) 사용하세요",
@@ -698,6 +698,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "알렉스턴의 답장, 아직 가지고 있다면(03-darkshore-return의 첫 {area:442} 지점에서 제출합니다)",
+	-- ["Cast {spell:18960}. With both half pendants in your bags, stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then go to {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{spell:18960}을(를) 시전하세요. 두 조각 모두 가방에 있으면 호수 북서쪽 기슭의 {area:2362} 옆에 서서 조각 하나를 사용해 합치고, {area:2361}의 {npc:11802}에게 가세요. {npc:11802}은(는) 자기 건물 위층에 서 있습니다. 건물 안에서 올라가세요. 화살표는 층을 구분하지 못합니다.",
 	-- ["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "용아귀 투석기를 위해, 30-40/01-hillsbrad-foothills의 {zone:1437} 순환에",
 	-- ["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks on the way to the boat."] = "{area:2104}에 귀환석을 귀속했다면 {area:150}(으)로 귀환하고, 아니면 길을 따라 서쪽으로 걸어가세요. {npc:2104}은(는) {area:2103} 꼭대기 층에, {npc:2094}은(는) 배로 가는 길의 부두 옆에 있습니다.",
 	-- ["Razormaw Incisors: from the raptors by the {area:1038}, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "칼날아귀 앞니: {area:1038} 옆 랩터에게서, 30-40/01-hillsbrad-foothills의 {zone:1437} 순환에",
@@ -711,6 +712,7 @@ return {
 	-- ["{npc:3691}, in the inn"] = "{npc:3691}, 여관 안",
 	-- ["{npc:3691}: {quest:1025}, the Foulweald on the way to {npc:3897}"] = "{npc:3691}: {quest:1025}, {npc:3897}에게 가는 길의 더러운숲 펄볼그",
 	-- ["{npc:3691}: {quest:1054}, {npc:3987} on the way back from {area:413}"] = "{npc:3691}: {quest:1054}, {area:413}에서 돌아오는 길의 {npc:3987}",
+	-- ["{npc:3885} stands at the {area:420} on the east shore of {area:421}, just north of the road to {npc:3897}. Befouled Water Elementals wade in the lake; {npc:12759}, a level 27 water elemental, walks among them and drops the bracers too."] = "{npc:3885}은(는) {area:421} 동쪽 호숫가의 {area:420}, {npc:3897}에게 가는 길 바로 북쪽에 서 있습니다. 타락한 물의 정령이 호수를 돌아다니며, 27레벨 물의 정령인 {npc:12759}도 그들 사이를 돌아다니고 팔보호구를 떨어뜨립니다.",
 	-- ["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}."] = "타락하지 않은 펄볼그 {npc:3897}은(는) {area:421} 아래 길 남쪽에 앉아 있습니다.",
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619}은(는) {area:429} 사티로스의 우두머리이며 나뭇가지를 지니고 있습니다.",
 	-- ["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}: 레이저메인 알, 같은 순환에",

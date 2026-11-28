@@ -153,7 +153,7 @@ return {
 	-- Step 33: The bone pile
 	["The bone pile"] = "骨堆",
 	-- {npc:264306} Awakened Fel Ash Slime
-	["West to the bone pile by the slime pools: throw the warlocks' bones on it, then hand the quest in at the pile itself. Handing it in wakes the {npc:264306}, an elite (level 58) that hits hard: unless you are grouped for it, hand in and ride clear at once."] = "向西前往软泥池旁的骨堆，把术士的骨头扔到骨堆上，然后就在骨堆处交任务。交任务会唤醒{npc:264306}，它是58级精英，打人很疼。没组队打它的话，交完任务立刻离开。",
+	["The bone pile is to the west by the slime pools, and the quest is handed in at the pile itself. Handing it in wakes the {npc:264306}, a level 58 elite that hits hard and is dangerous without a group."] = "",
 
 	-- Step 34: Amalgamated Marrow
 	-- {npc:264306} Awakened Fel Ash Slime
@@ -173,7 +173,7 @@ return {
 
 	-- Step 40: The Ashen workstations
 	["The Ashen workstations"] = "灰烬营地的工作台",
-	["Four workstations stand in the Ashen camp: throw a pinecone at each, from the south up."] = "灰烬营地有四座工作台，从南往北依次朝每座工作台扔一颗松果。",
+	["Four workstations stand in the Ashen camp, running from south to north."] = "",
 	["Slime Workstation"] = "软泥工作台",
 	["Alchemy Workstation"] = "炼金术工作台",
 	["Disease Workstation"] = "疾病工作台",
@@ -406,7 +406,7 @@ return {
 
 	-- Step 90: The overlook
 	["The overlook"] = "观景处",
-	["West to the overlook above the valley: the veteran's old scabbard lies there. Hand his quest in at the scabbard and take the next from it, then use the scabbard in your bags to call his spirit and listen to his story."] = "往西前往山谷上方的观景处，老兵的旧剑鞘就在那里。先在剑鞘处交任务，再从剑鞘接取后续任务。然后使用背包里的剑鞘召出老兵的灵魂，听他讲述往事。",
+	["The veteran's old scabbard lies at the overlook above the valley, to the west. The scabbard calls up his spirit, who tells his story."] = "",
 
 	-- Step 91: Shalla'kal and Galvinquam Leafsyre
 	-- {npc:255683} Shalla'kal · {npc:267109} Galvinquam Leafsyre
@@ -579,9 +579,9 @@ return {
 	["{npc:263394} and {npc:252457} are level 60 elites until {npc:263406}'s eye drains them: drain each one first, then fight it. Drained, they are no longer elite and you can take them alone; players in our recordings killed both once drained."] = "在{npc:263406}之眼吸干它们之前，{npc:263394}和{npc:252457}是60级精英：先逐一吸干，再与之战斗。被吸干后它们不再是精英，可以单人击杀；我们记录中的玩家都在吸干后击杀了两者。",
 
 	-- Step 131: Bethra'zel the Feeble
-	-- {npc:263394} Bethra'zel the Feeble · {npc:263406} Elaena Moonwhisper · {npc:252457} Mazzogore · {npc:267439} Doomguard Xarkul · {area:16866} Dae'gun
+	-- {npc:263394} Bethra'zel the Feeble · {npc:252457} Mazzogore · {npc:267439} Doomguard Xarkul · {area:16866} Dae'gun
 	-- plural, as words: Legion Hulks = {npc:249238} Legion Hulk
-	["North-east to {npc:263394}. Drain him first: use {npc:263406}'s eye on him, and only then fight him. Undrained, he and {npc:252457} are level 60 elites. {npc:267439}, an elite (level 61), walks this corner of {area:16866}: keep out of his way.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room."] = "往东北找{npc:263394}。先用{npc:263406}给的无尽影响之眼吸取他的力量，再开打。他和{npc:252457}被削弱前都是60级精英。{npc:267439}（61级精英）会在{area:16866}这一带巡逻，绕开他。\n小心，军团巨兽（60级稀有精英）会在{area:16866}各营地巡逻，绕开它们。",
+	["{npc:263394} is to the north-east. If he isn't drained first, he and {npc:252457} are level 60 elites, and {npc:267439} (level 61 elite) patrols this corner of {area:16866}.\nLegion Hulks (level 60 rare elites) roam {area:16866}'s camps."] = "",
 
 	-- Step 132: Maerion Thaelemaches
 	-- {npc:267097} Maerion Thaelemaches · {area:16866} Dae'gun · {npc:263394} Bethra'zel the Feeble · {npc:267439} Doomguard Xarkul
@@ -698,4 +698,8 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:264089}, then the ghostly {npc:255009} at {area:16868}'s western edge, where the recording met him, on your way west."] = "先回去找{npc:264089}，再顺路向西找幽灵{npc:255009}。路线记录中在{area:16868}西缘遇到他的。",
+	-- ["Four workstations stand in the Ashen camp: throw a pinecone at each, from the south up."] = "灰烬营地有四座工作台，从南往北依次朝每座工作台扔一颗松果。",
+	-- ["North-east to {npc:263394}. Drain him first: use {npc:263406}'s eye on him, and only then fight him. Undrained, he and {npc:252457} are level 60 elites. {npc:267439}, an elite (level 61), walks this corner of {area:16866}: keep out of his way.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room."] = "往东北找{npc:263394}。先用{npc:263406}给的无尽影响之眼吸取他的力量，再开打。他和{npc:252457}被削弱前都是60级精英。{npc:267439}（61级精英）会在{area:16866}这一带巡逻，绕开他。\n小心，军团巨兽（60级稀有精英）会在{area:16866}各营地巡逻，绕开它们。",
+	-- ["West to the bone pile by the slime pools: throw the warlocks' bones on it, then hand the quest in at the pile itself. Handing it in wakes the {npc:264306}, an elite (level 58) that hits hard: unless you are grouped for it, hand in and ride clear at once."] = "向西前往软泥池旁的骨堆，把术士的骨头扔到骨堆上，然后就在骨堆处交任务。交任务会唤醒{npc:264306}，它是58级精英，打人很疼。没组队打它的话，交完任务立刻离开。",
+	-- ["West to the overlook above the valley: the veteran's old scabbard lies there. Hand his quest in at the scabbard and take the next from it, then use the scabbard in your bags to call his spirit and listen to his story."] = "往西前往山谷上方的观景处，老兵的旧剑鞘就在那里。先在剑鞘处交任务，再从剑鞘接取后续任务。然后使用背包里的剑鞘召出老兵的灵魂，听他讲述往事。",
 }

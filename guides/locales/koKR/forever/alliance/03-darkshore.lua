@@ -53,10 +53,9 @@ return {
 
 	-- Step 7: Plagued bears
 	["Plagued bears"] = "병든 곰",
-	-- {area:442} Auberdine · {item:7586} Tharnariun's Hope
+	-- {area:442} Auberdine
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	-- was: ["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "광포한 엉겅퀴곰이 {area:442} 바로 동쪽 언덕을 돌아다닙니다. 한 마리에게 {quest:2139}을(를) 사용하고 그에게 데려가십시오."
-	["Rabid Thistle Bears roam the hills just east of {area:442}. Use {item:7586} on one and lead it back to him."] = "",
+	["Rabid Thistle Bears roam the hills just east of {area:442}."] = "",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "",
@@ -83,8 +82,8 @@ return {
 
 	-- Step 11: The red crystal
 	["The red crystal"] = "붉은 수정",
-	-- {area:447} Ameth'Aran · {object:175524} Mysterious Red Crystal
-	["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "{area:447} 동쪽의 산을 오르십시오. {object:175524}은(는) 바위 턱 위에 있습니다.",
+	-- {object:175524} Mysterious Red Crystal · {area:447} Ameth'Aran
+	["The {object:175524} sits on a ledge in the mountains east of {area:447}."] = "",
 
 	-- Step 13: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
@@ -139,8 +138,8 @@ return {
 	["Back north-east into the mountains to the crystal."] = "북동쪽 산으로 돌아가 수정에게 가십시오.",
 
 	-- Step 23: Cliffspring Falls
-	-- {area:456} Cliffspring River · {area:443} Ruins of Mathystra · {quest:954} Bashal'Aran
-	["Follow the hills north to the {area:456} and up to the falls. Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "언덕을 따라 북쪽의 {area:456}까지 간 다음 폭포로 올라가십시오. 북쪽 해안에 떠밀려 온 사체가 두 개 더 있습니다: {area:443} 근처, {quest:954} 북쪽.",
+	-- {area:445} Cliffspring Falls · {area:456} Cliffspring River · {area:443} Ruins of Mathystra · {quest:954} Bashal'Aran
+	["{area:445} is north along the hills, up the {area:456}. Two more beached remains lie on the north shore, near the {area:443} and north of {quest:954}."] = "",
 	-- {item:12349} Cliffspring River Sample
 	["{item:12349}, at the waterfall"] = "{item:12349}, 폭포에서",
 	-- {item:15845} Filled Cliffspring Falls Sampler
@@ -223,6 +222,7 @@ return {
 	-- ["Back to {npc:11802} in {area:2361}, then fly to {area:702} (by way of {area:442})."] = "{area:2361}의 {npc:11802}에게 돌아간 다음, ({area:442}을(를) 거쳐) {area:702}(으)로 날아가십시오.",
 	-- ["Boat to {zone:1453}"] = "배를 타고 {zone:1453}(으)로 가십시오",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "{spell:18960}을(를) 시전하세요. {npc:11802}은(는) {area:2361}에 있습니다. 비행 경로가 없다면 그곳에서 배우세요.",
+	-- ["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "{area:447} 동쪽의 산을 오르십시오. {object:175524}은(는) 바위 턱 위에 있습니다.",
 	-- ["Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}"] = "그녀를 글레이브 밖으로 호위하십시오. 제출은 {zone:1440}의 테리실에게 합니다",
 	-- ["Fine Moonstalker Pelts"] = "고급 달표범 모피",
 	-- ["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "해안을 따라 북동쪽의 {area:443}(으)로 가십시오. {quest:951}은(는) 폐허 곳곳에 있고, 폭풍비늘일족 미르미돈, 폭풍비늘일족 여마법사, 폭풍비늘일족 전사가 지키고 있으며, 폭풍비늘 야수조련사가 해안을 거닙니다.",
@@ -230,6 +230,7 @@ return {
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}."] = "해안을 따라 {area:447}을(를) 지나 남쪽으로 가십시오. {quest:4728} 하나는 고대정령의 숲 서쪽 해안에, 또 하나는 더 남쪽 {area:450} 근처에 있습니다.",
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "해안을 따라 {area:447}을(를) 지나 남쪽으로 가십시오. {quest:4728} 하나는 고대정령의 숲 서쪽 해안에, 또 하나는 더 남쪽 {area:450} 근처에 있습니다. 더 남서쪽의 잿빛안개멀록 점술사와 잿빛안개멀록 바다사냥꾼(18-20) 사이에 사체가 세 개 더 있습니다. 가이드는 레벨이 더 가까워지는 마지막 순환 때 이들을 처리합니다.",
 	-- ["Follow the hills north to the {area:456} and up to the falls. Three more beached remains lie on the north shore: near the {area:443}, north of {quest:954} and west of {quest:954}."] = "언덕을 따라 북쪽의 {area:456}까지 간 다음 폭포로 올라가십시오. 북쪽 해안에 떠밀려 온 사체가 세 개 더 있습니다: {area:443} 근처, {quest:954} 북쪽, {quest:954} 서쪽.",
+	-- ["Follow the hills north to the {area:456} and up to the falls. Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "언덕을 따라 북쪽의 {area:456}까지 간 다음 폭포로 올라가십시오. 북쪽 해안에 떠밀려 온 사체가 두 개 더 있습니다: {area:443} 근처, {quest:954} 북쪽.",
 	-- ["Follow the road north."] = "길을 따라 북쪽으로 가십시오.",
 	-- ["Follow the road south. {quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "길을 따라 남쪽으로 가십시오. {quest:948}은(는) 고대정령의 숲에 있는 고대정령입니다. {npc:270269}와(과) {npc:11218}이(가) 그 곁에서 잠들어 있습니다.",
 	-- ["Grizzled Scalps"] = "불곰 가죽",

@@ -61,7 +61,7 @@ return {
 
 	-- Step 12: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:8737} Linken · {npc:9117} J.D. Collie
-	["The flight lands at {area:541}: {npc:8737} stands by the cave a few steps from the flight master, {npc:9117} inside it."] = "",
+	["The flight lands at {area:541}. {npc:8737} stands by the cave a few steps from the flight master, and {npc:9117} is inside it."] = "",
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "{npc:9117}, bajo tierra",
 	-- {quest:3942} Linken's Memory · {npc:9116} Eridan Bluewind · {area:2479} Emerald Sanctuary · {zone:1448} Felwood
@@ -247,7 +247,7 @@ return {
 
 	-- Step 52: Lar'korwi
 	-- {item:11568} Torwa's Pouch · {npc:9684} Lar'korwi
-	["Open {item:11568}: it holds the meat and the pheromone mixture. {npc:9684}'s lair is the bone-strewn valley just south of the pylon: place the meat among the bones, then use the mixture on it to call {npc:9684}. He is level 56 and hits hard, so start at full health."] = "",
+	["{item:11568} holds the meat and the pheromone mixture. {npc:9684}'s lair is the bone-strewn valley just south of the pylon, and he is level 56 and hits hard."] = "",
 
 	-- Step 53: Ringo
 	-- {npc:9999} Ringo
@@ -257,7 +257,7 @@ return {
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "Escolta a {npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
-	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Lleva a {npc:9999} al norte hasta {area:541}. Cuando se desmaye, usa {item:11804} en él para despertarlo.",
+	["{npc:9999} faints from time to time during the escort north to {area:541}, and {item:11804} wakes him."] = "",
 
 	-- Step 56: The Mighty U'cha
 	-- {area:541} Marshal's Refuge · {npc:9622} U'cha · {npc:9619} Torwa Pathfinder
@@ -307,6 +307,7 @@ return {
 	-- ["Keep the bait: {npc:9684} is level 56, and the second loop passes his lair."] = "Guarda el cebo: {npc:9684} es de nivel 56 y la segunda vuelta pasa por su guarida.",
 	-- ["Keep {quest:3942}: {npc:9116} is at the {area:2479}, on the next guide's way through {zone:1448}."] = "Guarda {quest:3942}: {npc:9116} está en {area:2479}, de camino por {zone:1448} en la siguiente guía.",
 	-- ["Knights and magi work the {area:192}; the medics and hunters camp south of it. Set {npc:11615}'s termite barrel down in the middle of the lumber mill while you are there.\nCareful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}: give it room."] = "Caballeros y magos trabajan en {area:192}; los médicos y cazadores acampan al sur. Coloca el barril de termitas de {npc:11615} en el centro del aserradero mientras estás allí.\nCuidado: puede haber un {npc:10996}, un élite de nivel 58-59, en el campamento, como en muchos otros puntos de {zone:1422}: guarda las distancias.",
+	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Lleva a {npc:9999} al norte hasta {area:541}. Cuando se desmaye, usa {item:11804} en él para despertarlo.",
 	-- ["Level 57"] = "Nivel 57",
 	-- ["Level 58"] = "Nivel 58",
 	-- ["Mark {npc:10902} with the {item:12815}"] = "Marca {npc:10902} con la {item:12815}",

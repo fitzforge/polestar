@@ -154,7 +154,7 @@ return {
 	-- Step 33: The bone pile
 	["The bone pile"] = "Le tas d'os",
 	-- {npc:264306} Awakened Fel Ash Slime
-	["West to the bone pile by the slime pools: throw the warlocks' bones on it, then hand the quest in at the pile itself. Handing it in wakes the {npc:264306}, an elite (level 58) that hits hard: unless you are grouped for it, hand in and ride clear at once."] = "À l'ouest, vers le tas d'os près des mares de limon : jetez les os des démonistes dessus, puis rendez la quête au tas lui-même. La rendre réveille {npc:264306}, un élite (niveau 58) qui frappe fort : à moins d'être groupé pour lui, rendez-la et éloignez-vous au galop aussitôt.",
+	["The bone pile is to the west by the slime pools, and the quest is handed in at the pile itself. Handing it in wakes the {npc:264306}, a level 58 elite that hits hard and is dangerous without a group."] = "",
 
 	-- Step 34: Amalgamated Marrow
 	-- {npc:264306} Awakened Fel Ash Slime
@@ -174,7 +174,7 @@ return {
 
 	-- Step 40: The Ashen workstations
 	["The Ashen workstations"] = "Les postes de travail cendrés",
-	["Four workstations stand in the Ashen camp: throw a pinecone at each, from the south up."] = "Quatre postes de travail se tiennent dans le camp des Cendrés : lancez une pomme de pin sur chacun, de bas en haut.",
+	["Four workstations stand in the Ashen camp, running from south to north."] = "",
 	["Slime Workstation"] = "Poste de limon",
 	["Alchemy Workstation"] = "Poste d'alchimie",
 	["Disease Workstation"] = "Poste de maladie",
@@ -409,7 +409,7 @@ return {
 
 	-- Step 90: The overlook
 	["The overlook"] = "Le belvédère",
-	["West to the overlook above the valley: the veteran's old scabbard lies there. Hand his quest in at the scabbard and take the next from it, then use the scabbard in your bags to call his spirit and listen to his story."] = "À l'ouest, vers le belvédère au-dessus de la vallée : la vieille fourreau du vétéran s'y trouve. Rendez sa quête à la fourreau et prenez la suivante dedans, puis utilisez la fourreau de votre sac pour appeler son esprit et écouter son histoire.",
+	["The veteran's old scabbard lies at the overlook above the valley, to the west. The scabbard calls up his spirit, who tells his story."] = "",
 
 	-- Step 91: Shalla'kal and Galvinquam Leafsyre
 	-- {npc:255683} Shalla'kal · {npc:267109} Galvinquam Leafsyre
@@ -582,9 +582,9 @@ return {
 	["{npc:263394} and {npc:252457} are level 60 elites until {npc:263406}'s eye drains them: drain each one first, then fight it. Drained, they are no longer elite and you can take them alone; players in our recordings killed both once drained."] = "{npc:263394} et {npc:252457} sont des élites de niveau 60 jusqu'à ce que l'œil de {npc:263406} les draine : drainez chacun d'abord, puis combattez-le. Drainés, ils ne sont plus élites et vous pouvez les affronter seul ; les joueurs de nos enregistrements ont tué les deux une fois drainés.",
 
 	-- Step 131: Bethra'zel the Feeble
-	-- {npc:263394} Bethra'zel the Feeble · {npc:263406} Elaena Moonwhisper · {npc:252457} Mazzogore · {npc:267439} Doomguard Xarkul · {area:16866} Dae'gun
+	-- {npc:263394} Bethra'zel the Feeble · {npc:252457} Mazzogore · {npc:267439} Doomguard Xarkul · {area:16866} Dae'gun
 	-- plural, as words: Legion Hulks = {npc:249238} Legion Hulk
-	["North-east to {npc:263394}. Drain him first: use {npc:263406}'s eye on him, and only then fight him. Undrained, he and {npc:252457} are level 60 elites. {npc:267439}, an elite (level 61), walks this corner of {area:16866}: keep out of his way.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room."] = "Au nord-est, vers {npc:263394}. Drainez-le d'abord : utilisez l'œil de {npc:263406} sur lui, et alors seulement combattez-le. Sans drainage, lui et {npc:252457} sont des élites de niveau 60. {npc:267439}, un élite (niveau 61), parcourt ce coin de {area:16866} : tenez-vous hors de son chemin.\nAttention : les Mastodontes de la Légion (60, élites rares) foulent le sol des camps de {area:16866} : laissez-leur de la place.",
+	["{npc:263394} is to the north-east. If he isn't drained first, he and {npc:252457} are level 60 elites, and {npc:267439} (level 61 elite) patrols this corner of {area:16866}.\nLegion Hulks (level 60 rare elites) roam {area:16866}'s camps."] = "",
 
 	-- Step 132: Maerion Thaelemaches
 	-- {npc:267097} Maerion Thaelemaches · {area:16866} Dae'gun · {npc:263394} Bethra'zel the Feeble · {npc:267439} Doomguard Xarkul
@@ -702,7 +702,9 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A group choice: {npc:263394} and {npc:252457} are level 60 elites until {npc:263406}'s eye drains them. Drain each one first, then fight it; players in our recordings killed both once drained. Grouping up is advised."] = "Un choix de groupe : {npc:263394} et {npc:252457} sont des élites de niveau 60 jusqu'à ce que l'œil de {npc:263406} les draine. Drainiez chacun d'abord, puis combattez-le ; les joueurs de nos enregistrements ont tué les deux une fois drainés. Il est conseillé de se grouper.",
 	-- ["Back to {npc:264089}, then the ghostly {npc:255009} at {area:16868}'s western edge, where the recording met him, on your way west."] = "Retour vers {npc:264089}, puis vers le spectral {npc:255009} à la lisière ouest de {area:16868}, là où l'enregistrement l'a rencontré, sur votre chemin vers l'ouest.",
+	-- ["Four workstations stand in the Ashen camp: throw a pinecone at each, from the south up."] = "Quatre postes de travail se tiennent dans le camp des Cendrés : lancez une pomme de pin sur chacun, de bas en haut.",
 	-- ["North into the shrub field: the {npc:248395} drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. The ruined ballista stands at the field's north-eastern edge: plant the last seed there. Keep clear of {quest:91923} and {npc:248709}, the field's elites."] = "Au nord, vers le champ d'arbustes : les {npc:248395} laissent tomber les feuilles, et les Tubercules-flèches écarlates poussent sur le sol dégagé, la plupart dans la moitié ouest du champ. La baliste en ruines se tient à la lisière nord-est du champ : plantez la dernière graine là. Restez à l'écart de {quest:91923} et de {npc:248709}, les élites du champ.",
+	-- ["North-east to {npc:263394}. Drain him first: use {npc:263406}'s eye on him, and only then fight him. Undrained, he and {npc:252457} are level 60 elites. {npc:267439}, an elite (level 61), walks this corner of {area:16866}: keep out of his way.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room."] = "Au nord-est, vers {npc:263394}. Drainez-le d'abord : utilisez l'œil de {npc:263406} sur lui, et alors seulement combattez-le. Sans drainage, lui et {npc:252457} sont des élites de niveau 60. {npc:267439}, un élite (niveau 61), parcourt ce coin de {area:16866} : tenez-vous hors de son chemin.\nAttention : les Mastodontes de la Légion (60, élites rares) foulent le sol des camps de {area:16866} : laissez-leur de la place.",
 	-- ["North-east to {npc:267097}, in the corner of {area:16866} where {npc:263394} stands. His Felhound Spikes come from the Defiling Hounds, and in the first recording about one hound in ten had one: kill the hounds around him while you are here, and leave his quest if the twelve spikes are slow to come.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps, and {npc:267439}, an elite (level 61), walks this corner: give them room."] = "Au nord-est, vers {npc:267097}, dans le coin de {area:16866} où se tient {npc:263394}. Ses Pointes de gangrechien proviennent des Molosses profanateurs, et dans le premier enregistrement un molosse sur dix en avait une environ : tuez les molosses autour de lui pendant que vous êtes ici, et abandonnez sa quête si les douze pointes tardent à arriver.\nAttention : les Mastodontes de la Légion (60, élites rares) foulent le sol des camps de {area:16866}, et {npc:267439}, un élite (niveau 61), parcourt ce coin : laissez-leur de la place.",
 	-- ["South Bonfire"] = "Feu de joie sud",
 	-- ["South down the west side of the shrub field to the ancients' outpost: kill the {npc:248395} you pass for {npc:249235}. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "Au sud, par le côté ouest du champ d'arbustes, jusqu'à l'avant-poste des ancestraux : tuez les {npc:248395} que vous croisez pour {npc:249235}. {npc:260626}, la maîtresse de vol, attend près de l'avant-poste ; {npc:248367} et {npc:265586} se tiennent avec l'ancestral {npc:248366}.",
@@ -712,5 +714,7 @@ return {
 	-- ["The Scourge hold the ruins of {area:16868}, east of {area:16848}: Fleshflay Raveners and Forgotten Soldiers everywhere, Eternal Sentries among them.\nCareful: Death Wailers (61, rare elites) drift over {area:16868}: keep out of their way.\nCareful: Grimroot, the elite treant (level 60), walks the slopes on the way in: give him room."] = "Le Fléau tient les ruines de {area:16868}, à l'est de {area:16848} : des Horreurs charognardes et des Soldats oubliés partout, avec des Sentinelles éternelles parmi eux.\nAttention : les Pleureuses de la mort (61, élites rares) dérivent sur {area:16868} : tenez-vous à l'écart d'eux.\nAttention : Grimroot, le tréant élite (niveau 60), parcourt les pentes en chemin : laissez-lui de la place.",
 	-- ["The ruined catapult and flying machine"] = "La catapulte et l'engin volant en ruines",
 	-- ["Two of the wrecks {npc:256222} named lie at the east end of the fields: plant one of his seeds beside each."] = "Deux des épaves dont {npc:256222} a parlé se trouvent à l'extrémité est des champs : plantez une de ses graines à côté de chacune.",
+	-- ["West to the bone pile by the slime pools: throw the warlocks' bones on it, then hand the quest in at the pile itself. Handing it in wakes the {npc:264306}, an elite (level 58) that hits hard: unless you are grouped for it, hand in and ride clear at once."] = "À l'ouest, vers le tas d'os près des mares de limon : jetez les os des démonistes dessus, puis rendez la quête au tas lui-même. La rendre réveille {npc:264306}, un élite (niveau 58) qui frappe fort : à moins d'être groupé pour lui, rendez-la et éloignez-vous au galop aussitôt.",
+	-- ["West to the overlook above the valley: the veteran's old scabbard lies there. Hand his quest in at the scabbard and take the next from it, then use the scabbard in your bags to call his spirit and listen to his story."] = "À l'ouest, vers le belvédère au-dessus de la vallée : la vieille fourreau du vétéran s'y trouve. Rendez sa quête à la fourreau et prenez la suivante dedans, puis utilisez la fourreau de votre sac pour appeler son esprit et écouter son histoire.",
 	-- ["the {npc:262036}"] = "les {npc:262036}",
 }

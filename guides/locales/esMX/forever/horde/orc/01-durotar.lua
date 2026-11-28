@@ -100,8 +100,8 @@ return {
 	["the {object:654925} on the ground beside her"] = "{object:654925}, en el suelo a su lado",
 
 	-- Step 19: Call of Earth
-	-- {npc:5887} Canaga Earthcaller · {area:639} Spirit Rock · {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth · {item:6656} Rough Quartz
-	["{npc:5887} stands outside the Den. {area:639} is the hill just south of it: drink the {item:6635} there to see the {npc:5891}, then take the {item:6656} back to {npc:5887}."] = "{npc:5887} está afuera de la Guarida. {area:639} es la colina justo al sur: bebe {item:6635} allí para ver a la {npc:5891} y luego llévale {item:6656} a {npc:5887}.",
+	-- {npc:5887} Canaga Earthcaller · {area:639} Spirit Rock · {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth
+	["{npc:5887} stands outside the Den, and {area:639} is the hill just south of it. The {item:6635} reveals the {npc:5891}."] = "",
 	-- {npc:5891} Minor Manifestation of Earth · {area:639} Spirit Rock
 	["{npc:5891}, on {area:639}"] = "{npc:5891}, en {area:639}",
 	-- {npc:5887} Canaga Earthcaller · {npc:5873} Stoneskin Totem · {item:5175} Earth Totem
@@ -497,5 +497,6 @@ return {
 	-- ["{npc:3169}, inside"] = "{npc:3169}, adentro",
 	-- ["{npc:3294}, by the inn"] = "{npc:3294}, junto a la posada",
 	-- ["{npc:5884} in {zone:1411}; {area:362} has no mage trainer"] = "{npc:5884} en {zone:1411}; {area:362} no tiene instructor de magos",
+	-- ["{npc:5887} stands outside the Den. {area:639} is the hill just south of it: drink the {item:6635} there to see the {npc:5891}, then take the {item:6656} back to {npc:5887}."] = "{npc:5887} está afuera de la Guarida. {area:639} es la colina justo al sur: bebe {item:6635} allí para ver a la {npc:5891} y luego llévale {item:6656} a {npc:5887}.",
 	-- ["{quest:790}, a large scorpid, prowls the slope south of {npc:3287} among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.\nThe {quest:792} swarm the slope below the {area:365}, the cave on the valley's north side."] = "{quest:790}, un escórpido grande, merodea por la ladera al sur de {npc:3287} entre los escórpidos obreros; recoge las manzanas de cactus junto a los cactus en el camino.\n{quest:792} pululan en la ladera debajo de {area:365}, la cueva del lado norte del valle.",
 }

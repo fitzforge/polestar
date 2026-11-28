@@ -134,7 +134,7 @@ return {
 	["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}.\nCareful: The escort has two ambushes. Three level 47 scorpids attack near the start. Near the end, by the beach, three Wastewander humans attack: one mage and two assassins, around level 44."] = "Só com o sinalizador de socorro: o OOX-17/TN fica a sudeste da colmeia do Anilhacido. Escolte-o para o norte até {area:977}; a recompensa fica com Olhatorto, em {area:35}.\nCuidado: a escolta tem duas emboscadas. Três escorpídeos de nível 47 atacam perto do começo. Perto do fim, junto à praia, três humanos Errantes atacam: um mago e dois assassinos, por volta do nível 44.",
 
 	-- Step 29: Tanaris Field Sampling
-	["A sample can fail: keep going until you have eight of each."] = "",
+	["A sample can fail, so it can take several tries to get eight of each."] = "",
 	-- {item:8524} Model 4711-FTZ Power Source · {npc:7407} Chief Engineer Bilgewhizzle · {area:976} Gadgetzan · {quest:654} Tanaris Field Sampling
 	["Use the {item:8524}: it starts the quest and its two-hour timer. No power source, or the timer ran out? Another Power Source? from {npc:7407} trades a new one for ten Wastewander Water Pouches, from the Wastewander camps east of {area:976}, once {quest:654} is out of your log."] = "",
 

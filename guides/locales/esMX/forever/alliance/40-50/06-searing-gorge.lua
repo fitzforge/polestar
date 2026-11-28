@@ -137,10 +137,8 @@ return {
 	-- Step 37: Sentry Braziers
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Sentry Braziers"] = "Braseros centinela",
-	-- {item:10515} Torch of Retribution
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
-	-- was: ["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "Lleva la {object:149047} al sur por el borde de La Caldera y enciende los cuatro braseros centinela, del suroeste al sureste."
-	["Carry the {item:10515} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "",
+	["The four Sentry Braziers sit along the rim of the Cauldron, from the south-west round to the south-east."] = "",
 
 	-- Step 38: Level 48.98
 	["Level 48.98"] = "Nivel 48.98",

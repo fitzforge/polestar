@@ -188,10 +188,9 @@ return {
 	["South down the coast to Shadowprey: {npc:268705} first, on the path into the village; {npc:11624} takes the box and sends you to {area:602} with it; {npc:12340} takes the naga."] = "沿海岸向南到葬影村。先找进村路上的{npc:268705}，再把盒子交给{npc:11624}，他会让你带着盒子去{area:602}。纳迦的任务交给{npc:12340}。",
 
 	-- Step 37: Portals of the Legion
-	-- {area:602} Mannoroc Coven · {item:14547} Hand of Iruxos · {npc:11624} Taiga Wisemane · {npc:11937} Demon Portal Guardian
+	-- {npc:11937} Demon Portal Guardian
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner
-	-- was: ["Head east to {area:602}. With the {quest:5381} from {npc:11624} in your bags, open a demon portal's ring: a {npc:11937} (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "向东前往{area:602}。将从{npc:11624}那里取得的{quest:5381}放在背包里，打开恶魔传送门的圆环，就会出现一只{npc:11937}（38-39级）；杀死它即可关闭这座传送门，共需关闭六座。注意：许多传送门附近都有地狱火、末日守卫和火刃召唤师游荡，可能加入战斗；先清掉附近怪物，或把守护者拉远，比如拉到集会所中央的湖边。"
-	["Head east to {area:602}. With the {item:14547} from {npc:11624} in your bags, open a demon portal's ring: a {npc:11937} (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "",
+	["Each portal releases a {npc:11937} (38-39), and there are six portals. Infernals, Doomguards and Burning Blade Summoners patrol near many portals and may join the fight."] = "",
 
 	-- Step 38: The Valley of Bones
 	-- {area:2657} Valley of Bones

@@ -174,9 +174,8 @@ return {
 	-- Step 45: Gloomrise: kill these as you meet them
 	-- {area:17044} Gloomrise
 	["{area:17044}: kill these as you meet them"] = "{area:17044}: mata a estos según te los encuentres",
-	-- {area:17044} Gloomrise · {npc:264074} Mazu'kon · {item:273015} Toxin Extractor · {item:273181} Crystalline Silk · {npc:264082} Broodmother Valraxx · {quest:96261} The Broodmother · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
-	-- plural, as words: Gnawed Corpses = {npc:264096} Gnawed Corpse
-	["North of the camp, spiders overrun the burial ground at {area:17044}. Use {npc:264074}'s {item:273015} on the Gnawed Corpses; the Spinners drop the {item:273181}. {npc:264082} (30, elite) sits at the north end: leave her unless you do {quest:96261} with a group; her {item:273658} starts {quest:96294}."] = "Al norte del campamento, las arañas invaden el cementerio de {area:17044}. Usa {item:273015} de {npc:264074} en los Cadáveres roídos; las Tejedoras sueltan {item:273181}. {npc:264082} (30, élite) está en el extremo norte: déjala a menos que hagas {quest:96261} con un grupo; su {item:273658} inicia {quest:96294}.",
+	-- {area:17044} Gloomrise · {item:273181} Crystalline Silk · {npc:264082} Broodmother Valraxx · {quest:96261} The Broodmother · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
+	["Spiders overrun the burial ground at {area:17044}, north of the camp, and the Spinners drop the {item:273181}. {npc:264082} (level 30, elite) sits at the north end and is meant for a group doing {quest:96261}; her {item:273658} starts {quest:96294}."] = "",
 	-- {item:273181} Crystalline Silk
 	-- plural, as words: Gloomrise Spinners = {npc:264081} Gloomrise Spinner
 	["{item:273181}, from Gloomrise Spinners"] = "{item:273181}, de las Tejedoras del Alto Penumbroso ({npc:264081})",
@@ -368,7 +367,7 @@ return {
 
 	-- Step 81: Hypercapacitor Gizmo
 	-- {npc:10992} Enraged Panther
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone."] = "Son enemigos élite: se recomienda agruparse, busca gente para hacerlo. {npc:10992} es élite de nivel 30: la mayoría de las clases la hacen solas a nivel 32, pero puede que necesites ayuda. Omítela si estás solo.",
+	["The {npc:10992} is a level 30 elite. Most classes can solo it at level 32, but some may need a group."] = "",
 
 	-- Step 82: Whitereach Post
 	-- {npc:10720} Galak Assassin · {npc:10638} Kanati Greycloud
@@ -447,6 +446,7 @@ return {
 	-- ["Level 29"] = "Nivel 29",
 	-- ["Level 29.49"] = "Nivel 29.49",
 	-- ["Naga brazier"] = "Brasero naga",
+	-- ["North of the camp, spiders overrun the burial ground at {area:17044}. Use {npc:264074}'s {item:273015} on the Gnawed Corpses; the Spinners drop the {item:273181}. {npc:264082} (30, elite) sits at the north end: leave her unless you do {quest:96261} with a group; her {item:273658} starts {quest:96294}."] = "Al norte del campamento, las arañas invaden el cementerio de {area:17044}. Usa {item:273015} de {npc:264074} en los Cadáveres roídos; las Tejedoras sueltan {item:273181}. {npc:264082} (30, élite) está en el extremo norte: déjala a menos que hagas {quest:96261} con un grupo; su {item:273658} inicia {quest:96294}.",
 	-- ["North up the road to {area:431} and {area:428} beside it."] = "Al norte por el camino hasta {area:431} y {area:428}, a su lado.",
 	-- ["On the road south to the {area:485}, turn east into the {area:359} dig. {npc:3421} hides at its south edge. {object:3646} stands on the bottom floor of the dwarves' fortress, beside {npc:3414} (30) and his Officers (26): pull them to you one at a time."] = "En el camino al sur hacia {area:485}, desvíate al este hacia la excavación de {area:359}. {npc:3421} se esconde en su borde sur. {object:3646} está en la planta baja de la fortaleza de los enanos, junto a {npc:3414} (30) y sus oficiales (26): atráelos de a uno.",
 	-- ["On the way back north-east to Splintertree: {npc:12676} prowls the woods south-east of the Warsong lumber camp."] = "De regreso al noreste hacia Puesto del Hachazo: {npc:12676} merodea el bosque al sureste del Aserradero Grito de Guerra.",
@@ -464,6 +464,7 @@ return {
 	-- ["The next guide opens with Korran's The Swarm Grows at the Crossroads, offered from level 29. Short of 29? The Pesterhide Snarlers (28-29) prowl the canyon floor just north-west of {area:484}: kill them until level 29. Or, with a group, run the {area:2797} dungeon instead."] = "La siguiente guía empieza con El enjambre crece de Korran en El Cruce, disponible desde el nivel 29. ¿Aún no tienes 29? Los Gruñidores Pestillejo (28-29) merodean el fondo del cañón justo al noroeste de {area:484}: mátalos hasta llegar al nivel 29. O, con un grupo, haz el calabozo {area:2797}.",
 	-- ["The salt flats"] = "El desierto de sal",
 	-- ["The {area:1718}"] = "{area:1718}",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone."] = "Son enemigos élite: se recomienda agruparse, busca gente para hacerlo. {npc:10992} es élite de nivel 30: la mayoría de las clases la hacen solas a nivel 32, pero puede que necesites ayuda. Omítela si estás solo.",
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "Son enemigos élite: se recomienda agruparse, busca gente para hacerlo. {npc:10992} es élite de nivel 30: la mayoría de las clases lo hacen solas a nivel 32, pero puede que necesites ayuda. Omítelo si estás solo: la ruta te hace recuperar esa experiencia matando enemigos.",
 	-- ["Thistlefur Hold"] = "Bastión Piel de Cardo",
 	-- ["Tideress"] = "Marearess",

@@ -468,8 +468,8 @@ return {
 	["Head back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Geh zurück durch {area:87} und östlich entlang der Straße zur {area:62}. {npc:881} (Stufe 9) steht beim Bauernhaus.",
 
 	-- Step 93: The Binding
-	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb
-	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "Zurück zu {npc:6122}. Benutze {item:6928} am Beschwörungskreis im Keller von {object:2164} und besiege den Leerwandler, den er ruft.",
+	-- {object:2164} Slaughtered Lamb
+	["The summoning circle is in the {object:2164}'s cellar, and it calls a voidwalker that has to be defeated."] = "",
 	["Subdue the voidwalker"] = "Bezwinge den Leerwandler",
 
 	-- Step 94: Back to Elwynn Forest
@@ -536,6 +536,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to the {area:120}, by the road to {zone:1436}. {npc:963} stands outside the barracks, {npc:955} beside him."] = "Zurück nach Süden zu {area:120}, an der Straße nach {zone:1436}. {npc:963} steht vor der Kaserne, {npc:955} neben ihm.",
 	-- ["Back to the Cathedral of Light."] = "Zurück zur Kathedrale des Lichts.",
+	-- ["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "Zurück zu {npc:6122}. Benutze {item:6928} am Beschwörungskreis im Keller von {object:2164} und besiege den Leerwandler, den er ruft.",
 	-- ["Bait ingredients"] = "Köderzutaten",
 	-- ["Boar meat"] = "Eberfleisch",
 	-- ["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "Abtrünnige Hexer der Defias lagern an den Ufern von {area:86}; sie lassen auch die Roten Leinenkopftücher fallen. {object:56} liegt im Murlocdorf am Nordostufer.",

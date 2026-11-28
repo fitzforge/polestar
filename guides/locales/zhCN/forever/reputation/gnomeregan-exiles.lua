@@ -121,7 +121,7 @@ return {
 	["{zone:1448}: Cursed and Tainted Oozes"] = "{zone:1448}：被诅咒的软泥怪和被污染的软泥怪。",
 	-- {area:1763} Jaedenar · {area:1765} Bloodvenom Falls
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["The Cursed and Tainted Oozes slide about the streams and fel pools around {area:1763} and {area:1765}: kill one and use an empty jar on its remains."] = "被诅咒的软泥怪和被污染的软泥怪在{area:1763}与{area:1765}周围的溪流、邪能水池间蠕动：击杀一只，再对残骸使用空瓶。",
+	["Cursed and Tainted Oozes are found around the streams and fel pools near {area:1763} and {area:1765}."] = "",
 
 	-- Step 21: Tinker Town: the second jars
 	-- {object:171524} Tinker Town
@@ -180,6 +180,7 @@ return {
 	-- ["Optional: {area:131} and the Brewnall and {area:133} roads around it, about 1,300 reputation (260 at a fifth) in 50 minutes at 60. Most givers stand in and around the {area:2102} and at {area:189} east of it. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub."] = "可选：{area:131} 及周围通往涌冰湖和 {area:133} 的道路，60 级时花约 50 分钟可获得约 1,300 点声望（按五分之一计算为 260 点）。大多数任务给予者在 {area:2102} 内外及其东侧的 {area:189}。在经典旧世中，比你低至少 6 级的任务声望奖励会减少（60 级时降至五分之一）；一份无限测试版报告称，任务仍提供全额声望。第一次交还任务时就能看出：如果只给五分之一，就跳过这些任务点。跳过本步骤即可跳过这个任务点。",
 	-- ["Riverpaw Bandits and Taskmasters (level 16-18) drop it here. The Auction House works too."] = "这里的河爪强盗和河爪监工（16-18级）会掉落。也可以去拍卖行购买。",
 	-- ["Syndicate Mercenaries at Stromgarde (level 31-32) drop it here. The Auction House works too."] = "激流堡的辛迪加雇佣兵（31-32级）会掉落。也可以去拍卖行购买。",
+	-- ["The Cursed and Tainted Oozes slide about the streams and fel pools around {area:1763} and {area:1765}: kill one and use an empty jar on its remains."] = "被诅咒的软泥怪和被污染的软泥怪在{area:1763}与{area:1765}周围的溪流、邪能水池间蠕动：击杀一只，再对残骸使用空瓶。",
 	-- ["{npc:14724} takes cloth for {faction:54} in {object:171524}, {zone:1455}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7812} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14724}在{zone:1455}的{object:171524}收取布料以提升{faction:54}声望。首次捐献毛料、丝绸、魔纹布和{item:14047}（各60块）只能做一次，每块布给的声望最多；之后{quest:7812}可重复做到崇拜。与其他种族的主城达到崇拜后，可购买该种族的坐骑。Forever的传承外交官特权可提高声望获取。",
 	-- ["{npc:14724}: {item:14047} delivered"] = "{npc:14724}：已交付{item:14047}",
 	-- ["{quest:7812} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7812}每次交还需要20块{item:14047}，可无限重复。按20的倍数带上{item:14047}，一次接一次全部交还。{item:14047}：{zone:1423}的黑暗教徒和暗影法师（58-60级），或拍卖行。",

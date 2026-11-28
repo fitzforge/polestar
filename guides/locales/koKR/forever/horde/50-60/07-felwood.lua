@@ -116,8 +116,8 @@ return {
 	["On the ride north to {area:2255}, the Ice Thistle Yetis (55-56) in the hills south-east of the town carry Vizzie's {item:258323}: four pieces."] = "",
 
 	-- Step 30: Are We There, Yeti?
-	-- {area:2255} Everlook
-	["Ride north to {area:2255}."] = "북쪽 {area:2255}(으)로 가세요.",
+	-- {npc:10978} Legacki · {area:2255} Everlook
+	["{npc:10978} is in {area:2255}, to the north."] = "",
 	-- {npc:10978} Legacki · {item:12928} Umi's Mechanical Yeti
 	["Scare {npc:10978} with {item:12928}"] = "",
 
@@ -210,6 +210,7 @@ return {
 	-- ["Ride back west to {area:2246}."] = "서쪽의 {area:2246}(으)로 돌아가세요.",
 	-- ["Ride east along the road to {area:2255}."] = "길을 따라 동쪽 {area:2255}(으)로 가세요.",
 	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "동쪽으로 간 뒤 남쪽으로 {area:2249}을(를) 내려가세요. 그곳의 서리망치거인은 59레벨 정예입니다. 가운데로 다니며 멈추지 마세요. 이상한 근원은 남쪽 끝, {area:2256} 입구에 있습니다.",
+	-- ["Ride north to {area:2255}."] = "북쪽 {area:2255}(으)로 가세요.",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "북서쪽 {area:1763}(으)로 가세요. 화로 네 개가 어둠의 의회 건물들 사이에 있습니다. 각 화로에 정화된 물을 사용하세요.\n주의: 53-55레벨 어둠의 의회 몹이 동굴에 가득하며, 연결된 큰 무리로 오는 경우가 많고 기절 기술을 쓰는 몹도 많습니다. 2-3인 파티를 권장합니다.",
 	-- ["South to the Sanctuary once more."] = "다시 남쪽 성소로 가세요.",
 	-- ["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} (59, elite) and Xandivious (62) are in the cave at the back: stay out."] = "털보숭이 마을은 {area:2255} 북동쪽 골짜기에 있습니다. 치유하는 주술사를 먼저 처치하세요. {npc:10738}(59, 정예)과 잔디비우스(62)는 안쪽 동굴에 있으니 들어가지 마세요.",

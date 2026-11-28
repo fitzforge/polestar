@@ -121,7 +121,7 @@ return {
 	["{zone:1448}: Cursed and Tainted Oozes"] = "",
 	-- {area:1763} Jaedenar · {area:1765} Bloodvenom Falls
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["The Cursed and Tainted Oozes slide about the streams and fel pools around {area:1763} and {area:1765}: kill one and use an empty jar on its remains."] = "",
+	["Cursed and Tainted Oozes are found around the streams and fel pools near {area:1763} and {area:1765}."] = "",
 
 	-- Step 21: Tinker Town: the second jars
 	-- {object:171524} Tinker Town

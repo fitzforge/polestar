@@ -32,8 +32,7 @@ return {
 
 	-- Step 3: Boars, weapons and peons
 	["Boars, weapons and peons"] = "멧돼지, 무기, 일꾼",
-	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
-	["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "훈련용 무기는 굴 안과 북쪽 멧돼지 사이의 땅에 놓여 있습니다. 일꾼에게는: 자고 있는 {npc:10556}을(를) 대상으로 삼고 {item:16114}을(를) 그것에 사용하십시오.",
+	["The training weapons lie on the ground in the Den and among the boars to the north."] = "",
 	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
 	["{npc:10556}: hit it with the {item:16114}"] = "{npc:10556}: {item:16114}(으)로 때리십시오",
 	-- {npc:10556} Lazy Peon
@@ -228,9 +227,9 @@ return {
 	-- Step 38: Prowlers, Serena Bloodfeather and Echeyakee
 	-- {npc:3452} Serena Bloodfeather · {quest:881} Echeyakee
 	["Prowlers, {npc:3452} and {quest:881}"] = "밀렵꾼, {npc:3452}, 그리고 {quest:881}",
-	-- {quest:876} Serena Bloodfeather · {npc:3338} Sergra Darkthorn · {item:10327} Horn of Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
+	-- {quest:876} Serena Bloodfeather · {quest:881} Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
 	-- plural, as words: Savannah Prowlers = {npc:3425} Savannah Prowler
-	["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "굶주린 사바나 사자는 크로스로드 서쪽과 북쪽에 있습니다. {quest:876}은(는) 훨씬 북서쪽의 칼날바람일족 하피로 안내합니다. 다음 {npc:3338}이(가) {item:10327}을(를) 줍니다: 마을 북쪽 {object:147524}의 코도 뼈 옆에서 불어 넣고 흰 사자를 처치하십시오.",
+	["Savannah Prowlers roam west and north of the Crossroads, and {quest:876} leads the Witchwing harpies in the far north-west. {quest:881}, a white lion, appears at the kodo bones of {object:147524}, north of the town."] = "",
 
 	-- Step 39: Chen's Empty Keg (optional hub)
 	-- {quest:819} Chen's Empty Keg
@@ -384,6 +383,8 @@ return {
 	-- ["Keep handing in {quest:7832} until {faction:76} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{faction:76}와(과) 확고한 동맹이 될 때까지 {quest:7832}을(를) 계속 제출하십시오. {item:14047}: {zone:1423}의 암흑의 수행사제와 어둠마법사(레벨 58-60) 또는 경매장.",
 	-- ["Keep handing in {quest:7832}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{item:14047} 20개씩 {quest:7832}을(를) 계속 제출하십시오. {item:14047}: {zone:1423}의 암흑의 수행사제와 어둠마법사(레벨 58-60) 또는 경매장.",
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "콜카르 켄타우로스(레벨 30-33)가 떨어뜨립니다. 경매장도 이용할 수 있습니다.",
+	-- ["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "굶주린 사바나 사자는 크로스로드 서쪽과 북쪽에 있습니다. {quest:876}은(는) 훨씬 북서쪽의 칼날바람일족 하피로 안내합니다. 다음 {npc:3338}이(가) {item:10327}을(를) 줍니다: 마을 북쪽 {object:147524}의 코도 뼈 옆에서 불어 넣고 흰 사자를 처치하십시오.",
+	-- ["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "훈련용 무기는 굴 안과 북쪽 멧돼지 사이의 땅에 놓여 있습니다. 일꾼에게는: 자고 있는 {npc:10556}을(를) 대상으로 삼고 {item:16114}을(를) 그것에 사용하십시오.",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "{area:381}의 투자개발회사 집행자(레벨 16-17)가 떨어뜨립니다. 경매장도 이용할 수 있습니다.",
 	-- ["{npc:14726} takes cloth for {faction:76} in {faction:76}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7832} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14726}은(는) {faction:76}에서 {faction:76}을(를) 위한 옷감을 받습니다. 양모, 비단, 마법 옷감, {item:14047}의 첫 기부(각 옷감 60개)는 한 번만 할 수 있고 옷감당 평판이 가장 많습니다. 그 뒤로는 {quest:7832}을(를) 확고한 동맹까지 반복합니다. 다른 종족의 도시와 확고한 동맹이 되면 그 종족의 탈것을 구매할 수 있습니다. Forever의 외교관 유산 특전은 평판 획득량을 늘려 줍니다.",
 	-- ["{npc:14726}: {item:14047} delivered"] = "{npc:14726}: {item:14047} 기부 완료",

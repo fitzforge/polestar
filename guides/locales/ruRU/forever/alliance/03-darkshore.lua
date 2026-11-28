@@ -53,10 +53,9 @@ return {
 
 	-- Step 7: Plagued bears
 	["Plagued bears"] = "Больные медведи",
-	-- {area:442} Auberdine · {item:7586} Tharnariun's Hope
+	-- {area:442} Auberdine
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	-- was: ["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "Бешеные колючешерстные медведи бродят по холмам чуть восточнее (ориентир: {area:442}). Примените на одном предмет из задания «{quest:2139}» и приведите медведя к нему."
-	["Rabid Thistle Bears roam the hills just east of {area:442}. Use {item:7586} on one and lead it back to him."] = "",
+	["Rabid Thistle Bears roam the hills just east of {area:442}."] = "",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "",
@@ -83,8 +82,8 @@ return {
 
 	-- Step 11: The red crystal
 	["The red crystal"] = "Красный кристалл",
-	-- {area:447} Ameth'Aran · {object:175524} Mysterious Red Crystal
-	["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "Поднимитесь в горы к востоку (ориентир: {area:447}); {object:175524} лежит на уступе.",
+	-- {object:175524} Mysterious Red Crystal · {area:447} Ameth'Aran
+	["The {object:175524} sits on a ledge in the mountains east of {area:447}."] = "",
 
 	-- Step 13: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
@@ -139,8 +138,8 @@ return {
 	["Back north-east into the mountains to the crystal."] = "Назад на северо-восток, в горы, к кристаллу.",
 
 	-- Step 23: Cliffspring Falls
-	-- {area:456} Cliffspring River · {area:443} Ruins of Mathystra · {quest:954} Bashal'Aran
-	["Follow the hills north to the {area:456} and up to the falls. Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "Идите вдоль холмов на север к реке ({area:456}) и вверх к водопаду. Еще два выброшенных на берег останка лежат на северном побережье: у руин ({area:443}) и к северу от руин ({quest:954}).",
+	-- {area:445} Cliffspring Falls · {area:456} Cliffspring River · {area:443} Ruins of Mathystra · {quest:954} Bashal'Aran
+	["{area:445} is north along the hills, up the {area:456}. Two more beached remains lie on the north shore, near the {area:443} and north of {quest:954}."] = "",
 	-- {item:12349} Cliffspring River Sample
 	["{item:12349}, at the waterfall"] = "{item:12349} – у водопада",
 	-- {item:15845} Filled Cliffspring Falls Sampler
@@ -226,6 +225,7 @@ return {
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. Then fly back to {area:442} from {area:2361}."] = "Примените {spell:18960}. {npc:11802} – здесь: {area:2361}. Безделушки из святилища лежат в контейнерах на дне озера ({area:656}) ниже деревни ({area:2361}): отнесите одну на северо-запад ({area:2362}), используйте ее там и поговорите: {npc:11799}. Затем летите обратно ({area:2361} → {area:442}).",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "Примените {spell:18960}. {npc:11802} – здесь: {area:2361}; узнайте там маршрут полета, если его у вас нет.",
 	-- ["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "Примените {spell:18960}. {npc:11802} стоит на верхнем этаже своего здания ({area:2361}): поднимитесь внутри, стрелка не различает этажи. Узнайте там маршрут полета, если его у вас нет.",
+	-- ["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "Поднимитесь в горы к востоку (ориентир: {area:447}); {object:175524} лежит на уступе.",
 	-- ["Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}"] = "Выведите ее из глефы; задание сдается Тересиль ({zone:1440})",
 	-- ["Fine Moonstalker Pelts"] = "Прекрасные шкуры лунопарда",
 	-- ["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "Идите вдоль побережья на северо-восток ({area:443}). {quest:951} лежат среди руин; их охраняют мирмидоны, колдуньи и воины из клана Гремучей Чешуи, а по берегу ходят повелительницы зверей из клана Гремучей Чешуи.",
@@ -233,6 +233,7 @@ return {
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}."] = "Идите вдоль побережья на юг мимо руин ({area:447}): одно существо ({quest:4728}) лежит на берегу к западу от Рощи, другое – южнее, рядом с местом {area:450}.",
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "Идите вдоль побережья на юг мимо руин ({area:447}): одно существо ({quest:4728}) лежит на берегу к западу от Рощи, другое – южнее, рядом с местом {area:450}. Еще три останка лежат дальше на юго-западе среди оракулов и волноловов из племени Серой Мглы (18–20): гайд оставляет их на последний круг, когда вы будете ближе к их уровню.",
 	-- ["Follow the hills north to the {area:456} and up to the falls. Three more beached remains lie on the north shore: near the {area:443}, north of {quest:954} and west of {quest:954}."] = "Идите вдоль холмов на север к реке ({area:456}) и вверх к водопаду. Еще три выброшенных на берег останка лежат на северном побережье: у руин ({area:443}), к северу от руин ({quest:954}) и к западу от руин ({quest:954}).",
+	-- ["Follow the hills north to the {area:456} and up to the falls. Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "Идите вдоль холмов на север к реке ({area:456}) и вверх к водопаду. Еще два выброшенных на берег останка лежат на северном побережье: у руин ({area:443}) и к северу от руин ({quest:954}).",
 	-- ["Follow the road north."] = "Идите по дороге на север.",
 	-- ["Follow the road south. {quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "Идите по дороге на юг. {quest:948} – древо в Роще; рядом с ним спят {npc:270269} и {npc:11218}.",
 	-- ["Grizzled Scalps"] = "Седые скальпы",

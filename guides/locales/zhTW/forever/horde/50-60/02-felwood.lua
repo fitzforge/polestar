@@ -42,8 +42,8 @@ return {
 
 	-- Step 8: Scarlet forward camp
 	["Scarlet forward camp"] = "血色十字軍前進營地",
-	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
-	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "從{area:152}沿路向東進入{zone:1422}。血色十字軍的帳篷就在費爾斯通農場後面，在{area:199}和{area:200}之間。用{item:12814}點燃指揮帳篷，插上天譴旗幟。小心：帳篷周圍的血色十字軍最高54級，祈求者會施法：從離指揮帳篷最近的一側進入，別管其他人。",
+	-- {area:152} Bulwark · {area:199} Felstone Field · {area:200} Dalson's Tears
+	["The Scarlet Crusade's tents are east of the {area:152}, just past Felstone Farm, between {area:199} and {area:200}. The Scarlets around the tents reach level 54 and the Invokers cast spells."] = "",
 
 	-- Step 9: Bulwark
 	-- {area:152} Bulwark
@@ -96,9 +96,8 @@ return {
 	-- Step 19: Makrinni Burrowers
 	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower
 	["Makrinni Burrowers"] = "瑪克林尼掘地者",
-	-- {npc:247473} Izvi Gildfizz · {item:246683} Treasure Trowel 3000
 	-- plural, as words: Highborne Treasure Fragments = {item:246684} Highborne Treasure Fragment · Makrinni Burrowers = {npc:247470} Makrinni Burrower
-	["{npc:247473}'s {item:246683}, in your bags, digs up the Highborne Treasure Fragments: use it on the sands just east of the ruins, where the Makrinni Burrowers (50-51) dig, on the way north-east. The Burrowers and the buried caches there give fragments too."] = "",
+	["The Highborne Treasure Fragments come from the sands just east of the ruins, where Makrinni Burrowers (50-51) dig. The Burrowers and the buried caches there also give fragments."] = "",
 
 	-- Step 20: Ekkal
 	-- {zone:1447} Azshara · {npc:235903} Ekkal
@@ -307,6 +306,7 @@ return {
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are {npc:10920}'s.\n{area:1762}'s Deadwood Den Watchers (53-54) and Avengers (54-55) are next: below level 54, keep hunting the grizzlies and ravagers (51-52) here until 54. The hand-ins at {area:1769}, the {area:2479} and {area:1997} that follow take you most of the way to 55. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "沿著道路向東北前往{area:1767}。樹林東側的扭木食苔者和撕裂者各帶有一個{item:11503}；怒爪灰熊和魔爪劫毀者在同一片樹林遊蕩，是塔羅的任務目標，牠們的內臟則交給{npc:10920}。\n接下來是{area:1762}的死木守衛（53-54級）和復仇者（54-55級）：低於54級時，繼續在這裡獵殺灰熊和劫毀者（51-52級）直到54級。之後在{area:1769}、{area:2479}和{area:1997}的繳交會讓你接近55級。或者，有小隊的話，改打{area:1417}地城或{area:1584}地城。",
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at {area:1997} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "沿著道路向東北前往{area:1767}。樹林東側的曲木食苔者和曲木撕裂者各帶有一個{item:11503}；怒爪灰熊和魔爪掠奪者在同一片樹林遊蕩，是塔羅的任務目標。低於54.21級時，繼續獵殺灰熊和掠奪者：{area:1997}和{area:2479}的繳交會讓你升到55級。或者，有隊伍的話，改打{area:1584}地城或{area:1417}地城。",
 	-- ["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "沿著道路向西北走。{area:1763}南部的腐化月井周圍，由加德納爾祭司、加德納爾精兵、加德納爾守護者和加德納爾惡犬佔據。",
+	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "從{area:152}沿路向東進入{zone:1422}。血色十字軍的帳篷就在費爾斯通農場後面，在{area:199}和{area:200}之間。用{item:12814}點燃指揮帳篷，插上天譴旗幟。小心：帳篷周圍的血色十字軍最高54級，祈求者會施法：從離指揮帳篷最近的一側進入，別管其他人。",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "從{area:152}沿著道路向東進入{zone:1422}。血色十字軍的帳篷就在費爾斯通農場過去一點，位於{area:199}和{area:200}之間。用{object:176092}燒掉指揮帳篷，並插上天災戰旗。注意：帳篷周圍的血色十字軍最高54級，祈咒者會施法：從最靠近指揮帳篷的一側進入，別理其他人。",
 	-- ["From {area:2268}'s flight master, fly to the {area:1497}."] = "從{area:2268}的飛行管理員處飛往{area:1497}。",
 	-- ["His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands visit at about 58."] = "他的下一個狩獵任務，染病的灰熊（55-56級），留到約58級造訪瘟疫之地時再做。",

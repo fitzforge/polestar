@@ -60,20 +60,20 @@ return {
 	["Hand in the parts and pay 40 gold: Mux pays you with {item:22320}, a bag holding 8 {item:9061}, and {quest:8924} hands you the {item:21946}. Each placement of the distiller uses one fuel, so carry spares."] = "부품을 건네고 40골드를 내세요. 먹스가 {item:9061} 8개가 든 가방 {item:22320}을(를) 주고, {quest:8924}에서 {item:21946}을(를) 받습니다. 증류기를 설치할 때마다 연료가 하나씩 드니 여분을 챙기세요.",
 
 	-- Step 10: Scorched Ectoplasm
-	-- {area:2738} Southwind Village · {zone:1451} Silithus · {item:21946} Ectoplasmic Distiller
+	-- {area:2738} Southwind Village
 	-- plural, as words: Tortured Druids = {npc:12178} Tortured Druid
-	["The Tortured Druids and Sentinels haunt {area:2738} in {zone:1451} (level 55-57, not elite; silithid can join when they die). Place the {item:21946} among the ghosts, pull them into its glow and kill them there, standing in it yourself: ectoplasm only drops from a ghost that dies inside the glow. It lasts a few minutes, then place it again."] = "{zone:1451}의 {area:2738}에 고통받는 드루이드와 파수꾼이 출몰합니다(55-57레벨, 비정예. 죽을 때 실리시드가 합류할 수 있음). 유령들 사이에 {item:21946}을(를) 설치하고 그 빛 안으로 끌어와 처치하세요. 본인도 빛 안에 서 있어야 합니다. 원형질은 빛 안에서 죽은 유령에게서만 떨어집니다. 몇 분 지속되니 끝나면 다시 설치하세요.",
+	["The Tortured Druids and Sentinels haunt {area:2738} (level 55-57, not elite), and silithid can join when they die. Ectoplasm only drops from a ghost that dies inside the Distiller's glow, which lasts a few minutes."] = "",
 
 	-- Step 11: Frozen Ectoplasm and the Fel Elemental Rod
 	-- {item:21936} Frozen Ectoplasm · {item:21939} Fel Elemental Rod
 	["{item:21936} and the {item:21939}"] = "{item:21936}와(과) {item:21939}",
-	-- {spell:17735} Suffering · {npc:7524} Anguished Highborne · {area:2251} Lake Kel'Theril · {zone:1452} Winterspring · {item:21946} Ectoplasmic Distiller · {item:21939} Fel Elemental Rod · {npc:16015} Vi'el · {area:2256} Darkwhisper Gorge · {quest:8928} A Shifty Merchant
-	["The {spell:17735} and {npc:7524} drift around {area:2251} in {zone:1452} (level 54-56, not elite). Place the {item:21946} among the ghosts, pull them into its glow and kill them there, standing in it yourself: ectoplasm only drops from a ghost that dies inside the glow. It lasts a few minutes, then place it again. While you are in {zone:1452}, buy the {item:21939} (40 gold) from {npc:16015}, an imp in the cave at the mouth of {area:2256} in the far south: keep to the right-hand wall to slip past the elite demons in the gorge. {quest:8928} asks for it later, and this saves the trip back."] = "{spell:17735}와(과) {npc:7524}은(는) {zone:1452}의 {area:2251} 주변을 떠돕니다(54-56레벨, 비정예). 유령들 사이에 {item:21946}을(를) 놓고 그 빛 안으로 끌어들여 직접 빛 안에 선 채로 처치하세요. 엑토플라즘은 빛 안에서 죽은 유령에게서만 떨어집니다. 몇 분간 지속되니 끝나면 다시 놓으세요. {zone:1452}에 있는 동안 최남단 {area:2256} 입구 동굴의 임프 {npc:16015}에게서 {item:21939}(40골드)을(를) 사 두세요. 협곡의 정예 악마들을 피하려면 오른쪽 벽을 따라가세요. 나중에 {quest:8928}에서 필요하니 다시 오는 수고를 덜 수 있습니다.",
+	-- {spell:17735} Suffering · {npc:7524} Anguished Highborne · {area:2251} Lake Kel'Theril · {npc:16015} Vi'el · {item:21939} Fel Elemental Rod · {area:2256} Darkwhisper Gorge · {quest:8928} A Shifty Merchant
+	["The {spell:17735} and {npc:7524} around {area:2251} are level 54-56 and not elite. Ectoplasm only drops from a ghost that dies inside the distiller's glow, and the distiller lasts a few minutes. {npc:16015}, an imp, sells the {item:21939} (40 gold) in the cave at the mouth of {area:2256} in the far south, past elite demons. {quest:8928} asks for the rod later, so buying it now saves a trip back."] = "",
 
 	-- Step 12: Stable Ectoplasm
-	-- {zone:1423} Eastern Plaguelands · {area:2272} Northdale · {item:21946} Ectoplasmic Distiller
+	-- {area:2272} Northdale
 	-- plural, as words: Unseen Servants = {npc:8538} Unseen Servant · Eyeless Watchers = {npc:8539} Eyeless Watcher · Death Singers = {npc:8542} Death Singer · Hate Shriekers = {npc:8541} Hate Shrieker
-	["The ghosts and banshees of the {zone:1423} (Unseen Servants, Eyeless Watchers, Death Singers, Hate Shriekers; level 55-59, not elite) drop it; {area:2272} in the north-east is a good spot. The shriekers fear: fight close to the distiller. Place the {item:21946} among the ghosts, pull them into its glow and kill them there, standing in it yourself: ectoplasm only drops from a ghost that dies inside the glow. It lasts a few minutes, then place it again."] = "{zone:1423}의 유령과 밴시(보이지 않는 하인, 눈 없는 감시자, 죽음의 가수, 증오의 비명자. 55-59레벨, 비정예)가 떨어뜨립니다. 북동쪽 {area:2272}이(가) 좋은 장소입니다. 비명자는 공포를 거니 증류기 가까이에서 싸우세요. 유령들 사이에 {item:21946}을(를) 설치하고 그 빛 안으로 끌어와 처치하세요. 본인도 빛 안에 서 있어야 합니다. 원형질은 빛 안에서 죽은 유령에게서만 떨어집니다. 몇 분 지속되니 끝나면 다시 설치하세요.",
+	["Unseen Servants, Eyeless Watchers, Death Singers and Hate Shriekers (level 55-59, not elite) drop it, and {area:2272} in the north-east has plenty. Ectoplasm only drops from a ghost that dies inside the distiller's glow, which lasts a few minutes; the shriekers cast fear."] = "",
 
 	-- Step 13: Mux Manascrambler: Magma Lord Bokk
 	["Bring the distiller back with the ectoplasm: it is handed in too."] = "증류기를 원형질과 함께 가져오세요. 증류기도 제출합니다.",
@@ -98,7 +98,7 @@ return {
 
 	-- Step 18: Anthion Harmon
 	-- {npc:16016} Anthion Harmon · {area:2279} Stratholme · {zone:1423} Eastern Plaguelands · {item:22115} Extra-Dimensional Ghost Revealer
-	["{npc:16016}'s ghost waits on the bridge before {area:2279}'s main gate, at the north end of the {zone:1423}. Use the {item:22115} there to see him."] = "{npc:16016}의 유령은 {zone:1423} 북쪽 끝 {area:2279} 정문 앞 다리에서 기다립니다. 그를 보려면 그곳에서 {item:22115}을(를) 사용하세요.",
+	["{npc:16016}'s ghost waits on the bridge before {area:2279}'s main gate, at the north end of the {zone:1423}. He can only be seen with the {item:22115}."] = "",
 
 	-- Step 19: Dead Man's Plea
 	-- {quest:8945} Dead Man's Plea · {npc:16016} Anthion Harmon · {npc:16031} Ysida Harmon · {npc:10440} Baron Rivendare · {area:2279} Stratholme
@@ -146,8 +146,7 @@ return {
 
 	-- Step 29: The Challenge
 	-- {npc:16032} Falrin Treeshaper · {item:21986} Banner of Provocation · {area:1584} Blackrock Depths
-	-- was: ["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032}이(가) {item:21986}을(를) 완성합니다. {area:1584}의 법의 심판장에 심으세요."
-	["{npc:16032} finishes the {item:21986}, for the Ring of Law in {area:1584}."] = "",
+	["{npc:16032} finishes the {item:21986}, which is for the Ring of Law in {area:1584}."] = "",
 
 	-- Step 30: Blackrock Depths: the Ring of Law
 	-- {area:1584} Blackrock Depths
@@ -163,13 +162,13 @@ return {
 
 	-- Step 34: Bodley
 	-- {npc:16033} Bodley · {area:1583} Blackrock Spire · {area:254} Blackrock Mountain · {quest:8961} Three Kings of Flame · {item:21987} Incendicite of Incendius · {npc:9017} Lord Incendius · {area:1584} Blackrock Depths · {item:21988} Ember of Emberseer · {npc:9816} Pyroguard Emberseer · {item:21989} Cinder of Cynders · {npc:15206} Duke of Cynders · {zone:1451} Silithus · {item:22014} Hallowed Brazier · {faction:529} Argent Dawn
-	["{npc:16033}'s ghost stands on the ledge before the {area:1583} portal, high inside {area:254}: use the Ghost Revealer there. {quest:8961} wants the {item:21987} ({npc:9017} in {area:1584}), the {item:21988} ({npc:9816} in Upper Blackrock Spire), the {item:21989} (the {npc:15206} in {zone:1451}) and a {item:22014} from the {faction:529}."] = "{npc:16033}의 유령은 {area:254} 안쪽 높은 곳, {area:1583} 차원문 앞 바위턱에 서 있습니다. 그곳에서 유령 감지기를 사용하세요. {quest:8961}에는 {item:21987}({area:1584}의 {npc:9017}), {item:21988}(검은바위 첨탑 상층의 {npc:9816}), {item:21989}({zone:1451}의 {npc:15206}), {faction:529}의 {item:22014}이(가) 필요합니다.",
+	["{npc:16033}'s ghost stands on the ledge before the {area:1583} portal, high inside {area:254}. {quest:8961} needs the {item:21987} ({npc:9017}, {area:1584}), the {item:21988} ({npc:9816}, Upper Blackrock Spire), the {item:21989} ({npc:15206}, {zone:1451}) and a {item:22014} from the {faction:529}."] = "",
 
 	-- Step 36: Honored with the Argent Dawn
 	-- {faction:529} Argent Dawn
 	["Honored with the {faction:529}"] = "{faction:529} 우호적",
-	-- {item:22014} Hallowed Brazier · {item:12846} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:3197} Chillwind Camp · {npc:10839} Argent Officer Garush · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {area:2279} Stratholme · {area:2057} Scholomance
-	["The {item:22014} is sold only to Honored. Take the {item:12846} ({npc:10840} at {area:3197}, {npc:10839} at the Bulwark, or {npc:11039} at {area:2268}) and wear it: Scourgestones then drop from the Scourge, and the Argent officers take them back for reputation. Every Scourge kill in the Plaguelands counts, {area:2279}'s and {area:2057}'s undead give 5 each up to Honored, and {area:2268}'s dungeon quests give 100-200 each. Polestar's Argent Dawn Reputation guide (Reputation) walks it step by step."] = "{item:22014}은(는) 우호적 이상에게만 판매됩니다. {item:12846}을(를) 받아({area:3197}의 {npc:10840}, 보루의 {npc:10839}, 또는 {area:2268}의 {npc:11039}) 착용하세요. 그러면 스컬지에게서 스컬지석이 떨어지고, 은빛 여명회 장교들이 이를 받고 평판을 줍니다. 역병지대의 모든 스컬지 처치가 인정되며, {area:2279}와(과) {area:2057}의 언데드는 우호적까지 마리당 5를 주고, {area:2268}의 던전 퀘스트는 각각 100-200을 줍니다. Polestar의 은빛 여명회 평판 가이드(평판)가 단계별로 안내합니다.",
+	-- {item:22014} Hallowed Brazier · {item:12846} Argent Dawn Commission · {area:2279} Stratholme · {area:2057} Scholomance · {area:2268} Light's Hope Chapel
+	["The {item:22014} is sold only at Honored. With the {item:12846} equipped, Scourge drop Scourgestones that the Argent officers accept for reputation. Every Scourge kill in the Plaguelands counts, {area:2279} and {area:2057} undead give 5 each up to Honored, and the dungeon quests at {area:2268} give 100-200 each."] = "",
 	-- {item:12846} Argent Dawn Commission
 	["{item:12846}, while you fight the Scourge"] = "",
 
@@ -258,7 +257,13 @@ return {
 	-- ["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:234963} yet, so this guide can't track it: {npc:230319} should offer it now. Take it from her and give her your {item:16686} and {item:16688}."] = "Polestar의 퀘스트 데이터가 아직 {npc:234963}용 Forever의 '최고는 마지막에'를 모르므로 이 가이드가 추적할 수 없습니다. 이제 {npc:230319}이(가) 퀘스트를 줄 것입니다. 그녀에게 받고 {item:16686}과(와) {item:16688}을(를) 건네세요.",
 	-- ["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:235048} yet, so this guide can't track it: {npc:230317} should offer it now. Take it from him and give him your {item:16686} and {item:16688}."] = "Polestar의 퀘스트 데이터가 아직 {npc:235048}용 Forever의 '최고는 마지막에'를 모르므로 이 가이드가 추적할 수 없습니다. 이제 {npc:230317}이(가) 퀘스트를 줄 것입니다. 그에게 받고 {item:16686}과(와) {item:16688}을(를) 건네세요.",
 	-- ["Saving the Best for Last takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "'최고는 마지막에'에는 {item:16686}({area:2057}의 {npc:1853}, 약 13%)과 {item:16688}(검은바위 첨탑 상층의 {npc:10363}, 약 11%)이 필요합니다.",
+	-- ["The Tortured Druids and Sentinels haunt {area:2738} in {zone:1451} (level 55-57, not elite; silithid can join when they die). Place the {item:21946} among the ghosts, pull them into its glow and kill them there, standing in it yourself: ectoplasm only drops from a ghost that dies inside the glow. It lasts a few minutes, then place it again."] = "{zone:1451}의 {area:2738}에 고통받는 드루이드와 파수꾼이 출몰합니다(55-57레벨, 비정예. 죽을 때 실리시드가 합류할 수 있음). 유령들 사이에 {item:21946}을(를) 설치하고 그 빛 안으로 끌어와 처치하세요. 본인도 빛 안에 서 있어야 합니다. 원형질은 빛 안에서 죽은 유령에게서만 떨어집니다. 몇 분 지속되니 끝나면 다시 설치하세요.",
+	-- ["The ghosts and banshees of the {zone:1423} (Unseen Servants, Eyeless Watchers, Death Singers, Hate Shriekers; level 55-59, not elite) drop it; {area:2272} in the north-east is a good spot. The shriekers fear: fight close to the distiller. Place the {item:21946} among the ghosts, pull them into its glow and kill them there, standing in it yourself: ectoplasm only drops from a ghost that dies inside the glow. It lasts a few minutes, then place it again."] = "{zone:1423}의 유령과 밴시(보이지 않는 하인, 눈 없는 감시자, 죽음의 가수, 증오의 비명자. 55-59레벨, 비정예)가 떨어뜨립니다. 북동쪽 {area:2272}이(가) 좋은 장소입니다. 비명자는 공포를 거니 증류기 가까이에서 싸우세요. 유령들 사이에 {item:21946}을(를) 설치하고 그 빛 안으로 끌어와 처치하세요. 본인도 빛 안에 서 있어야 합니다. 원형질은 빛 안에서 죽은 유령에게서만 떨어집니다. 몇 분 지속되니 끝나면 다시 설치하세요.",
+	-- ["The {item:22014} is sold only to Honored. Take the {item:12846} ({npc:10840} at {area:3197}, {npc:10839} at the Bulwark, or {npc:11039} at {area:2268}) and wear it: Scourgestones then drop from the Scourge, and the Argent officers take them back for reputation. Every Scourge kill in the Plaguelands counts, {area:2279}'s and {area:2057}'s undead give 5 each up to Honored, and {area:2268}'s dungeon quests give 100-200 each. Polestar's Argent Dawn Reputation guide (Reputation) walks it step by step."] = "{item:22014}은(는) 우호적 이상에게만 판매됩니다. {item:12846}을(를) 받아({area:3197}의 {npc:10840}, 보루의 {npc:10839}, 또는 {area:2268}의 {npc:11039}) 착용하세요. 그러면 스컬지에게서 스컬지석이 떨어지고, 은빛 여명회 장교들이 이를 받고 평판을 줍니다. 역병지대의 모든 스컬지 처치가 인정되며, {area:2279}와(과) {area:2057}의 언데드는 우호적까지 마리당 5를 주고, {area:2268}의 던전 퀘스트는 각각 100-200을 줍니다. Polestar의 은빛 여명회 평판 가이드(평판)가 단계별로 안내합니다.",
+	-- ["The {spell:17735} and {npc:7524} drift around {area:2251} in {zone:1452} (level 54-56, not elite). Place the {item:21946} among the ghosts, pull them into its glow and kill them there, standing in it yourself: ectoplasm only drops from a ghost that dies inside the glow. It lasts a few minutes, then place it again. While you are in {zone:1452}, buy the {item:21939} (40 gold) from {npc:16015}, an imp in the cave at the mouth of {area:2256} in the far south: keep to the right-hand wall to slip past the elite demons in the gorge. {quest:8928} asks for it later, and this saves the trip back."] = "{spell:17735}와(과) {npc:7524}은(는) {zone:1452}의 {area:2251} 주변을 떠돕니다(54-56레벨, 비정예). 유령들 사이에 {item:21946}을(를) 놓고 그 빛 안으로 끌어들여 직접 빛 안에 선 채로 처치하세요. 엑토플라즘은 빛 안에서 죽은 유령에게서만 떨어집니다. 몇 분간 지속되니 끝나면 다시 놓으세요. {zone:1452}에 있는 동안 최남단 {area:2256} 입구 동굴의 임프 {npc:16015}에게서 {item:21939}(40골드)을(를) 사 두세요. 협곡의 정예 악마들을 피하려면 오른쪽 벽을 따라가세요. 나중에 {quest:8928}에서 필요하니 다시 오는 수고를 덜 수 있습니다.",
+	-- ["{npc:16016}'s ghost waits on the bridge before {area:2279}'s main gate, at the north end of the {zone:1423}. Use the {item:22115} there to see him."] = "{npc:16016}의 유령은 {zone:1423} 북쪽 끝 {area:2279} 정문 앞 다리에서 기다립니다. 그를 보려면 그곳에서 {item:22115}을(를) 사용하세요.",
 	-- ["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032}이(가) {item:21986}을(를) 완성합니다. {area:1584}의 법의 심판장에 심으세요.",
+	-- ["{npc:16033}'s ghost stands on the ledge before the {area:1583} portal, high inside {area:254}: use the Ghost Revealer there. {quest:8961} wants the {item:21987} ({npc:9017} in {area:1584}), the {item:21988} ({npc:9816} in Upper Blackrock Spire), the {item:21989} (the {npc:15206} in {zone:1451}) and a {item:22014} from the {faction:529}."] = "{npc:16033}의 유령은 {area:254} 안쪽 높은 곳, {area:1583} 차원문 앞 바위턱에 서 있습니다. 그곳에서 유령 감지기를 사용하세요. {quest:8961}에는 {item:21987}({area:1584}의 {npc:9017}), {item:21988}(검은바위 첨탑 상층의 {npc:9816}), {item:21989}({zone:1451}의 {npc:15206}), {faction:529}의 {item:22014}이(가) 필요합니다.",
 	-- ["{npc:230317}: Saving the Best for Last"] = "{npc:230317}: 최고는 마지막에",
 	-- ["{npc:230319}: Saving the Best for Last"] = "{npc:230319}: 최고는 마지막에",
 }

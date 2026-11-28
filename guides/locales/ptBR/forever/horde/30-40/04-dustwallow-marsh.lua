@@ -190,10 +190,9 @@ return {
 	["South down the coast to Shadowprey: {npc:268705} first, on the path into the village; {npc:11624} takes the box and sends you to {area:602} with it; {npc:12340} takes the naga."] = "",
 
 	-- Step 37: Portals of the Legion
-	-- {area:602} Mannoroc Coven · {item:14547} Hand of Iruxos · {npc:11624} Taiga Wisemane · {npc:11937} Demon Portal Guardian
+	-- {npc:11937} Demon Portal Guardian
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner
-	-- was: ["Head east to {area:602}. With the {quest:5381} from {npc:11624} in your bags, open a demon portal's ring: a {npc:11937} (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "Siga para leste até {area:602}. Com {quest:5381}, de {npc:11624}, nas bolsas, abra o anel de um portal demoníaco: sai um {npc:11937} (38-39); mate-o para fechar esse portal. São seis portais. Cuidado: Infernais, Demonarcas e Evocadores da Lâmina Ardente andam perto de muitos portais e podem entrar na briga; mate os mobs próximos primeiro ou arraste o guardião para longe, por exemplo em direção ao lago central do covil."
-	["Head east to {area:602}. With the {item:14547} from {npc:11624} in your bags, open a demon portal's ring: a {npc:11937} (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "",
+	["Each portal releases a {npc:11937} (38-39), and there are six portals. Infernals, Doomguards and Burning Blade Summoners patrol near many portals and may join the fight."] = "",
 
 	-- Step 38: The Valley of Bones
 	-- {area:2657} Valley of Bones

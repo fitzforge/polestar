@@ -42,8 +42,8 @@ return {
 
 	-- Step 8: Scarlet forward camp
 	["Scarlet forward camp"] = "붉은십자군 전진 야영지",
-	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
-	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "{area:152}에서 길을 따라 동쪽 {zone:1422}(으)로 가십시오. 붉은십자군의 천막은 펠스톤 농장 바로 너머, {area:199}과(와) {area:200} 사이에 있습니다. {item:12814}(으)로 지휘 천막에 불을 붙이고 스컬지 깃발을 꽂으십시오. 주의: 천막 주변 붉은십자군은 54레벨까지이고 기원사가 주문을 겁니다: 지휘 천막에 가장 가까운 쪽으로 들어가고 나머지는 두십시오.",
+	-- {area:152} Bulwark · {area:199} Felstone Field · {area:200} Dalson's Tears
+	["The Scarlet Crusade's tents are east of the {area:152}, just past Felstone Farm, between {area:199} and {area:200}. The Scarlets around the tents reach level 54 and the Invokers cast spells."] = "",
 
 	-- Step 9: Bulwark
 	-- {area:152} Bulwark
@@ -96,9 +96,8 @@ return {
 	-- Step 19: Makrinni Burrowers
 	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower
 	["Makrinni Burrowers"] = "마크리니 굴파기",
-	-- {npc:247473} Izvi Gildfizz · {item:246683} Treasure Trowel 3000
 	-- plural, as words: Highborne Treasure Fragments = {item:246684} Highborne Treasure Fragment · Makrinni Burrowers = {npc:247470} Makrinni Burrower
-	["{npc:247473}'s {item:246683}, in your bags, digs up the Highborne Treasure Fragments: use it on the sands just east of the ruins, where the Makrinni Burrowers (50-51) dig, on the way north-east. The Burrowers and the buried caches there give fragments too."] = "",
+	["The Highborne Treasure Fragments come from the sands just east of the ruins, where Makrinni Burrowers (50-51) dig. The Burrowers and the buried caches there also give fragments."] = "",
 
 	-- Step 20: Ekkal
 	-- {zone:1447} Azshara · {npc:235903} Ekkal
@@ -307,6 +306,7 @@ return {
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are {npc:10920}'s.\n{area:1762}'s Deadwood Den Watchers (53-54) and Avengers (54-55) are next: below level 54, keep hunting the grizzlies and ravagers (51-52) here until 54. The hand-ins at {area:1769}, the {area:2479} and {area:1997} that follow take you most of the way to 55. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "길을 따라 북동쪽의 {area:1767}(으)로 가세요. 숲 동쪽의 굽이나무 이끼늪괴물과 갈퀴늪괴물은 각각 {item:11503}을(를) 지니고 있습니다. 같은 숲에서 탈로를 위해 성난발톱불곰과 갈퀴발톱 악령발늑대를 처치하세요. 이들의 장기는 {npc:10920}에게 필요합니다.\n다음은 {area:1762}의 마른가지일족 보초(53-54)와 복수자(54-55)입니다. 54레벨 미만이라면 54레벨이 될 때까지 이곳에서 불곰과 악령발늑대(51-52)를 계속 사냥하세요. 이어지는 {area:1769}, {area:2479}, {area:1997}에서의 제출로 55레벨 가까이 오릅니다. 또는 파티가 있다면 대신 {area:1417} 던전이나 {area:1584} 던전을 도세요.",
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at {area:1997} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "길을 따라 북동쪽의 {area:1767}(으)로 가세요. 숲 동쪽의 굽이나무 이끼늪괴물과 갈퀴늪괴물은 각각 {item:11503}을(를) 지니고 있습니다. 같은 숲에서 탈로를 위해 성난발톱불곰과 갈퀴발톱 악령발늑대를 처치하세요. 54.21레벨 미만이라면 불곰과 악령발늑대를 계속 사냥하세요. {area:1997}와(과) {area:2479}에서 퀘스트를 제출하면 55레벨이 됩니다. 또는 파티가 있다면 대신 {area:1584} 던전이나 {area:1417} 던전을 도세요.",
 	-- ["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "길을 따라 북서쪽으로 가세요. {area:1763} 남부, 오염된 달샘 주변은 어둠의 의회 이교도, 숙련사제, 수호병과 사냥개가 차지하고 있습니다.",
+	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "{area:152}에서 길을 따라 동쪽 {zone:1422}(으)로 가십시오. 붉은십자군의 천막은 펠스톤 농장 바로 너머, {area:199}과(와) {area:200} 사이에 있습니다. {item:12814}(으)로 지휘 천막에 불을 붙이고 스컬지 깃발을 꽂으십시오. 주의: 천막 주변 붉은십자군은 54레벨까지이고 기원사가 주문을 겁니다: 지휘 천막에 가장 가까운 쪽으로 들어가고 나머지는 두십시오.",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "{area:152}에서 길을 따라 동쪽으로 {zone:1422}(으)로 가세요. 붉은십자군의 천막은 펠스톤 농장을 막 지나 {area:199}와(과) {area:200} 사이에 있습니다. {object:176092}(으)로 지휘 천막을 불태우고 스컬지 깃발을 꽂으세요. 주의: 천막 주변 붉은십자군은 54레벨까지 있고 기원사는 주문을 시전합니다. 지휘 천막에 가장 가까운 쪽으로 접근하고 나머지는 건드리지 마세요.",
 	-- ["From {area:2268}'s flight master, fly to the {area:1497}."] = "{area:2268}의 비행 조련사에게서 {area:1497}(으)로 날아가세요.",
 	-- ["His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands visit at about 58."] = "그의 다음 사냥감인 병든 회색곰(55-56)은 58레벨쯤 역병지대에 들를 때 처리합니다.",

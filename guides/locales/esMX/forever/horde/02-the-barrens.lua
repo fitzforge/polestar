@@ -305,9 +305,9 @@ return {
 
 	-- Step 65: Raptor nests
 	["Raptor nests"] = "Nidos de raptor",
-	-- {area:392} Ratchet · {area:1697} Raptor Grounds · {item:5165} Sunscale Feather
+	-- {area:1697} Raptor Grounds · {item:5165} Sunscale Feather
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
-	["South-west from {area:392} across the plains to the {area:1697}: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a {item:5165}: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest."] = "Al suroeste desde {area:392}, a través de las llanuras, hasta {area:1697}: los tres nidos están juntos al suroeste del oasis, y los segadores Solescama los vigilan. Cada nido necesita una {item:5165}: mata raptores Solescama (la mayoría suelta una) hasta tener tres y luego usa una pluma en cada nido.",
+	["The three nests are together in the {area:1697}, south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs one {item:5165}, and most Sunscale raptors drop one."] = "",
 
 	-- Step 66: Raptor Grounds: kill these as you meet them
 	-- {area:1697} Raptor Grounds
@@ -327,8 +327,8 @@ return {
 	["{npc:3446}, beside the WANTED poster"] = "{npc:3446}, junto al cartel de ¡Se busca!",
 
 	-- Step 73: Dreadmist Peak
-	-- {area:384} Dreadmist Peak · {item:15842} Empty Dreadmist Peak Sampler · {object:19464} Dreadmist Peak Pool (no name in this language: may be words) · {npc:3448} Tonga Runetotem · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
-	["Head north from the Crossroads to {area:384} and fill the {item:15842} at the {object:19464}, then back to {npc:3448} in the Crossroads. No {skill:182}? {npc:3490} beside him sells {item:2449}, three at a time until he restocks."] = "Ve al norte desde el Cruce hasta {area:384} y llena {item:15842} en {object:19464}, luego vuelve con {npc:3448} en el Cruce. ¿No tienes {skill:182}? {npc:3490}, a su lado, vende {item:2449}, de a tres hasta que repone.",
+	-- {area:384} Dreadmist Peak · {npc:3448} Tonga Runetotem · {npc:3490} Hula'mahi · {item:2449} Earthroot
+	["{area:384} is north of the Crossroads, and {npc:3448} is in the Crossroads. {npc:3490} beside him sells {item:2449}, three at a time until he restocks."] = "",
 	-- {item:2449} Earthroot · {npc:3490} Hula'mahi
 	["{item:2449} from {npc:3490}; herbalists pick it on the plains"] = "{item:2449} de {npc:3490}; los herboristas la recogen en las llanuras",
 
@@ -396,8 +396,8 @@ return {
 	["He gives you the {item:15826}"] = "Te da {item:15826}",
 
 	-- Step 87: Verog the Dervish
-	-- {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis · {npc:3448} Tonga Runetotem
-	["{npc:3395} doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the {area:388}, south-east of the Crossroads. Keep killing them around the oasis until he appears. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395} no deambula solo: aparece cuando matas a los centauros Kolkar en {area:388}, al sureste del Cruce. Sigue matándolos alrededor del oasis hasta que aparezca. Mientras estés ahí, prueba las semillas de {npc:3448} en la fisura burbujeante de la orilla este del oasis.",
+	-- {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis
+	["{npc:3395} only appears after enough Kolkar centaurs die at the {area:388}, south-east of the Crossroads. The bubbling fissure is on the oasis' east bank."] = "",
 	["Underwater"] = "Bajo el agua",
 	-- {npc:12296} Sickly Gazelle · {item:15826} Curative Animal Salve
 	["{npc:12296}: use the {item:15826} on them; they roam the plains all around the Crossroads"] = "{npc:12296}: usa {item:15826} en ellas; recorren las llanuras alrededor del Cruce",
@@ -749,6 +749,7 @@ return {
 	-- ["Follow the road east to the outpost above the {area:814}."] = "Sigue el camino al este hasta el puesto sobre {area:814}.",
 	-- ["Follow the road south-east to {area:392} on the coast."] = "Sigue el camino al sureste hasta {area:392}, en la costa.",
 	-- ["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "Sigue el camino al sureste hasta {area:392}, en la costa: {npc:3391} y {npc:7161} en el extremo norte del pueblo, {npc:3442} y {npc:16227}, {npc:3446} y el cartel de {object:3972}, y luego {quest:1492} en el muelle al salir hacia el sur.",
+	-- ["Head north from the Crossroads to {area:384} and fill the {item:15842} at the {object:19464}, then back to {npc:3448} in the Crossroads. No {skill:182}? {npc:3490} beside him sells {item:2449}, three at a time until he restocks."] = "Ve al norte desde el Cruce hasta {area:384} y llena {item:15842} en {object:19464}, luego vuelve con {npc:3448} en el Cruce. ¿No tienes {skill:182}? {npc:3490}, a su lado, vende {item:2449}, de a tres hasta que repone.",
 	-- ["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "En el campamento, los Buscaqua y Tejespinas ocupan la mitad oeste, y los Cazadores, el centro; las cajas de suministros están en su extremo este.\nLos Zancudos de llanura de aquí cuentan para los picos.\nCuidado: los Comecarnes y Rabiosos Crines de Acero (18-19) son élites; están en el noreste del campamento, junto a las cajas de suministros: atrae a los jabaespines lejos de ellos de uno en uno.",
 	-- ["Keep it: {quest:3923} stands outside {zone:1454}; a later guide hands it in"] = "Guárdala: {quest:3923} está a las afueras de {zone:1454}; una guía posterior la entrega",
 	-- ["Kolkar Wranglers and Stormers hold the camps south of {npc:3389}."] = "Los retadores y agitadoras Kolkar ocupan los campamentos al sur de {npc:3389}.",
@@ -766,6 +767,7 @@ return {
 	-- ["South to {npc:3389}'s watch post on the Kolkar border."] = "Al sur, al puesto de vigilancia de {npc:3389} en la frontera Kolkar.",
 	-- ["South-east of the Crossroads. Test the seeds at the bubbling fissure on the oasis' east bank; {npc:3448} takes the result on the next Crossroads stop, so carry on north-west to the {area:383} from here."] = "Al sureste del Cruce. Prueba las semillas en la fisura burbujeante de la orilla este del oasis; {npc:3448} recibe el resultado en la próxima parada en el Cruce, así que sigue desde aquí al noroeste hasta {area:383}.",
 	-- ["South-east of the {area:380}. Test the seeds at the bubbling fissure on the oasis' east bank."] = "Al sureste de {area:380}. Prueba las semillas en la fisura burbujeante de la orilla este del oasis.",
+	-- ["South-west from {area:392} across the plains to the {area:1697}: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a {item:5165}: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest."] = "Al suroeste desde {area:392}, a través de las llanuras, hasta {area:1697}: los tres nidos están juntos al suroeste del oasis, y los segadores Solescama los vigilan. Cada nido necesita una {item:5165}: mata raptores Solescama (la mayoría suelta una) hasta tener tres y luego usa una pluma en cada nido.",
 	-- ["Southsea beach"] = "Playa de los Mares del Sur",
 	-- ["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "¿Aún te faltan para doce? Los colazotes y chilladores Solescama recorren las llanuras al noreste del Cruce, de regreso al sur desde la guarida de {quest:881}.",
 	-- ["Sunscale Scytheclaws hunt the plains around the {area:1697}; they drop the horns. {npc:3446} takes them when the escort brings you back to {area:392}.\nSouth-east toward the coast: the stolen silver lies in a raptor nest north-west of {area:385}."] = "Los segadores Solescama cazan en las llanuras alrededor de {area:1697}; sueltan los cuernos. {npc:3446} los recibe cuando la escolta te lleva de vuelta a {area:392}.\nAl sureste, hacia la costa: la plata robada está en un nido de raptor al noroeste de {area:385}.",
@@ -810,6 +812,7 @@ return {
 	-- ["{npc:3337}: {quest:840}, from {zone:1411}"] = "{npc:3337}: {quest:840}, desde {zone:1411}",
 	-- ["{npc:3389}: {npc:3395} walks with the Kolkar at the {area:388}, later"] = "{npc:3389}: {npc:3395} camina con los Kolkar en {area:388}, más adelante",
 	-- ["{npc:3391}: the crates lie at the south end of the beach camp, on the walk to {area:385} at 18"] = "{npc:3391}: las cajas están en el extremo sur del campamento de la playa, de camino a {area:385} en el paso 18",
+	-- ["{npc:3395} doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the {area:388}, south-east of the Crossroads. Keep killing them around the oasis until he appears. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395} no deambula solo: aparece cuando matas a los centauros Kolkar en {area:388}, al sureste del Cruce. Sigue matándolos alrededor del oasis hasta que aparezca. Mientras estés ahí, prueba las semillas de {npc:3448} en la fisura burbujeante de la orilla este del oasis.",
 	-- ["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Oasis Snapjaws crawl in the water around it: their shells are for {npc:3448}."] = "{npc:3395} camina entre los Kolkar en {area:388}, al sureste del Cruce. Los Quijafortes de oasis se arrastran en el agua a su alrededor: sus caparazones son para {npc:3448}.",
 	-- ["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395} camina entre los Kolkar en {area:388}, al sureste del Cruce. Mientras estés ahí, prueba las semillas de {npc:3448} en la fisura burbujeante de la orilla este del oasis.",
 	-- ["{npc:3428}: the eggs are in the {area:390}, south of {area:378}, after the {zone:1454} trip"] = "{npc:3428}: los huevos están en {area:390}, al sur de {area:378}, después del viaje a {zone:1454}",

@@ -189,7 +189,7 @@ return {
 	-- {npc:10926} Pamela Redpath
 	["{npc:10926}'s doll"] = "{npc:10926}的洋娃娃",
 	-- {area:2262} Darrowshire
-	["The three pieces of the doll lie in the ruined houses of {area:2262}; picking one up can call out ghosts. Combine them into the doll."] = "洋娃娃的三個部分在{area:2262}的廢屋裡；撿起其中一個可能會引出鬼魂。把它們組合成洋娃娃。",
+	["The three doll pieces are in the ruined houses of {area:2262}. Picking one up can call out ghosts."] = "",
 	-- {item:12886} Pamela's Doll's Head
 	["{item:12886}; inside"] = "{item:12886}；室內",
 	-- {item:12888} Pamela's Doll's Right Side
@@ -397,9 +397,9 @@ return {
 	-- Step 72: Plaguewood: kill these as you meet them
 	-- {area:2277} Plaguewood
 	["{area:2277}: kill these as you meet them"] = "{area:2277}：遇到就殺",
-	-- {area:2277} Plaguewood · {area:2627} Terrordale · {item:15042} Empty Termite Jar
-	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound · Carrion Devourers = {npc:8605} Carrion Devourer
-	["West through the {area:2277} to {area:2627}: fill the {item:15042} at the big termite mounds, and kill the Frenzied Plaguehounds and the Carrion Devourers on the way.\nCareful: the Frenzied Plaguehounds are 57-58: pull them one at a time."] = "",
+	-- {area:2627} Terrordale · {area:2277} Plaguewood
+	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound
+	["{area:2627} is west through the {area:2277}, and the big termite mounds are on the way. The Frenzied Plaguehounds are level 57-58, so pulling more than one is dangerous."] = "",
 
 	-- Step 73: Augustus the Touched
 	-- {npc:12384} Augustus the Touched · {area:2627} Terrordale · {npc:11140} Egan · {npc:16184} Nerubian Overseer · {area:2626} Terrorweb Tunnel
@@ -584,6 +584,7 @@ return {
 	-- ["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997}."] = "水晶塔位於避難所東邊的山坡上。{npc:9166}在周圍的山坡上盤旋：牠們算在{npc:9997}的任務裡。",
 	-- ["The pylon stands on the western cliffs."] = "水晶塔位於西面懸崖上。",
 	-- ["The shrunken giants roam the {area:1119}; the sea elementals wade along the coast to the west."] = "被縮小的巨人在{area:1119}遊蕩；海元素沿著西邊的海岸涉水而行。",
+	-- ["The three pieces of the doll lie in the ruined houses of {area:2262}; picking one up can call out ghosts. Combine them into the doll."] = "洋娃娃的三個部分在{area:2262}的廢屋裡；撿起其中一個可能會引出鬼魂。把它們組合成洋娃娃。",
 	-- ["The tortured druids and sentinels haunt the ruined village south-west of {npc:13220}."] = "被折磨的德魯伊和被折磨的哨兵在{npc:13220}西南方的廢墟村莊出沒。",
 	-- ["The wooden sign beside {npc:9997}"] = "{npc:9997}旁邊的木牌",
 	-- ["The {area:2742} tower"] = "{area:2742}高塔",

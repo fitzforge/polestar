@@ -468,8 +468,8 @@ return {
 	["Head back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Regresa por {area:87} y hacia el este por el camino hasta {area:62}. {npc:881} (nivel 9) está junto a la granja.",
 
 	-- Step 93: The Binding
-	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb
-	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "Vuelve con {npc:6122} el Vinculaoscuro. Usa el {item:6928} en el círculo de invocación del sótano de {object:2164} y derrota al abisario que aparece.",
+	-- {object:2164} Slaughtered Lamb
+	["The summoning circle is in the {object:2164}'s cellar, and it calls a voidwalker that has to be defeated."] = "",
 	["Subdue the voidwalker"] = "Somete al abisario",
 
 	-- Step 94: Back to Elwynn Forest
@@ -536,6 +536,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to the {area:120}, by the road to {zone:1436}. {npc:963} stands outside the barracks, {npc:955} beside him."] = "Vuelve al sur hasta {area:120}, junto al camino a {zone:1436}. {npc:963} está fuera del cuartel, con {npc:955} a su lado.",
 	-- ["Back to the Cathedral of Light."] = "Vuelve a la Catedral de la Luz.",
+	-- ["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "Vuelve con {npc:6122} el Vinculaoscuro. Usa el {item:6928} en el círculo de invocación del sótano de {object:2164} y derrota al abisario que aparece.",
 	-- ["Bait ingredients"] = "Ingredientes del cebo",
 	-- ["Boar meat"] = "Carne de jabalí",
 	-- ["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "Los Zahoríes bribones Defias acampan en las orillas de {area:86}; también sueltan los Pañuelos de lino rojo. {object:56} está en el poblado múrloc de la orilla noreste.",

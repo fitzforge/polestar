@@ -61,7 +61,8 @@ return {
 
 	-- Step 12: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:8737} Linken · {npc:9117} J.D. Collie
-	["The flight lands at {area:541}: {npc:8737} stands by the cave a few steps from the flight master, {npc:9117} inside it."] = "飞抵{area:541}。{npc:8737}站在洞口旁，离飞行管理员只有几步远。{npc:9117}在洞里。",
+	-- was: ["The flight lands at {area:541}: {npc:8737} stands by the cave a few steps from the flight master, {npc:9117} inside it."] = "飞抵{area:541}。{npc:8737}站在洞口旁，离飞行管理员只有几步远。{npc:9117}在洞里。"
+	["The flight lands at {area:541}. {npc:8737} stands by the cave a few steps from the flight master, and {npc:9117} is inside it."] = "",
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "{npc:9117}：在地下",
 	-- {quest:3942} Linken's Memory · {npc:9116} Eridan Bluewind · {area:2479} Emerald Sanctuary · {zone:1448} Felwood
@@ -242,7 +243,7 @@ return {
 
 	-- Step 52: Lar'korwi
 	-- {item:11568} Torwa's Pouch · {npc:9684} Lar'korwi
-	["Open {item:11568}: it holds the meat and the pheromone mixture. {npc:9684}'s lair is the bone-strewn valley just south of the pylon: place the meat among the bones, then use the mixture on it to call {npc:9684}. He is level 56 and hits hard, so start at full health."] = "打开{item:11568}，里面有肉和信息素混合剂。{npc:9684}的巢穴在水晶塔正南边不远的山谷里，谷中满是骨头。把肉放在骨头之间，再对肉使用混合剂，引出{npc:9684}。它是56级，打人很疼，满血再开打。",
+	["{item:11568} holds the meat and the pheromone mixture. {npc:9684}'s lair is the bone-strewn valley just south of the pylon, and he is level 56 and hits hard."] = "",
 
 	-- Step 53: Ringo
 	-- {npc:9999} Ringo
@@ -252,7 +253,7 @@ return {
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "护送{npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
-	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "向北护送{npc:9999}前往{area:541}。他昏倒时，对他使用{item:11804}唤醒。",
+	["{npc:9999} faints from time to time during the escort north to {area:541}, and {item:11804} wakes him."] = "",
 
 	-- Step 56: The Mighty U'cha
 	-- {area:541} Marshal's Refuge · {npc:9622} U'cha · {npc:9619} Torwa Pathfinder
@@ -304,6 +305,7 @@ return {
 	-- ["Keep the bait: {npc:9684} is level 56, and the second loop passes his lair."] = "留着诱饵：{npc:9684}是56级，第二圈会经过它的巢穴。",
 	-- ["Keep {quest:3942}: {npc:9116} is at the {area:2479}, on the next guide's way through {zone:1448}."] = "留着{quest:3942}：{npc:9116}在{area:2479}，下一个指南穿过{zone:1448}时会经过。",
 	-- ["Knights and magi work the {area:192}; the medics and hunters camp south of it. Set {npc:11615}'s termite barrel down in the middle of the lumber mill while you are there.\nCareful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}: give it room."] = "骑士和法师在{area:192}活动；医师和猎人在其南边扎营。顺便把{npc:11615}的白蚁桶放在伐木场中央。\n小心：伐木营地可能有一只{npc:10996}（58-59级精英），{zone:1422}的许多其他地点也有：离它远点。",
+	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "向北护送{npc:9999}前往{area:541}。他昏倒时，对他使用{item:11804}唤醒。",
 	-- ["Level 57"] = "57级",
 	-- ["Level 58"] = "58 级",
 	-- ["Level 59.14"] = "等级 59.14",
@@ -313,6 +315,7 @@ return {
 	-- ["Mark {npc:10904} with the {item:12815}"] = "用{item:12815}标记{npc:10904}",
 	-- ["Mark {npc:10905} with the {item:12815}"] = "用{item:12815}标记{npc:10905}",
 	-- ["North to the lumber camp; set the termite barrel down in the middle of the mill."] = "向北前往伐木场；把白蚁桶放在锯木厂中央。",
+	-- ["Open {item:11568}: it holds the meat and the pheromone mixture. {npc:9684}'s lair is the bone-strewn valley just south of the pylon: place the meat among the bones, then use the mixture on it to call {npc:9684}. He is level 56 and hits hard, so start at full health."] = "打开{item:11568}，里面有肉和信息素混合剂。{npc:9684}的巢穴在水晶塔正南边不远的山谷里，谷中满是骨头。把肉放在骨头之间，再对肉使用混合剂，引出{npc:9684}。它是56级，打人很疼，满血再开打。",
 	-- ["Pamela and the {area:2261}"] = "帕米拉和 {area:2261}",
 	-- ["Radley and Durgen"] = "猎人莱德雷和骑士杜尔根",
 	-- ["Ride east across the plaguelands to the chapel."] = "向东骑过瘟疫之地前往教堂。",
@@ -339,6 +342,7 @@ return {
 	-- ["Take the zeppelin from the tower outside {area:1637} to {zone:1420} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "在{area:1637}外的塔上乘飞艇前往{zone:1420}，再骑进{zone:1458}。希尔瓦娜斯·风行者在{object:36126}。",
 	-- ["The Dredge Crushers (57-58) of the south-east are two over you below 57. First top up to 57 on the Dredge Strikers (55-56) on the sands east of {area:3425}, where Sand Skitterers and Stonelash Scorpids (54-56) roam among them, away from the Silithid Darters of the northern sands. Or, with a group, run the {area:1583} dungeon (Lower) or the {quest:838} dungeon instead."] = "你低于57级时，东南方的掘泥摧毁者（57-58级）比你高两级。先在{area:3425}东边沙地上的掘泥打击者（55-56级）身上升到57级，掠沙蜘蛛和石鞭蝎（54-56级）也在其间游荡，远离北部沙地的异种虫投掷者。或者组队去打{area:1583}地下城（下层）或{quest:838}地下城。",
 	-- ["The Spirits of Southwind"] = "南风村的灵魂",
+	-- ["The flight lands at {area:541}: {npc:8737} stands by the cave a few steps from the flight master, {npc:9117} inside it."] = "飞抵{area:541}。{npc:8737}站在洞口旁，离飞行管理员只有几步远。{npc:9117}在洞里。",
 	-- ["The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too."] = "发光的石板碎片散落在遥远西北的暮光营地周围；那里的灰尘风暴和沙漠奔行者也会掉落碎片。",
 	-- ["The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too. Careful: the biggest Rumblers and the Whirling Invaders are 58: pull them one at a time."] = "发光的石板碎片散落在遥远西北的暮光营地周围；那里的灰尘风暴和沙漠奔行者也会掉落碎片。小心：最大的沙漠奔行者和旋风入侵者是58级：一次引一只。",
 	-- ["The lake for {quest:5845}"] = "{quest:5845}所需的湖泊",

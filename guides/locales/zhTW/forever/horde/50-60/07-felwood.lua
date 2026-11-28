@@ -117,8 +117,8 @@ return {
 	["On the ride north to {area:2255}, the Ice Thistle Yetis (55-56) in the hills south-east of the town carry Vizzie's {item:258323}: four pieces."] = "",
 
 	-- Step 30: Are We There, Yeti?
-	-- {area:2255} Everlook
-	["Ride north to {area:2255}."] = "向北騎往{area:2255}。",
+	-- {npc:10978} Legacki · {area:2255} Everlook
+	["{npc:10978} is in {area:2255}, to the north."] = "",
 	-- {npc:10978} Legacki · {item:12928} Umi's Mechanical Yeti
 	["Scare {npc:10978} with {item:12928}"] = "",
 
@@ -212,6 +212,7 @@ return {
 	-- ["Ride back west to {area:2246}."] = "向西騎回{area:2246}。",
 	-- ["Ride east along the road to {area:2255}."] = "沿著道路向東騎往{area:2255}。",
 	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "向東騎，然後沿著{area:2249}向南走。那裡的霜槌巨人是59級精英：走在中間並持續移動。奇怪的來源在南端的{area:2256}入口。",
+	-- ["Ride north to {area:2255}."] = "向北騎往{area:2255}。",
 	-- ["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "沿{zone:1448}的道路向北騎往{area:1767}；{quest:5086}在樹木之間蠕動，大多數都會掉落一份液滴。\n小心：59級精英遠古鐵木行者在{quest:5086}之間走動，{npc:14524}（63級，精英）在樹林中遊蕩：在{area:1767}的最北端一次打一隻。",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "向西北騎往{area:1763}。四個火盆位於教徒的建築之間；對每個火盆使用淨化過的水。\n小心：洞穴裡滿是53-55級的暗影議會怪物，常常成群連動，很多會擊暈。建議2-3人組隊。",
 	-- ["Scare {npc:10978} with {npc:10980}"] = "用{npc:10980}嚇唬{npc:10978}",

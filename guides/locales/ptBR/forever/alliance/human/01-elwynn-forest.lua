@@ -468,8 +468,8 @@ return {
 	["Head back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Volte por {area:87} e siga para leste pela estrada até {area:62}. {npc:881} (nível 9) fica perto da casa da fazenda.",
 
 	-- Step 93: The Binding
-	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb
-	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "De volta a {npc:6122}. Use o {item:6928} no círculo de evocação no porão de {object:2164} e derrote o emissário do caos que ele invocar.",
+	-- {object:2164} Slaughtered Lamb
+	["The summoning circle is in the {object:2164}'s cellar, and it calls a voidwalker that has to be defeated."] = "",
 	["Subdue the voidwalker"] = "Subjugue o emissário do caos",
 
 	-- Step 94: Back to Elwynn Forest
@@ -536,6 +536,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to the {area:120}, by the road to {zone:1436}. {npc:963} stands outside the barracks, {npc:955} beside him."] = "Volte para o sul até {area:120}, junto à estrada para {zone:1436}. {npc:963} fica do lado de fora do quartel; {npc:955}, ao lado dele.",
 	-- ["Back to the Cathedral of Light."] = "De volta à Catedral da Luz.",
+	-- ["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "De volta a {npc:6122}. Use o {item:6928} no círculo de evocação no porão de {object:2164} e derrote o emissário do caos que ele invocar.",
 	-- ["Bait ingredients"] = "Ingredientes da isca",
 	-- ["Boar meat"] = "Carne de javali",
 	-- ["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "Teurgos Proscritos Défias acampam nas margens de {area:86}; eles também soltam as Bandanas de Linho Vermelhas. {object:56} está na aldeia murloc da margem nordeste.",

@@ -187,7 +187,7 @@ return {
 	-- {npc:10926} Pamela Redpath
 	["{npc:10926}'s doll"] = "{npc:10926}的娃娃",
 	-- {area:2262} Darrowshire
-	["The three pieces of the doll lie in the ruined houses of {area:2262}; picking one up can call out ghosts. Combine them into the doll."] = "娃娃的三个部件在{area:2262}的废屋里；拾取时可能引出鬼魂。把它们合成娃娃。",
+	["The three doll pieces are in the ruined houses of {area:2262}. Picking one up can call out ghosts."] = "",
 	-- {item:12886} Pamela's Doll's Head
 	["{item:12886}; inside"] = "{item:12886}：在屋内",
 	-- {item:12888} Pamela's Doll's Right Side
@@ -392,9 +392,9 @@ return {
 	-- Step 72: Plaguewood: kill these as you meet them
 	-- {area:2277} Plaguewood
 	["{area:2277}: kill these as you meet them"] = "{area:2277}：沿途击杀以下目标",
-	-- {area:2277} Plaguewood · {area:2627} Terrordale · {item:15042} Empty Termite Jar
-	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound · Carrion Devourers = {npc:8605} Carrion Devourer
-	["West through the {area:2277} to {area:2627}: fill the {item:15042} at the big termite mounds, and kill the Frenzied Plaguehounds and the Carrion Devourers on the way.\nCareful: the Frenzied Plaguehounds are 57-58: pull them one at a time."] = "向西穿过{area:2277}前往{area:2627}。在大型白蚁丘旁装满{item:15042}，沿途击杀狂怒的瘟疫犬和腐肉吞噬者。\n小心，狂怒的瘟疫犬是57-58级，一次只引一只。",
+	-- {area:2627} Terrordale · {area:2277} Plaguewood
+	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound
+	["{area:2627} is west through the {area:2277}, and the big termite mounds are on the way. The Frenzied Plaguehounds are level 57-58, so pulling more than one is dangerous."] = "",
 
 	-- Step 73: Augustus the Touched
 	-- {npc:12384} Augustus the Touched · {area:2627} Terrordale · {npc:11140} Egan · {npc:16184} Nerubian Overseer · {area:2626} Terrorweb Tunnel
@@ -586,6 +586,7 @@ return {
 	-- ["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997}."] = "水晶塔位于避难所东边的山坡上。{npc:9166}在周围山坡上盘旋：击杀它们可计入{npc:9997}的任务。",
 	-- ["The pylon stands on the western cliffs."] = "水晶塔位于西部悬崖上。",
 	-- ["The shrunken giants roam the {area:1119}; the sea elementals wade along the coast to the west."] = "缩小的巨人在{area:1119}游荡；海元素在西边的海岸涉水。",
+	-- ["The three pieces of the doll lie in the ruined houses of {area:2262}; picking one up can call out ghosts. Combine them into the doll."] = "娃娃的三个部件在{area:2262}的废屋里；拾取时可能引出鬼魂。把它们合成娃娃。",
 	-- ["The tortured druids and sentinels haunt the ruined village south-west of {npc:13220}."] = "被折磨的德鲁伊和被折磨的哨兵在{npc:13220}西南方的废弃村庄中游荡。",
 	-- ["The wooden sign beside {npc:9997}"] = "{npc:9997}旁边的木牌",
 	-- ["The {area:2742} tower"] = "{area:2742}高塔",
@@ -601,6 +602,7 @@ return {
 	-- ["Walk into {area:1769} and take the {zone:1450} branch of the tunnel to {area:2361}."] = "走进{area:1769}，沿隧道的{zone:1450}分支到{area:2361}。",
 	-- ["West across the south of the crater: Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from the Diemetradons. The expedition's {item:11112} lies in the south-west jungle."] = "向西穿过环形山南部：恐龙骨头散落在西南部的地面上，周围有剑龙：它们是精英，在它们附近捡骨头，其余的从二齿龙身上获得。考察队的{item:11112}在西南部丛林中。",
 	-- ["West along the south of the crater: the Gorishi hive fills it. Use the Scraping Vial on a hatchery, a chamber with hanging larvae."] = "沿环形山南部向西：这里全是格雷什虫巢。对孵化室（挂着幼虫的房间）使用刮擦瓶。",
+	-- ["West through the {area:2277} to {area:2627}: fill the {item:15042} at the big termite mounds, and kill the Frenzied Plaguehounds and the Carrion Devourers on the way.\nCareful: the Frenzied Plaguehounds are 57-58: pull them one at a time."] = "向西穿过{area:2277}前往{area:2627}。在大型白蚁丘旁装满{item:15042}，沿途击杀狂怒的瘟疫犬和腐肉吞噬者。\n小心，狂怒的瘟疫犬是57-58级，一次只引一只。",
 	-- ["Western Pylon"] = "西部水晶塔",
 	-- ["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "你在路线之前来这里时错过了这一步：现在先做它。它很快，还会开启后面的任务。",
 	-- ["Zapped giants and sea elementals"] = "被电过的巨人和海元素",

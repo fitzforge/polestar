@@ -32,8 +32,8 @@ return {
 
 	-- Step 3: Boars, weapons and peons
 	["Boars, weapons and peons"] = "Eber, Waffen und Peons",
-	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
-	["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "Die Übungswaffen liegen in der Höhle auf dem Boden und zwischen den Ebern im Norden. Für die Peons: Wähle einen schlafenden {npc:10556} als Ziel und benutze den {item:16114} an ihm.",
+	-- {quest:5441} Lazy Peons
+	["The training weapons lie on the ground in the Den and among the boars to the north. The {quest:5441} are asleep."] = "",
 	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
 	["{npc:10556}: hit it with the {item:16114}"] = "{npc:10556}: schlag ihn mit dem {item:16114}",
 	-- {npc:10556} Lazy Peon
@@ -228,6 +228,7 @@ return {
 	-- ["Keep handing in {quest:7837} until {faction:530} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Gib weiter {quest:7837} ab, bis {faction:530} Ehrfürchtig ist. {item:14047}: Dunkle Adepten und Schattenmagier (Stufe 58-60) im Gebiet {zone:1423} oder das Auktionshaus.",
 	-- ["Keep handing in {quest:7837}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Gib weiter {quest:7837} ab, jeweils 20 {item:14047}. {item:14047}: Dunkle Adepten und Schattenmagier (Stufe 58-60) im Gebiet {zone:1423} oder das Auktionshaus.",
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "Zentauren der Kolkar (Stufe 30-33) lassen ihn hier fallen. Das Auktionshaus geht auch.",
+	-- ["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "Die Übungswaffen liegen in der Höhle auf dem Boden und zwischen den Ebern im Norden. Für die Peons: Wähle einen schlafenden {npc:10556} als Ziel und benutze den {item:16114} an ihm.",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "Vollstrecker der Venture Co. an der {area:381} (Stufe 16-17) lassen ihn hier fallen. Das Auktionshaus geht auch.",
 	-- ["{npc:10176}: Your Place in the World, +50"] = "{npc:10176}: Your Place in the World, +50",
 	-- ["{npc:14727} takes cloth for {faction:530} in the {object:172961}, {zone:1454}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7837} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14727} nimmt Stoff für {faction:530} an, im {object:172961}, {zone:1454}. Die ersten Spenden von Woll-, Seiden-, Magie- und {item:14047} (je 60 Stoff) gibt es nur einmal, und sie bringen den meisten Ruf pro Stoff; danach wiederholt sich {quest:7837} bis Ehrfürchtig. Ehrfürchtig bei der Hauptstadt eines anderen Volkes erlaubt dir, dessen Reittiere zu kaufen. Forevers Vermächtnis-Vorteil „Diplomat“ erhöht den Rufgewinn.",

@@ -61,7 +61,7 @@ return {
 
 	-- Step 12: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:8737} Linken · {npc:9117} J.D. Collie
-	["The flight lands at {area:541}: {npc:8737} stands by the cave a few steps from the flight master, {npc:9117} inside it."] = "",
+	["The flight lands at {area:541}. {npc:8737} stands by the cave a few steps from the flight master, and {npc:9117} is inside it."] = "",
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "{npc:9117}，地下",
 	-- {quest:3942} Linken's Memory · {npc:9116} Eridan Bluewind · {area:2479} Emerald Sanctuary · {zone:1448} Felwood
@@ -247,7 +247,7 @@ return {
 
 	-- Step 52: Lar'korwi
 	-- {item:11568} Torwa's Pouch · {npc:9684} Lar'korwi
-	["Open {item:11568}: it holds the meat and the pheromone mixture. {npc:9684}'s lair is the bone-strewn valley just south of the pylon: place the meat among the bones, then use the mixture on it to call {npc:9684}. He is level 56 and hits hard, so start at full health."] = "",
+	["{item:11568} holds the meat and the pheromone mixture. {npc:9684}'s lair is the bone-strewn valley just south of the pylon, and he is level 56 and hits hard."] = "",
 
 	-- Step 53: Ringo
 	-- {npc:9999} Ringo
@@ -257,7 +257,7 @@ return {
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "護送{npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
-	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "把{npc:9999}向北引到{area:541}。他昏倒時，對他使用{item:11804}把他喚醒。",
+	["{npc:9999} faints from time to time during the escort north to {area:541}, and {item:11804} wakes him."] = "",
 
 	-- Step 56: The Mighty U'cha
 	-- {area:541} Marshal's Refuge · {npc:9622} U'cha · {npc:9619} Torwa Pathfinder
@@ -307,6 +307,7 @@ return {
 	-- ["Keep the bait: {npc:9684} is level 56, and the second loop passes his lair."] = "保留誘餌：{npc:9684}是56級，第二圈路線會經過牠的巢穴。",
 	-- ["Keep {quest:3942}: {npc:9116} is at the {area:2479}, on the next guide's way through {zone:1448}."] = "保留{quest:3942}：{npc:9116}在{area:2479}，下一份指南經過{zone:1448}時會路過。",
 	-- ["Knights and magi work the {area:192}; the medics and hunters camp south of it. Set {npc:11615}'s termite barrel down in the middle of the lumber mill while you are there.\nCareful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}: give it room."] = "騎士和法師在{area:192}幹活；醫護兵和獵人在它南邊紮營。順便在伐木場中央放下{npc:11615}的白蟻桶。\n小心：伐木營地可能站著一隻{npc:10996}，58-59級精英，{zone:1422}許多其他地點也有：離它遠一點。",
+	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "把{npc:9999}向北引到{area:541}。他昏倒時，對他使用{item:11804}把他喚醒。",
 	-- ["Level 57"] = "等級57",
 	-- ["Level 58"] = "58級",
 	-- ["Mark {npc:10902} with the {item:12815}"] = "用{item:12815}標記{npc:10902}",

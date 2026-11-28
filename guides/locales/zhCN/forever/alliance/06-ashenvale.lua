@@ -168,7 +168,7 @@ return {
 	-- Step 34: Mystral Lake
 	-- {npc:3885} Sentinel Velene Starstrike · {area:420} Silverwind Refuge · {area:421} Mystral Lake · {npc:12759} Tideress
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
-	["{npc:3885} stands at the {area:420} on the east shore of {area:421}. Befouled Water Elementals (23-25) wade in the lake.\nCareful: {npc:12759}, a level 27 water elemental, walks the lake's west shore among them: leave it be."] = "{npc:3885}在{area:421}东岸的{area:420}。污浊的水元素（23-25级）在湖中涉水活动。\n注意：27级水元素{npc:12759}会在湖西岸的水元素之间走动，避开它。",
+	["{npc:3885} is at the {area:420} on the east shore of {area:421}, where Befouled Water Elementals (23-25) wade. {npc:12759}, a level 27 water elemental, walks the west shore among them."] = "",
 	["Underwater"] = "在水下",
 	-- {item:5456} Divining Scroll
 	-- plural, as words: Intact Elemental Bracers = {item:12220} Intact Elemental Bracer
@@ -457,6 +457,7 @@ return {
 	-- ["{npc:3664} and his voidwalkers hold the {area:412} south of the shrine. Pull his guards first."] = "{npc:3664}和他的虚空行者占据着神殿南边的{area:412}。先拉他的卫兵。",
 	-- ["{npc:3691}: {quest:990}, from {area:442} (others take it on the next {area:331} visit)"] = "{npc:3691}：交{area:442}接到的{quest:990}（其他人在下次来{area:331}时接）",
 	-- ["{npc:3693} stands by the flight master, at the east end of the main street; then back west to the dock."] = "{npc:3693}站在飞行管理员旁边，位于主街东端；然后向西返回码头。",
+	-- ["{npc:3885} stands at the {area:420} on the east shore of {area:421}. Befouled Water Elementals (23-25) wade in the lake.\nCareful: {npc:12759}, a level 27 water elemental, walks the lake's west shore among them: leave it be."] = "{npc:3885}在{area:421}东岸的{area:420}。污浊的水元素（23-25级）在湖中涉水活动。\n注意：27级水元素{npc:12759}会在湖西岸的水元素之间走动，避开它。",
 	-- ["{npc:3885} stands at the {area:420} on the east shore of {area:421}. Befouled Water Elementals wade in the lake. Careful: {npc:12759}, a level 27 water elemental, walks the lake among them; she drops the bracers too, but the small elementals are the safer kills at this level."] = "{npc:3885}站在{area:421}东岸的{area:420}。污浊的水元素在湖里涉水。小心：27级水元素{npc:12759}在它们之间的湖里走动；她也会掉落护腕，但以你现在的等级，打小元素更安全。",
 	-- ["{npc:3987} (25) leads the Thistlefur furbolgs at the camp north of {area:415}. Clear his guards first, one at a time.\nCareful: The furbolgs near him usually join in when he is pulled. Killing the ones along his path first lets you fight him alone."] = "25 级的{npc:3987}带领蓟皮熊怪驻扎在{area:415}北侧营地。先逐个清理守卫。\n注意：拉首领时，附近熊怪通常也会参战。先清掉他巡逻路线上的熊怪，便可单独与他战斗。",
 	-- ["{npc:3987} (25) leads the Thistlefur gnolls at the camp north of {area:415}. Clear his guards first, one at a time."] = "{npc:3987}（25级）率领{area:415}北边营地的蓟皮豺狼人。先清理他的卫兵，一次一个。",

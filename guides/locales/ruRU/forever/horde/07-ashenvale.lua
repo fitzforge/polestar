@@ -174,9 +174,8 @@ return {
 	-- Step 45: Gloomrise: kill these as you meet them
 	-- {area:17044} Gloomrise
 	["{area:17044}: kill these as you meet them"] = "{area:17044}: убивайте их по пути",
-	-- {area:17044} Gloomrise · {npc:264074} Mazu'kon · {item:273015} Toxin Extractor · {item:273181} Crystalline Silk · {npc:264082} Broodmother Valraxx · {quest:96261} The Broodmother · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
-	-- plural, as words: Gnawed Corpses = {npc:264096} Gnawed Corpse
-	["North of the camp, spiders overrun the burial ground at {area:17044}. Use {npc:264074}'s {item:273015} on the Gnawed Corpses; the Spinners drop the {item:273181}. {npc:264082} (30, elite) sits at the north end: leave her unless you do {quest:96261} with a group; her {item:273658} starts {quest:96294}."] = "К северу от лагеря пауки заполонили кладбище – {area:17044}. Используйте {item:273015} ({npc:264074}) на обглоданных трупах; с прядильщиц падает {item:273181}. {npc:264082} (30, элитная) сидит в северном конце: не трогайте ее, если только не выполняете задание {quest:96261} с группой; ее {item:273658} начинает задание {quest:96294}.",
+	-- {area:17044} Gloomrise · {item:273181} Crystalline Silk · {npc:264082} Broodmother Valraxx · {quest:96261} The Broodmother · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
+	["Spiders overrun the burial ground at {area:17044}, north of the camp, and the Spinners drop the {item:273181}. {npc:264082} (level 30, elite) sits at the north end and is meant for a group doing {quest:96261}; her {item:273658} starts {quest:96294}."] = "",
 	-- {item:273181} Crystalline Silk
 	-- plural, as words: Gloomrise Spinners = {npc:264081} Gloomrise Spinner
 	["{item:273181}, from Gloomrise Spinners"] = "{item:273181}, с прядильщиц ({npc:264081})",
@@ -368,7 +367,7 @@ return {
 
 	-- Step 81: Hypercapacitor Gizmo
 	-- {npc:10992} Enraged Panther
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone."] = "Это элитные противники: лучше собрать группу, поищите напарников. {npc:10992} – элита 30-го уровня: большинство классов справляются с ней в одиночку на 32-м уровне, но вам может понадобиться помощь. Если вы один, пропустите ее.",
+	["The {npc:10992} is a level 30 elite. Most classes can solo it at level 32, but some may need a group."] = "",
 
 	-- Step 82: Whitereach Post
 	-- {npc:10720} Galak Assassin · {npc:10638} Kanati Greycloud
@@ -442,6 +441,7 @@ return {
 	-- ["Keep {npc:4877}'s two harpy quests and {npc:2986}'s {quest:1150}: {area:487} comes with the next Freewind visit, at about 30, with the {area:2240}'s quests."] = "Оставьте два задания NPC {npc:4877} про гарпий и задание {quest:1150} от NPC {npc:2986}: {area:487} будет в следующий визит на заставу Вольного Ветра, примерно на 30-м уровне, вместе с заданиями места {area:2240}.",
 	-- ["Level 29"] = "Уровень 29",
 	-- ["Naga brazier"] = "Жаровня наг",
+	-- ["North of the camp, spiders overrun the burial ground at {area:17044}. Use {npc:264074}'s {item:273015} on the Gnawed Corpses; the Spinners drop the {item:273181}. {npc:264082} (30, elite) sits at the north end: leave her unless you do {quest:96261} with a group; her {item:273658} starts {quest:96294}."] = "К северу от лагеря пауки заполонили кладбище – {area:17044}. Используйте {item:273015} ({npc:264074}) на обглоданных трупах; с прядильщиц падает {item:273181}. {npc:264082} (30, элитная) сидит в северном конце: не трогайте ее, если только не выполняете задание {quest:96261} с группой; ее {item:273658} начинает задание {quest:96294}.",
 	-- ["North up the road to {area:431} and {area:428} beside it."] = "На север по дороге: {area:431} – и {area:428} рядом.",
 	-- ["On the way back north-east to Splintertree: {npc:12676} prowls the woods south-east of the Warsong lumber camp."] = "На обратном пути на северо-восток к заставе Расщепленного Дерева: {npc:12676} рыщет в лесу к юго-востоку от Лесозаготовок Песни Войны.",
 	-- ["Pesterhide Snarlers"] = "Паршивые рыкуны",
@@ -455,6 +455,7 @@ return {
 	-- ["The next guide opens with Korran's The Swarm Grows at the Crossroads, offered from level 29. Short of 29? The Pesterhide Snarlers (28-29) prowl the canyon floor just north-west of {area:484}: kill them until level 29. Or, with a group, run the {area:2797} dungeon instead."] = "Следующий гайд начинается с задания Коррана «Рой растет» на Перекрестке, доступного с 29-го уровня. Не хватает до 29-го? Паршивые рыкуны (28-29) рыщут по дну каньона чуть к северо-западу от места {area:484}: убивайте их до 29-го уровня. Или, с группой, пройдите подземелье {area:2797}.",
 	-- ["The salt flats"] = "Соляные равнины",
 	-- ["The {area:1718}"] = "{area:1718}",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone."] = "Это элитные противники: лучше собрать группу, поищите напарников. {npc:10992} – элита 30-го уровня: большинство классов справляются с ней в одиночку на 32-м уровне, но вам может понадобиться помощь. Если вы один, пропустите ее.",
 	-- ["Thistlefur Hold"] = "Логово Колючего Меха",
 	-- ["Tideress"] = "Приливница",
 	-- ["Ursangous"] = "Топтыжень",

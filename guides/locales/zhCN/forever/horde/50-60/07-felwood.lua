@@ -115,8 +115,8 @@ return {
 	["On the ride north to {area:2255}, the Ice Thistle Yetis (55-56) in the hills south-east of the town carry Vizzie's {item:258323}: four pieces."] = "向北骑往{area:2255}的路上，到镇东南的山丘打冰蓟雪人（55-56级），收集四封维兹奇要的{item:258323}。",
 
 	-- Step 30: Are We There, Yeti?
-	-- {area:2255} Everlook
-	["Ride north to {area:2255}."] = "向北骑往{area:2255}。",
+	-- {npc:10978} Legacki · {area:2255} Everlook
+	["{npc:10978} is in {area:2255}, to the north."] = "",
 	-- {npc:10978} Legacki · {item:12928} Umi's Mechanical Yeti
 	["Scare {npc:10978} with {item:12928}"] = "",
 
@@ -211,6 +211,7 @@ return {
 	-- ["Ride back west to {area:2246}."] = "向西骑回{area:2246}。",
 	-- ["Ride east along the road to {area:2255}."] = "沿道路向东骑往{area:2255}。",
 	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "向东骑行，然后向南下到{area:2249}。那里的霜槌巨人是59级精英：走在中间，保持移动。奇怪的源头在南端{area:2256}的入口处。",
+	-- ["Ride north to {area:2255}."] = "向北骑往{area:2255}。",
 	-- ["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "沿{zone:1448}的道路向北骑往{area:1767}；{quest:5086}在树木之间蠕动，大多数都会掉落一份液滴。\n小心：59级精英远古铁木行者在{quest:5086}之间走动，{npc:14524}（63级，精英）在树林中游荡：在{area:1767}的最北端一次打一只。",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one."] = "向西北骑往{area:1763}。四个火盆立在暗影议会的建筑之间；对每一个使用净化后的水。",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "骑行向西北前往 {area:1763}。四座火盆位于暗影议会的建筑之间；对每一座使用净化过的水。\n小心：洞穴中遍布 53-55 级的暗影议会怪物，它们经常以多只联动的大群出现，其中许多会昏迷技能。建议 2-3 名玩家组队。",

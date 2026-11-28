@@ -36,8 +36,8 @@ return {
 	["{item:15882}, from the {object:177790}"] = "{item:15882}: {object:177790}에서",
 
 	-- Step 6: Pendant of the Sea Lion
-	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {item:15883} Half Pendant of Aquatic Agility · {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village
-	["Cast {spell:18960}. With both halves in your bags, stand by the {area:2362} on the north-west shore and use the {item:15883} to join them, then cast {spell:18960} again (it works inside {zone:1450}) to land by {npc:11802}. He stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. Afterwards {npc:11800}, in the middle of {area:2361}, flies druids straight to {area:702}."] = "",
+	-- {area:2362} Shrine of Remulos · {zone:1450} Moonglade · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village
+	["The {area:2362} is on the north-west shore of {zone:1450}. {spell:18960} also works inside {zone:1450} and lands you by {npc:11802}, who is upstairs in his building, and the arrow cannot tell the floors apart. {npc:11800}, in the middle of {area:2361}, flies druids straight to {area:702}."] = "",
 	-- {item:15885} Pendant of the Sea Lion
 	["{item:15885}: join the halves at the shrine"] = "{item:15885}: 제단에서 반쪽을 합치세요",
 
@@ -77,8 +77,8 @@ return {
 	["{item:15882}, from the {object:177844}"] = "{item:15882}: {object:177844}에서",
 
 	-- Step 14: Pendant of the Sea Lion
-	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {item:15883} Half Pendant of Aquatic Agility · {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
-	["Cast {spell:18960}. With both halves in your bags, stand by the {area:2362} on the north-west shore and use the {item:15883} to join them, then cast {spell:18960} again (it works inside {zone:1450}) to land by {npc:11802}. He stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:11798} flies druids to {area:1638}."] = "",
+	-- {area:2362} Shrine of Remulos · {spell:18960} Teleport: Moonglade · {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
+	["The pendant halves join by the {area:2362} on the north-west shore. {spell:18960} works inside {zone:1450} and lands by {npc:11802}, who stands upstairs in his building, and the arrow cannot tell the floors apart. {npc:11798} flies druids to {area:1638}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Cast {spell:18960}. Join the two halves into the {item:15885} near the {area:2362}, on the north-west shore of the lake, then see {npc:11802} in {area:2361}. Fly to {area:702} afterwards."] = "{spell:18960}을(를) 시전하세요. 호수 북서쪽 기슭의 {area:2362} 근처에서 반쪽 두 개를 합쳐 {item:15885}을(를) 만든 뒤, {area:2361}의 {npc:11802}을(를) 만나세요. 그 후 {area:702}(으)로 날아가세요.",

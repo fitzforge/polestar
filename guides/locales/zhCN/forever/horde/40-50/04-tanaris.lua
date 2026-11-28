@@ -132,7 +132,7 @@ return {
 	["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}.\nCareful: The escort has two ambushes. Three level 47 scorpids attack near the start. Near the end, by the beach, three Wastewander humans attack: one mage and two assassins, around level 44."] = "仅在持有求救信标时进行：OOX-17/TN 位于斯克林谢尔的虫巢东南方。护送它向北前往 {area:977}；奖励要到 {area:35} 找奥格索普领取。\n小心：护送途中有两次伏击。刚开始不久会有三只 47 级蝎子袭来。快到终点、靠近海滩时，会有三名废土人类袭击：一名法师和两名刺客，约 44 级。",
 
 	-- Step 29: Tanaris Field Sampling
-	["A sample can fail: keep going until you have eight of each."] = "",
+	["A sample can fail, so it can take several tries to get eight of each."] = "",
 	-- {item:8524} Model 4711-FTZ Power Source · {npc:7407} Chief Engineer Bilgewhizzle · {area:976} Gadgetzan · {quest:654} Tanaris Field Sampling
 	["Use the {item:8524}: it starts the quest and its two-hour timer. No power source, or the timer ran out? Another Power Source? from {npc:7407} trades a new one for ten Wastewander Water Pouches, from the Wastewander camps east of {area:976}, once {quest:654} is out of your log."] = "",
 

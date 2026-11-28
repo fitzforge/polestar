@@ -137,10 +137,8 @@ return {
 	-- Step 37: Sentry Braziers
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Sentry Braziers"] = "감시용 화로",
-	-- {item:10515} Torch of Retribution
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
-	-- was: ["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "{object:149047}을(를) 들고 용광로 가장자리를 따라 남쪽으로 가서, 남서쪽부터 남동쪽까지 돌며 감시용 화로 네 개에 불을 붙이십시오."
-	["Carry the {item:10515} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "",
+	["The four Sentry Braziers sit along the rim of the Cauldron, from the south-west round to the south-east."] = "",
 
 	-- Step 38: Level 48.98
 	["Level 48.98"] = "",

@@ -207,8 +207,8 @@ return {
 	["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "동쪽을 따라 북쪽의 고릴라 고원으로 가세요. 55레벨 고릴라 {npc:9622}은(는) 가장 깊은 동굴에 있습니다. 먼저 동굴 입구의 고릴라를 정리하세요.",
 
 	-- Step 38: Lar'korwi
-	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder · {item:11568} Torwa's Pouch
-	["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there.\nCareful: {npc:9684} is level 56, a level or two over you here: start at full health, and clear the raptors around the lair first."] = "",
+	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder
+	["{npc:9684}'s lair is in the jungle north of {npc:9619}, below the eastern cliffs. {npc:9684} is level 56, a level or two above you here, and raptors surround the lair."] = "",
 
 	-- Step 39: Eastern Pylon and the crate
 	["Eastern Pylon and the crate"] = "동쪽 수정탑과 상자",
@@ -242,9 +242,8 @@ return {
 	["North-east from the pylon to {area:543}: {npc:10302} the goblin sits by the water."] = "",
 
 	-- Step 46: Krakle's Thermometer
-	-- {area:537} Fire Plume Ridge · {item:12472} Krakle's Thermometer
-	-- was: ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "동쪽으로 {area:537}까지 가서 올라간 뒤, 꼭대기 근처 용암 분출구에서 {npc:10541}을(를) 사용하세요."
-	["Ride east to {area:537}, climb it and use {item:12472} at the lava vents near the top."] = "",
+	-- {area:537} Fire Plume Ridge
+	["The lava vents are near the top of {area:537}, to the east."] = "",
 
 	-- Step 47: Krakle
 	-- {npc:10302} Krakle
@@ -259,8 +258,8 @@ return {
 	-- Step 49: Escort Ringo
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "{npc:9999} 호위",
-	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
-	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "",
+	-- {npc:9999} Ringo · {area:541} Marshal's Refuge
+	["{npc:9999} faints along the way to {area:541}, which is to the north."] = "",
 
 	-- Step 51: Fly to Gadgetzan
 	-- {area:541} Marshal's Refuge
@@ -304,9 +303,8 @@ return {
 	-- Step 59: Shadow Hold braziers
 	-- {area:1770} Shadow Hold
 	["{area:1770} braziers"] = "{area:1770} 화로",
-	-- {area:1770} Shadow Hold · {area:1763} Jaedenar · {item:12906} Purified Moonwell Water · {item:13140} Blood Red Key · {npc:11018} Arko'narin
-	-- plural, as words: Jaedenar Darkweavers = {npc:7118} Jaedenar Darkweaver
-	["{area:1770} is the cave at the back of {area:1763}, west of the road. Use the {item:12906} on the four braziers inside.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns: pull at the edge of each group and fight one pack at a time.\nThe Jaedenar Darkweavers, Warlocks and Enforcers in here drop a {item:13140}, about one kill in thirty: keep killing them until it drops. It opens the cell of {npc:11018}, the night elf held in the cave."] = "",
+	-- {area:1770} Shadow Hold · {area:1763} Jaedenar · {item:13140} Blood Red Key · {npc:11018} Arko'narin
+	["{area:1770} is the cave at the back of {area:1763}, west of the road, with level 53-55 Shadow Council mobs in large linked groups, many with stuns. The Darkweavers, Warlocks and Enforcers drop the {item:13140} about once in thirty kills, and it opens the cell of {npc:11018}, the night elf held in the cave."] = "",
 	-- {object:176159} Brazier of Malice
 	["{object:176159}, below ground"] = "{object:176159}, 지하",
 	-- {object:176160} Brazier of Suffering
@@ -421,7 +419,7 @@ return {
 
 	-- Step 82: The Ruins of Kel'Theril
 	-- {area:2253} Starfall Village · {npc:10304} Aurora Skycaller · {zone:1423} Eastern Plaguelands
-	["The ruins lie around the frozen lake south of {area:2253}. Pick up the four relic fragments lying in the ruins: {npc:10304} in the {zone:1423} takes them, on the next guide."] = "",
+	["The ruins lie around the frozen lake south of {area:2253}. {npc:10304} in the {zone:1423} takes the four relic fragments, in the next guide."] = "",
 
 	-- Step 83: The road to Everlook: furs and horns
 	-- {area:2255} Everlook

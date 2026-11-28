@@ -174,9 +174,8 @@ return {
 	-- Step 45: Gloomrise: kill these as you meet them
 	-- {area:17044} Gloomrise
 	["{area:17044}: kill these as you meet them"] = "{area:17044}: 만나는 대로 처치하세요",
-	-- {area:17044} Gloomrise · {npc:264074} Mazu'kon · {item:273015} Toxin Extractor · {item:273181} Crystalline Silk · {npc:264082} Broodmother Valraxx · {quest:96261} The Broodmother · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
-	-- plural, as words: Gnawed Corpses = {npc:264096} Gnawed Corpse
-	["North of the camp, spiders overrun the burial ground at {area:17044}. Use {npc:264074}'s {item:273015} on the Gnawed Corpses; the Spinners drop the {item:273181}. {npc:264082} (30, elite) sits at the north end: leave her unless you do {quest:96261} with a group; her {item:273658} starts {quest:96294}."] = "야영지 북쪽에서 거미들이 {area:17044}의 매장지를 뒤덮고 있습니다. 갉아먹힌 시체에 {npc:264074}의 {item:273015}을(를) 사용하세요. 거미들은 {item:273181}을(를) 떨어뜨립니다. {npc:264082}(30, 정예)은(는) 북쪽 끝에 있습니다. 파티와 함께 {quest:96261}을(를) 하는 게 아니라면 건드리지 마세요. 그녀의 {item:273658}이(가) {quest:96294}을(를) 시작합니다.",
+	-- {area:17044} Gloomrise · {item:273181} Crystalline Silk · {npc:264082} Broodmother Valraxx · {quest:96261} The Broodmother · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
+	["Spiders overrun the burial ground at {area:17044}, north of the camp, and the Spinners drop the {item:273181}. {npc:264082} (level 30, elite) sits at the north end and is meant for a group doing {quest:96261}; her {item:273658} starts {quest:96294}."] = "",
 	-- {item:273181} Crystalline Silk
 	-- plural, as words: Gloomrise Spinners = {npc:264081} Gloomrise Spinner
 	["{item:273181}, from Gloomrise Spinners"] = "{npc:264081}에게서 얻는 {item:273181}",
@@ -368,7 +367,7 @@ return {
 
 	-- Step 81: Hypercapacitor Gizmo
 	-- {npc:10992} Enraged Panther
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone."] = "정예 몬스터입니다. 파티를 권장하니 함께할 사람을 찾아보세요. {npc:10992}은(는) 30레벨 정예입니다. 대부분의 직업은 32레벨에 혼자 처치할 수 있지만 도움이 필요할 수도 있습니다. 혼자라면 건너뛰세요.",
+	["The {npc:10992} is a level 30 elite. Most classes can solo it at level 32, but some may need a group."] = "",
 
 	-- Step 82: Whitereach Post
 	-- {npc:10720} Galak Assassin · {npc:10638} Kanati Greycloud
@@ -439,6 +438,7 @@ return {
 	-- ["Keep {npc:4877}'s two harpy quests and {npc:2986}'s {quest:1150}: {area:487} comes with the next Freewind visit, at about 30, with the {area:2240}'s quests."] = "{npc:4877}의 하피 퀘스트 두 개와 {npc:2986}의 {quest:1150}은(는) 계속 가지고 있으세요. {area:487}은(는) 약 30레벨에 다음번 높새바람 봉우리 방문 때 {area:2240} 퀘스트와 함께 진행합니다.",
 	-- ["Level 29"] = "29레벨",
 	-- ["Naga brazier"] = "나가 화로",
+	-- ["North of the camp, spiders overrun the burial ground at {area:17044}. Use {npc:264074}'s {item:273015} on the Gnawed Corpses; the Spinners drop the {item:273181}. {npc:264082} (30, elite) sits at the north end: leave her unless you do {quest:96261} with a group; her {item:273658} starts {quest:96294}."] = "야영지 북쪽에서 거미들이 {area:17044}의 매장지를 뒤덮고 있습니다. 갉아먹힌 시체에 {npc:264074}의 {item:273015}을(를) 사용하세요. 거미들은 {item:273181}을(를) 떨어뜨립니다. {npc:264082}(30, 정예)은(는) 북쪽 끝에 있습니다. 파티와 함께 {quest:96261}을(를) 하는 게 아니라면 건드리지 마세요. 그녀의 {item:273658}이(가) {quest:96294}을(를) 시작합니다.",
 	-- ["North up the road to {area:431} and {area:428} beside it."] = "길을 따라 북쪽의 {area:431}와(과) 그 옆의 {area:428}(으)로 가세요.",
 	-- ["On the way back north-east to Splintertree: {npc:12676} prowls the woods south-east of the Warsong lumber camp."] = "북동쪽의 토막나무 주둔지로 돌아가는 길에: {npc:12676}은(는) 전쟁노래부족 벌목기지 남동쪽 숲을 돌아다닙니다.",
 	-- ["Pesterhide Snarlers"] = "사나운 점박이하이에나",
@@ -451,6 +451,7 @@ return {
 	-- ["The next guide opens with Korran's The Swarm Grows at the Crossroads, offered from level 29. Short of 29? The Pesterhide Snarlers (28-29) prowl the canyon floor just north-west of {area:484}: kill them until level 29. Or, with a group, run the {area:2797} dungeon instead."] = "다음 가이드는 29레벨부터 받을 수 있는 코란의 '곤충 떼의 위협'(십자로)으로 시작합니다. 29레벨이 안 되나요? {area:484} 바로 북서쪽 협곡 바닥을 사나운 점박이하이에나(28-29)가 돌아다닙니다. 29레벨이 될 때까지 처치하세요. 또는 파티가 있다면 대신 {area:2797} 던전을 도세요.",
 	-- ["The salt flats"] = "소금 평원",
 	-- ["The {area:1718}"] = "{area:1718}",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone."] = "정예 몬스터입니다. 파티를 권장하니 함께할 사람을 찾아보세요. {npc:10992}은(는) 30레벨 정예입니다. 대부분의 직업은 32레벨에 혼자 처치할 수 있지만 도움이 필요할 수도 있습니다. 혼자라면 건너뛰세요.",
 	-- ["Thistlefur Hold"] = "엉겅퀴일족 소굴",
 	-- ["Tideress"] = "타이더레스",
 	-- ["Ursangous"] = "우르산고우스",

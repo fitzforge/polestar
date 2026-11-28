@@ -61,7 +61,7 @@ return {
 
 	-- Step 12: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:8737} Linken · {npc:9117} J.D. Collie
-	["The flight lands at {area:541}: {npc:8737} stands by the cave a few steps from the flight master, {npc:9117} inside it."] = "",
+	["The flight lands at {area:541}. {npc:8737} stands by the cave a few steps from the flight master, and {npc:9117} is inside it."] = "",
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "{npc:9117}, 지하",
 	-- {quest:3942} Linken's Memory · {npc:9116} Eridan Bluewind · {area:2479} Emerald Sanctuary · {zone:1448} Felwood
@@ -246,7 +246,7 @@ return {
 
 	-- Step 52: Lar'korwi
 	-- {item:11568} Torwa's Pouch · {npc:9684} Lar'korwi
-	["Open {item:11568}: it holds the meat and the pheromone mixture. {npc:9684}'s lair is the bone-strewn valley just south of the pylon: place the meat among the bones, then use the mixture on it to call {npc:9684}. He is level 56 and hits hard, so start at full health."] = "",
+	["{item:11568} holds the meat and the pheromone mixture. {npc:9684}'s lair is the bone-strewn valley just south of the pylon, and he is level 56 and hits hard."] = "",
 
 	-- Step 53: Ringo
 	-- {npc:9999} Ringo
@@ -256,7 +256,7 @@ return {
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "{npc:9999} 호위",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
-	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "",
+	["{npc:9999} faints from time to time during the escort north to {area:541}, and {item:11804} wakes him."] = "",
 
 	-- Step 56: The Mighty U'cha
 	-- {area:541} Marshal's Refuge · {npc:9622} U'cha · {npc:9619} Torwa Pathfinder

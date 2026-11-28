@@ -81,8 +81,8 @@ return {
 	["Back east to {area:358}: the Bristleback Shamans stand among the quilboar there."] = "Назад на восток сюда: {area:358}: шаманы из племени Дыбогривов стоят там среди свинобразов.",
 
 	-- Step 14: Call of Earth
-	-- {npc:5888} Seer Ravenfeather · {npc:5891} Minor Manifestation of Earth · {item:6635} Earth Sapta · {item:6656} Rough Quartz
-	["Back to {npc:5888} in the camp. The {npc:5891} waits on the mesa east of the camp: drink the {item:6635} there to see it, then take the {item:6656} back to the Seer."] = "Назад к персонажу {npc:5888} в лагерь. {npc:5891} ждет на плато к востоку от лагеря: выпейте там {item:6635}, чтобы увидеть его, затем отнесите предмет {item:6656} провидцу.",
+	-- {npc:5888} Seer Ravenfeather · {npc:5891} Minor Manifestation of Earth · {item:6635} Earth Sapta
+	["{npc:5888} is in the camp, and the {npc:5891} is on the mesa east of it. The manifestation can only be seen with the {item:6635}."] = "",
 	-- {npc:5888} Seer Ravenfeather · {npc:5873} Stoneskin Totem · {item:5175} Earth Totem
 	["{npc:5888}: {npc:5873} and your {item:5175}"] = "{npc:5888}: {npc:5873} и ваш {item:5175}",
 
@@ -254,7 +254,7 @@ return {
 	-- Step 50: Dwarven Digging
 	-- {area:404} Bael'dun Digsite
 	-- plural, as words: Prospector's Picks = {item:4702} Prospector's Pick
-	["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the dwarves' forge in the digsite."] = "Кирки геолога – у дворфов ({area:404}). Разбейте их в кузнице дворфов на раскопках.",
+	["The dwarves of the {area:404} carry the Prospector's Picks, and the dwarves' forge is in the digsite."] = "",
 	-- {item:4703} Broken Tools
 	["{item:4703}, at the digsite forge"] = "{item:4703} – у кузницы на раскопках",
 
@@ -448,6 +448,7 @@ return {
 	-- ["Back south to the {area:396}."] = "Назад на юг сюда: {area:396}.",
 	-- ["Back south-east to the {area:396}."] = "Назад на юго-восток сюда: {area:396}.",
 	-- ["Back to Bloodhoof"] = "Назад в Деревня Кровавого Копыта",
+	-- ["Back to {npc:5888} in the camp. The {npc:5891} waits on the mesa east of the camp: drink the {item:6635} there to see it, then take the {item:6656} back to the Seer."] = "Назад к персонажу {npc:5888} в лагерь. {npc:5891} ждет на плато к востоку от лагеря: выпейте там {item:6635}, чтобы увидеть его, затем отнесите предмет {item:6656} провидцу.",
 	-- ["Battleboars graze north of the shrine; the Bristleback quilboar hold the ravine to the north-east. {npc:8554} stands at its eastern end, and the {item:4851} lies on the ground in the camp."] = "К северу от святилища пасутся боевые вепри; дыбогривые свинобразы занимают ущелье к северо-востоку. {npc:8554} стоит в его восточной части, а {item:4851} лежит на земле в лагере.",
 	-- ["Burning Blade Cultists hold {area:1898}, east of the road north to {zone:1454}; they drop the {item:6652}. The {item:5026} comes from the Razormane on the next guide's first visit to their camp."] = "Сектанты из клана Пылающего Клинка удерживают {area:1898} к востоку от дороги на север к городу {zone:1454}; с них падает {item:6652}. {item:5026} добудете у Иглогривых в следующем гайде, при первом заходе в их лагерь.",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5930} sits in the north-western woods."] = "Используйте {spell:18960}. {npc:11802} – здесь: {area:2361}; {quest:5930} – в северо-западных лесах.",
@@ -470,6 +471,7 @@ return {
 	-- ["Swoops glide over the plains all around Bloodhoof."] = "Перепелятники парят над равнинами вокруг Деревни Кровавого Копыта.",
 	-- ["The Galak centaurs camp on the plains east of the well; Herak leads them."] = "Кентавры из племени Галак стоят лагерем на равнинах к востоку от колодца; их ведет Херак.",
 	-- ["The Galak centaurs camp on the plains north of the {area:821}; Herak leads them. Prairie Wolf Alphas roam among the wolves."] = "Кентавры племени Галак стоят лагерем на равнинах к северу от места {area:821}; их ведет Херак. Среди волков бродят могучие волки прерий.",
+	-- ["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the dwarves' forge in the digsite."] = "Кирки геолога – у дворфов ({area:404}). Разбейте их в кузнице дворфов на раскопках.",
 	-- ["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the forge in {area:222}."] = "Кирки геолога – у дворфов ({area:404}). Разбейте их в кузнице ({area:222}).",
 	-- ["The goblins work the mine in the hills north-east of the well. {quest:765} stands in the back of the mine; his {item:281031} start {quest:98424}, and the other pages lie inside the mine."] = "Гоблины работают в шахте на холмах к северо-востоку от колодца. {quest:765} стоит в глубине шахты; его {item:281031} начинают задание {quest:98424}, а остальные страницы лежат в шахте.",
 	-- ["The goblins work the mine in the hills north-east of the well. {quest:765} stands in the back of the mine; his {item:281031} start {quest:98424}, and the other pages lie inside the mine.\nCareful: the goblins stand close together in the tunnels and {quest:765} is level 12: clear the way one pull at a time."] = "Гоблины работают в шахте на холмах к северо-востоку от колодца. {quest:765} стоит в глубине шахты; его {item:281031} начинают задание {quest:98424}, а остальные страницы лежат в шахте.\nОсторожно: гоблины стоят плотно в туннелях, а {quest:765} – 12-го уровня: расчищайте путь по одной группе.",
