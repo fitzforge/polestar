@@ -269,7 +269,6 @@ return {
 	-- {skill:165} Leatherworking
 	["{skill:165} 225-300: vendor goods"] = "{skill:165} 225–300：商人材料",
 	-- {item:2325} Black Dye · {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3366} Tamar
-	-- was: ["Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "一次买齐本阶段所需：39个{item:2325}（3金90银）和82个{item:14341}（41金币）；总计约44金90银。箭头指向本阵营最近的出售者（{zone:1453}：{npc:1347}、{npc:1286}和{npc:5565}；{zone:1454}：{npc:3364}、{npc:3367}和{npc:5817}）。"
 	["Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347} and {npc:5565}; {zone:1454}: {npc:3364} and {npc:3366})."] = "一次买齐本阶段所需的39份{item:2325}（3金90银）和82份{item:14341}（41金），总计约44金90银。箭头会指向最近的本阵营商人，{zone:1453}找{npc:1347}或{npc:5565}，{zone:1454}找{npc:3364}或{npc:3366}。",
 
 	-- Step 45: Pattern: Wicked Leather Gauntlets

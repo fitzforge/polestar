@@ -414,12 +414,24 @@
 				"objective": 1,
 				"guide": "forever/horde/50-60/05-eastern-plaguelands"
 			},
-			"tip": "Moora, Salia and Shadow Lord Fel'dan (57) wait at the back of Shadow Hold, the cave in Jaedenar's north. Clear the tunnel as you go. Careful: the three bosses fight as a group: kill the nearby mobs first so you don't pull extra enemies. The cultists' Corrupted Soul Shards show only while you carry Maybess's Cenarion Beacon (from Cleansing Felwood): without it, skip them.",
-			"note": "Horde 50-60 audit (2026-11-23): the step asks for six Corrupted Soul Shards from the cultists for Salve via Hunting; they can be seen only with a Cenarion Beacon.",
+			"tip": "Moora, Salia and Shadow Lord Fel'dan (57) wait at the back of Shadow Hold, the cave in Jaedenar's north. Clear the tunnel as you go. Careful: the three bosses fight as a group: kill the nearby mobs first so you don't pull extra enemies. The cultists drop Corrupted Soul Shards only while you carry a Cenarion Beacon, which Maybess Riverbreeze hands out on request once Cleansing Felwood is done: without one, the shards are not there to get.",
+			"note": "Horde 50-60 audit (2026-11-23): the step asks for six Corrupted Soul Shards from the cultists for Salve via Hunting; they can be seen only with a Cenarion Beacon. #4551 (Scarylucky, 0.4.3.1): the beacon comes from a gossip option at Maybess once Cleansing Felwood is done (the quest data lists no item reward for it), and the step held a player without one at the shards; the guide's shard line (a plain collect, which no record anchors) is optional, as on the Alliance side, and the tip says where the beacon comes from.",
 			"source": [
 				{
 					"kind": "client",
 					"ref": "Salve via Hunting's quest text (the client's quest cache): a corrupted soul shard is seen only with a Cenarion beacon, which Cleansing Felwood (4102, its prerequisite in forever-db quest_prereq.jsonl) gives"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-28: at Maybess Riverbreeze (9529) a player picked the gossip option 96156, \"I need a Cenarion Beacon\" (deDE client: \"Ich brauche ein cenarisches Leuchtfeuer.\"), with Cleansing Felwood done"
+				},
+				{
+					"kind": "tdb",
+					"ref": "gossip menu 2207 (Maybess), its text 2849 shown once 4102 is rewarded; the menu's option casts spell 15120 on the player (smart_scripts 950000395)"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#4551 (Scarylucky, 0.4.3.1): the shards need the beacon from Maybess"
 				}
 			]
 		},

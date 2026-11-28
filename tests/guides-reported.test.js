@@ -20013,3 +20013,26 @@ test("forever/horde/40-50/02-feralas.guide: Stinglasher's step says to hand in o
 	assert.match(text, /Tabetha's Task/, 'the step names Tabetha\'s Task');
 	assert.match(text, /hand it in to Tabetha in Dustwallow Marsh or abandon it/, 'and what to do with it');
 });
+
+// #4540 (Meta, 0.4.3.1): Bethra'zel's marker stood outside his corner of Dae'gun, at the first of the data's spawn
+// points (57.41,36.26). Players' recordings have 37 of his 38 kills (33 people) at 57.96-59.01, 31.94-33.24, median
+// 58.58,32.30; the step's kill line carries that point.
+test("forever/50-60/mount-hyjal.guide: Meta's report: Bethra'zel's marker is where players kill him (#4540)", { skip }, () => {
+	const list = goals('forever/50-60/mount-hyjal.guide');
+	const { goal } = list[at(list, 'kill 263394 (Bethra\'zel the Feeble)', (g) => g.t === 'kill' && g.npc === 263394)];
+	assert.equal(goal.map, 2482);
+	assert.ok(Math.abs(goal.x - 58.6) < 0.5 && Math.abs(goal.y - 32.3) < 0.5, `Bethra'zel at ${goal.x},${goal.y}`);
+});
+
+// #4551 (Scarylucky, 0.4.3.1): the Shadow Hold cultists drop Corrupted Soul Shards only while the player carries a
+// Cenarion Beacon, which Maybess Riverbreeze gives on asking once Cleansing Felwood is done. A Final Blow held a player
+// without one at its six shards; the shard line is optional (as on the Alliance side) and the tip says where the
+// beacon comes from (guide-fixes audit-5242-soul-shards-need-the-beacon).
+test("forever/horde/50-60/05-eastern-plaguelands.guide: Scarylucky's report: A Final Blow doesn't wait for shards without a beacon (#4551)", { skip }, () => {
+	const list = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	const shards = list[at(list, 'collect 11515 (Corrupted Soul Shard)', (g) => g.t === 'collect' && g.item === 11515)];
+	assert.equal(shards.goal.optional, true, 'the shards never hold the step');
+	assert.ok(shards.step.goals.some((g) => g.quest === 5242), 'on A Final Blow\'s step');
+	const tip = [shards.step.tip, shards.step.note].flat().filter(Boolean).join(' ');
+	assert.match(tip, /Cenarion Beacon, which Maybess Riverbreeze hands out on request once Cleansing Felwood is done/, tip);
+});

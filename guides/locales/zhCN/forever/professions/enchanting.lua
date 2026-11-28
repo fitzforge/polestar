@@ -16,7 +16,6 @@ return {
 	-- {skill:333} Enchanting
 	["{skill:333} 1-75: vendor goods"] = "{skill:333} 1–75：商人材料",
 	-- {item:6217} Copper Rod · {item:247786} Mote of Magic · {zone:1453} Stormwind City · {npc:1318} Jessara Cordell · {zone:1454} Orgrimmar · {npc:3346} Kithas
-	-- was: ["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "一次买齐本阶段所需：1个{item:6217}（1银24铜）和32个{item:247786}（3银20铜）；总计约4银44铜。箭头指向本阵营最近的出售者（{zone:1453}：{npc:1286}和{npc:1318}；{zone:1454}：{npc:3367}、{npc:3346}和{npc:5817}）。"
 	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1318}; {zone:1454}: {npc:3346})."] = "一次买齐本阶段所需的1根{item:6217}（1银24铜）和32份{item:247786}（3银20铜），总计约4银44铜。箭头会指向最近的本阵营商人，{zone:1453}找{npc:1318}，{zone:1454}找{npc:3346}。",
 
 	-- Step 3: Get Strange Dust
@@ -110,7 +109,6 @@ return {
 
 	-- Step 18: Get Iridescent Pearl (Alliance)
 	-- {item:5500} Iridescent Pearl
-	-- was: ["{item:5500} (Alliance)"] = "{item:5500}（联盟）"
 	["Get {item:5500} (Alliance)"] = "获取{item:5500}（联盟）",
 	-- {item:5500} Iridescent Pearl · {skill:333} Enchanting · {item:11130} Runed Golden Rod
 	-- plural, as words: Giant Clams = {object:2744} Giant Clam
@@ -118,7 +116,6 @@ return {
 
 	-- Step 19: Get Iridescent Pearl (Horde)
 	-- {item:5500} Iridescent Pearl
-	-- was: ["{item:5500} (Horde)"] = "{item:5500}（部落）"
 	["Get {item:5500} (Horde)"] = "获取{item:5500}（部落）",
 
 	-- Step 20: Get Greater Astral Essence

@@ -14,7 +14,6 @@ return {
 
 	-- Step 2: Booty Bay
 	-- {npc:4631} Wharfmaster Lozgil · {zone:1443} Desolace
-	-- was: ["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "{npc:4631} está en el muelle donde llega el barco. Vincula tu piedra de hogar en la posada: es tu forma de volver aquí desde el norte de la jungla al final del circuito."
 	["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of this loop, and again at the end of the second loop, after {zone:1443}."] = "{npc:4631} está en el muelle donde llega el barco. Vincula tu piedra de hogar en la posada: es tu forma de volver aquí desde el norte de la jungla al final de este circuito, y otra vez al final del segundo circuito, después de {zone:1443}.",
 	-- {npc:4631} Wharfmaster Lozgil
 	["{npc:4631}, on the dock"] = "{npc:4631}, en el muelle",

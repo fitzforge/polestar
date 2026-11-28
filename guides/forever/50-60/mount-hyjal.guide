@@ -973,11 +973,13 @@ step Johun "Punchy" Dillas
   only Alliance
   turnin 92593
 
+# Bethra'zel: players' recordings have 37 of his 38 kills (33 people) at 57.96-59.01, 31.94-33.24, median
+# 58.58,32.30; the data's first spawn point, 57.41,36.26, stands outside his corner, where the marker was (#4540).
 step Bethra'zel
   when onquest 96003
   tip North-east to Bethra'zel. Drain him first: use Elaena's eye on him, and only then fight him. Undrained, he and Mazzogore are level 60 elites. Doomguard Xarkul, an elite (level 61), walks this corner of Dae'gun: keep out of his way.
   tip Careful: Legion Hulks (60, rare elites) stomp through Dae'gun's camps: give them room.
-  kill 263394 quest 96003.1             -- Bethra'zel
+  kill 263394 quest 96003.1 @58.6,32.3  -- Bethra'zel
 
 step Maerion Thaelemaches
   when onquest 97009
