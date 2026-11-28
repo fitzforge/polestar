@@ -24,10 +24,10 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `race <Race>, ...` | Only for these races (see Conditions) | `race Human, Dwarf` |
 | `class <Class>, ...` | Only for these classes | `class Warrior, Paladin` |
 | `category <Category>` | The guide menu category: `Leveling` (default), `Class`, `Professions`, `Reputation`, `Legacy`, `Exploration`, `Collectibles`, `Miscellaneous` or `Dungeons` | `category Professions` |
+| `kind <kind>` | What the guide window shows for the guide, when the category's is not the one you want: `leveling`, `profession`, `reputation`, `dungeon`, `class`, `collectible`, `exploration` or `misc` | `kind reputation` |
 | `folder <text>` | The guide menu folder to list it under | `folder Mounts · Level 40` |
 | `keywords <word>, ...` | Extra words the guide menu search finds it by | `keywords wolf, meat` |
 | `collects <item>, ...` | Items the guide obtains; Lookup opens this guide for them | `collects 750` |
-| `kind <kind>` | What the guide window shows for the guide: `leveling`, `profession`, `reputation`, `dungeon`, `class`, `collectible`, `exploration` or `misc` (default: the category's) | `kind profession` |
 | `reward item <item> ...` | What the guide's goal gives, shown with its icon in the guide menu; several items on one line are a choice of one; repeatable | `reward item 1251 2581` |
 | `reward spell <id> "Name"` | A spell the goal teaches (a mount, a form, a demon) | `reward spell 5784 "Summon Felsteed"` |
 | `reward text <words>` | A reward without an id | `reward text Shen'dralar reputation` |
