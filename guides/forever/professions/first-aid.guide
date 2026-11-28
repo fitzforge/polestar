@@ -189,7 +189,7 @@ step Accept Triage
 step Complete Triage
   only Alliance
   tip Use his Triage Bandages, the worst wounds first: 15 saved completes it, and 6 deaths fail it.
-  complete 6624
+  complete 6624 @67.79,49.06 era map 1445
 
 step Hand in Triage
   only Alliance
@@ -211,7 +211,7 @@ step Accept Triage
 step Complete Triage
   only Horde
   tip Use his Triage Bandages, the worst wounds first: 15 saved completes it, and 6 deaths fail it.
-  complete 6622
+  complete 6622 @73.4,36.8 era map 1417
 
 step Hand in Triage
   only Horde

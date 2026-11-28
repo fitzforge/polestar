@@ -548,7 +548,7 @@ step Buy Pattern: Wicked Leather Gauntlets · Werg Thickblade
   when !knows 19049
   only Horde
   tip It binds when picked up.
-  buy 15725 x1 npc 12943
+  buy 15725 x1 npc 12943 map 1420
 
 step Learn Wicked Leather Gauntlets
   tip From the pattern in your bags.
