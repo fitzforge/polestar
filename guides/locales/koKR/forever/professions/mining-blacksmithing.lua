@@ -185,476 +185,485 @@ return {
 	-- {spell:2672} Patterned Bronze Bracers
 	["For 10 {spell:2672}."] = "",
 
-	-- Step 39: Craft 10 Patterned Bronze Bracers until 125
+	-- Step 38: Learn Patterned Bronze Bracers
+	["Taught at 95; done at once if you learned it then."] = "",
+
+	-- Step 40: Craft 10 Patterned Bronze Bracers until 125
 	-- {spell:2672} Patterned Bronze Bracers
 	["Craft 10 {spell:2672} until 125"] = "",
 	["About 10 crafts."] = "",
 
-	-- Step 40: Mine and smelt 120 Bronze Bar
+	-- Step 41: Mine and smelt 120 Bronze Bar
 	-- {item:2841} Bronze Bar
 	["Mine and smelt 120 {item:2841}"] = "",
 	-- {spell:3333} Silvered Bronze Gauntlets
 	["For 15 {spell:3333}."] = "",
 
-	-- Step 41: Get 15 Silver Bar
+	-- Step 42: Get 15 Silver Bar
 	-- {item:2842} Silver Bar
 	["Get 15 {item:2842}"] = "",
 
-	-- Step 42: Learn Silvered Bronze Gauntlets
+	-- Step 43: Learn Silvered Bronze Gauntlets
 	-- {spell:3333} Silvered Bronze Gauntlets
 	["Learn {spell:3333}"] = "",
 
-	-- Step 44: Craft 15 Silvered Bronze Gauntlets until 140
+	-- Step 45: Craft 15 Silvered Bronze Gauntlets until 140
 	-- {spell:3333} Silvered Bronze Gauntlets
 	["Craft 15 {spell:3333} until 140"] = "",
 	-- {item:2842} Silver Bar
 	-- plural, as words: Bronze Warhammers = {item:7956} Bronze Warhammer
 	["About 15 crafts. {item:2842} dear? 15 Bronze Warhammers reach 140 too."] = "",
 
-	-- Step 45: Buy 40 Green Dye
+	-- Step 46: Buy 40 Green Dye
 	-- {item:2605} Green Dye
 	["Buy 40 {item:2605}"] = "",
 	-- {spell:3501} Green Iron Bracers
 	["For 40 {spell:3501}."] = "",
 
-	-- Step 46: Mine and smelt 240 Iron Bar
+	-- Step 47: Mine and smelt 240 Iron Bar
 	-- {item:3575} Iron Bar
 	["Mine and smelt 240 {item:3575}"] = "",
 
-	-- Step 47: Train Expert Blacksmithing
+	-- Step 48: Train Expert Blacksmithing
 	-- {skill:164} Blacksmithing
 	["Train Expert {skill:164}"] = "",
 	["Needs level 20."] = "",
 
-	-- Step 48: Learn Green Iron Bracers
+	-- Step 49: Learn Green Iron Bracers
 	-- {spell:3501} Green Iron Bracers
 	["Learn {spell:3501}"] = "",
 
-	-- Step 50: Craft 40 Green Iron Bracers until 175
+	-- Step 51: Craft 40 Green Iron Bracers until 175
 	-- {spell:3501} Green Iron Bracers
 	["Craft 40 {spell:3501} until 175"] = "",
 	["About 40 crafts."] = "",
 
-	-- Step 51: Mine 60 Solid Stone
+	-- Step 52: Mine 60 Solid Stone
 	-- {item:7912} Solid Stone
 	["Mine 60 {item:7912}"] = "",
 	-- plural, as words: Solid Grinding Stones = {item:7966} Solid Grinding Stone · Solid Sharpening Stones = {item:7964} Solid Sharpening Stone
 	["For 8 Solid Grinding Stones and 28 Solid Sharpening Stones."] = "",
 
-	-- Step 52: Learn Solid Grinding Stone
+	-- Step 53: Learn Solid Grinding Stone
 	-- {spell:9920} Solid Grinding Stone
 	["Learn {spell:9920}"] = "",
 
-	-- Step 53: Learn Solid Sharpening Stone
+	-- Step 54: Learn Solid Sharpening Stone
 	-- {spell:9918} Solid Sharpening Stone
 	["Learn {spell:9918}"] = "",
 	["For 180-185: taught here now, so no second trip."] = "",
 
-	-- Step 54: Learn Golden Scale Bracers
+	-- Step 55: Learn Golden Scale Bracers
 	-- {spell:7223} Golden Scale Bracers
 	["Learn {spell:7223}"] = "",
 	["For 185-195: taught here now, so no second trip."] = "",
 
-	-- Step 55: Craft 8 Solid Grinding Stones until 180
+	-- Step 56: Craft 8 Solid Grinding Stones until 180
 	-- plural, as words: Solid Grinding Stones = {item:7966} Solid Grinding Stone
 	["Craft 8 Solid Grinding Stones until 180"] = "",
 	["About 8 crafts. Keep all 8 for the step at 210."] = "",
 
-	-- Step 56: Craft 28 Solid Sharpening Stones until 185
+	-- Step 57: Craft 28 Solid Sharpening Stones until 185
 	-- plural, as words: Solid Sharpening Stones = {item:7964} Solid Sharpening Stone
 	["Craft 28 Solid Sharpening Stones until 185"] = "",
 	["About 28 crafts. Green from 180: short of 185? A few more do it."] = "",
 
-	-- Step 57: Buy 75 Coal
+	-- Step 58: Buy 75 Coal
 	["Buy 75 Coal"] = "",
 	-- {item:3859} Steel Bar
 	["Smelting {item:3859} takes 1 Coal a bar."] = "",
 
-	-- Step 58: Learn Smelt Steel
+	-- Step 59: Learn Smelt Steel
 	-- {spell:3569} Smelt Steel
 	["Learn {spell:3569}"] = "",
 	["The bars next are smelted from what you mine."] = "",
 
-	-- Step 59: Mine and smelt 75 Steel Bar
+	-- Step 60: Mine and smelt 75 Steel Bar
 	-- {item:3859} Steel Bar
 	["Mine and smelt 75 {item:3859}"] = "",
 	-- {item:6040} Golden Scale Bracers
 	["For 15 {item:6040}."] = "",
 
-	-- Step 61: Craft 15 Golden Scale Bracers until 195
+	-- Step 61: Learn Golden Scale Bracers
+	["Taught at 175; done at once if you learned it then."] = "",
+
+	-- Step 63: Craft 15 Golden Scale Bracers until 195
 	-- {item:6040} Golden Scale Bracers
 	["Craft 15 {item:6040} until 195"] = "",
 	["About 15 crafts. Alliance smiths who want Armorsmithing later: keep 6."] = "",
 
-	-- Step 62: Learn Smelt Mithril
+	-- Step 64: Learn Smelt Mithril
 	-- {spell:10097} Smelt Mithril
 	["Learn {spell:10097}"] = "",
 
-	-- Step 63: Mine until Mining 245
+	-- Step 65: Mine until Mining 245
 	-- {skill:186} Mining
 	["Mine until {skill:186} 245"] = "",
 	-- {item:3858} Mithril Ore · {skill:186} Mining
 	["This loop gives the {item:3858} to {skill:186} 245; the next one the rest."] = "",
 
-	-- Step 64: Mine and smelt 204 Mithril Bar
+	-- Step 66: Mine and smelt 204 Mithril Bar
 	-- {item:3860} Mithril Bar
 	["Mine and smelt 204 {item:3860}"] = "",
 	-- {item:7920} Mithril Plate Pants
 	["For 17 {item:7920}."] = "",
 
-	-- Step 65: Learn Mithril Plate Pants
+	-- Step 67: Learn Mithril Plate Pants
 	-- {spell:9931} Mithril Plate Pants
 	["Learn {spell:9931}"] = "",
 
-	-- Step 67: Craft 17 Mithril Plate Pants until 210
+	-- Step 69: Craft 17 Mithril Plate Pants until 210
 	-- {item:7920} Mithril Plate Pants
 	["Craft 17 {item:7920} until 210"] = "",
 	["About 17 crafts. Armorsmith or Weaponsmith opens at 200 and level 40; optional."] = "",
 
-	-- Step 68: Train Artisan Blacksmithing
+	-- Step 70: Train Artisan Blacksmithing
 	-- {skill:164} Blacksmithing
 	["Train Artisan {skill:164}"] = "",
 	["Needs level 35."] = "",
 
-	-- Step 69: Buy Plans: Mithril Spurs at the Auction House
+	-- Step 71: Buy Plans: Mithril Spurs at the Auction House
 	-- {item:7989} Plans: Mithril Spurs
 	["Buy {item:7989} at the Auction House"] = "",
 	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
 	["Saves about 130 Thorium and 150 Mithril Bars."] = "",
 	["None listed, or too dear"] = "",
 
-	-- Step 70: Learn Mithril Spurs
+	-- Step 72: Learn Mithril Spurs
 	-- {spell:9964} Mithril Spurs
 	["Learn {spell:9964}"] = "",
 	["From the plans in your bags."] = "",
 
-	-- Step 71: Mine 148 Solid Stone
+	-- Step 73: Mine 148 Solid Stone
 	-- {item:7912} Solid Stone
 	["Mine 148 {item:7912}"] = "",
 	-- plural, as words: Solid Grinding Stones = {item:7966} Solid Grinding Stone
 	["For 37 Solid Grinding Stones."] = "",
 
-	-- Step 72: Mine and smelt 60 Mithril Bar
+	-- Step 74: Mine and smelt 60 Mithril Bar
 	-- {item:3860} Mithril Bar
 	["Mine and smelt 60 {item:3860}"] = "",
 	-- {item:7969} Mithril Spurs
 	["For 15 {item:7969}."] = "",
 
-	-- Step 73: Craft 37 Solid Grinding Stones
+	-- Step 76: Craft 37 Solid Grinding Stones
 	-- plural, as words: Solid Grinding Stones = {item:7966} Solid Grinding Stone
 	["Craft 37 Solid Grinding Stones"] = "",
 	["Parts for the spurs; no skill points from these."] = "",
 
-	-- Step 75: Craft 15 Mithril Spurs until 225
+	-- Step 78: Craft 15 Mithril Spurs until 225
 	-- {item:7969} Mithril Spurs
 	["Craft 15 {item:7969} until 225"] = "",
 	["About 15 crafts."] = "",
 
-	-- Step 76: Mine 16 Dense Stone
+	-- Step 79: Mine 16 Dense Stone
 	-- {item:12365} Dense Stone
 	["Mine 16 {item:12365}"] = "",
 	-- {skill:186} Mining
 	-- plural, as words: Dense Sharpening Stones = {item:12404} Dense Sharpening Stone
 	["For 16 Dense Sharpening Stones. {skill:186} 245 to 263 on the way."] = "",
 
-	-- Step 77: Learn Dense Sharpening Stone
+	-- Step 80: Learn Dense Sharpening Stone
 	-- {spell:16641} Dense Sharpening Stone
 	["Learn {spell:16641}"] = "",
 
-	-- Step 78: Craft 16 Dense Sharpening Stones until 235
+	-- Step 81: Craft 16 Dense Sharpening Stones until 235
 	-- plural, as words: Dense Sharpening Stones = {item:12404} Dense Sharpening Stone
 	["Craft 16 Dense Sharpening Stones until 235"] = "",
 	["About 16 crafts."] = "",
 
-	-- Step 79: Mine 336 Solid Stone
+	-- Step 82: Mine 336 Solid Stone
 	-- {item:7912} Solid Stone
 	["Mine 336 {item:7912}"] = "",
 	-- plural, as words: Solid Grinding Stones = {item:7966} Solid Grinding Stone
 	["For 84 Solid Grinding Stones."] = "",
 
-	-- Step 80: Mine and smelt 112 Mithril Bar
+	-- Step 83: Mine and smelt 112 Mithril Bar
 	-- {item:3860} Mithril Bar
 	["Mine and smelt 112 {item:3860}"] = "",
 	-- {item:7969} Mithril Spurs
 	["For 28 {item:7969}."] = "",
 
-	-- Step 81: Craft 84 Solid Grinding Stones
+	-- Step 85: Craft 84 Solid Grinding Stones
 	-- plural, as words: Solid Grinding Stones = {item:7966} Solid Grinding Stone
 	["Craft 84 Solid Grinding Stones"] = "",
 
-	-- Step 83: Craft 28 Mithril Spurs until 245
+	-- Step 87: Craft 28 Mithril Spurs until 245
 	-- {item:7969} Mithril Spurs
 	["Craft 28 {item:7969} until 245"] = "",
 	["About 28 crafts."] = "",
 
-	-- Step 84: Mine and smelt 72 Mithril Bar
+	-- Step 88: Mine and smelt 72 Mithril Bar
 	-- {item:3860} Mithril Bar
 	["Mine and smelt 72 {item:3860}"] = "",
 	-- plural, as words: Heavy Mithril Axes = {item:7941} Heavy Mithril Axe
 	["For 6 Heavy Mithril Axes."] = "",
 
-	-- Step 85: Get 12 Citrine
+	-- Step 89: Get 12 Citrine
 	-- {item:3864} Citrine
 	["Get 12 {item:3864}"] = "",
 
-	-- Step 86: Get 24 Heavy Leather
+	-- Step 90: Get 24 Heavy Leather
 	-- {item:4234} Heavy Leather
 	["Get 24 {item:4234}"] = "",
 
-	-- Step 87: Learn Heavy Mithril Axe
+	-- Step 91: Learn Heavy Mithril Axe
 	-- {spell:9993} Heavy Mithril Axe
 	["Learn {spell:9993}"] = "",
 
-	-- Step 89: Craft 6 Heavy Mithril Axes until 215
+	-- Step 93: Craft 6 Heavy Mithril Axes until 215
 	-- plural, as words: Heavy Mithril Axes = {item:7941} Heavy Mithril Axe
 	["Craft 6 Heavy Mithril Axes until 215"] = "",
 	["About 6 crafts. Weaponsmithing later? Keep 2: its quest asks for them."] = "",
 
-	-- Step 90: Mine and smelt 100 Mithril Bar
+	-- Step 94: Mine and smelt 100 Mithril Bar
 	-- {item:3860} Mithril Bar
 	["Mine and smelt 100 {item:3860}"] = "",
 	-- plural, as words: Mithril Coifs = {item:7931} Mithril Coif
 	["For 10 Mithril Coifs."] = "",
 
-	-- Step 91: Get 60 Mageweave Cloth
+	-- Step 95: Get 60 Mageweave Cloth
 	-- {item:4338} Mageweave Cloth
 	["Get 60 {item:4338}"] = "",
 
-	-- Step 92: Learn Mithril Coif
+	-- Step 96: Learn Mithril Coif
 	-- {spell:9961} Mithril Coif
 	["Learn {spell:9961}"] = "",
 
-	-- Step 94: Craft 10 Mithril Coifs until 225
+	-- Step 98: Craft 10 Mithril Coifs until 225
 	-- plural, as words: Mithril Coifs = {item:7931} Mithril Coif
 	["Craft 10 Mithril Coifs until 225"] = "",
 	["About 10 crafts. Armorsmithing later? Keep 2: its quest asks for them."] = "",
 
-	-- Step 98: Mine and smelt 154 Mithril Bar
+	-- Step 102: Mine and smelt 154 Mithril Bar
 	-- {item:3860} Mithril Bar
 	["Mine and smelt 154 {item:3860}"] = "",
 	-- {item:7933} Heavy Mithril Boots
 	["For 11 {item:7933}."] = "",
 
-	-- Step 99: Get 44 Thick Leather
+	-- Step 103: Get 44 Thick Leather
 	-- {item:4304} Thick Leather
 	["Get 44 {item:4304}"] = "",
 
-	-- Step 100: Learn Heavy Mithril Boots
+	-- Step 104: Learn Heavy Mithril Boots
 	-- {spell:9968} Heavy Mithril Boots
 	["Learn {spell:9968}"] = "",
 
-	-- Step 102: Craft 11 Heavy Mithril Boots until 240
+	-- Step 106: Craft 11 Heavy Mithril Boots until 240
 	-- {item:7933} Heavy Mithril Boots
 	["Craft 11 {item:7933} until 240"] = "",
 	["About 11 crafts. Armorsmithing later? Keep 2: its quest asks for them."] = "",
 
-	-- Step 103: Get 5 Aquamarine
+	-- Step 107: Get 5 Aquamarine
 	-- {item:7909} Aquamarine
 	["Get 5 {item:7909}"] = "",
 	-- plural, as words: Imperial Plate Belts = {quest:7653} Imperial Plate Belt
 	["For 5 Imperial Plate Belts."] = "",
 
-	-- Step 104: Get 30 Rugged Leather
+	-- Step 108: Get 30 Rugged Leather
 	-- {item:8170} Rugged Leather
 	["Get 30 {item:8170}"] = "",
 
-	-- Step 105: Learn Smelt Thorium
+	-- Step 109: Learn Smelt Thorium
 	-- {spell:16153} Smelt Thorium
 	["Learn {spell:16153}"] = "",
 
-	-- Step 106: Mine until Mining 275
+	-- Step 110: Mine until Mining 275
 	-- {skill:186} Mining
 	["Mine until {skill:186} 275"] = "",
 	-- {item:10620} Thorium Ore · {skill:186} Mining
 	["This loop gives the {item:10620} to {skill:186} 275; the next one the rest."] = "",
 
-	-- Step 107: Mine until Mining 300
+	-- Step 111: Mine until Mining 300
 	-- {skill:186} Mining
 	["Mine until {skill:186} 300"] = "",
 	-- {item:10620} Thorium Ore · {skill:186} Mining
 	["This loop gives the {item:10620} to {skill:186} 300; the next one the rest."] = "",
 
-	-- Step 108: Mine and smelt 150 Thorium Bar
+	-- Step 112: Mine and smelt 150 Thorium Bar
 	-- {item:12359} Thorium Bar
 	["Mine and smelt 150 {item:12359}"] = "",
 	-- plural, as words: Imperial Plate Belts = {quest:7653} Imperial Plate Belt
 	["For 5 Imperial Plate Belts and the plans."] = "",
 
-	-- Step 109: Reach level 50
+	-- Step 113: Reach level 50
 	["Reach level 50"] = "",
 	-- {quest:7652} A Blue Light Bargain
 	["{quest:7652} asks for level 50."] = "",
 
-	-- Step 110: Hand in A Blue Light Bargain
+	-- Step 114: Hand in A Blue Light Bargain
 	-- {quest:7652} A Blue Light Bargain
 	["Hand in {quest:7652}"] = "",
 
-	-- Step 111: Hand in Imperial Plate Belt
+	-- Step 115: Hand in Imperial Plate Belt
 	-- {quest:7653} Imperial Plate Belt
 	["Hand in {quest:7653}"] = "",
 
-	-- Step 112: Hand in Imperial Plate Bracer
+	-- Step 116: Hand in Imperial Plate Bracer
 	-- {quest:7655} Imperial Plate Bracer
 	["Hand in {quest:7655}"] = "",
 
-	-- Step 113: Learn Imperial Plate Belt
+	-- Step 117: Learn Imperial Plate Belt
 	-- {spell:16647} Imperial Plate Belt
 	["Learn {spell:16647}"] = "",
 
-	-- Step 115: Craft 5 Imperial Plate Belts until 245
+	-- Step 119: Craft 5 Imperial Plate Belts until 245
 	-- plural, as words: Imperial Plate Belts = {item:12424} Imperial Plate Belt
 	["Craft 5 Imperial Plate Belts until 245"] = "",
 
-	-- Step 116: Get 27 Star Ruby
+	-- Step 120: Get 27 Star Ruby
 	-- {item:7910} Star Ruby
 	["Get 27 {item:7910}"] = "",
 	-- {item:12425} Imperial Plate Bracers
 	["For 27 {item:12425}."] = "",
 
-	-- Step 120: Mine and smelt 560 Thorium Bar
+	-- Step 124: Mine and smelt 560 Thorium Bar
 	-- {item:12359} Thorium Bar
 	["Mine and smelt 560 {item:12359}"] = "",
 	-- {item:12425} Imperial Plate Bracers
 	["For 27 {item:12425} and the plans."] = "",
 
-	-- Step 124: Learn Imperial Plate Bracers
+	-- Step 128: Learn Imperial Plate Bracers
 	-- {spell:16649} Imperial Plate Bracers
 	["Learn {spell:16649}"] = "",
 
-	-- Step 126: Craft 27 Imperial Plate Bracers until 270
+	-- Step 130: Craft 27 Imperial Plate Bracers until 270
 	-- {item:12425} Imperial Plate Bracers
 	["Craft 27 {item:12425} until 270"] = "",
 	["About 27 crafts."] = "",
 
-	-- Step 127: Buy Plans: Radiant Boots at the Auction House
+	-- Step 131: Buy Plans: Radiant Boots at the Auction House
 	-- {item:12697} Plans: Radiant Boots
 	["Buy {item:12697} at the Auction House"] = "",
 	["The cheapest way to 300 when both plans are listed."] = "",
 
-	-- Step 128: Buy Plans: Radiant Leggings at the Auction House
+	-- Step 132: Buy Plans: Radiant Leggings at the Auction House
 	-- {item:12713} Plans: Radiant Leggings
 	["Buy {item:12713} at the Auction House"] = "",
 
-	-- Step 129: Buy Plans: Thorium Leggings at the Auction House
+	-- Step 133: Buy Plans: Thorium Leggings at the Auction House
 	-- {item:12704} Plans: Thorium Leggings
 	["Buy {item:12704} at the Auction House"] = "",
 	["Next cheapest; the plans are learned at 275."] = "",
 
-	-- Step 130: Learn Radiant Boots
+	-- Step 134: Learn Radiant Boots
 	-- {spell:16656} Radiant Boots
 	["Learn {spell:16656}"] = "",
 
-	-- Step 131: Get 88 Heart of Fire
+	-- Step 135: Get 88 Heart of Fire
 	-- {item:7077} Heart of Fire
 	["Get 88 {item:7077}"] = "",
 	-- {item:12419} Radiant Boots
 	["For 22 {item:12419}."] = "",
 
-	-- Step 132: Mine and smelt 308 Thorium Bar
+	-- Step 136: Mine and smelt 308 Thorium Bar
 	-- {item:12359} Thorium Bar
 	["Mine and smelt 308 {item:12359}"] = "",
 
-	-- Step 134: Craft 22 Radiant Boots until 290
+	-- Step 138: Craft 22 Radiant Boots until 290
 	-- {item:12419} Radiant Boots
 	["Craft 22 {item:12419} until 290"] = "",
 	["About 22 crafts."] = "",
 
-	-- Step 135: Get 40 Heart of Fire
+	-- Step 139: Get 40 Heart of Fire
 	-- {item:7077} Heart of Fire
 	["Get 40 {item:7077}"] = "",
 	-- {item:12420} Radiant Leggings
 	["For 10 {item:12420}."] = "",
 
-	-- Step 136: Mine and smelt 200 Thorium Bar
+	-- Step 140: Mine and smelt 200 Thorium Bar
 	-- {item:12359} Thorium Bar
 	["Mine and smelt 200 {item:12359}"] = "",
 
-	-- Step 137: Learn Radiant Leggings
+	-- Step 141: Learn Radiant Leggings
 	-- {spell:16725} Radiant Leggings
 	["Learn {spell:16725}"] = "",
 
-	-- Step 139: Craft 10 Radiant Leggings until 300
+	-- Step 143: Craft 10 Radiant Leggings until 300
 	-- {item:12420} Radiant Leggings
 	["Craft 10 {item:12420} until 300"] = "",
 
-	-- Step 144: Get 20 Star Ruby
+	-- Step 148: Get 20 Star Ruby
 	-- {item:7910} Star Ruby
 	["Get 20 {item:7910}"] = "",
 	-- {quest:7658} Imperial Plate Leggings
 	["For 10 {quest:7658}."] = "",
 
-	-- Step 145: Mine and smelt 500 Thorium Bar
+	-- Step 149: Mine and smelt 500 Thorium Bar
 	-- {item:12359} Thorium Bar
 	["Mine and smelt 500 {item:12359}"] = "",
 	-- {quest:7658} Imperial Plate Leggings
 	["For 10 {quest:7658} and the plans."] = "",
 
-	-- Step 146: Hand in Imperial Plate Leggings
+	-- Step 150: Hand in Imperial Plate Leggings
 	-- {quest:7658} Imperial Plate Leggings
 	["Hand in {quest:7658}"] = "",
 
-	-- Step 147: Learn Imperial Plate Leggings
+	-- Step 151: Learn Imperial Plate Leggings
 	-- {spell:16730} Imperial Plate Leggings
 	["Learn {spell:16730}"] = "",
 
-	-- Step 149: Craft 10 Imperial Plate Leggings until 300
+	-- Step 153: Craft 10 Imperial Plate Leggings until 300
 	-- {item:12429} Imperial Plate Leggings
 	["Craft 10 {item:12429} until 300"] = "",
 
-	-- Step 150: Get 11 Star Ruby
+	-- Step 154: Get 11 Star Ruby
 	-- {item:7910} Star Ruby
 	["Get 11 {item:7910}"] = "",
 	-- {item:12425} Imperial Plate Bracers
 	["For 11 {item:12425}."] = "",
 
-	-- Step 151: Mine and smelt 220 Thorium Bar
+	-- Step 155: Mine and smelt 220 Thorium Bar
 	-- {item:12359} Thorium Bar
 	["Mine and smelt 220 {item:12359}"] = "",
 
-	-- Step 153: Craft 11 Imperial Plate Bracers until 275
+	-- Step 156: Learn Imperial Plate Bracers
+	["Taught at 245; done at once if you learned it then."] = "",
+
+	-- Step 158: Craft 11 Imperial Plate Bracers until 275
 	-- {item:12425} Imperial Plate Bracers
 	["Craft 11 {item:12425} until 275"] = "",
 	["About 11 crafts."] = "",
 
-	-- Step 154: Get 108 Red Power Crystal
+	-- Step 159: Get 108 Red Power Crystal
 	-- {item:11186} Red Power Crystal
 	["Get 108 {item:11186}"] = "",
 	-- {item:12414} Thorium Leggings
 	["For 27 {item:12414}."] = "",
 
-	-- Step 155: Mine and smelt 702 Thorium Bar
+	-- Step 160: Mine and smelt 702 Thorium Bar
 	-- {item:12359} Thorium Bar
 	["Mine and smelt 702 {item:12359}"] = "",
 
-	-- Step 156: Learn Thorium Leggings
+	-- Step 161: Learn Thorium Leggings
 	-- {spell:16662} Thorium Leggings
 	["Learn {spell:16662}"] = "",
 
-	-- Step 158: Craft 27 Thorium Leggings until 300
+	-- Step 163: Craft 27 Thorium Leggings until 300
 	-- {item:12414} Thorium Leggings
 	["Craft 27 {item:12414} until 300"] = "",
 
-	-- Step 159: Get 20 Aquamarine
+	-- Step 164: Get 20 Aquamarine
 	-- {item:7909} Aquamarine
 	["Get 20 {item:7909}"] = "",
 	-- {quest:7654} Imperial Plate Boots
 	["For 20 {quest:7654}."] = "",
 
-	-- Step 161: Mine and smelt 720 Thorium Bar
+	-- Step 166: Mine and smelt 720 Thorium Bar
 	-- {item:12359} Thorium Bar
 	["Mine and smelt 720 {item:12359}"] = "",
 	-- {quest:7654} Imperial Plate Boots
 	["For 20 {quest:7654} and the plans."] = "",
 
-	-- Step 162: Hand in Imperial Plate Boots
+	-- Step 167: Hand in Imperial Plate Boots
 	-- {quest:7654} Imperial Plate Boots
 	["Hand in {quest:7654}"] = "",
 
-	-- Step 163: Learn Imperial Plate Boots
+	-- Step 168: Learn Imperial Plate Boots
 	-- {spell:16657} Imperial Plate Boots
 	["Learn {spell:16657}"] = "",
 
-	-- Step 165: Craft 20 Imperial Plate Boots until 290
+	-- Step 170: Craft 20 Imperial Plate Boots until 290
 	-- {item:12426} Imperial Plate Boots
 	["Craft 20 {item:12426} until 290"] = "",
 	["About 20 crafts."] = "",

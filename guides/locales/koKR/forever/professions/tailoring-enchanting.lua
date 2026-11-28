@@ -9,548 +9,922 @@ return {
 	-- Step 1: Learn Tailoring
 	-- {skill:197} Tailoring
 	["Learn {skill:197}"] = "",
-	-- {skill:197} Tailoring · {item:2589} Linen Cloth · {item:2592} Wool Cloth
-	["Apprentice {skill:197} lets you craft up to 75 for 10c, at any character level. Any {skill:197} trainer of your faction teaches it; the arrow picks the nearest. Keep every {item:2589} you loot: humanoids of level 5-20 drop it. 1-75 takes about 1s 50c of recipes and 4s 10c of vendor goods, plus 84 {item:2589} and 69 {item:2592} to gather or buy."] = "",
+	["No character level needed."] = "",
 
-	-- Step 2: Tailoring 1-75: vendor goods
-	-- {skill:197} Tailoring
-	["{skill:197} 1-75: vendor goods"] = "",
-	-- {item:2320} Coarse Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 41 {item:2320} (4s 10c); about 4s 10c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "",
-
-	-- Step 3: Get Linen Cloth
-	-- {item:2589} Linen Cloth
-	["Get {item:2589}"] = "",
-	-- {item:2589} Linen Cloth · {skill:197} Tailoring
-	-- plural, as words: Linen Belts = {item:7026} Linen Belt
-	["84 {item:2589} for {skill:197} 1-75: 14 Bolts of Linen Cloth and 42 Linen Belts. Humanoids of level 5-20 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2589} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
-
-	-- Step 4: Get Wool Cloth
-	-- {item:2592} Wool Cloth
-	["Get {item:2592}"] = "",
-	-- {item:2592} Wool Cloth · {skill:197} Tailoring
-	["69 {item:2592} for {skill:197} 1-75: 23 Bolts of Woolen Cloth. Humanoids of level 15-30 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
-
-	-- Step 5: Bolt of Linen Cloth to 15
-	-- {spell:2963} Bolt of Linen Cloth
-	["{spell:2963} to 15"] = "",
-	-- {spell:2963} Bolt of Linen Cloth · {item:2589} Linen Cloth
-	-- plural, as words: Linen Belts = {item:7026} Linen Belt
-	["{spell:2963} is orange at 1 (yellow 25, green 37, grey 50): about 14 crafts to 15, a point every craft. Each takes 2 {item:2589}. Keep the bolts: the Linen Belts from 15 take one each."] = "",
-
-	-- Step 6: Tailoring recipes at 15
-	-- {skill:197} Tailoring
-	["{skill:197} recipes at 15"] = "",
-	-- {skill:197} Tailoring · {spell:8776} Linen Belt
-	["Back to a {skill:197} trainer: {spell:8776} (from 15, 50c)."] = "",
-
-	-- Step 7: Linen Belt to 55
-	-- {item:7026} Linen Belt
-	["{item:7026} to 55"] = "",
-	-- {item:7026} Linen Belt · {spell:2963} Bolt of Linen Cloth · {item:2320} Coarse Thread
-	["{item:7026} is orange at 15 (yellow 50, green 67, grey 85): about 41 crafts to 55, up to 42 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {spell:2963} and 1 {item:2320}. Make the 27 {spell:2963} first: it gives points too while not grey. Use the 14 {spell:2963} you made earlier; the counts above leave them out. Each belt takes one bolt; the belts sell to vendors."] = "",
-
-	-- Step 8: Tailoring recipes at 55
-	-- {skill:197} Tailoring
-	["{skill:197} recipes at 55"] = "",
-	-- {skill:197} Tailoring · {spell:2964} Bolt of Woolen Cloth · {spell:1229504} Faction Banner · {spell:2963} Bolt of Linen Cloth · {item:2320} Coarse Thread
-	["Back to a {skill:197} trainer: {spell:2964} (from 55, 1s). Also learn {spell:1229504} (1s): Forever's {skill:197} camp item, a {spell:2963} and a {item:2320}; each faction has its own. The Camping 101: {skill:197} quest from your starting area's camping guide (after The Great Outdoors) sends you to a tailoring trainer who teaches it free."] = "",
-
-	-- Step 9: Bolt of Woolen Cloth to 75
-	-- {spell:2964} Bolt of Woolen Cloth
-	["{spell:2964} to 75"] = "",
-	-- {spell:2964} Bolt of Woolen Cloth · {item:2592} Wool Cloth
-	-- plural, as words: Woolen Capes = {spell:2402} Woolen Cape
-	["{spell:2964} is orange at 55 (yellow 70, green 77, grey 85): about 21 crafts to 75, up to 23 for 9 players in 10 (the gathered materials above count that many). Each takes 3 {item:2592}. Keep the bolts: the Woolen Capes from 75 take one each, so these points cost no extra {item:2592}."] = "",
-
-	-- Step 10: Learn Enchanting
+	-- Step 2: Learn Enchanting
 	-- {skill:333} Enchanting
 	["Learn {skill:333}"] = "",
-	-- {skill:333} Enchanting · {npc:3606} Alanna Raveneye · {zone:1438} Teldrassil · {npc:11068} Betty Quin · {zone:1453} Stormwind City · {npc:257004} Eaysaa Brightgust · {npc:11070} Lalina Summermoon · {zone:1457} Darnassus · {npc:257020} Nasalanna Windsinger · {npc:11065} Thonys Pillarstone · {zone:1455} Ironforge · {npc:11066} Jhag · {zone:1454} Orgrimmar · {npc:11067} Malcomb Wynn · {zone:1458} Undercity · {npc:11071} Mot Dawnstrider · {zone:1456} Thunder Bluff · {npc:266881} Pa'zula · {zone:1411} Durotar · {npc:5695} Vance Undergloom · {zone:1420} Tirisfal Glades · {item:6217} Copper Rod · {item:247786} Mote of Magic · {npc:11072} Kitta Firewind · {area:91} Tower of Azora · {zone:1429} Elwynn Forest · {area:367} Sen'jin Village · {item:10940} Strange Dust
-	["Apprentice {skill:333} lets you craft up to 75 for 10c, at any character level. Not every {skill:333} trainer teaches it: Alliance {npc:3606} ({zone:1438}), {npc:11068} ({zone:1453}), {npc:257004} (Zephras Isle), {npc:11070} ({zone:1457}), {npc:257020} (Zephras Isle) and {npc:11065} ({zone:1455}); Horde {npc:257004} (Zephras Isle), {npc:11066} ({zone:1454}), {npc:11067} ({zone:1458}), {npc:11071} ({zone:1456}), {npc:257020} (Zephras Isle), {npc:266881} ({zone:1411}) and {npc:5695} ({zone:1420}). The arrow picks the nearest of your faction. Buy a {item:6217} and {item:247786} from an enchanting supplies vendor (in the capitals and on Zephras Isle; the starting-area trainers have none beside them, and the next step's arrow picks the nearest). From now on, disenchant every green you do not wear: that is where the dust and essences come from. Two starter quests teach Disenchant on a quest item: An Enchanting Lesson from {npc:11072} ({area:91}, {zone:1429}) and A Pain in the Neck from {npc:266881} ({area:367}, {zone:1411}). 1-75 takes about 50c of recipes and 4s 44c of vendor goods, plus 52 {item:10940} to gather or buy."] = "",
 
-	-- Step 11: Enchanting 1-75: vendor goods
+	-- Step 3: Buy 28 Coarse Thread
+	-- {item:2320} Coarse Thread
+	["Buy 28 {item:2320}"] = "",
+	-- plural, as words: Linen Belts = {item:7026} Linen Belt
+	["For 28 Linen Belts."] = "",
+
+	-- Step 4: Get 60 Linen Cloth
+	-- {item:2589} Linen Cloth
+	["Get 60 {item:2589}"] = "",
+	["For 30 Bolts of Linen Cloth."] = "",
+
+	-- Step 5: Craft 30 Bolts of Linen Cloth until 30
+	["Craft 30 Bolts of Linen Cloth until 30"] = "",
+	["About 30 crafts. Keep all 30 bolts: the belts next use them."] = "",
+
+	-- Step 6: Learn Linen Belt
+	-- {spell:8776} Linen Belt
+	["Learn {spell:8776}"] = "",
+
+	-- Step 7: Craft 28 Linen Belts until 55
+	-- plural, as words: Linen Belts = {item:7026} Linen Belt
+	["Craft 28 Linen Belts until 55"] = "",
+	["About 28 crafts."] = "",
+
+	-- Step 8: Buy 1 Copper Rod
+	-- {item:6217} Copper Rod
+	["Buy 1 {item:6217}"] = "",
+	-- {item:6218} Runed Copper Rod
+	["For 1 {item:6218}."] = "",
+
+	-- Step 9: Buy 19 Mote of Magic
+	-- {item:247786} Mote of Magic
+	["Buy 19 {item:247786}"] = "",
+	-- {item:6218} Runed Copper Rod · {spell:7418} Enchant Bracer - Inferior Stamina
+	["For 1 {item:6218} and 18 {spell:7418}."] = "",
+
+	-- Step 10: Craft 1 Runed Copper Rod until 2
+	-- {item:6218} Runed Copper Rod
+	["Craft 1 {item:6218} until 2"] = "",
+	["A tool: it stays in your bags, and every enchant needs it."] = "",
+
+	-- Step 11: Disenchant your green items until 20
+	["Disenchant your green items until 20"] = "",
 	-- {skill:333} Enchanting
-	["{skill:333} 1-75: vendor goods"] = "",
-	-- {item:6217} Copper Rod · {item:247786} Mote of Magic · {zone:1453} Stormwind City · {npc:1318} Jessara Cordell · {zone:1454} Orgrimmar · {npc:3346} Kithas
-	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1318}; {zone:1454}: {npc:3346})."] = "",
+	["Disenchant is in the {skill:333} window, not the spellbook. Nearly every item gives a point below 20."] = "",
+	["No green items left to break"] = "",
 
-	-- Step 12: Get Strange Dust
-	-- {item:10940} Strange Dust
-	["Get {item:10940}"] = "",
-	-- {item:10940} Strange Dust · {skill:333} Enchanting · {spell:7420} Enchant Chest - Inferior Stamina
-	["52 {item:10940} for {skill:333} 1-75: 52 {spell:7420}. {skill:333}: disenchant green armour that requires level 1-20. Or buy them at the Auction House."] = "",
-
-	-- Step 13: Enchant Bracer - Inferior Stamina to 25
+	-- Step 12: Craft 18 Enchant Bracer - Inferior Stamina until 20
 	-- {spell:7418} Enchant Bracer - Inferior Stamina
-	["{spell:7418} to 25"] = "",
-	-- {spell:7418} Enchant Bracer - Inferior Stamina · {item:247786} Mote of Magic · {item:6218} Runed Copper Rod
-	["{spell:7418} is orange at 1 (yellow 20, green 22, grey 25): about 31 crafts to 25, up to 38 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:247786}. One {item:247786} (10c) a craft; grey at 25 on Forever. Make the {item:6218} first: the recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "",
-	["a tool: keep it in your bags"] = "",
+	["Craft 18 {spell:7418} until 20"] = "",
+	["About 18 crafts. Any bracer you wear or carry takes them all, one over the last."] = "",
 
-	-- Step 14: Enchanting recipes at 25
-	-- {skill:333} Enchanting
-	["{skill:333} recipes at 25"] = "",
-	-- {skill:333} Enchanting · {spell:7420} Enchant Chest - Inferior Stamina · {spell:1230643} Enchanted Lute · {item:4470} Simple Wood · {item:10940} Strange Dust
-	["Back to an {skill:333} trainer: {spell:7420} (from 15, 50c). Also learn {spell:1230643} (1s): Forever's {skill:333} camp item, 1 {item:4470} and 1 {item:10940}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:333} quest from your starting area's camping guide (after The Great Outdoors) sends you to an enchanting trainer who teaches it free."] = "",
-
-	-- Step 15: Enchant Chest - Inferior Stamina to 75
+	-- Step 13: Get 50 Strange Dust
+	-- {item:10940} Strange Dust
+	["Get 50 {item:10940}"] = "",
 	-- {spell:7420} Enchant Chest - Inferior Stamina
-	["{spell:7420} to 75"] = "",
-	-- {spell:7420} Enchant Chest - Inferior Stamina · {item:10940} Strange Dust · {item:10938} Lesser Magic Essence · {spell:7423} Minor Absorption
-	["{spell:7420} is orange at 25 (yellow 70, green 90, grey 110): about 51 crafts to 75, up to 52 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["For 50 {spell:7420}."] = "",
 
-	-- Step 16: Journeyman Tailoring
+	-- Step 14: Learn Enchant Chest - Inferior Stamina
+	-- {spell:7420} Enchant Chest - Inferior Stamina
+	["Learn {spell:7420}"] = "",
+
+	-- Step 15: Craft 50 Enchant Chest - Inferior Stamina until 70
+	-- {spell:7420} Enchant Chest - Inferior Stamina
+	["Craft 50 {spell:7420} until 70"] = "",
+	["About 50 crafts. Any chest piece you wear or carry takes them all."] = "",
+
+	-- Step 16: Buy 82 Fine Thread
+	-- {item:2321} Fine Thread
+	["Buy 82 {item:2321}"] = "",
+	-- {spell:3848} Double-stitched Woolen Shoulders
+	-- plural, as words: Woolen Capes = {spell:2402} Woolen Cape · Azure Silk Hoods = {item:7048} Azure Silk Hood · Small Silk Packs = {spell:3813} Small Silk Pack
+	["For 22 Woolen Capes, 5 {spell:3848}, 5 Azure Silk Hoods and 15 Small Silk Packs."] = "",
+
+	-- Step 17: Buy 10 Blue Dye
+	-- {item:6260} Blue Dye
+	["Buy 10 {item:6260}"] = "",
+	-- plural, as words: Azure Silk Hoods = {item:7048} Azure Silk Hood
+	["For 5 Azure Silk Hoods."] = "",
+
+	-- Step 18: Get 111 Wool Cloth
+	-- {item:2592} Wool Cloth
+	["Get 111 {item:2592}"] = "",
+	["For 37 Bolts of Woolen Cloth."] = "",
+
+	-- Step 19: Train Journeyman Tailoring
 	-- {skill:197} Tailoring
-	["Journeyman {skill:197}"] = "",
-	-- {skill:197} Tailoring · {npc:251972} Charles Worth · {zone:1416} Alterac Mountains · {npc:2627} Grarnik Goodstitch · {zone:1434} Stranglethorn Vale · {npc:5153} Jormund Stonebrow · {zone:1455} Ironforge · {npc:4159} Me'lynn · {zone:1457} Darnassus · {npc:252380} Othesia Evengale · {npc:5567} Sellandus · {zone:1453} Stormwind City · {npc:251991} Taleen Shimmerthread · {npc:3363} Magar · {zone:1454} Orgrimmar · {npc:3704} Mahani · {zone:1413} The Barrens · {npc:11049} Rhiannon Davis · {zone:1458} Undercity · {npc:3004} Tepa · {zone:1456} Thunder Bluff · {spell:2402} Woolen Cape · {item:2592} Wool Cloth · {item:4306} Silk Cloth · {skill:333} Enchanting
-	["Journeyman raises the cap from 75 to 150 for 5s; it needs {skill:197} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:197} trainer teaches it: Alliance {npc:251972} ({zone:1416}), {npc:2627} ({zone:1434}), {npc:5153} ({zone:1455}), {npc:4159} ({zone:1457}), {npc:252380} (Zephras Isle), {npc:5567} ({zone:1453}) and {npc:251991} (Zephras Isle); Horde {npc:2627} ({zone:1434}), {npc:3363} ({zone:1454}), {npc:3704} ({zone:1413}), {npc:252380} (Zephras Isle), {npc:11049} ({zone:1458}), {npc:251991} (Zephras Isle) and {npc:3004} ({zone:1456}). The arrow picks the nearest of your faction. Learn now: {spell:2402} (from 55, 2s 50c). 75-150 takes about 13s 50c of recipes and 93s 50c of vendor goods, plus 57 {item:2592} and 424 {item:4306} to gather or buy. Train Journeyman {skill:333} on the same trip (it needs {skill:333} 50 and character level 10; the arrow picks the nearest {skill:333} trainer who teaches it): the {skill:333} steps below need it."] = "",
+	["Train Journeyman {skill:197}"] = "",
+	["Needs level 10."] = "",
 
-	-- Step 17: Tailoring 75-150: vendor goods
-	-- {skill:197} Tailoring
-	["{skill:197} 75-150: vendor goods"] = "",
-	-- {item:2321} Fine Thread · {item:2324} Bleach · {item:6260} Blue Dye · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 68 {item:2321} (68s), 34 {item:2324} (8s 50c) and 34 {item:6260} (17s); about 93s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347} and {npc:1286}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "",
+	-- Step 20: Train Journeyman Enchanting
+	-- {skill:333} Enchanting
+	["Train Journeyman {skill:333}"] = "",
 
-	-- Step 18: Get Wool Cloth
-	-- {item:2592} Wool Cloth · {skill:197} Tailoring
-	-- plural, as words: Woolen Capes = {spell:2402} Woolen Cape
-	["57 {item:2592} for {skill:197} 75-150: 40 Woolen Capes. Humanoids of level 15-30 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- Step 21: Learn Bolt of Woolen Cloth
+	-- {spell:2964} Bolt of Woolen Cloth
+	["Learn {spell:2964}"] = "",
 
-	-- Step 19: Get Silk Cloth
-	-- {item:4306} Silk Cloth
-	["Get {item:4306}"] = "",
-	-- {item:4306} Silk Cloth · {skill:197} Tailoring
-	-- plural, as words: Formal White Shirts = {spell:3871} Formal White Shirt
-	["424 {item:4306} for {skill:197} 75-150: 55 Bolts of Silk Cloth and 19 Formal White Shirts. Humanoids of level 25-45 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4306} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
-
-	-- Step 20: Woolen Cape to 100
+	-- Step 22: Learn Woolen Cape
 	-- {spell:2402} Woolen Cape
-	["{spell:2402} to 100"] = "",
-	-- {spell:2402} Woolen Cape · {spell:2964} Bolt of Woolen Cloth · {item:2321} Fine Thread
-	["{spell:2402} is orange at 75 (yellow 80, green 97, grey 115): about 34 crafts to 100, up to 40 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {spell:2964} and 1 {item:2321}. Make the 13 {spell:2964} first: it gives points too while not grey. Use the 21 {spell:2964} you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. If you got here without learning {spell:2964}, learn it now: an earlier step teaches it."] = "",
+	["Learn {spell:2402}"] = "",
+	["For 80-95: taught here now, so no second trip."] = "",
 
-	-- Step 21: Tailoring recipes at 100
-	-- {skill:197} Tailoring
-	["{skill:197} recipes at 100"] = "",
-	-- {skill:197} Tailoring · {spell:3839} Bolt of Silk Cloth
-	["Back to a {skill:197} trainer: {spell:3839} (from 100, 5s)."] = "",
+	-- Step 23: Craft 37 Bolts of Woolen Cloth until 80
+	["Craft 37 Bolts of Woolen Cloth until 80"] = "",
+	["About 37 crafts. Keep all 37 bolts: the capes and shoulders next use them. No points past 75 until Journeyman."] = "",
 
-	-- Step 22: Bolt of Silk Cloth to 120
+	-- Step 24: Learn Woolen Cape
+	["Taught at 55; done at once if you learned it then."] = "",
+
+	-- Step 25: Craft 22 Woolen Capes until 95
+	-- plural, as words: Woolen Capes = {spell:2402} Woolen Cape
+	["Craft 22 Woolen Capes until 95"] = "",
+	["About 22 crafts. Past 80 already from the bolts? These carry on from where you are."] = "",
+
+	-- Step 26: Learn Double-stitched Woolen Shoulders
+	-- {spell:3848} Double-stitched Woolen Shoulders
+	["Learn {spell:3848}"] = "",
+
+	-- Step 27: Craft 5 Double-stitched Woolen Shoulders until 100
+	-- {spell:3848} Double-stitched Woolen Shoulders
+	["Craft 5 {spell:3848} until 100"] = "",
+	["About 5 crafts."] = "",
+
+	-- Step 28: Get 220 Silk Cloth
+	-- {item:4306} Silk Cloth
+	["Get 220 {item:4306}"] = "",
+	["For 55 Bolts of Silk Cloth."] = "",
+
+	-- Step 29: Learn Bolt of Silk Cloth
 	-- {spell:3839} Bolt of Silk Cloth
-	["{spell:3839} to 120"] = "",
-	-- {spell:3839} Bolt of Silk Cloth · {item:4306} Silk Cloth
-	["{spell:3839} is orange at 100 (yellow 110, green 115, grey 120): about 40 crafts to 120, up to 55 for 9 players in 10 (the gathered materials above count that many). Each takes 4 {item:4306}. {item:4306} drops from humanoids of level 25-45. Keep every bolt: the hoods and shirts to 150 take them, so these points cost no extra {item:4306}."] = "",
+	["Learn {spell:3839}"] = "",
 
-	-- Step 23: Tailoring recipes at 120
-	-- {skill:197} Tailoring
-	["{skill:197} recipes at 120"] = "",
-	-- {skill:197} Tailoring · {spell:8760} Azure Silk Hood
-	["Back to a {skill:197} trainer: {spell:8760} (from 120, 6s)."] = "",
+	-- Step 30: Craft 55 Bolts of Silk Cloth until 120
+	["Craft 55 Bolts of Silk Cloth until 120"] = "",
+	["About 55 crafts. Keep all 55 bolts: 10 for the hoods, 45 for the packs."] = "",
 
-	-- Step 24: Azure Silk Hood to 135
-	-- {item:7048} Azure Silk Hood
-	["{item:7048} to 135"] = "",
-	-- {item:7048} Azure Silk Hood · {item:4305} Bolt of Silk Cloth · {item:6260} Blue Dye · {item:2321} Fine Thread
-	["{item:7048} is orange at 120 (yellow 130, green 135, grey 140): about 17 crafts to 135, up to 19 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:4305}, 2 {item:6260} and 1 {item:2321}. Use the 34 {item:4305} you made earlier; the counts above leave them out. Two silk bolts and two {item:6260} a hood: orange to 130, a point every craft."] = "",
+	-- Step 31: Learn Azure Silk Hood
+	-- {spell:8760} Azure Silk Hood
+	["Learn {spell:8760}"] = "",
 
-	-- Step 25: Tailoring recipes at 135
-	-- {skill:197} Tailoring
-	["{skill:197} recipes at 135"] = "",
-	-- {skill:197} Tailoring · {spell:3871} Formal White Shirt
-	["Back to a {skill:197} trainer: {spell:3871} (from 135)."] = "",
+	-- Step 32: Craft 5 Azure Silk Hoods until 125
+	-- plural, as words: Azure Silk Hoods = {item:7048} Azure Silk Hood
+	["Craft 5 Azure Silk Hoods until 125"] = "",
 
-	-- Step 26: Formal White Shirt to 150
-	-- {spell:3871} Formal White Shirt
-	["{spell:3871} to 150"] = "",
-	-- {spell:3871} Formal White Shirt · {spell:3839} Bolt of Silk Cloth · {item:2324} Bleach · {item:2321} Fine Thread · {skill:197} Tailoring
-	["{spell:3871} is orange at 135 (yellow 145, green 150, grey 155): about 17 crafts to 150, up to 19 for 9 players in 10 (the gathered materials above count that many). Each takes 3 {spell:3839}, 2 {item:2324} and 1 {item:2321}. Make the 45 {spell:3839} first. Use the 6 {spell:3839} you made earlier; the counts above leave them out. {item:2324} from tailoring and trade supplies vendors. {skill:197} 150 is a Legacy System milestone."] = "",
+	-- Step 33: Get 30 Heavy Leather
+	-- {item:4234} Heavy Leather
+	["Get 30 {item:4234}"] = "",
+	-- plural, as words: Small Silk Packs = {spell:3813} Small Silk Pack
+	["For 15 Small Silk Packs."] = "",
 
-	-- Step 27: Journeyman Enchanting
-	-- {skill:333} Enchanting
-	["Journeyman {skill:333}"] = "",
-	-- {skill:197} Tailoring · {skill:333} Enchanting · {item:10940} Strange Dust · {item:11083} Soul Dust · {item:10939} Greater Magic Essence · {item:11082} Greater Astral Essence · {item:10978} Small Glimmering Shard · {npc:5157} Gimble Thistlefuzz · {zone:1455} Ironforge · {npc:1317} Lucan Cordell · {zone:1453} Stormwind City · {npc:4213} Taladan · {zone:1457} Darnassus · {npc:7949} Xylinnia Starshine · {zone:1444} Feralas · {npc:3345} Godan · {zone:1454} Orgrimmar · {npc:4616} Lavinia Crowe · {zone:1458} Undercity · {npc:3011} Teg Dawnstrider · {zone:1456} Thunder Bluff · {spell:7771} Enchant Cloak - Minor Protection · {item:1210} Shadowgem · {item:6338} Silver Rod · {item:10938} Lesser Magic Essence
-	-- plural, as words: Woolen Capes = {spell:2402} Woolen Cape · Azure Silk Hoods = {item:7048} Azure Silk Hood
-	["Disenchant the green armour you made for {skill:197} 75-150: 34 Woolen Capes and 17 Azure Silk Hoods (item level 29, from {skill:333} 50) give about 64 {item:10940}, 19 {item:11083}, 10 {item:10939}, 5 {item:11082} and 2 {item:10978}. Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs {skill:333} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:333} trainer teaches it: Alliance {npc:5157} ({zone:1455}), {npc:1317} ({zone:1453}), {npc:4213} ({zone:1457}) and {npc:7949} ({zone:1444}); Horde {npc:3345} ({zone:1454}), {npc:4616} ({zone:1458}) and {npc:3011} ({zone:1456}). The arrow picks the nearest of your faction. Learn now: {spell:7771} (from 70, 2s). 75-150 takes about 2s of recipes, plus 1 {item:1210}, 1 {item:6338}, 4 {item:10938}, 136 {item:10940} and 20 {item:11083} to gather or buy."] = "",
+	-- Step 34: Learn Small Silk Pack
+	-- {spell:3813} Small Silk Pack
+	["Learn {spell:3813}"] = "",
 
-	-- Step 28: Enchanting 75-150: vendor goods
-	-- {skill:333} Enchanting
-	["{skill:333} 75-150: vendor goods"] = "",
-	-- {item:10938} Lesser Magic Essence
-	["Buy the whole bracket's share in one go: 4 {item:10938} (32s). The arrow picks the nearest seller of your faction. {item:10938}: no vendor of the other faction sells it; that side gathers or buys it at the Auction House (next steps)."] = "",
+	-- Step 35: Craft 15 Small Silk Packs until 140
+	-- plural, as words: Small Silk Packs = {spell:3813} Small Silk Pack
+	["Craft 15 Small Silk Packs until 140"] = "",
+	["About 15 crafts."] = "",
 
-	-- Step 29: Get Shadowgem
-	-- {item:1210} Shadowgem
-	["Get {item:1210}"] = "",
-	-- {item:1210} Shadowgem · {skill:333} Enchanting · {item:6339} Runed Silver Rod · {object:1731} Copper Vein · {object:1732} Tin Vein · {object:1733} Silver Vein
-	["1 {item:1210} for {skill:333} 75-150: {item:6339}. {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining. Or buy it at the Auction House."] = "",
+	-- Step 36: Buy 40 Fine Thread
+	-- {item:2321} Fine Thread
+	["Buy 40 {item:2321}"] = "",
+	-- plural, as words: Crimson Silk Vests = {item:7058} Crimson Silk Vest
+	["For 20 Crimson Silk Vests."] = "",
 
-	-- Step 30: Get Silver Rod
-	-- {item:6338} Silver Rod
-	["Get {item:6338}"] = "",
-	-- {item:6338} Silver Rod · {skill:333} Enchanting · {item:6339} Runed Silver Rod · {skill:164} Blacksmithing
-	["1 {item:6338} for {skill:333} 75-150: {item:6339}. {skill:164}: {item:6338}. Or buy it at the Auction House."] = "",
+	-- Step 37: Buy 74 Red Dye
+	-- {item:2604} Red Dye
+	["Buy 74 {item:2604}"] = "",
+	-- {item:7062} Crimson Silk Pantaloons
+	-- plural, as words: Crimson Silk Vests = {item:7058} Crimson Silk Vest
+	["For 20 Crimson Silk Vests and 17 {item:7062}."] = "",
 
-	-- Step 31: Get Strange Dust
-	-- {item:10940} Strange Dust · {skill:333} Enchanting · {spell:7420} Enchant Chest - Inferior Stamina · {spell:7771} Enchant Cloak - Minor Protection · {item:6339} Runed Silver Rod · {skill:197} Tailoring
-	["136 {item:10940} for {skill:333} 75-150: 27 {spell:7420}, 53 {spell:7771} and {item:6339}. Disenchanting your {skill:197} crafts of this bracket gives about 64 of them (see Journeyman {skill:333}); the other 72 come from greens you loot or the Auction House. {skill:333}: disenchant green armour that requires level 1-20. Or buy them at the Auction House."] = "",
+	-- Step 38: Buy 100 Silken Thread
+	-- {item:4291} Silken Thread
+	["Buy 100 {item:4291}"] = "",
+	-- {item:7062} Crimson Silk Pantaloons · {item:9999} Black Mageweave Leggings
+	["For 17 {item:7062} and 22 {item:9999}."] = "",
 
-	-- Step 32: Get Soul Dust
-	-- {item:11083} Soul Dust
-	["Get {item:11083}"] = "",
-	-- {item:11083} Soul Dust · {skill:333} Enchanting · {spell:13501} Enchant Bracer - Lesser Stamina · {skill:197} Tailoring
-	["20 {item:11083} for {skill:333} 75-150: 20 {spell:13501}. Disenchanting your {skill:197} crafts of this bracket gives about 19 of them (see Journeyman {skill:333}); the other 1 come from greens you loot or the Auction House. {skill:333}: disenchant green armour that requires level 21-30. Or buy them at the Auction House."] = "",
-
-	-- Step 33: Enchanting 75-150: Auction House
-	-- {skill:333} Enchanting
-	["{skill:333} 75-150: Auction House"] = "",
-	-- {item:10938} Lesser Magic Essence
-	["What 75-150 takes that the Auction House sells and no step above farms: 4 {item:10938}. The counts drop by what your bags, bank and mail hold."] = "",
-
-	-- Step 34: Enchant Chest - Inferior Stamina to 90
-	-- {spell:7420} Enchant Chest - Inferior Stamina
-	["{spell:7420} to 90"] = "",
-	-- {spell:7420} Enchant Chest - Inferior Stamina · {item:10940} Strange Dust · {item:10938} Lesser Magic Essence · {spell:7423} Minor Absorption
-	["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90, up to 27 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one. If you got here without learning {spell:7420}, learn it now: an earlier step teaches it."] = "",
-
-	-- Step 35: Enchant Cloak - Minor Protection to 130
-	-- {spell:7771} Enchant Cloak - Minor Protection
-	["{spell:7771} to 130"] = "",
-	-- {spell:7771} Enchant Cloak - Minor Protection · {item:10940} Strange Dust
-	["{spell:7771} is orange at 90 (yellow 110, green 130, grey 150): about 48 crafts to 130, up to 53 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:10940}. Two {item:10940} a craft (the trainer teaches it from 70 for 2s); keep disenchanting the greens of the 10-20 zones. Enchant any item for that slot in your bags, even a grey one."] = "",
-
-	-- Step 36: Enchanting recipes at 130
-	-- {skill:333} Enchanting
-	["{skill:333} recipes at 130"] = "",
-	-- {skill:333} Enchanting · {spell:7795} Runed Silver Rod · {spell:13501} Enchant Bracer - Lesser Stamina
-	["Back to an {skill:333} trainer: {spell:7795} (from 100) and {spell:13501} (from 130)."] = "",
-
-	-- Step 37: Enchant Bracer - Lesser Stamina to 150
-	-- {spell:13501} Enchant Bracer - Lesser Stamina
-	["{spell:13501} to 150"] = "",
-	-- {spell:13501} Enchant Bracer - Lesser Stamina · {item:11083} Soul Dust · {item:6339} Runed Silver Rod · {item:10938} Lesser Magic Essence · {skill:333} Enchanting
-	["{spell:13501} is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:6339} first: the recipe needs it in your bags, so keep it there. {item:10938} (4 for 75-150): Alliance: {skill:333}: disenchant green armour that requires level 1-10; or the Auction House. Enchant any item for that slot in your bags, even a grey one. {skill:333} 150 is a Legacy System milestone."] = "",
-
-	-- Step 38: Tailoring 150-225: vendor goods
-	-- {skill:197} Tailoring
-	["{skill:197} 150-225: vendor goods"] = "",
-	-- {item:2321} Fine Thread · {item:4291} Silken Thread · {item:6260} Blue Dye · {item:8343} Heavy Silken Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 44 {item:2321} (44s), 108 {item:4291} (5g 40s), 44 {item:6260} (22s) and 74 {item:8343} (14g 80s); about 20g 86s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "",
-
-	-- Step 39: Pattern: Azure Silk Cloak
-	-- {item:7089} Pattern: Azure Silk Cloak · {item:7053} Azure Silk Cloak · {skill:197} Tailoring · {npc:6576} Brienna Starglow · {zone:1444} Feralas · {npc:251997} Norvin Alderman · {zone:1416} Alterac Mountains · {npc:6574} Jun'ha · {zone:1417} Arathi Highlands
-	["{item:7089} teaches {item:7053} ({skill:197} 140) for 15s. Sold by Alliance: {npc:6576} ({zone:1444}), limited stock and {npc:251997} ({zone:1416}); Horde: {npc:6574} ({zone:1417}), limited stock and {npc:251997} ({zone:1416})."] = "",
-
-	-- Step 40: Get Silk Cloth
-	-- {item:4306} Silk Cloth · {skill:197} Tailoring
-	-- plural, as words: Azure Silk Cloaks = {item:7053} Azure Silk Cloak
-	["300 {item:4306} for {skill:197} 150-225: 25 Azure Silk Cloaks. Humanoids of level 25-45 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4306} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
-
-	-- Step 41: Get Mageweave Cloth
+	-- Step 39: Get 115 Mageweave Cloth
 	-- {item:4338} Mageweave Cloth
-	["Get {item:4338}"] = "",
-	-- {item:4338} Mageweave Cloth · {skill:197} Tailoring
-	-- plural, as words: Black Mageweave Vests = {item:9998} Black Mageweave Vest · Black Mageweave Headbands = {item:10024} Black Mageweave Headband
-	["1060 {item:4338} for {skill:197} 150-225: 40 Black Mageweave Vests and 44 Black Mageweave Headbands. Humanoids of level 35-50 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4338} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["Get 115 {item:4338}"] = "",
+	["For 23 Bolts of Mageweave."] = "",
 
-	-- Step 42: Expert Tailoring
+	-- Step 40: Train Expert Tailoring
 	-- {skill:197} Tailoring
-	["Expert {skill:197}"] = "",
-	-- {skill:197} Tailoring · {npc:251972} Charles Worth · {zone:1416} Alterac Mountains · {npc:1346} Georgio Bolero · {zone:1453} Stormwind City · {npc:4576} Josef Gregorian · {zone:1458} Undercity · {spell:3865} Bolt of Mageweave · {item:4306} Silk Cloth · {item:4338} Mageweave Cloth · {item:9998} Black Mageweave Vest · {item:10024} Black Mageweave Headband
-	["Expert raises the cap from 150 to 225; it needs {skill:197} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:251972} ({zone:1416}) and {npc:1346} ({zone:1453}); Horde {npc:4576} ({zone:1458}). This route trains it at {npc:1346} ({zone:1453}) for the Alliance and {npc:4576} ({zone:1458}) for the Horde, who also teach the recipes of 150-225: one trainer for every visit. Learn now: {spell:3865} (from 140). 150-225 takes about 15s of recipes and 20g 86s of vendor goods, plus 300 {item:4306} and 1060 {item:4338} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9998} (from 170), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 2. {item:10024} (from 200) takes a second trip, to other trainers (below)."] = "",
+	["Train Expert {skill:197}"] = "",
+	["Needs level 20."] = "",
 
-	-- Step 43: Azure Silk Cloak to 170
-	-- {item:7053} Azure Silk Cloak
-	["{item:7053} to 170"] = "",
-	-- {item:7053} Azure Silk Cloak · {spell:3839} Bolt of Silk Cloth · {item:6260} Blue Dye · {item:2321} Fine Thread
-	["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170, up to 25 for 9 players in 10 (the gathered materials above count that many). Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data. If you got here without learning {spell:3839}, learn it now: an earlier step teaches it."] = "",
-	["from the recipe in your bags"] = "",
+	-- Step 41: Learn Bolt of Mageweave
+	-- {spell:3865} Bolt of Mageweave
+	["Learn {spell:3865}"] = "",
 
-	-- Step 44: Tailoring recipes at 170
+	-- Step 42: Craft 23 Bolts of Mageweave until 150
+	["Craft 23 Bolts of Mageweave until 150"] = "",
+	["About 23 crafts. Keep all 23 bolts for the leggings at 185."] = "",
+
+	-- Step 43: Get 69 Strange Dust
+	-- {item:10940} Strange Dust
+	["Get 69 {item:10940}"] = "",
+	-- {spell:7420} Enchant Chest - Inferior Stamina · {spell:7457} Enchant Bracer - Minor Stamina · {spell:7771} Enchant Cloak - Minor Protection
+	["For 21 {spell:7420}, 15 {spell:7457} and 9 {spell:7771}."] = "",
+
+	-- Step 44: Learn Enchant Bracer - Minor Stamina
+	-- {spell:7457} Enchant Bracer - Minor Stamina
+	["Learn {spell:7457}"] = "",
+	["For 85-100: taught here now, so no second trip."] = "",
+
+	-- Step 45: Learn Enchant Cloak - Minor Protection
+	-- {spell:7771} Enchant Cloak - Minor Protection
+	["Learn {spell:7771}"] = "",
+	["For 100-109: taught here now, so no second trip."] = "",
+
+	-- Step 46: Learn Enchant Chest - Inferior Stamina
+	["Taught at 20; done at once if you learned it then."] = "",
+
+	-- Step 47: Craft 21 Enchant Chest - Inferior Stamina until 85
+	-- {spell:7420} Enchant Chest - Inferior Stamina
+	["Craft 21 {spell:7420} until 85"] = "",
+	["About 21 crafts."] = "",
+
+	-- Step 48: Craft 15 Enchant Bracer - Minor Stamina until 100
+	-- {spell:7457} Enchant Bracer - Minor Stamina
+	["Craft 15 {spell:7457} until 100"] = "",
+
+	-- Step 49: Craft 9 Enchant Cloak - Minor Protection until 109
+	-- {spell:7771} Enchant Cloak - Minor Protection
+	["Craft 9 {spell:7771} until 109"] = "",
+	["About 9 crafts. Any cloak you wear or carry takes them all."] = "",
+
+	-- Step 50: Get 1 Shadowgem
+	-- {item:1210} Shadowgem
+	["Get 1 {item:1210}"] = "",
+	-- {item:6339} Runed Silver Rod
+	["For 1 {item:6339}."] = "",
+
+	-- Step 51: Get 1 Silver Rod
+	-- {item:6338} Silver Rod
+	["Get 1 {item:6338}"] = "",
+
+	-- Step 52: Get 4 Lesser Magic Essence
+	-- {item:10938} Lesser Magic Essence
+	["Get 4 {item:10938}"] = "",
+
+	-- Step 53: Get 3 Strange Dust
+	-- {item:10940} Strange Dust
+	["Get 3 {item:10940}"] = "",
+	-- {item:6339} Runed Silver Rod · {skill:197} Tailoring
+	["For 1 {item:6339}. Your {skill:197} greens of 75-150 give about 3 when disenchanted."] = "",
+
+	-- Step 54: Learn Runed Silver Rod
+	-- {spell:7795} Runed Silver Rod
+	["Learn {spell:7795}"] = "",
+
+	-- Step 55: Craft 1 Runed Silver Rod until 110
+	-- {item:6339} Runed Silver Rod
+	["Craft 1 {item:6339} until 110"] = "",
+	["A tool: the enchants from 130 need this rod in your bags."] = "",
+
+	-- Step 56: Get 138 Strange Dust
+	-- {item:10940} Strange Dust
+	["Get 138 {item:10940}"] = "",
+	-- {spell:7771} Enchant Cloak - Minor Protection · {spell:7863} Enchant Boots - Minor Stamina
+	["For 29 {spell:7771} and 20 {spell:7863}."] = "",
+
+	-- Step 57: Learn Enchant Cloak - Minor Protection
+	["Taught at 70; done at once if you learned it then."] = "",
+
+	-- Step 58: Craft 29 Enchant Cloak - Minor Protection until 130
+	-- {spell:7771} Enchant Cloak - Minor Protection
+	["Craft 29 {spell:7771} until 130"] = "",
+	["About 29 crafts. Short of 130 after these? The boots next carry on from where you are."] = "",
+
+	-- Step 59: Learn Enchant Boots - Minor Stamina
+	-- {spell:7863} Enchant Boots - Minor Stamina
+	["Learn {spell:7863}"] = "",
+
+	-- Step 60: Craft 20 Enchant Boots - Minor Stamina until 150
+	-- {spell:7863} Enchant Boots - Minor Stamina
+	["Craft 20 {spell:7863} until 150"] = "",
+	["About 20 crafts. Any boots you wear or carry take them all."] = "",
+
+	-- Step 61: Get 320 Silk Cloth
+	-- {item:4306} Silk Cloth
+	["Get 320 {item:4306}"] = "",
+	["For 80 Bolts of Silk Cloth."] = "",
+
+	-- Step 62: Learn Bolt of Silk Cloth
+	["Taught at 100; done at once if you learned it then."] = "",
+
+	-- Step 63: Craft 80 Bolts of Silk Cloth
+	["Craft 80 Bolts of Silk Cloth"] = "",
+	["Parts for the vests; no skill points from these."] = "",
+
+	-- Step 64: Learn Crimson Silk Vest
+	-- {spell:8791} Crimson Silk Vest
+	["Learn {spell:8791}"] = "",
+
+	-- Step 65: Craft 20 Crimson Silk Vests until 170
+	-- plural, as words: Crimson Silk Vests = {item:7058} Crimson Silk Vest
+	["Craft 20 Crimson Silk Vests until 170"] = "",
+	["About 20 crafts."] = "",
+
+	-- Step 66: Get 272 Silk Cloth
+	-- {item:4306} Silk Cloth
+	["Get 272 {item:4306}"] = "",
+	["For 68 Bolts of Silk Cloth."] = "",
+
+	-- Step 68: Craft 68 Bolts of Silk Cloth
+	["Craft 68 Bolts of Silk Cloth"] = "",
+	["Parts for the pantaloons; no skill points from these."] = "",
+
+	-- Step 69: Learn Crimson Silk Pantaloons
+	-- {spell:8799} Crimson Silk Pantaloons
+	["Learn {spell:8799}"] = "",
+
+	-- Step 70: Learn Black Mageweave Leggings
+	-- {spell:12049} Black Mageweave Leggings
+	["Learn {spell:12049}"] = "",
+	["For 185-200: taught here now, so no second trip."] = "",
+
+	-- Step 71: Craft 17 Crimson Silk Pantaloons until 185
+	-- {item:7062} Crimson Silk Pantaloons
+	["Craft 17 {item:7062} until 185"] = "",
+	["About 17 crafts."] = "",
+
+	-- Step 72: Get 105 Mageweave Cloth
+	-- {item:4338} Mageweave Cloth
+	["Get 105 {item:4338}"] = "",
+	["For 21 Bolts of Mageweave."] = "",
+
+	-- Step 73: Learn Bolt of Mageweave
+	["Taught at 140; done at once if you learned it then."] = "",
+
+	-- Step 74: Craft 21 Bolts of Mageweave
+	["Craft 21 Bolts of Mageweave"] = "",
+	["Parts for the leggings; no skill points from these."] = "",
+
+	-- Step 75: Learn Black Mageweave Leggings
+	["Taught at 170; done at once if you learned it then."] = "",
+
+	-- Step 76: Craft 22 Black Mageweave Leggings until 200
+	-- {item:9999} Black Mageweave Leggings
+	["Craft 22 {item:9999} until 200"] = "",
+	["About 22 crafts. Yellow all the way: short of 200? A few more do it."] = "",
+
+	-- Step 77: Buy 44 Heavy Silken Thread
+	-- {item:8343} Heavy Silken Thread
+	["Buy 44 {item:8343}"] = "",
+	-- {item:10027} Black Mageweave Shoulders
+	-- plural, as words: Red Mageweave Bags = {item:10051} Red Mageweave Bag
+	["For 5 {item:10027} and 17 Red Mageweave Bags."] = "",
+
+	-- Step 78: Buy 34 Red Dye
+	-- {item:2604} Red Dye
+	["Buy 34 {item:2604}"] = "",
+	-- plural, as words: Red Mageweave Bags = {item:10051} Red Mageweave Bag
+	["For 17 Red Mageweave Bags."] = "",
+
+	-- Step 79: Buy 74 Rune Thread
+	-- {item:14341} Rune Thread
+	["Buy 74 {item:14341}"] = "",
+	-- {item:13863} Runecloth Gloves · {item:254123} Runecloth Cuffs
+	-- plural, as words: Runecloth Belts = {item:13856} Runecloth Belt
+	["For 24 Runecloth Belts, 11 {item:13863} and 39 {item:254123}."] = "",
+
+	-- Step 80: Get 75 Mageweave Cloth
+	-- {item:4338} Mageweave Cloth
+	["Get 75 {item:4338}"] = "",
+	["For 15 Bolts of Mageweave."] = "",
+
+	-- Step 81: Train Artisan Tailoring
 	-- {skill:197} Tailoring
-	["{skill:197} recipes at 170"] = "",
-	-- {spell:12048} Black Mageweave Vest
-	["Still at the Expert trainer: {spell:12048} (from 170)."] = "",
+	["Train Artisan {skill:197}"] = "",
+	["Needs level 35."] = "",
 
-	-- Step 45: Black Mageweave Vest to 200
-	-- {item:9998} Black Mageweave Vest
-	["{item:9998} to 200"] = "",
-	-- {item:9998} Black Mageweave Vest · {spell:3865} Bolt of Mageweave · {item:4291} Silken Thread
-	["{item:9998} is orange at 170 (yellow 185, green 200, grey 215): about 36 crafts to 200, up to 40 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {spell:3865} and 3 {item:4291}. Make the 72 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "",
-
-	-- Step 46: Tailoring recipes at 200
-	-- {skill:197} Tailoring
-	["{skill:197} recipes at 200"] = "",
-	-- {spell:12072} Black Mageweave Headband · {npc:11052} Timothy Worthington · {zone:1445} Dustwallow Marsh · {npc:2399} Daryl Stack · {zone:1424} Hillsbrad Foothills · {skill:197} Tailoring
-	["{spell:12072} (from 200) is taught only by the Artisan trainers: Alliance {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424}). You can train Artisan there now if you are level 35 (it needs {skill:197} 200), which saves the trip at 225."] = "",
-
-	-- Step 47: Black Mageweave Headband to 225
-	-- {item:10024} Black Mageweave Headband
-	["{item:10024} to 225"] = "",
-	-- {item:10024} Black Mageweave Headband · {spell:3865} Bolt of Mageweave · {item:8343} Heavy Silken Thread · {skill:197} Tailoring
-	["{item:10024} is orange at 200 (yellow 205, green 220, grey 235): about 37 crafts to 225, up to 44 for 9 players in 10 (the gathered materials above count that many). Each takes 3 {spell:3865} and 2 {item:8343}. Make the 111 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data. {skill:197} 225 is a Legacy System milestone."] = "",
-
-	-- Step 48: Get Iridescent Pearl (Alliance)
-	-- {item:5500} Iridescent Pearl
-	["Get {item:5500} (Alliance)"] = "",
-	-- {item:5500} Iridescent Pearl · {skill:333} Enchanting · {item:11130} Runed Golden Rod
-	-- plural, as words: Giant Clams = {object:2744} Giant Clam
-	["1 {item:5500} for {skill:333} 150-225: {item:11130}. Open the Giant Clams at the marked spot. Or buy it at the Auction House."] = "",
-
-	-- Step 49: Get Iridescent Pearl (Horde)
-	-- {item:5500} Iridescent Pearl
-	["Get {item:5500} (Horde)"] = "",
-
-	-- Step 50: Get Greater Astral Essence
-	-- {item:11082} Greater Astral Essence
-	["Get {item:11082}"] = "",
-	-- {item:11082} Greater Astral Essence · {skill:333} Enchanting · {item:11130} Runed Golden Rod
-	["1 {item:11082} for {skill:333} 150-225: {item:11130}. {skill:333}: disenchant green armour that requires level 21-25. Or buy it at the Auction House."] = "",
-
-	-- Step 51: Get Soul Dust
-	-- {item:11083} Soul Dust · {skill:333} Enchanting · {item:11130} Runed Golden Rod · {spell:13501} Enchant Bracer - Lesser Stamina · {spell:13637} Enchant Boots - Lesser Agility · {skill:197} Tailoring
-	["55 {item:11083} for {skill:333} 150-225: {item:11130}, 12 {spell:13501} and 42 {spell:13637}. Disenchanting your {skill:197} crafts of this bracket gives about 55 of them (see Expert {skill:333}); that covers them. {skill:333}: disenchant green armour that requires level 21-30. Or buy them at the Auction House."] = "",
-
-	-- Step 52: Get Golden Rod
-	-- {item:11128} Golden Rod
-	["Get {item:11128}"] = "",
-	-- {item:11128} Golden Rod · {skill:333} Enchanting · {item:11130} Runed Golden Rod · {skill:164} Blacksmithing
-	["1 {item:11128} for {skill:333} 150-225: {item:11130}. {skill:164}: {item:11128}. Or buy it at the Auction House."] = "",
-
-	-- Step 53: Get Lesser Mystic Essence
-	-- {item:11134} Lesser Mystic Essence
-	["Get {item:11134}"] = "",
-	-- {item:11134} Lesser Mystic Essence · {skill:333} Enchanting · {spell:13663} Enchant Chest - Greater Intellect · {skill:197} Tailoring
-	["10 {item:11134} for {skill:333} 150-225: 10 {spell:13663}. Disenchanting your {skill:197} crafts of this bracket gives about 7 of them (see Expert {skill:333}); the other 3 come from greens you loot or the Auction House. {skill:333}: disenchant green armour that requires level 26-30. Or buy them at the Auction House."] = "",
-
-	-- Step 54: Get Greater Mystic Essence
-	-- {item:11135} Greater Mystic Essence
-	["Get {item:11135}"] = "",
-	-- {item:11135} Greater Mystic Essence · {skill:333} Enchanting · {item:11145} Runed Truesilver Rod
-	["1 {item:11135} for {skill:333} 150-225: {item:11145}. {skill:333}: disenchant green armour that requires level 31-35. Or buy it at the Auction House."] = "",
-
-	-- Step 55: Get Vision Dust
-	-- {item:11137} Vision Dust
-	["Get {item:11137}"] = "",
-	-- {item:11137} Vision Dust · {skill:333} Enchanting · {item:11145} Runed Truesilver Rod · {spell:13746} Enchant Cloak - Greater Defense · {skill:197} Tailoring
-	["21 {item:11137} for {skill:333} 150-225: {item:11145} and 20 {spell:13746}. Disenchanting your {skill:197} crafts of this bracket gives about 21 of them (see Expert {skill:333}); that covers them. {skill:333}: disenchant green armour that requires level 31-40. Or buy them at the Auction House."] = "",
-
-	-- Step 56: Get Truesilver Rod
-	-- {item:11144} Truesilver Rod
-	["Get {item:11144}"] = "",
-	-- {item:11144} Truesilver Rod · {skill:333} Enchanting · {item:11145} Runed Truesilver Rod · {skill:164} Blacksmithing
-	["1 {item:11144} for {skill:333} 150-225: {item:11145}. {skill:164}: {item:11144}. Or buy it at the Auction House."] = "",
-
-	-- Step 57: Enchanting 150-225: Auction House
+	-- Step 82: Train Expert Enchanting
 	-- {skill:333} Enchanting
-	["{skill:333} 150-225: Auction House"] = "",
-	-- {item:7971} Black Pearl
-	["What 150-225 takes that the Auction House sells and no step above farms: 1 {item:7971}. The counts drop by what your bags, bank and mail hold."] = "",
+	["Train Expert {skill:333}"] = "",
 
-	-- Step 58: Expert Enchanting
-	-- {skill:333} Enchanting
-	["Expert {skill:333}"] = "",
-	-- {skill:197} Tailoring · {skill:333} Enchanting · {item:11137} Vision Dust · {item:11083} Soul Dust · {item:11176} Dream Dust · {item:11175} Greater Nether Essence · {item:11174} Lesser Nether Essence · {item:11134} Lesser Mystic Essence · {item:11178} Large Radiant Shard · {item:11177} Small Radiant Shard · {item:11138} Small Glowing Shard · {npc:11072} Kitta Firewind · {zone:1429} Elwynn Forest · {npc:11074} Hgarth · {zone:1442} Stonetalon Mountains · {spell:13628} Runed Golden Rod · {item:5500} Iridescent Pearl · {item:7971} Black Pearl · {item:11082} Greater Astral Essence · {item:11128} Golden Rod · {item:11135} Greater Mystic Essence · {item:11144} Truesilver Rod · {spell:13637} Enchant Boots - Lesser Agility · {spell:13663} Enchant Chest - Greater Intellect · {item:11145} Runed Truesilver Rod · {spell:13746} Enchant Cloak - Greater Defense
-	-- plural, as words: Azure Silk Cloaks = {item:7053} Azure Silk Cloak · Black Mageweave Vests = {item:9998} Black Mageweave Vest · Black Mageweave Headbands = {item:10024} Black Mageweave Headband
-	["Disenchant the green armour you made for {skill:197} 150-225: 22 Azure Silk Cloaks (item level 35, from {skill:333} 75), 36 Black Mageweave Vests (item level 41, from {skill:333} 125) and 37 Black Mageweave Headbands (item level 46, from {skill:333} 150) give about 95 {item:11137}, 58 {item:11083}, 42 {item:11176}, 11 {item:11175}, 11 {item:11174}, 7 {item:11134}, 2 {item:11178}, 2 {item:11177} and 1 {item:11138}. Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:333} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:11072} ({zone:1429}); Horde {npc:11074} ({zone:1442}). This route trains it at {npc:11072} ({zone:1429}) for the Alliance and {npc:11074} ({zone:1442}) for the Horde, who also teach the recipes of 150-225: one trainer for every visit. Learn now: {spell:13628} (from 150). 150-225 takes 1 {item:5500}, 1 {item:7971}, 1 {item:11082}, 55 {item:11083}, 1 {item:11128}, 10 {item:11134}, 1 {item:11135}, 21 {item:11137} and 1 {item:11144} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {spell:13637} (from 160), {spell:13663} (from 185), {item:11145} (from 200) and {spell:13746} (from 205), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 4."] = "",
+	-- Step 83: Learn Black Mageweave Shoulders
+	-- {spell:12074} Black Mageweave Shoulders
+	["Learn {spell:12074}"] = "",
+	["For 200-205: taught here now, so no second trip."] = "",
 
-	-- Step 59: Enchant Bracer - Lesser Stamina to 160
-	-- {spell:13501} Enchant Bracer - Lesser Stamina
-	["{spell:13501} to 160"] = "",
-	-- {spell:13501} Enchant Bracer - Lesser Stamina · {item:11083} Soul Dust · {item:11130} Runed Golden Rod
-	["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160, up to 12 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one. If you got here without learning {spell:13501}, learn it now: an earlier step teaches it."] = "",
+	-- Step 84: Learn Red Mageweave Bag
+	-- {spell:12079} Red Mageweave Bag
+	["Learn {spell:12079}"] = "",
+	["For 215-225: taught here now, so no second trip."] = "",
 
-	-- Step 60: Enchanting recipes at 160
-	-- {skill:333} Enchanting
-	["{skill:333} recipes at 160"] = "",
-	-- {spell:13637} Enchant Boots - Lesser Agility
-	["Still at the Expert trainer: {spell:13637} (from 160)."] = "",
+	-- Step 86: Craft 15 Bolts of Mageweave
+	["Craft 15 Bolts of Mageweave"] = "",
+	["Parts for the shoulders; no skill points from these."] = "",
 
-	-- Step 61: Enchant Boots - Lesser Agility to 195
-	-- {spell:13637} Enchant Boots - Lesser Agility
-	["{spell:13637} to 195"] = "",
-	-- {spell:13637} Enchant Boots - Lesser Agility · {item:11083} Soul Dust
-	["{spell:13637} is orange at 160 (yellow 180, green 200, grey 220): about 39 crafts to 195, up to 42 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:11083}. {item:11083} again. Enchant any item for that slot in your bags, even a grey one."] = "",
+	-- Step 87: Craft 5 Black Mageweave Shoulders until 205
+	-- {item:10027} Black Mageweave Shoulders
+	["Craft 5 {item:10027} until 205"] = "",
 
-	-- Step 62: Enchanting recipes at 195
-	-- {skill:333} Enchanting
-	["{skill:333} recipes at 195"] = "",
-	-- {spell:13663} Enchant Chest - Greater Intellect
-	["Still at the Expert trainer: {spell:13663} (from 185)."] = "",
-
-	-- Step 63: Enchant Chest - Greater Intellect to 205
-	-- {spell:13663} Enchant Chest - Greater Intellect
-	["{spell:13663} to 205"] = "",
-	-- {spell:13663} Enchant Chest - Greater Intellect · {item:11134} Lesser Mystic Essence
-	["{spell:13663} is orange at 195 (yellow 205, green 225, grey 245): about 10 crafts to 205, a point every craft. Each takes 1 {item:11134}. One {item:11134} a craft (weapons of level 31-40 break into essences); orange to 205, a point every craft. Enchant any item for that slot in your bags, even a grey one."] = "",
-
-	-- Step 64: Enchanting recipes at 205
-	-- {skill:333} Enchanting
-	["{skill:333} recipes at 205"] = "",
-	-- {spell:13702} Runed Truesilver Rod · {spell:13746} Enchant Cloak - Greater Defense
-	["Still at the Expert trainer: {spell:13702} (from 200) and {spell:13746} (from 205)."] = "",
-
-	-- Step 65: Enchant Cloak - Greater Defense to 225
-	-- {spell:13746} Enchant Cloak - Greater Defense
-	["{spell:13746} to 225"] = "",
-	-- {spell:13746} Enchant Cloak - Greater Defense · {item:11137} Vision Dust · {item:11145} Runed Truesilver Rod · {item:7971} Black Pearl · {skill:333} Enchanting
-	["{spell:13746} is orange at 205 (yellow 225, green 245, grey 265): about 20 crafts to 225, a point every craft. Each takes 1 {item:11137}. One {item:11137} a craft (level 31-40 greens). Make the {item:11145} first: the recipe needs it in your bags, so keep it there. {item:7971} (1 for 150-225): {item:7971} is a rare drop (no mob gives it one time in 50): buy it at the Auction House, or keep the ones you find. Enchant any item for that slot in your bags, even a grey one. {skill:333} 225 is a Legacy System milestone."] = "",
-
-	-- Step 66: Artisan Tailoring
-	-- {skill:197} Tailoring
-	["Artisan {skill:197}"] = "",
-	-- {skill:197} Tailoring · {npc:11052} Timothy Worthington · {zone:1445} Dustwallow Marsh · {npc:2399} Daryl Stack · {zone:1424} Hillsbrad Foothills · {spell:18401} Bolt of Runecloth · {spell:18402} Runecloth Belt · {item:8170} Rugged Leather · {item:14047} Runecloth · {item:14504} Pattern: Runecloth Shoulders · {item:14227} Ironweb Spider Silk
-	["Artisan raises the cap from 225 to 300; it needs {skill:197} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424}). This route trains it at {npc:11052} ({zone:1445}) for the Alliance and {npc:2399} ({zone:1424}) for the Horde, who also teach the recipes of 225-300: one trainer for every visit. Learn now: {spell:18401} (from 205) and {spell:18402} (from 210). 225-300 takes about 1g 60s of recipes and 27g of vendor goods, plus 200 {item:8170} and 1195 {item:14047} to gather or buy. From 265 the route splits: with {item:14504}, about 62 more crafts and 296 {item:8170}, 2590 {item:14047} and 148 {item:14227}; without the pattern, about 100 crafts and 588 {item:8170}, 2940 {item:14047} and 294 {item:14227} (to 280)."] = "",
-
-	-- Step 67: Tailoring 225-300: vendor goods
-	-- {skill:197} Tailoring
-	["{skill:197} 225-300: vendor goods"] = "",
-	-- {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3366} Tamar
-	["Buy the whole bracket's share in one go: 54 {item:14341} (27g); about 27g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347} and {npc:5565}; {zone:1454}: {npc:3364} and {npc:3366})."] = "",
-
-	-- Step 68: Pattern: Runecloth Gloves
-	-- {item:14481} Pattern: Runecloth Gloves · {item:13863} Runecloth Gloves · {skill:197} Tailoring · {npc:11189} Qia · {zone:1452} Winterspring
-	["{item:14481} teaches {item:13863} ({skill:197} 230) for 1g 60s. Sold by {npc:11189} ({zone:1452}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "",
-
-	-- Step 69: Get Rugged Leather
-	-- {item:8170} Rugged Leather
-	["Get {item:8170}"] = "",
-	-- {item:8170} Rugged Leather · {skill:197} Tailoring · {item:13863} Runecloth Gloves · {skill:393} Skinning
-	["200 {item:8170} for {skill:197} 225-300: 50 {item:13863}. {skill:393}: beasts of level 48-60. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
-
-	-- Step 70: Get Runecloth
+	-- Step 88: Get 115 Runecloth
 	-- {item:14047} Runecloth
-	["Get {item:14047}"] = "",
-	-- {item:14047} Runecloth · {skill:197} Tailoring · {item:13863} Runecloth Gloves
+	["Get 115 {item:14047}"] = "",
+	["For 23 Bolts of Runecloth."] = "",
+
+	-- Step 89: Learn Bolt of Runecloth
+	-- {spell:18401} Bolt of Runecloth
+	["Learn {spell:18401}"] = "",
+
+	-- Step 90: Craft 23 Bolts of Runecloth until 215
+	["Craft 23 Bolts of Runecloth until 215"] = "",
+	["About 23 crafts. Keep all 23 bolts for the belts at 225."] = "",
+
+	-- Step 91: Get 340 Mageweave Cloth
+	-- {item:4338} Mageweave Cloth
+	["Get 340 {item:4338}"] = "",
+	["For 68 Bolts of Mageweave."] = "",
+
+	-- Step 93: Craft 68 Bolts of Mageweave
+	["Craft 68 Bolts of Mageweave"] = "",
+	["Parts for the bags; no skill points from these."] = "",
+
+	-- Step 94: Learn Red Mageweave Bag
+	["Taught at 200; done at once if you learned it then."] = "",
+
+	-- Step 95: Craft 17 Red Mageweave Bags until 225
+	-- plural, as words: Red Mageweave Bags = {item:10051} Red Mageweave Bag
+	["Craft 17 Red Mageweave Bags until 225"] = "",
+	["About 17 crafts. Yellow all the way: short of 225? The belts next carry on."] = "",
+
+	-- Step 96: Buy 41 Leaded Vial
+	-- {item:3372} Leaded Vial
+	["Buy 41 {item:3372}"] = "",
+	-- plural, as words: Minor Mana Oils = {item:20745} Minor Mana Oil · Lesser Wizard Oils = {item:20746} Lesser Wizard Oil
+	["For 16 Minor Mana Oils and 25 Lesser Wizard Oils."] = "",
+
+	-- Step 97: Buy 32 Maple Seed
+	-- {item:17034} Maple Seed
+	["Buy 32 {item:17034}"] = "",
+	-- plural, as words: Minor Mana Oils = {item:20745} Minor Mana Oil
+	["For 16 Minor Mana Oils."] = "",
+
+	-- Step 98: Buy 50 Stranglethorn Seed
+	-- {item:17035} Stranglethorn Seed
+	["Buy 50 {item:17035}"] = "",
+	-- plural, as words: Lesser Wizard Oils = {item:20746} Lesser Wizard Oil
+	["For 25 Lesser Wizard Oils."] = "",
+
+	-- Step 99: Get 1 Iridescent Pearl
+	-- {item:5500} Iridescent Pearl
+	["Get 1 {item:5500}"] = "",
+	-- {item:11130} Runed Golden Rod
+	["For 1 {item:11130}."] = "",
+
+	-- Step 100: Get 1 Greater Astral Essence
+	-- {item:11082} Greater Astral Essence
+	["Get 1 {item:11082}"] = "",
+
+	-- Step 101: Get 1 Soul Dust
+	-- {item:11083} Soul Dust
+	["Get 1 {item:11083}"] = "",
+
+	-- Step 102: Get 1 Golden Rod
+	-- {item:11128} Golden Rod
+	["Get 1 {item:11128}"] = "",
+
+	-- Step 103: Learn Runed Golden Rod
+	-- {spell:13628} Runed Golden Rod
+	["Learn {spell:13628}"] = "",
+
+	-- Step 104: Craft 1 Runed Golden Rod until 151
+	-- {item:11130} Runed Golden Rod
+	["Craft 1 {item:11130} until 151"] = "",
+	["A tool: the enchants from 160 need this rod in your bags."] = "",
+
+	-- Step 105: Get 60 Soul Dust
+	-- {item:11083} Soul Dust
+	["Get 60 {item:11083}"] = "",
+	-- {spell:13637} Enchant Boots - Lesser Agility
+	-- plural, as words: Minor Mana Oils = {item:20745} Minor Mana Oil
+	["For 16 Minor Mana Oils and 44 {spell:13637}."] = "",
+
+	-- Step 106: Buy Formula: Minor Mana Oil · Jessara Cordell, Vaean, Tilli Thistlefuzz, Kania or Nasalanna Windsinger
+	-- {item:20752} Formula: Minor Mana Oil · {npc:1318} Jessara Cordell · {npc:4228} Vaean · {npc:5158} Tilli Thistlefuzz · {npc:15419} Kania · {npc:257020} Nasalanna Windsinger
+	["Buy {item:20752} · {npc:1318}, {npc:4228}, {npc:5158}, {npc:15419} or {npc:257020}"] = "",
+
+	-- Step 107: Buy Formula: Minor Mana Oil · Kithas, Nata Dawnstrider, Thaddeus Webb, Lilly, Leo Sarn, Kania or Nasalanna Windsinger
+	-- {item:20752} Formula: Minor Mana Oil · {npc:3346} Kithas · {npc:3012} Nata Dawnstrider · {npc:4617} Thaddeus Webb · {npc:5757} Lilly · {npc:5758} Leo Sarn · {npc:15419} Kania · {npc:257020} Nasalanna Windsinger
+	["Buy {item:20752} · {npc:3346}, {npc:3012}, {npc:4617}, {npc:5757}, {npc:5758}, {npc:15419} or {npc:257020}"] = "",
+
+	-- Step 108: Learn Minor Mana Oil
+	-- {spell:25125} Minor Mana Oil
+	["Learn {spell:25125}"] = "",
+	["From the formula in your bags."] = "",
+
+	-- Step 109: Craft 16 Minor Mana Oils until 165
+	-- plural, as words: Minor Mana Oils = {item:20745} Minor Mana Oil
+	["Craft 16 Minor Mana Oils until 165"] = "",
+	["About 16 crafts."] = "",
+
+	-- Step 110: Learn Enchant Boots - Lesser Agility
+	-- {spell:13637} Enchant Boots - Lesser Agility
+	["Learn {spell:13637}"] = "",
+
+	-- Step 111: Craft 44 Enchant Boots - Lesser Agility until 200
+	-- {spell:13637} Enchant Boots - Lesser Agility
+	["Craft 44 {spell:13637} until 200"] = "",
+	["About 44 crafts. Yellow from 180: short of 200? A few more do it."] = "",
+
+	-- Step 112: Get 1 Black Pearl
+	-- {item:7971} Black Pearl
+	["Get 1 {item:7971}"] = "",
+	-- {item:11145} Runed Truesilver Rod
+	["For 1 {item:11145}."] = "",
+
+	-- Step 113: Get 1 Greater Mystic Essence
+	-- {item:11135} Greater Mystic Essence
+	["Get 1 {item:11135}"] = "",
+	-- {item:11145} Runed Truesilver Rod · {skill:197} Tailoring
+	["For 1 {item:11145}. Your {skill:197} greens of 150-225 give about 1 when disenchanted."] = "",
+
+	-- Step 114: Get 1 Vision Dust
+	-- {item:11137} Vision Dust
+	["Get 1 {item:11137}"] = "",
+
+	-- Step 115: Get 1 Truesilver Rod
+	-- {item:11144} Truesilver Rod
+	["Get 1 {item:11144}"] = "",
+
+	-- Step 116: Learn Runed Truesilver Rod
+	-- {spell:13702} Runed Truesilver Rod
+	["Learn {spell:13702}"] = "",
+
+	-- Step 117: Craft 1 Runed Truesilver Rod until 201
+	-- {item:11145} Runed Truesilver Rod
+	["Craft 1 {item:11145} until 201"] = "",
+	["A tool: the enchants from 205 need this rod in your bags."] = "",
+
+	-- Step 118: Get 30 Vision Dust
+	-- {item:11137} Vision Dust
+	["Get 30 {item:11137}"] = "",
+	-- {spell:13746} Enchant Cloak - Greater Defense
+	-- plural, as words: Lesser Wizard Oils = {item:20746} Lesser Wizard Oil
+	["For 25 Lesser Wizard Oils and 5 {spell:13746}."] = "",
+
+	-- Step 119: Buy Formula: Lesser Wizard Oil · Jessara Cordell, Vaean, Tilli Thistlefuzz, Kania or Nasalanna Windsinger
+	-- {item:20753} Formula: Lesser Wizard Oil · {npc:1318} Jessara Cordell · {npc:4228} Vaean · {npc:5158} Tilli Thistlefuzz · {npc:15419} Kania · {npc:257020} Nasalanna Windsinger
+	["Buy {item:20753} · {npc:1318}, {npc:4228}, {npc:5158}, {npc:15419} or {npc:257020}"] = "",
+
+	-- Step 120: Buy Formula: Lesser Wizard Oil · Kithas, Nata Dawnstrider, Thaddeus Webb, Lilly, Leo Sarn, Kania or Nasalanna Windsinger
+	-- {item:20753} Formula: Lesser Wizard Oil · {npc:3346} Kithas · {npc:3012} Nata Dawnstrider · {npc:4617} Thaddeus Webb · {npc:5757} Lilly · {npc:5758} Leo Sarn · {npc:15419} Kania · {npc:257020} Nasalanna Windsinger
+	["Buy {item:20753} · {npc:3346}, {npc:3012}, {npc:4617}, {npc:5757}, {npc:5758}, {npc:15419} or {npc:257020}"] = "",
+
+	-- Step 121: Learn Lesser Wizard Oil
+	-- {spell:25126} Lesser Wizard Oil
+	["Learn {spell:25126}"] = "",
+
+	-- Step 122: Craft 25 Lesser Wizard Oils until 220
+	-- plural, as words: Lesser Wizard Oils = {item:20746} Lesser Wizard Oil
+	["Craft 25 Lesser Wizard Oils until 220"] = "",
+	["About 25 crafts."] = "",
+
+	-- Step 123: Learn Enchant Cloak - Greater Defense
+	-- {spell:13746} Enchant Cloak - Greater Defense
+	["Learn {spell:13746}"] = "",
+
+	-- Step 124: Craft 5 Enchant Cloak - Greater Defense until 225
+	-- {spell:13746} Enchant Cloak - Greater Defense
+	["Craft 5 {spell:13746} until 225"] = "",
+
+	-- Step 125: Get 245 Runecloth
+	-- {item:14047} Runecloth
+	["Get 245 {item:14047}"] = "",
+	["For 49 Bolts of Runecloth."] = "",
+
+	-- Step 126: Learn Bolt of Runecloth
+	["Taught at 205; done at once if you learned it then."] = "",
+
+	-- Step 127: Craft 49 Bolts of Runecloth
+	["Craft 49 Bolts of Runecloth"] = "",
+	["Parts for the belts; no skill points from these."] = "",
+
+	-- Step 128: Learn Runecloth Belt
+	-- {spell:18402} Runecloth Belt
+	["Learn {spell:18402}"] = "",
+
+	-- Step 129: Craft 24 Runecloth Belts until 240
 	-- plural, as words: Runecloth Belts = {item:13856} Runecloth Belt
-	["1195 {item:14047} for {skill:197} 225-300: 13 Runecloth Belts and 50 {item:13863}. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["Craft 24 Runecloth Belts until 240"] = "",
+	["About 24 crafts. No points past 225 until Artisan is trained."] = "",
 
-	-- Step 71: Runecloth Belt to 234
-	-- {item:13856} Runecloth Belt
-	["{item:13856} to 234"] = "",
-	-- {item:13856} Runecloth Belt · {item:14048} Bolt of Runecloth · {item:14341} Rune Thread
-	["{item:13856} is yellow at 225 (yellow 225, green 240, grey 255): about 11 crafts to 234, up to 13 for 9 players in 10 (the gathered materials above count that many). Each takes 3 {item:14048} and 1 {item:14341}. Make the 33 {item:14048} first. {item:14341} from tailoring vendors."] = "",
+	-- Step 130: Get 220 Runecloth
+	-- {item:14047} Runecloth
+	["Get 220 {item:14047}"] = "",
+	["For 44 Bolts of Runecloth."] = "",
 
-	-- Step 72: Runecloth Gloves to 265
+	-- Step 131: Get 44 Rugged Leather
+	-- {item:8170} Rugged Leather
+	["Get 44 {item:8170}"] = "",
 	-- {item:13863} Runecloth Gloves
-	["{item:13863} to 265"] = "",
-	-- {item:13863} Runecloth Gloves · {item:14048} Bolt of Runecloth · {item:8170} Rugged Leather · {item:14341} Rune Thread · {npc:11189} Qia · {area:2255} Everlook · {area:1769} Timbermaw Hold · {zone:1448} Felwood
-	["{item:13863} is orange at 234 (yellow 245, green 260, grey 275): about 43 crafts to 265, up to 50 for 9 players in 10 (the gathered materials above count that many). Each takes 4 {item:14048}, 4 {item:8170} and 1 {item:14341}. Make the 172 {item:14048} first. {npc:11189} in {area:2255} keeps one pattern at a time; the {area:1769} tunnel from {zone:1448} is the road in, so never kill Timbermaw furbolgs on the way."] = "",
+	["For 11 {item:13863}."] = "",
 
-	-- Step 73: Artisan Enchanting
-	-- {skill:333} Enchanting
-	["Artisan {skill:333}"] = "",
-	-- {skill:197} Tailoring · {skill:333} Enchanting · {item:13863} Runecloth Gloves · {item:11176} Dream Dust · {item:16202} Lesser Eternal Essence · {item:14343} Small Brilliant Shard · {npc:11073} Annora · {area:1517} Uldaman · {zone:1418} Badlands · {spell:13815} Enchant Gloves - Agility · {item:8831} Purple Lotus · {item:11137} Vision Dust
-	-- plural, as words: Runecloth Belts = {item:13856} Runecloth Belt
-	["Disenchant the green armour you made for {skill:197} 225-300: 11 Runecloth Belts (item level 51, from {skill:333} 175) and 43 {item:13863} (item level 55, from {skill:333} 175) give about 142 {item:11176}, 16 {item:16202} and 3 {item:14343}. Artisan raises the cap from 225 to 300 for 5g (Classic's price; Forever's is not in the data); it needs {skill:333} 200 and character level 35, so you can take it on any visit from 200. {npc:11073} teaches Artisan {skill:333} inside the {area:1517} dungeon ({zone:1418}); bring a group. Learn now: {spell:13815} (from 210). 225-300 takes about 2g 20s of recipes and 1g 70s of vendor goods, plus 41 {item:8831}, 45 {item:11137} and 233 {item:11176} to gather or buy."] = "",
+	-- Step 133: Craft 44 Bolts of Runecloth
+	["Craft 44 Bolts of Runecloth"] = "",
+	["Parts for the gloves; no skill points from these."] = "",
 
-	-- Step 74: Enchanting 225-300: vendor goods
-	-- {skill:333} Enchanting
-	["{skill:333} 225-300: vendor goods"] = "",
-	-- {item:8925} Crystal Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 34 {item:8925} (1g 70s); about 1g 70s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	-- Step 134: Buy Pattern: Runecloth Gloves · Qia
+	-- {item:14481} Pattern: Runecloth Gloves · {npc:11189} Qia
+	["Buy {item:14481} · {npc:11189}"] = "",
+	-- {area:2255} Everlook · {zone:1452} Winterspring
+	["In the {area:2255} bank building, {zone:1452}."] = "",
 
-	-- Step 75: Formula: Lesser Mana Oil
-	-- {item:20754} Formula: Lesser Mana Oil · {item:20747} Lesser Mana Oil · {skill:333} Enchanting · {npc:15419} Kania · {zone:1451} Silithus
-	["{item:20754} teaches {item:20747} ({skill:333} 250) for 1g. Sold by {npc:15419} ({zone:1451})."] = "",
+	-- Step 135: Learn Runecloth Gloves
+	-- {spell:18417} Runecloth Gloves
+	["Learn {spell:18417}"] = "",
+	["From the pattern in your bags."] = "",
 
-	-- Step 76: Formula: Enchant Shield - Greater Stamina
-	-- {item:16217} Formula: Enchant Shield - Greater Stamina · {spell:20017} Enchant Shield - Greater Stamina · {skill:333} Enchanting · {npc:4229} Mythrin'dir · {zone:1457} Darnassus · {npc:4561} Daniel Bartlett · {zone:1458} Undercity
-	["{item:16217} teaches {spell:20017} ({skill:333} 265) for 1g 20s. Sold by Alliance: {npc:4229} ({zone:1457}), limited stock; Horde: {npc:4561} ({zone:1458}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "",
+	-- Step 136: Craft 11 Runecloth Gloves until 250
+	-- {item:13863} Runecloth Gloves
+	["Craft 11 {item:13863} until 250"] = "",
+	["About 11 crafts."] = "",
 
-	-- Step 77: Get Purple Lotus
-	-- {item:8831} Purple Lotus
-	["Get {item:8831}"] = "",
-	-- {item:8831} Purple Lotus · {skill:333} Enchanting · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	-- plural, as words: Lesser Mana Oils = {item:20747} Lesser Mana Oil
-	["41 {item:8831} for {skill:333} 225-300: 41 Lesser Mana Oils. {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- Step 137: Get 975 Runecloth
+	-- {item:14047} Runecloth
+	["Get 975 {item:14047}"] = "",
+	["For 195 Bolts of Runecloth."] = "",
 
-	-- Step 78: Get Vision Dust
-	-- {item:11137} Vision Dust · {skill:333} Enchanting · {spell:13815} Enchant Gloves - Agility
-	["45 {item:11137} for {skill:333} 225-300: 45 {spell:13815}. {skill:333}: disenchant green armour that requires level 31-40. Or buy them at the Auction House."] = "",
-
-	-- Step 79: Get Dream Dust
-	-- {item:11176} Dream Dust
-	["Get {item:11176}"] = "",
-	-- {item:11176} Dream Dust · {skill:333} Enchanting · {spell:20017} Enchant Shield - Greater Stamina · {skill:197} Tailoring
-	-- plural, as words: Lesser Mana Oils = {item:20747} Lesser Mana Oil
-	["233 {item:11176} for {skill:333} 225-300: 41 Lesser Mana Oils and 32 {spell:20017}. Disenchanting your {skill:197} crafts of this bracket gives about 142 of them (see Artisan {skill:333}); the other 91 come from greens you loot or the Auction House. {skill:333}: disenchant green armour that requires level 41-50. Or buy them at the Auction House."] = "",
-
-	-- Step 80: Enchant Gloves - Agility to 253
-	-- {spell:13815} Enchant Gloves - Agility
-	["{spell:13815} to 253"] = "",
-	-- {spell:13815} Enchant Gloves - Agility · {item:11137} Vision Dust · {npc:11073} Annora
-	["{spell:13815} is orange at 225 (yellow 230, green 250, grey 270): about 39 crafts to 253, up to 45 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:11137}. {npc:11073} teaches it with Artisan: learn it on that visit. {item:11137} again; bring about 40. Enchant any item for that slot in your bags, even a grey one."] = "",
-
-	-- Step 81: Lesser Mana Oil to 275
-	-- {item:20747} Lesser Mana Oil
-	["{item:20747} to 275"] = "",
-	-- {item:20747} Lesser Mana Oil · {item:11176} Dream Dust · {item:8831} Purple Lotus · {item:8925} Crystal Vial · {npc:15419} Kania · {area:3425} Cenarion Hold · {zone:1451} Silithus
-	["{item:20747} is orange at 253 (yellow 260, green 270, grey 280): about 34 crafts to 275, up to 41 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:11176}, 1 {item:8831} and 1 {item:8925}. One {item:11176} (level 41-50 greens) and one {item:8831} (herbalists) a craft; the oil sells well. {npc:15419} sells the formula at the inn of {area:3425} ({zone:1451}): fly there, the mobs around it are level 55 and up."] = "",
-
-	-- Step 82: Enchant Shield - Greater Stamina to 300
-	-- {spell:20017} Enchant Shield - Greater Stamina
-	["{spell:20017} to 300"] = "",
-	-- {spell:20017} Enchant Shield - Greater Stamina · {item:11176} Dream Dust · {skill:333} Enchanting
-	["{spell:20017} is orange at 275 (yellow 285, green 305, grey 325): about 29 crafts to 300, up to 32 for 9 players in 10 (the gathered materials above count that many). Each takes 6 {item:11176}. Six {item:11176} a craft: the dearest stretch, so disenchant every level 41-50 green you find. Enchant any item for that slot in your bags, even a grey one. {skill:333} 300 is a Legacy System milestone."] = "",
-
-	-- Step 83: Tailoring 265: Pattern: Runecloth Shoulders
-	-- {item:14504} Pattern: Runecloth Shoulders · {spell:18449} Runecloth Shoulders · {item:13864} Runecloth Boots
-	["From 265 the route has two ways. {item:14504} drops from mobs all over the world and does not bind, so the Auction House often lists it: with it, {spell:18449} (orange to 275, yellow to 290) takes you to 300. No pattern for sale? Skip this step: the next steps go on with {item:13864}, from a vendor pattern, to 280, and say what is left after that. Buy the shoulders pattern whenever it turns up: it gives points to 305."] = "",
-
-	-- Step 84: Tailoring 265-300: vendor goods
-	-- {skill:197} Tailoring
-	["{skill:197} 265-300: vendor goods"] = "",
-	-- {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3366} Tamar
-	["Buy the whole bracket's share in one go: 62 {item:14341} (31g); about 31g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347} and {npc:5565}; {zone:1454}: {npc:3364} and {npc:3366})."] = "",
-
-	-- Step 85: Get Rugged Leather
-	-- {item:8170} Rugged Leather · {skill:197} Tailoring · {item:13867} Runecloth Shoulders · {skill:393} Skinning
-	["296 {item:8170} for {skill:197} 265-300: 74 {item:13867}. {skill:393}: beasts of level 48-60. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
-
-	-- Step 86: Get Runecloth
-	-- {item:14047} Runecloth · {skill:197} Tailoring · {item:13867} Runecloth Shoulders
-	["2590 {item:14047} for {skill:197} 265-300: 74 {item:13867}. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
-
-	-- Step 87: Get Ironweb Spider Silk
+	-- Step 138: Get 39 Ironweb Spider Silk
 	-- {item:14227} Ironweb Spider Silk
-	["Get {item:14227}"] = "",
-	-- {item:14227} Ironweb Spider Silk · {skill:197} Tailoring · {item:13867} Runecloth Shoulders · {npc:1824} Plague Lurker · {npc:11739} Rock Stalker · {npc:5857} Searing Lava Spider
-	["148 {item:14227} for {skill:197} 265-300: 74 {item:13867}. {item:14227} drops most from {npc:1824}, {npc:11739} and {npc:5857}, among others. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14227} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["Get 39 {item:14227}"] = "",
+	-- {item:254123} Runecloth Cuffs
+	["For 39 {item:254123}."] = "",
 
-	-- Step 88: Runecloth Shoulders to 300
+	-- Step 140: Craft 195 Bolts of Runecloth
+	["Craft 195 Bolts of Runecloth"] = "",
+	["Parts for the cuffs; no skill points from these."] = "",
+
+	-- Step 141: Buy Pattern: Runecloth Cuffs · Pexmit
+	-- {item:254124} Pattern: Runecloth Cuffs · {npc:266901} Pexmit
+	["Buy {item:254124} · {npc:266901}"] = "",
+	-- {npc:266901} Pexmit · {zone:2482} Mount Hyjal
+	["{npc:266901} roams {zone:2482}. It binds when picked up."] = "",
+
+	-- Step 142: Learn Runecloth Cuffs
+	-- {spell:1257487} Runecloth Cuffs
+	["Learn {spell:1257487}"] = "",
+
+	-- Step 143: Craft 39 Runecloth Cuffs until 280
+	-- {item:254123} Runecloth Cuffs
+	["Craft 39 {item:254123} until 280"] = "",
+	["About 39 crafts."] = "",
+
+	-- Step 144: Buy Pattern: Runecloth Shoulders at the Auction House
+	-- {item:14504} Pattern: Runecloth Shoulders
+	["Buy {item:14504} at the Auction House"] = "",
+	["A world drop: with it, the shoulders reach 300."] = "",
+	["None listed, or too dear"] = "",
+
+	-- Step 145: Buy Pattern: Wizardweave Turban at the Auction House
+	-- {item:14505} Pattern: Wizardweave Turban
+	["Buy {item:14505} at the Auction House"] = "",
+	["A rarer world drop: with it, the turbans reach 300."] = "",
+
+	-- Step 146: Learn Runecloth Shoulders
+	-- {spell:18449} Runecloth Shoulders
+	["Learn {spell:18449}"] = "",
+
+	-- Step 147: Learn Wizardweave Turban
+	-- {spell:18450} Wizardweave Turban
+	["Learn {spell:18450}"] = "",
+
+	-- Step 148: Buy 52 Crystal Vial
+	-- {item:8925} Crystal Vial
+	["Buy 52 {item:8925}"] = "",
+	-- plural, as words: Lesser Mana Oils = {item:20747} Lesser Mana Oil · Wizard Oils = {item:20750} Wizard Oil
+	["For 26 Lesser Mana Oils and 26 Wizard Oils."] = "",
+
+	-- Step 149: Get 34 Vision Dust
+	-- {item:11137} Vision Dust
+	["Get 34 {item:11137}"] = "",
+	-- {spell:13815} Enchant Gloves - Agility
+	["For 34 {spell:13815}."] = "",
+
+	-- Step 150: Go to Uldaman
+	-- {area:1517} Uldaman
+	["Go to {area:1517}"] = "",
+	-- {npc:11073} Annora
+	["Needs level 35. {npc:11073}, the only Artisan trainer, is inside this dungeon."] = "",
+
+	-- Step 151: Train Artisan Enchanting · Annora
+	-- {skill:333} Enchanting · {npc:11073} Annora
+	["Train Artisan {skill:333} · {npc:11073}"] = "",
+	["She appears only once every creature in her room is dead: a group is advised."] = "",
+
+	-- Step 152: Learn Enchant Gloves - Agility
+	-- {spell:13815} Enchant Gloves - Agility
+	["Learn {spell:13815}"] = "",
+
+	-- Step 153: Craft 34 Enchant Gloves - Agility until 250
+	-- {spell:13815} Enchant Gloves - Agility
+	["Craft 34 {spell:13815} until 250"] = "",
+	["About 34 crafts. Yellow from 230: short of 250? A few more do it."] = "",
+
+	-- Step 154: Get 26 Purple Lotus
+	-- {item:8831} Purple Lotus
+	["Get 26 {item:8831}"] = "",
+	-- plural, as words: Lesser Mana Oils = {item:20747} Lesser Mana Oil
+	["For 26 Lesser Mana Oils."] = "",
+
+	-- Step 155: Get 26 Dream Dust
+	-- {item:11176} Dream Dust
+	["Get 26 {item:11176}"] = "",
+	-- {skill:197} Tailoring
+	-- plural, as words: Lesser Mana Oils = {item:20747} Lesser Mana Oil
+	["For 26 Lesser Mana Oils. Your {skill:197} greens of 225-300 give about 26 when disenchanted."] = "",
+
+	-- Step 156: Buy Formula: Lesser Mana Oil · Kania
+	-- {item:20754} Formula: Lesser Mana Oil · {npc:15419} Kania
+	["Buy {item:20754} · {npc:15419}"] = "",
+
+	-- Step 157: Learn Lesser Mana Oil
+	-- {spell:25127} Lesser Mana Oil
+	["Learn {spell:25127}"] = "",
+
+	-- Step 158: Craft 26 Lesser Mana Oils until 270
+	-- plural, as words: Lesser Mana Oils = {item:20747} Lesser Mana Oil
+	["Craft 26 Lesser Mana Oils until 270"] = "",
+	["About 26 crafts."] = "",
+
+	-- Step 159: Get 30 Dream Dust
+	-- {item:11176} Dream Dust
+	["Get 30 {item:11176}"] = "",
+	-- {spell:20017} Enchant Shield - Greater Stamina · {skill:197} Tailoring
+	["For 5 {spell:20017}. Your {skill:197} greens of 225-300 give about 30 when disenchanted."] = "",
+
+	-- Step 160: Buy Formula: Enchant Shield - Greater Stamina · Mythrin'dir
+	-- {item:16217} Formula: Enchant Shield - Greater Stamina · {npc:4229} Mythrin'dir
+	["Buy {item:16217} · {npc:4229}"] = "",
+
+	-- Step 161: Buy Formula: Enchant Shield - Greater Stamina · Daniel Bartlett
+	-- {item:16217} Formula: Enchant Shield - Greater Stamina · {npc:4561} Daniel Bartlett
+	["Buy {item:16217} · {npc:4561}"] = "",
+
+	-- Step 162: Learn Enchant Shield - Greater Stamina
+	-- {spell:20017} Enchant Shield - Greater Stamina
+	["Learn {spell:20017}"] = "",
+
+	-- Step 163: Craft 5 Enchant Shield - Greater Stamina until 275
+	-- {spell:20017} Enchant Shield - Greater Stamina
+	["Craft 5 {spell:20017} until 275"] = "",
+	["About 5 crafts. Any shield you carry takes them all; they come back at 295."] = "",
+
+	-- Step 164: Get 52 Firebloom
+	-- {object:2866} Firebloom
+	["Get 52 {object:2866}"] = "",
+	-- plural, as words: Wizard Oils = {item:20750} Wizard Oil
+	["For 26 Wizard Oils."] = "",
+
+	-- Step 165: Get 78 Illusion Dust
+	-- {item:16204} Illusion Dust
+	["Get 78 {item:16204}"] = "",
+	-- {skill:197} Tailoring
+	-- plural, as words: Wizard Oils = {item:20750} Wizard Oil
+	["For 26 Wizard Oils. Your {skill:197} greens of 225-300 give about 44 when disenchanted."] = "",
+
+	-- Step 166: Buy Formula: Wizard Oil · Kania
+	-- {item:20755} Formula: Wizard Oil · {npc:15419} Kania
+	["Buy {item:20755} · {npc:15419}"] = "",
+
+	-- Step 167: Learn Wizard Oil
+	-- {spell:25128} Wizard Oil
+	["Learn {spell:25128}"] = "",
+
+	-- Step 168: Craft 26 Wizard Oils until 295
+	-- plural, as words: Wizard Oils = {item:20750} Wizard Oil
+	["Craft 26 Wizard Oils until 295"] = "",
+
+	-- Step 169: Get 48 Dream Dust
+	-- {item:11176} Dream Dust
+	["Get 48 {item:11176}"] = "",
+	-- {spell:20017} Enchant Shield - Greater Stamina · {skill:197} Tailoring
+	["For 8 {spell:20017}. Your {skill:197} greens of 225-300 give about 48 when disenchanted."] = "",
+
+	-- Step 170: Learn Enchant Shield - Greater Stamina
+	["Taught at 270; done at once if you learned it then."] = "",
+
+	-- Step 171: Craft 8 Enchant Shield - Greater Stamina until 299
+	-- {spell:20017} Enchant Shield - Greater Stamina
+	["Craft 8 {spell:20017} until 299"] = "",
+	["About 8 crafts. No use for the rod yet? One more shield gives the last point."] = "",
+
+	-- Step 172: Get 1 Golden Pearl
+	-- {item:13926} Golden Pearl
+	["Get 1 {item:13926}"] = "",
+	-- {item:16207} Runed Arcanite Rod
+	["For 1 {item:16207}."] = "",
+
+	-- Step 173: Get 4 Small Brilliant Shard
+	-- {item:14343} Small Brilliant Shard
+	["Get 4 {item:14343}"] = "",
+	-- {item:16207} Runed Arcanite Rod · {skill:197} Tailoring
+	["For 1 {item:16207}. Your {skill:197} greens of 225-300 give about 2 when disenchanted."] = "",
+
+	-- Step 174: Get 2 Large Brilliant Shard
+	-- {item:14344} Large Brilliant Shard
+	["Get 2 {item:14344}"] = "",
+
+	-- Step 175: Get 4 Greater Eternal Essence
+	-- {item:16203} Greater Eternal Essence
+	["Get 4 {item:16203}"] = "",
+	-- {item:16207} Runed Arcanite Rod · {skill:197} Tailoring
+	["For 1 {item:16207}. Your {skill:197} greens of 225-300 give about 4 when disenchanted."] = "",
+
+	-- Step 176: Get 10 Illusion Dust
+	-- {item:16204} Illusion Dust
+	["Get 10 {item:16204}"] = "",
+	-- {item:16207} Runed Arcanite Rod · {skill:197} Tailoring
+	["For 1 {item:16207}. Your {skill:197} greens of 225-300 give about 10 when disenchanted."] = "",
+
+	-- Step 177: Get 1 Arcanite Rod
+	-- {item:16206} Arcanite Rod
+	["Get 1 {item:16206}"] = "",
+
+	-- Step 178: Buy Formula: Runed Arcanite Rod · Lorelae Wintersong
+	-- {item:16243} Formula: Runed Arcanite Rod · {npc:12022} Lorelae Wintersong
+	["Buy {item:16243} · {npc:12022}"] = "",
+
+	-- Step 179: Learn Runed Arcanite Rod
+	-- {spell:20051} Runed Arcanite Rod
+	["Learn {spell:20051}"] = "",
+
+	-- Step 180: Craft 1 Runed Arcanite Rod until 300
+	-- {item:16207} Runed Arcanite Rod
+	["Craft 1 {item:16207} until 300"] = "",
+	["A tool: many enchants at 300 need this rod."] = "",
+
+	-- Step 181: Buy 58 Rune Thread
+	-- {item:14341} Rune Thread
+	["Buy 58 {item:14341}"] = "",
 	-- {item:13867} Runecloth Shoulders
-	["{item:13867} to 300"] = "",
-	-- {item:13867} Runecloth Shoulders · {item:14048} Bolt of Runecloth · {item:14227} Ironweb Spider Silk · {item:8170} Rugged Leather · {item:14341} Rune Thread · {item:14504} Pattern: Runecloth Shoulders · {zone:1422} Western Plaguelands · {zone:1451} Silithus · {skill:197} Tailoring
-	["{item:13867} is orange at 265 (yellow 275, green 290, grey 305): about 62 crafts to 300, up to 74 for 9 players in 10 (the gathered materials above count that many). Each takes 7 {item:14048}, 2 {item:14227}, 4 {item:8170} and 1 {item:14341}. Make the 434 {item:14048} first. Its pattern ({item:14504}) drops from mobs all over the world and does not bind: buy it at the Auction House. Seven bolts, two {item:14227} and four {item:8170} a craft: the dearest stretch. The spiders of {zone:1422} and {zone:1451} drop the silk (the marked spots), or the Auction House. {skill:197} 300 is a Legacy System milestone. If you got here without learning {item:14048}, learn it now: an earlier step teaches it."] = "",
+	["For 58 {item:13867}."] = "",
 
-	-- Step 89: Tailoring 265-300: vendor goods
-	-- {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3366} Tamar
-	["Buy the whole bracket's share in one go: 100 {item:14341} (50g); about 50g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347} and {npc:5565}; {zone:1454}: {npc:3364} and {npc:3366})."] = "",
+	-- Step 182: Get 2030 Runecloth
+	-- {item:14047} Runecloth
+	["Get 2030 {item:14047}"] = "",
+	["For 406 Bolts of Runecloth."] = "",
 
-	-- Step 90: Pattern: Runecloth Boots
-	-- {item:14488} Pattern: Runecloth Boots · {item:13864} Runecloth Boots · {skill:197} Tailoring · {npc:7940} Darnall · {zone:1450} Moonglade
-	["{item:14488} teaches {item:13864} ({skill:197} 235) for 2g. Sold by {npc:7940} ({zone:1450}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "",
+	-- Step 183: Get 232 Rugged Leather
+	-- {item:8170} Rugged Leather
+	["Get 232 {item:8170}"] = "",
 
-	-- Step 91: Get Rugged Leather
-	-- {item:8170} Rugged Leather · {skill:197} Tailoring · {item:13864} Runecloth Boots · {skill:393} Skinning
-	["588 {item:8170} for {skill:197} 265-300: 147 {item:13864}. {skill:393}: beasts of level 48-60. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- Step 184: Get 116 Ironweb Spider Silk
+	-- {item:14227} Ironweb Spider Silk
+	["Get 116 {item:14227}"] = "",
 
-	-- Step 92: Get Runecloth
-	-- {item:14047} Runecloth · {skill:197} Tailoring · {item:13864} Runecloth Boots
-	["2940 {item:14047} for {skill:197} 265-300: 147 {item:13864}. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- Step 186: Craft 406 Bolts of Runecloth
+	["Craft 406 Bolts of Runecloth"] = "",
 
-	-- Step 93: Get Ironweb Spider Silk
-	-- {item:14227} Ironweb Spider Silk · {skill:197} Tailoring · {item:13864} Runecloth Boots · {npc:1824} Plague Lurker · {npc:11739} Rock Stalker · {npc:5857} Searing Lava Spider
-	["294 {item:14227} for {skill:197} 265-300: 147 {item:13864}. {item:14227} drops most from {npc:1824}, {npc:11739} and {npc:5857}, among others. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14227} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- Step 187: Craft 58 Runecloth Shoulders until 300
+	-- {item:13867} Runecloth Shoulders
+	["Craft 58 {item:13867} until 300"] = "",
+	["About 58 crafts."] = "",
 
-	-- Step 94: Runecloth Boots to 280
-	-- {item:13864} Runecloth Boots
-	["{item:13864} to 280"] = "",
-	-- {item:13864} Runecloth Boots · {item:14048} Bolt of Runecloth · {item:14227} Ironweb Spider Silk · {item:8170} Rugged Leather · {item:14341} Rune Thread
-	["{item:13864} is green at 265 (yellow 250, green 265, grey 280): about 100 crafts to 280, up to 147 for 9 players in 10 (the gathered materials above count that many). Each takes 4 {item:14048}, 2 {item:14227}, 4 {item:8170} and 1 {item:14341}. Make the 400 {item:14048} first. Four Bolts of Runecloth, four {item:8170} and two {item:14227} a craft, and green the whole way: the long way, but its pattern can always be bought. If you got here without learning {item:14048}, learn it now: an earlier step teaches it."] = "",
+	-- Step 188: Buy 58 Rune Thread
+	-- plural, as words: Wizardweave Turbans = {item:14130} Wizardweave Turban
+	["For 58 Wizardweave Turbans."] = "",
 
-	-- Step 95: Tailoring 280-300
-	-- {skill:197} Tailoring · {item:13867} Runecloth Shoulders · {item:14112} Felcloth Shoulders · {item:14106} Felcloth Robe · {item:14130} Wizardweave Turban · {item:13866} Runecloth Headband · {item:14111} Felcloth Hood · {item:279943} Spinning Wheel · {npc:248202} Jim'bek · {npc:256735} Mivin Shadowweave · {npc:246017} Unstable Sentinel · {item:14342} Mooncloth · {npc:11189} Qia · {npc:11188} Evie Whirlbrew · {area:2255} Everlook · {item:14256} Felcloth
-	["Past 280 no pattern you can always get gives {skill:197} points on Forever without a camp station. The world-drop patterns come from the Auction House: check it again, as {item:13867}, {item:14112}, {item:14106} and {item:14130} each finish the route ({item:13866} and {item:14111} give points to 290-295). The {item:279943} patterns (Merchant's Favor sandals and waistcords from {npc:248202} or {npc:256735}) need the camp wheel, whose blueprint drops from the {npc:246017} in the City of Dalaran. {item:14342} ({npc:11189} or {npc:11188} in {area:2255}; 2 {item:14256} at a Moonwell, yellow to 285) can be made once every four days: about a month for the five points it gives here."] = "",
+	-- Step 189: Get 1740 Runecloth
+	-- {item:14047} Runecloth
+	["Get 1740 {item:14047}"] = "",
+	["For 348 Bolts of Runecloth."] = "",
+
+	-- Step 190: Get 58 Star Ruby
+	-- {item:7910} Star Ruby
+	["Get 58 {item:7910}"] = "",
+
+	-- Step 191: Get 232 Dream Dust
+	-- {item:11176} Dream Dust
+	["Get 232 {item:11176}"] = "",
+
+	-- Step 193: Craft 348 Bolts of Runecloth
+	["Craft 348 Bolts of Runecloth"] = "",
+	["Parts for the turbans; no skill points from these."] = "",
+
+	-- Step 194: Craft 58 Wizardweave Turbans until 300
+	-- plural, as words: Wizardweave Turbans = {item:14130} Wizardweave Turban
+	["Craft 58 Wizardweave Turbans until 300"] = "",
+
+	-- Step 195: Buy 31 Rune Thread
+	-- {item:14341} Rune Thread
+	["Buy 31 {item:14341}"] = "",
+	-- {item:254123} Runecloth Cuffs
+	["For 31 {item:254123}."] = "",
+
+	-- Step 196: Get 775 Runecloth
+	-- {item:14047} Runecloth
+	["Get 775 {item:14047}"] = "",
+	["For 155 Bolts of Runecloth."] = "",
+
+	-- Step 197: Get 31 Ironweb Spider Silk
+	-- {item:14227} Ironweb Spider Silk
+	["Get 31 {item:14227}"] = "",
+
+	-- Step 199: Craft 155 Bolts of Runecloth
+	["Craft 155 Bolts of Runecloth"] = "",
+	["Parts for the last cuffs; no skill points from these."] = "",
+
+	-- Step 200: Learn Runecloth Cuffs
+	["Taught at 250; done at once if you learned it then."] = "",
+
+	-- Step 201: Craft 31 Runecloth Cuffs until 290
+	-- {item:254123} Runecloth Cuffs
+	["Craft 31 {item:254123} until 290"] = "",
+	["About 31 crafts. Green now. Past 290 a point is rare: only the two Auction House patterns reach 300."] = "",
 }

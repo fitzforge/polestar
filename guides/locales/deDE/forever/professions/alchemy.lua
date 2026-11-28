@@ -9,244 +9,304 @@ return {
 	-- Step 1: Learn Alchemy
 	-- {skill:171} Alchemy
 	["Learn {skill:171}"] = "{skill:171} lernen",
-	-- {skill:171} Alchemy · {npc:1215} Alchemist Mallory · {zone:1429} Elwynn Forest · {npc:3603} Cyndra Kindwhisper · {zone:1438} Teldrassil · {npc:1470} Ghak Healtouch · {zone:1432} Loch Modan · {npc:253004} Iaadaria Bitterwind · {zone:2521} Zephras Isle · {npc:11041} Milla Fairancora · {zone:1457} Darnassus · {npc:257019} Nyassa Swiftdraught · {npc:5500} Tel'Athir · {zone:1453} Stormwind City · {npc:257005} Valiena Swiftgale · {npc:1246} Vosur Brakthel · {zone:1455} Ironforge · {npc:2132} Carolai Anise · {zone:1420} Tirisfal Glades · {npc:11044} Doctor Martin Felben · {zone:1458} Undercity · {npc:11047} Kray · {zone:1456} Thunder Bluff · {npc:3184} Miao'zan · {zone:1411} Durotar · {npc:11046} Whuut · {zone:1454} Orgrimmar · {skill:182} Herbalism · {item:2447} Peacebloom · {item:765} Silverleaf
-	-- plural, as words: Empty Vials = {item:3371} Empty Vial
-	["Apprentice {skill:171} lets you craft up to 75 for 10c, at any character level. Not every {skill:171} trainer teaches it: Alliance {npc:1215} ({zone:1429}), {npc:3603} ({zone:1438}), {npc:1470} ({zone:1432}), {npc:253004} ({zone:2521}), {npc:11041} ({zone:1457}), {npc:257019} ({zone:2521}), {npc:5500} ({zone:1453}), {npc:257005} ({zone:2521}) and {npc:1246} ({zone:1455}); Horde {npc:2132} ({zone:1420}), {npc:11044} ({zone:1458}), {npc:11047} ({zone:1456}), {npc:3184} ({zone:1411}), {npc:257019} ({zone:2521}), {npc:257005} ({zone:2521}) and {npc:11046} ({zone:1454}). The arrow picks the nearest of your faction. Pair it with {skill:182}: {item:2447} and {item:765} grow in every starting zone, and Empty Vials cost 4c at any alchemy or trade supplies vendor. 1-75 takes about 3s 28c of vendor goods, plus 87 {item:765} and 110 {item:2447} to gather or buy."] = "",
+	["No character level needed."] = "",
 
-	-- Step 2: Alchemy 1-75: vendor goods
-	-- {skill:171} Alchemy
-	["{skill:171} 1-75: vendor goods"] = "{skill:171} 1-75: Händlerwaren",
-	-- {item:3371} Empty Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 82 {item:3371} (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "Kauf den Bedarf für den ganzen Bereich auf einmal: 82 {item:3371} (3s 28c); insgesamt etwa 3s 28c. Der Pfeil wählt den nächsten Händler deiner Fraktion ({zone:1453}: {npc:1286}, {npc:5503} und {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} und {npc:3334}).",
+	-- Step 2: Buy 54 Empty Vial
+	-- {item:3371} Empty Vial
+	["Buy 54 {item:3371}"] = "",
+	["For 9 Elixirs of Minor Force and 45 Elixirs of Minor Defense."] = "",
 
-	-- Step 3: Get Silverleaf
+	-- Step 3: Get 9 Silverleaf
 	-- {item:765} Silverleaf
-	["Get {item:765}"] = "",
-	-- {item:765} Silverleaf · {skill:171} Alchemy · {skill:182} Herbalism · {zone:1426} Dun Morogh · {zone:1429} Elwynn Forest · {zone:2521} Zephras Isle
-	["87 {item:765} for {skill:171} 1-75: 87 Elixirs of Minor Defense. {skill:182}: {item:765} (skill 1) in {zone:1426} (1-10), {zone:1429} (1-10) and {zone:2521} (1-15). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["Get 9 {item:765}"] = "",
+	["For 9 Elixirs of Minor Force."] = "",
 
-	-- Step 4: Get Peacebloom
+	-- Step 4: Craft 9 Elixirs of Minor Force until 10
+	["Craft 9 Elixirs of Minor Force until 10"] = "",
+	["About 9 crafts."] = "",
+
+	-- Step 5: Get 45 Silverleaf
+	-- {item:765} Silverleaf
+	["Get 45 {item:765}"] = "",
+	["For 45 Elixirs of Minor Defense."] = "",
+
+	-- Step 6: Get 45 Peacebloom
 	-- {item:2447} Peacebloom
-	["Get {item:2447}"] = "",
-	-- {item:2447} Peacebloom · {skill:171} Alchemy · {skill:182} Herbalism · {zone:1426} Dun Morogh · {zone:1429} Elwynn Forest · {zone:2521} Zephras Isle
-	["110 {item:2447} for {skill:171} 1-75: 87 Elixirs of Minor Defense and 23 Elixirs of Minor Fortitude (23 of them for 75-150: get them all now). {skill:182}: {item:2447} (skill 1) in {zone:1426} (1-10), {zone:1429} (1-10) and {zone:2521} (1-15). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["Get 45 {item:2447}"] = "",
 
-	-- Step 5: Elixir of Minor Defense to 75
-	-- {item:5997} Elixir of Minor Defense
-	["{item:5997} to 75"] = "{item:5997} bis 75",
-	-- {item:5997} Elixir of Minor Defense · {item:765} Silverleaf · {item:2447} Peacebloom · {item:3371} Empty Vial
-	-- was: ["{item:5997} is orange at 1 (yellow 55, green 75, grey 95): about 82 crafts to 75. Each takes 1 {item:765}, 1 {item:2447} and 1 {item:3371}. Known from the start and the cheapest way through the Apprentice range. Keep the elixirs (armour while you level) or sell them."] = "{item:5997} ist bei 1 orange (gelb 55, grün 75, grau 95): etwa 82 Herstellungen bis 75. Jede benötigt 1 {item:765}, 1 {item:2447} und 1 {item:3371}. Du kennst es von Anfang an, und es ist der günstigste Weg durch den Lehrlingsbereich. Behalte die Elixiere (Rüstung, während du levelst) oder verkauf sie."
-	["{item:5997} is orange at 1 (yellow 55, green 75, grey 95): about 82 crafts to 75, up to 87 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:765}, 1 {item:2447} and 1 {item:3371}. Known from the start and the cheapest way through the Apprentice range. Keep the elixirs (armour while you level) or sell them."] = "",
+	-- Step 7: Craft 45 Elixirs of Minor Defense until 55
+	["Craft 45 Elixirs of Minor Defense until 55"] = "",
+	["About 45 crafts."] = "",
 
-	-- Step 6: Journeyman Alchemy
-	-- {skill:171} Alchemy
-	["Journeyman {skill:171}"] = "Geselle: {skill:171}",
-	-- {skill:171} Alchemy · {npc:4900} Alchemist Narett · {zone:1445} Dustwallow Marsh · {npc:2837} Jaxin Chong · {zone:1434} Stranglethorn Vale · {npc:3964} Kylanna · {zone:1440} Ashenvale · {npc:5499} Lilyssia Nightbreeze · {zone:1453} Stormwind City · {npc:11042} Sylvanna Forestmoon · {zone:1457} Darnassus · {npc:5177} Tally Berryfizz · {zone:1455} Ironforge · {npc:3009} Bena Winterhoof · {zone:1456} Thunder Bluff · {npc:4609} Doctor Marsh · {zone:1458} Undercity · {npc:2391} Serge Hinott · {zone:1424} Hillsbrad Foothills · {npc:3347} Yelmak · {zone:1454} Orgrimmar · {spell:2334} Elixir of Minor Fortitude · {spell:1230564} Mana Well · {item:2447} Peacebloom · {item:3371} Empty Vial · {item:785} Mageroyal · {item:2449} Earthroot · {item:2450} Briarthorn · {item:2453} Bruiseweed
-	-- was: ["Journeyman raises the cap from 75 to 150 for 4s 50c (Classic's price; Forever's is not in the data); it needs {skill:171} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:171} trainer teaches it: Alliance {npc:4900} ({zone:1445}), {npc:2837} ({zone:1434}), {npc:3964} ({zone:1440}), {npc:5499} ({zone:1453}), {npc:11042} ({zone:1457}) and {npc:5177} ({zone:1455}); Horde {npc:3009} ({zone:1456}), {npc:4609} ({zone:1458}), {npc:2837} ({zone:1434}), {npc:2391} ({zone:1424}) and {npc:3347} ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:2331} (from 25, 1s). Also learn {spell:1230564} (1s): Forever's {skill:171} camp item, 1 {item:2447} and 1 {item:3371}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:171} quest from your starting area's camping guide (after The Great Outdoors) sends you to an alchemy trainer who teaches it free. 75-150 takes about 1s of recipes and 9s 8c of vendor goods, plus 77 {item:785}, 152 {item:2450} and 54 {item:2453} to gather or buy."] = "Die Gesellenstufe erhöht das Limit von 75 auf 150 für 4s 50c (Preis aus Classic; der von Forever liegt nicht in den Daten); sie erfordert {skill:171} 50 und Charakterstufe 10, du kannst sie also bei jedem Besuch ab 50 nehmen. Nicht jeder {skill:171}-Lehrer bringt sie bei: Allianz {npc:4900} ({zone:1445}), {npc:2837} ({zone:1434}), {npc:3964} ({zone:1440}), {npc:5499} ({zone:1453}), {npc:11042} ({zone:1457}) und {npc:5177} ({zone:1455}); Horde {npc:3009} ({zone:1456}), {npc:4609} ({zone:1458}), {npc:2837} ({zone:1434}), {npc:2391} ({zone:1424}) und {npc:3347} ({zone:1454}). Der Pfeil wählt den nächsten deiner Fraktion. Lerne jetzt: {spell:2331} (ab 25, 1s). Lerne außerdem {spell:1230564} (1s): Forevers {skill:171}-Lagergegenstand, 1 {item:2447} und 1 {item:3371}, der für seinen Buff an einem Lagerplatz neben einem Lagerfeuer aufgestellt wird. Die Quest Camping 101: {skill:171} aus dem Camping-Guide deines Startgebiets (nach The Great Outdoors) schickt dich zu einem Alchemielehrer, der sie dir kostenlos beibringt. 75-150 kostet etwa 1s an Rezepten und 9s 8c an Händlerwaren, dazu 77 {item:785}, 152 {item:2450} und 54 {item:2453} zum Sammeln oder Kaufen."
-	["Journeyman raises the cap from 75 to 150 for 4s 50c (Classic's price; Forever's is not in the data); it needs {skill:171} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:171} trainer teaches it: Alliance {npc:4900} ({zone:1445}), {npc:2837} ({zone:1434}), {npc:3964} ({zone:1440}), {npc:5499} ({zone:1453}), {npc:11042} ({zone:1457}) and {npc:5177} ({zone:1455}); Horde {npc:3009} ({zone:1456}), {npc:4609} ({zone:1458}), {npc:2837} ({zone:1434}), {npc:2391} ({zone:1424}) and {npc:3347} ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:2334} (from 50, 2s 50c). Also learn {spell:1230564} (1s): Forever's {skill:171} camp item, 1 {item:2447} and 1 {item:3371}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:171} quest from your starting area's camping guide (after The Great Outdoors) sends you to an alchemy trainer who teaches it free. 75-150 takes about 2s 50c of recipes and 8s 68c of vendor goods, plus 50 {item:785}, 46 {item:2449}, 158 {item:2450} and 58 {item:2453} to gather or buy."] = "",
+	-- Step 8: Buy 98 Empty Vial
+	-- {item:3371} Empty Vial
+	["Buy 98 {item:3371}"] = "",
+	-- plural, as words: Minor Mana Potions = {spell:2331} Minor Mana Potion · Lesser Mana Potions = {spell:3173} Lesser Mana Potion · Fire Oils = {item:6371} Fire Oil
+	["For 10 Minor Mana Potions, 28 Elixirs of Minor Fortitude, 30 Elixirs of Wisdom, 10 Lesser Mana Potions and 20 Fire Oils."] = "",
 
-	-- Step 7: Alchemy 75-150: vendor goods
-	-- {skill:171} Alchemy
-	["{skill:171} 75-150: vendor goods"] = "{skill:171} 75-150: Händlerwaren",
-	-- {item:3371} Empty Vial · {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	-- was: ["Buy the whole bracket's share in one go: 77 {item:3371} (3s 8c) and 15 {item:3372} (6s); about 9s 8c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "Kauf den Bedarf für den ganzen Bereich auf einmal: 77 {item:3371} (3s 8c) und 15 {item:3372} (6s); insgesamt etwa 9s 8c. Der Pfeil wählt den nächsten Händler deiner Fraktion ({zone:1453}: {npc:1286}, {npc:5503} und {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} und {npc:3334})."
-	["Buy the whole bracket's share in one go: 67 {item:3371} (2s 68c) and 15 {item:3372} (6s); about 8s 68c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
-
-	-- Step 8: Get Mageroyal
+	-- Step 9: Get 10 Mageroyal
 	-- {item:785} Mageroyal
-	["Get {item:785}"] = "",
-	-- {item:785} Mageroyal · {skill:171} Alchemy · {skill:182} Herbalism · {zone:1438} Teldrassil · {zone:2521} Zephras Isle · {zone:1439} Darkshore
-	["50 {item:785} for {skill:171} 75-150: 50 Elixirs of Wisdom. {skill:182}: {item:785} (skill 50) in {zone:1438} (1-10), {zone:2521} (1-15) and {zone:1439} (10-20). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["Get 10 {item:785}"] = "",
+	-- plural, as words: Minor Mana Potions = {spell:2331} Minor Mana Potion
+	["For 10 Minor Mana Potions."] = "",
 
-	-- Step 9: Get Earthroot
-	-- {item:2449} Earthroot
-	["Get {item:2449}"] = "",
-	-- {item:2449} Earthroot · {skill:171} Alchemy · {skill:182} Herbalism · {zone:1426} Dun Morogh · {zone:2521} Zephras Isle · {zone:1433} Redridge Mountains
-	["46 {item:2449} for {skill:171} 75-150: 23 Elixirs of Minor Fortitude. {skill:182}: {item:2449} (skill 15) in {zone:1426} (1-10), {zone:2521} (1-15) and {zone:1433} (15-25). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- Step 10: Get 10 Peacebloom
+	-- {item:2447} Peacebloom
+	["Get 10 {item:2447}"] = "",
 
-	-- Step 10: Get Briarthorn
-	-- {item:2450} Briarthorn
-	["Get {item:2450}"] = "",
-	-- {item:2450} Briarthorn · {skill:171} Alchemy · {skill:182} Herbalism · {zone:1436} Westfall · {zone:1440} Ashenvale · {zone:1437} Wetlands
-	-- plural, as words: Lesser Troll's Blood Elixirs = {spell:3176} Lesser Troll's Blood Elixir
-	["158 {item:2450} for {skill:171} 75-150: 50 Elixirs of Wisdom and 29 Lesser Troll's Blood Elixirs (28 of them for 150-225: get them all now). {skill:182}: {item:2450} (skill 70) in {zone:1436} (10-20), {zone:1440} (18-30) and {zone:1437} (20-30). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- Step 11: Train Journeyman Alchemy
+	-- {skill:171} Alchemy
+	["Train Journeyman {skill:171}"] = "",
+	["Needs level 10."] = "",
 
-	-- Step 11: Get Bruiseweed
-	-- {item:2453} Bruiseweed
-	["Get {item:2453}"] = "",
-	-- {item:2453} Bruiseweed · {skill:171} Alchemy · {skill:182} Herbalism · {zone:1442} Stonetalon Mountains · {zone:1431} Duskwood · {zone:1440} Ashenvale
-	-- plural, as words: Lesser Troll's Blood Elixirs = {spell:3176} Lesser Troll's Blood Elixir
-	["58 {item:2453} for {skill:171} 75-150: 29 Lesser Troll's Blood Elixirs (28 of them for 150-225: get them all now). {skill:182}: {item:2453} (skill 100) in {zone:1442} (15-27), {zone:1431} (18-30) and {zone:1440} (18-30). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- Step 12: Learn Minor Mana Potion
+	-- {spell:2331} Minor Mana Potion
+	["Learn {spell:2331}"] = "",
 
-	-- Step 12: Elixir of Minor Fortitude to 92
+	-- Step 13: Learn Elixir of Minor Fortitude
 	-- {spell:2334} Elixir of Minor Fortitude
-	["{spell:2334} to 92"] = "",
-	-- {spell:2334} Elixir of Minor Fortitude · {item:2449} Earthroot · {item:2447} Peacebloom · {item:3371} Empty Vial
-	["{spell:2334} is orange at 75 (yellow 80, green 100, grey 120): about 20 crafts to 92, up to 23 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:2449}, 1 {item:2447} and 1 {item:3371}. Two {item:2449} and a {item:2447} a craft, herbs of the starting zones and the 10-20 zones; orange to 80."] = "",
+	["Learn {spell:2334}"] = "",
+	["For 65-90: taught here now, so no second trip."] = "",
 
-	-- Step 13: Alchemy recipes at 92
-	-- {skill:171} Alchemy
-	["{skill:171} recipes at 92"] = "",
-	-- {skill:171} Alchemy · {spell:3171} Elixir of Wisdom
-	["Back to an {skill:171} trainer: {spell:3171} (from 90)."] = "Zurück zu einem {skill:171}-Lehrer: {spell:3171} (ab 90).",
+	-- Step 14: Craft 10 Minor Mana Potions until 65
+	-- plural, as words: Minor Mana Potions = {spell:2331} Minor Mana Potion
+	["Craft 10 Minor Mana Potions until 65"] = "",
+	["About 10 crafts."] = "",
 
-	-- Step 14: Elixir of Wisdom to 135
+	-- Step 15: Get 28 Peacebloom
+	-- {item:2447} Peacebloom
+	["Get 28 {item:2447}"] = "",
+	["For 28 Elixirs of Minor Fortitude."] = "",
+
+	-- Step 16: Get 56 Earthroot
+	-- {item:2449} Earthroot
+	["Get 56 {item:2449}"] = "",
+
+	-- Step 17: Learn Elixir of Minor Fortitude
+	["Taught at 55; done at once if you learned it then."] = "",
+
+	-- Step 18: Craft 28 Elixirs of Minor Fortitude until 90
+	["Craft 28 Elixirs of Minor Fortitude until 90"] = "",
+	["About 28 crafts. No points past 75 until Journeyman is trained."] = "",
+
+	-- Step 19: Get 30 Mageroyal
+	-- {item:785} Mageroyal
+	["Get 30 {item:785}"] = "",
+	["For 30 Elixirs of Wisdom."] = "",
+
+	-- Step 20: Get 60 Briarthorn
+	-- {item:2450} Briarthorn
+	["Get 60 {item:2450}"] = "",
+
+	-- Step 21: Learn Elixir of Wisdom
 	-- {spell:3171} Elixir of Wisdom
-	["{spell:3171} to 135"] = "{spell:3171} bis 135",
-	-- {spell:3171} Elixir of Wisdom · {item:785} Mageroyal · {item:2450} Briarthorn · {item:3371} Empty Vial
-	["{spell:3171} is orange at 92 (yellow 120, green 140, grey 160): about 47 crafts to 135, up to 50 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:785}, 2 {item:2450} and 1 {item:3371}. Two {item:2450} and a {item:785} a craft, both from the 10-25 zones; orange to 120."] = "",
+	["Learn {spell:3171}"] = "",
 
-	-- Step 15: Alchemy recipes at 135
-	-- {skill:171} Alchemy
-	["{skill:171} recipes at 135"] = "{skill:171}-Rezepte bei 135",
-	-- {skill:171} Alchemy · {spell:3176} Lesser Troll's Blood Elixir
-	["Back to an {skill:171} trainer: {spell:3176} (from 125)."] = "Zurück zu einem {skill:171}-Lehrer: {spell:3176} (ab 125).",
+	-- Step 22: Craft 30 Elixirs of Wisdom until 120
+	["Craft 30 Elixirs of Wisdom until 120"] = "",
+	["About 30 crafts."] = "",
 
-	-- Step 16: Lesser Troll's Blood Elixir to 150
-	-- {spell:3176} Lesser Troll's Blood Elixir
-	["{spell:3176} to 150"] = "{spell:3176} bis 150",
-	-- {spell:3176} Lesser Troll's Blood Elixir · {item:2453} Bruiseweed · {item:2450} Briarthorn · {item:3372} Leaded Vial · {skill:171} Alchemy
-	["{spell:3176} is orange at 135 (yellow 150, green 170, grey 190): about 15 crafts to 150, a point every craft. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. {skill:171} 150 is a Legacy System milestone."] = "{spell:3176} ist bei 135 orange (gelb 150, grün 170, grau 190): etwa 15 Herstellungen bis 150, ein Punkt pro Herstellung. Jede benötigt 2 {item:2453}, 2 {item:2450} und 1 {item:3372}. Zwei {item:2453} und zwei {item:2450} pro Herstellung; {item:2453} wächst in den Gebieten für Stufe 15-30. {skill:171} 150 ist ein Meilenstein des Vermächtnissystems.",
+	-- Step 23: Get 10 Mageroyal
+	-- plural, as words: Lesser Mana Potions = {spell:3173} Lesser Mana Potion
+	["For 10 Lesser Mana Potions."] = "",
 
-	-- Step 17: Alchemy 150-225: vendor goods
-	-- {skill:171} Alchemy
-	["{skill:171} 150-225: vendor goods"] = "{skill:171} 150-225: Händlerwaren",
-	-- {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "Kauf den Bedarf für den ganzen Bereich auf einmal: 83 {item:3372} (33s 20c); insgesamt etwa 33s 20c. Der Pfeil wählt den nächsten Händler deiner Fraktion ({zone:1453}: {npc:1286}, {npc:5503} und {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} und {npc:3334}).",
-
-	-- Step 18: Get Wild Steelbloom
-	-- {object:1623} Wild Steelbloom
-	["Get {object:1623}"] = "",
-	-- {object:1623} Wild Steelbloom · {skill:171} Alchemy · {skill:182} Herbalism · {zone:1442} Stonetalon Mountains · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
-	["45 {object:1623} for {skill:171} 150-225: 45 Elixirs of Defense (11 of them for 225-300: get them all now). {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
-
-	-- Step 19: Get Kingsblood
-	-- {item:3356} Kingsblood
-	["Get {item:3356}"] = "",
-	-- {item:3356} Kingsblood · {skill:171} Alchemy · {skill:182} Herbalism · {zone:1437} Wetlands · {zone:1434} Stranglethorn Vale · {zone:2548} Riverglades
-	-- plural, as words: Mana Potions = {spell:3452} Mana Potion
-	["42 {item:3356} for {skill:171} 150-225: 42 Mana Potions. {skill:182}: {item:3356} (skill 125) in {zone:1437} (20-30), {zone:1434} (30-45) and {zone:2548} (38-47). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
-
-	-- Step 20: Get Stranglekelp
+	-- Step 24: Get 10 Stranglekelp
 	-- {object:2045} Stranglekelp
-	["Get {object:2045}"] = "",
-	-- {object:2045} Stranglekelp · {skill:171} Alchemy · {skill:182} Herbalism · {zone:1437} Wetlands · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands
+	["Get 10 {object:2045}"] = "",
+
+	-- Step 25: Learn Lesser Mana Potion
+	-- {spell:3173} Lesser Mana Potion
+	["Learn {spell:3173}"] = "",
+
+	-- Step 26: Craft 10 Lesser Mana Potions until 130
+	-- plural, as words: Lesser Mana Potions = {spell:3173} Lesser Mana Potion
+	["Craft 10 Lesser Mana Potions until 130"] = "",
+
+	-- Step 27: Get 40 Firefin Snapper
+	-- {item:6359} Firefin Snapper
+	["Get 40 {item:6359}"] = "",
+	-- plural, as words: Fire Oils = {item:6371} Fire Oil
+	["For 20 Fire Oils."] = "",
+
+	-- Step 28: Learn Fire Oil
+	-- {spell:7837} Fire Oil
+	["Learn {spell:7837}"] = "",
+
+	-- Step 29: Craft 20 Fire Oils until 150
+	-- plural, as words: Fire Oils = {item:6371} Fire Oil
+	["Craft 20 Fire Oils until 150"] = "",
+	["About 20 crafts. Each craft makes 2 oils. Keep 30: the Elixirs of Fire Power at 150 use them."] = "",
+
+	-- Step 30: Buy 87 Leaded Vial
+	-- {item:3372} Leaded Vial
+	["Buy 87 {item:3372}"] = "",
+	-- plural, as words: Mana Potions = {spell:3452} Mana Potion · Nature Protection Potions = {item:6052} Nature Protection Potion
+	["For 15 Elixirs of Fire Power, 36 Mana Potions and 36 Nature Protection Potions."] = "",
+
+	-- Step 31: Get 15 Kingsblood
+	-- {item:3356} Kingsblood
+	["Get 15 {item:3356}"] = "",
+	["For 15 Elixirs of Fire Power."] = "",
+
+	-- Step 32: Train Expert Alchemy
+	-- {skill:171} Alchemy
+	["Train Expert {skill:171}"] = "",
+	["Needs level 20."] = "",
+
+	-- Step 33: Learn Elixir of Fire Power
+	-- {spell:7845} Elixir of Fire Power
+	["Learn {spell:7845}"] = "",
+
+	-- Step 34: Craft 15 Elixirs of Fire Power until 165
+	["Craft 15 Elixirs of Fire Power until 165"] = "",
+	["About 15 crafts."] = "",
+
+	-- Step 35: Get 36 Kingsblood
+	-- {item:3356} Kingsblood
+	["Get 36 {item:3356}"] = "",
 	-- plural, as words: Mana Potions = {spell:3452} Mana Potion
-	["42 {object:2045} for {skill:171} 150-225: 42 Mana Potions. {skill:182}: {object:2045} (skill 85) in {zone:1437} (20-30), {zone:1434} (30-45) and {zone:1425} (40-50). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["For 36 Mana Potions."] = "",
 
-	-- Step 21: Get Goldthorn
-	-- {object:2046} Goldthorn
-	["Get {object:2046}"] = "",
-	-- {object:2046} Goldthorn · {skill:171} Alchemy · {skill:182} Herbalism · {zone:2548} Riverglades · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["45 {object:2046} for {skill:171} 150-225: 45 Elixirs of Defense (11 of them for 225-300: get them all now). {skill:182}: {object:2046} (skill 170) in {zone:2548} (38-47), {zone:1425} (40-50) and {zone:1444} (40-50). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- Step 36: Get 36 Stranglekelp
+	-- {object:2045} Stranglekelp
+	["Get 36 {object:2045}"] = "",
 
-	-- Step 22: Expert Alchemy
-	-- {skill:171} Alchemy
-	["Expert {skill:171}"] = "Experte: {skill:171}",
-	-- {skill:171} Alchemy · {npc:4160} Ainethil · {zone:1457} Darnassus · {npc:4611} Doctor Herbert Halsey · {zone:1458} Undercity · {object:1623} Wild Steelbloom · {item:3356} Kingsblood · {object:2045} Stranglekelp · {object:2046} Goldthorn · {spell:3452} Mana Potion · {item:8951} Elixir of Defense
-	-- was: ["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:171} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:4160} ({zone:1457}); Horde {npc:4611} ({zone:1458}). The arrow picks the nearest of your faction. 150-225 takes about 33s 20c of vendor goods, plus 40 {object:1623}, 39 {item:3356}, 39 {object:2045} and 40 {object:2046} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {spell:3452} (from 160) and {item:8951} (from 195), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "Die Expertenstufe erhöht das Limit von 150 auf 225 für 50s (Preis aus Classic; der von Forever liegt nicht in den Daten); sie erfordert {skill:171} 125 und Charakterstufe 20, du kannst sie also bei jedem Besuch ab 125 nehmen. Nur wenige Lehrer bringen sie bei: Allianz {npc:4160} ({zone:1457}); Horde {npc:4611} ({zone:1458}). Der Pfeil wählt den nächsten deiner Fraktion. 150-225 kostet etwa 33s 20c an Händlerwaren, dazu 40 {object:1623}, 39 {item:3356}, 39 {object:2045} und 40 {object:2046} zum Sammeln oder Kaufen. Komm mit allem in deinen Taschen (die Schritte oben, den Rest aus dem Auktionshaus): Diese Lehrer bringen auch {spell:3452} (ab 160) und {item:8951} (ab 195) bei, und die Herstellung braucht keine Station, also stell sie gleich hier her und lerne jedes Rezept, sobald du seine Fertigkeit erreichst. Ein Besuch statt 3."
-	["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:171} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:4160} ({zone:1457}); Horde {npc:4611} ({zone:1458}). This route trains it at {npc:4160} ({zone:1457}) for the Alliance and {npc:4611} ({zone:1458}) for the Horde, who also teach the recipes of 150-225: one trainer for every visit. 150-225 takes about 33s 20c of vendor goods, plus 45 {object:1623}, 42 {item:3356}, 42 {object:2045} and 45 {object:2046} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {spell:3452} (from 160) and {item:8951} (from 195), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "",
-
-	-- Step 23: Lesser Troll's Blood Elixir to 160
-	-- {spell:3176} Lesser Troll's Blood Elixir
-	["{spell:3176} to 160"] = "{spell:3176} bis 160",
-	-- {spell:3176} Lesser Troll's Blood Elixir · {item:2453} Bruiseweed · {item:2450} Briarthorn · {item:3372} Leaded Vial
-	-- was: ["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. If you got here without learning {spell:3176}, learn it now: an earlier step teaches it."] = "{spell:3176} ist gelb bei 150 (gelb 150, grün 170, grau 190): etwa 12 Herstellungen bis 160. Jede braucht 2 {item:2453}, 2 {item:2450} und 1 {item:3372}. Zwei {item:2453} und zwei {item:2450} pro Herstellung; {item:2453} wächst in den Gebieten 15-30. Wenn du ohne {spell:3176} hierhergekommen bist, lern es jetzt: Ein früherer Schritt bringt es dir bei."
-	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160, up to 14 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. If you got here without learning {spell:3176}, learn it now: an earlier step teaches it."] = "",
-
-	-- Step 24: Alchemy recipes at 160
-	-- {skill:171} Alchemy
-	["{skill:171} recipes at 160"] = "{skill:171}-Rezepte bei 160",
+	-- Step 37: Learn Mana Potion
 	-- {spell:3452} Mana Potion
-	["Still at the Expert trainer: {spell:3452} (from 160)."] = "Noch beim Expertenlehrer: {spell:3452} (ab 160).",
+	["Learn {spell:3452}"] = "",
 
-	-- Step 25: Mana Potion to 195
-	-- {spell:3452} Mana Potion
-	["{spell:3452} to 195"] = "{spell:3452} bis 195",
-	-- {spell:3452} Mana Potion · {item:3820} Stranglekelp · {item:3356} Kingsblood · {item:3372} Leaded Vial
-	-- was: ["{spell:3452} is orange at 160 (yellow 180, green 200, grey 220): about 39 crafts to 195. Each takes 1 {item:3820}, 1 {item:3356} and 1 {item:3372}. {item:3820} grows under water along the coasts: bring a water breathing elixir or come up for air. {item:3356} grows in the 20-40 zones."] = "{spell:3452} ist bei 160 orange (gelb 180, grün 200, grau 220): etwa 39 Herstellungen bis 195. Jede benötigt 1 {item:3820}, 1 {item:3356} und 1 {item:3372}. {item:3820} wächst unter Wasser entlang der Küsten: Bring ein Elixier der Wasseratmung mit oder tauch zum Luftholen auf. {item:3356} wächst in den Gebieten für Stufe 20-40."
-	["{spell:3452} is orange at 160 (yellow 180, green 200, grey 220): about 39 crafts to 195, up to 42 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:3820}, 1 {item:3356} and 1 {item:3372}. {item:3820} grows under water along the coasts: bring a water breathing elixir or come up for air. {item:3356} grows in the 20-40 zones."] = "",
+	-- Step 38: Craft 36 Mana Potions until 195
+	-- plural, as words: Mana Potions = {spell:3452} Mana Potion
+	["Craft 36 Mana Potions until 195"] = "",
+	["About 36 crafts."] = "",
 
-	-- Step 26: Alchemy recipes at 195
+	-- Step 39: Get 36 Liferoot
+	-- {item:3357} Liferoot
+	["Get 36 {item:3357}"] = "",
+	-- plural, as words: Nature Protection Potions = {item:6052} Nature Protection Potion
+	["For 36 Nature Protection Potions."] = "",
+
+	-- Step 41: Buy Recipe: Nature Protection Potion · Alchemist Pestlezugg, Glyx Brewright or Logannas
+	-- {item:6057} Recipe: Nature Protection Potion · {npc:5594} Alchemist Pestlezugg · {npc:2848} Glyx Brewright · {npc:8157} Logannas
+	["Buy {item:6057} · {npc:5594}, {npc:2848} or {npc:8157}"] = "",
+	["It binds when picked up."] = "",
+
+	-- Step 42: Buy Recipe: Nature Protection Potion · Alchemist Pestlezugg, Glyx Brewright or Bronk
+	-- {item:6057} Recipe: Nature Protection Potion · {npc:5594} Alchemist Pestlezugg · {npc:2848} Glyx Brewright · {npc:8158} Bronk
+	["Buy {item:6057} · {npc:5594}, {npc:2848} or {npc:8158}"] = "",
+
+	-- Step 43: Learn Nature Protection Potion
+	-- {spell:7259} Nature Protection Potion
+	["Learn {spell:7259}"] = "",
+	-- was: ["from the recipe in your bags"] = "aus dem Rezept in deinen Taschen"
+	["From the recipe in your bags."] = "",
+
+	-- Step 44: Craft 36 Nature Protection Potions until 225
+	-- plural, as words: Nature Protection Potions = {item:6052} Nature Protection Potion
+	["Craft 36 Nature Protection Potions until 225"] = "",
+
+	-- Step 45: Buy 73 Leaded Vial
+	-- {item:3372} Leaded Vial
+	["Buy 73 {item:3372}"] = "",
+	-- plural, as words: Nature Protection Potions = {item:6052} Nature Protection Potion · Stonescale Oils = {item:13423} Stonescale Oil
+	["For 26 Nature Protection Potions and 47 Stonescale Oils."] = "",
+
+	-- Step 46: Buy 69 Crystal Vial
+	-- {item:8925} Crystal Vial
+	["Buy 69 {item:8925}"] = "",
+	["For 25 Elixirs of Greater Intellect and 44 Elixirs of Greater Defense."] = "",
+
+	-- Step 47: Get 26 Liferoot
+	-- {item:3357} Liferoot
+	["Get 26 {item:3357}"] = "",
+	-- plural, as words: Nature Protection Potions = {item:6052} Nature Protection Potion
+	["For 26 Nature Protection Potions."] = "",
+
+	-- Step 48: Get 26 Stranglekelp
+	-- {object:2045} Stranglekelp
+	["Get 26 {object:2045}"] = "",
+
+	-- Step 49: Train Artisan Alchemy
 	-- {skill:171} Alchemy
-	["{skill:171} recipes at 195"] = "{skill:171}-Rezepte bei 195",
-	-- {spell:11450} Elixir of Defense
-	["Still at the Expert trainer: {spell:11450} (from 195)."] = "Noch beim Expertenlehrer: {spell:11450} (ab 195).",
+	["Train Artisan {skill:171}"] = "",
+	["Needs level 35."] = "",
 
-	-- Step 27: Elixir of Defense to 225
-	-- {item:8951} Elixir of Defense
-	["{item:8951} to 225"] = "{item:8951} bis 225",
-	-- {item:8951} Elixir of Defense · {item:3355} Wild Steelbloom · {item:3821} Goldthorn · {item:3372} Leaded Vial · {zone:1418} Badlands · {skill:171} Alchemy
-	-- was: ["{item:8951} is orange at 195 (yellow 215, green 235, grey 255): about 32 crafts to 225. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). {skill:171} 225 is a Legacy System milestone."] = "{item:8951} ist bei 195 orange (gelb 215, grün 235, grau 255): etwa 32 Herstellungen bis 225. Jede benötigt 1 {item:3355}, 1 {item:3821} und 1 {item:3372}. {item:3355} und {item:3821} sind die Kräuter der Gebiete für Stufe 30-45 (Schlingendorntal, Arathihochland und {zone:1418}). {skill:171} 225 ist ein Meilenstein des Vermächtnissystems."
-	["{item:8951} is orange at 195 (yellow 215, green 235, grey 255): about 32 crafts to 225, up to 34 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). {skill:171} 225 is a Legacy System milestone."] = "",
+	-- Step 50: Learn Nature Protection Potion
+	["Taught at 195; done at once if you learned it then."] = "",
 
-	-- Step 28: Alchemy 225-300: vendor goods
-	-- {skill:171} Alchemy
-	["{skill:171} 225-300: vendor goods"] = "{skill:171} 225-300: Händlerwaren",
-	-- {item:3372} Leaded Vial · {item:8925} Crystal Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "Kauf den Bedarf für den ganzen Bereich auf einmal: 51 {item:3372} (20s 40c) und 86 {item:8925} (4g 30s); insgesamt etwa 4g 50s 40c. Der Pfeil wählt den nächsten Händler deiner Fraktion ({zone:1453}: {npc:1286}, {npc:5503} und {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} und {npc:3334}).",
+	-- Step 51: Craft 26 Nature Protection Potions until 235
+	-- plural, as words: Nature Protection Potions = {item:6052} Nature Protection Potion
+	["Craft 26 Nature Protection Potions until 235"] = "",
+	["About 26 crafts. Green for the last 5 points: short of 235? A few more do it."] = "",
 
-	-- Step 29: Recipe: Elixir of Superior Defense
-	-- {item:13478} Recipe: Elixir of Superior Defense · {item:13445} Elixir of Greater Defense · {skill:171} Alchemy · {npc:5178} Soolie Berryfizz · {zone:1455} Ironforge · {npc:3348} Kor'geld · {zone:1454} Orgrimmar
-	["{item:13478} teaches {item:13445} ({skill:171} 265) for 1g 30s. Sold by Alliance: {npc:5178} ({zone:1455}), limited stock; Horde: {npc:3348} ({zone:1454}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; the Auction House often has it too."] = "{item:13478} bringt dir {item:13445} ({skill:171} 265) für 1g 30s bei. Verkauft von Allianz: {npc:5178} ({zone:1455}), begrenzter Vorrat; Horde: {npc:3348} ({zone:1454}), begrenzter Vorrat. Die Händler haben ein oder zwei auf Lager, die einige Zeit nach einem Verkauf wiederkommen; auch das Auktionshaus hat es oft.",
+	-- Step 52: Get 15 Khadgar's Whisker
+	-- {object:2043} Khadgar's Whisker
+	["Get 15 {object:2043}"] = "",
+	["For 15 Elixirs of Greater Intellect."] = "",
 
-	-- Step 30: Get Purple Lotus
-	-- {item:8831} Purple Lotus
-	["Get {item:8831}"] = "",
-	-- {item:8831} Purple Lotus · {skill:171} Alchemy · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	-- plural, as words: Dreamless Sleep Potions = {item:12190} Dreamless Sleep Potion
-	["144 {item:8831} for {skill:171} 225-300: 48 Dreamless Sleep Potions. {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- Step 53: Get 15 Blindweed
+	-- {item:8839} Blindweed
+	["Get 15 {item:8839}"] = "",
 
-	-- Step 31: Get Sungrass
-	-- {item:8838} Sungrass
-	["Get {item:8838}"] = "",
-	-- {item:8838} Sungrass · {skill:171} Alchemy · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["48 {item:8838} for {skill:171} 225-300: 48 Elixirs of Greater Defense. {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- Step 54: Learn Elixir of Greater Intellect
+	-- {spell:11465} Elixir of Greater Intellect
+	["Learn {spell:11465}"] = "",
 
-	-- Step 32: Get Stonescale Eel
+	-- Step 55: Craft 15 Elixirs of Greater Intellect until 250
+	["Craft 15 Elixirs of Greater Intellect until 250"] = "",
+
+	-- Step 56: Get 47 Stonescale Eel
 	-- {item:13422} Stonescale Eel
-	["Get {item:13422}"] = "",
-	-- {item:13422} Stonescale Eel · {skill:171} Alchemy · {object:180712} Stonescale Eel Swarm
-	["48 {item:13422} for {skill:171} 225-300: 48 Elixirs of Greater Defense. Fish them from the {object:180712} pools at the marked spot. Or buy them at the Auction House."] = "",
+	["Get 47 {item:13422}"] = "",
+	-- plural, as words: Stonescale Oils = {item:13423} Stonescale Oil
+	["For 47 Stonescale Oils."] = "",
 
-	-- Step 33: Artisan Alchemy
-	-- {skill:171} Alchemy
-	["Artisan {skill:171}"] = "Fachmann: {skill:171}",
-	-- {skill:171} Alchemy · {npc:7948} Kylanna Windwhisper · {zone:1444} Feralas · {npc:259585} Master Mycologist Shurome · {zone:1448} Felwood · {npc:1386} Rogvar · {zone:1435} Swamp of Sorrows · {item:8831} Purple Lotus · {item:8838} Sungrass · {item:13422} Stonescale Eel · {item:12190} Dreamless Sleep Potion · {item:13423} Stonescale Oil
-	["Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs {skill:171} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:7948} ({zone:1444}) and {npc:259585} ({zone:1448}); Horde {npc:259585} ({zone:1448}) and {npc:1386} ({zone:1435}). This route trains it at {npc:7948} ({zone:1444}) for the Alliance and {npc:1386} ({zone:1435}) for the Horde, who also teach the recipes of 225-300: one trainer for every visit. 225-300 takes about 1g 30s of recipes and 4g 50s 40c of vendor goods, plus 144 {item:8831}, 48 {item:8838} and 48 {item:13422} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:12190} (from 230) and {item:13423} (from 250), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "",
-
-	-- Step 34: Elixir of Defense to 230
-	-- {item:8951} Elixir of Defense
-	["{item:8951} to 230"] = "{item:8951} bis 230",
-	-- {item:8951} Elixir of Defense · {item:3355} Wild Steelbloom · {item:3821} Goldthorn · {item:3372} Leaded Vial · {zone:1418} Badlands
-	-- was: ["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). If you got here without learning {item:8951}, learn it now: an earlier step teaches it."] = "{item:8951} ist gelb bei 225 (gelb 215, grün 235, grau 255): etwa 8 Herstellungen bis 230. Jede braucht 1 {item:3355}, 1 {item:3821} und 1 {item:3372}. {item:3355} und {item:3821} sind die Kräuter der Gebiete 30-45 (Schlingendorntal, Arathi, {zone:1418}). Wenn du ohne {item:8951} hierhergekommen bist, lern es jetzt: Ein früherer Schritt bringt es dir bei."
-	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230, up to 11 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). If you got here without learning {item:8951}, learn it now: an earlier step teaches it."] = "",
-
-	-- Step 35: Alchemy recipes at 230
-	-- {skill:171} Alchemy
-	["{skill:171} recipes at 230"] = "Rezepte für {skill:171} bei 230",
-	-- {spell:15833} Dreamless Sleep Potion
-	["Still at the Artisan trainer: {spell:15833} (from 230)."] = "",
-
-	-- Step 36: Dreamless Sleep Potion to 265
-	-- {item:12190} Dreamless Sleep Potion
-	["{item:12190} to 265"] = "",
-	-- {item:12190} Dreamless Sleep Potion · {item:8831} Purple Lotus · {item:8925} Crystal Vial · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {item:8838} Sungrass
-	["{item:12190} is orange at 230 (yellow 245, green 265, grey 285): about 43 crafts to 265, up to 48 for 9 players in 10 (the gathered materials above count that many). Each takes 3 {item:8831} and 1 {item:8925}. Three {item:8831} a craft ({skill:182} 210: the {zone:1425} and {zone:1444}, mobs of level 44-47) and a {item:8925} from an alchemy vendor. The {skill:182} guide's loops there give {item:8838} for the last stretch too."] = "",
-
-	-- Step 37: Alchemy recipes at 265
-	-- {skill:171} Alchemy
-	["{skill:171} recipes at 265"] = "{skill:171}-Rezepte bei 265",
+	-- Step 57: Learn Stonescale Oil
 	-- {spell:17551} Stonescale Oil
-	["Still at the Artisan trainer: {spell:17551} (from 250)."] = "Noch beim Meisterlehrer: {spell:17551} (ab 250).",
+	["Learn {spell:17551}"] = "",
 
-	-- Step 38: Elixir of Greater Defense to 300
+	-- Step 58: Craft 47 Stonescale Oils until 260
+	-- plural, as words: Stonescale Oils = {item:13423} Stonescale Oil
+	["Craft 47 Stonescale Oils until 260"] = "",
+	["About 47 crafts. Each craft makes 2 oils. Keep all of them: the elixirs at 265 use 88."] = "",
+
+	-- Step 59: Get 10 Khadgar's Whisker
+	-- {object:2043} Khadgar's Whisker
+	["Get 10 {object:2043}"] = "",
+	["For 10 Elixirs of Greater Intellect."] = "",
+
+	-- Step 60: Get 10 Blindweed
+	-- {item:8839} Blindweed
+	["Get 10 {item:8839}"] = "",
+
+	-- Step 61: Learn Elixir of Greater Intellect
+	["Taught at 235; done at once if you learned it then."] = "",
+
+	-- Step 62: Craft 10 Elixirs of Greater Intellect until 265
+	["Craft 10 Elixirs of Greater Intellect until 265"] = "",
+
+	-- Step 63: Get 44 Sungrass
+	-- {item:8838} Sungrass
+	["Get 44 {item:8838}"] = "",
+	["For 44 Elixirs of Greater Defense."] = "",
+
+	-- Step 64: Buy Recipe: Elixir of Superior Defense · Soolie Berryfizz
+	-- {item:13478} Recipe: Elixir of Superior Defense · {npc:5178} Soolie Berryfizz
+	["Buy {item:13478} · {npc:5178}"] = "",
 	-- {item:13445} Elixir of Greater Defense
-	["{item:13445} to 300"] = "{item:13445} bis 300",
-	-- {item:13445} Elixir of Greater Defense · {item:13423} Stonescale Oil · {item:8838} Sungrass · {item:8925} Crystal Vial · {item:13422} Stonescale Eel · {skill:171} Alchemy
-	-- was: ["{item:13445} is orange at 265 (yellow 280, green 300, grey 320): about 43 crafts to 300. Each takes 2 {item:13423}, 1 {item:8838} and 1 {item:8925}. Make the 86 {item:13423} (43 crafts) first. {item:13422} comes from the {item:13422} schools on the coasts of the 40-55 zones, or the Auction House (fishers sell them in stacks). {item:8838} grows in the 40-55 zones. {skill:171} 300 is a Legacy System milestone."] = "{item:13445} ist bei 265 orange (gelb 280, grün 300, grau 320): etwa 43 Herstellungen bis 300. Jede benötigt 2 {item:13423}, 1 {item:8838} und 1 {item:8925}. Stell zuerst die 86 {item:13423} her (43 Herstellungen). {item:13422} kommt aus den Schwärmen von {item:13422} an den Küsten der Gebiete für Stufe 40-55, oder aus dem Auktionshaus (Angler verkaufen sie stapelweise). {item:8838} wächst in den Gebieten für Stufe 40-55. {skill:171} 300 ist ein Meilenstein des Vermächtnissystems."
-	["{item:13445} is orange at 265 (yellow 280, green 300, grey 320): about 43 crafts to 300, up to 48 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:13423}, 1 {item:8838} and 1 {item:8925}. Make the 86 {item:13423} (43 crafts) first. {item:13422} comes from the {item:13422} schools on the coasts of the 40-55 zones, or the Auction House (fishers sell them in stacks). {item:8838} grows in the 40-55 zones. {skill:171} 300 is a Legacy System milestone."] = "",
-	["from the recipe in your bags"] = "aus dem Rezept in deinen Taschen",
+	["Its name says Superior Defense; it teaches the {item:13445}."] = "",
+
+	-- Step 65: Buy Recipe: Elixir of Superior Defense · Kor'geld
+	-- {item:13478} Recipe: Elixir of Superior Defense · {npc:3348} Kor'geld
+	["Buy {item:13478} · {npc:3348}"] = "",
+
+	-- Step 66: Learn Elixir of Greater Defense
+	-- {spell:17554} Elixir of Greater Defense
+	["Learn {spell:17554}"] = "",
+
+	-- Step 67: Craft 44 Elixirs of Greater Defense until 300
+	["Craft 44 Elixirs of Greater Defense until 300"] = "",
+	["About 44 crafts. Yellow from 280: short of 300? A few more do it."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1411} is marked."] = "110 {item:2447} für {item:5997} und {spell:2331} (28 davon für 75-150: hol sie dir jetzt alle): {skill:182}: {item:2447} (Fertigkeit 1). Das dichteste Vorkommen von {item:2447} in {zone:1411} ist markiert.",
@@ -306,6 +366,7 @@ return {
 	-- ["Artisan needs character level 35 and {skill:171} 200; it raises the cap to 300. Materials for 225-300 are worth about 7g 80s in all."] = "Fachmann erfordert Charakterstufe 35 und {skill:171} 200; die Obergrenze steigt auf 300. Die Materialien für 225-300 sind insgesamt etwa 7g 80s wert.",
 	-- ["Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs {skill:171} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:7948} ({zone:1444}); Horde {npc:1386} ({zone:1435}). The arrow picks the nearest of your faction. 225-300 takes about 1g 30s of recipes and 4g 50s 40c of vendor goods, plus 43 {item:8836}, 43 {item:8838} and 43 {item:13422} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9154} (from 230) and {item:13423} (from 250), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "Die Meisterstufe erhöht das Limit von 225 auf 300 für 4g 50s (Preis aus Classic; der von Forever liegt nicht in den Daten); sie erfordert {skill:171} 200 und Charakterstufe 35, du kannst sie also bei jedem Besuch ab 200 nehmen. Nur wenige Lehrer bringen sie bei: Allianz {npc:7948} ({zone:1444}); Horde {npc:1386} ({zone:1435}). Der Pfeil wählt den nächsten deiner Fraktion. 225-300 kostet etwa 1g 30s an Rezepten und 4g 50s 40c an Händlerwaren, dazu 43 {item:8836}, 43 {item:8838} und 43 {item:13422} zum Sammeln oder Kaufen. Komm mit allem in deinen Taschen (die Schritte oben, den Rest aus dem Auktionshaus): Diese Lehrer bringen auch {item:9154} (ab 230) und {item:13423} (ab 250) bei, und die Herstellung braucht keine Station, also stell sie gleich hier her und lerne jedes Rezept, sobald du seine Fertigkeit erreichst. Ein Besuch statt 3.",
 	-- ["Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs {skill:171} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:7948} ({zone:1444}); Horde {npc:1386} ({zone:1435}). The arrow picks the nearest of your faction. 225-300 takes about 1g 30s of recipes and 4g 50s 40c of vendor goods, plus 43 {item:8836}, 43 {item:8838} and 43 {item:13422} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {spell:11460} (from 230) and {item:13423} (from 250), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "Die Fachmannstufe hebt die Obergrenze von 225 auf 300 für 4g 50s an (Preis aus Classic; der von Forever liegt nicht in den Daten); sie erfordert {skill:171} 200 und Charakterstufe 35, du kannst sie also bei jedem Besuch ab 200 nehmen. Nur wenige Lehrer bringen sie bei: Allianz {npc:7948} ({zone:1444}); Horde {npc:1386} ({zone:1435}). Der Pfeil wählt den nächsten deiner Fraktion. 225-300 kostet etwa 1g 30s an Rezepten und 4g 50s 40c an Händlerwaren, dazu 43 {item:8836}, 43 {item:8838} und 43 {item:13422} zum Sammeln oder Kaufen. Komm mit allem in deinen Taschen (die Schritte oben, den Rest aus dem Auktionshaus): Diese Lehrer bringen auch {spell:11460} (ab 230) und {item:13423} (ab 250) bei, und die Herstellung braucht keine Station, also stell sie gleich hier her und lerne jedes Rezept, sobald du seine Fertigkeit erreichst. Ein Besuch statt 3.",
+	-- ["Artisan {skill:171}"] = "Fachmann: {skill:171}",
 	-- ["Back to an {skill:171} trainer: {spell:11447} is taught from {skill:171} 190."] = "Zurück zu einem Lehrer für {skill:171}: {spell:11447} wird ab {skill:171} 190 gelehrt.",
 	-- ["Back to an {skill:171} trainer: {spell:11450} is taught from {skill:171} 215."] = "Zurück zu einem Lehrer für {skill:171}: {spell:11450} wird ab {skill:171} 215 gelehrt.",
 	-- ["Back to an {skill:171} trainer: {spell:11460} is taught from {skill:171} 245."] = "Zurück zu einem Lehrer für {skill:171}: {spell:11460} wird ab {skill:171} 245 gelehrt.",
@@ -313,6 +374,8 @@ return {
 	-- ["Back to an {skill:171} trainer: {spell:1244647} is taught from {skill:171} 175."] = "Zurück zu einem Lehrer für {skill:171}: {spell:1244647} wird ab {skill:171} 175 gelehrt.",
 	-- ["Back to an {skill:171} trainer: {spell:1244648} is taught from {skill:171} 230."] = "Zurück zu einem Lehrer für {skill:171}: {spell:1244648} wird ab {skill:171} 230 gelehrt.",
 	-- ["Back to an {skill:171} trainer: {spell:17551} is taught from {skill:171} 250."] = "Zurück zu einem Lehrer für {skill:171}: {spell:17551} wird ab {skill:171} 250 gelehrt.",
+	-- ["Back to an {skill:171} trainer: {spell:3171} (from 90)."] = "Zurück zu einem {skill:171}-Lehrer: {spell:3171} (ab 90).",
+	-- ["Back to an {skill:171} trainer: {spell:3176} (from 125)."] = "Zurück zu einem {skill:171}-Lehrer: {spell:3176} (ab 125).",
 	-- ["Back to an {skill:171} trainer: {spell:7845} is taught from {skill:171} 165."] = "Zurück zu einem Lehrer für {skill:171}: {spell:7845} wird ab {skill:171} 165 gelehrt.",
 	-- ["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "Kauf den Bedarf für den ganzen Bereich auf einmal: 51 {item:3372} (20s 40c) und 86 {item:8925} (4g 30s); insgesamt etwa 4g 50s 40c. Der Pfeil wählt den nächsten Händler deiner Fraktion ({zone:1453}: {npc:1286}, {npc:5503} und {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} und {npc:3334}).",
 	-- ["Buy the whole bracket's share in one go: 77 {item:3371} (3s 8c) and 15 {item:3372} (6s); about 9s 8c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "Kauf den Bedarf für den ganzen Bereich auf einmal: 77 {item:3371} (3s 8c) und 15 {item:3372} (6s); insgesamt etwa 9s 8c. Der Pfeil wählt den nächsten Händler deiner Fraktion ({zone:1453}: {npc:1286}, {npc:5503} und {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} und {npc:3334}).",
@@ -322,12 +385,14 @@ return {
 	-- ["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:171} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:4160} ({zone:1457}) and {npc:7948} ({zone:1444}); Horde {npc:4611} ({zone:1458}) and {npc:1386} ({zone:1435}). The arrow picks the nearest of your faction. 150-225 takes about 33s 20c of vendor goods, plus 40 {object:1623}, 39 {item:3356}, 39 {object:2045} and 40 {object:2046} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {spell:3452} (from 160) and {item:8951} (from 195), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "Die Expertenstufe erhöht das Limit von 150 auf 225 für 50s (Preis aus Classic; der von Forever liegt nicht in den Daten); sie erfordert {skill:171} 125 und Charakterstufe 20, du kannst sie also bei jedem Besuch ab 125 nehmen. Nur wenige Lehrer bringen sie bei: Allianz {npc:4160} ({zone:1457}) und {npc:7948} ({zone:1444}); Horde {npc:4611} ({zone:1458}) und {npc:1386} ({zone:1435}). Der Pfeil wählt den nächsten deiner Fraktion. 150-225 kostet etwa 33s 20c an Händlerwaren, dazu 40 {object:1623}, 39 {item:3356}, 39 {object:2045} und 40 {object:2046} zum Sammeln oder Kaufen. Komm mit allem in deinen Taschen (die Schritte oben, den Rest aus dem Auktionshaus): Diese Lehrer bringen auch {spell:3452} (ab 160) und {item:8951} (ab 195) bei, und die Herstellung braucht keine Station, also stell sie gleich hier her und lerne jedes Rezept, sobald du seine Fertigkeit erreichst. Ein Besuch statt 3.",
 	-- ["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:171} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:4160} ({zone:1457}); Horde {npc:4611} ({zone:1458}). The arrow picks the nearest of your faction. 150-225 takes about 33s 20c of vendor goods, plus 40 {object:1623}, 39 {item:3356}, 39 {object:2045} and 40 {object:2046} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {spell:3452} (from 160) and {item:8951} (from 195), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "Die Expertenstufe erhöht das Limit von 150 auf 225 für 50s (Preis aus Classic; der von Forever liegt nicht in den Daten); sie erfordert {skill:171} 125 und Charakterstufe 20, du kannst sie also bei jedem Besuch ab 125 nehmen. Nur wenige Lehrer bringen sie bei: Allianz {npc:4160} ({zone:1457}); Horde {npc:4611} ({zone:1458}). Der Pfeil wählt den nächsten deiner Fraktion. 150-225 kostet etwa 33s 20c an Händlerwaren, dazu 40 {object:1623}, 39 {item:3356}, 39 {object:2045} und 40 {object:2046} zum Sammeln oder Kaufen. Komm mit allem in deinen Taschen (die Schritte oben, den Rest aus dem Auktionshaus): Diese Lehrer bringen auch {spell:3452} (ab 160) und {item:8951} (ab 195) bei, und die Herstellung braucht keine Station, also stell sie gleich hier her und lerne jedes Rezept, sobald du seine Fertigkeit erreichst. Ein Besuch statt 3.",
 	-- ["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:171} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:4160} ({zone:1457}); Horde {npc:4611} ({zone:1458}). The arrow picks the nearest of your faction. 150-225 takes about 33s 20c of vendor goods, plus 40 {object:1623}, 39 {item:3356}, 39 {object:2045} and 40 {object:2046} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {spell:3452} (from 160) and {spell:11450} (from 195), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "Die Expertenstufe hebt die Obergrenze von 150 auf 225 für 50s an (Preis aus Classic; der von Forever liegt nicht in den Daten); sie erfordert {skill:171} 125 und Charakterstufe 20, du kannst sie also bei jedem Besuch ab 125 nehmen. Nur wenige Lehrer bringen sie bei: Allianz {npc:4160} ({zone:1457}); Horde {npc:4611} ({zone:1458}). Der Pfeil wählt den nächsten deiner Fraktion. 150-225 kostet etwa 33s 20c an Händlerwaren, dazu 40 {object:1623}, 39 {item:3356}, 39 {object:2045} und 40 {object:2046} zum Sammeln oder Kaufen. Komm mit allem in deinen Taschen (die Schritte oben, den Rest aus dem Auktionshaus): Diese Lehrer bringen auch {spell:3452} (ab 160) und {spell:11450} (ab 195) bei, und die Herstellung braucht keine Station, also stell sie gleich hier her und lerne jedes Rezept, sobald du seine Fertigkeit erreichst. Ein Besuch statt 3.",
+	-- ["Expert {skill:171}"] = "Experte: {skill:171}",
 	-- ["Fish {object:180582}; this is where the data has most of them. The Auction House works too."] = "Angle in {object:180582}; hier gibt es laut Daten die meisten. Im Auktionshaus gibt es sie auch.",
 	-- ["Fish {object:180657}; this is where the data has most of them. The Auction House works too."] = "Angle in {object:180657}; hier gibt es laut Daten die meisten. Im Auktionshaus gibt es sie auch.",
 	-- ["Fish {object:180712}; this is where the data has most of them. The Auction House works too."] = "Angle in {object:180712}; hier gibt es laut Daten die meisten. Im Auktionshaus gibt es sie auch.",
 	-- ["Journeyman needs character level 10 and {skill:171} 50; it raises the cap to 150. Materials for 75-150 are worth about 1g 44s in all."] = "Geselle erfordert Charakterstufe 10 und {skill:171} 50; die Obergrenze steigt auf 150. Die Materialien für 75-150 sind insgesamt etwa 1g 44s wert.",
 	-- ["Journeyman raises the cap from 75 to 150 for 4s 50c (Classic's price; Forever's is not in the data); it needs {skill:171} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:171} trainer teaches it: Alliance {npc:4160} ({zone:1457}), {npc:4900} ({zone:1445}), {npc:2837} ({zone:1434}), {npc:3964} ({zone:1440}), {npc:7948} ({zone:1444}), {npc:5499} ({zone:1453}), {npc:11042} ({zone:1457}) and {npc:5177} ({zone:1455}); Horde {npc:3009} ({zone:1456}), {npc:4611} ({zone:1458}), {npc:4609} ({zone:1458}), {npc:2837} ({zone:1434}), {npc:1386} ({zone:1435}), {npc:2391} ({zone:1424}) and {npc:3347} ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:2331} (from 25, 1s). Also learn {spell:1230564} (1s): Forever's {skill:171} camp item, 1 {item:2447} and 1 {item:3371}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:171} quest from your starting area's camping guide (after The Great Outdoors) sends you to an alchemy trainer who teaches it free. 75-150 takes about 1s of recipes and 9s 8c of vendor goods, plus 77 {item:785}, 152 {item:2450} and 54 {item:2453} to gather or buy."] = "Die Gesellenstufe erhöht das Limit von 75 auf 150 für 4s 50c (Preis aus Classic; der von Forever liegt nicht in den Daten); sie erfordert {skill:171} 50 und Charakterstufe 10, du kannst sie also bei jedem Besuch ab 50 nehmen. Nicht jeder {skill:171}-Lehrer bringt sie bei: Allianz {npc:4160} ({zone:1457}), {npc:4900} ({zone:1445}), {npc:2837} ({zone:1434}), {npc:3964} ({zone:1440}), {npc:7948} ({zone:1444}), {npc:5499} ({zone:1453}), {npc:11042} ({zone:1457}) und {npc:5177} ({zone:1455}); Horde {npc:3009} ({zone:1456}), {npc:4611} ({zone:1458}), {npc:4609} ({zone:1458}), {npc:2837} ({zone:1434}), {npc:1386} ({zone:1435}), {npc:2391} ({zone:1424}) und {npc:3347} ({zone:1454}). Der Pfeil wählt den nächsten deiner Fraktion. Lerne jetzt: {spell:2331} (ab 25, 1s). Lerne außerdem {spell:1230564} (1s): Forevers {skill:171}-Lagergegenstand, 1 {item:2447} und 1 {item:3371}, der für seinen Buff an einem Lagerplatz neben einem Lagerfeuer aufgestellt wird. Die Quest Camping 101: {skill:171} aus dem Camping-Guide deines Startgebiets (nach The Great Outdoors) schickt dich zu einem Alchemielehrer, der sie dir kostenlos beibringt. 75-150 kostet etwa 1s an Rezepten und 9s 8c an Händlerwaren, dazu 77 {item:785}, 152 {item:2450} und 54 {item:2453} zum Sammeln oder Kaufen.",
 	-- ["Journeyman raises the cap from 75 to 150 for 4s 50c (Classic's price; Forever's is not in the data); it needs {skill:171} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:171} trainer teaches it: Alliance {npc:4900} ({zone:1445}), {npc:2837} ({zone:1434}), {npc:3964} ({zone:1440}), {npc:5499} ({zone:1453}), {npc:11042} ({zone:1457}) and {npc:5177} ({zone:1455}); Horde {npc:3009} ({zone:1456}), {npc:4609} ({zone:1458}), {npc:2837} ({zone:1434}), {npc:2391} ({zone:1424}) and {npc:3347} ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:2331} (from 25, 1s). Also learn {spell:1230564} (1s): Forever's {skill:171} camp item, 1 {item:2447} and 1 {item:3371}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:171} quest from your starting area's camping guide (after The Great Outdoors) sends you to an alchemy trainer who teaches it free. 75-150 takes about 1s of recipes and 9s 8c of vendor goods, plus 77 {item:785}, 152 {item:2450} and 54 {item:2453} to gather or buy."] = "Die Gesellenstufe erhöht das Limit von 75 auf 150 für 4s 50c (Preis aus Classic; der von Forever liegt nicht in den Daten); sie erfordert {skill:171} 50 und Charakterstufe 10, du kannst sie also bei jedem Besuch ab 50 nehmen. Nicht jeder {skill:171}-Lehrer bringt sie bei: Allianz {npc:4900} ({zone:1445}), {npc:2837} ({zone:1434}), {npc:3964} ({zone:1440}), {npc:5499} ({zone:1453}), {npc:11042} ({zone:1457}) und {npc:5177} ({zone:1455}); Horde {npc:3009} ({zone:1456}), {npc:4609} ({zone:1458}), {npc:2837} ({zone:1434}), {npc:2391} ({zone:1424}) und {npc:3347} ({zone:1454}). Der Pfeil wählt den nächsten deiner Fraktion. Lerne jetzt: {spell:2331} (ab 25, 1s). Lerne außerdem {spell:1230564} (1s): Forevers {skill:171}-Lagergegenstand, 1 {item:2447} und 1 {item:3371}, der für seinen Buff an einem Lagerplatz neben einem Lagerfeuer aufgestellt wird. Die Quest Camping 101: {skill:171} aus dem Camping-Guide deines Startgebiets (nach The Great Outdoors) schickt dich zu einem Alchemielehrer, der sie dir kostenlos beibringt. 75-150 kostet etwa 1s an Rezepten und 9s 8c an Händlerwaren, dazu 77 {item:785}, 152 {item:2450} und 54 {item:2453} zum Sammeln oder Kaufen.",
+	-- ["Journeyman {skill:171}"] = "Geselle: {skill:171}",
 	-- ["Kill the mobs that drop it at the farm spot Polestar picks for your level and faction. The Auction House works too."] = "Töte die Gegner, die es fallen lassen, an dem Farmplatz, den Polestar für deine Stufe und Fraktion wählt. Im Auktionshaus gibt es sie auch.",
 	-- ["Orange (a point every craft) until 130, yellow until 150, green until 170. {skill:171} 150 is a Legacy System milestone."] = "Orange (jede Herstellung ein Punkt) bis 130, gelb bis 150, grün bis 170. {skill:171} 150 ist ein Meilenstein des Vermächtnissystems.",
 	-- ["Orange (a point every craft) until 280, yellow until 300, green until 320. {skill:171} 300 is a Legacy System milestone."] = "Orange (jede Herstellung ein Punkt) bis 280, gelb bis 300, grün bis 320. {skill:171} 300 ist ein Meilenstein des Vermächtnissystems.",
@@ -346,6 +411,9 @@ return {
 	-- ["Pick {object:1623} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "Pflücke {object:1623} mit {skill:182}; hier ist das dichteste Vorkommen laut Daten. Im Auktionshaus gibt es das auch.",
 	-- ["Pick {object:2046} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "Pflücke {object:2046} mit {skill:182}; hier ist das dichteste Vorkommen laut Daten. Im Auktionshaus gibt es das auch.",
 	-- ["Still at the Artisan trainer: {spell:11460} (from 230)."] = "Noch beim Meisterlehrer: {spell:11460} (ab 230).",
+	-- ["Still at the Artisan trainer: {spell:17551} (from 250)."] = "Noch beim Meisterlehrer: {spell:17551} (ab 250).",
+	-- ["Still at the Expert trainer: {spell:11450} (from 195)."] = "Noch beim Expertenlehrer: {spell:11450} (ab 195).",
+	-- ["Still at the Expert trainer: {spell:3452} (from 160)."] = "Noch beim Expertenlehrer: {spell:3452} (ab 160).",
 	-- ["Teaches {item:6051} (needs {skill:171} 100). Vendors sell it in limited stock that restocks."] = "Lehrt {item:6051} (erfordert {skill:171} 100). Händler verkaufen es in begrenzter Menge, die sich wieder auffüllt.",
 	-- ["Teaches {item:8951} (needs {skill:171} 265). Vendors sell it in limited stock that restocks; the Auction House often has it too."] = "Lehrt {item:8951} (erfordert {skill:171} 265). Händler verkaufen es in begrenzter Menge, die sich wieder auffüllt; auch im Auktionshaus gibt es es oft.",
 	-- ["What 1-75 takes that the Auction House sells: 82 {item:765} and 110 {item:2447}. The counts drop by what your bags, bank and mail hold."] = "Was du für 1-75 brauchst und das Auktionshaus verkauft: 82 {item:765} und 110 {item:2447}. Die Zahlen sinken um das, was du schon in Taschen, Bank und Post hast.",
@@ -363,10 +431,13 @@ return {
 	-- ["Yellow until 255, green until 260: not every craft gives a point."] = "Gelb bis 255, grün bis 260: nicht jede Herstellung gibt einen Punkt.",
 	-- ["Yellow until 265, green until 285: not every craft gives a point."] = "Gelb bis 265, grün bis 285: nicht jede Herstellung gibt einen Punkt.",
 	-- ["Yellow until 85, green until 105: not every craft gives a point."] = "Gelb bis 85, grün bis 105: nicht jede Herstellung gibt einen Punkt.",
+	-- ["from the recipe in your bags"] = "aus dem Rezept in deinen Taschen",
 	-- ["{item:13422} (Alliance)"] = "{item:13422} (Allianz)",
 	-- ["{item:13422} (Horde)"] = "{item:13422} (Horde)",
 	-- ["{item:13423} to 259"] = "{item:13423} bis 259",
 	-- ["{item:13445} is orange at 265 (yellow 280, green 300, grey 320): about 43 crafts to 300. Each takes 2 {item:13423}, 1 {item:8838} and 1 {item:8925}. Make the 86 {item:13423} (43 crafts) first. {item:13422} comes from the {item:13422} schools on the coasts of the 40-55 zones, or the Auction House (fishers sell them in stacks). {item:8838} grows in the 40-55 zones. {skill:171} 300 is a Legacy System milestone."] = "{item:13445} ist bei 265 orange (gelb 280, grün 300, grau 320): etwa 43 Herstellungen bis 300. Jede benötigt 2 {item:13423}, 1 {item:8838} und 1 {item:8925}. Stell zuerst die 86 {item:13423} her (43 Herstellungen). {item:13422} kommt aus den Schwärmen von {item:13422} an den Küsten der Gebiete für Stufe 40-55, oder aus dem Auktionshaus (Angler verkaufen sie stapelweise). {item:8838} wächst in den Gebieten für Stufe 40-55. {skill:171} 300 ist ein Meilenstein des Vermächtnissystems.",
+	-- ["{item:13445} to 300"] = "{item:13445} bis 300",
+	-- ["{item:13478} teaches {item:13445} ({skill:171} 265) for 1g 30s. Sold by Alliance: {npc:5178} ({zone:1455}), limited stock; Horde: {npc:3348} ({zone:1454}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; the Auction House often has it too."] = "{item:13478} bringt dir {item:13445} ({skill:171} 265) für 1g 30s bei. Verkauft von Allianz: {npc:5178} ({zone:1455}), begrenzter Vorrat; Horde: {npc:3348} ({zone:1454}), begrenzter Vorrat. Die Händler haben ein oder zwei auf Lager, die einige Zeit nach einem Verkauf wiederkommen; auch das Auktionshaus hat es oft.",
 	-- ["{item:13478} teaches {item:8951} ({skill:171} 265) for 1g 30s. Sold by Alliance: {npc:5178} ({zone:1455}), limited stock; Horde: {npc:3348} ({zone:1454}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; the Auction House often has it too."] = "{item:13478} bringt dir {item:8951} ({skill:171} 265) für 1g 30s bei. Verkauft von der Allianz: {npc:5178} ({zone:1455}), begrenzter Vorrat; von der Horde: {npc:3348} ({zone:1454}), begrenzter Vorrat. Die Händler haben ein oder zwei auf Lager, die einige Zeit nach einem Verkauf wiederkommen; auch das Auktionshaus hat es oft.",
 	-- ["{item:2447} (Alliance)"] = "{item:2447} (Allianz)",
 	-- ["{item:2447} (Horde)"] = "{item:2447} (Horde)",
@@ -389,6 +460,7 @@ return {
 	-- ["{item:3821} (Alliance)"] = "{item:3821} (Allianz)",
 	-- ["{item:3821} (Horde)"] = "{item:3821} (Horde)",
 	-- ["{item:5997} is orange at 1 (yellow 55, green 75, grey 95): about 82 crafts to 75. Each takes 1 {item:765}, 1 {item:2447} and 1 {item:3371}. Known from the start and the cheapest way through the Apprentice range. Keep the elixirs (armour while you level) or sell them."] = "{item:5997} ist bei 1 orange (gelb 55, grün 75, grau 95): etwa 82 Herstellungen bis 75. Jede benötigt 1 {item:765}, 1 {item:2447} und 1 {item:3371}. Du kennst es von Anfang an, und es ist der günstigste Weg durch den Lehrlingsbereich. Behalte die Elixiere (Rüstung, während du levelst) oder verkauf sie.",
+	-- ["{item:5997} to 75"] = "{item:5997} bis 75",
 	-- ["{item:6051} to 150"] = "{item:6051} bis 150",
 	-- ["{item:6358} (Alliance)"] = "{item:6358} (Allianz)",
 	-- ["{item:6358} (Horde)"] = "{item:6358} (Horde)",
@@ -408,6 +480,8 @@ return {
 	-- ["{item:8951} is orange at 195 (yellow 215, green 235, grey 255): about 32 crafts to 225. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). {skill:171} 225 is a Legacy System milestone."] = "{item:8951} ist bei 195 orange (gelb 215, grün 235, grau 255): etwa 32 Herstellungen bis 225. Jede benötigt 1 {item:3355}, 1 {item:3821} und 1 {item:3372}. {item:3355} und {item:3821} sind die Kräuter der Gebiete für Stufe 30-45 (Schlingendorntal, Arathihochland und {zone:1418}). {skill:171} 225 ist ein Meilenstein des Vermächtnissystems.",
 	-- ["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951} ist bei 225 gelb (gelb 215, grün 235, grau 255): etwa 8 Herstellungen bis 230. Jede benötigt 1 {item:3355}, 1 {item:3821} und 1 {item:3372}. {item:3355} und {item:3821} sind die Kräuter der Gebiete für Stufe 30-45 (Schlingendorntal, Arathihochland und {zone:1418}).",
 	-- ["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). If you got here without learning {item:8951}, learn it now: an earlier step teaches it."] = "{item:8951} ist gelb bei 225 (gelb 215, grün 235, grau 255): etwa 8 Herstellungen bis 230. Jede braucht 1 {item:3355}, 1 {item:3821} und 1 {item:3372}. {item:3355} und {item:3821} sind die Kräuter der Gebiete 30-45 (Schlingendorntal, Arathi, {zone:1418}). Wenn du ohne {item:8951} hierhergekommen bist, lern es jetzt: Ein früherer Schritt bringt es dir bei.",
+	-- ["{item:8951} to 225"] = "{item:8951} bis 225",
+	-- ["{item:8951} to 230"] = "{item:8951} bis 230",
 	-- ["{item:9154} is orange at 230 (yellow 245, green 265, grey 285): about 43 crafts to 265. Each takes 1 {item:8836} and 1 {item:8925}. {item:8836} grow in the Plaguelands and {zone:1448} ({skill:182} 220); Crystal Vials come from alchemy vendors."] = "{item:9154} ist bei 230 orange (gelb 245, grün 265, grau 285): etwa 43 Herstellungen bis 265. Jede benötigt 1 {item:8836} und 1 {item:8925}. {item:8836} wächst im Pestland und in {zone:1448} ({skill:182} 220); Kristallphiolen gibt es bei Alchemiehändlern.",
 	-- ["{item:9154} to 265"] = "{item:9154} bis 265",
 	-- ["{npc:1958} (level 17-18) drop it here. The Auction House works too."] = "{npc:1958} (Stufe 17-18) lassen es hier fallen. Im Auktionshaus gibt es sie auch.",
@@ -419,15 +493,24 @@ return {
 	-- ["{object:2046} (Alliance)"] = "{object:2046} (Allianz)",
 	-- ["{object:2046} (Horde)"] = "{object:2046} (Horde)",
 	-- ["{skill:171} 1-75: Auction House"] = "{skill:171} 1-75: Auktionshaus",
+	-- ["{skill:171} 1-75: vendor goods"] = "{skill:171} 1-75: Händlerwaren",
 	-- ["{skill:171} 150-225: Auction House"] = "{skill:171} 150-225: Auktionshaus",
+	-- ["{skill:171} 150-225: vendor goods"] = "{skill:171} 150-225: Händlerwaren",
 	-- ["{skill:171} 225-300: Auction House"] = "{skill:171} 225-300: Auktionshaus",
+	-- ["{skill:171} 225-300: vendor goods"] = "{skill:171} 225-300: Händlerwaren",
 	-- ["{skill:171} 75-150: Auction House"] = "{skill:171} 75-150: Auktionshaus",
+	-- ["{skill:171} 75-150: vendor goods"] = "{skill:171} 75-150: Händlerwaren",
+	-- ["{skill:171} recipes at 135"] = "{skill:171}-Rezepte bei 135",
+	-- ["{skill:171} recipes at 160"] = "{skill:171}-Rezepte bei 160",
 	-- ["{skill:171} recipes at 165"] = "Rezepte für {skill:171} bei 165",
 	-- ["{skill:171} recipes at 175"] = "Rezepte für {skill:171} bei 175",
+	-- ["{skill:171} recipes at 195"] = "{skill:171}-Rezepte bei 195",
 	-- ["{skill:171} recipes at 200"] = "Rezepte für {skill:171} bei 200",
 	-- ["{skill:171} recipes at 215"] = "Rezepte für {skill:171} bei 215",
+	-- ["{skill:171} recipes at 230"] = "Rezepte für {skill:171} bei 230",
 	-- ["{skill:171} recipes at 250"] = "Rezepte für {skill:171} bei 250",
 	-- ["{skill:171} recipes at 259"] = "Rezepte für {skill:171} bei 259",
+	-- ["{skill:171} recipes at 265"] = "{skill:171}-Rezepte bei 265",
 	-- ["{skill:171} recipes at 85"] = "Rezepte für {skill:171} bei 85",
 	-- ["{skill:171} recipes at 90"] = "{skill:171}-Rezepte bei 90",
 	-- ["{skill:171} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 68s in all."] = "{skill:171} läuft neben dem Leveln. Forevers Vermächtnissystem belohnt Herstellungsberufe bei Fertigkeit 150, 225 und 300 (die Obergrenzen von Geselle, Experte und Fachmann), also zählt jeder dieser Meilensteine. Die Materialien für 1-75 sind insgesamt etwa 68s wert.",
@@ -444,8 +527,13 @@ return {
 	-- ["{spell:2331} to 85"] = "{spell:2331} bis 85",
 	-- ["{spell:2331} to 90"] = "{spell:2331} bis 90",
 	-- ["{spell:3171} is orange at 90 (yellow 120, green 140, grey 160): about 49 crafts to 135. Each takes 1 {item:785}, 2 {item:2450} and 1 {item:3371}. Two {item:2450} and a {item:785} a craft, both from the 10-25 zones; orange to 120."] = "{spell:3171} ist bei 90 orange (gelb 120, grün 140, grau 160): etwa 49 Herstellungen bis 135. Jede benötigt 1 {item:785}, 2 {item:2450} und 1 {item:3371}. Zwei {item:2450} und ein {item:785} pro Herstellung, beides aus den Gebieten für Stufe 10-25; orange bis 120.",
+	-- ["{spell:3171} to 135"] = "{spell:3171} bis 135",
+	-- ["{spell:3176} is orange at 135 (yellow 150, green 170, grey 190): about 15 crafts to 150, a point every craft. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. {skill:171} 150 is a Legacy System milestone."] = "{spell:3176} ist bei 135 orange (gelb 150, grün 170, grau 190): etwa 15 Herstellungen bis 150, ein Punkt pro Herstellung. Jede benötigt 2 {item:2453}, 2 {item:2450} und 1 {item:3372}. Zwei {item:2453} und zwei {item:2450} pro Herstellung; {item:2453} wächst in den Gebieten für Stufe 15-30. {skill:171} 150 ist ein Meilenstein des Vermächtnissystems.",
 	-- ["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176} ist bei 150 gelb (gelb 150, grün 170, grau 190): etwa 12 Herstellungen bis 160. Jede benötigt 2 {item:2453}, 2 {item:2450} und 1 {item:3372}. Zwei {item:2453} und zwei {item:2450} pro Herstellung; {item:2453} wächst in den Gebieten für Stufe 15-30.",
 	-- ["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. If you got here without learning {spell:3176}, learn it now: an earlier step teaches it."] = "{spell:3176} ist gelb bei 150 (gelb 150, grün 170, grau 190): etwa 12 Herstellungen bis 160. Jede braucht 2 {item:2453}, 2 {item:2450} und 1 {item:3372}. Zwei {item:2453} und zwei {item:2450} pro Herstellung; {item:2453} wächst in den Gebieten 15-30. Wenn du ohne {spell:3176} hierhergekommen bist, lern es jetzt: Ein früherer Schritt bringt es dir bei.",
+	-- ["{spell:3176} to 150"] = "{spell:3176} bis 150",
+	-- ["{spell:3176} to 160"] = "{spell:3176} bis 160",
 	-- ["{spell:3452} is orange at 160 (yellow 180, green 200, grey 220): about 39 crafts to 195. Each takes 1 {item:3820}, 1 {item:3356} and 1 {item:3372}. {item:3820} grows under water along the coasts: bring a water breathing elixir or come up for air. {item:3356} grows in the 20-40 zones."] = "{spell:3452} ist bei 160 orange (gelb 180, grün 200, grau 220): etwa 39 Herstellungen bis 195. Jede benötigt 1 {item:3820}, 1 {item:3356} und 1 {item:3372}. {item:3820} wächst unter Wasser entlang der Küsten: Bring ein Elixier der Wasseratmung mit oder tauch zum Luftholen auf. {item:3356} wächst in den Gebieten für Stufe 20-40.",
+	-- ["{spell:3452} to 195"] = "{spell:3452} bis 195",
 	-- ["{spell:7845} to 175"] = "{spell:7845} bis 175",
 }

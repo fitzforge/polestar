@@ -385,6 +385,10 @@ step Mine and smelt 50 Bronze Bar
   loop Mulgore lvl 8 lap 540 yield 23.6 only Horde r 60 at 41.8,79.8 33.5,58.2 31.6,60.9 34.0,66.5 33.2,70.1 34.1,72.7 32.9,76.2 33.7,81.2 34.6,79.8 41.2,82.0 49.0,92.8 49.2,87.7
   auction 2841 x50
 
+step Learn Patterned Bronze Bracers
+  tip Taught at 95; done at once if you learned it then.
+  learn 2672 npc 5511,10276,252479,1383,4596,2998,276067
+
 step Go to an anvil
   goto 51.8,40.8 "Anvil" map 1411 nearest only Horde
   goto 56.3,74.4 "Anvil" map 1411 nearest only Horde
@@ -610,6 +614,10 @@ step Mine and smelt 75 Steel Bar
   loop Badlands lvl 42 lap 628 yield 5.0 only Horde r 60 at 15.6,34.9 14.8,48.6 15.0,54.5 20.2,63.0 23.7,61.3 34.9,53.0 42.2,78.9 22.6,73.3 18.5,74.8 18.0,70.3 12.9,58.9 10.8,55.3
   auction 3859 x75
 
+step Learn Golden Scale Bracers
+  tip Taught at 175; done at once if you learned it then.
+  learn 7223 npc 4258,3355
+
 step Go to an anvil
   goto 51.8,40.8 "Anvil" map 1411 nearest only Horde
   goto 56.3,74.4 "Anvil" map 1411 nearest only Horde
@@ -756,6 +764,11 @@ step Mine and smelt 60 Mithril Bar
   loop Searing Gorge lvl 57 lap 616 yield 2.3 r 60 at 64.1,61.6 57.5,68.4 57.1,81.6 49.5,75.9 48.7,51.7 52.0,49.5 55.0,51.2 61.1,42.8 56.9,41.2 56.0,30.6 67.9,32.3 73.2,73.0
   auction 3860 x60
 
+step Learn Solid Grinding Stone
+  when knows 9964
+  tip Taught at 175; done at once if you learned it then.
+  learn 9920 npc 4258,3355
+
 step Craft 37 Solid Grinding Stones
   when knows 9964
   tip Parts for the spurs; no skill points from these.
@@ -852,6 +865,11 @@ step Mine and smelt 112 Mithril Bar
   loop Stonetalon Mountains lvl 28 lap 616 yield 2.3 r 60 at 37.7,69.6 36.4,76.2 33.6,75.7 29.0,73.7 25.9,70.8 26.8,67.0 29.8,66.3 27.1,63.2 30.1,59.8 32.6,58.9 35.9,61.4 34.9,66.7
   loop Alterac Mountains lvl 38 lap 641 yield 4.1 only Horde r 60 at 50.9,44.2 53.2,48.4 54.1,45.6 55.1,40.6 52.7,36.8 48.0,33.1 42.8,34.7 37.9,32.5 35.6,39.7 33.3,43.9 39.5,38.0 45.4,39.8
   auction 3860 x112
+
+step Learn Solid Grinding Stone
+  when knows 9964
+  tip Taught at 175; done at once if you learned it then.
+  learn 9920 npc 4258,3355
 
 step Craft 84 Solid Grinding Stones
   when knows 9964
@@ -1679,6 +1697,12 @@ step Mine and smelt 220 Thorium Bar
   loop Winterspring lvl 58 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Burning Steppes lvl 53 lap 615 yield 1.9 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
   auction 12359 x220
+
+step Learn Imperial Plate Bracers
+  when !knows 16656
+  when has 12704
+  tip Taught at 245; done at once if you learned it then.
+  learn 16649
 
 step Go to an anvil
   when !knows 16656
