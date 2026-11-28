@@ -261,7 +261,7 @@ function partAreas(ctx, prof, picks, part) {
 			// is none for it: its line would read `gain 0.0`.
 			const list = areasFor(ctx, prof, zone, pts, faction).filter((a) => a.gain >= 0.05);
 			const rest = part.band.scope === 'start' && START_MAPS.has(zone) ? list.filter((a) => a.level > STARTER_LEVEL) : list;
-			for (const a of zoneAreas(rest.length ? rest : list, level)) add(zone, a, faction, false);
+			for (const a of zoneAreas(rest.length ? rest : list, partLevels(prof, part), !!prof.spanLevels)) add(zone, a, faction, false);
 		}
 	}
 	for (const s of starterAreas(ctx, prof, part)) add(s.zone, s.area, s.faction, true);
@@ -269,15 +269,35 @@ function partAreas(ctx, prof, picks, part) {
 	return out.sort((a, b) => rankScore(b.area, level) - rankScore(a.area, level) || a.zone - b.zone || a.area.name.localeCompare(b.area.name));
 }
 
-// A zone's areas a step offers: its best ZONE_AREAS for a character of `level`, and its lowest-level one.
-function zoneAreas(list, level) {
-	const best = list
-		.slice()
-		.sort((a, b) => rankScore(b, level) - rankScore(a, level))
-		.slice(0, ZONE_AREAS);
+// A zone's areas a step offers: its best ZONE_AREAS for a character at each of `levels`, and its lowest-level one.
+// With `tiers` (a profession's `spanLevels`) every tier of a chosen area comes too (the same place cut at a lower
+// level: the engine offers the largest one safe for the character, so a character below the larger's level gets the
+// lower one).
+function zoneAreas(list, levels, tiers = false) {
+	const best = [];
+	for (const level of [].concat(levels)) {
+		for (const a of list
+			.slice()
+			.sort((x, y) => rankScore(y, level) - rankScore(x, level))
+			.slice(0, ZONE_AREAS)) {
+			if (!best.includes(a)) best.push(a);
+		}
+	}
+	if (tiers) for (const a of list) if (!best.includes(a) && best.some((b) => b.name === a.name && b.near === a.near)) best.push(a);
 	const low = list.reduce((a, b) => (!a || b.level < a.level || (b.level === a.level && b.score > a.score) ? b : a), null);
 	if (low && !best.includes(low)) best.push(low);
 	return best;
+}
+
+// The levels a part of a range is planned for: its start, or with `prof.spanLevels` also its middle and end. One level
+// only keeps the areas that rank best for the start level and pushes a zone's larger areas a few levels up (Mulgore's
+// Thunderhorn at 8 behind Red Cloud Mesa's two tiers and Palemane Rock) out of the guide for the characters who need
+// them.
+function partLevels(prof, part) {
+	const a = skillLevel(part.from);
+	if (!prof.spanLevels) return [a];
+	const b = skillLevel(part.to);
+	return [...new Set([a, Math.round((a + b) / 2), b])];
 }
 
 // Each starting area's own areas for a part of a range's first band (partAreas): [{ zone, faction, area }],
@@ -624,4 +644,4 @@ function buildAll(ctx, notes = []) {
 	return out;
 }
 
-module.exports = { areaOnly, plan, render, buildAll, gatherAreas, zonePicks, partAreas, starterAreas, partPoints, pointsOf, areasFor, rareKinds, startParts, bandYield, coversTop, areaLine, areaRecord, nodeSummary, continentOf, STARTER_LEVEL, OUT_DIR };
+module.exports = { START_MAPS, zoneAreas, partLevels, areaOnly, plan, render, buildAll, gatherAreas, zonePicks, partAreas, starterAreas, partPoints, pointsOf, areasFor, rareKinds, startParts, bandYield, coversTop, areaLine, areaRecord, nodeSummary, continentOf, STARTER_LEVEL, OUT_DIR };

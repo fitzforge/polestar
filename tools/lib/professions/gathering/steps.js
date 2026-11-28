@@ -59,7 +59,6 @@ function zoneId(ctx, name) {
 // -> { text, notes }: the guide and the route zones without a safe area (for the build's report).
 function renderRoute(ctx, prof, route) {
 	const B = require('./build');
-	const { skillLevel, rankScore } = require('./areas');
 	const { TIP_MAX, IMPERATIVE, stationPlaces } = require('../route');
 	const P = prof.skill;
 	const pq = /\s/.test(P) ? `"${P}"` : P;
@@ -144,7 +143,8 @@ function renderRoute(ctx, prof, route) {
 				const raw = mobs ? require('./skinning').SKINNING_POINTS(ctx, map, b.band.from, b.band.to, mobs) : B.pointsOf(ctx, prof, map, b.band.from, b.band.to);
 				const pts = B.partPoints(raw, b.from, b.to);
 				if (!mobs && areas.some((l) => l.zone === map && l.factions.includes(side))) continue;
-				const list = pts.length >= 2 ? B.areasFor(ctx, prof, map, pts, side) : [];
+				// An area that gives no skill in the part is none (partAreas' rule: no `gain 0.0` line).
+				const list = pts.length >= 2 ? B.areasFor(ctx, prof, map, pts, side).filter((a) => a.gain >= 0.05) : [];
 				if (!list.length) {
 					notes.push(`${P} ${b.from}-${b.to}: ${name} has no safe area for the ${side}${mobs ? ` on ${mobs.join(', ')}` : ''}`);
 					continue;
@@ -153,8 +153,7 @@ function renderRoute(ctx, prof, route) {
 					for (const l of areas) if (l.zone === map) l.factions = l.factions.filter((x) => x !== side);
 					areas = areas.filter((l) => l.factions.length);
 				}
-				const level = skillLevel(b.from);
-				for (const a of list.slice().sort((x, y) => rankScore(y, level) - rankScore(x, level)).slice(0, 3)) areas.push({ zone: map, area: a, factions: [side] });
+				for (const a of B.zoneAreas(list, B.partLevels(prof, b), !!prof.spanLevels)) areas.push({ zone: map, area: a, factions: [side], ...(B.START_MAPS.has(map) && a.level <= B.STARTER_LEVEL ? { starter: true } : {}) });
 			}
 		}
 		return areas;
