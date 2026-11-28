@@ -146,7 +146,8 @@ return {
 
 	-- Step 29: The Challenge
 	-- {npc:16032} Falrin Treeshaper · {item:21986} Banner of Provocation · {area:1584} Blackrock Depths
-	["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032} termina {item:21986}: plántalo en el Anillo de la Ley en {area:1584}.",
+	-- was: ["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032} termina {item:21986}: plántalo en el Anillo de la Ley en {area:1584}."
+	["{npc:16032} finishes the {item:21986}, for the Ring of Law in {area:1584}."] = "",
 
 	-- Step 30: Blackrock Depths: the Ring of Law
 	-- {area:1584} Blackrock Depths
@@ -169,6 +170,8 @@ return {
 	["Honored with the {faction:529}"] = "Honorable con {faction:529}",
 	-- {item:22014} Hallowed Brazier · {item:12846} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:3197} Chillwind Camp · {npc:10839} Argent Officer Garush · {area:813} Bulwark · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {area:2279} Stratholme · {area:2057} Scholomance
 	["The {item:22014} is sold only to Honored. Take the {item:12846} ({npc:10840} at {area:3197}, {npc:10839} at the {area:813}, or {npc:11039} at {area:2268}) and wear it: Scourgestones then drop from the Scourge, and the Argent officers take them back for reputation. Every Scourge kill in the Plaguelands counts, {area:2279}'s and {area:2057}'s undead give 5 each up to Honored, and {area:2268}'s dungeon quests give 100-200 each. Polestar's Argent Dawn Reputation guide (Reputation) walks it step by step."] = "{item:22014} solo se vende con Honorable. Toma {item:12846} ({npc:10840} en {area:3197}, {npc:10839} en {area:813} o {npc:11039} en {area:2268}) y equípala: entonces la Plaga suelta piedras de la Plaga, y los oficiales Argenta las reciben a cambio de reputación. Cuenta cada muerte de la Plaga en las Tierras de la Peste; los no-muertos de {area:2279} y {area:2057} dan 5 cada uno hasta Honorable, y las misiones del calabozo de {area:2268} dan 100-200 cada una. La guía de Reputación con El Alba Argenta de Polestar (Reputación) lo explica paso a paso.",
+	-- {item:12846} Argent Dawn Commission
+	["{item:12846}, while you fight the Scourge"] = "",
 
 	-- Step 37: Hallowed Brazier
 	-- {object:2160} The Argent Dawn · {area:2268} Light's Hope Chapel · {area:3197} Chillwind Camp · {area:813} Bulwark
@@ -250,4 +253,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Alliance Shamans: Polestar's quest data doesn't know Forever's {quest:84192} for you yet, so the guide stops here for you until it does. Take it from {npc:16016} and give {npc:230319} your three pieces. {npc:230319} then sends you to {npc:16033}'s ghost in {area:254} (Ghost Revealer): {quest:8961}, your class's two components and two summons, {area:2079}, {quest:8994} and {npc:16042} in Upper Blackrock Spire, then back to her for {quest:84208}, which takes your {item:16667} and {item:16666}."] = "Chamanes de la Alianza: los datos de misiones de Polestar todavía no conocen {quest:84192} de Forever para ti, así que la guía se detiene aquí hasta que la conozcan. Tómala con {npc:16016} y entrégale tus tres piezas a {npc:230319}. Luego {npc:230319} te envía con el fantasma de {npc:16033} en {area:254} (Revelador de fantasmas): {quest:8961}, los dos componentes de tu clase y dos invocaciones, {area:2079}, {quest:8994} y {npc:16042} en la Cumbre de Roca Negra Superior; después vuelve con ella para {quest:84208}, que se lleva tus {item:16667} y {item:16666}.",
+	-- ["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032} termina {item:21986}: plántalo en el Anillo de la Ley en {area:1584}.",
 }

@@ -119,8 +119,8 @@ return {
 	-- Step 30: Are We There, Yeti?
 	-- {area:2255} Everlook
 	["Ride north to {area:2255}."] = "Cavalgue para o norte até {area:2255}.",
-	-- {npc:10978} Legacki · {npc:10980} Umi's Mechanical Yeti
-	["Scare {npc:10978} with {npc:10980}"] = "Assuste {npc:10978} com o {npc:10980}",
+	-- {npc:10978} Legacki · {item:12928} Umi's Mechanical Yeti
+	["Scare {npc:10978} with {item:12928}"] = "",
 
 	-- Step 31: Everlook
 	-- {npc:11118} Innkeeper Vizzie · {quest:93406} Unfrozen Deliveries
@@ -217,6 +217,7 @@ return {
 	-- ["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "Cavalgue para o norte, subindo a estrada de {zone:1448}, até {area:1767}; os {quest:5086} escorrem entre as árvores, e a maioria deles deixa cair uma gota.\nCuidado: Andarilhos Ancestrais de Ferrárbol, elites de nível 59, andam entre os {quest:5086}, e {npc:14524} (63, elite) vaga pela mata: enfrente os Horrores na ponta norte de {area:1767}, um de cada vez.",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one."] = "Siga para o noroeste até {area:1763}. Os quatro braseiros ficam entre as construções do Concílio das Sombras; use a água purificada em cada um.",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "Cavalgue para noroeste até {area:1763}. Os quatro braseiros ficam entre as construções do Concílio das Sombras; use a água purificada em cada um.\nCuidado: monstros do Concílio das Sombras de nível 53-55 lotam a caverna e costumam vir em grupos grandes e ligados, muitos com atordoamento. Melhor ir num grupo de 2 ou 3 jogadores.",
+	-- ["Scare {npc:10978} with {npc:10980}"] = "Assuste {npc:10978} com o {npc:10980}",
 	-- ["South to the Sanctuary once more."] = "Volte mais uma vez para o sul até o Santuário.",
 	-- ["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "O totem de Lenha Morta de {area:1762}, se {npc:11558} não o aceitou na época: ela espera na boca do túnel de {area:1769} e fala com você a partir de Neutro com os Presamatos, reputação que os furbolgs de Lenha Morta de {zone:1448} lhe deram.",
 	-- ["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} (59, elite) and Xandivious (62) are in the cave at the back: stay out."] = "A vila furbolg ocupa o vale a nordeste de {area:2255}. Mate os Xamãs primeiro; eles curam. {npc:10738} (59, elite) e Xandivious (62) ficam na caverna dos fundos: não entre.",

@@ -119,8 +119,8 @@ return {
 	-- Step 30: Are We There, Yeti?
 	-- {area:2255} Everlook
 	["Ride north to {area:2255}."] = "Allez vers le nord jusqu'à {area:2255}.",
-	-- {npc:10978} Legacki · {npc:10980} Umi's Mechanical Yeti
-	["Scare {npc:10978} with {npc:10980}"] = "Effrayez {npc:10978} avec {npc:10980}",
+	-- {npc:10978} Legacki · {item:12928} Umi's Mechanical Yeti
+	["Scare {npc:10978} with {item:12928}"] = "",
 
 	-- Step 31: Everlook
 	-- {npc:11118} Innkeeper Vizzie · {quest:93406} Unfrozen Deliveries
@@ -218,6 +218,7 @@ return {
 	-- ["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "Remontez la route du {zone:1448} vers le nord jusqu'au {area:1767} ; les {quest:5086} suintent entre les arbres, et la plupart d'entre elles laissent tomber une gouttelette.\nAttention : des Anciens marcheurs Arbrefer, des élites de niveau 59, marchent parmi les {quest:5086}, et {npc:14524} (63, élite) parcourt les bois : attaquez les Horreurs à la pointe nord du {area:1767}, une à la fois.",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one."] = "Chevauchez vers le nord-ouest jusqu'à {area:1763}. Les quatre braseros se dressent parmi les bâtiments du Conseil des ombres ; utilisez l'eau purifiée sur chacun.",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "Chevauchez vers le nord-ouest jusqu'à {area:1763}. Les quatre braseros se dressent parmi les bâtiments du Conseil des ombres ; utilisez l'Eau purifiée sur chacun d'eux.\nAttention : des monstres du Conseil des ombres de niveau 53-55 remplissent la grotte et viennent souvent en grands groupes liés, beaucoup avec des étourdissements. Un groupe de 2-3 joueurs est recommandé.",
+	-- ["Scare {npc:10978} with {npc:10980}"] = "Effrayez {npc:10978} avec {npc:10980}",
 	-- ["South to the Sanctuary once more."] = "Retournez encore au sud au Sanctuaire d'émeraude.",
 	-- ["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "Le totem Mort-bois du {area:1762}, si {npc:11558} ne l'a pas pris à ce moment-là : elle attend à l'entrée du tunnel de {area:1769} et vous parle à partir de Neutre avec les Grumegueules, réputation que les furbolgs Mort-bois du {zone:1448} vous ont fait atteindre.",
 	-- ["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} (59, elite) and Xandivious (62) are in the cave at the back: stay out."] = "Le village furbolg remplit la vallée au nord-est de {area:2255}. Tuez d'abord les chamans ; ils soignent. {npc:10738} (59, élite) et Xandivious (62) sont dans la grotte au fond : n'y allez pas.",

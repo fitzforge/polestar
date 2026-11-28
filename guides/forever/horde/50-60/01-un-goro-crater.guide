@@ -301,6 +301,7 @@ step Krakle
 step Krakle's Thermometer
   tip Ride east to Fire Plume Ridge, climb it and use Krakle's Thermometer at the lava vent near the top, then ride back west to Krakle.
   tip Careful: Living Blazes (54-55) and Scorching Elementals (53-54) burn on the slopes: ride up the path and pull only what stands on it.
+  use 12472 quest 974.1 @49.7,45.6
   complete 974 @49.7,45.6
 
 step Krakle
@@ -316,6 +317,7 @@ step Ringo
 step Escort Ringo
   tip Lead Ringo north to Marshal's Refuge. When he faints, use Spraggle's Canteen on him to wake him.
   goto 43.7,8.3
+  use 11804 quest 4491.1 @51.8,49.9 map 1449
   complete 4491
 
 step J.D. Collie
@@ -586,6 +588,8 @@ step Scarlet forward camp
   zone Western Plaguelands
   tip From the Bulwark, follow the road east into the Western Plaguelands. The Scarlet Crusade's tents stand just past Felstone Farm, between Felstone Field and Dalson's Tears. Torch the command tent with the Flame in a Bottle and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be.
   interact 176088
+  use 12814 quest 5096.1 @40.7,51.9 map 1422
+  use 12807 quest 5096.1 @40.7,51.9 map 1422
   complete 5096
 
 step Janice Felstone

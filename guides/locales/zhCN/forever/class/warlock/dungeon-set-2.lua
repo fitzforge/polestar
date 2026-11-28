@@ -146,7 +146,8 @@ return {
 
 	-- Step 29: The Challenge
 	-- {npc:16032} Falrin Treeshaper · {item:21986} Banner of Provocation · {area:1584} Blackrock Depths
-	["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032} 会完成 {item:21986}：把它插在 {area:1584} 的秩序竞技场中。",
+	-- was: ["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032} 会完成 {item:21986}：把它插在 {area:1584} 的秩序竞技场中。"
+	["{npc:16032} finishes the {item:21986}, for the Ring of Law in {area:1584}."] = "",
 
 	-- Step 30: Blackrock Depths: the Ring of Law
 	-- {area:1584} Blackrock Depths
@@ -169,6 +170,8 @@ return {
 	["Honored with the {faction:529}"] = "{faction:529} 声望达到尊敬",
 	-- {item:22014} Hallowed Brazier · {item:12846} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:3197} Chillwind Camp · {npc:10839} Argent Officer Garush · {area:813} Bulwark · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {area:2279} Stratholme · {area:2057} Scholomance
 	["The {item:22014} is sold only to Honored. Take the {item:12846} ({npc:10840} at {area:3197}, {npc:10839} at the {area:813}, or {npc:11039} at {area:2268}) and wear it: Scourgestones then drop from the Scourge, and the Argent officers take them back for reputation. Every Scourge kill in the Plaguelands counts, {area:2279}'s and {area:2057}'s undead give 5 each up to Honored, and {area:2268}'s dungeon quests give 100-200 each. Polestar's Argent Dawn Reputation guide (Reputation) walks it step by step."] = "{item:22014} 只卖给尊敬声望的玩家。领取 {item:12846}（{area:3197} 的 {npc:10840}、{area:813} 的 {npc:10839}，或 {area:2268} 的 {npc:11039}）并装备它：之后天灾军团会掉落天灾石，银色黎明的军官会回收它们并给予声望。在瘟疫之地击杀任何天灾怪物都算数，{area:2279} 和 {area:2057} 的亡灵每只给5点，直到尊敬，{area:2268} 的地下城任务每个给100-200点。Polestar 的银色黎明声望指南（声望）会一步步带你完成。",
+	-- {item:12846} Argent Dawn Commission
+	["{item:12846}, while you fight the Scourge"] = "",
 
 	-- Step 37: Hallowed Brazier
 	-- {object:2160} The Argent Dawn · {area:2268} Light's Hope Chapel · {area:3197} Chillwind Camp · {area:813} Bulwark
@@ -254,5 +257,6 @@ return {
 	-- ["Back to {npc:16016} at {area:2279}'s gate (Ghost Revealer). {quest:84193} takes your {item:16704}: {npc:10436} in {area:2279} (about 18%), your {item:16699}: {npc:10440} in {area:2279} (about 10%), and your {item:16701}: {npc:10503} in {area:2057} (about 17%)."] = "回到{area:2279}大门的{npc:16016}处（幽灵显形器）。{quest:84193}需要你的{item:16704}：{area:2279}的{npc:10436}（约18%），你的{item:16699}：{area:2279}的{npc:10440}（约10%），以及你的{item:16701}：{area:2057}的{npc:10503}（约17%）。",
 	-- ["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:235043} yet, so this guide can't track it: {npc:230317} should offer it now. Take it from him and give him your {item:16698} and {item:16700}."] = "北极星的任务数据还不认识无限服中 {npc:235043} 的“最好的留在最后”，所以本指南无法追踪：{npc:230317} 现在应该会提供该任务。从他那里接受，并把你的 {item:16698} 和 {item:16700} 交给他。",
 	-- ["Saving the Best for Last takes your {item:16698}: {npc:1853} in {area:2057} (about 12%), and your {item:16700}: {npc:10363} in Upper Blackrock Spire (about 12%)."] = "“最好的留在最后”需要你的 {item:16698}：{area:2057} 的 {npc:1853} 掉落（约12%），以及你的 {item:16700}：黑石塔上层的 {npc:10363} 掉落（约12%）。",
+	-- ["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032} 会完成 {item:21986}：把它插在 {area:1584} 的秩序竞技场中。",
 	-- ["{npc:230317}: Saving the Best for Last"] = "{npc:230317}：最好的留到最后",
 }

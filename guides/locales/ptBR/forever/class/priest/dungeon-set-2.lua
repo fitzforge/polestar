@@ -146,7 +146,8 @@ return {
 
 	-- Step 29: The Challenge
 	-- {npc:16032} Falrin Treeshaper · {item:21986} Banner of Provocation · {area:1584} Blackrock Depths
-	["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032} termina {item:21986}: plante-o no Ringue da Lei em {area:1584}.",
+	-- was: ["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032} termina {item:21986}: plante-o no Ringue da Lei em {area:1584}."
+	["{npc:16032} finishes the {item:21986}, for the Ring of Law in {area:1584}."] = "",
 
 	-- Step 30: Blackrock Depths: the Ring of Law
 	-- {area:1584} Blackrock Depths
@@ -169,6 +170,8 @@ return {
 	["Honored with the {faction:529}"] = "Honrado com {faction:529}",
 	-- {item:22014} Hallowed Brazier · {item:12846} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:3197} Chillwind Camp · {npc:10839} Argent Officer Garush · {area:813} Bulwark · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {area:2279} Stratholme · {area:2057} Scholomance
 	["The {item:22014} is sold only to Honored. Take the {item:12846} ({npc:10840} at {area:3197}, {npc:10839} at the {area:813}, or {npc:11039} at {area:2268}) and wear it: Scourgestones then drop from the Scourge, and the Argent officers take them back for reputation. Every Scourge kill in the Plaguelands counts, {area:2279}'s and {area:2057}'s undead give 5 each up to Honored, and {area:2268}'s dungeon quests give 100-200 each. Polestar's Argent Dawn Reputation guide (Reputation) walks it step by step."] = "{item:22014} só é vendido a partir de Honrado. Pegue {item:12846} ({npc:10840} em {area:3197}, {npc:10839} em {area:813} ou {npc:11039} em {area:2268}) e equipe: aí os Flagelos passam a soltar Pedras do Flagelo, e os oficiais Argênteos as aceitam em troca de reputação. Toda morte de Flagelo nas Terras Pestilentas conta, os mortos-vivos de {area:2279} e {area:2057} dão 5 cada até Honrado, e as missões de masmorra de {area:2268} dão 100-200 cada. O guia de Reputação da Aurora Argêntea do Polestar (Reputação) mostra tudo etapa por etapa.",
+	-- {item:12846} Argent Dawn Commission
+	["{item:12846}, while you fight the Scourge"] = "",
 
 	-- Step 37: Hallowed Brazier
 	-- {object:2160} The Argent Dawn · {area:2268} Light's Hope Chapel · {area:3197} Chillwind Camp · {area:813} Bulwark
@@ -255,6 +258,7 @@ return {
 	-- ["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:234973} yet, so this guide can't track it: {npc:230319} should offer it now. Take it from her and give her your {item:16693} and {item:16690}."] = "Os dados de missão do Polestar ainda não conhecem a Saving the Best for Last do Forever para {npc:234973}, então este guia não consegue acompanhá-la: {npc:230319} deve oferecê-la agora. Pegue com ela e entregue a ela seu {item:16693} e {item:16690}.",
 	-- ["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:235047} yet, so this guide can't track it: {npc:230317} should offer it now. Take it from him and give him your {item:16693} and {item:16690}."] = "Os dados de missão do Polestar ainda não conhecem a Saving the Best for Last do Forever para {npc:235047}, então este guia não consegue acompanhá-la: {npc:230317} deve oferecê-la agora. Pegue com ele e entregue a ele seu {item:16693} e {item:16690}.",
 	-- ["Saving the Best for Last takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "Saving the Best for Last pede seu {item:16693}: {npc:1853} em {area:2057} (cerca de 12%), e seu {item:16690}: {npc:10363} no Pico da Rocha Negra Superior (cerca de 11%).",
+	-- ["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032} termina {item:21986}: plante-o no Ringue da Lei em {area:1584}.",
 	-- ["{npc:230317}: Saving the Best for Last"] = "{npc:230317}: O Melhor Fica para o Final",
 	-- ["{npc:230319}: Saving the Best for Last"] = "{npc:230319}: O Melhor Fica para o Final",
 }

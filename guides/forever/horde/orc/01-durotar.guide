@@ -97,6 +97,7 @@ step Back to the Den
   turnin 4402                         -- Galgar
 
 step Lazy Peons
+  use 16114 quest 5441.1 @45.0,69.1 map 1411
   kill 10556 quest 5441.1 "Wake Lazy Peons with the Foreman's Blackjack"
 
 step Foreman Thazz'ril
@@ -153,6 +154,7 @@ step Back to the Den
 step Call of Earth
   only Shaman
   tip Canaga stands outside the Den. Spirit Rock is the hill just south of it: drink the Earth Sapta there to see the Minor Manifestation of Earth, then take the Rough Quartz back to Canaga.
+  use 6635 @44.1,76.4
   turnin 1517                         -- Minor Manifestation of Earth, on Spirit Rock
   accept 1518
   turnin 1518                         -- Canaga Earthcaller: Stoneskin Totem and your Earth Totem

@@ -350,9 +350,13 @@ step Chillwind Camp: Clear the Way
 step Andorhal and Felstone Field
   tip Mark the four watchtowers around Andorhal, north of the camp, with the Beacon Torch at each door. Cauldron Lord Bilemaw guards the cauldron at Felstone Field, west of Andorhal; his key opens it. Janice Felstone's ghost wanders by the Felstone farmhouse, and her parcel lies inside: it goes to Stormwind for 150 more.
   level 52
+  use 12815 quest 5097.1 @40.1,71.6 map 1422
   kill 10902 quest 5097.1 "Mark Andorhal Tower One with the Beacon Torch"
+  use 12815 quest 5097.2 @42.3,66.2 map 1422
   kill 10903 quest 5097.2 "Mark Andorhal Tower Two with the Beacon Torch"
+  use 12815 quest 5097.3 @44.3,63.3 map 1422
   kill 10904 quest 5097.3 "Mark Andorhal Tower Three with the Beacon Torch"
+  use 12815 quest 5097.4 @46.6,71.1 map 1422
   kill 10905 quest 5097.4 "Mark Andorhal Tower Four with the Beacon Torch"
   collect 13194 quest 5216.1          -- Felstone Field Cauldron Key, from Cauldron Lord Bilemaw
   turnin 5216                         -- the Scourge Cauldron

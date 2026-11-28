@@ -146,7 +146,8 @@ return {
 
 	-- Step 29: The Challenge
 	-- {npc:16032} Falrin Treeshaper · {item:21986} Banner of Provocation · {area:1584} Blackrock Depths
-	["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032} termina el {item:21986}: plántalo en el Anillo de la Ley de {area:1584}.",
+	-- was: ["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032} termina el {item:21986}: plántalo en el Anillo de la Ley de {area:1584}."
+	["{npc:16032} finishes the {item:21986}, for the Ring of Law in {area:1584}."] = "",
 
 	-- Step 30: Blackrock Depths: the Ring of Law
 	-- {area:1584} Blackrock Depths
@@ -169,6 +170,8 @@ return {
 	["Honored with the {faction:529}"] = "Honorable con {faction:529}",
 	-- {item:22014} Hallowed Brazier · {item:12846} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:3197} Chillwind Camp · {npc:10839} Argent Officer Garush · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {area:2279} Stratholme · {area:2057} Scholomance
 	["The {item:22014} is sold only to Honored. Take the {item:12846} ({npc:10840} at {area:3197}, {npc:10839} at the Bulwark, or {npc:11039} at {area:2268}) and wear it: Scourgestones then drop from the Scourge, and the Argent officers take them back for reputation. Every Scourge kill in the Plaguelands counts, {area:2279}'s and {area:2057}'s undead give 5 each up to Honored, and {area:2268}'s dungeon quests give 100-200 each. Polestar's Argent Dawn Reputation guide (Reputation) walks it step by step."] = "El {item:22014} solo se vende a partir de Honorable. Toma el {item:12846} ({npc:10840} en {area:3197}, {npc:10839} en el Baluarte o {npc:11039} en {area:2268}) y llévalo puesto: así la Plaga suelta piedras de la Plaga, y los oficiales Argenta las aceptan a cambio de reputación. Cuenta cada muerte de la Plaga en las Tierras de la Peste; los no-muertos de {area:2279} y {area:2057} dan 5 cada uno hasta Honorable, y las misiones de mazmorra de {area:2268} dan 100-200 cada una. La guía de reputación con El Alba Argenta de Polestar (Reputación) te lleva paso a paso.",
+	-- {item:12846} Argent Dawn Commission
+	["{item:12846}, while you fight the Scourge"] = "",
 
 	-- Step 37: Hallowed Brazier
 	-- {object:2160} The Argent Dawn · {area:2268} Light's Hope Chapel · {area:3197} Chillwind Camp
@@ -255,6 +258,7 @@ return {
 	-- ["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:234963} yet, so this guide can't track it: {npc:230319} should offer it now. Take it from her and give her your {item:16686} and {item:16688}."] = "Los datos de misiones de Polestar aún no conocen la misión de Forever Lo mejor para el final para {npc:234963}, así que esta guía no puede seguirla: {npc:230319} debería ofrecértela ahora. Acéptala y dale tu {item:16686} y tu {item:16688}.",
 	-- ["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:235048} yet, so this guide can't track it: {npc:230317} should offer it now. Take it from him and give him your {item:16686} and {item:16688}."] = "Los datos de misiones de Polestar aún no conocen la misión de Forever Lo mejor para el final para {npc:235048}, así que esta guía no puede seguirla: {npc:230317} debería ofrecértela ahora. Acéptala y dale tu {item:16686} y tu {item:16688}.",
 	-- ["Saving the Best for Last takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "Lo mejor para el final pide tu {item:16686}: {npc:1853} en {area:2057} (alrededor del 13 %), y tu {item:16688}: {npc:10363} en Cumbre de Roca Negra Superior (alrededor del 11 %).",
+	-- ["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032} termina el {item:21986}: plántalo en el Anillo de la Ley de {area:1584}.",
 	-- ["{npc:230317}: Saving the Best for Last"] = "{npc:230317}: Lo mejor para el final",
 	-- ["{npc:230319}: Saving the Best for Last"] = "{npc:230319}: Lo mejor para el final",
 }

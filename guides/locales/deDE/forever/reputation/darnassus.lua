@@ -103,8 +103,9 @@ return {
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the {area:445} cave to the north-east."] = "Das Furbolg-Lager südlich der Stadt zählt für How Big a Threat; die Rabid Thistle Bears streifen durch die Wälder südlich der Stadt; die Highborne-Geister der Ruinen von Ameth'Aran, südöstlich der Stadt, tragen die Relikte, und auch Anayas Geist geht dort um; die Knochen liegen am Strand südlich der Stadt; die Pilze wachsen in der Höhle {area:445} im Nordosten.",
 	["the corrupt furbolg camp south of town"] = "das verderbte Furbolg-Lager südlich der Stadt",
-	-- {npc:2164} Rabid Thistle Bear · {quest:2139} Tharnariun's Hope · {npc:3701} Tharnariun Treetender
-	["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}: benutze {quest:2139} an ihm und führe ihn zurück zu {npc:3701}",
+	-- {npc:2164} Rabid Thistle Bear · {item:7586} Tharnariun's Hope · {npc:3701} Tharnariun Treetender
+	-- was: ["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}: benutze {quest:2139} an ihm und führe ihn zurück zu {npc:3701}"
+	["{npc:2164}: use {item:7586} on it and lead it back to {npc:3701}"] = "",
 	-- {npc:2164} Rabid Thistle Bear
 	["Capture a {npc:2164}"] = "Fange einen {npc:2164}",
 	-- {quest:954} Bashal'Aran
@@ -202,5 +203,6 @@ return {
 	-- ["Syndicate Mercenaries at Stromgarde (level 31-32) drop it here. The Auction House works too."] = "Söldner des Syndikats bei Burg Stromgarde (Stufe 31-32) lassen ihn hier fallen. Das Auktionshaus geht auch.",
 	-- ["{npc:14725} takes cloth for {faction:69} in {faction:69}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7801} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14725} nimmt in {faction:69} Stoff für {faction:69} an. Die ersten Spenden von Wollstoff, Seidenstoff, Magiestoff und {item:14047} (je 60 Stoff) gibt es nur einmal, und sie bringen den meisten Ruf pro Stoff; danach wiederholt sich {quest:7801} bis Ehrfürchtig. Bist du bei der Hauptstadt eines anderen Volkes ehrfürchtig, kannst du dessen Reittiere kaufen. Der Vermächtnis-Vorteil „Diplomat“ von Forever erhöht den Rufgewinn.",
 	-- ["{npc:14725}: {item:14047} delivered"] = "{npc:14725}: {item:14047} abgeliefert",
+	-- ["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}: benutze {quest:2139} an ihm und führe ihn zurück zu {npc:3701}",
 	-- ["{quest:7801} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7801} nimmt 20 {item:14047} pro Abgabe und lässt sich beliebig oft wiederholen. Bring {item:14047} in Vielfachen von 20 mit und gib alles auf einmal ab, eine Abgabe nach der anderen. {item:14047}: Dunkle Adepten und Schattenmagier (Stufe 58-60) in den {zone:1423} oder das Auktionshaus.",
 }

@@ -190,9 +190,10 @@ return {
 	["South down the coast to Shadowprey: {npc:268705} first, on the path into the village; {npc:11624} takes the box and sends you to {area:602} with it; {npc:12340} takes the naga."] = "",
 
 	-- Step 37: Portals of the Legion
-	-- {area:602} Mannoroc Coven · {quest:5381} Hand of Iruxos · {npc:11624} Taiga Wisemane · {npc:11937} Demon Portal Guardian
+	-- {area:602} Mannoroc Coven · {item:14547} Hand of Iruxos · {npc:11624} Taiga Wisemane · {npc:11937} Demon Portal Guardian
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner
-	["Head east to {area:602}. With the {quest:5381} from {npc:11624} in your bags, open a demon portal's ring: a {npc:11937} (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "向東到{area:602}。包裡帶著{npc:11624}給的{quest:5381}時，開啟惡魔傳送門的法陣：會出來一個{npc:11937}（38-39級）；殺掉它就能關上那個傳送門。一共六個門。注意：地獄火、末日守衛和燃燒之刃召喚者常在多個門附近走動，可能加入戰鬥；先清掉附近的怪，或者把守衛往別處拉，比如拉向集會的中央湖。",
+	-- was: ["Head east to {area:602}. With the {quest:5381} from {npc:11624} in your bags, open a demon portal's ring: a {npc:11937} (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "向東到{area:602}。包裡帶著{npc:11624}給的{quest:5381}時，開啟惡魔傳送門的法陣：會出來一個{npc:11937}（38-39級）；殺掉它就能關上那個傳送門。一共六個門。注意：地獄火、末日守衛和燃燒之刃召喚者常在多個門附近走動，可能加入戰鬥；先清掉附近的怪，或者把守衛往別處拉，比如拉向集會的中央湖。"
+	["Head east to {area:602}. With the {item:14547} from {npc:11624} in your bags, open a demon portal's ring: a {npc:11937} (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "",
 
 	-- Step 38: The Valley of Bones
 	-- {area:2657} Valley of Bones
@@ -246,6 +247,7 @@ return {
 	-- ["For {npc:2519} at {object:3202}, in forever/horde/40-50/01-stranglethorn-vale"] = "交給{object:3202}的{npc:2519}，在（forever/horde/40-50/01-stranglethorn-vale）指南中",
 	-- ["For {npc:2519} at {object:3202}, in the next guide"] = "交給{object:3202}的{npc:2519}，在下一份指南",
 	-- ["Head east back to the {area:497}."] = "向東回到{area:497}。",
+	-- ["Head east to {area:602}. With the {quest:5381} from {npc:11624} in your bags, open a demon portal's ring: a {npc:11937} (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "向東到{area:602}。包裡帶著{npc:11624}給的{quest:5381}時，開啟惡魔傳送門的法陣：會出來一個{npc:11937}（38-39級）；殺掉它就能關上那個傳送門。一共六個門。注意：地獄火、末日守衛和燃燒之刃召喚者常在多個門附近走動，可能加入戰鬥；先清掉附近的怪，或者把守衛往別處拉，比如拉向集會的中央湖。",
 	-- ["Hearth to {area:392}"] = "用爐石回{area:392}",
 	-- ["Kodo bones and ghosts"] = "科多獸骨與幽靈",
 	-- ["Maraudine totems"] = "瑪洛迪圖騰",

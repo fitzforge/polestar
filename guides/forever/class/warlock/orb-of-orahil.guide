@@ -101,7 +101,9 @@ step Mannoroc Coven
   tip Mannoroc Coven fills south-central Desolace, east of Shadowprey Village. The Burning Blade Summoners (level 38-39, warlocks with imps) carry the Infernal Orb every time. For the spirit, bring your demon to low health with your damage over time, then channel the ruby or the emerald on it and keep channelling while it dies, as with Drain Soul: the gem does no damage of its own. The ruby works on the coven's felhounds: the two Mana Eaters (37-38) in the north, and the Mage Hunters (38) and Ley Hunters (39) further south. The emerald works on the Lesser Infernals (36-37, sixteen of them, fire-resistant).
   level 40
   collect 7291 quest 1799.1           -- Infernal Orb, from the Burning Blade Summoners
+  use 12647 quest 4962.1 @52.9,68.1 map 1443
   collect 12648 quest 4962.1          -- Imprisoned Felhound Spirit, from a Mana Eater, Mage Hunter or Ley Hunter
+  use 12646 quest 4963.1 @54.3,71.1 map 1443
   collect 12649 quest 4963.1          -- Imprisoned Infernal Spirit, from a Lesser Infernal
 
 step The demon's spirit
