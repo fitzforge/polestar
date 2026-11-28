@@ -92,16 +92,20 @@ test('every craft and learn goal resolves an item or spell icon from the client 
 	const { goals } = recipes();
 	const unresolved = [];
 	for (const g of goals) {
-		// A craft with an item wears the item's icon; every other recipe, and every learn step, the spell's.
-		const icon = g.t === 'craft' && g.item ? itemIcons.get(g.item) : spellIcons.get(g.spell);
-		if (!icon) unresolved.push(`${g.guide}: ${g.t} ${g.spell} ${g.name}${g.item ? ` (item ${g.item})` : ''}: no ${g.item ? 'item' : 'spell'} icon in the client tables`);
+		// A craft with an item wears the item's icon, or the spell's where the client has no icon for the item
+		// (GF.GoalIcon's fallback: Forever's Runecloth Cuffs, item 254123, has none in Item.csv); every other
+		// recipe, and every learn step, the spell's.
+		const icon = (g.t === 'craft' && g.item && itemIcons.get(g.item)) || spellIcons.get(g.spell);
+		if (!icon) unresolved.push(`${g.guide}: ${g.t} ${g.spell} ${g.name}${g.item ? ` (item ${g.item})` : ''}: no item or spell icon in the client tables`);
 	}
 	assert.deepEqual(unresolved, []);
 });
 
 test('every material the profession guides name has an icon in the client tables', { skip }, () => {
-	const { items } = recipes();
-	const missing = [...items].filter((i) => !itemIcons.get(i));
+	const { items, goals } = recipes();
+	// An item that is only a craft's product wears the craft's icon (the test above), the spell's where it has none.
+	const madeWithIcon = new Set(goals.filter((g) => g.t === 'craft' && g.item && spellIcons.get(g.spell)).map((g) => g.item));
+	const missing = [...items].filter((i) => !itemIcons.get(i) && !madeWithIcon.has(i));
 	assert.deepEqual(missing, [], 'items with no icon');
 });
 

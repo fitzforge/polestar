@@ -617,6 +617,22 @@ emit({ right = GF.RegionFrame("turnin").LineRight:GetText() })`);
 	assert.equal(short.right, '40 more');
 });
 
+// A narrow window: the faction's name keeps whole beside its rank and numbers (a wide look's font cut "Stormwind" by
+// a pixel); where the line is short, the cap goes, then the rank, never the name.
+test('reputation in a narrow window: the faction\'s name keeps whole, the cap and then the rank giving way', () => {
+	for (const width of [220, 240, 260, 280, 320, 400]) {
+		const out = repRun(`Polestar.Set("ui.width", ${width})\nw.setRep(69, "Stormwind", 5, 5150, 3000, 9000)`, `
+GF.Render(); GF.Layout(); stub.advance(1)
+local f = GF.RegionFrame("meter")
+emit({ name = f.Name:GetText(), cut = f.Name:IsTruncated(), w = f.Name:GetWidth(), need = f.Name:GetUnboundedStringWidth(),
+	max = f.Max:IsShown(), rank = f.Rank:IsShown(), value = f.Value:IsShown() })`);
+		assert.equal(out.cut, false, `width ${width}: ${JSON.stringify(out)}`);
+		assert.ok(out.w >= out.need, `width ${width}: the name's box holds its text: ${JSON.stringify(out)}`);
+		assert.equal(out.value, true, `width ${width}: the value stays`);
+		if (width >= 400) assert.deepEqual([out.max, out.rank], [true, true], 'a wide window keeps the cap and the rank');
+	}
+});
+
 // Icons and tooltips of what the guide's recipes are: the item's where a recipe makes one, else the recipe's own
 // spell (an enchant, a smelt, a transmute makes no item); the verb's glyph only where the client gives nothing.
 const ENCHANTING = `{ id = "test/enchant", pack = "test", title = "Enchanting 1-300", minLevel = 5, maxLevel = 60, category = "Professions",
