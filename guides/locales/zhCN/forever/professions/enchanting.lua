@@ -16,12 +16,11 @@ return {
 	-- {skill:333} Enchanting
 	["{skill:333} 1-75: vendor goods"] = "{skill:333} 1–75：商人材料",
 	-- {item:6217} Copper Rod · {item:247786} Mote of Magic · {zone:1453} Stormwind City · {npc:1318} Jessara Cordell · {zone:1454} Orgrimmar · {npc:3346} Kithas
-	-- was: ["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "一次买齐本阶段所需：1个{item:6217}（1银24铜）和32个{item:247786}（3银20铜）；总计约4银44铜。箭头指向本阵营最近的出售者（{zone:1453}：{npc:1286}和{npc:1318}；{zone:1454}：{npc:3367}、{npc:3346}和{npc:5817}）。"
-	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1318}; {zone:1454}: {npc:3346})."] = "",
+	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1318}; {zone:1454}: {npc:3346})."] = "一次买齐本阶段所需的1根{item:6217}（1银24铜）和32份{item:247786}（3银20铜），总计约4银44铜。箭头会指向最近的本阵营商人，{zone:1453}找{npc:1318}，{zone:1454}找{npc:3346}。",
 
 	-- Step 3: Get Strange Dust
 	-- {item:10940} Strange Dust
-	["Get {item:10940}"] = "",
+	["Get {item:10940}"] = "获取{item:10940}",
 	-- {item:10940} Strange Dust · {skill:333} Enchanting · {spell:7420} Enchant Chest - Inferior Stamina
 	["You need 51 {item:10940} for {skill:333} 1-75: {spell:7420}. {skill:333}: disenchant green items of item level 5-20. Or buy them at the Auction House."] = "",
 
@@ -58,13 +57,13 @@ return {
 
 	-- Step 9: Get Shadowgem
 	-- {item:1210} Shadowgem
-	["Get {item:1210}"] = "",
+	["Get {item:1210}"] = "获取{item:1210}",
 	-- {item:1210} Shadowgem · {skill:333} Enchanting · {item:6339} Runed Silver Rod · {object:1731} Copper Vein · {object:1732} Tin Vein · {object:1733} Silver Vein
 	["You need 1 {item:1210} for {skill:333} 75-150: {item:6339}. {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining. Or buy it at the Auction House."] = "",
 
 	-- Step 10: Get Silver Rod
 	-- {item:6338} Silver Rod
-	["Get {item:6338}"] = "",
+	["Get {item:6338}"] = "获取{item:6338}",
 	-- {item:6338} Silver Rod · {skill:333} Enchanting · {item:6339} Runed Silver Rod · {skill:164} Blacksmithing
 	["You need 1 {item:6338} for {skill:333} 75-150: {item:6339}. {skill:164}: {item:6338}. Or buy it at the Auction House."] = "",
 
@@ -74,7 +73,7 @@ return {
 
 	-- Step 12: Get Soul Dust
 	-- {item:11083} Soul Dust
-	["Get {item:11083}"] = "",
+	["Get {item:11083}"] = "获取{item:11083}",
 	-- {item:11083} Soul Dust · {skill:333} Enchanting · {spell:13501} Enchant Bracer - Lesser Stamina
 	["You need 20 {item:11083} for {skill:333} 75-150: {spell:13501}. {skill:333}: disenchant green items of item level 21-30. Or buy them at the Auction House."] = "",
 
@@ -82,7 +81,7 @@ return {
 	-- {skill:333} Enchanting
 	["{skill:333} 75-150: Auction House"] = "{skill:333} 75-150：拍卖行",
 	-- {item:10938} Lesser Magic Essence
-	["What 75-150 takes that the Auction House sells and no step above farms: 4 {item:10938}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 75-150 takes that the Auction House sells and no step above farms: 4 {item:10938}. The counts drop by what your bags, bank and mail hold."] = "附魔75–150阶段需要4份{item:10938}，前面的步骤没有安排获取，可以在拍卖行购买。所需数量会扣除背包、银行和邮件中已有的材料。",
 
 	-- Step 14: Enchant Chest - Inferior Stamina to 90
 	-- {spell:7420} Enchant Chest - Inferior Stamina
@@ -110,20 +109,18 @@ return {
 
 	-- Step 18: Get Iridescent Pearl (Alliance)
 	-- {item:5500} Iridescent Pearl
-	-- was: ["{item:5500} (Alliance)"] = "{item:5500}（联盟）"
-	["Get {item:5500} (Alliance)"] = "",
+	["Get {item:5500} (Alliance)"] = "获取{item:5500}（联盟）",
 	-- {item:5500} Iridescent Pearl · {skill:333} Enchanting · {item:11130} Runed Golden Rod
 	-- plural, as words: Giant Clams = {object:2744} Giant Clam
 	["You need 1 {item:5500} for {skill:333} 150-225: {item:11130}. Open the Giant Clams at the marked spot. Or buy it at the Auction House."] = "",
 
 	-- Step 19: Get Iridescent Pearl (Horde)
 	-- {item:5500} Iridescent Pearl
-	-- was: ["{item:5500} (Horde)"] = "{item:5500}（部落）"
-	["Get {item:5500} (Horde)"] = "",
+	["Get {item:5500} (Horde)"] = "获取{item:5500}（部落）",
 
 	-- Step 20: Get Greater Astral Essence
 	-- {item:11082} Greater Astral Essence
-	["Get {item:11082}"] = "",
+	["Get {item:11082}"] = "获取{item:11082}",
 	-- {item:11082} Greater Astral Essence · {skill:333} Enchanting · {item:11130} Runed Golden Rod
 	["You need 1 {item:11082} for {skill:333} 150-225: {item:11130}. {skill:333}: disenchant green items of item level 16-25. Or buy it at the Auction House."] = "",
 
@@ -133,25 +130,25 @@ return {
 
 	-- Step 22: Get Golden Rod
 	-- {item:11128} Golden Rod
-	["Get {item:11128}"] = "",
+	["Get {item:11128}"] = "获取{item:11128}",
 	-- {item:11128} Golden Rod · {skill:333} Enchanting · {item:11130} Runed Golden Rod · {skill:164} Blacksmithing
 	["You need 1 {item:11128} for {skill:333} 150-225: {item:11130}. {skill:164}: {item:11128}. Or buy it at the Auction House."] = "",
 
 	-- Step 23: Get Greater Mystic Essence
 	-- {item:11135} Greater Mystic Essence
-	["Get {item:11135}"] = "",
+	["Get {item:11135}"] = "获取{item:11135}",
 	-- {item:11135} Greater Mystic Essence · {skill:333} Enchanting · {item:11145} Runed Truesilver Rod
 	["You need 1 {item:11135} for {skill:333} 150-225: {item:11145}. {skill:333}: disenchant green items of item level 26-35. Or buy it at the Auction House."] = "",
 
 	-- Step 24: Get Vision Dust
 	-- {item:11137} Vision Dust
-	["Get {item:11137}"] = "",
+	["Get {item:11137}"] = "获取{item:11137}",
 	-- {item:11137} Vision Dust · {skill:333} Enchanting · {item:11145} Runed Truesilver Rod · {spell:13746} Enchant Cloak - Greater Defense
 	["You need 21 {item:11137} for {skill:333} 150-225: {item:11145} and {spell:13746}. {skill:333}: disenchant green items of item level 31-40. Or buy them at the Auction House."] = "",
 
 	-- Step 25: Get Truesilver Rod
 	-- {item:11144} Truesilver Rod
-	["Get {item:11144}"] = "",
+	["Get {item:11144}"] = "获取{item:11144}",
 	-- {item:11144} Truesilver Rod · {skill:333} Enchanting · {item:11145} Runed Truesilver Rod · {skill:164} Blacksmithing
 	["You need 1 {item:11144} for {skill:333} 150-225: {item:11145}. {skill:164}: {item:11144}. Or buy it at the Auction House."] = "",
 
@@ -159,7 +156,7 @@ return {
 	-- {skill:333} Enchanting
 	["{skill:333} 150-225: Auction House"] = "{skill:333} 150-225：拍卖行",
 	-- {item:7971} Black Pearl
-	["What 150-225 takes that the Auction House sells and no step above farms: 1 {item:7971}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 150-225 takes that the Auction House sells and no step above farms: 1 {item:7971}. The counts drop by what your bags, bank and mail hold."] = "附魔150–225阶段需要1颗{item:7971}，前面的步骤没有安排获取，可以在拍卖行购买。所需数量会扣除背包、银行和邮件中已有的材料。",
 
 	-- Step 27: Expert Enchanting
 	-- {skill:333} Enchanting

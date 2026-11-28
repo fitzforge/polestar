@@ -45,13 +45,13 @@ return {
 	-- Step 8: Rackmore's Silver Key
 	-- {item:15878} Rackmore's Silver Key
 	-- plural, as words: Drysnap Crawlers = {npc:11562} Drysnap Crawler
-	["West to the shore: the Drysnap Crawlers and Pincers (33-35) on the beach and the clam beds around the wreck carry {item:15878}, about one in seven."] = "向西到海边：海滩上和沉船周围蚌床一带的枯钳龙虾人（33–35）带着{item:15878}，大约七只掉一把。",
+	["West to the shore: the Drysnap Crawlers and Pincers (33-35) on the beach and the clam beds around the wreck carry {item:15878}, about one in seven."] = "向西到海边：海滩上和沉船周围蚌床一带的枯钳龙虾人和枯钳巨螯龙虾人（33–35）带着{item:15878}，大约七只掉一把。",
 	-- {item:15878} Rackmore's Silver Key
 	["{item:15878}, from the Drysnap crabs"] = "{item:15878}，击杀干钳蟹获取",
 
 	-- Step 9: Sar'theris Strand
 	-- {area:598} Sar'theris Strand · {item:15881} Rackmore's Golden Key
-	["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it. Work the Naga, Sorceresses and Warriors (32-34) of the strand's southern half until it drops.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), and Tidehunters (36-37) swim off the northern tip: on the way to the chest, keep to the beach and swim straight across."] = "继续向北到{area:598}获取{item:15881}：任何滑刃纳迦都可能掉落。刷海岸南半段的纳迦、巫师和战士（32–34）直到掉落。\n注意：滑刃侍从（34–35）与滑刃海巫、滑刃神谕者（34–36，施法者）盘踞海滩北半段，滑刃潮汐猎手（36–37）在北端外海游弋：去箱子的一路上贴着海滩走，径直游过去。",
+	["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it. Work the Naga, Sorceresses and Warriors (32-34) of the strand's southern half until it drops.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), and Tidehunters (36-37) swim off the northern tip: on the way to the chest, keep to the beach and swim straight across."] = "继续向北到{area:598}获取{item:15881}：任何滑刃纳迦都可能掉落。刷海岸南半段的滑刃纳迦、滑刃巫师和滑刃战士（32–34）直到掉落。\n注意：滑刃侍从（34–35）与滑刃海巫、滑刃智者（34–36，施法者）盘踞海滩北半段，滑刃潮行者（36–37）在北端外海游弋：去箱子的一路上贴着海滩走，径直游过去。",
 	-- {item:15881} Rackmore's Golden Key
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881}，击杀滑刃纳迦获取",
 

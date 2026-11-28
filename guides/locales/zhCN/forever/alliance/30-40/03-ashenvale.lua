@@ -68,9 +68,9 @@ return {
 
 	-- Step 11: The Shady Rest Inn
 	-- {zone:1413} Barrens
-	["Follow the road west to the burned inn on the road toward the {zone:1413}: the black shield and Reethe's guard badge lie in the ashes and the hoofprints are in the mud beside the inn."] = "沿路向西，前往通往{zone:1413}的路上那家被烧毁的旅店：黑色盾牌和里瑟的卫兵徽章在灰烬里，马蹄印在旅店旁的泥地上。",
+	["Follow the road west to the burned inn on the road toward the {zone:1413}: the black shield and Reethe's guard badge lie in the ashes and the hoofprints are in the mud beside the inn."] = "沿路向西，前往通往{zone:1413}的路上那家被烧毁的旅店：黑色盾牌和雷瑟的卫兵徽章在灰烬里，马蹄印在旅店旁的泥地上。",
 	-- {object:21042} Theramore Guard Badge
-	["{object:21042}: for Captain Vimes, on the way back through Theramore"] = "{object:21042}：回去路过塞拉摩时交给维姆斯上尉",
+	["{object:21042}: for Captain Vimes, on the way back through Theramore"] = "{object:21042}：回去路过塞拉摩时交给盖兰·维米斯队长",
 
 	-- Step 12: Into Barrens
 	-- {zone:1413} Barrens
@@ -87,7 +87,7 @@ return {
 	-- Step 14: Myriam Moonsinger
 	-- {npc:12866} Myriam Moonsinger · {area:1316} Razorfen Downs · {area:485} Great Lift
 	-- plural, as words: Razorfen Battleguards = {npc:7873} Razorfen Battleguard · Death's Head Cultists = {npc:7872} Death's Head Cultist
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:12866} stands by the entrance of {area:1316}, a few hundred yards north-east of the top of the {area:485}; the Razorfen Battleguards, Thornweavers and Death's Head Cultists (33-34, elite) hold the thorny slopes around her. Skip it if you are alone."] = "这些都是精英怪：建议组队，找人一起做。{npc:12866}站在{area:1316}入口旁，在{area:485}顶端东北几百码处；剃刀沼泽护卫者、荆棘织网者和亡首教徒（33–34，精英）盘踞她周围的荆棘坡地。独自一人就跳过。",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:12866} stands by the entrance of {area:1316}, a few hundred yards north-east of the top of the {area:485}; the Razorfen Battleguards, Thornweavers and Death's Head Cultists (33-34, elite) hold the thorny slopes around her. Skip it if you are alone."] = "这些都是精英怪：建议组队，找人一起做。{npc:12866}站在{area:1316}入口旁，在{area:485}顶端东北几百码处；剃刀沼泽护卫者、剃刀沼泽织棘者和亡首教徒（33–34，精英）盘踞她周围的荆棘坡地。独自一人就跳过。",
 
 	-- Step 15: Henrig Lonebrow's Journal
 	-- {area:485} Great Lift · {zone:1441} Thousand Needles · {item:5791} Henrig Lonebrow's Journal · {area:2097} Darkcloud Pinnacle
@@ -153,13 +153,13 @@ return {
 
 	-- Step 26: Theramore
 	-- {npc:4456} Fiora Longears · {npc:4948} Adjutant Tesoran · {area:514} Foothold Citadel · {npc:4941} Caz Twosprocket
-	["{npc:4456} is in the north of town, Captain Vimes and {npc:4948} on the top floor of {area:514}; {npc:4941} stands in the town."] = "{npc:4456}在镇子北边，维姆斯上尉和{npc:4948}在{area:514}的顶层；{npc:4941}站在镇子里。",
+	["{npc:4456} is in the north of town, Captain Vimes and {npc:4948} on the top floor of {area:514}; {npc:4941} stands in the town."] = "{npc:4456}在镇子北边，盖兰·维米斯队长和{npc:4948}在{area:514}的顶层；{npc:4941}站在镇子里。",
 	-- {zone:1445} Dustwallow Marsh
-	["Vimes's next errand, The Deserters, is for the {zone:1445} visit at 39: leave it."] = "维姆斯关于逃兵的下一件差事，留给 39 级那次{zone:1445}之行：别接。",
+	["Vimes's next errand, The Deserters, is for the {zone:1445} visit at 39: leave it."] = "维米斯队长的后续任务《背叛者》留到39级去{zone:1445}时再做，现在先别接。",
 
 	-- Step 27: Ratchet
 	-- {zone:1413} Barrens · {area:392} Ratchet · {area:35} Booty Bay · {npc:3391} Gazlowe · {quest:1111} Wharfmaster Dizzywig
-	["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock; {npc:3391} is upstairs in the house above it; {quest:1111} waits on the dock by the boat."] = "从塞拉摩沿路向西北穿过沼泽进入{zone:1413}，再沿海岸北上到{area:392}：荆棘谷从海对面的{area:35}开始。{area:392}的狮鹫管理员站在码头上方；{npc:3391}在他上方屋子的楼上；{quest:1111}在码头边船旁等着。",
+	["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock; {npc:3391} is upstairs in the house above it; {quest:1111} waits on the dock by the boat."] = "从塞拉摩沿路向西北穿过沼泽进入{zone:1413}，再沿海岸北上到{area:392}：荆棘谷从海对面的{area:35}开始。{area:392}的狮鹫管理员站在码头上方；{npc:3391}在码头上方那栋房子的楼上；{quest:1111}在码头边船旁等着。",
 	-- {npc:3391} Gazlowe · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	["{npc:3391}: for {npc:4631}, on {area:35}'s dock where the boat lands"] = "{npc:3391}：交给{npc:4631}，在{area:35}船靠岸的码头上",
 	-- {quest:1111} Wharfmaster Dizzywig · {quest:1039} The Barrens Port · {npc:8026} Thyn'tel Bladeweaver · {zone:1457} Darnassus

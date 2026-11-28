@@ -118,7 +118,7 @@ return {
 
 	-- Step 19: Get Elixir of Minor Agility
 	-- {item:2457} Elixir of Minor Agility
-	["Get {item:2457}"] = "",
+	["Get {item:2457}"] = "获取{item:2457}",
 	-- {item:2457} Elixir of Minor Agility · {skill:165} Leatherworking · {item:7285} Nimble Leather Gloves · {skill:171} Alchemy
 	["You need 24 {item:2457} for {skill:165} 75-150: {item:7285}. {skill:171}: {item:2457}. Or buy them at the Auction House."] = "",
 
@@ -269,8 +269,7 @@ return {
 	-- {skill:165} Leatherworking
 	["{skill:165} 225-300: vendor goods"] = "{skill:165} 225–300：商人材料",
 	-- {item:2325} Black Dye · {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3366} Tamar
-	-- was: ["Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "一次买齐本阶段所需：39个{item:2325}（3金90银）和82个{item:14341}（41金币）；总计约44金90银。箭头指向本阵营最近的出售者（{zone:1453}：{npc:1347}、{npc:1286}和{npc:5565}；{zone:1454}：{npc:3364}、{npc:3367}和{npc:5817}）。"
-	["Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347} and {npc:5565}; {zone:1454}: {npc:3364} and {npc:3366})."] = "",
+	["Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347} and {npc:5565}; {zone:1454}: {npc:3364} and {npc:3366})."] = "一次买齐本阶段所需的39份{item:2325}（3金90银）和82份{item:14341}（41金），总计约44金90银。箭头会指向最近的本阵营商人，{zone:1453}找{npc:1347}或{npc:5565}，{zone:1454}找{npc:3364}或{npc:3366}。",
 
 	-- Step 45: Pattern: Wicked Leather Gauntlets
 	-- {item:15725} Pattern: Wicked Leather Gauntlets · {item:15083} Wicked Leather Gauntlets · {skill:165} Leatherworking · {npc:12942} Leonard Porter · {zone:1422} Western Plaguelands · {npc:12943} Werg Thickblade
@@ -298,7 +297,7 @@ return {
 
 	-- Step 49: Get Runecloth
 	-- {item:14047} Runecloth
-	["Get {item:14047}"] = "",
+	["Get {item:14047}"] = "获取{item:14047}",
 	-- {item:14047} Runecloth · {skill:165} Leatherworking · {item:15094} Runic Leather Headband
 	["You need 430 {item:14047} for {skill:165} 225-300: {item:15094}. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 

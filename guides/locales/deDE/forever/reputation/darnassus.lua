@@ -33,7 +33,7 @@ return {
 	-- {area:188} Shadowglen
 	["{area:188}: the glade and the spider den"] = "{area:188}: die Lichtung und die Spinnenhöhle",
 	-- {area:256} Aldrassil · {item:3297} Fel Moss · {npc:8584} Iverron
-	["The nightsabers and boars roam the glade; the grells around {area:256} drop the {item:3297}; the totems stand in the furbolg camp north-west of the tree; the Webwood spiders live in the cave north of the glade. {npc:8584} waits outside that cave."] = "Die Nachtsäbler und Eber streifen über die Lichtung; die Grells um {area:256} lassen den {item:3297} fallen; die Totems stehen im Furbolg-Lager nordwestlich des Baums; die Webwood-Spinnen leben in der Höhle nördlich der Lichtung. {npc:8584} wartet vor dieser Höhle.",
+	["The nightsabers and boars roam the glade; the grells around {area:256} drop the {item:3297}; the totems stand in the furbolg camp north-west of the tree; the Webwood spiders live in the cave north of the glade. {npc:8584} waits outside that cave."] = "Die Nachtsäbler und Eber streifen über die Lichtung; die Grells um {area:256} lassen den {item:3297} fallen; die Totems stehen im Furbolg-Lager nordwestlich des Baums; die Waldweberspinnen leben in der Höhle nördlich der Lichtung. {npc:8584} wartet vor dieser Höhle.",
 
 	-- Step 4: Shadowglen: first hand-in
 	-- {area:188} Shadowglen
@@ -44,7 +44,7 @@ return {
 	["{area:188}: the egg and the antidote"] = "{area:188}: das Ei und das Gegengift",
 	-- {quest:917} Webwood Egg · {item:10640} Webwood Ichor
 	-- plural, as words: Webwood Lurkers = {npc:1998} Webwood Lurker
-	["The {quest:917} lies at the back of the spider cave; the mushrooms grow by the trees, the lilies by the pools, and the {item:10640} drops from the Webwood Lurkers."] = "Das {quest:917} liegt im hinteren Teil der Spinnenhöhle; die Pilze wachsen bei den Bäumen, die Lilien an den Teichen, und das {item:10640} fällt von den Webwood Lurkers.",
+	["The {quest:917} lies at the back of the spider cave; the mushrooms grow by the trees, the lilies by the pools, and the {item:10640} drops from the Webwood Lurkers."] = "Das {quest:917} liegt im hinteren Teil der Spinnenhöhle; die Pilze wachsen bei den Bäumen, die Lilien an den Teichen, und das {item:10640} fällt von den Waldweberlauerern.",
 
 	-- Step 6: Shadowglen: last hand-in
 	-- {area:188} Shadowglen
@@ -67,7 +67,7 @@ return {
 	["{area:186}: the woods around the village"] = "{area:186}: die Wälder um das Dorf",
 	-- {faction:69} Darnassus · {npc:2038} Lord Melenas · {area:258} Fel Rock · {npc:2107} Gaerolas Talvethren
 	-- plural, as words: Gnarlpine Ambushers = {npc:2152} Gnarlpine Ambusher
-	["The timberlings by the lake drop seeds and sprouts; the Gnarlpine Ambushers lurk on the road west to {faction:69}; {npc:2038} waits deep in {area:258}, north-west of the village; the dreamcatcher lies in the furbolg camp east of the village, by {npc:2107}; the Nightsabers west of the village carry the pelts."] = "Die Timberlings am See lassen Samen und Sprossen fallen; die Gnarlpine Ambushers lauern auf der Straße nach Westen Richtung {faction:69}; {npc:2038} wartet tief in {area:258}, nordwestlich des Dorfes; der Traumfänger liegt im Furbolg-Lager östlich des Dorfes, bei {npc:2107}; die Nachtsäbler westlich des Dorfes tragen die Felle.",
+	["The timberlings by the lake drop seeds and sprouts; the Gnarlpine Ambushers lurk on the road west to {faction:69}; {npc:2038} waits deep in {area:258}, north-west of the village; the dreamcatcher lies in the furbolg camp east of the village, by {npc:2107}; the Nightsabers west of the village carry the pelts."] = "Die Timberlings am See lassen Samen und Sprossen fallen; die Wegelagerer der Knarzklauen lauern auf der Straße nach Westen Richtung {faction:69}; {npc:2038} wartet tief in {area:258}, nordwestlich des Dorfes; der Traumfänger liegt im Furbolg-Lager östlich des Dorfes, bei {npc:2107}; die Nachtsäbler westlich des Dorfes tragen die Felle.",
 
 	-- Step 10: Dolanaar: first hand-in
 	-- {area:186} Dolanaar
@@ -84,7 +84,7 @@ return {
 	["{area:186}: the relics and Ferocitas"] = "{area:186}: die Relikte und Ferocitas",
 	-- {area:262} Ban'ethil Barrow Den · {area:186} Dolanaar
 	-- plural, as words: Gnarlpine Mystics = {npc:7235} Gnarlpine Mystic
-	["The four relics of Wakening lie in the {area:262}, south-west of {area:186}; Ferocitas and the Gnarlpine Mystics camp east of the village."] = "Die vier Relikte des Erwachens liegen in der {area:262}, südwestlich von {area:186}; Ferocitas und die Gnarlpine Mystics lagern östlich des Dorfes.",
+	["The four relics of Wakening lie in the {area:262}, south-west of {area:186}; Ferocitas and the Gnarlpine Mystics camp east of the village."] = "Die vier Relikte des Erwachens liegen in der {area:262}, südwestlich von {area:186}; Ferocitas und die Mystiker der Knarzklauen lagern östlich des Dorfes.",
 	-- {item:8050} Tallonkai's Jewel · {quest:2459} Ferocitas the Dream Eater
 	["{item:8050}, from {quest:2459}"] = "{item:8050}, von {quest:2459}",
 
@@ -101,7 +101,7 @@ return {
 	["{area:442}: the coast and the woods"] = "{area:442}: die Küste und die Wälder",
 	-- {area:445} Cliffspring Falls
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the {area:445} cave to the north-east."] = "Das Furbolg-Lager südlich der Stadt zählt für How Big a Threat; die Rabid Thistle Bears streifen durch die Wälder südlich der Stadt; die Highborne-Geister der Ruinen von Ameth'Aran, südöstlich der Stadt, tragen die Relikte, und auch Anayas Geist geht dort um; die Knochen liegen am Strand südlich der Stadt; die Pilze wachsen in der Höhle {area:445} im Nordosten.",
+	["The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the {area:445} cave to the north-east."] = "Das Furbolg-Lager südlich der Stadt zählt für How Big a Threat; die tollwütigen Distelbären streifen durch die Wälder südlich der Stadt; die Highborne-Geister der Ruinen von Ameth'Aran, südöstlich der Stadt, tragen die Relikte, und auch Anayas Geist geht dort um; die Knochen liegen am Strand südlich der Stadt; die Pilze wachsen in der Höhle {area:445} im Nordosten.",
 	["the corrupt furbolg camp south of town"] = "das verderbte Furbolg-Lager südlich der Stadt",
 	-- {npc:2164} Rabid Thistle Bear · {quest:2139} Tharnariun's Hope · {npc:3701} Tharnariun Treetender
 	["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}: benutze {quest:2139} an ihm und führe ihn zurück zu {npc:3701}",
@@ -129,7 +129,7 @@ return {
 	["{area:442}: the seal, the {npc:6788} and the pelts"] = "{area:442}: das Siegel, der {npc:6788} und die Felle",
 	-- {item:5338} Ancient Moonstone Seal · {quest:956} Bashal'Aran · {npc:6788} Den Mother · {zone:1439} Darkshore
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	["The {item:5338} drops from the satyrs of {quest:956}; destroy the seal at the flame there. The {npc:6788} lairs north-east of {quest:956}; the Moonstalker Sires and Matriarchs roam the south of {zone:1439}."] = "Der {item:5338} fällt von den Satyrn von {quest:956}; zerstöre das Siegel an der Flamme dort. Der {npc:6788} haust nordöstlich von {quest:956}; die Moonstalker Sires und Matriarchs streifen durch den Süden von {zone:1439}.",
+	["The {item:5338} drops from the satyrs of {quest:956}; destroy the seal at the flame there. The {npc:6788} lairs north-east of {quest:956}; the Moonstalker Sires and Matriarchs roam the south of {zone:1439}."] = "Der {item:5338} fällt von den Satyrn von {quest:956}; zerstöre das Siegel an der Flamme dort. Der {npc:6788} haust nordöstlich von {quest:956}; die Mondpirscherpatriarchen und Mondpirschermatriarchinnen streifen durch den Süden von {zone:1439}.",
 	["the seal at the ancient flame"] = "das Siegel an der uralten Flamme",
 
 	-- Step 20: A Donation of Silk
@@ -147,7 +147,7 @@ return {
 	-- Step 23: Morgan's Vigil: Dragonkin Menace
 	-- {npc:9562} Helendis Riverhorn · {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {quest:4183} The True Masters · {faction:69} Darnassus · {object:2117} Stormwind Keep · {zone:1453} Stormwind · {npc:7044} Black Drake · {npc:7040} Black Dragonspawn · {npc:7041} Black Wyrmkin
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
-	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: 175 {faction:69} reputation for two quests (level 54: in Classic 140 at 60), and the chain goes on to {object:2117} for 175 {zone:1453}. The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "{npc:9562} bei {area:2418}, im Südosten der {zone:1428}, beginnt {quest:4183}: 175 Ruf bei {faction:69} für zwei Quests (Stufe 54: in Classic 140 auf 60), und die Kette geht weiter zu {object:2117} für 175 bei {zone:1453}. Die Black Broodlings und der {npc:7044} leben an den Hängen nördlich der Wache; der {npc:7040} und {npc:7041} westlich davon, in der Mitte der Zone.",
+	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: 175 {faction:69} reputation for two quests (level 54: in Classic 140 at 60), and the chain goes on to {object:2117} for 175 {zone:1453}. The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "{npc:9562} bei {area:2418}, im Südosten der {zone:1428}, beginnt {quest:4183}: 175 Ruf bei {faction:69} für zwei Quests (Stufe 54: in Classic 140 auf 60), und die Kette geht weiter zu {object:2117} für 175 bei {zone:1453}. Die schwarzen Brutlinge und der {npc:7044} leben an den Hängen nördlich der Wache; der {npc:7040} und {npc:7041} westlich davon, in der Mitte der Zone.",
 
 	-- Step 24: Lakeshire: Magistrate Solomon
 	-- {npc:344} Magistrate Solomon · {area:69} Lakeshire · {object:2117} Stormwind Keep · {zone:1453} Stormwind · {faction:69} Darnassus · {npc:7916} Erelas Ambersky · {area:702} Rut'theran Village · {zone:1452} Winterspring · {zone:1448} Felwood · {area:2479} Emerald Sanctuary · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {zone:1422} Western Plaguelands · {item:12663} Glyphed Oaken Branch

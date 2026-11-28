@@ -20,7 +20,7 @@ return {
 
 	-- Step 3: Get Linen Cloth
 	-- {item:2589} Linen Cloth
-	["Get {item:2589}"] = "",
+	["Get {item:2589}"] = "获取{item:2589}",
 	-- {item:2589} Linen Cloth · {skill:197} Tailoring · {spell:2387} Linen Cloak · {item:7026} Linen Belt
 	["You need 144 {item:2589} for {skill:197} 1-75: {spell:2387} and {item:7026}. Humanoids of level 5-20 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2589} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
@@ -57,13 +57,13 @@ return {
 
 	-- Step 9: Get Wool Cloth
 	-- {item:2592} Wool Cloth
-	["Get {item:2592}"] = "",
+	["Get {item:2592}"] = "获取{item:2592}",
 	-- {item:2592} Wool Cloth · {skill:197} Tailoring · {spell:2402} Woolen Cape · {spell:3866} Stylish Red Shirt
 	["You need 567 {item:2592} for {skill:197} 75-150: {spell:2402} and {spell:3866}. Humanoids of level 15-30 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
 	-- Step 10: Get Silk Cloth
 	-- {item:4306} Silk Cloth
-	["Get {item:4306}"] = "",
+	["Get {item:4306}"] = "获取{item:4306}",
 	-- {item:4306} Silk Cloth · {skill:197} Tailoring · {spell:3871} Formal White Shirt
 	["You need 204 {item:4306} for {skill:197} 75-150: {spell:3871}. Humanoids of level 25-45 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4306} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
@@ -101,7 +101,7 @@ return {
 	-- {skill:197} Tailoring
 	["{skill:197} 150-225: vendor goods"] = "{skill:197} 150–225：商人材料",
 	-- {item:2321} Fine Thread · {item:4291} Silken Thread · {item:6260} Blue Dye · {item:8343} Heavy Silken Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 44 {item:2321} (44s), 108 {item:4291} (5g 40s), 44 {item:6260} (22s) and 74 {item:8343} (14g 80s); about 20g 86s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "",
+	["Buy the whole bracket's share in one go: 44 {item:2321} (44s), 108 {item:4291} (5g 40s), 44 {item:6260} (22s) and 74 {item:8343} (14g 80s); about 20g 86s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "一次买齐本阶段所需的44份{item:2321}（44银）、108份{item:4291}（5金40银）、44份{item:6260}（22银）和74份{item:8343}（14金80银），总计约20金86银。箭头会指向最近的本阵营商人，{zone:1453}找{npc:1347}、{npc:1286}或{npc:5565}，{zone:1454}找{npc:3364}、菲利卡或{npc:5817}。",
 
 	-- Step 17: Pattern: Azure Silk Cloak
 	-- {item:7089} Pattern: Azure Silk Cloak · {item:7053} Azure Silk Cloak · {skill:197} Tailoring · {npc:6576} Brienna Starglow · {zone:1444} Feralas · {npc:251997} Norvin Alderman · {zone:1416} Alterac Mountains · {npc:6574} Jun'ha · {zone:1417} Arathi Highlands
@@ -113,7 +113,7 @@ return {
 
 	-- Step 19: Get Mageweave Cloth
 	-- {item:4338} Mageweave Cloth
-	["Get {item:4338}"] = "",
+	["Get {item:4338}"] = "获取{item:4338}",
 	-- {item:4338} Mageweave Cloth · {skill:197} Tailoring · {item:9998} Black Mageweave Vest · {item:10024} Black Mageweave Headband
 	["You need 915 {item:4338} for {skill:197} 150-225: {item:9998} and {item:10024}. Humanoids of level 35-50 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4338} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
@@ -146,9 +146,9 @@ return {
 
 	-- Step 24: Tailoring recipes at 200
 	-- {skill:197} Tailoring
-	["{skill:197} recipes at 200"] = "",
+	["{skill:197} recipes at 200"] = "{skill:197}200点配方",
 	-- {spell:12072} Black Mageweave Headband · {npc:11052} Timothy Worthington · {zone:1445} Dustwallow Marsh · {npc:2399} Daryl Stack · {zone:1424} Hillsbrad Foothills · {skill:197} Tailoring
-	["{spell:12072} (from 200) is taught only by the Artisan trainers: Alliance {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424}). You can train Artisan there now if you are level 35 (it needs {skill:197} 200), which saves the trip at 225."] = "",
+	["{spell:12072} (from 200) is taught only by the Artisan trainers: Alliance {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424}). You can train Artisan there now if you are level 35 (it needs {skill:197} 200), which saves the trip at 225."] = "{spell:12072}需要200点裁缝技能，只有大师级训练师会教。联盟找{zone:1445}的{npc:11052}，部落找{zone:1424}的{npc:2399}。如果角色已到35级、{skill:197}达到200点，可以现在顺便学大师级裁缝，省得225点时再跑一趟。",
 
 	-- Step 25: Black Mageweave Headband to 225
 	-- {item:10024} Black Mageweave Headband
@@ -191,7 +191,7 @@ return {
 
 	-- Step 31: Get Runecloth
 	-- {item:14047} Runecloth
-	["Get {item:14047}"] = "",
+	["Get {item:14047}"] = "获取{item:14047}",
 	-- {item:14047} Runecloth · {skill:197} Tailoring · {item:13856} Runecloth Belt · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders
 	["You need 3195 {item:14047} for {skill:197} 225-300: {item:13856}, {item:13863} and {item:13867}. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 

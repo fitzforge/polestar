@@ -69,7 +69,7 @@ return {
 
 	-- Step 16: Mulgris Deepriver
 	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {zone:1423} Eastern Plaguelands
-	["{npc:10739} waits inside the farmhouse at the {area:202}, by the cauldron; his bears roam the hills north and east of it, towards the {zone:1423}."] = "",
+	["{npc:10739} waits inside the farmhouse at the {area:202}, by the cauldron; his bears roam the hills north and east of it, towards the {zone:1423}."] = "{npc:10739} espera dentro de la granja de {area:202}, junto a la caldera; sus osos recorren las colinas al norte y al este de ahí, hacia {zone:1423}.",
 
 	-- Step 17: Diseased Grizzlies
 	["Diseased Grizzlies"] = "Osos pardos malsanos",
@@ -167,9 +167,9 @@ return {
 	["{zone:1423}: kill these as you meet them"] = "{zone:1423}: mata a estos según te los encuentres",
 	-- {item:12957} Shattered Sword of Marduk · {area:2264} Corin's Crossing
 	-- plural, as words: Plaguehounds = {npc:8597} Plaguehound · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub
-	["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground. The {item:12957} lies at the bottom of the gorge west of {area:2264}. Careful: the biggest Plaguehounds are 56, pull them one at a time."] = "",
+	["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground. The {item:12957} lies at the bottom of the gorge west of {area:2264}. Careful: the biggest Plaguehounds are 56, pull them one at a time."] = "Los Canes de peste y sus cachorros recorren las orillas del lago al suroeste de la capilla; los Murcipestes y las Larvas carroñeras comparten el terreno. La {item:12957} está en el fondo del cañón al oeste de {area:2264}. Cuidado: los Canes de peste más grandes son de nivel 56, atráelos de uno en uno.",
 	-- {area:2264} Corin's Crossing
-	["At the bottom of the gorge west of {area:2264}"] = "",
+	["At the bottom of the gorge west of {area:2264}"] = "En el fondo del cañón al oeste de {area:2264}",
 
 	-- Step 39: Nathanos Blightcaller
 	-- {npc:15193} The Banshee Queen · {area:2260} Marris Stead · {area:2261} Undercroft
@@ -183,8 +183,7 @@ return {
 	-- Step 41: Egan
 	-- {npc:11140} Egan · {area:2627} Terrordale · {npc:12384} Augustus the Touched · {npc:16184} Nerubian Overseer · {area:2626} Terrorweb Tunnel
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit · Crypt Horrors = {npc:8557} Crypt Horror · Crypt Walkers = {npc:8556} Crypt Walker
-	-- was: ["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut.\nCareful: Terrordale Spirits (59-60) drift through the north-west corner just north of {npc:11140}'s hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time."] = "{npc:11140}, el fantasma, está junto a una choza en {area:2627}, en la esquina noroeste; {npc:12384} está sentado dentro de la choza.\nCuidado: los espíritus del Valle del Terror ({npc:14564}, 59-60) flotan por la esquina noroeste justo al norte de la choza de {npc:11140}, y los horrores de la cripta ({npc:8557}, 57-58) y caminantes de la cripta ({npc:8556}, 55-56) están alrededor; algunos te enraízan. Entra despacio y atráelos de uno en uno."
-	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut.\nCareful: Terrordale Spirits (59-60) drift through the north-west corner just north of {npc:11140}'s hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time.\nCareful: a {npc:16184} (60, elite) walks {area:2627} and the {area:2626} south-west of it. Look for him before you ride in, and wait for him to pass."] = "",
+	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut.\nCareful: Terrordale Spirits (59-60) drift through the north-west corner just north of {npc:11140}'s hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time.\nCareful: a {npc:16184} (60, elite) walks {area:2627} and the {area:2626} south-west of it. Look for him before you ride in, and wait for him to pass."] = "{npc:11140}, el fantasma, está junto a una choza en {area:2627}, en la esquina noroeste; {npc:12384} está sentado dentro de la choza.\nCuidado: los Espíritus del Valle del Terror (59-60) flotan por la esquina noroeste justo al norte de la choza de {npc:11140}, y los Horrores de la cripta (57-58) y los Caminantes de la cripta (55-56) están alrededor; algunos te enraízan. Entra despacio y atráelos de uno en uno.\nCuidado: un {npc:16184} (60, élite) recorre {area:2627} y {area:2626}, al suroeste de ahí. Búscalo antes de entrar cabalgando y espera a que pase.",
 	-- {npc:12384} Augustus the Touched
 	["{npc:12384}, inside"] = "{npc:12384}, adentro",
 
@@ -368,7 +367,7 @@ return {
 
 	-- Step 80: Rescue From Jaedenar
 	-- {npc:11018} Arko'narin · {npc:11019} Jessir Moonbow · {area:2479} Emerald Sanctuary
-	["Escort {npc:11018}: she first goes to where Lightforge and her gear are held, then out through the cave. Keep her alive: she fights beside you, and the cultists you didn't clear on the way in come at you both. {npc:11019} takes her report at the {area:2479}, next."] = "",
+	["Escort {npc:11018}: she first goes to where Lightforge and her gear are held, then out through the cave. Keep her alive: she fights beside you, and the cultists you didn't clear on the way in come at you both. {npc:11019} takes her report at the {area:2479}, next."] = "Escolta a {npc:11018}: primero va adonde tienen su equipo y a Forjaluz, y luego sale por la cueva. Mantenla con vida: pelea a tu lado, y los sectarios que no limpiaste al entrar se les echan encima a los dos. {npc:11019} recibe su informe en {area:2479}, a continuación.",
 	-- {area:1770} Shadow Hold
 	["out of {area:1770}, at its mouth"] = "fuera de {area:1770}, en su entrada",
 
@@ -509,6 +508,7 @@ return {
 	-- ["{npc:8565} walks around {area:2276}: look inside the circle on the map"] = "{npc:8565} da vueltas por {area:2276}: búscalo dentro del círculo del mapa",
 	-- ["{npc:9299} is a ghost at the graveyard just north of {area:976}; the Conspicuous Gravestone is south of it, outside the town wall."] = "{npc:9299} es un fantasma en el cementerio justo al norte de {area:976}; la lápida llamativa está al sur, afuera de la muralla del pueblo.",
 	-- ["{npc:9861}, {npc:9860} and {npc:9517} (57) wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "{npc:9861}, {npc:9860} y {npc:9517} (57) esperan al fondo de {area:1770}, la cueva del norte de {area:1763}. Limpia el túnel a medida que avanzas.\nCuidado: los tres jefes pelean juntos. Mata primero a los enemigos cercanos para no atraer enemigos de más.",
+	-- ["{npc:9861}, {npc:9860} and {npc:9517} (57) wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go. Careful: the three bosses fight as a group: kill the nearby mobs first so you don't pull extra enemies. The cultists' Corrupted Soul Shards show only while you carry {npc:9529}'s {item:11511} (from Cleansing Felwood): without it, skip them."] = "{npc:9861}, {npc:9860} y {npc:9517} (57) esperan al fondo de {area:1770}, la cueva del norte de {area:1763}. Limpia el túnel a medida que avanzas. Cuidado: los tres jefes pelean juntos: mata primero a los enemigos cercanos para no atraer enemigos de más. Los Fragmentos de alma corruptos de los sectarios solo aparecen mientras llevas la {item:11511} de {npc:9529} (de Purificación de Frondavil): sin ella, omítelos.",
 	-- ["{object:1661}'s flight master is in the {object:36078}'s west tower, outside the walls."] = "El maestro de vuelo de {object:1661} está en la torre oeste de {object:36078}, afuera de las murallas.",
 	-- ["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "{quest:3914} regresa con {npc:8737} en Un'Goro: guárdala.",
 	-- ["{quest:3941} goes to {npc:9117} in the cave here, on the next guide's return to {area:541}: keep it."] = "{quest:3941} va para {npc:9117}, en la cueva de aquí, cuando la siguiente guía vuelva a {area:541}: guárdala.",

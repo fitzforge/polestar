@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Brood of Nozdormu Reputation"] = "Ruf: Brood of Nozdormu",
+	["Brood of Nozdormu Reputation"] = "Ruf: Brut Nozdormus",
 	["The Bronze Dragonflight's ring, upgraded at every standing; a long climb from Hated, mostly in raids."] = "Der Ring des Bronzenen Drachenschwarms, bei jedem Ruf aufgewertet; ein langer Weg von Hasserfüllt, meist in Schlachtzügen.",
 	-- {item:21175} The Scepter of the Shifting Sands
 	["{item:21175} quest chain"] = "Questreihe {item:21175}",
@@ -40,7 +40,7 @@ return {
 	-- Step 5: The Path of the Righteous
 	-- {quest:8301} The Path of the Righteous · {area:3425} Cenarion Hold · {area:2743} Hive'Zora · {area:2744} Hive'Regal
 	-- plural, as words: Silithid Carapace Fragments = {item:20384} Silithid Carapace Fragment · Hive'Ashi Workers = {npc:11721} Hive'Ashi Worker
-	["{quest:8301} wants 200 Silithid Carapace Fragments. Every hive silithid drops one to three on most kills: the Hive'Ashi Workers, Stingers, Swarmers and Defenders north and north-west of {area:3425}, and those of {area:2743} in the west and {area:2744} in the south. Almost all of them are elites of level 57 to 60: one at a time solo, faster in a group."] = "{quest:8301} verlangt 200 Silithid Carapace Fragments. Jeder Stockinsektoid lässt bei den meisten Kills ein bis drei fallen: die Hive'Ashi Workers, Stingers, Swarmers und Defenders nördlich und nordwestlich von {area:3425} und die von {area:2743} im Westen und {area:2744} im Süden. Fast alle sind Elites der Stufen 57 bis 60: allein einer nach dem anderen, in der Gruppe schneller.",
+	["{quest:8301} wants 200 Silithid Carapace Fragments. Every hive silithid drops one to three on most kills: the Hive'Ashi Workers, Stingers, Swarmers and Defenders north and north-west of {area:3425}, and those of {area:2743} in the west and {area:2744} in the south. Almost all of them are elites of level 57 to 60: one at a time solo, faster in a group."] = "{quest:8301} verlangt 200 Silithidenknochenpanzerfragmente. Jeder Stockinsektoid lässt bei den meisten Kills ein bis drei fallen: die Arbeiter, Stecher, Schwärmer und Verteidiger des Ashischwarms nördlich und nordwestlich von {area:3425} und die von {area:2743} im Westen und {area:2744} im Süden. Fast alle sind Elites der Stufen 57 bis 60: allein einer nach dem anderen, in der Gruppe schneller.",
 
 	-- Step 6: Hated to Neutral
 	["Hated to Neutral"] = "Von Hasserfüllt bis Neutral",
@@ -125,7 +125,7 @@ return {
 	["{quest:8597}, Volume II"] = "{quest:8597}, Band II",
 	-- {quest:8620} The Only Prescription · {quest:8597} Draconic for Dummies · {npc:15552} Doctor Weavil · {area:2079} Alcaz Island · {zone:1419} Blasted Lands · {area:2255} Everlook · {zone:1458} Undercity · {npc:11811} Narain Soothfancy
 	-- plural, as words: Felguard Elites = {npc:8717} Felguard Elite · Doomguard Commanders = {npc:12396} Doomguard Commander
-	["{quest:8620} needs the eight chapters of {quest:8597}, Volume II: from {npc:15552} in his house on {area:2079} (a level 63 elite with guards, raid), the Felguard Elites, Doomguard Commanders and Dreadlords of the {zone:1419}, the Hederine south of {area:2255}, and a book in the {zone:1458}. {npc:11811} hands out the binding when you accept."] = "{quest:8620} braucht die acht Kapitel von {quest:8597}, Band II: von {npc:15552} in seinem Haus auf {area:2079} (eine Elite der Stufe 63 mit Wachen, Schlachtzug), den Felguard Elites, Doomguard Commanders und Schreckenslords der {zone:1419}, der Hederine südlich von {area:2255} und einem Buch in der {zone:1458}. {npc:11811} gibt dir beim Annehmen den Einband.",
+	["{quest:8620} needs the eight chapters of {quest:8597}, Volume II: from {npc:15552} in his house on {area:2079} (a level 63 elite with guards, raid), the Felguard Elites, Doomguard Commanders and Dreadlords of the {zone:1419}, the Hederine south of {area:2255}, and a book in the {zone:1458}. {npc:11811} hands out the binding when you accept."] = "{quest:8620} braucht die acht Kapitel von {quest:8597}, Band II: von {npc:15552} in seinem Haus auf {area:2079} (eine Elite der Stufe 63 mit Wachen, Schlachtzug), den Eliteteufelswachen, Kommandanten der Verdammniswache und Schreckenslords der {zone:1419}, der Hederine südlich von {area:2255} und einem Buch in der {zone:1458}. {npc:11811} gibt dir beim Annehmen den Einband.",
 	-- {quest:8597} Draconic for Dummies
 	["{quest:8597}: Volume II"] = "{quest:8597}: Band II",
 
@@ -134,7 +134,7 @@ return {
 	["{npc:8125}'s Chops"] = "Koteletts von {npc:8125}",
 	-- {npc:8125} Dirge Quikcleave · {item:9061} Goblin Rocket Fuel · {item:8150} Deeprock Salt · {npc:11811} Narain Soothfancy · {item:18562} Elementium Ore · {item:21136} Arcanite Buoy · {object:180669} Swirling Maelstrom · {zone:1447} Azshara · {area:1227} Bay of Storms · {npc:15571} Maws · {item:21137} Blue Scepter Shard
 	-- plural, as words: Arcanite Bars = {item:12360} Arcanite Bar · Azerothian Diamonds = {item:12800} Azerothian Diamond · Blue Sapphires = {item:12361} Blue Sapphire
-	["{npc:8125} wants 20 {item:9061} and 20 {item:8150} with the meat. {npc:11811} then wants 20 Arcanite Bars, 10 {item:18562}, 10 Azerothian Diamonds and 10 Blue Sapphires, and gives you an {item:21136}: placed at the {object:180669} in {zone:1447}'s {area:1227}, it calls up {npc:15571}, a level 63 boss for a raid. {npc:15571} drops the {item:21137} for one raider on the quest each kill."] = "{npc:8125} will 20 {item:9061} und 20 {item:8150} zum Fleisch. {npc:11811} will dann 20 Arcanite Bars, 10 {item:18562}, 10 Azerothian Diamonds und 10 Blue Sapphires und gibt dir eine {item:21136}: Am {object:180669} in der {area:1227} von {zone:1447} aufgestellt, ruft sie {npc:15571} herbei, einen Boss der Stufe 63 für einen Schlachtzug. {npc:15571} lässt bei jedem Kill den {item:21137} für einen Schlachtzügler mit der Quest fallen.",
+	["{npc:8125} wants 20 {item:9061} and 20 {item:8150} with the meat. {npc:11811} then wants 20 Arcanite Bars, 10 {item:18562}, 10 Azerothian Diamonds and 10 Blue Sapphires, and gives you an {item:21136}: placed at the {object:180669} in {zone:1447}'s {area:1227}, it calls up {npc:15571}, a level 63 boss for a raid. {npc:15571} drops the {item:21137} for one raider on the quest each kill."] = "{npc:8125} will 20 {item:9061} und 20 {item:8150} zum Fleisch. {npc:11811} will dann 20 Arkanitbarren, 10 {item:18562}, 10 Azerothianische Diamanten und 10 Blaue Saphire und gibt dir eine {item:21136}: Am {object:180669} in der {area:1227} von {zone:1447} aufgestellt, ruft sie {npc:15571} herbei, einen Boss der Stufe 63 für einen Schlachtzug. {npc:15571} lässt bei jedem Kill den {item:21137} für einen Schlachtzügler mit der Quest fallen.",
 	-- {item:12360} Arcanite Bar
 	["{item:12360}: Alchemists, or the auction house"] = "{item:12360}: Alchemisten oder das Auktionshaus",
 	-- {item:18562} Elementium Ore · {area:2677} Blackwing Lair

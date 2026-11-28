@@ -136,7 +136,7 @@ return {
 	["Snapjaw Crocolisks"] = "钳嘴鳄鱼",
 	-- {area:35} Booty Bay
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
-	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}. Then hearth back to {area:35}: the hearthstone is still bound there from the first loop."] = "",
+	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}. Then hearth back to {area:35}: the hearthstone is still bound there from the first loop."] = "钳嘴鳄鱼在丛林中部的河边晒太阳，往南去{area:35}时会经过那里。之后用炉石回{area:35}，炉石仍绑定在第一趟绑定的旅店。",
 
 	-- Step 21: Tokal
 	-- {npc:215643} Tokal · {object:56910} Salty Sailor Tavern · {item:4600} Cherry Grog · {npc:2832} Nixxrax Fillamug

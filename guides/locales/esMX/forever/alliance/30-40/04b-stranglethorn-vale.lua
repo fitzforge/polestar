@@ -136,7 +136,7 @@ return {
 	["Snapjaw Crocolisks"] = "Crocoliscos Quijaforte",
 	-- {area:35} Booty Bay
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
-	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}. Then hearth back to {area:35}: the hearthstone is still bound there from the first loop."] = "",
+	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}. Then hearth back to {area:35}: the hearthstone is still bound there from the first loop."] = "Los Crocoliscos Quijaforte toman el sol a lo largo del río en medio de la jungla, de camino al sur hacia {area:35}. Luego usa la piedra de hogar para volver a {area:35}: sigue vinculada ahí desde el primer circuito.",
 
 	-- Step 21: Tokal
 	-- {npc:215643} Tokal · {object:56910} Salty Sailor Tavern · {item:4600} Cherry Grog · {npc:2832} Nixxrax Fillamug

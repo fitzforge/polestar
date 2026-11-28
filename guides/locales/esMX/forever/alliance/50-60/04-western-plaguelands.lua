@@ -398,7 +398,7 @@ return {
 
 	-- Step 73: Augustus the Touched
 	-- {npc:12384} Augustus the Touched · {area:2627} Terrordale · {npc:11140} Egan · {npc:16184} Nerubian Overseer · {area:2626} Terrorweb Tunnel
-	["{npc:12384} lives in the ruined hut in {area:2627}, and his receipt book lies in the ruined inn nearby. {npc:11140} stands by {npc:12384}' hut.\nCareful: a {npc:16184} (60, elite) walks {area:2627} and the {area:2626} south-west of it. Look for him before you ride in, and wait for him to pass."] = "",
+	["{npc:12384} lives in the ruined hut in {area:2627}, and his receipt book lies in the ruined inn nearby. {npc:11140} stands by {npc:12384}' hut.\nCareful: a {npc:16184} (60, elite) walks {area:2627} and the {area:2626} south-west of it. Look for him before you ride in, and wait for him to pass."] = "{npc:12384} vive en la choza en ruinas de {area:2627}, y su libro de entradas está en la posada en ruinas cercana. {npc:11140} está junto a la choza de {npc:12384}.\nCuidado: un {npc:16184} (60, élite) recorre {area:2627} y {area:2626}, al suroeste de ahí. Búscalo antes de entrar cabalgando y espera a que pase.",
 
 	-- Step 75: Tirion Fordring
 	-- {npc:1855} Tirion Fordring · {area:2627} Terrordale · {area:2626} Terrorweb Tunnel
