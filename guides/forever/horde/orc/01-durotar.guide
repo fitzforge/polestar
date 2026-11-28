@@ -97,6 +97,7 @@ step Back to the Den
   turnin 4402                         -- Galgar
 
 step Lazy Peons
+  use 16114 quest 5441.1 @45.0,69.1 map 1411
   kill 10556 quest 5441.1 "Wake Lazy Peons with the Foreman's Blackjack"
 
 step Foreman Thazz'ril

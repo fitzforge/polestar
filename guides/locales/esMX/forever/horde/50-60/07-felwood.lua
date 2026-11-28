@@ -117,8 +117,9 @@ return {
 	-- Step 30: Are We There, Yeti?
 	-- {area:2255} Everlook
 	["Ride north to {area:2255}."] = "Cabalga al norte hasta {area:2255}.",
-	-- {npc:10978} Legacki · {npc:10980} Umi's Mechanical Yeti
-	["Scare {npc:10978} with {npc:10980}"] = "Asusta a {npc:10978} con {npc:10980}",
+	-- {npc:10978} Legacki · {item:12928} Umi's Mechanical Yeti
+	-- was: ["Scare {npc:10978} with {npc:10980}"] = "Asusta a {npc:10978} con {npc:10980}"
+	["Scare {npc:10978} with {item:12928}"] = "",
 
 	-- Step 31: Everlook
 	-- {npc:11118} Innkeeper Vizzie · {quest:93406} Unfrozen Deliveries
@@ -214,6 +215,7 @@ return {
 	-- ["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "Sube al norte por el camino de {zone:1448} hasta {area:1767}; {quest:5086} se arrastran entre los árboles, y la mayoría sueltan una gota.\nCuidado: los Caminantes ancestrales de Troncoferro, élites de nivel 59, andan entre {quest:5086}, y {npc:14524} (63, élite) recorre el bosque: encárgate de los Horrores en la punta norte de {area:1767}, de uno en uno.",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one."] = "Cabalga al noroeste hasta {area:1763}. Los cuatro blandones están entre los edificios del Consejo de la Sombra; usa el agua purificada en cada uno.",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "Ve al noroeste hasta {area:1763}. Los cuatro braseros están entre los edificios del Consejo de la Sombra; usa el Agua purificada en cada uno.\nCuidado: Enemigos del Consejo de la Sombra de nivel 53-55 llenan la cueva y suelen venir en grandes grupos vinculados, muchos con aturdimientos. Se recomienda un grupo de 2-3 jugadores.",
+	-- ["Scare {npc:10978} with {npc:10980}"] = "Asusta a {npc:10978} con {npc:10980}",
 	-- ["South to the Sanctuary once more."] = "Al sur, al Santuario, una vez más.",
 	-- ["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "El tótem Muertobosque de {area:1762}, si {npc:11558} no lo recibió entonces: espera en la entrada del túnel de {area:1769} y te habla desde Neutral con los Fauces de Madera, a lo que te llevaron los fúrbolgs Muertobosque de {zone:1448}.",
 	-- ["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} (59, elite) and Xandivious (62) are in the cave at the back: stay out."] = "El poblado furbolg llena el valle al noreste de {area:2255}. Mata primero a los Chamanes; curan. {npc:10738} (59, élite) y Xandivious (62) están en la cueva del fondo: no entres.",

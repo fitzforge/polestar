@@ -1,0 +1,1235 @@
+{
+	"about": "Tips in Polestar's own guides that tell the player to do something no goal row of their step does yet (forge guide lint's tip rule, rust/crates/forge-guide/src/tipactions.rs): warnings, not errors, until the step gets the action's own row (use, interact, equip, talk, task) and the entry goes. A new tip order is an error. file: the guide's path under guides/; verb: the action's kind (use, click, equip, talk, emote, board); text: the tip's sentence.",
+	"pending": [
+		{
+			"file": "forever/40-50/shendralas.guide",
+			"verb": "use",
+			"text": "Take the Depleted Crystal Heart to an Unstable Mana Rift on the road north of the temple and throw it into the rift."
+		},
+		{
+			"file": "forever/40-50/shendralas.guide",
+			"verb": "use",
+			"text": "Use the Mana Sieve on the Unstable Mana Rifts, the floating sparks along the road north:"
+		},
+		{
+			"file": "forever/40-50/shendralas.guide",
+			"verb": "use",
+			"text": "Use the west face of the western pylon, where you repaired it."
+		},
+		{
+			"file": "forever/40-50/shendralas.guide",
+			"verb": "use",
+			"text": "on the way east, use the Mana Sieve on the Unstable Mana Rifts again for four more Coalesced Mana Crystals."
+		},
+		{
+			"file": "forever/40-50/shendralas.guide",
+			"verb": "use",
+			"text": "then step up to the pylon's west side and use the Pile of Pylon Parts Mordent gave you:"
+		},
+		{
+			"file": "forever/50-60/mount-hyjal.guide",
+			"verb": "click",
+			"text": "Open it, then wait half a minute while its safety lock discharges before you open it again."
+		},
+		{
+			"file": "forever/50-60/mount-hyjal.guide",
+			"verb": "use",
+			"text": "Hand his quest in at the scabbard and take the next from it, then use the scabbard in your bags to call his spirit and listen to his story."
+		},
+		{
+			"file": "forever/50-60/mount-hyjal.guide",
+			"verb": "use",
+			"text": "Use Tiala's staff on a Pact member to strip its ward, then kill it, ten times:"
+		},
+		{
+			"file": "forever/50-60/mount-hyjal.guide",
+			"verb": "use",
+			"text": "throw a pinecone at each, from the south up."
+		},
+		{
+			"file": "forever/50-60/mount-hyjal.guide",
+			"verb": "use",
+			"text": "throw the warlocks' bones on it, then hand the quest in at the pile itself."
+		},
+		{
+			"file": "forever/50-60/mount-hyjal.guide",
+			"verb": "use",
+			"text": "use Elaena's eye on him, and only then fight him."
+		},
+		{
+			"file": "forever/alliance/02-westfall.guide",
+			"verb": "use",
+			"text": "Use the Bloodstone Choker at the summoning circle there and defeat the voidwalker it calls, then back south through Goldshire to Westfall."
+		},
+		{
+			"file": "forever/alliance/02-westfall.guide",
+			"verb": "use",
+			"text": "Use the Bloodstone Choker at the summoning circle there and defeat the voidwalker it calls."
+		},
+		{
+			"file": "forever/alliance/03-loch-modan.guide",
+			"verb": "click",
+			"text": "Open the Unsent Letter he drops:"
+		},
+		{
+			"file": "forever/alliance/03-loch-modan.guide",
+			"verb": "use",
+			"text": "Use it instead:"
+		},
+		{
+			"file": "forever/alliance/06-ashenvale.guide",
+			"verb": "use",
+			"text": "Use the horn to wake him and lead him south along the road to his bag at the southern edge of Darkshore;"
+		},
+		{
+			"file": "forever/alliance/06-wetlands.guide",
+			"verb": "click",
+			"text": "open the chests until one holds the pommel."
+		},
+		{
+			"file": "forever/alliance/06-wetlands.guide",
+			"verb": "use",
+			"text": "Use Dartol's Rod of Transformation near him first:"
+		},
+		{
+			"file": "forever/alliance/06-wetlands.guide",
+			"verb": "use",
+			"text": "use the Goaz Stone he gave you beside one."
+		},
+		{
+			"file": "forever/alliance/30-40/04-stranglethorn-vale.guide",
+			"verb": "use",
+			"text": "light the Unlit Torch from the table outside at a campfire and throw it onto the archaeologist's cart outside the house, which draws the figure in the house away so you can take the figurine upstairs."
+		},
+		{
+			"file": "forever/alliance/30-40/05-arathi-highlands.guide",
+			"verb": "use",
+			"text": "If you took What Is Love?, hand him the Wooden Figurine too, place it at the same circle and defeat the incubus."
+		},
+		{
+			"file": "forever/alliance/30-40/05-arathi-highlands.guide",
+			"verb": "use",
+			"text": "Use the Heartswood Core at the summoning circle there and defeat the succubus it calls."
+		},
+		{
+			"file": "forever/alliance/40-50/01b-riverglades.guide",
+			"verb": "use",
+			"text": "right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there."
+		},
+		{
+			"file": "forever/alliance/40-50/01b-riverglades.guide",
+			"verb": "use",
+			"text": "use it, or ride back south to the keep."
+		},
+		{
+			"file": "forever/alliance/40-50/04-tanaris.guide",
+			"verb": "equip",
+			"text": "wear it to see the Gahz'ridian mounds, which lie thick in the sand around the camp and south-west toward the ogres."
+		},
+		{
+			"file": "forever/alliance/40-50/06-searing-gorge.guide",
+			"verb": "use",
+			"text": "when it is over, read the Singed Letter he leaves on the road."
+		},
+		{
+			"file": "forever/alliance/50-60/01-burning-steppes.guide",
+			"verb": "click",
+			"text": "Open the Hoard of the Black Dragonflight from Searing Gorge for its Black Dragonflight Molt, then tell Cyrus you bring proof of your deeds:"
+		},
+		{
+			"file": "forever/alliance/50-60/02-felwood.guide",
+			"verb": "click",
+			"text": "Open the chest beside her for Shay's Bell:"
+		},
+		{
+			"file": "forever/alliance/50-60/03-winterspring.guide",
+			"verb": "use",
+			"text": "When he faints, use Spraggle's Canteen on him to wake him."
+		},
+		{
+			"file": "forever/alliance/dwarf/01-dun-morogh.guide",
+			"verb": "use",
+			"text": "use it on the beast he names, then bring the rod back to him at the Kharanos smithy."
+		},
+		{
+			"file": "forever/alliance/gnome/01-dun-morogh.guide",
+			"verb": "use",
+			"text": "use the Symbol of Life on him."
+		},
+		{
+			"file": "forever/alliance/human/01-elwynn-forest.guide",
+			"verb": "use",
+			"text": "Use the Bloodstone Choker at the summoning circle in the Slaughtered Lamb's cellar and defeat the voidwalker it calls."
+		},
+		{
+			"file": "forever/alliance/human/01-elwynn-forest.guide",
+			"verb": "use",
+			"text": "use it on the beast she names, then bring the rod back to her."
+		},
+		{
+			"file": "forever/alliance/nightelf/01-teldrassil.guide",
+			"verb": "click",
+			"text": "open it for the jewel."
+		},
+		{
+			"file": "forever/alliance/nightelf/01-teldrassil.guide",
+			"verb": "click",
+			"text": "open your spellbook (P), cast Elune's Light and Shadowmeld once each, then hand it back to her."
+		},
+		{
+			"file": "forever/alliance/nightelf/01-teldrassil.guide",
+			"verb": "talk",
+			"text": "use the Cenarion Moondust there, defeat Lunaclaw and speak to the Lunaclaw Spirit."
+		},
+		{
+			"file": "forever/alliance/nightelf/01-teldrassil.guide",
+			"verb": "use",
+			"text": "use it on the beast he names, then bring the rod back to him in Dolanaar."
+		},
+		{
+			"file": "forever/alliance/skyborne/01-zephras-isle.guide",
+			"verb": "use",
+			"text": "Jump off the top of the watchtower and use Walk on Air to float down to Rorian, west of the tower."
+		},
+		{
+			"file": "forever/class/druid/bear-form.guide",
+			"verb": "talk",
+			"text": "Kill her, then speak to the Lunaclaw Spirit that appears and ask for the strength of her body and heart:"
+		},
+		{
+			"file": "forever/class/druid/bloodpetal-poison.guide",
+			"verb": "click",
+			"text": "open them, about every other one gives a Bloodcap, back in three to five minutes."
+		},
+		{
+			"file": "forever/class/druid/cat-form.guide",
+			"verb": "click",
+			"text": "leave your form and click the statue at the den's entrance for a short stealth (five minutes), then go deep into the cave and over the bridge."
+		},
+		{
+			"file": "forever/class/druid/dungeon-set-2.guide",
+			"verb": "click",
+			"text": "Click the ash piles along the lava river in the west and centre of the Burning Steppes:"
+		},
+		{
+			"file": "forever/class/druid/dungeon-set-2.guide",
+			"verb": "equip",
+			"text": "Take the Argent Dawn Commission (Argent Officer Pureheart at Chillwind Camp, Argent Officer Garush at the Bulwark, or Duke Nicholas Zverenhoff at Light's Hope Chapel) and wear it:"
+		},
+		{
+			"file": "forever/class/druid/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "Place the Ectoplasmic Distiller among the ghosts, pull them into its glow and kill them there, standing in it yourself:"
+		},
+		{
+			"file": "forever/class/druid/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "Use the Extra-Dimensional Ghost Revealer there to see him."
+		},
+		{
+			"file": "forever/class/druid/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "plant it in the Ring of Law in Blackrock Depths."
+		},
+		{
+			"file": "forever/class/druid/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "use the Ghost Revealer there."
+		},
+		{
+			"file": "forever/class/hunter/dungeon-set-2.guide",
+			"verb": "click",
+			"text": "Click the ash piles along the lava river in the west and centre of the Burning Steppes:"
+		},
+		{
+			"file": "forever/class/hunter/dungeon-set-2.guide",
+			"verb": "equip",
+			"text": "Take the Argent Dawn Commission (Argent Officer Pureheart at Chillwind Camp, Argent Officer Garush at the Bulwark, or Duke Nicholas Zverenhoff at Light's Hope Chapel) and wear it:"
+		},
+		{
+			"file": "forever/class/hunter/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "Place the Ectoplasmic Distiller among the ghosts, pull them into its glow and kill them there, standing in it yourself:"
+		},
+		{
+			"file": "forever/class/hunter/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "Use the Extra-Dimensional Ghost Revealer there to see him."
+		},
+		{
+			"file": "forever/class/hunter/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "plant it in the Ring of Law in Blackrock Depths."
+		},
+		{
+			"file": "forever/class/hunter/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "use the Ghost Revealer there."
+		},
+		{
+			"file": "forever/class/hunter/rhokdelar.guide",
+			"verb": "use",
+			"text": "use Track Demons."
+		},
+		{
+			"file": "forever/class/hunter/taming-the-beast-alliance.guide",
+			"verb": "use",
+			"text": "target a living beast, use the Taming Rod and stand still for the whole channel while it hits you."
+		},
+		{
+			"file": "forever/class/hunter/taming-the-beast-alliance.guide",
+			"verb": "use",
+			"text": "target a living beast, use the Taming Rod and stand still for the whole channel while it hits you;"
+		},
+		{
+			"file": "forever/class/hunter/taming-the-beast-alliance.guide",
+			"verb": "use",
+			"text": "target a living crawler, use the Taming Rod and stand still for the whole channel while it hits you;"
+		},
+		{
+			"file": "forever/class/hunter/taming-the-beast-horde.guide",
+			"verb": "use",
+			"text": "target a living beast, use the Taming Rod and stand still for the whole channel while it hits you;"
+		},
+		{
+			"file": "forever/class/hunter/taming-the-beast-horde.guide",
+			"verb": "use",
+			"text": "target a living beast, use the Taming Rod from inside its range and stand still for the whole channel while the beast hits you."
+		},
+		{
+			"file": "forever/class/hunter/taming-the-beast-horde.guide",
+			"verb": "use",
+			"text": "target a living crawler, use the Taming Rod and stand still for the whole channel while it hits you;"
+		},
+		{
+			"file": "forever/class/mage/dungeon-set-2.guide",
+			"verb": "click",
+			"text": "Click the ash piles along the lava river in the west and centre of the Burning Steppes:"
+		},
+		{
+			"file": "forever/class/mage/dungeon-set-2.guide",
+			"verb": "equip",
+			"text": "Take the Argent Dawn Commission (Argent Officer Pureheart at Chillwind Camp, Argent Officer Garush at the Bulwark, or Duke Nicholas Zverenhoff at Light's Hope Chapel) and wear it:"
+		},
+		{
+			"file": "forever/class/mage/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "Place the Ectoplasmic Distiller among the ghosts, pull them into its glow and kill them there, standing in it yourself:"
+		},
+		{
+			"file": "forever/class/mage/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "Use the Extra-Dimensional Ghost Revealer there to see him."
+		},
+		{
+			"file": "forever/class/mage/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "plant it in the Ring of Law in Blackrock Depths."
+		},
+		{
+			"file": "forever/class/mage/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "use the Ghost Revealer there."
+		},
+		{
+			"file": "forever/class/mage/teleports-alliance.guide",
+			"verb": "use",
+			"text": "Use your Teleport:"
+		},
+		{
+			"file": "forever/class/mage/teleports-horde.guide",
+			"verb": "use",
+			"text": "Use your Teleport:"
+		},
+		{
+			"file": "forever/class/paladin/cloak-of-the-divine-storm.guide",
+			"verb": "use",
+			"text": "right-click it to start the quest."
+		},
+		{
+			"file": "forever/class/paladin/dungeon-set-2.guide",
+			"verb": "click",
+			"text": "Click the ash piles along the lava river in the west and centre of the Burning Steppes:"
+		},
+		{
+			"file": "forever/class/paladin/dungeon-set-2.guide",
+			"verb": "equip",
+			"text": "Take the Argent Dawn Commission (Argent Officer Pureheart at Chillwind Camp, Argent Officer Garush at the Bulwark, or Duke Nicholas Zverenhoff at Light's Hope Chapel) and wear it:"
+		},
+		{
+			"file": "forever/class/paladin/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "Place the Ectoplasmic Distiller among the ghosts, pull them into its glow and kill them there, standing in it yourself:"
+		},
+		{
+			"file": "forever/class/paladin/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "Use the Extra-Dimensional Ghost Revealer there to see him."
+		},
+		{
+			"file": "forever/class/paladin/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "plant it in the Ring of Law in Blackrock Depths."
+		},
+		{
+			"file": "forever/class/paladin/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "use the Ghost Revealer there."
+		},
+		{
+			"file": "forever/class/paladin/holy-mightstone.guide",
+			"verb": "equip",
+			"text": "Equip it in a trinket slot:"
+		},
+		{
+			"file": "forever/class/paladin/holy-mightstone.guide",
+			"verb": "use",
+			"text": "Use the stone before a fight against undead (Stratholme, Scholomance):"
+		},
+		{
+			"file": "forever/class/paladin/lumina-windsinger.guide",
+			"verb": "click",
+			"text": "Then open the cage:"
+		},
+		{
+			"file": "forever/class/paladin/lumina-windsinger.guide",
+			"verb": "equip",
+			"text": "Equip the Moonsilver Blade."
+		},
+		{
+			"file": "forever/class/paladin/tyrs-watch.guide",
+			"verb": "use",
+			"text": "read it, then bring it to Aramis Hammerhand by the church."
+		},
+		{
+			"file": "forever/class/paladin/tyrs-watch.guide",
+			"verb": "use",
+			"text": "target his body and use the Symbol of Life, then talk to him at once, as he does not stay alive long."
+		},
+		{
+			"file": "forever/class/paladin/verigans-fist.guide",
+			"verb": "use",
+			"text": "Right-click it:"
+		},
+		{
+			"file": "forever/class/priest/benediction.guide",
+			"verb": "equip",
+			"text": "Equip The Eye of Divinity, then find Eris Havenfire, a ghost on the hillside in the north-west of the Eastern Plaguelands, west of Stratholme's gate (if she does not show, take the Eye off and put it back on)."
+		},
+		{
+			"file": "forever/class/priest/benediction.guide",
+			"verb": "talk",
+			"text": "talk to her again when she is back."
+		},
+		{
+			"file": "forever/class/priest/dungeon-set-2.guide",
+			"verb": "click",
+			"text": "Click the ash piles along the lava river in the west and centre of the Burning Steppes:"
+		},
+		{
+			"file": "forever/class/priest/dungeon-set-2.guide",
+			"verb": "equip",
+			"text": "Take the Argent Dawn Commission (Argent Officer Pureheart at Chillwind Camp, Argent Officer Garush at the Bulwark, or Duke Nicholas Zverenhoff at Light's Hope Chapel) and wear it:"
+		},
+		{
+			"file": "forever/class/priest/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "Place the Ectoplasmic Distiller among the ghosts, pull them into its glow and kill them there, standing in it yourself:"
+		},
+		{
+			"file": "forever/class/priest/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "Use the Extra-Dimensional Ghost Revealer there to see him."
+		},
+		{
+			"file": "forever/class/priest/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "plant it in the Ring of Law in Blackrock Depths."
+		},
+		{
+			"file": "forever/class/priest/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "use the Ghost Revealer there."
+		},
+		{
+			"file": "forever/class/rogue/blade-of-cunning-horde.guide",
+			"verb": "talk",
+			"text": "Talk to him and pick both of his answers:"
+		},
+		{
+			"file": "forever/class/rogue/dungeon-set-2.guide",
+			"verb": "click",
+			"text": "Click the ash piles along the lava river in the west and centre of the Burning Steppes:"
+		},
+		{
+			"file": "forever/class/rogue/dungeon-set-2.guide",
+			"verb": "equip",
+			"text": "Take the Argent Dawn Commission (Argent Officer Pureheart at Chillwind Camp, Argent Officer Garush at the Bulwark, or Duke Nicholas Zverenhoff at Light's Hope Chapel) and wear it:"
+		},
+		{
+			"file": "forever/class/rogue/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "Place the Ectoplasmic Distiller among the ghosts, pull them into its glow and kill them there, standing in it yourself:"
+		},
+		{
+			"file": "forever/class/rogue/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "Use the Extra-Dimensional Ghost Revealer there to see him."
+		},
+		{
+			"file": "forever/class/rogue/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "plant it in the Ring of Law in Blackrock Depths."
+		},
+		{
+			"file": "forever/class/rogue/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "use the Ghost Revealer there."
+		},
+		{
+			"file": "forever/class/rogue/plundering-the-plunderers.guide",
+			"verb": "use",
+			"text": "on your action bar, target Polly and use it:"
+		},
+		{
+			"file": "forever/class/rogue/poisons-alliance.guide",
+			"verb": "click",
+			"text": "Buy a stack of each, open Poisons from your spellbook to make them, then use a poison on your weapon."
+		},
+		{
+			"file": "forever/class/rogue/poisons-alliance.guide",
+			"verb": "click",
+			"text": "while the Sentries are away, jump from the chair to the lamp to the bookshelf above the chest, step out of stealth and open the chest from there."
+		},
+		{
+			"file": "forever/class/rogue/poisons-alliance.guide",
+			"verb": "use",
+			"text": "Buy a stack of each, open Poisons from your spellbook to make them, then use a poison on your weapon."
+		},
+		{
+			"file": "forever/class/rogue/poisons-alliance.guide",
+			"verb": "use",
+			"text": "Read Kearnen's Journal for the tower's layout if you like."
+		},
+		{
+			"file": "forever/class/rogue/poisons-horde.guide",
+			"verb": "click",
+			"text": "Open with Ambush (about half his health), then Gouge, Evasion, a healing potion and Thistle Tea;"
+		},
+		{
+			"file": "forever/class/rogue/poisons-horde.guide",
+			"verb": "emote",
+			"text": "Target him from about 50 yards and fire the Flare Gun twice, then walk up in front of him and /salute."
+		},
+		{
+			"file": "forever/class/rogue/poisons-horde.guide",
+			"verb": "use",
+			"text": "Keep Fizzule's Whistle in your bags and use it on him every time you come near, or he turns hostile."
+		},
+		{
+			"file": "forever/class/rogue/the-eye-of-bhossca.guide",
+			"verb": "click",
+			"text": "In the Library, open the Personal Letterbox in the Athenaeum with it and read the Confidential Message."
+		},
+		{
+			"file": "forever/class/rogue/the-eye-of-bhossca.guide",
+			"verb": "equip",
+			"text": "Before entering, take the Scarlet Initiate's Uniform from the Supply Locker in the stables behind the monastery and wear it;"
+		},
+		{
+			"file": "forever/class/rogue/the-eye-of-bhossca.guide",
+			"verb": "use",
+			"text": "In the Library, open the Personal Letterbox in the Athenaeum with it and read the Confidential Message."
+		},
+		{
+			"file": "forever/class/rogue/the-eye-of-bhossca.guide",
+			"verb": "use",
+			"text": "Place the eye in the Dead Drop near Pyrewood."
+		},
+		{
+			"file": "forever/class/rogue/the-horn-of-xelthos.guide",
+			"verb": "use",
+			"text": "Combine them somewhere safe:"
+		},
+		{
+			"file": "forever/class/rogue/the-horn-of-xelthos.guide",
+			"verb": "use",
+			"text": "Go in alone and use the Breaching Charge at the courtyard gate."
+		},
+		{
+			"file": "forever/class/rogue/the-horn-of-xelthos.guide",
+			"verb": "use",
+			"text": "Open it and read C's note:"
+		},
+		{
+			"file": "forever/class/rogue/the-horn-of-xelthos.guide",
+			"verb": "use",
+			"text": "Return to the courtyard stables and use the combined key on the chest for the horn."
+		},
+		{
+			"file": "forever/class/shaman/call-of-air-alliance.guide",
+			"verb": "use",
+			"text": "Place the Corrupted Totems at the steam pools north-west of Freewind Post to call the corrupted elementals and then the Ravaging Tempest;"
+		},
+		{
+			"file": "forever/class/shaman/call-of-air-horde.guide",
+			"verb": "use",
+			"text": "Place the Corrupted Totems at the steam pools north-west of Freewind Post to call the corrupted elementals and then the Ravaging Tempest;"
+		},
+		{
+			"file": "forever/class/shaman/call-of-fire-alliance.guide",
+			"verb": "use",
+			"text": "Click the Brazier of the Dormant Flame atop the shrine with the torch in your bags to place the ember, then click it again for the next quest:"
+		},
+		{
+			"file": "forever/class/shaman/call-of-fire-horde.guide",
+			"verb": "use",
+			"text": "Click the Brazier of the Dormant Flame on the plateau with the torch in your bags to place the ember, then click it a second time:"
+		},
+		{
+			"file": "forever/class/shaman/call-of-water-horde.guide",
+			"verb": "use",
+			"text": "Click the Brazier of Everfount to place the bracers and the drops."
+		},
+		{
+			"file": "forever/class/shaman/darkreaver.guide",
+			"verb": "use",
+			"text": "Fight in a corner so nothing else joins, and drink between waves:"
+		},
+		{
+			"file": "forever/class/shaman/darkreaver.guide",
+			"verb": "use",
+			"text": "In the Great Ossuary's basement, first clear every mob in the room, then use the Divination Scryer at its centre:"
+		},
+		{
+			"file": "forever/class/shaman/dungeon-set-2.guide",
+			"verb": "click",
+			"text": "Click the ash piles along the lava river in the west and centre of the Burning Steppes:"
+		},
+		{
+			"file": "forever/class/shaman/dungeon-set-2.guide",
+			"verb": "equip",
+			"text": "Take the Argent Dawn Commission (Argent Officer Pureheart at Chillwind Camp, Argent Officer Garush at the Bulwark, or Duke Nicholas Zverenhoff at Light's Hope Chapel) and wear it:"
+		},
+		{
+			"file": "forever/class/shaman/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "Place the Ectoplasmic Distiller among the ghosts, pull them into its glow and kill them there, standing in it yourself:"
+		},
+		{
+			"file": "forever/class/shaman/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "Use the Extra-Dimensional Ghost Revealer there to see him."
+		},
+		{
+			"file": "forever/class/shaman/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "plant it in the Ring of Law in Blackrock Depths."
+		},
+		{
+			"file": "forever/class/shaman/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "use the Ghost Revealer there."
+		},
+		{
+			"file": "forever/class/warlock/dungeon-set-2.guide",
+			"verb": "click",
+			"text": "Click the ash piles along the lava river in the west and centre of the Burning Steppes:"
+		},
+		{
+			"file": "forever/class/warlock/dungeon-set-2.guide",
+			"verb": "equip",
+			"text": "Take the Argent Dawn Commission (Argent Officer Pureheart at Chillwind Camp, Argent Officer Garush at the Bulwark, or Duke Nicholas Zverenhoff at Light's Hope Chapel) and wear it:"
+		},
+		{
+			"file": "forever/class/warlock/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "Place the Ectoplasmic Distiller among the ghosts, pull them into its glow and kill them there, standing in it yourself:"
+		},
+		{
+			"file": "forever/class/warlock/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "Use the Extra-Dimensional Ghost Revealer there to see him."
+		},
+		{
+			"file": "forever/class/warlock/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "plant it in the Ring of Law in Blackrock Depths."
+		},
+		{
+			"file": "forever/class/warlock/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "use the Ghost Revealer there."
+		},
+		{
+			"file": "forever/class/warlock/felhunter-alliance.guide",
+			"verb": "click",
+			"text": "Inside, keep right at each fork, cross the pool by the small waterfall, and open the small dark box against the wall beside a larger chest:"
+		},
+		{
+			"file": "forever/class/warlock/felhunter-alliance.guide",
+			"verb": "click",
+			"text": "Walk down to the water to click it;"
+		},
+		{
+			"file": "forever/class/warlock/felhunter-horde.guide",
+			"verb": "click",
+			"text": "Inside, keep right at each fork, cross the pool by the small waterfall, and open the small dark box against the wall beside a larger chest:"
+		},
+		{
+			"file": "forever/class/warlock/felhunter-horde.guide",
+			"verb": "click",
+			"text": "Walk down to the water to click it;"
+		},
+		{
+			"file": "forever/class/warlock/imp-alliance.guide",
+			"verb": "click",
+			"text": "pull them one at a time, or step inside the tent and click the book, where they cannot reach you."
+		},
+		{
+			"file": "forever/class/warlock/incubus-alliance.guide",
+			"verb": "click",
+			"text": "keep to the outer wall, and click the Heartswood from as far away as it lets you."
+		},
+		{
+			"file": "forever/class/warlock/incubus-alliance.guide",
+			"verb": "use",
+			"text": "Give Gakin the figurine, then use the Wooden Figurine at the middle of the same circle and defeat the incubus it calls (level 20, not elite;"
+		},
+		{
+			"file": "forever/class/warlock/incubus-alliance.guide",
+			"verb": "use",
+			"text": "Throw the lit torch onto the archaeologist's cart outside the house:"
+		},
+		{
+			"file": "forever/class/warlock/incubus-horde.guide",
+			"verb": "use",
+			"text": "Back to Carendin with the lovers' hearts, then place the Lovers' Hearts on the same circle and defeat the incubus they call (level 20, not elite;"
+		},
+		{
+			"file": "forever/class/warlock/incubus-horde.guide",
+			"verb": "use",
+			"text": "Back to Gan'rul with the scarf, then use the Withered Scarf on the same circle in Neeru's tent and defeat the incubus it calls (level 20, not elite) with your voidwalker tanking."
+		},
+		{
+			"file": "forever/class/warrior/brutal-armor.guide",
+			"verb": "use",
+			"text": "right-click it to test it, and about one in four comes out sturdy, the rest break, so expect 30 or more kills for 8."
+		},
+		{
+			"file": "forever/class/warrior/dungeon-set-2.guide",
+			"verb": "click",
+			"text": "Click the ash piles along the lava river in the west and centre of the Burning Steppes:"
+		},
+		{
+			"file": "forever/class/warrior/dungeon-set-2.guide",
+			"verb": "equip",
+			"text": "Take the Argent Dawn Commission (Argent Officer Pureheart at Chillwind Camp, Argent Officer Garush at the Bulwark, or Duke Nicholas Zverenhoff at Light's Hope Chapel) and wear it:"
+		},
+		{
+			"file": "forever/class/warrior/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "Place the Ectoplasmic Distiller among the ghosts, pull them into its glow and kill them there, standing in it yourself:"
+		},
+		{
+			"file": "forever/class/warrior/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "Use the Extra-Dimensional Ghost Revealer there to see him."
+		},
+		{
+			"file": "forever/class/warrior/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "plant it in the Ring of Law in Blackrock Depths."
+		},
+		{
+			"file": "forever/class/warrior/dungeon-set-2.guide",
+			"verb": "use",
+			"text": "use the Ghost Revealer there."
+		},
+		{
+			"file": "forever/class/warrior/haggards-weapons.guide",
+			"verb": "click",
+			"text": "Open Crates of Elunite on the sea floor around the wreck, by a huge sunken turtle, toward the beach and under the pier until you have eight;"
+		},
+		{
+			"file": "forever/class/warrior/haggards-weapons.guide",
+			"verb": "click",
+			"text": "open Dead-tooth's Strongbox in the crates by him for Marshal Haggard's Badge."
+		},
+		{
+			"file": "forever/class/warrior/heirloom-weapon.guide",
+			"verb": "click",
+			"text": "clear them one at a time, then open the chest (it refills within seconds, so a friend can loot it too)."
+		},
+		{
+			"file": "forever/class/warrior/whirlwind-weapon.guide",
+			"verb": "use",
+			"text": "Eat and drink to full, then step onto the grate in the middle of the crowd:"
+		},
+		{
+			"file": "forever/collectibles/mounts/neutral/warlock-dreadsteed.guide",
+			"verb": "use",
+			"text": "Drink a Shadowy Potion at its mouth:"
+		},
+		{
+			"file": "forever/collectibles/mounts/neutral/warlock-dreadsteed.guide",
+			"verb": "use",
+			"text": "Fight down to Ras Frostwhisper's room and use the Imp in a Jar at the alchemy lab tables to the right:"
+		},
+		{
+			"file": "forever/collectibles/pets/chicken-egg.guide",
+			"verb": "emote",
+			"text": "Then /cheer at a chicken until it turns friendly (green) and hand in the feed;"
+		},
+		{
+			"file": "forever/collectibles/pets/disgusting-oozeling.guide",
+			"verb": "click",
+			"text": "Open every bag:"
+		},
+		{
+			"file": "forever/collectibles/pets/excitable-slime.guide",
+			"verb": "emote",
+			"text": "Find an Excitable Slime, a little critter in the canal water beside Boyle, target it and /dance at it, again and again, until it dances back and offers WRIGGLE.;"
+		},
+		{
+			"file": "forever/collectibles/pets/excitable-slime.guide",
+			"verb": "emote",
+			"text": "If the slime seems tired, /dance with it again before you hand in."
+		},
+		{
+			"file": "forever/collectibles/pets/musical-gustjumper.guide",
+			"verb": "click",
+			"text": "click it to take the Musical Gustjumper, then use it to learn the pet."
+		},
+		{
+			"file": "forever/collectibles/pets/musical-gustjumper.guide",
+			"verb": "use",
+			"text": "click it to take the Musical Gustjumper, then use it to learn the pet."
+		},
+		{
+			"file": "forever/collectibles/pets/smolderweb-carrier.guide",
+			"verb": "click",
+			"text": "click them until you have 15 (each gives one to three)."
+		},
+		{
+			"file": "forever/collectibles/pets/weevil-k-neevil.guide",
+			"verb": "click",
+			"text": "open it for the tools that catch the three bugs."
+		},
+		{
+			"file": "forever/horde/02-the-barrens.guide",
+			"verb": "click",
+			"text": "Fight beside the grunts until Warlord Krom'zar (elite, 20) arrives with two bodyguards, usually from the south, then click the banner over his body."
+		},
+		{
+			"file": "forever/horde/02-the-barrens.guide",
+			"verb": "click",
+			"text": "leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic;"
+		},
+		{
+			"file": "forever/horde/02-the-barrens.guide",
+			"verb": "click",
+			"text": "stay off their paths, and click the statue again before the stealth runs out."
+		},
+		{
+			"file": "forever/horde/02-the-barrens.guide",
+			"verb": "use",
+			"text": "Use it by the brazier next to him to reveal the Minor Manifestation of Fire, kill it for the Glowing Ember, then place the ember in the brazier."
+		},
+		{
+			"file": "forever/horde/04-the-barrens.guide",
+			"verb": "use",
+			"text": "Use the Explosive Stick of Gann that Gann gave you on it."
+		},
+		{
+			"file": "forever/horde/05-stonetalon-mountains.guide",
+			"verb": "emote",
+			"text": "Before you go near Fizzule, use {item:8051} to fire two flares, then target him and /salute:"
+		},
+		{
+			"file": "forever/horde/05-stonetalon-mountains.guide",
+			"verb": "use",
+			"text": "Before you go near Fizzule, use {item:8051} to fire two flares, then target him and /salute:"
+		},
+		{
+			"file": "forever/horde/07-ashenvale.guide",
+			"verb": "click",
+			"text": "open it for another quest for Je'neu."
+		},
+		{
+			"file": "forever/horde/07-ashenvale.guide",
+			"verb": "click",
+			"text": "open it for the Fathom Core, and Baron Aquanis comes;"
+		},
+		{
+			"file": "forever/horde/07-ashenvale.guide",
+			"verb": "click",
+			"text": "open the Strange Water Globe he drops for a quest for Je'neu."
+		},
+		{
+			"file": "forever/horde/07-ashenvale.guide",
+			"verb": "use",
+			"text": "use the Empty Blue Waterskin there."
+		},
+		{
+			"file": "forever/horde/30-40/02-thousand-needles.guide",
+			"verb": "use",
+			"text": "read it."
+		},
+		{
+			"file": "forever/horde/40-50/01b-riverglades.guide",
+			"verb": "talk",
+			"text": "talk five of them into rising up against their masters."
+		},
+		{
+			"file": "forever/horde/40-50/01b-riverglades.guide",
+			"verb": "use",
+			"text": "right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there."
+		},
+		{
+			"file": "forever/horde/40-50/02-feralas.guide",
+			"verb": "use",
+			"text": "If the town rewards just brought you to 42 and you still owe pirate work, use the shore tents, not the ships."
+		},
+		{
+			"file": "forever/horde/40-50/05-the-hinterlands.guide",
+			"verb": "use",
+			"text": "Ride all the way west to the Wildhammer town of Aerie Peak and place the message by the well in its centre."
+		},
+		{
+			"file": "forever/horde/40-50/05-the-hinterlands.guide",
+			"verb": "use",
+			"text": "Use the Wildkin Muisek Vessel on the owlbeasts you kill."
+		},
+		{
+			"file": "forever/horde/50-60/01-un-goro-crater.guide",
+			"verb": "click",
+			"text": "Open the Hoard of the Black Dragonflight from the Searing Gorge for its Black Dragonflight Molt, then tell Cyrus you bring proof of your deeds:"
+		},
+		{
+			"file": "forever/horde/50-60/01-un-goro-crater.guide",
+			"verb": "use",
+			"text": "When he faints, use Spraggle's Canteen on him to wake him."
+		},
+		{
+			"file": "forever/horde/50-60/02-felwood.guide",
+			"verb": "use",
+			"text": "Read the Kaldorei Tome of Summoning there:"
+		},
+		{
+			"file": "forever/horde/50-60/02-felwood.guide",
+			"verb": "use",
+			"text": "stand beside one of the camp's tall crystals and use the Seals of the Sin'dorei from your bags;"
+		},
+		{
+			"file": "forever/horde/50-60/03-winterspring.guide",
+			"verb": "use",
+			"text": "use it with a seed packet and two Un'Goro Soil in your bags to grow a random herb, sometimes Morrowgrain, once every ten minutes."
+		},
+		{
+			"file": "forever/horde/50-60/05-eastern-plaguelands.guide",
+			"verb": "click",
+			"text": "open them until you find the right one."
+		},
+		{
+			"file": "forever/horde/50-60/05-eastern-plaguelands.guide",
+			"verb": "use",
+			"text": "In the middle of the lumber mill, stand by the crate and use Mickey's Barrel of Plagueland Termites from your bags to set it on top;"
+		},
+		{
+			"file": "forever/horde/50-60/05-eastern-plaguelands.guide",
+			"verb": "use",
+			"text": "Kill him for the key, then use the cauldron."
+		},
+		{
+			"file": "forever/horde/50-60/05-eastern-plaguelands.guide",
+			"verb": "use",
+			"text": "clear the ghouls around the cauldron first, start at full health and use your cooldowns on him."
+		},
+		{
+			"file": "forever/horde/50-60/05-eastern-plaguelands.guide",
+			"verb": "use",
+			"text": "kill him for the key, then use the cauldron."
+		},
+		{
+			"file": "forever/horde/50-60/06-silithus.guide",
+			"verb": "use",
+			"text": "Ride east to Fire Plume Ridge, climb it and use Krakle's Thermometer at the lava vent near the top, then ride back west to Krakle."
+		},
+		{
+			"file": "forever/horde/50-60/06-silithus.guide",
+			"verb": "use",
+			"text": "When he faints, use Spraggle's Canteen on him to wake him."
+		},
+		{
+			"file": "forever/horde/50-60/06-silithus.guide",
+			"verb": "use",
+			"text": "drink the Videre Elixir at the graveyard just east of Gadgetzan and find him, as a ghost, in the rocky crevice due north of it."
+		},
+		{
+			"file": "forever/horde/50-60/06-silithus.guide",
+			"verb": "use",
+			"text": "read it and take its torn page back to Calandrath."
+		},
+		{
+			"file": "forever/horde/orc/01-durotar.guide",
+			"verb": "use",
+			"text": "drink the Earth Sapta there to see the Minor Manifestation of Earth, then take the Rough Quartz back to Canaga."
+		},
+		{
+			"file": "forever/horde/skyborne/01-zephras-isle.guide",
+			"verb": "board",
+			"text": "Once you have trained, board the skycutter at the dock on Valanaar's south-west edge:"
+		},
+		{
+			"file": "forever/horde/skyborne/01-zephras-isle.guide",
+			"verb": "use",
+			"text": "Jump off the top of the watchtower and use Walk on Air to float down to Rorian, west of the tower."
+		},
+		{
+			"file": "forever/horde/skyborne/01-zephras-isle.guide",
+			"verb": "use",
+			"text": "buy its four parts from Nida the herbalist, Nata the enchanting supplier, Mahu the leatherworking supplier and Naal the cooking supplier, then combine them into Prepared Incense."
+		},
+		{
+			"file": "forever/horde/tauren/01-mulgore.guide",
+			"verb": "emote",
+			"text": "/sit by her campfire until you get Boosted Rest."
+		},
+		{
+			"file": "forever/horde/tauren/01-mulgore.guide",
+			"verb": "use",
+			"text": "buy its four parts from Nida the herbalist, Nata the enchanting supplier, Mahu the leatherworking supplier and Naal the cooking supplier, then combine them into Prepared Incense."
+		},
+		{
+			"file": "forever/horde/tauren/01-mulgore.guide",
+			"verb": "use",
+			"text": "drink the Earth Sapta there to see it, then take the Rough Quartz back to the Seer."
+		},
+		{
+			"file": "forever/horde/troll/01-durotar.guide",
+			"verb": "use",
+			"text": "drink the Earth Sapta there to see the Minor Manifestation of Earth, then take the Rough Quartz back to Canaga."
+		},
+		{
+			"file": "forever/horde/undead/01-tirisfal-glades.guide",
+			"verb": "click",
+			"text": "open the gate and fight him."
+		},
+		{
+			"file": "forever/legacy/legacy-challenges.guide",
+			"verb": "click",
+			"text": "Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation, Alterac Valley Reputation and Darkspear Islands Reputation (Forever's new battleground, open from level 30)."
+		},
+		{
+			"file": "forever/miscellaneous/library-books.guide",
+			"verb": "use",
+			"text": "Use it to take the book."
+		},
+		{
+			"file": "forever/miscellaneous/stalk-with-the-earthmother.guide",
+			"verb": "click",
+			"text": "Put on the disguise, then open the carts of Blasting Supplies inside the mine and on the slope outside it;"
+		},
+		{
+			"file": "forever/professions/blacksmithing.guide",
+			"verb": "use",
+			"text": "Use the stones on your weapons or sell them."
+		},
+		{
+			"file": "forever/professions/cooking.guide",
+			"verb": "click",
+			"text": "open each one, every clam holds one."
+		},
+		{
+			"file": "forever/professions/cooking.guide",
+			"verb": "click",
+			"text": "open each one."
+		},
+		{
+			"file": "forever/professions/cooking.guide",
+			"verb": "use",
+			"text": "Buy it and read it."
+		},
+		{
+			"file": "forever/professions/enchanting.guide",
+			"verb": "click",
+			"text": "Open the Giant Clams at the marked spot."
+		},
+		{
+			"file": "forever/professions/engineering.guide",
+			"verb": "use",
+			"text": "Use the 12 Solid Blasting Powder you made earlier;"
+		},
+		{
+			"file": "forever/professions/engineering.guide",
+			"verb": "use",
+			"text": "Use the 19 Solid Blasting Powder you made earlier;"
+		},
+		{
+			"file": "forever/professions/engineering.guide",
+			"verb": "use",
+			"text": "Use the 20 Heavy Blasting Powder you made earlier;"
+		},
+		{
+			"file": "forever/professions/engineering.guide",
+			"verb": "use",
+			"text": "Use the 33 Handful of Copper Bolts you made earlier;"
+		},
+		{
+			"file": "forever/professions/engineering.guide",
+			"verb": "use",
+			"text": "Use the 7 Heavy Blasting Powder you made earlier;"
+		},
+		{
+			"file": "forever/professions/first-aid.guide",
+			"verb": "use",
+			"text": "Buy it and read it."
+		},
+		{
+			"file": "forever/professions/first-aid.guide",
+			"verb": "use",
+			"text": "Read the Manual:"
+		},
+		{
+			"file": "forever/professions/first-aid.guide",
+			"verb": "use",
+			"text": "read the Manual:"
+		},
+		{
+			"file": "forever/professions/first-aid.guide",
+			"verb": "use",
+			"text": "use those, not your own."
+		},
+		{
+			"file": "forever/professions/fishing.guide",
+			"verb": "click",
+			"text": "Fish the pools and open water here until skill 125, about 120 catches:"
+		},
+		{
+			"file": "forever/professions/fishing.guide",
+			"verb": "equip",
+			"text": "Buy a Fishing Pole (23c) from a trade goods or fishing vendor and equip it (you can only fish with a pole in your hands), and two or three Shiny Baubles (+25, 50c each):"
+		},
+		{
+			"file": "forever/professions/fishing.guide",
+			"verb": "use",
+			"text": "Buy it and read it;"
+		},
+		{
+			"file": "forever/reputation/argent-dawn.guide",
+			"verb": "equip",
+			"text": "Wear the Commission trinket while you fight the Scourge:"
+		},
+		{
+			"file": "forever/reputation/cenarion-circle.guide",
+			"verb": "talk",
+			"text": "Talk Frankal Stonebridge and Rutgar Glyphshaper through their whole stories for Dearest Natalia."
+		},
+		{
+			"file": "forever/reputation/cenarion-circle.guide",
+			"verb": "use",
+			"text": "Use the papers first, then talk to the captain:"
+		},
+		{
+			"file": "forever/reputation/centaur-clans.guide",
+			"verb": "use",
+			"text": "put the staff to use there, and the Nascent Undead Ravagers give the Well Cursed Bones."
+		},
+		{
+			"file": "forever/reputation/darkspear-trolls.guide",
+			"verb": "click",
+			"text": "Open the Gnomish Toolboxes."
+		},
+		{
+			"file": "forever/reputation/darnassus.guide",
+			"verb": "click",
+			"text": "With a seed packet and 2 Un'Goro Soil in your bags, use the pouch to grow an Evergreen Herb Casing and open it:"
+		},
+		{
+			"file": "forever/reputation/darnassus.guide",
+			"verb": "use",
+			"text": "With a seed packet and 2 Un'Goro Soil in your bags, use the pouch to grow an Evergreen Herb Casing and open it:"
+		},
+		{
+			"file": "forever/reputation/gnomeregan-exiles.guide",
+			"verb": "use",
+			"text": "Kill one and use a jar on its remains."
+		},
+		{
+			"file": "forever/reputation/ironforge.guide",
+			"verb": "use",
+			"text": "Plant Gor'tesh's head on the soft dirt mound at the top of Dreadmaul Rock."
+		},
+		{
+			"file": "forever/reputation/merchants-favor.guide",
+			"verb": "use",
+			"text": "right-click them anyway."
+		},
+		{
+			"file": "forever/reputation/orgrimmar.guide",
+			"verb": "click",
+			"text": "Open the Gnomish Toolboxes."
+		},
+		{
+			"file": "forever/reputation/orgrimmar.guide",
+			"verb": "click",
+			"text": "Tell him he may speak openly and click through his story."
+		},
+		{
+			"file": "forever/reputation/orgrimmar.guide",
+			"verb": "use",
+			"text": "Read the Kaldorei Tome of Summoning there to start the next quest:"
+		},
+		{
+			"file": "forever/reputation/orgrimmar.guide",
+			"verb": "use",
+			"text": "right-click it."
+		},
+		{
+			"file": "forever/reputation/thorium-brotherhood.guide",
+			"verb": "click",
+			"text": "with the Shadowforge Key, open the East Garrison door near the entrance;"
+		},
+		{
+			"file": "forever/reputation/thorium-brotherhood.guide",
+			"verb": "use",
+			"text": "place it on Franclorn's monument in the Shrine of Thaurissan and the Shadowforge Key falls out."
+		},
+		{
+			"file": "forever/reputation/thunder-bluff.guide",
+			"verb": "click",
+			"text": "Open each casing:"
+		},
+		{
+			"file": "forever/reputation/thunder-bluff.guide",
+			"verb": "use",
+			"text": "Use the pouch whenever it is ready while you follow the rest of this guide."
+		},
+		{
+			"file": "forever/reputation/thunder-bluff.guide",
+			"verb": "use",
+			"text": "With a seed packet and 2 Un'Goro Soil in your bags, use the pouch:"
+		},
+		{
+			"file": "forever/reputation/timbermaw-hold.guide",
+			"verb": "use",
+			"text": "Clear the furbolgs around the mouth first, plant the torch, kill Xandivious and loot the Essence from his Demon Bag."
+		},
+		{
+			"file": "forever/reputation/timbermaw-hold.guide",
+			"verb": "use",
+			"text": "bring one low, then use the Satyrweed Tincture on it."
+		},
+		{
+			"file": "forever/reputation/timbermaw-hold.guide",
+			"verb": "use",
+			"text": "plant his Demon Summoning Torch in the mouth of High Chief Winterfall's cave and defeat the demon Xandivious (level 62, elite:"
+		},
+		{
+			"file": "forever/reputation/undercity.guide",
+			"verb": "use",
+			"text": "kill him and read the Tablet of Theka there."
+		}
+	]
+}

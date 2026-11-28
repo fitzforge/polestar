@@ -139,6 +139,7 @@ step Corin's Crossing
   kill 8531 optional                  -- Gibbering Ghoul: leaves a spirit too
   kill 8532 optional                  -- Diseased Flayer: leaves a spirit too
   collect 15447 x7
+  use 15454 quest 6022.1 @52.3,58.2 live
   complete 6022
 
 step Nathanos Blightcaller

@@ -117,8 +117,9 @@ return {
 	-- Step 30: Are We There, Yeti?
 	-- {area:2255} Everlook
 	["Ride north to {area:2255}."] = "Reite nach Norden nach {area:2255}.",
-	-- {npc:10978} Legacki · {npc:10980} Umi's Mechanical Yeti
-	["Scare {npc:10978} with {npc:10980}"] = "Erschrecke {npc:10978} mit {npc:10980}",
+	-- {npc:10978} Legacki · {item:12928} Umi's Mechanical Yeti
+	-- was: ["Scare {npc:10978} with {npc:10980}"] = "Erschrecke {npc:10978} mit {npc:10980}"
+	["Scare {npc:10978} with {item:12928}"] = "",
 
 	-- Step 31: Everlook
 	-- {npc:11118} Innkeeper Vizzie · {quest:93406} Unfrozen Deliveries
@@ -214,6 +215,7 @@ return {
 	-- ["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "Reite die Straße von {zone:1448} nach Norden zu {area:1767}; die {quest:5086} sickern zwischen den Bäumen umher, und die meisten lassen ein Tröpfchen fallen.\nVorsicht: Uralte Eisenbaumwandler, Elites der Stufe 59, laufen zwischen den {quest:5086} umher, und {npc:14524} (63, Elite) streift durch die Wälder: Kümmere dich einzeln um die Schrecken an der Nordspitze von {area:1767}.",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one."] = "Reite nach Nordwesten nach {area:1763}. Die vier Kohlenbecken stehen zwischen den Gebäuden des Schattenrats; benutze das gereinigte Wasser an jedem.",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "Reite nach Nordwesten zu {area:1763}. Die vier Feuerschalen stehen zwischen den Gebäuden des Shadow Council; benutze das Cleansed Water an jeder einzelnen.\nVorsicht: Mobs des Shadow Council der Stufen 53-55 füllen die Höhle und kommen oft in großen verbundenen Gruppen, viele mit Betäubungen. Eine Gruppe aus 2-3 Spielern ist empfohlen.",
+	-- ["Scare {npc:10978} with {npc:10980}"] = "Erschrecke {npc:10978} mit {npc:10980}",
 	-- ["South to the Sanctuary once more."] = "Noch einmal nach Süden zum Refugium.",
 	-- ["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "Das Totem der Deadwood aus {area:1762}, falls {npc:11558} es dir damals nicht abgenommen hat: Sie wartet am Tunneleingang von {area:1769} und spricht mit dir bei Neutral mit den Timbermaw, was dir die Deadwood-Furbolgs von {zone:1448} gebracht haben.",
 	-- ["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} (59, elite) and Xandivious (62) are in the cave at the back: stay out."] = "Das Furbolgdorf füllt das Tal nordöstlich von {area:2255}. Töte zuerst die Schamanen; sie heilen. {npc:10738} (59, Elite) und Xandivious (62) sind in der Höhle hinten: Bleib draußen.",

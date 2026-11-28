@@ -571,8 +571,12 @@ step Ratchet
 # ---------------------------------------------------------------- South-west: the Raptor Grounds, then the beach
 step Raptor nests
   tip South-west from Ratchet across the plains to the Raptor Grounds: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a Sunscale Feather: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest.
+  collect 5165 x3
+  use 5165 quest 905.1 @52.6,46.1 map 1413
   interact 6907 quest 905.1
+  use 5165 quest 905.2 @52.0,46.5 map 1413
   interact 6908 quest 905.2
+  use 5165 quest 905.3 @52.5,46.6 map 1413
   interact 6906 quest 905.3
 
 step Raptor Grounds: kill these as you meet them
@@ -611,6 +615,7 @@ step The Crossroads
 step Dreadmist Peak
   only Tauren,Skyborne,Druid
   tip Head north from the Crossroads to Dreadmist Peak and fill the Empty Dreadmist Peak Sampler at the Dreadmist Peak Pool, then back to Tonga Runetotem in the Crossroads. No Herbalism? Hula'mahi beside him sells Earthroot, three at a time until he restocks.
+  use 15842 quest 6127.1 @48.4,18.9 only Tauren,Skyborne
   collect 15843 quest 6127.1 @48.4,18.9 only Tauren,Skyborne -- Filled Dreadmist Peak Sampler
   turnin 6127 only Tauren,Skyborne -- Tonga Runetotem
   accept 6128 only Tauren,Skyborne
@@ -697,7 +702,9 @@ step Verog the Dervish
   zone The Barrens
   tip Verog doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the Stagnant Oasis, south-east of the Crossroads. Keep killing them around the oasis until he appears. Test Tonga's seeds at the bubbling fissure on the oasis' east bank while you are there.
   collect 5023 quest 851.1
+  use 5068 quest 877.1 @55.6,42.8
   interact 3737 quest 877.1           -- Underwater
+  use 15826 quest 6129.1 @56.9,39.0 map 1413 only Tauren,Skyborne,Druid
   kill 12296 quest 6129.1 "Cure Sickly Gazelle" only Tauren,Skyborne,Druid -- Sickly Gazelle: use the Curative Animal Salve on them; they roam the plains all around the Crossroads
 
 step Bristleback camps

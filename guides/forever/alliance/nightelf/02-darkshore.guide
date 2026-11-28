@@ -87,6 +87,7 @@ step Darkshore Threshers
 
 step Bears and the Blackwood camp
   tip Rabid Thistle Bears roam the hills south of Auberdine: use Tharnariun's Hope on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet.
+  use 7586 quest 2118.1 @38.21,52.59 map 1439 era
   complete 2118 @38.21,52.59 map 1439 era -- the Rabid Thistle Bears nearest Tharnariun
   complete 984 @39.9,53.9                     # any of four furbolg camps completes it; this is the one by the bears (#560)
 
@@ -102,6 +103,7 @@ step Ameth'Aran
 
 step The red crystal
   tip Climb the eastern mountains east of Ameth'Aran; the Mysterious Red Crystal sits on a ledge.
+  interact 175524 quest 4811.1 @47.3,48.7
   complete 4811 @47.2,48.7                    -- Mysterious Red Crystal
 
 step Bashal'Aran
@@ -176,6 +178,7 @@ step Onu
 step Ameth'Aran
   label q2138
   tip Back north to Ameth'Aran: the flame burns in the south of the ruins.
+  use 5338 quest 957.1 @42.4,61.8 map 1439
   interact 16393 quest 957.1 @42.4,61.8 map 1439 -- Ancient Flame
   kill 2164 quest 2138
 

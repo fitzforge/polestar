@@ -18776,6 +18776,78 @@ test('forever/horde/50-60/02-felwood.guide: Cuely\'s four vials, each at its tid
 	assert.deepEqual(idx, [...idx].sort((a, b) => a - b), 'in order, south to north');
 });
 
+// CurseForge (0.4.3, 2026-11-27): about two hours on Tanaris Field Sampling. Nothing drops the acceptable samples
+// it counts: each is made by using an Untested Sample (9437, 9439, 9442) the beasts drop, which passes or is lost
+// (players' recordings: the three lines tick on the samples' casts, 11759-11761). The step listed only the counts and
+// kept the use in its tip. Each sample is now looted (the beasts' row, `fromNpcs`), used (the quest item button and
+// the step key take a `use` goal's item) and counted, in that order and in one step; the tip only says why it
+// repeats, and the power source's note stays on the accept (#3619).
+test('Tanaris Field Sampling: each untested sample is looted, used and counted on rows of its own; the tip gives no order (CurseForge, 0.4.3)', { skip }, () => {
+	const list = goals('forever/horde/40-50/04-tanaris.guide');
+	const accept = at(list, 'accept 654', is('accept', 654));
+	for (const [untested, acceptable, oi] of [[9439, 9441, 2], [9437, 9440, 1], [9442, 9438, 3]]) {
+		const loot = at(list, `collect ${untested}`, (g) => g.t === 'collect' && g.item === untested && g.quest === undefined);
+		const use = at(list, `use ${untested}`, (g) => g.t === 'use' && g.item === untested && g.quest === 654 && g.oi === oi);
+		const count = at(list, `collect ${acceptable}`, (g) => g.t === 'collect' && g.item === acceptable && g.quest === 654 && g.oi === oi);
+		assert.deepEqual([use, count], [loot + 1, loot + 2], `${untested}: looted, used, then counted`);
+		assert.ok([loot, use, count].every((i) => list[i].s === list[accept].s), `${untested}: in the accept's step`);
+		assert.ok((list[loot].goal.fromNpcs || []).length > 0, `${untested}: the loot row names the beasts that drop it`);
+	}
+	const tip = list[accept].step.note || '';
+	assert.doesNotMatch(tip, /\b(use|kill|right-click|power source)\b/i, `the tip gives no order: ${tip}`);
+	assert.match(list[accept].goal.note || '', /Another Power Source\?/, 'the power source note stays on the accept');
+});
+
+// The tip-only actions of the same sweep (use or click lines the steps left to their tips), worst first by players'
+// recordings: each action's row sits right before the objective line it works, in the same step.
+for (const [guide, item, quest, oi, verb] of [
+	['forever/horde/04-the-barrens.guide', 5059, 868, 1, 'use'], // Egg Hunt: the Digging Claw on the mounds (47 of 122 abandoned)
+	['forever/alliance/50-60/02-felwood.guide', 11914, 4512, 1, 'use'], // A Little Slime Goes a Long Way: the jars on the oozes' remains
+	['forever/alliance/50-60/02-felwood.guide', 11948, 4512, 2, 'use'],
+	['forever/horde/40-50/06-azshara.guide', 9530, 3062, 1, 'use'], // Dark Heart: the Horn of Hatetalon calls Edana
+	['forever/alliance/50-60/04-western-plaguelands.guide', 15042, 5903, 1, 'use'], // A Plague Upon Thee: the termite jar
+	['forever/horde/50-60/05-eastern-plaguelands.guide', 15042, 5901, 1, 'use'],
+	['forever/alliance/50-60/01-burning-steppes.guide', 10445, 3449, 1, 'use'], // Arcane Runes: the Drawing Kit at each rune
+	['forever/alliance/50-60/01-burning-steppes.guide', 10445, 3449, 4, 'use'],
+	['forever/alliance/03-darkshore.guide', 175524, 4811, 1, 'interact'], // The Red Crystal: the crystal itself
+	['forever/alliance/nightelf/02-darkshore.guide', 7586, 2118, 1, 'use'], // Plagued Lands: Tharnariun's Hope
+	['forever/alliance/03-darkshore-return.guide', 5251, 944, 1, 'use'], // The Master's Glaive: the Phial of Scrying
+	['forever/alliance/06-ashenvale.guide', 5456, 1016, 1, 'use'], // Elemental Bracers: the Divining Scroll
+	['forever/alliance/02-westfall.guide', 254545, 92742, 2, 'use'], // Testing the Wells: the sample kit at each well
+	['forever/horde/02-the-barrens.guide', 5165, 905, 1, 'use'], // The Angry Scytheclaws: a feather at each nest
+	['forever/horde/02-the-barrens.guide', 5068, 877, 1, 'use'], // The Stagnant Oasis: the seeds at the fissure
+	['forever/horde/tauren/01-mulgore.guide', 4702, 746, 1, 'use'], // Dwarven Digging: each pick at the forge
+	['forever/horde/04-the-barrens.guide', 16208, 6381, 1, 'use'], // New Life: the seeds in the mounds
+	['forever/alliance/03-darkshore.guide', 5338, 957, 1, 'use'], // Bashal'Aran: the seal at the flame
+	['forever/horde/07-ashenvale.guide', 273015, 96241, 1, 'use'], // Talkin' bout Toxins, Mon: the extractor on the corpses
+	['forever/reputation/orgrimmar.guide', 10327, 881, 1, 'use'], // Echeyakee: the horn at his lair
+	// The sweep's second batch.
+	['forever/horde/50-60/02-felwood.guide', 246683, 91568, 1, 'use'], // Long Walks on the Beach: the Treasure Trowel on the sands
+	['forever/horde/50-60/07-felwood.guide', 12928, 5163, 1, 'use'], // Are We There, Yeti?: the yeti beside Legacki
+	['forever/horde/undead/01-tirisfal-glades.guide', 16333, 6395, 1, 'use'], // Marla's Last Wish: the remains at the grave
+	['forever/horde/07-ashenvale.guide', 12942, 5151, 1, 'use'], // Hypercapacitor Gizmo: the panther cage key
+	['forever/alliance/50-60/03-winterspring.guide', 12891, 5245, 1, 'use'], // Troubled Spirits of Kel'Theril: Jaron's Pick at each fragment
+	['forever/horde/30-40/04-dustwallow-marsh.guide', 14547, 5581, 1, 'use'], // Portals of the Legion: the Hand of Iruxos
+	['forever/horde/50-60/06-silithus.guide', 11570, 4292, 1, 'use'], // The Bait for Lar'korwi: the pheromone mixture on the meat
+	['forever/horde/04-the-barrens.guide', 5638, 1086, 1, 'use'], // The Flying Machine Airport: the Toxic Fogger
+	['forever/horde/50-60/01-un-goro-crater.guide', 12807, 5096, 1, 'use'], // Scarlet Diversions: the banner by the tent
+	['forever/alliance/03-darkshore.guide', 15844, 6122, 1, 'use'], // The Principal Source: the sampler at the falls
+	['forever/alliance/50-60/03-winterspring.guide', 12906, 5165, 4, 'use'], // Dousing the Flames of Protection: the water at each brazier
+	['forever/alliance/40-50/06-searing-gorge.guide', 10515, 3463, 1, 'use'], // Set Them Ablaze!: the torch at each brazier
+	['forever/horde/undead/01-tirisfal-glades.guide', 286176, 99134, 1, 'use'], // Discipline: the Executor's Motivator
+	['forever/horde/orc/01-durotar.guide', 16114, 5441, 1, 'use'], // Lazy Peons: the Foreman's Blackjack
+	['forever/alliance/dwarf/01-dun-morogh.guide', 17117, 6661, 1, 'use'], // Deeprun Rat Roundup: the flute
+	['forever/reputation/stormwind.guide', 12815, 5097, 1, 'use'], // All Along the Watchtowers: the Beacon Torch at each tower
+	['forever/class/warlock/orb-of-orahil.guide', 12647, 4962, 1, 'use'], // Shard of a Felhound: the Felhas Ruby
+]) {
+	test(`${guide}: ${verb} ${item} right before the line of quest ${quest}.${oi} (tip-only actions sweep)`, { skip }, () => {
+		const list = goals(guide);
+		const row = at(list, `${verb} ${item} quest ${quest}.${oi}`, (g) => g.t === verb && (g.item === item || g.object === item) && g.quest === quest && g.oi === oi);
+		const next = list[row + 1];
+		assert.ok(next && next.goal.quest === quest && next.goal.t !== verb && next.s === list[row].s, `the objective's own line follows it in the step: ${next && next.goal.t}`);
+	});
+}
+
 // #3707 (fekz) and #3857: the pools are spell-focus objects, so clicking one does nothing; each Empty Vial Labeled #N
 // (10687-10690, from the Box of Empty Vials the quest hands over) is used at its own pool. The accept says to open the
 // box, and each pool has the vial's `use` right before its collect, in the same step.

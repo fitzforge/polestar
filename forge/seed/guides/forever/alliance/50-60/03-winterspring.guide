@@ -270,6 +270,9 @@ step U'cha
 step Lar'korwi
   tip Lar'korwi's lair lies in the jungle north of Torwa, below the eastern cliffs: use Torwa's Pouch there.
   tip Careful: Lar'korwi is level 56, a level or two over you here: start at full health, and clear the raptors around the lair first.
+  use 11568 @79.7,49.8 map 1449
+  use 11569 quest 4292.1 @79.7,49.8 map 1449
+  use 11570 quest 4292.1 @79.7,49.8 map 1449
   collect 11510 quest 4292.1
 
 step Eastern Pylon and the crate
@@ -311,6 +314,7 @@ step Krakle
 
 step Krakle's Thermometer
   tip Ride east to Fire Plume Ridge, climb it and use Krakle's Thermometer at the lava vents near the top.
+  use 12472 quest 974.1 @49.7,45.6 map 1449
   interact 148503 quest 974.1         -- Fire Plume Ridge Hot Spot
 
 step Krakle
@@ -399,9 +403,13 @@ step Shadow Hold braziers
   tip Shadow Hold is the cave at the back of Jaedenar, west of the road. Use the Purified Moonwell Water on the four braziers inside.
   tip Careful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns: pull at the edge of each group and fight one pack at a time.
   tip The Jaedenar Darkweavers, Warlocks and Enforcers in here drop a Blood Red Key, about one kill in thirty: keep killing them until it drops. It opens the cell of Arko'narin, the night elf held in the cave.
+  use 12906 quest 5165.2 @37.7,52.7 map 1448
   interact 176159 quest 5165.2        -- Brazier of Malice, below ground
+  use 12906 quest 5165.3 @36.7,53.3 map 1448
   interact 176160 quest 5165.3        -- Brazier of Suffering, below ground
+  use 12906 quest 5165.1 @36.3,56.3 map 1448
   interact 176158 quest 5165.1        -- Brazier of Pain, below ground
+  use 12906 quest 5165.4 @36.5,55.2 map 1448
   interact 176161 quest 5165.4        -- Brazier of Hatred, below ground
   collect 13140                       -- Blood Red Key
   collect 11515 x6 optional           -- Corrupted Soul Shard, from the same cultists: Arathandris takes six by the Sanctuary if you did Cleansing Felwood
@@ -543,9 +551,13 @@ step Starfall Village
 
 step The Ruins of Kel'Theril
   tip The ruins lie around the frozen lake south of Starfall Village. Pick up the four relic fragments lying in the ruins: Aurora Skycaller in the Eastern Plaguelands takes them, on the next guide.
+  use 12891 quest 5245.1 @55.1,43.0 map 1452
   collect 12896 quest 5245.1          -- First Relic Fragment
+  use 12891 quest 5245.3 @53.3,43.4 map 1452
   collect 12898 quest 5245.3          -- Third Relic Fragment
+  use 12891 quest 5245.4 @52.4,41.5 map 1452
   collect 12899 quest 5245.4          -- Fourth Relic Fragment
+  use 12891 quest 5245.2 @50.9,41.7 map 1452
   collect 12897 quest 5245.2          -- Second Relic Fragment
 
 step The road to Everlook: furs and horns
