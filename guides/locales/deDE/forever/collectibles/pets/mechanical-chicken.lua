@@ -11,7 +11,7 @@ return {
 	["{item:8705} in {zone:1444}"] = "{item:8705} in {zone:1444}",
 	-- {zone:1444} Feralas · {area:1108} Forgotten Coast
 	-- plural, as words: Coast Crawl Snapclaws = {npc:5327} Coast Crawl Snapclaw · Sprite Dragons = {npc:5276} Sprite Dragon
-	["Each robot starts with a distress beacon that mobs in its zone drop, about one kill in 40 to 100 in Classic's data. In {zone:1444} the best are the Coast Crawl Snapclaws and Deepseers (levels 43-45) on the {area:1108} and the Sprite Dragons (47-48), about 2.5%; ogres, harpies, naga and Grimtotems drop it about 1%. You can loot it from level 40."] = "Jeder Roboter beginnt mit einem Notsignal, das Gegner seiner Zone fallen lassen, etwa bei einem von 40 bis 100 Kills nach den Daten von Classic. In {zone:1444} sind am besten die Coast Crawl Snapclaws und Deepseers (Stufe 43-45) an der {area:1108} und die Sprite Dragons (47-48), etwa 2,5%; Oger, Harpyien, Naga und Grimmtotem lassen es mit etwa 1% fallen. Du kannst es ab Stufe 40 plündern.",
+	["Each robot starts with a distress beacon that mobs in its zone drop, about one kill in 40 to 100 in Classic's data. In {zone:1444} the best are the Coast Crawl Snapclaws and Deepseers (levels 43-45) on the {area:1108} and the Sprite Dragons (47-48), about 2.5%; ogres, harpies, naga and Grimtotems drop it about 1%. You can loot it from level 40."] = "Jeder Roboter beginnt mit einem Notsignal, das Gegner seiner Zone fallen lassen, etwa bei einem von 40 bis 100 Kills nach den Daten von Classic. In {zone:1444} sind am besten die Küstenkriecherschnappklauen und Küstenkriechertiefseher (Stufe 43-45) an der {area:1108} und die Grimmlingdrachen (47-48), etwa 2,5%; Oger, Harpyien, Naga und Grimmtotem lassen es mit etwa 1% fallen. Du kannst es ab Stufe 40 plündern.",
 
 	-- Step 2: OOX-22/FE's beacon
 	["OOX-22/FE's beacon"] = "Die Bake von OOX-22/FE",
@@ -29,7 +29,7 @@ return {
 	["{item:8623} in {zone:1446}"] = "{item:8623} in {zone:1446}",
 	-- {zone:1446} Tanaris
 	-- plural, as words: Treasure Hunting Pirates = {npc:7899} Treasure Hunting Pirate · Ground Pounders = {npc:9396} Ground Pounder
-	["{zone:1446} mobs drop OOX-17/TN's beacon about one kill in 50 to 150. Best: the Treasure Hunting Pirates and Buccaneers on the south shore (44-45) and the Ground Pounders in the north (41-43), about 2%. You can loot it from level 43."] = "Gegner in {zone:1446} lassen das Signal von OOX-17/TN etwa bei einem von 50 bis 150 Kills fallen. Am besten: die Treasure Hunting Pirates und Buccaneers am Südufer (44-45) und die Ground Pounders im Norden (41-43), etwa 2%. Du kannst es ab Stufe 43 plündern.",
+	["{zone:1446} mobs drop OOX-17/TN's beacon about one kill in 50 to 150. Best: the Treasure Hunting Pirates and Buccaneers on the south shore (44-45) and the Ground Pounders in the north (41-43), about 2%. You can loot it from level 43."] = "Gegner in {zone:1446} lassen das Signal von OOX-17/TN etwa bei einem von 50 bis 150 Kills fallen. Am besten: die Schatzsuchenden Piraten und Bukanier am Südufer (44-45) und die Bodentrommler im Norden (41-43), etwa 2%. Du kannst es ab Stufe 43 plündern.",
 
 	-- Step 5: OOX-17/TN's beacon
 	["OOX-17/TN's beacon"] = "Die Bake von OOX-17/TN",
@@ -57,7 +57,7 @@ return {
 	["Rescue OOX-09/HL"] = "Rette OOX-09/HL",
 	-- {area:351} Skulk Rock
 	-- plural, as words: Marauding Owlbeasts = {npc:7808} Marauding Owlbeast · Vilebranch Ambushers = {npc:7809} Vilebranch Ambusher
-	["OOX-09/HL waits on the largest island of the lake west of {area:351}. Its escort to the shore beyond Overlook Cliff has two ambushes of three: Marauding Owlbeasts, then Vilebranch Ambushers; the robot warns you just before each."] = "OOX-09/HL wartet auf der größten Insel im See westlich von {area:351}. Seine Eskorte zum Ufer hinter Overlook Cliff hat zwei Hinterhalte zu je drei: Marauding Owlbeasts, dann Vilebranch Ambushers; der Roboter warnt dich kurz vor jedem.",
+	["OOX-09/HL waits on the largest island of the lake west of {area:351}. Its escort to the shore beyond Overlook Cliff has two ambushes of three: Marauding Owlbeasts, then Vilebranch Ambushers; the robot warns you just before each."] = "OOX-09/HL wartet auf der größten Insel im See westlich von {area:351}. Seine Eskorte zum Ufer hinter Overlook Cliff hat zwei Hinterhalte zu je drei: Plündernde Eulenbestien, dann Wegelagerer der Vilebranch; der Roboter warnt dich kurz vor jedem.",
 	["Escort OOX-09/HL"] = "Eskortiere OOX-09/HL",
 
 	-- Step 10: Oglethorpe Obnoticus in Booty Bay
