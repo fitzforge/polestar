@@ -18451,6 +18451,17 @@ function Engine.GetLoopTrack()
 	return c and Own.loopTrack(c) or nil
 end
 
+-- Whether the player is on the track of the farming loop the arrow leads round
+-- (within Own.LOOP_NEAR yards, as Own.loopAim found it last): the arrow then
+-- goes straight along the track to its aim, with no walk searched
+-- (Nav/Walk.lua Walk.FollowsGoto); off it the walk to the rejoin point is.
+function Engine.LoopOnTrack()
+	if not (waypoint and waypoint.loop and guide and current and waypoint.stepIndex == current) then return false end
+	local goal = guide.steps[current].goals[waypoint.goalIndex]
+	local at = goal and Own.loopAt[goal]
+	return at ~= nil and at.off == false
+end
+
 -- Move a goal with spawn areas on to its next spot: the nearest one not
 -- visited lately (the current one counts as visited now), or spot `index`.
 -- The new spot holds until the player reaches it; in the current step the

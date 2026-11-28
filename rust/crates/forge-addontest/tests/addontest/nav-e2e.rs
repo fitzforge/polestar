@@ -19,7 +19,7 @@ use regex::Regex;
 use serde_json::Value;
 
 /// Why the scenario cannot run here, or None.
-fn skip_reason() -> Option<String> {
+pub(crate) fn skip_reason() -> Option<String> {
 	if let Some(why) = forge_addontest::locale::needs(&["map-frames.json", "zones.json"]) {
 		return Some(why);
 	}
@@ -93,20 +93,20 @@ fn maps_lua() -> String {
 }
 
 /// Appended to Polestar_Nav's files: keeps its namespace, for the snapped-node check.
-fn ns_file() -> (TempDir, PathBuf) {
+pub(crate) fn ns_file() -> (TempDir, PathBuf) {
 	let tmp = TempDir::new("polestar-nav-e2e-");
 	let p = tmp.path().join("keep-ns.lua");
 	std::fs::write(&p, "local _, ns = ...\nstub.navNs = ns\n").unwrap();
 	(tmp, p)
 }
 
-fn nav_files(ns: &Path) -> Vec<PathBuf> {
+pub(crate) fn nav_files(ns: &Path) -> Vec<PathBuf> {
 	let mut files = toc_files("Polestar_Nav").unwrap();
 	files.push(ns.to_path_buf());
 	files
 }
 
-fn before(files: &[PathBuf]) -> String {
+pub(crate) fn before(files: &[PathBuf]) -> String {
 	let list = files.iter().map(|p| lua_string(&p.to_string_lossy())).collect::<Vec<_>>().join(", ");
 	format!(
 		r#"local w = stub.world
@@ -124,7 +124,7 @@ end"#,
 	)
 }
 
-const PRELUDE: &str = r#"
+pub(crate) const PRELUDE: &str = r#"
 local w, N, C = stub.world, Polestar.Nav, Polestar.Compat
 local E = Polestar_NavEngine
 local floor, sqrt = math.floor, math.sqrt
