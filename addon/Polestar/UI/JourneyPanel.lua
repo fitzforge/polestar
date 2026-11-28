@@ -9,6 +9,12 @@
 --              average wait 0:15 · ride 0:10
 --   3  [goto]  Walk to Silithus                    25:13
 --
+-- A teleport's step shows its spell's icon and a hearth's the Hearthstone's
+-- (JP.Icon: Nav.travel.LegIcon; the glyph while the client gives none). A
+-- hearth or teleport still on its cooldown reads "Wait 4:12 for your
+-- Hearthstone, then hearth to Razor Hill" (Nav.travel.LegLabel), counting down
+-- with the times.
+--
 -- Shown while the route has more than one leg (Nav.travel.Active()): a lone
 -- walk is the arrow's own distance and time, so a one-line journey would
 -- only repeat it. Consecutive walks with the same caption are one row
@@ -131,12 +137,28 @@ local function placeName(p)
 	return nil
 end
 
--- A step's line: the planner's caption, else the kind's words and where it
--- ends; a walk reads "Ride to" for a character who can ride (ns.CanRide).
+-- A step's line: the planner's caption (a hearth or teleport waiting on its
+-- cooldown counts it down: Nav.travel.LegLabel), else the kind's words and
+-- where it ends; a walk reads "Ride to" for a character who can ride (ns.CanRide).
 function JP.StepText(leg)
-	if nonEmpty(leg.label) then return leg.label end
+	local T = ns.Nav and ns.Nav.travel
+	local label = T and T.LegLabel and T.LegLabel(leg) or leg.label
+	if nonEmpty(label) then return label end
 	local text = leg.kind == "walk" and ns.CanRide() and L["Ride to %s"] or STEP_TEXT[leg.kind] or L["Go to %s"]
 	return format(text, placeName(leg.to) or L["the next stop"])
+end
+
+-- What a hearth or teleport leg casts, as its own icon (the Hearthstone's,
+-- the spell's: Nav.travel.LegIcon), or nil: the glyph stands then.
+local function iconOf(leg)
+	local T = ns.Nav and ns.Nav.travel
+	return T and T.LegIcon and T.LegIcon(leg) or nil
+end
+JP.Icon = iconOf
+
+-- A leg whose caption can count down (JP.StepText): its text follows each second.
+local function counts(leg)
+	return leg ~= nil and (leg.kind == "hearth" or leg.kind == "teleport")
 end
 
 local function glyphOf(leg)
@@ -527,10 +549,23 @@ local function fillStructure(legs, ci)
 		r.psLeg = p.first[i]
 		r.Num:SetFormattedText("%d", p.num[i])
 		r.Num:SetShown(numbers)
-		r.Icon:SetTexture(Theme.Media(glyphOf(leg)))
+		local icon = iconOf(leg)
+		if icon then
+			r.Icon:SetTexture(icon)
+			r.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+		else
+			r.Icon:SetTexture(Theme.Media(glyphOf(leg)))
+			r.Icon:SetTexCoord(0, 1, 0, 1)
+		end
 		r.Text:SetText(JP.StepText(leg))
 		r.Bar:SetShown(current)
-		W.Color(r.Icon, current and "accent" or "textMuted")
+		-- A real icon keeps its own colours (out of the theme's repaints); a glyph takes the palette.
+		if icon then
+			W.Uncolor(r.Icon)
+			r.Icon:SetVertexColor(1, 1, 1, current and 1 or 0.7)
+		else
+			W.Color(r.Icon, current and "accent" or "textMuted")
+		end
 		W.Color(r.Text, current and "text" or "textDim")
 		W.Color(r.Time, current and "text" or "textMuted")
 		W.Color(r.Num, current and "textDim" or "textMuted")
@@ -565,6 +600,8 @@ local function fillTimes()
 		if r:IsShown() then
 			setTime(r.Time, view.secs[i])
 			if r.Sub:IsShown() then r.Sub:SetText(view.dep[i] and JP.DepartureText(i) or r.psHub) end
+			local leg = shownLegs and r.psLeg and shownLegs[r.psLeg]
+			if counts(leg) then r.Text:SetText(JP.StepText(leg)) end
 		end
 	end
 end
@@ -772,7 +809,7 @@ function JP.Sample(parent)
 	s.F:SetScript("OnShow", nil)
 	s.F:SetScript("OnHide", nil)
 	s.head:EnableMouse(false)
-	s.Glyph, s.StepText, s.FormatTime = glyphOf, JP.StepText, JP.FormatTime
+	s.Glyph, s.Icon, s.StepText, s.FormatTime = glyphOf, iconOf, JP.StepText, JP.FormatTime
 	function s.Route() return s.legs, 1 end
 	function s.Rows(legs, ci) return with(s, JP.Rows, legs, ci) end
 	function s.Compute(legs, ci) return with(s, sampleTimes, legs, ci) end

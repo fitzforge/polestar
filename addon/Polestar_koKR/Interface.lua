@@ -730,6 +730,17 @@ L["Kept for %s"] = "%s용으로 보관"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "%s 퀘스트를 %s에게 제출하십시오. 이 근처를 돌아다닙니다: 지도의 원 안을 살펴보십시오"
 L["A quest you carry that the route does not work here: its work is nearby."] = "경로가 여기서 진행하지 않는, 가지고 있는 퀘스트입니다: 할 일이 근처에 있습니다."
 L["%s at %s"] = "%s - %s"
+-- L["%s, then fly to %s"] = ""
+-- L["%s, then take the boat to %s"] = ""
+-- L["%s, then take the zeppelin to %s"] = ""
+-- L["%s, then take the airship to %s"] = ""
+-- L["%s, then take the tram to %s"] = ""
+-- L["%s, then take the portal to %s"] = ""
+-- L["%s, then ride to %s"] = ""
+-- L["%s, then walk to %s"] = ""
+-- L["Buy a rune at %s"] = ""
+-- L["Buy a rune and cast %s to save about %s"] = ""
+-- L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "보상을 선택해 제출을 마치십시오."
@@ -982,6 +993,9 @@ L["Riding the boat to %s"] = "배를 타고 %s(으)로 가는 중"
 L["Riding the zeppelin to %s"] = "비행선을 타고 %s(으)로 가는 중"
 L["Riding the airship to %s"] = "비행정을 타고 %s(으)로 가는 중"
 L["Riding the tram to %s"] = "지하철을 타고 %s(으)로 가는 중"
+L["Wait %s for your Hearthstone, then hearth to %s"] = "귀환석 대기 %s, 그다음 귀환석으로 이동: %s"
+L["Wait %s, then cast %s"] = "%s 대기 후 시전: %s"
+L["%s ready in %s"] = "%s: %s 후 사용 가능"
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -1670,7 +1684,6 @@ L["Button look"] = "버튼 모양"
 L["Size, spacing, layout, backing, text, opacity and glow of these buttons, with a live preview, on the Buttons page."] = "이 버튼들의 크기, 간격, 배치, 받침, 글자, 불투명도, 빛나는 효과를 버튼 페이지에서 실시간 미리보기와 함께 설정합니다."
 L["Targeting"] = "대상 지정"
 L["Rewards, buttons and tracker"] = "보상, 버튼, 추적기"
-L["Your Hearthstone in the action button set, beside the quest item and target buttons, while the guide says to hearth. Bindable. The travel button under the arrow is a switch of its own: turning this one off leaves that one on."] = "가이드가 귀환석 사용을 지시하는 동안 퀘스트 아이템 버튼과 대상 버튼 옆, 행동 버튼 묶음에 귀환석을 표시합니다. 단축키 지정 가능. 화살표 아래 이동 버튼은 따로 켜고 끕니다: 이것을 꺼도 그쪽은 켜진 채로 남습니다."
 L["Under the arrow, while the route's next leg is your Hearthstone, a teleport or a portal: a button that casts it. Right-click the arrow to skip the leg. The Hearthstone in the button set is a switch of its own: turning this one off leaves that one on."] = "경로의 다음 구간이 귀환석, 순간이동 또는 차원문일 때 화살표 아래에 나타나 그것을 시전하는 버튼입니다. 화살표를 오른쪽 클릭하면 구간을 건너뜁니다. 행동 버튼 묶음의 귀환석은 따로 켜고 끕니다: 이것을 꺼도 그쪽은 켜진 채로 남습니다."
 L["Hearthstone in the button set"] = "행동 버튼 묶음의 귀환석"
 L["Travel button under the arrow"] = "화살표 아래 이동 버튼"
@@ -1704,6 +1717,7 @@ L["Equip a spare bag first"] = "여분 가방 먼저 착용"
 L["When your bags are nearly full and a bag sits in them while a bag slot is empty, the bag button and the guide window offer to put it on before any junk. Nothing happens until you press."] = "가방이 거의 가득 찼는데 가방 칸이 비어 있고 가방 안에 가방이 있으면, 가방 버튼과 가이드 창이 잡동사니보다 먼저 그 가방을 착용하도록 제안합니다. 누르기 전에는 아무 일도 일어나지 않습니다."
 L["Step errands"] = "단계 심부름"
 L["Level pace"] = "레벨 속도"
+L["Your Hearthstone in the action button set, beside the quest item and target buttons, while the guide says to hearth; and while the route's next leg is a class teleport or the Hearthstone, that cast (the travel button under the arrow then stands aside). Bindable. The travel button under the arrow is a switch of its own: turning this one off leaves that one on."] = "가이드가 귀환석 사용을 지시하는 동안, 그리고 경로의 다음 구간이 직업 순간이동이나 귀환석인 동안 그 시전을, 퀘스트 아이템 버튼과 대상 버튼 옆 행동 버튼 묶음에 표시합니다(그때 화살표 아래 이동 버튼은 물러납니다). 단축키 지정 가능. 화살표 아래 이동 버튼은 따로 켜고 끕니다: 이것을 꺼도 그쪽은 켜진 채로 남습니다."
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "얼라이언스 전용"
@@ -2329,6 +2343,7 @@ L["Suggested"] = "추천"
 L["The guides window only. Click to pick a size; right-click to reset."] = "가이드 창에만 적용됩니다. 클릭하여 크기를 고르고, 우클릭하면 초기화됩니다."
 L["Quests in"] = "퀘스트 지역"
 L["Passes through"] = "지나가는 지역"
+-- L["%s: optional class quests"] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "애완동물"
@@ -3189,6 +3204,7 @@ L["General"] = "일반"
 L["The language Polestar shows."] = "Polestar가 표시하는 언어입니다."
 L["Say when I've outlevelled a guide"] = "가이드 레벨을 넘어서면 알림"
 L["A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is."] = "내 레벨이 가이드 레벨을 넘으면 가이드 창에 알림을 가이드마다 세션당 한 번, 내 레벨에 맞는 가이드와 함께 표시합니다. 끄기: 알림 없음, 가이드는 그대로 유지됩니다."
+-- L["For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -4081,7 +4097,6 @@ L["Clean up quest log"] = "퀘스트 목록 정리"
 L["Grey: no XP any more"] = "회색: 더 이상 경험치 없음"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "경로에 필요 없는 퀘스트입니다: 경로가 완료하지 않거나 더 이상 경험치를 주지 않습니다. 포기는 먼저 게임 자체 창에서 확인합니다."
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "퀘스트 목록에서 경로에 필요 없는 퀘스트를 보여 줍니다: 경로가 완료하지 않는 퀘스트와 더 이상 경험치를 주지 않는 회색 퀘스트입니다. 각각 먼저 확인하는 포기 버튼이 있습니다. 그런 퀘스트가 있는 동안 가이드 창 메뉴에도 나타납니다."
-L["None of these has a known place to hand it in."] = "이 중 제출 장소가 알려진 퀘스트가 없습니다."
 L["Where it is turned in is not known"] = "제출 장소를 알 수 없음"
 L["Finished quests you're still carrying"] = "아직 들고 있는 완료된 퀘스트"
 L["The route hands in every finished quest in your log."] = "경로에서 퀘스트 목록의 완료된 퀘스트를 모두 제출합니다."
@@ -4096,6 +4111,8 @@ L["Every quest in your log is part of your route."] = "목록의 모든 퀘스�
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "경로의 어떤 가이드도 이 퀘스트를 받거나 진행하거나 제출하지 않습니다. 원하는 것은 보관하십시오. 포기는 먼저 게임 자체 창에서 확인합니다."
 L["Finished: no guide of your route hands it in"] = "완료됨: 경로의 어떤 가이드도 제출하지 않습니다"
 L["Not in any guide of your route"] = "경로의 어떤 가이드에도 없음"
+-- L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = ""
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = ""
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "새 능력"
@@ -4995,6 +5012,8 @@ L["On the window's edge"] = "창 가장자리"
 L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."] = "경로 밖에서 아직 완료하거나 제출해야 하는 퀘스트를 단계 아래에 줄로 표시합니다: 가이드 업데이트로 지나쳐 버린 퀘스트와, 앞으로의 어떤 가이드도 제출하지 않는 완료된 퀘스트입니다. 꺼도 가이드 창 메뉴의 완료한 퀘스트 제출에 완료된 퀘스트가 계속 나열됩니다."
 L["XP line"] = "경험치 줄"
 L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "단계 아래 줄: 시간당 경험치, 레벨업까지 시간과 내 속도. 휴식 강화는 별도 줄을 유지합니다."
+-- L["Quest log notices"] = ""
+-- L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = ""
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "알림 줄"
@@ -5637,6 +5656,15 @@ L["kept for %s"] = "%s용으로 보관"
 L["kept"] = "보관"
 L["Kept for %s: the route hands it in there."] = "%s용으로 보관: 경로가 그곳에서 제출합니다."
 
+-- Lookup/Handins.lua
+-- L["No quests in your log are ready to hand in."] = ""
+-- L["Wait until combat ends to load the quest data."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Handins addon is installed and enabled."] = ""
+
+-- UI/QuestLinks.lua
+-- L["Start quest guide"] = ""
+-- L["Click to show quest guide actions."] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar를 한 페이지씩 다시 설정합니다. 선택은 바로 적용됩니다."
 -- L["New"] = "새 기능"
@@ -5904,3 +5932,5 @@ L["Kept for %s: the route hands it in there."] = "%s용으로 보관: 경로가 
 -- L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "창이 커질 수 있는 높이(화면 대비 비율). 더 긴 단계는 스크롤됩니다."
 -- L["Max height"] = "최대 높이"
 -- L["%s: on this step"] = "%s: 같은 단계"
+-- L["Your Hearthstone in the action button set, beside the quest item and target buttons, while the guide says to hearth. Bindable. The travel button under the arrow is a switch of its own: turning this one off leaves that one on."] = "가이드가 귀환석 사용을 지시하는 동안 퀘스트 아이템 버튼과 대상 버튼 옆, 행동 버튼 묶음에 귀환석을 표시합니다. 단축키 지정 가능. 화살표 아래 이동 버튼은 따로 켜고 끕니다: 이것을 꺼도 그쪽은 켜진 채로 남습니다."
+-- L["None of these has a known place to hand it in."] = "이 중 제출 장소가 알려진 퀘스트가 없습니다."

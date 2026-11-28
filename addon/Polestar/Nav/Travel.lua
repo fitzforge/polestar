@@ -521,7 +521,7 @@ end
 --         the crossing id and the end walked from,
 --         stops = { taxi node, ... } (fly: every node hopped, ends included),
 --         transport, side = the transport or portal and the end boarded at ("a"|"b"),
---         item = the Hearthstone (hearth), spell = spell ID (teleport),
+--         item = the Hearthstone (hearth), spell = spell ID, spellName = its name (teleport),
 --         yards = straight hops (a walk x1.25, or the engine's measured yards), step = "crossing"|"chain"|"goto",
 --         engine = "cost" (a walk priced by walkCost) | "path" (by its engine path),
 --         hubs = { { id, name, areaId }, ... } on a walk whose engine path enters the other
@@ -1865,7 +1865,8 @@ local function planBody(p, S)
 			leg.kind = "teleport"
 			leg.spell = e.spell
 			leg.bind = bindV[to] and true or nil
-			leg.label = format(L["Cast %s"], spellName(e.spell, e.name) or "")
+			leg.spellName = spellName(e.spell, e.name) or ""
+			leg.label = format(L["Cast %s"], leg.spellName)
 		else
 			leg.kind = "hearth"
 			leg.item = 6948 -- the Hearthstone
@@ -3155,6 +3156,91 @@ function Travel.CurrentLeg()
 	return legs and legs[ci]
 end
 
+-- Seconds until a hearth or teleport leg can be cast (0: now), from the client's cooldown as it is now: the
+-- Hearthstone's, or the spell's (the global cooldown does not count). The planner counted the same wait into the
+-- leg's seconds (p.hearthWait, a teleport's `ready`). nil for every other leg.
+function Travel.LegWait(leg)
+	if type(leg) ~= "table" then return nil end
+	if leg.kind == "hearth" then return hearthWait() or 0 end
+	if leg.kind ~= "teleport" or not leg.spell then return nil end
+	local C = ns.Compat
+	local start, duration = 0, 0
+	if C and C.GetSpellCooldown then start, duration = C.GetSpellCooldown(leg.spell) end
+	if type(start) ~= "number" or type(duration) ~= "number" or start <= 0 or duration <= GCD then return 0 end
+	local left = start + duration - GetTime()
+	return left > 0 and left or 0
+end
+
+-- "M:SS" of a wait, its seconds rounded up (a countdown reads 0:00 only once it is over).
+function Travel.Clock(secs)
+	local s = math.ceil((secs or 0) - 1e-6)
+	if s < 0 then s = 0 end
+	return format("%d:%02d", floor(s / 60), s % 60)
+end
+
+-- A hearth or teleport leg's caption while it waits on its cooldown: "Wait 4:12 for your Hearthstone, then hearth
+-- to Razor Hill", "Wait 4:12, then cast Astral Recall"; leg.label once it can be cast, and for every other leg.
+-- The Journey, the live step's travel line and Travel.CurrentLabel read it; ROUTE_WAIT moves it each second.
+function Travel.LegLabel(leg)
+	local wait = Travel.LegWait(leg)
+	if not wait or wait <= 0 then return leg and leg.label end
+	if leg.kind == "hearth" then return format(L["Wait %s for your Hearthstone, then hearth to %s"], Travel.Clock(wait), leg.name or "") end
+	return format(L["Wait %s, then cast %s"], Travel.Clock(wait), leg.spellName or "")
+end
+
+-- What the arrow says while the current leg waits on its cooldown: "Hearthstone ready in 4:12", "Astral Recall
+-- ready in 4:12"; nil once it can be cast, and for every other leg.
+function Travel.WaitText(leg)
+	local wait = Travel.LegWait(leg)
+	if not wait or wait <= 0 then return nil end
+	if leg.kind == "hearth" then return format(L["Hearthstone ready in %s"], Travel.Clock(wait)) end
+	return format(L["%s ready in %s"], leg.spellName or "", Travel.Clock(wait))
+end
+
+-- The icon of what a leg casts: the teleport's spell, the Hearthstone; nil for other legs or while the client
+-- gives none (the caller keeps its glyph). The Journey and the arrow show it.
+function Travel.LegIcon(leg)
+	if type(leg) ~= "table" then return nil end
+	local C = ns.Compat
+	if not C then return nil end
+	if leg.kind == "teleport" and leg.spell then return C.SpellIcon and C.SpellIcon(leg.spell) or nil end
+	if leg.kind == "hearth" then return C.ItemIcon and C.ItemIcon(leg.item or HEARTH_ITEM) or nil end
+	return nil
+end
+
+-- A hearth or teleport leg still ahead waits on its cooldown (not Travel.Waiting: the hold on a landing's walk).
+function Travel.CastWaits()
+	if not (legs and ci) then return false end
+	for k = ci, #legs do
+		local wait = Travel.LegWait(legs[k])
+		if wait and wait > 0 then return true end
+	end
+	return false
+end
+
+-- While one does, ROUTE_WAIT (waiting) once a second, and once more with false as it comes ready: its caption
+-- counts down (Travel.LegLabel, Travel.WaitText) and turns into the plain one at 0. Follows the route
+-- (ROUTE_CHANGED, ROUTE_ADVANCED); the plan itself is made again as the Hearthstone comes ready (Travel.Aim's
+-- lastHearth) or a teleport does (Transit's NAV_TRANSIT), and a plan that no longer waits stops it.
+function Travel.WatchWait()
+	if Travel.CastWaits() then
+		if Travel.waitTicker then return end
+		Travel.waitTicker = ns.NewTicker(1, function()
+			local still = Travel.CastWaits()
+			if not still and Travel.waitTicker then
+				Travel.waitTicker:Cancel()
+				Travel.waitTicker = nil
+			end
+			ns.Fire("ROUTE_WAIT", still)
+		end)
+	elseif Travel.waitTicker then
+		Travel.waitTicker:Cancel()
+		Travel.waitTicker = nil
+	end
+end
+ns.On("ROUTE_CHANGED", Travel.WatchWait)
+ns.On("ROUTE_ADVANCED", Travel.WatchWait)
+
 -- The point the current leg leads to, as Travel.Aim aims: a walk's end (a
 -- flight master, a dock, a portal, a crossing), a ride's or flight's
 -- boarding point, a hearth's or teleport's landing; and the leg's label. A
@@ -3255,7 +3341,7 @@ function Travel.CurrentLabel()
 	leg = boardingRide(leg) or leg
 	local caption = departureCaption(leg)
 	if caption and leg.label then return leg.label .. "\n" .. caption end
-	return caption or leg.label
+	return caption or Travel.LegLabel(leg)
 end
 
 -- Seconds to the target from here; `dist` = yards to the current aim when

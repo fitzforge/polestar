@@ -12,7 +12,12 @@
 --     (Polestar.QuestDB; none without it), never one left from another quest.
 --     Never during a flight.
 --   Hearthstone: while the current step has an open `hearth` goal, never
---     during a flight.
+--     during a flight. Else, while the route's current leg (Nav/Travel.lua)
+--     is a class teleport (Teleport: Undercity, Teleport: Moonglade, Astral
+--     Recall) the character knows with its reagent at hand, or a hearth with
+--     the Hearthstone in the bags: that spell (a secure spell button) or the
+--     Hearthstone (Buttons.RouteCast). On its cooldown it stays with the
+--     sweep and a grey icon, and the step key casts it only once it is ready.
 --   Target: /targetexact for the current step's kill targets (every creature
 --     their objective credits, `fromNpcs`), the creatures its `use` goals'
 --     items work on (`fromNpcs`, #1614) and the mobs that drop its collect
@@ -65,7 +70,9 @@
 --   Step key: no button on screen, only a binding: the first open goal it can
 --     act on, in guide order (a use goal's item, a hearth goal's Hearthstone,
 --     a kill or collect's mobs, an NPC goal's NPC by name), else the quest
---     item. While it targets, or has nothing else to do, the mobs of the
+--     item. The route's teleport or hearth (Buttons.RouteCast), once off its
+--     cooldown, comes before the mobs and NPCs, after a use goal's item and a
+--     hearth goal. While it targets, or has nothing else to do, the mobs of the
 --     While you're here rows follow the step's own names, nearest row first
 --     (behavior.whileHereStepKey, #1316); on an NPC goal they follow the NPC,
 --     or go before it while the player is farther than the While you're
@@ -1058,7 +1065,7 @@ local function newButton(name, kind, onEnter)
 	b:RegisterForClicks("AnyUp", "AnyDown")
 	b:RegisterForDrag("LeftButton")
 	-- A /reload in combat creates the buttons under lockdown.
-	QoL.Secure("init:" .. name, function() if not b.itemID and not b.applied then b:Hide() end end)
+	QoL.Secure("init:" .. name, function() if not b.itemID and not b.spellID and not b.applied then b:Hide() end end)
 	buildFace(b, kind)
 	paintFace(b)
 	local T = Theme()
@@ -1075,6 +1082,14 @@ end
 -- Item buttons (quest item, Hearthstone)
 ---------------------------------------------------------------------------
 
+-- A cooldown still running: (start, duration) as the client gives them,
+-- longer than the global cooldown. -> seconds left, or nil.
+local function coolingLeft(start, duration)
+	if type(start) ~= "number" or type(duration) ~= "number" or start <= 0 or duration <= 1.5 then return nil end
+	local left = start + duration - GetTime()
+	return left > 0 and left or nil
+end
+
 local function paintItem(b)
 	local id = b.itemID
 	if not id then return end
@@ -1083,8 +1098,24 @@ local function paintItem(b)
 	b.Count:SetText(n > 1 and tostring(n) or "")
 	local start, duration = Client.ItemCooldown(id)
 	if duration and duration > 0 then b.Cooldown:SetCooldown(start, duration) else b.Cooldown:Clear() end
-	b.Icon:SetDesaturated(n == 0 or not Client.ItemUsable(id))
+	-- The Hearthstone's slot greys its icon while the stone cools down, as it does a route's spell.
+	b.Icon:SetDesaturated(n == 0 or not Client.ItemUsable(id) or (b.psKind == "hearth" and coolingLeft(start, duration) ~= nil))
 	if b.psGlowOn then paintGlow(b) end
+end
+
+-- The Hearthstone slot holding a route's spell (Buttons.RouteCast): its icon,
+-- and its cooldown as the sweep and a grey icon.
+local function paintSpell(b)
+	local id = b.spellID
+	if not id then return end
+	local C = ns.Compat
+	b.Icon:SetTexture(C.SpellIcon(id) or media("icon-use"))
+	b.Icon:SetVertexColor(1, 1, 1, 1)
+	b.Count:SetText("")
+	local start, duration = C.GetSpellCooldown(id)
+	local left = coolingLeft(start, duration)
+	if left then b.Cooldown:SetCooldown(start, duration) else b.Cooldown:Clear() end
+	b.Icon:SetDesaturated(left ~= nil)
 end
 
 -- Range tint: red out of range, white otherwise; and with buttons.glow, the
@@ -1116,6 +1147,15 @@ end
 
 local function itemTooltip(b, tip)
 	if b.itemID and tip.SetItemByID then tip:SetItemByID(b.itemID) end
+	-- A route's spell: the tooltip names it (the client's own spell tooltip where it has one).
+	if b.spellID then
+		if tip.SetSpellByID then
+			tip:SetSpellByID(b.spellID)
+		else
+			local P = ns.Nav and ns.Nav.prompts
+			tip:AddLine(tostring(P and P.SpellName and P.SpellName(b.spellID) or b.spellID), 1, 1, 1)
+		end
+	end
 	if b.itemID and b.itemID == b.glowID then tip:AddLine(L["You can take the quest this item starts. Click to read it."], 1, 1, 1, true) end
 	tip:AddLine(ns.Get("ui.lockHud") and L["Shift-drag to move."] or L["Drag to move."], 0.6, 0.6, 0.6)
 end
@@ -1167,26 +1207,38 @@ local function paintGlow(b)
 	end
 end
 
--- Apply the wanted item (secure) and repaint. glowID: the item glows while
+-- Apply the wanted item, or spell (the Hearthstone slot's route teleport,
+-- Buttons.RouteCast), secure, and repaint. glowID: the item glows while
 -- the button holds it (a quest starter from the bags).
-local function applyItem(b, itemID, glowID)
+local function applyItem(b, itemID, glowID, spellID)
 	b.wantID = itemID
+	b.wantSpell = not itemID and spellID or nil
 	b.glowID = glowID
 	QoL.Secure("item:" .. b:GetName(), function()
-		local id = b.wantID
-		b:SetAttribute("type", id and "item" or nil)
+		local id, spell = b.wantID, b.wantSpell
+		local P = spell and ns.Nav and ns.Nav.prompts
+		b:SetAttribute("type", id and "item" or spell and "spell" or nil)
 		b:SetAttribute("item", id and ("item:" .. id) or nil)
-		b.itemID = id
+		b:SetAttribute("spell", spell and (P and P.SpellName and P.SpellName(spell) or spell) or nil)
+		b.itemID, b.spellID = id, spell
 		b.tint = nil
 		if id then
 			paintItem(b)
+			b:Show()
+		elseif spell then
+			paintSpell(b)
 			b:Show()
 		else
 			b:Hide()
 		end
 		paintGlow(b)
+		-- The travel button under the arrow steps aside for the same cast here (Nav/Prompts.lua).
+		if b.psKind == "hearth" then
+			local prompts = ns.Nav and ns.Nav.prompts
+			if prompts and prompts.Refresh then prompts:Refresh() end
+		end
 	end)
-	if b.itemID then paintItem(b) end
+	if b.itemID then paintItem(b) elseif b.spellID then paintSpell(b) end
 	paintGlow(b)
 end
 
@@ -1280,6 +1332,43 @@ function Buttons.WantsHearth(view)
 		if goals[g].t == "hearth" and QoL.Open(goals[g]) then return canHearth() end
 	end
 	return false
+end
+
+-- Whether the route's teleport can be cast: known, with its reagent at hand
+-- (Transit.Teleports lists only those: a Mage's Rune of Teleportation, or a
+-- talent that does away with it).
+local function teleportReady(spell)
+	local X = ns.Transit
+	if not (X and X.Teleports) then return false end
+	for _, t in ipairs(X.Teleports()) do
+		if t.spell == spell then return true end
+	end
+	return false
+end
+
+-- The route's current leg as a cast for the Hearthstone's slot and the step
+-- key: a class teleport the character can cast (teleportReady) or a hearth
+-- with the Hearthstone in the bags; never on a flight. -> "spell", spellID |
+-- "item", itemID, then whether it is off cooldown now and, while it is not,
+-- the seconds left; nil without one.
+function Buttons.RouteCast()
+	if onTaxi() then return nil end
+	local Nav = ns.Nav
+	local legs, ci
+	if Nav and Nav.GetRoute then legs, ci = Nav.GetRoute() end
+	local leg = type(legs) == "table" and ci and legs[ci] or nil
+	if type(leg) ~= "table" then return nil end
+	local kind, id, left
+	if leg.kind == "teleport" and leg.spell then
+		if not teleportReady(leg.spell) then return nil end
+		kind, id, left = "spell", leg.spell, coolingLeft(ns.Compat.GetSpellCooldown(leg.spell))
+	elseif leg.kind == "hearth" then
+		if Client.ItemCount(Client.HEARTHSTONE) < 1 then return nil end
+		kind, id, left = "item", Client.HEARTHSTONE, coolingLeft(Client.ItemCooldown(Client.HEARTHSTONE))
+	else
+		return nil
+	end
+	return kind, id, left == nil, left
 end
 
 ---------------------------------------------------------------------------
@@ -3396,7 +3485,7 @@ function Buttons.GuideNameMacro(goal, raw)
 end
 
 -- What the step key does now. view, raw: QoL.CurrentStep()'s, when the
--- caller has them. -> "item", itemID | "target", names (reused list), the
+-- caller has them. -> "item", itemID | "spell", spellID | "target", names (reused list), the
 -- one NPC's name among them or nil | "npc", name | nil. The route's own goals come first, in guide order, then
 -- the optional ones, so an optional accept never takes the key.
 local function stepGoal(view, raw, goals, optional)
@@ -3430,9 +3519,16 @@ function Buttons.StepAction(view, raw)
 	local slot = F and F.TakeSlot and F.TakeSlot()
 	if slot then return "fly", slot end
 	if not view then view, raw = QoL.CurrentStep() end
-	if not view then return nil end
-	local goals = view.goals or {}
-	local kind, value = stepGoal(view, raw, goals, false)
+	local goals = view and view.goals or {}
+	local kind, value
+	if view then kind, value = stepGoal(view, raw, goals, false) end
+	-- The route's teleport or hearth, once off cooldown (Buttons.RouteCast), before the step's mobs and NPCs: they
+	-- are where it leads. A use goal's item and a guide hearth goal keep the key. With no step, the route's cast alone.
+	if kind ~= "item" then
+		local cast, id, castReady = Buttons.RouteCast()
+		if cast and castReady then kind, value = cast, id end
+	end
+	if not view then return kind, value end
 	if not kind then kind, value = stepGoal(view, raw, goals, true) end
 	if not kind and not onTaxi() then
 		local item = Buttons.ChooseQuestItem(view, raw)
@@ -3488,7 +3584,7 @@ end
 
 local function applyStep(b)
 	QoL.Secure("step", function()
-		local text, item
+		local text, item, spell
 		if step.kind == "target" then
 			-- A fallback of the other kind takes its own kind's mark (#2152); both kinds are pinged.
 			text = Buttons.MarkedMacro(step.list, step.cycle, stepKind, Buttons.QuestPingLine())
@@ -3498,10 +3594,14 @@ local function applyStep(b)
 			Buttons.SetPress(b, { step.value }, "npc", text, true)
 		elseif step.kind == "item" then
 			item = "item:" .. step.value
+		elseif step.kind == "spell" then
+			local P = ns.Nav and ns.Nav.prompts
+			spell = P and P.SpellName and P.SpellName(step.value) or step.value
 		end
 		if step.kind ~= "target" and step.kind ~= "npc" then Buttons.SetPress(b, nil, nil, nil) end
-		b:SetAttribute("type", item and "item" or text and "macro" or nil)
+		b:SetAttribute("type", item and "item" or spell and "spell" or text and "macro" or nil)
 		b:SetAttribute("item", item)
+		b:SetAttribute("spell", spell)
 		b:SetAttribute("macrotext", text)
 		b.aList, b.aNpc, b.aKind, b.aCycle = step.list, step.npc, step.kind, step.cycle
 	end)
@@ -3620,6 +3720,21 @@ end
 local FAR_POLL = 1
 local farTicker, farWatched
 
+-- A route cast on its cooldown (Buttons.RouteCast's seconds left): one
+-- refresh as it comes ready. The cooldown's end has no event of its own.
+local readyAt -- GetTime() the refresh is set for
+local function watchReady(left)
+	if not left then return end
+	local now = GetTime()
+	local at = now + left
+	if readyAt and readyAt > now and readyAt <= at + 0.05 then return end
+	readyAt = at
+	ns.After(left + 0.05, function()
+		readyAt = nil
+		Buttons.Refresh()
+	end)
+end
+
 local function refresh()
 	if not itemButton then return end
 	-- One view of the current step for all three buttons.
@@ -3633,7 +3748,18 @@ local function refresh()
 	local QL = QoL.QuestLoot
 	local loot = itemOn and not item and QL and QL.Current() or nil
 	applyItem(itemButton, item or loot, loot)
-	applyItem(hearthButton, QoL.On("hearthButton") and guideShown and view and Buttons.WantsHearth(view) and Client.HEARTHSTONE or nil)
+	-- The Hearthstone's slot: a guide hearth goal first, else the route's current cast (Buttons.RouteCast).
+	local hearthOn = QoL.On("hearthButton") and guideShown
+	local cast, castID, _, castLeft = Buttons.RouteCast()
+	if hearthOn and view and Buttons.WantsHearth(view) then
+		applyItem(hearthButton, Client.HEARTHSTONE)
+	elseif hearthOn and cast then
+		applyItem(hearthButton, cast == "item" and castID or nil, nil, cast == "spell" and castID or nil)
+	else
+		applyItem(hearthButton, nil)
+	end
+	-- A route cast on its cooldown: refreshed as it comes ready, so the step key takes it and the button shows ready.
+	watchReady(castLeft)
 
 	-- The list shows qol.targetRows names; the single button, the step key
 	-- and the interact stage keep MAX_NAMES.
@@ -3700,8 +3826,7 @@ local function refresh()
 		applyRare(rareButton)
 	end
 
-	local kind, value, npc = nil, nil, nil
-	if view then kind, value, npc = Buttons.StepAction(view, raw) end
+	local kind, value, npc = Buttons.StepAction(view, raw)
 	local stepSig = mark .. (kind == "target" and ("target\n" .. tostring(npc) .. "\n" .. concat(value, "\n")) or (tostring(kind) .. "\n" .. tostring(value)))
 	if stepSig ~= step.sig then
 		step.sig, step.kind, step.npc, step.cycle = stepSig, kind, npc, 1
@@ -3733,7 +3858,7 @@ Buttons.Refresh = refresh
 local function repaintItems()
 	if not itemButton then return end
 	if itemButton.itemID then paintItem(itemButton) end
-	if hearthButton.itemID then paintItem(hearthButton) end
+	if hearthButton.itemID then paintItem(hearthButton) elseif hearthButton.spellID then paintSpell(hearthButton) end
 end
 
 local function create()
@@ -3878,6 +4003,17 @@ ns.RegisterEvent("BAG_UPDATE_DELAYED", function()
 end)
 ns.RegisterEvent("QUEST_LOG_UPDATE", refreshOnLog)
 ns.RegisterEvent("BAG_UPDATE_COOLDOWN", repaintItems)
+-- The route's teleport in the Hearthstone's slot: its cooldown's sweep, and what the step key does with it.
+ns.RegisterEvent("SPELL_UPDATE_COOLDOWN", function()
+	if hearthButton and hearthButton.spellID then
+		paintSpell(hearthButton)
+		refreshSoon()
+	end
+end)
+-- The route's current leg (Buttons.RouteCast), and a teleport learnt.
+ns.On("ROUTE_CHANGED", refreshSoon)
+ns.On("ROUTE_ADVANCED", refreshSoon)
+ns.RegisterEvent("SPELLS_CHANGED", refreshSoon)
 -- Who may mark (Buttons.MarkRight) follows the group.
 ns.RegisterEvent("GROUP_ROSTER_UPDATE", refreshSoon)
 ns.RegisterEvent("PARTY_LEADER_CHANGED", refreshSoon)

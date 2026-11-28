@@ -4022,6 +4022,11 @@ GF.Part(function(GF)
 		ns.On("GUIDE_COMPLETED", whenReady(GF.Render))
 		ns.On("WAYPOINT_CHANGED", whenReady(GF.UpdateTargets))
 		ns.On("QUEST_TIMER", whenReady(GF.TimerTick))
+		-- Each second a hearth or teleport of the route waits on its cooldown (Nav/Travel.lua ROUTE_WAIT): the live
+		-- step's travel line counts down ("Wait 4:12 for your Hearthstone, ..."). Only while shown.
+		ns.On("ROUTE_WAIT", whenReady(function(still)
+			if still and F and F:IsVisible() then GF.Update() end
+		end))
 		-- The screen's height changed (resolution, the game's UI scale): the
 		-- height cap follows.
 		ns.RegisterEvent("DISPLAY_SIZE_CHANGED", whenReady(function() GF.Layout() end))

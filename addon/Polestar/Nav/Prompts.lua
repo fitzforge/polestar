@@ -17,9 +17,10 @@
 --   for PLAYER_REGEN_ENABLED (the last request wins) while the button keeps
 --   doing what it did. Icon and cooldown are plain textures and repaint at
 --   any time. Off with nav.castPrompt, while the guide is hidden, and with
---   the arrow it sits under turned off (nav.arrow, #2009). A step's own
---   Hearthstone button (QoL/Buttons.lua, its own switch) already showing the
---   same item wins.
+--   the arrow it sits under turned off (nav.arrow, #2009). The Hearthstone
+--   button (QoL/Buttons.lua, its own switch) already showing the same item
+--   or spell wins: a step's hearth goal, or this route's own teleport or
+--   hearth, which that slot offers too.
 --
 --   Skip a leg: right-click the arrow (or the travel button), or
 --   /polestar skipleg. A Hearthstone, teleport, flight, ride or portal leg
@@ -109,6 +110,8 @@ local function spellName(id)
 	end
 	return id
 end
+-- The secure spell attribute's value, shared with the Hearthstone's slot (QoL/Buttons.lua).
+Prompts.SpellName = spellName
 
 -- "item", itemID | "spell", spellID | nil: the action a leg asks for, when
 -- the player can take it.
@@ -131,11 +134,13 @@ local function currentLeg()
 	return legs[ci], ci, #legs
 end
 
--- A step's own Hearthstone button showing this item already.
+-- The Hearthstone's slot (QoL/Buttons.lua) showing this cast already: a step's
+-- hearth goal, or the route's own teleport or hearth (Buttons.RouteCast).
 local function stepButtonHas(kind, id)
 	local Q = ns.QoL
-	local b = kind == "item" and Q and Q.Buttons and Q.Buttons.hearth
-	return b and b.itemID == id and b:IsShown() and true or false
+	local b = Q and Q.Buttons and Q.Buttons.hearth
+	if not (b and b:IsShown()) then return false end
+	return (kind == "item" and b.itemID == id) or (kind == "spell" and b.spellID == id) or false
 end
 
 -- kind, id the button should hold now (nil: hidden). It goes with the guide

@@ -630,6 +630,17 @@ L["Kept for %s"] = "留给 %s"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "把 %s 交还给 %s，此人在附近走动：在地图上的圆圈里找"
 L["A quest you carry that the route does not work here: its work is nearby."] = "你身上的一个任务，路线不在这里做：它的目标就在附近。"
 L["%s at %s"] = "%2$s 处的 %1$s"
+-- L["%s, then fly to %s"] = ""
+-- L["%s, then take the boat to %s"] = ""
+-- L["%s, then take the zeppelin to %s"] = ""
+-- L["%s, then take the airship to %s"] = ""
+-- L["%s, then take the tram to %s"] = ""
+-- L["%s, then take the portal to %s"] = ""
+-- L["%s, then ride to %s"] = ""
+-- L["%s, then walk to %s"] = ""
+-- L["Buy a rune at %s"] = ""
+-- L["Buy a rune and cast %s to save about %s"] = ""
+-- L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "选择一个奖励以完成交还。"
@@ -882,6 +893,9 @@ L["Riding the boat to %s"] = "乘船前往 %s"
 L["Riding the zeppelin to %s"] = "乘飞艇前往 %s"
 L["Riding the airship to %s"] = "乘飞空艇前往 %s"
 L["Riding the tram to %s"] = "乘地铁前往 %s"
+L["Wait %s for your Hearthstone, then hearth to %s"] = "等待炉石 %s，然后炉石回到 %s"
+L["Wait %s, then cast %s"] = "等待 %s，然后施放 %s"
+L["%s ready in %s"] = "%s 将在 %s 后就绪"
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -1570,7 +1584,6 @@ L["Button look"] = "按钮外观"
 L["Size, spacing, layout, backing, text, opacity and glow of these buttons, with a live preview, on the Buttons page."] = "这些按钮的大小、间距、布局、底板、文字、不透明度和发光，可在“按钮”页面中设置并实时预览。"
 L["Targeting"] = "选取目标"
 L["Rewards, buttons and tracker"] = "奖励、按钮和追踪器"
-L["Your Hearthstone in the action button set, beside the quest item and target buttons, while the guide says to hearth. Bindable. The travel button under the arrow is a switch of its own: turning this one off leaves that one on."] = "指南要求使用炉石时，在动作按钮中、任务物品按钮和目标按钮旁显示你的炉石。可绑定按键。箭头下方的旅行按钮有自己的开关：关闭这个不会关闭那个。"
 L["Under the arrow, while the route's next leg is your Hearthstone, a teleport or a portal: a button that casts it. Right-click the arrow to skip the leg. The Hearthstone in the button set is a switch of its own: turning this one off leaves that one on."] = "当路线的下一段是炉石、传送或传送门时，箭头下方出现一个按钮来施放它。右键点击箭头可跳过这一段。动作按钮中的炉石有自己的开关：关闭这个不会关闭那个。"
 L["Hearthstone in the button set"] = "动作按钮中的炉石"
 L["Travel button under the arrow"] = "箭头下方的旅行按钮"
@@ -1605,6 +1618,7 @@ L["Equip a spare bag first"] = "先装备备用背包"
 L["When your bags are nearly full and a bag sits in them while a bag slot is empty, the bag button and the guide window offer to put it on before any junk. Nothing happens until you press."] = "背包快满时，如果还有空的背包栏位，且背包里有备用背包，背包按钮和指南窗口会优先提示装备备用背包。按下按钮才会装备。"
 L["Step errands"] = "步骤杂务"
 L["Level pace"] = "升级节奏"
+L["Your Hearthstone in the action button set, beside the quest item and target buttons, while the guide says to hearth; and while the route's next leg is a class teleport or the Hearthstone, that cast (the travel button under the arrow then stands aside). Bindable. The travel button under the arrow is a switch of its own: turning this one off leaves that one on."] = "指南要求使用炉石时，以及路线的下一段是职业传送或炉石时，在动作按钮中、任务物品按钮和目标按钮旁显示该施放（此时箭头下方的旅行按钮会让开）。可绑定按键。箭头下方的旅行按钮有自己的开关：关闭这个不会关闭那个。"
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "仅限联盟"
@@ -2230,6 +2244,7 @@ L["Suggested"] = "推荐"
 L["The guides window only. Click to pick a size; right-click to reset."] = "仅限指南窗口。点击选择大小；右键点击重置。"
 L["Quests in"] = "任务地区"
 L["Passes through"] = "途经"
+-- L["%s: optional class quests"] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "小伙伴"
@@ -3090,6 +3105,7 @@ L["The language Polestar shows."] = "Polestar 显示的语言。"
 L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags, unless a talent does away with it (Reagent Economy)."] = "如果更快，路线可以从你会的传送法术开始：法师的城市传送、德鲁伊的月光林地，或萨满的星界传送（相当于第二块炉石）。城市传送需要背包里有传送符文，除非有天赋免除它（材料节约）。"
 L["Say when I've outlevelled a guide"] = "我的等级超过指南时提醒"
 L["A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is."] = "当你的等级超过指南的等级时，在指南窗口显示提醒，每个指南每次登录一次，并附上适合你等级的指南。关闭：不提醒；指南保持不变。"
+-- L["For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"
@@ -3982,7 +3998,6 @@ L["Clean up quest log"] = "清理任务日志"
 L["Grey: no XP any more"] = "灰色：不再给予经验"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "路线不需要这些任务：它从不交付，或已不再给予经验。放弃会先在游戏自己的窗口中确认。"
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "列出任务日志中路线不需要的任务：它从不交付的，以及不再给予经验的灰色任务。每个都有一个会先确认的放弃按钮。只要有这样的任务，指南窗口的菜单里也有此项。"
-L["None of these has a known place to hand it in."] = "这些任务都没有已知的交还地点。"
 L["Where it is turned in is not known"] = "交还地点未知"
 L["Finished quests you're still carrying"] = "仍未交还的已完成任务"
 L["The route hands in every finished quest in your log."] = "路线会交还日志中所有已完成的任务。"
@@ -3997,6 +4012,8 @@ L["Every quest in your log is part of your route."] = "任务日志中的所有�
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "路线中没有任何指南会接取、完成或交还这些任务。保留你想要的；“放弃”会先在游戏自身的窗口中确认。"
 L["Finished: no guide of your route hands it in"] = "已完成：路线中没有指南会交还它"
 L["Not in any guide of your route"] = "不在你路线中的任何指南里"
+-- L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = ""
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = ""
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "新技能"
@@ -4896,6 +4913,8 @@ L["On the window's edge"] = "窗口边缘"
 L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."] = "在步骤下方为路线之外仍需完成或交还的任务显示行：指南更新后落在你身后的任务，以及之后没有指南会交还的已完成任务。关闭后，指南窗口菜单仍会在“交还已完成的任务”下列出已完成的任务。"
 L["XP line"] = "经验行"
 L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "步骤下方的一行：每小时经验、升级时间和你的节奏。强化休息保留自己的一行。"
+-- L["Quest log notices"] = ""
+-- L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = ""
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "提醒队列"
@@ -5537,6 +5556,15 @@ L["kept for %s"] = "留给 %s"
 L["kept"] = "保留"
 L["Kept for %s: the route hands it in there."] = "留给 %s：路线会在那里交还。"
 
+-- Lookup/Handins.lua
+-- L["No quests in your log are ready to hand in."] = ""
+-- L["Wait until combat ends to load the quest data."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Handins addon is installed and enabled."] = ""
+
+-- UI/QuestLinks.lua
+-- L["Start quest guide"] = ""
+-- L["Click to show quest guide actions."] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐页重新设置 Polestar。每项选择立即生效。"
 -- L["New"] = "新"
@@ -5813,3 +5841,5 @@ L["Kept for %s: the route hands it in there."] = "留给 %s：路线会在那里
 -- L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "窗口最多能长到多高，按屏幕高度的比例。更长的步骤可滚动查看。"
 -- L["Max height"] = "最大高度"
 -- L["%s: on this step"] = "%s：在此步骤"
+-- L["Your Hearthstone in the action button set, beside the quest item and target buttons, while the guide says to hearth. Bindable. The travel button under the arrow is a switch of its own: turning this one off leaves that one on."] = "指南要求使用炉石时，在动作按钮中、任务物品按钮和目标按钮旁显示你的炉石。可绑定按键。箭头下方的旅行按钮有自己的开关：关闭这个不会关闭那个。"
+-- L["None of these has a known place to hand it in."] = "这些任务都没有已知的交还地点。"

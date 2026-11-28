@@ -121,6 +121,44 @@ fn a_flight_to_everlook_with_the_hearthstone_bound_there_says_hearth_and_hearthi
 	assert_eq!(out["landed"]["step"], 2, "landing at Everlook's inn ends the step: {out}");
 }
 
+// The same step with the Hearthstone cooling down for 12 more seconds: the planner still hearths (waiting is the
+// faster way, p.hearthWait), and the step's title and travel row count the wait down: "Wait 0:11 for your
+// Hearthstone, then hearth to Everlook", then "Hearth to Everlook" once it is ready.
+#[test]
+fn a_hearth_still_on_its_cooldown_counts_down_on_the_travel_step_then_reads_hearth_to() {
+	let Some(out) = run(
+		NIGHTHAVEN,
+		"w.bind(\"Everlook\")\nw.addItem(6948, 1)",
+		&hyjal(""),
+		r#"
+		known(26, 27, 49, 52, 64, 65)
+		stub.world.accept(92008, {}, "Premiere Parts")
+		stub.advance(10) -- a cooldown starts at a time above 0
+		local start = GetTime()
+		local f = function(id) if id == 6948 then return start, 12, 1 end return 0, 0, 1 end
+		C_Container = C_Container or {}
+		C_Container.GetItemCooldown = f
+		if C_Item then C_Item.GetItemCooldown = f end
+		GetItemCooldown = f
+		E.SetGuide("test/hyjal"); stub.advance(1)
+		local r = { waiting = look() }
+		stub.advance(4)
+		r.later = look()
+		stub.advance(8)
+		r.ready = look()
+		emit(r)
+		"#,
+	) else {
+		return;
+	};
+	assert_eq!(out["waiting"]["legs"][0], "hearth", "{out}");
+	assert_eq!(out["waiting"]["title"], "Wait 0:11 for your Hearthstone, then hearth to Everlook", "{out}");
+	assert_eq!(out["waiting"]["rows"], json!(["Wait 0:11 for your Hearthstone, then hearth to Everlook"]), "{out}");
+	assert_eq!(out["later"]["title"], "Wait 0:07 for your Hearthstone, then hearth to Everlook", "it counts down: {out}");
+	assert_eq!(out["ready"]["title"], "Hearth to Everlook", "{out}");
+	assert_eq!(out["ready"]["rows"], json!(["Hearth to Everlook"]), "{out}");
+}
+
 // Without the planner (nav.travel off) the step holds as written: "Fly to Everlook", no travel waypoint.
 #[test]
 fn with_the_planner_off_the_flight_to_everlook_reads_as_written_3922() {

@@ -742,6 +742,17 @@ L["Kept for %s"] = "Gardée pour %s"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "Rendez %s à %s, qui se promène par ici : cherchez dans le cercle sur la carte"
 L["A quest you carry that the route does not work here: its work is nearby."] = "Une quête que vous avez et que l'itinéraire ne fait pas ici : son objectif est tout près."
 L["%s at %s"] = "%s à %s"
+-- L["%s, then fly to %s"] = ""
+-- L["%s, then take the boat to %s"] = ""
+-- L["%s, then take the zeppelin to %s"] = ""
+-- L["%s, then take the airship to %s"] = ""
+-- L["%s, then take the tram to %s"] = ""
+-- L["%s, then take the portal to %s"] = ""
+-- L["%s, then ride to %s"] = ""
+-- L["%s, then walk to %s"] = ""
+-- L["Buy a rune at %s"] = ""
+-- L["Buy a rune and cast %s to save about %s"] = ""
+-- L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Choisissez une récompense pour rendre la quête."
@@ -994,6 +1005,9 @@ L["Riding the boat to %s"] = "En bateau vers %s"
 L["Riding the zeppelin to %s"] = "En zeppelin vers %s"
 L["Riding the airship to %s"] = "En aéronef vers %s"
 L["Riding the tram to %s"] = "En tram vers %s"
+L["Wait %s for your Hearthstone, then hearth to %s"] = "Attendez %s votre pierre de foyer, puis pierre de foyer vers %s"
+L["Wait %s, then cast %s"] = "Attendez %s, puis lancez %s"
+L["%s ready in %s"] = "%s prêt dans %s"
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -1682,7 +1696,6 @@ L["Button look"] = "Apparence des boutons"
 L["Size, spacing, layout, backing, text, opacity and glow of these buttons, with a live preview, on the Buttons page."] = "Taille, espacement, disposition, fond, texte, opacité et lueur de ces boutons, avec un aperçu en direct, sur la page Boutons."
 L["Targeting"] = "Ciblage"
 L["Rewards, buttons and tracker"] = "Récompenses, boutons et suivi"
-L["Your Hearthstone in the action button set, beside the quest item and target buttons, while the guide says to hearth. Bindable. The travel button under the arrow is a switch of its own: turning this one off leaves that one on."] = "Votre pierre de foyer parmi les boutons d'action, à côté des boutons d'objet de quête et de ciblage, quand le guide demande de l'utiliser. Raccourci possible. Le bouton de voyage sous la flèche a son propre interrupteur : désactiver celui-ci laisse l'autre actif."
 L["Under the arrow, while the route's next leg is your Hearthstone, a teleport or a portal: a button that casts it. Right-click the arrow to skip the leg. The Hearthstone in the button set is a switch of its own: turning this one off leaves that one on."] = "Sous la flèche, quand le prochain tronçon de l'itinéraire est votre pierre de foyer, une téléportation ou un portail : un bouton qui le lance. Clic droit sur la flèche pour passer le tronçon. La pierre de foyer des boutons d'action a son propre interrupteur : désactiver celui-ci laisse l'autre actif."
 L["Hearthstone in the button set"] = "Pierre de foyer parmi les boutons d'action"
 L["Travel button under the arrow"] = "Bouton de voyage sous la flèche"
@@ -1716,6 +1729,7 @@ L["Equip a spare bag first"] = "Équiper d'abord un sac de rechange"
 L["When your bags are nearly full and a bag sits in them while a bag slot is empty, the bag button and the guide window offer to put it on before any junk. Nothing happens until you press."] = "Quand vos sacs sont presque pleins et qu'ils contiennent un sac alors qu'un emplacement de sac est vide, le bouton de sac et la fenêtre du guide proposent de l'équiper avant toute camelote. Rien ne se passe avant que vous appuyiez."
 L["Step errands"] = "Courses de l'étape"
 L["Level pace"] = "Rythme de niveau"
+L["Your Hearthstone in the action button set, beside the quest item and target buttons, while the guide says to hearth; and while the route's next leg is a class teleport or the Hearthstone, that cast (the travel button under the arrow then stands aside). Bindable. The travel button under the arrow is a switch of its own: turning this one off leaves that one on."] = "Votre pierre de foyer parmi les boutons d'action, à côté des boutons d'objet de quête et de ciblage, quand le guide demande de l'utiliser ; et, quand la prochaine étape de l'itinéraire est une téléportation de classe ou la pierre de foyer, ce sort (le bouton de voyage sous la flèche s'efface alors). Raccourci possible. Le bouton de voyage sous la flèche a son propre interrupteur : désactiver celui-ci laisse l'autre actif."
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Alliance uniquement"
@@ -2341,6 +2355,7 @@ L["Suggested"] = "Suggéré"
 L["The guides window only. Click to pick a size; right-click to reset."] = "La fenêtre des guides seulement. Cliquez pour choisir une taille ; clic droit pour réinitialiser."
 L["Quests in"] = "Quêtes dans"
 L["Passes through"] = "Traverse"
+-- L["%s: optional class quests"] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "Mascotte"
@@ -3201,6 +3216,7 @@ L["General"] = "Général"
 L["The language Polestar shows."] = "La langue qu'affiche Polestar."
 L["Say when I've outlevelled a guide"] = "Signaler quand j'ai dépassé le niveau d'un guide"
 L["A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is."] = "Un avis dans la fenêtre du guide, une fois par guide à chaque session, quand votre niveau dépasse celui du guide, avec un guide adapté à votre niveau. Désactivé : pas d'avis ; le guide reste tel quel."
+-- L["For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Avertissement de raid"
@@ -4093,7 +4109,6 @@ L["Clean up quest log"] = "Nettoyer le journal des quêtes"
 L["Grey: no XP any more"] = "Grise : plus d'XP"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "L'itinéraire n'en a pas besoin : il ne les rend jamais, ou elles ne donnent plus d'XP. « Abandonner » demande d'abord confirmation dans la fenêtre du jeu."
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "Liste les quêtes de votre journal dont l'itinéraire n'a pas besoin : celles qu'il ne rend jamais, et les grises qui ne donnent plus d'XP. Chacune a un bouton Abandonner qui demande d'abord confirmation. Le menu de la fenêtre du guide le propose aussi tant qu'il y en a."
-L["None of these has a known place to hand it in."] = "Aucune n'a d'endroit connu où la rendre."
 L["Where it is turned in is not known"] = "On ne sait pas où la rendre"
 L["Finished quests you're still carrying"] = "Quêtes terminées que vous gardez encore"
 L["The route hands in every finished quest in your log."] = "L'itinéraire rend toutes les quêtes terminées de votre journal."
@@ -4108,6 +4123,8 @@ L["Every quest in your log is part of your route."] = "Chaque quête de votre jo
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "Aucun guide de votre itinéraire ne les prend, ne les fait ni ne les rend. Gardez celles que vous voulez ; Abandonner demande d'abord dans la fenêtre du jeu."
 L["Finished: no guide of your route hands it in"] = "Terminée : aucun guide de votre itinéraire ne la rend"
 L["Not in any guide of your route"] = "Dans aucun guide de votre itinéraire"
+-- L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = ""
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = ""
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "NOUVELLE TECHNIQUE"
@@ -5007,6 +5024,8 @@ L["On the window's edge"] = "Sur le bord de la fenêtre"
 L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."] = "Des lignes sous l'étape pour les quêtes qu'il vous reste à terminer ou à rendre hors de l'itinéraire : celles qu'une mise à jour du guide a laissées derrière vous, et les quêtes terminées qu'aucun guide à venir ne rend. Désactivé, le menu de la fenêtre du guide liste toujours les terminées sous Rendre les quêtes terminées."
 L["XP line"] = "Ligne d'XP"
 L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "La ligne sous les étapes : XP par heure, temps avant le niveau et votre rythme. Repos amplifié garde sa propre ligne."
+-- L["Quest log notices"] = ""
+-- L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = ""
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "File d'alertes"
@@ -5649,6 +5668,15 @@ L["kept for %s"] = "gardée pour %s"
 L["kept"] = "gardée"
 L["Kept for %s: the route hands it in there."] = "Gardée pour %s : l'itinéraire la rend là-bas."
 
+-- Lookup/Handins.lua
+-- L["No quests in your log are ready to hand in."] = ""
+-- L["Wait until combat ends to load the quest data."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Handins addon is installed and enabled."] = ""
+
+-- UI/QuestLinks.lua
+-- L["Start quest guide"] = ""
+-- L["Click to show quest guide actions."] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Reconfigurer Polestar, une page à la fois. Chaque choix s'applique tout de suite."
 -- L["New"] = "Nouveau"
@@ -5963,3 +5991,5 @@ L["Kept for %s: the route hands it in there."] = "Gardée pour %s : l'itinérair
 -- L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "Jusqu'où la fenêtre peut grandir, en part de l'écran. Une étape plus longue défile."
 -- L["Max height"] = "Hauteur max."
 -- L["%s: on this step"] = "%s : à cette étape"
+-- L["Your Hearthstone in the action button set, beside the quest item and target buttons, while the guide says to hearth. Bindable. The travel button under the arrow is a switch of its own: turning this one off leaves that one on."] = "Votre pierre de foyer parmi les boutons d'action, à côté des boutons d'objet de quête et de ciblage, quand le guide demande de l'utiliser. Raccourci possible. Le bouton de voyage sous la flèche a son propre interrupteur : désactiver celui-ci laisse l'autre actif."
+-- L["None of these has a known place to hand it in."] = "Aucune n'a d'endroit connu où la rendre."

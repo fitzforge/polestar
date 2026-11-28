@@ -119,11 +119,11 @@ end
 -- both show (the action set's Hearthstone, the travel button under the
 -- arrow): their labels say which is which. The travel button's row is the
 -- Nav module's setting (Nav/Prompts.lua), here when it is loaded.
-local HEARTH_HELP = L["Your Hearthstone in the action button set, beside the quest item and target buttons, while the guide says to hearth. Bindable. The travel button under the arrow is a switch of its own: turning this one off leaves that one on."]
+local HEARTH_HELP = L["Your Hearthstone in the action button set, beside the quest item and target buttons, while the guide says to hearth; and while the route's next leg is a class teleport or the Hearthstone, that cast (the travel button under the arrow then stands aside). Bindable. The travel button under the arrow is a switch of its own: turning this one off leaves that one on."]
 local TRAVEL_HELP = L["Under the arrow, while the route's next leg is your Hearthstone, a teleport or a portal: a button that casts it. Right-click the arrow to skip the leg. The Hearthstone in the button set is a switch of its own: turning this one off leaves that one on."]
 function C.hearthButton()
 	return { kind = "toggle", key = "qol.hearthButton", label = L["Hearthstone in the button set"], help = HEARTH_HELP,
-		search = "hearth, hearthstone, hs, hs button, hearth button, action button, keybind, hotkey" }
+		search = "hearth, hearthstone, hs, hs button, hearth button, action button, keybind, hotkey, teleport, astral recall, moonglade" }
 end
 function C.castPrompt()
 	local Nav = ns.Nav

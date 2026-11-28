@@ -13365,7 +13365,12 @@ function Own.travelWay(s)
 	end
 	local rides = Own.rides()
 	if not main then return (rides and L["Ride to %s"] or L["Walk to %s"]):format(place) end
-	local first = main.kind == "hearth" and main.name and L["Hearth to %s"]:format(main.name) or main.label
+	-- A hearth or teleport still on its cooldown counts it down ("Wait 4:12 for your Hearthstone, then hearth to
+	-- Razor Hill": Travel.LegLabel); the guide window reads it again each second of the wait (ROUTE_WAIT).
+	local T = nav.travel
+	local wait = T and T.LegWait and T.LegWait(main)
+	local first = wait and wait > 0 and T.LegLabel(main)
+		or main.kind == "hearth" and main.name and L["Hearth to %s"]:format(main.name) or main.label
 	if not first then return nil end
 	if after then
 		local more = Own.WAY_THEN[after.kind]
@@ -13407,13 +13412,19 @@ end
 -- The route changed: the live travel step reads the new way (STEP_UPDATED
 -- when its text changes).
 Own.wayShown = false
-ns.On("ROUTE_CHANGED", function()
+function Own.wayMoved()
 	if not (guide and current) then return end
 	local way = Own.travelWay(current) or false
 	if way ~= Own.wayShown then
 		Own.wayShown = way
 		ns.Fire("STEP_UPDATED", current)
 	end
+end
+ns.On("ROUTE_CHANGED", Own.wayMoved)
+-- A hearth or teleport's wait came to its end (ROUTE_WAIT false): the plain way again, for every reader. The
+-- seconds before it move only the guide window's line (UI/GuideFrame.lua), never a STEP_UPDATED each second.
+ns.On("ROUTE_WAIT", function(still)
+	if not still then Own.wayMoved() end
 end)
 
 -- Nav reached the via waypoint in its own frame check (#4467): no chime, no

@@ -6175,7 +6175,18 @@ sweep: planned from each side of a zone border the player's walk crosses, two
 ways that differed only in the zone the plan started in, each priced by its
 straight line against the other's path, turned the arrow back at every step
 across it, up to 118 times in 4 minutes). `ROUTE_CHANGED` (legs) fires on every
-plan, `ROUTE_ADVANCED` (legs, ci) when the current leg moves on.
+plan, `ROUTE_ADVANCED` (legs, ci) when the current leg moves on. While a
+hearth or teleport leg still ahead waits on its cooldown (`Travel.LegWait`: the
+wait the planner counted in, `p.hearthWait` or a teleport's `ready`),
+`ROUTE_WAIT` (true) fires once a second and once more (false) as it comes
+ready (`Travel.WatchWait`): the Journey, the live step's travel line (the guide
+window re-reads it each second; `STEP_UPDATED` only at the end) and the
+arrow count it down (`Travel.LegLabel`: "Wait 4:12 for your Hearthstone, then
+hearth to Razor Hill"; `Travel.WaitText`: "Hearthstone ready in 4:12"). A
+hearth or teleport leg shows the Hearthstone's or the spell's own icon in the
+Journey and the arrow (`Travel.LegIcon`), and the Hearthstone button's slot
+offers its cast (QoL/Buttons.lua `Buttons.RouteCast`; a guide's `hearth`
+goal first), where the travel button under the arrow then stands aside.
 
 **Data.** `node tools/polestar.js travel build` writes TravelData.lua
 (committed: flight masters and flight times, boats, zeppelins, the tram and

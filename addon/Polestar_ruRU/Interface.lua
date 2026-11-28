@@ -713,6 +713,17 @@ L["Kept for %s"] = "Оставлено для «%s»"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "Сдайте «%s»: %s ходит поблизости, ищите внутри круга на карте"
 L["A quest you carry that the route does not work here: its work is nearby."] = "Задание из вашего журнала, которое маршрут здесь не выполняет: его цель рядом."
 L["%s at %s"] = "%s у %s"
+-- L["%s, then fly to %s"] = ""
+-- L["%s, then take the boat to %s"] = ""
+-- L["%s, then take the zeppelin to %s"] = ""
+-- L["%s, then take the airship to %s"] = ""
+-- L["%s, then take the tram to %s"] = ""
+-- L["%s, then take the portal to %s"] = ""
+-- L["%s, then ride to %s"] = ""
+-- L["%s, then walk to %s"] = ""
+-- L["Buy a rune at %s"] = ""
+-- L["Buy a rune and cast %s to save about %s"] = ""
+-- L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Выберите награду, чтобы сдать задание."
@@ -965,6 +976,9 @@ L["Riding the boat to %s"] = "На корабле в %s"
 L["Riding the zeppelin to %s"] = "На дирижабле в %s"
 L["Riding the airship to %s"] = "На воздушном корабле в %s"
 L["Riding the tram to %s"] = "На поезде в %s"
+L["Wait %s for your Hearthstone, then hearth to %s"] = "Подождите %s камень возвращения, затем вернитесь камнем в %s"
+L["Wait %s, then cast %s"] = "Подождите %s, затем примените %s"
+L["%s ready in %s"] = "%s будет готово через %s"
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -1653,7 +1667,6 @@ L["Button look"] = "Вид кнопок"
 L["Size, spacing, layout, backing, text, opacity and glow of these buttons, with a live preview, on the Buttons page."] = "Размер, отступы, расположение, подложка, текст, непрозрачность и свечение этих кнопок с живым предпросмотром на странице «Кнопки»."
 L["Targeting"] = "Выбор цели"
 L["Rewards, buttons and tracker"] = "Награды, кнопки и трекер"
-L["Your Hearthstone in the action button set, beside the quest item and target buttons, while the guide says to hearth. Bindable. The travel button under the arrow is a switch of its own: turning this one off leaves that one on."] = "Камень возвращения среди кнопок действий, рядом с кнопками предмета задания и цели, когда гайд велит им воспользоваться. Можно назначить клавишу. У кнопки пути под стрелкой свой переключатель: если выключить этот, тот останется включён."
 L["Under the arrow, while the route's next leg is your Hearthstone, a teleport or a portal: a button that casts it. Right-click the arrow to skip the leg. The Hearthstone in the button set is a switch of its own: turning this one off leaves that one on."] = "Под стрелкой, когда следующий участок маршрута — камень возвращения, телепорт или портал: кнопка, которая его применяет. ПКМ по стрелке пропускает участок. У камня возвращения среди кнопок действий свой переключатель: если выключить этот, тот останется включён."
 L["Hearthstone in the button set"] = "Камень возвращения среди кнопок действий"
 L["Travel button under the arrow"] = "Кнопка пути под стрелкой"
@@ -1688,6 +1701,7 @@ L["Equip a spare bag first"] = "Сначала надеть запасную с�
 L["When your bags are nearly full and a bag sits in them while a bag slot is empty, the bag button and the guide window offer to put it on before any junk. Nothing happens until you press."] = "Когда сумки почти полны, а в них лежит сумка при пустой ячейке для сумки, кнопка сумок и окно гайда предлагают надеть ее, прежде чем удалять хлам. Ничего не происходит, пока вы не нажмете."
 L["Step errands"] = "Поручения шага"
 L["Level pace"] = "Темп уровней"
+L["Your Hearthstone in the action button set, beside the quest item and target buttons, while the guide says to hearth; and while the route's next leg is a class teleport or the Hearthstone, that cast (the travel button under the arrow then stands aside). Bindable. The travel button under the arrow is a switch of its own: turning this one off leaves that one on."] = "Камень возвращения среди кнопок действий, рядом с кнопками предмета задания и цели, когда гайд велит им воспользоваться; а когда следующий отрезок маршрута — классовый телепорт или камень возвращения, именно он (кнопка пути под стрелкой тогда уступает место). Можно назначить клавишу. У кнопки пути под стрелкой свой переключатель: если выключить этот, тот останется включён."
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Только Альянс"
@@ -2313,6 +2327,7 @@ L["Suggested"] = "Рекомендуемый"
 L["The guides window only. Click to pick a size; right-click to reset."] = "Только окно гайдов. Нажмите, чтобы выбрать размер; правый клик — сброс."
 L["Quests in"] = "Задания в"
 L["Passes through"] = "Проходит через"
+-- L["%s: optional class quests"] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "Питомец"
@@ -3173,6 +3188,7 @@ L["General"] = "Общие"
 L["The language Polestar shows."] = "Язык, который показывает Polestar."
 L["Say when I've outlevelled a guide"] = "Сообщать, когда я перерос гайд"
 L["A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is."] = "Уведомление в окне гайда, раз за сессию для каждого гайда, когда ваш уровень выше уровня гайда, с гайдом под ваш уровень. Выкл.: без уведомления; гайд остается как есть."
+-- L["For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
@@ -4065,7 +4081,6 @@ L["Clean up quest log"] = "Очистить журнал заданий"
 L["Grey: no XP any more"] = "Серое: опыта больше нет"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "Маршруту они не нужны: он их не сдаёт, или они больше не дают опыта. «Отказаться» сначала спрашивает в окне самой игры."
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "Показывает задания в журнале, которые маршруту не нужны: те, что он никогда не сдаёт, и серые, которые больше не дают опыта. У каждого есть кнопка «Отказаться», которая сначала спрашивает. Пока такие есть, это есть и в меню окна гайда."
-L["None of these has a known place to hand it in."] = "Ни для одного из них неизвестно, где его сдать."
 L["Where it is turned in is not known"] = "Неизвестно, где сдать"
 L["Finished quests you're still carrying"] = "Выполненные задания, которые вы ещё не сдали"
 L["The route hands in every finished quest in your log."] = "Маршрут сдаёт все выполненные задания из вашего журнала."
@@ -4080,6 +4095,8 @@ L["Every quest in your log is part of your route."] = "Все задания в 
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "Ни один гайд вашего маршрута их не берет, не выполняет и не сдает. Оставьте нужные; «Отказаться» сначала спросит в окне самой игры."
 L["Finished: no guide of your route hands it in"] = "Выполнено: ни один гайд вашего маршрута его не сдает"
 L["Not in any guide of your route"] = "Нет ни в одном гайде вашего маршрута"
+-- L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = ""
+-- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = ""
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "НОВАЯ СПОСОБНОСТЬ"
@@ -4979,6 +4996,8 @@ L["On the window's edge"] = "У края окна"
 L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."] = "Строки под шагом для заданий, которые вам еще нужно выполнить или сдать вне маршрута: оставленных позади обновлением гайда и выполненных, которые не сдает ни один следующий гайд. Выкл.: меню окна гайда по-прежнему перечисляет выполненные в пункте Сдать выполненные задания."
 L["XP line"] = "Строка опыта"
 L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "Строка под шагами: опыт в час, время до уровня и ваш темп. У Улучшенного отдыха своя строка."
+-- L["Quest log notices"] = ""
+-- L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = ""
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "Стопка оповещений"
@@ -5620,6 +5639,15 @@ L["kept for %s"] = "оставлено для «%s»"
 L["kept"] = "оставлено"
 L["Kept for %s: the route hands it in there."] = "Оставлено для «%s»: маршрут сдает его там."
 
+-- Lookup/Handins.lua
+-- L["No quests in your log are ready to hand in."] = ""
+-- L["Wait until combat ends to load the quest data."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Handins addon is installed and enabled."] = ""
+
+-- UI/QuestLinks.lua
+-- L["Start quest guide"] = ""
+-- L["Click to show quest guide actions."] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Заново настроить Polestar, страница за страницей. Каждый выбор действует сразу."
 -- L["New"] = "Новое"
@@ -5894,3 +5922,5 @@ L["Kept for %s: the route hands it in there."] = "Оставлено для «%s
 -- L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "Насколько высоким может стать окно, в доле экрана. Более длинный шаг прокручивается."
 -- L["Max height"] = "Макс. высота"
 -- L["%s: on this step"] = "%s: на этом шаге"
+-- L["Your Hearthstone in the action button set, beside the quest item and target buttons, while the guide says to hearth. Bindable. The travel button under the arrow is a switch of its own: turning this one off leaves that one on."] = "Камень возвращения среди кнопок действий, рядом с кнопками предмета задания и цели, когда гайд велит им воспользоваться. Можно назначить клавишу. У кнопки пути под стрелкой свой переключатель: если выключить этот, тот останется включён."
+-- L["None of these has a known place to hand it in."] = "Ни для одного из них неизвестно, где его сдать."

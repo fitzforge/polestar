@@ -443,6 +443,8 @@ mod recorder_progress;
 mod recorder_route;
 mod release;
 mod riding;
+#[path = "route-cast.rs"]
+mod route_cast;
 #[path = "route-experimental.rs"]
 mod route_experimental;
 #[path = "route-plan.rs"]
