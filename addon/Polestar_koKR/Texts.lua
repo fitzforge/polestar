@@ -7028,6 +7028,7 @@ t.guides["forever/horde/50-60/07-felwood"] = (function() return {
 		["North of Donova, at the tunnel's {zone:1452} exit."] = "도노바 북쪽, 동굴의 {zone:1452} 출구에 있습니다.",
 		["Ride back west along the road to {area:2246}."] = "길을 따라 서쪽 {area:2246}(으)로 돌아가세요.",
 		["Ride north along the road, past {area:1763}, to {area:1997}."] = "길을 따라 북쪽으로 {area:1763}을(를) 지나 {area:1997}(으)로 가세요.",
+		["Scare {npc:10978} with {item:12928}"] = "{item:12928}(으)로 {npc:10978} 겁주기",
 		["The {area:2479}"] = "{area:2479}",
 		["Through the Timbermaw tunnel to {zone:1450}. {npc:11939} reads in a house in {area:2361}."] = "나무구렁일족 동굴을 지나 {zone:1450}(으)로 가세요. {npc:11939}은(는) {area:2361}의 한 집에서 책을 읽고 있습니다.",
 		["With 30 {quest:6031} in your bags: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "가방에 {quest:6031} 30개가 있다면: 길을 따라 북쪽 {area:1769}(으)로 가세요. {npc:11557}이(가) 입구 바로 안에서 거래합니다.",

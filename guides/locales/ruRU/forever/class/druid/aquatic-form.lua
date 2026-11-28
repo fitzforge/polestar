@@ -36,8 +36,8 @@ return {
 	["{item:15882}, from the {object:177790}"] = "{item:15882}, из ящика ({object:177790})",
 
 	-- Step 6: Pendant of the Sea Lion
-	-- {area:2362} Shrine of Remulos · {zone:1450} Moonglade · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village
-	["The {area:2362} is on the north-west shore of {zone:1450}. {spell:18960} also works inside {zone:1450} and lands you by {npc:11802}, who is upstairs in his building, and the arrow cannot tell the floors apart. {npc:11800}, in the middle of {area:2361}, flies druids straight to {area:702}."] = "",
+	-- {spell:18960} Teleport: Moonglade · {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village
+	["{spell:18960} also works inside {zone:1450} and lands by {npc:11802}, who is upstairs in his building, and the arrow cannot tell the floors apart. {npc:11800}, in the middle of {area:2361}, flies druids straight to {area:702}."] = "",
 	-- {item:15885} Pendant of the Sea Lion
 	["{item:15885}: join the halves at the shrine"] = "{item:15885}: соедините половинки у святилища",
 
@@ -77,8 +77,8 @@ return {
 	["{item:15882}, from the {object:177844}"] = "{item:15882}, из ящика ({object:177844})",
 
 	-- Step 14: Pendant of the Sea Lion
-	-- {area:2362} Shrine of Remulos · {spell:18960} Teleport: Moonglade · {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
-	["The pendant halves join by the {area:2362} on the north-west shore. {spell:18960} works inside {zone:1450} and lands by {npc:11802}, who stands upstairs in his building, and the arrow cannot tell the floors apart. {npc:11798} flies druids to {area:1638}."] = "",
+	-- {spell:18960} Teleport: Moonglade · {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
+	["{spell:18960} also works inside {zone:1450} and lands by {npc:11802}, who is upstairs in his building, and the arrow cannot tell the floors apart. {npc:11798} flies druids to {area:1638}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Cast {spell:18960}. Join the two halves into the {item:15885} near the {area:2362}, on the north-west shore of the lake, then see {npc:11802} in {area:2361}. Fly to {area:702} afterwards."] = "Примените {spell:18960}. Соедините две половинки, чтобы получить предмет {item:15885}, у святилища ({area:2362}) на северо-западном берегу озера, затем поговорите: {npc:11802} ({area:2361}). После этого летите сюда: {area:702}.",

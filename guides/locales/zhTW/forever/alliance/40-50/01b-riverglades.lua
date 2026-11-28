@@ -204,9 +204,8 @@ return {
 
 	-- Step 41: The Twilight cult
 	["The Twilight cult"] = "暮光教派",
-	-- {area:16723} Sunnyglade · {item:266148} Farmers' Mementos · {npc:263613} Brother Lowley · {area:16724} Farholde Keep · {item:4338} Mageweave Cloth · {quest:94885} Field Marshal's Log · {npc:256899} Chogg'Zac · {npc:263380} Ghostmaw
-	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
-	["The cultists fill the streets and fields of {area:16723}, with ritual circles in the middle and burnt houses to the west. The charms, pages and finger bones drop from the cultists, and the Twilight Raiders drop the five {item:266148}, one for each grave west of Elbrim's farm.\n{npc:263613} in {area:16724} asks for twenty {item:4338} later. Cultists sometimes drop the {quest:94885}, which starts a quest.\nDanger: {npc:256899}, an elite level 41 ogre, walks the western streets of {area:16723} around 44-47,47-52. More players died here than anywhere else in the zone.\n{npc:263380}, a level 42 elite from the river, can wander up from the south-western fields."] = "",
+	-- {area:16723} Sunnyglade · {npc:263613} Brother Lowley · {area:16724} Farholde Keep · {item:4338} Mageweave Cloth · {npc:256899} Chogg'Zac · {npc:263380} Ghostmaw
+	["The cultists fill the streets and fields of {area:16723}, and any of them can drop the charms, pages and finger bones.\n{npc:263613} in {area:16724} asks for twenty {item:4338} later, and the cultists drop it.\nDanger: {npc:256899}, an elite level 41 ogre, walks the western streets of {area:16723} around 44-47,47-52. More players died here than anywhere else in the zone.\n{npc:263380}, a level 42 elite from the river, can wander up from the south-western fields."] = "",
 	-- {item:269990} Crystal Catalyst
 	["fill the {item:269990} at the ritual circles"] = "在儀式法陣裝滿{item:269990}",
 	-- {item:266148} Farmers' Mementos

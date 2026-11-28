@@ -590,7 +590,7 @@ return {
 	-- {zone:1453} Stormwind
 	["Tram to {zone:1453}"] = "搭地鐵前往{zone:1453}",
 	-- {npc:12997} Monty · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:13018} Nipsy · {zone:1453} Stormwind
-	["{npc:12997} is on the {zone:1455} platform of the {area:2257}, and his brother {npc:13018} is at the {zone:1453} end. The tram has no map inside, so the city markers show the entrances, not the two brothers."] = "",
+	["{npc:12997} is on the {zone:1455} platform of the {area:2257}, and his brother {npc:13018} is at the {zone:1453} end. The tram has no map inside, so the city markers show the entrances, not the brothers."] = "",
 	-- {npc:12997} Monty · {zone:1455} Ironforge
 	["{npc:12997}, on the {zone:1455} platform"] = "{npc:12997}，在{zone:1455}站臺上",
 	-- {npc:13016} Deeprun Rat · {item:17117} Rat Catcher's Flute

@@ -356,8 +356,8 @@ return {
 	["The {object:148418}"] = "{object:148418}",
 
 	-- Step 79: The Eternal Flame
-	-- {npc:268592} Olariaan Swiftburn · {npc:268762} Brazier of Offering · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar
-	["{npc:268592} lights the {npc:268762}. The flame is on a timer, and the {npc:268679} is beside {npc:252382} in {area:16638}."] = "",
+	-- {object:148418} Eternal Flame · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar · {npc:268592} Olariaan Swiftburn
+	["Once taken, the {object:148418} lasts six minutes, so the walk to the {npc:268679} beside {npc:252382} in {area:16638} has no room for detours. If it runs out, the quest can be taken again from {npc:268592}."] = "",
 	-- {npc:252382} Sessaria Skystride · {npc:2523} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
 	["{npc:252382}: {npc:2523}, your {item:5176} and the {item:263412}"] = "{npc:252382}: {npc:2523}, dein {item:5176} und {item:263412}",
 

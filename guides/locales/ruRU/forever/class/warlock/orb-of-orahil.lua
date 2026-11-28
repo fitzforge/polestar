@@ -40,9 +40,9 @@ return {
 	["{npc:6252}: he gives you the {item:12646}"] = "{npc:6252}: он даст вам {item:12646}",
 
 	-- Step 7: Mannoroc Coven
-	-- {area:602} Mannoroc Coven · {zone:1443} Desolace · {area:2408} Shadowprey Village · {item:7291} Infernal Orb
+	-- {item:7291} Infernal Orb
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner · Mana Eaters = {npc:4678} Mana Eater · Mage Hunters = {npc:4681} Mage Hunter · Ley Hunters = {npc:4685} Ley Hunter · Lesser Infernals = {npc:4676} Lesser Infernal
-	["{area:602} is in south-central {zone:1443}, east of {area:2408}. Burning Blade Summoners (38-39, warlocks with imps) always drop the {item:7291}. The gems do no damage, so the demon has to die while the channel is running. The ruby works on felhounds: Mana Eaters (37-38) in the north, Mage Hunters (38) and Ley Hunters (39) further south. The emerald works on Lesser Infernals (36-37, fire-resistant)."] = "",
+	["Burning Blade Summoners (38-39, warlocks with imps) always drop the {item:7291}. The gems do no damage, so the demon has to die while the channel runs. The ruby works on felhounds: Mana Eaters (37-38) in the north, Mage Hunters (38) and Ley Hunters (39) further south. The emerald works on Lesser Infernals (36-37, fire-resistant)."] = "",
 	-- {item:7291} Infernal Orb
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner
 	["{item:7291}, from the Burning Blade Summoners"] = "{item:7291}: призыватели из клана Пылающего Клинка",

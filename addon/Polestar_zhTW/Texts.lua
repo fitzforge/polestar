@@ -8699,6 +8699,7 @@ t.guides["forever/horde/50-60/07-felwood"] = (function() return {
 		["North of Donova, at the tunnel's {zone:1452} exit."] = "在多諾瓦北邊，隧道通往{zone:1452}的出口。",
 		["Ride back west along the road to {area:2246}."] = "沿著道路向西騎回{area:2246}。",
 		["Ride north along the road, past {area:1763}, to {area:1997}."] = "沿著道路向北騎，經過{area:1763}，前往{area:1997}。",
+		["Scare {npc:10978} with {item:12928}"] = "用{item:12928}嚇唬{npc:10978}",
 		["The runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "信使三五成群地沿路從{area:1769}往{area:2244}走；在{npc:9298}附近的路邊等著，路過就殺。每人帶一個板條箱。\n注意：交任務會刷出三到四個56-57級的冬泉伏擊者攻擊你；騎馬、潛行或者用{spell:5384}都能甩掉，之後他們會聚在湖邊，方便你接下一個任務。",
 		["The {area:2479}"] = "{area:2479}",
 		["Through the Timbermaw tunnel to {zone:1450}. {npc:11939} reads in a house in {area:2361}."] = "穿過木喉隧道前往{zone:1450}。{npc:11939}在{area:2361}的一間房子裡看書。",

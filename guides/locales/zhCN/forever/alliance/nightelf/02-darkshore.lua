@@ -51,7 +51,7 @@ return {
 	["Bears and the Blackwood camp"] = "熊和黑木营地",
 	-- {area:442} Auberdine
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Rabid Thistle Bears roam the hills south of {area:442}, and the furbolg camp is just east of them. Nothing at the camp needs killing yet."] = "",
+	["Rabid Thistle Bears roam the hills south of {area:442}. Nothing at the furbolg camp needs killing yet."] = "",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "{npc:3701} 附近的狂暴蓟熊",

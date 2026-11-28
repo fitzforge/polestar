@@ -38,9 +38,9 @@ return {
 	["Grizzled Scalps"] = "Cueros cabelludos grisáceos",
 
 	-- Step 6: The Master's Glaive
-	-- {object:12666} Twilight Tome · {quest:948} Onu · {item:5251} Phial of Scrying · {object:10076} Scrying Bowl
+	-- {object:12666} Twilight Tome · {item:5251} Phial of Scrying · {object:10076} Scrying Bowl · {quest:948} Onu
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} is at the bottom of the crater, and for {quest:948}'s quest the {item:5251} makes the {object:10076} there, which takes the turn-in."] = "",
+	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} is at the bottom of the crater, and the {item:5251} makes the {object:10076} that takes {quest:948}'s quest."] = "",
 	-- plural, as words: Fine Moonstalker Pelts = {item:5386} Fine Moonstalker Pelt
 	["Fine Moonstalker Pelts"] = "Pelambres de Acechalunas refinadas",
 	-- {item:5352} Book: The Powers Below
@@ -118,8 +118,8 @@ return {
 	["{npc:3616}, at the Grove"] = "{npc:3616}, en el Páramo de los Ancianos",
 
 	-- Step 21: Volcor
-	-- {npc:3692} Volcor · {area:455} Blackwood Den · {area:449} Master's Glaive
-	["{npc:3692} is in {area:455}, in the hills east of the {area:449}."] = "",
+	-- {area:455} Blackwood Den · {area:449} Master's Glaive
+	["{area:455} is in the hills east of the {area:449}."] = "",
 	-- {npc:3692} Volcor · {area:455} Blackwood Den
 	["{npc:3692}, inside {area:455}"] = "{npc:3692}, dentro de {area:455}",
 	-- {npc:12298} Sickly Deer · {item:15826} Curative Animal Salve · {zone:1439} Darkshore
@@ -168,24 +168,26 @@ return {
 	["{quest:98394} (Night Elves) and the {npc:272054} (Skyborne) wait in southern {area:493}. The three relics lie in the {area:2363}, east of them. Reports from the first weeks say a relic gives no loot while another player is looting it: wait a moment and try again."] = "{quest:98394} (elfos de la noche) y {npc:272054} (Cielonato) esperan en el sur de {area:493}. Las tres reliquias están en {area:2363}, al este de ellos. Según informes de las primeras semanas, una reliquia no da botín mientras otro jugador la saquea: espera un momento y vuelve a intentarlo.",
 
 	-- Step 33: Trial of the Sea Lion
-	-- {zone:1436} Westfall · {zone:1439} Darkshore · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze
-	["The two halves come from {zone:1436} and the north coast of {zone:1439}, and the {area:2362} is on the north-west shore of the lake. {npc:11802} is upstairs in his building, and the arrow cannot tell the floors apart."] = "",
 	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
 	["{item:15885}: join the halves at the {area:2362}"] = "{item:15885}: une las mitades en {area:2362}",
+
+	-- Step 34: Pendant of the Sea Lion
+	-- {npc:11802} Dendrite Starblaze
+	["{npc:11802} is upstairs in his building, and the arrow cannot tell the floors apart."] = "",
+
+	-- Step 35: Dendrite Starblaze
+	-- {item:15885} Pendant of the Sea Lion · {npc:11802} Dendrite Starblaze · {quest:5061} Aquatic Form
+	["The {item:15885} is already with {npc:11802}: take {quest:5061} from him, upstairs in his building."] = "{item:15885} ya está con {npc:11802}: acepta {quest:5061} de él, en el piso de arriba de su edificio.",
 	-- {npc:11802} Dendrite Starblaze · {quest:5061} Aquatic Form · {npc:4217} Mathrengyl Bearwalker
 	["{npc:11802}: {quest:5061}, for {npc:4217}"] = "{npc:11802}: {quest:5061}, para {npc:4217}",
 
-	-- Step 34: Dendrite Starblaze
-	-- {item:15885} Pendant of the Sea Lion · {npc:11802} Dendrite Starblaze · {quest:5061} Aquatic Form
-	["The {item:15885} is already with {npc:11802}: take {quest:5061} from him, upstairs in his building."] = "{item:15885} ya está con {npc:11802}: acepta {quest:5061} de él, en el piso de arriba de su edificio.",
-
-	-- Step 35: Back to Dendrite Starblaze
+	-- Step 36: Back to Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze
 	["Back to {npc:11802}"] = "Regresa con {npc:11802}",
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
 	["Back to {npc:11802} in {area:2361}, then {npc:11800} there flies Druids straight to {area:702}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "De vuelta con {npc:11802} en {area:2361}; luego {npc:11800}, allí mismo, lleva a los druidas directo a {area:702}. {npc:11802} está en el piso de arriba de su edificio: sube por adentro, la flecha no distingue los pisos.",
 
-	-- Step 38: To Darnassus
+	-- Step 39: To Darnassus
 	-- {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine · {zone:1440} Ashenvale
 	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}. {npc:4217} is a Druid trainer: learn your new spells from him."] = "Toma el portal de subida hasta {npc:4217}, luego vuela de vuelta a {area:442} para el camino al sur hacia {zone:1440}. {npc:4217} es instructor de druidas: aprende con él tus nuevos hechizos.",
 

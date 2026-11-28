@@ -6920,6 +6920,7 @@ t.guides["forever/horde/50-60/07-felwood"] = (function() return {
 		["North of Donova, at the tunnel's {zone:1452} exit."] = "К северу от Доновы, у выхода из туннеля в зону {zone:1452}.",
 		["Ride back west along the road to {area:2246}."] = "Возвращайтесь на запад по дороге сюда: {area:2246}.",
 		["Ride north along the road, past {area:1763}, to {area:1997}."] = "Езжайте на север по дороге мимо места {area:1763} в {area:1997}.",
+		["Scare {npc:10978} with {item:12928}"] = "Напугайте {npc:10978} с помощью предмета {item:12928}",
 		["The {area:2479}"] = "Место: {area:2479}",
 		["Through the Timbermaw tunnel to {zone:1450}. {npc:11939} reads in a house in {area:2361}."] = "Через туннель Древобрюхов в {zone:1450}. {npc:11939} читает в доме здесь: {area:2361}.",
 		["With 30 {quest:6031} in your bags: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "С 30 шт. «{quest:6031}» в сумках: идите по дороге на север в {area:1769}; {npc:11557} торгует сразу за входом.",

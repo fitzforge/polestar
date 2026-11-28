@@ -130,7 +130,7 @@ return {
 	["{area:442}: the seal, the {npc:6788} and the pelts"] = "{area:442}: el sello, la {npc:6788} y las pieles",
 	-- {item:5338} Ancient Moonstone Seal · {quest:956} Bashal'Aran · {npc:6788} Den Mother · {zone:1439} Darkshore
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	["The {item:5338} drops from the satyrs of {quest:956}, and the flame is there too. The {npc:6788} lairs north-east of {quest:956}, and Moonstalker Sires and Matriarchs roam southern {zone:1439}."] = "",
+	["The {item:5338} drops from the satyrs of {quest:956}. The {npc:6788} lairs north-east of {quest:956}, and Moonstalker Sires and Matriarchs roam southern {zone:1439}."] = "",
 	["the seal at the ancient flame"] = "el sello en la llama antigua",
 
 	-- Step 20: A Donation of Silk
@@ -169,8 +169,8 @@ return {
 	["{npc:9047}, beside Fandral in the {area:1658}, takes the soil. {npc:4217} sells the {item:11020} and Packets of Tharlendris Seeds. With a seed packet and 2 {quest:3764} in your bags, use the pouch to grow an {item:11024} and open it: about one casing in three holds {item:11040} (1 to 5), the rest other herbs. The pouch works once every 10 minutes, so use it whenever it is ready while you do other things."] = "{npc:9047}, junto a Fandral en {area:1658}, recibe la tierra. {npc:4217} vende la {item:11020} y paquetes de semillas de Tharlendris. Con un paquete de semillas y 2 {quest:3764} en tus bolsas, usa la bolsa para hacer crecer una {item:11024} y ábrela: más o menos una vaina de cada tres tiene {item:11040} (de 1 a 5), el resto otras hierbas. La bolsa funciona una vez cada 10 minutos, así que úsala cada vez que esté lista mientras haces otras cosas.",
 
 	-- Step 33: Darnassus: Morrowgrain Research
-	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave · {npc:4217} Mathrengyl Bearwalker · {quest:3764} Un'Goro Soil · {item:11040} Morrowgrain
-	["{npc:9047} is beside Fandral in the {area:1658}, and {npc:4217} sells the pouch and seeds. Each casing needs a seed packet and 2 {quest:3764}, only about one in three holds {item:11040} (1 to 5), and the pouch works once every 10 minutes."] = "",
+	-- {quest:3764} Un'Goro Soil · {item:11040} Morrowgrain
+	["Each casing needs a seed packet and 2 {quest:3764}, only about one in three holds {item:11040} (1 to 5), and the pouch works once every 10 minutes."] = "",
 	-- {item:11040} Morrowgrain
 	["{item:11040}: grow it here and open the casings"] = "{item:11040}: cultívalo aquí y abre las vainas",
 

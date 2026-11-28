@@ -188,9 +188,9 @@ return {
 	["South down the coast to Shadowprey: {npc:268705} first, on the path into the village; {npc:11624} takes the box and sends you to {area:602} with it; {npc:12340} takes the naga."] = "沿海岸向南到葬影村。先找进村路上的{npc:268705}，再把盒子交给{npc:11624}，他会让你带着盒子去{area:602}。纳迦的任务交给{npc:12340}。",
 
 	-- Step 37: Portals of the Legion
-	-- {npc:11937} Demon Portal Guardian
+	-- {item:14547} Hand of Iruxos · {npc:11937} Demon Portal Guardian
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner
-	["Each portal releases a {npc:11937} (38-39), and there are six portals. Infernals, Doomguards and Burning Blade Summoners patrol near many portals and may join the fight."] = "",
+	["The {item:14547} opens the six portals' rings, and each releases a {npc:11937} (38-39). Infernals, Doomguards and Burning Blade Summoners patrol near many portals and can join the fight."] = "",
 
 	-- Step 38: The Valley of Bones
 	-- {area:2657} Valley of Bones

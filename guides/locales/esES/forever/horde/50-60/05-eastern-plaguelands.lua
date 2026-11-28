@@ -192,8 +192,8 @@ return {
 	-- {area:2627} Terrordale
 	["{area:2627}: kill these as you meet them"] = "{area:2627}: mata a estos según te los encuentres",
 	-- {area:2627} Terrordale
-	-- plural, as words: Large Termite Mounds = {object:177464} Large Termite Mound · Ziggurat Protectors = {npc:12262} Ziggurat Protector
-	["The book lies in the ruined inn of {area:2627}, and the undead in town are level 54-56. Large Termite Mounds stand all over the hills east of {area:2627}, but elite level 58 Ziggurat Protectors guard the ziggurats east and north-east of town."] = "",
+	-- plural, as words: Ziggurat Protectors = {npc:12262} Ziggurat Protector
+	["The undead in {area:2627} are level 54-56, and elite level 58 Ziggurat Protectors guard the ziggurats east and north-east of town."] = "",
 	-- {quest:5510} Minion's Scourgestones · {area:2627} Terrordale · {item:12846} Argent Dawn Commission
 	["{quest:5510}: the {area:2627} undead drop them while you wear the {item:12846}"] = "{quest:5510}: los no-muertos de {area:2627} las sueltan mientras llevas la {item:12846}",
 
@@ -215,9 +215,9 @@ return {
 	["Underwater"] = "Bajo el agua",
 
 	-- Step 46: Corin's Crossing
-	-- {area:2264} Corin's Crossing · {item:15447} Living Rot · {quest:5211} Defenders of Darrowshire
-	-- plural, as words: Unseen Servants = {npc:8538} Unseen Servant · Darrowshire Spirits = {npc:11064} Darrowshire Spirit
-	["{area:2264} is south, on the road, and {item:15447} spoils within ten minutes. Unseen Servants call for help within 25 yd at 40% health and turn invisible out of combat, so a call inside the town can pull many mobs, less so on the outskirts; with {quest:5211} in the log, Scourge here leave Darrowshire Spirits."] = "",
+	-- {item:15447} Living Rot
+	-- plural, as words: Unseen Servants = {npc:8538} Unseen Servant
+	["{item:15447} spoils within ten minutes. Unseen Servants call for help within 25 yd at 40% health and turn invisible out of combat, so a call inside the town can pull many mobs."] = "",
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "Libera a los espíritus de Villa Darrow: habla con ellos",
 	-- {npc:8530} Cannibal Ghoul · {npc:11064} Darrowshire Spirit
@@ -341,8 +341,8 @@ return {
 	["{npc:10922}: the Cleansed Water from Islen in the {zone:1413}"] = "",
 
 	-- Step 75: Dousing the Flames of Protection
-	-- {area:1770} Shadow Hold · {area:1763} Jaedenar
-	["The four braziers are inside {area:1770}, the cave in the north of {area:1763}. The cave is full of level 53-55 Shadow Council mobs, often in linked groups, and many of them can stun."] = "",
+	-- {area:1770} Shadow Hold · {item:12906} Purified Moonwell Water
+	["{area:1770} is full of level 53-55 Shadow Council mobs, often in linked groups, and many of them can stun. The braziers take Greta's {item:12906}."] = "",
 
 	-- Step 76: Greta Mosshoof
 	["Back south to the Sanctuary, a short ride."] = "Vuelve al sur, al Santuario; está cerca.",

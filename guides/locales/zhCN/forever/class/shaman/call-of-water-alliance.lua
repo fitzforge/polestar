@@ -38,8 +38,8 @@ return {
 
 	-- Step 8: The blue waterskin
 	["The blue waterskin"] = "蓝色水袋",
-	-- {area:415} Astranaar · {zone:1440} Ashenvale · {area:150} Menethil Harbor · {area:442} Auberdine · {zone:1439} Darkshore
-	["The water comes from the lake around {area:415} in {zone:1440}. The boat from {area:150} goes to {area:442} in {zone:1439}, which is north of {zone:1440}."] = "",
+	-- {area:150} Menethil Harbor · {area:442} Auberdine · {zone:1439} Darkshore · {zone:1440} Ashenvale
+	["The boat from {area:150} goes to {area:442} in {zone:1439}, north of {zone:1440}."] = "",
 
 	-- Step 9: Hervdana Saegrund
 	-- {item:7810} Vial of Purest Water · {npc:258043} Norric Lochthane

@@ -16,7 +16,7 @@ return {
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}: Halycon's pups"] = "{area:1583} inférieur : les chiots de Halycon",
 	-- {npc:10584} Urok Doomhowl
-	["The pups run with Halycon, the great worg, deep in Lower Blackrock Spire (not Upper) beyond {npc:10584}'s ogres; it is a group dungeon for five, level 55-60. The pup must be alive for the cage to work, and taking damage interrupts the cast."] = "",
+	["Halycon's pups are deep in Lower Blackrock Spire (not Upper), beyond {npc:10584}'s ogres: a group dungeon for five, level 55-60. The cage works only on a living pup, and taking damage interrupts it."] = "",
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}"] = "{area:1583} inférieur",
 

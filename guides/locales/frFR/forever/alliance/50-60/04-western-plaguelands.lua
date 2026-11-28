@@ -397,9 +397,8 @@ return {
 	-- Step 72: Plaguewood: kill these as you meet them
 	-- {area:2277} Plaguewood
 	["{area:2277}: kill these as you meet them"] = "{area:2277} : tuez-les au passage",
-	-- {area:2627} Terrordale · {area:2277} Plaguewood
 	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound
-	["{area:2627} is west through the {area:2277}, and the big termite mounds are on the way. The Frenzied Plaguehounds are level 57-58, so pulling more than one is dangerous."] = "",
+	["The Frenzied Plaguehounds are level 57-58, so pulling more than one is dangerous."] = "",
 
 	-- Step 73: Augustus the Touched
 	-- {npc:12384} Augustus the Touched · {area:2627} Terrordale · {npc:11140} Egan · {npc:16184} Nerubian Overseer · {area:2626} Terrorweb Tunnel

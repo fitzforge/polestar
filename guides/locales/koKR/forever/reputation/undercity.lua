@@ -111,8 +111,8 @@ return {
 	["The level 55 to 60 quests pay in full. First the {area:152}: {npc:10879}, by the {faction:68}'s elevators, sends you there. Lady Sylvanas in the {object:36126} gives {quest:5961}, an introduction to {npc:11878}: {quest:6136}, his last quest here, needs it handed in."] = "레벨 55~60 퀘스트는 평판을 전부 줍니다. 먼저 {area:152}: {faction:68} 승강기 옆의 {npc:10879}이(가) 그곳으로 보냅니다. {object:36126}의 실바나스 여왕이 {npc:11878} 소개 퀘스트인 {quest:5961}을(를) 줍니다. 그의 여기 마지막 퀘스트인 {quest:6136}은(는) 이를 제출해야 합니다.",
 
 	-- Step 18: Bulwark: Scarlet Diversions
-	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {npc:10837} High Executor Derrington · {faction:68} Undercity · {area:200} Dalson's Tears · {area:199} Felstone Field
-	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain against the Scourge cauldrons is worth about 820 {faction:68} reputation. The Scarlet camp's command tent is between {area:200} and {area:199}."] = "",
+	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {npc:10837} High Executor Derrington · {faction:68} Undercity
+	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain against the Scourge cauldrons is worth about 820 {faction:68} reputation."] = "",
 	-- {quest:5096} Scarlet Diversions
 	["{quest:5096}, +100 (level 53)"] = "{quest:5096}, +100 (53레벨)",
 	-- {object:176088} Scarlet Crusade Forward Camp (no name in this language: may be words)
@@ -128,7 +128,7 @@ return {
 	-- {area:199} Felstone Field
 	["{area:199} and the Andorhal towers"] = "{area:199}와(과) 안도르할 탑",
 	-- {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field
-	["{npc:11075} guards the cauldron at {area:199}. The four Andorhal towers are marked at their doors."] = "",
+	["{npc:11075} guards the cauldron at {area:199}."] = "",
 	-- {object:176361} Scourge Cauldron
 	["the {object:176361}"] = "{object:176361}",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
@@ -230,8 +230,8 @@ return {
 	["read the {object:142715}"] = "{object:142715} 읽기",
 
 	-- Step 38: Shadra'Alor: Shadra
-	-- {npc:2707} Shadra · {area:353} Shadra'Alor
-	["{npc:2707} is an elite level 55 spider summoned at the altar of {area:353}, and she always drops her venom."] = "",
+	-- {npc:2707} Shadra
+	["{npc:2707}, an elite level 55 spider, always drops her venom."] = "",
 	-- {item:9324} Shadra's Venom · {npc:2707} Shadra
 	["{item:9324}, from {npc:2707}"] = "{item:9324}, {npc:2707}에게서",
 

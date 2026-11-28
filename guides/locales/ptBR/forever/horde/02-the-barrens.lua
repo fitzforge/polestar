@@ -308,9 +308,9 @@ return {
 
 	-- Step 65: Raptor nests
 	["Raptor nests"] = "Ninhos de raptor",
-	-- {area:1697} Raptor Grounds · {item:5165} Sunscale Feather
+	-- {item:5165} Sunscale Feather
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
-	["The three nests are together in the {area:1697}, south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs one {item:5165}, and most Sunscale raptors drop one."] = "",
+	["Sunscale Scytheclaws guard the three nests. Most Sunscale raptors drop a {item:5165}, and each nest takes one."] = "",
 
 	-- Step 66: Raptor Grounds: kill these as you meet them
 	-- {area:1697} Raptor Grounds
@@ -330,8 +330,8 @@ return {
 	["{npc:3446}, beside the WANTED poster"] = "",
 
 	-- Step 73: Dreadmist Peak
-	-- {area:384} Dreadmist Peak · {npc:3448} Tonga Runetotem · {npc:3490} Hula'mahi · {item:2449} Earthroot
-	["{area:384} is north of the Crossroads, and {npc:3448} is in the Crossroads. {npc:3490} beside him sells {item:2449}, three at a time until he restocks."] = "",
+	-- {npc:3490} Hula'mahi · {npc:3448} Tonga Runetotem · {item:2449} Earthroot
+	["{npc:3490} beside {npc:3448} sells {item:2449}, three at a time until he restocks."] = "",
 	-- {item:2449} Earthroot · {npc:3490} Hula'mahi
 	["{item:2449} from {npc:3490}; herbalists pick it on the plains"] = "{item:2449} de {npc:3490}; herbalistas colhem nas planícies",
 
@@ -400,7 +400,7 @@ return {
 
 	-- Step 87: Verog the Dervish
 	-- {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis
-	["{npc:3395} only appears after enough Kolkar centaurs die at the {area:388}, south-east of the Crossroads. The bubbling fissure is on the oasis' east bank."] = "",
+	["{npc:3395} doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the {area:388}."] = "",
 	["Underwater"] = "Debaixo d'água",
 	-- {npc:12296} Sickly Gazelle · {item:15826} Curative Animal Salve
 	["{npc:12296}: use the {item:15826} on them; they roam the plains all around the Crossroads"] = "{npc:12296}: use o {item:15826} neles; eles andam pelas planícies em volta da Encruzilhada",

@@ -63,14 +63,10 @@ return {
 	["Follow the road west to {area:87}, on the way to {zone:1436}: {npc:240} stands outside the inn."] = "",
 
 	-- Step 14: The Binding
-	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {area:87} Goldshire
-	["{npc:6122} is in the cellar of the {object:2164}, in the Mage Quarter of Stormwind, north along the road from {area:87}. The summoning circle is there too, and it calls a voidwalker."] = "",
+	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {zone:1453} Stormwind · {object:2101} Mage Quarter
+	["{npc:6122} is in the cellar of the {object:2164}, in {zone:1453}'s {object:2101}."] = "",
 	-- {npc:5676} Summoned Voidwalker · {item:6928} Bloodstone Choker
 	["{npc:5676}: use the {item:6928} at the circle"] = "{npc:5676}: 소환진에서 {item:6928} 사용",
-
-	-- Step 15: The Binding
-	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6928} Bloodstone Choker
-	["{npc:6122} is in the cellar of the {object:2164} in the {object:2101}, and the summoning circle is there too. The {item:6928} summons a voidwalker that has to be defeated."] = "",
 
 	-- Step 16: The Jansen Stead
 	-- {zone:1436} Westfall · {object:2724} Sack of Oats

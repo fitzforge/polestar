@@ -42,8 +42,7 @@ return {
 
 	-- Step 8: Scarlet forward camp
 	["Scarlet forward camp"] = "붉은십자군 전진 야영지",
-	-- {area:152} Bulwark · {area:199} Felstone Field · {area:200} Dalson's Tears
-	["The Scarlet Crusade's tents are east of the {area:152}, just past Felstone Farm, between {area:199} and {area:200}. The Scarlets around the tents reach level 54 and the Invokers cast spells."] = "",
+	["The Scarlets around the tents reach level 54, and the Invokers are casters."] = "",
 
 	-- Step 9: Bulwark
 	-- {area:152} Bulwark
@@ -96,8 +95,8 @@ return {
 	-- Step 19: Makrinni Burrowers
 	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower
 	["Makrinni Burrowers"] = "마크리니 굴파기",
-	-- plural, as words: Highborne Treasure Fragments = {item:246684} Highborne Treasure Fragment · Makrinni Burrowers = {npc:247470} Makrinni Burrower
-	["The Highborne Treasure Fragments come from the sands just east of the ruins, where Makrinni Burrowers (50-51) dig. The Burrowers and the buried caches there also give fragments."] = "",
+	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower
+	["The Makrinni Burrowers (50-51) and the buried caches on these sands also give fragments."] = "",
 
 	-- Step 20: Ekkal
 	-- {zone:1447} Azshara · {npc:235903} Ekkal

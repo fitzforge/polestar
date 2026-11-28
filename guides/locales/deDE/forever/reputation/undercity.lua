@@ -111,8 +111,8 @@ return {
 	["The level 55 to 60 quests pay in full. First the {area:152}: {npc:10879}, by the {faction:68}'s elevators, sends you there. Lady Sylvanas in the {object:36126} gives {quest:5961}, an introduction to {npc:11878}: {quest:6136}, his last quest here, needs it handed in."] = "Die Quests der Stufen 55 bis 60 zahlen voll. Zuerst das {area:152}: {npc:10879} bei den Aufzügen der {faction:68} schickt dich dorthin. Lady Sylvanas im {object:36126} gibt {quest:5961}, eine Empfehlung an {npc:11878}: Für {quest:6136}, seine letzte Quest hier, muss sie abgegeben sein.",
 
 	-- Step 18: Bulwark: Scarlet Diversions
-	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {npc:10837} High Executor Derrington · {faction:68} Undercity · {area:200} Dalson's Tears · {area:199} Felstone Field
-	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain against the Scourge cauldrons is worth about 820 {faction:68} reputation. The Scarlet camp's command tent is between {area:200} and {area:199}."] = "",
+	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {npc:10837} High Executor Derrington · {faction:68} Undercity
+	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain against the Scourge cauldrons is worth about 820 {faction:68} reputation."] = "",
 	-- {quest:5096} Scarlet Diversions
 	["{quest:5096}, +100 (level 53)"] = "{quest:5096}, +100 (Stufe 53)",
 	-- {object:176088} Scarlet Crusade Forward Camp (no name in this language: may be words)
@@ -128,7 +128,7 @@ return {
 	-- {area:199} Felstone Field
 	["{area:199} and the Andorhal towers"] = "{area:199} und die Türme von Andorhal",
 	-- {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field
-	["{npc:11075} guards the cauldron at {area:199}. The four Andorhal towers are marked at their doors."] = "",
+	["{npc:11075} guards the cauldron at {area:199}."] = "",
 	-- {object:176361} Scourge Cauldron
 	["the {object:176361}"] = "der {object:176361}",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
@@ -230,8 +230,8 @@ return {
 	["read the {object:142715}"] = "lies die {object:142715}",
 
 	-- Step 38: Shadra'Alor: Shadra
-	-- {npc:2707} Shadra · {area:353} Shadra'Alor
-	["{npc:2707} is an elite level 55 spider summoned at the altar of {area:353}, and she always drops her venom."] = "",
+	-- {npc:2707} Shadra
+	["{npc:2707}, an elite level 55 spider, always drops her venom."] = "",
 	-- {item:9324} Shadra's Venom · {npc:2707} Shadra
 	["{item:9324}, from {npc:2707}"] = "{item:9324}, von {npc:2707}",
 

@@ -130,7 +130,7 @@ return {
 	["{area:442}: the seal, the {npc:6788} and the pelts"] = "{area:442}: 인장, {npc:6788}과(와) 가죽",
 	-- {item:5338} Ancient Moonstone Seal · {quest:956} Bashal'Aran · {npc:6788} Den Mother · {zone:1439} Darkshore
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	["The {item:5338} drops from the satyrs of {quest:956}, and the flame is there too. The {npc:6788} lairs north-east of {quest:956}, and Moonstalker Sires and Matriarchs roam southern {zone:1439}."] = "",
+	["The {item:5338} drops from the satyrs of {quest:956}. The {npc:6788} lairs north-east of {quest:956}, and Moonstalker Sires and Matriarchs roam southern {zone:1439}."] = "",
 	["the seal at the ancient flame"] = "고대 불꽃의 인장",
 
 	-- Step 20: A Donation of Silk
@@ -169,8 +169,8 @@ return {
 	["{npc:9047}, beside Fandral in the {area:1658}, takes the soil. {npc:4217} sells the {item:11020} and Packets of Tharlendris Seeds. With a seed packet and 2 {quest:3764} in your bags, use the pouch to grow an {item:11024} and open it: about one casing in three holds {item:11040} (1 to 5), the rest other herbs. The pouch works once every 10 minutes, so use it whenever it is ready while you do other things."] = "{area:1658}에서 판드랄 옆의 {npc:9047}이(가) 흙을 받습니다. {npc:4217}이(가) {item:11020}과(와) 탈렌드리스 씨앗 봉지를 팝니다. 씨앗 봉지 하나와 가방에 {quest:3764} 둘을 넣고 주머니를 사용해 {item:11024}를 키운 뒤 여세요. 셋 중 하나꼴로 {item:11040}(1~5개), 나머지는 다른 약초입니다. 주머니는 10분마다 작동하니 다른 일을 하는 동안 준비되는 대로 사용하세요.",
 
 	-- Step 33: Darnassus: Morrowgrain Research
-	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave · {npc:4217} Mathrengyl Bearwalker · {quest:3764} Un'Goro Soil · {item:11040} Morrowgrain
-	["{npc:9047} is beside Fandral in the {area:1658}, and {npc:4217} sells the pouch and seeds. Each casing needs a seed packet and 2 {quest:3764}, only about one in three holds {item:11040} (1 to 5), and the pouch works once every 10 minutes."] = "",
+	-- {quest:3764} Un'Goro Soil · {item:11040} Morrowgrain
+	["Each casing needs a seed packet and 2 {quest:3764}, only about one in three holds {item:11040} (1 to 5), and the pouch works once every 10 minutes."] = "",
 	-- {item:11040} Morrowgrain
 	["{item:11040}: grow it here and open the casings"] = "{item:11040}: 여기서 기르고 껍질을 여세요",
 

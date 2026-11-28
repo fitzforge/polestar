@@ -209,8 +209,8 @@ return {
 	["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "Siga para o norte pelo lado leste até o planalto dos gorilas. {npc:9622}, um gorila de nível 55, fica na caverna mais funda: limpe os gorilas da entrada antes.",
 
 	-- Step 38: Lar'korwi
-	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder
-	["{npc:9684}'s lair is in the jungle north of {npc:9619}, below the eastern cliffs. {npc:9684} is level 56, a level or two above you here, and raptors surround the lair."] = "",
+	-- {npc:9684} Lar'korwi
+	["{npc:9684} is level 56, a level or two above you here, and raptors surround his lair."] = "",
 
 	-- Step 39: Eastern Pylon and the crate
 	["Eastern Pylon and the crate"] = "Torre de cristal leste e o caixote",
@@ -260,8 +260,8 @@ return {
 	-- Step 49: Escort Ringo
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "Escolte {npc:9999}",
-	-- {npc:9999} Ringo · {area:541} Marshal's Refuge
-	["{npc:9999} faints along the way to {area:541}, which is to the north."] = "",
+	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
+	["{npc:9999} faints along the way to {area:541}, and {item:11804} wakes him."] = "",
 
 	-- Step 51: Fly to Gadgetzan
 	-- {area:541} Marshal's Refuge
@@ -305,8 +305,8 @@ return {
 	-- Step 59: Shadow Hold braziers
 	-- {area:1770} Shadow Hold
 	["{area:1770} braziers"] = "Braseiros de {area:1770}",
-	-- {area:1770} Shadow Hold · {area:1763} Jaedenar · {item:13140} Blood Red Key · {npc:11018} Arko'narin
-	["{area:1770} is the cave at the back of {area:1763}, west of the road, with level 53-55 Shadow Council mobs in large linked groups, many with stuns. The Darkweavers, Warlocks and Enforcers drop the {item:13140} about once in thirty kills, and it opens the cell of {npc:11018}, the night elf held in the cave."] = "",
+	-- {area:1770} Shadow Hold · {item:13140} Blood Red Key · {npc:11018} Arko'narin
+	["{area:1770} is full of level 53-55 Shadow Council mobs in large linked groups, many with stuns. The Darkweavers, Warlocks and Enforcers drop the {item:13140} about once in thirty kills, and it opens {npc:11018}'s cell."] = "",
 	-- {object:176159} Brazier of Malice
 	["{object:176159}, below ground"] = "{object:176159}, no subterrâneo",
 	-- {object:176160} Brazier of Suffering
@@ -420,8 +420,8 @@ return {
 	["The relics are in the ruins just south of {quest:5250}"] = "",
 
 	-- Step 82: The Ruins of Kel'Theril
-	-- {area:2253} Starfall Village · {npc:10304} Aurora Skycaller · {zone:1423} Eastern Plaguelands
-	["The ruins lie around the frozen lake south of {area:2253}. {npc:10304} in the {zone:1423} takes the four relic fragments, in the next guide."] = "",
+	-- {npc:10304} Aurora Skycaller · {zone:1423} Eastern Plaguelands
+	["{npc:10304} in the {zone:1423} takes the four relic fragments, in the next guide."] = "",
 
 	-- Step 83: The road to Everlook: furs and horns
 	-- {area:2255} Everlook

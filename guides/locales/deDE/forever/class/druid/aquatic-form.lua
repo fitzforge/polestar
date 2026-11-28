@@ -36,8 +36,8 @@ return {
 	["{item:15882}, from the {object:177790}"] = "{item:15882}, aus {object:177790}",
 
 	-- Step 6: Pendant of the Sea Lion
-	-- {area:2362} Shrine of Remulos · {zone:1450} Moonglade · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village
-	["The {area:2362} is on the north-west shore of {zone:1450}. {spell:18960} also works inside {zone:1450} and lands you by {npc:11802}, who is upstairs in his building, and the arrow cannot tell the floors apart. {npc:11800}, in the middle of {area:2361}, flies druids straight to {area:702}."] = "",
+	-- {spell:18960} Teleport: Moonglade · {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village
+	["{spell:18960} also works inside {zone:1450} and lands by {npc:11802}, who is upstairs in his building, and the arrow cannot tell the floors apart. {npc:11800}, in the middle of {area:2361}, flies druids straight to {area:702}."] = "",
 	-- {item:15885} Pendant of the Sea Lion
 	["{item:15885}: join the halves at the shrine"] = "{item:15885}: Füge die Hälften am Schrein zusammen",
 
@@ -77,8 +77,8 @@ return {
 	["{item:15882}, from the {object:177844}"] = "{item:15882}, aus {object:177844}",
 
 	-- Step 14: Pendant of the Sea Lion
-	-- {area:2362} Shrine of Remulos · {spell:18960} Teleport: Moonglade · {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
-	["The pendant halves join by the {area:2362} on the north-west shore. {spell:18960} works inside {zone:1450} and lands by {npc:11802}, who stands upstairs in his building, and the arrow cannot tell the floors apart. {npc:11798} flies druids to {area:1638}."] = "",
+	-- {spell:18960} Teleport: Moonglade · {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
+	["{spell:18960} also works inside {zone:1450} and lands by {npc:11802}, who is upstairs in his building, and the arrow cannot tell the floors apart. {npc:11798} flies druids to {area:1638}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Cast Teleport: {zone:1450} to get here: {npc:11802} stands upstairs in the building beside where you land. {quest:28} runs on a 30-minute timer: once you accept it, no teleport or Hearthstone until {npc:11799} has it. Six Bauble Containers (vases) lie in narrow hollows deep on the floor of {area:656} below {area:2361}, often near the bubbling fissures (the {object:177524} in the middle of the lake refills your breath); each comes back three minutes after it is opened, and other druids take them too. Check the {item:15877} is in your bags before you surface: it fades five minutes after you loot it. Swim it straight to the {area:2362} on the north-west shore, use it inside the shrine grounds and speak to {npc:11799} by the tree."] = "Wirke Teleportieren: {zone:1450}, um hierher zu kommen: {npc:11802} steht im Obergeschoss des Gebäudes neben deinem Landepunkt. {quest:28} läuft auf einem 30-Minuten-Timer: Sobald du sie annimmst, darfst du weder teleportieren noch den Ruhestein benutzen, bis {npc:11799} den Gegenstand hat. Sechs Bauble Containers (Vasen) liegen in engen Mulden tief auf dem Grund von {area:656} unterhalb von {area:2361}, oft in der Nähe der sprudelnden Spalten (die {object:177524} in der Mitte des Sees füllt deinen Atem wieder auf); jeder kommt drei Minuten nach dem Öffnen zurück, und andere Druiden nehmen sie auch. Prüfe, dass {item:15877} in deinen Taschen ist, bevor du auftauchst: Er verschwindet fünf Minuten nach dem Plündern. Schwimm damit geradewegs zum {area:2362} am Nordwestufer, benutze ihn auf dem Schreingelände und sprich mit {npc:11799} beim Baum.",

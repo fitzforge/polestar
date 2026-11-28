@@ -116,8 +116,8 @@ return {
 	-- Step 22: The Eternal Flame
 	-- {object:148418} Eternal Flame
 	["The {object:148418}"] = "{object:148418}",
-	-- {npc:268592} Olariaan Swiftburn · {npc:268762} Brazier of Offering · {object:148418} Eternal Flame · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar
-	["{npc:268592} performs a ritual at the {npc:268762}, and fire spirits light the {object:148418}. The flame lasts six minutes once taken, and the {npc:268679} is beside {npc:252382} in {area:16638}. If the timer runs out, the quest can be abandoned and taken again from {npc:268592}."] = "",
+	-- {object:148418} Eternal Flame · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar · {npc:268592} Olariaan Swiftburn
+	["Once taken, the {object:148418} lasts six minutes, so the walk to the {npc:268679} beside {npc:252382} in {area:16638} has no room for detours. If it runs out, the quest can be taken again from {npc:268592}."] = "",
 	-- {npc:268679} Brazier of Eternal Flame · {area:16638} Valanaar
 	["the ritual, then the {npc:268679} in {area:16638}"] = "o ritual, e depois {npc:268679}, em {area:16638}",
 

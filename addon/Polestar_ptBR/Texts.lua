@@ -8698,6 +8698,7 @@ t.guides["forever/horde/50-60/07-felwood"] = (function() return {
 		["North of Donova, at the tunnel's {zone:1452} exit."] = "Ao norte de Donova, na saída do túnel para {zone:1452}.",
 		["Ride back west along the road to {area:2246}."] = "Volte para oeste pela estrada até {area:2246}.",
 		["Ride north along the road, past {area:1763}, to {area:1997}."] = "Siga a estrada para o norte, passando por {area:1763}, até {area:1997}.",
+		["Scare {npc:10978} with {item:12928}"] = "Assuste {npc:10978} com {item:12928}",
 		["The runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "Os mensageiros andam pela estrada de {area:1769} rumo a {area:2244} em grupinhos; espere na beira da estrada perto de {npc:9298} e mate-os quando passarem. Cada um carrega um caixote.\nCuidado: a entrega faz surgir três ou quatro emboscadores Invernosos de nível 56-57 que atacam você; dá para escapar montado, furtivo ou com {spell:5384}, e depois eles se juntam perto do lago, liberando a próxima missão.",
 		["The {area:2479}"] = "{area:2479}",
 		["Through the Timbermaw tunnel to {zone:1450}. {npc:11939} reads in a house in {area:2361}."] = "Atravesse o túnel dos Presamatos até {zone:1450}. {npc:11939} lê numa casa em {area:2361}.",

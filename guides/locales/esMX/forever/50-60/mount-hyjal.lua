@@ -96,11 +96,9 @@ return {
 	-- Step 15: Ketharas's shrine
 	-- {npc:256222} Ketharas
 	["{npc:256222}'s shrine"] = "El santuario de {npc:256222}",
-	-- was: ["The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost: bury the remains there."] = "El santuario es un par de piedras erguidas al oeste de la Hermit's Abode, de camino de vuelta al puesto: entierra los restos ahí."
-	["The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost."] = "",
+	["The shrine is a pair of standing stones west of the Hermit's Abode."] = "",
 
 	-- Step 17: The ancients' outpost
-	["The outpost is to the west."] = "",
 	-- {npc:248366} Fraxinus
 	["put the poultice on {npc:248366}"] = "pon la cataplasma en {npc:248366}",
 
@@ -154,7 +152,7 @@ return {
 	-- Step 33: The bone pile
 	["The bone pile"] = "La pila de huesos",
 	-- {npc:264306} Awakened Fel Ash Slime
-	["The bone pile is to the west by the slime pools, and the quest is handed in at the pile itself. Handing it in wakes the {npc:264306}, a level 58 elite that hits hard and is dangerous without a group."] = "",
+	["Handing the quest in at the pile wakes the {npc:264306}, a level 58 elite that hits hard."] = "",
 
 	-- Step 34: Amalgamated Marrow
 	-- {npc:264306} Awakened Fel Ash Slime
@@ -174,7 +172,6 @@ return {
 
 	-- Step 40: The Ashen workstations
 	["The Ashen workstations"] = "Las estaciones de trabajo Ashen",
-	["Four workstations stand in the Ashen camp, running from south to north."] = "",
 	["Slime Workstation"] = "Slime Workstation",
 	["Alchemy Workstation"] = "Alchemy Workstation",
 	["Disease Workstation"] = "Disease Workstation",
@@ -407,7 +404,7 @@ return {
 
 	-- Step 90: The overlook
 	["The overlook"] = "El mirador",
-	["The veteran's old scabbard lies at the overlook above the valley, to the west. The scabbard calls up his spirit, who tells his story."] = "",
+	["The veteran's spirit appears only once the scabbard is used."] = "",
 
 	-- Step 91: Shalla'kal and Galvinquam Leafsyre
 	-- {npc:255683} Shalla'kal · {npc:267109} Galvinquam Leafsyre
@@ -427,8 +424,6 @@ return {
 
 	-- Step 94: The falls and the first kitten
 	["The falls and the first kitten"] = "La cascada y la primera cría",
-	-- {npc:255685} Solstice · {npc:255683} Shalla'kal
-	["The falls are beside the bridge. {npc:255685}, one of {npc:255683}'s kittens, plays just west of the falls."] = "",
 	["fill the gourd"] = "llena el calabacino",
 
 	-- Step 95: Johun "Punchy" Dillas's camp
@@ -582,7 +577,7 @@ return {
 	-- Step 131: Bethra'zel the Feeble
 	-- {npc:263394} Bethra'zel the Feeble · {npc:252457} Mazzogore · {npc:267439} Doomguard Xarkul · {area:16866} Dae'gun
 	-- plural, as words: Legion Hulks = {npc:249238} Legion Hulk
-	["{npc:263394} is to the north-east. If he isn't drained first, he and {npc:252457} are level 60 elites, and {npc:267439} (level 61 elite) patrols this corner of {area:16866}.\nLegion Hulks (level 60 rare elites) roam {area:16866}'s camps."] = "",
+	["{npc:263394} and {npc:252457} are level 60 elites until {npc:263394} is drained. {npc:267439}, a level 61 elite, patrols this corner of {area:16866}.\nLegion Hulks (level 60 rare elites) roam {area:16866}'s camps."] = "",
 
 	-- Step 132: Maerion Thaelemaches
 	-- {npc:267097} Maerion Thaelemaches · {area:16866} Dae'gun · {npc:263394} Bethra'zel the Feeble · {npc:267439} Doomguard Xarkul

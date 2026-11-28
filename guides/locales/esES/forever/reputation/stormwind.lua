@@ -195,7 +195,7 @@ return {
 	-- {area:199} Felstone Field
 	["Andorhal and {area:199}"] = "Andorhal y {area:199}",
 	-- {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field · {npc:10778} Janice Felstone
-	["The four watchtowers stand around Andorhal, north of the camp. {npc:11075} guards the cauldron at {area:199}, west of Andorhal, and {npc:10778}'s ghost wanders by the Felstone farmhouse, where her parcel lies inside."] = "",
+	["{npc:11075} guards the cauldron at {area:199}, west of Andorhal, and {npc:10778}'s parcel is inside the Felstone farmhouse."] = "",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
 	["Mark {npc:10902} with the {item:12815}"] = "Marca la {npc:10902} con la {item:12815}",
 	-- {npc:10903} Andorhal Tower Two · {item:12815} Beacon Torch

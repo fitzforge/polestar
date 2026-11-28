@@ -130,8 +130,6 @@ return {
 	-- Step 22: Morgan's Vigil: hand in
 	-- {area:2418} Morgan's Vigil
 	["{area:2418}: hand in"] = "{area:2418}：交任務",
-	-- {area:249} Dreadmaul Rock
-	["The soft dirt mound is at the top of {area:249}."] = "",
 
 	-- Step 23: Ironforge: Archesonus again
 	-- {faction:47} Ironforge

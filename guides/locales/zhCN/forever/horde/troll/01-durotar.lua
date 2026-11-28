@@ -98,8 +98,8 @@ return {
 	["the {object:654925} on the ground beside her"] = "她身旁地上的{object:654925}",
 
 	-- Step 20: Call of Earth
-	-- {npc:5887} Canaga Earthcaller · {area:639} Spirit Rock · {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth
-	["{npc:5887} stands outside the Den, and {area:639} is the hill just south of it. The {item:6635} reveals the {npc:5891} there."] = "",
+	-- {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth · {area:639} Spirit Rock
+	["Only the {item:6635} shows the {npc:5891} on {area:639}."] = "",
 	-- {npc:5891} Minor Manifestation of Earth · {area:639} Spirit Rock
 	["{npc:5891}, on {area:639}"] = "{npc:5891}，在{area:639}",
 	-- {npc:5887} Canaga Earthcaller · {npc:5873} Stoneskin Totem · {item:5175} Earth Totem

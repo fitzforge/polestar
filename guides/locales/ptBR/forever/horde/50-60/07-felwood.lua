@@ -120,7 +120,7 @@ return {
 	-- {npc:10978} Legacki · {area:2255} Everlook
 	["{npc:10978} is in {area:2255}, to the north."] = "",
 	-- {npc:10978} Legacki · {item:12928} Umi's Mechanical Yeti
-	["Scare {npc:10978} with {item:12928}"] = "",
+	["Scare {npc:10978} with {item:12928}"] = "Assuste {npc:10978} com {item:12928}",
 
 	-- Step 31: Everlook
 	-- {npc:11118} Innkeeper Vizzie · {quest:93406} Unfrozen Deliveries

@@ -81,8 +81,8 @@ return {
 	["Back east to {area:358}: the Bristleback Shamans stand among the quilboar there."] = "向東回到{area:358}：刺背薩滿站在那裡的野豬人之間。",
 
 	-- Step 14: Call of Earth
-	-- {npc:5888} Seer Ravenfeather · {npc:5891} Minor Manifestation of Earth · {item:6635} Earth Sapta
-	["{npc:5888} is in the camp, and the {npc:5891} is on the mesa east of it. The manifestation can only be seen with the {item:6635}."] = "",
+	-- {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth
+	["Only the {item:6635} shows the {npc:5891}, on the mesa east of the camp."] = "",
 	-- {npc:5888} Seer Ravenfeather · {npc:5873} Stoneskin Totem · {item:5175} Earth Totem
 	["{npc:5888}: {npc:5873} and your {item:5175}"] = "{npc:5888}：{npc:5873}和你的{item:5175}",
 
@@ -254,7 +254,7 @@ return {
 	-- Step 50: Dwarven Digging
 	-- {area:404} Bael'dun Digsite
 	-- plural, as words: Prospector's Picks = {item:4702} Prospector's Pick
-	["The dwarves of the {area:404} carry the Prospector's Picks, and the dwarves' forge is in the digsite."] = "",
+	["The dwarves of the {area:404} carry the Prospector's Picks."] = "",
 	-- {item:4703} Broken Tools
 	["{item:4703}, at the digsite forge"] = "{item:4703}，在挖掘場的熔爐旁",
 

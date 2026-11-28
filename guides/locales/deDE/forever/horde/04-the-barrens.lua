@@ -52,9 +52,8 @@ return {
 	["{npc:5911}: the soldiers and the pillager camp just east of {npc:3341}, on the way south"] = "{npc:5911}: Die Soldaten und der Plünderer lagern direkt östlich von {npc:3341}, auf dem Weg nach Süden",
 
 	-- Step 8: Field of Giants
-	-- {area:390} Field of Giants · {area:378} Camp Taurajo · {npc:3341} Gann Stonespire
-	-- plural, as words: Silithid Mounds = {object:3685} Silithid Mound · Silithid Swarmers = {npc:3252} Silithid Swarmer
-	["The Silithid Mounds holding the eggs are in the {area:390}, south of {area:378} on the road to {npc:3341}. Silithid Swarmers defend them and release many tiny adds that interrupt spells, and damage shields such as Thorns kill those adds in one hit."] = "",
+	-- plural, as words: Silithid Swarmers = {npc:3252} Silithid Swarmer
+	["Silithid Swarmers defend the mounds and release many tiny adds that interrupt spells, and damage shields such as Thorns kill those adds in one hit."] = "",
 
 	-- Step 10: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {area:359} Bael Modan
@@ -105,8 +104,8 @@ return {
 
 	-- Step 20: The flying machine
 	["The flying machine"] = "Die Flugmaschine",
-	-- was: ["The dwarves' flying machine sits on its platform inside the dig site."] = "Die Flugmaschine der Zwerge steht auf ihrer Plattform in der Grabungsstätte."
-	["The dwarves' flying machine sits on its platform inside the dig site."] = "",
+	-- {item:5021} Explosive Stick of Gann
+	["The {item:5021} destroys the dwarves' flying machine, on its platform inside the dig site."] = "",
 
 	-- Step 22: To Camp Taurajo
 	-- {area:378} Camp Taurajo
@@ -257,8 +256,8 @@ return {
 	["{item:5736}, from {quest:1096}"] = "{item:5736}, von {quest:1096}",
 
 	-- Step 49: The Flying Machine Airport
-	-- {object:19594} Venture Co. Copter Pad · {npc:4202} Gerenzo Wrenchwhistle · {zone:1456} Thunder Bluff
-	["The {object:19594} is the platform just south-east of {npc:4202}'s tower. Zamah takes the fogger back at the next guide's {zone:1456} stop."] = "",
+	-- {zone:1456} Thunder Bluff
+	["Zamah takes the fogger back at the next guide's {zone:1456} stop."] = "",
 	-- {item:5638} Toxic Fogger · {object:19594} Venture Co. Copter Pad
 	["Place the {item:5638} on the {object:19594}"] = "Platziere den {item:5638} auf dem {object:19594}",
 

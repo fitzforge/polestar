@@ -131,9 +131,9 @@ return {
 
 	-- Step 17: Gelkis: the heart of the valley
 	["Gelkis: the heart of the valley"] = "吉爾吉斯：山谷中心",
-	-- {npc:253177} Nerlokh · {npc:253446} Haggard Bones
-	-- plural, as words: Gelkis Captives = {npc:253431} Gelkis Captive · Magram Necrokhans = {npc:253274} Magram Necrokhan
-	["The Magram hold Gelkis Captives east of {npc:253177}, in the heart of the valley, and {npc:253446} are failed summons stuck in the ground there. Corpsefeeders and Magram Necrokhans, elite and level 45, patrol the valley and attack friends of the Gelkis."] = "",
+	-- {npc:253446} Haggard Bones
+	-- plural, as words: Magram Necrokhans = {npc:253274} Magram Necrokhan
+	["The {npc:253446} are failed summons stuck in the ground. Corpsefeeders and Magram Necrokhans, level 45 elites, patrol the valley and attack friends of the Gelkis."] = "",
 	-- {npc:253446} Haggard Bones
 	["Lay {npc:253446} to rest"] = "讓{npc:253446}安息",
 	-- plural, as words: Gelkis Captives = {npc:253431} Gelkis Captive
@@ -259,9 +259,9 @@ return {
 
 	-- Step 35: Magram: the heart of the valley
 	["Magram: the heart of the valley"] = "瑪格拉姆：山谷中心",
-	-- {npc:253136} Orgrul · {npc:253446} Haggard Bones
+	-- {npc:253446} Haggard Bones
 	-- plural, as words: Magram Necrokhans = {npc:253274} Magram Necrokhan
-	["The Magram camp is south-east of {npc:253136}, in the heart of the valley. The {npc:253446} are failed summons stuck in the ground, and some fight back once raised. Corpsefeeders (elite, level 45) roam the valley and attack anyone, while the elite Magram Necrokhans leave friends of the Magram alone."] = "",
+	["The {npc:253446} are failed summons stuck in the ground, and some fight back once raised. Corpsefeeders (level 45 elites) attack anyone, while the elite Magram Necrokhans leave friends of the Magram alone."] = "",
 	-- {npc:253446} Haggard Bones
 	["Raise or slay {npc:253446}"] = "喚起或殺死{npc:253446}",
 

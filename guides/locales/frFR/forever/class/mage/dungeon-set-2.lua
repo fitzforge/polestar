@@ -62,18 +62,18 @@ return {
 	-- Step 10: Scorched Ectoplasm
 	-- {area:2738} Southwind Village
 	-- plural, as words: Tortured Druids = {npc:12178} Tortured Druid
-	["The Tortured Druids and Sentinels haunt {area:2738} (level 55-57, not elite), and silithid can join when they die. Ectoplasm only drops from a ghost that dies inside the Distiller's glow, which lasts a few minutes."] = "",
+	["Tortured Druids and Sentinels (level 55-57, not elite) haunt {area:2738}, and silithid can join when they die. Ectoplasm drops only from a ghost that dies inside the Distiller's glow, which lasts a few minutes."] = "",
 
 	-- Step 11: Frozen Ectoplasm and the Fel Elemental Rod
 	-- {item:21936} Frozen Ectoplasm · {item:21939} Fel Elemental Rod
 	["{item:21936} and the {item:21939}"] = "{item:21936} et {item:21939}",
-	-- {spell:17735} Suffering · {npc:7524} Anguished Highborne · {area:2251} Lake Kel'Theril · {npc:16015} Vi'el · {item:21939} Fel Elemental Rod · {area:2256} Darkwhisper Gorge · {quest:8928} A Shifty Merchant
-	["The {spell:17735} and {npc:7524} around {area:2251} are level 54-56 and not elite. Ectoplasm only drops from a ghost that dies inside the distiller's glow, and the distiller lasts a few minutes. {npc:16015}, an imp, sells the {item:21939} (40 gold) in the cave at the mouth of {area:2256} in the far south, past elite demons. {quest:8928} asks for the rod later, so buying it now saves a trip back."] = "",
+	-- {spell:17735} Suffering · {npc:7524} Anguished Highborne · {area:2251} Lake Kel'Theril · {npc:16015} Vi'el · {area:2256} Darkwhisper Gorge · {quest:8928} A Shifty Merchant
+	["The {spell:17735} and {npc:7524} around {area:2251} are level 54-56, not elite, and ectoplasm drops only from a ghost that dies inside the Distiller's glow. {npc:16015} sells the rod (40 gold) in the cave at the mouth of {area:2256}, with elite demons in the gorge behind. {quest:8928} asks for the rod later, so buying it now saves a trip back."] = "",
 
 	-- Step 12: Stable Ectoplasm
 	-- {area:2272} Northdale
 	-- plural, as words: Unseen Servants = {npc:8538} Unseen Servant · Eyeless Watchers = {npc:8539} Eyeless Watcher · Death Singers = {npc:8542} Death Singer · Hate Shriekers = {npc:8541} Hate Shrieker
-	["Unseen Servants, Eyeless Watchers, Death Singers and Hate Shriekers (level 55-59, not elite) drop it, and {area:2272} in the north-east has plenty. Ectoplasm only drops from a ghost that dies inside the distiller's glow, which lasts a few minutes; the shriekers cast fear."] = "",
+	["Unseen Servants, Eyeless Watchers, Death Singers and Hate Shriekers (level 55-59, not elite) drop it, many of them around {area:2272} in the north-east. Ectoplasm drops only from a ghost that dies inside the Distiller's glow, which lasts a few minutes, and the Shriekers' fear can carry you out of it."] = "",
 
 	-- Step 13: Mux Manascrambler: Magma Lord Bokk
 	["Bring the distiller back with the ectoplasm: it is handed in too."] = "Rapportez le distillateur avec l'ectoplasme : il est rendu aussi.",
@@ -97,8 +97,8 @@ return {
 	["{quest:84171} takes your {item:16685}: a rare drop from the mobs of {area:2279}, {area:1583} and {area:2057}, or the auction house, and your {item:16684}: {npc:11261} in {area:2057} (about 8%), or the auction house."] = "{quest:84171} prend votre {item:16685} : butin rare sur les monstres de {area:2279}, {area:1583} et {area:2057}, ou l'hôtel des ventes, et votre {item:16684} : {npc:11261} à {area:2057} (environ 8 %), ou l'hôtel des ventes.",
 
 	-- Step 18: Anthion Harmon
-	-- {npc:16016} Anthion Harmon · {area:2279} Stratholme · {zone:1423} Eastern Plaguelands · {item:22115} Extra-Dimensional Ghost Revealer
-	["{npc:16016}'s ghost waits on the bridge before {area:2279}'s main gate, at the north end of the {zone:1423}. He can only be seen with the {item:22115}."] = "",
+	-- {npc:16016} Anthion Harmon · {area:2279} Stratholme · {item:22115} Extra-Dimensional Ghost Revealer
+	["{npc:16016}'s ghost is on the bridge before {area:2279}'s main gate, and only the {item:22115} shows him."] = "",
 
 	-- Step 19: Dead Man's Plea
 	-- {quest:8945} Dead Man's Plea · {npc:16016} Anthion Harmon · {npc:16031} Ysida Harmon · {npc:10440} Baron Rivendare · {area:2279} Stratholme
@@ -146,7 +146,8 @@ return {
 
 	-- Step 29: The Challenge
 	-- {npc:16032} Falrin Treeshaper · {item:21986} Banner of Provocation · {area:1584} Blackrock Depths
-	["{npc:16032} finishes the {item:21986}, which is for the Ring of Law in {area:1584}."] = "",
+	-- was: ["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032} termine le {item:21986} : plantez-le dans l'Arène de la Loi à {area:1584}."
+	["{npc:16032} finishes the {item:21986}, for the Ring of Law in {area:1584}."] = "",
 
 	-- Step 30: Blackrock Depths: the Ring of Law
 	-- {area:1584} Blackrock Depths
@@ -162,13 +163,14 @@ return {
 
 	-- Step 34: Bodley
 	-- {npc:16033} Bodley · {area:1583} Blackrock Spire · {area:254} Blackrock Mountain · {quest:8961} Three Kings of Flame · {item:21987} Incendicite of Incendius · {npc:9017} Lord Incendius · {area:1584} Blackrock Depths · {item:21988} Ember of Emberseer · {npc:9816} Pyroguard Emberseer · {item:21989} Cinder of Cynders · {npc:15206} Duke of Cynders · {zone:1451} Silithus · {item:22014} Hallowed Brazier · {faction:529} Argent Dawn
-	["{npc:16033}'s ghost stands on the ledge before the {area:1583} portal, high inside {area:254}. {quest:8961} needs the {item:21987} ({npc:9017}, {area:1584}), the {item:21988} ({npc:9816}, Upper Blackrock Spire), the {item:21989} ({npc:15206}, {zone:1451}) and a {item:22014} from the {faction:529}."] = "",
+	-- was: ["{npc:16033}'s ghost stands on the ledge before the {area:1583} portal, high inside {area:254}: use the Ghost Revealer there. {quest:8961} wants the {item:21987} ({npc:9017} in {area:1584}), the {item:21988} ({npc:9816} in Upper Blackrock Spire), the {item:21989} (the {npc:15206} in {zone:1451}) and a {item:22014} from the {faction:529}."] = "Le fantôme de {npc:16033} se tient sur la corniche devant le portail de {area:1583}, tout en haut de {area:254} : utilisez le Révélateur de fantômes à cet endroit. {quest:8961} demande le {item:21987} ({npc:9017} à {area:1584}), le {item:21988} ({npc:9816} au sommet du pic Rochenoire), le {item:21989} (le {npc:15206} en {zone:1451}) et un {item:22014} de l'{faction:529}."
+	["{npc:16033}'s ghost stands on the ledge before the {area:1583} portal, high inside {area:254}, and only the Ghost Revealer shows him. {quest:8961} needs the {item:21987} ({npc:9017}, {area:1584}), the {item:21988} ({npc:9816}, Upper Blackrock Spire), the {item:21989} (the {npc:15206}, {zone:1451}) and a {item:22014} from the {faction:529}."] = "",
 
 	-- Step 36: Honored with the Argent Dawn
 	-- {faction:529} Argent Dawn
 	["Honored with the {faction:529}"] = "Honoré auprès de {faction:529}",
 	-- {item:22014} Hallowed Brazier · {item:12846} Argent Dawn Commission · {area:2279} Stratholme · {area:2057} Scholomance · {area:2268} Light's Hope Chapel
-	["The {item:22014} is sold only at Honored. With the {item:12846} equipped, Scourge drop Scourgestones that the Argent officers accept for reputation. Every Scourge kill in the Plaguelands counts, {area:2279} and {area:2057} undead give 5 each up to Honored, and the dungeon quests at {area:2268} give 100-200 each."] = "",
+	["The {item:22014} is sold only at Honored. The Scourge drop Scourgestones for the Argent officers only while the {item:12846} is worn. Every Scourge kill in the Plaguelands counts, {area:2279} and {area:2057} undead give 5 each up to Honored, and {area:2268}'s dungeon quests give 100-200 each."] = "",
 	-- {item:12846} Argent Dawn Commission
 	["{item:12846}, while you fight the Scourge"] = "",
 

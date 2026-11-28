@@ -309,7 +309,7 @@ return {
 	-- {area:1221} Ruins of Eldarath
 	["The {area:1221}"] = "{area:1221}",
 	-- {area:1221} Ruins of Eldarath
-	["Spitelash naga guard the {area:1221}, and Tymor's runes stand among the ruins."] = "",
+	["Spitelash naga guard the {area:1221}."] = "",
 
 	-- Step 67: Lord Sarthiss
 	-- {npc:239939} Lord Sarthiss

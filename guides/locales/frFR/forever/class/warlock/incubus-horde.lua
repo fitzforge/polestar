@@ -53,7 +53,7 @@ return {
 	-- {quest:65604} The Binding · {zone:1454} Orgrimmar
 	["{quest:65604}: incubus ({zone:1454})"] = "{quest:65604} : incube ({zone:1454})",
 	-- {npc:5875} Gan'rul Bloodeye
-	["The summoning circle is in Neeru's tent. The incubus is level 20 and not elite, and {npc:5875} takes the scarf back afterward."] = "",
+	["The incubus is level 20 and not elite. {npc:5875} takes the scarf back afterward."] = "",
 	-- {npc:185335} Summoned Incubus
 	["{npc:185335}, at the circle in Neeru's tent"] = "{npc:185335}, au cercle de la tente de Neeru",
 

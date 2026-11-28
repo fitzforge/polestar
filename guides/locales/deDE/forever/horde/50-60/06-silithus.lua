@@ -243,7 +243,7 @@ return {
 
 	-- Step 52: Lar'korwi
 	-- {item:11568} Torwa's Pouch · {npc:9684} Lar'korwi
-	["{item:11568} holds the meat and the pheromone mixture. {npc:9684}'s lair is the bone-strewn valley just south of the pylon, and he is level 56 and hits hard."] = "",
+	["{item:11568} holds the meat and the pheromone mixture. {npc:9684} is level 56 and hits hard."] = "",
 
 	-- Step 53: Ringo
 	-- {npc:9999} Ringo
@@ -253,7 +253,7 @@ return {
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "Eskortiere {npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
-	["{npc:9999} faints from time to time during the escort north to {area:541}, and {item:11804} wakes him."] = "",
+	["{npc:9999} faints along the way to {area:541}, and {item:11804} wakes him."] = "",
 
 	-- Step 56: The Mighty U'cha
 	-- {area:541} Marshal's Refuge · {npc:9622} U'cha · {npc:9619} Torwa Pathfinder

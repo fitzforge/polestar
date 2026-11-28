@@ -32,8 +32,7 @@ return {
 
 	-- Step 3: Boars, weapons and peons
 	["Boars, weapons and peons"] = "Jabalíes, armas y peones",
-	-- {quest:5441} Lazy Peons
-	["The training weapons lie on the ground in the Den and among the boars to the north. The {quest:5441} are asleep."] = "",
+	["The training weapons lie on the ground in the Den and among the boars to the north."] = "",
 	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
 	["{npc:10556}: hit it with the {item:16114}"] = "{npc:10556}: golpéalo con la {item:16114}",
 	-- {npc:10556} Lazy Peon

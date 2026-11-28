@@ -100,8 +100,8 @@ return {
 	["Take the zeppelin from {zone:1454} to {zone:1420}; {npc:6411} works in the {zone:1458}'s {object:36078}. She wants 8 Sturdy Dragonmaw Shinbones."] = "Prenez le zeppelin d'{zone:1454} vers {zone:1420} ; {npc:6411} travaille dans le {object:36078} de {zone:1458}. Elle veut 8 Solides tibias de Dragonmaw.",
 
 	-- Step 19: Dragonmaw Shinbones
-	-- {zone:1437} Wetlands · {area:321} Hammerfall · {area:881} Thandol Span · {area:150} Menethil Harbor · {spell:686} Shadow Bolt
-	["The Dragonmaw orcs (level 26-30) camp in the middle of the {zone:1437}, south of {area:321} over the {area:881}; {area:150} is Alliance. Shinbones drop only while the quest is in your log, and only about one in four tests sturdy, so 8 can take 30 or more kills. The orcs run for help at 15%: Raiders net, Centurions shield-bash, Shadowwarders cast {spell:686} and Bonewarders raise skeletons."] = "",
+	-- {spell:686} Shadow Bolt · {area:150} Menethil Harbor
+	["Shinbones drop only while the quest is in your log, and only about one in four tests sturdy, so 8 can take 30 or more kills. The Dragonmaw (26-30) run for help at 15%: Raiders net, Centurions shield-bash, Shadowwarders cast {spell:686} and Bonewarders raise skeletons. {area:150} is Alliance."] = "",
 	["from the Dragonmaw orcs"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
