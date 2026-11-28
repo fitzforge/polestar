@@ -533,8 +533,9 @@ test('draft: specs add the camp recipe per faction, notes at a skill, a stop and
 	assert.match(text, /^# What it makes\.$/m);
 	assert.match(text, /\n {2}learn 2\n {2}learn 900 only Alliance\n {2}learn 901 only Horde\n/);
 	assert.match(text, /A note at 30\./);
-	// Strange Dust: bought at the Auction House or disenchanted (Enchanting), one way at a time.
-	assert.match(text, /\nstep Get Strange Dust\n {2}tip 10 Strange Dust for Tailoring 1-75: \d+ R2s\. Enchanting: disenchant green armour that requires level 1-20\. Or buy them at the Auction House\.\n {2}collect 70 x10 anywhere gather Enchanting 1 levels 1-20\n {2}auction 70 x10\n/);
+	// Strange Dust: bought at the Auction House or disenchanted (Enchanting), one way at a time; its row says where
+	// Disenchant is (describe.js withSpellWhere).
+	assert.match(text, /\nstep Get Strange Dust · Disenchant: Professions tab \(K by default\)\n {2}tip 10 Strange Dust for Tailoring 1-75: \d+ R2s\. Enchanting: disenchant green armour that requires level 1-20\. Or buy them at the Auction House\.\n {2}collect 70 x10 anywhere gather Enchanting 1 levels 1-20\n {2}auction 70 x10\n/);
 	assert.doesNotMatch(text, /^step Tailoring 1-75: Auction House$/m);
 	assert.match(text, /^# {4}70-75 nothing cheap \(see the last step\)$/m);
 	assert.match(text, /\nstep Tailoring 70-75\n {2}tip The last points come from elsewhere\.\n {2}skill Tailoring 75\n$/);
