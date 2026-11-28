@@ -15,44 +15,115 @@
 			"from": 1,
 			"to": 100,
 			"steps": [
-				{ "spell": 1804, "name": "Pick Lock", "minLevel": 16, "levelTip": "Pick Lock needs level 16.", "tip": "Any Rogue trainer teaches it; it starts Lockpicking." },
-				{ "tool": 5060, "tip": "A tool: Pick Lock does not work without it in your bags." },
-				{ "pick": 80, "title": "the boxes", "at": [
-					{ "object": 123330, "map": 1413, "label": "Buccaneer's Strongboxes", "only": "Horde" },
-					{ "object": 178245, "map": 1433, "label": "Practice Lockboxes", "only": "Alliance" }
-				], "tip": "They come back within seconds. The Jewel of the Southsea in the ship's hold spawns a deadly mob when opened." },
-				{ "pick": 100, "title": "the boxes", "at": [
-					{ "object": 123330, "map": 1413, "label": "Buccaneer's Strongboxes", "only": "Horde" },
-					{ "object": 178245, "map": 1433, "label": "Practice Lockboxes", "only": "Alliance" }
-				] }
+				{ "spell": 1804,
+					"name": "Pick Lock",
+					"minLevel": 16,
+					"levelTip": "Pick Lock needs level 16.",
+					"tip": "Any Rogue trainer teaches it; it starts Lockpicking."
+				},
+				{ "tool": 5060,
+					"tip": "A tool: Pick Lock does not work without it in your bags."
+				},
+				{
+					"pick": 80,
+					"at": [
+						{
+							"object": 123330,
+							"map": 1413,
+							"boxes": "Buccaneer's Strongboxes",
+							"place": "the pirate ship near Ratchet",
+							"only": "Horde",
+							"tip": "They come back within seconds. The Jewel of the Southsea in the hold spawns a deadly mob."
+						},
+						{
+							"object": 178245,
+							"map": 1433,
+							"boxes": "Practice Lockboxes",
+							"place": "north of Lake Everstill, Redridge",
+							"only": "Alliance",
+							"tip": "They come back within seconds."
+						}
+					]
+				},
+				{
+					"pick": 100,
+					"at": [
+						{
+							"object": 123330,
+							"map": 1413,
+							"boxes": "Buccaneer's Strongboxes",
+							"place": "the pirate ship near Ratchet",
+							"only": "Horde"
+						},
+						{
+							"object": 178245,
+							"map": 1433,
+							"boxes": "Practice Lockboxes",
+							"place": "north of Lake Everstill, Redridge",
+							"only": "Alliance"
+						}
+					]
+				}
 			]
 		},
 		{
 			"from": 100,
 			"to": 150,
 			"steps": [
-				{ "pick": 150, "title": "the Waterlogged Footlockers", "at": [
-					{ "object": 179487, "map": 1440, "label": "Zoram Strand footlockers" }
-				], "tip": "On the shore of Zoram Strand; from 110 the ones in the water work too." }
+				{
+					"pick": 150,
+					"at": [
+						{
+							"object": 179487,
+							"map": 1440,
+							"boxes": "Waterlogged Footlockers",
+							"place": "Zoram Strand shore, Ashenvale"
+						}
+					],
+					"tip": "From 110 the ones in the water work too."
+				}
 			]
 		},
 		{
 			"from": 150,
 			"to": 225,
 			"steps": [
-				{ "pick": 225, "title": "the footlockers of Angor Fortress", "at": [
-					{ "object": 179490, "map": 1418, "label": "Angor Fortress" }
-				], "tip": "Battered Footlockers upstairs; from 175 the Dented ones downstairs, a point every time up to 215." }
+				{
+					"pick": 225,
+					"at": [
+						{
+							"object": 179490,
+							"map": 1418,
+							"boxes": "Battered Footlockers",
+							"place": "Angor Fortress, Badlands"
+						}
+					],
+					"tip": "From 175 the Dented ones count too: a point every time up to 215."
+				}
 			]
 		},
 		{
 			"from": 225,
 			"to": 300,
 			"steps": [
-				{ "pick": 300, "title": "the Dented Footlockers", "at": [
-					{ "object": 179496, "map": 1427, "label": "The Slag Pit, upper level" },
-					{ "object": 179496, "map": 1446, "label": "Lost Rigger Cove" }
-				], "tip": "Points all the way to 300; past 290 a point comes less often. Lost Rigger Cove has the same boxes." }
+				{
+					"pick": 300,
+					"at": [
+						{
+							"object": 179496,
+							"map": 1427,
+							"boxes": "Dented Footlockers",
+							"place": "The Slag Pit, Searing Gorge"
+						},
+						{
+							"object": 179496,
+							"map": 1446,
+							"boxes": "Dented Footlockers",
+							"place": "Lost Rigger Cove, Tanaris"
+						}
+					],
+					"tip": "Points all the way to 300; past 290 a point comes less often."
+				}
 			]
 		}
 	]

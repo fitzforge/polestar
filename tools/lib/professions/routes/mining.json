@@ -8,14 +8,40 @@
 		"The route smelts where smelting gives points (Copper to 65, Tin and Bronze to about 105, Iron to about 138) and mines everywhere else. Every ore can be mined on the loops or bought at the Auction House: the Materials setting decides. From 140 to 155 and from 175 no smelt gives points, so those stretches are mined.",
 		"Optional skill bonuses: Enchant Gloves - Mining (+2) or Advanced Mining (+5), the Goblin Mining Helmet (+5, Engineering 205 to wear), the Twilight Mine Light (+4, from A Miner Problem in the Riverglades) and the Miner's Cape (+2, Miner Johnson in The Deadmines). With +5, Iron Deposits can be mined from 120."
 	],
-	"starter": { "quest": 93552, "item": 247840 },
+	"starter": {
+		"quest": 93552,
+		"item": 247840
+	},
 	"tools": [
 		{
 			"item": 2901,
 			"at": "learn",
 			"vendors": {
-				"Horde": [267328, 3168, 267331, 3081, 267325, 2118, 251537, 254360, 3358, 4587, 3002],
-				"Alliance": [152, 66, 1690, 267334, 3614, 251537, 254360, 5514, 4259, 4229]
+				"Horde": [
+					267328,
+					3168,
+					267331,
+					3081,
+					267325,
+					2118,
+					251537,
+					254360,
+					3358,
+					4587,
+					3002
+				],
+				"Alliance": [
+					152,
+					66,
+					1690,
+					267334,
+					3614,
+					251537,
+					254360,
+					5514,
+					4259,
+					4229
+				]
 			}
 		}
 	],
@@ -24,61 +50,218 @@
 			"from": 1,
 			"to": 65,
 			"steps": [
-				{ "train": "Apprentice", "tip": "No character level needed. On Zephras Isle, Mining for Dummies from Harvesting Windstones teaches it too." },
-				{ "tool": 2901, "tip": "A tool: it stays in your bags, and every vein needs it." },
-				{ "track": 2580, "name": "Find Minerals", "tip": "Veins show on the minimap. Dying turns it off, and only one kind of tracking is on at a time." },
-				{ "get": 2770, "count": 140, "rank": 1, "tip": "Mining it raises your skill too; enough to smelt your way to 65." },
-				{ "smelt": 2657, "count": 140, "to": 65, "tip": "Every bar gives a point up to 25. Keep 70 of the bars: Bronze takes them at 65." },
-				{ "gather": 65, "title": "Copper", "tip": "Only if the smelting left you short of 65." }
+				{ "train": "Apprentice",
+					"tip": "No character level needed. On Zephras Isle, Mining for Dummies from Harvesting Windstones teaches it too."
+				},
+				{ "tool": 2901,
+					"tip": "A tool: it stays in your bags, and every vein needs it."
+				},
+				{ "track": 2580,
+					"name": "Find Minerals",
+					"tip": "Veins show on the minimap. Dying turns it off, and only one kind of tracking is on at a time."
+				},
+				{ "get": 2770,
+					"count": 140,
+					"rank": 1,
+					"tip": "Mining it raises your skill too; enough to smelt your way to 65."
+				},
+				{ "smelt": 2657,
+					"count": 140,
+					"to": 65,
+					"tip": "Every bar gives a point up to 25; Smelt Bronze takes a Copper Bar each.",
+					"row": "keep 70 for Bronze"
+				},
+				{ "gather": 65,
+					"tip": "Only if the smelting left you short of 65."
+				}
 			]
 		},
 		{
 			"from": 65,
 			"to": 125,
 			"steps": [
-				{ "train": "Journeyman", "tip": "Needs Mining skill 50. The trainers in the starting areas teach only up to 75." },
-				{ "learn": 3304 },
-				{ "learn": 2659 },
-				{ "get": 2771, "count": 70, "rank": 65, "tip": "Tin Veins need Mining skill 65." },
-				{ "smelt": 3304, "count": 70, "to": 75, "tip": "Tin stops giving points at 75, but Bronze needs all 70 bars." },
-				{ "smelt": 2659, "count": 70, "to": 105, "tip": "A Copper Bar and a Tin Bar each. You end up near 105." },
-				{ "gather": 125, "zones": { "Alliance": ["Wetlands", "Westfall"], "Horde": ["Silverpine Forest", "Hillsbrad Foothills", "The Barrens", "Ashenvale", "Stonetalon Mountains"] }, "tip": "Cave mobs respawn fast: worth it only well above their level." }
+				{ "train": "Journeyman",
+					"tip": "Needs Mining skill 50. The trainers in the starting areas teach only up to 75."
+				},
+				{ "learn": 3304
+				},
+				{ "learn": 2659
+				},
+				{ "get": 2771,
+					"count": 70,
+					"rank": 65,
+					"tip": "Tin Veins need Mining skill 65."
+				},
+				{ "smelt": 3304,
+					"count": 70,
+					"to": 75,
+					"tip": "Tin stops giving points at 75, but Bronze needs all 70 bars."
+				},
+				{ "smelt": 2659,
+					"count": 70,
+					"to": 105,
+					"tip": "A Copper Bar and a Tin Bar each. You end up near 105."
+				},
+				{ "gather": 125,
+					"zones": {
+						"Alliance": [
+							"Wetlands",
+							"Westfall"
+						],
+						"Horde": [
+							"Silverpine Forest",
+							"Hillsbrad Foothills",
+							"The Barrens",
+							"Ashenvale",
+							"Stonetalon Mountains"
+						]
+					},
+					"tip": "Cave mobs respawn fast: worth it only well above their level."
+				}
 			]
 		},
 		{
 			"from": 125,
 			"to": 175,
 			"steps": [
-				{ "train": "Expert", "tip": "Needs Mining skill 125." },
-				{ "learn": 3307 },
-				{ "get": 2772, "count": 20, "rank": 125, "tip": "Iron Deposits need Mining skill 125." },
-				{ "smelt": 3307, "count": 20, "to": 138, "tip": "Iron gives a point every time up to 130; you end up near 138." },
-				{ "gather": 155, "zones": { "Alliance": ["Arathi Highlands", "Thousand Needles", "Desolace"], "Horde": ["Riverglades", "Arathi Highlands", "Thousand Needles", "Desolace"] }, "tip": "No smelt gives points from 140 to 155." },
-				{ "gather": 175, "zones": { "Alliance": ["Arathi Highlands", "Thousand Needles", "Desolace"], "Horde": ["Riverglades", "Arathi Highlands", "Thousand Needles", "Desolace"] }, "tip": "Gold Veins need Mining skill 155." }
+				{ "train": "Expert",
+					"tip": "Needs Mining skill 125."
+				},
+				{ "learn": 3307
+				},
+				{ "get": 2772,
+					"count": 20,
+					"rank": 125,
+					"tip": "Iron Deposits need Mining skill 125."
+				},
+				{ "smelt": 3307,
+					"count": 20,
+					"to": 138,
+					"tip": "Iron gives a point every time up to 130; you end up near 138."
+				},
+				{ "gather": 155,
+					"zones": {
+						"Alliance": [
+							"Arathi Highlands",
+							"Thousand Needles",
+							"Desolace"
+						],
+						"Horde": [
+							"Riverglades",
+							"Arathi Highlands",
+							"Thousand Needles",
+							"Desolace"
+						]
+					},
+					"tip": "No smelt gives points from 140 to 155."
+				},
+				{ "gather": 175,
+					"zones": {
+						"Alliance": [
+							"Arathi Highlands",
+							"Thousand Needles",
+							"Desolace"
+						],
+						"Horde": [
+							"Riverglades",
+							"Arathi Highlands",
+							"Thousand Needles",
+							"Desolace"
+						]
+					},
+					"tip": "Iron still gives points all the way to 175."
+				}
 			]
 		},
 		{
 			"from": 175,
 			"to": 245,
 			"steps": [
-				{ "gather": 200, "zones": { "Alliance": ["The Hinterlands", "Tanaris"], "Horde": ["The Hinterlands", "Tanaris"] }, "tip": "Mithril Deposits need Mining skill 175." },
-				{ "train": "Artisan", "tip": "Needs Mining skill 200; past 225 nothing gives points without it." },
-				{ "gather": 230, "zones": { "Alliance": ["The Hinterlands", "Tanaris"], "Horde": ["The Hinterlands", "Tanaris"] } },
-				{ "gather": 245, "zones": { "Alliance": ["The Hinterlands", "Tanaris"], "Horde": ["The Hinterlands", "Tanaris"] }, "tip": "Truesilver Deposits need Mining skill 230." }
+				{ "gather": 200,
+					"zones": {
+						"Alliance": [
+							"The Hinterlands",
+							"Tanaris"
+						],
+						"Horde": [
+							"The Hinterlands",
+							"Tanaris"
+						]
+					},
+					"tip": "Mithril Deposits need Mining skill 175."
+				},
+				{ "train": "Artisan",
+					"tip": "Needs Mining skill 200; past 225 nothing gives points without it."
+				},
+				{ "gather": 230,
+					"zones": {
+						"Alliance": [
+							"The Hinterlands",
+							"Tanaris"
+						],
+						"Horde": [
+							"The Hinterlands",
+							"Tanaris"
+						]
+					}
+				},
+				{ "gather": 245,
+					"zones": {
+						"Alliance": [
+							"The Hinterlands",
+							"Tanaris"
+						],
+						"Horde": [
+							"The Hinterlands",
+							"Tanaris"
+						]
+					},
+					"tip": "Truesilver Deposits need Mining skill 230."
+				}
 			]
 		},
 		{
 			"from": 245,
 			"to": 275,
 			"steps": [
-				{ "gather": 275, "zones": { "Alliance": ["Un'Goro Crater", "Blasted Lands", "Felwood"], "Horde": ["Un'Goro Crater", "Blasted Lands", "Felwood"] }, "tip": "Small Thorium Veins need Mining skill 245." }
+				{ "gather": 275,
+					"zones": {
+						"Alliance": [
+							"Un'Goro Crater",
+							"Blasted Lands",
+							"Felwood"
+						],
+						"Horde": [
+							"Un'Goro Crater",
+							"Blasted Lands",
+							"Felwood"
+						]
+					},
+					"tip": "Small Thorium Veins need Mining skill 245."
+				}
 			]
 		},
 		{
 			"from": 275,
 			"to": 300,
 			"steps": [
-				{ "gather": 300, "zones": { "Alliance": ["Un'Goro Crater", "Eastern Plaguelands", "Winterspring", "Burning Steppes"], "Horde": ["Un'Goro Crater", "Eastern Plaguelands", "Winterspring", "Burning Steppes"] }, "tip": "Rich Thorium Veins need Mining skill 275." }
+				{ "gather": 300,
+					"zones": {
+						"Alliance": [
+							"Un'Goro Crater",
+							"Eastern Plaguelands",
+							"Winterspring",
+							"Burning Steppes"
+						],
+						"Horde": [
+							"Un'Goro Crater",
+							"Eastern Plaguelands",
+							"Winterspring",
+							"Burning Steppes"
+						]
+					},
+					"tip": "Rich Thorium Veins need Mining skill 275."
+				}
 			]
 		}
 	]

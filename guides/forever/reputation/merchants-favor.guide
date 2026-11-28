@@ -63,38 +63,31 @@ step Fill the Waylaid Crate
   tip Right-clicking the crate turns it into a Sealed Apprentice Crate.
   use 248684 anywhere
 
-step Start the Shipping Label quest
+step Start the Shipping Label quest · the label in your bags
   tip The first crate or writ comes with a Shipping Label.
-  only Alliance
-  zone Redridge Mountains
-  accept 98247 item 280179
+  accept 98247 item 280179 only Alliance
+  accept 98248 item 280180 only Horde
 
-step Start the Shipping Label quest
-  tip The first crate or writ comes with a Shipping Label.
-  only Horde
-  zone The Barrens
-  accept 98248 item 280180
-
-step Hand in the Shipping Label
-  tip Marcy Baker at Three Corners, on the west edge of Redridge: 2,000 reputation.
+step Hand in the Shipping Label · Marcy Baker, Three Corners, Redridge
+  tip It pays 2,000 reputation, two thirds of the way to Friendly.
   only Alliance
   zone Redridge Mountains
   turnin 98247
 
-step Hand in the Shipping Label
-  tip Dokimi, just outside the west gate of the Crossroads: 2,000 reputation.
+step Hand in the Shipping Label · Dokimi, outside the Crossroads, The Barrens
+  tip It pays 2,000 reputation, two thirds of the way to Friendly.
   only Horde
   zone The Barrens
   turnin 98248
 
-step Hand in the Sealed Apprentice Crate
+step Hand in the Sealed Apprentice Crate · Marcy Baker, Three Corners, Redridge
   tip Merchant's Favor and silver; crates give no reputation.
   only Alliance
   zone Redridge Mountains
   when has 248765
   turnin 91899 direct npc 256390
 
-step Hand in the Sealed Apprentice Crate
+step Hand in the Sealed Apprentice Crate · Dokimi, outside the Crossroads, The Barrens
   tip Merchant's Favor and silver; crates give no reputation.
   only Horde
   zone The Barrens
@@ -113,8 +106,8 @@ step Start the quest on your Craftsman's Writ
   tip Each writ once a day; as many different writs a day as you like.
   task "Right-click the Craftsman's Writ in your bags"
 
-step Bring your writ to Kzixx
-  tip Duskwood, about 450 yards north of Darkshire. No quest mark: a right-click works.
+step Bring your writ to Kzixx · north of Darkshire, Duskwood
+  tip No quest mark: right-click them.
   when onquest 94214,94232,94241,94250
   zone Duskwood
   turnin 94214 npc 3134       -- Shadow Protection Potion, 75 reputation
@@ -122,38 +115,38 @@ step Bring your writ to Kzixx
   turnin 94241 npc 3134       -- Dark Leather Tunic, 75 reputation
   turnin 94250 npc 3134       -- Small Silk Pack, 75 reputation
 
-step Bring your writ to "Sea Wolf" MacKinley
-  tip Stranglethorn Vale, on the top floor of the Booty Bay inn. No quest mark: a right-click works.
+step Bring your writ to "Sea Wolf" MacKinley · Booty Bay inn, top floor
+  tip No quest mark: right-click them.
   when onquest 94226
   zone Stranglethorn Vale
   turnin 94226 npc 2501       -- Green Iron Gauntlets, 75 reputation
 
-step Bring your writ to Scooty
-  tip Stranglethorn Vale, by Booty Bay's goblin transporter. No quest mark: a right-click works.
+step Bring your writ to Scooty · Booty Bay's goblin transporter
+  tip No quest mark: right-click them.
   when onquest 94235
   zone Stranglethorn Vale
   turnin 94235 npc 7853       -- Gnomish Universal Remote, 75 reputation
 
-step Bring your writ to Narkk
-  tip Stranglethorn Vale, in Booty Bay. No quest mark: a right-click works.
+step Bring your writ to Narkk · Booty Bay
+  tip No quest mark: right-click them.
   when onquest 94244
   zone Stranglethorn Vale
   turnin 94244 npc 2663       -- Dark Leather Shoulders, 75 reputation
 
-step Bring your writ to Short John Mithril
-  tip Stranglethorn Vale, at the Gurubashi Arena, about 800 yards south of Grom'gol. No quest mark: a right-click works.
+step Bring your writ to Short John Mithril · Gurubashi Arena, Stranglethorn Vale
+  tip No quest mark: right-click them.
   when onquest 94217
   zone Stranglethorn Vale
   turnin 94217 npc 14508      -- {item:3388}, 75 reputation
 
-step Bring your writ to Hekshi
-  tip Stranglethorn Vale, in northern Stranglethorn. No quest mark: a right-click works.
+step Bring your writ to Hekshi · northern Stranglethorn Vale
+  tip No quest mark: right-click them.
   when onquest 94253
   zone Stranglethorn Vale
   turnin 94253 npc 261961     -- Colorful Kilt, 75 reputation
 
-step Bring your writ to Kixxle
-  tip Wetlands, about 600 yards south of Dun Modr. No quest mark: a right-click works.
+step Bring your writ to Kixxle · south of Dun Modr, Wetlands
+  tip No quest mark: right-click them.
   when onquest 94219,94228,94237,94246,94255
   zone Wetlands
   turnin 94219 npc 8305       -- {item:5996}, 75 reputation
@@ -162,8 +155,8 @@ step Bring your writ to Kixxle
   turnin 94246 npc 8305       -- Red Whelp Gloves, 75 reputation
   turnin 94255 npc 8305       -- Spider Silk Slippers, 75 reputation
 
-step Bring your writ to Muggol Breezebeard
-  tip Arathi Highlands, about 250 yards south of Refuge Pointe. No quest mark: a right-click works.
+step Bring your writ to Muggol Breezebeard · south of Refuge Pointe, Arathi Highlands
+  tip No quest mark: right-click them.
   when onquest 94212,94221
   zone Arathi Highlands
   turnin 94212 npc 257296     -- Elixir of Wisdom, 75 reputation
@@ -174,8 +167,8 @@ step Get the Explosive Sheep for your writ
   when onquest 94230
   collect 4384 quest 94230.2 @34,23.2
 
-step Bring your writ to Alyce
-  tip Arathi Highlands, about 700 yards north-west of Refuge Pointe. No quest mark: a right-click works.
+step Bring your writ to Alyce · north-west of Refuge Pointe, Arathi Highlands
+  tip No quest mark: right-click them.
   when onquest 94230,94239,94248
   zone Arathi Highlands
   turnin 94230 npc 257304     -- Explosive Sheep, 75 reputation
@@ -187,21 +180,21 @@ step Get the Practice Lock for your writ
   when onquest 94233
   collect 6712 quest 94233.2
 
-step Bring your writ to Gorgrash
-  tip Hillsbrad Foothills, in the east of the foothills. No quest mark: a right-click works.
+step Bring your writ to Gorgrash · eastern Hillsbrad Foothills
+  tip No quest mark: right-click them.
   when onquest 94224,94233
   zone Hillsbrad Foothills
   turnin 94224 npc 261932     -- Heavy Bronze Mace, 75 reputation
   turnin 94233 npc 261932     -- Practice Lock, 75 reputation
 
-step Bring your writ to Kris Legace
-  tip Hillsbrad Foothills, in the east of the foothills. No quest mark: a right-click works.
+step Bring your writ to Kris Legace · eastern Hillsbrad Foothills
+  tip No quest mark: right-click them.
   when onquest 94242
   zone Hillsbrad Foothills
   turnin 94242 npc 3536       -- Pilferer's Gloves, 75 reputation
 
-step Bring your writ to Webbed Mudsnout Gnoll
-  tip Hillsbrad Foothills, in a spider cocoon about 500 yards south-east of Southshore. No quest mark: a right-click works.
+step Bring your writ to Webbed Mudsnout Gnoll · a spider cocoon south-east of Southshore
+  tip No quest mark: right-click them.
   when onquest 94215
   zone Hillsbrad Foothills
   turnin 94215 npc 261928     -- Free Action Potion, 75 reputation
@@ -211,23 +204,23 @@ step Get the Heavy Leather Ball for your writ
   when onquest 94238
   collect 18662 quest 94238.2 @38.34,61.15
 
-step Bring your writ to Sos'mol
-  tip Alterac Mountains, in the south-west of the mountains. No quest mark: a right-click works.
+step Bring your writ to Sos'mol · south-west Alterac Mountains
+  tip No quest mark: right-click them.
   when onquest 94004,94238
   zone Alterac Mountains
   turnin 94004 npc 257281     -- {item:3391}, 75 reputation
   turnin 94238 npc 257281     -- Heavy Leather Ball, 75 reputation
 
-step Bring your writ to Alan Sneeks
-  tip Alterac Mountains, in the south-west of the mountains, among Syndicate thugs. No quest mark: a right-click works.
+step Bring your writ to Alan Sneeks · south-west Alterac Mountains
+  tip No quest mark: right-click them. Syndicate thugs roam around him.
   when onquest 94220,94229,94247
   zone Alterac Mountains
   turnin 94220 npc 257282     -- Pearl-handled Dagger, 75 reputation
   turnin 94229 npc 257282     -- Ornate Spyglass, 75 reputation
   turnin 94247 npc 257282     -- Lesser Wizard's Robe, 75 reputation
 
-step Bring your writ to Bath'rah the Windwatcher
-  tip Alterac Mountains, on the eastern edge, above Tarren Mill. No quest mark: a right-click works.
+step Bring your writ to Bath'rah the Windwatcher · above Tarren Mill, Alterac Mountains
+  tip No quest mark: right-click them.
   when onquest 94251
   zone Alterac Mountains
   turnin 94251 npc 6176       -- Phoenix Pants, 75 reputation
@@ -237,27 +230,27 @@ step Get the Lesser Mana Potion for your writ
   when onquest 94213
   collect 3385 quest 94213.2
 
-step Bring your writ to Ash'alari
-  tip Ashenvale, around Splintertree Post. No quest mark: a right-click works.
+step Bring your writ to Ash'alari · south-west of Splintertree Post, Ashenvale
+  tip No quest mark: right-click them.
   when onquest 94213
   zone Ashenvale
   turnin 94213 npc 257315     -- Lesser Mana Potion, 75 reputation
 
-step Bring your writ to Murache
-  tip Ashenvale, around Splintertree Post. No quest mark: a right-click works.
+step Bring your writ to Murache · south of Splintertree Post, Ashenvale
+  tip No quest mark: right-click them.
   when onquest 94240
   zone Ashenvale
   turnin 94240 npc 257322     -- Herbalist's Gloves, 75 reputation
 
-step Bring your writ to Cowardly Peon
-  tip Ashenvale, around Splintertree Post. No quest mark: a right-click works.
+step Bring your writ to Cowardly Peon · south-east of Splintertree Post, Ashenvale
+  tip No quest mark: right-click them.
   when onquest 94222,94249
   zone Ashenvale
   turnin 94222 npc 257316     -- Iridescent Hammer, 75 reputation
   turnin 94249 npc 257316     -- Azure Silk Hood, 75 reputation
 
-step Bring your writ to Grembly
-  tip Ashenvale, around Splintertree Post. No quest mark: a right-click works.
+step Bring your writ to Grembly · north-east of Splintertree Post, Ashenvale
+  tip No quest mark: right-click them.
   when onquest 94231
   zone Ashenvale
   turnin 94231 npc 257317     -- Moonsight Rifle, 75 reputation
@@ -267,8 +260,8 @@ step Get the Heavy Quiver for your writ
   when onquest 94243
   collect 7371 quest 94243.2 @58.99,62.6
 
-step Bring your writ to Ziz Fizziks
-  tip Stonetalon Mountains, in a small hut about 550 yards east of Sun Rock Retreat. No quest mark: a right-click works.
+step Bring your writ to Ziz Fizziks · east of Sun Rock Retreat, Stonetalon Mountains
+  tip No quest mark: right-click them.
   when onquest 94216,94225,94234,94243
   zone Stonetalon Mountains
   turnin 94216 npc 4201       -- Elixir of Lesser Agility, 75 reputation
@@ -281,38 +274,38 @@ step Get the Elixir of Defense for your writ
   when onquest 94218
   collect 8951 quest 94218.2 @77.22,77.4
 
-step Bring your writ to Rizzle Brassbolts
-  tip Thousand Needles, at the Mirage Raceway. No quest mark: a right-click works.
+step Bring your writ to Rizzle Brassbolts · Mirage Raceway, Thousand Needles
+  tip No quest mark: right-click them.
   when onquest 94218
   zone Thousand Needles
   turnin 94218 npc 4720       -- {item:8951}, 75 reputation
 
-step Bring your writ to "Plucky" Johnson
-  tip Thousand Needles, at the Mirage Raceway. No quest mark: a right-click works.
+step Bring your writ to "Plucky" Johnson · Mirage Raceway, Thousand Needles
+  tip No quest mark: right-click them.
   when onquest 94227
   zone Thousand Needles
   turnin 94227 npc 6626       -- Big Bronze Knife, 75 reputation
 
-step Bring your writ to Razzeric
-  tip Thousand Needles, at the Mirage Raceway. No quest mark: a right-click works.
+step Bring your writ to Razzeric · Mirage Raceway, Thousand Needles
+  tip No quest mark: right-click them.
   when onquest 94236
   zone Thousand Needles
   turnin 94236 npc 4706       -- Big Bronze Bomb, 75 reputation
 
-step Bring your writ to Goblin Pit Boss
-  tip Thousand Needles, at the Mirage Raceway. No quest mark: a right-click works.
+step Bring your writ to Goblin Pit Boss · Mirage Raceway, Thousand Needles
+  tip No quest mark: right-click them.
   when onquest 94245
   zone Thousand Needles
   turnin 94245 npc 4496       -- Barbaric Gloves, 75 reputation
 
-step Bring your writ to Magus Tirth
-  tip Thousand Needles, at the Mirage Raceway. No quest mark: a right-click works.
+step Bring your writ to Magus Tirth · Mirage Raceway, Thousand Needles
+  tip No quest mark: right-click them.
   when onquest 94254
   zone Thousand Needles
   turnin 94254 npc 6548       -- Greater Adept's Robe, 75 reputation
 
-step Bring your writ to Lotwil Veriatus
-  tip Badlands, about 550 yards east of Kargath. No quest mark: a right-click works.
+step Bring your writ to Lotwil Veriatus · east of Kargath, Badlands
+  tip No quest mark: right-click them.
   when onquest 94256
   zone Badlands
   turnin 94256 npc 2921       -- Frost Protection Potion, 125 reputation
@@ -322,14 +315,14 @@ step Reach Friendly
   rep 2586 Friendly only Alliance
   rep 2587 Friendly only Horde
 
-step Buy a Forged Delivery Receipt
-  tip From the Uncertified Scribe: 15 Merchant's Favor. It turns an empty crate into 50 reputation.
+step Buy a Forged Delivery Receipt · Dianne Softstep, Three Corners, Redridge
+  tip 15 Merchant's Favor. It turns an empty Waylaid Crate into 50 reputation.
   only Alliance
   zone Redridge Mountains
   buy 262902 x1 npc 256742
 
-step Buy a Forged Delivery Receipt
-  tip From the Uncertified Scribe: 15 Merchant's Favor. It turns an empty crate into 50 reputation.
+step Buy a Forged Delivery Receipt · Kurvelk Shadowhoof, outside the Crossroads, The Barrens
+  tip 15 Merchant's Favor. It turns an empty Waylaid Crate into 50 reputation.
   only Horde
   zone The Barrens
   buy 262902 x1 npc 256672
@@ -342,15 +335,15 @@ step Use the receipt on the crate
   tip It makes a Notarized Shipping Container.
   use 262902 anywhere
 
-step Hand in the Notarized Shipping Container
-  tip At the same NPC who takes the sealed crates: 50 reputation.
+step Hand in the Notarized Shipping Container · Marcy Baker, Three Corners, Redridge
+  tip 50 reputation.
   only Alliance
   zone Redridge Mountains
   when has 262917
   turnin 93862 direct npc 256390
 
-step Hand in the Notarized Shipping Container
-  tip At the same NPC who takes the sealed crates: 50 reputation.
+step Hand in the Notarized Shipping Container · Dokimi, outside the Crossroads, The Barrens
+  tip 50 reputation.
   only Horde
   zone The Barrens
   when has 262917
@@ -368,8 +361,8 @@ step Start the quest on your Craftsman's Writ
   tip Each writ once a day; as many different writs a day as you like.
   task "Right-click the Craftsman's Writ in your bags"
 
-step Bring your writ to Kzixx
-  tip Duskwood, about 450 yards north of Darkshire. No quest mark: a right-click works.
+step Bring your writ to Kzixx · north of Darkshire, Duskwood
+  tip No quest mark: right-click them.
   when onquest 94214,94232,94241,94250
   zone Duskwood
   turnin 94214 npc 3134       -- Shadow Protection Potion, 75 reputation
@@ -377,38 +370,38 @@ step Bring your writ to Kzixx
   turnin 94241 npc 3134       -- Dark Leather Tunic, 75 reputation
   turnin 94250 npc 3134       -- Small Silk Pack, 75 reputation
 
-step Bring your writ to "Sea Wolf" MacKinley
-  tip Stranglethorn Vale, on the top floor of the Booty Bay inn. No quest mark: a right-click works.
+step Bring your writ to "Sea Wolf" MacKinley · Booty Bay inn, top floor
+  tip No quest mark: right-click them.
   when onquest 94226
   zone Stranglethorn Vale
   turnin 94226 npc 2501       -- Green Iron Gauntlets, 75 reputation
 
-step Bring your writ to Scooty
-  tip Stranglethorn Vale, by Booty Bay's goblin transporter. No quest mark: a right-click works.
+step Bring your writ to Scooty · Booty Bay's goblin transporter
+  tip No quest mark: right-click them.
   when onquest 94235
   zone Stranglethorn Vale
   turnin 94235 npc 7853       -- Gnomish Universal Remote, 75 reputation
 
-step Bring your writ to Narkk
-  tip Stranglethorn Vale, in Booty Bay. No quest mark: a right-click works.
+step Bring your writ to Narkk · Booty Bay
+  tip No quest mark: right-click them.
   when onquest 94244
   zone Stranglethorn Vale
   turnin 94244 npc 2663       -- Dark Leather Shoulders, 75 reputation
 
-step Bring your writ to Short John Mithril
-  tip Stranglethorn Vale, at the Gurubashi Arena, about 800 yards south of Grom'gol. No quest mark: a right-click works.
+step Bring your writ to Short John Mithril · Gurubashi Arena, Stranglethorn Vale
+  tip No quest mark: right-click them.
   when onquest 94217
   zone Stranglethorn Vale
   turnin 94217 npc 14508      -- {item:3388}, 75 reputation
 
-step Bring your writ to Hekshi
-  tip Stranglethorn Vale, in northern Stranglethorn. No quest mark: a right-click works.
+step Bring your writ to Hekshi · northern Stranglethorn Vale
+  tip No quest mark: right-click them.
   when onquest 94253
   zone Stranglethorn Vale
   turnin 94253 npc 261961     -- Colorful Kilt, 75 reputation
 
-step Bring your writ to Kixxle
-  tip Wetlands, about 600 yards south of Dun Modr. No quest mark: a right-click works.
+step Bring your writ to Kixxle · south of Dun Modr, Wetlands
+  tip No quest mark: right-click them.
   when onquest 94219,94228,94237,94246,94255
   zone Wetlands
   turnin 94219 npc 8305       -- {item:5996}, 75 reputation
@@ -417,8 +410,8 @@ step Bring your writ to Kixxle
   turnin 94246 npc 8305       -- Red Whelp Gloves, 75 reputation
   turnin 94255 npc 8305       -- Spider Silk Slippers, 75 reputation
 
-step Bring your writ to Muggol Breezebeard
-  tip Arathi Highlands, about 250 yards south of Refuge Pointe. No quest mark: a right-click works.
+step Bring your writ to Muggol Breezebeard · south of Refuge Pointe, Arathi Highlands
+  tip No quest mark: right-click them.
   when onquest 94212,94221
   zone Arathi Highlands
   turnin 94212 npc 257296     -- Elixir of Wisdom, 75 reputation
@@ -429,8 +422,8 @@ step Get the Explosive Sheep for your writ
   when onquest 94230
   collect 4384 quest 94230.2 @34,23.2
 
-step Bring your writ to Alyce
-  tip Arathi Highlands, about 700 yards north-west of Refuge Pointe. No quest mark: a right-click works.
+step Bring your writ to Alyce · north-west of Refuge Pointe, Arathi Highlands
+  tip No quest mark: right-click them.
   when onquest 94230,94239,94248
   zone Arathi Highlands
   turnin 94230 npc 257304     -- Explosive Sheep, 75 reputation
@@ -442,21 +435,21 @@ step Get the Practice Lock for your writ
   when onquest 94233
   collect 6712 quest 94233.2
 
-step Bring your writ to Gorgrash
-  tip Hillsbrad Foothills, in the east of the foothills. No quest mark: a right-click works.
+step Bring your writ to Gorgrash · eastern Hillsbrad Foothills
+  tip No quest mark: right-click them.
   when onquest 94224,94233
   zone Hillsbrad Foothills
   turnin 94224 npc 261932     -- Heavy Bronze Mace, 75 reputation
   turnin 94233 npc 261932     -- Practice Lock, 75 reputation
 
-step Bring your writ to Kris Legace
-  tip Hillsbrad Foothills, in the east of the foothills. No quest mark: a right-click works.
+step Bring your writ to Kris Legace · eastern Hillsbrad Foothills
+  tip No quest mark: right-click them.
   when onquest 94242
   zone Hillsbrad Foothills
   turnin 94242 npc 3536       -- Pilferer's Gloves, 75 reputation
 
-step Bring your writ to Webbed Mudsnout Gnoll
-  tip Hillsbrad Foothills, in a spider cocoon about 500 yards south-east of Southshore. No quest mark: a right-click works.
+step Bring your writ to Webbed Mudsnout Gnoll · a spider cocoon south-east of Southshore
+  tip No quest mark: right-click them.
   when onquest 94215
   zone Hillsbrad Foothills
   turnin 94215 npc 261928     -- Free Action Potion, 75 reputation
@@ -466,23 +459,23 @@ step Get the Heavy Leather Ball for your writ
   when onquest 94238
   collect 18662 quest 94238.2 @38.34,61.15
 
-step Bring your writ to Sos'mol
-  tip Alterac Mountains, in the south-west of the mountains. No quest mark: a right-click works.
+step Bring your writ to Sos'mol · south-west Alterac Mountains
+  tip No quest mark: right-click them.
   when onquest 94004,94238
   zone Alterac Mountains
   turnin 94004 npc 257281     -- {item:3391}, 75 reputation
   turnin 94238 npc 257281     -- Heavy Leather Ball, 75 reputation
 
-step Bring your writ to Alan Sneeks
-  tip Alterac Mountains, in the south-west of the mountains, among Syndicate thugs. No quest mark: a right-click works.
+step Bring your writ to Alan Sneeks · south-west Alterac Mountains
+  tip No quest mark: right-click them. Syndicate thugs roam around him.
   when onquest 94220,94229,94247
   zone Alterac Mountains
   turnin 94220 npc 257282     -- Pearl-handled Dagger, 75 reputation
   turnin 94229 npc 257282     -- Ornate Spyglass, 75 reputation
   turnin 94247 npc 257282     -- Lesser Wizard's Robe, 75 reputation
 
-step Bring your writ to Bath'rah the Windwatcher
-  tip Alterac Mountains, on the eastern edge, above Tarren Mill. No quest mark: a right-click works.
+step Bring your writ to Bath'rah the Windwatcher · above Tarren Mill, Alterac Mountains
+  tip No quest mark: right-click them.
   when onquest 94251
   zone Alterac Mountains
   turnin 94251 npc 6176       -- Phoenix Pants, 75 reputation
@@ -492,27 +485,27 @@ step Get the Lesser Mana Potion for your writ
   when onquest 94213
   collect 3385 quest 94213.2
 
-step Bring your writ to Ash'alari
-  tip Ashenvale, around Splintertree Post. No quest mark: a right-click works.
+step Bring your writ to Ash'alari · south-west of Splintertree Post, Ashenvale
+  tip No quest mark: right-click them.
   when onquest 94213
   zone Ashenvale
   turnin 94213 npc 257315     -- Lesser Mana Potion, 75 reputation
 
-step Bring your writ to Murache
-  tip Ashenvale, around Splintertree Post. No quest mark: a right-click works.
+step Bring your writ to Murache · south of Splintertree Post, Ashenvale
+  tip No quest mark: right-click them.
   when onquest 94240
   zone Ashenvale
   turnin 94240 npc 257322     -- Herbalist's Gloves, 75 reputation
 
-step Bring your writ to Cowardly Peon
-  tip Ashenvale, around Splintertree Post. No quest mark: a right-click works.
+step Bring your writ to Cowardly Peon · south-east of Splintertree Post, Ashenvale
+  tip No quest mark: right-click them.
   when onquest 94222,94249
   zone Ashenvale
   turnin 94222 npc 257316     -- Iridescent Hammer, 75 reputation
   turnin 94249 npc 257316     -- Azure Silk Hood, 75 reputation
 
-step Bring your writ to Grembly
-  tip Ashenvale, around Splintertree Post. No quest mark: a right-click works.
+step Bring your writ to Grembly · north-east of Splintertree Post, Ashenvale
+  tip No quest mark: right-click them.
   when onquest 94231
   zone Ashenvale
   turnin 94231 npc 257317     -- Moonsight Rifle, 75 reputation
@@ -522,8 +515,8 @@ step Get the Heavy Quiver for your writ
   when onquest 94243
   collect 7371 quest 94243.2 @58.99,62.6
 
-step Bring your writ to Ziz Fizziks
-  tip Stonetalon Mountains, in a small hut about 550 yards east of Sun Rock Retreat. No quest mark: a right-click works.
+step Bring your writ to Ziz Fizziks · east of Sun Rock Retreat, Stonetalon Mountains
+  tip No quest mark: right-click them.
   when onquest 94216,94225,94234,94243
   zone Stonetalon Mountains
   turnin 94216 npc 4201       -- Elixir of Lesser Agility, 75 reputation
@@ -536,44 +529,44 @@ step Get the Elixir of Defense for your writ
   when onquest 94218
   collect 8951 quest 94218.2 @77.22,77.4
 
-step Bring your writ to Rizzle Brassbolts
-  tip Thousand Needles, at the Mirage Raceway. No quest mark: a right-click works.
+step Bring your writ to Rizzle Brassbolts · Mirage Raceway, Thousand Needles
+  tip No quest mark: right-click them.
   when onquest 94218
   zone Thousand Needles
   turnin 94218 npc 4720       -- {item:8951}, 75 reputation
 
-step Bring your writ to "Plucky" Johnson
-  tip Thousand Needles, at the Mirage Raceway. No quest mark: a right-click works.
+step Bring your writ to "Plucky" Johnson · Mirage Raceway, Thousand Needles
+  tip No quest mark: right-click them.
   when onquest 94227
   zone Thousand Needles
   turnin 94227 npc 6626       -- Big Bronze Knife, 75 reputation
 
-step Bring your writ to Razzeric
-  tip Thousand Needles, at the Mirage Raceway. No quest mark: a right-click works.
+step Bring your writ to Razzeric · Mirage Raceway, Thousand Needles
+  tip No quest mark: right-click them.
   when onquest 94236
   zone Thousand Needles
   turnin 94236 npc 4706       -- Big Bronze Bomb, 75 reputation
 
-step Bring your writ to Goblin Pit Boss
-  tip Thousand Needles, at the Mirage Raceway. No quest mark: a right-click works.
+step Bring your writ to Goblin Pit Boss · Mirage Raceway, Thousand Needles
+  tip No quest mark: right-click them.
   when onquest 94245
   zone Thousand Needles
   turnin 94245 npc 4496       -- Barbaric Gloves, 75 reputation
 
-step Bring your writ to Magus Tirth
-  tip Thousand Needles, at the Mirage Raceway. No quest mark: a right-click works.
+step Bring your writ to Magus Tirth · Mirage Raceway, Thousand Needles
+  tip No quest mark: right-click them.
   when onquest 94254
   zone Thousand Needles
   turnin 94254 npc 6548       -- Greater Adept's Robe, 75 reputation
 
-step Bring your writ to Lotwil Veriatus
-  tip Badlands, about 550 yards east of Kargath. No quest mark: a right-click works.
+step Bring your writ to Lotwil Veriatus · east of Kargath, Badlands
+  tip No quest mark: right-click them.
   when onquest 94256
   zone Badlands
   turnin 94256 npc 2921       -- Frost Protection Potion, 125 reputation
 
-step Bring your writ to Lotwil Veriatus
-  tip Badlands, about 550 yards east of Kargath: the one Expert customer in the data.
+step Bring your writ to Lotwil Veriatus · east of Kargath, Badlands
+  tip No quest mark: right-click them. The one Expert customer in the data.
   when onquest 94256
   zone Badlands
   turnin 94256 npc 2921                       -- Frost Protection Potion, 125 reputation
@@ -588,13 +581,13 @@ step Reach Revered
   rep 2586 Revered only Alliance
   rep 2587 Revered only Horde
 
-step Buy the Packmule Treat
+step Buy the Packmule Treat · Tamelyn Aldridge, Three Corners, Redridge
   tip 1,500 Merchant's Favor: the Minimule pet.
   only Alliance
   zone Redridge Mountains
   buy 284664 x1 npc 256389
 
-step Buy the Packmule Treat
+step Buy the Packmule Treat · Gishah, outside the Crossroads, The Barrens
   tip 1,500 Merchant's Favor: the Minimule pet.
   only Horde
   zone The Barrens
@@ -605,13 +598,13 @@ step Reach Exalted
   rep 2586 Exalted only Alliance
   rep 2587 Exalted only Horde
 
-step Buy your camp's tabard
+step Buy your camp's tabard · Tamelyn Aldridge, Three Corners, Redridge
   tip 200 Merchant's Favor. The Pack Kodo (6,000) has its own guide under Collectibles.
   only Alliance
   zone Redridge Mountains
   buy 262765 x1 npc 256389
 
-step Buy your camp's tabard
+step Buy your camp's tabard · Gishah, outside the Crossroads, The Barrens
   tip 200 Merchant's Favor. The Pack Kodo (6,000) has its own guide under Collectibles.
   only Horde
   zone The Barrens

@@ -7,52 +7,285 @@
 		"Ranks: Apprentice at any level; Journeyman from skill 50, Expert from 125 and Artisan from 200, at the trainers in the capitals and the larger towns. The trainers in the starting areas teach only up to 75. On Zephras Isle the quest Harvesting Windstones offers Pelt Collecting for Beginners, which teaches Skinning.",
 		"A beast needs Skinning skill 1 up to level 10, 10 more for every level from 11 to 19 (level 15 needs 50), and five times its level from 20 (level 30 needs 150). Enchant Gloves - Skinning lets you skin beasts a level higher; Horde players can take the Keen Skinning Knife (+3) from Unwelcome Guests in The Barrens."
 	],
-	"starter": { "quest": 93552, "item": 247846 },
+	"starter": {
+		"quest": 93552,
+		"item": 247846
+	},
 	"sections": [
 		{
 			"from": 1,
 			"to": 75,
 			"steps": [
-				{ "train": "Apprentice", "tip": "No character level needed. On Zephras Isle, Pelt Collecting for Beginners from Harvesting Windstones teaches it too." },
-				{ "tool": 7005, "tip": "A tool: it stays in your bags, and every corpse needs it." },
-				{ "gather": 50, "zones": { "Horde": ["Durotar"], "Alliance": ["Elwynn Forest"] }, "mobs": { "Durotar": ["Mottled Boar"], "Elwynn Forest": ["Young Wolf", "Timber Wolf"] }, "tip": "Loot each beast, then skin it. Starting-area beasts give points all the way to 75." },
-				{ "train": "Journeyman", "tip": "Needs Skinning skill 50. The trainers in the starting areas teach only up to 75." },
-				{ "gather": 75, "zones": { "Horde": ["Durotar"], "Alliance": ["Elwynn Forest"] }, "mobs": { "Durotar": ["Mottled Boar"], "Elwynn Forest": ["Young Wolf", "Timber Wolf"] } }
+				{ "train": "Apprentice",
+					"tip": "No character level needed. On Zephras Isle, Pelt Collecting for Beginners from Harvesting Windstones teaches it too."
+				},
+				{ "tool": 7005,
+					"tip": "A tool: it stays in your bags, and every corpse needs it."
+				},
+				{ "gather": 50,
+					"zones": {
+						"Horde": [
+							"Durotar"
+						],
+						"Alliance": [
+							"Elwynn Forest"
+						]
+					},
+					"mobs": {
+						"Durotar": [
+							"Mottled Boar"
+						],
+						"Elwynn Forest": [
+							"Young Wolf",
+							"Timber Wolf"
+						]
+					},
+					"tip": "Loot each beast, then skin it. Starting-area beasts give points all the way to 75."
+				},
+				{ "train": "Journeyman",
+					"tip": "Needs Skinning skill 50. The trainers in the starting areas teach only up to 75."
+				},
+				{ "gather": 75,
+					"zones": {
+						"Horde": [
+							"Durotar"
+						],
+						"Alliance": [
+							"Elwynn Forest"
+						]
+					},
+					"mobs": {
+						"Durotar": [
+							"Mottled Boar"
+						],
+						"Elwynn Forest": [
+							"Young Wolf",
+							"Timber Wolf"
+						]
+					}
+				}
 			]
 		},
 		{
 			"from": 75,
 			"to": 150,
 			"steps": [
-				{ "gather": 100, "zones": { "Horde": ["The Barrens"], "Alliance": ["Loch Modan"] }, "mobs": { "The Barrens": ["Sunscale Scytheclaw", "Zhevra Charger", "Ornery Plainstrider"], "Loch Modan": ["Elder Mountain Boar", "Black Bear Patriarch", "Loch Crocolisk"] }, "tip": "Beasts of level 16-18; from 80 the level 18 raptors too." },
-				{ "gather": 125, "zones": { "Horde": ["The Barrens"], "Alliance": ["Loch Modan"] }, "mobs": { "The Barrens": ["Sunscale Scytheclaw", "Zhevra Charger", "Ornery Plainstrider"], "Loch Modan": ["Elder Mountain Boar", "Black Bear Patriarch", "Loch Crocolisk"] } },
-				{ "train": "Expert", "tip": "Needs Skinning skill 125; past 150 nothing gives points without it." },
-				{ "gather": 150, "zones": { "Horde": ["The Barrens"], "Alliance": ["Wetlands"] }, "mobs": { "The Barrens": ["Sunscale Scytheclaw", "Zhevra Charger", "Ornery Plainstrider"], "Wetlands": ["Mottled Scytheclaw", "Mottled Razormaw"] }, "tip": "The Wetlands raptors are level 25-27." }
+				{ "gather": 100,
+					"zones": {
+						"Horde": [
+							"The Barrens"
+						],
+						"Alliance": [
+							"Loch Modan"
+						]
+					},
+					"mobs": {
+						"The Barrens": [
+							"Sunscale Scytheclaw",
+							"Zhevra Charger",
+							"Ornery Plainstrider"
+						],
+						"Loch Modan": [
+							"Elder Mountain Boar",
+							"Black Bear Patriarch",
+							"Loch Crocolisk"
+						]
+					},
+					"tip": "Higher-level beasts become skinnable as the skill rises."
+				},
+				{ "gather": 125,
+					"zones": {
+						"Horde": [
+							"The Barrens"
+						],
+						"Alliance": [
+							"Loch Modan"
+						]
+					},
+					"mobs": {
+						"The Barrens": [
+							"Sunscale Scytheclaw",
+							"Zhevra Charger",
+							"Ornery Plainstrider"
+						],
+						"Loch Modan": [
+							"Elder Mountain Boar",
+							"Black Bear Patriarch",
+							"Loch Crocolisk"
+						]
+					}
+				},
+				{ "train": "Expert",
+					"tip": "Needs Skinning skill 125; past 150 nothing gives points without it."
+				},
+				{ "gather": 150,
+					"zones": {
+						"Horde": [
+							"The Barrens"
+						],
+						"Alliance": [
+							"Wetlands"
+						]
+					},
+					"mobs": {
+						"The Barrens": [
+							"Sunscale Scytheclaw",
+							"Zhevra Charger",
+							"Ornery Plainstrider"
+						],
+						"Wetlands": [
+							"Mottled Scytheclaw",
+							"Mottled Razormaw"
+						]
+					},
+					"tip": "They come back fast."
+				}
 			]
 		},
 		{
 			"from": 150,
 			"to": 225,
 			"steps": [
-				{ "gather": 175, "zones": { "Horde": ["Hillsbrad Foothills", "Duskwood"], "Alliance": ["Hillsbrad Foothills", "Duskwood"] }, "mobs": { "Hillsbrad Foothills": ["Vicious Gray Bear", "Starving Mountain Lion", "Cave Yeti", "Ferocious Yeti"], "Duskwood": ["Nightbane Worgen", "Nightbane Shadow Weaver", "Nightbane Dark Runner"] }, "tip": "The yetis in Foothill Caverns come back fast; the level 30 ones need skill 150." },
-				{ "gather": 200, "zones": { "Horde": ["Hillsbrad Foothills", "Duskwood"], "Alliance": ["Hillsbrad Foothills", "Duskwood"] }, "mobs": { "Hillsbrad Foothills": ["Cave Yeti", "Ferocious Yeti"], "Duskwood": ["Nightbane Worgen", "Nightbane Shadow Weaver", "Nightbane Dark Runner"] } },
-				{ "train": "Artisan", "tip": "Needs Skinning skill 200; past 225 nothing gives points without it." },
-				{ "gather": 225, "zones": { "Horde": ["Hillsbrad Foothills", "Duskwood"], "Alliance": ["Hillsbrad Foothills", "Duskwood"] }, "mobs": { "Hillsbrad Foothills": ["Cave Yeti", "Ferocious Yeti"], "Duskwood": ["Nightbane Worgen", "Nightbane Shadow Weaver", "Nightbane Dark Runner"] } }
+				{ "gather": 175,
+					"zones": {
+						"Horde": [
+							"Hillsbrad Foothills",
+							"Duskwood"
+						],
+						"Alliance": [
+							"Hillsbrad Foothills",
+							"Duskwood"
+						]
+					},
+					"mobs": {
+						"Hillsbrad Foothills": [
+							"Vicious Gray Bear",
+							"Starving Mountain Lion",
+							"Cave Yeti",
+							"Ferocious Yeti"
+						],
+						"Duskwood": [
+							"Nightbane Worgen",
+							"Nightbane Shadow Weaver",
+							"Nightbane Dark Runner"
+						]
+					},
+					"tip": "The cave yetis come back fast."
+				},
+				{ "gather": 200,
+					"zones": {
+						"Horde": [
+							"Hillsbrad Foothills",
+							"Duskwood"
+						],
+						"Alliance": [
+							"Hillsbrad Foothills",
+							"Duskwood"
+						]
+					},
+					"mobs": {
+						"Hillsbrad Foothills": [
+							"Cave Yeti",
+							"Ferocious Yeti"
+						],
+						"Duskwood": [
+							"Nightbane Worgen",
+							"Nightbane Shadow Weaver",
+							"Nightbane Dark Runner"
+						]
+					}
+				},
+				{ "train": "Artisan",
+					"tip": "Needs Skinning skill 200; past 225 nothing gives points without it."
+				},
+				{ "gather": 225,
+					"zones": {
+						"Horde": [
+							"Hillsbrad Foothills",
+							"Duskwood"
+						],
+						"Alliance": [
+							"Hillsbrad Foothills",
+							"Duskwood"
+						]
+					},
+					"mobs": {
+						"Hillsbrad Foothills": [
+							"Cave Yeti",
+							"Ferocious Yeti"
+						],
+						"Duskwood": [
+							"Nightbane Worgen",
+							"Nightbane Shadow Weaver",
+							"Nightbane Dark Runner"
+						]
+					}
+				}
 			]
 		},
 		{
 			"from": 225,
 			"to": 275,
 			"steps": [
-				{ "gather": 250, "zones": { "Horde": ["Feralas"], "Alliance": ["Feralas"] }, "mobs": { "Feralas": ["Feral Scar Yeti", "Enraged Feral Scar", "Hulking Feral Scar"] }, "tip": "The yeti cave at Feral Scar Vale. The level 46 Hulking Feral Scars need skill 230." },
-				{ "gather": 275, "zones": { "Horde": ["Feralas"], "Alliance": ["Feralas"] }, "mobs": { "Feralas": ["Feral Scar Yeti", "Enraged Feral Scar", "Hulking Feral Scar"] } }
+				{ "gather": 250,
+					"zones": {
+						"Horde": [
+							"Feralas"
+						],
+						"Alliance": [
+							"Feralas"
+						]
+					},
+					"mobs": {
+						"Feralas": [
+							"Feral Scar Yeti",
+							"Enraged Feral Scar",
+							"Hulking Feral Scar"
+						]
+					},
+					"tip": "The cave yetis come back fast."
+				},
+				{ "gather": 275,
+					"zones": {
+						"Horde": [
+							"Feralas"
+						],
+						"Alliance": [
+							"Feralas"
+						]
+					},
+					"mobs": {
+						"Feralas": [
+							"Feral Scar Yeti",
+							"Enraged Feral Scar",
+							"Hulking Feral Scar"
+						]
+					}
+				}
 			]
 		},
 		{
 			"from": 275,
 			"to": 300,
 			"steps": [
-				{ "gather": 300, "zones": { "Horde": ["Un'Goro Crater"], "Alliance": ["Un'Goro Crater"] }, "mobs": { "Un'Goro Crater": ["Diemetradon", "Pterrordax", "Elder Diemetradon", "Frenzied Pterrordax"] }, "tip": "The dinosaurs of western Un'Goro, level 50-55." }
+				{ "gather": 300,
+					"zones": {
+						"Horde": [
+							"Un'Goro Crater"
+						],
+						"Alliance": [
+							"Un'Goro Crater"
+						]
+					},
+					"mobs": {
+						"Un'Goro Crater": [
+							"Diemetradon",
+							"Pterrordax",
+							"Elder Diemetradon",
+							"Frenzied Pterrordax"
+						]
+					}
+				}
 			]
 		}
 	]
