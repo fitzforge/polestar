@@ -40,7 +40,7 @@ const PAIRS = [
 	{ file: 'mining-blacksmithing', gather: 'Mining', craft: 'Blacksmithing', verb: 'Mine', doing: 'mining', zone: 'Ironforge' },
 	{ file: 'mining-engineering', gather: 'Mining', craft: 'Engineering', verb: 'Mine', doing: 'mining', zone: 'Ironforge' },
 	{ file: 'skinning-leatherworking', gather: 'Skinning', craft: 'Leatherworking', verb: 'Skin', doing: 'skinning', zone: 'Orgrimmar' },
-	{ file: 'fishing-cooking', gather: 'Fishing', craft: 'Cooking', verb: 'Fish', doing: 'fishing', zone: 'Ironforge', side: fishingSide, guards: false },
+	{ file: 'fishing-cooking', gather: 'Fishing', craft: 'Cooking', verb: 'Fish', doing: 'fishing', zone: 'Ironforge', side: fishingSide, guards: false, single: true },
 ];
 
 // A share of a stretch's material below this many is not worth a step of its own: the next step's loop
@@ -121,6 +121,8 @@ function renderPair(ctx, pair) {
 	// A crafting guide built from its route file (route.js) comes as one-action steps (`blocks`): the pair keeps
 	// them, one action and one short line of why each (docs/forge/professions.md, "Route files").
 	const routed = !!draft.blocks;
+	// One action a step with one short line of why: a routed draft's pair, and Fishing + Cooking (`single`).
+	const single = routed || !!pair.single;
 	const itemName = (id) => (ctx.data.item(id) || {}).name || `item ${id}`;
 	const track = side ? side.track : gatherTrack(ctx, gprof);
 	const smelts = smeltsOf(ctx);
@@ -273,11 +275,36 @@ function renderPair(ctx, pair) {
 		report.seconds += (n / e.rate.up) * e.rate.lap;
 		return { from, to: st.g };
 	};
+	// What a band's loops are worked for, in a skill step's title ("Mine Copper until Mining 50"): the ore or
+	// herb its loops give most of (a Mining band's ore without " Ore"); none for skinning.
+	const nodeWord = (e) => {
+		if (G !== 'Mining' && G !== 'Herbalism') return '';
+		const top = [...((e.rate && e.rate.items) || [])].filter(([item]) => (G === 'Mining' ? / Ore$/.test(itemName(item)) : true)).sort((a, b) => b[1] - a[1])[0];
+		return top ? itemName(top[0]).replace(/ Ore$/, '') : '';
+	};
+	// The smelts that turn ore into `n` of a bar, in order (Copper and Tin before Bronze): [{ r, n }].
+	const smeltChain = (item, n) => {
+		const r = smelts.get(item);
+		if (!r) return [];
+		const crafts = Math.ceil(n / (r.itemCount || 1));
+		const before = (r.reagents || []).filter((g) => smelts.has(g.item)).flatMap((g) => smeltChain(g.item, crafts * g.count));
+		return [...before, { r, n: crafts }];
+	};
+	// The forges a smelting step goes to (route.js stationPlaces over Mining's trainers), one goal over them.
+	let forges = null;
+	const forgeLines = () => {
+		if (!forges) {
+			const { stationPlaces } = require('./route');
+			const mining = Object.values(data.professions).find((p) => p && p.name === 'Mining');
+			forges = stationPlaces('Forge', mining, { tools: [] }, data).map((s) => `  goto ${s.x},${s.y} "Forge" map ${s.map} ${s.f === 'l' ? 'live ' : ''}nearest${s.side ? ` only ${s.side}` : ''}`);
+		}
+		return forges;
+	};
 	// A skill-only step on band e's loops from skill `from` to `to` (catch-up, the end, or a floor).
 	const skillStep = (e, from, to, tip) => {
 		const title = e.title || gprof.bandTitle(B.nodeSummary(gprof, e.loops.flatMap((l) => l.farm.on), e.from, e.to), e);
-		const short = routed ? (tip.length <= 120 ? tip : `${G} ${to} first: the next loops need it.`) : tip;
-		push([routed ? `step ${pair.verb} until ${G} ${to}` : `step ${G} ${from}-${to}: ${title}`, `  tip ${short}`, ...loopsGain(e), `  skill ${G} ${to}`]);
+		const short = single ? (tip.length <= 120 ? tip : `${G} ${to} first: the next loops need it.`) : tip;
+		push([single ? `step ${pair.verb}${nodeWord(e) ? ` ${nodeWord(e)}` : ''} until ${G} ${to}` : `step ${G} ${from}-${to}: ${title}`, `  tip ${short}`, ...loopsGain(e), `  skill ${G} ${to}`]);
 		st.floor = Math.max(st.floor, to);
 		st.sinceTrainer = true;
 	};
@@ -291,7 +318,7 @@ function renderPair(ctx, pair) {
 			return;
 		}
 		const prev = [...track.slice(0, st.ptr)].reverse().find((x) => x.kind === 'band' && visible(x));
-		if (prev) skillStep(prev, Math.floor(st.floor), e.from, routed ? `The next loops need ${G} ${e.from}; most players are past it.` : `${G} ${e.from} first: the next loops need it. Most players are past it already from the steps above, and then this step is done.`);
+		if (prev) skillStep(prev, Math.floor(st.floor), e.from, single ? `The next loops need ${G} ${e.from}; most players are past it.` : `${G} ${e.from} first: the next loops need it. Most players are past it already from the steps above, and then this step is done.`);
 		st.floor = Math.max(st.floor, e.from);
 	};
 	// The skill to `to`, band by band on the gathering guide's loops: catch-up or the finish.
@@ -305,7 +332,7 @@ function renderPair(ctx, pair) {
 			report.catchUp += n;
 			const got = [...e.rate.items].map(([item, per]) => ({ item, n: Math.round((n * per) / 5) * 5 })).filter((x) => x.n >= 5);
 			const yields = got.length ? ` The loop also gives about ${D.list(got.slice(0, 4).map((x) => `${x.n} ${itemName(x.item)}`))}: keep them, the next stretches use them.` : '';
-			skillStep(e, Math.floor(from), target, routed ? why(Math.floor(from), target) : `${why(Math.floor(from), target)}${yields} ${pickOf(e)}`);
+			skillStep(e, Math.floor(from), target, single ? why(Math.floor(from), target) : `${why(Math.floor(from), target)}${yields} ${pickOf(e)}`);
 			settle();
 		}
 	};
@@ -386,7 +413,7 @@ function renderPair(ctx, pair) {
 			// The band ends first: gather it to its end (skill goal), then on in the next band.
 			const a = Math.floor(st.g);
 			gatherNodes(e, toEnd);
-			skillStep(e, a, e.to, routed ? `This loop gives the ${D.list(here_.map(itemName))} to ${G} ${e.to}; the next one the rest.` : `${pair.verb} from ${G} ${a} to ${e.to} for ${seg.recipe.name}: this loop gives ${D.list(here_.map(itemName))}, and the next one the rest from ${G} ${e.to}. ${pickOf(e)}`);
+			skillStep(e, a, e.to, single ? `This loop gives the ${D.list(here_.map(itemName))} to ${G} ${e.to}; the next one the rest.` : `${pair.verb} from ${G} ${a} to ${e.to} for ${seg.recipe.name}: this loop gives ${D.list(here_.map(itemName))}, and the next one the rest from ${G} ${e.to}. ${pickOf(e)}`);
 			settle();
 		}
 		range = range || [st.g, st.g];
@@ -439,11 +466,36 @@ function renderPair(ctx, pair) {
 		const why = `${D.list(counts.map((c) => `${c.count} ${itemName(c.item)}`))} for ${P} ${seg.from}-${seg.to}: ${D.crafts(seg.count90 || seg.count, seg.recipe.name)}${kept.length ? `; from your ${pair.doing} on the way: ${D.list(kept.map((x) => `${x.n} of ${x.of} ${itemName(x.raw)}`))}` : ''}.`;
 		const raws = [...need.keys()].map(itemName);
 		const bars = counts.filter(made).map((c) => itemName(c.item));
-		if (routed) {
+		if (single) {
 			// One material, its loops and the Auction House: the crafting guide's Get step, gathered on the way.
 			const rise = g1 > g0 ? ` ${G} ${g0} to ${g1} on the way.` : '';
-			const tip = `${routedTip}${rise}`.length <= 120 ? `${routedTip}${rise}` : routedTip;
-			push([`step ${made(main) ? `${pair.verb} and smelt` : pair.verb} ${main.total} ${itemName(main.item)}`, `  tip ${tip}`, `  collect ${main.item} x${main.total} gather ${G} ${ask(main)}${onlySide}`, ...loops, `  auction ${main.item} x${main.total}`]);
+			const forTip = routedTip || `For ${D.crafts(seg.count90 || seg.count, seg.recipe.name)}.`;
+			const tip = `${forTip}${rise}`.length <= 120 ? `${forTip}${rise}` : forTip;
+			if (!made(main)) {
+				// One stand (no loop): the arrow goes there and the catch is a bag count.
+				const at = solo ? [`  zone ${solo.zone}`, `  goto ${solo.at} r 15`] : [];
+				push([`step ${pair.verb} ${main.total} ${itemName(main.item)}`, `  tip ${tip}`, ...at, `  collect ${main.item} x${main.total}${solo ? ' anywhere' : ''} gather ${G} ${ask(main)}${onlySide}`, ...loops, `  auction ${main.item} x${main.total}`]);
+			} else {
+				// A bar is two actions: the ore mined (its loops, or bought), then smelted at a forge, a smelt each.
+				const ores = main.raws.map((r) => ({ raw: r.raw, n: Math.ceil(main.total / r.per) })).sort((a, b) => b.n - a.n || a.raw - b.raw);
+				const lead = ores[0];
+				let oreLoops = loops;
+				if (where && !solo) oreLoops = loopsYield(where.e, [{ raw: lead.raw, per: 1 }]);
+				if (!oreLoops.length) {
+					const l = itemLoops(data, lead.raw, 1);
+					oreLoops = l ? l.lines : loops;
+				}
+				push([
+					`step ${pair.verb} ${D.list(ores.map((o) => `${o.n} ${itemName(o.raw)}`))}`,
+					`  tip ${tip}`,
+					`  collect ${lead.raw} x${lead.n} gather ${G} ${ask(main)}${onlySide}`,
+					...oreLoops,
+					...ores.slice(1).map((o) => `  collect ${o.raw} x${o.n} anywhere gather ${G} ${ask(main)}`),
+					...ores.map((o) => `  auction ${o.raw} x${o.n}`),
+				]);
+				push([`step Go to a forge`, `  tip Smelting needs a forge.`, ...forgeLines()]);
+				for (const { r, n } of smeltChain(main.item, main.count)) push([`step Smelt ${D.crafts(n, itemName(r.item))}`, `  craft ${r.spell} x${n}`]);
+			}
 		} else {
 			const title = `${pair.verb} ${D.list(raws)}${bars.length ? `, smelt ${D.list(bars)}` : ''}${g1 > g0 ? ` (${G} ${g0}-${g1})` : ''}`;
 			const lines = [`step ${title}`];
@@ -572,7 +624,8 @@ function renderPair(ctx, pair) {
 				continue;
 			}
 		}
-		const w = b.lines.find((l) => /^ {2}when /.test(l)) || null;
+		// A side draft (Fishing + Cooking) has no forks: its `when` lines are gates (a lure, a recipe unknown).
+		const w = side ? null : b.lines.find((l) => /^ {2}when /.test(l)) || null;
 		// A fork: path A goes on from the state at the fork, path B starts again from it (its gathering is
 		// reported apart: a player takes one way).
 		if (w && w !== when) {
@@ -586,12 +639,22 @@ function renderPair(ctx, pair) {
 		}
 		when = w;
 		if (b.step === `Learn ${P}`) {
+			if (track[0] && track[0].kind === 'learn') st.ptr = 1;
+			if (pair.single) {
+				// One action a step: both professions learned, the tool bought, then held in hand.
+				emitBlock(b);
+				push([`step Learn ${G}`, '  tip No character level needed.', `  train ${G} Apprentice`]);
+				if (gprof.tool) {
+					push([`step Buy ${/^[aeiou]/i.test(itemName(gprof.tool.item)) ? 'an' : 'a'} ${itemName(gprof.tool.item)}`, '  tip A tool: you fish with it in your hands.', `  buy ${gprof.tool.item} x1 nearest`]);
+					push([`step Equip the ${itemName(gprof.tool.item)}`, '  tip Fishing needs the pole in your hands.', `  equip ${gprof.tool.item}`]);
+				}
+				continue;
+			}
 			// The first visit: both professions.
 			const lines = b.lines.slice(1);
 			const tip = lines.findIndex((l) => /^ {2}tip /.test(l));
 			lines[tip] = `${lines[tip]} Learn Apprentice ${G} on the same trip: any ${G} trainer of your faction teaches it at any level, and the arrow picks the nearest.${gprof.tool ? ` ${gprof.tool.text || `Buy a ${gprof.tool.name} from a trade goods or general vendor: ${gprof.tool.why}`}` : ''}`;
 			lines.splice(lines.findIndex((l) => /^ {2}train /.test(l)) + 1, 0, `  train ${G} Apprentice`, ...(gprof.tool ? [`  buy ${gprof.tool.item} x1 nearest`] : []));
-			if (track[0] && track[0].kind === 'learn') st.ptr = 1;
 			push([`step Learn ${G} and ${P}`, ...lines]);
 			continue;
 		}
@@ -603,7 +666,11 @@ function renderPair(ctx, pair) {
 		}
 		const craft = b.lines.map((l) => /^ {2}craft (\d+) until (\d+)/.exec(l)).find(Boolean);
 		if (!craft) {
-			if (/ recipes at \d+$/.test(b.step) || b.lines.some((l) => /^ {2}accept /.test(l))) held.push(b);
+			// Held to just before the craft (after its gathering): the recipe, its goods and its station, and quest
+			// accepts. Fishing + Cooking marks its own with `@hold`.
+			const hold = b.lines.includes('  @hold');
+			if (hold) b = { ...b, lines: b.lines.filter((l) => l !== '  @hold') };
+			if (hold || / recipes at \d+$/.test(b.step) || b.lines.some((l) => /^ {2}accept /.test(l))) held.push(b);
 			else emitBlock(b);
 			continue;
 		}

@@ -24,7 +24,7 @@
 const FR = require('./gathering/fish-rounds');
 const fishing = require('./gathering/fishing');
 const secondary = require('./gathering/secondary');
-const { FACTIONS, fmt, money, rankInfo, zoneName } = require('./gathering/common');
+const { FACTIONS, fmt, rankInfo, zoneName } = require('./gathering/common');
 const { raceCondition } = require('./gathering/groups');
 const { ERA_NOTE } = require('./gathering/notes');
 const D = require('./describe');
@@ -101,7 +101,6 @@ function rankEntry(ctx, rank, steps) {
 function fishingSide(ctx) {
 	const plans = FR.plan(ctx);
 	const P = ctx.data.professionNamed('Cooking') || {};
-	const mats = P.materials || {};
 	const itemName = (id) => (ctx.data.item(id) || {}).name || `item ${id}`;
 
 	// ------------------------------------------------------------ the fishing track
@@ -110,8 +109,8 @@ function fishingSide(ctx) {
 	const track = [{ kind: 'learn' }];
 	const cooking = [];
 	for (const band of FR.BANDS) {
-		if (band.key === 'city') track.push(rankEntry(ctx, 'Journeyman', FR.rankSteps(ctx, 'Fishing', 'Journeyman')));
-		if (band.key === 'catfish') track.push(rankEntry(ctx, 'Expert', FR.rankSteps(ctx, 'Fishing', 'Expert')));
+		if (band.key === 'city') track.push(rankEntry(ctx, 'Journeyman', FR.rankSteps(ctx, 'Fishing', 'Journeyman', true)));
+		if (band.key === 'catfish') track.push(rankEntry(ctx, 'Expert', FR.rankSteps(ctx, 'Fishing', 'Expert', true)));
 		if (band.key === 'trout') {
 			const steps = [];
 			fishing.pagleSteps(ctx, (title, lines) => steps.push([title, lines]));
@@ -139,8 +138,6 @@ function fishingSide(ctx) {
 	const L = [];
 	const step = (title, lines) => L.push('', `step ${title}`, ...lines.map((l) => `  ${l}`));
 	const segments = [];
-	const apC = rankInfo(ctx, 'Cooking', 'Apprentice');
-	const bowl = ctx.data.recipe(1229745).recipe;
 	L.push(
 		'# Cooking turns the fish into food: each recipe here is a vendor recipe whose fish the band you fish',
 		'# then gives, the one with the best chance of a skill-up at each point (orange first, the one already',
@@ -152,14 +149,23 @@ function fishingSide(ctx) {
 		const [rank, from, to] = SECTIONS[i];
 		L.push('', `# ---------------------------------------------------------------- ${rank} (${from}-${to})`, `section Cooking ${from}-${to}`);
 		if (i === 0) {
-			step('Learn Cooking', [
-				`tip Any Cooking trainer of your faction teaches Apprentice Cooking (${money(apC.cost)}) at any character level; the arrow picks the nearest, and every starting area has one. Forever: every cook knows Basic Campfire: a Basic Campfire Kit from one Simple Wood with Flint and Tinder lights a cooking fire anywhere, so you can cook beside the water. If you sat at your starting area's campfire for The Great Outdoors, its camping guide also offers Camping 101: Fishing (handed in at Fishing 20 for the ${bowl.name} recipe) and Camping 101: Cooking.`,
-				'train Cooking Apprentice',
-				'skill Cooking 1',
-			]);
+			step('Learn Cooking', ['tip No character level needed.', 'train Cooking Apprentice']);
 		} else if (i === 3) {
 			for (const s of secondary.clamletteSteps(ctx)) step(s.title, s.raw);
-		} else for (const [t, lines] of FR.rankSteps(ctx, 'Cooking', rank)) step(t, lines);
+		} else for (const [t, lines] of FR.rankSteps(ctx, 'Cooking', rank, true)) step(t, lines);
+	};
+	// The cooking fires a cook step goes to (route.js stationPlaces over Cooking's trainers), each `either`
+	// beside a Basic Campfire Kit placed from the bags.
+	let fires = null;
+	const fireLines = () => {
+		if (!fires) {
+			const { draftData } = require('./guide');
+			const { stationPlaces } = require('./route');
+			const data = draftData(ctx.data.dir);
+			const cook = Object.values(data.professions).find((p) => p && p.name === 'Cooking');
+			fires = [...stationPlaces('Cooking Fire', cook, { tools: [] }, data).map((s) => `goto ${s.x},${s.y} "Cooking Fire" map ${s.map} ${s.f === 'l' ? 'live ' : ''}nearest${s.side ? ` only ${s.side}` : ''} either`), 'use 279981 either'];
+		}
+		return fires;
 	};
 	// The recipes each variant's characters hold ('' for every character).
 	const owned = new Map([['', new Set()]]);
@@ -182,14 +188,6 @@ function fishingSide(ctx) {
 		}
 		return out;
 	};
-	// "Sold by Alliance: Tharynn Bouden (Elwynn Forest), ...; Horde: ...": up to three sellers a side.
-	const soldBy = (item, factions) => {
-		const per = factions.map((f) => [f, FR.sellersOf(ctx, mats, item, f).slice(0, 3).map((v) => `${v.name} (${zoneName(ctx, v.map)})`)]);
-		const parts = per.filter(([, names]) => names.length);
-		if (parts.length === 1 && factions.length === 1) return `Sold by ${D.list(parts[0][1])}.`;
-		return `Sold by ${parts.map(([f, names]) => `${f}: ${D.list(names)}`).join('; ')}.`;
-	};
-	const reagents = (r) => D.list(r.reagents.map((g) => `${g.count} ${itemName(g.item)}`));
 	let last = null;
 	for (const { band, variants, entries } of cooking) {
 		// The band's lures: one step per lure the groups take (the waters of some lose fish below `full`).
@@ -204,12 +202,12 @@ function fishingSide(ctx) {
 		const lures = () => {
 			if (lured) return;
 			lured = true;
-			for (const es of lureSets.values()) step(`Lures for Fishing ${band.from}-${band.to}`, [...(es.length === entries.length ? [] : [`only ${whoOf(es)}`]), ...FR.lureLines(ctx, band, es[0].shop, es.some((e) => e.loops.length > 1))]);
+			for (const es of lureSets.values()) {
+				const shop = es[0].shop;
+				step(`Buy ${D.crafts(shop.lures, itemName(shop.lure[0]))}`, [...(es.length === entries.length ? [] : [`only ${whoOf(es)}`]), ...FR.lureLines(ctx, band, shop, es.some((e) => e.loops.length > 1), true)]);
+			}
 		};
-		// What Forever adds at the band's waters, said once on its first cooking step.
-		const notes = [...new Set(FACTIONS.flatMap((f) => FR.forever(ctx, entries.filter((e) => e.group.faction === f).flatMap((e) => e.loops), f)))];
 		for (const v of variants) {
-			const factions = [...new Set(v.entries.map((e) => e.group.faction))];
 			const tag = v.who ? [`variant ${v.who}`] : [];
 			for (const c of v.entries[0].cook.filter((x) => !x.rank)) {
 				const r = c.recipe;
@@ -220,32 +218,21 @@ function fishingSide(ctx) {
 					}
 					lures();
 					const fresh = !holds(v.who, r.spell);
-					const extras = r.extra.map((x) => ({ item: x.item, count: Math.ceil(secondary.expectedCrafts(r, piece.from, piece.to) * x.count) }));
-					const buys = extras.map((x) => `buy ${x.item} x${x.count} nearest`);
-					const extraText = extras.length ? `; ${D.list(extras.map((x) => `${x.count} ${itemName(x.item)}`))} for the crafts` : '';
-					if (fresh) {
-						const cost = (mats[r.recipeItem] || {}).buy || r.cost;
-						step(`Cooking recipes at ${piece.from}`, [...tag, `tip ${itemName(r.recipeItem)} teaches ${r.name} (Cooking ${r.learnedAt}${cost ? `, ${money(cost)}` : ''})${extraText}. ${soldBy(r.recipeItem, factions)} The arrow picks the nearest seller of your faction.`, `buy ${r.recipeItem} x1 nearest`, ...buys]);
-						own(v.who, r.spell);
-					} else if (buys.length) step(`Cooking ${piece.from}-${piece.to}: vendor goods`, [...tag, `tip ${D.list(extras.map((x) => `${x.count} ${itemName(x.item)}`))} for ${r.name}: a cooking supplies or trade goods vendor sells them, and the arrow picks the nearest.`, ...buys]);
 					const count = secondary.expectedCrafts(r, piece.from, piece.to);
 					const count90 = secondary.crafts90(r, piece.from, piece.to);
-					const colour = piece.from < r.yellow ? 'orange' : piece.from < r.green ? 'yellow' : 'green';
-					// A recipe learned in an earlier section is learned again here: a player who came into this
-					// section past that one never saw its step (#3401).
+					const extras = r.extra.map((x) => ({ item: x.item, count: Math.ceil(count * x.count) }));
+					// A recipe learned in an earlier section is used again here (a player who came into this section past
+					// that one never saw its step, #3401); both are held while the recipe is unknown.
 					const again = !fresh && learnedIn.get(r.spell) !== sec;
-					if (fresh) learnedIn.set(r.spell, sec);
-					const tip = [
-						`${r.name} is ${colour} at ${piece.from} (yellow ${r.yellow}, green ${r.green}, grey ${r.grey}): about ${count} crafts to ${piece.to}${colour === 'orange' && piece.to <= r.yellow ? ', a point every craft' : ''}${count90 > count ? `, up to ${count90} for 9 players in 10 (the fish above count that many)` : ''}.`,
-						`Each takes ${reagents(r)}. Cook at any fire: a town hearth or your own Basic Campfire.`,
-						...(again ? [`If you got here without learning ${r.name}, learn it now: an earlier step teaches it.`] : []),
-						...notes.splice(0),
-					];
-					const lines = [...tag, `tip ${tip.join(' ')}`];
-					if (fresh || again) lines.push(`learn ${r.spell} -- from the recipe in your bags`);
-					lines.push(`craft ${r.spell} until ${piece.to}`);
-					if (piece.to === 300) lines.push('skill Cooking 300');
-					step(`${r.name} to ${piece.to}`, lines);
+					if (fresh) {
+						step(`Buy ${itemName(r.recipeItem)}`, [...tag, '@hold', `when !knows ${r.spell}`, `tip It teaches ${r.name}.`, `buy ${r.recipeItem} x1 nearest`]);
+						own(v.who, r.spell);
+						learnedIn.set(r.spell, sec);
+					}
+					if (fresh || again) step(`Use ${itemName(r.recipeItem)}`, [...tag, '@hold', `when !knows ${r.spell}`, `tip It teaches ${r.name}.`, `use ${r.recipeItem}`]);
+					for (const x of extras) step(`Buy ${x.count} ${itemName(x.item)}`, [...tag, '@hold', `tip For ${D.crafts(count, r.name)}.`, `buy ${x.item} x${x.count} nearest`]);
+					step('Go to a cooking fire', [...tag, '@hold', 'tip A Basic Campfire Kit placed from your bags counts too.', ...fireLines()]);
+					step(`Cook ${D.crafts(count, r.name)} until Cooking ${piece.to}`, [...tag, `tip About ${count} crafts${piece.from < r.yellow && piece.to <= r.yellow ? ', a point every craft' : ''}.`, `craft ${r.spell} until ${piece.to}`]);
 					segments.push({ recipe: r, from: piece.from, to: piece.to, count, count90, need: [...r.fish.map((g) => ({ item: g.item, count: count90 * g.count })), ...extras] });
 					last = piece.to;
 				}

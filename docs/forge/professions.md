@@ -147,7 +147,9 @@ professions' ranks trained on one visit when both are due.
   reaches 300 before the last crafting stretch (a section the crafting skill has passed is done).
 - **Trainers.** A gathering rank or smelt that falls due is trained at the next crafting trainer visit
   (one trip); otherwise it gets its own step where the gathering guide trains it. The smelts a bar needs
-  are learned before the stretch that smelts it.
+  are learned before the stretch that smelts it. A bar is two actions: **Mine N <ore>** (its loops, or the
+  ore bought), then **Go to a forge** and **Smelt N <bars>**, one smelt a step (Copper and Tin before Bronze).
+  A skill-only step names what its loops are worked for: **Mine Copper until Mining 50**.
 - **Tailoring + Enchanting** flows the other way: both guides are built from their route files and kept as
   their steps are; each rank bracket runs Tailoring's steps, then Enchanting's. Learn Enchanting comes with
   Learn Tailoring, an Enchanting rank with the Tailoring rank of the same bracket (one trip; Annora's keeps its
@@ -170,7 +172,10 @@ professions' ranks trained on one visit when both are due.
   trout to 250, Filet of Redgill to 285 and Nightfin Soup), cut into the Cooking ranks' sections; where the
   starting areas' fish differ, each group's stretches are a variant (`variant <only>`: the same state for
   each, the least of what they leave after). Fishing's ranks are their own steps (Journeyman at a trainer
-  from level 10, Expert from its book, Artisan from Nat Pagle). It has no skill floor steps between bands.
+  from level 10, Expert from its book, Artisan from Nat Pagle). It has no skill floor steps between bands. Its
+  steps are one action each like a routed pair's: **Buy N <lure>**, **Fish N <fish>**, **Buy <Recipe: X>**, **Use
+  <Recipe: X>** (both held while the recipe is unknown), **Buy N <spice>**, **Go to a cooking fire** (or a Basic
+  Campfire Kit), **Cook N <dish> until Cooking M**.
 - **Header.** `kind profession` and `skills <Gathering>, <Crafting>`; a paired guide's sections alternate
   between its two skills, each rising in order (lint checks each profession's order on its own).
 - **The Materials way.** A material a paired guide gathers itself (`collect … gather` beside an

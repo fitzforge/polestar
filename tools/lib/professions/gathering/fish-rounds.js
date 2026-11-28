@@ -440,9 +440,11 @@ function loopLine(ctx, w) {
 }
 
 // A rank of Fishing or Cooking as steps ([title, lines]): Journeyman at a trainer, Expert from its book.
-function rankSteps(ctx, skill, rank) {
+function rankSteps(ctx, skill, rank, single = false) {
 	const info = rankInfo(ctx, skill, rank);
 	if (rank === 'Journeyman') {
+		// `single`: one action a step, one short line of why (Fishing + Cooking).
+		if (single) return [[`Train Journeyman ${skill}`, [...(info.minLevel > 1 ? [`tip Needs level ${info.minLevel}.`] : []), `train ${skill} Journeyman`]]];
 		const gate = info.minLevel > 1 ? ` and character level ${info.minLevel} (Forever's trainer lists ask for that level)` : ' and no character level';
 		return [[`Journeyman ${skill}`, [`tip Journeyman ${skill} raises the cap to ${info.max}; it needs skill ${info.minSkill}${gate}, and costs ${money(info.cost)}. The arrow picks the nearest ${skill} trainer of your faction.`, ...(info.minLevel > 1 ? [`level ${info.minLevel}`] : []), `train ${skill} Journeyman`]]];
 	}
@@ -452,6 +454,10 @@ function rankSteps(ctx, skill, rank) {
 	const cost = ((P.materials || {})[book.item] || {}).buy || fishing.price(ctx, book.item);
 	const sellers = FACTIONS.map((f) => npcSpawn(ctx, book.vendors[f][0]));
 	const same = book.vendors.Alliance[0] === book.vendors.Horde[0];
+	if (single) {
+		const who = same ? `${sellers[0].name} (${zoneName(ctx, sellers[0].map)}) sells it` : `${named(sellers.map((s) => `${s.name} (${zoneName(ctx, s.map)})`))} sell it`;
+		return [[`Read ${name}`, [`tip ${who}; it needs level ${info.minLevel}.`, `train ${skill} Expert "Buy and read ${name} (Expert ${skill})"`]]];
+	}
 	const sold = same ? `${sellers[0].name} (${zoneName(ctx, sellers[0].map)}) sells it to both factions` : `sold by ${named(sellers.map((s, i) => `${s.name} (${zoneName(ctx, s.map)}) for the ${FACTIONS[i]}`))}`;
 	let tip = `Expert ${skill} (cap ${info.max}) is a book, not a trainer rank: ${name}${cost ? ` (${money(cost)})` : ''}, ${sold}. Buy it and read it; it needs skill ${info.minSkill} and level ${info.minLevel}.`;
 	if (skill === 'Fishing') {
@@ -462,9 +468,10 @@ function rankSteps(ctx, skill, rank) {
 	return [[`Expert ${skill}`, [`tip ${tip}`, `level ${info.minLevel}`, `train ${skill} Expert "Buy and read ${name} (Expert ${skill})"`]]];
 }
 
-// The lines of a band's lure step (`shop`: plan's), for one water or several.
-function lureLines(ctx, band, shop, several) {
+// The lines of a band's lure step (`shop`: plan's), for one water or several. `single`: one short line of why.
+function lureLines(ctx, band, shop, several, single = false) {
 	const to = Math.min(shop.full, band.to);
+	if (single) return [`when !skill Fishing ${shop.full}`, `tip ${several ? 'Some waters here lose' : 'This water loses'} fish below Fishing ${shop.full}; a lure adds +${shop.lure[1]} for ten minutes.`, `buy ${shop.lure[0]} x${shop.lures} nearest`];
 	return [
 		`when !skill Fishing ${shop.full}`,
 		`tip ${several ? 'Some of these waters lose' : 'This water loses'} fish below Fishing ${shop.full}: a lure on the pole adds to your skill for ten minutes. ${itemName(ctx, shop.lure[0])}${fishing.note(ctx, shop.lure[0], shop.lure[1], true)}${shop.lure[1] >= shop.full - band.from ? ` closes the gap from ${band.from}` : ` is the strongest you can use at ${band.from}`}: about ${shop.lures} ${shop.lures > 1 ? 'see' : 'sees'} you to ${to} (${Math.round((fishing.catches(band.from, to) * CATCH_SECONDS) / 60)} minutes of fishing).`,

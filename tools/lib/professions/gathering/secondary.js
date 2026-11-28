@@ -108,37 +108,37 @@ function clamletteSteps(ctx, eggNote = '') {
 	// The capital cooking trainers' errands to Dirge, while the data makes Clamlette Surprise follow them (the
 	// corrections drop them: he offers it to anyone from level 35).
 	const feeders = new Set(quest.pre || []);
-	const clamlette = (f, zone, giver) => ({
-		title: 'Dirge Quikcleave',
-		raw: [`only ${f}`, `zone ${zone}`, `tip Artisan Cooking comes from Dirge Quikcleave in Gadgetzan (Tanaris). The cooking trainer in ${zone} sends you; it needs skill 225 and level ${level}.`, 'skill Cooking 225', `level ${level}`, giver],
+	const clamlette = (f, zone, q, giver) => ({
+		title: `Accept ${ctx.data.quest(q).title}`,
+		raw: [`only ${f}`, `zone ${zone}`, `tip Needs Cooking skill 225 and level ${level}; it sends you to Dirge Quikcleave in Gadgetzan.`, 'skill Cooking 225', `level ${level}`, giver],
 	});
 	const errands = [
-		[6612, clamlette('Alliance', 'Ironforge', 'accept 6612                             -- Daryl Riknussun, Ironforge')],
-		[6611, clamlette('Horde', 'Orgrimmar', 'accept 6611                             -- Zamja, Orgrimmar')],
+		[6612, clamlette('Alliance', 'Ironforge', 6612, 'accept 6612                             -- Daryl Riknussun, Ironforge')],
+		[6611, clamlette('Horde', 'Orgrimmar', 6611, 'accept 6611                             -- Zamja, Orgrimmar')],
 	].filter(([q]) => feeders.has(q));
 	const egg = dropSpot(ctx, 12207, 1425);
 	const muckshells = npcCluster(ctx, 1445, 'Muckshell Scrabbler');
 	return [
 		...errands.map(([, s]) => s),
 		{
-			title: 'Giant Eggs',
-			raw: ['zone The Hinterlands', `tip Clamlette Surprise asks for 12 Giant Eggs, 10 Zesty Clam Meat and 20 Alterac Swiss: bring all three before you go to Tanaris, so you make the trip once. Giant Eggs drop from the owlbeasts of The Hinterlands: ${egg.mobs.join(', ')}.${eggNote ? ` ${eggNote}` : ''}`, 'collect 12207 x12'],
+			title: 'Get 12 Giant Eggs',
+			raw: ['zone The Hinterlands', `tip ${egg.mobs.join(', ')} in The Hinterlands drop them.${eggNote ? ` ${eggNote}` : ''}`, 'collect 12207 x12'],
 		},
 		{
-			title: 'Alterac Swiss',
-			raw: ['tip Innkeepers and food vendors sell Alterac Swiss; the arrow picks the nearest.', 'buy 8932 x20 nearest'],
+			title: 'Buy 20 Alterac Swiss',
+			raw: ['tip For Clamlette Surprise, which teaches Artisan Cooking.', 'buy 8932 x20 nearest'],
 		},
 		{
-			title: 'Zesty Clam Meat',
-			raw: [
-				'zone Dustwallow Marsh',
-				"tip Zesty Clam Meat comes from Big-mouth Clams: open each one, every clam holds one. The Muckshell crabs on the Dustwallow Marsh coast south-west of Theramore drop a clam about seven kills in ten, so ten clams take about fifteen kills, on your way to Tanaris. The Steeljaw Snappers on Tanaris's east coast drop them about one kill in three.",
-				`collect 7974 x10 @${fmt(muckshells.x)},${fmt(muckshells.y)}`,
-			],
+			title: 'Get 10 Zesty Clam Meat',
+			raw: ['zone Dustwallow Marsh', 'tip Muckshell crabs south-west of Theramore drop Big-mouth Clams; each holds one.', `collect 7974 x10 @${fmt(muckshells.x)},${fmt(muckshells.y)}`],
 		},
 		{
-			title: 'Clamlette Surprise',
-			raw: ['zone Tanaris', ...(errands.length ? [] : ['skill Cooking 225', `level ${level}`]), ...errands.map(([q]) => `turnin ${q} only ${q === 6612 ? 'Alliance' : 'Horde'}`), 'accept 6610', 'turnin 6610                             -- Artisan Cooking'],
+			title: 'Accept Clamlette Surprise',
+			raw: ['zone Tanaris', ...(errands.length ? [] : [`tip Needs Cooking skill 225 and level ${level}.`, 'skill Cooking 225', `level ${level}`]), ...errands.map(([q]) => `turnin ${q} only ${q === 6612 ? 'Alliance' : 'Horde'}`), 'accept 6610'],
+		},
+		{
+			title: 'Hand in Clamlette Surprise',
+			raw: ['zone Tanaris', 'tip It teaches Artisan Cooking.', 'turnin 6610                             -- Artisan Cooking'],
 		},
 	];
 }

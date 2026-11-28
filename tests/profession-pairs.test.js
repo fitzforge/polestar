@@ -24,9 +24,9 @@ const skip = needs('professions.json', 'items.json');
 // A pair whose crafting guide is built from a route file (route.js) is written in single steps: a step may hold
 // several `when` lines (a fork way and its plans), and the way a step is on shows in its whole `when` set.
 const { loadRoute } = require('../tools/lib/professions/route');
-// A pair built on a routed crafting guide (one action a step). Fishing + Cooking is not, though Cooking has a route
-// file: its cooking is its fishing bands' own (pair-fishing.js over gathering/fish-rounds.js).
-const routed = (craft) => craft !== 'Cooking' && !!loadRoute(craft);
+// A pair written one action a step: on a routed crafting guide, and Fishing + Cooking (Cooking has a route file;
+// the pair's cooking is its fishing bands' own, pair-fishing.js, written the same way).
+const routed = (craft) => !!loadRoute(craft);
 
 const read = (name) => fs.readFileSync(path.join(GUIDES, `${name}.guide`), 'utf8');
 const json = (name) => JSON.parse(fs.readFileSync(path.join(DATA, `${name}.json`), 'utf8'));
