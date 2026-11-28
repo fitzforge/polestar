@@ -791,7 +791,7 @@ it read as before.
 | Kind | The window leaves out | The menu |
 |---|---|---|
 | `leveling` | nothing | everything |
-| `profession` | the XP line and the route's pace (the row shows the profession's skill instead: `Tailoring 87 / 150 · next stretch to 100 · step 29 needs level 35 (Artisan Tailoring)`), Still to do and While you're here rows of quests | leads with the materials (Gather, buy or mix) and the profession's nearest trainer; no Free mode, Hand in finished quests or Clean up quest log |
+| `profession` | the XP line and the route's pace (the row shows the profession's skill instead: `Tailoring 87 / 150 · next stretch to 100 · step 29 needs level 35 (Artisan Tailoring)`), Still to do and While you're here rows of quests | leads with the profession's nearest trainer; no Free mode, Hand in finished quests or Clean up quest log |
 | `reputation`, `dungeon`, `class`, `collectible`, `exploration`, `misc` | the route's pace | everything |
 
 A part's own setting (Options: the XP line, the pace, Still to do) still
@@ -846,11 +846,10 @@ plays the steps from the start, so a pack with them needs no newer format.
 
 ## Materials
 
-A crafting guide's materials can be gathered or bought: the player picks per
-guide (Gather, Buy or Mix) and per material, and changes it any time (the card
-a guide with such materials shows once, the Materials window, `/polestar
-materials`, or the guide window's menu; Options > Guide > Professions sets the
-way of a guide never answered). A section writes both ways for each material it needs that the Auction House
+A crafting guide's materials can be gathered or bought: each "Get it" step
+shows its ways as choices ("Pick one way:") and the player picks one per
+material, any time; the pick is kept per character and guide. Nothing asks
+beforehand. A section writes both ways for each material it needs that the Auction House
 sells: the item's `collect` marked `gather` and an `auction` goal. Polestar's
 profession guides write one "Get it" step per material, the farm first and
 the Auction House as its last line (#3661); what no step farms (a pattern)
@@ -874,18 +873,16 @@ else in it does):
 
 - An item with only `auction` goals is always bought; one with only `gather`
   collects is always gathered.
-- Otherwise the player's pick for the item wins, then the guide's way: Buy
-  buys, Gather gathers (an item whose `gather` takes a profession the
-  character lacks, or a lower rank, is bought, unless the guide itself
-  trains that profession, or raises it to that rank with a `skill` goal, in a
-  step before the `collect`: the character has it by then, so a step shown
-  ahead of its `train` step already gathers), and Mix, the default, gathers
-  what the character can (the profession and rank `gather` names; the levels:
-  from 2 below `min`, and for a bag count with no place, cloth looted while
-  levelling, up to 5 past `max`) and buys the rest, and buys too what would
-  take more than 45 minutes to farm (what the recipe levelled now still
-  needs, at the farm spot the arrow picks). A character in Self-Found mode
-  gathers everything.
+- Otherwise the player's pick for the item wins. With no pick, the character
+  gathers what it can and buys the rest: an item whose `gather` takes a
+  profession the character lacks, or a lower rank, is bought, unless the guide
+  itself trains that profession, or raises it to that rank with a `skill`
+  goal, in a step before the `collect` (the character has it by then, so a
+  step shown ahead of its `train` step already gathers); so is one outside its
+  levels (from 2 below `min`, and for a bag count with no place, cloth looted
+  while levelling, up to 5 past `max`), and one that would take more than 45
+  minutes to farm (what the recipe levelled now still needs, at the farm spot
+  the arrow picks). A character in Self-Found mode gathers everything.
 
 The counts work as for any `collect` or `buy` under a section (above), so an
 `auction` goal asks only for what the section's crafts still need. Lint warns

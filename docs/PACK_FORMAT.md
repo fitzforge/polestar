@@ -705,7 +705,7 @@ The fields:
 | `quest`, `npc`, `object`, `item`, `spell`, `faction`, `achievement` | numeric ids |
 | `title`, `npcName`, `objName`, `itemName`, `spellName`, `factionName`, `achievementName`, `target` | names |
 | `count` | number to collect, kill or buy; on `craft`, the number of items to make |
-| `gather` | on a `collect` (format 10): the goal is its item's gather way in a profession guide, beside an `auction` goal that buys the same item; Polestar applies one of them per item, by what the player chose (gather, buy or mix: [Format 10](#format-10)). `true`, or what the way takes: `{ skill, skillLine, rank }` a profession at that rank, `{ min, max }` the levels of the mobs it drops from as the player levels |
+| `gather` | on a `collect` (format 10): the goal is its item's gather way in a profession guide, beside an `auction` goal that buys the same item; Polestar applies one of them per item: the player's pick on the step, else gathered when the character can ([Format 10](#format-10)). `true`, or what the way takes: `{ skill, skillLine, rank }` a profession at that rank, `{ min, max }` the levels of the mobs it drops from as the player levels |
 | `oi` | 1-based quest objective index (`C_QuestLog.GetQuestObjectives`) |
 | `minLevel` | the level an `accept` needs; `qlvl` the quest's level (number or string) |
 | `limit` | on an `accept` of a timed quest: the seconds it allows once taken (Dynamic Questing takes it early only when the walk to it still fits). Polestar 0.3.6 and later also say under the accept how long it allows, and count down from the accept with it when the client reports no timer (a delivery quest) |
@@ -909,10 +909,10 @@ A profession guide's materials (GUIDE_FORMAT.md, "Materials"):
 - **`gather`** on a `collect`: that collect is the item's gather way.
 - Per item, Polestar applies either its `gather` collects or its `auction`
   goals, never both: an item with only one of them always takes that one; for
-  the others the player's choice for the guide (gather, buy, or mix: per item,
-  by what the character can gather at its level and with its professions,
-  from `gather`'s `skill`/`skillLine`/`rank` and `min`/`max`) and their own
-  pick per item decide. A goal that does not apply is skipped like any goal
+  the others the player's pick per item on its step decides, else what the
+  character can gather at its level and with its professions (from
+  `gather`'s `skill`/`skillLine`/`rank` and `min`/`max`) is gathered and the
+  rest bought. A goal that does not apply is skipped like any goal
   for another character.
 
 ## Format 11

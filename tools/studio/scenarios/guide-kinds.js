@@ -2,7 +2,7 @@
 // Guide kinds (Core/Guides.lua, GuideKinds; docs/GUIDE_FORMAT.md, "Guide kind"): a profession guide's window
 // in the shipped Tailoring 1-300 guide, for a level 27 Orc with Tailoring 87 of 150 in Ashenvale on the 75-150
 // Get Wool Cloth step: the skill line where the XP line was, no pace, no Still to do or While you're here rows; its ⋯ menu leads
-// with the materials and the nearest Tailoring trainer, without Free mode or the quest log clean-up. Render with
+// with the nearest Tailoring trainer, without Free mode or the quest log clean-up. Render with
 // --checkout <worktree> for another branch (before: the branch without kinds).
 
 const TAILORING = 197; // SkillLine: Tailoring
@@ -40,6 +40,6 @@ module.exports = {
 	shots: {
 		getit: { title: 'Tailoring 87/150, Get Wool Cloth (75-150): the why line, the farm line, the skill line at the foot', lua: OPEN() },
 		silk: { title: 'Get Silk Cloth (75-150) at level 27: a farm over an hour says most of it drops as you level, or the Auction House', lua: OPEN('Get Silk Cloth') },
-		menu: { title: 'The ⋯ menu of a profession guide: materials and the nearest Tailoring trainer first', capture: ['PolestarGuideFrame', 'PolestarMenu'], lua: `${OPEN()}\n${MENU}` },
+		menu: { title: 'The ⋯ menu of a profession guide: the nearest Tailoring trainer first', capture: ['PolestarGuideFrame', 'PolestarMenu'], lua: `${OPEN()}\n${MENU}` },
 	},
 };

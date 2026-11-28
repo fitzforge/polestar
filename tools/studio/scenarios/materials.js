@@ -1,13 +1,13 @@
 'use strict';
-// Gather, buy or mix (UI/Materials.lua, Core/Materials.lua) and While you're here's gathering spots (Core/Gather.lua)
-// in every look at the game's UI scales 0.64, 1.0 and 1.5: the card a profession guide shows once, the Materials
-// window, the shopping list beside the Auction House with the guide's materials (each with its Search), a gathering
-// spot line with its tracking chip, and the Guide page's Professions tab. A level 22 Human Warrior with Tailoring 112
+// A profession guide's materials (Core/Materials.lua) and While you're here's gathering spots (Core/Gather.lua) in
+// every look at the game's UI scales 0.64, 1.0 and 1.5: the shopping list beside the Auction House with the guide's
+// materials (each with its Search), a gathering spot line with its tracking chip, and the Guide page's Professions
+// tab. A level 22 Human Warrior with Tailoring 112
 // and Herbalism 70 (no Skinning) by Goldshire, on a Tailoring guide registered here: 75-150 buys or gathers Wool
 // Cloth (140 in the bags) and Silk Cloth, 150-225 Silk and Mageweave Cloth, 225-300 Rugged Leather.
 // The looks are the built-in six and the skin addons in the download (skins.js's list, without its variants), each
-// picked as skins.js picks it. Shots: <look>-<surface>-<scale> (studio materials/hearth-window-0.64 ...), surface
-// card | window | shop | gather | options.
+// picked as skins.js picks it. Shots: <look>-<surface>-<scale> (studio materials/hearth-shop-0.64 ...), surface
+// shop | gather | options.
 //
 // The UI scale: UIParent at that scale, its size in UI units the screen's 1920 x 1080 over it, as the client has it.
 
@@ -53,24 +53,6 @@ w.addItem(2592, 140)
 Polestar.Materials.NoteSearch(4306, { { price = 2000, quantity = 150 }, { price = 2500, quantity = 300 } })
 Polestar.Engine.SetGuide("studio/tailoring")
 stub.advance(3)`;
-
-// The card, the guide opened afresh (never answered).
-const CARD = `${SETUP}
-Polestar.CharState().materials = nil
-studio.clearHeadsUps()
-Polestar.UI.Materials.Check("studio/tailoring")
-stub.advance(1)
-Polestar.UI.GuideFrame.Layout()
-stub.advance(0.5)
-local m = Polestar.UI.ClassToast.current
-return m and m.route`;
-
-// The window, from the card's Mix (or the guide window's menu).
-const WINDOW = `${SETUP}
-if PolestarNavArrow then PolestarNavArrow:Hide() end
-Polestar.UI.Materials.Show()
-stub.advance(0.5)
-return PolestarMaterials.Total:GetText()`;
 
 // At the Auction House: the game's window (no art of its own here) with the list beside it.
 const SHOP = `${SETUP}
@@ -121,8 +103,6 @@ for (const [name, [id, folder, variant]] of Object.entries(LOOKS)) {
 	const base = skins.pick(id, folder, variant);
 	for (const scale of SCALES) {
 		const at = `${name} at UI scale ${scale}`;
-		shots[`${name}-card-${scale}`] = { title: `${at}: the card`, capture: ['PolestarGuideFrame', 'PolestarClassToast'], lua: `${base}\n${SCALE(scale)}\n${CARD}` };
-		shots[`${name}-window-${scale}`] = { title: `${at}: the Materials window`, capture: ['PolestarMaterials'], lua: `${base}\n${SCALE(scale)}\n${WINDOW}` };
 		shots[`${name}-shop-${scale}`] = { title: `${at}: the shopping list at the Auction House`, capture: ['PolestarAuctionBuys'], lua: `${base}\n${SCALE(scale)}\n${SHOP}` };
 		shots[`${name}-gather-${scale}`] = { title: `${at}: a gathering spot line`, capture: ['PolestarGuideFrame'], lua: `${base}\n${SCALE(scale)}\n${GATHER}` };
 		shots[`${name}-options-${scale}`] = { title: `${at}: Guide > Professions`, capture: ['PolestarOptions'], lua: `${base}\n${SCALE(scale)}\n${OPTIONS}` };
@@ -130,7 +110,7 @@ for (const [name, [id, folder, variant]] of Object.entries(LOOKS)) {
 }
 
 module.exports = {
-	title: 'Gather, buy or mix and gathering spots: the card, the Materials window, the shopping list, a While you\'re here line and the Professions tab, in every look at UI scales 0.64, 1.0 and 1.5',
+	title: 'Materials and gathering spots: the shopping list, a While you\'re here line and the Professions tab, in every look at UI scales 0.64, 1.0 and 1.5',
 	character: { race: 'Human', cls: 'WARRIOR', faction: 'Alliance', level: 22, money: 315000 },
 	place: { map: 1429, x: 42.2, y: 65.8, zone: 'Elwynn Forest', subzone: 'Goldshire' },
 	settings: { 'behavior.offerClassQuests': false, 'dungeons.headsUp': false },
@@ -140,7 +120,7 @@ module.exports = {
 	// skins.js's: the client's map tree (a skin may read the continent) and Waymark's pictures.
 	stubs: skins.stubs,
 	art: skins.art,
-	capture: ['PolestarGuideFrame', 'PolestarClassToast'],
+	capture: ['PolestarGuideFrame'],
 	LOOKS,
 	shots,
 };

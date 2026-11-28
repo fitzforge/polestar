@@ -438,23 +438,12 @@ local BUILTIN = {
 			search = "dungeon, dungeons, instance, group, run, deadmines, wailing caverns, zul'farrak, blackrock depths",
 			needs = function() local E = ns.Engine; return ns.dungeonRoute and E and E.GuideDungeons and next(E.GuideDungeons()) ~= nil end },
 	} },
-	-- Gather, buy or mix (Core/Materials.lua, UI/Materials.lua): a profession guide's materials. Each guide's own
-	-- answer is the player's, per character (its card, the guide window's menu, the Materials window, which the
-	-- last row opens); this is the way of a guide never answered.
+	-- A profession guide's materials (Core/Materials.lua): each get step asks how, per material.
 	-- In Automation, after the leveling guides' own choices (a tab of its own held two keys).
 	{ page = GUIDE, tab = L["Automation"], section = L["Profession guides"], controls = {
-		{ kind = "dropdown", key = "professions.materials", label = L["Materials in profession guides"], new = "0.4.0",
-			help = L["How a profession guide gets a material it can gather or buy, until you answer for that guide. Ask me: a card asks when the guide opens and Mix applies meanwhile. Mix gathers what your level and professions allow and buys the rest at the Auction House. Vendor goods stay vendor steps."],
-			search = "materials, reagents, gather, farm, buy, auction house, mix, crafting, professions, tailoring, shopping",
-			choices = { { value = "ask", label = L["Ask me"] }, { value = "mix", label = L["Mix"] }, { value = "gather", label = L["Gather"] }, { value = "buy", label = L["Buy"] } } },
 		{ kind = "toggle", key = "professions.altMaterials", label = L["Count my other characters' materials"], new = "0.4.0",
 			help = L["What your other characters of this realm and side hold counts toward what is still to get. Their counts show under a material either way; mail them over yourself."],
 			search = "alts, other characters, bank, mail, materials, reagents, count" },
-		{ kind = "button", button = L["Show"], label = L["Materials window"], new = "0.4.0",
-			help = L["Show how the profession guide gets its materials"],
-			search = "materials window, shopping list, reagents, gather, buy, mix, prices, /polestar materials",
-			onClick = function() ns.UI.Materials.Show() end,
-			needs = function() return ns.UI and ns.UI.Materials end },
 	} },
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Arrow"], controls = {
 		H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"], move = "arrow", help = L["Points to the current goal. Off hides only the arrow: the route lines have their own switch, under Routes. Its look and colours are on the Arrow page."],
