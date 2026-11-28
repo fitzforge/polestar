@@ -59,7 +59,6 @@ function zoneId(ctx, name) {
 // -> { text, notes }: the guide and the route zones without a safe area (for the build's report).
 function renderRoute(ctx, prof, route) {
 	const B = require('./build');
-	const { skillLevel, rankScore } = require('./areas');
 	const { TIP_MAX, IMPERATIVE, stationPlaces } = require('../route');
 	const P = prof.skill;
 	const pq = /\s/.test(P) ? `"${P}"` : P;
@@ -153,8 +152,7 @@ function renderRoute(ctx, prof, route) {
 					for (const l of areas) if (l.zone === map) l.factions = l.factions.filter((x) => x !== side);
 					areas = areas.filter((l) => l.factions.length);
 				}
-				const level = skillLevel(b.from);
-				for (const a of list.slice().sort((x, y) => rankScore(y, level) - rankScore(x, level)).slice(0, 3)) areas.push({ zone: map, area: a, factions: [side] });
+				for (const a of B.zoneAreas(list, B.partLevels(prof, b), !!prof.spanLevels)) areas.push({ zone: map, area: a, factions: [side], ...(B.START_MAPS.has(map) && a.level <= B.STARTER_LEVEL ? { starter: true } : {}) });
 			}
 		}
 		return areas;
