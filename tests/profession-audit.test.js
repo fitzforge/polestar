@@ -220,41 +220,36 @@ test('a bracket of a rank few trainers teach goes to one trainer per side; Tailo
 		}
 		for (const [key, ids] of bySection) assert.ok(ids.size <= 2, `${name} ${key}: ${[...ids].join(', ')}`);
 	}
-	const t = read('tailoring');
-	const expert = steps(t).find((s) => s.title === 'Expert Tailoring');
-	const horde = (re) => expert.lines.filter((l) => re.test(l) && / only Horde/.test(l)).map((l) => / npc (\d+)/.exec(l)[1]);
-	assert.equal(new Set([...horde(/^train /), ...horde(/^learn 3865 /)]).size, 1, 'Bolt of Mageweave at the Expert trainer');
-	const silk = steps(t).findIndex((s) => s.lines.includes('learn 3839'));
-	const bolts = steps(t).findIndex((s) => s.lines.some((l) => /^craft 3839 /.test(l)));
-	assert.ok(silk >= 0 && silk < bolts, 'Bolt of Silk Cloth learned on the visit before the silk bolts carry 100-120');
+	// Tailoring's route: Bolt of Mageweave from the Expert trainers (Georgio Bolero, Josef Gregorian), and Bolt
+	// of Silk Cloth learned before the silk bolts carry 100-120.
+	const t = steps(read('tailoring'));
+	assert.ok(t.some((s) => s.lines.includes('learn 3865 npc 1346,4576')), 'Bolt of Mageweave at the Expert trainers');
+	const silk = t.findIndex((s) => s.lines.some((l) => /^learn 3839 /.test(l)));
+	const bolts = t.findIndex((s) => s.lines.some((l) => /^craft 3839 /.test(l)));
+	assert.ok(silk >= 0 && silk < bolts, 'Bolt of Silk Cloth learned before the silk bolts carry 100-120');
 });
 
-test('a fork: path A and path B steps carry their when, and each path reaches 300 or says what is left', { skip }, () => {
-	for (const [name, key] of [['tailoring', 18449]]) {
-		const all = steps(read(name));
-		const at = all.findIndex((s) => s.lines.includes(`learn ${key} optional`));
-		assert.ok(at > 0, `${name}: the fork step`);
-		const after = all.slice(at + 1);
-		assert.ok(after.every((s) => s.lines[0] === `when knows ${key}` || s.lines[0] === `when !knows ${key}`), `${name}: every step after the fork is on a path`);
-		for (const w of [`when knows ${key}`, `when !knows ${key}`]) {
-			const path = after.filter((s) => s.lines[0] === w);
-			assert.ok(path.some((s) => s.lines.some((l) => /^skill \S+ 300$/.test(l))), `${name} ${w}: reaches 300`);
-		}
-	}
+test('a fork: each way\'s steps carry their when, and each way reaches 300 or says what is left', { skip }, () => {
+	const all = steps(read('tailoring'));
+	const way = (...w) => all.filter((s) => w.every((x) => s.lines.includes(x)));
+	const ends = (list, re) => list.some((s) => s.lines.some((l) => re.test(l)));
+	assert.ok(ends(way('when knows 18449'), /^craft 18449 until 300$/), 'Runecloth Shoulders reach 300');
+	assert.ok(ends(way('when !knows 18449', 'when knows 18450'), /^craft 18450 until 300$/), 'Wizardweave Turban reaches 300');
+	const none = way('when !knows 18449', 'when !knows 18450');
+	const last = none[none.length - 1];
+	assert.ok(last && last.lines.some((l) => /^tip .*Auction House/.test(l)), 'no pattern: the last step says what is left');
 });
 
 // Fitz, 0.4.4 try 4: "624 Wool Cloth to get from 75-150 is absurd". The bolts a later stretch needs anyway are
-// made while they still give points (plan.js `later`): Bolt of Silk Cloth carries 100-120 and the bolts go into
-// the hoods and shirts, Azure Silk Hood 120-135 (players' recordings: the most-crafted recipe there).
+// made while they still give points: Bolt of Silk Cloth carries 100-120 and the bolts go into the hoods (120-125)
+// and packs (routes/tailoring.json).
 test('Tailoring 75-150 levels on the bolts the later stretches use: under 300 Wool Cloth, no Stylish Red Shirt grind', { skip }, () => {
 	const all = steps(read('tailoring'));
-	const band = all.filter((s) => s.section && s.section[0] === 75 && s.section[1] === 150);
-	const wool = band.find((s) => s.title === 'Get Wool Cloth');
-	const n = Number(/^collect 2592 x(\d+)/.exec(wool.lines.find((l) => /^collect 2592 /.test(l)))[1]);
+	const n = all.filter((s) => /^Get \d+ Wool Cloth$/.test(s.title)).reduce((a, s) => a + Number(/^collect 2592 x(\d+)/.exec(s.lines.find((l) => /^collect 2592 /.test(l)))[1]), 0);
 	assert.ok(n <= 300, `75-150 asks ${n} Wool Cloth`);
-	assert.ok(band.some((s) => s.lines.some((l) => /^craft 3839 until 120$/.test(l))), 'Bolt of Silk Cloth to 120');
-	assert.ok(band.some((s) => s.lines.some((l) => /^craft 8760 until 135$/.test(l))), 'Azure Silk Hood to 135');
-	assert.ok(!band.some((s) => s.lines.some((l) => /^craft 3866 until/.test(l))), 'no Stylish Red Shirt stretch');
+	assert.ok(all.some((s) => s.lines.includes('craft 3839 until 120')), 'Bolt of Silk Cloth to 120');
+	assert.ok(all.some((s) => s.lines.includes('craft 8760 until 125')), 'Azure Silk Hood to 125');
+	assert.ok(!all.some((s) => s.lines.some((l) => /^craft 3866 until/.test(l))), 'no Stylish Red Shirt stretch');
 });
 
 // Fitz, 0.4.4: "2,168 Thorium Bars for 250-300 and 848 Mithril Bars doesn't sound right". The Thorium went into

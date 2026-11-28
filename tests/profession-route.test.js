@@ -136,7 +136,8 @@ test('a trainer visit learns every recipe of the rank the skill already allows: 
 				const until = /\buntil (\d+)/.exec(g.rest);
 				if (g.verb === 'craft' && until && recipes.has(Number(g.rest.split(' ')[0]))) skill = Math.max(skill, Number(until[1]));
 				const m = /^(\d+) npc ([\d,]+)/.exec(g.rest);
-				if (g.verb !== 'learn' || !m || s.when.length) continue;
+				// A repeat of an earlier learn (for a player who loads the guide past it) is no trip: done at once.
+				if (g.verb !== 'learn' || !m || s.when.length || /^Taught at /.test(s.tip || '')) continue;
 				const r = recipes.get(Number(m[1]));
 				if (!r) continue;
 				const early = visits.find((v) => v.npcs === m[2] && v.skill >= Number(r.learnedAt) && v.skill < skill);

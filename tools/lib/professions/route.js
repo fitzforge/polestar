@@ -328,7 +328,9 @@ function routeGuide(name, data, opts = {}) {
 			if (way === 'gather') {
 				const l = loopsFor(item);
 				if (!l) throw new Error(`${P}: no gathering loop gives ${itemName(item)}`);
-				out.push(`  collect ${item} x${count} gather ${l.prof} ${l.skill}`, ...l.lines);
+				// Loops of one faction only (Blindweed: a Horde zone): the other faction buys it.
+				const sides = new Set(l.lines.flatMap((x) => (/ only (Alliance|Horde)\b/.exec(x) || [null, 'Alliance', 'Horde']).slice(1).filter(Boolean)));
+				out.push(`  collect ${item} x${count} gather ${l.prof} ${l.skill}${sides.size === 1 ? ` only ${[...sides][0]}` : ''}`, ...l.lines);
 			} else if (way === 'drop') {
 				const f = data.farmable ? data.farmable(item) : null;
 				const lv = D.CLOTH_LEVELS[itemName(item)];
