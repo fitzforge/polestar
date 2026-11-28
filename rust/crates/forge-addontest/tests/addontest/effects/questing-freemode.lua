@@ -58,10 +58,24 @@ return {
 		end },
 		-- The hand-ins' XP and the Gnoll Ears' low drop rate.
 		["free.details"] = { prepare = on, probe = steps },
-		-- The section's button starts Free mode, and pressed again goes back.
+		-- The section's Open button opens the main window on Free mode's Main page, where Free mode is turned on and
+		-- off; opening it turns nothing on.
 		["Questing:Free mode"] = { press = true, prepare = function()
 			if free().IsOn() then free().Stop() end
+			if PolestarPicker then PolestarPicker:Hide() end
+			-- The pages load with the mode (Free.Load); start from another page than Main.
+			assert(free().Load())
+			free().Page.SetPage("about")
 			stub.advance(0.5)
-		end, probe = function() return free().IsOn() and E.GetGuide() and E.GetGuide().id or "off" end },
+		end, probe = function()
+			local win = PolestarPicker
+			local section = win and win:IsShown() and Polestar.UI.Picker.Section() or "closed"
+			if section ~= "closed" then
+				assert(section == "FreeMode", "the window opens on " .. tostring(section) .. ", not Free mode")
+				assert(free().Page.Current() == "main", "Free mode opens on its " .. tostring(free().Page.Current()) .. " page, not Main")
+				assert(not free().IsOn(), "opening Free mode's page turned it on")
+			end
+			return section .. " / " .. tostring(free().Page.Current()) .. " / " .. (free().IsOn() and "on" or "off")
+		end },
 	},
 }
