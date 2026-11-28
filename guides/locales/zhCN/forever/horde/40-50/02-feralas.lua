@@ -409,7 +409,7 @@ return {
 
 	-- Step 98: Camp Mojache
 	-- {npc:7875} Hadoken Swiftstrider · {quest:7731} Stinglasher · {zone:1445} Dustwallow Marsh
-	["Carrying Tabetha's Task? {npc:7875} doesn't offer {quest:7731} while it is in your quest log: hand it in to Tabetha in {zone:1445} or abandon it first."] = "",
+	["Carrying Tabetha's Task? {npc:7875} doesn't offer {quest:7731} while it is in your quest log: hand it in to Tabetha in {zone:1445} or abandon it first."] = "如果任务日志里还有「塔贝萨的任务」，就无法从{npc:7875}接到「{quest:7731}」。先去{zone:1445}找塔贝萨交任务，或放弃「塔贝萨的任务」。",
 	-- {zone:1454} Orgrimmar
 	["for {zone:1454}, around level 47"] = "留到大约47级去{zone:1454}时交",
 

@@ -68,7 +68,7 @@ return {
 	-- Step 10: Thendal Grove: kill these as you meet them
 	-- {npc:251115} Urs'anah · {npc:250926} Scrawny Ursera
 	-- plural, as words: Ursera Scavengers = {npc:250937} Ursera Scavenger
-	["The Ursera Scavengers den west of the grove, with {npc:251115}, the matriarch, at the back of the den; {npc:250926} prowl the woods between the den and the grove."] = "Die Ursera Scavengers hausen in einer Höhle westlich des Hains, mit {npc:251115}, der Matriarchin, ganz hinten in der Höhle; {npc:250926} streifen durch die Wälder zwischen der Höhle und dem Hain.",
+	["The Ursera Scavengers den west of the grove, with {npc:251115}, the matriarch, at the back of the den; {npc:250926} prowl the woods between the den and the grove."] = "Die Urseraplünderer hausen in einer Höhle westlich des Hains, mit {npc:251115}, der Matriarchin, ganz hinten in der Höhle; {npc:250926} streifen durch die Wälder zwischen der Höhle und dem Hain.",
 	["Below ground"] = "Unter der Erde",
 	-- {item:252665} Head of Urs'anah
 	["{item:252665}; below ground"] = "{item:252665}; unter der Erde",
@@ -185,7 +185,7 @@ return {
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw
 	["Prideclaws and Galestriders"] = "Rudelkrallen und Windschreiter",
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw
-	["Prideclaws and Galestriders roam the grasslands around the village. Galestriders drop both the eggs and the meat: most players get the eggs from the ones just west of the village."] = "Prideclaws und Galestriders streifen durch das Grasland rund um das Dorf. Galestriders lassen sowohl die Eier als auch das Fleisch fallen: Die meisten Spieler holen die Eier bei denen westlich des Dorfes.",
+	["Prideclaws and Galestriders roam the grasslands around the village. Galestriders drop both the eggs and the meat: most players get the eggs from the ones just west of the village."] = "Rudelkrallen und Windschreiter streifen durch das Grasland rund um das Dorf. Windschreiter lassen sowohl die Eier als auch das Fleisch fallen: Die meisten Spieler holen die Eier bei denen westlich des Dorfes.",
 
 	-- Step 40: Village quests
 	["The bounty board"] = "Das Kopfgeldbrett",
@@ -284,7 +284,7 @@ return {
 	["The road to {area:16638}"] = "Die Straße nach {area:16638}",
 	-- {npc:257006} Nyalah Brightfire · {npc:252448} Alvarion Windfield · {area:16638} Valanaar · {npc:252377} Seena Skybreaker · {npc:252389} Quel'ana Quickgale
 	-- plural, as words: Windsong Crawlers = {npc:254588} Windsong Crawler
-	["{npc:257006} and {npc:252448} stand on {area:16638}'s west side, beside the inn; {npc:252377} and {npc:252389} train just west of {npc:257006}. Windsong Crawlers line the shore further west, around 51,70."] = "{npc:257006} und {npc:252448} stehen an der Westseite von {area:16638}, neben dem Gasthaus; {npc:252377} und {npc:252389} lehren direkt westlich von {npc:257006}. Windsong Crawlers säumen das Ufer weiter westlich, um 51,70.",
+	["{npc:257006} and {npc:252448} stand on {area:16638}'s west side, beside the inn; {npc:252377} and {npc:252389} train just west of {npc:257006}. Windsong Crawlers line the shore further west, around 51,70."] = "{npc:257006} und {npc:252448} stehen an der Westseite von {area:16638}, neben dem Gasthaus; {npc:252377} und {npc:252389} lehren direkt westlich von {npc:257006}. Windweisenkriecher säumen das Ufer weiter westlich, um 51,70.",
 	-- {npc:252377} Seena Skybreaker · {npc:257006} Nyalah Brightfire · {npc:257196} Zaal Stormshield · {area:16629} Shrine of Akir
 	["{npc:252377}, beside {npc:257006}: {npc:257196} holds the Bulwark at the {area:16629}"] = "{npc:252377}, neben {npc:257006}: {npc:257196} hält das Bollwerk bei {area:16629}",
 	-- {npc:252389} Quel'ana Quickgale · {npc:257006} Nyalah Brightfire · {item:15908} Taming Rod
@@ -310,7 +310,7 @@ return {
 
 	-- Step 66: The missing scholar
 	-- plural, as words: Shriekling Matriarchs = {npc:253283} Shriekling Matriarch
-	["Fillion's camp is north-west of it, and the Shriekling Matriarchs nest just west of the camp."] = "Fillions Lager liegt nordwestlich davon, und die Shriekling Matriarchs nisten direkt westlich des Lagers.",
+	["Fillion's camp is north-west of it, and the Shriekling Matriarchs nest just west of the camp."] = "Fillions Lager liegt nordwestlich davon, und die Kreischlingmatriarchinnen nisten direkt westlich des Lagers.",
 	-- {item:257107} Shriekling Matriarch's Head
 	["{item:257107}; below ground"] = "{item:257107}; unter der Erde",
 
@@ -355,7 +355,7 @@ return {
 	-- Step 74: Taming the Beast
 	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod · {npc:254411} Quel'dora Quickgale · {spell:5149} Beast Training
 	-- plural, as words: Ornery Galestriders = {npc:251707} Ornery Galestrider · Vuldren Alphas = {npc:250874} Vuldren Alpha
-	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches {spell:5149}."] = "{npc:252389} nimmt den ersten {item:15908} zurück und gibt dir zwei weitere, einen nach dem anderen: Ornery Galestriders und Vuldren Alphas streifen über die Felder direkt nördlich von ihr. Zähme jeweils eins mit seinem Stab und bring den Stab zu ihr zurück. {npc:254411}, neben ihr, lehrt {spell:5149}.",
+	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches {spell:5149}."] = "{npc:252389} nimmt den ersten {item:15908} zurück und gibt dir zwei weitere, einen nach dem anderen: Störrische Windschreiter und Vuldrenalphas streifen über die Felder direkt nördlich von ihr. Zähme jeweils eins mit seinem Stab und bring den Stab zu ihr zurück. {npc:254411}, neben ihr, lehrt {spell:5149}.",
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "Zähme es mit der {item:15908}",
 	-- {npc:251707} Ornery Galestrider

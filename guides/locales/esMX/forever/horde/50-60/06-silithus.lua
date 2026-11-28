@@ -45,7 +45,7 @@ return {
 
 	-- Step 9: Gaeriyan
 	-- {object:148504} A Conspicuous Gravestone · {area:976} Gadgetzan · {npc:8737} Linken
-	["Alive again, go to {object:148504} in the graveyard just east of {area:976} and use it: it takes the quest. {npc:8737}'s sword goes back to {npc:8737} in Un'Goro: keep it."] = "",
+	["Alive again, go to {object:148504} in the graveyard just east of {area:976} and use it: it takes the quest. {npc:8737}'s sword goes back to {npc:8737} in Un'Goro: keep it."] = "De nuevo con vida, ve a {object:148504}, en el cementerio justo al este de {area:976}, y úsala: la lápida recibe la misión. La espada de {npc:8737} regresa con {npc:8737} en Un'Goro: guárdala.",
 	-- {quest:3914} Linken's Sword · {npc:8737} Linken
 	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "{quest:3914} regresa con {npc:8737} en Un'Goro: guárdala.",
 
@@ -168,7 +168,7 @@ return {
 
 	-- Step 34: Hermit Ortell
 	-- {area:3447} Ortell's Hideout · {area:2738} Southwind Village
-	["Ride south-east to {area:3447}, in the mountains south of {area:2738}."] = "",
+	["Ride south-east to {area:3447}, in the mountains south of {area:2738}."] = "Cabalga al sureste hasta {area:3447}, en las montañas al sur de {area:2738}.",
 
 	-- Step 35: Noggle's Lost Satchel
 	-- {npc:15196} Deathclasp
@@ -187,7 +187,7 @@ return {
 	-- Step 38: Twilight Base Camp
 	-- {npc:15306} Bor Wildmane · {area:2739} Twilight Base Camp · {area:3425} Cenarion Hold
 	-- plural, as words: Encrypted Twilight Texts = {item:20404} Encrypted Twilight Text · Twilight Avengers = {npc:11880} Twilight Avenger
-	["Collect twenty Encrypted Twilight Texts, ten for {npc:15306} and ten for Ortell. The {area:2739} holds only elementals: the texts drop from the Twilight's Hammer cultists of the Vanguard in the far south-west, the Post in the west and the Outpost west of {area:3425}. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60)."] = "",
+	["Collect twenty Encrypted Twilight Texts, ten for {npc:15306} and ten for Ortell. The {area:2739} holds only elementals: the texts drop from the Twilight's Hammer cultists of the Vanguard in the far south-west, the Post in the west and the Outpost west of {area:3425}. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60)."] = "Junta veinte Textos Crepusculares codificados, diez para {npc:15306} y diez para Ortell. En {area:2739} solo hay elementales: los textos los sueltan los sectarios del Martillo Crepuscular de la Vanguardia en el extremo suroeste, del Puesto en el oeste y de la Avanzada al oeste de {area:3425}. Consíguelos de los Vengadores Crepusculares y los Geoseñores; deja a los Flamatracadores y a los Clamapiedras (59-60).",
 	-- {npc:15306} Bor Wildmane
 	["ten for each quest: {npc:15306} takes his ten before Ortell"] = "diez para cada misión: {npc:15306} recibe sus diez antes que Ortell",
 

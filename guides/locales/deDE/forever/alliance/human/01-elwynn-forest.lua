@@ -272,7 +272,7 @@ return {
 	["{zone:1429}: kill these as you meet them"] = "{zone:1429}: Töte sie, wenn du ihnen begegnest",
 	-- {object:694855} Overgrown Duskweed
 	-- plural, as words: Stonetusk Boars = {npc:113} Stonetusk Boar
-	["{object:694855} grows in the fields around the vineyards and the Stonefield farm; Stonetusk Boars around them give the blood.\nStonetusk Boars graze between the vineyards and the farm."] = "{object:694855} wächst auf den Feldern um die Weinberge und den Hof der Stonefields; Stonetusk Boars in der Nähe geben das Blut.\nStonetusk Boars grasen zwischen den Weinbergen und dem Hof.",
+	["{object:694855} grows in the fields around the vineyards and the Stonefield farm; Stonetusk Boars around them give the blood.\nStonetusk Boars graze between the vineyards and the farm."] = "{object:694855} wächst auf den Feldern um die Weinberge und den Hof der Stonefields; Steinhauereber in der Nähe geben das Blut.\nSteinhauereber grasen zwischen den Weinbergen und dem Hof.",
 	-- {item:286215} Vial of Animal Blood
 	-- plural, as words: Stonetusk Boars = {npc:113} Stonetusk Boar
 	["{item:286215}: Stonetusk Boars"] = "{item:286215}: Steinhauereber",
@@ -415,7 +415,7 @@ return {
 	-- Step 80: Guard Thomas
 	-- {area:91} Tower of Azora
 	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
-	["Follow the road east past the {area:91} to the bridge. Finish the Prowlers and Young Forest Bears around the river south of it."] = "Folge der Straße nach Osten am {area:91} vorbei bis zur Brücke. Erledige die Prowlers und Young Forest Bears am Fluss südlich davon.",
+	["Follow the road east past the {area:91} to the bridge. Finish the Prowlers and Young Forest Bears around the river south of it."] = "Folge der Straße nach Osten am {area:91} vorbei bis zur Brücke. Erledige die Streuner und jungen Waldbären am Fluss südlich davon.",
 
 	-- Step 82: Eldrin
 	-- {npc:1103} Eldrin
@@ -502,7 +502,7 @@ return {
 	-- Step 97: The Stonefield Farm
 	-- {npc:894} Homer Stonefield · {quest:91736} Applejack Still
 	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
-	["{npc:894} sells the Shiny Red Apples for the {quest:91736}. Apples looted from kobolds and crates count too: the purchase ticks itself once you have four."] = "{npc:894} verkauft die Shiny Red Apples für {quest:91736}. Äpfel, die du von Kobolden und aus Kisten plünderst, zählen auch: Der Kauf hakt sich selbst ab, sobald du vier hast.",
+	["{npc:894} sells the Shiny Red Apples for the {quest:91736}. Apples looted from kobolds and crates count too: the purchase ticks itself once you have four."] = "{npc:894} verkauft die glänzenden roten Äpfel für {quest:91736}. Äpfel, die du von Kobolden und aus Kisten plünderst, zählen auch: Der Kauf hakt sich selbst ab, sobald du vier hast.",
 	-- {npc:894} Homer Stonefield · {quest:91736} Applejack Still
 	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
 	["Shiny Red Apples, from {npc:894}, for the {quest:91736}"] = "Glänzende rote Äpfel von {npc:894} für {quest:91736}",
@@ -512,7 +512,7 @@ return {
 	["The {quest:91736}"] = "{quest:91736}",
 	-- {quest:91736} Applejack Still · {area:120} Westbrook Garrison · {item:247824} Thunder Applejack · {npc:955} Sergeant De Vries
 	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
-	["The {quest:91736} stands north of the {area:120}. Click it with four Shiny Red Apples in your bags: it takes them and gives you a {item:247824} on the spot (the quest never shows in your quest log). Keep the Applejack for {npc:955}: don't drink it."] = "{quest:91736} steht nördlich vom {area:120}. Klicke es an, während du vier Shiny Red Apples in deinen Taschen hast: Es nimmt sie und gibt dir auf der Stelle {item:247824} (die Quest erscheint nie in deinem Questlog). Behalte den Applejack für {npc:955}: Trink ihn nicht.",
+	["The {quest:91736} stands north of the {area:120}. Click it with four Shiny Red Apples in your bags: it takes them and gives you a {item:247824} on the spot (the quest never shows in your quest log). Keep the Applejack for {npc:955}: don't drink it."] = "{quest:91736} steht nördlich vom {area:120}. Klicke es an, während du vier glänzende rote Äpfel in deinen Taschen hast: Es nimmt sie und gibt dir auf der Stelle {item:247824} (die Quest erscheint nie in deinem Questlog). Behalte den Applejack für {npc:955}: Trink ihn nicht.",
 	-- {item:247824} Thunder Applejack
 	["{item:247824}, from the still"] = "{item:247824}, aus dem Brenner",
 
@@ -529,7 +529,7 @@ return {
 	-- Step 101: Forest's Edge
 	-- {zone:1436} Westfall
 	-- plural, as words: Riverpaw Runts = {npc:97} Riverpaw Runt
-	["Riverpaw Runts and Outrunners hold the hills south of the garrison, along the {zone:1436} border."] = "Riverpaw Runts und Outrunners halten die Hügel südlich der Garnison, entlang der Grenze zu {zone:1436}.",
+	["Riverpaw Runts and Outrunners hold the hills south of the garrison, along the {zone:1436} border."] = "Wichte und Kundschafter der Flusspfoten halten die Hügel südlich der Garnison, entlang der Grenze zu {zone:1436}.",
 	-- plural, as words: Painted Gnoll Armbands = {item:782} Painted Gnoll Armband
 	["Painted Gnoll Armbands"] = "Bemalte Gnollarmbinden",
 

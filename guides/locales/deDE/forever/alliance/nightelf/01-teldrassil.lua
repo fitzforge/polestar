@@ -250,7 +250,7 @@ return {
 	-- Step 38: Lake Al'Ameth
 	-- {npc:2150} Zenn Foulhoof · {npc:2080} Denalan · {quest:919} Timberling Sprouts
 	-- plural, as words: Lasher Sproutlings = {npc:275703} Lasher Sproutling
-	["South-west of Starbreeze, south of {npc:2150}. {npc:2080} tends his saplings on the shore; Lasher Sproutlings and Timberlings wander around him, and the {quest:919} grow among them."] = "Südwestlich von Starbreeze, südlich von {npc:2150}. {npc:2080} pflegt seine Setzlinge am Ufer; Lasher Sproutlings und Timberlings wandern um ihn herum, und die {quest:919} wachsen zwischen ihnen.",
+	["South-west of Starbreeze, south of {npc:2150}. {npc:2080} tends his saplings on the shore; Lasher Sproutlings and Timberlings wander around him, and the {quest:919} grow among them."] = "Südwestlich von Starbreeze, südlich von {npc:2150}. {npc:2080} pflegt seine Setzlinge am Ufer; Wildschlagsetzlinge und Timberlings wandern um ihn herum, und die {quest:919} wachsen zwischen ihnen.",
 	-- {npc:2080} Denalan · {quest:922} Rellian Greenspyre · {zone:1457} Darnassus
 	["{npc:2080}: {quest:922} in {zone:1457} takes it"] = "{npc:2080}: {quest:922} in {zone:1457} nimmt sie an",
 
@@ -343,12 +343,12 @@ return {
 	-- Step 55: Seek Redemption!
 	-- {area:186} Dolanaar · {npc:2150} Zenn Foulhoof · {npc:7234} Ferocitas the Dream Eater
 	-- plural, as words: Fel Cones = {object:1673} Fel Cone
-	["Fel Cones lie under the trees all around {area:186} and {npc:2150}: pick them up on the road east and hand them to {npc:2150} on the way to {npc:7234}."] = "Fel Cones liegen unter den Bäumen rund um {area:186} und {npc:2150}: Sammle sie auf der Straße nach Osten ein und gib sie auf dem Weg zu {npc:7234} bei {npc:2150} ab.",
+	["Fel Cones lie under the trees all around {area:186} and {npc:2150}: pick them up on the road east and hand them to {npc:2150} on the way to {npc:7234}."] = "Teufelszapfen liegen unter den Bäumen rund um {area:186} und {npc:2150}: Sammle sie auf der Straße nach Osten ein und gib sie auf dem Weg zu {npc:7234} bei {npc:2150} ab.",
 
 	-- Step 56: Ferocitas the Dream Eater
 	-- {npc:7234} Ferocitas the Dream Eater · {area:260} Starbreeze Village · {item:8049} Gnarlpine Necklace
 	-- plural, as words: Gnarlpine Mystics = {npc:7235} Gnarlpine Mystic
-	["Gnarlpine Mystics and {npc:7234} camp north-east of {area:260}. {npc:7234} drops the {item:8049}: open it for the jewel.\nCareful: {npc:7234} waits near the camp fire with mystics around him, so pulling him without adds is hard."] = "Gnarlpine Mystics und {npc:7234} lagern nordöstlich von {area:260}. {npc:7234} lässt {item:8049} fallen: Öffne es für den Edelstein.\nVorsicht: {npc:7234} wartet nahe dem Lagerfeuer, umgeben von Mystics, also ist es schwer, ihn ohne Adds zu pullen.",
+	["Gnarlpine Mystics and {npc:7234} camp north-east of {area:260}. {npc:7234} drops the {item:8049}: open it for the jewel.\nCareful: {npc:7234} waits near the camp fire with mystics around him, so pulling him without adds is hard."] = "Mystiker der Knarzklauen und {npc:7234} lagern nordöstlich von {area:260}. {npc:7234} lässt {item:8049} fallen: Öffne es für den Edelstein.\nVorsicht: {npc:7234} wartet nahe dem Lagerfeuer, umgeben von Mystikern, also ist es schwer, ihn ohne Adds zu pullen.",
 	-- {item:8049} Gnarlpine Necklace · {npc:7234} Ferocitas the Dream Eater
 	["{item:8049}, from {npc:7234}"] = "{item:8049}, von {npc:7234}",
 
@@ -577,7 +577,7 @@ return {
 	-- plural, as words: Tide Crawlers = {npc:2232} Tide Crawler · Darkshore Threshers = {npc:2185} Darkshore Thresher
 	["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {object:175207} lies on the shore just south of the village."] = "Gezeitenkriecher krabbeln unterhalb des Dorfes am Ufer entlang; {quest:983} steht am Strand gleich südlich der Anlegestelle. Dunkelküstendrescher schwimmen im seichten Wasser. {object:175207} liegt gleich südlich des Dorfes am Ufer.",
 	-- plural, as words: Crawler Legs = {item:5385} Crawler Leg · Tide Crawlers = {npc:2232} Tide Crawler
-	["Crawler Legs: the Tide Crawlers"] = "Crawler Legs: die Tide Crawlers",
+	["Crawler Legs: the Tide Crawlers"] = "Kriecherbeine: die Gezeitenkriecher",
 	-- {quest:983} Buzzbox 827 · {zone:1439} Darkshore
 	-- plural, as words: Thresher Eyes = {item:5412} Thresher Eye
 	["{quest:983}: Thresher Eyes, on the {zone:1439} guide's first beach stop"] = "{quest:983}: Thresher-Augen, am ersten Strandstopp des {zone:1439}-Guides",

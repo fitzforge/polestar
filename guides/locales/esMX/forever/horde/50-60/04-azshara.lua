@@ -21,7 +21,7 @@ return {
 
 	-- Step 3: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
-	["{npc:5901} camps on the shore just south of {area:392}, at the water's edge."] = "",
+	["{npc:5901} camps on the shore just south of {area:392}, at the water's edge."] = "{npc:5901} acampa en la orilla justo al sur de {area:392}, al borde del agua.",
 	-- {area:2479} Emerald Sanctuary · {zone:1448} Felwood
 	["Cleansed Water goes to the {area:2479} in {zone:1448}: keep it for later."] = "El agua purificada va a {area:2479}, en {zone:1448}: guárdala para después.",
 
@@ -33,11 +33,11 @@ return {
 
 	-- Step 5: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172959} The Drag
-	["{npc:8659}, upstairs in {object:172959}"] = "",
+	["{npc:8659}, upstairs in {object:172959}"] = "{npc:8659}, en el piso de arriba, en {object:172959}",
 
 	-- Step 6: Orgrimmar
 	-- {npc:15188} Cenarion Emissary Blackhoof · {object:172982} Valley of Strength · {zone:1451} Silithus
-	["{npc:15188}, {object:172982}: keep it for {zone:1451}"] = "",
+	["{npc:15188}, {object:172982}: keep it for {zone:1451}"] = "{npc:15188}, {object:172982}: guárdala para {zone:1451}",
 
 	-- Step 7: Zilzibin Drumlore
 	-- {npc:7010} Zilzibin Drumlore
@@ -86,7 +86,7 @@ return {
 
 	-- Step 17: Andron Gant
 	-- {npc:6522} Andron Gant · {object:36126} Royal Quarter
-	["{npc:6522} stands just outside the Apothecarium, on the way to the {object:36126}."] = "",
+	["{npc:6522} stands just outside the Apothecarium, on the way to the {object:36126}."] = "{npc:6522} está justo afuera del Apothecarium, de camino al {object:36126}.",
 
 	-- Step 18: The Undercity
 	-- {object:36126} Royal Quarter
@@ -94,7 +94,7 @@ return {
 
 	-- Step 19: Royal Quarter
 	-- {npc:10781} Royal Overseer Bauhaus · {object:36078} Trade Quarter
-	["{npc:10781} keeps the census in the {object:36078}, beside the guild and tabard registrars near the bank."] = "",
+	["{npc:10781} keeps the census in the {object:36078}, beside the guild and tabard registrars near the bank."] = "{npc:10781} lleva el censo en el {object:36078}, junto a los registradores de hermandades y tabardos, cerca del banco.",
 
 	-- Step 21: Jeremiah Payson
 	-- {npc:8403} Jeremiah Payson
@@ -118,7 +118,7 @@ return {
 	-- Step 27: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
 	-- was: ["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "La granja de {npc:10778} es la primera al este de {area:152}. Los necrófagos parlanchines de la granja llevan la otra mitad de su amuleto; {npc:11075} custodia el caldero del campo.\nCuidado: Uno o dos no-muertos suelen pelear a su lado, y más señores del caldero pueden atacar después de que usas el caldero."
-	["{npc:10778}'s farm is the first one east of the {area:152}. {npc:11075} guards the cauldron in the field. Careful: one or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "",
+	["{npc:10778}'s farm is the first one east of the {area:152}. {npc:11075} guards the cauldron in the field. Careful: one or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "La granja de {npc:10778} es la primera al este de {area:152}. {npc:11075} custodia la caldera del campo. Cuidado: uno o dos no-muertos suelen pelear a su lado, y más señores de la caldera pueden atacar después de que uses la caldera.",
 
 	-- Step 28: Janice Felstone
 	["Upstairs"] = "Arriba",
