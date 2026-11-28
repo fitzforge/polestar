@@ -1517,6 +1517,19 @@ Errors:
   `data/route-fixes.json` `overrides.leftout` records why it stays out
   (docs/forge/routes.md, "Overrides"); a `leftout` record that names no such
   accept is a warning
+- in Polestar's own guides (`lint` only): a `tip` that tells the player to do
+  something (use, right-click, read, drink, throw or place an item; click or
+  open an object; wear something; talk to someone; an emote; board a ship)
+  that no goal row of its step does. Give the action its own row (`use`,
+  `interact`, `equip`, `talk`, `task`) and keep only the why in the tip. An
+  accept an item starts counts as that item's use, a hand-in at an object as
+  its click, and a `collect` as the click that loots an object. A tip that is
+  right as written (a potion between waves, the spellbook to open) takes
+  `# tip-ok: <why>` on the line right above it; `guides/tip-actions-pending.json`
+  lists the tips not fixed yet, as warnings
+- `keep` without one of its kinds (`door`, `instance`, `boarding`, `phasing`,
+  `safety`) or without a reason, or twice in a step ("Steps of places only";
+  on a step with work, or outside a leveling guide, it is a warning)
 - `lint` only: the play checks below on Polestar's own guides (in `compile`, and
   in every other pack, they are warnings, so the tools that compile a pack go on)
 
@@ -1805,13 +1818,47 @@ line but not the file, so an imported guide shows no picture.
   talk 295 optional
   talk 252383 quest 92640.1           -- Valennia: "Speak with Valennia"
   interact 176793 quest 5545.1        -- Bundles of wood lie under the trees
-  use 5411 quest 754.1 @51.8,68.4     -- Winterhoof Cleansing Totem
+  use 5411 quest 754.1 @53.7,66.2     -- Winterhoof Cleansing Totem
+  use 279981 anywhere                 -- Basic Campfire Kit
   cast 818 "Basic Campfire"
 ```
 
 `cast` counts only a cast made while the goal is open, so put it in the
 step where the player should cast; a spell that is no recipe in the data
 needs its quoted name.
+
+**Every action is a row, and a tip says why.** Whatever the player must do
+with an item, an object or a person is a goal row of the step, so the arrow,
+the map pin and the quest item button lead to it, and a player who reads
+only the rows does it. `use <item> quest Q.O` counts for that objective and
+puts the item on the quest item button; `use <item> anywhere` is used where
+the player stands (a campfire kit, a lure on the pole), with no place for
+the arrow. An emote or anything else Polestar cannot see is a `task`. An
+action only some players take is the same row marked `optional`: it shows,
+and never holds the step.
+
+```
+step Tanaris Field Sampling
+  tip A sample can fail, so it can take several tries to get eight of each.
+  collect 9439 @52.9,32.4 map 1446
+  use 9439 quest 654.2 @52.9,32.4 map 1446
+  collect 9441 quest 654.2 @50.2,31.6 map 1446
+```
+
+```
+  equip 12846 optional                -- Argent Dawn Commission, while you fight the Scourge
+  task "/salute at Fizzule" optional
+```
+
+A tip is one short line: the why, where things are, what to watch out
+for. In Polestar's own guides lint stops on a tip that orders an action no
+row of its step does ("Validation"); a tip that is right as written takes a
+comment on the line above it:
+
+```
+  # tip-ok: a heads-up between waves, not an action of the step
+  tip Drink a healing potion between waves if you need one.
+```
 
 ### Travel: `sethome`, `hearth`, `die`, `getfp`, `fly`
 
@@ -1827,6 +1874,31 @@ Locations are written as the game names them; `polestar find --kind inn` and
 `polestar find --kind flight` list the names (every inn and flight point,
 with coordinates). `sethome nearest` binds at the nearest inn of the
 player's faction instead.
+
+**Steps of places only.** In a leveling guide, a step whose goals are only
+`goto`s, a `fly` or an `enter` becomes a hidden hint for the step after it
+(see "Steps of places only"). Write it where a player may need the way: the
+arrow goes by it while it is on the way and drops it once the player is
+past it or has a faster way.
+
+```
+step Fly to Crossroads                # a hint: not in the step list
+  zone The Barrens
+  goto 63.1,37.1 "Ratchet flight master"
+  fly "Crossroads"
+
+step The Crossroads
+  turnin 845                          -- Sergra Darkthorn
+  accept 903
+```
+
+A step that must stay visible says why with `keep`:
+
+```
+step Shadowthread Cave
+  keep door the work is inside the cave: its mouth first
+  goto 56.69,31.29 "Shadowthread Cave"
+```
 
 ### Errands: `train`, `buy`, `vendor`, `level`, `money`, `task`, `abandon`, `destroy`, `note`
 
@@ -1864,23 +1936,140 @@ see: the player ticks it; `abandon` and `destroy` check themselves against the q
 
 ### Professions: `train`, `learn`, `craft`, `skill`
 
+A profession guide (`category Professions`) shows the skill and its bar
+where a leveling guide shows XP. Write one action a step, in the order a
+first-timer does them, under a `section` per skill range so the guide starts
+where the player's skill is (see "Sections"). The whole of First Aid 1-75:
+
 ```
-step First Aid
-  train First Aid
-  learn 3275
+guide joe-routes/first-aid
+title First Aid 1-75
+category Professions
+levels 1-60
+zone Azeroth
+
+section "First Aid" 1-75
+
+step Learn First Aid
+  tip No character level needed.
+  train First Aid Apprentice
+
+step Get 144 Linen Cloth
+  tip For 50 Linen Bandages and 47 Heavy Linen Bandages.
+  collect 2589 x144 nearest gather levels 5-20
+  auction 2589 x144
+
+step Craft 50 Linen Bandages until 40 · Professions tab (K by default)
+  tip About 50 crafts.
   craft 3275 until 40
-  skill "First Aid" 40
+
+step Learn Heavy Linen Bandage
+  learn 3276
+
+step Craft 47 Heavy Linen Bandages until 75 · Professions tab (K by default)
+  tip About 47 crafts.
+  craft 3276 until 75
 ```
 
-Under a skill-range heading, so the guide starts where the player's skill
-is (see "Sections"):
+The Get step's `collect … gather` and `auction` are the material's two
+ways: the window shows them as a choice, gather it or buy it, and the
+player picks per material (see "Materials"). A recipe that needs a tool or a
+station gets a step for each, before the first craft that needs it:
 
 ```
-section First Aid 1-40
+step Buy a Blacksmith Hammer
+  tip A tool: it stays in your bags, and most recipes need it.
+  buy 5956 x1 nearest
 
-step Linen Bandage (1-40)
-  craft 3275 until 40
+step Go to an anvil
+  goto 59.8,33.9 "Anvil" map 1453 live nearest only Alliance
+  goto 79.7,23.1 "Anvil" map 1454 nearest only Horde
+
+step Craft 30 Rough Sharpening Stones until 25 · Professions tab (K by default)
+  craft 2660 until 25
 ```
+
+`goto … nearest` over two or more stations leads to the nearest one the
+character may use, and arriving at any of them finishes the step (pack
+format 12, Polestar 0.4.4). A gathering step raises the skill in gathering
+areas instead (`area <zone> "<name>" …` lines, one per area, see "Spawn
+areas", Gathering areas): the window lists the areas safe at the player's
+level, best first, the arrow leads into the one picked and rests inside it,
+and the maps shade the area and mark its nodes. Fishing keeps rounds of
+stands (`loop <zone> …`, "Farming loops").
+
+```
+step Mine Copper until 65
+  area Mulgore "Red Cloud Mesa" lvl 1 count 10 lap 412 gain 1.0 items 2770 only Horde starter respawn 277 at 49.3,93.6 49.7,88.2 42.0,80.1 40.1,85.0 dots 49.0,92.8 49.2,87.7 41.8,79.8
+  area Durotar "Razor Hill" near lvl 6 count 3 lap 320 gain 0.6 items 2770 only Horde respawn 259 at 50.1,40.0 55.2,38.1 56.0,45.3 51.0,46.2
+  skill Mining 65
+```
+
+Polestar's own profession guides are written by a builder from route files
+(`tools/lib/professions/routes/<profession>.json`, docs/forge/professions.md).
+The First Aid steps above come from this part of `first-aid.json`:
+
+```json
+{
+	"rank": "Apprentice", "from": 1, "to": 75, "level": 1,
+	"teachers": { "Alliance": [2327, 5150, 4211], "Horde": [3373, 4591, 2798] },
+	"route": [
+		{ "from": 1, "to": 40, "recipe": 3275, "count": 50, "mats": { "2589": 50 } },
+		{ "from": 40, "to": 75, "recipe": 3276, "count": 47, "mats": { "2589": 94 } }
+	]
+}
+```
+
+with `"materials": { "2589": ["drop", "auction"] }` giving Linen Cloth its
+two ways. A pack writes the same steps by hand.
+
+### Dungeon guides
+
+A dungeon guide (`category Dungeons`) shows the dungeon instead of the
+step's person: its picture, its name, and a line when the character is
+below its level. Title it with the dungeon's name as the Dungeons page
+writes it. Pick up the quests, end the way there with `enter` at the
+entrance, then work the run's objectives and hand them in:
+
+```
+guide joe-routes/wailing-caverns
+title Wailing Caverns
+category Dungeons
+faction Horde
+levels 17-24
+zone The Barrens
+
+step Ratchet
+  accept 959
+
+step Nalpak and Ebru
+  tip Their cave is hidden in the rocks above the dungeon's mouth, reached from the west side.
+  accept 1486
+  accept 1487
+
+step Wailing Caverns
+  enter "Wailing Caverns" @46.0,36.5
+
+step In the caverns
+  tip Deviate Hides drop rarely: one run may not be enough.
+  collect 6443 x20 quest 1486.1
+  complete 1487
+  collect 5334 quest 959.1 optional
+
+step Nalpak and Ebru
+  turnin 1486
+  turnin 1487
+
+step Ratchet
+  turnin 959
+```
+
+Inside, the dungeon tracker shows the quests the character holds there,
+with live counts and the bosses in kill order, whatever guide is open. After
+the run the Dungeons page's **Hand in the quests** leads to every finished
+quest of that dungeon, whichever guide took it. A dungeon run inside a
+leveling guide is written differently, behind `when dungeon "<Name>"` (see
+"Dungeon steps").
 
 ### Reputation and challenges: `rep`, `achieve`
 
@@ -1976,7 +2165,7 @@ the way. An elite in a Leveling guide belongs here, with the tip
 "<Name> is elite: grouping up is advised."
 
 ```
-  accept 184 optional                -- Only if you looted a Westfall Deed: right-click it
+  accept 184 optional                -- Only if a Westfall Deed dropped: accepting it uses the deed
   kill 299 x8 optional
 ```
 

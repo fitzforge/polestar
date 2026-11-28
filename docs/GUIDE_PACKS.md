@@ -303,6 +303,133 @@ them.
 > how, and why every id it writes needs checking. Every pack `new` writes
 > includes a skill for coding agents, polestar-guide-pack.
 
+### Writing guides for Polestar 0.4.4
+
+Polestar 0.4.4 changes how guides read in the guide window. Guides written
+for 0.4.3 keep working; these rules make yours read like Polestar's own.
+Every line is in [GUIDE_FORMAT.md](GUIDE_FORMAT.md), and its
+[Cookbook](GUIDE_FORMAT.md#cookbook) has a worked example of each.
+
+**Every action is a row.** A step's goal rows say
+what to do and where: the arrow, the map pin and the quest item button
+follow them, and a player who reads only the rows still does everything. An
+action that lives only in a tip is one players miss.
+
+| Write a row | Not only a tip |
+|---|---|
+| `use 5411 quest 754.1 @53.7,66.2` | `tip Use the totem at the well.` |
+| `interact 176793 quest 5545.1` | `tip Click the bundles of wood.` |
+| `equip 12846 optional` | `tip Wear the Argent Dawn Commission.` |
+| `task "/salute at Fizzule" optional` | `tip Salute Fizzule.` |
+
+- `use <item> quest <Q>.<O>`: the use that counts for a quest objective. The
+  quest item button shows the item while the step is live.
+- `use <item> anywhere`: an item used where the player stands (a campfire
+  kit, a lure on the pole). It has no place, so the arrow leads nowhere.
+- An action only some players need ("if one drops", "while you fight the
+  Scourge") is the same row marked `optional`: it shows, and it never holds
+  the step.
+- A tip is one short line of why or a heads-up: "Deviate Hides drop rarely:
+  one run may not be enough."
+
+**The tip lint.** In Polestar's own guides, `forge guide lint` stops on a
+tip that tells the player to do something (use, right-click or read an item,
+click or open an object, wear something, talk to someone, an emote, board a
+ship) that no goal row of its step does. It doesn't check community packs,
+but the same rule keeps yours easy to follow. When a tip is right as it is
+(a potion between waves, the spellbook to open), put `# tip-ok: <why>` on the
+line right above it.
+
+**Leveling guides: steps of places only become hints.** In a leveling
+guide, a step whose goals are only `goto`s, a `fly` or an `enter` is no
+longer a step of its own. The compiler makes it a hidden hint for the step
+after it: the player never sees it in the list, and the arrow goes by it
+only while it is on the way. A player who is past it, came another way or
+has a faster one (a class teleport, the Hearthstone, a flight) goes straight
+to the work. The guide's last steps of places only, with nothing after
+them, stay steps: that is where the guide ends. To keep a step that must
+stay, say why with `keep <kind> <reason>`:
+
+```
+step Cenarion Enclave
+  keep door the walking maps have no way up inside the druids' building: its south door first
+  zone Darnassus
+  goto 35.8,11.6 "Cenarion Enclave"
+```
+
+The kinds are `door` (a door or cave mouth the walking maps can't see),
+`instance` (an instance's entrance), `boarding` (an NPC who teleports you, a
+boarding whose timing matters), `phasing` (a place that starts a phase or an
+event) and `safety` (a spot to stand at, such as where to pull to). A kept
+step passes once the step it leads to is done. GUIDE_FORMAT.md, ["Steps of
+places only"](GUIDE_FORMAT.md#steps-of-places-only), has the rules.
+
+**Profession guides** (`category Professions`) show the skill and its bar
+where a leveling guide shows XP. Write them as Polestar's are: one action a
+step, in the order a first-timer does them, under a `section` per skill
+range.
+
+1. **Learn** the profession (`train First Aid Apprentice`).
+2. **Buy** the tool, if it needs one (`buy 5956 x1 nearest`: a Blacksmith
+   Hammer).
+3. **Get N** of one material: its `collect … gather` and its `auction` in
+   one step. The window shows the two as a choice, gather it or buy it, and
+   the player picks per material. What they buy goes on the Shopping list
+   beside the Auction House.
+4. **Go to** a station, when the recipe needs one: `goto … nearest` over two
+   or more anvils, forges or fires, and the arrow takes the nearest (needs
+   Polestar 0.4.4).
+5. **Craft N** until the next skill point you aim for (`craft 3275 until
+   40`). "· Professions tab (K by default)" in the step title tells a
+   first-timer where the recipe is.
+6. **Train** the next rank, then learn its recipes (`learn 3276`).
+
+A gathering guide's "until N" steps take gathering areas (`area <zone>
+"<name>" …` lines): the window lists the areas safe at the player's level,
+best first, and the arrow leads into the one they pick, then lets them roam
+it. Fishing keeps rounds of stands (`loop <zone> …` lines). The full example is in the
+[Cookbook](GUIDE_FORMAT.md#professions-train-learn-craft-skill).
+Polestar's own profession guides are built from route files
+(`tools/lib/professions/routes/<profession>.json`); a pack writes the same
+steps by hand. [docs/forge/professions.md](forge/professions.md) has the
+route files and the rules every profession guide keeps.
+
+**Dungeon guides** (`category Dungeons`) show the dungeon instead of the
+step's person: its picture and name, and your level when it is below the
+dungeon's. Title the guide with the dungeon's name as the Dungeons page
+writes it ("Wailing Caverns"). Pick up the quests, end the way there with
+`enter "<Dungeon>" @x,y` at its entrance, then the run's objectives and the
+hand-ins. Inside, the dungeon tracker shows the quests you hold there and
+the bosses, whatever guide is open. After the run, the Dungeons page's
+**Hand in the quests** leads to every finished quest of that dungeon,
+whichever guide took it. The
+example is in the [Cookbook](GUIDE_FORMAT.md#dungeon-guides).
+
+### Moving a pack to 0.4.4
+
+**What keeps working unchanged:** every guide line 0.4.3 reads, the pack
+format (a pack needs a newer one only for `goto … nearest`, format 12), and
+every `collect … gather` with its `auction`. An older Polestar shows a hidden
+hint as the step you wrote.
+
+**What to check:**
+
+- [ ] **Leveling guides:** each step of only `goto`s, a `fly` or an `enter`
+      followed by work is now a hidden hint. Give the ones that must stay
+      visible a `keep` line. Lint warns about a `keep` on a step with work,
+      or outside a leveling guide.
+- [ ] **Tips:** move every "use", "click", "wear" or "talk to" into a goal
+      row (`use`, `interact`, `equip`, `talk`, `task`), `optional` when only
+      some players need it, and keep the tip for the why.
+- [ ] **Profession guides:** one action a step, as above. Polestar no longer
+      asks up front how to get materials: the "How do you want to get them?"
+      card, the Materials window (`/polestar materials`), the guide menu's
+      Gather, Buy and Mix rows and the Options default are gone. No guide line
+      named them, so no guide changes; drop any README or tip text that sends
+      players there. Players pick on each Get step instead.
+
+Then run `forge guide lint` and `polestar playtest` again.
+
 ### Before you publish
 
 **The tools check these.** `lint` reports them, and `compile`, `install` and
@@ -412,6 +539,7 @@ strings"](PACK_FORMAT.md#import-strings). Strings are covered by the same
 | Read the whole guide format | [GUIDE_FORMAT.md](GUIDE_FORMAT.md) |
 | Fix a lint message or an in-game problem | [PACKS.md, "Lint messages"](PACKS.md#lint-messages) and ["In game: statuses and problems"](PACKS.md#in-game-statuses-and-problems) |
 | Update after a game patch | [PACKS.md, "Updating"](PACKS.md#updating) |
+| Write guides the 0.4.4 way, and move a pack to it | ["Writing guides for Polestar 0.4.4"](#writing-guides-for-polestar-044) and ["Moving a pack to 0.4.4"](#moving-a-pack-to-044) |
 | Know exactly what the tools write | [PACK_FORMAT.md](PACK_FORMAT.md) |
 
 Questions, or a community addon to show? Players and authors meet on the
