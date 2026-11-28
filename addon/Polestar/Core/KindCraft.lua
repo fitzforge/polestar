@@ -240,7 +240,8 @@ function Engine.FarmMinutes(item)
 	busy = true
 	local ok, minutes = pcall(function()
 		local fv = a.farm(gg)
-		if not (fv and fv.minutes) or fv.loop then return nil end
+		-- A gathering area is roamed, not farmed to a count: no minutes to buy past.
+		if not (fv and fv.minutes) or (Engine.IsAreaGoal and Engine.IsAreaGoal(gg)) then return nil end
 		local missing = a.needOf(gg) - bags(item)
 		local b, rank = skill()
 		local st = b and KC.Stretch(a.current(), rank)
@@ -328,11 +329,42 @@ local function materialGoal(goal)
 	return (goal.t == "collect" and goal.gather ~= nil) or goal.t == "auction" or goal.t == "buy"
 end
 
+-- A gathering area goal's choices for the window (Engine.AreaChoices, docs/GUIDE_FORMAT.md "Gathering areas"): the
+-- ranked list cut to AREA_ROWS, best first (the arrow's area kept among them when it ranks lower), the level the
+-- first area opens at while none is safe yet (`safeFrom`, list empty), the area left mined out (`out`: { name,
+-- next, i }), and `what`: the item its nodes give most (the step's item, else the first area's), for "Safe Copper
+-- Ore area from level 6". nil for a goal that is no area goal.
+KC.AREA_ROWS = 3
+function KC.Areas(s, gi, goal)
+	if not (s and goal and Engine.IsAreaGoal and Engine.AreaChoices and Engine.IsAreaGoal(goal)) then return nil end
+	local v = Engine.AreaChoices(s, gi)
+	if type(v) ~= "table" then return nil end
+	local all, list = v.list or {}, {}
+	for i = 1, min(#all, KC.AREA_ROWS) do list[i] = all[i] end
+	for i = KC.AREA_ROWS + 1, #all do
+		if all[i].current or all[i].picked then
+			list[KC.AREA_ROWS] = all[i]
+			break
+		end
+	end
+	local item = goal.item
+	if not item then
+		local c = goal.candidates and goal.candidates[1]
+		item = c and tonumber(type(c.items) == "string" and c.items:match("^(%d+)") or nil)
+	end
+	local verb = v.verb
+	if not verb then
+		local line = goal.skillLine or (type(goal.gather) == "table" and goal.gather.skillLine)
+		verb = GATHER_LINE[line or 0] or KC.GatherVerb(goal)
+	end
+	return { verb = verb, list = list, safeFrom = #list == 0 and v.safeFrom or nil, out = v.out, what = item and itemName(item) or nil,
+		step = s, goalIndex = gi }
+end
+
 -- A get step: per item of the step's material goals, "Get 42 Rough Stone" with the bags' count, and the ways the
--- item's goals in the step allow, each a choice: { way = "gather", verb, npc, map, loop, minutes (for the rest at
--- the chosen spot), rate (an hour there), levels (a disenchant's green items: { min, max } Requires Level),
--- safeFrom (farming loops with none safe at the character's level yet: the level the first opens at; no map),
--- out (the loop left mined out: { map, line }, UI.LoopOutLine) } |
+-- item's goals in the step allow, each a choice: { way = "gather", verb, npc, map, minutes (for the rest at the
+-- chosen spot), rate (an hour there), levels (a disenchant's green items: { min, max } Requires Level), areas (a
+-- gathering area goal's choices: KC.Areas) } |
 -- { way = "buy", toGet (what the bags, bank and mail still lack), copper } | { way = "vendor", npc, map };
 -- `current` the way the guide takes now (the goal that applies: the player's pick, else the guide's way). The
 -- Auction House is no way for a Self-Found character.
@@ -365,14 +397,18 @@ M.get = function(view, kind)
 			if goal.t == "collect" then
 				local npc, map = placeOf(goal)
 				w = { way = "gather", verb = KC.GatherVerb(goal), npc = npc, map = map }
-				local fv = a.farm(goal)
-				local missing = a.needOf(goal) - bags(goal.item)
-				if fv and fv.safeFrom then
-					-- No loop safe at the character's level yet: no place to lead to, and the level one opens at.
-					w.map, w.safeFrom = nil, fv.safeFrom
-				elseif fv and fv.minutes and fv.minutes > 0 and missing > 0 then
-					w.minutes, w.loop, w.out = fv.minutes, fv.loop or nil, fv.out
-					w.rate = max(1, floor(missing * 60 / fv.minutes + 0.5))
+				local areas = KC.Areas(view.index, gi, goal)
+				if areas then
+					-- Its areas say where; none safe yet: no place to lead to.
+					w.areas, w.verb = areas, areas.verb or w.verb
+					if areas.safeFrom then w.map = nil end
+				else
+					local fv = a.farm(goal)
+					local missing = a.needOf(goal) - bags(goal.item)
+					if fv and fv.minutes and fv.minutes > 0 and missing > 0 then
+						w.minutes = fv.minutes
+						w.rate = max(1, floor(missing * 60 / fv.minutes + 0.5))
+					end
 				end
 				local gw = type(goal.gather) == "table" and goal.gather or nil
 				if w.verb == "disenchant" and gw and gw.min and gw.max then w.levels = { gw.min, gw.max } end
@@ -399,6 +435,27 @@ M.get = function(view, kind)
 		e.done = e.status == "done"
 	end
 	return { items = list, covers = covers }
+end
+
+-- A gathering step that levels the skill (Mining 1-50 in an area): its `skill` goal's row (the goal view, its
+-- progress) and its areas (KC.Areas), as a get step's gather way shows them. nil for any other step, and once the
+-- goal is done (the step's own row says so).
+M.areas = function(view, kind)
+	if kind ~= "profession" then return nil end
+	local a = access()
+	local G = a.guide()
+	local step = view and G and G.steps[view.index]
+	if not step then return nil end
+	for gi, goal in ipairs(step.goals or {}) do
+		local gv = view.goals and view.goals[gi]
+		if goal.t == "skill" and gv and (gv.status == "active" or gv.status == "pending") then
+			local areas = KC.Areas(view.index, gi, goal)
+			if areas then
+				return { goal = gv, step = view.index, goalIndex = gi, verb = areas.verb, areas = areas, covers = { gi } }
+			end
+		end
+	end
+	return nil
 end
 
 -- The shopping list: the materials of the section (the bracket) the step is in, each with what the character holds

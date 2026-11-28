@@ -34,7 +34,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	local max = math.max
 
 	GF.REGIONS = {
-		profession = { "meter", "stretch", "get", "step", "shopping" },
+		profession = { "meter", "stretch", "get", "areas", "step", "shopping" },
 		reputation = { "meter", "turnin", "step", "more" },
 		dungeon = { "brief", "ready", "step", "pickups", "entrance" },
 	}

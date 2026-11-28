@@ -463,6 +463,37 @@
 --   A long farm: most of it drops as you level
 --   or the Auction House
 
+-- Machine-translated, to be reviewed (gathering areas, 28 Nov 2026): translated by an AI model (Claude Opus 5.5)
+-- in this file's own wording, and waiting for a native speaker's check. Reviewing one: keep or fix its line below,
+-- and take its key off this list.
+--   Roam %s for beasts (level %d-%d)
+--   Roam %s for beasts (level %d)
+--   Roam %s for beasts
+--   Loot, then skin them
+--   Roam %s for %s
+--   Roam %s for herbs
+--   Find Herbs shows them on your minimap
+--   Roam %s for ore
+--   Find Minerals shows them on your minimap
+--   Kill and skin it
+--   ~%d beasts (level %d-%d)
+--   ~%d beasts (level %d)
+--   ~%d beasts
+--   ~%d herbs
+--   ~%d veins
+--   safe from %d
+--   you're here
+--   under a minute away
+--   Safe %s area from level %d
+--   Safe herb area from level %d
+--   Safe skinning area from level %d
+--   Safe mining area from level %d
+--   %s is picked clean for now
+--   %s is hunted out for now
+--   %s is mined out for now
+--   Try %s next
+--   Best
+
 -- Machine-translated, to be reviewed (the profession and reputation guides' window, 26 Nov 2026): translated by an
 -- AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
 -- keep or fix its line below, and take its key off this list.
@@ -471,7 +502,6 @@
 --   %s a turn-in
 --   about %d to go
 --   Learn %s first
---   %s loop on your map
 --   %s more
 --   %s more, about %s at your last search
 --   Buy it at the Auction House
@@ -491,7 +521,6 @@
 --   Pick one way:
 --   Requires Level %d-%d
 --   Shopping list
---   Skin it
 --   about %d an hour
 --   about %d min for the rest
 --   %s reached
@@ -897,6 +926,15 @@ L["No waypoint"] = "没有路径点"
 L["Arrived underwater"] = "已在水下到达"
 L["Under water nearby: swim down to it"] = "附近水下：向下游过去"
 L["%d yd below you: swim down"] = "在你下方 %d 码：向下游"
+L["Roam %s for beasts (level %d-%d)"] = "在%s四处寻找野兽（%d-%d级）"
+L["Roam %s for beasts (level %d)"] = "在%s四处寻找野兽（%d级）"
+L["Roam %s for beasts"] = "在%s四处寻找野兽"
+L["Loot, then skin them"] = "拾取后剥皮"
+L["Roam %s for %s"] = "在%s四处寻找%s"
+L["Roam %s for herbs"] = "在%s四处寻找草药"
+L["Find Herbs shows them on your minimap"] = "寻找草药会在小地图上显示它们"
+L["Roam %s for ore"] = "在%s四处寻找矿石"
+L["Find Minerals shows them on your minimap"] = "寻找矿物会在小地图上显示它们"
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "地点 %d/%d"
@@ -1979,16 +2017,6 @@ L["Most of it drops as you level %s"] = "大部分会在你升到 %s 级的途�
 L["A long farm: most of it drops as you level"] = "耗时很长：大部分会在升级途中掉落"
 L["or the Auction House"] = "或拍卖行"
 L["or %s"] = "或%s"
--- L["%s loop"] = ""
--- L["Farming loop"] = ""
--- L["%d min a lap"] = ""
--- L["about %d laps"] = ""
--- L["Safe %s loop from level %d"] = ""
--- L["The %s loop is mined out for now · next: %s"] = ""
--- L["The %s loop is picked clean for now · next: %s"] = ""
--- L["The %s loop is hunted out for now · next: %s"] = ""
--- L["The %s loop is gathered out for now · next: %s"] = ""
--- L["another loop in %s"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"
@@ -5700,7 +5728,6 @@ L["%d ready"] = "%d 份就绪"
 L["%s a turn-in"] = "每次上交 %s"
 L["about %d to go"] = "还差约 %d"
 L["Learn %s first"] = "先学习%s"
-L["%s loop on your map"] = "地图上的%s路线"
 L["%s more"] = "还差 %s"
 L["%s more, about %s at your last search"] = "还差 %s，按你上次搜索约 %s"
 L["Buy it at the Auction House"] = "在拍卖行购买"
@@ -5720,7 +5747,6 @@ L["Pick it"] = "采药获得"
 L["Pick one way:"] = "选一种方式："
 L["Requires Level %d-%d"] = "需要等级 %d-%d"
 L["Shopping list"] = "采购清单"
-L["Skin it"] = "剥皮获得"
 L["about %d an hour"] = "每小时约 %d"
 L["about %d min for the rest"] = "剩余约 %d 分钟"
 L["%s reached"] = "已达到%s"
@@ -5738,6 +5764,24 @@ L["once"] = "一次"
 L["repeats"] = "可重复"
 L["%d more"] = "还差 %d"
 -- L["%d / %d"] = ""
+L["Kill and skin it"] = "击杀并剥皮获得"
+L["~%d beasts (level %d-%d)"] = "约%d只野兽（%d-%d级）"
+L["~%d beasts (level %d)"] = "约%d只野兽（%d级）"
+L["~%d beasts"] = "约%d只野兽"
+L["~%d herbs"] = "约%d株草药"
+L["~%d veins"] = "约%d处矿脉"
+L["safe from %d"] = "%d级起安全"
+L["you're here"] = "你在这里"
+L["under a minute away"] = "不到1分钟路程"
+L["Safe %s area from level %d"] = "%s安全区域：%d级起"
+L["Safe herb area from level %d"] = "草药安全区域：%d级起"
+L["Safe skinning area from level %d"] = "剥皮安全区域：%d级起"
+L["Safe mining area from level %d"] = "采矿安全区域：%d级起"
+L["%s is picked clean for now"] = "%s的草药暂时采完了"
+L["%s is hunted out for now"] = "%s的野兽暂时猎完了"
+L["%s is mined out for now"] = "%s的矿脉暂时采完了"
+L["Try %s next"] = "接下来试试%s"
+L["Best"] = "最佳"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐页重新设置 Polestar。每项选择立即生效。"
@@ -6067,3 +6111,5 @@ L["%d more"] = "还差 %d"
 -- L["A long farm: bought instead"] = "刷取太久：改为购买"
 -- L["Expert"] = "专家"
 -- L["Green"] = "绿色"
+-- L["%s loop on your map"] = "地图上的%s路线"
+-- L["Skin it"] = "剥皮获得"

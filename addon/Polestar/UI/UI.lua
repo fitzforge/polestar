@@ -415,46 +415,29 @@ end
 -- first ("1 level above you: careful"; with no spot at their level, "No farm
 -- at your level: 3 levels above you"), then the kills and minutes the items
 -- still missing take there, then the second choice ("or Riverpaw Gnoll
--- (Westfall)"). A farming loop instead names itself, its zone and lap, the
--- laps left and the second choice's zone ("Mining loop · Westfall · 5 min a
--- lap · about 4 laps · or Loch Modan"); with none safe at the character's
--- level yet, from which level one is ("Safe Copper Ore loop from level 6");
--- one that left a loop mined out says so first ("The Durotar loop is mined out
--- for now · next: The Barrens", UI.LoopOutLine). A (non-loop) farm longer than
--- UI.FARM_LONG minutes is no plan to send a player on: it says where the rest
--- really comes from instead ("Most of it drops as you level 15-30  ·  or the
--- Auction House"), no kills, minutes or second farm. Nil without one.
+-- (Westfall)"). A farm longer than UI.FARM_LONG minutes is no plan to send a
+-- player on: it says where the rest really comes from instead ("Most of it
+-- drops as you level 15-30  ·  or the Auction House"), no kills, minutes or
+-- second farm. Nil without one. (A gathering area goal's rows are the
+-- profession window's: UI/GuideFrameKindCraft.lua.)
 UI.FARM_LONG = 60
 function UI.FarmLine(goal)
 	local f = type(goal.farm) == "table" and goal.farm
 	if not f then return nil end
-	if f.safeFrom then
-		local what = type(goal.subject) == "string" and goal.subject ~= "" and goal.subject or ""
-		return string.format(L["Safe %s loop from level %d"], what, f.safeFrom)
-	end
 	local parts = {}
-	local out = f.loop and UI.LoopOutLine(goal, f.out)
-	if out then parts[1] = out end
 	local above = tonumber(f.above)
 	if above and above >= 2 then
 		parts[#parts + 1] = string.format(L["No farm at your level: %d levels above you"], above)
 	elseif above and above > 0 then
 		parts[#parts + 1] = L["1 level above you: careful"]
 	end
-	if not f.loop and f.minutes and f.minutes > UI.FARM_LONG then
+	if f.minutes and f.minutes > UI.FARM_LONG then
 		local lv = type(f.levels) == "table" and UI.LevelRange(f.levels[1], f.levels[2])
 		parts[#parts + 1] = lv and string.format(L["Most of it drops as you level %s"], lv) or L["A long farm: most of it drops as you level"]
 		if f.market then parts[#parts + 1] = L["or the Auction House"] end
 		return table.concat(parts, "  \194\183  ")
 	end
-	if f.loop then
-		local what = type(goal.subject) == "string" and goal.subject ~= "" and goal.subject or nil
-		parts[#parts + 1] = what and string.format(L["%s loop"], what) or L["Farming loop"]
-		local zone = goal.map and UI.MapName(goal.map)
-		if zone then parts[#parts + 1] = zone end
-		if f.lap then parts[#parts + 1] = string.format(L["%d min a lap"], f.lap) end
-		if f.laps then parts[#parts + 1] = string.format(L["about %d laps"], f.laps) end
-	elseif f.kills and f.minutes then
+	if f.kills and f.minutes then
 		parts[#parts + 1] = string.format(L["about %d kills, %d min"], f.kills, f.minutes)
 	elseif f.kills then
 		parts[#parts + 1] = string.format(L["about %d kills"], f.kills)
@@ -463,27 +446,9 @@ function UI.FarmLine(goal)
 	if type(s) == "table" and type(s.npcName) == "string" then
 		local zone = s.map and UI.MapName(s.map)
 		parts[#parts + 1] = zone and string.format(L["or %s (%s)"], s.npcName, zone) or string.format(L["or %s"], s.npcName)
-	elseif type(s) == "table" and f.loop and s.map and UI.MapName(s.map) then
-		parts[#parts + 1] = string.format(L["or %s"], UI.MapName(s.map))
 	end
 	if #parts == 0 then return nil end
 	return table.concat(parts, "  \194\183  ")
-end
-
--- "The Durotar loop is mined out for now · next: The Barrens" for a loop goal whose pick left a loop mined out
--- (the view's farm `out`: its map and the skill line it gathers with); "next: another loop in Durotar" when the
--- new loop is on the same map. Nil without one. (A literal key each: the translations' check finds only those.)
-function UI.LoopOutLine(goal, out)
-	if type(out) ~= "table" or not out.map then return nil end
-	local from = UI.MapName(out.map) or ""
-	local text
-	if out.line == 186 then text = L["The %s loop is mined out for now · next: %s"]
-	elseif out.line == 182 then text = L["The %s loop is picked clean for now · next: %s"]
-	elseif out.line == 393 then text = L["The %s loop is hunted out for now · next: %s"]
-	else text = L["The %s loop is gathered out for now · next: %s"] end
-	local here = goal.map and UI.MapName(goal.map) or ""
-	local next = goal.map == out.map and string.format(L["another loop in %s"], here) or here
-	return string.format(text, from, next)
 end
 
 -- Secondary line. An unavailable quest says why ("Needs level 14"); a farm
@@ -502,7 +467,7 @@ function UI.GoalDetail(goal)
 	local d = goal.detail
 	if goal.optional then d = d and (d .. " \194\183 " .. L["optional"]) or L["Optional"] end
 	if d then parts[#parts + 1] = d end
-	local chosen = farm or (type(goal.alternatives) == "number" and goal.alternatives > 0 and not (type(goal.farm) == "table" and goal.farm.loop))
+	local chosen = farm or (type(goal.alternatives) == "number" and goal.alternatives > 0)
 	if chosen and goal.map then
 		local zone = UI.MapName(goal.map)
 		if zone and not (d and d:find(zone, 1, true)) then parts[#parts + 1] = zone end

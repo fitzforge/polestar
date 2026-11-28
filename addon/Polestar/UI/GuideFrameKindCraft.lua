@@ -7,7 +7,12 @@
 -- per way its goals allow, picked like an option (a radio mark), each with one button ("Guide me"; the Auction
 -- House's "Buy list" at an open Auction House, else "Guide me" too, the arrow to the nearest auctioneer of the
 -- character's side: a longer label cut the way's own words) and
--- a short line ("Durotar loop on your map  ·  about 25 min for the rest", "136 more, about 14s at your last search");
+-- a short line ("Wool Cloth from Blackrock Grunt  ·  about 25 min for the rest", "136 more, about 14s at your last
+-- search"). A way that gathers in areas (Mine it, Pick it, Kill and skin it), taken, lists up to three of them under
+-- it, best first and marked: the area's name, "~12 veins  ·  safe from 8  ·  4 min away" and Guide me (the player's
+-- pick, kept by the Engine); with none safe yet "Safe Copper Ore area from level 6"; with the pick mined out "Try
+-- Bael'dun Digsite next" first. A gathering step that levels the skill ("areas") shows its skill goal's row and the
+-- same rows under its way;
 -- a craft step is "Craft Rough Sharpening Stone until 35" with the recipe's icon, the client's skill-up arrow,
 -- "about 42 to go" and Open <Profession> (the window's one secure button). Under it one folded row, the shopping
 -- list: the section's materials, have / need, and "Buy the whole list". Reputation: the standing meter, the turn-in
@@ -544,23 +549,68 @@ ns.UI.GuideFrame.Part(function(GF)
 		local v = w.verb
 		if v == "mine" then return L["Mine it"] end
 		if v == "herb" then return L["Pick it"] end
-		if v == "skin" then return L["Skin it"] end
+		if v == "skin" then return L["Kill and skin it"] end
 		if v == "fish" then return L["Fish it"] end
 		if v == "disenchant" then return L["Disenchant green armour"] end
 		if v == "make" then return L["Make it"] end
 		return L["Farm it"]
 	end
 
-	-- A way's short line: where and how long (a farm), what is left and its price (the Auction House, counting the
-	-- bank and the mail), where (a vendor); farming loops none of which is safe at the character's level yet say
-	-- from which level one is ("Safe Copper Ore loop from level 6"). `toGet`: what the bags still lack; `name`: the
-	-- item's.
-	local function waySub(w, toGet, name)
-		if w.safeFrom then return format(L["Safe %s loop from level %d"], name or "", w.safeFrom) end
+	-- Gathering areas (Core/KindCraft.lua KC.Areas; docs/GUIDE_FORMAT.md "Gathering areas"). An area's line: about how
+	-- many nodes are up at once (beasts: and their levels), the level it is safe from, how far it is ("4 min away",
+	-- "you're here"). A literal key each.
+	local function areaCount(verb, a)
+		local n = tonumber(a.count)
+		if not n then return nil end
+		if verb == "skin" then
+			local lv = a.levels
+			if lv and lv.min and lv.max and lv.max > lv.min then return format(L["~%d beasts (level %d-%d)"], n, lv.min, lv.max) end
+			if lv and lv.min then return format(L["~%d beasts (level %d)"], n, lv.min) end
+			return format(L["~%d beasts"], n)
+		end
+		if verb == "herb" then return format(L["~%d herbs"], n) end
+		return format(L["~%d veins"], n)
+	end
+	local function areaSub(verb, a)
 		local parts = {}
-		-- The loop left mined out (UI.LoopOutLine), first.
-		local out = w.out and UI.LoopOutLine({ map = w.map }, w.out)
-		if out then parts[1] = out end
+		parts[#parts + 1] = areaCount(verb, a)
+		if a.safeFrom and a.safeFrom > 1 then parts[#parts + 1] = format(L["safe from %d"], a.safeFrom) end
+		if a.here then
+			parts[#parts + 1] = L["you're here"]
+		elseif a.minutes then
+			parts[#parts + 1] = a.minutes < 1 and L["under a minute away"] or format(L["%d min away"], floor(a.minutes + 0.5))
+		end
+		return parts[1] and table.concat(parts, DOT) or nil
+	end
+	-- No area safe at the character's level yet: from which level the first one is.
+	local function areaSafeText(areas)
+		if areas.what then return format(L["Safe %s area from level %d"], areas.what, areas.safeFrom) end
+		if areas.verb == "herb" then return format(L["Safe herb area from level %d"], areas.safeFrom) end
+		if areas.verb == "skin" then return format(L["Safe skinning area from level %d"], areas.safeFrom) end
+		return format(L["Safe mining area from level %d"], areas.safeFrom)
+	end
+	-- The area the pick left mined out: "Ox Hill is mined out for now".
+	local function areaOutText(areas)
+		local out = areas.out
+		if areas.verb == "herb" then return format(L["%s is picked clean for now"], out.name) end
+		if areas.verb == "skin" then return format(L["%s is hunted out for now"], out.name) end
+		return format(L["%s is mined out for now"], out.name)
+	end
+
+	-- A way's short line: where and how long (a farm), what is left and its price (the Auction House, counting the
+	-- bank and the mail), where (a vendor). A gathering area way: with no area safe yet, from which level one is
+	-- ("Safe Copper Ore area from level 6"); not the way taken, its best area and how far (taken, its rows say it).
+	-- `toGet`: what the bags still lack.
+	local function waySub(w, toGet)
+		local areas = w.areas
+		if areas then
+			if areas.safeFrom then return areaSafeText(areas) end
+			local best = not w.current and areas.list[1]
+			if not best then return nil end
+			local where = areaSub(nil, { here = best.here, minutes = best.minutes })
+			return where and (best.name .. DOT .. where) or best.name
+		end
+		local parts = {}
 		if w.way == "buy" then
 			local n = w.toGet or toGet
 			if n > 0 then
@@ -571,7 +621,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			if w.levels then parts[#parts + 1] = format(L["Requires Level %d-%d"], w.levels[1], w.levels[2]) end
 			local zone = w.map and UI.MapName(w.map)
 			if w.way == "gather" and w.npc then parts[#parts + 1] = hexed("npc", w.npc) end
-			if zone then parts[#parts + 1] = w.loop and format(L["%s loop on your map"], zone) or zone end
+			if zone then parts[#parts + 1] = zone end
 			if w.minutes and toGet > 0 then
 				parts[#parts + 1] = w.minutes <= 90 and format(L["about %d min for the rest"], w.minutes) or (w.rate and format(L["about %d an hour"], w.rate)) or nil
 			end
@@ -594,6 +644,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		W.Color(dot, "accent")
 		dot:SetShown(on)
 	end
+	local function noRadio(r) if r.psDot then r.psDot:Hide() end end
 
 	-- A way picked: the item takes it (Materials' pick), and the arrow leads to its goal.
 	local function pick(r)
@@ -602,6 +653,82 @@ ns.UI.GuideFrame.Part(function(GF)
 		if (w.way == "gather" or w.way == "buy") and not w.current then setWay(e.item, w.way) end
 		local s = stepShown()
 		if s then guideTo(s, w.goalIndex) end
+	end
+
+	-- An area picked (its row or Guide me; the mined-out line's next): the Engine keeps the pick for the character's
+	-- guide step (Engine.PickArea), the item takes the gathering way in a get step, and the arrow leads there.
+	local function pickArea(r)
+		local areas, i = r.psAreas, r.psArea
+		if not (areas and i) then return end
+		local e = E()
+		if e and e.PickArea then e.PickArea(areas.step, areas.goalIndex, i) end
+		local w, it = r.psWay, r.psItem
+		if w and it and w.way == "gather" and not w.current then setWay(it.item, "gather") end
+		guideTo(areas.step, areas.goalIndex)
+	end
+	local function areaRow(f, i)
+		local r = f.Areas[i]
+		if r then return r end
+		r = regionRow(f)
+		r:SetScript("OnClick", pickArea)
+		r.psPadLabel = L["Guide me"]
+		r.psButton = W.Button(r, L["Guide me"], function() pickArea(r) end, { height = 22 })
+		f.Areas[i] = r
+		return r
+	end
+	-- The rows of a gathering area goal's choices onto f.List, from f.Areas[n + 1], indented `x`: the mined-out line
+	-- first ("Try Bael'dun Digsite next", its Guide me the pick of that one), then up to three areas, best first and
+	-- marked, the arrow's own with the dot; `only`: just the arrow's area (compact). `way`, `item`: a get step's way.
+	-- -> n
+	local function paintAreas(f, n, areas, x, only, way, item)
+		local list, t = f.List, way and "collect" or "skill"
+		local function row(text, sub, i)
+			n = n + 1
+			local r = areaRow(f, n)
+			local g = r.psGoal
+			if type(g) ~= "table" or g.psKind ~= "area" then g = { psKind = "area" } end
+			g.t, g.index, g.status, g.text = t, areas.goalIndex, "active", text
+			GF.PaintGoalRow(r, g, false)
+			UI.SetCounted(r.Sub, sub or "")
+			r.Sub:SetShown(sub ~= nil)
+			r.psAreas, r.psArea, r.psWay, r.psItem, r.psIndent = areas, i, way, item, x
+			W.SetButtonText(r.psButton, L["Guide me"])
+			r.psButton:SetShown(i ~= nil)
+			list[#list + 1] = r
+			return r
+		end
+		local out = areas.out
+		if out and out.next then
+			local r = row(format(L["Try %s next"], out.next), areaOutText(areas), out.i)
+			noRadio(r)
+			W.Color(r.Text, "text")
+		end
+		local marked = #areas.list > 1
+		for _, a in ipairs(areas.list) do
+			if not only or a.current then
+				local text = a.name or ""
+				if a.best and marked then text = text .. "  " .. hexed("accent", L["Best"]) end
+				local r = row(text, areaSub(areas.verb, a), a.i)
+				radio(r, a.current and true or false)
+				W.Color(r.Text, a.current and "text" or "textDim")
+			end
+		end
+		return n
+	end
+	-- A region's rows, each under the one before, indented by its psIndent; a row with a button wraps clear of it.
+	local function layoutList(f, width)
+		local y = 0
+		for _, r in ipairs(f.List) do
+			local x = r.psIndent or 0
+			local h = r.psButton and rowButton(r, r.psButton, width - x) or GF.MeasureRow(r, width - x)
+			r:SetHeight(h)
+			r:ClearAllPoints()
+			r:SetPoint("TOPLEFT", f, "TOPLEFT", x, -y)
+			r:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, -y)
+			r:Show()
+			y = y + h
+		end
+		return floor(y + 0.5)
 	end
 
 	-- The item's row: a goal row as the step's own (a click leads the arrow to the goal that applies).
@@ -634,7 +761,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	GF.RegisterRegion("get", {
 		build = function(parent)
 			local f = CreateFrame("Frame", nil, parent)
-			f.Items, f.Ways, f.List = {}, {}, {}
+			f.Items, f.Ways, f.Areas, f.List = {}, {}, {}, {}
 			return f
 		end,
 		model = function(view, kind)
@@ -644,7 +771,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		paint = function(f, m, mode)
 			local list = f.List
 			for i = #list, 1, -1 do list[i] = nil end
-			local ni, nw = 0, 0
+			local ni, nw, na = 0, 0, 0
 			local compact = mode == "compact"
 			for _, e in ipairs(m.items) do
 				-- The item's row: what to get, the count once.
@@ -660,6 +787,7 @@ ns.UI.GuideFrame.Part(function(GF)
 				local choices = not compact and not e.done and #e.ways > 1
 				UI.SetCounted(r.Sub, choices and L["Pick one way:"] or "")
 				r.Sub:SetShown(choices and true or false)
+				r.psIndent = 0
 				list[#list + 1] = r
 				-- A row per way, picked like an option; each leads the arrow there.
 				if not compact and not e.done then
@@ -673,35 +801,81 @@ ns.UI.GuideFrame.Part(function(GF)
 						GF.PaintGoalRow(wr, wg, false)
 						radio(wr, w.current)
 						W.Color(wr.Text, w.current and "text" or "textDim")
-						local sub = waySub(w, max(0, e.need - e.have), e.name)
+						local sub = waySub(w, max(0, e.need - e.have))
 						UI.SetCounted(wr.Sub, sub or "")
 						wr.Sub:SetShown(sub ~= nil)
-						wr.psWay, wr.psItem = w, e
+						wr.psWay, wr.psItem, wr.psIndent = w, e, 16
 						W.SetButtonText(wr.psButton, w.way == "buy" and searchable() and L["Buy list"] or L["Guide me"])
 						wr.psButton:SetShown(w.way == "buy" or w.map ~= nil)
 						list[#list + 1] = wr
+						-- The way taken to gather in areas lists them under it.
+						if w.areas and w.current and not w.areas.safeFrom then na = paintAreas(f, na, w.areas, 32, false, w, e) end
 					end
 				end
 			end
 			for i = ni + 1, #f.Items do f.Items[i]:Hide() end
 			for i = nw + 1, #f.Ways do f.Ways[i]:Hide() end
+			for i = na + 1, #f.Areas do f.Areas[i]:Hide() end
 		end,
-		layout = function(f, _, width)
-			local y = 0
-			for _, r in ipairs(f.List) do
-				local way = r.psButton ~= nil
-				-- The ways sit under the item's row, indented as its options.
-				local x = way and 16 or 0
-				local h = way and rowButton(r, r.psButton, width - x) or GF.MeasureRow(r, width)
-				r:SetHeight(h)
-				r:ClearAllPoints()
-				r:SetPoint("TOPLEFT", f, "TOPLEFT", x, -y)
-				r:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, -y)
-				r:Show()
-				y = y + h
+		layout = function(f, _, width) return layoutList(f, width) end,
+	})
+
+	-- A gathering step that levels the skill in areas (KindCraft's `areas`): the skill goal's own row, then the
+	-- gathering way's row ('Mine it', 'Pick it', 'Kill and skin it'; its Guide me leads to the area the arrow takes)
+	-- and the areas under it, or from which level one is safe. Compact: the goal's row and the arrow's area.
+	GF.RegisterRegion("areas", {
+		build = function(parent)
+			local f = CreateFrame("Frame", nil, parent)
+			f.Goal = regionRow(f)
+			f.Way = regionRow(f)
+			f.Way.psPadLabel = L["Guide me"]
+			f.Way:SetScript("OnClick", function() local m = f.psModel; if m then guideTo(m.step, m.goalIndex) end end)
+			f.Way.psButton = W.Button(f.Way, L["Guide me"], function() local m = f.psModel; if m then guideTo(m.step, m.goalIndex) end end, { height = 22 })
+			f.Areas, f.List = {}, {}
+			return f
+		end,
+		model = function(view, kind)
+			local e = E()
+			return e and e.KindModel and e.KindModel("areas", view, kind)
+		end,
+		paint = function(f, m, mode)
+			f.psModel = m
+			local list, areas = f.List, m.areas
+			for i = #list, 1, -1 do list[i] = nil end
+			local compact = mode == "compact"
+			local r = f.Goal
+			GF.PaintGoalRow(r, m.goal, true)
+			r.psIndent = 0
+			list[1] = r
+			local na = 0
+			if not compact then
+				local wr = f.Way
+				local wg = wr.psGoal
+				if type(wg) ~= "table" or wg.psKind ~= "way" then wg = { psKind = "way" } end
+				wg.t, wg.index, wg.status = "skill", m.goalIndex, "active"
+				wg.text = wayText({ way = "gather", verb = m.verb })
+				GF.PaintGoalRow(wr, wg, false)
+				local sub = areas.safeFrom and areaSafeText(areas) or nil
+				UI.SetCounted(wr.Sub, sub or "")
+				wr.Sub:SetShown(sub ~= nil)
+				W.SetButtonText(wr.psButton, L["Guide me"])
+				wr.psButton:SetShown(not areas.safeFrom)
+				wr.psIndent = 16
+				list[2] = wr
+				na = paintAreas(f, na, areas, 32, false)
+			else
+				f.Way:Hide()
+				-- Compact: none safe yet says so under the goal's row; else the arrow's area.
+				if areas.safeFrom then
+					local sub = areaSafeText(areas)
+					UI.SetCounted(r.Sub, sub)
+					r.Sub:Show()
+				end
+				na = paintAreas(f, na, areas, 16, true)
 			end
-			return floor(y + 0.5)
+			for i = na + 1, #f.Areas do f.Areas[i]:Hide() end
 		end,
+		layout = function(f, _, width) return layoutList(f, width) end,
 	})
 
 	---------------------------------------------------------------------------
@@ -1038,6 +1212,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		ns.On("MATERIALS_CHANGED", again)
 		ns.On("MATERIALS_PRICES", again)
 		ns.On("KIND_CRAFT_MADE", again)
+		-- The areas: their ranking, the arrow's area, the mined-out line (Engine's AREA_CHANGED).
+		ns.On("AREA_CHANGED", function() if GF.RegionShown("get") or GF.RegionShown("areas") then again() end end)
 		-- Open <Profession> (secure) shows or hides only out of combat: once the fight ends.
 		ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
 			if secure and secure.psSlot then placeSecure(secure.psSlot) end

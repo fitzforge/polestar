@@ -563,6 +563,37 @@
 --   A long farm: most of it drops as you level
 --   or the Auction House
 
+-- Machine-translated, to be reviewed (gathering areas, 28 Nov 2026): translated by an AI model (Claude Opus 5.5)
+-- in this file's own wording, and waiting for a native speaker's check. Reviewing one: keep or fix its line below,
+-- and take its key off this list.
+--   Roam %s for beasts (level %d-%d)
+--   Roam %s for beasts (level %d)
+--   Roam %s for beasts
+--   Loot, then skin them
+--   Roam %s for %s
+--   Roam %s for herbs
+--   Find Herbs shows them on your minimap
+--   Roam %s for ore
+--   Find Minerals shows them on your minimap
+--   Kill and skin it
+--   ~%d beasts (level %d-%d)
+--   ~%d beasts (level %d)
+--   ~%d beasts
+--   ~%d herbs
+--   ~%d veins
+--   safe from %d
+--   you're here
+--   under a minute away
+--   Safe %s area from level %d
+--   Safe herb area from level %d
+--   Safe skinning area from level %d
+--   Safe mining area from level %d
+--   %s is picked clean for now
+--   %s is hunted out for now
+--   %s is mined out for now
+--   Try %s next
+--   Best
+
 -- Machine-translated, to be reviewed (the profession and reputation guides' window, 26 Nov 2026): translated by an
 -- AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
 -- keep or fix its line below, and take its key off this list.
@@ -571,7 +602,6 @@
 --   %s a turn-in
 --   about %d to go
 --   Learn %s first
---   %s loop on your map
 --   %s more
 --   %s more, about %s at your last search
 --   Buy it at the Auction House
@@ -591,7 +621,6 @@
 --   Pick one way:
 --   Requires Level %d-%d
 --   Shopping list
---   Skin it
 --   about %d an hour
 --   about %d min for the rest
 --   %s reached
@@ -997,6 +1026,15 @@ L["No waypoint"] = "경유지 없음"
 L["Arrived underwater"] = "물속에 도착"
 L["Under water nearby: swim down to it"] = "근처 물속: 아래로 헤엄쳐 내려가십시오"
 L["%d yd below you: swim down"] = "%d야드 아래: 헤엄쳐 내려가십시오"
+L["Roam %s for beasts (level %d-%d)"] = "%s 지역을 돌며 야수를 찾으십시오 (레벨 %d-%d)"
+L["Roam %s for beasts (level %d)"] = "%s 지역을 돌며 야수를 찾으십시오 (레벨 %d)"
+L["Roam %s for beasts"] = "%s 지역을 돌며 야수를 찾으십시오"
+L["Loot, then skin them"] = "전리품을 획득한 뒤 무두질하십시오"
+L["Roam %s for %s"] = "%s 지역을 돌며 찾을 것: %s"
+L["Roam %s for herbs"] = "%s 지역을 돌며 약초를 찾으십시오"
+L["Find Herbs shows them on your minimap"] = "약초 찾기를 켜면 미니맵에 표시됩니다"
+L["Roam %s for ore"] = "%s 지역을 돌며 광석을 찾으십시오"
+L["Find Minerals shows them on your minimap"] = "광석 찾기를 켜면 미니맵에 표시됩니다"
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "지점 %d/%d"
@@ -2078,16 +2116,6 @@ L["Most of it drops as you level %s"] = "대부분은 레벨 %s 구간을 올리
 L["A long farm: most of it drops as you level"] = "긴 파밍: 대부분은 레벨을 올리며 얻습니다"
 L["or the Auction House"] = "또는 경매장"
 L["or %s"] = "또는 %s"
--- L["%s loop"] = ""
--- L["Farming loop"] = ""
--- L["%d min a lap"] = ""
--- L["about %d laps"] = ""
--- L["Safe %s loop from level %d"] = ""
--- L["The %s loop is mined out for now · next: %s"] = ""
--- L["The %s loop is picked clean for now · next: %s"] = ""
--- L["The %s loop is hunted out for now · next: %s"] = ""
--- L["The %s loop is gathered out for now · next: %s"] = ""
--- L["another loop in %s"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "위치"
@@ -5800,7 +5828,6 @@ L["%d ready"] = "%d개 준비"
 L["%s a turn-in"] = "납품당 %s"
 L["about %d to go"] = "약 %d 남음"
 L["Learn %s first"] = "먼저 %s 배우기"
-L["%s loop on your map"] = "지도에 %s 순환 경로"
 L["%s more"] = "%s개 더"
 L["%s more, about %s at your last search"] = "%s개 더, 마지막 검색 기준 약 %s"
 L["Buy it at the Auction House"] = "경매장에서 구매"
@@ -5820,7 +5847,6 @@ L["Pick it"] = "약초 채집으로 얻기"
 L["Pick one way:"] = "방법 하나를 고르세요:"
 L["Requires Level %d-%d"] = "요구 레벨 %d-%d"
 L["Shopping list"] = "쇼핑 목록"
-L["Skin it"] = "무두질로 얻기"
 L["about %d an hour"] = "시간당 약 %d"
 L["about %d min for the rest"] = "나머지 약 %d분"
 L["%s reached"] = "%s 달성"
@@ -5838,6 +5864,24 @@ L["once"] = "1회"
 L["repeats"] = "반복"
 L["%d more"] = "%d개 더"
 -- L["%d / %d"] = ""
+L["Kill and skin it"] = "처치 후 무두질로 얻기"
+L["~%d beasts (level %d-%d)"] = "야수 약 %d마리 (레벨 %d-%d)"
+L["~%d beasts (level %d)"] = "야수 약 %d마리 (레벨 %d)"
+L["~%d beasts"] = "야수 약 %d마리"
+L["~%d herbs"] = "약초 약 %d개"
+L["~%d veins"] = "광맥 약 %d개"
+L["safe from %d"] = "%d레벨부터 안전"
+L["you're here"] = "현재 위치"
+L["under a minute away"] = "1분 이내 거리"
+L["Safe %s area from level %d"] = "%s 안전 지역: %d레벨부터"
+L["Safe herb area from level %d"] = "안전한 약초 지역: %d레벨부터"
+L["Safe skinning area from level %d"] = "안전한 무두질 지역: %d레벨부터"
+L["Safe mining area from level %d"] = "안전한 채광 지역: %d레벨부터"
+L["%s is picked clean for now"] = "%s: 당분간 약초가 없습니다"
+L["%s is hunted out for now"] = "%s: 당분간 야수가 없습니다"
+L["%s is mined out for now"] = "%s: 당분간 광맥이 없습니다"
+L["Try %s next"] = "다음 추천: %s"
+L["Best"] = "최적"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar를 한 페이지씩 다시 설정합니다. 선택은 바로 적용됩니다."
@@ -6158,3 +6202,5 @@ L["%d more"] = "%d개 더"
 -- L["A long farm: bought instead"] = "긴 파밍: 대신 구매"
 -- L["Expert"] = "전문가"
 -- L["Green"] = "녹색"
+-- L["%s loop on your map"] = "지도에 %s 순환 경로"
+-- L["Skin it"] = "무두질로 얻기"

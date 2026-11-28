@@ -72,7 +72,7 @@ I.PAINT_KINDS, I.HOOKS, I.LAYOUT_HOOKS, I.LAYOUTS = PAINT_KINDS, HOOKS, LAYOUT_H
 -- (guideKindRow(row, item, info): info.kind "supply" | "pickup" | "ready" | "more" | "boss" | "objective", done,
 -- current, way) and its skill or standing meter (guideMeter(meter, info): info.kind "skill" | "rep", frac, seg,
 -- bar). A skin or a layout may set them; their parts are in Theme.GuideParts() (capability "guideParts.kind").
--- guidePlace is also asked for each region by its id ("meter", "stretch", "get", "shopping", "turnin", "more",
+-- guidePlace is also asked for each region by its id ("meter", "stretch", "get", "areas", "shopping", "turnin", "more",
 -- "pickups", ...), guideSpace for "bossRow".
 HOOKS.guideKindRow, HOOKS.guideMeter = true, true
 LAYOUT_HOOKS.guideKindRow, LAYOUT_HOOKS.guideMeter = true, true

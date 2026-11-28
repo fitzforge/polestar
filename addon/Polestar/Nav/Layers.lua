@@ -11,6 +11,9 @@
 --               map + minimap)
 --   nav.goalAreas  the regions the step's other open goals spawn in, fainter, in the
 --               goals' colour (world map); a goal of exact points marks each point instead
+--   nav.areaShape  the gathering area the arrow leads to (Engine.AreaShape): its outline shaded in the
+--               arrow's colour, on zone maps only
+--   nav.areaNodes  that area's node spots, small dots (zone maps + minimap: a dense layer)
 -- and the trail (Pins.SetTrail): dots from the player along the travel route's lines (each
 -- leg's start where the mode changes, and its end), broken at a Hearthstone (a jump, not a
 -- path) and across continents; without a route, straight to the target (both surfaces).
@@ -31,6 +34,7 @@ Nav.layers = Layers
 local TARGET, ROUTE, GOALS, SPOTS = "nav.target", "nav.route", "nav.goals", "nav.spots"
 local AREAS, GOAL_AREAS = "nav.areas", "nav.goalAreas"
 local HERE, HERE_AREAS = "nav.here", "nav.hereAreas"
+local AREA_SHAPE, AREA_NODES = "nav.areaShape", "nav.areaNodes"
 
 local function color(name)
 	local r, g, b = Nav.RGB(name)
@@ -74,9 +78,10 @@ local function updateTarget(world, minimap)
 		return
 	end
 	-- A guide goal's spawn areas are its regions (nav.areas), which cover the
-	-- spot the target sits in; any other area target shows its own disc.
+	-- spot the target sits in, and a gathering area its outline (nav.areaShape);
+	-- any other area target shows its own disc.
 	local goal = target.area and goalOf(target)
-	local area = not (goal and goal.spots) and target.area or nil
+	local area = not (goal and goal.spots) and not target.areaPoly and target.area or nil
 	local glow, pulse, grow, scale = Layers.TargetLook()
 	-- The target wears the arrow's colour (Theme "arrow": the accent unless
 	-- the player picked their own), so map and arrow agree.
@@ -385,6 +390,71 @@ local function updateAreas(world, minimap, index, view)
 	end
 end
 
+-- The gathering area the arrow leads to (Engine.AreaShape; docs/GUIDE_FORMAT.md "Gathering areas"), only the
+-- active one: its outline shaded in the arrow's colour on zone maps only (a continent's view is too wide for it,
+-- and on the minimap the player is in it or walking to it), and its node spots as small dots on zone maps and the
+-- minimap (a dense layer, #4520: never on a continent or the world map). Set again only when the area, its
+-- frame, the colour or the surfaces changed.
+local areaSig = {}
+local function clearAreaShape()
+	if areaSig[1] == nil then return end
+	areaSig = {}
+	Pins.ClearLayer(AREA_SHAPE)
+	Pins.ClearLayer(AREA_NODES)
+end
+local function updateAreaShape(world, minimap)
+	local Engine = ns.Engine
+	local target = Nav.GetTarget()
+	local goal = (world or minimap) and target and goalOf(target)
+	local shape = goal and Engine.IsAreaGoal and Engine.AreaShape and Engine.IsAreaGoal(goal)
+		and Engine.AreaShape(target.stepIndex, target.goalIndex)
+	local C = ns.Compat
+	if not (type(shape) == "table" and type(shape.poly) == "table" and shape.map and C and C.MapToWorld) then
+		clearAreaShape()
+		return
+	end
+	local poly, dots = shape.poly, type(shape.dots) == "table" and shape.dots or {}
+	local r, g, b = Nav.RGB("arrow")
+	local p1, d1 = poly[1] or {}, dots[1] or {}
+	local sig = { shape.map, shape.f or false, #poly, p1[1] or p1.x or false, p1[2] or p1.y or false, #dots,
+		d1[1] or d1.x or false, d1[2] or d1.y or false, r, g, b, world, minimap, target.label or false }
+	local same = #sig == #areaSig
+	for i = 1, #sig do
+		if sig[i] ~= areaSig[i] then same = false break end
+	end
+	if same then return end
+	local hull, c, sx, sy = {}, nil, 0, 0
+	for _, p in ipairs(poly) do
+		local pc, wx, wy = C.MapToWorld(shape.map, p[1] or p.x, p[2] or p.y, shape.f)
+		if not pc or (c and pc ~= c) then
+			-- Not resolvable yet (no frame for the map): tried again on the next update.
+			clearAreaShape()
+			return
+		end
+		c = pc
+		hull[#hull + 1], hull[#hull + 2] = wx, wy
+		sx, sy = sx + wx, sy + wy
+	end
+	areaSig = sig
+	local n = #hull / 2
+	if world and n >= 3 then
+		Pins.SetLayer(AREA_SHAPE, { { c = c, wx = sx / n, wy = sy / n, hull = hull, areaOnly = true, color = { r, g, b, 1 } } },
+			{ world = true, minimap = false, minMapType = 3 })
+	else
+		Pins.ClearLayer(AREA_SHAPE)
+	end
+	if #dots > 0 then
+		local pins, label = {}, target.label
+		for i, d in ipairs(dots) do
+			pins[i] = { map = shape.map, x = d[1] or d.x, y = d[2] or d.y, f = shape.f, icon = "map:pin-small", medal = false,
+				size = 6, minimapSize = 6, color = { r, g, b, 0.8 }, priority = 11, tooltip = label }
+		end
+		Pins.SetLayer(AREA_NODES, pins, { world = world, minimap = minimap, dense = true, minMapType = 3 })
+	else
+		Pins.ClearLayer(AREA_NODES)
+	end
+end
+
 -- The While you're here lines (Engine.GetWhileHereList) on both surfaces
 -- until the arrow leads to one: each one's mark in the accent with a soft
 -- glow, clamped to the minimap's rim with the edge pointer when it is off it
@@ -532,6 +602,7 @@ function Layers.Update()
 	updateGoals(steps and world, index, view)
 	updateSpots(world, minimap)
 	updateAreas(steps and world, steps and minimap, index, view)
+	updateAreaShape(steps and world, steps and minimap)
 	updateHere(steps and world, steps and minimap)
 	updateTrail(world, minimap)
 end
@@ -550,6 +621,7 @@ Layers.OnTheme = Layers.Update
 ns.On("STEP_UPDATED", Layers.Update)
 ns.On("ROUTE_CHANGED", Layers.Update)
 ns.On("WHILE_HERE_CHANGED", Layers.Update)
+ns.On("AREA_CHANGED", Layers.Update)
 ns.On("POLESTAR_PAUSED", Layers.Update)
 ns.On("SETTING_CHANGED", function(path)
 	if path == "pause.map" or path == "pause" then Layers.Update() end

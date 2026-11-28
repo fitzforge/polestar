@@ -337,6 +337,37 @@
 --   A long farm: most of it drops as you level
 --   or the Auction House
 
+-- Machine-translated, to be reviewed (gathering areas, 28 Nov 2026): translated by an AI model (Claude Opus 5.5)
+-- in this file's own wording, and waiting for a native speaker's check. Reviewing one: keep or fix its line below,
+-- and take its key off this list.
+--   Roam %s for beasts (level %d-%d)
+--   Roam %s for beasts (level %d)
+--   Roam %s for beasts
+--   Loot, then skin them
+--   Roam %s for %s
+--   Roam %s for herbs
+--   Find Herbs shows them on your minimap
+--   Roam %s for ore
+--   Find Minerals shows them on your minimap
+--   Kill and skin it
+--   ~%d beasts (level %d-%d)
+--   ~%d beasts (level %d)
+--   ~%d beasts
+--   ~%d herbs
+--   ~%d veins
+--   safe from %d
+--   you're here
+--   under a minute away
+--   Safe %s area from level %d
+--   Safe herb area from level %d
+--   Safe skinning area from level %d
+--   Safe mining area from level %d
+--   %s is picked clean for now
+--   %s is hunted out for now
+--   %s is mined out for now
+--   Try %s next
+--   Best
+
 -- Machine-translated, to be reviewed (the profession and reputation guides' window, 26 Nov 2026): translated by an
 -- AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
 -- keep or fix its line below, and take its key off this list.
@@ -345,7 +376,6 @@
 --   %s a turn-in
 --   about %d to go
 --   Learn %s first
---   %s loop on your map
 --   %s more
 --   %s more, about %s at your last search
 --   Buy it at the Auction House
@@ -365,7 +395,6 @@
 --   Pick one way:
 --   Requires Level %d-%d
 --   Shopping list
---   Skin it
 --   about %d an hour
 --   about %d min for the rest
 --   %s reached
@@ -732,6 +761,15 @@ L["No waypoint"] = "Kein Wegpunkt"
 L["Arrived underwater"] = "Unter Wasser angekommen"
 L["Under water nearby: swim down to it"] = "Unter Wasser in der Nähe: Tauch hinab"
 L["%d yd below you: swim down"] = "%d yd unter dir: Tauch hinab"
+L["Roam %s for beasts (level %d-%d)"] = "Streif durch %s nach Wildtieren (Stufe %d-%d)"
+L["Roam %s for beasts (level %d)"] = "Streif durch %s nach Wildtieren (Stufe %d)"
+L["Roam %s for beasts"] = "Streif durch %s nach Wildtieren"
+L["Loot, then skin them"] = "Erst plündern, dann kürschnern"
+L["Roam %s for %s"] = "Streif durch %s nach %s"
+L["Roam %s for herbs"] = "Streif durch %s nach Kräutern"
+L["Find Herbs shows them on your minimap"] = "Kräutersuche zeigt sie auf deiner Minikarte"
+L["Roam %s for ore"] = "Streif durch %s nach Erz"
+L["Find Minerals shows them on your minimap"] = "Mineraliensuche zeigt sie auf deiner Minikarte"
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "Punkt %d von %d"
@@ -1342,16 +1380,6 @@ L["Most of it drops as you level %s"] = "Das meiste fällt beim Leveln auf Stufe
 L["A long farm: most of it drops as you level"] = "Lange Farm: das meiste fällt beim Leveln"
 L["or the Auction House"] = "oder das Auktionshaus"
 L["or %s"] = "oder %s"
--- L["%s loop"] = ""
--- L["Farming loop"] = ""
--- L["%d min a lap"] = ""
--- L["about %d laps"] = ""
--- L["Safe %s loop from level %d"] = ""
--- L["The %s loop is mined out for now · next: %s"] = ""
--- L["The %s loop is picked clean for now · next: %s"] = ""
--- L["The %s loop is hunted out for now · next: %s"] = ""
--- L["The %s loop is gathered out for now · next: %s"] = ""
--- L["another loop in %s"] = ""
 
 -- UI/Welcome.lua
 L["level %d %s"] = "Stufe %d, %s"
@@ -5570,7 +5598,6 @@ L["%d ready"] = "%d bereit"
 L["%s a turn-in"] = "%s pro Abgabe"
 L["about %d to go"] = "noch etwa %d"
 L["Learn %s first"] = "Lerne zuerst %s"
-L["%s loop on your map"] = "%s-Runde auf deiner Karte"
 L["%s more"] = "noch %s"
 L["%s more, about %s at your last search"] = "noch %s, etwa %s bei deiner letzten Suche"
 L["Buy it at the Auction House"] = "Im Auktionshaus kaufen"
@@ -5590,7 +5617,6 @@ L["Pick it"] = "Pflücken"
 L["Pick one way:"] = "Wähle einen Weg:"
 L["Requires Level %d-%d"] = "Benötigt Stufe %d-%d"
 L["Shopping list"] = "Einkaufsliste"
-L["Skin it"] = "Kürschnern"
 L["about %d an hour"] = "etwa %d pro Stunde"
 L["about %d min for the rest"] = "etwa %d Min. für den Rest"
 L["%s reached"] = "%s erreicht"
@@ -5608,6 +5634,24 @@ L["once"] = "einmalig"
 L["repeats"] = "wiederholbar"
 L["%d more"] = "noch %d"
 -- L["%d / %d"] = ""
+L["Kill and skin it"] = "Töten und kürschnern"
+L["~%d beasts (level %d-%d)"] = "~%d Wildtiere (Stufe %d-%d)"
+L["~%d beasts (level %d)"] = "~%d Wildtiere (Stufe %d)"
+L["~%d beasts"] = "~%d Wildtiere"
+L["~%d herbs"] = "~%d Kräuter"
+L["~%d veins"] = "~%d Vorkommen"
+L["safe from %d"] = "sicher ab %d"
+L["you're here"] = "du bist hier"
+L["under a minute away"] = "weniger als eine Minute entfernt"
+L["Safe %s area from level %d"] = "Sicheres Gebiet für %s ab Stufe %d"
+L["Safe herb area from level %d"] = "Sicheres Kräutergebiet ab Stufe %d"
+L["Safe skinning area from level %d"] = "Sicheres Kürschnergebiet ab Stufe %d"
+L["Safe mining area from level %d"] = "Sicheres Bergbaugebiet ab Stufe %d"
+L["%s is picked clean for now"] = "%s ist vorerst abgeerntet"
+L["%s is hunted out for now"] = "%s ist vorerst leergejagt"
+L["%s is mined out for now"] = "%s ist vorerst abgebaut"
+L["Try %s next"] = "Versuch es als Nächstes in %s"
+L["Best"] = "Beste"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar neu einrichten, eine Seite nach der anderen. Jede Wahl wirkt sofort."
@@ -5976,3 +6020,5 @@ L["%d more"] = "noch %d"
 -- L["A long farm: bought instead"] = "Lange Farm: wird stattdessen gekauft"
 -- L["Expert"] = "Experte"
 -- L["Green"] = "Grün"
+-- L["%s loop on your map"] = "%s-Runde auf deiner Karte"
+-- L["Skin it"] = "Kürschnern"

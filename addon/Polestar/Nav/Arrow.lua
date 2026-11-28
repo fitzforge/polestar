@@ -814,6 +814,60 @@ local function routeLabel(T)
 	return text ~= "" and (text .. "\n" .. warning) or warning
 end
 
+-- The roam line (Engine.AreaRoam; docs/GUIDE_FORMAT.md "Gathering areas"): resting inside the gathering area the
+-- arrow led to, the needle gives way to what to do there, in two lines: "Roam Red Cloud Mesa for Copper Ore" over
+-- "Find Minerals shows them on your minimap" (herbs: Find Herbs; beasts: "Roam The Golden Plains for beasts (level
+-- 1-6)" over "Loot, then skin them"). -> the two lines, or nil. A literal key each.
+local function itemNames(items)
+	local C, out = ns.Compat, {}
+	for _, id in ipairs(type(items) == "table" and items or {}) do
+		local n = C and C.GetItemName and C.GetItemName(id)
+		if n and n ~= "" then out[#out + 1] = n end
+		if #out == 3 then break end
+	end
+	if #out == 0 then return nil end
+	if #out == 1 then return out[1] end
+	local s = out[1]
+	for i = 2, #out - 1 do s = string.format(L["%s, %s"], s, out[i]) end
+	return string.format(L["%s and %s"], s, out[#out])
+end
+function Arrow.RoamLines(roam)
+	if type(roam) ~= "table" or type(roam.name) ~= "string" then return nil end
+	local name, format = roam.name, string.format
+	if roam.verb == "skin" then
+		local lv = type(roam.levels) == "table" and roam.levels or nil
+		local first
+		if lv and lv.min and lv.max and lv.max > lv.min then
+			first = format(L["Roam %s for beasts (level %d-%d)"], name, lv.min, lv.max)
+		elseif lv and lv.min then
+			first = format(L["Roam %s for beasts (level %d)"], name, lv.min)
+		else
+			first = format(L["Roam %s for beasts"], name)
+		end
+		return first, L["Loot, then skin them"]
+	end
+	local what = itemNames(roam.items)
+	if roam.verb == "herb" then
+		return what and format(L["Roam %s for %s"], name, what) or format(L["Roam %s for herbs"], name), L["Find Herbs shows them on your minimap"]
+	end
+	return what and format(L["Roam %s for %s"], name, what) or format(L["Roam %s for ore"], name), L["Find Minerals shows them on your minimap"]
+end
+local function roamLines()
+	local E = ns.Engine
+	return Arrow.RoamLines(E and E.AreaRoam and E.AreaRoam())
+end
+-- The roam lines wrap at the label's width (the distance's and the ETA's lines are one line otherwise).
+local roamWide = false
+local function roamWidth(on)
+	if not on and not roamWide then return end
+	roamWide = on
+	local w = on and look.labelWidth or 0
+	distText:SetWidth(w)
+	etaText:SetWidth(w)
+	distText:SetWordWrap(on)
+	etaText:SetWordWrap(on)
+end
+
 local tintR, tintG, tintB = Nav.RGB("arrow")
 
 -- The ETA / secondary line: text at 80%, or the player's (dialText).
@@ -846,7 +900,8 @@ local function setMode(m)
 	mode = m
 	if m == "travel" then D.near = nil end -- repaint after a mode or theme change
 	turnVel = 0 -- a speed from before an arrival or an instruction does not carry into the next walk
-	local travel, done, act, idle = m == "travel", m == "arrived" or m == "arrived-underwater" or m == "search", m == "instruction", m == "idle"
+	if roamWide and m ~= "roam" then roamWidth(false) end
+	local travel, done, act, idle = m == "travel", m == "arrived" or m == "arrived-underwater" or m == "search" or m == "roam", m == "instruction", m == "idle"
 	-- Waiting for a walking route, the arrow points straight at what the walk will lead to.
 	local routing = m == "routing"
 	dial:SetShown(travel or done or act or idle or routing)
@@ -875,6 +930,14 @@ local function setMode(m)
 			etaColor()
 			etaText:SetText(L["Click the arrow for the next spot"])
 			etaText:Show()
+		elseif m == "roam" then
+			-- Inside the gathering area: what to do there, in the arrow's place.
+			local first, second = roamLines()
+			roamWidth(true)
+			distText:SetText(first or L["Arrived"])
+			etaColor()
+			etaText:SetText(second or "")
+			etaText:SetShown(second ~= nil)
 		end
 	elseif m == "far" then
 		local r, g, b = Nav.RGB("place")
@@ -967,7 +1030,7 @@ local function applyLook()
 		showArrow(true)
 		tint(tintR, tintG, tintB)
 		travelDistColor()
-	elseif mode == "arrived" or mode == "arrived-underwater" or mode == "submerged" or mode == "water-depth" or mode == "search" or mode == "instruction" or mode == "idle" then
+	elseif mode == "arrived" or mode == "arrived-underwater" or mode == "submerged" or mode == "water-depth" or mode == "search" or mode == "instruction" or mode == "idle" or mode == "roam" then
 		local m = mode
 		mode = nil
 		setMode(m)
@@ -1096,6 +1159,14 @@ local function sample(elapsed)
 		routeSeen = -2
 	end
 	syncLabel(T, routed)
+	-- Resting inside a gathering area (Nav's target.roam): the roam line, not "Arrived".
+	if state == "arrived" then
+		local t = Nav.GetTarget()
+		if t and t.roam and roamLines() then
+			setMode("roam")
+			return true
+		end
+	end
 	if state == "far" or state == "arrived" or state == "search" or state == "nopos" or state == "unmapped" then
 		setMode(state)
 		return true
@@ -1205,7 +1276,7 @@ frame:SetScript("OnUpdate", ns.Safe(function(_, elapsed)
 			curAngle = shown
 			setRotation(curAngle)
 		end
-	elseif (mode == "arrived" or mode == "arrived-underwater" or mode == "search") and look.pulse then
+	elseif (mode == "arrived" or mode == "arrived-underwater" or mode == "search" or mode == "roam") and look.pulse then
 		pulse = pulse + elapsed
 		dialPulse(D, pulse)
 	end
@@ -1377,6 +1448,12 @@ function Arrow:Refresh()
 		sample(0)
 	end
 end
+
+-- The area or what it gives changed (the Engine's AREA_CHANGED): the roam line is written again.
+ns.On("AREA_CHANGED", function()
+	if mode == "roam" then mode = nil end
+	Arrow:Refresh()
+end)
 
 -- The catch-up (the guide window's CATCH_UP): the hourglass in the dial's
 -- place, or the arrow back.
