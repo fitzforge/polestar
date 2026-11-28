@@ -9,6 +9,7 @@
 //!
 //! Elwynn here is 3000 yd across (30 yd per map percent on x) and 2000 yd high (20 yd per percent on y).
 
+use forge_addontest::locale::shipped_strings;
 use forge_addontest::{emitted, is_match, text, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::{json, Value};
 
@@ -84,10 +85,14 @@ fn run(script: &str) -> Value {
 const GAMEPAD: &str = "\nEnum.InputDeviceInterfaceType = { Mkb = 0, Gamepad = 1 }\nC_InputInterfaceStyle = { GetCurrentStyle = function() return 1 end }\n";
 
 fn run_before(before: &str, script: &str) -> Value {
+	run_with(vec![Addon::name("Polestar")], before, script)
+}
+
+fn run_with(addons: Vec<Addon>, before: &str, script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: before.into(),
-		addons: vec![Addon::name("Polestar")],
+		addons,
 		script: [
 			TEST_PACK,
 			TEST_SOURCE,
@@ -364,6 +369,37 @@ fn the_guide_window_lists_the_finished_quests_no_route_hands_in_in_one_row_that_
 	assert!(text(&out["guideTip"]).contains("all finished quests"), "Guide me explains its broader route: {out}");
 	assert_eq!(out["guided"], json!([40, 41, 44, 45]), "Guide me opens the shared all-ready route");
 	assert_eq!(out["all"], json!([40, 41, 44, 45]), "the ordinary carried view still includes on-route quests");
+}
+
+#[test]
+fn atlas_localizes_the_carried_quest_count_and_xp() {
+	let before = format!("{WORLD}\nfunction GetLocale() return \"zhTW\" end\n{}", shipped_strings("zhTW"));
+	let addons = vec![Addon::name("Polestar"), Addon::files("Polestar_Skins", &["Layouts/Atlas/Atlas.lua"])];
+	let out = run_with(
+		addons,
+		&before,
+		r#"
+		local GF = Polestar.UI.GuideFrame
+		assert(Polestar.Theme.SetLayout("atlas"))
+		local function row()
+			GF.Render(); flush()
+			for _, r in ipairs(GF.alongRows) do
+				if r:IsShown() and r.psCarried then
+					for _, child in ipairs({ r:GetChildren() }) do
+						if rawget(child, "Text") and child.Text:GetJustifyH() == "RIGHT" then
+							return { plain(r.Text:GetText()), plain(child.Text:GetText()) }
+						end
+					end
+				end
+			end
+		end
+		local one = row()
+		Polestar.RoutePlan.Carried = function() return { { xp = 8000 }, { xp = 12425 } } end
+		emit({ one = one, many = row() })
+	"#,
+	);
+	assert_eq!(out["one"], json!(["有 1 個任務不在你的路線中", "800 經驗"]), "{out}");
+	assert_eq!(out["many"], json!(["有 2 個任務不在你的路線中", "20,425 經驗"]), "{out}");
 }
 
 // #3303: the Still to do rows have their own switch (guideWindow.stillToDo, on by default): off, neither the finished
