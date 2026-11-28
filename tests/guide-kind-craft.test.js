@@ -110,8 +110,8 @@ emit({ regions = { meter = shown("meter"), stretch = shown("stretch"), get = sho
 	assert.match(out.rows[0].text, /^Get 265 Wool Cloth +58\/265$/);
 	assert.equal(out.rows[0].sub, 'Pick one way:');
 	assert.deepEqual(out.rows[1], { text: 'Farm it', sub: 'Blackrock Grunt  ·  Elwynn Forest  ·  about 62 an hour', way: 'gather', on: false, button: 'Guide me' });
-	assert.deepEqual(out.rows[2], { text: 'Buy it at the Auction House', sub: '197 more', way: 'buy', on: true, button: 'Show me the auction house' },
-		'away from an Auction House the button says where to go');
+	assert.deepEqual(out.rows[2], { text: 'Buy it at the Auction House', sub: '197 more', way: 'buy', on: true, button: 'Guide me' },
+		'away from an Auction House the button leads the arrow there');
 });
 
 test('a way row\'s click picks it: the item takes that way, the arrow follows its goal, and the pick is kept', () => {
@@ -204,6 +204,8 @@ local Mt, aimed, searched = Polestar.Materials, {}, {}
 E.AimGoal = function(s, gi) aimed[#aimed + 1] = { s, gi } end
 Mt.Search = function(item, count) searched[#searched + 1] = { item, count } return true end
 local away = getRows()[3].button
+local ways = GF.RegionFrame("get").List
+local fit = { text = not ways[3].Text:IsTruncated(), sub = not ways[3].Sub:IsTruncated(), width = ways[3].psButton:GetWidth() == ways[2].psButton:GetWidth() }
 GF.RegionFrame("get").List[3].psButton:Click()
 local awayAimed, awaySearched = #aimed, #searched
 local aimedAt = aimed[1] and aimed[1][2] or false
@@ -211,8 +213,9 @@ Mt.CanSearch = function() return true end
 GF.Render(); GF.Layout(); stub.advance(0.5)
 local at = getRows()[3].button
 GF.RegionFrame("get").List[3].psButton:Click()
-emit({ away = away, awayAimed = awayAimed, awaySearched = awaySearched, aimedAt = aimedAt, at = at, atAimed = #aimed - awayAimed, searched = searched })`);
-	assert.equal(out.away, 'Show me the auction house');
+emit({ away = away, fit = fit, awayAimed = awayAimed, awaySearched = awaySearched, aimedAt = aimedAt, at = at, atAimed = #aimed - awayAimed, searched = searched })`);
+	assert.equal(out.away, 'Guide me');
+	assert.deepEqual(out.fit, { text: true, sub: true, width: true }, 'the button takes no more room than the farm way\'s: the way\'s words keep whole');
 	assert.equal(out.awayAimed, 1, 'away from an Auction House the click leads the arrow');
 	assert.equal(out.aimedAt, 2, 'to the step\'s auction goal: the nearest auctioneer of the character\'s side');
 	assert.equal(out.awaySearched, 0);
