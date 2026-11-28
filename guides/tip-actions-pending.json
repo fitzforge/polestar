@@ -144,17 +144,7 @@
 		{
 			"file": "forever/alliance/50-60/03-winterspring.guide",
 			"verb": "use",
-			"text": "Ride east to Fire Plume Ridge, climb it and use Krakle's Thermometer at the lava vents near the top."
-		},
-		{
-			"file": "forever/alliance/50-60/03-winterspring.guide",
-			"verb": "use",
 			"text": "When he faints, use Spraggle's Canteen on him to wake him."
-		},
-		{
-			"file": "forever/alliance/50-60/03-winterspring.guide",
-			"verb": "use",
-			"text": "use Torwa's Pouch there."
 		},
 		{
 			"file": "forever/alliance/dwarf/01-dun-morogh.guide",
@@ -215,11 +205,6 @@
 			"file": "forever/class/druid/cat-form.guide",
 			"verb": "click",
 			"text": "leave your form and click the statue at the den's entrance for a short stealth (five minutes), then go deep into the cave and over the bridge."
-		},
-		{
-			"file": "forever/class/druid/cure-poison.guide",
-			"verb": "use",
-			"text": "Use the Curative Animal Salve on living Sickly Deer (level 5, a green cloud over them):"
 		},
 		{
 			"file": "forever/class/druid/dungeon-set-2.guide",
@@ -857,11 +842,6 @@
 			"text": "Use the Explosive Stick of Gann that Gann gave you on it."
 		},
 		{
-			"file": "forever/horde/04-the-barrens.guide",
-			"verb": "use",
-			"text": "place Zamah's Toxic Fogger on it."
-		},
-		{
 			"file": "forever/horde/05-stonetalon-mountains.guide",
 			"verb": "emote",
 			"text": "Before you go near Fizzule, use {item:8051} to fire two flares, then target him and /salute:"
@@ -897,11 +877,6 @@
 			"text": "read it."
 		},
 		{
-			"file": "forever/horde/30-40/04-dustwallow-marsh.guide",
-			"verb": "click",
-			"text": "With the Hand of Iruxos from Taiga in your bags, open a demon portal's ring:"
-		},
-		{
 			"file": "forever/horde/40-50/01b-riverglades.guide",
 			"verb": "talk",
 			"text": "talk five of them into rising up against their masters."
@@ -934,11 +909,6 @@
 		{
 			"file": "forever/horde/50-60/01-un-goro-crater.guide",
 			"verb": "use",
-			"text": "Ride east to Fire Plume Ridge, climb it and use Krakle's Thermometer at the lava vent near the top, then ride back west to Krakle."
-		},
-		{
-			"file": "forever/horde/50-60/01-un-goro-crater.guide",
-			"verb": "use",
 			"text": "When he faints, use Spraggle's Canteen on him to wake him."
 		},
 		{
@@ -950,11 +920,6 @@
 			"file": "forever/horde/50-60/02-felwood.guide",
 			"verb": "use",
 			"text": "stand beside one of the camp's tall crystals and use the Seals of the Sin'dorei from your bags;"
-		},
-		{
-			"file": "forever/horde/50-60/02-felwood.guide",
-			"verb": "use",
-			"text": "use it on the sands just east of the ruins, where the Makrinni Burrowers (50-51) dig, on the way north-east."
 		},
 		{
 			"file": "forever/horde/50-60/03-winterspring.guide",
@@ -979,22 +944,12 @@
 		{
 			"file": "forever/horde/50-60/05-eastern-plaguelands.guide",
 			"verb": "use",
-			"text": "Use Greta's Purified Moonwell Water from your bags on each one."
-		},
-		{
-			"file": "forever/horde/50-60/05-eastern-plaguelands.guide",
-			"verb": "use",
 			"text": "clear the ghouls around the cauldron first, start at full health and use your cooldowns on him."
 		},
 		{
 			"file": "forever/horde/50-60/05-eastern-plaguelands.guide",
 			"verb": "use",
 			"text": "kill him for the key, then use the cauldron."
-		},
-		{
-			"file": "forever/horde/50-60/06-silithus.guide",
-			"verb": "click",
-			"text": "Open Torwa's Pouch:"
 		},
 		{
 			"file": "forever/horde/50-60/06-silithus.guide",
@@ -1010,11 +965,6 @@
 			"file": "forever/horde/50-60/06-silithus.guide",
 			"verb": "use",
 			"text": "drink the Videre Elixir at the graveyard just east of Gadgetzan and find him, as a ghost, in the rocky crevice due north of it."
-		},
-		{
-			"file": "forever/horde/50-60/06-silithus.guide",
-			"verb": "use",
-			"text": "place the meat among the bones, then use the mixture on it to call Lar'korwi."
 		},
 		{
 			"file": "forever/horde/50-60/06-silithus.guide",
@@ -1192,11 +1142,6 @@
 			"text": "Open the Gnomish Toolboxes."
 		},
 		{
-			"file": "forever/reputation/darkspear-trolls.guide",
-			"verb": "use",
-			"text": "target a sleeping Lazy Peon and use the Foreman's Blackjack on it."
-		},
-		{
 			"file": "forever/reputation/darnassus.guide",
 			"verb": "click",
 			"text": "With a seed packet and 2 Un'Goro Soil in your bags, use the pouch to grow an Evergreen Herb Casing and open it:"
@@ -1242,11 +1187,6 @@
 			"text": "right-click it."
 		},
 		{
-			"file": "forever/reputation/orgrimmar.guide",
-			"verb": "use",
-			"text": "target a sleeping Lazy Peon and use the Foreman's Blackjack on it."
-		},
-		{
 			"file": "forever/reputation/thorium-brotherhood.guide",
 			"verb": "click",
 			"text": "with the Shadowforge Key, open the East Garrison door near the entrance;"
@@ -1285,16 +1225,6 @@
 			"file": "forever/reputation/timbermaw-hold.guide",
 			"verb": "use",
 			"text": "plant his Demon Summoning Torch in the mouth of High Chief Winterfall's cave and defeat the demon Xandivious (level 62, elite:"
-		},
-		{
-			"file": "forever/reputation/undercity.guide",
-			"verb": "use",
-			"text": "Read Gadrin's Parchment at the altar of Shadra'Alor to call Shadra, an elite level 55 spider:"
-		},
-		{
-			"file": "forever/reputation/undercity.guide",
-			"verb": "use",
-			"text": "Use the Executor's Motivator on five Deathguards around Brill."
 		},
 		{
 			"file": "forever/reputation/undercity.guide",
