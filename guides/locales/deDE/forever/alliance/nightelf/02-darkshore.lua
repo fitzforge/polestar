@@ -34,9 +34,9 @@ return {
 	-- Step 7: Buzzbox 827
 	-- {quest:983} Buzzbox 827
 	-- plural, as words: Tide Crawlers = {npc:2232} Tide Crawler
-	["Only if you still carry {quest:983}'s quest: the Tide Crawlers scuttle along the shore below the village, and {quest:983} stands on the beach just south of the docks."] = "Nur, falls du die Quest von {quest:983} noch dabeihast: Die Tide Crawlers krabbeln am Ufer unterhalb des Dorfes entlang, und {quest:983} steht am Strand gleich südlich der Docks.",
+	["Only if you still carry {quest:983}'s quest: the Tide Crawlers scuttle along the shore below the village, and {quest:983} stands on the beach just south of the docks."] = "Nur, falls du die Quest von {quest:983} noch dabeihast: Die Gezeitenkriecher krabbeln am Ufer unterhalb des Dorfes entlang, und {quest:983} steht am Strand gleich südlich der Docks.",
 	-- plural, as words: Crawler Legs = {item:5385} Crawler Leg · Tide Crawlers = {npc:2232} Tide Crawler
-	["Crawler Legs: the Tide Crawlers"] = "Crawler Legs: die Tide Crawlers",
+	["Crawler Legs: the Tide Crawlers"] = "Kriecherbeine: die Gezeitenkriecher",
 
 	-- Step 8: Darkshore Threshers
 	-- plural, as words: Darkshore Threshers = {npc:2185} Darkshore Thresher
@@ -45,7 +45,7 @@ return {
 	-- plural, as words: Thresher Eyes = {item:5412} Thresher Eye · Darkshore Threshers = {npc:2185} Darkshore Thresher
 	["{quest:983} stands on the beach just south of the docks: once his crawler legs are in, he asks for Thresher Eyes. The Darkshore Threshers (12-14) swim in the shallows off the docks and up the shore to {area:452}; {quest:1001}, who takes the eyes, stands north of {quest:954} at the end of the first loop."] = "{quest:983} steht am Strand direkt südlich der Anlegestellen: sobald seine Beine da sind, verlangt er Thresher-Augen. Die Darkshore-Thresher (12-14) schwimmen im Flachwasser vor den Anlegestellen und den Strand hinauf bis {area:452}; {quest:1001}, der die Augen entgegennimmt, steht nördlich von {quest:954} am Ende der ersten Schleife.",
 	-- plural, as words: Thresher Eyes = {item:5412} Thresher Eye
-	["Thresher Eyes; underwater"] = "Thresher Eyes; unter Wasser",
+	["Thresher Eyes; underwater"] = "Drescheraugen; unter Wasser",
 
 	-- Step 9: Bears and the Blackwood camp
 	["Bears and the Blackwood camp"] = "Bären und das Lager der Schwarzfelle",
@@ -54,7 +54,7 @@ return {
 	["Rabid Thistle Bears roam the hills south of {area:442}: use {quest:2139} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "Tollwütige Distelbären streifen durch die Hügel südlich von {area:442}: Benutze {quest:2139} auf einen, um ihn zu fangen. Geh dann zum Furbolg-Lager direkt östlich von ihnen: Hier gibt es noch nichts zu töten.",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["the Rabid Thistle Bears nearest {npc:3701}"] = "die Rabid Thistle Bears in der Nähe von {npc:3701}",
+	["the Rabid Thistle Bears nearest {npc:3701}"] = "die tollwütigen Distelbären in der Nähe von {npc:3701}",
 
 	-- Step 10: Ameth'Aran
 	-- {npc:3639} Sentinel Tysha Moonblade · {npc:2178} Wailing Highborne · {npc:3667} Anaya Dawnrunner · {npc:270196} Jai'vhanel · {quest:4722} Beached Sea Turtle
