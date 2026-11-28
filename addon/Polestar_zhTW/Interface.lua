@@ -594,6 +594,17 @@
 --   Try %s next
 --   Best
 --   %s: near %s
+--   Roam near %s, %s, for beasts (level %d-%d)
+--   Roam near %s, %s, for beasts (level %d)
+--   Roam near %s, %s, for beasts
+--   Roam near %s, %s, for %s
+--   Roam near %s, %s, for herbs
+--   Roam near %s, %s, for ore
+--   Near %s, %s, is picked clean for now
+--   Near %s, %s, is hunted out for now
+--   Near %s, %s, is mined out for now
+--   Try near %s, %s, next
+--   Near %s, %s
 
 -- Machine-translated, to be reviewed (the profession and reputation guides' window, 26 Nov 2026): translated by an
 -- AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
@@ -1037,6 +1048,12 @@ L["Roam %s for herbs"] = "在%s四處尋找草藥"
 L["Find Herbs shows them on your minimap"] = "尋找草藥會在小地圖上顯示它們"
 L["Roam %s for ore"] = "在%s四處尋找礦石"
 L["Find Minerals shows them on your minimap"] = "尋找礦物會在小地圖上顯示它們"
+L["Roam near %s, %s, for beasts (level %d-%d)"] = "在%2$s，%1$s附近四處尋找野獸（%3$d-%4$d級）"
+L["Roam near %s, %s, for beasts (level %d)"] = "在%2$s，%1$s附近四處尋找野獸（%3$d級）"
+L["Roam near %s, %s, for beasts"] = "在%2$s，%1$s附近四處尋找野獸"
+L["Roam near %s, %s, for %s"] = "在%2$s，%1$s附近四處尋找%3$s"
+L["Roam near %s, %s, for herbs"] = "在%2$s，%1$s附近四處尋找草藥"
+L["Roam near %s, %s, for ore"] = "在%2$s，%1$s附近四處尋找礦石"
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "第 %d/%d 處"
@@ -5884,6 +5901,13 @@ L["%s is hunted out for now"] = "%s的野獸暫時獵完了"
 L["%s is mined out for now"] = "%s的礦脈暫時採完了"
 L["Try %s next"] = "接下來試試%s"
 L["Best"] = "最佳"
+L["Near %s, %s, is picked clean for now"] = "%2$s，%1$s附近的草藥暫時採完了"
+L["Near %s, %s, is hunted out for now"] = "%2$s，%1$s附近的野獸暫時獵完了"
+L["Near %s, %s, is mined out for now"] = "%2$s，%1$s附近的礦脈暫時採完了"
+L["Try near %s, %s, next"] = "接下來試試%2$s，%1$s附近"
+
+-- Core/KindCraft.lua
+L["Near %s, %s"] = "%2$s，%1$s附近"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐頁重新設定 Polestar。每項選擇立即生效。"

@@ -368,6 +368,17 @@
 --   Try %s next
 --   Best
 --   %s: near %s
+--   Roam near %s, %s, for beasts (level %d-%d)
+--   Roam near %s, %s, for beasts (level %d)
+--   Roam near %s, %s, for beasts
+--   Roam near %s, %s, for %s
+--   Roam near %s, %s, for herbs
+--   Roam near %s, %s, for ore
+--   Near %s, %s, is picked clean for now
+--   Near %s, %s, is hunted out for now
+--   Near %s, %s, is mined out for now
+--   Try near %s, %s, next
+--   Near %s, %s
 
 -- Machine-translated, to be reviewed (the profession and reputation guides' window, 26 Nov 2026): translated by an
 -- AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
@@ -772,6 +783,12 @@ L["Roam %s for herbs"] = "Streif durch %s nach Kräutern"
 L["Find Herbs shows them on your minimap"] = "Kräutersuche zeigt sie auf deiner Minikarte"
 L["Roam %s for ore"] = "Streif durch %s nach Erz"
 L["Find Minerals shows them on your minimap"] = "Mineraliensuche zeigt sie auf deiner Minikarte"
+L["Roam near %s, %s, for beasts (level %d-%d)"] = "Streif nahe %s, %s, nach Wildtieren (Stufe %d-%d)"
+L["Roam near %s, %s, for beasts (level %d)"] = "Streif nahe %s, %s, nach Wildtieren (Stufe %d)"
+L["Roam near %s, %s, for beasts"] = "Streif nahe %s, %s, nach Wildtieren"
+L["Roam near %s, %s, for %s"] = "Streif nahe %s, %s, nach %s"
+L["Roam near %s, %s, for herbs"] = "Streif nahe %s, %s, nach Kräutern"
+L["Roam near %s, %s, for ore"] = "Streif nahe %s, %s, nach Erz"
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "Punkt %d von %d"
@@ -5654,6 +5671,13 @@ L["%s is hunted out for now"] = "%s ist vorerst leergejagt"
 L["%s is mined out for now"] = "%s ist vorerst abgebaut"
 L["Try %s next"] = "Versuch es als Nächstes in %s"
 L["Best"] = "Beste"
+L["Near %s, %s, is picked clean for now"] = "Nahe %s, %s, ist vorerst abgeerntet"
+L["Near %s, %s, is hunted out for now"] = "Nahe %s, %s, ist vorerst leergejagt"
+L["Near %s, %s, is mined out for now"] = "Nahe %s, %s, ist vorerst abgebaut"
+L["Try near %s, %s, next"] = "Versuch es als Nächstes nahe %s, %s"
+
+-- Core/KindCraft.lua
+L["Near %s, %s"] = "Nahe %s, %s"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar neu einrichten, eine Seite nach der anderen. Jede Wahl wirkt sofort."

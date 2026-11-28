@@ -817,7 +817,8 @@ end
 -- The roam line (Engine.AreaRoam; docs/GUIDE_FORMAT.md "Gathering areas"): resting inside the gathering area the
 -- arrow led to, the needle gives way to what to do there, in two lines: "Roam Red Cloud Mesa for Copper Ore" over
 -- "Find Minerals shows them on your minimap" (herbs: Find Herbs; beasts: "Roam The Golden Plains for beasts (level
--- 1-6)" over "Loot, then skin them"). -> the two lines, or nil. A literal key each.
+-- 1-6)" over "Loot, then skin them"). Open ground named after its nearest subzone (`near`, with `place` and `zone`)
+-- reads "Roam near Razor Hill, Durotar, for Copper Ore". -> the two lines, or nil. A literal key each.
 local function itemNames(items)
 	local C, out = ns.Compat, {}
 	for _, id in ipairs(type(items) == "table" and items or {}) do
@@ -833,28 +834,58 @@ local function itemNames(items)
 end
 function Arrow.RoamLines(roam)
 	if type(roam) ~= "table" or type(roam.name) ~= "string" then return nil end
-	local name, format = roam.name, string.format
+	local format = string.format
+	local near = roam.near and roam.place and roam.zone
+	-- The sentence with the area's name in it, `extra` the format's further values.
+	local function say(named, nearKey, ...)
+		if near then return format(nearKey, roam.place, roam.zone, ...) end
+		return format(named, roam.name, ...)
+	end
 	if roam.verb == "skin" then
 		local lv = type(roam.levels) == "table" and roam.levels or nil
 		local first
 		if lv and lv.min and lv.max and lv.max > lv.min then
-			first = format(L["Roam %s for beasts (level %d-%d)"], name, lv.min, lv.max)
+			first = say(L["Roam %s for beasts (level %d-%d)"], L["Roam near %s, %s, for beasts (level %d-%d)"], lv.min, lv.max)
 		elseif lv and lv.min then
-			first = format(L["Roam %s for beasts (level %d)"], name, lv.min)
+			first = say(L["Roam %s for beasts (level %d)"], L["Roam near %s, %s, for beasts (level %d)"], lv.min)
 		else
-			first = format(L["Roam %s for beasts"], name)
+			first = say(L["Roam %s for beasts"], L["Roam near %s, %s, for beasts"])
 		end
 		return first, L["Loot, then skin them"]
 	end
 	local what = itemNames(roam.items)
-	if roam.verb == "herb" then
-		return what and format(L["Roam %s for %s"], name, what) or format(L["Roam %s for herbs"], name), L["Find Herbs shows them on your minimap"]
+	local first
+	if what then
+		first = say(L["Roam %s for %s"], L["Roam near %s, %s, for %s"], what)
+	elseif roam.verb == "herb" then
+		first = say(L["Roam %s for herbs"], L["Roam near %s, %s, for herbs"])
+	else
+		first = say(L["Roam %s for ore"], L["Roam near %s, %s, for ore"])
 	end
-	return what and format(L["Roam %s for %s"], name, what) or format(L["Roam %s for ore"], name), L["Find Minerals shows them on your minimap"]
+	return first, roam.verb == "herb" and L["Find Herbs shows them on your minimap"] or L["Find Minerals shows them on your minimap"]
 end
+-- The roam of the arrow's area with its name parts from its candidate (Core/KindCraft.lua KC.AreaParts): the
+-- Engine's `i`, else the current entry of the target's AreaChoices.
 local function roamLines()
 	local E = ns.Engine
-	return Arrow.RoamLines(E and E.AreaRoam and E.AreaRoam())
+	local roam = E and E.AreaRoam and E.AreaRoam()
+	if type(roam) ~= "table" then return nil end
+	local t, KC = Nav.GetTarget(), ns.KindCraft
+	local guide = t and t.stepIndex and E.GetGuide and E.GetGuide()
+	local goal = guide and guide.steps and guide.steps[t.stepIndex] and guide.steps[t.stepIndex].goals[t.goalIndex]
+	local i = roam.i
+	if not i and goal and E.AreaChoices then
+		local v = E.AreaChoices(t.stepIndex, t.goalIndex)
+		for _, a in ipairs(v and v.list or {}) do
+			if a.current then i = a.i break end
+		end
+	end
+	local c = i and goal and goal.candidates and goal.candidates[i]
+	if c and KC and KC.AreaParts then
+		local place, zone, near = KC.AreaParts(c)
+		roam = { name = KC.AreaName(c), place = place, zone = zone, near = near, verb = roam.verb, items = roam.items, levels = roam.levels }
+	end
+	return Arrow.RoamLines(roam)
 end
 -- The roam lines wrap at the arrow's own width (the distance's and the ETA's lines are one line otherwise), so the
 -- longer text stays over the arrow's place rather than spreading across the screen; the first in the label's face a

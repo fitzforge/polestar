@@ -594,6 +594,17 @@
 --   Try %s next
 --   Best
 --   %s: near %s
+--   Roam near %s, %s, for beasts (level %d-%d)
+--   Roam near %s, %s, for beasts (level %d)
+--   Roam near %s, %s, for beasts
+--   Roam near %s, %s, for %s
+--   Roam near %s, %s, for herbs
+--   Roam near %s, %s, for ore
+--   Near %s, %s, is picked clean for now
+--   Near %s, %s, is hunted out for now
+--   Near %s, %s, is mined out for now
+--   Try near %s, %s, next
+--   Near %s, %s
 
 -- Machine-translated, to be reviewed (the profession and reputation guides' window, 26 Nov 2026): translated by an
 -- AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
@@ -1037,6 +1048,12 @@ L["Roam %s for herbs"] = "%s 지역을 돌며 약초를 찾으십시오"
 L["Find Herbs shows them on your minimap"] = "약초 찾기를 켜면 미니맵에 표시됩니다"
 L["Roam %s for ore"] = "%s 지역을 돌며 광석을 찾으십시오"
 L["Find Minerals shows them on your minimap"] = "광석 찾기를 켜면 미니맵에 표시됩니다"
+L["Roam near %s, %s, for beasts (level %d-%d)"] = "%2$s, %1$s 근처를 돌며 야수를 찾으십시오 (레벨 %3$d-%4$d)"
+L["Roam near %s, %s, for beasts (level %d)"] = "%2$s, %1$s 근처를 돌며 야수를 찾으십시오 (레벨 %3$d)"
+L["Roam near %s, %s, for beasts"] = "%2$s, %1$s 근처를 돌며 야수를 찾으십시오"
+L["Roam near %s, %s, for %s"] = "%2$s, %1$s 근처를 돌며 찾을 것: %3$s"
+L["Roam near %s, %s, for herbs"] = "%2$s, %1$s 근처를 돌며 약초를 찾으십시오"
+L["Roam near %s, %s, for ore"] = "%2$s, %1$s 근처를 돌며 광석을 찾으십시오"
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "지점 %d/%d"
@@ -5884,6 +5901,13 @@ L["%s is hunted out for now"] = "%s: 당분간 야수가 없습니다"
 L["%s is mined out for now"] = "%s: 당분간 광맥이 없습니다"
 L["Try %s next"] = "다음 추천: %s"
 L["Best"] = "최적"
+L["Near %s, %s, is picked clean for now"] = "%2$s, %1$s 근처: 당분간 약초가 없습니다"
+L["Near %s, %s, is hunted out for now"] = "%2$s, %1$s 근처: 당분간 야수가 없습니다"
+L["Near %s, %s, is mined out for now"] = "%2$s, %1$s 근처: 당분간 광맥이 없습니다"
+L["Try near %s, %s, next"] = "다음 추천: %2$s, %1$s 근처"
+
+-- Core/KindCraft.lua
+L["Near %s, %s"] = "%2$s, %1$s 근처"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar를 한 페이지씩 다시 설정합니다. 선택은 바로 적용됩니다."

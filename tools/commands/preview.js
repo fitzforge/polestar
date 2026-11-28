@@ -1335,15 +1335,25 @@ uistub.update()`;
 // Gathering areas in the profession window (UI/GuideFrameKindCraft.lua) over sample models as Engine.KindModel
 // hands them (Core/KindCraft.lua's `areas` and `get` from Engine.AreaChoices): Mining 1-300 at "Copper (1-50)", a
 // level 9 Tauren in Mulgore at Mining 23. state: "mine" (three areas, Red Cloud Mesa the best and the arrow's),
-// "get" (Get Copper Ore: Mine it taken, its areas under it), "safe" (a level 2: none safe yet), "out" (the pick
-// mined out: try the next), "herb" (Herbalism in Durotar), "skin" (Skinning in Mulgore: beasts and their levels).
+// "get" (Mining's Get Copper Ore: the gathering guide's one way, its areas under it), "smith" (Blacksmithing's Get
+// Rough Stone: mine it or buy it, mining taken), "smithBuy" (the same, buying taken), "safe" (a level 2: none safe
+// yet), "out" (the pick mined out: try the next), "herb" (Herbalism in Durotar), "skin" (Skinning in Mulgore: beasts
+// and their levels). With POLESTAR_CLIENT_ART (a local render) the rows wear the client's icons (the professions',
+// the Skinning Knife, the materials'), pulled into it by tools/studio/art.js; the committed renders keep the glyphs.
+const AREA_ICONS = { spell: { 2575: 136248, 2366: 136065 }, item: { 7005: 135637, 6256: 132932, 2770: 134566, 2835: 135232 } };
 function kindAreas(state = 'mine') {
-	return `local MAPS = { [1412] = "Mulgore", [1411] = "Durotar" }
+	const lua = (o) => `{ ${Object.entries(o).map(([k, v]) => `[${k}] = ${v}`).join(', ')} }`;
+	const icons = CLIENT_ART ? `local SPELL, ITEM = ${lua(AREA_ICONS.spell)}, ${lua(AREA_ICONS.item)}
+Polestar.Compat.SpellIcon = function(id) return SPELL[id] end
+Polestar.Compat.ItemIcon = function(id) return ITEM[id] end
+` : '';
+	return `${icons}local MAPS = { [1412] = "Mulgore", [1411] = "Durotar" }
 local mapName = Polestar.Compat.GetMapName
 Polestar.Compat.GetMapName = function(id) return MAPS[id] or (mapName and mapName(id)) end
 local S = ${JSON.stringify(state)}
-local line = ({ herb = "Herbalism", skin = "Skinning" })[S] or "Mining"
-local title = ({ herb = "Peacebloom and Silverleaf (1-15)", skin = "Beasts of level 1-6 (1-50)", get = "Get Copper Ore" })[S] or "Copper (1-50)"
+local smith = S == "smith" or S == "smithBuy"
+local line = ({ herb = "Herbalism", skin = "Skinning" })[S] or (smith and "Blacksmithing") or "Mining"
+local title = ({ herb = "Peacebloom and Silverleaf (1-15)", skin = "Beasts of level 1-6 (1-50)", get = "Get Copper Ore", smith = "Get Rough Stone", smithBuy = "Get Rough Stone" })[S] or "Copper (1-50)"
 local skillGoal = { t = "skill", index = 1, verb = "Raise", subject = line, subjectKind = "skill", text = "Raise " .. line .. " to " .. (S == "herb" and 15 or 50),
 	progress = { cur = S == "safe" and 1 or S == "herb" and 8 or 23, max = S == "herb" and 15 or 50, kind = "count" }, status = "active" }
 local G = { id = "preview/gathering", pack = "guides", title = line .. " 1-300", category = "Professions", minLevel = 1, maxLevel = 60, zone = 1412, zoneName = "Mulgore",
@@ -1360,26 +1370,32 @@ local function A(i, name, count, safeFrom, minutes, extra)
 end
 local areas
 if S == "herb" then
-	areas = { verb = "herb", list = { A(1, "Valley of Trials", 14, 1, 0, { here = true, best = true, current = true }), A(2, "Durotar: near Razor Hill", 11, 3, 3) } }
+	areas = { verb = "herb", list = { A(1, "Valley of Trials", 14, 1, 0, { here = true, best = true, current = true }), A(2, "Near Razor Hill, Durotar", 11, 3, 3) } }
 elseif S == "skin" then
-	areas = { verb = "skin", list = { A(1, "Mulgore: near Bloodhoof Village", 22, 1, 0, { here = true, best = true, current = true, levels = { min = 1, max = 3 } }),
+	areas = { verb = "skin", list = { A(1, "Near Bloodhoof Village, Mulgore", 22, 1, 0, { here = true, best = true, current = true, levels = { min = 1, max = 3 } }),
 		A(2, "Red Cloud Mesa", 18, 3, 2, { levels = { min = 2, max = 6 } }), A(3, "The Golden Plains", 15, 6, 5, { levels = { min = 4, max = 8 } }) } }
 elseif S == "safe" then
 	areas = { verb = "mine", list = {}, safeFrom = 6, what = "Copper Ore" }
 else
 	areas = { verb = "mine", list = { A(3, "Red Cloud Mesa", 12, 1, 0, { here = S ~= "out", best = true, current = true }),
-		A(1, "Mulgore: near Bael'dun Digsite", 9, 8, 4), A(2, "The Venture Co. Mine", 14, 9, 7) } }
-	if S == "out" then areas.out = { name = "Red Cloud Mesa", next = "Mulgore: near Bael'dun Digsite", i = 1 } end
+		A(1, "Near Bael'dun Digsite, Mulgore", 9, 8, 4), A(2, "The Venture Co. Mine", 14, 9, 7) } }
+	if S == "out" then areas.out = { name = "Red Cloud Mesa", next = "Near Bael'dun Digsite, Mulgore", nextC = { map = 1412, area = "Bael'dun Digsite", near = true }, i = 1 } end
 end
 areas.step, areas.goalIndex = 2, 1
 local models = {
 	meter = { kind = "skill", name = line, nameKind = "skill", value = S == "safe" and 1 or 23, max = 75, frac = (S == "safe" and 1 or 23) / 75, learned = true },
 }
 if S == "get" then
-	G.steps[2].goals = { { t = "collect", index = 1, status = "active" }, { t = "auction", index = 2, status = "na" } }
+	G.steps[2].goals = { { t = "collect", index = 1, status = "active" } }
 	models.get = { items = { { item = 2770, name = "Copper Ore", need = 40, have = 12, goalIndex = 1, done = false, ways = {
-		{ way = "gather", verb = "mine", map = 1412, areas = areas, current = true, goalIndex = 1 },
-		{ way = "buy", toGet = 28, copper = 28 * 15, current = false, goalIndex = 2 } } } }, covers = { 1, 2 } }
+		{ way = "gather", verb = "mine", map = 1412, areas = areas, current = true, goalIndex = 1 } } } }, covers = { 1 } }
+elseif smith then
+	local buy = S == "smithBuy"
+	G.steps[2].goals = { { t = "collect", index = 1, status = buy and "na" or "active" }, { t = "auction", index = 2, status = buy and "active" or "na" } }
+	models.meter.value, models.meter.frac = 23, 23 / 75
+	models.get = { items = { { item = 2835, name = "Rough Stone", need = 40, have = 12, goalIndex = buy and 2 or 1, done = false, ways = {
+		{ way = "gather", verb = "mine", map = 1412, areas = areas, current = not buy, goalIndex = 1 },
+		{ way = "buy", toGet = 28, copper = 28 * 15, current = buy, goalIndex = 2 } } } }, covers = { 1, 2 } }
 else
 	models.areas = { goal = skillGoal, step = 2, goalIndex = 1, verb = areas.verb, areas = areas, covers = { 1 } }
 end
@@ -1583,11 +1599,11 @@ const SCENES = [
 	},
 	{
 		file: 'guide-kind-areas.svg',
-		title: 'Gathering areas in a profession guide: Mining 1-50 in Mulgore (Mine it and three areas, best first and marked, the arrow\'s with the dot: how many veins, the level each is safe from, how far); compact (the arrow\'s area); Get Copper Ore with Mine it taken; none safe yet at level 2; the pick mined out (try the next); Herbalism in Durotar; Skinning in Mulgore (beasts and their levels)',
+		title: 'Gathering areas in a profession guide: Mining 1-50 in Mulgore (Mine it and three areas, best first and marked, the arrow\'s with the filled pin: how many veins, the level each is safe from, how far); compact (the arrow\'s area); Mining\'s Get Copper Ore (mining its one way); Blacksmithing\'s Get Rough Stone, mined (the areas under it) or bought; none safe yet at level 2; the pick mined out (try the next); Herbalism in Durotar; Skinning in Mulgore (beasts and their levels)',
 		panels: [
 			{ roots: GUIDE, script: kindAreas('mine') },
 			{ roots: GUIDE, script: `Polestar.Set("ui.compact", true); ${kindAreas('mine')}` },
-			...['get', 'safe', 'out', 'herb', 'skin'].map((s) => ({ roots: GUIDE, script: kindAreas(s) })),
+			...['get', 'smith', 'smithBuy', 'safe', 'out', 'herb', 'skin'].map((s) => ({ roots: GUIDE, script: kindAreas(s) })),
 		],
 	},
 	{

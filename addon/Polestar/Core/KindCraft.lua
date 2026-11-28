@@ -24,7 +24,8 @@
 local _, ns = ...
 local Engine, Materials = ns.Engine, ns.Materials
 local floor, ceil, max, min = math.floor, math.ceil, math.max, math.min
-local pairs, ipairs, type = pairs, ipairs, type
+local pairs, ipairs, type, format = pairs, ipairs, type, string.format
+local L = ns.L
 
 local KC = {}
 ns.KindCraft = KC
@@ -331,27 +332,62 @@ local function materialGoal(goal)
 	return (goal.t == "collect" and goal.gather ~= nil) or goal.t == "auction" or goal.t == "buy"
 end
 
+-- An area's name parts from its candidate (docs/GUIDE_FORMAT.md "Gathering areas"): its subzone in the player's
+-- language (ns.Names.Area by its AreaTable id, else the guide's English), its zone, and whether it is open ground
+-- named after that subzone (`near`). -> place, zone, near
+function KC.AreaParts(c)
+	if type(c) ~= "table" then return nil end
+	local N = ns.Names
+	local place = (c.aid and N and N.Area and N.Area(c.aid)) or c.area or ""
+	local zone = c.map and C().GetMapName and C().GetMapName(c.map) or ""
+	return place, zone, c.near and true or false
+end
+-- An area's name at the start of a line: a named subzone as it is ("Red Cloud Mesa"), open ground "Near Razor Hill,
+-- Durotar". nil without a candidate.
+function KC.AreaName(c)
+	local place, zone, near = KC.AreaParts(c)
+	if not place then return nil end
+	if near then return format(L["Near %s, %s"], place, zone) end
+	return place
+end
+
 -- A gathering area goal's choices for the window (Engine.AreaChoices, docs/GUIDE_FORMAT.md "Gathering areas"): the
--- ranked list cut to AREA_ROWS, best first (the arrow's area kept among them when it ranks lower), the level the
--- first area opens at while none is safe yet (`safeFrom`, list empty), the area left mined out (`out`: { name,
--- next, i }), and `what`: the item its nodes give most (the step's item, else the first area's), for "Safe Copper
--- Ore area from level 6". nil for a goal that is no area goal.
+-- ranked list cut to AREA_ROWS, best first (the arrow's area kept among them when it ranks lower), each entry a
+-- copy with its name (KC.AreaName) and its candidate (`c`); the level the first area opens at while none is safe yet
+-- (`safeFrom`, list empty); the area left mined out (`out`: { name, fromC, next, nextC (their candidates), i }); and
+-- `what`: the item its nodes give most (the step's item, else the first area's), for "Safe Copper Ore area from
+-- level 6". nil for a goal that is no area goal.
 KC.AREA_ROWS = 3
 function KC.Areas(s, gi, goal)
 	if not (s and goal and Engine.IsAreaGoal and Engine.AreaChoices and Engine.IsAreaGoal(goal)) then return nil end
 	local v = Engine.AreaChoices(s, gi)
 	if type(v) ~= "table" then return nil end
-	local all, list = v.list or {}, {}
-	for i = 1, min(#all, KC.AREA_ROWS) do list[i] = all[i] end
+	local all, picked = v.list or {}, {}
+	for i = 1, min(#all, KC.AREA_ROWS) do picked[i] = all[i] end
 	for i = KC.AREA_ROWS + 1, #all do
 		if all[i].current or all[i].picked then
-			list[KC.AREA_ROWS] = all[i]
+			picked[KC.AREA_ROWS] = all[i]
 			break
 		end
 	end
+	local cands = goal.candidates or {}
+	local list = {}
+	for k, e in ipairs(picked) do
+		local a = {}
+		for key, val in pairs(e) do a[key] = val end
+		a.c = cands[e.i]
+		a.name = KC.AreaName(a.c) or e.name
+		list[k] = a
+	end
+	local out
+	if type(v.out) == "table" then
+		local o = v.out
+		local from, nextC = o.from and cands[o.from], o.i and cands[o.i]
+		out = { name = KC.AreaName(from) or o.name, fromC = from or nil, next = KC.AreaName(nextC) or o.next, nextC = nextC or nil, i = o.i }
+	end
 	local item = goal.item
 	if not item then
-		local c = goal.candidates and goal.candidates[1]
+		local c = cands[1]
 		item = c and tonumber(type(c.items) == "string" and c.items:match("^(%d+)") or nil)
 	end
 	local verb = v.verb
@@ -359,9 +395,23 @@ function KC.Areas(s, gi, goal)
 		local line = goal.skillLine or (type(goal.gather) == "table" and goal.gather.skillLine)
 		verb = GATHER_LINE[line or 0] or KC.GatherVerb(goal)
 	end
-	return { verb = verb, list = list, safeFrom = #list == 0 and v.safeFrom or nil, out = v.out, what = item and itemName(item) or nil,
+	return { verb = verb, list = list, safeFrom = #list == 0 and v.safeFrom or nil, out = out, what = item and itemName(item) or nil,
 		step = s, goalIndex = gi }
 end
+
+-- The client's own art for a gathering way, as the game shows the profession: Mining's spell 2575 (trade_mining, the
+-- pickaxe), Herbalism's 2366 (spell_nature_naturetouchgrow, the herb), the Skinning Knife 7005
+-- (inv_weapon_shortblade_01) and the Fishing Pole 6256 (inv_fishingpole_02), file ids from the client's SpellMisc and
+-- Item tables. KC.GatherIcon(verb) -> a texture, or nil (the glyph stays).
+KC.GATHER_ICON = { mine = { spell = 2575 }, herb = { spell = 2366 }, skin = { item = 7005 }, fish = { item = 6256 } }
+function KC.GatherIcon(verb)
+	local i = KC.GATHER_ICON[verb]
+	if not i then return nil end
+	if i.spell then return C().SpellIcon and C().SpellIcon(i.spell) or nil end
+	return C().ItemIcon and C().ItemIcon(i.item) or nil
+end
+-- The gathering verb of a skill line ("mine", "herb", "skin", "fish"), or nil.
+function KC.LineVerb(line) return GATHER_LINE[line or 0] end
 
 -- A get step: per item of the step's material goals, "Get 42 Rough Stone" with the bags' count, and the ways the
 -- item's goals in the step allow, each a choice: { way = "gather", verb, npc, map, minutes (for the rest at the
@@ -369,7 +419,8 @@ end
 -- gathering area goal's choices: KC.Areas) } |
 -- { way = "buy", toGet (what the bags, bank and mail still lack), copper } | { way = "vendor", npc, map };
 -- `current` the way the guide takes now (the goal that applies: the player's pick, else the guide's way). The
--- Auction House is no way for a Self-Found character.
+-- Auction House is no way for a Self-Found character, nor in a guide that levels one gathering profession (its own
+-- material is gathered: GuideKinds.GatheringOnly), whatever the data says; there gathering is always the way.
 M.get = function(view, kind)
 	if kind ~= "profession" then return nil end
 	local a = access()
@@ -378,6 +429,7 @@ M.get = function(view, kind)
 	if not step then return nil end
 	local list, byItem, covers = {}, {}, {}
 	local selfFound = Materials.SelfFound()
+	local gatherOnly = ns.GuideKinds and ns.GuideKinds.GatheringOnly and ns.GuideKinds.GatheringOnly(G) or false
 	for gi, goal in ipairs(step.goals or {}) do
 		local gv = view.goals and view.goals[gi]
 		if gv and materialGoal(goal) then
@@ -415,7 +467,7 @@ M.get = function(view, kind)
 				local gw = type(goal.gather) == "table" and goal.gather or nil
 				if w.verb == "disenchant" and gw and gw.min and gw.max then w.levels = { gw.min, gw.max } end
 			elseif goal.t == "auction" then
-				if not selfFound then
+				if not (selfFound or gatherOnly) then
 					local toGet = max(0, a.needOf(goal) - Materials.Have(goal.item))
 					w = { way = "buy", toGet = toGet }
 					if toGet > 0 then w.copper = Materials.Price(goal.item, toGet) end
@@ -425,7 +477,7 @@ M.get = function(view, kind)
 				w = { way = "vendor", npc = npc, map = map }
 			end
 			if w then
-				w.goalIndex, w.current = gi, applies
+				w.goalIndex, w.current = gi, applies or (gatherOnly and w.way == "gather")
 				e.ways[#e.ways + 1] = w
 			end
 		end

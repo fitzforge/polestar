@@ -33,6 +33,7 @@ ns.UI.GuideFrame.Part(function(GF)
 
 	local function E() return GF.Engine() end
 	local function M() return ns.Materials end
+	local function KC() return ns.KindCraft end
 	local function C() return ns.Compat end
 	local function hexed(token, text) return "|c" .. Theme.Hex(token) .. tostring(text) .. "|r" end
 	local function itemHex(item, text)
@@ -592,6 +593,13 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- The area the pick left mined out: "Ox Hill is mined out for now".
 	local function areaOutText(areas)
 		local out = areas.out
+		-- Open ground: "Near Razor Hill, Durotar, is mined out for now".
+		local place, zone, near = KC().AreaParts(out.fromC)
+		if near then
+			if areas.verb == "herb" then return format(L["Near %s, %s, is picked clean for now"], place, zone) end
+			if areas.verb == "skin" then return format(L["Near %s, %s, is hunted out for now"], place, zone) end
+			return format(L["Near %s, %s, is mined out for now"], place, zone)
+		end
 		if areas.verb == "herb" then return format(L["%s is picked clean for now"], out.name) end
 		if areas.verb == "skin" then return format(L["%s is hunted out for now"], out.name) end
 		return format(L["%s is mined out for now"], out.name)
@@ -645,6 +653,15 @@ ns.UI.GuideFrame.Part(function(GF)
 		dot:SetShown(on)
 	end
 	local function noRadio(r) if r.psDot then r.psDot:Hide() end end
+	-- An area row's mark: the guide's location pin (a place, not an option), filled in the accent for the area the
+	-- arrow leads to (the player's pick), its outline stepped back for the others and for the next to try. Every look
+	-- paints it through its own tokens.
+	local function pin(r, on)
+		noRadio(r)
+		r.Icon:SetTexture(Theme.Media(on and "icon-goto" or "icon-goto-open"))
+		r.Icon:SetTexCoord(0, 1, 0, 1)
+		W.Color(r.Icon, on and "accent" or "textMuted")
+	end
 
 	-- A way picked: the item takes it (Materials' pick), and the arrow leads to its goal.
 	local function pick(r)
@@ -678,8 +695,8 @@ ns.UI.GuideFrame.Part(function(GF)
 	end
 	-- The rows of a gathering area goal's choices onto f.List, from f.Areas[n + 1], indented `x`: the mined-out line
 	-- first ("Try Bael'dun Digsite next", its Guide me the pick of that one), then up to three areas, best first and
-	-- marked, the arrow's own with the dot; `only`: just the arrow's area (compact). `way`, `item`: a get step's way.
-	-- -> n
+	-- marked, each with the location pin (the arrow's own filled); `only`: just the arrow's area (compact). `way`,
+	-- `item`: a get step's way. -> n
 	local function paintAreas(f, n, areas, x, only, way, item)
 		local list, t = f.List, way and "collect" or "skill"
 		local function row(text, sub, i)
@@ -699,8 +716,11 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		local out = areas.out
 		if out and out.next then
-			local r = row(format(L["Try %s next"], out.next), areaOutText(areas), out.i)
-			noRadio(r)
+			-- Open ground mid-sentence: "Try near Razor Hill, Durotar, next"; a named subzone as it is.
+			local place, zone, near = KC().AreaParts(out.nextC)
+			local text = near and format(L["Try near %s, %s, next"], place, zone) or format(L["Try %s next"], out.next)
+			local r = row(text, areaOutText(areas), out.i)
+			pin(r, false)
 			W.Color(r.Text, "text")
 		end
 		local marked = #areas.list > 1
@@ -709,7 +729,7 @@ ns.UI.GuideFrame.Part(function(GF)
 				local text = a.name or ""
 				if a.best and marked then text = text .. "  " .. hexed("accent", L["Best"]) end
 				local r = row(text, areaSub(areas.verb, a), a.i)
-				radio(r, a.current and true or false)
+				pin(r, a.current and true or false)
 				W.Color(r.Text, a.current and "text" or "textDim")
 			end
 		end
@@ -789,7 +809,8 @@ ns.UI.GuideFrame.Part(function(GF)
 				r.Sub:SetShown(choices and true or false)
 				r.psIndent = 0
 				list[#list + 1] = r
-				-- A row per way, picked like an option; each leads the arrow there.
+				-- A row per way, picked like an option (a radio mark while there is more than one; a lone way wears its
+				-- profession's own icon); each leads the arrow there.
 				if not compact and not e.done then
 					for _, w in ipairs(e.ways) do
 						nw = nw + 1
@@ -798,18 +819,20 @@ ns.UI.GuideFrame.Part(function(GF)
 						if type(wg) ~= "table" or wg.psKind ~= "way" then wg = { psKind = "way" } end
 						wg.t, wg.index, wg.status = w.way == "gather" and "collect" or "buy", w.goalIndex, "active"
 						wg.text = wayText(w)
+						wg.art = not choices and w.way == "gather" and KC().GatherIcon(w.verb) or nil
 						GF.PaintGoalRow(wr, wg, false)
-						radio(wr, w.current)
+						if choices then radio(wr, w.current) else noRadio(wr) end
 						W.Color(wr.Text, w.current and "text" or "textDim")
 						local sub = waySub(w, max(0, e.need - e.have))
 						UI.SetCounted(wr.Sub, sub or "")
 						wr.Sub:SetShown(sub ~= nil)
 						wr.psWay, wr.psItem, wr.psIndent = w, e, 16
+						-- The way taken to gather in areas lists them under it, and they carry the Guide me buttons.
+						local listed = w.areas and w.current and not w.areas.safeFrom
 						W.SetButtonText(wr.psButton, w.way == "buy" and searchable() and L["Buy list"] or L["Guide me"])
-						wr.psButton:SetShown(w.way == "buy" or w.map ~= nil)
+						wr.psButton:SetShown((w.way == "buy" or w.map ~= nil) and not listed)
 						list[#list + 1] = wr
-						-- The way taken to gather in areas lists them under it.
-						if w.areas and w.current and not w.areas.safeFrom then na = paintAreas(f, na, w.areas, 32, false, w, e) end
+						if listed then na = paintAreas(f, na, w.areas, 32, false, w, e) end
 					end
 				end
 			end
@@ -843,7 +866,9 @@ ns.UI.GuideFrame.Part(function(GF)
 			for i = #list, 1, -1 do list[i] = nil end
 			local compact = mode == "compact"
 			local r = f.Goal
-			GF.PaintGoalRow(r, m.goal, true)
+			-- The skill goal wears the profession's own icon ("Raise Mining to 50": the pickaxe), as its way does.
+			local art = KC().GatherIcon(m.verb)
+			GF.PaintGoalRow(r, art and setmetatable({ art = art }, { __index = m.goal }) or m.goal, true)
 			r.psIndent = 0
 			list[1] = r
 			local na = 0
@@ -853,7 +878,9 @@ ns.UI.GuideFrame.Part(function(GF)
 				if type(wg) ~= "table" or wg.psKind ~= "way" then wg = { psKind = "way" } end
 				wg.t, wg.index, wg.status = "skill", m.goalIndex, "active"
 				wg.text = wayText({ way = "gather", verb = m.verb })
+				wg.art = art
 				GF.PaintGoalRow(wr, wg, false)
+				noRadio(wr)
 				local sub = areas.safeFrom and areaSafeText(areas) or nil
 				UI.SetCounted(wr.Sub, sub or "")
 				wr.Sub:SetShown(sub ~= nil)

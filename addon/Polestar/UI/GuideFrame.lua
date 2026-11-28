@@ -550,12 +550,14 @@ GF.Part(function(GF)
 		return nil
 	end
 
-	-- The icon a goal row wears in place of its verb's glyph (the game's own art), or nil for the glyph: a craft's item
-	-- or, with none, its recipe's spell; a learn step's spell; a profession guide's materials (collect, buy, the
-	-- Auction House) their item. The glyph stays only where the client gives nothing.
+	-- The icon a goal row wears in place of its verb's glyph (the game's own art), or nil for the glyph: the art a
+	-- region gives its row (`art`: a gathering way's profession icon); a craft's item or, with none, its recipe's
+	-- spell; a learn step's spell; a profession guide's materials (collect, buy, the Auction House) their item. The
+	-- glyph stays only where the client gives nothing.
 	function GF.GoalIcon(goal)
 		local C = ns.Compat
 		if not goal then return nil end
+		if goal.art then return goal.art end
 		local item = type(goal.item) == "number" and goal.item or nil
 		if goal.t == "craft" then
 			return (item and C.ItemIcon and C.ItemIcon(item)) or (goal.spell and C.SpellIcon and C.SpellIcon(goal.spell)) or nil

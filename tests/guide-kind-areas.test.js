@@ -12,16 +12,26 @@ const assert = require('node:assert/strict');
 const { runAddon } = require('./helpers/lua');
 
 const POLY = 'poly = "40,78;46,76;48,84;42,86"';
+// The step's candidates, indexed as the stub view's `i`: the name the window shows is built from them (KC.AreaName).
+const NAMES = ['area = "Bael\'dun Digsite", near = true', 'area = "The Golden Plains"', 'area = "Red Cloud Mesa"', 'area = "Thunder Bluff"', 'area = "Ravaged Caravan"'];
+const cands = (extra) => NAMES.map((n) => `{ map = 1412, x = 44, y = 80, ${n}, lvl = { min = 1, max = 1 }, lap = 300, ${extra}, count = 12, ${POLY} }`).join(', ');
 const MINING = `{ id = "test/mining", pack = "test", title = "Mining 1-300", minLevel = 1, maxLevel = 60, category = "Professions",
 	sections = { { skill = "Mining", skillLine = 186, from = 1, to = 75 } },
 	steps = {
 		{ title = "Copper (1-50)", section = 1, goals = {
-			{ t = "skill", skill = "Mining", skillLine = 186, level = 50, candidates = {
-				{ map = 1412, x = 44, y = 80, area = "Red Cloud Mesa", lvl = { min = 1, max = 1 }, lap = 300, gain = 6, count = 12, items = "2770,2835", ${POLY} } } } } },
+			{ t = "skill", skill = "Mining", skillLine = 186, level = 50, candidates = { ${cands('gain = 6, items = "2770,2835"')} } } } },
 		{ title = "Get Copper Ore", section = 1, goals = {
-			{ t = "collect", item = 2770, itemName = "Copper Ore", count = 40, gather = { rank = 1, skill = "Mining", skillLine = 186 }, candidates = {
-				{ map = 1412, x = 44, y = 80, area = "Red Cloud Mesa", lvl = { min = 1, max = 1 }, lap = 300, yield = 9, count = 12, ${POLY} } } },
+			{ t = "collect", item = 2770, itemName = "Copper Ore", count = 40, gather = { rank = 1, skill = "Mining", skillLine = 186 }, candidates = { ${cands('yield = 9')} } },
 			{ t = "auction", item = 2770, itemName = "Copper Ore", count = 40 } } },
+	} }`;
+
+// A crafting guide, where buying its material is a real way: Blacksmithing's Rough Stone, mined or bought.
+const SMITHING = `{ id = "test/smithing", pack = "test", title = "Blacksmithing 1-300", minLevel = 1, maxLevel = 60, category = "Professions",
+	sections = { { skill = "Blacksmithing", skillLine = 164, from = 1, to = 75 } },
+	steps = {
+		{ title = "Get Rough Stone", section = 1, goals = {
+			{ t = "collect", item = 2835, itemName = "Rough Stone", count = 40, gather = { rank = 1, skill = "Mining", skillLine = 186 }, candidates = { ${cands('yield = 9')} } },
+			{ t = "auction", item = 2835, itemName = "Rough Stone", count = 40 } } },
 	} }`;
 
 // The Engine's area calls as the core hands them over (CONTRACT §2): AREAS[verb] is AreaChoices' view; PickArea
@@ -57,6 +67,7 @@ w.moveTo(1412, 45.5, 83.8)
 w.setLevel(9)
 Polestar.RegisterPack({ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" })
 Polestar.RegisterGuide(${MINING})
+Polestar.RegisterGuide(${SMITHING})
 stub.login()
 stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)
 Polestar.Set("ui.shown", true)
@@ -79,7 +90,8 @@ local function rows(id)
 	for _, r in ipairs(f and f.List or {}) do
 		if r:IsShown() then
 			out[#out + 1] = { text = plain(r.Text:GetText()), sub = r.Sub:IsShown() and plain(r.Sub:GetText()) or false,
-				on = r.psDot and r.psDot:IsShown() or false, button = r.psButton and r.psButton:IsShown() and r.psButton.Label:GetText() or false,
+				on = (r.psDot and r.psDot:IsShown()) or (tostring(r.Icon:GetTexture() or ""):find("icon%-goto$") ~= nil),
+				icon = tostring(r.Icon:GetTexture() or ""):match("([^\\\\/]+)$") or false, button = r.psButton and r.psButton:IsShown() and r.psButton.Label:GetText() or false,
 				x = r.psIndent or 0, area = r.psArea or false }
 		end
 	end
@@ -99,7 +111,7 @@ emit({ rows = rows("areas"), shown = GF.RegionFrame("areas"):IsShown() })`);
 	assert.deepEqual([r[1].text, r[1].x, r[1].button], ['Mine it', 16, false], 'the areas carry the Guide me buttons');
 	assert.deepEqual(r.slice(2).map((a) => [a.text, a.sub, a.on, a.button, a.x, a.area]), [
 		['Red Cloud Mesa  Best', '~12 veins  ·  you\'re here', true, 'Guide me', 32, 3],
-		['Mulgore: near Bael\'dun Digsite', '~9 veins  ·  safe from 8  ·  4 min away', false, 'Guide me', 32, 1],
+		['Near Bael\'dun Digsite, Mulgore', '~9 veins  ·  safe from 8  ·  4 min away', false, 'Guide me', 32, 1],
 		['The Golden Plains', '~7 veins  ·  safe from 6  ·  6 min away', false, 'Guide me', 32, 2],
 	]);
 });
@@ -108,7 +120,7 @@ test('the arrow\'s area ranked past three stays listed in third place', () => {
 	const out = run('', `AREAS.list[1].current = nil; AREAS.list[5].current = true
 at(1)
 emit(rows("areas"))`);
-	assert.deepEqual(out.slice(2).map((a) => [a.text, a.on]), [['Red Cloud Mesa  Best', false], ['Mulgore: near Bael\'dun Digsite', false], ['Thunder Bluff', true]]);
+	assert.deepEqual(out.slice(2).map((a) => [a.text, a.on]), [['Red Cloud Mesa  Best', false], ['Near Bael\'dun Digsite, Mulgore', false], ['Thunder Bluff', true]]);
 });
 
 test('Guide me on an area picks it through the Engine and leads the arrow there', () => {
@@ -131,8 +143,11 @@ emit(rows("areas"))`);
 	assert.deepEqual([out[1].text, out[1].sub, out[1].button], ['Mine it', 'Safe Copper Ore area from level 6', false]);
 });
 
-test('mined out: "Try <Area> next" first, saying the pick is mined out; its Guide me picks the next', () => {
-	const out = run('AREAS.out = { name = "Red Cloud Mesa", next = "The Golden Plains", i = 2 }', `at(1)
+test('mined out: "Try <Area> next" first, saying the pick is mined out; its Guide me picks the next; open ground reads "Try near X, Zone, next"', () => {
+	const near = run('AREAS.out = { name = "Red Cloud Mesa", from = 3, next = "Mulgore: near Bael\'dun Digsite", i = 1 }', `at(1)
+emit(rows("areas"))`);
+	assert.deepEqual([near[2].text, near[2].sub], ['Try near Bael\'dun Digsite, Mulgore, next', 'Red Cloud Mesa is mined out for now']);
+	const out = run('AREAS.out = { name = "Red Cloud Mesa", from = 3, next = "The Golden Plains", i = 2 }', `at(1)
 local r = rows("areas")
 GF.RegionFrame("areas").List[3].psButton:Click()
 emit({ r = r, picks = picks })`);
@@ -142,38 +157,79 @@ emit({ r = r, picks = picks })`);
 });
 
 test('herbs and beasts: Pick it with ~N herbs; Kill and skin it with ~N beasts and their levels; the out line per profession', () => {
-	const out = run('', `AREAS = { verb = "herb", list = { { i = 1, name = "Valley of Trials", count = 14, safeFrom = 1, minutes = 2, best = true, current = true } },
-	out = { name = "Durotar: near Razor Hill", next = "Valley of Trials", i = 1 } }
+	const out = run('w.addMap(1411, { name = "Durotar", c = 1, left = -1962.5, right = -7250, top = 1808.333, bottom = -1716.667 })', `local cs = E.GetGuide().steps[1].goals[1].candidates
+cs[1].area, cs[1].map, cs[1].near = "Valley of Trials", 1411, nil
+cs[2].area, cs[2].map, cs[2].near = "Razor Hill", 1411, true
+AREAS = { verb = "herb", list = { { i = 1, name = "Valley of Trials", count = 14, safeFrom = 1, minutes = 2, best = true, current = true } },
+	out = { name = "Durotar: near Razor Hill", from = 2, next = "Valley of Trials", i = 1 } }
 at(1)
 local herbs = rows("areas")
 AREAS = { verb = "skin", list = { { i = 1, name = "The Golden Plains", count = 22, levels = { min = 1, max = 6 }, safeFrom = 3, minutes = 1, best = true, current = true },
 	{ i = 2, name = "Red Cloud Mesa", count = 18, levels = { min = 2, max = 2 }, safeFrom = 1, minutes = 0.4 } },
-	out = { name = "Bloodhoof Village", next = "The Golden Plains", i = 1 } }
+	out = { name = "Bloodhoof Village", from = 3, next = "The Golden Plains", i = 1 } }
+cs[1].area, cs[1].map, cs[1].near = "The Golden Plains", 1412, nil
+cs[2].area, cs[2].map, cs[2].near = "Red Cloud Mesa", 1412, nil
+cs[3].area, cs[3].map, cs[3].near = "Bloodhoof Village", 1412, true
 Polestar.Fire("AREA_CHANGED"); stub.advance(0.5); GF.Layout(); stub.advance(0.5)
 emit({ herbs = herbs, skins = rows("areas") })`);
 	assert.equal(out.herbs[1].text, 'Pick it');
-	assert.deepEqual([out.herbs[2].text, out.herbs[2].sub], ['Try Valley of Trials next', 'Durotar: near Razor Hill is picked clean for now']);
+	assert.deepEqual([out.herbs[2].text, out.herbs[2].sub], ['Try Valley of Trials next', 'Near Razor Hill, Durotar, is picked clean for now']);
 	assert.deepEqual([out.herbs[3].text, out.herbs[3].sub], ['Valley of Trials', '~14 herbs  ·  2 min away'], 'one area: no Best mark');
 	assert.equal(out.skins[1].text, 'Kill and skin it');
-	assert.equal(out.skins[2].sub, 'Bloodhoof Village is hunted out for now');
+	assert.equal(out.skins[2].sub, 'Near Bloodhoof Village, Mulgore, is hunted out for now');
 	assert.deepEqual(out.skins.slice(3).map((a) => [a.text, a.sub]), [
 		['The Golden Plains  Best', '~22 beasts (level 1-6)  ·  safe from 3  ·  1 min away'],
 		['Red Cloud Mesa', '~18 beasts (level 2)  ·  under a minute away'],
 	]);
 });
 
-test('a get step: the gathering way taken lists its areas under it; the Auction House taken, the way names the best area', () => {
+test('a gathering guide\'s get step: only Mine it and its areas, no Auction House way even with one in the data; Mine it carries no Guide me', () => {
 	const out = run('', `at(2)
-local gather = rows("get")
-Polestar.Materials.SetWay("test/mining", 2770, "buy"); stub.advance(0.5); GF.Layout(); stub.advance(0.5)
-emit({ gather = gather, buy = rows("get") })`);
-	const g = out.gather;
+local r = rows("get")
+Polestar.Materials.SetWay("test/mining", 2770, "buy"); stub.advance(0.5); Polestar.Fire("AREA_CHANGED"); stub.advance(0.2); GF.Layout(); stub.advance(0.5)
+emit({ r = r, picked = rows("get") })`);
+	const g = out.r;
 	assert.match(g[0].text, /^Get 40 Copper Ore/);
-	assert.deepEqual([g[1].text, g[1].on, g[1].sub], ['Mine it', true, false]);
-	assert.deepEqual(g.slice(2, 5).map((a) => [a.text, a.x]), [['Red Cloud Mesa  Best', 32], ['Mulgore: near Bael\'dun Digsite', 32], ['The Golden Plains', 32]]);
-	assert.equal(g[5].text, 'Buy it at the Auction House');
+	assert.equal(g[0].sub, false, 'one way: no "Pick one way:"');
+	assert.deepEqual([g[1].text, g[1].button, g[1].x], ['Mine it', false, 16], 'its areas carry the buttons');
+	assert.deepEqual(g.slice(2).map((a) => [a.text, a.x, a.button]), [['Red Cloud Mesa  Best', 32, 'Guide me'], ['Near Bael\'dun Digsite, Mulgore', 32, 'Guide me'], ['The Golden Plains', 32, 'Guide me']]);
+	assert.ok(!g.some((a) => /Auction House/.test(a.text)), 'no Auction House way');
+	assert.deepEqual(out.picked.map((a) => a.text), g.map((a) => a.text), 'a saved Auction House pick changes nothing');
+});
+
+test('a crafting guide\'s get step (Rough Stone for Blacksmithing): mine or buy; mining taken lists the areas, the way without a button; buying taken, Mine it names the best area and keeps Guide me', () => {
+	const out = run('E.SetGuide("test/smithing"); stub.advance(0.5)', `E.SetGuide("test/smithing"); stub.advance(0.5)
+at(1)
+local mine = rows("get")
+Polestar.Materials.SetWay("test/smithing", 2835, "buy"); stub.advance(0.5); Polestar.Fire("AREA_CHANGED"); stub.advance(0.2); GF.Layout(); stub.advance(0.5)
+emit({ mine = mine, buy = rows("get") })`);
+	const m = out.mine;
+	assert.match(m[0].text, /^Get 40 Rough Stone/);
+	assert.equal(m[0].sub, 'Pick one way:');
+	assert.deepEqual([m[1].text, m[1].on, m[1].button, m[1].icon], ['Mine it', true, false, 'ring'], 'an option: the radio mark, no button over its areas');
+	assert.deepEqual(m.slice(2, 5).map((a) => a.text), ['Red Cloud Mesa  Best', 'Near Bael\'dun Digsite, Mulgore', 'The Golden Plains']);
+	assert.equal(m[5].text, 'Buy it at the Auction House');
 	assert.equal(out.buy.length, 3, 'the item, the two ways');
-	assert.deepEqual([out.buy[1].text, out.buy[1].on, out.buy[1].sub], ['Mine it', false, 'Red Cloud Mesa  ·  you\'re here']);
+	assert.deepEqual([out.buy[1].text, out.buy[1].on, out.buy[1].sub, out.buy[1].button], ['Mine it', false, 'Red Cloud Mesa  ·  you\'re here', 'Guide me']);
+});
+
+test('each gathering row wears its icon: the profession\'s for the skill goal and the way (Mining\'s pickaxe, Herbalism\'s herb, the Skinning Knife), the location pin for the areas and the next to try', () => {
+	const out = run(`C.SpellIcon = function(id) return "spell" .. id end
+C.ItemIcon = function(id) return "item" .. id end`, `AREAS.out = { name = "Red Cloud Mesa", from = 3, next = "The Golden Plains", i = 2 }
+at(1)
+local mine = rows("areas")
+AREAS.verb = "herb"; Polestar.Fire("AREA_CHANGED"); stub.advance(0.2); GF.Layout(); stub.advance(0.3)
+local herb = rows("areas")
+AREAS.verb = "skin"; Polestar.Fire("AREA_CHANGED"); stub.advance(0.2); GF.Layout(); stub.advance(0.3)
+local skin = rows("areas")
+local KC = Polestar.KindCraft
+emit({ mine = mine, herb = herb, skin = skin, fish = KC.GatherIcon("fish") })`);
+	const icons = (r) => r.map((a) => a.icon);
+	assert.deepEqual(icons(out.mine), ['spell2575', 'spell2575', 'icon-goto-open', 'icon-goto', 'icon-goto-open', 'icon-goto-open'],
+		'Raise Mining, Mine it, Try next, the arrow\'s area (filled), the others');
+	assert.deepEqual(icons(out.herb).slice(0, 2), ['spell2366', 'spell2366']);
+	assert.deepEqual(icons(out.skin).slice(0, 2), ['item7005', 'item7005']);
+	assert.equal(out.fish, 'item6256', 'the Fishing Pole');
 });
 
 test('compact: the goal\'s row and the arrow\'s area only', () => {
@@ -192,7 +248,7 @@ emit({ card = GF.RegionFrame("areas"):GetParent() == GF.parts.card, n = #rows("a
 
 test('no area text is cut: every row\'s text wraps whole, clear of its button, at the narrowest window', () => {
 	const out = run('', `Polestar.UI.GuideFrame.frame:SetWidth(Polestar.UI.MIN_WIDTH)
-AREAS.list[2].name = "Mulgore: near the Venture Co. Mine and Bael'dun Digsite"
+E.GetGuide().steps[1].goals[1].candidates[1].area = "the Venture Co. Mine and Bael'dun Digsite"
 at(1)
 local f, bad, n = GF.RegionFrame("areas"), {}, 0
 local width, TEXT_X = Polestar.UI.GuideFrame.frame:GetWidth(), GF.metrics and GF.metrics.TEXT_X or 38
@@ -246,7 +302,13 @@ emit({
 	herb = two({ name = "Valley of Trials", verb = "herb", items = { 2447, 765 } }),
 	skin = two({ name = "The Golden Plains", verb = "skin", levels = { min = 1, max = 6 } }),
 	skin1 = two({ name = "The Golden Plains", verb = "skin", levels = { min = 4, max = 4 } }),
+	near = two({ name = "Near Razor Hill, Durotar", near = true, place = "Razor Hill", zone = "Durotar", verb = "mine", items = { 2770, 2835 } }),
+	nearHerb = two({ name = "Near Razor Hill, Durotar", near = true, place = "Razor Hill", zone = "Durotar", verb = "herb" }),
+	nearSkin = two({ name = "Near Bloodhoof Village, Mulgore", near = true, place = "Bloodhoof Village", zone = "Mulgore", verb = "skin", levels = { min = 1, max = 3 } }),
 })`);
+	assert.deepEqual(out.near, ['Roam near Razor Hill, Durotar, for Copper Ore and Rough Stone', 'Find Minerals shows them on your minimap']);
+	assert.deepEqual(out.nearHerb, ['Roam near Razor Hill, Durotar, for herbs', 'Find Herbs shows them on your minimap']);
+	assert.deepEqual(out.nearSkin, ['Roam near Bloodhoof Village, Mulgore, for beasts (level 1-3)', 'Loot, then skin them']);
 	assert.deepEqual(out.mine, ['Roam Red Cloud Mesa for Copper Ore and Rough Stone', 'Find Minerals shows them on your minimap']);
 	assert.deepEqual(out.mine1, ['Roam Red Cloud Mesa for Copper Ore', 'Find Minerals shows them on your minimap']);
 	assert.deepEqual(out.mine0, ['Roam Red Cloud Mesa for ore', 'Find Minerals shows them on your minimap']);
@@ -271,14 +333,14 @@ end
 A:Refresh(); stub.advance(0.3)
 local p = A.skinParts
 local first = { mode = A.GetMode(), dist = p.distance:GetText(), eta = p.eta:IsShown() and p.eta:GetText() or false, w = p.distance:GetWidth() > 0 }
-E.AreaRoam = function() return { name = "Mulgore: near Bael'dun Digsite", verb = "mine", items = { 2770 } } end
+E.AreaRoam = function() return { name = "The Golden Plains", verb = "mine", items = { 2770 } } end
 Polestar.Fire("AREA_CHANGED"); stub.advance(0.3)
 local second = p.distance:GetText()
 roam = false
 A:Refresh(); stub.advance(0.3)
 emit({ first = first, second = second, plain = p.distance:GetText(), mode = A.GetMode() })`);
 	assert.deepEqual(out.first, { mode: 'roam', dist: 'Roam Red Cloud Mesa for Copper Ore', eta: 'Find Minerals shows them on your minimap', w: true });
-	assert.equal(out.second, 'Roam Mulgore: near Bael\'dun Digsite for Copper Ore');
+	assert.equal(out.second, 'Roam The Golden Plains for Copper Ore');
 	assert.deepEqual([out.mode, out.plain], ['arrived', 'Arrived'], 'outside the roam state: Arrived again');
 });
 
@@ -289,7 +351,7 @@ const box = (x1, y1, x2, y2) => `${x1},${y1};${x2},${y1};${x2},${y2};${x1},${y2}
 const realArea = (name, lvl, [x1, y1, x2, y2], extra = '') =>
 	`{ map = 1412, x = ${(x1 + x2) / 2}, y = ${(y1 + y2) / 2}, faction = "H", lvl = { min = ${lvl}, max = ${lvl} }, lap = 300, yield = 10, count = 12, area = "${name}", poly = "${box(x1, y1, x2, y2)}"${extra} }`;
 const REAL = [realArea('Red Cloud Mesa', 1, [40, 78, 50, 90], ', starter = true, items = "2770"'), realArea('Skywatcher Plateau', 1, [20, 30, 28, 40]),
-	realArea('Bael\'dun Digsite', 3, [28, 44, 36, 52])];
+	realArea('Bael\'dun Digsite', 3, [28, 44, 36, 52], ', near = true, items = "2770"')];
 const realRun = (saved, body) => runAddon({
 	stubs: ['stub_world.lua'],
 	before: `
@@ -312,6 +374,8 @@ Polestar.RegisterGuide({ id = "test/other", pack = "test", title = "Other", cate
 	{ title = "Bolts", goals = { { t = "craft", spell = 2964, spellName = "Bolt of Woolen Cloth", item = 2997, itemName = "Bolt of Woolen Cloth", skillLine = 197, count = 1 } } } } })
 E = Polestar.Engine
 N = Polestar.Nav
+local itemName = Polestar.Compat.GetItemName
+Polestar.Compat.GetItemName = function(id) if id == 2770 then return "Copper Ore" end return itemName(id) end
 stub.login()
 Polestar.Set("ui.shown", true)
 E.SetGuide("test/areas")
@@ -322,7 +386,7 @@ function areaRows()
 	Polestar.Fire("AREA_CHANGED"); stub.advance(0.2); GF.Layout(); stub.advance(0.3)
 	local out = {}
 	for _, r in ipairs(GF.RegionFrame("get").List) do
-		if r:IsShown() and r.psArea then out[#out + 1] = { name = plain(r.Text:GetText()):gsub("  Best$", ""), on = r.psDot and r.psDot:IsShown() or false, row = r } end
+		if r:IsShown() and r.psArea then out[#out + 1] = { name = plain(r.Text:GetText()):gsub("  Best$", ""), on = tostring(r.Icon:GetTexture() or ""):find("icon%-goto$") ~= nil, row = r } end
 	end
 	return out
 end
@@ -340,6 +404,10 @@ ${body}`,
 
 test('the real Engine: Guide me picks the area and leads the arrow there; the pick holds across a guide switch and a reload', () => {
 	const first = realRun(null, `
+-- Inside the arrow's area (open ground near Bael'dun Digsite): the roam line names it mid-sentence.
+stub.world.moveTo(1412, 32, 48); stub.advance(1.5); N.arrow:Refresh(); stub.advance(0.3)
+local roamText = N.arrow.skinParts.distance:GetText()
+stub.world.moveTo(1412, 45, 84); stub.advance(1.5)
 local rows = areaRows()
 local before = {}
 for i, r in ipairs(rows) do before[i] = r.name .. (r.on and "*" or "") end
@@ -355,10 +423,11 @@ for i, r in ipairs(areaRows()) do after[i] = r.name .. (r.on and "*" or "") end
 E.SetGuide("test/other"); stub.advance(0.6); E.SetGuide("test/areas"); stub.advance(0.6)
 local back = {}
 for i, r in ipairs(areaRows()) do back[i] = r.name .. (r.on and "*" or "") end
-emit({ before = table.concat(before, "|"), current = cur or false, target = t and t.stepIndex == 1 and t.goalIndex == 1 or false,
+emit({ roam = roamText or false, before = table.concat(before, "|"), current = cur or false, target = t and t.stepIndex == 1 and t.goalIndex == 1 or false,
 	after = table.concat(after, "|"), back = table.concat(back, "|"), saved = "PolestarCharDB = " .. dump(PolestarCharDB) })`);
-	assert.equal(first.before, 'Bael\'dun Digsite*|Skywatcher Plateau', 'the best first with the dot; Red Cloud Mesa\'s starter area outgrown at level 8');
+	assert.equal(first.before, 'Near Bael\'dun Digsite, Mulgore*|Skywatcher Plateau', 'the best first with the filled pin; Red Cloud Mesa\'s starter area outgrown at level 8');
 	assert.equal(first.current, 'Skywatcher Plateau', 'Guide me is the Engine\'s pick');
+	assert.equal(first.roam, 'Roam near Bael\'dun Digsite, Mulgore, for Copper Ore', 'the roam line through the real Engine and Nav');
 	assert.equal(first.target, true, 'the arrow leads to the step\'s area goal');
 	assert.match(first.after, /Skywatcher Plateau\*/);
 	assert.match(first.back, /Skywatcher Plateau\*/, 'kept across a guide switch');

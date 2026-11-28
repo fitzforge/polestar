@@ -577,6 +577,17 @@
 --   Try %s next
 --   Best
 --   %s: near %s
+--   Roam near %s, %s, for beasts (level %d-%d)
+--   Roam near %s, %s, for beasts (level %d)
+--   Roam near %s, %s, for beasts
+--   Roam near %s, %s, for %s
+--   Roam near %s, %s, for herbs
+--   Roam near %s, %s, for ore
+--   Near %s, %s, is picked clean for now
+--   Near %s, %s, is hunted out for now
+--   Near %s, %s, is mined out for now
+--   Try near %s, %s, next
+--   Near %s, %s
 
 -- Machine-translated, to be reviewed (the profession and reputation guides' window, 26 Nov 2026): translated by an
 -- AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
@@ -1020,6 +1031,12 @@ L["Roam %s for herbs"] = "Обходите %s в поисках трав"
 L["Find Herbs shows them on your minimap"] = "Поиск трав показывает их на миникарте"
 L["Roam %s for ore"] = "Обходите %s в поисках руды"
 L["Find Minerals shows them on your minimap"] = "Поиск минералов показывает их на миникарте"
+L["Roam near %s, %s, for beasts (level %d-%d)"] = "Обходите местность рядом с %s, %s, в поисках зверей (уровень %d-%d)"
+L["Roam near %s, %s, for beasts (level %d)"] = "Обходите местность рядом с %s, %s, в поисках зверей (уровень %d)"
+L["Roam near %s, %s, for beasts"] = "Обходите местность рядом с %s, %s, в поисках зверей"
+L["Roam near %s, %s, for %s"] = "Обходите местность рядом с %s, %s, в поисках: %s"
+L["Roam near %s, %s, for herbs"] = "Обходите местность рядом с %s, %s, в поисках трав"
+L["Roam near %s, %s, for ore"] = "Обходите местность рядом с %s, %s, в поисках руды"
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "Точка %d из %d"
@@ -5867,6 +5884,13 @@ L["%s is hunted out for now"] = "%s: звери пока истреблены"
 L["%s is mined out for now"] = "%s: руда пока выработана"
 L["Try %s next"] = "Попробуйте дальше: %s"
 L["Best"] = "Лучшее"
+L["Near %s, %s, is picked clean for now"] = "Рядом с %s, %s: травы пока собраны"
+L["Near %s, %s, is hunted out for now"] = "Рядом с %s, %s: звери пока истреблены"
+L["Near %s, %s, is mined out for now"] = "Рядом с %s, %s: руда пока выработана"
+L["Try near %s, %s, next"] = "Попробуйте дальше: рядом с %s, %s"
+
+-- Core/KindCraft.lua
+L["Near %s, %s"] = "Рядом с %s, %s"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Заново настроить Polestar, страница за страницей. Каждый выбор действует сразу."

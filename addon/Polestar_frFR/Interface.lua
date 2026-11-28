@@ -606,6 +606,17 @@
 --   Try %s next
 --   Best
 --   %s: near %s
+--   Roam near %s, %s, for beasts (level %d-%d)
+--   Roam near %s, %s, for beasts (level %d)
+--   Roam near %s, %s, for beasts
+--   Roam near %s, %s, for %s
+--   Roam near %s, %s, for herbs
+--   Roam near %s, %s, for ore
+--   Near %s, %s, is picked clean for now
+--   Near %s, %s, is hunted out for now
+--   Near %s, %s, is mined out for now
+--   Try near %s, %s, next
+--   Near %s, %s
 
 -- Machine-translated, to be reviewed (the profession and reputation guides' window, 26 Nov 2026): translated by an
 -- AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
@@ -1049,6 +1060,12 @@ L["Roam %s for herbs"] = "Parcourez %s à la recherche d'herbes"
 L["Find Herbs shows them on your minimap"] = "Découverte d'herbes les affiche sur votre minicarte"
 L["Roam %s for ore"] = "Parcourez %s à la recherche de minerai"
 L["Find Minerals shows them on your minimap"] = "Découverte de gisements les affiche sur votre minicarte"
+L["Roam near %s, %s, for beasts (level %d-%d)"] = "Parcourez les environs de %s, %s, à la recherche de bêtes (niveau %d-%d)"
+L["Roam near %s, %s, for beasts (level %d)"] = "Parcourez les environs de %s, %s, à la recherche de bêtes (niveau %d)"
+L["Roam near %s, %s, for beasts"] = "Parcourez les environs de %s, %s, à la recherche de bêtes"
+L["Roam near %s, %s, for %s"] = "Parcourez les environs de %s, %s, à la recherche de %s"
+L["Roam near %s, %s, for herbs"] = "Parcourez les environs de %s, %s, à la recherche d'herbes"
+L["Roam near %s, %s, for ore"] = "Parcourez les environs de %s, %s, à la recherche de minerai"
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "Point %d sur %d"
@@ -5896,6 +5913,13 @@ L["%s is hunted out for now"] = "%s est vidé de ses bêtes pour l'instant"
 L["%s is mined out for now"] = "%s est épuisé en minerai pour l'instant"
 L["Try %s next"] = "Essayez %s ensuite"
 L["Best"] = "Meilleur"
+L["Near %s, %s, is picked clean for now"] = "Les environs de %s, %s, sont épuisés en herbes pour l'instant"
+L["Near %s, %s, is hunted out for now"] = "Les environs de %s, %s, sont vidés de leurs bêtes pour l'instant"
+L["Near %s, %s, is mined out for now"] = "Les environs de %s, %s, sont épuisés en minerai pour l'instant"
+L["Try near %s, %s, next"] = "Essayez ensuite les environs de %s, %s"
+
+-- Core/KindCraft.lua
+L["Near %s, %s"] = "Près de %s, %s"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Reconfigurer Polestar, une page à la fois. Chaque choix s'applique tout de suite."

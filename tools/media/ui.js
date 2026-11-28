@@ -97,6 +97,15 @@ const GLYPHS = {
 		poly([[7, 3], [17, 3], [14.6, 6.6], [9.4, 6.6]]),
 	),
 	'icon-goto': subtract(union(dot(12, 9.5, 6.8), poly([[6.2, 13.1], [17.8, 13.1], [12, 21.8]])), dot(12, 9.5, 2.6)),
+	// The location pin's outline: a place on offer that the arrow does not lead to (the profession window's area rows).
+	'icon-goto-open': (() => {
+		const tip = poly([[6.2, 13.1], [17.8, 13.1], [12, 21.8]]);
+		const body = union(dot(12, 9.5, 6.8), tip);
+		// The inside, each part shrunk on its own (a union's distance inside is not a true one).
+		// The tip's inside reaches up into the circle's (its sides carried on), so the two inner parts meet.
+		const inside = union(dot(12, 9.5, 6.8 - 1.8), sdf.offset(poly([[5.67, 12.3], [18.33, 12.3], [12, 21.8]]), -g(1.8)));
+		return union(subtract(body, inside), dot(12, 9.5, 1.6));
+	})(),
 	'icon-talk': subtract(
 		union(box(12, 10.5, 9, 6.8, 2.6), poly([[6.5, 15], [12, 15], [5.6, 21]])),
 		union(dot(8, 10.5, 1.35), dot(12, 10.5, 1.35), dot(16, 10.5, 1.35)),
