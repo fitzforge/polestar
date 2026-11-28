@@ -17905,56 +17905,6 @@
 			]
 		},
 		{
-			"id": "red-crystal-clicked",
-			"faction": "Alliance",
-			"at": {
-				"quest": 4811,
-				"goal": "complete",
-				"guide": "forever/alliance/03-darkshore"
-			},
-			"rows": {
-				"before": [
-					"interact 175524 quest 4811.1 @47.3,48.7 only Dwarf,Gnome,Human,Skyborne"
-				]
-			},
-			"note": "The Red Crystal (4811): its first objective is the Mysterious Red Crystal itself (object 175524, the game's quest data), clicked on its ledge; the step had only the quest's bare complete, and 17 of 119 recorded players abandoned the quest. The click is a row of its own.",
-			"source": [
-				{
-					"kind": "recording",
-					"ref": "players' in-game recordings (to 2026-11-27): ; 119 people took 4811, 17 abandoned it"
-				},
-				{
-					"kind": "client",
-					"ref": "forever-db object.jsonl: Mysterious Red Crystal (175524), Darkshore 47.3,48.7; quests.json: 4811's objective 1 is that object"
-				}
-			]
-		},
-		{
-			"id": "red-crystal-clicked-nightelf",
-			"faction": "Alliance",
-			"at": {
-				"quest": 4811,
-				"goal": "complete",
-				"guide": "forever/alliance/nightelf/02-darkshore"
-			},
-			"rows": {
-				"before": [
-					"interact 175524 quest 4811.1 @47.3,48.7"
-				]
-			},
-			"note": "The Red Crystal (4811): as the record above, in the Night Elf start's Darkshore.",
-			"source": [
-				{
-					"kind": "recording",
-					"ref": "players' in-game recordings (to 2026-11-27): ; 119 people took 4811, 17 abandoned it"
-				},
-				{
-					"kind": "client",
-					"ref": "forever-db object.jsonl: Mysterious Red Crystal (175524), Darkshore 47.3,48.7; quests.json: 4811's objective 1 is that object"
-				}
-			]
-		},
-		{
 			"id": "plagued-lands-tharnariuns-hope-used",
 			"faction": "Alliance",
 			"at": {

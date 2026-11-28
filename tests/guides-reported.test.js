@@ -18817,7 +18817,6 @@ for (const [guide, item, quest, oi, verb] of [
 	['forever/horde/50-60/05-eastern-plaguelands.guide', 15042, 5901, 1, 'use'],
 	['forever/alliance/50-60/01-burning-steppes.guide', 10445, 3449, 1, 'use'], // Arcane Runes: the Drawing Kit at each rune
 	['forever/alliance/50-60/01-burning-steppes.guide', 10445, 3449, 4, 'use'],
-	['forever/alliance/03-darkshore.guide', 175524, 4811, 1, 'interact'], // The Red Crystal: the crystal itself
 	['forever/alliance/nightelf/02-darkshore.guide', 7586, 2118, 1, 'use'], // Plagued Lands: Tharnariun's Hope
 	['forever/alliance/03-darkshore-return.guide', 5251, 944, 1, 'use'], // The Master's Glaive: the Phial of Scrying
 	['forever/alliance/06-ashenvale.guide', 5456, 1016, 1, 'use'], // Elemental Bracers: the Divining Scroll

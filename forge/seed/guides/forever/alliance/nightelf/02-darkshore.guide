@@ -103,7 +103,6 @@ step Ameth'Aran
 
 step The red crystal
   tip Climb the eastern mountains east of Ameth'Aran; the Mysterious Red Crystal sits on a ledge.
-  interact 175524 quest 4811.1 @47.3,48.7
   complete 4811 @47.2,48.7                    -- Mysterious Red Crystal
 
 step Bashal'Aran
