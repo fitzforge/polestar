@@ -454,6 +454,7 @@ A fix goes into a record the next build applies, whoever builds:
 | where a goal or a step goes: right after another goal (`follows`), a step split before a goal (`split`), a whole step moved or copied after another goal's step, into another guide too (`step`) | `data/guide-fixes.json` |
 | where the walk to a step ends (`way`): off a town of the other faction, or at a camp's edge; who makes the walk (`way.when`): only whoever carries the quest it leads to | `data/guide-fixes.json` |
 | a guide's top level in its header (`levels`, on `at: { goal: "levels", guide }`): where players leave it, when that is above where the route ends it | `data/guide-fixes.json` |
+| an action a tip used to describe, as goal rows of its own (`rows`: `{ before?: [line], after?: [line] }`, lines such as `use 9439 quest 654.2 @52.9,32.4 map 1446`, put right before or after the anchored goal line in its step, each once): an item to use, an object to click, something to wear, an NPC to talk to | `data/guide-fixes.json` |
 
 `forge data check-corrections` checks a guide-fix record's top-level `when` even when the record
 also sets a `tip`. For example, `group 7729` gates the Searing Gorge bounty on the player's group

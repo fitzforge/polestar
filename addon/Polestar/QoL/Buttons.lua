@@ -1201,12 +1201,25 @@ local function logItem(questID)
 	return Client.ItemIDFromLink((GetQuestLogSpecialItemInfo(index)))
 end
 
+-- Whether the button may offer item id for quest questID when no `use` goal
+-- names it: an item in the bags with a use (the client's item spell), and
+-- not one the quest asks to bring back. The Field Testing Kit Tanaris Field
+-- Sampling hands over at the accept is such a one: the Untested Samples are
+-- tested against it and it goes back with them, it is never used itself.
+local function offerable(questID, id)
+	if not (id and Client.ItemCount(id) > 0 and Client.ItemSpell(id)) then return false end
+	local QDB = ns.QuestDB
+	if questID and QDB and QDB.IsLoaded and QDB.IsLoaded() and QDB.Asks and QDB.Asks(questID, id) then return false end
+	return true
+end
+
 -- The open quests of the current step (reused).
 local openQuests, openCount = {}, 0
 
 -- First usable quest-class item in the bags that one of the step's open
--- quests handed over (Bethor's Potion, Thule Ravenclaw's reward, is none of
--- them); nil without Polestar.QuestDB, which knows what each quest hands over.
+-- quests handed over or needs (Bethor's Potion, Thule Ravenclaw's reward, is
+-- none of them; the Untested Samples Tanaris Field Sampling's beasts drop
+-- are); nil without Polestar.QuestDB, which knows what each quest hands over.
 local function bagQuestItem()
 	local QDB = ns.QuestDB
 	if openCount == 0 or not (QDB and QDB.IsLoaded and QDB.IsLoaded() and QDB.HandsOver) then return nil end
@@ -1214,9 +1227,9 @@ local function bagQuestItem()
 		for slot = 1, Client.NumSlots(bag) do
 			local info = Client.SlotInfo(bag, slot)
 			local id = info and info.itemID
-			if id and Client.ItemClass(id) == Client.CLASS_QUEST and Client.ItemSpell(id) then
+			if id and Client.ItemClass(id) == Client.CLASS_QUEST then
 				for i = 1, openCount do
-					if QDB.HandsOver(openQuests[i], id) then return id end
+					if QDB.HandsOver(openQuests[i], id) and offerable(openQuests[i], id) then return id end
 				end
 			end
 		end
@@ -1245,7 +1258,7 @@ function Buttons.ChooseQuestItem(view, raw)
 			openCount = openCount + 1
 			openQuests[openCount] = gv.quest
 			local item = logItem(gv.quest)
-			if item and Client.ItemCount(item) > 0 then return item end
+			if offerable(gv.quest, item) then return item end
 		end
 	end
 	local bag = bagQuestItem()
@@ -1257,7 +1270,7 @@ function Buttons.ChooseQuestItem(view, raw)
 	local item = here.t == "use" and (here.item or (rg and rg.item)) or nil
 	if item and Client.ItemCount(item) > 0 then return item end
 	item = logItem(here.quest)
-	if item and Client.ItemCount(item) > 0 then return item end
+	if offerable(here.quest, item) then return item end
 	return nil
 end
 

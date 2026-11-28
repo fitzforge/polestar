@@ -351,6 +351,8 @@ step Dangers of the Windfury
 
 step Dwarven Digging
   tip The dwarves of the Bael'dun Digsite carry the Prospector's Picks. Smash them at the dwarves' forge in the digsite.
+  collect 4702 x5
+  use 4702 quest 746.1 @33.1,54.8
   collect 4703 quest 746.1            -- Broken Tools, at the digsite forge
 
 step Sharing the Land

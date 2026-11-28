@@ -190,6 +190,7 @@ step Tonga Runetotem
 step Sickly Gazelles
   only Tauren,Skyborne,Horde
   tip Use the Curative Animal Salve on living Sickly Gazelles (level 3): they graze on both sides of the road north of the Crossroads up to the Ashenvale border, north-west of the Crossroads and west of Ratchet. Druid trick: root a gazelle with Entangling Roots, apply the salve before the roots tick, and the root kill counts a second time, so five gazelles can do. Lost a dose? Abandon and retake the quest from Tonga for a fresh salve.
+  use 15826 quest 6129.1 @54.5,32.1 map 1413
   kill 12296 quest 6129.1 "Use the Curative Animal Salve on Sickly Gazelles"
 
 step Curing the Sick

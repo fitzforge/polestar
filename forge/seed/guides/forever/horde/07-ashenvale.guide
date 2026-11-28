@@ -277,6 +277,7 @@ step Gloomrise: kill these as you meet them
   collect 273181 quest 96260.1        -- Crystalline Silk, from Gloomrise Spinners
   kill 264083 quest 96259.2
   kill 264079 quest 96259.1
+  use 273015 quest 96241.1 @33.6,12.8 map 1412 live
   collect 273001 quest 96241.1        -- Gloomrise Toxin Samples, from the Gnawed Corpses
 
 step The Earthen Ring

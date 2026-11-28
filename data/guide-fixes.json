@@ -1,5 +1,5 @@
 {
-	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote. A sethome anchor names an inn (at: { goal: \"sethome\", sethome, guide? }) and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
+	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. rows: { before?: [line], after?: [line] } (alone on its record) puts goal lines (use, interact, talk, equip, collect, kill, cast, buff, task, note or goto, no indent) right before and right after the anchored goal line in its step, each once: an action a tip used to describe, as a goal of its own (Tanaris Field Sampling's untested samples, looted and used before each count). at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote or rows. A sethome anchor names an inn (at: { goal: \"sethome\", sethome, guide? }) and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
 			"id": "booty-bay-innkeeper-floor",
@@ -17508,8 +17508,8 @@
 				"goal": "accept",
 				"guide": "forever/horde/40-50/04-tanaris"
 			},
-			"tip": "Back north, just south of Gadgetzan, use the Model 4711-FTZ Power Source now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each. No power source in your bags, or its two hours ran out? Abandon Tanaris Field Sampling if it is in your log, then take Another Power Source? from Chief Engineer Bilgewhizzle: he gives a new one for ten more Wastewander Water Pouches, from the Wastewander camps east of Gadgetzan.",
-			"note": "#3619: Tanaris Field Sampling (654) starts from the Model 4711-FTZ Power Source (8524), Slake That Thirst's (379) reward; Another Power Source? (841, repeatable, same giver) is only the replacement for a lost or spent source, not a prerequisite. A player without the source was told to use it and nothing said how to get another. The step's tip says so; 841 stays out of the route.",
+			"goalNote": "Use the Model 4711-FTZ Power Source: it starts the quest and its two-hour timer. No power source, or the timer ran out? Another Power Source? from Chief Engineer Bilgewhizzle trades a new one for ten Wastewander Water Pouches, from the Wastewander camps east of Gadgetzan, once Tanaris Field Sampling is out of your log.",
+			"note": "#3619: Tanaris Field Sampling (654) starts from the Model 4711-FTZ Power Source (8524), Slake That Thirst's (379) reward; Another Power Source? (841, repeatable, same giver) is only the replacement for a lost or spent source, not a prerequisite, and cannot be taken while 654 is in the log (841 excludes 654). A player without the source was told to use it and nothing said how to get another. The accept's note says so (it was the step's tip until the samples got rows of their own, below); 841 stays out of the route.",
 			"source": [
 				{
 					"kind": "recording",
@@ -17517,6 +17517,987 @@
 				}
 			],
 			"issue": 3619
+		},
+		{
+			"id": "tanaris-field-sampling-hyena-samples-used",
+			"faction": "Horde",
+			"at": {
+				"quest": 654,
+				"goal": "objective",
+				"objective": 2,
+				"guide": "forever/horde/40-50/04-tanaris"
+			},
+			"rows": {
+				"before": [
+					"collect 9439 @52.9,32.4 map 1446",
+					"use 9439 quest 654.2 @52.9,32.4 map 1446"
+				]
+			},
+			"note": "Tanaris Field Sampling (654) counts Acceptable Hyena Samples (9441), and nothing drops one: the Blisterpaw hyenas drop an Untested Hyena Sample (9439), and using it (its spell, Hyena Sample, 11760) makes an acceptable one or nothing. The step listed only the three acceptable counts and said to use the samples in its tip, and a player spent about two hours there. Each untested sample is looted and used on a row of its own before its count: the loot row leads to the beasts and goes back to undone after each use, the use row puts the sample on the quest item button and the step key.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 654's Acceptable Hyena Sample line ticked within 3 s of a cast of 11760 174 times of 179, for 23 people; 30 people took 654, 12 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect, SpellEffect; 1.60.1.70532): item 9439's use is spell 11760, which creates item 9441"
+				}
+			]
+		},
+		{
+			"id": "tanaris-field-sampling-basilisk-samples-used",
+			"faction": "Horde",
+			"at": {
+				"quest": 654,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/04-tanaris"
+			},
+			"rows": {
+				"before": [
+					"collect 9437 @49.6,34.0 map 1446",
+					"use 9437 quest 654.1 @49.6,34.0 map 1446"
+				]
+			},
+			"note": "Tanaris Field Sampling (654): as the hyena record above, for the Glasshide basilisks' Untested Basilisk Sample (9437), whose use (Basilisk Sample, 11759) makes an Acceptable Basilisk Sample (9440) or nothing.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 654's Acceptable Basilisk Sample line ticked within 3 s of a cast of 11759 174 times of 177, for 23 people"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect, SpellEffect; 1.60.1.70532): item 9437's use is spell 11759, which creates item 9440"
+				}
+			]
+		},
+		{
+			"id": "tanaris-field-sampling-scorpid-samples-used",
+			"faction": "Horde",
+			"at": {
+				"quest": 654,
+				"goal": "objective",
+				"objective": 3,
+				"guide": "forever/horde/40-50/04-tanaris"
+			},
+			"rows": {
+				"before": [
+					"collect 9442 @52.9,30.9 map 1446",
+					"use 9442 quest 654.3 @52.9,30.9 map 1446"
+				]
+			},
+			"note": "Tanaris Field Sampling (654): as the hyena record above, for the scorpids' Untested Scorpid Sample (9442), whose use (Scorpid Sample, 11761) makes an Acceptable Scorpid Sample (9438) or nothing.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 654's Acceptable Scorpid Sample line ticked within 3 s of a cast of 11761 169 times of 174, for 24 people"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect, SpellEffect; 1.60.1.70532): item 9442's use is spell 11761, which creates item 9438"
+				}
+			]
+		},
+		{
+			"id": "tanaris-field-sampling-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 654,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/04-tanaris"
+			},
+			"tip": "A sample can fail: keep going until you have eight of each.",
+			"note": "Tanaris Field Sampling (654): with the samples looted and used on rows of their own (the records above) and the power source on the accept's note (#3619), the step's tip keeps only why the rows repeat: an untested sample makes an acceptable one or nothing.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 1,503 casts of 11759-11761 (the three samples' use) by 25 people against 530 acceptable-sample ticks of 654"
+				}
+			]
+		},
+		{
+			"id": "egg-hunt-digging-claw-used",
+			"faction": "Horde",
+			"at": {
+				"quest": 868,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/04-the-barrens"
+			},
+			"rows": {
+				"before": [
+					"use 5059 quest 868.1 @44.9,69.4 map 1413"
+				]
+			},
+			"note": "Egg Hunt (868) hands over the Digging Claw (5059, its source item), and a Silithid Egg counts only when the claw is used on a Silithid Mound (its spell, Harvest Silithid Egg, 5166). The step listed only the eggs, and 47 of the 122 recorded players abandoned the quest. The claw's use is a row of its own before the count, so the claw sits on the quest item button and the step key.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 868.1 ticked within 3 s of a cast of 5166 374 times of 462, for 71 people; 122 people took 868, 47 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 5059's use is spell 5166 (Harvest Silithid Egg)"
+				}
+			]
+		},
+		{
+			"id": "slime-cursed-ooze-jar-used",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4512,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/50-60/02-felwood"
+			},
+			"rows": {
+				"before": [
+					"use 11912 @40.4,72.5 map 1448",
+					"use 11914 quest 4512.1 @40.4,72.5 map 1448"
+				]
+			},
+			"note": "A Little Slime Goes a Long Way (4512): a Filled Cursed Ooze Jar (11947) is made by using the Empty Cursed Ooze Jar (11914, from the Empty Ooze Jar Laris hands over) on a Cursed Ooze's remains; the step said so only in a tip and 12 of 39 recorded players abandoned the quest. The use is a row before the count. The Package of Empty Ooze Containers (11912, the quest's source item) is opened first, on a row of its own, for the jars.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 4512.1 ticked within 3 s of a cast of 15698 127 times of 132, for 23 people; 39 people took 4512, 12 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect, SpellEffect; 1.60.1.70532): item 11914's use is spell 15698 (Filling Empty Jar), which creates item 11947"
+				}
+			]
+		},
+		{
+			"id": "slime-tainted-ooze-jar-used",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4512,
+				"goal": "objective",
+				"objective": 2,
+				"guide": "forever/alliance/50-60/02-felwood"
+			},
+			"rows": {
+				"before": [
+					"use 11948 quest 4512.2 @40.3,58.9 map 1448"
+				]
+			},
+			"note": "A Little Slime Goes a Long Way (4512): as the record above, for the Empty Tainted Ooze Jar (11948) on a Tainted Ooze's remains, which makes a Filled Tainted Ooze Jar (11949).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 4512.2 ticked within 3 s of a cast of 15699 116 times of 125, for 22 people; 39 people took 4512, 12 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect, SpellEffect; 1.60.1.70532): item 11948's use is spell 15699 (Filling Empty Jar), which creates item 11949"
+				}
+			]
+		},
+		{
+			"id": "dark-heart-horn-of-hatetalon-used",
+			"faction": "Horde",
+			"at": {
+				"quest": 3062,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/06-azshara"
+			},
+			"rows": {
+				"before": [
+					"collect 9530",
+					"use 9530 quest 3062.1 @40.5,8.6 map 1444"
+				]
+			},
+			"note": "Dark Heart (3062): Edana Hatetalon comes only when the Horn of Hatetalon (9530), from the Hatetalon harpies, is blown at her roost (its spell, Summon Edana Hatetalon, 11840); the step had only her heart, and 9 of 22 recorded players abandoned the quest. The horn is looted and blown on rows of its own before the heart.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 22 people took 3062, 9 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 9530's use is spell 11840 (Summon Edana Hatetalon)"
+				}
+			]
+		},
+		{
+			"id": "plague-upon-thee-termite-jar-used-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5903,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/50-60/04-western-plaguelands"
+			},
+			"rows": {
+				"before": [
+					"use 15042 quest 5903.1 @42.2,23.9 map 1423 live"
+				]
+			},
+			"note": "A Plague Upon Thee (5903): the Plagueland Termites are caught by using the Empty Termite Jar (15042, the quest's source item) at a termite mound (Capturing Termites, 20274); the along step said so only in its tip, and 8 of 29 recorded players abandoned the quest. The jar's use is a row before the count.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 5903.1 ticked within 3 s of a cast of 20274 88 times of 95, for 18 people; 29 people took 5903, 8 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 15042's use is spell 20274 (Capturing Termites)"
+				}
+			]
+		},
+		{
+			"id": "plague-upon-thee-termite-jar-used-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 5901,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"rows": {
+				"before": [
+					"use 15042 quest 5901.1 @15.9,26.8 map 1423 live"
+				]
+			},
+			"note": "A Plague Upon Thee (5901): the Plagueland Termites are caught by using the Empty Termite Jar (15042, the quest's source item) at a Large Termite Mound (Capturing Termites, 20274); the along step said so only in its tip, and 10 of 24 recorded players abandoned the quest, 4 finished it. The jar's use is a row before the count.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 5901.1 ticked within 3 s of a cast of 20274 21 times of 26, for 4 people; 24 people took 5901, 10 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 15042's use is spell 20274 (Capturing Termites)"
+				}
+			]
+		},
+		{
+			"id": "arcane-runes-drawing-kit-1",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3449,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/50-60/01-burning-steppes"
+			},
+			"rows": {
+				"before": [
+					"use 10445 quest 3449.1 @36.9,53.2 map 1447"
+				]
+			},
+			"note": "Arcane Runes (3449): each rubbing is made by using Tymor's Drawing Kit (10445, the quest's source item) at its rune (Drawing Kit, 12304); the step named the kit only in its tip. The kit's use is a row before each rubbing.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 3449.1 ticked within 3 s of a cast of 12304 32 times of 34, for 34 people; 3449.2 ticked within 3 s of a cast of 12304 30 times of 34, for 34 people; 3449.3 ticked within 3 s of a cast of 12304 31 times of 34, for 34 people; 3449.4 ticked within 3 s of a cast of 12304 32 times of 33, for 33 people; 48 people took 3449, 9 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 10445's use is spell 12304 (Drawing Kit)"
+				}
+			]
+		},
+		{
+			"id": "arcane-runes-drawing-kit-2",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3449,
+				"goal": "objective",
+				"objective": 2,
+				"guide": "forever/alliance/50-60/01-burning-steppes"
+			},
+			"rows": {
+				"before": [
+					"use 10445 quest 3449.2 @39.6,50.2 map 1447"
+				]
+			},
+			"note": "Arcane Runes (3449): each rubbing is made by using Tymor's Drawing Kit (10445, the quest's source item) at its rune (Drawing Kit, 12304); the step named the kit only in its tip. The kit's use is a row before each rubbing.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 3449.1 ticked within 3 s of a cast of 12304 32 times of 34, for 34 people; 3449.2 ticked within 3 s of a cast of 12304 30 times of 34, for 34 people; 3449.3 ticked within 3 s of a cast of 12304 31 times of 34, for 34 people; 3449.4 ticked within 3 s of a cast of 12304 32 times of 33, for 33 people; 48 people took 3449, 9 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 10445's use is spell 12304 (Drawing Kit)"
+				}
+			]
+		},
+		{
+			"id": "arcane-runes-drawing-kit-3",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3449,
+				"goal": "objective",
+				"objective": 3,
+				"guide": "forever/alliance/50-60/01-burning-steppes"
+			},
+			"rows": {
+				"before": [
+					"use 10445 quest 3449.3 @39.4,55.5 map 1447"
+				]
+			},
+			"note": "Arcane Runes (3449): each rubbing is made by using Tymor's Drawing Kit (10445, the quest's source item) at its rune (Drawing Kit, 12304); the step named the kit only in its tip. The kit's use is a row before each rubbing.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 3449.1 ticked within 3 s of a cast of 12304 32 times of 34, for 34 people; 3449.2 ticked within 3 s of a cast of 12304 30 times of 34, for 34 people; 3449.3 ticked within 3 s of a cast of 12304 31 times of 34, for 34 people; 3449.4 ticked within 3 s of a cast of 12304 32 times of 33, for 33 people; 48 people took 3449, 9 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 10445's use is spell 12304 (Drawing Kit)"
+				}
+			]
+		},
+		{
+			"id": "arcane-runes-drawing-kit-4",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3449,
+				"goal": "objective",
+				"objective": 4,
+				"guide": "forever/alliance/50-60/01-burning-steppes"
+			},
+			"rows": {
+				"before": [
+					"use 10445 quest 3449.4 @42.4,64.2 map 1447"
+				]
+			},
+			"note": "Arcane Runes (3449): each rubbing is made by using Tymor's Drawing Kit (10445, the quest's source item) at its rune (Drawing Kit, 12304); the step named the kit only in its tip. The kit's use is a row before each rubbing, here the Rune of Sael'hai's.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 3449.1 ticked within 3 s of a cast of 12304 32 times of 34, for 34 people; 3449.2 ticked within 3 s of a cast of 12304 30 times of 34, for 34 people; 3449.3 ticked within 3 s of a cast of 12304 31 times of 34, for 34 people; 3449.4 ticked within 3 s of a cast of 12304 32 times of 33, for 33 people; 48 people took 3449, 9 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 10445's use is spell 12304 (Drawing Kit)"
+				}
+			]
+		},
+		{
+			"id": "to-kill-with-purpose-mortar-used",
+			"faction": "Horde",
+			"at": {
+				"quest": 6022,
+				"goal": "complete",
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"rows": {
+				"before": [
+					"use 15454 quest 6022.1 @52.3,58.2 live"
+				]
+			},
+			"note": "To Kill With Purpose (6022): the Coagulated Rot is made by using the Mortar and Pestle (15454, the quest's source item) with seven Living Rot in the bags (Create Coagulated Rot, 19029), within the ten minutes the rot lasts; the step said so only in its tip. The mortar's use is a row after the Living Rot.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 6022.1 ticked within 3 s of a cast of 19029 3 times of 3, for 3 people; 11 people took 6022, 3 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect, SpellEffect; 1.60.1.70532): item 15454's use is spell 19029 (Create Coagulated Rot), which creates item 15448"
+				}
+			]
+		},
+		{
+			"id": "red-crystal-clicked",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4811,
+				"goal": "complete",
+				"guide": "forever/alliance/03-darkshore"
+			},
+			"rows": {
+				"before": [
+					"interact 175524 quest 4811.1 @47.3,48.7 only Dwarf,Gnome,Human,Skyborne"
+				]
+			},
+			"note": "The Red Crystal (4811): its first objective is the Mysterious Red Crystal itself (object 175524, the game's quest data), clicked on its ledge; the step had only the quest's bare complete, and 17 of 119 recorded players abandoned the quest. The click is a row of its own.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): ; 119 people took 4811, 17 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "forever-db object.jsonl: Mysterious Red Crystal (175524), Darkshore 47.3,48.7; quests.json: 4811's objective 1 is that object"
+				}
+			]
+		},
+		{
+			"id": "red-crystal-clicked-nightelf",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4811,
+				"goal": "complete",
+				"guide": "forever/alliance/nightelf/02-darkshore"
+			},
+			"rows": {
+				"before": [
+					"interact 175524 quest 4811.1 @47.3,48.7"
+				]
+			},
+			"note": "The Red Crystal (4811): as the record above, in the Night Elf start's Darkshore.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): ; 119 people took 4811, 17 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "forever-db object.jsonl: Mysterious Red Crystal (175524), Darkshore 47.3,48.7; quests.json: 4811's objective 1 is that object"
+				}
+			]
+		},
+		{
+			"id": "plagued-lands-tharnariuns-hope-used",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2118,
+				"goal": "complete",
+				"guide": "forever/alliance/03-darkshore"
+			},
+			"rows": {
+				"before": [
+					"use 7586 quest 2118.1 @38.21,52.59 map 1439 era only Dwarf,Gnome,Human,Skyborne"
+				]
+			},
+			"note": "Plagued Lands (2118): a Rabid Thistle Bear counts only once Tharnariun's Hope (7586, the quest's source item) traps it (Placing Bear Trap, 9437) and it is led back; the step said so only in its tip, and 14 of 122 recorded players abandoned the quest. The trap's use is a row of its own.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): ; 122 people took 2118, 14 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 7586's use is spell 9437 (Placing Bear Trap)"
+				}
+			]
+		},
+		{
+			"id": "plagued-lands-tharnariuns-hope-used-nightelf",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2118,
+				"goal": "complete",
+				"guide": "forever/alliance/nightelf/02-darkshore"
+			},
+			"rows": {
+				"before": [
+					"use 7586 quest 2118.1 @38.21,52.59 map 1439 era"
+				]
+			},
+			"note": "Plagued Lands (2118): as the record above, in the Night Elf start's Darkshore.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): ; 122 people took 2118, 14 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 7586's use is spell 9437 (Placing Bear Trap)"
+				}
+			]
+		},
+		{
+			"id": "masters-glaive-phial-of-scrying-used",
+			"faction": "Alliance",
+			"at": {
+				"quest": 944,
+				"goal": "complete",
+				"guide": "forever/alliance/03-darkshore-return"
+			},
+			"rows": {
+				"before": [
+					"use 5251 quest 944.1 @38.48,86.45 map 1439 era"
+				]
+			},
+			"note": "The Master's Glaive (944): the quest is done by using the Phial of Scrying (5251, its source item) at the bottom of the crater, which makes the Scrying Bowl (Create Scrying Bowl, 5809) it is handed in to; the step said so only in its tip, and 9 of 77 recorded players abandoned the quest. The phial's use is a row of its own.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): ; 77 people took 944, 9 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 5251's use is spell 5809 (Create Scrying Bowl)"
+				}
+			]
+		},
+		{
+			"id": "elemental-bracers-divining-scroll-used",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1016,
+				"goal": "objective",
+				"objective": 1
+			},
+			"rows": {
+				"before": [
+					"use 5456 quest 1016.1 @49.6,71.3"
+				]
+			},
+			"note": "Elemental Bracers (1016): the Divined Scroll (5455) is made by using the Divining Scroll (5456, the quest's source item) with five Intact Elemental Bracers in the bags (Divining Scroll Spell, 6310); the step said so only in a goal's note, and 9 of 87 recorded players abandoned the quest. The scroll's use is a row before the count, in Ashenvale and in the Wetlands guide's Mystral Lake step.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 1016.1 ticked within 3 s of a cast of 6310 75 times of 76, for 76 people; 87 people took 1016, 9 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect, SpellEffect; 1.60.1.70532): item 5456's use is spell 6310 (Divining Scroll Spell), which creates item 5455"
+				}
+			]
+		},
+		{
+			"id": "testing-the-wells-molsen-kit-used",
+			"faction": "Alliance",
+			"at": {
+				"quest": 92742,
+				"goal": "objective",
+				"objective": 2,
+				"guide": "forever/alliance/02-westfall"
+			},
+			"rows": {
+				"before": [
+					"use 254545 quest 92742.2 @46.1,38.2"
+				]
+			},
+			"note": "Testing the Wells (92742): each water sample is taken by using the Well Water Sample Kit (254545, the quest's source item) at the well (Take Water Sample, 1258773); the steps named it only in a goal's note. The kit's use is a row before each sample, here Molsen Farm's.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 92742.1 ticked within 3 s of a cast of 1258773 157 times of 164, for 121 people; 92742.2 ticked within 3 s of a cast of 1258773 156 times of 166, for 123 people; 140 people took 92742, 8 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 254545's use is spell 1258773 (Take Water Sample)"
+				}
+			]
+		},
+		{
+			"id": "testing-the-wells-jansen-kit-used",
+			"faction": "Alliance",
+			"at": {
+				"quest": 92742,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/02-westfall"
+			},
+			"rows": {
+				"before": [
+					"use 254545 quest 92742.1 @56.6,18.6"
+				]
+			},
+			"note": "Testing the Wells (92742): as the record above, for the Jansen Stead's well.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 92742.1 ticked within 3 s of a cast of 1258773 157 times of 164, for 121 people; 92742.2 ticked within 3 s of a cast of 1258773 156 times of 166, for 123 people; 140 people took 92742, 8 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 254545's use is spell 1258773 (Take Water Sample)"
+				}
+			]
+		},
+		{
+			"id": "angry-scytheclaws-feather-blue-nest",
+			"faction": "Horde",
+			"at": {
+				"quest": 905,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/02-the-barrens"
+			},
+			"rows": {
+				"before": [
+					"collect 5165 x3",
+					"use 5165 quest 905.1 @52.6,46.1 map 1413"
+				]
+			},
+			"note": "The Angry Scytheclaws (905): each nest counts when a Sunscale Feather (5165, from the Sunscale raptors) is used at it (Raptor Feather, 5316); the step said so only in its tip. Three feathers are looted on a row of their own and one is used before each nest's line, here the blue nest.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 905.1 ticked within 3 s of a cast of 5316 105 times of 112, for 97 people; 905.2 ticked within 3 s of a cast of 5316 107 times of 112, for 97 people; 905.3 ticked within 3 s of a cast of 5316 105 times of 112, for 97 people; 111 people took 905, 8 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 5165's use is spell 5316 (Raptor Feather)"
+				}
+			]
+		},
+		{
+			"id": "angry-scytheclaws-feather-yellow-nest",
+			"faction": "Horde",
+			"at": {
+				"quest": 905,
+				"goal": "objective",
+				"objective": 2,
+				"guide": "forever/horde/02-the-barrens"
+			},
+			"rows": {
+				"before": [
+					"use 5165 quest 905.2 @52.0,46.5 map 1413"
+				]
+			},
+			"note": "The Angry Scytheclaws (905): as the record above, for the yellow nest.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 905.1 ticked within 3 s of a cast of 5316 105 times of 112, for 97 people; 905.2 ticked within 3 s of a cast of 5316 107 times of 112, for 97 people; 905.3 ticked within 3 s of a cast of 5316 105 times of 112, for 97 people; 111 people took 905, 8 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 5165's use is spell 5316 (Raptor Feather)"
+				}
+			]
+		},
+		{
+			"id": "angry-scytheclaws-feather-red-nest",
+			"faction": "Horde",
+			"at": {
+				"quest": 905,
+				"goal": "objective",
+				"objective": 3,
+				"guide": "forever/horde/02-the-barrens"
+			},
+			"rows": {
+				"before": [
+					"use 5165 quest 905.3 @52.5,46.6 map 1413"
+				]
+			},
+			"note": "The Angry Scytheclaws (905): as the record above, for the red nest.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 905.1 ticked within 3 s of a cast of 5316 105 times of 112, for 97 people; 905.2 ticked within 3 s of a cast of 5316 107 times of 112, for 97 people; 905.3 ticked within 3 s of a cast of 5316 105 times of 112, for 97 people; 111 people took 905, 8 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 5165's use is spell 5316 (Raptor Feather)"
+				}
+			]
+		},
+		{
+			"id": "stagnant-oasis-dried-seeds-used",
+			"faction": "Horde",
+			"at": {
+				"quest": 877,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/02-the-barrens"
+			},
+			"rows": {
+				"before": [
+					"use 5068 quest 877.1 @55.6,42.8"
+				]
+			},
+			"note": "The Stagnant Oasis (877): the seeds are tested by using the Dried Seeds (5068, the quest's source item) at the Bubbling Fissure (Plant Seeds, 5206); clicking the fissure does not count, and the step had only the click and a tip. The seeds' use is a row before it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 877.1 ticked within 3 s of a cast of 5206 143 times of 163, for 131 people; 136 people took 877, 5 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 5068's use is spell 5206 (Plant Seeds)"
+				}
+			]
+		},
+		{
+			"id": "curing-the-sick-salve-used-barrens",
+			"faction": "Horde",
+			"at": {
+				"quest": 6129,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/02-the-barrens"
+			},
+			"rows": {
+				"before": [
+					"use 15826 quest 6129.1 @56.9,39.0 map 1413 only Tauren,Skyborne,Druid"
+				]
+			},
+			"note": "Curing the Sick (6129): a Sickly Gazelle counts when the Curative Animal Salve (15826, the quest's source item) is used on it (Apply Salve, 19512); the step said so only in the kill line's note. The salve's use is a row before it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 6129.1 ticked within 3 s of a cast of 19512 160 times of 190, for 19 people; 20 people took 6129, 1 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 15826's use is spell 19512 (Apply Salve)"
+				}
+			]
+		},
+		{
+			"id": "dwarven-digging-picks-broken-at-the-forge",
+			"faction": "Horde",
+			"at": {
+				"quest": 746,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/tauren/01-mulgore"
+			},
+			"rows": {
+				"before": [
+					"collect 4702 x5",
+					"use 4702 quest 746.1 @33.1,54.8"
+				]
+			},
+			"note": "Dwarven Digging (746): the Broken Tools are made by using each Prospector's Pick (4702), from the Bael'dun dwarves, beside a forge (Break Tool, 4954); the step said so only in its tip. The picks are looted and used on rows of their own before the count, at the Bael'dun forge.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 746.1 ticked within 3 s of a cast of 4954 323 times of 181, for 33 people; 51 people took 746, 3 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect, SpellEffect; 1.60.1.70532): item 4702's use is spell 4954 (Break Tool), which creates item 4703"
+				},
+				{
+					"kind": "client",
+					"ref": "forever-db object.jsonl: Forge (17190), Mulgore 33.1,54.8"
+				}
+			]
+		},
+		{
+			"id": "new-life-gaea-seeds-used",
+			"faction": "Horde",
+			"at": {
+				"quest": 6381,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/04-the-barrens"
+			},
+			"rows": {
+				"before": [
+					"use 16208 quest 6381.1 @35.2,63.7 map 1442"
+				]
+			},
+			"note": "New Life (6381): a Gaea seed is planted by using the Enchanted Gaea Seeds (16208, the quest's source item) at a Gaea Dirt Mound (Enchanted Gaea Seed, 20269); the along step had the mounds' click and the use only in its tip. The seeds' use is a row before it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 6381.1 ticked within 3 s of a cast of 20269 792 times of 947, for 95 people; 94 people took 6381, 4 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 16208's use is spell 20269 (Enchanted Gaea Seed)"
+				}
+			]
+		},
+		{
+			"id": "bashal-aran-seal-destroyed",
+			"faction": "Alliance",
+			"at": {
+				"quest": 957,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/03-darkshore"
+			},
+			"rows": {
+				"before": [
+					"use 5338 quest 957.1 @42.4,61.8 map 1439 only Dwarf,Gnome,Human,Skyborne"
+				]
+			},
+			"note": "Bashal'Aran (957): the seal is destroyed by using the Ancient Moonstone Seal (5338) at the Ancient Flame (Incineration, 6234); the step had only the flame's click. The seal's use is a row before it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 957.1 ticked within 3 s of a cast of 6234 92 times of 111, for 99 people; 102 people took 957, 1 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 5338's use is spell 6234 (Incineration)"
+				}
+			]
+		},
+		{
+			"id": "bashal-aran-seal-destroyed-nightelf",
+			"faction": "Alliance",
+			"at": {
+				"quest": 957,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/nightelf/02-darkshore"
+			},
+			"rows": {
+				"before": [
+					"use 5338 quest 957.1 @42.4,61.8 map 1439"
+				]
+			},
+			"note": "Bashal'Aran (957): as the record above, in the Night Elf start's Darkshore.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 957.1 ticked within 3 s of a cast of 6234 92 times of 111, for 99 people; 102 people took 957, 1 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 5338's use is spell 6234 (Incineration)"
+				}
+			]
+		},
+		{
+			"id": "toxins-toxin-extractor-used",
+			"faction": "Horde",
+			"at": {
+				"quest": 96241,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/07-ashenvale"
+			},
+			"rows": {
+				"before": [
+					"use 273015 quest 96241.1 @33.6,12.8 map 1412 live"
+				]
+			},
+			"note": "Talkin' bout Toxins, Mon (96241): a Gloomrise Toxin Sample is taken by using Mazu'kon's Toxin Extractor (273015, the quest's source item) on a Gnawed Corpse (Gather Toxin, 1291549); the along step said so only in its tip. The extractor's use is a row before the count.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 96241.1 ticked within 3 s of a cast of 1291549 371 times of 593, for 116 people; 121 people took 96241, 6 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 273015's use is spell 1291549 (Gather Toxin)"
+				}
+			]
+		},
+		{
+			"id": "two-halves-become-one-charms-joined",
+			"faction": "Horde",
+			"at": {
+				"quest": 5051,
+				"goal": "complete",
+				"guide": "forever/horde/50-60/04-azshara"
+			},
+			"rows": {
+				"before": [
+					"use 12722 quest 5051.1 @38.4,54.0 map 1422"
+				]
+			},
+			"note": "Two Halves Become One (5051): the Good Luck Charm (12723) is made by using the Good Luck Other-Half-Charm (12722) with the half Janice gives in the bags (Combining Charms, 16781); the step said so only in its tip. The joining is a row of its own.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 5051.1 ticked within 3 s of a cast of 16781 17 times of 18, for 18 people; 30 people took 5051, 4 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect, SpellEffect; 1.60.1.70532): item 12722's use is spell 16781 (Combining Charms), which creates item 12723"
+				}
+			]
+		},
+		{
+			"id": "pamelas-doll-joined-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5149,
+				"goal": "complete",
+				"guide": "forever/alliance/50-60/04-western-plaguelands"
+			},
+			"rows": {
+				"before": [
+					"use 12886 quest 5149.1 @36.4,90.8 optional"
+				]
+			},
+			"note": "Pamela's Doll (5149): the doll is made by using one of its three pieces with the other two in the bags (Create Pamela's Doll, 17133); the step said so only in its tip. The joining is a row of its own.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 5149.1 ticked within 3 s of a cast of 17133 30 times of 30, for 30 people; 31 people took 5149, 0 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect, SpellEffect; 1.60.1.70532): item 12886's use is spell 17133 (Create Pamela's Doll), which creates item 12885"
+				}
+			]
+		},
+		{
+			"id": "pamelas-doll-joined-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 5149,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"rows": {
+				"before": [
+					"use 12886 quest 5149.1 @38.5,91.4 map 1423"
+				]
+			},
+			"note": "Pamela's Doll (5149): as the record above, in the Horde guide.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 5149.1 ticked within 3 s of a cast of 17133 30 times of 30, for 30 people; 31 people took 5149, 0 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect, SpellEffect; 1.60.1.70532): item 12886's use is spell 17133 (Create Pamela's Doll), which creates item 12885"
+				}
+			]
+		},
+		{
+			"id": "trial-of-the-sea-lion-pendants-joined-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 272,
+				"goal": "objective",
+				"objective": 1
+			},
+			"rows": {
+				"before": [
+					"use 15883 quest 272.1 @36.0,41.4"
+				]
+			},
+			"note": "Trial of the Sea Lion (272): the Pendant of the Sea Lion is made by using the Half Pendant of Aquatic Agility (15883) at the Shrine of Remulos with the other half in the bags (Combine Pendants, 19720); the steps said so only in their tips. The joining is a row of its own, in Darkshore's and the Wetlands guide's steps.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 272.1 ticked within 3 s of a cast of 19720 30 times of 30, for 30 people; 31 people took 272, 0 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 15883's use is spell 19720 (Combine Pendants)"
+				}
+			]
+		},
+		{
+			"id": "trial-of-the-sea-lion-pendants-joined-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 30,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/06-hillsbrad-foothills"
+			},
+			"rows": {
+				"before": [
+					"use 15883 quest 30.1 @36.0,41.4"
+				]
+			},
+			"note": "Trial of the Sea Lion (30): as the Alliance record (272), for the Horde quest.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 30.1 ticked within 3 s of a cast of 19720 23 times of 23, for 23 people; 22 people took 30, 1 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 15883's use is spell 19720 (Combine Pendants)"
+				}
+			]
 		},
 		{
 			"id": "3574-stv-fever-group-horde-first-visit",

@@ -386,6 +386,7 @@ step Prowlers, Serena and Echeyakee
   turnin 903
   accept 881                          -- Echeyakee, +150
   turnin 876
+  use 10327 quest 881.1 @55.8,17.1 map 1413
   collect 5100 quest 881.1            -- Echeyakee's Hide
   turnin 881                          -- Sergra Darkthorn
 

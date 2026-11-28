@@ -134,11 +134,9 @@ return {
 	["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}.\nCareful: The escort has two ambushes. Three level 47 scorpids attack near the start. Near the end, by the beach, three Wastewander humans attack: one mage and two assassins, around level 44."] = "僅限持有定位器時：OOX-17/TN在謝申克蟲巢的東南方。護送它向北前往{area:977}；獎勵在{area:35}的奧格索普那裡等著。\n小心：護送途中有兩次伏擊。剛開始不久會有三隻47級的蠍子攻擊。接近終點的海灘旁，會有三名廢土人類攻擊：一名法師和兩名刺客，約44級。",
 
 	-- Step 29: Tanaris Field Sampling
-	-- {area:976} Gadgetzan · {item:8524} Model 4711-FTZ Power Source · {quest:654} Tanaris Field Sampling · {npc:7407} Chief Engineer Bilgewhizzle
-	-- plural, as words: Blisterpaw Hyenas = {npc:5426} Blisterpaw Hyena · Glasshide Basilisks = {npc:5419} Glasshide Basilisk · Scorpid Hunters = {npc:5422} Scorpid Hunter
-	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each. No power source in your bags, or its two hours ran out? Abandon {quest:654} if it is in your log, then take Another Power Source? from {npc:7407}: he gives a new one for ten more Wastewander Water Pouches, from the Wastewander camps east of {area:976}."] = "向北回去，就在{area:976}南邊，現在使用{item:8524}：兩小時計時開始。水皰爪土狼（{npc:5426}）、琉璃皮蜥蜴（{npc:5419}）和蠍子獵手（{npc:5422}）共享這裡的沙丘。每種都可能掉落未經測試的樣本：使用它，它要麼成為合格的樣本，要麼損失掉。一直殺到每種各有八個。背包裡沒有能量源，或者它的兩小時用完了？如果{quest:654}在你的任務日誌中就放棄它，然後向{npc:7407}接取另一個能量源？：他會用十個從{area:976}以東的廢土營地得來的廢土水袋換一個新的。",
-	-- {item:8524} Model 4711-FTZ Power Source
-	["Use the {item:8524}"] = "使用{item:8524}",
+	["A sample can fail: keep going until you have eight of each."] = "",
+	-- {item:8524} Model 4711-FTZ Power Source · {npc:7407} Chief Engineer Bilgewhizzle · {area:976} Gadgetzan · {quest:654} Tanaris Field Sampling
+	["Use the {item:8524}: it starts the quest and its two-hour timer. No power source, or the timer ran out? Another Power Source? from {npc:7407} trades a new one for ten Wastewander Water Pouches, from the Wastewander camps east of {area:976}, once {quest:654} is out of your log."] = "",
 
 	-- Step 30: Gadgetzan
 	-- {npc:5204} Apothecary Zinge · {zone:1458} Undercity
@@ -225,6 +223,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "回到北邊，就在{area:976}南方，現在使用{item:8524}：兩小時的計時開始。水泡土狼、玻璃皮蜥蜴和蠍子獵手共同分布在這裡的沙丘上。每種都可能掉落未測試的樣本：使用它，它要麼通過成為合格的樣本，要麼就會損失。持續擊殺直到每種各有八個。",
+	-- ["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each. No power source in your bags, or its two hours ran out? Abandon {quest:654} if it is in your log, then take Another Power Source? from {npc:7407}: he gives a new one for ten more Wastewander Water Pouches, from the Wastewander camps east of {area:976}."] = "向北回去，就在{area:976}南邊，現在使用{item:8524}：兩小時計時開始。水皰爪土狼（{npc:5426}）、琉璃皮蜥蜴（{npc:5419}）和蠍子獵手（{npc:5422}）共享這裡的沙丘。每種都可能掉落未經測試的樣本：使用它，它要麼成為合格的樣本，要麼損失掉。一直殺到每種各有八個。背包裡沒有能量源，或者它的兩小時用完了？如果{quest:654}在你的任務日誌中就放棄它，然後向{npc:7407}接取另一個能量源？：他會用十個從{area:976}以東的廢土營地得來的廢土水袋換一個新的。",
 	-- ["Boat to {area:35}"] = "搭船前往{area:35}",
 	-- ["Dark Iron Lookouts"] = "黑鐵哨兵",
 	-- ["Dig up the {quest:3161} ornaments around the {area:1938} and north of the {area:983}. Leave the ogres for now: {npc:12046} is 49 and the Brutes 46-48; the {area:983} comes at the end of 40-50/06, at about 52."] = "在{area:1938}周圍和{area:983}北邊挖出{quest:3161}飾品。先別管食人魔：{npc:12046}是49級，蠻兵是46-48級；{area:983}留到約52級、40-50/06結尾再處理。",
@@ -249,6 +248,7 @@ return {
 	-- ["The Steamsmiths' furnaces"] = "鍛造師的熔爐",
 	-- ["The boat to {area:35} docks at {area:392}'s pier, below the flight master's hill."] = "前往{area:35}的船停靠在{area:392}的碼頭，就在飛行管理員所在山丘的下方。",
 	-- ["The {object:142071} machine, in the middle of town: the egg is in southern {zone:1444}, around level 50"] = "鎮中央的{object:142071}機器：蛋在{zone:1444}南部，大約50級",
+	-- ["Use the {item:8524}"] = "使用{item:8524}",
 	-- ["Velarok Windblade"] = "Velarok Windblade",
 	-- ["Velarok stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "Velarok獨自站在{area:1446}南邊，大熔爐的邊緣。聽他說他的故事。",
 	-- ["West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave {quest:2864}'s Gnarled Thistleshrubs and Rootshapers for the {area:1938} ride into Un'Goro at about 51."] = "營地西邊的山谷滿是仙人掌生物；只有灌木露水收集者（47-48級）帶著露水腺體。{zone:1446}的大部分怪物都可能掉落OOX-17/TN定位器，但很稀有：看到就保留。\n小心：這一帶其他的灌木怪是48-50級，而且到處遊蕩，很容易多拉到怪：打山谷邊緣的露水收集者，{quest:2864}要的長瘤的灌木獸和塑根者留到約51級經由{area:1938}前往安戈洛時再處理。",
