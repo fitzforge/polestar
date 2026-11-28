@@ -268,13 +268,14 @@ function Nav.RegisterTravelData(d, replace)
 			ab = t.ab, ba = t.ba, waitA = t.waitA, waitB = t.waitB,
 		}
 	end
-	-- Walk-in portals, one way a -> b: { id, name, faction, a = end, b = end, seconds, item }; `item`: one the
-	-- player must carry for the portal to take them (the Goblin Transponder for the Transpolyporter, #2156).
+	-- Walk-in portals, one way a -> b: { id, name, faction, race, a = end, b = end, seconds, item }; `item`: one the
+	-- player must carry for the portal to take them (the Goblin Transponder for the Transpolyporter, #2156); `race`:
+	-- the one race (UnitRace's token) that may take it (Dalaran's Skyborne Portals).
 	for _, t in ipairs(d.portals or {}) do
 		local a, b = t.a, t.b
 		if type(a) == "table" and type(b) == "table" then
 			portals[#portals + 1] = {
-				id = t.id, kind = "portal", name = t.name, area = t.area, faction = t.faction or 3, seconds = t.seconds or 5, item = t.item, npc = t.npc,
+				id = t.id, kind = "portal", name = t.name, area = t.area, faction = t.faction or 3, race = t.race, seconds = t.seconds or 5, item = t.item, npc = t.npc,
 				a = withBoard(point(a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8] or "e", a[9]), a[10]),
 				b = withBoard(point(b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8] or "e", b[9]), b[10]),
 			}
@@ -428,7 +429,7 @@ end
 --     (a, b: the ends, at the ship's stop; end.board = { name, c, wx, wy, map, z }: where a ship
 --     lying off its pier is boarded, the dock the planner walks to; else end.z: the floor the
 --     walk to it ends on, when TravelData knows it)
---   portals = { { id, kind = "portal", name, faction, a, b, seconds, item }, ... }
+--   portals = { { id, kind = "portal", name, faction, race, a, b, seconds, item }, ... }
 function Nav.GetTravelData()
 	return { taxi = taxiList, taxiById = taxi, flights = flights, transports = transports, inns = inns, portals = portals, build = Travel.build }
 end
@@ -536,11 +537,11 @@ end
 
 -- `class`: a class's own flight node (Nighthaven: Bunthen Plainswind and Silva Fil'naveth fly Druids
 -- only, out of Moonglade) is that class's alone, and needs no flight path learnt.
-local function allowed(mask, faction, class)
-	if class then
+local function allowed(mask, faction, class, race)
+	if class or race then
 		local C = ns.Compat
 		local info = C and C.GetPlayerInfo and C.GetPlayerInfo()
-		if not (info and info.class == class) then return false end
+		if not info or (class and info.class ~= class) or (race and info.race ~= race) then return false end
 	end
 	return mask == 3 or (faction ~= 0 and mask == faction)
 end
@@ -941,7 +942,7 @@ local function planBody(p, S)
 	end
 	-- Walk-in portals: a ride one way, from a to b.
 	for _, t in ipairs(walkOnly and {} or portals) do
-		if allowed(t.faction, faction) and not (t.item and not (p.items and p.items[t.item])) and not (skip and skip.transports[t]) then
+		if allowed(t.faction, faction, nil, t.race) and not (t.item and not (p.items and p.items[t.item])) and not (skip and skip.transports[t]) then
 			local va = add(DOCK, t.a.c, t.a.wx, t.a.wy, t, t.a.map, t.a)
 			local vb = add(DOCK, t.b.c, t.b.wx, t.b.wy, t, t.b.map, t.b)
 			rideTo[va], rideCost[va] = vb, t.seconds

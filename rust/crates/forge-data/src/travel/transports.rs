@@ -380,7 +380,7 @@ fn same_frame(a: &Frame, b: &Frame) -> bool {
 	a.c == b.c && (a.left - b.left).abs() < 0.01 && (a.right - b.right).abs() < 0.01 && (a.top - b.top).abs() < 0.01 && (a.bottom - b.bottom).abs() < 0.01
 }
 
-fn zone_frame(frames: &Frames, live: &LiveFrames, zone: i64) -> Option<(Frame, &'static str)> {
+pub fn zone_frame(frames: &Frames, live: &LiveFrames, zone: i64) -> Option<(Frame, &'static str)> {
 	let era = frames.frame(zone);
 	if let Some(l) = live.get(&zone) {
 		if era.is_none_or(|e| !same_frame(&e, l)) {

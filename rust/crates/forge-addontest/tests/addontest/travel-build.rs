@@ -531,4 +531,68 @@ fn from_lorthunas_terrace_to_elaadrin_in_valanaar_the_route_takes_the_portal_dow
 	assert!(portals.contains(&json!("portal-rohashi-spires")), "the shrine's portal up is known too ({portals:?})");
 }
 
+// Dalaran's Skyborne Portals (reported on CurseForge: a High Order Skyborne in Dalaran sent to Stormwind was told to run
+// to Southshore and on). The Skyborne Portal to Stormwind (Forever's world DB gameobject 631299, Alterac Mountains
+// 12.04,56.21) sets a player down in the Wizard's Sanctum's chamber (49.87,86.67 on the live map; 52 recorded uses by 35
+// High Order Skyborne, none by any other race), and the one in the chamber (654168) leads back. Only a High Order
+// Skyborne (Alliance, race Skyborne) is sent through them. Alterac Mountains on its Era frame, Stormwind City on its
+// live frame (data/forever/map-frames.json), nothing bound, no flights known.
+fn skyborne_route(faction: &str, race: &str, from: (u32, f64, f64, &str), to: (u32, f64, f64, &str)) -> Vec<String> {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_nav.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Nav/Nav.xml"])],
+		login: true,
+		script: format!(
+			r#"
+			local nav = stub.nav
+			nav.useGameGround()
+			nav.era[1416] = {{ c = 0, top = 1500, bottom = -366.667, left = 783.333, right = -2016.667, name = "Alterac Mountains" }}
+			nav.maps[1453] = {{ c = 0, top = -7995.83, bottom = -9154.17, left = 1722.92, right = -14.584, name = "Stormwind City" }}
+			nav.faction, nav.race = "{faction}", "{race}"
+			local _, wx, wy = nav.Compat.MapToWorld({fm}, {fx}, {fy}, "{ff}")
+			nav.place(wx, wy, 0)
+			Polestar.Nav.SetTarget({tm}, {tx}, {ty}, "There", "{tf}")
+			local legs, ci = Polestar.Nav.GetRoute()
+			local out = {{ "none" }}
+			for i = ci or 1, legs and #legs or 0 do
+				if legs[i].transport then out[#out + 1] = legs[i].transport.id end
+			end
+			emit(out)"#,
+			fm = from.0,
+			fx = from.1,
+			fy = from.2,
+			ff = from.3,
+			tm = to.0,
+			tx = to.1,
+			ty = to.2,
+			tf = to.3,
+		),
+		..Default::default()
+	})
+	.remove(0);
+	out.as_array().unwrap().iter().filter_map(|v| v.as_str()).skip(1).map(str::to_string).collect()
+}
+
+#[test]
+fn from_dalaran_a_high_order_skyborne_bound_for_stormwind_takes_the_skyborne_portal_nobody_else_is_sent_through_it() {
+	let camp = (1416, 12.3, 55.6, "e");
+	let inn = (1453, 60.39, 75.27, "l");
+	assert_eq!(skyborne_route("Alliance", "Skyborne", camp, inn), ["portal-skyborne-stormwind", "portal-sanctum-tower"], "through the portal, then up out of the chamber");
+	for (faction, race) in [("Alliance", "Human"), ("Horde", "Skyborne"), ("Horde", "Orc")] {
+		let route = skyborne_route(faction, race, camp, inn);
+		assert!(!route.iter().any(|id| id.starts_with("portal-skyborne")), "{faction} {race}: {route:?}");
+	}
+}
+
+#[test]
+fn from_stormwind_a_high_order_skyborne_bound_for_dalaran_takes_the_chamber_portals_and_the_skyborne_portal_back() {
+	let inn = (1453, 60.39, 75.27, "l");
+	let dalaran = (1416, 12.9, 52.01, "e");
+	assert_eq!(skyborne_route("Alliance", "Skyborne", inn, dalaran), ["portal-sanctum-chamber", "portal-skyborne-dalaran"]);
+	for (faction, race) in [("Alliance", "Human"), ("Horde", "Skyborne"), ("Horde", "Orc")] {
+		let route = skyborne_route(faction, race, inn, dalaran);
+		assert!(!route.iter().any(|id| id.starts_with("portal-skyborne")), "{faction} {race}: {route:?}");
+	}
+}
+
 // KEPT IN JS: a flight master in a city uses its named city, not the surrounding region (#347) | flight masters, flights, transports and inns come from the client tables and spawn data | each inn gets the AreaTable area of its bind location in its own zone, never a Forever copy of the town | learned walking paths follow recorded breadcrumbs, mark zone borders and break at flights | works with no recordings at all | the CLI writes byte-identical travel.json, TravelData.lua and FlightPaths.lua on every run | with --lua and no --flight-lua the CLI writes FlightPaths.lua beside it, never into the addon | generated TravelData.lua loads under Lua 5.1 and the addon planner routes with it | every committed inn's area is named, in English, like one of its bind locations | a Forever ship calling at three docks: one transport per dock pair, following the loop | a ship stop in the water 12 yd off a pier gets a board point on the deck; a stop on dry ground gets none | an end on dry ground gets the floor nearest its source's height: the entrance under a roof, not the roof | every boat end of the committed TravelData.lua is boarded on dry ground within 30 yd of its stop

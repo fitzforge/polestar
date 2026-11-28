@@ -6357,7 +6357,12 @@ inn. Walk-in portals (TravelData `portals`: Darnassus <-> Rut'theran
 Village, area triggers; Zephras Isle's shrine portal up to the Rohashi
 Spires and the Portal to Valanaar back down, game objects whose teleport
 targets are server-side, so their landings come from players' recordings,
-#1674; 5 s each) are one-way links a -> b for the planner.
+#1674; 5 s each) are one-way links a -> b for the planner. A portal may be
+for one faction (`faction`, 1 Alliance, 2 Horde) and one race (`race`, as
+UnitRace names it): Dalaran's Skyborne Portal to Stormwind, which sets a
+player down in the Wizard's Sanctum's chamber, and the one in the chamber
+back (#4382; 6.5 s, the click and the loading screen), are for High Order
+Skyborne only, the one race recorded using them.
 
 `travel build` makes this data (`tools/lib/travel/timetable.js`, after
 Shortest Path Forever's generators). Boats and zeppelins: the CMaNGOS

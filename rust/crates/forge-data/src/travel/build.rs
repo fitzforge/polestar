@@ -355,6 +355,8 @@ fn portal_v(p: &Portal) -> V {
 		("seconds", p.seconds.into()),
 		("item", opt(p.item)),
 		("npc", opt(p.npc.as_deref())),
+		("faction", opt(p.faction)),
+		("race", opt(p.race.as_deref())),
 		("source", p.source.as_str().into()),
 	])
 }
@@ -580,7 +582,7 @@ fn emit_lua(t: &Emit) -> Result<String, String> {
 		lines.push(format!("\t\t{},", lua_val(&v)?));
 	}
 	lines.push("\t},".into());
-	lines.push("\t-- walk-in portals, one way a -> b: id, destination name and area, ends as transports (with z), seconds (the loading screen), item (one the player must carry, else none), npc (the NPC who teleports the player who asks, else none)".into());
+	lines.push("\t-- walk-in portals, one way a -> b: id, destination name and area, ends as transports (with z), seconds (the loading screen), item (one the player must carry, else none), npc (the NPC who teleports the player who asks, else none), faction (1 Alliance, 2 Horde, else both), race (the one race that may take it, else any)".into());
 	lines.push("\tportals = {".into());
 	for p in &t.transit.portals {
 		let v = obj(vec![
@@ -592,6 +594,8 @@ fn emit_lua(t: &Emit) -> Result<String, String> {
 			("seconds", p.seconds.into()),
 			("item", opt(p.item)),
 			("npc", opt(p.npc.as_deref())),
+			("faction", opt(p.faction)),
+			("race", opt(p.race.as_deref())),
 		]);
 		lines.push(format!("\t\t{},", lua_val(&v)?));
 	}
