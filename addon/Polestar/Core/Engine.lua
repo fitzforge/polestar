@@ -4421,19 +4421,35 @@ end
 -- The section heading over step i for the window: { title ("First Aid
 -- 1-40"), skill, skillLine, from, to, rank, state }; state "done" (the skill
 -- has passed it), "current" (the first section it has not) or "ahead"; nil
--- for a step under no section.
+-- for a step under no section. A profession guide's fork starts its sections
+-- again for each way (Blacksmithing 270-290 and 290-300 per way of the last
+-- plans): the sections of the ways before section i's own, which start at or
+-- above its way's first section, are another way's and never make it "ahead".
 function Engine.GetSection(i)
 	local sec, n = Own.sectionOf(i)
 	if not sec then return nil end
 	local rank = skillRank(sec) or 0
 	local state = "ahead"
+	local same = function(o) return (o.skillLine or o.skill) == (sec.skillLine or sec.skill) end
 	if rank >= sec.to then
 		state = "done"
 	else
 		state = "current"
+		-- The first section of section n's way: the skill's sections rise in order back to it, until one ends
+		-- above where the next one starts (a way before it).
+		local start, last = n, sec
+		for m = n - 1, 1, -1 do
+			local o = guide.sections[m]
+			if same(o) then
+				if o.to > last.from then break end
+				start, last = m, o
+			end
+		end
+		local wayFrom = guide.sections[start].from
 		for m = 1, n - 1 do
 			local o = guide.sections[m]
-			if (o.skillLine or o.skill) == (sec.skillLine or sec.skill) and rank < o.to then state = "ahead" end
+			local sibling = m < start and o.from >= wayFrom
+			if same(o) and rank < o.to and not sibling then state = "ahead" end
 		end
 	end
 	local name = skillName(sec) or sec.skill or ""
