@@ -178,7 +178,7 @@ step Get Wool Cloth
   collect 2592 x69 nearest gather levels 15-30
   auction 2592 x69
 
-step Bolt of Linen Cloth to 15
+step Bolt of Linen Cloth to 15 · Professions tab (K by default)
   tip Bolt of Linen Cloth is orange at 1 (yellow 25, green 37, grey 50): about 14 crafts to 15, a point every craft. Each takes 2 Linen Cloth. Keep the bolts: the Linen Belts from 15 take one each.
   craft 2963 until 15
 
@@ -186,7 +186,7 @@ step Tailoring recipes at 15
   tip Back to a Tailoring trainer: Linen Belt (from 15, 50c).
   learn 8776
 
-step Linen Belt to 55
+step Linen Belt to 55 · Professions tab (K by default)
   tip Linen Belt is orange at 15 (yellow 50, green 67, grey 85): about 41 crafts to 55, up to 42 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Bolt of Linen Cloth and 1 Coarse Thread. Make the 27 Bolt of Linen Cloth first: it gives points too while not grey. Use the 14 Bolt of Linen Cloth you made earlier; the counts above leave them out. Each belt takes one bolt; the belts sell to vendors.
   craft 2963 x27
   craft 8776 until 55
@@ -197,7 +197,7 @@ step Tailoring recipes at 55
   learn 1263425 only Alliance
   learn 1229504 only Horde
 
-step Bolt of Woolen Cloth to 75
+step Bolt of Woolen Cloth to 75 · Professions tab (K by default)
   tip Bolt of Woolen Cloth is orange at 55 (yellow 70, green 77, grey 85): about 21 crafts to 75, up to 23 for 9 players in 10 (the gathered materials above count that many). Each takes 3 Wool Cloth. Keep the bolts: the Woolen Capes from 75 take one each, so these points cost no extra Wool Cloth.
   craft 2964 until 75
   skill Tailoring 75
@@ -220,7 +220,7 @@ step Get Strange Dust
   collect 10940 x52 anywhere gather Enchanting 1 levels 1-20
   auction 10940 x52
 
-step Enchant Bracer - Inferior Stamina to 25
+step Enchant Bracer - Inferior Stamina to 25 · Professions tab (K by default)
   tip Enchant Bracer - Inferior Stamina is orange at 1 (yellow 20, green 22, grey 25): about 31 crafts to 25, up to 38 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Mote of Magic. One Mote of Magic (10c) a craft; grey at 25 on Forever. Make the Runed Copper Rod first: the recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one.
   craft 7421 x1 -- a tool: keep it in your bags
   craft 7418 until 25
@@ -230,7 +230,7 @@ step Enchanting recipes at 25
   learn 7420
   learn 1230643
 
-step Enchant Chest - Inferior Stamina to 75
+step Enchant Chest - Inferior Stamina to 75 · Professions tab (K by default)
   tip Enchant Chest - Inferior Stamina is orange at 25 (yellow 70, green 90, grey 110): about 51 crafts to 75, up to 52 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Strange Dust. One Strange Dust a craft: the dust most level 5-20 greens break into, armour above all. Lesser Magic Essence (from weapons) does the same job through Bracer - Minor Deflect or Chest - Minor Absorption if you have more of it. Enchant any item for that slot in your bags, even a grey one.
   craft 7420 until 75
   skill Enchanting 75
@@ -261,7 +261,7 @@ step Get Silk Cloth
   collect 4306 x424 nearest gather levels 25-45
   auction 4306 x424
 
-step Woolen Cape to 100
+step Woolen Cape to 100 · Professions tab (K by default)
   tip Woolen Cape is orange at 75 (yellow 80, green 97, grey 115): about 34 crafts to 100, up to 40 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Bolt of Woolen Cloth and 1 Fine Thread. Make the 13 Bolt of Woolen Cloth first: it gives points too while not grey. Use the 21 Bolt of Woolen Cloth you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. If you got here without learning Bolt of Woolen Cloth, learn it now: an earlier step teaches it.
   learn 2964
   craft 2964 x13
@@ -271,7 +271,7 @@ step Tailoring recipes at 100
   tip Back to a Tailoring trainer: Bolt of Silk Cloth (from 100, 5s).
   learn 3839
 
-step Bolt of Silk Cloth to 120
+step Bolt of Silk Cloth to 120 · Professions tab (K by default)
   tip Bolt of Silk Cloth is orange at 100 (yellow 110, green 115, grey 120): about 40 crafts to 120, up to 55 for 9 players in 10 (the gathered materials above count that many). Each takes 4 Silk Cloth. Silk Cloth drops from humanoids of level 25-45. Keep every bolt: the hoods and shirts to 150 take them, so these points cost no extra Silk Cloth.
   craft 3839 until 120
 
@@ -279,7 +279,7 @@ step Tailoring recipes at 120
   tip Back to a Tailoring trainer: Azure Silk Hood (from 120, 6s).
   learn 8760
 
-step Azure Silk Hood to 135
+step Azure Silk Hood to 135 · Professions tab (K by default)
   tip Azure Silk Hood is orange at 120 (yellow 130, green 135, grey 140): about 17 crafts to 135, up to 19 for 9 players in 10 (the gathered materials above count that many). Each takes 2 Bolt of Silk Cloth, 2 Blue Dye and 1 Fine Thread. Use the 34 Bolt of Silk Cloth you made earlier; the counts above leave them out. Two silk bolts and two Blue Dye a hood: orange to 130, a point every craft.
   craft 8760 until 135
 
@@ -287,7 +287,7 @@ step Tailoring recipes at 135
   tip Back to a Tailoring trainer: Formal White Shirt (from 135).
   learn 3871
 
-step Formal White Shirt to 150
+step Formal White Shirt to 150 · Professions tab (K by default)
   tip Formal White Shirt is orange at 135 (yellow 145, green 150, grey 155): about 17 crafts to 150, up to 19 for 9 players in 10 (the gathered materials above count that many). Each takes 3 Bolt of Silk Cloth, 2 Bleach and 1 Fine Thread. Make the 45 Bolt of Silk Cloth first. Use the 6 Bolt of Silk Cloth you made earlier; the counts above leave them out. Bleach from tailoring and trade supplies vendors. Tailoring 150 is a Legacy System milestone.
   craft 3839 x45
   craft 3871 until 150
@@ -330,12 +330,12 @@ step Enchanting 75-150: Auction House
   tip What 75-150 takes that the Auction House sells and no step above farms: 4 Lesser Magic Essence. The counts drop by what your bags, bank and mail hold.
   auction 10938 x4 only Alliance
 
-step Enchant Chest - Inferior Stamina to 90
+step Enchant Chest - Inferior Stamina to 90 · Professions tab (K by default)
   tip Enchant Chest - Inferior Stamina is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90, up to 27 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Strange Dust. One Strange Dust a craft: the dust most level 5-20 greens break into, armour above all. Lesser Magic Essence (from weapons) does the same job through Bracer - Minor Deflect or Chest - Minor Absorption if you have more of it. Enchant any item for that slot in your bags, even a grey one. If you got here without learning Enchant Chest - Inferior Stamina, learn it now: an earlier step teaches it.
   learn 7420
   craft 7420 until 90
 
-step Enchant Cloak - Minor Protection to 130
+step Enchant Cloak - Minor Protection to 130 · Professions tab (K by default)
   tip Enchant Cloak - Minor Protection is orange at 90 (yellow 110, green 130, grey 150): about 48 crafts to 130, up to 53 for 9 players in 10 (the gathered materials above count that many). Each takes 2 Strange Dust. Two Strange Dust a craft (the trainer teaches it from 70 for 2s); keep disenchanting the greens of the 10-20 zones. Enchant any item for that slot in your bags, even a grey one.
   craft 7771 until 130
 
@@ -344,7 +344,7 @@ step Enchanting recipes at 130
   learn 7795
   learn 13501
 
-step Enchant Bracer - Lesser Stamina to 150
+step Enchant Bracer - Lesser Stamina to 150 · Professions tab (K by default)
   tip Enchant Bracer - Lesser Stamina is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 Soul Dust. One Soul Dust a craft (level 21-30 greens). Make the Runed Silver Rod first: the recipe needs it in your bags, so keep it there. Lesser Magic Essence (4 for 75-150): Alliance: Enchanting: disenchant green armour that requires level 1-10; or the Auction House. Enchant any item for that slot in your bags, even a grey one. Enchanting 150 is a Legacy System milestone.
   craft 7795 x1 -- a tool: keep it in your bags
   craft 13501 until 150
@@ -382,7 +382,7 @@ step Expert Tailoring
   learn 3865 npc 1346 only Alliance
   learn 3865 npc 4576 only Horde
 
-step Azure Silk Cloak to 170
+step Azure Silk Cloak to 170 · Professions tab (K by default)
   tip Azure Silk Cloak is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170, up to 25 for 9 players in 10 (the gathered materials above count that many). Each takes 3 Bolt of Silk Cloth, 2 Blue Dye and 2 Fine Thread. Make the 66 Bolt of Silk Cloth first. Its recipe is the one bought above; it is the cheapest way through these points in the data. If you got here without learning Bolt of Silk Cloth, learn it now: an earlier step teaches it.
   learn 8786 -- from the recipe in your bags
   learn 3839
@@ -394,7 +394,7 @@ step Tailoring recipes at 170
   learn 12048 npc 1346 only Alliance
   learn 12048 npc 4576 only Horde
 
-step Black Mageweave Vest to 200
+step Black Mageweave Vest to 200 · Professions tab (K by default)
   tip Black Mageweave Vest is orange at 170 (yellow 185, green 200, grey 215): about 36 crafts to 200, up to 40 for 9 players in 10 (the gathered materials above count that many). Each takes 2 Bolt of Mageweave and 3 Silken Thread. Make the 72 Bolt of Mageweave first. The trainer teaches it, and it is the cheapest way through these points in the data.
   craft 3865 x72
   craft 12048 until 200
@@ -405,7 +405,7 @@ step Tailoring recipes at 200
   learn 12072 npc 2399 only Horde map 1424
   train Tailoring Artisan optional
 
-step Black Mageweave Headband to 225
+step Black Mageweave Headband to 225 · Professions tab (K by default)
   tip Black Mageweave Headband is orange at 200 (yellow 205, green 220, grey 235): about 37 crafts to 225, up to 44 for 9 players in 10 (the gathered materials above count that many). Each takes 3 Bolt of Mageweave and 2 Heavy Silken Thread. Make the 111 Bolt of Mageweave first. The trainer teaches it, and it is the cheapest way through these points in the data. Tailoring 225 is a Legacy System milestone.
   craft 3865 x111
   craft 12072 until 225
@@ -476,7 +476,7 @@ step Expert Enchanting
   learn 13628 npc 11072 only Alliance
   learn 13628 npc 11074 only Horde
 
-step Enchant Bracer - Lesser Stamina to 160
+step Enchant Bracer - Lesser Stamina to 160 · Professions tab (K by default)
   tip Enchant Bracer - Lesser Stamina is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160, up to 12 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Soul Dust. One Soul Dust a craft (level 21-30 greens). Make the Runed Golden Rod now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one. If you got here without learning Enchant Bracer - Lesser Stamina, learn it now: an earlier step teaches it.
   learn 13501
   craft 13628 x1 -- a tool: keep it in your bags
@@ -487,7 +487,7 @@ step Enchanting recipes at 160
   learn 13637 npc 11072 only Alliance
   learn 13637 npc 11074 only Horde
 
-step Enchant Boots - Lesser Agility to 195
+step Enchant Boots - Lesser Agility to 195 · Professions tab (K by default)
   tip Enchant Boots - Lesser Agility is orange at 160 (yellow 180, green 200, grey 220): about 39 crafts to 195, up to 42 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Soul Dust. Soul Dust again. Enchant any item for that slot in your bags, even a grey one.
   craft 13637 until 195
 
@@ -496,7 +496,7 @@ step Enchanting recipes at 195
   learn 13663 npc 11072 only Alliance
   learn 13663 npc 11074 only Horde
 
-step Enchant Chest - Greater Intellect to 205
+step Enchant Chest - Greater Intellect to 205 · Professions tab (K by default)
   tip Enchant Chest - Greater Intellect is orange at 195 (yellow 205, green 225, grey 245): about 10 crafts to 205, a point every craft. Each takes 1 Lesser Mystic Essence. One Lesser Mystic Essence a craft (weapons of level 31-40 break into essences); orange to 205, a point every craft. Enchant any item for that slot in your bags, even a grey one.
   craft 13663 until 205
 
@@ -507,7 +507,7 @@ step Enchanting recipes at 205
   learn 13746 npc 11072 only Alliance
   learn 13746 npc 11074 only Horde
 
-step Enchant Cloak - Greater Defense to 225
+step Enchant Cloak - Greater Defense to 225 · Professions tab (K by default)
   tip Enchant Cloak - Greater Defense is orange at 205 (yellow 225, green 245, grey 265): about 20 crafts to 225, a point every craft. Each takes 1 Vision Dust. One Vision Dust a craft (level 31-40 greens). Make the Runed Truesilver Rod first: the recipe needs it in your bags, so keep it there. Black Pearl (1 for 150-225): Black Pearl is a rare drop (no mob gives it one time in 50): buy it at the Auction House, or keep the ones you find. Enchant any item for that slot in your bags, even a grey one. Enchanting 225 is a Legacy System milestone.
   craft 13702 x1 -- a tool: keep it in your bags
   craft 13746 until 225
@@ -551,12 +551,12 @@ step Get Runecloth
   collect 14047 x1195 nearest gather levels 45-60
   auction 14047 x1195
 
-step Runecloth Belt to 234
+step Runecloth Belt to 234 · Professions tab (K by default)
   tip Runecloth Belt is yellow at 225 (yellow 225, green 240, grey 255): about 11 crafts to 234, up to 13 for 9 players in 10 (the gathered materials above count that many). Each takes 3 Bolt of Runecloth and 1 Rune Thread. Make the 33 Bolt of Runecloth first. Rune Thread from tailoring vendors.
   craft 18401 x33
   craft 18402 until 234
 
-step Runecloth Gloves to 265
+step Runecloth Gloves to 265 · Professions tab (K by default)
   tip Runecloth Gloves is orange at 234 (yellow 245, green 260, grey 275): about 43 crafts to 265, up to 50 for 9 players in 10 (the gathered materials above count that many). Each takes 4 Bolt of Runecloth, 4 Rugged Leather and 1 Rune Thread. Make the 172 Bolt of Runecloth first. Qia in Everlook keeps one pattern at a time; the Timbermaw Hold tunnel from Felwood is the road in, so never kill Timbermaw furbolgs on the way.
   learn 18417 -- from the recipe in your bags
   craft 18401 x172
@@ -602,16 +602,16 @@ step Get Dream Dust
   collect 11176 x233 anywhere gather Enchanting 1 levels 41-50
   auction 11176 x233
 
-step Enchant Gloves - Agility to 253
+step Enchant Gloves - Agility to 253 · Professions tab (K by default)
   tip Enchant Gloves - Agility is orange at 225 (yellow 230, green 250, grey 270): about 39 crafts to 253, up to 45 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Vision Dust. Annora teaches it with Artisan: learn it on that visit. Vision Dust again; bring about 40. Enchant any item for that slot in your bags, even a grey one.
   craft 13815 until 253
 
-step Lesser Mana Oil to 275
+step Lesser Mana Oil to 275 · Professions tab (K by default)
   tip Lesser Mana Oil is orange at 253 (yellow 260, green 270, grey 280): about 34 crafts to 275, up to 41 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Dream Dust, 1 Purple Lotus and 1 Crystal Vial. One Dream Dust (level 41-50 greens) and one Purple Lotus (herbalists) a craft; the oil sells well. Kania sells the formula at the inn of Cenarion Hold (Silithus): fly there, the mobs around it are level 55 and up.
   learn 25127 -- from the recipe in your bags
   craft 25127 until 275
 
-step Enchant Shield - Greater Stamina to 300
+step Enchant Shield - Greater Stamina to 300 · Professions tab (K by default)
   tip Enchant Shield - Greater Stamina is orange at 275 (yellow 285, green 305, grey 325): about 29 crafts to 300, up to 32 for 9 players in 10 (the gathered materials above count that many). Each takes 6 Dream Dust. Six Dream Dust a craft: the dearest stretch, so disenchant every level 41-50 green you find. Enchant any item for that slot in your bags, even a grey one. Enchanting 300 is a Legacy System milestone.
   learn 20017 -- from the recipe in your bags
   craft 20017 until 300
@@ -655,7 +655,7 @@ step Get Ironweb Spider Silk
   collect 14227 x148 nearest gather levels 45-59
   auction 14227 x148
 
-step Runecloth Shoulders to 300
+step Runecloth Shoulders to 300 · Professions tab (K by default)
   when knows 18449
   tip Runecloth Shoulders is orange at 265 (yellow 275, green 290, grey 305): about 62 crafts to 300, up to 74 for 9 players in 10 (the gathered materials above count that many). Each takes 7 Bolt of Runecloth, 2 Ironweb Spider Silk, 4 Rugged Leather and 1 Rune Thread. Make the 434 Bolt of Runecloth first. Its pattern (Pattern: Runecloth Shoulders) drops from mobs all over the world and does not bind: buy it at the Auction House. Seven bolts, two Ironweb Spider Silk and four Rugged Leather a craft: the dearest stretch. The spiders of Western Plaguelands and Silithus drop the silk (the marked spots), or the Auction House. Tailoring 300 is a Legacy System milestone. If you got here without learning Bolt of Runecloth, learn it now: an earlier step teaches it.
   learn 18401 npc 11052 only Alliance
@@ -702,7 +702,7 @@ step Get Ironweb Spider Silk
   collect 14227 x294 nearest gather levels 45-59
   auction 14227 x294
 
-step Runecloth Boots to 280
+step Runecloth Boots to 280 · Professions tab (K by default)
   when !knows 18449
   tip Runecloth Boots is green at 265 (yellow 250, green 265, grey 280): about 100 crafts to 280, up to 147 for 9 players in 10 (the gathered materials above count that many). Each takes 4 Bolt of Runecloth, 2 Ironweb Spider Silk, 4 Rugged Leather and 1 Rune Thread. Make the 400 Bolt of Runecloth first. Four Bolts of Runecloth, four Rugged Leather and two Ironweb Spider Silk a craft, and green the whole way: the long way, but its pattern can always be bought. If you got here without learning Bolt of Runecloth, learn it now: an earlier step teaches it.
   learn 18423 -- from the recipe in your bags

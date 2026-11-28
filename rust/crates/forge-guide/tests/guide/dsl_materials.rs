@@ -135,6 +135,6 @@ fn a_gather_needs_an_auction_goal_for_its_item_in_the_same_section() {
 		)
 	);
 	assert!(warns(&["step Silk", "  collect 4306 x20 @40,50 gather", "step AH", "  auction 4306 x20"]).is_empty());
-	assert!(warns(&["step Silk", "  collect 4306 x20 @40,50 gather"])[0].contains("in its guide"));
+	assert!(warns(&["step Silk", "  collect 4306 x20 @40,50 gather"]).is_empty(), "gathering only is fine: a gathering guide's own material");
 	assert!(warns(&["step AH", "  auction 4306 x20"]).is_empty(), "buying only is fine");
 }

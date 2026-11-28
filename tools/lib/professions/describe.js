@@ -235,4 +235,35 @@ function rankTrainers(data, rank, side, prof) {
 	return [...new Set(ids.map((id) => npcPlace(data, id)).filter(Boolean))].sort();
 }
 
-module.exports = { SIDES, money, list, article, crafts, sourceText, townVendors, mainTown, rankTrainers, npcPlace, nodeZones, nodesUp, nodeTable, nodeNames, nodeSkill, CLOTH_LEVELS, HIDE_LEVELS, disenchantLevels, zoneName };
+// Where a step's spell is on Forever's client, for its row: profession spells (a craft or smelt, Find Minerals,
+// Find Herbs, Fishing, Disenchant) are in the Professions tab, class spells (Pick Lock) in the Spellbook. Each is one
+// guide string, so the guide translations carry it (forge i18n guides sync).
+const PROFESSIONS_TAB = 'Professions tab (K by default)';
+const SPELLBOOK = 'Spellbook (P by default)';
+
+// The where of a step from its goal lines (two-space indented), or null: a `craft` or `cast` goal, Fishing's skill
+// (cast Fishing), a disenchanting step, Lockpicking's skill (Pick Lock, a Rogue spell).
+function spellWhere(title, goals) {
+	if (goals.some((g) => /^ {2}skill Lockpicking /.test(g))) return `Pick Lock: ${SPELLBOOK}`;
+	if (goals.some((g) => /^ {2}skill Fishing /.test(g)) || /^(Fish|Catch an?) /.test(title)) return `Fishing: ${PROFESSIONS_TAB}`;
+	if (/^Disenchant /.test(title)) return `Disenchant: ${PROFESSIONS_TAB}`;
+	if (goals.some((g) => /^ {2}(craft|cast) /.test(g))) return PROFESSIONS_TAB;
+	return null;
+}
+
+// A profession guide's text with every spell step's row saying where the spell is ("Turn on Find Minerals ·
+// Professions tab (K by default)"): the one place every profession and paired guide generator passes its text
+// through, so a new guide gets it too.
+function withSpellWhere(text) {
+	const lines = text.split('\n');
+	for (let i = 0; i < lines.length; i++) {
+		if (!lines[i].startsWith('step ')) continue;
+		const goals = [];
+		for (let j = i + 1; j < lines.length && /^ {2}\S/.test(lines[j]); j++) goals.push(lines[j]);
+		const where = spellWhere(lines[i].slice(5), goals);
+		if (where && !lines[i].includes(where)) lines[i] = `${lines[i]} · ${where}`;
+	}
+	return lines.join('\n');
+}
+
+module.exports = { SIDES, money, list, article, crafts, sourceText, townVendors, mainTown, rankTrainers, npcPlace, nodeZones, nodesUp, nodeTable, nodeNames, nodeSkill, CLOTH_LEVELS, HIDE_LEVELS, disenchantLevels, zoneName, PROFESSIONS_TAB, SPELLBOOK, spellWhere, withSpellWhere };

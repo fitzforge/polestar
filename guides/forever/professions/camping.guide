@@ -41,7 +41,7 @@ step Buy 5 Simple Wood
   tip One Simple Wood makes one Basic Campfire Kit.
   buy 4470 x5 nearest
 
-step Craft 5 Basic Campfire Kits
+step Craft 5 Basic Campfire Kits · Professions tab (K by default)
   tip Kits stack in one bag slot, and friends can use the spares.
   craft 1229737 x5
 
@@ -61,7 +61,7 @@ step Buy 1 Empty Vial
   when skill Alchemy 20
   buy 3371 x1 nearest
 
-step Craft 1 Mana Well
+step Craft 1 Mana Well · Professions tab (K by default)
   when skill Alchemy 20
   craft 1230564 x1
 
@@ -83,7 +83,7 @@ step Get 1 Copper Bar
   collect 2840 x1 anywhere
   auction 2840 x1
 
-step Craft 1 Sharpening Wheel
+step Craft 1 Sharpening Wheel · Professions tab (K by default)
   when skill Blacksmithing 20
   craft 1230171 x1
 
@@ -101,7 +101,7 @@ step Buy 1 Strange Dust
   when skill Enchanting 20
   buy 10940 x1 nearest
 
-step Craft 1 Enchanted Lute
+step Craft 1 Enchanted Lute · Professions tab (K by default)
   when skill Enchanting 20
   craft 1230643 x1
 
@@ -121,7 +121,7 @@ step Buy 1 Copper Tube
   when skill Engineering 20
   buy 4361 x1 nearest
 
-step Craft 1 Reagent Bot
+step Craft 1 Reagent Bot · Professions tab (K by default)
   when skill Engineering 20
   craft 1230656 x1
 
@@ -137,7 +137,7 @@ step Get 5 Light Leathers
   collect 2318 x5 anywhere
   auction 2318 x5
 
-step Craft 1 Camp Tent
+step Craft 1 Camp Tent · Professions tab (K by default)
   when skill Leatherworking 20
   craft 1229432 x1
 
@@ -157,7 +157,7 @@ step Buy 1 Coarse Thread
   when skill Tailoring 20
   buy 2320 x1 nearest
 
-step Craft 1 Faction Banner
+step Craft 1 Faction Banner · Professions tab (K by default)
   when skill Tailoring 20
   craft 1229504 x1
 
@@ -179,7 +179,7 @@ step Get 1 Silverleaf
   collect 765 x1 anywhere
   auction 765 x1
 
-step Craft 1 Incense Candle
+step Craft 1 Incense Candle · Professions tab (K by default)
   when skill Herbalism 20
   craft 1229705 x1
 
@@ -201,7 +201,7 @@ step Get 1 Copper Bar
   collect 2840 x1 anywhere
   auction 2840 x1
 
-step Craft 1 Lodestone
+step Craft 1 Lodestone · Professions tab (K by default)
   when skill Mining 20
   craft 1230161 x1
 
@@ -221,7 +221,7 @@ step Buy 2 Simple Woods
   when skill Skinning 20
   buy 4470 x2 nearest
 
-step Craft 1 Camp Chair
+step Craft 1 Camp Chair · Professions tab (K by default)
   when skill Skinning 20
   craft 1229517 x1
 
@@ -241,7 +241,7 @@ step Buy 1 Refreshing Spring Water
   when skill "First Aid" 20
   buy 159 x1 nearest
 
-step Craft 1 First Aid Kit
+step Craft 1 First Aid Kit · Professions tab (K by default)
   when skill "First Aid" 20
   craft 1230117 x1
 
@@ -261,7 +261,7 @@ step Buy 1 Empty Vial
   when skill Fishing 20
   buy 3371 x1 nearest
 
-step Craft 1 Fish Bowl
+step Craft 1 Fish Bowl · Professions tab (K by default)
   when skill Fishing 20
   craft 1229745 x1
 

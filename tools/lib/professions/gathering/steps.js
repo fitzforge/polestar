@@ -284,7 +284,9 @@ function renderRoute(ctx, prof, route) {
 					}
 					if (!lines.length) errs.push(`no ${P} loop at ${skill} gives ${itemName(e.get)}`);
 					stock.set(e.get, (stock.get(e.get) || 0) + e.count);
-					step('get', `Get ${e.count} ${itemName(e.get)}`, e.tip, [`  collect ${e.get} x${e.count} gather ${pq} ${e.rank || b.from}`, ...lines, `  auction ${e.get} x${e.count}`]);
+					// The guide's own material is gathered, never bought: no Auction House row, so the Materials setting
+					// leaves it gathered and the Shopping list (what a player buys) never lists it.
+					step('get', `${VERB[P]} ${e.count} ${itemName(e.get)}`, e.tip, [`  collect ${e.get} x${e.count} gather ${pq} ${e.rank || b.from}`, ...lines]);
 				} else if (e.smelt) {
 					const r = recipes.get(e.smelt);
 					if (!r) {

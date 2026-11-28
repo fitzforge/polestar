@@ -131,9 +131,8 @@ step Mine 198 Rough Stone
   loop Durotar lvl 7 lap 384 yield 13.6 only Horde r 60 at 45.6,70.8 44.6,69.6 43.0,71.6 40.3,70.7 40.2,68.6 40.0,65.9 41.6,66.2 41.1,61.4 43.5,61.6 45.8,66.6 50.5,63.1 52.1,75.1
   loop Elwynn Forest lvl 4 lap 304 yield 5.0 only Alliance r 60 at 55.6,35.4 45.1,33.8 49.0,28.1 50.6,26.9 64.8,39.1
   loop Mulgore lvl 3 lap 301 yield 4.3 only Horde r 60 at 41.8,79.8 41.2,82.0 48.4,74.4 43.8,72.8
-  auction 2835 x198
 
-step Craft 30 Rough Sharpening Stones until 25
+step Craft 30 Rough Sharpening Stones until 25 · Professions tab (K by default)
   tip About 30 crafts.
   craft 2660 until 25
 
@@ -149,7 +148,7 @@ step Learn Smelt Bronze
 step Learn Smelt Tin
   learn 3304
 
-step Craft 84 Rough Grinding Stones until 75
+step Craft 84 Rough Grinding Stones until 75 · Professions tab (K by default)
   tip About 84 crafts.
   craft 3320 until 75
 
@@ -200,7 +199,6 @@ step Mine 120 Coarse Stone
   loop Wetlands lvl 29 lap 481 yield 2.4 only Alliance r 60 at 50.6,61.8 48.6,62.3 46.7,62.8 45.8,65.1 45.7,60.3 47.5,60.0 49.1,59.1 50.9,59.2 54.2,58.2 55.9,58.7 53.6,62.4 53.4,66.9
   loop Duskwood lvl 25 lap 455 yield 0.8 only Alliance r 60 at 85.8,49.1 82.4,51.2 78.4,63.3 82.7,70.8 81.8,62.9 84.1,55.2
   loop Riverglades lvl 39 lap 313 yield 1.6 only Horde live r 60 at 21.3,68.9 19.9,71.6 16.9,71.3 17.2,68.9 20.4,64.4 22.0,64.7 24.2,63.4 25.3,58.2 29.7,56.3 29.9,61.9 26.4,61.0 26.7,63.9
-  auction 2836 x120
 
 step Train Journeyman Blacksmithing
   tip Needs level 10.
@@ -212,7 +210,7 @@ step Learn Smelt Gold
 step Learn Coarse Grinding Stone
   learn 3326 npc 5511,10276,252479,1383,4596,2998,276067
 
-step Craft 60 Coarse Grinding Stones until 84
+step Craft 60 Coarse Grinding Stones until 84 · Professions tab (K by default)
   tip About 60 crafts. Keep all 60: the bracers at 95 and 115 and the gauntlets at 125 use them.
   craft 3326 until 84
 
@@ -228,7 +226,6 @@ step Mine and smelt 91 Bronze Bar
   loop Durotar lvl 8 lap 399 yield 31.4 only Horde r 60 at 45.6,70.8 44.6,69.6 43.0,71.6 40.3,70.7 40.2,68.6 40.0,65.9 41.6,66.2 41.1,61.4 45.4,50.0 48.3,49.2 43.5,61.6 45.8,66.6
   loop Tirisfal Glades lvl 11 lap 379 yield 27.6 only Horde r 60 at 23.8,59.5 24.0,57.9 28.1,47.0 29.7,42.5 30.8,45.5 33.5,52.8 32.2,55.8 33.4,69.7 30.8,72.6 29.3,63.8 25.2,60.2
   loop Mulgore lvl 8 lap 540 yield 23.6 only Horde r 60 at 41.8,79.8 33.5,58.2 31.6,60.9 34.0,66.5 33.2,70.1 34.1,72.7 32.9,76.2 33.7,81.2 34.6,79.8 41.2,82.0 49.0,92.8 49.2,87.7
-  auction 2841 x91
 
 step Learn Rough Bronze Leggings
   learn 2668 npc 5511,10276,252479,1383,4596,2998,276067
@@ -269,7 +266,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 11 Rough Bronze Leggings until 95
+step Craft 11 Rough Bronze Leggings until 95 · Professions tab (K by default)
   tip About 11 crafts. Short of 84 after the stones? These leggings carry on from where you are.
   craft 2668 until 95
 
@@ -312,7 +309,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 5 Patterned Bronze Bracers until 100
+step Craft 5 Patterned Bronze Bracers until 100 · Professions tab (K by default)
   tip About 5 crafts.
   craft 2672 until 100
 
@@ -362,12 +359,11 @@ step Mine 90 Heavy Stone
   loop Alterac Mountains lvl 37 lap 631 yield 4.1 only Alliance r 60 at 52.4,46.3 52.9,49.8 37.6,67.0 33.7,55.3 31.8,53.6 33.2,47.2 32.9,39.9 39.5,38.0 40.2,30.7 47.9,33.2 45.2,39.2 49.8,44.0
   loop Stranglethorn Vale lvl 35 lap 618 yield 1.7 r 60 at 46.2,7.4 30.5,7.6 27.0,10.1 27.4,13.6 25.7,15.4 26.3,18.0 27.6,18.0 30.0,17.7 29.3,15.3 31.3,13.8 29.8,12.1 31.3,9.5
   loop Badlands lvl 42 lap 628 yield 3.9 only Horde r 60 at 15.6,34.9 14.8,48.6 15.0,54.5 20.2,63.0 23.7,61.3 34.9,53.0 42.2,78.9 22.6,73.3 18.5,74.8 18.0,70.3 12.9,58.9 10.8,55.3
-  auction 2838 x90
 
 step Learn Heavy Grinding Stone
   learn 3337 npc 5511,10276,252479,1383,4596,2998,276067
 
-step Craft 30 Heavy Grinding Stones until 115
+step Craft 30 Heavy Grinding Stones until 115 · Professions tab (K by default)
   tip About 30 crafts. Keep all 30 for the Golden Scale Bracers at 185.
   craft 3337 until 115
 
@@ -383,7 +379,6 @@ step Mine and smelt 50 Bronze Bar
   loop Durotar lvl 8 lap 399 yield 31.4 only Horde r 60 at 45.6,70.8 44.6,69.6 43.0,71.6 40.3,70.7 40.2,68.6 40.0,65.9 41.6,66.2 41.1,61.4 45.4,50.0 48.3,49.2 43.5,61.6 45.8,66.6
   loop Tirisfal Glades lvl 11 lap 379 yield 27.6 only Horde r 60 at 23.8,59.5 24.0,57.9 28.1,47.0 29.7,42.5 30.8,45.5 33.5,52.8 32.2,55.8 33.4,69.7 30.8,72.6 29.3,63.8 25.2,60.2
   loop Mulgore lvl 8 lap 540 yield 23.6 only Horde r 60 at 41.8,79.8 33.5,58.2 31.6,60.9 34.0,66.5 33.2,70.1 34.1,72.7 32.9,76.2 33.7,81.2 34.6,79.8 41.2,82.0 49.0,92.8 49.2,87.7
-  auction 2841 x50
 
 step Go to an anvil
   goto 51.8,40.8 "Anvil" map 1411 nearest only Horde
@@ -421,7 +416,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 10 Patterned Bronze Bracers until 125
+step Craft 10 Patterned Bronze Bracers until 125 · Professions tab (K by default)
   tip About 10 crafts.
   craft 2672 until 125
 
@@ -437,7 +432,6 @@ step Mine and smelt 120 Bronze Bar
   loop Durotar lvl 8 lap 399 yield 31.4 only Horde r 60 at 45.6,70.8 44.6,69.6 43.0,71.6 40.3,70.7 40.2,68.6 40.0,65.9 41.6,66.2 41.1,61.4 45.4,50.0 48.3,49.2 43.5,61.6 45.8,66.6
   loop Tirisfal Glades lvl 11 lap 379 yield 27.6 only Horde r 60 at 23.8,59.5 24.0,57.9 28.1,47.0 29.7,42.5 30.8,45.5 33.5,52.8 32.2,55.8 33.4,69.7 30.8,72.6 29.3,63.8 25.2,60.2
   loop Mulgore lvl 8 lap 540 yield 23.6 only Horde r 60 at 41.8,79.8 33.5,58.2 31.6,60.9 34.0,66.5 33.2,70.1 34.1,72.7 32.9,76.2 33.7,81.2 34.6,79.8 41.2,82.0 49.0,92.8 49.2,87.7
-  auction 2841 x120
 
 step Get 15 Silver Bar
   tip For 15 Silvered Bronze Gauntlets.
@@ -482,7 +476,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 15 Silvered Bronze Gauntlets until 140
+step Craft 15 Silvered Bronze Gauntlets until 140 · Professions tab (K by default)
   tip About 15 crafts. Silver Bar dear? 15 Bronze Warhammers reach 140 too.
   craft 3333 until 140
 
@@ -504,7 +498,6 @@ step Mine and smelt 240 Iron Bar
   loop Alterac Mountains lvl 37 lap 631 yield 5.2 only Alliance r 60 at 52.4,46.3 52.9,49.8 37.6,67.0 33.7,55.3 31.8,53.6 33.2,47.2 32.9,39.9 39.5,38.0 40.2,30.7 47.9,33.2 45.2,39.2 49.8,44.0
   loop Stranglethorn Vale lvl 35 lap 618 yield 2.2 r 60 at 46.2,7.4 30.5,7.6 27.0,10.1 27.4,13.6 25.7,15.4 26.3,18.0 27.6,18.0 30.0,17.7 29.3,15.3 31.3,13.8 29.8,12.1 31.3,9.5
   loop Badlands lvl 42 lap 628 yield 5.0 only Horde r 60 at 15.6,34.9 14.8,48.6 15.0,54.5 20.2,63.0 23.7,61.3 34.9,53.0 42.2,78.9 22.6,73.3 18.5,74.8 18.0,70.3 12.9,58.9 10.8,55.3
-  auction 3575 x240
 
 step Train Expert Blacksmithing
   tip Needs level 20.
@@ -549,7 +542,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 40 Green Iron Bracers until 175
+step Craft 40 Green Iron Bracers until 175 · Professions tab (K by default)
   tip About 40 crafts.
   craft 3501 until 175
 
@@ -564,7 +557,6 @@ step Mine 60 Solid Stone
   loop The Hinterlands lvl 51 lap 718 yield 4.2 r 60 at 54.9,67.3 52.1,65.4 33.7,65.0 37.1,67.5 57.9,84.2 72.6,61.9 65.5,41.2 59.1,41.5 57.0,43.1 66.8,52.4 64.4,64.2 56.6,68.6
   loop Stonetalon Mountains lvl 28 lap 616 yield 2.3 r 60 at 37.7,69.6 36.4,76.2 33.6,75.7 29.0,73.7 25.9,70.8 26.8,67.0 29.8,66.3 27.1,63.2 30.1,59.8 32.6,58.9 35.9,61.4 34.9,66.7
   loop Alterac Mountains lvl 38 lap 641 yield 4.0 only Horde r 60 at 50.9,44.2 53.2,48.4 54.1,45.6 55.1,40.6 52.7,36.8 48.0,33.1 42.8,34.7 37.9,32.5 35.6,39.7 33.3,43.9 39.5,38.0 45.4,39.8
-  auction 7912 x60
 
 step Learn Solid Grinding Stone
   learn 9920 npc 4258,3355
@@ -577,11 +569,11 @@ step Learn Golden Scale Bracers
   tip For 185-195: taught here now, so no second trip.
   learn 7223 npc 4258,3355
 
-step Craft 8 Solid Grinding Stones until 180
+step Craft 8 Solid Grinding Stones until 180 · Professions tab (K by default)
   tip About 8 crafts. Keep all 8 for the step at 210.
   craft 9920 until 180
 
-step Craft 28 Solid Sharpening Stones until 185
+step Craft 28 Solid Sharpening Stones until 185 · Professions tab (K by default)
   tip About 28 crafts. Green from 180: short of 185? A few more do it.
   craft 9918 until 185
 
@@ -608,7 +600,6 @@ step Mine and smelt 75 Steel Bar
   loop Alterac Mountains lvl 37 lap 631 yield 5.2 only Alliance r 60 at 52.4,46.3 52.9,49.8 37.6,67.0 33.7,55.3 31.8,53.6 33.2,47.2 32.9,39.9 39.5,38.0 40.2,30.7 47.9,33.2 45.2,39.2 49.8,44.0
   loop Stranglethorn Vale lvl 35 lap 618 yield 2.2 r 60 at 46.2,7.4 30.5,7.6 27.0,10.1 27.4,13.6 25.7,15.4 26.3,18.0 27.6,18.0 30.0,17.7 29.3,15.3 31.3,13.8 29.8,12.1 31.3,9.5
   loop Badlands lvl 42 lap 628 yield 5.0 only Horde r 60 at 15.6,34.9 14.8,48.6 15.0,54.5 20.2,63.0 23.7,61.3 34.9,53.0 42.2,78.9 22.6,73.3 18.5,74.8 18.0,70.3 12.9,58.9 10.8,55.3
-  auction 3859 x75
 
 step Go to an anvil
   goto 51.8,40.8 "Anvil" map 1411 nearest only Horde
@@ -646,7 +637,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 15 Golden Scale Bracers until 195
+step Craft 15 Golden Scale Bracers until 195 · Professions tab (K by default)
   tip About 15 crafts. Alliance smiths who want Armorsmithing later: keep 6.
   craft 7223 until 195
 
@@ -673,7 +664,6 @@ step Mine and smelt 204 Mithril Bar
   loop Desolace lvl 43 lap 627 yield 4.7 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
   loop Burning Steppes lvl 53 lap 617 yield 2.3 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
   loop Searing Gorge lvl 57 lap 616 yield 2.3 r 60 at 64.1,61.6 57.5,68.4 57.1,81.6 49.5,75.9 48.7,51.7 52.0,49.5 55.0,51.2 61.1,42.8 56.9,41.2 56.0,30.6 67.9,32.3 73.2,73.0
-  auction 3860 x204
 
 step Learn Mithril Plate Pants
   learn 9931 npc 4258,3355
@@ -714,7 +704,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 17 Mithril Plate Pants until 210
+step Craft 17 Mithril Plate Pants until 210 · Professions tab (K by default)
   tip About 17 crafts. Armorsmith or Weaponsmith opens at 200 and level 40; optional.
   craft 9931 until 210
 
@@ -743,7 +733,6 @@ step Mine 148 Solid Stone
   loop Desolace lvl 43 lap 627 yield 4.5 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
   loop Burning Steppes lvl 53 lap 617 yield 2.2 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
   loop Searing Gorge lvl 57 lap 616 yield 2.3 r 60 at 64.1,61.6 57.5,68.4 57.1,81.6 49.5,75.9 48.7,51.7 52.0,49.5 55.0,51.2 61.1,42.8 56.9,41.2 56.0,30.6 67.9,32.3 73.2,73.0
-  auction 7912 x148
 
 step Mine and smelt 60 Mithril Bar
   when knows 9964
@@ -754,9 +743,8 @@ step Mine and smelt 60 Mithril Bar
   loop Desolace lvl 43 lap 627 yield 4.7 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
   loop Burning Steppes lvl 53 lap 617 yield 2.3 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
   loop Searing Gorge lvl 57 lap 616 yield 2.3 r 60 at 64.1,61.6 57.5,68.4 57.1,81.6 49.5,75.9 48.7,51.7 52.0,49.5 55.0,51.2 61.1,42.8 56.9,41.2 56.0,30.6 67.9,32.3 73.2,73.0
-  auction 3860 x60
 
-step Craft 37 Solid Grinding Stones
+step Craft 37 Solid Grinding Stones · Professions tab (K by default)
   when knows 9964
   tip Parts for the spurs; no skill points from these.
   craft 9920 x37
@@ -798,7 +786,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 15 Mithril Spurs until 225
+step Craft 15 Mithril Spurs until 225 · Professions tab (K by default)
   when knows 9964
   tip About 15 crafts.
   craft 9964 until 225
@@ -817,13 +805,12 @@ step Mine 16 Dense Stone
   loop Felwood lvl 54 lap 811 yield 3.4 only Alliance r 60 at 57.6,17.3 59.2,19.4 61.3,21.3 58.7,22.8 43.8,62.1 38.9,55.1 43.2,46.7 43.4,41.2 38.1,32.2 39.8,22.3 46.2,13.5 48.6,23.8
   loop Winterspring lvl 59 lap 705 yield 4.7 only Alliance r 60 at 70.4,40.3 69.1,39.8 56.3,25.6 57.3,32.8 56.0,49.0 55.5,50.7 54.1,50.4 56.0,53.8 57.8,61.1 56.9,50.4 58.4,46.6 69.4,41.9
   loop Winterspring lvl 58 lap 615 yield 2.6 only Horde r 60 at 70.4,40.3 70.9,37.5 66.7,28.2 63.6,25.6 64.6,29.7 64.6,34.6 66.5,37.5 68.0,35.6 67.7,38.6 67.7,41.5 69.4,41.9 69.1,39.8
-  auction 12365 x16
 
 step Learn Dense Sharpening Stone
   when knows 9964
   learn 16641 npc 2836
 
-step Craft 16 Dense Sharpening Stones until 235
+step Craft 16 Dense Sharpening Stones until 235 · Professions tab (K by default)
   when knows 9964
   tip About 16 crafts.
   craft 16641 until 235
@@ -839,7 +826,6 @@ step Mine 336 Solid Stone
   loop Desolace lvl 43 lap 627 yield 4.5 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
   loop Burning Steppes lvl 53 lap 617 yield 2.2 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
   loop Searing Gorge lvl 57 lap 616 yield 2.3 r 60 at 64.1,61.6 57.5,68.4 57.1,81.6 49.5,75.9 48.7,51.7 52.0,49.5 55.0,51.2 61.1,42.8 56.9,41.2 56.0,30.6 67.9,32.3 73.2,73.0
-  auction 7912 x336
 
 step Mine and smelt 112 Mithril Bar
   when knows 9964
@@ -851,9 +837,8 @@ step Mine and smelt 112 Mithril Bar
   loop The Hinterlands lvl 51 lap 718 yield 4.3 r 60 at 54.9,67.3 52.1,65.4 33.7,65.0 37.1,67.5 57.9,84.2 72.6,61.9 65.5,41.2 59.1,41.5 57.0,43.1 66.8,52.4 64.4,64.2 56.6,68.6
   loop Stonetalon Mountains lvl 28 lap 616 yield 2.3 r 60 at 37.7,69.6 36.4,76.2 33.6,75.7 29.0,73.7 25.9,70.8 26.8,67.0 29.8,66.3 27.1,63.2 30.1,59.8 32.6,58.9 35.9,61.4 34.9,66.7
   loop Alterac Mountains lvl 38 lap 641 yield 4.1 only Horde r 60 at 50.9,44.2 53.2,48.4 54.1,45.6 55.1,40.6 52.7,36.8 48.0,33.1 42.8,34.7 37.9,32.5 35.6,39.7 33.3,43.9 39.5,38.0 45.4,39.8
-  auction 3860 x112
 
-step Craft 84 Solid Grinding Stones
+step Craft 84 Solid Grinding Stones · Professions tab (K by default)
   when knows 9964
   tip Parts for the spurs; no skill points from these.
   craft 9920 x84
@@ -895,7 +880,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 28 Mithril Spurs until 245
+step Craft 28 Mithril Spurs until 245 · Professions tab (K by default)
   when knows 9964
   tip About 28 crafts.
   craft 9964 until 245
@@ -911,7 +896,6 @@ step Mine and smelt 72 Mithril Bar
   loop Desolace lvl 43 lap 627 yield 4.7 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
   loop Burning Steppes lvl 53 lap 617 yield 2.3 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
   loop Searing Gorge lvl 57 lap 616 yield 2.3 r 60 at 64.1,61.6 57.5,68.4 57.1,81.6 49.5,75.9 48.7,51.7 52.0,49.5 55.0,51.2 61.1,42.8 56.9,41.2 56.0,30.6 67.9,32.3 73.2,73.0
-  auction 3860 x72
 
 step Get 12 Citrine
   when !knows 9964
@@ -975,7 +959,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 6 Heavy Mithril Axes until 215
+step Craft 6 Heavy Mithril Axes until 215 · Professions tab (K by default)
   when !knows 9964
   tip About 6 crafts. Weaponsmithing later? Keep 2: its quest asks for them.
   craft 9993 until 215
@@ -991,7 +975,6 @@ step Mine and smelt 100 Mithril Bar
   loop Desolace lvl 43 lap 627 yield 4.7 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
   loop Burning Steppes lvl 53 lap 617 yield 2.3 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
   loop Searing Gorge lvl 57 lap 616 yield 2.3 r 60 at 64.1,61.6 57.5,68.4 57.1,81.6 49.5,75.9 48.7,51.7 52.0,49.5 55.0,51.2 61.1,42.8 56.9,41.2 56.0,30.6 67.9,32.3 73.2,73.0
-  auction 3860 x100
 
 step Get 60 Mageweave Cloth
   when !knows 9964
@@ -1040,7 +1023,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 10 Mithril Coifs until 225
+step Craft 10 Mithril Coifs until 225 · Professions tab (K by default)
   when !knows 9964
   tip About 10 crafts. Armorsmithing later? Keep 2: its quest asks for them.
   craft 9961 until 225
@@ -1059,13 +1042,12 @@ step Mine 16 Dense Stone
   loop Felwood lvl 54 lap 811 yield 3.4 only Alliance r 60 at 57.6,17.3 59.2,19.4 61.3,21.3 58.7,22.8 43.8,62.1 38.9,55.1 43.2,46.7 43.4,41.2 38.1,32.2 39.8,22.3 46.2,13.5 48.6,23.8
   loop Winterspring lvl 59 lap 705 yield 4.7 only Alliance r 60 at 70.4,40.3 69.1,39.8 56.3,25.6 57.3,32.8 56.0,49.0 55.5,50.7 54.1,50.4 56.0,53.8 57.8,61.1 56.9,50.4 58.4,46.6 69.4,41.9
   loop Winterspring lvl 58 lap 615 yield 2.6 only Horde r 60 at 70.4,40.3 70.9,37.5 66.7,28.2 63.6,25.6 64.6,29.7 64.6,34.6 66.5,37.5 68.0,35.6 67.7,38.6 67.7,41.5 69.4,41.9 69.1,39.8
-  auction 12365 x16
 
 step Learn Dense Sharpening Stone
   when !knows 9964
   learn 16641 npc 2836
 
-step Craft 16 Dense Sharpening Stones until 235
+step Craft 16 Dense Sharpening Stones until 235 · Professions tab (K by default)
   when !knows 9964
   tip About 16 crafts.
   craft 16641 until 235
@@ -1081,7 +1063,6 @@ step Mine and smelt 154 Mithril Bar
   loop Desolace lvl 43 lap 627 yield 4.7 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
   loop Burning Steppes lvl 53 lap 617 yield 2.3 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
   loop Searing Gorge lvl 57 lap 616 yield 2.3 r 60 at 64.1,61.6 57.5,68.4 57.1,81.6 49.5,75.9 48.7,51.7 52.0,49.5 55.0,51.2 61.1,42.8 56.9,41.2 56.0,30.6 67.9,32.3 73.2,73.0
-  auction 3860 x154
 
 step Get 44 Thick Leather
   when !knows 9964
@@ -1138,7 +1119,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 11 Heavy Mithril Boots until 240
+step Craft 11 Heavy Mithril Boots until 240 · Professions tab (K by default)
   when !knows 9964
   tip About 11 crafts. Armorsmithing later? Keep 2: its quest asks for them.
   craft 9968 until 240
@@ -1198,7 +1179,6 @@ step Mine and smelt 150 Thorium Bar
   loop Azshara lvl 55 lap 688 yield 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
   loop Winterspring lvl 58 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Burning Steppes lvl 53 lap 615 yield 1.9 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
-  auction 12359 x150
 
 step Reach level 50
   when !knows 9964
@@ -1261,7 +1241,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 5 Imperial Plate Belts until 245
+step Craft 5 Imperial Plate Belts until 245 · Professions tab (K by default)
   when !knows 9964
   tip About 5 crafts.
   craft 16647 until 245
@@ -1303,7 +1283,6 @@ step Mine and smelt 560 Thorium Bar
   loop Azshara lvl 55 lap 688 yield 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
   loop Winterspring lvl 58 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Burning Steppes lvl 53 lap 615 yield 1.9 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
-  auction 12359 x560
 
 step Reach level 50
   tip A Blue Light Bargain asks for level 50.
@@ -1356,7 +1335,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 27 Imperial Plate Bracers until 270
+step Craft 27 Imperial Plate Bracers until 270 · Professions tab (K by default)
   tip About 27 crafts.
   craft 16649 until 270
 
@@ -1398,7 +1377,6 @@ step Mine and smelt 308 Thorium Bar
   loop Azshara lvl 55 lap 688 yield 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
   loop Winterspring lvl 58 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Burning Steppes lvl 53 lap 615 yield 1.9 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
-  auction 12359 x308
 
 step Go to an anvil
   when knows 16656
@@ -1438,7 +1416,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 22 Radiant Boots until 290
+step Craft 22 Radiant Boots until 290 · Professions tab (K by default)
   when knows 16656
   when has 12713
   tip About 22 crafts.
@@ -1462,7 +1440,6 @@ step Mine and smelt 200 Thorium Bar
   loop Azshara lvl 55 lap 688 yield 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
   loop Winterspring lvl 58 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Burning Steppes lvl 53 lap 615 yield 1.9 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
-  auction 12359 x200
 
 step Learn Radiant Leggings
   when knows 16656
@@ -1508,7 +1485,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 10 Radiant Leggings until 300
+step Craft 10 Radiant Leggings until 300 · Professions tab (K by default)
   when knows 16656
   when knows 16725
   tip About 10 crafts.
@@ -1534,7 +1511,6 @@ step Mine and smelt 308 Thorium Bar
   loop Azshara lvl 55 lap 688 yield 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
   loop Winterspring lvl 58 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Burning Steppes lvl 53 lap 615 yield 1.9 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
-  auction 12359 x308
 
 step Go to an anvil
   when !has 12713
@@ -1575,7 +1551,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 22 Radiant Boots until 290
+step Craft 22 Radiant Boots until 290 · Professions tab (K by default)
   when !has 12713
   when !knows 16725
   when knows 16656
@@ -1601,7 +1577,6 @@ step Mine and smelt 500 Thorium Bar
   loop Azshara lvl 55 lap 688 yield 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
   loop Winterspring lvl 58 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Burning Steppes lvl 53 lap 615 yield 1.9 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
-  auction 12359 x500
 
 step Hand in Imperial Plate Leggings
   when !has 12713
@@ -1656,7 +1631,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 10 Imperial Plate Leggings until 300
+step Craft 10 Imperial Plate Leggings until 300 · Professions tab (K by default)
   when !has 12713
   when !knows 16725
   when knows 16656
@@ -1680,7 +1655,6 @@ step Mine and smelt 220 Thorium Bar
   loop Azshara lvl 55 lap 688 yield 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
   loop Winterspring lvl 58 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Burning Steppes lvl 53 lap 615 yield 1.9 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
-  auction 12359 x220
 
 step Go to an anvil
   when !knows 16656
@@ -1720,7 +1694,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 11 Imperial Plate Bracers until 275
+step Craft 11 Imperial Plate Bracers until 275 · Professions tab (K by default)
   when !knows 16656
   when has 12704
   tip About 11 crafts.
@@ -1743,7 +1717,6 @@ step Mine and smelt 702 Thorium Bar
   loop Azshara lvl 55 lap 688 yield 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
   loop Winterspring lvl 58 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Burning Steppes lvl 53 lap 615 yield 1.9 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
-  auction 12359 x702
 
 step Learn Thorium Leggings
   when !knows 16656
@@ -1789,7 +1762,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 27 Thorium Leggings until 300
+step Craft 27 Thorium Leggings until 300 · Professions tab (K by default)
   when !knows 16656
   when knows 16662
   tip About 27 crafts.
@@ -1821,7 +1794,6 @@ step Mine and smelt 720 Thorium Bar
   loop Azshara lvl 55 lap 688 yield 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
   loop Winterspring lvl 58 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Burning Steppes lvl 53 lap 615 yield 1.9 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
-  auction 12359 x720
 
 step Hand in Imperial Plate Boots
   when !knows 16656
@@ -1876,7 +1848,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 20 Imperial Plate Boots until 290
+step Craft 20 Imperial Plate Boots until 290 · Professions tab (K by default)
   when !knows 16656
   when !has 12704
   when !knows 16662
@@ -1902,7 +1874,6 @@ step Mine and smelt 500 Thorium Bar
   loop Azshara lvl 55 lap 688 yield 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
   loop Winterspring lvl 58 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Burning Steppes lvl 53 lap 615 yield 1.9 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
-  auction 12359 x500
 
 step Hand in Imperial Plate Leggings
   when !knows 16656
@@ -1957,7 +1928,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 10 Imperial Plate Leggings until 300
+step Craft 10 Imperial Plate Leggings until 300 · Professions tab (K by default)
   when !knows 16656
   when !has 12704
   when !knows 16662

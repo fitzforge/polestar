@@ -109,7 +109,7 @@ step Get Peacebloom
   loop Mulgore lvl 7 lap 335 yield 5.3 only Horde r 60 at 46.5,74.3 52.5,68.5 47.8,68.5 44.2,67.3 41.4,66.5 44.9,70.3 42.8,79.5 41.6,81.8 44.0,82.8
   auction 2447 x110
 
-step Elixir of Minor Defense to 75
+step Elixir of Minor Defense to 75 · Professions tab (K by default)
   tip Elixir of Minor Defense is orange at 1 (yellow 55, green 75, grey 95): about 82 crafts to 75, up to 87 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Silverleaf, 1 Peacebloom and 1 Empty Vial. Known from the start and the cheapest way through the Apprentice range. Keep the elixirs (armour while you level) or sell them.
   craft 7183 until 75
   skill Alchemy 75
@@ -180,7 +180,7 @@ step Get Bruiseweed
   loop Ashenvale lvl 41 lap 621 yield 2.2 only Horde r 60 at 99.8,30.8 100.3,40.8 90.1,45.5 92.5,51.6 92.4,59.8 91.3,64.2 81.8,51.1 79.6,44.9 77.8,42.2
   auction 2453 x58
 
-step Elixir of Minor Fortitude to 92
+step Elixir of Minor Fortitude to 92 · Professions tab (K by default)
   tip Elixir of Minor Fortitude is orange at 75 (yellow 80, green 100, grey 120): about 20 crafts to 92, up to 23 for 9 players in 10 (the gathered materials above count that many). Each takes 2 Earthroot, 1 Peacebloom and 1 Empty Vial. Two Earthroot and a Peacebloom a craft, herbs of the starting zones and the 10-20 zones; orange to 80.
   craft 2334 until 92
 
@@ -188,7 +188,7 @@ step Alchemy recipes at 92
   tip Back to an Alchemy trainer: Elixir of Wisdom (from 90).
   learn 3171
 
-step Elixir of Wisdom to 135
+step Elixir of Wisdom to 135 · Professions tab (K by default)
   tip Elixir of Wisdom is orange at 92 (yellow 120, green 140, grey 160): about 47 crafts to 135, up to 50 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Mageroyal, 2 Briarthorn and 1 Empty Vial. Two Briarthorn and a Mageroyal a craft, both from the 10-25 zones; orange to 120.
   craft 3171 until 135
 
@@ -196,7 +196,7 @@ step Alchemy recipes at 135
   tip Back to an Alchemy trainer: Lesser Troll's Blood Elixir (from 125).
   learn 3176
 
-step Lesser Troll's Blood Elixir to 150
+step Lesser Troll's Blood Elixir to 150 · Professions tab (K by default)
   tip Lesser Troll's Blood Elixir is orange at 135 (yellow 150, green 170, grey 190): about 15 crafts to 150, a point every craft. Each takes 2 Bruiseweed, 2 Briarthorn and 1 Leaded Vial. Two Bruiseweed and two Briarthorn a craft; Bruiseweed grows in the 15-30 zones. Alchemy 150 is a Legacy System milestone.
   craft 3176 until 150
   skill Alchemy 150
@@ -265,7 +265,7 @@ step Expert Alchemy
   train Alchemy Expert npc 4160 only Alliance
   train Alchemy Expert npc 4611 only Horde
 
-step Lesser Troll's Blood Elixir to 160
+step Lesser Troll's Blood Elixir to 160 · Professions tab (K by default)
   tip Lesser Troll's Blood Elixir is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160, up to 14 for 9 players in 10 (the gathered materials above count that many). Each takes 2 Bruiseweed, 2 Briarthorn and 1 Leaded Vial. Two Bruiseweed and two Briarthorn a craft; Bruiseweed grows in the 15-30 zones. If you got here without learning Lesser Troll's Blood Elixir, learn it now: an earlier step teaches it.
   learn 3176
   craft 3176 until 160
@@ -275,7 +275,7 @@ step Alchemy recipes at 160
   learn 3452 npc 4160 only Alliance
   learn 3452 npc 4611 only Horde
 
-step Mana Potion to 195
+step Mana Potion to 195 · Professions tab (K by default)
   tip Mana Potion is orange at 160 (yellow 180, green 200, grey 220): about 39 crafts to 195, up to 42 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Stranglekelp, 1 Kingsblood and 1 Leaded Vial. Stranglekelp grows under water along the coasts: bring a water breathing elixir or come up for air. Kingsblood grows in the 20-40 zones.
   craft 3452 until 195
 
@@ -284,7 +284,7 @@ step Alchemy recipes at 195
   learn 11450 npc 4160 only Alliance
   learn 11450 npc 4611 only Horde
 
-step Elixir of Defense to 225
+step Elixir of Defense to 225 · Professions tab (K by default)
   tip Elixir of Defense is orange at 195 (yellow 215, green 235, grey 255): about 32 crafts to 225, up to 34 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Wild Steelbloom, 1 Goldthorn and 1 Leaded Vial. Wild Steelbloom and Goldthorn are the herbs of the 30-45 zones (Stranglethorn, Arathi, the Badlands). Alchemy 225 is a Legacy System milestone.
   craft 11450 until 225
   skill Alchemy 225
@@ -335,7 +335,7 @@ step Artisan Alchemy
   train Alchemy Artisan npc 7948 only Alliance
   train Alchemy Artisan npc 1386 only Horde
 
-step Elixir of Defense to 230
+step Elixir of Defense to 230 · Professions tab (K by default)
   tip Elixir of Defense is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230, up to 11 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Wild Steelbloom, 1 Goldthorn and 1 Leaded Vial. Wild Steelbloom and Goldthorn are the herbs of the 30-45 zones (Stranglethorn, Arathi, the Badlands). If you got here without learning Elixir of Defense, learn it now: an earlier step teaches it.
   learn 11450 npc 4160 only Alliance
   learn 11450 npc 4611 only Horde
@@ -346,7 +346,7 @@ step Alchemy recipes at 230
   learn 15833 npc 7948 only Alliance
   learn 15833 npc 1386 only Horde
 
-step Dreamless Sleep Potion to 265
+step Dreamless Sleep Potion to 265 · Professions tab (K by default)
   tip Dreamless Sleep Potion is orange at 230 (yellow 245, green 265, grey 285): about 43 crafts to 265, up to 48 for 9 players in 10 (the gathered materials above count that many). Each takes 3 Purple Lotus and 1 Crystal Vial. Three Purple Lotus a craft (Herbalism 210: the Hinterlands and Feralas, mobs of level 44-47) and a Crystal Vial from an alchemy vendor. The Herbalism guide's loops there give Sungrass for the last stretch too.
   craft 15833 until 265
 
@@ -355,7 +355,7 @@ step Alchemy recipes at 265
   learn 17551 npc 7948 only Alliance
   learn 17551 npc 1386 only Horde
 
-step Elixir of Greater Defense to 300
+step Elixir of Greater Defense to 300 · Professions tab (K by default)
   tip Elixir of Greater Defense is orange at 265 (yellow 280, green 300, grey 320): about 43 crafts to 300, up to 48 for 9 players in 10 (the gathered materials above count that many). Each takes 2 Stonescale Oil, 1 Sungrass and 1 Crystal Vial. Make the 86 Stonescale Oil (43 crafts) first. Stonescale Eel comes from the Stonescale Eel schools on the coasts of the 40-55 zones, or the Auction House (fishers sell them in stacks). Sungrass grows in the 40-55 zones. Alchemy 300 is a Legacy System milestone.
   learn 17554 -- from the recipe in your bags
   craft 17551 x43

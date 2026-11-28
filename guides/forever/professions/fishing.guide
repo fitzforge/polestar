@@ -46,7 +46,7 @@ step Put a Shiny Bauble on the pole
   tip It lasts ten minutes.
   use 6529 anywhere
 
-step Fish near your starting area until 75
+step Fish near your starting area until 75 · Fishing: Professions tab (K by default)
   tip Every catch gives a point.
   only Alliance
   note Cast, then right-click the bobber when it splashes.
@@ -56,7 +56,7 @@ step Fish near your starting area until 75
   goto 63.2,75.8 live map 2521 "Valanaar shore" only Skyborne,Alliance
   skill Fishing 75 nearest
 
-step Fish near your starting area until 75
+step Fish near your starting area until 75 · Fishing: Professions tab (K by default)
   tip Every catch gives a point.
   only Horde
   note Cast, then right-click the bobber when it splashes.
@@ -76,7 +76,7 @@ step Train Journeyman Fishing
   tip Needs Fishing skill 50 and level 10.
   train Fishing Journeyman
 
-step Fish in a capital or a nearby lake until 150
+step Fish in a capital or a nearby lake until 150 · Fishing: Professions tab (K by default)
   tip Nightcrawlers on the pole help when fish keep getting away.
   loop Stormwind City lvl 11 lap 496 gain 12.1 only Alliance r 15 at 61.7,50.8 47.4,60.5 45.9,58.5 44.5,60.8 47.5,63.8 63.7,87.6
   loop Darnassus lvl 11 lap 137 gain 4.0 only Alliance r 15 at 46.4,56.0 52.0,56.4
@@ -106,7 +106,7 @@ step Buy 11 Bright Baubles
   tip For the water that loses fish below 225: ten minutes each, about 11 to 225.
   buy 6532 x11 nearest
 
-step Fish in the mid-level waters until 225
+step Fish in the mid-level waters until 225 · Fishing: Professions tab (K by default)
   tip Nat Pagle, who teaches Artisan, fishes in Dustwallow Marsh.
   loop Alterac Mountains lvl 39 lap 722 gain 2.7 only Alliance r 15 at 37.0,15.9 33.9,9.7 36.0,24.1
   loop Arathi Highlands lvl 41 lap 484 gain 1.8 only Alliance r 15 at 32.9,81.1 29.8,83.2
@@ -150,13 +150,13 @@ step Accept Nat Pagle, Angler Extreme · Nat Pagle
   tip Four fish, each from its own water; about one catch in five brings it up there.
   accept 6607
 
-step Catch a Sar'theris Striker · Desolace's northern coast, by the tower
+step Catch a Sar'theris Striker · Desolace's northern coast, by the tower · Fishing: Professions tab (K by default)
   tip It bites nowhere else.
   only Alliance
   zone Desolace
   collect 16968 x1 quest 6607 @39.5,22.7
 
-step Catch a Sar'theris Striker · Desolace coast by Shadowprey Village
+step Catch a Sar'theris Striker · Desolace coast by Shadowprey Village · Fishing: Professions tab (K by default)
   tip It bites nowhere else.
   only Horde
   zone Desolace
@@ -166,24 +166,24 @@ step Buy 2 Bright Baubles
   tip Fish get away in Feralas below skill 300; a lure adds 75 for ten minutes.
   buy 6532 x2 nearest
 
-step Catch a Feralas Ahi · Verdantis River, west of the road bridge
+step Catch a Feralas Ahi · Verdantis River, west of the road bridge · Fishing: Professions tab (K by default)
   tip It bites nowhere else.
   zone Feralas
   collect 16967 x1 quest 6607 @63.7,53.1
 
-step Catch a Savage Coast Blue Sailfin · Savage Coast, Stranglethorn Vale
+step Catch a Savage Coast Blue Sailfin · Savage Coast, Stranglethorn Vale · Fishing: Professions tab (K by default)
   tip Only Mithril Head Trout and Catfish biting means another spot.
   only Alliance
   zone Stranglethorn Vale
   collect 16969 x1 quest 6607 @27.4,68.9
 
-step Catch a Savage Coast Blue Sailfin · Savage Coast, Stranglethorn Vale
+step Catch a Savage Coast Blue Sailfin · Savage Coast, Stranglethorn Vale · Fishing: Professions tab (K by default)
   tip Only Mithril Head Trout and Catfish biting means another spot.
   only Horde
   zone Stranglethorn Vale
   collect 16969 x1 quest 6607 @33.0,32.1
 
-step Catch a Misty Reed Mahi Mahi · Misty Reed Strand, Swamp of Sorrows
+step Catch a Misty Reed Mahi Mahi · Misty Reed Strand, Swamp of Sorrows · Fishing: Professions tab (K by default)
   tip The small islands keep you clear of the murlocs.
   zone Swamp of Sorrows
   collect 16970 x1 quest 6607 @76.2,95.6
@@ -200,7 +200,7 @@ step Buy 16 Bright Baubles
   tip For the water that loses fish below 300: ten minutes each, about 16 to 300.
   buy 6532 x16 nearest
 
-step Fish in the high-level waters until 300
+step Fish in the high-level waters until 300 · Fishing: Professions tab (K by default)
   tip Fish get away here without a lure.
   loop Tanaris lvl 43 lap 568 gain 3.5 only Alliance r 15 at 67.3,25.5 67.7,27.2 67.7,23.2 67.9,22.8 67.7,22.4 67.2,19.5
   loop Tanaris lvl 43 lap 568 gain 3.5 only Horde r 15 at 67.3,25.5 67.7,27.2 67.7,23.2 67.9,22.8 67.7,22.4 67.2,19.5

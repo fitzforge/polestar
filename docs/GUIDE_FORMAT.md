@@ -886,8 +886,11 @@ else in it does):
 
 The counts work as for any `collect` or `buy` under a section (above), so an
 `auction` goal asks only for what the section's crafts still need. Lint warns
-about a `gather` with no `auction` goal for its item in the same section (a
-player who buys would have nothing that buys that share); an `auction` with no
+about a `gather` with no `auction` goal for its item in the same section when
+the guide buys that item in another section (a player who buys would have
+nothing that buys that share); an item the guide never buys is gathered only, on
+purpose (a gathering guide's own ore or herbs: the Materials window offers no
+choice for it and the Shopping list never lists it), and an `auction` with no
 `gather` is fine (bought only). An `auction` needs `xN`; one for an item that
 binds when picked up is an error. A pack with `auction` or `gather` is written
 in pack format 10 (Polestar 0.4.0).

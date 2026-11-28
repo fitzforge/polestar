@@ -52,7 +52,7 @@ step Get Stringy Wolf Meat
   collect 2672 x50 nearest gather levels 4-10
   auction 2672 x50
 
-step Charred Wolf Meat (1-50)
+step Charred Wolf Meat (1-50) · Professions tab (K by default)
   only Human
   zone Elwynn Forest
   tip Charred Wolf Meat is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own Basic Campfire.
@@ -65,7 +65,7 @@ step Get Chunk of Boar Meat
   collect 769 x50 nearest gather levels 5-10
   auction 769 x50
 
-step Roasted Boar Meat (1-50)
+step Roasted Boar Meat (1-50) · Professions tab (K by default)
   only Dwarf,Gnome
   zone Dun Morogh
   tip Roasted Boar Meat is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own Basic Campfire.
@@ -83,7 +83,7 @@ step Get Small Egg
   collect 6889 x50 nearest gather levels 5-9
   auction 6889 x50
 
-step Herb Baked Egg (1-50)
+step Herb Baked Egg (1-50) · Professions tab (K by default)
   only NightElf
   zone Teldrassil
   tip Herb Baked Egg is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own Basic Campfire. Herb Baked Egg comes with Cooking (the client teaches it with the skill); Mild Spices are a cooking vendor's. The Strigid owls of Teldrassil drop a Small Egg more often than not, and Darkshore's moonkin drop them too. Fishers can cook Brilliant Smallfish (recipe 40c) from Rut'theran's waters instead, and Zarrin in Dolanaar gives Recipe of the Kaldorei (seven Small Spider Legs from the Webwood spiders) for Kaldorei Spider Kabob, orange from 10 to 50.
@@ -96,7 +96,7 @@ step Get Stringy Wolf Meat
   collect 2672 x50 nearest gather levels 1-10
   auction 2672 x50
 
-step Charred Wolf Meat (1-50)
+step Charred Wolf Meat (1-50) · Professions tab (K by default)
   only Skyborne
   zone Zephras Isle
   tip Charred Wolf Meat is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own Basic Campfire. The Vuldren of Zephras Isle drop Stringy Wolf Meat.
@@ -109,7 +109,7 @@ step Get Chunk of Boar Meat
   collect 769 x50 nearest gather levels 6-9
   auction 769 x50
 
-step Roasted Boar Meat (1-50)
+step Roasted Boar Meat (1-50) · Professions tab (K by default)
   only Orc,Troll
   zone Durotar
   tip Roasted Boar Meat is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own Basic Campfire.
@@ -122,7 +122,7 @@ step Get Stringy Wolf Meat
   collect 2672 x50 nearest gather levels 5-10
   auction 2672 x50
 
-step Charred Wolf Meat (1-50)
+step Charred Wolf Meat (1-50) · Professions tab (K by default)
   only Tauren
   zone Mulgore
   tip Charred Wolf Meat is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own Basic Campfire.
@@ -135,7 +135,7 @@ step Get Stringy Wolf Meat
   collect 2672 x50 nearest gather levels 5-11
   auction 2672 x50
 
-step Charred Wolf Meat (1-50)
+step Charred Wolf Meat (1-50) · Professions tab (K by default)
   only Undead
   zone Tirisfal Glades
   tip Charred Wolf Meat is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own Basic Campfire.
@@ -155,7 +155,7 @@ step Get Coyote Meat
   collect 2673 x40 nearest gather levels 10-12
   auction 2673 x40
 
-step Coyote Steak (50-90)
+step Coyote Steak (50-90) · Professions tab (K by default)
   only Human,Skyborne,Alliance
   zone Westfall
   tip Coyote Steak is orange from 50 (yellow at 90, green at 110, grey at 130): about 40 crafts to 90. Cook at any fire: a town hearth or your own Basic Campfire. Any Cooking trainer teaches it from skill 50 for 1s. Coyotes roam the middle of Westfall; Salma Saldean on the farm north of Sentinel Hill also gives Westfall Stew and Goretusk Liver Pie quests that use what you loot here.
@@ -174,7 +174,7 @@ step Get Crawler Meat
   collect 2674 x47 nearest gather levels 13-18
   auction 2674 x47
 
-step Crab Cake (90-130)
+step Crab Cake (90-130) · Professions tab (K by default)
   only Human,Skyborne,Alliance
   zone Westfall
   tip Crab Cake is orange from 90 (yellow at 115, green at 135, grey at 155): about 44 crafts to 130, up to 47 for 9 players in 10 (the ingredients to farm count that many). Cook at any fire: a town hearth or your own Basic Campfire. Any Cooking trainer teaches it from skill 75 for 2s. Crawlers line the whole Westfall coast. Cook it to 130, where Curiously Tasty Omelet takes over.
@@ -193,7 +193,7 @@ step Get Bear Meat
   collect 3173 x30 nearest gather levels 11-17
   auction 3173 x30
 
-step Smoked Bear Meat (50-80)
+step Smoked Bear Meat (50-80) · Professions tab (K by default)
   only Dwarf,Gnome
   zone Loch Modan
   tip Smoked Bear Meat is orange from 50 (yellow at 80, green at 100, grey at 120): about 30 crafts to 80. Cook at any fire: a town hearth or your own Basic Campfire. Recipe: Smoked Bear Meat costs 2s 50c at its vendor; the arrow picks the nearest one of your faction. Black bears roam the hills of Loch Modan.
@@ -212,7 +212,7 @@ step Get Boar Ribs
   collect 2677 x53 nearest gather levels 10-17
   auction 2677 x53
 
-step Dry Pork Ribs (80-130)
+step Dry Pork Ribs (80-130) · Professions tab (K by default)
   only Dwarf,Gnome
   zone Loch Modan
   tip Dry Pork Ribs is orange from 80 (yellow at 120, green at 140, grey at 160): about 52 crafts to 130, up to 53 for 9 players in 10 (the ingredients to farm count that many). Cook at any fire: a town hearth or your own Basic Campfire. Any Cooking trainer teaches it from skill 80 for 1s 50c. Mountain boars roam all of Loch Modan. Cook it to 130, where Curiously Tasty Omelet takes over.
@@ -230,7 +230,7 @@ step Get Clam Meat
   tip You need 40 Clam Meat for Boiled Clams (50-90). It comes in Small Barnacled Clams, which Clattering Crawler (42%), Spined Crawler (42%), Wrathtail Priestess (42%) in Darkshore drop: open each one. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice.
   collect 5523 x40 nearest
 
-step Boiled Clams (50-90)
+step Boiled Clams (50-90) · Professions tab (K by default)
   only NightElf
   zone Darkshore
   tip Boiled Clams is orange from 50 (yellow at 90, green at 110, grey at 130): about 40 crafts to 90. Cook at any fire: a town hearth or your own Basic Campfire. Any Cooking trainer teaches it from skill 50 for 1s. The same coastal crawlers drop Crawler Meat for Crab Cake next: keep it.
@@ -249,7 +249,7 @@ step Get Crawler Meat
   collect 2674 x47 nearest gather levels 9-21
   auction 2674 x47
 
-step Crab Cake (90-130)
+step Crab Cake (90-130) · Professions tab (K by default)
   only NightElf
   zone Darkshore
   tip Crab Cake is orange from 90 (yellow at 115, green at 135, grey at 155): about 44 crafts to 130, up to 47 for 9 players in 10 (the ingredients to farm count that many). Cook at any fire: a town hearth or your own Basic Campfire. Any Cooking trainer teaches it from skill 75 for 2s. Crawlers line the whole Darkshore coast. Cook it to 130, where Curiously Tasty Omelet takes over.
@@ -269,7 +269,7 @@ step Get Strider Meat
   collect 5469 x53 nearest gather levels 11-17
   auction 5469 x53
 
-step Strider Stew (50-100)
+step Strider Stew (50-100) · Professions tab (K by default)
   only Horde
   zone The Barrens
   tip Strider Stew is orange from 50 (yellow at 90, green at 110, grey at 130): about 52 crafts to 100, up to 53 for 9 players in 10 (the ingredients to farm count that many). Cook at any fire: a town hearth or your own Basic Campfire. Recipe: Strider Stew costs 4s 40c at its vendor; the arrow picks the nearest one of your faction.
@@ -290,7 +290,7 @@ step Get Thunder Lizard Tail
   collect 5470 x30 nearest gather levels 15-24
   auction 5470 x30
 
-step Crispy Lizard Tail (100-130)
+step Crispy Lizard Tail (100-130) · Professions tab (K by default)
   only Horde
   zone The Barrens
   tip Crispy Lizard Tail is orange from 100 (yellow at 140, green at 160, grey at 180): about 30 crafts to 130. Cook at any fire: a town hearth or your own Basic Campfire. Recipe: Crispy Lizard Tail costs 4s at its vendor; the arrow picks the nearest one of your faction. Zargh, the butcher beside this vendor at the Crossroads, sells Recipe: Hot Lion Chops (18s), the recipe after Expert: buy it now.
@@ -320,7 +320,7 @@ step Get Raptor Egg
   collect 3685 x46 nearest gather levels 22-29
   auction 3685 x46
 
-step Curiously Tasty Omelet (130-175)
+step Curiously Tasty Omelet (130-175) · Professions tab (K by default)
   only Alliance
   zone Wetlands
   tip Curiously Tasty Omelet is orange from 130 (yellow at 170, green at 190, grey at 210): about 46 crafts to 175. Cook at any fire: a town hearth or your own Basic Campfire. Recipe: Curiously Tasty Omelet costs 16s at its vendor; the arrow picks the nearest one of your faction. The raptors of the Wetlands drop a Raptor Egg about two kills in three. Kendor Kabonka in Stormwind sells the recipe.
@@ -340,7 +340,7 @@ step Get Lion Meat
   collect 3731 x45 nearest gather levels 23-34
   auction 3731 x45
 
-step Hot Lion Chops (130-175)
+step Hot Lion Chops (130-175) · Professions tab (K by default)
   only Horde
   zone Hillsbrad Foothills
   tip Hot Lion Chops is orange from 130 (yellow at 175, green at 195, grey at 215): about 45 crafts to 175. Cook at any fire: a town hearth or your own Basic Campfire. Recipe: Hot Lion Chops costs 18s at its vendor; the arrow picks the nearest one of your faction. The Feral and Hulking Mountain Lions of Hillsbrad Foothills drop Lion Meat more often than the Starving ones.
@@ -361,7 +361,7 @@ step Get Raptor Flesh
   collect 12184 x53 nearest gather levels 30-37
   auction 12184 x53
 
-step Roast Raptor (175-225)
+step Roast Raptor (175-225) · Professions tab (K by default)
   zone Arathi Highlands
   tip Roast Raptor is orange from 175 (yellow at 215, green at 235, grey at 255): about 52 crafts to 225, up to 53 for 9 players in 10 (the ingredients to farm count that many). Cook at any fire: a town hearth or your own Basic Campfire. Recipe: Roast Raptor costs 50s at its vendor; the arrow picks the nearest one of your faction. Arathi Highlands: Hammon Karwn at Refuge Pointe (Alliance) and Keena at Hammerfall (Horde) sell the recipe and Hot Spices beside the raptors. Spider Sausage (any trainer from 200, 40s) is the alternative, but it takes two White Spider Meat a craft and Dustwallow's spiders drop one about two kills in five.
   learn 15855
@@ -420,7 +420,7 @@ step Get Giant Egg
   collect 12207 x137 nearest gather levels 42-47
   auction 12207 x137
 
-step Monster Omelet (225-300)
+step Monster Omelet (225-300) · Professions tab (K by default)
   zone The Hinterlands
   tip Monster Omelet is orange from 225 (yellow at 265, green at 285, grey at 305): about 120 crafts to 300, up to 137 for 9 players in 10 (the ingredients to farm count that many). Cook at any fire: a town hearth or your own Basic Campfire. Recipe: Monster Omelet costs 1g 20s at its vendor; the arrow picks the nearest one of your faction. The longest stretch of the guide: about 120 Monster Omelets (up to 137), a Giant Egg and two Soothing Spices each, and the last points green (orange to 265, green from 285); no recipe without fish or an Iron Oven does better. Fishers can finish on Nightfin Soup (Gikkix, Steamwheedle Port; yellow to 310) instead, though Nightfin Snapper bites only in waters that lose fish below 300; Poached Sunscale Salmon needs an Iron Oven on Forever.
   learn 15933

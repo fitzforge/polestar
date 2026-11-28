@@ -416,25 +416,26 @@ function renderPair(ctx, pair) {
 		const why = `${D.list(counts.map((c) => `${c.count} ${itemName(c.item)}`))} for ${P} ${seg.from}-${seg.to}: ${D.crafts(seg.count90 || seg.count, seg.recipe.name)}${kept.length ? `; from your ${pair.doing} on the way: ${D.list(kept.map((x) => `${x.n} of ${x.of} ${itemName(x.raw)}`))}` : ''}.`;
 		const raws = [...need.keys()].map(itemName);
 		const bars = counts.filter(made).map((c) => itemName(c.item));
+		// What the pair's gathering profession gathers is gathered, never bought: no Auction House row, so the
+		// Materials setting leaves it gathered and the Shopping list (what a player buys) never lists it.
 		if (routed) {
-			// One material, its loops and the Auction House: the crafting guide's Get step, gathered on the way.
+			// One material and its loops: the crafting guide's Get step, gathered on the way.
 			const rise = g1 > g0 ? ` ${G} ${g0} to ${g1} on the way.` : '';
 			const tip = `${routedTip}${rise}`.length <= 120 ? `${routedTip}${rise}` : routedTip;
-			push([`step ${made(main) ? `${pair.verb} and smelt` : pair.verb} ${main.total} ${itemName(main.item)}`, `  tip ${tip}`, `  collect ${main.item} x${main.total} gather ${G} ${ask(main)}`, ...loops, `  auction ${main.item} x${main.total}`]);
+			push([`step ${made(main) ? `${pair.verb} and smelt` : pair.verb} ${main.total} ${itemName(main.item)}`, `  tip ${tip}`, `  collect ${main.item} x${main.total} gather ${G} ${ask(main)}`, ...loops]);
 		} else {
 			const title = `${pair.verb} ${D.list(raws)}${bars.length ? `, smelt ${D.list(bars)}` : ''}${g1 > g0 ? ` (${G} ${g0}-${g1})` : ''}`;
 			const lines = [`step ${title}`];
 			const arrow = solo
 				? `The arrow leads to the stand players fish them at in ${solo.zone}: stay there until your bags hold them.`
 				: `The arrow takes the ${G} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left.${side && side.gatherNote ? ` ${side.gatherNote}` : ''}`;
-			lines.push(`  tip ${why} ${flow} ${arrow} Or buy them at the Auction House.`);
+			lines.push(`  tip ${why} ${flow} ${arrow}`);
 			// One stand: the arrow goes there (`goto`) and the fish are a bag count (`anywhere`: the stand is where
 			// they bite, not a spawn of theirs).
 			if (solo) lines.push(`  zone ${solo.zone}`, `  goto ${solo.at} r 15`);
 			lines.push(`  collect ${main.item} x${main.total}${solo ? ' anywhere' : ''} gather ${G} ${ask(main)}`);
 			lines.push(...loops);
 			for (const c of counts) if (c !== main) lines.push(`  collect ${c.item} x${c.total} anywhere gather ${G} ${ask(c)}`);
-			for (const c of counts) lines.push(`  auction ${c.item} x${c.total}`);
 			push(lines);
 		}
 		st.sinceTrainer = true;

@@ -114,7 +114,7 @@ step Get Copper Bar
   loop Mulgore lvl 8 lap 540 yield 11.8 only Horde r 60 at 41.8,79.8 33.5,58.2 31.6,60.9 34.0,66.5 33.2,70.1 34.1,72.7 32.9,76.2 33.7,81.2 34.6,79.8 41.2,82.0 49.0,92.8 49.2,87.7
   auction 2840 x101
 
-step Rough Blasting Powder to 30
+step Rough Blasting Powder to 30 · Professions tab (K by default)
   tip Rough Blasting Powder is orange at 1 (yellow 20, green 30, grey 40): about 33 crafts to 30, up to 36 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Rough Stone. One Rough Stone a craft; Rough Stone comes with the Copper Ore from Copper Veins.
   craft 3918 until 30
 
@@ -123,7 +123,7 @@ step Engineering recipes at 30
   learn 3922
   learn 1230656
 
-step Handful of Copper Bolts to 59
+step Handful of Copper Bolts to 59 · Professions tab (K by default)
   tip Handful of Copper Bolts is orange at 30 (yellow 45, green 52, grey 60): about 50 crafts to 59, up to 63 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Copper Bar. One Copper Bar a craft. Keep the bolts: Practice Locks and later gadgets take them. Needs an anvil nearby. Blacksmith Hammer is a tool: keep it in your bags.
   craft 3922 until 59
 
@@ -132,7 +132,7 @@ step Engineering recipes at 59
   learn 7430
   learn 3924
 
-step Copper Tube to 75
+step Copper Tube to 75 · Professions tab (K by default)
   tip Copper Tube is orange at 59 (yellow 80, green 95, grey 110): about 16 crafts to 75, a point every craft. Each takes 2 Copper Bar and 1 Weak Flux. Two Copper Bars and a Weak Flux a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. Make the Arclight Spanner now, while it still gives a point: a later recipe needs it in your bags, so keep it there.
   craft 7430 x1 -- a tool: keep it in your bags
   craft 3924 until 75
@@ -201,11 +201,11 @@ step Get Silver Bar
   collect 2842 x3 anywhere gather Mining 75
   auction 2842 x3
 
-step Coarse Blasting Powder to 94
+step Coarse Blasting Powder to 94 · Professions tab (K by default)
   tip Coarse Blasting Powder is orange at 75 (yellow 85, green 90, grey 95): about 30 crafts to 94, up to 38 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Coarse Stone. One Coarse Stone a craft (Tin Veins).
   craft 3929 until 94
 
-step Copper Tube to 100
+step Copper Tube to 100 · Professions tab (K by default)
   tip Copper Tube is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100, up to 20 for 9 players in 10 (the gathered materials above count that many). Each takes 2 Copper Bar and 1 Weak Flux. Two Copper Bars and a Weak Flux a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. If you got here without learning Copper Tube, learn it now: an earlier step teaches it.
   learn 3924
   craft 3924 until 100
@@ -215,7 +215,7 @@ step Engineering recipes at 100
   learn 8334
   learn 3973
 
-step Practice Lock to 125
+step Practice Lock to 125 · Professions tab (K by default)
   tip Practice Lock is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125, up to 36 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Bronze Bar, 2 Handful of Copper Bolts and 1 Weak Flux. Make the 12 Handful of Copper Bolts first. Use the 50 Handful of Copper Bolts you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby. If you got here without learning Handful of Copper Bolts, learn it now: an earlier step teaches it.
   learn 3922
   craft 3922 x12
@@ -225,7 +225,7 @@ step Engineering recipes at 125
   tip Back to an Engineering trainer: Heavy Blasting Powder (from 125).
   learn 3945
 
-step Heavy Blasting Powder to 144
+step Heavy Blasting Powder to 144 · Professions tab (K by default)
   tip Heavy Blasting Powder is yellow at 125 (yellow 125, green 135, grey 145): about 52 crafts to 144, up to 70 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Heavy Stone. One Heavy Stone a craft (Iron Deposits). Keep some: Iron Grenades take one each.
   craft 3945 until 144
 
@@ -233,7 +233,7 @@ step Engineering recipes at 144
   tip Back to an Engineering trainer: Big Bronze Bomb (from 140).
   learn 3950
 
-step Big Bronze Bomb to 150
+step Big Bronze Bomb to 150 · Professions tab (K by default)
   tip Big Bronze Bomb is yellow at 144 (yellow 140, green 165, grey 190): about 7 crafts to 150, up to 9 for 9 players in 10 (the gathered materials above count that many). Each takes 2 Heavy Blasting Powder, 3 Bronze Bar and 1 Silver Contact and makes 3. Make the 10 Silver Contact (2 crafts) first. Use the 14 Heavy Blasting Powder you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. Needs an anvil nearby. Engineering 150 is a Legacy System milestone.
   craft 3973 x2
   craft 3950 until 150
@@ -263,7 +263,7 @@ step Get Medium Leather
   loop Wetlands lvl 30 lap 943 yield 32.8 only Alliance r 80 at 69.2,31.6 69.3,28.2 65.1,28.7 66.5,30.7 68.3,36.5 71.0,38.9
   loop Alterac Mountains lvl 36 lap 1843 yield 52.6 only Alliance r 80 at 40.1,90.9 40.5,95.9 36.1,85.1 30.1,87.4 32.3,82.5 30.0,73.6 30.5,62.2 32.9,67.1 35.5,70.5 39.7,70.4 41.7,64.9 44.1,78.4
   loop Thousand Needles lvl 32 lap 629 yield 16.6 r 80 at 76.1,56.3 76.9,53.4 73.3,56.2 70.8,55.1 74.7,61.6 77.6,59.8
-  loop Redridge Mountains lvl 18 lap 714 yield 2.1 only Alliance r 80 at 15.4,65.1 18.7,71.9 27.7,79.5 31.5,71.2 33.9,61.1 25.4,60.5 18.5,43.6 17.1,52.5
+  loop Redridge Mountains lvl 18 lap 571 yield 2.1 only Alliance r 80 at 17.1,52.5 18.5,43.6 25.4,60.5 33.9,61.1 31.5,71.2 27.5,78.9 18.7,71.9
   loop Stranglethorn Vale lvl 32 lap 1043 yield 37.7 only Horde r 80 at 41.2,13.0 43.0,13.0 42.2,10.2 40.2,8.1 37.3,8.3 35.9,7.7 31.5,8.7 33.8,10.1 34.5,13.0 37.0,11.0 39.3,11.4 38.8,14.3
   loop Arathi Highlands lvl 33 lap 643 yield 17.3 only Horde r 80 at 65.3,42.3 62.9,45.8 64.0,50.5 67.1,56.3 70.6,51.0 74.0,48.3 69.1,38.5 69.9,31.0 67.2,34.1 65.7,37.2
   loop Alterac Mountains lvl 31 lap 543 yield 12.4 only Horde r 80 at 80.0,58.9 76.8,63.7 73.5,67.0 84.3,51.6 90.0,46.5
@@ -323,13 +323,13 @@ step Get Solid Stone
   loop Alterac Mountains lvl 38 lap 641 yield 4.0 only Horde r 60 at 50.9,44.2 53.2,48.4 54.1,45.6 55.1,40.6 52.7,36.8 48.0,33.1 42.8,34.7 37.9,32.5 35.6,39.7 33.3,43.9 39.5,38.0 45.4,39.8
   auction 7912 x390
 
-step Aquadynamic Fish Attractor to 166
+step Aquadynamic Fish Attractor to 166 · Professions tab (K by default)
   tip Aquadynamic Fish Attractor is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166, up to 39 for 9 players in 10 (the gathered materials above count that many). Each takes 2 Bronze Bar, 1 Nightcrawlers and 1 Coarse Blasting Powder and makes 3. Make the 1 Coarse Blasting Powder first. Use the 30 Coarse Blasting Powder you made earlier; the counts above leave them out. Nightcrawlers come from trade and fishing suppliers; the attractors sell to fishermen. If you got here without learning Coarse Blasting Powder, learn it now: an earlier step teaches it.
   learn 3929
   craft 3929 x1
   craft 9271 until 166
 
-step Bronze Framework to 175
+step Bronze Framework to 175 · Professions tab (K by default)
   tip Bronze Framework is yellow at 166 (yellow 145, green 170, grey 195): about 19 crafts to 175, up to 25 for 9 players in 10 (the gathered materials above count that many). Each takes 2 Bronze Bar, 1 Medium Leather and 1 Wool Cloth. Bronze Frameworks are parts for later gadgets; the extras sell to vendors.
   craft 3953 until 175
 
@@ -338,7 +338,7 @@ step Engineering recipes at 175
   learn 12585 npc 5174 only Alliance
   learn 12585 npc 11017 only Horde
 
-step Solid Blasting Powder to 195
+step Solid Blasting Powder to 195 · Professions tab (K by default)
   tip Solid Blasting Powder is yellow at 175 (yellow 175, green 185, grey 195): about 72 crafts to 195, up to 103 for 9 players in 10 (the gathered materials above count that many). Each takes 2 Solid Stone. Two Solid Stone a craft (Mithril Deposits). Make plenty: the triggers, slugs and Gyro-Shot all use it.
   craft 12585 until 195
 
@@ -347,7 +347,7 @@ step Engineering recipes at 195
   learn 3967 npc 5174 only Alliance
   learn 3967 npc 11017 only Horde
 
-step Big Iron Bomb to 210
+step Big Iron Bomb to 210 · Professions tab (K by default)
   tip Big Iron Bomb is yellow at 195 (yellow 190, green 210, grey 230): about 22 crafts to 210, up to 27 for 9 players in 10 (the gathered materials above count that many). Each takes 3 Iron Bar, 3 Heavy Blasting Powder and 1 Silver Contact and makes 2. Make the 28 Heavy Blasting Powder and 25 Silver Contact (5 crafts) first. Use the 38 Heavy Blasting Powder you made earlier; the counts above leave them out. A Silver Bar makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the Heavy Blasting Powder comes from Heavy Stone. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, Springspindle Fizzlegear (Ironforge), Lilliam Sparkspindle (Stormwind), Graham Van Talen (Undercity) or Tinkerwiz (Ratchet) sends you to Gnomish Engineering (Tinkmaster Overspark, Ironforge, or Oglethorpe Obnoticus, Booty Bay: 6 Mithril Tubes, an Accurate Scope and 2 Advanced Target Dummies) or Goblin Engineering (Nixx Sprocketspring, Gadgetzan: 20 Big Iron Bombs, 20 Solid Dynamite and 5 Explosive Sheep). The Accurate Scope schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby. If you got here without learning Heavy Blasting Powder and Silver Contact, learn them now: an earlier step teaches them.
   learn 3945
   learn 3973
@@ -360,7 +360,7 @@ step Engineering recipes at 210
   learn 12596 npc 5174 only Alliance
   learn 12596 npc 11017 only Horde
 
-step Hi-Impact Mithril Slugs to 225
+step Hi-Impact Mithril Slugs to 225 · Professions tab (K by default)
   tip Hi-Impact Mithril Slugs is yellow at 210 (yellow 210, green 230, grey 250): about 19 crafts to 225, up to 22 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Mithril Bar and 1 Solid Blasting Powder and makes 200. Use the 19 Solid Blasting Powder you made earlier; the counts above leave them out. One Mithril Bar and one Solid Blasting Powder a craft; hunters buy the slugs. Needs an anvil nearby. Engineering 225 is a Legacy System milestone.
   craft 12596 until 225
   skill Engineering 225
@@ -412,7 +412,7 @@ step Get Runecloth
   collect 14047 x26 nearest gather levels 45-60
   auction 14047 x26
 
-step Hi-Impact Mithril Slugs to 245
+step Hi-Impact Mithril Slugs to 245 · Professions tab (K by default)
   tip Hi-Impact Mithril Slugs is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245, up to 79 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Mithril Bar and 1 Solid Blasting Powder and makes 200. Make the 9 Solid Blasting Powder first. Use the 53 Solid Blasting Powder you made earlier; the counts above leave them out. One Mithril Bar and one Solid Blasting Powder a craft; hunters buy the slugs. The slow part: the slugs turn green at 230, so 225-245 takes about 60 crafts for 20 points. Nothing in the data is cheaper here (Mithril Casing takes three times the Mithril; the rest need Truesilver or parts). Needs an anvil nearby. If you got here without learning Solid Blasting Powder and Hi-Impact Mithril Slugs, learn them now: an earlier step teaches them.
   learn 12585 npc 5174 only Alliance
   learn 12585 npc 11017 only Horde
@@ -426,19 +426,19 @@ step Engineering recipes at 245
   learn 12621 npc 8736 only Alliance
   learn 12621 npc 8736 only Horde
 
-step Mithril Gyro-Shot to 265
+step Mithril Gyro-Shot to 265 · Professions tab (K by default)
   tip Mithril Gyro-Shot is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265, up to 33 for 9 players in 10 (the gathered materials above count that many). Each takes 2 Mithril Bar and 2 Solid Blasting Powder and makes 200. Make the 56 Solid Blasting Powder first. Two Mithril Bars and two Solid Blasting Powder a craft. Needs an anvil nearby. If you got here without learning Solid Blasting Powder, learn it now: an earlier step teaches it.
   learn 12585 npc 5174 only Alliance
   learn 12585 npc 11017 only Horde
   craft 12585 x56
   craft 12621 until 265
 
-step Thorium Widget to 287
+step Thorium Widget to 287 · Professions tab (K by default)
   tip Thorium Widget is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287, up to 26 for 9 players in 10 (the gathered materials above count that many). Each takes 3 Thorium Bar and 1 Runecloth. Three Thorium Bars and a Runecloth a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby.
   learn 19791 -- from the recipe in your bags
   craft 19791 until 287
 
-step Thorium Tube to 300
+step Thorium Tube to 300 · Professions tab (K by default)
   tip Thorium Tube is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300, up to 16 for 9 players in 10 (the gathered materials above count that many). Each takes 6 Thorium Bar. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. Engineering 300 is a Legacy System milestone.
   learn 19795 -- from the recipe in your bags
   craft 19795 until 300
