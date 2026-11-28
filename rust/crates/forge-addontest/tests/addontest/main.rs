@@ -306,6 +306,8 @@ mod lookup_guides;
 mod lookup_tooltip_performance;
 #[path = "lua-helper-paths.rs"]
 mod lua_helper_paths;
+#[path = "mage-teleports.rs"]
+mod mage_teleports;
 mod maps;
 #[path = "maps-arcade.rs"]
 mod maps_arcade;
