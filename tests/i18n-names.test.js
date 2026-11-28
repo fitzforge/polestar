@@ -47,7 +47,6 @@ test('the release zip and install take every language folder that is built, afte
 const NAMED_AS_IN_GAME_KNOWN = {
 	zhCN: {
 		'forever/alliance/02-westfall.lua': [157, 263389, 263390],
-		'forever/alliance/03-darkshore-return.lua': [2237],
 		'forever/alliance/04-redridge-mountains.lua': [445, 505],
 		'forever/alliance/30-40/04-stranglethorn-vale.lua': [1150],
 		'forever/alliance/30-40/05-arathi-highlands.lua': [247001, 247003, 254797],
@@ -67,7 +66,6 @@ const NAMED_AS_IN_GAME_KNOWN = {
 		'forever/horde/skyborne/01-zephras-isle.lua': [251676],
 		'forever/horde/tauren/01-mulgore.lua': [3131],
 		'forever/reputation/stormwind.lua': [118],
-		'forever/reputation/thunder-bluff.lua': [264096],
 	},
 };
 
