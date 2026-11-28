@@ -174,6 +174,7 @@ step The ancients' outpost
 
 step Thylaen
   when onquest 91923
+  when complete 91923
   turnin 91923
 
 step Fine Feathered Friend
@@ -194,6 +195,7 @@ step Sunderbark
 
 step Fraxinus
   when onquest 92959
+  when complete 92959
   turnin 92959
 
 step The Curious Crow
@@ -270,6 +272,7 @@ step Prickly pinecones
 
 step Felflick
   when onquest 96255
+  when complete 96255
   turnin 96255 @49.3,77.1
   accept 96322 @49.3,77.1               -- A Revenge Now Bitter
   complete 96322 @49.3,77.2             -- Felflick: decide his fate
@@ -1105,6 +1108,7 @@ step To the Summit of Eternity
 step Zet'gan
   only Horde
   when onquest 92446
+  when complete 92446
   turnin 92446                          -- Head Scratcher's claws
 
 step Up to the Summit of Eternity

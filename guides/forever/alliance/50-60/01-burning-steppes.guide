@@ -389,6 +389,7 @@ step Curator Thorius
 
 step Royal Historian Archesonus
   when onquest 3701
+  when complete 3701
   zone Ironforge
   tip Archesonus stands beside King Magni in the High Seat: the relics you read in the Steppes are his.
   turnin 3701

@@ -162,6 +162,7 @@ step Neza Bloodsnout
 
 step Neza's elites
   when onquest 96105
+  when complete 96105
   turnin 96105
 
 step Snargl's Snout
@@ -228,6 +229,7 @@ step Rog'mar
 
 step Neza Bloodsnout
   when onquest 94533
+  when complete 94533
   turnin 94533
 
 step WANTED: Ghostmaw
@@ -260,6 +262,7 @@ step Rog'mar
 
 step Tan'jani
   when onquest 95992
+  when complete 95992
   turnin 95992
 
 # Riverglades for the Horde, part 2 of 4 (2026-11-12). Hand-written from players'
@@ -657,6 +660,7 @@ step Rog'mar
 
 step Neza Bloodsnout
   when onquest 95882
+  when complete 95882
   turnin 95882
 
 step Fly to Kargath

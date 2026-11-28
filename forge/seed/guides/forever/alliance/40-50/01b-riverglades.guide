@@ -87,6 +87,7 @@ step Southern Watch
 
 step Cedric Dalton
   when onquest 94679
+  when complete 94679
   turnin 94679
 
 step Gelinda Coppergleam
@@ -589,6 +590,7 @@ step Ashe Amberhall
 
 step Ember Bladewhisper
   when onquest 95912
+  when complete 95912
   turnin 95912
 
 step Brother Lowley
@@ -612,6 +614,7 @@ step Sister Rowland
 
 step Wheatley
   when onquest 95991
+  when complete 95991
   turnin 95991
 
 # Polestar Experimental, Riverglades for the Alliance, part 4 of 4 (2026-11-12). Hand-written from players'
@@ -648,6 +651,7 @@ step Terral's Watch
 
 step Watcher Cornelius
   when onquest 95986
+  when complete 95986
   turnin 95986
 
 step Turner's Logging Camp

@@ -20013,3 +20013,29 @@ test("forever/horde/40-50/02-feralas.guide: Stinglasher's step says to hand in o
 	assert.match(text, /Tabetha's Task/, 'the step names Tabetha\'s Task');
 	assert.match(text, /hand it in to Tabetha in Dustwallow Marsh or abandon it/, 'and what to do with it');
 });
+
+// #4583 (king_iix, 0.4.3.1): Riverglades sent a player to Neza Bloodsnout to hand in WANTED: Scoutmaster Vargas (95882)
+// at 0/1. The quest's only work, the elite's eye, is behind `when group 95882`; the hand-in step asked only for the
+// quest in the log. A hand-in of a quest the guide works on only in group steps waits for the quest to be ready
+// (`when complete`), unless the hand-in's step is a group step itself: the sweep found 14 more such hand-ins
+// (Riverglades both sides, Azshara, Silithus, Burning Steppes, Mount Hyjal), all gated the same way.
+test('a hand-in of a quest worked only in group steps waits for the quest to be ready, on every guide (#4583)', { skip }, () => {
+	const WORK = new Set(['complete', 'kill', 'collect', 'use', 'interact', 'talk', 'explore', 'cast']);
+	const has = (step, k, q) => (step.when || []).some((p) => p.k === k && !p.neg && [].concat(p.q).includes(q));
+	const skipsUnready = (step, q) => [].concat(step.skipto || []).some((sk) => sk.when && sk.when.neg && sk.when.k === 'complete' && [].concat(sk.when.q).includes(q));
+	const bare = [];
+	for (const file of allGuides().filter((f) => !f.includes('/legacy/'))) {
+		const list = goals(file);
+		list.forEach(({ step, goal, s }, t) => {
+			if (goal.t !== 'turnin' || goal.direct || goal.optional) return;
+			const q = goal.quest;
+			if (has(step, 'group', q) || has(step, 'complete', q) || skipsUnready(step, q)) return;
+			const work = list.slice(0, t).filter((e) => WORK.has(e.goal.t) && e.goal.quest === q);
+			if (work.length && work.every((e) => has(e.step, 'group', q))) bare.push(`${file} step ${s} "${step.title}": turnin ${q}`);
+		});
+	}
+	assert.deepEqual(bare, []);
+	const list = goals('forever/horde/40-50/01b-riverglades.guide');
+	const neza = list[at(list, 'turnin 95882 (WANTED: Scoutmaster Vargas)', is('turnin', 95882))];
+	assert.ok(has(neza.step, 'complete', 95882), 'Neza Bloodsnout: when complete 95882');
+});
