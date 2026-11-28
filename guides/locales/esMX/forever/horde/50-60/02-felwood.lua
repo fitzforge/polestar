@@ -65,9 +65,9 @@ return {
 
 	-- Step 14: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172959} The Drag
-	["{npc:8659} takes the ravasaur claws from Un'Goro; he is in {object:172959}, upstairs in one of its tallest buildings."] = "",
+	["{npc:8659} takes the ravasaur claws from Un'Goro; he is in {object:172959}, upstairs in one of its tallest buildings."] = "{npc:8659} recibe las garras de ravasaurio de Un'Goro; está en {object:172959}, en el piso de arriba de uno de sus edificios más altos.",
 	-- {npc:8659} Jes'rimon · {object:172959} The Drag
-	["{npc:8659}, upstairs in {object:172959}"] = "",
+	["{npc:8659}, upstairs in {object:172959}"] = "{npc:8659}, en el piso de arriba, en {object:172959}",
 
 	-- Step 15: Fly to Valormok
 	-- {area:1237} Valormok
@@ -88,7 +88,7 @@ return {
 
 	-- Step 18: Ruins of Eldarath
 	-- {item:10695} Box of Empty Vials · {area:1231} Southridge Beach · {npc:8390} Chemist Cuely · {zone:1458} Undercity
-	["Open Cuely's {item:10695} in your bags for the four labelled vials. The tide pools cannot be clicked: stand in each pool and use its own vial from your bags, from {area:1231} north up the coast; Spitelash naga patrol between them. No vials? Abandon the quest and take it again from {npc:8390} in the {zone:1458}."] = "",
+	["Open Cuely's {item:10695} in your bags for the four labelled vials. The tide pools cannot be clicked: stand in each pool and use its own vial from your bags, from {area:1231} north up the coast; Spitelash naga patrol between them. No vials? Abandon the quest and take it again from {npc:8390} in the {zone:1458}."] = "Abre la {item:10695} de Cuely en tus bolsas para obtener los cuatro viales etiquetados. No se puede hacer clic en las pozas de marea: párate en cada poza y usa su propio vial desde tus bolsas, desde {area:1231} hacia el norte subiendo por la costa; los nagas Látigo de Ira patrullan entre ellas. ¿Sin viales? Abandona la misión y vuelve a tomarla con {npc:8390} en {zone:1458}.",
 	-- {item:10691} Filled Vial Labeled #1 · {area:1231} Southridge Beach
 	["{item:10691}: the tide pool on {area:1231}"] = "{item:10691}: la poza de marea de {area:1231}",
 	["#2, north along the shore"] = "#2, al norte por la orilla",
@@ -138,7 +138,7 @@ return {
 	-- {quest:91500} An Explosive Gambit · {quest:91497} Seals of the Sin'dorei
 	["Back to the Sin'dorei Tome: hand in the seals and take {quest:91500}, which gives you the {quest:91497}. Rimtori does not come from the Tome: stand beside one of the camp's tall crystals and use the {quest:91497} from your bags; its crystal explodes and draws her. Which crystal is linked to her is random: each of the other two summons a hostile infernal instead. She is level 55: start at full health."] = "",
 	-- {quest:91497} Seals of the Sin'dorei · {npc:8578} Magus Rimtori
-	["Use the {quest:91497} from your bags beside a crystal: {npc:8578} (55) comes to the explosion and drops her head"] = "",
+	["Use the {quest:91497} from your bags beside a crystal: {npc:8578} (55) comes to the explosion and drops her head"] = "Usa los {quest:91497} desde tus bolsas junto a un cristal: {npc:8578} (55) acude a la explosión y suelta su cabeza",
 	-- {quest:91538} Sin'dorei Tome of Summoning · {npc:8587} Jediga · {area:1237} Valormok
 	["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}: para {npc:8587} en {area:1237}",
 
@@ -190,7 +190,7 @@ return {
 
 	-- Step 36: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {npc:3326} Zevrost · {object:172960} Cleft of Shadow · {npc:8659} Jes'rimon · {object:172959} The Drag
-	["{npc:4485} is in the {object:172958}, {npc:3326} in the {object:172960}, and {npc:8659} in {object:172959}, upstairs in one of its tallest buildings."] = "",
+	["{npc:4485} is in the {object:172958}, {npc:3326} in the {object:172960}, and {npc:8659} in {object:172959}, upstairs in one of its tallest buildings."] = "{npc:4485} está en el {object:172958}, {npc:3326} en el {object:172960} y {npc:8659} en {object:172959}, en el piso de arriba de uno de sus edificios más altos.",
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow
 	["{npc:3326}, the {object:172960}"] = "{npc:3326}, {object:172960}",
 	-- {npc:8659} Jes'rimon · {npc:8587} Jediga
@@ -257,7 +257,7 @@ return {
 	-- Step 51: Irontree Woods
 	-- {area:1767} Irontree Woods · {npc:10920} Kelek Skykeeper · {npc:9529} Maybess Riverbreeze · {item:11503} Blood Amber · {area:1768} Irontree Cavern
 	-- plural, as words: Felpaw Ravagers = {npc:8961} Felpaw Ravager
-	["Follow the road north-east to {area:1767}: Angerclaw Grizzlies and Felpaw Ravagers roam the woods for Talo, and their organs are {npc:10920}'s. {npc:9529}'s {item:11503} comes from the Warpwood elementals inside {area:1768}, next."] = "",
+	["Follow the road north-east to {area:1767}: Angerclaw Grizzlies and Felpaw Ravagers roam the woods for Talo, and their organs are {npc:10920}'s. {npc:9529}'s {item:11503} comes from the Warpwood elementals inside {area:1768}, next."] = "Sigue el camino al noreste hasta {area:1767}: los Pardos Zarpira y los Devastadores Zarpayel deambulan por el bosque para Talo, y sus órganos son para {npc:10920}. El {item:11503} de {npc:9529} sale de los elementales Alabeo dentro de {area:1768}, a continuación.",
 	-- {item:277958} Putrescent Bear Organs
 	["{item:277958}, from the Angerclaw bears"] = "{item:277958}, de los osos Zarpaira",
 	-- {item:277959} Putrescent Wolf Organs
@@ -265,7 +265,7 @@ return {
 
 	-- Step 52: Irontree Woods
 	-- {area:1768} Irontree Cavern
-	["Below ground: from the Warpwood elementals inside {area:1768}"] = "",
+	["Below ground: from the Warpwood elementals inside {area:1768}"] = "Bajo tierra: de los elementales Alabeo dentro de {area:1768}",
 
 	-- Step 53: Meilosh
 	-- {npc:11557} Meilosh · {zone:1448} Felwood · {quest:6031} Runecloth · {area:1769} Timbermaw Hold

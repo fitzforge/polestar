@@ -351,7 +351,7 @@ return {
 
 	-- Step 80: Sanath Lim-yo
 	-- {npc:8395} Sanath Lim-yo
-	["Back north to {npc:8395}'s camp at the foot of the cliff and get off your mount: he teleports you up to Xylem again."] = "",
+	["Back north to {npc:8395}'s camp at the foot of the cliff and get off your mount: he teleports you up to Xylem again."] = "Vuelve al norte hasta el campamento de {npc:8395}, al pie del acantilado, y bájate de la montura: te teletransporta otra vez hasta Xylem.",
 
 	-- Step 81: Archmage Xylem
 	-- {npc:8395} Sanath Lim-yo

@@ -105,7 +105,7 @@ return {
 
 	-- Step 19: Fine Feathered Friend
 	-- {quest:91923} Celastrus the Bitter · {npc:248366} Fraxinus · {quest:95766} Fine Feathered Friend · {npc:257753} Curious Crow · {area:17050} Felblood Scar
-	["With {quest:91923} handed in, {npc:248366} offers {quest:95766}: the {npc:257753} at {area:17050} takes it later in this guide."] = "",
+	["With {quest:91923} handed in, {npc:248366} offers {quest:95766}: the {npc:257753} at {area:17050} takes it later in this guide."] = "Tras entregar {quest:91923}, {npc:248366} ofrece {quest:95766}: {npc:257753}, en {area:17050}, la recibe más adelante en esta guía.",
 
 	-- Step 20: The Dying Ancients
 	-- {npc:248709} Sunderbark
@@ -366,7 +366,7 @@ return {
 	-- {npc:264089} Eluneth
 	["{npc:264089} and the veteran"] = "{npc:264089} y el veterano",
 	-- {npc:264089} Eluneth · {npc:255009} Veteran of the Third War · {area:16868} Mourning's Rest
-	["Back to {npc:264089}, then the ghostly {npc:255009} on your way west. He doesn't keep to one spot: players have met him anywhere in {area:16868} from its western edge (20,60) north-east to about 25,51, so if he isn't at the arrow, look along that line."] = "",
+	["Back to {npc:264089}, then the ghostly {npc:255009} on your way west. He doesn't keep to one spot: players have met him anywhere in {area:16868} from its western edge (20,60) north-east to about 25,51, so if he isn't at the arrow, look along that line."] = "De vuelta con {npc:264089}, luego el fantasmal {npc:255009}, de camino al oeste. No se queda en un solo lugar: los jugadores lo han encontrado en cualquier parte de {area:16868}, desde su borde oeste (20,60) hacia el noreste hasta cerca de 25,51, así que si no está en la flecha, búscalo a lo largo de esa línea.",
 
 	-- Step 82: Hyjal Silphium
 	-- {area:16868} Mourning's Rest · {npc:244512} Ortak Lomgok · {area:16848} Elderwild
@@ -513,11 +513,11 @@ return {
 	["The Wormwing harpies nest on the slopes north-west of the shrine. They drop the pinfeathers and {npc:256660}'s amulets; the bangles lie in their nests, the {object:650219} in a nest on the western slope, and {npc:260826}, who has Omnuron's spear, is among them. The corrupted knots grow on the trees just north-west of the shrine."] = "Las arpías Alagusano anidan en las laderas al noroeste del santuario. Sueltan las plumas nacientes y los amuletos de {npc:256660}; los brazaletes están en sus nidos, la Joya del Horizonte en un nido de la ladera oeste, y {npc:260826}, que tiene la lanza de Omnuron, anda entre ellas. Los nudos corruptos crecen en los árboles justo al noroeste del santuario.",
 
 	-- Step 117: The way into the Deadwood camps
-	["The way into the Deadwood camps"] = "",
+	["The way into the Deadwood camps"] = "La entrada a los campamentos Muertobosque",
 	-- {area:17144} Malorne's Retreat · {area:16868} Mourning's Rest
-	["The Deadwood camps fill {area:17144}, a sunken valley whose northern end runs in under the cliffs: there is no way down into it from {area:16868}. Go round to the valley's mouth in the south-east and follow it west, then north up into the camps, as players do."] = "",
+	["The Deadwood camps fill {area:17144}, a sunken valley whose northern end runs in under the cliffs: there is no way down into it from {area:16868}. Go round to the valley's mouth in the south-east and follow it west, then north up into the camps, as players do."] = "Los campamentos Muertobosque llenan {area:17144}, un valle hundido cuyo extremo norte se mete bajo los acantilados: no hay forma de bajar a él desde {area:16868}. Rodea hasta la boca del valle, en el sureste, y síguelo al oeste y luego al norte, subiendo hasta los campamentos, como hacen los jugadores.",
 	-- {area:17144} Malorne's Retreat
-	["the mouth of the valley up into {area:17144}"] = "",
+	["the mouth of the valley up into {area:17144}"] = "la boca del valle que sube hacia {area:17144}",
 
 	-- Step 118: The Deadwood camps
 	["The Deadwood camps"] = "Los campamentos Muertobosque",

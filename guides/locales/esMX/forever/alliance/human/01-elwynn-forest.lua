@@ -114,7 +114,7 @@ return {
 
 	-- Step 19: Goldshire
 	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:295} Innkeeper Farley · {npc:253} William Pestle · {quest:5624} Garments of the Light · {spell:613} Lesser Heal · {npc:377} Priestess Josetta
-	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road.\nPriests: {quest:5624} counts only {spell:613} (Rank 2). {npc:377} trains priests too: learn it from her now if you have not yet."] = "",
+	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road.\nPriests: {quest:5624} counts only {spell:613} (Rank 2). {npc:377} trains priests too: learn it from her now if you have not yet."] = "Sigue el camino al sur, saliendo del valle, hasta {area:87}. {npc:240} está afuera de la herrería, al oeste del camino, {npc:241} junto al camino al sur de ella, y {npc:295} y {npc:253} en la Posada Orgullo de León, al otro lado del camino.\nSacerdotes: para {quest:5624} solo cuenta {spell:613} (rango 2). {npc:377} también entrena a los sacerdotes: apréndelo con ella ahora si todavía no lo hiciste.",
 	-- {npc:295} Innkeeper Farley
 	["{npc:295}, inside"] = "{npc:295}, adentro",
 	-- {npc:253} William Pestle
