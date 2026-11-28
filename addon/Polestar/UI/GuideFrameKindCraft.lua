@@ -558,6 +558,9 @@ ns.UI.GuideFrame.Part(function(GF)
 	local function waySub(w, toGet, name)
 		if w.safeFrom then return format(L["Safe %s loop from level %d"], name or "", w.safeFrom) end
 		local parts = {}
+		-- The loop left mined out (UI.LoopOutLine), first.
+		local out = w.out and UI.LoopOutLine({ map = w.map }, w.out)
+		if out then parts[1] = out end
 		if w.way == "buy" then
 			local n = w.toGet or toGet
 			if n > 0 then

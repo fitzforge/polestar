@@ -1347,6 +1347,11 @@ L["or %s"] = "oder %s"
 -- L["%d min a lap"] = ""
 -- L["about %d laps"] = ""
 -- L["Safe %s loop from level %d"] = ""
+-- L["The %s loop is mined out for now · next: %s"] = ""
+-- L["The %s loop is picked clean for now · next: %s"] = ""
+-- L["The %s loop is hunted out for now · next: %s"] = ""
+-- L["The %s loop is gathered out for now · next: %s"] = ""
+-- L["another loop in %s"] = ""
 
 -- UI/Welcome.lua
 L["level %d %s"] = "Stufe %d, %s"

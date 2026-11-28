@@ -136,7 +136,7 @@ Step directives:
 | `tip <text>` | Player-facing step note (compiled to `step.note`). |
 | `image <path> [<w>x<h>]` | A picture shown in the guide window under the step's tip, while the tip is open, scaled to the window's width (at most 160 high): a screenshot of a spot that is hard to find, such as a cave mouth. `<path>` is the file's place in the pack folder, `/` between folders (`media/fargodeep-mine.tga`), a `.tga` or `.blp` file; without the extension the `.tga`, else the `.blp`. The file ships in the pack's addon folder at that path. `<w>x<h>` is the size it is drawn at (only the ratio counts: `512x256` is twice as wide as high); without it the compiler reads the file's own. One per step; a step with no `tip` reads "Picture of this spot" above it. See "Pictures" in the Cookbook. |
 | `loop` | The step's `goto` points, in order, are the places to search for its kill, collect, interact, skill and `use … quest Q.O` goals (or, with none of those, for the NPC of its accept, turnin and talk goals) instead of a path to walk: see "Spawn areas", Loop. |
-| `loop <zone> lvl <n> lap <s> gain\|yield <n> [only <conditions>] [live] [r <yards>] at <x,y> …` | One of several farming loops the step's `skill` or `collect` goal picks from where the player is: see "Spawn areas", Farming loops. |
+| `loop <zone> lvl <n> lap <s> gain\|yield <n> [only <conditions>] [live] [starter] [respawn <s>] [r <yards>] at <x,y> …` | One of several farming loops the step's `skill` or `collect` goal picks from where the player is: see "Spawn areas", Farming loops. |
 
 A step must contain at least one goal.
 
@@ -1185,6 +1185,20 @@ gets no `spots`, except an NPC who walks around:
   characters (the other faction's towns differ). Points are Era-frame unless
   `live`. The window names the loop, its zone, its lap and the laps left, and
   the next choice.
+
+  Which loop: a loop only reached through zones that start more than 2 levels
+  above the character (the straight way there, by the walking maps' or the
+  client's zones) is not offered (a level 3 Tauren is never sent across the
+  Barrens); one on the player's own map comes first while it takes at most
+  half as long again as the best. `starter` marks a starting area's own loop:
+  offered up to its `lvl` plus 5, later only when no other loop is left.
+  `respawn <seconds>` is how long its nodes take to grow back (the server's
+  spawn times; without it 600 for ore and herbs, 420 for beasts): what the
+  player gathers on a loop counts against its yield until it has grown back,
+  and once the next lap would find under half of it the next best loop takes
+  over, the window saying so ("The Durotar loop is mined out for now · next:
+  The Barrens"); the loop comes back once it is at four fifths again, never
+  while the player works the new one.
 
   ```
   step Copper & Tin (65-125)

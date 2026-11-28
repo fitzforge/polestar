@@ -3226,14 +3226,78 @@ function Own.loopNeed(goal)
 	return Own.needOf(goal) - (goal.item and C.GetItemCount(goal.item) or 0)
 end
 
+-- Depletion (Polestar 0.4.4: a level 26 lapping a starting area's small copper loop found it mined out). What
+-- the player gathers on a loop (the goal's need going down while they are on its track: Own.loopAim) is noted
+-- per loop; a node grows back over the loop's `respawn` seconds (the builder's, from the server's spawn times),
+-- else LOOP_RESPAWN's for the profession (a conservative guess: ore and herbs 600 s, beasts 420 s; Fishing's
+-- waters never run out). Own.loopShare: the share of a lap's normal yield the next lap finds, 1 minus what was
+-- gathered there in its last respawn, each gather counting less as it grows back (linearly). Below
+-- LOOP_DEPLETED the loop is mined out: the pick moves to the next best (Own.loopCheck), and the window says so;
+-- it may come back once it is at LOOP_RECOVERED again.
+Own.LOOP_RESPAWN = { [186] = 600, [182] = 600, [393] = 420 }
+Own.LOOP_DEPLETED, Own.LOOP_RECOVERED = 0.5, 0.8
+Own.loopGathers = setmetatable({}, { __mode = "k" }) -- candidate -> { t1, n1, t2, n2, ... }
+Own.loopLastNeed = setmetatable({}, { __mode = "k" }) -- goal -> its need when last looked at
+Own.loopOut = setmetatable({}, { __mode = "k" }) -- goal -> the loop it left mined out, until that grows back
+
+-- The skill line a loop goal gathers with: a `skill` goal's own, a `collect` goal's `gather` one.
+function Own.loopLine(goal)
+	if goal.t == "skill" then return goal.skillLine end
+	return type(goal.gather) == "table" and goal.gather.skillLine or nil
+end
+
+function Own.loopRespawn(goal, c)
+	local r = tonumber(c.respawn)
+	if r and r > 0 then return r end
+	return Own.LOOP_RESPAWN[Own.loopLine(goal) or 0]
+end
+
+function Own.loopShare(goal, c)
+	local list = Own.loopGathers[c]
+	local respawn = list and Own.loopRespawn(goal, c)
+	local per = tonumber(goal.t == "skill" and c.gain or c.yield)
+	if not (list and respawn and per and per > 0) then return 1 end
+	local now, gone = GetTime(), 0
+	for i = 1, #list, 2 do
+		local age = now - list[i]
+		if age < respawn then gone = gone + list[i + 1] * (1 - age / respawn) end
+	end
+	local share = 1 - gone / per
+	return share < 0.05 and 0.05 or share > 1 and 1 or share
+end
+
+-- Note what the player gathered since last looked at, when on the loop's track (d yards from it).
+function Own.loopNote(goal, c, d)
+	local need = Own.loopNeed(goal)
+	local last = Own.loopLastNeed[goal]
+	Own.loopLastNeed[goal] = need
+	if not (last and need < last and d and d <= Own.LOOP_ON) then return end
+	local list = Own.loopGathers[c]
+	if not list then
+		list = {}
+		Own.loopGathers[c] = list
+	end
+	local now, respawn = GetTime(), Own.loopRespawn(goal, c) or 0
+	-- Only what can still count is kept.
+	if #list >= 2 and now - list[1] > respawn then
+		local keep = {}
+		for i = 1, #list, 2 do
+			if now - list[i] <= respawn then keep[#keep + 1], keep[#keep + 2] = list[i], list[i + 1] end
+		end
+		for i = #list, 1, -1 do list[i] = nil end
+		for i = 1, #keep do list[i] = keep[i] end
+	end
+	list[#list + 1], list[#list + 2] = now, last - need
+end
+
 local function farmSeconds(goal, c)
 	local level = player.level or 1
 	local lo, hi = level, level
 	if type(c.lvl) == "table" then lo, hi = c.lvl[1] or c.lvl.min or level, c.lvl[2] or c.lvl.max or level end
 	local gap = lo - level
-	-- A loop: laps to finish times its lap.
+	-- A loop: laps to finish times its lap, each lap yielding what of it has grown back (Own.loopShare).
 	if c.lap then
-		local per = tonumber(goal.t == "skill" and c.gain or c.yield) or 0
+		local per = (tonumber(goal.t == "skill" and c.gain or c.yield) or 0) * Own.loopShare(goal, c)
 		if per <= 0 then return Own.UNMEASURED, gap end
 		local need = Own.loopNeed(goal)
 		if need < 1 then need = 1 end
@@ -3280,6 +3344,8 @@ local function pickFor(goal)
 			if not safeFrom or l < safeFrom then safeFrom = l end
 			usable = false
 		end
+		-- A loop only reached through zones well above the character is none of theirs (Own.tripSafe).
+		if usable and loopGoal and not Own.tripSafe(c, here, hc, hx, hy) then usable = false end
 		if usable then
 			list[#list + 1] = c
 			order[c] = i * 1e-6 -- stable among equals
@@ -3343,6 +3409,23 @@ local function pickFor(goal)
 		end
 		list = kept
 	end
+	-- A starting area's own loop (`starter`) is for a new character: past its safe level plus STARTER_BAND it
+	-- goes while another loop is left (a level 26 in Durotar was sent round the Valley of Trials' copper).
+	if loopGoal then
+		local other = false
+		for _, c in ipairs(list) do
+			if not c.starter or (player.level or 1) <= Own.loopLevel(c) + Own.STARTER_BAND then
+				other = other or not c.starter
+			end
+		end
+		if other then
+			local kept = {}
+			for _, c in ipairs(list) do
+				if not c.starter or (player.level or 1) <= Own.loopLevel(c) + Own.STARTER_BAND then kept[#kept + 1] = c end
+			end
+			list = kept
+		end
+	end
 	local function better(a, b)
 		if tier[a] ~= tier[b] then return tier[a] < tier[b] end
 		if not reasonable and gap[a] ~= gap[b] then return gap[a] < gap[b] end
@@ -3357,16 +3440,31 @@ local function pickFor(goal)
 		end
 		table.sort(list, better)
 	end
+	-- A loop on the player's own map comes first while it is competitive (within LOOP_HOME of the best one's
+	-- minutes): mining where they stand beats a ride for a little less time.
+	if loopGoal and here and list[1] and list[1].map ~= here.map then
+		local best = list[1]
+		for k = 2, #list do
+			local c = list[k]
+			if c.map == here.map and tier[c] <= tier[best] and cost[c] + extra[c] <= (cost[best] + extra[best]) * (1 + Own.LOOP_HOME) then
+				table.remove(list, k)
+				table.insert(list, 1, c)
+				break
+			end
+		end
+	end
 	-- The loop being walked stays (Own.LOOP_KEEP, Own.onLoop): a zone or
 	-- subzone change, a landing or a level-up never swaps it for another that
 	-- is only a little faster on paper (a Horde miner in Mulgore was sent off to
 	-- Durotar's loop); one the player picked with "Other" stays the same way.
+	-- Mined out (Own.loopShare under LOOP_DEPLETED), it stays only on its time.
 	local on = loopGoal and Own.loopOn[goal]
 	if on and list[1] ~= on then
 		for k = 2, #list do
 			if list[k] == on then
 				local best = list[1]
-				if tier[on] <= tier[best] and (cost[on] + extra[on] <= (cost[best] + extra[best]) * (1 + Own.LOOP_KEEP) or Own.onLoop(on)) then
+				local kept = Own.loopShare(goal, on) >= Own.LOOP_DEPLETED and Own.onLoop(on)
+				if tier[on] <= tier[best] and (cost[on] + extra[on] <= (cost[best] + extra[best]) * (1 + Own.LOOP_KEEP) or kept) then
 					table.remove(list, k)
 					table.insert(list, 1, on)
 				end
@@ -3423,8 +3521,14 @@ function Own.farmView(goal)
 	second = second or after
 	if loop then
 		local per = tonumber(goal.t == "skill" and c.gain or c.yield) or 0
+		-- The loop it left mined out (Own.loopOut), while that has not grown back: the window says so.
+		local out = Own.loopOut[goal]
+		if out and Own.loopShare(goal, out) >= Own.LOOP_RECOVERED then
+			Own.loopOut[goal], out = nil, nil
+		end
 		return {
 			loop = true,
+			out = out and out ~= c and { map = out.map, line = Own.loopLine(goal) } or nil,
 			lap = math.max(1, math.floor(c.lap / 60 + 0.5)),
 			laps = per > 0 and math.ceil(need / per) or nil,
 			minutes = secs < Own.UNMEASURED and math.max(1, math.floor(secs / 60 + 0.5)) or nil,
@@ -3610,6 +3714,7 @@ function Own.loopAim(goal, c, pc, px, py)
 		Own.loopAt[goal] = at
 	end
 	at.s, at.node, at.off = s, node, d > Own.LOOP_NEAR
+	Own.loopNote(goal, c, d)
 	return t, node
 end
 
@@ -3621,6 +3726,59 @@ end
 -- is the player's alone (Own.loopAim), not the dwell or the work noted for
 -- spawn areas (Spots), which a loop goal has none of.
 Own.LOOP_KEEP, Own.LOOP_ON = 0.5, 60
+-- A starting area's own loop (`starter`) is offered up to its safe level plus STARTER_BAND (pickFor). A loop on
+-- the player's own map comes first while it takes at most 1 + LOOP_HOME times the best one's minutes.
+Own.STARTER_BAND, Own.LOOP_HOME = 5, 0.5
+
+-- Whether the trip to a loop is safe for the character (Polestar 0.4.4: a level 3 Tauren on Red Cloud Mesa was
+-- sent to Durotar's loop across the Barrens, 10.3k yd through creatures of 10-20): every zone the straight way
+-- from the player to the loop's first point crosses (Nav's walking maps, Nav.danger.ZoneAt, every TRIP_STEP
+-- yards) other than the player's and the loop's own starts at most TRIP_ABOVE levels above the character (its
+-- danger floor, Maps.GetZoneLevels). Without the walking maps: a loop on another map than the player's must lie
+-- in a zone that starts at most TRIP_ABOVE above them. True for a loop on the player's own map; one on another
+-- continent (a boat or a zeppelin away) is ranked after the player's continent's as before.
+Own.TRIP_STEP, Own.TRIP_ABOVE = 150, 2
+function Own.tripSafe(c, here, hc, hx, hy)
+	if not here or c.map == here.map then return true end
+	local level, M = player.level or 1, ns.Maps
+	local function low(map)
+		if not (M and M.GetZoneLevels) then return nil end
+		local min, _, danger = M.GetZoneLevels(map)
+		return danger or min
+	end
+	local cc, cx, cy = Compat().MapToWorld(c.map, c.x, c.y, c.f)
+	if not (cc and hc and cc == hc) then return true end
+	-- The zone at a world point: the walking maps' (Nav.danger.ZoneAt), else the client's continent map's
+	-- (C_Map.GetMapInfoAtPosition); nil when neither says.
+	local C = Compat()
+	local D = ns.Nav and ns.Nav.danger
+	local cont = C.GetContinentMap and C.GetContinentMap(here.map)
+	local function zoneAt(wx, wy)
+		local z = D and D.ZoneAt and D.ZoneAt(hc, wx, wy)
+		if z then return z end
+		if not (cont and C.WorldToMap and C_Map and C_Map.GetMapInfoAtPosition) then return nil end
+		local x, y = C.WorldToMap(hc, wx, wy, cont)
+		local info = x and C_Map.GetMapInfoAtPosition(cont, x / 100, y / 100)
+		return info and info.mapID ~= cont and info.mapID or nil
+	end
+	local steps = math.max(1, math.ceil(((cx - hx) ^ 2 + (cy - hy) ^ 2) ^ 0.5 / Own.TRIP_STEP))
+	local seen = false
+	for k = 1, steps - 1 do
+		local t = k / steps
+		local zone = zoneAt(hx + (cx - hx) * t, hy + (cy - hy) * t)
+		seen = seen or zone ~= nil
+		if zone and zone ~= here.map and zone ~= c.map then
+			local lo = low(zone)
+			if lo and lo > level + Own.TRIP_ABOVE then return false end
+		end
+	end
+	-- Nothing to tell the zones by: the loop's own zone must suit the character.
+	if not seen then
+		local lo = low(c.map)
+		return not lo or lo <= level + Own.TRIP_ABOVE
+	end
+	return true
+end
 function Own.onLoop(c)
 	local t = Own.loopTrack(c)
 	if not t then return false end
@@ -9795,8 +9953,15 @@ local function checkArrival()
 	if sg and Spots.repick(sg, c, px, py) then hit = true end
 	-- A farming loop's aim moves on along its track as the player walks (Own.loopAim).
 	if wg and waypoint.loop and Own.loopOn[wg] then
-		local t, node = Own.loopAim(wg, Own.loopOn[wg], c, px, py)
+		local on = Own.loopOn[wg]
+		local t, node = Own.loopAim(wg, on, c, px, py)
 		if t and (t.x[node] ~= waypoint.x or t.y[node] ~= waypoint.y) then hit = true end
+		-- Mined out (Own.loopShare): pick again, once, so the next best loop takes over (the window says so).
+		if Own.loopOut[wg] ~= on and Own.loopShare(wg, on) < Own.LOOP_DEPLETED then
+			Own.loopOut[wg] = on
+			contextGen = contextGen + 1
+			hit = true
+		end
 	end
 	-- A step with several open field goals: the nearest may have changed.
 	if guide and current and Own.nearPick[guide.steps[current]] then

@@ -418,8 +418,9 @@ end
 -- (Westfall)"). A farming loop instead names itself, its zone and lap, the
 -- laps left and the second choice's zone ("Mining loop · Westfall · 5 min a
 -- lap · about 4 laps · or Loch Modan"); with none safe at the character's
--- level yet, from which level one is ("Safe Copper Ore loop from level 6").
--- A (non-loop) farm longer than
+-- level yet, from which level one is ("Safe Copper Ore loop from level 6");
+-- one that left a loop mined out says so first ("The Durotar loop is mined out
+-- for now · next: The Barrens", UI.LoopOutLine). A (non-loop) farm longer than
 -- UI.FARM_LONG minutes is no plan to send a player on: it says where the rest
 -- really comes from instead ("Most of it drops as you level 15-30  ·  or the
 -- Auction House"), no kills, minutes or second farm. Nil without one.
@@ -432,6 +433,8 @@ function UI.FarmLine(goal)
 		return string.format(L["Safe %s loop from level %d"], what, f.safeFrom)
 	end
 	local parts = {}
+	local out = f.loop and UI.LoopOutLine(goal, f.out)
+	if out then parts[1] = out end
 	local above = tonumber(f.above)
 	if above and above >= 2 then
 		parts[#parts + 1] = string.format(L["No farm at your level: %d levels above you"], above)
@@ -465,6 +468,22 @@ function UI.FarmLine(goal)
 	end
 	if #parts == 0 then return nil end
 	return table.concat(parts, "  \194\183  ")
+end
+
+-- "The Durotar loop is mined out for now · next: The Barrens" for a loop goal whose pick left a loop mined out
+-- (the view's farm `out`: its map and the skill line it gathers with); "next: another loop in Durotar" when the
+-- new loop is on the same map. Nil without one. (A literal key each: the translations' check finds only those.)
+function UI.LoopOutLine(goal, out)
+	if type(out) ~= "table" or not out.map then return nil end
+	local from = UI.MapName(out.map) or ""
+	local text
+	if out.line == 186 then text = L["The %s loop is mined out for now · next: %s"]
+	elseif out.line == 182 then text = L["The %s loop is picked clean for now · next: %s"]
+	elseif out.line == 393 then text = L["The %s loop is hunted out for now · next: %s"]
+	else text = L["The %s loop is gathered out for now · next: %s"] end
+	local here = goal.map and UI.MapName(goal.map) or ""
+	local next = goal.map == out.map and string.format(L["another loop in %s"], here) or here
+	return string.format(text, from, next)
 end
 
 -- Secondary line. An unavailable quest says why ("Needs level 14"); a farm
