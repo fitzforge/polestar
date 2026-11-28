@@ -22,14 +22,15 @@ return {
 	-- {spell:3918} Rough Blasting Powder
 	["For 56 {spell:3918}."] = "",
 
-	-- Step 4: Craft 56 Rough Blasting Powder until 35
+	-- Step 4: Craft 56 Rough Blasting Powder · keep them for the bombs at 56
 	-- {spell:3918} Rough Blasting Powder
-	["Craft 56 {spell:3918} until 35"] = "",
-	["About 56 crafts. Keep all 56: the bombs at 56 use them."] = "",
+	["Craft 56 {spell:3918} · keep them for the bombs at 56"] = "",
+	-- {skill:202} Engineering
+	["They take {skill:202} to about 35."] = "",
 
-	-- Step 5: Get 34 Copper Bar
-	-- {item:2840} Copper Bar
-	["Get 34 {item:2840}"] = "",
+	-- Step 5: Get 34 Copper Bars
+	-- plural, as words: Copper Bars = {item:2840} Copper Bar
+	["Get 34 Copper Bars"] = "",
 	-- {item:6219} Arclight Spanner · {skill:186} Mining
 	["For 28 Handfuls of Copper Bolts and 1 {item:6219}. No {skill:186}? The bars, not the ore."] = "",
 
@@ -41,18 +42,20 @@ return {
 	["Go to an anvil"] = "",
 	["Anvil"] = "",
 
-	-- Step 8: Craft 28 Handfuls of Copper Bolts until 55
-	["Craft 28 Handfuls of Copper Bolts until 55"] = "",
-	["About 28 crafts. Keep all 28 for the bombs at 56."] = "",
+	-- Step 8: Craft 28 Handfuls of Copper Bolts · keep them for the bombs at 56
+	["Craft 28 Handfuls of Copper Bolts · keep them for the bombs at 56"] = "",
+	-- {skill:202} Engineering
+	["They take {skill:202} to about 55."] = "",
 
 	-- Step 9: Learn Arclight Spanner
 	-- {spell:7430} Arclight Spanner
 	["Learn {spell:7430}"] = "",
 
-	-- Step 11: Craft 1 Arclight Spanner until 56
+	-- Step 11: Craft 1 Arclight Spanner
 	-- {item:6219} Arclight Spanner
-	["Craft 1 {item:6219} until 56"] = "",
-	["A tool: it stays in your bags, and many recipes need it."] = "",
+	["Craft 1 {item:6219}"] = "",
+	-- {skill:202} Engineering
+	["It takes {skill:202} to about 56. A tool: it stays in your bags, and many recipes need it."] = "",
 
 	-- Step 12: Buy 25 Weak Flux
 	-- {item:2880} Weak Flux
@@ -66,9 +69,9 @@ return {
 	-- plural, as words: Rough Copper Bombs = {spell:3923} Rough Copper Bomb
 	["For 28 Rough Copper Bombs."] = "",
 
-	-- Step 14: Get 28 Copper Bar
-	-- {item:2840} Copper Bar
-	["Get 28 {item:2840}"] = "",
+	-- Step 14: Get 28 Copper Bars
+	-- plural, as words: Copper Bars = {item:2840} Copper Bar
+	["Get 28 Copper Bars"] = "",
 	-- {skill:186} Mining
 	-- plural, as words: Rough Copper Bombs = {spell:3923} Rough Copper Bomb
 	["For 28 Rough Copper Bombs. No {skill:186}? The bars, not the ore."] = "",
@@ -102,10 +105,11 @@ return {
 	["Learn {spell:3931}"] = "",
 	["For 90-100: taught here now, so no second trip."] = "",
 
-	-- Step 22: Craft 51 Coarse Blasting Powder until 90
+	-- Step 22: Craft 51 Coarse Blasting Powder · keep them for the dynamite at 90
 	-- {spell:3929} Coarse Blasting Powder
-	["Craft 51 {spell:3929} until 90"] = "",
-	["About 51 crafts. Keep all 51 for the dynamite at 90."] = "",
+	["Craft 51 {spell:3929} · keep them for the dynamite at 90"] = "",
+	-- {skill:202} Engineering
+	["They take {skill:202} to about 90."] = "",
 
 	-- Step 23: Get 17 Linen Cloth
 	-- {item:2589} Linen Cloth
@@ -114,7 +118,7 @@ return {
 	["For 17 Coarse Dynamites."] = "",
 
 	-- Step 24: Learn Coarse Dynamite
-	["Taught at 75; done at once if you learned it then."] = "",
+	["Taught at 75, before the part of the guide you started from."] = "",
 
 	-- Step 25: Craft 17 Coarse Dynamites until 100
 	-- plural, as words: Coarse Dynamites = {spell:3931} Coarse Dynamite
@@ -122,9 +126,9 @@ return {
 	-- plural, as words: Silver Contacts = {spell:3973} Silver Contact
 	["About 17 crafts. Green from 97: short of 100? The Silver Contacts next carry on."] = "",
 
-	-- Step 26: Get 5 Silver Bar
-	-- {item:2842} Silver Bar
-	["Get 5 {item:2842}"] = "",
+	-- Step 26: Get 5 Silver Bars
+	-- plural, as words: Silver Bars = {item:2842} Silver Bar
+	["Get 5 Silver Bars"] = "",
 	-- plural, as words: Silver Contacts = {spell:3973} Silver Contact
 	["For 5 Silver Contacts."] = "",
 
@@ -137,9 +141,9 @@ return {
 	["Craft 5 Silver Contacts until 105"] = "",
 	["About 5 crafts."] = "",
 
-	-- Step 29: Get 50 Bronze Bar
-	-- {item:2841} Bronze Bar
-	["Get 50 {item:2841}"] = "",
+	-- Step 29: Get 50 Bronze Bars
+	-- plural, as words: Bronze Bars = {item:2841} Bronze Bar
+	["Get 50 Bronze Bars"] = "",
 	-- {skill:186} Mining
 	-- plural, as words: Bronze Tubes = {spell:3938} Bronze Tube
 	["For 25 Bronze Tubes. No {skill:186}? The bars, not the ore."] = "",
@@ -148,10 +152,11 @@ return {
 	-- {spell:3938} Bronze Tube
 	["Learn {spell:3938}"] = "",
 
-	-- Step 32: Craft 25 Bronze Tubes until 125
+	-- Step 32: Craft 25 Bronze Tubes · keep 10 for the scopes at 125
 	-- plural, as words: Bronze Tubes = {spell:3938} Bronze Tube
-	["Craft 25 Bronze Tubes until 125"] = "",
-	["About 25 crafts. Keep 10 for the scopes at 125."] = "",
+	["Craft 25 Bronze Tubes · keep 10 for the scopes at 125"] = "",
+	-- {skill:202} Engineering
+	["They take {skill:202} to about 125."] = "",
 
 	-- Step 33: Get 10 Moss Agate
 	-- {item:1206} Moss Agate
@@ -191,25 +196,26 @@ return {
 	-- plural, as words: Whirring Bronze Gizmos = {spell:3942} Whirring Bronze Gizmo
 	["For 15 Whirring Bronze Gizmos."] = "",
 
-	-- Step 40: Get 30 Bronze Bar
-	-- {item:2841} Bronze Bar
-	["Get 30 {item:2841}"] = "",
+	-- Step 40: Get 30 Bronze Bars
+	-- plural, as words: Bronze Bars = {item:2841} Bronze Bar
+	["Get 30 Bronze Bars"] = "",
 	-- {skill:186} Mining
 	-- plural, as words: Whirring Bronze Gizmos = {spell:3942} Whirring Bronze Gizmo
 	["For 15 Whirring Bronze Gizmos. No {skill:186}? The bars, not the ore."] = "",
 
 	-- Step 41: Learn Heavy Blasting Powder
-	["Taught at 125; done at once if you learned it then."] = "",
+	["Taught at 125, before the part of the guide you started from."] = "",
 
-	-- Step 42: Craft 40 Heavy Blasting Powder
+	-- Step 42: Craft 40 Heavy Blasting Powder · keep them for the sheep and grenades
 	-- {spell:3945} Heavy Blasting Powder
-	["Craft 40 {spell:3945}"] = "",
-	["These give points too. Keep all 40: the sheep at 160 use 30 and the grenades at 193 use 3."] = "",
+	["Craft 40 {spell:3945} · keep them for the sheep and grenades"] = "",
+	["These give points too."] = "",
 
-	-- Step 45: Craft 15 Whirring Bronze Gizmos until 150
+	-- Step 45: Craft 15 Whirring Bronze Gizmos · keep them for the sheep at 160
 	-- plural, as words: Whirring Bronze Gizmos = {spell:3942} Whirring Bronze Gizmo
-	["Craft 15 Whirring Bronze Gizmos until 150"] = "",
-	["About 15 crafts. Keep all 15 for the sheep at 160."] = "",
+	["Craft 15 Whirring Bronze Gizmos · keep them for the sheep at 160"] = "",
+	-- {skill:202} Engineering
+	["They take {skill:202} to about 150."] = "",
 
 	-- Step 46: Get 15 Medium Leather
 	-- {item:2319} Medium Leather
@@ -217,7 +223,7 @@ return {
 	-- plural, as words: Bronze Frameworks = {spell:3953} Bronze Framework
 	["For 15 Bronze Frameworks."] = "",
 
-	-- Step 48: Get 30 Bronze Bar
+	-- Step 48: Get 30 Bronze Bars
 	-- {skill:186} Mining
 	-- plural, as words: Bronze Frameworks = {spell:3953} Bronze Framework
 	["For 15 Bronze Frameworks. No {skill:186}? The bars, not the ore."] = "",
@@ -236,10 +242,11 @@ return {
 	["Learn {spell:3955}"] = "",
 	["For 160-175: taught here now, so no second trip."] = "",
 
-	-- Step 52: Craft 15 Bronze Frameworks until 160
+	-- Step 52: Craft 15 Bronze Frameworks · keep them for the sheep next
 	-- plural, as words: Bronze Frameworks = {spell:3953} Bronze Framework
-	["Craft 15 Bronze Frameworks until 160"] = "",
-	["About 15 crafts. Keep all 15 for the sheep next."] = "",
+	["Craft 15 Bronze Frameworks · keep them for the sheep next"] = "",
+	-- {skill:202} Engineering
+	["They take {skill:202} to about 160."] = "",
 
 	-- Step 53: Get 30 Wool Cloth
 	-- {item:2592} Wool Cloth
@@ -248,13 +255,13 @@ return {
 	["For 15 Explosive Sheeps."] = "",
 
 	-- Step 54: Learn Explosive Sheep
-	["Taught at 150; done at once if you learned it then."] = "",
+	["Taught at 150, before the part of the guide you started from."] = "",
 
 	-- Step 56: Craft 15 Explosive Sheeps until 175
 	-- plural, as words: Explosive Sheeps = {spell:3955} Explosive Sheep
 	["Craft 15 Explosive Sheeps until 175"] = "",
 	-- {skill:202} Engineering
-	["About 15 crafts. Goblin {skill:202} at 200 asks for some; keep 5 if you want it."] = "",
+	["About 15 crafts. Goblin {skill:202} at 200 asks for 5 of these."] = "",
 
 	-- Step 57: Get 122 Solid Stone
 	-- {item:7912} Solid Stone
@@ -276,24 +283,25 @@ return {
 	["Learn {spell:3962}"] = "",
 	["For 194-195: taught here now, so no second trip."] = "",
 
-	-- Step 61: Craft 61 Solid Blasting Powder until 193
+	-- Step 61: Craft 61 Solid Blasting Powder · keep them for the triggers and bombs
 	-- {item:10505} Solid Blasting Powder
-	["Craft 61 {item:10505} until 193"] = "",
-	["About 61 crafts. Keep all 61: the triggers at 200 and the bombs at 238 use them."] = "",
+	["Craft 61 {item:10505} · keep them for the triggers and bombs"] = "",
+	-- {skill:202} Engineering
+	["They take {skill:202} to about 193."] = "",
 
 	-- Step 62: Buy 4 Coal
 	["Buy 4 Coal"] = "",
 	-- {item:3859} Steel Bar
 	["Smelting {item:3859} takes 1 Coal a bar."] = "",
 
-	-- Step 63: Get 4 Steel Bar
-	-- {item:3859} Steel Bar
-	["Get 4 {item:3859}"] = "",
+	-- Step 63: Get 4 Steel Bars
+	-- plural, as words: Steel Bars = {item:3859} Steel Bar
+	["Get 4 Steel Bars"] = "",
 	-- {item:10498} Gyromatic Micro-Adjustor · {skill:186} Mining
 	["For 1 {item:10498}. No {skill:186}? The bars, not the ore."] = "",
 
 	-- Step 64: Learn Gyromatic Micro-Adjustor
-	["Taught at 175; done at once if you learned it then."] = "",
+	["Taught at 175, before the part of the guide you started from."] = "",
 
 	-- Step 66: Craft 1 Gyromatic Micro-Adjustor until 194
 	-- {item:10498} Gyromatic Micro-Adjustor
@@ -301,9 +309,9 @@ return {
 	-- {skill:202} Engineering
 	["A tool: some {skill:202} recipes need it in your bags."] = "",
 
-	-- Step 67: Get 3 Iron Bar
-	-- {item:3575} Iron Bar
-	["Get 3 {item:3575}"] = "",
+	-- Step 67: Get 3 Iron Bars
+	-- plural, as words: Iron Bars = {item:3575} Iron Bar
+	["Get 3 Iron Bars"] = "",
 	-- {skill:186} Mining
 	-- plural, as words: Iron Grenades = {spell:3962} Iron Grenade
 	["For 3 Iron Grenades. No {skill:186}? The bars, not the ore."] = "",
@@ -319,9 +327,9 @@ return {
 	["Craft 3 Iron Grenades until 195"] = "",
 	["About 3 crafts."] = "",
 
-	-- Step 72: Get 18 Mithril Bar
-	-- {item:3860} Mithril Bar
-	["Get 18 {item:3860}"] = "",
+	-- Step 72: Get 18 Mithril Bars
+	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
+	["Get 18 Mithril Bars"] = "",
 	-- {skill:186} Mining
 	-- plural, as words: Mithril Tubes = {item:10559} Mithril Tube
 	["For 6 Mithril Tubes. No {skill:186}? The bars, not the ore."] = "",
@@ -334,11 +342,11 @@ return {
 	-- plural, as words: Mithril Tubes = {item:10559} Mithril Tube
 	["Craft 6 Mithril Tubes until 200"] = "",
 	-- {spell:20220} Gnomish Engineering
-	["About 6 crafts. {spell:20220} at 200 asks for some; keep all 6 if you want it."] = "",
+	["About 6 crafts. {spell:20220} at 200 asks for 6 of these."] = "",
 
-	-- Step 76: Get 21 Mithril Bar
-	-- {item:3860} Mithril Bar
-	["Get 21 {item:3860}"] = "",
+	-- Step 76: Get 21 Mithril Bars
+	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
+	["Get 21 Mithril Bars"] = "",
 	-- {skill:186} Mining
 	-- plural, as words: Unstable Triggers = {item:10560} Unstable Trigger
 	["For 21 Unstable Triggers. No {skill:186}? The bars, not the ore."] = "",
@@ -358,14 +366,15 @@ return {
 	-- {spell:12591} Unstable Trigger
 	["Learn {spell:12591}"] = "",
 
-	-- Step 81: Craft 21 Unstable Triggers until 215
+	-- Step 81: Craft 21 Unstable Triggers · keep 20 for the bombs at 238
 	-- plural, as words: Unstable Triggers = {item:10560} Unstable Trigger
-	["Craft 21 Unstable Triggers until 215"] = "",
-	["About 21 crafts. Keep 20 for the bombs at 238."] = "",
+	["Craft 21 Unstable Triggers · keep 20 for the bombs at 238"] = "",
+	-- {skill:202} Engineering
+	["They take {skill:202} to about 215."] = "",
 
-	-- Step 82: Get 120 Mithril Bar
-	-- {item:3860} Mithril Bar
-	["Get 120 {item:3860}"] = "",
+	-- Step 82: Get 120 Mithril Bars
+	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
+	["Get 120 Mithril Bars"] = "",
 	-- {skill:186} Mining
 	-- plural, as words: Mithril Casings = {item:10561} Mithril Casing
 	["For 40 Mithril Casings. No {skill:186}? The bars, not the ore."] = "",
@@ -374,10 +383,11 @@ return {
 	-- {spell:12599} Mithril Casing
 	["Learn {spell:12599}"] = "",
 
-	-- Step 85: Craft 40 Mithril Casings until 238
+	-- Step 85: Craft 40 Mithril Casings · keep them for the bombs at 238
 	-- plural, as words: Mithril Casings = {item:10561} Mithril Casing
-	["Craft 40 Mithril Casings until 238"] = "",
-	["About 40 crafts. Keep all 40 for the bombs at 238."] = "",
+	["Craft 40 Mithril Casings · keep them for the bombs at 238"] = "",
+	-- {skill:202} Engineering
+	["They take {skill:202} to about 238."] = "",
 
 	-- Step 86: Learn Hi-Explosive Bomb
 	-- {spell:12619} Hi-Explosive Bomb
@@ -402,18 +412,18 @@ return {
 	-- {item:15992} Dense Blasting Powder
 	["Craft 44 {item:15992} until 260"] = "",
 	-- {item:15997} Thorium Shells
-	["About 44 crafts. Keep 14: the {item:15997} at 286 use them, if you get those plans."] = "",
+	["About 44 crafts. The {item:15997} at 286 use 14 of these, if you get those plans."] = "",
 
-	-- Step 92: Get 84 Thorium Bar
-	-- {item:12359} Thorium Bar
-	["Get 84 {item:12359}"] = "",
+	-- Step 92: Get 84 Thorium Bars
+	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
+	["Get 84 Thorium Bars"] = "",
 	-- {skill:186} Mining
 	-- plural, as words: Thorium Widgets = {item:15994} Thorium Widget
 	["For 28 Thorium Widgets. No {skill:186}? The bars, not the ore."] = "",
 
-	-- Step 93: Get 28 Runecloth
-	-- {item:14047} Runecloth
-	["Get 28 {item:14047}"] = "",
+	-- Step 93: Get 28 Runecloths
+	-- plural, as words: Runecloths = {item:14047} Runecloth
+	["Get 28 Runecloths"] = "",
 	-- plural, as words: Thorium Widgets = {item:15994} Thorium Widget
 	["For 28 Thorium Widgets."] = "",
 
@@ -445,9 +455,9 @@ return {
 	-- {spell:19800} Thorium Shells
 	["Learn {spell:19800}"] = "",
 
-	-- Step 101: Get 28 Thorium Bar
-	-- {item:12359} Thorium Bar
-	["Get 28 {item:12359}"] = "",
+	-- Step 101: Get 28 Thorium Bars
+	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
+	["Get 28 Thorium Bars"] = "",
 	-- {item:15997} Thorium Shells · {skill:186} Mining
 	["For 14 {item:15997}. No {skill:186}? The bars, not the ore."] = "",
 
@@ -456,9 +466,9 @@ return {
 	["Craft 14 {item:15997} until 300"] = "",
 	["About 14 crafts."] = "",
 
-	-- Step 104: Get 90 Thorium Bar
-	-- {item:12359} Thorium Bar
-	["Get 90 {item:12359}"] = "",
+	-- Step 104: Get 90 Thorium Bars
+	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
+	["Get 90 Thorium Bars"] = "",
 	-- {skill:186} Mining
 	-- plural, as words: Thorium Tubes = {item:16000} Thorium Tube
 	["For 15 Thorium Tubes. No {skill:186}? The bars, not the ore."] = "",

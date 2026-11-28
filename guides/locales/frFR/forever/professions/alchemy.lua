@@ -11,9 +11,9 @@ return {
 	["Learn {skill:171}"] = "Apprendre {skill:171}",
 	["No character level needed."] = "",
 
-	-- Step 2: Buy 54 Empty Vial
-	-- {item:3371} Empty Vial
-	["Buy 54 {item:3371}"] = "",
+	-- Step 2: Buy 54 Empty Vials
+	-- plural, as words: Empty Vials = {item:3371} Empty Vial
+	["Buy 54 Empty Vials"] = "",
 	["For 9 Elixirs of Minor Force and 45 Elixirs of Minor Defense."] = "",
 
 	-- Step 3: Get 9 Silverleaf
@@ -38,9 +38,9 @@ return {
 	["Craft 45 Elixirs of Minor Defense until 55"] = "",
 	["About 45 crafts."] = "",
 
-	-- Step 8: Buy 98 Empty Vial
-	-- {item:3371} Empty Vial
-	["Buy 98 {item:3371}"] = "",
+	-- Step 8: Buy 98 Empty Vials
+	-- plural, as words: Empty Vials = {item:3371} Empty Vial
+	["Buy 98 Empty Vials"] = "",
 	-- plural, as words: Minor Mana Potions = {spell:2331} Minor Mana Potion · Lesser Mana Potions = {spell:3173} Lesser Mana Potion · Fire Oils = {item:6371} Fire Oil
 	["For 10 Minor Mana Potions, 28 Elixirs of Minor Fortitude, 30 Elixirs of Wisdom, 10 Lesser Mana Potions and 20 Fire Oils."] = "",
 
@@ -83,7 +83,7 @@ return {
 	["Get 56 {item:2449}"] = "",
 
 	-- Step 17: Learn Elixir of Minor Fortitude
-	["Taught at 55; done at once if you learned it then."] = "",
+	["Taught at 55, before the part of the guide you started from."] = "",
 
 	-- Step 18: Craft 28 Elixirs of Minor Fortitude until 90
 	["Craft 28 Elixirs of Minor Fortitude until 90"] = "",
@@ -132,14 +132,15 @@ return {
 	-- {spell:7837} Fire Oil
 	["Learn {spell:7837}"] = "",
 
-	-- Step 29: Craft 20 Fire Oils until 150
+	-- Step 29: Craft 20 Fire Oils · keep 30 for the Elixirs of Fire Power
 	-- plural, as words: Fire Oils = {item:6371} Fire Oil
-	["Craft 20 Fire Oils until 150"] = "",
-	["About 20 crafts. Each craft makes 2 oils. Keep 30: the Elixirs of Fire Power at 150 use them."] = "",
+	["Craft 20 Fire Oils · keep 30 for the Elixirs of Fire Power"] = "",
+	-- {skill:171} Alchemy
+	["They take {skill:171} to about 150. Each craft makes 2 oils."] = "",
 
-	-- Step 30: Buy 87 Leaded Vial
-	-- {item:3372} Leaded Vial
-	["Buy 87 {item:3372}"] = "",
+	-- Step 30: Buy 87 Leaded Vials
+	-- plural, as words: Leaded Vials = {item:3372} Leaded Vial
+	["Buy 87 Leaded Vials"] = "",
 	-- plural, as words: Mana Potions = {spell:3452} Mana Potion · Nature Protection Potions = {item:6052} Nature Protection Potion
 	["For 15 Elixirs of Fire Power, 36 Mana Potions and 36 Nature Protection Potions."] = "",
 
@@ -205,15 +206,15 @@ return {
 	-- plural, as words: Nature Protection Potions = {item:6052} Nature Protection Potion
 	["Craft 36 Nature Protection Potions until 225"] = "",
 
-	-- Step 45: Buy 73 Leaded Vial
-	-- {item:3372} Leaded Vial
-	["Buy 73 {item:3372}"] = "",
+	-- Step 45: Buy 73 Leaded Vials
+	-- plural, as words: Leaded Vials = {item:3372} Leaded Vial
+	["Buy 73 Leaded Vials"] = "",
 	-- plural, as words: Nature Protection Potions = {item:6052} Nature Protection Potion · Stonescale Oils = {item:13423} Stonescale Oil
 	["For 26 Nature Protection Potions and 47 Stonescale Oils."] = "",
 
-	-- Step 46: Buy 69 Crystal Vial
-	-- {item:8925} Crystal Vial
-	["Buy 69 {item:8925}"] = "",
+	-- Step 46: Buy 69 Crystal Vials
+	-- plural, as words: Crystal Vials = {item:8925} Crystal Vial
+	["Buy 69 Crystal Vials"] = "",
 	["For 25 Elixirs of Greater Intellect and 44 Elixirs of Greater Defense."] = "",
 
 	-- Step 47: Get 26 Liferoot
@@ -232,7 +233,7 @@ return {
 	["Needs level 35."] = "",
 
 	-- Step 50: Learn Nature Protection Potion
-	["Taught at 195; done at once if you learned it then."] = "",
+	["Taught at 195, before the part of the guide you started from."] = "",
 
 	-- Step 51: Craft 26 Nature Protection Potions until 235
 	-- plural, as words: Nature Protection Potions = {item:6052} Nature Protection Potion
@@ -265,10 +266,11 @@ return {
 	-- {spell:17551} Stonescale Oil
 	["Learn {spell:17551}"] = "",
 
-	-- Step 58: Craft 47 Stonescale Oils until 260
+	-- Step 58: Craft 47 Stonescale Oils · keep them all for the elixirs at 265
 	-- plural, as words: Stonescale Oils = {item:13423} Stonescale Oil
-	["Craft 47 Stonescale Oils until 260"] = "",
-	["About 47 crafts. Each craft makes 2 oils. Keep all of them: the elixirs at 265 use 88."] = "",
+	["Craft 47 Stonescale Oils · keep them all for the elixirs at 265"] = "",
+	-- {skill:171} Alchemy
+	["They take {skill:171} to about 260. Each craft makes 2 oils."] = "",
 
 	-- Step 59: Get 10 Khadgar's Whisker
 	-- {object:2043} Khadgar's Whisker
@@ -280,7 +282,7 @@ return {
 	["Get 10 {item:8839}"] = "",
 
 	-- Step 61: Learn Elixir of Greater Intellect
-	["Taught at 235; done at once if you learned it then."] = "",
+	["Taught at 235, before the part of the guide you started from."] = "",
 
 	-- Step 62: Craft 10 Elixirs of Greater Intellect until 265
 	["Craft 10 Elixirs of Greater Intellect until 265"] = "",

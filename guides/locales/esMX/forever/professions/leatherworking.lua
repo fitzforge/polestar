@@ -28,24 +28,25 @@ return {
 	-- {item:2318} Light Leather
 	["For 35 {item:2318}."] = "",
 
-	-- Step 5: Craft 35 Light Leather until 30
+	-- Step 5: Craft 35 Light Leather · keep it for the gloves
 	-- {item:2318} Light Leather
-	["Craft 35 {item:2318} until 30"] = "",
-	["About 35 crafts. Keep the leather: the gloves at 40 use it."] = "",
+	["Craft 35 {item:2318} · keep it for the gloves"] = "",
+	-- {skill:165} Leatherworking
+	["They take {skill:165} to about 30."] = "",
 
-	-- Step 6: Get 10 Light Hide
-	-- {item:783} Light Hide
-	["Get 10 {item:783}"] = "",
+	-- Step 6: Get 10 Light Hides
+	-- plural, as words: Light Hides = {item:783} Light Hide
+	["Get 10 Light Hides"] = "",
 
 	-- Step 7: Learn Cured Light Hide
 	-- {spell:3816} Cured Light Hide
 	["Learn {spell:3816}"] = "",
 
-	-- Step 8: Craft 10 Cured Light Hides until 40
+	-- Step 8: Craft 10 Cured Light Hides · keep them for the pants at 70
 	-- plural, as words: Cured Light Hides = {spell:3816} Cured Light Hide
-	["Craft 10 Cured Light Hides until 40"] = "",
-	-- {spell:3759} Embossed Leather Pants
-	["About 10 crafts. Keep all 10 hides for the {spell:3759} at 70."] = "",
+	["Craft 10 Cured Light Hides · keep them for the pants at 70"] = "",
+	-- {skill:165} Leatherworking
+	["They take {skill:165} to about 40."] = "",
 
 	-- Step 9: Get 25 Light Leather
 	-- {item:2318} Light Leather
@@ -109,7 +110,7 @@ return {
 	["For 95-105: taught here now, so no second trip."] = "",
 
 	-- Step 20: Learn Embossed Leather Gloves
-	["Taught at 40; done at once if you learned it then."] = "",
+	["Taught at 40, before the part of the guide you started from."] = "",
 
 	-- Step 21: Craft 10 Embossed Leather Gloves until 70
 	-- {spell:3756} Embossed Leather Gloves
@@ -121,9 +122,9 @@ return {
 	["Craft 10 {spell:3759} until 80"] = "",
 	["About 10 crafts. No points past 75 until Journeyman is trained."] = "",
 
-	-- Step 23: Get 20 Medium Hide
-	-- {item:4232} Medium Hide
-	["Get 20 {item:4232}"] = "",
+	-- Step 23: Get 20 Medium Hides
+	-- plural, as words: Medium Hides = {item:4232} Medium Hide
+	["Get 20 Medium Hides"] = "",
 	-- plural, as words: Cured Medium Hides = {spell:3817} Cured Medium Hide
 	["For 20 Cured Medium Hides."] = "",
 
@@ -131,11 +132,11 @@ return {
 	-- {spell:3817} Cured Medium Hide
 	["Learn {spell:3817}"] = "",
 
-	-- Step 25: Craft 20 Cured Medium Hides until 95
+	-- Step 25: Craft 20 Cured Medium Hides · keep them for the belts at 105
 	-- plural, as words: Cured Medium Hides = {spell:3817} Cured Medium Hide
-	["Craft 20 Cured Medium Hides until 95"] = "",
-	-- plural, as words: Dark Leather Belts = {spell:3766} Dark Leather Belt
-	["About 20 crafts. Keep all 20 hides for the Dark Leather Belts at 105."] = "",
+	["Craft 20 Cured Medium Hides · keep them for the belts at 105"] = "",
+	-- {skill:165} Leatherworking
+	["They take {skill:165} to about 95."] = "",
 
 	-- Step 26: Get 132 Light Leather
 	-- {item:2318} Light Leather
@@ -144,13 +145,13 @@ return {
 	["For 22 Fine Leather Belts."] = "",
 
 	-- Step 27: Learn Fine Leather Belt
-	["Taught at 60; done at once if you learned it then."] = "",
+	["Taught at 60, before the part of the guide you started from."] = "",
 
-	-- Step 28: Craft 22 Fine Leather Belts until 105
-	-- plural, as words: Fine Leather Belts = {spell:3763} Fine Leather Belt
-	["Craft 22 Fine Leather Belts until 105"] = "",
-	-- plural, as words: Dark Leather Belts = {spell:3766} Dark Leather Belt
-	["About 22 crafts. Keep 20 belts: the Dark Leather Belts at 105 are made from them."] = "",
+	-- Step 28: Craft 22 Fine Leather Belts · keep 20 for the Dark Leather Belts
+	-- plural, as words: Fine Leather Belts = {spell:3763} Fine Leather Belt · Dark Leather Belts = {spell:3766} Dark Leather Belt
+	["Craft 22 Fine Leather Belts · keep 20 for the Dark Leather Belts"] = "",
+	-- {skill:165} Leatherworking
+	["They take {skill:165} to about 105."] = "",
 
 	-- Step 29: Learn Dark Leather Belt
 	-- {spell:3766} Dark Leather Belt
@@ -180,25 +181,26 @@ return {
 	["Learn {spell:3764}"] = "",
 	["For 143-150: taught here now, so no second trip."] = "",
 
-	-- Step 35: Craft 8 Heavy Leather until 130
+	-- Step 35: Craft 8 Heavy Leather · keep it for the shoulders at 150
 	-- {item:4234} Heavy Leather
-	["Craft 8 {item:4234} until 130"] = "",
-	-- {item:4234} Heavy Leather
-	["About 8 crafts. Keep the {item:4234} for the shoulders at 150."] = "",
+	["Craft 8 {item:4234} · keep it for the shoulders at 150"] = "",
+	-- {skill:165} Leatherworking
+	["They take {skill:165} to about 130."] = "",
 
-	-- Step 36: Get 25 Heavy Hide
-	-- {item:4235} Heavy Hide
-	["Get 25 {item:4235}"] = "",
+	-- Step 36: Get 25 Heavy Hides
+	-- plural, as words: Heavy Hides = {item:4235} Heavy Hide
+	["Get 25 Heavy Hides"] = "",
 	-- plural, as words: Cured Heavy Hides = {spell:3818} Cured Heavy Hide
 	["For 25 Cured Heavy Hides."] = "",
 
 	-- Step 37: Learn Cured Heavy Hide
-	["Taught at 125; done at once if you learned it then."] = "",
+	["Taught at 125, before the part of the guide you started from."] = "",
 
-	-- Step 38: Craft 25 Cured Heavy Hides until 143
+	-- Step 38: Craft 25 Cured Heavy Hides · keep them for the shoulders and gloves
 	-- plural, as words: Cured Heavy Hides = {spell:3818} Cured Heavy Hide
-	["Craft 25 Cured Heavy Hides until 143"] = "",
-	["About 25 crafts. Keep all 25: 15 for the shoulders at 150, 10 for the gloves at 165."] = "",
+	["Craft 25 Cured Heavy Hides · keep them for the shoulders and gloves"] = "",
+	-- {skill:165} Leatherworking
+	["They take {skill:165} to about 143."] = "",
 
 	-- Step 39: Get 112 Medium Leather
 	-- {item:2319} Medium Leather
@@ -264,12 +266,12 @@ return {
 	-- {item:5739} Barbaric Harness
 	["For 10 {item:5739}."] = "",
 
-	-- Step 52: Get 10 Iron Buckle
-	-- {item:7071} Iron Buckle
-	["Get 10 {item:7071}"] = "",
+	-- Step 52: Get 10 Iron Buckles
+	-- plural, as words: Iron Buckles = {item:7071} Iron Buckle
+	["Get 10 Iron Buckles"] = "",
 
 	-- Step 53: Learn Barbaric Harness
-	["Taught at 165; done at once if you learned it then."] = "",
+	["Taught at 165, before the part of the guide you started from."] = "",
 
 	-- Step 54: Craft 10 Barbaric Harness until 185
 	-- {item:5739} Barbaric Harness
@@ -356,9 +358,9 @@ return {
 	-- plural, as words: Runic Leather Headbands = {item:15094} Runic Leather Headband
 	["For 49 Runic Leather Headbands."] = "",
 
-	-- Step 71: Get 490 Runecloth
-	-- {item:14047} Runecloth
-	["Get 490 {item:14047}"] = "",
+	-- Step 71: Get 490 Runecloths
+	-- plural, as words: Runecloths = {item:14047} Runecloth
+	["Get 490 Runecloths"] = "",
 
 	-- Step 72: Buy Pattern: Runic Leather Headband · Jase Farlane
 	-- {item:15756} Pattern: Runic Leather Headband · {npc:12941} Jase Farlane

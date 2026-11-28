@@ -15,16 +15,16 @@ return {
 	-- {skill:182} Herbalism
 	["Learn {skill:182}"] = "",
 
-	-- Step 3: Buy 54 Empty Vial
-	-- {item:3371} Empty Vial
-	["Buy 54 {item:3371}"] = "",
+	-- Step 3: Buy 54 Empty Vials
+	-- plural, as words: Empty Vials = {item:3371} Empty Vial
+	["Buy 54 Empty Vials"] = "",
 	["For 9 Elixirs of Minor Force and 45 Elixirs of Minor Defense."] = "",
 
-	-- Step 4: Pick until Herbalism 15
-	-- {skill:182} Herbalism
-	["Pick until {skill:182} 15"] = "",
-	-- {item:765} Silverleaf · {skill:182} Herbalism
-	["This loop gives the {item:765} to {skill:182} 15; the next one the rest."] = "",
+	-- Step 4: Pick Peacebloom and Silverleaf until Herbalism 15
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {skill:182} Herbalism
+	["Pick {item:2447} and {item:765} until {skill:182} 15"] = "",
+	-- {item:247755} Elixir of Minor Force
+	["This loop gives part of what {item:247755} needs; the next one the rest."] = "",
 
 	-- Step 5: Pick 9 Silverleaf
 	-- {item:765} Silverleaf
@@ -35,11 +35,11 @@ return {
 	["Craft 9 Elixirs of Minor Force until 10"] = "",
 	["About 9 crafts."] = "",
 
-	-- Step 7: Pick until Herbalism 50
-	-- {skill:182} Herbalism
-	["Pick until {skill:182} 50"] = "",
-	-- {item:765} Silverleaf · {skill:182} Herbalism
-	["This loop gives the {item:765} to {skill:182} 50; the next one the rest."] = "",
+	-- Step 7: Pick Peacebloom, Silverleaf and Earthroot until Herbalism 50
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {skill:182} Herbalism
+	["Pick {item:2447}, {item:765} and {item:2449} until {skill:182} 50"] = "",
+	-- {item:5997} Elixir of Minor Defense
+	["This loop gives part of what {item:5997} needs; the next one the rest."] = "",
 
 	-- Step 8: Pick 45 Silverleaf
 	-- {item:765} Silverleaf
@@ -56,9 +56,9 @@ return {
 	["Craft 45 Elixirs of Minor Defense until 55"] = "",
 	["About 45 crafts."] = "",
 
-	-- Step 11: Buy 98 Empty Vial
-	-- {item:3371} Empty Vial
-	["Buy 98 {item:3371}"] = "",
+	-- Step 11: Buy 98 Empty Vials
+	-- plural, as words: Empty Vials = {item:3371} Empty Vial
+	["Buy 98 Empty Vials"] = "",
 	-- plural, as words: Minor Mana Potions = {spell:2331} Minor Mana Potion · Lesser Mana Potions = {spell:3173} Lesser Mana Potion · Fire Oils = {item:6371} Fire Oil
 	["For 10 Minor Mana Potions, 28 Elixirs of Minor Fortitude, 30 Elixirs of Wisdom, 10 Lesser Mana Potions and 20 Fire Oils."] = "",
 
@@ -100,24 +100,22 @@ return {
 	["Pick 28 {item:2447}"] = "",
 	["For 28 Elixirs of Minor Fortitude."] = "",
 
-	-- Step 20: Pick until Herbalism 70
-	-- {skill:182} Herbalism
-	["Pick until {skill:182} 70"] = "",
-	-- {item:2449} Earthroot · {skill:182} Herbalism
-	["This loop gives the {item:2449} to {skill:182} 70; the next one the rest."] = "",
+	-- Step 20: Pick Silverleaf, Peacebloom, Earthroot and Mageroyal until Herbalism 70
+	-- {item:765} Silverleaf · {item:2447} Peacebloom · {item:2449} Earthroot · {item:785} Mageroyal · {skill:182} Herbalism
+	["Pick {item:765}, {item:2447}, {item:2449} and {item:785} until {skill:182} 70"] = "",
+	-- {spell:2334} Elixir of Minor Fortitude
+	["This loop gives part of what {spell:2334} needs; the next one the rest."] = "",
 
-	-- Step 21: Pick until Herbalism 100
-	-- {skill:182} Herbalism
-	["Pick until {skill:182} 100"] = "",
-	-- {item:2449} Earthroot · {skill:182} Herbalism
-	["This loop gives the {item:2449} to {skill:182} 100; the next one the rest."] = "",
+	-- Step 21: Pick Silverleaf, Peacebloom, Earthroot, Mageroyal and Briarthorn until Herbalism 100
+	-- {item:765} Silverleaf · {item:2447} Peacebloom · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {skill:182} Herbalism
+	["Pick {item:765}, {item:2447}, {item:2449}, {item:785} and {item:2450} until {skill:182} 100"] = "",
 
 	-- Step 22: Pick 56 Earthroot
 	-- {item:2449} Earthroot
 	["Pick 56 {item:2449}"] = "",
 
 	-- Step 23: Learn Elixir of Minor Fortitude
-	["Taught at 55; done at once if you learned it then."] = "",
+	["Taught at 55, before the part of the guide you started from."] = "",
 
 	-- Step 24: Craft 28 Elixirs of Minor Fortitude until 90
 	["Craft 28 Elixirs of Minor Fortitude until 90"] = "",
@@ -128,33 +126,27 @@ return {
 	["Pick 30 {item:785}"] = "",
 	["For 30 Elixirs of Wisdom."] = "",
 
-	-- Step 26: Pick until Herbalism 115
-	-- {skill:182} Herbalism
-	["Pick until {skill:182} 115"] = "",
-	-- {item:2450} Briarthorn · {skill:182} Herbalism
-	["This loop gives the {item:2450} to {skill:182} 115; the next one the rest."] = "",
+	-- Step 26: Pick Mageroyal, Briarthorn, Stranglekelp and Bruiseweed until Herbalism 115
+	-- {item:785} Mageroyal · {item:2450} Briarthorn · {item:2453} Bruiseweed · {skill:182} Herbalism
+	["Pick {item:785}, {item:2450}, Stranglekelp and {item:2453} until {skill:182} 115"] = "",
+	-- {spell:3171} Elixir of Wisdom
+	["This loop gives part of what {spell:3171} needs; the next one the rest."] = "",
 
-	-- Step 27: Pick until Herbalism 125
-	-- {skill:182} Herbalism
-	["Pick until {skill:182} 125"] = "",
-	-- {item:2450} Briarthorn · {skill:182} Herbalism
-	["This loop gives the {item:2450} to {skill:182} 125; the next one the rest."] = "",
+	-- Step 27: Pick Mageroyal, Briarthorn, Stranglekelp, Bruiseweed and Wild Steelbloom until Herbalism 125
+	-- {item:785} Mageroyal · {item:2450} Briarthorn · {object:2045} Stranglekelp · {item:2453} Bruiseweed · {skill:182} Herbalism
+	["Pick {item:785}, {item:2450}, {object:2045}, {item:2453} and Wild Steelbloom until {skill:182} 125"] = "",
 
-	-- Step 28: Pick until Herbalism 150
-	-- {skill:182} Herbalism
-	["Pick until {skill:182} 150"] = "",
-	-- {item:2450} Briarthorn · {skill:182} Herbalism
-	["This loop gives the {item:2450} to {skill:182} 150; the next one the rest."] = "",
+	-- Step 28: Pick Mageroyal, Briarthorn, Bruiseweed, Wild Steelbloom and Kingsblood until Herbalism 150
+	-- {item:785} Mageroyal · {item:2450} Briarthorn · {item:2453} Bruiseweed · {item:3356} Kingsblood · {skill:182} Herbalism
+	["Pick {item:785}, {item:2450}, {item:2453}, Wild Steelbloom and {item:3356} until {skill:182} 150"] = "",
 
 	-- Step 29: Train Expert Herbalism
 	-- {skill:182} Herbalism
 	["Train Expert {skill:182}"] = "",
 
-	-- Step 30: Pick until Herbalism 160
-	-- {skill:182} Herbalism
-	["Pick until {skill:182} 160"] = "",
-	-- {item:2450} Briarthorn · {skill:182} Herbalism
-	["This loop gives the {item:2450} to {skill:182} 160; the next one the rest."] = "",
+	-- Step 30: Pick Briarthorn, Bruiseweed, Wild Steelbloom, Kingsblood and Liferoot until Herbalism 160
+	-- {item:2450} Briarthorn · {item:2453} Bruiseweed · {object:1623} Wild Steelbloom · {item:3356} Kingsblood · {item:3357} Liferoot · {skill:182} Herbalism
+	["Pick {item:2450}, {item:2453}, {object:1623}, {item:3356} and {item:3357} until {skill:182} 160"] = "",
 
 	-- Step 31: Pick 60 Briarthorn
 	-- {item:2450} Briarthorn
@@ -194,14 +186,15 @@ return {
 	-- {spell:7837} Fire Oil
 	["Learn {spell:7837}"] = "",
 
-	-- Step 40: Craft 20 Fire Oils until 150
+	-- Step 40: Craft 20 Fire Oils · keep 30 for the Elixirs of Fire Power
 	-- plural, as words: Fire Oils = {item:6371} Fire Oil
-	["Craft 20 Fire Oils until 150"] = "",
-	["About 20 crafts. Each craft makes 2 oils. Keep 30: the Elixirs of Fire Power at 150 use them."] = "",
+	["Craft 20 Fire Oils · keep 30 for the Elixirs of Fire Power"] = "",
+	-- {skill:171} Alchemy
+	["They take {skill:171} to about 150. Each craft makes 2 oils."] = "",
 
-	-- Step 41: Buy 87 Leaded Vial
-	-- {item:3372} Leaded Vial
-	["Buy 87 {item:3372}"] = "",
+	-- Step 41: Buy 87 Leaded Vials
+	-- plural, as words: Leaded Vials = {item:3372} Leaded Vial
+	["Buy 87 Leaded Vials"] = "",
 	-- plural, as words: Mana Potions = {spell:3452} Mana Potion · Nature Protection Potions = {item:6052} Nature Protection Potion
 	["For 15 Elixirs of Fire Power, 36 Mana Potions and 36 Nature Protection Potions."] = "",
 
@@ -223,11 +216,11 @@ return {
 	["Craft 15 Elixirs of Fire Power until 165"] = "",
 	["About 15 crafts."] = "",
 
-	-- Step 46: Pick until Herbalism 170
-	-- {skill:182} Herbalism
-	["Pick until {skill:182} 170"] = "",
-	-- {item:3356} Kingsblood · {skill:182} Herbalism
-	["This loop gives the {item:3356} to {skill:182} 170; the next one the rest."] = "",
+	-- Step 46: Pick Briarthorn, Wild Steelbloom, Kingsblood, Liferoot and Fadeleaf until Herbalism 170
+	-- {item:2450} Briarthorn · {object:1623} Wild Steelbloom · {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {skill:182} Herbalism
+	["Pick {item:2450}, {object:1623}, {item:3356}, {item:3357} and {item:3818} until {skill:182} 170"] = "",
+	-- {spell:3452} Mana Potion
+	["This loop gives part of what {spell:3452} needs; the next one the rest."] = "",
 
 	-- Step 47: Pick 36 Kingsblood
 	-- {item:3356} Kingsblood
@@ -248,11 +241,11 @@ return {
 	["Craft 36 Mana Potions until 195"] = "",
 	["About 36 crafts."] = "",
 
-	-- Step 51: Pick until Herbalism 185
-	-- {skill:182} Herbalism
-	["Pick until {skill:182} 185"] = "",
-	-- {item:3357} Liferoot · {skill:182} Herbalism
-	["This loop gives the {item:3357} to {skill:182} 185; the next one the rest."] = "",
+	-- Step 51: Pick Wild Steelbloom, Kingsblood, Liferoot, Fadeleaf and Goldthorn until Herbalism 185
+	-- {object:1623} Wild Steelbloom · {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {skill:182} Herbalism
+	["Pick {object:1623}, {item:3356}, {item:3357}, {item:3818} and {item:3821} until {skill:182} 185"] = "",
+	-- {item:6052} Nature Protection Potion
+	["This loop gives part of what {item:6052} needs; the next one the rest."] = "",
 
 	-- Step 52: Pick 36 Liferoot
 	-- {item:3357} Liferoot
@@ -278,22 +271,20 @@ return {
 	-- plural, as words: Nature Protection Potions = {item:6052} Nature Protection Potion
 	["Craft 36 Nature Protection Potions until 225"] = "",
 
-	-- Step 58: Buy 73 Leaded Vial
-	-- {item:3372} Leaded Vial
-	["Buy 73 {item:3372}"] = "",
+	-- Step 58: Buy 73 Leaded Vials
+	-- plural, as words: Leaded Vials = {item:3372} Leaded Vial
+	["Buy 73 Leaded Vials"] = "",
 	-- plural, as words: Nature Protection Potions = {item:6052} Nature Protection Potion · Stonescale Oils = {item:13423} Stonescale Oil
 	["For 26 Nature Protection Potions and 47 Stonescale Oils."] = "",
 
-	-- Step 59: Buy 69 Crystal Vial
-	-- {item:8925} Crystal Vial
-	["Buy 69 {item:8925}"] = "",
+	-- Step 59: Buy 69 Crystal Vials
+	-- plural, as words: Crystal Vials = {item:8925} Crystal Vial
+	["Buy 69 Crystal Vials"] = "",
 	["For 25 Elixirs of Greater Intellect and 44 Elixirs of Greater Defense."] = "",
 
-	-- Step 60: Pick until Herbalism 200
-	-- {skill:182} Herbalism
-	["Pick until {skill:182} 200"] = "",
-	-- {item:3357} Liferoot · {skill:182} Herbalism
-	["This loop gives the {item:3357} to {skill:182} 200; the next one the rest."] = "",
+	-- Step 60: Pick Kingsblood, Liferoot, Fadeleaf, Goldthorn and Khadgar's Whisker until Herbalism 200
+	-- {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {skill:182} Herbalism
+	["Pick {item:3356}, {item:3357}, {item:3818}, {item:3821} and Khadgar's Whisker until {skill:182} 200"] = "",
 
 	-- Step 61: Pick 26 Liferoot
 	-- {item:3357} Liferoot
@@ -315,7 +306,7 @@ return {
 	["Train Artisan {skill:182}"] = "",
 
 	-- Step 65: Learn Nature Protection Potion
-	["Taught at 195; done at once if you learned it then."] = "",
+	["Taught at 195, before the part of the guide you started from."] = "",
 
 	-- Step 66: Craft 26 Nature Protection Potions until 235
 	-- plural, as words: Nature Protection Potions = {item:6052} Nature Protection Potion
@@ -327,23 +318,19 @@ return {
 	["Pick 15 {object:2043}"] = "",
 	["For 15 Elixirs of Greater Intellect."] = "",
 
-	-- Step 68: Pick until Herbalism 210
-	-- {skill:182} Herbalism
-	["Pick until {skill:182} 210"] = "",
-	-- {skill:182} Herbalism · {item:9179} Elixir of Greater Intellect · {item:8839} Blindweed
-	["{skill:182} 200 to 210 before {item:9179}: its {item:8839} come from {skill:182} 260."] = "",
+	-- Step 68: Pick Kingsblood, Liferoot, Fadeleaf, Goldthorn and Khadgar's Whisker until Herbalism 210
+	-- {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {skill:182} Herbalism
+	["Pick {item:3356}, {item:3357}, {item:3818}, {item:3821} and Khadgar's Whisker until {skill:182} 210"] = "",
+	-- {item:9179} Elixir of Greater Intellect · {skill:182} Herbalism
+	["What {item:9179} needs comes from {skill:182} 260."] = "",
 
-	-- Step 69: Pick until Herbalism 230
-	-- {skill:182} Herbalism
-	["Pick until {skill:182} 230"] = "",
-	-- {skill:182} Herbalism · {item:9179} Elixir of Greater Intellect · {item:8839} Blindweed
-	["{skill:182} 210 to 230 before {item:9179}: its {item:8839} come from {skill:182} 260."] = "",
+	-- Step 69: Pick Goldthorn, Khadgar's Whisker, Wintersbite, Firebloom and Purple Lotus until Herbalism 230
+	-- {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {item:3819} Wintersbite · {item:4625} Firebloom · {item:8831} Purple Lotus · {skill:182} Herbalism
+	["Pick {item:3821}, {object:2043}, {item:3819}, {item:4625} and {item:8831} until {skill:182} 230"] = "",
 
-	-- Step 70: Pick until Herbalism 260
-	-- {skill:182} Herbalism
-	["Pick until {skill:182} 260"] = "",
-	-- {skill:182} Herbalism · {item:9179} Elixir of Greater Intellect · {item:8839} Blindweed
-	["{skill:182} 230 to 260 before {item:9179}: its {item:8839} come from {skill:182} 260."] = "",
+	-- Step 70: Pick Fadeleaf, Goldthorn, Purple Lotus and Sungrass until Herbalism 260
+	-- {item:3818} Fadeleaf · {item:3821} Goldthorn · {item:8831} Purple Lotus · {item:8838} Sungrass · {skill:182} Herbalism
+	["Pick {item:3818}, {item:3821}, {item:8831} and {item:8838} until {skill:182} 260"] = "",
 
 	-- Step 71: Pick 15 Blindweed
 	-- {item:8839} Blindweed
@@ -368,28 +355,29 @@ return {
 	-- {spell:17551} Stonescale Oil
 	["Learn {spell:17551}"] = "",
 
-	-- Step 76: Craft 47 Stonescale Oils until 260
+	-- Step 76: Craft 47 Stonescale Oils · keep them all for the elixirs at 265
 	-- plural, as words: Stonescale Oils = {item:13423} Stonescale Oil
-	["Craft 47 Stonescale Oils until 260"] = "",
-	["About 47 crafts. Each craft makes 2 oils. Keep all of them: the elixirs at 265 use 88."] = "",
+	["Craft 47 Stonescale Oils · keep them all for the elixirs at 265"] = "",
+	-- {skill:171} Alchemy
+	["They take {skill:171} to about 260. Each craft makes 2 oils."] = "",
 
 	-- Step 77: Pick 10 Khadgar's Whisker
 	-- {object:2043} Khadgar's Whisker
 	["Pick 10 {object:2043}"] = "",
 	["For 10 Elixirs of Greater Intellect."] = "",
 
-	-- Step 78: Pick until Herbalism 285
-	-- {skill:182} Herbalism
-	["Pick until {skill:182} 285"] = "",
-	-- {item:8839} Blindweed · {skill:182} Herbalism
-	["This loop gives the {item:8839} to {skill:182} 285; the next one the rest."] = "",
+	-- Step 78: Pick Goldthorn, Khadgar's Whisker, Purple Lotus, Sungrass, Blindweed, Ghost Mushroom, Gromsblood and Golden Sansam until Herbalism 285
+	-- {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {item:8831} Purple Lotus · {item:8838} Sungrass · {item:8839} Blindweed · {item:8845} Ghost Mushroom · {item:8846} Gromsblood · {item:13464} Golden Sansam · {skill:182} Herbalism
+	["Pick {item:3821}, {object:2043}, {item:8831}, {item:8838}, {item:8839}, {item:8845}, {item:8846} and {item:13464} until {skill:182} 285"] = "",
+	-- {item:9179} Elixir of Greater Intellect
+	["This loop gives part of what {item:9179} needs; the next one the rest."] = "",
 
 	-- Step 79: Pick 10 Blindweed
 	-- {item:8839} Blindweed
 	["Pick 10 {item:8839}"] = "",
 
 	-- Step 80: Learn Elixir of Greater Intellect
-	["Taught at 235; done at once if you learned it then."] = "",
+	["Taught at 235, before the part of the guide you started from."] = "",
 
 	-- Step 81: Craft 10 Elixirs of Greater Intellect until 265
 	["Craft 10 Elixirs of Greater Intellect until 265"] = "",
@@ -413,9 +401,9 @@ return {
 	-- {spell:17554} Elixir of Greater Defense
 	["Learn {spell:17554}"] = "",
 
-	-- Step 86: Pick until Herbalism 300
-	-- {skill:182} Herbalism
-	["Pick until {skill:182} 300"] = "",
+	-- Step 86: Pick Purple Lotus, Arthas' Tears, Sungrass, Golden Sansam, Dreamfoil, Mountain Silversage and Plaguebloom until Herbalism 300
+	-- {item:8831} Purple Lotus · {item:8836} Arthas' Tears · {item:8838} Sungrass · {item:13464} Golden Sansam · {item:13463} Dreamfoil · {item:13465} Mountain Silversage · {item:13466} Plaguebloom · {skill:182} Herbalism
+	["Pick {item:8831}, {item:8836}, {item:8838}, {item:13464}, {item:13463}, {item:13465} and {item:13466} until {skill:182} 300"] = "",
 	-- {skill:182} Herbalism · {skill:171} Alchemy
 	["{skill:182} 300 before the last stretch: the guide ends with {skill:171}."] = "",
 

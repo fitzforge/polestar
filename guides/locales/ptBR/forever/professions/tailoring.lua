@@ -22,9 +22,10 @@ return {
 	["Get 60 {item:2589}"] = "",
 	["For 30 Bolts of Linen Cloth."] = "",
 
-	-- Step 4: Craft 30 Bolts of Linen Cloth until 30
-	["Craft 30 Bolts of Linen Cloth until 30"] = "",
-	["About 30 crafts. Keep all 30 bolts: the belts next use them."] = "",
+	-- Step 4: Craft 30 Bolts of Linen Cloth · keep them for the belts
+	["Craft 30 Bolts of Linen Cloth · keep them for the belts"] = "",
+	-- {skill:197} Tailoring
+	["They take {skill:197} to about 30."] = "",
 
 	-- Step 5: Learn Linen Belt
 	-- {spell:8776} Linen Belt
@@ -67,12 +68,13 @@ return {
 	["Learn {spell:2402}"] = "",
 	["For 80-95: taught here now, so no second trip."] = "",
 
-	-- Step 13: Craft 37 Bolts of Woolen Cloth until 80
-	["Craft 37 Bolts of Woolen Cloth until 80"] = "",
-	["About 37 crafts. Keep all 37 bolts: the capes and shoulders next use them. No points past 75 until Journeyman."] = "",
+	-- Step 13: Craft 37 Bolts of Woolen Cloth · keep them for the capes and shoulders
+	["Craft 37 Bolts of Woolen Cloth · keep them for the capes and shoulders"] = "",
+	-- {skill:197} Tailoring
+	["They take {skill:197} to about 80. No points past 75 until Journeyman."] = "",
 
 	-- Step 14: Learn Woolen Cape
-	["Taught at 55; done at once if you learned it then."] = "",
+	["Taught at 55, before the part of the guide you started from."] = "",
 
 	-- Step 15: Craft 22 Woolen Capes until 95
 	-- plural, as words: Woolen Capes = {spell:2402} Woolen Cape
@@ -97,9 +99,10 @@ return {
 	-- {spell:3839} Bolt of Silk Cloth
 	["Learn {spell:3839}"] = "",
 
-	-- Step 20: Craft 55 Bolts of Silk Cloth until 120
-	["Craft 55 Bolts of Silk Cloth until 120"] = "",
-	["About 55 crafts. Keep all 55 bolts: 10 for the hoods, 45 for the packs."] = "",
+	-- Step 20: Craft 55 Bolts of Silk Cloth · keep them for the hoods and packs
+	["Craft 55 Bolts of Silk Cloth · keep them for the hoods and packs"] = "",
+	-- {skill:197} Tailoring
+	["They take {skill:197} to about 120."] = "",
 
 	-- Step 21: Learn Azure Silk Hood
 	-- {spell:8760} Azure Silk Hood
@@ -157,9 +160,10 @@ return {
 	-- {spell:3865} Bolt of Mageweave
 	["Learn {spell:3865}"] = "",
 
-	-- Step 32: Craft 23 Bolts of Mageweave until 150
-	["Craft 23 Bolts of Mageweave until 150"] = "",
-	["About 23 crafts. Keep all 23 bolts for the leggings at 185."] = "",
+	-- Step 32: Craft 23 Bolts of Mageweave · keep them for the leggings at 185
+	["Craft 23 Bolts of Mageweave · keep them for the leggings at 185"] = "",
+	-- {skill:197} Tailoring
+	["They take {skill:197} to about 150."] = "",
 
 	-- Step 33: Get 320 Silk Cloth
 	-- {item:4306} Silk Cloth
@@ -167,7 +171,7 @@ return {
 	["For 80 Bolts of Silk Cloth."] = "",
 
 	-- Step 34: Learn Bolt of Silk Cloth
-	["Taught at 100; done at once if you learned it then."] = "",
+	["Taught at 100, before the part of the guide you started from."] = "",
 
 	-- Step 35: Craft 80 Bolts of Silk Cloth
 	["Craft 80 Bolts of Silk Cloth"] = "",
@@ -211,14 +215,14 @@ return {
 	["For 21 Bolts of Mageweave."] = "",
 
 	-- Step 45: Learn Bolt of Mageweave
-	["Taught at 140; done at once if you learned it then."] = "",
+	["Taught at 140, before the part of the guide you started from."] = "",
 
 	-- Step 46: Craft 21 Bolts of Mageweave
 	["Craft 21 Bolts of Mageweave"] = "",
 	["Parts for the leggings; no skill points from these."] = "",
 
 	-- Step 47: Learn Black Mageweave Leggings
-	["Taught at 170; done at once if you learned it then."] = "",
+	["Taught at 170, before the part of the guide you started from."] = "",
 
 	-- Step 48: Craft 22 Black Mageweave Leggings until 200
 	-- {item:9999} Black Mageweave Leggings
@@ -273,18 +277,19 @@ return {
 	-- {item:10027} Black Mageweave Shoulders
 	["Craft 5 {item:10027} until 205"] = "",
 
-	-- Step 59: Get 115 Runecloth
-	-- {item:14047} Runecloth
-	["Get 115 {item:14047}"] = "",
+	-- Step 59: Get 115 Runecloths
+	-- plural, as words: Runecloths = {item:14047} Runecloth
+	["Get 115 Runecloths"] = "",
 	["For 23 Bolts of Runecloth."] = "",
 
 	-- Step 60: Learn Bolt of Runecloth
 	-- {spell:18401} Bolt of Runecloth
 	["Learn {spell:18401}"] = "",
 
-	-- Step 61: Craft 23 Bolts of Runecloth until 215
-	["Craft 23 Bolts of Runecloth until 215"] = "",
-	["About 23 crafts. Keep all 23 bolts for the belts at 225."] = "",
+	-- Step 61: Craft 23 Bolts of Runecloth · keep them for the belts at 225
+	["Craft 23 Bolts of Runecloth · keep them for the belts at 225"] = "",
+	-- {skill:197} Tailoring
+	["They take {skill:197} to about 215."] = "",
 
 	-- Step 62: Get 340 Mageweave Cloth
 	-- {item:4338} Mageweave Cloth
@@ -296,20 +301,20 @@ return {
 	["Parts for the bags; no skill points from these."] = "",
 
 	-- Step 65: Learn Red Mageweave Bag
-	["Taught at 200; done at once if you learned it then."] = "",
+	["Taught at 200, before the part of the guide you started from."] = "",
 
 	-- Step 66: Craft 17 Red Mageweave Bags until 225
 	-- plural, as words: Red Mageweave Bags = {item:10051} Red Mageweave Bag
 	["Craft 17 Red Mageweave Bags until 225"] = "",
 	["About 17 crafts. Yellow all the way: short of 225? The belts next carry on."] = "",
 
-	-- Step 67: Get 245 Runecloth
-	-- {item:14047} Runecloth
-	["Get 245 {item:14047}"] = "",
+	-- Step 67: Get 245 Runecloths
+	-- plural, as words: Runecloths = {item:14047} Runecloth
+	["Get 245 Runecloths"] = "",
 	["For 49 Bolts of Runecloth."] = "",
 
 	-- Step 68: Learn Bolt of Runecloth
-	["Taught at 205; done at once if you learned it then."] = "",
+	["Taught at 205, before the part of the guide you started from."] = "",
 
 	-- Step 69: Craft 49 Bolts of Runecloth
 	["Craft 49 Bolts of Runecloth"] = "",
@@ -324,9 +329,9 @@ return {
 	["Craft 24 Runecloth Belts until 240"] = "",
 	["About 24 crafts. No points past 225 until Artisan is trained."] = "",
 
-	-- Step 72: Get 220 Runecloth
-	-- {item:14047} Runecloth
-	["Get 220 {item:14047}"] = "",
+	-- Step 72: Get 220 Runecloths
+	-- plural, as words: Runecloths = {item:14047} Runecloth
+	["Get 220 Runecloths"] = "",
 	["For 44 Bolts of Runecloth."] = "",
 
 	-- Step 73: Get 44 Rugged Leather
@@ -355,9 +360,9 @@ return {
 	["Craft 11 {item:13863} until 250"] = "",
 	["About 11 crafts."] = "",
 
-	-- Step 79: Get 975 Runecloth
-	-- {item:14047} Runecloth
-	["Get 975 {item:14047}"] = "",
+	-- Step 79: Get 975 Runecloths
+	-- plural, as words: Runecloths = {item:14047} Runecloth
+	["Get 975 Runecloths"] = "",
 	["For 195 Bolts of Runecloth."] = "",
 
 	-- Step 80: Get 39 Ironweb Spider Silk
@@ -410,9 +415,9 @@ return {
 	-- {item:13867} Runecloth Shoulders
 	["For 58 {item:13867}."] = "",
 
-	-- Step 91: Get 2030 Runecloth
-	-- {item:14047} Runecloth
-	["Get 2030 {item:14047}"] = "",
+	-- Step 91: Get 2030 Runecloths
+	-- plural, as words: Runecloths = {item:14047} Runecloth
+	["Get 2030 Runecloths"] = "",
 	["For 406 Bolts of Runecloth."] = "",
 
 	-- Step 92: Get 232 Rugged Leather
@@ -435,9 +440,9 @@ return {
 	-- plural, as words: Wizardweave Turbans = {item:14130} Wizardweave Turban
 	["For 58 Wizardweave Turbans."] = "",
 
-	-- Step 98: Get 1740 Runecloth
-	-- {item:14047} Runecloth
-	["Get 1740 {item:14047}"] = "",
+	-- Step 98: Get 1740 Runecloths
+	-- plural, as words: Runecloths = {item:14047} Runecloth
+	["Get 1740 Runecloths"] = "",
 	["For 348 Bolts of Runecloth."] = "",
 
 	-- Step 99: Get 58 Star Ruby
@@ -452,33 +457,36 @@ return {
 	["Craft 348 Bolts of Runecloth"] = "",
 	["Parts for the turbans; no skill points from these."] = "",
 
-	-- Step 103: Craft 58 Wizardweave Turbans until 300
+	-- Step 103: Learn Wizardweave Turban
+	["Taught at 280, before the part of the guide you started from."] = "",
+
+	-- Step 104: Craft 58 Wizardweave Turbans until 300
 	-- plural, as words: Wizardweave Turbans = {item:14130} Wizardweave Turban
 	["Craft 58 Wizardweave Turbans until 300"] = "",
 
-	-- Step 104: Buy 31 Rune Thread
+	-- Step 105: Buy 31 Rune Thread
 	-- {item:14341} Rune Thread
 	["Buy 31 {item:14341}"] = "",
 	-- {item:254123} Runecloth Cuffs
 	["For 31 {item:254123}."] = "",
 
-	-- Step 105: Get 775 Runecloth
-	-- {item:14047} Runecloth
-	["Get 775 {item:14047}"] = "",
+	-- Step 106: Get 775 Runecloths
+	-- plural, as words: Runecloths = {item:14047} Runecloth
+	["Get 775 Runecloths"] = "",
 	["For 155 Bolts of Runecloth."] = "",
 
-	-- Step 106: Get 31 Ironweb Spider Silk
+	-- Step 107: Get 31 Ironweb Spider Silk
 	-- {item:14227} Ironweb Spider Silk
 	["Get 31 {item:14227}"] = "",
 
-	-- Step 108: Craft 155 Bolts of Runecloth
+	-- Step 109: Craft 155 Bolts of Runecloth
 	["Craft 155 Bolts of Runecloth"] = "",
 	["Parts for the last cuffs; no skill points from these."] = "",
 
-	-- Step 109: Learn Runecloth Cuffs
-	["Taught at 250; done at once if you learned it then."] = "",
+	-- Step 110: Learn Runecloth Cuffs
+	["Taught at 250, before the part of the guide you started from."] = "",
 
-	-- Step 110: Craft 31 Runecloth Cuffs until 290
+	-- Step 111: Craft 31 Runecloth Cuffs until 290
 	-- {item:254123} Runecloth Cuffs
 	["Craft 31 {item:254123} until 290"] = "",
 	["About 31 crafts. Green now. Past 290 a point is rare: only the two Auction House patterns reach 300."] = "",

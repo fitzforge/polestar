@@ -17,16 +17,16 @@ return {
 	-- {item:6218} Runed Copper Rod
 	["For 1 {item:6218}."] = "",
 
-	-- Step 3: Buy 19 Mote of Magic
-	-- {item:247786} Mote of Magic
-	["Buy 19 {item:247786}"] = "",
+	-- Step 3: Buy 19 Motes of Magic
+	["Buy 19 Motes of Magic"] = "",
 	-- {item:6218} Runed Copper Rod · {spell:7418} Enchant Bracer - Inferior Stamina
 	["For 1 {item:6218} and 18 {spell:7418}."] = "",
 
-	-- Step 4: Craft 1 Runed Copper Rod until 2
+	-- Step 4: Craft 1 Runed Copper Rod
 	-- {item:6218} Runed Copper Rod
-	["Craft 1 {item:6218} until 2"] = "",
-	["A tool: it stays in your bags, and every enchant needs it."] = "",
+	["Craft 1 {item:6218}"] = "",
+	-- {skill:333} Enchanting
+	["It takes {skill:333} to about 2. A tool: it stays in your bags, and every enchant needs it."] = "",
 
 	-- Step 5: Disenchant your green items until 20
 	["Disenchant your green items until 20"] = "",
@@ -37,7 +37,7 @@ return {
 	-- Step 6: Craft 18 Enchant Bracer - Inferior Stamina until 20
 	-- {spell:7418} Enchant Bracer - Inferior Stamina
 	["Craft 18 {spell:7418} until 20"] = "",
-	["About 18 crafts. Any bracer you wear or carry takes them all, one over the last."] = "",
+	["Only if disenchanting didn't get you to 20. Any bracer you wear or carry takes them all, one over the last."] = "",
 
 	-- Step 7: Get 50 Strange Dust
 	-- {item:10940} Strange Dust
@@ -76,7 +76,7 @@ return {
 	["For 100-109: taught here now, so no second trip."] = "",
 
 	-- Step 14: Learn Enchant Chest - Inferior Stamina
-	["Taught at 20; done at once if you learned it then."] = "",
+	["Taught at 20, before the part of the guide you started from."] = "",
 
 	-- Step 15: Craft 21 Enchant Chest - Inferior Stamina until 85
 	-- {spell:7420} Enchant Chest - Inferior Stamina
@@ -103,9 +103,9 @@ return {
 	-- {item:6338} Silver Rod
 	["Get 1 {item:6338}"] = "",
 
-	-- Step 20: Get 4 Lesser Magic Essence
-	-- {item:10938} Lesser Magic Essence
-	["Get 4 {item:10938}"] = "",
+	-- Step 20: Get 4 Lesser Magic Essences
+	-- plural, as words: Lesser Magic Essences = {item:10938} Lesser Magic Essence
+	["Get 4 Lesser Magic Essences"] = "",
 
 	-- Step 21: Get 3 Strange Dust
 	-- {item:10940} Strange Dust
@@ -115,10 +115,11 @@ return {
 	-- {spell:7795} Runed Silver Rod
 	["Learn {spell:7795}"] = "",
 
-	-- Step 23: Craft 1 Runed Silver Rod until 110
+	-- Step 23: Craft 1 Runed Silver Rod
 	-- {item:6339} Runed Silver Rod
-	["Craft 1 {item:6339} until 110"] = "",
-	["A tool: the enchants from 130 need this rod in your bags."] = "",
+	["Craft 1 {item:6339}"] = "",
+	-- {skill:333} Enchanting
+	["It takes {skill:333} to about 110. A tool: the enchants from 130 need this rod in your bags."] = "",
 
 	-- Step 24: Get 138 Strange Dust
 	-- {item:10940} Strange Dust
@@ -127,7 +128,7 @@ return {
 	["For 29 {spell:7771} and 20 {spell:7863}."] = "",
 
 	-- Step 25: Learn Enchant Cloak - Minor Protection
-	["Taught at 70; done at once if you learned it then."] = "",
+	["Taught at 70, before the part of the guide you started from."] = "",
 
 	-- Step 26: Craft 29 Enchant Cloak - Minor Protection until 130
 	-- {spell:7771} Enchant Cloak - Minor Protection
@@ -143,21 +144,21 @@ return {
 	["Craft 20 {spell:7863} until 150"] = "",
 	["About 20 crafts. Any boots you wear or carry take them all."] = "",
 
-	-- Step 29: Buy 41 Leaded Vial
-	-- {item:3372} Leaded Vial
-	["Buy 41 {item:3372}"] = "",
+	-- Step 29: Buy 41 Leaded Vials
+	-- plural, as words: Leaded Vials = {item:3372} Leaded Vial
+	["Buy 41 Leaded Vials"] = "",
 	-- plural, as words: Minor Mana Oils = {item:20745} Minor Mana Oil · Lesser Wizard Oils = {item:20746} Lesser Wizard Oil
 	["For 16 Minor Mana Oils and 25 Lesser Wizard Oils."] = "",
 
-	-- Step 30: Buy 32 Maple Seed
-	-- {item:17034} Maple Seed
-	["Buy 32 {item:17034}"] = "",
+	-- Step 30: Buy 32 Maple Seeds
+	-- plural, as words: Maple Seeds = {item:17034} Maple Seed
+	["Buy 32 Maple Seeds"] = "",
 	-- plural, as words: Minor Mana Oils = {item:20745} Minor Mana Oil
 	["For 16 Minor Mana Oils."] = "",
 
-	-- Step 31: Buy 50 Stranglethorn Seed
-	-- {item:17035} Stranglethorn Seed
-	["Buy 50 {item:17035}"] = "",
+	-- Step 31: Buy 50 Stranglethorn Seeds
+	-- plural, as words: Stranglethorn Seeds = {item:17035} Stranglethorn Seed
+	["Buy 50 Stranglethorn Seeds"] = "",
 	-- plural, as words: Lesser Wizard Oils = {item:20746} Lesser Wizard Oil
 	["For 25 Lesser Wizard Oils."] = "",
 
@@ -188,10 +189,11 @@ return {
 	-- {spell:13628} Runed Golden Rod
 	["Learn {spell:13628}"] = "",
 
-	-- Step 38: Craft 1 Runed Golden Rod until 151
+	-- Step 38: Craft 1 Runed Golden Rod
 	-- {item:11130} Runed Golden Rod
-	["Craft 1 {item:11130} until 151"] = "",
-	["A tool: the enchants from 160 need this rod in your bags."] = "",
+	["Craft 1 {item:11130}"] = "",
+	-- {skill:333} Enchanting
+	["It takes {skill:333} to about 151. A tool: the enchants from 160 need this rod in your bags."] = "",
 
 	-- Step 39: Get 60 Soul Dust
 	-- {item:11083} Soul Dust
@@ -249,10 +251,11 @@ return {
 	-- {spell:13702} Runed Truesilver Rod
 	["Learn {spell:13702}"] = "",
 
-	-- Step 51: Craft 1 Runed Truesilver Rod until 201
+	-- Step 51: Craft 1 Runed Truesilver Rod
 	-- {item:11145} Runed Truesilver Rod
-	["Craft 1 {item:11145} until 201"] = "",
-	["A tool: the enchants from 205 need this rod in your bags."] = "",
+	["Craft 1 {item:11145}"] = "",
+	-- {skill:333} Enchanting
+	["It takes {skill:333} to about 201. A tool: the enchants from 205 need this rod in your bags."] = "",
 
 	-- Step 52: Get 30 Vision Dust
 	-- {item:11137} Vision Dust
@@ -287,9 +290,9 @@ return {
 	["Craft 5 {spell:13746} until 225"] = "",
 	["About 5 crafts."] = "",
 
-	-- Step 59: Buy 52 Crystal Vial
-	-- {item:8925} Crystal Vial
-	["Buy 52 {item:8925}"] = "",
+	-- Step 59: Buy 52 Crystal Vials
+	-- plural, as words: Crystal Vials = {item:8925} Crystal Vial
+	["Buy 52 Crystal Vials"] = "",
 	-- plural, as words: Lesser Mana Oils = {item:20747} Lesser Mana Oil · Wizard Oils = {item:20750} Wizard Oil
 	["For 26 Lesser Mana Oils and 26 Wizard Oils."] = "",
 
@@ -394,7 +397,7 @@ return {
 	["For 8 {spell:20017}."] = "",
 
 	-- Step 81: Learn Enchant Shield - Greater Stamina
-	["Taught at 270; done at once if you learned it then."] = "",
+	["Taught at 270, before the part of the guide you started from."] = "",
 
 	-- Step 82: Craft 8 Enchant Shield - Greater Stamina until 299
 	-- {spell:20017} Enchant Shield - Greater Stamina
@@ -407,17 +410,17 @@ return {
 	-- {item:16207} Runed Arcanite Rod
 	["For 1 {item:16207}."] = "",
 
-	-- Step 84: Get 4 Small Brilliant Shard
-	-- {item:14343} Small Brilliant Shard
-	["Get 4 {item:14343}"] = "",
+	-- Step 84: Get 4 Small Brilliant Shards
+	-- plural, as words: Small Brilliant Shards = {item:14343} Small Brilliant Shard
+	["Get 4 Small Brilliant Shards"] = "",
 
-	-- Step 85: Get 2 Large Brilliant Shard
-	-- {item:14344} Large Brilliant Shard
-	["Get 2 {item:14344}"] = "",
+	-- Step 85: Get 2 Large Brilliant Shards
+	-- plural, as words: Large Brilliant Shards = {item:14344} Large Brilliant Shard
+	["Get 2 Large Brilliant Shards"] = "",
 
-	-- Step 86: Get 4 Greater Eternal Essence
-	-- {item:16203} Greater Eternal Essence
-	["Get 4 {item:16203}"] = "",
+	-- Step 86: Get 4 Greater Eternal Essences
+	-- plural, as words: Greater Eternal Essences = {item:16203} Greater Eternal Essence
+	["Get 4 Greater Eternal Essences"] = "",
 
 	-- Step 87: Get 10 Illusion Dust
 	-- {item:16204} Illusion Dust

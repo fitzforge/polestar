@@ -31,32 +31,31 @@ return {
 	-- {spell:3756} Embossed Leather Gloves
 	["For 20 {spell:3756}."] = "",
 
-	-- Step 6: Skin until Skinning 50
+	-- Step 6: Skin beasts of level 1-4 until Skinning 50
 	-- {skill:393} Skinning
-	["Skin until {skill:393} 50"] = "",
-	-- {item:2934} Ruined Leather Scraps · {skill:393} Skinning
-	["This loop gives the {item:2934} to {skill:393} 50; the next one the rest."] = "",
+	["Skin beasts of level 1-4 until {skill:393} 50"] = "",
+	-- {item:2318} Light Leather
+	["This loop gives part of what {item:2318} needs; the next one the rest."] = "",
 
-	-- Step 7: Skin until Skinning 75
+	-- Step 7: Skin beasts of level 1-15 until Skinning 75
 	-- {skill:393} Skinning
-	["Skin until {skill:393} 75"] = "",
-	-- {item:2934} Ruined Leather Scraps · {skill:393} Skinning
-	["This loop gives the {item:2934} to {skill:393} 75; the next one the rest."] = "",
+	["Skin beasts of level 1-15 until {skill:393} 75"] = "",
 
-	-- Step 8: Skin 105 Ruined Leather Scraps
+	-- Step 8: Skin beasts for 105 Ruined Leather Scraps
 	-- {item:2934} Ruined Leather Scraps
-	["Skin 105 {item:2934}"] = "",
+	["Skin beasts for 105 {item:2934}"] = "",
 	-- {item:2318} Light Leather
 	["For 35 {item:2318}."] = "",
 
-	-- Step 9: Craft 35 Light Leather until 30
+	-- Step 9: Craft 35 Light Leather · keep it for the gloves
 	-- {item:2318} Light Leather
-	["Craft 35 {item:2318} until 30"] = "",
-	["About 35 crafts. Keep the leather: the gloves at 40 use it."] = "",
+	["Craft 35 {item:2318} · keep it for the gloves"] = "",
+	-- {skill:165} Leatherworking
+	["They take {skill:165} to about 30."] = "",
 
-	-- Step 10: Get 10 Light Hide
-	-- {item:783} Light Hide
-	["Get 10 {item:783}"] = "",
+	-- Step 10: Get 10 Light Hides
+	-- plural, as words: Light Hides = {item:783} Light Hide
+	["Get 10 Light Hides"] = "",
 
 	-- Step 11: Learn Cured Light Hide
 	-- {spell:3816} Cured Light Hide
@@ -66,15 +65,15 @@ return {
 	-- {skill:393} Skinning
 	["Train Journeyman {skill:393}"] = "",
 
-	-- Step 13: Craft 10 Cured Light Hides until 40
+	-- Step 13: Craft 10 Cured Light Hides · keep them for the pants at 70
 	-- plural, as words: Cured Light Hides = {spell:3816} Cured Light Hide
-	["Craft 10 Cured Light Hides until 40"] = "",
-	-- {spell:3759} Embossed Leather Pants
-	["About 10 crafts. Keep all 10 hides for the {spell:3759} at 70."] = "",
+	["Craft 10 Cured Light Hides · keep them for the pants at 70"] = "",
+	-- {skill:165} Leatherworking
+	["They take {skill:165} to about 40."] = "",
 
-	-- Step 14: Skin 25 Light Leather
+	-- Step 14: Skin beasts for 25 Light Leather
 	-- {item:2318} Light Leather
-	["Skin 25 {item:2318}"] = "",
+	["Skin beasts for 25 {item:2318}"] = "",
 	-- {spell:3756} Embossed Leather Gloves
 	["For 20 {spell:3756}. 35 more come from your own crafts."] = "",
 
@@ -112,15 +111,15 @@ return {
 	-- plural, as words: Dark Leather Belts = {spell:3766} Dark Leather Belt
 	["For 20 Dark Leather Belts."] = "",
 
-	-- Step 21: Skin until Skinning 100
+	-- Step 21: Skin beasts of level 5-17 until Skinning 100
 	-- {skill:393} Skinning
-	["Skin until {skill:393} 100"] = "",
-	-- {item:2318} Light Leather · {skill:393} Skinning
-	["This loop gives the {item:2318} to {skill:393} 100; the next one the rest."] = "",
+	["Skin beasts of level 5-17 until {skill:393} 100"] = "",
+	-- {spell:3756} Embossed Leather Gloves
+	["This loop gives part of what {spell:3756} needs; the next one the rest."] = "",
 
-	-- Step 22: Skin 90 Light Leather
+	-- Step 22: Skin beasts for 90 Light Leather
 	-- {item:2318} Light Leather
-	["Skin 90 {item:2318}"] = "",
+	["Skin beasts for 90 {item:2318}"] = "",
 	-- {spell:3756} Embossed Leather Gloves · {spell:3759} Embossed Leather Pants · {skill:393} Skinning
 	["For 10 {spell:3756} and 10 {spell:3759}. {skill:393} 100 to 123 on the way."] = "",
 
@@ -140,7 +139,7 @@ return {
 	["For 95-105: taught here now, so no second trip."] = "",
 
 	-- Step 26: Learn Embossed Leather Gloves
-	["Taught at 40; done at once if you learned it then."] = "",
+	["Taught at 40, before the part of the guide you started from."] = "",
 
 	-- Step 27: Craft 10 Embossed Leather Gloves until 70
 	-- {spell:3756} Embossed Leather Gloves
@@ -152,9 +151,9 @@ return {
 	["Craft 10 {spell:3759} until 80"] = "",
 	["About 10 crafts. No points past 75 until Journeyman is trained."] = "",
 
-	-- Step 29: Get 20 Medium Hide
-	-- {item:4232} Medium Hide
-	["Get 20 {item:4232}"] = "",
+	-- Step 29: Get 20 Medium Hides
+	-- plural, as words: Medium Hides = {item:4232} Medium Hide
+	["Get 20 Medium Hides"] = "",
 	-- plural, as words: Cured Medium Hides = {spell:3817} Cured Medium Hide
 	["For 20 Cured Medium Hides."] = "",
 
@@ -162,42 +161,40 @@ return {
 	-- {spell:3817} Cured Medium Hide
 	["Learn {spell:3817}"] = "",
 
-	-- Step 31: Craft 20 Cured Medium Hides until 95
+	-- Step 31: Craft 20 Cured Medium Hides · keep them for the belts at 105
 	-- plural, as words: Cured Medium Hides = {spell:3817} Cured Medium Hide
-	["Craft 20 Cured Medium Hides until 95"] = "",
-	-- plural, as words: Dark Leather Belts = {spell:3766} Dark Leather Belt
-	["About 20 crafts. Keep all 20 hides for the Dark Leather Belts at 105."] = "",
+	["Craft 20 Cured Medium Hides · keep them for the belts at 105"] = "",
+	-- {skill:165} Leatherworking
+	["They take {skill:165} to about 95."] = "",
 
-	-- Step 32: Skin until Skinning 125
+	-- Step 32: Skin beasts of level 11-20 until Skinning 125
 	-- {skill:393} Skinning
-	["Skin until {skill:393} 125"] = "",
-	-- {item:2318} Light Leather · {skill:393} Skinning
-	["This loop gives the {item:2318} to {skill:393} 125; the next one the rest."] = "",
+	["Skin beasts of level 11-20 until {skill:393} 125"] = "",
+	-- {spell:3763} Fine Leather Belt
+	["This loop gives part of what {spell:3763} needs; the next one the rest."] = "",
 
-	-- Step 33: Skin until Skinning 150
+	-- Step 33: Skin beasts of level 21-25 until Skinning 150
 	-- {skill:393} Skinning
-	["Skin until {skill:393} 150"] = "",
-	-- {item:2318} Light Leather · {skill:393} Skinning
-	["This loop gives the {item:2318} to {skill:393} 150; the next one the rest."] = "",
+	["Skin beasts of level 21-25 until {skill:393} 150"] = "",
 
-	-- Step 34: Skin 132 Light Leather
+	-- Step 34: Skin beasts for 132 Light Leather
 	-- {item:2318} Light Leather
-	["Skin 132 {item:2318}"] = "",
+	["Skin beasts for 132 {item:2318}"] = "",
 	-- plural, as words: Fine Leather Belts = {spell:3763} Fine Leather Belt
 	["For 22 Fine Leather Belts."] = "",
 
 	-- Step 35: Learn Fine Leather Belt
-	["Taught at 60; done at once if you learned it then."] = "",
+	["Taught at 60, before the part of the guide you started from."] = "",
 
 	-- Step 36: Train Expert Skinning
 	-- {skill:393} Skinning
 	["Train Expert {skill:393}"] = "",
 
-	-- Step 37: Craft 22 Fine Leather Belts until 105
-	-- plural, as words: Fine Leather Belts = {spell:3763} Fine Leather Belt
-	["Craft 22 Fine Leather Belts until 105"] = "",
-	-- plural, as words: Dark Leather Belts = {spell:3766} Dark Leather Belt
-	["About 22 crafts. Keep 20 belts: the Dark Leather Belts at 105 are made from them."] = "",
+	-- Step 37: Craft 22 Fine Leather Belts · keep 20 for the Dark Leather Belts
+	-- plural, as words: Fine Leather Belts = {spell:3763} Fine Leather Belt · Dark Leather Belts = {spell:3766} Dark Leather Belt
+	["Craft 22 Fine Leather Belts · keep 20 for the Dark Leather Belts"] = "",
+	-- {skill:165} Leatherworking
+	["They take {skill:165} to about 105."] = "",
 
 	-- Step 38: Learn Dark Leather Belt
 	-- {spell:3766} Dark Leather Belt
@@ -207,9 +204,9 @@ return {
 	-- plural, as words: Dark Leather Belts = {spell:3766} Dark Leather Belt
 	["Craft 20 Dark Leather Belts until 125"] = "",
 
-	-- Step 40: Skin 40 Medium Leather
+	-- Step 40: Skin beasts for 40 Medium Leather
 	-- {item:2319} Medium Leather
-	["Skin 40 {item:2319}"] = "",
+	["Skin beasts for 40 {item:2319}"] = "",
 	-- {item:4234} Heavy Leather
 	["For 8 {item:4234}."] = "",
 
@@ -227,41 +224,40 @@ return {
 	["Learn {spell:3764}"] = "",
 	["For 143-150: taught here now, so no second trip."] = "",
 
-	-- Step 44: Craft 8 Heavy Leather until 130
+	-- Step 44: Craft 8 Heavy Leather · keep it for the shoulders at 150
 	-- {item:4234} Heavy Leather
-	["Craft 8 {item:4234} until 130"] = "",
-	-- {item:4234} Heavy Leather
-	["About 8 crafts. Keep the {item:4234} for the shoulders at 150."] = "",
+	["Craft 8 {item:4234} · keep it for the shoulders at 150"] = "",
+	-- {skill:165} Leatherworking
+	["They take {skill:165} to about 130."] = "",
 
-	-- Step 45: Get 25 Heavy Hide
-	-- {item:4235} Heavy Hide
-	["Get 25 {item:4235}"] = "",
+	-- Step 45: Get 25 Heavy Hides
+	-- plural, as words: Heavy Hides = {item:4235} Heavy Hide
+	["Get 25 Heavy Hides"] = "",
 	-- plural, as words: Cured Heavy Hides = {spell:3818} Cured Heavy Hide
 	["For 25 Cured Heavy Hides."] = "",
 
 	-- Step 46: Learn Cured Heavy Hide
-	["Taught at 125; done at once if you learned it then."] = "",
+	["Taught at 125, before the part of the guide you started from."] = "",
 
-	-- Step 47: Craft 25 Cured Heavy Hides until 143
+	-- Step 47: Craft 25 Cured Heavy Hides · keep them for the shoulders and gloves
 	-- plural, as words: Cured Heavy Hides = {spell:3818} Cured Heavy Hide
-	["Craft 25 Cured Heavy Hides until 143"] = "",
-	["About 25 crafts. Keep all 25: 15 for the shoulders at 150, 10 for the gloves at 165."] = "",
+	["Craft 25 Cured Heavy Hides · keep them for the shoulders and gloves"] = "",
+	-- {skill:165} Leatherworking
+	["They take {skill:165} to about 143."] = "",
 
-	-- Step 48: Skin until Skinning 175
+	-- Step 48: Skin beasts of level 27-30 until Skinning 175
 	-- {skill:393} Skinning
-	["Skin until {skill:393} 175"] = "",
-	-- {item:2319} Medium Leather · {skill:393} Skinning
-	["This loop gives the {item:2319} to {skill:393} 175; the next one the rest."] = "",
+	["Skin beasts of level 27-30 until {skill:393} 175"] = "",
+	-- {spell:3764} Hillman's Leather Gloves
+	["This loop gives part of what {spell:3764} needs; the next one the rest."] = "",
 
-	-- Step 49: Skin until Skinning 200
+	-- Step 49: Skin beasts of level 25-35 until Skinning 200
 	-- {skill:393} Skinning
-	["Skin until {skill:393} 200"] = "",
-	-- {item:2319} Medium Leather · {skill:393} Skinning
-	["This loop gives the {item:2319} to {skill:393} 200; the next one the rest."] = "",
+	["Skin beasts of level 25-35 until {skill:393} 200"] = "",
 
-	-- Step 50: Skin 112 Medium Leather
+	-- Step 50: Skin beasts for 112 Medium Leather
 	-- {item:2319} Medium Leather
-	["Skin 112 {item:2319}"] = "",
+	["Skin beasts for 112 {item:2319}"] = "",
 	-- {spell:3764} Hillman's Leather Gloves
 	["For 8 {spell:3764}."] = "",
 
@@ -287,21 +283,19 @@ return {
 	-- plural, as words: Nightscape Headbands = {item:8176} Nightscape Headband
 	["For 10 {item:5966} and 22 Nightscape Headbands."] = "",
 
-	-- Step 56: Skin until Skinning 225
+	-- Step 56: Skin beasts of level 38-40 until Skinning 225
 	-- {skill:393} Skinning
-	["Skin until {skill:393} 225"] = "",
-	-- {item:4234} Heavy Leather · {skill:393} Skinning
-	["This loop gives the {item:4234} to {skill:393} 225; the next one the rest."] = "",
+	["Skin beasts of level 38-40 until {skill:393} 225"] = "",
+	-- {item:5964} Barbaric Shoulders
+	["This loop gives part of what {item:5964} needs; the next one the rest."] = "",
 
-	-- Step 57: Skin until Skinning 250
+	-- Step 57: Skin beasts of level 41-45 until Skinning 250
 	-- {skill:393} Skinning
-	["Skin until {skill:393} 250"] = "",
-	-- {item:4234} Heavy Leather · {skill:393} Skinning
-	["This loop gives the {item:4234} to {skill:393} 250; the next one the rest."] = "",
+	["Skin beasts of level 41-45 until {skill:393} 250"] = "",
 
-	-- Step 58: Skin 152 Heavy Leather
+	-- Step 58: Skin beasts for 152 Heavy Leather
 	-- {item:4234} Heavy Leather
-	["Skin 152 {item:4234}"] = "",
+	["Skin beasts for 152 {item:4234}"] = "",
 	-- {item:5964} Barbaric Shoulders · {item:5966} Guardian Gloves
 	["For 15 {item:5964} and 10 {item:5966}. 8 more come from your own crafts."] = "",
 
@@ -333,26 +327,26 @@ return {
 	["Craft 10 {item:5966} until 175"] = "",
 	["About 10 crafts. Orange to 185: more hides? These carry on in place of the harness."] = "",
 
-	-- Step 65: Skin 140 Heavy Leather
+	-- Step 65: Skin beasts for 140 Heavy Leather
 	-- {item:4234} Heavy Leather
-	["Skin 140 {item:4234}"] = "",
+	["Skin beasts for 140 {item:4234}"] = "",
 	-- {item:5739} Barbaric Harness
 	["For 10 {item:5739}."] = "",
 
-	-- Step 66: Get 10 Iron Buckle
-	-- {item:7071} Iron Buckle
-	["Get 10 {item:7071}"] = "",
+	-- Step 66: Get 10 Iron Buckles
+	-- plural, as words: Iron Buckles = {item:7071} Iron Buckle
+	["Get 10 Iron Buckles"] = "",
 
 	-- Step 67: Learn Barbaric Harness
-	["Taught at 165; done at once if you learned it then."] = "",
+	["Taught at 165, before the part of the guide you started from."] = "",
 
 	-- Step 68: Craft 10 Barbaric Harness until 185
 	-- {item:5739} Barbaric Harness
 	["Craft 10 {item:5739} until 185"] = "",
 
-	-- Step 69: Skin 110 Thick Leather
+	-- Step 69: Skin beasts for 110 Thick Leather
 	-- {item:4304} Thick Leather
-	["Skin 110 {item:4304}"] = "",
+	["Skin beasts for 110 {item:4304}"] = "",
 	-- plural, as words: Nightscape Headbands = {item:8176} Nightscape Headband
 	["For 22 Nightscape Headbands."] = "",
 
@@ -384,15 +378,15 @@ return {
 	-- plural, as words: Runic Leather Headbands = {item:15094} Runic Leather Headband
 	["For 36 {item:15083} and 49 Runic Leather Headbands."] = "",
 
-	-- Step 75: Skin until Skinning 275
+	-- Step 75: Skin beasts of level 46-49 until Skinning 275
 	-- {skill:393} Skinning
-	["Skin until {skill:393} 275"] = "",
-	-- {item:4304} Thick Leather · {skill:393} Skinning
-	["This loop gives the {item:4304} to {skill:393} 275; the next one the rest."] = "",
+	["Skin beasts of level 46-49 until {skill:393} 275"] = "",
+	-- {item:8193} Nightscape Pants
+	["This loop gives part of what {item:8193} needs; the next one the rest."] = "",
 
-	-- Step 76: Skin 504 Thick Leather
+	-- Step 76: Skin beasts for 504 Thick Leather
 	-- {item:4304} Thick Leather
-	["Skin 504 {item:4304}"] = "",
+	["Skin beasts for 504 {item:4304}"] = "",
 
 	-- Step 77: Train Artisan Leatherworking
 	-- {skill:165} Leatherworking
@@ -408,15 +402,15 @@ return {
 	["Craft 36 {item:8193} until 235"] = "",
 	["About 36 crafts. No points past 225 until Artisan is trained."] = "",
 
-	-- Step 80: Skin until Skinning 300
+	-- Step 80: Skin beasts of level 48-54 until Skinning 300
 	-- {skill:393} Skinning
-	["Skin until {skill:393} 300"] = "",
-	-- {item:8170} Rugged Leather · {skill:393} Skinning
-	["This loop gives the {item:8170} to {skill:393} 300; the next one the rest."] = "",
+	["Skin beasts of level 48-54 until {skill:393} 300"] = "",
+	-- {item:15083} Wicked Leather Gauntlets
+	["This loop gives part of what {item:15083} needs; the next one the rest."] = "",
 
-	-- Step 81: Skin 288 Rugged Leather
+	-- Step 81: Skin beasts for 288 Rugged Leather
 	-- {item:8170} Rugged Leather
-	["Skin 288 {item:8170}"] = "",
+	["Skin beasts for 288 {item:8170}"] = "",
 
 	-- Step 82: Buy Pattern: Wicked Leather Gauntlets · Leonard Porter
 	-- {item:15725} Pattern: Wicked Leather Gauntlets · {npc:12942} Leonard Porter
@@ -437,15 +431,15 @@ return {
 	["Craft 36 {item:15083} until 265"] = "",
 	["About 36 crafts."] = "",
 
-	-- Step 86: Skin 686 Rugged Leather
+	-- Step 86: Skin beasts for 686 Rugged Leather
 	-- {item:8170} Rugged Leather
-	["Skin 686 {item:8170}"] = "",
+	["Skin beasts for 686 {item:8170}"] = "",
 	-- plural, as words: Runic Leather Headbands = {item:15094} Runic Leather Headband
 	["For 49 Runic Leather Headbands."] = "",
 
-	-- Step 87: Get 490 Runecloth
-	-- {item:14047} Runecloth
-	["Get 490 {item:14047}"] = "",
+	-- Step 87: Get 490 Runecloths
+	-- plural, as words: Runecloths = {item:14047} Runecloth
+	["Get 490 Runecloths"] = "",
 
 	-- Step 88: Buy Pattern: Runic Leather Headband · Jase Farlane
 	-- {item:15756} Pattern: Runic Leather Headband · {npc:12941} Jase Farlane

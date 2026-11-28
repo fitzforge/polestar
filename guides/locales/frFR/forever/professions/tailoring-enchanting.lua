@@ -26,9 +26,10 @@ return {
 	["Get 60 {item:2589}"] = "",
 	["For 30 Bolts of Linen Cloth."] = "",
 
-	-- Step 5: Craft 30 Bolts of Linen Cloth until 30
-	["Craft 30 Bolts of Linen Cloth until 30"] = "",
-	["About 30 crafts. Keep all 30 bolts: the belts next use them."] = "",
+	-- Step 5: Craft 30 Bolts of Linen Cloth · keep them for the belts
+	["Craft 30 Bolts of Linen Cloth · keep them for the belts"] = "",
+	-- {skill:197} Tailoring
+	["They take {skill:197} to about 30."] = "",
 
 	-- Step 6: Learn Linen Belt
 	-- {spell:8776} Linen Belt
@@ -45,16 +46,16 @@ return {
 	-- {item:6218} Runed Copper Rod
 	["For 1 {item:6218}."] = "",
 
-	-- Step 9: Buy 19 Mote of Magic
-	-- {item:247786} Mote of Magic
-	["Buy 19 {item:247786}"] = "",
+	-- Step 9: Buy 19 Motes of Magic
+	["Buy 19 Motes of Magic"] = "",
 	-- {item:6218} Runed Copper Rod · {spell:7418} Enchant Bracer - Inferior Stamina
 	["For 1 {item:6218} and 18 {spell:7418}."] = "",
 
-	-- Step 10: Craft 1 Runed Copper Rod until 2
+	-- Step 10: Craft 1 Runed Copper Rod
 	-- {item:6218} Runed Copper Rod
-	["Craft 1 {item:6218} until 2"] = "",
-	["A tool: it stays in your bags, and every enchant needs it."] = "",
+	["Craft 1 {item:6218}"] = "",
+	-- {skill:333} Enchanting
+	["It takes {skill:333} to about 2. A tool: it stays in your bags, and every enchant needs it."] = "",
 
 	-- Step 11: Disenchant your green items until 20
 	["Disenchant your green items until 20"] = "",
@@ -65,7 +66,7 @@ return {
 	-- Step 12: Craft 18 Enchant Bracer - Inferior Stamina until 20
 	-- {spell:7418} Enchant Bracer - Inferior Stamina
 	["Craft 18 {spell:7418} until 20"] = "",
-	["About 18 crafts. Any bracer you wear or carry takes them all, one over the last."] = "",
+	["Only if disenchanting didn't get you to 20. Any bracer you wear or carry takes them all, one over the last."] = "",
 
 	-- Step 13: Get 50 Strange Dust
 	-- {item:10940} Strange Dust
@@ -118,12 +119,13 @@ return {
 	["Learn {spell:2402}"] = "",
 	["For 80-95: taught here now, so no second trip."] = "",
 
-	-- Step 23: Craft 37 Bolts of Woolen Cloth until 80
-	["Craft 37 Bolts of Woolen Cloth until 80"] = "",
-	["About 37 crafts. Keep all 37 bolts: the capes and shoulders next use them. No points past 75 until Journeyman."] = "",
+	-- Step 23: Craft 37 Bolts of Woolen Cloth · keep them for the capes and shoulders
+	["Craft 37 Bolts of Woolen Cloth · keep them for the capes and shoulders"] = "",
+	-- {skill:197} Tailoring
+	["They take {skill:197} to about 80. No points past 75 until Journeyman."] = "",
 
 	-- Step 24: Learn Woolen Cape
-	["Taught at 55; done at once if you learned it then."] = "",
+	["Taught at 55, before the part of the guide you started from."] = "",
 
 	-- Step 25: Craft 22 Woolen Capes until 95
 	-- plural, as words: Woolen Capes = {spell:2402} Woolen Cape
@@ -148,9 +150,10 @@ return {
 	-- {spell:3839} Bolt of Silk Cloth
 	["Learn {spell:3839}"] = "",
 
-	-- Step 30: Craft 55 Bolts of Silk Cloth until 120
-	["Craft 55 Bolts of Silk Cloth until 120"] = "",
-	["About 55 crafts. Keep all 55 bolts: 10 for the hoods, 45 for the packs."] = "",
+	-- Step 30: Craft 55 Bolts of Silk Cloth · keep them for the hoods and packs
+	["Craft 55 Bolts of Silk Cloth · keep them for the hoods and packs"] = "",
+	-- {skill:197} Tailoring
+	["They take {skill:197} to about 120."] = "",
 
 	-- Step 31: Learn Azure Silk Hood
 	-- {spell:8760} Azure Silk Hood
@@ -208,9 +211,10 @@ return {
 	-- {spell:3865} Bolt of Mageweave
 	["Learn {spell:3865}"] = "",
 
-	-- Step 42: Craft 23 Bolts of Mageweave until 150
-	["Craft 23 Bolts of Mageweave until 150"] = "",
-	["About 23 crafts. Keep all 23 bolts for the leggings at 185."] = "",
+	-- Step 42: Craft 23 Bolts of Mageweave · keep them for the leggings at 185
+	["Craft 23 Bolts of Mageweave · keep them for the leggings at 185"] = "",
+	-- {skill:197} Tailoring
+	["They take {skill:197} to about 150."] = "",
 
 	-- Step 43: Get 69 Strange Dust
 	-- {item:10940} Strange Dust
@@ -229,7 +233,7 @@ return {
 	["For 100-109: taught here now, so no second trip."] = "",
 
 	-- Step 46: Learn Enchant Chest - Inferior Stamina
-	["Taught at 20; done at once if you learned it then."] = "",
+	["Taught at 20, before the part of the guide you started from."] = "",
 
 	-- Step 47: Craft 21 Enchant Chest - Inferior Stamina until 85
 	-- {spell:7420} Enchant Chest - Inferior Stamina
@@ -255,9 +259,9 @@ return {
 	-- {item:6338} Silver Rod
 	["Get 1 {item:6338}"] = "",
 
-	-- Step 52: Get 4 Lesser Magic Essence
-	-- {item:10938} Lesser Magic Essence
-	["Get 4 {item:10938}"] = "",
+	-- Step 52: Get 4 Lesser Magic Essences
+	-- plural, as words: Lesser Magic Essences = {item:10938} Lesser Magic Essence
+	["Get 4 Lesser Magic Essences"] = "",
 
 	-- Step 53: Get 3 Strange Dust
 	-- {item:10940} Strange Dust
@@ -269,10 +273,11 @@ return {
 	-- {spell:7795} Runed Silver Rod
 	["Learn {spell:7795}"] = "",
 
-	-- Step 55: Craft 1 Runed Silver Rod until 110
+	-- Step 55: Craft 1 Runed Silver Rod
 	-- {item:6339} Runed Silver Rod
-	["Craft 1 {item:6339} until 110"] = "",
-	["A tool: the enchants from 130 need this rod in your bags."] = "",
+	["Craft 1 {item:6339}"] = "",
+	-- {skill:333} Enchanting
+	["It takes {skill:333} to about 110. A tool: the enchants from 130 need this rod in your bags."] = "",
 
 	-- Step 56: Get 138 Strange Dust
 	-- {item:10940} Strange Dust
@@ -281,7 +286,7 @@ return {
 	["For 29 {spell:7771} and 20 {spell:7863}."] = "",
 
 	-- Step 57: Learn Enchant Cloak - Minor Protection
-	["Taught at 70; done at once if you learned it then."] = "",
+	["Taught at 70, before the part of the guide you started from."] = "",
 
 	-- Step 58: Craft 29 Enchant Cloak - Minor Protection until 130
 	-- {spell:7771} Enchant Cloak - Minor Protection
@@ -303,7 +308,7 @@ return {
 	["For 80 Bolts of Silk Cloth."] = "",
 
 	-- Step 62: Learn Bolt of Silk Cloth
-	["Taught at 100; done at once if you learned it then."] = "",
+	["Taught at 100, before the part of the guide you started from."] = "",
 
 	-- Step 63: Craft 80 Bolts of Silk Cloth
 	["Craft 80 Bolts of Silk Cloth"] = "",
@@ -347,14 +352,14 @@ return {
 	["For 21 Bolts of Mageweave."] = "",
 
 	-- Step 73: Learn Bolt of Mageweave
-	["Taught at 140; done at once if you learned it then."] = "",
+	["Taught at 140, before the part of the guide you started from."] = "",
 
 	-- Step 74: Craft 21 Bolts of Mageweave
 	["Craft 21 Bolts of Mageweave"] = "",
 	["Parts for the leggings; no skill points from these."] = "",
 
 	-- Step 75: Learn Black Mageweave Leggings
-	["Taught at 170; done at once if you learned it then."] = "",
+	["Taught at 170, before the part of the guide you started from."] = "",
 
 	-- Step 76: Craft 22 Black Mageweave Leggings until 200
 	-- {item:9999} Black Mageweave Leggings
@@ -413,18 +418,19 @@ return {
 	-- {item:10027} Black Mageweave Shoulders
 	["Craft 5 {item:10027} until 205"] = "",
 
-	-- Step 88: Get 115 Runecloth
-	-- {item:14047} Runecloth
-	["Get 115 {item:14047}"] = "",
+	-- Step 88: Get 115 Runecloths
+	-- plural, as words: Runecloths = {item:14047} Runecloth
+	["Get 115 Runecloths"] = "",
 	["For 23 Bolts of Runecloth."] = "",
 
 	-- Step 89: Learn Bolt of Runecloth
 	-- {spell:18401} Bolt of Runecloth
 	["Learn {spell:18401}"] = "",
 
-	-- Step 90: Craft 23 Bolts of Runecloth until 215
-	["Craft 23 Bolts of Runecloth until 215"] = "",
-	["About 23 crafts. Keep all 23 bolts for the belts at 225."] = "",
+	-- Step 90: Craft 23 Bolts of Runecloth · keep them for the belts at 225
+	["Craft 23 Bolts of Runecloth · keep them for the belts at 225"] = "",
+	-- {skill:197} Tailoring
+	["They take {skill:197} to about 215."] = "",
 
 	-- Step 91: Get 340 Mageweave Cloth
 	-- {item:4338} Mageweave Cloth
@@ -436,28 +442,28 @@ return {
 	["Parts for the bags; no skill points from these."] = "",
 
 	-- Step 94: Learn Red Mageweave Bag
-	["Taught at 200; done at once if you learned it then."] = "",
+	["Taught at 200, before the part of the guide you started from."] = "",
 
 	-- Step 95: Craft 17 Red Mageweave Bags until 225
 	-- plural, as words: Red Mageweave Bags = {item:10051} Red Mageweave Bag
 	["Craft 17 Red Mageweave Bags until 225"] = "",
 	["About 17 crafts. Yellow all the way: short of 225? The belts next carry on."] = "",
 
-	-- Step 96: Buy 41 Leaded Vial
-	-- {item:3372} Leaded Vial
-	["Buy 41 {item:3372}"] = "",
+	-- Step 96: Buy 41 Leaded Vials
+	-- plural, as words: Leaded Vials = {item:3372} Leaded Vial
+	["Buy 41 Leaded Vials"] = "",
 	-- plural, as words: Minor Mana Oils = {item:20745} Minor Mana Oil · Lesser Wizard Oils = {item:20746} Lesser Wizard Oil
 	["For 16 Minor Mana Oils and 25 Lesser Wizard Oils."] = "",
 
-	-- Step 97: Buy 32 Maple Seed
-	-- {item:17034} Maple Seed
-	["Buy 32 {item:17034}"] = "",
+	-- Step 97: Buy 32 Maple Seeds
+	-- plural, as words: Maple Seeds = {item:17034} Maple Seed
+	["Buy 32 Maple Seeds"] = "",
 	-- plural, as words: Minor Mana Oils = {item:20745} Minor Mana Oil
 	["For 16 Minor Mana Oils."] = "",
 
-	-- Step 98: Buy 50 Stranglethorn Seed
-	-- {item:17035} Stranglethorn Seed
-	["Buy 50 {item:17035}"] = "",
+	-- Step 98: Buy 50 Stranglethorn Seeds
+	-- plural, as words: Stranglethorn Seeds = {item:17035} Stranglethorn Seed
+	["Buy 50 Stranglethorn Seeds"] = "",
 	-- plural, as words: Lesser Wizard Oils = {item:20746} Lesser Wizard Oil
 	["For 25 Lesser Wizard Oils."] = "",
 
@@ -483,10 +489,11 @@ return {
 	-- {spell:13628} Runed Golden Rod
 	["Learn {spell:13628}"] = "",
 
-	-- Step 104: Craft 1 Runed Golden Rod until 151
+	-- Step 104: Craft 1 Runed Golden Rod
 	-- {item:11130} Runed Golden Rod
-	["Craft 1 {item:11130} until 151"] = "",
-	["A tool: the enchants from 160 need this rod in your bags."] = "",
+	["Craft 1 {item:11130}"] = "",
+	-- {skill:333} Enchanting
+	["It takes {skill:333} to about 151. A tool: the enchants from 160 need this rod in your bags."] = "",
 
 	-- Step 105: Get 60 Soul Dust
 	-- {item:11083} Soul Dust
@@ -546,10 +553,11 @@ return {
 	-- {spell:13702} Runed Truesilver Rod
 	["Learn {spell:13702}"] = "",
 
-	-- Step 117: Craft 1 Runed Truesilver Rod until 201
+	-- Step 117: Craft 1 Runed Truesilver Rod
 	-- {item:11145} Runed Truesilver Rod
-	["Craft 1 {item:11145} until 201"] = "",
-	["A tool: the enchants from 205 need this rod in your bags."] = "",
+	["Craft 1 {item:11145}"] = "",
+	-- {skill:333} Enchanting
+	["It takes {skill:333} to about 201. A tool: the enchants from 205 need this rod in your bags."] = "",
 
 	-- Step 118: Get 30 Vision Dust
 	-- {item:11137} Vision Dust
@@ -583,13 +591,13 @@ return {
 	-- {spell:13746} Enchant Cloak - Greater Defense
 	["Craft 5 {spell:13746} until 225"] = "",
 
-	-- Step 125: Get 245 Runecloth
-	-- {item:14047} Runecloth
-	["Get 245 {item:14047}"] = "",
+	-- Step 125: Get 245 Runecloths
+	-- plural, as words: Runecloths = {item:14047} Runecloth
+	["Get 245 Runecloths"] = "",
 	["For 49 Bolts of Runecloth."] = "",
 
 	-- Step 126: Learn Bolt of Runecloth
-	["Taught at 205; done at once if you learned it then."] = "",
+	["Taught at 205, before the part of the guide you started from."] = "",
 
 	-- Step 127: Craft 49 Bolts of Runecloth
 	["Craft 49 Bolts of Runecloth"] = "",
@@ -604,9 +612,9 @@ return {
 	["Craft 24 Runecloth Belts until 240"] = "",
 	["About 24 crafts. No points past 225 until Artisan is trained."] = "",
 
-	-- Step 130: Get 220 Runecloth
-	-- {item:14047} Runecloth
-	["Get 220 {item:14047}"] = "",
+	-- Step 130: Get 220 Runecloths
+	-- plural, as words: Runecloths = {item:14047} Runecloth
+	["Get 220 Runecloths"] = "",
 	["For 44 Bolts of Runecloth."] = "",
 
 	-- Step 131: Get 44 Rugged Leather
@@ -635,9 +643,9 @@ return {
 	["Craft 11 {item:13863} until 250"] = "",
 	["About 11 crafts."] = "",
 
-	-- Step 137: Get 975 Runecloth
-	-- {item:14047} Runecloth
-	["Get 975 {item:14047}"] = "",
+	-- Step 137: Get 975 Runecloths
+	-- plural, as words: Runecloths = {item:14047} Runecloth
+	["Get 975 Runecloths"] = "",
 	["For 195 Bolts of Runecloth."] = "",
 
 	-- Step 138: Get 39 Ironweb Spider Silk
@@ -684,9 +692,9 @@ return {
 	-- {spell:18450} Wizardweave Turban
 	["Learn {spell:18450}"] = "",
 
-	-- Step 148: Buy 52 Crystal Vial
-	-- {item:8925} Crystal Vial
-	["Buy 52 {item:8925}"] = "",
+	-- Step 148: Buy 52 Crystal Vials
+	-- plural, as words: Crystal Vials = {item:8925} Crystal Vial
+	["Buy 52 Crystal Vials"] = "",
 	-- plural, as words: Lesser Mana Oils = {item:20747} Lesser Mana Oil · Wizard Oils = {item:20750} Wizard Oil
 	["For 26 Lesser Mana Oils and 26 Wizard Oils."] = "",
 
@@ -797,7 +805,7 @@ return {
 	["For 8 {spell:20017}. Your {skill:197} greens of 225-300 give about 48 when disenchanted."] = "",
 
 	-- Step 170: Learn Enchant Shield - Greater Stamina
-	["Taught at 270; done at once if you learned it then."] = "",
+	["Taught at 270, before the part of the guide you started from."] = "",
 
 	-- Step 171: Craft 8 Enchant Shield - Greater Stamina until 299
 	-- {spell:20017} Enchant Shield - Greater Stamina
@@ -810,19 +818,19 @@ return {
 	-- {item:16207} Runed Arcanite Rod
 	["For 1 {item:16207}."] = "",
 
-	-- Step 173: Get 4 Small Brilliant Shard
-	-- {item:14343} Small Brilliant Shard
-	["Get 4 {item:14343}"] = "",
+	-- Step 173: Get 4 Small Brilliant Shards
+	-- plural, as words: Small Brilliant Shards = {item:14343} Small Brilliant Shard
+	["Get 4 Small Brilliant Shards"] = "",
 	-- {item:16207} Runed Arcanite Rod · {skill:197} Tailoring
 	["For 1 {item:16207}. Your {skill:197} greens of 225-300 give about 2 when disenchanted."] = "",
 
-	-- Step 174: Get 2 Large Brilliant Shard
-	-- {item:14344} Large Brilliant Shard
-	["Get 2 {item:14344}"] = "",
+	-- Step 174: Get 2 Large Brilliant Shards
+	-- plural, as words: Large Brilliant Shards = {item:14344} Large Brilliant Shard
+	["Get 2 Large Brilliant Shards"] = "",
 
-	-- Step 175: Get 4 Greater Eternal Essence
-	-- {item:16203} Greater Eternal Essence
-	["Get 4 {item:16203}"] = "",
+	-- Step 175: Get 4 Greater Eternal Essences
+	-- plural, as words: Greater Eternal Essences = {item:16203} Greater Eternal Essence
+	["Get 4 Greater Eternal Essences"] = "",
 	-- {item:16207} Runed Arcanite Rod · {skill:197} Tailoring
 	["For 1 {item:16207}. Your {skill:197} greens of 225-300 give about 4 when disenchanted."] = "",
 
@@ -855,9 +863,9 @@ return {
 	-- {item:13867} Runecloth Shoulders
 	["For 58 {item:13867}."] = "",
 
-	-- Step 182: Get 2030 Runecloth
-	-- {item:14047} Runecloth
-	["Get 2030 {item:14047}"] = "",
+	-- Step 182: Get 2030 Runecloths
+	-- plural, as words: Runecloths = {item:14047} Runecloth
+	["Get 2030 Runecloths"] = "",
 	["For 406 Bolts of Runecloth."] = "",
 
 	-- Step 183: Get 232 Rugged Leather
@@ -880,9 +888,9 @@ return {
 	-- plural, as words: Wizardweave Turbans = {item:14130} Wizardweave Turban
 	["For 58 Wizardweave Turbans."] = "",
 
-	-- Step 189: Get 1740 Runecloth
-	-- {item:14047} Runecloth
-	["Get 1740 {item:14047}"] = "",
+	-- Step 189: Get 1740 Runecloths
+	-- plural, as words: Runecloths = {item:14047} Runecloth
+	["Get 1740 Runecloths"] = "",
 	["For 348 Bolts of Runecloth."] = "",
 
 	-- Step 190: Get 58 Star Ruby
@@ -898,7 +906,7 @@ return {
 	["Parts for the turbans; no skill points from these."] = "",
 
 	-- Step 194: Learn Wizardweave Turban
-	["Taught at 280; done at once if you learned it then."] = "",
+	["Taught at 280, before the part of the guide you started from."] = "",
 
 	-- Step 195: Craft 58 Wizardweave Turbans until 300
 	-- plural, as words: Wizardweave Turbans = {item:14130} Wizardweave Turban
@@ -910,9 +918,9 @@ return {
 	-- {item:254123} Runecloth Cuffs
 	["For 31 {item:254123}."] = "",
 
-	-- Step 197: Get 775 Runecloth
-	-- {item:14047} Runecloth
-	["Get 775 {item:14047}"] = "",
+	-- Step 197: Get 775 Runecloths
+	-- plural, as words: Runecloths = {item:14047} Runecloth
+	["Get 775 Runecloths"] = "",
 	["For 155 Bolts of Runecloth."] = "",
 
 	-- Step 198: Get 31 Ironweb Spider Silk
@@ -924,7 +932,7 @@ return {
 	["Parts for the last cuffs; no skill points from these."] = "",
 
 	-- Step 201: Learn Runecloth Cuffs
-	["Taught at 250; done at once if you learned it then."] = "",
+	["Taught at 250, before the part of the guide you started from."] = "",
 
 	-- Step 202: Craft 31 Runecloth Cuffs until 290
 	-- {item:254123} Runecloth Cuffs

@@ -43,7 +43,7 @@ return {
 	["Train Journeyman {skill:129}"] = "",
 
 	-- Step 8: Learn Heavy Linen Bandage
-	["Taught at 40; done at once if you learned it then."] = "",
+	["Taught at 40, before the part of the guide you started from."] = "",
 
 	-- Step 9: Craft 13 Heavy Linen Bandages until 80
 	-- plural, as words: Heavy Linen Bandages = {item:2581} Heavy Linen Bandage
@@ -200,7 +200,7 @@ return {
 	["Hand in {quest:6622}"] = "",
 
 	-- Step 42: Learn Mageweave Bandage
-	["Taught at 210; done at once if you learned it then."] = "",
+	["Taught at 210, before the part of the guide you started from."] = "",
 
 	-- Step 43: Craft 26 Mageweave Bandages until 240
 	-- plural, as words: Mageweave Bandages = {item:8544} Mageweave Bandage
@@ -216,9 +216,9 @@ return {
 	["Craft 30 Heavy Mageweave Bandages until 260"] = "",
 	["About 30 crafts."] = "",
 
-	-- Step 46: Get 71 Runecloth
-	-- {item:14047} Runecloth
-	["Get 71 {item:14047}"] = "",
+	-- Step 46: Get 71 Runecloths
+	-- plural, as words: Runecloths = {item:14047} Runecloth
+	["Get 71 Runecloths"] = "",
 	-- plural, as words: Runecloth Bandages = {item:14529} Runecloth Bandage · Heavy Runecloth Bandages = {item:14530} Heavy Runecloth Bandage
 	["For 47 Runecloth Bandages and 12 Heavy Runecloth Bandages."] = "",
 

@@ -51,14 +51,15 @@ return {
 	-- {spell:3326} Coarse Grinding Stone
 	["Learn {spell:3326}"] = "",
 
-	-- Step 10: Craft 60 Coarse Grinding Stones until 84
+	-- Step 10: Craft 60 Coarse Grinding Stones · keep them for the bracers and gauntlets
 	-- plural, as words: Coarse Grinding Stones = {spell:3326} Coarse Grinding Stone
-	["Craft 60 Coarse Grinding Stones until 84"] = "",
-	["About 60 crafts. Keep all 60: the bracers at 95 and 115 and the gauntlets at 125 use them."] = "",
+	["Craft 60 Coarse Grinding Stones · keep them for the bracers and gauntlets"] = "",
+	-- {skill:164} Blacksmithing
+	["They take {skill:164} to about 84."] = "",
 
-	-- Step 11: Get 91 Bronze Bar
-	-- {item:2841} Bronze Bar
-	["Get 91 {item:2841}"] = "",
+	-- Step 11: Get 91 Bronze Bars
+	-- plural, as words: Bronze Bars = {item:2841} Bronze Bar
+	["Get 91 Bronze Bars"] = "",
 	-- {spell:2668} Rough Bronze Leggings · {spell:2672} Patterned Bronze Bracers · {skill:186} Mining
 	["For 11 {spell:2668} and 5 {spell:2672}. No {skill:186}? The bars, not the ore."] = "",
 
@@ -94,35 +95,35 @@ return {
 	-- {spell:3337} Heavy Grinding Stone
 	["Learn {spell:3337}"] = "",
 
-	-- Step 20: Craft 30 Heavy Grinding Stones until 115
+	-- Step 20: Craft 30 Heavy Grinding Stones · keep them for the bracers at 185
 	-- plural, as words: Heavy Grinding Stones = {spell:3337} Heavy Grinding Stone
-	["Craft 30 Heavy Grinding Stones until 115"] = "",
-	-- {item:6040} Golden Scale Bracers
-	["About 30 crafts. Keep all 30 for the {item:6040} at 185."] = "",
+	["Craft 30 Heavy Grinding Stones · keep them for the bracers at 185"] = "",
+	-- {skill:164} Blacksmithing
+	["They take {skill:164} to about 115."] = "",
 
-	-- Step 21: Get 50 Bronze Bar
-	-- {item:2841} Bronze Bar
-	["Get 50 {item:2841}"] = "",
+	-- Step 21: Get 50 Bronze Bars
+	-- plural, as words: Bronze Bars = {item:2841} Bronze Bar
+	["Get 50 Bronze Bars"] = "",
 	-- {spell:2672} Patterned Bronze Bracers · {skill:186} Mining
 	["For 10 {spell:2672}. No {skill:186}? The bars, not the ore."] = "",
 
 	-- Step 22: Learn Patterned Bronze Bracers
-	["Taught at 95; done at once if you learned it then."] = "",
+	["Taught at 95, before the part of the guide you started from."] = "",
 
 	-- Step 24: Craft 10 Patterned Bronze Bracers until 125
 	-- {spell:2672} Patterned Bronze Bracers
 	["Craft 10 {spell:2672} until 125"] = "",
 	["About 10 crafts."] = "",
 
-	-- Step 25: Get 120 Bronze Bar
-	-- {item:2841} Bronze Bar
-	["Get 120 {item:2841}"] = "",
+	-- Step 25: Get 120 Bronze Bars
+	-- plural, as words: Bronze Bars = {item:2841} Bronze Bar
+	["Get 120 Bronze Bars"] = "",
 	-- {spell:3333} Silvered Bronze Gauntlets · {skill:186} Mining
 	["For 15 {spell:3333}. No {skill:186}? The bars, not the ore."] = "",
 
-	-- Step 26: Get 15 Silver Bar
-	-- {item:2842} Silver Bar
-	["Get 15 {item:2842}"] = "",
+	-- Step 26: Get 15 Silver Bars
+	-- plural, as words: Silver Bars = {item:2842} Silver Bar
+	["Get 15 Silver Bars"] = "",
 	-- {spell:3333} Silvered Bronze Gauntlets
 	["For 15 {spell:3333}."] = "",
 
@@ -143,9 +144,9 @@ return {
 	-- {spell:3501} Green Iron Bracers
 	["For 40 {spell:3501}."] = "",
 
-	-- Step 31: Get 240 Iron Bar
-	-- {item:3575} Iron Bar
-	["Get 240 {item:3575}"] = "",
+	-- Step 31: Get 240 Iron Bars
+	-- plural, as words: Iron Bars = {item:3575} Iron Bar
+	["Get 240 Iron Bars"] = "",
 	-- {spell:3501} Green Iron Bracers · {skill:186} Mining
 	["For 40 {spell:3501}. No {skill:186}? The bars, not the ore."] = "",
 
@@ -183,10 +184,11 @@ return {
 	["Learn {spell:7223}"] = "",
 	["For 185-195: taught here now, so no second trip."] = "",
 
-	-- Step 40: Craft 8 Solid Grinding Stones until 180
+	-- Step 40: Craft 8 Solid Grinding Stones · keep them for 210
 	-- plural, as words: Solid Grinding Stones = {item:7966} Solid Grinding Stone
-	["Craft 8 Solid Grinding Stones until 180"] = "",
-	["About 8 crafts. Keep all 8 for the step at 210."] = "",
+	["Craft 8 Solid Grinding Stones · keep them for 210"] = "",
+	-- {skill:164} Blacksmithing
+	["They take {skill:164} to about 180."] = "",
 
 	-- Step 41: Craft 28 Solid Sharpening Stones until 185
 	-- plural, as words: Solid Sharpening Stones = {item:7964} Solid Sharpening Stone
@@ -198,23 +200,23 @@ return {
 	-- {item:3859} Steel Bar
 	["Smelting {item:3859} takes 1 Coal a bar."] = "",
 
-	-- Step 43: Get 75 Steel Bar
-	-- {item:3859} Steel Bar
-	["Get 75 {item:3859}"] = "",
+	-- Step 43: Get 75 Steel Bars
+	-- plural, as words: Steel Bars = {item:3859} Steel Bar
+	["Get 75 Steel Bars"] = "",
 	-- {item:6040} Golden Scale Bracers · {skill:186} Mining
 	["For 15 {item:6040}. No {skill:186}? The bars, not the ore."] = "",
 
 	-- Step 44: Learn Golden Scale Bracers
-	["Taught at 175; done at once if you learned it then."] = "",
+	["Taught at 175, before the part of the guide you started from."] = "",
 
 	-- Step 46: Craft 15 Golden Scale Bracers until 195
 	-- {item:6040} Golden Scale Bracers
 	["Craft 15 {item:6040} until 195"] = "",
-	["About 15 crafts. Alliance smiths who want Armorsmithing later: keep 6."] = "",
+	["About 15 crafts. The Alliance Armorsmithing quest asks for 6 of these."] = "",
 
-	-- Step 47: Get 204 Mithril Bar
-	-- {item:3860} Mithril Bar
-	["Get 204 {item:3860}"] = "",
+	-- Step 47: Get 204 Mithril Bars
+	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
+	["Get 204 Mithril Bars"] = "",
 	-- {item:7920} Mithril Plate Pants · {skill:186} Mining
 	["For 17 {item:7920}. No {skill:186}? The bars, not the ore."] = "",
 
@@ -250,9 +252,9 @@ return {
 	-- plural, as words: Solid Grinding Stones = {item:7966} Solid Grinding Stone
 	["For 37 Solid Grinding Stones."] = "",
 
-	-- Step 55: Get 60 Mithril Bar
-	-- {item:3860} Mithril Bar
-	["Get 60 {item:3860}"] = "",
+	-- Step 55: Get 60 Mithril Bars
+	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
+	["Get 60 Mithril Bars"] = "",
 	-- {item:7969} Mithril Spurs · {skill:186} Mining
 	["For 15 {item:7969}. No {skill:186}? The bars, not the ore."] = "",
 
@@ -287,9 +289,9 @@ return {
 	-- plural, as words: Solid Grinding Stones = {item:7966} Solid Grinding Stone
 	["For 84 Solid Grinding Stones."] = "",
 
-	-- Step 64: Get 112 Mithril Bar
-	-- {item:3860} Mithril Bar
-	["Get 112 {item:3860}"] = "",
+	-- Step 64: Get 112 Mithril Bars
+	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
+	["Get 112 Mithril Bars"] = "",
 	-- {item:7969} Mithril Spurs · {skill:186} Mining
 	["For 28 {item:7969}. No {skill:186}? The bars, not the ore."] = "",
 
@@ -298,16 +300,16 @@ return {
 	["Craft 84 Solid Grinding Stones"] = "",
 
 	-- Step 67: Learn Mithril Spurs
-	["Taught at 210; done at once if you learned it then."] = "",
+	["Taught at 210, before the part of the guide you started from."] = "",
 
 	-- Step 69: Craft 28 Mithril Spurs until 245
 	-- {item:7969} Mithril Spurs
 	["Craft 28 {item:7969} until 245"] = "",
 	["About 28 crafts."] = "",
 
-	-- Step 70: Get 72 Mithril Bar
-	-- {item:3860} Mithril Bar
-	["Get 72 {item:3860}"] = "",
+	-- Step 70: Get 72 Mithril Bars
+	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
+	["Get 72 Mithril Bars"] = "",
 	-- {skill:186} Mining
 	-- plural, as words: Heavy Mithril Axes = {item:7941} Heavy Mithril Axe
 	["For 6 Heavy Mithril Axes. No {skill:186}? The bars, not the ore."] = "",
@@ -329,11 +331,11 @@ return {
 	-- Step 75: Craft 6 Heavy Mithril Axes until 215
 	-- plural, as words: Heavy Mithril Axes = {item:7941} Heavy Mithril Axe
 	["Craft 6 Heavy Mithril Axes until 215"] = "",
-	["About 6 crafts. Weaponsmithing later? Keep 2: its quest asks for them."] = "",
+	["About 6 crafts. The Weaponsmithing quest asks for 2 of these."] = "",
 
-	-- Step 76: Get 100 Mithril Bar
-	-- {item:3860} Mithril Bar
-	["Get 100 {item:3860}"] = "",
+	-- Step 76: Get 100 Mithril Bars
+	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
+	["Get 100 Mithril Bars"] = "",
 	-- {skill:186} Mining
 	-- plural, as words: Mithril Coifs = {item:7931} Mithril Coif
 	["For 10 Mithril Coifs. No {skill:186}? The bars, not the ore."] = "",
@@ -351,11 +353,11 @@ return {
 	-- Step 80: Craft 10 Mithril Coifs until 225
 	-- plural, as words: Mithril Coifs = {item:7931} Mithril Coif
 	["Craft 10 Mithril Coifs until 225"] = "",
-	["About 10 crafts. Armorsmithing later? Keep 2: its quest asks for them."] = "",
+	["About 10 crafts. The Armorsmithing quest asks for 2 of these."] = "",
 
-	-- Step 84: Get 154 Mithril Bar
-	-- {item:3860} Mithril Bar
-	["Get 154 {item:3860}"] = "",
+	-- Step 84: Get 154 Mithril Bars
+	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
+	["Get 154 Mithril Bars"] = "",
 	-- {item:7933} Heavy Mithril Boots · {skill:186} Mining
 	["For 11 {item:7933}. No {skill:186}? The bars, not the ore."] = "",
 
@@ -372,7 +374,7 @@ return {
 	-- Step 88: Craft 11 Heavy Mithril Boots until 240
 	-- {item:7933} Heavy Mithril Boots
 	["Craft 11 {item:7933} until 240"] = "",
-	["About 11 crafts. Armorsmithing later? Keep 2: its quest asks for them."] = "",
+	["About 11 crafts. The Armorsmithing quest asks for 2 of these."] = "",
 
 	-- Step 89: Get 5 Aquamarine
 	-- {item:7909} Aquamarine
@@ -384,9 +386,9 @@ return {
 	-- {item:8170} Rugged Leather
 	["Get 30 {item:8170}"] = "",
 
-	-- Step 91: Get 150 Thorium Bar
-	-- {item:12359} Thorium Bar
-	["Get 150 {item:12359}"] = "",
+	-- Step 91: Get 150 Thorium Bars
+	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
+	["Get 150 Thorium Bars"] = "",
 	-- {skill:186} Mining
 	-- plural, as words: Imperial Plate Belts = {quest:7653} Imperial Plate Belt
 	["For 5 Imperial Plate Belts and the plans. No {skill:186}? The bars, not the ore."] = "",
@@ -422,9 +424,9 @@ return {
 	-- {item:12425} Imperial Plate Bracers
 	["For 27 {item:12425}."] = "",
 
-	-- Step 100: Get 560 Thorium Bar
-	-- {item:12359} Thorium Bar
-	["Get 560 {item:12359}"] = "",
+	-- Step 100: Get 560 Thorium Bars
+	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
+	["Get 560 Thorium Bars"] = "",
 	-- {item:12425} Imperial Plate Bracers · {skill:186} Mining
 	["For 27 {item:12425} and the plans. No {skill:186}? The bars, not the ore."] = "",
 
@@ -455,15 +457,14 @@ return {
 	-- {spell:16656} Radiant Boots
 	["Learn {spell:16656}"] = "",
 
-	-- Step 111: Get 88 Heart of Fire
-	-- {item:7077} Heart of Fire
-	["Get 88 {item:7077}"] = "",
+	-- Step 111: Get 88 Hearts of Fire
+	["Get 88 Hearts of Fire"] = "",
 	-- {item:12419} Radiant Boots
 	["For 22 {item:12419}."] = "",
 
-	-- Step 112: Get 308 Thorium Bar
-	-- {item:12359} Thorium Bar
-	["Get 308 {item:12359}"] = "",
+	-- Step 112: Get 308 Thorium Bars
+	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
+	["Get 308 Thorium Bars"] = "",
 	-- {item:12419} Radiant Boots · {skill:186} Mining
 	["For 22 {item:12419}. No {skill:186}? The bars, not the ore."] = "",
 
@@ -472,15 +473,14 @@ return {
 	["Craft 22 {item:12419} until 290"] = "",
 	["About 22 crafts."] = "",
 
-	-- Step 115: Get 40 Heart of Fire
-	-- {item:7077} Heart of Fire
-	["Get 40 {item:7077}"] = "",
+	-- Step 115: Get 40 Hearts of Fire
+	["Get 40 Hearts of Fire"] = "",
 	-- {item:12420} Radiant Leggings
 	["For 10 {item:12420}."] = "",
 
-	-- Step 116: Get 200 Thorium Bar
-	-- {item:12359} Thorium Bar
-	["Get 200 {item:12359}"] = "",
+	-- Step 116: Get 200 Thorium Bars
+	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
+	["Get 200 Thorium Bars"] = "",
 	-- {item:12420} Radiant Leggings · {skill:186} Mining
 	["For 10 {item:12420}. No {skill:186}? The bars, not the ore."] = "",
 
@@ -493,7 +493,7 @@ return {
 	["Craft 10 {item:12420} until 300"] = "",
 
 	-- Step 122: Learn Radiant Boots
-	["Taught at 270; done at once if you learned it then."] = "",
+	["Taught at 270, before the part of the guide you started from."] = "",
 
 	-- Step 125: Get 20 Star Ruby
 	-- {item:7910} Star Ruby
@@ -501,9 +501,9 @@ return {
 	-- {quest:7658} Imperial Plate Leggings
 	["For 10 {quest:7658}."] = "",
 
-	-- Step 126: Get 500 Thorium Bar
-	-- {item:12359} Thorium Bar
-	["Get 500 {item:12359}"] = "",
+	-- Step 126: Get 500 Thorium Bars
+	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
+	["Get 500 Thorium Bars"] = "",
 	-- {quest:7658} Imperial Plate Leggings · {skill:186} Mining
 	["For 10 {quest:7658} and the plans. No {skill:186}? The bars, not the ore."] = "",
 
@@ -525,29 +525,29 @@ return {
 	-- {item:12425} Imperial Plate Bracers
 	["For 11 {item:12425}."] = "",
 
-	-- Step 132: Get 220 Thorium Bar
-	-- {item:12359} Thorium Bar
-	["Get 220 {item:12359}"] = "",
+	-- Step 132: Get 220 Thorium Bars
+	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
+	["Get 220 Thorium Bars"] = "",
 	-- {item:12425} Imperial Plate Bracers · {skill:186} Mining
 	["For 11 {item:12425}. No {skill:186}? The bars, not the ore."] = "",
 
 	-- Step 133: Learn Imperial Plate Bracers
-	["Taught at 245; done at once if you learned it then."] = "",
+	["Taught at 245, before the part of the guide you started from."] = "",
 
 	-- Step 135: Craft 11 Imperial Plate Bracers until 275
 	-- {item:12425} Imperial Plate Bracers
 	["Craft 11 {item:12425} until 275"] = "",
 	["About 11 crafts."] = "",
 
-	-- Step 136: Get 108 Red Power Crystal
-	-- {item:11186} Red Power Crystal
-	["Get 108 {item:11186}"] = "",
+	-- Step 136: Get 108 Red Power Crystals
+	-- plural, as words: Red Power Crystals = {item:11186} Red Power Crystal
+	["Get 108 Red Power Crystals"] = "",
 	-- {item:12414} Thorium Leggings
 	["For 27 {item:12414}."] = "",
 
-	-- Step 137: Get 702 Thorium Bar
-	-- {item:12359} Thorium Bar
-	["Get 702 {item:12359}"] = "",
+	-- Step 137: Get 702 Thorium Bars
+	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
+	["Get 702 Thorium Bars"] = "",
 	-- {item:12414} Thorium Leggings · {skill:186} Mining
 	["For 27 {item:12414}. No {skill:186}? The bars, not the ore."] = "",
 
@@ -565,9 +565,9 @@ return {
 	-- {quest:7654} Imperial Plate Boots
 	["For 20 {quest:7654}."] = "",
 
-	-- Step 143: Get 720 Thorium Bar
-	-- {item:12359} Thorium Bar
-	["Get 720 {item:12359}"] = "",
+	-- Step 143: Get 720 Thorium Bars
+	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
+	["Get 720 Thorium Bars"] = "",
 	-- {quest:7654} Imperial Plate Boots · {skill:186} Mining
 	["For 20 {quest:7654} and the plans. No {skill:186}? The bars, not the ore."] = "",
 

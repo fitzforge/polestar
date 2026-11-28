@@ -126,9 +126,8 @@ return {
 	["Craft 28 {item:5527} until 175"] = "",
 	["About 28 crafts."] = "",
 
-	-- Step 29: Get 55 Raptor Flesh
-	-- {item:12184} Raptor Flesh
-	["Get 55 {item:12184}"] = "",
+	-- Step 29: Get 55 Raptor Fleshes
+	["Get 55 Raptor Fleshes"] = "",
 	-- plural, as words: Roast Raptors = {item:12210} Roast Raptor
 	["For 55 Roast Raptors."] = "",
 
@@ -160,9 +159,9 @@ return {
 	-- {item:6887} Spotted Yellowtail
 	["For 72 {item:6887}."] = "",
 
-	-- Step 37: Get 12 Giant Egg
-	-- {item:12207} Giant Egg
-	["Get 12 {item:12207}"] = "",
+	-- Step 37: Get 12 Giant Eggs
+	-- plural, as words: Giant Eggs = {item:12207} Giant Egg
+	["Get 12 Giant Eggs"] = "",
 	-- {quest:6610} Clamlette Surprise · {skill:185} Cooking
 	["For {quest:6610}, which teaches Artisan {skill:185}."] = "",
 
