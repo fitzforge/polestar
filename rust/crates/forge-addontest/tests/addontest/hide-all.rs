@@ -588,7 +588,7 @@ const SURFACES: &[(&str, &str, usize, &str, &str)] = &[
 ];
 
 // Marks Polestar puts on the game's frames without a frame of their own (textures on the game's buttons,
-// menu entries, nameplate icons, text it changes): each file asks Polestar.Hidden().
+// menu entries, nameplate icons, text it changes): each file checks whether Polestar or its guide is visible.
 const MARKS: &[(&str, &str)] = &[
 	("Polestar/Core/Hooks.lua", "every tooltip line of every module, and modified item clicks"),
 	("Polestar/QoL/QuestXP.lua", "completed quest XP in the XP bar's tooltip"),
@@ -601,6 +601,7 @@ const MARKS: &[(&str, &str)] = &[
 	("Polestar/UI/QuestieTurnIns.lua", "turn-in captions in another addon's quest tracker"),
 	("Polestar/UI/QuestLinks.lua", "Show in Guides in the quest log's menus"),
 	("Polestar/UI/GuideFrameMenu.lua", "Pin as along the way in the quest log's menu"),
+	("Polestar/QoL/Buttons.lua", "Add to Target List in the target frame's menu"),
 	("Polestar/Maps/Services.lua", "NPC services in the map's tracking menus"),
 	("Polestar/Nav/Nearby.lua", "Nearby services in the map's tracking menus"),
 	("Polestar/QoL/Flight.lua", "the flight map's mark and route"),
@@ -670,7 +671,7 @@ fn every_frame_polestar_makes_on_the_game_s_ui_hides_with_polestar_and_is_listed
 	}
 	for (file, what) in MARKS {
 		let src = std::fs::read_to_string(addons.join(file)).unwrap();
-		assert!(is_match(&src, r"ns\.Hidden\(\)|ns\.ArrowHidden\(\)"), "{file} ({what}) does not ask whether Polestar is hidden");
+		assert!(is_match(&src, r"ns\.(Hidden|ArrowHidden|GuideShown)\(\)"), "{file} ({what}) does not ask whether Polestar is hidden");
 	}
 }
 

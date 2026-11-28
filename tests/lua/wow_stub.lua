@@ -1449,8 +1449,9 @@ local function deliver(f, ran, mouse)
 				local onDown
 				if attr == nil then onDown = GetCVarBool("ActionButtonUseKeyDown") else onDown = attr and true or false end
 				if onDown == down then
-					local kind = f:GetAttribute("type" .. (digit or "")) or f:GetAttribute("type")
-					if kind then
+					local kind = digit and (f:GetAttribute("type" .. digit) or f:GetAttribute("*type" .. digit))
+						or f:GetAttribute("type")
+					if kind and kind ~= "" then
 						local function attr(k) return digit and f:GetAttribute(k .. digit) or f:GetAttribute(k) end
 						ran[#ran + 1] = { kind, attr("macrotext") or attr("item") or attr("spell") or false }
 					end
