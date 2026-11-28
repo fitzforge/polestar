@@ -410,6 +410,8 @@ function routeGuide(name, data, opts = {}) {
 	// Each section's bands outside forks, in order (learns are batched over them).
 	const secBands = new Map(route.sections.map((s) => [s, bandsOf({ sections: [s] }).filter((x) => x.way === null && !x.band.disenchant).map((x) => x.band)]));
 	const npcName = (id) => ((data.npcs || {})[id] || {}).name || `NPC ${id}`;
+	// A pinned NPC (a seller, a rank's trainer), on its own zone's map where two maps overlap (`npcMaps`).
+	const npcPin = (id) => `npc ${id}${(route.npcMaps || {})[id] ? ` map ${route.npcMaps[id]}` : ''}`;
 	const orList = (xs) => (xs.length <= 1 ? xs.join('') : `${xs.slice(0, -1).join(', ')} or ${xs[xs.length - 1]}`);
 	// "plans", "pattern", "recipe", "formula", "schematic", "manual": what a recipe item is called.
 	const itemKind = (id) => {
@@ -420,7 +422,7 @@ function routeGuide(name, data, opts = {}) {
 	// else one per side. A single vendor is pinned; several go to the nearest seller.
 	const sellerSteps = (kind, item, by, opts = {}) => {
 		const key = (s) => [...(by[s] || [])].sort((a, b) => a - b).join();
-		const pin = (id) => `npc ${id}${(route.npcMaps || {})[id] ? ` map ${route.npcMaps[id]}` : ''}`;
+		const pin = npcPin;
 		const one = (ids, only) => step(kind, `Buy ${itemName(item)} · ${orList(ids.map(npcName))}`, { ...opts, only, lines: [`  buy ${item} x1 ${ids.length === 1 ? pin(ids[0]) : 'nearest'}`] });
 		if (key('Alliance') === key('Horde')) one(by.Alliance);
 		else for (const s of SIDES) one(by[s], s);
@@ -748,7 +750,7 @@ function routeGuide(name, data, opts = {}) {
 			const rank = (prof.ranks || []).find((x) => x.name === sec.rank) || {};
 			const pins = SIDES.map((s) => sec.teachers[s] || []);
 			const pinned = pins.every((ids, i) => ids.length === 1 && ((rank.trainers || {})[SIDES[i]] || []).includes(ids[0]));
-			const lines = !pinned ? [`  train ${P} ${sec.rank}`] : pins[0][0] === pins[1][0] ? [`  train ${P} ${sec.rank} npc ${pins[0][0]}`] : SIDES.map((s, i) => `  train ${P} ${sec.rank} npc ${pins[i][0]} only ${s}`);
+			const lines = !pinned ? [`  train ${P} ${sec.rank}`] : pins[0][0] === pins[1][0] ? [`  train ${P} ${sec.rank} ${npcPin(pins[0][0])}`] : SIDES.map((s, i) => `  train ${P} ${sec.rank} ${npcPin(pins[i][0])} only ${s}`);
 			step('train', `Train ${sec.rank} ${P}`, { tip: sec.level > level ? `Needs level ${sec.level}.` : null, lines });
 			ahead();
 		}
