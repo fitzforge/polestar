@@ -20,7 +20,7 @@
 local ADDON, ns = ...
 ns.UI.GuideFrame.Part(function(GF)
 	local UI, Theme, W, L = ns.UI, ns.Theme, ns.Widgets, ns.L
-	local floor, max, min, format = math.floor, math.max, math.min, string.format
+	local ceil, floor, max, min, format = math.ceil, math.floor, math.max, math.min, string.format
 	local DOT = "  \194\183  "
 	local PAD, TEXT_X = 14, 38
 	GF.Bind(function(_, m) PAD, TEXT_X = m.PAD, m.TEXT_X end)
@@ -187,6 +187,17 @@ ns.UI.GuideFrame.Part(function(GF)
 	---------------------------------------------------------------------------
 	-- Meter: the skill (one slim line; a paired guide's two) or the standing
 	---------------------------------------------------------------------------
+
+	-- A meter line's name: its whole width (unbounded, rounded up: a width a hair under the text cuts its last
+	-- letter), beside a bar of BAR_MIN or more when the line has room for both; else the bar gives way, and the
+	-- name keeps whole up to `room` (what is left of the line before the numbers). -> the name's width, the bar's
+	-- (0: none)
+	local BAR_MIN = 24
+	local function nameAndBar(fs, shared, room)
+		local full = ceil(fs:GetUnboundedStringWidth())
+		if full + BAR_MIN <= shared then return full, shared - full end
+		return min(full, max(40, room)), 0
+	end
 
 	-- A slim line of a paired guide's skill: its glyph, name, bar, rank / max.
 	local function pairRow(parent)
@@ -367,13 +378,15 @@ ns.UI.GuideFrame.Part(function(GF)
 				f.Name:SetPoint("LEFT", f, "TOPLEFT", textX, -h / 2)
 				f.Max:SetPoint("RIGHT", f, "TOPRIGHT", -PAD, -h / 2 - 1)
 				f.Value:SetPoint("RIGHT", f.Max, "LEFT", -3, 1)
-				local nameW = min(f.Name:GetStringWidth(), max(40, (width - textX - PAD) * 0.45))
+				-- The name and the bar share what the numbers leave (a gap of 10 after each).
+				local shared = width - PAD - maxW - valW - 3 - 10 - textX - 10
+				local nameW, bw = nameAndBar(f.Name, shared, shared + 12)
 				f.Name:SetWidth(nameW)
+				f.Max:Show()
 				f.Rank:Hide()
 				local bx = textX + nameW + 10
-				local bw = width - PAD - maxW - valW - 3 - 10 - bx
 				f.Bar:SetPoint("LEFT", f, "TOPLEFT", bx, -h / 2)
-				f.Bar:SetShown(bw > 20 and m.learned ~= false)
+				f.Bar:SetShown(bw > 0 and m.learned ~= false)
 				placeBar(f.Bar, bw, m.frac, m.seg, done)
 				f.Line:Hide()
 				return h
@@ -381,10 +394,18 @@ ns.UI.GuideFrame.Part(function(GF)
 			f.Glyph:SetPoint("TOPLEFT", f, "TOPLEFT", x, -12)
 			f.Name:SetPoint("TOPLEFT", f, "TOPLEFT", textX, -9)
 			f.Max:SetPoint("TOPRIGHT", f, "TOPRIGHT", -PAD, -12)
-			f.Value:SetPoint("BOTTOMRIGHT", f.Max, "BOTTOMLEFT", -3, 0)
+			-- The name keeps whole: where the rank and the numbers leave it too little room, the cap ("/ 3,000")
+			-- gives way first (the line under the bar says what is left to the next rank), then the rank.
+			local full = ceil(f.Name:GetUnboundedStringWidth())
+			local room = width - textX - PAD - maxW - valW - rankW - 12
+			local showMax, showRank = true, rankW > 0
+			if full > room then showMax, room = false, room + maxW + 3 end
+			if full > room and showRank then showRank, room = false, room + rankW end
+			f.Max:SetShown(showMax)
+			f.Value:SetPoint("BOTTOMRIGHT", f.Max, showMax and "BOTTOMLEFT" or "BOTTOMRIGHT", showMax and -3 or 0, 0)
 			f.Rank:SetPoint("BOTTOMRIGHT", f.Value, "BOTTOMLEFT", -6, 0)
-			f.Rank:SetShown(rankW > 0)
-			f.Name:SetWidth(max(40, width - textX - PAD - maxW - valW - rankW - 12))
+			f.Rank:SetShown(showRank)
+			f.Name:SetWidth(max(40, min(full, room)))
 			local bw = width - textX - PAD
 			f.Bar:SetPoint("TOPLEFT", f, "TOPLEFT", textX, -31)
 			f.Bar:Show()
