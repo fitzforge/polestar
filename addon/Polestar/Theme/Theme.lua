@@ -1831,6 +1831,54 @@ function Theme.OwnFont(region)
 	ownFonts[region] = font
 end
 
+-- Forever leaves a string blank after a new font until its text changes
+-- (the options' values and tiles after a skin change): set it again. Not an
+-- edit box the player is in: setting its text again drops their cursor and
+-- selection (#1753: the report box selected for Ctrl+C).
+local function textAgain(fs)
+	if fs.HasFocus and fs:HasFocus() then return end
+	local text = fs.GetText and fs:GetText()
+	if text and text ~= "" then
+		fs:SetText(text .. " ")
+		fs:SetText(text)
+	end
+end
+
+-- A face shipped in an addon's folder (Polestar's own, a skin's, EllesmereUI's)
+-- may not be loaded yet where the first string takes it, at the first login
+-- of a session: the text set in it stays blank until it is set again (#4560).
+-- So the strings that take such a face before its first frame is out set
+-- their text again a frame later, once per face: the face is ready after
+-- that, and strings that take it later are left alone. The client's own
+-- fonts are always loaded. Font strings only: an edit box's text set again
+-- would run its search.
+Fonts.ready = {} -- addon font file -> true: its first frame has passed
+Fonts.waiting = {} -- addon font file -> true: strings wait for it
+Fonts.strings = setmetatable({}, { __mode = "k" }) -- fontString -> true: its text to set again
+Fonts.queued = false
+function Fonts.again()
+	Fonts.queued = false
+	for path in pairs(Fonts.waiting) do
+		Fonts.ready[path] = true
+		Fonts.waiting[path] = nil
+	end
+	local waiting = Fonts.strings
+	Fonts.strings = setmetatable({}, { __mode = "k" })
+	for fs in pairs(waiting) do
+		if fs.GetObjectType and fs:GetObjectType() == "FontString" then textAgain(fs) end
+	end
+end
+function Fonts.later(fs, path)
+	if type(path) ~= "string" or Fonts.ready[path] or not path:find("^Interface\\AddOns\\") then return end
+	if not Fonts.queued then
+		if not (C_Timer and C_Timer.After) then return end
+		Fonts.queued = true
+		ns.After(0, Fonts.again)
+	end
+	Fonts.waiting[path] = true
+	Fonts.strings[fs] = true
+end
+
 -- Keep a widget's typography when the face already matches (e.g. a colour
 -- refresh or a reused map pin). A missing font may return false or raise.
 -- -> true when the string took a new font
@@ -1841,7 +1889,10 @@ function Theme.SetFace(fs, path, size, flags)
 	local fallback = gameFont()
 	if path ~= fallback then
 		local ok, loaded = pcall(fs.SetFont, fs, path, size, flags)
-		if ok and loaded then return true end
+		if ok and loaded then
+			Fonts.later(fs, path)
+			return true
+		end
 	end
 	fs:SetFont(fallback, size, flags)
 	return true
@@ -1958,19 +2009,6 @@ do
 			end
 		end
 		return moved
-	end
-end
-
--- Forever leaves a string blank after a new font until its text changes
--- (the options' values and tiles after a skin change): set it again. Not an
--- edit box the player is in: setting its text again drops their cursor and
--- selection (#1753: the report box selected for Ctrl+C).
-local function textAgain(fs)
-	if fs.HasFocus and fs:HasFocus() then return end
-	local text = fs.GetText and fs:GetText()
-	if text and text ~= "" then
-		fs:SetText(text .. " ")
-		fs:SetText(text)
 	end
 end
 

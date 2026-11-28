@@ -535,6 +535,85 @@ fn ellesmereui_font_a_refresh_sets_the_text_again_a_frame_later_so_a_string_draw
 	assert_eq!(out["text"], "Innkeeper Heather");
 }
 
+// At the first login of a session an addon's font file may not be loaded where the first string takes it, and the
+// text set in it stays blank until it is set again (#4560). This client draws a string blank when its text is set
+// before its font's file has had a frame to load. Every addon-shipped face (Aurora's Inter, Fira Sans, Open Sans,
+// a skin's own) sets the strings that took it first their text again once, a frame later, and strings that take it
+// afterwards are left alone: the cost is the first paint's.
+#[test]
+fn a_face_not_loaded_at_first_paint_draws_its_strings_once_set_again_a_frame_later_whichever_the_face() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		addons: vec![Addon::name("Polestar"), Addon::Files("Polestar_Skins".into(), vec!["Skins/Aurora/Aurora.lua".into()])],
+		login: true,
+		script: r#"
+		local T = Polestar.Theme
+		local first, drawn, sets = {}, {}, {}
+		-- A face is loaded once a frame has passed since a string first took it.
+		local function loaded(path) return first[path] ~= nil and stub.now > first[path] end
+		local function watch(fs)
+			local setFont, setText = fs.SetFont, fs.SetText
+			fs.SetFont = function(self, path, ...)
+				if first[path] == nil then first[path] = stub.now end
+				return setFont(self, path, ...)
+			end
+			fs.SetText = function(self, text, ...)
+				sets[self] = (sets[self] or 0) + 1
+				setText(self, text, ...)
+				drawn[self] = loaded((self:GetFont())) and text or ""
+			end
+			return fs
+		end
+		local function make(path)
+			local fs = watch(UIParent:CreateFontString())
+			if path then T.SetFace(fs, path, 12, "") end
+			fs:SetText("Innkeeper Heather")
+			return fs
+		end
+		-- Aurora: its Inter, through the theme.
+		Polestar.Set("ui.skin", "aurora")
+		local aurora = watch(UIParent:CreateFontString())
+		T.Font(aurora, "body")
+		aurora:SetText("Innkeeper Heather")
+		local media = "Interface\\AddOns\\Polestar\\Media\\Fonts\\"
+		local faces = {
+			media .. "FiraSans-Medium.ttf",
+			media .. "OpenSans-Regular.ttf",
+			"Interface\\AddOns\\Polestar_Skins\\Skins\\Hairline\\Fonts\\BarlowSemiCondensed-Regular.ttf",
+			"Interface\\AddOns\\SomeSkin\\Fonts\\Own.ttf",
+		}
+		local strings = { aurora }
+		for _, path in ipairs(faces) do strings[#strings + 1] = make(path) end
+		local out = { auroraFace = (aurora:GetFont()), blank = {}, drawn = {} }
+		for i, fs in ipairs(strings) do out.blank[i] = drawn[fs] end
+		stub.advance(0.1)
+		for i, fs in ipairs(strings) do out.drawn[i] = drawn[fs] end
+		-- A string taking a face after its first frame: set once, as it was.
+		local late = make(faces[1])
+		out.lateSets = sets[late]
+		stub.advance(0.1)
+		out.lateSetsAfter = sets[late]
+		out.lateDrawn = drawn[late]
+		-- The client's own font is always loaded: never set again.
+		local game = watch(UIParent:CreateFontString())
+		T.SetFace(game, "Fonts\\FRIZQT__.TTF", 12, "")
+		game:SetText("Innkeeper Heather")
+		stub.advance(0.1)
+		out.gameSets = sets[game]
+		emit(out)"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["auroraFace"], "Interface\\AddOns\\Polestar\\Media\\Fonts\\Inter-Medium.ttf", "Aurora draws in the bundled Inter");
+	assert_eq!(out["blank"], json!(vec![json!(""); 5]), "set before the faces had loaded, every string stood blank");
+	assert_eq!(out["drawn"], json!(vec![json!("Innkeeper Heather"); 5]), "and each drew once its text was set again a frame later");
+	assert_eq!(out["lateSets"], 1);
+	assert_eq!(out["lateSetsAfter"], 1, "a string taking a face that has had its frame is not set again");
+	assert_eq!(out["lateDrawn"], "Innkeeper Heather");
+	assert_eq!(out["gameSets"], 1, "the client's own fonts are not waited for");
+}
+
 // The class colour as the accent: it follows the player's class, lifted until it reads as text (shaman blue is
 // too dark on the night grounds as it is), and it is one source among three: your own colour, your class's,
 // EllesmereUI's; choosing one turns the others off.
