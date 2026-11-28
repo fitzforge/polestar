@@ -116,7 +116,7 @@ step Bring your writ to Kzixx · north of Darkshire, Duskwood
   turnin 94250 npc 3134       -- Small Silk Pack, 75 reputation
 
 step Bring your writ to "Sea Wolf" MacKinley · Booty Bay inn, top floor
-  tip No quest mark: right-click them.
+  tip No quest mark: right-click them. MacKinley is on the top floor of the inn.
   when onquest 94226
   zone Stranglethorn Vale
   turnin 94226 npc 2501       -- Green Iron Gauntlets, 75 reputation
@@ -371,7 +371,7 @@ step Bring your writ to Kzixx · north of Darkshire, Duskwood
   turnin 94250 npc 3134       -- Small Silk Pack, 75 reputation
 
 step Bring your writ to "Sea Wolf" MacKinley · Booty Bay inn, top floor
-  tip No quest mark: right-click them.
+  tip No quest mark: right-click them. MacKinley is on the top floor of the inn.
   when onquest 94226
   zone Stranglethorn Vale
   turnin 94226 npc 2501       -- Green Iron Gauntlets, 75 reputation

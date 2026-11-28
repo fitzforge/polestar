@@ -491,4 +491,4 @@ function render(ctx) {
 	return `${byBanners(L.join('\n'), 'Fishing')}\n`;
 }
 
-module.exports = { file: 'fishing', skill: 'Fishing', render, PAGLE_FISH, catches, about, note, lureSkill, price, itemName, pagleSteps, spot, anchorFor, POLE, SHINY_BAUBLE, NIGHTCRAWLERS, BRIGHT_BAUBLES, FISH_ATTRACTOR, FISHING_RACK };
+module.exports = { file: 'fishing', skill: 'Fishing', render, PAGLE_FISH, START_SPOTS, catches, about, note, lureSkill, price, itemName, pagleSteps, spot, anchorFor, POLE, SHINY_BAUBLE, NIGHTCRAWLERS, BRIGHT_BAUBLES, FISH_ATTRACTOR, FISHING_RACK };

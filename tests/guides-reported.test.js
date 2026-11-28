@@ -6572,9 +6572,12 @@ test("mariusch's report (#639): Vulgara, Aggor the Young and Bruuz are asked as 
 });
 
 test(`Hotline's report (#718): the Undead's Silverpine fishing step leads to Lordamere Lake, not the Great Sea coast`, { skip }, () => {
+	// Since the single-step rebuild the Horde's 75-150 step offers Silverpine as one of its farming loops: the loop
+	// starts on Lordamere Lake by the ferry.
 	const list = goals('forever/professions/fishing.guide');
-	const arrow = list.find(({ step, goal }) => step.title === 'Fishing: Silverpine Forest (50-125)' && goal.t === 'goto');
-	assert.ok(arrow, 'the Silverpine step has a waypoint');
+	const skill = list.find(({ goal }) => goal.t === 'skill' && goal.skill === 'Fishing' && (goal.candidates || []).some((c) => c.map === 1421));
+	assert.ok(skill, 'a fishing step offers Silverpine water');
+	const arrow = { goal: skill.goal.candidates.find((c) => c.map === 1421) };
 	const { point } = makeProjector(data.mapFrames);
 	const [x, y] = data.npcs[6570].spawns[1421].pts[0];
 	const ferry = point(1421, x, y, data.npcs[6570].spawns[1421].f);
@@ -18278,7 +18281,8 @@ test('#2822: Wetlands (Alliance): Death to the Dragonmaw is a group choice at Ho
 // is for Skyborne only. Pairs with #976 (a Gnome in Darkshore sent back to Dun Morogh).
 test('#2529: Fishing 1-50 leads to the nearest of the faction\'s starting-area shores, wherever the character is', { skip }, () => {
 	const list = goals('forever/professions/fishing.guide');
-	const first = list.filter(({ goal }) => goal.t === 'skill' && goal.skill === 'Fishing' && goal.level === 50);
+	// The starting-area band runs to 75 since the single-step rebuild (every catch below 75 raises the skill).
+	const first = list.filter(({ goal }) => goal.t === 'skill' && goal.skill === 'Fishing' && goal.level === 75);
 	assert.equal(first.length, 2, 'one step per faction');
 	const shores = { Alliance: [1429, 1426, 1438], Horde: [1411, 1412, 1420] };
 	for (const { step, goal } of first) {

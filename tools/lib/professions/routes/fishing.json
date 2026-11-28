@@ -65,7 +65,7 @@
 					"title": "Put a Shiny Bauble on the pole",
 					"tip": "It lasts ten minutes."
 				},
-				{ "gather": 75,
+				{ "gather": 75, "shores": true,
 					"title": "near your starting area",
 					"level": 1,
 					"zones": {

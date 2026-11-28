@@ -48,13 +48,23 @@ step Put a Shiny Bauble on the pole
 
 step Fish near your starting area until 75
   tip Every catch gives a point.
+  only Alliance
   note Cast, then right-click the bobber when it splashes.
-  loop Elwynn Forest lvl 2 lap 338 gain 25.0 only Alliance r 15 at 47.1,64.0 47.5,63.2 48.8,63.3 48.9,65.1 46.5,64.6
-  loop Dun Morogh lvl 2 lap 126 gain 10.0 only Alliance r 15 at 35.5,40.6 35.4,40.0
-  loop Zephras Isle lvl 6 lap 175 gain 10.0 only Alliance,Horde live r 15 at 46.9,48.5 46.0,48.8
-  loop Mulgore lvl 2 lap 146 gain 10.0 only Horde r 15 at 44.5,61.2 43.8,58.8
-  loop Tirisfal Glades lvl 2 lap 137 gain 10.0 only Horde r 15 at 66.4,48.6 66.9,50.5
-  skill Fishing 75
+  goto 47.4,62.2 map 1429 "Crystal Lake"
+  goto 35.4,40.1 map 1426 "Iceflow Lake"
+  goto 55.8,93.5 map 1438 "Rut'theran Village"
+  goto 63.2,75.8 live map 2521 "Valanaar shore" only Skyborne,Alliance
+  skill Fishing 75 nearest
+
+step Fish near your starting area until 75
+  tip Every catch gives a point.
+  only Horde
+  note Cast, then right-click the bobber when it splashes.
+  goto 53.2,81.5 map 1411 "Sen'jin coast"
+  goto 44.4,60.6 map 1412 "Stonebull Lake"
+  goto 67.1,50.9 map 1420 "Brightwater Lake"
+  goto 63.2,75.8 live map 2521 "Valanaar shore" only Skyborne,Horde
+  skill Fishing 75 nearest
 
 section Fishing 75-150
 
@@ -70,8 +80,7 @@ step Fish in a capital or a nearby lake until 150
   tip Nightcrawlers on the pole help when fish keep getting away.
   loop Stormwind City lvl 11 lap 496 gain 12.1 only Alliance r 15 at 61.7,50.8 47.4,60.5 45.9,58.5 44.5,60.8 47.5,63.8 63.7,87.6
   loop Darnassus lvl 11 lap 137 gain 4.0 only Alliance r 15 at 46.4,56.0 52.0,56.4
-  loop Darkshore lvl 11 lap 494 gain 8.1 only Alliance r 15 at 36.0,45.0 36.0,46.8 36.1,49.0 32.3,42.0
-  loop Loch Modan lvl 11 lap 227 gain 4.0 only Alliance r 15 at 41.2,35.4 41.8,15.0
+  loop Loch Modan lvl 11 lap 198 gain 6.0 only Alliance r 15 at 41.3,38.8 41.1,37.0 41.2,35.4
   loop Orgrimmar lvl 11 lap 387 gain 12.1 only Horde r 15 at 68.8,35.5 67.6,33.2 68.3,29.6 69.8,30.0 70.8,28.5 70.9,34.1
   loop Thunder Bluff lvl 11 lap 191 gain 6.0 only Horde r 15 at 41.5,57.9 40.7,61.1 38.8,60.4
   loop The Barrens lvl 14 lap 267 gain 6.0 only Horde r 15 at 46.4,37.4 46.4,37.8 45.9,37.7
@@ -99,14 +108,15 @@ step Buy 11 Bright Baubles
 
 step Fish in the mid-level waters until 225
   tip Nat Pagle, who teaches Artisan, fishes in Dustwallow Marsh.
-  loop Dustwallow Marsh lvl 38 lap 289 gain 1.8 only Alliance r 15 at 63.2,37.1 61.8,30.6
-  loop Alterac Mountains lvl 31 lap 543 gain 2.7 only Alliance r 15 at 10.1,53.3 9.3,55.1 13.7,70.9
-  loop Arathi Highlands lvl 41 lap 484 gain 1.8 only Alliance,Horde r 15 at 32.9,81.1 29.8,83.2
-  loop Stranglethorn Vale lvl 41 lap 527 gain 4.6 only Alliance r 15 at 22.4,52.6 26.9,42.0 26.9,44.7 26.1,48.3 24.6,50.1
+  loop Alterac Mountains lvl 39 lap 722 gain 2.7 only Alliance r 15 at 37.0,15.9 33.9,9.7 36.0,24.1
+  loop Arathi Highlands lvl 41 lap 484 gain 1.8 only Alliance r 15 at 32.9,81.1 29.8,83.2
+  loop Desolace lvl 34 lap 354 gain 2.7 only Alliance r 15 at 36.2,26.9 36.0,28.3 36.0,30.2
+  loop Stranglethorn Vale lvl 31 lap 186 gain 1.8 only Alliance r 15 at 38.9,60.9 40.9,60.4
   loop Swamp of Sorrows lvl 44 lap 913 gain 4.6 only Alliance r 15 at 89.6,21.2 90.7,25.2 94.5,41.3 79.2,7.4 78.3,5.3
-  loop Alterac Mountains lvl 37 lap 1489 gain 4.6 only Horde r 15 at 27.9,41.3 30.8,35.5 34.3,28.0 36.0,24.1 31.1,32.9
-  loop Desolace lvl 31 lap 605 gain 4.6 only Horde r 15 at 21.5,73.8 22.1,73.1 22.3,72.3 23.9,73.2 25.9,78.3
-  loop Stranglethorn Vale lvl 41 lap 529 gain 4.6 only Horde r 15 at 26.9,42.0 26.9,44.7 26.1,48.3 22.4,52.6 24.6,50.1
+  loop Alterac Mountains lvl 39 lap 722 gain 2.7 only Horde r 15 at 36.0,24.1 37.0,15.9 33.9,9.7
+  loop Arathi Highlands lvl 41 lap 484 gain 1.8 only Horde r 15 at 32.9,81.1 29.8,83.2
+  loop Desolace lvl 31 lap 393 gain 2.7 only Horde r 15 at 21.5,73.8 22.1,73.1 23.9,73.2
+  loop Stranglethorn Vale lvl 31 lap 186 gain 1.8 only Horde r 15 at 38.9,60.9 40.9,60.4
   loop Swamp of Sorrows lvl 44 lap 913 gain 4.6 only Horde r 15 at 79.2,7.4 78.3,5.3 89.6,21.2 90.7,25.2 94.5,41.3
   skill Fishing 225
 
@@ -192,6 +202,6 @@ step Buy 16 Bright Baubles
 
 step Fish in the high-level waters until 300
   tip Fish get away here without a lure.
-  loop Feralas lvl 49 lap 218 gain 1.2 only Alliance,Horde r 15 at 48.0,53.5 44.6,48.0
-  loop Tanaris lvl 41 lap 364 gain 2.4 only Alliance,Horde r 15 at 71.2,41.4 72.6,43.6 72.8,44.1 73.2,44.2
+  loop Tanaris lvl 43 lap 568 gain 3.5 only Alliance r 15 at 67.3,25.5 67.7,27.2 67.7,23.2 67.9,22.8 67.7,22.4 67.2,19.5
+  loop Tanaris lvl 43 lap 568 gain 3.5 only Horde r 15 at 67.3,25.5 67.7,27.2 67.7,23.2 67.9,22.8 67.7,22.4 67.2,19.5
   skill Fishing 300

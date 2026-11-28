@@ -176,30 +176,32 @@ function renderRoute(ctx, prof, route) {
 	const fishWaters = (from, e) => {
 		if (fishWatersAt.has(e)) return fishWatersAt.get(e);
 		// A round asks at least the route's level and the zone's own (its creatures' lowest: a level-21 round in
-		// Desolace, whose creatures start at 30, would undersell it).
-		const bandIn = (map) => ({ from, to: e.gather, level: Math.max(e.level || 1, (ZONES[map] || {}).min || 1), want: [] });
+		// Desolace, whose creatures start at 30, would undersell it). Its stands are weighed by the fish of the
+		// Fishing + Cooking band the skill is in (fish-rounds.js BANDS), as the paired guide weighs them.
+		const pair = FR.BANDS.find((b) => b.from <= from && from < b.to) || {};
+		const bandIn = (map) => ({ from, to: e.gather, level: Math.max(e.level || 1, (ZONES[map] || {}).min || 1), want: pair.want || [] });
 		const out = [];
 		for (const side of FACTIONS) {
 			for (const name of (e.zones || {})[side] || []) {
 				const map = zoneId(ctx, name, true);
 				const band = bandIn(map);
 				let w = null;
+				let why = 'its round has fewer than two stops';
 				try {
 					w = FR.asLoop(ctx, band, side, FR.roundAt(ctx, map, side, band));
+					if (!w) why = 'its walk passes the other faction\'s towns';
 				} catch (err) {
+					why = err.message;
 					w = null;
 				}
 				if (!w || w.stops.length < 2) {
-					notes.push(`Fishing ${from}-${e.gather}: ${name} has no safe round for the ${side}`);
+					notes.push(`Fishing ${from}-${e.gather}: ${name} has no safe round for the ${side} (${why})`);
 					continue;
 				}
-				const same = out.find((x) => x.map === w.map && x.stops.map((s) => `${s.pt.x},${s.pt.y}`).join(' ') === w.stops.map((s) => `${s.pt.x},${s.pt.y}`).join(' ') && x.level === w.level);
-				if (same && same.sides) same.sides.push(side);
-				else out.push({ ...w, sides: [side] });
+				// One loop per side: each keeps its own `only` (Zephras Isle's: Skyborne of that side).
+				out.push(w);
 			}
 		}
-		// One loop for both sides where the round is the same (`only` names who may take it).
-		for (const w of out) if (w.sides.length > 1) w.only = 'Alliance,Horde';
 		fishWatersAt.set(e, out);
 		return out;
 	};
@@ -299,6 +301,33 @@ function renderRoute(ctx, prof, route) {
 					if (r.focus && lastKind !== 'smelt' && lastKind !== 'station') step('station', `Go to ${/^[aeiou]/i.test(r.focus) ? 'an' : 'a'} ${r.focus.toLowerCase()}`, null, stationLines(r.focus));
 					step('smelt', `Smelt ${e.count} ${itemName(r.item)}s${e.row ? ` · ${e.row}` : ''}`, e.tip, [`  craft ${r.spell} x${e.count}`]);
 					if (e.to) skill = Math.max(skill, e.to);
+				} else if (e.gather && P === 'Fishing' && e.shores) {
+					// Below 75 every catch raises the skill and every starting area's shore loses no fish from 25: one step
+					// per faction whose places are all of its starting areas' shores, the nearest taken (#2529, #976);
+					// Zephras Isle's shore for Skyborne only.
+					if (rank && e.gather > CAP[rank]) errs.push(`${e.gather} is past the ${rank} cap (${CAP[rank]})`);
+					const { RACE_GROUPS, TWO_SIDED, raceCondition } = require('./groups');
+					for (const side of FACTIONS) {
+						const byKey = new Map();
+						for (const g of RACE_GROUPS[side]) {
+							const def = F.START_SPOTS[g.key];
+							const key = `${def.zone}|${def.label}`;
+							if (!byKey.has(key)) byKey.set(key, { def, races: [] });
+							byKey.get(key).races.push(...g.races);
+						}
+						const lines = [];
+						for (const { def, races } of byKey.values()) {
+							const c = F.spot(ctx, def, F.anchorFor(ctx, def, side), side);
+							if (!c) {
+								errs.push(`Fishing: no shore in ${zoneName(ctx, def.zone)}`);
+								continue;
+							}
+							const only = races.every((r) => TWO_SIDED.has(r)) ? ` only ${raceCondition(races, [side])}` : '';
+							lines.push(`  goto ${fmt(c.pt.x)},${fmt(c.pt.y)}${c.pt.f === 'l' ? ' live' : ''} map ${def.zone} "${def.label}"${only}`);
+						}
+						step('gather', `Fish ${e.title || 'here'} until ${e.gather}`, e.tip, [`  only ${side}`, ...(e.how ? [`  note ${e.how}`] : []), ...lines, `  skill ${pq} ${e.gather} nearest`]);
+					}
+					skill = e.gather;
 				} else if (e.gather && P === 'Fishing') {
 					if (rank && e.gather > CAP[rank]) errs.push(`${e.gather} is past the ${rank} cap (${CAP[rank]})`);
 					const waters = fishWaters(skill, e);
