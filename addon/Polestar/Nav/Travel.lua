@@ -2023,6 +2023,21 @@ function Nav.GetKnownTaxiNodes()
 	return knownNodes()
 end
 
+-- The flight master this character knows (and may fly with) nearest world point (wx, wy) on continent c, or nil.
+-- -> node { id, c, wx, wy, map, … } (read-only)
+function Nav.NearestKnownFlight(c, wx, wy)
+	refreshFaction()
+	local known = knownNodes()
+	local best, bestD
+	for _, node in ipairs(taxiList) do
+		if node.c == c and known[node.id] and allowed(node.faction, playerFaction, node.class) then
+			local d = (node.wx - wx) ^ 2 + (node.wy - wy) ^ 2
+			if not bestD or d < bestD then best, bestD = node, d end
+		end
+	end
+	return best
+end
+
 -- Continents a flight map has opened on for this character: { [continent] = true } (read-only).
 function Nav.GetTaxiSeen()
 	return seenSet()

@@ -114,6 +114,25 @@ test('a level 3 Tauren is never offered another continent\'s starting area (Deat
 	assert.ok(out.names.includes('Brill'), `an overseas area that is no starting area's own still comes, after: ${out.names}`);
 });
 
+test('an area across a zone too high comes once the character knows a flight to it: the walks to and from the flight are safe', () => {
+	const script = `local before = choices()
+-- Flight masters at Thunder Bluff (Mulgore 45,80) and in Durotar (40,20); the character knows both.
+Polestar.Nav.RegisterTravelData({ taxi = { { 1, 1, -4000, -2250, 1412, 45, 80, 3, "Thunder Bluff" }, { 2, 1, -1000, -12000, 1411, 40, 20, 3, "Durotar" } } }, true)
+local known = { [1] = true }
+Polestar.CharState().flags.taxi = known
+stub.fire("ZONE_CHANGED")
+stub.advance(0.6)
+local one = choices()
+known[2] = true
+stub.fire("ZONE_CHANGED")
+stub.advance(0.6)
+emit({ before = before, one = one, both = choices() })`;
+	const out = engine([RIDGE, RED_CLOUD], { level: 7, at: [1412, 45, 84] }, script);
+	assert.deepEqual(out.before.names, ['Red Cloud Mesa'], 'no flight known: Thunder Ridge (Durotar) lies across the Barrens (10)');
+	assert.deepEqual(out.one.names, ['Red Cloud Mesa'], 'the flight master by the area not known: still none');
+	assert.ok(out.both.names.includes('Thunder Ridge'), `both known: Thunder Ridge by flight: ${out.both.names}`);
+});
+
 test('a level 26 in Durotar sees several Durotar and Barrens areas, never the Valley of Trials starter', () => {
 	const out = engine([VALLEY, SKULL, THUNDER, BARRENS, RED_CLOUD], { level: 26, at: [1411, 44, 68], race: 'Orc' });
 	assert.ok(out.names.length >= 3, `${out.names}`);

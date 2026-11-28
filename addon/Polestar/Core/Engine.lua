@@ -3631,11 +3631,14 @@ Own.AREA_RESPAWN = { [186] = 300, [182] = 300, [393] = 300 }
 -- sent to Durotar's loop across the Barrens, 10.3k yd through creatures of 10-20): every zone the straight way
 -- from the player to the area's middle crosses (Nav's walking maps, Nav.danger.ZoneAt, every TRIP_STEP
 -- yards) other than the player's and the area's own starts at most TRIP_ABOVE levels above the character (its
--- danger floor, Maps.GetZoneLevels). Without the walking maps: an area on another map than the player's must lie
--- in a zone that starts at most TRIP_ABOVE above them. True for an area on the player's own map; one on another
--- continent (a boat or a zeppelin away) is ranked after the player's continent's as before; a starting area's own
--- (`starter`) there is never offered (a level 3 Tauren whose Red Cloud Mesa was mined out was sent by zeppelin to
--- Deathknell).
+-- danger floor, Maps.GetZoneLevels); or, when it does not, the walks to and from a flight do: from the player to
+-- the flight master they know nearest them, and from the one they know nearest the area to it (a level 30 orc at
+-- Freewind Post flies to Splintertree for Ashenvale's Felfire Hill; the straight way crosses Dustwallow Marsh). A
+-- flight master not known yet never counts (a new Tauren has no flight to Orgrimmar). Without the walking maps: an
+-- area on another map than the player's must lie in a zone that starts at most TRIP_ABOVE above them. True for an
+-- area on the player's own map; one on another continent (a boat or a zeppelin away) is ranked after the player's
+-- continent's as before; a starting area's own (`starter`) there is never offered (a level 3 Tauren whose Red Cloud
+-- Mesa was mined out was sent by zeppelin to Deathknell).
 Own.TRIP_STEP, Own.TRIP_ABOVE = 150, 2
 function Own.tripSafe(c, here, hc, hx, hy)
 	if not here or c.map == here.map then return true end
@@ -3660,19 +3663,30 @@ function Own.tripSafe(c, here, hc, hx, hy)
 		local info = x and C_Map.GetMapInfoAtPosition(cont, x / 100, y / 100)
 		return info and info.mapID ~= cont and info.mapID or nil
 	end
-	local steps = math.max(1, math.ceil(((cx - hx) ^ 2 + (cy - hy) ^ 2) ^ 0.5 / Own.TRIP_STEP))
-	local seen = false
-	for k = 1, steps - 1 do
-		local t = k / steps
-		local zone = zoneAt(hx + (cx - hx) * t, hy + (cy - hy) * t)
-		seen = seen or zone ~= nil
-		if zone and zone ~= here.map and zone ~= c.map then
-			local lo = low(zone)
-			if lo and lo > level + Own.TRIP_ABOVE then return false end
+	-- A straight walk: "bad" through a zone too far above, "ok", or nil when no zone along it is known.
+	local function walk(ax, ay, bx, by)
+		local steps = math.max(1, math.ceil(((bx - ax) ^ 2 + (by - ay) ^ 2) ^ 0.5 / Own.TRIP_STEP))
+		local seen = false
+		for k = 1, steps - 1 do
+			local t = k / steps
+			local zone = zoneAt(ax + (bx - ax) * t, ay + (by - ay) * t)
+			seen = seen or zone ~= nil
+			if zone and zone ~= here.map and zone ~= c.map then
+				local lo = low(zone)
+				if lo and lo > level + Own.TRIP_ABOVE then return "bad" end
+			end
 		end
+		return seen and "ok" or nil
+	end
+	local way = walk(hx, hy, cx, cy)
+	if way == "bad" then
+		local N = ns.Nav
+		local fa = N and N.NearestKnownFlight and N.NearestKnownFlight(hc, hx, hy)
+		local fb = fa and N.NearestKnownFlight(hc, cx, cy)
+		return fb ~= nil and fb ~= fa and walk(hx, hy, fa.wx, fa.wy) ~= "bad" and walk(fb.wx, fb.wy, cx, cy) ~= "bad"
 	end
 	-- Nothing to tell the zones by: the area's own zone must suit the character.
-	if not seen then
+	if not way then
 		local lo = low(c.map)
 		return not lo or lo <= level + Own.TRIP_ABOVE
 	end
