@@ -2863,6 +2863,9 @@ fn every_page_keeps_the_layout_rules_at_defaults() {
 			["Dungeon Journal"] = true, ["Characters"] = true,
 			-- Guide window > Parts > Quest log notices (#4112): the off-route line and the finished quests' row.
 			["Quest log notices"] = true,
+			-- Guide > Automation > Profession guides (0.4.4): the other characters' counts, once the materials' default
+			-- way went to the get steps.
+			["Profession guides"] = true,
 			-- Setup > General > Language (#3643): the one setting players look for under that name.
 			["Language"] = true }
 		local bad, seen = {}, 0

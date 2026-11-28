@@ -9,8 +9,8 @@ section: players
   or farm it (Guide me leads the arrow to the spot, with about how long the
   rest takes) or buy it at the Auction House (Buy list at an open Auction
   House starts its search, with what is left and its price from your last
-  search; away from one, Show me the auction house leads the arrow to the
-  nearest auctioneer). A craft step reads "Craft Rough
+  search; away from one, Guide me leads the arrow to the nearest
+  auctioneer). A craft step reads "Craft Rough
   Sharpening Stone until 35" with the game's own skill-up arrow, about how
   many crafts are left and an Open button for the profession. A folded
   shopping list under the step holds the bracket's materials, what you hold
