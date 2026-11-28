@@ -518,7 +518,7 @@ step Skin beasts for 504 Thick Leather
 
 step Train Artisan Leatherworking
   tip Needs level 35.
-  train Leatherworking Artisan npc 11097 only Alliance
+  train Leatherworking Artisan npc 11097 map 1425 only Alliance
   train Leatherworking Artisan npc 11098 only Horde
 
 step Learn Nightscape Pants
