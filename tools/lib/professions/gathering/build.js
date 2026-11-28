@@ -131,6 +131,7 @@ function rankIn(ctx, prof, band, zones, faction, level) {
 const TOP = 2;
 const WORTH = 0.25;
 const MAX_LEVEL = 60;
+const NEXT_LEVEL = 20;
 function zonePicks(ctx, prof, band, faction) {
 	const zones = band.zones ? band.zones[faction] || [] : zonesFor(faction, band);
 	const keep = [];
@@ -142,13 +143,17 @@ function zonePicks(ctx, prof, band, faction) {
 	const top = rankIn(ctx, prof, band, band.zones ? zones : zonesFor(faction, { from: 300 }), faction, MAX_LEVEL);
 	for (const r of [...low.slice(0, TOP), ...high.slice(0, TOP), ...top.slice(0, TOP)]) add(r);
 	if (band.scope === 'start' || band.scope === 'next') for (const g of RACE_GROUPS[faction]) add(low.find((r) => g[band.scope].includes(r.zone)));
-	// The first band also offers each race's next zone (the Barrens, Westfall, Silverpine): a character past the
-	// starting area mines there, never in the starting area's own small patch.
-	if (band.scope === 'start') for (const g of RACE_GROUPS[faction]) add(low.find((r) => g.next.includes(r.zone)));
+	// The first bands also offer each race's next zone (the Barrens, Westfall, Silverpine) while the band starts at
+	// a level characters are still there (NEXT_LEVEL): a character past the starting area gathers there, never in
+	// the starting area's own small patch, and an orc picking herbs at 70 finds the Barrens beside Stonetalon.
+	if (band.scope === 'start' || skillLevel(band.from) <= NEXT_LEVEL) for (const g of RACE_GROUPS[faction]) add(low.find((r) => g.next.includes(r.zone)));
 	for (const g of REGIONS[faction]) {
 		if (keep.some((z) => continentOf(ctx, z) === g.c)) continue;
 		add(low.find((r) => continentOf(ctx, r.zone) === g.c && r.score >= WORTH * low[0].score));
 	}
+	// A spec band's `also` ({ Alliance: [map id], Horde: [map id] }): zones its areas come from besides the picks,
+	// for the paired guides and the crafting guides' Get steps too (a route's `zones` reach the gathering guide only).
+	for (const z of (band.also || {})[faction] || []) if (!keep.includes(z)) keep.push(z);
 	if (!keep.length) throw new Error(`${prof.skill} ${band.from}-${band.to}: no zone workable from ${band.from} for the ${faction}`);
 	return keep;
 }
@@ -250,7 +255,11 @@ function partAreas(ctx, prof, picks, part) {
 		for (const zone of picks[faction]) {
 			const pts = partPoints(pointsOf(ctx, prof, zone, part.band.from, part.band.to), part.from, part.to);
 			if (pts.length < 2) continue;
-			for (const a of zoneAreas(areasFor(ctx, prof, zone, pts, faction), level)) add(zone, a, faction, false);
+			// In a starting zone of a first band starterAreas adds the areas of level STARTER_LEVEL or less: the zone's
+			// own slots go to the rest (Durotar's Razormane Grounds, Skull Rock, Sen'jin beside the Valley of Trials).
+			const list = areasFor(ctx, prof, zone, pts, faction);
+			const rest = part.band.scope === 'start' && START_MAPS.has(zone) ? list.filter((a) => a.level > STARTER_LEVEL) : list;
+			for (const a of zoneAreas(rest.length ? rest : list, level)) add(zone, a, faction, false);
 		}
 	}
 	for (const s of starterAreas(ctx, prof, part)) add(s.zone, s.area, s.faction, true);
@@ -613,4 +622,4 @@ function buildAll(ctx, notes = []) {
 	return out;
 }
 
-module.exports = { areaOnly, plan, render, buildAll, gatherAreas, zonePicks, partAreas, starterAreas, partPoints, pointsOf, areasFor, rareKinds, startParts, bandYield, coversTop, areaLine, areaRecord, nodeSummary, STARTER_LEVEL, OUT_DIR };
+module.exports = { areaOnly, plan, render, buildAll, gatherAreas, zonePicks, partAreas, starterAreas, partPoints, pointsOf, areasFor, rareKinds, startParts, bandYield, coversTop, areaLine, areaRecord, nodeSummary, continentOf, STARTER_LEVEL, OUT_DIR };

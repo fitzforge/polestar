@@ -57,22 +57,29 @@ const SIDES = ['Alliance', 'Horde'];
 // of the item, the areas of that lowest skill come too, one per zone (Light Leather: the starting zones'
 // Skinning 1 areas beside the richer ones of level 17-24), so the step serves a gatherer who starts low; and
 // every starting area's own area of the item comes (`starter`: one a character of level 1 to 5 may roam), so
-// it serves a new character too. -> { lines, skill } or null: no area gives it, or no reference data on disk
-// (`data.dir`, draftData) to plan the areas from.
+// it serves a new character too; and each race of the side with none on the continents of its starting and next
+// zones gets the lowest-level area there (an orc's Mageroyal in the Barrens beside the richer Silverpine's).
+// -> { lines, skill } or null: no area gives it, or no reference data on disk (`data.dir`, draftData) to plan the
+// areas from.
 const AREAS = 4;
 let areasCache = null;
 function itemAreas(data, item, per = 1) {
 	if (!data.dir) return null;
 	if (!areasCache || areasCache.dir !== data.dir) {
 		const { context } = require('./gathering/common');
-		const { gatherAreas, areaLine } = require('./gathering/build');
+		const { gatherAreas, areaLine, continentOf } = require('./gathering/build');
 		const ctx = context(data.dir);
-		areasCache = { dir: data.dir, all: gatherAreas(ctx), line: (rec) => areaLine(ctx, rec) };
+		const conts = new Map();
+		const cont = (map) => (conts.has(map) ? conts.get(map) : conts.set(map, continentOf(ctx, map)).get(map));
+		areasCache = { dir: data.dir, all: gatherAreas(ctx), line: (rec) => areaLine(ctx, rec), cont };
 	}
-	const { all, line } = areasCache;
+	const { all, line, cont } = areasCache;
+	const { RACE_GROUPS } = require('./gathering/groups');
 	const mine = all.filter((l) => l.item === item);
 	const rate = (l) => l.rec.value / l.rec.lap;
-	const key = (l) => `${l.rec.map}|${l.rec.name}|${l.rec.near}|${l.rec.lvl}`;
+	// One side's area and the other's of the same name and level may hold different nodes (each is cut round its
+	// own side's hazards): they are one line only when they are the same area.
+	const key = (l) => `${l.rec.map}|${l.rec.name}|${l.rec.near}|${l.rec.lvl}|${l.rec.count}|${l.rec.lap}`;
 	const picked = new Map();
 	for (const side of SIDES) {
 		const own = mine.filter((l) => l.factions.includes(side));
@@ -86,6 +93,11 @@ function itemAreas(data, item, per = 1) {
 			for (const l of own.filter((x) => x.skill[0] === low).sort((a, b) => rate(b) - rate(a) || a.rec.map - b.rec.map)) if (!best.some((o) => o.rec.map === l.rec.map)) best.push(l);
 		}
 		for (const l of own.filter((x) => x.rec.starter && x.skill[0] === low)) if (!best.some((o) => key(o) === key(l))) best.push(l);
+		for (const g of RACE_GROUPS[side]) {
+			const home = new Set([g.start[0], ...g.next].map(cont));
+			const there = own.filter((l) => home.has(cont(l.rec.map))).sort((a, b) => a.rec.lvl - b.rec.lvl || rate(b) - rate(a) || a.rec.map - b.rec.map);
+			if (there.length && !best.some((l) => home.has(cont(l.rec.map)) && l.rec.lvl <= there[0].rec.lvl)) best.push(there[0]);
+		}
 		for (const l of best) {
 			if (!picked.has(key(l))) picked.set(key(l), { l, sides: new Set() });
 			picked.get(key(l)).sides.add(side);
