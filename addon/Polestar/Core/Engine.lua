@@ -3357,6 +3357,23 @@ local function pickFor(goal)
 		end
 		table.sort(list, better)
 	end
+	-- The loop being walked stays (Own.LOOP_KEEP, Own.onLoop): a zone or
+	-- subzone change, a landing or a level-up never swaps it for another that
+	-- is only a little faster on paper (a Horde miner in Mulgore was sent off to
+	-- Durotar's loop); one the player picked with "Other" stays the same way.
+	local on = loopGoal and Own.loopOn[goal]
+	if on and list[1] ~= on then
+		for k = 2, #list do
+			if list[k] == on then
+				local best = list[1]
+				if tier[on] <= tier[best] and (cost[on] + extra[on] <= (cost[best] + extra[best]) * (1 + Own.LOOP_KEEP) or Own.onLoop(on)) then
+					table.remove(list, k)
+					table.insert(list, 1, on)
+				end
+				break
+			end
+		end
+	end
 	p = { list = list, i = #list > 0 and 1 or 0, gen = contextGen, tier = tier, safeFrom = safeFrom }
 	picks[goal] = p
 	Own.applyLoop(goal, list[p.i])
@@ -3505,33 +3522,102 @@ local Spots = {
 	points = setmetatable({}, { __mode = "k" }), -- spot list -> whether its spots are exact points (Spots.exact)
 }
 
--- The farming loop a goal's pick chose (`loop <zone> …`, pickFor): its stops
--- become the goal's spawn areas and its first stop the goal's point, so the
--- arrow walks that loop as a `loop` step's (Spots). A new loop starts with no
--- spot chosen. No-op for another candidate or the loop already on. None
--- (no loop safe at the character's level): the goal's own spawn areas (the
--- compiler's copy of its first loop's) go, so nothing leads to or marks a loop
+-- The farming loop a goal's pick chose (`loop <zone> …`, pickFor): one closed
+-- track through its points in order (Core/LoopTrack.lua), which the arrow runs
+-- round (Own.loopAim) and the maps draw (Engine.GetLoopTrack); its first point
+-- is the goal's own. The goal has no spawn areas: the compiler's copy of its
+-- first loop's goes the first time it is picked, so no dwell, area search or
+-- shaded area stands in for the track (Polestar 0.4.4, Fitz: "a circuit"). No-op
+-- for another candidate or the loop already on. None (no loop safe at the
+-- character's level): no place at all, so nothing leads to or marks a loop
 -- above the player.
 Own.loopOn = setmetatable({}, { __mode = "k" }) -- goal -> its candidate on (false: none safe)
 function Own.applyLoop(goal, c)
-	if not c then
-		if Own.loopOn[goal] ~= false and Own.isLoopGoal(goal) then
-			rawset(goal, "spotsPacked", nil)
-			rawset(goal, "spots", nil)
-			goal.spread = nil
-			Spots.chosen[goal], Spots.pinned[goal], Spots.stay[goal] = nil, nil, nil
-			Own.loopOn[goal] = false
-		end
-		return
+	if c and (not c.lap or Own.loopOn[goal] == c) then return end
+	if not c and (Own.loopOn[goal] == false or not Own.isLoopGoal(goal)) then return end
+	if Own.loopOn[goal] == nil then
+		rawset(goal, "spotsPacked", nil)
+		rawset(goal, "spots", nil)
+		goal.spread = nil
+		Spots.chosen[goal], Spots.pinned[goal], Spots.stay[goal] = nil, nil, nil
 	end
-	if not c.lap or Own.loopOn[goal] == c then return end
+	Own.loopAt[goal] = nil
+	if c then goal.map, goal.x, goal.y, goal.f = c.map, c.x, c.y, c.f end
+	Own.loopOn[goal] = c or false
+end
+
+-- The track of a loop candidate (LoopTrack.Build over its points in world
+-- yards), built once; false when its points do not lie on one continent.
+-- `map`, `f`: the candidate's, for the track's points in map percent.
+Own.loopTracks = setmetatable({}, { __mode = "k" }) -- candidate -> track | false
+function Own.loopTrack(c)
+	local t = Own.loopTracks[c]
+	if t ~= nil then return t or nil end
+	t = false
 	local spots = Guides.CandidateSpots(c)
-	if not spots then return end
-	goal.map, goal.x, goal.y, goal.f = c.map, c.x, c.y, c.f
-	rawset(goal, "spots", spots)
-	goal.spread = true
-	Spots.chosen[goal], Spots.pinned[goal], Spots.stay[goal] = nil, nil, nil
-	Own.loopOn[goal] = c
+	local C = Compat()
+	if spots and C.MapToWorld then
+		local stops, cont = {}, nil
+		for i, s in ipairs(spots) do
+			local sc, wx, wy = C.MapToWorld(c.map, s.x, s.y, c.f)
+			if not sc or (cont and sc ~= cont) then
+				stops = nil
+				break
+			end
+			cont, stops[i] = sc, { wx = wx, wy = wy, x = s.x, y = s.y }
+		end
+		t = stops and ns.LoopTrack.Build(cont, stops) or false
+		if t then t.map, t.f = c.map, c.f end
+	end
+	Own.loopTracks[c] = t
+	return t or nil
+end
+
+-- Where the arrow leads on a loop goal's track: the track node LOOP_AHEAD
+-- yards along from the player's place on it, whether on it or off it (then
+-- that is the nearest point of it, a short way ahead), always the stops'
+-- way round, lap after lap; nothing holds it (no dwell). For an arrow that
+-- follows no route (TomTom's, a hand-off, the travel planner or Polestar's own
+-- arrow off: Own.plannerFlies), the next of the loop's points instead, a plain
+-- waypoint that moves on LOOP_PASS yards before the player gets there. Away
+-- from the track's continent, or with no position: its first point. The place
+-- found is kept per goal (Own.loopAt), so where the track comes near itself the
+-- player keeps to the side they walk (LoopTrack.Place).
+-- -> track, node (nil without a track)
+Own.LOOP_AHEAD, Own.LOOP_PASS = 40, 15
+Own.loopAt = setmetatable({}, { __mode = "k" }) -- goal -> { track, s, node }
+function Own.loopAim(goal, c, pc, px, py)
+	local t = Own.loopTrack(c)
+	if not t then return nil end
+	if not pc then pc, px, py = Compat().GetPlayerWorldPosition() end
+	local at = Own.loopAt[goal]
+	if at and at.track ~= t then at = nil end
+	if pc ~= t.c then return t, at and at.node or t.stopNode[1] end
+	local s = ns.LoopTrack.Place(t, px, py, at and at.s)
+	local node = Own.plannerFlies() and ns.LoopTrack.Ahead(t, s, Own.LOOP_AHEAD) or ns.LoopTrack.NextStop(t, s, Own.LOOP_PASS)
+	if at then
+		at.s, at.node = s, node
+	else
+		Own.loopAt[goal] = { track = t, s = s, node = node }
+	end
+	return t, node
+end
+
+-- A re-pick (pickFor) keeps the loop being walked while it is still safe for
+-- the character, unless another would take less than 1 / (1 + LOOP_KEEP) of
+-- its time (travel there plus the laps left: a third saved), or always while
+-- the player is on it (Own.onLoop: within LOOP_ON yards of its track). Nothing
+-- gathered on a loop holds or moves its aim: the arrow's place on the track
+-- is the player's alone (Own.loopAim), not the dwell or the work noted for
+-- spawn areas (Spots), which a loop goal has none of.
+Own.LOOP_KEEP, Own.LOOP_ON = 0.5, 60
+function Own.onLoop(c)
+	local t = Own.loopTrack(c)
+	if not t then return false end
+	local pc, px, py = Compat().GetPlayerWorldPosition()
+	if pc ~= t.c then return false end
+	local _, d = ns.LoopTrack.Place(t, px, py)
+	return d <= Own.LOOP_ON
 end
 
 -- Whether goal's spots are exact points: every one's radius 0 (a packed
@@ -3800,10 +3886,15 @@ local function posOf(goal)
 	local shop = Own.recipeVendor(goal)
 	if shop then return posOf(shop) end
 	local c = chosen(goal)
-	-- A farming loop's place is its spawn areas (Own.applyLoop), below; with
-	-- none safe at the character's level, it has none.
 	if c and not c.lap then return c.map, c.x, c.y, c.f, nil, c.z end
-	if not c and goal.candidates and Own.isLoopGoal(goal) then return nil end
+	-- A farming loop: the point on its track the arrow leads to (Own.loopAim);
+	-- with none safe at the character's level, no place.
+	if goal.candidates and Own.isLoopGoal(goal) then
+		if not c then return nil end
+		local t, node = Own.loopAim(goal, c)
+		if t then return t.map, t.x[node], t.y[node], t.f end
+		return c.map, c.x, c.y, c.f
+	end
 	local s = goal.spots and Spots.get(goal)
 	if s and Own.onePlace(goal) then
 		if #goal.spots == 1 and goal.x then return goal.map, goal.x, goal.y, goal.f, nil, goal.z end
@@ -7111,15 +7202,26 @@ local function waypointOf(g, goal, at, s, held)
 	local verb, subject, kind, detail = describe(goal, s)
 	local many = area and #goal.spots > 1
 	local exact = area and Spots.exact(goal) or nil
+	-- A farming loop's aim on its track (Own.loopAim): moving on as the player walks, never "arrived".
+	local loop = not at and Own.loopLeads(goal) or nil
 	return {
 		map = map, x = x, y = y, f = f, z = z,
 		label = walk and (Own.rides() and L["Ride to %s"] or L["Walk to %s"]):format(subject) or (goalText(goal, verb, subject, detail, kind)),
 		stepIndex = s, goalIndex = g, kind = goal.t, quest = goal.quest,
-		r = goal.r or DEFAULT_RADIUS, area = area,
+		r = loop and Own.LOOP_REACH or goal.r or DEFAULT_RADIUS, area = area,
 		placeGoal = (at ~= nil or (goal.t == "goto" and goal.area ~= nil)) or nil,
-		search = area and (goal.spread or exact) or nil,
+		search = (area and (goal.spread or exact)) or loop,
 		spots = many and goal.spots or nil, spot = many and Spots.index(goal) or nil, exact = many and exact or nil,
+		loop = loop,
 	}
+end
+
+-- Whether a goal's place is a point on its farming loop's track (posOf): a loop goal with a loop picked, and no
+-- rest of its material waiting in the bank or the mail.
+Own.LOOP_REACH = 5
+function Own.loopLeads(goal)
+	if not (goal.candidates and Own.loopOn[goal]) then return false end
+	return not ((goal.t == "auction" or goal.gather) and Own.materialPlace(goal))
 end
 
 -- A "Go to" naming its step (the window's header) in a field group that holds
@@ -7486,8 +7588,8 @@ function Own.isGrind(goal)
 end
 
 function Own.isField(goal)
-	-- A farming loop (Own.applyLoop) is fought over like any spawn areas; other candidates are one NPC each.
-	return (Own.FIELD[goal.t] == true or Own.isGrind(goal)) and (not goal.candidates or Own.isLoopGoal(goal)) and (goal.spots ~= nil or (goal.map ~= nil and goal.x ~= nil and goal.y ~= nil))
+	-- Candidates are one NPC each, and a farming loop is a track the arrow runs round (Own.loopAim): no field.
+	return (Own.FIELD[goal.t] == true or Own.isGrind(goal)) and not goal.candidates and (goal.spots ~= nil or (goal.map ~= nil and goal.x ~= nil and goal.y ~= nil))
 end
 
 -- A search goal follows its loop points without being a field goal: gathering
@@ -9681,6 +9783,11 @@ local function checkArrival()
 	end
 	local sg = Spots.waypointGoal()
 	if sg and Spots.repick(sg, c, px, py) then hit = true end
+	-- A farming loop's aim moves on along its track as the player walks (Own.loopAim).
+	if wg and waypoint.loop and Own.loopOn[wg] then
+		local t, node = Own.loopAim(wg, Own.loopOn[wg], c, px, py)
+		if t and (t.x[node] ~= waypoint.x or t.y[node] ~= waypoint.y) then hit = true end
+	end
 	-- A step with several open field goals: the nearest may have changed.
 	if guide and current and Own.nearPick[guide.steps[current]] then
 		Own.nearMoved = false
@@ -9718,7 +9825,7 @@ local function updateTicker()
 		end
 	end
 	useActive()
-	if not need then need = Spots.waypointGoal() ~= nil or (guide ~= nil and current ~= nil and Own.nearPick[guide.steps[current]] ~= nil) end
+	if not need then need = Spots.waypointGoal() ~= nil or (waypoint ~= nil and waypoint.loop == true) or (guide ~= nil and current ~= nil and Own.nearPick[guide.steps[current]] ~= nil) end
 	-- A build of the While-here candidates queued for the next frame
 	-- (Own.hereLater) counts as candidates: the poll starts with the
 	-- evaluation, as when the build ran inside it, and runs that build first
@@ -18318,6 +18425,20 @@ function Engine.CycleCandidate(stepIndex, goalIndex)
 	if stepIndex == current then aim = goal else ns.Fire("STEP_UPDATED", current) end
 	evaluate()
 	return p.i
+end
+
+-- The farming loop the arrow leads round now (the active tab's waypoint's,
+-- Own.loopAim), for the maps (Maps/RouteLines.lua draws its track, Nav/Layers.lua
+-- marks its points): the track (Core/LoopTrack.lua: c, the nodes' wx, wy and
+-- their x, y in percent of `map` in frame `f`, `stops` points at nodes
+-- stopNode[1..stops], in order, the track closing from the last to the first),
+-- the same table while the loop is the same; nil for none. Only the loop being
+-- walked: never the step's other choices.
+function Engine.GetLoopTrack()
+	if not (waypoint and waypoint.loop and guide and current and waypoint.stepIndex == current) then return nil end
+	local goal = guide.steps[current].goals[waypoint.goalIndex]
+	local c = goal and Own.loopOn[goal]
+	return c and Own.loopTrack(c) or nil
 end
 
 -- Move a goal with spawn areas on to its next spot: the nearest one not

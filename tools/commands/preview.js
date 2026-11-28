@@ -992,6 +992,32 @@ stub.advance(0.5)`;
 function minimapRouteScene(script) {
 	return questScene(['Minimap'], script, undefined, ROUTE_FILES);
 }
+// A farming loop being walked (Polestar 0.4.4): a level 3 Tauren mining Copper in Mulgore on Red Cloud Mesa's
+// starter loop, the real Engine picking it over the zone's level 8 loop (lvl: the least level safe on each), its
+// closed track drawn in the flight lines' style with a mark on each point, the arrow a short way ahead on it.
+// The loops are the Mining guide's (guides/forever/professions/mining.guide, Get Copper Ore).
+const MULGORE = { map: 1412, name: 'Mulgore', frame: 'c = 1, left = 2047.917, right = -3089.583, top = -272.917, bottom = -3697.917', player: { x: 42.4, y: 80.6 } };
+const LOOP_TRACK = `local w = stub.world
+Polestar.RegisterMapFrames({ era = { [1412] = { ${MULGORE.frame} } } })
+w.race, w.raceName, w.faction = "Tauren", "Tauren", "Horde"
+w.setLevel(3)
+Polestar.Set("nav.lineStyle", "line")
+Polestar.RegisterPack({ addon = "Polestar_Preview", id = "preview", format = 1, title = "Preview", author = "Polestar", version = "1", license = "GPL-3.0-only" })
+Polestar.RegisterGuide({ id = "preview/loop", pack = "preview", title = "Mining", category = "Professions", minLevel = 1, maxLevel = 60, zone = 1412, steps = {
+	{ title = "Get Copper Ore", goals = {
+		{ t = "collect", item = 2770, itemName = "Copper Ore", count = 140, gather = { rank = 1, skill = "Mining", skillLine = 186 }, candidates = {
+			{ map = 1412, x = 41.8, y = 79.8, f = "e", faction = "H", lvl = { min = 3, max = 3 }, lap = 301, yield = 4.7, spotsPacked = "41.8,79.8,,60;41.2,82,,60;48.4,74.4,,60;43.8,72.8,,60" },
+			{ map = 1412, x = 41.8, y = 79.8, f = "e", faction = "H", lvl = { min = 8, max = 8 }, lap = 540, yield = 9.7, spotsPacked = "41.8,79.8,,60;33.5,58.2,,60;31.6,60.9,,60;34,66.5,,60;33.2,70.1,,60;34.1,72.7,,60;32.9,76.2,,60;33.7,81.2,,60;34.6,79.8,,60;41.2,82,,60;49,92.8,,60;49.2,87.7,,60" },
+		} },
+	} },
+} })
+Polestar.Engine.SetGuide("preview/loop")
+stub.advance(0.3)
+w.moveTo(1412, ${MULGORE.player.x}, ${MULGORE.player.y}); stub.advance(1)
+w.moveTo(1412, ${MULGORE.player.x} + 0.1, ${MULGORE.player.y} - 0.4); stub.advance(1)`;
+function loopTrackScene(root) {
+	return questScene([root], LOOP_TRACK, MULGORE, ROUTE_FILES);
+}
 // The route line's three looks (nav.lineStyle) on one route: a walk bending
 // along its path to the guide pin, then a flight on (its own colour, dashed
 // in the line style). The geometry stands in for Nav's (Nav.GetRouteGeometry)
@@ -1207,7 +1233,9 @@ const WARRIOR_CARD = `${CLASS_CARD}; uistub.player.class, uistub.player.race, ui
 // Woolen Cape (yellow 80, grey 115) to 100 from 75, about 21 crafts still to go at 87; Wool Cloth from Blackrock
 // Grunts in Redridge (19-23), 38 minutes for the rest; the section's shopping list.
 // state: "get" (the get step: Mix farms the wool), "buy" (the player picked the Auction House, priced), "craft"
-// (the craft step), "selfFound" (no Auction House way), "learn" (the skill not learned yet, the craft step).
+// (the craft step), "selfFound" (no Auction House way), "learn" (the skill not learned yet, the craft step),
+// "loop" (a Mining get step on Mulgore's starter loop, a level 3 Tauren), "safe" (the same at level 2: no loop safe
+// yet, the level one opens at; the Auction House stays a way).
 function kindProfession(state = 'get') {
 	return `${KIND_MAPS}
 ${TABS}
@@ -1220,12 +1248,22 @@ local ways = {
 	{ way = "buy", toGet = 36, copper = S == "buy" and 36 * 38 or nil, current = S == "buy", goalIndex = 2 },
 }
 if S == "selfFound" then ways[2] = nil end
+local item = { item = 2592, name = "Wool Cloth", need = 66, have = 30 }
+if S == "loop" or S == "safe" then
+	item = { item = 2770, name = "Copper Ore", need = 140, have = 12 }
+	ways = {
+		S == "loop" and { way = "gather", verb = "mine", map = 1412, loop = true, minutes = 81, rate = 95, current = true, goalIndex = 1 }
+			or { way = "gather", verb = "mine", safeFrom = 3, current = false, goalIndex = 1 },
+		{ way = "buy", toGet = 128, current = S == "safe", goalIndex = 2 },
+	}
+end
 local models = {
-	meter = { kind = "skill", name = "Tailoring", nameKind = "skill", value = S == "learn" and 0 or 87, max = S == "learn" and 0 or 150,
+	meter = item.item == 2770 and { kind = "skill", name = "Mining", nameKind = "skill", value = 12, max = 75, frac = 12 / 75, learned = true }
+		or { kind = "skill", name = "Tailoring", nameKind = "skill", value = S == "learn" and 0 or 87, max = S == "learn" and 0 or 150,
 		frac = S == "learn" and 0 or 87 / 150, learned = S ~= "learn" },
 	stretch = craft and { item = 2584, name = "Woolen Cape", colour = S ~= "learn" and "yellow" or nil, yellow = 80, green = 97, grey = 115, moveOn = 100,
 		rank = 87, made = 13, left = 21, learned = S ~= "learn", spell = "Tailoring", step = 2, goalIndex = 2, done = false } or nil,
-	get = not craft and { items = { { item = 2592, name = "Wool Cloth", need = 66, have = 30, goalIndex = 1, done = false, ways = ways } } } or nil,
+	get = not craft and { items = { { item = item.item, name = item.name, need = item.need, have = item.have, goalIndex = 1, done = false, ways = ways } } } or nil,
 	shopping = { met = 1, rows = {
 		{ item = 2592, name = "Wool Cloth", have = 30, need = 66, toGet = 36, way = S == "buy" and "buy" or "gather" },
 		{ item = 2321, name = "Fine Thread", have = 68, need = 68, toGet = 0, way = "vendor" },
@@ -1274,7 +1312,7 @@ uistub.update()`;
 const ATLAS = [{ name: 'Polestar_Skins', files: ['Layouts/Atlas/Atlas.lua'] }];
 const GUIDE_CARDS = ['PolestarGuideFrame', 'PolestarGuideFrameCards'];
 // The farm spots' and towns' names (the preview's maps have none of their own).
-const KIND_MAPS = `local KIND_MAPS = { [1433] = "Redridge Mountains", [1431] = "Duskwood", [1453] = "Stormwind City" }
+const KIND_MAPS = `local KIND_MAPS = { [1433] = "Redridge Mountains", [1431] = "Duskwood", [1453] = "Stormwind City", [1412] = "Mulgore" }
 local mapName = Polestar.Compat.GetMapName
 Polestar.Compat.GetMapName = function(id) return KIND_MAPS[id] or (mapName and mapName(id)) end`;
 // Hillsbrad Foothills (Horde 29-33) for a character who did the 22-25 guide: steps 10-20 are the
@@ -2209,6 +2247,16 @@ Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/h
 			minimapLookScene('dots', BARRENS, `${styleSize(0.8)}\nPolestar.Set("ui.reduceMotion", nil)`),
 			minimapLookScene('dots', BARRENS, `${styleSize(0.8)}\nPolestar.Set("ui.reduceMotion", nil)\nstub.advance(0.4)`),
 			minimapLookScene('dots', BARRENS, `${styleSize(0.8)}\nPolestar.Set("ui.reduceMotion", nil)\nstub.advance(0.8)`),
+		],
+	},
+	{
+		file: 'loop-track.svg',
+		title: 'A farming loop being walked: a level 3 Tauren mining Copper on Red Cloud Mesa\'s starter loop (never Mulgore\'s level 8 loop), its closed track on the zone map and the minimap in the flight lines\' style, a mark on each point, the arrow a short way ahead along it; the Get step on the loop, and at level 2 before any loop is safe',
+		panels: [
+			loopTrackScene('WorldMapFrame'),
+			loopTrackScene('Minimap'),
+			{ roots: GUIDE, script: kindProfession('loop') },
+			{ roots: GUIDE, script: kindProfession('safe') },
 		],
 	},
 	{

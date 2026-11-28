@@ -11,6 +11,9 @@
 --               map + minimap)
 --   nav.goalAreas  the regions the step's other open goals spawn in, fainter, in the
 --               goals' colour (world map); a goal of exact points marks each point instead
+--   nav.loop    the points of the farming loop the arrow leads round (Engine.GetLoopTrack),
+--               small marks where its nodes spawn, on zone maps and the minimap; its closed
+--               track is Maps/RouteLines.lua's (a loop has no spawn regions)
 -- and the trail (Pins.SetTrail): dots from the player along the travel route's lines (each
 -- leg's start where the mode changes, and its end), broken at a Hearthstone (a jump, not a
 -- path) and across continents; without a route, straight to the target (both surfaces).
@@ -30,6 +33,7 @@ Nav.layers = Layers
 
 local TARGET, ROUTE, GOALS, SPOTS = "nav.target", "nav.route", "nav.goals", "nav.spots"
 local AREAS, GOAL_AREAS = "nav.areas", "nav.goalAreas"
+local LOOP = "nav.loop"
 local HERE, HERE_AREAS = "nav.here", "nav.hereAreas"
 
 local function color(name)
@@ -124,6 +128,28 @@ local function updateSpots(world, minimap)
 		end
 	end
 	Pins.SetLayer(SPOTS, pins, { world = world, minimap = minimap })
+end
+
+-- The farming loop's points (nav.loop above), in the arrow's colour; zone
+-- maps only on the world map (minMapType, as the dense layers: #4520). Set
+-- again only when the loop or the surfaces changed.
+local loopShown = {}
+local function updateLoop(world, minimap)
+	local Engine = ns.Engine
+	local t = (world or minimap) and Engine and Engine.GetLoopTrack and Engine.GetLoopTrack() or nil
+	if loopShown.t == t and loopShown.world == world and loopShown.minimap == minimap and loopShown.theme == Nav.RGB("arrow") then return end
+	loopShown.t, loopShown.world, loopShown.minimap, loopShown.theme = t, world, minimap, Nav.RGB("arrow")
+	if not t then
+		Pins.ClearLayer(LOOP)
+		return
+	end
+	local r, g, b = Nav.RGB("arrow")
+	local pins = {}
+	for i = 1, t.stops do
+		local n = t.stopNode[i]
+		pins[i] = { c = t.c, wx = t.wx[n], wy = t.wy[n], icon = "map:pin-small", medal = false, size = 6, color = { r, g, b, 0.9 }, priority = 11 }
+	end
+	Pins.SetLayer(LOOP, pins, { world = world, minimap = minimap, minMapType = Enum and Enum.UIMapType and Enum.UIMapType.Zone or 3 })
 end
 
 -- A leg that ends at a chokepoint (leg.choke = { kind, name }, Travel.lua)
@@ -531,6 +557,7 @@ function Layers.Update()
 	updateRoute(world)
 	updateGoals(steps and world, index, view)
 	updateSpots(world, minimap)
+	updateLoop(steps and world, steps and minimap)
 	updateAreas(steps and world, steps and minimap, index, view)
 	updateHere(steps and world, steps and minimap)
 	updateTrail(world, minimap)
