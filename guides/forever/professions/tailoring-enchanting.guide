@@ -133,9 +133,9 @@ step Get 60 Linen Cloth
   collect 2589 x60 nearest gather levels 5-20
   auction 2589 x60
 
-step Craft 30 Bolts of Linen Cloth until 30
-  tip About 30 crafts. Keep all 30 bolts: the belts next use them.
-  craft 2963 until 30
+step Craft 30 Bolts of Linen Cloth · keep them for the belts
+  tip They take Tailoring to about 30.
+  craft 2963 x30
 
 section Tailoring 30-55
 
@@ -152,13 +152,13 @@ step Buy 1 Copper Rod
   tip For 1 Runed Copper Rod.
   buy 6217 x1 nearest
 
-step Buy 19 Mote of Magic
+step Buy 19 Motes of Magic
   tip For 1 Runed Copper Rod and 18 Enchant Bracer - Inferior Stamina.
   buy 247786 x19 nearest
 
-step Craft 1 Runed Copper Rod until 2
-  tip A tool: it stays in your bags, and every enchant needs it.
-  craft 7421 until 2
+step Craft 1 Runed Copper Rod
+  tip It takes Enchanting to about 2. A tool: it stays in your bags, and every enchant needs it.
+  craft 7421 x1
 
 section Enchanting 2-20
 
@@ -168,7 +168,7 @@ step Disenchant your green items until 20
   task "No green items left to break" either
 
 step Craft 18 Enchant Bracer - Inferior Stamina until 20
-  tip About 18 crafts. Any bracer you wear or carry takes them all, one over the last.
+  tip Only if disenchanting didn't get you to 20. Any bracer you wear or carry takes them all, one over the last.
   craft 7418 until 20
 
 section Enchanting 20-70
@@ -215,14 +215,15 @@ step Learn Woolen Cape
   tip For 80-95: taught here now, so no second trip.
   learn 2402 npc 5567,5153,4159,3363,11049,3004
 
-step Craft 37 Bolts of Woolen Cloth until 80
-  tip About 37 crafts. Keep all 37 bolts: the capes and shoulders next use them. No points past 75 until Journeyman.
-  craft 2964 until 80
+step Craft 37 Bolts of Woolen Cloth · keep them for the capes and shoulders
+  tip They take Tailoring to about 80. No points past 75 until Journeyman.
+  craft 2964 x37
 
 section Tailoring 80-100
 
 step Learn Woolen Cape
-  tip Taught at 55; done at once if you learned it then.
+  when !knows 2402
+  tip Taught at 55, before the part of the guide you started from.
   learn 2402 npc 5567,5153,4159,3363,11049,3004
 
 step Craft 22 Woolen Capes until 95
@@ -246,9 +247,9 @@ step Get 220 Silk Cloth
 step Learn Bolt of Silk Cloth
   learn 3839 npc 5567,5153,4159,3363,11049,3004
 
-step Craft 55 Bolts of Silk Cloth until 120
-  tip About 55 crafts. Keep all 55 bolts: 10 for the hoods, 45 for the packs.
-  craft 3839 until 120
+step Craft 55 Bolts of Silk Cloth · keep them for the hoods and packs
+  tip They take Tailoring to about 120.
+  craft 3839 x55
 
 section Tailoring 120-125
 
@@ -309,9 +310,9 @@ step Train Expert Tailoring
 step Learn Bolt of Mageweave
   learn 3865 npc 1346,4576
 
-step Craft 23 Bolts of Mageweave until 150
-  tip About 23 crafts. Keep all 23 bolts for the leggings at 185.
-  craft 3865 until 150
+step Craft 23 Bolts of Mageweave · keep them for the leggings at 185
+  tip They take Tailoring to about 150.
+  craft 3865 x23
 
 section Enchanting 70-109
 
@@ -329,7 +330,8 @@ step Learn Enchant Cloak - Minor Protection
   learn 7771 npc 1317,5157,4213,3345,4616,3011
 
 step Learn Enchant Chest - Inferior Stamina
-  tip Taught at 20; done at once if you learned it then.
+  when !knows 7420
+  tip Taught at 20, before the part of the guide you started from.
   learn 7420 npc 1317,5157,4213,3345,4616,3011
 
 step Craft 21 Enchant Chest - Inferior Stamina until 85
@@ -354,7 +356,7 @@ step Get 1 Silver Rod
   tip For 1 Runed Silver Rod.
   auction 6338 x1
 
-step Get 4 Lesser Magic Essence
+step Get 4 Lesser Magic Essences
   tip For 1 Runed Silver Rod.
   collect 10938 x4 anywhere gather Enchanting 1 levels 1-10
   auction 10938 x4
@@ -367,9 +369,9 @@ step Get 3 Strange Dust
 step Learn Runed Silver Rod
   learn 7795 npc 1317,5157,4213,3345,4616,3011
 
-step Craft 1 Runed Silver Rod until 110
-  tip A tool: the enchants from 130 need this rod in your bags.
-  craft 7795 until 110
+step Craft 1 Runed Silver Rod
+  tip It takes Enchanting to about 110. A tool: the enchants from 130 need this rod in your bags.
+  craft 7795 x1
 
 section Enchanting 110-150
 
@@ -379,7 +381,8 @@ step Get 138 Strange Dust
   auction 10940 x138
 
 step Learn Enchant Cloak - Minor Protection
-  tip Taught at 70; done at once if you learned it then.
+  when !knows 7771
+  tip Taught at 70, before the part of the guide you started from.
   learn 7771 npc 1317,5157,4213,3345,4616,3011
 
 step Craft 29 Enchant Cloak - Minor Protection until 130
@@ -401,7 +404,8 @@ step Get 320 Silk Cloth
   auction 4306 x320
 
 step Learn Bolt of Silk Cloth
-  tip Taught at 100; done at once if you learned it then.
+  when !knows 3839
+  tip Taught at 100, before the part of the guide you started from.
   learn 3839 npc 1346,4576
 
 step Craft 80 Bolts of Silk Cloth
@@ -423,7 +427,8 @@ step Get 272 Silk Cloth
   auction 4306 x272
 
 step Learn Bolt of Silk Cloth
-  tip Taught at 100; done at once if you learned it then.
+  when !knows 3839
+  tip Taught at 100, before the part of the guide you started from.
   learn 3839 npc 1346,4576
 
 step Craft 68 Bolts of Silk Cloth
@@ -449,7 +454,8 @@ step Get 105 Mageweave Cloth
   auction 4338 x105
 
 step Learn Bolt of Mageweave
-  tip Taught at 140; done at once if you learned it then.
+  when !knows 3865
+  tip Taught at 140, before the part of the guide you started from.
   learn 3865 npc 1346,4576
 
 step Craft 21 Bolts of Mageweave
@@ -457,7 +463,8 @@ step Craft 21 Bolts of Mageweave
   craft 3865 x21
 
 step Learn Black Mageweave Leggings
-  tip Taught at 170; done at once if you learned it then.
+  when !knows 12049
+  tip Taught at 170, before the part of the guide you started from.
   learn 12049 npc 1346,4576
 
 step Craft 22 Black Mageweave Leggings until 200
@@ -500,7 +507,8 @@ step Learn Red Mageweave Bag
   learn 12079 npc 11052,2399
 
 step Learn Bolt of Mageweave
-  tip Taught at 140; done at once if you learned it then.
+  when !knows 3865
+  tip Taught at 140, before the part of the guide you started from.
   learn 3865 npc 11052,2399
 
 step Craft 15 Bolts of Mageweave
@@ -513,7 +521,7 @@ step Craft 5 Black Mageweave Shoulders until 205
 
 section Tailoring 205-215
 
-step Get 115 Runecloth
+step Get 115 Runecloths
   tip For 23 Bolts of Runecloth.
   collect 14047 x115 nearest gather levels 45-60
   auction 14047 x115
@@ -521,9 +529,9 @@ step Get 115 Runecloth
 step Learn Bolt of Runecloth
   learn 18401 npc 11052,2399
 
-step Craft 23 Bolts of Runecloth until 215
-  tip About 23 crafts. Keep all 23 bolts for the belts at 225.
-  craft 18401 until 215
+step Craft 23 Bolts of Runecloth · keep them for the belts at 225
+  tip They take Tailoring to about 215.
+  craft 18401 x23
 
 section Tailoring 215-225
 
@@ -533,7 +541,8 @@ step Get 340 Mageweave Cloth
   auction 4338 x340
 
 step Learn Bolt of Mageweave
-  tip Taught at 140; done at once if you learned it then.
+  when !knows 3865
+  tip Taught at 140, before the part of the guide you started from.
   learn 3865 npc 11052,2399
 
 step Craft 68 Bolts of Mageweave
@@ -541,7 +550,8 @@ step Craft 68 Bolts of Mageweave
   craft 3865 x68
 
 step Learn Red Mageweave Bag
-  tip Taught at 200; done at once if you learned it then.
+  when !knows 12079
+  tip Taught at 200, before the part of the guide you started from.
   learn 12079 npc 11052,2399
 
 step Craft 17 Red Mageweave Bags until 225
@@ -550,15 +560,15 @@ step Craft 17 Red Mageweave Bags until 225
 
 section Enchanting 150-151
 
-step Buy 41 Leaded Vial
+step Buy 41 Leaded Vials
   tip For 16 Minor Mana Oils and 25 Lesser Wizard Oils.
   buy 3372 x41 nearest
 
-step Buy 32 Maple Seed
+step Buy 32 Maple Seeds
   tip For 16 Minor Mana Oils.
   buy 17034 x32 nearest
 
-step Buy 50 Stranglethorn Seed
+step Buy 50 Stranglethorn Seeds
   tip For 25 Lesser Wizard Oils.
   buy 17035 x50 nearest
 
@@ -583,9 +593,9 @@ step Get 1 Golden Rod
 step Learn Runed Golden Rod
   learn 13628 npc 11072,11074
 
-step Craft 1 Runed Golden Rod until 151
-  tip A tool: the enchants from 160 need this rod in your bags.
-  craft 13628 until 151
+step Craft 1 Runed Golden Rod
+  tip It takes Enchanting to about 151. A tool: the enchants from 160 need this rod in your bags.
+  craft 13628 x1
 
 section Enchanting 151-200
 
@@ -642,9 +652,9 @@ step Get 1 Truesilver Rod
 step Learn Runed Truesilver Rod
   learn 13702 npc 11072,11074
 
-step Craft 1 Runed Truesilver Rod until 201
-  tip A tool: the enchants from 205 need this rod in your bags.
-  craft 13702 until 201
+step Craft 1 Runed Truesilver Rod
+  tip It takes Enchanting to about 201. A tool: the enchants from 205 need this rod in your bags.
+  craft 13702 x1
 
 section Enchanting 201-225
 
@@ -680,13 +690,14 @@ step Craft 5 Enchant Cloak - Greater Defense until 225
 
 section Tailoring 225-240
 
-step Get 245 Runecloth
+step Get 245 Runecloths
   tip For 49 Bolts of Runecloth.
   collect 14047 x245 nearest gather levels 45-60
   auction 14047 x245
 
 step Learn Bolt of Runecloth
-  tip Taught at 205; done at once if you learned it then.
+  when !knows 18401
+  tip Taught at 205, before the part of the guide you started from.
   learn 18401 npc 11052,2399
 
 step Craft 49 Bolts of Runecloth
@@ -702,7 +713,7 @@ step Craft 24 Runecloth Belts until 240
 
 section Tailoring 240-250
 
-step Get 220 Runecloth
+step Get 220 Runecloths
   tip For 44 Bolts of Runecloth.
   collect 14047 x220 nearest gather levels 45-60
   auction 14047 x220
@@ -718,7 +729,8 @@ step Get 44 Rugged Leather
   auction 8170 x44
 
 step Learn Bolt of Runecloth
-  tip Taught at 205; done at once if you learned it then.
+  when !knows 18401
+  tip Taught at 205, before the part of the guide you started from.
   learn 18401 npc 11052,2399
 
 step Craft 44 Bolts of Runecloth
@@ -740,7 +752,7 @@ step Craft 11 Runecloth Gloves until 250
 
 section Tailoring 250-280
 
-step Get 975 Runecloth
+step Get 975 Runecloths
   tip For 195 Bolts of Runecloth.
   collect 14047 x975 nearest gather levels 45-60
   auction 14047 x975
@@ -751,7 +763,8 @@ step Get 39 Ironweb Spider Silk
   auction 14227 x39
 
 step Learn Bolt of Runecloth
-  tip Taught at 205; done at once if you learned it then.
+  when !knows 18401
+  tip Taught at 205, before the part of the guide you started from.
   learn 18401 npc 11052,2399
 
 step Craft 195 Bolts of Runecloth
@@ -795,7 +808,7 @@ step Learn Wizardweave Turban
 
 section Enchanting 225-250
 
-step Buy 52 Crystal Vial
+step Buy 52 Crystal Vials
   tip For 26 Lesser Mana Oils and 26 Wizard Oils.
   buy 8925 x52 nearest
 
@@ -907,7 +920,8 @@ step Get 48 Dream Dust
   auction 11176 x48
 
 step Learn Enchant Shield - Greater Stamina
-  tip Taught at 270; done at once if you learned it then.
+  when !knows 20017
+  tip Taught at 270, before the part of the guide you started from.
   learn 20017
 
 step Craft 8 Enchant Shield - Greater Stamina until 299
@@ -920,17 +934,17 @@ step Get 1 Golden Pearl
   tip For 1 Runed Arcanite Rod.
   auction 13926 x1
 
-step Get 4 Small Brilliant Shard
+step Get 4 Small Brilliant Shards
   tip For 1 Runed Arcanite Rod. Your Tailoring greens of 225-300 give about 2 when disenchanted.
   collect 14343 x4 anywhere gather Enchanting 1 levels 46-50
   auction 14343 x4
 
-step Get 2 Large Brilliant Shard
+step Get 2 Large Brilliant Shards
   tip For 1 Runed Arcanite Rod. Your Tailoring greens of 225-300 give about 2 when disenchanted.
   collect 14344 x2 anywhere gather Enchanting 1 levels 51-60
   auction 14344 x2
 
-step Get 4 Greater Eternal Essence
+step Get 4 Greater Eternal Essences
   tip For 1 Runed Arcanite Rod. Your Tailoring greens of 225-300 give about 4 when disenchanted.
   collect 16203 x4 anywhere gather Enchanting 1 levels 51-60
   auction 16203 x4
@@ -961,7 +975,7 @@ step Buy 58 Rune Thread
   tip For 58 Runecloth Shoulders.
   buy 14341 x58 nearest
 
-step Get 2030 Runecloth
+step Get 2030 Runecloths
   when knows 18449
   tip For 406 Bolts of Runecloth.
   collect 14047 x2030 nearest gather levels 45-60
@@ -986,7 +1000,8 @@ step Get 116 Ironweb Spider Silk
 
 step Learn Bolt of Runecloth
   when knows 18449
-  tip Taught at 205; done at once if you learned it then.
+  when !knows 18401
+  tip Taught at 205, before the part of the guide you started from.
   learn 18401 npc 11052,2399
 
 step Craft 406 Bolts of Runecloth
@@ -1007,7 +1022,7 @@ step Buy 58 Rune Thread
   tip For 58 Wizardweave Turbans.
   buy 14341 x58 nearest
 
-step Get 1740 Runecloth
+step Get 1740 Runecloths
   when !knows 18449
   when knows 18450
   tip For 348 Bolts of Runecloth.
@@ -1030,7 +1045,8 @@ step Get 232 Dream Dust
 step Learn Bolt of Runecloth
   when !knows 18449
   when knows 18450
-  tip Taught at 205; done at once if you learned it then.
+  when !knows 18401
+  tip Taught at 205, before the part of the guide you started from.
   learn 18401 npc 11052,2399
 
 step Craft 348 Bolts of Runecloth
@@ -1042,7 +1058,8 @@ step Craft 348 Bolts of Runecloth
 step Learn Wizardweave Turban
   when !knows 18449
   when knows 18450
-  tip Taught at 280; done at once if you learned it then.
+  when !knows 18450
+  tip Taught at 280, before the part of the guide you started from.
   learn 18450
 
 step Craft 58 Wizardweave Turbans until 300
@@ -1059,7 +1076,7 @@ step Buy 31 Rune Thread
   tip For 31 Runecloth Cuffs.
   buy 14341 x31 nearest
 
-step Get 775 Runecloth
+step Get 775 Runecloths
   when !knows 18449
   when !knows 18450
   tip For 155 Bolts of Runecloth.
@@ -1076,7 +1093,8 @@ step Get 31 Ironweb Spider Silk
 step Learn Bolt of Runecloth
   when !knows 18449
   when !knows 18450
-  tip Taught at 205; done at once if you learned it then.
+  when !knows 18401
+  tip Taught at 205, before the part of the guide you started from.
   learn 18401 npc 11052,2399
 
 step Craft 155 Bolts of Runecloth
@@ -1088,7 +1106,8 @@ step Craft 155 Bolts of Runecloth
 step Learn Runecloth Cuffs
   when !knows 18449
   when !knows 18450
-  tip Taught at 250; done at once if you learned it then.
+  when !knows 1257487
+  tip Taught at 250, before the part of the guide you started from.
   learn 1257487
 
 step Craft 31 Runecloth Cuffs until 290

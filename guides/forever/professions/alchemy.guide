@@ -47,7 +47,7 @@ step Learn Alchemy
   tip No character level needed.
   train Alchemy Apprentice
 
-step Buy 54 Empty Vial
+step Buy 54 Empty Vials
   tip For 9 Elixirs of Minor Force and 45 Elixirs of Minor Defense.
   buy 3371 x54 nearest
 
@@ -99,7 +99,7 @@ step Craft 45 Elixirs of Minor Defense until 55
 
 section Alchemy 55-65
 
-step Buy 98 Empty Vial
+step Buy 98 Empty Vials
   tip For 10 Minor Mana Potions, 28 Elixirs of Minor Fortitude, 30 Elixirs of Wisdom, 10 Lesser Mana Potions and 20 Fire Oils.
   buy 3371 x98 nearest
 
@@ -170,7 +170,8 @@ step Get 56 Earthroot
   auction 2449 x56
 
 step Learn Elixir of Minor Fortitude
-  tip Taught at 55; done at once if you learned it then.
+  when !knows 2334
+  tip Taught at 55, before the part of the guide you started from.
   learn 2334 npc 5499,5177,11042,3347,4609,3009
 
 step Craft 28 Elixirs of Minor Fortitude until 90
@@ -250,13 +251,13 @@ step Get 40 Firefin Snapper
 step Learn Fire Oil
   learn 7837 npc 5499,5177,11042,3347,4609,3009
 
-step Craft 20 Fire Oils until 150
-  tip About 20 crafts. Each craft makes 2 oils. Keep 30: the Elixirs of Fire Power at 150 use them.
-  craft 7837 until 150
+step Craft 20 Fire Oils · keep 30 for the Elixirs of Fire Power
+  tip They take Alchemy to about 150. Each craft makes 2 oils.
+  craft 7837 x20
 
 section Alchemy 150-165
 
-step Buy 87 Leaded Vial
+step Buy 87 Leaded Vials
   tip For 15 Elixirs of Fire Power, 36 Mana Potions and 36 Nature Protection Potions.
   buy 3372 x87 nearest
 
@@ -354,7 +355,7 @@ step Buy Recipe: Nature Protection Potion · Alchemist Pestlezugg, Glyx Brewrigh
 
 step Learn Nature Protection Potion
   tip From the recipe in your bags.
-  learn 7259 nearest
+  learn 7259
 
 step Craft 36 Nature Protection Potions until 225
   tip About 36 crafts.
@@ -362,11 +363,11 @@ step Craft 36 Nature Protection Potions until 225
 
 section Alchemy 225-235
 
-step Buy 73 Leaded Vial
+step Buy 73 Leaded Vials
   tip For 26 Nature Protection Potions and 47 Stonescale Oils.
   buy 3372 x73 nearest
 
-step Buy 69 Crystal Vial
+step Buy 69 Crystal Vials
   tip For 25 Elixirs of Greater Intellect and 44 Elixirs of Greater Defense.
   buy 8925 x69 nearest
 
@@ -398,8 +399,9 @@ step Train Artisan Alchemy
   train Alchemy Artisan
 
 step Learn Nature Protection Potion
-  tip Taught at 195; done at once if you learned it then.
-  learn 7259 nearest
+  when !knows 7259
+  tip Taught at 195, before the part of the guide you started from.
+  learn 7259
 
 step Craft 26 Nature Protection Potions until 235
   tip About 26 crafts. Green for the last 5 points: short of 235? A few more do it.
@@ -441,9 +443,9 @@ step Get 47 Stonescale Eel
 step Learn Stonescale Oil
   learn 17551 npc 7948,259585,1386
 
-step Craft 47 Stonescale Oils until 260
-  tip About 47 crafts. Each craft makes 2 oils. Keep all of them: the elixirs at 265 use 88.
-  craft 17551 until 260
+step Craft 47 Stonescale Oils · keep them all for the elixirs at 265
+  tip They take Alchemy to about 260. Each craft makes 2 oils.
+  craft 17551 x47
 
 section Alchemy 260-265
 
@@ -466,7 +468,8 @@ step Get 10 Blindweed
   auction 8839 x10
 
 step Learn Elixir of Greater Intellect
-  tip Taught at 235; done at once if you learned it then.
+  when !knows 11465
+  tip Taught at 235, before the part of the guide you started from.
   learn 11465 npc 7948,259585,1386
 
 step Craft 10 Elixirs of Greater Intellect until 265
@@ -500,7 +503,7 @@ step Buy Recipe: Elixir of Superior Defense · Kor'geld
 
 step Learn Elixir of Greater Defense
   tip From the recipe in your bags.
-  learn 17554 nearest
+  learn 17554
 
 step Craft 44 Elixirs of Greater Defense until 300
   tip About 44 crafts. Yellow from 280: short of 300? A few more do it.
