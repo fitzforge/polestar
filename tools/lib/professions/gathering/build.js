@@ -257,7 +257,9 @@ function partAreas(ctx, prof, picks, part) {
 			if (pts.length < 2) continue;
 			// In a starting zone of a first band starterAreas adds the areas of level STARTER_LEVEL or less: the zone's
 			// own slots go to the rest (Durotar's Razormane Grounds, Skull Rock, Sen'jin beside the Valley of Trials).
-			const list = areasFor(ctx, prof, zone, pts, faction);
+			// An area whose nodes or beasts give no skill in the part (Darkshore's level 10 beasts past Skinning 75)
+			// is none for it: its line would read `gain 0.0`.
+			const list = areasFor(ctx, prof, zone, pts, faction).filter((a) => a.gain >= 0.05);
 			const rest = part.band.scope === 'start' && START_MAPS.has(zone) ? list.filter((a) => a.level > STARTER_LEVEL) : list;
 			for (const a of zoneAreas(rest.length ? rest : list, level)) add(zone, a, faction, false);
 		}
