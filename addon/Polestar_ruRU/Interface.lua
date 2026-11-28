@@ -547,17 +547,10 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
--- Machine-translated, to be reviewed (the Free mode page, the hand-in row and Import in Settings, 26 Nov 2026):
+-- Machine-translated, to be reviewed (the Free mode page and Import in Settings, 26 Nov 2026):
 -- translated by an AI model (Claude Sonnet 5.5) in this file's own wording, and waiting for a native
 -- speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
---   Every finished quest in your log, none of them part of this step.
---   Click for the shortest trip through their hand-ins
---   Hides this line until the number of finished quests changes.
---   %d quests ready to hand in
---   Finished quests
 --   Import a guide
---   Hand-in row
---   A slim line under the step when 2 or more quests in your log are finished and none is part of this step: how many, and Route, the shortest trip through their hand-ins. Its close button hides it until that number changes.
 --   Click to unpin it from Free mode
 --   Click to make it Free mode's first quest
 --   Hand in finished quests
@@ -2386,11 +2379,6 @@ L["Every step of the guide in one list. Click one to look at it."] = "Все ш�
 L["Or follow your own quests: Free mode"] = "Или следуйте своим заданиям: свободный режим"
 L["No quests to lead to"] = "Нет заданий, к которым вести"
 L["Pick up quests and Free mode leads you to them."] = "Возьмите задания, и свободный режим проведет вас к ним."
-L["Every finished quest in your log, none of them part of this step."] = "Все выполненные задания в вашем журнале; ни одно не входит в этот шаг."
-L["Click for the shortest trip through their hand-ins"] = "Нажмите, чтобы увидеть кратчайший путь по местам их сдачи"
-L["Hides this line until the number of finished quests changes."] = "Скрывает эту строку, пока не изменится число выполненных заданий."
-L["%d quests ready to hand in"] = "Заданий, готовых к сдаче: %d"
-L["Finished quests"] = "Выполненные задания"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"
@@ -5173,8 +5161,6 @@ L["XP line"] = "Строка опыта"
 L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "Строка под шагами: опыт в час, время до уровня и ваш темп. У Улучшенного отдыха своя строка."
 L["Quest log notices"] = "Заметки о журнале заданий"
 L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = "Строки о журнале заданий: задания вне вашего маршрута — на шаге и когда гайд завершен, — и выполненные задания, которые не примет ни один следующий гайд. Если выключено, в меню окна гайда остаются «Очистить журнал заданий» и «Сдать выполненные задания»."
-L["Hand-in row"] = "Строка сдачи"
-L["A slim line under the step when 2 or more quests in your log are finished and none is part of this step: how many, and Route, the shortest trip through their hand-ins. Its close button hides it until that number changes."] = "Тонкая строка под шагом, когда в журнале 2 или больше выполненных заданий и ни одно не входит в этот шаг: сколько их и Маршрут — кратчайший путь по местам их сдачи. Кнопка закрытия скрывает её, пока это число не изменится."
 -- L["The game's looks keep their own bar."] = ""
 
 -- UI/Looks/Toasts.lua

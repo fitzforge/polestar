@@ -32,7 +32,3 @@ section: players
 - Import moved into Settings, Community guides, and the guide menu's Community
   guides list ends with "+ Import a guide". The Import page in the main
   window is gone; `/polestar import` opens the new place.
-- A slim row in the guide window, "N quests ready to hand in", when two or more
-  quests in your log are finished and none is part of this step. Route opens the
-  hand-in guide, the close button hides it until the number changes, and
-  Settings, Look, Guide window, Parts, Hand-in row turns it off.

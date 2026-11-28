@@ -576,17 +576,10 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
--- Machine-translated, to be reviewed (the Free mode page, the hand-in row and Import in Settings, 26 Nov 2026):
+-- Machine-translated, to be reviewed (the Free mode page and Import in Settings, 26 Nov 2026):
 -- translated by an AI model (Claude Sonnet 5.5) in this file's own wording, and waiting for a native
 -- speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
---   Every finished quest in your log, none of them part of this step.
---   Click for the shortest trip through their hand-ins
---   Hides this line until the number of finished quests changes.
---   %d quests ready to hand in
---   Finished quests
 --   Import a guide
---   Hand-in row
---   A slim line under the step when 2 or more quests in your log are finished and none is part of this step: how many, and Route, the shortest trip through their hand-ins. Its close button hides it until that number changes.
 --   Click to unpin it from Free mode
 --   Click to make it Free mode's first quest
 --   Hand in finished quests
@@ -2414,11 +2407,6 @@ L["Every step of the guide in one list. Click one to look at it."] = "Toutes les
 L["Or follow your own quests: Free mode"] = "Ou suivez vos propres quêtes : mode libre"
 L["No quests to lead to"] = "Aucune quête où vous mener"
 L["Pick up quests and Free mode leads you to them."] = "Prenez des quêtes et le mode libre vous y mène."
-L["Every finished quest in your log, none of them part of this step."] = "Toutes les quêtes terminées de votre journal, aucune ne fait partie de cette étape."
-L["Click for the shortest trip through their hand-ins"] = "Cliquez pour le trajet le plus court entre leurs remises"
-L["Hides this line until the number of finished quests changes."] = "Masque cette ligne jusqu'à ce que le nombre de quêtes terminées change."
-L["%d quests ready to hand in"] = "%d quêtes prêtes à rendre"
-L["Finished quests"] = "Quêtes terminées"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Ascenseur vers %s"
@@ -5201,8 +5189,6 @@ L["XP line"] = "Ligne d'XP"
 L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "La ligne sous les étapes : XP par heure, temps avant le niveau et votre rythme. Repos amplifié garde sa propre ligne."
 L["Quest log notices"] = "Notes du journal de quêtes"
 L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = "Les lignes sur votre journal de quêtes : les quêtes hors de votre itinéraire, sur l'étape et quand un guide est terminé, et les quêtes terminées qu'aucun guide à venir ne reprend. Désactivé, le menu de la fenêtre du guide garde Nettoyer le journal des quêtes et Rendre les quêtes terminées."
-L["Hand-in row"] = "Ligne de remises"
-L["A slim line under the step when 2 or more quests in your log are finished and none is part of this step: how many, and Route, the shortest trip through their hand-ins. Its close button hides it until that number changes."] = "Une ligne fine sous l'étape quand au moins 2 quêtes de votre journal sont terminées et qu'aucune ne fait partie de cette étape : combien, et Itinéraire, le trajet le plus court entre leurs remises. Son bouton de fermeture la masque jusqu'à ce que ce nombre change."
 -- L["The game's looks keep their own bar."] = ""
 
 -- UI/Looks/Toasts.lua

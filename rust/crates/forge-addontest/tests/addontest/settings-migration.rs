@@ -492,3 +492,29 @@ fn a_profile_string_from_before_0_4_3_leaves_skip_grey_quests_at_today_s_default
 	assert_eq!(out["oldQuests"], false);
 	assert_eq!(out["new"], json!({ "behavior.skipGrey": false }));
 }
+
+// The guide window's finished-quests row (guideWindow.handinRow, a 0.4.4 preview) is gone: the migration "handinRowGone"
+// drops its saved switch from the settings in use and every stored profile, and leaves the rest of the guide window's
+// settings as they were.
+#[test]
+fn the_hand_in_rows_saved_switch_is_dropped_from_every_profile_and_the_rest_stays() {
+	let saved = r#"PolestarDB = { schema = 1, welcomeSeen = 1, migrations = { guideTextSize = true, skipGreyOn = true },
+		settings = { guideWindow = { handinRow = false, pace = false } },
+		profiles = { Mine = { guideWindow = { handinRow = true, xpLine = false } }, Plain = { ui = { scale = 1.2 } } } }
+		PolestarCharDB = { schema = 1, welcomeSeen = 1 }"#;
+	let out = grey_session(
+		Some(saved),
+		r#"local function g(t) return type(t) == "table" and type(t.guideWindow) == "table" and t.guideWindow or {} end
+		local S, M = g(PolestarDB.settings), g(PolestarDB.profiles.Mine)
+		emit({ accountRow = S.handinRow == nil, accountPace = S.pace, mineRow = M.handinRow == nil, mineXpLine = M.xpLine,
+			plain = PolestarDB.profiles.Plain.ui.scale, marked = PolestarDB.migrations.handinRowGone or false,
+			registered = Polestar.GetDefault("guideWindow.handinRow") ~= nil })"#,
+	);
+	assert_eq!(out["accountRow"], true, "the settings in use lose the switch");
+	assert_eq!(out["accountPace"], false, "and keep the others");
+	assert_eq!(out["mineRow"], true, "a stored profile loses it too");
+	assert_eq!(out["mineXpLine"], false);
+	assert_eq!(out["plain"], 1.2, "a profile without it is untouched");
+	assert_eq!(out["marked"], true);
+	assert_eq!(out["registered"], false, "no setting by that name any more");
+}

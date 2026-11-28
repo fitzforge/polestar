@@ -564,17 +564,10 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
--- Machine-translated, to be reviewed (the Free mode page, the hand-in row and Import in Settings, 26 Nov 2026):
+-- Machine-translated, to be reviewed (the Free mode page and Import in Settings, 26 Nov 2026):
 -- translated by an AI model (Claude Sonnet 5.5) in this file's own wording, and waiting for a native
 -- speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
---   Every finished quest in your log, none of them part of this step.
---   Click for the shortest trip through their hand-ins
---   Hides this line until the number of finished quests changes.
---   %d quests ready to hand in
---   Finished quests
 --   Import a guide
---   Hand-in row
---   A slim line under the step when 2 or more quests in your log are finished and none is part of this step: how many, and Route, the shortest trip through their hand-ins. Its close button hides it until that number changes.
 --   Click to unpin it from Free mode
 --   Click to make it Free mode's first quest
 --   Hand in finished quests
@@ -2402,11 +2395,6 @@ L["Every step of the guide in one list. Click one to look at it."] = "指南的�
 L["Or follow your own quests: Free mode"] = "或者跟隨你自己的任務：自由模式"
 L["No quests to lead to"] = "沒有可前往的任務"
 L["Pick up quests and Free mode leads you to them."] = "接取任務，自由模式會帶你前往。"
-L["Every finished quest in your log, none of them part of this step."] = "任務日誌中所有已完成的任務，其中沒有屬於此步驟的。"
-L["Click for the shortest trip through their hand-ins"] = "點擊查看依序繳交它們的最短路線"
-L["Hides this line until the number of finished quests changes."] = "隱藏此行，直到已完成任務的數量改變。"
-L["%d quests ready to hand in"] = "%d 個任務可繳交"
-L["Finished quests"] = "已完成的任務"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "前往 %s 的升降梯"
@@ -5189,8 +5177,6 @@ L["XP line"] = "經驗列"
 L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "步驟下方的一行：每小時經驗、升級時間和你的節奏。加強休息保留自己的一行。"
 L["Quest log notices"] = "任務日誌提示"
 L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = "關於任務日誌的提示行：不在你路線上的任務（在步驟中以及指南完成時），以及之後沒有指南會接收的已完成任務。關閉後，指南視窗的選單中仍有「清理任務日誌」和「繳交已完成的任務」。"
-L["Hand-in row"] = "繳交提示列"
-L["A slim line under the step when 2 or more quests in your log are finished and none is part of this step: how many, and Route, the shortest trip through their hand-ins. Its close button hides it until that number changes."] = "當任務日誌中有 2 個或更多任務已完成，且其中沒有屬於目前步驟的任務時，在步驟下方顯示的一列：數量，以及路線（依序繳交它們的最短路線）。關閉按鈕會將其隱藏，直到該數量改變。"
 -- L["The game's looks keep their own bar."] = ""
 
 -- UI/Looks/Toasts.lua

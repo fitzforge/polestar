@@ -564,17 +564,10 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
--- Machine-translated, to be reviewed (the Free mode page, the hand-in row and Import in Settings, 26 Nov 2026):
+-- Machine-translated, to be reviewed (the Free mode page and Import in Settings, 26 Nov 2026):
 -- translated by an AI model (Claude Sonnet 5.5) in this file's own wording, and waiting for a native
 -- speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
---   Every finished quest in your log, none of them part of this step.
---   Click for the shortest trip through their hand-ins
---   Hides this line until the number of finished quests changes.
---   %d quests ready to hand in
---   Finished quests
 --   Import a guide
---   Hand-in row
---   A slim line under the step when 2 or more quests in your log are finished and none is part of this step: how many, and Route, the shortest trip through their hand-ins. Its close button hides it until that number changes.
 --   Click to unpin it from Free mode
 --   Click to make it Free mode's first quest
 --   Hand in finished quests
@@ -2402,11 +2395,6 @@ L["Every step of the guide in one list. Click one to look at it."] = "가이드�
 L["Or follow your own quests: Free mode"] = "또는 내가 받은 퀘스트를 따라가기: 자유 모드"
 L["No quests to lead to"] = "안내할 퀘스트가 없습니다"
 L["Pick up quests and Free mode leads you to them."] = "퀘스트를 받으면 자유 모드가 그곳으로 안내합니다."
-L["Every finished quest in your log, none of them part of this step."] = "퀘스트 목록의 완료한 모든 퀘스트입니다. 이 단계에 포함된 것은 없습니다."
-L["Click for the shortest trip through their hand-ins"] = "클릭하면 제출 장소를 도는 가장 짧은 경로를 안내합니다"
-L["Hides this line until the number of finished quests changes."] = "완료한 퀘스트 수가 바뀔 때까지 이 줄을 숨깁니다."
-L["%d quests ready to hand in"] = "%d개의 퀘스트를 제출할 수 있음"
-L["Finished quests"] = "완료한 퀘스트"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"
@@ -5189,8 +5177,6 @@ L["XP line"] = "경험치 줄"
 L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "단계 아래 줄: 시간당 경험치, 레벨업까지 시간과 내 속도. 휴식 강화는 별도 줄을 유지합니다."
 L["Quest log notices"] = "퀘스트 목록 알림"
 L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = "퀘스트 목록에 관한 줄: 경로에 없는 퀘스트(단계에서, 그리고 가이드를 마쳤을 때)와 앞으로 어느 가이드도 받지 않는 완료한 퀘스트. 끄면 가이드 창 메뉴에 퀘스트 목록 정리와 완료한 퀘스트 제출이 그대로 있습니다."
-L["Hand-in row"] = "제출 줄"
-L["A slim line under the step when 2 or more quests in your log are finished and none is part of this step: how many, and Route, the shortest trip through their hand-ins. Its close button hides it until that number changes."] = "퀘스트 목록에서 완료한 퀘스트가 2개 이상이고 그중 이 단계에 포함된 것이 없을 때 단계 아래에 나오는 얇은 줄입니다. 몇 개인지와 제출 장소를 도는 가장 짧은 경로인 경로를 보여줍니다. 닫기 버튼으로 숨기면 그 수가 바뀔 때까지 숨겨집니다."
 -- L["The game's looks keep their own bar."] = ""
 
 -- UI/Looks/Toasts.lua

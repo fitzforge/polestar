@@ -8826,11 +8826,6 @@ Polestar.FreeOrder.Sort(rows, rule, pin, last, dist) ; .Why(rows, rule, pin) ; .
   not on the minimap) is Pin to the top for its first quest (or the one pinned
   when several meet), and again unpins it. The pin's tooltip says which. Off,
   the pins carry no such line and the click does nothing of Free mode's.
-- **The guide window's hand-in row** (`guideWindow.handinRow`, Guide window >
-  Parts > Quest log notices): with 2 or more quests in the log finished (`Handins.Ready()`)
-  and none of them a goal of the step on screen, a slim line "N quests ready to
-  hand in . Route" under the step's lines; a click opens the hand-in guide
-  (`UI.GuideCarried`), its close button hides it until the number changes.
 - **After /reload.** A saved Free mode tab is rebuilt by Lookup's planner tabs
   at ADDON_LOADED (the Codex loads then) and fills at the first quest-log event.
 

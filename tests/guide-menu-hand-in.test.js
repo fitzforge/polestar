@@ -54,3 +54,21 @@ test('the quest log cleanup row is always there: with quests it opens the Quest 
 	assert.deepEqual(run('{}'), { text: 'Quest log is clean', disabled: true, guided: false });
 	assert.deepEqual(run('nil'), { text: 'Quest log is clean', disabled: true, guided: false });
 });
+
+test('no hand-in row in the guide window: two finished quests in the log, none in the step, and no line says so; the menu still offers them', () => {
+	const out = runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar'], script: script(`
+		Polestar.Handins.Ready = function() return { 901, 902 } end
+		Polestar.UI.GuideCarried = function() guided = "carried/log"; return "lookup/carried/log" end
+		Polestar.Engine.SetGuide("test/menu")
+		GF.Layout(); stub.advance(1)
+		local shown = {}
+		for _, l in ipairs(GF.lines) do
+			if l:IsShown() then shown[#shown + 1] = l.Text:GetText() or "" end
+		end
+		emit({ shown = shown, gone = GF.HANDIN_ROW_MIN == nil and GF.handinClosed == nil and GF.DismissHandins == nil
+			and Polestar.GetDefault("guideWindow.handinRow") == nil })`) });
+	const [window, menu] = out.emitted;
+	assert.ok(window.gone, 'the row, its count and its close state are gone, and so is its setting');
+	assert.deepEqual(window.shown.filter((t) => /ready to hand in/i.test(t)), [], window.shown.join(' | '));
+	assert.deepEqual(menu, { text: 'Hand in finished quests (2)', disabled: false, guided: 'carried/log' });
+});
