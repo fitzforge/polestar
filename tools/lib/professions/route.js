@@ -430,7 +430,10 @@ function routeGuide(name, data, opts = {}) {
 			const here = sectionNo();
 			if (first && first.sec !== here && again.get(r.spell) !== here) {
 				again.set(r.spell, here);
-				step('learn', `Learn ${r.name}`, { tip: `Taught at ${first.skill}; done at once if you learned it then.`, lines: first.lines });
+				// A trainer's recipe is learned again from this section's trainers (the master trainer of a later
+				// rank teaches the earlier recipes too); one from an item, from the bags as before.
+				const lines = r.recipeItem && !taught(r) ? first.lines : [`  learn ${r.spell} npc ${[...new Set(SIDES.flatMap((s) => sec.teachers[s] || []))].join(',')}`];
+				step('learn', `Learn ${r.name}`, { tip: `Taught at ${first.skill}; done at once if you learned it then.`, lines });
 			}
 			return;
 		}
@@ -767,8 +770,10 @@ function routeGuide(name, data, opts = {}) {
 		fork.ways.forEach((w, i) => {
 			for (const r of keys[i] || []) {
 				if (late(r) || learned.has(r.spell)) continue;
-				step('learn', `Learn ${r.name}`, { tip: `From the ${itemKind(r.recipeItem)} in your bags.`, lines: [`  learn ${r.spell}`], also: [`has ${r.recipeItem}`] });
+				const lines = [`  learn ${r.spell}`];
+				step('learn', `Learn ${r.name}`, { tip: `From the ${itemKind(r.recipeItem)} in your bags.`, lines, also: [`has ${r.recipeItem}`] });
 				learned.add(r.spell);
+				taughtAt.set(r.spell, { sec: sectionNo(), skill: from, lines });
 			}
 		});
 		const before = { learned: new Set(learned), done: new Set(done), maybe: new Set(maybe), stock: new Map(stock), level };
