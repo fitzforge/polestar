@@ -126,3 +126,38 @@ fn the_addon_s_disenchant_table_is_the_json_file_s() {
 		}
 	}
 }
+
+// The line is on the game's tooltip, a dark ground in every look: it takes Theme.TipColor("textDim") (Vellum's dim
+// ink lifted until it reads there), as Polestar's other tooltip lines do, not the look's own textDim.
+#[test]
+fn the_disenchant_line_reads_on_the_game_s_tooltip_in_a_light_look() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: ITEMS.into(),
+		addons: vec![Addon::name("Polestar"), Addon::files("Polestar_Skins", &["Skins/Vellum/Vellum.lua"])],
+		login: true,
+		script: r#"
+local P, T = Polestar, Polestar.Theme
+stub.world.learnSkill(333, "Enchanting", 1, 75)
+P.Set("ui.skin", "vellum")
+stub.advance(0.3)
+local seen, add = {}, GameTooltip.AddLine
+GameTooltip.AddLine = function(self, text, r, g, b, ...)
+	if tostring(text):find("Disenchants into", 1, true) then seen[#seen + 1] = { r, g, b } end
+	return add(self, text, r, g, b, ...)
+end
+GameTooltip:SetOwner(UIParent, "ANCHOR_NONE")
+GameTooltip:ClearLines()
+P.Hooks.OnItemTooltip(GameTooltip, { id = 9001 })
+local tr, tg, tb = T.TipColor("textDim")
+local cr, cg, cb = T.Color("textDim")
+emit({ seen = seen, tip = { tr, tg, tb }, own = { cr, cg, cb } })
+"#
+		.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["seen"].as_array().map(Vec::len), Some(1), "one disenchant line: {out}");
+	assert_eq!(out["seen"][0], out["tip"], "the tooltip's lifted ink: {out}");
+	assert_ne!(out["tip"], out["own"], "Vellum's own dim ink, which would not read there: {out}");
+}

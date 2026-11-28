@@ -155,10 +155,12 @@ function QoL.DisenchantLine(itemID, link)
 	return QoL.DisenchantText(classID, quality, C.ItemLevel(link or itemID))
 end
 
+-- A palette colour as it reads on the game's tooltip, a dark ground in every look (Theme.TipColor: a light look's
+-- ink lifted toward its paper), as Polestar's other tooltip lines take it.
 local function color(name, r, g, b)
 	local T = ns.Theme
 	local cr, cg, cb
-	if T and T.Color then cr, cg, cb = T.Color(name) end
+	if T and T.TipColor then cr, cg, cb = T.TipColor(name) end
 	if cr then return cr, cg, cb end
 	return r, g, b
 end
