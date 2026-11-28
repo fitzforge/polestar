@@ -21,8 +21,10 @@
 //!     start/finish  one ref or a list of refs: NPC id > 0, object id < 0
 //!     startItem one item id or a list; excl: one id or a list
 //!     items     the items the quest hands over (QuestieDB's sourceItemId and
-//!               requiredSourceItems: Bethor's Scroll for Thule Ravenclaw), one
-//!               id or a list; never its rewards
+//!               requiredSourceItems: Bethor's Scroll for Thule Ravenclaw), with
+//!               what comes out of a box it hands over (items.json `containers`:
+//!               Seeping Corruption's four vials, #4109), one id or a list; never
+//!               its rewards
 //!     limit     a timed quest's time allowed once taken, in seconds (quests.json
 //!               `limit`, the server's TimeAllowed); nil when it has none. Polestar
 //!               counts it down from the accept when the client reports no timer
@@ -259,6 +261,23 @@ fn top_sources(drops: &V, cap: usize, keep: impl Fn(f64) -> bool) -> Vec<(f64, f
 	out
 }
 
+/// What comes out of each box: box id -> its contents, ascending (items.json `containers` lists the boxes an item
+/// is found in). An item a vendor sells is no box's kit: the data finds a Heavy Throwing Dagger in It's a Secret
+/// to Everybody's A Small Pack, which the game's loot for the pack never gives.
+fn box_contents(items: &V) -> BTreeMap<i64, Vec<f64>> {
+	let mut out: BTreeMap<i64, Vec<f64>> = BTreeMap::new();
+	for id in ids(items) {
+		let it = items.get(&id.to_string());
+		if !list(&it.get("vendors")).is_empty() {
+			continue;
+		}
+		for b in list(&it.get("containers")) {
+			out.entry(b as i64).or_default().push(id as f64);
+		}
+	}
+	out
+}
+
 fn field<'a>(v: &V, a: &'a str, b: &'a str) -> V {
 	let x = v.get(a);
 	if x.truthy() {
@@ -283,6 +302,7 @@ pub fn build(data_dir: &Path, root: &Path, o: &Options) -> Result<Output, String
 	let meta_file = data_dir.join("meta.json");
 	let meta = if meta_file.exists() { read_json(&meta_file)? } else { V::obj() };
 	let mut warnings = Vec::new();
+	let contents = box_contents(&items);
 
 	let mut want_npc = BTreeSet::new();
 	let mut want_object = BTreeSet::new();
@@ -368,6 +388,17 @@ pub fn build(data_dir: &Path, root: &Path, o: &Options) -> Result<Output, String
 		let skill = q.get("skill").num();
 		let event = q.get("event");
 		let mut handed: Vec<f64> = list(&V::from(vec![q.get("sourceItem")]));
+		// What comes out of a box the quest hands over is handed over with it (#4109: the item button looked for
+		// Seeping Corruption's Box of Empty Vials, never the four vials in it), a box in the box too.
+		let mut open = handed.clone();
+		while let Some(b) = open.pop() {
+			for c in contents.get(&(b as i64)).into_iter().flatten() {
+				if !handed.contains(c) {
+					handed.push(*c);
+					open.push(*c);
+				}
+			}
+		}
 		handed.extend(list(&q.get("requiredItems")));
 		let mut seen = BTreeSet::new();
 		handed.retain(|n| seen.insert(n.to_bits()));

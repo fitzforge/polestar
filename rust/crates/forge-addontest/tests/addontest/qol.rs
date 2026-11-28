@@ -176,6 +176,27 @@ fn quest_item_button_the_current_use_goal_item_else_a_quest_log_item_else_a_usab
 	assert_eq!(out[6], json!(["nil", false]));
 }
 
+// #4109 (Seeping Corruption, quest 3568): the quest hands over the Box of Empty Vials (10695) and the vials come out
+// of it. They are consumables, not quest-class items, and the button offered the Trowel of the next step's While
+// you're here row instead. Any usable item the step's quest handed over is offered, whatever its class; one that
+// can't be used (the box, opened by a right-click) is passed over.
+#[test]
+fn quest_item_button_offers_a_usable_item_of_any_class_the_step_s_quest_handed_over_4109() {
+	let out = run(r#"
+		local b = PolestarQuestItemButton
+		q.items[10695] = { name = "Box of Empty Vials", classID = 15 }
+		q.items[10687] = { name = "Empty Vial Labeled #1", classID = 0, spell = 16 }
+		q.items[4000] = { name = "Light Leather", classID = 7, spell = 17 }
+		Polestar.QuestDB = { IsLoaded = function() return true end, HandsOver = function(quest, item) return quest == 3568 and (item == 10695 or item == 10687) end }
+		q.addItem(0, 1, 4000, 1)
+		q.addItem(0, 2, 10695, 1)
+		q.addItem(0, 3, 10687, 1)
+		q.step({ { t = "collect", item = 10691, quest = 3568, oi = 1 } })
+		emit({ b:GetAttribute("item") or "nil", b:IsShown() })
+	"#);
+	assert_eq!(out[0], json!(["item:10687", true]), "the vial, past an item of no quest and the box");
+}
+
 #[test]
 fn secure_buttons_a_mouse_click_acts_once_on_its_release_a_binding_once_at_either_key_down_setting() {
 	// The client gives an addon's secure button no mouse arguments (SecureTemplates.xml): SecureActionButton_OnClick

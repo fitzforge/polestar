@@ -124,6 +124,41 @@ fn handsover_answers_from_the_quest_s_handed_over_items_a_record_without_them_an
 	assert_eq!(out[0], json!([true, true, false, false, false]));
 }
 
+// #4109: Seeping Corruption (3568) hands over the Box of Empty Vials (10695), and the four vials the tide pools fill
+// come out of it (items.json `containers`). What comes out of the box is handed over with it, so the quest item
+// button and While you're here's carried-item check know the vials; an item a vendor sells is no box's kit, and
+// the filled vial the quest asks for is not handed over.
+#[test]
+fn handsover_counts_what_comes_out_of_a_box_the_quest_hands_over_4109() {
+	let data = data_with(|raw| {
+		let quests = raw.get_mut("quests.json").unwrap();
+		let mut q = quests["19"].clone();
+		q["id"] = json!(3568);
+		q["title"] = json!("Seeping Corruption");
+		q["pre"] = json!([]);
+		q["sourceItem"] = json!(10695);
+		q["requiredItems"] = Value::Null;
+		q["objectives"] = json!([{ "type": "item", "id": 10691, "count": 1, "text": "Filled Vial Labeled #1" }]);
+		quests["3568"] = q;
+		let items = raw.get_mut("items.json").unwrap();
+		let item = |id: i64, name: &str, extra: Value| {
+			let mut o = json!({ "id": id, "name": name, "drops": { "npc": {}, "object": {} }, "vendors": [] });
+			for (k, v) in extra.as_object().unwrap() {
+				o[k] = v.clone();
+			}
+			o
+		};
+		items["10695"] = item(10695, "Box of Empty Vials", json!({}));
+		items["10687"] = item(10687, "Empty Vial Labeled #1", json!({ "containers": [10695] }));
+		items["10688"] = item(10688, "Empty Vial Labeled #2", json!({ "containers": [10695] }));
+		items["3108"] = item(3108, "Heavy Throwing Dagger", json!({ "containers": [10695], "vendors": [253] }));
+		items["10691"] = item(10691, "Filled Vial Labeled #1", json!({ "drops": { "npc": {}, "object": { "77": 100 } } }));
+	});
+	let db = build_db(data.path());
+	let out = run(&db, "emit({ Q.HandsOver(3568, 10695), Q.HandsOver(3568, 10687), Q.HandsOver(3568, 10688), Q.HandsOver(3568, 3108), Q.HandsOver(3568, 10691), Q.UsesOnly(3568, 10687) })", "");
+	assert_eq!(out[0], json!([true, true, true, false, false, true]), "the box and both vials; not the dagger a vendor sells, nor the filled vial asked for");
+}
+
 #[test]
 fn does_not_load_the_database_when_qol_questdb_is_off() {
 	let db = fixture();
