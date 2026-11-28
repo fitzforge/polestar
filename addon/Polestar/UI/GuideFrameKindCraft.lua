@@ -821,16 +821,15 @@ ns.UI.GuideFrame.Part(function(GF)
 	})
 
 	-- A gathering step that levels the skill in areas (KindCraft's `areas`): the skill goal's own row, then the
-	-- gathering way's row ('Mine it', 'Pick it', 'Kill and skin it'; its Guide me leads to the area the arrow takes)
-	-- and the areas under it, or from which level one is safe. Compact: the goal's row and the arrow's area.
+	-- gathering way's row ('Mine it', 'Pick it', 'Kill and skin it'; a click leads to the area the arrow takes; the
+	-- areas under it carry the Guide me buttons) and the areas, or from which level one is safe. Compact: the goal's
+	-- row and the arrow's area.
 	GF.RegisterRegion("areas", {
 		build = function(parent)
 			local f = CreateFrame("Frame", nil, parent)
 			f.Goal = regionRow(f)
 			f.Way = regionRow(f)
-			f.Way.psPadLabel = L["Guide me"]
 			f.Way:SetScript("OnClick", function() local m = f.psModel; if m then guideTo(m.step, m.goalIndex) end end)
-			f.Way.psButton = W.Button(f.Way, L["Guide me"], function() local m = f.psModel; if m then guideTo(m.step, m.goalIndex) end end, { height = 22 })
 			f.Areas, f.List = {}, {}
 			return f
 		end,
@@ -858,8 +857,6 @@ ns.UI.GuideFrame.Part(function(GF)
 				local sub = areas.safeFrom and areaSafeText(areas) or nil
 				UI.SetCounted(wr.Sub, sub or "")
 				wr.Sub:SetShown(sub ~= nil)
-				W.SetButtonText(wr.psButton, L["Guide me"])
-				wr.psButton:SetShown(not areas.safeFrom)
 				wr.psIndent = 16
 				list[2] = wr
 				na = paintAreas(f, na, areas, 32, false)

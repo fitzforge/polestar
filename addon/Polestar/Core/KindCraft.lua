@@ -6,7 +6,9 @@
 -- Profession: the window draws its steps as the leveling view's rows (UI/GuideFrameRegions.lua, "step"): "meter"
 -- (the slim skill line), "stretch" (the craft step's row: its `craft … until` recipe, the colour now, about how many
 -- crafts still to go, the casts counted), "get" (a get step: "Get 42 Rough Stone" and its ways, each a choice:
--- gather it, the Auction House, a vendor), "shopping" (the section's materials, have / need, what is set to Buy).
+-- gather it, the Auction House, a vendor; a way that gathers in areas carries them, KC.Areas), "areas" (a step whose
+-- skill goal gathers in areas: Mining 1-50 and its areas), "shopping" (the section's materials, have / need, what is
+-- set to Buy).
 -- Reputation: "meter" (the standing), "turnin" (the step's turn-in), "more" (the guide's other quests for the
 -- faction).
 --

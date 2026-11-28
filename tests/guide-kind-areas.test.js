@@ -96,7 +96,7 @@ emit({ rows = rows("areas"), shown = GF.RegionFrame("areas"):IsShown() })`);
 	const r = out.rows;
 	assert.equal(r.length, 5, 'the goal, the way and three areas (five eligible)');
 	assert.equal(r[0].x, 0);
-	assert.deepEqual([r[1].text, r[1].x, r[1].button], ['Mine it', 16, 'Guide me']);
+	assert.deepEqual([r[1].text, r[1].x, r[1].button], ['Mine it', 16, false], 'the areas carry the Guide me buttons');
 	assert.deepEqual(r.slice(2).map((a) => [a.text, a.sub, a.on, a.button, a.x, a.area]), [
 		['Red Cloud Mesa  Best', '~12 veins  ·  you\'re here', true, 'Guide me', 32, 3],
 		['Mulgore: near Bael\'dun Digsite', '~9 veins  ·  safe from 8  ·  4 min away', false, 'Guide me', 32, 1],
@@ -280,4 +280,92 @@ emit({ first = first, second = second, plain = p.distance:GetText(), mode = A.Ge
 	assert.deepEqual(out.first, { mode: 'roam', dist: 'Roam Red Cloud Mesa for Copper Ore', eta: 'Find Minerals shows them on your minimap', w: true });
 	assert.equal(out.second, 'Roam Mulgore: near Bael\'dun Digsite for Copper Ore');
 	assert.deepEqual([out.mode, out.plain], ['arrived', 'Arrived'], 'outside the roam state: Arrived again');
+});
+
+// Through the real Engine (no stand-ins): Guide me on an area row is the player's pick, the arrow leads there, and
+// the pick is kept per character and guide step across a guide switch and a reload (the saved variables of the
+// first session restored into a second).
+const box = (x1, y1, x2, y2) => `${x1},${y1};${x2},${y1};${x2},${y2};${x1},${y2}`;
+const realArea = (name, lvl, [x1, y1, x2, y2], extra = '') =>
+	`{ map = 1412, x = ${(x1 + x2) / 2}, y = ${(y1 + y2) / 2}, faction = "H", lvl = { min = ${lvl}, max = ${lvl} }, lap = 300, yield = 10, count = 12, area = "${name}", poly = "${box(x1, y1, x2, y2)}"${extra} }`;
+const REAL = [realArea('Red Cloud Mesa', 1, [40, 78, 50, 90], ', starter = true, items = "2770"'), realArea('Skywatcher Plateau', 1, [20, 30, 28, 40]),
+	realArea('Bael\'dun Digsite', 3, [28, 44, 36, 52])];
+const realRun = (saved, body) => runAddon({
+	stubs: ['stub_world.lua'],
+	before: `
+local w = stub.world
+w.addMap(1412, { name = "Mulgore", c = 1, left = 0, right = -5000, top = 0, bottom = -5000 })
+w.race, w.raceName, w.faction = "Tauren", "Tauren", "Horde"
+w.level = 8
+w.moveTo(1412, 45, 84)`,
+	addons: ['Polestar'],
+	saved: saved ? { Polestar: saved } : undefined,
+	script: `Polestar.RegisterPack({ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" })
+Polestar.Set("nav.travel", false)
+Polestar.Nav.danger.ZoneAt = function() return 1412 end
+Polestar.Maps.GetZoneLevels = function(id) if id == 1412 then return 1, 10, 1 end end
+Polestar.RegisterGuide({ id = "test/areas", pack = "test", title = "Mining", category = "Professions", minLevel = 1, maxLevel = 60, steps = {
+	{ title = "Mine 140 Copper Ore", goals = { { t = "collect", item = 2770, itemName = "Copper Ore", count = 140, gather = { rank = 1, skill = "Mining", skillLine = 186 }, candidates = { ${REAL.join(', ')} } } } },
+	{ goals = { { t = "level", level = 60 } } },
+} })
+Polestar.RegisterGuide({ id = "test/other", pack = "test", title = "Other", category = "Professions", minLevel = 1, maxLevel = 60, steps = {
+	{ title = "Bolts", goals = { { t = "craft", spell = 2964, spellName = "Bolt of Woolen Cloth", item = 2997, itemName = "Bolt of Woolen Cloth", skillLine = 197, count = 1 } } } } })
+E = Polestar.Engine
+N = Polestar.Nav
+stub.login()
+Polestar.Set("ui.shown", true)
+E.SetGuide("test/areas")
+stub.advance(0.6)
+GF = Polestar.UI.GuideFrame
+local function plain(s) return s and (s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) or s end
+function areaRows()
+	Polestar.Fire("AREA_CHANGED"); stub.advance(0.2); GF.Layout(); stub.advance(0.3)
+	local out = {}
+	for _, r in ipairs(GF.RegionFrame("get").List) do
+		if r:IsShown() and r.psArea then out[#out + 1] = { name = plain(r.Text:GetText()):gsub("  Best$", ""), on = r.psDot and r.psDot:IsShown() or false, row = r } end
+	end
+	return out
+end
+function dump(v, ind)
+	if type(v) == "string" then return string.format("%q", v) end
+	if type(v) ~= "table" then return tostring(v) end
+	local parts = {}
+	for k, x in pairs(v) do
+		if type(x) ~= "function" then parts[#parts + 1] = "[" .. (type(k) == "string" and string.format("%q", k) or tostring(k)) .. "] = " .. dump(x) end
+	end
+	return "{ " .. table.concat(parts, ", ") .. " }"
+end
+${body}`,
+}).emitted[0];
+
+test('the real Engine: Guide me picks the area and leads the arrow there; the pick holds across a guide switch and a reload', () => {
+	const first = realRun(null, `
+local rows = areaRows()
+local before = {}
+for i, r in ipairs(rows) do before[i] = r.name .. (r.on and "*" or "") end
+local sky
+for _, r in ipairs(rows) do if r.name == "Skywatcher Plateau" then sky = r.row end end
+sky.psButton:Click(); stub.advance(0.6)
+local v = E.AreaChoices(1, 1)
+local cur
+for _, a in ipairs(v.list) do if a.current then cur = a.name end end
+local t = N.GetTarget()
+local after = {}
+for i, r in ipairs(areaRows()) do after[i] = r.name .. (r.on and "*" or "") end
+E.SetGuide("test/other"); stub.advance(0.6); E.SetGuide("test/areas"); stub.advance(0.6)
+local back = {}
+for i, r in ipairs(areaRows()) do back[i] = r.name .. (r.on and "*" or "") end
+emit({ before = table.concat(before, "|"), current = cur or false, target = t and t.stepIndex == 1 and t.goalIndex == 1 or false,
+	after = table.concat(after, "|"), back = table.concat(back, "|"), saved = "PolestarCharDB = " .. dump(PolestarCharDB) })`);
+	assert.equal(first.before, 'Bael\'dun Digsite*|Skywatcher Plateau', 'the best first with the dot; Red Cloud Mesa\'s starter area outgrown at level 8');
+	assert.equal(first.current, 'Skywatcher Plateau', 'Guide me is the Engine\'s pick');
+	assert.equal(first.target, true, 'the arrow leads to the step\'s area goal');
+	assert.match(first.after, /Skywatcher Plateau\*/);
+	assert.match(first.back, /Skywatcher Plateau\*/, 'kept across a guide switch');
+	const second = realRun(first.saved, `
+E.SetGuide("test/areas"); stub.advance(0.6)
+local back = {}
+for i, r in ipairs(areaRows()) do back[i] = r.name .. (r.on and "*" or "") end
+emit({ back = table.concat(back, "|") })`);
+	assert.match(second.back, /Skywatcher Plateau\*/, 'kept across a reload');
 });

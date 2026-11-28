@@ -856,16 +856,23 @@ local function roamLines()
 	local E = ns.Engine
 	return Arrow.RoamLines(E and E.AreaRoam and E.AreaRoam())
 end
--- The roam lines wrap at the label's width (the distance's and the ETA's lines are one line otherwise).
+-- The roam lines wrap at the arrow's own width (the distance's and the ETA's lines are one line otherwise), so the
+-- longer text stays over the arrow's place rather than spreading across the screen; the first in the label's face a
+-- step up, not the distance's large figures. Off: the look's own faces again (dialText).
 local roamWide = false
 local function roamWidth(on)
 	if not on and not roamWide then return end
 	roamWide = on
-	local w = on and look.labelWidth or 0
+	local w = on and frame:GetWidth() or 0
 	distText:SetWidth(w)
 	etaText:SetWidth(w)
 	distText:SetWordWrap(on)
 	etaText:SetWordWrap(on)
+	if on then
+		hudFont(distText, "body", "semibold", textSize(14, look.labelSize), look)
+	else
+		dialText(D, look)
+	end
 end
 
 local tintR, tintG, tintB = Nav.RGB("arrow")
