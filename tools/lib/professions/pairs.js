@@ -410,6 +410,23 @@ function renderPair(ctx, pair) {
 			loops = l ? l.lines : [];
 			skillAsk = l ? l.skill : 1;
 		}
+		// A band whose loops for it serve one faction only (Blindweed at Herbalism 260: a Horde zone): the other
+		// faction takes the gathering guides' best loops for it, so every character has somewhere to go.
+		const sidesOf = (l) => {
+			const m = / only (Alliance|Horde)\b/.exec(l);
+			return m ? [m[1]] : ['Alliance', 'Horde'];
+		};
+		if (loops.length && !solo) {
+			const have = new Set(loops.flatMap(sidesOf));
+			if (have.size < 2) {
+				const raw = main.raws.slice().sort((a, b) => a.per - b.per)[0];
+				const l = itemLoops(data, raw.raw, raw.per);
+				if (l) loops = [...loops, ...l.lines.filter((x) => sidesOf(x).some((s) => !have.has(s)))];
+			}
+		}
+		// Still one faction's loops only (no Blindweed loop of the Alliance's): the other faction buys it.
+		const sides = new Set(loops.flatMap(sidesOf));
+		const onlySide = loops.length && !solo && sides.size === 1 ? ` only ${[...sides][0]}` : '';
 		const made = (c) => c.raws.length > 1 || c.raws[0].raw !== c.item;
 		const ask = (c) => Math.max(skillAsk, ...(made(c) ? [(smelts.get(c.item) || {}).learnedAt || 1] : []));
 		const kept = [...need].map(([raw, n]) => ({ raw, n: Math.round(fromStock.get(raw) || 0), of: Math.round(n) })).filter((x) => x.n >= MIN_SHORT);
@@ -426,7 +443,7 @@ function renderPair(ctx, pair) {
 			// One material, its loops and the Auction House: the crafting guide's Get step, gathered on the way.
 			const rise = g1 > g0 ? ` ${G} ${g0} to ${g1} on the way.` : '';
 			const tip = `${routedTip}${rise}`.length <= 120 ? `${routedTip}${rise}` : routedTip;
-			push([`step ${made(main) ? `${pair.verb} and smelt` : pair.verb} ${main.total} ${itemName(main.item)}`, `  tip ${tip}`, `  collect ${main.item} x${main.total} gather ${G} ${ask(main)}`, ...loops, `  auction ${main.item} x${main.total}`]);
+			push([`step ${made(main) ? `${pair.verb} and smelt` : pair.verb} ${main.total} ${itemName(main.item)}`, `  tip ${tip}`, `  collect ${main.item} x${main.total} gather ${G} ${ask(main)}${onlySide}`, ...loops, `  auction ${main.item} x${main.total}`]);
 		} else {
 			const title = `${pair.verb} ${D.list(raws)}${bars.length ? `, smelt ${D.list(bars)}` : ''}${g1 > g0 ? ` (${G} ${g0}-${g1})` : ''}`;
 			const lines = [`step ${title}`];

@@ -67,6 +67,20 @@ test('every paired guide is a profession guide naming both skills, gathering (or
 test('each pair reaches 300 in both skills on every path, or its last step says what is left', { skip }, () => {
 	for (const [file, a, b] of PAIRS) {
 		const all = steps(read(file));
+		if (a === 'Tailoring' && routed(a) && routed(b)) {
+			// Neither gathers: each crafts to 300 in its own sections (Tailoring's way without a world-drop pattern
+			// stops short and its last step says what is left).
+			const to300 = new Set();
+			let prof = null;
+			for (const l of read(file).split('\n')) {
+				const sec = /^section (\S+) \d+-\d+$/.exec(l);
+				if (sec) prof = sec[1];
+				if (/^ {2}craft \d+ until 300$/.test(l)) to300.add(prof);
+			}
+			assert.deepEqual([...to300].sort(), [a, b].sort(), `${file}: a craft to 300 for each`);
+			assert.match(read(file), /only the two Auction House patterns reach 300/, `${file}: Tailoring's way without a pattern says what is left`);
+			continue;
+		}
 		if (routed(b)) {
 			// Every way ends crafting to 300, the gathering skill at 300 before it: a skill step, or the gathering
 			// on the way that brings it there ("Mining 280 to 300 on the way").
