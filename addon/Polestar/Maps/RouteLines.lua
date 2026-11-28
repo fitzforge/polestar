@@ -39,13 +39,6 @@
 -- does not stand in there). Polestar.Pins' trail dots (Nav/Layers.lua)
 -- stand in while the lines are off.
 --
--- The farming loop the arrow leads round (Engine.GetLoopTrack: the active
--- loop only, never a step's other choices) is one more path: its closed track
--- through the loop's points in order, drawn as a flight is (rounded corners,
--- the flight's colour, dashed in the line style), on zone maps and the minimap
--- only (never a continent map, as the dense pins), among the sparkles too.
--- Its points get small marks (Nav/Layers.lua, nav.loop).
---
 -- nav.dotColor tints the walks one colour (RouteLines.DOT_COLORS) in place of
 -- the route colour; the other legs keep theirs. Each way of travel can take a
 -- colour of the player's own instead (COLOR_KEYS: nav.walkColor, ...; the
@@ -211,13 +204,6 @@ local markCount = 0
 local goalC, goalX, goalY -- the route's end
 local live, liveC, liveX, liveY = nil, nil, nil, nil -- the walk's live start: index ahead, player
 local revision = 0        -- bumps on every change the painters must redraw for
--- The farming loop being walked (Engine.GetLoopTrack, Polestar 0.4.4): its
--- closed track as one flight-style path (rounded, the flight's colour and
--- dashes), on zone maps and the minimap only, as the dense pins (never on a
--- continent map). withLoop and guessesLoop: the route's paths and guesses with
--- it, kept so a draw allocates nothing.
-local loopPaths, withLoop, guessesLoop = {}, {}, {}
-local loopTrack -- the track loopPaths was built from
 
 -- The sparkle style: on or off, its look (Sparkle.Style), the paths as
 -- measured runs, and where each run's sparkles start (yards in: the walk
@@ -281,37 +267,6 @@ local function rebuild()
 	end
 	if markCount > 0 then marks[markCount * 4] = GOAL_MARK end
 	for _, p in ipairs(paths) do if p.guess then guesses[#guesses + 1] = p end end
-end
-
-local function joinLoop()
-	for i = #withLoop, 1, -1 do withLoop[i] = nil end
-	for i = #guessesLoop, 1, -1 do guessesLoop[i] = nil end
-	for _, p in ipairs(paths) do withLoop[#withLoop + 1] = p end
-	for _, p in ipairs(guesses) do guessesLoop[#guessesLoop + 1] = p end
-	for _, p in ipairs(loopPaths) do
-		withLoop[#withLoop + 1] = p
-		guessesLoop[#guessesLoop + 1] = p
-	end
-end
-
--- The loop's path again when the loop being walked changed. -> true when it did
-local function rebuildLoop()
-	local E = ns.Engine
-	local t = E and E.GetLoopTrack and E.GetLoopTrack() or nil
-	if t == loopTrack then return false end
-	loopTrack = t
-	loopPaths[1] = nil
-	if t then
-		local pts = {}
-		for i = 1, t.stops do
-			local n = t.stopNode[i]
-			pts[i] = { t.c, t.wx[n], t.wy[n] }
-		end
-		pts[#pts + 1] = pts[1]
-		loopPaths[1] = Strokes.Path("flight", pts, false)
-	end
-	joinLoop()
-	return true
 end
 
 -- The player's world position, or nil when unknown or unreadable (secret:
@@ -456,11 +411,6 @@ end
 -- The draw paths (tests and diagnostics).
 function RouteLines.GetPaths()
 	return paths
-end
-
--- The farming loop's draw path (one, or none) (tests and diagnostics).
-function RouteLines.GetLoopPaths()
-	return loopPaths
 end
 
 ---------------------------------------------------------------------------
@@ -894,14 +844,10 @@ end
 
 local function drawWorld(pin)
 	local view, worldStrokes = pin.view, pin.strokes
-	local mapID = view.mapID
-	local small = mapID and isSmall(mapID) or false
-	-- The loop's track: zone maps only.
-	local loopHere = #loopPaths > 0 and not small
-	-- The sparkles: no line but a walk with no walking path known, drawn dashed over them (#3418), and the loop.
+	-- The sparkles: no line but a walk with no walking path known, drawn dashed over them (#3418).
 	if sparkling then
 		drawWorldSparkles(pin)
-		if #guesses == 0 and not loopHere then
+		if #guesses == 0 then
 			if pin.used > 0 then
 				worldStrokes.n = 0
 				paint(pin, worldStrokes)
@@ -912,6 +858,7 @@ local function drawWorld(pin)
 	else
 		finishSparkles(pin, 0)
 	end
+	local mapID = view.mapID
 	local b = mapID and boundsOf(mapID)
 	if not b then
 		worldStrokes.n = 0
@@ -923,7 +870,7 @@ local function drawWorld(pin)
 	local zoom = view.scale
 	local v = mapView
 	v.c, v.left, v.top, v.kx, v.ky = b.c, b.left, b.top, b.kx, b.ky
-	v.width, v.height, v.small = width, height, small
+	v.width, v.height, v.small = width, height, isSmall(mapID)
 	pin.opacity = look(v, "world", pin:GetEffectiveScale())
 	-- Polestar's pins keep their size on screen while the canvas zooms under them.
 	local vm, n = v.marks, 0
@@ -941,7 +888,7 @@ local function drawWorld(pin)
 	advance(pc, px, py)
 	pin.drawnX, pin.drawnY = px, py
 	v.from, v.fromIndex, v.fromC, v.fromX, v.fromY = live ~= nil and (not sparkling or guesses[1] == paths[1]), live, liveC, liveX, liveY
-	Strokes.Map(worldStrokes, sparkling and (loopHere and guessesLoop or guesses) or (loopHere and withLoop or paths), v)
+	Strokes.Map(worldStrokes, sparkling and guesses or paths, v)
 	-- (Among the sparkles the dashes are drawn whole: the draw-in belongs to the lines' own styles.)
 	paint(pin, worldStrokes, sparkling and worldStrokes.n or nil)
 	pin.revision = revision
@@ -1002,7 +949,7 @@ local function refreshView(v)
 	if not v.shown then return end
 	local world = surfaces()
 	local pin = worldPins[v]
-	if world and (#paths > 0 or #loopPaths > 0) then
+	if world and #paths > 0 then
 		pin = ensureWorldPin(v)
 		pin:SetFrameLevel(v:Level("PIN_FRAME_LEVEL_QUEST_BLOB"))
 		pin:Show()
@@ -1143,7 +1090,7 @@ local function drawMinimap(force, given, pc, px, py, radius, facing, square)
 	-- The sparkles: no line but a walk with no walking path known, drawn dashed over them (#3418).
 	if sparkling then
 		drawMinimapSparkles(pc, px, py, radius, facing, square, width, height)
-		if #guesses == 0 and #loopPaths == 0 then
+		if #guesses == 0 then
 			if minimapStrokes.n > 0 then
 				minimapStrokes.n = 0
 				paint(mm, minimapStrokes)
@@ -1174,7 +1121,7 @@ local function drawMinimap(force, given, pc, px, py, radius, facing, square)
 	v.goalC, v.goalX, v.goalY, v.goalRadius = not sparkling and goalC or nil, goalX, goalY, MINIMAP_GOAL
 	v.phase = phase
 	v.from, v.fromIndex, v.fromC, v.fromX, v.fromY = live ~= nil and (not sparkling or guesses[1] == paths[1]), live, liveC, liveX, liveY
-	Strokes.Minimap(minimapStrokes, sparkling and guessesLoop or withLoop, v)
+	Strokes.Minimap(minimapStrokes, sparkling and guesses or paths, v)
 	paint(mm, minimapStrokes, sparkling and minimapStrokes.n or nil)
 end
 
@@ -1216,7 +1163,7 @@ end
 
 local function refreshMinimap()
 	local _, minimap = surfaces()
-	if not (minimap and (#paths > 0 or #loopPaths > 0)) then
+	if not (minimap and #paths > 0) then
 		if mm then
 			minimapStrokes.n = 0
 			paint(mm, minimapStrokes)
@@ -1255,8 +1202,6 @@ end
 function RouteLines.Refresh()
 	restyle()
 	rebuild()
-	rebuildLoop()
-	joinLoop()
 	startDrawIn()
 	rebuildRuns()
 	revision = revision + 1
@@ -1360,14 +1305,6 @@ end
 
 ns.On("NAV_ROUTE_GEOMETRY", function()
 	if ns.IsLoggedIn() then RouteLines.Refresh() end
-end)
-
--- The loop being walked changed (another loop, none, or a step without one): its track is drawn afresh.
-ns.On("WAYPOINT_CHANGED", function()
-	if not (ns.IsLoggedIn() and rebuildLoop()) then return end
-	revision = revision + 1
-	refreshWorld()
-	refreshMinimap()
 end)
 
 -- Hidden: the minimap's line goes (the map's goes with its view frame);
