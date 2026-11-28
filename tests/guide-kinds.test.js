@@ -44,6 +44,9 @@ for _, l in ipairs(GF.lines) do
 end
 emit({ kind = E.GuideKind(), xp = GF.xp.psHas and GF.xp.Text:GetText() or false, menu = menu, shown = shown })`;
 
+// An empty Lua table is emitted as {}, not []: the lines of the window shown, as a list.
+const shownLines = (out) => Object.values(out.shown);
+
 const PROFESSION = (extra = '') => `{ id = "test/kind", pack = "test", title = "Tailoring 1-300", minLevel = 5, maxLevel = 60, category = "Professions"${extra},
 	sections = { { skill = "Tailoring", skillLine = 197, from = 1, to = 150 } },
 	steps = {
@@ -74,7 +77,7 @@ test('a leveling guide is unchanged: XP and pace, hand-ins and the log clean-up 
 test('no kind has a hand-in row: two finished quests in the log put no line in the window, and the menu still counts them where the kind has the entry', () => {
 	for (const [name, guide] of [['leveling', LEVELING], ['profession', PROFESSION()]]) {
 		const out = run(guide);
-		assert.deepEqual(out.shown.filter((t) => /ready to hand in/i.test(t)), [], `${name}: ${out.shown.join(' | ')}`);
+		assert.deepEqual(shownLines(out).filter((t) => /ready to hand in/i.test(t)), [], `${name}: ${shownLines(out).join(' | ')}`);
 	}
 	assert.ok(run(LEVELING).menu.includes('Hand in finished quests (2)'), 'the menu counts them');
 	const parts = runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar'], script: `stub.login()
