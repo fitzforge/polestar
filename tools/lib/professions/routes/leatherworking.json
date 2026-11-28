@@ -80,6 +80,7 @@
 		"15725": { "Alliance": [12942], "Horde": [12943], "note": "It binds when picked up." },
 		"15756": { "Alliance": [12941], "Horde": [12941], "note": "At Light's Hope Chapel. It binds when picked up." }
 	},
+	"npcMaps": { "12943": 1420 },
 	"materials": {
 		"2934": ["gather", "auction"],
 		"783": ["auction"],

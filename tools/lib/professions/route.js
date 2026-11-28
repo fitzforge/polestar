@@ -97,6 +97,11 @@ function checkRoute(route, prof, data) {
 		} else if (t.at === 'learn') vendorsOk(t.vendors, t.item, `tool ${t.item}`);
 		else errs.push(`tool ${t.item}: \`at\` is "learn" (bought) or "craft" (made by a band), not "${t.at}"`);
 	}
+	// A seller standing where two zone maps overlap has a spawn on both; `npcMaps` names the zone's map it is in.
+	for (const [id, map] of Object.entries(route.npcMaps || {})) {
+		if (!npcs[id]) errs.push(`npcMaps: NPC ${id} is not in npcs.json`);
+		else if (!(npcs[id].spawns || {})[map]) errs.push(`npcMaps: ${npcs[id].name} has no spawn on map ${map}`);
+	}
 	for (const [item, by] of Object.entries(route.recipes || {})) {
 		const what = `recipe item ${item}`;
 		if (![...recipes.values()].some((r) => Number(r.recipeItem) === Number(item))) errs.push(`${what} teaches no ${prof.name} recipe`);
@@ -408,7 +413,8 @@ function routeGuide(name, data, opts = {}) {
 	// else one per side. A single vendor is pinned; several go to the nearest seller.
 	const sellerSteps = (kind, item, by, opts = {}) => {
 		const key = (s) => [...(by[s] || [])].sort((a, b) => a - b).join();
-		const one = (ids, only) => step(kind, `Buy ${itemName(item)} · ${orList(ids.map(npcName))}`, { ...opts, only, lines: [`  buy ${item} x1 ${ids.length === 1 ? `npc ${ids[0]}` : 'nearest'}`] });
+		const pin = (id) => `npc ${id}${(route.npcMaps || {})[id] ? ` map ${route.npcMaps[id]}` : ''}`;
+		const one = (ids, only) => step(kind, `Buy ${itemName(item)} · ${orList(ids.map(npcName))}`, { ...opts, only, lines: [`  buy ${item} x1 ${ids.length === 1 ? pin(ids[0]) : 'nearest'}`] });
 		if (key('Alliance') === key('Horde')) one(by.Alliance);
 		else for (const s of SIDES) one(by[s], s);
 	};
@@ -667,7 +673,10 @@ function routeGuide(name, data, opts = {}) {
 			const questSteps2 = (q, only) => {
 				const quest = quests[q];
 				step('quest', `Accept ${quest.title}`, { only, tip: feeder(q, only || 'Alliance').length ? null : lvTip(q), lines: [`  accept ${q}`] });
-				if ((quest.objectives || []).some((o) => o.type !== 'item')) step('quest', `Complete ${quest.title}`, { only, tip: sec.by.tip || null, lines: [`  complete ${q}`] });
+				// Its objective (Triage's patients) where the data places it, so the arrow leads there.
+				const o = (quest.objectives || []).find((x) => x.type !== 'item');
+				const at = o && o.map != null && o.x != null ? ` @${o.x},${o.y} ${o.f === 'l' ? 'live' : 'era'} map ${o.map}` : '';
+				if (o) step('quest', `Complete ${quest.title}`, { only, tip: sec.by.tip || null, lines: [`  complete ${q}${at}`] });
 				step('quest', `Hand in ${quest.title}`, { only, tip: `It teaches ${sec.rank} ${P}.`, lines: [`  turnin ${q}`] });
 			};
 			const same = ids[0] === ids[1];
