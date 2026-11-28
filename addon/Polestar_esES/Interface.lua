@@ -593,6 +593,7 @@
 --   %s is mined out for now
 --   Try %s next
 --   Best
+--   %s: near %s
 
 -- Machine-translated, to be reviewed (the profession and reputation guides' window, 26 Nov 2026): translated by an
 -- AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
@@ -880,6 +881,7 @@ L["%s at %s"] = "%s en %s"
 L["Buy a rune at %s"] = "Comprar una runa a %s"
 L["Buy a rune and cast %s to save about %s"] = "Compra una runa y lanza %s para ahorrar unos %s"
 L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."] = "No te quedan Runas de Teletransporte y este vendedor las vende: comprar una y teletransportarte es más rápido que el vuelo de tu ruta."
+L["%s: near %s"] = "%s: cerca de %s"
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Elige una recompensa para entregar la misión."
