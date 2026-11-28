@@ -3180,13 +3180,21 @@ written). The step keeps its index. The Engine:
   <label>` on one holds once the route is past it (`Own.labelDone`);
 - reads the run of via steps right before the live step as its vias (`Own.viasOf`; each via's place is its last
   goto or `enter`, or the flight's landing by `Own.flyNodeId`), and `findWaypoint` puts the arrow on the first
-  one still ahead (`Own.viaAim` → `Nav.ViaPick` in Nav/Travel.lua). `Nav.ViaPick` drops a via the player stands
-  within `VIA_REACH` (40 yd) of (`Own.viaReached`, for the session), is nearer the work than, or that is more than
-  `VIA_DETOUR` (1.5) times the straight way; with the planner on, also when `Nav.EstimateTravel` straight to the
-  work (class teleports, the Hearthstone, flights, boats) beats the way by the via by more than `VIA_DETOUR` and
-  `VIA_SLACK` (30 s), the verdict held `VIA_HOLD` (10 s). The arrival poll checks a via waypoint each tick
-  (`Own.viaTick`: reached, passed or left behind, by place alone). The waypoint carries `via` (the via step) and
-  `work` (the live step's own waypoint); its label is the work's;
+  one still ahead (`Own.viaAim` → `Nav.ViaPick` in Nav/Travel.lua). `Nav.ViaJudge` calls a via reached within
+  `VIA_REACH` (40 yd) on its floor (`VIA_FLOOR`, 8 yd, when both heights are known: a via on a mesa is not reached
+  from the ground below), passed when the player is nearer the work than it is or going by it is more than
+  `VIA_DETOUR` (1.5) times the straight way. A detour via (by its place in the route: from the via before, going by
+  it is more than `VIA_DETOUR` times the way straight to the work; the way round a cliff) is never judged by the
+  straight line: only reaching it, or the work itself, ends it. With the planner on, `Travel.ViaFaster` drops the
+  vias when `Nav.EstimateTravel` straight to the work (class teleports, the Hearthstone, flights, boats) beats the
+  way by the via (a detour via: the straight walk) by more than `VIA_DETOUR` and `VIA_SLACK` (30 s); one estimate a
+  refresh at most (the Engine asks again while the verdict is pending), reused while the player stays within
+  `VIA_MOVE` (100 yd). What was reached or passed stays done while the step is live (`Own.viaGone`), so the arrow
+  never swings back to a via at the edge of a verdict. The waypoint carries `via` (the via step), its height,
+  `detour`, `work` (the live step's own waypoint) and `rest` (the yards from the via on to the work); its label is
+  the work's. Nav never chimes or shows "arrived" for it: reaching it on its floor fires `NAV_VIA_REACHED` from
+  the frame's own check and the Engine aims on (`Own.viaReachedAt`); the arrival poll checks it too
+  (`Own.viaTick`). The arrow's yards count on to the work (`Nav.Sample` adds `rest` off a routed leg);
 - titles the live step "<title> · <zone>" while its work is in another zone and it has vias, used or not
   (`Own.carriedWhere`), with `travel`, the planner's way to it (`Own.travelWay`), as the line under the header
   (GuideFrame's `Why` line when there is no `why`);

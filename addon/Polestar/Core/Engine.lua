@@ -7287,7 +7287,7 @@ local function sameWaypoint(a, b)
 		and a.x == b.x and a.y == b.y and a.f == b.f
 		and a.label == b.label and a.kind == b.kind and a.r == b.r
 		and a.z == b.z and a.area == b.area and a.search == b.search and a.placeGoal == b.placeGoal
-		and a.travel == b.travel and a.keepHearth == b.keepHearth and a.via == b.via
+		and a.travel == b.travel and a.keepHearth == b.keepHearth and a.via == b.via and a.rest == b.rest
 end
 
 local worldOf = setmetatable({}, { __mode = "k" }) -- goal -> { c, wx, wy }
@@ -12795,7 +12795,8 @@ Own.STOP_REACH = 300 -- yards from a walk's end its stop's work may lie
 
 -- Via step `step`'s place for the character: its last flight's landing (the
 -- town's flight master for their side, Own.flyNodeId), else its last goto or
--- `enter` with a point: { c, wx, wy, map, x, y, f }, or nil.
+-- `enter` with a point: { c, wx, wy, z, map, x, y, f }, or nil. `z`: the
+-- point's height when known, so a via on a mesa ends on its floor.
 function Own.viaPlace(step)
 	local goals = step.goals
 	for g = #goals, 1, -1 do
@@ -12805,12 +12806,12 @@ function Own.viaPlace(step)
 				local nav = ns.Nav
 				local id = Own.flyNodeId(goal)
 				local node = id and nav and nav.GetTaxiNode and nav.GetTaxiNode(id)
-				if node and node.c and node.map then return { c = node.c, wx = node.wx, wy = node.wy, map = node.map, x = node.x, y = node.y, f = node.f } end
+				if node and node.c and node.map then return { c = node.c, wx = node.wx, wy = node.wy, z = node.z, map = node.map, x = node.x, y = node.y, f = node.f } end
 			elseif goal.t == "goto" or goal.t == "enter" then
-				local map, x, y, f = posOf(goal)
+				local map, x, y, f, _, z = posOf(goal)
 				if map and x and y then
 					local c, wx, wy = Compat().MapToWorld(map, x, y, f)
-					if c then return { c = c, wx = wx, wy = wy, map = map, x = x, y = y, f = f } end
+					if c then return { c = c, wx = wx, wy = wy, z = z, map = map, x = x, y = y, f = f } end
 				end
 			end
 		end
@@ -12842,56 +12843,72 @@ function Own.viasOf(s)
 	return out
 end
 
--- The vias of step s the player reached this session (within
--- Nav.Travel.VIA_REACH): guide -> { [via step] = true }.
-Own.viaReached = setmetatable({}, { __mode = "k" })
+-- The vias of the live step that are done (reached, or passed: Nav.ViaPick,
+-- Nav.ViaJudge): guide -> { live = the live step, [via step] = true }. A via
+-- done never comes back while that step is live, so the arrow does not swing
+-- between a via and the work at the edge of a verdict (a fight beside it, the
+-- arrival poll against the next event).
+Own.viaGone = setmetatable({}, { __mode = "k" })
+
+-- The live step's done vias (Own.viaGone), made anew for another live step.
+function Own.viaDone()
+	local gone = Own.viaGone[guide]
+	if not gone or gone.live ~= current then
+		gone = { live = current }
+		Own.viaGone[guide] = gone
+	end
+	return gone
+end
 
 -- The arrow's waypoint by a via for the live step's waypoint `wp`
--- (Nav.ViaPick), or nil: the via's place, the work's label, step and goal.
--- Not for a travel waypoint of a kept step (Own.flyAim, Own.crossAim) or a
--- step the player pages to.
+-- (Nav.ViaPick), or nil: the via's place and height, the work's label, step
+-- and goal; `rest`, the yards from the via on to the work, so the arrow's
+-- number counts to the work (Nav.Sample). Not for a travel waypoint of a kept
+-- step (Own.flyAim, Own.crossAim) or a step the player pages to.
 function Own.viaAim(wp)
 	if not (wp and current and current == computed and wp.stepIndex == current and not wp.travel) then return nil end
 	local vias = Own.viasOf(current)
 	local nav = ns.Nav
 	if not (vias and nav and nav.ViaPick) then return nil end
-	local reached = Own.viaReached[guide]
-	if reached then
-		local left = {}
-		for _, v in ipairs(vias) do
-			if not reached[v.s] then left[#left + 1] = v end
-		end
-		vias = left
-	end
-	local pc, px, py = Compat().GetPlayerWorldPosition()
-	local v = pc and nav.ViaPick(vias, wp, pc, px, py)
+	local gone = Own.viaDone()
+	for _, v in ipairs(vias) do v.gone = gone[v.s] end
+	local C = Compat()
+	local pc, px, py = C.GetPlayerWorldPosition()
+	if not pc then return nil end
+	local work = { map = wp.map, x = wp.x, y = wp.y, f = wp.f, z = wp.z }
+	local v, done, pending = nav.ViaPick(vias, work, pc, px, py)
+	for n = 1, done or 0 do gone[vias[n].s] = true end
+	-- One estimate a refresh (Travel.ViaFaster): the next refresh makes the next.
+	if pending then requestUpdate() end
 	if not v then return nil end
+	local wc, wx, wy = C.MapToWorld(wp.map, wp.x, wp.y, wp.f)
 	return {
-		map = v.map, x = v.x, y = v.y, f = v.f, label = wp.label,
+		map = v.map, x = v.x, y = v.y, f = v.f, z = v.z, label = wp.label,
 		stepIndex = wp.stepIndex, goalIndex = wp.goalIndex, kind = "goto", r = nav.travel and nav.travel.VIA_REACH or DEFAULT_RADIUS,
-		via = v.s, work = { map = wp.map, x = wp.x, y = wp.y, f = wp.f },
+		via = v.s, detour = v.detour, work = work,
+		rest = wc == v.c and math.sqrt((wx - v.wx) ^ 2 + (wy - v.wy) ^ 2) or nil,
 	}
 end
 
--- The arrival poll's check of a via waypoint: true when the arrow is to move
--- on (the via reached, marked so; or the player past it or elsewhere).
+-- The via waypoint's via is done (Own.viaGone): the arrow aims on.
+function Own.viaReachedAt(wp)
+	if not (wp and wp.via and wp == waypoint and guide) then return false end
+	Own.viaDone()[wp.via] = true
+	return true
+end
+
+-- The arrival poll's check of a via waypoint (Nav.ViaJudge): true when the
+-- arrow is to move on (the via reached, on its floor, or passed), marked so.
+-- Nav marks a via reached in its own frame check first (NAV_VIA_REACHED).
 function Own.viaTick(c, px, py)
 	local wp = waypoint
 	if not (wp and wp.via and guide) then return false end
 	local nav = ns.Nav
-	local T = nav and nav.travel
-	if not (T and nav.ViaPick) then return false end
+	if not (nav and nav.ViaJudge) then return false end
 	local wc, wx, wy = Compat().MapToWorld(wp.map, wp.x, wp.y, wp.f)
-	if wc == c and (wx - px) ^ 2 + (wy - py) ^ 2 <= T.VIA_REACH * T.VIA_REACH then
-		local reached = Own.viaReached[guide]
-		if not reached then
-			reached = {}
-			Own.viaReached[guide] = reached
-		end
-		reached[wp.via] = true
-		return true
-	end
-	return not nav.ViaPick({ { c = wc, wx = wx, wy = wy } }, wp.work, c, px, py, true)
+	local verdict = nav.ViaJudge({ c = wc, wx = wx, wy = wy, z = wp.z, detour = wp.detour }, wp.work, c, px, py)
+	if verdict == "reached" or verdict == "passed" then return Own.viaReachedAt(wp) end
+	return false
 end
 
 -- A kept step of places only (`keep`) passes once the step it leads to is
@@ -13397,6 +13414,12 @@ ns.On("ROUTE_CHANGED", function()
 		Own.wayShown = way
 		ns.Fire("STEP_UPDATED", current)
 	end
+end)
+
+-- Nav reached the via waypoint in its own frame check (#4467): no chime, no
+-- "arrived"; the arrow aims on now, not at the next arrival poll.
+ns.On("NAV_VIA_REACHED", function(t)
+	if Own.viaReachedAt(t) then requestUpdate() end
 end)
 
 -- With TomTom's arrow leading (Own.plannerFlies is off for it; the travel

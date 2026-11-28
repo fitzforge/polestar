@@ -3054,38 +3054,96 @@ function Nav.WouldCastTeleport(from, to, t)
 end
 
 -- Vias (#4467): the places a leveling guide's hidden steps of places only went by on the way to the live step's
--- work (the Engine's Own.viasOf), a soft preference. The arrow goes by the first via still ahead, in route order,
--- unless the player
---   * stands within VIA_REACH yards of it (reached: the next one counts), or nearer the work than it is (past it),
---     or going by it is longer than VIA_DETOUR times the straight way (elsewhere: they came another way, or a
---     teleport, the Hearthstone or a flight set them down past it);
---   * has a faster way (the travel planner on): its estimate straight to the work (teleports, the Hearthstone,
---     flights, boats: Nav.EstimateTravel) beats the way by the via by more than VIA_DETOUR and VIA_SLACK seconds.
--- A walk that keeps to the via's side costs no more than VIA_DETOUR, so only another way of travel drops it; the
--- verdict holds VIA_HOLD seconds for the same via and work, by place (three estimates a plan each).
--- vias = { { c, wx, wy, map, x, y, f }, ... }; to = the work's waypoint ({ map, x, y, f }); the player at
--- (pc, px, py). geometry = true: the place checks only (the Engine's arrival poll). -> the via, its index; or nil.
-Travel.VIA_REACH, Travel.VIA_DETOUR, Travel.VIA_SLACK, Travel.VIA_HOLD = 40, 1.5, 30, 10
-Travel.viaVerdict = nil -- { vx, vy, tx, ty, at, faster }
-function Nav.ViaPick(vias, to, pc, px, py, geometry)
+-- work (the Engine's Own.viasOf), a soft preference. The arrow goes by the first via still ahead, in route order.
+-- Nav.ViaJudge says of one via, the player at (pc, px, py), the work at `to` ({ map, x, y, f, z }):
+--   "reached": within VIA_REACH yards of it and, with a height for both, on its floor (VIA_FLOOR): a via on a
+--     mesa is not reached from the ground below;
+--   "passed": nearer the work than it is, or going by it longer than VIA_DETOUR times the straight way
+--     (elsewhere: they came another way, or a teleport, the Hearthstone or a flight set them down past it). A
+--     detour via (`detour`: one that goes round something, a cliff, a lake: by its place in the route, going by
+--     it from the via before is longer than VIA_DETOUR times the way from there straight to the work) is never
+--     judged by the straight line: only reaching it, or the work itself (within VIA_REACH, on its floor), ends it;
+--   "keep": still ahead; nil: nothing to tell (no position, another continent, on a flight).
+-- The Engine remembers what was reached or passed for the live step (Own.viaGone): a via never comes back.
+Travel.VIA_REACH, Travel.VIA_DETOUR, Travel.VIA_SLACK, Travel.VIA_MOVE, Travel.VIA_FLOOR = 40, 1.5, 30, 100, 8
+function Nav.ViaJudge(v, to, pc, px, py)
 	local tc, twx, twy = pointWorld(to)
-	if not (tc and pc and vias) then return nil end
-	local dP = yards(pc, px, py, tc, twx, twy)
-	for i, v in ipairs(vias) do
-		local dPV, dV = yards(pc, px, py, v.c, v.wx, v.wy), yards(v.c, v.wx, v.wy, tc, twx, twy)
-		if dP < huge and dPV > Travel.VIA_REACH and dV < dP and dPV + dV <= dP * Travel.VIA_DETOUR then
-			if geometry or not (ns.Get("nav.travel") and not Nav.HandedOff()) then return v, i end
-			local m, now = Travel.viaVerdict, GetTime()
-			if not (m and m.vx == v.wx and m.vy == v.wy and m.tx == twx and m.ty == twy and now - m.at < Travel.VIA_HOLD) then
-				local direct, a, b = Nav.EstimateTravel(nil, to), Nav.EstimateTravel(nil, v), Nav.EstimateTravel(v, to)
-				m = { vx = v.wx, vy = v.wy, tx = twx, ty = twy, at = now, faster = direct and a and b and direct * Travel.VIA_DETOUR + Travel.VIA_SLACK < a + b or false }
-				Travel.viaVerdict = m
-			end
-			if m.faster then return nil end
-			return v, i
-		end
+	if not (tc and pc and v and v.c) or onTaxi() then return nil end
+	local dP, dPV = yards(pc, px, py, tc, twx, twy), yards(pc, px, py, v.c, v.wx, v.wy)
+	if dP == huge or dPV == huge then return nil end
+	local W = Nav.walk
+	local pz = W and W.Floor and W.Floor(pc, px, py)
+	if type(pz) ~= "number" then pz = nil end
+	local function floorOf(z) return not (pz and type(z) == "number" and math.abs(pz - z) > Travel.VIA_FLOOR) end
+	if dPV <= Travel.VIA_REACH and floorOf(v.z) then return "reached" end
+	if v.detour then
+		if dP <= Travel.VIA_REACH and floorOf(to.z) then return "passed" end
+		return "keep"
 	end
-	return nil
+	-- On its spot a floor apart: still ahead (the arrow's floor hint leads up or down).
+	if dPV <= Travel.VIA_REACH then return "keep" end
+	local dV = yards(v.c, v.wx, v.wy, tc, twx, twy)
+	if dV < dP and dPV + dV <= dP * Travel.VIA_DETOUR then return "keep" end
+	return "passed"
+end
+
+-- With the travel planner on, whether a faster way straight to the work drops via v: Nav.EstimateTravel straight
+-- there (teleports, the Hearthstone, flights, boats) beats the way by the via (a detour via: the straight walk to
+-- the work) by more than VIA_DETOUR and VIA_SLACK seconds. Each estimate may plan a whole route, so one call
+-- makes one at most (until all are in, the via stays and the second result says so: the Engine asks again); they
+-- hold while the player stays within VIA_MOVE yards of where they were made, for the same via and work, the
+-- via's own way on to the work for good. -> faster, pending
+Travel.viaVerdicts = {} -- "via>work" -> { pc, px, py, direct, a, b }
+function Travel.ViaFaster(v, to, pc, px, py)
+	if not (ns.Get("nav.travel") and not Nav.HandedOff()) then return false, false end
+	local tc, twx, twy = pointWorld(to)
+	local key = format("%d:%.1f:%.1f>%d:%.1f:%.1f", v.c, v.wx, v.wy, tc, twx, twy)
+	local m = Travel.viaVerdicts[key]
+	if not m or yards(pc, px, py, m.pc, m.px, m.py) > Travel.VIA_MOVE then
+		m = { pc = pc, px = px, py = py, b = m and m.b }
+		Travel.viaVerdicts[key] = m
+	end
+	if m.direct == nil then
+		m.direct = Nav.EstimateTravel(nil, to) or false
+	elseif not v.detour and m.a == nil then
+		m.a = Nav.EstimateTravel(nil, v) or false
+	elseif not v.detour and m.b == nil then
+		m.b = Nav.EstimateTravel(v, to) or false
+	end
+	local direct = m.direct
+	if v.detour then
+		return direct and direct * Travel.VIA_DETOUR + Travel.VIA_SLACK < yards(pc, px, py, tc, twx, twy) / Travel.GroundSpeed() or false, false
+	end
+	if m.a == nil or m.b == nil then return false, true end
+	return direct and m.a and m.b and direct * Travel.VIA_DETOUR + Travel.VIA_SLACK < m.a + m.b or false, false
+end
+
+-- The via the arrow goes by: vias = { { c, wx, wy, z, map, x, y, f, gone }, ... } in route order (`gone`: reached
+-- or passed before, skipped); marks each `detour` by its place in the route. -> the via or nil; how many of the
+-- leading vias are now done (reached, passed, or all of them for a faster way), for the Engine to remember; and
+-- whether the faster way's verdict is still being made (Travel.ViaFaster: ask again).
+function Nav.ViaPick(vias, to, pc, px, py)
+	local tc, twx, twy = pointWorld(to)
+	if not (tc and pc and vias) then return nil, 0 end
+	for i = 2, #vias do
+		local a, v = vias[i - 1], vias[i]
+		v.detour = yards(a.c, a.wx, a.wy, v.c, v.wx, v.wy) + yards(v.c, v.wx, v.wy, tc, twx, twy)
+			> yards(a.c, a.wx, a.wy, tc, twx, twy) * Travel.VIA_DETOUR or nil
+	end
+	local done = 0
+	for i, v in ipairs(vias) do
+		if not v.gone then
+			local verdict = Nav.ViaJudge(v, to, pc, px, py)
+			if verdict == nil then return nil, done end
+			if verdict == "keep" then
+				local faster, pending = Travel.ViaFaster(v, to, pc, px, py)
+				if faster then return nil, #vias end
+				return v, done, pending
+			end
+		end
+		done = i
+	end
+	return nil, done
 end
 
 -- A route worth following: more than one leg. A lone walk is the direct arrow.

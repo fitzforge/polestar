@@ -343,3 +343,136 @@ fn the_step_after_a_flight_via_says_what_and_where_and_its_travel_line_is_the_wa
 	assert_eq!(out["legs"][0], "hearth", "{out}");
 	assert_eq!(out["travel"], "Hearth to Everlook", "{out}");
 }
+
+// The Ashenvale guide's step 44 (07-ashenvale, "The Earthen Ring"), as the compiler writes it: walking north from
+// Camp Taurajo, the vias "North of Thunder Bluff" (no height) and "Skywatcher Plateau" at the plateau's north end
+// (30.5,8.2, up on it: z 188.6), then Yorn Grimtotem in the camp on top (32.43,20.03, z 188.6). Going on to the
+// plateau's north end is a detour (about 2.6 times the way from the first via straight to Yorn): the way round
+// the cliffs and up.
+const SKYWATCHER: &str = r#"
+Polestar.RegisterGuide({ id = "test/sky", pack = "test", title = "Ashenvale", minLevel = 1, maxLevel = 60, steps = {
+	{ title = "Camp Taurajo", goals = { { t = "accept", quest = 9001, title = "Letter", npc = 1, npcName = "Grunt", map = 1413, x = 44.9, y = 59.1 } } },
+	{ title = "Skywatcher Plateau", via = true, goals = { { t = "goto", text = "North of Thunder Bluff", map = 1412, x = 40.6, y = 22.2, f = "e" } } },
+	{ title = "Skywatcher Plateau", via = true, goals = { { t = "goto", text = "Skywatcher Plateau", map = 1412, x = 30.5, y = 8.2, z = 188.6, f = "e" } } },
+	{ title = "The Earthen Ring", goals = { { t = "accept", quest = 96260, title = "Stronger than Steel", npc = 264072, npcName = "Yorn Grimtotem", map = 1412, x = 32.43, y = 20.03, z = 188.6 } } },
+} })
+"#;
+const TAUREN: &str = "w.race, w.raceName, w.faction = \"Tauren\", \"Tauren\", \"Horde\"\nw.class, w.className = \"WARLOCK\", \"Warlock\"\nw.level = 28";
+// East of Thunder Bluff, on the ground, walking north.
+const EAST_OF_THE_BLUFFS: &str = "w.moveTo(1412, 46.0, 33.0, 0)\nw.setZone(\"Mulgore\", \"Red Rocks\")";
+// Yards between two Mulgore points, the arrow's state and number, and the via steps' arrival chime counted.
+const SKY_HELPERS: &str = r#"
+	local C = Polestar.Compat
+	function yd(x1, y1, x2, y2)
+		local _, a, b = C.MapToWorld(1412, x1, y1)
+		local _, c, d = C.MapToWorld(1412, x2, y2)
+		return math.sqrt((a - c) ^ 2 + (b - d) ^ 2)
+	end
+	function arrow()
+		local state, d = N.Sample()
+		return { state = state, yards = d and math.floor(d + 0.5) or false }
+	end
+	PING = (SOUNDKIT and SOUNDKIT.MAP_PING) or 3175
+	function chimes()
+		local n = 0
+		for _, s in ipairs(stub.sounds) do if s == PING then n = n + 1 end end
+		return n
+	end
+	Polestar.Set("nav.arrivalSound", true)
+	-- The planner's estimates: how many in all, and the most one via verdict made in one refresh.
+	local T, est = N.travel, N.EstimateTravel
+	CALLS, WORST, VIA_CALLS = 0, 0, 0
+	N.EstimateTravel = function(...) CALLS = CALLS + 1; return est(...) end
+	local faster = T.ViaFaster
+	T.ViaFaster = function(...)
+		local before = CALLS
+		local a, b = faster(...)
+		WORST, VIA_CALLS = math.max(WORST, CALLS - before), VIA_CALLS + CALLS - before
+		return a, b
+	end
+	stub.world.accept(9001, {}, "Letter")
+	E.SetGuide("test/sky"); stub.advance(1)
+"#;
+
+#[test]
+fn skywatcher_no_chime_at_a_via_the_yards_count_to_yorn_the_way_round_is_kept_and_the_plateau_is_reached_on_top_4467() {
+	let script = format!(
+		r#"{SKY_HELPERS}
+		local r = {{ start = look(), arrow = arrow(), toVia = yd(46, 33, 40.6, 22.2), rest = yd(40.6, 22.2, 32.43, 20.03) }}
+		-- Within reach of the first via: never "arrived", no chime; Nav tells the Engine this frame.
+		stub.sounds = {{}}
+		stub.world.moveTo(1412, 40.7, 22.3, 1)
+		r.atFirst = arrow()
+		stub.advance(0.3)
+		r.afterFirst = look()
+		-- Under the plateau's north end, on the ground: not reached from below.
+		stub.world.moveTo(1412, 30.5, 8.25, 120); stub.advance(1)
+		r.below = look()
+		r.belowArrow = arrow()
+		-- Up on it: reached, the arrow turns to Yorn.
+		stub.world.moveTo(1412, 30.5, 8.25, 188); stub.advance(1)
+		r.onTop = look()
+		r.chimes = chimes()
+		r.worst = WORST
+		-- The chime itself works here: a point of the player's own, reached.
+		N.SetTarget(1412, 31.0, 9.0, "Here"); stub.world.moveTo(1412, 31.0, 9.0, 188); N.Sample(); stub.advance(0.2)
+		r.control = chimes()
+		emit(r)
+		"#
+	);
+	let Some(out) = run(EAST_OF_THE_BLUFFS, TAUREN, SKYWATCHER, &script) else {
+		return;
+	};
+	assert_eq!(json!([out["start"]["step"], out["start"]["x"], out["start"]["via"]]), json!([4, 40.6, 2]), "the arrow goes by north of Thunder Bluff: {out}");
+	// The number is the way left to Yorn: to the via and on from it, never the via's own yards.
+	let (to_via, rest) = (out["toVia"].as_f64().unwrap(), out["rest"].as_f64().unwrap());
+	if let Some(yards) = out["arrow"]["yards"].as_f64() {
+		assert!(yards >= to_via + rest - 1.0, "the yards count to Yorn ({to_via:.0} + {rest:.0}): {out}");
+	}
+	assert_ne!(out["atFirst"]["state"], "arrived", "a via is never 'arrived': {out}");
+	assert_eq!(json!([out["afterFirst"]["step"], out["afterFirst"]["x"], out["afterFirst"]["via"]]), json!([4, 30.5, 3]), "the way round to the plateau's north end is kept: {out}");
+	assert_eq!(out["below"]["via"], 3, "under the plateau it is still ahead: {out}");
+	assert_ne!(out["belowArrow"]["state"], "arrived", "{out}");
+	assert_eq!(json!([out["onTop"]["step"], out["onTop"]["x"], out["onTop"]["via"]]), json!([4, 32.43, false]), "on top, the arrow turns to Yorn: {out}");
+	assert_eq!(out["chimes"], 0, "no chime at a via: {out}");
+	assert!(out["worst"].as_u64().unwrap() <= 1, "one estimate a refresh at most: {out}");
+	assert_eq!(out["control"], 1, "the arrival chime plays at a real arrival: {out}");
+}
+
+#[test]
+fn skywatcher_standing_beside_a_via_in_a_fight_and_over_ten_second_ticks_the_arrow_never_swings_back_4467() {
+	let script = format!(
+		r#"{SKY_HELPERS}
+		-- 70 yd beside the first via: on the far side (still ahead) and on Yorn's side (past it).
+		local per = yd(40, 22.2, 41, 22.2)
+		local KEEP, PAST = {{ 40.6 + 70 / per, 22.2 }}, {{ 40.6 - 70 / per, 22.2 }}
+		local function stand(p) stub.world.moveTo(1412, p[1], p[2], 1); stub.advance(1); return look().via end
+		local r = {{ start = look().via, keep = stand(KEEP), past = stand(PAST), back = stand(KEEP), seen = {{}} }}
+		for i = 1, 6 do
+			stub.world.moveTo(1412, (i % 2 == 0 and KEEP or PAST)[1], 22.2, 1)
+			stub.fire("PLAYER_REGEN_DISABLED"); stub.fire("UNIT_COMBAT", "player", "WOUND", "", 10, 1)
+			stub.advance(0.2)
+			r.seen[#r.seen + 1] = look().via
+			stub.fire("PLAYER_REGEN_ENABLED")
+			stub.advance(10)
+			r.seen[#r.seen + 1] = look().via
+		end
+		-- Standing still once the verdict here is made (the first refresh at this place): no more estimates.
+		E.RequestUpdate(); stub.advance(1)
+		local calls = VIA_CALLS
+		for _ = 1, 5 do E.RequestUpdate(); stub.advance(10) end
+		r.still = VIA_CALLS - calls
+		r.worst = WORST
+		emit(r)
+		"#
+	);
+	let Some(out) = run(EAST_OF_THE_BLUFFS, TAUREN, SKYWATCHER, &script) else {
+		return;
+	};
+	assert_eq!(json!([out["start"], out["keep"]]), json!([2, 2]), "{out}");
+	assert_eq!(out["past"], 3, "past the first via: on to the plateau's north end: {out}");
+	assert_eq!(out["back"], 3, "a via passed stays passed: {out}");
+	assert_eq!(out["seen"], json!([3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]), "no swing back in a fight or over the ticks: {out}");
+	assert_eq!(out["still"], 0, "estimates are reused while the player stays: {out}");
+	assert!(out["worst"].as_u64().unwrap() <= 1, "{out}");
+}
