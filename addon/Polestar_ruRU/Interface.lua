@@ -2117,6 +2117,11 @@ L["Most of it drops as you level %s"] = "Большая часть выпаде�
 L["A long farm: most of it drops as you level"] = "Долгий фарм: большая часть выпадет по ходу прокачки"
 L["or the Auction House"] = "или аукцион"
 L["or %s"] = "или %s"
+-- L["Safe %s loop from level %d"] = ""
+-- L["%s loop"] = ""
+-- L["Farming loop"] = ""
+-- L["%d min a lap"] = ""
+-- L["about %d laps"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "Место"

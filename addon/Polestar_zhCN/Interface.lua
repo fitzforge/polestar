@@ -2034,6 +2034,11 @@ L["Most of it drops as you level %s"] = "大部分会在你升到 %s 级的途�
 L["A long farm: most of it drops as you level"] = "耗时很长：大部分会在升级途中掉落"
 L["or the Auction House"] = "或拍卖行"
 L["or %s"] = "或%s"
+-- L["Safe %s loop from level %d"] = ""
+-- L["%s loop"] = ""
+-- L["Farming loop"] = ""
+-- L["%d min a lap"] = ""
+-- L["about %d laps"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"

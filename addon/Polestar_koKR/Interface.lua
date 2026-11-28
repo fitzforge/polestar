@@ -2133,6 +2133,11 @@ L["Most of it drops as you level %s"] = "대부분은 레벨 %s 구간을 올리
 L["A long farm: most of it drops as you level"] = "긴 파밍: 대부분은 레벨을 올리며 얻습니다"
 L["or the Auction House"] = "또는 경매장"
 L["or %s"] = "또는 %s"
+-- L["Safe %s loop from level %d"] = ""
+-- L["%s loop"] = ""
+-- L["Farming loop"] = ""
+-- L["%d min a lap"] = ""
+-- L["about %d laps"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "위치"
