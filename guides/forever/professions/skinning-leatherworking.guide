@@ -22,8 +22,8 @@ zone Azeroth
 # ASSUMED: how far Skinning rises on a stretch's materials is the Skinning guide's expected
 # skill-ups per node on the band's loops and what players' recorded gathers gave per node, averaged
 # over the band's loops.
-# About 22 hours of skinning in 14 gathering stretches; it gathers about 1210 Rugged Leather, 1130
-# Thick Leather, 350 Light Leather, 280 Heavy Leather, 250 Heavy Scorpid Scale and 150 Medium
+# About 22 hours of skinning in 14 gathering stretches; it gathers about 1210 Rugged Leather, 860
+# Thick Leather, 490 Heavy Scorpid Scale, 350 Light Leather, 280 Heavy Leather and 260 Devilsaur
 # Leather.
 #
 # Leatherworking turns the leather and hides that Skinning gives into armor kits, leather and mail
@@ -108,61 +108,76 @@ step Leatherworking 1-75: vendor goods
   tip Buy the whole bracket's share in one go: 50 Coarse Thread (5s); about 5s in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero, Edna Mullby and Jillian Tanner; Orgrimmar: Borya, Felika and Shimra).
   buy 2320 x50 nearest
 
-step Skin Ruined Leather Scraps (Skinning 1-47)
-  tip 57 Ruined Leather Scraps for Leatherworking 1-20: 19 Light Leather. Skin 57 Ruined Leather Scraps (Skinning 1 to 47), then craft 19 Light Leather (Leatherworking 1 to 20). The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+step Skin Ruined Leather Scraps (Skinning 1-48)
+  tip 57 Ruined Leather Scraps for Leatherworking 1-20: 19 Light Leather. Skin 57 Ruined Leather Scraps (Skinning 1 to 48), then craft 19 Light Leather (Leatherworking 1 to 20). The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 2934 x57 gather Skinning 1
-  loop Zephras Isle lvl 5 lap 2171 yield 126.0 live r 80 at 41.0,27.0 43.3,26.8 45.3,28.7 45.9,26.5 47.6,25.2 46.1,23.0 45.3,20.4 44.0,22.2 36.6,24.3 35.4,25.5 38.3,27.6 39.2,30.1
-  loop Durotar lvl 4 lap 1971 yield 116.4 only Horde r 80 at 44.4,64.1 46.3,66.9 45.4,69.7 43.9,72.1 41.5,71.4 40.8,67.0 40.9,62.9 41.7,60.8 42.4,57.6 43.8,60.2 46.4,61.1 47.2,64.1
-  loop Dun Morogh lvl 4 lap 1786 yield 103.6 only Alliance r 80 at 29.0,74.5 30.9,74.3 31.7,70.2 27.9,71.8 25.9,69.8 23.5,68.8 21.5,70.9 20.1,74.4 21.5,78.0 23.9,78.5 26.9,76.0 28.9,77.7
-  loop Teldrassil lvl 4 lap 1486 yield 82.6 only Alliance r 80 at 60.3,35.5 62.2,34.3 62.3,37.9 64.3,41.3 62.1,42.6 60.5,45.6 58.0,44.8 55.7,42.4 56.3,38.2 57.9,39.0 57.7,35.3 59.6,31.5
-  loop Mulgore lvl 2 lap 1386 yield 75.2 only Horde r 80 at 45.2,85.1 47.7,87.3 48.9,82.9 50.6,85.9 53.4,85.7 52.0,81.9 49.6,77.7 47.3,75.6 45.0,73.8 42.8,76.4 43.0,81.3 46.2,81.9
-  loop Elwynn Forest lvl 6 lap 1200 yield 61.7 only Alliance r 80 at 46.8,38.0 47.1,34.5 50.9,36.3 52.1,41.2 49.6,46.2 49.6,59.6 45.0,56.9 42.4,60.8 42.9,55.2 45.9,43.3
-  loop Tirisfal Glades lvl 5 lap 1129 yield 57.6 only Horde r 80 at 29.5,63.4 27.8,64.2 29.0,68.4 30.7,69.3 29.4,72.5 32.0,71.2 35.5,71.2 34.7,68.6 35.0,62.5 37.3,60.0 34.2,57.8 31.2,58.0
+  loop Zephras Isle lvl 5 lap 5657 yield 239.1 only Horde live r 80 at 42.0,40.7 43.5,41.0 44.8,42.5 45.9,40.3 44.5,38.5 43.4,36.5 41.8,36.6 40.1,40.5 39.3,43.6 40.2,46.7 44.1,46.6 42.4,44.9
+  loop Zephras Isle lvl 4 lap 2171 yield 126.0 only Alliance live r 80 at 41.0,27.0 43.3,26.8 45.3,28.7 45.9,26.5 47.6,25.2 46.1,23.0 45.3,20.4 44.0,22.2 36.6,24.3 35.4,25.5 38.3,27.6 39.2,30.1
+  loop Durotar lvl 3 lap 1971 yield 116.4 only Horde r 80 at 44.4,64.1 46.3,66.9 45.4,69.7 43.9,72.1 41.5,71.4 40.8,67.0 40.9,62.9 41.7,60.8 42.4,57.6 43.8,60.2 46.4,61.1 47.2,64.1
+  loop Mulgore lvl 3 lap 1886 yield 110.6 only Horde r 80 at 52.7,89.4 48.6,90.1 45.4,88.6 50.4,86.1 49.0,83.5 49.4,80.4 52.4,80.3 54.0,82.4 53.5,86.1 56.2,86.3 59.0,89.1 56.5,90.7
+  loop Dun Morogh lvl 3 lap 1786 yield 103.6 only Alliance r 80 at 29.0,74.5 30.9,74.3 31.7,70.2 27.9,71.8 25.9,69.8 23.5,68.8 21.5,70.9 20.1,74.4 21.5,78.0 23.9,78.5 26.9,76.0 28.9,77.7
+  loop Dun Morogh lvl 2 lap 1657 yield 94.6 only Alliance r 80 at 29.0,74.5 30.9,74.3 31.7,70.2 27.9,71.8 25.9,69.8 23.5,68.8 21.5,70.9 20.1,74.0 24.0,72.5 24.1,78.1 26.9,75.6 28.9,77.7
+  loop Teldrassil lvl 3 lap 1486 yield 82.6 only Alliance r 80 at 60.3,35.5 62.2,34.3 62.3,37.9 64.3,41.3 62.1,42.6 60.5,45.6 58.0,44.8 55.7,42.4 56.3,38.2 57.9,39.0 57.7,35.3 59.6,31.5
+  loop Mulgore lvl 1 lap 1414 yield 77.2 only Horde r 80 at 53.4,85.7 52.0,81.9 49.6,77.7 47.3,75.6 45.0,73.8 46.5,78.8 43.0,81.3 45.2,85.1 46.2,81.9 48.9,82.9 47.7,87.3 50.6,85.9
+  loop Elwynn Forest lvl 5 lap 1200 yield 61.7 only Alliance r 80 at 46.8,38.0 47.1,34.5 50.9,36.3 52.1,41.2 49.6,46.2 49.6,59.6 45.0,56.9 42.4,60.8 42.9,55.2 45.9,43.3
+  loop Tirisfal Glades lvl 4 lap 1129 yield 57.6 only Horde r 80 at 29.5,63.4 27.8,64.2 29.0,68.4 30.7,69.3 29.4,72.5 32.0,71.2 35.5,71.2 34.7,68.6 35.0,62.5 37.3,60.0 34.2,57.8 31.2,58.0
+  loop Durotar lvl 1 lap 1014 yield 49.5 only Horde r 80 at 44.4,64.1 42.3,65.0 43.1,61.5 44.5,60.4 45.9,62.2 46.3,66.9 45.2,69.9
+  loop Zephras Isle lvl 1 lap 1014 yield 49.5 live r 80 at 45.8,28.9 47.8,25.5 45.9,23.5 45.9,26.5 43.8,27.4 42.4,27.3
+  loop Elwynn Forest lvl 2 lap 971 yield 46.8 only Alliance r 80 at 46.8,38.0 47.1,34.5 50.9,36.3 52.1,41.2 49.6,46.2 45.9,43.3
+  loop Teldrassil lvl 1 lap 829 yield 36.6 only Alliance r 80 at 58.0,44.8 56.1,42.8 57.7,39.2 62.1,42.6 62.2,45.4 60.5,45.6
+  loop Tirisfal Glades lvl 1 lap 743 yield 30.7 only Horde r 80 at 29.4,72.5 30.7,69.3 29.0,68.4 27.8,64.2 29.5,63.4 33.4,66.8 34.9,70.2 32.0,71.2
   auction 2934 x57
 
 step Light Leather to 20
   tip Light Leather is orange at 1 (yellow 20, green 30, grey 40): about 19 crafts to 20, a point every craft. Each takes 3 Ruined Leather Scraps. Three Ruined Leather Scraps a craft: the beasts of the starting zones give them as you skin. Orange to 20, and the Light Leather goes into the kits next.
   craft 2881 until 20
 
-step Skinning 47-50: Beasts 1-4
-  tip Skin from Skinning 47 to 50 for Light Armor Kit: this loop gives Light Leather, and the next one the rest from Skinning 50. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap.
-  loop Zephras Isle lvl 5 lap 2171 gain 105.3 live r 80 at 41.0,27.0 43.3,26.8 45.3,28.7 45.9,26.5 47.6,25.2 46.1,23.0 45.3,20.4 44.0,22.2 36.6,24.3 35.4,25.5 38.3,27.6 39.2,30.1
-  loop Durotar lvl 4 lap 1971 gain 94.1 only Horde r 80 at 44.4,64.1 46.3,66.9 45.4,69.7 43.9,72.1 41.5,71.4 40.8,67.0 40.9,62.9 41.7,60.8 42.4,57.6 43.8,60.2 46.4,61.1 47.2,64.1
-  loop Dun Morogh lvl 4 lap 1786 gain 83.6 only Alliance r 80 at 29.0,74.5 30.9,74.3 31.7,70.2 27.9,71.8 25.9,69.8 23.5,68.8 21.5,70.9 20.1,74.4 21.5,78.0 23.9,78.5 26.9,76.0 28.9,77.7
-  loop Teldrassil lvl 4 lap 1486 gain 66.7 only Alliance r 80 at 60.3,35.5 62.2,34.3 62.3,37.9 64.3,41.3 62.1,42.6 60.5,45.6 58.0,44.8 55.7,42.4 56.3,38.2 57.9,39.0 57.7,35.3 59.6,31.5
-  loop Mulgore lvl 2 lap 1386 gain 61.1 only Horde r 80 at 45.2,85.1 47.7,87.3 48.9,82.9 50.6,85.9 53.4,85.7 52.0,81.9 49.6,77.7 47.3,75.6 45.0,73.8 42.8,76.4 43.0,81.3 46.2,81.9
-  loop Elwynn Forest lvl 6 lap 1200 gain 50.7 only Alliance r 80 at 46.8,38.0 47.1,34.5 50.9,36.3 52.1,41.2 49.6,46.2 49.6,59.6 45.0,56.9 42.4,60.8 42.9,55.2 45.9,43.3
-  loop Tirisfal Glades lvl 5 lap 1129 gain 46.6 only Horde r 80 at 29.5,63.4 27.8,64.2 29.0,68.4 30.7,69.3 29.4,72.5 32.0,71.2 35.5,71.2 34.7,68.6 35.0,62.5 37.3,60.0 34.2,57.8 31.2,58.0
+step Skinning 48-50: Beasts 1-6
+  tip Skin from Skinning 48 to 50 for Light Armor Kit: this loop gives Light Leather, and the next one the rest from Skinning 50. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap.
+  loop Zephras Isle lvl 5 lap 5657 gain 301.5 only Horde live r 80 at 42.0,40.7 43.5,41.0 44.8,42.5 45.9,40.3 44.5,38.5 43.4,36.5 41.8,36.6 40.1,40.5 39.3,43.6 40.2,46.7 44.1,46.6 42.4,44.9
+  loop Zephras Isle lvl 4 lap 2171 gain 105.3 only Alliance live r 80 at 41.0,27.0 43.3,26.8 45.3,28.7 45.9,26.5 47.6,25.2 46.1,23.0 45.3,20.4 44.0,22.2 36.6,24.3 35.4,25.5 38.3,27.6 39.2,30.1
+  loop Durotar lvl 3 lap 1971 gain 94.1 only Horde r 80 at 44.4,64.1 46.3,66.9 45.4,69.7 43.9,72.1 41.5,71.4 40.8,67.0 40.9,62.9 41.7,60.8 42.4,57.6 43.8,60.2 46.4,61.1 47.2,64.1
+  loop Mulgore lvl 3 lap 1886 gain 89.3 only Horde r 80 at 52.7,89.4 48.6,90.1 45.4,88.6 50.4,86.1 49.0,83.5 49.4,80.4 52.4,80.3 54.0,82.4 53.5,86.1 56.2,86.3 59.0,89.1 56.5,90.7
+  loop Dun Morogh lvl 3 lap 1786 gain 83.6 only Alliance r 80 at 29.0,74.5 30.9,74.3 31.7,70.2 27.9,71.8 25.9,69.8 23.5,68.8 21.5,70.9 20.1,74.4 21.5,78.0 23.9,78.5 26.9,76.0 28.9,77.7
+  loop Dun Morogh lvl 2 lap 1657 gain 76.4 only Alliance r 80 at 29.0,74.5 30.9,74.3 31.7,70.2 27.9,71.8 25.9,69.8 23.5,68.8 21.5,70.9 20.1,74.0 24.0,72.5 24.1,78.1 26.9,75.6 28.9,77.7
+  loop Teldrassil lvl 3 lap 1486 gain 66.7 only Alliance r 80 at 60.3,35.5 62.2,34.3 62.3,37.9 64.3,41.3 62.1,42.6 60.5,45.6 58.0,44.8 55.7,42.4 56.3,38.2 57.9,39.0 57.7,35.3 59.6,31.5
+  loop Mulgore lvl 1 lap 1414 gain 62.7 only Horde r 80 at 53.4,85.7 52.0,81.9 49.6,77.7 47.3,75.6 45.0,73.8 46.5,78.8 43.0,81.3 45.2,85.1 46.2,81.9 48.9,82.9 47.7,87.3 50.6,85.9
+  loop Elwynn Forest lvl 5 lap 1200 gain 50.7 only Alliance r 80 at 46.8,38.0 47.1,34.5 50.9,36.3 52.1,41.2 49.6,46.2 49.6,59.6 45.0,56.9 42.4,60.8 42.9,55.2 45.9,43.3
+  loop Tirisfal Glades lvl 4 lap 1129 gain 46.6 only Horde r 80 at 29.5,63.4 27.8,64.2 29.0,68.4 30.7,69.3 29.4,72.5 32.0,71.2 35.5,71.2 34.7,68.6 35.0,62.5 37.3,60.0 34.2,57.8 31.2,58.0
+  loop Durotar lvl 1 lap 1014 gain 40.2 only Horde r 80 at 44.4,64.1 42.3,65.0 43.1,61.5 44.5,60.4 45.9,62.2 46.3,66.9 45.2,69.9
+  loop Zephras Isle lvl 1 lap 1014 gain 40.2 live r 80 at 45.8,28.9 47.8,25.5 45.9,23.5 45.9,26.5 43.8,27.4 42.4,27.3
+  loop Elwynn Forest lvl 2 lap 971 gain 37.8 only Alliance r 80 at 46.8,38.0 47.1,34.5 50.9,36.3 52.1,41.2 49.6,46.2 45.9,43.3
+  loop Teldrassil lvl 1 lap 829 gain 29.8 only Alliance r 80 at 58.0,44.8 56.1,42.8 57.7,39.2 62.1,42.6 62.2,45.4 60.5,45.6
+  loop Tirisfal Glades lvl 1 lap 743 gain 24.9 only Horde r 80 at 29.4,72.5 30.7,69.3 29.0,68.4 27.8,64.2 29.5,63.4 33.4,66.8 34.9,70.2 32.0,71.2
   skill Skinning 50
 
-step Skin Light Leather (Skinning 50-73)
-  tip 34 Light Leather for Leatherworking 20-51: 53 Light Armor Kits. Skin 34 Light Leather (Skinning 50 to 73), then craft 45 Light Armor Kits (Leatherworking 20 to 51). The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+step Skin Light Leather (Skinning 50-69)
+  tip 34 Light Leather for Leatherworking 20-51: 53 Light Armor Kits. Skin 33 Light Leather (Skinning 50 to 69), then craft 45 Light Armor Kits (Leatherworking 20 to 51). The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 2318 x34 gather Skinning 50
-  loop Zephras Isle lvl 8 lap 6729 yield 164.3 only Horde live r 80 at 40.5,52.7 40.0,48.4 37.9,52.0 37.6,56.5 40.1,59.2 43.3,57.5 44.8,51.7 43.7,48.6 42.3,49.7 42.3,53.4 40.4,56.3 38.9,54.8
-  loop Zephras Isle lvl 8 lap 6271 yield 152.8 only Alliance live r 80 at 40.5,52.7 40.0,50.4 37.9,52.0 36.4,53.8 37.6,56.5 38.9,54.8 40.4,56.3 40.1,59.2 43.3,57.5 44.9,52.4 42.9,50.6 42.0,54.4
-  loop The Barrens lvl 14 lap 843 yield 28.1 only Horde r 80 at 46.5,26.8 45.1,26.6 44.3,25.4 46.8,24.8 48.1,26.0 47.8,27.6 48.2,28.6 47.5,29.8 46.1,30.3 46.7,28.6
-  loop Loch Modan lvl 12 lap 800 yield 20.5 only Alliance r 80 at 37.2,35.1 37.2,39.9 40.8,52.5 37.7,54.4 30.6,53.9 29.9,46.8 27.7,39.9 24.8,36.5 29.5,34.6 28.5,25.8 31.8,24.1 33.5,31.5
-  loop Darkshore lvl 13 lap 900 yield 27.2 only Alliance r 80 at 39.8,37.8 39.5,39.8 40.8,42.0 42.1,45.3 43.7,43.0 45.2,41.4 43.5,33.5 40.9,34.2 39.4,33.9 38.1,36.9
-  loop Silverpine Forest lvl 11 lap 571 yield 8.7 only Horde r 80 at 66.3,7.0 64.1,7.7 66.0,10.4 69.4,6.6
-  loop Redridge Mountains lvl 18 lap 571 yield 16.7 only Alliance r 80 at 17.1,52.5 18.5,43.6 25.4,60.5 33.9,61.1 31.5,71.2 27.5,78.9 18.7,71.9
-  loop Westfall lvl 15 lap 486 yield 8.3 only Alliance r 80 at 60.7,44.5 63.2,38.2 60.9,36.7
+  loop Zephras Isle lvl 6 lap 9671 yield 239.2 only Horde live r 80 at 37.2,47.1 39.3,43.6 40.6,40.6 42.8,40.4 42.4,44.9 42.3,49.7 40.5,52.7 40.4,56.3 37.6,56.5 35.2,55.5 37.9,52.0 40.0,48.4
+  loop Zephras Isle lvl 6 lap 8486 yield 209.4 only Alliance live r 80 at 40.4,56.3 41.2,60.0 43.9,60.8 44.9,57.4 46.0,53.5 42.9,50.5 40.5,52.7 37.9,52.0 37.2,47.1 35.4,51.4 35.2,55.5 37.6,56.5
+  loop The Barrens lvl 12 lap 786 yield 25.7 only Horde r 80 at 56.9,28.5 54.8,30.2 55.7,30.0 57.0,30.5 57.9,31.0 58.0,28.9 56.9,26.7
+  loop Elwynn Forest lvl 9 lap 2014 yield 45.5 only Alliance r 80 at 65.4,78.2 61.6,78.0 57.6,81.6 55.5,76.1 55.7,70.6 58.4,72.7 59.6,76.0 62.1,70.0 59.9,66.1 65.1,63.3 70.5,63.4 70.5,74.4
+  loop Darkshore lvl 15 lap 914 yield 31.6 only Alliance r 80 at 41.9,66.3 40.6,67.4 39.9,69.5 39.0,66.7 39.2,63.5 41.4,63.2 43.1,64.9 44.6,63.0 44.1,67.4 42.5,71.4 42.8,68.7
+  loop Loch Modan lvl 11 lap 871 yield 23.0 only Alliance r 80 at 33.5,31.5 37.2,35.1 37.2,39.9 29.9,46.8 27.7,39.9 24.8,36.5 29.5,34.6 28.5,25.8 24.0,23.4 25.3,13.9 29.2,13.4 31.8,24.1
+  loop Silverpine Forest lvl 12 lap 871 yield 23.6 only Horde r 80 at 66.3,7.0 64.4,8.0 62.4,8.9 57.7,9.2 58.9,14.6 60.5,11.2 64.9,10.9 69.4,6.6
+  loop Westfall lvl 14 lap 457 yield 7.1 only Alliance r 80 at 60.5,45.2 63.2,38.2 60.9,36.7
   auction 2318 x34
 
 step Light Armor Kit to 51
   tip Light Armor Kit is orange at 20 (yellow 30, green 45, grey 60): about 45 crafts to 51, up to 53 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Light Leather. Use the 19 Light Leather you made earlier; the counts above leave them out. One Light Leather a craft; the kits sell to vendors.
   craft 2152 until 51
 
-step Skinning 73-75: Beasts 1-15
-  tip Skin from Skinning 73 to 75 for Embossed Leather Gloves: this loop gives Light Leather, and the next one the rest from Skinning 75. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap.
-  loop Zephras Isle lvl 8 lap 6729 gain 75.6 only Horde live r 80 at 40.5,52.7 40.0,48.4 37.9,52.0 37.6,56.5 40.1,59.2 43.3,57.5 44.8,51.7 43.7,48.6 42.3,49.7 42.3,53.4 40.4,56.3 38.9,54.8
-  loop Zephras Isle lvl 8 lap 6271 gain 70.2 only Alliance live r 80 at 40.5,52.7 40.0,50.4 37.9,52.0 36.4,53.8 37.6,56.5 38.9,54.8 40.4,56.3 40.1,59.2 43.3,57.5 44.9,52.4 42.9,50.6 42.0,54.4
-  loop The Barrens lvl 14 lap 843 gain 20.7 only Horde r 80 at 46.5,26.8 45.1,26.6 44.3,25.4 46.8,24.8 48.1,26.0 47.8,27.6 48.2,28.6 47.5,29.8 46.1,30.3 46.7,28.6
-  loop Dun Morogh lvl 4 lap 1786 gain 17.5 only Alliance r 80 at 29.0,74.5 30.9,74.3 31.7,70.2 27.9,71.8 25.9,69.8 23.5,68.8 21.5,70.9 20.1,74.4 21.5,78.0 23.9,78.5 26.9,76.0 28.9,77.7
-  loop Loch Modan lvl 12 lap 800 gain 8.3 only Alliance r 80 at 37.2,35.1 37.2,39.9 40.8,52.5 37.7,54.4 30.6,53.9 29.9,46.8 27.7,39.9 24.8,36.5 29.5,34.6 28.5,25.8 31.8,24.1 33.5,31.5
-  loop Darkshore lvl 13 lap 900 gain 11.4 only Alliance r 80 at 39.8,37.8 39.5,39.8 40.8,42.0 42.1,45.3 43.7,43.0 45.2,41.4 43.5,33.5 40.9,34.2 39.4,33.9 38.1,36.9
-  loop Silverpine Forest lvl 11 lap 571 gain 3.2 only Horde r 80 at 66.3,7.0 64.1,7.7 66.0,10.4 69.4,6.6
-  loop Redridge Mountains lvl 18 lap 571 gain 19.0 only Alliance r 80 at 17.1,52.5 18.5,43.6 25.4,60.5 33.9,61.1 31.5,71.2 27.5,78.9 18.7,71.9
-  loop Westfall lvl 15 lap 486 gain 6.6 only Alliance r 80 at 60.7,44.5 63.2,38.2 60.9,36.7
+step Skinning 69-75: Beasts 4-14
+  tip Skin from Skinning 69 to 75 for Embossed Leather Gloves: this loop gives Light Leather, and the next one the rest from Skinning 75. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap.
+  loop Zephras Isle lvl 6 lap 9671 gain 110.2 only Horde live r 80 at 37.2,47.1 39.3,43.6 40.6,40.6 42.8,40.4 42.4,44.9 42.3,49.7 40.5,52.7 40.4,56.3 37.6,56.5 35.2,55.5 37.9,52.0 40.0,48.4
+  loop Zephras Isle lvl 6 lap 8486 gain 96.3 only Alliance live r 80 at 40.4,56.3 41.2,60.0 43.9,60.8 44.9,57.4 46.0,53.5 42.9,50.5 40.5,52.7 37.9,52.0 37.2,47.1 35.4,51.4 35.2,55.5 37.6,56.5
+  loop The Barrens lvl 12 lap 786 gain 15.5 only Horde r 80 at 56.9,28.5 54.8,30.2 55.7,30.0 57.0,30.5 57.9,31.0 58.0,28.9 56.9,26.7
+  loop Elwynn Forest lvl 9 lap 2014 gain 20.2 only Alliance r 80 at 65.4,78.2 61.6,78.0 57.6,81.6 55.5,76.1 55.7,70.6 58.4,72.7 59.6,76.0 62.1,70.0 59.9,66.1 65.1,63.3 70.5,63.4 70.5,74.4
+  loop Darkshore lvl 15 lap 914 gain 32.8 only Alliance r 80 at 41.9,66.3 40.6,67.4 39.9,69.5 39.0,66.7 39.2,63.5 41.4,63.2 43.1,64.9 44.6,63.0 44.1,67.4 42.5,71.4 42.8,68.7
+  loop Loch Modan lvl 11 lap 871 gain 9.3 only Alliance r 80 at 33.5,31.5 37.2,35.1 37.2,39.9 29.9,46.8 27.7,39.9 24.8,36.5 29.5,34.6 28.5,25.8 24.0,23.4 25.3,13.9 29.2,13.4 31.8,24.1
+  loop Silverpine Forest lvl 12 lap 871 gain 9.6 only Horde r 80 at 66.3,7.0 64.4,8.0 62.4,8.9 57.7,9.2 58.9,14.6 60.5,11.2 64.9,10.9 69.4,6.6
+  loop Westfall lvl 14 lap 457 gain 5.6 only Alliance r 80 at 60.5,45.2 63.2,38.2 60.9,36.7
   skill Skinning 75
 
 step Journeyman Skinning
@@ -171,22 +186,22 @@ step Journeyman Skinning
 
 step Skinning 75-100: Beasts 5-17
   tip Skin from Skinning 75 to 100 for Embossed Leather Gloves: this loop gives Light Leather, and the next one the rest from Skinning 100. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap.
-  loop Loch Modan lvl 17 lap 914 gain 27.2 only Alliance r 80 at 66.9,40.3 64.9,34.5 64.4,29.5 62.3,33.9 61.3,40.2 61.9,45.4 62.4,51.5 65.3,47.6 72.9,44.7 71.8,37.6
-  loop The Barrens lvl 18 lap 886 gain 28.4 only Horde r 80 at 44.8,14.2 43.5,14.5 44.1,16.2 45.5,16.9 47.0,14.4 46.8,12.8 45.5,15.3
-  loop Darkshore lvl 17 lap 1214 gain 19.9 only Alliance r 80 at 39.4,68.3 38.3,69.1 38.2,72.8 38.4,74.7 40.5,70.5 43.4,70.8 43.6,68.3 44.5,66.4 43.1,64.9 41.9,66.3 38.7,60.7 39.0,65.2
-  loop Zephras Isle lvl 8 lap 6729 gain 67.5 only Horde live r 80 at 40.5,52.7 40.0,48.4 37.9,52.0 37.6,56.5 40.1,59.2 43.3,57.5 44.8,51.7 43.7,48.6 42.3,49.7 42.3,53.4 40.4,56.3 38.9,54.8
-  loop Silverpine Forest lvl 17 lap 400 gain 5.3 only Horde r 80 at 51.7,77.7 52.5,81.9 55.0,80.3
-  loop Westfall lvl 15 lap 486 gain 3.3 only Alliance r 80 at 60.7,44.5 63.2,38.2 60.9,36.7
+  loop The Barrens lvl 17 lap 1043 gain 41.6 only Horde r 80 at 55.6,51.0 57.1,52.0 57.3,53.8 58.2,51.1 59.4,49.7 56.8,47.3 56.4,49.2 55.8,48.3 54.5,48.2 53.4,48.0 54.6,50.2 53.8,52.1
+  loop Loch Modan lvl 16 lap 914 gain 27.2 only Alliance r 80 at 66.9,40.3 64.9,34.5 64.4,29.5 62.3,33.9 61.3,40.2 61.9,45.4 62.4,51.5 65.3,47.6 72.9,44.7 71.8,37.6
+  loop Darkshore lvl 15 lap 943 gain 14.8 only Alliance r 80 at 44.1,67.4 42.8,68.7 42.5,71.4 40.6,70.0 39.4,68.3 38.1,68.6 39.0,65.2 39.4,62.6 41.4,63.2 41.0,67.4 41.9,66.3 43.1,64.9
+  loop Zephras Isle lvl 6 lap 9671 gain 98.4 only Horde live r 80 at 37.2,47.1 39.3,43.6 40.6,40.6 42.8,40.4 42.4,44.9 42.3,49.7 40.5,52.7 40.4,56.3 37.6,56.5 35.2,55.5 37.9,52.0 40.0,48.4
+  loop Silverpine Forest lvl 16 lap 400 gain 5.3 only Horde r 80 at 51.7,77.7 52.5,81.9 55.0,80.3
+  loop Westfall lvl 16 lap 457 gain 5.2 only Alliance r 80 at 50.7,68.2 54.6,68.3 53.9,64.9 54.1,59.0 50.7,59.0 47.2,62.2
   skill Skinning 100
 
-step Skin Light Leather (Skinning 100-122)
-  tip 78 Light Leather for Leatherworking 51-75: 26 Embossed Leather Gloves. Skin 78 Light Leather (Skinning 100 to 122), then craft 25 Embossed Leather Gloves (Leatherworking 51 to 75). The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+step Skin Light Leather (Skinning 100-120)
+  tip 78 Light Leather for Leatherworking 51-75: 26 Embossed Leather Gloves. Skin 78 Light Leather (Skinning 100 to 120), then craft 25 Embossed Leather Gloves (Leatherworking 51 to 75). The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 2318 x112 gather Skinning 100
-  loop Ashenvale lvl 21 lap 614 yield 22.7 only Alliance r 80 at 25.5,53.2 27.6,54.2 30.1,55.8 31.4,50.8 30.1,48.0 24.5,49.1 22.4,47.1 20.1,49.0 19.3,54.1 19.2,57.4 23.2,56.0
-  loop Ashenvale lvl 23 lap 686 yield 24.6 only Horde r 80 at 39.9,65.4 41.2,66.8 41.5,70.3 38.7,70.4 36.6,69.2 37.9,61.7 39.5,62.2 42.3,61.5 42.1,64.5
-  loop Duskwood lvl 20 lap 471 yield 12.4 only Alliance r 80 at 33.3,24.1 36.8,20.6 28.7,26.0
-  loop The Barrens lvl 18 lap 886 yield 40.1 only Horde r 80 at 44.8,14.2 43.5,14.5 44.1,16.2 45.5,16.9 47.0,14.4 46.8,12.8 45.5,15.3
-  loop Silverpine Forest lvl 17 lap 400 yield 7.4 only Horde r 80 at 51.7,77.7 52.5,81.9 55.0,80.3
+  loop Ashenvale lvl 20 lap 614 yield 22.7 only Alliance r 80 at 25.5,53.2 27.6,54.2 30.1,55.8 31.4,50.8 30.1,48.0 24.5,49.1 22.4,47.1 20.1,49.0 19.3,54.1 19.2,57.4 23.2,56.0
+  loop Duskwood lvl 20 lap 500 yield 14.4 only Alliance r 80 at 28.7,26.0 33.3,24.1 36.8,20.6 16.9,23.1
+  loop Ashenvale lvl 22 lap 686 yield 24.6 only Horde r 80 at 39.9,65.4 41.2,66.8 41.5,70.3 38.7,70.4 36.6,69.2 37.9,61.7 39.5,62.2 42.3,61.5 42.1,64.5
+  loop The Barrens lvl 17 lap 1043 yield 53.8 only Horde r 80 at 55.6,51.0 57.1,52.0 57.3,53.8 58.2,51.1 59.4,49.7 56.8,47.3 56.4,49.2 55.8,48.3 54.5,48.2 53.4,48.0 54.6,50.2 53.8,52.1
+  loop Silverpine Forest lvl 16 lap 400 yield 7.4 only Horde r 80 at 51.7,77.7 52.5,81.9 55.0,80.3
   auction 2318 x112
 
 step Leatherworking recipes at 51
@@ -247,32 +262,31 @@ step Get Heavy Hide (Alterac Mountains)
   collect 4235 x24 @38.2,91.9 era gather Skinning 140
   auction 4235 x24
 
-step Skinning 122-125: Beasts 11-20
-  tip Skin from Skinning 122 to 125 for Fine Leather Belt: this loop gives Light Leather, and the next one the rest from Skinning 125. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap.
-  loop Ashenvale lvl 21 lap 614 gain 18.5 only Alliance r 80 at 25.5,53.2 27.6,54.2 30.1,55.8 31.4,50.8 30.1,48.0 24.5,49.1 22.4,47.1 20.1,49.0 19.3,54.1 19.2,57.4 23.2,56.0
-  loop Ashenvale lvl 23 lap 686 gain 27.0 only Horde r 80 at 39.9,65.4 41.2,66.8 41.5,70.3 38.7,70.4 36.6,69.2 37.9,61.7 39.5,62.2 42.3,61.5 42.1,64.5
-  loop Duskwood lvl 20 lap 471 gain 10.1 only Alliance r 80 at 33.3,24.1 36.8,20.6 28.7,26.0
-  loop The Barrens lvl 18 lap 886 gain 12.5 only Horde r 80 at 44.8,14.2 43.5,14.5 44.1,16.2 45.5,16.9 47.0,14.4 46.8,12.8 45.5,15.3
-  loop Silverpine Forest lvl 17 lap 400 gain 2.3 only Horde r 80 at 51.7,77.7 52.5,81.9 55.0,80.3
+step Skinning 120-125: Beasts 16-20
+  tip Skin from Skinning 120 to 125 for Fine Leather Belt: this loop gives Light Leather, and the next one the rest from Skinning 125. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap.
+  loop Ashenvale lvl 20 lap 614 gain 18.5 only Alliance r 80 at 25.5,53.2 27.6,54.2 30.1,55.8 31.4,50.8 30.1,48.0 24.5,49.1 22.4,47.1 20.1,49.0 19.3,54.1 19.2,57.4 23.2,56.0
+  loop Duskwood lvl 20 lap 500 gain 11.8 only Alliance r 80 at 28.7,26.0 33.3,24.1 36.8,20.6 16.9,23.1
+  loop Ashenvale lvl 22 lap 686 gain 27.0 only Horde r 80 at 39.9,65.4 41.2,66.8 41.5,70.3 38.7,70.4 36.6,69.2 37.9,61.7 39.5,62.2 42.3,61.5 42.1,64.5
+  loop The Barrens lvl 17 lap 1043 gain 19.5 only Horde r 80 at 55.6,51.0 57.1,52.0 57.3,53.8 58.2,51.1 59.4,49.7 56.8,47.3 56.4,49.2 55.8,48.3 54.5,48.2 53.4,48.0 54.6,50.2 53.8,52.1
+  loop Silverpine Forest lvl 16 lap 400 gain 2.3 only Horde r 80 at 51.7,77.7 52.5,81.9 55.0,80.3
   skill Skinning 125
 
 step Skinning 125-150: Beasts 21-25
   tip Skin from Skinning 125 to 150 for Fine Leather Belt: this loop gives Light Leather, and the next one the rest from Skinning 150. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap.
-  loop Hillsbrad Foothills lvl 24 lap 886 gain 32.8 only Alliance r 80 at 53.3,39.0 50.3,33.5 47.8,36.4 49.4,43.8 52.9,48.9 54.0,44.8 57.3,41.0
-  loop Ashenvale lvl 26 lap 614 gain 22.0 only Horde r 80 at 62.1,63.1 62.7,67.6 66.3,62.8 68.5,61.5 65.2,60.0 64.3,56.9
-  loop Ashenvale lvl 26 lap 586 gain 19.7 only Alliance r 80 at 62.1,63.1 62.7,67.6 65.6,63.1 65.2,60.0 64.3,56.9 63.9,53.7 58.0,57.7
-  loop Hillsbrad Foothills lvl 24 lap 771 gain 25.8 only Horde r 80 at 51.9,33.2 53.4,36.6 57.8,40.0 58.9,34.5 57.1,25.9 55.4,29.3 47.6,26.1 49.8,30.9 48.0,36.7
-  loop Wetlands lvl 25 lap 414 gain 6.1 only Alliance r 80 at 25.9,47.4 24.1,50.4 23.2,54.1 29.5,46.5
+  loop Hillsbrad Foothills lvl 25 lap 1071 gain 49.4 only Alliance r 80 at 39.6,56.8 45.6,58.0 44.7,47.8 39.5,38.1 39.3,46.5 39.0,50.6 36.1,50.9 34.2,56.6 30.2,54.8 29.6,64.9 34.5,63.5 39.2,61.9
+  loop Hillsbrad Foothills lvl 24 lap 971 gain 35.2 only Horde r 80 at 55.4,29.3 57.1,25.9 55.9,14.8 66.8,22.9 63.7,29.5 65.2,35.5 61.8,36.1 58.9,34.5 57.8,40.0 53.4,36.6 48.0,36.7 51.9,33.2
+  loop Ashenvale lvl 25 lap 614 gain 22.0 only Horde r 80 at 62.1,63.1 62.7,67.6 66.3,62.8 68.5,61.5 65.2,60.0 64.3,56.9
+  loop Ashenvale lvl 25 lap 586 gain 19.7 only Alliance r 80 at 62.1,63.1 62.7,67.6 65.6,63.1 65.2,60.0 64.3,56.9 63.9,53.7 58.0,57.7
   skill Skinning 150
 
 step Skin Light Leather
   tip 240 Light Leather for Leatherworking 75-102: 40 Fine Leather Belts. Skin 240 Light Leather at the loops of Skinning 100-125, the richest in it (they give no more points), then craft 35 Fine Leather Belts (Leatherworking 75 to 102). The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 2318 x240 gather Skinning 100
-  loop Ashenvale lvl 21 lap 614 yield 22.7 only Alliance r 80 at 25.5,53.2 27.6,54.2 30.1,55.8 31.4,50.8 30.1,48.0 24.5,49.1 22.4,47.1 20.1,49.0 19.3,54.1 19.2,57.4 23.2,56.0
-  loop Ashenvale lvl 23 lap 686 yield 24.6 only Horde r 80 at 39.9,65.4 41.2,66.8 41.5,70.3 38.7,70.4 36.6,69.2 37.9,61.7 39.5,62.2 42.3,61.5 42.1,64.5
-  loop Duskwood lvl 20 lap 471 yield 12.4 only Alliance r 80 at 33.3,24.1 36.8,20.6 28.7,26.0
-  loop The Barrens lvl 18 lap 886 yield 40.1 only Horde r 80 at 44.8,14.2 43.5,14.5 44.1,16.2 45.5,16.9 47.0,14.4 46.8,12.8 45.5,15.3
-  loop Silverpine Forest lvl 17 lap 400 yield 7.4 only Horde r 80 at 51.7,77.7 52.5,81.9 55.0,80.3
+  loop Ashenvale lvl 20 lap 614 yield 22.7 only Alliance r 80 at 25.5,53.2 27.6,54.2 30.1,55.8 31.4,50.8 30.1,48.0 24.5,49.1 22.4,47.1 20.1,49.0 19.3,54.1 19.2,57.4 23.2,56.0
+  loop Duskwood lvl 20 lap 500 yield 14.4 only Alliance r 80 at 28.7,26.0 33.3,24.1 36.8,20.6 16.9,23.1
+  loop Ashenvale lvl 22 lap 686 yield 24.6 only Horde r 80 at 39.9,65.4 41.2,66.8 41.5,70.3 38.7,70.4 36.6,69.2 37.9,61.7 39.5,62.2 42.3,61.5 42.1,64.5
+  loop The Barrens lvl 17 lap 1043 yield 53.8 only Horde r 80 at 55.6,51.0 57.1,52.0 57.3,53.8 58.2,51.1 59.4,49.7 56.8,47.3 56.4,49.2 55.8,48.3 54.5,48.2 53.4,48.0 54.6,50.2 53.8,52.1
+  loop Silverpine Forest lvl 16 lap 400 yield 7.4 only Horde r 80 at 51.7,77.7 52.5,81.9 55.0,80.3
   auction 2318 x240
 
 step Fine Leather Belt to 102
@@ -284,33 +298,35 @@ step Expert Skinning
   tip Expert Skinning raises Skinning's cap to 225, needs Skinning 125 and costs 50s (the arrow picks the nearest Skinning trainer of your faction).
   train Skinning Expert
 
-step Skinning 150-175: Beasts 27-30
+step Skinning 150-175: Beasts 26-30
   tip Skin from Skinning 150 to 175 for Nimble Leather Gloves: this loop gives Medium Leather, and the next one the rest from Skinning 175. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap.
-  loop Wetlands lvl 30 lap 943 gain 36.4 only Alliance r 80 at 69.2,31.6 69.3,28.2 65.1,28.7 66.5,30.7 68.3,36.5 71.0,38.9
-  loop Stranglethorn Vale lvl 32 lap 1071 gain 52.0 only Alliance r 80 at 41.2,13.0 43.0,13.0 42.2,10.2 41.2,8.1 39.4,7.5 35.9,7.7 31.5,8.7 33.8,10.1 34.5,13.0 37.0,11.0 39.3,11.4 38.8,14.3
-  loop Stranglethorn Vale lvl 32 lap 1043 gain 50.1 only Horde r 80 at 41.2,13.0 43.0,13.0 42.2,10.2 40.2,8.1 37.3,8.3 35.9,7.7 31.5,8.7 33.8,10.1 34.5,13.0 37.0,11.0 39.3,11.4 38.8,14.3
-  loop Alterac Mountains lvl 31 lap 543 gain 15.6 only Horde r 80 at 80.0,58.9 76.8,63.7 73.5,67.0 84.3,51.6 90.0,46.5
-  loop Thousand Needles lvl 32 lap 629 gain 23.0 r 80 at 76.1,56.3 76.9,53.4 73.3,56.2 70.8,55.1 74.7,61.6 77.6,59.8
-  loop Arathi Highlands lvl 33 lap 643 gain 24.0 only Horde r 80 at 65.3,42.3 62.9,45.8 64.0,50.5 67.1,56.3 70.6,51.0 74.0,48.3 69.1,38.5 69.9,31.0 67.2,34.1 65.7,37.2
+  loop Stranglethorn Vale lvl 31 lap 1071 gain 52.0 only Alliance r 80 at 41.2,13.0 43.0,13.0 42.2,10.2 41.2,8.1 39.4,7.5 35.9,7.7 31.5,8.7 33.8,10.1 34.5,13.0 37.0,11.0 39.3,11.4 38.8,14.3
+  loop Stranglethorn Vale lvl 31 lap 1043 gain 50.1 only Horde r 80 at 41.2,13.0 43.0,13.0 42.2,10.2 40.2,8.1 37.3,8.3 35.9,7.7 31.5,8.7 33.8,10.1 34.5,13.0 37.0,11.0 39.3,11.4 38.8,14.3
+  loop Ashenvale lvl 28 lap 971 gain 32.0 only Alliance r 80 at 58.3,42.3 55.6,40.4 53.1,35.3 55.3,34.1 54.2,31.5 57.2,30.8 58.3,34.8 57.5,38.4 59.5,37.7 61.6,42.7 63.4,44.4 60.9,46.0
+  loop Ashenvale lvl 28 lap 929 gain 29.9 only Horde r 80 at 58.3,42.3 59.8,44.3 63.4,44.4 61.6,42.7 59.5,37.7 58.3,34.8 57.2,30.8 54.2,31.5 55.3,34.1 53.1,35.3 55.6,40.4 57.5,38.4
+  loop Thousand Needles lvl 30 lap 700 gain 21.7 only Horde r 80 at 17.0,41.7 21.0,40.6 22.8,42.6 24.7,44.6 25.2,37.4 22.4,37.7 15.9,35.2 15.1,32.6 9.6,35.2 10.6,39.7 13.2,38.2
+  loop Thousand Needles lvl 30 lap 643 gain 19.5 only Alliance r 80 at 13.2,38.2 10.6,39.7 10.4,34.1 14.4,26.7 15.1,32.6 15.9,35.2 21.0,40.6 17.0,41.7
+  loop Arathi Highlands lvl 32 lap 786 gain 34.0 only Alliance r 80 at 65.7,37.2 67.2,34.1 60.3,37.3 52.3,32.4 50.8,40.3 52.1,44.9 54.2,46.7 56.9,46.6 58.7,42.4 61.5,45.1 64.3,46.4 65.3,42.3
   skill Skinning 175
 
-step Skinning 175-200: Beasts 25-35
+step Skinning 175-200: Beasts 29-35
   tip Skin from Skinning 175 to 200 for Nimble Leather Gloves: this loop gives Medium Leather, and the next one the rest from Skinning 200. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap.
-  loop Alterac Mountains lvl 36 lap 1843 gain 78.0 only Alliance r 80 at 40.1,90.9 40.5,95.9 36.1,85.1 30.1,87.4 32.3,82.5 30.0,73.6 30.5,62.2 32.9,67.1 35.5,70.5 39.7,70.4 41.7,64.9 44.1,78.4
-  loop Stranglethorn Vale lvl 34 lap 1614 gain 64.8 r 80 at 30.0,10.0 29.9,7.8 32.0,9.2 33.8,10.1 36.0,7.6 34.8,13.6 30.4,12.5 30.2,15.1 28.4,16.6 26.8,17.0 28.4,14.6 28.3,10.5
-  loop Desolace lvl 35 lap 786 gain 29.4 r 80 at 70.3,59.5 72.3,55.2 74.0,58.9 72.0,63.7 69.3,65.6 66.9,69.5 65.8,61.0 64.1,57.7 66.1,56.5 65.6,52.8 68.5,54.2 68.1,57.2
-  loop Badlands lvl 36 lap 529 gain 16.0 only Horde r 80 at 49.2,39.2 46.7,44.1 49.0,48.0 53.8,49.2
+  loop Stranglethorn Vale lvl 34 lap 1857 gain 77.2 r 80 at 34.8,13.6 37.2,13.2 37.7,17.0 35.4,18.5 33.8,18.4 32.1,19.0 30.2,15.1 30.4,12.5 30.0,10.0 29.9,7.8 33.8,10.1 36.0,7.6
+  loop Alterac Mountains lvl 33 lap 1357 gain 51.2 only Alliance r 80 at 40.1,90.9 37.9,96.8 40.5,95.9 44.1,94.8 48.9,83.1 49.1,75.2 44.1,78.4 39.8,84.7 36.1,85.1 32.3,82.5 30.6,78.9 30.1,87.4
+  loop Desolace lvl 34 lap 786 gain 29.4 only Horde r 80 at 70.3,59.5 72.3,55.2 74.0,58.9 72.0,63.7 69.3,65.6 66.9,69.5 65.8,61.0 64.1,57.7 66.1,56.5 65.6,52.8 68.5,54.2 68.1,57.2
+  loop Dustwallow Marsh lvl 36 lap 686 gain 27.0 only Alliance r 80 at 51.0,20.7 49.5,20.4 48.4,22.2 46.3,21.7 45.1,19.9 46.3,16.0 48.4,18.4 48.8,15.5 52.3,17.0
   skill Skinning 200
 
 step Skin Medium Leather
-  tip 150 Medium Leather for Leatherworking 102-125: 25 Nimble Leather Gloves; from your skinning on the way: 78 of 150 Medium Leather. Skin 73 Medium Leather at the loops of Skinning 150-175, the richest in it (they give no more points), then craft 24 Nimble Leather Gloves (Leatherworking 102 to 125). The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 150 Medium Leather for Leatherworking 102-125: 25 Nimble Leather Gloves; from your skinning on the way: 77 of 150 Medium Leather. Skin 73 Medium Leather at the loops of Skinning 150-175, the richest in it (they give no more points), then craft 24 Nimble Leather Gloves (Leatherworking 102 to 125). The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 2319 x150 gather Skinning 150
-  loop Wetlands lvl 30 lap 943 yield 32.8 only Alliance r 80 at 69.2,31.6 69.3,28.2 65.1,28.7 66.5,30.7 68.3,36.5 71.0,38.9
-  loop Stranglethorn Vale lvl 32 lap 1071 yield 39.1 only Alliance r 80 at 41.2,13.0 43.0,13.0 42.2,10.2 41.2,8.1 39.4,7.5 35.9,7.7 31.5,8.7 33.8,10.1 34.5,13.0 37.0,11.0 39.3,11.4 38.8,14.3
-  loop Stranglethorn Vale lvl 32 lap 1043 yield 37.7 only Horde r 80 at 41.2,13.0 43.0,13.0 42.2,10.2 40.2,8.1 37.3,8.3 35.9,7.7 31.5,8.7 33.8,10.1 34.5,13.0 37.0,11.0 39.3,11.4 38.8,14.3
-  loop Alterac Mountains lvl 31 lap 543 yield 12.4 only Horde r 80 at 80.0,58.9 76.8,63.7 73.5,67.0 84.3,51.6 90.0,46.5
-  loop Thousand Needles lvl 32 lap 629 yield 16.6 r 80 at 76.1,56.3 76.9,53.4 73.3,56.2 70.8,55.1 74.7,61.6 77.6,59.8
-  loop Arathi Highlands lvl 33 lap 643 yield 17.3 only Horde r 80 at 65.3,42.3 62.9,45.8 64.0,50.5 67.1,56.3 70.6,51.0 74.0,48.3 69.1,38.5 69.9,31.0 67.2,34.1 65.7,37.2
+  loop Stranglethorn Vale lvl 31 lap 1071 yield 39.1 only Alliance r 80 at 41.2,13.0 43.0,13.0 42.2,10.2 41.2,8.1 39.4,7.5 35.9,7.7 31.5,8.7 33.8,10.1 34.5,13.0 37.0,11.0 39.3,11.4 38.8,14.3
+  loop Stranglethorn Vale lvl 31 lap 1043 yield 37.7 only Horde r 80 at 41.2,13.0 43.0,13.0 42.2,10.2 40.2,8.1 37.3,8.3 35.9,7.7 31.5,8.7 33.8,10.1 34.5,13.0 37.0,11.0 39.3,11.4 38.8,14.3
+  loop Ashenvale lvl 28 lap 971 yield 34.3 only Alliance r 80 at 58.3,42.3 55.6,40.4 53.1,35.3 55.3,34.1 54.2,31.5 57.2,30.8 58.3,34.8 57.5,38.4 59.5,37.7 61.6,42.7 63.4,44.4 60.9,46.0
+  loop Ashenvale lvl 28 lap 929 yield 32.1 only Horde r 80 at 58.3,42.3 59.8,44.3 63.4,44.4 61.6,42.7 59.5,37.7 58.3,34.8 57.2,30.8 54.2,31.5 55.3,34.1 53.1,35.3 55.6,40.4 57.5,38.4
+  loop Thousand Needles lvl 30 lap 700 yield 20.4 only Horde r 80 at 17.0,41.7 21.0,40.6 22.8,42.6 24.7,44.6 25.2,37.4 22.4,37.7 15.9,35.2 15.1,32.6 9.6,35.2 10.6,39.7 13.2,38.2
+  loop Thousand Needles lvl 30 lap 643 yield 17.5 only Alliance r 80 at 13.2,38.2 10.6,39.7 10.4,34.1 14.4,26.7 15.1,32.6 15.9,35.2 21.0,40.6 17.0,41.7
+  loop Arathi Highlands lvl 32 lap 786 yield 24.5 only Alliance r 80 at 65.7,37.2 67.2,34.1 60.3,37.3 52.3,32.4 50.8,40.3 52.1,44.9 54.2,46.7 56.9,46.6 58.7,42.4 61.5,45.1 64.3,46.4 65.3,42.3
   auction 2319 x150
 
 step Leatherworking recipes at 102
@@ -333,29 +349,18 @@ step Cured Heavy Hide to 140
 
 step Skinning 200-225: Beasts 38-40
   tip Skin from Skinning 200 to 225 for Heavy Armor Kit: this loop gives Heavy Leather, and the next one the rest from Skinning 225. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap.
-  loop Swamp of Sorrows lvl 42 lap 3514 gain 206.4 only Alliance r 80 at 70.7,10.0 72.1,17.5 76.9,11.5 82.2,16.5 84.6,22.3 86.7,28.5 89.1,37.0 74.6,25.5 69.0,24.4 61.4,32.4 68.2,13.7 66.3,9.6
-  loop Dustwallow Marsh lvl 41 lap 1000 gain 44.0 r 80 at 32.6,65.1 34.0,71.5 34.2,69.0 35.6,66.4 35.3,61.0 36.4,58.7 39.4,58.7 38.9,53.4 37.3,51.5 34.4,49.5 35.0,55.4 34.8,58.4
-  loop Swamp of Sorrows lvl 42 lap 2757 gain 157.9 only Horde r 80 at 70.7,10.0 66.3,9.6 68.2,13.7 69.0,24.4 69.4,33.0 72.1,17.5 75.8,20.8 74.6,25.5 78.0,27.4 84.6,22.3 82.2,16.5 76.9,11.5
-  loop Stranglethorn Vale lvl 41 lap 700 gain 28.0 r 80 at 33.1,66.3 32.3,68.4 31.3,66.9 31.7,59.9 32.4,58.0 33.7,63.3 34.7,65.5
+  loop Swamp of Sorrows lvl 40 lap 1614 gain 84.6 r 80 at 86.7,28.4 84.4,22.4 82.3,17.0 89.1,37.0
+  loop Badlands lvl 40 lap 1200 gain 55.5 r 80 at 21.9,58.9 16.0,53.7 11.2,63.3 19.4,69.0 26.7,62.2 30.2,63.1 40.0,68.7 41.1,60.5 37.1,61.9 32.8,57.3 30.1,48.5 25.1,53.5
+  loop Dustwallow Marsh lvl 40 lap 1000 gain 44.0 r 80 at 32.6,65.1 34.0,71.5 34.2,69.0 35.6,66.4 35.3,61.0 36.4,58.7 39.4,58.7 38.9,53.4 37.3,51.5 34.4,49.5 35.0,55.4 34.8,58.4
   skill Skinning 225
 
-step Skinning 225-250: Beasts 38-45
-  tip Skin from Skinning 225 to 250 for Heavy Armor Kit: this loop gives Heavy Leather, and the next one the rest from Skinning 250. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap.
-  loop Tanaris lvl 45 lap 900 gain 33.2 r 80 at 45.4,39.2 47.9,39.0 46.9,36.7 45.7,35.1 44.5,36.2 43.4,37.4 42.7,41.3 43.4,43.1 45.2,42.2 46.9,42.1
-  loop The Hinterlands lvl 45 lap 757 gain 26.9 only Alliance r 80 at 36.6,51.4 37.6,55.0 34.5,60.5 31.9,63.1 27.9,69.5 28.4,62.4 27.1,55.6 24.7,51.1 29.6,54.2 32.9,54.5 35.3,45.4
-  loop Swamp of Sorrows lvl 46 lap 3486 gain 117.1 only Horde r 80 at 86.7,29.1 89.0,34.0 90.7,40.3 91.9,47.5 85.4,36.3 81.1,29.8 75.3,25.5 69.8,24.3 76.8,19.7 77.1,11.4 82.3,16.4 84.6,22.3
-  loop Feralas lvl 46 lap 757 gain 24.9 r 80 at 55.7,56.2 56.7,59.9 57.8,57.9 58.3,55.6 57.7,54.8 54.7,52.8 54.3,55.6 52.6,57.4
-  loop Azshara lvl 57 lap 443 gain 10.0 only Horde r 80 at 22.5,62.5 19.7,66.4 20.5,69.6
-  skill Skinning 250
-
-step Skin Heavy Leather
-  tip 65 Heavy Leather for Leatherworking 140-150: 13 Heavy Armor Kits; from your skinning on the way: 30 of 65 Heavy Leather. Skin 35 Heavy Leather (Skinning 250), then craft 11 Heavy Armor Kits (Leatherworking 140 to 150). The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+step Skin Heavy Leather (Skinning 225-245)
+  tip 65 Heavy Leather for Leatherworking 140-150: 13 Heavy Armor Kits; from your skinning on the way: 32 of 65 Heavy Leather. Skin 34 Heavy Leather (Skinning 225 to 245), then craft 11 Heavy Armor Kits (Leatherworking 140 to 150). The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 4234 x65 gather Skinning 225
-  loop Tanaris lvl 45 lap 900 yield 18.1 r 80 at 45.4,39.2 47.9,39.0 46.9,36.7 45.7,35.1 44.5,36.2 43.4,37.4 42.7,41.3 43.4,43.1 45.2,42.2 46.9,42.1
-  loop The Hinterlands lvl 45 lap 757 yield 14.4 only Alliance r 80 at 36.6,51.4 37.6,55.0 34.5,60.5 31.9,63.1 27.9,69.5 28.4,62.4 27.1,55.6 24.7,51.1 29.6,54.2 32.9,54.5 35.3,45.4
-  loop Swamp of Sorrows lvl 46 lap 3486 yield 144.9 only Horde r 80 at 86.7,29.1 89.0,34.0 90.7,40.3 91.9,47.5 85.4,36.3 81.1,29.8 75.3,25.5 69.8,24.3 76.8,19.7 77.1,11.4 82.3,16.4 84.6,22.3
-  loop Feralas lvl 46 lap 757 yield 14.0 r 80 at 55.7,56.2 56.7,59.9 57.8,57.9 58.3,55.6 57.7,54.8 54.7,52.8 54.3,55.6 52.6,57.4
-  loop Azshara lvl 57 lap 443 yield 1.6 only Horde r 80 at 22.5,62.5 19.7,66.4 20.5,69.6
+  loop Feralas lvl 45 lap 1086 yield 24.4 r 80 at 51.7,47.2 53.6,48.4 55.2,49.4 56.9,47.5 57.3,50.0 59.0,51.4 57.7,54.8 55.7,53.8 54.7,52.8 55.7,56.2 54.3,55.6 52.6,57.3
+  loop Tanaris lvl 45 lap 1214 yield 27.6 r 80 at 43.4,37.4 45.4,39.2 45.2,42.2 46.9,42.1 47.9,39.0 46.9,36.7 45.7,35.1 45.3,30.8 43.7,32.5 41.4,35.5 41.0,39.4 42.7,41.3
+  loop The Hinterlands lvl 44 lap 757 yield 14.4 only Alliance r 80 at 36.6,51.4 37.6,55.0 34.5,60.5 31.9,63.1 27.9,69.5 28.4,62.4 27.1,55.6 24.7,51.1 29.6,54.2 32.9,54.5 35.3,45.4
+  loop Swamp of Sorrows lvl 45 lap 3971 yield 168.1 only Horde r 80 at 82.3,16.4 84.6,22.3 86.7,29.1 90.7,40.3 91.9,47.5 85.4,36.3 81.1,29.8 75.3,25.5 70.0,18.8 66.2,10.9 70.7,10.0 77.1,11.4
   auction 4234 x65
 
 step Heavy Armor Kit to 150
@@ -380,13 +385,20 @@ step Expert Leatherworking
   learn 7151 npc 4212 only Alliance
   learn 7151 npc 3007 only Horde
 
+step Skinning 245-250: Beasts 38-44
+  tip Skin from Skinning 245 to 250 for Heavy Armor Kit: this loop gives Heavy Leather, and the next one the rest from Skinning 250. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap.
+  loop Feralas lvl 45 lap 1086 gain 46.0 r 80 at 51.7,47.2 53.6,48.4 55.2,49.4 56.9,47.5 57.3,50.0 59.0,51.4 57.7,54.8 55.7,53.8 54.7,52.8 55.7,56.2 54.3,55.6 52.6,57.3
+  loop Tanaris lvl 45 lap 1214 gain 50.6 r 80 at 43.4,37.4 45.4,39.2 45.2,42.2 46.9,42.1 47.9,39.0 46.9,36.7 45.7,35.1 45.3,30.8 43.7,32.5 41.4,35.5 41.0,39.4 42.7,41.3
+  loop The Hinterlands lvl 44 lap 757 gain 26.9 only Alliance r 80 at 36.6,51.4 37.6,55.0 34.5,60.5 31.9,63.1 27.9,69.5 28.4,62.4 27.1,55.6 24.7,51.1 29.6,54.2 32.9,54.5 35.3,45.4
+  loop Swamp of Sorrows lvl 45 lap 3971 gain 134.1 only Horde r 80 at 82.3,16.4 84.6,22.3 86.7,29.1 90.7,40.3 91.9,47.5 85.4,36.3 81.1,29.8 75.3,25.5 70.0,18.8 66.2,10.9 70.7,10.0 77.1,11.4
+  skill Skinning 250
+
 step Skin Heavy Leather
   tip 100 Heavy Leather for Leatherworking 150-158: 20 Heavy Armor Kits. Skin 100 Heavy Leather at the loops of Skinning 200-225, the richest in it (they give no more points), then craft 15 Heavy Armor Kits (Leatherworking 150 to 158). The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 4234 x100 gather Skinning 200
-  loop Swamp of Sorrows lvl 42 lap 3514 yield 151.3 only Alliance r 80 at 70.7,10.0 72.1,17.5 76.9,11.5 82.2,16.5 84.6,22.3 86.7,28.5 89.1,37.0 74.6,25.5 69.0,24.4 61.4,32.4 68.2,13.7 66.3,9.6
-  loop Dustwallow Marsh lvl 41 lap 1000 yield 35.1 r 80 at 32.6,65.1 34.0,71.5 34.2,69.0 35.6,66.4 35.3,61.0 36.4,58.7 39.4,58.7 38.9,53.4 37.3,51.5 34.4,49.5 35.0,55.4 34.8,58.4
-  loop Swamp of Sorrows lvl 42 lap 2757 yield 115.5 only Horde r 80 at 70.7,10.0 66.3,9.6 68.2,13.7 69.0,24.4 69.4,33.0 72.1,17.5 75.8,20.8 74.6,25.5 78.0,27.4 84.6,22.3 82.2,16.5 76.9,11.5
-  loop Stranglethorn Vale lvl 41 lap 700 yield 19.9 r 80 at 33.1,66.3 32.3,68.4 31.3,66.9 31.7,59.9 32.4,58.0 33.7,63.3 34.7,65.5
+  loop Swamp of Sorrows lvl 40 lap 1614 yield 61.6 r 80 at 86.7,28.4 84.4,22.4 82.3,17.0 89.1,37.0
+  loop Badlands lvl 40 lap 1200 yield 46.1 r 80 at 21.9,58.9 16.0,53.7 11.2,63.3 19.4,69.0 26.7,62.2 30.2,63.1 40.0,68.7 41.1,60.5 37.1,61.9 32.8,57.3 30.1,48.5 25.1,53.5
+  loop Dustwallow Marsh lvl 40 lap 1000 yield 35.1 r 80 at 32.6,65.1 34.0,71.5 34.2,69.0 35.6,66.4 35.3,61.0 36.4,58.7 39.4,58.7 38.9,53.4 37.3,51.5 34.4,49.5 35.0,55.4 34.8,58.4
   auction 4234 x100
 
 step Heavy Armor Kit to 158
@@ -397,10 +409,9 @@ step Heavy Armor Kit to 158
 step Skin Heavy Leather
   tip 56 Heavy Leather for Leatherworking 158-165: 7 Barbaric Shoulders. Skin 56 Heavy Leather at the loops of Skinning 200-225, the richest in it (they give no more points), then craft 7 Barbaric Shoulders (Leatherworking 158 to 165). The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 4234 x156 gather Skinning 200
-  loop Swamp of Sorrows lvl 42 lap 3514 yield 151.3 only Alliance r 80 at 70.7,10.0 72.1,17.5 76.9,11.5 82.2,16.5 84.6,22.3 86.7,28.5 89.1,37.0 74.6,25.5 69.0,24.4 61.4,32.4 68.2,13.7 66.3,9.6
-  loop Dustwallow Marsh lvl 41 lap 1000 yield 35.1 r 80 at 32.6,65.1 34.0,71.5 34.2,69.0 35.6,66.4 35.3,61.0 36.4,58.7 39.4,58.7 38.9,53.4 37.3,51.5 34.4,49.5 35.0,55.4 34.8,58.4
-  loop Swamp of Sorrows lvl 42 lap 2757 yield 115.5 only Horde r 80 at 70.7,10.0 66.3,9.6 68.2,13.7 69.0,24.4 69.4,33.0 72.1,17.5 75.8,20.8 74.6,25.5 78.0,27.4 84.6,22.3 82.2,16.5 76.9,11.5
-  loop Stranglethorn Vale lvl 41 lap 700 yield 19.9 r 80 at 33.1,66.3 32.3,68.4 31.3,66.9 31.7,59.9 32.4,58.0 33.7,63.3 34.7,65.5
+  loop Swamp of Sorrows lvl 40 lap 1614 yield 61.6 r 80 at 86.7,28.4 84.4,22.4 82.3,17.0 89.1,37.0
+  loop Badlands lvl 40 lap 1200 yield 46.1 r 80 at 21.9,58.9 16.0,53.7 11.2,63.3 19.4,69.0 26.7,62.2 30.2,63.1 40.0,68.7 41.1,60.5 37.1,61.9 32.8,57.3 30.1,48.5 25.1,53.5
+  loop Dustwallow Marsh lvl 40 lap 1000 yield 35.1 r 80 at 32.6,65.1 34.0,71.5 34.2,69.0 35.6,66.4 35.3,61.0 36.4,58.7 39.4,58.7 38.9,53.4 37.3,51.5 34.4,49.5 35.0,55.4 34.8,58.4
   auction 4234 x156
 
 step Barbaric Shoulders to 165
@@ -410,10 +421,9 @@ step Barbaric Shoulders to 165
 step Skin Heavy Leather
   tip 60 Heavy Leather for Leatherworking 165-180: 15 Guardian Gloves. Skin 60 Heavy Leather at the loops of Skinning 200-225, the richest in it (they give no more points), then craft 15 Guardian Gloves (Leatherworking 165 to 180). The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 4234 x216 gather Skinning 200
-  loop Swamp of Sorrows lvl 42 lap 3514 yield 151.3 only Alliance r 80 at 70.7,10.0 72.1,17.5 76.9,11.5 82.2,16.5 84.6,22.3 86.7,28.5 89.1,37.0 74.6,25.5 69.0,24.4 61.4,32.4 68.2,13.7 66.3,9.6
-  loop Dustwallow Marsh lvl 41 lap 1000 yield 35.1 r 80 at 32.6,65.1 34.0,71.5 34.2,69.0 35.6,66.4 35.3,61.0 36.4,58.7 39.4,58.7 38.9,53.4 37.3,51.5 34.4,49.5 35.0,55.4 34.8,58.4
-  loop Swamp of Sorrows lvl 42 lap 2757 yield 115.5 only Horde r 80 at 70.7,10.0 66.3,9.6 68.2,13.7 69.0,24.4 69.4,33.0 72.1,17.5 75.8,20.8 74.6,25.5 78.0,27.4 84.6,22.3 82.2,16.5 76.9,11.5
-  loop Stranglethorn Vale lvl 41 lap 700 yield 19.9 r 80 at 33.1,66.3 32.3,68.4 31.3,66.9 31.7,59.9 32.4,58.0 33.7,63.3 34.7,65.5
+  loop Swamp of Sorrows lvl 40 lap 1614 yield 61.6 r 80 at 86.7,28.4 84.4,22.4 82.3,17.0 89.1,37.0
+  loop Badlands lvl 40 lap 1200 yield 46.1 r 80 at 21.9,58.9 16.0,53.7 11.2,63.3 19.4,69.0 26.7,62.2 30.2,63.1 40.0,68.7 41.1,60.5 37.1,61.9 32.8,57.3 30.1,48.5 25.1,53.5
+  loop Dustwallow Marsh lvl 40 lap 1000 yield 35.1 r 80 at 32.6,65.1 34.0,71.5 34.2,69.0 35.6,66.4 35.3,61.0 36.4,58.7 39.4,58.7 38.9,53.4 37.3,51.5 34.4,49.5 35.0,55.4 34.8,58.4
   auction 4234 x216
 
 step Leatherworking recipes at 165
@@ -429,17 +439,19 @@ step Guardian Gloves to 180
 
 step Skinning 250-275: Beasts 47-50
   tip Skin from Skinning 250 to 275 for Nightscape Headband: this loop gives Thick Leather, and the next one the rest from Skinning 275. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap.
-  loop Un'Goro Crater lvl 51 lap 1229 gain 56.8 r 80 at 60.7,73.5 62.1,66.6 64.1,61.1 63.2,53.9 69.6,56.6 67.3,60.7 66.8,66.2 66.8,71.5 67.1,78.3 64.2,77.2 61.7,79.0 58.6,79.7
-  loop The Hinterlands lvl 50 lap 1029 gain 46.0 r 80 at 82.1,52.7 82.7,48.2 82.5,43.5 82.5,39.0 75.6,48.7 74.9,55.2 80.0,58.0 78.9,61.3 77.3,64.9 79.8,65.8 84.8,63.8 83.8,57.8
-  loop Azshara lvl 53 lap 1029 gain 51.0 r 80 at 58.0,20.4 59.7,17.9 56.7,17.4 54.9,15.7 47.9,19.7 47.7,23.8 49.9,24.6 51.0,28.6 52.6,33.0 53.1,25.6 55.3,22.4 58.0,23.4
+  loop Un'Goro Crater lvl 50 lap 1471 gain 74.9 r 80 at 64.1,61.1 63.0,53.1 65.7,49.3 71.0,51.7 68.5,55.2 70.9,60.1 67.3,60.7 66.8,66.2 66.8,71.5 64.2,77.2 60.7,73.5 62.1,66.6
+  loop The Hinterlands lvl 49 lap 1114 gain 51.5 only Horde r 80 at 83.8,57.8 82.1,52.7 82.7,48.2 82.5,43.5 75.6,48.7 74.9,55.2 78.9,61.3 79.8,65.8 77.3,64.9 77.2,69.4 80.3,72.4 84.8,63.8
+  loop The Hinterlands lvl 49 lap 1071 gain 48.7 only Alliance r 80 at 83.8,57.8 82.1,52.7 82.7,48.2 82.5,43.5 75.6,48.7 74.9,55.2 78.9,61.3 77.3,64.9 77.2,69.4 80.7,69.4 79.8,65.8 84.8,63.8
+  loop Azshara lvl 52 lap 1029 gain 51.0 r 80 at 58.0,20.4 59.7,17.9 56.7,17.4 54.9,15.7 47.9,19.7 47.7,23.8 49.9,24.6 51.0,28.6 52.6,33.0 53.1,25.6 55.3,22.4 58.0,23.4
   skill Skinning 275
 
 step Skin Thick Leather
-  tip 230 Thick Leather for Leatherworking 180-213: 46 Nightscape Headbands; from your skinning on the way: 106 of 230 Thick Leather. Skin 124 Thick Leather at the loops of Skinning 250-275, the richest in it (they give no more points), then craft 41 Nightscape Headbands (Leatherworking 180 to 213). The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 230 Thick Leather for Leatherworking 180-213: 46 Nightscape Headbands; from your skinning on the way: 99 of 230 Thick Leather. Skin 131 Thick Leather at the loops of Skinning 250-275, the richest in it (they give no more points), then craft 41 Nightscape Headbands (Leatherworking 180 to 213). The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 4304 x230 gather Skinning 250
-  loop Un'Goro Crater lvl 51 lap 1229 yield 49.6 r 80 at 60.7,73.5 62.1,66.6 64.1,61.1 63.2,53.9 69.6,56.6 67.3,60.7 66.8,66.2 66.8,71.5 67.1,78.3 64.2,77.2 61.7,79.0 58.6,79.7
-  loop The Hinterlands lvl 50 lap 1029 yield 38.0 r 80 at 82.1,52.7 82.7,48.2 82.5,43.5 82.5,39.0 75.6,48.7 74.9,55.2 80.0,58.0 78.9,61.3 77.3,64.9 79.8,65.8 84.8,63.8 83.8,57.8
-  loop Azshara lvl 53 lap 1029 yield 27.5 r 80 at 58.0,20.4 59.7,17.9 56.7,17.4 54.9,15.7 47.9,19.7 47.7,23.8 49.9,24.6 51.0,28.6 52.6,33.0 53.1,25.6 55.3,22.4 58.0,23.4
+  loop Un'Goro Crater lvl 50 lap 1471 yield 57.6 r 80 at 64.1,61.1 63.0,53.1 65.7,49.3 71.0,51.7 68.5,55.2 70.9,60.1 67.3,60.7 66.8,66.2 66.8,71.5 64.2,77.2 60.7,73.5 62.1,66.6
+  loop The Hinterlands lvl 49 lap 1114 yield 42.5 only Horde r 80 at 83.8,57.8 82.1,52.7 82.7,48.2 82.5,43.5 75.6,48.7 74.9,55.2 78.9,61.3 79.8,65.8 77.3,64.9 77.2,69.4 80.3,72.4 84.8,63.8
+  loop The Hinterlands lvl 49 lap 1071 yield 40.3 only Alliance r 80 at 83.8,57.8 82.1,52.7 82.7,48.2 82.5,43.5 75.6,48.7 74.9,55.2 78.9,61.3 77.3,64.9 77.2,69.4 80.7,69.4 79.8,65.8 84.8,63.8
+  loop Azshara lvl 52 lap 1029 yield 27.5 r 80 at 58.0,20.4 59.7,17.9 56.7,17.4 54.9,15.7 47.9,19.7 47.7,23.8 49.9,24.6 51.0,28.6 52.6,33.0 53.1,25.6 55.3,22.4 58.0,23.4
   auction 4304 x230
 
 step Leatherworking recipes at 180
@@ -454,9 +466,10 @@ step Nightscape Headband to 213
 step Skin Thick Leather
   tip 168 Thick Leather for Leatherworking 213-225: 12 Nightscape Pants. Skin 168 Thick Leather at the loops of Skinning 250-275, the richest in it (they give no more points), then craft 12 Nightscape Pants (Leatherworking 213 to 225). The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 4304 x398 gather Skinning 250
-  loop Un'Goro Crater lvl 51 lap 1229 yield 49.6 r 80 at 60.7,73.5 62.1,66.6 64.1,61.1 63.2,53.9 69.6,56.6 67.3,60.7 66.8,66.2 66.8,71.5 67.1,78.3 64.2,77.2 61.7,79.0 58.6,79.7
-  loop The Hinterlands lvl 50 lap 1029 yield 38.0 r 80 at 82.1,52.7 82.7,48.2 82.5,43.5 82.5,39.0 75.6,48.7 74.9,55.2 80.0,58.0 78.9,61.3 77.3,64.9 79.8,65.8 84.8,63.8 83.8,57.8
-  loop Azshara lvl 53 lap 1029 yield 27.5 r 80 at 58.0,20.4 59.7,17.9 56.7,17.4 54.9,15.7 47.9,19.7 47.7,23.8 49.9,24.6 51.0,28.6 52.6,33.0 53.1,25.6 55.3,22.4 58.0,23.4
+  loop Un'Goro Crater lvl 50 lap 1471 yield 57.6 r 80 at 64.1,61.1 63.0,53.1 65.7,49.3 71.0,51.7 68.5,55.2 70.9,60.1 67.3,60.7 66.8,66.2 66.8,71.5 64.2,77.2 60.7,73.5 62.1,66.6
+  loop The Hinterlands lvl 49 lap 1114 yield 42.5 only Horde r 80 at 83.8,57.8 82.1,52.7 82.7,48.2 82.5,43.5 75.6,48.7 74.9,55.2 78.9,61.3 79.8,65.8 77.3,64.9 77.2,69.4 80.3,72.4 84.8,63.8
+  loop The Hinterlands lvl 49 lap 1071 yield 40.3 only Alliance r 80 at 83.8,57.8 82.1,52.7 82.7,48.2 82.5,43.5 75.6,48.7 74.9,55.2 78.9,61.3 77.3,64.9 77.2,69.4 80.7,69.4 79.8,65.8 84.8,63.8
+  loop Azshara lvl 52 lap 1029 yield 27.5 r 80 at 58.0,20.4 59.7,17.9 56.7,17.4 54.9,15.7 47.9,19.7 47.7,23.8 49.9,24.6 51.0,28.6 52.6,33.0 53.1,25.6 55.3,22.4 58.0,23.4
   auction 4304 x398
 
 step Leatherworking recipes at 213
@@ -499,21 +512,19 @@ step Get Runecloth
   collect 14047 x500 nearest gather levels 45-60
   auction 14047 x500
 
-step Skinning 275-300: Beasts 48-55
+step Skinning 275-300: Beasts 53-55
   tip Skin from Skinning 275 to 300 for Rugged Armor Kit: this loop gives Rugged Leather, and the next one the rest from Skinning 300. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap.
-  loop Silithus lvl 56 lap 700 gain 25.8 r 80 at 60.1,25.8 56.5,32.2 55.3,23.4 59.8,19.7 63.5,17.0 62.8,24.1 65.5,27.8 64.2,31.3
-  loop Un'Goro Crater lvl 55 lap 1371 gain 50.3 r 80 at 67.4,15.5 69.1,17.6 70.7,21.4 68.3,21.3 62.5,17.6 64.9,16.8
-  loop Western Plaguelands lvl 54 lap 700 gain 23.5 r 80 at 45.7,44.0 46.8,39.8 45.4,37.2 43.5,40.2 43.1,46.8 44.9,49.5 46.6,47.3 51.1,47.0
-  loop Winterspring lvl 58 lap 700 gain 27.8 r 80 at 67.0,44.2 66.1,45.7 66.5,48.6 69.0,48.3 67.9,41.5 65.3,39.6 65.8,41.6
+  loop Western Plaguelands lvl 55 lap 1057 gain 51.4 r 80 at 55.2,62.4 58.1,60.2 56.2,58.1 58.4,53.4 60.5,51.8 58.8,50.5 55.9,51.9 53.0,50.0 51.1,53.1 48.9,60.0 50.7,63.9 52.3,60.0
+  loop Silithus lvl 55 lap 829 gain 34.0 r 80 at 59.8,19.7 63.5,17.0 61.4,14.9 56.9,11.4 54.7,14.0 51.3,19.6 53.0,29.1 56.5,32.2 64.2,31.3 65.5,27.8 60.1,25.8 55.3,23.4
+  loop Winterspring lvl 56 lap 871 gain 37.8 r 80 at 58.3,45.0 59.9,45.2 61.8,48.1 63.1,47.2 62.1,45.0 60.1,41.9 57.6,40.4 55.7,37.9 55.3,46.3 54.9,48.6 56.4,46.0
   skill Skinning 300
 
 step Skin Rugged Leather
-  tip 145 Rugged Leather for Leatherworking 225-239: 29 Rugged Armor Kits; from your skinning on the way: 97 of 145 Rugged Leather. Skin 48 Rugged Leather at the loops of Skinning 275-300, the richest in it (they give no more points), then craft 23 Rugged Armor Kits (Leatherworking 225 to 239). The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 145 Rugged Leather for Leatherworking 225-239: 29 Rugged Armor Kits; from your skinning on the way: 100 of 145 Rugged Leather. Skin 45 Rugged Leather at the loops of Skinning 275-300, the richest in it (they give no more points), then craft 23 Rugged Armor Kits (Leatherworking 225 to 239). The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 8170 x145 gather Skinning 275
-  loop Silithus lvl 56 lap 700 yield 11.2 r 80 at 60.1,25.8 56.5,32.2 55.3,23.4 59.8,19.7 63.5,17.0 62.8,24.1 65.5,27.8 64.2,31.3
-  loop Un'Goro Crater lvl 55 lap 1371 yield 30.8 r 80 at 67.4,15.5 69.1,17.6 70.7,21.4 68.3,21.3 62.5,17.6 64.9,16.8
-  loop Western Plaguelands lvl 54 lap 700 yield 14.3 r 80 at 45.7,44.0 46.8,39.8 45.4,37.2 43.5,40.2 43.1,46.8 44.9,49.5 46.6,47.3 51.1,47.0
-  loop Winterspring lvl 58 lap 700 yield 15.4 r 80 at 67.0,44.2 66.1,45.7 66.5,48.6 69.0,48.3 67.9,41.5 65.3,39.6 65.8,41.6
+  loop Western Plaguelands lvl 55 lap 1057 yield 29.6 r 80 at 55.2,62.4 58.1,60.2 56.2,58.1 58.4,53.4 60.5,51.8 58.8,50.5 55.9,51.9 53.0,50.0 51.1,53.1 48.9,60.0 50.7,63.9 52.3,60.0
+  loop Silithus lvl 55 lap 829 yield 14.8 r 80 at 59.8,19.7 63.5,17.0 61.4,14.9 56.9,11.4 54.7,14.0 51.3,19.6 53.0,29.1 56.5,32.2 64.2,31.3 65.5,27.8 60.1,25.8 55.3,23.4
+  loop Winterspring lvl 56 lap 871 yield 18.3 r 80 at 58.3,45.0 59.9,45.2 61.8,48.1 63.1,47.2 62.1,45.0 60.1,41.9 57.6,40.4 55.7,37.9 55.3,46.3 54.9,48.6 56.4,46.0
   auction 8170 x145
 
 step Rugged Armor Kit to 239
@@ -523,10 +534,9 @@ step Rugged Armor Kit to 239
 step Skin Rugged Leather
   tip 360 Rugged Leather for Leatherworking 239-269: 45 Wicked Leather Gauntlets. Skin 360 Rugged Leather at the loops of Skinning 275-300, the richest in it (they give no more points), then craft 39 Wicked Leather Gauntlets (Leatherworking 239 to 269). The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 8170 x505 gather Skinning 275
-  loop Silithus lvl 56 lap 700 yield 11.2 r 80 at 60.1,25.8 56.5,32.2 55.3,23.4 59.8,19.7 63.5,17.0 62.8,24.1 65.5,27.8 64.2,31.3
-  loop Un'Goro Crater lvl 55 lap 1371 yield 30.8 r 80 at 67.4,15.5 69.1,17.6 70.7,21.4 68.3,21.3 62.5,17.6 64.9,16.8
-  loop Western Plaguelands lvl 54 lap 700 yield 14.3 r 80 at 45.7,44.0 46.8,39.8 45.4,37.2 43.5,40.2 43.1,46.8 44.9,49.5 46.6,47.3 51.1,47.0
-  loop Winterspring lvl 58 lap 700 yield 15.4 r 80 at 67.0,44.2 66.1,45.7 66.5,48.6 69.0,48.3 67.9,41.5 65.3,39.6 65.8,41.6
+  loop Western Plaguelands lvl 55 lap 1057 yield 29.6 r 80 at 55.2,62.4 58.1,60.2 56.2,58.1 58.4,53.4 60.5,51.8 58.8,50.5 55.9,51.9 53.0,50.0 51.1,53.1 48.9,60.0 50.7,63.9 52.3,60.0
+  loop Silithus lvl 55 lap 829 yield 14.8 r 80 at 59.8,19.7 63.5,17.0 61.4,14.9 56.9,11.4 54.7,14.0 51.3,19.6 53.0,29.1 56.5,32.2 64.2,31.3 65.5,27.8 60.1,25.8 55.3,23.4
+  loop Winterspring lvl 56 lap 871 yield 18.3 r 80 at 58.3,45.0 59.9,45.2 61.8,48.1 63.1,47.2 62.1,45.0 60.1,41.9 57.6,40.4 55.7,37.9 55.3,46.3 54.9,48.6 56.4,46.0
   auction 8170 x505
 
 step Wicked Leather Gauntlets to 269
@@ -537,10 +547,9 @@ step Wicked Leather Gauntlets to 269
 step Skin Rugged Leather
   tip 700 Rugged Leather for Leatherworking 269-300: 50 Runic Leather Headbands. Skin 700 Rugged Leather at the loops of Skinning 275-300, the richest in it (they give no more points), then craft 43 Runic Leather Headbands (Leatherworking 269 to 300). The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 8170 x1205 gather Skinning 275
-  loop Silithus lvl 56 lap 700 yield 11.2 r 80 at 60.1,25.8 56.5,32.2 55.3,23.4 59.8,19.7 63.5,17.0 62.8,24.1 65.5,27.8 64.2,31.3
-  loop Un'Goro Crater lvl 55 lap 1371 yield 30.8 r 80 at 67.4,15.5 69.1,17.6 70.7,21.4 68.3,21.3 62.5,17.6 64.9,16.8
-  loop Western Plaguelands lvl 54 lap 700 yield 14.3 r 80 at 45.7,44.0 46.8,39.8 45.4,37.2 43.5,40.2 43.1,46.8 44.9,49.5 46.6,47.3 51.1,47.0
-  loop Winterspring lvl 58 lap 700 yield 15.4 r 80 at 67.0,44.2 66.1,45.7 66.5,48.6 69.0,48.3 67.9,41.5 65.3,39.6 65.8,41.6
+  loop Western Plaguelands lvl 55 lap 1057 yield 29.6 r 80 at 55.2,62.4 58.1,60.2 56.2,58.1 58.4,53.4 60.5,51.8 58.8,50.5 55.9,51.9 53.0,50.0 51.1,53.1 48.9,60.0 50.7,63.9 52.3,60.0
+  loop Silithus lvl 55 lap 829 yield 14.8 r 80 at 59.8,19.7 63.5,17.0 61.4,14.9 56.9,11.4 54.7,14.0 51.3,19.6 53.0,29.1 56.5,32.2 64.2,31.3 65.5,27.8 60.1,25.8 55.3,23.4
+  loop Winterspring lvl 56 lap 871 yield 18.3 r 80 at 58.3,45.0 59.9,45.2 61.8,48.1 63.1,47.2 62.1,45.0 60.1,41.9 57.6,40.4 55.7,37.9 55.3,46.3 54.9,48.6 56.4,46.0
   auction 8170 x1205
 
 step Runic Leather Headband to 300

@@ -21,9 +21,9 @@ zone Azeroth
 # ASSUMED: how far Mining rises on a stretch's materials is the Mining guide's expected skill-ups
 # per node on the band's loops and what players' recorded gathers gave per node, averaged over the
 # band's loops.
-# About 49 hours of mining in 15 gathering stretches (the other way through the fork: about 158
-# hours); it gathers about 560 Mithril Ore, 540 Solid Stone, 340 Copper Ore, 320 Iron Ore, 290 Rough
-# Stone and 270 Tin Ore.
+# About 60 hours of mining in 15 gathering stretches (the other way through the fork: about 163
+# hours); it gathers about 560 Mithril Ore, 540 Solid Stone, 370 Copper Ore, 320 Iron Ore, 310 Rough
+# Stone and 300 Tin Ore.
 #
 # Blacksmithing hammers bars into plate, mail and weapons, and makes the sharpening and grinding
 # stones later plans use. Mining is its partner: the bars are smelted from ore and the stones come
@@ -101,36 +101,50 @@ step Buy a Mining Pick
 
 step Mine until Mining 50
   tip This loop gives the Rough Stone to Mining 50; the next one the rest.
-  loop Zephras Isle lvl 5 lap 310 gain 29.8 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
-  loop Teldrassil lvl 6 lap 500 gain 32.2 only Alliance r 60 at 56.9,26.3 56.0,25.0 56.2,28.8 53.5,48.5 54.0,51.3 56.8,31.9 57.7,29.1 58.2,27.2
-  loop Dun Morogh lvl 5 lap 333 gain 12.9 only Alliance r 60 at 27.3,80.1 28.7,83.0 30.1,80.5 29.6,75.7 27.1,63.9 26.7,66.0 26.4,67.8 19.7,75.4 22.0,79.3
-  loop Tirisfal Glades lvl 5 lap 294 gain 8.0 only Horde r 60 at 23.8,59.5 24.0,57.9 32.2,55.8 29.3,63.8 25.2,60.2
-  loop Durotar lvl 7 lap 384 gain 11.8 only Horde r 60 at 45.6,70.8 44.6,69.6 43.0,71.6 40.3,70.7 40.2,68.6 40.0,65.9 41.6,66.2 41.1,61.4 43.5,61.6 45.8,66.6 50.5,63.1 52.1,75.1
-  loop Elwynn Forest lvl 4 lap 304 gain 4.3 only Alliance r 60 at 55.6,35.4 45.1,33.8 49.0,28.1 50.6,26.9 64.8,39.1
-  loop Mulgore lvl 3 lap 301 gain 3.8 only Horde r 60 at 41.8,79.8 41.2,82.0 48.4,74.4 43.8,72.8
+  loop Zephras Isle lvl 4 lap 310 gain 29.8 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
+  loop Teldrassil lvl 5 lap 505 gain 33.0 only Alliance r 60 at 56.2,28.8 56.0,25.0 56.9,26.3 58.2,27.2 57.7,29.1 56.8,31.9 54.8,52.9 54.0,51.3 53.5,48.5
+  loop Teldrassil lvl 4 lap 460 gain 25.7 only Alliance r 60 at 56.9,26.3 56.0,25.0 56.2,28.8 56.8,31.9 57.7,29.1 58.2,27.2
+  loop Zephras Isle lvl 1 lap 232 gain 12.9 live r 60 at 43.3,29.5 44.4,24.8 45.5,29.7 46.6,32.1 40.0,32.2
+  loop Dun Morogh lvl 4 lap 333 gain 12.9 only Alliance r 60 at 27.3,80.1 28.7,83.0 30.1,80.5 29.6,75.7 27.1,63.9 26.7,66.0 26.4,67.8 19.7,75.4 22.0,79.3
+  loop Durotar lvl 3 lap 331 gain 11.5 only Horde r 60 at 45.8,66.6 45.6,70.8 44.6,69.6 43.0,71.6 40.3,70.7 40.2,68.6 40.0,65.9 41.6,66.2 41.1,61.4 43.5,61.6 50.5,63.1
+  loop Tirisfal Glades lvl 4 lap 338 gain 11.5 only Horde r 60 at 29.3,63.8 25.2,60.2 23.8,59.5 24.0,57.9 32.2,55.8 33.5,52.8 35.4,70.5 33.4,69.7 30.8,72.6
+  loop Dun Morogh lvl 3 lap 306 gain 9.6 only Alliance r 60 at 22.0,79.3 19.7,75.4 29.6,75.7 28.7,83.0 27.3,80.1
+  loop Tirisfal Glades lvl 3 lap 324 gain 9.9 only Horde r 60 at 29.3,63.8 25.2,60.2 23.8,59.7 32.2,55.8 33.5,52.8 35.4,70.5 33.4,69.7 30.8,72.6
+  loop Mulgore lvl 2 lap 307 gain 4.8 only Horde r 60 at 49.0,92.8 49.2,87.7 41.8,79.8 41.2,82.0
+  loop Elwynn Forest lvl 2 lap 304 gain 4.4 only Alliance r 60 at 45.1,33.8 38.0,50.8 42.8,49.6 44.9,43.0 55.6,35.4
   skill Mining 50
 
 step Mine until Mining 65
   tip This loop gives the Rough Stone to Mining 65; the next one the rest.
-  loop Zephras Isle lvl 5 lap 310 gain 6.7 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
-  loop Teldrassil lvl 11 lap 569 gain 9.5 only Alliance r 60 at 56.9,26.3 56.0,25.0 56.2,28.8 51.4,49.1 52.3,51.7 54.5,51.9 52.9,49.3 56.8,31.9 57.7,29.1 58.2,27.2
-  loop Dun Morogh lvl 5 lap 333 gain 2.9 only Alliance r 60 at 27.3,80.1 28.7,83.0 30.1,80.5 29.6,75.7 27.1,63.9 26.7,66.0 26.4,67.8 19.7,75.4 22.0,79.3
-  loop Durotar lvl 8 lap 399 gain 2.9 only Horde r 60 at 45.6,70.8 44.6,69.6 43.0,71.6 40.3,70.7 40.2,68.6 40.0,65.9 41.6,66.2 41.1,61.4 45.4,50.0 48.3,49.2 43.5,61.6 45.8,66.6
-  loop Tirisfal Glades lvl 11 lap 379 gain 2.5 only Horde r 60 at 23.8,59.5 24.0,57.9 28.1,47.0 29.7,42.5 30.8,45.5 33.5,52.8 32.2,55.8 33.4,69.7 30.8,72.6 29.3,63.8 25.2,60.2
-  loop Elwynn Forest lvl 10 lap 564 gain 3.0 only Alliance r 60 at 61.1,50.5 60.3,64.5 59.6,78.1 56.6,79.7 50.7,85.2 38.0,50.8 42.8,49.6 44.9,43.0 45.1,33.8 49.0,28.1 50.6,26.9 55.6,35.4
-  loop Mulgore lvl 8 lap 540 gain 2.2 only Horde r 60 at 41.8,79.8 33.5,58.2 31.6,60.9 34.0,66.5 33.2,70.1 34.1,72.7 32.9,76.2 33.7,81.2 34.6,79.8 41.2,82.0 49.0,92.8 49.2,87.7
+  loop Zephras Isle lvl 4 lap 310 gain 6.7 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
+  loop Teldrassil lvl 7 lap 587 gain 10.3 only Alliance r 60 at 56.9,26.3 56.0,25.0 56.2,28.8 51.5,50.1 52.9,50.1 54.7,52.1 53.5,48.5 56.8,31.9 57.7,29.1 58.2,27.2
+  loop Teldrassil lvl 4 lap 460 gain 5.8 only Alliance r 60 at 56.9,26.3 56.0,25.0 56.2,28.8 56.8,31.9 57.7,29.1 58.2,27.2
+  loop Zephras Isle lvl 1 lap 232 gain 2.9 live r 60 at 43.3,29.5 44.4,24.8 45.5,29.7 46.6,32.1 40.0,32.2
+  loop Dun Morogh lvl 4 lap 333 gain 2.9 only Alliance r 60 at 27.3,80.1 28.7,83.0 30.1,80.5 29.6,75.7 27.1,63.9 26.7,66.0 26.4,67.8 19.7,75.4 22.0,79.3
+  loop Durotar lvl 3 lap 331 gain 2.6 only Horde r 60 at 45.8,66.6 45.6,70.8 44.6,69.6 43.0,71.6 40.3,70.7 40.2,68.6 40.0,65.9 41.6,66.2 41.1,61.4 43.5,61.6 50.5,63.1
+  loop Tirisfal Glades lvl 4 lap 338 gain 2.6 only Horde r 60 at 29.3,63.8 25.2,60.2 23.8,59.5 24.0,57.9 32.2,55.8 33.5,52.8 35.4,70.5 33.4,69.7 30.8,72.6
+  loop Dun Morogh lvl 3 lap 306 gain 2.2 only Alliance r 60 at 22.0,79.3 19.7,75.4 29.6,75.7 28.7,83.0 27.3,80.1
+  loop Tirisfal Glades lvl 3 lap 324 gain 2.2 only Horde r 60 at 29.3,63.8 25.2,60.2 23.8,59.7 32.2,55.8 33.5,52.8 35.4,70.5 33.4,69.7 30.8,72.6
+  loop Elwynn Forest lvl 9 lap 323 gain 1.7 only Alliance r 60 at 50.7,85.2 40.9,82.4 40.4,78.8 43.7,74.1 45.6,72.6 47.6,73.8 50.4,74.0 52.0,76.4 59.6,78.1 56.6,79.7 51.3,80.7 52.5,85.6
+  loop Mulgore lvl 9 lap 322 gain 1.6 only Horde r 60 at 62.7,41.1 61.1,40.1 61.5,51.0 57.6,43.0 56.6,40.4 56.9,38.6 57.9,35.4 59.3,30.9 59.4,33.7 61.2,36.6 62.7,38.3 65.5,38.2
+  loop Mulgore lvl 2 lap 307 gain 1.1 only Horde r 60 at 49.0,92.8 49.2,87.7 41.8,79.8 41.2,82.0
+  loop Elwynn Forest lvl 2 lap 304 gain 1.0 only Alliance r 60 at 45.1,33.8 38.0,50.8 42.8,49.6 44.9,43.0 55.6,35.4
   skill Mining 65
 
 step Mine 198 Rough Stone
   tip For 30 Rough Sharpening Stones and 84 Rough Grinding Stones.
   collect 2835 x198 gather Mining 1
-  loop Zephras Isle lvl 5 lap 310 yield 31.5 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
-  loop Teldrassil lvl 6 lap 500 yield 35.9 only Alliance r 60 at 56.9,26.3 56.0,25.0 56.2,28.8 53.5,48.5 54.0,51.3 56.8,31.9 57.7,29.1 58.2,27.2
-  loop Dun Morogh lvl 5 lap 333 yield 15.0 only Alliance r 60 at 27.3,80.1 28.7,83.0 30.1,80.5 29.6,75.7 27.1,63.9 26.7,66.0 26.4,67.8 19.7,75.4 22.0,79.3
-  loop Tirisfal Glades lvl 5 lap 294 yield 9.4 only Horde r 60 at 23.8,59.5 24.0,57.9 32.2,55.8 29.3,63.8 25.2,60.2
-  loop Durotar lvl 7 lap 384 yield 13.6 only Horde r 60 at 45.6,70.8 44.6,69.6 43.0,71.6 40.3,70.7 40.2,68.6 40.0,65.9 41.6,66.2 41.1,61.4 43.5,61.6 45.8,66.6 50.5,63.1 52.1,75.1
-  loop Elwynn Forest lvl 4 lap 304 yield 5.0 only Alliance r 60 at 55.6,35.4 45.1,33.8 49.0,28.1 50.6,26.9 64.8,39.1
-  loop Mulgore lvl 3 lap 301 yield 4.3 only Horde r 60 at 41.8,79.8 41.2,82.0 48.4,74.4 43.8,72.8
+  loop Zephras Isle lvl 4 lap 310 yield 31.5 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
+  loop Teldrassil lvl 5 lap 505 yield 36.7 only Alliance r 60 at 56.2,28.8 56.0,25.0 56.9,26.3 58.2,27.2 57.7,29.1 56.8,31.9 54.8,52.9 54.0,51.3 53.5,48.5
+  loop Teldrassil lvl 4 lap 460 yield 30.1 only Alliance r 60 at 56.9,26.3 56.0,25.0 56.2,28.8 56.8,31.9 57.7,29.1 58.2,27.2
+  loop Zephras Isle lvl 1 lap 232 yield 12.9 live r 60 at 43.3,29.5 44.4,24.8 45.5,29.7 46.6,32.1 40.0,32.2
+  loop Dun Morogh lvl 4 lap 333 yield 15.0 only Alliance r 60 at 27.3,80.1 28.7,83.0 30.1,80.5 29.6,75.7 27.1,63.9 26.7,66.0 26.4,67.8 19.7,75.4 22.0,79.3
+  loop Durotar lvl 3 lap 331 yield 13.4 only Horde r 60 at 45.8,66.6 45.6,70.8 44.6,69.6 43.0,71.6 40.3,70.7 40.2,68.6 40.0,65.9 41.6,66.2 41.1,61.4 43.5,61.6 50.5,63.1
+  loop Tirisfal Glades lvl 4 lap 338 yield 13.3 only Horde r 60 at 29.3,63.8 25.2,60.2 23.8,59.5 24.0,57.9 32.2,55.8 33.5,52.8 35.4,70.5 33.4,69.7 30.8,72.6
+  loop Dun Morogh lvl 3 lap 306 yield 11.3 only Alliance r 60 at 22.0,79.3 19.7,75.4 29.6,75.7 28.7,83.0 27.3,80.1
+  loop Tirisfal Glades lvl 3 lap 324 yield 11.4 only Horde r 60 at 29.3,63.8 25.2,60.2 23.8,59.7 32.2,55.8 33.5,52.8 35.4,70.5 33.4,69.7 30.8,72.6
+  loop Mulgore lvl 2 lap 307 yield 5.6 only Horde r 60 at 49.0,92.8 49.2,87.7 41.8,79.8 41.2,82.0
+  loop Elwynn Forest lvl 2 lap 304 yield 4.8 only Alliance r 60 at 45.1,33.8 38.0,50.8 42.8,49.6 44.9,43.0 55.6,35.4
   auction 2835 x198
 
 step Craft 30 Rough Sharpening Stones until 25
@@ -157,17 +171,15 @@ section Blacksmithing 75-84
 
 step Mine until Mining 125
   tip This loop gives the Coarse Stone to Mining 125; the next one the rest.
-  loop Loch Modan lvl 15 lap 465 gain 1.6 only Alliance r 60 at 25.7,45.5 26.0,50.9 26.7,57.4 29.3,72.4 35.1,57.1 45.8,61.5 36.2,23.3 36.0,16.8 23.1,24.5 22.7,31.5 26.0,31.3 23.7,36.7
-  loop The Barrens lvl 14 lap 371 gain 0.7 only Horde r 60 at 45.0,23.0 43.7,22.7 43.0,21.1 44.8,21.3 45.3,22.3 46.2,20.7 47.2,22.7 44.9,25.1
-  loop Darkshore lvl 18 lap 405 gain 2.2 only Alliance r 60 at 56.0,34.3 55.7,36.3 54.6,37.0 52.4,36.3 49.1,37.9 47.8,32.8 48.2,29.1 51.3,30.3 51.7,28.1 50.7,26.2 52.1,26.1 53.7,26.0
-  loop Westfall lvl 18 lap 394 gain 2.0 only Alliance r 60 at 30.1,47.1 31.4,44.6 34.7,42.9 32.2,40.6 30.7,38.2 29.4,40.9 29.2,50.5 28.9,54.8
-  loop Silverpine Forest lvl 16 lap 397 gain 0.8 only Horde r 60 at 35.4,10.1 35.0,13.0 33.3,15.4 34.9,18.5 33.1,20.5 35.4,20.7 39.7,32.5 49.6,24.4 41.0,15.9 38.2,17.2 36.8,19.1 36.8,13.2
-  loop Stonetalon Mountains lvl 23 lap 405 gain 2.2 only Horde r 60 at 72.8,60.7 70.9,58.6 68.8,53.3 66.6,59.7 63.2,64.7 63.4,51.6 65.5,50.5 68.3,44.7 72.2,43.7 76.7,52.7 76.7,59.5 72.9,62.9
-  loop Ashenvale lvl 24 lap 497 gain 2.1 only Horde r 60 at 40.5,36.4 39.6,33.9 38.1,30.5 33.1,36.0 35.4,37.1 40.5,40.7 45.0,44.3 47.1,45.8 46.3,42.8 43.8,40.8 42.2,37.1 40.2,37.9
-  loop Hillsbrad Foothills lvl 22 lap 479 gain 0.9 only Horde r 60 at 62.7,10.8 67.2,4.4 68.0,8.3 64.7,11.5 64.7,15.3 58.0,11.9
-  loop Wetlands lvl 29 lap 481 gain 5.5 only Alliance r 60 at 50.6,61.8 48.6,62.3 46.7,62.8 45.8,65.1 45.7,60.3 47.5,60.0 49.1,59.1 50.9,59.2 54.2,58.2 55.9,58.7 53.6,62.4 53.4,66.9
-  loop Duskwood lvl 25 lap 455 gain 1.0 only Alliance r 60 at 85.8,49.1 82.4,51.2 78.4,63.3 82.7,70.8 81.8,62.9 84.1,55.2
-  loop Riverglades lvl 39 lap 313 gain 1.8 only Horde live r 60 at 21.3,68.9 19.9,71.6 16.9,71.3 17.2,68.9 20.4,64.4 22.0,64.7 24.2,63.4 25.3,58.2 29.7,56.3 29.9,61.9 26.4,61.0 26.7,63.9
+  loop Loch Modan lvl 13 lap 503 gain 2.0 only Alliance r 60 at 25.7,45.5 26.7,57.4 29.3,72.4 27.1,85.6 29.8,87.5 35.6,85.3 42.0,66.0 35.1,57.1 36.2,23.4 36.0,16.8 26.0,31.3 22.7,31.5
+  loop Darkshore lvl 16 lap 401 gain 1.9 only Alliance r 60 at 51.7,28.1 52.1,26.1 50.7,26.2 50.6,21.7 49.7,19.5 46.1,27.3 48.2,29.1 47.8,32.8 49.1,37.9 52.4,36.3 56.6,33.3 51.3,30.3
+  loop The Barrens lvl 13 lap 371 gain 0.7 only Horde r 60 at 45.0,23.0 43.7,22.7 43.0,21.1 44.8,21.3 45.3,22.3 46.2,20.7 47.2,22.7 44.9,25.1
+  loop Silverpine Forest lvl 13 lap 373 gain 0.2 only Horde r 60 at 39.7,32.5 41.6,27.4 45.5,34.1 41.9,31.5
+  loop Stonetalon Mountains lvl 22 lap 405 gain 2.2 only Horde r 60 at 72.8,60.7 70.9,58.6 68.8,53.3 66.6,59.7 63.2,64.7 63.4,51.6 65.5,50.5 68.3,44.7 72.2,43.7 76.7,52.7 76.7,59.5 72.9,62.9
+  loop Redridge Mountains lvl 15 lap 382 gain 0.3 only Alliance r 60 at 59.3,71.3 64.3,73.0 67.2,73.5 70.4,71.0 53.5,70.1
+  loop Hillsbrad Foothills lvl 21 lap 485 gain 1.8 only Horde r 60 at 62.7,10.8 67.2,4.4 68.0,8.3 72.1,17.2 75.9,23.0 64.7,11.5 64.7,15.3 54.9,23.7 50.9,29.4 54.6,19.8 53.4,16.5 58.0,11.9
+  loop Ashenvale lvl 20 lap 487 gain 1.2 only Horde r 60 at 22.4,41.4 22.7,44.0 22.3,45.9 17.4,39.9 17.7,35.6 16.5,31.0 20.9,29.9 22.9,27.7 23.4,33.8 21.8,33.6 21.7,35.4 22.9,36.3
+  loop Duskwood lvl 24 lap 458 gain 1.1 only Alliance r 60 at 84.1,55.2 85.8,49.1 82.4,51.2 78.4,63.3 74.6,72.2 80.0,76.0 82.2,75.3 82.7,70.8 81.8,62.9
   skill Mining 125
 
 step Train Expert Mining
@@ -178,28 +190,38 @@ step Learn Smelt Iron
 
 step Mine until Mining 155
   tip This loop gives the Coarse Stone to Mining 155; the next one the rest.
-  loop Thousand Needles lvl 28 lap 626 gain 3.0 only Horde r 60 at 42.7,33.7 44.6,39.3 40.2,50.8 37.0,54.3 35.8,50.7 34.4,53.4 33.0,51.2 30.1,45.9 23.7,44.8 23.9,23.4 28.1,28.1 34.6,26.7
-  loop Duskwood lvl 25 lap 611 gain 1.1 only Alliance r 60 at 86.1,48.7 85.5,54.0 84.1,58.3 82.7,53.0 79.5,40.5 82.9,35.9
-  loop Thousand Needles lvl 30 lap 621 gain 3.0 only Alliance r 60 at 26.9,52.6 16.6,40.9 21.8,41.2 23.7,44.8 26.4,47.0 28.8,49.0 30.1,45.9 33.0,51.2 35.8,50.7 38.2,51.5 37.0,54.3 34.4,53.4
-  loop Wetlands lvl 30 lap 560 gain 2.2 only Alliance r 60 at 69.5,28.9 71.1,29.9 69.6,33.1 68.0,31.7 65.6,34.4 64.9,30.9 64.2,26.7 67.3,28.2
-  loop The Barrens lvl 20 lap 606 gain 0.5 only Horde r 60 at 54.8,60.4 51.7,58.1 50.9,57.8 51.4,54.7 53.6,54.6 60.5,61.2
-  loop Hillsbrad Foothills lvl 22 lap 610 gain 0.4 only Horde r 60 at 66.9,4.1 67.3,9.1 66.6,14.7 64.7,15.3 64.7,11.5 62.7,9.6
-  loop Stranglethorn Vale lvl 35 lap 617 gain 2.2 r 60 at 46.2,7.4 30.5,7.6 27.0,10.1 27.4,13.6 25.7,15.4 26.3,18.0 27.6,18.0 30.0,17.7 29.3,15.3 31.3,13.8 29.8,12.1 31.3,9.5
-  loop Riverglades lvl 39 lap 310 gain 1.8 only Horde live r 60 at 69.3,61.7 71.3,60.1 72.6,58.5 69.9,54.1 70.1,48.8 64.2,48.8 64.4,66.6 65.7,71.9 66.7,68.3 67.8,65.1
+  loop Thousand Needles lvl 27 lap 626 gain 3.0 only Horde r 60 at 42.7,33.7 44.6,39.3 40.2,50.8 37.0,54.3 35.8,50.7 34.4,53.4 33.0,51.2 30.1,45.9 23.7,44.8 23.9,23.4 28.1,28.1 34.6,26.7
+  loop Hillsbrad Foothills lvl 25 lap 618 gain 1.3 only Horde r 60 at 85.1,42.1 87.7,45.0 90.5,39.3 88.7,37.7 86.6,35.4 88.7,31.0 72.1,17.2 71.4,32.9 69.6,38.9 64.0,51.7 80.1,30.8 83.1,32.1
+  loop Duskwood lvl 28 lap 621 gain 2.7 only Alliance r 60 at 81.2,28.7 78.7,29.0 51.3,22.4 58.6,37.7 57.7,46.8 57.9,61.3 59.9,56.2 77.3,38.8 79.5,40.5 86.1,48.7 82.9,35.9 85.2,32.5
+  loop Ashenvale lvl 26 lap 615 gain 1.4 only Alliance r 60 at 71.0,53.3 72.3,51.0 74.1,52.0 75.4,52.8 77.2,52.3 73.7,45.9 70.7,51.4 64.6,47.3 62.2,48.4 62.7,60.4 69.0,58.4 70.6,58.3
+  loop Thousand Needles lvl 30 lap 628 gain 4.3 only Alliance r 60 at 26.3,55.7 26.9,53.2 35.8,50.7 18.0,36.0 15.6,31.1 14.7,34.4 13.0,34.8 13.3,36.9 11.2,38.3 10.4,41.2 15.2,40.3 16.6,40.9
+  loop Ashenvale lvl 27 lap 611 gain 1.4 only Horde r 60 at 71.0,53.3 64.4,55.6 65.8,60.0 69.0,58.4 70.8,60.0 72.5,57.0 74.7,57.4 75.4,52.8 77.2,52.3 73.7,45.9 72.3,51.0 70.7,51.4
+  loop Arathi Highlands lvl 33 lap 580 gain 2.3 only Alliance r 60 at 31.3,45.1 33.4,42.4 38.7,43.1 40.2,49.0 41.5,40.9 38.1,34.5 30.7,32.6 28.5,32.6 24.7,36.5 22.3,43.6 31.3,61.7 33.0,46.6
+  loop Arathi Highlands lvl 34 lap 581 gain 3.0 only Horde r 60 at 72.9,59.5 70.2,57.5 70.6,52.4 70.8,49.5 61.6,44.0 65.3,65.7 67.4,69.5 60.5,74.0 63.3,73.9 66.7,74.7 69.8,73.8 71.2,67.0
+  loop Stranglethorn Vale lvl 34 lap 617 gain 2.2 only Horde r 60 at 46.2,7.4 30.5,7.6 27.0,10.1 27.4,13.6 25.7,15.4 26.3,18.0 27.6,18.0 30.0,17.7 29.3,15.3 31.3,13.8 29.8,12.1 31.3,9.5
   skill Mining 155
+
+step Mine until Mining 175
+  tip This loop gives the Coarse Stone to Mining 175; the next one the rest.
+  loop Thousand Needles lvl 30 lap 710 gain 3.8 only Horde r 60 at 42.6,33.4 44.7,39.2 53.9,45.6 55.6,49.6 35.9,50.7 26.9,52.6 14.9,40.2 11.1,38.5 10.9,32.2 12.6,25.3 23.9,23.4 34.6,26.9
+  loop Thousand Needles lvl 30 lap 629 gain 3.1 only Alliance r 60 at 26.3,55.7 26.9,53.2 35.9,50.7 18.0,36.0 15.6,31.1 14.7,34.4 13.0,34.8 13.3,36.9 11.1,38.5 10.4,41.2 14.9,40.2 16.6,40.9
+  loop Duskwood lvl 30 lap 670 gain 2.9 only Alliance r 60 at 32.3,75.6 36.1,78.4 36.4,82.9 67.5,71.9 71.7,76.4 77.3,38.8 64.3,53.0 57.7,46.8 59.3,40.2 57.1,31.5 25.9,34.0 26.7,37.7
+  loop Hillsbrad Foothills lvl 31 lap 644 gain 2.6 only Alliance r 60 at 28.6,55.9 31.6,53.5 37.6,26.1 39.5,26.5 41.1,31.2 44.0,32.1 46.3,31.6 44.4,26.9 48.9,26.5 70.4,66.2 66.9,83.1 64.2,76.7
+  loop Ashenvale lvl 29 lap 623 gain 1.6 only Horde r 60 at 78.9,62.9 85.4,74.3 90.3,76.4 88.9,79.2 85.0,78.9 84.6,76.5 83.1,77.3 82.9,80.1 81.5,77.8 78.4,80.2 80.5,73.4 71.0,53.3
+  loop Arathi Highlands lvl 34 lap 584 gain 2.1 only Horde r 60 at 72.9,59.4 70.2,57.5 70.6,52.4 70.8,49.5 61.6,44.0 65.3,65.7 67.4,69.5 60.5,74.0 63.3,73.9 66.7,74.7 69.8,73.8 71.2,67.1
+  loop Arathi Highlands lvl 33 lap 582 gain 1.6 only Alliance r 60 at 31.3,45.1 33.4,42.4 38.7,43.1 40.2,49.0 41.5,40.9 38.1,34.5 30.7,32.6 28.5,32.6 24.7,36.5 22.3,43.6 31.3,61.7 33.0,46.6
+  loop Stranglethorn Vale lvl 34 lap 618 gain 1.6 only Horde r 60 at 46.2,7.4 30.5,7.6 27.0,10.1 27.4,13.6 25.7,15.4 26.3,18.0 27.6,18.0 30.0,17.7 29.3,15.3 31.3,13.8 29.8,12.1 31.3,9.5
+  skill Mining 175
 
 step Mine 120 Coarse Stone
   tip For 60 Coarse Grinding Stones.
   collect 2836 x120 gather Mining 65
-  loop Loch Modan lvl 15 lap 465 yield 0.7 only Alliance r 60 at 25.7,45.5 26.0,50.9 26.7,57.4 29.3,72.4 35.1,57.1 45.8,61.5 36.2,23.3 36.0,16.8 23.1,24.5 22.7,31.5 26.0,31.3 23.7,36.7
-  loop Darkshore lvl 18 lap 405 yield 1.8 only Alliance r 60 at 56.0,34.3 55.7,36.3 54.6,37.0 52.4,36.3 49.1,37.9 47.8,32.8 48.2,29.1 51.3,30.3 51.7,28.1 50.7,26.2 52.1,26.1 53.7,26.0
-  loop Westfall lvl 18 lap 394 yield 1.5 only Alliance r 60 at 30.1,47.1 31.4,44.6 34.7,42.9 32.2,40.6 30.7,38.2 29.4,40.9 29.2,50.5 28.9,54.8
-  loop Stonetalon Mountains lvl 23 lap 405 yield 1.8 only Horde r 60 at 72.8,60.7 70.9,58.6 68.8,53.3 66.6,59.7 63.2,64.7 63.4,51.6 65.5,50.5 68.3,44.7 72.2,43.7 76.7,52.7 76.7,59.5 72.9,62.9
-  loop Ashenvale lvl 24 lap 497 yield 1.9 only Horde r 60 at 40.5,36.4 39.6,33.9 38.1,30.5 33.1,36.0 35.4,37.1 40.5,40.7 45.0,44.3 47.1,45.8 46.3,42.8 43.8,40.8 42.2,37.1 40.2,37.9
-  loop Hillsbrad Foothills lvl 22 lap 479 yield 0.9 only Horde r 60 at 62.7,10.8 67.2,4.4 68.0,8.3 64.7,11.5 64.7,15.3 58.0,11.9
-  loop Wetlands lvl 29 lap 481 yield 2.4 only Alliance r 60 at 50.6,61.8 48.6,62.3 46.7,62.8 45.8,65.1 45.7,60.3 47.5,60.0 49.1,59.1 50.9,59.2 54.2,58.2 55.9,58.7 53.6,62.4 53.4,66.9
-  loop Duskwood lvl 25 lap 455 yield 0.8 only Alliance r 60 at 85.8,49.1 82.4,51.2 78.4,63.3 82.7,70.8 81.8,62.9 84.1,55.2
-  loop Riverglades lvl 39 lap 313 yield 1.6 only Horde live r 60 at 21.3,68.9 19.9,71.6 16.9,71.3 17.2,68.9 20.4,64.4 22.0,64.7 24.2,63.4 25.3,58.2 29.7,56.3 29.9,61.9 26.4,61.0 26.7,63.9
+  loop Loch Modan lvl 13 lap 503 yield 1.1 only Alliance r 60 at 25.7,45.5 26.7,57.4 29.3,72.4 27.1,85.6 29.8,87.5 35.6,85.3 42.0,66.0 35.1,57.1 36.2,23.4 36.0,16.8 26.0,31.3 22.7,31.5
+  loop Darkshore lvl 16 lap 401 yield 1.6 only Alliance r 60 at 51.7,28.1 52.1,26.1 50.7,26.2 50.6,21.7 49.7,19.5 46.1,27.3 48.2,29.1 47.8,32.8 49.1,37.9 52.4,36.3 56.6,33.3 51.3,30.3
+  loop Stonetalon Mountains lvl 22 lap 405 yield 1.8 only Horde r 60 at 72.8,60.7 70.9,58.6 68.8,53.3 66.6,59.7 63.2,64.7 63.4,51.6 65.5,50.5 68.3,44.7 72.2,43.7 76.7,52.7 76.7,59.5 72.9,62.9
+  loop Hillsbrad Foothills lvl 21 lap 485 yield 1.7 only Horde r 60 at 62.7,10.8 67.2,4.4 68.0,8.3 72.1,17.2 75.9,23.0 64.7,11.5 64.7,15.3 54.9,23.7 50.9,29.4 54.6,19.8 53.4,16.5 58.0,11.9
+  loop Ashenvale lvl 20 lap 487 yield 1.1 only Horde r 60 at 22.4,41.4 22.7,44.0 22.3,45.9 17.4,39.9 17.7,35.6 16.5,31.0 20.9,29.9 22.9,27.7 23.4,33.8 21.8,33.6 21.7,35.4 22.9,36.3
+  loop Duskwood lvl 24 lap 458 yield 0.9 only Alliance r 60 at 84.1,55.2 85.8,49.1 82.4,51.2 78.4,63.3 74.6,72.2 80.0,76.0 82.2,75.3 82.7,70.8 81.8,62.9
   auction 2836 x120
 
 step Train Journeyman Blacksmithing
@@ -221,13 +243,19 @@ section Blacksmithing 84-100
 step Mine and smelt 91 Bronze Bar
   tip For 11 Rough Bronze Leggings and 5 Patterned Bronze Bracers.
   collect 2841 x91 gather Mining 65
-  loop Zephras Isle lvl 5 lap 310 yield 72.8 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
-  loop Teldrassil lvl 11 lap 569 yield 85.0 only Alliance r 60 at 56.9,26.3 56.0,25.0 56.2,28.8 51.4,49.1 52.3,51.7 54.5,51.9 52.9,49.3 56.8,31.9 57.7,29.1 58.2,27.2
-  loop Dun Morogh lvl 5 lap 333 yield 31.6 only Alliance r 60 at 27.3,80.1 28.7,83.0 30.1,80.5 29.6,75.7 27.1,63.9 26.7,66.0 26.4,67.8 19.7,75.4 22.0,79.3
-  loop Elwynn Forest lvl 10 lap 564 yield 32.6 only Alliance r 60 at 61.1,50.5 60.3,64.5 59.6,78.1 56.6,79.7 50.7,85.2 38.0,50.8 42.8,49.6 44.9,43.0 45.1,33.8 49.0,28.1 50.6,26.9 55.6,35.4
-  loop Durotar lvl 8 lap 399 yield 31.4 only Horde r 60 at 45.6,70.8 44.6,69.6 43.0,71.6 40.3,70.7 40.2,68.6 40.0,65.9 41.6,66.2 41.1,61.4 45.4,50.0 48.3,49.2 43.5,61.6 45.8,66.6
-  loop Tirisfal Glades lvl 11 lap 379 yield 27.6 only Horde r 60 at 23.8,59.5 24.0,57.9 28.1,47.0 29.7,42.5 30.8,45.5 33.5,52.8 32.2,55.8 33.4,69.7 30.8,72.6 29.3,63.8 25.2,60.2
-  loop Mulgore lvl 8 lap 540 yield 23.6 only Horde r 60 at 41.8,79.8 33.5,58.2 31.6,60.9 34.0,66.5 33.2,70.1 34.1,72.7 32.9,76.2 33.7,81.2 34.6,79.8 41.2,82.0 49.0,92.8 49.2,87.7
+  loop Zephras Isle lvl 4 lap 310 yield 72.8 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
+  loop Teldrassil lvl 7 lap 587 yield 91.8 only Alliance r 60 at 56.9,26.3 56.0,25.0 56.2,28.8 51.5,50.1 52.9,50.1 54.7,52.1 53.5,48.5 56.8,31.9 57.7,29.1 58.2,27.2
+  loop Dun Morogh lvl 4 lap 333 yield 31.6 only Alliance r 60 at 27.3,80.1 28.7,83.0 30.1,80.5 29.6,75.7 27.1,63.9 26.7,66.0 26.4,67.8 19.7,75.4 22.0,79.3
+  loop Elwynn Forest lvl 9 lap 323 yield 17.8 only Alliance r 60 at 50.7,85.2 40.9,82.4 40.4,78.8 43.7,74.1 45.6,72.6 47.6,73.8 50.4,74.0 52.0,76.4 59.6,78.1 56.6,79.7 51.3,80.7 52.5,85.6
+  loop Teldrassil lvl 4 lap 460 yield 49.2 only Alliance r 60 at 56.9,26.3 56.0,25.0 56.2,28.8 56.8,31.9 57.7,29.1 58.2,27.2
+  loop Zephras Isle lvl 1 lap 232 yield 31.4 live r 60 at 43.3,29.5 44.4,24.8 45.5,29.7 46.6,32.1 40.0,32.2
+  loop Dun Morogh lvl 3 lap 306 yield 23.8 only Alliance r 60 at 22.0,79.3 19.7,75.4 29.6,75.7 28.7,83.0 27.3,80.1
+  loop Elwynn Forest lvl 2 lap 304 yield 10.8 only Alliance r 60 at 45.1,33.8 38.0,50.8 42.8,49.6 44.9,43.0 55.6,35.4
+  loop Durotar lvl 3 lap 331 yield 28.4 only Horde r 60 at 45.8,66.6 45.6,70.8 44.6,69.6 43.0,71.6 40.3,70.7 40.2,68.6 40.0,65.9 41.6,66.2 41.1,61.4 43.5,61.6 50.5,63.1
+  loop Tirisfal Glades lvl 4 lap 338 yield 28.2 only Horde r 60 at 29.3,63.8 25.2,60.2 23.8,59.5 24.0,57.9 32.2,55.8 33.5,52.8 35.4,70.5 33.4,69.7 30.8,72.6
+  loop Mulgore lvl 9 lap 322 yield 17.4 only Horde r 60 at 62.7,41.1 61.1,40.1 61.5,51.0 57.6,43.0 56.6,40.4 56.9,38.6 57.9,35.4 59.3,30.9 59.4,33.7 61.2,36.6 62.7,38.3 65.5,38.2
+  loop Tirisfal Glades lvl 3 lap 324 yield 24.2 only Horde r 60 at 29.3,63.8 25.2,60.2 23.8,59.7 32.2,55.8 33.5,52.8 35.4,70.5 33.4,69.7 30.8,72.6
+  loop Mulgore lvl 2 lap 307 yield 11.8 only Horde r 60 at 49.0,92.8 49.2,87.7 41.8,79.8 41.2,82.0
   auction 2841 x91
 
 step Learn Rough Bronze Leggings
@@ -318,50 +346,30 @@ step Craft 5 Patterned Bronze Bracers until 100
 
 section Blacksmithing 100-115
 
-step Mine until Mining 175
-  tip This loop gives the Heavy Stone to Mining 175; the next one the rest.
-  loop Thousand Needles lvl 31 lap 715 gain 4.0 only Horde r 60 at 26.9,53.2 26.3,55.7 11.1,38.5 10.1,36.0 10.9,32.2 23.9,23.4 34.6,26.9 42.6,33.4 44.7,39.2 53.9,45.6 55.6,49.6 35.9,50.7
-  loop Wetlands lvl 32 lap 619 gain 2.7 only Alliance r 60 at 69.5,28.9 63.0,25.2 61.5,24.0 53.2,52.1 49.4,52.2 48.6,50.3 41.9,46.2 38.1,45.4 46.7,62.8 50.6,61.9 69.6,33.2 67.9,31.6
-  loop Thousand Needles lvl 31 lap 624 gain 2.5 only Alliance r 60 at 26.9,53.2 26.3,55.7 16.6,40.9 21.8,41.2 23.7,44.8 26.4,47.0 28.8,49.0 30.1,45.9 33.0,51.2 35.9,50.7 37.0,54.3 34.4,53.4
-  loop Duskwood lvl 30 lap 690 gain 2.1 only Alliance r 60 at 86.2,48.6 79.5,40.5 77.3,38.8 57.7,46.8 30.3,76.7 25.2,80.3 26.7,37.7 58.6,37.7 78.7,29.0 81.2,28.7 85.2,32.5 82.9,35.9
-  loop Ashenvale lvl 30 lap 623 gain 1.6 only Horde r 60 at 78.9,62.9 85.4,74.3 90.3,76.4 88.9,79.2 85.0,78.9 84.6,76.5 83.1,77.3 82.9,80.1 81.5,77.8 78.4,80.2 80.5,73.4 71.0,53.3
-  loop Hillsbrad Foothills lvl 34 lap 624 gain 2.1 only Horde r 60 at 44.0,29.2 45.4,27.0 48.9,26.5 54.6,19.8 54.9,23.7 53.8,28.0 50.9,29.4 45.6,32.3 43.4,34.6 41.8,32.2 38.4,26.0
-  loop Alterac Mountains lvl 37 lap 631 gain 3.8 only Alliance r 60 at 52.4,46.3 52.9,49.8 37.6,67.0 33.7,55.3 31.8,53.6 33.2,47.2 32.9,39.9 39.5,38.0 40.2,30.7 47.9,33.2 45.2,39.2 49.8,44.0
-  loop Stranglethorn Vale lvl 35 lap 618 gain 1.6 r 60 at 46.2,7.4 30.5,7.6 27.0,10.1 27.4,13.6 25.7,15.4 26.3,18.0 27.6,18.0 30.0,17.7 29.3,15.3 31.3,13.8 29.8,12.1 31.3,9.5
-  loop Badlands lvl 42 lap 628 gain 3.4 only Horde r 60 at 15.6,34.9 14.8,48.6 15.0,54.5 20.2,63.0 23.7,61.3 34.9,53.0 42.2,78.9 22.6,73.3 18.5,74.8 18.0,70.3 12.9,58.9 10.8,55.3
-  skill Mining 175
-
 step Mine until Mining 200
   tip This loop gives the Heavy Stone to Mining 200; the next one the rest.
-  loop Alterac Mountains lvl 36 lap 647 gain 5.7 only Alliance r 60 at 50.9,44.2 53.2,48.4 37.0,73.7 32.3,65.0 30.8,56.5 33.3,43.9 35.6,39.7 37.9,32.5 42.8,34.7 45.4,39.8 48.0,33.1 52.7,36.8
-  loop Alterac Mountains lvl 36 lap 632 gain 3.7 only Horde r 60 at 50.9,44.2 49.1,45.2 45.4,39.8 48.0,33.1 52.7,36.8 55.1,40.6 54.1,45.6 53.2,48.4 51.2,47.3
-  loop Stonetalon Mountains lvl 28 lap 616 gain 2.6 r 60 at 37.7,69.6 36.4,76.2 33.6,75.7 29.0,73.7 25.9,70.8 26.8,67.0 29.8,66.3 27.1,63.2 30.1,59.8 32.6,58.9 35.9,61.4 34.9,66.7
-  loop Badlands lvl 42 lap 637 gain 4.2 r 60 at 15.6,35.0 12.1,35.1 14.3,39.8 23.9,66.4 15.1,81.7 20.8,82.2 42.2,79.6 44.3,75.3 45.4,84.6 64.3,70.4 62.4,63.8 34.4,23.3
+  loop Alterac Mountains lvl 35 lap 632 gain 3.7 r 60 at 50.9,44.2 49.1,45.2 45.4,39.8 48.0,33.1 52.7,36.8 55.1,40.6 54.1,45.6 53.2,48.4 51.2,47.3
+  loop Arathi Highlands lvl 37 lap 815 gain 4.8 r 60 at 67.9,80.3 54.0,79.5 50.3,80.4 31.8,70.2 37.5,63.5 46.4,71.2 49.4,70.6 53.3,76.3 67.3,66.5 83.7,35.2 84.7,31.2 86.9,30.5
+  loop Thousand Needles lvl 30 lap 629 gain 1.8 only Horde r 60 at 11.1,38.8 10.4,41.2 14.6,40.1 17.8,42.3 26.3,55.7 26.9,53.2 23.9,23.4 12.6,25.3 10.9,32.2 10.0,35.7 13.0,34.8 11.8,36.8
+  loop Thousand Needles lvl 30 lap 619 gain 1.4 only Alliance r 60 at 10.9,32.2 12.6,25.3 15.6,31.1 14.7,34.4 17.8,42.3 14.6,40.1 10.4,41.2 11.1,38.8 10.0,35.7 11.8,36.8 13.3,36.9 13.0,34.8
+  loop Badlands lvl 43 lap 634 gain 4.3 only Horde r 60 at 4.0,80.4 6.1,77.3 7.6,73.3 12.1,35.1 15.6,35.0 14.3,39.8 23.9,66.4 20.8,82.2 15.1,81.7 15.7,86.9 15.1,92.1 9.0,88.8
+  loop Badlands lvl 39 lap 613 gain 1.2 only Alliance r 60 at 42.2,79.6 44.3,75.3 36.7,75.5 41.4,65.5 42.5,59.1 49.4,58.2 56.9,75.8 51.0,77.6 45.4,84.6
+  loop The Hinterlands lvl 44 lap 614 gain 2.3 only Horde r 60 at 23.3,59.8 21.3,58.7 24.5,68.2 27.3,69.0 30.1,68.3 30.4,70.8 30.7,74.6 37.1,67.5 33.7,65.0 31.2,60.1 28.0,58.9
+  loop The Hinterlands lvl 45 lap 615 gain 3.0 only Alliance r 60 at 33.7,65.0 37.1,67.5 40.6,65.9 41.1,59.2 30.1,55.0 31.2,60.1 27.3,69.0 30.1,68.3 30.4,70.8 30.7,74.6 33.5,76.0 35.5,74.8
   skill Mining 200
 
 step Train Artisan Mining
   train Mining Artisan
 
-step Mine until Mining 230
-  tip This loop gives the Heavy Stone to Mining 230; the next one the rest.
-  loop Alterac Mountains lvl 37 lap 648 gain 3.1 only Alliance r 60 at 50.9,44.2 53.2,48.4 37.0,73.7 32.3,65.0 30.8,56.5 33.3,43.9 35.6,39.7 37.9,32.5 42.8,34.7 45.4,39.8 48.0,33.1 52.7,36.8
-  loop Alterac Mountains lvl 38 lap 641 gain 2.7 only Horde r 60 at 50.9,44.2 53.2,48.4 54.1,45.6 55.1,40.6 52.7,36.8 48.0,33.1 42.8,34.7 37.9,32.5 35.6,39.7 33.3,43.9 39.5,38.0 45.4,39.8
-  loop Badlands lvl 42 lap 637 gain 2.3 r 60 at 15.6,35.0 12.1,35.1 14.3,39.8 23.9,66.4 15.1,81.7 20.8,82.2 42.2,79.6 44.3,75.3 45.4,84.6 64.3,70.4 62.4,63.8 34.4,23.3
-  loop Stonetalon Mountains lvl 28 lap 616 gain 1.4 r 60 at 37.7,69.6 36.4,76.2 33.6,75.7 29.0,73.7 25.9,70.8 26.8,67.0 29.8,66.3 27.1,63.2 30.1,59.8 32.6,58.9 35.9,61.4 34.9,66.7
-  skill Mining 230
-
 step Mine 90 Heavy Stone
-  tip For 30 Heavy Grinding Stones.
-  collect 2838 x90 gather Mining 155
-  loop Thousand Needles lvl 31 lap 715 yield 4.4 only Horde r 60 at 26.9,53.2 26.3,55.7 11.1,38.5 10.1,36.0 10.9,32.2 23.9,23.4 34.6,26.9 42.6,33.4 44.7,39.2 53.9,45.6 55.6,49.6 35.9,50.7
-  loop Wetlands lvl 32 lap 619 yield 2.4 only Alliance r 60 at 69.5,28.9 63.0,25.2 61.5,24.0 53.2,52.1 49.4,52.2 48.6,50.3 41.9,46.2 38.1,45.4 46.7,62.8 50.6,61.9 69.6,33.2 67.9,31.6
-  loop Thousand Needles lvl 31 lap 624 yield 2.9 only Alliance r 60 at 26.9,53.2 26.3,55.7 16.6,40.9 21.8,41.2 23.7,44.8 26.4,47.0 28.8,49.0 30.1,45.9 33.0,51.2 35.9,50.7 37.0,54.3 34.4,53.4
-  loop Duskwood lvl 30 lap 690 yield 2.3 only Alliance r 60 at 86.2,48.6 79.5,40.5 77.3,38.8 57.7,46.8 30.3,76.7 25.2,80.3 26.7,37.7 58.6,37.7 78.7,29.0 81.2,28.7 85.2,32.5 82.9,35.9
-  loop Ashenvale lvl 30 lap 623 yield 1.6 only Horde r 60 at 78.9,62.9 85.4,74.3 90.3,76.4 88.9,79.2 85.0,78.9 84.6,76.5 83.1,77.3 82.9,80.1 81.5,77.8 78.4,80.2 80.5,73.4 71.0,53.3
-  loop Hillsbrad Foothills lvl 34 lap 624 yield 2.3 only Horde r 60 at 44.0,29.2 45.4,27.0 48.9,26.5 54.6,19.8 54.9,23.7 53.8,28.0 50.9,29.4 45.6,32.3 43.4,34.6 41.8,32.2 38.4,26.0
-  loop Alterac Mountains lvl 37 lap 631 yield 4.1 only Alliance r 60 at 52.4,46.3 52.9,49.8 37.6,67.0 33.7,55.3 31.8,53.6 33.2,47.2 32.9,39.9 39.5,38.0 40.2,30.7 47.9,33.2 45.2,39.2 49.8,44.0
-  loop Stranglethorn Vale lvl 35 lap 618 yield 1.7 r 60 at 46.2,7.4 30.5,7.6 27.0,10.1 27.4,13.6 25.7,15.4 26.3,18.0 27.6,18.0 30.0,17.7 29.3,15.3 31.3,13.8 29.8,12.1 31.3,9.5
-  loop Badlands lvl 42 lap 628 yield 3.9 only Horde r 60 at 15.6,34.9 14.8,48.6 15.0,54.5 20.2,63.0 23.7,61.3 34.9,53.0 42.2,78.9 22.6,73.3 18.5,74.8 18.0,70.3 12.9,58.9 10.8,55.3
+  tip For 30 Heavy Grinding Stones. Mining 200 to 229 on the way.
+  collect 2838 x90 gather Mining 200
+  loop Arathi Highlands lvl 38 lap 818 yield 4.9 r 60 at 67.9,80.3 54.3,80.5 50.3,80.4 31.8,70.2 37.5,63.5 46.4,71.2 49.4,70.6 53.5,76.7 67.3,66.5 83.7,35.2 84.7,31.2 86.9,30.5
+  loop Alterac Mountains lvl 35 lap 632 yield 2.4 r 60 at 50.9,44.2 49.1,45.2 45.4,39.8 48.0,33.1 52.7,36.8 55.1,40.6 54.1,45.6 53.2,48.4 51.2,47.3
+  loop Thousand Needles lvl 30 lap 629 yield 3.6 only Horde r 60 at 11.1,38.8 10.4,41.2 14.6,40.1 17.8,42.3 26.3,55.7 26.9,53.2 23.9,23.4 12.6,25.3 10.9,32.2 10.0,35.7 13.0,34.8 11.8,36.8
+  loop Badlands lvl 43 lap 634 yield 2.1 only Horde r 60 at 4.0,80.4 6.1,77.3 7.6,73.3 12.1,35.1 15.6,35.0 14.3,39.8 23.9,66.4 20.8,82.2 15.1,81.7 15.7,86.9 15.1,92.1 9.0,88.8
+  loop Thousand Needles lvl 30 lap 619 yield 2.1 only Alliance r 60 at 10.9,32.2 12.6,25.3 15.6,31.1 14.7,34.4 17.8,42.3 14.6,40.1 10.4,41.2 11.1,38.8 10.0,35.7 11.8,36.8 13.3,36.9 13.0,34.8
+  loop Badlands lvl 44 lap 631 yield 1.4 only Alliance r 60 at 8.4,90.4 7.5,95.7 15.1,92.1 15.7,86.9 15.1,81.7 20.8,82.2 23.9,66.4 20.2,63.0 9.1,65.4 7.6,73.3 6.1,77.3 4.0,80.4
   auction 2838 x90
 
 step Learn Heavy Grinding Stone
@@ -376,13 +384,19 @@ section Blacksmithing 115-125
 step Mine and smelt 50 Bronze Bar
   tip For 10 Patterned Bronze Bracers.
   collect 2841 x50 gather Mining 65
-  loop Zephras Isle lvl 5 lap 310 yield 72.8 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
-  loop Teldrassil lvl 11 lap 569 yield 85.0 only Alliance r 60 at 56.9,26.3 56.0,25.0 56.2,28.8 51.4,49.1 52.3,51.7 54.5,51.9 52.9,49.3 56.8,31.9 57.7,29.1 58.2,27.2
-  loop Dun Morogh lvl 5 lap 333 yield 31.6 only Alliance r 60 at 27.3,80.1 28.7,83.0 30.1,80.5 29.6,75.7 27.1,63.9 26.7,66.0 26.4,67.8 19.7,75.4 22.0,79.3
-  loop Elwynn Forest lvl 10 lap 564 yield 32.6 only Alliance r 60 at 61.1,50.5 60.3,64.5 59.6,78.1 56.6,79.7 50.7,85.2 38.0,50.8 42.8,49.6 44.9,43.0 45.1,33.8 49.0,28.1 50.6,26.9 55.6,35.4
-  loop Durotar lvl 8 lap 399 yield 31.4 only Horde r 60 at 45.6,70.8 44.6,69.6 43.0,71.6 40.3,70.7 40.2,68.6 40.0,65.9 41.6,66.2 41.1,61.4 45.4,50.0 48.3,49.2 43.5,61.6 45.8,66.6
-  loop Tirisfal Glades lvl 11 lap 379 yield 27.6 only Horde r 60 at 23.8,59.5 24.0,57.9 28.1,47.0 29.7,42.5 30.8,45.5 33.5,52.8 32.2,55.8 33.4,69.7 30.8,72.6 29.3,63.8 25.2,60.2
-  loop Mulgore lvl 8 lap 540 yield 23.6 only Horde r 60 at 41.8,79.8 33.5,58.2 31.6,60.9 34.0,66.5 33.2,70.1 34.1,72.7 32.9,76.2 33.7,81.2 34.6,79.8 41.2,82.0 49.0,92.8 49.2,87.7
+  loop Zephras Isle lvl 4 lap 310 yield 72.8 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
+  loop Teldrassil lvl 7 lap 587 yield 91.8 only Alliance r 60 at 56.9,26.3 56.0,25.0 56.2,28.8 51.5,50.1 52.9,50.1 54.7,52.1 53.5,48.5 56.8,31.9 57.7,29.1 58.2,27.2
+  loop Dun Morogh lvl 4 lap 333 yield 31.6 only Alliance r 60 at 27.3,80.1 28.7,83.0 30.1,80.5 29.6,75.7 27.1,63.9 26.7,66.0 26.4,67.8 19.7,75.4 22.0,79.3
+  loop Elwynn Forest lvl 9 lap 323 yield 17.8 only Alliance r 60 at 50.7,85.2 40.9,82.4 40.4,78.8 43.7,74.1 45.6,72.6 47.6,73.8 50.4,74.0 52.0,76.4 59.6,78.1 56.6,79.7 51.3,80.7 52.5,85.6
+  loop Teldrassil lvl 4 lap 460 yield 49.2 only Alliance r 60 at 56.9,26.3 56.0,25.0 56.2,28.8 56.8,31.9 57.7,29.1 58.2,27.2
+  loop Zephras Isle lvl 1 lap 232 yield 31.4 live r 60 at 43.3,29.5 44.4,24.8 45.5,29.7 46.6,32.1 40.0,32.2
+  loop Dun Morogh lvl 3 lap 306 yield 23.8 only Alliance r 60 at 22.0,79.3 19.7,75.4 29.6,75.7 28.7,83.0 27.3,80.1
+  loop Elwynn Forest lvl 2 lap 304 yield 10.8 only Alliance r 60 at 45.1,33.8 38.0,50.8 42.8,49.6 44.9,43.0 55.6,35.4
+  loop Durotar lvl 3 lap 331 yield 28.4 only Horde r 60 at 45.8,66.6 45.6,70.8 44.6,69.6 43.0,71.6 40.3,70.7 40.2,68.6 40.0,65.9 41.6,66.2 41.1,61.4 43.5,61.6 50.5,63.1
+  loop Tirisfal Glades lvl 4 lap 338 yield 28.2 only Horde r 60 at 29.3,63.8 25.2,60.2 23.8,59.5 24.0,57.9 32.2,55.8 33.5,52.8 35.4,70.5 33.4,69.7 30.8,72.6
+  loop Mulgore lvl 9 lap 322 yield 17.4 only Horde r 60 at 62.7,41.1 61.1,40.1 61.5,51.0 57.6,43.0 56.6,40.4 56.9,38.6 57.9,35.4 59.3,30.9 59.4,33.7 61.2,36.6 62.7,38.3 65.5,38.2
+  loop Tirisfal Glades lvl 3 lap 324 yield 24.2 only Horde r 60 at 29.3,63.8 25.2,60.2 23.8,59.7 32.2,55.8 33.5,52.8 35.4,70.5 33.4,69.7 30.8,72.6
+  loop Mulgore lvl 2 lap 307 yield 11.8 only Horde r 60 at 49.0,92.8 49.2,87.7 41.8,79.8 41.2,82.0
   auction 2841 x50
 
 step Go to an anvil
@@ -430,13 +444,19 @@ section Blacksmithing 125-140
 step Mine and smelt 120 Bronze Bar
   tip For 15 Silvered Bronze Gauntlets.
   collect 2841 x120 gather Mining 65
-  loop Zephras Isle lvl 5 lap 310 yield 72.8 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
-  loop Teldrassil lvl 11 lap 569 yield 85.0 only Alliance r 60 at 56.9,26.3 56.0,25.0 56.2,28.8 51.4,49.1 52.3,51.7 54.5,51.9 52.9,49.3 56.8,31.9 57.7,29.1 58.2,27.2
-  loop Dun Morogh lvl 5 lap 333 yield 31.6 only Alliance r 60 at 27.3,80.1 28.7,83.0 30.1,80.5 29.6,75.7 27.1,63.9 26.7,66.0 26.4,67.8 19.7,75.4 22.0,79.3
-  loop Elwynn Forest lvl 10 lap 564 yield 32.6 only Alliance r 60 at 61.1,50.5 60.3,64.5 59.6,78.1 56.6,79.7 50.7,85.2 38.0,50.8 42.8,49.6 44.9,43.0 45.1,33.8 49.0,28.1 50.6,26.9 55.6,35.4
-  loop Durotar lvl 8 lap 399 yield 31.4 only Horde r 60 at 45.6,70.8 44.6,69.6 43.0,71.6 40.3,70.7 40.2,68.6 40.0,65.9 41.6,66.2 41.1,61.4 45.4,50.0 48.3,49.2 43.5,61.6 45.8,66.6
-  loop Tirisfal Glades lvl 11 lap 379 yield 27.6 only Horde r 60 at 23.8,59.5 24.0,57.9 28.1,47.0 29.7,42.5 30.8,45.5 33.5,52.8 32.2,55.8 33.4,69.7 30.8,72.6 29.3,63.8 25.2,60.2
-  loop Mulgore lvl 8 lap 540 yield 23.6 only Horde r 60 at 41.8,79.8 33.5,58.2 31.6,60.9 34.0,66.5 33.2,70.1 34.1,72.7 32.9,76.2 33.7,81.2 34.6,79.8 41.2,82.0 49.0,92.8 49.2,87.7
+  loop Zephras Isle lvl 4 lap 310 yield 72.8 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
+  loop Teldrassil lvl 7 lap 587 yield 91.8 only Alliance r 60 at 56.9,26.3 56.0,25.0 56.2,28.8 51.5,50.1 52.9,50.1 54.7,52.1 53.5,48.5 56.8,31.9 57.7,29.1 58.2,27.2
+  loop Dun Morogh lvl 4 lap 333 yield 31.6 only Alliance r 60 at 27.3,80.1 28.7,83.0 30.1,80.5 29.6,75.7 27.1,63.9 26.7,66.0 26.4,67.8 19.7,75.4 22.0,79.3
+  loop Elwynn Forest lvl 9 lap 323 yield 17.8 only Alliance r 60 at 50.7,85.2 40.9,82.4 40.4,78.8 43.7,74.1 45.6,72.6 47.6,73.8 50.4,74.0 52.0,76.4 59.6,78.1 56.6,79.7 51.3,80.7 52.5,85.6
+  loop Teldrassil lvl 4 lap 460 yield 49.2 only Alliance r 60 at 56.9,26.3 56.0,25.0 56.2,28.8 56.8,31.9 57.7,29.1 58.2,27.2
+  loop Zephras Isle lvl 1 lap 232 yield 31.4 live r 60 at 43.3,29.5 44.4,24.8 45.5,29.7 46.6,32.1 40.0,32.2
+  loop Dun Morogh lvl 3 lap 306 yield 23.8 only Alliance r 60 at 22.0,79.3 19.7,75.4 29.6,75.7 28.7,83.0 27.3,80.1
+  loop Elwynn Forest lvl 2 lap 304 yield 10.8 only Alliance r 60 at 45.1,33.8 38.0,50.8 42.8,49.6 44.9,43.0 55.6,35.4
+  loop Durotar lvl 3 lap 331 yield 28.4 only Horde r 60 at 45.8,66.6 45.6,70.8 44.6,69.6 43.0,71.6 40.3,70.7 40.2,68.6 40.0,65.9 41.6,66.2 41.1,61.4 43.5,61.6 50.5,63.1
+  loop Tirisfal Glades lvl 4 lap 338 yield 28.2 only Horde r 60 at 29.3,63.8 25.2,60.2 23.8,59.5 24.0,57.9 32.2,55.8 33.5,52.8 35.4,70.5 33.4,69.7 30.8,72.6
+  loop Mulgore lvl 9 lap 322 yield 17.4 only Horde r 60 at 62.7,41.1 61.1,40.1 61.5,51.0 57.6,43.0 56.6,40.4 56.9,38.6 57.9,35.4 59.3,30.9 59.4,33.7 61.2,36.6 62.7,38.3 65.5,38.2
+  loop Tirisfal Glades lvl 3 lap 324 yield 24.2 only Horde r 60 at 29.3,63.8 25.2,60.2 23.8,59.7 32.2,55.8 33.5,52.8 35.4,70.5 33.4,69.7 30.8,72.6
+  loop Mulgore lvl 2 lap 307 yield 11.8 only Horde r 60 at 49.0,92.8 49.2,87.7 41.8,79.8 41.2,82.0
   auction 2841 x120
 
 step Get 15 Silver Bar
@@ -492,18 +512,30 @@ step Buy 40 Green Dye
   tip For 40 Green Iron Bracers.
   buy 2605 x40 nearest
 
+step Mine until Mining 230
+  tip This loop gives the Iron Ore to Mining 230; the next one the rest.
+  loop Arathi Highlands lvl 38 lap 818 gain 2.8 r 60 at 67.9,80.3 54.3,80.5 50.3,80.4 31.8,70.2 37.5,63.5 46.4,71.2 49.4,70.6 53.5,76.7 67.3,66.5 83.7,35.2 84.7,31.2 86.9,30.5
+  loop Alterac Mountains lvl 35 lap 632 gain 2.0 r 60 at 50.9,44.2 49.1,45.2 45.4,39.8 48.0,33.1 52.7,36.8 55.1,40.6 54.1,45.6 53.2,48.4 51.2,47.3
+  loop Thousand Needles lvl 30 lap 629 gain 1.1 only Horde r 60 at 11.1,38.8 10.4,41.2 14.6,40.1 17.8,42.3 26.3,55.7 26.9,53.2 23.9,23.4 12.6,25.3 10.9,32.2 10.0,35.7 13.0,34.8 11.8,36.8
+  loop Badlands lvl 43 lap 634 gain 2.3 only Horde r 60 at 4.0,80.4 6.1,77.3 7.6,73.3 12.1,35.1 15.6,35.0 14.3,39.8 23.9,66.4 20.8,82.2 15.1,81.7 15.7,86.9 15.1,92.1 9.0,88.8
+  loop Thousand Needles lvl 30 lap 619 gain 0.8 only Alliance r 60 at 10.9,32.2 12.6,25.3 15.6,31.1 14.7,34.4 17.8,42.3 14.6,40.1 10.4,41.2 11.1,38.8 10.0,35.7 11.8,36.8 13.3,36.9 13.0,34.8
+  loop Badlands lvl 44 lap 631 gain 2.5 only Alliance r 60 at 8.4,90.4 7.5,95.7 15.1,92.1 15.7,86.9 15.1,81.7 20.8,82.2 23.9,66.4 20.2,63.0 9.1,65.4 7.6,73.3 6.1,77.3 4.0,80.4
+  loop The Hinterlands lvl 44 lap 614 gain 1.2 only Horde r 60 at 23.3,59.8 21.3,58.7 24.5,68.2 27.3,69.0 30.1,68.3 30.4,70.8 30.7,74.6 37.1,67.5 33.7,65.0 31.2,60.1 28.0,58.9
+  loop The Hinterlands lvl 45 lap 615 gain 1.5 only Alliance r 60 at 33.7,65.0 37.1,67.5 40.6,65.9 41.1,59.2 30.1,55.0 31.2,60.1 27.3,69.0 30.1,68.3 30.4,70.8 30.7,74.6 33.5,76.0 35.5,74.8
+  skill Mining 230
+
 step Mine and smelt 240 Iron Bar
   tip For 40 Green Iron Bracers.
-  collect 3575 x240 gather Mining 155
-  loop Thousand Needles lvl 31 lap 715 yield 5.5 only Horde r 60 at 26.9,53.2 26.3,55.7 11.1,38.5 10.1,36.0 10.9,32.2 23.9,23.4 34.6,26.9 42.6,33.4 44.7,39.2 53.9,45.6 55.6,49.6 35.9,50.7
-  loop Wetlands lvl 32 lap 619 yield 3.1 only Alliance r 60 at 69.5,28.9 63.0,25.2 61.5,24.0 53.2,52.1 49.4,52.2 48.6,50.3 41.9,46.2 38.1,45.4 46.7,62.8 50.6,61.9 69.6,33.2 67.9,31.6
-  loop Thousand Needles lvl 31 lap 624 yield 3.7 only Alliance r 60 at 26.9,53.2 26.3,55.7 16.6,40.9 21.8,41.2 23.7,44.8 26.4,47.0 28.8,49.0 30.1,45.9 33.0,51.2 35.9,50.7 37.0,54.3 34.4,53.4
-  loop Duskwood lvl 30 lap 690 yield 2.9 only Alliance r 60 at 86.2,48.6 79.5,40.5 77.3,38.8 57.7,46.8 30.3,76.7 25.2,80.3 26.7,37.7 58.6,37.7 78.7,29.0 81.2,28.7 85.2,32.5 82.9,35.9
-  loop Ashenvale lvl 30 lap 623 yield 2.1 only Horde r 60 at 78.9,62.9 85.4,74.3 90.3,76.4 88.9,79.2 85.0,78.9 84.6,76.5 83.1,77.3 82.9,80.1 81.5,77.8 78.4,80.2 80.5,73.4 71.0,53.3
-  loop Hillsbrad Foothills lvl 34 lap 624 yield 2.9 only Horde r 60 at 44.0,29.2 45.4,27.0 48.9,26.5 54.6,19.8 54.9,23.7 53.8,28.0 50.9,29.4 45.6,32.3 43.4,34.6 41.8,32.2 38.4,26.0
-  loop Alterac Mountains lvl 37 lap 631 yield 5.2 only Alliance r 60 at 52.4,46.3 52.9,49.8 37.6,67.0 33.7,55.3 31.8,53.6 33.2,47.2 32.9,39.9 39.5,38.0 40.2,30.7 47.9,33.2 45.2,39.2 49.8,44.0
-  loop Stranglethorn Vale lvl 35 lap 618 yield 2.2 r 60 at 46.2,7.4 30.5,7.6 27.0,10.1 27.4,13.6 25.7,15.4 26.3,18.0 27.6,18.0 30.0,17.7 29.3,15.3 31.3,13.8 29.8,12.1 31.3,9.5
-  loop Badlands lvl 42 lap 628 yield 5.0 only Horde r 60 at 15.6,34.9 14.8,48.6 15.0,54.5 20.2,63.0 23.7,61.3 34.9,53.0 42.2,78.9 22.6,73.3 18.5,74.8 18.0,70.3 12.9,58.9 10.8,55.3
+  collect 3575 x240 gather Mining 125
+  loop Thousand Needles lvl 27 lap 626 yield 2.8 only Horde r 60 at 42.7,33.7 44.6,39.3 40.2,50.8 37.0,54.3 35.8,50.7 34.4,53.4 33.0,51.2 30.1,45.9 23.7,44.8 23.9,23.4 28.1,28.1 34.6,26.7
+  loop Hillsbrad Foothills lvl 25 lap 618 yield 1.0 only Horde r 60 at 85.1,42.1 87.7,45.0 90.5,39.3 88.7,37.7 86.6,35.4 88.7,31.0 72.1,17.2 71.4,32.9 69.6,38.9 64.0,51.7 80.1,30.8 83.1,32.1
+  loop Duskwood lvl 28 lap 621 yield 2.6 only Alliance r 60 at 81.2,28.7 78.7,29.0 51.3,22.4 58.6,37.7 57.7,46.8 57.9,61.3 59.9,56.2 77.3,38.8 79.5,40.5 86.1,48.7 82.9,35.9 85.2,32.5
+  loop Ashenvale lvl 26 lap 615 yield 1.2 only Alliance r 60 at 71.0,53.3 72.3,51.0 74.1,52.0 75.4,52.8 77.2,52.3 73.7,45.9 70.7,51.4 64.6,47.3 62.2,48.4 62.7,60.4 69.0,58.4 70.6,58.3
+  loop Thousand Needles lvl 30 lap 628 yield 4.4 only Alliance r 60 at 26.3,55.7 26.9,53.2 35.8,50.7 18.0,36.0 15.6,31.1 14.7,34.4 13.0,34.8 13.3,36.9 11.2,38.3 10.4,41.2 15.2,40.3 16.6,40.9
+  loop Ashenvale lvl 27 lap 611 yield 1.3 only Horde r 60 at 71.0,53.3 64.4,55.6 65.8,60.0 69.0,58.4 70.8,60.0 72.5,57.0 74.7,57.4 75.4,52.8 77.2,52.3 73.7,45.9 72.3,51.0 70.7,51.4
+  loop Arathi Highlands lvl 33 lap 580 yield 2.2 only Alliance r 60 at 31.3,45.1 33.4,42.4 38.7,43.1 40.2,49.0 41.5,40.9 38.1,34.5 30.7,32.6 28.5,32.6 24.7,36.5 22.3,43.6 31.3,61.7 33.0,46.6
+  loop Arathi Highlands lvl 34 lap 581 yield 3.0 only Horde r 60 at 72.9,59.5 70.2,57.5 70.6,52.4 70.8,49.5 61.6,44.0 65.3,65.7 67.4,69.5 60.5,74.0 63.3,73.9 66.7,74.7 69.8,73.8 71.2,67.0
+  loop Stranglethorn Vale lvl 34 lap 617 yield 2.2 only Horde r 60 at 46.2,7.4 30.5,7.6 27.0,10.1 27.4,13.6 25.7,15.4 26.3,18.0 27.6,18.0 30.0,17.7 29.3,15.3 31.3,13.8 29.8,12.1 31.3,9.5
   auction 3575 x240
 
 step Train Expert Blacksmithing
@@ -558,12 +590,12 @@ section Blacksmithing 175-185
 step Mine 60 Solid Stone
   tip For 8 Solid Grinding Stones and 28 Solid Sharpening Stones.
   collect 7912 x60 gather Mining 175
-  loop Badlands lvl 45 lap 633 yield 5.7 r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 42.2,80.0 34.4,23.3 15.6,35.2 12.1,35.1 14.3,39.8 7.6,73.3 6.1,77.3 4.0,80.4
-  loop Desolace lvl 43 lap 627 yield 4.5 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
-  loop Alterac Mountains lvl 37 lap 628 yield 4.5 only Alliance r 60 at 50.9,44.2 53.6,48.5 37.0,73.7 32.3,65.0 30.8,56.5 33.3,43.9 35.6,39.7 37.9,32.5 42.8,34.7 45.6,40.6 48.1,33.1 52.7,36.8
-  loop The Hinterlands lvl 51 lap 718 yield 4.2 r 60 at 54.9,67.3 52.1,65.4 33.7,65.0 37.1,67.5 57.9,84.2 72.6,61.9 65.5,41.2 59.1,41.5 57.0,43.1 66.8,52.4 64.4,64.2 56.6,68.6
-  loop Stonetalon Mountains lvl 28 lap 616 yield 2.3 r 60 at 37.7,69.6 36.4,76.2 33.6,75.7 29.0,73.7 25.9,70.8 26.8,67.0 29.8,66.3 27.1,63.2 30.1,59.8 32.6,58.9 35.9,61.4 34.9,66.7
-  loop Alterac Mountains lvl 38 lap 641 yield 4.0 only Horde r 60 at 50.9,44.2 53.2,48.4 54.1,45.6 55.1,40.6 52.7,36.8 48.0,33.1 42.8,34.7 37.9,32.5 35.6,39.7 33.3,43.9 39.5,38.0 45.4,39.8
+  loop Badlands lvl 44 lap 623 yield 4.0 only Alliance r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 15.1,81.7 20.8,82.2 23.9,66.4 20.2,63.0 9.1,65.4 7.6,73.3 6.1,77.3 4.0,80.4
+  loop Feralas lvl 46 lap 618 yield 3.0 r 60 at 52.7,60.6 51.5,60.4 50.4,58.5 45.4,69.4 54.1,73.0 59.4,74.1 62.5,69.4 60.6,65.7 58.9,55.8 57.5,47.0 53.5,47.7 52.1,58.6
+  loop The Hinterlands lvl 45 lap 615 yield 2.8 only Alliance r 60 at 33.7,65.0 37.1,67.5 40.6,65.9 41.1,59.2 30.1,55.0 31.2,60.1 27.3,69.0 30.1,68.3 30.4,70.8 30.7,74.6 33.5,76.0 35.5,74.8
+  loop Alterac Mountains lvl 35 lap 632 yield 2.8 r 60 at 50.9,44.2 49.1,45.2 45.4,39.8 48.0,33.1 52.7,36.8 55.1,40.6 54.1,45.6 53.2,48.4 51.2,47.3
+  loop Badlands lvl 44 lap 627 yield 4.7 only Horde r 60 at 4.0,80.4 6.1,77.3 7.6,73.3 12.1,35.1 15.6,35.2 14.3,39.8 23.9,66.4 20.8,82.2 15.7,87.0 15.1,92.1 7.5,95.6 8.6,90.3
+  loop The Hinterlands lvl 46 lap 616 yield 2.8 only Horde r 60 at 37.1,67.5 40.6,65.9 41.1,59.2 45.9,69.0 35.5,74.8 33.5,76.0 30.7,74.6 30.4,70.8 30.1,68.3 27.3,69.0 31.2,60.1 33.7,65.0
   auction 7912 x60
 
 step Learn Solid Grinding Stone
@@ -599,15 +631,15 @@ step Learn Smelt Steel
 step Mine and smelt 75 Steel Bar
   tip For 15 Golden Scale Bracers.
   collect 3859 x75 gather Mining 165
-  loop Thousand Needles lvl 31 lap 715 yield 5.5 only Horde r 60 at 26.9,53.2 26.3,55.7 11.1,38.5 10.1,36.0 10.9,32.2 23.9,23.4 34.6,26.9 42.6,33.4 44.7,39.2 53.9,45.6 55.6,49.6 35.9,50.7
-  loop Wetlands lvl 32 lap 619 yield 3.1 only Alliance r 60 at 69.5,28.9 63.0,25.2 61.5,24.0 53.2,52.1 49.4,52.2 48.6,50.3 41.9,46.2 38.1,45.4 46.7,62.8 50.6,61.9 69.6,33.2 67.9,31.6
-  loop Thousand Needles lvl 31 lap 624 yield 3.7 only Alliance r 60 at 26.9,53.2 26.3,55.7 16.6,40.9 21.8,41.2 23.7,44.8 26.4,47.0 28.8,49.0 30.1,45.9 33.0,51.2 35.9,50.7 37.0,54.3 34.4,53.4
-  loop Duskwood lvl 30 lap 690 yield 2.9 only Alliance r 60 at 86.2,48.6 79.5,40.5 77.3,38.8 57.7,46.8 30.3,76.7 25.2,80.3 26.7,37.7 58.6,37.7 78.7,29.0 81.2,28.7 85.2,32.5 82.9,35.9
-  loop Ashenvale lvl 30 lap 623 yield 2.1 only Horde r 60 at 78.9,62.9 85.4,74.3 90.3,76.4 88.9,79.2 85.0,78.9 84.6,76.5 83.1,77.3 82.9,80.1 81.5,77.8 78.4,80.2 80.5,73.4 71.0,53.3
-  loop Hillsbrad Foothills lvl 34 lap 624 yield 2.9 only Horde r 60 at 44.0,29.2 45.4,27.0 48.9,26.5 54.6,19.8 54.9,23.7 53.8,28.0 50.9,29.4 45.6,32.3 43.4,34.6 41.8,32.2 38.4,26.0
-  loop Alterac Mountains lvl 37 lap 631 yield 5.2 only Alliance r 60 at 52.4,46.3 52.9,49.8 37.6,67.0 33.7,55.3 31.8,53.6 33.2,47.2 32.9,39.9 39.5,38.0 40.2,30.7 47.9,33.2 45.2,39.2 49.8,44.0
-  loop Stranglethorn Vale lvl 35 lap 618 yield 2.2 r 60 at 46.2,7.4 30.5,7.6 27.0,10.1 27.4,13.6 25.7,15.4 26.3,18.0 27.6,18.0 30.0,17.7 29.3,15.3 31.3,13.8 29.8,12.1 31.3,9.5
-  loop Badlands lvl 42 lap 628 yield 5.0 only Horde r 60 at 15.6,34.9 14.8,48.6 15.0,54.5 20.2,63.0 23.7,61.3 34.9,53.0 42.2,78.9 22.6,73.3 18.5,74.8 18.0,70.3 12.9,58.9 10.8,55.3
+  loop Thousand Needles lvl 27 lap 626 yield 2.8 only Horde r 60 at 42.7,33.7 44.6,39.3 40.2,50.8 37.0,54.3 35.8,50.7 34.4,53.4 33.0,51.2 30.1,45.9 23.7,44.8 23.9,23.4 28.1,28.1 34.6,26.7
+  loop Hillsbrad Foothills lvl 25 lap 618 yield 1.0 only Horde r 60 at 85.1,42.1 87.7,45.0 90.5,39.3 88.7,37.7 86.6,35.4 88.7,31.0 72.1,17.2 71.4,32.9 69.6,38.9 64.0,51.7 80.1,30.8 83.1,32.1
+  loop Duskwood lvl 28 lap 621 yield 2.6 only Alliance r 60 at 81.2,28.7 78.7,29.0 51.3,22.4 58.6,37.7 57.7,46.8 57.9,61.3 59.9,56.2 77.3,38.8 79.5,40.5 86.1,48.7 82.9,35.9 85.2,32.5
+  loop Ashenvale lvl 26 lap 615 yield 1.2 only Alliance r 60 at 71.0,53.3 72.3,51.0 74.1,52.0 75.4,52.8 77.2,52.3 73.7,45.9 70.7,51.4 64.6,47.3 62.2,48.4 62.7,60.4 69.0,58.4 70.6,58.3
+  loop Thousand Needles lvl 30 lap 628 yield 4.4 only Alliance r 60 at 26.3,55.7 26.9,53.2 35.8,50.7 18.0,36.0 15.6,31.1 14.7,34.4 13.0,34.8 13.3,36.9 11.2,38.3 10.4,41.2 15.2,40.3 16.6,40.9
+  loop Ashenvale lvl 27 lap 611 yield 1.3 only Horde r 60 at 71.0,53.3 64.4,55.6 65.8,60.0 69.0,58.4 70.8,60.0 72.5,57.0 74.7,57.4 75.4,52.8 77.2,52.3 73.7,45.9 72.3,51.0 70.7,51.4
+  loop Arathi Highlands lvl 33 lap 580 yield 2.2 only Alliance r 60 at 31.3,45.1 33.4,42.4 38.7,43.1 40.2,49.0 41.5,40.9 38.1,34.5 30.7,32.6 28.5,32.6 24.7,36.5 22.3,43.6 31.3,61.7 33.0,46.6
+  loop Arathi Highlands lvl 34 lap 581 yield 3.0 only Horde r 60 at 72.9,59.5 70.2,57.5 70.6,52.4 70.8,49.5 61.6,44.0 65.3,65.7 67.4,69.5 60.5,74.0 63.3,73.9 66.7,74.7 69.8,73.8 71.2,67.0
+  loop Stranglethorn Vale lvl 34 lap 617 yield 2.2 only Horde r 60 at 46.2,7.4 30.5,7.6 27.0,10.1 27.4,13.6 25.7,15.4 26.3,18.0 27.6,18.0 30.0,17.7 29.3,15.3 31.3,13.8 29.8,12.1 31.3,9.5
   auction 3859 x75
 
 step Go to an anvil
@@ -658,21 +690,21 @@ step Learn Smelt Mithril
 
 step Mine until Mining 245
   tip This loop gives the Mithril Ore to Mining 245; the next one the rest.
-  loop Badlands lvl 45 lap 633 gain 1.2 r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 42.2,80.0 34.4,23.3 15.6,35.2 12.1,35.1 14.3,39.8 7.6,73.3 6.1,77.3 4.0,80.4
-  loop Alterac Mountains lvl 37 lap 628 gain 1.1 only Alliance r 60 at 50.9,44.2 53.6,48.5 37.0,73.7 32.3,65.0 30.8,56.5 33.3,43.9 35.6,39.7 37.9,32.5 42.8,34.7 45.6,40.6 48.1,33.1 52.7,36.8
-  loop Desolace lvl 43 lap 627 gain 1.1 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
-  loop Burning Steppes lvl 53 lap 617 gain 1.4 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
-  loop Searing Gorge lvl 57 lap 616 gain 1.0 r 60 at 64.1,61.6 57.5,68.4 57.1,81.6 49.5,75.9 48.7,51.7 52.0,49.5 55.0,51.2 61.1,42.8 56.9,41.2 56.0,30.6 67.9,32.3 73.2,73.0
+  loop Badlands lvl 44 lap 627 gain 1.0 only Horde r 60 at 4.0,80.4 6.1,77.3 7.6,73.3 12.1,35.1 15.6,35.2 14.3,39.8 23.9,66.4 20.8,82.2 15.7,87.0 15.1,92.1 7.5,95.6 8.6,90.3
+  loop Badlands lvl 44 lap 623 gain 0.9 only Alliance r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 15.1,81.7 20.8,82.2 23.9,66.4 20.2,63.0 9.1,65.4 7.6,73.3 6.1,77.3 4.0,80.4
+  loop Feralas lvl 46 lap 618 gain 0.8 r 60 at 52.7,60.6 51.5,60.4 50.4,58.5 45.4,69.4 54.1,73.0 59.4,74.1 62.5,69.4 60.6,65.7 58.9,55.8 57.5,47.0 53.5,47.7 52.1,58.6
+  loop The Hinterlands lvl 46 lap 616 gain 0.6 r 60 at 37.1,67.5 40.6,65.9 41.1,59.2 45.9,69.0 35.5,74.8 33.5,76.0 30.7,74.6 30.4,70.8 30.1,68.3 27.3,69.0 31.2,60.1 33.7,65.0
+  loop Burning Steppes lvl 52 lap 617 gain 1.4 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
   skill Mining 245
 
 step Mine and smelt 204 Mithril Bar
   tip For 17 Mithril Plate Pants.
   collect 3860 x204 gather Mining 230
-  loop Badlands lvl 45 lap 633 yield 5.9 r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 42.2,80.0 34.4,23.3 15.6,35.2 12.1,35.1 14.3,39.8 7.6,73.3 6.1,77.3 4.0,80.4
-  loop Alterac Mountains lvl 37 lap 628 yield 4.7 only Alliance r 60 at 50.9,44.2 53.6,48.5 37.0,73.7 32.3,65.0 30.8,56.5 33.3,43.9 35.6,39.7 37.9,32.5 42.8,34.7 45.6,40.6 48.1,33.1 52.7,36.8
-  loop Desolace lvl 43 lap 627 yield 4.7 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
-  loop Burning Steppes lvl 53 lap 617 yield 2.3 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
-  loop Searing Gorge lvl 57 lap 616 yield 2.3 r 60 at 64.1,61.6 57.5,68.4 57.1,81.6 49.5,75.9 48.7,51.7 52.0,49.5 55.0,51.2 61.1,42.8 56.9,41.2 56.0,30.6 67.9,32.3 73.2,73.0
+  loop Badlands lvl 44 lap 627 yield 4.9 only Horde r 60 at 4.0,80.4 6.1,77.3 7.6,73.3 12.1,35.1 15.6,35.2 14.3,39.8 23.9,66.4 20.8,82.2 15.7,87.0 15.1,92.1 7.5,95.6 8.6,90.3
+  loop Badlands lvl 44 lap 623 yield 4.1 only Alliance r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 15.1,81.7 20.8,82.2 23.9,66.4 20.2,63.0 9.1,65.4 7.6,73.3 6.1,77.3 4.0,80.4
+  loop Feralas lvl 46 lap 618 yield 3.1 r 60 at 52.7,60.6 51.5,60.4 50.4,58.5 45.4,69.4 54.1,73.0 59.4,74.1 62.5,69.4 60.6,65.7 58.9,55.8 57.5,47.0 53.5,47.7 52.1,58.6
+  loop The Hinterlands lvl 46 lap 616 yield 2.8 r 60 at 37.1,67.5 40.6,65.9 41.1,59.2 45.9,69.0 35.5,74.8 33.5,76.0 30.7,74.6 30.4,70.8 30.1,68.3 27.3,69.0 31.2,60.1 33.7,65.0
+  loop Burning Steppes lvl 52 lap 617 yield 2.3 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
   auction 3860 x204
 
 step Learn Mithril Plate Pants
@@ -738,22 +770,22 @@ step Mine 148 Solid Stone
   when knows 9964
   tip For 37 Solid Grinding Stones.
   collect 7912 x148 gather Mining 230
-  loop Badlands lvl 45 lap 633 yield 5.7 r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 42.2,80.0 34.4,23.3 15.6,35.2 12.1,35.1 14.3,39.8 7.6,73.3 6.1,77.3 4.0,80.4
-  loop Alterac Mountains lvl 37 lap 628 yield 4.5 only Alliance r 60 at 50.9,44.2 53.6,48.5 37.0,73.7 32.3,65.0 30.8,56.5 33.3,43.9 35.6,39.7 37.9,32.5 42.8,34.7 45.6,40.6 48.1,33.1 52.7,36.8
-  loop Desolace lvl 43 lap 627 yield 4.5 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
-  loop Burning Steppes lvl 53 lap 617 yield 2.2 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
-  loop Searing Gorge lvl 57 lap 616 yield 2.3 r 60 at 64.1,61.6 57.5,68.4 57.1,81.6 49.5,75.9 48.7,51.7 52.0,49.5 55.0,51.2 61.1,42.8 56.9,41.2 56.0,30.6 67.9,32.3 73.2,73.0
+  loop Badlands lvl 44 lap 627 yield 4.7 only Horde r 60 at 4.0,80.4 6.1,77.3 7.6,73.3 12.1,35.1 15.6,35.2 14.3,39.8 23.9,66.4 20.8,82.2 15.7,87.0 15.1,92.1 7.5,95.6 8.6,90.3
+  loop Badlands lvl 44 lap 623 yield 4.0 only Alliance r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 15.1,81.7 20.8,82.2 23.9,66.4 20.2,63.0 9.1,65.4 7.6,73.3 6.1,77.3 4.0,80.4
+  loop Feralas lvl 46 lap 618 yield 3.0 r 60 at 52.7,60.6 51.5,60.4 50.4,58.5 45.4,69.4 54.1,73.0 59.4,74.1 62.5,69.4 60.6,65.7 58.9,55.8 57.5,47.0 53.5,47.7 52.1,58.6
+  loop The Hinterlands lvl 46 lap 616 yield 2.8 r 60 at 37.1,67.5 40.6,65.9 41.1,59.2 45.9,69.0 35.5,74.8 33.5,76.0 30.7,74.6 30.4,70.8 30.1,68.3 27.3,69.0 31.2,60.1 33.7,65.0
+  loop Burning Steppes lvl 52 lap 617 yield 2.2 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
   auction 7912 x148
 
 step Mine and smelt 60 Mithril Bar
   when knows 9964
   tip For 15 Mithril Spurs.
   collect 3860 x60 gather Mining 230
-  loop Badlands lvl 45 lap 633 yield 5.9 r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 42.2,80.0 34.4,23.3 15.6,35.2 12.1,35.1 14.3,39.8 7.6,73.3 6.1,77.3 4.0,80.4
-  loop Alterac Mountains lvl 37 lap 628 yield 4.7 only Alliance r 60 at 50.9,44.2 53.6,48.5 37.0,73.7 32.3,65.0 30.8,56.5 33.3,43.9 35.6,39.7 37.9,32.5 42.8,34.7 45.6,40.6 48.1,33.1 52.7,36.8
-  loop Desolace lvl 43 lap 627 yield 4.7 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
-  loop Burning Steppes lvl 53 lap 617 yield 2.3 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
-  loop Searing Gorge lvl 57 lap 616 yield 2.3 r 60 at 64.1,61.6 57.5,68.4 57.1,81.6 49.5,75.9 48.7,51.7 52.0,49.5 55.0,51.2 61.1,42.8 56.9,41.2 56.0,30.6 67.9,32.3 73.2,73.0
+  loop Badlands lvl 44 lap 627 yield 4.9 only Horde r 60 at 4.0,80.4 6.1,77.3 7.6,73.3 12.1,35.1 15.6,35.2 14.3,39.8 23.9,66.4 20.8,82.2 15.7,87.0 15.1,92.1 7.5,95.6 8.6,90.3
+  loop Badlands lvl 44 lap 623 yield 4.1 only Alliance r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 15.1,81.7 20.8,82.2 23.9,66.4 20.2,63.0 9.1,65.4 7.6,73.3 6.1,77.3 4.0,80.4
+  loop Feralas lvl 46 lap 618 yield 3.1 r 60 at 52.7,60.6 51.5,60.4 50.4,58.5 45.4,69.4 54.1,73.0 59.4,74.1 62.5,69.4 60.6,65.7 58.9,55.8 57.5,47.0 53.5,47.7 52.1,58.6
+  loop The Hinterlands lvl 46 lap 616 yield 2.8 r 60 at 37.1,67.5 40.6,65.9 41.1,59.2 45.9,69.0 35.5,74.8 33.5,76.0 30.7,74.6 30.4,70.8 30.1,68.3 27.3,69.0 31.2,60.1 33.7,65.0
+  loop Burning Steppes lvl 52 lap 617 yield 2.3 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
   auction 3860 x60
 
 step Craft 37 Solid Grinding Stones
@@ -807,16 +839,13 @@ section Blacksmithing 225-235
 
 step Mine 16 Dense Stone
   when knows 9964
-  tip For 16 Dense Sharpening Stones. Mining 245 to 263 on the way.
+  tip For 16 Dense Sharpening Stones. Mining 245 to 264 on the way.
   collect 12365 x16 gather Mining 245
-  loop Tanaris lvl 50 lap 965 yield 2.6 r 60 at 57.2,68.7 56.5,73.2 55.4,73.0 29.7,68.4 29.4,64.8 31.0,63.8 33.4,46.1 35.1,46.8 62.7,48.5 64.4,47.1 65.5,52.3 64.0,53.3
-  loop The Hinterlands lvl 51 lap 718 yield 2.1 r 60 at 54.9,67.3 52.1,65.4 33.7,65.0 37.1,67.5 57.9,84.2 72.6,61.9 65.5,41.2 59.1,41.5 57.0,43.1 66.8,52.4 64.4,64.2 56.6,68.6
-  loop Burning Steppes lvl 53 lap 627 yield 1.8 r 60 at 80.3,44.7 80.9,48.5 84.8,48.8 83.7,46.1 82.8,42.4 82.3,40.2 86.0,37.1 80.2,35.4 80.3,40.7 77.4,42.9 76.7,47.4
-  loop Felwood lvl 52 lap 616 yield 1.7 only Horde r 60 at 36.2,68.9 37.9,68.0 38.3,70.6 40.1,74.1 42.1,78.4 39.7,81.0 42.8,84.1 44.9,85.5 47.3,76.1 45.2,66.6 43.8,62.1 36.6,62.7
-  loop Un'Goro Crater lvl 54 lap 620 yield 3.3 r 60 at 68.5,16.1 69.8,19.2 75.5,33.1 75.3,39.6 63.1,33.4 55.4,35.2 52.2,32.0 50.1,13.3 56.6,11.7 63.8,16.2 66.2,17.7 66.4,14.2
-  loop Felwood lvl 54 lap 811 yield 3.4 only Alliance r 60 at 57.6,17.3 59.2,19.4 61.3,21.3 58.7,22.8 43.8,62.1 38.9,55.1 43.2,46.7 43.4,41.2 38.1,32.2 39.8,22.3 46.2,13.5 48.6,23.8
-  loop Winterspring lvl 59 lap 705 yield 4.7 only Alliance r 60 at 70.4,40.3 69.1,39.8 56.3,25.6 57.3,32.8 56.0,49.0 55.5,50.7 54.1,50.4 56.0,53.8 57.8,61.1 56.9,50.4 58.4,46.6 69.4,41.9
-  loop Winterspring lvl 58 lap 615 yield 2.6 only Horde r 60 at 70.4,40.3 70.9,37.5 66.7,28.2 63.6,25.6 64.6,29.7 64.6,34.6 66.5,37.5 68.0,35.6 67.7,38.6 67.7,41.5 69.4,41.9 69.1,39.8
+  loop Tanaris lvl 49 lap 621 yield 1.8 r 60 at 32.4,44.1 33.3,42.2 35.3,42.8 35.1,46.8 33.4,46.1 31.0,63.8 29.4,64.8 29.7,68.4 27.3,70.1 26.8,65.6 31.5,45.9 30.9,43.9
+  loop Feralas lvl 48 lap 690 yield 1.5 r 60 at 62.5,69.4 59.4,74.1 54.1,73.0 45.4,69.4 47.2,63.6 47.8,57.5 53.5,47.7 57.5,47.0 58.9,55.8 52.7,60.6 62.2,67.8 64.1,69.0
+  loop Felwood lvl 51 lap 617 yield 2.2 r 60 at 42.1,78.4 43.8,62.1 36.6,62.7 36.2,68.9 37.9,68.0 38.3,70.6 40.1,74.1 39.7,81.0 42.8,84.1 44.5,91.8 56.0,82.6 47.3,76.1
+  loop Burning Steppes lvl 52 lap 626 yield 2.0 r 60 at 80.9,48.5 84.8,48.8 83.7,46.1 82.8,42.4 82.3,40.2 80.3,40.7 80.3,44.7 77.4,42.9 76.7,47.4 75.0,56.0
+  loop Un'Goro Crater lvl 53 lap 620 yield 3.3 r 60 at 68.5,16.1 69.8,19.2 75.5,33.1 75.3,39.6 63.1,33.4 55.4,35.2 52.2,32.0 50.1,13.3 56.6,11.7 63.8,16.2 66.2,17.7 66.4,14.2
   auction 12365 x16
 
 step Learn Dense Sharpening Stone
@@ -834,23 +863,23 @@ step Mine 336 Solid Stone
   when knows 9964
   tip For 84 Solid Grinding Stones.
   collect 7912 x336 gather Mining 230
-  loop Badlands lvl 45 lap 633 yield 5.7 r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 42.2,80.0 34.4,23.3 15.6,35.2 12.1,35.1 14.3,39.8 7.6,73.3 6.1,77.3 4.0,80.4
-  loop Alterac Mountains lvl 37 lap 628 yield 4.5 only Alliance r 60 at 50.9,44.2 53.6,48.5 37.0,73.7 32.3,65.0 30.8,56.5 33.3,43.9 35.6,39.7 37.9,32.5 42.8,34.7 45.6,40.6 48.1,33.1 52.7,36.8
-  loop Desolace lvl 43 lap 627 yield 4.5 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
-  loop Burning Steppes lvl 53 lap 617 yield 2.2 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
-  loop Searing Gorge lvl 57 lap 616 yield 2.3 r 60 at 64.1,61.6 57.5,68.4 57.1,81.6 49.5,75.9 48.7,51.7 52.0,49.5 55.0,51.2 61.1,42.8 56.9,41.2 56.0,30.6 67.9,32.3 73.2,73.0
+  loop Badlands lvl 44 lap 627 yield 4.7 only Horde r 60 at 4.0,80.4 6.1,77.3 7.6,73.3 12.1,35.1 15.6,35.2 14.3,39.8 23.9,66.4 20.8,82.2 15.7,87.0 15.1,92.1 7.5,95.6 8.6,90.3
+  loop Badlands lvl 44 lap 623 yield 4.0 only Alliance r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 15.1,81.7 20.8,82.2 23.9,66.4 20.2,63.0 9.1,65.4 7.6,73.3 6.1,77.3 4.0,80.4
+  loop Feralas lvl 46 lap 618 yield 3.0 r 60 at 52.7,60.6 51.5,60.4 50.4,58.5 45.4,69.4 54.1,73.0 59.4,74.1 62.5,69.4 60.6,65.7 58.9,55.8 57.5,47.0 53.5,47.7 52.1,58.6
+  loop The Hinterlands lvl 46 lap 616 yield 2.8 r 60 at 37.1,67.5 40.6,65.9 41.1,59.2 45.9,69.0 35.5,74.8 33.5,76.0 30.7,74.6 30.4,70.8 30.1,68.3 27.3,69.0 31.2,60.1 33.7,65.0
+  loop Burning Steppes lvl 52 lap 617 yield 2.2 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
   auction 7912 x336
 
 step Mine and smelt 112 Mithril Bar
   when knows 9964
   tip For 28 Mithril Spurs.
   collect 3860 x112 gather Mining 175
-  loop Badlands lvl 45 lap 633 yield 5.9 r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 42.2,80.0 34.4,23.3 15.6,35.2 12.1,35.1 14.3,39.8 7.6,73.3 6.1,77.3 4.0,80.4
-  loop Desolace lvl 43 lap 627 yield 4.7 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
-  loop Alterac Mountains lvl 37 lap 628 yield 4.7 only Alliance r 60 at 50.9,44.2 53.6,48.5 37.0,73.7 32.3,65.0 30.8,56.5 33.3,43.9 35.6,39.7 37.9,32.5 42.8,34.7 45.6,40.6 48.1,33.1 52.7,36.8
-  loop The Hinterlands lvl 51 lap 718 yield 4.3 r 60 at 54.9,67.3 52.1,65.4 33.7,65.0 37.1,67.5 57.9,84.2 72.6,61.9 65.5,41.2 59.1,41.5 57.0,43.1 66.8,52.4 64.4,64.2 56.6,68.6
-  loop Stonetalon Mountains lvl 28 lap 616 yield 2.3 r 60 at 37.7,69.6 36.4,76.2 33.6,75.7 29.0,73.7 25.9,70.8 26.8,67.0 29.8,66.3 27.1,63.2 30.1,59.8 32.6,58.9 35.9,61.4 34.9,66.7
-  loop Alterac Mountains lvl 38 lap 641 yield 4.1 only Horde r 60 at 50.9,44.2 53.2,48.4 54.1,45.6 55.1,40.6 52.7,36.8 48.0,33.1 42.8,34.7 37.9,32.5 35.6,39.7 33.3,43.9 39.5,38.0 45.4,39.8
+  loop Badlands lvl 44 lap 623 yield 4.1 only Alliance r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 15.1,81.7 20.8,82.2 23.9,66.4 20.2,63.0 9.1,65.4 7.6,73.3 6.1,77.3 4.0,80.4
+  loop Feralas lvl 46 lap 618 yield 3.1 r 60 at 52.7,60.6 51.5,60.4 50.4,58.5 45.4,69.4 54.1,73.0 59.4,74.1 62.5,69.4 60.6,65.7 58.9,55.8 57.5,47.0 53.5,47.7 52.1,58.6
+  loop Alterac Mountains lvl 35 lap 632 yield 2.9 r 60 at 50.9,44.2 49.1,45.2 45.4,39.8 48.0,33.1 52.7,36.8 55.1,40.6 54.1,45.6 53.2,48.4 51.2,47.3
+  loop The Hinterlands lvl 45 lap 615 yield 2.8 only Alliance r 60 at 33.7,65.0 37.1,67.5 40.6,65.9 41.1,59.2 30.1,55.0 31.2,60.1 27.3,69.0 30.1,68.3 30.4,70.8 30.7,74.6 33.5,76.0 35.5,74.8
+  loop Badlands lvl 44 lap 627 yield 4.9 only Horde r 60 at 4.0,80.4 6.1,77.3 7.6,73.3 12.1,35.1 15.6,35.2 14.3,39.8 23.9,66.4 20.8,82.2 15.7,87.0 15.1,92.1 7.5,95.6 8.6,90.3
+  loop The Hinterlands lvl 46 lap 616 yield 2.8 only Horde r 60 at 37.1,67.5 40.6,65.9 41.1,59.2 45.9,69.0 35.5,74.8 33.5,76.0 30.7,74.6 30.4,70.8 30.1,68.3 27.3,69.0 31.2,60.1 33.7,65.0
   auction 3860 x112
 
 step Craft 84 Solid Grinding Stones
@@ -906,11 +935,11 @@ step Mine and smelt 72 Mithril Bar
   when !knows 9964
   tip For 6 Heavy Mithril Axes.
   collect 3860 x72 gather Mining 230
-  loop Badlands lvl 45 lap 633 yield 5.9 r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 42.2,80.0 34.4,23.3 15.6,35.2 12.1,35.1 14.3,39.8 7.6,73.3 6.1,77.3 4.0,80.4
-  loop Alterac Mountains lvl 37 lap 628 yield 4.7 only Alliance r 60 at 50.9,44.2 53.6,48.5 37.0,73.7 32.3,65.0 30.8,56.5 33.3,43.9 35.6,39.7 37.9,32.5 42.8,34.7 45.6,40.6 48.1,33.1 52.7,36.8
-  loop Desolace lvl 43 lap 627 yield 4.7 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
-  loop Burning Steppes lvl 53 lap 617 yield 2.3 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
-  loop Searing Gorge lvl 57 lap 616 yield 2.3 r 60 at 64.1,61.6 57.5,68.4 57.1,81.6 49.5,75.9 48.7,51.7 52.0,49.5 55.0,51.2 61.1,42.8 56.9,41.2 56.0,30.6 67.9,32.3 73.2,73.0
+  loop Badlands lvl 44 lap 627 yield 4.9 only Horde r 60 at 4.0,80.4 6.1,77.3 7.6,73.3 12.1,35.1 15.6,35.2 14.3,39.8 23.9,66.4 20.8,82.2 15.7,87.0 15.1,92.1 7.5,95.6 8.6,90.3
+  loop Badlands lvl 44 lap 623 yield 4.1 only Alliance r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 15.1,81.7 20.8,82.2 23.9,66.4 20.2,63.0 9.1,65.4 7.6,73.3 6.1,77.3 4.0,80.4
+  loop Feralas lvl 46 lap 618 yield 3.1 r 60 at 52.7,60.6 51.5,60.4 50.4,58.5 45.4,69.4 54.1,73.0 59.4,74.1 62.5,69.4 60.6,65.7 58.9,55.8 57.5,47.0 53.5,47.7 52.1,58.6
+  loop The Hinterlands lvl 46 lap 616 yield 2.8 r 60 at 37.1,67.5 40.6,65.9 41.1,59.2 45.9,69.0 35.5,74.8 33.5,76.0 30.7,74.6 30.4,70.8 30.1,68.3 27.3,69.0 31.2,60.1 33.7,65.0
+  loop Burning Steppes lvl 52 lap 617 yield 2.3 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
   auction 3860 x72
 
 step Get 12 Citrine
@@ -922,16 +951,16 @@ step Get 24 Heavy Leather
   when !knows 9964
   tip For 6 Heavy Mithril Axes.
   collect 4234 x24 gather Skinning 150
-  loop Swamp of Sorrows lvl 42 lap 3514 yield 151.3 only Alliance r 80 at 70.7,10.0 72.1,17.5 76.9,11.5 82.2,16.5 84.6,22.3 86.7,28.5 89.1,37.0 74.6,25.5 69.0,24.4 61.4,32.4 68.2,13.7 66.3,9.6
-  loop Dustwallow Marsh lvl 41 lap 1000 yield 35.1 r 80 at 32.6,65.1 34.0,71.5 34.2,69.0 35.6,66.4 35.3,61.0 36.4,58.7 39.4,58.7 38.9,53.4 37.3,51.5 34.4,49.5 35.0,55.4 34.8,58.4
-  loop Stranglethorn Vale lvl 41 lap 700 yield 19.9 r 80 at 33.1,66.3 32.3,68.4 31.3,66.9 31.7,59.9 32.4,58.0 33.7,63.3 34.7,65.5
-  loop Alterac Mountains lvl 36 lap 1843 yield 47.3 only Alliance r 80 at 40.1,90.9 40.5,95.9 36.1,85.1 30.1,87.4 32.3,82.5 30.0,73.6 30.5,62.2 32.9,67.1 35.5,70.5 39.7,70.4 41.7,64.9 44.1,78.4
-  loop Wetlands lvl 30 lap 943 yield 8.6 only Alliance r 80 at 69.2,31.6 69.3,28.2 65.1,28.7 66.5,30.7 68.3,36.5 71.0,38.9
-  loop Thousand Needles lvl 32 lap 629 yield 4.8 r 80 at 76.1,56.3 76.9,53.4 73.3,56.2 70.8,55.1 74.7,61.6 77.6,59.8
-  loop Swamp of Sorrows lvl 42 lap 2757 yield 115.5 only Horde r 80 at 70.7,10.0 66.3,9.6 68.2,13.7 69.0,24.4 69.4,33.0 72.1,17.5 75.8,20.8 74.6,25.5 78.0,27.4 84.6,22.3 82.2,16.5 76.9,11.5
-  loop Desolace lvl 35 lap 786 yield 17.9 only Horde r 80 at 70.3,59.5 72.3,55.2 74.0,58.9 72.0,63.7 69.3,65.6 66.9,69.5 65.8,61.0 64.1,57.7 66.1,56.5 65.6,52.8 68.5,54.2 68.1,57.2
-  loop Arathi Highlands lvl 33 lap 643 yield 5.0 only Horde r 80 at 65.3,42.3 62.9,45.8 64.0,50.5 67.1,56.3 70.6,51.0 74.0,48.3 69.1,38.5 69.9,31.0 67.2,34.1 65.7,37.2
-  loop Alterac Mountains lvl 31 lap 543 yield 3.2 only Horde r 80 at 80.0,58.9 76.8,63.7 73.5,67.0 84.3,51.6 90.0,46.5
+  loop Badlands lvl 40 lap 1200 yield 46.1 r 80 at 21.9,58.9 16.0,53.7 11.2,63.3 19.4,69.0 26.7,62.2 30.2,63.1 40.0,68.7 41.1,60.5 37.1,61.9 32.8,57.3 30.1,48.5 25.1,53.5
+  loop Swamp of Sorrows lvl 40 lap 1614 yield 61.6 only Alliance r 80 at 86.7,28.4 84.4,22.4 82.3,17.0 89.1,37.0
+  loop Dustwallow Marsh lvl 40 lap 1000 yield 35.1 r 80 at 32.6,65.1 34.0,71.5 34.2,69.0 35.6,66.4 35.3,61.0 36.4,58.7 39.4,58.7 38.9,53.4 37.3,51.5 34.4,49.5 35.0,55.4 34.8,58.4
+  loop Stranglethorn Vale lvl 34 lap 1857 yield 44.1 r 80 at 34.8,13.6 37.2,13.2 37.7,17.0 35.4,18.5 33.8,18.4 32.1,19.0 30.2,15.1 30.4,12.5 30.0,10.0 29.9,7.8 33.8,10.1 36.0,7.6
+  loop Ashenvale lvl 28 lap 971 yield 11.3 only Alliance r 80 at 58.3,42.3 55.6,40.4 53.1,35.3 55.3,34.1 54.2,31.5 57.2,30.8 58.3,34.8 57.5,38.4 59.5,37.7 61.6,42.7 63.4,44.4 60.9,46.0
+  loop Arathi Highlands lvl 32 lap 786 yield 7.1 only Alliance r 80 at 65.7,37.2 67.2,34.1 60.3,37.3 52.3,32.4 50.8,40.3 52.1,44.9 54.2,46.7 56.9,46.6 58.7,42.4 61.5,45.1 64.3,46.4 65.3,42.3
+  loop Thousand Needles lvl 30 lap 643 yield 5.1 only Alliance r 80 at 13.2,38.2 10.6,39.7 10.4,34.1 14.4,26.7 15.1,32.6 15.9,35.2 21.0,40.6 17.0,41.7
+  loop Swamp of Sorrows lvl 45 lap 3971 yield 168.1 only Horde r 80 at 82.3,16.4 84.6,22.3 86.7,29.1 90.7,40.3 91.9,47.5 85.4,36.3 81.1,29.8 75.3,25.5 70.0,18.8 66.2,10.9 70.7,10.0 77.1,11.4
+  loop Ashenvale lvl 28 lap 929 yield 10.6 only Horde r 80 at 58.3,42.3 59.8,44.3 63.4,44.4 61.6,42.7 59.5,37.7 58.3,34.8 57.2,30.8 54.2,31.5 55.3,34.1 53.1,35.3 55.6,40.4 57.5,38.4
+  loop Thousand Needles lvl 30 lap 700 yield 6.1 only Horde r 80 at 17.0,41.7 21.0,40.6 22.8,42.6 24.7,44.6 25.2,37.4 22.4,37.7 15.9,35.2 15.1,32.6 9.6,35.2 10.6,39.7 13.2,38.2
   auction 4234 x24
 
 step Learn Heavy Mithril Axe
@@ -986,11 +1015,11 @@ step Mine and smelt 100 Mithril Bar
   when !knows 9964
   tip For 10 Mithril Coifs.
   collect 3860 x100 gather Mining 230
-  loop Badlands lvl 45 lap 633 yield 5.9 r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 42.2,80.0 34.4,23.3 15.6,35.2 12.1,35.1 14.3,39.8 7.6,73.3 6.1,77.3 4.0,80.4
-  loop Alterac Mountains lvl 37 lap 628 yield 4.7 only Alliance r 60 at 50.9,44.2 53.6,48.5 37.0,73.7 32.3,65.0 30.8,56.5 33.3,43.9 35.6,39.7 37.9,32.5 42.8,34.7 45.6,40.6 48.1,33.1 52.7,36.8
-  loop Desolace lvl 43 lap 627 yield 4.7 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
-  loop Burning Steppes lvl 53 lap 617 yield 2.3 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
-  loop Searing Gorge lvl 57 lap 616 yield 2.3 r 60 at 64.1,61.6 57.5,68.4 57.1,81.6 49.5,75.9 48.7,51.7 52.0,49.5 55.0,51.2 61.1,42.8 56.9,41.2 56.0,30.6 67.9,32.3 73.2,73.0
+  loop Badlands lvl 44 lap 627 yield 4.9 only Horde r 60 at 4.0,80.4 6.1,77.3 7.6,73.3 12.1,35.1 15.6,35.2 14.3,39.8 23.9,66.4 20.8,82.2 15.7,87.0 15.1,92.1 7.5,95.6 8.6,90.3
+  loop Badlands lvl 44 lap 623 yield 4.1 only Alliance r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 15.1,81.7 20.8,82.2 23.9,66.4 20.2,63.0 9.1,65.4 7.6,73.3 6.1,77.3 4.0,80.4
+  loop Feralas lvl 46 lap 618 yield 3.1 r 60 at 52.7,60.6 51.5,60.4 50.4,58.5 45.4,69.4 54.1,73.0 59.4,74.1 62.5,69.4 60.6,65.7 58.9,55.8 57.5,47.0 53.5,47.7 52.1,58.6
+  loop The Hinterlands lvl 46 lap 616 yield 2.8 r 60 at 37.1,67.5 40.6,65.9 41.1,59.2 45.9,69.0 35.5,74.8 33.5,76.0 30.7,74.6 30.4,70.8 30.1,68.3 27.3,69.0 31.2,60.1 33.7,65.0
+  loop Burning Steppes lvl 52 lap 617 yield 2.3 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
   auction 3860 x100
 
 step Get 60 Mageweave Cloth
@@ -1049,16 +1078,13 @@ section Blacksmithing 225-235
 
 step Mine 16 Dense Stone
   when !knows 9964
-  tip For 16 Dense Sharpening Stones. Mining 245 to 263 on the way.
+  tip For 16 Dense Sharpening Stones. Mining 245 to 264 on the way.
   collect 12365 x16 gather Mining 245
-  loop Tanaris lvl 50 lap 965 yield 2.6 r 60 at 57.2,68.7 56.5,73.2 55.4,73.0 29.7,68.4 29.4,64.8 31.0,63.8 33.4,46.1 35.1,46.8 62.7,48.5 64.4,47.1 65.5,52.3 64.0,53.3
-  loop The Hinterlands lvl 51 lap 718 yield 2.1 r 60 at 54.9,67.3 52.1,65.4 33.7,65.0 37.1,67.5 57.9,84.2 72.6,61.9 65.5,41.2 59.1,41.5 57.0,43.1 66.8,52.4 64.4,64.2 56.6,68.6
-  loop Burning Steppes lvl 53 lap 627 yield 1.8 r 60 at 80.3,44.7 80.9,48.5 84.8,48.8 83.7,46.1 82.8,42.4 82.3,40.2 86.0,37.1 80.2,35.4 80.3,40.7 77.4,42.9 76.7,47.4
-  loop Felwood lvl 52 lap 616 yield 1.7 only Horde r 60 at 36.2,68.9 37.9,68.0 38.3,70.6 40.1,74.1 42.1,78.4 39.7,81.0 42.8,84.1 44.9,85.5 47.3,76.1 45.2,66.6 43.8,62.1 36.6,62.7
-  loop Un'Goro Crater lvl 54 lap 620 yield 3.3 r 60 at 68.5,16.1 69.8,19.2 75.5,33.1 75.3,39.6 63.1,33.4 55.4,35.2 52.2,32.0 50.1,13.3 56.6,11.7 63.8,16.2 66.2,17.7 66.4,14.2
-  loop Felwood lvl 54 lap 811 yield 3.4 only Alliance r 60 at 57.6,17.3 59.2,19.4 61.3,21.3 58.7,22.8 43.8,62.1 38.9,55.1 43.2,46.7 43.4,41.2 38.1,32.2 39.8,22.3 46.2,13.5 48.6,23.8
-  loop Winterspring lvl 59 lap 705 yield 4.7 only Alliance r 60 at 70.4,40.3 69.1,39.8 56.3,25.6 57.3,32.8 56.0,49.0 55.5,50.7 54.1,50.4 56.0,53.8 57.8,61.1 56.9,50.4 58.4,46.6 69.4,41.9
-  loop Winterspring lvl 58 lap 615 yield 2.6 only Horde r 60 at 70.4,40.3 70.9,37.5 66.7,28.2 63.6,25.6 64.6,29.7 64.6,34.6 66.5,37.5 68.0,35.6 67.7,38.6 67.7,41.5 69.4,41.9 69.1,39.8
+  loop Tanaris lvl 49 lap 621 yield 1.8 r 60 at 32.4,44.1 33.3,42.2 35.3,42.8 35.1,46.8 33.4,46.1 31.0,63.8 29.4,64.8 29.7,68.4 27.3,70.1 26.8,65.6 31.5,45.9 30.9,43.9
+  loop Feralas lvl 48 lap 690 yield 1.5 r 60 at 62.5,69.4 59.4,74.1 54.1,73.0 45.4,69.4 47.2,63.6 47.8,57.5 53.5,47.7 57.5,47.0 58.9,55.8 52.7,60.6 62.2,67.8 64.1,69.0
+  loop Felwood lvl 51 lap 617 yield 2.2 r 60 at 42.1,78.4 43.8,62.1 36.6,62.7 36.2,68.9 37.9,68.0 38.3,70.6 40.1,74.1 39.7,81.0 42.8,84.1 44.5,91.8 56.0,82.6 47.3,76.1
+  loop Burning Steppes lvl 52 lap 626 yield 2.0 r 60 at 80.9,48.5 84.8,48.8 83.7,46.1 82.8,42.4 82.3,40.2 80.3,40.7 80.3,44.7 77.4,42.9 76.7,47.4 75.0,56.0
+  loop Un'Goro Crater lvl 53 lap 620 yield 3.3 r 60 at 68.5,16.1 69.8,19.2 75.5,33.1 75.3,39.6 63.1,33.4 55.4,35.2 52.2,32.0 50.1,13.3 56.6,11.7 63.8,16.2 66.2,17.7 66.4,14.2
   auction 12365 x16
 
 step Learn Dense Sharpening Stone
@@ -1076,25 +1102,25 @@ step Mine and smelt 154 Mithril Bar
   when !knows 9964
   tip For 11 Heavy Mithril Boots.
   collect 3860 x154 gather Mining 230
-  loop Badlands lvl 45 lap 633 yield 5.9 r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 42.2,80.0 34.4,23.3 15.6,35.2 12.1,35.1 14.3,39.8 7.6,73.3 6.1,77.3 4.0,80.4
-  loop Alterac Mountains lvl 37 lap 628 yield 4.7 only Alliance r 60 at 50.9,44.2 53.6,48.5 37.0,73.7 32.3,65.0 30.8,56.5 33.3,43.9 35.6,39.7 37.9,32.5 42.8,34.7 45.6,40.6 48.1,33.1 52.7,36.8
-  loop Desolace lvl 43 lap 627 yield 4.7 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
-  loop Burning Steppes lvl 53 lap 617 yield 2.3 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
-  loop Searing Gorge lvl 57 lap 616 yield 2.3 r 60 at 64.1,61.6 57.5,68.4 57.1,81.6 49.5,75.9 48.7,51.7 52.0,49.5 55.0,51.2 61.1,42.8 56.9,41.2 56.0,30.6 67.9,32.3 73.2,73.0
+  loop Badlands lvl 44 lap 627 yield 4.9 only Horde r 60 at 4.0,80.4 6.1,77.3 7.6,73.3 12.1,35.1 15.6,35.2 14.3,39.8 23.9,66.4 20.8,82.2 15.7,87.0 15.1,92.1 7.5,95.6 8.6,90.3
+  loop Badlands lvl 44 lap 623 yield 4.1 only Alliance r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 15.1,81.7 20.8,82.2 23.9,66.4 20.2,63.0 9.1,65.4 7.6,73.3 6.1,77.3 4.0,80.4
+  loop Feralas lvl 46 lap 618 yield 3.1 r 60 at 52.7,60.6 51.5,60.4 50.4,58.5 45.4,69.4 54.1,73.0 59.4,74.1 62.5,69.4 60.6,65.7 58.9,55.8 57.5,47.0 53.5,47.7 52.1,58.6
+  loop The Hinterlands lvl 46 lap 616 yield 2.8 r 60 at 37.1,67.5 40.6,65.9 41.1,59.2 45.9,69.0 35.5,74.8 33.5,76.0 30.7,74.6 30.4,70.8 30.1,68.3 27.3,69.0 31.2,60.1 33.7,65.0
+  loop Burning Steppes lvl 52 lap 617 yield 2.3 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
   auction 3860 x154
 
 step Get 44 Thick Leather
   when !knows 9964
   tip For 11 Heavy Mithril Boots.
   collect 4304 x44 gather Skinning 200
-  loop Un'Goro Crater lvl 51 lap 1229 yield 49.6 r 80 at 60.7,73.5 62.1,66.6 64.1,61.1 63.2,53.9 69.6,56.6 67.3,60.7 66.8,66.2 66.8,71.5 67.1,78.3 64.2,77.2 61.7,79.0 58.6,79.7
-  loop The Hinterlands lvl 50 lap 1029 yield 38.0 r 80 at 82.1,52.7 82.7,48.2 82.5,43.5 82.5,39.0 75.6,48.7 74.9,55.2 80.0,58.0 78.9,61.3 77.3,64.9 79.8,65.8 84.8,63.8 83.8,57.8
-  loop Azshara lvl 53 lap 1029 yield 27.5 r 80 at 58.0,20.4 59.7,17.9 56.7,17.4 54.9,15.7 47.9,19.7 47.7,23.8 49.9,24.6 51.0,28.6 52.6,33.0 53.1,25.6 55.3,22.4 58.0,23.4
-  loop Tanaris lvl 45 lap 900 yield 21.2 r 80 at 45.4,39.2 47.9,39.0 46.9,36.7 45.7,35.1 44.5,36.2 43.4,37.4 42.7,41.3 43.4,43.1 45.2,42.2 46.9,42.1
-  loop Swamp of Sorrows lvl 42 lap 3514 yield 64.7 only Alliance r 80 at 70.7,10.0 72.1,17.5 76.9,11.5 82.2,16.5 84.6,22.3 86.7,28.5 89.1,37.0 74.6,25.5 69.0,24.4 61.4,32.4 68.2,13.7 66.3,9.6
-  loop Dustwallow Marsh lvl 41 lap 1000 yield 12.0 r 80 at 32.6,65.1 34.0,71.5 34.2,69.0 35.6,66.4 35.3,61.0 36.4,58.7 39.4,58.7 38.9,53.4 37.3,51.5 34.4,49.5 35.0,55.4 34.8,58.4
-  loop Stranglethorn Vale lvl 41 lap 700 yield 7.0 r 80 at 33.1,66.3 32.3,68.4 31.3,66.9 31.7,59.9 32.4,58.0 33.7,63.3 34.7,65.5
-  loop Swamp of Sorrows lvl 42 lap 2757 yield 49.6 only Horde r 80 at 70.7,10.0 66.3,9.6 68.2,13.7 69.0,24.4 69.4,33.0 72.1,17.5 75.8,20.8 74.6,25.5 78.0,27.4 84.6,22.3 82.2,16.5 76.9,11.5
+  loop Un'Goro Crater lvl 50 lap 1471 yield 57.6 r 80 at 64.1,61.1 63.0,53.1 65.7,49.3 71.0,51.7 68.5,55.2 70.9,60.1 67.3,60.7 66.8,66.2 66.8,71.5 64.2,77.2 60.7,73.5 62.1,66.6
+  loop The Hinterlands lvl 49 lap 1071 yield 40.3 only Alliance r 80 at 83.8,57.8 82.1,52.7 82.7,48.2 82.5,43.5 75.6,48.7 74.9,55.2 78.9,61.3 77.3,64.9 77.2,69.4 80.7,69.4 79.8,65.8 84.8,63.8
+  loop Azshara lvl 52 lap 1029 yield 27.5 r 80 at 58.0,20.4 59.7,17.9 56.7,17.4 54.9,15.7 47.9,19.7 47.7,23.8 49.9,24.6 51.0,28.6 52.6,33.0 53.1,25.6 55.3,22.4 58.0,23.4
+  loop Tanaris lvl 45 lap 1214 yield 32.2 r 80 at 43.4,37.4 45.4,39.2 45.2,42.2 46.9,42.1 47.9,39.0 46.9,36.7 45.7,35.1 45.3,30.8 43.7,32.5 41.4,35.5 41.0,39.4 42.7,41.3
+  loop Swamp of Sorrows lvl 40 lap 1614 yield 26.7 r 80 at 86.7,28.4 84.4,22.4 82.3,17.0 89.1,37.0
+  loop Dustwallow Marsh lvl 40 lap 1000 yield 12.0 r 80 at 32.6,65.1 34.0,71.5 34.2,69.0 35.6,66.4 35.3,61.0 36.4,58.7 39.4,58.7 38.9,53.4 37.3,51.5 34.4,49.5 35.0,55.4 34.8,58.4
+  loop Badlands lvl 40 lap 1200 yield 14.3 r 80 at 21.9,58.9 16.0,53.7 11.2,63.3 19.4,69.0 26.7,62.2 30.2,63.1 40.0,68.7 41.1,60.5 37.1,61.9 32.8,57.3 30.1,48.5 25.1,53.5
+  loop The Hinterlands lvl 49 lap 1114 yield 42.5 only Horde r 80 at 83.8,57.8 82.1,52.7 82.7,48.2 82.5,43.5 75.6,48.7 74.9,55.2 78.9,61.3 79.8,65.8 77.3,64.9 77.2,69.4 80.3,72.4 84.8,63.8
   auction 4304 x44
 
 step Learn Heavy Mithril Boots
@@ -1153,14 +1179,11 @@ step Get 5 Aquamarine
 step Get 30 Rugged Leather
   when !knows 9964
   tip For 5 Imperial Plate Belts.
-  collect 8170 x30 gather Skinning 225
-  loop Un'Goro Crater lvl 55 lap 1371 yield 30.8 r 80 at 67.4,15.5 69.1,17.6 70.7,21.4 68.3,21.3 62.5,17.6 64.9,16.8
-  loop Winterspring lvl 58 lap 700 yield 15.4 r 80 at 67.0,44.2 66.1,45.7 66.5,48.6 69.0,48.3 67.9,41.5 65.3,39.6 65.8,41.6
-  loop Western Plaguelands lvl 54 lap 700 yield 14.3 r 80 at 45.7,44.0 46.8,39.8 45.4,37.2 43.5,40.2 43.1,46.8 44.9,49.5 46.6,47.3 51.1,47.0
-  loop Silithus lvl 56 lap 700 yield 11.2 r 80 at 60.1,25.8 56.5,32.2 55.3,23.4 59.8,19.7 63.5,17.0 62.8,24.1 65.5,27.8 64.2,31.3
-  loop Azshara lvl 53 lap 1029 yield 13.3 only Alliance r 80 at 58.0,20.4 59.7,17.9 56.7,17.4 54.9,15.7 47.9,19.7 47.7,23.8 49.9,24.6 51.0,28.6 52.6,33.0 53.1,25.6 55.3,22.4 58.0,23.4
-  loop The Hinterlands lvl 50 lap 1029 yield 11.3 only Alliance r 80 at 82.1,52.7 82.7,48.2 82.5,43.5 82.5,39.0 75.6,48.7 74.9,55.2 80.0,58.0 78.9,61.3 77.3,64.9 79.8,65.8 84.8,63.8 83.8,57.8
-  loop Azshara lvl 57 lap 443 yield 1.5 only Horde r 80 at 22.5,62.5 19.7,66.4 20.5,69.6
+  collect 8170 x30 gather Skinning 250
+  loop Western Plaguelands lvl 55 lap 1057 yield 29.6 r 80 at 55.2,62.4 58.1,60.2 56.2,58.1 58.4,53.4 60.5,51.8 58.8,50.5 55.9,51.9 53.0,50.0 51.1,53.1 48.9,60.0 50.7,63.9 52.3,60.0
+  loop Winterspring lvl 56 lap 871 yield 18.3 r 80 at 58.3,45.0 59.9,45.2 61.8,48.1 63.1,47.2 62.1,45.0 60.1,41.9 57.6,40.4 55.7,37.9 55.3,46.3 54.9,48.6 56.4,46.0
+  loop Silithus lvl 55 lap 829 yield 14.8 r 80 at 59.8,19.7 63.5,17.0 61.4,14.9 56.9,11.4 54.7,14.0 51.3,19.6 53.0,29.1 56.5,32.2 64.2,31.3 65.5,27.8 60.1,25.8 55.3,23.4
+  loop Azshara lvl 52 lap 1029 yield 13.3 r 80 at 58.0,20.4 59.7,17.9 56.7,17.4 54.9,15.7 47.9,19.7 47.7,23.8 49.9,24.6 51.0,28.6 52.6,33.0 53.1,25.6 55.3,22.4 58.0,23.4
   auction 8170 x30
 
 step Learn Smelt Thorium
@@ -1171,33 +1194,30 @@ step Learn Smelt Thorium
 step Mine until Mining 275
   when !knows 9964
   tip This loop gives the Thorium Ore to Mining 275; the next one the rest.
-  loop Tanaris lvl 50 lap 965 gain 3.1 r 60 at 57.2,68.7 56.5,73.2 55.4,73.0 29.7,68.4 29.4,64.8 31.0,63.8 33.4,46.1 35.1,46.8 62.7,48.5 64.4,47.1 65.5,52.3 64.0,53.3
-  loop The Hinterlands lvl 51 lap 718 gain 3.0 r 60 at 54.9,67.3 52.1,65.4 33.7,65.0 37.1,67.5 57.9,84.2 72.6,61.9 65.5,41.2 59.1,41.5 57.0,43.1 66.8,52.4 64.4,64.2 56.6,68.6
-  loop Burning Steppes lvl 53 lap 627 gain 2.9 r 60 at 80.3,44.7 80.9,48.5 84.8,48.8 83.7,46.1 82.8,42.4 82.3,40.2 86.0,37.1 80.2,35.4 80.3,40.7 77.4,42.9 76.7,47.4
-  loop Felwood lvl 52 lap 616 gain 2.0 only Horde r 60 at 36.2,68.9 37.9,68.0 38.3,70.6 40.1,74.1 42.1,78.4 39.7,81.0 42.8,84.1 44.9,85.5 47.3,76.1 45.2,66.6 43.8,62.1 36.6,62.7
-  loop Un'Goro Crater lvl 54 lap 620 gain 3.4 r 60 at 68.5,16.1 69.8,19.2 75.5,33.1 75.3,39.6 63.1,33.4 55.4,35.2 52.2,32.0 50.1,13.3 56.6,11.7 63.8,16.2 66.2,17.7 66.4,14.2
-  loop Felwood lvl 54 lap 811 gain 3.6 only Alliance r 60 at 57.6,17.3 59.2,19.4 61.3,21.3 58.7,22.8 43.8,62.1 38.9,55.1 43.2,46.7 43.4,41.2 38.1,32.2 39.8,22.3 46.2,13.5 48.6,23.8
-  loop Winterspring lvl 59 lap 705 gain 4.9 only Alliance r 60 at 70.4,40.3 69.1,39.8 56.3,25.6 57.3,32.8 56.0,49.0 55.5,50.7 54.1,50.4 56.0,53.8 57.8,61.1 56.9,50.4 58.4,46.6 69.4,41.9
-  loop Winterspring lvl 58 lap 615 gain 2.7 only Horde r 60 at 70.4,40.3 70.9,37.5 66.7,28.2 63.6,25.6 64.6,29.7 64.6,34.6 66.5,37.5 68.0,35.6 67.7,38.6 67.7,41.5 69.4,41.9 69.1,39.8
+  loop Tanaris lvl 49 lap 621 gain 2.2 r 60 at 32.4,44.1 33.3,42.2 35.3,42.8 35.1,46.8 33.4,46.1 31.0,63.8 29.4,64.8 29.7,68.4 27.3,70.1 26.8,65.6 31.5,45.9 30.9,43.9
+  loop Feralas lvl 48 lap 690 gain 2.0 r 60 at 62.5,69.4 59.4,74.1 54.1,73.0 45.4,69.4 47.2,63.6 47.8,57.5 53.5,47.7 57.5,47.0 58.9,55.8 52.7,60.6 62.2,67.8 64.1,69.0
+  loop Felwood lvl 51 lap 617 gain 2.4 r 60 at 42.1,78.4 43.8,62.1 36.6,62.7 36.2,68.9 37.9,68.0 38.3,70.6 40.1,74.1 39.7,81.0 42.8,84.1 44.5,91.8 56.0,82.6 47.3,76.1
+  loop Burning Steppes lvl 52 lap 626 gain 3.0 r 60 at 80.9,48.5 84.8,48.8 83.7,46.1 82.8,42.4 82.3,40.2 80.3,40.7 80.3,44.7 77.4,42.9 76.7,47.4 75.0,56.0
+  loop Un'Goro Crater lvl 53 lap 620 gain 3.4 r 60 at 68.5,16.1 69.8,19.2 75.5,33.1 75.3,39.6 63.1,33.4 55.4,35.2 52.2,32.0 50.1,13.3 56.6,11.7 63.8,16.2 66.2,17.7 66.4,14.2
   skill Mining 275
 
 step Mine until Mining 300
   when !knows 9964
   tip This loop gives the Thorium Ore to Mining 300; the next one the rest.
-  loop Un'Goro Crater lvl 56 lap 621 gain 2.6 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
-  loop Azshara lvl 55 lap 688 gain 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
-  loop Winterspring lvl 58 lap 621 gain 2.8 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
-  loop Burning Steppes lvl 53 lap 615 gain 1.2 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
+  loop Un'Goro Crater lvl 55 lap 621 gain 2.6 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
+  loop Azshara lvl 54 lap 794 gain 2.7 r 60 at 73.4,86.4 77.7,92.8 72.1,97.9 69.2,94.2 67.0,91.8 64.1,85.9 68.9,82.2 65.3,78.2 59.8,73.9 49.3,67.0 58.2,57.8 74.7,45.9
+  loop Winterspring lvl 57 lap 621 gain 2.8 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
+  loop Eastern Plaguelands lvl 59 lap 615 gain 3.0 r 60 at 65.4,22.6 69.9,12.5 73.3,18.1 70.1,20.0 68.4,26.5 73.4,28.7 76.4,35.2 83.7,36.2 80.8,45.1 74.9,50.0 71.3,45.5 54.9,27.4
   skill Mining 300
 
 step Mine and smelt 150 Thorium Bar
   when !knows 9964
   tip For 5 Imperial Plate Belts and the plans.
   collect 12359 x150 gather Mining 275
-  loop Un'Goro Crater lvl 56 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
-  loop Azshara lvl 55 lap 688 yield 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
-  loop Winterspring lvl 58 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
-  loop Burning Steppes lvl 53 lap 615 yield 1.9 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
+  loop Un'Goro Crater lvl 55 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
+  loop Azshara lvl 54 lap 794 yield 2.7 r 60 at 73.4,86.4 77.7,92.8 72.1,97.9 69.2,94.2 67.0,91.8 64.1,85.9 68.9,82.2 65.3,78.2 59.8,73.9 49.3,67.0 58.2,57.8 74.7,45.9
+  loop Winterspring lvl 57 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
+  loop Eastern Plaguelands lvl 59 lap 615 yield 2.9 r 60 at 65.4,22.6 69.9,12.5 73.3,18.1 70.1,20.0 68.4,26.5 73.4,28.7 76.4,35.2 83.7,36.2 80.8,45.1 74.9,50.0 71.3,45.5 54.9,27.4
   auction 12359 x150
 
 step Reach level 50
@@ -1278,31 +1298,28 @@ step Learn Smelt Thorium
 
 step Mine until Mining 275
   tip This loop gives the Thorium Ore to Mining 275; the next one the rest.
-  loop Tanaris lvl 50 lap 965 gain 3.1 r 60 at 57.2,68.7 56.5,73.2 55.4,73.0 29.7,68.4 29.4,64.8 31.0,63.8 33.4,46.1 35.1,46.8 62.7,48.5 64.4,47.1 65.5,52.3 64.0,53.3
-  loop The Hinterlands lvl 51 lap 718 gain 3.0 r 60 at 54.9,67.3 52.1,65.4 33.7,65.0 37.1,67.5 57.9,84.2 72.6,61.9 65.5,41.2 59.1,41.5 57.0,43.1 66.8,52.4 64.4,64.2 56.6,68.6
-  loop Burning Steppes lvl 53 lap 627 gain 2.9 r 60 at 80.3,44.7 80.9,48.5 84.8,48.8 83.7,46.1 82.8,42.4 82.3,40.2 86.0,37.1 80.2,35.4 80.3,40.7 77.4,42.9 76.7,47.4
-  loop Felwood lvl 52 lap 616 gain 2.0 only Horde r 60 at 36.2,68.9 37.9,68.0 38.3,70.6 40.1,74.1 42.1,78.4 39.7,81.0 42.8,84.1 44.9,85.5 47.3,76.1 45.2,66.6 43.8,62.1 36.6,62.7
-  loop Un'Goro Crater lvl 54 lap 620 gain 3.4 r 60 at 68.5,16.1 69.8,19.2 75.5,33.1 75.3,39.6 63.1,33.4 55.4,35.2 52.2,32.0 50.1,13.3 56.6,11.7 63.8,16.2 66.2,17.7 66.4,14.2
-  loop Felwood lvl 54 lap 811 gain 3.6 only Alliance r 60 at 57.6,17.3 59.2,19.4 61.3,21.3 58.7,22.8 43.8,62.1 38.9,55.1 43.2,46.7 43.4,41.2 38.1,32.2 39.8,22.3 46.2,13.5 48.6,23.8
-  loop Winterspring lvl 59 lap 705 gain 4.9 only Alliance r 60 at 70.4,40.3 69.1,39.8 56.3,25.6 57.3,32.8 56.0,49.0 55.5,50.7 54.1,50.4 56.0,53.8 57.8,61.1 56.9,50.4 58.4,46.6 69.4,41.9
-  loop Winterspring lvl 58 lap 615 gain 2.7 only Horde r 60 at 70.4,40.3 70.9,37.5 66.7,28.2 63.6,25.6 64.6,29.7 64.6,34.6 66.5,37.5 68.0,35.6 67.7,38.6 67.7,41.5 69.4,41.9 69.1,39.8
+  loop Tanaris lvl 49 lap 621 gain 2.2 r 60 at 32.4,44.1 33.3,42.2 35.3,42.8 35.1,46.8 33.4,46.1 31.0,63.8 29.4,64.8 29.7,68.4 27.3,70.1 26.8,65.6 31.5,45.9 30.9,43.9
+  loop Feralas lvl 48 lap 690 gain 2.0 r 60 at 62.5,69.4 59.4,74.1 54.1,73.0 45.4,69.4 47.2,63.6 47.8,57.5 53.5,47.7 57.5,47.0 58.9,55.8 52.7,60.6 62.2,67.8 64.1,69.0
+  loop Felwood lvl 51 lap 617 gain 2.4 r 60 at 42.1,78.4 43.8,62.1 36.6,62.7 36.2,68.9 37.9,68.0 38.3,70.6 40.1,74.1 39.7,81.0 42.8,84.1 44.5,91.8 56.0,82.6 47.3,76.1
+  loop Burning Steppes lvl 52 lap 626 gain 3.0 r 60 at 80.9,48.5 84.8,48.8 83.7,46.1 82.8,42.4 82.3,40.2 80.3,40.7 80.3,44.7 77.4,42.9 76.7,47.4 75.0,56.0
+  loop Un'Goro Crater lvl 53 lap 620 gain 3.4 r 60 at 68.5,16.1 69.8,19.2 75.5,33.1 75.3,39.6 63.1,33.4 55.4,35.2 52.2,32.0 50.1,13.3 56.6,11.7 63.8,16.2 66.2,17.7 66.4,14.2
   skill Mining 275
 
 step Mine until Mining 300
   tip This loop gives the Thorium Ore to Mining 300; the next one the rest.
-  loop Un'Goro Crater lvl 56 lap 621 gain 2.6 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
-  loop Azshara lvl 55 lap 688 gain 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
-  loop Winterspring lvl 58 lap 621 gain 2.8 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
-  loop Burning Steppes lvl 53 lap 615 gain 1.2 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
+  loop Un'Goro Crater lvl 55 lap 621 gain 2.6 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
+  loop Azshara lvl 54 lap 794 gain 2.7 r 60 at 73.4,86.4 77.7,92.8 72.1,97.9 69.2,94.2 67.0,91.8 64.1,85.9 68.9,82.2 65.3,78.2 59.8,73.9 49.3,67.0 58.2,57.8 74.7,45.9
+  loop Winterspring lvl 57 lap 621 gain 2.8 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
+  loop Eastern Plaguelands lvl 59 lap 615 gain 3.0 r 60 at 65.4,22.6 69.9,12.5 73.3,18.1 70.1,20.0 68.4,26.5 73.4,28.7 76.4,35.2 83.7,36.2 80.8,45.1 74.9,50.0 71.3,45.5 54.9,27.4
   skill Mining 300
 
 step Mine and smelt 560 Thorium Bar
   tip For 27 Imperial Plate Bracers and the plans.
   collect 12359 x560 gather Mining 275
-  loop Un'Goro Crater lvl 56 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
-  loop Azshara lvl 55 lap 688 yield 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
-  loop Winterspring lvl 58 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
-  loop Burning Steppes lvl 53 lap 615 yield 1.9 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
+  loop Un'Goro Crater lvl 55 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
+  loop Azshara lvl 54 lap 794 yield 2.7 r 60 at 73.4,86.4 77.7,92.8 72.1,97.9 69.2,94.2 67.0,91.8 64.1,85.9 68.9,82.2 65.3,78.2 59.8,73.9 49.3,67.0 58.2,57.8 74.7,45.9
+  loop Winterspring lvl 57 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
+  loop Eastern Plaguelands lvl 59 lap 615 yield 2.9 r 60 at 65.4,22.6 69.9,12.5 73.3,18.1 70.1,20.0 68.4,26.5 73.4,28.7 76.4,35.2 83.7,36.2 80.8,45.1 74.9,50.0 71.3,45.5 54.9,27.4
   auction 12359 x560
 
 step Reach level 50
@@ -1394,10 +1411,10 @@ step Mine and smelt 308 Thorium Bar
   when has 12713
   tip For 22 Radiant Boots.
   collect 12359 x308 gather Mining 275
-  loop Un'Goro Crater lvl 56 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
-  loop Azshara lvl 55 lap 688 yield 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
-  loop Winterspring lvl 58 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
-  loop Burning Steppes lvl 53 lap 615 yield 1.9 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
+  loop Un'Goro Crater lvl 55 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
+  loop Azshara lvl 54 lap 794 yield 2.7 r 60 at 73.4,86.4 77.7,92.8 72.1,97.9 69.2,94.2 67.0,91.8 64.1,85.9 68.9,82.2 65.3,78.2 59.8,73.9 49.3,67.0 58.2,57.8 74.7,45.9
+  loop Winterspring lvl 57 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
+  loop Eastern Plaguelands lvl 59 lap 615 yield 2.9 r 60 at 65.4,22.6 69.9,12.5 73.3,18.1 70.1,20.0 68.4,26.5 73.4,28.7 76.4,35.2 83.7,36.2 80.8,45.1 74.9,50.0 71.3,45.5 54.9,27.4
   auction 12359 x308
 
 step Go to an anvil
@@ -1458,10 +1475,10 @@ step Mine and smelt 200 Thorium Bar
   when has 12713
   tip For 10 Radiant Leggings.
   collect 12359 x200 gather Mining 275
-  loop Un'Goro Crater lvl 56 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
-  loop Azshara lvl 55 lap 688 yield 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
-  loop Winterspring lvl 58 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
-  loop Burning Steppes lvl 53 lap 615 yield 1.9 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
+  loop Un'Goro Crater lvl 55 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
+  loop Azshara lvl 54 lap 794 yield 2.7 r 60 at 73.4,86.4 77.7,92.8 72.1,97.9 69.2,94.2 67.0,91.8 64.1,85.9 68.9,82.2 65.3,78.2 59.8,73.9 49.3,67.0 58.2,57.8 74.7,45.9
+  loop Winterspring lvl 57 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
+  loop Eastern Plaguelands lvl 59 lap 615 yield 2.9 r 60 at 65.4,22.6 69.9,12.5 73.3,18.1 70.1,20.0 68.4,26.5 73.4,28.7 76.4,35.2 83.7,36.2 80.8,45.1 74.9,50.0 71.3,45.5 54.9,27.4
   auction 12359 x200
 
 step Learn Radiant Leggings
@@ -1530,10 +1547,10 @@ step Mine and smelt 308 Thorium Bar
   when knows 16656
   tip For 22 Radiant Boots.
   collect 12359 x308 gather Mining 275
-  loop Un'Goro Crater lvl 56 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
-  loop Azshara lvl 55 lap 688 yield 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
-  loop Winterspring lvl 58 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
-  loop Burning Steppes lvl 53 lap 615 yield 1.9 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
+  loop Un'Goro Crater lvl 55 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
+  loop Azshara lvl 54 lap 794 yield 2.7 r 60 at 73.4,86.4 77.7,92.8 72.1,97.9 69.2,94.2 67.0,91.8 64.1,85.9 68.9,82.2 65.3,78.2 59.8,73.9 49.3,67.0 58.2,57.8 74.7,45.9
+  loop Winterspring lvl 57 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
+  loop Eastern Plaguelands lvl 59 lap 615 yield 2.9 r 60 at 65.4,22.6 69.9,12.5 73.3,18.1 70.1,20.0 68.4,26.5 73.4,28.7 76.4,35.2 83.7,36.2 80.8,45.1 74.9,50.0 71.3,45.5 54.9,27.4
   auction 12359 x308
 
 step Go to an anvil
@@ -1597,10 +1614,10 @@ step Mine and smelt 500 Thorium Bar
   when knows 16656
   tip For 10 Imperial Plate Leggings and the plans.
   collect 12359 x500 gather Mining 275
-  loop Un'Goro Crater lvl 56 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
-  loop Azshara lvl 55 lap 688 yield 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
-  loop Winterspring lvl 58 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
-  loop Burning Steppes lvl 53 lap 615 yield 1.9 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
+  loop Un'Goro Crater lvl 55 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
+  loop Azshara lvl 54 lap 794 yield 2.7 r 60 at 73.4,86.4 77.7,92.8 72.1,97.9 69.2,94.2 67.0,91.8 64.1,85.9 68.9,82.2 65.3,78.2 59.8,73.9 49.3,67.0 58.2,57.8 74.7,45.9
+  loop Winterspring lvl 57 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
+  loop Eastern Plaguelands lvl 59 lap 615 yield 2.9 r 60 at 65.4,22.6 69.9,12.5 73.3,18.1 70.1,20.0 68.4,26.5 73.4,28.7 76.4,35.2 83.7,36.2 80.8,45.1 74.9,50.0 71.3,45.5 54.9,27.4
   auction 12359 x500
 
 step Hand in Imperial Plate Leggings
@@ -1676,10 +1693,10 @@ step Mine and smelt 220 Thorium Bar
   when has 12704
   tip For 11 Imperial Plate Bracers.
   collect 12359 x220 gather Mining 275
-  loop Un'Goro Crater lvl 56 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
-  loop Azshara lvl 55 lap 688 yield 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
-  loop Winterspring lvl 58 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
-  loop Burning Steppes lvl 53 lap 615 yield 1.9 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
+  loop Un'Goro Crater lvl 55 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
+  loop Azshara lvl 54 lap 794 yield 2.7 r 60 at 73.4,86.4 77.7,92.8 72.1,97.9 69.2,94.2 67.0,91.8 64.1,85.9 68.9,82.2 65.3,78.2 59.8,73.9 49.3,67.0 58.2,57.8 74.7,45.9
+  loop Winterspring lvl 57 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
+  loop Eastern Plaguelands lvl 59 lap 615 yield 2.9 r 60 at 65.4,22.6 69.9,12.5 73.3,18.1 70.1,20.0 68.4,26.5 73.4,28.7 76.4,35.2 83.7,36.2 80.8,45.1 74.9,50.0 71.3,45.5 54.9,27.4
   auction 12359 x220
 
 step Go to an anvil
@@ -1739,10 +1756,10 @@ step Mine and smelt 702 Thorium Bar
   when has 12704
   tip For 27 Thorium Leggings.
   collect 12359 x702 gather Mining 275
-  loop Un'Goro Crater lvl 56 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
-  loop Azshara lvl 55 lap 688 yield 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
-  loop Winterspring lvl 58 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
-  loop Burning Steppes lvl 53 lap 615 yield 1.9 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
+  loop Un'Goro Crater lvl 55 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
+  loop Azshara lvl 54 lap 794 yield 2.7 r 60 at 73.4,86.4 77.7,92.8 72.1,97.9 69.2,94.2 67.0,91.8 64.1,85.9 68.9,82.2 65.3,78.2 59.8,73.9 49.3,67.0 58.2,57.8 74.7,45.9
+  loop Winterspring lvl 57 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
+  loop Eastern Plaguelands lvl 59 lap 615 yield 2.9 r 60 at 65.4,22.6 69.9,12.5 73.3,18.1 70.1,20.0 68.4,26.5 73.4,28.7 76.4,35.2 83.7,36.2 80.8,45.1 74.9,50.0 71.3,45.5 54.9,27.4
   auction 12359 x702
 
 step Learn Thorium Leggings
@@ -1817,10 +1834,10 @@ step Mine and smelt 720 Thorium Bar
   when !knows 16662
   tip For 20 Imperial Plate Boots and the plans.
   collect 12359 x720 gather Mining 275
-  loop Un'Goro Crater lvl 56 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
-  loop Azshara lvl 55 lap 688 yield 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
-  loop Winterspring lvl 58 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
-  loop Burning Steppes lvl 53 lap 615 yield 1.9 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
+  loop Un'Goro Crater lvl 55 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
+  loop Azshara lvl 54 lap 794 yield 2.7 r 60 at 73.4,86.4 77.7,92.8 72.1,97.9 69.2,94.2 67.0,91.8 64.1,85.9 68.9,82.2 65.3,78.2 59.8,73.9 49.3,67.0 58.2,57.8 74.7,45.9
+  loop Winterspring lvl 57 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
+  loop Eastern Plaguelands lvl 59 lap 615 yield 2.9 r 60 at 65.4,22.6 69.9,12.5 73.3,18.1 70.1,20.0 68.4,26.5 73.4,28.7 76.4,35.2 83.7,36.2 80.8,45.1 74.9,50.0 71.3,45.5 54.9,27.4
   auction 12359 x720
 
 step Hand in Imperial Plate Boots
@@ -1898,10 +1915,10 @@ step Mine and smelt 500 Thorium Bar
   when !knows 16662
   tip For 10 Imperial Plate Leggings and the plans.
   collect 12359 x500 gather Mining 275
-  loop Un'Goro Crater lvl 56 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
-  loop Azshara lvl 55 lap 688 yield 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
-  loop Winterspring lvl 58 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
-  loop Burning Steppes lvl 53 lap 615 yield 1.9 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
+  loop Un'Goro Crater lvl 55 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
+  loop Azshara lvl 54 lap 794 yield 2.7 r 60 at 73.4,86.4 77.7,92.8 72.1,97.9 69.2,94.2 67.0,91.8 64.1,85.9 68.9,82.2 65.3,78.2 59.8,73.9 49.3,67.0 58.2,57.8 74.7,45.9
+  loop Winterspring lvl 57 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
+  loop Eastern Plaguelands lvl 59 lap 615 yield 2.9 r 60 at 65.4,22.6 69.9,12.5 73.3,18.1 70.1,20.0 68.4,26.5 73.4,28.7 76.4,35.2 83.7,36.2 80.8,45.1 74.9,50.0 71.3,45.5 54.9,27.4
   auction 12359 x500
 
 step Hand in Imperial Plate Leggings
