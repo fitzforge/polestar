@@ -84,7 +84,9 @@ next forever/horde/06-hillsbrad-foothills
 step Taskmaster Fizzule
   only Rogue
   zone The Barrens
-  tip On the way north from Seereth's camp, keep east of the road to the Venture Co. tower north of the Sludge Fen. Before you go near Fizzule, use {item:8051} to fire two flares, then target him and /salute: he attacks anyone who comes in without signalling first.
+  tip On the way north from Seereth's camp, the Venture Co. tower is north of the Sludge Fen, east of the road. Fizzule attacks anyone who comes near without the signal: two flares from {item:8051}, then a /salute.
+  use 8051 @55.4,5.6
+  task "/salute at Fizzule" optional
   turnin 2458                         -- Taskmaster Fizzule
   accept 2478 optional
   note Mission: Possible But Not Probable is for level 23 or more: the tower's drones are 25 and Gallywix a 23 elite. Do it when you can, with a group, from the Class guide Poisons (Horde).

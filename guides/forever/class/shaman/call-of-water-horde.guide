@@ -144,9 +144,10 @@ step The Brazier of Everfount
   collect 7812 quest 63.1                     -- Corrupt Manifestation's Bracers
 
 step The Minor Manifestation of Water
-  tip Click the Brazier of Everfount to place the bracers and the drops. A few seconds later the pure Minor Manifestation of Water rises on the stone in the middle of the pool: speak to it while the Sapta Sight lasts (drink again by the stone if it has worn off). It gives you the Shard of Water for Islen. Gone before you could speak to it? Back at Islen ask for Call of Water (a fresh Water Sapta for Tiev Mordune, who stands just west of the shrine): hand it to Tiev, stay close while he calls the spirit back, then speak to it.
+  tip The Brazier of Everfount takes the bracers and the drops. A few seconds later the pure Minor Manifestation of Water rises on the stone in the middle of the pool: seen only while the Sapta Sight lasts, and it gives the Shard of Water for Islen. If it is gone first, Islen's Call of Water gives a fresh Water Sapta for Tiev Mordune, just west of the shrine, who calls the spirit back.
   turnin 63                                   -- Brazier of Everfount
   accept 100
+  use 6637
   turnin 100                                  -- Minor Manifestation of Water
   accept 96
 

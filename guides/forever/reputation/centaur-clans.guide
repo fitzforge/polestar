@@ -314,10 +314,11 @@ step Magram: Corrupting Tears
 
 step Magram: Proof of Concept
   zone Shen'dralas
-  tip From the quest data: Orgrul gives you a Rudimentary Necromancy Staff. He laid out two skeletons on the hill just east of his post: put the staff to use there, and the Nascent Undead Ravagers give the Well Cursed Bones.
+  tip From the quest data: Orgrul's Rudimentary Necromancy Staff raises the two skeletons he laid out on the hill just east of his post, and the Nascent Undead Ravagers give the Well Cursed Bones.
   level 40
   turnin 92847                        -- Orgrul: 500
   accept 92873
+  use 254870 quest 92873.1
   collect 254842 quest 92873.1        -- Well Cursed Bones: Nascent Undead Ravagers
 
 step Magram: Orgrul's next tasks

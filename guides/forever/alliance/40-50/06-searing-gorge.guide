@@ -45,7 +45,7 @@ step Level 48.27
   level 48.27 grind 5839               -- grind on Dark Iron Geologist
 
 step Dorius Stonetender
-  tip Dorius stands by the road beside the Grimesilt Dig Site. Escort him north-east to Dustfire Valley and keep him alive; when it is over, read the Singed Letter he leaves on the road.
+  tip Dorius stands by the road beside the Grimesilt Dig Site. The escort runs north-east to Dustfire Valley, and the Singed Letter he leaves on the road takes the hand-in.
   accept 3367
   complete 3367
   turnin 3367                         -- Singed Letter

@@ -36,7 +36,8 @@ step Back to Thendal Grove
   accept 92474                                -- Myriaal Mistwake
 
 step Rorian the Dayseeker
-  tip Jump off the top of the watchtower and use Walk on Air to float down to Rorian, west of the tower.
+  tip Walk on Air floats down from the top of the watchtower to Rorian, west of the tower.
+  cast 1259416 "Walk on Air"
   complete 92474 @43.7,24.1
   turnin 92461                                -- Rorian the Dayseeker
   turnin 92474

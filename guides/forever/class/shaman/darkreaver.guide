@@ -85,8 +85,9 @@ step Sagorne Creststrider
 
 step The Great Ossuary
   zone Western Plaguelands
-  tip A five-player dungeon event: Scholomance lies under Caer Darrow, the island town in the south-east of the Western Plaguelands. In the Great Ossuary's basement, first clear every mob in the room, then use the Divination Scryer at its centre: four waves of spirits follow, each closing with an Aspect mini-boss (the first wave weak and slow, the rest elite). Fight in a corner so nothing else joins, and drink between waves: it is long. Then Death Knight Darkreaver (level 62 elite) appears: he Cleaves, casts Shadow Bolt and Blood Leech, and Dominates a player's mind against the group. His head always drops.
+  tip A five-player dungeon event: Scholomance lies under Caer Darrow, the island town in the south-east of the Western Plaguelands. The Divination Scryer goes in the centre of the Great Ossuary's basement once every mob in the room is dead, and four waves of spirits follow, each closing with an Aspect mini-boss (the first wave weak and slow, the rest elite). A corner keeps other mobs out, and it is long. Then Death Knight Darkreaver (level 62 elite) appears: he Cleaves, casts Shadow Bolt and Blood Leech, and Dominates a player's mind against the group. His head always drops.
   level 60
+  use 18746 quest 8258.1 @68.9,75.2
   collect 18880 quest 8258.1 @68.9,75.2 group 5 -- Darkreaver's Head
 
 step Sagorne Creststrider

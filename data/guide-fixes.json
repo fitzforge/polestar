@@ -158,7 +158,7 @@
 				"goal": "accept",
 				"guide": "forever/horde/50-60/03-winterspring"
 			},
-			"tip": "Hand Bashana the Seed Voucher for her packets of Tharlendris Seeds. Morrowgrain Research gives you the Evergreen Pouch: use it with a seed packet and two Un'Goro Soil in your bags to grow a random herb, sometimes Morrowgrain, once every ten minutes. She wants ten, so the quest is optional: take it if you have spare Un'Goro Soil and want to keep growing it over the next guides.",
+			"tip": "Bashana takes the Seed Voucher for packets of Tharlendris Seeds. Morrowgrain Research gives the Evergreen Pouch, which grows a random herb, sometimes Morrowgrain, from a seed packet and two Un'Goro Soil once every ten minutes. She wants ten, so the quest is optional: worth it with spare Un'Goro Soil, growing it over the next guides.",
 			"note": "Horde 50-60 audit (2026-11-23): the tip said to take Morrowgrain Research only with the grain in hand, but the quest itself provides the Evergreen Pouch that grows it, from a seed packet and two Un'Goro Soil.",
 			"source": [
 				{
@@ -353,7 +353,7 @@
 				"goal": "turnin",
 				"guide": "forever/horde/50-60/05-eastern-plaguelands"
 			},
-			"tip": "Back north-east to the Northridge Lumber Camp: knights and magi work the camp, the medics and hunters camp south of it. In the middle of the lumber mill, stand by the crate and use Mickey's Barrel of Plagueland Termites from your bags to set it on top; then click the Termite Barrel that appears: it finishes A Plague Upon Thee and gives the next part for Mickey. Careful: a Fallen Hero, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the Western Plaguelands: give it room.",
+			"tip": "Back north-east at the Northridge Lumber Camp, knights and magi work the camp, and the medics and hunters camp south of it. Mickey's barrel of termites goes on the crate in the middle of the lumber mill, and the Termite Barrel that appears finishes A Plague Upon Thee and gives the next part for Mickey. Careful: a Fallen Hero, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the Western Plaguelands.",
 			"note": "Horde 50-60 audit (2026-11-23): the tip said only to set the barrel down; the quest provides the Barrel of Plagueland Termites, used on a crate in the mill, and is handed in at the Termite Barrel it places, which starts 6390.",
 			"source": [
 				{
@@ -2271,7 +2271,7 @@
 				"objective": 1,
 				"guide": "forever/alliance/40-50/01b-riverglades"
 			},
-			"tip": "The Monstrous Threshadon comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. Old Rot-Chum, an elite, walks the shore close by: give him room.",
+			"tip": "The Monstrous Threshadon only surfaces when called with the bait, in the shallows south-west of the port. Old Rot-Chum, an elite, walks the shore close by.",
 			"note": "#3036: the step never said that the Threshadon is called up from what floats in the water (place: 3036-riverglades-threshadon-summon).",
 			"source": [
 				{
@@ -2290,7 +2290,7 @@
 				"objective": 1,
 				"guide": "forever/horde/40-50/01b-riverglades"
 			},
-			"tip": "The Monstrous Threshadon comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. Old Rot-Chum, an elite, walks the shore close by: give him room.",
+			"tip": "The Monstrous Threshadon only surfaces when called with the bait, in the shallows south-west of the port. Old Rot-Chum, an elite, walks the shore close by.",
 			"note": "#3036: as the Alliance record.",
 			"source": [
 				{
@@ -2350,7 +2350,7 @@
 				"objective": 1,
 				"guide": "forever/alliance/30-40/04-stranglethorn-vale"
 			},
-			"tip": "From Astranaar head north-west into the hills: the Heartswood is a glowing tree north of the road to Maestra's Post. If you took What Is Love?, the Wooden Figurine lies in a house among the trees north of Maestra's Post (26.6,22.0): light the Unlit Torch from the table outside at a campfire and throw it onto the archaeologist's cart outside the house, which draws the figure in the house away so you can take the figurine upstairs. Then take the road west to Stonetalon.",
+			"tip": "The Heartswood is a glowing tree north of the road to Maestra's Post, in the hills north-west of Astranaar. For What Is Love?, the Wooden Figurine lies in a house among the trees north of Maestra's Post (26.6,22.0): the Unlit Torch on the table outside lights at a campfire, and on the archaeologist's cart it draws the figure in the house away from the figurine upstairs. The road west leads on to Stonetalon.",
 			"note": "#3346: the figurine is taken by throwing the lit torch onto the archaeologist's cart outside the house, which draws the figure inside away; the step said only where the figurine lies.",
 			"source": [
 				{
@@ -16857,7 +16857,7 @@
 				"objective": 1,
 				"guide": "forever/horde/50-60/05-eastern-plaguelands"
 			},
-			"tip": "Careful: Soulwrath is about two levels over you here: clear the ghouls around the cauldron first, start at full health and use your cooldowns on him.",
+			"tip": "Careful: Soulwrath is about two levels over you here, and ghouls stand around the cauldron.",
 			"note": "Cauldron Lord Soulwrath (58) carries the cauldron key for Gahrron's Withering (5235); the route reaches him at about 56 by the level model, and only two recorded players (too few for their levels to count), so the tip says two levels, not one.",
 			"source": [
 				{
@@ -17471,7 +17471,7 @@
 				"goal": "accept",
 				"guide": "forever/alliance/nightelf/01-teldrassil"
 			},
-			"tip": "Shanda's quest, The Goddess Provides, asks for your two night elf racial spells: open your spellbook (P), cast Elune's Light and Shadowmeld once each, then hand it back to her.",
+			"tip": "Shanda's quest, The Goddess Provides, asks for the two night elf racial spells, Elune's Light and Shadowmeld, once each; both are in the spellbook (P).",
 			"note": "#3587: The Goddess Provides (97979) counts one cast each of Elune's Light and Shadowmeld, the night elf racial spells. The step listed the two cast lines and a short note in a step of about fifteen lines, but never said they are racial spells or where to find them, and a player reported that the guide doesn't say. The step's tip says it. The Skyborne racial-spell quests at their start already name the spell in a tip.",
 			"source": [
 				{
@@ -22160,6 +22160,883 @@
 			},
 			"tip": "The Explosive Stick of Gann destroys the dwarves' flying machine, on its platform inside the dig site.",
 			"note": "The step's goal rows do every action now (the item uses of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over gh036-barrens-gann-explosive-stick's tip.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "use-row-5321-complete-06-ashenvale",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5321,
+				"goal": "complete",
+				"guide": "forever/alliance/06-ashenvale"
+			},
+			"rows": {
+				"before": [
+					"use 13536 quest 5321.1 @44.4,76.4"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 13536's use is spell 17536 (Awaken Kerlonian)"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-06-wetlands-krolg",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1030,
+				"goal": "turnin",
+				"guide": "forever/alliance/06-wetlands"
+			},
+			"tip": "Krolg, a furbolg untouched by the corruption, sits south of the road below Mystral Lake. He only speaks to a furbolg, and Dartol's Rod of Transformation makes you one.",
+			"note": "The step's goal rows do every action now (the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over gh036-ashenvale-krolg-dartols-rod's tip.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "use-row-1030-turnin-06-wetlands",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1030,
+				"goal": "turnin",
+				"guide": "forever/alliance/06-wetlands"
+			},
+			"rows": {
+				"before": [
+					"use 5462 @50.8,75.0 map 1440"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 5462's use is spell 6405 (Furbolg Form)"
+				}
+			]
+		},
+		{
+			"id": "use-row-98216-1-06-wetlands",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98216,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/06-wetlands"
+			},
+			"rows": {
+				"before": [
+					"use 279996 quest 98216.1"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 279996's use is spell 1307423 (Goaz Stone)"
+				}
+			]
+		},
+		{
+			"id": "use-row-65602-1-04-stranglethorn-vale",
+			"faction": "Alliance",
+			"at": {
+				"quest": 65602,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/30-40/04-stranglethorn-vale"
+			},
+			"rows": {
+				"before": [
+					"use 190307 quest 65602.1 optional",
+					"use 190308 quest 65602.1 optional"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 190307's use is spell 369463 (Light Torch)"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 190308's use is spell 367062 (Torch Toss)"
+				}
+			]
+		},
+		{
+			"id": "use-row-95267-1-01b-riverglades",
+			"faction": "Alliance",
+			"at": {
+				"quest": 95267,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/01b-riverglades"
+			},
+			"rows": {
+				"before": [
+					"use 268647 quest 95267.1 @74.4,72.4 live"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 268647's use is spell 1283137 (Set Bait)"
+				}
+			]
+		},
+		{
+			"id": "equip-row-3161-1-04-tanaris",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3161,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/04-tanaris"
+			},
+			"rows": {
+				"before": [
+					"equip 9978"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-06-searing-gorge-dorius-stonetender",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3367,
+				"goal": "accept",
+				"guide": "forever/alliance/40-50/06-searing-gorge"
+			},
+			"tip": "Dorius stands by the road beside the Grimesilt Dig Site. The escort runs north-east to Dustfire Valley, and the Singed Letter he leaves on the road takes the hand-in.",
+			"note": "The step's goal rows do every action now (the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, where the step's tip came from the writer.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-01-dun-morogh-taming-the-beast",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6064,
+				"goal": "accept",
+				"guide": "forever/alliance/dwarf/01-dun-morogh"
+			},
+			"tip": "Each of Grif Wildheart's quests comes with a Taming Rod for the beast he names, and the rod goes back to him at the Kharanos smithy. Large Crag Boars, Snow Leopards and Ice Claw Bears all roam the fields just south and east of Kharanos.",
+			"note": "The step's goal rows do every action now (the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, where the step's tip came from the writer.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "use-row-6085-1-01-dun-morogh",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6085,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/dwarf/01-dun-morogh"
+			},
+			"rows": {
+				"before": [
+					"use 15908 quest 6085.1"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 15908's use is spell 19548 (Tame Ice Claw Bear)"
+				}
+			]
+		},
+		{
+			"id": "use-row-6084-1-01-dun-morogh",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6084,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/dwarf/01-dun-morogh"
+			},
+			"rows": {
+				"before": [
+					"use 15913 quest 6084.1"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 15913's use is spell 19687 (Tame Snow Leopard)"
+				}
+			]
+		},
+		{
+			"id": "use-row-6064-1-01-dun-morogh",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6064,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/dwarf/01-dun-morogh"
+			},
+			"rows": {
+				"before": [
+					"use 15911 quest 6064.1"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 15911's use is spell 19674 (Tame Large Crag Boar)"
+				}
+			]
+		},
+		{
+			"id": "use-row-94864-1-01-elwynn-forest",
+			"faction": "Alliance",
+			"at": {
+				"quest": 94864,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/human/01-elwynn-forest"
+			},
+			"rows": {
+				"before": [
+					"use 266254 quest 94864.1"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 266254's use is spell 1278029 (Tame Beast)"
+				}
+			]
+		},
+		{
+			"id": "use-row-94863-1-01-elwynn-forest",
+			"faction": "Alliance",
+			"at": {
+				"quest": 94863,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/human/01-elwynn-forest"
+			},
+			"rows": {
+				"before": [
+					"use 266253 quest 94863.1"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 266253's use is spell 1278028 (Tame Beast)"
+				}
+			]
+		},
+		{
+			"id": "use-row-94792-1-01-elwynn-forest",
+			"faction": "Alliance",
+			"at": {
+				"quest": 94792,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/human/01-elwynn-forest"
+			},
+			"rows": {
+				"before": [
+					"use 266158 quest 94792.1"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 266158's use is spell 1277794 (Tame Beast)"
+				}
+			]
+		},
+		{
+			"id": "talk-row-6001-complete-01-teldrassil",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6001,
+				"goal": "complete",
+				"guide": "forever/alliance/nightelf/01-teldrassil"
+			},
+			"rows": {
+				"before": [
+					"talk 12144 quest 6001.1"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "use-row-6102-1-01-teldrassil",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6102,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/nightelf/01-teldrassil"
+			},
+			"rows": {
+				"before": [
+					"use 15923 quest 6102.1"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 15923's use is spell 19700 (Tame Strigid Screecher)"
+				}
+			]
+		},
+		{
+			"id": "use-row-6101-1-01-teldrassil",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6101,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/nightelf/01-teldrassil"
+			},
+			"rows": {
+				"before": [
+					"use 15922 quest 6101.1"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 15922's use is spell 19699 (Tame Nightsaber Stalker)"
+				}
+			]
+		},
+		{
+			"id": "use-row-6063-1-01-teldrassil",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6063,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/nightelf/01-teldrassil"
+			},
+			"rows": {
+				"before": [
+					"use 15921 quest 6063.1"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 15921's use is spell 19693 (Tame Webwood Lurker)"
+				}
+			]
+		},
+		{
+			"id": "cast-row-97979-complete-01-teldrassil",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97979,
+				"goal": "complete",
+				"guide": "forever/alliance/nightelf/01-teldrassil"
+			},
+			"rows": {
+				"before": [
+					"cast 1259799 \"Elune's Light\"",
+					"cast 20580 \"Shadowmeld\""
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "cast-row-92474-complete-01-zephras-isle",
+			"faction": "Alliance",
+			"at": {
+				"quest": 92474,
+				"goal": "complete",
+				"guide": "forever/alliance/skyborne/01-zephras-isle"
+			},
+			"rows": {
+				"before": [
+					"cast 1259416 \"Walk on Air\""
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "use-row-1526-1-02-the-barrens",
+			"faction": "Horde",
+			"at": {
+				"quest": 1526,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/02-the-barrens"
+			},
+			"rows": {
+				"before": [
+					"use 6636 quest 1526.1 @38.5,58.9 map 1411"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 6636's use is spell 8898 (Sapta Sight)"
+				}
+			]
+		},
+		{
+			"id": "use-row-2458-turnin-05-stonetalon-mountains",
+			"faction": "Horde",
+			"at": {
+				"quest": 2458,
+				"goal": "turnin",
+				"guide": "forever/horde/05-stonetalon-mountains"
+			},
+			"rows": {
+				"before": [
+					"use 8051 @55.4,5.6",
+					"task \"/salute at Fizzule\" optional"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 8051's use is spell 10113 (Flare)"
+				}
+			]
+		},
+		{
+			"id": "interact-row-6921-complete-07-ashenvale",
+			"faction": "Horde",
+			"at": {
+				"quest": 6921,
+				"goal": "complete",
+				"guide": "forever/horde/07-ashenvale"
+			},
+			"rows": {
+				"before": [
+					"interact 177964 quest 6921"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "use-row-1435-1-02-thousand-needles",
+			"faction": "Horde",
+			"at": {
+				"quest": 1435,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/30-40/02-thousand-needles"
+			},
+			"rows": {
+				"before": [
+					"use 6436 quest 1435.1 @55.0,26.5"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 6436's use is spell 7914 (Capture Spirit)"
+				}
+			]
+		},
+		{
+			"id": "talk-row-95432-complete-01b-riverglades",
+			"faction": "Horde",
+			"at": {
+				"quest": 95432,
+				"goal": "complete",
+				"guide": "forever/horde/40-50/01b-riverglades"
+			},
+			"rows": {
+				"before": [
+					"talk 260995 quest 95432.1"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "use-row-95267-1-01b-riverglades-2",
+			"faction": "Horde",
+			"at": {
+				"quest": 95267,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/01b-riverglades"
+			},
+			"rows": {
+				"before": [
+					"use 268647 quest 95267.1 @74.4,72.4 live"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 268647's use is spell 1283137 (Set Bait)"
+				}
+			]
+		},
+		{
+			"id": "use-row-7843-complete-05-the-hinterlands",
+			"faction": "Horde",
+			"at": {
+				"quest": 7843,
+				"goal": "complete",
+				"guide": "forever/horde/40-50/05-the-hinterlands"
+			},
+			"rows": {
+				"before": [
+					"use 19036 quest 7843.1 @14.3,48.1"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 19036's use is spell 23514 (Placing Message to the Wildhammer)"
+				}
+			]
+		},
+		{
+			"id": "use-row-7828-1-05-the-hinterlands",
+			"faction": "Horde",
+			"at": {
+				"quest": 7828,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/05-the-hinterlands"
+			},
+			"rows": {
+				"before": [
+					"use 9618 optional"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 9618's use is spell 11886 (Capture Wildkin)"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-02-felwood-magus-rimtori-s-camp",
+			"faction": "Horde",
+			"at": {
+				"quest": 3505,
+				"goal": "complete",
+				"guide": "forever/horde/50-60/02-felwood"
+			},
+			"tip": "Rimtori's camp is at the east end of the base camp. On Forever the Sin'dorei Tome beside the Kaldorei Tome of Summoning then asks for the seals of the camp's three officers.",
+			"note": "The step's goal rows do every action now (the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, where the step's tip came from the writer.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-02-felwood-magus-rimtori",
+			"faction": "Horde",
+			"at": {
+				"quest": 91500,
+				"goal": "accept",
+				"guide": "forever/horde/50-60/02-felwood"
+			},
+			"tip": "An Explosive Gambit gives the Seals of the Sin'dorei. Rimtori does not come from the Tome: the Seals of the Sin'dorei, used beside one of the camp's tall crystals, blow it up and draw her. Which crystal is linked to her is random: each of the other two summons a hostile infernal instead. She is level 55.",
+			"note": "The step's goal rows do every action now (the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over rimtori-seals-at-the-crystals's tip.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "use-row-91500-1-02-felwood",
+			"faction": "Horde",
+			"at": {
+				"quest": 91500,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/02-felwood"
+			},
+			"rows": {
+				"before": [
+					"use 249390 quest 91500.1"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 249390's use is spell 1248682 (Destroy Seals)"
+				}
+			]
+		},
+		{
+			"id": "use-row-3786-complete-03-winterspring",
+			"faction": "Horde",
+			"at": {
+				"quest": 3786,
+				"goal": "complete",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"rows": {
+				"before": [
+					"use 11020 quest 3786.1 optional"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 11020's use is spell 13399 (Cultivate Packet of Seeds)"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-05-eastern-plaguelands-dalson-s-tears",
+			"faction": "Horde",
+			"at": {
+				"quest": 5231,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"tip": "East along the road past Felstone Field, Cauldron Lord Malvinious carries the key to the cauldron at Dalson's Tears.",
+			"note": "The step's goal rows do every action now (the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, where the step's tip came from the writer.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "use-row-5902-turnin-05-eastern-plaguelands",
+			"faction": "Horde",
+			"at": {
+				"quest": 5902,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"rows": {
+				"before": [
+					"use 15044"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-06-silithus-gaeriyan",
+			"faction": "Horde",
+			"at": {
+				"quest": 3913,
+				"goal": "accept",
+				"guide": "forever/horde/50-60/06-silithus"
+			},
+			"tip": "Gaeriyan has already met you. He is seen only as a ghost, after the Videre Elixir, in the rocky crevice due north of the graveyard just east of Gadgetzan.",
+			"note": "The step's goal rows do every action now (the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, where the step's tip came from the writer.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "use-row-3913-accept-06-silithus",
+			"faction": "Horde",
+			"at": {
+				"quest": 3913,
+				"goal": "accept",
+				"guide": "forever/horde/50-60/06-silithus"
+			},
+			"rows": {
+				"before": [
+					"use 11243"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 11243's use is spell 417627 (Videre Elixir)"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-01-zephras-isle-valanaar",
+			"faction": "Horde",
+			"at": {
+				"quest": 95349,
+				"goal": "accept",
+				"guide": "forever/horde/skyborne/01-zephras-isle"
+			},
+			"tip": "Ayessa sends you on to Kalimdor. The skycutter at the dock on Valanaar's south-west edge flies to northern Mulgore, where Alaana Stormwalker waits.",
+			"note": "The step's goal rows do every action now (the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over zephras-skycutter-to-mulgore's tip.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "use-row-97485-accept-01-zephras-isle",
+			"faction": "Horde",
+			"at": {
+				"quest": 97485,
+				"goal": "accept",
+				"guide": "forever/horde/skyborne/01-zephras-isle"
+			},
+			"rows": {
+				"after": [
+					"use 278079 quest 97485.1"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 278079's use is spell 1303520 (Craft Incense)"
+				}
+			]
+		},
+		{
+			"id": "cast-row-92474-complete-01-zephras-isle-2",
+			"faction": "Horde",
+			"at": {
+				"quest": 92474,
+				"goal": "complete",
+				"guide": "forever/horde/skyborne/01-zephras-isle"
+			},
+			"rows": {
+				"before": [
+					"cast 1259416 \"Walk on Air\""
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "use-row-744-accept-01-mulgore",
+			"faction": "Horde",
+			"at": {
+				"quest": 744,
+				"goal": "accept",
+				"guide": "forever/horde/tauren/01-mulgore"
+			},
+			"rows": {
+				"after": [
+					"use 278079 quest 97485.1"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70888): item 278079's use is spell 1303520 (Craft Incense)"
+				}
+			]
+		},
+		{
+			"id": "interact-row-1819-1-01-tirisfal-glades",
+			"faction": "Horde",
+			"at": {
+				"quest": 1819,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/undead/01-tirisfal-glades"
+			},
+			"rows": {
+				"before": [
+					"interact 104593"
+				]
+			},
+			"note": "Tip-only actions sweep: the step's tip was the only place this action lived; it is a goal row of its own now, so the quest item button, the step key and the arrow offer it, and the tip keeps only the why.",
 			"source": [
 				{
 					"kind": "in-game-check",

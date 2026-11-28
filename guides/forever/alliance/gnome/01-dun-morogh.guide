@@ -718,7 +718,7 @@ step The Tome of Divinity
 step Narm Faulk
   only Paladin
   zone Dun Morogh
-  tip Head back out of Ironforge and east along the road to Helm's Bed Lake. Narm Faulk lies dead by its shore: use the Symbol of Life on him. The Dark Iron Spies sneaking around the lake carry the script.
+  tip Narm Faulk lies dead by the shore of Helm's Bed Lake, east along the road out of Ironforge, and the Symbol of Life raises him. The Dark Iron Spies sneaking around the lake carry the script.
   level 12 only Paladin
 
 step Muiredon Battleforge

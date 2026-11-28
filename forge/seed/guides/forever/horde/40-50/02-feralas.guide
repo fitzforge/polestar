@@ -242,7 +242,7 @@ step Fleet Master Seahorn
 
 step Unfinished Wild Shore errands
   zone Stranglethorn Vale
-  tip If the town rewards just brought you to 42 and you still owe pirate work, use the shore tents, not the ships.
+  tip At 42 with pirate work still owed, the shore tents are the place, not the ships.
   when level>=42
   when onquest 604,576,587
   loop

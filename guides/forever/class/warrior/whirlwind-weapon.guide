@@ -90,7 +90,8 @@ step Fray Island
   accept 1719
 
 step The Affray
-  tip You have 10 minutes. Eat and drink to full, then step onto the grate in the middle of the crowd: Twiggy Flathead announces the challengers (level 26-27), who come one at a time, 15-20 seconds apart, and only while you stand near the grate. After each kill, step off the grate to eat or bandage; step back on when ready for the next. Six of them, then Big Will (level 33, not elite) walks out; he stays neutral until you attack him, so bandage or eat first. Do not use Demoralizing Shout: it sends the challengers running and more of them pile in at once. If nothing starts, step off and on the grate again, or abandon the quest and take it again.
+  tip There are 10 minutes, and the grate in the middle of the crowd starts it: Twiggy Flathead announces the challengers (level 26-27), who come one at a time, 15-20 seconds apart, and only while you stand near the grate. Off the grate between kills there is time to eat or bandage. Six of them, then Big Will (level 33, not elite) walks out; he stays neutral until attacked. Demoralizing Shout sends the challengers running and more of them pile in at once. If nothing starts, stepping off and on the grate again, or taking the quest again, restarts it.
+  goto 68.6,48.7 "the grate"
   kill 6238 quest 1719.1 @68.6,48.7           -- Big Will
   turnin 1719                                 -- Klannoc Macleod: Berserker Stance
   accept 1791

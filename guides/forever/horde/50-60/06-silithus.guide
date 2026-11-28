@@ -48,7 +48,8 @@ step Gaeriyan
 step Gaeriyan
   when turnedin 3912
   when available 3913
-  tip Gaeriyan has already met you: drink the Videre Elixir at the graveyard just east of Gadgetzan and find him, as a ghost, in the rocky crevice due north of it.
+  tip Gaeriyan has already met you. He is seen only as a ghost, after the Videre Elixir, in the rocky crevice due north of the graveyard just east of Gadgetzan.
+  use 11243
   accept 3913
 
 step Sprinkle
@@ -200,7 +201,7 @@ step Twilight Outpost
 
 step Sandy Cookbook
   when onquest 8307
-  tip The Sandy Cookbook lies in the outpost: read it and take its torn page back to Calandrath.
+  tip The Sandy Cookbook lies in the outpost, and its torn page goes back to Calandrath.
   turnin 8307 object 180503 @37.9,45.3 map 1451
   accept 8313 object 180503
 

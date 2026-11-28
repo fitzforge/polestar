@@ -70,7 +70,8 @@ step Portals to Stormwind and Ironforge
 
 step Portal: Darnassus
   zone Darnassus
-  tip At 50 Elissa Dumas in Darnassus teaches the last one, Portal: Darnassus, for 3 gold 20 silver. Use your Teleport: Darnassus to get there.
+  tip At 50 Elissa Dumas in Darnassus teaches the last one, Portal: Darnassus, for 3 gold 20 silver. Teleport: Darnassus gets there.
   level 50
   money 3g20s
+  cast 3565 "Teleport: Darnassus" optional
   train 4165                                  -- Elissa Dumas: Portal: Darnassus

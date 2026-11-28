@@ -63,14 +63,15 @@ step The Eye of Divinity
 
 step Eris Havenfire
   zone Eastern Plaguelands
-  tip Equip The Eye of Divinity, then find Eris Havenfire, a ghost on the hillside in the north-west of the Eastern Plaguelands, west of Stratholme's gate (if she does not show, take the Eye off and put it back on). A Warning is only talk; The Balance of Light and Shadow starts the moment you accept it, so prepare first: full mana, Major Mana Potions, Demonic or Dark Runes, mana food or Nightfin Soup, and a stack of Oil of Immolation or Stratholme Holy Water for the skeletons.
+  tip Eris Havenfire is a ghost on the hillside in the north-west of the Eastern Plaguelands, west of Stratholme's gate, seen only with The Eye of Divinity worn; if she does not show, wearing it again helps. A Warning is only talk; The Balance of Light and Shadow starts the moment it is accepted, so the preparation comes first: full mana, Major Mana Potions, Demonic or Dark Runes, mana food or Nightfin Soup, and a stack of Oil of Immolation or Stratholme Holy Water for the skeletons.
   level 60
+  equip 18646
   accept 7621                                 -- Eris Havenfire
   turnin 7621
   accept 7622
 
 step The Balance of Light and Shadow
-  tip Save 50 peasants before 15 die (the Death Post by the path counts the dead). They walk from the cave towards Eris in waves, catch diseases and draw skeletons and skeleton archers. Cure the purple-glowing diseases first (Abolish Disease), keep Renew on the hurt ones, Flash Heal the nearly dead, and kill skeletons as they spawn: one Holy Nova of rank 3 or more kills them, oil takes two ticks while they hit you. Shield yourself at the start of each wave; friendly nameplates make the hurt peasants easy to pick out. Friends may buff you before you accept and may heal or cure peasants, but they must not heal or buff you, attack a skeleton or bring a pet once it starts, or a demon appears and kills everyone. Fail, and Eris is gone for a while (players report anything from 15 minutes to two hours); talk to her again when she is back.
+  tip Save 50 peasants before 15 die (the Death Post by the path counts the dead). They walk from the cave towards Eris in waves, catch diseases and draw skeletons and skeleton archers. Cure the purple-glowing diseases first (Abolish Disease), keep Renew on the hurt ones, Flash Heal the nearly dead, and kill skeletons as they spawn: one Holy Nova of rank 3 or more kills them, oil takes two ticks while they hit you. Shield yourself at the start of each wave; friendly nameplates make the hurt peasants easy to pick out. Friends may buff you before you accept and may heal or cure peasants, but they must not heal or buff you, attack a skeleton or bring a pet once it starts, or a demon appears and kills everyone. After a failure Eris is gone for a while (players report anything from 15 minutes to two hours), and the quest is hers again when she is back.
   complete 7622 @17.42,12.24 map 1423 live    -- beside Eris Havenfire, where the peasants walk to
 
 step Benediction

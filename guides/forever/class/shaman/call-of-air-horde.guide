@@ -185,8 +185,9 @@ step Prate Cloudseer
   accept 79366 npc 5905
 
 step The steam pools
-  tip Prate hands you the Corrupted Totems. Place the Corrupted Totems at the steam pools north-west of Freewind Post to call the corrupted elementals and then the Ravaging Tempest; Razormane quilboar join the fight while the ritual runs. A group quest: bring at least one or two friends. The Eye of the Tempest drops about every other kill, and every group member can loot it.
+  tip Prate hands over the Corrupted Totems. The totems at the steam pools north-west of Freewind Post call the corrupted elementals and then the Ravaging Tempest; Razormane quilboar join the fight while the ritual runs. A group quest: one or two friends at least. The Eye of the Tempest drops about every other kill, and every group member can loot it.
   level 43
+  use 268582
   collect 212792 x1 group 3                   -- Eye of the Tempest, from the Ravaging Tempest
 
 step Rau Cliffrunner

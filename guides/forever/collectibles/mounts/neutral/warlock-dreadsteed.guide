@@ -148,8 +148,9 @@ step Arcanite
 
 step Lord Banehollow
   zone Felwood
-  tip Jaedenar lies just south of Bloodvenom Post in western Felwood, west of the road; of its two caves, Shadow Hold is the northern one, further up the hill. Drink a Shadowy Potion at its mouth: for 20 minutes the Shadow Council there treat you as one of their own (Taint of Shadow). The oozes in the red pool and the succubus Rakaiah beyond them still attack: hug the wall past them. Go down past the second, red pool, up the ramp and across two bridges to Lord Banehollow, a great winged dreadlord at the back. He talks to you only while the potion lasts.
+  tip Jaedenar lies just south of Bloodvenom Post in western Felwood, west of the road; of its two caves, Shadow Hold is the northern one, further up the hill. A Shadowy Potion makes the Shadow Council there treat you as one of their own for 20 minutes (Taint of Shadow), and Lord Banehollow talks only while it lasts. The oozes in the red pool and the succubus Rakaiah beyond them still attack. Banehollow, a great winged dreadlord, is at the back: past the second, red pool, up the ramp and across two bridges.
   goto 35.4,58.6 "Shadow Hold"
+  use 18802 @35.4,58.6
   turnin 7623 @35.9,44.4              -- Lord Banehollow
   accept 7624
 
@@ -173,7 +174,8 @@ step Imp Delivery
 
 step The Scholomance
   zone Western Plaguelands
-  tip The Scholomance (level 58-60, a group of five) lies under Caer Darrow, the island town in the south-east of the Western Plaguelands: someone needs the Skeleton Key or a rogue to open the door. Fight down to Ras Frostwhisper's room and use the Imp in a Jar at the alchemy lab tables to the right: J'eevee makes the parchment. You need not kill Ras, but it only counts at this lab and only in a party.
+  tip The Scholomance (level 58-60, a group of five) lies under Caer Darrow, the island town in the south-east of the Western Plaguelands, and its door needs the Skeleton Key or a rogue. The alchemy lab tables are to the right in Ras Frostwhisper's room, where the Imp in a Jar lets J'eevee make the parchment; Ras need not die, but it only counts at this lab and only in a party.
+  use 18688 @69.7,73.2
   complete 7629 @69.7,73.2 group 5    -- Use the Imp in a Jar at the alchemy lab inside
 
 step Dreadsteed of Xoroth

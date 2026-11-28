@@ -463,7 +463,7 @@ step Malorne's Retreat
 
 step Fenwick's survival pack
   only Alliance
-  tip His pack fell just north of the tree. Open it, then wait half a minute while its safety lock discharges before you open it again.
+  tip His pack fell just north of the tree. Its safety lock takes half a minute to discharge between the two hand-ins.
   turnin 96559                          -- Personal Survival Pack
   accept 93383                          -- Contents Under Pressure
   turnin 93383
@@ -1134,7 +1134,8 @@ step The Blackthorne camps
   when group 93584
   when onquest 92169
   tip The Blackthorne cultists camp on the slopes north-east of the Summit (level 60, with elite Outrunners, Priests and a Courier among them: pull carefully). Ve'han Talongrasp, an elite (level 60) who leads them, stands among them: leave him be. Ghansurok, an elite chimaera (level 61), also roams the ridge north of the camps.
-  tip Use Tiala's staff on a Pact member to strip its ward, then kill it, ten times: pick Cultists and Adepts, whom Thisalee wants dead too. The Cultists carry the kris and the Adepts the staff; the thorn seeds lie in the woods there, and the hippogryphs and chimaeras roam the slopes all around. Not finished in our recordings yet: if something here is off, tell us.
+  tip Tiala's staff strips a Pact member's ward, and Cultists and Adepts count for Thisalee too. The Cultists carry the kris and the Adepts the staff; the thorn seeds lie in the woods there, and the hippogryphs and chimaeras roam the slopes all around. Not finished in our recordings yet: if something here is off, tell us.
+  use 267079 quest 92169.2 @75.9,35.4
   complete 92169 @75.9,35.4             -- Paying Back the Pact
   kill 249551 x10 quest 93584.1         -- Blackthorne Cultist
   kill 264570 x10 quest 93584.2         -- Blackthorne Adept

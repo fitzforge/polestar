@@ -75,7 +75,7 @@ step Before the demons
 
 step Simone the Inconspicuous
   zone Un'Goro Crater
-  tip Simone the Inconspicuous, a troll with a wolf, walks a long path that starts at the lake in western Un'Goro and can reach the south of the crater; use Track Demons. Talk to her and she becomes Simone the Seductress, and her wolf Precious a Felstalker. The hardest of the four: Freezing Trap Precious and pull Simone well away from it, or kite Precious away and kill it first, let Simone reset and come back for her alone. Her Chain Lightning hits hard, so drain her mana with Viper Sting (a 15-second cooldown on Forever) and keep her busy; her Temptress' Kiss cuts your ranged attack power, so finish her in melee. Loot her head before Precious breaks free.
+  tip Simone the Inconspicuous, a troll with a wolf, walks a long path that starts at the lake in western Un'Goro and can reach the south of the crater, and Track Demons shows her. Talk to her and she becomes Simone the Seductress, and her wolf Precious a Felstalker. The hardest of the four: Freezing Trap Precious and pull Simone well away from it, or kite Precious away and kill it first, let Simone reset and come back for her alone. Her Chain Lightning hits hard, so drain her mana with Viper Sting (a 15-second cooldown on Forever) and keep her busy; her Temptress' Kiss cuts your ranged attack power, so finish her in melee. Loot her head before Precious breaks free.
   talk 14527                          -- Simone the Inconspicuous
   collect 18952 quest 7636.1          -- Simone's Head
 

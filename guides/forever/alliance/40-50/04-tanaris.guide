@@ -194,10 +194,11 @@ step Trenton Lighthammer
 # ---------------------------------------------------------------- The deep desert
 
 step The Broken Pillar
-  tip Ride south to the dig camp at the Broken Pillar. Marvon hands you a detector helm: wear it to see the Gahz'ridian mounds, which lie thick in the sand around the camp and south-west toward the ogres.
+  tip The dig camp is at the Broken Pillar, to the south. Marvon's detector helm shows the Gahz'ridian mounds, which lie thick in the sand around the camp and south-west toward the ogres.
   accept 3161                         -- Marvon Rivetseeker
   turnin 3445                         -- Marvon Rivetseeker: The Sunken Temple, from Angelas in Feathermoon
   accept 3444                         -- Marvon Rivetseeker: the Stone Circle is in Ratchet, on the Un'Goro guide's flight to Gadgetzan, which hands it in here: keep it
+  equip 9978
   collect 8443 quest 3161             -- Gahz'ridian Ornament
   turnin 3161
 

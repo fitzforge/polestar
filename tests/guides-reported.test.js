@@ -6379,12 +6379,13 @@ test(`${ELWYNN}: Nittepitte's report (#612): the Mining Tools are picked up on t
 // #424 sent players to Kerlonian's Chest for the Horn of Awakening. Since Blizzard's 2026-11-06 hotfix the quest hands
 // the horn over on accept and its one objective is the escort (recordings: every objective list uploaded from
 // 2026-11-06 23:08 on), so a `collect 13536` would name a line the quest no longer has and send players to the chest.
+// The horn's use (it wakes him) is a row of its own since the tip-only actions sweep; no line picks it up.
 test(`${ASHENVALE}: The Sleeper Has Awakened gives the Horn of Awakening on accept: no chest step (2026-11-06 hotfix)`, { skip }, () => {
 	const list = goals(ASHENVALE);
-	assert.ok(!list.some(({ goal }) => goal.item === 13536), 'no goal for the Horn of Awakening');
+	assert.ok(!list.some(({ goal }) => goal.item === 13536 && goal.t !== 'use'), 'no goal that picks up the Horn of Awakening');
 	const accept = at(list, 'accept 5321 (Kerlonian Evershade)', is('accept', 5321));
 	const said = [list[accept].step.tip, list[accept].step.note].flat().filter(Boolean).join(' ');
-	assert.ok(/quest: it gives you the Horn of Awakening/.test(said), 'the tip says the quest gives the horn');
+	assert.ok(/quest gives the Horn of Awakening/.test(said), 'the tip says the quest gives the horn');
 	assert.ok(!/chest/i.test(said), 'and no longer sends you to his chest');
 });
 
@@ -18860,6 +18861,23 @@ for (const [guide, item, quest, oi, verb] of [
 	['forever/alliance/human/01-elwynn-forest.guide', 7207, 1861, 1, 'use'], // Mirror Lake: Jennea's flask
 	['forever/horde/04-the-barrens.guide', 5021, 849, 1, 'use'], // Revenge of Gann: the explosive stick
 	['forever/reputation/centaur-clans.guide', 258661, 93062, 1, 'use'], // Bone Burying
+	// The fifth batch.
+	['forever/40-50/shendralas.guide', 286648, 99258, 1, 'use'], // Mana Mania: the crystal heart into a rift
+	['forever/50-60/mount-hyjal.guide', 267079, 92169, 2, 'use'], // Paying Back the Pact: Tiala's staff
+	['forever/alliance/06-wetlands.guide', 279996, 98216, 1, 'use'], // the Goaz Stone by a Warder
+	['forever/alliance/40-50/01b-riverglades.guide', 268647, 95267, 1, 'use'], // The Monster Surfaces: the bait
+	['forever/horde/40-50/01b-riverglades.guide', 268647, 95267, 1, 'use'],
+	['forever/alliance/dwarf/01-dun-morogh.guide', 15911, 6064, 1, 'use'], // Taming the Beast: each rod on its beast
+	['forever/alliance/human/01-elwynn-forest.guide', 266158, 94792, 1, 'use'],
+	['forever/alliance/nightelf/01-teldrassil.guide', 15921, 6063, 1, 'use'],
+	['forever/class/hunter/taming-the-beast-horde.guide', 15917, 6062, 1, 'use'],
+	['forever/class/rogue/plundering-the-plunderers.guide', 7970, 2381, 1, 'use'], // the E.C.A.C. on Polly
+	['forever/class/shaman/darkreaver.guide', 18746, 8258, 1, 'use'], // the Divination Scryer
+	['forever/horde/30-40/02-thousand-needles.guide', 6436, 1435, 1, 'use'], // the Burning Gem on a cultist
+	['forever/horde/40-50/05-the-hinterlands.guide', 19036, 7843, 1, 'use'], // the message by Aerie Peak's well
+	['forever/horde/50-60/02-felwood.guide', 249390, 91500, 1, 'use'], // An Explosive Gambit: the seals at a crystal
+	['forever/reputation/centaur-clans.guide', 254870, 92873, 1, 'use'], // Proof of Concept: the necromancy staff
+	['forever/reputation/timbermaw-hold.guide', 21144, 8481, 1, 'use'], // The Root of All Evil: the torch
 ]) {
 	test(`${guide}: ${verb} ${item} right before the line of quest ${quest}.${oi} (tip-only actions sweep)`, { skip }, () => {
 		const list = goals(guide);
@@ -19341,11 +19359,13 @@ test('Scarlet Diversions: the Flame in a Bottle from the crate next to Derringto
 });
 
 // #3346 (Bussincider): What Is Love?'s figurine is taken by throwing the lit torch onto the archaeologist's cart
-// outside the house; the steps said only where the figurine lies.
+// outside the house; the steps said only where the figurine lies. Since the tip-only actions sweep the throw is the
+// Burning Torch's use, a row of its own in the figurine's step, and the tip names the cart.
 test('What Is Love?: the figurine steps say to throw the lit torch onto the cart (#3346)', { skip }, () => {
 	for (const file of ['forever/class/warlock/incubus-alliance.guide', 'forever/alliance/30-40/04-stranglethorn-vale.guide']) {
 		const st = compiled(file).steps.find((s) => s.goals.some((g) => g.t === 'collect' && g.item === 190309));
-		assert.match([st.note, st.tip].flat().filter(Boolean).join(' '), /throw (the lit torch|it) onto the archaeologist's cart/i, file);
+		assert.ok(st.goals.some((g) => g.t === 'use' && g.item === 190308), `${file}: the Burning Torch's use is a row`);
+		assert.match([st.note, st.tip].flat().filter(Boolean).join(' '), /archaeologist's cart/i, file);
 	}
 });
 
@@ -19365,13 +19385,17 @@ test('Riverglades (#3960): Old Rot-Chum is only handed in once the bounty is com
 });
 
 // #3036 (Joogz): the Monstrous Threshadon is called up from what floats in the water at 74.4,72.4; the step followed
-// his other possible spots instead. Both factions' Riverglades guides lead there and say how.
+// his other possible spots instead. Both factions' Riverglades guides lead there and say how: the bait's use is a row
+// of its own at that spot, right before the head (tip-only actions sweep).
 test('The Monster Surfaces: the head is taken where the Threshadon is called up (#3036)', { skip }, () => {
 	for (const file of ['forever/alliance/40-50/01b-riverglades.guide', 'forever/horde/40-50/01b-riverglades.guide']) {
 		const list = goals(file);
-		const { goal, step } = list[at(list, 'the head', (g) => g.t === 'collect' && g.quest === 95267)];
+		const head = at(list, 'the head', (g) => g.t === 'collect' && g.quest === 95267);
+		const { goal } = list[head];
 		assert.deepEqual([goal.map, goal.x, goal.y], [2548, 74.4, 72.4], file);
-		assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /right-click the thing floating in the water/, file);
+		const bait = list[head - 1];
+		assert.ok(bait && bait.goal.t === 'use' && bait.goal.item === 268647 && bait.s === list[head].s, `${file}: the Big Ball o' Bait is used right before the head`);
+		assert.deepEqual([bait.goal.x, bait.goal.y], [74.4, 72.4], `${file}: at the head's spot`);
 	}
 });
 

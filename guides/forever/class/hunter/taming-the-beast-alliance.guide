@@ -68,7 +68,8 @@ step Quel'ana Quickgale in Valanaar
 
 step Windsong Crawler
   only Skyborne
-  tip Windsong Crawlers live only by water: the nearest scuttle along the shore south-west of Valanaar, among the crabs. How the rod works: target a living crawler, use the Taming Rod and stand still for the whole channel while it hits you; moving, fighting back or anyone else's help breaks it and costs one of the rod's few charges. Killing one does not count. Keep each rod: it goes back to Quel'ana.
+  tip Windsong Crawlers live only by water: the nearest scuttle along the shore south-west of Valanaar, among the crabs. The rod's channel only works on a living crawler, standing still while it hits you; moving, fighting back or anyone else's help breaks it and costs one of the rod's few charges. Killing one does not count. Each rod goes back to Quel'ana.
+  use 267272 quest 94978.1
   kill 254588 quest 94978.1 "Tame Windsong Crawler" -- Use the Taming Rod on a living crawler
   turnin 94978                                -- Quel'ana Quickgale
   accept 94979
@@ -103,7 +104,8 @@ step Large Crag Boar
   only Dwarf
   when !onquest 94792,94863,94864,94793
   when !turnedin 94792
-  tip Large Crag Boars (level 6-7) root around the fields west, south and north-west of Kharanos and respawn every 3 minutes. How the rod works: target a living beast, use the Taming Rod and stand still for the whole channel while it hits you. Moving, fighting back, being out of range or anyone else's help breaks it and costs one of the rod's few charges; if they run out, destroy the rod, abandon the quest and take it again from Grif. The boars use Rushing Charge from 25 yards, so start with the rod, not Auto Shot. Keep each rod: it goes back to Grif.
+  tip Large Crag Boars (level 6-7) root around the fields west, south and north-west of Kharanos and respawn every 3 minutes. The rod's channel only works on a living beast, standing still while it hits you. Moving, fighting back, being out of range or anyone else's help breaks it and costs one of the rod's few charges; with none left, the quest has to be taken again from Grif. The boars use Rushing Charge from 25 yards, so the rod comes before Auto Shot. Each rod goes back to Grif.
+  use 15911 quest 6064.1
   kill 1126 quest 6064.1 "Tame Large Crag Boar" -- Use the Taming Rod on a living boar
   turnin 6064                                 -- Grif Wildheart
   accept 6084
@@ -149,7 +151,8 @@ step Webwood Lurker
   only NightElf
   when !onquest 94792,94863,94864,94793
   when !turnedin 94792
-  tip Webwood Lurkers (level 5-6) creep through the woods just north-east, south-west and east of Dolanaar. How the rod works: target a living beast, use the Taming Rod and stand still for the whole channel while it hits you; moving, attacking it or anyone else's help breaks it and costs one of the rod's few charges (out of charges: destroy the rod, abandon the quest, take it again). Their Web roots you but does not break the channel if you keep still. Keep each rod: it goes back to Dazalar.
+  tip Webwood Lurkers (level 5-6) creep through the woods just north-east, south-west and east of Dolanaar. The rod's channel only works on a living beast, standing still while it hits you; moving, attacking it or anyone else's help breaks it and costs one of the rod's few charges, and with none left the quest has to be taken again. Their Web roots you but does not break the channel. Each rod goes back to Dazalar.
+  use 15921 quest 6063.1
   kill 1998 quest 6063.1 "Tame Webwood Lurker" -- Use the Taming Rod on a living spider
   turnin 6063                                 -- Dazalar
   accept 6101
@@ -194,7 +197,8 @@ step Josephine Carson in Goldshire
 step Rockhide Boar
   when !turnedin 6064
   when !turnedin 6063
-  tip Rockhide Boars (level 7-8) graze in three herds south and south-east of Goldshire, toward the Maclure Vineyards. How the rod works: target a living beast, use the Taming Rod and stand still for the whole channel while it hits you. Moving, fighting back, a heal from someone else or anyone else hitting the beast breaks it and costs one of the rod's few charges; if they run out, destroy the rod, abandon the quest and take it again. The boars use Rushing Charge, so start with the rod, not Auto Shot. Killing a boar does not count. Keep each rod: it goes back to Josephine. A Dwarf or Night Elf who took Josephine's rod instead of their home trainer's is led through Goldshire from here.
+  tip Rockhide Boars (level 7-8) graze in three herds south and south-east of Goldshire, toward the Maclure Vineyards. The rod's channel only works on a living beast, standing still while it hits you. Moving, fighting back, a heal from someone else or anyone else hitting the beast breaks it and costs one of the rod's few charges; with none left, the quest has to be taken again. The boars use Rushing Charge, so the rod comes before Auto Shot, and killing a boar does not count. Each rod goes back to Josephine. A Dwarf or Night Elf who took Josephine's rod instead of their home trainer's is led through Goldshire from here.
+  use 266158 quest 94792.1
   kill 524 quest 94792.1 "Tame Rockhide Boar" -- Use the Taming Rod on a living boar
   turnin 94792                                -- Josephine Carson
   accept 94863

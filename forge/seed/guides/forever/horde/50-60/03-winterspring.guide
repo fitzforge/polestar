@@ -226,7 +226,7 @@ step Elder Rise
   note Rabine Saturna waits in Moonglade: keep it for later.
 
 step Bashana Runetotem
-  tip Hand Bashana the Seed Voucher for her packets of Tharlendris Seeds. Morrowgrain Research gives you the Evergreen Pouch: use it with a seed packet and two Un'Goro Soil in your bags to grow a random herb, sometimes Morrowgrain, once every ten minutes. She wants ten, so the quest is optional: take it if you have spare Un'Goro Soil and want to keep growing it over the next guides.
+  tip Bashana takes the Seed Voucher for packets of Tharlendris Seeds. Morrowgrain Research gives the Evergreen Pouch, which grows a random herb, sometimes Morrowgrain, from a seed packet and two Un'Goro Soil once every ten minutes. She wants ten, so the quest is optional: worth it with spare Un'Goro Soil, growing it over the next guides.
   turnin 3782
   accept 3786
   complete 3786

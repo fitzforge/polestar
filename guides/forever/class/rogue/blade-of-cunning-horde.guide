@@ -98,8 +98,9 @@ step The Rogues' Quarter
 step Astor Hadren
   only Undead
   zone Silverpine Forest
-  tip Astor Hadren (level 13) walks the road between the Sepulcher and the Undercity, north of the Sepulcher. He looks like a friendly traveller with no quest mark. Talk to him and pick both of his answers: he turns hostile. Kill him for the letter (it always drops). Fight him away from guards, who can take the kill and leave no loot; only one rogue per kill gets the letter. He is back 5 minutes after a death.
+  tip Astor Hadren (level 13) walks the road between the Sepulcher and the Undercity, north of the Sepulcher. He looks like a friendly traveller with no quest mark, and both of his answers turn him hostile. His letter always drops, but guards nearby can take the kill and leave no loot; only one rogue per kill gets the letter. He is back 5 minutes after a death.
   level 12
+  talk 6497
   collect 7231 quest 1886.1                   -- Astor's Letter of Introduction: Astor Hadren
 
 step Back to Mennet Carkad

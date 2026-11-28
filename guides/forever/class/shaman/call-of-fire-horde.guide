@@ -141,7 +141,7 @@ step The Minor Manifestation of Fire
 
 step The Brazier of the Dormant Flame
   only Orc,Troll,Tauren
-  tip Click the Brazier of the Dormant Flame on the plateau with the torch in your bags to place the ember, then click it a second time: the next quest does not open by itself. It gives you the lit Torch of Eternal Flame.
+  tip The Brazier of the Dormant Flame on the plateau takes the ember with the torch in the bags. The next quest, the lit Torch of Eternal Flame, does not open by itself: it takes a second click.
   level 11
   turnin 1526                                 -- Brazier of the Dormant Flame
   accept 1527

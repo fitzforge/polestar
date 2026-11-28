@@ -115,8 +115,9 @@ step Veyric Thunderhame
 
 step The steam pools
   zone Thousand Needles
-  tip Veyric hands you the Corrupted Totems. Thousand Needles is far: the boat to Theramore and the road west, or fly to Thalanaar on the Feralas border and head east into the canyon. Place the Corrupted Totems at the steam pools north-west of Freewind Post to call the corrupted elementals and then the Ravaging Tempest; Razormane quilboar join the fight while the ritual runs. A group quest: bring at least one or two friends. The Eye of the Tempest drops about every other kill, and every group member can loot it.
+  tip Veyric hands over the Corrupted Totems. Thousand Needles is far: the boat to Theramore and the road west, or the flight to Thalanaar on the Feralas border and east into the canyon. The totems at the steam pools north-west of Freewind Post call the corrupted elementals and then the Ravaging Tempest; Razormane quilboar join the fight while the ritual runs. A group quest: one or two friends at least. The Eye of the Tempest drops about every other kill, and every group member can loot it.
   level 40
+  use 268582 quest 96135.1
   collect 212792 quest 96135.1 group 3        -- Eye of the Tempest, from the Ravaging Tempest
 
 step Veyric Thunderhame

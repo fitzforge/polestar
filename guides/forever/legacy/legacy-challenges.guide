@@ -108,7 +108,7 @@ step Tradeskills: Tailoring
 
 step PvP: battleground reputations (Alliance)
   only Alliance
-  tip Exalted with each of the four battleground factions is worth a point. Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation, Alterac Valley Reputation and Darkspear Islands Reputation (Forever's new battleground, open from level 30). The Diplomat Legacy perk increases reputation gains.
+  tip Exalted with each of the four battleground factions is worth a point. Polestar's Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation, Alterac Valley Reputation and Darkspear Islands Reputation (Forever's new battleground, from level 30) cover them, and the Diplomat Legacy perk increases reputation gains.
   rep 890 Exalted             -- Warsong Gulch
   rep 509 Exalted             -- Arathi Basin
   rep 730 Exalted             -- Alterac Valley
@@ -116,7 +116,7 @@ step PvP: battleground reputations (Alliance)
 
 step PvP: battleground reputations (Horde)
   only Horde
-  tip Exalted with each of the four battleground factions is worth a point. Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation, Alterac Valley Reputation and Darkspear Islands Reputation (Forever's new battleground, open from level 30). The Diplomat Legacy perk increases reputation gains.
+  tip Exalted with each of the four battleground factions is worth a point. Polestar's Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation, Alterac Valley Reputation and Darkspear Islands Reputation (Forever's new battleground, from level 30) cover them, and the Diplomat Legacy perk increases reputation gains.
   rep 889 Exalted             -- Warsong Gulch
   rep 510 Exalted             -- Arathi Basin
   rep 729 Exalted             -- Alterac Valley

@@ -150,7 +150,9 @@ step Back to Ortell
   accept 8287
 
 step Bronzebeard's Encampment
-  tip The dwarves' camp in the south of Silithus. Talk Frankal Stonebridge and Rutgar Glyphshaper through their whole stories for Dearest Natalia. Noggle's Satchel lies on the mountain south-east of the camp. Deathclasp lives up the trail east of the camp: an elite, and his Knock Away can throw you off the cliff.
+  tip The dwarves' camp is in the south of Silithus, and Frankal Stonebridge's and Rutgar Glyphshaper's whole stories count for Dearest Natalia. Noggle's Satchel lies on the mountain south-east of the camp. Deathclasp lives up the trail east of the camp: an elite, and his Knock Away can throw you off the cliff.
+  talk 15171 quest 8304.1
+  talk 15170 quest 8304.2
   complete 8304 @41.0,88.7            -- Frankal Stonebridge and Rutgar Glyphshaper
   collect 20379 quest 8282.1          -- Noggle's Satchel
   collect 20385 quest 8283.1 optional @45.1,92.3 -- Deathclasp's Pincer, elite: group of 2 or 3
@@ -257,10 +259,12 @@ step Encrypted Twilight Texts to Revered
   rep 609 Revered
 
 step Field Duty, level 60
-  tip Windcaller Kaldon stands by the moonwell of Cenarion Hold. Field Duty (25 reputation, repeatable) sends you with unsigned papers to your side's captain: Captain Blackanvil's Ironforge Brigade outside Hive'Zora (Alliance) or Krug Skullsplit's Orgrimmar Legion outside Hive'Regal (Horde). Use the papers first, then talk to the captain: a level 60 elite silithid attacks; keep the captain alive and he signs. Kaldon then lets you pick a Combat, Logistics or Tactical Assignment, each holding a random briefing worth 50 reputation and a badge: 30 hive silithid kills (elites), goods such as 30 Heavy Runecloth Bandages or 3 Ornate Mithril Boots, or one Templar, Twilight Marauder or scout report. One badge of each kind buys Allegiance to Cenarion Circle at Kaldon: 200 reputation, repeatable. A full round is about 375 reputation.
+  tip Windcaller Kaldon stands by the moonwell of Cenarion Hold. Field Duty (25 reputation, repeatable) sends you with unsigned papers to your side's captain: Captain Blackanvil's Ironforge Brigade outside Hive'Zora (Alliance) or Krug Skullsplit's Orgrimmar Legion outside Hive'Regal (Horde). The captain signs the papers once they are prepared, after a level 60 elite silithid attacks and he survives it. Kaldon then lets you pick a Combat, Logistics or Tactical Assignment, each holding a random briefing worth 50 reputation and a badge: 30 hive silithid kills (elites), goods such as 30 Heavy Runecloth Bandages or 3 Ornate Mithril Boots, or one Templar, Twilight Marauder or scout report. One badge of each kind buys Allegiance to Cenarion Circle at Kaldon: 200 reputation, repeatable. A full round is about 375 reputation.
   accept 8507 optional only Alliance  -- Windcaller Kaldon
   accept 8731 optional only Horde
+  use 21143 quest 8507.1 optional only Alliance @32.8,52.6
   collect 20810 quest 8507.1 optional only Alliance @32.8,52.6 -- Signed Field Duty Papers, Captain Blackanvil
+  use 21143 quest 8731.1 optional only Horde @51.4,68.4
   collect 20810 quest 8731.1 optional only Horde @51.4,68.4 -- Signed Field Duty Papers, Krug Skullsplit
   turnin 8507 optional only Alliance
   turnin 8731 optional only Horde

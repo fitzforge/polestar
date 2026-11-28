@@ -118,7 +118,7 @@ step Call of Earth
 # ---------------------------------------------------------------- Bloodhoof Village
 
 step Kaga Wildhoof
-  tip Follow the road north out of Red Cloud Mesa. Kaga Wildhoof waits on the road just south of Bloodhoof Village; /sit by her campfire until you get Boosted Rest. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof, on the Thunder Bluff stop, or in the western Barrens for engineering.
+  tip Kaga Wildhoof waits on the road just south of Bloodhoof Village, north out of Red Cloud Mesa, and sitting by her campfire gives Boosted Rest. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof, on the Thunder Bluff stop, or in the western Barrens for engineering.
   turnin 96659
   accept 96605
   complete 96605 @46.2,67.3 live      -- /sit by Kaga's campfire until you get Boosted Rest
@@ -422,13 +422,14 @@ step Thunder Bluff
 
 step Traditions of the Bluff
   zone Thunder Bluff
-  tip Eylah Sunhorn wants tauren incense: buy its four parts from Nida the herbalist, Nata the enchanting supplier, Mahu the leatherworking supplier and Naal the cooking supplier, then combine them into Prepared Incense.
+  tip Eylah Sunhorn wants tauren incense, made from four parts that Nida the herbalist, Nata the enchanting supplier, Mahu the leatherworking supplier and Naal the cooking supplier sell.
   accept 97485                        -- Eylah Sunhorn
   accept 744                          -- Eyahn Eagletalon, beside Eylah
   buy 278079 x1 npc 3014              -- Bundle of Herbs, from Nida Winterhoof
   buy 278080 x1 npc 3012              -- Bundle of Dried Cedar Twigs, from Nata Dawnstrider
   buy 278081 x1 npc 3005              -- Sinew Thread, from Mahu
   buy 278083 x1 npc 3027              -- Ceremonial Flint and Tinder, from Naal Mistrunner
+  use 278079 quest 97485.1
   sethome "Thunder Bluff" npc 6746 only Druid -- Innkeeper Pala, at the south end of the central rise: the hearth from Moonglade brings you back here
   accept 5926 only Druid              -- Innkeeper Pala: Heeding the Call, for Turak on Elder Rise
   getfp "Thunder Bluff" npc 2995      -- Tal

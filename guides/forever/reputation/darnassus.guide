@@ -325,7 +325,7 @@ step Un'Goro Crater: Un'Goro Soil
 step Darnassus: Morrowgrain Research
   when done dn-morrowgrain
   zone Darnassus
-  tip Jenal, beside Fandral in the Cenarion Enclave, takes the soil. Mathrengyl Bearwalker sells the Evergreen Pouch and Packets of Tharlendris Seeds. With a seed packet and 2 Un'Goro Soil in your bags, use the pouch to grow an Evergreen Herb Casing and open it: about one casing in three holds Morrowgrain (1 to 5), the rest other herbs. The pouch works once every 10 minutes, so use it whenever it is ready while you do other things.
+  tip Jenal, beside Fandral in the Cenarion Enclave, takes the soil.
   turnin 3764                         -- Jenal
 
 step Cenarion Enclave
@@ -336,7 +336,7 @@ step Cenarion Enclave
 step Darnassus: Morrowgrain Research
   when done dn-morrowgrain
   zone Darnassus
-  tip Jenal, beside Fandral in the Cenarion Enclave, takes the soil. Mathrengyl Bearwalker sells the Evergreen Pouch and Packets of Tharlendris Seeds. With a seed packet and 2 Un'Goro Soil in your bags, use the pouch to grow an Evergreen Herb Casing and open it: about one casing in three holds Morrowgrain (1 to 5), the rest other herbs. The pouch works once every 10 minutes, so use it whenever it is ready while you do other things.
+  tip Jenal, beside Fandral in the Cenarion Enclave, takes the soil.
   accept 3781                         -- Morrowgrain Research, +10
 
 step Cenarion Enclave

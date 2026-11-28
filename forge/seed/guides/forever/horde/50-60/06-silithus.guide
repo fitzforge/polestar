@@ -116,7 +116,7 @@ step Level 58
 
 step Sandy Cookbook
   when onquest 8307
-  tip The Sandy Cookbook lies in the outpost: read it and take its torn page back to Calandrath.
+  tip The Sandy Cookbook lies in the outpost, and its torn page goes back to Calandrath.
   turnin 8307 object 180503 @37.9,45.3 map 1451
   accept 8313 object 180503
 

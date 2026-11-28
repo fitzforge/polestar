@@ -290,8 +290,9 @@ step Ormer and Whelgar
 step Goaz Warders
   when group 98216
   when onquest 98216
-  tip The Goaz Warders stand just west of Whelgar's camp: use the Goaz Stone he gave you beside one.
+  tip The Goaz Warders stand just west of Whelgar's camp, and his Goaz Stone works beside one.
   tip Goaz Warder is elite: grouping up is advised.
+  use 279996 quest 98216.1
   collect 279993 quest 98216.1            -- Titanic Keystone
 
 step Prospector Whelgar
@@ -710,7 +711,8 @@ step Mystral Lake
   turnin 1016
 
 step Krolg
-  tip Krolg, a furbolg untouched by the corruption, sits south of the road below Mystral Lake. Use Dartol's Rod of Transformation near him first: he only speaks to you in furbolg form.
+  tip Krolg, a furbolg untouched by the corruption, sits south of the road below Mystral Lake. He only speaks to a furbolg, and Dartol's Rod of Transformation makes you one.
+  use 5462 @50.8,75.0 map 1440
   turnin 1030
   accept 1045
 

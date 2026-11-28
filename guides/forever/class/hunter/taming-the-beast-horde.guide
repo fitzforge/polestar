@@ -52,7 +52,8 @@ step Thotar in Razor Hill
 
 step Dire Mottled Boar
   only Orc,Troll
-  tip Dire Mottled Boars (level 6-7) roam just north and west of Razor Hill. How the rod works: target a living beast, use the Taming Rod from inside its range and stand still for the whole channel while the beast hits you. Moving, fighting back, a heal from someone else or anyone else hitting the beast breaks it and costs one of the rod's few charges; if they run out, destroy the rod, abandon the quest and take it again from Thotar. The boars charge from 20 yards, so start with the rod, not Auto Shot. The tamed boar becomes your pet for practice. Keep each rod: it goes back to Thotar.
+  tip Dire Mottled Boars (level 6-7) roam just north and west of Razor Hill. The rod's channel only works on a living beast from inside its range, standing still while the beast hits you. Moving, fighting back, a heal from someone else or anyone else hitting the beast breaks it and costs one of the rod's few charges; with none left, the quest has to be taken again from Thotar. The boars charge from 20 yards, so the rod comes before Auto Shot. The tamed boar becomes your pet for practice. Each rod goes back to Thotar.
+  use 15917 quest 6062.1
   kill 3099 quest 6062.1 "Tame Dire Mottled Boar" -- Use the Taming Rod on a living boar
   turnin 6062                                 -- Thotar
   accept 6083
@@ -88,7 +89,8 @@ step Yaw Sharpmane at Bloodhoof
 
 step Adult Plainstrider
   only Tauren
-  tip Adult Plainstriders (level 6-7) walk the plains south-west and north-west of Bloodhoof Village. How the rod works: target a living beast, use the Taming Rod and stand still for the whole channel while it hits you; moving, fighting back or anyone else's help breaks it and costs one of the rod's few charges (out of charges: destroy the rod, abandon the quest, take it again). A plainstrider flees at 25% health, so do not damage it first. Keep each rod: it goes back to Yaw.
+  tip Adult Plainstriders (level 6-7) walk the plains south-west and north-west of Bloodhoof Village. The rod's channel only works on a living beast, standing still while it hits you; moving, fighting back or anyone else's help breaks it and costs one of the rod's few charges, and with none left the quest has to be taken again. A plainstrider flees at 25% health, so damaging it first loses it. Each rod goes back to Yaw.
+  use 15914 quest 6061.1
   kill 2956 quest 6061.1 "Tame Adult Plainstrider" -- Use the Taming Rod on a living plainstrider
   turnin 6061                                 -- Yaw Sharpmane
   accept 6087
@@ -130,7 +132,8 @@ step Quel'ana Quickgale in Valanaar
 
 step Windsong Crawler
   only Skyborne
-  tip Windsong Crawlers live only by water: the nearest scuttle along the shore south-west of Valanaar, among the crabs. How the rod works: target a living crawler, use the Taming Rod and stand still for the whole channel while it hits you; moving, fighting back or anyone else's help breaks it and costs a charge. Killing one does not count.
+  tip Windsong Crawlers live only by water: the nearest scuttle along the shore south-west of Valanaar, among the crabs. The rod's channel only works on a living crawler, standing still while it hits you; moving, fighting back or anyone else's help breaks it and costs a charge. Killing one does not count.
+  use 267272 quest 94978.1
   kill 254588 quest 94978.1 "Tame Windsong Crawler" -- Use the Taming Rod on a living crawler
   turnin 94978                                -- Quel'ana Quickgale
   accept 94979

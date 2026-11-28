@@ -243,9 +243,10 @@ step Durotar
 step Telf Joolam
   only Orc,Troll,Tauren,Shaman
   zone Durotar
-  tip Back east over the bridge and up the trail to Telf's shrine again. Telf makes Fire Sapta from the tar and pouch. Use it by the brazier next to him to reveal the Minor Manifestation of Fire, kill it for the Glowing Ember, then place the ember in the brazier.
+  tip Telf's shrine is back east over the bridge and up the trail, and he makes Fire Sapta from the tar and pouch. The Sapta shows the Minor Manifestation of Fire by the brazier next to him, and its Glowing Ember goes into the brazier.
   turnin 1525
   accept 1526
+  use 6636 quest 1526.1 @38.5,58.9 map 1411
   collect 6655 quest 1526.1
   turnin 1526
   accept 1527

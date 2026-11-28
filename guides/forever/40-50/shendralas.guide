@@ -149,12 +149,12 @@ step The temple: the Mana Sieve
 step Unstable Mana Rifts: mana for the western pylon
   when onquest 96018
   when !done western-pylon-repaired
-  tip Use the Mana Sieve on the Unstable Mana Rifts, the floating sparks along the road north: each pylon takes four Coalesced Mana Crystals, and the repair uses them up.
+  tip The Unstable Mana Rifts are the floating sparks along the road north, and with the Mana Sieve in the bags they give Coalesced Mana Crystals. Each pylon takes four, and the repair uses them up.
   collect 255667 x4 npc 264149 @46.32,42.94 -- Coalesced Mana Crystal, from the Unstable Mana Rifts with the Mana Sieve
 
 step The road south of the western pylon
   label western-pylon-approach
-  tip North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Stop where the arrow points, on the road just south of the pylon, keeping to its west edge: the quiet side, with no Protectors behind you. Pull one Decrepit Pylon Protector at a time down to that spot, the one nearest the pylon's south side first, and kill it there; then step up to the pylon's west side and use the Pile of Pylon Parts Mordent gave you: its Repair and Recharge Pylon takes your four Coalesced Mana Crystals.
+  tip The road just south of the pylon, on its west edge, is the quiet side, with no Protectors behind, and from there one Decrepit Pylon Protector at a time comes away, the one nearest the pylon's south side first. The Pile of Pylon Parts' Repair and Recharge Pylon takes the four Coalesced Mana Crystals.
   tip Careful: stay off the pylon's east and north-east side. The Protectors stand there two and three together, a Corpsefeeder (level 45, elite) walks among them and the Magram Necrokhans (elites, 45) stand just beyond: nearly every recorded death at this pylon happened east of it. If the Magram attack you (they do once you have killed Magram), wait at the arrow until any Necrokhan by the pylon walks off before you pull. Nascent Pylon Protectors (elites, 43) wander the road south of it: let them pass.
   tip If you die here, walk your ghost back to the arrow before you come back to life: players who rose beside the pylon died again within seconds.
   goto 43.9,37.0 "the road just south of the western pylon" r 10
@@ -170,7 +170,7 @@ step The western pylon: repair it
 step Unstable Mana Rifts: mana for the eastern pylon
   when onquest 96018
   when !complete 96018
-  tip The western repair used up your crystals: on the way east, use the Mana Sieve on the Unstable Mana Rifts again for four more Coalesced Mana Crystals. The Pile of Pylon Parts needs all four for the next repair.
+  tip The western repair used up the crystals, and the Pile of Pylon Parts needs four more Coalesced Mana Crystals for the next repair.
   collect 255667 x4 npc 264149        -- Coalesced Mana Crystal, from the Unstable Mana Rifts with the Mana Sieve
 
 step Bristleback Retreat: repair the eastern pylon
@@ -222,7 +222,7 @@ step Mithera
   accept 99257                        -- Historian Biraxas
 
 step A Heart of Crystal
-  tip Use the west face of the western pylon, where you repaired it. Approach on the road from the south and pull one Decrepit Pylon Protector back to you. Wait for the elite patrols to pass; do not follow a Protector around the east side.
+  tip The west face of the western pylon, where it was repaired, is the quiet side. Elite patrols pass on the road, and the Protectors stand in groups around the east side.
   loop
   goto 43.97,35.59 r 4
   goto 43.89,35.64 r 4
@@ -234,8 +234,9 @@ step Historian Biraxas
 step Mana Mania
   when group 99258
   when turnedin 99257
-  tip Take the Depleted Crystal Heart to an Unstable Mana Rift on the road north of the temple and throw it into the rift. The Nascent Pylon Protector that comes out is an elite (level 43) but it comes alone: most players in our recordings killed it without a group, from level 41 up.
+  tip The Depleted Crystal Heart goes into an Unstable Mana Rift on the road north of the temple. The Nascent Pylon Protector that comes out is an elite (level 43) but comes alone: most players in our recordings killed it without a group, from level 41 up.
   accept 99258                        -- Historian Biraxas
+  use 286648 quest 99258.1 @46.32,42.94
   kill 276401 quest 99258.1           -- Nascent Pylon Protector
   turnin 99258
 

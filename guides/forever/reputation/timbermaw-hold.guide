@@ -259,7 +259,8 @@ step Ursolan
 step Mosshoof Coursers
   when onquest 86812
   zone Azshara
-  tip The Mosshoof Coursers (52-53) and Thunderhead Skystormers (50-52) graze just east of Ursolan: bring one low, then use the Satyrweed Tincture on it. Three times.
+  tip The Mosshoof Coursers (52-53) and Thunderhead Skystormers (50-52) graze just east of Ursolan, and the Satyrweed Tincture works on one brought low, three times.
+  use 235509 quest 86812.1 @48.7,18.4
   complete 86812 @48.7,18.4
 
 step Elder Bramblesnap
@@ -359,13 +360,14 @@ step Revered to Exalted
 step The Root of All Evil
   when group 8481
   zone Felwood
-  tip At Exalted, Gorn One Eye, in the tunnel by Meilosh, gives The Root of All Evil: plant his Demon Summoning Torch in the mouth of High Chief Winterfall's cave and defeat the demon Xandivious (level 62, elite: bring a group). The reward is Defender of the Timbermaw, a trinket that calls a Timbermaw ally, and 200 reputation.
+  tip At Exalted, Gorn One Eye, in the tunnel by Meilosh, gives The Root of All Evil: his Demon Summoning Torch, planted in the mouth of High Chief Winterfall's cave, calls the demon Xandivious (level 62, elite, a group's fight). The reward is Defender of the Timbermaw, a trinket that calls a Timbermaw ally, and 200 reputation.
   accept 8481
 
 step Xandivious
   when onquest 8481
   zone Winterspring
-  tip Winterfall Village, the cave at the back. Clear the furbolgs around the mouth first, plant the torch, kill Xandivious and loot the Essence from his Demon Bag.
+  tip Winterfall Village, the cave at the back, with furbolgs around its mouth. The torch planted there calls Xandivious, and the Essence is in his Demon Bag.
+  use 21144 quest 8481.1 @69.8,38.2
   collect 21145 quest 8481.1 group 5 @69.8,38.2 -- Essence of Xandivious
   kill 15623 optional group 5 @69.8,38.2 -- Xandivious, 25 reputation
 

@@ -311,7 +311,7 @@ step Un'Goro Crater: Un'Goro Soil
 step Thunder Bluff: Morrowgrain Research
   when done morrowgrain
   zone Thunder Bluff
-  tip Ghede takes the soil. Bashana Runetotem sells the Evergreen Pouch (1 gold) and Packets of Tharlendris Seeds (10 silver each). With a seed packet and 2 Un'Goro Soil in your bags, use the pouch: it grows an Evergreen Herb Casing, once every 10 minutes. Open each casing: about one in three holds 1 to 5 Morrowgrain, the rest common herbs. Use the pouch whenever it is ready while you follow the rest of this guide.
+  tip Ghede takes the soil. The Evergreen Pouch grows an Evergreen Herb Casing from a seed packet and 2 Un'Goro Soil once every 10 minutes, and about one casing in three holds 1 to 5 Morrowgrain, the rest common herbs.
   turnin 3761                         -- Ghede
   accept 3782                         -- Arch Druid Hamuul Runetotem: Morrowgrain Research
   turnin 3782                         -- Bashana Runetotem
@@ -322,6 +322,7 @@ step Thunder Bluff: Morrowgrain Research
 step Morrowgrain as you go
   when done morrowgrain
   along until morrowgrain-in
+  use 11020 quest 3786.1 @71.1,34.2
   collect 11040 x10 quest 3786.1 @71.1,34.2 -- Morrowgrain: use the pouch every 10 minutes and open the casings; Bashana takes it
 
 step Bashana Runetotem: Morrowgrain Research

@@ -329,8 +329,9 @@ step Tarren Mill, then Sen'jin Village
 step Zul'Farrak: the Tablet of Theka
   when done shadra
   zone Tanaris
-  tip Zul'Farrak is a level 44 to 54 dungeon in northern Tanaris; a level 60 can clear the way alone, or bring a group. Theka the Martyr, an elite troll, guards his tomb in the instance: kill him and read the Tablet of Theka there.
+  tip Zul'Farrak is a level 44 to 54 dungeon in northern Tanaris; a level 60 can clear the way alone, or bring a group. Theka the Martyr, an elite troll, guards his tomb and the Tablet of Theka in the instance.
   goto 38.7,20.0 "Zul'Farrak"
+  interact 142715
   complete 2936                       -- read the Tablet of Theka
 
 step Sen'jin Village: Gadrin's Parchment

@@ -39,7 +39,7 @@ step The Bulwark
 
 step Dalson's Tears
   zone Western Plaguelands
-  tip East along the road past Felstone Field, Cauldron Lord Malvinious guards the cauldron at Dalson's Tears: kill him for the key, then use the cauldron.
+  tip East along the road past Felstone Field, Cauldron Lord Malvinious carries the key to the cauldron at Dalson's Tears.
   collect 13195 quest 5231.1
   turnin 5231                         -- Scourge Cauldron
 
@@ -432,11 +432,12 @@ step Apothecary Dithers
 
 step Scarlet Crusade
   zone Western Plaguelands
-  tip Back north-east to the Northridge Lumber Camp: knights and magi work the camp, the medics and hunters camp south of it. In the middle of the lumber mill, stand by the crate and use Mickey's Barrel of Plagueland Termites from your bags to set it on top; then click the Termite Barrel that appears: it finishes A Plague Upon Thee and gives the next part for Mickey. Careful: a Fallen Hero, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the Western Plaguelands: give it room.
+  tip Back north-east at the Northridge Lumber Camp, knights and magi work the camp, and the medics and hunters camp south of it. Mickey's barrel of termites goes on the crate in the middle of the lumber mill, and the Termite Barrel that appears finishes A Plague Upon Thee and gives the next part for Mickey. Careful: a Fallen Hero, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the Western Plaguelands.
   kill 1833 quest 6004.4
   kill 1831 quest 6004.2
   kill 1826 quest 6004.3
   kill 10605 quest 6004.1
+  use 15044
   turnin 5902
   accept 6390
 
@@ -455,8 +456,8 @@ step Kirsta Deepshadow
   note Kirsta's last errand looks over Hearthglen, among Scarlets of 58-60: leave it.
 
 step Target: Gahrron's Withering
-  tip Ride south-east to Gahrron's Withering, the farm under the eastern hills: Cauldron Lord Soulwrath (58) guards its cauldron. Kill him for the key, then use the cauldron.
-  tip Careful: Soulwrath is about two levels over you here: clear the ghouls around the cauldron first, start at full health and use your cooldowns on him.
+  tip Gahrron's Withering is the farm under the eastern hills to the south-east, and Cauldron Lord Soulwrath (58) carries the key to its cauldron.
+  tip Careful: Soulwrath is about two levels over you here, and ghouls stand around the cauldron.
   collect 13196 quest 5235.1 @62.2,59.1 map 1422
   turnin 5235
   accept 5236

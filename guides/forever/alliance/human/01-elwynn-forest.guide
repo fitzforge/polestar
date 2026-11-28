@@ -644,13 +644,16 @@ step Back to Elwynn Forest
 step Taming the Beast
   zone Elwynn Forest
   only Hunter
-  tip Josephine Carson stands with the Goldshire trainers. Each of her quests hands you a Taming Rod: use it on the beast she names, then bring the rod back to her. Rockhide Boars and Young Forest Bears roam the hills south of the Maclure Vineyards, Gray Forest Wolves the woods east of Crystal Lake.
+  tip Josephine Carson stands with the Goldshire trainers. Each of her quests comes with a Taming Rod for the beast she names, and the rod goes back to her. Rockhide Boars and Young Forest Bears roam the hills south of the Maclure Vineyards, Gray Forest Wolves the woods east of Crystal Lake.
+  use 266158 quest 94792.1
   kill 524 quest 94792.1 "Tame Rockhide Boar" -- Rockhide Boar: tame it with the Taming Rod
   turnin 94792
   accept 94863
+  use 266253 quest 94863.1
   kill 1922 quest 94863.1 "Tame Gray Forest Wolf" -- Gray Forest Wolf: tame it with the Taming Rod
   turnin 94863
   accept 94864
+  use 266254 quest 94864.1
   kill 822 quest 94864.1 "Tame Young Forest Bear" -- Young Forest Bear: tame it with the Taming Rod
   turnin 94864                                -- Tame Beast
   accept 94793

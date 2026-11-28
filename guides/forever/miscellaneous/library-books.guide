@@ -152,7 +152,7 @@ step The Wailing Caverns' cave
 step Orgrimmar
   only Horde
   zone Orgrimmar
-  tip The Mural of Ta'zo is the stone tablet leaning against the wall in the Valley of Spirits, on the way to the mage trainers. Use it to take the book.
+  tip The Mural of Ta'zo, the stone tablet leaning against the wall in the Valley of Spirits on the way to the mage trainers, holds the book.
   collect 207972 "The Lessons of Ta'zo" @38.7,78.4
 
 step The library: first books

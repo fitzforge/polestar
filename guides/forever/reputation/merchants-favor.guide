@@ -63,7 +63,7 @@ step Gather your writs
 step Duskwood writ customers
   when onquest 94214,94232,94241,94250
   zone Duskwood
-  tip Kzixx stands about 450 yards north of Darkshire. Customers show no quest mark: right-click them anyway.
+  tip Kzixx stands about 450 yards north of Darkshire. Customers show no quest mark.
   turnin 94214 npc 3134                       -- Shadow Protection Potion, 75 reputation
   turnin 94232 npc 3134                       -- Minor Recombobulator, 75 reputation
   turnin 94241 npc 3134                       -- Dark Leather Tunic, 75 reputation
@@ -72,7 +72,7 @@ step Duskwood writ customers
 step Stranglethorn Vale writ customers
   when onquest 94226,94235,94244,94217,94253
   zone Stranglethorn Vale
-  tip Booty Bay holds three customers: "Sea Wolf" MacKinley (on the inn's top floor), Scooty, the goblin transporter's engineer, and Narkk. Short John Mithril stands at the Gurubashi Arena, about 800 yards south of Grom'gol; Hekshi is in northern Stranglethorn. Customers show no quest mark: right-click them anyway.
+  tip Booty Bay holds three customers: "Sea Wolf" MacKinley (on the inn's top floor), Scooty, the goblin transporter's engineer, and Narkk. Short John Mithril stands at the Gurubashi Arena, about 800 yards south of Grom'gol; Hekshi is in northern Stranglethorn. Customers show no quest mark.
   turnin 94226 npc 2501                       -- Green Iron Gauntlets, 75 reputation
   turnin 94235 npc 7853                       -- Gnomish Universal Remote, 75 reputation
   turnin 94244 npc 2663                       -- Dark Leather Shoulders, 75 reputation
@@ -82,7 +82,7 @@ step Stranglethorn Vale writ customers
 step Wetlands writ customers
   when onquest 94219,94228,94237,94246,94255
   zone Wetlands
-  tip Kixxle stands about 600 yards south of Dun Modr. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark: right-click them anyway.
+  tip Kixxle stands about 600 yards south of Dun Modr. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark.
   turnin 94219 npc 8305                       -- {item:5996}, 75 reputation
   turnin 94228 npc 8305                       -- Green Iron Boots, 75 reputation
   turnin 94237 npc 8305                       -- Crafted Solid Shot, 75 reputation
@@ -92,7 +92,7 @@ step Wetlands writ customers
 step Arathi Highlands writ customers
   when onquest 94212,94221,94230,94239,94248
   zone Arathi Highlands
-  tip Muggol Breezebeard is about 250 yards south of Refuge Pointe, Alyce about 700 yards north-west of it. Customers show no quest mark: right-click them anyway.
+  tip Muggol Breezebeard is about 250 yards south of Refuge Pointe, Alyce about 700 yards north-west of it. Customers show no quest mark.
   turnin 94212 npc 257296                     -- Elixir of Wisdom, 75 reputation
   turnin 94221 npc 257296                     -- Golden Rod, 75 reputation
   collect 4384 quest 94230.2 @34,23.2         -- bring it: engineers make it; Kimberly Hiett in Lakeshire lists it (not yet seen in her window up to level 30), or the Auction House
@@ -103,7 +103,7 @@ step Arathi Highlands writ customers
 step Hillsbrad Foothills writ customers
   when onquest 94224,94233,94242,94215
   zone Hillsbrad Foothills
-  tip Gorgrash and Kris Legace are in the east of the foothills; the Webbed Mudsnout Gnoll hangs in a spider cocoon about 500 yards south-east of Southshore. Customers show no quest mark: right-click them anyway.
+  tip Gorgrash and Kris Legace are in the east of the foothills; the Webbed Mudsnout Gnoll hangs in a spider cocoon about 500 yards south-east of Southshore. Customers show no quest mark.
   turnin 94224 npc 261932                     -- Heavy Bronze Mace, 75 reputation
   collect 6712 quest 94233.2                  -- bring it: craft it or buy it at the Auction House
   turnin 94233 npc 261932                     -- Practice Lock, 75 reputation
@@ -113,7 +113,7 @@ step Hillsbrad Foothills writ customers
 step Alterac Mountains writ customers
   when onquest 94004,94238,94220,94229,94247,94251
   zone Alterac Mountains
-  tip Sos'mol and Alan Sneeks are close together in the south-west of the mountains; Syndicate thugs roam around Alan Sneeks. Bath'rah the Windwatcher stands on the eastern edge, above Tarren Mill. Customers show no quest mark: right-click them anyway.
+  tip Sos'mol and Alan Sneeks are close together in the south-west of the mountains; Syndicate thugs roam around Alan Sneeks. Bath'rah the Windwatcher stands on the eastern edge, above Tarren Mill. Customers show no quest mark.
   turnin 94004 npc 257281                     -- {item:3391}, 75 reputation
   collect 18662 quest 94238.2 @38.34,61.15    -- bring it: leatherworkers make it, or buy it at the Auction House
   turnin 94238 npc 257281                     -- Heavy Leather Ball, 75 reputation
@@ -125,7 +125,7 @@ step Alterac Mountains writ customers
 step Ashenvale writ customers
   when onquest 94213,94240,94222,94249,94231
   zone Ashenvale
-  tip All four stand around Splintertree Post: Ash'alari about 850 yards south-west of it, Murache to the south, the Cowardly Peon about 350 yards south-east and Grembly about 650 yards north-east. Customers show no quest mark: right-click them anyway.
+  tip All four stand around Splintertree Post: Ash'alari about 850 yards south-west of it, Murache to the south, the Cowardly Peon about 350 yards south-east and Grembly about 650 yards north-east. Customers show no quest mark.
   collect 3385 quest 94213.2                  -- bring it: craft it or buy it at the Auction House
   turnin 94213 npc 257315                     -- Lesser Mana Potion, 75 reputation
   turnin 94240 npc 257322                     -- Herbalist's Gloves, 75 reputation
@@ -142,7 +142,7 @@ step A Heavy Quiver for the writ
 step Stonetalon Mountains writ customers
   when onquest 94216,94225,94234,94243
   zone Stonetalon Mountains
-  tip Ziz Fizziks has a small hut about 550 yards east of Sun Rock Retreat. Four Journeyman writs go to him. Customers show no quest mark: right-click them anyway.
+  tip Ziz Fizziks has a small hut about 550 yards east of Sun Rock Retreat. Four Journeyman writs go to him. Customers show no quest mark.
   turnin 94216 npc 4201                       -- Elixir of Lesser Agility, 75 reputation
   turnin 94225 npc 4201                       -- Rough Bronze Leggings, 75 reputation
   turnin 94234 npc 4201                       -- Shadow Goggles, 75 reputation
@@ -152,7 +152,7 @@ step Stonetalon Mountains writ customers
 step Thousand Needles writ customers
   when onquest 94218,94227,94236,94245,94254
   zone Thousand Needles
-  tip All five stand at the Mirage Raceway on the Shimmering Flats, south-east of Freewind Post: Rizzle Brassbolts, the chicken "Plucky" Johnson, Razzeric, the Goblin Pit Boss and Magus Tirth. Customers show no quest mark: right-click them anyway.
+  tip All five stand at the Mirage Raceway on the Shimmering Flats, south-east of Freewind Post: Rizzle Brassbolts, the chicken "Plucky" Johnson, Razzeric, the Goblin Pit Boss and Magus Tirth. Customers show no quest mark.
   collect 8951 quest 94218.2 @77.22,77.4      -- bring it: craft it or buy it at the Auction House
   turnin 94218 npc 4720                       -- {item:8951}, 75 reputation
   turnin 94227 npc 6626                       -- Big Bronze Knife, 75 reputation
@@ -172,7 +172,7 @@ step Gather your writs again
 step Duskwood writ customers again
   when onquest 94214,94232,94241,94250
   zone Duskwood
-  tip Kzixx stands about 450 yards north of Darkshire, by the road. Customers show no quest mark: right-click them anyway.
+  tip Kzixx stands about 450 yards north of Darkshire, by the road. Customers show no quest mark.
   turnin 94214 npc 3134                       -- Shadow Protection Potion, 75 reputation
   turnin 94232 npc 3134                       -- Minor Recombobulator, 75 reputation
   turnin 94241 npc 3134                       -- Dark Leather Tunic, 75 reputation
@@ -181,7 +181,7 @@ step Duskwood writ customers again
 step Stranglethorn Vale writ customers again
   when onquest 94226,94235,94244,94217,94253
   zone Stranglethorn Vale
-  tip Booty Bay holds three customers: "Sea Wolf" MacKinley (on the inn's top floor), Scooty at the zeppelin-style transporter pad and Narkk. Short John Mithril stands about 800 yards south of Grom'gol, by the Gurubashi Arena; Hekshi is in northern Stranglethorn. Customers show no quest mark: right-click them anyway.
+  tip Booty Bay holds three customers: "Sea Wolf" MacKinley (on the inn's top floor), Scooty at the zeppelin-style transporter pad and Narkk. Short John Mithril stands about 800 yards south of Grom'gol, by the Gurubashi Arena; Hekshi is in northern Stranglethorn. Customers show no quest mark.
   turnin 94226 npc 2501                       -- Green Iron Gauntlets, 75 reputation
   turnin 94235 npc 7853                       -- Gnomish Universal Remote, 75 reputation
   turnin 94244 npc 2663                       -- Dark Leather Shoulders, 75 reputation
@@ -191,7 +191,7 @@ step Stranglethorn Vale writ customers again
 step Wetlands writ customers again
   when onquest 94219,94228,94237,94246,94255
   zone Wetlands
-  tip Kixxle stands about 600 yards south of Dun Modr. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark: right-click them anyway.
+  tip Kixxle stands about 600 yards south of Dun Modr. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark.
   turnin 94219 npc 8305                       -- {item:5996}, 75 reputation
   turnin 94228 npc 8305                       -- Green Iron Boots, 75 reputation
   turnin 94237 npc 8305                       -- Crafted Solid Shot, 75 reputation
@@ -201,7 +201,7 @@ step Wetlands writ customers again
 step Arathi Highlands writ customers again
   when onquest 94212,94221,94230,94239,94248
   zone Arathi Highlands
-  tip Muggol Breezebeard is about 250 yards south of Refuge Pointe, Alyce about 700 yards north-west of it. Customers show no quest mark: right-click them anyway.
+  tip Muggol Breezebeard is about 250 yards south of Refuge Pointe, Alyce about 700 yards north-west of it. Customers show no quest mark.
   turnin 94212 npc 257296                     -- Elixir of Wisdom, 75 reputation
   turnin 94221 npc 257296                     -- Golden Rod, 75 reputation
   collect 4384 quest 94230.2 @34,23.2         -- bring it: engineers make it; Kimberly Hiett in Lakeshire lists it (not yet seen in her window up to level 30), or the Auction House
@@ -212,7 +212,7 @@ step Arathi Highlands writ customers again
 step Hillsbrad Foothills writ customers again
   when onquest 94224,94233,94242,94215
   zone Hillsbrad Foothills
-  tip Gorgrash and Kris Legace are in the east of the foothills; the Webbed Mudsnout Gnoll hangs in a spider cocoon about 500 yards south-east of Southshore. Customers show no quest mark: right-click them anyway.
+  tip Gorgrash and Kris Legace are in the east of the foothills; the Webbed Mudsnout Gnoll hangs in a spider cocoon about 500 yards south-east of Southshore. Customers show no quest mark.
   turnin 94224 npc 261932                     -- Heavy Bronze Mace, 75 reputation
   collect 6712 quest 94233.2                  -- bring it: craft it or buy it at the Auction House
   turnin 94233 npc 261932                     -- Practice Lock, 75 reputation
@@ -222,7 +222,7 @@ step Hillsbrad Foothills writ customers again
 step Alterac Mountains writ customers again
   when onquest 94004,94238,94220,94229,94247,94251
   zone Alterac Mountains
-  tip Sos'mol and Alan Sneeks are close together in the south-west of the mountains; Syndicate thugs roam around Alan Sneeks. Bath'rah the Windwatcher stands on the eastern edge, above Tarren Mill. Customers show no quest mark: right-click them anyway.
+  tip Sos'mol and Alan Sneeks are close together in the south-west of the mountains; Syndicate thugs roam around Alan Sneeks. Bath'rah the Windwatcher stands on the eastern edge, above Tarren Mill. Customers show no quest mark.
   turnin 94004 npc 257281                     -- {item:3391}, 75 reputation
   collect 18662 quest 94238.2 @38.34,61.15    -- bring it: leatherworkers make it, or buy it at the Auction House
   turnin 94238 npc 257281                     -- Heavy Leather Ball, 75 reputation
@@ -234,7 +234,7 @@ step Alterac Mountains writ customers again
 step Ashenvale writ customers again
   when onquest 94213,94240,94222,94249,94231
   zone Ashenvale
-  tip All four stand around Splintertree Post: Ash'alari about 850 yards south-west of it, Murache to the south, the Cowardly Peon about 350 yards south-east and Grembly about 650 yards north-east. Customers show no quest mark: right-click them anyway.
+  tip All four stand around Splintertree Post: Ash'alari about 850 yards south-west of it, Murache to the south, the Cowardly Peon about 350 yards south-east and Grembly about 650 yards north-east. Customers show no quest mark.
   collect 3385 quest 94213.2                  -- bring it: craft it or buy it at the Auction House
   turnin 94213 npc 257315                     -- Lesser Mana Potion, 75 reputation
   turnin 94240 npc 257322                     -- Herbalist's Gloves, 75 reputation
@@ -251,7 +251,7 @@ step A Heavy Quiver for the writ again
 step Stonetalon Mountains writ customers again
   when onquest 94216,94225,94234,94243
   zone Stonetalon Mountains
-  tip Ziz Fizziks has a small hut about 550 yards east of Sun Rock Retreat. Four Journeyman writs go to him. Customers show no quest mark: right-click them anyway.
+  tip Ziz Fizziks has a small hut about 550 yards east of Sun Rock Retreat. Four Journeyman writs go to him. Customers show no quest mark.
   turnin 94216 npc 4201                       -- Elixir of Lesser Agility, 75 reputation
   turnin 94225 npc 4201                       -- Rough Bronze Leggings, 75 reputation
   turnin 94234 npc 4201                       -- Shadow Goggles, 75 reputation
@@ -261,7 +261,7 @@ step Stonetalon Mountains writ customers again
 step Thousand Needles writ customers again
   when onquest 94218,94227,94236,94245,94254
   zone Thousand Needles
-  tip All five stand at the Mirage Raceway on the Shimmering Flats, south-east of Freewind Post: Rizzle Brassbolts, the chicken "Plucky" Johnson, Razzeric, the Goblin Pit Boss and Magus Tirth. Customers show no quest mark: right-click them anyway.
+  tip All five stand at the Mirage Raceway on the Shimmering Flats, south-east of Freewind Post: Rizzle Brassbolts, the chicken "Plucky" Johnson, Razzeric, the Goblin Pit Boss and Magus Tirth. Customers show no quest mark.
   collect 8951 quest 94218.2 @77.22,77.4      -- bring it: craft it or buy it at the Auction House
   turnin 94218 npc 4720                       -- {item:8951}, 75 reputation
   turnin 94227 npc 6626                       -- Big Bronze Knife, 75 reputation
