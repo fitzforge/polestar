@@ -935,7 +935,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			local r = f.Goal
 			-- The skill goal wears the profession's own icon ("Raise Mining to 50": the pickaxe), as its way does.
 			local art = KC().GatherIcon(m.verb)
-			GF.PaintGoalRow(r, art and setmetatable({ art = art }, { __index = m.goal }) or m.goal, true)
+			GF.PaintGoalRow(r, GF.SkillRowGoal(r, m.goal, art), true)
 			r.psIndent = 0
 			list[1] = r
 			local na = 0
