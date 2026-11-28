@@ -1,7 +1,7 @@
 'use strict';
 // Guide kinds (Core/Guides.lua, GuideKinds; docs/GUIDE_FORMAT.md, "Guide kind"): a profession guide's window
 // in the shipped Tailoring 1-300 guide, for a level 27 Orc with Tailoring 87 of 150 in Ashenvale on the 75-150
-// Get Wool Cloth step: the skill line where the XP line was, no pace, no quest hand-in rows; its ⋯ menu leads
+// Get Wool Cloth step: the skill line where the XP line was, no pace, no Still to do or While you're here rows; its ⋯ menu leads
 // with the materials and the nearest Tailoring trainer, without Free mode or the quest log clean-up. Render with
 // --checkout <worktree> for another branch (before: the branch without kinds).
 

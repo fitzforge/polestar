@@ -5,7 +5,9 @@
 -- line on top ("Blacksmithing 12 / 75", "Not learned yet"; a paired guide's two, gathering first, or in a layout that
 -- says them in the XP row (GF.Shows "pairMeter", Atlas) none); then the step: a train, learn, buy or go-to step is
 -- the step's own rows (UI/GuideFrameRegions.lua, "step"); a get step is "Get 200 Rough Stone 64/200" with a row
--- per way its goals allow, picked like an option (a radio mark), each with one button ("Guide me", "Buy list") and
+-- per way its goals allow, picked like an option (a radio mark), each with one button ("Guide me"; the Auction
+-- House's "Buy list" at an open Auction House, else "Show me the auction house", the arrow to the nearest
+-- auctioneer of the character's side) and
 -- a short line ("Durotar loop on your map  ·  about 25 min for the rest", "136 more, about 14s at your last search");
 -- a craft step is "Craft Rough Sharpening Stone until 35" with the recipe's icon, the client's skill-up arrow,
 -- "about 42 to go" and Open <Profession> (the window's one secure button). Under it one folded row, the shopping
@@ -635,14 +637,20 @@ ns.UI.GuideFrame.Part(function(GF)
 		if Mt and id then Mt.SetWay(id, item, way) end
 	end
 
+	-- Whether an open Auction House can take a search: the Auction House way's button then reads Buy list and starts it.
+	local function searchable()
+		local Mt = M()
+		return Mt and Mt.AuctionOpen and Mt.AuctionOpen() and Mt.Search and true or false
+	end
+
 	-- Puts `count` of item on the buy list: the game's search at an open Auction House, Auctionator's list when it
-	-- is installed, and Polestar's own list at the Auction House (UI/AuctionBuys.lua).
+	-- is installed, and Polestar's own list at the Auction House (UI/AuctionBuys.lua). -> true when it searched.
 	local function buyList(list)
 		local Mt = M()
-		if not (Mt and list[1]) then return end
-		if Mt.AuctionOpen and Mt.AuctionOpen() and Mt.Search then
+		if not (Mt and list[1]) then return false end
+		if searchable() then
 			Mt.Search(list[1].item, list[1].count)
-			return
+			return true
 		end
 		if Mt.AuctionatorLoaded and Mt.AuctionatorLoaded() and Mt.ToAuctionator then
 			local e = E()
@@ -650,6 +658,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			Mt.ToAuctionator(g and g.title or "Polestar", list)
 		end
 		if UI.AuctionBuys and UI.AuctionBuys.CheckGuide then UI.AuctionBuys.CheckGuide(guideId()) end
+		return false
 	end
 
 	-- A way's words, a literal key each (the translations' check finds only those).
@@ -718,7 +727,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		f.Items[i] = f.Items[i] or regionRow(f)
 		return f.Items[i]
 	end
-	-- A way's row: a click picks it; its button leads the arrow there ("Guide me") or puts it on the buy list.
+	-- A way's row: a click picks it; its button leads the arrow there ("Guide me") or puts it on the buy list: the
+	-- search at an open Auction House, else the arrow to the nearest auctioneer ("Show me the auction house").
 	local function wayRow(f, i)
 		local r = f.Ways[i]
 		if r then return r end
@@ -730,7 +740,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			if not (w and e) then return end
 			if w.way == "buy" then
 				setWay(e.item, "buy")
-				buyList({ { item = e.item, name = e.name, count = w.toGet or max(0, e.need - e.have) } })
+				if not buyList({ { item = e.item, name = e.name, count = w.toGet or max(0, e.need - e.have) } }) then pick(r) end
 			else
 				pick(r)
 			end
@@ -785,7 +795,7 @@ ns.UI.GuideFrame.Part(function(GF)
 						UI.SetCounted(wr.Sub, sub or "")
 						wr.Sub:SetShown(sub ~= nil)
 						wr.psWay, wr.psItem = w, e
-						W.SetButtonText(wr.psButton, w.way == "buy" and L["Buy list"] or L["Guide me"])
+						W.SetButtonText(wr.psButton, w.way == "buy" and (searchable() and L["Buy list"] or L["Show me the auction house"]) or L["Guide me"])
 						wr.psButton:SetShown(w.way == "buy" or w.map ~= nil)
 						list[#list + 1] = wr
 					end
@@ -843,10 +853,11 @@ ns.UI.GuideFrame.Part(function(GF)
 			f.Head.Text = W.Text(f.Head, "label", "textDim")
 			f.Head.Text:SetText(L["Shopping list"])
 			f.Head.Right = W.Text(f.Head, "small", "textDim")
+			-- Folded or opened: the rows are written on a render (paint), so the card is filled again, not only laid out.
 			f.Head:SetScript("OnClick", function()
 				local id = guideId() or ""
 				openOf[id] = not openOf[id] or nil
-				GF.Layout()
+				if GF.Refill then GF.Refill() end
 			end)
 			f.Rows = {}
 			f.Buy = W.Button(f, L["Buy the whole list"], function()
@@ -858,8 +869,9 @@ ns.UI.GuideFrame.Part(function(GF)
 			end, { height = 22 })
 			return f
 		end,
+		-- None in compact, nor for a guide that levels one gathering profession (GuideKinds: its tools are steps).
 		model = function(view, kind)
-			if GF.Compact() then return nil end
+			if GF.Compact() or not GF.KindHas("shoppingList") then return nil end
 			local e = E()
 			return e and e.KindModel and e.KindModel("shopping", view, kind)
 		end,
@@ -1149,5 +1161,10 @@ ns.UI.GuideFrame.Part(function(GF)
 			if secure and secure.psSlot then placeSecure(secure.psSlot) end
 			if GF.RegionShown("stretch") then again() end
 		end)
+		-- The Auction House way's button: Buy list while an Auction House is open, else Show me the auction house
+		-- (a frame later: the game's window shows or hides on the same event).
+		local function auction() if GF.RegionShown("get") then ns.After(0, again) end end
+		ns.RegisterEvent("AUCTION_HOUSE_SHOW", auction)
+		ns.RegisterEvent("AUCTION_HOUSE_CLOSED", auction)
 	end
 end)

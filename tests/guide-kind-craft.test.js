@@ -110,7 +110,8 @@ emit({ regions = { meter = shown("meter"), stretch = shown("stretch"), get = sho
 	assert.match(out.rows[0].text, /^Get 265 Wool Cloth +58\/265$/);
 	assert.equal(out.rows[0].sub, 'Pick one way:');
 	assert.deepEqual(out.rows[1], { text: 'Farm it', sub: 'Blackrock Grunt  ·  Elwynn Forest  ·  about 62 an hour', way: 'gather', on: false, button: 'Guide me' });
-	assert.deepEqual(out.rows[2], { text: 'Buy it at the Auction House', sub: '197 more', way: 'buy', on: true, button: 'Buy list' });
+	assert.deepEqual(out.rows[2], { text: 'Buy it at the Auction House', sub: '197 more', way: 'buy', on: true, button: 'Show me the auction house' },
+		'away from an Auction House the button says where to go');
 });
 
 test('a way row\'s click picks it: the item takes that way and the arrow follows its goal', () => {
@@ -127,6 +128,45 @@ emit({ pick = pick or false, rows = getRows(), applies = view.goals[1].status ~=
 	assert.equal(out.auction, 'na');
 	assert.deepEqual([out.rows[1].on, out.rows[2].on], [true, false]);
 	assert.equal(out.pad, 'Guide me');
+});
+
+test('the Auction House way\'s button away from an Auction House leads the arrow to the nearest auctioneer; at one it reads Buy list and searches', () => {
+	const out = run('', `${GET_ROWS}
+GF.Layout(); stub.advance(1)
+local Mt, aimed, searched = Polestar.Materials, {}, {}
+E.AimGoal = function(s, gi) aimed[#aimed + 1] = { s, gi } end
+Mt.Search = function(item, count) searched[#searched + 1] = { item, count } return true end
+local away = getRows()[3].button
+GF.RegionFrame("get").List[3].psButton:Click()
+local awayAimed, awaySearched = #aimed, #searched
+local aimedAt = aimed[1] and aimed[1][2] or false
+Mt.AuctionOpen = function() return true end
+GF.Render(); GF.Layout(); stub.advance(0.5)
+local at = getRows()[3].button
+GF.RegionFrame("get").List[3].psButton:Click()
+emit({ away = away, awayAimed = awayAimed, awaySearched = awaySearched, aimedAt = aimedAt, at = at, atAimed = #aimed - awayAimed, searched = searched })`);
+	assert.equal(out.away, 'Show me the auction house');
+	assert.equal(out.awayAimed, 1, 'away from an Auction House the click leads the arrow');
+	assert.equal(out.aimedAt, 2, 'to the step\'s auction goal: the nearest auctioneer of the character\'s side');
+	assert.equal(out.awaySearched, 0);
+	assert.equal(out.at, 'Buy list');
+	assert.equal(out.atAimed, 0, 'at the Auction House the click searches instead');
+	assert.deepEqual(out.searched, [[2592, 197]]);
+});
+
+test('a click on the folded shopping list opens it at once, with no other render', () => {
+	const out = run('', `
+GF.Layout(); stub.advance(1)
+local f = GF.RegionFrame("shopping")
+f.Head:Click()
+local n, shown = f.psN, f.Rows[1] and f.Rows[1]:IsShown() or false
+local buy = f.Buy:IsShown()
+f.Head:Click()
+emit({ n = n, shown = shown, buy = buy, closed = f.psN })`);
+	assert.equal(out.n, 3, 'the section\'s three materials');
+	assert.equal(out.shown, true);
+	assert.equal(out.buy, true, 'and Buy the whole list');
+	assert.equal(out.closed, 0, 'a second click folds it');
 });
 
 test('a short farm says the minutes for the rest; a disenchant way says the green items\' levels', () => {
@@ -288,6 +328,32 @@ emit({ folded = folded, head = f.Head.Text:GetText(), rows = rows, buy = f.Buy:I
 	assert.deepEqual(out.rows.map((r) => r.count), ['68 / 265', '12 / 48', '0 / 25']);
 	assert.equal(out.buy, 'Buy the whole list');
 	assert.deepEqual([out.itemOn, out.itemAfter], [true, false], 'the game\'s item tooltip goes as the cursor leaves');
+});
+
+// One profession guide per shape: its skills, a tool bought from a vendor and a gathered material (both would
+// stand on a shopping list).
+const SKILL_GUIDE = (id, title, sections, extra = '') => `{ id = "${id}", pack = "test", title = "${title}", minLevel = 1, maxLevel = 60, category = "Professions"${extra},
+	sections = { ${sections} },
+	steps = {
+		{ title = "Buy a Mining Pick", section = 1, goals = { { t = "buy", item = 2901, itemName = "Mining Pick", count = 1, npc = 1250, npcName = "Rachel" } } },
+		{ title = "Get Copper Ore", section = 1, goals = { { t = "collect", item = 2770, itemName = "Copper Ore", count = 40, gather = { skill = "Mining", skillLine = 186, rank = 1 } } } },
+	} }`;
+const MINING = SKILL_GUIDE('test/mining', 'Mining 1-65', '{ skill = "Mining", skillLine = 186, from = 1, to = 65 }');
+const SMITHING = SKILL_GUIDE('test/smithing', 'Blacksmithing 1-75', '{ skill = "Blacksmithing", skillLine = 164, from = 1, to = 75 }');
+const MINING_SMITHING = SKILL_GUIDE('test/minesmith', 'Mining and Blacksmithing', '{ skill = "Mining", skillLine = 186, from = 1, to = 65 }', ', skillLines = { 186, 164 }');
+const SHOPPING_SHOWN = `GF.Layout(); stub.advance(1); GF.Layout()
+emit({ shopping = GF.RegionShown("shopping"), get = GF.RegionShown("get") or GF.RegionShown("meter") })`;
+
+test('a guide that levels one gathering profession (Mining) has no shopping list; a crafting guide and a pair keep it', () => {
+	const shown = (setup, guide, id, addons = ['Polestar']) =>
+		runAddon({ stubs: ['stub_world.lua'], addons, script: script(setup, SHOPPING_SHOWN, guide, id) }).emitted[0];
+	const atlas = ['Polestar', { name: 'Polestar_Skins', files: ['Layouts/Atlas/Atlas.lua'] }];
+	assert.deepEqual(shown('', MINING, 'test/mining'), { shopping: false, get: true }, 'Mining, standard');
+	assert.deepEqual(shown('Polestar.Set("ui.compact", true)', MINING, 'test/mining'), { shopping: false, get: true }, 'Mining, compact');
+	assert.deepEqual(shown('Polestar.Set("ui.layout", "atlas")', MINING, 'test/mining', atlas), { shopping: false, get: true }, 'Mining, Atlas');
+	assert.equal(shown('', SMITHING, 'test/smithing').shopping, true, 'Blacksmithing keeps it');
+	assert.equal(shown('Polestar.Set("ui.layout", "atlas")', SMITHING, 'test/smithing', atlas).shopping, true, 'Blacksmithing in Atlas');
+	assert.equal(shown('', MINING_SMITHING, 'test/minesmith').shopping, true, 'Mining + Blacksmithing keeps it');
 });
 
 test('compact: the skill line and the item\'s row, no ways and no shopping list', () => {

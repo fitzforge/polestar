@@ -792,7 +792,7 @@ it read as before.
 | Kind | The window leaves out | The menu |
 |---|---|---|
 | `leveling` | nothing | everything |
-| `profession` | the XP line and the route's pace (the row shows the profession's skill instead: `Tailoring 87 / 150 · next stretch to 100 · step 29 needs level 35 (Artisan Tailoring)`), the finished quests' row, Still to do and While you're here rows of quests | leads with the materials (Gather, buy or mix) and the profession's nearest trainer; no Free mode, Hand in finished quests or Clean up quest log |
+| `profession` | the XP line and the route's pace (the row shows the profession's skill instead: `Tailoring 87 / 150 · next stretch to 100 · step 29 needs level 35 (Artisan Tailoring)`), Still to do and While you're here rows of quests | leads with the materials (Gather, buy or mix) and the profession's nearest trainer; no Free mode, Hand in finished quests or Clean up quest log |
 | `reputation`, `dungeon`, `class`, `collectible`, `exploration`, `misc` | the route's pace | everything |
 
 A part's own setting (Options: the XP line, the pace, Still to do) still

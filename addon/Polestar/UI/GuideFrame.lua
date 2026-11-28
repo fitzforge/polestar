@@ -356,13 +356,13 @@ GF.Part(function(GF)
 
 	function GF.On(key) return ns.Get("guideWindow." .. key) ~= false end
 	-- Whether the window shows part `part` for the guide in view (Core/Guides.lua, GuideKinds:
-	-- "xp", "pace", "skillBar", "handinRow", "whileHereQuests", "stillToDo"): its kind has it, and
-	-- `key`'s setting (guideWindow.<key>), when it has one, is on. The setting still turns the part
-	-- off for every kind.
+	-- "xp", "pace", "skillBar", "whileHereQuests", "stillToDo", "shoppingList"): its kind has it (for
+	-- that guide, when the guide decides the part), and `key`'s setting (guideWindow.<key>), when it
+	-- has one, is on. The setting still turns the part off for every kind.
 	function GF.KindHas(part, key)
 		local E, K = GF.Engine(), ns.GuideKinds
 		local kind = E and E.GuideKind and E.GuideKind() or "leveling"
-		if K and not K.Has(kind, part) then return false end
+		if K and not K.Has(kind, part, E and E.GetGuide and E.GetGuide()) then return false end
 		return key == nil or GF.On(key)
 	end
 	function GF.Num(key) return tonumber(ns.Get("guideWindow." .. key)) or GF.LOOK[key] end

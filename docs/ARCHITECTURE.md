@@ -9628,7 +9628,10 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
 - **Guide kinds** (`Core/Guides.lua`, `ns.GuideKinds`; docs/GUIDE_FORMAT.md,
   "Guide kind"): one small table, kind → the window parts it leaves out
   (`parts`: `xp`, `pace`, `skillBar` (off unless a kind turns it on),
-  `handinRow`, `whileHereQuests`, `stillToDo`), the menu entries it leaves
+  `whileHereQuests`, `stillToDo`, `shoppingList`; a part may be a function
+  of the guide: the profession kind's `shoppingList` is off for a guide that
+  levels one gathering profession, `GuideKinds.GatheringOnly`, whose tools
+  and lures are steps), the menu entries it leaves
   out (`menu`: `free`, `handins`, `questLog`, `materials`) and the entries
   it puts first (`lead`: `materials`, `trainer`). `GuideKinds.Of(guide)`
   reads the guide's compiled `kind`, else its category's;
