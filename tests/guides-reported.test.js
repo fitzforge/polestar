@@ -20023,3 +20023,16 @@ test("forever/50-60/mount-hyjal.guide: Meta's report: Bethra'zel's marker is whe
 	assert.equal(goal.map, 2482);
 	assert.ok(Math.abs(goal.x - 58.6) < 0.5 && Math.abs(goal.y - 32.3) < 0.5, `Bethra'zel at ${goal.x},${goal.y}`);
 });
+
+// #4551 (Scarylucky, 0.4.3.1): the Shadow Hold cultists drop Corrupted Soul Shards only while the player carries a
+// Cenarion Beacon, which Maybess Riverbreeze gives on asking once Cleansing Felwood is done. A Final Blow held a player
+// without one at its six shards; the shard line is optional (as on the Alliance side) and the tip says where the
+// beacon comes from (guide-fixes audit-5242-soul-shards-need-the-beacon).
+test("forever/horde/50-60/05-eastern-plaguelands.guide: Scarylucky's report: A Final Blow doesn't wait for shards without a beacon (#4551)", { skip }, () => {
+	const list = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	const shards = list[at(list, 'collect 11515 (Corrupted Soul Shard)', (g) => g.t === 'collect' && g.item === 11515)];
+	assert.equal(shards.goal.optional, true, 'the shards never hold the step');
+	assert.ok(shards.step.goals.some((g) => g.quest === 5242), 'on A Final Blow\'s step');
+	const tip = [shards.step.tip, shards.step.note].flat().filter(Boolean).join(' ');
+	assert.match(tip, /Cenarion Beacon, which Maybess Riverbreeze hands out on request once Cleansing Felwood is done/, tip);
+});

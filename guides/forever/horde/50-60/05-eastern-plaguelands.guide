@@ -565,11 +565,11 @@ step Greta Mosshoof
   accept 5242
 
 step A Final Blow
-  tip Moora, Salia and Shadow Lord Fel'dan (57) wait at the back of Shadow Hold, the cave in Jaedenar's north. Clear the tunnel as you go. Careful: the three bosses fight as a group: kill the nearby mobs first so you don't pull extra enemies. The cultists' Corrupted Soul Shards show only while you carry Maybess's Cenarion Beacon (from Cleansing Felwood): without it, skip them.
+  tip Moora, Salia and Shadow Lord Fel'dan (57) wait at the back of Shadow Hold, the cave in Jaedenar's north. Clear the tunnel as you go. Careful: the three bosses fight as a group: kill the nearby mobs first so you don't pull extra enemies. The cultists drop Corrupted Soul Shards only while you carry a Cenarion Beacon, which Maybess Riverbreeze hands out on request once Cleansing Felwood is done: without one, the shards are not there to get.
   kill 9861 quest 5242.1              -- Below ground
   kill 9860 quest 5242.2              -- Below ground
   collect 13207 quest 5242.3          -- Below ground
-  collect 11515 x6 -- Corrupted Soul Shards from the cultists, for Maybess' Salve via Hunting
+  collect 11515 x6 optional -- Corrupted Soul Shards from the cultists, for Maybess' Salve via Hunting
 
 step A Strange Red Key
   when has 13140
