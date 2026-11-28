@@ -18,18 +18,23 @@ const skip = needs('npcs.json', 'items.json', 'zones.json', 'map-frames.json');
 const RUN = 7;
 const CROSS_SECONDS = 3600; // another continent: a boat or zeppelin and the rides around it
 
-// The guide's steps with their loops: { title, only, count, loops: [{ zone, lvl, lap, per, only, live, pts }] }.
+// The guide's steps with their loops: { title, only, count, skill, stand, loops: [{ zone, lvl, lap, per, only,
+// live, pts }] }. `skill`: the Fishing skill a fish step's collect asks; `stand`: it goes to one stand (`goto`).
 function fishingSteps() {
 	const out = [];
 	for (const l of fs.readFileSync(GUIDE, 'utf8').split('\n')) {
 		const m = /^step (.*)$/.exec(l);
-		if (m) out.push({ title: m[1], only: null, count: null, loops: [] });
+		if (m) out.push({ title: m[1], only: null, count: null, skill: null, stand: false, loops: [] });
 		const s = out[out.length - 1];
 		if (!s) continue;
 		const only = /^ {2}only (.+)$/.exec(l);
 		if (only) s.only = only[1];
-		const c = /^ {2}collect \d+ x(\d+) /.exec(l);
-		if (c && s.count === null) s.count = Number(c[1]);
+		const c = /^ {2}collect \d+ x(\d+) .*?gather Fishing (\d+)/.exec(l);
+		if (c && s.count === null) {
+			s.count = Number(c[1]);
+			s.skill = Number(c[2]);
+		}
+		if (/^ {2}goto /.test(l)) s.stand = true;
 		const loop = /^ {2}loop (.+?) lvl (\d+) lap (\d+) (?:gain|yield) ([\d.]+) only (\S+)( live)? r \d+ at (.+)$/.exec(l);
 		if (loop) s.loops.push({ zone: loop[1], lvl: Number(loop[2]), lap: Number(loop[3]), per: Number(loop[4]), only: loop[5], live: !!loop[6], pts: loop[7].split(' ').map((p) => p.split(',').map(Number)) });
 	}
@@ -79,29 +84,58 @@ test('every stand of every fishing loop is safe for the side it is offered to', 
 	assert.deepEqual(bad, []);
 });
 
-// From where each side levels in a band: [step title prefix, faction, race, level, zone, x, y (Era), the water picked].
+// From where each side levels in a band: [the fish step ("<fish>@<the Fishing skill it asks>"), faction, race,
+// level, zone, x, y (Era), the water picked].
 const FROM = [
-	['Fish Raw Longjaw Mud Snapper (Fishing 75', 'Alliance', 'Human', 12, 'Elwynn Forest', 42, 65, 'Stormwind City'],
-	['Fish Raw Longjaw Mud Snapper (Fishing 75', 'Alliance', 'Dwarf', 12, 'Loch Modan', 35, 45, 'Loch Modan'],
-	['Fish Raw Longjaw Mud Snapper (Fishing 75', 'Alliance', 'NightElf', 12, 'Darkshore', 37, 44, 'Darnassus'],
-	['Fish Raw Longjaw Mud Snapper (Fishing 75', 'Horde', 'Orc', 12, 'Durotar', 52, 42, 'Orgrimmar'],
-	['Fish Raw Longjaw Mud Snapper (Fishing 75', 'Horde', 'Undead', 12, 'Tirisfal Glades', 60, 52, 'Silverpine Forest'],
-	['Fish Raw Longjaw Mud Snapper (Fishing 75', 'Horde', 'Tauren', 12, 'Mulgore', 47, 58, 'Thunder Bluff'],
-	['Fish Raw Bristle Whisker Catfish (Fishing 130', 'Alliance', 'Human', 22, 'Redridge Mountains', 30, 45, 'Redridge Mountains'],
+	['Raw Longjaw Mud Snapper@75', 'Alliance', 'Human', 12, 'Elwynn Forest', 42, 65, 'Stormwind City'],
+	['Raw Longjaw Mud Snapper@75', 'Alliance', 'Dwarf', 12, 'Loch Modan', 35, 45, 'Loch Modan'],
+	['Raw Longjaw Mud Snapper@75', 'Alliance', 'NightElf', 12, 'Darkshore', 37, 44, 'Darnassus'],
+	['Raw Longjaw Mud Snapper@75', 'Horde', 'Orc', 12, 'Durotar', 52, 42, 'Orgrimmar'],
+	['Raw Longjaw Mud Snapper@75', 'Horde', 'Undead', 12, 'Tirisfal Glades', 60, 52, 'Silverpine Forest'],
+	['Raw Longjaw Mud Snapper@75', 'Horde', 'Tauren', 12, 'Mulgore', 47, 58, 'Thunder Bluff'],
+	['Raw Bristle Whisker Catfish@130', 'Alliance', 'Human', 22, 'Redridge Mountains', 30, 45, 'Redridge Mountains'],
 	// From the Barrens: Stonetalon's lake by Sun Rock Retreat, the band's catfish water, a short ride west.
-	['Fish Raw Bristle Whisker Catfish (Fishing 130', 'Horde', 'Orc', 22, 'The Barrens', 52, 30, 'Stonetalon Mountains'],
-	['Fish Raw Mithril Head Trout', 'Horde', 'Orc', 32, 'Desolace', 25, 72, 'Desolace'],
+	['Raw Bristle Whisker Catfish@130', 'Horde', 'Orc', 22, 'The Barrens', 52, 30, 'Stonetalon Mountains'],
+	['Raw Mithril Head Trout@205', 'Horde', 'Orc', 32, 'Desolace', 25, 72, 'Desolace'],
 	// Feralas to 300: Redgill and Nightfin Snapper water by Feathermoon and by Camp Mojache.
-	['Fish Raw Redgill', 'Alliance', 'Human', 45, 'Feralas', 31, 45, 'Feralas'],
-	['Fish Raw Redgill', 'Horde', 'Orc', 45, 'Feralas', 75, 44, 'Feralas'],
+	['Raw Redgill@255', 'Alliance', 'Human', 45, 'Feralas', 31, 45, 'Feralas'],
+	['Raw Redgill@255', 'Horde', 'Orc', 45, 'Feralas', 75, 44, 'Feralas'],
 ];
+
+// The fish step ("Fish 25 Raw Longjaw Mud Snapper", `collect … gather Fishing 75`) of a fish and skill.
+const isFishStep = (st, key) => {
+	const [fish, skill] = key.split('@');
+	return new RegExp(`^Fish \\d+ ${fish}$`).test(st.title) && st.skill === Number(skill);
+};
+
+// Every race of each side, and each fish step a character of it takes: it has a water (a loop the race may take,
+// or the one stand the step goes to). The steps a race cannot take (another starting area's) are passed over.
+const RACES = { Alliance: ['Human', 'Dwarf', 'Gnome', 'NightElf', 'Skyborne'], Horde: ['Orc', 'Troll', 'Tauren', 'Undead', 'Skyborne'] };
+test('every race of each side has a safe water for every fish step it takes', { skip }, () => {
+	const w = world();
+	const fishSteps = w.steps.filter((s) => /^Fish \d+ /.test(s.title) && s.skill !== null);
+	assert.ok(fishSteps.length >= 8, `${fishSteps.length} fish steps`);
+	const missing = [];
+	for (const [faction, races] of Object.entries(RACES)) {
+		for (const race of races) {
+			const bands = new Set();
+			for (const s of fishSteps.filter((x) => takes(x.only, race, faction))) {
+				bands.add(s.skill);
+				if (!s.stand && !s.loops.some((l) => takes(l.only, race, faction))) missing.push(`${race} ${faction}: ${s.title} (Fishing ${s.skill})`);
+			}
+			// Each band of the guide (the start, the capitals, catfish, trout, Feralas) has a fish step for the race.
+			for (const b of [1, 75, 130, 205, 255]) if (![...bands].some((x) => x === b)) missing.push(`${race} ${faction}: no fish step at Fishing ${b}`);
+		}
+	}
+	assert.deepEqual(missing, []);
+});
 
 test('from where each side levels in a band, the arrow picks the nearby water of that side, safe at the player\'s level', { skip }, () => {
 	const { dist } = require('../tools/lib/route/geo');
 	const w = world();
 	const got = [];
 	for (const [prefix, faction, race, level, zone, x, y, want] of FROM) {
-		const s = w.steps.find((st) => st.title.startsWith(prefix) && takes(st.only, race, faction));
+		const s = w.steps.find((st) => isFishStep(st, prefix) && takes(st.only, race, faction));
 		assert.ok(s, `${prefix} for ${race} ${faction}`);
 		const at = w.ctx.project.point(w.maps.get(zone), x, y, 'e');
 		const open = s.loops.filter((l) => takes(l.only, race, faction));
