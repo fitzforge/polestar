@@ -102,21 +102,23 @@ emit({ icons = icons, meter = tostring(meter), level = level })`);
 	has('3 use item6057'); // the recipe scroll
 	has('3 equip item6256'); // the Fishing Pole
 	has('4 goto spell2656'); // a forge: Smelting's flame
-	has('5 goto Interface\\Minimap\\Tracking\\Repair'); // an anvil: the minimap's anvil
+	has('5 goto spell2018'); // an anvil: Blacksmithing's hammer and anvil
 	assert.ok(out.icons.some((s) => /^6 goto .*icon-goto$/.test(s)), 'Uldaman keeps the pin');
 	has('8 craft item2840'); // the bar it smelts
 	assert.equal(out.meter, 'spell2575', 'the skill line wears Mining\'s icon, not the bar chart');
 	assert.match(out.level, /icon-use$/, 'a leveling guide\'s cast keeps its glyph');
 });
 
-test('a skill-only step shows its skill row with the profession\'s icon, no separate title', () => {
+test('a skill-only step shows its skill row with the profession\'s icon and its count, no bar under the skill line\'s, no separate title', () => {
 	const [out] = run(`
 at(7)
-emit({ rows = rows(), person = GF.parts.person:IsShown() })`);
+local r = GF.RegionFrame("stretch").Row
+emit({ rows = rows(), person = GF.parts.person:IsShown(), bar = r.psBar ~= nil and r.psBar:IsShown() })`);
 	const row = out.rows.find((r) => r.region === 'stretch');
 	assert.ok(row, `a row in the stretch region: ${JSON.stringify(out.rows)}`);
-	assert.match(row.text, /^Raise Mining to 65/);
+	assert.match(row.text, /^Raise Mining to 65  20\/65$/);
 	assert.equal(row.icon, 'spell2575');
+	assert.equal(out.bar, false, 'one bar for one skill: the skill line\'s');
 	assert.equal(out.person, false, 'no title over it, as an area step');
 	assert.equal(out.rows.length, 1, 'the row once');
 });

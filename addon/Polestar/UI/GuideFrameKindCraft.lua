@@ -543,6 +543,24 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 	end
 
+	-- A skill goal's row in a profession guide ("Raise Mining to 65  1/65"): the count in its text, no bar of its own
+	-- under the skill line's (one bar for one skill). The row's own view (r.psSkillGoal), reading the goal's fields.
+	-- `art`: an icon a region gives it (GF.GoalIcon). -> the view to paint
+	function GF.SkillRowGoal(r, gv, art)
+		local g = r.psSkillGoal
+		if not g then
+			g = { psMeta = {}, psCount = { kind = "count" } }
+			r.psSkillGoal = g
+		end
+		g.psMeta.__index = gv
+		setmetatable(g, g.psMeta)
+		local p, c = gv.progress, g.psCount
+		if p then c.cur, c.max = p.cur, p.max end
+		g.progress = p and c or nil
+		g.art = art
+		return g
+	end
+
 	GF.RegisterRegion("stretch", {
 		build = function(parent)
 			local f = CreateFrame("Frame", nil, parent)
@@ -561,7 +579,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			-- A skill-only step's row (KindCraft's skillRow): the skill goal's own, "Raise Mining to 65  1/65", wearing
 			-- the profession's icon (GF.GoalIcon); no Open button.
 			if m.skill then
-				GF.PaintGoalRow(r, m.skill, true)
+				GF.PaintGoalRow(r, GF.SkillRowGoal(r, m.skill), true)
 				r.psOpenOn = false
 				return
 			end
