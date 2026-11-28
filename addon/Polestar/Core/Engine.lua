@@ -3573,18 +3573,22 @@ function Own.loopTrack(c)
 	return t or nil
 end
 
--- Where the arrow leads on a loop goal's track: the track node LOOP_AHEAD
--- yards along from the player's place on it, whether on it or off it (then
--- that is the nearest point of it, a short way ahead), always the stops'
--- way round, lap after lap; nothing holds it (no dwell). For an arrow that
--- follows no route (TomTom's, a hand-off, the travel planner or Polestar's own
--- arrow off: Own.plannerFlies), the next of the loop's points instead, a plain
--- waypoint that moves on LOOP_PASS yards before the player gets there. Away
--- from the track's continent, or with no position: its first point. The place
--- found is kept per goal (Own.loopAt), so where the track comes near itself the
--- player keeps to the side they walk (LoopTrack.Place).
+-- Where the arrow leads on a loop goal's track. On it (within LOOP_NEAR yards):
+-- the next of the loop's points, the corner the straight leg the player walks
+-- runs to, so the arrow points along the line and its target changes once a
+-- leg, LOOP_PASS yards before the corner: every target move is a new walk
+-- search (Nav/Walk.lua GOAL_MOVED), and a target moved at every poll made the
+-- arrow jump. Off it: the track node LOOP_AHEAD yards past its nearest point,
+-- kept while it is still ahead within LOOP_KEEP_AHEAD yards (walking back to the
+-- track does not move it); for an arrow that follows no route (TomTom's, a
+-- hand-off, the travel planner or Polestar's own arrow off: Own.plannerFlies),
+-- the next loop point there too. Always the stops' way round, lap after lap;
+-- nothing holds it (no dwell). Away from the track's continent, or with no
+-- position: the aim before, else its first point. The place found is kept per
+-- goal (Own.loopAt), so where the track comes near itself the player keeps to
+-- the side they walk (LoopTrack.Place).
 -- -> track, node (nil without a track)
-Own.LOOP_AHEAD, Own.LOOP_PASS = 40, 15
+Own.LOOP_AHEAD, Own.LOOP_PASS, Own.LOOP_NEAR, Own.LOOP_KEEP_AHEAD = 40, 15, 30, 150
 Own.loopAt = setmetatable({}, { __mode = "k" }) -- goal -> { track, s, node }
 function Own.loopAim(goal, c, pc, px, py)
 	local t = Own.loopTrack(c)
@@ -3593,13 +3597,19 @@ function Own.loopAim(goal, c, pc, px, py)
 	local at = Own.loopAt[goal]
 	if at and at.track ~= t then at = nil end
 	if pc ~= t.c then return t, at and at.node or t.stopNode[1] end
-	local s = ns.LoopTrack.Place(t, px, py, at and at.s)
-	local node = Own.plannerFlies() and ns.LoopTrack.Ahead(t, s, Own.LOOP_AHEAD) or ns.LoopTrack.NextStop(t, s, Own.LOOP_PASS)
-	if at then
-		at.s, at.node = s, node
+	local s, d = ns.LoopTrack.Place(t, px, py, at and at.s)
+	local node
+	if d <= Own.LOOP_NEAR or not Own.plannerFlies() then
+		node = ns.LoopTrack.NextStop(t, s, Own.LOOP_PASS)
 	else
-		Own.loopAt[goal] = { track = t, s = s, node = node }
+		local ahead = at and at.off and (t.s[at.node] - s) % t.lap
+		node = ahead and ahead > 0 and ahead <= Own.LOOP_KEEP_AHEAD and at.node or ns.LoopTrack.Ahead(t, s, Own.LOOP_AHEAD)
 	end
+	if not at then
+		at = { track = t }
+		Own.loopAt[goal] = at
+	end
+	at.s, at.node, at.off = s, node, d > Own.LOOP_NEAR
 	return t, node
 end
 
