@@ -52,7 +52,6 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `skipto <label> when <predicate>` | Inside a step: if the predicate holds when the route gets there, this step and the ones up to the labelled step are skipped, for good (GUIDE_FORMAT, "Jumps"; needs Polestar 0.3.0) | `skipto camp when turnedin 783` |
 | `label <name>` | Inside a step: names it for an `along until` or `skipto` before it, or a `when done` | `label camp` |
 | `loop` | Search the step's `goto` points in order for kill, collect, interact, skill and `use <item> quest Q.O` goals without `@x,y`. With none of those, search for the NPC of its accept, turnin and talk goals. | `loop` |
-| `loop <zone> lvl <n> lap <s> gain\|yield <n> … at <x,y> …` | One farming loop (one line each) for the step's `skill` or `collect` goal: the arrow takes the quickest of the loops safe at the player's level and runs round it (GUIDE_FORMAT, "Spawn areas") | `loop Mulgore lvl 2 lap 307 yield 5.6 only Horde r 60 at 49.0,92.8 49.2,87.7 41.8,79.8 41.2,82.0` |
 | `keep <kind> <reason>` | In a leveling guide, a step of only `goto`s, a `fly` or `enter` is a hidden hint the arrow goes by while it is on the way (Polestar 0.4.4; an older one shows it as written); `keep` keeps one a step, for `door`, `instance`, `boarding`, `phasing` or `safety` | `keep door the work is inside the cave: its mouth first` |
 | `note <text>` | A line of information; never holds the player up | `note The camp is busy at night.` |
 | `level <N>` | Reach level N, grinding if need be | `level 2` |
@@ -61,13 +60,20 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `# <text>` | A note for you and other authors; players never see it | `# check the patrol route` |
 | `<goal> -- <text>` | Shows the text under that goal | `accept 783 -- He stands at the abbey gate` |
 
+Farming loops: a step of a profession guide may hold `loop <zone> lvl <n>
+lap <s> gain|yield <n> … at <x,y> …` lines, one per loop, beside its one
+`skill` or `collect` goal; of the loops safe at the player's level the arrow
+takes the quickest from where they are and runs round it (GUIDE_FORMAT,
+"Spawn areas"): `loop Mulgore lvl 2 lap 307 yield 5.6 only Horde r 60 at
+49.0,92.8 49.2,87.7 41.8,79.8 41.2,82.0`.
+
 ## Places and travel
 
 | Line | What it does | Example |
 |---|---|---|
 | `goto <x>,<y> ["Label"]` | Walk to a spot; checked off on arrival, when a later goal of the step is done, or, ending its step, when the next step's quest work is done | `goto 47.6,35.1 "Kobold camp"` |
 | `r <yards>` | How close `goto` counts as arrived (default 8) | `goto 42.9,65.6 "Goldshire" r 30` |
-| `goto … nearest` | Two or more `goto … nearest` lines in a step: one place of several (a profession's anvils); the arrow leads to the nearest the character may use, and any of them finishes the step (needs Polestar 0.4.4) | `goto 79.7,23.1 "Anvil" map 1454 nearest only Horde` |
+| `goto … nearest` | Two or more `goto … nearest` lines in a step: one place of several (a profession's anvils); the arrow leads to the nearest the character may use, and any of them finishes the step (needs Polestar 0.4.4) | `goto 41.3,65.7 "Anvil" nearest` |
 | `@<x>,<y>` | Places any goal at these coordinates instead of the data's | `talk 197 @48.9,41.6` |
 | `map <uiMapID>` | The map this goal's `@` coordinates are on | `kill 69 map 1429 @45,40` |
 | `era` / `live` | The map frame of this goal's coordinates, overriding `coords` | `goto 40,60 live` |
@@ -112,7 +118,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `anywhere` | On `collect`: counted in the bags, with no place; the arrow never leads to it (0.3.7) | `collect 2589 x41 anywhere` |
 | `gather` | On `collect`: the item's gather way in a profession guide, which an `auction` goal for the item buys instead when the player buys materials; `gather <Profession> <rank>` and `gather levels <min>-<max>` say what it takes (needs Polestar 0.4.0) | `collect 4306 x10 nearest gather levels 25-45` |
 | `interact <object>` | Click a game object | `interact 2843` |
-| `use <item>` | Use an item; with `quest Q.O` it counts for that objective and the quest item button shows the item; with `anywhere`, used where the player stands, with no place | `use 5411 quest 754.1 @53.7,66.2` |
+| `use <item>` | Use an item; with `quest Q.O` it counts for that objective and the quest item button shows the item; with `anywhere`, used where the player stands, with no place | `use 1210 @47.6,35.1` |
 
 ## People, items and errands
 
