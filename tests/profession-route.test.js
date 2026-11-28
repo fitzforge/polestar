@@ -264,7 +264,7 @@ test('gathering and paired guides never offer to buy what their gathering profes
 // Fitz's in-game test (Mining, 'Cast Find Minerals'): a row that has the player cast a spell says where the spell
 // is: profession spells in the Professions tab (K), Pick Lock in the Spellbook (P). Every profession guide, the
 // paired ones included.
-test('every step that casts a spell says where the spell is (Professions tab, or Spellbook for a class spell)', () => {
+test('every spell cast says where the spell is (Professions tab, or Spellbook for a class spell); craft rows do not', () => {
 	const { spellWhere, PROFESSIONS_TAB, SPELLBOOK } = require('../tools/lib/professions/describe');
 	const dir = path.join(ROOT, 'guides', 'forever', 'professions');
 	let seen = 0;
@@ -281,7 +281,13 @@ test('every step that casts a spell says where the spell is (Professions tab, or
 			assert.ok(title.includes(where), `${file}:${i + 1} ${title}: the row does not say where the spell is (${where})`);
 		});
 	}
-	assert.ok(seen > 50, `spell steps found (${seen})`);
+	assert.ok(seen > 20, `spell steps found (${seen})`);
+	// Craft rows carry no where: the guide window gives them an "Open <profession>" button.
+	for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.guide'))) {
+		for (const s of stepsOf(fs.readFileSync(path.join(dir, file), 'utf8'))) {
+			if (s.goals.some((g) => g.verb === 'craft') && !/^Smelt /.test(s.title)) assert.ok(!s.title.includes(PROFESSIONS_TAB), `${file}:${s.line} ${s.title}: a craft row with the Professions tab suffix`);
+		}
+	}
 	assert.match(read('mining'), new RegExp(`^step Turn on Find Minerals · ${PROFESSIONS_TAB.replace(/[()]/g, '\\$&')}$`, 'm'));
 	if (exists('lockpicking')) assert.ok(read('lockpicking').includes(`· Pick Lock: ${SPELLBOOK}`));
 });

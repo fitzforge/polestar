@@ -241,13 +241,14 @@ function rankTrainers(data, rank, side, prof) {
 const PROFESSIONS_TAB = 'Professions tab (K by default)';
 const SPELLBOOK = 'Spellbook (P by default)';
 
-// The where of a step from its goal lines (two-space indented), or null: a `craft` or `cast` goal, Fishing's skill
-// (cast Fishing), a disenchanting step, Lockpicking's skill (Pick Lock, a Rogue spell).
+// The where of a step from its goal lines (two-space indented), or null: a spell cast with no button of its own
+// (`cast`: Find Minerals, Find Herbs), smelting, Fishing's casts, a disenchanting step, Lockpicking's skill (Pick
+// Lock, a Rogue spell). Craft rows get none: the guide window gives them an "Open <profession>" button.
 function spellWhere(title, goals) {
 	if (goals.some((g) => /^ {2}skill Lockpicking /.test(g))) return `Pick Lock: ${SPELLBOOK}`;
 	if (goals.some((g) => /^ {2}skill Fishing /.test(g)) || /^(Fish|Catch an?) /.test(title)) return `Fishing: ${PROFESSIONS_TAB}`;
-	if (/^Disenchant /.test(title)) return `Disenchant: ${PROFESSIONS_TAB}`;
-	if (goals.some((g) => /^ {2}(craft|cast) /.test(g))) return PROFESSIONS_TAB;
+	if (/^Disenchant /.test(title) || goals.some((g) => /^ {2}collect .* gather Enchanting\b/.test(g))) return `Disenchant: ${PROFESSIONS_TAB}`;
+	if (goals.some((g) => /^ {2}cast /.test(g)) || (/^Smelt /.test(title) && goals.some((g) => /^ {2}craft /.test(g)))) return PROFESSIONS_TAB;
 	return null;
 }
 

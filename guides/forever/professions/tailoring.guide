@@ -92,7 +92,7 @@ step Get Wool Cloth
   collect 2592 x69 nearest gather levels 15-30
   auction 2592 x69
 
-step Bolt of Linen Cloth to 15 · Professions tab (K by default)
+step Bolt of Linen Cloth to 15
   tip Bolt of Linen Cloth is orange at 1 (yellow 25, green 37, grey 50): about 14 crafts to 15, a point every craft. Each takes 2 Linen Cloth. Keep the bolts: the Linen Belts from 15 take one each.
   craft 2963 until 15
 
@@ -100,7 +100,7 @@ step Tailoring recipes at 15
   tip Back to a Tailoring trainer: Linen Belt (from 15, 50c).
   learn 8776
 
-step Linen Belt to 55 · Professions tab (K by default)
+step Linen Belt to 55
   tip Linen Belt is orange at 15 (yellow 50, green 67, grey 85): about 41 crafts to 55, up to 42 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Bolt of Linen Cloth and 1 Coarse Thread. Make the 27 Bolt of Linen Cloth first: it gives points too while not grey. Use the 14 Bolt of Linen Cloth you made earlier; the counts above leave them out. Each belt takes one bolt; the belts sell to vendors.
   craft 2963 x27
   craft 8776 until 55
@@ -111,7 +111,7 @@ step Tailoring recipes at 55
   learn 1263425 only Alliance
   learn 1229504 only Horde
 
-step Bolt of Woolen Cloth to 75 · Professions tab (K by default)
+step Bolt of Woolen Cloth to 75
   tip Bolt of Woolen Cloth is orange at 55 (yellow 70, green 77, grey 85): about 21 crafts to 75, up to 23 for 9 players in 10 (the gathered materials above count that many). Each takes 3 Wool Cloth. Keep the bolts: the Woolen Capes from 75 take one each, so these points cost no extra Wool Cloth.
   craft 2964 until 75
   skill Tailoring 75
@@ -141,7 +141,7 @@ step Get Silk Cloth
   collect 4306 x424 nearest gather levels 25-45
   auction 4306 x424
 
-step Woolen Cape to 100 · Professions tab (K by default)
+step Woolen Cape to 100
   tip Woolen Cape is orange at 75 (yellow 80, green 97, grey 115): about 34 crafts to 100, up to 40 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Bolt of Woolen Cloth and 1 Fine Thread. Make the 13 Bolt of Woolen Cloth first: it gives points too while not grey. Use the 21 Bolt of Woolen Cloth you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. If you got here without learning Bolt of Woolen Cloth, learn it now: an earlier step teaches it.
   learn 2964
   craft 2964 x13
@@ -151,7 +151,7 @@ step Tailoring recipes at 100
   tip Back to a Tailoring trainer: Bolt of Silk Cloth (from 100, 5s).
   learn 3839
 
-step Bolt of Silk Cloth to 120 · Professions tab (K by default)
+step Bolt of Silk Cloth to 120
   tip Bolt of Silk Cloth is orange at 100 (yellow 110, green 115, grey 120): about 40 crafts to 120, up to 55 for 9 players in 10 (the gathered materials above count that many). Each takes 4 Silk Cloth. Silk Cloth drops from humanoids of level 25-45. Keep every bolt: the hoods and shirts to 150 take them, so these points cost no extra Silk Cloth.
   craft 3839 until 120
 
@@ -159,7 +159,7 @@ step Tailoring recipes at 120
   tip Back to a Tailoring trainer: Azure Silk Hood (from 120, 6s).
   learn 8760
 
-step Azure Silk Hood to 135 · Professions tab (K by default)
+step Azure Silk Hood to 135
   tip Azure Silk Hood is orange at 120 (yellow 130, green 135, grey 140): about 17 crafts to 135, up to 19 for 9 players in 10 (the gathered materials above count that many). Each takes 2 Bolt of Silk Cloth, 2 Blue Dye and 1 Fine Thread. Use the 34 Bolt of Silk Cloth you made earlier; the counts above leave them out. Two silk bolts and two Blue Dye a hood: orange to 130, a point every craft.
   craft 8760 until 135
 
@@ -167,7 +167,7 @@ step Tailoring recipes at 135
   tip Back to a Tailoring trainer: Formal White Shirt (from 135).
   learn 3871
 
-step Formal White Shirt to 150 · Professions tab (K by default)
+step Formal White Shirt to 150
   tip Formal White Shirt is orange at 135 (yellow 145, green 150, grey 155): about 17 crafts to 150, up to 19 for 9 players in 10 (the gathered materials above count that many). Each takes 3 Bolt of Silk Cloth, 2 Bleach and 1 Fine Thread. Make the 45 Bolt of Silk Cloth first. Use the 6 Bolt of Silk Cloth you made earlier; the counts above leave them out. Bleach from tailoring and trade supplies vendors. Tailoring 150 is a Legacy System milestone.
   craft 3839 x45
   craft 3871 until 150
@@ -205,7 +205,7 @@ step Expert Tailoring
   learn 3865 npc 1346 only Alliance
   learn 3865 npc 4576 only Horde
 
-step Azure Silk Cloak to 170 · Professions tab (K by default)
+step Azure Silk Cloak to 170
   tip Azure Silk Cloak is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170, up to 25 for 9 players in 10 (the gathered materials above count that many). Each takes 3 Bolt of Silk Cloth, 2 Blue Dye and 2 Fine Thread. Make the 66 Bolt of Silk Cloth first. Its recipe is the one bought above; it is the cheapest way through these points in the data. If you got here without learning Bolt of Silk Cloth, learn it now: an earlier step teaches it.
   learn 8786 -- from the recipe in your bags
   learn 3839
@@ -217,7 +217,7 @@ step Tailoring recipes at 170
   learn 12048 npc 1346 only Alliance
   learn 12048 npc 4576 only Horde
 
-step Black Mageweave Vest to 200 · Professions tab (K by default)
+step Black Mageweave Vest to 200
   tip Black Mageweave Vest is orange at 170 (yellow 185, green 200, grey 215): about 36 crafts to 200, up to 40 for 9 players in 10 (the gathered materials above count that many). Each takes 2 Bolt of Mageweave and 3 Silken Thread. Make the 72 Bolt of Mageweave first. The trainer teaches it, and it is the cheapest way through these points in the data.
   craft 3865 x72
   craft 12048 until 200
@@ -228,7 +228,7 @@ step Tailoring recipes at 200
   learn 12072 npc 2399 only Horde map 1424
   train Tailoring Artisan optional
 
-step Black Mageweave Headband to 225 · Professions tab (K by default)
+step Black Mageweave Headband to 225
   tip Black Mageweave Headband is orange at 200 (yellow 205, green 220, grey 235): about 37 crafts to 225, up to 44 for 9 players in 10 (the gathered materials above count that many). Each takes 3 Bolt of Mageweave and 2 Heavy Silken Thread. Make the 111 Bolt of Mageweave first. The trainer teaches it, and it is the cheapest way through these points in the data. Tailoring 225 is a Legacy System milestone.
   craft 3865 x111
   craft 12072 until 225
@@ -272,12 +272,12 @@ step Get Runecloth
   collect 14047 x1195 nearest gather levels 45-60
   auction 14047 x1195
 
-step Runecloth Belt to 234 · Professions tab (K by default)
+step Runecloth Belt to 234
   tip Runecloth Belt is yellow at 225 (yellow 225, green 240, grey 255): about 11 crafts to 234, up to 13 for 9 players in 10 (the gathered materials above count that many). Each takes 3 Bolt of Runecloth and 1 Rune Thread. Make the 33 Bolt of Runecloth first. Rune Thread from tailoring vendors.
   craft 18401 x33
   craft 18402 until 234
 
-step Runecloth Gloves to 265 · Professions tab (K by default)
+step Runecloth Gloves to 265
   tip Runecloth Gloves is orange at 234 (yellow 245, green 260, grey 275): about 43 crafts to 265, up to 50 for 9 players in 10 (the gathered materials above count that many). Each takes 4 Bolt of Runecloth, 4 Rugged Leather and 1 Rune Thread. Make the 172 Bolt of Runecloth first. Qia in Everlook keeps one pattern at a time; the Timbermaw Hold tunnel from Felwood is the road in, so never kill Timbermaw furbolgs on the way.
   learn 18417 -- from the recipe in your bags
   craft 18401 x172
@@ -321,7 +321,7 @@ step Get Ironweb Spider Silk
   collect 14227 x148 nearest gather levels 45-59
   auction 14227 x148
 
-step Runecloth Shoulders to 300 · Professions tab (K by default)
+step Runecloth Shoulders to 300
   when knows 18449
   tip Runecloth Shoulders is orange at 265 (yellow 275, green 290, grey 305): about 62 crafts to 300, up to 74 for 9 players in 10 (the gathered materials above count that many). Each takes 7 Bolt of Runecloth, 2 Ironweb Spider Silk, 4 Rugged Leather and 1 Rune Thread. Make the 434 Bolt of Runecloth first. Its pattern (Pattern: Runecloth Shoulders) drops from mobs all over the world and does not bind: buy it at the Auction House. Seven bolts, two Ironweb Spider Silk and four Rugged Leather a craft: the dearest stretch. The spiders of Western Plaguelands and Silithus drop the silk (the marked spots), or the Auction House. Tailoring 300 is a Legacy System milestone. If you got here without learning Bolt of Runecloth, learn it now: an earlier step teaches it.
   learn 18401 npc 11052 only Alliance
@@ -368,7 +368,7 @@ step Get Ironweb Spider Silk
   collect 14227 x294 nearest gather levels 45-59
   auction 14227 x294
 
-step Runecloth Boots to 280 · Professions tab (K by default)
+step Runecloth Boots to 280
   when !knows 18449
   tip Runecloth Boots is green at 265 (yellow 250, green 265, grey 280): about 100 crafts to 280, up to 147 for 9 players in 10 (the gathered materials above count that many). Each takes 4 Bolt of Runecloth, 2 Ironweb Spider Silk, 4 Rugged Leather and 1 Rune Thread. Make the 400 Bolt of Runecloth first. Four Bolts of Runecloth, four Rugged Leather and two Ironweb Spider Silk a craft, and green the whole way: the long way, but its pattern can always be bought. If you got here without learning Bolt of Runecloth, learn it now: an earlier step teaches it.
   learn 18423 -- from the recipe in your bags

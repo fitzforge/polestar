@@ -132,7 +132,7 @@ step Mine 198 Rough Stone
   loop Elwynn Forest lvl 4 lap 304 yield 5.0 only Alliance r 60 at 55.6,35.4 45.1,33.8 49.0,28.1 50.6,26.9 64.8,39.1
   loop Mulgore lvl 3 lap 301 yield 4.3 only Horde r 60 at 41.8,79.8 41.2,82.0 48.4,74.4 43.8,72.8
 
-step Craft 30 Rough Sharpening Stones until 25 · Professions tab (K by default)
+step Craft 30 Rough Sharpening Stones until 25
   tip About 30 crafts.
   craft 2660 until 25
 
@@ -148,7 +148,7 @@ step Learn Smelt Bronze
 step Learn Smelt Tin
   learn 3304
 
-step Craft 84 Rough Grinding Stones until 75 · Professions tab (K by default)
+step Craft 84 Rough Grinding Stones until 75
   tip About 84 crafts.
   craft 3320 until 75
 
@@ -210,7 +210,7 @@ step Learn Smelt Gold
 step Learn Coarse Grinding Stone
   learn 3326 npc 5511,10276,252479,1383,4596,2998,276067
 
-step Craft 60 Coarse Grinding Stones until 84 · Professions tab (K by default)
+step Craft 60 Coarse Grinding Stones until 84
   tip About 60 crafts. Keep all 60: the bracers at 95 and 115 and the gauntlets at 125 use them.
   craft 3326 until 84
 
@@ -266,7 +266,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 11 Rough Bronze Leggings until 95 · Professions tab (K by default)
+step Craft 11 Rough Bronze Leggings until 95
   tip About 11 crafts. Short of 84 after the stones? These leggings carry on from where you are.
   craft 2668 until 95
 
@@ -309,7 +309,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 5 Patterned Bronze Bracers until 100 · Professions tab (K by default)
+step Craft 5 Patterned Bronze Bracers until 100
   tip About 5 crafts.
   craft 2672 until 100
 
@@ -363,7 +363,7 @@ step Mine 90 Heavy Stone
 step Learn Heavy Grinding Stone
   learn 3337 npc 5511,10276,252479,1383,4596,2998,276067
 
-step Craft 30 Heavy Grinding Stones until 115 · Professions tab (K by default)
+step Craft 30 Heavy Grinding Stones until 115
   tip About 30 crafts. Keep all 30 for the Golden Scale Bracers at 185.
   craft 3337 until 115
 
@@ -416,7 +416,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 10 Patterned Bronze Bracers until 125 · Professions tab (K by default)
+step Craft 10 Patterned Bronze Bracers until 125
   tip About 10 crafts.
   craft 2672 until 125
 
@@ -476,7 +476,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 15 Silvered Bronze Gauntlets until 140 · Professions tab (K by default)
+step Craft 15 Silvered Bronze Gauntlets until 140
   tip About 15 crafts. Silver Bar dear? 15 Bronze Warhammers reach 140 too.
   craft 3333 until 140
 
@@ -542,7 +542,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 40 Green Iron Bracers until 175 · Professions tab (K by default)
+step Craft 40 Green Iron Bracers until 175
   tip About 40 crafts.
   craft 3501 until 175
 
@@ -569,11 +569,11 @@ step Learn Golden Scale Bracers
   tip For 185-195: taught here now, so no second trip.
   learn 7223 npc 4258,3355
 
-step Craft 8 Solid Grinding Stones until 180 · Professions tab (K by default)
+step Craft 8 Solid Grinding Stones until 180
   tip About 8 crafts. Keep all 8 for the step at 210.
   craft 9920 until 180
 
-step Craft 28 Solid Sharpening Stones until 185 · Professions tab (K by default)
+step Craft 28 Solid Sharpening Stones until 185
   tip About 28 crafts. Green from 180: short of 185? A few more do it.
   craft 9918 until 185
 
@@ -637,7 +637,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 15 Golden Scale Bracers until 195 · Professions tab (K by default)
+step Craft 15 Golden Scale Bracers until 195
   tip About 15 crafts. Alliance smiths who want Armorsmithing later: keep 6.
   craft 7223 until 195
 
@@ -704,7 +704,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 17 Mithril Plate Pants until 210 · Professions tab (K by default)
+step Craft 17 Mithril Plate Pants until 210
   tip About 17 crafts. Armorsmith or Weaponsmith opens at 200 and level 40; optional.
   craft 9931 until 210
 
@@ -744,7 +744,7 @@ step Mine and smelt 60 Mithril Bar
   loop Burning Steppes lvl 53 lap 617 yield 2.3 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
   loop Searing Gorge lvl 57 lap 616 yield 2.3 r 60 at 64.1,61.6 57.5,68.4 57.1,81.6 49.5,75.9 48.7,51.7 52.0,49.5 55.0,51.2 61.1,42.8 56.9,41.2 56.0,30.6 67.9,32.3 73.2,73.0
 
-step Craft 37 Solid Grinding Stones · Professions tab (K by default)
+step Craft 37 Solid Grinding Stones
   when knows 9964
   tip Parts for the spurs; no skill points from these.
   craft 9920 x37
@@ -786,7 +786,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 15 Mithril Spurs until 225 · Professions tab (K by default)
+step Craft 15 Mithril Spurs until 225
   when knows 9964
   tip About 15 crafts.
   craft 9964 until 225
@@ -810,7 +810,7 @@ step Learn Dense Sharpening Stone
   when knows 9964
   learn 16641 npc 2836
 
-step Craft 16 Dense Sharpening Stones until 235 · Professions tab (K by default)
+step Craft 16 Dense Sharpening Stones until 235
   when knows 9964
   tip About 16 crafts.
   craft 16641 until 235
@@ -838,7 +838,7 @@ step Mine and smelt 112 Mithril Bar
   loop Stonetalon Mountains lvl 28 lap 616 yield 2.3 r 60 at 37.7,69.6 36.4,76.2 33.6,75.7 29.0,73.7 25.9,70.8 26.8,67.0 29.8,66.3 27.1,63.2 30.1,59.8 32.6,58.9 35.9,61.4 34.9,66.7
   loop Alterac Mountains lvl 38 lap 641 yield 4.1 only Horde r 60 at 50.9,44.2 53.2,48.4 54.1,45.6 55.1,40.6 52.7,36.8 48.0,33.1 42.8,34.7 37.9,32.5 35.6,39.7 33.3,43.9 39.5,38.0 45.4,39.8
 
-step Craft 84 Solid Grinding Stones · Professions tab (K by default)
+step Craft 84 Solid Grinding Stones
   when knows 9964
   tip Parts for the spurs; no skill points from these.
   craft 9920 x84
@@ -880,7 +880,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 28 Mithril Spurs until 245 · Professions tab (K by default)
+step Craft 28 Mithril Spurs until 245
   when knows 9964
   tip About 28 crafts.
   craft 9964 until 245
@@ -959,7 +959,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 6 Heavy Mithril Axes until 215 · Professions tab (K by default)
+step Craft 6 Heavy Mithril Axes until 215
   when !knows 9964
   tip About 6 crafts. Weaponsmithing later? Keep 2: its quest asks for them.
   craft 9993 until 215
@@ -1023,7 +1023,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 10 Mithril Coifs until 225 · Professions tab (K by default)
+step Craft 10 Mithril Coifs until 225
   when !knows 9964
   tip About 10 crafts. Armorsmithing later? Keep 2: its quest asks for them.
   craft 9961 until 225
@@ -1047,7 +1047,7 @@ step Learn Dense Sharpening Stone
   when !knows 9964
   learn 16641 npc 2836
 
-step Craft 16 Dense Sharpening Stones until 235 · Professions tab (K by default)
+step Craft 16 Dense Sharpening Stones until 235
   when !knows 9964
   tip About 16 crafts.
   craft 16641 until 235
@@ -1119,7 +1119,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 11 Heavy Mithril Boots until 240 · Professions tab (K by default)
+step Craft 11 Heavy Mithril Boots until 240
   when !knows 9964
   tip About 11 crafts. Armorsmithing later? Keep 2: its quest asks for them.
   craft 9968 until 240
@@ -1241,7 +1241,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 5 Imperial Plate Belts until 245 · Professions tab (K by default)
+step Craft 5 Imperial Plate Belts until 245
   when !knows 9964
   tip About 5 crafts.
   craft 16647 until 245
@@ -1335,7 +1335,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 27 Imperial Plate Bracers until 270 · Professions tab (K by default)
+step Craft 27 Imperial Plate Bracers until 270
   tip About 27 crafts.
   craft 16649 until 270
 
@@ -1416,7 +1416,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 22 Radiant Boots until 290 · Professions tab (K by default)
+step Craft 22 Radiant Boots until 290
   when knows 16656
   when has 12713
   tip About 22 crafts.
@@ -1485,7 +1485,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 10 Radiant Leggings until 300 · Professions tab (K by default)
+step Craft 10 Radiant Leggings until 300
   when knows 16656
   when knows 16725
   tip About 10 crafts.
@@ -1551,7 +1551,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 22 Radiant Boots until 290 · Professions tab (K by default)
+step Craft 22 Radiant Boots until 290
   when !has 12713
   when !knows 16725
   when knows 16656
@@ -1631,7 +1631,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 10 Imperial Plate Leggings until 300 · Professions tab (K by default)
+step Craft 10 Imperial Plate Leggings until 300
   when !has 12713
   when !knows 16725
   when knows 16656
@@ -1694,7 +1694,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 11 Imperial Plate Bracers until 275 · Professions tab (K by default)
+step Craft 11 Imperial Plate Bracers until 275
   when !knows 16656
   when has 12704
   tip About 11 crafts.
@@ -1762,7 +1762,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 27 Thorium Leggings until 300 · Professions tab (K by default)
+step Craft 27 Thorium Leggings until 300
   when !knows 16656
   when knows 16662
   tip About 27 crafts.
@@ -1848,7 +1848,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 20 Imperial Plate Boots until 290 · Professions tab (K by default)
+step Craft 20 Imperial Plate Boots until 290
   when !knows 16656
   when !has 12704
   when !knows 16662
@@ -1928,7 +1928,7 @@ step Go to an anvil
   goto 43.4,15.6 "Anvil" map 1459 nearest only Alliance
   goto 49.3,82.5 "Anvil" map 1459 nearest only Horde
 
-step Craft 10 Imperial Plate Leggings until 300 · Professions tab (K by default)
+step Craft 10 Imperial Plate Leggings until 300
   when !knows 16656
   when !has 12704
   when !knows 16662
