@@ -27,6 +27,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `folder <text>` | The guide menu folder to list it under | `folder Mounts · Level 40` |
 | `keywords <word>, ...` | Extra words the guide menu search finds it by | `keywords wolf, meat` |
 | `collects <item>, ...` | Items the guide obtains; Lookup opens this guide for them | `collects 750` |
+| `skills <Profession>, ...` | In a profession guide: the professions it levels, named as for `skill` (quoted for two words); a paired guide names both, the gathering one first, for two skill bars | `skills Mining, Blacksmithing` |
 | `reward item <item> ...` | What the guide's goal gives, shown with its icon in the guide menu; several items on one line are a choice of one; repeatable | `reward item 1251 2581` |
 | `reward spell <id> "Name"` | A spell the goal teaches (a mount, a form, a demon) | `reward spell 5784 "Summon Felsteed"` |
 | `reward text <words>` | A reward without an id | `reward text Shen'dralar reputation` |
@@ -40,7 +41,8 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | Line | What it does | Example |
 |---|---|---|
 | `step [title]` | Starts a step; it is done when its goals are | `step Kobold camp` |
-| `tip <text>` | A note for the whole step, shown in the guide window | `tip Pull one kobold at a time.` |
+| `tip <text>` | A note for the whole step, shown in the guide window: one short line of why or a heads-up. Every action (use, click, wear, talk, an emote) is a goal row of the step, not only a tip | `tip Pull one kobold at a time.` |
+| `# tip-ok: <why>` | On the line right above a `tip`: the tip is right as written though it reads like an order. Polestar's own guides need it to pass lint's tip rule | `# tip-ok: a heads-up between waves` |
 | `image <path> [<w>x<h>]` | A picture (a `.tga` or `.blp` in the pack folder) shown under the step's tip, such as a screenshot of a cave mouth | `image media/fargodeep-mine.tga` |
 | `zone <Name>` / `zone map <uiMapID>` | Inside a step: the zone for coordinates from here on, also for the steps after it (after a step with `only` that sets one, name the zone again) | `zone Elwynn Forest` |
 | `only <condition>, ...` | Inside a step: the step is only for matching characters | `only Hunter` |
@@ -50,6 +52,8 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `skipto <label> when <predicate>` | Inside a step: if the predicate holds when the route gets there, this step and the ones up to the labelled step are skipped, for good (GUIDE_FORMAT, "Jumps"; needs Polestar 0.3.0) | `skipto camp when turnedin 783` |
 | `label <name>` | Inside a step: names it for an `along until` or `skipto` before it, or a `when done` | `label camp` |
 | `loop` | Search the step's `goto` points in order for kill, collect, interact, skill and `use <item> quest Q.O` goals without `@x,y`. With none of those, search for the NPC of its accept, turnin and talk goals. | `loop` |
+| `loop <zone> lvl <n> lap <s> gain\|yield <n> … at <x,y> …` | One farming loop (one line each) for the step's `skill` or `collect` goal: the arrow takes the quickest of the loops safe at the player's level and runs round it (GUIDE_FORMAT, "Spawn areas") | `loop Mulgore lvl 2 lap 307 yield 5.6 only Horde r 60 at 49.0,92.8 49.2,87.7 41.8,79.8 41.2,82.0` |
+| `keep <kind> <reason>` | In a leveling guide, a step of only `goto`s, a `fly` or `enter` is a hidden hint the arrow goes by while it is on the way (Polestar 0.4.4; an older one shows it as written); `keep` keeps one a step, for `door`, `instance`, `boarding`, `phasing` or `safety` | `keep door the work is inside the cave: its mouth first` |
 | `note <text>` | A line of information; never holds the player up | `note The camp is busy at night.` |
 | `level <N>` | Reach level N, grinding if need be | `level 2` |
 | `level <N>.<fraction>` / `level <N>+<XP>` | Reach a point inside level N: 12.5 is halfway through 12, 12+2500 is 2500 XP into it (to whole percent; needs Polestar 0.2.6) | `level 12.5` |
@@ -63,6 +67,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 |---|---|---|
 | `goto <x>,<y> ["Label"]` | Walk to a spot; checked off on arrival, when a later goal of the step is done, or, ending its step, when the next step's quest work is done | `goto 47.6,35.1 "Kobold camp"` |
 | `r <yards>` | How close `goto` counts as arrived (default 8) | `goto 42.9,65.6 "Goldshire" r 30` |
+| `goto … nearest` | Two or more `goto … nearest` lines in a step: one place of several (a profession's anvils); the arrow leads to the nearest the character may use, and any of them finishes the step (needs Polestar 0.4.4) | `goto 79.7,23.1 "Anvil" map 1454 nearest only Horde` |
 | `@<x>,<y>` | Places any goal at these coordinates instead of the data's | `talk 197 @48.9,41.6` |
 | `map <uiMapID>` | The map this goal's `@` coordinates are on | `kill 69 map 1429 @45,40` |
 | `era` / `live` | The map frame of this goal's coordinates, overriding `coords` | `goto 40,60 live` |
@@ -107,7 +112,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `anywhere` | On `collect`: counted in the bags, with no place; the arrow never leads to it (0.3.7) | `collect 2589 x41 anywhere` |
 | `gather` | On `collect`: the item's gather way in a profession guide, which an `auction` goal for the item buys instead when the player buys materials; `gather <Profession> <rank>` and `gather levels <min>-<max>` say what it takes (needs Polestar 0.4.0) | `collect 4306 x10 nearest gather levels 25-45` |
 | `interact <object>` | Click a game object | `interact 2843` |
-| `use <item>` | Use an item | `use 1210 @47.6,35.1` |
+| `use <item>` | Use an item; with `quest Q.O` it counts for that objective and the quest item button shows the item; with `anywhere`, used where the player stands, with no place | `use 5411 quest 754.1 @53.7,66.2` |
 
 ## People, items and errands
 
@@ -140,6 +145,12 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `craft <spell> ["Name"]` | Craft a recipe, `x<N>` times | `craft 3275 x5` |
 | `until <N>` | On `craft`: until the profession reaches N | `craft 3275 until 40` |
 | `section <Profession> <from>-<to>` | In column 0: a skill range as the heading over the steps after it; the guide starts at the range the player's skill is in, and asks only for the materials still needed in it (GUIDE_FORMAT, "Sections") | `section Mining 1-65` |
+
+A profession guide is one action a step: Learn, Buy the tool, Get N of one
+material (its `collect … gather` and `auction` together, which the player
+picks between), Go to the station (`goto … nearest`), Craft until N, Train
+the next rank. GUIDE_FORMAT's Cookbook has a whole one, and a dungeon guide
+([GUIDE_PACKS.md, "Writing guides for Polestar 0.4.4"](GUIDE_PACKS.md#writing-guides-for-polestar-044)).
 
 ## Reputation and challenges
 

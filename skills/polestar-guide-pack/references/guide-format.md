@@ -32,6 +32,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `folder <text>` | The guide menu folder to list it under |
 | `keywords <word>, ...` | Extra words the guide menu search matches |
 | `collects <item>, ...` | Item ids the guide obtains |
+| `skills <Profession>, ...` | A profession guide's professions, named as for `skill` (quoted for two words); a paired guide names both, the gathering one first |
 | `reward item <item> ...` / `reward spell <id> "Name"` / `reward text <words>` | Repeatable: what the guide's goal gives, first in the guide menu's details (several items on one line: a choice of one). Lint warns on a `Class` guide without it |
 | `why <text>` | One short line in the guide menu's details: why the goal is worth doing (lint warns on a `Class` guide without it) |
 | `author <name>` | Default: `pack.json`'s author |
@@ -48,7 +49,7 @@ every goal in it that is not `optional` is; its goals are open together.
 | Line | What it does |
 |---|---|
 | `step [title]` | Starts a step |
-| `tip <text>` | A note for the whole step |
+| `tip <text>` | A note for the whole step: one short line of why or a heads-up, never the only place of an action (see "How guides read") |
 | `image <path> [<w>x<h>]` | A picture under the step's tip: a `.tga` or `.blp` at that path in the pack folder (`media/cave.tga`), which the addon folder ships; `<w>x<h>` sets its ratio, else the file's own size does |
 | `zone <Name>` / `zone map <uiMapID>` | The zone for coordinates from here on, in later steps too |
 | `only <condition>, ...` | The step is only for matching characters |
@@ -57,6 +58,7 @@ every goal in it that is not `optional` is; its goals are open together.
 | `background` | On an `along until` step: its goals are slow, zone-wide collections (a low drop rate, the mobs all along the route) worked over the whole stay; each quest objective needs a finish step, a plain step working it, before the step that hands its quest in |
 | `label <name>` | Names the step for an `along until` or `skipto` before it, or a `when done` (letters, digits, `-`, `_`; once per guide) |
 | `skipto <label> when <predicate>` | If the predicate (as for `when`) holds when the route reaches the step, this step and the ones up to the labelled later step are skipped for good; several lines, the first that holds decides |
+| `loop <zone> lvl <n> lap <s> gain\|yield <n> [only <conditions>] [live] [r <yards>] at <x,y> …` | One farming loop (one line each, no `goto` beside them) for the step's one `skill` or `collect` goal: `lvl` the least safe character level, `lap` its seconds, `gain` skill points or `yield` items a lap; the arrow takes the quickest loop safe at the player's level |
 | `loop` | Search the step's `goto` points in order for kill, collect, interact, skill and `use <item> quest Q.O` goals without `@x,y`. With none of those, search for the NPC of its accept, turnin and talk goals. Use at least two points on one map. |
 
 ## Goals
@@ -75,10 +77,10 @@ otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 | `deposit <item> ["Name"]` | Put an item in the bank; done once the bags hold none, or with `x<N>` once the bank holds N (Polestar 0.4.1) | `xN`, no `group` |
 | `kill <npc>` / `kill "<Name>"` | Kill a mob; with `quest Q.O` the quest log counts it, without it the player ticks it | `npc`, `quest`, `xN`, `upto` |
 | `collect <item> ["Name"]` | Loot or gather items; without `quest`, counted in the bags | `npc`, `quest`, `xN`, `nearest`, `anywhere`, `gather`, `upto` |
-| `goto <x>,<y> ["Label"]` | Walk there; for travel and places the data has no target for | `map`, `r`, `era` / `live` only |
+| `goto <x>,<y> ["Label"]` | Walk there; for travel and places the data has no target for. Two or more `goto … nearest` lines in a step are one place of several (anvils, forges): the arrow takes the nearest the character may use (pack format 12, Polestar 0.4.4) | `map`, `r`, `era` / `live`, `nearest` only |
 | `talk <npc>` | Speak to an NPC; with `quest Q.O` it is that quest objective ("Speak with …"), counted by the quest log | `gossip`, `quest`, `upto` |
 | `interact <object>` | Click a game object | `quest`, `upto` |
-| `use <item> ["Name"]` | Use an item | `quest`, `upto` |
+| `use <item> ["Name"]` | Use an item; with `quest Q.O` it counts for that objective and the quest item button shows it; with `anywhere`, used where the player stands (a campfire kit, a lure), no place | `quest`, `upto`, `anywhere` |
 | `sethome "<Location>"` / `sethome nearest` | Bind the hearthstone at an inn (`polestar find --kind inn`) | `npc` |
 | `hearth "<Location>"` | Use the hearthstone; done on landing there | no place modifiers |
 | `die "<Graveyard>" @x,y` | A deathskip: die and take the resurrection at that graveyard's Spirit Healer (the coordinates); done back alive there. The pack then needs Polestar 0.3.0 | `@x,y` required |
@@ -109,7 +111,7 @@ the step comes up, by the player's faction and position; they take no
 coordinates and no `npc` (except `train <Profession> npc <id>`).
 `collect <item> xN nearest` needs its `xN` and no `quest`; so does
 `collect <item> xN anywhere`, which takes no place at all (no coordinates,
-`npc` or `nearest`).
+`npc` or `nearest`). `use <item> anywhere` takes no place either.
 
 ## Modifiers
 
@@ -132,7 +134,7 @@ After the arguments, in any order.
 | `off` | On `buff`: done while the aura is gone; on `equip`: while the item is not worn |
 | `group [N]` | Needs a group (of N players, 2-40); the guide window says so. Elites, dungeon and raid quests are found from the data without it |
 | `only <condition>, ...` | The goal is only for matching characters |
-| `nearest` | The closest vendor, trainer or drop place, picked in game |
+| `nearest` | The closest vendor, trainer or drop place, or of a step's `goto … nearest` points, picked in game |
 | `anywhere` | On `collect`: a bag count with no place; the arrow never leads to it (cloth a profession guide counts as you loot it while levelling) (Polestar 0.3.7) |
 | `gather [<Profession> <rank>] [levels <min>-<max>]` | On `collect`: the item's gather way in a profession guide, beside an `auction` goal for the same item; Polestar applies one of the two per item, by what the player chose (gather, buy or mix). `gather Mining 1` names the profession it takes, `gather levels 15-30` the levels of the mobs it drops from (Polestar 0.4.0) |
 | `until <N>` | On `craft`: until the profession reaches N |
@@ -182,7 +184,36 @@ outcome stays. A pack with `when` (on a step or a `next` line), `along` or
 `when group` or `when knows` predicate, or `skipto`, needs Polestar 0.3.0; with
 a `when taxi` predicate, Polestar 0.4.0; with `either`, `upto`, a `buff`,
 `deposit` or `equip` goal, points on a `rep` goal, or a `when rep`, `when
-buff`, `when equipped` or `when indoors` predicate, Polestar 0.4.1.
+buff`, `when equipped` or `when indoors` predicate, Polestar 0.4.1; with
+`goto … nearest`, Polestar 0.4.4.
+
+## How guides read (Polestar 0.4.4)
+
+- **Every action is a row.** What the player does with an
+  item, object or person is a goal row (`use`, `interact`, `equip`, `talk`,
+  `task` for an emote), never only a tip: the arrow, the map pin and the
+  quest item button follow the rows. An action only some players take ("if
+  one drops") is the same row with `optional`.
+- **Tips say why**, in one short line. Polestar's own guides fail lint on a
+  tip that orders an action no row of its step does; a tip that is right as
+  written takes `# tip-ok: <why>` on the line above it. Packs aren't
+  checked, but write them the same way.
+- **Leveling guides:** a step of only `goto`s, a `fly` or `enter` before a
+  step with work becomes a hidden hint the arrow goes by while it is on the
+  way; the guide's last such steps stay. `keep <kind> <reason>` keeps one a
+  step: `door`, `instance`, `boarding`, `phasing`, `safety`.
+- **Profession guides** (`category Professions`), one action a step under a
+  `section` per range: Learn (`train`), Buy the tool (`buy … nearest`), Get
+  N of one material (`collect … gather` and `auction` in one step: the
+  window offers both), Go to the station (`goto … nearest`), Craft until N,
+  Train the next rank and `learn` its recipes.
+- **Dungeon guides** (`category Dungeons`, titled as the Dungeons page names
+  the dungeon): the pick-ups, `enter "<Dungeon>" @x,y` at the entrance, the
+  run's objectives, then the hand-ins. The window shows the dungeon; inside,
+  the dungeon tracker counts the run's quests for any guide.
+
+Worked examples: `docs/GUIDE_FORMAT.md`, Cookbook ("People and things",
+"Travel", "Professions", "Dungeon guides").
 
 ## Lint errors that come up most
 
@@ -191,6 +222,9 @@ buff`, `when equipped` or `when indoors` predicate, Polestar 0.4.1.
   turn-in is the exception; `complete` and objectives for one are an error).
 - An unknown id without a quoted name; an unknown verb or modifier.
 - A required kill of an elite in a `Leveling` guide.
+- `keep` without a kind (`door`, `instance`, `boarding`, `phasing`,
+  `safety`) or a reason (a warning on a step with work, or outside a
+  leveling guide).
 - A `next` guide none of this guide's characters can follow.
 
 Lint also warns when a quest is accepted and never handed in, when
