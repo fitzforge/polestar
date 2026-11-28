@@ -621,6 +621,11 @@ end
 -- ClosedBy, and again once more quest chunks arrived (Core/Unlocks.lua, the
 -- guide window's quest tooltips).
 local followUps, followUpsOf
+-- A bounded reader can use the index the engine has already built.
+function Q.FollowUpsReady()
+	return questIds ~= nil and followUpsOf == questIds
+end
+
 function Q.FollowUps(id)
 	local ids = Q.QuestIds()
 	if followUpsOf ~= ids then
