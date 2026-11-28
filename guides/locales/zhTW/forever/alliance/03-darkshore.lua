@@ -53,9 +53,10 @@ return {
 
 	-- Step 7: Plagued bears
 	["Plagued bears"] = "染病的熊",
-	-- {area:442} Auberdine · {quest:2139} Tharnariun's Hope
+	-- {area:442} Auberdine · {item:7586} Tharnariun's Hope
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "狂暴薊熊在{area:442}東邊不遠的丘陵遊蕩。對一隻使用{quest:2139}，把牠帶回給他。",
+	-- was: ["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "狂暴薊熊在{area:442}東邊不遠的丘陵遊蕩。對一隻使用{quest:2139}，把牠帶回給他。"
+	["Rabid Thistle Bears roam the hills just east of {area:442}. Use {item:7586} on one and lead it back to him."] = "",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "距{npc:3701}最近的狂暴薊熊",
@@ -240,6 +241,7 @@ return {
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins."] = "沿丘陵向北。{npc:3650}在{quest:954}的廢墟中等著；野生劣魔和惡靈劣魔遍布廢墟，戴瑟雷薩特在東緣。{quest:1001}站在廢墟西邊的路旁。",
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "沿丘陵向北。{npc:3650}在{quest:954}的廢墟中等著；野生劣魔和惡靈劣魔遍布廢墟，戴瑟雷薩特在東緣。{quest:1001}站在廢墟西邊的路旁；前往它的路上，岸邊有一個{quest:4723}。",
 	-- ["Only if a Disciple or Thug dropped {item:5352}: right-click it"] = "只有在暮光信徒或暮光暴徒掉落{item:5352}時：右鍵點擊它",
+	-- ["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "狂暴薊熊在{area:442}東邊不遠的丘陵遊蕩。對一隻使用{quest:2139}，把牠帶回給他。",
 	-- ["Read both tablets"] = "閱讀兩塊石板",
 	-- ["Scaber Stalks"] = "粗柄蘑菇",
 	-- ["She gives you the {item:15826}"] = "她會給你{item:15826}",

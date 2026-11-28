@@ -53,9 +53,10 @@ return {
 
 	-- Step 7: Plagued bears
 	["Plagued bears"] = "染病的熊",
-	-- {area:442} Auberdine · {quest:2139} Tharnariun's Hope
+	-- {area:442} Auberdine · {item:7586} Tharnariun's Hope
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "{npc:2164}在{area:442}东边的山丘上游荡。对一只使用{quest:2139}，然后把它引回他身边。",
+	-- was: ["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "{npc:2164}在{area:442}东边的山丘上游荡。对一只使用{quest:2139}，然后把它引回他身边。"
+	["Rabid Thistle Bears roam the hills just east of {area:442}. Use {item:7586} on one and lead it back to him."] = "",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "{npc:3701} 附近的狂暴蓟熊",
@@ -243,6 +244,7 @@ return {
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins."] = "沿山丘向北。{npc:3650}在{quest:954}的废墟中等候；废墟里满是{npc:2190}和{npc:2189}，东缘是{npc:2212}。{quest:1001}立在废墟西边的路旁。",
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "沿山丘向北。{npc:3650}在{quest:954}的废墟中等候；废墟里满是野生劣魔和恶灵劣魔，东缘是戴瑟雷萨特。{quest:1001}立在废墟西边的路旁；去找它的路上，岸边躺着一只{quest:4723}。",
 	-- ["Only if a Disciple or Thug dropped {item:5352}: right-click it"] = "仅当暮光信徒或暮光暴徒掉落了{item:5352}：右键点击它",
+	-- ["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "{npc:2164}在{area:442}东边的山丘上游荡。对一只使用{quest:2139}，然后把它引回他身边。",
 	-- ["Read both tablets"] = "阅读两块石板",
 	-- ["Scaber Stalks"] = "{item:5271}",
 	-- ["She gives you the {item:15826}"] = "她会给你{item:15826}",

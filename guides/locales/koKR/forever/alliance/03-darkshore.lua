@@ -53,9 +53,10 @@ return {
 
 	-- Step 7: Plagued bears
 	["Plagued bears"] = "병든 곰",
-	-- {area:442} Auberdine · {quest:2139} Tharnariun's Hope
+	-- {area:442} Auberdine · {item:7586} Tharnariun's Hope
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "광포한 엉겅퀴곰이 {area:442} 바로 동쪽 언덕을 돌아다닙니다. 한 마리에게 {quest:2139}을(를) 사용하고 그에게 데려가십시오.",
+	-- was: ["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "광포한 엉겅퀴곰이 {area:442} 바로 동쪽 언덕을 돌아다닙니다. 한 마리에게 {quest:2139}을(를) 사용하고 그에게 데려가십시오."
+	["Rabid Thistle Bears roam the hills just east of {area:442}. Use {item:7586} on one and lead it back to him."] = "",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "",
@@ -240,6 +241,7 @@ return {
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins."] = "언덕을 따라 북쪽으로 가십시오. {npc:3650}은(는) {quest:954} 폐허에서 기다립니다. 폐허에는 광기어린 그렐과 비열한 마귀가 가득하고, 동쪽 끝에는 데스릴 사티로스가 있습니다. {quest:1001}은(는) 폐허 서쪽 길가에 서 있습니다.",
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "언덕을 따라 북쪽으로 가십시오. {npc:3650}은(는) {quest:954} 폐허에서 기다립니다. 폐허에는 광기어린 그렐과 비열한 마귀가 가득하고, 동쪽 끝에는 데스릴 사티로스가 있습니다. {quest:1001}은(는) 폐허 서쪽 길가에 서 있고, 그에게 가는 길의 해안에 {quest:4723}이(가) 놓여 있습니다.",
 	-- ["Only if a Disciple or Thug dropped {item:5352}: right-click it"] = "신도나 암살단원이 {item:5352}을(를) 떨어뜨렸을 때만: 오른쪽 클릭하십시오",
+	-- ["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "광포한 엉겅퀴곰이 {area:442} 바로 동쪽 언덕을 돌아다닙니다. 한 마리에게 {quest:2139}을(를) 사용하고 그에게 데려가십시오.",
 	-- ["Read both tablets"] = "두 석판을 모두 읽으십시오",
 	-- ["Scaber Stalks"] = "껄껄이그물버섯",
 	-- ["She gives you the {item:15826}"] = "그녀가 {item:15826}을(를) 줍니다",

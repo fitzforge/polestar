@@ -53,9 +53,10 @@ return {
 
 	-- Step 7: Plagued bears
 	["Plagued bears"] = "Больные медведи",
-	-- {area:442} Auberdine · {quest:2139} Tharnariun's Hope
+	-- {area:442} Auberdine · {item:7586} Tharnariun's Hope
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "Бешеные колючешерстные медведи бродят по холмам чуть восточнее (ориентир: {area:442}). Примените на одном предмет из задания «{quest:2139}» и приведите медведя к нему.",
+	-- was: ["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "Бешеные колючешерстные медведи бродят по холмам чуть восточнее (ориентир: {area:442}). Примените на одном предмет из задания «{quest:2139}» и приведите медведя к нему."
+	["Rabid Thistle Bears roam the hills just east of {area:442}. Use {item:7586} on one and lead it back to him."] = "",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "",
@@ -243,6 +244,7 @@ return {
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins."] = "На север вдоль холмов. {npc:3650} ждет в руинах ({quest:954}); там полно диких греллей и коварных греллей, на восточном краю – сатиры из племени Дет'рилл. {quest:1001} стоит у дороги к западу от руин.",
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "На север вдоль холмов. {npc:3650} ждет в руинах ({quest:954}); там полно диких греллей и коварных греллей, на восточном краю – сатиры из племени Дет'рилл. {quest:1001} стоит у дороги к западу от руин; по пути к нему на берегу лежит существо ({quest:4723}).",
 	-- ["Only if a Disciple or Thug dropped {item:5352}: right-click it"] = "Только если с послушника или лиходея упал предмет {item:5352}: щелкните по нему правой кнопкой",
+	-- ["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "Бешеные колючешерстные медведи бродят по холмам чуть восточнее (ориентир: {area:442}). Примените на одном предмет из задания «{quest:2139}» и приведите медведя к нему.",
 	-- ["Read both tablets"] = "Прочитайте обе скрижали",
 	-- ["Scaber Stalks"] = "Ножки струпника",
 	-- ["She gives you the {item:15826}"] = "Она дает вам предмет {item:15826}",

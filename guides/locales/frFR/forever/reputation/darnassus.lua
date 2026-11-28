@@ -103,8 +103,9 @@ return {
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the {area:445} cave to the north-east."] = "Le camp de furbolgs au sud de la ville compte pour Quelle est l'ampleur de la menace ? ; les Ours des chardons enragés errent dans les bois au sud de la ville ; les fantômes bien-nés des ruines d'Ameth'Aran, au sud-est de la ville, portent les reliques, et le fantôme d'Anaya y erre aussi ; les ossements sont sur la plage au sud de la ville ; les champignons poussent dans la grotte des {area:445}, au nord-est.",
 	["the corrupt furbolg camp south of town"] = "le camp de furbolgs corrompus au sud de la ville",
-	-- {npc:2164} Rabid Thistle Bear · {quest:2139} Tharnariun's Hope · {npc:3701} Tharnariun Treetender
-	["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164} : utilisez {quest:2139} sur lui et ramenez-le à {npc:3701}",
+	-- {npc:2164} Rabid Thistle Bear · {item:7586} Tharnariun's Hope · {npc:3701} Tharnariun Treetender
+	-- was: ["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164} : utilisez {quest:2139} sur lui et ramenez-le à {npc:3701}"
+	["{npc:2164}: use {item:7586} on it and lead it back to {npc:3701}"] = "",
 	-- {npc:2164} Rabid Thistle Bear
 	["Capture a {npc:2164}"] = "Capturez un {npc:2164}",
 	-- {quest:954} Bashal'Aran
@@ -206,5 +207,6 @@ return {
 	-- ["{npc:14725} takes cloth for {faction:69} in {faction:69}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7801} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14725} recueille le tissu pour {faction:69}, à {faction:69}. Les premiers dons de laine, de soie, de tisse-mage et de {item:14047} (60 étoffes chacun) ne se font qu'une fois et rapportent le plus de réputation par étoffe ; ensuite, {quest:7801} se répète jusqu'à Exalté. Être Exalté auprès de la ville d'une autre race permet d'acheter les montures de cette race. L'atout Diplomate de l'Héritage de Forever augmente les gains de réputation.",
 	-- ["{npc:14725}: {item:14047} delivered"] = "{npc:14725} : {item:14047} livrée",
 	-- ["{npc:2080} tends his garden on the south-east shore of {area:259}; {npc:2107} stands in the {area:736} east of the village."] = "{npc:2080} s'occupe de son jardin sur la rive sud-est du {area:259} ; {npc:2107} se tient dans le {area:736}, à l'est du village.",
+	-- ["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164} : utilisez {quest:2139} sur lui et ramenez-le à {npc:3701}",
 	-- ["{quest:7801} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7801} demande 20 {item:14047} par rendu et se répète autant que vous voulez. Apportez du {item:14047} par multiples de 20 et rendez tout d'un coup, un rendu après l'autre. {item:14047} : Adeptes noirs et Ombremages (niveau 58-60) dans {zone:1423}, ou l'hôtel des ventes.",
 }

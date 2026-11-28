@@ -53,9 +53,10 @@ return {
 
 	-- Step 7: Plagued bears
 	["Plagued bears"] = "Osos apestados",
-	-- {area:442} Auberdine · {quest:2139} Tharnariun's Hope
+	-- {area:442} Auberdine · {item:7586} Tharnariun's Hope
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "Los Osos Cardo rabiosos deambulan por las colinas justo al este de {area:442}. Usa {quest:2139} con uno y llévalo hasta él.",
+	-- was: ["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "Los Osos Cardo rabiosos deambulan por las colinas justo al este de {area:442}. Usa {quest:2139} con uno y llévalo hasta él."
+	["Rabid Thistle Bears roam the hills just east of {area:442}. Use {item:7586} on one and lead it back to him."] = "",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "los osos cardo rabiosos más cercanos a {npc:3701}",
@@ -240,6 +241,7 @@ return {
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins."] = "Hacia el norte por las colinas. {npc:3650} espera en las ruinas de {quest:954}; están llenas de Greles salvajes y Duendes viles, y los Sátiros Deth'ryll ocupan el borde este. {quest:1001} está junto al camino, al oeste de las ruinas.",
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "Hacia el norte por las colinas. {npc:3650} espera en las ruinas de {quest:954}; están llenas de Greles salvajes y Duendes viles, y los Sátiros Deth'ryll ocupan el borde este. {quest:1001} está junto al camino, al oeste de las ruinas; una {quest:4723} yace en la orilla de camino hacia él.",
 	-- ["Only if a Disciple or Thug dropped {item:5352}: right-click it"] = "Solo si un Discípulo o un Matón soltó {item:5352}: haz clic derecho en él",
+	-- ["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "Los Osos Cardo rabiosos deambulan por las colinas justo al este de {area:442}. Usa {quest:2139} con uno y llévalo hasta él.",
 	-- ["Read both tablets"] = "Lee las dos tablillas",
 	-- ["Scaber Stalks"] = "Níscalos",
 	-- ["She gives you the {item:15826}"] = "Te da el {item:15826}",

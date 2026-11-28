@@ -103,8 +103,9 @@ return {
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the {area:445} cave to the north-east."] = "El campamento de fúrbolgs al sur del pueblo cuenta para ¿Qué tan grande es la amenaza?; los osos cardo rabiosos recorren el bosque al sur del pueblo; los fantasmas Altonato de las ruinas de Ameth'Aran, al sureste del pueblo, llevan las reliquias, y el fantasma de Anaya también anda por ahí; los huesos están en la playa al sur del pueblo; los champiñones crecen en la cueva de {area:445}, al noreste.",
 	["the corrupt furbolg camp south of town"] = "el campamento de fúrbolgs corruptos al sur del pueblo",
-	-- {npc:2164} Rabid Thistle Bear · {quest:2139} Tharnariun's Hope · {npc:3701} Tharnariun Treetender
-	["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}: usa {quest:2139} en él y llévalo de vuelta con {npc:3701}",
+	-- {npc:2164} Rabid Thistle Bear · {item:7586} Tharnariun's Hope · {npc:3701} Tharnariun Treetender
+	-- was: ["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}: usa {quest:2139} en él y llévalo de vuelta con {npc:3701}"
+	["{npc:2164}: use {item:7586} on it and lead it back to {npc:3701}"] = "",
 	-- {npc:2164} Rabid Thistle Bear
 	["Capture a {npc:2164}"] = "Captura un {npc:2164}",
 	-- {quest:954} Bashal'Aran
@@ -202,5 +203,6 @@ return {
 	-- ["Syndicate Mercenaries at Stromgarde (level 31-32) drop it here. The Auction House works too."] = "Los mercenarios del Sindicato en Stromgarde (nivel 31-32) la sueltan aquí. También sirve la casa de subastas.",
 	-- ["{npc:14725} takes cloth for {faction:69} in {faction:69}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7801} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14725} acepta tela para {faction:69} en {faction:69}. Las primeras donaciones de Paño de lana, Paño de seda, Tela de paño mágico y {item:14047} (60 telas cada una) se hacen una sola vez y dan la mayor reputación por tela; después, {quest:7801} se repite hasta Exaltado. Ser Exaltado con la ciudad de otra raza te permite comprar las monturas de esa raza. La ventaja de Legado Diplomático de Forever aumenta la reputación obtenida.",
 	-- ["{npc:14725}: {item:14047} delivered"] = "{npc:14725}: {item:14047} entregado",
+	-- ["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}: usa {quest:2139} en él y llévalo de vuelta con {npc:3701}",
 	-- ["{quest:7801} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7801} pide 20 {item:14047} por entrega y se repite tantas veces como quieras. Lleva {item:14047} en múltiplos de 20 y entrégalo todo de una vez, una entrega tras otra. {item:14047}: Adeptos oscuros y magos oscuros (nivel 58-60) en {zone:1423}, o la casa de subastas.",
 }
