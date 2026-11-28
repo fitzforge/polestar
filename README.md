@@ -1153,7 +1153,9 @@ each section says what is missing.
 <summary>Quest item, target and Hearthstone buttons, XP per hour, selling greys and repairing, training, the best quest reward, instant quest text, answers to summons and invitations; Shift skips any of them once.</summary>
 
 
-Quest item, target and Hearthstone buttons; an item you loot that starts a
+Quest item, target and Hearthstone buttons (when the route casts a class
+teleport or hearths, the Hearthstone button offers that cast, and the step
+key casts it once it is off cooldown); an item you loot that starts a
 quest you can take shows on the quest item button, glowing, until you read
 it (the step's own item comes first); inside a dungeon or raid the quest
 tracker shows only that instance's quests and gives you your list back when

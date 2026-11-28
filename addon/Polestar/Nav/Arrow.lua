@@ -839,6 +839,20 @@ local function travelDistColor()
 	if c then distText:SetTextColor(c[1], c[2], c[3]) else distText:SetTextColor(Nav.RGB("text")) end
 end
 
+-- An instruction leg waiting on its cooldown (Travel.WaitText): "Hearthstone ready in 4:12" in the caption's place
+-- and the leg's icon greyed, set again only as the whole seconds change; at 0 the leg's own caption ("Hearth to
+-- Razor Hill"). The arrow points nowhere meanwhile: the leg is cast where the player stands.
+local waitShown = -1 -- whole seconds the caption shows (0: the leg's own caption; -1: set it again)
+local function syncWait(T)
+	local leg = T and T.CurrentLeg and T.CurrentLeg()
+	local wait = leg and T.LegWait and T.LegWait(leg)
+	local secs = wait and wait > 0 and math.ceil(wait - 1e-6) or 0
+	if secs == waitShown then return end
+	waitShown = secs
+	distText:SetText(secs > 0 and T.WaitText(leg) or (T and T.CurrentLabel() or ""))
+	legIcon:SetDesaturated(secs > 0)
+end
+
 local routingPointed = false -- in the "routing" mode, the arrow shown on its straight bearing
 
 local function setMode(m)
@@ -902,13 +916,23 @@ local function setMode(m)
 		-- Act here: "Fly to Lakeshire", "Take the zeppelin to Undercity", "Hearth to Goldshire".
 		local T = Nav.travel
 		local leg = T and T.CurrentLeg and T.CurrentLeg()
-		legIcon:SetTexture(UI_MEDIA .. (leg and LEG_ICON[leg.kind] or "icon-goto"))
 		local r, g, b = Nav.RGB("arrow")
-		legIcon:SetVertexColor(r, g, b, 1)
+		-- A hearth or teleport: the Hearthstone's or the spell's own icon (Travel.LegIcon), the glyph without one.
+		local icon = leg and T.LegIcon and T.LegIcon(leg)
+		if icon then
+			legIcon:SetTexture(icon)
+			legIcon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+			legIcon:SetVertexColor(1, 1, 1, 1)
+		else
+			legIcon:SetTexture(UI_MEDIA .. (leg and LEG_ICON[leg.kind] or "icon-goto"))
+			legIcon:SetTexCoord(0, 1, 0, 1)
+			legIcon:SetVertexColor(r, g, b, 1)
+		end
 		local hr, hg, hb = glowRGB(r, g, b)
 		halo:SetVertexColor(hr, hg, hb, min(1, 0.45 * look.glowStrength))
 		distText:SetTextColor(Nav.RGB("arrowText"))
-		distText:SetText(T and T.CurrentLabel() or "")
+		waitShown = -1
+		syncWait(T)
 		local target = Nav.GetTarget()
 		labelText:SetText(target and target.label or "")
 		etaColor()
@@ -1102,6 +1126,7 @@ local function sample(elapsed)
 	end
 	if state == "instruction" then
 		setMode("instruction")
+		syncWait(T)
 		local secs = showEta and T.Remaining(nil)
 		if secs then showSeconds(secs) else etaText:Hide() end
 		return true

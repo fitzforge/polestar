@@ -7,7 +7,7 @@ use forge_addontest::{emitted, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::Value;
 
 /// Every map frame of data/forever as stub maps, or None without reference data.
-fn maps() -> Option<String> {
+pub fn maps() -> Option<String> {
 	let data_dir = root().join("data/forever");
 	if !data_dir.join("map-frames.json").exists() {
 		eprintln!("skipped: no reference data at data/forever");
