@@ -538,9 +538,11 @@ step Get Rugged Leather
   tip 200 Rugged Leather for Tailoring 225-300: 50 Runecloth Gloves. Skinning: beasts of level 48-60. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 8170 x200 gather Skinning 225
   loop Un'Goro Crater lvl 55 lap 1371 yield 30.8 r 80 at 67.4,15.5 69.1,17.6 70.7,21.4 68.3,21.3 62.5,17.6 64.9,16.8
+  loop Winterspring lvl 58 lap 700 yield 15.4 r 80 at 67.0,44.2 66.1,45.7 66.5,48.6 69.0,48.3 67.9,41.5 65.3,39.6 65.8,41.6
   loop Western Plaguelands lvl 54 lap 700 yield 14.3 r 80 at 45.7,44.0 46.8,39.8 45.4,37.2 43.5,40.2 43.1,46.8 44.9,49.5 46.6,47.3 51.1,47.0
-  loop The Hinterlands lvl 51 lap 2600 yield 51.3 r 80 at 63.7,51.0 67.2,50.9 69.5,54.7 72.0,58.6 66.0,58.2 61.9,55.3 58.7,52.2 54.1,53.1 54.7,44.6 57.4,48.1 62.1,44.3 61.1,48.6
   loop Silithus lvl 56 lap 700 yield 11.2 r 80 at 60.1,25.8 56.5,32.2 55.3,23.4 59.8,19.7 63.5,17.0 62.8,24.1 65.5,27.8 64.2,31.3
+  loop Azshara lvl 53 lap 1029 yield 13.3 only Alliance r 80 at 58.0,20.4 59.7,17.9 56.7,17.4 54.9,15.7 47.9,19.7 47.7,23.8 49.9,24.6 51.0,28.6 52.6,33.0 53.1,25.6 55.3,22.4 58.0,23.4
+  loop The Hinterlands lvl 50 lap 1029 yield 11.3 only Alliance r 80 at 82.1,52.7 82.7,48.2 82.5,43.5 82.5,39.0 75.6,48.7 74.9,55.2 80.0,58.0 78.9,61.3 77.3,64.9 79.8,65.8 84.8,63.8 83.8,57.8
   loop Azshara lvl 57 lap 443 yield 1.5 only Horde r 80 at 22.5,62.5 19.7,66.4 20.5,69.6
   auction 8170 x200
 
@@ -633,9 +635,11 @@ step Get Rugged Leather
   tip 296 Rugged Leather for Tailoring 265-300: 74 Runecloth Shoulders. Skinning: beasts of level 48-60. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 8170 x296 gather Skinning 225
   loop Un'Goro Crater lvl 55 lap 1371 yield 30.8 r 80 at 67.4,15.5 69.1,17.6 70.7,21.4 68.3,21.3 62.5,17.6 64.9,16.8
+  loop Winterspring lvl 58 lap 700 yield 15.4 r 80 at 67.0,44.2 66.1,45.7 66.5,48.6 69.0,48.3 67.9,41.5 65.3,39.6 65.8,41.6
   loop Western Plaguelands lvl 54 lap 700 yield 14.3 r 80 at 45.7,44.0 46.8,39.8 45.4,37.2 43.5,40.2 43.1,46.8 44.9,49.5 46.6,47.3 51.1,47.0
-  loop The Hinterlands lvl 51 lap 2600 yield 51.3 r 80 at 63.7,51.0 67.2,50.9 69.5,54.7 72.0,58.6 66.0,58.2 61.9,55.3 58.7,52.2 54.1,53.1 54.7,44.6 57.4,48.1 62.1,44.3 61.1,48.6
   loop Silithus lvl 56 lap 700 yield 11.2 r 80 at 60.1,25.8 56.5,32.2 55.3,23.4 59.8,19.7 63.5,17.0 62.8,24.1 65.5,27.8 64.2,31.3
+  loop Azshara lvl 53 lap 1029 yield 13.3 only Alliance r 80 at 58.0,20.4 59.7,17.9 56.7,17.4 54.9,15.7 47.9,19.7 47.7,23.8 49.9,24.6 51.0,28.6 52.6,33.0 53.1,25.6 55.3,22.4 58.0,23.4
+  loop The Hinterlands lvl 50 lap 1029 yield 11.3 only Alliance r 80 at 82.1,52.7 82.7,48.2 82.5,43.5 82.5,39.0 75.6,48.7 74.9,55.2 80.0,58.0 78.9,61.3 77.3,64.9 79.8,65.8 84.8,63.8 83.8,57.8
   loop Azshara lvl 57 lap 443 yield 1.5 only Horde r 80 at 22.5,62.5 19.7,66.4 20.5,69.6
   auction 8170 x296
 
@@ -678,9 +682,11 @@ step Get Rugged Leather
   tip 588 Rugged Leather for Tailoring 265-300: 147 Runecloth Boots. Skinning: beasts of level 48-60. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 8170 x588 gather Skinning 225
   loop Un'Goro Crater lvl 55 lap 1371 yield 30.8 r 80 at 67.4,15.5 69.1,17.6 70.7,21.4 68.3,21.3 62.5,17.6 64.9,16.8
+  loop Winterspring lvl 58 lap 700 yield 15.4 r 80 at 67.0,44.2 66.1,45.7 66.5,48.6 69.0,48.3 67.9,41.5 65.3,39.6 65.8,41.6
   loop Western Plaguelands lvl 54 lap 700 yield 14.3 r 80 at 45.7,44.0 46.8,39.8 45.4,37.2 43.5,40.2 43.1,46.8 44.9,49.5 46.6,47.3 51.1,47.0
-  loop The Hinterlands lvl 51 lap 2600 yield 51.3 r 80 at 63.7,51.0 67.2,50.9 69.5,54.7 72.0,58.6 66.0,58.2 61.9,55.3 58.7,52.2 54.1,53.1 54.7,44.6 57.4,48.1 62.1,44.3 61.1,48.6
   loop Silithus lvl 56 lap 700 yield 11.2 r 80 at 60.1,25.8 56.5,32.2 55.3,23.4 59.8,19.7 63.5,17.0 62.8,24.1 65.5,27.8 64.2,31.3
+  loop Azshara lvl 53 lap 1029 yield 13.3 only Alliance r 80 at 58.0,20.4 59.7,17.9 56.7,17.4 54.9,15.7 47.9,19.7 47.7,23.8 49.9,24.6 51.0,28.6 52.6,33.0 53.1,25.6 55.3,22.4 58.0,23.4
+  loop The Hinterlands lvl 50 lap 1029 yield 11.3 only Alliance r 80 at 82.1,52.7 82.7,48.2 82.5,43.5 82.5,39.0 75.6,48.7 74.9,55.2 80.0,58.0 78.9,61.3 77.3,64.9 79.8,65.8 84.8,63.8 83.8,57.8
   loop Azshara lvl 57 lap 443 yield 1.5 only Horde r 80 at 22.5,62.5 19.7,66.4 20.5,69.6
   auction 8170 x588
 

@@ -46,7 +46,7 @@ step Craft 5 Basic Campfire Kits
   craft 1229737 x5
 
 step Learn Mana Well
-  tip Your Alchemy trainer teaches this camp item from Alchemy skill 20.
+  tip A camp item: needs Alchemy skill 20.
   when skill Alchemy 20
   when !knows 1230564
   learn 1230564
@@ -66,7 +66,7 @@ step Craft 1 Mana Well
   craft 1230564 x1
 
 step Learn Sharpening Wheel
-  tip Your Blacksmithing trainer teaches this camp item from Blacksmithing skill 20.
+  tip A camp item: needs Blacksmithing skill 20.
   when skill Blacksmithing 20
   when !knows 1230171
   learn 1230171
@@ -88,7 +88,7 @@ step Craft 1 Sharpening Wheel
   craft 1230171 x1
 
 step Learn Enchanted Lute
-  tip Your Enchanting trainer teaches this camp item from Enchanting skill 20.
+  tip A camp item: needs Enchanting skill 20.
   when skill Enchanting 20
   when !knows 1230643
   learn 1230643
@@ -106,7 +106,7 @@ step Craft 1 Enchanted Lute
   craft 1230643 x1
 
 step Learn Reagent Bot
-  tip Your Engineering trainer teaches this camp item from Engineering skill 20.
+  tip A camp item: needs Engineering skill 20.
   when skill Engineering 20
   when !knows 1230656
   learn 1230656
@@ -126,7 +126,7 @@ step Craft 1 Reagent Bot
   craft 1230656 x1
 
 step Learn Camp Tent
-  tip Your Leatherworking trainer teaches this camp item from Leatherworking skill 20.
+  tip A camp item: needs Leatherworking skill 20.
   when skill Leatherworking 20
   when !knows 1229432
   learn 1229432
@@ -142,7 +142,7 @@ step Craft 1 Camp Tent
   craft 1229432 x1
 
 step Learn Faction Banner
-  tip Your Tailoring trainer teaches this camp item from Tailoring skill 20.
+  tip A camp item: needs Tailoring skill 20.
   when skill Tailoring 20
   when !knows 1229504
   learn 1229504
@@ -162,7 +162,7 @@ step Craft 1 Faction Banner
   craft 1229504 x1
 
 step Learn Incense Candle
-  tip Your Herbalism trainer teaches this camp item from Herbalism skill 20.
+  tip A camp item: needs Herbalism skill 20.
   when skill Herbalism 20
   when !knows 1229705
   learn 1229705
@@ -184,7 +184,7 @@ step Craft 1 Incense Candle
   craft 1229705 x1
 
 step Learn Lodestone
-  tip Your Mining trainer teaches this camp item from Mining skill 20.
+  tip A camp item: needs Mining skill 20.
   when skill Mining 20
   when !knows 1230161
   learn 1230161
@@ -206,7 +206,7 @@ step Craft 1 Lodestone
   craft 1230161 x1
 
 step Learn Camp Chair
-  tip Your Skinning trainer teaches this camp item from Skinning skill 20.
+  tip A camp item: needs Skinning skill 20.
   when skill Skinning 20
   when !knows 1229517
   learn 1229517
@@ -226,7 +226,7 @@ step Craft 1 Camp Chair
   craft 1229517 x1
 
 step Learn First Aid Kit
-  tip Your First Aid trainer teaches this camp item from First Aid skill 20.
+  tip A camp item: needs First Aid skill 20.
   when skill "First Aid" 20
   when !knows 1230117
   learn 1230117
@@ -246,7 +246,7 @@ step Craft 1 First Aid Kit
   craft 1230117 x1
 
 step Learn Fish Bowl
-  tip Your Fishing trainer teaches this camp item from Fishing skill 20.
+  tip A camp item: needs Fishing skill 20.
   when skill Fishing 20
   when !knows 1229745
   learn 1229745

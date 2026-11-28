@@ -4,10 +4,42 @@
 // plainstriders, kodos, scorpids, basilisks, turtles, apes, yetis, owlbeasts,
 // hippogryphs, stags, dinosaurs. Spiders, humanoids, demons, dragonkin and
 // birds of prey are left out. Levels and spawns come from npcs.json.
+// A creature is only taken when the Forever world database can skin it
+// (skinnable.json: type Beast, or skinning loot): Forever makes some of the
+// listed kinds humanoids or demons with no skinning loot, the owlbeasts among
+// them (#4504).
 
+const fs = require('node:fs');
+const path = require('node:path');
 const { bandWeight, skinningReq } = require('./tables');
 const { dist } = require('../../route/geo');
 const { allPoints } = require('./route');
+
+const SKINNABLE_FILE = path.join(__dirname, 'skinnable.json');
+const SKINNABLE_ABOUT = 'The creatures of npcs.json the Forever TrinityCore world database lets a player skin: creature_template type 1 (Beast), or a SkinLootID in creature_template_difficulty (difficulty 0). Written by `node tools/polestar.js profession gathering skinnable`; read by the Skinning loops (tools/lib/professions/gathering/skinning.js).';
+let skinnableSet = null;
+function skinnable() {
+	if (!skinnableSet) skinnableSet = new Set(fs.existsSync(SKINNABLE_FILE) ? JSON.parse(fs.readFileSync(SKINNABLE_FILE, 'utf8')).ids : []);
+	return skinnableSet;
+}
+
+// The skinnable creature ids among `npcs` (npcs.json), from the world database file.
+function deriveSkinnable(tdbFile, npcs) {
+	const { DatabaseSync } = require('node:sqlite');
+	const db = new DatabaseSync(tdbFile, { readOnly: true });
+	try {
+		const rows = db.prepare('SELECT t.entry AS id, t.type AS type, COALESCE(d.SkinLootID, 0) AS skin FROM creature_template t LEFT JOIN creature_template_difficulty d ON d.Entry = t.entry AND d.DifficultyID = 0').all();
+		return rows.filter((r) => npcs[r.id] && (Number(r.type) === 1 || Number(r.skin) > 0)).map((r) => Number(r.id)).sort((a, b) => a - b);
+	} finally {
+		db.close();
+	}
+}
+
+function renderSkinnable(ids) {
+	const lines = [];
+	for (let i = 0; i < ids.length; i += 20) lines.push(`\t\t${ids.slice(i, i + 20).join(', ')}`);
+	return `{\n\t"about": ${JSON.stringify(SKINNABLE_ABOUT)},\n\t"ids": [\n${lines.join(',\n')}\n\t]\n}\n`;
+}
 
 const BEASTS = {
 	// Zephras Isle (Forever): the beasts the Forever TrinityCore DB gives skinning loot (SkinLootID).
@@ -63,15 +95,17 @@ function npcsByName(npcs) {
 	return map;
 }
 
-// Hostile, non-elite spawns on `map` of the listed beasts (the zone's curated list, or `names`: a route's
-// own beasts, steps.js), weighted for the band [from, to). Point fields: name, req, level, w, pt.
+// Hostile, non-elite, skinnable spawns on `map` of the listed beasts (the zone's curated list, or `names`: a
+// route's own beasts, steps.js), weighted for the band [from, to). Point fields: id, name, req, level, w, pt.
 function SKINNING_POINTS(ctx, map, from, to, names = BEASTS[map] || []) {
 	const index = npcsByName(ctx.data.npcs);
+	const can = skinnable();
 	const out = [];
 	for (const name of names) {
 		for (const n of (index.get(name) || []).sort((a, b) => a.id - b.id)) {
 			if (n.faction !== null && n.faction !== undefined) continue;
 			if (n.rank && n.rank !== 'normal' && n.rank !== 0) continue;
+			if (!can.has(Number(n.id))) continue;
 			const s = n.spawns && n.spawns[String(map)];
 			if (!s) continue;
 			const req = skinningReq(n.level);
@@ -80,11 +114,11 @@ function SKINNING_POINTS(ctx, map, from, to, names = BEASTS[map] || []) {
 			for (const [x, y] of allPoints(s)) {
 				const pt = ctx.project.point(map, x, y, s.f);
 				if (out.some((p) => p.name === name && dist(p.pt, pt) < 5)) continue;
-				out.push({ name, req, level: n.level, w, pt });
+				out.push({ id: Number(n.id), name, req, level: n.level, w, pt });
 			}
 		}
 	}
 	return out;
 }
 
-module.exports = { BEASTS, SKINNING_POINTS };
+module.exports = { BEASTS, SKINNING_POINTS, SKINNABLE_FILE, skinnable, deriveSkinnable, renderSkinnable };

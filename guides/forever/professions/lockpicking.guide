@@ -30,20 +30,31 @@ step Buy Thieves' Tools
   tip A tool: Pick Lock does not work without it in your bags.
   buy 5060 x1 nearest
 
-step Pick the boxes until 80
-  tip They come back within seconds. The Jewel of the Southsea in the ship's hold spawns a deadly mob when opened.
-  goto 65.0,45.4 "Buccaneer's Strongboxes" map 1413 only Horde r 30
-  goto 52.0,45.2 "Practice Lockboxes" map 1433 only Alliance r 30
-  skill Lockpicking 80 nearest
+step Pick the Buccaneer's Strongboxes until 80 · the pirate ship near Ratchet
+  tip They come back within seconds. The Jewel of the Southsea in the hold spawns a deadly mob.
+  only Horde
+  goto 65.0,45.4 "the pirate ship near Ratchet" map 1413 r 30
+  skill Lockpicking 80
+
+step Pick the Practice Lockboxes until 80 · north of Lake Everstill, Redridge
+  tip They come back within seconds.
+  only Alliance
+  goto 52.0,45.2 "north of Lake Everstill, Redridge" map 1433 r 30
+  skill Lockpicking 80
 
 step Reach level 20
   tip Lockpicking stops at 5 times your level: 100 needs level 20.
   level 20
 
-step Pick the boxes until 100
-  goto 65.0,45.4 "Buccaneer's Strongboxes" map 1413 only Horde r 30
-  goto 52.0,45.2 "Practice Lockboxes" map 1433 only Alliance r 30
-  skill Lockpicking 100 nearest
+step Pick the Buccaneer's Strongboxes until 100 · the pirate ship near Ratchet
+  only Horde
+  goto 65.0,45.4 "the pirate ship near Ratchet" map 1413 r 30
+  skill Lockpicking 100
+
+step Pick the Practice Lockboxes until 100 · north of Lake Everstill, Redridge
+  only Alliance
+  goto 52.0,45.2 "north of Lake Everstill, Redridge" map 1433 r 30
+  skill Lockpicking 100
 
 section Lockpicking 100-150
 
@@ -51,9 +62,9 @@ step Reach level 30
   tip Lockpicking stops at 5 times your level: 150 needs level 30.
   level 30
 
-step Pick the Waterlogged Footlockers until 150
-  tip On the shore of Zoram Strand; from 110 the ones in the water work too.
-  goto 13.0,23.8 "Zoram Strand footlockers" map 1440 r 30
+step Pick the Waterlogged Footlockers until 150 · Zoram Strand shore, Ashenvale
+  tip From 110 the ones in the water work too.
+  goto 13.0,23.8 "Zoram Strand shore, Ashenvale" map 1440 r 30
   skill Lockpicking 150
 
 section Lockpicking 150-225
@@ -62,9 +73,9 @@ step Reach level 45
   tip Lockpicking stops at 5 times your level: 225 needs level 45.
   level 45
 
-step Pick the footlockers of Angor Fortress until 225
-  tip Battered Footlockers upstairs; from 175 the Dented ones downstairs, a point every time up to 215.
-  goto 41.5,28.1 "Angor Fortress" map 1418 r 30
+step Pick the Battered Footlockers until 225 · Angor Fortress, Badlands
+  tip From 175 the Dented ones count too: a point every time up to 215.
+  goto 41.5,28.1 "Angor Fortress, Badlands" map 1418 r 30
   skill Lockpicking 225
 
 section Lockpicking 225-300
@@ -73,8 +84,8 @@ step Reach level 60
   tip Lockpicking stops at 5 times your level: 300 needs level 60.
   level 60
 
-step Pick the Dented Footlockers until 300
-  tip Points all the way to 300; past 290 a point comes less often. Lost Rigger Cove has the same boxes.
-  goto 45.3,32.0 "The Slag Pit, upper level" map 1427 r 30
-  goto 73.5,46.6 "Lost Rigger Cove" map 1446 r 30
+step Pick the Dented Footlockers until 300 · The Slag Pit, Searing Gorge or Lost Rigger Cove, Tanaris
+  tip Points all the way to 300; past 290 a point comes less often.
+  goto 45.3,32.0 "The Slag Pit, Searing Gorge" map 1427 r 30
+  goto 73.5,46.6 "Lost Rigger Cove, Tanaris" map 1446 r 30
   skill Lockpicking 300 nearest

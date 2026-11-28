@@ -94,11 +94,11 @@ step Go to a forge
   goto 43.4,15.4 "Forge" map 1459 nearest only Alliance
   goto 49.4,82.7 "Forge" map 1459 nearest only Horde
 
-step Smelt 140 Copper Bars
-  tip Every bar gives a point up to 25. Keep 70 of the bars: Bronze takes them at 65.
+step Smelt 140 Copper Bars · keep 70 for Bronze
+  tip Every bar gives a point up to 25; Smelt Bronze takes a Copper Bar each.
   craft 2657 x140
 
-step Mine Copper until 65
+step Mine Chunk of Amber and Copper until 65
   tip Only if the smelting left you short of 65.
   loop Zephras Isle lvl 5 lap 310 gain 6.7 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
   loop Teldrassil lvl 11 lap 569 gain 9.5 only Alliance r 60 at 56.9,26.3 56.0,25.0 56.2,28.8 51.4,49.1 52.3,51.7 54.5,51.9 52.9,49.3 56.8,31.9 57.7,29.1 58.2,27.2
@@ -182,7 +182,7 @@ step Smelt 70 Bronze Bars
   tip A Copper Bar and a Tin Bar each. You end up near 105.
   craft 2659 x70
 
-step Mine Tin until 125
+step Mine Copper, Incendicite and Tin until 125
   tip Cave mobs respawn fast: worth it only well above their level.
   loop Loch Modan lvl 15 lap 465 gain 1.6 only Alliance r 60 at 25.7,45.5 26.0,50.9 26.7,57.4 29.3,72.4 35.1,57.1 45.8,61.5 36.2,23.3 36.0,16.8 23.1,24.5 22.7,31.5 26.0,31.3 23.7,36.7
   loop The Barrens lvl 14 lap 371 gain 0.7 only Horde r 60 at 45.0,23.0 43.7,22.7 43.0,21.1 44.8,21.3 45.3,22.3 46.2,20.7 47.2,22.7 44.9,25.1
@@ -260,7 +260,7 @@ step Smelt 20 Iron Bars
   tip Iron gives a point every time up to 130; you end up near 138.
   craft 3307 x20
 
-step Mine Iron until 155
+step Mine Tin and Iron until 155
   tip No smelt gives points from 140 to 155.
   loop Thousand Needles lvl 28 lap 626 gain 3.0 only Horde r 60 at 42.7,33.7 44.6,39.3 40.2,50.8 37.0,54.3 35.8,50.7 34.4,53.4 33.0,51.2 30.1,45.9 23.7,44.8 23.9,23.4 28.1,28.1 34.6,26.7
   loop Duskwood lvl 25 lap 611 gain 1.1 only Alliance r 60 at 86.1,48.7 85.5,54.0 84.1,58.3 82.7,53.0 79.5,40.5 82.9,35.9
@@ -276,8 +276,8 @@ step Mine Iron until 155
   loop Desolace lvl 42 lap 615 gain 2.3 only Horde r 60 at 32.3,62.8 29.8,56.6 30.6,51.2 34.7,51.9 40.8,48.5 40.2,55.5 35.4,56.5 36.9,59.4 38.7,68.2 42.3,74.5 32.1,71.6 29.5,71.3
   skill Mining 155
 
-step Mine Iron until 175
-  tip Gold Veins need Mining skill 155.
+step Mine Tin and Iron until 175
+  tip Iron still gives points all the way to 175.
   loop Thousand Needles lvl 31 lap 715 gain 4.0 only Horde r 60 at 26.9,53.2 26.3,55.7 11.1,38.5 10.1,36.0 10.9,32.2 23.9,23.4 34.6,26.9 42.6,33.4 44.7,39.2 53.9,45.6 55.6,49.6 35.9,50.7
   loop Wetlands lvl 32 lap 619 gain 2.7 only Alliance r 60 at 69.5,28.9 63.0,25.2 61.5,24.0 53.2,52.1 49.4,52.2 48.6,50.3 41.9,46.2 38.1,45.4 46.7,62.8 50.6,61.9 69.6,33.2 67.9,31.6
   loop Thousand Needles lvl 31 lap 624 gain 2.5 only Alliance r 60 at 26.9,53.2 26.3,55.7 16.6,40.9 21.8,41.2 23.7,44.8 26.4,47.0 28.8,49.0 30.1,45.9 33.0,51.2 35.9,50.7 37.0,54.3 34.4,53.4
@@ -296,7 +296,7 @@ step Mine Iron until 175
 
 section Mining 175-245
 
-step Mine Mithril until 200
+step Mine Iron, Gold and Mithril until 200
   tip Mithril Deposits need Mining skill 175.
   loop Alterac Mountains lvl 36 lap 647 gain 5.7 only Alliance r 60 at 50.9,44.2 53.2,48.4 37.0,73.7 32.3,65.0 30.8,56.5 33.3,43.9 35.6,39.7 37.9,32.5 42.8,34.7 45.4,39.8 48.0,33.1 52.7,36.8
   loop Alterac Mountains lvl 36 lap 632 gain 3.7 only Horde r 60 at 50.9,44.2 49.1,45.2 45.4,39.8 48.0,33.1 52.7,36.8 55.1,40.6 54.1,45.6 53.2,48.4 51.2,47.3
@@ -312,7 +312,7 @@ step Train Artisan Mining
   tip Needs Mining skill 200; past 225 nothing gives points without it.
   train Mining Artisan
 
-step Mine Mithril until 230
+step Mine Iron, Gold and Mithril until 230
   loop Alterac Mountains lvl 37 lap 648 gain 3.1 only Alliance r 60 at 50.9,44.2 53.2,48.4 37.0,73.7 32.3,65.0 30.8,56.5 33.3,43.9 35.6,39.7 37.9,32.5 42.8,34.7 45.4,39.8 48.0,33.1 52.7,36.8
   loop Alterac Mountains lvl 38 lap 641 gain 2.7 only Horde r 60 at 50.9,44.2 53.2,48.4 54.1,45.6 55.1,40.6 52.7,36.8 48.0,33.1 42.8,34.7 37.9,32.5 35.6,39.7 33.3,43.9 39.5,38.0 45.4,39.8
   loop Badlands lvl 42 lap 637 gain 2.3 r 60 at 15.6,35.0 12.1,35.1 14.3,39.8 23.9,66.4 15.1,81.7 20.8,82.2 42.2,79.6 44.3,75.3 45.4,84.6 64.3,70.4 62.4,63.8 34.4,23.3
@@ -323,7 +323,7 @@ step Mine Mithril until 230
   loop Tanaris lvl 50 lap 913 gain 2.7 only Horde r 60 at 57.1,69.5 58.2,75.1 55.2,75.9 55.7,77.7 54.7,77.4 31.8,79.3 33.4,46.1 35.3,42.8 41.6,57.6 53.6,72.6 56.0,71.4 55.5,69.9
   skill Mining 230
 
-step Mine Mithril and Truesilver until 245
+step Mine Gold, Mithril and Truesilver until 245
   tip Truesilver Deposits need Mining skill 230.
   loop Badlands lvl 45 lap 633 gain 1.2 r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 42.2,80.0 34.4,23.3 15.6,35.2 12.1,35.1 14.3,39.8 7.6,73.3 6.1,77.3 4.0,80.4
   loop Alterac Mountains lvl 37 lap 628 gain 1.1 only Alliance r 60 at 50.9,44.2 53.6,48.5 37.0,73.7 32.3,65.0 30.8,56.5 33.3,43.9 35.6,39.7 37.9,32.5 42.8,34.7 45.6,40.6 48.1,33.1 52.7,36.8
@@ -338,7 +338,7 @@ step Mine Mithril and Truesilver until 245
 
 section Mining 245-275
 
-step Mine Small Thorium until 275
+step Mine Mithril, Truesilver and Small Thorium until 275
   tip Small Thorium Veins need Mining skill 245.
   loop Tanaris lvl 50 lap 965 gain 3.1 r 60 at 57.2,68.7 56.5,73.2 55.4,73.0 29.7,68.4 29.4,64.8 31.0,63.8 33.4,46.1 35.1,46.8 62.7,48.5 64.4,47.1 65.5,52.3 64.0,53.3
   loop The Hinterlands lvl 51 lap 718 gain 3.0 r 60 at 54.9,67.3 52.1,65.4 33.7,65.0 37.1,67.5 57.9,84.2 72.6,61.9 65.5,41.2 59.1,41.5 57.0,43.1 66.8,52.4 64.4,64.2 56.6,68.6
@@ -354,7 +354,7 @@ step Mine Small Thorium until 275
 
 section Mining 275-300
 
-step Mine Small Thorium and Rich Thorium until 300
+step Mine Truesilver, Small Thorium and Rich Thorium until 300
   tip Rich Thorium Veins need Mining skill 275.
   loop Un'Goro Crater lvl 56 lap 621 gain 2.6 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
   loop Azshara lvl 55 lap 688 gain 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9

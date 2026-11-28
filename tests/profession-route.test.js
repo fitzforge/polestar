@@ -212,3 +212,25 @@ test('a gathering route that trains a rank before its skill, or goes past the ca
 	long.sections[0].steps[1].tip = 'Buy it from the vendor.';
 	assert.throws(() => renderRoute(ctx, prof, long), /a tip that tells the player to do something/);
 });
+
+// #4504: Forever makes some of the curated kinds humanoids or demons with no skinning loot (the owlbeasts of the
+// Hinterlands and Winterspring, the Redridge Thrashers): a Skinning loop never leads to a creature a player
+// cannot skin (skinnable.json: type Beast, or skinning loot in the world database).
+test('no skinning loop targets a creature that cannot be skinned (#4504)', { skip }, () => {
+	const { context } = require('../tools/lib/professions/gathering/common');
+	const S = require('../tools/lib/professions/gathering/skinning');
+	const ctx = context(DATA);
+	const can = S.skinnable();
+	for (const owl of [2927, 2928, 2929]) assert.ok(!can.has(owl), `owlbeast ${owl} is no beast and has no skinning loot on Forever`);
+	const route = loadRoute('skinning');
+	const lists = Object.entries(S.BEASTS).map(([map, names]) => [Number(map), names]);
+	for (const sec of route.sections) for (const e of sec.steps) for (const [zone, names] of Object.entries(e.mobs || {})) {
+		const map = Object.keys(ctx.data.zones).find((z) => (ctx.data.zone(Number(z)) || {}).name === zone);
+		lists.push([Number(map), names]);
+	}
+	const bad = [];
+	for (const [map, names] of lists) for (const p of S.SKINNING_POINTS(ctx, map, 1, 300, names)) if (!can.has(p.id)) bad.push(`${map} ${p.name} (${p.id})`);
+	assert.deepEqual([...new Set(bad)], []);
+	const owlsOut = S.SKINNING_POINTS(ctx, 1425, 1, 300, ['Vicious Owlbeast', 'Primitive Owlbeast', 'Savage Owlbeast']);
+	assert.deepEqual(owlsOut, [], 'the Hinterlands owlbeasts give no skinning point');
+});

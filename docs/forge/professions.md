@@ -97,14 +97,14 @@ the same stand safety, or is reported by the build (`note: … has no safe loop`
 | `{ tool: <item> }`, `{ buy: <item>, count }` | **Buy a <tool>** / **Buy N <item>** (`buy … nearest`) |
 | `{ track: <spell>, name }` | **Turn on <tracking>** (`cast`) |
 | `{ get: <ore>, count, rank }` | **Get N <ore>**: `collect … gather` on the loops that give it, and `auction` |
-| `{ smelt: <spell>, count, to }` | **Go to a forge** (once before a run of smelts) and **Smelt N <bars>**; the ore must be in the bags from a get before it |
-| `{ gather: N, zones?, mobs?, title? }` | **Mine / Pick / Skin … until N** (`skill` on the loops of the planner's band ending at N; `zones` per side add loops, `mobs` per zone puts a Skinning loop on those beasts); Fishing: **Fish … until N** on the rounds of the named waters (`fish-rounds.js`), with the band's `level` |
+| `{ smelt: <spell>, count, to, row? }` | **Go to a forge** (once before a run of smelts) and **Smelt N <bars>** (`row`: what to keep, "keep 70 for Bronze"); the ore must be in the bags from a get before it |
+| `{ gather: N, zones?, mobs?, title?, how? }` | **Mine / Pick / Skin … until N** (`skill` on the loops of the planner's band ending at N; `zones` per side add loops, `mobs` per zone puts a Skinning loop on those beasts). The row names every kind the loops still gather (rare ones aside), or for Skinning the beasts' levels; the build fails on a tip that names a herb or ore the row leaves out, or gives beast levels. Skinning loops take only creatures the world database lets a player skin (`skinnable.json`, `profession gathering skinnable`: type Beast, or skinning loot; #4504). Fishing: **Fish … until N** on the rounds of the named waters (`fish-rounds.js`), with the band's `level` (never under the zone's own) and `how` as a note line |
 | `{ lure: <item> }` | **Buy N <lures>**: enough for the next fishing step's catches below its waters' no-getaway skill |
 | `{ equip: <item> }`, `{ use: <item> }`, `{ level: N }` | **Equip the <item>**, a use (a lure on the pole), **Reach level N** |
-| `{ book: <item> }` | **Buy <book>** and **Read <book>**, the rank the book teaches (professions.json rank `book`) |
+| `{ book: <item>, row? }` | **Buy <book> · <row>** and **Read <book>**, the rank the book teaches (professions.json rank `book`) |
 | `{ pagle: true, where }` | Artisan Fishing: the fishing trainer's quest, Nat Pagle's, a step per fish, the hand-in and the rank |
 | `{ spell, name, minLevel }` | **Learn <class spell>** at the class trainer, skipped once known (Pick Lock) |
-| `{ pick: N, at: [{ object, map, label, only? }], title }` | **Pick … until N** at the boxes' places (each object's spawns on that map) |
+| `{ pick: N, at: [{ object, map, boxes, place, only?, tip? }] }` | **Pick the <boxes> until N · <place>** at the boxes' spawns on that map; one step per side where the sides' boxes differ |
 
 ## Profession guide rules
 

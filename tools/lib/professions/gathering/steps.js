@@ -22,7 +22,12 @@
 
 const { FACTIONS, zoneName, fmt } = require('./common');
 const { header } = require('../../generated');
-const { ZONES } = require('./tables');
+const { ZONES, HERB_NODES, MINING_NODES } = require('./tables');
+
+// A node kind as a row names it: the vein or deposit word dropped, Forever's starter kinds (Wilted Peacebloom,
+// Poor Copper Vein, Large Chunk of Amber) under the kind they share.
+const shortNode = (n) => n.replace(/ (Mineral Vein|Vein|Deposit)$/, '').replace(/^(Wilted|Stunted|Poor|Large) /, '');
+const listed = (names) => (names.length > 1 ? `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}` : names[0] || '');
 
 const CAP = { Apprentice: 75, Journeyman: 150, Expert: 225, Artisan: 300 };
 const VERB = { Mining: 'Mine', Herbalism: 'Pick', Skinning: 'Skin' };
@@ -89,8 +94,15 @@ function renderRoute(ctx, prof, route) {
 		return text;
 	};
 	let lastKind = null;
+	// A gathering step's tip names no herb or ore its row leaves out, and gives no beast levels (the row's range
+	// is what the loops skin): the row says what to gather, the tip only why.
+	const NODES = Object.keys(P === 'Mining' ? MINING_NODES : P === 'Herbalism' ? HERB_NODES : {}).map(shortNode);
 	const step = (kind, title, tip, lines) => {
 		const t = tipOf(tip);
+		if (kind === 'gather' && t) {
+			for (const n of new Set(NODES)) if (new RegExp(`\\b${n}\\b`).test(t) && !title.includes(n)) errs.push(`"${title}": the tip names ${n}, which the row does not`);
+			if (prof.skins && /\blevel \d/.test(t)) errs.push(`"${title}": beast levels belong in the row, not the tip: "${t}"`);
+		}
 		out.push('', `step ${title}`, ...(t ? [`  tip ${t}`] : []), ...lines);
 		lastKind = kind;
 	};
@@ -198,22 +210,27 @@ function renderRoute(ctx, prof, route) {
 	const pagleSteps = (e) => {
 		const pagle = ctx.data.quest(6607);
 		const firsts = { Alliance: 6609, Horde: 6608 };
+		const placeOf = (npc) => {
+			const n = ctx.data.npc(npc);
+			const map = Object.keys(n.spawns || {})[0];
+			return `${n.name}, ${zoneName(ctx, Number(map))}`;
+		};
 		for (const side of FACTIONS) {
 			const q = ctx.data.quest(firsts[side]);
-			const giver = ctx.data.npc(q.start.npc[0]);
 			if (!(pagle.pre || []).includes(q.id)) errs.push(`quest ${q.id} is no step before Nat Pagle's in the data`);
-			step('quest', `Accept ${q.title}`, `${giver.name}, the fishing trainer, sends you to Nat Pagle in Dustwallow Marsh.`, [`  only ${side}`, `  accept ${q.id}`]);
+			step('quest', `Accept ${q.title} · ${placeOf(q.start.npc[0])}`, 'The fishing trainer sends you to Nat Pagle, who teaches Artisan.', [`  only ${side}`, `  accept ${q.id}`]);
 		}
-		for (const side of FACTIONS) step('quest', `Hand in ${ctx.data.quest(firsts[side]).title}`, 'Nat Pagle fishes from a small island off the east coast, south of Theramore.', [`  only ${side}`, `  turnin ${firsts[side]}`]);
-		step('quest', `Accept ${pagle.title}`, 'Four fish, each from its own water; about one catch in five brings it up there.', [`  accept 6607`]);
+		for (const side of FACTIONS) step('quest', `Hand in ${ctx.data.quest(firsts[side]).title} · Nat Pagle, island off Dustwallow Marsh`, 'His island lies off the east coast, south of Theramore.', [`  only ${side}`, `  turnin ${firsts[side]}`]);
+		step('quest', `Accept ${pagle.title} · Nat Pagle`, 'Four fish, each from its own water; about one catch in five brings it up there.', [`  accept 6607`]);
 		for (const f of F.PAGLE_FISH) {
 			const item = itemName(f.item);
+			const w = (e.where || {})[f.item] || {};
 			if (f.full > 225) step('buy', `Buy 2 ${itemName(F.BRIGHT_BAUBLES)}`, `Fish get away in ${zoneName(ctx, f.zone)} below skill ${f.full}; a lure adds 75 for ten minutes.`, [`  buy ${F.BRIGHT_BAUBLES} x2 nearest`]);
 			const per = FACTIONS.map((side) => ({ side, c: F.spot(ctx, f, F.anchorFor(ctx, f, side), side) }));
 			if (per.some((p) => !p.c)) errs.push(`no ${item} spot in ${zoneName(ctx, f.zone)}`);
 			else {
 				const same = Math.hypot(per[0].c.pt.x - per[1].c.pt.x, per[0].c.pt.y - per[1].c.pt.y) < 1;
-				for (const p of same ? [per[0]] : per) step('collect', `Catch a ${item}`, e.where && e.where[f.item], [...(same ? [] : [`  only ${p.side}`]), `  zone ${zoneName(ctx, f.zone)}`, `  collect ${f.item} x1 quest 6607 @${fmt(p.c.pt.x)},${fmt(p.c.pt.y)}`]);
+				for (const p of same ? [per[0]] : per) step('collect', `Catch a ${item} · ${w[p.side] || w.row || zoneName(ctx, f.zone)}`, w.tip, [...(same ? [] : [`  only ${p.side}`]), `  zone ${zoneName(ctx, f.zone)}`, `  collect ${f.item} x1 quest 6607 @${fmt(p.c.pt.x)},${fmt(p.c.pt.y)}`]);
 			}
 		}
 		step('quest', `Hand in ${pagle.title}`, null, ['  zone Dustwallow Marsh', '  turnin 6607']);
@@ -280,14 +297,14 @@ function renderRoute(ctx, prof, route) {
 					}
 					stock.set(r.item, (stock.get(r.item) || 0) + e.count);
 					if (r.focus && lastKind !== 'smelt' && lastKind !== 'station') step('station', `Go to ${/^[aeiou]/i.test(r.focus) ? 'an' : 'a'} ${r.focus.toLowerCase()}`, null, stationLines(r.focus));
-					step('smelt', `Smelt ${e.count} ${itemName(r.item)}s`, e.tip, [`  craft ${r.spell} x${e.count}`]);
+					step('smelt', `Smelt ${e.count} ${itemName(r.item)}s${e.row ? ` · ${e.row}` : ''}`, e.tip, [`  craft ${r.spell} x${e.count}`]);
 					if (e.to) skill = Math.max(skill, e.to);
 				} else if (e.gather && P === 'Fishing') {
 					if (rank && e.gather > CAP[rank]) errs.push(`${e.gather} is past the ${rank} cap (${CAP[rank]})`);
 					const waters = fishWaters(skill, e);
 					fishWatersAt.set(e, waters);
 					if (!waters.length) errs.push(`Fishing ${skill}-${e.gather}: no water with a safe round`);
-					step('gather', `Fish ${e.title || 'here'} until ${e.gather}`, e.tip, [...waters.map((w) => `  ${FR.loopLine(ctx, w)}`), `  skill ${pq} ${e.gather}`]);
+					step('gather', `Fish ${e.title || 'here'} until ${e.gather}`, e.tip, [...(e.how ? [`  note ${e.how}`] : []), ...waters.map((w) => `  ${FR.loopLine(ctx, w)}`), `  skill ${pq} ${e.gather}`]);
 					skill = e.gather;
 				} else if (e.gather) {
 					const b = bandAt(e.gather, skill);
@@ -295,8 +312,12 @@ function renderRoute(ctx, prof, route) {
 					if (rank && e.gather > CAP[rank]) errs.push(`${e.gather} is past the ${rank} cap (${CAP[rank]})`);
 					const loops = loopsOf(b, e);
 					const nodes = B.nodeSummary(prof, loops.flatMap((l) => l.farm.on), b.from, b.to);
-					const lv = nodes.filter((n) => n.color && n.color !== 'grey').map((n) => n.level);
-					const what = e.title || (prof.skins ? `beasts of level ${Math.min(...lv)}-${Math.max(...lv)}` : prof.bandTitle(nodes, b).replace(/ & /g, ' and '));
+					// The row names what the loops gather: every kind that still gives points there (rare ones aside), or
+					// for Skinning the levels of the beasts the loops hold.
+					const live = nodes.filter((n) => n.color && n.color !== 'grey' && n.gain > 0);
+					const lv = live.map((n) => n.level);
+					const kinds = [...new Set((live.some((n) => !n.rare) ? live.filter((n) => !n.rare) : live).map((n) => ({ req: n.req, name: shortNode(n.name) })).sort((a, b) => a.req - b.req || a.name.localeCompare(b.name)).map((n) => n.name))];
+					const what = e.title || (prof.skins ? `beasts of level ${Math.min(...lv)}-${Math.max(...lv)}` : listed(kinds));
 					step('gather', `${VERB[P]} ${what} until ${e.gather}`, e.tip, [...loops.map((l) => B.loopLine(ctx, prof, l)), `  skill ${pq} ${e.gather}`]);
 					skill = e.gather;
 				} else if (e.buy) {
@@ -325,20 +346,30 @@ function renderRoute(ctx, prof, route) {
 					// Lockpicking: boxes to pick at their places (each object's spawns on its map, from the data); the skill
 					// stops at `levelCap` times the character level, so a level step comes first where the target asks it.
 					if (route.levelCap) reach(Math.ceil(e.pick / route.levelCap), `${P} stops at ${route.levelCap} times your level: ${e.pick} needs level ${Math.ceil(e.pick / route.levelCap)}.`);
-					const lines = [];
+					// One step per side where the sides pick different boxes (each `at` with its `only`): the row names the
+					// boxes and the place.
+					const groups = new Map();
 					for (const a of e.at) {
-						const o = ctx.data.objects[a.object];
-						const s = o && o.spawns && o.spawns[String(a.map)];
-						if (!s) {
-							errs.push(`object ${a.object} has no spawn on map ${a.map}`);
-							continue;
-						}
-						const pts = [...(s.pts || []), ...(s.more || [])];
-						const x = pts.reduce((t, p) => t + p[0], 0) / pts.length;
-						const y = pts.reduce((t, p) => t + p[1], 0) / pts.length;
-						lines.push(`  goto ${fmt(x)},${fmt(y)} "${a.label || o.name}" map ${a.map}${s.f === 'l' ? ' live' : ''}${a.only ? ` only ${a.only}` : ''} r 30`);
+						if (!groups.has(a.only || '')) groups.set(a.only || '', []);
+						groups.get(a.only || '').push(a);
 					}
-					step('gather', `Pick ${e.title} until ${e.pick}`, e.tip, [...lines, `  skill ${pq} ${e.pick}${lines.length > 1 ? ' nearest' : ''}`]);
+					for (const [only, list] of groups) {
+						const lines = [];
+						for (const a of list) {
+							const o = ctx.data.objects[a.object];
+							const s = o && o.spawns && o.spawns[String(a.map)];
+							if (!s) {
+								errs.push(`object ${a.object} has no spawn on map ${a.map}`);
+								continue;
+							}
+							const pts = [...(s.pts || []), ...(s.more || [])];
+							const x = pts.reduce((t, p) => t + p[0], 0) / pts.length;
+							const y = pts.reduce((t, p) => t + p[1], 0) / pts.length;
+							lines.push(`  goto ${fmt(x)},${fmt(y)} "${a.place}" map ${a.map}${s.f === 'l' ? ' live' : ''} r 30`);
+						}
+						const boxes = [...new Set(list.map((a) => a.boxes))].join(' and ');
+						step('gather', `Pick the ${boxes} until ${e.pick} · ${list.map((a) => a.place).join(' or ')}`, list[0].tip || e.tip, [...(only ? [`  only ${only}`] : []), ...lines, `  skill ${pq} ${e.pick}${lines.length > 1 ? ' nearest' : ''}`]);
+					}
 					skill = e.pick;
 				} else if (e.book) {
 					// A rank taught by a book (professions.json rank `book`): buy it, then read it.
@@ -348,7 +379,7 @@ function renderRoute(ctx, prof, route) {
 						continue;
 					}
 					if (r.minSkill > skill) errs.push(`${r.name} needs skill ${r.minSkill}; the route is at ${skill}`);
-					step('buy', `Buy ${itemName(e.book)}`, e.tip, [`  buy ${e.book} x1 nearest`, `  auction ${e.book} x1`]);
+					step('buy', `Buy ${itemName(e.book)}${e.row ? ` · ${e.row}` : ''}`, e.tip, [`  buy ${e.book} x1 nearest`, `  auction ${e.book} x1`]);
 					step('train', `Read ${itemName(e.book)}`, `It teaches ${r.name} ${P}: needs ${P} skill ${r.minSkill} and level ${r.minLevel}.`, [`  train ${pq} ${r.name} "Read ${itemName(e.book)}"`]);
 					rank = r.name;
 				} else if (e.pagle) {

@@ -14,8 +14,32 @@
 			"item": 6256,
 			"at": "learn",
 			"vendors": {
-				"Horde": [5942, 3081, 3550, 257008, 254360, 3333, 4574, 3029, 12962, 14740],
-				"Alliance": [66, 8508, 10118, 257008, 254360, 5494, 5162, 4222, 1684, 3178, 1678, 2383]
+				"Horde": [
+					5942,
+					3081,
+					3550,
+					257008,
+					254360,
+					3333,
+					4574,
+					3029,
+					12962,
+					14740
+				],
+				"Alliance": [
+					66,
+					8508,
+					10118,
+					257008,
+					254360,
+					5494,
+					5162,
+					4222,
+					1684,
+					3178,
+					1678,
+					2383
+				]
 			}
 		}
 	],
@@ -24,46 +48,174 @@
 			"from": 1,
 			"to": 75,
 			"steps": [
-				{ "train": "Apprentice" },
-				{ "tool": 6256, "tip": "Equipped like a weapon while you fish." },
-				{ "buy": 6529, "count": 2, "plural": "Shiny Baubles", "tip": "A lure: +25 Fishing for ten minutes, so fewer fish get away." },
-				{ "equip": 6256, "tip": "Fishing needs the pole in your hands; your weapon goes back on after." },
-				{ "use": 6529, "title": "Put a Shiny Bauble on the pole", "tip": "It lasts ten minutes." },
-				{ "gather": 75, "title": "near your starting area", "level": 1, "zones": { "Horde": ["Durotar", "Mulgore", "Tirisfal Glades", "Zephras Isle"], "Alliance": ["Elwynn Forest", "Dun Morogh", "Teldrassil", "Zephras Isle"] }, "tip": "The bobber splashes when a fish bites; a right-click on it lands the catch. Every catch gives a point." }
+				{ "train": "Apprentice"
+				},
+				{ "tool": 6256,
+					"tip": "Equipped like a weapon while you fish."
+				},
+				{ "buy": 6529,
+					"count": 2,
+					"plural": "Shiny Baubles",
+					"tip": "A lure: +25 Fishing for ten minutes, so fewer fish get away."
+				},
+				{ "equip": 6256,
+					"tip": "Fishing needs the pole in your hands; your weapon goes back on after."
+				},
+				{ "use": 6529,
+					"title": "Put a Shiny Bauble on the pole",
+					"tip": "It lasts ten minutes."
+				},
+				{ "gather": 75,
+					"title": "near your starting area",
+					"level": 1,
+					"zones": {
+						"Horde": [
+							"Durotar",
+							"Mulgore",
+							"Tirisfal Glades",
+							"Zephras Isle"
+						],
+						"Alliance": [
+							"Elwynn Forest",
+							"Dun Morogh",
+							"Teldrassil",
+							"Zephras Isle"
+						]
+					},
+					"tip": "Every catch gives a point.",
+					"how": "Cast, then right-click the bobber when it splashes."
+				}
 			]
 		},
 		{
 			"from": 75,
 			"to": 150,
 			"steps": [
-				{ "level": 10, "tip": "Journeyman Fishing needs level 10." },
-				{ "train": "Journeyman" },
-				{ "gather": 150, "title": "in a capital or a nearby lake", "level": 10, "zones": { "Alliance": ["Stormwind City", "Darnassus", "Ironforge", "Darkshore", "Loch Modan", "Westfall"], "Horde": ["Orgrimmar", "Undercity", "Thunder Bluff", "The Barrens", "Silverpine Forest"] }, "tip": "Nightcrawlers on the pole help when fish keep getting away." }
+				{ "level": 10,
+					"tip": "Journeyman Fishing needs level 10."
+				},
+				{ "train": "Journeyman"
+				},
+				{ "gather": 150,
+					"title": "in a capital or a nearby lake",
+					"level": 10,
+					"zones": {
+						"Alliance": [
+							"Stormwind City",
+							"Darnassus",
+							"Ironforge",
+							"Darkshore",
+							"Loch Modan",
+							"Westfall"
+						],
+						"Horde": [
+							"Orgrimmar",
+							"Undercity",
+							"Thunder Bluff",
+							"The Barrens",
+							"Silverpine Forest"
+						]
+					},
+					"tip": "Nightcrawlers on the pole help when fish keep getting away."
+				}
 			]
 		},
 		{
 			"from": 150,
 			"to": 225,
 			"steps": [
-				{ "level": 20, "tip": "Expert Fishing needs level 20." },
-				{ "book": 16083, "tip": "Old Man Heming stands at the bottom of Booty Bay, by the fishing sign." },
-				{ "lure": 6532, "plural": "Bright Baubles" },
-				{ "gather": 225, "title": "in the mid-level waters", "level": 20, "zones": { "Alliance": ["Dustwallow Marsh", "Alterac Mountains", "Arathi Highlands", "Desolace", "Stranglethorn Vale", "Swamp of Sorrows", "Thousand Needles"], "Horde": ["Dustwallow Marsh", "Alterac Mountains", "Arathi Highlands", "Desolace", "Stranglethorn Vale", "Swamp of Sorrows", "Thousand Needles"] }, "tip": "Nat Pagle, who teaches Artisan, fishes in Dustwallow Marsh." }
+				{ "level": 20,
+					"tip": "Expert Fishing needs level 20."
+				},
+				{ "book": 16083,
+					"tip": "Sold there only, or at the Auction House.",
+					"row": "Old Man Heming, Booty Bay"
+				},
+				{ "lure": 6532,
+					"plural": "Bright Baubles"
+				},
+				{ "gather": 225,
+					"title": "in the mid-level waters",
+					"level": 20,
+					"zones": {
+						"Alliance": [
+							"Dustwallow Marsh",
+							"Alterac Mountains",
+							"Arathi Highlands",
+							"Desolace",
+							"Stranglethorn Vale",
+							"Swamp of Sorrows",
+							"Thousand Needles"
+						],
+						"Horde": [
+							"Dustwallow Marsh",
+							"Alterac Mountains",
+							"Arathi Highlands",
+							"Desolace",
+							"Stranglethorn Vale",
+							"Swamp of Sorrows",
+							"Thousand Needles"
+						]
+					},
+					"tip": "Nat Pagle, who teaches Artisan, fishes in Dustwallow Marsh."
+				}
 			]
 		},
 		{
 			"from": 225,
 			"to": 300,
 			"steps": [
-				{ "level": 35, "tip": "Nat Pagle's quests need level 35." },
-				{ "pagle": true, "where": {
-					"16969": "Anywhere along the Savage Coast; only Mithril Head Trout and Catfish means another spot.",
-					"16968": "Along the coast, by Shadowprey Village or the tower on the northern shore.",
-					"16970": "The Misty Reed Strand; the small islands off the coast keep you clear of the murlocs.",
-					"16967": "The Verdantis River, just west of the bridge on the main road."
-				} },
-				{ "lure": 6532, "plural": "Bright Baubles" },
-				{ "gather": 300, "title": "in the high-level waters", "level": 35, "zones": { "Alliance": ["Felwood", "Feralas", "The Hinterlands", "Tanaris", "Un'Goro Crater", "Western Plaguelands"], "Horde": ["Felwood", "Feralas", "The Hinterlands", "Tanaris", "Un'Goro Crater", "Western Plaguelands"] }, "tip": "Fish get away here without a lure." }
+				{ "level": 35,
+					"tip": "Nat Pagle's quests need level 35."
+				},
+				{
+					"pagle": true,
+					"where": {
+						"16969": {
+							"row": "Savage Coast, Stranglethorn Vale",
+							"tip": "Only Mithril Head Trout and Catfish biting means another spot."
+						},
+						"16968": {
+							"Alliance": "Desolace's northern coast, by the tower",
+							"Horde": "Desolace coast by Shadowprey Village",
+							"tip": "It bites nowhere else."
+						},
+						"16970": {
+							"row": "Misty Reed Strand, Swamp of Sorrows",
+							"tip": "The small islands keep you clear of the murlocs."
+						},
+						"16967": {
+							"row": "Verdantis River, west of the road bridge",
+							"tip": "It bites nowhere else."
+						}
+					}
+				},
+				{ "lure": 6532,
+					"plural": "Bright Baubles"
+				},
+				{ "gather": 300,
+					"title": "in the high-level waters",
+					"level": 35,
+					"zones": {
+						"Alliance": [
+							"Felwood",
+							"Feralas",
+							"The Hinterlands",
+							"Tanaris",
+							"Un'Goro Crater",
+							"Western Plaguelands"
+						],
+						"Horde": [
+							"Felwood",
+							"Feralas",
+							"The Hinterlands",
+							"Tanaris",
+							"Un'Goro Crater",
+							"Western Plaguelands"
+						]
+					},
+					"tip": "Fish get away here without a lure."
+				}
 			]
 		}
 	]

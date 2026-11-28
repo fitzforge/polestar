@@ -48,6 +48,9 @@ each zone's fishing loot and the Fishing skill from which it loses no fish
 (the world database), and where players stood when they caught fish and the
 deaths recorded near each stand (the recordings archive's session files,
 --recordings).
+gathering skinnable: rewrites tools/lib/professions/gathering/skinnable.json, the
+creatures a player can skin (the world database: type Beast, or skinning loot);
+the Skinning loops take only those.
 
   --data <dir>         reference data (default data/forever)
   --tdb <file>         world database (abundance, nodes and waters)
@@ -109,10 +112,10 @@ function runGathering(rest) {
 		return fail(err.message);
 	}
 	const [mode, ...extra] = positionals;
-	if (!['build', 'check', 'abundance', 'nodes', 'spots', 'waters'].includes(mode)) return fail(mode ? `unknown gathering subcommand "${mode}"` : 'gathering needs build, check, abundance, nodes, spots or waters');
+	if (!['build', 'check', 'abundance', 'nodes', 'spots', 'waters', 'skinnable'].includes(mode)) return fail(mode ? `unknown gathering subcommand "${mode}"` : 'gathering needs build, check, abundance, nodes, spots, waters or skinnable');
 	if (extra.length) return fail(`unexpected argument "${extra[0]}"`);
 	if (values.stdout && mode !== 'build') return fail('--stdout goes with gathering build');
-	if (values.tdb && mode !== 'abundance' && mode !== 'waters' && mode !== 'nodes') return fail('--tdb goes with gathering abundance, nodes or waters');
+	if (values.tdb && !['abundance', 'waters', 'nodes', 'skinnable'].includes(mode)) return fail('--tdb goes with gathering abundance, nodes, waters or skinnable');
 	if (values.recordings && mode !== 'waters' && mode !== 'nodes') return fail('--recordings goes with gathering nodes or waters');
 	if ((mode === 'waters' || mode === 'nodes') && !values.recordings) return fail(`gathering ${mode} needs --recordings <dir>`);
 	if (values.check && mode !== 'spots') return fail('--check goes with gathering spots');
@@ -122,6 +125,14 @@ function runGathering(rest) {
 	if (mode === 'abundance') return writeAbundance(ctx, tdb);
 	if (mode === 'waters') return writeWaters(ctx, tdb, path.resolve(values.recordings));
 	if (mode === 'nodes') return writeNodes(ctx, tdb, path.resolve(values.recordings));
+	if (mode === 'skinnable') {
+		if (!fs.existsSync(tdb)) return fail(`${path.relative(process.cwd(), tdb)} missing`);
+		const S = require('../lib/professions/gathering/skinning');
+		const ids = S.deriveSkinnable(tdb, ctx.data.npcs);
+		fs.writeFileSync(S.SKINNABLE_FILE, S.renderSkinnable(ids));
+		console.error(`wrote ${path.relative(process.cwd(), S.SKINNABLE_FILE)}: ${ids.length} creatures`);
+		return 0;
+	}
 	const { reportSync } = require('../lib/generated');
 	if (mode === 'spots') {
 		const S = require('../lib/professions/gathering/spots');

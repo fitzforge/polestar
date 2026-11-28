@@ -47,7 +47,8 @@ step Put a Shiny Bauble on the pole
   use 6529 anywhere
 
 step Fish near your starting area until 75
-  tip The bobber splashes when a fish bites; a right-click on it lands the catch. Every catch gives a point.
+  tip Every catch gives a point.
+  note Cast, then right-click the bobber when it splashes.
   loop Elwynn Forest lvl 2 lap 338 gain 25.0 only Alliance r 15 at 47.1,64.0 47.5,63.2 48.8,63.3 48.9,65.1 46.5,64.6
   loop Dun Morogh lvl 2 lap 126 gain 10.0 only Alliance r 15 at 35.5,40.6 35.4,40.0
   loop Zephras Isle lvl 6 lap 175 gain 10.0 only Alliance,Horde live r 15 at 46.9,48.5 46.0,48.8
@@ -83,8 +84,8 @@ step Reach level 20
   tip Expert Fishing needs level 20.
   level 20
 
-step Buy Expert Fishing - The Bass and You
-  tip Old Man Heming stands at the bottom of Booty Bay, by the fishing sign.
+step Buy Expert Fishing - The Bass and You · Old Man Heming, Booty Bay
+  tip Sold there only, or at the Auction House.
   buy 16083 x1 nearest
   auction 16083 x1
 
@@ -115,38 +116,38 @@ step Reach level 35
   tip Nat Pagle's quests need level 35.
   level 35
 
-step Accept I Got Nothin' Left!
-  tip Grimnur Stonebrand, the fishing trainer, sends you to Nat Pagle in Dustwallow Marsh.
+step Accept I Got Nothin' Left! · Grimnur Stonebrand, Ironforge
+  tip The fishing trainer sends you to Nat Pagle, who teaches Artisan.
   only Alliance
   accept 6609
 
-step Accept You Too Good.
-  tip Lumak, the fishing trainer, sends you to Nat Pagle in Dustwallow Marsh.
+step Accept You Too Good. · Lumak, Orgrimmar
+  tip The fishing trainer sends you to Nat Pagle, who teaches Artisan.
   only Horde
   accept 6608
 
-step Hand in I Got Nothin' Left!
-  tip Nat Pagle fishes from a small island off the east coast, south of Theramore.
+step Hand in I Got Nothin' Left! · Nat Pagle, island off Dustwallow Marsh
+  tip His island lies off the east coast, south of Theramore.
   only Alliance
   turnin 6609
 
-step Hand in You Too Good.
-  tip Nat Pagle fishes from a small island off the east coast, south of Theramore.
+step Hand in You Too Good. · Nat Pagle, island off Dustwallow Marsh
+  tip His island lies off the east coast, south of Theramore.
   only Horde
   turnin 6608
 
-step Accept Nat Pagle, Angler Extreme
+step Accept Nat Pagle, Angler Extreme · Nat Pagle
   tip Four fish, each from its own water; about one catch in five brings it up there.
   accept 6607
 
-step Catch a Sar'theris Striker
-  tip Along the coast, by Shadowprey Village or the tower on the northern shore.
+step Catch a Sar'theris Striker · Desolace's northern coast, by the tower
+  tip It bites nowhere else.
   only Alliance
   zone Desolace
   collect 16968 x1 quest 6607 @39.5,22.7
 
-step Catch a Sar'theris Striker
-  tip Along the coast, by Shadowprey Village or the tower on the northern shore.
+step Catch a Sar'theris Striker · Desolace coast by Shadowprey Village
+  tip It bites nowhere else.
   only Horde
   zone Desolace
   collect 16968 x1 quest 6607 @22.8,76.8
@@ -155,25 +156,25 @@ step Buy 2 Bright Baubles
   tip Fish get away in Feralas below skill 300; a lure adds 75 for ten minutes.
   buy 6532 x2 nearest
 
-step Catch a Feralas Ahi
-  tip The Verdantis River, just west of the bridge on the main road.
+step Catch a Feralas Ahi · Verdantis River, west of the road bridge
+  tip It bites nowhere else.
   zone Feralas
   collect 16967 x1 quest 6607 @63.7,53.1
 
-step Catch a Savage Coast Blue Sailfin
-  tip Anywhere along the Savage Coast; only Mithril Head Trout and Catfish means another spot.
+step Catch a Savage Coast Blue Sailfin · Savage Coast, Stranglethorn Vale
+  tip Only Mithril Head Trout and Catfish biting means another spot.
   only Alliance
   zone Stranglethorn Vale
   collect 16969 x1 quest 6607 @27.4,68.9
 
-step Catch a Savage Coast Blue Sailfin
-  tip Anywhere along the Savage Coast; only Mithril Head Trout and Catfish means another spot.
+step Catch a Savage Coast Blue Sailfin · Savage Coast, Stranglethorn Vale
+  tip Only Mithril Head Trout and Catfish biting means another spot.
   only Horde
   zone Stranglethorn Vale
   collect 16969 x1 quest 6607 @33.0,32.1
 
-step Catch a Misty Reed Mahi Mahi
-  tip The Misty Reed Strand; the small islands off the coast keep you clear of the murlocs.
+step Catch a Misty Reed Mahi Mahi · Misty Reed Strand, Swamp of Sorrows
+  tip The small islands keep you clear of the murlocs.
   zone Swamp of Sorrows
   collect 16970 x1 quest 6607 @76.2,95.6
 
