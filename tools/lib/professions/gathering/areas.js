@@ -16,7 +16,9 @@
 //   4. An area asks the level that LEVEL_SHARE of its nodes (by how often each is up) ask, and of the ground
 //      inside it (a SAMPLE_YARDS grid): its nodes above that are left out, so one camp of higher creatures does
 //      not lift the whole area. Never below the zone's own level (tables.js ZONES min). An elite or a town of the
-//      other faction anywhere inside rules the area out.
+//      other faction within reach of its sweep (the walks between its nodes, REACH_YARDS either side) rules the
+//      area out; one inside its outline but off the sweep (the Stegodons on Un'Goro's crater floor, inside the ring
+//      of Thorium on its walls) does not.
 //   5. Its shape: the convex hull of its nodes, PAD_YARDS out, at most MAX_CORNERS corners; its spots: up to
 //      MAX_DOTS nodes, the most often up first.
 //   6. Its worth (rankScore): skill-ups (or nodes) up at once per yard of a sweep through its nodes, where a
@@ -53,6 +55,10 @@ const MAX_TOUR = 60;
 // Nodes this near an elite or a town inside an area leave it (and its outline with them), at most this many times.
 const CLEAR_YARDS = 90;
 const CLEAR_TRIES = 3;
+// A patch whose ground is still not clear after that splits into patches half as wide, down to this reach: an
+// elite between its nodes (a Tyrant Devilsaur roaming Un'Goro's Thorium, a Frostmaul camp in Winterspring) leaves
+// the areas either side of it, not none.
+const SPLIT_YARDS = 100;
 // Running speed, yards per second.
 const RUN = 7;
 // Worth kept per level an area asks above the band's planned character level: an area two levels above must
@@ -355,24 +361,72 @@ function shared(a, b) {
 	return a.on.reduce((s, p) => s + (inB.has(`${p.pt.c}|${p.pt.wx}|${p.pt.wy}|${p.name}`) ? up(p) : 0), 0) / (a.up || 1);
 }
 
-// The ground inside an outline is clear: no elite and no town of the other faction can reach any of it.
+// The sweep's ground: the walks between an area's nodes (the shortest links that join them all, a spanning tree:
+// each node is reached from its neighbour), sampled every LEG_STEP yards on the line and REACH_YARDS either side of
+// it, and a ring REACH_YARDS round each node (a character circles a node to reach it; a node at the very edge of an
+// elite's or a town's reach is none to send them to).
+const REACH_YARDS = 30;
+const LEG_STEP = 15;
+const RING = [0, 1, 2, 3, 4, 5, 6, 7].map((k) => [Math.cos((k * Math.PI) / 4) * REACH_YARDS, Math.sin((k * Math.PI) / 4) * REACH_YARDS]);
+function sweepGround(list) {
+	const pts = [...new Map(list.map((p) => [`${p.pt.wx},${p.pt.wy}`, p.pt])).values()];
+	const out = [];
+	const leg = (a, b) => {
+		const d = dist(a, b);
+		const px = d ? -(b.wy - a.wy) / d : 0;
+		const py = d ? (b.wx - a.wx) / d : 0;
+		const n = Math.max(1, Math.ceil(d / LEG_STEP));
+		for (let k = 0; k <= n; k++) {
+			const x = a.wx + ((b.wx - a.wx) * k) / n;
+			const y = a.wy + ((b.wy - a.wy) * k) / n;
+			for (const o of [0, -REACH_YARDS, REACH_YARDS]) out.push({ pt: { c: a.c, wx: x + o * px, wy: y + o * py } });
+		}
+	};
+	for (const p of pts) for (const [dx, dy] of RING) out.push({ pt: { c: p.c, wx: p.wx + dx, wy: p.wy + dy } });
+	// Prim's spanning tree.
+	const near = pts.map((p) => dist(p, pts[0]));
+	const from = pts.map(() => 0);
+	const joined = new Uint8Array(pts.length);
+	joined[0] = 1;
+	for (let k = 1; k < pts.length; k++) {
+		let j = -1;
+		for (let i = 0; i < pts.length; i++) if (!joined[i] && (j < 0 || near[i] < near[j])) j = i;
+		joined[j] = 1;
+		leg(pts[from[j]], pts[j]);
+		for (let i = 0; i < pts.length; i++) {
+			if (joined[i]) continue;
+			const d = dist(pts[i], pts[j]);
+			if (d < near[i]) {
+				near[i] = d;
+				from[i] = j;
+			}
+		}
+	}
+	return out;
+}
+
+// An area's sweep is clear: no elite and no town of the other faction can reach its ground (sweepGround).
 function clearGround(ctx, map, list, faction) {
-	return !pointLevels(ctx, map, samples(outline(list)), faction).some((l) => l === null);
+	return !pointLevels(ctx, map, sweepGround(list), faction).some((l) => l === null);
 }
 
 // A patch with its nodes near an elite or a town of the other faction left out (CLEAR_YARDS), the outline drawn
 // again without them, up to CLEAR_TRIES times, so an elite in a corner cuts the corner rather than the whole
-// area; null when too few nodes are left or the ground is still not clear.
-function cleaned(ctx, map, list, faction) {
+// area; when the ground is still not clear (the elite stands between the nodes), the patch splits into patches half
+// as wide (down to SPLIT_YARDS), each cleaned the same way. -> [[point]], none when no part is clear.
+function cleaned(ctx, map, list, faction, radius = T.patchYards) {
+	const whole = list;
 	for (let k = 0; k <= CLEAR_TRIES; k++) {
-		if (list.length < T.minNodes) return null;
+		if (list.length < T.minNodes) break;
 		const ground = samples(outline(list));
 		const gl = pointLevels(ctx, map, ground, faction);
-		if (!gl.some((l) => l === null)) return list;
+		if (!gl.some((l) => l === null)) return [list];
 		const bad = ground.filter((g, i) => gl[i] === null);
 		list = list.filter((p) => !bad.some((g) => dist(g.pt, p.pt) < CLEAR_YARDS));
 	}
-	return null;
+	const half = radius / 2;
+	if (half < SPLIT_YARDS || whole.length < T.minNodes) return [];
+	return patches(whole, half).flatMap((part) => cleaned(ctx, map, part, faction, half));
 }
 
 // Sparse ground (a band's Tin and Iron a few nodes to a hill): a patch with fewer than GOOD_UP nodes up joins its
@@ -431,9 +485,7 @@ function tierAreas(ctx, prof, map, open, { faction, respawn, maxLevel }) {
 		for (const [s, w] of by) if (!best || w > by.get(best)) best = s;
 		return best && by.get(best) >= total / 2 ? best : null;
 	};
-	const clean = patches(open, T.patchYards)
-		.map((list) => cleaned(ctx, map, list, faction))
-		.filter(Boolean);
+	const clean = patches(open, T.patchYards).flatMap((list) => cleaned(ctx, map, list, faction));
 	const named = growSmall(clean, ok, subOf).map(({ list, sub }) => {
 		const c = centroid(list);
 		if (sub) return { list, c, sub, near: false };
@@ -461,8 +513,8 @@ function tierAreas(ctx, prof, map, open, { faction, respawn, maxLevel }) {
 		);
 		let list = m.list.filter((p) => p.lv <= level);
 		if (list.length < T.minNodes || list.reduce((s, p) => s + up(p), 0) < T.minUp) continue;
-		const gl = pointLevels(ctx, map, samples(outline(list)), faction);
-		if (gl.some((l) => l === null)) continue;
+		// The ground inside the outline counts at its GROUND_SHARE (an elite's own ground there is off the sweep).
+		const gl = pointLevels(ctx, map, samples(outline(list)), faction).filter((l) => l !== null);
 		if (gl.length) level = Math.max(level, quantile(gl, gl.map(() => 1), T.groundShare));
 		level = Math.max(level, floorOf(map));
 		if (level > maxLevel) continue;

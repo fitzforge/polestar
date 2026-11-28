@@ -165,7 +165,7 @@ const mining = {
 		'the most nodes the skill can mine (expected skill-ups per yard of a sweep',
 		'through them, with the time to mine each node and the nodes\' respawn), each',
 		'at the lowest character level safe in it: no creature there more than a level',
-		'above that level, no elite, and away from the other faction\'s',
+		'above that level, no elite by the way between its nodes, and away from the other faction\'s',
 		'towns. Nodes are the Forever server\'s own spawns with the chance its spawn',
 		'pools keep each up, and what a node gives comes from players\' recorded',
 		'gathers (tools/lib/professions/gathering/gathering-nodes.json).',
@@ -237,7 +237,7 @@ const herbalism = {
 		'the most herbs the skill can pick (expected skill-ups per yard of a sweep',
 		'through them, with the time to pick each herb and the herbs\' respawn), each',
 		'at the lowest character level safe in it: no creature there more than a level',
-		'above that level, no elite, and away from the other faction\'s',
+		'above that level, no elite by the way between its herbs, and away from the other faction\'s',
 		'towns. Herbs are the Forever server\'s own spawns with the chance its spawn',
 		'pools keep each up, and what a herb gives comes from players\' recorded',
 		'gathers (tools/lib/professions/gathering/gathering-nodes.json).',
@@ -272,10 +272,12 @@ const skinning = {
 		// Two bands: the character levels between them (beasts of level 15 open at 50, of 17 at 75).
 		// `also`: zones the band offers for a side besides the planner's picks, the places a character of the band's
 		// levels skins (map ids: 1411 Durotar, 1412 Mulgore, 1413 The Barrens, 1420 Tirisfal Glades,
-		// 1421 Silverpine Forest, 1424 Hillsbrad Foothills, 1429 Elwynn Forest, 1431 Duskwood, 1432 Loch Modan, 1433
-		// Redridge Mountains, 1436 Westfall, 1437 Wetlands, 1438 Teldrassil, 1439 Darkshore, 1440 Ashenvale).
-		{ from: 50, to: 75, scope: 'next', also: { Horde: [1411, 1420, 1421], Alliance: [1429, 1438, 1439, 1436] } },
-		{ from: 75, to: 100, scope: 'next', also: { Horde: [1413, 1411, 1412, 1421], Alliance: [1432, 1439, 1436, 1433] } },
+		// 1421 Silverpine Forest, 1424 Hillsbrad Foothills, 1426 Dun Morogh, 1429 Elwynn Forest, 1431 Duskwood, 1432
+		// Loch Modan, 1433 Redridge Mountains, 1436 Westfall, 1437 Wetlands, 1438 Teldrassil, 1439 Darkshore, 1440
+		// Ashenvale). Each starting zone stays while its race is level 5-10 there (a dwarf of 7 at Kharanos skins its boars
+		// and bears at 50-75).
+		{ from: 50, to: 75, scope: 'next', also: { Horde: [1411, 1412, 1420, 1421], Alliance: [1426, 1429, 1438, 1439, 1436] } },
+		{ from: 75, to: 100, scope: 'next', also: { Horde: [1413, 1411, 1412, 1421], Alliance: [1426, 1432, 1439, 1436, 1433] } },
 		{ from: 100, to: 125, scope: 'region', also: { Horde: [1413, 1421, 1440], Alliance: [1432, 1439, 1433, 1431] } },
 		{ from: 125, to: 150, scope: 'region', also: { Horde: [1413, 1424, 1440], Alliance: [1437, 1424, 1440] } },
 		{ from: 150, to: 175, scope: 'faction' },
@@ -303,7 +305,7 @@ const skinning = {
 		'the most skinnable beasts of the right level (expected skill-ups per yard of',
 		'a sweep through them, with the time to kill and skin each beast), each at the',
 		'lowest character level safe in it: no beast or other creature there more than',
-		'a level above that level, no elite, and away from the other',
+		'a level above that level, no elite by the way between its beasts, and away from the other',
 		'faction\'s towns. Skill needed: 1 for level 10 and below, (level-10)x10 for',
 		'11-20, level x5 above 20. Beast lists per zone are curated',
 		'(tools/lib/professions/gathering/skinning.js); levels and spawns come from',

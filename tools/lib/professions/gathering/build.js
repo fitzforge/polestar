@@ -232,20 +232,23 @@ function startParts(prof, points, from, to) {
 // The areas of one part of a range for both factions: per faction and zone its best ZONE_AREAS (and its
 // lowest-level one, so a character new to the zone has one there), the same area for both factions once with
 // no faction of its own. Best first for a character at the part's start. A range's first band (scope 'start')
-// adds each starting area's own areas (`starter`): the best STARTER_AREAS a character of level 1 to
-// STARTER_LEVEL may roam, so a new character always has one at their level. Any area in a starting zone that
+// adds each starting area's own areas (`starter`): STARTER_AREAS a character of level 1 to STARTER_LEVEL may roam
+// (starterPool), so a new character always has one at their level. Any area in a starting zone that
 // asks no more than STARTER_LEVEL is a starter area too: the engine offers starter areas to low levels only (a
 // level 26 in Durotar was sent to the Valley of Trials). -> [{ zone, area, factions, starter? }]
 const STARTER_LEVEL = 5;
 const ZONE_AREAS = 3;
-const STARTER_AREAS = 2;
+const STARTER_AREAS = 3;
 const START_MAPS = new Set(Object.values(RACE_GROUPS).flatMap((gs) => gs.map((x) => x.start[0])));
 function partAreas(ctx, prof, picks, part) {
 	const level = skillLevel(part.from);
 	const out = [];
+	// One line for both factions only when the two sides' areas hold the same nodes: each side's is cut round its own
+	// hazards, so one of a name, level and size may still lie by the other side's town.
+	const nodes = (a) => a.on.map((p) => `${p.pt.c}|${p.pt.wx}|${p.pt.wy}|${p.name}`).sort().join(';');
 	const add = (zone, a, faction, own) => {
 		const starter = own || (START_MAPS.has(zone) && a.level <= STARTER_LEVEL);
-		const same = out.find((l) => l.zone === zone && l.area.name === a.name && l.area.near === a.near && l.area.level === a.level && Math.abs(l.area.up - a.up) < 0.05);
+		const same = out.find((l) => l.zone === zone && l.area.name === a.name && l.area.near === a.near && l.area.level === a.level && Math.abs(l.area.up - a.up) < 0.05 && (l.area === a || nodes(l.area) === nodes(a)));
 		if (same) {
 			if (!same.factions.includes(faction)) same.factions.push(faction);
 			if (starter) same.starter = true;
@@ -269,10 +272,12 @@ function partAreas(ctx, prof, picks, part) {
 	return out.sort((a, b) => rankScore(b.area, level) - rankScore(a.area, level) || a.zone - b.zone || a.area.name.localeCompare(b.area.name));
 }
 
-// A zone's areas a step offers: its best ZONE_AREAS for a character at each of `levels`, and its lowest-level one.
-// With `tiers` (a profession's `spanLevels`) every tier of a chosen area comes too (the same place cut at a lower
-// level: the engine offers the largest one safe for the character, so a character below the larger's level gets the
-// lower one).
+// A zone's areas a step offers: its best ZONE_AREAS for a character at each of `levels`, and its lowest-level one
+// unless that asks more than LOW_SPAN levels under the part's (the Barrens' Merchant Coast, level 10, is no place for
+// Herbalism 170). With `tiers` (a profession's `spanLevels`) every tier of a chosen area comes too (the same place
+// cut at a lower level: the engine offers the largest one safe for the character, so a character below the larger's
+// level gets the lower one).
+const LOW_SPAN = 10;
 function zoneAreas(list, levels, tiers = false) {
 	const best = [];
 	for (const level of [].concat(levels)) {
@@ -285,7 +290,7 @@ function zoneAreas(list, levels, tiers = false) {
 	}
 	if (tiers) for (const a of list) if (!best.includes(a) && best.some((b) => b.name === a.name && b.near === a.near)) best.push(a);
 	const low = list.reduce((a, b) => (!a || b.level < a.level || (b.level === a.level && b.score > a.score) ? b : a), null);
-	if (low && !best.includes(low)) best.push(low);
+	if (low && !best.includes(low) && low.level >= Math.min(...[].concat(levels)) - LOW_SPAN) best.push(low);
 	return best;
 }
 
@@ -300,8 +305,24 @@ function partLevels(prof, part) {
 	return [...new Set([a, Math.round((a + b) / 2), b])];
 }
 
+// A starting area's own pool, STARTER_AREAS of its areas safe by STARTER_LEVEL: the safest first (the lowest level,
+// the most nodes up there), then the most nodes up, one per place while other places are left (Tirisfal's Whispering
+// Forest, 13 nodes at level 4, beside Deathknell).
+function starterPool(list) {
+	if (!list.length) return [];
+	const byUp = list.slice().sort((a, b) => b.up - a.up || a.level - b.level || a.name.localeCompare(b.name));
+	const safest = byUp.reduce((a, b) => (b.level < a.level ? b : a));
+	const out = [safest];
+	const same = (a, b) => a.name === b.name && a.near === b.near;
+	for (const a of byUp) if (out.length < STARTER_AREAS && !out.includes(a) && !out.some((b) => same(a, b))) out.push(a);
+	for (const a of byUp) if (out.length < STARTER_AREAS && !out.includes(a)) out.push(a);
+	return out;
+}
+
 // Each starting area's own areas for a part of a range's first band (partAreas): [{ zone, faction, area }],
-// and in `gaps` the areas of each faction with none (no nodes of the part there, or none safe by level 5).
+// and in `gaps` the areas of each faction with none (no nodes of the part there, or none safe by level 5). The pool
+// draws on the areas cut for STARTER_LEVEL and on the zone's own areas that ask no more (a level 4 area cut from
+// ground that opens wider at higher levels: Whispering Forest's 13 nodes).
 function starterAreas(ctx, prof, part, gaps = null) {
 	if (part.band.scope !== 'start') return [];
 	const out = [];
@@ -309,7 +330,8 @@ function starterAreas(ctx, prof, part, gaps = null) {
 		for (const g of RACE_GROUPS[faction]) {
 			const zone = g.start[0];
 			const pts = partPoints(pointsOf(ctx, prof, zone, part.band.from, part.band.to), part.from, part.to);
-			const list = pts.length >= 2 ? areasFor(ctx, prof, zone, pts, faction, STARTER_LEVEL).slice(0, STARTER_AREAS) : [];
+			const low = pts.length >= 2 ? [...areasFor(ctx, prof, zone, pts, faction, STARTER_LEVEL), ...areasFor(ctx, prof, zone, pts, faction).filter((a) => a.level <= STARTER_LEVEL)] : [];
+			const list = starterPool(low.filter((a) => a.gain >= 0.05));
 			for (const area of list) out.push({ zone, faction, area, key: g.key });
 			if (!list.length && gaps) gaps.push({ key: g.key, zone, faction, points: pts.length });
 		}
