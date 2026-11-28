@@ -136,7 +136,8 @@ Step directives:
 | `tip <text>` | Player-facing step note (compiled to `step.note`). |
 | `image <path> [<w>x<h>]` | A picture shown in the guide window under the step's tip, while the tip is open, scaled to the window's width (at most 160 high): a screenshot of a spot that is hard to find, such as a cave mouth. `<path>` is the file's place in the pack folder, `/` between folders (`media/fargodeep-mine.tga`), a `.tga` or `.blp` file; without the extension the `.tga`, else the `.blp`. The file ships in the pack's addon folder at that path. `<w>x<h>` is the size it is drawn at (only the ratio counts: `512x256` is twice as wide as high); without it the compiler reads the file's own. One per step; a step with no `tip` reads "Picture of this spot" above it. See "Pictures" in the Cookbook. |
 | `loop` | The step's `goto` points, in order, are the places to search for its kill, collect, interact, skill and `use … quest Q.O` goals (or, with none of those, for the NPC of its accept, turnin and talk goals) instead of a path to walk: see "Spawn areas", Loop. |
-| `loop <zone> lvl <n> lap <s> gain\|yield <n> [only <conditions>] [live] [starter] [respawn <s>] [r <yards>] at <x,y> …` | One of several farming loops the step's `skill` or `collect` goal picks from where the player is: see "Spawn areas", Farming loops. |
+| `loop <zone> lvl <n> lap <s> gain\|yield <n> [only <conditions>] [live] [r <yards>] at <x,y> …` | One of several farming loops (Fishing's rounds of stands) the step's `skill` or `collect` goal picks from where the player is: see "Spawn areas", Farming loops. |
+| `area <zone> "<name>" [near] lvl <n> count <n> lap <s> gain\|yield <n> [levels <a>-<b>] [items <id,…>] [only <conditions>] [live] [starter] [respawn <s>] at <x,y> <x,y> <x,y> … [dots <x,y> …]` | One of several gathering areas (Mining, Herbalism, Skinning) the step's `skill` or `collect` goal picks from: see "Spawn areas", Gathering areas. |
 
 A step must contain at least one goal.
 
@@ -1159,44 +1160,67 @@ gets no `spots`, except an NPC who walks around:
     kill 6 x10 quest 7.1
   ```
 - **Farming loops** (`loop <zone> …` lines, one per loop; a step holds no bare
-  `loop` and no `goto` beside them): the step's one unpinned `skill` goal (each
-  loop with `gain`: the skill points a lap gives) or `collect` goal (`yield`:
-  the goal's items a lap gives) gets one candidate per loop, and the Engine
-  picks one when the step comes up, again on a zone change, a level-up and
-  from the window's "Other": travel there from where the player is plus the
-  laps left times `lap` (seconds a lap takes), as for farm spots (`collect …
-  nearest`), among the loops whose `lvl` is at most the player's level. `lvl`
-  is the least character level safe along the loop: no creature that can
-  reach its walk or its nodes is more than a level above the player, and no
-  elite stands by it (the profession builder works it out from the creature
-  spawns). A loop above the player is never taken; with none at their level
-  the goal has no place, and the window says from which level one is safe
-  ("Safe Copper Ore loop from level 6"), beside the step's other ways (the
-  Auction House). The picked loop's points, in
-  order, each `r` yards wide (default 30), are the goal's spawn areas, as in a
-  Loop step; `only` limits a loop to some characters (the other faction's
-  towns differ). Points are Era-frame unless `live`. The window names the loop,
-  its zone, its lap and the laps left, and the next choice.
-
-  Which loop: a loop only reached through zones that start more than 2 levels
-  above the character (the straight way there, by the walking maps' or the
-  client's zones) is not offered (a level 3 Tauren is never sent across the
-  Barrens); one on the player's own map comes first while it takes at most
-  half as long again as the best. `starter` marks a starting area's own loop:
-  offered up to its `lvl` plus 5, later only when no other loop is left.
-  `respawn <seconds>` is how long its nodes take to grow back (the server's
-  spawn times; without it 600 for ore and herbs, 420 for beasts): what the
-  player gathers on a loop counts against its yield until it has grown back,
-  and once the next lap would find under half of it the next best loop takes
-  over, the window saying so ("The Durotar loop is mined out for now · next:
-  The Barrens"); the loop comes back once it is at four fifths again, never
-  while the player works the new one.
+  `loop` and no `goto` beside them; the Fishing guides' rounds of stands): the
+  step's one unpinned `skill` goal (each loop with `gain`: the skill points a
+  lap gives) or `collect` goal (`yield`: the goal's items a lap gives) gets one
+  candidate per loop, and the Engine picks one when the step comes up, again on
+  a zone change, a level-up and from the window's "Other": travel there from
+  where the player is plus the laps left times `lap` (seconds a lap takes), as
+  for farm spots (`collect … nearest`), among the loops whose `lvl` is at most
+  the player's level. `lvl` is the least character level safe along the loop:
+  no creature that can reach its walk or its stands is more than a level above
+  the player, and no elite stands by it (the profession builder works it out
+  from the creature spawns). A loop above the player is never taken; with none
+  at their level the goal has no place, and the window says from which level
+  one is safe. The picked loop's points, in order, each `r` yards wide (default
+  30), are the goal's spawn areas, as in a Loop step; `only` limits a loop to
+  some characters (the other faction's towns differ). Points are Era-frame
+  unless `live`. The window names the loop, its zone, its lap and the laps
+  left, and the next choice.
 
   ```
-  step Copper & Tin (65-125)
-    loop Westfall lvl 18 lap 420 gain 3.5 r 60 at 52.1,61.3 49.8,64.0 47.0,60.2
-    loop Loch Modan lvl 16 lap 380 gain 3.1 only Alliance r 60 at 33.1,25.0 36.4,22.8 38.0,30.1
-    skill Mining 125
+  step Fish here until 75
+    loop Loch Modan lvl 10 lap 198 gain 6.0 only Alliance r 15 at 41.3,38.8 41.1,37.0 41.2,35.4
+    skill Fishing 75
+  ```
+- **Gathering areas** (`area <zone> "<name>" …` lines, one per area; no `goto`
+  or `loop` beside them; the Mining, Herbalism and Skinning guides, their
+  paired guides and the crafting guides' Get steps): the step's one unpinned
+  `skill` goal (`gain`: the skill points a sweep of the area gives) or
+  `collect` goal (`yield`: its items a sweep gives) gets one candidate per area.
+  `<name>` is the subzone the area lies in, as the client's area table names it
+  (shown in the player's language); `near` marks open ground named after the
+  subzone nearest it ("Durotar: near Razor Hill"). `lvl` is the least character
+  level safe in it (no creature that can reach its nodes or most of its ground
+  more than a level above the player, no elite and no town of the other faction
+  in it), `count` the nodes it keeps up at once (Skinning: its beasts, `levels`
+  their levels), `lap` the seconds a sweep through its nodes takes, `items` what
+  its nodes give, most first, `respawn` its nodes' grow-back seconds, `starter`
+  a starting area's own. `at` is its outline (three corners or more, map
+  percent), `dots` its node spots; Era-frame unless `live`.
+
+  The window lists the areas for the character's level, best first (travel
+  there plus the time the rest takes, the player's own map first while it is
+  competitive): never one above their level, never one only reached through
+  zones that start more than 2 levels above them (a level 3 Tauren is never
+  sent across the Barrens), a starting area's own only up to its `lvl` plus 5
+  unless nothing else is left, and of areas with one name the largest safe one.
+  Each row has the area's nodes, the level it is safe from, the travel time and
+  a Guide me; the player's pick is kept (per character, guide and step) while
+  it stays safe for them. The arrow leads into the area the fastest way: to the
+  nearest point of its edge, or by a flight, boat or zeppelin landing inside it;
+  anywhere inside it the arrow rests with one line ("Roam Red Cloud Mesa for
+  Copper Ore · Find Minerals shows them on your minimap") and the maps shade the
+  area (zone maps) and mark its nodes (zone maps and the minimap). The player
+  is out of it again 15 yards past its edge. Inside it with nothing gathered
+  for its `respawn` times 0.6 (2.5 to 7 minutes), the window offers the next
+  area ("Try … next") until something is gathered there again.
+
+  ```
+  step Mine Copper until 65
+    area Mulgore "Red Cloud Mesa" lvl 1 count 10 lap 412 gain 1.0 items 2770 only Horde starter respawn 277 at 49.3,93.6 49.7,88.2 42.0,80.1 40.1,85.0 dots 49.0,92.8 49.2,87.7 41.8,79.8
+    area Durotar "Razor Hill" near lvl 6 count 3 lap 320 gain 0.6 items 2770 only Horde respawn 259 at 50.1,40.0 55.2,38.1 56.0,45.3 51.0,46.2
+    skill Mining 65
   ```
 - **Recorded** (a `kill`, `collect` or `interact` bound to a quest objective,
   `quest Q.O`, outside a `loop` step, that players' recordings place:

@@ -1,13 +1,18 @@
 ---
 section: players
 ---
-- Herbalism, Mining and Skinning: every skill range is now a farming loop the
-  arrow walks and repeats, through the densest herbs, veins or beasts your
-  skill can gather, built from where the game server puts its nodes. Each
-  range offers loops in several zones and the arrow takes the one that gets
-  you there soonest from where you are, picking again when you change zone
-  or level; a loop whose creatures are two or more levels above you is only
-  offered when nothing else is. The guide window names the loop, its zone,
-  how long a lap takes, the laps left and a second choice, and "Other" moves
-  to the next loop. The herb, ore and bar steps of the crafting guides use
-  the same loops. Night Elves mine Teldrassil's Amber from the start.
+- Herbalism, Mining and Skinning: every gathering step now lists the areas to
+  roam for your level, best first: the subzone (or the open ground near one),
+  about how many veins, herbs or beasts it holds (with the beasts' levels),
+  the level it is safe from and how far away it is, each with a Guide me.
+  Areas come from where the game server puts its nodes; an area is offered
+  only once it is safe at your level (no creature in it more than a level
+  above you, no elites, away from the other faction's towns), never across
+  zones well above you, and a starting area's own only while you are new.
+  The arrow leads into the area the fastest way (walking to its edge, or a
+  flight or boat landing in it) and rests once you are inside, saying what to
+  look for; the map shades the area and marks its nodes. When an area has
+  given nothing for a while, the window offers the next one. Your pick is
+  remembered. The herb, ore and leather steps of the crafting and paired
+  guides use the same areas. Night Elves mine Teldrassil's Amber from the
+  start.
