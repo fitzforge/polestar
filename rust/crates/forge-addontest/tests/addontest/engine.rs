@@ -358,6 +358,44 @@ emit({ other, E.GetStepView(1).goals[1].status, E.GetStepView(1).goals[2].status
 	}
 }
 
+// #4568 (Yeeshak, 0.4.3.1, Winterspring & Felwood): Corrupted Sabers' step is `use 12565 quest 4506.1` (Winna's Kitten
+// Carrier, at the Jadefire moonwell) then `complete 4506` placed beside Winna Hazzard at Bloodvenom Post. The quest's
+// one objective ticks only when the Corrupted Saber is clicked beside Winna, so the use stayed open after the carrier
+// was used and the arrow stayed at the moonwell until the player ticked it by hand. The player's cast of the item now
+// ticks the use; another unit's cast does not, and without a placed `complete` after it the use still waits for its
+// objective.
+#[test]
+fn a_use_whose_objective_ticks_at_the_placed_complete_after_it_is_done_by_its_cast_4568() {
+	for (placed, expected) in [(true, "done"), (false, "active")] {
+		let at = if placed { ", map = 1429, x = 60, y = 60" } else { "" };
+		let guides = format!(
+			r#"
+Polestar.RegisterGuide({{ id = "test/kitten", pack = "test", title = "Kitten", zone = 1429, steps = {{
+	{{ goals = {{
+		{{ t = "use", item = 12565, itemName = "Winna's Kitten Carrier", quest = 4506, oi = 1, map = 1429, x = 30, y = 30 }},
+		{{ t = "complete", quest = 4506, title = "Corrupted Sabers"{at} }},
+	}} }},
+}} }})
+"#
+		);
+		let out = run1(Run {
+			guides: &guides,
+			before: r#"C_Item.GetItemSpell = function(id) if id == 12565 then return "Release Winna's Kitten", 16031 end end"#,
+			script: r#"
+local w = stub.world
+w.onQuest(4506, { { type = "event", required = 1 } })
+E.SetGuide("test/kitten"); flush()
+stub.fire("UNIT_SPELLCAST_SUCCEEDED", "party1", "cast", 16031); flush()
+local other = E.GetStepView(1).goals[1].status
+w.cast(16031); flush()
+emit({ other, E.GetStepView(1).goals[1].status, E.GetStepView(1).goals[2].status })
+"#,
+			..Default::default()
+		});
+		assert_eq!(out, json!(["active", expected, "active"]), "complete placed: {placed}");
+	}
+}
+
 // #2666 (Malifax, 0.4.0, Thousand Needles & Desolace): Kodo Roundup's step is `use 13892` (the Kodo Kombobulator, at the
 // Kodo Graveyard) then `talk 4700 quest 5561.1` (the tamed kodo, at Smeed's camp), five times. The use has no quest,
 // so it read done only once the talk was, at 5/5: the arrow stayed at the graveyard for every walk back. Now the use

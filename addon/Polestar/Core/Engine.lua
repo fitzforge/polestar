@@ -10031,11 +10031,20 @@ function Own.latchCast(spellID)
 				and result.fromKind == "object" and (result.count or 1) == 1
 				and Compat().GetItemSpellID(goal.item) == spellID and Compat().IsOnQuest(goal.quest)
 				and not Own.goalSkipped(s, g) and not goalDone(s, g, goal)
-			if goalApplies(goal) and ((goal.t == "cast" and goal.spell == spellID) or summoned) then
+			-- A use whose objective ticks only at the quest's placed `complete`
+			-- line right after it (#4568: Winna's Kitten Carrier frees the kitten
+			-- at the Jadefire moonwell; Corrupted Sabers' one objective ticks once
+			-- the Corrupted Saber is clicked beside Winna Hazzard): the cast is all
+			-- the use asks, and the arrow moves on to the `complete`.
+			local handedOn = not summoned and goal.t == "use" and goal.quest and result and result.t == "complete"
+				and result.quest == goal.quest and result.map ~= nil
+				and Compat().GetItemSpellID(goal.item) == spellID and Compat().IsOnQuest(goal.quest)
+				and not Own.goalSkipped(s, g) and not goalDone(s, g, goal)
+			if goalApplies(goal) and ((goal.t == "cast" and goal.spell == spellID) or summoned or handedOn) then
 				local m = manualFor(guide.id, true)
 				local key = s .. ":" .. g
 				if not m[key] then
-					m[key] = summoned and ("item-cast:" .. goal.quest) or true
+					m[key] = (summoned or handedOn) and ("item-cast:" .. goal.quest) or true
 					hit = true
 				end
 			elseif goal.t == "use" and not goal.quest and goal.item and goalApplies(goal) and Compat().GetItemSpellID(goal.item) == spellID then
