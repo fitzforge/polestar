@@ -3838,12 +3838,12 @@ function Own.areaEntry(goal, c)
 	return map, x, y, f
 end
 
--- An area's name in the player's language: its subzone's (the client's), "<Zone>: near <Subzone>" for open ground.
+-- An area's name in the player's language: its subzone's (the client's), "Near <Subzone>, <Zone>" for open ground.
 function Own.areaName(c)
 	local sub = (c.aid and ns.Names and ns.Names.Area and ns.Names.Area(c.aid)) or c.area or ""
 	if not c.near then return sub end
 	local C = Compat()
-	return L["%s: near %s"]:format((C.GetMapName and C.GetMapName(c.map)) or "", sub)
+	return L["Near %s, %s"]:format(sub, (C.GetMapName and C.GetMapName(c.map)) or "")
 end
 
 -- The arrival poll for an area goal (checkArrival): whether the player came into or left its current area (the
@@ -18734,7 +18734,7 @@ function Engine.AreaChoices(stepIndex, goalIndex)
 	if out and out == p.list[p.i] then
 		for _, c in ipairs(p.list) do
 			if c ~= out then
-				view.out = { name = Own.areaName(out), next = Own.areaName(c), i = index[c] }
+				view.out = { name = Own.areaName(out), from = index[out], next = Own.areaName(c), i = index[c] }
 				break
 			end
 		end
@@ -18798,7 +18798,11 @@ function Engine.AreaRoam()
 		items = {}
 		for id in c.items:gmatch("%d+") do items[#items + 1] = tonumber(id) end
 	end
-	return { name = Own.areaName(c), verb = Own.AREA_VERB[Own.gatherLine(goal) or 0] or "mine", items = items, levels = Own.areaLevels(c) }
+	local index
+	for i, o in ipairs(goal.candidates) do
+		if o == c then index = i break end
+	end
+	return { i = index, name = Own.areaName(c), verb = Own.AREA_VERB[Own.gatherLine(goal) or 0] or "mine", items = items, levels = Own.areaLevels(c) }
 end
 
 -- Move a goal with spawn areas on to its next spot: the nearest one not
