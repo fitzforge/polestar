@@ -48,7 +48,7 @@ return {
 
 	-- Step 6: Darkmist Cavern
 	-- plural, as words: Darkmist Lurkers = {npc:4377} Darkmist Lurker
-	["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "Die Darkmist-Spinnen nisten rund um die Höhle im Nordwesten des Sumpfes; jede Spinne lässt Augen fallen.\nVorsicht: Darkmist Lurkers bewegen sich getarnt und benutzen im Kampf Gift. Die Spinnen stehen dicht beieinander, daher sind zusätzliche Mobs üblich; einzelne Ziele vom Außenrand zu ziehen verringert das.",
+	["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "Die Darkmist-Spinnen nisten rund um die Höhle im Nordwesten des Sumpfes; jede Spinne lässt Augen fallen.\nVorsicht: Graunebellauerer bewegen sich getarnt und benutzen im Kampf Gift. Die Spinnen stehen dicht beieinander, daher sind zusätzliche Mobs üblich; einzelne Ziele vom Außenrand zu ziehen verringert das.",
 
 	-- Step 7: Mudcrush Durtfeet
 	["Head south to the giant's hut in the middle of the marsh."] = "Geh nach Süden zur Hütte des Riesen mitten im Sumpf.",
@@ -231,7 +231,7 @@ return {
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["Jungle Stalkers"] = "Dschungelpirscher",
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
-	["The Jungle Stalkers roam the slopes west of the mine."] = "Die Jungle Stalkers streifen über die Hänge westlich der Mine.",
+	["The Jungle Stalkers roam the slopes west of the mine."] = "Die Dschungelpirscher streifen über die Hänge westlich der Mine.",
 
 	-- Step 42: Zul'Mamwe's Mystics and the Shadowmaw Panthers
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
@@ -305,7 +305,7 @@ return {
 	["{area:103}: kill these as you meet them"] = "{area:103}: Töte diese, sobald sie dir begegnen",
 	-- {area:310} Crystalvein Mine
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
-	["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.\nFollow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "Die Skullsplitter-Trolle halten die Ruinen direkt östlich der Mine; jeder von ihnen kann Hauer fallen lassen, ihre Panther immer.\nFolge der Straße nach Nordosten zum Lager der Venture Co. an der {area:310}; die Miners, Surveyors und Foremen lassen die Kristalle fallen.\nVorsicht: Getarnte Shadowmaw Panthers und Stranglethorn Tigresses streifen durch das Gebiet rund um das Lager.",
+	["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.\nFollow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "Die Skullsplitter-Trolle halten die Ruinen direkt östlich der Mine; jeder von ihnen kann Hauer fallen lassen, ihre Panther immer.\nFolge der Straße nach Nordosten zum Lager der Venture Co. an der {area:310}; die Minenarbeiter, Feldmesser und Vorarbeiter der Venture Co. lassen die Kristalle fallen.\nVorsicht: Getarnte Schattentatzenpanther und Schlingendorntigerinnen streifen durch das Gebiet rund um das Lager.",
 	-- {item:1524} Skullsplitter Tusk
 	["{item:1524}, from the trolls of the ruins"] = "{item:1524}, von den Trollen der Ruinen",
 
@@ -315,7 +315,7 @@ return {
 
 	-- Step 60: Big Game Hunter
 	-- {npc:731} King Bangalash
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "Das sind Elite-Mobs: Eine Gruppe wird empfohlen, such dir Mitspieler dafür. {npc:731} ist ein Elite der Stufe 43: Die meisten Klassen schaffen ihn allein auf Stufe 45, aber du brauchst vielleicht Hilfe. Überspring ihn, wenn du allein bist: Die Route lässt dich die Erfahrung wieder erfarmen.\nVorsicht: Tiger und getarnte Shadowmaw Panthers streifen in seiner Nähe umher. Räum sie, bevor du ihn ziehst. Wenn er gezogen wird, ruft {npc:731} Kreaturen im Umkreis von 20 Metern zu Hilfe.",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "Das sind Elite-Mobs: Eine Gruppe wird empfohlen, such dir Mitspieler dafür. {npc:731} ist ein Elite der Stufe 43: Die meisten Klassen schaffen ihn allein auf Stufe 45, aber du brauchst vielleicht Hilfe. Überspring ihn, wenn du allein bist: Die Route lässt dich die Erfahrung wieder erfarmen.\nVorsicht: Tiger und getarnte Schattentatzenpanther streifen in seiner Nähe umher. Räum sie, bevor du ihn ziehst. Wenn er gezogen wird, ruft {npc:731} Kreaturen im Umkreis von 20 Metern zu Hilfe.",
 
 	-- Step 62: Booty Bay
 	-- {area:35} Booty Bay
