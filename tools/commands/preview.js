@@ -408,10 +408,11 @@ Polestar.Free.Load()`;
 function freeScene(script) {
 	return `${FREE_SETUP}\nPolestar.UI.ShowPicker()\n${script}`;
 }
-// Started before on this account; Free mode on (its tab stands in for the
-// Engine's), Ogre Menace left out, the way back the leveling guide's.
-const FREE_USED = 'Polestar.DB().freeUsed = true';
-const FREE_ON = `${FREE_USED}; Polestar.Free.LeaveOut(7004, true); Polestar.Free.IsOn = function() return true end; Polestar.Free.ReturnTitle = function() return "Hillsbrad Foothills (20-25)" end`;
+// Free mode on (its tab stands in for the Engine's), Ogre Menace left out,
+// turning it off goes back to the leveling guide.
+const FREE_ON = `Polestar.Free.LeaveOut(7004, true); Polestar.Free.IsOn = function() return true end; Polestar.Free.ReturnTitle = function() return "Hillsbrad Foothills (20-25)" end`;
+// The Free mode section on one of its pages: "main", "quests" or "about".
+const freePage = (page) => `Polestar.UI.ShowFreeMode("${page}")`;
 // The guide window in Free mode: a leveling tab and Free mode's, its first
 // step the two hand-ins at Marshal Hale with why they come first, and the
 // line Free mode's start shows once.
@@ -2236,24 +2237,32 @@ local r = b.Chains[1]; r:GetScript("OnEnter")(r)`) },
 	},
 	{
 		file: 'free-mode.svg',
-		title: 'The Free mode section of the hub, by who arrives: never started (what Free mode is, three points, when it suits and the way back, beside the log\'s first three quests in Free mode\'s order and one Start); started before (Start with the order beside it, the first three, What is Free mode? folded); on (following six quests, Back to the guide, the order, the hand-in card, the route numbered with the current quest marked, two hand-ins under Marshal Hale, Ogre Menace left out)',
+		title: 'The Free mode section of the hub, its three pages (the sidebar\'s Main page, Your quests, About Free mode): the Main page off (the hero: the log\'s first three quests as stars on a dotted path the emblem leads, one big Activate Free mode under them) and on (the same hero, "Free mode is on · following five quests" over one Turn off Free mode, the guide it goes back to as a plain line); Your quests off (the order Free mode would take, Activate beside it) and on (the order, the hand-in card, the route numbered with the current quest marked, two hand-ins under Marshal Hale, Ogre Menace left out); About Free mode (four drawn beats, when to use it, the way back)',
 		panels: [
-			{ free: true, roots: PICKER, script: freeScene('Polestar.UI.ShowFreeMode()') },
-			{ free: true, roots: PICKER, script: freeScene(`${FREE_USED}; Polestar.UI.ShowFreeMode()`) },
-			{ free: true, roots: PICKER, script: freeScene(`${FREE_ON}; Polestar.UI.ShowFreeMode()`) },
+			{ free: true, roots: PICKER, script: freeScene(freePage('main')) },
+			{ free: true, roots: PICKER, script: freeScene(`${FREE_ON}; ${freePage('main')}`) },
+			{ free: true, roots: PICKER, script: freeScene(freePage('quests')) },
+			{ free: true, roots: PICKER, script: freeScene(`${FREE_ON}; ${freePage('quests')}`) },
+			{ free: true, roots: PICKER, script: freeScene(freePage('about')) },
 		],
 	},
 	{
 		file: 'free-mode-looks.svg',
-		title: 'The Free mode page never started and on, in every other built-in look: Halo, Hearth, WoW Forever, Blizzard and Classic',
+		title: 'The Free mode section in every other built-in look (Halo, Hearth, WoW Forever, Blizzard and Classic): the Main page on, Your quests on and About Free mode',
 		panels: ['halo', 'hearth', 'forever', 'blizzard', 'classic'].flatMap((look) => [
-			{ free: true, roots: PICKER, script: freeScene(`Polestar.Set("ui.skin", "${look}"); Polestar.UI.ShowFreeMode()`) },
-			{ free: true, roots: PICKER, script: freeScene(`Polestar.Set("ui.skin", "${look}"); ${FREE_ON}; Polestar.UI.ShowFreeMode()`) },
+			{ free: true, roots: PICKER, script: freeScene(`Polestar.Set("ui.skin", "${look}"); ${FREE_ON}; ${freePage('main')}`) },
+			{ free: true, roots: PICKER, script: freeScene(`Polestar.Set("ui.skin", "${look}"); ${FREE_ON}; ${freePage('quests')}`) },
+			{ free: true, roots: PICKER, script: freeScene(`Polestar.Set("ui.skin", "${look}"); ${freePage('about')}`) },
 		]),
 	},
 	{
+		file: 'free-mode-hero.svg',
+		title: 'The Free mode page\'s hero, in its three compositions (the dev switch PolestarDB.devFreeHero): sky (the default: the log\'s first three quests as stars on a dotted path the emblem leads, Activate under them), polaris (the emblem in its glow over the tagline and Activate) and seal (Activate at the heart of the emblem\'s engraving)',
+		panels: ['sky', 'polaris', 'seal'].map((d) => ({ free: true, roots: PICKER, script: freeScene(`PolestarDB.devFreeHero = "${d}"; ${freePage('main')}`) })),
+	},
+	{
 		file: 'guide-free.svg',
-		title: 'The guide window in Free mode: its tab wears the running figure beside a leveling tab\'s chevrons, the line its start shows once, why the first quest is first under the step\'s header; its menu with the way back and the three orders',
+		title: 'The guide window in Free mode: its tab wears the running figure beside a leveling tab\'s chevrons, the line its start shows once, why the first quest is first under the step\'s header; its menu with Turn off Free mode and the three orders',
 		backdrop: 'terrain',
 		panels: [
 			{ free: true, roots: GUIDE, script: `${FREE_SETUP}\n${FREE_TAB}` },

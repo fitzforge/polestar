@@ -564,17 +564,10 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
--- Machine-translated, to be reviewed (the Free mode page, the hand-in row and Import in Settings, 26 Nov 2026):
+-- Machine-translated, to be reviewed (the Free mode page and Import in Settings, 26 Nov 2026):
 -- translated by an AI model (Claude Sonnet 5.5) in this file's own wording, and waiting for a native
 -- speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
---   Every finished quest in your log, none of them part of this step.
---   Click for the shortest trip through their hand-ins
---   Hides this line until the number of finished quests changes.
---   %d quests ready to hand in
---   Finished quests
 --   Import a guide
---   Hand-in row
---   A slim line under the step when 2 or more quests in your log are finished and none is part of this step: how many, and Route, the shortest trip through their hand-ins. Its close button hides it until that number changes.
 --   Click to unpin it from Free mode
 --   Click to make it Free mode's first quest
 --   Hand in finished quests
@@ -588,7 +581,6 @@
 --   Your quests
 --   Open Settings, Community guides, Import a guide; import clear / import delete <id>: remove imports
 --   This is a guide import string: paste it under Settings, Community guides, Import a guide.
---   Your own quests as a guide, in a tab of its own: the arrow takes them in the order that gets the most done for the walk, or nearest first, or the most XP a minute (/polestar free). Press again to go back to your guide.
 -- Machine-translated, to be reviewed (Free mode's Balanced order and its why line, 0.4.4, 26 Nov 2026):
 -- translated by an AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native
 -- speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
@@ -612,14 +604,10 @@
 --   About %s, 1 stop
 --   About Free mode
 --   Any quest, anywhere: Free mode follows your quest log, not a guide.
---   Back to %s
---   Back to your guide any time, from the guide window's menu or this page.
 --   Every quest of a zone at once. Bring one back from Left out.
---   First up
 --   Free mode is on · following %d quests
 --   Free mode is on · following 1 quest
 --   Free mode page
---   Good for when you're off your guide's route, questing with friends, or doing your own thing.
 --   Hand in to %s
 --   Left out
 --   Pick up whatever quests you like. Free mode puts them in a smart order and the arrow takes you through them, one after another.
@@ -627,14 +615,12 @@
 --   Quest your own way
 --   Ready
 --   Start Free mode
---   Stop Free mode
 --   The arrow leads
 --   The best trip first: XP for the walk, quests started and stops shared.
 --   The best trip for the walk, planned again whenever your log changes.
 --   The most XP for each minute of walking and work first.
 --   The quest you reach soonest first, its neighbours after it.
 --   To each objective and hand-in in turn, as in any guide.
---   What is Free mode?
 --   Why first: %s
 --   With your %d quests, Free mode starts with %s.
 --   With your quest, Free mode starts with %s.
@@ -643,14 +629,37 @@
 --   Your own quests, planned for you.
 --   Your own quests, planned for you: pick up what you like, Polestar orders them and the arrow leads.
 --   Your quests in Free mode
---   Your route, the order and the quests left out.
--- Machine-translated, to be reviewed (the guide window menu's Turn on and Turn off Free mode, 0.4.4, 27 Nov 2026):
+-- Machine-translated, to be reviewed (the Free mode section's three pages, Turn on and Turn off, 0.4.4, 27 Nov 2026):
 -- translated by an AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native
 -- speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   Activate Free mode
+--   Back to your guide
+--   Doing your own thing
+--   Finished quests become stops on the trip: you hand them in as you pass.
+--   Free mode is leading you to %s
+--   Free mode is off · the order it would take
+--   Free mode would start with %s
+--   Hand in on the way
+--   How Free mode works
 --   Leaves you with no guide open: pick one under Guides.
+--   Main page
+--   No route to keep to: pick up what looks fun and Polestar finds the way.
+--   Off your guide's route
+--   Pick up anything
+--   Polestar orders it
+--   Questing with friends
+--   Quests your guide doesn't have, or a zone it skips: Free mode takes them all.
+--   Take what the group takes, and the arrow leads you through all of it.
 --   Takes you back to %s
+--   Then %s
+--   Then %s and %d more
+--   Turn Free mode off on its Main page or from the guide window's menu: the arrow goes back to the guide you had open, where you left it.
+--   Turn it off any time, here or from the guide window's menu.
 --   Turn off Free mode
 --   Turn on Free mode
+--   When to use it
+--   Your own quests as a guide, in a tab of its own: the arrow takes them in the order that gets the most done for the walk, or nearest first, or the most XP a minute. Turn it on and off on its Main page, from the guide window's menu or with /polestar free.
+--   Your quests in Free mode's order, which quest first and the quests left out.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhTW") then return end
@@ -1330,7 +1339,7 @@ L["Zone hints"] = "地區提示"
 L["With no quest near, the zone with the most quests for your level comes first, the arrow to its givers."] = "附近沒有任務時，適合你等級任務最多的地區排在最前，箭頭指向發布任務的人。"
 L["XP and drop rates"] = "經驗和掉落率"
 L["The XP each hand-in pays, and a collect whose items rarely drop says so."] = "每次交任務獲得的經驗，以及物品很少掉落的收集目標會註明。"
-L["Your own quests as a guide, in a tab of its own: the arrow takes them in the order that gets the most done for the walk, or nearest first, or the most XP a minute (/polestar free). Press again to go back to your guide."] = "把你自己的任務當作指南，在單獨的分頁中：箭頭按路程上完成最多的順序帶你去，或最近的優先，或每分鐘經驗最多的優先（/polestar free）。再按一次回到你的指南。"
+L["Your own quests as a guide, in a tab of its own: the arrow takes them in the order that gets the most done for the walk, or nearest first, or the most XP a minute. Turn it on and off on its Main page, from the guide window's menu or with /polestar free."] = "把你自己的任務當作指南，在單獨的分頁中：箭頭按路程上完成最多的順序帶你去，或最近的優先，或每分鐘經驗最多的優先。可在它的主頁、指南視窗的選單中或用 /polestar free 開啟和關閉。"
 L["Balanced: the XP a quest pays for the walk and the work left, more for a quest already started, quests sharing a place or mobs, and hand-ins on the way. Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes."] = "均衡：任務給的經驗與路程和剩餘工作相比；已經開始的任務、地點或怪物相同的任務、以及順路繳交的任務排得更前。最近的優先：最快能到達的任務，然後是它附近的任務。每分鐘經驗最多的優先：任務給的經驗與路程和所需工作相比。"
 
 -- Quests/Party.lua
@@ -2386,12 +2395,6 @@ L["Every step of the guide in one list. Click one to look at it."] = "指南的�
 L["Or follow your own quests: Free mode"] = "或者跟隨你自己的任務：自由模式"
 L["No quests to lead to"] = "沒有可前往的任務"
 L["Pick up quests and Free mode leads you to them."] = "接取任務，自由模式會帶你前往。"
-L["Every finished quest in your log, none of them part of this step."] = "任務日誌中所有已完成的任務，其中沒有屬於此步驟的。"
-L["Click for the shortest trip through their hand-ins"] = "點擊查看依序繳交它們的最短路線"
-L["Hides this line until the number of finished quests changes."] = "隱藏此行，直到已完成任務的數量改變。"
-L["%d quests ready to hand in"] = "%d 個任務可繳交"
-L["Finished quests"] = "已完成的任務"
-L["Back to %s"] = "返回%s"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "前往 %s 的升降梯"
@@ -5174,8 +5177,7 @@ L["XP line"] = "經驗列"
 L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "步驟下方的一行：每小時經驗、升級時間和你的節奏。加強休息保留自己的一行。"
 L["Quest log notices"] = "任務日誌提示"
 L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = "關於任務日誌的提示行：不在你路線上的任務（在步驟中以及指南完成時），以及之後沒有指南會接收的已完成任務。關閉後，指南視窗的選單中仍有「清理任務日誌」和「繳交已完成的任務」。"
-L["Hand-in row"] = "繳交提示列"
-L["A slim line under the step when 2 or more quests in your log are finished and none is part of this step: how many, and Route, the shortest trip through their hand-ins. Its close button hides it until that number changes."] = "當任務日誌中有 2 個或更多任務已完成，且其中沒有屬於目前步驟的任務時，在步驟下方顯示的一列：數量，以及路線（依序繳交它們的最短路線）。關閉按鈕會將其隱藏，直到該數量改變。"
+-- L["The game's looks keep their own bar."] = ""
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "警示列"
@@ -5826,13 +5828,7 @@ L["Kept for %s: the route hands it in there."] = "保留給 %s：路線會在那
 L["No quests in your log are ready to hand in."] = "任務日誌中沒有可繳交的任務。"
 L["Wait until combat ends to load the quest data."] = "請等戰鬥結束後再載入任務資料。"
 L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "繳交任務指南無法載入。請檢查插件 Polestar_FreeMode 是否已安裝並啟用。"
--- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
--- L["Hand-ins without a known location"] = ""
 -- L["None of these has a known place to hand it in."] = ""
--- L["Refining the travel order. Travel times are estimates."] = ""
--- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
--- L["Waiting for your quest log."] = ""
--- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
 
 -- Lookup/Free.lua
 L["Free mode starts after combat."] = "自由模式將在戰鬥結束後啟動。"
@@ -5884,8 +5880,7 @@ L["Order: balanced"] = "順序：均衡"
 L["ready to hand in"] = "可以繳交"
 L["Why first: %s"] = "為何優先：%s"
 L["Free mode page"] = "自由模式頁面"
-L["Your route, the order and the quests left out."] = "你的路線、順序和已排除的任務。"
-L["Stop Free mode"] = "停止自由模式"
+L["Your quests in Free mode's order, which quest first and the quests left out."] = "依自由模式順序排列的你的任務、先做哪個任務以及已排除的任務。"
 L["Turn on Free mode"] = "開啟自由模式"
 L["Turn off Free mode"] = "關閉自由模式"
 L["Takes you back to %s"] = "將帶你回到%s"
@@ -5903,47 +5898,24 @@ L["Leave out"] = "排除"
 L["Your quests"] = "你的任務"
 L["Quest your own way"] = "用你自己的方式解任務"
 L["Pick up whatever quests you like. Free mode puts them in a smart order and the arrow takes you through them, one after another."] = "想接什麼任務就接什麼。自由模式會把它們排成合理的順序，箭頭帶你逐一完成。"
-L["You pick up quests"] = "你來接任務"
 L["Any quest, anywhere: Free mode follows your quest log, not a guide."] = "任何任務，任何地方：自由模式跟隨你的任務日誌，而不是指南。"
-L["Polestar plans the order"] = "Polestar 規劃順序"
 L["The best trip for the walk, planned again whenever your log changes."] = "依路程規劃最佳路線，任務日誌一變就重新規劃。"
 L["The arrow leads"] = "箭頭帶路"
 L["To each objective and hand-in in turn, as in any guide."] = "像任何指南一樣，依序帶你前往每個目標和繳交處。"
-L["Good for when you're off your guide's route, questing with friends, or doing your own thing."] = "適合偏離指南路線、和朋友一起解任務，或依自己的步調遊玩時使用。"
-L["Back to your guide any time, from the guide window's menu or this page."] = "隨時可以從指南視窗的選單或本頁返回你的指南。"
-L["What is Free mode?"] = "什麼是自由模式？"
-L["Start Free mode"] = "開始自由模式"
+L["Main page"] = "主頁"
+L["Free mode is off · the order it would take"] = "自由模式已關閉 · 它將採用的順序"
 L["Left out"] = "已排除"
 L["Every quest of a zone at once. Bring one back from Left out."] = "一次排除一個地區的所有任務。可在「已排除」中恢復單一任務。"
 L["Ready"] = "已完成"
 L["About %s, 1 stop"] = "約 %s，1 個地點"
 L["About %s, %d stops"] = "約 %s，%d 個地點"
 L["Hand in to %s"] = "繳交給%s"
-L["Your quests in Free mode"] = "自由模式中的任務"
-L["With your quest, Free mode starts with %s."] = "自由模式將從你的任務%s開始。"
-L["With your %d quests, Free mode starts with %s."] = "你有 %d 個任務，自由模式將從%s開始。"
 L["Free mode is on · following 1 quest"] = "自由模式已開啟 · 正在跟隨 1 個任務"
 L["Free mode is on · following %d quests"] = "自由模式已開啟 · 正在跟隨 %d 個任務"
-L["First up"] = "首先"
 L["About Free mode"] = "關於自由模式"
 
 -- UI/FreeMode.lua
 L["Your own quests, planned for you."] = "為你規劃的你自己的任務。"
--- Free.lua
--- L["Low drop rate: %s"] = ""
--- L["1 quest for your level: %s gives it."] = ""
--- L["%d quests for your level, all here."] = ""
--- L["%d quests for your level, %d of them here."] = ""
--- L["Quests for your level"] = ""
--- L["About %s XP a minute"] = ""
--- L["Order: nearest first"] = ""
--- L["Order: most XP a minute first"] = ""
--- L["Bring back left-out quests (%d)"] = ""
--- L["Unpin"] = ""
--- L["Pin to the top"] = ""
--- L["Free mode takes this quest first, whatever the order."] = ""
--- L["Leave out of Free mode"] = ""
--- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = ""
 
 -- Layouts/Atlas/Atlas.lua
 -- L["Get ahead, if possible"] = ""
@@ -5956,7 +5928,42 @@ L["Your own quests, planned for you."] = "為你規劃的你自己的任務。"
 -- L["Optional objectives during this step"] = ""
 -- L["Class quest"] = ""
 
+-- Hero.lua
+L["Activate Free mode"] = "啟用自由模式"
+L["Free mode would start with %s"] = "自由模式將從%s開始"
+L["Then %s and %d more"] = "然後是%s以及另外 %d 項"
+L["Then %s"] = "然後是%s"
+L["Free mode is leading you to %s"] = "自由模式正帶你前往%s"
+L["Turn it off any time, here or from the guide window's menu."] = "隨時可以在這裡或指南視窗的選單中關閉。"
+
+-- About.lua
+L["How Free mode works"] = "自由模式如何運作"
+L["Pick up anything"] = "隨意接任務"
+L["Polestar orders it"] = "Polestar 排好順序"
+L["Hand in on the way"] = "順路繳交"
+L["Finished quests become stops on the trip: you hand them in as you pass."] = "已完成的任務會成為路線上的停靠點：經過時順手繳交。"
+L["Off your guide's route"] = "偏離指南路線時"
+L["Quests your guide doesn't have, or a zone it skips: Free mode takes them all."] = "指南沒有的任務，或指南跳過的區域：自由模式全部納入。"
+L["Questing with friends"] = "與朋友一起解任務"
+L["Take what the group takes, and the arrow leads you through all of it."] = "接下隊伍接的任務，箭頭帶你全部完成。"
+L["Doing your own thing"] = "隨心所欲"
+L["No route to keep to: pick up what looks fun and Polestar finds the way."] = "沒有必須遵循的路線：接下看起來有趣的任務，Polestar 來找路。"
+L["When to use it"] = "何時使用"
+L["Back to your guide"] = "回到你的指南"
+L["Turn Free mode off on its Main page or from the guide window's menu: the arrow goes back to the guide you had open, where you left it."] = "在自由模式的主頁或指南視窗的選單中關閉它：箭頭會回到你先前開啟的指南，從你離開的地方繼續。"
+
+-- UI/GuideFrameTabs.lua
+-- L["Move up"] = ""
+-- L["Move down"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
+-- L["Back to %s"] = "返回%s"
+-- L["Your own quests as a guide, in a tab of its own: the arrow takes them in the order that gets the most done for the walk, or nearest first, or the most XP a minute (/polestar free). Press again to go back to your guide."] = "把你自己的任務當作指南，在單獨的分頁中：箭頭按路程上完成最多的順序帶你去，或最近的優先，或每分鐘經驗最多的優先（/polestar free）。再按一次回到你的指南。"
+-- L["Your route, the order and the quests left out."] = "你的路線、順序和已排除的任務。"
+-- L["Stop Free mode"] = "停止自由模式"
+-- L["Good for when you're off your guide's route, questing with friends, or doing your own thing."] = "適合偏離指南路線、和朋友一起解任務，或依自己的步調遊玩時使用。"
+-- L["Back to your guide any time, from the guide window's menu or this page."] = "隨時可以從指南視窗的選單或本頁返回你的指南。"
+-- L["What is Free mode?"] = "什麼是自由模式？"
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐頁重新設定 Polestar。每項選擇立即生效。"
 -- L["New"] = "新"
 -- L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = "指南視窗在地城與戰場中會隱藏。%s 可在「選項」>「指南」>「視窗」中更改。"
@@ -6276,3 +6283,9 @@ L["Your own quests, planned for you."] = "為你規劃的你自己的任務。"
 -- L["Free mode takes this quest first, whatever the order."] = "無論順序如何，自由模式都會先做這個任務。"
 -- L["Leave out of Free mode"] = "從自由模式中排除"
 -- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "自由模式不再列出此任務。選單中的「恢復被排除的任務」會重新列出它。"
+-- L["Start Free mode"] = "開始自由模式"
+-- L["Your quests in Free mode"] = "自由模式中的任務"
+-- L["With your quest, Free mode starts with %s."] = "自由模式將從你的任務%s開始。"
+-- L["With your %d quests, Free mode starts with %s."] = "你有 %d 個任務，自由模式將從%s開始。"
+-- L["You pick up quests"] = "你來接任務"
+-- L["Polestar plans the order"] = "Polestar 規劃順序"

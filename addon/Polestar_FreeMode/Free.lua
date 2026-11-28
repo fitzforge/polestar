@@ -744,6 +744,15 @@ end)
 -- On and off
 ---------------------------------------------------------------------------
 
+-- The sound of the mode turning on or off: Start and Stop are the one place
+-- the state really changes (a tab the client restores never comes through
+-- them), so every way to turn it on or off sounds it once, and only then.
+-- The quest log's open and close, as the Classic Era client names them.
+local function chime(on)
+	local kit = SOUNDKIT or {}
+	pcall(ns.PlaySound, on and (kit.IG_QUEST_LOG_OPEN or 844) or (kit.IG_QUEST_LOG_CLOSE or 845), "SFX")
+end
+
 function Free.Start()
 	local E, C = Engine(), Codex()
 	if not (E and E.OpenTab and ns.IsLoggedIn()) then return nil, "login" end
@@ -759,7 +768,7 @@ function Free.Start()
 	local ok, err = Lookup.Guide(KIND, ID)
 	if not ok then return nil, err end
 	planned = signature()
-	Free.MarkUsed()
+	chime(true)
 	ns.Fire("FREE_MODE", true)
 	return true
 end
@@ -796,6 +805,7 @@ function Free.Stop()
 	end
 	E.CloseTab(i, true)
 	planned, lastFirst, lastWhy, lastRows, lastInfo = nil, nil, nil, nil, nil
+	chime(false)
 	ns.Fire("FREE_MODE", false)
 end
 
@@ -961,17 +971,17 @@ end
 -- The guide window's rows (UI/GuideFrameMenu.lua, UI/GuideFrame.lua)
 ---------------------------------------------------------------------------
 
--- The guide window menu's rows. Off: Turn on Free mode. On: its page, Turn
--- off Free mode (the guide it goes back to in its tooltip), the three orders
--- with the one in use checked, and the quests left out.
+-- The guide window menu's rows. Off: Turn on Free mode. On: its Your quests
+-- page, Turn off Free mode (the guide it goes back to in its tooltip), the
+-- three orders with the one in use checked, and the quests left out.
 function Free.MenuItems()
 	if not Free.IsOn() then
 		return { { text = L["Turn on Free mode"], icon = "icon-freemode", tip = L["Your own quests, planned for you: pick up what you like, Polestar orders them and the arrow leads."],
 			onClick = function() Free.Toggle() end } }
 	end
 	local items = {}
-	items[1] = { text = L["Free mode page"], icon = "icon-freemode", tip = L["Your route, the order and the quests left out."],
-		onClick = function() if ns.UI.ShowFreeMode then ns.UI.ShowFreeMode() end end }
+	items[1] = { text = L["Free mode page"], icon = "icon-freemode", tip = L["Your quests in Free mode's order, which quest first and the quests left out."],
+		onClick = function() if ns.UI.ShowFreeMode then ns.UI.ShowFreeMode("quests") end end }
 	local back = Free.ReturnTitle()
 	items[2] = { text = L["Turn off Free mode"], icon = "close", onClick = Free.Stop,
 		tip = back and format(L["Takes you back to %s"], back) or L["Leaves you with no guide open: pick one under Guides."] }

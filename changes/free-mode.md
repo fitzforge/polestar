@@ -8,6 +8,8 @@ section: players
   quest to the top or leave one out with a right-click on its line. With
   nothing near, it points you to the zone with the most quests for your level.
   While you're here, the target button and auto hand-in work as on any guide,
-  and "Return to" takes you back to the guide you came from. Start it from
-  the guide window's menu, Settings (Questing, Quests) or `/polestar free`.
+  and turning it off takes you back to the guide you came from. Turn it on
+  from the guide window's menu, its page in the main window or
+  `/polestar free`; a short rising sound plays as it turns on and a softer one
+  as it turns off.
   Based on ideas and tests from AreChen's prototype (#4104).

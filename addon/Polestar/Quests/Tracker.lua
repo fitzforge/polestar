@@ -489,24 +489,24 @@ local function clickQuest(pin)
 	return first, false
 end
 
--- Whether the pin's quest is pinned in Free mode (nil: no quest, or no Free
--- mode to pin it in).
+-- Whether the pin's quest is pinned in Free mode (nil: no quest, or Free mode
+-- off: the click and its tooltip line are Free mode's only while it runs).
 function Q.PinnedQuest(pin)
-	if not (ns.Free and ns.Free.Pin) then return nil end
+	if not (ns.Free and ns.Free.IsOn and ns.Free.IsOn() and ns.Free.Pin) then return nil end
 	local q, pinned = clickQuest(pin)
 	if not q then return nil end
 	return pinned
 end
 
 -- A left click on a held quest's objective area or pin (a mouse on the world
--- map; not with a modifier, Journey's) makes it Free mode's first quest (the
--- existing Pin to the top); clicked again, it is unpinned.
+-- map; not with a modifier, Journey's) while Free mode is on makes it Free
+-- mode's first quest (the existing Pin to the top); clicked again, it is unpinned.
 function Q.PinClick(pin, button, owner)
 	if button ~= "LeftButton" or IsShiftKeyDown() or IsAltKeyDown() or IsControlKeyDown() then return end
 	local P = ns.Pins
 	if owner and not (P and P.WorldPinOf and P.WorldPinOf(owner)) then return end
 	local q, pinned = clickQuest(pin)
-	if q and ns.Free and ns.Free.Pin then ns.Free.Pin(q, not pinned) end
+	if q and Q.PinnedQuest(pin) ~= nil then ns.Free.Pin(q, not pinned) end
 end
 
 local function addTooltipLines(tt, pin)

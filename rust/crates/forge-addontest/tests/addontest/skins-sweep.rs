@@ -110,11 +110,12 @@ fn switching_the_skin_restyles_the_flight_timer_and_every_polestar_frame_live_13
 	assert!(skins["polestar"]["item"] != json!(false), "the quest item button was built");
 }
 
-// The Free mode page, its line on the guide window and its tab, through every skin, live: the hand-in card is an
-// action tile (`tile`), its buttons and ticks the skin's (`button`, `checkbox`), and every other part of it paints
-// from the skin's tokens (the selection wash and accent bar on the quest the arrow leads to, the why line, the order's
-// line, the state glyph, the NPC line's glyph, the step's why line), so a skin or scheme restyles all of it without
-// a part of its own. The Codex is tests/fixtures/codex/free-mode.json; Marshal Hale takes the two finished quests.
+// Free mode's Your quests page, its line on the guide window and its tab, through every skin, live: the hand-in card
+// is an action tile (`tile`), its buttons and ticks the skin's (`button`, `checkbox`; Turn off is the Main page's, below), and
+// every other part of it paints from the skin's tokens (the selection wash and accent bar on the quest the arrow leads
+// to, the why line, the order's line, the state glyph, the NPC line's glyph, the step's why line), so a skin or scheme
+// restyles all of it without a part of its own. The Codex is tests/fixtures/codex/free-mode.json; Marshal Hale takes
+// the two finished quests.
 const FREE: &str = r#"
 local T, F, UI = Polestar.Theme, Polestar.Free, Polestar.UI
 w.accept(7001, { { text = "Ridge Gnoll slain: 0/5", required = 5 } }, "Gnoll Trouble")
@@ -129,10 +130,11 @@ assert(F.Start())
 stub.advance(1)
 F.LeaveOut(7003, true)
 stub.advance(1)
-UI.ShowFreeMode()
+UI.ShowFreeMode("quests")
 stub.advance(0.3)
 local P = F.Page
-P.Jump("out")
+P.parts.OutH:Click()
+stub.advance(0.1)
 local GF = UI.GuideFrame
 GF.Refill()
 local cur
@@ -150,7 +152,7 @@ for _, key in ipairs(T.SKIN_ORDER) do
 	stub.advance(0.1)
 	local function skin(f) return f and f.psSkin and f.psSkin.skin or false end
 	out.skins[key] = {
-		tile = skin(P.parts.Handin), back = skin(P.parts.Back), segment = skin(P.parts.Near), bringBack = skin(outRow and outRow.Back),
+		tile = skin(P.parts.Handin), segment = skin(P.parts.Near), bringBack = skin(outRow and outRow.Back),
 		check = skin(cur and cur.Check),
 		sel = cur ~= nil and same(rgb(cur.Sel:GetVertexColor()), rgb(T.Wash("selected"))),
 		bar = cur ~= nil and same(rgb(cur.Bar:GetVertexColor()), rgb(T.Color("accent"))),
@@ -200,10 +202,136 @@ fn the_free_mode_page_and_its_step_line_follow_every_skin_live_through_skin_part
 	let skins = out["skins"].as_object().unwrap();
 	assert_eq!(skins.len(), 6);
 	for (key, s) in skins {
-		for part in ["tile", "back", "segment", "bringBack", "check"] {
+		for part in ["tile", "segment", "bringBack", "check"] {
 			assert_eq!(s[part], json!(key), "{key}: {part} painted by the skin in use");
 		}
 		for token in ["sel", "bar", "why", "rule", "status", "group", "tileIcon", "stepWhy"] {
+			assert_eq!(s[token], true, "{key}: {token} in the skin's own token");
+		}
+	}
+}
+
+// The Free mode page's hero (off: Polestar_FreeMode/Hero.lua), through every skin, live, in each of its
+// compositions: Activate is the skin's button (`button`), and the art and text paint from the skin's tokens (the
+// emblem and its glow in the accent, the quests' stars' names in the quest colour, the tagline in text, the lead in
+// textDim, the line under the button in textMuted), so a skin or scheme restyles the hero without a part of its own.
+const HERO: &str = r#"
+local T, F, UI = Polestar.Theme, Polestar.Free, Polestar.UI
+w.accept(7001, { { text = "Ridge Gnoll slain: 0/5", required = 5 } }, "Gnoll Trouble")
+w.accept(7002, { { text = "Boar Tusk: 0/4", required = 4, type = "item" } }, "Boar Hunt")
+w.accept(7003, { { text = "Marsh Lurker slain: 0/6", required = 6 } }, "Lurkers in the Marsh")
+stub.advance(1)
+UI.ShowFreeMode()
+stub.advance(0.3)
+local P, H = F.Page, F.Hero.parts
+local function rgb(...) local r, g, b = ...; return { r, g, b } end
+local function same(a, b)
+	for i = 1, 3 do if math.abs((a[i] or -1) - (b[i] or -2)) > 0.002 then return false end end
+	return true
+end
+local out = {}
+for _, d in ipairs({ "sky", "polaris", "seal" }) do
+	Polestar.DB().devFreeHero = d
+	for _, key in ipairs(T.SKIN_ORDER) do
+		Polestar.Set("ui.skin", key)
+		stub.advance(0.1)
+		local accent = rgb(T.Color("accent"))
+		out[d .. ":" .. key] = {
+			button = P.parts.Start.psSkin and P.parts.Start.psSkin.skin or false,
+			emblem = same(rgb(H.Emblem:GetVertexColor()), accent),
+			glow = same(rgb(H.Glow:GetVertexColor()), accent),
+			title = same(rgb(H.Title:GetTextColor()), rgb(T.Color("text"))),
+			lead = same(rgb(H.Lead:GetTextColor()), rgb(T.Color("textDim"))),
+			note = same(rgb(H.Back:GetTextColor()), rgb(T.Color("textMuted"))),
+			quest = d ~= "sky" or same(rgb(H.Labels[1].title:GetTextColor()), rgb(T.Color("quest"))),
+		}
+	end
+end
+emit(out)
+"#;
+
+#[test]
+fn the_free_mode_hero_follows_every_skin_live_in_each_composition_through_the_skin_s_button_and_tokens() {
+	let pack = write_codex_pack(&fixture("free-mode.json"), &CodexOpts::default());
+	let before = format!(
+		"{}\nlocal w = stub.world\n{}\nw.level, w.race, w.raceName, w.faction = 20, \"Human\", \"Human\", \"Alliance\"\nw.class, w.className = \"WARRIOR\", \"Warrior\"\nw.moveTo(9001, 50, 50)\n",
+		pack.stub_lua,
+		free_maps()
+	);
+	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], before, addons: vec![Addon::name("Polestar")], login: true, script: format!("local w = stub.world\n{HERO}"), ..Default::default() })
+		.remove(0);
+	let all = out.as_object().unwrap();
+	assert_eq!(all.len(), 18, "three compositions in six skins");
+	for (k, s) in all {
+		let skin = k.split(':').nth(1).unwrap();
+		assert_eq!(s["button"], json!(skin), "{k}: Activate painted by the skin in use");
+		for token in ["emblem", "glow", "title", "lead", "note", "quest"] {
+			assert_eq!(s[token], true, "{k}: {token} in the skin's own token");
+		}
+	}
+}
+
+// The Main page while on (the hero's state line and Turn off) and the About page (its title, the four beats' numbers,
+// titles and lines, the cases' glyphs), through every skin, live: Turn off is the skin's button, and the rest paints
+// from the skin's tokens (the emblem and the state glyph in the accent, the text in text, the lines in textDim).
+const ON_ABOUT: &str = r#"
+local T, F, UI = Polestar.Theme, Polestar.Free, Polestar.UI
+w.accept(7001, { { text = "Ridge Gnoll slain: 0/5", required = 5 } }, "Gnoll Trouble")
+w.accept(7002, { { text = "Boar Tusk: 0/4", required = 4, type = "item" } }, "Boar Hunt")
+stub.advance(1)
+assert(F.Start())
+stub.advance(1)
+local function rgb(...) local r, g, b = ...; return { r, g, b } end
+local function same(a, b)
+	for i = 1, 3 do if math.abs((a[i] or -1) - (b[i] or -2)) > 0.002 then return false end end
+	return true
+end
+local out = {}
+for _, key in ipairs(T.SKIN_ORDER) do
+	Polestar.Set("ui.skin", key)
+	stub.advance(0.1)
+	UI.ShowFreeMode("main")
+	stub.advance(0.1)
+	local P, H = F.Page, F.Hero.parts
+	local accent = rgb(T.Color("accent"))
+	local s = {
+		stop = P.parts.Stop:IsShown() and P.parts.Stop.psSkin and P.parts.Stop.psSkin.skin or false,
+		emblem = same(rgb(H.Emblem:GetVertexColor()), accent),
+		statusIcon = same(rgb(H.StatusIcon:GetVertexColor()), accent),
+		status = same(rgb(H.Status:GetTextColor()), rgb(T.Color("text"))),
+		note = same(rgb(H.Back:GetTextColor()), rgb(T.Color("textMuted"))),
+	}
+	UI.ShowFreeMode("about")
+	stub.advance(0.1)
+	local A = F.About.parts
+	s.title = same(rgb(A.Title:GetTextColor()), rgb(T.Color("text")))
+	s.num = same(rgb(A.Beats[1].Num:GetTextColor()), accent)
+	s.beat = same(rgb(A.Beats[4].Title:GetTextColor()), rgb(T.Color("text")))
+	s.line = same(rgb(A.Beats[2].Text:GetTextColor()), rgb(T.Color("textDim")))
+	s.when = same(rgb(A.When[2].Icon:GetVertexColor()), accent)
+	s.back = same(rgb(A.BackText:GetTextColor()), rgb(T.Color("textDim")))
+	s.beats = #(P.Shown().beats or {})
+	out[key] = s
+end
+emit(out)
+"#;
+
+#[test]
+fn the_free_mode_main_page_on_and_its_about_page_follow_every_skin_live_through_the_skin_s_button_and_tokens() {
+	let pack = write_codex_pack(&fixture("free-mode.json"), &CodexOpts::default());
+	let before = format!(
+		"{}\nlocal w = stub.world\n{}\nw.level, w.race, w.raceName, w.faction = 20, \"Human\", \"Human\", \"Alliance\"\nw.class, w.className = \"WARRIOR\", \"Warrior\"\nw.moveTo(9001, 50, 50)\n",
+		pack.stub_lua,
+		free_maps()
+	);
+	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], before, addons: vec![Addon::name("Polestar")], login: true, script: format!("local w = stub.world\n{ON_ABOUT}"), ..Default::default() })
+		.remove(0);
+	let skins = out.as_object().unwrap();
+	assert_eq!(skins.len(), 6);
+	for (key, s) in skins {
+		assert_eq!(s["stop"], json!(key), "{key}: Turn off painted by the skin in use");
+		assert_eq!(s["beats"], 4, "{key}: the four beats");
+		for token in ["emblem", "statusIcon", "status", "note", "title", "num", "beat", "line", "when", "back"] {
 			assert_eq!(s[token], true, "{key}: {token} in the skin's own token");
 		}
 	}

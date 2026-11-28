@@ -569,10 +569,80 @@ emit({ xp = xp, on = on, first = first, near = near, pick = Polestar.Get("free.p
 }
 
 #[test]
-fn the_settings_button_starts_and_stops_it_beside_its_order_and_details() {
-	// Settings > Questing > Quests > Free mode (Polestar_Options/Quests/Options.lua): the start is a button (the tab
-	// is the character's, no setting holds it; pressed again it goes back), then the order, zone hints and XP and
-	// drop rates.
+fn turning_free_mode_on_and_off_sounds_once_by_any_way_and_a_restored_tab_is_silent() {
+	let script = r#"
+SOUNDKIT = { IG_QUEST_LOG_OPEN = 8441, IG_QUEST_LOG_CLOSE = 8451 }
+local function kits() local out = {} for i, k in ipairs(stub.sounds) do out[i] = k end stub.sounds = {} return out end
+stub.sounds = {}
+stub.advance(1)
+local got = {}
+assert(F.Start())
+stub.advance(1)
+got.start = kits()
+assert(F.Start())
+got.again = kits()
+F.Stop()
+stub.advance(1)
+got.stop = kits()
+F.Stop()
+got.stopAgain = kits()
+SlashCmdList.POLESTAR("free")
+stub.advance(1)
+got.slashOn = kits()
+SlashCmdList.POLESTAR("free off")
+stub.advance(1)
+got.slashOff = kits()
+SlashCmdList.POLESTAR("free on")
+stub.advance(1)
+got.slashOnWord = kits()
+local items = F.MenuItems()
+items[2].onClick()
+stub.advance(1)
+got.menuOff = kits()
+F.Toggle()
+stub.advance(1)
+got.toggleOn = kits()
+F.Toggle()
+stub.advance(1)
+got.toggleOff = kits()
+emit(got)
+"#;
+	let out = run(script);
+	let got = &out[0];
+	for (k, want) in [
+		("start", vec![8441]),
+		("again", vec![]),
+		("stop", vec![8451]),
+		("stopAgain", vec![]),
+		("slashOn", vec![8441]),
+		("slashOff", vec![8451]),
+		("slashOnWord", vec![8441]),
+		("menuOff", vec![8451]),
+		("toggleOn", vec![8441]),
+		("toggleOff", vec![8451]),
+	] {
+		let have: Vec<i64> = got[k].as_array().map(|a| a.iter().map(|v| v.as_i64().unwrap()).collect()).unwrap_or_default();
+		assert_eq!(have, want, "{k}");
+	}
+	let restored = run_with(
+		r#"
+SOUNDKIT = { IG_QUEST_LOG_OPEN = 8441, IG_QUEST_LOG_CLOSE = 8451 }
+stub.advance(2)
+local n = 0
+for _, k in ipairs(stub.sounds) do if k == 8441 or k == 8451 then n = n + 1 end end
+emit({ on = F.IsOn(), n = n })
+"#,
+		&Opts { saved: Some(r#"PolestarCharDB = { tabs = { "lookup/free/log" }, activeTab = 1, guide = "lookup/free/log" }"#), ..Default::default() },
+	);
+	assert!(truthy(&restored[0]["on"]));
+	assert_eq!(restored[0]["n"], 0, "restoring the tab at login plays nothing");
+}
+
+#[test]
+fn the_settings_button_opens_the_main_page_beside_the_order_and_details() {
+	// Settings > Questing > Quests > Free mode (Polestar_Options/Quests/Options.lua): Open, which shows the Free mode
+	// section's Main page (Free mode is turned on and off there, not by a second switch here), then the order, zone
+	// hints and XP and drop rates.
 	let out = run_with(
 		r#"
 take(7001)
@@ -583,18 +653,16 @@ local c = O.ControlByKey("free.pick")
 O.Select(c.page.key, c.tab)
 stub.advance(0.2)
 local rows = O.Controls(c.page.key, c.tab)
-local start
+local open
 for _, x in ipairs(O.AllControls()) do
-	if x.kind == "button" and x.label == "Free mode" then start = x end
+	if x.kind == "button" and x.label == "Free mode" then open = x end
 end
-start.onClick()
-stub.advance(1)
-local on, guide = F.IsOn(), E.GetGuide().id
-start.onClick()
+open.onClick()
 stub.advance(1)
 local choices = {}
 for _, ch in ipairs(c.choices) do choices[#choices + 1] = ch.value end
-emit({ page = c.page.key, tab = c.tab, hints = rows["free.hints"] ~= nil, details = rows["free.details"] ~= nil, on = on, guide = guide, after = F.IsOn(),
+emit({ page = c.page.key, tab = c.tab, hints = rows["free.hints"] ~= nil, details = rows["free.details"] ~= nil, button = open.button,
+	section = Polestar.UI.Picker.Section(), shown = PolestarPicker:IsShown(), freePage = F.Page and F.Page.Current() or false, on = F.IsOn(),
 	choices = choices, default = Polestar.GetDefault("free.pick") })
 "#,
 		&Opts { files: None, ..Default::default() },
@@ -605,9 +673,11 @@ emit({ page = c.page.key, tab = c.tab, hints = rows["free.hints"] ~= nil, detail
 	assert!(truthy(&o["hints"]) && truthy(&o["details"]));
 	assert_eq!(strs(&o["choices"]), ["balanced", "near", "xp"]);
 	assert_eq!(text(&o["default"]), "balanced");
-	assert!(truthy(&o["on"]));
-	assert_eq!(text(&o["guide"]), "lookup/free/log");
-	assert!(!truthy(&o["after"]));
+	assert_eq!(text(&o["button"]), "Open");
+	assert!(truthy(&o["shown"]), "the main window opens");
+	assert_eq!(text(&o["section"]), "FreeMode");
+	assert_eq!(text(&o["freePage"]), "main", "on the Main page");
+	assert!(!truthy(&o["on"]), "opening it turns nothing on");
 }
 
 // Balanced (Polestar_FreeMode/Order.lua), from 45,50: the Field Rats 20 yd west, the Ridge Gnolls 200 yd east.

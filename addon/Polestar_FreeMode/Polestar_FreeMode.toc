@@ -32,4 +32,6 @@ Route.lua
 Handins.lua
 Order.lua
 Free.lua
+Hero.lua
+About.lua
 Page.lua
