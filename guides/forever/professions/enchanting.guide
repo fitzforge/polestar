@@ -207,7 +207,8 @@ step Get 1 Golden Rod
 
 step Train Expert Enchanting
   tip Needs level 20.
-  train Enchanting Expert
+  train Enchanting Expert npc 11072 only Alliance
+  train Enchanting Expert npc 11074 only Horde
 
 step Learn Runed Golden Rod
   learn 13628 npc 11072,11074

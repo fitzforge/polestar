@@ -311,7 +311,8 @@ step Get 152 Heavy Leather
 
 step Train Expert Leatherworking
   tip Needs level 20.
-  train Leatherworking Expert
+  train Leatherworking Expert npc 4212 only Alliance
+  train Leatherworking Expert npc 3007 only Horde
 
 step Learn Barbaric Shoulders
   learn 7151 npc 4212,3007
@@ -412,7 +413,8 @@ step Get 504 Thick Leather
 
 step Train Artisan Leatherworking
   tip Needs level 35.
-  train Leatherworking Artisan
+  train Leatherworking Artisan npc 11097 only Alliance
+  train Leatherworking Artisan npc 11098 only Horde
 
 step Learn Nightscape Pants
   learn 10548 npc 11097,11098

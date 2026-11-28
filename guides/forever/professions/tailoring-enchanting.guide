@@ -305,7 +305,8 @@ step Get 115 Mageweave Cloth
 
 step Train Expert Tailoring
   tip Needs level 20.
-  train Tailoring Expert
+  train Tailoring Expert npc 1346 only Alliance
+  train Tailoring Expert npc 4576 only Horde
 
 step Learn Bolt of Mageweave
   learn 3865 npc 1346,4576
@@ -492,11 +493,13 @@ step Get 75 Mageweave Cloth
 
 step Train Artisan Tailoring
   tip Needs level 35.
-  train Tailoring Artisan
+  train Tailoring Artisan npc 11052 only Alliance
+  train Tailoring Artisan npc 2399 only Horde
 
 step Train Expert Enchanting
   tip Needs level 20.
-  train Enchanting Expert
+  train Enchanting Expert npc 11072 only Alliance
+  train Enchanting Expert npc 11074 only Horde
 
 step Learn Black Mageweave Shoulders
   tip For 200-205: taught here now, so no second trip.

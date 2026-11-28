@@ -598,7 +598,8 @@ step Mine and smelt 30 Bronze Bars
 
 step Train Expert Engineering
   tip Needs level 20.
-  train Engineering Expert
+  train Engineering Expert npc 5174 only Alliance
+  train Engineering Expert npc 11017 only Horde
 
 step Learn Bronze Framework
   learn 3953 npc 5174,11017
@@ -949,7 +950,7 @@ step Get 21 Mageweave Cloth
 
 step Train Artisan Engineering
   tip Needs level 35.
-  train Engineering Artisan
+  train Engineering Artisan npc 8736
 
 step Learn Unstable Trigger
   learn 12591 npc 8736

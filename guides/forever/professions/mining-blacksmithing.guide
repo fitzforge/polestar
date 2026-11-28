@@ -513,7 +513,8 @@ step Mine and smelt 240 Iron Bars
 
 step Train Expert Blacksmithing
   tip Needs level 20.
-  train Blacksmithing Expert
+  train Blacksmithing Expert npc 4258 only Alliance
+  train Blacksmithing Expert npc 3355 only Horde
 
 step Learn Green Iron Bracers
   learn 3501 npc 4258,3355
@@ -732,7 +733,7 @@ section Blacksmithing 210-225
 
 step Train Artisan Blacksmithing
   tip Needs level 35.
-  train Blacksmithing Artisan
+  train Blacksmithing Artisan npc 2836
 
 step Buy Plans: Mithril Spurs at the Auction House
   tip Saves about 130 Thorium and 150 Mithril Bars.
