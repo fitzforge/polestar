@@ -215,7 +215,7 @@ step Enchanting 1-75: vendor goods
   buy 6217 x1 nearest
   buy 247786 x32 nearest
 
-step Get Strange Dust
+step Get Strange Dust · Disenchant: Professions tab (K by default)
   tip 52 Strange Dust for Enchanting 1-75: 52 Enchant Chest - Inferior Stamina. Enchanting: disenchant green armour that requires level 1-20. Or buy them at the Auction House.
   collect 10940 x52 anywhere gather Enchanting 1 levels 1-20
   auction 10940 x52
@@ -316,12 +316,12 @@ step Get Silver Rod
   collect 6338 x1 anywhere gather Blacksmithing 75
   auction 6338 x1
 
-step Get Strange Dust
+step Get Strange Dust · Disenchant: Professions tab (K by default)
   tip 136 Strange Dust for Enchanting 75-150: 27 Enchant Chest - Inferior Stamina, 53 Enchant Cloak - Minor Protection and Runed Silver Rod. Disenchanting your Tailoring crafts of this bracket gives about 64 of them (see Journeyman Enchanting); the other 72 come from greens you loot or the Auction House. Enchanting: disenchant green armour that requires level 1-20. Or buy them at the Auction House.
   collect 10940 x136 anywhere gather Enchanting 1 levels 1-20
   auction 10940 x136
 
-step Get Soul Dust
+step Get Soul Dust · Disenchant: Professions tab (K by default)
   tip 20 Soul Dust for Enchanting 75-150: 20 Enchant Bracer - Lesser Stamina. Disenchanting your Tailoring crafts of this bracket gives about 19 of them (see Journeyman Enchanting); the other 1 come from greens you loot or the Auction House. Enchanting: disenchant green armour that requires level 21-30. Or buy them at the Auction House.
   collect 11083 x20 anywhere gather Enchanting 1 levels 21-30
   auction 11083 x20
@@ -428,13 +428,13 @@ step Get Iridescent Pearl (Horde)
   collect 5500 x1 @12.3,10 era gather
   auction 5500 x1
 
-step Get Greater Astral Essence
+step Get Greater Astral Essence · Disenchant: Professions tab (K by default)
   zone Azeroth
   tip 1 Greater Astral Essence for Enchanting 150-225: Runed Golden Rod. Enchanting: disenchant green armour that requires level 21-25. Or buy it at the Auction House.
   collect 11082 x1 anywhere gather Enchanting 1 levels 21-25
   auction 11082 x1
 
-step Get Soul Dust
+step Get Soul Dust · Disenchant: Professions tab (K by default)
   tip 55 Soul Dust for Enchanting 150-225: Runed Golden Rod, 12 Enchant Bracer - Lesser Stamina and 42 Enchant Boots - Lesser Agility. Disenchanting your Tailoring crafts of this bracket gives about 55 of them (see Expert Enchanting); that covers them. Enchanting: disenchant green armour that requires level 21-30. Or buy them at the Auction House.
   collect 11083 x55 anywhere gather Enchanting 1 levels 21-30
   auction 11083 x55
@@ -444,17 +444,17 @@ step Get Golden Rod
   collect 11128 x1 anywhere gather Blacksmithing 125
   auction 11128 x1
 
-step Get Lesser Mystic Essence
+step Get Lesser Mystic Essence · Disenchant: Professions tab (K by default)
   tip 10 Lesser Mystic Essence for Enchanting 150-225: 10 Enchant Chest - Greater Intellect. Disenchanting your Tailoring crafts of this bracket gives about 7 of them (see Expert Enchanting); the other 3 come from greens you loot or the Auction House. Enchanting: disenchant green armour that requires level 26-30. Or buy them at the Auction House.
   collect 11134 x10 anywhere gather Enchanting 1 levels 26-30
   auction 11134 x10
 
-step Get Greater Mystic Essence
+step Get Greater Mystic Essence · Disenchant: Professions tab (K by default)
   tip 1 Greater Mystic Essence for Enchanting 150-225: Runed Truesilver Rod. Enchanting: disenchant green armour that requires level 31-35. Or buy it at the Auction House.
   collect 11135 x1 anywhere gather Enchanting 1 levels 31-35
   auction 11135 x1
 
-step Get Vision Dust
+step Get Vision Dust · Disenchant: Professions tab (K by default)
   tip 21 Vision Dust for Enchanting 150-225: Runed Truesilver Rod and 20 Enchant Cloak - Greater Defense. Disenchanting your Tailoring crafts of this bracket gives about 21 of them (see Expert Enchanting); that covers them. Enchanting: disenchant green armour that requires level 31-40. Or buy them at the Auction House.
   collect 11137 x21 anywhere gather Enchanting 1 levels 31-40
   auction 11137 x21
@@ -588,12 +588,12 @@ step Get Purple Lotus
   loop Tanaris lvl 42 lap 318 yield 4.6 r 60 at 60.2,23.6 60.8,22.7 61.7,24.1 65.7,20.1 65.6,29.2 64.2,32.2 63.3,35.0 61.7,29.8 57.0,24.8
   auction 8831 x41
 
-step Get Vision Dust
+step Get Vision Dust · Disenchant: Professions tab (K by default)
   tip 45 Vision Dust for Enchanting 225-300: 45 Enchant Gloves - Agility. Enchanting: disenchant green armour that requires level 31-40. Or buy them at the Auction House.
   collect 11137 x45 anywhere gather Enchanting 1 levels 31-40
   auction 11137 x45
 
-step Get Dream Dust
+step Get Dream Dust · Disenchant: Professions tab (K by default)
   tip 233 Dream Dust for Enchanting 225-300: 41 Lesser Mana Oils and 32 Enchant Shield - Greater Stamina. Disenchanting your Tailoring crafts of this bracket gives about 142 of them (see Artisan Enchanting); the other 91 come from greens you loot or the Auction House. Enchanting: disenchant green armour that requires level 41-50. Or buy them at the Auction House.
   collect 11176 x233 anywhere gather Enchanting 1 levels 41-50
   auction 11176 x233

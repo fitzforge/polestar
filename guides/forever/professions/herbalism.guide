@@ -31,7 +31,7 @@ step Learn Herbalism
   tip No character level needed. On Zephras Isle, Wild Harvest from Harvesting Windstones teaches it too.
   train Herbalism Apprentice
 
-step Turn on Find Herbs
+step Turn on Find Herbs · Professions tab (K by default)
   tip Herbs show on the minimap. Dying turns it off, and only one kind of tracking is on at a time.
   cast 2383 "Find Herbs"
 

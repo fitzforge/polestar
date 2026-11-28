@@ -93,6 +93,6 @@ test('a `gather` needs an `auction` goal for its item in the same section', () =
 	assert.match(w[0], /test\.guide:\d+: `gather` with no `auction` goal for item 4306 in its section: a player who buys materials has nothing that buys it here/);
 	assert.ok(w[0].startsWith(`test.guide:${head('Alliance').length + sections.length}:`), w[0]);
 	assert.deepEqual(warns(['step Silk', '  collect 4306 x20 @40,50 gather', 'step AH', '  auction 4306 x20']), []);
-	assert.match(warns(['step Silk', '  collect 4306 x20 @40,50 gather'])[0], /in its guide/);
+	assert.deepEqual(warns(['step Silk', '  collect 4306 x20 @40,50 gather']), [], 'gathering only is fine: a gathering guide\'s own material');
 	assert.deepEqual(warns(['step AH', '  auction 4306 x20']), [], 'buying only is fine');
 });

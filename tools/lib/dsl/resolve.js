@@ -1384,14 +1384,22 @@ function checkBackground(steps, compiled, err) {
 // A profession material is gathered or bought, one way at a time (Core/Materials.lua): a `collect … gather`
 // needs an `auction` goal for its item in the same section (the same guide without sections), or a player who
 // buys it would find nothing that buys this range's share. Mirrors forge-guide's resolve.rs check_materials.
+// An item the guide never buys anywhere is gathered only, on purpose (a gathering guide's own ore or herbs, or
+// what a paired guide's gathering profession gathers: Core/Materials.lua leaves it gathered and off the Shopping
+// list); an item bought in some section but not in this one is the slip this catches.
 function checkMaterials(steps, warn) {
 	const bought = new Set(); // "section:item"
+	const boughtAnywhere = new Set();
 	for (const step of steps) {
-		for (const goal of step.goals) if (goal.t === 'auction') bought.add(`${step.section || 0}:${goal.item}`);
+		for (const goal of step.goals) {
+			if (goal.t !== 'auction') continue;
+			bought.add(`${step.section || 0}:${goal.item}`);
+			boughtAnywhere.add(goal.item);
+		}
 	}
 	for (const step of steps) {
 		for (const goal of step.goals) {
-			if (goal.t !== 'collect' || !goal.gather || bought.has(`${step.section || 0}:${goal.item}`)) continue;
+			if (goal.t !== 'collect' || !goal.gather || !boughtAnywhere.has(goal.item) || bought.has(`${step.section || 0}:${goal.item}`)) continue;
 			warn(goal._line, `\`gather\` with no \`auction\` goal for item ${goal.item} in its ${step.section ? 'section' : 'guide'}: a player who buys materials has nothing that buys it here`, 'add `auction <item> xN` to the Auction House step of this section, or drop `gather` (the item is then always gathered)');
 		}
 	}

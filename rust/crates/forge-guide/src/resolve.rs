@@ -2502,23 +2502,27 @@ fn check_background(steps: &[V], gsteps: &[V], r: &mut R) {
 
 /// A profession material is gathered or bought, one way at a time (Core/Materials.lua): a `collect … gather` needs
 /// an `auction` goal for its item in the same section (the same guide without sections), or a player who buys it
-/// would find nothing that buys this range's share. Mirrors tools/lib/dsl/resolve.js checkMaterials.
+/// would find nothing that buys this range's share. An item the guide never buys anywhere is gathered only, on
+/// purpose (a gathering guide's own ore or herbs, or what a paired guide's gathering profession gathers). Mirrors
+/// tools/lib/dsl/resolve.js checkMaterials.
 fn check_materials(steps: &[V], r: &mut R) {
 	let key = |step: &V, goal: &V| {
 		let section = if step.get("section").is_undef() { "0".to_string() } else { step.get("section").to_js_string() };
 		format!("{section}:{}", goal.get("item").to_js_string())
 	};
 	let mut bought: Vec<String> = Vec::new();
+	let mut bought_anywhere: Vec<String> = Vec::new();
 	for step in steps {
 		for goal in step.get("goals").items() {
 			if goal.get("t").as_str() == Some("auction") {
 				bought.push(key(step, &goal));
+				bought_anywhere.push(goal.get("item").to_js_string());
 			}
 		}
 	}
 	for step in steps {
 		for goal in step.get("goals").items() {
-			if goal.get("t").as_str() != Some("collect") || !goal.get("gather").truthy() || bought.contains(&key(step, &goal)) {
+			if goal.get("t").as_str() != Some("collect") || !goal.get("gather").truthy() || !bought_anywhere.contains(&goal.get("item").to_js_string()) || bought.contains(&key(step, &goal)) {
 				continue;
 			}
 			r.warn(

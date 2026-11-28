@@ -561,6 +561,9 @@ function buildAll(ctx, notes = []) {
 		const route = loadRoute(file);
 		if (route.kind === 'gathering') put({ file, skill: route.profession }, route);
 	}
+	// Every spell step's row says where the spell is (describe.js withSpellWhere).
+	const { withSpellWhere } = require('../describe');
+	for (const name of Object.keys(out)) out[name] = withSpellWhere(out[name]);
 	return out;
 }
 

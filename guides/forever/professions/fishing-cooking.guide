@@ -72,13 +72,12 @@ step Lures for Fishing 1-75
   tip Some of these waters lose fish below Fishing 25: a lure on the pole adds to your skill for ten minutes. Shiny Bauble (+25, 50c each) closes the gap from 1: about 1 sees you to 25 (6 minutes of fishing).
   buy 6529 x1 nearest
 
-step Fish Raw Brilliant Smallfish (Fishing 1-75)
+step Fish Raw Brilliant Smallfish (Fishing 1-75) · Fishing: Professions tab (K by default)
   only Human
-  tip 50 Raw Brilliant Smallfish for Cooking 1-50: 50 Brilliant Smallfish. Fish 50 Raw Brilliant Smallfish (Fishing 1 to 75), then craft 50 Brilliant Smallfish (Cooking 1 to 50). The arrow leads to the stand players fish them at in Elwynn Forest: stay there until your bags hold them. Or buy them at the Auction House.
+  tip 50 Raw Brilliant Smallfish for Cooking 1-50: 50 Brilliant Smallfish. Fish 50 Raw Brilliant Smallfish (Fishing 1 to 75), then craft 50 Brilliant Smallfish (Cooking 1 to 50). The arrow leads to the stand players fish them at in Elwynn Forest: stay there until your bags hold them.
   zone Elwynn Forest
   goto 47.1,64.0 r 15
   collect 6291 x50 anywhere gather Fishing 1
-  auction 6291 x50
 
 step Cooking recipes at 1
   only Human
@@ -97,16 +96,15 @@ step Journeyman Fishing
   level 10
   train Fishing Journeyman
 
-step Fish Raw Brilliant Smallfish (Fishing 1-75)
+step Fish Raw Brilliant Smallfish (Fishing 1-75) · Fishing: Professions tab (K by default)
   only Dwarf,Gnome,Skyborne,Tauren,Undead
-  tip 50 Raw Brilliant Smallfish for Cooking 1-50: 50 Brilliant Smallfish. Fish 50 Raw Brilliant Smallfish (Fishing 1 to 75), then craft 50 Brilliant Smallfish (Cooking 1 to 50). The arrow takes the Fishing loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Or buy them at the Auction House.
+  tip 50 Raw Brilliant Smallfish for Cooking 1-50: 50 Brilliant Smallfish. Fish 50 Raw Brilliant Smallfish (Fishing 1 to 75), then craft 50 Brilliant Smallfish (Cooking 1 to 50). The arrow takes the Fishing loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy.
   collect 6291 x50 gather Fishing 1
   loop Dun Morogh lvl 1 lap 126 yield 6.2 only Alliance r 15 at 35.5,40.6 35.4,40.0
   loop Zephras Isle lvl 5 lap 175 yield 6.1 only Skyborne,Alliance live r 15 at 46.9,48.5 46.0,48.8
   loop Mulgore lvl 1 lap 146 yield 6.1 only Horde r 15 at 44.5,61.2 43.8,58.8
   loop Tirisfal Glades lvl 1 lap 137 yield 4.6 only Horde r 15 at 66.4,48.6 66.9,50.5
   loop Zephras Isle lvl 5 lap 175 yield 6.1 only Skyborne,Horde live r 15 at 46.9,48.5 46.0,48.8
-  auction 6291 x50
 
 step Cooking recipes at 1
   only Dwarf,Gnome,Skyborne,Tauren,Undead
@@ -125,13 +123,12 @@ step Journeyman Fishing
   level 10
   train Fishing Journeyman
 
-step Fish Raw Slitherskin Mackerel (Fishing 1-53)
+step Fish Raw Slitherskin Mackerel (Fishing 1-53) · Fishing: Professions tab (K by default)
   only NightElf
-  tip 50 Raw Slitherskin Mackerel for Cooking 1-50: 50 Slitherskin Mackerel. Fish 50 Raw Slitherskin Mackerel (Fishing 1 to 53), then craft 50 Slitherskin Mackerel (Cooking 1 to 50). The arrow leads to the stand players fish them at in Teldrassil: stay there until your bags hold them. Or buy them at the Auction House.
+  tip 50 Raw Slitherskin Mackerel for Cooking 1-50: 50 Slitherskin Mackerel. Fish 50 Raw Slitherskin Mackerel (Fishing 1 to 53), then craft 50 Slitherskin Mackerel (Cooking 1 to 50). The arrow leads to the stand players fish them at in Teldrassil: stay there until your bags hold them.
   zone Teldrassil
   goto 55.7,93.5 r 15
   collect 6303 x50 anywhere gather Fishing 1
-  auction 6303 x50
 
 step Cooking recipes at 1
   only NightElf
@@ -144,7 +141,7 @@ step Slitherskin Mackerel to 50
   learn 7752 -- from the recipe in your bags
   craft 7752 until 50
 
-step Fishing 53-75: Teldrassil's water
+step Fishing 53-75: Teldrassil's water · Fishing: Professions tab (K by default)
   only NightElf
   tip Fishing 53 to 75 where you are: the next Cooking stretches' fish come from waters that ask Fishing 75. The loop also gives about 20 Raw Slitherskin Mackerel: keep them, the next stretches use them. The arrow leads to the stand players fish at in Teldrassil: stay there while you catch fish.
   zone Teldrassil
@@ -157,13 +154,12 @@ step Journeyman Fishing
   level 10
   train Fishing Journeyman
 
-step Fish Raw Slitherskin Mackerel (Fishing 1-51)
+step Fish Raw Slitherskin Mackerel (Fishing 1-51) · Fishing: Professions tab (K by default)
   only Orc,Troll
-  tip 50 Raw Slitherskin Mackerel for Cooking 1-50: 50 Slitherskin Mackerel. Fish 50 Raw Slitherskin Mackerel (Fishing 1 to 51), then craft 50 Slitherskin Mackerel (Cooking 1 to 50). The arrow leads to the stand players fish them at in Durotar: stay there until your bags hold them. Or buy them at the Auction House.
+  tip 50 Raw Slitherskin Mackerel for Cooking 1-50: 50 Slitherskin Mackerel. Fish 50 Raw Slitherskin Mackerel (Fishing 1 to 51), then craft 50 Slitherskin Mackerel (Cooking 1 to 50). The arrow leads to the stand players fish them at in Durotar: stay there until your bags hold them.
   zone Durotar
   goto 53.5,83.3 r 15
   collect 6303 x50 anywhere gather Fishing 1
-  auction 6303 x50
 
 step Cooking recipes at 1
   only Orc,Troll
@@ -176,7 +172,7 @@ step Slitherskin Mackerel to 50
   learn 7752 -- from the recipe in your bags
   craft 7752 until 50
 
-step Fishing 51-75: Durotar's water
+step Fishing 51-75: Durotar's water · Fishing: Professions tab (K by default)
   only Orc,Troll
   tip Fishing 51 to 75 where you are: the next Cooking stretches' fish come from waters that ask Fishing 75. The loop also gives about 25 Raw Slitherskin Mackerel: keep them, the next stretches use them. The arrow leads to the stand players fish at in Durotar: stay there while you catch fish.
   zone Durotar
@@ -189,7 +185,7 @@ step Journeyman Fishing
   level 10
   train Fishing Journeyman
 
-step Fishing 1-75: Raw Brilliant Smallfish and Raw Slitherskin Mackerel water
+step Fishing 1-75: Raw Brilliant Smallfish and Raw Slitherskin Mackerel water · Fishing: Professions tab (K by default)
   tip Fishing 75 first: the next loops need it. Most players are past it already from the steps above, and then this step is done.
   loop Dun Morogh lvl 1 lap 126 gain 10.0 only Alliance r 15 at 35.5,40.6 35.4,40.0
   loop Zephras Isle lvl 5 lap 175 gain 10.0 only Skyborne,Alliance live r 15 at 46.9,48.5 46.0,48.8
@@ -198,8 +194,8 @@ step Fishing 1-75: Raw Brilliant Smallfish and Raw Slitherskin Mackerel water
   loop Zephras Isle lvl 5 lap 175 gain 10.0 only Skyborne,Horde live r 15 at 46.9,48.5 46.0,48.8
   skill Fishing 75
 
-step Fish Raw Longjaw Mud Snapper (Fishing 75-94)
-  tip 25 Raw Longjaw Mud Snapper for Cooking 50-75: 25 Longjaw Mud Snapper. Fish 25 Raw Longjaw Mud Snapper (Fishing 75 to 94), then craft 25 Longjaw Mud Snapper (Cooking 50 to 75). The arrow takes the Fishing loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Or buy them at the Auction House.
+step Fish Raw Longjaw Mud Snapper (Fishing 75-94) · Fishing: Professions tab (K by default)
+  tip 25 Raw Longjaw Mud Snapper for Cooking 50-75: 25 Longjaw Mud Snapper. Fish 25 Raw Longjaw Mud Snapper (Fishing 75 to 94), then craft 25 Longjaw Mud Snapper (Cooking 50 to 75). The arrow takes the Fishing loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy.
   collect 6289 x25 gather Fishing 75
   loop Stormwind City lvl 10 lap 496 yield 17.8 only Alliance r 15 at 61.7,50.8 47.4,60.5 45.9,58.5 44.5,60.8 47.5,63.8 63.7,87.6
   loop Loch Modan lvl 10 lap 198 yield 5.8 only Alliance r 15 at 41.3,38.8 41.1,37.0 41.2,35.4
@@ -208,7 +204,6 @@ step Fish Raw Longjaw Mud Snapper (Fishing 75-94)
   loop Thunder Bluff lvl 10 lap 191 yield 8.5 only Horde r 15 at 41.5,57.9 40.7,61.1 38.8,60.4
   loop Silverpine Forest lvl 12 lap 284 yield 4.4 only Horde r 15 at 59.0,34.9 56.8,21.5
   loop The Barrens lvl 13 lap 267 yield 5.1 only Horde r 15 at 46.4,37.4 46.4,37.8 45.9,37.7
-  auction 6289 x25
 
 step Cooking recipes at 50
   tip Recipe: Longjaw Mud Snapper teaches Longjaw Mud Snapper (Cooking 50, 4s). Sold by Alliance: Tharynn Bouden (Elwynn Forest), Khara Deepwater (Loch Modan) and Nyoma (Teldrassil); Horde: Naal Mistrunner (Thunder Bluff), Lizbeth Cromwell (Undercity) and Killian Sanatha (Silverpine Forest). The arrow picks the nearest seller of your faction.
@@ -226,8 +221,8 @@ step Journeyman Cooking
   tip Journeyman Cooking raises the cap to 150; it needs skill 50 and no character level, and costs 5s. The arrow picks the nearest Cooking trainer of your faction.
   train Cooking Journeyman
 
-step Fish Raw Longjaw Mud Snapper (Fishing 94-117)
-  tip 28 Raw Longjaw Mud Snapper for Cooking 75-100: 28 Longjaw Mud Snapper. Fish 28 Raw Longjaw Mud Snapper (Fishing 94 to 117), then craft 27 Longjaw Mud Snapper (Cooking 75 to 100). The arrow takes the Fishing loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Or buy them at the Auction House.
+step Fish Raw Longjaw Mud Snapper (Fishing 94-117) · Fishing: Professions tab (K by default)
+  tip 28 Raw Longjaw Mud Snapper for Cooking 75-100: 28 Longjaw Mud Snapper. Fish 28 Raw Longjaw Mud Snapper (Fishing 94 to 117), then craft 27 Longjaw Mud Snapper (Cooking 75 to 100). The arrow takes the Fishing loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy.
   collect 6289 x28 gather Fishing 75
   loop Stormwind City lvl 10 lap 496 yield 17.8 only Alliance r 15 at 61.7,50.8 47.4,60.5 45.9,58.5 44.5,60.8 47.5,63.8 63.7,87.6
   loop Loch Modan lvl 10 lap 198 yield 5.8 only Alliance r 15 at 41.3,38.8 41.1,37.0 41.2,35.4
@@ -236,15 +231,14 @@ step Fish Raw Longjaw Mud Snapper (Fishing 94-117)
   loop Thunder Bluff lvl 10 lap 191 yield 8.5 only Horde r 15 at 41.5,57.9 40.7,61.1 38.8,60.4
   loop Silverpine Forest lvl 12 lap 284 yield 4.4 only Horde r 15 at 59.0,34.9 56.8,21.5
   loop The Barrens lvl 13 lap 267 yield 5.1 only Horde r 15 at 46.4,37.4 46.4,37.8 45.9,37.7
-  auction 6289 x28
 
 step Longjaw Mud Snapper to 100
   tip Longjaw Mud Snapper is orange at 75 (yellow 90, green 110, grey 130): about 27 crafts to 100, up to 28 for 9 players in 10 (the fish above count that many). Each takes 1 Raw Longjaw Mud Snapper. Cook at any fire: a town hearth or your own Basic Campfire. If you got here without learning Longjaw Mud Snapper, learn it now: an earlier step teaches it.
   learn 7753 -- from the recipe in your bags
   craft 7753 until 100
 
-step Fish Raw Bristle Whisker Catfish (Fishing 117-150)
-  tip 40 Raw Bristle Whisker Catfish for Cooking 100-140: 40 Bristle Whisker Catfish; from your fishing on the way: 20 of 40 Raw Bristle Whisker Catfish. Fish 20 Raw Bristle Whisker Catfish (Fishing 117 to 150), then craft 40 Bristle Whisker Catfish (Cooking 100 to 140). The arrow takes the Fishing loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Or buy them at the Auction House.
+step Fish Raw Bristle Whisker Catfish (Fishing 117-150) · Fishing: Professions tab (K by default)
+  tip 40 Raw Bristle Whisker Catfish for Cooking 100-140: 40 Bristle Whisker Catfish; from your fishing on the way: 20 of 40 Raw Bristle Whisker Catfish. Fish 20 Raw Bristle Whisker Catfish (Fishing 117 to 150), then craft 40 Bristle Whisker Catfish (Cooking 100 to 140). The arrow takes the Fishing loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy.
   collect 6308 x40 gather Fishing 75
   loop Stormwind City lvl 10 lap 496 yield 6.8 only Alliance r 15 at 61.7,50.8 47.4,60.5 45.9,58.5 44.5,60.8 47.5,63.8 63.7,87.6
   loop Loch Modan lvl 10 lap 198 yield 1.9 only Alliance r 15 at 41.3,38.8 41.1,37.0 41.2,35.4
@@ -253,7 +247,6 @@ step Fish Raw Bristle Whisker Catfish (Fishing 117-150)
   loop Thunder Bluff lvl 10 lap 191 yield 3.6 only Horde r 15 at 41.5,57.9 40.7,61.1 38.8,60.4
   loop Silverpine Forest lvl 12 lap 284 yield 1.8 only Horde r 15 at 59.0,34.9 56.8,21.5
   loop The Barrens lvl 13 lap 267 yield 2.1 only Horde r 15 at 46.4,37.4 46.4,37.8 45.9,37.7
-  auction 6308 x40
 
 step Cooking recipes at 100
   tip Recipe: Bristle Whisker Catfish teaches Bristle Whisker Catfish (Cooking 100, 12s). Sold by Alliance: Lindea Rabonne (Hillsbrad Foothills), Kilxx (The Barrens) and Catherine Leland (Stormwind City); Horde: Derak Nightfall (Hillsbrad Foothills), Naal Mistrunner (Thunder Bluff) and Sewa Mistrunner (Thunder Bluff). The arrow picks the nearest seller of your faction.
@@ -275,7 +268,7 @@ step Expert Fishing
   level 20
   train Fishing Expert "Buy and read Expert Fishing - The Bass and You (Expert Fishing)"
 
-step Fishing 75-150: Raw Longjaw Mud Snapper and Raw Bristle Whisker Catfish water
+step Fishing 75-150: Raw Longjaw Mud Snapper and Raw Bristle Whisker Catfish water · Fishing: Professions tab (K by default)
   tip Fishing 150 first: the next loops need it. Most players are past it already from the steps above, and then this step is done.
   loop Stormwind City lvl 10 lap 496 gain 12.1 only Alliance r 15 at 61.7,50.8 47.4,60.5 45.9,58.5 44.5,60.8 47.5,63.8 63.7,87.6
   loop Loch Modan lvl 10 lap 198 gain 6.0 only Alliance r 15 at 41.3,38.8 41.1,37.0 41.2,35.4
@@ -286,8 +279,8 @@ step Fishing 75-150: Raw Longjaw Mud Snapper and Raw Bristle Whisker Catfish wat
   loop The Barrens lvl 13 lap 267 gain 6.0 only Horde r 15 at 46.4,37.4 46.4,37.8 45.9,37.7
   skill Fishing 150
 
-step Fish Raw Bristle Whisker Catfish (Fishing 150-157)
-  tip 13 Raw Bristle Whisker Catfish for Cooking 140-150: 13 Bristle Whisker Catfish. Fish 13 Raw Bristle Whisker Catfish (Fishing 150 to 157), then craft 12 Bristle Whisker Catfish (Cooking 140 to 150). The arrow takes the Fishing loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Or buy them at the Auction House.
+step Fish Raw Bristle Whisker Catfish (Fishing 150-157) · Fishing: Professions tab (K by default)
+  tip 13 Raw Bristle Whisker Catfish for Cooking 140-150: 13 Bristle Whisker Catfish. Fish 13 Raw Bristle Whisker Catfish (Fishing 150 to 157), then craft 12 Bristle Whisker Catfish (Cooking 140 to 150). The arrow takes the Fishing loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy.
   collect 6308 x53 gather Fishing 150
   loop Ashenvale lvl 26 lap 289 yield 4.2 only Alliance r 15 at 44.5,70.2 48.8,68.3
   loop Stormwind City lvl 20 lap 496 yield 6.8 only Alliance r 15 at 61.7,50.8 47.4,60.5 45.9,58.5 44.5,60.8 47.5,63.8 63.7,87.6
@@ -299,7 +292,6 @@ step Fish Raw Bristle Whisker Catfish (Fishing 150-157)
   loop Thunder Bluff lvl 20 lap 191 yield 3.6 only Horde r 15 at 41.5,57.9 40.7,61.1 38.8,60.4
   loop Stonetalon Mountains lvl 20 lap 392 yield 10.1 only Horde r 15 at 46.6,41.9 47.3,40.1 47.9,40.1 47.4,38.0 49.6,37.7
   loop Silverpine Forest lvl 20 lap 327 yield 3.6 only Horde r 15 at 59.0,34.9 59.8,33.8 56.8,21.5
-  auction 6308 x53
 
 step Bristle Whisker Catfish to 150
   tip Bristle Whisker Catfish is yellow at 140 (yellow 140, green 160, grey 180): about 12 crafts to 150, up to 13 for 9 players in 10 (the fish above count that many). Each takes 1 Raw Bristle Whisker Catfish. Cook at any fire: a town hearth or your own Basic Campfire. From level 7, Gilbert Gray at the Stormwind harbor gives Fishin' Time: bring 1 Shiny Bauble and 3 Nightcrawlers for cooked fish.
@@ -313,7 +305,7 @@ step Expert Cooking
   level 20
   train Cooking Expert "Buy and read Expert Cookbook (Expert Cooking)"
 
-step Fishing 157-190: Raw Bristle Whisker Catfish water
+step Fishing 157-190: Raw Bristle Whisker Catfish water · Fishing: Professions tab (K by default)
   tip Fish from Fishing 157 to 190 for Bristle Whisker Catfish: this loop gives Raw Bristle Whisker Catfish, and the next one the rest from Fishing 190. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap.
   loop Ashenvale lvl 26 lap 289 gain 2.1 only Alliance r 15 at 44.5,70.2 48.8,68.3
   loop Stormwind City lvl 20 lap 496 gain 6.3 only Alliance r 15 at 61.7,50.8 47.4,60.5 45.9,58.5 44.5,60.8 47.5,63.8 63.7,87.6
@@ -327,14 +319,13 @@ step Fishing 157-190: Raw Bristle Whisker Catfish water
   loop Silverpine Forest lvl 20 lap 327 gain 3.1 only Horde r 15 at 59.0,34.9 59.8,33.8 56.8,21.5
   skill Fishing 190
 
-step Fish Raw Bristle Whisker Catfish (Fishing 190-215)
-  tip 86 Raw Bristle Whisker Catfish for Cooking 150-175: 86 Bristle Whisker Catfish. Fish 86 Raw Bristle Whisker Catfish (Fishing 190 to 215), then craft 69 Bristle Whisker Catfish (Cooking 150 to 175). The arrow takes the Fishing loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Or buy them at the Auction House.
+step Fish Raw Bristle Whisker Catfish (Fishing 190-215) · Fishing: Professions tab (K by default)
+  tip 86 Raw Bristle Whisker Catfish for Cooking 150-175: 86 Bristle Whisker Catfish. Fish 86 Raw Bristle Whisker Catfish (Fishing 190 to 215), then craft 69 Bristle Whisker Catfish (Cooking 150 to 175). The arrow takes the Fishing loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy.
   collect 6308 x86 gather Fishing 190
   loop Desolace lvl 33 lap 385 yield 1.5 only Alliance r 15 at 39.7,22.1 39.3,22.4 37.8,24.5 37.5,25.1 36.0,30.2
   loop Desolace lvl 20 lap 605 yield 7.4 only Horde r 15 at 21.5,73.8 22.1,73.1 22.3,72.3 23.9,73.2 25.9,78.3
   loop Alterac Mountains lvl 38 lap 722 yield 3.8 only Horde r 15 at 36.0,24.1 37.0,15.9 33.9,9.7
   loop Arathi Highlands lvl 40 lap 484 yield 3.3 only Horde r 15 at 32.9,81.1 29.8,83.2
-  auction 6308 x86
 
 step Bristle Whisker Catfish to 175
   tip Bristle Whisker Catfish is yellow at 150 (yellow 140, green 160, grey 180): about 69 crafts to 175, up to 86 for 9 players in 10 (the fish above count that many). Each takes 1 Raw Bristle Whisker Catfish. Cook at any fire: a town hearth or your own Basic Campfire. If you got here without learning Bristle Whisker Catfish, learn it now: an earlier step teaches it.
@@ -346,13 +337,12 @@ step Lures for Fishing 190-225
   tip Some of these waters lose fish below Fishing 225: a lure on the pole adds to your skill for ten minutes. Nightcrawlers (+50 from skill 50, 1s each) closes the gap from 190: about 6 see you to 225 (55 minutes of fishing).
   buy 6530 x6 nearest
 
-step Fish Raw Rockscale Cod (Fishing 215-225)
+step Fish Raw Rockscale Cod (Fishing 215-225) · Fishing: Professions tab (K by default)
   only Alliance
-  tip 112 Raw Rockscale Cod for Cooking 175-225: 112 Rockscale Cod; from your fishing on the way: 28 of 112 Raw Rockscale Cod. Fish 85 Raw Rockscale Cod (Fishing 215 to 225), then craft 95 Rockscale Cod (Cooking 175 to 225). The arrow takes the Fishing loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Or buy them at the Auction House.
+  tip 112 Raw Rockscale Cod for Cooking 175-225: 112 Rockscale Cod; from your fishing on the way: 28 of 112 Raw Rockscale Cod. Fish 85 Raw Rockscale Cod (Fishing 215 to 225), then craft 95 Rockscale Cod (Cooking 175 to 225). The arrow takes the Fishing loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy.
   collect 6362 x112 gather Fishing 190
   loop Stranglethorn Vale lvl 20 lap 283 yield 4.8 only Alliance r 15 at 28.6,21.8 27.9,21.3
   loop Desolace lvl 33 lap 385 yield 8.1 only Alliance r 15 at 39.7,22.1 39.3,22.4 37.8,24.5 37.5,25.1 36.0,30.2
-  auction 6362 x112
 
 step Cooking recipes at 175
   only Alliance
@@ -365,7 +355,7 @@ step Rockscale Cod to 225
   learn 7828 -- from the recipe in your bags
   craft 7828 until 225
 
-step Nat Pagle, Angler Extreme
+step Nat Pagle, Angler Extreme · Fishing: Professions tab (K by default)
   only Alliance
   zone Ironforge
   tip Artisan Fishing (cap 300) comes from Nat Pagle in Dustwallow Marsh. The fishing trainer in Ironforge sends you to him; the quest needs skill 225 and level 35.
@@ -410,12 +400,6 @@ step Nat Pagle
   zone Dustwallow Marsh
   turnin 6607                             -- Artisan Fishing
 
-step Fish Raw Mithril Head Trout
-  only Horde
-  tip 53 Raw Mithril Head Trout for Cooking 175-225: 53 Mithril Headed Trout; from your fishing on the way: 53 of 53 Raw Mithril Head Trout. Your bags hold it already, then craft 52 Mithril Headed Trout (Cooking 175 to 225). The arrow takes the Fishing loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Or buy them at the Auction House.
-  collect 8365 x53 gather Fishing 1
-  auction 8365 x53
-
 step Cooking recipes at 175
   only Horde
   tip Recipe: Mithril Head Trout teaches Mithril Headed Trout (Cooking 175, 22s). Sold by Kelsey Yance (Stranglethorn Vale), Shankys (Orgrimmar) and Lizbeth Cromwell (Undercity). The arrow picks the nearest seller of your faction.
@@ -427,7 +411,7 @@ step Mithril Headed Trout to 225
   learn 20916 -- from the recipe in your bags
   craft 20916 until 225
 
-step Fishing 215-225: Raw Rockscale Cod and Raw Mithril Head Trout water
+step Fishing 215-225: Raw Rockscale Cod and Raw Mithril Head Trout water · Fishing: Professions tab (K by default)
   only Horde
   tip Fishing 215 to 225 where you are: the next Cooking stretches' fish come from waters that ask Fishing 225. The loop also gives about 15 Raw Bristle Whisker Catfish, 30 Raw Mithril Head Trout and 5 Raw Greater Sagefish: keep them, the next stretches use them. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap.
   loop Desolace lvl 20 lap 605 gain 4.0 only Horde r 15 at 21.5,73.8 22.1,73.1 22.3,72.3 23.9,73.2 25.9,78.3
@@ -437,7 +421,7 @@ step Fishing 215-225: Raw Rockscale Cod and Raw Mithril Head Trout water
 
 # ---------------------------------------------------------------- Artisan (225-300)
 
-step Nat Pagle, Angler Extreme
+step Nat Pagle, Angler Extreme · Fishing: Professions tab (K by default)
   only Horde
   zone Orgrimmar
   tip Artisan Fishing (cap 300) comes from Nat Pagle in Dustwallow Marsh. The fishing trainer in Orgrimmar sends you to him; the quest needs skill 225 and level 35.
@@ -497,7 +481,7 @@ step Zesty Clam Meat
   tip Zesty Clam Meat comes from Big-mouth Clams: open each one, every clam holds one. The Muckshell crabs on the Dustwallow Marsh coast south-west of Theramore drop a clam about seven kills in ten, so ten clams take about fifteen kills, on your way to Tanaris. The Steeljaw Snappers on Tanaris's east coast drop them about one kill in three.
   collect 7974 x10 @55.6,63.5
 
-step Fishing 190-225: Raw Rockscale Cod and Raw Mithril Head Trout water
+step Fishing 190-225: Raw Rockscale Cod and Raw Mithril Head Trout water · Fishing: Professions tab (K by default)
   tip Fishing 225 first: the next loops need it. Most players are past it already from the steps above, and then this step is done.
   loop Stranglethorn Vale lvl 20 lap 283 gain 1.6 only Alliance r 15 at 28.6,21.8 27.9,21.3
   loop Desolace lvl 33 lap 385 gain 4.0 only Alliance r 15 at 39.7,22.1 39.3,22.4 37.8,24.5 37.5,25.1 36.0,30.2
@@ -506,7 +490,7 @@ step Fishing 190-225: Raw Rockscale Cod and Raw Mithril Head Trout water
   loop Arathi Highlands lvl 40 lap 484 gain 1.6 only Horde r 15 at 32.9,81.1 29.8,83.2
   skill Fishing 225
 
-step Fishing 225-300: Raw Spotted Yellowtail and Raw Glossy Mightfish water
+step Fishing 225-300: Raw Spotted Yellowtail and Raw Glossy Mightfish water · Fishing: Professions tab (K by default)
   tip Fish from Fishing 225 to 300 for Spotted Yellowtail: this loop gives Raw Spotted Yellowtail, and the next one the rest from Fishing 300. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap.
   loop Dustwallow Marsh lvl 42 lap 232 gain 1.2 only Alliance r 15 at 58.6,60.2 58.4,61.2
   loop Stranglethorn Vale lvl 35 lap 618 gain 1.8 only Alliance r 15 at 27.9,21.3 26.8,20.2 26.5,19.9
@@ -518,8 +502,8 @@ step Fishing 225-300: Raw Spotted Yellowtail and Raw Glossy Mightfish water
   loop Swamp of Sorrows lvl 43 lap 913 gain 2.9 only Horde r 15 at 79.2,7.4 78.3,5.3 89.6,21.2 90.7,25.2 94.5,41.3
   skill Fishing 300
 
-step Fish Raw Spotted Yellowtail
-  tip 137 Raw Spotted Yellowtail for Cooking 225-300: 137 Spotted Yellowtail; from your fishing on the way: 9 of 137 Raw Spotted Yellowtail. Fish 129 Raw Spotted Yellowtail (Fishing 300), then craft 120 Spotted Yellowtail (Cooking 225 to 300). The arrow takes the Fishing loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Or buy them at the Auction House.
+step Fish Raw Spotted Yellowtail · Fishing: Professions tab (K by default)
+  tip 137 Raw Spotted Yellowtail for Cooking 225-300: 137 Spotted Yellowtail; from your fishing on the way: 9 of 137 Raw Spotted Yellowtail. Fish 129 Raw Spotted Yellowtail (Fishing 300), then craft 120 Spotted Yellowtail (Cooking 225 to 300). The arrow takes the Fishing loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. At the water it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy.
   collect 4603 x137 gather Fishing 225
   loop Dustwallow Marsh lvl 42 lap 232 yield 2.0 only Alliance r 15 at 58.6,60.2 58.4,61.2
   loop Stranglethorn Vale lvl 35 lap 618 yield 2.6 only Alliance r 15 at 27.9,21.3 26.8,20.2 26.5,19.9
@@ -529,7 +513,6 @@ step Fish Raw Spotted Yellowtail
   loop Desolace lvl 35 lap 466 yield 4.2 only Horde r 15 at 26.1,76.1 26.1,76.7 25.9,80.4 25.9,78.3
   loop Stranglethorn Vale lvl 35 lap 618 yield 2.6 only Horde r 15 at 27.9,21.3 26.8,20.2 26.5,19.9
   loop Swamp of Sorrows lvl 43 lap 913 yield 5.5 only Horde r 15 at 79.2,7.4 78.3,5.3 89.6,21.2 90.7,25.2 94.5,41.3
-  auction 4603 x137
 
 step Dirge Quikcleave
   only Alliance

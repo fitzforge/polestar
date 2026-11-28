@@ -145,7 +145,6 @@ step Mine 198 Rough Stone
   loop Tirisfal Glades lvl 3 lap 324 yield 11.4 only Horde r 60 at 29.3,63.8 25.2,60.2 23.8,59.7 32.2,55.8 33.5,52.8 35.4,70.5 33.4,69.7 30.8,72.6
   loop Mulgore lvl 2 lap 307 yield 5.6 only Horde r 60 at 49.0,92.8 49.2,87.7 41.8,79.8 41.2,82.0
   loop Elwynn Forest lvl 2 lap 304 yield 4.8 only Alliance r 60 at 45.1,33.8 38.0,50.8 42.8,49.6 44.9,43.0 55.6,35.4
-  auction 2835 x198
 
 step Craft 30 Rough Sharpening Stones until 25
   tip About 30 crafts.
@@ -222,7 +221,6 @@ step Mine 120 Coarse Stone
   loop Hillsbrad Foothills lvl 21 lap 485 yield 1.7 only Horde r 60 at 62.7,10.8 67.2,4.4 68.0,8.3 72.1,17.2 75.9,23.0 64.7,11.5 64.7,15.3 54.9,23.7 50.9,29.4 54.6,19.8 53.4,16.5 58.0,11.9
   loop Ashenvale lvl 20 lap 487 yield 1.1 only Horde r 60 at 22.4,41.4 22.7,44.0 22.3,45.9 17.4,39.9 17.7,35.6 16.5,31.0 20.9,29.9 22.9,27.7 23.4,33.8 21.8,33.6 21.7,35.4 22.9,36.3
   loop Duskwood lvl 24 lap 458 yield 0.9 only Alliance r 60 at 84.1,55.2 85.8,49.1 82.4,51.2 78.4,63.3 74.6,72.2 80.0,76.0 82.2,75.3 82.7,70.8 81.8,62.9
-  auction 2836 x120
 
 step Train Journeyman Blacksmithing
   tip Needs level 10.
@@ -256,7 +254,6 @@ step Mine and smelt 91 Bronze Bar
   loop Mulgore lvl 9 lap 322 yield 17.4 only Horde r 60 at 62.7,41.1 61.1,40.1 61.5,51.0 57.6,43.0 56.6,40.4 56.9,38.6 57.9,35.4 59.3,30.9 59.4,33.7 61.2,36.6 62.7,38.3 65.5,38.2
   loop Tirisfal Glades lvl 3 lap 324 yield 24.2 only Horde r 60 at 29.3,63.8 25.2,60.2 23.8,59.7 32.2,55.8 33.5,52.8 35.4,70.5 33.4,69.7 30.8,72.6
   loop Mulgore lvl 2 lap 307 yield 11.8 only Horde r 60 at 49.0,92.8 49.2,87.7 41.8,79.8 41.2,82.0
-  auction 2841 x91
 
 step Learn Rough Bronze Leggings
   learn 2668 npc 5511,10276,252479,1383,4596,2998,276067
@@ -370,7 +367,6 @@ step Mine 90 Heavy Stone
   loop Badlands lvl 43 lap 634 yield 2.1 only Horde r 60 at 4.0,80.4 6.1,77.3 7.6,73.3 12.1,35.1 15.6,35.0 14.3,39.8 23.9,66.4 20.8,82.2 15.1,81.7 15.7,86.9 15.1,92.1 9.0,88.8
   loop Thousand Needles lvl 30 lap 619 yield 2.1 only Alliance r 60 at 10.9,32.2 12.6,25.3 15.6,31.1 14.7,34.4 17.8,42.3 14.6,40.1 10.4,41.2 11.1,38.8 10.0,35.7 11.8,36.8 13.3,36.9 13.0,34.8
   loop Badlands lvl 44 lap 631 yield 1.4 only Alliance r 60 at 8.4,90.4 7.5,95.7 15.1,92.1 15.7,86.9 15.1,81.7 20.8,82.2 23.9,66.4 20.2,63.0 9.1,65.4 7.6,73.3 6.1,77.3 4.0,80.4
-  auction 2838 x90
 
 step Learn Heavy Grinding Stone
   learn 3337 npc 5511,10276,252479,1383,4596,2998,276067
@@ -397,7 +393,6 @@ step Mine and smelt 50 Bronze Bar
   loop Mulgore lvl 9 lap 322 yield 17.4 only Horde r 60 at 62.7,41.1 61.1,40.1 61.5,51.0 57.6,43.0 56.6,40.4 56.9,38.6 57.9,35.4 59.3,30.9 59.4,33.7 61.2,36.6 62.7,38.3 65.5,38.2
   loop Tirisfal Glades lvl 3 lap 324 yield 24.2 only Horde r 60 at 29.3,63.8 25.2,60.2 23.8,59.7 32.2,55.8 33.5,52.8 35.4,70.5 33.4,69.7 30.8,72.6
   loop Mulgore lvl 2 lap 307 yield 11.8 only Horde r 60 at 49.0,92.8 49.2,87.7 41.8,79.8 41.2,82.0
-  auction 2841 x50
 
 step Go to an anvil
   goto 51.8,40.8 "Anvil" map 1411 nearest only Horde
@@ -457,7 +452,6 @@ step Mine and smelt 120 Bronze Bar
   loop Mulgore lvl 9 lap 322 yield 17.4 only Horde r 60 at 62.7,41.1 61.1,40.1 61.5,51.0 57.6,43.0 56.6,40.4 56.9,38.6 57.9,35.4 59.3,30.9 59.4,33.7 61.2,36.6 62.7,38.3 65.5,38.2
   loop Tirisfal Glades lvl 3 lap 324 yield 24.2 only Horde r 60 at 29.3,63.8 25.2,60.2 23.8,59.7 32.2,55.8 33.5,52.8 35.4,70.5 33.4,69.7 30.8,72.6
   loop Mulgore lvl 2 lap 307 yield 11.8 only Horde r 60 at 49.0,92.8 49.2,87.7 41.8,79.8 41.2,82.0
-  auction 2841 x120
 
 step Get 15 Silver Bar
   tip For 15 Silvered Bronze Gauntlets.
@@ -536,7 +530,6 @@ step Mine and smelt 240 Iron Bar
   loop Arathi Highlands lvl 33 lap 580 yield 2.2 only Alliance r 60 at 31.3,45.1 33.4,42.4 38.7,43.1 40.2,49.0 41.5,40.9 38.1,34.5 30.7,32.6 28.5,32.6 24.7,36.5 22.3,43.6 31.3,61.7 33.0,46.6
   loop Arathi Highlands lvl 34 lap 581 yield 3.0 only Horde r 60 at 72.9,59.5 70.2,57.5 70.6,52.4 70.8,49.5 61.6,44.0 65.3,65.7 67.4,69.5 60.5,74.0 63.3,73.9 66.7,74.7 69.8,73.8 71.2,67.0
   loop Stranglethorn Vale lvl 34 lap 617 yield 2.2 only Horde r 60 at 46.2,7.4 30.5,7.6 27.0,10.1 27.4,13.6 25.7,15.4 26.3,18.0 27.6,18.0 30.0,17.7 29.3,15.3 31.3,13.8 29.8,12.1 31.3,9.5
-  auction 3575 x240
 
 step Train Expert Blacksmithing
   tip Needs level 20.
@@ -596,7 +589,6 @@ step Mine 60 Solid Stone
   loop Alterac Mountains lvl 35 lap 632 yield 2.8 r 60 at 50.9,44.2 49.1,45.2 45.4,39.8 48.0,33.1 52.7,36.8 55.1,40.6 54.1,45.6 53.2,48.4 51.2,47.3
   loop Badlands lvl 44 lap 627 yield 4.7 only Horde r 60 at 4.0,80.4 6.1,77.3 7.6,73.3 12.1,35.1 15.6,35.2 14.3,39.8 23.9,66.4 20.8,82.2 15.7,87.0 15.1,92.1 7.5,95.6 8.6,90.3
   loop The Hinterlands lvl 46 lap 616 yield 2.8 only Horde r 60 at 37.1,67.5 40.6,65.9 41.1,59.2 45.9,69.0 35.5,74.8 33.5,76.0 30.7,74.6 30.4,70.8 30.1,68.3 27.3,69.0 31.2,60.1 33.7,65.0
-  auction 7912 x60
 
 step Learn Solid Grinding Stone
   learn 9920 npc 4258,3355
@@ -640,7 +632,6 @@ step Mine and smelt 75 Steel Bar
   loop Arathi Highlands lvl 33 lap 580 yield 2.2 only Alliance r 60 at 31.3,45.1 33.4,42.4 38.7,43.1 40.2,49.0 41.5,40.9 38.1,34.5 30.7,32.6 28.5,32.6 24.7,36.5 22.3,43.6 31.3,61.7 33.0,46.6
   loop Arathi Highlands lvl 34 lap 581 yield 3.0 only Horde r 60 at 72.9,59.5 70.2,57.5 70.6,52.4 70.8,49.5 61.6,44.0 65.3,65.7 67.4,69.5 60.5,74.0 63.3,73.9 66.7,74.7 69.8,73.8 71.2,67.0
   loop Stranglethorn Vale lvl 34 lap 617 yield 2.2 only Horde r 60 at 46.2,7.4 30.5,7.6 27.0,10.1 27.4,13.6 25.7,15.4 26.3,18.0 27.6,18.0 30.0,17.7 29.3,15.3 31.3,13.8 29.8,12.1 31.3,9.5
-  auction 3859 x75
 
 step Go to an anvil
   goto 51.8,40.8 "Anvil" map 1411 nearest only Horde
@@ -705,7 +696,6 @@ step Mine and smelt 204 Mithril Bar
   loop Feralas lvl 46 lap 618 yield 3.1 r 60 at 52.7,60.6 51.5,60.4 50.4,58.5 45.4,69.4 54.1,73.0 59.4,74.1 62.5,69.4 60.6,65.7 58.9,55.8 57.5,47.0 53.5,47.7 52.1,58.6
   loop The Hinterlands lvl 46 lap 616 yield 2.8 r 60 at 37.1,67.5 40.6,65.9 41.1,59.2 45.9,69.0 35.5,74.8 33.5,76.0 30.7,74.6 30.4,70.8 30.1,68.3 27.3,69.0 31.2,60.1 33.7,65.0
   loop Burning Steppes lvl 52 lap 617 yield 2.3 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
-  auction 3860 x204
 
 step Learn Mithril Plate Pants
   learn 9931 npc 4258,3355
@@ -775,7 +765,6 @@ step Mine 148 Solid Stone
   loop Feralas lvl 46 lap 618 yield 3.0 r 60 at 52.7,60.6 51.5,60.4 50.4,58.5 45.4,69.4 54.1,73.0 59.4,74.1 62.5,69.4 60.6,65.7 58.9,55.8 57.5,47.0 53.5,47.7 52.1,58.6
   loop The Hinterlands lvl 46 lap 616 yield 2.8 r 60 at 37.1,67.5 40.6,65.9 41.1,59.2 45.9,69.0 35.5,74.8 33.5,76.0 30.7,74.6 30.4,70.8 30.1,68.3 27.3,69.0 31.2,60.1 33.7,65.0
   loop Burning Steppes lvl 52 lap 617 yield 2.2 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
-  auction 7912 x148
 
 step Mine and smelt 60 Mithril Bar
   when knows 9964
@@ -786,7 +775,6 @@ step Mine and smelt 60 Mithril Bar
   loop Feralas lvl 46 lap 618 yield 3.1 r 60 at 52.7,60.6 51.5,60.4 50.4,58.5 45.4,69.4 54.1,73.0 59.4,74.1 62.5,69.4 60.6,65.7 58.9,55.8 57.5,47.0 53.5,47.7 52.1,58.6
   loop The Hinterlands lvl 46 lap 616 yield 2.8 r 60 at 37.1,67.5 40.6,65.9 41.1,59.2 45.9,69.0 35.5,74.8 33.5,76.0 30.7,74.6 30.4,70.8 30.1,68.3 27.3,69.0 31.2,60.1 33.7,65.0
   loop Burning Steppes lvl 52 lap 617 yield 2.3 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
-  auction 3860 x60
 
 step Craft 37 Solid Grinding Stones
   when knows 9964
@@ -846,7 +834,6 @@ step Mine 16 Dense Stone
   loop Felwood lvl 51 lap 617 yield 2.2 r 60 at 42.1,78.4 43.8,62.1 36.6,62.7 36.2,68.9 37.9,68.0 38.3,70.6 40.1,74.1 39.7,81.0 42.8,84.1 44.5,91.8 56.0,82.6 47.3,76.1
   loop Burning Steppes lvl 52 lap 626 yield 2.0 r 60 at 80.9,48.5 84.8,48.8 83.7,46.1 82.8,42.4 82.3,40.2 80.3,40.7 80.3,44.7 77.4,42.9 76.7,47.4 75.0,56.0
   loop Un'Goro Crater lvl 53 lap 620 yield 3.3 r 60 at 68.5,16.1 69.8,19.2 75.5,33.1 75.3,39.6 63.1,33.4 55.4,35.2 52.2,32.0 50.1,13.3 56.6,11.7 63.8,16.2 66.2,17.7 66.4,14.2
-  auction 12365 x16
 
 step Learn Dense Sharpening Stone
   when knows 9964
@@ -868,7 +855,6 @@ step Mine 336 Solid Stone
   loop Feralas lvl 46 lap 618 yield 3.0 r 60 at 52.7,60.6 51.5,60.4 50.4,58.5 45.4,69.4 54.1,73.0 59.4,74.1 62.5,69.4 60.6,65.7 58.9,55.8 57.5,47.0 53.5,47.7 52.1,58.6
   loop The Hinterlands lvl 46 lap 616 yield 2.8 r 60 at 37.1,67.5 40.6,65.9 41.1,59.2 45.9,69.0 35.5,74.8 33.5,76.0 30.7,74.6 30.4,70.8 30.1,68.3 27.3,69.0 31.2,60.1 33.7,65.0
   loop Burning Steppes lvl 52 lap 617 yield 2.2 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
-  auction 7912 x336
 
 step Mine and smelt 112 Mithril Bar
   when knows 9964
@@ -880,7 +866,6 @@ step Mine and smelt 112 Mithril Bar
   loop The Hinterlands lvl 45 lap 615 yield 2.8 only Alliance r 60 at 33.7,65.0 37.1,67.5 40.6,65.9 41.1,59.2 30.1,55.0 31.2,60.1 27.3,69.0 30.1,68.3 30.4,70.8 30.7,74.6 33.5,76.0 35.5,74.8
   loop Badlands lvl 44 lap 627 yield 4.9 only Horde r 60 at 4.0,80.4 6.1,77.3 7.6,73.3 12.1,35.1 15.6,35.2 14.3,39.8 23.9,66.4 20.8,82.2 15.7,87.0 15.1,92.1 7.5,95.6 8.6,90.3
   loop The Hinterlands lvl 46 lap 616 yield 2.8 only Horde r 60 at 37.1,67.5 40.6,65.9 41.1,59.2 45.9,69.0 35.5,74.8 33.5,76.0 30.7,74.6 30.4,70.8 30.1,68.3 27.3,69.0 31.2,60.1 33.7,65.0
-  auction 3860 x112
 
 step Craft 84 Solid Grinding Stones
   when knows 9964
@@ -940,7 +925,6 @@ step Mine and smelt 72 Mithril Bar
   loop Feralas lvl 46 lap 618 yield 3.1 r 60 at 52.7,60.6 51.5,60.4 50.4,58.5 45.4,69.4 54.1,73.0 59.4,74.1 62.5,69.4 60.6,65.7 58.9,55.8 57.5,47.0 53.5,47.7 52.1,58.6
   loop The Hinterlands lvl 46 lap 616 yield 2.8 r 60 at 37.1,67.5 40.6,65.9 41.1,59.2 45.9,69.0 35.5,74.8 33.5,76.0 30.7,74.6 30.4,70.8 30.1,68.3 27.3,69.0 31.2,60.1 33.7,65.0
   loop Burning Steppes lvl 52 lap 617 yield 2.3 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
-  auction 3860 x72
 
 step Get 12 Citrine
   when !knows 9964
@@ -1020,7 +1004,6 @@ step Mine and smelt 100 Mithril Bar
   loop Feralas lvl 46 lap 618 yield 3.1 r 60 at 52.7,60.6 51.5,60.4 50.4,58.5 45.4,69.4 54.1,73.0 59.4,74.1 62.5,69.4 60.6,65.7 58.9,55.8 57.5,47.0 53.5,47.7 52.1,58.6
   loop The Hinterlands lvl 46 lap 616 yield 2.8 r 60 at 37.1,67.5 40.6,65.9 41.1,59.2 45.9,69.0 35.5,74.8 33.5,76.0 30.7,74.6 30.4,70.8 30.1,68.3 27.3,69.0 31.2,60.1 33.7,65.0
   loop Burning Steppes lvl 52 lap 617 yield 2.3 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
-  auction 3860 x100
 
 step Get 60 Mageweave Cloth
   when !knows 9964
@@ -1085,7 +1068,6 @@ step Mine 16 Dense Stone
   loop Felwood lvl 51 lap 617 yield 2.2 r 60 at 42.1,78.4 43.8,62.1 36.6,62.7 36.2,68.9 37.9,68.0 38.3,70.6 40.1,74.1 39.7,81.0 42.8,84.1 44.5,91.8 56.0,82.6 47.3,76.1
   loop Burning Steppes lvl 52 lap 626 yield 2.0 r 60 at 80.9,48.5 84.8,48.8 83.7,46.1 82.8,42.4 82.3,40.2 80.3,40.7 80.3,44.7 77.4,42.9 76.7,47.4 75.0,56.0
   loop Un'Goro Crater lvl 53 lap 620 yield 3.3 r 60 at 68.5,16.1 69.8,19.2 75.5,33.1 75.3,39.6 63.1,33.4 55.4,35.2 52.2,32.0 50.1,13.3 56.6,11.7 63.8,16.2 66.2,17.7 66.4,14.2
-  auction 12365 x16
 
 step Learn Dense Sharpening Stone
   when !knows 9964
@@ -1107,7 +1089,6 @@ step Mine and smelt 154 Mithril Bar
   loop Feralas lvl 46 lap 618 yield 3.1 r 60 at 52.7,60.6 51.5,60.4 50.4,58.5 45.4,69.4 54.1,73.0 59.4,74.1 62.5,69.4 60.6,65.7 58.9,55.8 57.5,47.0 53.5,47.7 52.1,58.6
   loop The Hinterlands lvl 46 lap 616 yield 2.8 r 60 at 37.1,67.5 40.6,65.9 41.1,59.2 45.9,69.0 35.5,74.8 33.5,76.0 30.7,74.6 30.4,70.8 30.1,68.3 27.3,69.0 31.2,60.1 33.7,65.0
   loop Burning Steppes lvl 52 lap 617 yield 2.3 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
-  auction 3860 x154
 
 step Get 44 Thick Leather
   when !knows 9964
@@ -1218,7 +1199,6 @@ step Mine and smelt 150 Thorium Bar
   loop Azshara lvl 54 lap 794 yield 2.7 r 60 at 73.4,86.4 77.7,92.8 72.1,97.9 69.2,94.2 67.0,91.8 64.1,85.9 68.9,82.2 65.3,78.2 59.8,73.9 49.3,67.0 58.2,57.8 74.7,45.9
   loop Winterspring lvl 57 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Eastern Plaguelands lvl 59 lap 615 yield 2.9 r 60 at 65.4,22.6 69.9,12.5 73.3,18.1 70.1,20.0 68.4,26.5 73.4,28.7 76.4,35.2 83.7,36.2 80.8,45.1 74.9,50.0 71.3,45.5 54.9,27.4
-  auction 12359 x150
 
 step Reach level 50
   when !knows 9964
@@ -1320,7 +1300,6 @@ step Mine and smelt 560 Thorium Bar
   loop Azshara lvl 54 lap 794 yield 2.7 r 60 at 73.4,86.4 77.7,92.8 72.1,97.9 69.2,94.2 67.0,91.8 64.1,85.9 68.9,82.2 65.3,78.2 59.8,73.9 49.3,67.0 58.2,57.8 74.7,45.9
   loop Winterspring lvl 57 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Eastern Plaguelands lvl 59 lap 615 yield 2.9 r 60 at 65.4,22.6 69.9,12.5 73.3,18.1 70.1,20.0 68.4,26.5 73.4,28.7 76.4,35.2 83.7,36.2 80.8,45.1 74.9,50.0 71.3,45.5 54.9,27.4
-  auction 12359 x560
 
 step Reach level 50
   tip A Blue Light Bargain asks for level 50.
@@ -1415,7 +1394,6 @@ step Mine and smelt 308 Thorium Bar
   loop Azshara lvl 54 lap 794 yield 2.7 r 60 at 73.4,86.4 77.7,92.8 72.1,97.9 69.2,94.2 67.0,91.8 64.1,85.9 68.9,82.2 65.3,78.2 59.8,73.9 49.3,67.0 58.2,57.8 74.7,45.9
   loop Winterspring lvl 57 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Eastern Plaguelands lvl 59 lap 615 yield 2.9 r 60 at 65.4,22.6 69.9,12.5 73.3,18.1 70.1,20.0 68.4,26.5 73.4,28.7 76.4,35.2 83.7,36.2 80.8,45.1 74.9,50.0 71.3,45.5 54.9,27.4
-  auction 12359 x308
 
 step Go to an anvil
   when knows 16656
@@ -1479,7 +1457,6 @@ step Mine and smelt 200 Thorium Bar
   loop Azshara lvl 54 lap 794 yield 2.7 r 60 at 73.4,86.4 77.7,92.8 72.1,97.9 69.2,94.2 67.0,91.8 64.1,85.9 68.9,82.2 65.3,78.2 59.8,73.9 49.3,67.0 58.2,57.8 74.7,45.9
   loop Winterspring lvl 57 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Eastern Plaguelands lvl 59 lap 615 yield 2.9 r 60 at 65.4,22.6 69.9,12.5 73.3,18.1 70.1,20.0 68.4,26.5 73.4,28.7 76.4,35.2 83.7,36.2 80.8,45.1 74.9,50.0 71.3,45.5 54.9,27.4
-  auction 12359 x200
 
 step Learn Radiant Leggings
   when knows 16656
@@ -1551,7 +1528,6 @@ step Mine and smelt 308 Thorium Bar
   loop Azshara lvl 54 lap 794 yield 2.7 r 60 at 73.4,86.4 77.7,92.8 72.1,97.9 69.2,94.2 67.0,91.8 64.1,85.9 68.9,82.2 65.3,78.2 59.8,73.9 49.3,67.0 58.2,57.8 74.7,45.9
   loop Winterspring lvl 57 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Eastern Plaguelands lvl 59 lap 615 yield 2.9 r 60 at 65.4,22.6 69.9,12.5 73.3,18.1 70.1,20.0 68.4,26.5 73.4,28.7 76.4,35.2 83.7,36.2 80.8,45.1 74.9,50.0 71.3,45.5 54.9,27.4
-  auction 12359 x308
 
 step Go to an anvil
   when !has 12713
@@ -1618,7 +1594,6 @@ step Mine and smelt 500 Thorium Bar
   loop Azshara lvl 54 lap 794 yield 2.7 r 60 at 73.4,86.4 77.7,92.8 72.1,97.9 69.2,94.2 67.0,91.8 64.1,85.9 68.9,82.2 65.3,78.2 59.8,73.9 49.3,67.0 58.2,57.8 74.7,45.9
   loop Winterspring lvl 57 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Eastern Plaguelands lvl 59 lap 615 yield 2.9 r 60 at 65.4,22.6 69.9,12.5 73.3,18.1 70.1,20.0 68.4,26.5 73.4,28.7 76.4,35.2 83.7,36.2 80.8,45.1 74.9,50.0 71.3,45.5 54.9,27.4
-  auction 12359 x500
 
 step Hand in Imperial Plate Leggings
   when !has 12713
@@ -1697,7 +1672,6 @@ step Mine and smelt 220 Thorium Bar
   loop Azshara lvl 54 lap 794 yield 2.7 r 60 at 73.4,86.4 77.7,92.8 72.1,97.9 69.2,94.2 67.0,91.8 64.1,85.9 68.9,82.2 65.3,78.2 59.8,73.9 49.3,67.0 58.2,57.8 74.7,45.9
   loop Winterspring lvl 57 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Eastern Plaguelands lvl 59 lap 615 yield 2.9 r 60 at 65.4,22.6 69.9,12.5 73.3,18.1 70.1,20.0 68.4,26.5 73.4,28.7 76.4,35.2 83.7,36.2 80.8,45.1 74.9,50.0 71.3,45.5 54.9,27.4
-  auction 12359 x220
 
 step Go to an anvil
   when !knows 16656
@@ -1760,7 +1734,6 @@ step Mine and smelt 702 Thorium Bar
   loop Azshara lvl 54 lap 794 yield 2.7 r 60 at 73.4,86.4 77.7,92.8 72.1,97.9 69.2,94.2 67.0,91.8 64.1,85.9 68.9,82.2 65.3,78.2 59.8,73.9 49.3,67.0 58.2,57.8 74.7,45.9
   loop Winterspring lvl 57 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Eastern Plaguelands lvl 59 lap 615 yield 2.9 r 60 at 65.4,22.6 69.9,12.5 73.3,18.1 70.1,20.0 68.4,26.5 73.4,28.7 76.4,35.2 83.7,36.2 80.8,45.1 74.9,50.0 71.3,45.5 54.9,27.4
-  auction 12359 x702
 
 step Learn Thorium Leggings
   when !knows 16656
@@ -1838,7 +1811,6 @@ step Mine and smelt 720 Thorium Bar
   loop Azshara lvl 54 lap 794 yield 2.7 r 60 at 73.4,86.4 77.7,92.8 72.1,97.9 69.2,94.2 67.0,91.8 64.1,85.9 68.9,82.2 65.3,78.2 59.8,73.9 49.3,67.0 58.2,57.8 74.7,45.9
   loop Winterspring lvl 57 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Eastern Plaguelands lvl 59 lap 615 yield 2.9 r 60 at 65.4,22.6 69.9,12.5 73.3,18.1 70.1,20.0 68.4,26.5 73.4,28.7 76.4,35.2 83.7,36.2 80.8,45.1 74.9,50.0 71.3,45.5 54.9,27.4
-  auction 12359 x720
 
 step Hand in Imperial Plate Boots
   when !knows 16656
@@ -1919,7 +1891,6 @@ step Mine and smelt 500 Thorium Bar
   loop Azshara lvl 54 lap 794 yield 2.7 r 60 at 73.4,86.4 77.7,92.8 72.1,97.9 69.2,94.2 67.0,91.8 64.1,85.9 68.9,82.2 65.3,78.2 59.8,73.9 49.3,67.0 58.2,57.8 74.7,45.9
   loop Winterspring lvl 57 lap 621 yield 4.0 r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Eastern Plaguelands lvl 59 lap 615 yield 2.9 r 60 at 65.4,22.6 69.9,12.5 73.3,18.1 70.1,20.0 68.4,26.5 73.4,28.7 76.4,35.2 83.7,36.2 80.8,45.1 74.9,50.0 71.3,45.5 54.9,27.4
-  auction 12359 x500
 
 step Hand in Imperial Plate Leggings
   when !knows 16656

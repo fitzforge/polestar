@@ -40,11 +40,11 @@ step Buy a Mining Pick
   tip A tool: it stays in your bags, and every vein needs it.
   buy 2901 x1 nearest
 
-step Turn on Find Minerals
+step Turn on Find Minerals · Professions tab (K by default)
   tip Veins show on the minimap. Dying turns it off, and only one kind of tracking is on at a time.
   cast 2580 "Find Minerals"
 
-step Get 140 Copper Ore
+step Mine 140 Copper Ore
   tip Mining it raises your skill too; enough to smelt your way to 65.
   collect 2770 x140 gather Mining 1
   loop Zephras Isle lvl 4 lap 310 yield 36.4 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
@@ -58,7 +58,6 @@ step Get 140 Copper Ore
   loop Tirisfal Glades lvl 3 lap 324 yield 12.1 only Horde r 60 at 29.3,63.8 25.2,60.2 23.8,59.7 32.2,55.8 33.5,52.8 35.4,70.5 33.4,69.7 30.8,72.6
   loop Mulgore lvl 2 lap 307 yield 5.9 only Horde r 60 at 49.0,92.8 49.2,87.7 41.8,79.8 41.2,82.0
   loop Elwynn Forest lvl 2 lap 304 yield 5.4 only Alliance r 60 at 45.1,33.8 38.0,50.8 42.8,49.6 44.9,43.0 55.6,35.4
-  auction 2770 x140
 
 step Go to a forge
   goto 51.9,40.7 "Forge" map 1411 nearest only Horde
@@ -98,7 +97,7 @@ step Go to a forge
   goto 43.4,15.4 "Forge" map 1459 nearest only Alliance
   goto 49.4,82.7 "Forge" map 1459 nearest only Horde
 
-step Smelt 140 Copper Bars · keep 70 for Bronze
+step Smelt 140 Copper Bars · keep 70 for Bronze · Professions tab (K by default)
   tip Every bar gives a point up to 25; Smelt Bronze takes a Copper Bar each.
   craft 2657 x140
 
@@ -131,7 +130,7 @@ step Learn Smelt Tin
 step Learn Smelt Bronze
   learn 2659
 
-step Get 70 Tin Ore
+step Mine 70 Tin Ore
   tip Tin Veins need Mining skill 65.
   collect 2771 x70 gather Mining 65
   loop Loch Modan lvl 13 lap 503 yield 1.7 only Alliance r 60 at 25.7,45.5 26.7,57.4 29.3,72.4 27.1,85.6 29.8,87.5 35.6,85.3 42.0,66.0 35.1,57.1 36.2,23.4 36.0,16.8 26.0,31.3 22.7,31.5
@@ -142,7 +141,6 @@ step Get 70 Tin Ore
   loop Hillsbrad Foothills lvl 21 lap 485 yield 2.6 only Horde r 60 at 62.7,10.8 67.2,4.4 68.0,8.3 72.1,17.2 75.9,23.0 64.7,11.5 64.7,15.3 54.9,23.7 50.9,29.4 54.6,19.8 53.4,16.5 58.0,11.9
   loop Ashenvale lvl 20 lap 487 yield 1.6 only Horde r 60 at 22.4,41.4 22.7,44.0 22.3,45.9 17.4,39.9 17.7,35.6 16.5,31.0 20.9,29.9 22.9,27.7 23.4,33.8 21.8,33.6 21.7,35.4 22.9,36.3
   loop Duskwood lvl 24 lap 458 yield 1.4 only Alliance r 60 at 84.1,55.2 85.8,49.1 82.4,51.2 78.4,63.3 74.6,72.2 80.0,76.0 82.2,75.3 82.7,70.8 81.8,62.9
-  auction 2771 x70
 
 step Go to a forge
   goto 51.9,40.7 "Forge" map 1411 nearest only Horde
@@ -182,11 +180,11 @@ step Go to a forge
   goto 43.4,15.4 "Forge" map 1459 nearest only Alliance
   goto 49.4,82.7 "Forge" map 1459 nearest only Horde
 
-step Smelt 70 Tin Bars
+step Smelt 70 Tin Bars · Professions tab (K by default)
   tip Tin stops giving points at 75, but Bronze needs all 70 bars.
   craft 3304 x70
 
-step Smelt 70 Bronze Bars
+step Smelt 70 Bronze Bars · Professions tab (K by default)
   tip A Copper Bar and a Tin Bar each. You end up near 105.
   craft 2659 x70
 
@@ -214,7 +212,7 @@ step Train Expert Mining
 step Learn Smelt Iron
   learn 3307
 
-step Get 20 Iron Ore
+step Mine 20 Iron Ore
   tip Iron Deposits need Mining skill 125.
   collect 2772 x20 gather Mining 125
   loop Thousand Needles lvl 27 lap 626 yield 2.8 only Horde r 60 at 42.7,33.7 44.6,39.3 40.2,50.8 37.0,54.3 35.8,50.7 34.4,53.4 33.0,51.2 30.1,45.9 23.7,44.8 23.9,23.4 28.1,28.1 34.6,26.7
@@ -226,7 +224,6 @@ step Get 20 Iron Ore
   loop Arathi Highlands lvl 33 lap 580 yield 2.2 only Alliance r 60 at 31.3,45.1 33.4,42.4 38.7,43.1 40.2,49.0 41.5,40.9 38.1,34.5 30.7,32.6 28.5,32.6 24.7,36.5 22.3,43.6 31.3,61.7 33.0,46.6
   loop Arathi Highlands lvl 34 lap 581 yield 3.0 only Horde r 60 at 72.9,59.5 70.2,57.5 70.6,52.4 70.8,49.5 61.6,44.0 65.3,65.7 67.4,69.5 60.5,74.0 63.3,73.9 66.7,74.7 69.8,73.8 71.2,67.0
   loop Stranglethorn Vale lvl 34 lap 617 yield 2.2 only Horde r 60 at 46.2,7.4 30.5,7.6 27.0,10.1 27.4,13.6 25.7,15.4 26.3,18.0 27.6,18.0 30.0,17.7 29.3,15.3 31.3,13.8 29.8,12.1 31.3,9.5
-  auction 2772 x20
 
 step Go to a forge
   goto 51.9,40.7 "Forge" map 1411 nearest only Horde
@@ -266,7 +263,7 @@ step Go to a forge
   goto 43.4,15.4 "Forge" map 1459 nearest only Alliance
   goto 49.4,82.7 "Forge" map 1459 nearest only Horde
 
-step Smelt 20 Iron Bars
+step Smelt 20 Iron Bars · Professions tab (K by default)
   tip Iron gives a point every time up to 130; you end up near 138.
   craft 3307 x20
 

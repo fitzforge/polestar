@@ -30,7 +30,8 @@ function fishingSteps() {
 		if (only) s.only = only[1];
 		const c = /^ {2}collect \d+ x(\d+) /.exec(l);
 		if (c && s.count === null) s.count = Number(c[1]);
-		if (/^ {2}collect \d+ x\d+ gather Fishing 1$/.test(l)) s.onTheWay = true;
+		if (/^ {2}collect \d+ x\d+ .*gather Fishing \d+/.test(l)) s.gets = true;
+		if (/^ {2}goto /.test(l)) s.stand = true;
 		const loop = /^ {2}loop (.+?) lvl (\d+) lap (\d+) (?:gain|yield) ([\d.]+) only (\S+)( live)? r \d+ at (.+)$/.exec(l);
 		if (loop) s.loops.push({ zone: loop[1], lvl: Number(loop[2]), lap: Number(loop[3]), per: Number(loop[4]), only: loop[5], live: !!loop[6], pts: loop[7].split(' ').map((p) => p.split(',').map(Number)) });
 	}
@@ -90,7 +91,6 @@ const FROM = [
 	['Fish Raw Longjaw Mud Snapper (Fishing 75', 'Horde', 'Tauren', 12, 'Mulgore', 47, 58, 'Thunder Bluff'],
 	['Fish Raw Bristle Whisker Catfish (Fishing 150', 'Alliance', 'Human', 22, 'Redridge Mountains', 30, 45, 'Redridge Mountains'],
 	['Fish Raw Bristle Whisker Catfish (Fishing 150', 'Horde', 'Orc', 22, 'The Barrens', 52, 30, null],
-	['Fish Raw Mithril Head Trout', 'Horde', 'Orc', 32, 'Desolace', 25, 72, 'Desolace'],
 	// Dustwallow's stands by Theramore ask level 42: at 40 the safe water is the pick, across the sea.
 	['Fish Raw Spotted Yellowtail', 'Alliance', 'Human', 40, 'Dustwallow Marsh', 66, 50, 'Stranglethorn Vale'],
 	['Fish Raw Spotted Yellowtail', 'Alliance', 'Human', 44, 'Dustwallow Marsh', 66, 50, 'Dustwallow Marsh'],
@@ -106,8 +106,6 @@ test('from where each side levels in a band, the arrow picks the nearby water of
 	for (const [prefix, faction, race, level, zone, x, y, want] of FROM) {
 		const s = w.steps.find((st) => st.title.startsWith(prefix) && takes(st.only, race, faction));
 		assert.ok(s, `${prefix} for ${race} ${faction}`);
-		// A get step whose fish all come from the fishing on the way (`gather Fishing 1`, no loop) has no water of its own.
-		if (s.onTheWay) continue;
 		const at = w.ctx.project.point(w.maps.get(zone), x, y, 'e');
 		const open = s.loops.filter((l) => takes(l.only, race, faction));
 		assert.ok(open.length, `${s.title}: no water for ${race} ${faction}`);
@@ -127,5 +125,19 @@ test('from where each side levels in a band, the arrow picks the nearby water of
 		got.push([prefix, race, zone, pick.zone]);
 		if (want) assert.equal(pick.zone, want, `${s.title} from ${zone} (${race})`);
 	}
-	assert.equal(got.length, FROM.filter(([prefix, faction, race]) => !w.steps.find((st) => st.title.startsWith(prefix) && takes(st.only, race, faction)).onTheWay).length);
+	assert.equal(got.length, FROM.length);
+});
+
+// A fish step (`collect … gather Fishing`) always has somewhere to lead: its waters' loops or its one stand. One whose
+// fish all come from the fishing before it is not written at all (pairs.js): never an empty step (the Horde's
+// Mithril Head Trout, all 53 caught on the way, was one with no loop and no stand).
+test('every fish step has a water or a stand to lead to; the Horde\'s Mithril Head Trout come from the fishing before it', { skip }, () => {
+	const steps = world().steps;
+	const empty = steps.filter((s) => s.gets && !s.loops.length && !s.stand).map((s) => `${s.title} (${s.only || 'both sides'})`);
+	assert.deepEqual(empty, []);
+	// No Horde step of its own for the trout (all of them caught on the way); the Fishing step to 225 that gives
+	// them keeps Desolace's water, safe at 32.
+	assert.ok(!steps.some((s) => /^Fish Raw Mithril Head Trout/.test(s.title) && takes(s.only, 'Orc', 'Horde') && !s.loops.length && !s.stand));
+	const water = steps.find((s) => /^Fishing \d+-225: .*Raw Mithril Head Trout water/.test(s.title) && s.only === 'Horde');
+	assert.ok(water && water.loops.some((l) => l.zone === 'Desolace' && l.lvl <= 32), water ? water.title : 'no Horde trout water step');
 });

@@ -234,3 +234,60 @@ test('no skinning loop targets a creature that cannot be skinned (#4504)', { ski
 	const owlsOut = S.SKINNING_POINTS(ctx, 1425, 1, 300, ['Vicious Owlbeast', 'Primitive Owlbeast', 'Savage Owlbeast']);
 	assert.deepEqual(owlsOut, [], 'the Hinterlands owlbeasts give no skinning point');
 });
+
+// Fitz's in-game test (Mining, 'Get 140 Copper Ore' offered the Auction House and put the ore on the Shopping list):
+// a gathering guide never offers to buy what its own profession gathers, nor does a paired guide for what its
+// gathering profession gathers: those are gathered (`collect … gather` with loops), with no `auction` goal, so the
+// Materials window has no choice for them and the Shopping list holds only what is really bought. A crafting-only
+// guide still offers the Auction House beside the gathering.
+test('gathering and paired guides never offer to buy what their gathering profession gathers; crafting guides still do', () => {
+	const GATHERS = { mining: 'Mining', herbalism: 'Herbalism', skinning: 'Skinning', fishing: 'Fishing', 'mining-blacksmithing': 'Mining', 'mining-engineering': 'Mining', 'herbalism-alchemy': 'Herbalism', 'skinning-leatherworking': 'Skinning', 'fishing-cooking': 'Fishing' };
+	for (const [name, prof] of Object.entries(GATHERS).filter(([n]) => exists(n))) {
+		const text = read(name);
+		// Gathered: what a step gathers on its loops (a rare find with no loop, Silver Ore, stays a buy).
+		const gathered = new Set();
+		for (const block of text.split('\nstep ').filter((b) => /\n {2}loop /.test(b))) for (const m of block.matchAll(new RegExp(`^ {2}collect (\\d+) x\\d+.* gather ${prof}\\b`, 'gm'))) gathered.add(m[1]);
+		const bought = [...text.matchAll(/^ {2}auction (\d+) /gm)].map((m) => m[1]).filter((id) => gathered.has(id));
+		assert.deepEqual([...new Set(bought)], [], `${name}: ${prof} gathers these, yet the guide offers to buy them (the Shopping list would list them)`);
+	}
+	// The single gathering guides' own steps carry no buy row at all for what they gather.
+	for (const name of ['mining', 'herbalism', 'skinning', 'fishing'].filter(exists)) {
+		for (const s of stepsOf(read(name))) {
+			if (!s.goals.some((g) => g.verb === 'collect' && /\bgather\b/.test(g.rest))) continue;
+			assert.ok(!s.goals.some((g) => g.verb === 'auction' || g.verb === 'buy'), `${name}:${s.line} ${s.title}: a gather step with a buy row`);
+		}
+	}
+	const smith = read('blacksmithing');
+	assert.match(smith, /^ {2}collect 2835 x\d+ gather Mining 1\n(?: {2}loop [^\n]+\n)+ {2}auction 2835 x\d+$/m, 'Blacksmithing still offers Rough Stone at the Auction House');
+});
+
+// Fitz's in-game test (Mining, 'Cast Find Minerals'): a row that has the player cast a spell says where the spell
+// is: profession spells in the Professions tab (K), Pick Lock in the Spellbook (P). Every profession guide, the
+// paired ones included.
+test('every spell cast says where the spell is (Professions tab, or Spellbook for a class spell); craft rows do not', () => {
+	const { spellWhere, PROFESSIONS_TAB, SPELLBOOK } = require('../tools/lib/professions/describe');
+	const dir = path.join(ROOT, 'guides', 'forever', 'professions');
+	let seen = 0;
+	for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.guide'))) {
+		const lines = fs.readFileSync(path.join(dir, file), 'utf8').split('\n');
+		lines.forEach((l, i) => {
+			if (!l.startsWith('step ')) return;
+			const goals = [];
+			for (let j = i + 1; j < lines.length && /^ {2}\S/.test(lines[j]); j++) goals.push(lines[j]);
+			const title = l.slice(5);
+			const where = spellWhere(title.split(' · ')[0], goals);
+			if (!where) return;
+			seen++;
+			assert.ok(title.includes(where), `${file}:${i + 1} ${title}: the row does not say where the spell is (${where})`);
+		});
+	}
+	assert.ok(seen > 20, `spell steps found (${seen})`);
+	// Craft rows carry no where: the guide window gives them an "Open <profession>" button.
+	for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.guide'))) {
+		for (const s of stepsOf(fs.readFileSync(path.join(dir, file), 'utf8'))) {
+			if (s.goals.some((g) => g.verb === 'craft') && !/^Smelt /.test(s.title)) assert.ok(!s.title.includes(PROFESSIONS_TAB), `${file}:${s.line} ${s.title}: a craft row with the Professions tab suffix`);
+		}
+	}
+	assert.match(read('mining'), new RegExp(`^step Turn on Find Minerals · ${PROFESSIONS_TAB.replace(/[()]/g, '\\$&')}$`, 'm'));
+	if (exists('lockpicking')) assert.ok(read('lockpicking').includes(`· Pick Lock: ${SPELLBOOK}`));
+});

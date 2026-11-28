@@ -30,13 +30,13 @@ step Buy Thieves' Tools
   tip A tool: Pick Lock does not work without it in your bags.
   buy 5060 x1 nearest
 
-step Pick the Buccaneer's Strongboxes until 80 · the pirate ship near Ratchet
+step Pick the Buccaneer's Strongboxes until 80 · the pirate ship near Ratchet · Pick Lock: Spellbook (P by default)
   tip They come back within seconds. The Jewel of the Southsea in the hold spawns a deadly mob.
   only Horde
   goto 65.0,45.4 "the pirate ship near Ratchet" map 1413 r 30
   skill Lockpicking 80
 
-step Pick the Practice Lockboxes until 80 · north of Lake Everstill, Redridge
+step Pick the Practice Lockboxes until 80 · north of Lake Everstill, Redridge · Pick Lock: Spellbook (P by default)
   tip They come back within seconds.
   only Alliance
   goto 52.0,45.2 "north of Lake Everstill, Redridge" map 1433 r 30
@@ -46,12 +46,12 @@ step Reach level 20
   tip Lockpicking stops at 5 times your level: 100 needs level 20.
   level 20
 
-step Pick the Buccaneer's Strongboxes until 100 · the pirate ship near Ratchet
+step Pick the Buccaneer's Strongboxes until 100 · the pirate ship near Ratchet · Pick Lock: Spellbook (P by default)
   only Horde
   goto 65.0,45.4 "the pirate ship near Ratchet" map 1413 r 30
   skill Lockpicking 100
 
-step Pick the Practice Lockboxes until 100 · north of Lake Everstill, Redridge
+step Pick the Practice Lockboxes until 100 · north of Lake Everstill, Redridge · Pick Lock: Spellbook (P by default)
   only Alliance
   goto 52.0,45.2 "north of Lake Everstill, Redridge" map 1433 r 30
   skill Lockpicking 100
@@ -62,7 +62,7 @@ step Reach level 30
   tip Lockpicking stops at 5 times your level: 150 needs level 30.
   level 30
 
-step Pick the Waterlogged Footlockers until 150 · Zoram Strand shore, Ashenvale
+step Pick the Waterlogged Footlockers until 150 · Zoram Strand shore, Ashenvale · Pick Lock: Spellbook (P by default)
   tip From 110 the ones in the water work too.
   goto 13.0,23.8 "Zoram Strand shore, Ashenvale" map 1440 r 30
   skill Lockpicking 150
@@ -73,7 +73,7 @@ step Reach level 45
   tip Lockpicking stops at 5 times your level: 225 needs level 45.
   level 45
 
-step Pick the Battered Footlockers until 225 · Angor Fortress, Badlands
+step Pick the Battered Footlockers until 225 · Angor Fortress, Badlands · Pick Lock: Spellbook (P by default)
   tip From 175 the Dented ones count too: a point every time up to 215.
   goto 41.5,28.1 "Angor Fortress, Badlands" map 1418 r 30
   skill Lockpicking 225
@@ -84,7 +84,7 @@ step Reach level 60
   tip Lockpicking stops at 5 times your level: 300 needs level 60.
   level 60
 
-step Pick the Dented Footlockers until 300 · The Slag Pit, Searing Gorge or Lost Rigger Cove, Tanaris
+step Pick the Dented Footlockers until 300 · The Slag Pit, Searing Gorge or Lost Rigger Cove, Tanaris · Pick Lock: Spellbook (P by default)
   tip Points all the way to 300; past 290 a point comes less often.
   goto 45.3,32.0 "The Slag Pit, Searing Gorge" map 1427 r 30
   goto 73.5,46.6 "Lost Rigger Cove, Tanaris" map 1446 r 30

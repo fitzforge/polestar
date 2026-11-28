@@ -482,7 +482,13 @@ function deLevels(name) {
 	return t ? ` levels ${t.min}-${t.max}` : '';
 }
 
+// A crafting guide's draft, every spell step's row saying where the spell is (describe.js withSpellWhere).
 function draftGuide(name, data, opts = {}) {
+	const out = draftGuideBare(name, data, opts);
+	return out && typeof out.text === 'string' ? { ...out, text: D.withSpellWhere(out.text) } : out;
+}
+
+function draftGuideBare(name, data, opts = {}) {
 	const profs = data.professions || {};
 	const found = Object.values(profs).find((p) => p && String(p.name).toLowerCase() === String(name).toLowerCase());
 	if (!found) throw new Error(`unknown profession "${name}"`);

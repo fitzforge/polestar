@@ -108,9 +108,14 @@ the same stand safety, or is reported by the build (`note: … has no safe loop`
 
 ## Profession guide rules
 
-1. **Every material has a Get it way.** A material the Auction House sells is written both ways (a
-   `collect … gather` and an `auction`), so Gather, Buy and Mix all work (docs/GUIDE_FORMAT.md,
-   "Materials"). A mob drop is a `collect … nearest` farm the engine picks by travel plus the time to
+1. **Every material has a Get it way.** In a crafting guide a material the Auction House sells is written both
+   ways (a `collect … gather` and an `auction`), so Gather, Buy and Mix all work (docs/GUIDE_FORMAT.md,
+   "Materials"). A gathering guide never offers to buy what its own profession gathers, nor a paired guide what
+   its gathering profession gathers: those are `collect … gather` with loops and no `auction`, so the Shopping
+   list holds only what is really bought (a pick, a knife, lures, thread). Every step that casts a spell says
+   where it is in its row ("· Professions tab (K by default)", Pick Lock "· Spellbook (P by default)":
+   describe.js `withSpellWhere`, which every profession generator's text passes through).
+   A mob drop is a `collect … nearest` farm the engine picks by travel plus the time to
    finish there at the player's level, never among mobs two or more levels above, picked again on a zone
    or level change. A long farm reads as what it is ("most of it drops as you level 15-30, or the Auction
    House"), never as thousands of kills.
