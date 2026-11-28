@@ -691,10 +691,11 @@ function renderPair(ctx, pair) {
 		const craft = b.lines.map((l) => /^ {2}craft (\d+) until (\d+)/.exec(l)).find(Boolean);
 		if (!craft) {
 			// Held to just before the craft (after its gathering): the recipe, its goods and its station, and quest
-			// accepts. Fishing + Cooking marks its own with `@hold`.
+			// accepts and hand-ins, in order (a hand-in never ahead of its accept). Fishing + Cooking marks its own
+			// with `@hold`.
 			const hold = b.lines.includes('  @hold');
 			if (hold) b = { ...b, lines: b.lines.filter((l) => l !== '  @hold') };
-			if (hold || / recipes at \d+$/.test(b.step) || b.lines.some((l) => /^ {2}accept /.test(l))) held.push(b);
+			if (hold || / recipes at \d+$/.test(b.step) || b.lines.some((l) => /^ {2}(accept|turnin) /.test(l))) held.push(b);
 			else emitBlock(b);
 			continue;
 		}
