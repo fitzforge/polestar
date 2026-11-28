@@ -1781,3 +1781,125 @@ fn walking_on_and_beside_the_path_every_style_always_shows_marks_by_the_arrow() 
 		assert!(f(&out[style]) >= 1.0, "{style}: a frame with no mark within 40 px of the arrow");
 	}
 }
+
+// The red stretch through a hostile town a walk goes round (nav.dangerLine, the geometry leg's `danger`): round dots
+// with a cross at its middle in every style, in its own colour, never a dash (a guessed walk's), named on the world
+// map, and only on a walk that has one.
+#[test]
+fn a_danger_stretch_is_red_dots_with_a_cross_never_a_dash() {
+	let out = strokes(
+		r#"
+		local RED = { 1, 0, 0 }
+		local out = {}
+		for _, style in ipairs({ "line", "dots" }) do
+			local buf = S.New()
+			S.Map(buf, { path("danger", { { 100, 500 }, { 900, 500 } }) }, view({ style = style ~= "dots" and style or nil, colors = { danger = RED } }))
+			local r = { n = buf.n, dots = 0, red = 0, crossX = 0, crossStrokes = 0 }
+			for i = 1, buf.n do
+				if buf.dot[i] then r.dots = r.dots + 1 else
+					r.crossStrokes = r.crossStrokes + 1
+					r.crossX = r.crossX + (buf.x1[i] + buf.x2[i]) / 2
+				end
+				if buf.color[i] == RED then r.red = r.red + 1 end
+			end
+			if r.crossStrokes > 0 then r.crossX = r.crossX / r.crossStrokes end
+			out[style] = r
+		end
+		emit(out)"#,
+	);
+	for style in ["line", "dots"] {
+		let r = &out[style];
+		assert!(f(&r["dots"]) > 10.0, "{style}: a run of round dots ({})", r["dots"]);
+		assert_eq!(r["crossStrokes"], 2, "{style}: one cross, two strokes, besides the dots");
+		assert_eq!(r["red"], r["n"], "{style}: every stroke in the danger colour");
+		// The map's units are fractions of the width (1000 here): the cross sits at the middle of 100..900.
+		assert!((f(&r["crossX"]) - 500.0).abs() < 1.0, "{style}: the cross at the middle of the stretch ({})", r["crossX"]);
+	}
+}
+
+const DANGER_GEOMETRY: &str = r#"
+local function geometry(danger)
+	return { legs = { { kind = "walk", pts = { { 0, 0, 0 }, { 0, 0, -200 }, { 0, 0, -400 } }, current = true, danger = danger } } }
+end
+local function route(geom)
+	N.GetRouteGeometry = function() return geom end
+	Polestar.Fire("NAV_ROUTE_GEOMETRY")
+	stub.advance(0.3)
+end
+local function kinds()
+	local out = {}
+	for _, p in ipairs(R.GetPaths()) do out[#out + 1] = p.kind end
+	return table.concat(out, ",")
+end
+local function labels()
+	local pin, out = R.GetWorldFrame(), {}
+	for i = 1, pin and pin.labelsShown or 0 do
+		if pin.labels[i]:IsShown() then out[#out + 1] = pin.labels[i]:GetText() end
+	end
+	return table.concat(out, "|")
+end
+local STRETCH = { { name = "Southshore", c = 0, x1 = 0, y1 = -150, x2 = 0, y2 = -250 } }
+"#;
+
+#[test]
+fn danger_lines_are_off_by_default_the_walk_alone_is_drawn_whatever_its_geometry_carries() {
+	let out = painted(&format!(
+		"{DANGER_GEOMETRY}{}",
+		r#"
+		Polestar.Set("nav.travel", false)
+		nav.place(0, 0)
+		target(0, -400)
+		nav.showWorldMap(9000)
+		route(geometry(STRETCH))
+		emit({ default = Polestar.Get("nav.dangerLine"), kinds = kinds(), labels = labels() })"#
+	));
+	assert_eq!(out["default"], false);
+	assert_eq!(out["kinds"], "walk");
+	assert_eq!(out["labels"], "");
+}
+
+#[test]
+fn danger_lines_on_the_stretch_is_drawn_red_dashed_on_both_maps_and_named_on_the_world_map() {
+	let out = painted(&format!(
+		"{DANGER_GEOMETRY}{}",
+		r#"
+		Polestar.Set("nav.travel", false)
+		nav.viewRadius = 400
+		nav.place(0, 0)
+		target(0, -400)
+		nav.showWorldMap(9000)
+		route(geometry(nil))
+		local r = { plainWorld = R.GetStrokes("world").n, plainMinimap = R.GetStrokes("minimap").n }
+		Polestar.Set("nav.dangerLine", true)
+		route(geometry(STRETCH))
+		r.kinds, r.labels = kinds(), labels()
+		r.world, r.minimap = R.GetStrokes("world").n, R.GetStrokes("minimap").n
+		Polestar.Set("nav.dangerLine", false)
+		stub.advance(0.3)
+		r.offKinds, r.offLabels = kinds(), labels()
+		emit(r)"#
+	));
+	assert_eq!(out["kinds"], "walk,danger", "the stretch is drawn after the walk");
+	assert_eq!(out["labels"], "Danger: Southshore");
+	assert!(f(&out["world"]) > f(&out["plainWorld"]) + 3.0, "dashes on the world map: {} strokes over {}", out["world"], out["plainWorld"]);
+	assert!(f(&out["minimap"]) > f(&out["plainMinimap"]), "and on the minimap: {} over {}", out["minimap"], out["plainMinimap"]);
+	assert_eq!(out["offKinds"], "walk", "the option off again: the walk alone");
+	assert_eq!(out["offLabels"], "");
+}
+
+#[test]
+fn danger_lines_on_a_walk_with_no_detour_draws_no_stretch_and_no_label() {
+	let out = painted(&format!(
+		"{DANGER_GEOMETRY}{}",
+		r#"
+		Polestar.Set("nav.travel", false)
+		Polestar.Set("nav.dangerLine", true)
+		nav.place(0, 0)
+		target(0, -400)
+		nav.showWorldMap(9000)
+		route(geometry(nil))
+		emit({ kinds = kinds(), labels = labels() })"#
+	));
+	assert_eq!(out["kinds"], "walk");
+	assert_eq!(out["labels"], "");
+}

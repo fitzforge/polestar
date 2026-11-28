@@ -399,7 +399,7 @@ local function buildPreview(view)
 		["nav.drawIn"] = { walkLeg, flightLeg, boatLeg }, ["nav.laterAlpha"] = { boatLeg }, ["nav.lineOutline"] = { walkLeg, flightLeg },
 		["nav.walkColor"] = { walkLeg, mm }, ["nav.dotColor"] = { walkLeg, flightLeg, boatLeg }, ["nav.lineWidth"] = { walkLeg, flightLeg },
 		["nav.walkedFade"] = { walkLeg }, ["nav.routeChevrons"] = { walkLeg, flightLeg }, ["nav.flightDash"] = { flightLeg },
-		["nav.dotSize"] = { walkLeg }, ["nav.dotSpacing"] = { walkLeg },
+		["nav.dangerLine"] = { walkLeg }, ["nav.dotSize"] = { walkLeg }, ["nav.dotSpacing"] = { walkLeg },
 		["nav.sparkleColor"] = both, ["nav.sparkleSize"] = both, ["nav.sparkleIntensity"] = both, ["nav.sparkleSubtlety"] = both,
 		["nav.sparkleDensity"] = both, ["nav.sparkleMax"] = both, ["nav.sparkleFlow"] = both, ["nav.sparkleLater"] = { boatLeg },
 		["nav.flightColor"] = { flightLeg, legendItems[1] }, ["nav.boatColor"] = { boatLeg, legendItems[2] },
@@ -511,6 +511,9 @@ register(L["Route lines"], {
 	{ kind = "slider", key = "nav.lineOutline", label = L["Outline"], min = 0, max = 2, step = 0.05, format = percent, new = NEW, disabled = off,
 		help = L["The dark edge under the line and dots (the line's soft shadow), so they stand out on bright ground. 0% takes it away."],
 		search = "shadow, outline, border, contrast, edge, stroke, readability, dark edge, halo" },
+	{ kind = "toggle", key = "nav.dangerLine", label = L["Danger lines"], disabled = off,
+		help = L["On the world map and the minimap, draw the straight way through the other faction's town that a walk goes round as a red dotted line with a cross at its middle, and on the world map name it: \"Danger: Southshore\". It only shows it: the route and the arrow stay as they are. Needs route lines."],
+		search = "danger, red line, dotted, cross, enemy town, hostile town, avoid, detour, map" },
 }, { toggle = Ref("toggle", "nav.routeLines", { label = L["Route lines"] }) })
 
 -- The walks' own colour and the route colour presets (nav.dotColor): the
