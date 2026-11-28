@@ -7165,7 +7165,13 @@ function Own.currentGoal(s, groups, focus)
 			and not goalDone(s, g, goal) then
 			if Own.isHeader(step, goal, grp) then
 				header = header or g
-			elseif not goal.optional then
+			-- A use whose objective a placed collect, kill or click of the step
+			-- counts (the extractor on the Gnawed Corpses, a Taming Rod on its
+			-- beast) is neither a stop nor a barrier: the arrow tours that row's
+			-- spots, and the use only gives the button and the step key their item.
+			elseif goal.optional then
+				if not Own.useCompanion(s, g) then optional = optional or g end
+			elseif not Own.useCompanion(s, g) then
 				first = first or g
 				-- A gather another item's use spends (`spentBy`, #4270) is taken in
 				-- its order, never toured: it may need what a goal before it
@@ -7181,8 +7187,6 @@ function Own.currentGoal(s, groups, focus)
 				elseif (spent or not Own.isField(goal)) and not (g == first and goal.t == "goto" and Own.grindAfter(s, grp, g)) then
 					barrier = true
 				end
-			else
-				optional = optional or g
 			end
 		end
 	end
@@ -7197,6 +7201,24 @@ function Own.currentGoal(s, groups, focus)
 		return first, header or Own.headerOf(s, grp, first)
 	end
 	return optional or header, header
+end
+
+-- The placed field goal (collect, kill, interact) of step s that counts the
+-- same quest objective as its use goal g, or nil: the use is done when that
+-- objective is, so the arrow leads by the field goal's spots and the use has
+-- no place of its own (ArrowCheck10: Gloomrise's toxin samples). A field goal
+-- the player skipped or that does not apply leaves the use its own place.
+function Own.useCompanion(s, g)
+	local step = guide.steps[s]
+	local goal = step.goals[g]
+	if goal.t ~= "use" or not goal.quest or not goal.oi then return nil end
+	for j, other in ipairs(step.goals) do
+		if j ~= g and other.quest == goal.quest and other.oi == goal.oi and Own.FIELD[other.t] and Own.isField(other)
+			and goalApplies(other) and not unavailableFor(other) and not Own.goalSkipped(s, j) then
+			return j
+		end
+	end
+	return nil
 end
 
 -- The open header of a group after goal index `after` (a header comes first,
@@ -7227,7 +7249,8 @@ function Own.alongAim(q)
 	local best, bestD
 	for _, e in ipairs(Own.alongWork(q)) do
 		local goal = guide.steps[e[1]].goals[e[2]]
-		local wp = waypointOf(e[2], goal, nil, e[1])
+		-- A use its field goal counts leads by that goal's spots (Own.useCompanion).
+		local wp = not Own.useCompanion(e[1], e[2]) and waypointOf(e[2], goal, nil, e[1]) or nil
 		if wp then
 			local d = c and Own.fieldDistance(goal, c, px, py)
 			if not best or (d and (not bestD or d < bestD)) then best, bestD = wp, d end
@@ -14225,7 +14248,9 @@ function Own.hereGoalsOn(c)
 				end
 				if goal.quest and verbs[goal.t] then idx.worked[goal.quest] = true end
 				if goal.map and goal.quest and goal.x and goal.y and not goal.candidates
-					and (verbs[goal.t] or goal.t == "turnin" or goal.t == "accept" or (goal.t == "complete" and not goal.escort)) then
+					and (verbs[goal.t] or goal.t == "turnin" or goal.t == "accept" or (goal.t == "complete" and not goal.escort))
+					-- A use its field goal counts is listed by that goal (Own.useCompanion).
+					and not (goal.t == "use" and Own.useCompanion(s, g)) then
 					local gc = goalWorld(goal)
 					if gc then
 						local list = idx.by[gc]

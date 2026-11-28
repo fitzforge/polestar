@@ -539,3 +539,52 @@ assert(g == 2 or g == 3)
 "#,
 	);
 }
+
+// ArrowCheck10 (try9, suspect 3): Gloomrise's step got `use 273015 quest 96241.1` (the Toxin Extractor) before
+// `collect 273001 quest 96241.1` (the samples from the Gnawed Corpses). The use is no field goal, so it ended the tour
+// as a barrier and the arrow sat on its one point until all five samples were in. A use whose objective a placed
+// collect, kill or click of the step counts is neither a stop nor a barrier: the arrow tours that goal's spots.
+const USE: &str = r#"{ t = "use", item = 273015, itemName = "Toxin Extractor", quest = 96241, oi = 1, map = 1429, x = 51, y = 50 }"#;
+const SAMPLES: &str = r#"{ t = "collect", item = 273001, itemName = "Toxin Sample", count = 5, quest = 96241, oi = 1, map = 1429, x = 45, y = 50 }"#;
+const SPIDER: &str = r#"{ t = "kill", target = "Spider", npc = 3, count = 1, map = 1429, x = 60, y = 50 }"#;
+
+#[test]
+fn a_use_whose_objective_a_collect_counts_is_never_the_arrows_stop() {
+	// First in the step: the collect leads, not the use's point.
+	check(
+		&format!("{USE}, {SAMPLES}, {SPIDER}"),
+		"w.onQuest(96241, { 5 })",
+		END,
+		r#"
+w.addItem(273015, 1); flush()
+assert(E.GetWaypoint().goalIndex == 2, "the samples lead: " .. tostring(E.GetWaypoint().goalIndex))
+assert(E.GetStepView(1).current ~= 1)
+w.moveTo(1429, 58, 50); flush()
+assert(E.GetWaypoint().goalIndex ~= 1)
+"#,
+	);
+	// Between two field goals: no barrier, the samples stay in the tour.
+	check(
+		&format!("{SPIDER}, {USE}, {SAMPLES}"),
+		"w.onQuest(96241, { 5 })",
+		END,
+		r#"
+w.addItem(273015, 1); flush()
+assert(E.GetWaypoint().goalIndex == 3, "the samples are toured: " .. tostring(E.GetWaypoint().goalIndex))
+"#,
+	);
+}
+
+#[test]
+fn a_use_with_no_field_goal_for_its_objective_keeps_its_own_place() {
+	let other = r#"{ t = "kill", target = "Other", npc = 4, count = 1, quest = 96241, oi = 2, map = 1429, x = 45, y = 50 }"#;
+	check(
+		&format!("{USE}, {other}"),
+		"w.onQuest(96241, { 5, 1 })",
+		END,
+		r#"
+w.addItem(273015, 1); flush()
+assert(E.GetWaypoint().goalIndex == 1, "the use keeps its place: " .. tostring(E.GetWaypoint() and E.GetWaypoint().goalIndex))
+"#,
+	);
+}
