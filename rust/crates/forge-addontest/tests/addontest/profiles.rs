@@ -231,7 +231,7 @@ fn a_migration_runs_once_over_every_profile_before_init_and_over_a_string_from_b
 	assert_eq!(first["now"], 2);
 	// Skip grey quests stays off in a profile saved before 0.4.3 (Engine's skipGreyOn, once, over the saved profiles).
 	assert_eq!(first["raid"], json!({ "new": { "size": 3 }, "old": {}, "behavior": { "skipGrey": false } }));
-	assert_eq!(first["marks"], json!({ "move-size": true, "late": true, "skipGreyOn": true }));
+	assert_eq!(first["marks"], json!({ "move-size": true, "late": true, "skipGreyOn": true, "materialsAskGone": true }));
 	assert_eq!(first["before"], json!({ "new.size": 4 }), "a string from before the migration is migrated");
 	assert_eq!(first["after"], json!({}));
 	assert_eq!(first["afterDropped"], json!(["old.size"]));
