@@ -992,7 +992,6 @@ stub.advance(0.5)`;
 function minimapRouteScene(script) {
 	return questScene(['Minimap'], script, undefined, ROUTE_FILES);
 }
-<<<<<<< HEAD
 // Farming loops being walked (Polestar 0.4.4): the real Engine picks a starting area's own loop for a new
 // character over the zone's higher ones (lvl: the least level safe on each), its closed track drawn in the flight
 // lines' style with a mark on each point, the arrow a short way ahead on it. The loop lines are the generated
@@ -1058,8 +1057,6 @@ const LOOP_SKINS = loopTrack(SKIN_MULGORE, {
 function loopTrackScene(root, script = LOOP_MINING, place = MULGORE) {
 	return questScene([root], script, place, ROUTE_FILES);
 }
-=======
->>>>>>> parent of fc9a69f093 (Farming loops: one closed track the arrow runs round, drawn on the zone map and minimap)
 // The route line's three looks (nav.lineStyle) on one route: a walk bending
 // along its path to the guide pin, then a flight on (its own colour, dashed
 // in the line style). The geometry stands in for Nav's (Nav.GetRouteGeometry)
@@ -2280,7 +2277,6 @@ Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/h
 		],
 	},
 	{
-<<<<<<< HEAD
 		file: 'loop-track.svg',
 		title: 'A farming loop being walked: a level 3 Tauren mining Copper on Red Cloud Mesa\'s starter loop (never Mulgore\'s level 9 loop), its closed track on the zone map and the minimap in the flight lines\' style, a mark on each point, the arrow a short way ahead along it; the Get step on the loop, and at level 2 before any loop is safe',
 		panels: [
@@ -2301,8 +2297,6 @@ Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/h
 		],
 	},
 	{
-=======
->>>>>>> parent of fc9a69f093 (Farming loops: one closed track the arrow runs round, drawn on the zone map and minimap)
 		file: 'dungeons.svg',
 		title: 'Dungeons in the hub: Home for a level 20 Tauren (the dungeons for your level, faction filter Horde); Wailing Caverns, its Quests tab',
 		panels: [

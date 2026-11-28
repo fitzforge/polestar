@@ -43,9 +43,10 @@ const HEADER_KEYS = ['guide', 'title', 'levels', 'zone', 'faction', 'race', 'cla
 // Lines inside a step that are not goals.
 // `loop`: the step's `goto` points are the spawn areas of its kill, collect
 // and interact goals (resolve.js, applyLoop).
+// `area <zone> "<name>" …`: a gathering area its skill or collect goal may pick (parseAreaCandidate).
 // `skipto <label> when <predicate>`: when the route reaches the step and the
 // predicate holds, it jumps to the labelled step (resolve.js, checkLabels).
-const STEP_KEYS = ['zone', 'only', 'tip', 'image', 'when', 'label', 'along', 'background', 'skipto', 'loop'];
+const STEP_KEYS = ['zone', 'only', 'tip', 'image', 'when', 'label', 'along', 'background', 'skipto', 'loop', 'area'];
 
 // `group [N]`: the goal needs a group (of N players), shown in the guide window.
 // `either`: one of a set in its step; the step is done when any one of the set is.
@@ -415,6 +416,9 @@ function parseGuide(text, file, diag) {
 				} else if (step.loop) err(ln, 'duplicate `loop` in step');
 				else if (step.loops) err(ln, mixed);
 				else step.loop = ln;
+			} else if (kw === 'area') {
+				const c = parseAreaCandidate(lex, ln, err);
+				if (c) (step.areas ||= []).push(c);
 			} else {
 				const tip = unquoteRest(line, lex, 1);
 				if (!tip) {
@@ -469,14 +473,14 @@ function parseGuide(text, file, diag) {
 }
 
 // The words of a `loop <zone> …` line after its zone.
-const LOOP_WORDS = new Set(['lvl', 'lap', 'gain', 'yield', 'only', 'live', 'starter', 'respawn', 'r', 'at']);
+const LOOP_WORDS = new Set(['lvl', 'lap', 'gain', 'yield', 'only', 'live', 'r', 'at']);
 
-// `loop <zone or map <uiMapID>> lvl <level> lap <seconds> gain|yield <per lap> [only <conditions>] [live] [starter] [respawn <seconds>]
+// `loop <zone or map <uiMapID>> lvl <level> lap <seconds> gain|yield <per lap> [only <conditions>] [live]
 // [r <yards>] at <x,y> <x,y> …`: a farming loop a `skill` or `collect` goal of its step may pick at runtime
 // (docs/GUIDE_FORMAT.md, "Farming loops"; parse.rs parse_loop_candidate).
 function parseLoopCandidate(lex, ln, err) {
 	const toks = lex.tokens;
-	const usage = 'usage: loop <zone> lvl <level> lap <seconds> gain|yield <per lap> [only <conditions>] [live] [starter] [respawn <seconds>] [r <yards>] at <x,y> <x,y> …';
+	const usage = 'usage: loop <zone> lvl <level> lap <seconds> gain|yield <per lap> [only <conditions>] [live] [r <yards>] at <x,y> <x,y> …';
 	const word = (t) => !t.quoted && LOOP_WORDS.has(t.text.toLowerCase());
 	let i = 1;
 	while (i < toks.length && !word(toks[i])) i++;
@@ -502,8 +506,8 @@ function parseLoopCandidate(lex, ln, err) {
 			return null;
 		}
 		i++;
-		if (w === 'live' || w === 'starter') {
-			out[w] = true;
+		if (w === 'live') {
+			out.live = true;
 		} else if (w === 'at') {
 			while (i < toks.length && !word(toks[i])) {
 				const [x, y, more] = toks[i].text.split(',');
@@ -555,6 +559,126 @@ function parseLoopCandidate(lex, ln, err) {
 		return null;
 	}
 	out.pts = pts;
+	return out;
+}
+
+// The words of an `area <zone> "<name>" …` line after its name.
+const AREA_WORDS = new Set(['near', 'lvl', 'count', 'lap', 'gain', 'yield', 'levels', 'items', 'only', 'live', 'starter', 'respawn', 'at', 'dots']);
+const AREA_USAGE =
+	'usage: area <zone> "<name>" [near] lvl <level> count <nodes> lap <seconds> gain|yield <per sweep> [levels <min>-<max>] [items <id,id>] [only <conditions>] [live] [starter] [respawn <seconds>] at <x,y> <x,y> <x,y> … [dots <x,y> …]';
+
+// `area <zone or map <uiMapID>> "<name>" [near] lvl <level> count <nodes> lap <seconds> gain|yield <per sweep>
+// [levels <min>-<max>] [items <id,id>] [only <conditions>] [live] [starter] [respawn <seconds>] at <x,y> <x,y> <x,y> … [dots <x,y>
+// …]`: a gathering area a `skill` or `collect` goal of its step may pick at runtime (docs/GUIDE_FORMAT.md,
+// "Gathering areas"; parse.rs parse_area_candidate). `near`: the name is the subzone nearest open ground;
+// `at`: its outline (three corners or more), `dots`: its node spots; points in the Era frame unless `live`.
+function parseAreaCandidate(lex, ln, err) {
+	const toks = lex.tokens;
+	const word = (t) => !t.quoted && AREA_WORDS.has(t.text.toLowerCase());
+	let i = 1;
+	while (i < toks.length && !toks[i].quoted && !word(toks[i])) i++;
+	let zone;
+	if (i === 1) {
+		err(ln, '`area` needs its zone first', AREA_USAGE);
+		return null;
+	} else if (!toks[1].quoted && toks[1].text.toLowerCase() === 'map') {
+		if (i !== 3 || !INT_RE.test(toks[2].text) || Number(toks[2].text) <= 0) {
+			err(ln, 'malformed `area map <uiMapID>`', AREA_USAGE);
+			return null;
+		}
+		zone = { map: Number(toks[2].text), line: ln };
+	} else {
+		zone = { name: toks.slice(1, i).map((t) => t.text).join(' '), line: ln };
+	}
+	if (!toks[i] || !toks[i].quoted || !toks[i].text.trim()) {
+		err(ln, '`area` needs its name in quotes after the zone', AREA_USAGE);
+		return null;
+	}
+	const out = { line: ln, zone, name: toks[i].text.trim() };
+	i++;
+	const points = (key) => {
+		const pts = [];
+		while (i < toks.length && !word(toks[i])) {
+			const [x, y, more] = toks[i].text.split(',');
+			if (more !== undefined || !NUM_RE.test(x || '') || !NUM_RE.test(y || '')) {
+				err(ln, `malformed \`${key}\` point "${toks[i].text}" in \`area\` (expected x,y)`, AREA_USAGE);
+				return null;
+			}
+			pts.push([Number(x), Number(y)]);
+			i++;
+		}
+		return pts;
+	};
+	while (i < toks.length) {
+		const w = toks[i].text.toLowerCase();
+		if (!word(toks[i])) {
+			err(ln, `unexpected "${toks[i].text}" in \`area\``, AREA_USAGE);
+			return null;
+		}
+		i++;
+		const key = w === 'at' ? 'poly' : w;
+		if (out[key] !== undefined) {
+			err(ln, `duplicate \`${w}\` in \`area\``);
+			return null;
+		}
+		if (w === 'near' || w === 'live' || w === 'starter') {
+			out[w] = true;
+		} else if (w === 'at' || w === 'dots') {
+			const pts = points(w);
+			if (!pts) return null;
+			out[key] = pts;
+		} else if (w === 'items') {
+			const ids = toks[i] && !toks[i].quoted ? toks[i].text.split(',') : [];
+			if (!ids.length || ids.some((x) => !INT_RE.test(x) || Number(x) <= 0)) {
+				err(ln, '`items` in `area` needs item ids: <id>[,<id>…]', AREA_USAGE);
+				return null;
+			}
+			out.items = ids.map(Number);
+			i++;
+		} else if (w === 'levels') {
+			const m = toks[i] && !toks[i].quoted ? toks[i].text.match(/^(\d+)-(\d+)$/) : null;
+			if (!m || Number(m[1]) > Number(m[2])) {
+				err(ln, '`levels` in `area` needs <min>-<max>', AREA_USAGE);
+				return null;
+			}
+			out.levels = [Number(m[1]), Number(m[2])];
+			i++;
+		} else if (w === 'only') {
+			const t = toks[i];
+			if (!t) {
+				err(ln, '`only` in `area` needs a condition list', AREA_USAGE);
+				return null;
+			}
+			const c = parseConditions(t.text.replace(/\s*,\s*/g, ','), 'any');
+			for (const e of c.errors) err(ln, e);
+			if (c.errors.length) return null;
+			out.only = c.value;
+			i++;
+		} else {
+			const t = toks[i];
+			const v = t && NUM_RE.test(t.text) ? Number(t.text) : NaN;
+			if (!(v > 0)) {
+				err(ln, `\`${w}\` in \`area\` needs a positive number`, AREA_USAGE);
+				return null;
+			}
+			out[w] = v;
+			i++;
+		}
+	}
+	if (!out.poly || out.poly.length < 3) {
+		err(ln, 'an `area` needs its outline: three points or more after `at`', AREA_USAGE);
+		return null;
+	}
+	for (const k of ['lvl', 'count', 'lap']) {
+		if (!out[k]) {
+			err(ln, `\`area\` needs \`${k}\``, AREA_USAGE);
+			return null;
+		}
+	}
+	if (!out.gain === !out.yield) {
+		err(ln, '`area` needs one of `gain` (skill points a sweep) or `yield` (items a sweep)', AREA_USAGE);
+		return null;
+	}
 	return out;
 }
 

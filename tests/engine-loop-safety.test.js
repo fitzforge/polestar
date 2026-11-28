@@ -29,10 +29,6 @@ w.zone, w.subzone = "Mulgore", "Red Cloud Mesa"
 		addons: ['Polestar'],
 		script: `${TEST_PACK}
 ${TEST_SOURCE}
-<<<<<<< HEAD
-${planner ? 'Polestar.Set("nav.travel", true)' : 'Polestar.Set("nav.travel", false)'}
-=======
->>>>>>> parent of fc9a69f093 (Farming loops: one closed track the arrow runs round, drawn on the zone map and minimap)
 Polestar.RegisterGuide({ id = "test/loops", pack = "test", title = "Mining", category = "Professions", minLevel = 1, maxLevel = 60, steps = {
 	{ title = "Get Copper Ore", goals = { { t = "collect", item = 2770, itemName = "Copper Ore", count = 20, gather = { rank = 1, skill = "Mining", skillLine = 186 }, candidates = { ${cands.join(', ')} } } } },
 	{ goals = { { t = "level", level = 60 } } },

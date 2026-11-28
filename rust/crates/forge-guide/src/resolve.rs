@@ -1668,10 +1668,6 @@ fn apply_loop_candidates(step: &V, s: &V, faction: &V, r: &mut R) {
 		c.set("lvl", obj! { "min" => l.get("lvl"), "max" => l.get("lvl") });
 		c.set("lap", l.get("lap"));
 		c.set(per, l.get(per));
-		set_if(&c, "respawn", l.get("respawn"));
-		if l.get("starter").truthy() {
-			c.set("starter", true);
-		}
 		c.set("spotsPacked", crate::emit::pack_spots(&spots));
 		candidates.push((c, spots));
 	}
@@ -1689,6 +1685,128 @@ fn apply_loop_candidates(step: &V, s: &V, faction: &V, r: &mut R) {
 	goal.as_obj().unwrap().delete("lvl");
 	goal.as_obj().unwrap().delete("z");
 	goal.set("candidates", V::from(candidates.into_iter().map(|(c, _)| c).collect::<Vec<V>>()));
+}
+
+/// `area <zone> "<name>" … at …` lines (parse.rs parse_area_candidate; resolve.js applyAreaCandidates): gathering
+/// areas the step's `skill` goal (with `gain`) or unpinned `collect` goal (with `yield`) picks from at runtime, the
+/// Engine's farm ranking (pickFor): one `candidates` entry per area, { map, x, y, f, faction, races, classes,
+/// lvl = { min, max }, lap, gain | yield, respawn?, starter?, area (its name), aid (its AreaTable id: the client
+/// names it in the player's language), near?, count, levels? = { min, max }, poly = "x,y;…" (its outline), dots =
+/// "x,y;…" (its node spots) }, x, y the middle of its outline. The goal's own place is the first area's until the
+/// Engine picks; an area goal has no spawn areas.
+fn apply_area_candidates(step: &V, s: &V, faction: &V, r: &mut R) {
+	let areas = s.get("areas").items();
+	let first_line = areas[0].get("line");
+	if s.get("loops").truthy() || s.get("loop").truthy() {
+		return r.err(&first_line, "gathering areas (`area <zone> \"<name>\" …`) and `loop` lines are two kinds of place: use one kind in a step", None);
+	}
+	let sgoals = s.get("goals");
+	let goals = step.get("goals").items();
+	let mut targets: Vec<(V, &str)> = Vec::new();
+	for (i, g) in goals.iter().enumerate() {
+		let source = sgoals.at(i);
+		let free = !source.get("explicitCoords").truthy() && !source.get("anywhere").truthy() && !g.get("candidates").truthy();
+		match g.get("t").as_str() {
+			Some("skill") if free => targets.push((g.clone(), "gain")),
+			Some("collect") if free => targets.push((g.clone(), "yield")),
+			_ => {}
+		}
+	}
+	if targets.len() != 1 {
+		return r.err(&first_line, "gathering areas (`area <zone> \"<name>\" …`) need exactly one unpinned `skill` or `collect` goal in their step", Some("the areas pick the place of that one goal"));
+	}
+	if goals.iter().any(|g| g.get("t").as_str() == Some("goto")) {
+		return r.err(&first_line, "gathering areas (`area <zone> \"<name>\" …`) carry their own outline: drop the step's `goto` lines", None);
+	}
+	let (goal, per) = targets.remove(0);
+	let pack = |pts: &V| pts.items().iter().map(|p| format!("{},{}", crate::emit::lua_number(p.at(0).num(), 2), crate::emit::lua_number(p.at(1).num(), 2))).collect::<Vec<String>>().join(";");
+	let mut seen: Vec<String> = Vec::new();
+	let mut candidates: Vec<V> = Vec::new();
+	for a in &areas {
+		let ln = a.get("line");
+		if !a.get(per).truthy() {
+			let other = if per == "gain" { "yield" } else { "gain" };
+			r.err(&ln, format!("an area for a `{}` goal takes `{per}`, not `{other}`", goal.get("t").to_js_string()), None);
+			continue;
+		}
+		let zone = r.resolve_zone(&a.get("zone"));
+		if !zone.truthy() {
+			continue;
+		}
+		let o = a.get("only");
+		let list = |k: &str| o.get(k).items().iter().map(|v| v.to_js_string()).collect::<Vec<String>>().join(",");
+		let key = format!("{}|{}|{}|{}|{}|{}", zone.get("id").to_js_string(), a.get("name").to_js_string(), a.get("near").truthy(), a.get("lvl").to_js_string(), list("factions"), list("races"));
+		if seen.contains(&key) {
+			r.err(&ln, format!("the area \"{}\" at level {} is listed twice in this step for the same characters", a.get("name").to_js_string(), a.get("lvl").to_js_string()), None);
+			continue;
+		}
+		seen.push(key);
+		let poly = a.get("poly").items();
+		let mid = |k: usize| {
+			let v: Vec<f64> = poly.iter().map(|p| p.at(k).num()).collect();
+			let lo = v.iter().cloned().fold(f64::INFINITY, f64::min);
+			let hi = v.iter().cloned().fold(f64::NEG_INFINITY, f64::max);
+			((lo + hi) / 2.0 * 100.0).round() / 100.0
+		};
+		let c: V = obj! { "map" => zone.get("id"), "x" => mid(0), "y" => mid(1) }.into();
+		if !a.get("live").truthy() {
+			c.set("f", "e");
+		}
+		let mut sides = o.get("factions").items();
+		if sides.is_empty() && faction.truthy() {
+			sides = vec![faction.clone()];
+		}
+		let tag = match sides.first().and_then(|s| s.as_str()) {
+			Some("Alliance") if sides.len() == 1 => "A",
+			Some("Horde") if sides.len() == 1 => "H",
+			_ => "AH",
+		};
+		c.set("faction", tag);
+		set_if(&c, "races", o.get("races"));
+		set_if(&c, "classes", o.get("classes"));
+		c.set("lvl", obj! { "min" => a.get("lvl"), "max" => a.get("lvl") });
+		c.set("lap", a.get("lap"));
+		c.set(per, a.get(per));
+		set_if(&c, "respawn", a.get("respawn"));
+		if a.get("starter").truthy() {
+			c.set("starter", true);
+		}
+		c.set("area", a.get("name"));
+		let sub = crate::areas::area_named(&r.data.areas, &a.get("name"), &zone.get("areaId"));
+		if sub.truthy() {
+			c.set("aid", sub.get("id"));
+		}
+		if a.get("near").truthy() {
+			c.set("near", true);
+		}
+		c.set("count", a.get("count"));
+		let lv = a.get("levels");
+		if lv.truthy() {
+			c.set("levels", obj! { "min" => lv.at(0), "max" => lv.at(1) });
+		}
+		let items = a.get("items").items();
+		if !items.is_empty() {
+			c.set("items", items.iter().map(|v| v.to_js_string()).collect::<Vec<String>>().join(","));
+		}
+		c.set("poly", pack(&a.get("poly")));
+		if !a.get("dots").items().is_empty() {
+			c.set("dots", pack(&a.get("dots")));
+		}
+		candidates.push(c);
+	}
+	let Some(c0) = candidates.first().cloned() else { return };
+	goal.set("map", c0.get("map"));
+	goal.set("x", c0.get("x"));
+	goal.set("y", c0.get("y"));
+	if c0.get("f").truthy() {
+		goal.set("f", c0.get("f"));
+	} else {
+		goal.as_obj().unwrap().delete("f");
+	}
+	for k in ["spots", "spread", "lvl", "z"] {
+		goal.as_obj().unwrap().delete(k);
+	}
+	goal.set("candidates", V::from(candidates));
 }
 
 /// `skill <Profession> <N> nearest` (#2529): the step's `goto` points are the places to do it, each for the
@@ -2160,7 +2278,7 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 				prof: Some(&prof_progress),
 				zone_id: zone_id.clone(),
 				loop_: s.get("loop").truthy(),
-				loops: s.get("loops").truthy(),
+				loops: s.get("loops").truthy() || s.get("areas").truthy(),
 			};
 			let goal = resolve_goal(g, &zone_id, &cursors[at].prev, r, &ctx);
 			goal.set_hidden("_line", g.get("line"));
@@ -2278,6 +2396,9 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 		}
 		if s.get("loops").truthy() {
 			apply_loop_candidates(&step, s, &guide.get("faction"), r);
+		}
+		if s.get("areas").truthy() {
+			apply_area_candidates(&step, s, &guide.get("faction"), r);
 		}
 		apply_nearest(&step, s, &guide.get("faction"), r);
 		gsteps.push(step);

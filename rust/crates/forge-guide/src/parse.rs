@@ -58,10 +58,12 @@ pub const HEADER_KEYS: [&str; 21] =
 /// `loop`: the step's `goto` points are the spawn areas of its kill, collect
 /// and interact goals (resolve.rs, applyLoop). `loop <zone> … at <x,y> …`: one
 /// of several farming loops its skill or collect goal picks from at runtime
-/// (parse_loop_candidate, resolve.rs apply_loop_candidates).
+/// (parse_loop_candidate, resolve.rs apply_loop_candidates). `area <zone> "<name>" …`:
+/// one of several gathering areas its skill or collect goal picks from at runtime
+/// (parse_area_candidate, resolve.rs apply_area_candidates).
 /// `skipto <label> when <predicate>`: when the route reaches the step and the
 /// predicate holds, it jumps to the labelled step (resolve.rs, checkLabels).
-pub const STEP_KEYS: [&str; 10] = ["zone", "only", "tip", "image", "when", "label", "along", "background", "skipto", "loop"];
+pub const STEP_KEYS: [&str; 11] = ["zone", "only", "tip", "image", "when", "label", "along", "background", "skipto", "loop", "area"];
 
 // COMMON = text optional only group either (`either`: one of a set in its step); COORDS = at map r frame (`frame` = the `era` / `live` modifiers).
 /// The modifiers each verb takes, in the JS object's order (VERBS is the verbs in this order).
@@ -637,6 +639,11 @@ pub fn parse_guide(text: &str, file: &str, diag: &mut Diagnostics) -> V {
 						step.set("loop", ln);
 					}
 				}
+				"area" => {
+					if let Some(c) = parse_area_candidate(&lex, ln, &mut cx) {
+						push_to(&step, "areas", c);
+					}
+				}
 				_ => {
 					let tip = unquote_rest(&line, &lex, 1);
 					if tip.is_empty() {
@@ -726,16 +733,16 @@ fn parse_zone_spec(line: &[u16], lex: &Lex, ln: f64, cx: &mut Cx) -> Option<V> {
 }
 
 /// The words of a `loop <zone> …` line after its zone.
-const LOOP_WORDS: [&str; 10] = ["lvl", "lap", "gain", "yield", "only", "live", "starter", "respawn", "r", "at"];
+const LOOP_WORDS: [&str; 8] = ["lvl", "lap", "gain", "yield", "only", "live", "r", "at"];
 
-/// `loop <zone or map <uiMapID>> lvl <level> lap <seconds> gain|yield <per lap> [only <conditions>] [live] [starter] [respawn <seconds>]
+/// `loop <zone or map <uiMapID>> lvl <level> lap <seconds> gain|yield <per lap> [only <conditions>] [live]
 /// [r <yards>] at <x,y> <x,y> …`: a farming loop a `skill` or `collect` goal of its step may pick at runtime
 /// (docs/GUIDE_FORMAT.md, "Farming loops"). `lvl`: the strongest creature along its walk; `lap`: the seconds a
 /// lap takes; `gain`: the skill points a lap gives (a `skill` goal), `yield`: the items of the goal's item a lap
 /// gives (a `collect` goal); its stops in order, each `r` yards wide (default 30), in the Era frame unless `live`.
 fn parse_loop_candidate(lex: &Lex, ln: f64, cx: &mut Cx) -> Option<V> {
 	let toks = &lex.tokens;
-	let usage = "usage: loop <zone> lvl <level> lap <seconds> gain|yield <per lap> [only <conditions>] [live] [starter] [respawn <seconds>] [r <yards>] at <x,y> <x,y> …";
+	let usage = "usage: loop <zone> lvl <level> lap <seconds> gain|yield <per lap> [only <conditions>] [live] [r <yards>] at <x,y> <x,y> …";
 	let word = |t: &Tok| !t.quoted && LOOP_WORDS.contains(&t.text.to_lowercase().as_str());
 	let mut i = 1;
 	while i < toks.len() && !word(&toks[i]) {
@@ -764,7 +771,7 @@ fn parse_loop_candidate(lex: &Lex, ln: f64, cx: &mut Cx) -> Option<V> {
 		}
 		i += 1;
 		match w.as_str() {
-			"live" | "starter" => {
+			"live" => {
 				out.set(&w, true);
 			}
 			"at" => {
@@ -823,6 +830,130 @@ fn parse_loop_candidate(lex: &Lex, ln: f64, cx: &mut Cx) -> Option<V> {
 		return None;
 	}
 	out.set("pts", V::from(pts));
+	Some(out)
+}
+
+/// The words of an `area <zone> "<name>" …` line after its name.
+const AREA_WORDS: [&str; 14] = ["near", "lvl", "count", "lap", "gain", "yield", "levels", "items", "only", "live", "starter", "respawn", "at", "dots"];
+const AREA_USAGE: &str = "usage: area <zone> \"<name>\" [near] lvl <level> count <nodes> lap <seconds> gain|yield <per sweep> [levels <min>-<max>] [items <id,id>] [only <conditions>] [live] [starter] [respawn <seconds>] at <x,y> <x,y> <x,y> … [dots <x,y> …]";
+
+/// `area <zone or map <uiMapID>> "<name>" [near] lvl <level> count <nodes> lap <seconds> gain|yield <per sweep>
+/// [levels <min>-<max>] [items <id,id>] [only <conditions>] [live] [starter] [respawn <seconds>] at <x,y> <x,y> <x,y> … [dots <x,y>
+/// …]`: a gathering area a `skill` or `collect` goal of its step may pick at runtime (docs/GUIDE_FORMAT.md,
+/// "Gathering areas"; parse.js parseAreaCandidate). `near`: the name is the subzone nearest open ground; `at`:
+/// its outline (three corners or more), `dots`: its node spots; points in the Era frame unless `live`.
+fn parse_area_candidate(lex: &Lex, ln: f64, cx: &mut Cx) -> Option<V> {
+	let toks = &lex.tokens;
+	let usage = Some(AREA_USAGE);
+	let word = |t: &Tok| !t.quoted && AREA_WORDS.contains(&t.text.to_lowercase().as_str());
+	let mut i = 1;
+	while i < toks.len() && !toks[i].quoted && !word(&toks[i]) {
+		i += 1;
+	}
+	let zone = if i == 1 {
+		cx.err(ln, "`area` needs its zone first", usage);
+		return None;
+	} else if !toks[1].quoted && toks[1].text.to_lowercase() == "map" {
+		if i != 3 || !is_int(&toks[2].text) || str_to_num(&toks[2].text) <= 0.0 {
+			cx.err(ln, "malformed `area map <uiMapID>`", usage);
+			return None;
+		}
+		V::Obj(obj! { "map" => str_to_num(&toks[2].text), "line" => ln })
+	} else {
+		let name: Vec<&str> = toks[1..i].iter().map(|t| t.text.as_str()).collect();
+		V::Obj(obj! { "name" => name.join(" "), "line" => ln })
+	};
+	let Some(name) = toks.get(i).filter(|t| t.quoted && !t.text.trim().is_empty()) else {
+		cx.err(ln, "`area` needs its name in quotes after the zone", usage);
+		return None;
+	};
+	let out: V = obj! { "line" => ln, "zone" => zone, "name" => name.text.trim() }.into();
+	i += 1;
+	while i < toks.len() {
+		let w = toks[i].text.to_lowercase();
+		if !word(&toks[i]) {
+			cx.err(ln, format!("unexpected \"{}\" in `area`", toks[i].text), usage);
+			return None;
+		}
+		i += 1;
+		let key = if w == "at" { "poly" } else { w.as_str() };
+		if !out.get(key).is_undef() {
+			cx.err(ln, format!("duplicate `{w}` in `area`"), None);
+			return None;
+		}
+		match w.as_str() {
+			"near" | "live" | "starter" => out.set(&w, true),
+			"at" | "dots" => {
+				let mut pts: Vec<V> = Vec::new();
+				while i < toks.len() && !word(&toks[i]) {
+					let p = toks[i].text.split_once(',').filter(|(x, y)| is_num(x) && is_num(y));
+					let Some((x, y)) = p else {
+						cx.err(ln, format!("malformed `{w}` point \"{}\" in `area` (expected x,y)", toks[i].text), usage);
+						return None;
+					};
+					pts.push(arr![str_to_num(x), str_to_num(y)]);
+					i += 1;
+				}
+				out.set(key, V::from(pts));
+			}
+			"levels" => {
+				let m = toks.get(i).filter(|t| !t.quoted).and_then(|t| t.text.split_once('-')).filter(|(a, b)| is_int(a) && is_int(b));
+				let Some((a, b)) = m.filter(|(a, b)| str_to_num(a) <= str_to_num(b)) else {
+					cx.err(ln, "`levels` in `area` needs <min>-<max>", usage);
+					return None;
+				};
+				out.set("levels", arr![str_to_num(a), str_to_num(b)]);
+				i += 1;
+			}
+			"items" => {
+				let ids: Vec<&str> = toks.get(i).filter(|t| !t.quoted).map(|t| t.text.split(',').collect()).unwrap_or_default();
+				if ids.is_empty() || ids.iter().any(|x| !is_int(x) || str_to_num(x) <= 0.0) {
+					cx.err(ln, "`items` in `area` needs item ids: <id>[,<id>…]", usage);
+					return None;
+				}
+				out.set("items", V::from(ids.iter().map(|x| V::from(str_to_num(x))).collect::<Vec<V>>()));
+				i += 1;
+			}
+			"only" => {
+				let Some(t) = toks.get(i) else {
+					cx.err(ln, "`only` in `area` needs a condition list", usage);
+					return None;
+				};
+				let c = parse_conditions(&tighten_commas(&t.text), "any");
+				for e in &c.errors {
+					cx.err(ln, e.clone(), None);
+				}
+				if !c.errors.is_empty() {
+					return None;
+				}
+				out.set("only", c.value);
+				i += 1;
+			}
+			_ => {
+				let v = toks.get(i).filter(|t| is_num(&t.text)).map(|t| str_to_num(&t.text)).filter(|v| *v > 0.0);
+				let Some(v) = v else {
+					cx.err(ln, format!("`{w}` in `area` needs a positive number"), usage);
+					return None;
+				};
+				out.set(&w, v);
+				i += 1;
+			}
+		}
+	}
+	if out.get("poly").items().len() < 3 {
+		cx.err(ln, "an `area` needs its outline: three points or more after `at`", usage);
+		return None;
+	}
+	for k in ["lvl", "count", "lap"] {
+		if !out.get(k).truthy() {
+			cx.err(ln, format!("`area` needs `{k}`"), usage);
+			return None;
+		}
+	}
+	if out.get("gain").truthy() == out.get("yield").truthy() {
+		cx.err(ln, "`area` needs one of `gain` (skill points a sweep) or `yield` (items a sweep)", usage);
+		return None;
+	}
 	Some(out)
 }
 
