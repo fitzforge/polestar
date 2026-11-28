@@ -52,6 +52,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `skipto <label> when <predicate>` | Inside a step: if the predicate holds when the route gets there, this step and the ones up to the labelled step are skipped, for good (GUIDE_FORMAT, "Jumps"; needs Polestar 0.3.0) | `skipto camp when turnedin 783` |
 | `label <name>` | Inside a step: names it for an `along until` or `skipto` before it, or a `when done` | `label camp` |
 | `loop` | Search the step's `goto` points in order for kill, collect, interact, skill and `use <item> quest Q.O` goals without `@x,y`. With none of those, search for the NPC of its accept, turnin and talk goals. | `loop` |
+| `area <zone> "<name>" [near] lvl <n> count <n> lap <s> gain\|yield <n> … at <x,y> <x,y> <x,y> … [dots <x,y> …]` | One gathering area (one line each) for a Mining, Herbalism or Skinning step's one `skill` or `collect` goal: `<name>` the subzone it lies in (`near`: open ground named after the nearest one), `lvl` the least safe character level, `count` the nodes up at once, `lap` the seconds a sweep takes, `gain` skill points or `yield` items a sweep, `at` its outline (three corners or more), `dots` its node spots. The window lists the areas for the player's level, best first, and the arrow leads into the one picked (GUIDE_FORMAT, "Spawn areas"; Polestar 0.4.4) | `area Elwynn Forest "Fargodeep Mine" lvl 6 count 4 lap 300 gain 1.0 items 2770 at 38.0,79.0 41.0,79.0 40.0,83.0` |
 | `keep <kind> <reason>` | In a leveling guide, a step of only `goto`s, a `fly` or `enter` is a hidden hint the arrow goes by while it is on the way (Polestar 0.4.4; an older one shows it as written); `keep` keeps one a step, for `door`, `instance`, `boarding`, `phasing` or `safety` | `keep door the work is inside the cave: its mouth first` |
 | `note <text>` | A line of information; never holds the player up | `note The camp is busy at night.` |
 | `level <N>` | Reach level N, grinding if need be | `level 2` |
@@ -60,12 +61,11 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `# <text>` | A note for you and other authors; players never see it | `# check the patrol route` |
 | `<goal> -- <text>` | Shows the text under that goal | `accept 783 -- He stands at the abbey gate` |
 
-Farming loops: a step of a profession guide may hold `loop <zone> lvl <n>
-lap <s> gain|yield <n> … at <x,y> …` lines, one per loop, beside its one
-`skill` or `collect` goal; of the loops safe at the player's level the arrow
-takes the quickest from where they are and runs round it (GUIDE_FORMAT,
-"Spawn areas"): `loop Mulgore lvl 2 lap 307 yield 5.6 only Horde r 60 at
-49.0,92.8 49.2,87.7 41.8,79.8 41.2,82.0`.
+Fishing's rounds of stands keep `loop <zone> lvl <n> lap <s> gain|yield <n>
+[only <conditions>] [live] [r <yards>] at <x,y> …` lines, one per round,
+beside the step's one `skill` goal (GUIDE_FORMAT, "Spawn areas", Farming
+loops): `loop Loch Modan lvl 10 lap 198 gain 6.0 only Alliance r 15 at
+41.3,38.8 41.1,37.0 41.2,35.4`.
 
 ## Places and travel
 

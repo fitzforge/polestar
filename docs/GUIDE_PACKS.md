@@ -384,9 +384,10 @@ range.
    first-timer where the recipe is.
 6. **Train** the next rank, then learn its recipes (`learn 3276`).
 
-A gathering guide's "until N" steps take farming loops (`loop <zone> lvl <n>
-…` lines): of the loops safe at the player's level, the arrow takes the one
-quickest from where they are, and runs round it. The full example is in the
+A gathering guide's "until N" steps take gathering areas (`area <zone>
+"<name>" …` lines): the window lists the areas safe at the player's level,
+best first, and the arrow leads into the one they pick, then lets them roam
+it. Fishing keeps rounds of stands (`loop <zone> …` lines). The full example is in the
 [Cookbook](GUIDE_FORMAT.md#professions-train-learn-craft-skill).
 Polestar's own profession guides are built from route files
 (`tools/lib/professions/routes/<profession>.json`); a pack writes the same

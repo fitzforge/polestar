@@ -1991,15 +1991,18 @@ step Craft 30 Rough Sharpening Stones until 25 · Professions tab (K by default)
 
 `goto … nearest` over two or more stations leads to the nearest one the
 character may use, and arriving at any of them finishes the step (pack
-format 12, Polestar 0.4.4). A gathering step raises the skill on farming
-loops instead (`loop <zone> …` lines, see "Spawn areas", Farming loops):
+format 12, Polestar 0.4.4). A gathering step raises the skill in gathering
+areas instead (`area <zone> "<name>" …` lines, one per area, see "Spawn
+areas", Gathering areas): the window lists the areas safe at the player's
+level, best first, the arrow leads into the one picked and rests inside it,
+and the maps shade the area and mark its nodes. Fishing keeps rounds of
+stands (`loop <zone> …`, "Farming loops").
 
 ```
-step Mine Copper and Tin until 125
-  tip Cave mobs respawn fast: worth it only well above their level.
-  loop Loch Modan lvl 13 lap 503 gain 2.0 only Alliance r 60 at 25.7,45.5 26.7,57.4 29.3,72.4 27.1,85.6 29.8,87.5 35.6,85.3 42.0,66.0 35.1,57.1 36.2,23.4 36.0,16.8 26.0,31.3 22.7,31.5
-  loop The Barrens lvl 13 lap 371 gain 0.7 only Horde r 60 at 45.0,23.0 43.7,22.7 43.0,21.1 44.8,21.3 45.3,22.3 46.2,20.7 47.2,22.7 44.9,25.1
-  skill Mining 125
+step Mine Copper until 65
+  area Mulgore "Red Cloud Mesa" lvl 1 count 10 lap 412 gain 1.0 items 2770 only Horde starter respawn 277 at 49.3,93.6 49.7,88.2 42.0,80.1 40.1,85.0 dots 49.0,92.8 49.2,87.7 41.8,79.8
+  area Durotar "Razor Hill" near lvl 6 count 3 lap 320 gain 0.6 items 2770 only Horde respawn 259 at 50.1,40.0 55.2,38.1 56.0,45.3 51.0,46.2
+  skill Mining 65
 ```
 
 Polestar's own profession guides are written by a builder from route files
