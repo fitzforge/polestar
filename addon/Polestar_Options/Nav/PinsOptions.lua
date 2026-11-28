@@ -263,7 +263,7 @@ local function buildPinsPreview(view)
 	local all = { target, unpack(steps) }
 	for key, parts in pairs({
 		["nav.targetPinSize"] = { target, mmTarget }, ["nav.targetGlow"] = { target }, ["nav.targetPulse"] = { target },
-		["nav.pulseSeconds"] = { target }, ["nav.worldPins"] = { h.Map }, ["nav.minimapPins"] = { mmTarget },
+		["nav.pulseSeconds"] = { target }, ["nav.worldPins"] = { h.Map }, ["nav.minimapPins"] = { mmTarget }, ["nav.hidePinsWithGuide"] = { h.Map, mmTarget },
 		["nav.areaAlpha"] = { area }, ["nav.areaColor"] = { area }, ["nav.spawnSpots"] = { area }, ["nav.trailDotSize"] = { h.Me, target },
 		["nav.trailDots"] = { h.Me, target }, ["nav.trailDotAlpha"] = { h.Me, target },
 		["nav.upcomingPins"] = steps, ["nav.stepPinSize"] = steps, ["nav.stepRingColor"] = steps,
@@ -405,6 +405,7 @@ local SPECS = {
 			} },
 		Ref("toggle", "nav.worldPins", { label = L["On the world map"] }),
 		Ref("toggle", "nav.minimapPins", { label = L["On the minimap"] }),
+		Ref("toggle", "nav.hidePinsWithGuide", { label = L["Hide with guide"] }),
 		{ kind = "slider", key = "nav.areaAlpha", label = L["Spawn areas"], min = 0, max = 1, step = 0.02, format = percent, new = NEW,
 			search = "area, region, spawn, tint, opacity, transparency, alpha, blob, circle, zone, quest area, colour, spawn areas",
 			help = L["The opacity of the soft tint over the places mobs and objects spawn, on the world map and the minimap, their outlines with it. The swatch gives every area one colour."],
@@ -416,7 +417,7 @@ local SPECS = {
 			} },
 		{ kind = "toggle", key = "nav.spawnSpots", label = L["Spawn spots"], new = NEW,
 			search = "spawn spots, spots, numbered, marks, places, search here, other spawns, world map, clutter, show, hide",
-			help = L["Small marks on the world map where the target also spawns, each numbered in its tooltip. Click one to search there next."] },
+			help = L["Small marks on zone maps where the target also spawns, each numbered in its tooltip. Click one to search there next."] },
 		-- The trail stands in for route lines: shown while route lines are off.
 		{ kind = "slider", key = "nav.trailDotSize", label = L["Trail dots"], min = 0.5, max = 2.5, step = 0.05, format = percent, new = NEW,
 			needs = function() return not ns.Get("nav.routeLines") end,
@@ -544,11 +545,11 @@ if ns.MobMarkers then
 	table.insert(SPECS, 3, { page = PAGE, tab = L["Pins"], section = L["Spawn markers"],
 		toggle = { kind = "toggle", key = "mobMarkers.enabled", label = L["Spawn markers for your quests"], new = "0.4.3",
 			search = "mob markers, spawn markers, spawn points, every spawn, kill, skull, mobs, quest mobs, objects, legend",
-			help = L["A skull on the world map and the minimap at every spawn of the mobs your quests need, one colour per quest and a ring per mob; the things you pick up or use get the pickup bag. Their size and opacity are on the Icons tab."] },
+			help = L["A skull on zone maps and the minimap at every spawn of the mobs your quests need, one colour per quest and a ring per mob; the things you pick up or use get the pickup bag. Their size and opacity are on the Icons tab."] },
 		controls = {
 		{ kind = "toggle", key = "mobMarkers.showMinimap", label = L["On the minimap"], new = "0.4.3", disabled = off,
 			search = "mob markers, spawn markers, minimap, radar",
-			help = L["Off: the spawn markers show on the world map only."] },
+			help = L["Off: the spawn markers show on zone maps only."] },
 		{ kind = "toggle", key = "mobMarkers.showLegend", label = L["Legend on the world map"], new = "0.4.3", disabled = off,
 			search = "mob markers, spawn markers, legend, key, list",
 			help = L["Lists the quests and mobs on the shown map. Hover a row to highlight its markers, click it to turn them off or on."] },

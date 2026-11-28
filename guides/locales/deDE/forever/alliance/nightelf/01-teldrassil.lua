@@ -207,7 +207,7 @@ return {
 
 	-- Step 33: Dolanaar
 	-- {quest:5621} Garments of the Moon · {spell:613} Lesser Heal · {npc:3600} Laurna Morninglight
-	["Priests: {quest:5621} counts only {spell:613} (Rank 2). {npc:3600} trains priests too: learn it from her now if you have not yet."] = "",
+	["Priests: {quest:5621} counts only {spell:613} (Rank 2). {npc:3600} trains priests too: learn it from her now if you have not yet."] = "Priester: {quest:5621} zählt nur {spell:613} (Rang 2). {npc:3600} bildet Priesterinnen ebenfalls aus: Lerne es jetzt von ihr, falls noch nicht geschehen.",
 	-- {npc:3515} Corithras Moonrage
 	["{npc:3515}, south of the inn"] = "{npc:3515}, südlich des Gasthauses",
 	-- {npc:3608} Aldia
@@ -230,7 +230,7 @@ return {
 	["{quest:940}: kill these as you meet them"] = "{quest:940}: Töte diese, sobald du ihnen begegnest",
 	-- {area:186} Dolanaar · {area:260} Starbreeze Village · {npc:3567} Tallonkai Swiftroot
 	-- plural, as words: Strigid Owls = {npc:1995} Strigid Owl · Webwood Lurkers = {npc:1998} Webwood Lurker · Befouled Webwoods = {npc:272096} Befouled Webwood
-	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}.\nCareful: the Befouled Webwoods (10-11) in the woods north-west of {area:186}, around 47-52,34-56, are over you now: take the silk from the Webwood Lurkers and leave the webwoods for {npc:3567}'s quest later. Duskstalker (9, a rare nightsaber) and Oakenscowl (9, elite) roam the woods south of {area:186}, around 54-62,73-77: leave them be."] = "",
+	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}.\nCareful: the Befouled Webwoods (10-11) in the woods north-west of {area:186}, around 47-52,34-56, are over you now: take the silk from the Webwood Lurkers and leave the webwoods for {npc:3567}'s quest later. Duskstalker (9, a rare nightsaber) and Oakenscowl (9, elite) roam the woods south of {area:186}, around 54-62,73-77: leave them be."] = "Nachtsäbler, Strigid-Eulen und Waldweberlauerer streifen überall um {area:186} und entlang der Straße nach Osten; die Lauerer lassen auch die Spinnenbeine für das Rezept fallen. Der Mondbrunnen liegt am westlichen Rand von {area:260}.\nVorsicht: Die Befleckten Waldweber (10-11) im Wald nordwestlich von {area:186}, etwa bei 47-52,34-56, sind jetzt zu stark für dich: Nimm die Seide von den Waldweberlauerern und hebe dir die Waldweber für {npc:3567}s Quest später auf. Duskstalker (9, ein seltener Nachtsäbler) und Oakenscowl (9, Elite) streifen durch die Wälder südlich von {area:186}, etwa bei 54-62,73-77: Lass sie in Ruhe.",
 	["Nightsabers"] = "Nachtsäbler",
 	-- plural, as words: Webwood Lurkers = {npc:1998} Webwood Lurker
 	["Webwood Lurkers"] = "Waldweberlauerer",
@@ -479,8 +479,7 @@ return {
 
 	-- Step 76: Into Darnassus
 	-- {area:1657} Darnassus
-	-- was: ["Into {zone:1457}"] = "Hinein nach {zone:1457}"
-	["Into {area:1657}"] = "",
+	["Into {area:1657}"] = "Hinein in {area:1657}",
 	-- {npc:4241} Mydrannul · {area:1659} Craftsmen's Terrace
 	["{npc:4241}, on the {area:1659} just inside the city"] = "{npc:4241}, auf {area:1659} direkt hinter dem Stadteingang",
 
@@ -492,12 +491,11 @@ return {
 	-- {quest:1683} Vorlus Vilehoof · {area:736} Ban'ethil Hollow · {quest:1684} Elanaria
 	["Back out of the city gate and east along the road: {quest:1683} stands south of it, by {area:736}. Bring his horn back to {quest:1684}."] = "Zurück durch das Stadttor und die Straße nach Osten: {quest:1683} steht südlich davon, bei {area:736}. Bring sein Horn zu {quest:1684} zurück.",
 	-- {area:736} Ban'ethil Hollow
-	["East from the city gate to {area:736}"] = "",
+	["East from the city gate to {area:736}"] = "Vom Stadttor nach Osten zu {area:736}",
 
 	-- Step 81: Darnassus
 	-- {area:1657} Darnassus · {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace · {area:3425} Cenarion Hold · {npc:4241} Mydrannul · {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave · {quest:922} Rellian Greenspyre · {npc:4092} Lariia · {npc:7999} Tyrande Whisperwind · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade
-	-- was: ["Follow the road west into {zone:1457} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "Folge der Straße nach Westen nach {zone:1457} und benutze {item:279378} im Gasthaus auf {area:1659} und am Tunneleingang unterhalb von {area:3425} für die letzten beiden Eulen. {npc:4241} steht auf {area:1659} direkt hinter dem Stadteingang. {npc:3516} ist in {area:1658} am Nordende der Stadt, {quest:922} gleich südlich davon; {npc:4092}, {npc:7999}, {npc:7313} und {npc:8396} sind im Tempel des Mondes am Südende."
-	["Follow the road west into {area:1657} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "",
+	["Follow the road west into {area:1657} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "Folge der Straße nach Westen in {area:1657} und benutze den {item:279378} im Gasthaus am {area:1659} und am Tunnelmund unterhalb von {area:3425} für die letzten beiden Eulen. {npc:4241} steht am {area:1659} direkt in der Stadt. {npc:3516} ist im {area:1658} am Nordende der Stadt, {quest:922} direkt südlich davon; {npc:4092}, {npc:7999}, {npc:7313} und {npc:8396} sind im Tempel des Mondes am Südende.",
 	-- {npc:4088} Elanaria · {area:1660} Warrior's Terrace · {spell:71} Defensive Stance
 	["{npc:4088}, on the {area:1660}: {spell:71}"] = "{npc:4088}, auf {area:1660}: {spell:71}",
 	-- {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace
@@ -582,7 +580,7 @@ return {
 	["Crawler Legs: the Tide Crawlers"] = "Crawler Legs: die Tide Crawlers",
 	-- {quest:983} Buzzbox 827 · {zone:1439} Darkshore
 	-- plural, as words: Thresher Eyes = {item:5412} Thresher Eye
-	["{quest:983}: Thresher Eyes, on the {zone:1439} guide's first beach stop"] = "",
+	["{quest:983}: Thresher Eyes, on the {zone:1439} guide's first beach stop"] = "{quest:983}: Thresher-Augen, am ersten Strandstopp des {zone:1439}-Guides",
 
 	-- Step 100: Auberdine
 	-- {npc:3649} Thundris Windweaver
@@ -610,7 +608,7 @@ return {
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "Flugmeister von {area:702}",
 	-- {zone:1457} Darnassus
-	["Take the portal down from {zone:1457} to the hippogryphs."] = "",
+	["Take the portal down from {zone:1457} to the hippogryphs."] = "Nimm das Portal von {zone:1457} hinab zu den Hippogryphen.",
 
 	-- Step 107: The Moonkin Stone
 	-- {object:177525} Moonkin Stone
@@ -628,9 +626,9 @@ return {
 
 	-- Step 110: Back to Auberdine
 	-- {area:442} Auberdine
-	["Back to {area:442}"] = "",
+	["Back to {area:442}"] = "Zurück zu {area:442}",
 	-- {area:702} Rut'theran Village
-	["Take the portal down to the hippogryphs at {area:702}."] = "",
+	["Take the portal down to the hippogryphs at {area:702}."] = "Nimm das Portal hinunter zu den Hippogryphen bei {area:702}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["/sit by {npc:265811}'s campfire until you get Boosted Rest"] = "Mit /sit am Lagerfeuer von {npc:265811} sitzen, bis du Verbesserter Ruhebonus bekommst",

@@ -31,6 +31,7 @@ sequenceDiagram
 | The maintainer replies `!report` or `!suggest` to a player's message in chat (anywhere the bot can read) | the bot, at once | under their message, "Thanks @player! This has now been reported as a bug: #N. You can follow it and add details in #post" (an idea: "Your idea has been added as a suggestion"); the bot starts a #bugs post for it, which then works like any other. Anyone else gets "Naughty naughty, you're not Master Fitz." See "`!report` and `!suggest`" below |
 | The maintainer types `!suggest` (an idea) or `!report` / `!bug <text>` (a bug) in a post of the suggestions forum | the bot, at once | the whole post filed as one issue (the first message and every reply); "Tracked as #N" in the post and the forum's **Tracked** tag (a bug also gets "This has now been reported as a bug: #N"); a second command says "Already filed as #N". See "`!suggest` in the suggestions forum" below |
 | Anyone types `!bug` | the bot | how to report a bug from the game; capped against spam. See "`!bug` in chat" below |
+| Anyone types a FAQ command such as `!dungeons` | the bot | the answer from `faq/`, under the same caps as `!bug`. See "FAQ answers" below |
 | The reporter edits the post's first message | the bot | nothing; the issue body is written again |
 | Anyone edits a later message | the bot | nothing; its comment is written again |
 | A pull request addresses the issue for the first time (its title names `#N`, or it says `closes`/`fixes`/`resolves #N`) | `pr-links.yml` | ping: "A fix for this is open (#M). It still has to be reviewed; we'll tell you here when it's fixed.", tag **In progress**. Once per issue: more pull requests, edits and closes tell the thread nothing. On GitHub the issue gets one comment listing its pull requests, kept up to date, and the label `has-pr` (CONTRIBUTING.md, "Before you start") |
@@ -288,6 +289,38 @@ works: as a reply to a player's message, and inside a suggestions post. For
 anyone else it is the plain `!bug` help, under the same caps: nothing is
 filed and nobody is told off.
 
+## FAQ answers
+
+Questions asked again and again get a text answer, one Markdown file each in
+`tools/discord-bot/faq/` (today `dungeons.md`: `!dungeons` and `!dung`). The
+file is the answer as Discord shows it, under one first line:
+
+```
+Commands: !dungeons, !dung
+
+**Are dungeons in the leveling guide?** ...
+```
+
+An answer can carry a picture: add a second line `Image: media/pray.png` (a
+png, jpg, gif or webp under `faq/`, at most 8 MB; `media/` is baked into the
+image with the rest of `faq/`). The text after it may then be empty or one
+short line (`pray.md`: `!pray` and `!faith`, a picture only).
+
+To add or change an answer: edit or add a file in `faq/` (an `!` and letters
+or digits per command, at most 2,000 characters of text), merge it, and
+redeploy the bot (the update steps above; the files are baked into the
+image). A file with a bad shape (no `Commands:` line, a command that is not
+an `!word`, one the bot already uses or another file has, an empty or too long
+text) stops the bot at start with a log line naming the file and the problem
+(`error: faq/x.md: ...`), so check `docker compose logs` after a deploy.
+
+The command is the whole message, any case, nothing after it. Anyone gets the
+answer, under the same caps as `!bug`, which share one counter with it: a
+channel once in 10 minutes, a person once an hour, 6 answers an hour for the
+server; past a cap it is ignored (logged as "!dungeons ignored (cap)"). Never
+in the #bugs forum or its threads, never to a bot or a webhook, and the answer
+pings no one.
+
 ## `!report` and `!suggest`: filing someone's message from chat
 
 When a player describes a bug (or an idea) somewhere other than #bugs, the
@@ -330,6 +363,10 @@ flowchart TD
   Discord message with why ("not an image or video, not copied", "too big
   to copy, 12.3 MB"). Links Discord previewed (a GIF, a video page) that
   are not in the text already are listed under the message.
+- **The post**: a `!report` starts its post in #bugs; a `!suggest` starts it in the
+  suggestions forum when `SUGGESTIONS_FORUM_ID` is set (else #bugs). The post's
+  name is the title cut to Discord's 100 characters (the issue title keeps
+  GitHub's 256).
 - **The issue**: "**Reported by** *name* **on Discord**" (`!suggest`:
   "**Suggested by**"), linked to the replied-to message, and a line saying
   which channel it came from and linking its #bugs post. Labels: `discord`,

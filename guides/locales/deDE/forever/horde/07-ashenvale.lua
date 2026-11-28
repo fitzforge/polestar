@@ -236,7 +236,7 @@ return {
 
 	-- Step 58: Melor Stonehoof
 	-- {npc:3441} Melor Stonehoof · {area:1641} Hunter Rise · {quest:1131} Steelsnap · {zone:1441} Thousand Needles · {area:2237} Whitereach Post
-	["{npc:3441} stands on {area:1641}, the southern rise, beside the hunter trainers: {quest:1131} prowls the far north-west of {zone:1441}, beyond {area:2237}, later in this guide."] = "",
+	["{npc:3441} stands on {area:1641}, the southern rise, beside the hunter trainers: {quest:1131} prowls the far north-west of {zone:1441}, beyond {area:2237}, later in this guide."] = "{npc:3441} steht auf {area:1641}, der südlichen Anhöhe, neben den Jägerlehrern: {quest:1131} streift durch den äußersten Nordwesten von {zone:1441}, jenseits von {area:2237}, später in diesem Guide.",
 
 	-- Step 59: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo
@@ -246,7 +246,7 @@ return {
 
 	-- Step 60: Tatternack Steelforge
 	-- {npc:3433} Tatternack Steelforge · {area:2237} Whitereach Post
-	["{npc:3433} works at his forge a few steps from the flight master: his ore sample comes from the Gravelsnout kobolds west of {area:2237}, later in this guide."] = "",
+	["{npc:3433} works at his forge a few steps from the flight master: his ore sample comes from the Gravelsnout kobolds west of {area:2237}, later in this guide."] = "{npc:3433} arbeitet an seiner Schmiede ein paar Schritte vom Flugmeister entfernt: seine Erzprobe stammt von den Gravelsnout-Kobolden westlich von {area:2237}, später in diesem Guide.",
 
 	-- Step 61: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {area:485} Great Lift
@@ -272,7 +272,7 @@ return {
 	-- {npc:10537} Cliffwatcher Longhorn
 	["The Wanted poster beside {npc:10537}"] = "Der Steckbrief neben {npc:10537}",
 	-- {npc:4877} Jandia · {area:2237} Whitereach Post
-	["{npc:4877}'s two harpy quests come on the next Freewind stop; their den is on the way back from {area:2237}."] = "",
+	["{npc:4877}'s two harpy quests come on the next Freewind stop; their den is on the way back from {area:2237}."] = "{npc:4877}s zwei Harpyien-Quests kommen beim nächsten Freewind-Stopp; ihre Höhle liegt auf dem Rückweg von {area:2237}.",
 
 	-- Step 65: Rau Cliffrunner
 	-- {npc:4722} Rau Cliffrunner · {area:484} Freewind Post · {npc:4721} Zangen Stonehoof
@@ -315,7 +315,7 @@ return {
 	-- {npc:11116} Innkeeper Abeqwa · {npc:4877} Jandia
 	["{npc:11116}, beside {npc:4877}"] = "{npc:11116}, neben {npc:4877}",
 	-- {npc:4877} Jandia · {area:487} Roguefeather Den
-	["{npc:4877}, inside the inn: {area:487}, south-west of the post, on the way back from Whitereach"] = "",
+	["{npc:4877}, inside the inn: {area:487}, south-west of the post, on the way back from Whitereach"] = "{npc:4877}, im Gasthaus: {area:487}, südwestlich des Postens, auf dem Weg zurück von Whitereach",
 
 	-- Step 72: Darkcloud Pinnacle
 	-- {area:2097} Darkcloud Pinnacle
@@ -360,7 +360,7 @@ return {
 
 	-- Step 78: Whitereach Post
 	-- {npc:10428} Motega Firemane · {item:12732} Incendia Agave · {area:2097} Darkcloud Pinnacle
-	["{npc:10428}: the {item:12732} grows among the Grimtotem camps below {area:2097}, on the way back east"] = "",
+	["{npc:10428}: the {item:12732} grows among the Grimtotem camps below {area:2097}, on the way back east"] = "{npc:10428}: {item:12732} wächst zwischen den Grimmtotem-Lagern unterhalb von {area:2097}, auf dem Weg zurück nach Osten",
 
 	-- Step 79: Kanati Greycloud
 	-- {npc:10617} Galak Messenger · {npc:10638} Kanati Greycloud · {area:2237} Whitereach Post
@@ -376,20 +376,20 @@ return {
 
 	-- Step 85: Gravelsnout kobolds and Steelsnap
 	-- {quest:1131} Steelsnap
-	["Gravelsnout kobolds and {quest:1131}"] = "",
+	["Gravelsnout kobolds and {quest:1131}"] = "Gravelsnout-Kobolde und {quest:1131}",
 	-- {quest:1131} Steelsnap · {npc:3441} Melor Stonehoof
 	-- plural, as words: Gravelsnout Diggers = {npc:4113} Gravelsnout Digger · Pesterhide Snarlers = {npc:4249} Pesterhide Snarler
-	["North-west of Whitereach Post the Gravelsnout Diggers and Surveyors dig in the far western hills; one of them drops the ore sample. {quest:1131}, a lone hyena, prowls the same hills with the Pesterhide Snarlers: his rib is {npc:3441}'s.\nCareful: {quest:1131} is level 30 and the kobolds 28-29: pull them one at a time."] = "",
+	["North-west of Whitereach Post the Gravelsnout Diggers and Surveyors dig in the far western hills; one of them drops the ore sample. {quest:1131}, a lone hyena, prowls the same hills with the Pesterhide Snarlers: his rib is {npc:3441}'s.\nCareful: {quest:1131} is level 30 and the kobolds 28-29: pull them one at a time."] = "Nordwestlich von Whitereach Post graben die Buddler der Bruchschnauzen und Surveyors in den ganz westlichen Hügeln; einer von ihnen lässt die Erzprobe fallen. {quest:1131}, eine einsame Hyäne, streift mit den Pestfleckenkläffern durch dieselben Hügel: seine Rippe gehört {npc:3441}.\nVorsicht: {quest:1131} ist Stufe 30 und die Kobolde 28-29: ziehe sie einzeln.",
 	-- plural, as words: Gravelsnout Diggers = {npc:4113} Gravelsnout Digger
-	["Ore Sample, from the Gravelsnout Diggers and Surveyors"] = "",
+	["Ore Sample, from the Gravelsnout Diggers and Surveyors"] = "Erzprobe, von den Buddlern der Bruchschnauzen und Surveyors",
 
 	-- Step 86: Incendia Agave
 	-- {area:2237} Whitereach Post · {item:12732} Incendia Agave · {area:2097} Darkcloud Pinnacle · {npc:216463} Ailgrha Splittusk
-	["Back east past {area:2237}: the {item:12732} grows on the ground among the Grimtotem camps below {area:2097}. Start with the three plants close together at the camps' north-western edge, where the arrow points, and stay on that side; the agave comes back while you work.\nCareful: the Ravaging elementals (38-40) and {npc:216463} (38, elite) hold the ground south and east of the camps, from about 36,35: don't follow the agave past them."] = "",
+	["Back east past {area:2237}: the {item:12732} grows on the ground among the Grimtotem camps below {area:2097}. Start with the three plants close together at the camps' north-western edge, where the arrow points, and stay on that side; the agave comes back while you work.\nCareful: the Ravaging elementals (38-40) and {npc:216463} (38, elite) hold the ground south and east of the camps, from about 36,35: don't follow the agave past them."] = "Zurück nach Osten an {area:2237} vorbei: der {item:12732} wächst auf dem Boden zwischen den Grimmtotem-Lagern unterhalb von {area:2097}. Fang mit den drei dicht beieinander stehenden Pflanzen am nordwestlichen Rand der Lager an, wo der Pfeil hinzeigt, und bleib auf dieser Seite; die Agave wächst während der Arbeit nach.\nVorsicht: Die Verwüstenden Elementare (38-40) und {npc:216463} (38, Elite) halten das Gelände südlich und östlich der Lager, ab etwa 36,35: folge der Agave nicht über sie hinaus.",
 
 	-- Step 87: Roguefeather Den
 	-- {area:487} Roguefeather Den · {npc:4877} Jandia · {npc:4490} Grenka Bloodscreech · {npc:2986} Dorn Plainstalker · {quest:1150} Test of Endurance
-	["South of Darkcloud Pinnacle the Screeching harpies hold {area:487}; {npc:4877}'s stolen supplies lie on the ground around it.\nCareful: the harpies (28-29) stand in packs and the Windcallers cast from range: pull at the edge. {npc:4490} (31) waits deeper in the den: leave her for {npc:2986}'s {quest:1150} at about 30, in the next guide."] = "",
+	["South of Darkcloud Pinnacle the Screeching harpies hold {area:487}; {npc:4877}'s stolen supplies lie on the ground around it.\nCareful: the harpies (28-29) stand in packs and the Windcallers cast from range: pull at the edge. {npc:4490} (31) waits deeper in the den: leave her for {npc:2986}'s {quest:1150} at about 30, in the next guide."] = "Südlich von Darkcloud Pinnacle halten die Schreienden Harpyien {area:487}; {npc:4877}s gestohlene Vorräte liegen auf dem Boden ringsum.\nVorsicht: Die Harpyien (28-29) stehen in Rudeln und die Windruferinnen wirken aus der Ferne: Ziehe am Rand. {npc:4490} (31) wartet tiefer in der Höhle: Heb sie dir für {npc:2986}s {quest:1150} mit etwa 30 im nächsten Guide auf.",
 	-- {quest:98069} Stolen Freewind Supplies
 	["{quest:98069}, on the ground around the den"] = "{quest:98069}, auf dem Boden um die Höhle",
 
@@ -401,7 +401,7 @@ return {
 	-- {npc:4877} Jandia
 	["{npc:4877}, inside the inn"] = "{npc:4877}, im Gasthaus",
 	-- {npc:2986} Dorn Plainstalker · {quest:1150} Test of Endurance
-	["Keep {npc:2986}'s {quest:1150}: Grenka comes with the next Freewind visit, at about 30."] = "",
+	["Keep {npc:2986}'s {quest:1150}: Grenka comes with the next Freewind visit, at about 30."] = "Behalte {npc:2986}s {quest:1150}: Grenka kommt mit dem nächsten Freewind-Besuch, bei etwa Stufe 30.",
 
 	-- Step 89: Fly to Thunder Bluff
 	-- {area:484} Freewind Post
@@ -409,15 +409,15 @@ return {
 
 	-- Step 90: Melor Stonehoof
 	-- {npc:3441} Melor Stonehoof · {area:1641} Hunter Rise · {quest:1131} Steelsnap
-	["{npc:3441} on {area:1641} takes {quest:1131}'s rib."] = "",
+	["{npc:3441} on {area:1641} takes {quest:1131}'s rib."] = "{npc:3441} bei {area:1641} nimmt die Rippe von {quest:1131}",
 
 	-- Step 91: Magatha Grimtotem
 	-- {npc:4046} Magatha Grimtotem · {area:1639} Elder Rise · {area:2097} Darkcloud Pinnacle
-	["{npc:4046} stands on the {area:1639}, east across the bridges. Her next quest, Arikara, goes back to {area:2097} and Whitereach: leave it, the route does not go back there."] = "",
+	["{npc:4046} stands on the {area:1639}, east across the bridges. Her next quest, Arikara, goes back to {area:2097} and Whitereach: leave it, the route does not go back there."] = "{npc:4046} steht auf dem {area:1639}, östlich hinter den Brücken. Ihre nächste Quest, Arikara, geht zurück nach {area:2097} und Whitereach: Lass sie, die Route geht nicht dorthin zurück.",
 
 	-- Step 93: Tatternack Steelforge
 	-- {npc:3433} Tatternack Steelforge
-	["{npc:3433} takes the ore sample beside the flight master. The next guide flies on from here."] = "",
+	["{npc:3433} takes the ore sample beside the flight master. The next guide flies on from here."] = "{npc:3433} nimmt die Erzprobe beim Flugmeister entgegen. Der nächste Guide fliegt von hier weiter.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back east past {area:2237} to {area:484}."] = "Zurück nach Osten an {area:2237} vorbei zum {area:484}.",

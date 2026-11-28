@@ -358,6 +358,64 @@ function Plan.Unneeded()
 	return out
 end
 
+-- Whether guide g has an accept of quest q for this character: the title
+-- the accept gives q (false when it gives none), else nil.
+local function acceptIn(g, q, player)
+	local G = ns.Guides
+	for _, step in ipairs(g and g.steps or {}) do
+		if G.Matches(step.only, player) then
+			for _, goal in ipairs(step.goals or {}) do
+				if goal.t == "accept" and goal.quest == q and G.Matches(goal.only, player) then return goal.title or false end
+			end
+		end
+	end
+	return nil
+end
+
+-- The guide of the active tab's route that takes quest q (the Engine's
+-- "Not for you" line, #4158): the active guide when it has an accept of q,
+-- else the nearest guide before it on the route that does, else the first
+-- one after it. Looked up when asked, once per quest until Plan.Invalidate.
+-- -> its id, its title (its id when it has none) and the title its accept
+-- gives q (nil when it gives none), or nil (no guide of the route takes q,
+-- or no guide open).
+function Plan.TakenIn(q)
+	local E, G = ns.Engine, ns.Guides
+	local active = E and E.GetGuide and E.GetGuide()
+	if not (active and q) then return nil end
+	local plan = planOf(active)
+	plan.taken = plan.taken or {}
+	local hit = plan.taken[q]
+	if hit == nil then
+		hit = false
+		local here = plan.chapter or 0
+		local order = {}
+		for id, ch in pairs(plan.seen) do
+			if id ~= active.id then order[#order + 1] = { id = id, ch = ch } end
+		end
+		-- Before the active guide nearest first, then after it in route order.
+		table.sort(order, function(a, b)
+			local ab, bb = a.ch < here, b.ch < here
+			if ab ~= bb then return ab end
+			if ab then return a.ch > b.ch end
+			return a.ch < b.ch
+		end)
+		table.insert(order, 1, { id = active.id })
+		local player = ns.Compat.GetPlayerInfo() or {}
+		for _, o in ipairs(order) do
+			local g = o.id == active.id and active or G.Get(o.id)
+			local title = g and acceptIn(g, q, player)
+			if title ~= nil then
+				hit = { guide = o.id, title = g.title or o.id, quest = title or nil }
+				break
+			end
+		end
+		plan.taken[q] = hit
+	end
+	if not hit then return nil end
+	return hit.guide, hit.title, hit.quest
+end
+
 -- Whether an accept on the active tab's route, at its live step or after it,
 -- needs quest q first (the accept's `pre` or `preAny`).
 function Plan.OpensAhead(q)
@@ -704,6 +762,9 @@ end
 -- (ready: finished, to hand in). Picked up off the route; the player keeps
 -- or abandons them. nil when it can't say (no guide, a guide of a chain not
 -- loaded). Only when the end card or the guide-end window shows.
+-- With guideWindow.offRouteDungeons off (#4288), a dungeon's quest or one
+-- that leads to it (Dungeons.QuestMark, the dungeon mark) is left out: kept
+-- for a later run, not counted as off the route.
 function Plan.OffRoute(id)
 	local E, C, G = ns.Engine, ns.Compat, ns.Guides
 	local active = (id and G.Get(id)) or (E and E.GetGuide and E.GetGuide())
@@ -718,8 +779,10 @@ function Plan.OffRoute(id)
 		end
 	end
 	local dungeons, out = elsewhere(active).dungeons, {}
+	local D = ns.Dungeons
+	local skipDungeon = ns.Get("guideWindow.offRouteDungeons") == false and D and D.QuestMark
 	for _, q in ipairs(C.GetLogQuests() or {}) do
-		local used = dungeons[q] ~= nil
+		local used = dungeons[q] ~= nil or (skipDungeon and D.QuestMark(q) ~= nil) or false
 		for _, set in ipairs(sets) do
 			if used then break end
 			used = set[q] == true

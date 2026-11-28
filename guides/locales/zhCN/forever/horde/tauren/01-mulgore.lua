@@ -194,7 +194,7 @@ return {
 	["{zone:1412}: kill these as you meet them"] = "{zone:1412}：沿途击杀以下目标",
 	-- {quest:96130} Chakuyak · {npc:3056} Ghost Howl
 	-- plural, as words: Prairie Stalkers = {npc:2959} Prairie Stalker · Flatland Cougars = {npc:3035} Flatland Cougar
-	["{quest:96130}, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it.\nCareful: {npc:3056} (12, a rare white wolf) roams the plains too: leave it be."] = "",
+	["{quest:96130}, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it.\nCareful: {npc:3056} (12, a rare white wolf) roams the plains too: leave it be."] = "{quest:96130}是一只独狼，在村子西边的平原上游荡。草原捕食者和平原狮则出没在村子北边和西边。\n小心，{npc:3056}（12级稀有白狼）也在这片平原上游荡，避开它。",
 
 	-- Step 38: Bloodhoof Village
 	-- {npc:277182} Ahab Wheathoof · {item:287505} Tender Strider Meat
@@ -213,27 +213,27 @@ return {
 
 	-- Step 41: The Ravaged Caravan
 	-- {zone:1456} Thunder Bluff
-	["The wrecked caravan lies north-east of the village, east of the road to {zone:1456}."] = "",
+	["The wrecked caravan lies north-east of the village, east of the road to {zone:1456}."] = "被毁的商队在村子东北边，位于通往{zone:1456}的道路东侧。",
 
 	-- Step 42: Morin Cloudstalker
 	-- {area:396} Winterhoof Water Well
-	["South to the {area:396}, south-east of the village."] = "",
+	["South to the {area:396}, south-east of the village."] = "向南去村子东南边的{area:396}。",
 
 	-- Step 43: Venture Co. Workers
 	-- plural, as words: Venture Co. Workers = {npc:2978} Venture Co. Worker
-	["Venture Co. Workers"] = "",
+	["Venture Co. Workers"] = "风险投资公司工人",
 	-- {quest:764} The Venture Co. · {npc:3051} Supervisor Fizsprocket
 	-- plural, as words: Prairie Wolf Alphas = {npc:2960} Prairie Wolf Alpha
-	["The goblins work the hills north-east of the well, around the mine's mouth: the Workers and Supervisors outside are all {quest:764} needs. Prairie Wolf Alphas roam among the wolves on the plains on the way.\nCareful: stay out of the mine itself, where the goblins stand close together and {npc:3051} is level 12."] = "",
+	["The goblins work the hills north-east of the well, around the mine's mouth: the Workers and Supervisors outside are all {quest:764} needs. Prairie Wolf Alphas roam among the wolves on the plains on the way.\nCareful: stay out of the mine itself, where the goblins stand close together and {npc:3051} is level 12."] = "地精在水井东北边矿洞口附近的山丘上干活。{quest:764}只需要打洞外的工人和监工。途中平原的狼群里有草原狼前锋。\n小心，别进矿洞。里面的地精站得很密，{npc:3051}还有12级。",
 
 	-- Step 44: Galak centaurs
 	["Galak centaurs"] = "加拉克半人马",
 	-- {npc:275767} Herak the Pillager
-	["South-east to the Galak camp on the plains east of the well; Herak leads them.\nCareful: {npc:275767} is level 11: clear the centaurs around him first and fight him alone."] = "",
+	["South-east to the Galak camp on the plains east of the well; Herak leads them.\nCareful: {npc:275767} is level 11: clear the centaurs around him first and fight him alone."] = "往东南走，去水井以东平原上的加拉克半人马营地，那里由赫拉克带领。\n小心，{npc:275767}有11级。先清掉附近的半人马，再单独打他。",
 
 	-- Step 45: Morin Cloudstalker
 	-- {area:396} Winterhoof Water Well
-	["Back west to the {area:396}."] = "",
+	["Back west to the {area:396}."] = "向西返回{area:396}。",
 
 	-- Step 46: Bloodhoof Village
 	-- {npc:2993} Baine Bloodhoof · {npc:3057} Cairne Bloodhoof · {zone:1456} Thunder Bluff
@@ -425,22 +425,22 @@ return {
 
 	-- Step 95: Rezlak
 	-- {npc:3293} Rezlak · {zone:1454} Orgrimmar · {area:370} Drygulch Ravine
-	["{npc:3293} camps beside the road north to {zone:1454}, below {area:370}. The stolen sacks lie along the road just east of him."] = "",
+	["{npc:3293} camps beside the road north to {zone:1454}, below {area:370}. The stolen sacks lie along the road just east of him."] = "{npc:3293}在通往{zone:1454}的北向道路旁扎营，位置在{area:370}下方。被偷的货袋就在他东边的路旁。",
 
 	-- Step 96: Drygulch Ravine
 	-- {area:370} Drygulch Ravine · {npc:3293} Rezlak · {item:277661} Dull Storm Orb · {quest:97281} A Simmering Storm · {area:371} Dustwind Cave · {item:6652} Reagent Pouch · {item:5026} Fire Tar
 	-- plural, as words: Burning Blade Cultists = {npc:3199} Burning Blade Cultist
-	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}, which starts {quest:97281}.\nShamans: the Burning Blade Cultists by {area:371}, at the ravine's south end, drop the {item:6652}. The {item:5026} comes from the Razormane on the next guide's first visit to their camp."] = "",
+	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}, which starts {quest:97281}.\nShamans: the Burning Blade Cultists by {area:371}, at the ravine's south end, drop the {item:6652}. The {item:5026} comes from the Razormane on the next guide's first visit to their camp."] = "{npc:3293}东边的{area:370}是尘风暴徒和尘风雷巫的巢穴。尘风雷巫会掉落{item:277661}，可用来开启{quest:97281}。\n萨满祭司：山谷南端的{area:371}旁有火刃祭司，会掉落{item:6652}。下一段路线第一次去钢鬃野猪人营地时，可以从他们身上收集{item:5026}。",
 
 	-- Step 97: Rezlak
 	-- {npc:3293} Rezlak
-	["Back to {npc:3293} by the road."] = "",
+	["Back to {npc:3293} by the road."] = "回到路旁找{npc:3293}。",
 
 	-- Step 98: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "前往{zone:1454}",
 	-- {npc:3293} Rezlak · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["From {npc:3293}'s camp, go on to {zone:1454}'s main gate, a few hundred yards away. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "",
+	["From {npc:3293}'s camp, go on to {zone:1454}'s main gate, a few hundred yards away. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "从{npc:3293}的营地继续走几百码，到{zone:1454}正门。下一段路线从{zone:1454}开始，再乘飞艇前往{zone:1420}和{zone:1421}。",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "{zone:1454}的{object:172982}",
 

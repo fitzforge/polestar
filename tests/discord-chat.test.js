@@ -6,19 +6,23 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const os = require('node:os');
+const path = require('node:path');
+const { loadFaq, parseFaq, FAQ_DIR } = require('../tools/discord-bot/lib/faq');
 const { createChat, filedReply, LIMITS, NAUGHTY } = require('../tools/discord-bot/lib/chat');
 const { createSync, gatherRun } = require('../tools/discord-bot/lib/sync');
-const { fakeDiscord, fakeGitHub, fakeMedia, quietLog, FORUM, GUILD, BOT } = require('./helpers/discord-fakes');
+const { fakeDiscord, fakeGitHub, fakeMedia, quietLog, FORUM, SUGGESTIONS, GUILD, BOT } = require('./helpers/discord-fakes');
 
 const GENERAL = '1001';
 const HOUR = 60 * 60 * 1000;
 
-function setup() {
+function setup(faq = loadFaq(FAQ_DIR)) {
 	const discord = fakeDiscord();
 	for (let i = 0; i < 10; i++) discord.channels.set(String(1001 + i), { id: String(1001 + i), type: 0, name: `chat-${i}`, guild_id: GUILD });
 	let t = 1_000_000;
 	const clock = { now: () => t, advance: (ms) => (t += ms) };
-	const chat = createChat({ discord, forumId: FORUM, log: quietLog, now: clock.now });
+	const chat = createChat({ discord, forumId: FORUM, faq, log: quietLog, now: clock.now });
 	const say = (channel, content, extra = {}) => chat.dispatch('MESSAGE_CREATE', { channel_id: channel, content, author: { id: 'u1' }, ...extra });
 	return { discord, chat, clock, say };
 }
@@ -119,15 +123,15 @@ test('the answer under the player\'s message: thanks and a ping when new, where 
 });
 
 // The chat over a sync, on a clock that never holds a user back.
-function filing() {
+function filing(extra = {}) {
 	let t = 0;
 	const discord = fakeDiscord();
 	const github = fakeGitHub();
 	const media = fakeMedia();
 	discord.channel('c1', 'general');
-	const config = { forumId: FORUM, botId: BOT, maintainerIds: ['fitz'] };
+	const config = { forumId: FORUM, botId: BOT, maintainerIds: ['fitz'], ...extra };
 	const sync = createSync({ discord, github, media, config, log: quietLog, sleep: async () => {}, now: () => (t += HOUR) });
-	const chat = createChat({ discord, forumId: FORUM, maintainerIds: ['fitz'], file: sync.fileChat, repo: github.repo, log: quietLog, now: () => t });
+	const chat = createChat({ discord, forumId: FORUM, suggestionsForumId: config.suggestionsForumId, maintainerIds: ['fitz'], file: sync.fileChat, repo: github.repo, log: quietLog, now: () => t });
 	// The maintainer's command, a reply to `target`, as the gateway sends it.
 	async function command(text, target, { author = 'fitz', channel = 'c1' } = {}) {
 		const m = discord.say(channel, { author, content: text, type: 19 });
@@ -314,4 +318,128 @@ test('the maintainer\'s `!bug <text>` without a reply is told how, in its own wo
 	assert.equal(github.issues.length, 0);
 	await command('!bug', null);
 	assert.match(discord.sent.at(-1).content, /Found a bug or a wrong step/);
+});
+
+test('a 170-character message files: the GitHub title whole, the Discord post name at most 100 characters', async () => {
+	const { discord, github, command } = filing();
+	const long = 'The Paladin trainer in Elwynn Forest is missing from the Northshire Abbey and I looked everywhere for him, the guide says he is inside but nobody is there at all today';
+	assert.ok(long.length >= 165 && long.length < 256);
+	const m = discord.say('c1', { author: 'u5', name: 'Alice', content: long });
+	await command('!suggest', m.id);
+	assert.equal(github.issues[0].title, long);
+	const name = discord.posts[0].name;
+	assert.ok(Array.from(name).length <= 100, name.length);
+	assert.ok(name.endsWith('\u2026') && long.startsWith(name.slice(0, -1)));
+});
+
+test('a suggestion filed from chat gets its post in the suggestions forum, tagged there; a report stays in #bugs', async () => {
+	const { discord, github, command } = filing({ suggestionsForumId: SUGGESTIONS });
+	const a = discord.say('c1', { author: 'u5', name: 'Alice', content: 'a mini map toggle please' });
+	await command('!suggest', a.id);
+	const b = discord.say('c1', { author: 'u6', name: 'Bob', content: 'the trainer is missing' });
+	await command('!report', b.id);
+	assert.equal(discord.posts[0].forum, SUGGESTIONS);
+	assert.match(github.issues[0].body, /follow-ups go to \[its suggestions post\]/);
+	assert.equal(discord.posts[1].forum, FORUM);
+	assert.deepEqual(discord.posts[1].applied_tags, ['t-tracked']);
+});
+
+test('a Discord 400 names the refused fields in the error', async () => {
+	const { createDiscord } = require('../tools/discord-bot/lib/discord');
+	const d = createDiscord({ token: 't', api: 'http://x', fetch: async () => ({ ok: false, status: 400, json: async () => ({ message: 'Invalid Form Body', code: 50035, errors: { name: { _errors: [{ code: 'BASE_TYPE_MAX_LENGTH' }] } } }), text: async () => '' }) });
+	await assert.rejects(d.getChannel('1'), /400 Invalid Form Body .*"name".*BASE_TYPE_MAX_LENGTH/);
+});
+
+test('!dungeons and !dung answer with the text from faq/dungeons.md, any case, whole message only, pinging no one', async () => {
+	const { discord, say } = setup();
+	assert.equal(await say(GENERAL, '!dungeons'), true);
+	assert.equal(await say('1002', '  !DUNG ', { author: { id: 'u2' } }), true);
+	assert.equal(discord.sent.length, 2);
+	assert.ok(discord.sent[0].content.startsWith('**🏰 Are dungeons in the leveling guide?**\nNot yet, on purpose.'));
+	assert.ok(discord.sent[0].content.endsWith('Your leveling guide keeps your place in its own tab the whole time.'));
+	assert.ok(discord.sent[0].content.length < 2000);
+	assert.equal(discord.sent[0].content, discord.sent[1].content);
+	assert.deepEqual(discord.sent[0].users, []);
+	for (const text of ['!dungeons please', 'my !dung', '!dungeon']) assert.equal(await say('1003', text, { author: { id: 'u3' } }), false, text);
+});
+
+test('!pray and !faith reply with the picture from faq/pray.md, named pray.png, and no text; FAQ files without an image reply with text only', async () => {
+	const { discord, say } = setup();
+	assert.equal(await say(GENERAL, '!pray'), true);
+	assert.equal(await say('1002', '!FAITH', { author: { id: 'u2' } }), true);
+	assert.equal(await say('1003', '!dungeons', { author: { id: 'u3' } }), true);
+	for (const m of discord.sent.slice(0, 2)) {
+		assert.equal(m.content, '');
+		assert.equal(m.files.length, 1);
+		assert.equal(m.files[0].name, 'pray.png');
+		assert.equal(m.files[0].type, 'image/png');
+		assert.deepEqual([...m.files[0].data.subarray(0, 4)], [0x89, 0x50, 0x4e, 0x47], 'a real PNG');
+	}
+	assert.equal(discord.sent[2].files, undefined);
+	assert.ok(discord.sent[2].content.length > 0);
+});
+
+test('a FAQ file may name an image, which must exist under faq/', () => {
+	assert.deepEqual(parseFaq('x.md', 'Commands: !a\nImage: media/a.png\n\nOne line'), { commands: ['!a'], text: 'One line', image: 'media/a.png' });
+	assert.throws(() => parseFaq('x.md', 'Commands: !a\nImage:\n\ntext'), /"Image:" needs a file/);
+	const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'faq-'));
+	try {
+		fs.writeFileSync(path.join(dir, 'a.md'), 'Commands: !a\nImage: media/a.png\n');
+		assert.throws(() => loadFaq(dir), /faq\/a\.md: the image media\/a\.png was not found/);
+		fs.writeFileSync(path.join(dir, 'a.md'), 'Commands: !a\nImage: ../a.png\n');
+		assert.throws(() => loadFaq(dir), /outside faq\//);
+		fs.writeFileSync(path.join(dir, 'a.md'), 'Commands: !a\nImage: a.txt\n');
+		assert.throws(() => loadFaq(dir), /must be a png/);
+	} finally {
+		fs.rmSync(dir, { recursive: true });
+	}
+});
+
+test('the FAQ answers hold the !bug caps, shared with it', async () => {
+	const { discord, say, clock } = setup();
+	await say(GENERAL, '!dungeons', { author: { id: 'a' } });
+	assert.equal(await say(GENERAL, '!dung', { author: { id: 'b' } }), false, 'channel, 10 minutes');
+	assert.equal(await say('1002', '!dung', { author: { id: 'a' } }), false, 'person, an hour');
+	assert.equal(await say(GENERAL, '!bug', { author: { id: 'c' } }), false, 'the channel cap is shared with !bug');
+	clock.advance(LIMITS.channelMs);
+	assert.equal(await say(GENERAL, '!dung', { author: { id: 'b' } }), true);
+	for (let i = 0; i < 4; i++) assert.equal(await say(String(1003 + i), '!dung', { author: { id: `p${i}` } }), true);
+	assert.equal(await say('1008', '!dung', { author: { id: 'z' } }), false, 'the 7th in an hour');
+	assert.equal(discord.sent.length, 6);
+});
+
+test('nothing from the FAQ in the #bugs forum or its threads, or to a bot', async () => {
+	const { discord, say } = setup();
+	discord.channels.set('2001', { id: '2001', type: 11, name: 'thread', parent_id: FORUM, guild_id: GUILD });
+	assert.equal(await say('2001', '!dungeons'), false);
+	assert.equal(await say(FORUM, '!dung'), false);
+	assert.equal(await say(GENERAL, '!dung', { author: { id: 'b', bot: true } }), false);
+	assert.equal(discord.sent.length, 0);
+});
+
+test('a FAQ file with a bad shape is refused with a line naming the file and the problem', () => {
+	const bad = (source, re) => assert.throws(() => parseFaq('x.md', source), re, source);
+	bad('!dungeons\n\ntext', /^Error: faq\/x\.md: the first line must be "Commands:/);
+	bad('Commands:\n\ntext', /faq\/x\.md: the first line|no commands/);
+	bad('Commands: dungeons\n\ntext', /"dungeons" is not a command/);
+	bad('Commands: !bug\n\ntext', /!bug is already used by the bot/);
+	bad('Commands: !a\n\n  \n', /no text/);
+	bad('Commands: !a\n\n' + 'x'.repeat(2001), /2001 characters; Discord allows 2000/);
+	const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'faq-'));
+	try {
+		fs.writeFileSync(path.join(dir, 'a.md'), 'Commands: !one, !Two\n\nAnswer one\n');
+		assert.deepEqual(loadFaq(dir), [{ file: 'a.md', commands: ['!one', '!two'], text: 'Answer one' }]);
+		fs.writeFileSync(path.join(dir, 'b.md'), 'Commands: !two\n\nAnswer two\n');
+		assert.throws(() => loadFaq(dir), /faq\/b\.md: !two is also in faq\/a\.md/);
+		fs.writeFileSync(path.join(dir, 'b.md'), 'no header');
+		assert.throws(() => loadFaq(dir), /faq\/b\.md: the first line/);
+	} finally {
+		fs.rmSync(dir, { recursive: true });
+	}
+});
+
+test('the shipped FAQ loads', () => {
+	const faq = loadFaq(FAQ_DIR);
+	assert.deepEqual(faq.find((e) => e.file === 'dungeons.md').commands, ['!dungeons', '!dung']);
+	assert.deepEqual(faq.find((e) => e.file === 'pray.md').commands, ['!pray', '!faith']);
 });

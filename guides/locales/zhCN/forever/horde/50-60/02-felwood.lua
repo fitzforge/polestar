@@ -27,7 +27,7 @@ return {
 	["The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A {npc:10816} carries the outhouse key; {npc:10836} comes out when you open the outhouse and carries the cabinet key."] = "日记在农舍里，柜子在屋里，厕所在屋后。一个{npc:10816}带着厕所钥匙；打开厕所时{npc:10836}会出来，他带着柜子钥匙。",
 
 	-- Step 4: Mulgris Deepriver
-	["His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands guide's sweep at about 55."] = "",
+	["His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands guide's sweep at about 55."] = "他的后续狩猎目标是生病的灰熊（55-56级），等大约55级走瘟疫之地路线时再打。",
 
 	-- Step 6: High Executor Derrington
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "你在路线之前来这里时错过了这一步：现在先做它。它很快，还会开启后面的任务。",
@@ -65,15 +65,15 @@ return {
 
 	-- Step 14: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172959} The Drag
-	["{npc:8659} takes the ravasaur claws from Un'Goro; he is in {object:172959}, upstairs in one of its tallest buildings."] = "",
+	["{npc:8659} takes the ravasaur claws from Un'Goro; he is in {object:172959}, upstairs in one of its tallest buildings."] = "把在安戈洛收集的白色暴掠龙爪交给{npc:8659}。他在{object:172959}最高的几栋建筑之一的楼上。",
 	-- {npc:8659} Jes'rimon · {object:172959} The Drag
-	["{npc:8659}, upstairs in {object:172959}"] = "",
+	["{npc:8659}, upstairs in {object:172959}"] = "{npc:8659}，在{object:172959}的楼上",
 
 	-- Step 15: Fly to Valormok
 	-- {area:1237} Valormok
 	["Fly to {area:1237}"] = "飞往{area:1237}",
 	-- {zone:1447} Azshara · {zone:1454} Orgrimmar
-	["{zone:1447} is a short flight from {zone:1454}: its quests are 51-55, at your level now."] = "",
+	["{zone:1447} is a short flight from {zone:1454}: its quests are 51-55, at your level now."] = "{zone:1447}离{zone:1454}只有一小段飞行路程，那里的任务等级是51-55级，正适合你现在做。",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "{zone:1454}飞行管理员",
 
@@ -88,17 +88,17 @@ return {
 
 	-- Step 18: Ruins of Eldarath
 	-- {item:10695} Box of Empty Vials · {area:1231} Southridge Beach · {npc:8390} Chemist Cuely · {zone:1458} Undercity
-	["Open Cuely's {item:10695} in your bags for the four labelled vials. The tide pools cannot be clicked: stand in each pool and use its own vial from your bags, from {area:1231} north up the coast; Spitelash naga patrol between them. No vials? Abandon the quest and take it again from {npc:8390} in the {zone:1458}."] = "",
+	["Open Cuely's {item:10695} in your bags for the four labelled vials. The tide pools cannot be clicked: stand in each pool and use its own vial from your bags, from {area:1231} north up the coast; Spitelash naga patrol between them. No vials? Abandon the quest and take it again from {npc:8390} in the {zone:1458}."] = "打开背包里科雷给的{item:10695}，取出四个有编号的瓶子。海潮之池无法直接点击，要站进每个海潮之池，从背包使用对应的瓶子。从{area:1231}沿海岸向北逐个装水，恶鞭纳迦会在海潮之池之间巡逻。没有瓶子的话，放弃任务，再找{npc:8390}重接，他在{zone:1458}。",
 	-- {item:10691} Filled Vial Labeled #1 · {area:1231} Southridge Beach
-	["{item:10691}: the tide pool on {area:1231}"] = "",
-	["#2, north along the shore"] = "",
+	["{item:10691}: the tide pool on {area:1231}"] = "{item:10691}，在{area:1231}的海潮之池装水",
+	["#2, north along the shore"] = "#2，沿海岸往北",
 
 	-- Step 19: Makrinni Burrowers
 	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower
 	["Makrinni Burrowers"] = "马克林尼掘地者",
 	-- {npc:247473} Izvi Gildfizz · {item:246683} Treasure Trowel 3000
 	-- plural, as words: Highborne Treasure Fragments = {item:246684} Highborne Treasure Fragment · Makrinni Burrowers = {npc:247470} Makrinni Burrower
-	["{npc:247473}'s {item:246683}, in your bags, digs up the Highborne Treasure Fragments: use it on the sands just east of the ruins, where the Makrinni Burrowers (50-51) dig, on the way north-east. The Burrowers and the buried caches there give fragments too."] = "",
+	["{npc:247473}'s {item:246683}, in your bags, digs up the Highborne Treasure Fragments: use it on the sands just east of the ruins, where the Makrinni Burrowers (50-51) dig, on the way north-east. The Burrowers and the buried caches there give fragments too."] = "用背包里{npc:247473}给的{item:246683}挖上层精灵财宝碎片。往东北走时，在废墟东边不远的沙地上用铲子，那里有 Makrinni Burrower（50-51级）在挖掘。击杀这些怪或打开埋藏的箱子也能拿到碎片。",
 
 	-- Step 20: Ekkal
 	-- {zone:1447} Azshara · {npc:235903} Ekkal
@@ -136,16 +136,16 @@ return {
 
 	-- Step 25: Magus Rimtori
 	-- {quest:91500} An Explosive Gambit · {quest:91497} Seals of the Sin'dorei
-	["Back to the Sin'dorei Tome: hand in the seals and take {quest:91500}, which gives you the {quest:91497}. Rimtori does not come from the Tome: stand beside one of the camp's tall crystals and use the {quest:91497} from your bags; its crystal explodes and draws her. Which crystal is linked to her is random: each of the other two summons a hostile infernal instead. She is level 55: start at full health."] = "",
+	["Back to the Sin'dorei Tome: hand in the seals and take {quest:91500}, which gives you the {quest:91497}. Rimtori does not come from the Tome: stand beside one of the camp's tall crystals and use the {quest:91497} from your bags; its crystal explodes and draws her. Which crystal is linked to her is random: each of the other two summons a hostile infernal instead. She is level 55: start at full health."] = "回到辛多雷召唤宝典处交印记，接下{quest:91500}，获得{quest:91497}。雷姆托里要靠水晶爆炸引出来。站在营地里一块高大的水晶旁，从背包使用{quest:91497}，水晶就会爆炸。能引来她的水晶随机决定，另外两块各会召唤一只敌对的地狱火。她是55级，满血再动手。",
 	-- {quest:91497} Seals of the Sin'dorei · {npc:8578} Magus Rimtori
-	["Use the {quest:91497} from your bags beside a crystal: {npc:8578} (55) comes to the explosion and drops her head"] = "",
+	["Use the {quest:91497} from your bags beside a crystal: {npc:8578} (55) comes to the explosion and drops her head"] = "站在一块水晶旁，从背包使用{quest:91497}。爆炸会引来{npc:8578}（55级），击杀后会掉落她的头颅",
 	-- {quest:91538} Sin'dorei Tome of Summoning · {npc:8587} Jediga · {area:1237} Valormok
 	["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}：交给{area:1237}的{npc:8587}",
 
 	-- Step 26: The Legashi satyrs
 	["The Legashi satyrs"] = "雷加希萨特",
 	-- {npc:235903} Ekkal · {npc:235892} Prince Halanox
-	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind.\nCareful: {npc:235892} (55, elite) stands among the satyrs at the north-east end of their hills, around 67,19: take the satyrs nearer the camp and leave him be."] = "",
+	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind.\nCareful: {npc:235892} (55, elite) stands among the satyrs at the north-east end of their hills, around 67,19: take the satyrs nearer the camp and leave him be."] = "雷加斯萨特（51-52级）占据血精灵营地北面的山丘，{npc:235903}要你每种各杀五只。\n小心，{npc:235892}（55级精英）就在山丘东北端的萨特之间，大约在67,19。打离营地较近的萨特，避开他。",
 
 	-- Step 27: Kim'jael
 	-- {npc:8420} Kim'jael
@@ -172,11 +172,11 @@ return {
 	-- {npc:8587} Jediga · {npc:3326} Zevrost · {zone:1454} Orgrimmar
 	["{npc:8587}: the tome goes to {npc:3326} in {zone:1454}"] = "{npc:8587}：宝典要交给{zone:1454}的{npc:3326}",
 	-- {npc:8659} Jes'rimon · {npc:4485} Belgrom Rockmaul · {npc:3326} Zevrost · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {npc:6522} Andron Gant · {zone:1458} Undercity
-	["Keep the deliveries: {npc:8659}, {npc:4485} and {npc:3326} are in {zone:1454} next, Magatha in {zone:1456} and {npc:6522} in the {zone:1458} on the next guides."] = "",
+	["Keep the deliveries: {npc:8659}, {npc:4485} and {npc:3326} are in {zone:1454} next, Magatha in {zone:1456} and {npc:6522} in the {zone:1458} on the next guides."] = "这些送交任务先留着。{npc:8659}、{npc:4485}和{npc:3326}在下一站{zone:1454}。后续几篇指南会遇到{zone:1456}的玛加萨，以及{npc:6522}，他在{zone:1458}。",
 
 	-- Step 32: Sanath Lim-yo
 	-- {area:1237} Valormok · {npc:8379} Archmage Xylem
-	["Ride east from {area:1237} to Sanath's camp at the foot of the cliff and get off your mount: he teleports you up to {npc:8379}'s tower."] = "",
+	["Ride east from {area:1237} to Sanath's camp at the foot of the cliff and get off your mount: he teleports you up to {npc:8379}'s tower."] = "从{area:1237}向东骑到悬崖脚下萨纳斯的营地，然后下坐骑。他会把你传送到{npc:8379}的塔楼。",
 
 	-- Step 33: Archmage Xylem
 	["The apprentice at the top of the tower sends you back down."] = "塔顶的学徒会把你送回下面。",
@@ -190,11 +190,11 @@ return {
 
 	-- Step 36: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {npc:3326} Zevrost · {object:172960} Cleft of Shadow · {npc:8659} Jes'rimon · {object:172959} The Drag
-	["{npc:4485} is in the {object:172958}, {npc:3326} in the {object:172960}, and {npc:8659} in {object:172959}, upstairs in one of its tallest buildings."] = "",
+	["{npc:4485} is in the {object:172958}, {npc:3326} in the {object:172960}, and {npc:8659} in {object:172959}, upstairs in one of its tallest buildings."] = "{npc:4485}在{object:172958}，{npc:3326}在{object:172960}。{npc:8659}在{object:172959}最高的几栋建筑之一的楼上。",
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow
 	["{npc:3326}, the {object:172960}"] = "{npc:3326}，在{object:172960}",
 	-- {npc:8659} Jes'rimon · {npc:8587} Jediga
-	["{npc:8659}: his payment goes back to {npc:8587}, on the flight out"] = "",
+	["{npc:8659}: his payment goes back to {npc:8587}, on the flight out"] = "从{npc:8659}接下任务，飞离这里时顺路把报酬交给{npc:8587}",
 
 	-- Step 37: Class trainer
 	["Class trainer"] = "职业训练师",
@@ -206,7 +206,7 @@ return {
 
 	-- Step 39: Fly to Valormok
 	-- {zone:1448} Felwood · {area:1237} Valormok · {npc:8587} Jediga · {npc:8659} Jes'rimon · {area:431} Splintertree Post
-	["{zone:1448} is next: fly by way of {area:1237}, where {npc:8587} takes {npc:8659}'s payment, then on to {area:431}."] = "",
+	["{zone:1448} is next: fly by way of {area:1237}, where {npc:8587} takes {npc:8659}'s payment, then on to {area:431}."] = "接下来去{zone:1448}。先飞到{area:1237}，找{npc:8587}交{npc:8659}的报酬，再飞往{area:431}。",
 
 	-- Step 41: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
@@ -229,7 +229,7 @@ return {
 	-- {area:1763} Jaedenar
 	["Southern {area:1763}"] = "{area:1763}南部",
 	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge
-	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: pull the cultists and hounds away from him."] = "",
+	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: pull the cultists and hounds away from him."] = "沿路向西北走。{area:1763}南部的腐化月亮井周围由暗影议会占据，那里有加德纳尔祭司、精兵、守护者和他们的恶犬。\n小心，{npc:11141}（53级精英）在{area:1763}西端约35,60处游荡。把教徒和猎犬拉离他再打。",
 
 	-- Step 47: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
@@ -257,7 +257,7 @@ return {
 	-- Step 51: Irontree Woods
 	-- {area:1767} Irontree Woods · {npc:10920} Kelek Skykeeper · {npc:9529} Maybess Riverbreeze · {item:11503} Blood Amber · {area:1768} Irontree Cavern
 	-- plural, as words: Felpaw Ravagers = {npc:8961} Felpaw Ravager
-	["Follow the road north-east to {area:1767}: Angerclaw Grizzlies and Felpaw Ravagers roam the woods for Talo, and their organs are {npc:10920}'s. {npc:9529}'s {item:11503} comes from the Warpwood elementals inside {area:1768}, next."] = "",
+	["Follow the road north-east to {area:1767}: Angerclaw Grizzlies and Felpaw Ravagers roam the woods for Talo, and their organs are {npc:10920}'s. {npc:9529}'s {item:11503} comes from the Warpwood elementals inside {area:1768}, next."] = "沿路向东北前往{area:1767}。怒爪灰熊和魔爪掠夺者在林中游荡，是塔罗的任务目标，掉落的器官交给{npc:10920}。接下来为{npc:9529}收集{item:11503}，去{area:1768}里打曲木元素。",
 	-- {item:277958} Putrescent Bear Organs
 	["{item:277958}, from the Angerclaw bears"] = "{item:277958}，来自怒爪灰熊",
 	-- {item:277959} Putrescent Wolf Organs
@@ -265,13 +265,13 @@ return {
 
 	-- Step 52: Irontree Woods
 	-- {area:1768} Irontree Cavern
-	["Below ground: from the Warpwood elementals inside {area:1768}"] = "",
+	["Below ground: from the Warpwood elementals inside {area:1768}"] = "在地下，击杀{area:1768}里的曲木元素获取",
 
 	-- Step 53: Meilosh
 	-- {npc:11557} Meilosh · {zone:1448} Felwood · {quest:6031} Runecloth · {area:1769} Timbermaw Hold
-	["Only from Friendly with the Timbermaw: {npc:11557}, in the tunnel near its {zone:1448} mouth, gives {quest:6031} then (the {area:1769} reputation guide gets you there)."] = "",
+	["Only from Friendly with the Timbermaw: {npc:11557}, in the tunnel near its {zone:1448} mouth, gives {quest:6031} then (the {area:1769} reputation guide gets you there)."] = "木喉熊怪声望达到友善才能接取。{npc:11557}在隧道靠近{zone:1448}一端的入口内，届时他会给你{quest:6031}任务。可按{area:1769}声望指南提升。",
 	-- {npc:11557} Meilosh · {quest:6031} Runecloth
-	["{npc:11557}: keep 30 {quest:6031} for him; below ground"] = "",
+	["{npc:11557}: keep 30 {quest:6031} for him; below ground"] = "{npc:11557}在地下，给他留30块{quest:6031}",
 
 	-- Step 54: Nafien
 	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold
@@ -280,9 +280,9 @@ return {
 	-- Step 55: Felpaw Village
 	-- {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
 	-- plural, as words: Deadwood Avengers = {npc:7157} Deadwood Avenger
-	["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nIf one drops a {quest:8470} (about one kill in thirty), right-click it; don't stay to farm one. {npc:11558} in {area:1769} takes it only from Neutral with the Timbermaw (the {area:1769} reputation guide gets you there): now if they already are, or on the last guide's pass of the cave."] = "",
+	["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nIf one drops a {quest:8470} (about one kill in thirty), right-click it; don't stay to farm one. {npc:11558} in {area:1769} takes it only from Neutral with the Timbermaw (the {area:1769} reputation guide gets you there): now if they already are, or on the last guide's pass of the cave."] = "小心，死木守卫是53-54级，死木复仇者是54-55级。生命值低于50%时，它们会呼叫25码内的同伴，低于15%时会逃跑求援。\n如果掉了{quest:8470}就右键使用，约每打三十只掉一个，不用特地留下来刷。{npc:11558}在{area:1769}，木喉熊怪声望达到中立她才会收。可按{area:1769}声望指南提升。已经到中立就现在交，否则等最后一篇指南经过洞穴时再交。",
 	-- {quest:8470} Deadwood Ritual Totem
-	["{quest:8470}, a rare drop from the Deadwood furbolgs"] = "",
+	["{quest:8470}, a rare drop from the Deadwood furbolgs"] = "{quest:8470}，死木熊怪偶尔掉落",
 
 	-- Step 56: Nafien
 	-- {quest:8465} Speak to Salfa · {zone:1452} Winterspring
@@ -290,7 +290,7 @@ return {
 
 	-- Step 57: Timbermaw Hold
 	-- {npc:11558} Kernda
-	["Step into the cave: {npc:11558} stands just inside. She speaks to you only from Neutral with the Timbermaw."] = "",
+	["Step into the cave: {npc:11558} stands just inside. She speaks to you only from Neutral with the Timbermaw."] = "进洞找{npc:11558}，她就在入口内侧。木喉熊怪声望达到中立，她才会和你说话。",
 	-- {npc:11558} Kernda
 	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558}在附近巡逻，请在地图标示的圆圈内寻找",
 

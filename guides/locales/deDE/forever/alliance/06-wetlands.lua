@@ -95,7 +95,7 @@ return {
 	-- plural, as words: Lightforge Ingots = {item:2702} Lightforge Ingot
 	["Lightforge Ingots"] = "Lichtschmiedeblöcke",
 	-- plural, as words: Bluegill Raiders = {npc:1418} Bluegill Raider
-	["The Bluegill Raiders (28-29) on the beach south-west of Menethil carry the ingots."] = "Die Bluegill Raiders (28-29) am Strand südwestlich von Menethil tragen die Ingots.",
+	["The Bluegill Raiders (28-29) on the beach south-west of Menethil carry the ingots."] = "Die Räuber der Blaukiemen (28-29) am Strand südwestlich von Menethil tragen die Lichtschmiedeblöcke.",
 	-- {item:2702} Lightforge Ingot
 	["{item:2702}; underwater"] = "{item:2702}; unter Wasser",
 
@@ -115,7 +115,7 @@ return {
 	["{area:1039}: kill these as you meet them"] = "{area:1039}: Töte diese, sobald sie dir begegnen",
 	-- {npc:1159} First Mate Snellig
 	-- plural, as words: Cursed Sailors = {npc:1157} Cursed Sailor · Cursed Marines = {npc:1158} Cursed Marine · Giant Wetlands Crocolisks = {npc:2089} Giant Wetlands Crocolisk · Fen Creepers = {npc:1040} Fen Creeper
-	["Follow the coast north to the wrecked ship. Cursed Sailors walk the beach, Cursed Marines the deck; {npc:1159} stands on the beach by the bow. Giant Wetlands Crocolisks lurk on the coast just north of it.\nCareful: Fen Creepers hide in stealth where the river splits close to the ghost ship, and they can join a fight."] = "Folge der Küste nach Norden zum Schiffswrack. Cursed Sailors laufen am Strand, Cursed Marines auf dem Deck; {npc:1159} steht am Strand beim Bug. Giant Wetlands Crocolisks lauern an der Küste direkt nördlich davon.\nVorsicht: Fen Creepers verstecken sich getarnt dort, wo sich der Fluss nahe dem Geisterschiff teilt, und können in einen Kampf eingreifen.",
+	["Follow the coast north to the wrecked ship. Cursed Sailors walk the beach, Cursed Marines the deck; {npc:1159} stands on the beach by the bow. Giant Wetlands Crocolisks lurk on the coast just north of it.\nCareful: Fen Creepers hide in stealth where the river splits close to the ghost ship, and they can join a fight."] = "Folge der Küste nach Norden zum Schiffswrack. Verfluchte Seeleute laufen am Strand, verfluchte Marinesoldaten auf dem Deck; {npc:1159} steht am Strand beim Bug. Riesige Sumpflandkrokiliske lauern an der Küste direkt nördlich davon.\nVorsicht: Moorkrabbler verstecken sich getarnt dort, wo sich der Fluss nahe dem Geisterschiff teilt, und können in einen Kampf eingreifen.",
 	-- {npc:1158} Cursed Marine · {npc:270589} Nightveiled Rotheap
 	["{npc:1158}; careful: {npc:270589}, a level 31 elite, roams this coast"] = "{npc:1158}; Vorsicht: {npc:270589}, ein Elite der Stufe 31, streift an dieser Küste umher",
 
@@ -158,14 +158,14 @@ return {
 	["{npc:1078} and Whelgar"] = "{npc:1078} und Whelgar",
 	-- {npc:1077} Prospector Whelgar · {item:279993} Titanic Keystone
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
-	["{npc:1077}, below ground: the {item:279993}, from the elite Goaz Warders"] = "{npc:1077}, unter der Erde: {item:279993}, von den Elite-Goaz Warders",
+	["{npc:1077}, below ground: the {item:279993}, from the elite Goaz Warders"] = "{npc:1077}, unter der Erde: {item:279993}, von den Elite-Goazwärter",
 
 	-- Step 30: Goaz Warders
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
-	["Goaz Warders"] = "Goaz Warders",
+	["Goaz Warders"] = "Goazwärter",
 	-- {item:279996} Goaz Stone · {npc:270892} Goaz Warder
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
-	["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one.\n{npc:270892} is elite: grouping up is advised."] = "Die Goaz Warders stehen direkt westlich von Whelgars Lager: Benutze den {item:279996}, den er dir gegeben hat, neben einem von ihnen.\n{npc:270892} ist ein Elite: Eine Gruppe wird empfohlen.",
+	["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one.\n{npc:270892} is elite: grouping up is advised."] = "Die Goazwärter stehen direkt westlich von Whelgars Lager: Benutze den {item:279996}, den er dir gegeben hat, neben einem von ihnen.\n{npc:270892} ist ein Elite: Eine Gruppe wird empfohlen.",
 
 	-- Step 31: Prospector Whelgar
 	["Below ground"] = "Unter der Erde",
@@ -207,10 +207,10 @@ return {
 
 	-- Step 38: Fen Creepers along the river
 	-- plural, as words: Fen Creepers = {npc:1040} Fen Creeper
-	["Fen Creepers along the river"] = "Fen Creepers am Fluss",
+	["Fen Creepers along the river"] = "Moorkrabbler am Fluss",
 	-- {npc:2093} Einar Stonegrip · {area:1024} Sundown Marsh · {npc:1244} Rethiel the Greenwarden
 	-- plural, as words: Fen Creepers = {npc:1040} Fen Creeper
-	["North-west from {npc:2093} to the river: Fen Creepers hide in its pools and along its banks all the way west to {area:1024}. Work west along it until you have twelve, then back east to {npc:1244}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "Nordwestlich von {npc:2093} zum Fluss: Fen Creepers verstecken sich in seinen Tümpeln und an seinen Ufern, den ganzen Weg nach Westen bis {area:1024}. Arbeite dich daran entlang nach Westen, bis du zwölf hast, und geh dann zurück nach Osten zu {npc:1244}.\nVorsicht: Außerhalb des Kampfes wirken Fen Creepers von Zeit zu Zeit Schleichen, sodass sie getarnt und schwer zu sehen sind.",
+	["North-west from {npc:2093} to the river: Fen Creepers hide in its pools and along its banks all the way west to {area:1024}. Work west along it until you have twelve, then back east to {npc:1244}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "Nordwestlich von {npc:2093} zum Fluss: Moorkrabbler verstecken sich in seinen Tümpeln und an seinen Ufern, den ganzen Weg nach Westen bis {area:1024}. Arbeite dich daran entlang nach Westen, bis du zwölf hast, und geh dann zurück nach Osten zu {npc:1244}.\nVorsicht: Außerhalb des Kampfes wirken Moorkrabbler von Zeit zu Zeit Schleichen, sodass sie getarnt und schwer zu sehen sind.",
 
 	-- Step 39: Rethiel the Greenwarden
 	-- {quest:98283} Carnage · {npc:271334} Maddened Rotclaw · {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
@@ -316,7 +316,7 @@ return {
 	["Level 28"] = "Stufe 28",
 	-- {zone:1437} Wetlands · {zone:1440} Ashenvale
 	-- plural, as words: Bluegill Raiders = {npc:1418} Bluegill Raider
-	["Still below level 28? That happens when you start this guide here without the {zone:1437} and {zone:1440} quests of the guides before it: top up on the Bluegill Raiders along the coast just south of Menethil before the boat, so {zone:1440}'s level 28-32 quests aren't too hard."] = "Noch unter Stufe 28? Das passiert, wenn du diesen Guide hier beginnst, ohne die Quests in {zone:1437} und {zone:1440} aus den Guides davor: Hol dir vor dem Boot den Rest an den Bluegill Raiders entlang der Küste gleich südlich von Menethil, damit die Quests der Stufe 28-32 in {zone:1440} nicht zu schwer sind.",
+	["Still below level 28? That happens when you start this guide here without the {zone:1437} and {zone:1440} quests of the guides before it: top up on the Bluegill Raiders along the coast just south of Menethil before the boat, so {zone:1440}'s level 28-32 quests aren't too hard."] = "Noch unter Stufe 28? Das passiert, wenn du diesen Guide hier beginnst, ohne die Quests in {zone:1437} und {zone:1440} aus den Guides davor: Hol dir vor dem Boot den Rest an den Räubern der Blaukiemen entlang der Küste gleich südlich von Menethil, damit die Quests der Stufe 28-32 in {zone:1440} nicht zu schwer sind.",
 	-- {npc:1418} Bluegill Raider
 	["grind on {npc:1418}"] = "Grinde an {npc:1418}",
 

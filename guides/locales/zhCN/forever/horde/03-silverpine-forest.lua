@@ -151,7 +151,7 @@ return {
 	-- {npc:1952} High Executor Hadrec
 	["{npc:1952}, below ground"] = "{npc:1952}：在地下",
 	-- {npc:1937} Apothecary Renferrel
-	["{npc:1937}: bear hearts from the Grizzled Bears all over the forest, the spiders' blood in the north-west hills later"] = "",
+	["{npc:1937}: bear hearts from the Grizzled Bears all over the forest, the spiders' blood in the north-west hills later"] = "{npc:1937}：森林各处的灰斑熊都会掉落熊心，蜘蛛血稍后去西北边的山丘收集",
 
 	-- Step 31: The Sepulcher
 	-- {quest:264} Until Death Do Us Part · {object:24776} Yuriv's Tombstone
@@ -222,23 +222,23 @@ return {
 	["{npc:1499} in {area:159}, on the way to the zeppelin at the end"] = "交给 {area:159} 的 {npc:1499}，在最后前往飞艇时顺路完成",
 
 	-- Step 45: North-west hills
-	["North-west hills"] = "",
+	["North-west hills"] = "西北山丘",
 	-- {area:228} The Sepulcher · {item:3254} Skittering Blood
 	-- plural, as words: Moonrage Gluttons = {npc:1779} Moonrage Glutton · Moss Stalkers = {npc:1780} Moss Stalker · Mist Creepers = {npc:1781} Mist Creeper · Giant Grizzled Bears = {npc:1797} Giant Grizzled Bear
-	["North-west of the {area:228} the Moonrage Gluttons and Darksouls roam the hills between the road and the lake; their shackles drop from them. Past them, farther north-west, Moss Stalkers and Mist Creepers bleed the {item:3254}, and Giant Grizzled Bears roam among them for the hearts (any Grizzled Bear in the forest drops one)."] = "",
+	["North-west of the {area:228} the Moonrage Gluttons and Darksouls roam the hills between the road and the lake; their shackles drop from them. Past them, farther north-west, Moss Stalkers and Mist Creepers bleed the {item:3254}, and Giant Grizzled Bears roam among them for the hearts (any Grizzled Bear in the forest drops one)."] = "在{area:228}西北边，道路与湖之间的山丘上有月怒暴食者和月怒魔魂狼人游荡，镣铐就由它们掉落。经过它们再往西北走，苔藓阔步者和迷雾爬行者会掉落{item:3254}，那一带游荡的巨型灰斑熊会掉落熊心（森林里的灰斑熊都有可能掉落一颗）。",
 	-- {item:3156} Glutton Shackle
 	-- plural, as words: Moonrage Gluttons = {npc:1779} Moonrage Glutton
-	["{item:3156}, from the Moonrage Gluttons"] = "",
+	["{item:3156}, from the Moonrage Gluttons"] = "{item:3156}，由月怒暴食者掉落",
 	-- {item:3157} Darksoul Shackle
 	-- plural, as words: Moonrage Darksouls = {npc:1782} Moonrage Darksoul
-	["{item:3157}, from the Moonrage Darksouls"] = "",
+	["{item:3157}, from the Moonrage Darksouls"] = "{item:3157}，由月怒魔魂狼人掉落",
 	-- {item:3254} Skittering Blood
 	-- plural, as words: Moss Stalkers = {npc:1780} Moss Stalker · Mist Creepers = {npc:1781} Mist Creeper
-	["{item:3254}, from the Moss Stalkers and Mist Creepers"] = "",
+	["{item:3254}, from the Moss Stalkers and Mist Creepers"] = "{item:3254}，由苔藓阔步者和迷雾爬行者掉落",
 
 	-- Step 46: The Sepulcher
 	-- {area:228} The Sepulcher
-	["Back south-east to the {area:228}."] = "",
+	["Back south-east to the {area:228}."] = "向东南返回{area:228}。",
 
 	-- Step 47: The Ivar Patch
 	-- {zone:1420} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
@@ -263,7 +263,7 @@ return {
 	-- {npc:5204} Apothecary Zinge
 	["{npc:5204}, in the Apothecarium"] = "{npc:5204}，在炼金房内",
 	-- {npc:2055} Master Apothecary Faranell
-	["{npc:2055}, beside Zinge"] = "",
+	["{npc:2055}, beside Zinge"] = "{npc:2055}，在金格旁边",
 	-- {npc:5204} Apothecary Zinge
 	["{npc:5204}: Helbrim at the Crossroads, in the next guide"] = "{npc:5204}：交给十字路口的赫布瑞姆，见下一篇指南",
 	-- {npc:260093} Garen Largo · {area:1497} Undercity
@@ -309,7 +309,7 @@ return {
 
 	-- Step 61: Neeru Fireblade
 	-- {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:3216} Neeru Fireblade · {npc:4949} Thrall
-	["The {object:172960} is the canyon under the {object:172982}; {npc:3216} stands at its far end. Tell him what {npc:4949} found."] = "",
+	["The {object:172960} is the canyon under the {object:172982}; {npc:3216} stands at its far end. Tell him what {npc:4949} found."] = "{object:172960}是{object:172982}下方的峡谷，{npc:3216}站在峡谷尽头。把{npc:4949}的发现告诉他。",
 
 	-- Step 62: Neeru Fireblade
 	-- {area:2437} Ragefire Chasm · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:3216} Neeru Fireblade
@@ -317,8 +317,7 @@ return {
 
 	-- Step 63: Ragefire Chasm
 	-- {area:2437} Ragefire Chasm · {object:172960} Cleft of Shadow · {npc:3216} Neeru Fireblade · {npc:11520} Taragaman the Hungerer · {npc:11518} Jergosh the Invoker · {quest:5726} Hidden Enemies
-	-- was: ["{area:2437} is a dungeon for a group of five, about levels 13 to 18, and a full run takes 30 to 45 minutes. Its portal is in the {object:172960}, beside {npc:3216}.\nInside: past Oggleflint and his troggs, {npc:11520} waits in the lava cave and drops his heart. {npc:11518} and Bazzalan, further in, are for {npc:4949}'s Hidden Enemies, which this route leaves out."] = "{area:2437}是适合13-18级左右五人小队的地下城，完整打一次需要30到45分钟。传送门在{object:172960}，{npc:3216}旁边。\n副本内：经过奥格弗林特和他的穴居人后，{npc:11520}在熔岩洞里等着，掉落他的心脏。更深处的{npc:11518}和巴扎兰对应{npc:4949}的“隐藏的敌人”，本路线不做。"
-	["{area:2437} is a dungeon for a group of five, about levels 13 to 18, and a full run takes 30 to 45 minutes. Its portal is in the {object:172960}, beside {npc:3216}.\nInside: past Oggleflint and his troggs, {npc:11520} waits in the lava cave and drops his heart. {npc:11518} and Bazzalan, further in, are for {quest:5726}' Ragefire part, which this route leaves out."] = "",
+	["{area:2437} is a dungeon for a group of five, about levels 13 to 18, and a full run takes 30 to 45 minutes. Its portal is in the {object:172960}, beside {npc:3216}.\nInside: past Oggleflint and his troggs, {npc:11520} waits in the lava cave and drops his heart. {npc:11518} and Bazzalan, further in, are for {quest:5726}' Ragefire part, which this route leaves out."] = "{area:2437}是适合约13至18级的五人地下城，完整打一趟需要30至45分钟。传送门在{object:172960}，就在{npc:3216}旁边。\n进副本后，经过奥格弗林特和他手下的穴居人，熔岩洞里就是{npc:11520}，会掉落他的心脏。更深处的{npc:11518}和巴扎兰是{quest:5726}怒焰裂谷部分的目标，本路线跳过这一部分。",
 
 	-- Step 64: Neeru Fireblade
 	-- {npc:3216} Neeru Fireblade
@@ -331,12 +330,11 @@ return {
 	-- Step 70: Valley of Wisdom
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:362} Razor Hill · {area:379} Far Watch Post
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
-	-- was: ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} 和 {npc:268682} 坐在 {object:172957} 的格罗玛什要塞后方，光滑的巨石就在两人周围。下一篇指南会从这里步行前往 {area:379} 和十字路口。"
-	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:362}, then {area:379} and the Crossroads."] = "",
+	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:362}, then {area:379} and the Crossroads."] = "{npc:268684}和{npc:268682}坐在{object:172957}的格罗玛什要塞后面，光滑的巨石就在他们周围。下一篇指南会从这里步行去{area:362}，再去{area:379}和十字路口。",
 
 	-- Step 71: Thrall
 	-- {npc:4949} Thrall · {npc:268684} Thra · {npc:268682} Migi
-	["{npc:4949} waits in Grommash Hold, beside {npc:268684} and {npc:268682}."] = "",
+	["{npc:4949} waits in Grommash Hold, beside {npc:268684} and {npc:268682}."] = "{npc:4949}在格罗玛什要塞里，旁边是{npc:268684}和{npc:268682}。",
 
 	-- Step 72: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {npc:4049} Seereth Stonebreak

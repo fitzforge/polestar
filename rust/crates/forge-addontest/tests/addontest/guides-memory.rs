@@ -43,10 +43,14 @@ fn pack_files(name: &str) -> String {
 /// either faction (the same harness, the same runtime).
 /// The 1-60 routes and their baked legs grew the pack; 0.4.3's side shelves (#1863) took about 5,700 KiB a faction
 /// back. Measured on next f5bd74406e (2026-11-26, #4143; three runs reading the same): Alliance
-/// resident 13,938, peak 27,342, read 19,808; Horde resident 13,004, peak 24,904, read 19,070. Each budget is that
-/// figure plus 3 % (docs/CI.md, "Memory budgets").
+/// resident 13,938, peak 27,342, read 19,808; Horde resident 13,004, peak 24,904, read 19,070. Moved once between
+/// freezes (Tier 0.5 class guides, Fitz approved 26 Nov 2026: "360 KB is tiny"): the nine class guides (#4248, one
+/// per class, each for both sides, so in the pack every character loads) and their last quests (#4300) add about
+/// 800 KiB a faction, 360 past the old budgets. Measured with both (three runs reading the same): Alliance resident
+/// 14,750, peak 28,305, read 20,620; Horde resident 13,812, peak 25,972, read 19,880. Each budget is that figure plus
+/// 3 %, rounded up (docs/CI.md, "Memory budgets").
 const BUDGET: [(&str, &str, [(&str, f64); 3]); 2] =
-	[("Alliance", "Human", [("resident", 14360.0), ("peak", 28170.0), ("read", 20410.0)]), ("Horde", "Orc", [("resident", 13400.0), ("peak", 25660.0), ("read", 19650.0)])];
+	[("Alliance", "Human", [("resident", 15200.0), ("peak", 29160.0), ("read", 21240.0)]), ("Horde", "Orc", [("resident", 14230.0), ("peak", 26760.0), ("read", 20480.0)])];
 
 #[test]
 fn the_guide_pack_stays_within_its_memory_budget_for_each_faction_693() {
@@ -450,6 +454,61 @@ emit({{ first = first, dropped = dropped, again = E.Applies(2, 1) }})"#,
 		..Default::default()
 	});
 	assert_eq!(out[0], serde_json::json!({ "first": false, "dropped": true, "again": false }));
+}
+
+// A community pack that asks to load on demand (pack.json `load`: "on-demand"): its faction parts load as
+// ours do (the player's faction's at login, not the other's), and a guide's steps are source
+// until the guide is read. The Unlocks and Closes indexes read it in and give it back (Guides.Peek), as
+// they do our side shelves.
+#[test]
+fn a_community_pack_loading_on_demand_brings_the_player_s_faction_and_reads_steps_when_asked() {
+	let guide = |id: &str, faction: &str, zone: &str| {
+		forge_addontest::dsl::guide_text(&[&format!("guide joe-routes/{id}"), "title Start", &format!("faction {faction}"), "levels 1-10", &format!("zone {zone}"), "", "step S", "  level 2"])
+	};
+	let (a, h) = (guide("elwynn", "Alliance", "Elwynn Forest"), guide("durotar", "Horde", "Durotar"));
+	let r = forge_addontest::dsl::compile_with(&[("guides/elwynn.guide", &a), ("guides/durotar.guide", &h)], &forge_addontest::dsl::fixture_data(), Some("joe-routes"));
+	assert_eq!(r.errors, Vec::<String>::new());
+	let manifest = forge_guide::js::parse_json(
+		r#"{ "id": "joe-routes", "title": "Joe's Routes", "author": "Joe", "version": "1.0.0", "license": "CC-BY-4.0", "folder": "PolestarPack_JoesRoutes", "load": "on-demand" }"#,
+	)
+	.unwrap();
+	let pack = forge_addontest::dsl::write_test_pack(&r.guides, &forge_addontest::dsl::fixture_data(), &manifest);
+	let lua_list = |files: Vec<PathBuf>| files.iter().map(|f| lua_string(&f.to_string_lossy())).collect::<Vec<_>>().join(", ");
+	let entries = |dir: PathBuf| lua_list(forge_addontest::run::toc_entries(&dir).unwrap_or_else(|e| panic!("{e}")).iter().map(|f| dir.join(f)).collect());
+	let parent = pack.dir.parent().unwrap().to_path_buf();
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_packs.lua"],
+		before: format!(
+			"stub.packs.PolestarPack_JoesRoutes_Alliance = {{ {} }}\nstub.packs.PolestarPack_JoesRoutes_Horde = {{ {} }}\nlocal w = stub.world\nw.faction, w.race, w.raceName = \"Horde\", \"Orc\", \"Orc\"",
+			entries(parent.join("PolestarPack_JoesRoutes_Alliance")),
+			entries(parent.join("PolestarPack_JoesRoutes_Horde"))
+		),
+		addons: vec![Addon::name("Polestar")],
+		script: format!(
+			r#"
+local ns = {{}}
+for _, f in ipairs({{ {} }}) do assert(loadfile(f))("PolestarPack_JoesRoutes", ns) end
+stub.addonLoaded("PolestarPack_JoesRoutes")
+stub.login()
+local G = Polestar.Guides
+local def = G.Get("joe-routes/durotar")
+local deferred = def ~= nil and rawget(def, "steps") == nil and G.StepsDeferred(def)
+local reads, read = 0, G.Steps
+G.Steps = function(d) if d == def then reads = reads + 1 end return read(d) end
+Polestar.Unlocks.For(7)
+Polestar.Closes.For(7)
+G.Steps = read
+local released = reads > 0 and rawget(def, "steps") == nil
+local steps = def and G.Steps(def)
+local other = G.Get("joe-routes/elwynn") ~= nil
+emit({{ horde = def ~= nil, deferred = deferred, released = released, steps = steps and #steps or 0, goal = steps and steps[1].goals[1].t or false,
+	alliance = other,
+	loads = {{ stub.packLoads.PolestarPack_JoesRoutes_Horde or 0, stub.packLoads.PolestarPack_JoesRoutes_Alliance or 0 }} }})"#,
+			entries(pack.dir.clone())
+		),
+		..Default::default()
+	});
+	assert_eq!(out[0], serde_json::json!({ "horde": true, "deferred": true, "released": true, "steps": 1, "goal": "level", "alliance": false, "loads": [1, 0] }));
 }
 
 // A goal's packed spots (format 8) are checked at registration without being built, read back on the goal's

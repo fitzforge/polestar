@@ -110,8 +110,8 @@ function fakeDiscord() {
 		async activeThreads() {
 			return { threads: [...channels.values()].filter((c) => c.parent_id) };
 		},
-		async send(channel, content, users = [], roles = []) {
-			sent.push({ channel, content, users, roles });
+		async send(channel, content, users = [], roles = [], files = []) {
+			sent.push({ channel, content, users, roles, ...(files.length && { files }) });
 			const msg = { id: String(nextId++), channel_id: channel, content, attachments: [], mentions: [], author: { id: BOT, username: 'Polestar Bot', bot: true } };
 			if (messages.has(channel)) messages.get(channel).push(msg);
 			return msg;
@@ -221,11 +221,12 @@ function fakeGitHub(repo = 'fitzforge/polestar') {
 		async addLabels(n, ls) {
 			issues[n - 1].labels.push(...ls.map((name) => ({ name })));
 		},
-		async issuesLabelled(label, { state = 'all' } = {}) {
+		async issuesLabelled(label, { state = 'all', max = 300 } = {}) {
 			return issues
 				.filter((i) => i.labels.some((l) => l.name === label) && (state === 'all' || i.state === state))
 				.map((i) => structuredClone(i))
-				.reverse();
+				.reverse()
+				.slice(0, max);
 		},
 		// GitHub's duplicate marker: the issue's duplicate_of field here.
 		async duplicateOf(n) {

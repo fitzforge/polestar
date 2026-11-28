@@ -2629,6 +2629,185 @@ fn untied_pieces_of_a_quests_item_are_done_once_the_quest_is_ready_or_handed_in_
 	);
 }
 
+// #4280 (Krite, Library Books): each book is a plain bag count whose quest the librarian offers later, while the book
+// is in the bags. A book already handed in still read as to collect and needed a right-click. An untied collect of
+// one item that a later `turnin` of the guide asks for is done once that quest is handed in; a `direct` or
+// `repeatable` hand-in does not count, and the bank does not count (the hand-in takes the item from the bags).
+const BOOKS: &str = r#"
+Polestar.RegisterGuide({
+	id = "test/books", pack = "test", title = "Library Books", category = "Miscellaneous", faction = "Alliance", minLevel = 15, maxLevel = 60, zone = 1429,
+	steps = {
+		{ title = "Elwynn Forest", goals = {
+			{ t = "collect", item = 203755, itemName = "Archmage Theocritus' Research Journal", map = 1429, x = 65.4, y = 70.1 },
+		} },
+		{ title = "The library: first books", goals = {
+			{ t = "accept", quest = 79092, title = "Archmage Theocritus' Research Journal", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.96, y = 86.35 },
+			{ t = "turnin", quest = 79092, title = "Archmage Theocritus' Research Journal", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.91, y = 86.31 },
+		} },
+		{ title = "Westfall", goals = {
+			{ t = "collect", item = 208860, itemName = "Rumi of Gnomeregan: The Collected Works", map = 1436, x = 52.7, y = 53.8 },
+		} },
+		{ title = "The library: more books", goals = {
+			{ t = "accept", quest = 79093, title = "Rumi of Gnomeregan: The Collected Works", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.96, y = 86.35 },
+			{ t = "turnin", quest = 79093, title = "Rumi of Gnomeregan: The Collected Works", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.91, y = 86.31 },
+		} },
+		{ goals = { { t = "level", level = 60 } } },
+	},
+})
+"#;
+const BOOKS_DB: &str = r#"
+Polestar.QuestDB.SetMeta({ schema = 2 })
+AddRecords("quests", {
+	[79092] = { "Archmage Theocritus' Research Journal", 20, 1, nil, nil, 1, 211033, 211033, nil, nil, nil, { 2, 203755 }, 1453 },
+	[79093] = { "Rumi of Gnomeregan: The Collected Works", 20, 1, nil, nil, 1, 211033, 211033, nil, nil, nil, { 2, 208860 }, 1453 },
+})
+"#;
+
+#[test]
+fn a_book_handed_in_is_collected_and_a_banked_one_is_not_4280_library_books() {
+	let guides = format!("{NORTHSHIRE}{BOOKS}");
+	let db = format!("{}{BOOKS_DB}", forge_addontest::questdb::ADD_RECORDS_LUA);
+	let state = |setup: &str, with_db: bool| {
+		let script = r#"
+			local w = stub.world
+			{DB}
+			{SETUP}
+			E.SetGuide("test/books"); flush()
+			emit({ E.GetStepIndex(), E.GetStepView(1).goals[1].status, E.GetStepView(3).goals[1].status })
+		"#
+		.replace("{DB}", if with_db { &db } else { "" })
+		.replace("{SETUP}", setup);
+		run1(Run { guides: &guides, full: true, script: &script, ..Default::default() })
+	};
+	// The route at the first book; the second book's line ahead.
+	// No book anywhere, its quest not handed in: still to collect.
+	assert_eq!(state("", true), json!([1, "active", "pending"]));
+	// In the bags.
+	assert_eq!(state("w.addItem(208860, 1)", true), json!([1, "active", "done"]));
+	// In the bank: still to fetch for the librarian.
+	assert_eq!(state("w.addItem(208860, 1); w.deposit(208860)", true), json!([1, "active", "pending"]));
+	// Handed in: gone from the bags.
+	assert_eq!(state("w.complete({ 79093 })", true), json!([1, "active", "done"]));
+	// Without the quest database nothing ties the book to its quest: the bags alone count.
+	assert_eq!(state("w.complete({ 79093 })", false), json!([1, "active", "pending"]));
+}
+
+#[test]
+fn the_route_passes_a_book_handed_in_before_4280_library_books() {
+	let guides = format!("{NORTHSHIRE}{BOOKS}");
+	let script = r#"
+			local w = stub.world
+			{DB}
+			w.complete({ 79093 })
+			E.SetGuide("test/books"); flush()
+			emit(E.GetStepIndex())
+			w.addItem(203755, 1); flush()
+			emit(E.GetStepIndex())
+			w.accept(79092, { 1 }); flush()
+			w.removeItem(203755); w.turnIn(79092); flush()
+			emit(E.GetStepIndex())
+		"#
+	.replace("{DB}", &format!("{}{BOOKS_DB}", forge_addontest::questdb::ADD_RECORDS_LUA));
+	let out = run(Run { guides: &guides, full: true, script: &script, ..Default::default() });
+	// The second book handed in on an earlier visit: after the first book's hand-in the route passes the second
+	// book's step and its library step.
+	assert_eq!(json!(out), json!([1, 2, 5]));
+}
+
+// A repeatable handed in straight from its giver's window (`turnin … direct`: Mortal Champions, one Qiraji Lord's
+// Insignia each time) is handed in again further on: its first round does not collect the next insignia.
+const INSIGNIAS: &str = r#"
+Polestar.RegisterGuide({
+	id = "test/insignias", pack = "test", title = "Brood of Nozdormu", category = "Reputation", minLevel = 60, maxLevel = 60, zone = 1451,
+	steps = {
+		{ title = "First insignia", goals = {
+			{ t = "collect", item = 21229, itemName = "Qiraji Lord's Insignia", map = 1451, x = 29.0, y = 92.8 },
+			{ t = "turnin", quest = 8595, title = "Mortal Champions", npc = 15503, npcName = "Kandrostrasz", direct = true, map = 1451, x = 29.0, y = 92.8 },
+		} },
+		{ title = "Second insignia", goals = {
+			{ t = "collect", item = 21229, itemName = "Qiraji Lord's Insignia", map = 1451, x = 29.0, y = 92.8 },
+			{ t = "turnin", quest = 8595, title = "Mortal Champions", npc = 15503, npcName = "Kandrostrasz", direct = true, map = 1451, x = 29.0, y = 92.8 },
+		} },
+		{ goals = { { t = "level", level = 61 } } },
+	},
+})
+"#;
+const INSIGNIAS_DB: &str = r#"
+Polestar.QuestDB.SetMeta({ schema = 2 })
+AddRecords("quests", {
+	[8595] = { "Mortal Champions", 60, 60, nil, nil, nil, 15503, 15503, nil, nil, nil, { 2, 21229 }, 1451 },
+})
+"#;
+
+#[test]
+fn a_collect_before_a_direct_repeatable_hand_in_is_not_done_by_an_earlier_round_4280() {
+	let guides = format!("{NORTHSHIRE}{INSIGNIAS}");
+	let script = r#"
+			local w = stub.world
+			{DB}
+			w.setLevel(60); w.repeatable[8595] = true
+			E.SetGuide("test/insignias"); flush()
+			w.addItem(21229, 1); flush()
+			w.removeItem(21229); w.turnIn(8595); flush()
+			emit({ E.GetStepIndex(), E.GetStepView(2).goals[1].status })
+		"#
+	.replace("{DB}", &format!("{}{INSIGNIAS_DB}", forge_addontest::questdb::ADD_RECORDS_LUA));
+	let out = run1(Run { guides: &guides, full: true, script: &script, ..Default::default() });
+	// The first round handed in: the second insignia is still to collect.
+	assert_eq!(out, json!([2, "active"]));
+}
+
+// The same for a repeatable taken from the log (`repeatable`, #3334): its hand-in is remembered for the session, so the
+// next round's insignia is not collected by the round before.
+const INSIGNIAS_LOG: &str = r#"
+Polestar.RegisterGuide({
+	id = "test/insignias-log", pack = "test", title = "Brood of Nozdormu", category = "Reputation", minLevel = 60, maxLevel = 60, zone = 1451,
+	steps = {
+		{ title = "First insignia", goals = {
+			{ t = "accept", quest = 8595, title = "Mortal Champions", npc = 15503, npcName = "Kandrostrasz", map = 1451, x = 29.0, y = 92.8 },
+			{ t = "collect", item = 21229, itemName = "Qiraji Lord's Insignia", map = 1451, x = 29.0, y = 92.8 },
+			{ t = "turnin", quest = 8595, title = "Mortal Champions", npc = 15503, npcName = "Kandrostrasz", repeatable = true, map = 1451, x = 29.0, y = 92.8 },
+		} },
+		{ title = "Second insignia", goals = {
+			{ t = "accept", quest = 8595, title = "Mortal Champions", npc = 15503, npcName = "Kandrostrasz", map = 1451, x = 29.0, y = 92.8 },
+			{ t = "collect", item = 21229, itemName = "Qiraji Lord's Insignia", map = 1451, x = 29.0, y = 92.8 },
+			{ t = "turnin", quest = 8595, title = "Mortal Champions", npc = 15503, npcName = "Kandrostrasz", repeatable = true, map = 1451, x = 29.0, y = 92.8 },
+		} },
+		{ goals = { { t = "level", level = 61 } } },
+	},
+})
+"#;
+
+#[test]
+fn a_collect_before_a_repeatable_hand_in_is_not_done_by_an_earlier_round_4280() {
+	let guides = format!("{NORTHSHIRE}{INSIGNIAS_LOG}");
+	let script = r#"
+			local w = stub.world
+			{DB}
+			w.setLevel(60); w.repeatable[8595] = true
+			w.onQuest(8595, { 1 })
+			E.SetGuide("test/insignias-log"); flush()
+			local function state()
+				local v = E.GetStepView(2).goals
+				return { E.GetStepIndex(), v[1].status, v[2].status, v[3].status }
+			end
+			emit(state())
+			w.turnIn(8595); flush()
+			emit(state())
+		"#
+	.replace("{DB}", &format!("{}{INSIGNIAS_DB}", forge_addontest::questdb::ADD_RECORDS_LUA));
+	let out = run(Run { guides: &guides, full: true, script: &script, ..Default::default() });
+	assert_eq!(
+		json!(out),
+		json!([
+			// The first round in the log: the second round ahead.
+			[1, "done", "pending", "pending"],
+			// The first round handed in: the route at the second round, its insignia still to collect.
+			[2, "done", "active", "active"],
+		])
+	);
+}
+
 #[test]
 fn an_objective_goal_keeps_its_compiled_position_when_no_line_names_its_target() {
 	let guides = format!("{NORTHSHIRE}{MURLOCS}");

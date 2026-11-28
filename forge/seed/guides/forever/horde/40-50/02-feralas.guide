@@ -605,6 +605,7 @@ step Woodpaw battle map
   accept 2903
 
 step Camp Mojache
+  tip Carrying Tabetha's Task? Hadoken doesn't offer Stinglasher while it is in your quest log: hand it in to Tabetha in Dustwallow Marsh or abandon it first.
   turnin 2974                           -- Krueg Skullsplitter
   accept 2976                           -- for Orgrimmar, around level 47
   turnin 2903                           -- Hadoken Swiftstrider

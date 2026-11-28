@@ -22,7 +22,7 @@ return {
 	["The bridge"] = "Die Brücke",
 	-- {npc:261} Guard Thomas · {npc:248265} Ormin Pelford
 	-- plural, as words: Prowlers = {npc:118} Prowler
-	["{npc:261} guards the bridge on the road east; {npc:248265} stands just across it. His tools and Thomas's Prowlers and bears are south of the bridge, on the way back."] = "{npc:261} bewacht die Brücke an der Straße nach Osten; {npc:248265} steht direkt dahinter. Sein Werkzeug und Thomas' Prowlers und Bären findest du südlich der Brücke, auf dem Rückweg.",
+	["{npc:261} guards the bridge on the road east; {npc:248265} stands just across it. His tools and Thomas's Prowlers and bears are south of the bridge, on the way back."] = "{npc:261} bewacht die Brücke an der Straße nach Osten; {npc:248265} steht direkt dahinter. Sein Werkzeug und Thomas' Streuner und Bären findest du südlich der Brücke, auf dem Rückweg.",
 
 	-- Step 4: The Eastvale Logging Camp
 	-- {area:88} Eastvale Logging Camp
@@ -52,7 +52,7 @@ return {
 	-- Step 9: Downstream
 	-- {item:247813} Waterlogged Saw
 	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
-	["East along the road, then into the river south of the bridge: the {item:247813}, Axe and Toolbox lie in it. Prowlers and Young Forest Bears roam its banks."] = "Folge der Straße nach Osten und geh dann südlich der Brücke in den Fluss: Dort liegen {item:247813}, Axt und Werkzeugkasten. An den Ufern streifen Prowlers und Young Forest Bears umher.",
+	["East along the road, then into the river south of the bridge: the {item:247813}, Axe and Toolbox lie in it. Prowlers and Young Forest Bears roam its banks."] = "Folge der Straße nach Osten und geh dann südlich der Brücke in den Fluss: Dort liegen {item:247813}, Axt und Werkzeugkasten. An den Ufern streifen Streuner und Junge Waldbären umher.",
 
 	-- Step 10: Surena Caledon
 	-- {npc:6122} Gakin the Darkbinder · {quest:1689} The Binding · {item:6810} Surena's Choker · {npc:881} Surena Caledon · {area:62} Brackwell Pumpkin Patch
@@ -70,7 +70,7 @@ return {
 
 	-- Step 15: The Binding
 	-- {item:6810} Surena's Choker · {npc:6122} Gakin the Darkbinder · {quest:1689} The Binding · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6928} Bloodstone Choker
-	["{item:6810} is already with {npc:6122}: take {quest:1689} from him in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls."] = "{item:6810} ist bereits bei {npc:6122}: nimm {quest:1689} von ihm im Keller von {object:2164}, im {object:2101}. Nutze {item:6928} am Aufrufzirkels dort und besiege den dort aufgerufenen Voidwalker.",
+	["{item:6810} is already with {npc:6122}: take {quest:1689} from him in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls."] = "{item:6810} ist bereits bei {npc:6122}: nimm {quest:1689} von ihm im Keller von {object:2164}, im {object:2101}. Benutze dort am Beschwörungskreis {item:6928} und besiege den beschworenen Leerwandler.",
 
 	-- Step 16: The Jansen Stead
 	-- {zone:1436} Westfall · {object:2724} Sack of Oats
@@ -91,10 +91,10 @@ return {
 
 	-- Step 20: Goretusk Snouts
 	-- plural, as words: Goretusk Snouts = {item:731} Goretusk Snout
-	["Goretusk Snouts"] = "Goretusk Snouts",
+	["Goretusk Snouts"] = "Geiferzahnschnauze",
 	-- {area:108} Sentinel Hill
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
-	["Young Goretusks root in the fields along the road south from Saldean's to {area:108}: take their snouts on the way."] = "Young Goretusks wühlen auf den Feldern entlang der Straße südlich von Saldean's nach {area:108}: Nimm ihre Schnauzen auf dem Weg mit.",
+	["Young Goretusks root in the fields along the road south from Saldean's to {area:108}: take their snouts on the way."] = "Junge Geiferzähne wühlen auf den Feldern entlang der Straße südlich von Saldean's nach {area:108}: Nimm ihre Schnauzen auf dem Weg mit.",
 
 	-- Step 21: Sentinel Hill's tower and Thor
 	-- {area:108} Sentinel Hill · {npc:523} Thor
@@ -145,9 +145,9 @@ return {
 
 	-- Step 31: Goretusk Livers as you go
 	-- plural, as words: Goretusk Livers = {item:723} Goretusk Liver
-	["Goretusk Livers as you go"] = "Goretusk Livers unterwegs",
+	["Goretusk Livers as you go"] = "Geiferzahnlebern unterwegs",
 	-- plural, as words: Goretusks = {npc:157} Goretusk · Young Goretusks = {npc:454} Young Goretusk
-	["Goretusks and Young Goretusks root along every leg of this loop: kill the ones you pass for the pie's livers."] = "Goretusks und Young Goretusks wühlen an jedem Abschnitt dieser Runde: Töte die, an denen du vorbeikommst, für die Lebern der Pastete.",
+	["Goretusks and Young Goretusks root along every leg of this loop: kill the ones you pass for the pie's livers."] = "Goretusks und Junge Geiferzähne wühlen an jedem Abschnitt dieser Runde: Töte die, an denen du vorbeikommst, für die Lebern der Pastete.",
 
 	-- Step 32: Stringy Vulture Meat as you go
 	-- {item:729} Stringy Vulture Meat
@@ -164,10 +164,10 @@ return {
 
 	-- Step 34: Defias Trappers and Smugglers
 	-- plural, as words: Defias Trappers = {npc:504} Defias Trapper
-	["Defias Trappers and Smugglers"] = "Defias Trappers und Smugglers",
+	["Defias Trappers and Smugglers"] = "Fallensteller der Defias und Schmuggler",
 	-- {area:108} Sentinel Hill · {area:918} Molsen Farm
 	-- plural, as words: Defias Trappers = {npc:504} Defias Trapper
-	["North-west from {area:108} toward {area:918}: Defias Trappers and Smugglers camp in the fields between them."] = "Nordwestlich von {area:108} in Richtung {area:918}: Defias Trappers und Smugglers lagern auf den Feldern dazwischen.",
+	["North-west from {area:108} toward {area:918}: Defias Trappers and Smugglers camp in the fields between them."] = "Nordwestlich von {area:108} in Richtung {area:918}: Fallensteller der Defias und Schmuggler lagern auf den Feldern dazwischen.",
 
 	-- Step 35: Molsen Farm's well
 	-- {area:918} Molsen Farm
@@ -178,7 +178,7 @@ return {
 	["The gnoll hills"] = "Die Gnollhügel",
 	-- {area:111} Jangolode Mine · {area:916} The Jansen Stead
 	-- plural, as words: Riverpaw Gnolls = {npc:117} Riverpaw Gnoll
-	["North to the hills above {area:111}: Riverpaw Gnolls and Scouts (level 11-13) roam there, east toward the {area:916}. The gnolls further south and west are 13-19: stay in the north hills.\nCareful: Gnolls that stand close together tend to join a fight as a group. Pulling one at a time is safer."] = "Nach Norden in die Hügel oberhalb von {area:111}: Dort streifen Riverpaw Gnolls und Scouts (Stufe 11-13) umher, nach Osten hin zum {area:916}. Die Gnolle weiter südlich und westlich sind Stufe 13-19: Bleib in den nördlichen Hügeln.\nVorsicht: Gnolle, die nah beieinander stehen, greifen oft als Gruppe in den Kampf ein. Einzeln zu ziehen ist sicherer.",
+	["North to the hills above {area:111}: Riverpaw Gnolls and Scouts (level 11-13) roam there, east toward the {area:916}. The gnolls further south and west are 13-19: stay in the north hills.\nCareful: Gnolls that stand close together tend to join a fight as a group. Pulling one at a time is safer."] = "Nach Norden in die Hügel oberhalb von {area:111}: Dort streifen Gnolle der Flusspfoten und Späher (Stufe 11-13) umher, nach Osten hin zum {area:916}. Die Gnolle weiter südlich und westlich sind Stufe 13-19: Bleib in den nördlichen Hügeln.\nVorsicht: Gnolle, die nah beieinander stehen, greifen oft als Gruppe in den Kampf ein. Einzeln zu ziehen ist sicherer.",
 	-- plural, as words: Gnoll Paws = {item:725} Gnoll Paw
 	["Gnoll Paws"] = "Gnolltatzen",
 
@@ -187,7 +187,7 @@ return {
 	["The {area:2} murlocs"] = "Die Murlocs von {area:2}",
 	-- {area:916} The Jansen Stead
 	-- plural, as words: Murloc Coastrunners = {npc:126} Murloc Coastrunner
-	["Murloc Coastrunners and Raiders line the north coast from above the mine east toward the {area:916}: work along the beach eastward. They flee at low health: pull one at a time."] = "Murloc Coastrunners und Raiders säumen die Nordküste von oberhalb der Mine bis zum {area:916}: Arbeite dich am Strand nach Osten vor. Sie fliehen bei niedriger Gesundheit: Zieh sie einzeln.",
+	["Murloc Coastrunners and Raiders line the north coast from above the mine east toward the {area:916}: work along the beach eastward. They flee at low health: pull one at a time."] = "Murlocküstenläufer und Räuber säumen die Nordküste von oberhalb der Mine bis zum {area:916}: Arbeite dich am Strand nach Osten vor. Sie fliehen bei niedriger Gesundheit: Zieh sie einzeln.",
 	-- plural, as words: Longshore Murloc Gills = {item:254548} Longshore Murloc Gill
 	["Longshore Murloc Gills"] = "Murlockiemen von Longshore",
 
@@ -215,24 +215,24 @@ return {
 
 	-- Step 41: Finish the Goretusk Livers
 	-- plural, as words: Goretusk Livers = {item:723} Goretusk Liver
-	["Finish the Goretusk Livers"] = "Schließe die Goretusk Livers ab",
+	["Finish the Goretusk Livers"] = "Schließe die Geiferzahnlebern ab",
 	-- {area:107} Saldean's Farm
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
-	["Still short of eight? Young Goretusks root in the fields just west of {area:107}."] = "Noch keine acht? Young Goretusks wühlen auf den Feldern direkt westlich von {area:107}.",
+	["Still short of eight? Young Goretusks root in the fields just west of {area:107}."] = "Noch keine acht? Junge Geiferzähne wühlen auf den Feldern direkt westlich von {area:107}.",
 
 	-- Step 42: Finish the Stringy Vulture Meat
 	-- {item:729} Stringy Vulture Meat
 	["Finish the {item:729}"] = "Schließe {item:729} ab",
 	-- {area:107} Saldean's Farm
 	-- plural, as words: Young Fleshrippers = {npc:199} Young Fleshripper
-	["Still short of three? Young Fleshrippers circle the fields north-west of {area:107}."] = "Noch keine drei? Young Fleshrippers streifen über die Felder nordwestlich von {area:107}.",
+	["Still short of three? Young Fleshrippers circle the fields north-west of {area:107}."] = "Noch keine drei? Junge Fleischreißer streifen über die Felder nordwestlich von {area:107}.",
 
 	-- Step 44: Finish the Red Leather Bandanas
 	-- {quest:153} Red Leather Bandanas
 	["Finish the {quest:153}"] = "Schließe {quest:153} ab",
 	-- {area:108} Sentinel Hill
 	-- plural, as words: Defias Trappers = {npc:504} Defias Trapper
-	["Still short of fifteen? Defias Trappers camp in the fields just west of {area:108}."] = "Noch keine fünfzehn? Defias Trappers lagern auf den Feldern direkt westlich von {area:108}.",
+	["Still short of fifteen? Defias Trappers camp in the fields just west of {area:108}."] = "Noch keine fünfzehn? Fallensteller der Defias lagern auf den Feldern direkt westlich von {area:108}.",
 
 	-- Step 45: Sentinel Hill
 	-- {npc:266} Wiley the Black · {area:69} Lakeshire
@@ -307,7 +307,7 @@ return {
 	-- Step 59: Hall of Thanes
 	-- {area:16919} Hall of Thanes · {zone:1455} Ironforge · {npc:264943} Afadra Dunwall · {npc:261319} Durgen Dirgehammer · {object:147516} Dark Iron · {npc:265002} Ghostly Attendant · {npc:261306} Faldrim Anvilmar · {item:281030} Treaty of Understanding
 	-- plural, as words: Enraged Apparitions = {npc:263389} Enraged Apparition · Tormented Souls = {npc:263390} Tormented Soul · Dwarven Heirlooms = {item:274289} Dwarven Heirloom
-	["{area:16919} is a dungeon for a group of five at about level 15 to 16, under {zone:1455}. Its door is on the west side of the city, a short walk west of {npc:264943}.\nInside: the Enraged Apparitions and Tormented Souls are {npc:264943}'s, the Dwarven Heirlooms Thom's, and {npc:261319}, the {object:147516} commander deep in the vaults, carries the head King Magni wants. A {npc:265002} inside gives An Ancient Grudge, for {npc:261306}, and takes it back there; a {item:281030} found inside starts a quest for King Magni."] = "{area:16919} ist ein Dungeon für eine Gruppe aus fünf Spielern, etwa Stufe 15 bis 16, unter {zone:1455}. Der Eingang liegt auf der Westseite der Stadt, ein kurzes Stück westlich von {npc:264943}.\nDrinnen: Die Enraged Apparitions und Tormented Souls sind für {npc:264943}, die Dwarven Heirlooms für Thom, und {npc:261319}, der Kommandant der {object:147516} tief in den Gewölben, trägt den Kopf, den König Magni haben will. Ein {npc:265002} drinnen gibt An Ancient Grudge für {npc:261306} und nimmt die Quest dort auch wieder entgegen; {item:281030} (drinnen zu finden) startet eine Quest für König Magni.",
+	["{area:16919} is a dungeon for a group of five at about level 15 to 16, under {zone:1455}. Its door is on the west side of the city, a short walk west of {npc:264943}.\nInside: the Enraged Apparitions and Tormented Souls are {npc:264943}'s, the Dwarven Heirlooms Thom's, and {npc:261319}, the {object:147516} commander deep in the vaults, carries the head King Magni wants. A {npc:265002} inside gives An Ancient Grudge, for {npc:261306}, and takes it back there; a {item:281030} found inside starts a quest for King Magni."] = "{area:16919} ist ein Dungeon für eine Gruppe aus fünf Spielern, etwa Stufe 15 bis 16, unter {zone:1455}. Der Eingang liegt auf der Westseite der Stadt, ein kurzes Stück westlich von {npc:264943}.\nDrinnen: Die wütenden Erscheinungen und gepeinigten Seelen sind für {npc:264943}, die zwergischen Erbstücke für Thom, und {npc:261319}, der Kommandant der {object:147516} tief in den Gewölben, trägt den Kopf, den König Magni haben will. Ein {npc:265002} drinnen gibt „Ein uralter Groll“ für {npc:261306} und nimmt die Quest dort auch wieder entgegen; {item:281030} (drinnen zu finden) startet eine Quest für König Magni.",
 	-- {quest:96403} Important Heirlooms
 	["{quest:96403}: the heirlooms, inside"] = "{quest:96403}: die Erbstücke, drinnen",
 	-- {quest:96394} The Restless Dead

@@ -20,9 +20,9 @@ return {
 
 	-- Step 3: Get Linen Cloth
 	-- {item:2589} Linen Cloth
-	["Get {item:2589}"] = "",
+	["Get {item:2589}"] = "Sammle {item:2589}",
 	-- {item:2589} Linen Cloth · {skill:197} Tailoring · {spell:2387} Linen Cloak · {item:7026} Linen Belt
-	["You need 144 {item:2589} for {skill:197} 1-75: {spell:2387} and {item:7026}. Humanoids of level 5-20 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2589} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 144 {item:2589} for {skill:197} 1-75: {spell:2387} and {item:7026}. Humanoids of level 5-20 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2589} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 144 {item:2589} für {skill:197} 1-75: {spell:2387} und {item:7026}. Humanoiden der Stufe 5-20 lassen es fallen, und was du beim Leveln einsammelst, zählt mit. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten {item:2589} pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 4: Linen Cloak to 15
 	-- {spell:2387} Linen Cloak
@@ -52,20 +52,19 @@ return {
 	-- {skill:197} Tailoring
 	["{skill:197} 75-150: vendor goods"] = "{skill:197} 75-150: Händlerware",
 	-- {item:2321} Fine Thread · {item:2324} Bleach · {item:2604} Red Dye · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
-	-- was: ["Buy the whole bracket's share in one go: 108 {item:2321} (1g 8s), 34 {item:2324} (8s 50c) and 98 {item:2604} (49s); about 1g 65s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "Kauf den Bedarf des ganzen Abschnitts auf einmal: 108 {item:2321} (1g 8s), 34 {item:2324} (8s 50c) und 98 {item:2604} (49s); insgesamt etwa 1g 65s 50c. Der Pfeil wählt den nächsten Verkäufer deiner Fraktion ({zone:1453}: {npc:1347}, {npc:1286} und {npc:5565}; {zone:1454}: {npc:3364}, Felika und {npc:5817})."
-	["Buy the whole bracket's share in one go: 108 {item:2321} (1g 8s), 34 {item:2324} (8s 50c) and 98 {item:2604} (49s); about 1g 65s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347} and {npc:1286}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "",
+	["Buy the whole bracket's share in one go: 108 {item:2321} (1g 8s), 34 {item:2324} (8s 50c) and 98 {item:2604} (49s); about 1g 65s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347} and {npc:1286}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "Kauf den Bedarf für den ganzen Bereich auf einmal: 108 {item:2321} (1g 8s), 34 {item:2324} (8s 50c) und 98 {item:2604} (49s); insgesamt etwa 1g 65s 50c. Der Pfeil wählt den nächsten Händler deiner Fraktion ({zone:1453}: {npc:1347} und {npc:1286}; {zone:1454}: {npc:3364}, Felika und {npc:5817}).",
 
 	-- Step 9: Get Wool Cloth
 	-- {item:2592} Wool Cloth
-	["Get {item:2592}"] = "",
+	["Get {item:2592}"] = "Sammle {item:2592}",
 	-- {item:2592} Wool Cloth · {skill:197} Tailoring · {spell:2402} Woolen Cape · {spell:3866} Stylish Red Shirt
-	["You need 567 {item:2592} for {skill:197} 75-150: {spell:2402} and {spell:3866}. Humanoids of level 15-30 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 567 {item:2592} for {skill:197} 75-150: {spell:2402} and {spell:3866}. Humanoids of level 15-30 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 567 {item:2592} für {skill:197} 75-150: {spell:2402} und {spell:3866}. Humanoiden der Stufe 15-30 lassen es fallen, und was du beim Leveln einsammelst, zählt mit. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten {item:2592} pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 10: Get Silk Cloth
 	-- {item:4306} Silk Cloth
-	["Get {item:4306}"] = "",
+	["Get {item:4306}"] = "Sammle {item:4306}",
 	-- {item:4306} Silk Cloth · {skill:197} Tailoring · {spell:3871} Formal White Shirt
-	["You need 204 {item:4306} for {skill:197} 75-150: {spell:3871}. Humanoids of level 25-45 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4306} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 204 {item:4306} for {skill:197} 75-150: {spell:3871}. Humanoids of level 25-45 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4306} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 204 {item:4306} für {skill:197} 75-150: {spell:3871}. Humanoiden der Stufe 25-45 lassen es fallen, und was du beim Leveln einsammelst, zählt mit. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten {item:4306} pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 11: Woolen Cape to 104
 	-- {spell:2402} Woolen Cape
@@ -101,7 +100,7 @@ return {
 	-- {skill:197} Tailoring
 	["{skill:197} 150-225: vendor goods"] = "{skill:197} 150-225: Händlerware",
 	-- {item:2321} Fine Thread · {item:4291} Silken Thread · {item:6260} Blue Dye · {item:8343} Heavy Silken Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 44 {item:2321} (44s), 108 {item:4291} (5g 40s), 44 {item:6260} (22s) and 74 {item:8343} (14g 80s); about 20g 86s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "",
+	["Buy the whole bracket's share in one go: 44 {item:2321} (44s), 108 {item:4291} (5g 40s), 44 {item:6260} (22s) and 74 {item:8343} (14g 80s); about 20g 86s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "Kauf den Bedarf für den ganzen Bereich auf einmal: 44 {item:2321} (44s), 108 {item:4291} (5g 40s), 44 {item:6260} (22s) und 74 {item:8343} (14g 80s); insgesamt etwa 20g 86s. Der Pfeil wählt den nächsten Händler deiner Fraktion ({zone:1453}: {npc:1347}, {npc:1286} und {npc:5565}; {zone:1454}: {npc:3364}, Felika und {npc:5817}).",
 
 	-- Step 17: Pattern: Azure Silk Cloak
 	-- {item:7089} Pattern: Azure Silk Cloak · {item:7053} Azure Silk Cloak · {skill:197} Tailoring · {npc:6576} Brienna Starglow · {zone:1444} Feralas · {npc:251997} Norvin Alderman · {zone:1416} Alterac Mountains · {npc:6574} Jun'ha · {zone:1417} Arathi Highlands
@@ -109,20 +108,19 @@ return {
 
 	-- Step 18: Get Silk Cloth
 	-- {item:4306} Silk Cloth · {skill:197} Tailoring · {item:7053} Azure Silk Cloak
-	["You need 264 {item:4306} for {skill:197} 150-225: {item:7053}. Humanoids of level 25-45 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4306} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 264 {item:4306} for {skill:197} 150-225: {item:7053}. Humanoids of level 25-45 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4306} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 264 {item:4306} für {skill:197} 150-225: {item:7053}. Humanoiden der Stufe 25-45 lassen es fallen, und was du beim Leveln einsammelst, zählt mit. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten {item:4306} pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 19: Get Mageweave Cloth
 	-- {item:4338} Mageweave Cloth
-	["Get {item:4338}"] = "",
+	["Get {item:4338}"] = "Sammle {item:4338}",
 	-- {item:4338} Mageweave Cloth · {skill:197} Tailoring · {item:9998} Black Mageweave Vest · {item:10024} Black Mageweave Headband
-	["You need 915 {item:4338} for {skill:197} 150-225: {item:9998} and {item:10024}. Humanoids of level 35-50 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4338} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 915 {item:4338} for {skill:197} 150-225: {item:9998} and {item:10024}. Humanoids of level 35-50 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4338} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 915 {item:4338} für {skill:197} 150-225: {item:9998} und {item:10024}. Humanoiden der Stufe 35-50 lassen es fallen, und was du beim Leveln einsammelst, zählt mit. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten {item:4338} pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 20: Expert Tailoring
 	-- {skill:197} Tailoring
 	["Expert {skill:197}"] = "{skill:197} (Experte)",
 	-- {skill:197} Tailoring · {npc:1346} Georgio Bolero · {zone:1453} Stormwind City · {npc:4576} Josef Gregorian · {zone:1458} Undercity · {spell:3865} Bolt of Mageweave · {item:4306} Silk Cloth · {item:4338} Mageweave Cloth · {item:9998} Black Mageweave Vest · {item:10024} Black Mageweave Headband
-	-- was: ["Expert raises the cap from 150 to 225; it needs {skill:197} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:1346} ({zone:1453}); Horde {npc:4576} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3865} (from 140). 150-225 takes about 15s of recipes and 21g 16s of vendor goods, plus 264 {item:4306} and 900 {item:4338} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9998} (from 170), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 2. {item:10024} (from 190) takes a second trip, to other trainers (below)."] = "Experte hebt die Obergrenze von 150 auf 225 an; er braucht {skill:197} 125 und Charakterstufe 20, also kannst du ihn bei jedem Besuch ab 125 lernen. Nur wenige Lehrer lehren ihn: Allianz {npc:1346} ({zone:1453}); Horde {npc:4576} ({zone:1458}). Der Pfeil wählt den nächsten deiner Fraktion. Lerne jetzt: {spell:3865} (ab 140). 150-225 kostet etwa 15s für Rezepte und 21g 16s für Händlerware, dazu 264 {item:4306} und 900 {item:4338} zum Sammeln oder Kaufen. Komm mit allem in deinen Taschen (die Schritte oben, den Rest aus dem Auktionshaus): Diese Lehrer lehren auch {item:9998} (ab 170), und die Herstellungen brauchen keine Station, also stelle gleich hier her und lerne jedes Rezept, sobald du seine Fertigkeit erreichst. Eine Reise statt 2. {item:10024} (ab 190) braucht eine zweite Reise, zu anderen Lehrern (unten)."
-	["Expert raises the cap from 150 to 225; it needs {skill:197} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:1346} ({zone:1453}); Horde {npc:4576} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3865} (from 140). 150-225 takes about 15s of recipes and 20g 86s of vendor goods, plus 264 {item:4306} and 915 {item:4338} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9998} (from 170), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 2. {item:10024} (from 200) takes a second trip, to other trainers (below)."] = "",
+	["Expert raises the cap from 150 to 225; it needs {skill:197} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:1346} ({zone:1453}); Horde {npc:4576} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3865} (from 140). 150-225 takes about 15s of recipes and 20g 86s of vendor goods, plus 264 {item:4306} and 915 {item:4338} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9998} (from 170), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 2. {item:10024} (from 200) takes a second trip, to other trainers (below)."] = "Die Expertenstufe erhöht das Limit von 150 auf 225; sie erfordert {skill:197} 125 und Charakterstufe 20, du kannst sie also bei jedem Besuch ab 125 nehmen. Nur wenige Lehrer bringen sie bei: Allianz {npc:1346} ({zone:1453}); Horde {npc:4576} ({zone:1458}). Der Pfeil wählt den nächsten deiner Fraktion. Lerne jetzt: {spell:3865} (ab 140). 150-225 kostet etwa 15s an Rezepten und 20g 86s an Händlerwaren, dazu 264 {item:4306} und 915 {item:4338} zum Sammeln oder Kaufen. Komm mit allem in deinen Taschen (die Schritte oben, den Rest aus dem Auktionshaus): Diese Lehrer bringen auch {item:9998} (ab 170) bei, und die Herstellung braucht keine Station, also stell sie gleich hier her und lerne jedes Rezept, sobald du seine Fertigkeit erreichst. Ein Besuch statt 2. {item:10024} (ab 200) erfordert eine zweite Reise zu anderen Lehrern (siehe unten).",
 
 	-- Step 21: Azure Silk Cloak to 170
 	-- {item:7053} Azure Silk Cloak
@@ -139,23 +137,21 @@ return {
 
 	-- Step 23: Black Mageweave Vest to 200
 	-- {item:9998} Black Mageweave Vest
-	["{item:9998} to 200"] = "",
+	["{item:9998} to 200"] = "{item:9998} bis 200",
 	-- {item:9998} Black Mageweave Vest · {spell:3865} Bolt of Mageweave · {item:4291} Silken Thread
-	-- was: ["{item:9998} is orange at 170 (yellow 185, green 200, grey 215): about 30 crafts to 197. Each takes 2 {spell:3865} and 3 {item:4291}. Make the 60 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "{item:9998} ist bei 170 orange (gelb 185, grün 200, grau 215): etwa 30 Herstellungen bis 197. Jede braucht 2 {spell:3865} und 3 {item:4291}. Stelle zuerst die 60 {spell:3865} her. Der Lehrer lehrt es, und es ist der günstigste Weg durch diese Punkte laut den Daten."
-	["{item:9998} is orange at 170 (yellow 185, green 200, grey 215): about 36 crafts to 200. Each takes 2 {spell:3865} and 3 {item:4291}. Make the 72 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "",
+	["{item:9998} is orange at 170 (yellow 185, green 200, grey 215): about 36 crafts to 200. Each takes 2 {spell:3865} and 3 {item:4291}. Make the 72 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "{item:9998} ist bei 170 orange (gelb 185, grün 200, grau 215): etwa 36 Herstellungen bis 200. Jede benötigt 2 {spell:3865} und 3 {item:4291}. Stell zuerst die 72 {spell:3865} her. Der Lehrer bringt es bei, und das ist der günstigste Weg durch diese Punkte in den Daten.",
 
 	-- Step 24: Tailoring recipes at 200
 	-- {skill:197} Tailoring
-	["{skill:197} recipes at 200"] = "",
+	["{skill:197} recipes at 200"] = "{skill:197}-Rezepte bei 200",
 	-- {spell:12072} Black Mageweave Headband · {npc:11052} Timothy Worthington · {zone:1445} Dustwallow Marsh · {npc:2399} Daryl Stack · {zone:1424} Hillsbrad Foothills · {skill:197} Tailoring
-	["{spell:12072} (from 200) is taught only by the Artisan trainers: Alliance {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424}). You can train Artisan there now if you are level 35 (it needs {skill:197} 200), which saves the trip at 225."] = "",
+	["{spell:12072} (from 200) is taught only by the Artisan trainers: Alliance {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424}). You can train Artisan there now if you are level 35 (it needs {skill:197} 200), which saves the trip at 225."] = "{spell:12072} (ab 200) wird nur von den Meister-Lehrern beigebracht: Allianz {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424}). Du kannst dort jetzt Meister werden, wenn du Stufe 35 hast (es erfordert {skill:197} 200), und sparst dir damit den Weg bei 225.",
 
 	-- Step 25: Black Mageweave Headband to 225
 	-- {item:10024} Black Mageweave Headband
 	["{item:10024} to 225"] = "{item:10024} bis 225",
 	-- {item:10024} Black Mageweave Headband · {spell:3865} Bolt of Mageweave · {item:8343} Heavy Silken Thread · {skill:197} Tailoring
-	-- was: ["{item:10024} is orange at 197 (yellow 205, green 220, grey 235): about 40 crafts to 225. Each takes 3 {spell:3865} and 2 {item:8343}. Make the 120 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data. {skill:197} 225 is a Legacy System milestone."] = "{item:10024} ist bei 197 orange (gelb 205, grün 220, grau 235): etwa 40 Herstellungen bis 225. Jede braucht 3 {spell:3865} und 2 {item:8343}. Stelle zuerst die 120 {spell:3865} her. Der Lehrer lehrt es, und es ist der günstigste Weg durch diese Punkte laut den Daten. {skill:197} 225 ist ein Meilenstein des Vermächtnissystems."
-	["{item:10024} is orange at 200 (yellow 205, green 220, grey 235): about 37 crafts to 225. Each takes 3 {spell:3865} and 2 {item:8343}. Make the 111 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data. {skill:197} 225 is a Legacy System milestone."] = "",
+	["{item:10024} is orange at 200 (yellow 205, green 220, grey 235): about 37 crafts to 225. Each takes 3 {spell:3865} and 2 {item:8343}. Make the 111 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data. {skill:197} 225 is a Legacy System milestone."] = "{item:10024} ist bei 200 orange (gelb 205, grün 220, grau 235): etwa 37 Herstellungen bis 225. Jede benötigt 3 {spell:3865} und 2 {item:8343}. Stell zuerst die 111 {spell:3865} her. Der Lehrer bringt es bei, und das ist der günstigste Weg durch diese Punkte in den Daten. {skill:197} 225 ist ein Meilenstein des Vermächtnissystems.",
 
 	-- Step 26: Artisan Tailoring
 	-- {skill:197} Tailoring
@@ -167,8 +163,7 @@ return {
 	-- {skill:197} Tailoring
 	["{skill:197} 225-300: vendor goods"] = "{skill:197} 225-300: Händlerware",
 	-- {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya
-	-- was: ["Buy the whole bracket's share in one go: 116 {item:14341} (58g); about 58g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Kauf den Bedarf des ganzen Abschnitts auf einmal: 116 {item:14341} (58g); insgesamt etwa 58g. Der Pfeil wählt den nächsten Verkäufer deiner Fraktion ({zone:1453}: {npc:1347}, {npc:1286} und {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} und {npc:5817})."
-	["Buy the whole bracket's share in one go: 116 {item:14341} (58g); about 58g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347} and {npc:5565}; {zone:1454}: {npc:3364} and Tamar)."] = "",
+	["Buy the whole bracket's share in one go: 116 {item:14341} (58g); about 58g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347} and {npc:5565}; {zone:1454}: {npc:3364} and Tamar)."] = "Kauf den Bedarf für den ganzen Bereich auf einmal: 116 {item:14341} (58g); insgesamt etwa 58g. Der Pfeil wählt den nächsten Händler deiner Fraktion ({zone:1453}: {npc:1347} und {npc:5565}; {zone:1454}: {npc:3364} und Tamar).",
 
 	-- Step 28: Pattern: Runecloth Gloves
 	-- {item:14481} Pattern: Runecloth Gloves · {item:13863} Runecloth Gloves · {skill:197} Tailoring · {npc:11189} Qia · {zone:1452} Winterspring
@@ -176,36 +171,33 @@ return {
 
 	-- Step 29: Get Rugged Leather (Alliance)
 	-- {item:8170} Rugged Leather
-	-- was: ["{item:8170} (Alliance)"] = "{item:8170} (Allianz)"
-	["Get {item:8170} (Alliance)"] = "",
+	["Get {item:8170} (Alliance)"] = "Sammle {item:8170} (Allianz)",
 	-- {item:8170} Rugged Leather · {skill:197} Tailoring · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders · {skill:393} Skinning · {npc:8598} Frenzied Plaguehound · {npc:8596} Plaguehound Runt
-	["You need 420 {item:8170} for {skill:197} 225-300: {item:13863} and {item:13867}. {skill:393}: beasts of level 48-60. Skin {npc:8598}, Plaguehound and {npc:8596} here (level 48-60); the {skill:393} guide routes this. Or buy them at the Auction House."] = "",
+	["You need 420 {item:8170} for {skill:197} 225-300: {item:13863} and {item:13867}. {skill:393}: beasts of level 48-60. Skin {npc:8598}, Plaguehound and {npc:8596} here (level 48-60); the {skill:393} guide routes this. Or buy them at the Auction House."] = "Du brauchst 420 {item:8170} für {skill:197} 225-300: {item:13863} und {item:13867}. {skill:393}: Tiere der Stufe 48-60. Häute hier {npc:8598}, Plaguehound und {npc:8596} ab (Stufe 48-60); der {skill:393}-Guide plant das ein. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 30: Get Rugged Leather (Horde)
 	-- {item:8170} Rugged Leather
-	-- was: ["{item:8170} (Horde)"] = "{item:8170} (Horde)"
-	["Get {item:8170} (Horde)"] = "",
+	["Get {item:8170} (Horde)"] = "Sammle {item:8170} (Horde)",
 	-- {item:8170} Rugged Leather · {skill:197} Tailoring · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders · {skill:393} Skinning · {npc:6369} Coralshell Tortoise · {npc:8760} Mosshoof Stag · {npc:6380} Thunderhead Consort · {npc:6379} Thunderhead Patriarch · {npc:6378} Thunderhead Skystormer · {npc:6377} Thunderhead Stagwing
-	-- was: ["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this."] = "420 {item:8170} für {item:13863} und {item:13867}: {skill:393}: Tiere der Stufen 48-60. Häute hier {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} und {npc:6377} (Stufe 48-60); der {skill:393}-Guide routet das."
-	["You need 420 {item:8170} for {skill:197} 225-300: {item:13863} and {item:13867}. {skill:393}: beasts of level 48-60. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this. Or buy them at the Auction House."] = "",
+	["You need 420 {item:8170} for {skill:197} 225-300: {item:13863} and {item:13867}. {skill:393}: beasts of level 48-60. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this. Or buy them at the Auction House."] = "Du brauchst 420 {item:8170} für {skill:197} 225-300: {item:13863} und {item:13867}. {skill:393}: Tiere der Stufe 48-60. Häute hier {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} und {npc:6377} ab (Stufe 48-60); der {skill:393}-Guide plant das ein. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 31: Get Runecloth
 	-- {item:14047} Runecloth
-	["Get {item:14047}"] = "",
+	["Get {item:14047}"] = "Sammle {item:14047}",
 	-- {item:14047} Runecloth · {skill:197} Tailoring · {item:13856} Runecloth Belt · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders
-	["You need 3195 {item:14047} for {skill:197} 225-300: {item:13856}, {item:13863} and {item:13867}. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 3195 {item:14047} for {skill:197} 225-300: {item:13856}, {item:13863} and {item:13867}. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 3195 {item:14047} für {skill:197} 225-300: {item:13856}, {item:13863} und {item:13867}. Humanoiden der Stufe 45-60 lassen es fallen, und was du beim Leveln einsammelst, zählt mit. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten {item:14047} pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 32: Get Ironweb Spider Silk
 	-- {item:14227} Ironweb Spider Silk
-	["Get {item:14227}"] = "",
+	["Get {item:14227}"] = "Sammle {item:14227}",
 	-- {item:14227} Ironweb Spider Silk · {skill:197} Tailoring · {item:13867} Runecloth Shoulders · {npc:1824} Plague Lurker · {npc:11739} Rock Stalker · {npc:5857} Searing Lava Spider
-	["You need 124 {item:14227} for {skill:197} 225-300: {item:13867}. {item:14227} drops most from {npc:1824}, {npc:11739} and {npc:5857}, among others. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14227} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 124 {item:14227} for {skill:197} 225-300: {item:13867}. {item:14227} drops most from {npc:1824}, {npc:11739} and {npc:5857}, among others. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14227} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "Du brauchst 124 {item:14227} für {skill:197} 225-300: {item:13867}. {item:14227} fällt am häufigsten von {npc:1824}, {npc:11739} und {npc:5857}, unter anderen. Der Pfeil führt dich zur besten Farm für deine Stufe: zuerst Gegner auf oder unter deiner Stufe, dann die meisten {item:14227} pro Minute und die nächsten; er wählt beim Leveln neu. Das Guide-Fenster zeigt die Kills und Minuten dort sowie eine zweite Wahl. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 33: Tailoring 225-300: Auction House
 	-- {skill:197} Tailoring
 	["{skill:197} 225-300: Auction House"] = "{skill:197} 225-300: Auktionshaus",
 	-- {item:14504} Pattern: Runecloth Shoulders
-	["What 225-300 takes that the Auction House sells and no step above farms: a {item:14504}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 225-300 takes that the Auction House sells and no step above farms: a {item:14504}. The counts drop by what your bags, bank and mail hold."] = "Was 225-300 anbelangt, was das Auktionshaus verkauft und kein obiger Schritt abbaut: ein {item:14504}. Die Zahlen sinken um das, was deine Taschen, deine Bank und deine Post bereits enthalten.",
 
 	-- Step 34: Runecloth Belt to 234
 	-- {item:13856} Runecloth Belt

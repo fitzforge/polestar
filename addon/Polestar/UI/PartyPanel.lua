@@ -146,11 +146,15 @@ end
 local function build()
 	if F then return end
 	F = dress(ns.Maps.CompactFrame("PolestarPartyPanel", "party.panelPos", "TOPLEFT", 280, -220))
+	-- The guide window's party line keeps only the wait while this shows
+	-- (GF.UpdateParty), so it hears of each change.
+	F:SetScript("OnShow", function() ns.Fire("PARTY_PANEL_TOGGLED") end)
 	F:SetScript("OnHide", function()
 		if ticker then
 			ticker:Cancel()
 			ticker = nil
 		end
+		ns.Fire("PARTY_PANEL_TOGGLED")
 	end)
 end
 

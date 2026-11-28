@@ -1,8 +1,9 @@
 //! Another race's starting zone on the character's side (Guides.OtherStart): a Night Elf may load the Human
 //! start. Polestar does not guide them there: while they are outside its zone and none of it is played, the guide
 //! window shows a notice instead of the steps and the arrow points nowhere; arriving lifts it. In the guide,
-//! steps for the guide's race only and quests the character can never take (the quest database) do not block,
-//! and the hand-off goes on to the shared route. The whole addon, the stub world, synthetic guides.
+//! steps for the guide's race only and quests the character can never take (the quest database), with the travel
+//! and item goals that only serve them, do not block, and the hand-off goes on to the shared route. The whole
+//! addon, the stub world, synthetic guides.
 
 use forge_addontest::{emitted, questdb::ADD_RECORDS_LUA, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::{json, Value};
@@ -142,4 +143,81 @@ fn a_human_warrior_in_their_own_start_still_gets_the_letter() {
 		emit(E.GetStepIndex())"#,
 	);
 	assert_eq!(out, json!(2));
+}
+
+// The Night Elf start's druid steps (Teldrassil's Body and Heart chain: the Moonkin Stone by Auberdine) for a
+// Skyborne druid, who follows another race's start zone too: 7010 is a Night Elf druids' quest by the quest
+// database (race mask 8, no Skyborne bit), 7011 one Skyborne Alliance druids take too (raceHigh 1). Layout of a
+// record: title, level, minLevel, races, classes, faction, then raceHigh as field 18.
+const DRUID_GUIDE: &str = r#"
+AddRecords("quests", {
+	[7001] = { "Kobold Camp Cleanup", 2, 1 },
+	[7010] = { "Body and Heart", 10, 10, 8, 1024, 1, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 0 },
+	[7011] = { "The Great Cat Spirit", 12, 10, 8, 1024, 1, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 1 },
+})
+Polestar.QuestDB.SetMeta({})
+Polestar.RegisterGuide({ id = "test/teldrassil", pack = "test", title = "Teldrassil", faction = "Alliance", races = { "NightElf" },
+	minLevel = 1, maxLevel = 13, category = "Leveling", zone = 1438, zoneName = "Teldrassil", steps = {
+	{ title = "Aldrassil", goals = { { t = "accept", quest = 7001, title = "Kobold Camp Cleanup", npc = 197, npcName = "Someone", map = 1438, x = 58, y = 40 } } },
+	{ title = "Back to Darnassus", only = { classes = { "DRUID" } }, goals = {
+		{ t = "accept", quest = 7010, title = "Body and Heart", npc = 4217, npcName = "Mathrengyl Bearwalker", map = 1438, x = 56, y = 40 } } },
+	{ title = "The Moonkin Stone", only = { classes = { "DRUID" } }, goals = {
+		{ t = "goto", text = "Auberdine", map = 1438, x = 40, y = 40 },
+		{ t = "use", item = 15208, itemName = "Cenarion Moondust", map = 1438, x = 43.5, y = 46 },
+		{ t = "complete", quest = 7010, title = "Body and Heart", startItem = 15208, startItemName = "Cenarion Moondust" } } },
+	{ title = "Body and Heart", only = { classes = { "DRUID" } }, goals = {
+		{ t = "goto", text = "Cenarion Enclave", map = 1438, x = 35.8, y = 11.6 },
+		{ t = "turnin", quest = 7010, title = "Body and Heart", npc = 4217, npcName = "Mathrengyl Bearwalker", map = 1438, x = 56, y = 40 } } },
+	{ title = "The Great Cat Spirit", only = { classes = { "DRUID" } }, goals = {
+		{ t = "goto", text = "Moonglade", map = 1438, x = 45, y = 45 },
+		{ t = "accept", quest = 7011, title = "The Great Cat Spirit", npc = 4217, npcName = "Mathrengyl Bearwalker", map = 1438, x = 56, y = 40 } } },
+	{ title = "Mathrengyl", only = { classes = { "DRUID" } }, goals = {
+		{ t = "turnin", quest = 7010, title = "Body and Heart", npc = 4217, npcName = "Mathrengyl Bearwalker", map = 1438, x = 56, y = 40 },
+		{ t = "vendor", npc = 911, npcName = "Vendor", map = 1438, x = 57, y = 41 } } },
+	{ title = "Back to Aldrassil", goals = { { t = "turnin", quest = 7001, title = "Kobold Camp Cleanup", npc = 197, npcName = "Someone", map = 1438, x = 58, y = 40 } } },
+} })
+"#;
+
+fn run_druid(race: &str, script: &str) -> Value {
+	let before = format!(r#"w.race, w.raceName, w.faction, w.class, w.className, w.level = "{race}", "{race}", "Alliance", "DRUID", "Druid", 10"#);
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}{before}"),
+		addons: vec!["Polestar".into()],
+		script: [TEST_PACK, TEST_SOURCE, ADD_RECORDS_LUA, DRUID_GUIDE, HELPERS, script].join("\n"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+const DRUID_PLAY: &str = r#"
+	E.SetGuide("test/teldrassil"); stub.advance(0.6)
+	w.accept(7001); stub.advance(0.6)
+	local status = function(s)
+		local out = {}
+		for gi, g in ipairs(E.GetStepView(s).goals) do out[gi] = g.t .. ":" .. g.status end
+		return out
+	end
+	emit({ step = E.GetStepIndex(), moonkin = status(3), turnin = status(4), cat = status(5), mathrengyl = status(6) })"#;
+
+#[test]
+fn a_skyborne_druid_in_the_night_elf_start_skips_the_body_and_heart_steps_travel_and_item_use_with_them() {
+	let out = run_druid("Skyborne", DRUID_PLAY);
+	// Body and Heart (7010) is a Night Elf druids' quest: its accept, its Moonkin Stone step (the walk to Auberdine,
+	// the Cenarion Moondust, the quest's own goal) and its hand-in step are none of the Skyborne's, so the guide
+	// goes on to the step they can do: the Great Cat Spirit, whose walk stays with its quest.
+	assert_eq!(out["step"], 5);
+	assert_eq!(out["moonkin"], json!(["goto:na", "use:na", "complete:na"]));
+	assert_eq!(out["turnin"], json!(["goto:na", "turnin:na"]));
+	assert_eq!(out["cat"], json!(["goto:active", "accept:active"]));
+	// A goal that stands alone (a vendor) stays beside a hand-in they cannot make.
+	assert_eq!(out["mathrengyl"], json!(["turnin:na", "vendor:pending"]));
+}
+
+#[test]
+fn a_night_elf_druid_in_their_own_start_keeps_every_step_of_the_chain() {
+	let out = run_druid("NightElf", DRUID_PLAY);
+	assert_eq!(out["step"], 2);
+	assert_eq!(out["moonkin"], json!(["goto:pending", "use:pending", "complete:pending"]));
+	assert_eq!(out["turnin"], json!(["goto:pending", "turnin:pending"]));
 }

@@ -263,9 +263,9 @@ return {
 	-- plural, as words: Hungry Bandits = {npc:252802} Hungry Bandit
 	["Stormapples and flutterfly dust lie all over the orchard; Hungry Bandits raid it. Galestriders graze in the fields east of it. The broken construct floats at the orchard's north edge."] = "Sturmäpfel und Flatterfliegenstaub liegen überall im Obstgarten; Hungrige Banditen plündern ihn. Windschreiter grasen auf den Feldern östlich davon. Das kaputte Konstrukt schwebt am Nordrand des Obstgartens.",
 	-- plural, as words: Ripe Stormapples = {item:253591} Ripe Stormapple
-	["Ripe Stormapples"] = "Ripe Stormapples",
+	["Ripe Stormapples"] = "Reife Sturmapfel",
 	-- plural, as words: Hungry Bandits = {npc:252802} Hungry Bandit
-	["Hungry Bandits"] = "Hungry Bandits",
+	["Hungry Bandits"] = "Hungriger Bandit",
 	-- {npc:268592} Olariaan Swiftburn
 	["{npc:268592}, at the Shrine of Flames just south-east of the orchard"] = "{npc:268592}, am Schrein der Flammen direkt südöstlich des Obstgartens",
 
@@ -486,8 +486,7 @@ return {
 
 	-- Step 108: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form · {zone:1413} Barrens
-	-- was: ["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033} bildet Druiden auf der {area:1639} aus. Er lehrt dich {spell:18960}; der Willkommensgruß von {npc:11802} wartet etwa mit 21 auf deine Reise für {spell:499} (forever/horde/02-the-barrens)."
-	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21, in the {zone:1413} guide."] = "",
+	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21, in the {zone:1413} guide."] = "{npc:3033} bildet Druiden auf {area:1639} aus. Er lehrt dich {spell:18960}; das Willkommensgeschenk von {npc:11802} wartet auf deine {spell:499}-Reise bei etwa Stufe 21 im {zone:1413}-Guide.",
 
 	-- Step 109: Hunter Rise
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
@@ -523,21 +522,21 @@ return {
 
 	-- Step 118: Rezlak
 	-- {npc:3293} Rezlak · {zone:1454} Orgrimmar · {area:370} Drygulch Ravine
-	["{npc:3293} camps beside the road north to {zone:1454}, below {area:370}. The stolen sacks lie along the road just east of him."] = "",
+	["{npc:3293} camps beside the road north to {zone:1454}, below {area:370}. The stolen sacks lie along the road just east of him."] = "{npc:3293} lagert an der Straße nach Norden zu {zone:1454}, unterhalb von {area:370}. Die gestohlenen Säcke liegen entlang der Straße direkt östlich von ihm.",
 
 	-- Step 119: Drygulch Ravine
 	-- {area:370} Drygulch Ravine · {npc:3293} Rezlak · {item:277661} Dull Storm Orb · {quest:97281} A Simmering Storm
-	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}, which starts {quest:97281}."] = "",
+	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}, which starts {quest:97281}."] = "Wildlinge und Sturmhexen nisten in {area:370}, östlich von {npc:3293}. Eine Sturmhexe lässt den {item:277661} fallen, der {quest:97281} startet.",
 
 	-- Step 120: Rezlak
 	-- {npc:3293} Rezlak
-	["Back to {npc:3293} by the road."] = "",
+	["Back to {npc:3293} by the road."] = "Zurück zu {npc:3293} am Weg.",
 
 	-- Step 121: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "Nach {zone:1454}",
 	-- {npc:3293} Rezlak · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["From {npc:3293}'s camp, go on to {zone:1454}'s main gate, a few hundred yards away. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "",
+	["From {npc:3293}'s camp, go on to {zone:1454}'s main gate, a few hundred yards away. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "Von {npc:3293}s Lager aus geh weiter zum Haupttor von {zone:1454}, ein paar hundert Yard entfernt. Der nächste Führer beginnt in {zone:1454}: Thrall nimmt {quest:95350} an, und der Zeppelin startet nach {zone:1420} und {zone:1421}.",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "{object:172982} von {zone:1454}",
 

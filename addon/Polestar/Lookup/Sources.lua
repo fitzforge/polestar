@@ -139,6 +139,22 @@ local function maskBlocks(mask, bits, key)
 	return not hasBit(mask, b)
 end
 
+-- Skyborne's bits in a race mask: 2^32 for the Alliance's High Order, 2^33
+-- for the Horde's Windshapers (Forever's own; no Era mask has them).
+local SKYBORNE_BIT = { Alliance = 2 ^ 32, Horde = 2 ^ 33 }
+
+-- Whether `mask` shuts Skyborne of `faction` out: it names races, not their
+-- bit, and is no whole side's mask (those are the faction's say, Lookup.QuestFor).
+-- Night Elf druids' Body and Heart (mask 8) is no quest for a Skyborne druid;
+-- Moonglade (2^32 alone) is not for a Windshaper.
+local function skyborneBlocks(mask, faction)
+	local sky = SKYBORNE_BIT[faction]
+	if type(mask) ~= "number" or mask <= 0 or not sky or hasBit(mask, sky) then return false end
+	if mask % 2 ^ 32 == 0 then return true end
+	local who = Lookup.QuestFor({ races = mask })
+	return who ~= nil and who.races ~= nil
+end
+
 -- Who a quest is for, by its masks -> { classes = { file, ... } | nil,
 -- races = { file, ... } | nil } | nil (anyone of its side).
 -- classes: the classes its class mask names, nil when it names all or none.
@@ -463,7 +479,9 @@ end
 local function questBlock(q, p)
 	local side = questSide(q)
 	if side and not sideOK(side, p) then return "faction", sideText(side) end
-	if maskBlocks(q.races, RACE_BIT, p.race) then return "race", Lookup.QuestForText(q) or L["Not for your race"] end
+	if maskBlocks(q.races, RACE_BIT, p.race) or (p.race == "Skyborne" and skyborneBlocks(q.races, p.faction)) then
+		return "race", Lookup.QuestForText(q) or L["Not for your race"]
+	end
 	if maskBlocks(q.classes, CLASS_BIT, p.class) then return "class", Lookup.QuestForText(q) or L["Not for your class"] end
 	local line, need = missingProfession(q)
 	if line then
@@ -669,10 +687,29 @@ builders.craft = function(src, p, from, direct)
 			end
 		end
 		if best then
-			place(r, best, bestT)
+			-- This trainer proves the rank, not the recipe. No trip when the rank is held.
+			if not maxRank or (src.skill or 1) > maxRank then place(r, best, bestT) end
 			r.trainer = bestNpc.id
 			r.trainerAt = best
 			r.detail = detail(L["Crafted"], r.zone)
+		end
+	end
+	local needsRecipe = src.spell and not ns.Compat.IsSpellKnown(src.spell)
+	local teacherTravel
+	if needsRecipe and C.RecipeTrainers then
+		local prof = line and C.Profession and C.Profession(line)
+		local gates = prof and prof.trainerSkill or {}
+		local best, bestT, bestNpc
+		for _, id in ipairs(C.RecipeTrainers(src.spell) or {}) do
+			local npc, s, t = npcSpawn(id, from, direct)
+			if npc and s and sideOK(npc.faction, p) and (gates[id] or 0) <= math.max(rank or 0, src.skill or 1)
+				and (not best or (t and (not bestT or t < bestT))) then
+				best, bestT, bestNpc = s, t, npc
+			end
+		end
+		if best then
+			teacherTravel = bestT
+			r.recipeTrainer, r.recipeTrainerAt = bestNpc.id, best
 		end
 	end
 	-- A craft taught by a recipe item, not yet known (#2505: Recipe: Hot Wolf Ribs is
@@ -680,7 +717,7 @@ builders.craft = function(src, p, from, direct)
 	-- recipe's own best source (Lookup.Sources of each recipe item that teaches
 	-- it), and its effort counts that source's; a recipe in the bags is only used.
 	-- The trainer stays for the rank.
-	if src.spell and not ns.Compat.IsSpellKnown(src.spell) and C.RecipeItems then
+	if needsRecipe and C.RecipeItems then
 		local recipes = C.RecipeItems(src.spell) or {}
 		local bestRow, bestId
 		for _, id in ipairs(recipes) do
@@ -688,7 +725,7 @@ builders.craft = function(src, p, from, direct)
 				bestRow, bestId = nil, id
 				break
 			end
-			local row = Lookup.BestSource((Lookup.Sources("recipe", id, direct)))
+			local row = not r.recipeTrainer and Lookup.BestSource((Lookup.Sources("recipe", id, direct)))
 			if row and (not bestRow or (row.available and not bestRow.available)
 				or (row.available == bestRow.available and (row.cost or 0) < (bestRow.cost or 0))) then
 				bestRow, bestId = row, id
@@ -700,6 +737,10 @@ builders.craft = function(src, p, from, direct)
 			r.effort = r.effort + (bestRow.effort or 0)
 			r.detail = detail(L["Crafted"], r.zone)
 		end
+	end
+	if r.recipeTrainerAt and not r.recipe and not r.map then
+		place(r, r.recipeTrainerAt, teacherTravel)
+		r.detail = detail(L["Crafted"], r.zone)
 	end
 	r.guideable = line ~= nil and src.spell ~= nil
 	return r

@@ -61,7 +61,7 @@ return {
 	["Pirate ghosts and Zanzil's camps"] = "Piratengeister und Zanzils Lager",
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2537} Chucky "Ten Thumbs" · {npc:2534} Zanzil the Outcast
 	-- plural, as words: Zanzil Witch Doctors = {npc:1490} Zanzil Witch Doctor
-	["On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. {npc:2535} and Jon-Jon stand together, {npc:2537} further east. Every one of Zanzil's followers can carry the mixture.\nCareful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. {npc:2534} (46) himself stands in the southern camp around 39.6,58.6, a few steps from {npc:2537}'s ghost: pull {npc:2537} out to the north or east before you fight him."] = "Weiter nach Südwesten zum Dschungel nordöstlich vom Nebeltal: Dort spielen die drei Geisterpiraten neben Zanzils Lagern ihr Unwesen. {npc:2535} und Jon-Jon stehen zusammen, {npc:2537} weiter östlich. Jeder Anhänger Zanzils kann die Mixtur bei sich tragen.\nVorsicht: Die Hexendoktoren Zanzils (44) wirken Zauber, und die Lager sind voll: Zieh von der Kante aus, einzeln. {npc:2534} (46) selbst steht im südlichen Lager um 39.6,58.6, wenige Schritte vom Geist von {npc:2537}: Zieh {npc:2537} vor dem Kampf nach Norden oder Osten hinaus.",
+	["On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. {npc:2535} and Jon-Jon stand together, {npc:2537} further east. Every one of Zanzil's followers can carry the mixture.\nCareful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. {npc:2534} (46) himself stands in the southern camp around 39.6,58.6, a few steps from {npc:2537}'s ghost: pull {npc:2537} out to the north or east before you fight him."] = "Weiter nach Südwesten zum Dschungel nordöstlich vom Nebeltal: Dort spielen die drei Geisterpiraten neben Zanzils Lagern ihr Unwesen. {npc:2535} und Jon-Jon stehen zusammen, {npc:2537} weiter östlich. Jeder Anhänger Zanzils kann die Mixtur bei sich tragen.\nVorsicht: Die Hexendoktoren von Zanzil (44) wirken Zauber, und die Lager sind voll: Zieh von der Kante aus, einzeln. {npc:2534} (46) selbst steht im südlichen Lager um 39.6,58.6, wenige Schritte vom Geist von {npc:2537}: Zieh {npc:2537} vor dem Kampf nach Norden oder Osten hinaus.",
 
 	-- Step 10: Witch Doctor Unbagwa
 	-- {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
@@ -71,7 +71,7 @@ return {
 	-- {area:1577} The Cape of Stranglethorn
 	["{area:1577}: kill these as you meet them"] = "{area:1577}: töte diese, wenn du sie triffst",
 	-- {object:759} Holy Spring · {area:43} Wild Shore · {area:35} Booty Bay
-	["West to the coast: the naga explorers wade along the shore and carry the reed bundles; the {object:759} bubbles in the hills just east of them.\nFollow the coast south. If you still need the {area:43} pirates, take the road past the {area:35} tunnel to the beach before going into town."] = "Westwärts zur Küste: Die Naga-Entdecker waten am Ufer entlang und tragen die Röhrenbündel; der {object:759} sprudelt in den Hügeln knapp östlich von ihnen.\nFolge der Küste nach Süden. Wenn du die Piraten von {area:43} noch brauchst, nimm die Straße am Tunnel von {area:35} vorbei zum Strand, bevor du in die Stadt gehst.",
+	["West to the coast: the naga explorers wade along the shore and carry the reed bundles; the {object:759} bubbles in the hills just east of them.\nFollow the coast south. If you still need the {area:43} pirates, take the road past the {area:35} tunnel to the beach before going into town."] = "Westwärts zur Küste: Die Forscher der Naga waten am Ufer entlang und tragen die Röhrenbündel; der {object:759} sprudelt in den Hügeln knapp östlich von ihnen.\nFolge der Küste nach Süden. Wenn du die Piraten von {area:43} noch brauchst, nimm die Straße am Tunnel von {area:35} vorbei zum Strand, bevor du in die Stadt gehst.",
 
 	-- Step 12: The Wild Shore
 	-- {area:43} Wild Shore
@@ -183,7 +183,7 @@ return {
 	["{area:2403}: kill these as you meet them"] = "{area:2403}: töte diese, wenn du sie triffst",
 	-- {npc:272377} Methuselah Crab
 	-- plural, as words: Monstrous Crawlers = {npc:1088} Monstrous Crawler
-	["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "Die Snapper säumen den Strand südlich des Postens.\nDie Monstrous Crawlers laufen an den Stränden der Ostküste, nur vereinzelt: Töte jeden, den du siehst, auch die auf dem Ritt hinab vom Teich.\nVorsicht: Am südöstlichen Strand läuft {npc:272377} (Stufe 60) umher: Mach einen weiten Bogen darum.",
+	["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "Die Snapper säumen den Strand südlich des Postens.\nDie Monströse Kriecher laufen an den Stränden der Ostküste, nur vereinzelt: Töte jeden, den du siehst, auch die auf dem Ritt hinab vom Teich.\nVorsicht: Am südöstlichen Strand läuft {npc:272377} (Stufe 60) umher: Mach einen weiten Bogen darum.",
 	["Underwater"] = "Unter Wasser",
 
 	-- Step 44: Murlocs of the Misty Reed
@@ -208,7 +208,7 @@ return {
 	-- {npc:2934} Keeper Bel'dugur
 	["{npc:2934}, on the way back to Zinge"] = "{npc:2934}, auf dem Rückweg zu Zinge",
 	-- {item:8523} Field Testing Kit · {area:976} Gadgetzan
-	["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "{item:8523} von diesen Aufträgen: behalte es, Tanaris Field Sampling gibt es in {area:976} zurück",
+	["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "{item:8523} von diesen Aufträgen: behalte es, Tanaris-Feldproben geben es in {area:976} zurück",
 
 	-- Step 51: Undercity
 	-- {npc:7825} Oran Snakewrithe · {object:36126} Royal Quarter
@@ -326,7 +326,7 @@ return {
 	["{area:1937}: kill these as you meet them"] = "{area:1937}: Töte diese, sobald sie dir begegnen",
 	-- {area:976} Gadgetzan
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
-	["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five, and Bilgewhizzle five more.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "Die Banditen und Diebe lagern in den Dünen östlich von {area:976}. Jeder Wastewander kann einen Wasserbeutel tragen: Luglunket will fünf, und Bilgewhizzle noch einmal fünf.\nVorsicht: Wastewander Rogues (Stufe 43-44) bewegen sich getarnt, sodass sie sich unbemerkt nähern können.",
+	["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five, and Bilgewhizzle five more.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "Die Banditen und Diebe lagern in den Dünen östlich von {area:976}. Jeder Wastewander kann einen Wasserbeutel tragen: Luglunket will fünf, und Bilgewhizzle noch einmal fünf.\nVorsicht: Schurken der Wüstenläufer (Stufe 43-44) bewegen sich getarnt, sodass sie sich unbemerkt nähern können.",
 
 	-- Step 82: Gadgetzan
 	-- {zone:1446} Tanaris
@@ -357,7 +357,7 @@ return {
 	["{area:985}: kill these as you meet them"] = "{area:985}: töte diese, wenn du sie triffst",
 	-- {area:976} Gadgetzan · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
-	["The shadow mages, rogues and assassins camp south-east of {area:976}.\nSouth-east of Gadgetzan the Wastewander bandits camp in the dunes; {npc:7847} stands in the eastern camp.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "Die Schattenmagier, Schurken und Assassinen lagern südöstlich von {area:976}.\nSüdöstlich von Gadgetzan lagern die Banditen der Wastewander in den Dünen; {npc:7847} steht im östlichen Lager.\nVorsicht: Wastewander Rogues bleiben außerhalb des Kampfes in Verstohlenheit, sodass versteckte Schurken in einen Kampf eingreifen können, den du an einem Lager beginnst.\nVorsicht: Zwei getarnte Wastewander Rogues begleiten ihn, wohin er auch geht. An seinem Spawn-Lager sind zwei Schattenmagier und ihre Diener nah genug, um in den Kampf mit ihm einzugreifen. Draußen bei den Türmen kannst du ihn ohne sie bekämpfen.",
+	["The shadow mages, rogues and assassins camp south-east of {area:976}.\nSouth-east of Gadgetzan the Wastewander bandits camp in the dunes; {npc:7847} stands in the eastern camp.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "Die Schattenmagier, Schurken und Assassinen lagern südöstlich von {area:976}.\nSüdöstlich von Gadgetzan lagern die Banditen der Wastewander in den Dünen; {npc:7847} steht im östlichen Lager.\nVorsicht: Schurken der Wüstenläufer bleiben außerhalb des Kampfes in Verstohlenheit, sodass versteckte Schurken in einen Kampf eingreifen können, den du an einem Lager beginnst.\nVorsicht: Zwei getarnte Schurken der Wüstenläufer begleiten ihn, wohin er auch geht. An seinem Spawn-Lager sind zwei Schattenmagier und ihre Diener nah genug, um in den Kampf mit ihm einzugreifen. Draußen bei den Türmen kannst du ihn ohne sie bekämpfen.",
 
 	-- Step 86: Steamwheedle Port
 	-- {npc:7881} Stoley · {npc:15165} Haughty Modiste · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
@@ -396,7 +396,7 @@ return {
 	-- Step 94: Feralas: kill these as you meet them
 	-- {zone:1444} Feralas
 	["{zone:1444}: kill these as you meet them"] = "{zone:1444}: töte diese, wenn du sie triffst",
-	["The sprite darters flit over the grove just west of Mojache; nearly every one drops a wing. The Woodpaw alphas lead the camps south-west of it: kill them within the hour.\nCareful: Most Alphas sit in small tent camps with 2-4 other gnolls that join the fight, and other gnolls patrol between the camps."] = "Die Sprite Darters schwirren über den Hain direkt westlich von Mojache; fast jeder lässt einen Flügel fallen. Die Woodpaw Alphas führen die Lager südwestlich davon an: Töte sie innerhalb einer Stunde.\nVorsicht: Die meisten Alphas sitzen in kleinen Zeltlagern mit 2-4 anderen Gnollen, die in den Kampf eingreifen, und zwischen den Lagern patrouillieren weitere Gnolle.",
+	["The sprite darters flit over the grove just west of Mojache; nearly every one drops a wing. The Woodpaw alphas lead the camps south-west of it: kill them within the hour.\nCareful: Most Alphas sit in small tent camps with 2-4 other gnolls that join the fight, and other gnolls patrol between the camps."] = "Die Grimmlingflitzer schwirren über den Hain direkt westlich von Mojache; fast jeder lässt einen Flügel fallen. Die Alphas der Waldpfoten führen die Lager südwestlich davon an: Töte sie innerhalb einer Stunde.\nVorsicht: Die meisten Alphas sitzen in kleinen Zeltlagern mit 2-4 anderen Gnollen, die in den Kampf eingreifen, und zwischen den Lagern patrouillieren weitere Gnolle.",
 
 	-- Step 96: Grimtotem camp
 	["Grimtotem camp"] = "Lager der Grimmtotem",
@@ -408,6 +408,8 @@ return {
 	["The battle map lies in the Woodpaw camp south of Mojache."] = "Der Schlachtplan liegt im Lager der Waldpfoten südlich von Mojache.",
 
 	-- Step 98: Camp Mojache
+	-- {npc:7875} Hadoken Swiftstrider · {quest:7731} Stinglasher · {zone:1445} Dustwallow Marsh
+	["Carrying Tabetha's Task? {npc:7875} doesn't offer {quest:7731} while it is in your quest log: hand it in to Tabetha in {zone:1445} or abandon it first."] = "",
 	-- {zone:1454} Orgrimmar
 	["for {zone:1454}, around level 47"] = "für {zone:1454}, etwa ab Stufe 47",
 
@@ -441,7 +443,7 @@ return {
 
 	-- Step 104: Camp Mojache
 	-- {zone:1444} Feralas
-	["the Rage Scar yetis, on the next visit to {zone:1444}"] = "die Rage Scar Yetis, beim nächsten Besuch in {zone:1444}",
+	["the Rage Scar yetis, on the next visit to {zone:1444}"] = "die Wutschrammyetis, beim nächsten Besuch in {zone:1444}",
 	-- {npc:7875} Hadoken Swiftstrider · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["{npc:7875}: for {npc:7010} in {zone:1454}"] = "{npc:7875}: für {npc:7010} in {zone:1454}",
 	-- {zone:1454} Orgrimmar · {zone:2652} Shen'dralas

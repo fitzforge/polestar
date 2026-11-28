@@ -414,6 +414,8 @@ return {
 	["The battle map lies in the Woodpaw camp south of Mojache."] = "Le Plan de bataille des Griffebois se trouve dans le camp Griffebois au sud de Mojache.",
 
 	-- Step 98: Camp Mojache
+	-- {npc:7875} Hadoken Swiftstrider · {quest:7731} Stinglasher · {zone:1445} Dustwallow Marsh
+	["Carrying Tabetha's Task? {npc:7875} doesn't offer {quest:7731} while it is in your quest log: hand it in to Tabetha in {zone:1445} or abandon it first."] = "",
 	-- {zone:1454} Orgrimmar
 	["for {zone:1454}, around level 47"] = "",
 

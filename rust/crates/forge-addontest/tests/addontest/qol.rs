@@ -414,6 +414,23 @@ fn target_button_kill_targets_and_questdb_droppers_preferred_name_first_each_cli
 }
 
 #[test]
+fn target_button_leaves_quest_log_events_out_of_its_mob_targets() {
+	let out = run(r#"
+		set("targetSimple", true)
+		local B, button = Polestar.QoL.Buttons, PolestarTargetButton
+		local event = { t = "kill", quest = 7081, oi = 1, logLine = true, target = "Graveyard Assaulted" }
+		q.step({ event })
+		emit({ #B.TargetNames(), button:IsShown() })
+		q.step({ event, { t = "kill", target = "Kobold Vermin" }, { t = "kill", npc = 40, target = "Kobold Miner" } })
+		emit(table.concat(B.TargetNames(), "|"))
+		emit(button:GetAttribute("macrotext") or "")
+	"#);
+	assert_eq!(out[0], json!([0, false]));
+	assert_eq!(out[1], "Kobold Vermin|Kobold Miner");
+	assert!(!text(&out[2]).contains("Graveyard Assaulted"));
+}
+
+#[test]
 fn target_button_a_collect_names_the_mobs_the_arrow_leads_to_first_356_then_the_item_s_droppers() {
 	let out = run(r#"
 		set("targetSimple", true) -- the name beside the single button

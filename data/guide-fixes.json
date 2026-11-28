@@ -1,6 +1,36 @@
 {
-	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
+	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote. A sethome anchor names an inn (at: { goal: \"sethome\", sethome, guide? }) and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
+		{
+			"id": "booty-bay-innkeeper-floor",
+			"at": {
+				"goal": "sethome",
+				"sethome": "Booty Bay"
+			},
+			"goalNote": "Innkeeper Skindle, at the bar on the Salty Sailor's main floor, one floor below Krazek and Kebok",
+			"note": "Both Alliance Stranglethorn hearthstone binds say upstairs, and the floor-note pass would add it again to a note without a floor word. Skindle stands on the lower floor beside Crank Fizzlebub, below Krazek and Kebok.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "forever-db/data/spawn.jsonl: Skindle (6807) and Crank Fizzlebub (2498) are at z 15.2; Krazek (773) and Kebok (737) are at z 26.4"
+				}
+			]
+		},
+		{
+			"id": "booty-bay-nixxrax-floor",
+			"at": {
+				"quest": 98463,
+				"goal": "turnin"
+			},
+			"goalNote": "Nixxrax Fillamug, at the bar on the Salty Sailor's main floor, one floor below Krazek and Kebok",
+			"note": "Talk of the Town is handed in on the Salty Sailor Tavern's lower floor, beside Skindle, not upstairs.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "forever-db/data/spawn.jsonl: Nixxrax Fillamug (2832) shares the inn's lower floor with Skindle (6807); Krazek (773) and Kebok (737) are at z 26.4"
+				}
+			]
+		},
 		{
 			"id": "audit-91568-treasure-trowel",
 			"faction": "Horde",
@@ -14754,7 +14784,7 @@
 				"quest": 575,
 				"goal": "accept"
 			},
-			"tip": "Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop.",
+			"tip": "Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of this loop, and again at the end of the second loop, after Desolace.",
 			"note": "#2419 (Onrevax): 30-40/04-stranglethorn-vale walked the length of the jungle from Nesingwary's camp to Booty Bay for its flight point and quests, flew to Sentinel Hill and walked back in to work them in the north. Since 0.4.1 the guide starts at Booty Bay: 30-40/03-ashenvale ends in Theramore, so it goes on to Ratchet (flight point) and its boat, takes Booty Bay's quests and the inn bind first, walks north once, and the hearthstone brings the player back at the end of the loop (route-fixes deliberate.pairs). Level model (rested, 28 Alliance branches): 15 minutes less in this guide, 13 minutes less to 60, no level and no over-level spot moved.",
 			"source": [
 				{
@@ -14767,6 +14797,25 @@
 				}
 			],
 			"issue": 2419
+		},
+		{
+			"id": "4479-stranglethorn-04b-hearth-back",
+			"faction": "Alliance",
+			"at": {
+				"quest": 577,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/30-40/04b-stranglethorn-vale"
+			},
+			"tip": "Then hearth back to Booty Bay: the hearthstone is still bound there from the first loop.",
+			"note": "#4479: the second Stranglethorn loop ends with the walk from the north of the jungle down to Booty Bay (about 8 minutes on foot on the walking grid from the Snapjaw Crocolisks). 30-40/02-desolace no longer binds at Nijel's Point, so the Booty Bay bind of the first loop (30-40/04) still stands and the addon's planner takes the Hearthstone there; the step says so.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings, 0.4.x: on 30-40/04b, 10 people walked from the north of the jungle to Booty Bay, 9 of them bound at Nijel's Point with the Hearthstone ready; 2 hearthed"
+				}
+			],
+			"pr": 4479
 		},
 		{
 			"id": "dun-morogh-gnomeregan-road-careful",
@@ -19029,6 +19078,53 @@
 				{ "kind": "in-game-check", "ref": "#4231 (Pokey): the jars in the bags are used on the ooze's corpse to fill them" }
 			],
 			"issue": 4231
+		},
+		{
+			"id": "4343-a-little-luck-optional",
+			"faction": "Horde",
+			"at": { "quest": 6606, "goal": "accept", "guide": "forever/horde/50-60/07-felwood" },
+			"optional": true,
+			"note": "#4343: A Little Luck (6606, Harlo Wigglesworth in Everlook) only sends the player to Witch Doctor Mau'ari, who gives Luck Be With You (969) without it. A player who took 969 straight from Mau'ari was held at Harlo's accept with no way on. The lead-in is optional: the step is done once 969 is taken.",
+			"source": [
+				{ "kind": "recording", "ref": "players' recordings: Luck Be With You (969) accepted at Witch Doctor Mau'ari (10307) by 15 people, A Little Luck (6606) by none (0 runs)" },
+				{ "kind": "in-game-check", "ref": "#4343 (Sekyno, 0.4.3.1): a level 59 Horde warrior with Luck Be With You taken was stuck on Harlo's accept, which could not be ticked off" }
+			],
+			"issue": 4343
+		},
+		{
+			"id": "4343-a-little-luck-turnin-optional",
+			"faction": "Horde",
+			"at": { "quest": 6606, "goal": "turnin", "guide": "forever/horde/50-60/07-felwood" },
+			"optional": true,
+			"note": "#4343: the hand-in of the optional lead-in A Little Luck (6606) at Witch Doctor Mau'ari goes with its accept (4343-a-little-luck-optional).",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#4343 (Sekyno, 0.4.3.1)" }
+			],
+			"issue": 4343
+		},
+		{
+			"id": "4430-parts-of-the-swarm-carapace-gate",
+			"faction": "Horde",
+			"at": { "quest": 1148, "goal": "accept", "guide": "forever/horde/30-40/02-thousand-needles" },
+			"when": "onquest 1147",
+			"note": "#4430: the Cracked Silithid Carapace that starts Parts of the Swarm (1148) drops only for a player on The Swarm Grows (1147). The dig site's step (1147's kills, the carapace and 1148's accept) showed to a player without 1147, who killed silithid for a carapace that never dropped. It shows only with 1147 in the log.",
+			"source": [
+				{ "kind": "recording", "ref": "players' recordings to 2026-11-27: 96 accepts of Parts of the Swarm (1148), every one by a character with The Swarm Grows (1147) in the log or ticking its kills before" },
+				{ "kind": "in-game-check", "ref": "#4430 (Oscure3, 0.4.3.1): no carapace without The Swarm Grows chain up to its kill part" }
+			],
+			"issue": 4430
+		},
+		{
+			"id": "4487-stinglasher-tabethas-task-tip",
+			"faction": "Horde",
+			"at": { "quest": 7731, "goal": "accept", "guide": "forever/horde/40-50/02-feralas" },
+			"tip": "Carrying Tabetha's Task? Hadoken doesn't offer Stinglasher while it is in your quest log: hand it in to Tabetha in Dustwallow Marsh or abandon it first.",
+			"note": "#4435, #4487, #4491: Hadoken Swiftstrider refuses Stinglasher (7731) while Tabetha's Task (2861) is in the quest log, in the same window that offers Zukk'ash Infestation (7730), which has the same prerequisite; once Tabetha's Task is handed in or abandoned he offers it. Tabetha's Task comes from Lookup's Zul'Farrak pick-up guide or the mage guide, never from this route, so the step says what to do.",
+			"source": [
+				{ "kind": "recording", "ref": "rec.py offers 7875 (2026-11-27): of the 34 people Hadoken offered Zukk'ash Infestation (7730), the 31 without Tabetha's Task (2861) in the log were offered Stinglasher in the same window and the 3 with it were not. rec.py quest 2861 / 7731: one of the three abandoned 2861 and took 7731 at the same level, the two others handed 2861 in to Tabetha and then took 7731" },
+				{ "kind": "in-game-check", "ref": "#4435 (foggel, 0.4.3.1): handing in Tabetha's Task in Dustwallow Marsh made Hadoken offer Stinglasher; #4487 (Akuma) and #4491 (ArcticWildWolf): the accept was not offered" }
+			],
+			"issue": 4487
 		}
 	]
 }

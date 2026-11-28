@@ -127,7 +127,33 @@ end
 -- A row: the quest's tooltip (UI.QuestTip), its lines under it (psTip, else
 -- its second line; whole where the row cuts it short).
 local function rowEnter(self)
-	if self.psQuest then UI.QuestTip(self, self.psQuest, "ANCHOR_RIGHT", self.psTip or { self.Why:GetText() }, self.Title:GetText()) end
+	if not self.psQuest then return end
+	local lines = self.psTip or { self.Why:GetText() }
+	-- A dungeon's quest, or one of the nearest prerequisites before one (Dungeons/Mark.lua).
+	local D = ns.Dungeons
+	local dungeon = D and D.MarkTooltip and D.MarkTooltip(self.psQuest)
+	if dungeon then
+		local all = {}
+		for i, l in ipairs(lines) do all[i] = l end
+		all[#all + 1] = { dungeon, Theme.Accent() }
+		lines = all
+	end
+	UI.QuestTip(self, self.psQuest, "ANCHOR_RIGHT", lines, self.Title:GetText())
+end
+
+-- The row's dungeon button: shown for a dungeon's quest or one needed before
+-- one (Dungeons.QuestMark), it opens that dungeon's page. -> its width and gap, or 0
+local function dungeonButton(r, quest, right)
+	local D = ns.Dungeons
+	local m = D and D.QuestMark and D.QuestMark(quest)
+	local b = r.Dungeon
+	b:ClearAllPoints()
+	if not m then b:Hide(); return 0 end
+	b.psKey = m.key
+	b.psTip, b.psTipLines = D.MarkTooltip(quest), { L["Click to open its dungeon page."] }
+	if right then b:SetPoint("RIGHT", right, "LEFT", -6, 0) else b:SetPoint("RIGHT", r, "RIGHT", 0, 0) end
+	b:Show()
+	return b:GetWidth() + 6
 end
 
 -- A Make room or Not part of your route row: its plain-word worth
@@ -162,6 +188,13 @@ local function row(i)
 		if not ns.Compat.AskAbandonQuest(self.psQuest) then ns.Print(L["Abandon it from your quest log."]) end
 	end, { ghost = true, danger = true, height = 24 })
 	r.Abandon:SetPoint("RIGHT", r, "RIGHT", 0, 0)
+	r.Dungeon = W.IconButton(r, "icon-dungeon", 24, nil, function(self)
+		if self.psKey and ns.Dungeons and ns.Dungeons.Open then ns.Dungeons.Open(self.psKey) end
+	end, 16)
+	-- In the dungeon colour (the mark's), back to it after a hover.
+	W.Color(r.Dungeon.Icon, "dungeon")
+	r.Dungeon.psOnLeave = function(self) W.Color(self.Icon, "dungeon") end
+	r.Dungeon:Hide()
 	F.rows[i] = r
 	return r
 end
@@ -281,6 +314,7 @@ function UI.LayoutQuestRoom()
 		end
 		-- Both lines to the Abandon button, or the row's end without it: cut short past it (the tooltip has them whole).
 		local textW = rowW - (r.Abandon:IsShown() and (r.Abandon:GetWidth() + 8) or 0)
+		textW = textW - dungeonButton(r, u.quest, r.Abandon:IsShown() and r.Abandon or nil)
 		r.Title:SetWidth(textW)
 		r.Why:SetWidth(textW)
 		r.Abandon.psQuest, r.psQuest = u.quest, u.quest

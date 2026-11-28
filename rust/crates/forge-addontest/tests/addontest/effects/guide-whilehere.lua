@@ -84,5 +84,25 @@ return {
 			at(47.6, 70.0)
 			return macro:find("Kobold Vermin", 1, true) ~= nil
 		end,
+		-- A dungeon quest the character can take now (Dungeons.TakeNow, given for the check), its giver 20 yd off on
+		-- the road: its pick-up line in the panel, or nothing.
+		["behavior.whileHereDungeons"] = {
+			prepare = function()
+				local D = Polestar.Dungeons
+				D.psIsEnabled, D.psTakeNow = D.IsEnabled, D.TakeNow
+				D.IsEnabled = function() return true end
+				D.TakeNow = function()
+					return { { quest = 970, title = "Into the Hall", key = "hall", name = "The Hall", minLevel = 28, maxLevel = 36,
+						giver = { kind = "npc", id = 240, name = "Marshal Dughan", map = 1429, x = 47.6, y = 69.0 } } }
+				end
+				-- The engine reads the list again on a quest log change.
+				stub.fire("QUEST_LOG_UPDATE")
+				stub.advance(0.6)
+			end,
+			probe = function() return panel(47.6, 69.0) end,
+			cleanup = function()
+				local D = Polestar.Dungeons
+				D.IsEnabled, D.TakeNow, D.psIsEnabled, D.psTakeNow = D.psIsEnabled, D.psTakeNow, nil, nil
+			end },
 	},
 }

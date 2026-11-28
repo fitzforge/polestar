@@ -86,9 +86,9 @@ function trackedFiles() {
 // above) -> "path:line: rule".
 function treeHits(files) {
 	const out = [];
-	const set = { hashed: RULES.hashed.filter((g) => g.id !== 'product-name'), rules: RULES.rules };
+	const set = { hashed: RULES.hashed.filter((g) => g.id !== 'product-name'), rules: RULES.rules, allow: RULES.allow };
 	for (const { file, text } of files) {
-		for (const h of hits(text, set, ['tree'])) out.push(`${rel(file)}:${lineAt(text, h.index)}: ${h.rule}`);
+		for (const h of hits(text, set, ['tree'], rel(file))) out.push(`${rel(file)}:${lineAt(text, h.index)}: ${h.rule}`);
 	}
 	return out;
 }

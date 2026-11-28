@@ -21,7 +21,7 @@ return {
 
 	-- Step 3: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
-	["{npc:5901} camps on the shore just south of {area:392}, at the water's edge."] = "",
+	["{npc:5901} camps on the shore just south of {area:392}, at the water's edge."] = "{npc:5901} lagert am Ufer direkt südlich von {area:392}, am Wasser.",
 	-- {area:2479} Emerald Sanctuary · {zone:1448} Felwood
 	["Cleansed Water goes to the {area:2479} in {zone:1448}: keep it for later."] = "Das gereinigte Wasser geht zum {area:2479} im {zone:1448}: Behalte es für später.",
 
@@ -33,11 +33,11 @@ return {
 
 	-- Step 5: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172959} The Drag
-	["{npc:8659}, upstairs in {object:172959}"] = "",
+	["{npc:8659}, upstairs in {object:172959}"] = "{npc:8659}, oben in {object:172959}",
 
 	-- Step 6: Orgrimmar
 	-- {npc:15188} Cenarion Emissary Blackhoof · {object:172982} Valley of Strength · {zone:1451} Silithus
-	["{npc:15188}, {object:172982}: keep it for {zone:1451}"] = "",
+	["{npc:15188}, {object:172982}: keep it for {zone:1451}"] = "{npc:15188}, {object:172982}: hebe es für {zone:1451} auf",
 
 	-- Step 7: Zilzibin Drumlore
 	-- {npc:7010} Zilzibin Drumlore
@@ -45,7 +45,7 @@ return {
 
 	-- Step 8: Zilzibin Drumlore
 	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {area:976} Gadgetzan · {zone:1451} Silithus · {zone:2482} Mount Hyjal
-	["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1451} guide's first stop, after {zone:2482}."] = "",
+	["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1451} guide's first stop, after {zone:2482}."] = "Nur falls {quest:4494} noch nicht gemacht ist: {npc:7010} arbeitet im Drag. Pestlezugg nimmt sie in {area:976} beim ersten Stopp des {zone:1451}-Führers an, nach {zone:2482}.",
 
 	-- Step 9: Vehena
 	-- {object:172961} Valley of Spirits
@@ -86,7 +86,7 @@ return {
 
 	-- Step 17: Andron Gant
 	-- {npc:6522} Andron Gant · {object:36126} Royal Quarter
-	["{npc:6522} stands just outside the Apothecarium, on the way to the {object:36126}."] = "",
+	["{npc:6522} stands just outside the Apothecarium, on the way to the {object:36126}."] = "{npc:6522} steht direkt vor dem Apothekengewölbe, auf dem Weg zum {object:36126}.",
 
 	-- Step 18: The Undercity
 	-- {object:36126} Royal Quarter
@@ -94,7 +94,7 @@ return {
 
 	-- Step 19: Royal Quarter
 	-- {npc:10781} Royal Overseer Bauhaus · {object:36078} Trade Quarter
-	["{npc:10781} keeps the census in the {object:36078}, beside the guild and tabard registrars near the bank."] = "",
+	["{npc:10781} keeps the census in the {object:36078}, beside the guild and tabard registrars near the bank."] = "{npc:10781} führt die Volkszählung im {object:36078} durch, neben den Gilden- und Wappenregistraren nahe der Bank.",
 
 	-- Step 21: Jeremiah Payson
 	-- {npc:8403} Jeremiah Payson
@@ -117,8 +117,7 @@ return {
 
 	-- Step 27: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
-	-- was: ["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "Die Farm von {npc:10778} ist die erste östlich von {area:152}. Jabbering Ghouls auf der Farm tragen die andere Hälfte ihres Amuletts; {npc:11075} bewacht den Kessel auf dem Feld.\nVorsicht: Ein oder zwei Untote kämpfen meist an seiner Seite, und nachdem du den Kessel benutzt hast, können weitere Cauldron Lords angreifen."
-	["{npc:10778}'s farm is the first one east of the {area:152}. {npc:11075} guards the cauldron in the field. Careful: one or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "",
+	["{npc:10778}'s farm is the first one east of the {area:152}. {npc:11075} guards the cauldron in the field. Careful: one or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "Die Farm von {npc:10778} ist die erste östlich von {area:152}. {npc:11075} bewacht den Kessel auf dem Feld. Vorsicht: Ein oder zwei Untote kämpfen meist an seiner Seite, und nachdem du den Kessel benutzt hast, können weitere Kessellords angreifen.",
 
 	-- Step 28: Janice Felstone
 	["Upstairs"] = "Oben",
@@ -126,7 +125,7 @@ return {
 	-- Step 30: Good Luck Other-Half-Charm
 	-- {item:12722} Good Luck Other-Half-Charm · {item:12723} Good Luck Charm · {npc:10778} Janice Felstone
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
-	["Jabbering Ghouls on Felstone Farm carry the {item:12722}: kill them until one drops it, then right-click the halves in your bags to join them into the {item:12723}, and take it to {npc:10778} upstairs."] = "",
+	["Jabbering Ghouls on Felstone Farm carry the {item:12722}: kill them until one drops it, then right-click the halves in your bags to join them into the {item:12723}, and take it to {npc:10778} upstairs."] = "Plappernde Ghule auf der Teufelsstein-Farm tragen den {item:12722}: Töte sie, bis einer ihn fallen lässt, und klicke dann die beiden Hälften in deinen Taschen mit der rechten Maustaste zusammen zum {item:12723}. Bring ihn zu {npc:10778} nach oben.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back north to {npc:8420} with the rune, then south-west along the road."] = "Mit der Rune zurück nach Norden zu {npc:8420}, dann die Straße nach Südwesten.",

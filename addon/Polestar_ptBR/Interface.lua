@@ -67,7 +67,7 @@
 --   %s. Optional: the route doesn't need it.
 --   Kept for %s
 --   Hand in %s to %s, who walks around here: look inside the circle on the map
---   A quest you carry that the route does not work here: its work is nearby.
+--   A quest in your log with an objective nearby that the route doesn't do here.
 --   %s at %s
 --   Only visible while dead: die nearby and talk to them as a ghost.
 --   Under water nearby: swim down to it
@@ -410,6 +410,23 @@
 --   Fewer folders
 --   Quit the game fully and start it again: Polestar is 22 folders now, not 45.
 --   Steps fixed in dozens of zones. Found something off? Type %s.
+--
+-- Machine-translated, to be reviewed (0.4.4 Dungeon Set 2 guides, 26 Nov 2026): translated by an AI model
+-- (Claude Opus 5.5) and waiting for a native speaker's check. Reviewing one: keep or fix it, and take it
+-- off this list. These guides' texts in guides/locales/ptBR/:
+--   forever/class/druid/dungeon-set-2
+--   forever/class/hunter/dungeon-set-2
+--   forever/class/mage/dungeon-set-2
+--   forever/class/paladin/dungeon-set-2
+--   forever/class/priest/dungeon-set-2
+--   forever/class/rogue/dungeon-set-2
+--   forever/class/shaman/dungeon-set-2
+--   forever/class/warlock/dungeon-set-2
+--   forever/class/warrior/dungeon-set-2
+--
+-- Machine-translated, to be reviewed (0.4.4 Lookup, 26 Nov 2026): translated by an AI model (Claude Opus 5.5)
+-- and waiting for a native speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   Not seen on Forever yet
 -- Machine-translated, to be reviewed (#3701 Free mode, the finished-quest guide #2486 and the other lines new on
 -- next since 0.4.3, 26 Nov 2026):
 -- translated by an AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native
@@ -470,6 +487,17 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+--   Profession routes: based on the guides by Peter at WoW-Professions.com.
+-- Machine-translated, to be reviewed (#2576 auction house prices, 27 Nov 2026): translated by an AI model (Claude Opus 5.5)
+-- and waiting for a native speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   Optional: buy at the auction house (/polestar ah)
+--   Auctionator estimate: %s
+--   %s (%d still unpriced)
+--   The auction house is unavailable to Self-Found characters.
+--   No cached price
+--   No cached prices for the remaining quest items.
+--   Partial estimate for remaining quest items: %s
+--   Estimated total for remaining quest items: %s
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "ptBR") then return end
@@ -706,7 +734,7 @@ L["%s; 1 in %d runs fails"] = "%s; 1 em cada %d tentativas falha"
 L["%s. Optional: the route doesn't need it."] = "%s. Opcional: a rota não precisa dela."
 L["Kept for %s"] = "Guardada para %s"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "Entregue %s para %s, que anda por aqui: procure dentro do círculo no mapa"
-L["A quest you carry that the route does not work here: its work is nearby."] = "Uma missão que você carrega e que a rota não faz aqui: o objetivo dela está perto."
+L["A quest in your log with an objective nearby that the route doesn't do here."] = "Uma missão que você carrega e que a rota não faz aqui: o objetivo dela está perto."
 L["%s at %s"] = "%s em %s"
 L["Buy a rune at %s"] = "Comprar uma runa com %s"
 L["Buy a rune and cast %s to save about %s"] = "Compre uma runa e lance %s para economizar cerca de %s"
@@ -841,7 +869,6 @@ L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the 
 L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."] = "O Polestar está pausado: a seta volta a seguir o guia assim que você sair vivo da masmorra, ou após /polestar resume."
 
 -- Nav/Arrow.lua
-L["The last steps here aren't mapped"] = "Os últimos passos aqui não estão mapeados"
 L["Search here"] = "Procure aqui"
 L["Arrived"] = "Chegou"
 L["Click the arrow for the next spot"] = "Clique na seta para o próximo local"
@@ -1637,7 +1664,6 @@ L["Pick what the step asks for"] = "Escolher o que a etapa pede"
 L["At the step's NPC, picks the chat option the guide names, or opens the goods or training the step needs. Only on the step the guide is at. Hold Shift to choose yourself."] = "No PNJ da etapa, escolhe a opção de conversa que o guia indica, ou abre as mercadorias ou o treinamento de que a etapa precisa. Só na etapa em que o guia está. Segure Shift para escolher você mesmo."
 L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = "Escolhe a única opção de PNJs sem missões. Segure Shift para ler. Desligado, o próprio jogo ainda pula algumas, Escolher o que a etapa pede ainda escolhe a opção da etapa e os mestres de voo seguem Abrir mapa de voo."
 L["Click objectives to target"] = "Clicar nos objetivos seleciona o alvo"
-L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Clicar numa linha de objetivo ou no cabeçalho de um PNJ também seleciona esse PNJ fora de combate, com as mesmas opções de marcação do Botão de alvo. Isso substitui o seu alvo atual; uma busca sem sucesso o limpa."
 L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "O botão de alvo e a tecla de etapa põem um ícone de raide no inimigo e no PNJ que selecionam; fora de combate, um clique que não encontra nenhum dos dois limpa seu alvo. Clicar de novo nunca tira um ícone. Em um grupo que você não lidera, só uma unidade sem ícone ganha um; em uma raide, só quando você é líder ou assistente."
 L["Ping what they target"] = "Pingar o que selecionam"
 L["Show quest-starting loot"] = "Mostrar saques que iniciam missões"
@@ -1693,6 +1719,7 @@ L["Equip a spare bag first"] = "Equipe primeiro uma bolsa sobrando"
 L["When your bags are nearly full and a bag sits in them while a bag slot is empty, the bag button and the guide window offer to put it on before any junk. Nothing happens until you press."] = "Quando as bolsas estão quase cheias e há uma bolsa dentro delas enquanto um espaço de bolsa está vazio, o botão de bolsas e a janela do guia oferecem equipá-la antes de qualquer lixo. Nada acontece até você apertar."
 L["Step errands"] = "Tarefas da etapa"
 L["Level pace"] = "Ritmo de nível"
+-- L["Clicking an objective row, an NPC heading or a While you're here line also targets its mob or NPC outside combat, using the Target button's marking settings. This replaces your current target. A failed search clears it."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Só Aliança"
@@ -1936,6 +1963,7 @@ L["about %d kills, %d min"] = "cerca de %d abates, %d min"
 L["about %d kills"] = "cerca de %d abates"
 L["or %s (%s)"] = "ou %s (%s)"
 L["or %s"] = "ou %s"
+L["Optional: buy at the auction house (/polestar ah)"] = "Opcional: compre na casa de leilões (/polestar ah)"
 
 -- UI/GuideFrame.lua
 L["Location"] = "Local"
@@ -2434,6 +2462,7 @@ L["Finished, %d skipped"] = "Concluída, puladas: %d"
 L["All %d done"] = "Todas as %d feitas"
 L["Click to open its page."] = "Clique para abrir a página dela."
 L["Then any of: %s"] = "Depois, qualquer uma de: %s"
+L["Not seen on Forever yet"] = "Ainda não visto no Forever"
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Pronta para entregar"
@@ -2965,6 +2994,7 @@ L["Quest and map data includes pfQuest by shagu (MIT License)."] = "Os dados de 
 L["Discord and its logo are trademarks of Discord Inc.; the logo marks the link to the Polestar Discord."] = "Discord e seu logo são marcas registradas da Discord Inc.; o logo indica o link para o Discord do Polestar."
 L["With EllesmereUI installed, Polestar can follow its accent, font and panel colour through its public skinning API."] = "Com o EllesmereUI instalado, o Polestar pode seguir o destaque, a fonte e a cor de painel dele pela API pública de skins."
 L["Gear scores from Forever Leveling BiS by Timearc when it is installed, through its public API."] = "Pontuações de equipamento do Forever Leveling BiS, de Timearc, quando instalado, pela API pública dele."
+L["Profession routes: based on the guides by Peter at WoW-Professions.com."] = "Rotas de profissões: baseadas nos guias de Peter em WoW-Professions.com."
 L["Maintenance"] = "Manutenção"
 L["Reset all settings"] = "Redefinir tudo"
 L["Every Polestar setting back to default. Progress is kept."] = "Toda opção do Polestar volta ao padrão. O progresso é mantido."
@@ -3255,9 +3285,9 @@ L["Your target"] = "Seu alvo"
 L["Targeting a rare."] = "Ao selecionar um raro."
 L["Under the cursor"] = "Sob o cursor"
 L["Pointing at a rare in the world."] = "Ao apontar para um raro no mundo."
-L["Rares on the world map"] = "Raros no mapa"
+L["Rares on zone maps"] = "Raros nos mapas de zona"
 L["Every known spawn point. Click one to see it in Rares; Shift-click for a waypoint."] = "Todo ponto de surgimento conhecido. Clique para ver em Raros; Shift+clique para um ponto de rota."
-L["Treasures on the world map"] = "Tesouros no mapa"
+L["Treasures on zone maps"] = "Tesouros nos mapas de zona"
 L["Every known treasure spot."] = "Todo local de tesouro conhecido."
 L["Rares on the minimap"] = "Raros no minimapa"
 L["Loads the Codex at login."] = "Carrega o Codex ao entrar."
@@ -4082,7 +4112,6 @@ L["Clean up quest log"] = "Limpar registro de missões"
 L["Grey: no XP any more"] = "Cinza: não dá mais EXP"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "A rota não precisa destas: nunca as entrega, ou não dão mais EXP. Abandonar pergunta antes na janela do próprio jogo."
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "Lista as missões do seu registro de que a rota não precisa: as que ela nunca entrega e as cinzas que não dão mais EXP. Cada uma tem um botão Abandonar que pergunta antes. O menu da janela do guia também mostra isso enquanto houver alguma."
-L["None of these has a known place to hand it in."] = "Nenhuma delas tem um lugar conhecido para entregar."
 L["Where it is turned in is not known"] = "Não se sabe onde é entregue"
 L["Finished quests you're still carrying"] = "Missões concluídas que você ainda carrega"
 L["The route hands in every finished quest in your log."] = "A rota entrega todas as missões concluídas do seu registro."
@@ -4510,7 +4539,7 @@ L["One breath of the pulse: shorter is faster."] = "Duração de um pulso: mais 
 L["On the minimap"] = "No minimapa"
 L["The opacity of the soft tint over the places mobs and objects spawn, on the world map and the minimap, their outlines with it. The swatch gives every area one colour."] = "A opacidade da tonalidade suave sobre os lugares onde criaturas e objetos surgem, no mapa e no minimapa, com os contornos junto. A amostra de cor dá uma só cor a todas as áreas."
 L["Spawn spots"] = "Locais de surgimento"
-L["Small marks on the world map where the target also spawns, each numbered in its tooltip. Click one to search there next."] = "Pequenas marcas no mapa-múndi onde o alvo também surge, cada uma numerada na sua dica. Clique em uma para procurar lá em seguida."
+L["Small marks on zone maps where the target also spawns, each numbered in its tooltip. Click one to search there next."] = "Pequenas marcas nos mapas de zona onde o alvo também surge, cada uma numerada na sua dica. Clique em uma para procurar lá em seguida."
 L["Moving dots from you to the target on both maps while route lines are off; the slider is their size. They wear the arrow's colour; their opacity is in the cog."] = "Pontos em movimento de você até o alvo nos dois mapas enquanto as linhas de rota estão desativadas; o controle deslizante é o tamanho deles. Usam a cor da seta; a opacidade fica na engrenagem."
 L["The trail's dots on both maps."] = "Os pontos da trilha nos dois mapas."
 L["The numbered pins on the world map and the minimap. Bigger pins also grow past the usual limit on screen. Their rim colour is in the cog."] = "Os marcadores numerados no mapa e no minimapa. Marcadores maiores também passam do limite normal na tela. A cor do aro fica na engrenagem."
@@ -4543,8 +4572,8 @@ L["Each step ahead in its own colour, none fainter, so the route reads at a glan
 L["Icons and target"] = "Ícones e alvo"
 L["Spawn markers"] = "Marcadores de surgimento"
 L["Spawn markers for your quests"] = "Marcadores de surgimento das suas missões"
-L["A skull on the world map and the minimap at every spawn of the mobs your quests need, one colour per quest and a ring per mob; the things you pick up or use get the pickup bag. Their size and opacity are on the Icons tab."] = "Uma caveira no mapa e no minimapa em cada ponto de surgimento das criaturas que suas missões pedem, uma cor por missão e um anel por criatura; o que você coleta ou usa recebe a bolsa de coleta. Tamanho e opacidade estão na aba Ícones."
-L["Off: the spawn markers show on the world map only."] = "Desligado: os marcadores de surgimento aparecem só no mapa."
+L["A skull on zone maps and the minimap at every spawn of the mobs your quests need, one colour per quest and a ring per mob; the things you pick up or use get the pickup bag. Their size and opacity are on the Icons tab."] = "Uma caveira nos mapas de zona e no minimapa em cada ponto de surgimento das criaturas que suas missões pedem, uma cor por missão e um anel por criatura; o que você coleta ou usa recebe a bolsa de coleta. Tamanho e opacidade estão na aba Ícones."
+L["Off: the spawn markers show on zone maps only."] = "Desligado: os marcadores de surgimento aparecem só nos mapas de zona."
 L["Legend on the world map"] = "Legenda no mapa"
 L["Lists the quests and mobs on the shown map. Hover a row to highlight its markers, click it to turn them off or on."] = "Lista as missões e criaturas do mapa mostrado. Passe o mouse sobre uma linha para destacar os marcadores dela; clique para ocultá-los ou mostrá-los."
 L["Only the current step's quests"] = "Só as missões da etapa atual"
@@ -4975,7 +5004,6 @@ L["Title menu"] = "Menu do título"
 L["On the top edge"] = "Na borda superior"
 L["Down the left side"] = "No lado esquerdo"
 L["Default (%s)"] = "Padrão (%s)"
-L["A button in the step bar that opens every step of the guide in one list. The step number and the guide menu open it too."] = "Um botão na barra de etapas que abre todas as etapas do guia em uma lista. O número da etapa e o menu do guia também a abrem."
 L["Steps before"] = "Etapas anteriores"
 L["How many of the steps before this one show over it, one dimmed line each, done or skipped; 0 turns them off. Click one to go back to it."] = "Quantas etapas antes desta aparecem acima dela, uma linha esmaecida cada, feitas ou puladas; 0 as desliga. Clique em uma para voltar a ela."
 L["Journey style"] = "Estilo da viagem"
@@ -5372,6 +5400,13 @@ L["MATERIALS FOR %s"] = "MATERIAIS PARA %s"
 L["%s held"] = "%s em mãos"
 L["Tracking is on"] = "Rastreamento ativo"
 L["Tracking is on: your minimap shows the ones that are up."] = "Rastreamento ativo: seu minimapa mostra os que estão lá."
+L["Auctionator estimate: %s"] = "Estimativa do Auctionator: %s"
+L["%s (%d still unpriced)"] = "%s (%d ainda sem preço)"
+L["The auction house is unavailable to Self-Found characters."] = "A casa de leilões não está disponível para personagens autossuficientes."
+L["No cached price"] = "Sem preço salvo"
+L["No cached prices for the remaining quest items."] = "Sem preços salvos para os itens de missão restantes."
+L["Partial estimate for remaining quest items: %s"] = "Estimativa parcial dos itens de missão restantes: %s"
+L["Estimated total for remaining quest items: %s"] = "Total estimado dos itens de missão restantes: %s"
 
 -- UI/Materials.lua
 L["Your choice"] = "Sua escolha"
@@ -5519,7 +5554,6 @@ L["%d changed"] = "%d alteradas"
 L["What Polestar does for you while you level: suggestions, quests, rewards, buttons, rares."] = "O que o Polestar faz por você enquanto você evolui: sugestões, missões, recompensas, botões, raros."
 L["The arrow, its routes, and what Polestar draws on the world map and the minimap."] = "A seta, suas rotas e o que o Polestar desenha no mapa-múndi e no minimapa."
 L["The theme every Polestar window wears, the action buttons, the alert cards and the trackers."] = "O tema de todas as janelas do Polestar, os botões de ação, os cartões de alerta e os rastreadores."
-L["Profiles, other addons, community guides and gamepad."] = "Perfis, outros addons, guias da comunidade e controle."
 L["Pinned"] = "Fixados"
 L["Pinned, not available here: %d"] = "Fixados, indisponíveis aqui: %d"
 L["Pin a setting with the flag on its row."] = "Fixe uma configuração com a bandeira da linha dela."
@@ -5645,10 +5679,17 @@ L["kept for %s"] = "guardada para %s"
 L["kept"] = "guardada"
 L["Kept for %s: the route hands it in there."] = "Guardada para %s: a rota a entrega lá."
 
--- Lookup/Handins.lua
+-- Handins.lua
 L["No quests in your log are ready to hand in."] = "Nenhuma missão no seu registro está pronta para entregar."
 L["Wait until combat ends to load the quest data."] = "Espere o combate acabar para carregar os dados das missões."
 L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "O guia de entregas não pôde carregar. Verifique se o addon Polestar_FreeMode está instalado e ativado."
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["None of these has a known place to hand it in."] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
 
 -- Lookup/Free.lua
 L["Free mode starts after combat."] = "O modo livre começa depois do combate."
@@ -5661,29 +5702,32 @@ L["Free mode: follow your own quests (on, off, nearest, xp)"] = "Modo livre: sig
 L["Start quest guide"] = "Iniciar guia de missão"
 L["Click to show quest guide actions."] = "Clique para mostrar as ações do guia de missão."
 
--- Handins.lua
-L["Travel time to this hand-in is unknown. Its location is still shown."] = "O tempo de viagem até esta entrega é desconhecido. O local dela continua aparecendo."
-L["Hand-ins without a known location"] = "Entregas sem local conhecido"
-L["Refining the travel order. Travel times are estimates."] = "Refinando a ordem de viagem. Os tempos de viagem são estimativas."
-L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = "As estimativas de viagem estão incompletas. A ordem usa as estimativas disponíveis e distâncias aproximadas."
-L["Waiting for your quest log."] = "Esperando o seu registro de missões."
-L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = "O guia de entregas não pôde carregar. Verifique se o addon Polestar_Codex está instalado e ativado."
-
 -- Free.lua
-L["Low drop rate: %s"] = "Chance de saque baixa: %s"
-L["1 quest for your level: %s gives it."] = "1 missão para o seu nível: %s a dá."
-L["%d quests for your level, all here."] = "%d missões para o seu nível, todas aqui."
-L["%d quests for your level, %d of them here."] = "%d missões para o seu nível, %d delas aqui."
-L["Quests for your level"] = "Missões para o seu nível"
-L["About %s XP a minute"] = "Cerca de %s de EXP por minuto"
-L["Order: nearest first"] = "Ordem: a mais próxima primeiro"
-L["Order: most XP a minute first"] = "Ordem: mais EXP por minuto primeiro"
-L["Bring back left-out quests (%d)"] = "Trazer de volta as missões deixadas de fora (%d)"
-L["Unpin"] = "Desafixar"
-L["Pin to the top"] = "Fixar no topo"
-L["Free mode takes this quest first, whatever the order."] = "O modo livre faz esta missão primeiro, seja qual for a ordem."
-L["Leave out of Free mode"] = "Deixar de fora do modo livre"
-L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "O modo livre para de listar esta missão. \"Trazer de volta as missões deixadas de fora\" no menu a lista de novo."
+-- L["Low drop rate: %s"] = ""
+-- L["1 quest for your level: %s gives it."] = ""
+-- L["%d quests for your level, all here."] = ""
+-- L["%d quests for your level, %d of them here."] = ""
+-- L["Quests for your level"] = ""
+-- L["About %s XP a minute"] = ""
+-- L["Order: nearest first"] = ""
+-- L["Order: most XP a minute first"] = ""
+-- L["Bring back left-out quests (%d)"] = ""
+-- L["Unpin"] = ""
+-- L["Pin to the top"] = ""
+-- L["Free mode takes this quest first, whatever the order."] = ""
+-- L["Leave out of Free mode"] = ""
+-- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = ""
+
+-- Layouts/Atlas/Atlas.lua
+-- L["Get ahead, if possible"] = ""
+-- L["Still open from steps you have passed"] = ""
+-- L["1 quest off-guide"] = ""
+-- L["%d quests off-guide"] = ""
+-- L["View"] = ""
+-- L["Training due"] = ""
+-- L["New spells at your class trainer"] = ""
+-- L["Optional objectives during this step"] = ""
+-- L["Class quest"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Configurar o Polestar de novo, uma página por vez. Cada escolha vale na hora."
@@ -5967,3 +6011,26 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 -- L["Max height"] = "Altura máxima"
 -- L["%s: on this step"] = "%s: nesta etapa"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "Suas próprias missões como guia, em uma aba própria: a seta leva à mais próxima e depois à seguinte (/polestar free)."
+-- L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Clicar numa linha de objetivo ou no cabeçalho de um PNJ também seleciona esse PNJ fora de combate, com as mesmas opções de marcação do Botão de alvo. Isso substitui o seu alvo atual; uma busca sem sucesso o limpa."
+-- L["The last steps here aren't mapped"] = "Os últimos passos aqui não estão mapeados"
+-- L["None of these has a known place to hand it in."] = "Nenhuma delas tem um lugar conhecido para entregar."
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = "O tempo de viagem até esta entrega é desconhecido. O local dela continua aparecendo."
+-- L["Hand-ins without a known location"] = "Entregas sem local conhecido"
+-- L["Refining the travel order. Travel times are estimates."] = "Refinando a ordem de viagem. Os tempos de viagem são estimativas."
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = "As estimativas de viagem estão incompletas. A ordem usa as estimativas disponíveis e distâncias aproximadas."
+-- L["Waiting for your quest log."] = "Esperando o seu registro de missões."
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = "O guia de entregas não pôde carregar. Verifique se o addon Polestar_Codex está instalado e ativado."
+-- L["Low drop rate: %s"] = "Chance de saque baixa: %s"
+-- L["1 quest for your level: %s gives it."] = "1 missão para o seu nível: %s a dá."
+-- L["%d quests for your level, all here."] = "%d missões para o seu nível, todas aqui."
+-- L["%d quests for your level, %d of them here."] = "%d missões para o seu nível, %d delas aqui."
+-- L["Quests for your level"] = "Missões para o seu nível"
+-- L["About %s XP a minute"] = "Cerca de %s de EXP por minuto"
+-- L["Order: nearest first"] = "Ordem: a mais próxima primeiro"
+-- L["Order: most XP a minute first"] = "Ordem: mais EXP por minuto primeiro"
+-- L["Bring back left-out quests (%d)"] = "Trazer de volta as missões deixadas de fora (%d)"
+-- L["Unpin"] = "Desafixar"
+-- L["Pin to the top"] = "Fixar no topo"
+-- L["Free mode takes this quest first, whatever the order."] = "O modo livre faz esta missão primeiro, seja qual for a ordem."
+-- L["Leave out of Free mode"] = "Deixar de fora do modo livre"
+-- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "O modo livre para de listar esta missão. \"Trazer de volta as missões deixadas de fora\" no menu a lista de novo."

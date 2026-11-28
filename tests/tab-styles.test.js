@@ -317,3 +317,34 @@ emit(res)`);
 	// The opaque look has its ground (the check sees a painted ground).
 	assert.ok(out.some((r) => r.style === 'standard' && Object.values(r.painted).length > 0), 'an opaque strip draws its ground');
 });
+
+// A tab's menu moves it along its strip: up and down in the side strip,
+// left and right in the styles along the top.
+test('the tab menu moves a side-strip tab up and down, other tabs left and right', () => {
+	const script = SCRIPT.replace(/Polestar\.Set\("guideWindow\.tabStyle", "edge"\)[\s\S]*$/, `
+Polestar.RegisterGuide({ id = "test/tabs2", pack = "test", title = "Tabs two", minLevel = 1, maxLevel = 20,
+	steps = { { goals = { { t = "accept", quest = 33, title = "Wolves Across the Border" } } } } })
+Polestar.Engine.OpenTab("test/tabs2", false)
+stub.advance(0.6)
+Polestar.Widgets.ShowMenu = function(anchor, items) stub.lastMenu = items end
+local function moves(tab)
+	GF.TabMenu(tab)
+	local out = {}
+	for _, it in ipairs(stub.lastMenu or {}) do
+		if it.text:find("^Move") then out[#out + 1] = { text = it.text, icon = it.icon } end
+	end
+	return out
+end
+Polestar.Set("guideWindow.tabStyle", "strip"); draw()
+local strip = moves(GF.TabStyleFrames().side.tabs[1])
+Polestar.Set("guideWindow.tabStyle", "edge"); draw()
+local edge = moves(GF.TabStyleFrames().edge.tabs[1])
+Polestar.Set("guideWindow.tabStyle", "underline"); draw()
+local underline = moves(GF.tabs[1])
+emit({ strip = strip, edge = edge, underline = underline })`);
+	const [out] = runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar'], script }).emitted;
+	const across = [{ text: 'Move left', icon: 'chevron-left' }, { text: 'Move right', icon: 'chevron-right' }];
+	assert.deepEqual(out.strip, [{ text: 'Move up', icon: 'chevron-up' }, { text: 'Move down', icon: 'chevron-down' }]);
+	assert.deepEqual(out.edge, across);
+	assert.deepEqual(out.underline, across);
+});

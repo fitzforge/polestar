@@ -114,6 +114,9 @@ function gatherRun(messages, anchorId, { gapMs, max } = GATHER) {
 	return [...before, anchor, ...after];
 }
 
+// Most 'discord' issues read back at start: far above today's ~1,500.
+const INDEX_MAX = 10000;
+
 function createSync({ discord, github, media, config, log = console, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), now = Date.now, setTimer = (fn, ms) => setTimeout(fn, ms).unref(), latest = U.cachedLatest(github, { now, log }) }) {
 	const { forumId, suggestionsForumId = null, since = null } = config;
 	const exemptIds = new Set(config.exemptIds || []);
@@ -640,7 +643,9 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 
 	// Issues the bot filed before, read back from their markers.
 	async function loadIndex() {
-		for (const issue of await github.issuesLabelled('discord', { max: 1000 })) {
+		const all = await github.issuesLabelled('discord', { max: INDEX_MAX });
+		if (all.length >= INDEX_MAX) log.warn(`index: stopped at ${INDEX_MAX} issues, older ones are not indexed; raise INDEX_MAX`);
+		for (const issue of all) {
 			const mk = I.issueMarker(issue);
 			if (mk && !issues.has(mk.thread)) issues.set(mk.thread, issue.number);
 			if (mk && !I.labelNames(issue).includes('idea')) bugPosts.add(mk.thread);
@@ -694,7 +699,10 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			const labels = I.chatLabels(kind, (messages.find((m) => m.report.details) || anchor).report);
 			await github.ensureLabels(labels, I.labelInfo);
 
-			const tags = statusTags(await getForum());
+			// A suggestion goes to the suggestions forum when there is one; a report to #bugs.
+			const inIdeasForum = kind === 'suggestion' && Boolean(suggestionsForumId);
+			const postForum = inIdeasForum ? suggestionsForumId : forumId;
+			const tags = statusTags(inIdeasForum ? await getIdeasForum() : await getForum());
 			const jump = I.threadUrl(guild, channel, id);
 			const text = messages.map((m) => m.report.description).filter(Boolean).join('\n');
 			// The copied media go on the post too, in order: attached while they
@@ -710,8 +718,8 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			}
 			const start = (attached) => {
 				const links = copiedMedia.slice(attached.length).map((f) => f.url);
-				return discord.startPost(forumId, {
-					name,
+				return discord.startPost(postForum, {
+					name: I.postName(name),
 					content: I.chatPostStarter({ kind, reporterId: source.author.id, jump, text, links }),
 					users: [source.author.id],
 					applied_tags: tags.tracked ? [tags.tracked] : [],
@@ -724,12 +732,12 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 				post = await start(attach);
 			} catch (err) {
 				if (!attach.length || err.status >= 500) throw err;
-				log.warn(`${kind} from ${channel}/${id}: media not attached to the #bugs post (${err.message}), linked instead`);
+				log.warn(`${kind} from ${channel}/${id}: media not attached to the post (${err.message}), linked instead`);
 				post = await start([]);
 			}
 			threads.set(post.id, post);
 			reporters.set(post.id, source.author.id);
-			const body = I.chatIssueBody({ kind, reporter: await displayName(guild, source.author), guild, channel, channelName: where.name, message: id, thread: post.id, messages });
+			const body = I.chatIssueBody({ kind, reporter: await displayName(guild, source.author), guild, channel, channelName: where.name, message: id, thread: post.id, messages, postIn: inIdeasForum ? 'suggestions' : '#bugs' });
 			let issue;
 			try {
 				issue = await github.createIssue({ title: name, body, labels });

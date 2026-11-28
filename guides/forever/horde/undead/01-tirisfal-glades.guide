@@ -390,7 +390,7 @@ step Crusader's Outpost
   tip Scarlet Warriors guard the outpost north-west of the pumpkin fields. Bareth Dawnstone is held inside: talk to him and stay with him until he is out.
   tip Careful: Scarlet Warriors are level 6-7 and not elite. Once their health falls to 15% they run off to bring help, so more of them may join the fight.
   kill 1535 quest 427.1
-  accept 99144                        -- Bareth Dawnstone, on the top floor
+  accept 99144 @31.8,45.9             -- Bareth Dawnstone, on the top floor
   goto 32.0,46.3 "Crusader's Outpost" -- Escort Bareth out of the outpost
   complete 99144
 

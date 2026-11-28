@@ -159,6 +159,26 @@ fn hiding_the_guide_hides_the_markers_and_legend_and_showing_it_brings_them_back
 	assert_eq!(out, vec![json!([5, true]), json!([0, false]), json!([5, true]), json!(0)], "and no frame is made under the game's own");
 }
 
+// The markers are dense (Nav/Pins.lua's `dense`): a continent's or the world's map shows neither markers nor the
+// legend, the zone's map shows both again, and the minimap keeps its markers whatever the world map shows.
+#[test]
+fn a_continent_or_the_world_map_shows_no_spawn_markers_and_no_legend_the_zone_map_and_the_minimap_still_do() {
+	let out = run(r#"
+		local w = stub.world
+		w.addMap(9100, { name = "Eastern Kingdoms", c = 0, left = 3000, right = -3000, top = 3500, bottom = -2500, mapType = 2 })
+		w.addMap(9101, { name = "Azeroth", mapType = 1 })
+		w.moveTo(1429, 10, 10)
+		local function look(map)
+			open(map)
+			return { state()[3], PolestarMobMarkersLegend:IsShown(), Polestar.MobMarkers.State().minimap > 0 }
+		end
+		emit(look(1429))
+		emit(look(9100))
+		emit(look(9101))
+		emit(look(1429))"#);
+	assert_eq!(out, vec![json!([5, true, true]), json!([0, false, true]), json!([0, false, true]), json!([5, true, true])]);
+}
+
 // The player on the wolves' first spawn (1429 at 10,10): the minimap shows the markers inside its rim.
 #[test]
 fn the_minimap_shows_the_spawns_inside_its_rim_and_none_while_the_guide_is_hidden() {

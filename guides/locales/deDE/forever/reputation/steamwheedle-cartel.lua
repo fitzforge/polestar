@@ -24,7 +24,7 @@ return {
 	["Zapped giants"] = "Geschrumpfte Riesen",
 	-- {item:18904} Zorbin's Ultra-Shrinker · {npc:5357} Land Walker · {npc:5358} Cliff Giant · {npc:5361} Wave Strider · {item:18956} Miniaturization Residue
 	-- plural, as words: Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant
-	["Use {item:18904} on a living giant ({npc:5357}, {npc:5358}, or a Shore, Deep or {npc:5361}, level 47-50) and it shrinks into a zapped version; kill that for its {item:18956}, one every time. The Land Walkers and Cliff Giants in the north-west hills are the thickest; the striders walk the coast and the shallows. The shrinker lasts two hours: if it runs out, abandon the quest and take it again."] = "Benutze {item:18904} an einem lebenden Riesen ({npc:5357}, {npc:5358} oder einem Shore, Deep oder {npc:5361}, Stufe 47-50), und er schrumpft zu einer elektrisierten Version; töte sie für ihr {item:18956}, jedes Mal eines. Die Land Walkers und Cliff Giants in den nordwestlichen Hügeln sind am dichtesten; die Strider laufen an der Küste und im Flachwasser. Der Schrumpfer hält zwei Stunden: Wenn er ausläuft, brich die Quest ab und nimm sie erneut an.",
+	["Use {item:18904} on a living giant ({npc:5357}, {npc:5358}, or a Shore, Deep or {npc:5361}, level 47-50) and it shrinks into a zapped version; kill that for its {item:18956}, one every time. The Land Walkers and Cliff Giants in the north-west hills are the thickest; the striders walk the coast and the shallows. The shrinker lasts two hours: if it runs out, abandon the quest and take it again."] = "Benutze {item:18904} an einem lebenden Riesen ({npc:5357}, {npc:5358} oder einem Shore, Deep oder {npc:5361}, Stufe 47-50), und er schrumpft zu einer elektrisierten Version; töte sie für ihr {item:18956}, jedes Mal eines. Die Landgänger und Klippenriesen in den nordwestlichen Hügeln sind am dichtesten; die Strider laufen an der Küste und im Flachwasser. Der Schrumpfer hält zwei Stunden: Wenn er ausläuft, brich die Quest ab und nimm sie erneut an.",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	["{item:18904}, on a living giant"] = "{item:18904}, an einem lebenden Riesen",
 	-- {item:18956} Miniaturization Residue
@@ -32,13 +32,13 @@ return {
 
 	-- Step 3: Sea Elementals and Sea Sprays
 	-- plural, as words: Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray
-	["Sea Elementals and Sea Sprays"] = "Sea Elementals und Sea Sprays",
+	["Sea Elementals and Sea Sprays"] = "Meereselementare und Meeresschauer",
 	-- {area:1108} Forgotten Coast · {item:18958} Water Elemental Core
 	-- plural, as words: Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray
-	["The Sea Elementals and Sea Sprays (level 47-49) drift along the {area:1108} and in the shallows below the giants: about half drop a {item:18958}."] = "Die Sea Elementals und Sea Sprays (Stufe 47-49) treiben an der {area:1108} und im Flachwasser unter den Riesen: Etwa die Hälfte lässt einen {item:18958} fallen.",
+	["The Sea Elementals and Sea Sprays (level 47-49) drift along the {area:1108} and in the shallows below the giants: about half drop a {item:18958}."] = "Die Meereselementare und Meeresschauer (Stufe 47-49) treiben an der {area:1108} und im Flachwasser unter den Riesen: Etwa die Hälfte lässt einen {item:18958} fallen.",
 	-- {item:18958} Water Elemental Core
 	-- plural, as words: Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray
-	["{item:18958}: Sea Elementals and Sea Sprays"] = "{item:18958}: Sea Elementals und Sea Sprays",
+	["{item:18958}: Sea Elementals and Sea Sprays"] = "{item:18958}: Meereselementare und Meeresschauer",
 
 	-- Step 4: Back to Zorbin Fandazzle
 	-- {npc:14637} Zorbin Fandazzle
@@ -51,20 +51,20 @@ return {
 	["{area:1336}, below 56"] = "{area:1336}, unter 56",
 	-- {area:1336} Lost Rigger Cove · {zone:1446} Tanaris · {faction:369} Gadgetzan · {area:977} Steamwheedle Port · {quest:8366} Southsea Shakedown · {quest:8365} Pirate Hats Ahoy!
 	-- plural, as words: Southsea Pirate Hats = {item:20519} Southsea Pirate Hat
-	["The Southsea pirates of {area:1336} (level 44-45) on the east coast of {zone:1446} give {faction:369} 5 each up to the end of Honored, and the other towns half. Two quests at {area:977} pay 100 {faction:369} each: {quest:8366} (10 of each pirate) and {quest:8365} (20 Southsea Pirate Hats, one in ten pirates). From level 56 the pirates are grey and pay little: skip this step then."] = "Die Southsea-Piraten von {area:1336} (Stufe 44-45) an der Ostküste von {zone:1446} geben {faction:369} je 5 bis zum Ende von Wohlwollend, die anderen Städte die Hälfte. Zwei Quests bei {area:977} bringen je 100 {faction:369}: {quest:8366} (10 von jedem Piraten) und {quest:8365} (20 Southsea Pirate Hats, einer von zehn Piraten). Ab Stufe 56 sind die Piraten grau und zahlen wenig: Überspring dann diesen Schritt.",
+	["The Southsea pirates of {area:1336} (level 44-45) on the east coast of {zone:1446} give {faction:369} 5 each up to the end of Honored, and the other towns half. Two quests at {area:977} pay 100 {faction:369} each: {quest:8366} (10 of each pirate) and {quest:8365} (20 Southsea Pirate Hats, one in ten pirates). From level 56 the pirates are grey and pay little: skip this step then."] = "Die Southsea-Piraten von {area:1336} (Stufe 44-45) an der Ostküste von {zone:1446} geben {faction:369} je 5 bis zum Ende von Wohlwollend, die anderen Städte die Hälfte. Zwei Quests bei {area:977} bringen je 100 {faction:369}: {quest:8366} (10 von jedem Piraten) und {quest:8365} (20 Südmeerpiratenhüte, einer von zehn Piraten). Ab Stufe 56 sind die Piraten grau und zahlen wenig: Überspring dann diesen Schritt.",
 
 	-- Step 6: Tinkee Steamboil
 	-- {npc:10267} Tinkee Steamboil · {area:251} Flame Crest · {zone:1428} Burning Steppes · {faction:577} Everlook · {item:12284} Draco-Incarcinatrix 900 · {quest:4726} Broodling Essence
 	-- plural, as words: Scalding Broodlings = {npc:7048} Scalding Broodling · Flamescale Broodlings = {npc:7049} Flamescale Broodling · Black Broodlings = {npc:7047} Black Broodling
-	["{npc:10267}, a goblin at {area:251} in the north of the {zone:1428}, has a chain that pays every town 150 and {faction:577} 150 more. Use her {item:12284} on a broodling, kill it while the device holds it, and pick up the {quest:4726} it leaves. The device takes only Black and Scalding Broodlings, not the Flamescale Broodlings of the west: Scalding Broodlings (level 53-54) roam just west and east of {area:251}, Black Broodlings (51-52) the north-east corner of the zone, the thickest group. They are few and spread out: the path passes both and ends among the Black Broodlings."] = "{npc:10267}, eine Goblin bei {area:251} im Norden der {zone:1428}, hat eine Reihe, die jeder Stadt 150 und {faction:577} weitere 150 gibt. Benutze ihren {item:12284} an einem Broodling, töte es, solange das Gerät es festhält, und heb die {quest:4726} auf, die es hinterlässt. Das Gerät nimmt nur Black und Scalding Broodlings, nicht die Flamescale Broodlings im Westen: Scalding Broodlings (Stufe 53-54) streifen westlich und östlich von {area:251}, Black Broodlings (51-52) in der nordöstlichen Ecke des Gebiets, der dichtesten Gruppe. Sie sind wenige und verstreut: Der Pfad führt an beiden vorbei und endet bei den Black Broodlings.",
+	["{npc:10267}, a goblin at {area:251} in the north of the {zone:1428}, has a chain that pays every town 150 and {faction:577} 150 more. Use her {item:12284} on a broodling, kill it while the device holds it, and pick up the {quest:4726} it leaves. The device takes only Black and Scalding Broodlings, not the Flamescale Broodlings of the west: Scalding Broodlings (level 53-54) roam just west and east of {area:251}, Black Broodlings (51-52) the north-east corner of the zone, the thickest group. They are few and spread out: the path passes both and ends among the Black Broodlings."] = "{npc:10267}, eine Goblin bei {area:251} im Norden der {zone:1428}, hat eine Reihe, die jeder Stadt 150 und {faction:577} weitere 150 gibt. Benutze ihren {item:12284} an einem Brutling, töte es, solange das Gerät es festhält, und heb die {quest:4726} auf, die es hinterlässt. Das Gerät nimmt nur schwarze und brühende Brutlinge, nicht die Flammenschuppenbrutlinge im Westen: Brühende Brutlinge (Stufe 53-54) streifen westlich und östlich von {area:251}, Schwarze Brutlinge (51-52) in der nordöstlichen Ecke des Gebiets, der dichtesten Gruppe. Sie sind wenige und verstreut: Der Pfad führt an beiden vorbei und endet bei den schwarzen Brutlingen.",
 	-- {area:251} Flame Crest
 	-- plural, as words: Scalding Broodlings = {npc:7048} Scalding Broodling
-	["Scalding Broodlings west of {area:251}"] = "Scalding Broodlings westlich von {area:251}",
+	["Scalding Broodlings west of {area:251}"] = "Brühende Brutlinge westlich von {area:251}",
 	-- {area:251} Flame Crest
 	-- plural, as words: Scalding Broodlings = {npc:7048} Scalding Broodling
-	["Scalding Broodlings east of {area:251}"] = "Scalding Broodlings östlich von {area:251}",
+	["Scalding Broodlings east of {area:251}"] = "Brühende Brutlinge östlich von {area:251}",
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
-	["Black Broodlings in the north-east"] = "Black Broodlings im Nordosten",
+	["Black Broodlings in the north-east"] = "Schwarze Brutlinge im Nordosten",
 	-- {item:12284} Draco-Incarcinatrix 900 · {npc:7048} Scalding Broodling
 	["{item:12284}, on a Black or {npc:7048}"] = "{item:12284}, an einem Black oder {npc:7048}",
 	-- {quest:4726} Broodling Essence
@@ -74,7 +74,7 @@ return {
 	-- Step 7: Everlook: Felnok Steelspring
 	-- {quest:4808} Felnok Steelspring · {faction:577} Everlook
 	-- plural, as words: Chillwind Chimaeras = {npc:7448} Chillwind Chimaera
-	["{quest:4808} is in {faction:577}. The Chillwind Chimaeras (level 55-57) south-west of {faction:577} drop the horns one time in five."] = "{quest:4808} ist in {faction:577}. Die Chillwind Chimaeras (Stufe 55-57) südwestlich von {faction:577} lassen die Hörner bei jedem fünften Mal fallen.",
+	["{quest:4808} is in {faction:577}. The Chillwind Chimaeras (level 55-57) south-west of {faction:577} drop the horns one time in five."] = "{quest:4808} ist in {faction:577}. Die Eiswindschimären (Stufe 55-57) südwestlich von {faction:577} lassen die Hörner bei jedem fünften Mal fallen.",
 	-- {item:12444} Uncracked Chillwind Horn
 	-- plural, as words: Chillwind Chimaeras = {npc:7448} Chillwind Chimaera
 	["{item:12444}: Chillwind Chimaeras"] = "{item:12444}: von Chillwind-Chimären",

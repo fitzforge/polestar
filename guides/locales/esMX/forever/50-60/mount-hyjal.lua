@@ -366,7 +366,7 @@ return {
 	-- {npc:264089} Eluneth
 	["{npc:264089} and the veteran"] = "{npc:264089} y el veterano",
 	-- {npc:264089} Eluneth · {npc:255009} Veteran of the Third War · {area:16868} Mourning's Rest
-	["Back to {npc:264089}, then the ghostly {npc:255009} at {area:16868}'s western edge, where the recording met him, on your way west."] = "De vuelta con {npc:264089}, y luego el fantasmal {npc:255009} en el borde oeste de {area:16868}, donde lo encontró la grabación, de camino al oeste.",
+	["Back to {npc:264089}, then the ghostly {npc:255009} on your way west. He doesn't keep to one spot: players have met him anywhere in {area:16868} from its western edge (20,60) north-east to about 25,51, so if he isn't at the arrow, look along that line."] = "",
 
 	-- Step 82: Hyjal Silphium
 	-- {area:16868} Mourning's Rest · {npc:244512} Ortak Lomgok · {area:16848} Elderwild
@@ -698,6 +698,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A group choice: {npc:263394} and {npc:252457} are level 60 elites until {npc:263406}'s eye drains them. Drain each one first, then fight it; players in our recordings killed both once drained. Grouping up is advised."] = "Para ir en grupo: {npc:263394} y {npc:252457} son élites de nivel 60 hasta que el ojo de {npc:263406} los drena. Drena a cada uno primero y luego pelea; los jugadores de nuestras grabaciones mataron a los dos una vez drenados. Se recomienda ir en grupo.",
+	-- ["Back to {npc:264089}, then the ghostly {npc:255009} at {area:16868}'s western edge, where the recording met him, on your way west."] = "De vuelta con {npc:264089}, y luego el fantasmal {npc:255009} en el borde oeste de {area:16868}, donde lo encontró la grabación, de camino al oeste.",
 	-- ["South Bonfire"] = "South Bonfire",
 	-- ["South down the west side of the shrub field to the ancients' outpost: kill the {npc:248395} you pass for {npc:249235}. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "Al sur por el lado oeste del campo de arbustos hasta el puesto de los ancianos: mata los {npc:248395} que encuentres para {npc:249235}. {npc:260626}, la maestra de vuelo, espera junto al puesto; {npc:248367} y {npc:265586} están con el anciano {npc:248366}.",
 	-- ["Southeast Bonfire"] = "Southeast Bonfire",

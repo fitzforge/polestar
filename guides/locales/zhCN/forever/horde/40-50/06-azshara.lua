@@ -75,7 +75,7 @@ return {
 
 	-- Step 21: Zilzibin Drumlore
 	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1447} Azshara · {area:1237} Valormok
-	["{quest:4494} needs level 50: {npc:7010}, in the Drag, gives it from then on. Under 50, it waits: if you reach 50 in {zone:1447}, this guide brings you back for it from {area:1237}; else the {zone:1447} guide at 55 offers it again."] = "",
+	["{quest:4494} needs level 50: {npc:7010}, in the Drag, gives it from then on. Under 50, it waits: if you reach 50 in {zone:1447}, this guide brings you back for it from {area:1237}; else the {zone:1447} guide at 55 offers it again."] = "{quest:4494}要求50级，达到后可在暗巷区找{npc:7010}接取。不到50级就先跳过。如果在{zone:1447}升到50级，本指南会让你从{area:1237}返回接取。否则，55级的{zone:1447}指南会再安排这项任务。",
 
 	-- Step 22: Dran Droffers
 	["The Droffers' shop is a few steps further into the Drag."] = "德罗弗斯兄弟的商店就在暗巷区里再往前几步。",
@@ -84,13 +84,13 @@ return {
 
 	-- Step 23: Orgrimmar
 	-- {npc:8659} Jes'rimon · {object:172959} The Drag · {quest:4300} Bone-Bladed Weapons · {zone:1447} Azshara
-	["{npc:8659}, in {object:172959}, upstairs in one of its tallest buildings, has {quest:4300} for later; then your class trainer before you leave for {zone:1447}."] = "",
+	["{npc:8659}, in {object:172959}, upstairs in one of its tallest buildings, has {quest:4300} for later; then your class trainer before you leave for {zone:1447}."] = "{npc:8659}在{object:172959}，就在区里最高的几栋楼之一的楼上。接了{quest:4300}先留着，再找职业训练师，然后前往{zone:1447}。",
 	-- {npc:8659} Jes'rimon · {object:172959} The Drag
-	["{npc:8659}, upstairs in {object:172959}"] = "",
+	["{npc:8659}, upstairs in {object:172959}"] = "{npc:8659}在{object:172959}一栋建筑的楼上",
 
 	-- Step 24: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {object:172957} Valley of Wisdom · {npc:4791} Nazeer Bloodpike · {zone:1445} Dustwallow Marsh
-	["{npc:4047} stands in the {object:172957}: {npc:4791}'s report from {zone:1445}."] = "",
+	["{npc:4047} stands in the {object:172957}: {npc:4791}'s report from {zone:1445}."] = "在{object:172957}找{npc:4047}，把{npc:4791}从{zone:1445}送来的报告交给他。",
 
 	-- Step 26: Ride into Azshara
 	-- {zone:1447} Azshara
@@ -118,13 +118,13 @@ return {
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "飞往{area:1637}",
 	-- {zone:1447} Azshara · {area:1637} Orgrimmar · {quest:4493} March of the Silithid · {zone:1456} Thunder Bluff
-	["You reached 50 in {zone:1447}: fly back to {area:1637} for {quest:4493} and your level 50 training, then on to {zone:1456}."] = "",
+	["You reached 50 in {zone:1447}: fly back to {area:1637} for {quest:4493} and your level 50 training, then on to {zone:1456}."] = "你已在{zone:1447}升到50级。飞回{area:1637}接{quest:4493}，学习50级的职业技能，然后前往{zone:1456}。",
 	-- {area:1237} Valormok
 	["{area:1237} flight master"] = "{area:1237}的飞行管理员",
 
 	-- Step 31: Zilzibin Drumlore
 	-- {npc:7010} Zilzibin Drumlore
-	["{npc:7010} is in the Drag; your class trainer next."] = "",
+	["{npc:7010} is in the Drag; your class trainer next."] = "{npc:7010}在暗巷区，之后去找职业训练师。",
 
 	-- Step 32: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
@@ -152,21 +152,21 @@ return {
 
 	-- Step 38: Camp Mojache
 	-- {npc:8115} Witch Doctor Uzer'i
-	["{npc:8115}, if you don't carry it yet: the materials come on this loop"] = "",
+	["{npc:8115}, if you don't carry it yet: the materials come on this loop"] = "还没接的话，就找{npc:8115}接。材料会在这趟路上收集",
 	-- {npc:7776} Talo Thornhoof · {zone:1448} Felwood
 	["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}：熊在{zone:1448}",
 	-- {npc:7776} Talo Thornhoof
-	["{npc:7776}: the Northspring harpies, at the far end of this loop"] = "",
+	["{npc:7776}: the Northspring harpies, at the far end of this loop"] = "在{npc:7776}处接，北泉鹰身人在这段路线的尽头",
 
 	-- Step 39: Talo Thornhoof
 	-- {quest:3062} Dark Heart · {npc:8075} Edana Hatetalon
-	["{quest:3062}: {npc:8075} (level 50, elite) roosts above the Northspring harpies this loop ends at. Grouping up is advised: skip it if you are alone."] = "",
+	["{quest:3062}: {npc:8075} (level 50, elite) roosts above the Northspring harpies this loop ends at. Grouping up is advised: skip it if you are alone."] = "{quest:3062}要打的{npc:8075}(50级，精英)栖息在北泉鹰身人巢穴上方，就在这段路线的尽头。建议组队，独自一人就跳过。",
 
 	-- Step 40: Frayfeather Hippogryphs
 	-- plural, as words: Frayfeather Hippogryphs = {npc:5300} Frayfeather Hippogryph
 	["Frayfeather Hippogryphs"] = "乱羽角鹰兽",
 	-- {quest:3128} Natural Materials
-	["The hippogryphs nest on the hills south-west of the camp. Kill one, then use the Muisek Vessel on its body. Nearly every one also drops the sinew and metallic fragments for {quest:3128}."] = "",
+	["The hippogryphs nest on the hills south-west of the camp. Kill one, then use the Muisek Vessel on its body. Nearly every one also drops the sinew and metallic fragments for {quest:3128}."] = "角鹰兽在营地西南的山丘上筑巢。杀一只后，对它的尸体使用角鹰兽灵魂精华容器。几乎每只还会掉落{quest:3128}需要的有弹性的肌腱和金属碎片。",
 
 	-- Step 41: Hippogryph nests
 	["Hippogryph nests"] = "角鹰兽巢穴",
@@ -177,15 +177,14 @@ return {
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
 	["Sprite Darters"] = "小精龙",
 	-- {item:9589} Encrusted Minerals
-	-- was: ["The faerie dragons flit around the woods just west of the camp. Use the vessel on each one you kill."] = "精灵龙在营地正西的树林里飞来飞去。对你杀死的每一只使用容器。"
-	["The faerie dragons flit around the woods just west of the camp. Use the vessel on each one you kill; they carry the {item:9589} too."] = "",
+	["The faerie dragons flit around the woods just west of the camp. Use the vessel on each one you kill; they carry the {item:9589} too."] = "精灵龙在营地正西的树林里飞来飞去。每杀一只，就对尸体使用容器。它们也会掉落{item:9589}。",
 
 	-- Step 45: Wandering Forest Walkers
 	-- plural, as words: Wandering Forest Walkers = {npc:7584} Wandering Forest Walker
 	["Wandering Forest Walkers"] = "森林漫游者",
 	-- {zone:1444} Feralas · {npc:272401} Vale Screamer
 	-- plural, as words: Splintered Logs = {item:9590} Splintered Log
-	["The treants wander the forest roads between the camp and the middle of {zone:1444}; there are only a few, so look along the paths. They carry the Splintered Logs too.\nCareful: a {npc:272401} (level 60) flies over the forest west of the camp: keep clear of it."] = "",
+	["The treants wander the forest roads between the camp and the middle of {zone:1444}; there are only a few, so look along the paths. They carry the Splintered Logs too.\nCareful: a {npc:272401} (level 60) flies over the forest west of the camp: keep clear of it."] = "树人在营地和{zone:1444}中部之间的林间道路上游荡，数量不多，沿路找。它们也会掉落断裂的原木。\n小心，有一只{npc:272401}(60级)在营地西边的森林上空飞行，离它远点。",
 
 	-- Step 47: Zorbin Fandazzle
 	-- {area:1108} Forgotten Coast · {npc:14637} Zorbin Fandazzle
@@ -193,10 +192,10 @@ return {
 
 	-- Step 48: Forgotten Coast: the water and the shore
 	-- {area:1108} Forgotten Coast
-	["{area:1108}: the water and the shore"] = "",
+	["{area:1108}: the water and the shore"] = "{area:1108}：水域和海岸",
 	-- {item:18904} Zorbin's Ultra-Shrinker · {npc:14637} Zorbin Fandazzle
 	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray · Water Elemental Cores = {item:18958} Water Elemental Core · Sea Elementals = {npc:5461} Sea Elemental · Deep Striders = {npc:5360} Deep Strider
-	["The Sea Sprays (46-48) wash along the shore just south of the dock and drop the Water Elemental Cores, as the Sea Elementals (47-49) do. The Wave and Deep Striders (47-49) wade in the water off the same beach: zap them with {item:18904} first, and shrunken they lose their elite strength.\nThe Ultra-Shrinker lasts two hours: {npc:14637} has a second round once these are done."] = "",
+	["The Sea Sprays (46-48) wash along the shore just south of the dock and drop the Water Elemental Cores, as the Sea Elementals (47-49) do. The Wave and Deep Striders (47-49) wade in the water off the same beach: zap them with {item:18904} first, and shrunken they lose their elite strength.\nThe Ultra-Shrinker lasts two hours: {npc:14637} has a second round once these are done."] = "巨型海元素(46-48)在码头南边不远的岸边活动，会掉落水元素核心，海元素(47-49)也会掉落。波涛巨人和深海巨人(47-49)在同一片海滩外的水里走动。先对它们使用{item:18904}，缩小后就没有精英怪那么强了。\n超级压缩器只能用两小时。这轮做完后，{npc:14637}还有第二轮任务。",
 	-- {item:18958} Water Elemental Core
 	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray
 	["{item:18958}, from the Sea Sprays"] = "{item:18958}，从巨型海元素身上获取",
@@ -206,11 +205,10 @@ return {
 
 	-- Step 50: Forgotten Coast: the giants' hills
 	-- {area:1108} Forgotten Coast
-	["{area:1108}: the giants' hills"] = "",
+	["{area:1108}: the giants' hills"] = "{area:1108}：巨人所在的山丘",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant · Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray
-	-- was: ["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "海元素和巨型海元素沿着码头周围的海岸活动。\n大地行者和峭壁巨人在码头北面的山丘游荡。先对每个巨人使用{item:18904}：缩小后，它们就不再是精英。每个被缩小的巨人都会掉落残渣；还要对尸体使用山岭巨人灵魂精华容器。"
-	["The Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too.\nThe Sea Elementals and Sea Sprays along the shore have the last cores."] = "",
+	["The Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too.\nThe Sea Elementals and Sea Sprays along the shore have the last cores."] = "大地行者和峭壁巨人在码头北面的山丘上游荡。先对每个巨人使用{item:18904}，缩小后它们就不再是精英。每个被缩小的巨人都会掉落残渣，还要对它的尸体使用山岭巨人灵魂精华容器。\n岸边的海元素和巨型海元素会掉落剩下所需的核心。",
 
 	-- Step 52: Northspring harpies
 	["Northspring harpies"] = "北泉鹰身人",
@@ -218,12 +216,12 @@ return {
 
 	-- Step 53: Edana Hatetalon
 	-- {npc:8075} Edana Hatetalon
-	["{npc:8075} (level 50, elite) roosts on the cliff just north of the harpies' nests. Clear the harpies around her first."] = "",
+	["{npc:8075} (level 50, elite) roosts on the cliff just north of the harpies' nests. Clear the harpies around her first."] = "{npc:8075}(50级，精英)栖息在鹰身人巢穴北边不远的悬崖上。先清掉她附近的鹰身人。",
 
 	-- Step 54: Rage Scar yetis
 	["Rage Scar yetis"] = "怒痕雪人",
 	-- {quest:7738} Perfect Yeti Hide
-	["On the way back south-east towards the camp, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "",
+	["On the way back south-east towards the camp, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "往东南返回营地时，路旁山丘的洞穴周围有怒痕雪人。每只都有可能掉落{quest:7738}，可以开启另一个任务。",
 	-- {quest:7738} Perfect Yeti Hide
 	["{quest:7738}, a rare drop"] = "{quest:7738}，稀有掉落",
 
@@ -267,13 +265,12 @@ return {
 
 	-- Step 65: The Dunemaul Compound
 	-- {area:1938} Broken Pillar · {npc:12046} Gor'marok the Ravager · {npc:11758} Andi Lynn · {zone:1446} Tanaris
-	["South of the {area:1938} the Dunemaul ogres hold their compound, with {npc:12046} at its eastern end: {npc:11758}'s quest, if you still carry it from {zone:1446}."] = "",
+	["South of the {area:1938} the Dunemaul ogres hold their compound, with {npc:12046} at its eastern end: {npc:11758}'s quest, if you still carry it from {zone:1446}."] = "{area:1938}南边是砂槌食人魔的营地，{npc:12046}就在营地东端。如果还带着从{zone:1446}接的{npc:11758}的任务，就在这里做。",
 
 	-- Step 66: Thistleshrub Valley
 	-- {quest:3362} Thistleshrub Valley · {npc:7876} Tran'rek · {zone:1446} Tanaris · {area:976} Gadgetzan
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
-	-- was: ["West from the compound, on the way to Un'Goro's ramp: {quest:3362}'s Gnarled Thistleshrubs and Rootshapers (48-50) are {npc:7876}'s, carried from your first {zone:1446} visit. They wander a lot: pull them one at a time. {npc:7876} takes them on the next guide's {area:976} stop, with {npc:11758}'s."] = "从营地向西，前往安戈洛斜坡的路上：{quest:3362}的长瘤的灌木兽和塑根者（48-50）是{npc:7876}的任务，从你第一次来{zone:1446}时就带着。它们到处游荡：一次只拉一只。{npc:7876}会在下一个指南的{area:976}停留时连同{npc:11758}的任务一起交还。"
-	["West from the compound, on the way to Un'Goro's ramp: {quest:3362}'s Gnarled Thistleshrubs and Rootshapers (49-50) are {npc:7876}'s, carried from your second {zone:1446} visit. They wander a lot: pull them one at a time. {npc:7876} takes them on the next guide's {area:976} stop."] = "",
+	["West from the compound, on the way to Un'Goro's ramp: {quest:3362}'s Gnarled Thistleshrubs and Rootshapers (49-50) are {npc:7876}'s, carried from your second {zone:1446} visit. They wander a lot: pull them one at a time. {npc:7876} takes them on the next guide's {area:976} stop."] = "从营地往西，在去安戈洛环形山入口斜坡的路上做{quest:3362}。目标是长瘤的灌木兽和灌木塑根者(49-50级)，任务是第二次去{zone:1446}时从{npc:7876}处接的。它们游荡范围很大，一次只引一只。下一份指南到{area:976}时交给{npc:7876}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["\"Sea Wolf\" MacKinley, on the top floor"] = "“海狼”马克基雷，位于最顶层",

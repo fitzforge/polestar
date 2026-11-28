@@ -1322,6 +1322,48 @@ fn a_tab_s_close_button_shows_faintly_at_rest_and_in_full_under_the_pointer() {
 	assert_eq!(out["call"], json!(["CloseTab", 2]));
 }
 
+// imp on Discord (#4369): with the window at the top of the screen, a tab's tooltip covered the tab. The strip's
+// tooltips (a tab's, its close's, New tab's) open above their button while the screen has room for them there, under
+// it when it has not, in the underline and edge styles alike, and at a window scale other than 1.
+#[test]
+fn the_tab_strip_s_tooltips_open_under_their_button_when_the_screen_has_no_room_above_it() {
+	let out = run(r#"
+		uistub.openTabs(TABS, 1)
+		GameTooltip:SetHeight(60)
+		-- The button's top `gap` under the screen's, in the button's own units.
+		local function anchorAt(b, gap)
+			b.y = UIParent:GetTop() / b:GetEffectiveScale() - b:GetHeight() - gap
+			stub.RunScript(b, "OnEnter")
+			local r = GameTooltip:GetOwner() == b and GameTooltip.anchor or false
+			stub.RunScript(b, "OnLeave")
+			return r
+		end
+		local function probe(b, room, top) return { room = anchorAt(b, room), top = anchorAt(b, top) } end
+		local out = {}
+		local tab = shownTabs()[2]
+		out.underline = { tab = probe(tab, 200, 5), close = probe(tab.Close, 200, 5), add = probe(GF.parts.strip.Add, 200, 5) }
+		-- Window scale 2: 50 of the tab's units is 100 on screen, room for the 60-high tooltip; 20 is 40, too little.
+		F:SetScale(2)
+		out.scale = tab:GetEffectiveScale()
+		out.scaled = probe(tab, 50, 20)
+		F:SetScale(1)
+		Polestar.Set("guideWindow.tabStyle", "edge")
+		stub.advance(1)
+		local e
+		for _, t in ipairs(GF.parts.tabEdge.tabs) do if t:IsShown() and t.psIndex == 2 then e = t end end
+		out.edge = { tab = probe(e, 200, 5), add = probe(GF.parts.tabEdge.Add, 200, 5) }
+		emit(out)"#)
+	.remove(0);
+	let flips = json!({ "room": "ANCHOR_TOP", "top": "ANCHOR_BOTTOM" });
+	for (style, buttons) in [("underline", &["tab", "close", "add"][..]), ("edge", &["tab", "add"][..])] {
+		for button in buttons {
+			assert_eq!(out[style][button], flips, "{style} {button}");
+		}
+	}
+	assert_eq!(out["scale"], 2.0);
+	assert_eq!(out["scaled"], flips, "at window scale 2");
+}
+
 #[test]
 fn a_narrow_tab_truncates_its_title_and_keeps_its_level_range_whole_also_with_the_close_button_shown() {
 	let out = run(r#"
@@ -1871,8 +1913,8 @@ fn the_header_menu_picker_new_tab_compact_transparent_lock_destructive_items_ask
 	.remove(0);
 	assert_eq!(
 		out["items"],
-		json!(["Choose guide", "Open in new tab", "None to hand in", "Quest log is clean", "Quick settings", "Settings", "Reset window size", "Reset guide progress"]),
-		"Skip, the bug and Lookup are in the header, so not in the menu; the quest log rows are always there, off when they have nothing to do; #3095's Reset window size in the settings group"
+		json!(["Choose guide", "Open in new tab", "All steps", "None to hand in", "Quest log is clean", "Quick settings", "Settings", "Reset window size", "Reset guide progress"]),
+		"Skip, the bug and Lookup are in the header, so not in the menu; All steps, its header button not showing here, is; the quest log rows are always there, off when they have nothing to do; #3095's Reset window size in the settings group"
 	);
 	assert_eq!(out["bar"], json!(["Compact mode", "Transparent", "Lock window", "Pause"]), "the window's toggles are the bar on top");
 	assert_eq!(out["locked"], true);
@@ -1907,7 +1949,7 @@ fn the_menu_offers_the_quest_log_cleanup_with_its_count_and_shows_it_off_when_th
 		Polestar.RoutePlan.Unneeded = function() return nil end
 		emit({ two = two, before = before, opened = opened, none = none, unsettled = items() })"#)
 	.remove(0);
-	assert_eq!(out["two"][3], "Clean up quest log (2)", "the quest log's group, after the guide's and the hand-in row");
+	assert_eq!(out["two"][4], "Clean up quest log (2)", "the quest log's group, after the guide's (All steps among them, its header button not showing here) and the hand-in row");
 	assert_eq!(out["before"], false);
 	assert_eq!(out["opened"], true, "the entry opens the cleanup window");
 	for key in ["none", "unsettled"] {
@@ -2871,11 +2913,40 @@ fn a_group_quest_banner_asks_skip_it_or_do_it_with_a_group_and_cannot_be_dismiss
 		ASK,
 		r#"
 		B.Later:Click()
-		emit({ call = lastCall("AnswerGroup"), after = B:IsShown() })"#,
+		emit({ call = lastCall("AnswerGroup"), after = GF.BannerNotice() or false })"#,
 	]
 	.concat())
 	.remove(0);
-	assert_eq!(group, json!({ "call": ["AnswerGroup", 6284, "do"], "after": false }));
+	assert_eq!(group, json!({ "call": ["AnswerGroup", 6284, "do"], "after": "groupDo" }));
+}
+
+// "Do it with a group" is never final: at the group quest's step the banner offers "No group? Skip it", which
+// skips it with the usual undo; closed, it stays away for that quest this session.
+#[test]
+fn a_group_quest_answered_do_offers_no_group_skip_it_at_its_step() {
+	let out = run(&[
+		ASK,
+		r#"
+		B.Later:Click()
+		local doing = { kind = GF.BannerNotice() or false, text = B.Text:GetText(), link = B.Jump.Label:GetText(), close = B.Close:IsShown() }
+		B.Jump:Click()
+		local skipped = { call = lastCall("AnswerGroup"), kind = GF.BannerNotice() or false }
+		B.Jump:Click()
+		B.Later:Click()
+		GF.DismissBanner()
+		emit({ doing = doing, skipped = skipped, closed = GF.BannerNotice() or false, answer = Polestar.CharState().groupQuests[6284] or false })"#,
+	]
+	.concat())
+	.remove(0);
+	assert_eq!(
+		out["doing"],
+		json!({ "kind": "groupDo", "text": "Group quest: “Arachnophobia”
+In your route: the guide takes you to it. Bring a group.", "link": "No group? Skip it", "close": true }),
+		"{out}"
+	);
+	assert_eq!(out["skipped"], json!({ "call": ["AnswerGroup", 6284, "skip"], "kind": "groupSkip" }), "{out}");
+	assert_eq!(out["closed"], false, "{out}");
+	assert_eq!(out["answer"], "do", "{out}");
 }
 
 // The group quest's skip, undone from the banner (#2404): the quest is unanswered again, so the step asks once more.

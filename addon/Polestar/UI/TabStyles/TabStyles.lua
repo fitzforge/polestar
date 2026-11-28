@@ -134,7 +134,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			end)
 			b:SetScript("OnEnter", function(self)
 				if self:IsEnabled() then W.Color(self.Icon, "text") end
-				W.Tooltip(self, style == "edge" and "ANCHOR_TOP" or "ANCHOR_LEFT", self.psTip or "")
+				if style == "edge" then GF.TipAbove(self, self.psTip or "") else W.Tooltip(self, "ANCHOR_LEFT", self.psTip or "") end
 				GF.HoverIn()
 			end)
 			b:SetScript("OnLeave", function(self)

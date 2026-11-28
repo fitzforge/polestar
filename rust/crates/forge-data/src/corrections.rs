@@ -527,7 +527,7 @@ pub const KINDS: [&str; 14] = [
 	"other",
 ];
 
-const QUEST_FIELDS: [&str; 28] = [
+const QUEST_FIELDS: [&str; 29] = [
 	"title",
 	"level",
 	"minLevel",
@@ -567,6 +567,9 @@ const QUEST_FIELDS: [&str; 28] = [
 	// Codex makes each item's quest source from them (#4169: Forever's copies of the dungeon set quests, whose
 	// Classic copies left the data with the only source of their tier 0.5 pieces).
 	"rewards",
+	// No recording or player report has shown the quest on Forever yet: kept in the data (Lookup shows it, marked "Not
+	// seen on Forever yet"), and the data build drops the flag once a recording shows the quest (build.rs).
+	"unseen",
 ];
 
 struct Ck<'a> {
@@ -866,7 +869,7 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 						ck.err(&a, "must be text");
 					}
 				}
-				"escort" | "direct" => {
+				"escort" | "direct" | "unseen" => {
 					if !matches!(v, V::Bool(_)) {
 						ck.err(&a, format!("{k} is true or false"));
 					}
@@ -1681,15 +1684,19 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 		}
 		check_record(ck, &at, r, &mut ids);
 		let a = r.get("at");
-		ck.keys(&format!("{at}.at"), &a, &["quest", "goal", "objective", "guide", "fly", "item"]);
-		let fly = matches!(a.get("goal").as_str(), Some("fly" | "levels"));
+		ck.keys(&format!("{at}.at"), &a, &["quest", "goal", "objective", "guide", "fly", "item", "sethome"]);
+		let goal = a.get("goal");
+		let quest_anchor = !matches!(goal.as_str(), Some("fly" | "sethome" | "levels"));
+		if !a.get("sethome").is_undef() && goal.as_str() != Some("sethome") {
+			ck.err(format!("{at}.at.sethome"), "sethome is only valid on a hearthstone bind anchor");
+		}
 		if !a.get("item").is_undef() && a.get("goal").as_str() != Some("collect") {
 			ck.err(format!("{at}.at.item"), "item is only valid on a collect anchor");
 		}
-		if !fly {
+		if quest_anchor {
 			ck.refers(&format!("{at}.at.quest"), "quests", &a.get("quest"));
 		}
-		match a.get("goal").as_str() {
+		match goal.as_str() {
 			Some("accept" | "turnin" | "complete") => {}
 			Some("quest") => {
 				if r.get("races").is_undef() {
@@ -1713,6 +1720,14 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 					ck.err(format!("{at}.at"), "a flight anchor carries a `when` only, and no quest");
 				}
 			}
+			Some("sethome") => {
+				if !has_text(&a.get("sethome")) {
+					ck.err(format!("{at}.at.sethome"), "a hearthstone bind anchor names the inn");
+				}
+				if ["quest", "objective", "fly"].iter().any(|k| !a.get(k).is_undef()) || r.get("goalNote").is_undef() {
+					ck.err(format!("{at}.at"), "a hearthstone bind anchor carries a goalNote and names only its inn and optional guide");
+				}
+			}
 			Some("levels") => {
 				if !has_text(&a.get("guide")) || !a.get("quest").is_undef() || r.get("levels").is_undef() {
 					ck.err(format!("{at}.at"), "a levels anchor names its guide id and no quest, and carries `levels` only");
@@ -1728,7 +1743,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 					}
 				}
 			}
-			_ => ck.err(format!("{at}.at.goal"), format!("{}: accept, turnin, complete, objective, quest, collect, fly or levels", show(&a.get("goal")))),
+			_ => ck.err(format!("{at}.at.goal"), format!("{}: accept, turnin, complete, objective, quest, collect, fly, sethome or levels", show(&a.get("goal")))),
 		}
 		let (tip, level, along, early, when) = (r.get("tip"), r.get("level"), r.get("along"), r.get("early"), r.get("when"));
 		let (background, races) = (r.get("background"), r.get("races"));
@@ -2276,6 +2291,15 @@ mod tests {
 		assert_eq!(bad.len(), 4, "an unknown quest twice, an empty set name, ghostOnly not a flag: {bad:?}");
 	}
 
+	// A quest no recording has shown on Forever yet (the Nightmare Incursion missions): a flag, true or false.
+	#[test]
+	fn unseen_is_a_flag() {
+		let src = r#""source": { "kind": "recording", "ref": "no run" }, "note": "never recorded""#;
+		assert_eq!(findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "unseen": true }}, {src} }} }} }}"#)), None, None), Vec::<String>::new());
+		let bad = findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "unseen": "yes" }}, {src} }} }} }}"#)), None, None);
+		assert_eq!(bad.len(), 1, "{bad:?}");
+	}
+
 	#[test]
 	fn a_profession_rank_is_a_whole_number_2752() {
 		let src = r#""source": { "kind": "tdb", "ref": "quest_template_addon" }, "note": "the lower rank""#;
@@ -2390,6 +2414,14 @@ mod tests {
 		assert_eq!(record_findings(None, Some(good)), Vec::<String>::new());
 		assert!(!record_findings(None, Some(&good.replace("\"item\": 40", "\"item\": 999999"))).is_empty());
 		assert!(!record_findings(None, Some(&good.replace("\"goalNote\":", "\"tip\":"))).is_empty());
+	}
+
+	#[test]
+	fn hearthstone_bind_notes_require_an_inn_name_and_a_note() {
+		let good = r#"{ "fixes": [{ "id": "booty-bay-innkeeper-floor", "at": { "goal": "sethome", "sethome": "Booty Bay" }, "goalNote": "Innkeeper Skindle is downstairs", "source": { "kind": "client", "ref": "spawn.jsonl" }, "note": "checked" }] }"#;
+		assert!(record_findings(None, Some(good)).is_empty());
+		assert!(!record_findings(None, Some(&good.replace(r#""sethome": "Booty Bay""#, r#""sethome": """#))).is_empty());
+		assert!(!record_findings(None, Some(&good.replace(r#""goalNote":"#, r#""tip":"#))).is_empty());
 	}
 
 	#[test]

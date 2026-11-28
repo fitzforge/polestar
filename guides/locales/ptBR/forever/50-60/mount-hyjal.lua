@@ -366,7 +366,7 @@ return {
 	-- {npc:264089} Eluneth
 	["{npc:264089} and the veteran"] = "",
 	-- {npc:264089} Eluneth · {npc:255009} Veteran of the Third War · {area:16868} Mourning's Rest
-	["Back to {npc:264089}, then the ghostly {npc:255009} at {area:16868}'s western edge, where the recording met him, on your way west."] = "",
+	["Back to {npc:264089}, then the ghostly {npc:255009} on your way west. He doesn't keep to one spot: players have met him anywhere in {area:16868} from its western edge (20,60) north-east to about 25,51, so if he isn't at the arrow, look along that line."] = "",
 
 	-- Step 82: Hyjal Silphium
 	-- {area:16868} Mourning's Rest · {npc:244512} Ortak Lomgok · {area:16848} Elderwild

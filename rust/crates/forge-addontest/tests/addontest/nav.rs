@@ -704,14 +704,7 @@ fn a_target_a_floor_above_or_below_is_not_arrived_at_and_the_arrow_shows_up_or_d
 		emit(seen)"#);
 	assert_eq!(
 		out,
-		json!([
-			["unmapped", "up", true, false, "The last steps here aren't mapped", false, 0],
-			["unmapped", "down"],
-			["unmapped", false, false, 0],
-			["arrived", true, false, true, 1],
-			["arrived", true, 1],
-			["arrived", true, 1]
-		])
+		json!([["unmapped", "up", true, false, "5 yd", false, 0], ["unmapped", "down"], ["unmapped", false, false, 0], ["arrived", true, false, true, 1], ["arrived", true, 1], ["arrived", true, 1]])
 	);
 }
 
@@ -1506,6 +1499,32 @@ fn the_world_map_marks_every_other_spot_of_an_area_objective_clicking_one_search
 	assert_eq!(out["spot"], 3);
 	assert_eq!(out["after"], 2, "marks rebuilt around the new spot");
 	assert_eq!(out["off"], 0);
+}
+
+// The target's other spots are a dense layer (Pins' `dense`): a continent's map shows the target and not every spot,
+// the zone's map shows them all.
+#[test]
+fn a_continent_map_shows_the_target_and_not_every_other_spot_of_an_area_objective() {
+	let out = run(&[
+		SEARCH,
+		r#"
+		nav.maps[9010] = { c = 0, top = 3000, bottom = -3000, left = 3000, right = -3000, name = "Mainland" }
+		nav.setWaypoint(searchWp(1))
+		C_Map.GetMapInfo = function(map) return { mapID = map, mapType = map == 9010 and 2 or 3 } end
+		local function layers()
+			local names = {}
+			for _, pin in ipairs(nav.pins()) do names[#names + 1] = pin.data.layer.name end
+			table.sort(names)
+			return table.concat(names, " ")
+		end
+		nav.showWorldMap(9010)
+		local r = { continent = layers() }
+		nav.showWorldMap(9000)
+		r.zone = layers()
+		emit(r)"#,
+	]
+	.concat());
+	assert_eq!(out, json!({ "continent": "nav.target", "zone": "nav.spots nav.spots nav.target" }));
 }
 
 #[test]

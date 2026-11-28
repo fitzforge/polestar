@@ -1193,6 +1193,16 @@ function Compat.GetContinentMap(uiMapID)
 	return result or nil
 end
 
+-- Whether a map is a continent or wider (Enum.UIMapType Continent = 2, World = 1, Cosmic = 0): the views where
+-- dense layers (rare and treasure pins, spawn markers) stay off. False for a zone or narrower, and when the client
+-- does not say.
+local ZONE_MAP_TYPE = 3
+function Compat.IsWideMap(uiMapID)
+	local info = uiMapID and C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(uiMapID)
+	local mapType = info and info.mapType
+	return type(mapType) == "number" and mapType < ZONE_MAP_TYPE
+end
+
 -- A unit's position on its best map (map, x and y in 0-100); nil where the
 -- client does not say or keeps the map or the position secret (#2533: the
 -- percent was worked out on a secret value, which the client blocks and logs

@@ -4,7 +4,8 @@
 --   nav.route   where the travel route changes mode: flight masters, docks, the inn (world map)
 --   nav.goals   the current step's other open goals; click one to point the arrow there (world map)
 --   nav.spots   the target's other spawn places, small marks (other places it spawns fainter);
---               click one to search there next (world map); nav.spawnSpots off hides them. A target of exact points
+--               click one to search there next (zone maps; a continent shows the target and its regions, not
+--               every spot); nav.spawnSpots off hides them. A target of exact points
 --               (Engine.SpotsExact: an object's spawns, a mob at a few fixed places, #1944)
 --               marks every point on the minimap too, those checked lately fainter
 --   nav.areas   the regions the target's goal spawns in, in the arrow's colour (world
@@ -16,7 +17,8 @@
 -- path) and across continents; without a route, straight to the target (both surfaces).
 -- nav.worldPins / nav.minimapPins switch Nav's layers on each surface; nav.trailDots the trail,
 -- which stands in only while Maps/RouteLines.lua draws no route (nav.routeLines off), and
--- nav.minimapRoute keeps it off the minimap.
+-- nav.minimapRoute keeps it off the minimap. With nav.hidePinsWithGuide on, hiding the
+-- guide window takes them off both surfaces (Nav.PinsHiddenWithGuide).
 
 local ADDON, ns = ...
 local Nav = ns.Nav
@@ -123,7 +125,7 @@ local function updateSpots(world, minimap)
 			}
 		end
 	end
-	Pins.SetLayer(SPOTS, pins, { world = world, minimap = minimap })
+	Pins.SetLayer(SPOTS, pins, { world = world, minimap = minimap, dense = true })
 end
 
 -- A leg that ends at a chokepoint (leg.choke = { kind, name }, Travel.lua)
@@ -513,10 +515,14 @@ local function updateTrail(world, minimap)
 end
 
 local function surfaces()
+	if Nav.PinsHiddenWithGuide() then return false, false end
 	return ns.Get("nav.worldPins") and true or false, ns.Get("nav.minimapPins") and true or false
 end
 
+local pendingCombatUpdate = false
+
 function Layers.Update()
+	pendingCombatUpdate = false
 	local world, minimap = surfaces()
 	-- Paused with "Hide the step's map pins while paused" (pause.map): the
 	-- step's goals, their areas and the while-here pins go; the target's pin
@@ -547,13 +553,32 @@ Layers.OnTarget = Layers.Update
 Layers.OnSettings = Layers.Update
 Layers.OnTheme = Layers.Update
 
-ns.On("STEP_UPDATED", Layers.Update)
-ns.On("ROUTE_CHANGED", Layers.Update)
-ns.On("WHILE_HERE_CHANGED", Layers.Update)
+local function onCombatDeferrableUpdate()
+	local C = ns.Compat
+	if C and C.InCombat and C.InCombat() then
+		pendingCombatUpdate = true
+		return
+	end
+	Layers.Update()
+end
+
+ns.On("STEP_UPDATED", onCombatDeferrableUpdate)
+ns.On("ROUTE_CHANGED", onCombatDeferrableUpdate)
+ns.On("WHILE_HERE_CHANGED", onCombatDeferrableUpdate)
+ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
+	if pendingCombatUpdate then
+		pendingCombatUpdate = false
+		Layers.Update()
+	end
+end)
 ns.On("POLESTAR_PAUSED", Layers.Update)
 ns.On("SETTING_CHANGED", function(path)
-	if path == "pause.map" or path == "pause" then Layers.Update() end
+	if path == "pause.map" or path == "pause" then Layers.Update()
+	elseif (path == "ui.shown" or path == "ui") and ns.Get("nav.hidePinsWithGuide") then Layers.Update() end
 end)
+-- The guide window shown or hidden (an instance hide too, ns.GuideShown): the
+-- pins go and come back with it while nav.hidePinsWithGuide is on.
+ns.On("GUIDE_SHOWN", function() if ns.Get("nav.hidePinsWithGuide") then Layers.Update() end end)
 ns.On("ROUTE_ADVANCED", onAdvanced)
 ns.On("NAV_ROUTE_GEOMETRY", function()
 	local world, minimap = surfaces()

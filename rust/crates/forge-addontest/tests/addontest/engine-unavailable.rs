@@ -1455,3 +1455,33 @@ Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Riverglades", f
 	assert_eq!(status("off")[1], "active", "Skip grey quests off: the candles are back: {out}");
 	assert_eq!(out["keptOff"], json!({ "candles": true, "water": true }), "{out}");
 }
+
+// #4505 (AbaddonAbatu, 0.4.3.1): Lookup's item guide for the Curio-Adorned Necklace ends on "collect" the reward
+// beside the accept and turn-in of Curios of Curiosity (94998), whose chain the player had skipped at its start. The
+// accept and turn-in were passed ("pre"), but the plain collect still counted as work: the guide stopped on its last
+// step with nothing to do and no arrow. A quest's reward (`rewardOf`, builders.quest) waits with that quest's accept,
+// as a quest's starting item does (#1531).
+#[test]
+fn a_quest_s_reward_waits_with_a_quest_that_cannot_be_taken_4505() {
+	let guide = r#"
+Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Curio-Adorned Necklace", faction = "Horde", minLevel = 10, maxLevel = 30, steps = {
+	{ title = "Trainer", goals = { { t = "train", npc = 3353, npcName = "Trainer", map = 1413, x = 52, y = 31 } } },
+	{ title = "Curios of Curiosity", goals = {
+		{ t = "accept", quest = 94998, title = "Curios of Curiosity", npc = 3429, npcName = "Thork", pre = { 94997 }, preAll = { 94997 }, map = 1413, x = 51, y = 30 },
+		{ t = "turnin", quest = 94998, title = "Curios of Curiosity", npc = 3429, npcName = "Thork", map = 1413, x = 51, y = 30 },
+		{ t = "collect", item = 279850, itemName = "Curio-Adorned Necklace", count = 1, rewardOf = 94998 },
+	} },
+} })
+"#;
+	let out = run(
+		"",
+		guide,
+		r#"
+		stub.fire("QUEST_LOG_UPDATE"); flush()
+		emit({ curios = brief(2) })
+	"#,
+	);
+	let goals = out["curios"].as_array().unwrap();
+	assert!(goals[0].as_str().unwrap().contains(":pre:"), "the accept waits for its prerequisite: {out}");
+	assert!(goals[2].as_str().unwrap().contains(":pre:"), "the reward waits with it, for the same reason: {out}");
+}

@@ -103,3 +103,39 @@ fn the_airship_ends_away_from_zephras_isle_stand_at_the_npc_on_their_dock_2830()
 	assert_eq!((d["x"].as_f64(), d["y"].as_f64()), (Some(12.9), Some(52.01)), "Dalaran: on the dock, at Arcanist Laurain: {d}");
 	assert!(d["source"].as_str().unwrap().starts_with("npc 256306 (\"Arcanist Laurain\")"), "{d}");
 }
+
+/// #4344 (Meta): the Riverglades boat's ends stood at its wharfmasters, Whizzbuzz 83 yd from where the boat docks at
+/// Powderfuse Port and Steamfizzle 68 yd from its Steamwheedle Port stop, so the arrow led to the quay, not to the
+/// boat. A boat's end is its stop (TaxiPath 11391's docked points), the wharfmaster only checks it.
+#[test]
+fn the_riverglades_boat_s_ends_are_where_the_boat_docks_not_at_its_wharfmasters_4344() {
+	let g = common::golden("travel");
+	let input = g.join("input");
+	let data = std::env::temp_dir().join(format!("forge-travel-4344-{}", std::process::id()));
+	std::fs::create_dir_all(&data).unwrap();
+	for e in std::fs::read_dir(common::golden("data").join("expected")).unwrap() {
+		let p = e.unwrap().path();
+		std::fs::copy(&p, data.join(p.file_name().unwrap())).unwrap();
+	}
+	let mut npcs: serde_json::Value = serde_json::from_str(&std::fs::read_to_string(data.join("npcs.json")).unwrap()).unwrap();
+	npcs["259961"] = serde_json::json!({ "id": 259961, "name": "Wharfmaster Whizzbuzz", "level": 40, "spawns": { "2548": { "f": "l", "pts": [[79.45, 52.71]] } } });
+	npcs["260405"] = serde_json::json!({ "id": 260405, "name": "Wharfmaster Steamfizzle", "level": 40, "spawns": { "1446": { "f": "e", "pts": [[67.6, 23.15]] } } });
+	std::fs::write(data.join("npcs.json"), serde_json::to_string(&npcs).unwrap()).unwrap();
+	let mut o = Options::new(&input);
+	o.data_dir = data.clone();
+	o.recordings_dir = input.join("recordings");
+	o.sources_dir = input.join("sources");
+	o.shipped_file = Some(input.join("crossings.json"));
+	o.crossings_file = input.join("local").join("crossings.json");
+	o.grid_dir = None;
+	let out = build(&o).unwrap();
+	std::fs::remove_dir_all(&data).ok();
+	let doc: serde_json::Value = serde_json::from_str(&out.travel_json).unwrap();
+	let t = doc["transports"].as_array().unwrap().iter().find(|t| t["id"] == "boat-tanaris-powderfuse").cloned().unwrap();
+	let at = |e: &serde_json::Value, x: f64, y: f64| (e["x"].as_f64().unwrap() - x).abs() < 0.05 && (e["y"].as_f64().unwrap() - y).abs() < 0.05;
+	let (a, b) = (&t["a"], &t["b"]);
+	assert!(at(b, 80.6, 54.61), "Powderfuse Port: where the boat docks (80.60,54.61), not at Whizzbuzz (79.45,52.71): {b}");
+	assert_eq!(b["source"], "TaxiPathNode stop, checked against npc \"Wharfmaster Whizzbuzz\" (83 yd)");
+	assert!(at(a, 68.58, 22.99), "Steamwheedle Port: where the boat docks (68.58,22.99), not at Steamfizzle (67.6,23.15): {a}");
+	assert_eq!(a["source"], "TaxiPathNode stop, checked against npc \"Wharfmaster Steamfizzle\" (68 yd)");
+}

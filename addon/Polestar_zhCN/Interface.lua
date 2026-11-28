@@ -7,34 +7,6 @@
 -- reworded that this file still showed in English, translated by an AI model (Claude Opus 5.5)
 -- in this file's own wording, and waiting for a native speaker's check. Reviewing one: keep or
 -- fix its line below, and take its key off this list.
---   Requires level %d: kept for a later guide
---   Arrived underwater
---   %s · at level %d
---   %s (level %d)
---   %s takes these once you reach their level: %s
---
--- Machine-translated, to be reviewed (0.4.3 guide titles, 24 Nov 2026): translated by an AI model
--- (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing
--- one: keep or fix it, and take it off this list. The interface texts:
---   Quests in
---   Passes through
--- and, in guides/locales/zhCN/, these guides' route-order line (the Horde 55-56 guide's title too,
--- whose zone name is the client's own):
---   forever/alliance/30-40/05-arathi-highlands
---   forever/alliance/40-50/01-stranglethorn-vale
---   forever/alliance/40-50/07-un-goro-crater
---   forever/alliance/50-60/01-burning-steppes
---   forever/alliance/50-60/02-felwood
---   forever/alliance/50-60/03-winterspring
---   forever/horde/40-50/02-feralas
---   forever/horde/40-50/05-the-hinterlands
---   forever/horde/40-50/06-azshara
---   forever/horde/50-60/01-un-goro-crater
---   forever/horde/50-60/02-felwood
---   forever/horde/50-60/03-winterspring
---   forever/horde/50-60/04-azshara
---   forever/horde/50-60/05-eastern-plaguelands
---   forever/horde/50-60/06-silithus
 --
 -- Machine-translated, to be reviewed (0.4.3, 25 Nov 2026): the interface and guide texts 0.4.3 added
 -- or reworded that this file still showed in English, translated by an AI model (Claude Opus 5.5)
@@ -49,7 +21,7 @@
 --   %s. Optional: the route doesn't need it.
 --   Kept for %s
 --   Hand in %s to %s, who walks around here: look inside the circle on the map
---   A quest you carry that the route does not work here: its work is nearby.
+--   A quest in your log with an objective nearby that the route doesn't do here.
 --   %s at %s
 --   Only visible while dead: die nearby and talk to them as a ghost.
 --   Under water nearby: swim down to it
@@ -72,10 +44,6 @@
 --   Suggested
 --   The guides window only. Click to pick a size; right-click to reset.
 --   Elites nearby
---   Group, or careful: a group quest, yours to do or skip
---   Group, or careful: an escort that can go wrong
---   Group, or careful: elites at your level or above
---   Group, or careful: a group is advised
 --   Careful: elites nearby
 --   Careful: elites, below your level
 --   %s · kept for %s
@@ -114,11 +82,6 @@
 --   %s walks around here: look inside the circle on the map
 --   No %s for your side.
 --   With %s
---   Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Image of Archmage Modera gives it with Heart of Disruption: keep that quest in your log until you are inside. The Alliance walks in through the sewer pipe in Cantrips & Crows.
---   Calls up Lyn the Ignored, a hidden boss, at the summoning circle in the City of Dalaran's Underbelly, in the small room past Atrexis the Grave Knight. The Black Tome lies on a table up the stairs behind Archmage Arugal in Shadowfang Keep; use it at the Ambermill Leyline Focus, the blue crystal beside Archmage Ataeric in Ambermill's town hall, and it becomes the Tome of Dalaran.
---   Opens a portal from the first khan's spot in Maraudon's outer caves to Earth Song Falls in inner Maraudon; the group walks through it. Celebras the Redeemed makes it once Celebras the Cursed is dead inside.
---   Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Alphonse Dumas in Farholde Keep forges the key from it with 4 Thick Leather and 12 Iron Bars.
---   Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars.
 --   Use %s beside %s: it becomes %s.
 --   Keep %s in your quest log until you are inside: taking it gives you %s, and dropping the quest takes it back.
 --   Not open on Forever yet: the attunement is ready for when it opens.
@@ -146,7 +109,6 @@
 --   Your current settings: the new profile is a copy of the one in use, window positions, skin and all. Defaults: every setting at its default.
 --   Northshire Abbey
 --   Echo Ridge Mine
---   Northshire Vineyards
 --   Brother Paxton
 --   Goldshire
 --   Tab style
@@ -189,8 +151,6 @@
 --   Any issues: @%s in a bug report or on Discord.
 --   Before %s (%s)
 --   Your setup as it was saved: a click puts back every window setting it holds.
---   Looking ahead.
---   Looking back.
 --   On the way to your map point (%s).
 --   Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests.
 --   You are past this class quest's levels.
@@ -215,7 +175,6 @@
 --   Tetris is saved and paused for the fight: type %s to continue.
 --   Tetris is saved and paused.
 --   Landed. Tetris is saved and paused: type %s to continue.
---   Play next
 --   Start
 --   Other guides
 --   Review %d skipped
@@ -247,8 +206,6 @@
 --   Emberforge
 --   Stormspire Isles
 --   Astral Sanctum
---   Row sweep
---   Column sweep
 --   Burst
 --   Level %d / %d
 --   Objectives complete
@@ -392,6 +349,23 @@
 --   Fewer folders
 --   Quit the game fully and start it again: Polestar is 22 folders now, not 45.
 --   Steps fixed in dozens of zones. Found something off? Type %s.
+--
+-- Machine-translated, to be reviewed (0.4.4 Dungeon Set 2 guides, 26 Nov 2026): translated by an AI model
+-- (Claude Opus 5.5) and waiting for a native speaker's check. Reviewing one: keep or fix it, and take it
+-- off this list. These guides' texts in guides/locales/zhCN/:
+--   forever/class/druid/dungeon-set-2
+--   forever/class/hunter/dungeon-set-2
+--   forever/class/mage/dungeon-set-2
+--   forever/class/paladin/dungeon-set-2
+--   forever/class/priest/dungeon-set-2
+--   forever/class/rogue/dungeon-set-2
+--   forever/class/shaman/dungeon-set-2
+--   forever/class/warlock/dungeon-set-2
+--   forever/class/warrior/dungeon-set-2
+--
+-- Machine-translated, to be reviewed (0.4.4 Lookup, 26 Nov 2026): translated by an AI model (Claude Opus 5.5)
+-- and waiting for a native speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   Not seen on Forever yet
 -- Machine-translated, to be reviewed (#3701 Free mode, the finished-quest guide #2486 and the other lines new on
 -- next since 0.4.3, 26 Nov 2026):
 -- translated by an AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native
@@ -452,6 +426,17 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+--   Profession routes: based on the guides by Peter at WoW-Professions.com.
+-- Machine-translated, to be reviewed (#2576 auction house prices, 27 Nov 2026): translated by an AI model (Claude Opus 5.5)
+-- and waiting for a native speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   Optional: buy at the auction house (/polestar ah)
+--   Auctionator estimate: %s
+--   %s (%d still unpriced)
+--   The auction house is unavailable to Self-Found characters.
+--   No cached price
+--   No cached prices for the remaining quest items.
+--   Partial estimate for remaining quest items: %s
+--   Estimated total for remaining quest items: %s
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhCN") then return end
@@ -505,7 +490,7 @@ L["Recipes"] = "配方"
 L["Tabards"] = "战袍"
 L["Quests"] = "任务"
 L["NPCs"] = "NPC"
-L["Rares"] = "稀有"
+L["Rares"] = "稀有怪与宝藏"
 L["Dungeons and raids"] = "地下城和团队"
 L["Zones"] = "地区"
 L["Treasures"] = "宝藏"
@@ -531,12 +516,12 @@ L["Go to"] = "前往"
 L["Talk to"] = "交谈："
 L["Click"] = "点击"
 L["Use"] = "使用"
-L["Set your home to"] = "将炉石设置到"
+L["Set your home to"] = "将炉石设置在"
 L["Set your home at"] = "将炉石设置在"
 L["the nearest inn"] = "最近的旅店"
 L["Hearth to"] = "炉石回到"
 L["Die and resurrect at"] = "死亡并复活于"
-L["Get the flight path at"] = "获取飞行路线："
+L["Get the flight path at"] = "开通飞行点："
 L["Fly to"] = "飞往"
 L["Learn new spells from"] = "学习新法术："
 L["Learn from"] = "学习："
@@ -552,14 +537,14 @@ L["Learn"] = "学会"
 L["until %s %d"] = "直到%s达到 %d"
 L["until skill %d"] = "直到技能达到 %d"
 L["Craft"] = "制作"
-L["Reach %s with"] = "达到%s声望："
+L["Reach %s with"] = "声望达到%s："
 L["Explore"] = "探索"
 L["elite"] = "精英"
 L["rare elite"] = "稀有精英"
 L["boss"] = "首领"
 L["rare"] = "稀有"
 L["%s or %s"] = "%s 或 %s"
-L["Kill %s for %s"] = "为 %2$s 击杀 %1$s"
+L["Kill %s for %s"] = "击杀 %1$s，收集 %2$s"
 L["Collect %s from %s"] = "从 %2$s 收集 %1$s"
 L["Riding"] = "骑术"
 L["Grey, kept: opens %s"] = "灰色，保留：开启%s"
@@ -596,9 +581,9 @@ L["Only before %s is handed in"] = "仅在交还%s之前"
 L["Only once %s is handed in"] = "仅在交还%s之后"
 L["Skipped for your character: its conditions do not hold"] = "你的角色已跳过：条件不满足"
 L["Skipped for your character: none of its goals apply"] = "你的角色已跳过：没有适用的目标"
-L["For %s: %s"] = "为 %s：%s"
-L["Hand in %s to %s"] = "交付%s给%s"
-L["Hand in %s"] = "交付%s"
+L["For %s: %s"] = "%s：%s"
+L["Hand in %s to %s"] = "把%s交给%s"
+L["Hand in %s"] = "交还%s"
 L["%s, %d more"] = "%s，还差 %d"
 L["On through %s to %s"] = "经由%s前往%s"
 L["%s changed in this update and holds other quests now. Its tab moved to %s, which has the quests in your log."] = "%s在本次更新中有改动，现在包含其他任务。其标签页已改为%s，其中有你任务日志中的任务。"
@@ -688,7 +673,7 @@ L["%s; 1 in %d runs fails"] = "%s；每 %d 次有 1 次失败"
 L["%s. Optional: the route doesn't need it."] = "%s。可选：路线不需要它。"
 L["Kept for %s"] = "留给 %s"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "把 %s 交还给 %s，此人在附近走动：在地图上的圆圈里找"
-L["A quest you carry that the route does not work here: its work is nearby."] = "你身上的一个任务，路线不在这里做：它的目标就在附近。"
+L["A quest in your log with an objective nearby that the route doesn't do here."] = "你身上的一个任务，路线不在这里做：它的目标就在附近。"
 L["%s at %s"] = "%2$s 处的 %1$s"
 L["Buy a rune at %s"] = "在%s处购买符文"
 L["Buy a rune and cast %s to save about %s"] = "购买符文并施放%s，约可节省%s"
@@ -823,7 +808,6 @@ L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the 
 L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."] = "Polestar 已暂停：当你活着离开地下城，或输入 /polestar resume 后，箭头会重新跟随指南。"
 
 -- Nav/Arrow.lua
-L["The last steps here aren't mapped"] = "这里最后几步没有地图"
 L["Search here"] = "在此搜索"
 L["Arrived"] = "已到达"
 L["Click the arrow for the next spot"] = "点击箭头前往下一地点"
@@ -836,7 +820,7 @@ L["Drag to move."] = "拖动以移动。"
 L["Click for the next spot."] = "点击前往下一地点。"
 L["Shift-drag to move."] = "按住 Shift 拖动可移动。"
 L["No waypoint"] = "没有路径点"
-L["Arrived underwater"] = "已在水下到达"
+L["Arrived underwater"] = "已到达水下地点"
 L["Under water nearby: swim down to it"] = "附近水下：向下游过去"
 L["%d yd below you: swim down"] = "在你下方 %d 码：向下游"
 
@@ -992,7 +976,7 @@ L["Nearest %s: %s, %s."] = "最近的%s：%s，%s。"
 L["No profession called %s."] = "没有名为 %s 的专业。"
 L["Nearby services"] = "附近服务"
 L["Nearest"] = "最近"
-L["Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, mailbox, auction house, flight or stable master"] = "将箭头指向最近的训练师、职业训练师、修理、材料、商人、旅店老板、银行、拍卖行、飞行管理员或兽栏管理员"
+L["Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, mailbox, auction house, flight or stable master"] = "将箭头指向最近的训练师、职业训练师、修理、材料、商人、旅店老板、银行、邮箱、拍卖行、飞行管理员或兽栏管理员"
 L["Nearby services in map menus"] = "地图菜单中的附近服务"
 L["The world map's and minimap's tracking menus find the nearest trainer, vendor, inn, bank and more (/polestar near)."] = "地图和微缩地图的追踪菜单可查找最近的训练师、商人、旅店、银行等（/polestar near）。"
 L["Weapon master"] = "武器大师"
@@ -1160,9 +1144,9 @@ L["%s still needs %d %s"] = "%s 还需要 %d 个%s"
 L["%s (%s)"] = "%s（%s）"
 L["%s: other guide"] = "%s：其他指南"
 L["Party: %s"] = "小队：%s"
-L["For %s: she still needs %d"] = "为 %s：她还需要 %d 个"
-L["For %s: he still needs %d"] = "为 %s：他还需要 %d 个"
-L["For %s: still needs %d"] = "为 %s：还需要 %d 个"
+L["For %s: she still needs %d"] = "%s 还差 %d 个"
+L["For %s: he still needs %d"] = "%s 还差 %d 个"
+L["For %s: still needs %d"] = "%s 还差 %d 个"
 L["Party members who run Polestar see your counts under their quest goals, your step and your level. Hidden addon messages to your party only; nothing goes to chat."] = "使用 Polestar 的小队成员会在他们的任务目标下看到你的计数、你的步骤和你的等级。只向你的小队发送隐藏的插件消息；不会发到聊天。"
 L["Their counts under your quest goals, and who lacks a quest you took, with a Share button."] = "在你的任务目标下显示他们的计数，以及谁缺少你接的任务，并附带共享按钮。"
 L["Wait for the group"] = "等待小队"
@@ -1269,7 +1253,7 @@ L["needs Dual Wield"] = "需要双武器"
 L["upgrade (empty slot)"] = "提升（空栏位）"
 L["same as equipped"] = "与已装备相同"
 L["upgrade"] = "提升"
-L["downgrade"] = "下降"
+L["downgrade"] = "不如现有"
 L["at level"] = "等级"
 L["Best pick"] = "最佳选择"
 L["Item"] = "物品"
@@ -1445,7 +1429,7 @@ L["%s XP/h"] = "%s 经验/小时"
 L["%s to level"] = "%s后升级"
 L["%d kills"] = "%d次击杀"
 L["%d quests"] = "%d个任务"
-L["rested %s"] = "休息 %s"
+L["rested %s"] = "精力充沛 %s"
 L["Session: %s XP in %s (%s XP/h), %s, %s"] = "本次：%s经验，用时%s（%s 经验/小时），%s，%s"
 L["Level %d: %s, %s, %s%s"] = "等级 %d：%s，%s，%s%s"
 L[" (partial)"] = "（不完整）"
@@ -1482,7 +1466,7 @@ L["Not enough money to fly to %s: it costs %s."] = "金钱不足，无法飞往%
 L["Run back to your corpse: %s (%s). The Spirit Healer costs %s of resurrection sickness."] = "跑回尸体：%s（%s）。灵魂医者会带来%s的复活虚弱。"
 L["Run back to your corpse: %s (%s)."] = "跑回尸体：%s（%s）。"
 L["Resurrect at the Spirit Healer (%s): no resurrection sickness at your level."] = "在灵魂医者处复活（%s）：你的等级没有复活虚弱。"
-L["Resurrect at the Spirit Healer (%s): your corpse is %s away, longer than %s of sickness."] = "在灵魂医者处复活（%s）：尸体在%s外，比%s的虚弱更久。"
+L["Resurrect at the Spirit Healer (%s): your corpse is %s away, longer than %s of sickness."] = "在灵魂医者处复活（%s）：你的尸体离这里有 %s，比挨 %s 的复活虚弱还要远。"
 L["Resurrect at the Spirit Healer (%s)."] = "在灵魂医者处复活（%s）。"
 L["Your corpse"] = "你的尸体"
 L["Spirit Healer"] = "灵魂医者"
@@ -1588,7 +1572,7 @@ L["Guide level on the XP bar"] = "在经验条上显示指南等级"
 L["A mark at the end of the game's XP bar with the level the guide wants you to reach before it moves on, and how many levels away that is when it is more than one."] = "在游戏经验条末端标出指南要求你在继续之前达到的等级；相差不止一级时，还会显示还差几级。"
 L["Hearthstone"] = "炉石"
 L["Set your home at the guide's inn"] = "在指南旅店绑定炉石"
-L["When the step sets your home and you talk to its innkeeper, binds your Hearthstone there. Never at another inn. Hold Shift to skip."] = "当步骤要求您绑定住所并与旅店老板交谈时，将炉石绑定在此处。不会在其他旅店执行。按住Shift可跳过。"
+L["When the step sets your home and you talk to its innkeeper, binds your Hearthstone there. Never at another inn. Hold Shift to skip."] = "步骤要求绑炉石、你和旅店老板说话时，自动把炉石绑在这里。不会在别的旅店乱绑。按住 Shift 跳过。"
 L["Riding reminder"] = "骑术提醒"
 L["At level 40 and 60, if you have not learned riding yet, says the cost in chat (with any Honored discount) and points the arrow at your race's riding trainer when you can afford it. Warlocks and Alliance Paladins are sent to their free-mount quest NPC instead. Once per tier per character."] = "在 40 级和 60 级时，如果你尚未学习骑术，会在聊天框中显示费用（包括尊敬声望折扣），并在你负担得起时将箭头指向你种族的骑术训练师。术士和联盟圣骑士则会被指引至免费坐骑任务的 NPC。每个角色每个阶段仅提醒一次。"
 L["Hide the game's quest tracker"] = "隐藏游戏的任务追踪器"
@@ -1619,7 +1603,6 @@ L["Pick what the step asks for"] = "选择步骤要求的选项"
 L["At the step's NPC, picks the chat option the guide names, or opens the goods or training the step needs. Only on the step the guide is at. Hold Shift to choose yourself."] = "在步骤的NPC处，选择指南指定的对话选项，或打开步骤所需的商品或训练界面。仅在指南当前所在的步骤生效。按住 Shift 可自行选择。"
 L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = "自动选择无任务 NPC 的唯一选项。按住 Shift 阅读。关闭时，游戏本身仍会跳过部分对话，“选择步骤要求的选项”仍会选择步骤的选项，飞行管理员则遵循“打开飞行地图”。"
 L["Click objectives to target"] = "点击任务目标以选中"
-L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "在战斗外点击任务目标行或 NPC 标题时，也会选中该 NPC，并使用与目标按钮相同的标记设置。这会替换你当前的目标；搜索失败时会清除目标。"
 L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Pressing again never takes an icon off. In a party you don't lead, only a unit with no icon gets one; in a raid, only when you lead or assist."] = "目标按钮和步骤快捷键会给选中的怪物或 NPC 加上团队标记；非战斗状态下，若按下后未找到目标，则清除当前目标。再次按下不会移除标记。在你不是队长的小队中，只给尚无标记的单位加标记；在团队中，仅当你是团长或助理时才会标记。"
 L["Ping what they target"] = "对所选目标发送信号"
 L["Show quest-starting loot"] = "显示开始任务的战利品"
@@ -1675,6 +1658,7 @@ L["Equip a spare bag first"] = "先装备备用背包"
 L["When your bags are nearly full and a bag sits in them while a bag slot is empty, the bag button and the guide window offer to put it on before any junk. Nothing happens until you press."] = "背包快满时，如果还有空的背包栏位，且背包里有备用背包，背包按钮和指南窗口会优先提示装备备用背包。按下按钮才会装备。"
 L["Step errands"] = "步骤杂务"
 L["Level pace"] = "升级节奏"
+-- L["Clicking an objective row, an NPC heading or a While you're here line also targets its mob or NPC outside combat, using the Target button's marking settings. This replaces your current target. A failed search clears it."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "仅限联盟"
@@ -1821,11 +1805,11 @@ L["Opens the inner doors of Dire Maul's North and West wings."] = "打开厄运�
 L["Opens Gnomeregan's back door, the Workshop entrance."] = "打开诺莫瑞根的后门，即车间入口。"
 L["Opens the doors of the Armory and the Cathedral."] = "打开军械库和大教堂的门。"
 L["Rings the gong by the sacred pool in Zul'Farrak to call Gahz'rilla; one mallet does it for the group. Qiaga the Keeper (elite) on top of the Altar of Zul in the Hinterlands drops the Sacred Mallet: use it at the altar at the very top of Jintha'Alor and it becomes the Mallet of Zul'Farrak. Both places are full of elites."] = "敲响祖尔法拉克圣池旁的锣来召唤加兹瑞拉；一把锤子就够整个队伍使用。辛特兰祖尔祭坛顶上的守护者奇亚加（精英）会掉落神圣之锤：在辛萨罗最高处的祭坛使用它，它就会变成祖尔法拉克之锤。两个地方都有大量精英怪。"
-L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Image of Archmage Modera gives it with Heart of Disruption: keep that quest in your log until you are inside. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "打开部落进入达拉然城通道的大门；一把钥匙即可为全队开门。大法师茉德拉的影像会随 Heart of Disruption 交给你：进入之前请把该任务留在任务日志中。联盟则从 Cantrips & Crows 的下水道管道进入。"
-L["Calls up Lyn the Ignored, a hidden boss, at the summoning circle in the City of Dalaran's Underbelly, in the small room past Atrexis the Grave Knight. The Black Tome lies on a table up the stairs behind Archmage Arugal in Shadowfang Keep; use it at the Ambermill Leyline Focus, the blue crystal beside Archmage Ataeric in Ambermill's town hall, and it becomes the Tome of Dalaran."] = "在达拉然城 Underbelly 的召唤法阵处召唤隐藏首领 Lyn the Ignored，位于墓穴骑士阿特雷克斯后面的小房间。黑色圣典放在影牙城堡中大法师阿鲁高身后楼梯上方的桌子上；在 Ambermill Leyline Focus（安伯米尔市政厅中大法师阿塔瑞克旁的蓝色水晶）处使用它，它就会变成达拉然巨著。"
-L["Opens a portal from the first khan's spot in Maraudon's outer caves to Earth Song Falls in inner Maraudon; the group walks through it. Celebras the Redeemed makes it once Celebras the Cursed is dead inside."] = "从玛拉顿外部洞穴中第一位可汗的位置打开一道通往玛拉顿内部 Earth Song Falls 的传送门；全队从中穿过。被诅咒的塞雷布拉斯在里面死后，赎罪的塞雷布拉斯会制作它。"
-L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Alphonse Dumas in Farholde Keep forges the key from it with 4 Thick Leather and 12 Iron Bars."] = "打开通往克罗多克要塞上层区域的道路。War Handler Ashka 附近铁匠铺旁的 Tunk 会掉落克罗多克铸件；法霍德要塞的 Alphonse Dumas 用它加上 4 张厚皮和 12 块铁锭锻造钥匙。"
-L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars."] = "打开通往克罗多克要塞上层区域的道路。War Handler Ashka 附近铁匠铺旁的 Tunk 会掉落克罗多克铸件；洛格玛的克雷扎·暗棘用它加上 4 张厚皮和 12 块铁锭锻造钥匙。"
+L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Image of Archmage Modera gives it with Heart of Disruption: keep that quest in your log until you are inside. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "打开部落进入达拉然城的通道大门；一把钥匙就能为全队开门。大法师茉德拉的影像会随任务「动乱之源」把钥匙给你：进去之前，把这个任务留在任务日志里。联盟则从咒语和乌鸦旅店的下水道管道进入。"
+L["Calls up Lyn the Ignored, a hidden boss, at the summoning circle in the City of Dalaran's Underbelly, in the small room past Atrexis the Grave Knight. The Black Tome lies on a table up the stairs behind Archmage Arugal in Shadowfang Keep; use it at the Ambermill Leyline Focus, the blue crystal beside Archmage Ataeric in Ambermill's town hall, and it becomes the Tome of Dalaran."] = "在达拉然城下水道的召唤法阵召唤隐藏首领 Lyn the Ignored，法阵就在墓穴骑士阿特雷克斯后面的小房间里。黑色圣典放在影牙城堡里大法师阿鲁高身后楼梯上方的桌子上；把它带到安伯米尔的魔网焦点——安伯米尔市政厅里、大法师阿塔瑞克旁边的蓝色水晶——使用，它就会变成达拉然巨著。"
+L["Opens a portal from the first khan's spot in Maraudon's outer caves to Earth Song Falls in inner Maraudon; the group walks through it. Celebras the Redeemed makes it once Celebras the Cursed is dead inside."] = "从玛拉顿外层洞穴里第一位可汗的位置，打开一道通往玛拉顿内层 Earth Song Falls 的传送门；全队从门里过去。被诅咒的塞雷布拉斯死后，赎罪的塞雷布拉斯会把节杖做出来。"
+L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Alphonse Dumas in Farholde Keep forges the key from it with 4 Thick Leather and 12 Iron Bars."] = "打开通往克罗多克要塞上层区域的路。Tunk 会掉落克罗多克铸件，他就在 War Handler Ashka 附近的铁匠铺旁；法霍德要塞的 Alphonse Dumas 用铸件加上 4 张厚皮和 12 块铁锭锻造钥匙。"
+L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars."] = "打开通往克罗多克要塞上层区域的路。Tunk 会掉落克罗多克铸件，他就在 War Handler Ashka 附近的铁匠铺旁；洛格玛的克雷扎·暗棘用铸件加上 4 张厚皮和 12 块铁锭锻造钥匙。"
 L["Use %s beside %s: it becomes %s."] = "在 %2$s 旁使用 %1$s：它会变成 %3$s。"
 L["Keep %s in your quest log until you are inside: taking it gives you %s, and dropping the quest takes it back."] = "进入之前请把 %s 留在任务日志中：接受它会给你 %s，放弃任务会将其收回。"
 L["Not open on Forever yet: the attunement is ready for when it opens."] = "Forever 上尚未开放：进入资格已为开放做好准备。"
@@ -1905,10 +1889,10 @@ L["%s to buy"] = "需购买 %s 个"
 L["(only %s listed)"] = "（仅有 %s 个在售）"
 L["(old price)"] = "（旧价格）"
 L["Elites nearby"] = "附近有精英"
-L["Group, or careful: a group quest, yours to do or skip"] = "小队或小心：小队任务，做还是跳过由你决定"
-L["Group, or careful: an escort that can go wrong"] = "小队或小心：可能失败的护送"
-L["Group, or careful: elites at your level or above"] = "小队或小心：与你同级或更高的精英"
-L["Group, or careful: a group is advised"] = "小队或小心：建议组队"
+L["Group, or careful: a group quest, yours to do or skip"] = "组队，或小心：小队任务，做还是跳过由你决定"
+L["Group, or careful: an escort that can go wrong"] = "组队，或小心：可能失败的护送"
+L["Group, or careful: elites at your level or above"] = "组队，或小心：与你同级或更高的精英"
+L["Group, or careful: a group is advised"] = "组队，或小心：建议组队"
 L["Careful: elites nearby"] = "小心：附近有精英"
 L["Careful: elites, below your level"] = "小心：精英，等级低于你"
 L["%s · kept for %s"] = "%s · 留给 %s"
@@ -1918,6 +1902,7 @@ L["about %d kills, %d min"] = "约%d次击杀，%d分钟"
 L["about %d kills"] = "约%d次击杀"
 L["or %s (%s)"] = "或%s（%s）"
 L["or %s"] = "或%s"
+L["Optional: buy at the auction house (/polestar ah)"] = "可选：在拍卖行购买（/polestar ah）"
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"
@@ -1996,7 +1981,7 @@ L["Continue"] = "继续"
 L["Nice work. Pick your next guide to keep going."] = "干得好。选择下一个指南继续。"
 L["Up next · 1 step"] = "接下来 · 1 个步骤"
 L["Up next · %d steps"] = "接下来 · %d 个步骤"
-L["Then:"] = "然后："
+L["Then:"] = "然后在"
 L["Next step:"] = "下一步骤："
 L["Person %d of %d"] = "第 %d/%d 人"
 L["Choose guide"] = "选择指南"
@@ -2094,8 +2079,8 @@ L["1 kill"] = "1次击杀"
 L["1 item"] = "1 件物品"
 L["%d items"] = "%d 件物品"
 L["%d kills and items"] = "%d 项击杀和物品"
-L["1 hand-in"] = "1 个交还"
-L["%d hand-ins"] = "%d 个交还"
+L["1 hand-in"] = "1 次交还"
+L["%d hand-ins"] = "%d 次交还"
 L["1 task"] = "1 件事"
 L["%d tasks"] = "%d 件事"
 L["%d done"] = "已完成 %d 项"
@@ -2313,7 +2298,7 @@ L["Passes through"] = "途经"
 L["%s: optional class quests"] = "%s：可选职业任务"
 
 -- UI/Lookup.lua
-L["Companion"] = "小伙伴"
+L["Companion"] = "宠物"
 L["Recipe"] = "配方"
 L["Tabard"] = "战袍"
 L["Rare"] = "稀有"
@@ -2416,6 +2401,7 @@ L["Finished, %d skipped"] = "已结束，跳过 %d 个任务"
 L["All %d done"] = "%d 个任务已全部完成"
 L["Click to open its page."] = "点击打开任务详情。"
 L["Then any of: %s"] = "后续可接：%s"
+L["Not seen on Forever yet"] = "尚未在 Forever 中见到"
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "可交还"
@@ -2430,7 +2416,7 @@ L["Chain"] = "任务链"
 L["You get"] = "获得"
 L["Rewards"] = "奖励"
 L["Show the quest"] = "显示任务"
-L["Guide me through it"] = "指引我完成"
+L["Guide me through it"] = "带我完成它"
 L["All dungeons"] = "所有地下城"
 L["Pick up the quests"] = "接受任务"
 L["Nothing to pick up"] = "没有可接受的任务"
@@ -2947,6 +2933,7 @@ L["Quest and map data includes pfQuest by shagu (MIT License)."] = "任务和地
 L["Discord and its logo are trademarks of Discord Inc.; the logo marks the link to the Polestar Discord."] = "Discord 及其标志是 Discord Inc. 的商标；该标志用于标示 Polestar Discord 的链接。"
 L["With EllesmereUI installed, Polestar can follow its accent, font and panel colour through its public skinning API."] = "安装 EllesmereUI 后，Polestar 可通过其公开的皮肤 API 跟随其强调色、字体和面板颜色。"
 L["Gear scores from Forever Leveling BiS by Timearc when it is installed, through its public API."] = "安装 Forever Leveling BiS（作者 Timearc）后，通过其公开 API 获取装备评分。"
+L["Profession routes: based on the guides by Peter at WoW-Professions.com."] = "专业技能路线：基于 WoW-Professions.com 的 Peter 的指南。"
 L["Maintenance"] = "维护"
 L["Reset all settings"] = "重置所有设置"
 L["Every Polestar setting back to default. Progress is kept."] = "所有 Polestar 设置恢复默认。进度保留。"
@@ -2979,7 +2966,7 @@ L["Lines in chat about what Polestar did for you, such as \"Choose a reward to f
 L["Line style"] = "路线样式"
 L["With Grow upward, put the tabs and the step bar at the bottom edge, next to where the window is pinned."] = "启用向上展开时，将标签页和步骤栏放在窗口固定位置附近的底边。"
 L["Close offers the guide skips"] = "关闭指南跳过的任务窗口"
-L["After Polestar accepts or turns in a quest, closes the quest window the NPC opens next when the guide skips its quests. Hold Shift to keep it open."] = "当Polestar接受或上交任务后，若指南跳过后续任务，则关闭NPC打开的任务窗口。按住Shift可保持窗口打开。"
+L["After Polestar accepts or turns in a quest, closes the quest window the NPC opens next when the guide skips its quests. Hold Shift to keep it open."] = "Polestar 帮你接了或交了任务之后，如果指南要跳过这个 NPC 后面的任务，就顺手关掉他弹出的任务窗口。按住 Shift 保持打开。"
 L["Elite and escort quests the guides mark for a group. Ask at each, or answer them all: with a group (a party levelling together) or skip them (solo). Discovery, Group quests changes one."] = "指南标记为需要小队的精英和护送任务。可以每次询问，或统一选择：组队完成（与小队一起升级）或跳过（单人）。在“发现”中的“小队任务”可单独更改某个任务。"
 L["Ask me at each"] = "每次询问我"
 L["Do them with a group"] = "组队完成"
@@ -3237,9 +3224,9 @@ L["Your target"] = "你的目标"
 L["Targeting a rare."] = "选中稀有为目标。"
 L["Under the cursor"] = "鼠标指向"
 L["Pointing at a rare in the world."] = "鼠标指向世界中的稀有。"
-L["Rares on the world map"] = "地图上的稀有"
+L["Rares on zone maps"] = "区域地图上的稀有"
 L["Every known spawn point. Click one to see it in Rares; Shift-click for a waypoint."] = "所有已知刷新点。点击在稀有中查看；Shift-点击设置路径点。"
-L["Treasures on the world map"] = "地图上的宝藏"
+L["Treasures on zone maps"] = "区域地图上的宝藏"
 L["Every known treasure spot."] = "所有已知宝藏位置。"
 L["Rares on the minimap"] = "微缩地图上的稀有"
 L["Loads the Codex at login."] = "登录时加载Codex。"
@@ -3273,7 +3260,7 @@ L["another continent"] = "其他大陆"
 L["under a minute"] = "不到一分钟"
 L["%d min away"] = "%d分钟路程"
 L["Drops"] = "掉落"
-L["The Codex knows no drop for it."] = "Codex中没有它的掉落记录。"
+L["The Codex knows no drop for it."] = "Codex 中没有它的掉落记录。"
 L["Where"] = "位置"
 L["Inside %s."] = "位于%s内。"
 L["No place is known for it yet."] = "尚不知道它的位置。"
@@ -3289,7 +3276,7 @@ L["It was dead when last seen."] = "上次见到时已死亡。"
 L["Pick a rare or a treasure"] = "选择一个稀有或宝藏"
 L["Its level, its signature drop, every place it spawns and when you last met it."] = "等级、标志性掉落、所有刷新点以及你上次遇到的时间。"
 L["seen %s"] = "见于%s"
-L["Its drop and places come with the Codex pack."] = "掉落和位置需要Codex数据包。"
+L["Its drop and places come with the Codex pack."] = "掉落和位置需要 Codex 数据包。"
 L["1 met on this realm"] = "本服务器已遇到1个"
 L["%d met on this realm"] = "本服务器已遇到%d个"
 L["1 rare"] = "1个稀有"
@@ -3300,10 +3287,10 @@ L["1 zone"] = "1个地区"
 L["%d zones"] = "%d个地区"
 L["Rare NPCs and treasures, what they drop and where they spawn"] = "稀有NPC和宝藏，它们的掉落和刷新位置"
 L["Rares is turned off."] = "稀有已关闭。"
-L["Nothing to list without the Codex."] = "没有Codex，无内容可列出。"
+L["Nothing to list without the Codex."] = "没有 Codex，无内容可列出。"
 L["Rares is turned off. Turn it on under Settings > Discovery > Rares."] = "稀有已关闭。请在设置 > 发现 > 稀有中开启。"
 L["Rares is off"] = "稀有已关闭"
-L["Rares needs the Codex"] = "稀有需要Codex"
+L["Rares needs the Codex"] = "稀有需要 Codex"
 L["Search rares and treasures"] = "搜索稀有和宝藏"
 L["Search rares"] = "搜索稀有"
 
@@ -4064,7 +4051,6 @@ L["Clean up quest log"] = "清理任务日志"
 L["Grey: no XP any more"] = "灰色：不再给予经验"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "路线不需要这些任务：它从不交付，或已不再给予经验。放弃会先在游戏自己的窗口中确认。"
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "列出任务日志中路线不需要的任务：它从不交付的，以及不再给予经验的灰色任务。每个都有一个会先确认的放弃按钮。只要有这样的任务，指南窗口的菜单里也有此项。"
-L["None of these has a known place to hand it in."] = "这些任务都没有已知的交还地点。"
 L["Where it is turned in is not known"] = "交还地点未知"
 L["Finished quests you're still carrying"] = "仍未交还的已完成任务"
 L["The route hands in every finished quest in your log."] = "路线会交还日志中所有已完成的任务。"
@@ -4492,7 +4478,7 @@ L["One breath of the pulse: shorter is faster."] = "脉动一次的时长：越�
 L["On the minimap"] = "在微缩地图上"
 L["The opacity of the soft tint over the places mobs and objects spawn, on the world map and the minimap, their outlines with it. The swatch gives every area one colour."] = "地图和微缩地图上怪物和物体刷新地点的柔和着色及其轮廓的不透明度。色块为所有区域设置同一种颜色。"
 L["Spawn spots"] = "刷新地点"
-L["Small marks on the world map where the target also spawns, each numbered in its tooltip. Click one to search there next."] = "世界地图上目标也会刷新之处的小标记，每个在提示中带有编号。点击一个即接着去那里搜索。"
+L["Small marks on zone maps where the target also spawns, each numbered in its tooltip. Click one to search there next."] = "区域地图上目标也会刷新之处的小标记，每个在提示中带有编号。点击一个即接着去那里搜索。"
 L["Moving dots from you to the target on both maps while route lines are off; the slider is their size. They wear the arrow's colour; their opacity is in the cog."] = "路线线条关闭时，在两张地图上显示从你移向目标的圆点；滑块设置其大小。圆点使用箭头的颜色；不透明度设置在齿轮中。"
 L["The trail's dots on both maps."] = "两张地图上轨迹的圆点。"
 L["The numbered pins on the world map and the minimap. Bigger pins also grow past the usual limit on screen. Their rim colour is in the cog."] = "地图和微缩地图上的编号图钉。较大的图钉还能超出屏幕上的常规上限。边框颜色设置在齿轮中。"
@@ -4525,8 +4511,8 @@ L["Each step ahead in its own colour, none fainter, so the route reads at a glan
 L["Icons and target"] = "图标和目标"
 L["Spawn markers"] = "刷新点标记"
 L["Spawn markers for your quests"] = "任务的刷新点标记"
-L["A skull on the world map and the minimap at every spawn of the mobs your quests need, one colour per quest and a ring per mob; the things you pick up or use get the pickup bag. Their size and opacity are on the Icons tab."] = "在地图和微缩地图上，于你的任务所需怪物的每个刷新点显示骷髅，每个任务一种颜色，每种怪物一个圆环；需要拾取或使用的东西显示拾取袋。大小和不透明度在“图标”标签页。"
-L["Off: the spawn markers show on the world map only."] = "关闭：刷新点标记只显示在地图上。"
+L["A skull on zone maps and the minimap at every spawn of the mobs your quests need, one colour per quest and a ring per mob; the things you pick up or use get the pickup bag. Their size and opacity are on the Icons tab."] = "在区域地图和微缩地图上，于你的任务所需怪物的每个刷新点显示骷髅，每个任务一种颜色，每种怪物一个圆环；需要拾取或使用的东西显示拾取袋。大小和不透明度在“图标”标签页。"
+L["Off: the spawn markers show on zone maps only."] = "关闭：刷新点标记只显示在区域地图上。"
 L["Legend on the world map"] = "地图图例"
 L["Lists the quests and mobs on the shown map. Hover a row to highlight its markers, click it to turn them off or on."] = "列出当前地图上的任务和怪物。鼠标悬停在某行上以高亮其标记，点击以关闭或开启它们。"
 L["Only the current step's quests"] = "仅当前步骤的任务"
@@ -4947,7 +4933,7 @@ L["A dim line where the guide passes over quests: open it to see each one and wh
 L["The size of the guide window's text, apart from its scale and the rest of Polestar's text (Theme > Text). The class quest card keeps that general size. Changes at once. Right-click to reset."] = "调整指南窗口的文字大小，与窗口缩放及「主题 > 文字」里的通用大小分开设置。职业任务卡片仍使用通用大小。修改立即生效，右键重置。"
 L["Northshire Abbey"] = "北郡修道院"
 L["Echo Ridge Mine"] = "回音山矿洞"
-L["Northshire Vineyards"] = "北郡农场"
+L["Northshire Vineyards"] = "北郡葡萄园"
 L["Brother Paxton"] = "帕克斯顿修士"
 L["Goldshire"] = "闪金镇"
 L["Tab style"] = "标签样式"
@@ -4957,7 +4943,6 @@ L["Title menu"] = "标题菜单"
 L["On the top edge"] = "上边缘"
 L["Down the left side"] = "左侧"
 L["Default (%s)"] = "默认（%s）"
-L["A button in the step bar that opens every step of the guide in one list. The step number and the guide menu open it too."] = "步骤栏中的一个按钮，可在一个列表中打开指南的所有步骤。步骤编号和指南菜单也能打开它。"
 L["Steps before"] = "之前的步骤"
 L["How many of the steps before this one show over it, one dimmed line each, done or skipped; 0 turns them off. Click one to go back to it."] = "在此步骤上方显示多少个之前的步骤，每个一行淡色，已完成或已跳过；0 表示关闭。点击一个可返回该步骤。"
 L["Journey style"] = "行程样式"
@@ -5280,8 +5265,8 @@ L["Equip it"] = "装备"
 L["%s (level %d)"] = "%s（%d级）"
 L["%s takes these once you reach their level: %s"] = "达到所需等级后，%s会接受这些任务：%s"
 L["Waiting for your level, taken where a later guide passes the giver: %s"] = "等级达标后，后续路线经过任务发布者时接取：%s"
-L["Looking ahead."] = "向前看。"
-L["Looking back."] = "向后看。"
+L["Looking ahead."] = "查看之后。"
+L["Looking back."] = "查看之前。"
 L["On the way to your map point (%s)."] = "正在前往你的地图点（%s）。"
 L["Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests."] = "本指南的部分任务接续自 %s。从那里开始可获得全部任务，或在这里继续；指南会用附近的任务补足。"
 L["You are past this class quest's levels."] = "你已超过这个职业任务的等级。"
@@ -5354,6 +5339,13 @@ L["MATERIALS FOR %s"] = "%s 的材料"
 L["%s held"] = "已有 %s 个"
 L["Tracking is on"] = "追踪已开启"
 L["Tracking is on: your minimap shows the ones that are up."] = "追踪已开启：你的微缩地图会显示已刷新的目标。"
+L["Auctionator estimate: %s"] = "Auctionator 估价：%s"
+L["%s (%d still unpriced)"] = "%s（%d 件尚无价格）"
+L["The auction house is unavailable to Self-Found characters."] = "自强角色无法使用拍卖行。"
+L["No cached price"] = "没有缓存价格"
+L["No cached prices for the remaining quest items."] = "剩余任务物品没有缓存价格。"
+L["Partial estimate for remaining quest items: %s"] = "剩余任务物品的部分估价：%s"
+L["Estimated total for remaining quest items: %s"] = "剩余任务物品的估计总价：%s"
 
 -- UI/Materials.lua
 L["Your choice"] = "你的选择"
@@ -5482,7 +5474,7 @@ L["/polestar perf: on, off, report or reset"] = "/polestar perf：on 开启、of
 L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = "排查游戏卡顿，记录 Polestar 自身的运行耗时（on、off、report、reset）"
 
 -- UI/GuideFramePlayNext.lua
-L["Play next"] = "接下来玩"
+L["Play next"] = "玩下一个"
 L["Start"] = "开始"
 L["Other guides"] = "其他指南"
 L["Review %d skipped"] = "查看 %d 个已跳过"
@@ -5501,7 +5493,6 @@ L["%d changed"] = "%d 项已更改"
 L["What Polestar does for you while you level: suggestions, quests, rewards, buttons, rares."] = "升级时 Polestar 为你做的事：建议、任务、奖励、按钮、稀有怪。"
 L["The arrow, its routes, and what Polestar draws on the world map and the minimap."] = "箭头、它的路线，以及 Polestar 在世界地图和小地图上绘制的内容。"
 L["The theme every Polestar window wears, the action buttons, the alert cards and the trackers."] = "每个 Polestar 窗口使用的主题、动作按钮、提醒卡片和追踪器。"
-L["Profiles, other addons, community guides and gamepad."] = "配置文件、其他插件、社区指南和手柄。"
 L["Pinned"] = "已固定"
 L["Pinned, not available here: %d"] = "已固定但此处不可用：%d"
 L["Pin a setting with the flag on its row."] = "用设置行上的旗标将其固定。"
@@ -5560,8 +5551,8 @@ L["Frostglass Peaks"] = "霜晶峰"
 L["Emberforge"] = "余烬熔炉"
 L["Stormspire Isles"] = "风暴尖塔群岛"
 L["Astral Sanctum"] = "星界圣所"
-L["Row sweep"] = "横排横扫"
-L["Column sweep"] = "竖列横扫"
+L["Row sweep"] = "整排消除"
+L["Column sweep"] = "整列消除"
 L["Burst"] = "爆炸"
 L["Level %d / %d"] = "关卡 %d / %d"
 L["Objectives complete"] = "目标完成"
@@ -5627,10 +5618,17 @@ L["kept for %s"] = "留给 %s"
 L["kept"] = "保留"
 L["Kept for %s: the route hands it in there."] = "留给 %s：路线会在那里交还。"
 
--- Lookup/Handins.lua
+-- Handins.lua
 L["No quests in your log are ready to hand in."] = "任务日志中没有可交还的任务。"
 L["Wait until combat ends to load the quest data."] = "请等战斗结束后再加载任务数据。"
 L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "交还任务指南无法加载。请检查插件 Polestar_FreeMode 是否已安装并启用。"
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = ""
+-- L["Hand-ins without a known location"] = ""
+-- L["None of these has a known place to hand it in."] = ""
+-- L["Refining the travel order. Travel times are estimates."] = ""
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
+-- L["Waiting for your quest log."] = ""
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
 
 -- Lookup/Free.lua
 L["Free mode starts after combat."] = "自由模式将在战斗结束后启动。"
@@ -5643,29 +5641,32 @@ L["Free mode: follow your own quests (on, off, nearest, xp)"] = "自由模式：
 L["Start quest guide"] = "开始任务指南"
 L["Click to show quest guide actions."] = "点击显示任务指南操作。"
 
--- Handins.lua
-L["Travel time to this hand-in is unknown. Its location is still shown."] = "前往此交任务处的路程时间未知。仍会显示它的位置。"
-L["Hand-ins without a known location"] = "位置未知的交任务"
-L["Refining the travel order. Travel times are estimates."] = "正在优化路线顺序。路程时间为估算值。"
-L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = "路程估算不完整。顺序使用现有的估算和大致距离。"
-L["Waiting for your quest log."] = "正在等待你的任务日志。"
-L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = "交还任务指南无法加载。请检查插件 Polestar_Codex 是否已安装并启用。"
-
 -- Free.lua
-L["Low drop rate: %s"] = "掉落率低：%s"
-L["1 quest for your level: %s gives it."] = "适合你等级的任务 1 个：由%s发布。"
-L["%d quests for your level, all here."] = "适合你等级的任务有 %d 个，全都在这里。"
-L["%d quests for your level, %d of them here."] = "适合你等级的任务有 %d 个，其中 %d 个在这里。"
-L["Quests for your level"] = "适合你等级的任务"
-L["About %s XP a minute"] = "每分钟约 %s 经验"
-L["Order: nearest first"] = "顺序：最近的优先"
-L["Order: most XP a minute first"] = "顺序：每分钟经验最多的优先"
-L["Bring back left-out quests (%d)"] = "恢复被排除的任务（%d）"
-L["Unpin"] = "取消置顶"
-L["Pin to the top"] = "置顶"
-L["Free mode takes this quest first, whatever the order."] = "无论顺序如何，自由模式都会先做这个任务。"
-L["Leave out of Free mode"] = "从自由模式中排除"
-L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "自由模式不再列出此任务。菜单中的“恢复被排除的任务”会重新列出它。"
+-- L["Low drop rate: %s"] = ""
+-- L["1 quest for your level: %s gives it."] = ""
+-- L["%d quests for your level, all here."] = ""
+-- L["%d quests for your level, %d of them here."] = ""
+-- L["Quests for your level"] = ""
+-- L["About %s XP a minute"] = ""
+-- L["Order: nearest first"] = ""
+-- L["Order: most XP a minute first"] = ""
+-- L["Bring back left-out quests (%d)"] = ""
+-- L["Unpin"] = ""
+-- L["Pin to the top"] = ""
+-- L["Free mode takes this quest first, whatever the order."] = ""
+-- L["Leave out of Free mode"] = ""
+-- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = ""
+
+-- Layouts/Atlas/Atlas.lua
+L["Get ahead, if possible"] = "可提前完成"
+L["Still open from steps you have passed"] = "往期未完成"
+L["1 quest off-guide"] = "1 个指南外任务"
+L["%d quests off-guide"] = "%d 个指南外任务"
+L["View"] = "查看"
+L["Training due"] = "职业训练"
+L["New spells at your class trainer"] = "职业训练师处有新法术可学"
+L["Optional objectives during this step"] = "本步可选目标"
+L["Class quest"] = "职业任务"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐页重新设置 Polestar。每项选择立即生效。"
@@ -5944,3 +5945,26 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 -- L["Max height"] = "最大高度"
 -- L["%s: on this step"] = "%s：在此步骤"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "把你自己的任务当作指南，在单独的标签页中：箭头指向最近的任务，然后是下一个（/polestar free）。"
+-- L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "在战斗外点击任务目标行或 NPC 标题时，也会选中该 NPC，并使用与目标按钮相同的标记设置。这会替换你当前的目标；搜索失败时会清除目标。"
+-- L["The last steps here aren't mapped"] = "这里最后几步没有地图"
+-- L["None of these has a known place to hand it in."] = "这些任务都没有已知的交还地点。"
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = "前往此交任务处的路程时间未知。仍会显示它的位置。"
+-- L["Hand-ins without a known location"] = "位置未知的交任务"
+-- L["Refining the travel order. Travel times are estimates."] = "正在优化路线顺序。路程时间为估算值。"
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = "路程估算不完整。顺序使用现有的估算和大致距离。"
+-- L["Waiting for your quest log."] = "正在等待你的任务日志。"
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = "交还任务指南无法加载。请检查插件 Polestar_Codex 是否已安装并启用。"
+-- L["Low drop rate: %s"] = "掉落率低：%s"
+-- L["1 quest for your level: %s gives it."] = "适合你等级的任务 1 个：由%s发布。"
+-- L["%d quests for your level, all here."] = "适合你等级的任务有 %d 个，全都在这里。"
+-- L["%d quests for your level, %d of them here."] = "适合你等级的任务有 %d 个，其中 %d 个在这里。"
+-- L["Quests for your level"] = "适合你等级的任务"
+-- L["About %s XP a minute"] = "每分钟约 %s 经验"
+-- L["Order: nearest first"] = "顺序：最近的优先"
+-- L["Order: most XP a minute first"] = "顺序：每分钟经验最多的优先"
+-- L["Bring back left-out quests (%d)"] = "恢复被排除的任务（%d）"
+-- L["Unpin"] = "取消置顶"
+-- L["Pin to the top"] = "置顶"
+-- L["Free mode takes this quest first, whatever the order."] = "无论顺序如何，自由模式都会先做这个任务。"
+-- L["Leave out of Free mode"] = "从自由模式中排除"
+-- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "自由模式不再列出此任务。菜单中的“恢复被排除的任务”会重新列出它。"

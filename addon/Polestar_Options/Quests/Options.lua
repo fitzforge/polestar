@@ -116,6 +116,8 @@ if Q then
 			controls = {
 				{ kind = "toggle", key = "qol.questLevels", label = L["Quest levels"], search = "quest log, level numbers, show level",
 					help = L["Show quest levels, like [12], wherever the game lists quests without them."] },
+				{ kind = "toggle", key = "qol.questGuides", label = L["Guides for each quest"], search = "which guide, guides, quest log, tracker, tooltip, pre-quest, later, drop, abandon",
+					help = L["Name the Polestar guides that pick up, work or hand in a quest: on its tooltips, under its details, and as a mark after its title in the quest log, the tracker and quest givers' lists."] },
 				{ kind = "toggle", key = "qol.questTimerAlerts", label = L["Timed quest alerts"], search = "timer, timed quest, countdown, time limit, time left, alarm",
 					help = L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] },
 			},

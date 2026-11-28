@@ -2,8 +2,12 @@
 -- Nav's own target). Contract: docs/ARCHITECTURE.md, "Pins".
 --
 --   Pins.SetLayer(layer, pins, opts)   replace a layer; opts = { world = true, minimap = true, edge = false, scale = 1,
---                                      minimapAreas = false, minMapType = nil, worldLayout = nil, summary = nil }
+--                                      minimapAreas = false, minMapType = nil, dense = false, worldLayout = nil, summary = nil }
 --   minMapType limits world-map pins to that UIMapType or narrower views; the minimap is unaffected.
+--   dense: a layer of many pins (every rare spawn, every treasure spot, a target's other spawn spots): it shows on
+--   zone maps and narrower views and on the minimap, never on a continent or the world map, where it buried the
+--   zone names and levels (reported on CurseForge). It is a minMapType of Zone, named for why a layer has it; a view
+--   whose type the client does not say shows it.
 --   worldLayout(projected, view) -> { { pin, x, y }, ... } lays out this layer on the world map only.
 --   summary: what the layer's pins are, as the player reads them ("Hand-ins"). On a continent or world map
 --   (wider than a zone) the pins of every summary layer are gathered into one pin per zone, its count on a badge
@@ -302,7 +306,10 @@ function Pins.SetLayer(name, pins, opts)
 	end
 	layer.pins = type(pins) == "table" and pins or {}
 	layer.world = opts.world ~= false
+	layer.dense = opts.dense == true
 	layer.minMapType = tonumber(opts.minMapType)
+	-- A dense layer's widest view is a zone's (Enum.UIMapType.Zone = 3).
+	if layer.dense and not (layer.minMapType and layer.minMapType >= 3) then layer.minMapType = 3 end
 	layer.worldLayout = type(opts.worldLayout) == "function" and opts.worldLayout or nil
 	layer.summary = type(opts.summary) == "string" and opts.summary ~= "" and opts.summary or nil
 	layer.minimap = opts.minimap ~= false
@@ -1487,6 +1494,15 @@ do
 		return layer.summary ~= nil and mapType ~= nil and mapType < ZONE_TYPE
 	end
 
+	-- A layer's minMapType against the viewed map's type. A view whose type the client does not say still shows a
+	-- dense layer (it must not vanish for no reason, as a clutter limit), and no other limited layer.
+	local function reaches(layer, mapType)
+		local min = layer.minMapType
+		if not min then return true end
+		if mapType then return mapType >= min end
+		return layer.dense == true
+	end
+
 	-- Every shown layer's hulls on the viewed map, inside the window around
 	-- the view as it is now (world.hullWin; mapType: the viewed map's, for minMapType).
 	function world.drawHulls(mapType)
@@ -1500,7 +1516,7 @@ do
 			for _, name in ipairs(order) do
 				local layer = layers[name]
 				if layer and layer.world and not hidden[name] and not summarized(layer, mapType)
-					and (not layer.minMapType or (mapType and mapType >= layer.minMapType)) then
+					and reaches(layer, mapType) then
 					if not layer.resolved then resolveLayer(layer) end
 					local pins = layer.pins
 					for i = 1, #pins do
@@ -1627,7 +1643,7 @@ do
 			for _, name in ipairs(order) do
 				local layer = layers[name]
 				if layer and layer.world and not hidden[name]
-					and (not layer.minMapType or (info and info.mapType and info.mapType >= layer.minMapType)) then
+					and reaches(layer, mapType) then
 					if not layer.resolved then resolveLayer(layer) end
 					local pins = layer.pins
 					local first = n + 1

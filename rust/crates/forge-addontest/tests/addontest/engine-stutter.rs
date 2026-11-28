@@ -297,3 +297,200 @@ fn the_while_here_build_reads_the_quest_log_once() {
 	// Base: 7 reads of the log over the update.
 	assert_eq!(out, json!({ "reads": 3, "step": 1, "lines": 3 }));
 }
+
+// Background tabs and While-here candidate scans wait during combat (Compat.InCombat),
+// and on PLAYER_REGEN_ENABLED each catches up once, with the same result.
+#[test]
+fn in_combat_background_tabs_and_while_here_wait_and_catch_up_on_leaving_combat() {
+	let out = run(
+		vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		&format!(
+			r#"
+		{TEST_PACK}
+		{TEST_SOURCE}
+		local steps = {{ {{ title = "Start", goals = {{ {{ t = "goto", map = 1429, x = 40, y = 40, text = "Here" }}, {{ t = "level", level = 30 }} }} }} }}
+		for i = 1, 12 do
+			local q = 2000 + i
+			steps[#steps + 1] = {{ title = "Hand in " .. i, goals = {{ {{ t = "turnin", quest = q, title = "Q" .. q, map = 1429, x = 40 + i * 0.2, y = 40, npc = 300 + i }} }} }}
+		end
+		Polestar.RegisterGuide({{ id = "test/tab1", pack = "test", title = "Tab 1", faction = "Alliance", minLevel = 1, maxLevel = 30, zone = 1429, steps = steps }})
+		Polestar.RegisterGuide({{ id = "test/tab2", pack = "test", title = "Tab 2", faction = "Alliance", minLevel = 1, maxLevel = 30, zone = 1429, steps = {{
+			{{ title = "Kill", goals = {{ {{ t = "kill", quest = 3002, oi = 1, target = "Wolf", map = 1429, x = 50, y = 50, text = "Wolves" }} }} }},
+			{{ title = "Done", goals = {{ {{ t = "turnin", quest = 3002, title = "Q3002", map = 1429, x = 40, y = 40, npc = 502 }} }} }},
+		}} }})
+		E = Polestar.Engine
+		stub.login(); stub.advance(0.25)
+		for i = 1, 12 do stub.world.accept(2000 + i, {{ 1 }}) end
+		stub.world.accept(3002, {{ 1 }})
+		E.SetGuide("test/tab1"); stub.advance(0.5)
+		E.OpenTab("test/tab2", false); stub.advance(0.25)
+
+		-- Start combat
+		stub.inCombat = true
+		stub.fire("PLAYER_REGEN_DISABLED")
+
+		-- Progress background tab quest 3002 and finish While-here hand-ins during combat
+		stub.world.progress(3002, 1, 1)
+		for i = 1, 12 do stub.world.finish(2000 + i) end
+		stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.5)
+
+		-- While in combat: background tab was not evaluated (still step 1), While-here candidate scan deferred
+		local tabsDuring = E.TabLiveSteps()
+		local bgStepDuring = tabsDuring[2] and tabsDuring[2].live
+		local hereDuring = E.WhileHereState().candidates
+
+		-- Leave combat
+		stub.inCombat = false
+		stub.fire("PLAYER_REGEN_ENABLED"); stub.advance(0.5)
+
+		-- Out of combat: background tab evaluated to step 2, While-here caught up to candidates
+		local tabsAfter = E.TabLiveSteps()
+		local bgStepAfter = tabsAfter[2] and tabsAfter[2].live
+		local hereAfter = E.WhileHereState().candidates
+
+		emit({{
+			bgDuring = bgStepDuring,
+			bgAfter = bgStepAfter,
+			hereDuring = hereDuring,
+			hereAfter = hereAfter,
+		}})"#
+		),
+	);
+	assert_eq!(out, json!({ "bgDuring": 1, "bgAfter": 2, "hereDuring": 0, "hereAfter": 12 }));
+}
+
+// A While-here build already queued before combat enters combat before Own.hereLater runs and waits
+// for PLAYER_REGEN_ENABLED; when a build ran inside combat and hit a vendor Codex retry (hereVendorRetry),
+// PLAYER_REGEN_ENABLED still marks hereDirty and rebuilds the sell reminder.
+#[test]
+fn while_here_queued_before_combat_waits_and_vendor_retry_rebuilds_after_combat() {
+	let out = run(
+		vec![Addon::name("Polestar")],
+		&format!(
+			r#"
+		{TEST_PACK}
+		{TEST_SOURCE}
+		local w = stub.world
+		w.zone, w.subzone, w.resting = "Elwynn Forest", "Goldshire", true
+		w.moveTo(1429, 42, 65)
+		local bagFree, enterCombatOnCodexCheck, codexLoaded = 12, false, false
+		C_Container = C_Container or {{}}
+		C_Container.GetContainerNumSlots = function(bag) return bag == 0 and 16 or 0 end
+		C_Container.GetContainerNumFreeSlots = function(bag) return bag == 0 and bagFree or 0, 0 end
+		Polestar.MapFrames.era[1429] = {{ c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 }}
+		local npcs = {{ [102] = {{ id = 102, name = "Brog Hamfist", subName = "General Supplies", faction = "A", spawns = {{ {{ map = 1429, x = 43, y = 65 }} }} }} }}
+		Polestar.Codex = {{
+			IsLoaded = function()
+				if enterCombatOnCodexCheck then
+					enterCombatOnCodexCheck = false
+					stub.inCombat = true
+				end
+				return codexLoaded
+			end,
+			Load = function() if stub.inCombat then return false, "combat" end codexLoaded = true return true end,
+			WithRole = function(r) return r == "vendor" and {{ 102 }} or {{}} end,
+			Npc = function(id) return npcs[id] end,
+		}}
+		local steps = {{ {{ title = "Out", goals = {{ {{ t = "kill", target = "Wolf", npc = 299, count = 8, quest = 33, oi = 1, map = 1429, x = 60, y = 40 }} }} }} }}
+		for i = 1, 6 do
+			local q = 2100 + i
+			steps[#steps + 1] = {{ title = "Hand in " .. i, goals = {{ {{ t = "turnin", quest = q, title = "Q" .. q, map = 1429, x = 40 + i * 0.2, y = 40, npc = 300 + i }} }} }}
+		end
+		Polestar.RegisterGuide({{ id = "test/queued", pack = "test", title = "Queued", faction = "Alliance", minLevel = 1, maxLevel = 30, zone = 1429, steps = steps }})
+		local E = Polestar.Engine
+		stub.login(); stub.advance(0.25)
+		w.onQuest(33, {{ 8 }})
+		for i = 1, 6 do w.accept(2100 + i, {{ 1 }}) end
+		E.SetGuide("test/queued"); stub.advance(0.5)
+
+		-- Queue a While-here build just before combat begins, then enter combat before timers flush.
+		for i = 1, 6 do w.finish(2100 + i) end
+		stub.fire("QUEST_LOG_UPDATE")
+		stub.inCombat = true
+		stub.fire("PLAYER_REGEN_DISABLED")
+		stub.advance(0.5)
+		local preQueuedDuring = E.WhileHereState().candidates
+
+		-- Leave combat: the held build runs after HERE_AFTER_FIGHT (0.2s).
+		stub.inCombat = false
+		stub.fire("PLAYER_REGEN_ENABLED"); stub.advance(0.5)
+		local preQueuedAfter = E.WhileHereState().candidates
+
+		-- Now test hereVendorRetry alone: a build starts out of combat, but combat begins before Codex loads.
+		enterCombatOnCodexCheck = true
+		bagFree = 2
+		stub.fire("BAG_UPDATE_DELAYED"); stub.advance(0.5)
+		local vendorsDuring = 0
+		for _, v in ipairs(E.GetWhileHereList()) do if v.here == "sell" then vendorsDuring = vendorsDuring + 1 end end
+		stub.inCombat = false
+		stub.fire("PLAYER_REGEN_ENABLED"); stub.advance(0.6)
+		local vendorsAfter = 0
+		for _, v in ipairs(E.GetWhileHereList()) do if v.here == "sell" then vendorsAfter = vendorsAfter + 1 end end
+
+		emit({{
+			preQueuedDuring = preQueuedDuring,
+			preQueuedAfter = preQueuedAfter,
+			vendorsDuring = vendorsDuring,
+			vendorsAfter = vendorsAfter,
+		}})"#
+		),
+	);
+	assert_eq!(out, json!({ "preQueuedDuring": 0, "preQueuedAfter": 6, "vendorsDuring": 0, "vendorsAfter": 1 }));
+}
+
+// In combat, step updates, route changes, and while-here changes leave the map layer's pins on the old step;
+// on PLAYER_REGEN_ENABLED, the layer catches up exactly once.
+#[test]
+fn in_combat_the_map_layer_waits_and_catches_up_on_leaving_combat() {
+	let out = run(
+		vec![Addon::name("Polestar")],
+		&format!(
+			r#"
+		{TEST_PACK}
+		{TEST_SOURCE}
+		Polestar.RegisterGuide({{ id = "test/mapstep", pack = "test", title = "Map Step", faction = "Alliance", minLevel = 1, maxLevel = 30, zone = 1429, steps = {{
+			{{ title = "Step 1", goals = {{ {{ t = "kill", quest = 4001, count = 2, oi = 1, target = "Wolf", map = 1429, x = 40, y = 40, text = "Wolves" }} }} }},
+			{{ title = "Step 2", goals = {{ {{ t = "kill", quest = 4002, oi = 1, target = "Bear", map = 1429, x = 60, y = 60, text = "Bears" }} }} }},
+		}} }})
+		E = Polestar.Engine
+		stub.login(); stub.advance(0.25)
+		stub.world.accept(4001, {{ {{ text = "Wolves: 0/2", required = 2 }} }})
+		stub.world.accept(4002, {{ 1 }})
+		E.SetGuide("test/mapstep"); stub.advance(0.5)
+
+		local updates = 0
+		local origUpdate = Polestar.Nav.layers.Update
+		Polestar.Nav.layers.Update = function(...)
+			updates = updates + 1
+			return origUpdate(...)
+		end
+
+		-- Start combat
+		stub.inCombat = true
+		stub.fire("PLAYER_REGEN_DISABLED")
+		local beforeFightUpdates = updates
+
+		-- Progress 1 of 2 kills in combat (fires STEP_UPDATED), plus route and while-here updates
+		stub.world.progress(4001, 1, 1)
+		stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.25)
+		Polestar.Fire("ROUTE_CHANGED")
+		Polestar.Fire("WHILE_HERE_CHANGED")
+
+		local stepInCombat = E.GetStepIndex()
+		local updatesInCombat = updates - beforeFightUpdates
+
+		-- Leave combat
+		stub.inCombat = false
+		stub.fire("PLAYER_REGEN_ENABLED"); stub.advance(0.25)
+
+		local updatesAfterRegen = updates - beforeFightUpdates
+
+		emit({{
+			stepInCombat = stepInCombat,
+			updatesInCombat = updatesInCombat,
+			updatesAfterRegen = updatesAfterRegen,
+		}})"#
+		),
+	);
+	assert_eq!(out, json!({ "stepInCombat": 1, "updatesInCombat": 0, "updatesAfterRegen": 1 }));
+}

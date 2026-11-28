@@ -15,45 +15,45 @@ return {
 
 	-- Step 2: Get Rough Stone (Elwynn Forest)
 	-- {item:2835} Rough Stone · {zone:1429} Elwynn Forest
-	["Get {item:2835} ({zone:1429})"] = "",
+	["Get {item:2835} ({zone:1429})"] = "Sammle {item:2835} ({zone:1429})",
 	-- {item:2835} Rough Stone · {skill:164} Blacksmithing · {spell:2660} Rough Sharpening Stone · {spell:3320} Rough Grinding Stone · {skill:186} Mining · {object:1731} Copper Vein · {zone:1429} Elwynn Forest
-	["You need 286 {item:2835} for {skill:164} 1-75: {spell:2660} and {spell:3320} (116 of them for 75-150: get them all now). {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1429} is marked. Or buy them at the Auction House."] = "",
+	["You need 286 {item:2835} for {skill:164} 1-75: {spell:2660} and {spell:3320} (116 of them for 75-150: get them all now). {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1429} is marked. Or buy them at the Auction House."] = "Du brauchst 286 {item:2835} für {skill:164} 1-75: {spell:2660} und {spell:3320} (116 davon für 75-150: hol sie dir jetzt alle). {skill:186}: {object:1731} (Fertigkeit 1). Das dichteste Vorkommen von {object:1731} in {zone:1429} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 3: Get Rough Stone (Dun Morogh)
 	-- {item:2835} Rough Stone · {zone:1426} Dun Morogh
-	["Get {item:2835} ({zone:1426})"] = "",
+	["Get {item:2835} ({zone:1426})"] = "Sammle {item:2835} ({zone:1426})",
 	-- {item:2835} Rough Stone · {skill:164} Blacksmithing · {spell:2660} Rough Sharpening Stone · {spell:3320} Rough Grinding Stone · {skill:186} Mining · {object:1731} Copper Vein · {zone:1426} Dun Morogh
-	["You need 286 {item:2835} for {skill:164} 1-75: {spell:2660} and {spell:3320} (116 of them for 75-150: get them all now). {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1426} is marked. Or buy them at the Auction House."] = "",
+	["You need 286 {item:2835} for {skill:164} 1-75: {spell:2660} and {spell:3320} (116 of them for 75-150: get them all now). {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1426} is marked. Or buy them at the Auction House."] = "Du brauchst 286 {item:2835} für {skill:164} 1-75: {spell:2660} und {spell:3320} (116 davon für 75-150: hol sie dir jetzt alle). {skill:186}: {object:1731} (Fertigkeit 1). Das dichteste Vorkommen von {object:1731} in {zone:1426} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 4: Get Rough Stone (Darkshore)
 	-- {item:2835} Rough Stone · {zone:1439} Darkshore
-	["Get {item:2835} ({zone:1439})"] = "",
+	["Get {item:2835} ({zone:1439})"] = "Sammle {item:2835} ({zone:1439})",
 	-- {item:2835} Rough Stone · {skill:164} Blacksmithing · {spell:2660} Rough Sharpening Stone · {spell:3320} Rough Grinding Stone · {skill:186} Mining · {object:1731} Copper Vein · {zone:1439} Darkshore
-	["You need 286 {item:2835} for {skill:164} 1-75: {spell:2660} and {spell:3320} (116 of them for 75-150: get them all now). {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1439} is marked. Or buy them at the Auction House."] = "",
+	["You need 286 {item:2835} for {skill:164} 1-75: {spell:2660} and {spell:3320} (116 of them for 75-150: get them all now). {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1439} is marked. Or buy them at the Auction House."] = "Du brauchst 286 {item:2835} für {skill:164} 1-75: {spell:2660} und {spell:3320} (116 davon für 75-150: hol sie dir jetzt alle). {skill:186}: {object:1731} (Fertigkeit 1). Das dichteste Vorkommen von {object:1731} in {zone:1439} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 5: Get Rough Stone (Zephras Isle)
 	-- {item:2835} Rough Stone · {zone:2521} Zephras Isle
-	["Get {item:2835} ({zone:2521})"] = "",
+	["Get {item:2835} ({zone:2521})"] = "Sammle {item:2835} ({zone:2521})",
 	-- {item:2835} Rough Stone · {skill:164} Blacksmithing · {spell:2660} Rough Sharpening Stone · {spell:3320} Rough Grinding Stone · {skill:186} Mining · {object:1731} Copper Vein · {zone:2521} Zephras Isle
-	["You need 286 {item:2835} for {skill:164} 1-75: {spell:2660} and {spell:3320} (116 of them for 75-150: get them all now). {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:2521} is marked. Or buy them at the Auction House."] = "",
+	["You need 286 {item:2835} for {skill:164} 1-75: {spell:2660} and {spell:3320} (116 of them for 75-150: get them all now). {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:2521} is marked. Or buy them at the Auction House."] = "Du brauchst 286 {item:2835} für {skill:164} 1-75: {spell:2660} und {spell:3320} (116 davon für 75-150: hol sie dir jetzt alle). {skill:186}: {object:1731} (Fertigkeit 1). Das dichteste Vorkommen von {object:1731} in {zone:2521} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 6: Get Rough Stone (Durotar)
 	-- {item:2835} Rough Stone · {zone:1411} Durotar
-	["Get {item:2835} ({zone:1411})"] = "",
+	["Get {item:2835} ({zone:1411})"] = "Sammle {item:2835} ({zone:1411})",
 	-- {item:2835} Rough Stone · {skill:164} Blacksmithing · {spell:2660} Rough Sharpening Stone · {spell:3320} Rough Grinding Stone · {skill:186} Mining · {object:1731} Copper Vein · {zone:1411} Durotar
-	["You need 286 {item:2835} for {skill:164} 1-75: {spell:2660} and {spell:3320} (116 of them for 75-150: get them all now). {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1411} is marked. Or buy them at the Auction House."] = "",
+	["You need 286 {item:2835} for {skill:164} 1-75: {spell:2660} and {spell:3320} (116 of them for 75-150: get them all now). {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1411} is marked. Or buy them at the Auction House."] = "Du brauchst 286 {item:2835} für {skill:164} 1-75: {spell:2660} und {spell:3320} (116 davon für 75-150: hol sie dir jetzt alle). {skill:186}: {object:1731} (Fertigkeit 1). Das dichteste Vorkommen von {object:1731} in {zone:1411} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 7: Get Rough Stone (Mulgore)
 	-- {item:2835} Rough Stone · {zone:1412} Mulgore
-	["Get {item:2835} ({zone:1412})"] = "",
+	["Get {item:2835} ({zone:1412})"] = "Sammle {item:2835} ({zone:1412})",
 	-- {item:2835} Rough Stone · {skill:164} Blacksmithing · {spell:2660} Rough Sharpening Stone · {spell:3320} Rough Grinding Stone · {skill:186} Mining · {object:1731} Copper Vein · {zone:1412} Mulgore
-	["You need 286 {item:2835} for {skill:164} 1-75: {spell:2660} and {spell:3320} (116 of them for 75-150: get them all now). {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1412} is marked. Or buy them at the Auction House."] = "",
+	["You need 286 {item:2835} for {skill:164} 1-75: {spell:2660} and {spell:3320} (116 of them for 75-150: get them all now). {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1412} is marked. Or buy them at the Auction House."] = "Du brauchst 286 {item:2835} für {skill:164} 1-75: {spell:2660} und {spell:3320} (116 davon für 75-150: hol sie dir jetzt alle). {skill:186}: {object:1731} (Fertigkeit 1). Das dichteste Vorkommen von {object:1731} in {zone:1412} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 8: Get Rough Stone (Tirisfal Glades)
 	-- {item:2835} Rough Stone · {zone:1420} Tirisfal Glades
-	["Get {item:2835} ({zone:1420})"] = "",
+	["Get {item:2835} ({zone:1420})"] = "Sammle {item:2835} ({zone:1420})",
 	-- {item:2835} Rough Stone · {skill:164} Blacksmithing · {spell:2660} Rough Sharpening Stone · {spell:3320} Rough Grinding Stone · {skill:186} Mining · {object:1731} Copper Vein · {zone:1420} Tirisfal Glades
-	["You need 286 {item:2835} for {skill:164} 1-75: {spell:2660} and {spell:3320} (116 of them for 75-150: get them all now). {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1420} is marked. Or buy them at the Auction House."] = "",
+	["You need 286 {item:2835} for {skill:164} 1-75: {spell:2660} and {spell:3320} (116 of them for 75-150: get them all now). {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1420} is marked. Or buy them at the Auction House."] = "Du brauchst 286 {item:2835} für {skill:164} 1-75: {spell:2660} und {spell:3320} (116 davon für 75-150: hol sie dir jetzt alle). {skill:186}: {object:1731} (Fertigkeit 1). Das dichteste Vorkommen von {object:1731} in {zone:1420} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 9: Rough Sharpening Stone to 35
 	-- {spell:2660} Rough Sharpening Stone
@@ -88,69 +88,69 @@ return {
 
 	-- Step 14: Get Coarse Stone (Westfall)
 	-- {item:2836} Coarse Stone · {zone:1436} Westfall
-	["Get {item:2836} ({zone:1436})"] = "",
+	["Get {item:2836} ({zone:1436})"] = "Sammle {item:2836} ({zone:1436})",
 	-- {item:2836} Coarse Stone · {skill:164} Blacksmithing · {spell:2672} Patterned Bronze Bracers · {skill:186} Mining · {object:1732} Tin Vein · {zone:1436} Westfall
-	["You need 256 {item:2836} for {skill:164} 75-150: {spell:2672}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1436} is marked. Or buy them at the Auction House."] = "",
+	["You need 256 {item:2836} for {skill:164} 75-150: {spell:2672}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1436} is marked. Or buy them at the Auction House."] = "Du brauchst 256 {item:2836} für {skill:164} 75-150: {spell:2672}. {skill:186}: {object:1732} (Fertigkeit 65). Das dichteste Vorkommen von {object:1732} in {zone:1436} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 15: Get Coarse Stone (Loch Modan)
 	-- {item:2836} Coarse Stone · {zone:1432} Loch Modan
-	["Get {item:2836} ({zone:1432})"] = "",
+	["Get {item:2836} ({zone:1432})"] = "Sammle {item:2836} ({zone:1432})",
 	-- {item:2836} Coarse Stone · {skill:164} Blacksmithing · {spell:2672} Patterned Bronze Bracers · {skill:186} Mining · {object:1732} Tin Vein · {zone:1432} Loch Modan
-	["You need 256 {item:2836} for {skill:164} 75-150: {spell:2672}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1432} is marked. Or buy them at the Auction House."] = "",
+	["You need 256 {item:2836} for {skill:164} 75-150: {spell:2672}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1432} is marked. Or buy them at the Auction House."] = "Du brauchst 256 {item:2836} für {skill:164} 75-150: {spell:2672}. {skill:186}: {object:1732} (Fertigkeit 65). Das dichteste Vorkommen von {object:1732} in {zone:1432} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 16: Get Coarse Stone (Darkshore)
 	-- {item:2836} Coarse Stone · {zone:1439} Darkshore
-	["Get {item:2836} ({zone:1439})"] = "",
+	["Get {item:2836} ({zone:1439})"] = "Sammle {item:2836} ({zone:1439})",
 	-- {item:2836} Coarse Stone · {skill:164} Blacksmithing · {spell:2672} Patterned Bronze Bracers · {skill:186} Mining · {object:1732} Tin Vein · {zone:1439} Darkshore
-	["You need 256 {item:2836} for {skill:164} 75-150: {spell:2672}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1439} is marked. Or buy them at the Auction House."] = "",
+	["You need 256 {item:2836} for {skill:164} 75-150: {spell:2672}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1439} is marked. Or buy them at the Auction House."] = "Du brauchst 256 {item:2836} für {skill:164} 75-150: {spell:2672}. {skill:186}: {object:1732} (Fertigkeit 65). Das dichteste Vorkommen von {object:1732} in {zone:1439} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 17: Get Coarse Stone (The Barrens)
 	-- {item:2836} Coarse Stone · {zone:1413} The Barrens
-	["Get {item:2836} ({zone:1413})"] = "",
+	["Get {item:2836} ({zone:1413})"] = "Sammle {item:2836} ({zone:1413})",
 	-- {item:2836} Coarse Stone · {skill:164} Blacksmithing · {spell:2672} Patterned Bronze Bracers · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens
-	["You need 256 {item:2836} for {skill:164} 75-150: {spell:2672}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1413} is marked. Or buy them at the Auction House."] = "",
+	["You need 256 {item:2836} for {skill:164} 75-150: {spell:2672}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1413} is marked. Or buy them at the Auction House."] = "Du brauchst 256 {item:2836} für {skill:164} 75-150: {spell:2672}. {skill:186}: {object:1732} (Fertigkeit 65). Das dichteste Vorkommen von {object:1732} in {zone:1413} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 18: Get Coarse Stone (Silverpine Forest)
 	-- {item:2836} Coarse Stone · {zone:1421} Silverpine Forest
-	["Get {item:2836} ({zone:1421})"] = "",
+	["Get {item:2836} ({zone:1421})"] = "Sammle {item:2836} ({zone:1421})",
 	-- {item:2836} Coarse Stone · {skill:164} Blacksmithing · {spell:2672} Patterned Bronze Bracers · {skill:186} Mining · {object:1732} Tin Vein · {zone:1421} Silverpine Forest
-	["You need 256 {item:2836} for {skill:164} 75-150: {spell:2672}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1421} is marked. Or buy them at the Auction House."] = "",
+	["You need 256 {item:2836} for {skill:164} 75-150: {spell:2672}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1421} is marked. Or buy them at the Auction House."] = "Du brauchst 256 {item:2836} für {skill:164} 75-150: {spell:2672}. {skill:186}: {object:1732} (Fertigkeit 65). Das dichteste Vorkommen von {object:1732} in {zone:1421} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 19: Get Heavy Stone (Arathi Highlands)
 	-- {item:2838} Heavy Stone · {zone:1417} Arathi Highlands
-	["Get {item:2838} ({zone:1417})"] = "",
+	["Get {item:2838} ({zone:1417})"] = "Sammle {item:2838} ({zone:1417})",
 	-- {item:2838} Heavy Stone · {skill:164} Blacksmithing · {spell:2674} Heavy Sharpening Stone · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands
-	["You need 28 {item:2838} for {skill:164} 75-150: {spell:2674}. {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1417} is marked. Or buy them at the Auction House."] = "",
+	["You need 28 {item:2838} for {skill:164} 75-150: {spell:2674}. {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1417} is marked. Or buy them at the Auction House."] = "Du brauchst 28 {item:2838} für {skill:164} 75-150: {spell:2674}. {skill:186}: {object:1735} (Fertigkeit 125). Das dichteste Vorkommen von {object:1735} in {zone:1417} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 20: Get Heavy Stone (Ashenvale)
 	-- {item:2838} Heavy Stone · {zone:1440} Ashenvale
-	["Get {item:2838} ({zone:1440})"] = "",
+	["Get {item:2838} ({zone:1440})"] = "Sammle {item:2838} ({zone:1440})",
 	-- {item:2838} Heavy Stone · {skill:164} Blacksmithing · {spell:2674} Heavy Sharpening Stone · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1440} Ashenvale
-	["You need 28 {item:2838} for {skill:164} 75-150: {spell:2674}. {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1440} is marked. Or buy them at the Auction House."] = "",
+	["You need 28 {item:2838} for {skill:164} 75-150: {spell:2674}. {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1440} is marked. Or buy them at the Auction House."] = "Du brauchst 28 {item:2838} für {skill:164} 75-150: {spell:2674}. {skill:186}: {object:1735} (Fertigkeit 125). Das dichteste Vorkommen von {object:1735} in {zone:1440} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 21: Get Heavy Stone (The Barrens)
 	-- {item:2838} Heavy Stone · {zone:1413} The Barrens
-	["Get {item:2838} ({zone:1413})"] = "",
+	["Get {item:2838} ({zone:1413})"] = "Sammle {item:2838} ({zone:1413})",
 	-- {item:2838} Heavy Stone · {skill:164} Blacksmithing · {spell:2674} Heavy Sharpening Stone · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1413} The Barrens
-	["You need 28 {item:2838} for {skill:164} 75-150: {spell:2674}. {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1413} is marked. Or buy them at the Auction House."] = "",
+	["You need 28 {item:2838} for {skill:164} 75-150: {spell:2674}. {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1413} is marked. Or buy them at the Auction House."] = "Du brauchst 28 {item:2838} für {skill:164} 75-150: {spell:2674}. {skill:186}: {object:1735} (Fertigkeit 125). Das dichteste Vorkommen von {object:1735} in {zone:1413} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 23: Get Copper Bar (Alliance)
 	-- {item:2840} Copper Bar
-	["Get {item:2840} (Alliance)"] = "",
+	["Get {item:2840} (Alliance)"] = "Sammle {item:2840} (Allianz)",
 	-- {item:2840} Copper Bar · {skill:164} Blacksmithing · {spell:2666} Runed Copper Belt · {object:1731} Copper Vein · {skill:186} Mining · {item:2770} Copper Ore · {zone:1426} Dun Morogh
-	["You need 210 {item:2840} for {skill:164} 75-150: {spell:2666}. Mine {object:1731} ({skill:186} 1) for {item:2770} and smelt it at a forge ({skill:186} 1). The densest cluster of {object:1731} in {zone:1426} is marked. Or buy them at the Auction House."] = "",
+	["You need 210 {item:2840} for {skill:164} 75-150: {spell:2666}. Mine {object:1731} ({skill:186} 1) for {item:2770} and smelt it at a forge ({skill:186} 1). The densest cluster of {object:1731} in {zone:1426} is marked. Or buy them at the Auction House."] = "Du brauchst 210 {item:2840} für {skill:164} 75-150: {spell:2666}. Baue {object:1731} ({skill:186} 1) für {item:2770} ab und schmelze es an einem Amboss ({skill:186} 1). Das dichteste Vorkommen von {object:1731} in {zone:1426} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 24: Get Copper Bar (Horde)
 	-- {item:2840} Copper Bar
-	["Get {item:2840} (Horde)"] = "",
+	["Get {item:2840} (Horde)"] = "Sammle {item:2840} (Horde)",
 	-- {item:2840} Copper Bar · {skill:164} Blacksmithing · {spell:2666} Runed Copper Belt · {object:1731} Copper Vein · {skill:186} Mining · {item:2770} Copper Ore · {zone:1411} Durotar
-	["You need 210 {item:2840} for {skill:164} 75-150: {spell:2666}. Mine {object:1731} ({skill:186} 1) for {item:2770} and smelt it at a forge ({skill:186} 1). The densest cluster of {object:1731} in {zone:1411} is marked. Or buy them at the Auction House."] = "",
+	["You need 210 {item:2840} for {skill:164} 75-150: {spell:2666}. Mine {object:1731} ({skill:186} 1) for {item:2770} and smelt it at a forge ({skill:186} 1). The densest cluster of {object:1731} in {zone:1411} is marked. Or buy them at the Auction House."] = "Du brauchst 210 {item:2840} für {skill:164} 75-150: {spell:2666}. Baue {object:1731} ({skill:186} 1) für {item:2770} ab und schmelze es an einem Amboss ({skill:186} 1). Das dichteste Vorkommen von {object:1731} in {zone:1411} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 25: Get Bronze Bar
 	-- {item:2841} Bronze Bar
-	["Get {item:2841}"] = "",
+	["Get {item:2841}"] = "Sammle {item:2841}",
 	-- {item:2841} Bronze Bar · {skill:164} Blacksmithing · {spell:2672} Patterned Bronze Bracers · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
-	["You need 320 {item:2841} for {skill:164} 75-150: {spell:2672}. {skill:186}: smelt {item:2840} and {item:3576}. Or buy them at the Auction House."] = "",
+	["You need 320 {item:2841} for {skill:164} 75-150: {spell:2672}. {skill:186}: smelt {item:2840} and {item:3576}. Or buy them at the Auction House."] = "Du brauchst 320 {item:2841} für {skill:164} 75-150: {spell:2672}. {skill:186}: schmelze {item:2840} und {item:3576}. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 26: Rough Grinding Stone to 83
 	-- {spell:3320} Rough Grinding Stone
@@ -201,70 +201,61 @@ return {
 	-- {skill:164} Blacksmithing
 	["{skill:164} 150-225: vendor goods"] = "{skill:164} 150-225: Händlerwaren",
 	-- {item:2605} Green Dye · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:5817} Shimra · {item:3859} Steel Bar · {skill:186} Mining · {item:3575} Iron Bar
-	-- was: ["Buy the whole bracket's share in one go: 28 {item:2605} (28s); about 28s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817}). If you smelt the 195 {item:3859} yourself ({skill:186} 165: an {item:3575} and a Coal each), buy 195 Coal too (9g 75s, trade and blacksmithing suppliers); skip them if you buy the bars."] = "Kauf den Bedarf für den ganzen Bereich auf einmal: 28 {item:2605} (28s); insgesamt etwa 28s. Der Pfeil wählt den nächsten Händler deiner Fraktion ({zone:1453}: {npc:1347}, {npc:1286} und {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} und {npc:5817}). Wenn du die 195 {item:3859} selbst schmilzt ({skill:186} 165: je ein {item:3575} und eine Kohle), kauf auch 195 Kohle (9g 75s, bei Handwerkswaren- und Schmiedebedarfshändlern); lass sie weg, wenn du die Barren kaufst."
-	["Buy the whole bracket's share in one go: 28 {item:2605} (28s); about 28s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: Borya, {npc:3367} and {npc:5817}). If you smelt the 195 {item:3859} yourself ({skill:186} 165: an {item:3575} and a Coal each), buy 195 Coal too (9g 75s, trade and blacksmithing suppliers); skip them if you buy the bars."] = "",
+	["Buy the whole bracket's share in one go: 28 {item:2605} (28s); about 28s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: Borya, {npc:3367} and {npc:5817}). If you smelt the 195 {item:3859} yourself ({skill:186} 165: an {item:3575} and a Coal each), buy 195 Coal too (9g 75s, trade and blacksmithing suppliers); skip them if you buy the bars."] = "Kauf den Bedarf für den ganzen Bereich auf einmal: 28 {item:2605} (28s); insgesamt etwa 28s. Der Pfeil wählt den nächsten Händler deiner Fraktion ({zone:1453}: {npc:1347}, {npc:1286} und {npc:5565}; {zone:1454}: Borya, {npc:3367} und {npc:5817}). Wenn du die 195 {item:3859} selbst schmilzt ({skill:186} 165: je ein {item:3575} und eine Kohle), kauf auch 195 Kohle (9g 75s, bei Handwerkswaren- und Schmiedebedarfshändlern); lass sie weg, wenn du die Barren kaufst.",
 
 	-- Step 34: Get Heavy Stone (Alliance)
 	-- {item:2838} Heavy Stone
-	-- was: ["{item:2838} (Alliance)"] = "{item:2838} (Allianz)"
-	["Get {item:2838} (Alliance)"] = "",
+	["Get {item:2838} (Alliance)"] = "Sammle {item:2838} (Allianz)",
 	-- {item:2838} Heavy Stone · {skill:164} Blacksmithing · {item:6040} Golden Scale Bracers · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {zone:1443} Desolace
-	-- was: ["234 {item:2838} for {item:6040}: {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked."] = "234 {item:2838} für {item:6040}: {skill:186}: {object:1735} (Fertigkeit 125) in {zone:1417} (30-40), {zone:1434} (30-45) und {zone:1443} (30-40). Das dichteste Vorkommen von {object:1735} in {zone:1417} ist markiert."
-	["You need 234 {item:2838} for {skill:164} 150-225: {item:6040}. {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked. Or buy them at the Auction House."] = "",
+	["You need 234 {item:2838} for {skill:164} 150-225: {item:6040}. {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked. Or buy them at the Auction House."] = "Du brauchst 234 {item:2838} für {skill:164} 150-225: {item:6040}. {skill:186}: {object:1735} (Fertigkeit 125) in {zone:1417} (30-40), {zone:1434} (30-45) und {zone:1443} (30-40). Das dichteste Vorkommen von {object:1735} in {zone:1417} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 35: Get Heavy Stone (Horde)
 	-- {item:2838} Heavy Stone
-	-- was: ["{item:2838} (Horde)"] = "{item:2838} (Horde)"
-	["Get {item:2838} (Horde)"] = "",
+	["Get {item:2838} (Horde)"] = "Sammle {item:2838} (Horde)",
 	-- {item:2838} Heavy Stone · {skill:164} Blacksmithing · {item:6040} Golden Scale Bracers · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1441} Thousand Needles · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
-	-- was: ["234 {item:2838} for {item:6040}: {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked."] = "234 {item:2838} für {item:6040}: {skill:186}: {object:1735} (Fertigkeit 125) in {zone:1441} (25-35), {zone:1417} (30-40) und {zone:1434} (30-45). Das dichteste Vorkommen von {object:1735} in {zone:1441} ist markiert."
-	["You need 234 {item:2838} for {skill:164} 150-225: {item:6040}. {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked. Or buy them at the Auction House."] = "",
+	["You need 234 {item:2838} for {skill:164} 150-225: {item:6040}. {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked. Or buy them at the Auction House."] = "Du brauchst 234 {item:2838} für {skill:164} 150-225: {item:6040}. {skill:186}: {object:1735} (Fertigkeit 125) in {zone:1441} (25-35), {zone:1417} (30-40) und {zone:1434} (30-45). Das dichteste Vorkommen von {object:1735} in {zone:1441} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 36: Get Iron Bar (Alliance)
 	-- {item:3575} Iron Bar
-	["Get {item:3575} (Alliance)"] = "",
+	["Get {item:3575} (Alliance)"] = "Sammle {item:3575} (Allianz)",
 	-- {item:3575} Iron Bar · {skill:164} Blacksmithing · {spell:3501} Green Iron Bracers · {object:1735} Iron Deposit · {skill:186} Mining · {item:2772} Iron Ore · {zone:1417} Arathi Highlands
-	["You need 168 {item:3575} for {skill:164} 150-225: {spell:3501}. Mine {object:1735} ({skill:186} 125) for {item:2772} and smelt it at a forge ({skill:186} 125). The densest cluster of {object:1735} in {zone:1417} is marked. Or buy them at the Auction House."] = "",
+	["You need 168 {item:3575} for {skill:164} 150-225: {spell:3501}. Mine {object:1735} ({skill:186} 125) for {item:2772} and smelt it at a forge ({skill:186} 125). The densest cluster of {object:1735} in {zone:1417} is marked. Or buy them at the Auction House."] = "Du brauchst 168 {item:3575} für {skill:164} 150-225: {spell:3501}. Baue {object:1735} ({skill:186} 125) für {item:2772} ab und schmelze es an einem Amboss ({skill:186} 125). Das dichteste Vorkommen von {object:1735} in {zone:1417} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 37: Get Iron Bar (Horde)
 	-- {item:3575} Iron Bar
-	["Get {item:3575} (Horde)"] = "",
+	["Get {item:3575} (Horde)"] = "Sammle {item:3575} (Horde)",
 	-- {item:3575} Iron Bar · {skill:164} Blacksmithing · {spell:3501} Green Iron Bracers · {object:1735} Iron Deposit · {skill:186} Mining · {item:2772} Iron Ore · {zone:1441} Thousand Needles
-	["You need 168 {item:3575} for {skill:164} 150-225: {spell:3501}. Mine {object:1735} ({skill:186} 125) for {item:2772} and smelt it at a forge ({skill:186} 125). The densest cluster of {object:1735} in {zone:1441} is marked. Or buy them at the Auction House."] = "",
+	["You need 168 {item:3575} for {skill:164} 150-225: {spell:3501}. Mine {object:1735} ({skill:186} 125) for {item:2772} and smelt it at a forge ({skill:186} 125). The densest cluster of {object:1735} in {zone:1441} is marked. Or buy them at the Auction House."] = "Du brauchst 168 {item:3575} für {skill:164} 150-225: {spell:3501}. Baue {object:1735} ({skill:186} 125) für {item:2772} ab und schmelze es an einem Amboss ({skill:186} 125). Das dichteste Vorkommen von {object:1735} in {zone:1441} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 38: Get Steel Bar
 	-- {item:3859} Steel Bar
-	["Get {item:3859}"] = "",
+	["Get {item:3859}"] = "Sammle {item:3859}",
 	-- {item:3859} Steel Bar · {skill:164} Blacksmithing · {item:6040} Golden Scale Bracers · {skill:186} Mining · {item:3575} Iron Bar
-	["You need 195 {item:3859} for {skill:164} 150-225: {item:6040}. {skill:186}: smelt {item:3575} and Coal. Or buy them at the Auction House."] = "",
+	["You need 195 {item:3859} for {skill:164} 150-225: {item:6040}. {skill:186}: smelt {item:3575} and Coal. Or buy them at the Auction House."] = "Du brauchst 195 {item:3859} für {skill:164} 150-225: {item:6040}. {skill:186}: schmelze {item:3575} und Kohle. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 39: Get Mithril Bar (Alliance)
 	-- {item:3860} Mithril Bar
-	["Get {item:3860} (Alliance)"] = "",
+	["Get {item:3860} (Alliance)"] = "Sammle {item:3860} (Allianz)",
 	-- {item:3860} Mithril Bar · {skill:164} Blacksmithing · {item:7930} Heavy Mithril Breastplate · {object:2040} Mithril Deposit · {skill:186} Mining · {item:3858} Mithril Ore · {zone:1434} Stranglethorn Vale
-	["You need 320 {item:3860} for {skill:164} 150-225: {item:7930}. Mine {object:2040} ({skill:186} 175) for {item:3858} and smelt it at a forge ({skill:186} 175). The densest cluster of {object:2040} in {zone:1434} is marked. Or buy them at the Auction House."] = "",
+	["You need 320 {item:3860} for {skill:164} 150-225: {item:7930}. Mine {object:2040} ({skill:186} 175) for {item:3858} and smelt it at a forge ({skill:186} 175). The densest cluster of {object:2040} in {zone:1434} is marked. Or buy them at the Auction House."] = "Du brauchst 320 {item:3860} für {skill:164} 150-225: {item:7930}. Baue {object:2040} ({skill:186} 175) für {item:3858} ab und schmelze es an einem Amboss ({skill:186} 175). Das dichteste Vorkommen von {object:2040} in {zone:1434} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 40: Get Mithril Bar (Horde)
 	-- {item:3860} Mithril Bar
-	["Get {item:3860} (Horde)"] = "",
+	["Get {item:3860} (Horde)"] = "Sammle {item:3860} (Horde)",
 	-- {item:3860} Mithril Bar · {skill:164} Blacksmithing · {item:7930} Heavy Mithril Breastplate · {object:2040} Mithril Deposit · {skill:186} Mining · {item:3858} Mithril Ore · {zone:1443} Desolace
-	["You need 320 {item:3860} for {skill:164} 150-225: {item:7930}. Mine {object:2040} ({skill:186} 175) for {item:3858} and smelt it at a forge ({skill:186} 175). The densest cluster of {object:2040} in {zone:1443} is marked. Or buy them at the Auction House."] = "",
+	["You need 320 {item:3860} for {skill:164} 150-225: {item:7930}. Mine {object:2040} ({skill:186} 175) for {item:3858} and smelt it at a forge ({skill:186} 175). The densest cluster of {object:2040} in {zone:1443} is marked. Or buy them at the Auction House."] = "Du brauchst 320 {item:3860} für {skill:164} 150-225: {item:7930}. Baue {object:2040} ({skill:186} 175) für {item:3858} ab und schmelze es an einem Amboss ({skill:186} 175). Das dichteste Vorkommen von {object:2040} in {zone:1443} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 41: Get Solid Stone (Alliance)
 	-- {item:7912} Solid Stone
-	-- was: ["{item:7912} (Alliance)"] = "{item:7912} (Allianz)"
-	["Get {item:7912} (Alliance)"] = "",
+	["Get {item:7912} (Alliance)"] = "Sammle {item:7912} (Allianz)",
 	-- {item:7912} Solid Stone · {skill:164} Blacksmithing · {item:7964} Solid Sharpening Stone · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	-- was: ["30 {item:7912} for {item:7964}: {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked."] = "30 {item:7912} für {item:7964}: {skill:186}: {object:2040} (Fertigkeit 175) in {zone:1434} (30-45), {zone:1425} (40-50) und {zone:1444} (40-50). Das dichteste Vorkommen von {object:2040} in {zone:1434} ist markiert."
-	["You need 30 {item:7912} for {skill:164} 150-225: {item:7964}. {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked. Or buy them at the Auction House."] = "",
+	["You need 30 {item:7912} for {skill:164} 150-225: {item:7964}. {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked. Or buy them at the Auction House."] = "Du brauchst 30 {item:7912} für {skill:164} 150-225: {item:7964}. {skill:186}: {object:2040} (Fertigkeit 175) in {zone:1434} (30-45), {zone:1425} (40-50) und {zone:1444} (40-50). Das dichteste Vorkommen von {object:2040} in {zone:1434} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 42: Get Solid Stone (Horde)
 	-- {item:7912} Solid Stone
-	-- was: ["{item:7912} (Horde)"] = "{item:7912} (Horde)"
-	["Get {item:7912} (Horde)"] = "",
+	["Get {item:7912} (Horde)"] = "Sammle {item:7912} (Horde)",
 	-- {item:7912} Solid Stone · {skill:164} Blacksmithing · {item:7964} Solid Sharpening Stone · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	-- was: ["30 {item:7912} for {item:7964}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "30 {item:7912} für {item:7964}: {skill:186}: {object:2040} (Fertigkeit 175) in {zone:1443} (30-40), {zone:1425} (40-50) und {zone:1444} (40-50). Das dichteste Vorkommen von {object:2040} in {zone:1443} ist markiert."
-	["You need 30 {item:7912} for {skill:164} 150-225: {item:7964}. {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked. Or buy them at the Auction House."] = "",
+	["You need 30 {item:7912} for {skill:164} 150-225: {item:7964}. {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked. Or buy them at the Auction House."] = "Du brauchst 30 {item:7912} für {skill:164} 150-225: {item:7964}. {skill:186}: {object:2040} (Fertigkeit 175) in {zone:1443} (30-40), {zone:1425} (40-50) und {zone:1444} (40-50). Das dichteste Vorkommen von {object:2040} in {zone:1443} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 43: Green Iron Bracers to 175
 	-- {spell:3501} Green Iron Bracers
@@ -328,112 +319,97 @@ return {
 
 	-- Step 53: Get Shadowgem
 	-- {item:1210} Shadowgem
-	["Get {item:1210}"] = "",
+	["Get {item:1210}"] = "Sammle {item:1210}",
 	-- {item:1210} Shadowgem · {skill:164} Blacksmithing · {item:7945} Big Black Mace · {object:1731} Copper Vein · {object:1732} Tin Vein · {object:1733} Silver Vein
-	["You need 44 {item:1210} for {skill:164} 225-300: {item:7945}. {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining. Or buy them at the Auction House."] = "",
+	["You need 44 {item:1210} for {skill:164} 225-300: {item:7945}. {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining. Or buy them at the Auction House."] = "Du brauchst 44 {item:1210} für {skill:164} 225-300: {item:7945}. {item:1210} taucht in etwa einem von 100 {object:1731}, {object:1732} oder {object:1733} auf: Behalte die, die du beim Abbauen findest. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 54: Get Mithril Bar (Alliance)
 	-- {item:3860} Mithril Bar · {skill:164} Blacksmithing · {item:7933} Heavy Mithril Boots · {item:7945} Big Black Mace · {object:2040} Mithril Deposit · {skill:186} Mining · {item:3858} Mithril Ore · {zone:1425} The Hinterlands
-	["You need 596 {item:3860} for {skill:164} 225-300: {item:7933} and {item:7945}. Mine {object:2040} ({skill:186} 175) for {item:3858} and smelt it at a forge ({skill:186} 175). The densest cluster of {object:2040} in {zone:1425} is marked. Or buy them at the Auction House."] = "",
+	["You need 596 {item:3860} for {skill:164} 225-300: {item:7933} and {item:7945}. Mine {object:2040} ({skill:186} 175) for {item:3858} and smelt it at a forge ({skill:186} 175). The densest cluster of {object:2040} in {zone:1425} is marked. Or buy them at the Auction House."] = "Du brauchst 596 {item:3860} für {skill:164} 225-300: {item:7933} und {item:7945}. Baue {object:2040} ({skill:186} 175) für {item:3858} ab und schmelze es an einem Amboss ({skill:186} 175). Das dichteste Vorkommen von {object:2040} in {zone:1425} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 55: Get Mithril Bar (Horde)
 	-- {item:3860} Mithril Bar · {skill:164} Blacksmithing · {item:7933} Heavy Mithril Boots · {item:7945} Big Black Mace · {object:2040} Mithril Deposit · {skill:186} Mining · {item:3858} Mithril Ore · {zone:1443} Desolace
-	["You need 596 {item:3860} for {skill:164} 225-300: {item:7933} and {item:7945}. Mine {object:2040} ({skill:186} 175) for {item:3858} and smelt it at a forge ({skill:186} 175). The densest cluster of {object:2040} in {zone:1443} is marked. Or buy them at the Auction House."] = "",
+	["You need 596 {item:3860} for {skill:164} 225-300: {item:7933} and {item:7945}. Mine {object:2040} ({skill:186} 175) for {item:3858} and smelt it at a forge ({skill:186} 175). The densest cluster of {object:2040} in {zone:1443} is marked. Or buy them at the Auction House."] = "Du brauchst 596 {item:3860} für {skill:164} 225-300: {item:7933} und {item:7945}. Baue {object:2040} ({skill:186} 175) für {item:3858} ab und schmelze es an einem Amboss ({skill:186} 175). Das dichteste Vorkommen von {object:2040} in {zone:1443} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 56: Get Thick Leather (Alliance)
 	-- {item:4304} Thick Leather
-	-- was: ["{item:4304} (Alliance)"] = "{item:4304} (Allianz)"
-	["Get {item:4304} (Alliance)"] = "",
+	["Get {item:4304} (Alliance)"] = "Sammle {item:4304} (Allianz)",
 	-- {item:4304} Thick Leather · {skill:164} Blacksmithing · {item:7933} Heavy Mithril Boots · {item:7945} Big Black Mace · {skill:393} Skinning · {npc:2729} Elder Crag Coyote · {npc:2730} Rabid Crag Coyote · {npc:2732} Ridge Huntress · {npc:2734} Ridge Stalker Patriarch
-	-- was: ["142 {item:4304} for {item:7933} and {item:7945}: {skill:393}: beasts of level 38-50. Skin {npc:2729}, {npc:2730}, {npc:2732} and {npc:2734} here (level 38-50); the {skill:393} guide routes this."] = "142 {item:4304} für {item:7933} und {item:7945}: {skill:393}: Tiere der Stufe 38-50. Häute hier {npc:2729}, {npc:2730}, {npc:2732} und {npc:2734} ab (Stufe 38-50); der {skill:393}-Guide plant das ein."
-	["You need 142 {item:4304} for {skill:164} 225-300: {item:7933} and {item:7945}. {skill:393}: beasts of level 38-50. Skin {npc:2729}, {npc:2730}, {npc:2732} and {npc:2734} here (level 38-50); the {skill:393} guide routes this. Or buy them at the Auction House."] = "",
+	["You need 142 {item:4304} for {skill:164} 225-300: {item:7933} and {item:7945}. {skill:393}: beasts of level 38-50. Skin {npc:2729}, {npc:2730}, {npc:2732} and {npc:2734} here (level 38-50); the {skill:393} guide routes this. Or buy them at the Auction House."] = "Du brauchst 142 {item:4304} für {skill:164} 225-300: {item:7933} und {item:7945}. {skill:393}: Tiere der Stufe 38-50. Häute hier {npc:2729}, {npc:2730}, {npc:2732} und {npc:2734} ab (Stufe 38-50); der {skill:393}-Guide plant das ein. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 57: Get Thick Leather (Horde)
 	-- {item:4304} Thick Leather
-	-- was: ["{item:4304} (Horde)"] = "{item:4304} (Horde)"
-	["Get {item:4304} (Horde)"] = "",
+	["Get {item:4304} (Horde)"] = "Sammle {item:4304} (Horde)",
 	-- {item:4304} Thick Leather · {skill:164} Blacksmithing · {item:7933} Heavy Mithril Boots · {item:7945} Big Black Mace · {skill:393} Skinning · {npc:5292} Feral Scar Yeti · {npc:5300} Frayfeather Hippogryph · {npc:5304} Frayfeather Stagwing · {npc:5272} Grizzled Ironfur Bear · {npc:5260} Groddoc Ape · {npc:5262} Groddoc Thunderer · {npc:5268} Ironfur Bear · {npc:5274} Ironfur Patriarch · {npc:5287} Longtooth Howler · {npc:5286} Longtooth Runner · {npc:5296} Rage Scar Yeti
-	-- was: ["142 {item:4304} for {item:7933} and {item:7945}: {skill:393}: beasts of level 38-50. Skin {npc:5292}, {npc:5300}, {npc:5304}, {npc:5272}, {npc:5260}, {npc:5262}, {npc:5268}, {npc:5274}, {npc:5287}, {npc:5286} and {npc:5296} here (level 38-50); the {skill:393} guide routes this."] = "142 {item:4304} für {item:7933} und {item:7945}: {skill:393}: Tiere der Stufe 38-50. Häute hier {npc:5292}, {npc:5300}, {npc:5304}, {npc:5272}, {npc:5260}, {npc:5262}, {npc:5268}, {npc:5274}, {npc:5287}, {npc:5286} und {npc:5296} ab (Stufe 38-50); der {skill:393}-Guide plant das ein."
-	["You need 142 {item:4304} for {skill:164} 225-300: {item:7933} and {item:7945}. {skill:393}: beasts of level 38-50. Skin {npc:5292}, {npc:5300}, {npc:5304}, {npc:5272}, {npc:5260}, {npc:5262}, {npc:5268}, {npc:5274}, {npc:5287}, {npc:5286} and {npc:5296} here (level 38-50); the {skill:393} guide routes this. Or buy them at the Auction House."] = "",
+	["You need 142 {item:4304} for {skill:164} 225-300: {item:7933} and {item:7945}. {skill:393}: beasts of level 38-50. Skin {npc:5292}, {npc:5300}, {npc:5304}, {npc:5272}, {npc:5260}, {npc:5262}, {npc:5268}, {npc:5274}, {npc:5287}, {npc:5286} and {npc:5296} here (level 38-50); the {skill:393} guide routes this. Or buy them at the Auction House."] = "Du brauchst 142 {item:4304} für {skill:164} 225-300: {item:7933} und {item:7945}. {skill:393}: Tiere der Stufe 38-50. Häute hier {npc:5292}, {npc:5300}, {npc:5304}, {npc:5272}, {npc:5260}, {npc:5262}, {npc:5268}, {npc:5274}, {npc:5287}, {npc:5286} und {npc:5296} ab (Stufe 38-50); der {skill:393}-Guide plant das ein. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 58: Get Aquamarine
 	-- {item:7909} Aquamarine
-	["Get {item:7909}"] = "",
+	["Get {item:7909}"] = "Sammle {item:7909}",
 	-- {item:7909} Aquamarine · {skill:164} Blacksmithing · {quest:7654} Imperial Plate Boots · {object:2047} Truesilver Deposit · {object:123309} Ooze Covered Truesilver Deposit
-	["You need 19 {item:7909} for {skill:164} 225-300: {quest:7654}. {item:7909} turns up in about one {object:2047} or {object:123309} in 500: keep the ones you find while mining. Or buy them at the Auction House."] = "",
+	["You need 19 {item:7909} for {skill:164} 225-300: {quest:7654}. {item:7909} turns up in about one {object:2047} or {object:123309} in 500: keep the ones you find while mining. Or buy them at the Auction House."] = "Du brauchst 19 {item:7909} für {skill:164} 225-300: {quest:7654}. {item:7909} taucht in etwa einem von 500 {object:2047} oder {object:123309} auf: Behalte die, die du beim Abbauen findest. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 59: Get Star Ruby
 	-- {item:7910} Star Ruby
-	["Get {item:7910}"] = "",
+	["Get {item:7910}"] = "Sammle {item:7910}",
 	-- {item:7910} Star Ruby · {skill:164} Blacksmithing · {quest:7654} Imperial Plate Boots · {object:2047} Truesilver Deposit · {object:123309} Ooze Covered Truesilver Deposit
-	["You need 19 {item:7910} for {skill:164} 225-300: {quest:7654}. {item:7910} turns up in about one {object:2047} or {object:123309} in 143: keep the ones you find while mining. Or buy them at the Auction House."] = "",
+	["You need 19 {item:7910} for {skill:164} 225-300: {quest:7654}. {item:7910} turns up in about one {object:2047} or {object:123309} in 143: keep the ones you find while mining. Or buy them at the Auction House."] = "Du brauchst 19 {item:7910} für {skill:164} 225-300: {quest:7654}. {item:7910} taucht in etwa einem von 143 {object:2047} oder {object:123309} auf: Behalte die, die du beim Abbauen findest. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 60: Get Solid Stone (Alliance)
 	-- {item:7912} Solid Stone · {skill:164} Blacksmithing · {item:7945} Big Black Mace · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	-- was: ["44 {item:7912} for {item:7945}: {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest cluster of {object:2040} in {zone:1425} is marked."] = "44 {item:7912} für {item:7945}: {skill:186}: {object:2040} (Fertigkeit 175) in {zone:1425} (40-50), {zone:1444} (40-50) und {zone:1447} (45-55). Das dichteste Vorkommen von {object:2040} in {zone:1425} ist markiert."
-	["You need 44 {item:7912} for {skill:164} 225-300: {item:7945}. {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest cluster of {object:2040} in {zone:1425} is marked. Or buy them at the Auction House."] = "",
+	["You need 44 {item:7912} for {skill:164} 225-300: {item:7945}. {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest cluster of {object:2040} in {zone:1425} is marked. Or buy them at the Auction House."] = "Du brauchst 44 {item:7912} für {skill:164} 225-300: {item:7945}. {skill:186}: {object:2040} (Fertigkeit 175) in {zone:1425} (40-50), {zone:1444} (40-50) und {zone:1447} (45-55). Das dichteste Vorkommen von {object:2040} in {zone:1425} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 61: Get Solid Stone (Horde)
 	-- {item:7912} Solid Stone · {skill:164} Blacksmithing · {item:7945} Big Black Mace · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	-- was: ["44 {item:7912} for {item:7945}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "44 {item:7912} für {item:7945}: {skill:186}: {object:2040} (Fertigkeit 175) in {zone:1443} (30-40), {zone:1425} (40-50) und {zone:1444} (40-50). Das dichteste Vorkommen von {object:2040} in {zone:1443} ist markiert."
-	["You need 44 {item:7912} for {skill:164} 225-300: {item:7945}. {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked. Or buy them at the Auction House."] = "",
+	["You need 44 {item:7912} for {skill:164} 225-300: {item:7945}. {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked. Or buy them at the Auction House."] = "Du brauchst 44 {item:7912} für {skill:164} 225-300: {item:7945}. {skill:186}: {object:2040} (Fertigkeit 175) in {zone:1443} (30-40), {zone:1425} (40-50) und {zone:1444} (40-50). Das dichteste Vorkommen von {object:2040} in {zone:1443} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 62: Get Rugged Leather (Alliance)
 	-- {item:8170} Rugged Leather
-	-- was: ["{item:8170} (Alliance)"] = "{item:8170} (Allianz)"
-	["Get {item:8170} (Alliance)"] = "",
+	["Get {item:8170} (Alliance)"] = "Sammle {item:8170} (Allianz)",
 	-- {item:8170} Rugged Leather · {skill:164} Blacksmithing · {item:12773} Ornate Thorium Handaxe · {item:12775} Huge Thorium Battleaxe · {skill:393} Skinning · {npc:8598} Frenzied Plaguehound · {npc:8596} Plaguehound Runt
-	-- was: ["206 {item:8170} for {item:12773} and {item:12775}: {skill:393}: beasts of level 48-60. Skin {npc:8598}, Plaguehound and {npc:8596} here (level 48-60); the {skill:393} guide routes this."] = "206 {item:8170} für {item:12773} und {item:12775}: {skill:393}: Tiere der Stufe 48-60. Häute hier {npc:8598}, Seuchenhunde und {npc:8596} ab (Stufe 48-60); der {skill:393}-Guide plant das ein."
-	["You need 206 {item:8170} for {skill:164} 225-300: {item:12773} and {item:12775}. {skill:393}: beasts of level 48-60. Skin {npc:8598}, Plaguehound and {npc:8596} here (level 48-60); the {skill:393} guide routes this. Or buy them at the Auction House."] = "",
+	["You need 206 {item:8170} for {skill:164} 225-300: {item:12773} and {item:12775}. {skill:393}: beasts of level 48-60. Skin {npc:8598}, Plaguehound and {npc:8596} here (level 48-60); the {skill:393} guide routes this. Or buy them at the Auction House."] = "Du brauchst 206 {item:8170} für {skill:164} 225-300: {item:12773} und {item:12775}. {skill:393}: Tiere der Stufe 48-60. Häute hier {npc:8598}, Plaguehound und {npc:8596} ab (Stufe 48-60); der {skill:393}-Guide plant das ein. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 63: Get Rugged Leather (Horde)
 	-- {item:8170} Rugged Leather
-	-- was: ["{item:8170} (Horde)"] = "{item:8170} (Horde)"
-	["Get {item:8170} (Horde)"] = "",
+	["Get {item:8170} (Horde)"] = "Sammle {item:8170} (Horde)",
 	-- {item:8170} Rugged Leather · {skill:164} Blacksmithing · {item:12773} Ornate Thorium Handaxe · {item:12775} Huge Thorium Battleaxe · {skill:393} Skinning · {npc:6369} Coralshell Tortoise · {npc:8760} Mosshoof Stag · {npc:6380} Thunderhead Consort · {npc:6379} Thunderhead Patriarch · {npc:6378} Thunderhead Skystormer · {npc:6377} Thunderhead Stagwing
-	-- was: ["206 {item:8170} for {item:12773} and {item:12775}: {skill:393}: beasts of level 48-60. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this."] = "206 {item:8170} für {item:12773} und {item:12775}: {skill:393}: Tiere der Stufe 48-60. Häute hier {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} und {npc:6377} ab (Stufe 48-60); der {skill:393}-Guide plant das ein."
-	["You need 206 {item:8170} for {skill:164} 225-300: {item:12773} and {item:12775}. {skill:393}: beasts of level 48-60. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this. Or buy them at the Auction House."] = "",
+	["You need 206 {item:8170} for {skill:164} 225-300: {item:12773} and {item:12775}. {skill:393}: beasts of level 48-60. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this. Or buy them at the Auction House."] = "Du brauchst 206 {item:8170} für {skill:164} 225-300: {item:12773} und {item:12775}. {skill:393}: Tiere der Stufe 48-60. Häute hier {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} und {npc:6377} ab (Stufe 48-60); der {skill:393}-Guide plant das ein. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 64: Get Thorium Bar (Alliance)
 	-- {item:12359} Thorium Bar
-	["Get {item:12359} (Alliance)"] = "",
+	["Get {item:12359} (Alliance)"] = "Sammle {item:12359} (Allianz)",
 	-- {item:12359} Thorium Bar · {skill:164} Blacksmithing · {item:12773} Ornate Thorium Handaxe · {item:12775} Huge Thorium Battleaxe · {quest:7654} Imperial Plate Boots · {object:324} Small Thorium Vein · {skill:186} Mining · {item:10620} Thorium Ore · {zone:1419} Blasted Lands
-	["You need 2026 {item:12359} for {skill:164} 225-300: {item:12773}, {item:12775} and {quest:7654}. Mine {object:324} ({skill:186} 245) for {item:10620} and smelt it at a forge ({skill:186} 250). The densest cluster of {object:324} in {zone:1419} is marked. Or buy them at the Auction House."] = "",
+	["You need 2026 {item:12359} for {skill:164} 225-300: {item:12773}, {item:12775} and {quest:7654}. Mine {object:324} ({skill:186} 245) for {item:10620} and smelt it at a forge ({skill:186} 250). The densest cluster of {object:324} in {zone:1419} is marked. Or buy them at the Auction House."] = "Du brauchst 2026 {item:12359} für {skill:164} 225-300: {item:12773}, {item:12775} und {quest:7654}. Baue {object:324} ({skill:186} 245) für {item:10620} ab und schmelze es an einem Amboss ({skill:186} 250). Das dichteste Vorkommen von {object:324} in {zone:1419} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 65: Get Thorium Bar (Horde)
 	-- {item:12359} Thorium Bar
-	["Get {item:12359} (Horde)"] = "",
+	["Get {item:12359} (Horde)"] = "Sammle {item:12359} (Horde)",
 	-- {item:12359} Thorium Bar · {skill:164} Blacksmithing · {item:12773} Ornate Thorium Handaxe · {item:12775} Huge Thorium Battleaxe · {quest:7654} Imperial Plate Boots · {object:324} Small Thorium Vein · {skill:186} Mining · {item:10620} Thorium Ore · {zone:1448} Felwood
-	["You need 2026 {item:12359} for {skill:164} 225-300: {item:12773}, {item:12775} and {quest:7654}. Mine {object:324} ({skill:186} 245) for {item:10620} and smelt it at a forge ({skill:186} 250). The densest cluster of {object:324} in {zone:1448} is marked. Or buy them at the Auction House."] = "",
+	["You need 2026 {item:12359} for {skill:164} 225-300: {item:12773}, {item:12775} and {quest:7654}. Mine {object:324} ({skill:186} 245) for {item:10620} and smelt it at a forge ({skill:186} 250). The densest cluster of {object:324} in {zone:1448} is marked. Or buy them at the Auction House."] = "Du brauchst 2026 {item:12359} für {skill:164} 225-300: {item:12773}, {item:12775} und {quest:7654}. Baue {object:324} ({skill:186} 245) für {item:10620} ab und schmelze es an einem Amboss ({skill:186} 250). Das dichteste Vorkommen von {object:324} in {zone:1448} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 66: Get Dense Stone (Alliance)
 	-- {item:12365} Dense Stone
-	-- was: ["{item:12365} (Alliance)"] = "{item:12365} (Allianz)"
-	["Get {item:12365} (Alliance)"] = "",
+	["Get {item:12365} (Alliance)"] = "Sammle {item:12365} (Allianz)",
 	-- {item:12365} Dense Stone · {skill:164} Blacksmithing · {item:12643} Dense Weightstone · {item:12773} Ornate Thorium Handaxe · {item:12775} Huge Thorium Battleaxe · {skill:186} Mining · {object:324} Small Thorium Vein · {zone:1419} Blasted Lands · {zone:1448} Felwood · {zone:1452} Winterspring
-	-- was: ["801 {item:12365} for {item:12643}, {item:12773} and {item:12775}: {skill:186}: {object:324} (skill 245) in {zone:1419} (45-55), {zone:1448} (48-55) and {zone:1452} (55-60). The densest cluster of {object:324} in {zone:1419} is marked."] = "801 {item:12365} für {item:12643}, {item:12773} und {item:12775}: {skill:186}: {object:324} (Fertigkeit 245) in {zone:1419} (45-55), {zone:1448} (48-55) und {zone:1452} (55-60). Das dichteste Vorkommen von {object:324} in {zone:1419} ist markiert."
-	["You need 801 {item:12365} for {skill:164} 225-300: {item:12643}, {item:12773} and {item:12775}. {skill:186}: {object:324} (skill 245) in {zone:1419} (45-55), {zone:1448} (48-55) and {zone:1452} (55-60). The densest cluster of {object:324} in {zone:1419} is marked. Or buy them at the Auction House."] = "",
+	["You need 801 {item:12365} for {skill:164} 225-300: {item:12643}, {item:12773} and {item:12775}. {skill:186}: {object:324} (skill 245) in {zone:1419} (45-55), {zone:1448} (48-55) and {zone:1452} (55-60). The densest cluster of {object:324} in {zone:1419} is marked. Or buy them at the Auction House."] = "Du brauchst 801 {item:12365} für {skill:164} 225-300: {item:12643}, {item:12773} und {item:12775}. {skill:186}: {object:324} (Fertigkeit 245) in {zone:1419} (45-55), {zone:1448} (48-55) und {zone:1452} (55-60). Das dichteste Vorkommen von {object:324} in {zone:1419} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 67: Get Dense Stone (Horde)
 	-- {item:12365} Dense Stone
-	-- was: ["{item:12365} (Horde)"] = "{item:12365} (Horde)"
-	["Get {item:12365} (Horde)"] = "",
+	["Get {item:12365} (Horde)"] = "Sammle {item:12365} (Horde)",
 	-- {item:12365} Dense Stone · {skill:164} Blacksmithing · {item:12643} Dense Weightstone · {item:12773} Ornate Thorium Handaxe · {item:12775} Huge Thorium Battleaxe · {skill:186} Mining · {object:324} Small Thorium Vein · {zone:1448} Felwood · {zone:1451} Silithus · {zone:1452} Winterspring
-	-- was: ["801 {item:12365} for {item:12643}, {item:12773} and {item:12775}: {skill:186}: {object:324} (skill 245) in {zone:1448} (48-55), {zone:1451} (55-60) and {zone:1452} (55-60). The densest cluster of {object:324} in {zone:1448} is marked."] = "801 {item:12365} für {item:12643}, {item:12773} und {item:12775}: {skill:186}: {object:324} (Fertigkeit 245) in {zone:1448} (48-55), {zone:1451} (55-60) und {zone:1452} (55-60). Das dichteste Vorkommen von {object:324} in {zone:1448} ist markiert."
-	["You need 801 {item:12365} for {skill:164} 225-300: {item:12643}, {item:12773} and {item:12775}. {skill:186}: {object:324} (skill 245) in {zone:1448} (48-55), {zone:1451} (55-60) and {zone:1452} (55-60). The densest cluster of {object:324} in {zone:1448} is marked. Or buy them at the Auction House."] = "",
+	["You need 801 {item:12365} for {skill:164} 225-300: {item:12643}, {item:12773} and {item:12775}. {skill:186}: {object:324} (skill 245) in {zone:1448} (48-55), {zone:1451} (55-60) and {zone:1452} (55-60). The densest cluster of {object:324} in {zone:1448} is marked. Or buy them at the Auction House."] = "Du brauchst 801 {item:12365} für {skill:164} 225-300: {item:12643}, {item:12773} und {item:12775}. {skill:186}: {object:324} (Fertigkeit 245) in {zone:1448} (48-55), {zone:1451} (55-60) und {zone:1452} (55-60). Das dichteste Vorkommen von {object:324} in {zone:1448} ist markiert. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 68: Get Large Opal
 	-- {item:12799} Large Opal
-	["Get {item:12799}"] = "",
+	["Get {item:12799}"] = "Sammle {item:12799}",
 	-- {item:12799} Large Opal · {skill:164} Blacksmithing · {item:12773} Ornate Thorium Handaxe · {object:175404} Rich Thorium Vein · {object:177388} Ooze Covered Rich Thorium Vein · {object:180215} Hakkari Thorium Vein
-	-- was: ["10 {item:12799} for {item:12773}: {item:12799} turns up in about one {object:175404}, {object:177388} or {object:180215} in 143: keep the ones you find while mining."] = "10 {item:12799} für {item:12773}: {item:12799} taucht in etwa jedem 143. {object:175404}, {object:177388} oder {object:180215} auf: Behalte die, die du beim Abbauen findest."
-	["You need 10 {item:12799} for {skill:164} 225-300: {item:12773}. {item:12799} turns up in about one {object:175404}, {object:177388} or {object:180215} in 143: keep the ones you find while mining. Or buy them at the Auction House."] = "",
+	["You need 10 {item:12799} for {skill:164} 225-300: {item:12773}. {item:12799} turns up in about one {object:175404}, {object:177388} or {object:180215} in 143: keep the ones you find while mining. Or buy them at the Auction House."] = "Du brauchst 10 {item:12799} für {skill:164} 225-300: {item:12773}. {item:12799} taucht in etwa einem von 143 {object:175404}, {object:177388} oder {object:180215} auf: Behalte die, die du beim Abbauen findest. Oder kaufe sie im Auktionshaus.",
 
 	-- Step 69: Blacksmithing 225-300: Auction House
 	-- {skill:164} Blacksmithing
 	["{skill:164} 225-300: Auction House"] = "{skill:164} 225-300: Auktionshaus",
 	-- {item:7971} Black Pearl
-	["What 225-300 takes that the Auction House sells and no step above farms: 11 {item:7971}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 225-300 takes that the Auction House sells and no step above farms: 11 {item:7971}. The counts drop by what your bags, bank and mail hold."] = "Was 225-300 anbelangt, was das Auktionshaus verkauft und kein obiger Schritt abbaut: 11 {item:7971}. Die Zahlen sinken um das, was deine Taschen, deine Bank und deine Post bereits enthalten.",
 
 	-- Step 70: Dense Weightstone to 235
 	-- {item:12643} Dense Weightstone

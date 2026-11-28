@@ -98,11 +98,11 @@ register({
 register({
 	page = L["Map"], tab = L["Rares, travel & zones"], section = L["Rares and treasures"],
 	controls = {
-		{ kind = "toggle", key = "rares.worldRares", label = L["Rares on the world map"], disabled = off,
+		{ kind = "toggle", key = "rares.worldRares", label = L["Rares on zone maps"], disabled = off,
 			help = L["Every known spawn point. Click one to see it in Rares; Shift-click for a waypoint."] },
 		{ kind = "toggle", key = "rares.minimapRares", label = L["Rares on the minimap"], disabled = off,
 			help = L["Loads the Codex at login."] },
-		{ kind = "toggle", key = "rares.worldTreasures", label = L["Treasures on the world map"], disabled = off,
+		{ kind = "toggle", key = "rares.worldTreasures", label = L["Treasures on zone maps"], disabled = off,
 			help = L["Every known treasure spot."] },
 		{ kind = "toggle", key = "rares.minimapTreasures", label = L["Treasures on the minimap"], disabled = off,
 			help = L["Loads the Codex at login."] },

@@ -9,7 +9,9 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 class DiscordError extends Error {
 	constructor(status, body, what) {
-		super(`Discord ${what}: ${status} ${body && body.message ? body.message : ''}`.trim());
+		// A 400's `errors` names the fields Discord refused: kept in the message.
+		const fields = body && body.errors ? ` ${JSON.stringify(body.errors)}` : '';
+		super(`Discord ${what}: ${status} ${body && body.message ? body.message : ''}${fields}`.trim());
 		this.status = status;
 		this.code = body && body.code;
 	}
@@ -64,8 +66,9 @@ function createDiscord({ token, api = API, fetch: fetchImpl = fetch }) {
 		getMember: (guild, user) => request('GET', `/guilds/${guild}/members/${user}`),
 		getGuild: (id) => request('GET', `/guilds/${id}`),
 		activeThreads: (guild) => request('GET', `/guilds/${guild}/threads/active`),
-		send: (channel, content, users = [], roles = []) =>
-			request('POST', `/channels/${channel}/messages`, { content, allowed_mentions: mentions(users, roles), flags: 4 }),
+		// `files` ({ name, type, data }): attached to the message.
+		send: (channel, content, users = [], roles = [], files = []) =>
+			request('POST', `/channels/${channel}/messages`, { content, allowed_mentions: mentions(users, roles), flags: 4, ...(files.length && { attachments: files.map((f, id) => ({ id, filename: f.name })) }) }, 0, files),
 		// A reply to message `id`, its author not pinged by the reply itself.
 		reply: (channel, id, content, users = []) =>
 			request('POST', `/channels/${channel}/messages`, { content, allowed_mentions: { ...mentions(users), replied_user: false }, flags: 4, message_reference: { message_id: id, fail_if_not_exists: false } }),

@@ -62,7 +62,7 @@ return {
 
 	-- Step 13: Laris Geardawdle
 	-- {npc:9616} Laris Geardawdle
-	["{npc:9616}' next task fills his jars in Un'Goro, behind the route now: skip it."] = "",
+	["{npc:9616}' next task fills his jars in Un'Goro, behind the route now: skip it."] = "{npc:9616}s nächste Aufgabe füllt seine Krüge in Un'Goro, hinter der aktuellen Route: Überspringe sie.",
 
 	-- Step 14: Ironforge
 	-- {npc:14724} Bubulo Acerbus · {npc:14723} Mistina Steelshield · {item:14047} Runecloth
@@ -398,7 +398,7 @@ return {
 
 	-- Step 73: Augustus the Touched
 	-- {npc:12384} Augustus the Touched · {area:2627} Terrordale · {npc:11140} Egan · {npc:16184} Nerubian Overseer · {area:2626} Terrorweb Tunnel
-	["{npc:12384} lives in the ruined hut in {area:2627}, and his receipt book lies in the ruined inn nearby. {npc:11140} stands by {npc:12384}' hut.\nCareful: a {npc:16184} (60, elite) walks {area:2627} and the {area:2626} south-west of it. Look for him before you ride in, and wait for him to pass."] = "",
+	["{npc:12384} lives in the ruined hut in {area:2627}, and his receipt book lies in the ruined inn nearby. {npc:11140} stands by {npc:12384}' hut.\nCareful: a {npc:16184} (60, elite) walks {area:2627} and the {area:2626} south-west of it. Look for him before you ride in, and wait for him to pass."] = "{npc:12384} lebt in der verfallenen Hütte in {area:2627}, und sein Quittungsbuch liegt im nahen, verfallenen Gasthaus. {npc:11140} steht bei {npc:12384}s Hütte.\nVorsicht: Ein {npc:16184} (60, Elite) läuft durch {area:2627} und das südwestlich davon liegende {area:2626}. Such ihn, bevor du hineinreitest, und warte, bis er vorbeigeht.",
 
 	-- Step 75: Tirion Fordring
 	-- {npc:1855} Tirion Fordring · {area:2627} Terrordale · {area:2626} Terrorweb Tunnel

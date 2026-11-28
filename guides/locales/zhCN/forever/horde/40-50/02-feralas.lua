@@ -24,15 +24,14 @@ return {
 
 	-- Step 3: Grom'gol Base Camp
 	-- {object:3202} Grom'gol · {area:35} Booty Bay · {npc:1514} Mokk the Savage · {zone:1435} Swamp of Sorrows · {zone:1458} Undercity · {object:2076} Bubbling Cauldron
-	-- was: ["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the zeppelin to {zone:1454}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "飞行路线降落在{object:3202}。你第一次来时接下的荆棘谷较难的任务现在适合你了：碎颅部落首领、赞吉尔的营地、{area:35}的海盗、娜迦海岸和{npc:1514}，之后再乘飞艇前往{zone:1454}。尼姆布亚旁边的{object:2076}有碎颅部落首领的任务。"
-	["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the {zone:1435} and the {zone:1458}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "",
+	["The flight lands at {object:3202}. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, {area:35}'s pirates, the naga coast and {npc:1514}, before the {zone:1435} and the {zone:1458}. The {object:2076} beside Nimboya has the Skullsplitter chief's quest."] = "飞到{object:3202}后，第一次来荆棘谷时留下的较难任务，现在可以做了，包括劈颅巨魔首领、赞吉尔营地、{area:35}的海盗、海岸边的纳迦和{npc:1514}。做完再去{zone:1435}和{zone:1458}。劈颅巨魔首领的任务从尼姆布亚旁边的{object:2076}接。",
 	-- {object:2076} Bubbling Cauldron · {quest:586} Speaking with Gan'zulah
 	["the {object:2076}: {quest:586}"] = "{object:2076}：{quest:586}",
 
 	-- Step 4: Tusks and necklaces on the Skullsplitter hunt
-	["Tusks and necklaces on the Skullsplitter hunt"] = "",
+	["Tusks and necklaces on the Skullsplitter hunt"] = "打劈颅巨魔时收集獠牙和项链",
 	-- {npc:737} Kebok · {npc:2519} Kin'weelay
-	["The hunters also drop {npc:737}'s tusks and {npc:2519}'s necklaces. Collect any you still need during the cauldron hunt."] = "",
+	["The hunters also drop {npc:737}'s tusks and {npc:2519}'s necklaces. Collect any you still need during the cauldron hunt."] = "这些猎手还会掉落{npc:737}要的獠牙和{npc:2519}要的项链。做大锅接到的任务时，顺手补齐缺的。",
 
 	-- Step 5: Zul'Mamwe
 	["Zul'Mamwe"] = "祖玛维废墟",
@@ -62,8 +61,7 @@ return {
 	["Pirate ghosts and Zanzil's camps"] = "海盗鬼魂和赞吉尔的营地",
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2537} Chucky "Ten Thumbs" · {npc:2534} Zanzil the Outcast
 	-- plural, as words: Zanzil Witch Doctors = {npc:1490} Zanzil Witch Doctor
-	-- was: ["On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. {npc:2535} and {npc:2536} stand together, {npc:2537} further east. Every one of Zanzil's followers can carry the mixture.\nCareful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. {npc:2534} (46) himself stands in the southern camp around 39.6,58.6, a few steps from {npc:2537}'s ghost: pull {npc:2537} out to the north or east before you fight him."] = "继续向西南前往薄雾谷东北的丛林：三个海盗鬼魂在赞吉尔的营地旁出没。{npc:2535}和{npc:2536}站在一起，{npc:2537}在更东边。赞吉尔的每个追随者都可能携带混合物。\n小心：赞吉尔巫医（44级）会施法，而且营地里怪很密：从边缘一只一只地拉。{npc:2534}（46级）本人站在南边营地39.6,58.6附近，离{npc:2537}的鬼魂只有几步：先把{npc:2537}向北或向东拉出来再打。"
-	["On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. {npc:2535} and Jon-Jon stand together, {npc:2537} further east. Every one of Zanzil's followers can carry the mixture.\nCareful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. {npc:2534} (46) himself stands in the southern camp around 39.6,58.6, a few steps from {npc:2537}'s ghost: pull {npc:2537} out to the north or east before you fight him."] = "",
+	["On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. {npc:2535} and Jon-Jon stand together, {npc:2537} further east. Every one of Zanzil's followers can carry the mixture.\nCareful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. {npc:2534} (46) himself stands in the southern camp around 39.6,58.6, a few steps from {npc:2537}'s ghost: pull {npc:2537} out to the north or east before you fight him."] = "继续向西南前往迷雾谷东北的丛林。三个海盗鬼魂在赞吉尔的营地旁出没。{npc:2535}和火柴棍乔乔站在一起，{npc:2537}在更东边。赞吉尔的追随者都可能掉落药剂。\n小心，赞吉尔巫医（44级）会施法，营地里的怪也很密。从边缘一次拉一只。{npc:2534}（46级）就在南边营地的39.6,58.6附近，离{npc:2537}的鬼魂只有几步。先把{npc:2537}往北或往东引出来再打。",
 
 	-- Step 10: Witch Doctor Unbagwa
 	-- {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
@@ -73,17 +71,17 @@ return {
 	-- {area:1577} The Cape of Stranglethorn
 	["{area:1577}: kill these as you meet them"] = "{area:1577}：沿途遇到就击杀",
 	-- {object:759} Holy Spring · {area:43} Wild Shore · {area:35} Booty Bay
-	["West to the coast: the naga explorers wade along the shore and carry the reed bundles; the {object:759} bubbles in the hills just east of them.\nFollow the coast south. If you still need the {area:43} pirates, take the road past the {area:35} tunnel to the beach before going into town."] = "",
+	["West to the coast: the naga explorers wade along the shore and carry the reed bundles; the {object:759} bubbles in the hills just east of them.\nFollow the coast south. If you still need the {area:43} pirates, take the road past the {area:35} tunnel to the beach before going into town."] = "向西到海边。纳迦探险者沿岸涉水，身上带着成捆的海蛇草。{object:759}在它们正东边不远的山丘上冒泡。\n沿海岸向南走。如果{area:43}的海盗任务还没做完，先沿路经过{area:35}的隧道口去沙滩，再进城。",
 
 	-- Step 12: The Wild Shore
 	-- {area:43} Wild Shore
 	["The {area:43}"] = "{area:43}",
 	-- {area:35} Booty Bay
-	["From the north, take the outer shore east of the {area:35} tunnel. Work south-west through the swashbucklers (41-43) into the camp; the charts and the orders lie in their tents and in the rowboat beside the larger camp. Stay ashore."] = "",
+	["From the north, take the outer shore east of the {area:35} tunnel. Work south-west through the swashbucklers (41-43) into the camp; the charts and the orders lie in their tents and in the rowboat beside the larger camp. Stay ashore."] = "从北边走{area:35}隧道东侧的外围海岸。沿途打血帆流氓（41-43级），一路往西南进入营地。血帆海图和血帆计划书在帐篷里和较大营地旁的划艇上。留在岸边。",
 
 	-- Step 13: Bloodsail tents and rowboat
-	["Bloodsail tents and rowboat"] = "",
-	["Search the tents and the rowboat for both papers; if one place is empty, try the next. Neither paper is on a ship."] = "",
+	["Bloodsail tents and rowboat"] = "血帆海盗的帐篷和划艇",
+	["Search the tents and the rowboat for both papers; if one place is empty, try the next. Neither paper is on a ship."] = "搜帐篷和划艇，找齐两份文件。一处没有就去下一处。两份文件都不在大船上。",
 
 	-- Step 16: Booty Bay
 	-- {area:35} Booty Bay · {npc:2494} Privateer Bloads · {npc:2498} Crank Fizzlebub · {npc:737} Kebok · {npc:773} Krazek
@@ -98,13 +96,13 @@ return {
 
 	-- Step 18: Whiskey Slim and Fin Fizracket
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
-	["{npc:2491} and {npc:2486}"] = "",
+	["{npc:2491} and {npc:2486}"] = "{npc:2491}和{npc:2486}",
 	-- {area:35} Booty Bay · {npc:2491} Whiskey Slim
 	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "第一次来{area:35}时还不到40级？旅店里的{npc:2491}和顶楼的“海狼”马克基雷现在就有任务给你。",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "{npc:2491}在旅店里：他的酒瓶被冲到了{zone:1425}海岸，约48级时再去",
 	-- {quest:2872} Stoley's Debt · {npc:7881} Stoley · {zone:1446} Tanaris
-	["MacKinley, on the top floor: {quest:2872}, for {npc:7881} in {zone:1446} on this guide"] = "",
+	["MacKinley, on the top floor: {quest:2872}, for {npc:7881} in {zone:1446} on this guide"] = "在顶楼找马克基雷接{quest:2872}，按本指南去{zone:1446}时交给{npc:7881}",
 
 	-- Step 19: Fin Fizracket
 	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
@@ -114,7 +112,7 @@ return {
 
 	-- Step 20: Witch Doctor Unbagwa
 	-- {area:35} Booty Bay · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
-	["North into Mistvale, a short ride from {area:35}: {npc:1449} sits among the gorillas. Hand him ten gorilla fangs and stay by him: three waves of gorillas, then {npc:1514}. Start at full health and mana."] = "",
+	["North into Mistvale, a short ride from {area:35}: {npc:1449} sits among the gorillas. Hand him ten gorilla fangs and stay by him: three waves of gorillas, then {npc:1514}. Start at full health and mana."] = "向北前往迷雾谷，离{area:35}不远。{npc:1449}坐在猩猩群中。开始前回满生命值和法力值，交给他十颗猩猩牙，留在他身边。先来三波猩猩，之后是{npc:1514}。",
 
 	-- Step 22: Kebok
 	-- {npc:737} Kebok
@@ -126,8 +124,8 @@ return {
 
 	-- Step 26: Unfinished Wild Shore errands
 	-- {area:43} Wild Shore
-	["Unfinished {area:43} errands"] = "",
-	["If the town rewards just brought you to 42 and you still owe pirate work, use the shore tents, not the ships."] = "",
+	["Unfinished {area:43} errands"] = "补做{area:43}的任务",
+	["If the town rewards just brought you to 42 and you still owe pirate work, use the shore tents, not the ships."] = "如果刚在镇里交任务升到42级，而且海盗任务还没做完，就去岸边的帐篷，别上大船。",
 
 	-- Step 30: Fly to Grom'gol
 	-- {area:35} Booty Bay
@@ -135,13 +133,13 @@ return {
 
 	-- Step 31: Grom'gol Base Camp
 	-- {object:3202} Grom'gol · {npc:2519} Kin'weelay · {npc:2465} Far Seer Mok'thardin
-	["The flight lands at {object:3202}: {npc:2519} and {npc:2465}, then back to the flight master."] = "",
+	["The flight lands at {object:3202}: {npc:2519} and {npc:2465}, then back to the flight master."] = "飞到{object:3202}后，先找{npc:2519}和{npc:2465}，然后回飞行管理员处。",
 
 	-- Step 34: Fly to Stonard
 	-- {area:75} Stonard
 	["Fly to {area:75}"] = "飞往{area:75}",
 	-- {object:3202} Grom'gol · {area:75} Stonard · {area:1978} Misty Reed Post
-	["Stranglethorn's errands are done: from {object:3202}'s flight master, fly on to {area:75} for the swamp's coast and {area:1978}, which fit you now."] = "",
+	["Stranglethorn's errands are done: from {object:3202}'s flight master, fly on to {area:75} for the swamp's coast and {area:1978}, which fit you now."] = "荆棘谷的任务做完了。从{object:3202}的飞行管理员处飞往{area:75}，现在的等级正好可以做沼泽海岸和{area:1978}的任务。",
 	-- {object:3202} Grom'gol
 	["{object:3202} flight master"] = "{object:3202} 的飞行管理员。",
 
@@ -149,11 +147,11 @@ return {
 	-- {area:75} Stonard
 	["To {area:75}"] = "前往{area:75}",
 	-- {area:75} Stonard · {object:3202} Grom'gol · {zone:1431} Duskwood · {zone:1430} Deadwind Pass
-	["No flight path to {area:75} yet: ride north-east from {object:3202} through {zone:1431} and {zone:1430} into the swamp, then east along the road to {area:75}, and learn its flight path."] = "",
+	["No flight path to {area:75} yet: ride north-east from {object:3202} through {zone:1431} and {zone:1430} into the swamp, then east along the road to {area:75}, and learn its flight path."] = "如果还没开{area:75}的飞行点，就从{object:3202}向东北，穿过{zone:1431}和{zone:1430}进入沼泽，再沿路向东到{area:75}，在那里开飞行点。",
 
 	-- Step 36: Stonard
 	-- {quest:698} Lack of Surplus · {quest:1424} Pool of Tears · {quest:1430} Fresh Meat · {npc:5593} Katar · {npc:5591} Dar · {area:75} Stonard · {npc:1443} Fel'zerul
-	["The Stranglethorn & Swamp guide already finished {quest:698}' first part and the {quest:1424} with you; its {quest:1430} and {npc:5593}'s murlocs are in your log. Starting here: {npc:5591} stands inside {area:75}'s great hall and {npc:1443} on its top floor."] = "",
+	["The Stranglethorn & Swamp guide already finished {quest:698}' first part and the {quest:1424} with you; its {quest:1430} and {npc:5593}'s murlocs are in your log. Starting here: {npc:5591} stands inside {area:75}'s great hall and {npc:1443} on its top floor."] = "荆棘谷与悲伤沼泽指南已带你做完{quest:698}的第一部分和{quest:1424}。那条路线接下的{quest:1430}和{npc:5593}的鱼人任务还在任务日志里。从这里继续。{npc:5591}在{area:75}的大厅里，{npc:1443}在大厅顶层。",
 	-- {npc:5591} Dar
 	["{npc:5591}, inside"] = "{npc:5591}：在屋内",
 	-- {npc:1443} Fel'zerul
@@ -162,7 +160,7 @@ return {
 	-- Step 37: A Soggy Scroll
 	["Ride west along the road; the scroll lies at the water's edge in the swamp's far west."] = "沿道路向西骑行；卷轴在沼泽最西边的水边。",
 	-- {object:2555} Musty Scroll · {zone:1445} Dustwallow Marsh
-	["for the {object:2555} in {zone:1445}, on the Dustwallow guide"] = "",
+	["for the {object:2555} in {zone:1445}, on the Dustwallow guide"] = "按{zone:1445}指南走时再找{object:2555}",
 
 	-- Step 38: A Soggy Scroll
 	["The scroll lies at the water's edge in the swamp's far west."] = "卷轴在沼泽最西边的水边。",
@@ -178,7 +176,7 @@ return {
 
 	-- Step 41: Misty Reed Post
 	-- {npc:5592} Tok'Kar · {npc:5593} Katar
-	["Follow the road south-east to the small Horde post on the shore: {npc:5592} and {npc:5593}."] = "",
+	["Follow the road south-east to the small Horde post on the shore: {npc:5592} and {npc:5593}."] = "沿路向东南到岸边的部落小哨站，找{npc:5592}和{npc:5593}。",
 
 	-- Step 42: The Forbidding Sea: kill these as you meet them
 	-- {area:2403} The Forbidding Sea
@@ -198,13 +196,13 @@ return {
 
 	-- Step 48: Stonard
 	-- {npc:5598} Atal'ai Exile · {zone:1425} Hinterlands
-	["for the {npc:5598} in the {zone:1425}, around level 49"] = "",
+	["for the {npc:5598} in the {zone:1425}, around level 49"] = "大约49级时去{zone:1425}找{npc:5598}交任务",
 
 	-- Step 49: Fly to the Undercity
 	-- {area:1497} Undercity
 	["Fly to the {area:1497}"] = "飞往{area:1497}",
 	-- {area:75} Stonard · {area:1497} Undercity · {area:340} Kargath · {npc:5204} Apothecary Zinge · {zone:1454} Orgrimmar
-	["From {area:75}'s flight master, fly to the {area:1497} (by way of {area:340}): {npc:5204}'s errands and your {area:1497} training, then the zeppelin from the towers outside the city to {zone:1454}."] = "",
+	["From {area:75}'s flight master, fly to the {area:1497} (by way of {area:340}): {npc:5204}'s errands and your {area:1497} training, then the zeppelin from the towers outside the city to {zone:1454}."] = "从{area:75}的飞行管理员处飞往{area:1497}（途经{area:340}）。先做{npc:5204}的任务，并在{area:1497}训练，再到城外的飞艇塔乘飞艇去{zone:1454}。",
 
 	-- Step 50: Apothecary Zinge
 	-- {npc:2934} Keeper Bel'dugur
@@ -219,7 +217,7 @@ return {
 	-- Step 52: Riding at 40
 	["Riding at 40"] = "40级学骑术",
 	-- {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {zone:1454} Orgrimmar
-	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, a short ride north of the zeppelin towers, with {npc:4731}'s skeletal horses (20 gold each) beside her. Ride back to the towers for the {zone:1454} zeppelin."] = "",
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, a short ride north of the zeppelin towers, with {npc:4731}'s skeletal horses (20 gold each) beside her. Ride back to the towers for the {zone:1454} zeppelin."] = "骑术需要40级，学费100金币，学会时会获赠一只坐骑。各族找本族的训练师。你的训练师是{area:159}的{npc:4773}，就在飞艇塔北边不远处。旁边的{npc:4731}出售骸骨军马（每匹20金币）。骑回飞艇塔，乘飞艇去{zone:1454}。",
 	-- {npc:4773} Velma Warnam
 	["{npc:4773}, riding trainer"] = "{npc:4773}，骑术训练师",
 	-- {npc:4731} Zachariah Post · {npc:4773} Velma Warnam · {area:159} Brill
@@ -235,7 +233,7 @@ return {
 
 	-- Step 55: Orgrimmar
 	-- {zone:1458} Undercity
-	["the {zone:1458}'s classes trained there on the way"] = "",
+	["the {zone:1458}'s classes trained there on the way"] = "需要在{zone:1458}训练的职业，途中已在那里学过技能",
 
 	-- Step 56: Riding at 40
 	-- {npc:4752} Kildar · {object:172958} Valley of Honor · {npc:3362} Ogunaro Wolfrunner · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff
@@ -297,9 +295,9 @@ return {
 	-- {area:976} Gadgetzan · {area:2240} Mirage Raceway · {zone:1446} Tanaris
 	["Flown in: {area:976}'s quests first, by the flight master, then the {area:2240} is a short ride north over the {zone:1446} border."] = "飞到之后：先在飞行管理员旁边做{area:976}的任务，然后向北骑一小段，越过{zone:1446}边界就到{area:2240}。",
 	-- {npc:7407} Chief Engineer Bilgewhizzle · {npc:5204} Apothecary Zinge · {item:8523} Field Testing Kit · {zone:1458} Undercity
-	["{npc:7407}: {npc:5204}'s {item:8523}, from the {zone:1458}"] = "",
+	["{npc:7407}: {npc:5204}'s {item:8523}, from the {zone:1458}"] = "把在{zone:1458}从{npc:5204}那里拿到的{item:8523}交给{npc:7407}",
 	-- {npc:7407} Chief Engineer Bilgewhizzle
-	["{npc:7407}: the water pouches come from the same Wastewander camps"] = "",
+	["{npc:7407}: the water pouches come from the same Wastewander camps"] = "{npc:7407}要的水袋就从同一批废土游荡者营地收集",
 
 	-- Step 76: Gadgetzan
 	-- {area:978} Zul'Farrak · {quest:2864} Tran'rek · {npc:7804} Trenton Lighthammer · {quest:3042} Troll Temper
@@ -311,7 +309,7 @@ return {
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454}：{quest:1137}，来自 {zone:1418} 的马特克",
 	-- {npc:4630} Pozzik · {npc:2496} Baron Revilgaz · {area:35} Booty Bay
-	["{npc:4630}: {npc:2496}'s word, from {area:35}"] = "",
+	["{npc:4630}: {npc:2496}'s word, from {area:35}"] = "替{area:35}的{npc:2496}给{npc:4630}带个口信",
 	-- {npc:4706} Razzeric · {npc:4630} Pozzik
 	["{npc:4706}, beside {npc:4630}"] = "{npc:4706}，在{npc:4630}旁边",
 
@@ -328,12 +326,11 @@ return {
 	["{area:1937}: kill these as you meet them"] = "{area:1937}：沿途击杀以下目标",
 	-- {area:976} Gadgetzan
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
-	-- was: ["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "强盗和盗贼在{area:976}东侧沙丘扎营。所有废土游荡者部族的敌人都可能携带水袋：鲁格伦克需要五个。\n小心：废土游荡者（43-44级）会潜行移动，可能悄悄靠近。"
-	["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five, and Bilgewhizzle five more.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "",
+	["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five, and Bilgewhizzle five more.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "强盗和盗贼在{area:976}东边的沙丘上扎营。废土游荡者一伙都可能掉落水袋。鲁格伦克要五个，比格维兹还要五个。\n小心，废土游荡者（43-44级）会潜行，可能悄悄靠近。",
 
 	-- Step 82: Gadgetzan
 	-- {zone:1446} Tanaris
-	["Keep the Model 4711-FTZ Power Source Bilgewhizzle gave you: it starts Tanaris Field Sampling, a two-hour timer, for the {zone:1446} guide at about 48, on the way back north from Scrimshank's hive."] = "",
+	["Keep the Model 4711-FTZ Power Source Bilgewhizzle gave you: it starts Tanaris Field Sampling, a two-hour timer, for the {zone:1446} guide at about 48, on the way back north from Scrimshank's hive."] = "留好比格维兹给你的4711-FTZ型发电器。它会开启限时两小时的《塔纳利斯的样本》。大约48级时，按{zone:1446}指南从谢申克所在的虫巢向北返回，途中再用。",
 
 	-- Step 83: Steamwheedle Port
 	["Ride north-east to the goblin harbour on the coast."] = "向东北骑往海岸边的地精港口。",
@@ -342,7 +339,7 @@ return {
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "{npc:7881}：在屋内",
 	-- {npc:8579} Yeh'kinya · {zone:1444} Feralas
-	["{npc:8579}: the screechers live in {zone:1444}, on this guide's west sweep"] = "",
+	["{npc:8579}: the screechers live in {zone:1444}, on this guide's west sweep"] = "本指南会走{zone:1444}西线，沿途能找到{npc:8579}要的尖啸者",
 	-- {npc:260405} Wharfmaster Steamfizzle · {zone:2548} Riverglades
 	["{npc:260405}, on the pier: Friz's errand from the {zone:2548}, if you carry it"] = "{npc:260405}，在码头上：如果你带着弗里兹从{zone:2548}托付的差事，交给他",
 
@@ -350,11 +347,10 @@ return {
 	-- {area:1336} Lost Rigger Cove
 	["{area:1336}: kill these as you meet them"] = "{area:1336}：沿途击杀以下目标",
 	-- {npc:7883} Andre Firebeard · {item:9276} Pirate's Footlocker · {item:9250} Ship Schedule · {area:977} Steamwheedle Port
-	-- was: ["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883} (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first."] = "沿海岸向南，南海海盗占据着海湾。{npc:7883}和失窃货物位于海湾最里面的码头上。任何海盗都有可能掉帽子，绑匪的掉率最高。\n小心：{npc:7883}（45级）身旁有两三名海盗，开战后镇内还会有更多海盗加入：先把他的护卫从他身边引开。"
-	["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883} (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first.\nThe cove's pirates sometimes drop a {item:9276}: open it, and if it holds a {item:9250}, read it to start a quest for the Security Chief in {area:977}."] = "",
+	["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883} (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first.\nThe cove's pirates sometimes drop a {item:9276}: open it, and if it holds a {item:9250}, read it to start a quest for the Security Chief in {area:977}."] = "沿海岸向南，南海海盗占着海湾。{npc:7883}和失窃的货物就在海湾最里面的码头上。任何海盗都可能掉帽子，绑匪最容易掉。\n小心，{npc:7883}（45级）身边有两三名海盗。开打后，镇里还会有更多海盗加入。先把护卫从他身边引开。\n海湾里的海盗有时会掉落{item:9276}。打开后如果有{item:9250}，阅读它就能开启去{area:977}找安全主管的任务。",
 	["Upstairs"] = "在楼上",
 	-- {item:9250} Ship Schedule · {item:9276} Pirate's Footlocker
-	["{item:9250}, from a {item:9276}"] = "",
+	["{item:9250}, from a {item:9276}"] = "{item:9250}可从{item:9276}中开出",
 
 	-- Step 85: Waterspring Field: kill these as you meet them
 	-- {area:985} Waterspring Field
@@ -369,7 +365,7 @@ return {
 	-- {area:35} Booty Bay
 	["for {area:35}, around level 51 (40-50/06)"] = "留到{area:35}，大约51级时（40-50/06）",
 	-- {npc:7882} Security Chief Bilgewhizzle · {item:9250} Ship Schedule
-	["{npc:7882}: the {item:9250}, if the cove gave you one"] = "",
+	["{npc:7882}: the {item:9250}, if the cove gave you one"] = "如果在海湾拿到了{item:9250}，就交给{npc:7882}",
 
 	-- Step 88: Fly to Freewind Post
 	-- {area:976} Gadgetzan
@@ -381,15 +377,13 @@ return {
 	-- {npc:8115} Witch Doctor Uzer'i · {npc:263190} Tan'jani · {zone:2548} Riverglades
 	["{npc:8115}: {npc:263190}'s errand from the {zone:2548}, if you carry it"] = "{npc:8115}：如果你带着{npc:263190}从{zone:2548}托付的差事，交给他",
 	-- {npc:8115} Witch Doctor Uzer'i · {zone:1454} Orgrimmar
-	-- was: ["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}：交给{zone:1454}，大约45级时"
-	["{npc:8115}: for {zone:1454}, around level 47"] = "",
+	["{npc:8115}: for {zone:1454}, around level 47"] = "找{npc:8115}接任务，留到大约47级去{zone:1454}时交",
 	-- {npc:7854} Jangdor Swiftstrider
 	["{npc:7854}, inside"] = "{npc:7854}：在屋内",
 
 	-- Step 91: Gordunni Outpost
 	-- {npc:222233} Ohk'zi · {item:9466} Orwin's Shovel · {object:144064} Gordunni Dirt Mound
-	-- was: ["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him."] = "在豺狼人北边，食人魔占据着一座山顶前哨站；把食人魔法师引到你身边来打。戈杜尼钴矿石在前哨站周围的土堆里，戈杜尼卷轴就在前哨站里的地上。\n小心：{npc:222233}（43级，精英）站在前哨站里：把食人魔引出来，远离他。"
-	["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him.\nUse {item:9466} on each {object:144064} around the outpost: the arrow goes from mound to mound."] = "",
+	["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him.\nUse {item:9466} on each {object:144064} around the outpost: the arrow goes from mound to mound."] = "豺狼人北边的山顶前哨站被食人魔占据。把食人魔法师拉过来打。戈杜尼钴矿石在前哨站周围的土堆里，戈杜尼卷轴在哨站里面的地上。\n小心，{npc:222233}（43级精英）在前哨站里，把食人魔拉出来，离他远点。\n用{item:9466}挖前哨站周围的每个{object:144064}。箭头会依次指向各个土堆。",
 
 	-- Step 92: Woodpaw north camp
 	["Woodpaw north camp"] = "木爪北营地",
@@ -414,8 +408,10 @@ return {
 	["The battle map lies in the Woodpaw camp south of Mojache."] = "木爪作战地图在莫沙彻营地南边的木爪营地里。",
 
 	-- Step 98: Camp Mojache
+	-- {npc:7875} Hadoken Swiftstrider · {quest:7731} Stinglasher · {zone:1445} Dustwallow Marsh
+	["Carrying Tabetha's Task? {npc:7875} doesn't offer {quest:7731} while it is in your quest log: hand it in to Tabetha in {zone:1445} or abandon it first."] = "",
 	-- {zone:1454} Orgrimmar
-	["for {zone:1454}, around level 47"] = "",
+	["for {zone:1454}, around level 47"] = "留到大约47级去{zone:1454}时交",
 
 	-- Step 99: The Writhing Deep
 	-- {quest:7731} Stinglasher
@@ -439,7 +435,7 @@ return {
 	["Rogue Vale screechers"] = "游荡的山谷尖啸者",
 	-- {area:1099} Camp Mojache · {area:1105} Feral Scar Vale · {item:10699} Yeh'kinya's Bramble · {npc:8579} Yeh'kinya · {area:977} Steamwheedle Port · {zone:1446} Tanaris
 	-- plural, as words: Rogue Vale Screechers = {npc:5308} Rogue Vale Screecher
-	["On the way back north-east towards {area:1099}, the Rogue Vale Screechers (44-46) hunt the open ground north of {area:1105}. Kill one, use {item:10699} on its body before you loot it, then talk to the spirit that rises: it is friendly. Three spirits in all; {npc:8579} takes them in {area:977} on your next {zone:1446} visit."] = "",
+	["On the way back north-east towards {area:1099}, the Rogue Vale Screechers (44-46) hunt the open ground north of {area:1105}. Kill one, use {item:10699} on its body before you loot it, then talk to the spirit that rises: it is friendly. Three spirits in all; {npc:8579} takes them in {area:977} on your next {zone:1446} visit."] = "往东北返回{area:1099}的途中，游荡的山谷尖啸者（44-46级）在{area:1105}北边的开阔地觅食。击杀一只，先对尸体使用{item:10699}再拾取，然后和出现的友善灵魂交谈。一共要找三个灵魂。下次去{zone:1446}时，到{area:977}找{npc:8579}交任务。",
 
 	-- Step 103: Homing Robot OOX-22/FE
 	-- {zone:1444} Feralas · {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay

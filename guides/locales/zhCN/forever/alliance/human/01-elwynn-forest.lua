@@ -114,7 +114,7 @@ return {
 
 	-- Step 19: Goldshire
 	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:295} Innkeeper Farley · {npc:253} William Pestle · {quest:5624} Garments of the Light · {spell:613} Lesser Heal · {npc:377} Priestess Josetta
-	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road.\nPriests: {quest:5624} counts only {spell:613} (Rank 2). {npc:377} trains priests too: learn it from her now if you have not yet."] = "",
+	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road.\nPriests: {quest:5624} counts only {spell:613} (Rank 2). {npc:377} trains priests too: learn it from her now if you have not yet."] = "沿路向南走出山谷，前往{area:87}。{npc:240}在路西侧的铁匠铺外，{npc:241}在铁匠铺南边的路旁。{npc:295}和{npc:253}在路对面的狮王之傲旅店里。\n牧师：做{quest:5624}时，只有{spell:613}（等级2）才计入进度。{npc:377}也能教牧师技能，还没学就现在找她学。",
 	-- {npc:295} Innkeeper Farley
 	["{npc:295}, inside"] = "{npc:295}，在里面",
 	-- {npc:253} William Pestle

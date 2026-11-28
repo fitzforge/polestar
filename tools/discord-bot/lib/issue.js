@@ -124,6 +124,13 @@ function threadUrl(guild, thread, message) {
 // their first line only. Discord's titles stop at 100 characters; GitHub's at
 // 256, the only cut (never inside a character).
 const MAX_TITLE = 256;
+// A forum post's name: Discord's limit is 100 characters, cut the same way
+// as an issue title ('…' at the end, never inside a character).
+const MAX_POST_NAME = 100;
+function postName(title) {
+	const t = Array.from(String(title));
+	return t.length > MAX_POST_NAME ? t.slice(0, MAX_POST_NAME - 1).join('').trimEnd() + '\u2026' : t.join('');
+}
 function issueTitle(name, fallback = 'Bug report from Discord') {
 	const words = String(name || '')
 		.replace(/```[\s\S]*$/, '')
@@ -326,12 +333,12 @@ function linkLine(link) {
 // message (the one replied to), thread (the #bugs post), messages: [{ id,
 // at, report, files, links }] }, the messages oldest first.
 function chatIssueBody(post) {
-	const { kind, reporter, guild, channel, channelName, message, thread, messages } = post;
+	const { kind, reporter, guild, channel, channelName, message, thread, messages, postIn = '#bugs' } = post;
 	const verb = kind === 'suggestion' ? 'Suggested' : 'Reported';
 	const where = channelName ? `#${cell(channelName)}` : 'chat';
 	const head = [
 		`**${verb} by ${cell(reporter)} on [Discord](${threadUrl(guild, channel, message)})**`,
-		`_Filed from ${where} on Discord; follow-ups go to [its #bugs post](${threadUrl(guild, thread)})._`,
+		`_Filed from ${where} on Discord; follow-ups go to [its ${postIn} post](${threadUrl(guild, thread)})._`,
 		'',
 	].join('\n');
 	const first = messages.find((m) => m.report.details);
@@ -398,6 +405,7 @@ function reportedBy(message) {
 }
 
 module.exports = {
+	postName,
 	FOLLOWUP_MARK,
 	discordToText,
 	inert,

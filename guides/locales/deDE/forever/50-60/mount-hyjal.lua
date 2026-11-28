@@ -70,22 +70,21 @@ return {
 	["The untainted soil lies in the fields south and east of the outpost; Hyjal Stags graze there too, and their venison is for {npc:256222}'s stew.\nCareful: {npc:248709} (56), an elite treant, walks the fields to the south-east around 60,78: give him room."] = "Der unberührte Boden liegt auf den Feldern südlich und östlich des Außenpostens; Hyjalhirsche weiden dort auch, und ihr Fleisch ist für den Eintopf von {npc:256222}.\nVorsicht: {npc:248709} (56), ein Elite-Treant, läuft über die Felder südöstlich um 60,78: Lass ihm Raum.",
 
 	-- Step 11: The three wrecks
-	["The three wrecks"] = "",
+	["The three wrecks"] = "Die drei Wracks",
 	-- {npc:256222} Ketharas · {item:269944} Bag of Enchanted Seeds
-	["The three wrecks {npc:256222} named lie at the east end of the fields: use the {item:269944} beside each, the catapult and the flying machine first, then the ballista a little north of them."] = "",
+	["The three wrecks {npc:256222} named lie at the east end of the fields: use the {item:269944} beside each, the catapult and the flying machine first, then the ballista a little north of them."] = "Die drei von {npc:256222} genannten Wracks liegen am östlichen Ende der Felder: Benutze das {item:269944} bei jedem, zuerst beim Katapult und bei der Flugmaschine, dann bei der Ballista etwas nördlich davon.",
 	-- {item:269944} Bag of Enchanted Seeds · {npc:266887} Ruined Catapult
-	["{item:269944}: the {npc:266887}"] = "",
+	["{item:269944}: the {npc:266887}"] = "{item:269944}: der {npc:266887}",
 	-- {item:269944} Bag of Enchanted Seeds · {npc:266886} Ruined Flying Machine
-	["{item:269944}: the {npc:266886}"] = "",
+	["{item:269944}: the {npc:266886}"] = "{item:269944}: der {npc:266886}",
 	-- {item:269944} Bag of Enchanted Seeds · {npc:262036} Ruined Ballista
-	["{item:269944}: the {npc:262036}"] = "",
+	["{item:269944}: the {npc:262036}"] = "{item:269944}: der {npc:262036}",
 
 	-- Step 12: The shrub field
 	["The shrub field"] = "Das Strauchfeld",
 	-- {npc:248395} Tainted Shrubbery · {quest:91923} Celastrus the Bitter · {npc:248709} Sunderbark
 	-- plural, as words: Scarlet Dart Tubers = {item:267289} Scarlet Dart Tuber
-	-- was: ["North into the shrub field: the {npc:248395} drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. The ruined ballista stands at the field's north-eastern edge: plant the last seed there. Keep clear of {quest:91923} and {npc:248709}, the field's elites."] = "Nach Norden in das Strauchfeld: Die {npc:248395} lassen die Blätter fallen, und die Scharlachroten Dartknollen wachsen auf der offenen Fläche, die meisten in der westlichen Hälfte des Felds. Die zerstörte Balliste steht am nordöstlichen Rand des Felds: Pflanze den letzten Samen dort. Halte dich von {quest:91923} und {npc:248709} fern, den Eliten des Felds."
-	["North into the shrub field: the {npc:248395} drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. Keep clear of {quest:91923} and {npc:248709}, the field's elites."] = "",
+	["North into the shrub field: the {npc:248395} drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. Keep clear of {quest:91923} and {npc:248709}, the field's elites."] = "Nach Norden in das Buschfeld: Die {npc:248395} lassen die Blätter fallen, und die Scharlachroten Wurmknollen wachsen im offenen Gelände, die meisten in der westlichen Hälfte des Feldes. Halte dich von {quest:91923} und {npc:248709} fern, den Elites des Feldes.",
 
 	-- Step 13: Celastrus the Bitter
 	-- {quest:91923} Celastrus the Bitter
@@ -106,7 +105,7 @@ return {
 
 	-- Step 19: Fine Feathered Friend
 	-- {quest:91923} Celastrus the Bitter · {npc:248366} Fraxinus · {quest:95766} Fine Feathered Friend · {npc:257753} Curious Crow · {area:17050} Felblood Scar
-	["With {quest:91923} handed in, {npc:248366} offers {quest:95766}: the {npc:257753} at {area:17050} takes it later in this guide."] = "",
+	["With {quest:91923} handed in, {npc:248366} offers {quest:95766}: the {npc:257753} at {area:17050} takes it later in this guide."] = "Ist {quest:91923} abgegeben, bietet {npc:248366} {quest:95766} an: den {npc:257753} bei {area:17050} nimmt später in diesem Guide.",
 
 	-- Step 20: The Dying Ancients
 	-- {npc:248709} Sunderbark
@@ -292,8 +291,7 @@ return {
 	-- Step 64: Bear berries
 	["Bear berries"] = "Bärenbeeren",
 	-- {npc:256978} Brerufa
-	-- was: ["The bear berries grow on the slopes around the burrow: a few on the hill north of {npc:256978}, most of them east of the burrow.\nCareful: Grimmwurzel, an elite treant (level 60), walks the slopes west of the burrow, around 16-20,58-66: give him room."] = "Die Bärenbeeren wachsen auf den Hängen um den Bau: einige am Hügel nördlich von {npc:256978}, die meisten östlich des Baus.\nVorsicht: Grimmwurzel, ein Treant (Elite, Stufe 60), läuft die Hänge westlich des Baus entlang, um 16-20,58-66: Lass ihm Raum."
-	["The bear berries grow on the slopes around the burrow: a few on the hill north of {npc:256978}, most of them east of the burrow.\nCareful: Grimroot, an elite treant (level 60), walks the slopes west of the burrow, around 16-20,58-66: give him room."] = "",
+	["The bear berries grow on the slopes around the burrow: a few on the hill north of {npc:256978}, most of them east of the burrow.\nCareful: Grimroot, an elite treant (level 60), walks the slopes west of the burrow, around 16-20,58-66: give him room."] = "Die Bärenbeeren wachsen auf den Hängen um den Bau: einige am Hügel nördlich von {npc:256978}, die meisten östlich des Baus.\nVorsicht: Grimroot, ein Treant (Elite, Stufe 60), läuft die Hänge westlich des Baus entlang, um 16-20,58-66: Lass ihn in Ruhe.",
 
 	-- Step 65: Barkskin Burrow
 	["Barkskin Burrow"] = "Barkskin-Höhle",
@@ -344,8 +342,7 @@ return {
 	["Owl feathers"] = "Eulenschwingen",
 	-- {npc:264089} Eluneth · {area:16848} Elderwild
 	-- plural, as words: Hyjal Owls = {npc:249053} Hyjal Owl · Death Wailers = {npc:249226} Death Wailer
-	-- was: ["The Hyjal Owls roost on the slopes between {npc:264089} and Barkskin Burrow: their feathers are for {area:16848}.\nCareful: Death Wailers (61, rare elites) drift over the western slopes: give them a wide berth.\nCareful: Grimmwurzel, the elite treant (level 60), walks the western slopes here: pull the owls away from his path."] = "Die Hyjal-Eulen rasten auf den Hängen zwischen {npc:264089} und der Barkskin-Höhle: Ihre Schwingen sind für {area:16848}.\nVorsicht: Todesheuler (61, seltene Elite) treiben über die westlichen Hänge: Lass sie weit hinter dir.\nVorsicht: Grimmwurzel, der Treant (Elite, Stufe 60), läuft hier die westlichen Hänge entlang: Zieh die Eulen von seinem Weg weg."
-	["The Hyjal Owls roost on the slopes between {npc:264089} and Barkskin Burrow: their feathers are for {area:16848}.\nCareful: Death Wailers (61, rare elites) drift over the western slopes: give them a wide berth.\nCareful: Grimroot, an elite treant (level 60), walks the slopes beside {npc:264089}. He leaves you alone unless you hit him: don't, and pull the owls away from his path."] = "",
+	["The Hyjal Owls roost on the slopes between {npc:264089} and Barkskin Burrow: their feathers are for {area:16848}.\nCareful: Death Wailers (61, rare elites) drift over the western slopes: give them a wide berth.\nCareful: Grimroot, an elite treant (level 60), walks the slopes beside {npc:264089}. He leaves you alone unless you hit him: don't, and pull the owls away from his path."] = "Die Hyjal-Eulen nisten an den Hängen zwischen {npc:264089} und Barkskin Burrow: ihre Federn sind für {area:16848}.\nVorsicht: Todesheuler (61, seltene Elites) ziehen über die westlichen Hänge: geh ihnen aus dem Weg.\nVorsicht: Grimroot, ein Elite-Treant (Stufe 60), läuft an den Hängen neben {npc:264089} umher. Er lässt dich in Ruhe, solange du ihn nicht angreifst: tu es nicht und locke die Eulen von seinem Weg weg.",
 
 	-- Step 77: Unmarked Grave
 	-- {area:16868} Mourning's Rest
@@ -355,8 +352,7 @@ return {
 	-- Step 78: Mourning's Rest
 	-- {area:16868} Mourning's Rest · {area:16848} Elderwild
 	-- plural, as words: Fleshflay Raveners = {npc:249228} Fleshflay Ravener · Forgotten Soldiers = {npc:249247} Forgotten Soldier · Death Wailers = {npc:249226} Death Wailer
-	-- was: ["The Scourge hold the ruins of {area:16868}, east of {area:16848}: Fleshflay Raveners and Forgotten Soldiers everywhere, Eternal Sentries among them.\nCareful: Death Wailers (61, rare elites) drift over {area:16868}: keep out of their way.\nCareful: Grimmwurzel, the elite treant (level 60), walks the slopes on the way in: give him room."] = "Die Geißel hält die Ruinen von {area:16868}, östlich von {area:16848}: Fleischschinderräuber und Vergessene Soldaten überall, ewige Wächter unter ihnen.\nVorsicht: Todesheuler (61, seltene Elite) treiben über {area:16868}: Weiche ihnen aus.\nVorsicht: Grimmwurzel, der Treant (Elite, Stufe 60), läuft die Hänge auf dem Weg hinein entlang: Lass ihm Raum."
-	["The Scourge hold the ruins of {area:16868}, east of {area:16848}: Fleshflay Raveners and Forgotten Soldiers everywhere, Eternal Sentries among them.\nCareful: Death Wailers (61, rare elites) drift over {area:16868}: keep out of their way.\nCareful: Grimroot, the elite treant (level 60), walks the slopes on the way in. He leaves you alone unless you hit him: give him room."] = "",
+	["The Scourge hold the ruins of {area:16868}, east of {area:16848}: Fleshflay Raveners and Forgotten Soldiers everywhere, Eternal Sentries among them.\nCareful: Death Wailers (61, rare elites) drift over {area:16868}: keep out of their way.\nCareful: Grimroot, the elite treant (level 60), walks the slopes on the way in. He leaves you alone unless you hit him: give him room."] = "Die Scourge halten die Ruinen von {area:16868}, östlich von {area:16848}: Fleischschinderräuber und Vergessene Soldaten überall, Eternal Sentries darunter.\nVorsicht: Todesheuler (61, seltene Eliten) ziehen über {area:16868}: Geh ihnen aus dem Weg.\nVorsicht: Grimroot, der Elite-Treant (Stufe 60), läuft auf den Hängen auf dem Weg dorthin umher. Er lässt dich in Ruhe, es sei denn, du greifst ihn an: Gib ihm Raum.",
 
 	-- Step 79: Final Death
 	-- {area:16868} Mourning's Rest · {item:274411} Survivor's Torch · {npc:260148} Scourge Reanimator
@@ -370,7 +366,7 @@ return {
 	-- {npc:264089} Eluneth
 	["{npc:264089} and the veteran"] = "{npc:264089} und der Veteran",
 	-- {npc:264089} Eluneth · {npc:255009} Veteran of the Third War · {area:16868} Mourning's Rest
-	["Back to {npc:264089}, then the ghostly {npc:255009} at {area:16868}'s western edge, where the recording met him, on your way west."] = "Zurück zu {npc:264089}, dann zu dem geisterhaften {npc:255009} am westlichen Rand von {area:16868}, wo die Aufzeichnung ihn traf, auf dem Weg nach Westen.",
+	["Back to {npc:264089}, then the ghostly {npc:255009} on your way west. He doesn't keep to one spot: players have met him anywhere in {area:16868} from its western edge (20,60) north-east to about 25,51, so if he isn't at the arrow, look along that line."] = "",
 
 	-- Step 82: Hyjal Silphium
 	-- {area:16868} Mourning's Rest · {npc:244512} Ortak Lomgok · {area:16848} Elderwild
@@ -447,7 +443,7 @@ return {
 	-- Step 97: Foxes
 	["Foxes"] = "Füchse",
 	-- {npc:249234} Johun "Punchy" Dillas · {npc:255183} Jezerelle the Swaying · {npc:256830} Bannerwing Survivor
-	["The Rustleaf Foxes are thick in the woods around {npc:249234}'s camp.\nCareful: {npc:255183} (61, rare) walks the woods north of the camp, and a {npc:256830} (60, rare) can turn up there too: leave them be."] = "",
+	["The Rustleaf Foxes are thick in the woods around {npc:249234}'s camp.\nCareful: {npc:255183} (61, rare) walks the woods north of the camp, and a {npc:256830} (60, rare) can turn up there too: leave them be."] = "Die Rostblattfüchse sind zahlreich in den Wäldern um das Lager von {npc:249234}.\nVorsicht: {npc:255183} (61, selten) streift durch die Wälder nördlich des Lagers, und ein {npc:256830} (60, selten) kann dort ebenfalls auftauchen: lass sie in Ruhe.",
 
 	-- Step 99: Kala'th
 	-- {npc:255693} Kala'th
@@ -517,11 +513,11 @@ return {
 	["The Wormwing harpies nest on the slopes north-west of the shrine. They drop the pinfeathers and {npc:256660}'s amulets; the bangles lie in their nests, the {object:650219} in a nest on the western slope, and {npc:260826}, who has Omnuron's spear, is among them. The corrupted knots grow on the trees just north-west of the shrine."] = "Die Wurmflügel-Harpyien nisten auf den Hängen nordwestlich des Schreins. Sie lassen die Federspitzen und die Amulette von {npc:256660} fallen; die Armbänder liegen in ihren Nestern, das {object:650219} in einem Nest auf dem westlichen Hang, und {npc:260826}, der Omnurons Speer hat, ist unter ihnen. Die verderbten Knollen wachsen an den Bäumen knapp nordwestlich des Schreins.",
 
 	-- Step 117: The way into the Deadwood camps
-	["The way into the Deadwood camps"] = "",
+	["The way into the Deadwood camps"] = "Der Weg in die Totenwaldfell-Lager",
 	-- {area:17144} Malorne's Retreat · {area:16868} Mourning's Rest
-	["The Deadwood camps fill {area:17144}, a sunken valley whose northern end runs in under the cliffs: there is no way down into it from {area:16868}. Go round to the valley's mouth in the south-east and follow it west, then north up into the camps, as players do."] = "",
+	["The Deadwood camps fill {area:17144}, a sunken valley whose northern end runs in under the cliffs: there is no way down into it from {area:16868}. Go round to the valley's mouth in the south-east and follow it west, then north up into the camps, as players do."] = "Die Totenwaldfell-Lager füllen {area:17144}, ein eingesunkenes Tal, dessen Nordende unter die Klippen führt: von {area:16868} aus gibt es keinen Weg hinab. Geh um das Tal herum zum Eingang im Südosten, folge ihm nach Westen und dann nach Norden in die Lager, wie es die Spieler tun.",
 	-- {area:17144} Malorne's Retreat
-	["the mouth of the valley up into {area:17144}"] = "",
+	["the mouth of the valley up into {area:17144}"] = "der Taleingang hinauf nach {area:17144}",
 
 	-- Step 118: The Deadwood camps
 	["The Deadwood camps"] = "Die Deadwood-Lager",
@@ -561,7 +557,7 @@ return {
 	-- Step 125: Maerion Thaelemaches
 	-- {npc:267097} Maerion Thaelemaches · {area:16866} Dae'gun · {quest:97009} Maerion's Misery · {npc:267439} Doomguard Xarkul
 	-- plural, as words: Defiling Hounds = {npc:249230} Defiling Hound · Legion Hulks = {npc:249238} Legion Hulk
-	["North-east to {npc:267097} at the northern ruins of {area:16866}: take {quest:97009} so the Defiling Hounds drop their spikes while you work the other errands here.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps, and {npc:267439}, an elite (level 61), walks this corner: give them room."] = "",
+	["North-east to {npc:267097} at the northern ruins of {area:16866}: take {quest:97009} so the Defiling Hounds drop their spikes while you work the other errands here.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps, and {npc:267439}, an elite (level 61), walks this corner: give them room."] = "Nach Nordosten zu {npc:267097} bei den nördlichen Ruinen von {area:16866}: Nimm {quest:97009}, damit die Besudelnden Bluthunde ihre Stacheln fallen lassen, während du hier die anderen Aufgaben erledigst.\nVorsicht: Legion Hulks (60, seltene Elites) stapfen durch die Lager von {area:16866}, und {npc:267439}, ein Elite (Stufe 61), läuft in dieser Ecke: Gib ihnen Raum.",
 
 	-- Step 126: Renalard
 	-- {area:16866} Dae'gun · {npc:259695} Renalard
@@ -590,7 +586,7 @@ return {
 	-- Step 132: Maerion Thaelemaches
 	-- {npc:267097} Maerion Thaelemaches · {area:16866} Dae'gun · {npc:263394} Bethra'zel the Feeble · {npc:267439} Doomguard Xarkul
 	-- plural, as words: Defiling Hounds = {npc:249230} Defiling Hound · Legion Hulks = {npc:249238} Legion Hulk
-	["North-east back to {npc:267097}, in the corner of {area:16866} where {npc:263394} stands: the Defiling Hounds around him drop any spikes you still need.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps, and {npc:267439}, an elite (level 61), walks this corner: give them room."] = "",
+	["North-east back to {npc:267097}, in the corner of {area:16866} where {npc:263394} stands: the Defiling Hounds around him drop any spikes you still need.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps, and {npc:267439}, an elite (level 61), walks this corner: give them room."] = "Zurück nach Nordosten zu {npc:267097}, in die Ecke von {area:16866}, in der {npc:263394} steht: Die Besudelnden Bluthunde um ihn herum lassen alle Dornen fallen, die du noch brauchst.\nVorsicht: Legion Hulks (60, seltene Eliten) stampfen durch die Lager von {area:16866}, und {npc:267439}, ein Elite (Stufe 61), läuft durch diese Ecke: Lass sie in Ruhe.",
 
 	-- Step 133: Mazzogore
 	-- {npc:263426} Mazzogore the Weak · {area:16866} Dae'gun · {npc:263394} Bethra'zel the Feeble
@@ -702,6 +698,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A group choice: {npc:263394} and {npc:252457} are level 60 elites until {npc:263406}'s eye drains them. Drain each one first, then fight it; players in our recordings killed both once drained. Grouping up is advised."] = "Eine Gruppenwahl: {npc:263394} und {npc:252457} sind Eliten der Stufe 60, bis {npc:263406} sie mit dem Auge entleert. Entleere jeweils einen zuerst, dann bekämpfe ihn; die Spieler in unseren Aufzeichnungen töteten beide, sobald sie entleert waren. Eine Gruppe ist ratsam.",
+	-- ["Back to {npc:264089}, then the ghostly {npc:255009} at {area:16868}'s western edge, where the recording met him, on your way west."] = "Zurück zu {npc:264089}, dann zu dem geisterhaften {npc:255009} am westlichen Rand von {area:16868}, wo die Aufzeichnung ihn traf, auf dem Weg nach Westen.",
 	-- ["North into the shrub field: the {npc:248395} drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. The ruined ballista stands at the field's north-eastern edge: plant the last seed there. Keep clear of {quest:91923} and {npc:248709}, the field's elites."] = "Nach Norden in das Strauchfeld: Die {npc:248395} lassen die Blätter fallen, und die Scharlachroten Dartknollen wachsen auf der offenen Fläche, die meisten in der westlichen Hälfte des Felds. Die zerstörte Balliste steht am nordöstlichen Rand des Felds: Pflanze den letzten Samen dort. Halte dich von {quest:91923} und {npc:248709} fern, den Eliten des Felds.",
 	-- ["North-east to {npc:267097}, in the corner of {area:16866} where {npc:263394} stands. His Felhound Spikes come from the Defiling Hounds, and in the first recording about one hound in ten had one: kill the hounds around him while you are here, and leave his quest if the twelve spikes are slow to come.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps, and {npc:267439}, an elite (level 61), walks this corner: give them room."] = "Nach Nordosten zu {npc:267097}, in der Ecke von {area:16866}, wo {npc:263394} steht. Seine Teufelshundstacheln kommen von den Besudelnden Bluthunden, und in der ersten Aufzeichnung hatte etwa jeder zehnte Hund einen: Töte die Hunde um ihn herum, während du hier bist, und lass seinen Quest, wenn die zwölf Dornen nur langsam kommen.\nVorsicht: Legionskolosse (60, seltene Elite) stampfen durch die Lager von {area:16866}, und {npc:267439}, ein Elite (Stufe 61), läuft durch diese Ecke: Lass ihnen Raum.",
 	-- ["South Bonfire"] = "Südliches Freudenfeuer",

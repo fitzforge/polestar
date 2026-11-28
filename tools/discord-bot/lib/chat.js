@@ -7,6 +7,9 @@
 // answers an hour; past a cap the command is ignored silently. Never in the
 // #bugs forum or its threads: everything written there is copied to the issue.
 //
+// The FAQ answers (lib/faq.js, faq/*.md), e.g. `!dungeons`: for anyone, the
+// same caps as `!bug` (shared with it), never in #bugs, mentions off.
+//
 // `!report` and `!suggest`, for the maintainer (MAINTAINER_IDS) only, as a
 // reply to someone's message anywhere: the bot files that player's messages
 // as an issue (lib/sync.js fileChat) and answers next to their message with
@@ -23,7 +26,7 @@
 // as a suggestion or as a bug. A post filed already (either way) answers
 // "Already filed as #N".
 //
-//   const chat = createChat({ discord, forumId, suggestionsForumId, maintainerIds, file: sync.fileChat, fileIdea: sync.fileIdea, repo, log });
+//   const chat = createChat({ discord, forumId, suggestionsForumId, maintainerIds, file: sync.fileChat, fileIdea: sync.fileIdea, repo, faq, log });
 //   chat.dispatch(type, d);   // every gateway event, beside the sync
 
 const HOUR_MS = 60 * 60 * 1000;
@@ -87,8 +90,9 @@ function createCaps(limits, now) {
 	};
 }
 
-function createChat({ discord, forumId, suggestionsForumId = null, maintainerIds = [], file = null, fileIdea = null, repo = 'fitzforge/polestar', log = console, now = Date.now, limits = LIMITS }) {
+function createChat({ discord, forumId, suggestionsForumId = null, maintainerIds = [], file = null, fileIdea = null, repo = 'fitzforge/polestar', faq = [], log = console, now = Date.now, limits = LIMITS }) {
 	const maintainers = new Set(maintainerIds);
+	const answers = new Map(faq.flatMap((e) => e.commands.map((c) => [c, e])));
 	const takeHelp = createCaps(limits, now);
 	const takeNaughty = createCaps(limits, now);
 	const parents = new Map(); // channel -> its parent channel's id ('' for none)
@@ -101,14 +105,15 @@ function createChat({ discord, forumId, suggestionsForumId = null, maintainerIds
 		return parents.get(channel);
 	}
 
-	async function help(d) {
+	// `text` answers `name`: the bug help or a FAQ answer, with its `image` ({ name, type, data }) if it has one.
+	async function help(d, name, text, image = null) {
 		if (d.channel_id === forumId || (await parentOf(d.channel_id)) === forumId) return false;
 		const user = d.author && d.author.id;
 		if (!takeHelp(d.channel_id, user)) {
-			log.info(`!bug ignored (cap) in ${d.channel_id} from ${user || '?'}`);
+			log.info(`${name} ignored (cap) in ${d.channel_id} from ${user || '?'}`);
 			return false;
 		}
-		await discord.send(d.channel_id, bugHelp(forumId));
+		await discord.send(d.channel_id, text, [], [], image ? [image] : []);
 		return true;
 	}
 
@@ -191,8 +196,10 @@ function createChat({ discord, forumId, suggestionsForumId = null, maintainerIds
 		// `!bug <text>`: the maintainer's is `!report <text>`; anyone's else the plain help.
 		const bug = text.match(BUG_TEXT);
 		if (bug && maintainers.has(d.author && d.author.id)) return fileCommand(d, 'report', bug[1].trim(), '!bug');
-		if (!bug && !COMMANDS.has(text.toLowerCase())) return false;
-		return help(d);
+		const word = text.toLowerCase();
+		if (!bug && answers.has(word)) return help(d, word, answers.get(word).text, answers.get(word).image);
+		if (!bug && !COMMANDS.has(word)) return false;
+		return help(d, '!bug', bugHelp(forumId));
 	}
 
 	return {

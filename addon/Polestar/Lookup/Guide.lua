@@ -838,7 +838,27 @@ local function questStep(q, from, isTarget, opts)
 			goals[#goals + 1] = spawnSpots(at({ t = "interact", object = o.id, objName = objName,
 				quest = q.id, oi = oi, count = count, title = q.title, group = eliteMark(o) }, s), obj and obj.spawns)
 		elseif placedEvents >= 2 and o.map and o.x and o.y then
-			goals[#goals + 1] = at({ t = "kill", logLine = true, target = o.text or q.title, quest = q.id, oi = oi, count = count, title = q.title }, o)
+			-- `useItem`: the item the event is done with (Codex, from our public
+			-- mechanics), and `reagent`, what that use spends, gathered first
+			-- (#4270: four Coalesced Mana Crystals from the Unstable Mana Rifts
+			-- before each of Powering the Pylons' pylons, then the Pile of Pylon
+			-- Parts at it). The gather's `spentBy` tells the Engine the use after
+			-- it spends what it holds: done once that use is, never kept done by
+			-- the bags alone, and taken in its order (Own.usedLaterDone,
+			-- Own.refetch, Own.currentGoal). The events then follow the quest
+			-- log's order, which players keep: in their recordings 83 of 91 runs
+			-- repaired the western pylon first.
+			local use = type(o.useItem) == "number" and o.useItem > 0 and o.useItem or nil
+			local r = use and type(o.reagent) == "table" and type(o.reagent.item) == "number" and o.reagent or nil
+			if r then
+				local from = r.npc and C.Npc(r.npc)
+				local name = (C.Name("item", r.item)) or itemName(r.item)
+				local gather = { t = "collect", item = r.item, itemName = name, count = r.count or 1, spentBy = use,
+					npc = from and r.npc or nil, npcName = from and from.name or nil }
+				goals[#goals + 1] = spawnSpots(at(gather, from and Lookup.Nearest(from.spawns, here, direct)), from and from.spawns)
+			end
+			goals[#goals + 1] = at({ t = use and "use" or "kill", item = use, itemName = use and itemName(use) or nil, logLine = true,
+				target = o.text or q.title, quest = q.id, oi = oi, count = count, title = q.title }, o)
 		else
 			if not event then event, eventAt = o, #goals + 1 end
 		end
@@ -1328,7 +1348,8 @@ builders.quest = function(ctx, row)
 	local steps, err = questSteps(row.src.quest, ctx.player, ctx.from)
 	if not steps then return nil, err end
 	local last = steps[#steps]
-	last.goals[#last.goals + 1] = { t = "collect", item = ctx.id, itemName = ctx.name, count = 1 }
+	-- The reward waits with its quest (`rewardOf`, Engine's unavailableFor, #4505).
+	last.goals[#last.goals + 1] = { t = "collect", item = ctx.id, itemName = ctx.name, count = 1, rewardOf = row.src.quest }
 	if row.src.choice then
 		last.note = L["Choose this reward:"] .. " " .. ctx.name
 	end
@@ -1372,9 +1393,12 @@ builders.craft = function(ctx, row)
 				for _, s in ipairs(more or {}) do steps[#steps + 1] = s end
 			end
 			note = format(L["Use %s to learn it."], recipeName)
-		elseif trainer then
-			g.npc, g.npcName = trainer.id, trainer.name
-			at(g, trainerAt)
+		elseif row.recipeTrainer then
+			local teacher = C.Npc(row.recipeTrainer)
+			if teacher then
+				g.npc, g.npcName = teacher.id, teacher.name
+				at(g, row.recipeTrainerAt)
+			end
 		end
 		goals[#goals + 1] = g
 	end

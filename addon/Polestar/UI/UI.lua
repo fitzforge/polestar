@@ -720,10 +720,22 @@ function UI.FinderLine(goal)
 end
 
 -- A guide as the guide list names it, with its levels: "Badlands &
--- Desolace (37–38)"; just the title (or id) when it has none.
+-- Desolace (37–38)"; just the title (or id) when it has none, or when the
+-- title already says them ("6-11 Elwynn Forest", a pack's own naming).
+local function titleHasLevels(title, lo, hi)
+	if not lo then return false end
+	hi = hi or lo
+	if lo == hi then return title:find("%f[%d]" .. lo .. "%f[%D]") ~= nil end
+	for _, dash in ipairs({ "%-", "\226\128\147" }) do
+		if title:find("%f[%d]" .. lo .. "%s*" .. dash .. "%s*" .. hi .. "%f[%D]") then return true end
+	end
+	return false
+end
+
 function UI.GuideLabel(g)
 	local title = g.title or g.id
 	local lv = UI.GuideLevels(g)
+	if lv and titleHasLevels(tostring(title), ns.Guides.Levels(g)) then lv = nil end
 	return lv and (title .. " (" .. lv .. ")") or title
 end
 
@@ -882,6 +894,8 @@ function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort, noFinder)
 	local note = goal.note
 	if note and source and (note == goal.source.name or note == goal.subject) then note = nil end
 	if note then parts[#parts + 1] = note end
+	local AU = UI.AuctionBuys
+	if AU and AU.CanBuyGoal(goal) then parts[#parts + 1] = L["Optional: buy at the auction house (/polestar ah)"] end
 	-- Party members' counts on this quest (Quests/Party.lua).
 	local together = ns.Party and ns.Party.Line(goal, noMissing)
 	if together then parts[#parts + 1] = together end
