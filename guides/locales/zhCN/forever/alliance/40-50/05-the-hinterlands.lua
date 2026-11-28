@@ -25,12 +25,12 @@ return {
 
 	-- Step 4: OOX-09/HL Distress Beacon
 	-- {zone:1425} The Hinterlands
-	["Only with the distress beacon, a rare drop in the {zone:1425}: it starts a quest to find the robot it calls for."] = "",
+	["Only with the distress beacon, a rare drop in the {zone:1425}: it starts a quest to find the robot it calls for."] = "只有拿到求救信标才能接这个任务。信标在{zone:1425}稀有掉落，使用后会接到寻找对应机器人的任务。",
 
 	-- Step 5: OOX-09/HL
 	["OOX-09/HL"] = "OOX-09/HL",
 	-- {area:351} Skulk Rock · {area:307} Overlook Cliffs · {area:348} Aerie Peak · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay
-	["The robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}, then ride back west for {area:348}; its reward waits with {npc:7406} in {area:35}, later in this guide.\nCareful: Two ambushes spawn during the escort: first three wildkin owlbeasts, then three trolls. Before each, the robot halts and announces it senses danger. Oozes, stealthed wolves and a large turtle along the path can join fights, and they respawn even if cleared beforehand."] = "",
+	["The robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}, then ride back west for {area:348}; its reward waits with {npc:7406} in {area:35}, later in this guide.\nCareful: Two ambushes spawn during the escort: first three wildkin owlbeasts, then three trolls. Before each, the robot halts and announces it senses danger. Oozes, stealthed wolves and a large turtle along the path can join fights, and they respawn even if cleared beforehand."] = "机器人在{area:351}西边的河流源头。向东护送它到{area:307}另一侧的海岸，然后骑马向西返回{area:348}。奖励找{npc:7406}领取，他在{area:35}，本指南稍后会到那里。\n护送途中有两次伏击，第一波是三只枭兽，第二波是三名巨魔。每次伏击前，机器人都会停下并提醒有危险。沿途的软泥怪、潜行的狼和一只大乌龟可能加入战斗，即使提前清掉也会刷新。",
 
 	-- Step 6: Wildkin feathers
 	["Wildkin feathers"] = "枭兽羽毛",
@@ -49,7 +49,7 @@ return {
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, inside"] = "{npc:5636}：在屋内",
 	-- {quest:2990} Thadius Grimshade · {area:1438} Nethergarde Keep · {zone:1428} Burning Steppes
-	["for {quest:2990} at {area:1438}: the {zone:1428} guide hands it in"] = "",
+	["for {quest:2990} at {area:1438}: the {zone:1428} guide hands it in"] = "把{quest:2990}留到{area:1438}交，跟随{zone:1428}指南就会到那里",
 	-- {npc:270263} Farseer Maret Firetend
 	["{npc:270263}, just east of the aviary"] = "{npc:270263}，在狮鹫栖木东边不远处",
 
@@ -93,11 +93,11 @@ return {
 
 	-- Step 17: Oglethorpe Obnoticus
 	-- {zone:1444} Feralas · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay
-	["Only if you escorted the {zone:1444} robot: its reward waits with {npc:7406} here in {area:35}."] = "",
+	["Only if you escorted the {zone:1444} robot: its reward waits with {npc:7406} here in {area:35}."] = "护送过{zone:1444}的机器人，才能在这里找{npc:7406}领奖励。他就在{area:35}。",
 
 	-- Step 18: Oglethorpe Obnoticus
 	-- {zone:1425} The Hinterlands · {npc:7406} Oglethorpe Obnoticus
-	["Only if you escorted the {zone:1425} robot: {npc:7406} has its reward too."] = "",
+	["Only if you escorted the {zone:1425} robot: {npc:7406} has its reward too."] = "护送过{zone:1425}的机器人，也可以找{npc:7406}领奖励。",
 
 	-- Step 19: Wild Shore: kill these as you meet them
 	-- {area:43} Wild Shore
@@ -123,7 +123,7 @@ return {
 	-- Step 25: Maury "Club Foot" Wilkins and Jon-Jon
 	-- {npc:2535} Maury "Club Foot" Wilkins
 	-- was: ["{npc:2535} and {npc:2536}"] = "{npc:2535}和{npc:2536}"
-	["{npc:2535} and Jon-Jon"] = "",
+	["{npc:2535} and Jon-Jon"] = "{npc:2535}和火柴棍乔乔",
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["{npc:2535} and {npc:2536} stand together in the hills just north of Zanzil's village."] = "{npc:2535}和{npc:2536}一起站在赞吉尔村子北边不远处的山丘上。",
 	-- {item:3925} Jon-Jon's Golden Spyglass · {npc:2536} Jon-Jon the Crow
@@ -152,7 +152,7 @@ return {
 
 	-- Step 30: Fin Fizracket
 	-- {npc:2486} Fin Fizracket
-	["{npc:2486}, by the inn"] = "",
+	["{npc:2486}, by the inn"] = "{npc:2486}在旅店旁",
 
 	-- Step 31: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash

@@ -16,70 +16,70 @@ return {
 
 	-- Step 2: Everlook
 	-- {area:2255} Everlook · {npc:11754} Meggi Peppinrocker
-	["The flight lands in {area:2255}: {npc:11754} and Umi stand around the town before you ride west."] = "",
+	["The flight lands in {area:2255}: {npc:11754} and Umi stand around the town before you ride west."] = "飞抵{area:2255}。{npc:11754}和乌米都在镇上，之后再往西骑。",
 	-- {npc:11754} Meggi Peppinrocker · {npc:9298} Donova Snowden · {area:2255} Everlook
 	-- was: ["{npc:11754} walks around {area:2255}: look inside the circle on the map"] = "{npc:11754}在{area:2255}巡逻，请在地图标示的圆圈内寻找"
-	["{npc:11754}, for {npc:9298}: walks around {area:2255}, look inside the circle on the map"] = "",
+	["{npc:11754}, for {npc:9298}: walks around {area:2255}, look inside the circle on the map"] = "{npc:11754}（{npc:9298}的任务）在{area:2255}四处走动，请在地图圈出的范围内寻找。",
 	-- {npc:10305} Umi Rumplesnicker
 	-- plural, as words: Rogue Ice Thistles = {npc:7457} Rogue Ice Thistle
-	["{npc:10305}: the Rogue Ice Thistles on the road west carry the furs"] = "",
+	["{npc:10305}: the Rogue Ice Thistles on the road west carry the furs"] = "{npc:10305}要的毛皮由西边路上的游荡的冰蓟雪人掉落。",
 
 	-- Step 3: The road west: feathers, furs and horns
-	["The road west: feathers, furs and horns"] = "",
+	["The road west: feathers, furs and horns"] = "向西沿路收集羽毛、毛皮和角",
 	-- {npc:9298} Donova Snowden · {item:12366} Thick Yeti Fur · {item:12444} Uncracked Chillwind Horn · {npc:10468} Felnok Steelspring
 	-- plural, as words: Moontouched Feathers = {item:12383} Moontouched Feather · Ragged Owlbeasts = {npc:7450} Ragged Owlbeast · Rogue Ice Thistles = {npc:7457} Rogue Ice Thistle · Fledgling Chillwinds = {npc:7447} Fledgling Chillwind
-	["Moontouched Feathers lie on the ground all along the road west to {npc:9298}, where the Ragged Owlbeasts (53) roam: pick them up as you ride.\nThe same road crosses the Rogue Ice Thistles' ground (about one in three drops a {item:12366} for Umi) and the Fledgling Chillwinds' (about one in five drops an {item:12444} for {npc:10468}): work both here, around the road's middle.\nCareful: both are 53-55: pull the lower ones and take them one at a time."] = "",
+	["Moontouched Feathers lie on the ground all along the road west to {npc:9298}, where the Ragged Owlbeasts (53) roam: pick them up as you ride.\nThe same road crosses the Rogue Ice Thistles' ground (about one in three drops a {item:12366} for Umi) and the Fledgling Chillwinds' (about one in five drops an {item:12444} for {npc:10468}): work both here, around the road's middle.\nCareful: both are 53-55: pull the lower ones and take them one at a time."] = "往西去找{npc:9298}的路上，地上一路都有月光羽毛，53级的蓬毛枭兽在这一带游荡。骑过去时顺路捡起羽毛。\n这条路也穿过游荡的冰蓟雪人和冰风奇美拉幼兽的活动范围。雪人约每三只掉一张乌米要的{item:12366}，奇美拉约每五只掉一个{item:12444}，是{npc:10468}要的。在这条路的中段附近打这两种怪。\n小心，两种怪都是53-55级。挑等级较低的怪引过来，一次只打一只。",
 	-- {item:12366} Thick Yeti Fur
 	-- plural, as words: Rogue Ice Thistles = {npc:7457} Rogue Ice Thistle
-	["{item:12366}, from the Rogue Ice Thistles"] = "",
+	["{item:12366}, from the Rogue Ice Thistles"] = "从游荡的冰蓟雪人身上拾取{item:12366}。",
 	-- {item:12444} Uncracked Chillwind Horn
 	-- plural, as words: Fledgling Chillwinds = {npc:7447} Fledgling Chillwind
-	["{item:12444}, from the Fledgling Chillwinds"] = "",
+	["{item:12444}, from the Fledgling Chillwinds"] = "从冰风奇美拉幼兽身上拾取{item:12444}。",
 
 	-- Step 4: Donova Snowden
 	-- {npc:9298} Donova Snowden
-	["{npc:9298} camps beside the hot springs at the western end of the road."] = "",
+	["{npc:9298} camps beside the hot springs at the western end of the road."] = "{npc:9298}的营地在道路西端的温泉旁。",
 	-- {item:11243} Videre Elixir
-	["With the {item:11243} from Gregan"] = "",
+	["With the {item:11243} from Gregan"] = "带上从格雷甘·山酒那里拿到的{item:11243}。",
 
 	-- Step 5: Donova Snowden
 	-- {npc:9299} Gaeriyan · {area:976} Gadgetzan
-	["{npc:9299}, at the graveyard just east of {area:976}, later in this guide"] = "",
+	["{npc:9299}, at the graveyard just east of {area:976}, later in this guide"] = "{npc:9299}在{area:976}东边不远的墓地，本指南稍后会去那里。",
 
 	-- Step 6: Frostfire Hot Springs: kill these as you meet them
 	-- {area:2246} Frostfire Hot Springs
 	["{area:2246}: kill these as you meet them"] = "{area:2246}：沿途击杀以下目标",
 	-- {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {item:14047} Runecloth · {npc:11557} Meilosh
 	-- plural, as words: Winterfall Ritual Totems = {quest:8471} Winterfall Ritual Totem
-	["The western Winterfall camp sits in the hills between {npc:9298} and the tunnel. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need): right-click it. They also drop Winterfall Ritual Totems (about one in thirty) and {item:14047}, which only matter if you are Neutral (the totem) or Friendly ({npc:11557}'s {item:14047}) with the Timbermaw: keep them then.\nCareful: the Pathfinders are 53 and the Totemics 54, but the Den Watchers inside the camp are 55: take the camp from its edge and pull one at a time."] = "",
+	["The western Winterfall camp sits in the hills between {npc:9298} and the tunnel. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need): right-click it. They also drop Winterfall Ritual Totems (about one in thirty) and {item:14047}, which only matter if you are Neutral (the totem) or Friendly ({npc:11557}'s {item:14047}) with the Timbermaw: keep them then.\nCareful: the Pathfinders are 53 and the Totemics 54, but the Den Watchers inside the camp are 55: take the camp from its edge and pull one at a time."] = "冬泉熊怪的西部营地在{npc:9298}和隧道之间的山里。这里的熊怪都可能掉落{item:12771}，约每十只掉一个。做这些任务时打的熊怪就足够了，捡到后右键点击瓶子。它们还会掉落冬泉仪祭图腾（约每三十只掉一个）和{item:14047}。木喉要塞声望达到中立就留着图腾，达到友善就留着{npc:11557}需要的{item:14047}。\n小心，冬泉探路者是53级，冬泉图腾师是54级，营地里面的冬泉巢穴守卫是55级。从营地边缘引怪，一次只引一只。",
 	-- {item:14047} Runecloth · {npc:11557} Meilosh
-	["{item:14047}, for {npc:11557}, if you are Friendly with the Timbermaw"] = "",
+	["{item:14047}, for {npc:11557}, if you are Friendly with the Timbermaw"] = "木喉要塞声望达到友善后，把{item:14047}留给{npc:11557}。",
 
 	-- Step 7: Winterfall Ritual Totem
 	-- {npc:11558} Kernda
-	["{npc:11558} takes the totem; the quest needs Neutral with the Timbermaw; the reputation guide gets you there."] = "",
+	["{npc:11558} takes the totem; the quest needs Neutral with the Timbermaw; the reputation guide gets you there."] = "图腾交给{npc:11558}。这个任务需要木喉要塞声望达到中立，按声望指南做即可达到。",
 	-- {npc:11558} Kernda · {area:1769} Timbermaw Hold
-	["For {npc:11558} in {area:1769}, later in this guide: keep it"] = "",
+	["For {npc:11558} in {area:1769}, later in this guide: keep it"] = "先留着，稍后按本指南去找{npc:11558}，把图腾交给他。地点在{area:1769}。",
 
 	-- Step 8: Donova Snowden
 	-- {area:1762} Felpaw Village · {zone:1448} Felwood
-	["The Deadwood cauldron in {area:1762}, at the {zone:1448} end of the tunnel"] = "",
+	["The Deadwood cauldron in {area:1762}, at the {zone:1448} end of the tunnel"] = "死木蒸锅在{area:1762}，靠近隧道通往{zone:1448}的出口。",
 
 	-- Step 9: Felwood
 	-- {area:1769} Timbermaw Hold · {npc:9298} Donova Snowden · {zone:1448} Felwood
-	["Through {area:1769}'s tunnel, just north of {npc:9298}, to {zone:1448}."] = "",
+	["Through {area:1769}'s tunnel, just north of {npc:9298}, to {zone:1448}."] = "从{area:1769}的隧道穿过去，入口就在{npc:9298}北边不远处，另一头通往{zone:1448}。",
 	-- {area:1769} Timbermaw Hold · {zone:1448} Felwood
-	["{area:1769}, {zone:1448} side"] = "",
+	["{area:1769}, {zone:1448} side"] = "{area:1769}靠{zone:1448}的一侧",
 
 	-- Step 10: Deadwood Cauldron
 	-- {area:1762} Felpaw Village
-	["The Deadwood cauldron stands at the top of {area:1762}, just west of the cave mouth."] = "",
+	["The Deadwood cauldron stands at the top of {area:1762}, just west of the cave mouth."] = "死木蒸锅在{area:1762}的高处，就在洞口西边不远处。",
 	-- {quest:5085} Mystery Goo · {npc:9298} Donova Snowden · {zone:1452} Winterspring
-	["{quest:5085}: {npc:9298}, on this guide's {zone:1452} loop: keep it"] = "",
+	["{quest:5085}: {npc:9298}, on this guide's {zone:1452} loop: keep it"] = "{quest:5085}先留着。稍后按本指南去找{npc:9298}，绕行{zone:1452}时会经过那里。",
 
 	-- Step 11: Talonbranch Glade
 	-- {area:1998} Talonbranch Glade
-	["Ride south from the cave to {area:1998}, the night elves' camp on the road."] = "",
+	["Ride south from the cave to {area:1998}, the night elves' camp on the road."] = "从洞口往南骑到{area:1998}，那是路旁的暗夜精灵营地。",
 
 	-- Step 12: Fly to Ratchet
 	-- {area:392} Ratchet
@@ -94,17 +94,17 @@ return {
 
 	-- Step 15: Ratchet
 	-- {npc:8496} Liv Rizzlefix
-	["{npc:8496}: the ash is in Un'Goro; inside"] = "",
+	["{npc:8496}: the ash is in Un'Goro; inside"] = "{npc:8496}在屋内，火山灰在安戈洛环形山。",
 
 	-- Step 16: The Stone Circle
 	-- {quest:3444} The Stone Circle
-	["{quest:3444} stands on the hill just south-west of the flight master."] = "",
+	["{quest:3444} stands on the hill just south-west of the flight master."] = "{quest:3444}就在飞行管理员西南边不远的山丘上。",
 
 	-- Step 17: Islen Waterseer
 	-- {npc:5901} Islen Waterseer
-	["{npc:5901} stands on the coast south-east of town."] = "",
+	["{npc:5901} stands on the coast south-east of town."] = "{npc:5901}站在城镇东南方的海岸上。",
 	-- {zone:1448} Felwood
-	["For Greta in {zone:1448}, later in this guide: keep it"] = "",
+	["For Greta in {zone:1448}, later in this guide: keep it"] = "先留着，稍后按本指南交给{zone:1448}的格雷塔·苔蹄。",
 
 	-- Step 18: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -118,19 +118,19 @@ return {
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}：在屋内",
 	-- {npc:7876} Tran'rek
-	["{npc:7876}, north side of town: the tar is in Un'Goro"] = "",
+	["{npc:7876}, north side of town: the tar is in Un'Goro"] = "{npc:7876}在城镇北侧，沥青在安戈洛环形山。",
 
 	-- Step 20: Gaeriyan
 	-- {npc:9299} Gaeriyan · {item:11243} Videre Elixir
 	["{npc:9299} is a ghost at the graveyard just east of town: drink a {item:11243} there, which kills you, release your spirit and talk to him as a ghost. Then run back to your body to come back to life: the gravestone stands nearby."] = "{npc:9299}是镇子东边不远处墓地里的鬼魂：在那里喝下一瓶{item:11243}，它会杀死你，释放灵魂后以鬼魂形态和他交谈。然后跑回尸体处复活：墓碑就在附近。",
 	-- {npc:8737} Linken · {area:541} Marshal's Refuge
-	["{npc:8737} in {area:541}, Un'Goro: keep it"] = "",
+	["{npc:8737} in {area:541}, Un'Goro: keep it"] = "先留着，之后去找{npc:8737}，他在安戈洛环形山的{area:541}。",
 
 	-- Step 21: Broken Pillar
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar
 	["Ride south-west to {npc:7771}'s camp at the {area:1938}."] = "向西南骑行到{area:1938}的{npc:7771}营地。",
 	-- {npc:7771} Marvon Rivetseeker · {area:1417} Sunken Temple
-	["{npc:7771}'s next task, Into the Depths, is inside the {area:1417}: skip it."] = "",
+	["{npc:7771}'s next task, Into the Depths, is inside the {area:1417}: skip it."] = "{npc:7771}的后续任务「深入神庙」要进{area:1417}做，跳过。",
 
 	-- Step 23: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
@@ -140,18 +140,18 @@ return {
 
 	-- Step 24: Marshal's Refuge
 	-- {area:976} Gadgetzan · {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:9999} Ringo · {npc:8737} Linken · {npc:9117} J.D. Collie · {npc:9618} Karna Remtravel
-	["Fly from {area:976} to {area:541}. {npc:9997}'s friend {npc:9999} has gone missing; {npc:8737} stands at the back of the refuge, with {npc:9117} in the cave behind him; {npc:9618} stands just outside, on the way out east."] = "",
+	["Fly from {area:976} to {area:541}. {npc:9997}'s friend {npc:9999} has gone missing; {npc:8737} stands at the back of the refuge, with {npc:9117} in the cave behind him; {npc:9618} stands just outside, on the way out east."] = "从{area:976}飞往{area:541}。{npc:9997}的朋友{npc:9999}失踪了。{npc:8737}站在营地最里面，{npc:9117}在他身后的洞里。{npc:9618}就在营地外，往东出去的路上。",
 	-- {npc:9997} Spraggle Frock
 	["The wooden sign beside {npc:9997}"] = "{npc:9997}旁边的木牌",
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "{npc:9117}：在地下",
 	-- {npc:9116} Eridan Bluewind · {zone:1448} Felwood
-	["For {npc:9116} in {zone:1448}, later in this guide: keep it"] = "",
+	["For {npc:9116} in {zone:1448}, later in this guide: keep it"] = "先留着，稍后按本指南交给{npc:9116}，地点在{zone:1448}。",
 
 	-- Step 25: Northern Pylon
 	["Northern Pylon"] = "北部水晶塔",
 	-- {npc:9166} Pterrordax · {npc:9997} Spraggle Frock · {npc:6584} King Mosh
-	["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997}.\nCareful: {npc:6584} (60), a rare devilsaur, roams the crater's west around 27,46: if you meet him, ride away."] = "",
+	["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997}.\nCareful: {npc:6584} (60), a rare devilsaur, roams the crater's west around 27,46: if you meet him, ride away."] = "水晶塔在营地东边的山坡上。{npc:9166}在附近的山坡上盘旋，击杀它们可推进{npc:9997}的任务。\n小心，{npc:6584}是60级稀有魔暴龙，在环形山西部的27,46附近游荡，遇到就骑乘离开。",
 
 	-- Step 26: A-Me 01
 	-- {area:1943} Ironstone Plateau
@@ -232,7 +232,7 @@ return {
 	["Bones and equipment"] = "骨头和设备",
 	-- {item:11112} Research Equipment
 	-- plural, as words: Dinosaur Bones = {item:11114} Dinosaur Bone
-	["West across the south of the crater: Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from the Diemetradons. The expedition's {item:11112} lies in the south-west jungle.\nCareful: Gruff (57), a rare devilsaur, prowls the south around 38,75: if you meet him, ride away."] = "",
+	["West across the south of the crater: Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from the Diemetradons. The expedition's {item:11112} lies in the south-west jungle.\nCareful: Gruff (57), a rare devilsaur, prowls the south around 38,75: if you meet him, ride away."] = "穿过环形山南部向西走。西南部的精英剑龙周围，地上散落着恐龙骨头。先在剑龙周围捡骨头，缺的再打双帆龙补齐。探险队的{item:11112}就在西南部的丛林里。\n小心，57级稀有怪格鲁夫在南部的38,75附近游荡，遇到就避开。",
 
 	-- Step 44: Western Pylon
 	["Western Pylon"] = "西部水晶塔",
@@ -240,7 +240,7 @@ return {
 
 	-- Step 45: Krakle
 	-- {area:543} Golakka Hot Springs · {npc:10302} Krakle
-	["North-east from the pylon to {area:543}: {npc:10302} the goblin sits by the water."] = "",
+	["North-east from the pylon to {area:543}: {npc:10302} the goblin sits by the water."] = "从水晶塔往东北到{area:543}，地精{npc:10302}坐在水边。",
 
 	-- Step 46: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer
@@ -248,9 +248,9 @@ return {
 
 	-- Step 47: Krakle
 	-- {npc:10302} Krakle
-	["Back west to {npc:10302} at the hot springs."] = "",
+	["Back west to {npc:10302} at the hot springs."] = "向西回到温泉，找{npc:10302}。",
 	-- {npc:9298} Donova Snowden · {zone:1452} Winterspring
-	["Ends with {npc:9298} in {zone:1452}, later in this guide: keep it"] = "",
+	["Ends with {npc:9298} in {zone:1452}, later in this guide: keep it"] = "先留着，这个任务最终要交给{npc:9298}，本指南稍后会去{zone:1452}。",
 
 	-- Step 48: Ringo
 	-- {npc:9999} Ringo · {area:537} Fire Plume Ridge
@@ -264,11 +264,11 @@ return {
 
 	-- Step 51: Fly to Gadgetzan
 	-- {area:541} Marshal's Refuge
-	["{area:541} flight master"] = "",
+	["{area:541} flight master"] = "{area:541}的飞行管理员",
 
 	-- Step 52: Gadgetzan
 	-- {npc:10041} Gorishi Hive Queen · {area:540} Slithering Scar
-	["Pestlezugg's next task, Pawn Captures Queen, sends you back to the {npc:10041} in the {area:540}: skip it."] = "",
+	["Pestlezugg's next task, Pawn Captures Queen, sends you back to the {npc:10041} in the {area:540}: skip it."] = "匹斯特苏格的下一个任务《捕捉皇后》要你回去找{npc:10041}，它在{area:540}。跳过这个任务。",
 
 	-- Step 54: Liv Rizzlefix
 	-- {npc:8496} Liv Rizzlefix
@@ -292,14 +292,14 @@ return {
 
 	-- Step 58: The Emerald Sanctuary
 	-- {npc:10924} Ivy Leafrunner · {npc:11079} Wynd Nightchaser · {area:2253} Starfall Village
-	["{npc:10924}: for {npc:11079} in {area:2253}, later in this guide; keep it"] = "",
+	["{npc:10924}: for {npc:11079} in {area:2253}, later in this guide; keep it"] = "留着{npc:10924}给的任务，本指南后面会带你找{npc:11079}交任务，地点在{area:2253}。",
 	-- {npc:9116} Eridan Bluewind
 	["Wait a moment for {npc:9116}"] = "稍等{npc:9116}片刻",
 	-- {npc:9116} Eridan Bluewind · {quest:4261} Ancient Spirit · {npc:3848} Kayneth Stillwind · {area:2358} Forest Song · {zone:1448} Felwood
-	["{npc:9116}'s next task, {quest:4261}, ends with {npc:3848} at {area:2358}, south of the route once {zone:1448} is done: skip it."] = "",
+	["{npc:9116}'s next task, {quest:4261}, ends with {npc:3848} at {area:2358}, south of the route once {zone:1448} is done: skip it."] = "{npc:9116}的下一个任务《{quest:4261}》要找{npc:3848}交，他在{area:2358}。做完{zone:1448}后，那里在后续路线以南，跳过这个任务。",
 	-- {npc:9116} Eridan Bluewind
 	-- plural, as words: Irontree Stompers = {npc:7139} Irontree Stomper
-	["{npc:9116}'s next task, Silver Heart, sends you to the Irontree Stompers in the north and back here: skip it."] = "",
+	["{npc:9116}'s next task, Silver Heart, sends you to the Irontree Stompers in the north and back here: skip it."] = "{npc:9116}的下一个任务《银爪铁心》要去北边找铁木践踏者，再回到这里。跳过这个任务。",
 
 	-- Step 59: Shadow Hold braziers
 	-- {area:1770} Shadow Hold
@@ -316,7 +316,7 @@ return {
 	-- {object:176161} Brazier of Hatred
 	["{object:176161}, below ground"] = "{object:176161}：在地下",
 	-- {item:11515} Corrupted Soul Shard · {npc:9528} Arathandris Silversky
-	["{item:11515}, from the same cultists: {npc:9528} takes six by the Sanctuary if you did Cleansing Felwood"] = "",
+	["{item:11515}, from the same cultists: {npc:9528} takes six by the Sanctuary if you did Cleansing Felwood"] = "刚才那些信徒也会掉落{item:11515}。完成《净化费伍德》后，可找翡翠圣地附近的{npc:9528}交六块。",
 	-- {npc:11016} Captured Arko'narin
 	["{npc:11016}, in her cell; below ground"] = "{npc:11016}，在地下的牢房内",
 
@@ -326,11 +326,11 @@ return {
 
 	-- Step 62: Greta Mosshoof: A Final Blow
 	-- {quest:5242} A Final Blow · {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold
-	["{quest:5242} is a group quest at this level: {npc:9861} (52), {npc:9860} (54) and {npc:9517} (57) fight together at the back of {area:1770}. Grouping up is encouraged, look for people to do it with. Skip it if you are alone."] = "",
+	["{quest:5242} is a group quest at this level: {npc:9861} (52), {npc:9860} (54) and {npc:9517} (57) fight together at the back of {area:1770}. Grouping up is encouraged, look for people to do it with. Skip it if you are alone."] = "按当前等级，{quest:5242}建议组队做。{npc:9861}（52级）、{npc:9860}（54级）和{npc:9517}（57级）在{area:1770}的深处，会一起参战。找人一起做，单人就跳过。",
 
 	-- Step 63: Rakaiah
 	-- {area:1770} Shadow Hold · {npc:9518} Rakaiah
-	["Back into {area:1770}: the succubus {npc:9518} (56) waits on the way to its deepest chamber, with Trey Lightforge's remains beside her.\nCareful: {npc:9518} is level 56: clear the cultists around her first and fight her at full health."] = "",
+	["Back into {area:1770}: the succubus {npc:9518} (56) waits on the way to its deepest chamber, with Trey Lightforge's remains beside her.\nCareful: {npc:9518} is level 56: clear the cultists around her first and fight her at full health."] = "返回{area:1770}。往最深处的洞室走，路上会遇到魅魔{npc:9518}（56级），特雷·莱弗治的残骸就在她旁边。\n小心，{npc:9518}是56级。先清掉她周围的信徒，满血再开打。",
 	-- {npc:9518} Rakaiah
 	["{npc:9518}, below ground"] = "{npc:9518}：在地下",
 	-- {npc:11020} Remains of Trey Lightforge
@@ -338,7 +338,7 @@ return {
 
 	-- Step 64: A Final Blow
 	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {npc:9518} Rakaiah
-	["{npc:9861} and {npc:9860} guard {npc:9517} in {area:1770}'s deepest chamber, just past {npc:9518}.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "",
+	["{npc:9861} and {npc:9860} guard {npc:9517} in {area:1770}'s deepest chamber, just past {npc:9518}.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "{npc:9861}和{npc:9860}守着{npc:9517}，都在{area:1770}最深处的洞室，过了{npc:9518}就到。\n小心，三个首领会一起参战。先清掉附近的小怪，避免开打时引到额外的敌人。",
 	-- {npc:9861} Moora
 	["{npc:9861}, below ground"] = "{npc:9861}：在地下",
 	-- {npc:9860} Salia
@@ -352,21 +352,21 @@ return {
 	-- Step 66: Arathandris Silversky
 	-- {npc:9528} Arathandris Silversky · {area:1770} Shadow Hold
 	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
-	["{npc:9528} is in the ruins just down the road from the Sanctuary: he takes the six Corrupted Soul Shards (from both trips into {area:1770}) on the spot."] = "",
+	["{npc:9528} is in the ruins just down the road from the Sanctuary: he takes the six Corrupted Soul Shards (from both trips into {area:1770}) on the spot."] = "{npc:9528}在从翡翠圣地沿路走不远的废墟里。两次进入{area:1770}时收集的六块被污染的灵魂碎片，就在这里交给他。",
 
 	-- Step 68: Timbermaw Hold
 	-- {area:1769} Timbermaw Hold
-	["Ride north up the road to the cave mouth of {area:1769}."] = "",
+	["Ride north up the road to the cave mouth of {area:1769}."] = "沿道路向北骑到{area:1769}的洞口。",
 
 	-- Step 69: Kernda
 	-- {npc:11558} Kernda · {area:1769} Timbermaw Hold
-	["{npc:11558} stands just inside the {area:1769} cave: she needs Neutral with the Timbermaw; the reputation guide gets you there."] = "",
+	["{npc:11558} stands just inside the {area:1769} cave: she needs Neutral with the Timbermaw; the reputation guide gets you there."] = "{npc:11558}就在{area:1769}洞口里面，要求木喉要塞声望达到中立。按声望指南提升声望。",
 	-- {npc:11558} Kernda
 	["{npc:11558}: walks around here: look inside the circle on the map"] = "{npc:11558}在附近走动：到地图标示的圆圈内寻找",
 
 	-- Step 71: Meilosh
 	-- {npc:11557} Meilosh · {npc:11558} Kernda · {quest:6031} Runecloth
-	["{npc:11557}, just inside the cave beside {npc:11558}, takes thirty {quest:6031} from Friendly with the Timbermaw; the reputation guide gets you there."] = "",
+	["{npc:11557}, just inside the cave beside {npc:11558}, takes thirty {quest:6031} from Friendly with the Timbermaw; the reputation guide gets you there."] = "{npc:11557}在洞口里面，就在{npc:11558}旁边。木喉要塞声望达到友善后，可以交给他三十块{quest:6031}。按声望指南提升声望。",
 	-- {npc:11557} Meilosh
 	["{npc:11557}; below ground"] = "{npc:11557}，在地下",
 
@@ -374,19 +374,19 @@ return {
 	-- {zone:1452} Winterspring
 	["Into {zone:1452}"] = "进入{zone:1452}",
 	-- {area:1769} Timbermaw Hold · {zone:1452} Winterspring
-	["Through {area:1769}'s tunnel to its {zone:1452} end."] = "",
+	["Through {area:1769}'s tunnel to its {zone:1452} end."] = "穿过{area:1769}的隧道，从{zone:1452}一侧出来。",
 
 	-- Step 73: Donova Snowden
 	-- {npc:9298} Donova Snowden
-	["Ride on to {npc:9298}'s camp beside the hot springs."] = "",
+	["Ride on to {npc:9298}'s camp beside the hot springs."] = "继续骑到{npc:9298}在温泉旁的营地。",
 	-- {quest:980} The New Springs · {area:2256} Darkwhisper Gorge
-	["{quest:980}' follow-up, Strange Sources, is at {area:2256}'s mouth among elite giants and Hederine: skip it."] = "",
+	["{quest:980}' follow-up, Strange Sources, is at {area:2256}'s mouth among elite giants and Hederine: skip it."] = "{quest:980}的后续任务《奇怪的源头》要去{area:2256}入口，那里有精英巨人和赫达琳恶魔。跳过这个任务。",
 	-- {quest:5086} Toxic Horrors · {zone:1448} Felwood
-	["The {quest:5086} are just back through the tunnel, in {zone:1448}"] = "",
+	["The {quest:5086} are just back through the tunnel, in {zone:1448}"] = "{quest:5086}的目标就在隧道另一头，原路返回{zone:1448}就能找到。",
 
 	-- Step 74: Felwood
 	-- {zone:1448} Felwood · {area:1998} Talonbranch Glade · {quest:5086} Toxic Horrors · {area:1767} Irontree Woods
-	["Back through the tunnel to {zone:1448} and south past {area:1998}: the {quest:5086} (53) roam the north-eastern tip of {area:1767}."] = "",
+	["Back through the tunnel to {zone:1448} and south past {area:1998}: the {quest:5086} (53) roam the north-eastern tip of {area:1767}."] = "穿过隧道回到{zone:1448}，向南经过{area:1998}。{quest:5086}的目标（53级）在{area:1767}的东北角游荡。",
 	-- {quest:5086} Toxic Horrors
 	["The {quest:5086}"] = "{quest:5086}",
 
@@ -397,27 +397,27 @@ return {
 
 	-- Step 76: Winterspring
 	-- {area:1769} Timbermaw Hold · {npc:9298} Donova Snowden
-	["Back north through {area:1769}'s tunnel to {npc:9298}."] = "",
+	["Back north through {area:1769}'s tunnel to {npc:9298}."] = "向北原路穿过{area:1769}的隧道，回去找{npc:9298}。",
 
 	-- Step 78: Winterspring: kill these as you meet them
 	-- {zone:1452} Winterspring
 	["{zone:1452}: kill these as you meet them"] = "{zone:1452}：沿途击杀以下目标",
 	-- {quest:5087} Winterfall Runners · {area:2246} Frostfire Hot Springs · {zone:1448} Felwood · {spell:5384} Feign Death
-	["The {quest:5087} (57) carry their crates along the road between {area:2246} and {zone:1448}'s tunnel.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest.\nCareful: the {quest:5087} are 57, over you here: pull one at a time, away from the camp."] = "",
+	["The {quest:5087} (57) carry their crates along the road between {area:2246} and {zone:1448}'s tunnel.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest.\nCareful: the {quest:5087} are 57, over you here: pull one at a time, away from the camp."] = "{quest:5087}（57级）带着箱子，沿{area:2246}和通往{zone:1448}的隧道之间的道路走动。\n小心，交任务时会刷出三到四只56-57级的冬泉伏击者来攻击你。可以骑坐骑跑开、潜行离开，或用{spell:5384}脱身。之后它们会聚到湖边，你就能接下一个任务。\n小心，{quest:5087}是57级，比你现在等级高。一次只引一只，拉离营地再打。",
 
 	-- Step 80: Everlook
 	-- {area:2255} Everlook
 	["Ride east along the road to {area:2255}."] = "沿道路向东骑往{area:2255}。",
 	-- {npc:11755} Harlo Wigglesworth · {npc:10301} Jaron Stoneshaper · {area:2253} Starfall Village
-	["{npc:11755}: for {npc:10301} in {area:2253}, just back up the road"] = "",
+	["{npc:11755}: for {npc:10301} in {area:2253}, just back up the road"] = "{npc:11755}给的任务要交给{npc:10301}，他在{area:2253}，沿原路往回走不远。",
 	-- {npc:10431} Gregor Greystone
-	["{npc:10431}: keep it for the Plaguelands, on the next guide; inside"] = "",
+	["{npc:10431}: keep it for the Plaguelands, on the next guide; inside"] = "{npc:10431}在屋内。先留着任务，按下一份指南到瘟疫之地再做。",
 
 	-- Step 81: Starfall Village
 	-- {area:2253} Starfall Village · {npc:11079} Wynd Nightchaser · {npc:10301} Jaron Stoneshaper
-	["Ride back north-west to {area:2253} on its hill: {npc:11079} and {npc:10301} stand together."] = "",
+	["Ride back north-west to {area:2253} on its hill: {npc:11079} and {npc:10301} stand together."] = "向西北骑回山丘上的{area:2253}，{npc:11079}和{npc:10301}站在一起。",
 	-- {quest:5250} Starfall
-	["The relics are in the ruins just south of {quest:5250}"] = "",
+	["The relics are in the ruins just south of {quest:5250}"] = "遗物在{quest:5250}南边不远的废墟里。",
 
 	-- Step 82: The Ruins of Kel'Theril
 	-- {area:2253} Starfall Village · {npc:10304} Aurora Skycaller · {zone:1423} Eastern Plaguelands
@@ -425,32 +425,32 @@ return {
 
 	-- Step 83: The road to Everlook: furs and horns
 	-- {area:2255} Everlook
-	["The road to {area:2255}: furs and horns"] = "",
+	["The road to {area:2255}: furs and horns"] = "去{area:2255}的路上收集毛皮和角",
 	-- {area:2255} Everlook · {npc:9298} Donova Snowden
 	-- plural, as words: Thick Yeti Furs = {item:12366} Thick Yeti Fur · Uncracked Chillwind Horns = {item:12444} Uncracked Chillwind Horn · Rogue Ice Thistles = {npc:7457} Rogue Ice Thistle · Fledgling Chillwinds = {npc:7447} Fledgling Chillwind · Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti · Chillwind Chimaeras = {npc:7448} Chillwind Chimaera
-	["Still short of Thick Yeti Furs or Uncracked Chillwind Horns? The Rogue Ice Thistles and the Fledgling Chillwinds (both 53-55) live along the road west of {area:2255}, toward {npc:9298}. The hills east of {area:2255} hold only the Ice Thistle Yetis (55-56), Matriarchs and Patriarchs, and the Chillwind Chimaeras (55-57) and Ravagers (57-59): don't hunt the furs and horns there."] = "",
+	["Still short of Thick Yeti Furs or Uncracked Chillwind Horns? The Rogue Ice Thistles and the Fledgling Chillwinds (both 53-55) live along the road west of {area:2255}, toward {npc:9298}. The hills east of {area:2255} hold only the Ice Thistle Yetis (55-56), Matriarchs and Patriarchs, and the Chillwind Chimaeras (55-57) and Ravagers (57-59): don't hunt the furs and horns there."] = "还缺厚雪人毛皮或完整的冰风奇美拉角？游荡的冰蓟雪人和冰风奇美拉幼兽都是53-55级，出没在{area:2255}以西、通往{npc:9298}的路边。{area:2255}以东的丘陵只有冰蓟雪人（55-56级）、冰蓟雪人女王、冰蓟雪人王、冰风奇美拉（55-57级）和冰风破坏者（57-59级）。别在那里刷这两样东西。",
 
 	-- Step 85: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "完美的雪人角",
-	["Check the two outdoor Matriarchs (56) on the western slope of the yetis' hills. Leave the Patriarchs (57) and the cave alone. If you don't get both horns on this pass, skip the hunt and Umi's hand-in."] = "",
+	["Check the two outdoor Matriarchs (56) on the western slope of the yetis' hills. Leave the Patriarchs (57) and the cave alone. If you don't get both horns on this pass, skip the hunt and Umi's hand-in."] = "到雪人出没的山丘西坡，找洞外的两只冰蓟雪人女王（56级）。别打冰蓟雪人王（57级），也别进洞。这趟没拿齐两根角，就跳过收集和找乌米交任务。",
 	-- plural, as words: Ice Thistle Matriarchs = {npc:7459} Ice Thistle Matriarch
-	["Loot the horns from Ice Thistle Matriarchs"] = "",
+	["Loot the horns from Ice Thistle Matriarchs"] = "从冰蓟雪人女王身上拾取雪人角。",
 
 	-- Step 86: Everlook
 	-- {area:2255} Everlook · {area:976} Gadgetzan
-	["Umi's next task scares three goblins in {area:2255}, {area:976} and Un'Goro, behind the route now: skip it."] = "",
+	["Umi's next task scares three goblins in {area:2255}, {area:976} and Un'Goro, behind the route now: skip it."] = "乌米的下一个任务要去{area:2255}、{area:976}和安戈洛环形山吓唬三个地精。现在做这个任务要走回头路，跳过。",
 
 	-- Step 87: Jaron Stoneshaper's camp
 	-- {npc:10301} Jaron Stoneshaper
 	["{npc:10301}'s camp"] = "{npc:10301}的营地",
 	-- {area:2255} Everlook · {npc:10301} Jaron Stoneshaper · {area:2245} Mazthoril
 	-- was: ["Ride south-east down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "向东南沿山谷而下，到{area:2245}雪地里{npc:10301}的破损箱子处，他被毁的马车就在东边。"
-	["Ride south-east from {area:2255} down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "",
+	["Ride south-east from {area:2255} down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "从{area:2255}骑马沿山谷向东南下行，去找{npc:10301}留在{area:2245}雪地里的「破损的箱子」。他被毁的马车就在箱子东边。",
 
 	-- Step 88: Sindrayl
 	-- {zone:1452} Winterspring · {area:1769} Timbermaw Hold · {area:493} Moonglade · {npc:10897} Sindrayl · {area:2361} Nighthaven
-	["Ride back north up the valley and west along the road to the tunnel at {zone:1452}'s western end, where Salfa stands. Walk into {area:1769} and take the {area:493} branch of the tunnel down to {area:493}. {npc:10897}, {area:493}'s flight master, stands south of the lake, outside {area:2361}: learn the flight path from him. The flight master in {area:2361} itself flies only Druids, from her gossip, and has no flight path to learn. The next guide flies on from here."] = "",
+	["Ride back north up the valley and west along the road to the tunnel at {zone:1452}'s western end, where Salfa stands. Walk into {area:1769} and take the {area:493} branch of the tunnel down to {area:493}. {npc:10897}, {area:493}'s flight master, stands south of the lake, outside {area:2361}: learn the flight path from him. The flight master in {area:2361} itself flies only Druids, from her gossip, and has no flight path to learn. The next guide flies on from here."] = "骑马沿山谷向北返回，再沿路向西到{zone:1452}最西端的隧道，萨尔法就站在那里。步行进入{area:1769}，沿通往{area:493}的岔道下到{area:493}。{npc:10897}是{area:493}的飞行管理员，位于湖的南边、{area:2361}外。找他开通飞行点。{area:2361}里的飞行管理员只在对话中为德鲁伊提供飞行服务，那里没有可学的飞行路线。下一份指南从这里起飞。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any Winterfall furbolg can drop the totem, about one kill in thirty: if the top-up did not bring one, keep killing them here until it drops, then right-click it."] = "任何冬泉熊怪都有几率掉落图腾，平均每击杀三十只掉落一个。若补经验时没有获得，就在这里继续击杀，直到掉落，再右键点击。",

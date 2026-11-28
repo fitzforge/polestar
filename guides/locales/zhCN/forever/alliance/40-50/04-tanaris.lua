@@ -8,7 +8,7 @@
 return {
 	-- Step 2: Mirage Raceway
 	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek · {quest:1137} News for Fizzle
-	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. With {quest:1137} handed in, {npc:4630} has work: {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "",
+	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. With {quest:1137} handed in, {npc:4630} has work: {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "{area:2240}在{area:439}，位于{zone:1441}东南部。{npc:4454}在赛道边的侏儒营地，{npc:4630}和{npc:4709}在地精营地旁。交完{quest:1137}后，{npc:4630}有任务给你。先和{npc:4630}交谈，再找{npc:4709}。他会跑去拖住瑞兹尔·铜栓。趁这时去侏儒营地拿走瑞兹尔的计划，再带回给{npc:4630}。",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454}：{quest:1137}，来自 {zone:1418} 的马特克",
 
@@ -74,7 +74,7 @@ return {
 
 	-- Step 12: Ship Schedules
 	-- {item:9250} Ship Schedule · {npc:7882} Security Chief Bilgewhizzle
-	["Only if a Southsea pirate gave you a {item:9250}: it starts a quest for {npc:7882}, inside, where you stand."] = "",
+	["Only if a Southsea pirate gave you a {item:9250}: it starts a quest for {npc:7882}, inside, where you stand."] = "只有从南海海盗身上拿到{item:9250}才能接这个任务。使用它开启任务，交给{npc:7882}，他就在你所在的屋里。",
 
 	-- Step 14: Noonshade Ruins
 	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "注意：窃贼会缴械，游荡者会潜行隐藏，刺客会在你生命值降到 20% 或以下时使用斩杀。",
@@ -121,9 +121,9 @@ return {
 	-- {area:1938} Broken Pillar · {npc:7771} Marvon Rivetseeker · {quest:3161} Gahz'ridian
 	["Ride south to the dig camp at the {area:1938}. {npc:7771} hands you a detector helm: wear it to see the {quest:3161} mounds, which lie thick in the sand around the camp and south-west toward the ogres."] = "向南骑到{area:1938}的挖掘营地。{npc:7771}会给你一顶探测头盔：戴上它才能看到{quest:3161}土堆，营地周围和向西南通往食人魔的沙地里到处都是。",
 	-- {npc:7771} Marvon Rivetseeker · {quest:3380} The Sunken Temple
-	["{npc:7771}: {quest:3380}, from Angelas in Feathermoon"] = "",
+	["{npc:7771}: {quest:3380}, from Angelas in Feathermoon"] = "向{npc:7771}交{quest:3380}，任务是从羽月要塞的安吉拉斯·月风那里接的",
 	-- {npc:7771} Marvon Rivetseeker · {item:10556} Stone Circle · {area:392} Ratchet · {area:976} Gadgetzan
-	["{npc:7771}: the {item:10556} is in {area:392}, on the Un'Goro guide's flight to {area:976}, which hands it in here: keep it"] = "",
+	["{npc:7771}: the {item:10556} is in {area:392}, on the Un'Goro guide's flight to {area:976}, which hands it in here: keep it"] = "先留着{npc:7771}的任务。{item:10556}在{area:392}，跟随安戈洛指南飞往{area:976}的途中会去取，之后回这里交任务",
 
 	-- Step 25: Dunemaul Compound
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley

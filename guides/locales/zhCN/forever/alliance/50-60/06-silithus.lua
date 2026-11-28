@@ -12,28 +12,28 @@ return {
 
 	-- Step 1: Innkeeper Vizzie
 	-- {zone:2482} Mount Hyjal · {area:2255} Everlook · {npc:11118} Innkeeper Vizzie
-	["Back from {zone:2482} in {area:2255}: {npc:11118}'s mail went astray in the hills east of town, where the Ice Thistle yetis carry it off."] = "",
+	["Back from {zone:2482} in {area:2255}: {npc:11118}'s mail went astray in the hills east of town, where the Ice Thistle yetis carry it off."] = "从{zone:2482}回到{area:2255}：{npc:11118}的信件在镇东的山丘上丢失，被冰蓟雪人捡走了。",
 
 	-- Step 2: Missing Mail
 	-- {area:2255} Everlook · {item:258323} Missing Mail
-	["The Ice Thistle yetis (53-57) in the hills east of {area:2255} carry the {item:258323}: take it from the ones at the edge of the hills."] = "",
+	["The Ice Thistle yetis (53-57) in the hills east of {area:2255} carry the {item:258323}: take it from the ones at the edge of the hills."] = "{area:2255}东边山丘上的冰蓟雪人（53–57级）带着{item:258323}，打山丘边缘的雪人就能拿到。",
 
 	-- Step 4: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
 	["Fly to {area:541}"] = "飞往{area:541}",
 	-- {area:541} Marshal's Refuge · {zone:1449} Un'Goro Crater · {zone:1451} Silithus
-	["Fly to {area:541} in {zone:1449}, the way into {zone:1451}."] = "",
-	["Maethrya, the Alliance flight master"] = "",
+	["Fly to {area:541} in {zone:1449}, the way into {zone:1451}."] = "搭乘飞行路线前往{zone:1449}的{area:541}，从那里去{zone:1451}。",
+	["Maethrya, the Alliance flight master"] = "麦瑟蕾亚，联盟飞行管理员",
 
 	-- Step 5: Into Silithus
 	-- {zone:1451} Silithus
 	["Into {zone:1451}"] = "进入{zone:1451}",
 	-- {area:541} Marshal's Refuge · {zone:1451} Silithus
-	["Ride west from {area:541} to the crater's north-western pass into {zone:1451}."] = "",
+	["Ride west from {area:541} to the crater's north-western pass into {zone:1451}."] = "从{area:541}向西，经环形山西北的山口进入{zone:1451}。",
 
 	-- Step 6: Layo Starstrike
 	-- {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
-	["{npc:13220} stands at {area:3077}, where the pass comes out."] = "",
+	["{npc:13220} stands at {area:3077}, where the pass comes out."] = "{npc:13220}就在山口另一侧的{area:3077}。",
 
 	-- Step 9: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
@@ -41,18 +41,18 @@ return {
 	-- {npc:15183} Geologist Larksbane
 	["{npc:15183}: the tablet fragments come from the Twilight dig"] = "{npc:15183}：石板碎片来自暮光挖掘场",
 	-- {npc:15306} Bor Wildmane
-	["{npc:15306}: his Twilight texts come from the dig"] = "",
+	["{npc:15306}: his Twilight texts come from the dig"] = "{npc:15306}：到挖掘场收集他要的暮光密文",
 
 	-- Step 10: Silithus: kill these as you meet them
 	-- {zone:1451} Silithus
 	["{zone:1451}: kill these as you meet them"] = "{zone:1451}：沿途击杀以下目标",
 	-- {npc:15185} Brood of Nozdormu
 	-- plural, as words: Dredge Strikers = {npc:11740} Dredge Striker · Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer
-	["Dredge Strikers dig in the dunes north-west of the hold; Stonelash Scorpids and Sand Skitterers roam all around.\nCareful: {npc:15185} (62, elite) guard the Caverns of Time's mouth in the south-west, around 21,82: stay out of there."] = "",
+	["Dredge Strikers dig in the dunes north-west of the hold; Stonelash Scorpids and Sand Skitterers roam all around.\nCareful: {npc:15185} (62, elite) guard the Caverns of Time's mouth in the south-west, around 21,82: stay out of there."] = "掘泥打击者在要塞西北的沙丘挖掘，石鞭蝎和掠沙蜘蛛在四周游荡。\n注意：西南方约21,82处的时光之穴入口有{npc:15185}（62级精英）把守，别靠近。",
 
 	-- Step 11: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
-	["Back to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Back to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "回到{area:3425}。{npc:15189}在屋里楼上，进门上楼，箭头区分不了楼层。",
 	-- {npc:15189} Beetix Ficklespragg
 	["{npc:15189}, upstairs"] = "{npc:15189}：在楼上",
 
@@ -68,7 +68,7 @@ return {
 	-- {npc:15190} Noggle Ficklespragg · {npc:15189} Beetix Ficklespragg
 	["{npc:15190}, upstairs beside {npc:15189}"] = "{npc:15190}，在楼上{npc:15189}旁边",
 	-- {npc:15181} Commander Mar'alith
-	["{npc:15181} (from level 58): Bronzebeard's Encampment comes later, on the way south"] = "",
+	["{npc:15181} (from level 58): Bronzebeard's Encampment comes later, on the way south"] = "{npc:15181}（58级起）：往南走时再去铜须营地",
 
 	-- Step 14: Hive'Ashi: kill these as you meet them
 	-- {area:2742} Hive'Ashi
@@ -76,7 +76,7 @@ return {
 	-- {item:20404} Encrypted Twilight Text · {npc:15306} Bor Wildmane · {npc:15194} Hermit Ortell · {area:2742} Hive'Ashi · {quest:8308} Brann Bronzebeard's Lost Letter
 	-- plural, as words: Dust Stormers = {npc:11744} Dust Stormer · Desert Rumblers = {npc:11746} Desert Rumbler · Twilight Avengers = {npc:11880} Twilight Avenger · Twilight Flamereavers = {npc:15201} Twilight Flamereaver
 	-- was: ["The Twilight's Hammer dig fills the north-west corner: tablet fragments lie on the ground and the Dust Stormers and Desert Rumblers carry them too. Every cultist can drop an {item:20404}: keep twenty, ten for {npc:15306} and ten for {npc:15194} later.\nCareful: take the texts from the Twilight Avengers and Geolords; leave the Twilight Flamereavers (60) and stay out of the hive's mouth, where the {area:2742} elites (59-60) wait."] = "暮光之锤的挖掘场占据西北角：石板碎片散落在地上，灰尘风暴和沙漠奔行者也携带碎片。每个信徒都可能掉落{item:20404}：留二十个，十个给{npc:15306}，十个稍后给{npc:15194}。\n注意：从暮光复仇者和地卜师身上获取密文；别碰暮光烈焰掠夺者（60级），也别靠近虫巢入口，{area:2742}的精英（59-60级）守在那里。"
-	["The Twilight's Hammer dig fills the north-west corner: tablet fragments lie on the ground and the Dust Stormers and Desert Rumblers carry them too. Every cultist can drop an {item:20404}: keep twenty, ten for {npc:15306} and ten for {npc:15194} later.\nCareful: take the texts from the Twilight Avengers and Geolords; leave the Twilight Flamereavers (60) and stay out of the hive's mouth, where the {area:2742} elites (59-60) wait.\nThe {area:2742} silithids sometimes drop {quest:8308}: keep it for Bronzebeard's Encampment in the south."] = "",
+	["The Twilight's Hammer dig fills the north-west corner: tablet fragments lie on the ground and the Dust Stormers and Desert Rumblers carry them too. Every cultist can drop an {item:20404}: keep twenty, ten for {npc:15306} and ten for {npc:15194} later.\nCareful: take the texts from the Twilight Avengers and Geolords; leave the Twilight Flamereavers (60) and stay out of the hive's mouth, where the {area:2742} elites (59-60) wait.\nThe {area:2742} silithids sometimes drop {quest:8308}: keep it for Bronzebeard's Encampment in the south."] = "暮光之锤的挖掘场在西北角。地上有石板碎片，灰尘风暴和沙漠奔行者身上也有。每个信徒都可能掉落{item:20404}，留二十份，十份给{npc:15306}，另外十份稍后给{npc:15194}。\n注意：打暮光复仇者和暮光地王收集密文，避开暮光烈焰掠夺者（60级）和虫巢入口。入口处有{area:2742}的精英（59–60级）。\n{area:2742}的异种虫有时会掉落{quest:8308}，留着去南边的铜须营地时交。",
 	["Twilight's Hammer cultists"] = "暮光之锤信徒",
 	-- plural, as words: Twilight Tablet Fragments = {item:20378} Twilight Tablet Fragment
 	["Twilight Tablet Fragments"] = "{item:20378}",
@@ -84,11 +84,11 @@ return {
 	["Ten more for {quest:8323}"] = "再交十个用于{quest:8323}",
 
 	-- Step 16: Southwind Village
-	["The tortured druids and sentinels haunt the ruined village east of the hold."] = "",
+	["The tortured druids and sentinels haunt the ruined village east of the hold."] = "被折磨的德鲁伊和被折磨的哨兵在要塞东边的村庄废墟里游荡。",
 
 	-- Step 17: Layo Starstrike
 	-- {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
-	["Ride north-east to {npc:13220} at {area:3077}."] = "",
+	["Ride north-east to {npc:13220} at {area:3077}."] = "往东北去{area:3077}找{npc:13220}。",
 
 	-- Step 18: The Hive'Ashi tower
 	-- {area:2742} Hive'Ashi
@@ -98,7 +98,7 @@ return {
 
 	-- Step 19: Layo Starstrike
 	-- {npc:13220} Layo Starstrike · {zone:1450} Moonglade
-	["{npc:13220}'s next task goes to {zone:1450}: skip it."] = "",
+	["{npc:13220}'s next task goes to {zone:1450}: skip it."] = "{npc:13220}的下一个任务要去{zone:1450}，跳过。",
 
 	-- Step 20: Hermit Ortell
 	-- {area:2738} Southwind Village
@@ -112,14 +112,14 @@ return {
 
 	-- Step 22: Brann Bronzebeard's Lost Letter
 	-- {area:2742} Hive'Ashi · {npc:15170} Rutgar Glyphshaper
-	["From a {area:2742} silithid: for {npc:15170} at Bronzebeard's Encampment"] = "",
+	["From a {area:2742} silithid: for {npc:15170} at Bronzebeard's Encampment"] = "从{area:2742}的异种虫身上获得，交给铜须营地的{npc:15170}",
 
 	-- Step 24: The Twilight Post
 	-- {area:3098} Twilight Post
 	["The {area:3098}"] = "{area:3098}",
 	-- {npc:11803} Twilight Keeper Exeter
 	-- was: ["Careful: the Twilight Keepers are level 60, a level or two over you: clear the cultists around each one first and fight the keeper at full health.\n{npc:11803} holds the cultists' camp in the far south-west."] = "注意：暮光守护者是60级，比你高一两级：先清掉每个守护者周围的信徒，满血再打守护者。\n{npc:11803}占据西南角远处的信徒营地。"
-	["Careful: the Twilight Keepers are level 60: clear the cultists around each one first and fight the keeper at full health.\n{npc:11803} holds the cultists' camp in the far south-west."] = "",
+	["Careful: the Twilight Keepers are level 60: clear the cultists around each one first and fight the keeper at full health.\n{npc:11803} holds the cultists' camp in the far south-west."] = "注意：暮光守护者是60级。先清掉每名守护者周围的信徒，再满血开打。\n{npc:11803}驻守在最西南边的信徒营地。",
 
 	-- Step 25: Twilight Keeper Mayna
 	["Ride north along the west side to Mayna's small camp.\nCareful: Mayna is level 60: clear her camp first and fight her at full health."] = "沿西侧向北骑行到玛伊娜的小营地。\n注意：玛伊娜是60级：先清理她的营地，满血再打她。",
@@ -140,7 +140,7 @@ return {
 	["Level 60"] = "60级",
 	-- {area:3425} Cenarion Hold · {area:2057} Scholomance · {area:2279} Stratholme · {area:3197} Chillwind Camp · {area:2268} Light's Hope Chapel · {zone:1451} Silithus
 	-- plural, as words: Twilight Avengers = {npc:11880} Twilight Avenger · Stonelash Flayers = {npc:11737} Stonelash Flayer · Rock Stalkers = {npc:11739} Rock Stalker
-	["{area:3425}'s last hand-ins can leave a player who followed only this route short of 60 (up to about a level for the slowest; most players less).\nWith a group: run the {area:2057} dungeon or the {area:2279} dungeon, in the Plaguelands by {area:3197} and {area:2268}.\nAlone: the Twilight's Hammer camps of {zone:1451}'s north-west (Twilight Avengers 57-59 and Geolords 58-60; leave the Flamereavers, 60) and the Stonelash Flayers and Rock Stalkers (57-59) around {area:3425} are at your level. {area:3425}'s repeatable quests open only at 60."] = "",
+	["{area:3425}'s last hand-ins can leave a player who followed only this route short of 60 (up to about a level for the slowest; most players less).\nWith a group: run the {area:2057} dungeon or the {area:2279} dungeon, in the Plaguelands by {area:3197} and {area:2268}.\nAlone: the Twilight's Hammer camps of {zone:1451}'s north-west (Twilight Avengers 57-59 and Geolords 58-60; leave the Flamereavers, 60) and the Stonelash Flayers and Rock Stalkers (57-59) around {area:3425} are at your level. {area:3425}'s repeatable quests open only at 60."] = "只跟这条路线走，交完{area:3425}的最后几项任务后可能还没到60级。差得最多的大约一级，多数人差得更少。\n组队：去瘟疫之地打{area:2057}或{area:2279}，两处副本分别靠近{area:3197}和{area:2268}。\n单人：可以去{zone:1451}西北的暮光之锤营地打暮光复仇者（57–59级）或暮光地王（58–60级），避开暮光烈焰掠夺者（60级）。{area:3425}周围的石鞭掠夺者和石行蜘蛛（57–59级）也适合练级。{area:3425}的可重复任务要到60级才开放。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Andorhal"] = "安多哈尔",

@@ -92,7 +92,7 @@ return {
 
 	-- Step 17: Fin Fizracket
 	-- {npc:2486} Fin Fizracket
-	["{npc:2486}, by the inn"] = "",
+	["{npc:2486}, by the inn"] = "{npc:2486}在旅店旁",
 
 	-- Step 18: Whiskey Slim and Fin Fizracket
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket

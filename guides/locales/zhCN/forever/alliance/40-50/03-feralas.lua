@@ -134,23 +134,23 @@ return {
 
 	-- Step 25: OOX-22/FE Distress Beacon
 	-- {zone:1444} Feralas
-	["Only with the distress beacon, a rare drop in {zone:1444}: it starts a quest to find the robot it calls for."] = "",
+	["Only with the distress beacon, a rare drop in {zone:1444}: it starts a quest to find the robot it calls for."] = "只有拿到求救信标才能接这个任务。信标在{zone:1444}稀有掉落，使用后会接到寻找对应机器人的任务。",
 
 	-- Step 26: Homing Robot OOX-22/FE
 	-- {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay · {zone:1425} Hinterlands
-	["The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}, where the boat to Feathermoon leaves; its reward waits with {npc:7406} in {area:35}, on the {zone:1425} guide's {area:35} stop.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "",
+	["The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}, where the boat to Feathermoon leaves; its reward waits with {npc:7406} in {area:35}, on the {zone:1425} guide's {area:35} stop.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "机器人在{area:1105}北侧的小洞穴里，就在废墟西北不远处。护送它到{area:1108}的码头，去羽月要塞的船从那里出发。奖励找{npc:7406}领取，他在{area:35}，跟着{zone:1425}指南到{area:35}这一站时去找他。\n护送途中有三次伏击，机器人每次都会提前提醒。第一波是3只雪人，机器人刚出洞往上爬向大路时出现。第二波是3只猩猩，在沿悬崖的小路上出现。第三波约有4只豺狼人，其中一个会施法，在路线拐向码头处出现。",
 
 	-- Step 27: Feathermoon Stronghold
 	-- {npc:7880} Ginro Hearthkindle
 	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:7880}在建筑楼上，从屋内上楼，箭头无法区分楼层。",
 	-- {npc:3936} Shandris Feathermoon · {quest:4267} Rise of the Silithid · {npc:7740} Gracina Spiritmight · {zone:1446} Tanaris · {zone:1457} Darnassus
-	["{npc:3936}: {quest:4267}, for {npc:7740} on the {zone:1446} guide's {zone:1457} stop: keep it"] = "",
+	["{npc:3936}: {quest:4267}, for {npc:7740} on the {zone:1446} guide's {zone:1457} stop: keep it"] = "从{npc:3936}接{quest:4267}，先留着给{npc:7740}，到{zone:1446}指南的{zone:1457}站再交",
 
 	-- Step 28: Angelas Moonbreeze
 	-- {npc:7900} Angelas Moonbreeze · {area:1116} Feathermoon Stronghold · {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {zone:1446} Tanaris
-	["{npc:7900} in {area:1116} sends you to {npc:7771} at the {area:1938} in {zone:1446}, where the {zone:1446} guide stops for his dig."] = "",
+	["{npc:7900} in {area:1116} sends you to {npc:7771} at the {area:1938} in {zone:1446}, where the {zone:1446} guide stops for his dig."] = "{npc:7900}在{area:1116}，会让你去找{npc:7771}。他在{area:1938}，位于{zone:1446}。跟着{zone:1446}指南会到他的挖掘营地。",
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {zone:1446} Tanaris
-	["for {npc:7771} at the {area:1938} in {zone:1446}: keep it"] = "",
+	["for {npc:7771} at the {area:1938} in {zone:1446}: keep it"] = "先留着，之后交给{npc:7771}。他在{area:1938}，位于{zone:1446}",
 
 	-- Step 30: Ride to Thalanaar
 	-- {area:489} Thalanaar
