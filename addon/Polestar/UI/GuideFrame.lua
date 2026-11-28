@@ -582,6 +582,8 @@ GF.Part(function(GF)
 	end
 
 	local function goalTooltip(row)
+		-- A region's row that says its own (`psTipFn`: a profession guide's ways and gathering areas).
+		if row.psTipFn then return row.psTipFn(row) end
 		local goal = row.psGoal
 		if not goal then return end
 		local lines = {}
@@ -799,7 +801,7 @@ GF.Part(function(GF)
 
 	local function rowEnter(row)
 		local goal = row.psGoal
-		if goal and ((goal.x and goal.map) or goal.tickable) then row.Hover:Show() end
+		if goal and ((goal.x and goal.map) or goal.tickable or row.psTipFn) then row.Hover:Show() end
 		goalTooltip(row)
 		GF.HoverIn()
 		GF.BarWake()

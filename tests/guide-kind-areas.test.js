@@ -233,6 +233,39 @@ emit({ mine = mine, herb = herb, skin = skin, fish = KC.GatherIcon("fish") })`);
 	assert.equal(out.fish, 'item6256', 'the Fishing Pole');
 });
 
+test('every way and area row has its tooltip: the way, the item, its line whole and what a click does; an area its nodes, safe level and how far', () => {
+	const out = run('E.SetGuide("test/smithing"); stub.advance(0.5)', `E.SetGuide("test/smithing"); stub.advance(0.5)
+local function tip(r)
+	GameTooltip:Hide(); GameTooltip.lines = {}
+	r:GetScript("OnEnter")(r)
+	local t = GameTooltip:IsShown() and table.concat(GameTooltip.lines or {}, " / ") or false
+	r:GetScript("OnLeave")(r)
+	return t and plain(t) or false
+end
+local function rowsOf(id)
+	local out = {}
+	for _, r in ipairs(GF.RegionFrame(id).List) do if r:IsShown() then out[#out + 1] = r end end
+	return out
+end
+at(1)
+local get = rowsOf("get")
+local smith = { mine = tip(get[2]), area = tip(get[3]), ah = tip(get[6]) }
+E.SetGuide("test/mining"); stub.advance(0.5)
+at(1)
+local areas = rowsOf("areas")
+emit({ smith = smith, way = tip(areas[2]), near = tip(areas[4]) })`);
+	assert.match(out.smith.mine, /^Mine it/);
+	assert.match(out.smith.mine, /Rough Stone/);
+	assert.match(out.smith.area, /^Red Cloud Mesa \/ /);
+	assert.match(out.smith.area, /~12 veins  ·  you're here/);
+	assert.match(out.smith.ah, /^Buy it at the Auction House/);
+	assert.match(out.smith.ah, /40 more/);
+	assert.match(out.way, /^Mine it/);
+	assert.match(out.near, /^Near Bael'dun Digsite, Mulgore/);
+	assert.match(out.near, /safe from 8  ·  4 min away/);
+	assert.match(out.near, /Click to point the arrow here/);
+});
+
 test('compact: the goal\'s row and the arrow\'s area only', () => {
 	const out = run('Polestar.Set("ui.compact", true)', `at(1)
 emit(rows("areas"))`);
