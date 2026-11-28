@@ -1850,10 +1850,10 @@ fn the_step_key_targets_a_line_s_mobs_after_the_live_step_s_own_1316() {
 		.join("\n"),
 		..Default::default()
 	});
-	let wolves = "/cleartarget [nocombat][dead]\n/targetexact Young Wolf\n/cleartarget [dead]";
-	assert_eq!(out[0], json!([true, "", wolves]));
-	assert_eq!(out[1], json!(["2:1:50", format!("{wolves}\n/targetexact [noexists] Kobold Vermin\n/cleartarget [dead]")]));
-	assert_eq!(out[2], wolves);
+	let wolves = "/cleartarget [nocombat][dead]\n/targetexact Young Wolf\n/targetexact [noharm] Young Wolf";
+	assert_eq!(out[0], json!([true, "", format!("{wolves}\n/cleartarget [dead][noharm]")]));
+	assert_eq!(out[1], json!(["2:1:50", format!("{wolves}\n/targetexact [dead][noharm] Kobold Vermin\n/cleartarget [dead][noharm]")]));
+	assert_eq!(out[2], out[0][2]);
 }
 
 // One objective on several steps (Fitz, 0.3.6, the Barrens: "Collect Intact Raptor Horn 0/5" three times, from steps

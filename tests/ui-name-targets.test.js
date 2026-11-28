@@ -145,7 +145,7 @@ test('each enabled mob or item-source objective uses the shared target macro wit
 		emit({ enabled = Polestar.GetDefault("qol.guideNameTarget"), marking = Polestar.GetDefault("qol.markTarget"),
 			kill = kill and { name = kill.psName, kind = kill.psKind, macro = kill:GetAttribute("macrotext1"), type = kill:GetAttribute("type1") },
 			collect = collect and { name = collect.psName, kind = collect.psKind, macro = collect:GetAttribute("macrotext1") },
-			expected = Polestar.QoL.Buttons.TargetMacro({ "Kobold Vermin" }, 1, Polestar.QoL.Buttons.MarkLine("mob")),
+			expected = Polestar.QoL.Buttons.TargetMacro({ "Kobold Vermin" }, 1, Polestar.QoL.Buttons.MarkLine("mob"), nil, nil, "kill"),
 			header = targetFor(GF.parts.person) ~= nil })`);
 	assert.equal(out.enabled, false);
 	assert.equal(out.marking, true);

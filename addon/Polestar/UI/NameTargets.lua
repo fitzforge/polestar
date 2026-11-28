@@ -157,7 +157,7 @@ function NameTargets.Refresh()
 			if changed then
 				b:SetAttribute("macrotext1", macro)
 				b.psMacro = macro
-				buttons.SetPress(b, { name }, kind, macro, false)
+				buttons.SetPress(b, { name }, entry.goal.t == "kill" and "kill" or kind, macro, false)
 			end
 			place(b)
 			-- A shared mark cycle changes the macro under a stationary cursor.
