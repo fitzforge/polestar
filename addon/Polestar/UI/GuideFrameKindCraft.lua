@@ -637,10 +637,11 @@ ns.UI.GuideFrame.Part(function(GF)
 		if Mt and id then Mt.SetWay(id, item, way) end
 	end
 
-	-- Whether an open Auction House can take a search: the Auction House way's button then reads Buy list and starts it.
+	-- Whether an open Auction House can take a search (Materials.CanSearch: the game's own window or Auctionator's):
+	-- the Auction House way's button then reads Buy list and starts it.
 	local function searchable()
 		local Mt = M()
-		return Mt and Mt.AuctionOpen and Mt.AuctionOpen() and Mt.Search and true or false
+		return Mt and Mt.CanSearch and Mt.CanSearch() and Mt.Search and true or false
 	end
 
 	-- Puts `count` of item on the buy list: the game's search at an open Auction House, Auctionator's list when it
