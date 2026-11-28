@@ -252,8 +252,9 @@ fn dedupe(v: Vec<&'static str>) -> Vec<&'static str> {
 }
 
 /// Pinned builds and their tables: the QuestXP table (`data`); with `builders` the Codex's Era item
-/// tables, the talent trees, the map overlays, both quest tables of the "New in Forever" ids and the
-/// walking maps' subzone names' tables in English (`forge data subzones` fetches each language's itself).
+/// tables, the talent trees, the map overlays, the dungeons' loading screens, both quest tables of the
+/// "New in Forever" ids and the walking maps' subzone names' tables in English (`forge data subzones`
+/// fetches each language's itself).
 pub fn pinned_tables(data: bool, builders: bool) -> Vec<(&'static str, Vec<&'static str>)> {
 	let mut era: Vec<&'static str> = if data { vec!["QuestXP"] } else { Vec::new() };
 	let mut out = Vec::new();
@@ -261,6 +262,7 @@ pub fn pinned_tables(data: bool, builders: bool) -> Vec<(&'static str, Vec<&'sta
 		era.extend(crate::codex::client::ERA_TABLES);
 		out.push((crate::talents::BUILD, crate::talents::TABLES.to_vec()));
 		out.push((crate::worldmap::OVERLAYS_BUILD, crate::worldmap::OVERLAY_TABLES.to_vec()));
+		out.push((crate::dungeon_art::BUILD, crate::dungeon_art::TABLES.to_vec()));
 		out.push((crate::newquests::ERA_BUILD, crate::newquests::TABLES.to_vec()));
 		out.push((crate::newquests::FOREVER_BUILD, crate::newquests::TABLES.to_vec()));
 		out.push((crate::subzones::BUILD, crate::subzones::TABLES.to_vec()));

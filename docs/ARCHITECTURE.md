@@ -10301,13 +10301,15 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   opens `Dungeons.Attune` in a new tab as the pick-up guide does) and a row per
   step of the filter's side (state glyph, the quest in its difficulty colour
   or what drops it, its state, giver and zone or chance and instance; a click
-  sets the arrow there); the other side's entries carry no state. Map: the entrance and
-  the quest givers on its zone painting. A dungeon whose entrance is not known
+  sets the arrow there); the other side's entries carry no state. Map: the entrance and the quest givers on its zone painting. A dungeon whose entrance is not known
   paints its page's `zone` (the Codex takes it from the client's AreaTable: an
   open-world area of the instance's name, Forever's Blackmaw Hold in Azshara)
   whole on its card, header and Map tab, names it in the facts, and the Map tab
   says where it lies; one with no zone either wears its loading screen
-  (`Dungeons.Art`, through `ZoneArt.Picture`). Blocks, rows, tiles, chips and cards
+  (`Dungeons.Art`, through `ZoneArt.Picture`). The list cards and the page header wear
+  the dungeon's loading screen (`Dungeons.Art`'s crop, `paintBanner`) wherever it has one
+  and the map's painting where it has none (the continent-shared instances); the Map tab
+  is the map alone. Blocks, rows, tiles, chips and cards
   are pooled; quest states refresh on QUEST_ACCEPTED, QUEST_REMOVED,
   QUEST_TURNED_IN and PLAYER_LEVEL_UP, the Attunement tab also on
   BAG_UPDATE_DELAYED and UPDATE_FACTION. `UI.DungeonsSection` exposes
@@ -10340,7 +10342,8 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `UI.ZoneArt.Picture(art, { file, l, r, t, b })` fills the band with a
   picture instead (a dungeon's loading screen, the crop square on screen, the
   band showing the picture's full width at its scale); the next `Paint`
-  replaces it. `tests/zone-art-coverage.test.js` checks every shipped guide's
+  replaces it.
+  `tests/zone-art-coverage.test.js` checks every shipped guide's
   zone, every recorded dungeon door's zone and the fixed paintings against
   the maps the client paints, and that every dungeon has a loading screen.
 - **Community guides in the menu.** Our categories (Leveling, Professions, …)
@@ -11324,6 +11327,28 @@ the core addon, loaded right after `UI/ZoneArt.lua`, because the core is what
 draws it (the menu and the route cards work without any pack), and it
 registers through `ZoneArt.RegisterOverlays` the way `MapFrames.lua` and
 `Maps/ZoneLevels.lua` register their generated tables.
+
+### Dungeon loading screens (`maps art`)
+
+`forge data maps art [--build <ver>] [--offline]` writes
+`addon/Polestar/Dungeons/ArtFiles.lua` (`rust/crates/forge-data/src/dungeon_art.rs`) from the
+client's `Map` and `LoadingScreens` tables (wago.tools CSV cached under
+`data/sources/wago/<build>/`; `LoadingScreens` is also saved with the client tables in
+`data/sources/client-tables/<build>/`). A map of `InstanceType` 1 (dungeon) or 2 (raid)
+names its screen in `LoadingScreenID`; `LoadingScreens` holds the files: `MainImageFileDataID`
+(Forever's own 2992x1684 screens, "wide") or `NarrowScreenFileDataID` (Classic's, a 4:3 picture
+in a square texture, "narrow"; the `WideScreen` columns are 0 on every instance screen of the
+build). An instance on the screen of an open-world map (the continents') or on none is left out,
+with the client's test and unused maps: The Searing Basin, Shadow Hold, Starfall Barrow Den,
+Deadwind Pass, Manor Mistmantle, Caverns of Time, The Scarab Dais and Emerald Dream have no
+picture of their own. Forever's own dungeons whose rows the client keeps encrypted (The Drowned
+City, Blackmaw Hold, Alcaz Prison, The Shaper's Terrace, Krol'dok Stronghold) are pinned in
+`dungeon_art.rs` by map id and file; a pin whose map the table holds is reported and dropped.
+The default build is 1.60.1.70532. The file registers through `Dungeons.ArtFiles`
+(`{ wide = { [map] = file }, narrow = { [map] = file } }`) and is loaded before
+`Dungeons/Art.lua`, whose crops for the cards and the heads-up ring read their files from it.
+forge-data's `dungeon_art` tests check that every Classic dungeon and raid has a screen and that
+the continents' have none, and (with the cached tables) that the file is up to date.
 
 ### Codex (`codex build`)
 
