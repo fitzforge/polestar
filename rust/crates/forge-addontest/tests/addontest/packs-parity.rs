@@ -68,9 +68,11 @@ const CASES: &[Case] = &[
 	goal("kill-target", "kill needs target", r#"`kill` needs an npc id or "Target name""#, r#"{ t = "kill" }"#),
 	goal("collect-item", "collect needs item", r"`collect` needs an item id", r#"{ t = "collect", itemName = "Linen Cloth" }"#),
 	goal("collect-itemname", "collect needs itemName", r"item 999999 is not in data", r#"{ t = "collect", item = 999999 }"#),
-	goal("goto-map", "goto needs map", r"coordinates need a zone", r#"{ t = "goto", x = 50, y = 50 }"#),
-	goal("goto-x", "goto needs x", r#"malformed coordinates ",50""#, r#"{ t = "goto", map = 1429, y = 50 }"#),
-	goal("goto-y", "goto needs y", r#"malformed coordinates "50,""#, r#"{ t = "goto", map = 1429, x = 50 }"#),
+	// A goto with no place at all (no map, x, y nor `nearest` candidates, format 12); one with half a place is
+	// the generic coordinates refusal.
+	goal("goto-map", "goto needs map, x, y", r"coordinates need a zone", r#"{ t = "goto" }"#),
+	goal("goto-x", "coordinates need map, x and y", r#"malformed coordinates ",50""#, r#"{ t = "goto", map = 1429, y = 50 }"#),
+	goal("goto-y", "coordinates need map, x and y", r#"malformed coordinates "50,""#, r#"{ t = "goto", map = 1429, x = 50 }"#),
 	goal("talk-npc", "talk needs npc", r"`talk` needs an npc id", r#"{ t = "talk", npcName = "Marshal McBride" }"#),
 	goal("talk-npcname", "talk needs npcName", r"npc 999999 is not in data", r#"{ t = "talk", npc = 999999 }"#),
 	goal("interact-object", "interact needs object", r"`interact` needs an object id", r#"{ t = "interact", objName = "Kobold Crate" }"#),
@@ -129,7 +131,7 @@ const CASES: &[Case] = &[
 
 // Generic reasons the runtime gives whatever the verb table holds; every other goal-level reason is derived
 // from Guides.VERBS below.
-const GENERIC: [&str; 6] = ["unknown verb fish", "coordinates outside 0-100", "step 1 has no goals", "step 1: bad image", "no steps", OUTSIDE];
+const GENERIC: [&str; 7] = ["unknown verb fish", "coordinates need map, x and y", "coordinates outside 0-100", "step 1 has no goals", "step 1: bad image", "no steps", OUTSIDE];
 
 // Lua: the runtime's verb reasons, derived from Guides.VERBS: for each verb a goal with every required field
 // filled (its own checker picks a number or a string), then that goal without each field in turn; a filled
