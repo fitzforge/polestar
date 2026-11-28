@@ -3053,6 +3053,41 @@ function Nav.WouldCastTeleport(from, to, t)
 	return false
 end
 
+-- Vias (#4467): the places a leveling guide's hidden steps of places only went by on the way to the live step's
+-- work (the Engine's Own.viasOf), a soft preference. The arrow goes by the first via still ahead, in route order,
+-- unless the player
+--   * stands within VIA_REACH yards of it (reached: the next one counts), or nearer the work than it is (past it),
+--     or going by it is longer than VIA_DETOUR times the straight way (elsewhere: they came another way, or a
+--     teleport, the Hearthstone or a flight set them down past it);
+--   * has a faster way (the travel planner on): its estimate straight to the work (teleports, the Hearthstone,
+--     flights, boats: Nav.EstimateTravel) beats the way by the via by more than VIA_DETOUR and VIA_SLACK seconds.
+-- A walk that keeps to the via's side costs no more than VIA_DETOUR, so only another way of travel drops it; the
+-- verdict holds VIA_HOLD seconds for the same via and work, by place (three estimates a plan each).
+-- vias = { { c, wx, wy, map, x, y, f }, ... }; to = the work's waypoint ({ map, x, y, f }); the player at
+-- (pc, px, py). geometry = true: the place checks only (the Engine's arrival poll). -> the via, its index; or nil.
+Travel.VIA_REACH, Travel.VIA_DETOUR, Travel.VIA_SLACK, Travel.VIA_HOLD = 40, 1.5, 30, 10
+Travel.viaVerdict = nil -- { vx, vy, tx, ty, at, faster }
+function Nav.ViaPick(vias, to, pc, px, py, geometry)
+	local tc, twx, twy = pointWorld(to)
+	if not (tc and pc and vias) then return nil end
+	local dP = yards(pc, px, py, tc, twx, twy)
+	for i, v in ipairs(vias) do
+		local dPV, dV = yards(pc, px, py, v.c, v.wx, v.wy), yards(v.c, v.wx, v.wy, tc, twx, twy)
+		if dP < huge and dPV > Travel.VIA_REACH and dV < dP and dPV + dV <= dP * Travel.VIA_DETOUR then
+			if geometry or not (ns.Get("nav.travel") and not Nav.HandedOff()) then return v, i end
+			local m, now = Travel.viaVerdict, GetTime()
+			if not (m and m.vx == v.wx and m.vy == v.wy and m.tx == twx and m.ty == twy and now - m.at < Travel.VIA_HOLD) then
+				local direct, a, b = Nav.EstimateTravel(nil, to), Nav.EstimateTravel(nil, v), Nav.EstimateTravel(v, to)
+				m = { vx = v.wx, vy = v.wy, tx = twx, ty = twy, at = now, faster = direct and a and b and direct * Travel.VIA_DETOUR + Travel.VIA_SLACK < a + b or false }
+				Travel.viaVerdict = m
+			end
+			if m.faster then return nil end
+			return v, i
+		end
+	end
+	return nil
+end
+
 -- A route worth following: more than one leg. A lone walk is the direct arrow.
 function Travel.Active()
 	return legs ~= nil and #legs > 1 and ci <= #legs

@@ -72,8 +72,10 @@ pub const GUIDE_KEYS: [&str; 31] = [
 	"fresh",
 	"steps",
 ];
-/// `image` follows note, so a step without one is emitted as before; so does `section`.
-pub const STEP_KEYS: [&str; 10] = ["title", "note", "image", "label", "only", "when", "along", "skipto", "section", "goals"];
+/// `image` follows note, so a step without one is emitted as before; so does `section`. `via` (a leveling step of
+/// places only, a hidden hint on the way to the next step: resolve.rs, mark_vias) and `keep` (one kept as a step, its
+/// kind) come after `skipto`, so a step with neither is emitted as before.
+pub const STEP_KEYS: [&str; 12] = ["title", "note", "image", "label", "only", "when", "along", "skipto", "via", "keep", "section", "goals"];
 /// A step's picture: its path in the pack's addon folder (no extension) and its size in pixels.
 pub const IMAGE_KEYS: [&str; 3] = ["file", "w", "h"];
 /// A step's `when` predicates and a `next` option's (`nextWhen`, format 4), in this key order (`node`, a

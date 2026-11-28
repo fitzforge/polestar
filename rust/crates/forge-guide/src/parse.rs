@@ -59,7 +59,12 @@ pub const HEADER_KEYS: [&str; 20] =
 /// and interact goals (resolve.rs, applyLoop).
 /// `skipto <label> when <predicate>`: when the route reaches the step and the
 /// predicate holds, it jumps to the labelled step (resolve.rs, checkLabels).
-pub const STEP_KEYS: [&str; 10] = ["zone", "only", "tip", "image", "when", "label", "along", "background", "skipto", "loop"];
+/// `keep <kind> <reason>`: a leveling guide's step of places only stays a step
+/// of its own, for the reason given (resolve.rs, mark_vias); KEEP_KINDS.
+pub const STEP_KEYS: [&str; 11] = ["zone", "only", "tip", "image", "when", "label", "along", "background", "skipto", "loop", "keep"];
+/// Why a step of places only stays a step: a door or a cave's mouth the walking maps can't see, an instance's
+/// entrance, a boarding whose timing the route can't plan, a phasing or event trigger, a spot to stand at for safety.
+pub const KEEP_KINDS: [&str; 5] = ["door", "instance", "boarding", "phasing", "safety"];
 
 // COMMON = text optional only group either (`either`: one of a set in its step); COORDS = at map r frame (`frame` = the `era` / `live` modifiers).
 /// The modifiers each verb takes, in the JS object's order (VERBS is the verbs in this order).
@@ -627,6 +632,20 @@ pub fn parse_guide(text: &str, file: &str, diag: &mut Diagnostics) -> V {
 						cx.err(ln, "duplicate `loop` in step", None);
 					} else {
 						step.set("loop", ln);
+					}
+				}
+				"keep" => {
+					let kind = if toks.len() > 1 && !toks[1].quoted { Some(toks[1].text.to_lowercase()) } else { None };
+					let reason = if toks.len() > 2 { unquote_rest(&line, &lex, 2) } else { String::new() };
+					if step.get("keep").truthy() {
+						cx.err(ln, "duplicate `keep` in step", None);
+					} else if !kind.as_deref().is_some_and(|k| KEEP_KINDS.contains(&k)) {
+						cx.err(ln, format!("`keep` needs a kind: {}", KEEP_KINDS.join(", ")), Some("keep <kind> <reason>"));
+					} else if reason.is_empty() {
+						let k = kind.unwrap_or_default();
+						cx.err(ln, format!("`keep {k}` needs its reason: keep {k} <why the step stays a step of its own>"), None);
+					} else {
+						step.set("keep", obj! { "kind" => kind.unwrap_or_default().as_str(), "reason" => reason.as_str(), "line" => ln });
 					}
 				}
 				_ => {

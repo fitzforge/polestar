@@ -320,6 +320,9 @@ w.moveTo(1452, 31.3, 45.2); stub.fire("QUEST_LOG_UPDATE"); stub.advance(1)
 r.live = E.GetLiveStep()
 w.setLevel(52); stub.advance(1)
 r.back = E.GetLiveStep()
+r.backGuide = E.GetGuide().id
+r.backHas978 = false
+for _, goal in ipairs(E.GetGuide().steps[r.back].goals) do if goal.quest == 978 then r.backHas978 = true end end
 wt = (PolestarCharDB.levelWaits or {{}})[978]
 r.still = wt and wt.level or false
 emit(r)"#
@@ -334,6 +337,8 @@ emit(r)"#
 	assert_eq!(out["started"], true);
 	assert_eq!(out["guide"], "forever/alliance/50-60/03-winterspring");
 	assert_eq!(out["carry"], false, "Winterspring never passes Erelas: {out}");
-	assert_eq!(out["back"], out["live"], "52 in Winterspring: no jump back to Erelas: {out}");
+	// 52 in Winterspring brings the route back to Everlook's own accepts waiting for 52 (the flight there is a hidden via
+	// since #4467, so the guide had moved on past them), never to Erelas in Teldrassil.
+	assert_eq!(json!([out["backGuide"], out["backHas978"]]), json!(["forever/alliance/50-60/03-winterspring", false]), "52 in Winterspring: no jump back to Erelas: {out}");
 	assert_eq!(out["still"], 52, "still waiting: {out}");
 }

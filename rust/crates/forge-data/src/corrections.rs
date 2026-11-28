@@ -1739,10 +1739,23 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 				}
 				(true, true) if !r.get("way").is_undef() => {
 					let w = r.get("way");
-					ck.keys(&format!("{at}.way"), &w, &["at", "label", "title", "when"]);
+					ck.keys(&format!("{at}.way"), &w, &["at", "label", "title", "when", "keep"]);
 					let p = w.get("at");
-					if p.is_undef() && w.get("when").is_undef() {
-						ck.err(format!("{at}.way"), "a way fix moves the walk's end (`at`) or holds it (`when`)");
+					let keep = w.get("keep");
+					if p.is_undef() && w.get("when").is_undef() && keep.is_undef() {
+						ck.err(format!("{at}.way"), "a way fix moves the walk's end (`at`), holds it (`when`) or keeps it a step (`keep`)");
+					}
+					// `keep`: the step of places only before the goal's step stays a step of its own (#4467): its kind
+					// (forge-guide's KEEP_KINDS) and the reason, one line, as its `keep <kind> <reason>` line says it.
+					if !keep.is_undef() {
+						ck.keys(&format!("{at}.way.keep"), &keep, &["kind", "reason"]);
+						if !keep.get("kind").as_str().is_some_and(|k| ["door", "instance", "boarding", "phasing", "safety"].contains(&k)) {
+							ck.err(format!("{at}.way.keep.kind"), format!("{}: door, instance, boarding, phasing or safety", show(&keep.get("kind"))));
+						}
+						let reason = keep.get("reason");
+						if !has_text(&reason) || reason.as_str().is_some_and(|t| t.contains('\n')) {
+							ck.err(format!("{at}.way.keep.reason"), "one line of text: why the step stays a step of its own");
+						}
 					}
 					if !p.is_undef() {
 						ck.keys(&format!("{at}.way.at"), &p, &["map", "x", "y", "frame"]);
@@ -2528,11 +2541,11 @@ mod tests {
 	fn levels_and_way_when_guide_fixes_are_checked() {
 		let src = r#""source": { "kind": "recording", "ref": "r" }, "note": "checked""#;
 		let good = format!(
-			r#"{{ "fixes": [ {{ "id": "l-1", "at": {{ "goal": "levels", "guide": "forever/a" }}, "levels": {{ "top": 33 }}, {src} }}, {{ "id": "w-1", "faction": "Alliance", "at": {{ "quest": 10, "goal": "turnin" }}, "way": {{ "when": "onquest 10" }}, {src} }}, {{ "id": "w-2", "at": {{ "quest": 11, "goal": "turnin" }}, "way": {{ "when": ["!complete 11", "!zone \"Ironforge\""] }}, {src} }} ] }}"#
+			r#"{{ "fixes": [ {{ "id": "l-1", "at": {{ "goal": "levels", "guide": "forever/a" }}, "levels": {{ "top": 33 }}, {src} }}, {{ "id": "w-1", "faction": "Alliance", "at": {{ "quest": 10, "goal": "turnin" }}, "way": {{ "when": "onquest 10" }}, {src} }}, {{ "id": "w-2", "at": {{ "quest": 11, "goal": "turnin" }}, "way": {{ "when": ["!complete 11", "!zone \"Ironforge\""] }}, {src} }}, {{ "id": "w-5", "at": {{ "quest": 11, "goal": "accept" }}, "way": {{ "keep": {{ "kind": "door", "reason": "the walking maps have no way inside" }} }}, {src} }} ] }}"#
 		);
 		assert_eq!(record_findings(None, Some(&good)), Vec::<String>::new());
 		let bad = format!(
-			r#"{{ "fixes": [ {{ "id": "l-1", "at": {{ "goal": "levels", "guide": "forever/a", "quest": 10 }}, "levels": {{ "top": 70 }}, {src} }}, {{ "id": "l-2", "at": {{ "goal": "levels" }}, "levels": {{ "top": 30 }}, "tip": "A tip.", {src} }}, {{ "id": "l-3", "at": {{ "quest": 10, "goal": "turnin" }}, "levels": {{ "top": 30 }}, {src} }}, {{ "id": "w-3", "at": {{ "quest": 12, "goal": "turnin" }}, "way": {{}}, {src} }}, {{ "id": "w-4", "at": {{ "quest": 12, "goal": "accept" }}, "way": {{ "when": "onquest x" }}, {src} }} ] }}"#
+			r#"{{ "fixes": [ {{ "id": "l-1", "at": {{ "goal": "levels", "guide": "forever/a", "quest": 10 }}, "levels": {{ "top": 70 }}, {src} }}, {{ "id": "l-2", "at": {{ "goal": "levels" }}, "levels": {{ "top": 30 }}, "tip": "A tip.", {src} }}, {{ "id": "l-3", "at": {{ "quest": 10, "goal": "turnin" }}, "levels": {{ "top": 30 }}, {src} }}, {{ "id": "w-3", "at": {{ "quest": 12, "goal": "turnin" }}, "way": {{}}, {src} }}, {{ "id": "w-4", "at": {{ "quest": 12, "goal": "accept" }}, "way": {{ "when": "onquest x" }}, {src} }}, {{ "id": "w-6", "at": {{ "quest": 12, "goal": "accept" }}, "way": {{ "keep": {{ "kind": "shortcut", "reason": "" }} }}, {src} }} ] }}"#
 		);
 		let f = record_findings(None, Some(&bad));
 		let has = |s: &str| f.iter().any(|x| x.contains(s));
@@ -2542,7 +2555,9 @@ mod tests {
 			"fixes[1].at: a levels anchor names its guide id",
 			"fixes[1].levels: a `levels` fix uses a record of its own",
 			"fixes[2].at.goal: a `levels` fix is on a guide's `levels` anchor",
-			"fixes[3].way: a way fix moves the walk's end (`at`) or holds it (`when`)",
+			"fixes[3].way: a way fix moves the walk's end (`at`), holds it (`when`) or keeps it a step (`keep`)",
+			"fixes[5].way.keep.kind: \"shortcut\": door, instance, boarding, phasing or safety",
+			"fixes[5].way.keep.reason: one line of text",
 			"fixes[4].way.when: \"onquest x\": `onquest Q[,Q...]` names quest ids",
 		] {
 			assert!(has(s), "{s}: {f:#?}");

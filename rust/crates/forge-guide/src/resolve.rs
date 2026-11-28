@@ -2181,7 +2181,44 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 	check_along_goals(&gsteps.items(), r);
 	check_background(&steps, &gsteps.items(), r);
 	check_materials(&gsteps.items(), r);
+	mark_vias(&guide, &steps, r);
 	guide
+}
+
+/// A leveling guide's step of places only (every goal but its notes a `goto`, `fly` or `enter`) is no step of its
+/// own: the route gets there however is quickest (#4467). It is marked `via`, a hidden hint the Engine reads on
+/// the way to the next step's work (docs/GUIDE_FORMAT.md, "Steps of places only"); its index stays, so saves, legs
+/// and labels keep pointing where they did. `keep <kind> <reason>` keeps one as a step (its kind emitted as `keep`).
+/// An `along` step is passed already. Other categories keep every step as written.
+fn places_only(step: &V) -> bool {
+	let mut any = false;
+	for goal in step.get("goals").items() {
+		match goal.get("t").as_str() {
+			Some("note") => continue,
+			Some("goto" | "fly" | "enter") => any = true,
+			_ => return false,
+		}
+	}
+	any
+}
+fn mark_vias(guide: &V, ast_steps: &[V], r: &mut R) {
+	let leveling = guide.get("category").as_str() == Some("Leveling");
+	for (i, step) in guide.get("steps").items().iter().enumerate() {
+		let keep = ast_steps[i].get("keep");
+		let travel = leveling && step.get("along").is_undef() && places_only(step);
+		if keep.truthy() && !travel {
+			let msg = if leveling {
+				"`keep` is for a step of places only (gotos, a flight, `enter`): this step has work of its own and stays a step anyway"
+			} else {
+				"`keep` is for a leveling guide's step of places only: this guide keeps every step as written"
+			};
+			r.warn(&keep.get("line"), msg, None);
+		} else if keep.truthy() {
+			step.set("keep", keep.get("kind"));
+		} else if travel {
+			step.set("via", true);
+		}
+	}
 }
 
 /// Step labels are guide-wide: each names one step; `along until`/`skipto` name a later step, `done` any.

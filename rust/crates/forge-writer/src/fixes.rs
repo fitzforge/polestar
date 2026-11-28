@@ -918,6 +918,12 @@ fn ways_before(lines: &[String], st: (usize, usize)) -> Vec<(usize, usize)> {
 	out
 }
 
+/// The travel-only step right before the step `st`, whoever it is for (a `way.keep`), or None.
+fn walk_right_before(lines: &[String], st: (usize, usize)) -> Option<(usize, usize)> {
+	let prev = (0..st.0).rev().find(|&k| !trim(&lines[k]).is_empty() && !trim(&lines[k]).starts_with('#'))?;
+	step_body(lines, prev).filter(|p| p.1 == prev + 1 && travel_only(lines, *p))
+}
+
 /// A step's lines (`step` title first) with `tip` its one tip: in place of its tips, else after its
 /// `only`, `zone` and `when` lines.
 fn with_tip(mut step: Vec<String>, tip: &str) -> Vec<String> {
@@ -1150,7 +1156,10 @@ fn apply_step(tree: &mut BTreeMap<String, String>, files: &[String], r: &Value, 
 /// not Ricter's spawn among linked guards). With `way.when` (a condition, or a list) every travel-only
 /// step of that walk gets the conditions, after its `only` and `when` lines: a class's walk to a class
 /// quest taken in an earlier guide, made only by whoever carries it (`onquest 94774`, Laurena in
-/// Stormwind's cathedral).
+/// Stormwind's cathedral). With `way.keep` ({ kind, reason }) the travel-only step right before the goal's
+/// step, whoever it is for, stays a step of its own: a `keep <kind> <reason>` line after its `only` and
+/// `when` lines (#4467: the compiler makes every other leveling step of places only a hidden via; a
+/// door the walking maps can't see, an NPC's teleport, a spot to pull to stay steps).
 /// -> the changed lines.
 fn apply_way(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> {
 	let w = &r["way"];
@@ -1159,12 +1168,25 @@ fn apply_way(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> 
 		Value::Array(a) => a.iter().filter_map(Value::as_str).collect(),
 		v => v.as_str().into_iter().collect(),
 	};
+	let keep = w["keep"]["kind"].as_str().zip(w["keep"]["reason"].as_str());
 	let mut seen: FxHashSet<usize> = FxHashSet::default();
 	// (From the last step, so a `when` put in leaves the steps before where they are.)
 	let mut steps: Vec<(usize, usize)> = found.iter().filter_map(|&i| step_body(lines, i)).filter(|st| seen.insert(st.0)).collect();
 	steps.sort_unstable_by(|a, b| b.cmp(a));
 	let mut changed = Vec::new();
-	for st in steps {
+	for mut st in steps {
+		if let Some((kind, reason)) = keep {
+			if let Some((s, e)) = walk_right_before(lines, st).filter(|&(s, e)| !(s + 1..e).any(|k| re!(r"^\s+keep\s").is_match(&lines[k]))) {
+				let ind = goals_in(lines, (s, e)).first().map_or("  ".to_string(), |&k| lines[k][..lines[k].len() - lines[k].trim_start().len()].to_string());
+				let mut k = s + 1;
+				while k < e && re!(r"^\s+(only|when)\s").is_match(&lines[k]) {
+					k += 1;
+				}
+				lines.insert(k, format!("{ind}keep {kind} {reason}"));
+				changed.push(k);
+				st = (st.0 + 1, st.1 + 1);
+			}
+		}
 		let walks = ways_before(lines, st);
 		if let (Some(at), Some(&walk)) = (&at, walks.last()) {
 			if let Some(g) = (walk.0 + 1..walk.1).rev().find(|&k| re!(r"^\s+goto\s").is_match(&lines[k])) {
@@ -1439,7 +1461,8 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			if goal_anchor(&x.r["follows"]).is_some_and(|a| anchor_lines(&lines, &a).is_empty()) {
 				found.clear();
 			}
-			if x.r.get("way").is_some() && !found.iter().any(|&i| step_body(&lines, i).is_some_and(|st| !ways_before(&lines, st).is_empty())) {
+			let keeps = x.r.get("way").is_some_and(|w| w.get("keep").is_some());
+			if x.r.get("way").is_some() && !found.iter().any(|&i| step_body(&lines, i).is_some_and(|st| !ways_before(&lines, st).is_empty() || (keeps && walk_right_before(&lines, st).is_some()))) {
 				found.clear();
 			}
 			if found.is_empty() {
@@ -2286,6 +2309,26 @@ mod tests {
 		] });
 		let (out, states) = fix_all(&[("forever/a.guide", seed)], &fixes);
 		assert_eq!(out[0], seed.replacen("  only Human,Priest\n  zone Stormwind City", "  only Human,Priest\n  when onquest 94774\n  zone Stormwind City", 1));
+		assert_eq!(states, ["applied"]);
+		let (again, states) = fix_all(&[("forever/a.guide", &out[0])], &fixes);
+		assert_eq!(again[0], out[0]);
+		assert_eq!(states, ["redundant"]);
+	}
+
+	#[test]
+	fn a_way_fix_keeps_the_door_before_a_hand_in_a_step_of_its_own() {
+		// #4467: the compiler makes a leveling step of places only a hidden via; the druids' building's south
+		// door before Mathrengyl, upstairs where the walking maps have no way, stays a step (`keep door`), for
+		// whoever it is for, after its `only` line. A door already kept is left as it is.
+		let seed = "guide forever/a\nzone Darnassus\n\nstep Darnassus\n  only NightElf,Druid\n  zone Darnassus\n  goto 35.8,11.6 \"Mathrengyl Bearwalker\"\n\nstep Mathrengyl Bearwalker\n  only Druid\n  turnin 5061\n";
+		let fixes = json!({ "fixes": [
+			{ "id": "enclave-door", "at": { "quest": 5061, "goal": "turnin" }, "way": { "keep": { "kind": "door", "reason": "the walking maps have no way up inside the druids' building: its south door first (#1338)" } } }
+		] });
+		let (out, states) = fix_all(&[("forever/a.guide", seed)], &fixes);
+		assert_eq!(
+			out[0],
+			seed.replacen("  only NightElf,Druid\n", "  only NightElf,Druid\n  keep door the walking maps have no way up inside the druids' building: its south door first (#1338)\n", 1)
+		);
 		assert_eq!(states, ["applied"]);
 		let (again, states) = fix_all(&[("forever/a.guide", &out[0])], &fixes);
 		assert_eq!(again[0], out[0]);

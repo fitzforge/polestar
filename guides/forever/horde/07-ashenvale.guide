@@ -86,6 +86,7 @@ step Je'neu Sancrea
 # near 14,14, zone 719); a straight line from
 # the brazier to the crystals ends on the strand above them.
 step Blackfathom Deeps ruins
+  keep door the Sapphires are in the tunnels under the sunken ruins: the stairs down into the pit first
   tip The way to the Sapphires is through the sunken ruins at the north end of the strand: go down the stairs into the pit.
   goto 14.5,14.2 "Blackfathom Deeps ruins"
 

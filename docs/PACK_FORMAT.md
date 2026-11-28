@@ -556,6 +556,15 @@ skipto").
 { title = "The camp", label = "camp", goals = { ... } },
 ```
 
+`via = true` on a step (a leveling guide's step of places only, written by the
+compiler: docs/GUIDE_FORMAT.md, "Steps of places only"): no step of its own.
+Polestar 0.4.4 and later never stop at it, number it or show it, and lead the
+step after it by its place only while it is on the player's way; an older
+Polestar ignores the key and shows the step as written, so no format change is
+needed. `keep = "<kind>"` (`door`, `instance`, `boarding`, `phasing`,
+`safety`): a step of places only kept as a step; it passes once the step it
+leads to is done.
+
 `abandon` goal: `{ t = "abandon", quest = <id>, title = "<title>" }`. Done once
 the quest is out of the log (never taken, abandoned or turned in alike). A
 `quest` or `title` that is missing or of the wrong type refuses the guide. The

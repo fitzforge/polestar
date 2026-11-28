@@ -3166,6 +3166,34 @@ Planner off, TomTom's arrow or a hand-off: the step leads as written, except tha
 character never learned leads there as travel ("Go to") when the way is handed to Shortest Path Forever too, as
 with Polestar's arrow on or off (#4192): the hand-off then plans its own way to the landing (`Own.travelsToLanding`).
 
+#### Steps of places only are vias
+
+In a leveling guide the compiler writes a step whose goals, notes aside, are only gotos, a flight or `enter` with
+`via = true` (#4467; `markVias` in tools/lib/dsl/resolve.js, `mark_vias` in forge-guide's resolve.rs), unless a
+`keep <kind> <reason>` line keeps it (`keep = "<kind>"`; docs/GUIDE_FORMAT.md, "Steps of places only"). The step
+keeps its index. The Engine:
+
+- treats a via step as no step of its own (`Own.hiddenStep`: no number, no progress share, paging never lands on
+  it), done as the route reaches it (`stepDoneLive`, like an along step), so the live step is the next one and a
+  saved pin or view on it moves on; a via step's `skipto` jump is taken as the route reaches it, and a `done
+  <label>` on one holds once the route is past it (`Own.labelDone`);
+- reads the run of via steps right before the live step as its vias (`Own.viasOf`; each via's place is its last
+  goto or `enter`, or the flight's landing by `Own.flyNodeId`), and `findWaypoint` puts the arrow on the first
+  one still ahead (`Own.viaAim` → `Nav.ViaPick` in Nav/Travel.lua). `Nav.ViaPick` drops a via the player stands
+  within `VIA_REACH` (40 yd) of (`Own.viaReached`, for the session), is nearer the work than, or that is more than
+  `VIA_DETOUR` (1.5) times the straight way; with the planner on, also when `Nav.EstimateTravel` straight to the
+  work (class teleports, the Hearthstone, flights, boats) beats the way by the via by more than `VIA_DETOUR` and
+  `VIA_SLACK` (30 s), the verdict held `VIA_HOLD` (10 s). The arrival poll checks a via waypoint each tick
+  (`Own.viaTick`: reached, passed or left behind, by place alone). The waypoint carries `via` (the via step) and
+  `work` (the live step's own waypoint); its label is the work's;
+- titles the live step "<title> · <zone>" while its work is in another zone and it has vias, used or not
+  (`Own.carriedWhere`), with `travel`, the planner's way to it (`Own.travelWay`), as the line under the header
+  (GuideFrame's `Why` line when there is no `why`);
+- passes a kept step of places only once the step it leads to is done (`Own.keepPassed`), as `Own.stopEmpty`
+  passes an empty stop with the planner on.
+
+Planner off or TomTom's arrow: a via is a plain waypoint (the place checks only), passed on arrival.
+
 #### Focus: one person at a time
 
 A step's goals form **groups**, walked in authored order: a goal joins the

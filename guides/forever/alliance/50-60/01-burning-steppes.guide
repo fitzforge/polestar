@@ -551,6 +551,7 @@ step Rubbing: Rune of Sael'hai
   collect 7972 quest 8256.1 only Priest -- Ichor of Undeath: the Lingering Highborne, about 10%
 
 step Sanath Lim-yo
+  keep boarding Sanath teleports you up to Xylem's tower: no walk reaches it
   zone Azshara
   only Mage
   when onquest 8251

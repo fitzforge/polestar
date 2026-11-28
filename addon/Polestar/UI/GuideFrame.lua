@@ -2696,8 +2696,9 @@ GF.Part(function(GF)
 		person.psHeaderGoal = header
 		paintPerson(g)
 		-- Under the header: why a step that depends on what the player does
-		-- holds nothing for them now (the Engine's `why`, #942).
-		local why = view.why
+		-- holds nothing for them now (the Engine's `why`, #942), else the way
+		-- to a live step's work in another zone (its `travel` line, #4467).
+		local why = view.why or view.travel
 		person.Why:SetText(why or "")
 		person.Why:SetShown(why ~= nil)
 		local E = Engine()

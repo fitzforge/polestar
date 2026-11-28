@@ -515,6 +515,7 @@ step The gnoll camps
 
 # Players report the mine entrance near 61.6,54.1 (quest 76).
 step The Jasperlode Mine's entrance
+  keep door the work is inside the mine: its entrance first
   goto 61.6,54.1 "Jasperlode Mine"
 
 step Jasperlode Mine: kill these as you meet them

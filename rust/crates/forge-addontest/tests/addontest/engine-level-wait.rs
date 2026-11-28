@@ -64,7 +64,8 @@ fn hillsbrad_at_28_7_passes_korran_s_level_29_step_silently_and_29_does_not_fly_
 	let (low, ding) = (&out[0], &out[1]);
 	assert_eq!(low["accept"], "na", "no task, no level text: {low}");
 	assert_eq!(low["line"], false);
-	assert_eq!(low["title"], "Fly to Orgrimmar", "the route moves on as before: {low}");
+	// The flight to Orgrimmar is a hidden via (#4467): the route moves on to Orgrimmar's training.
+	assert_eq!(low["title"], "Train", "the route moves on as before: {low}");
 	assert_eq!(ding["live"], low["live"], "level 29: no flight back to Korran: {ding}");
 }
 
@@ -149,9 +150,10 @@ fn tincho_at_28_7_loading_hillsbrad_keeps_orgrimmar_training_and_the_undercity_o
 	// Taurajo and away from it.
 	for (reload, away) in [(false, false), (true, false), (false, true), (true, true)] {
 		let out = tincho(reload, away);
-		assert_eq!(out["live"], "Fly to the Crossroads", "reload {reload}, away {away}: {out}");
+		// The flights and the zeppelin are hidden vias (#4467): the live step is Orgrimmar's training, then Tarren Mill.
+		assert_eq!(out["live"], "Train", "reload {reload}, away {away}: {out}");
 		assert_eq!(out["korran"], "na", "Korran's accept waits for 29, no task, no level text: {out}");
-		for s in ["Fly to Orgrimmar=upcoming", "Train=upcoming", "Zeppelin to Undercity=upcoming", "Fly to Tarren Mill=upcoming", "Tarren Mill=upcoming"] {
+		for s in ["Train=current", "Tarren Mill=upcoming"] {
 			assert!(out["steps"].as_array().unwrap().iter().any(|v| v == s), "reload {reload}, {s}: {out}");
 		}
 		for s in ["High Executor Darthalia", "Krusk", "Hillsbrad Fields", "Hillsbrad Peasants", "Durnholde Keep", "The smithy"] {

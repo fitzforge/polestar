@@ -34,6 +34,7 @@ mod dsl_smart;
 mod dsl_upto;
 mod dsl_validate;
 mod dsl_verbs;
+mod dsl_via;
 mod dsl_walks;
 mod dsl_when;
 mod dsl_when_cooldown;
