@@ -39,8 +39,8 @@ const SIDES = ['Alliance', 'Horde'];
 const RANKS = ['Apprentice', 'Journeyman', 'Expert', 'Artisan'];
 // A tip is one short line (docs/forge/professions.md, rule 8); longer ones fail the build.
 const TIP_MAX = 120;
-// Words that make a tip an instruction (an action belongs in a step or a goal).
-const IMPERATIVE = /\b(buy|go to|learn|talk to|train|travel to|head to|visit|pick up|open)\b/i;
+// Words that make a tip an instruction (an action belongs in a step or a goal; what to keep, in the craft's row).
+const IMPERATIVE = /\b(buy|go to|learn|talk to|train|travel to|head to|visit|pick up|open|keep)\b/i;
 // A station within this many yards of a trainer of the profession or a seller of its tool is the town's.
 const TOWN_YARDS = 120;
 // One station per this many yards (a town has one candidate).
@@ -164,6 +164,8 @@ function checkRoute(route, prof, data) {
 		const spell = band.recipe || band.make;
 		const r = recipes.get(spell);
 		const at = band.make ? `make ${spell}` : `${band.from}-${band.to}`;
+		// `keep` is the row's short phrase after "keep" ("them for the belts"), never a sentence.
+		if (band.keep && !/^[a-z0-9][^.:;]{0,39}$/.test(band.keep)) errs.push(`${at}: \`keep\` "${band.keep}" is the row's phrase after "keep" ("them for the belts"): lower case, at most 40 characters, no sentence`);
 		if (!r) {
 			errs.push(`${at}: recipe ${spell} is not ${prof.name}'s`);
 			continue;
@@ -266,6 +268,11 @@ function routeGuide(name, data, opts = {}) {
 	const items = data.items || {};
 	const mats = prof.materials || {};
 	const itemName = (id) => (mats[id] || items[id] || {}).name || `item ${id}`;
+	// "54 Empty Vials", "9 Silverleaf": a herb, ore or fish the data gathers is a mass noun (D.items).
+	const countOf = (n, id) => {
+		const g = (mats[id] || {}).gather || (items[id] || {}).gather || {};
+		return D.items(n, itemName(id), !!(g.herb || g.mine || g.fishing));
+	};
 	const recipeName = (spell) => recipes.get(spell).name;
 	const quests = data.quests || {};
 	const mines = (profs[186] || {}).recipes || [];
@@ -442,7 +449,7 @@ function routeGuide(name, data, opts = {}) {
 				// rank teaches the earlier recipes too); one from an item, from the bags as before.
 				const lines = r.recipeItem && !taught(r) ? first.lines : [`  learn ${r.spell} npc ${[...new Set(SIDES.flatMap((s) => sec.teachers[s] || []))].join(',')}`];
 				// Shown only to a player who does not know it: one who does never sees or counts the step.
-				step('learn', `Learn ${r.name}`, { tip: `Taught at ${first.skill}, a visit this part of the guide starts past.`, lines, also: [`!knows ${r.spell}`] });
+				step('learn', `Learn ${r.name}`, { tip: `Taught at ${first.skill}, before the part of the guide you started from.`, lines, also: [`!knows ${r.spell}`] });
 			}
 			return;
 		}
@@ -496,17 +503,26 @@ function routeGuide(name, data, opts = {}) {
 			if (have < n && !route.materials[k]) throw new Error(`${P}: ${band.from || 'make'}-${band.to || ''} ${r.name} uses ${n} ${itemName(k)}, the bags hold ${have}`);
 			stock.set(Number(k), Math.max(0, have - n));
 		}
-		// The craft's count for the window ("about N crafts"), then its keep or heads-up line when both fit.
+		// The row says what to keep (` · keep them for the belts`); a kept craft is done on its count, since later
+		// steps use what it makes, and its tip says the skill it takes the player to. Otherwise the tip is the count
+		// ("about N crafts") and the band's heads-up when both fit. A craft to the skill a disenchanting step just
+		// aimed at is only for those it left short.
 		const tool = (route.tools || []).some((t) => t.at === 'craft' && t.item === r.item) && !tools.has(r.item);
-		const about = band.make || band.count < 2 ? null : `About ${band.count} crafts.`;
-		const own = band.keep || band.note || (tool ? 'A tool: it stays in your bags, and later recipes need it.' : band.make ? `Parts for ${band.for}; no skill points from these.` : null);
-		const tip = about && own ? (`${about} ${own}`.length <= TIP_MAX ? `${about} ${own}` : own) : about || own;
-		if (band.make) {
-			step('make', `Craft ${D.crafts(band.count, r.name)}`, { tip, lines: [`  craft ${r.spell} x${band.count}`], extra: { band } });
-		} else {
-			step('craft', `Craft ${D.crafts(band.count, r.name)} until ${band.to}`, { tip, lines: [`  craft ${r.spell} until ${band.to}`], extra: { band } });
+		const fit = (a, b) => (a && b ? (`${a} ${b}`.length <= TIP_MAX ? `${a} ${b}` : b) : a || b);
+		const own = band.note || (tool ? 'A tool: it stays in your bags, and later recipes need it.' : band.make ? `Parts for ${band.for}; no skill points from these.` : null);
+		const shortOf = !band.make && disenchantTo === band.to ? `Only if disenchanting didn't get you to ${band.to}.` : null;
+		const counted = !band.make && (band.keep || tool);
+		const lead = band.make ? null : counted ? `${band.count === 1 ? 'It takes' : 'They take'} ${P} to about ${band.to}.` : shortOf || (band.count < 2 ? null : `About ${band.count} crafts.`);
+		const tip = shortOf ? (own && `${shortOf} ${own}`.length <= TIP_MAX ? `${shortOf} ${own}` : shortOf) : fit(lead, own);
+		const keep = band.keep ? ` · keep ${band.keep}` : '';
+		if (band.make || counted) {
+			const title = `Craft ${D.crafts(band.count, r.name)}${keep}`;
+			step(band.make ? 'make' : 'craft', title, { tip, lines: [`  craft ${r.spell} x${band.count}`], extra: { band } });
+		} else step('craft', `Craft ${D.crafts(band.count, r.name)} until ${band.to}`, { tip, lines: [`  craft ${r.spell} until ${band.to}`], extra: { band } });
+		if (!band.make) {
 			segments.push({ from: band.from, to: band.to, recipe: r, count: band.count, count90: band.count, need: Object.entries(band.mats).filter(([k]) => madeHere(prof, Number(k), route) === undefined).map(([k, n]) => ({ item: Number(k), count: n })), make: [], tools: [], when: when.slice() });
 			skill = Math.max(skill, band.to);
+			disenchantTo = null;
 		}
 		lastFocus = r.focus || null;
 		if (r.item) stock.set(r.item, (stock.get(r.item) || 0) + band.count * (r.itemCount || 1));
@@ -556,12 +572,12 @@ function routeGuide(name, data, opts = {}) {
 			if (n <= 0) continue;
 			const withSmelt = route.smelt && route.smelt[item];
 			for (const [v, per] of Object.entries((withSmelt && withSmelt.with) || {})) {
-				step('buy', `Buy ${n * per} ${itemName(v)}`, { tip: `Smelting ${itemName(item)} takes ${per} ${itemName(v)} a bar.`, lines: [`  buy ${v} x${n * per} nearest`], also: [`skill Mining ${withSmelt.skill}`] });
+				step('buy', `Buy ${countOf(n * per, Number(v))}`, { tip: `Smelting ${itemName(item)} takes ${per} ${itemName(v)} a bar.`, lines: [`  buy ${v} x${n * per} nearest`], also: [`skill Mining ${withSmelt.skill}`] });
 			}
 			const bar = !!(loopsFor(item) || {}).smelt;
 			const why = forWhat(group, item, bar);
 			const own = spare ? ` ${spare} more come from your own crafts.` : '';
-			step('get', `Get ${n} ${itemName(item)}`, { tip: (why + own).length <= TIP_MAX ? why + own : why, lines: getLines(item, n), extra: { items: [{ item, count: n }], bands: group } });
+			step('get', `Get ${countOf(n, item)}`, { tip: (why + own).length <= TIP_MAX ? why + own : why, lines: getLines(item, n), extra: { items: [{ item, count: n }], bands: group } });
 		}
 	};
 	// A get's why line: the crafts it is for (each recipe once), and the plans a quest hands over for it.
@@ -579,12 +595,14 @@ function routeGuide(name, data, opts = {}) {
 	const vendorSteps = (list) => {
 		const need = new Map();
 		for (const b of list) for (const [k, n] of Object.entries(b.mats || {})) if (vendorOnly(k)) need.set(Number(k), (need.get(Number(k)) || 0) + n);
-		for (const [item, n] of need) step('buy', `Buy ${n} ${itemName(item)}`, { tip: forWhat(list, item, false), lines: [`  buy ${item} x${n} nearest`] });
+		for (const [item, n] of need) step('buy', `Buy ${countOf(n, item)}`, { tip: forWhat(list, item, false), lines: [`  buy ${item} x${n} nearest`] });
 	};
 	// Disenchanting raises Enchanting too (players' recordings: a point for nearly every item below 20, fewer
 	// after, none from 60): the green items in the bags go first, so the crafts after it need fewer materials.
 	// Done at the band's top or when the player says nothing is left to break.
+	let disenchantTo = null; // the skill the last disenchanting step aimed at, until a craft passes it
 	const disenchantStep = (b) => {
+		disenchantTo = b.to;
 		step('disenchant', `Disenchant your green items until ${b.to}`, {
 			tip: 'Disenchant is in the Enchanting window, not the spellbook. Nearly every item gives a point below 20.',
 			lines: [`  skill ${pq} ${b.to} either`, '  task "No green items left to break" either'],
@@ -672,7 +690,7 @@ function routeGuide(name, data, opts = {}) {
 			for (const q of new Set(ids)) for (const o of quests[q].objectives || []) if (o.type === 'item') items.set(o.id, Math.max(items.get(o.id) || 0, o.count));
 			for (const [item, n] of items) {
 				if (!route.materials[item]) throw new Error(`${P}: ${sec.rank}: the quest asks for ${itemName(item)}; give its ways in \`materials\``);
-				step('get', `Get ${n} ${itemName(item)}`, { tip: `For ${quests[ids[0]].title}, which teaches ${sec.rank} ${P}.`, lines: route.materials[item].length === 1 && route.materials[item][0] === 'vendor' ? [`  buy ${item} x${n} nearest`] : getLines(item, n), extra: { items: [{ item, count: n }], bands: [] } });
+				step('get', `Get ${countOf(n, item)}`, { tip: `For ${quests[ids[0]].title}, which teaches ${sec.rank} ${P}.`, lines: route.materials[item].length === 1 && route.materials[item][0] === 'vendor' ? [`  buy ${item} x${n} nearest`] : getLines(item, n), extra: { items: [{ item, count: n }], bands: [] } });
 			}
 			const questSteps2 = (q, only) => {
 				const quest = quests[q];

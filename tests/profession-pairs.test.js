@@ -222,7 +222,7 @@ test('every gathering step leads with its count and what it is for', { skip }, (
 			const tip = s.lines.find((l) => /^tip /.test(l)) || '';
 			if (routed(c)) {
 				// One action: the count in the title, one short line of what it is for.
-				assert.match(s.title, new RegExp(`^${verb}(?: and smelt)? \\d+ `), `${file} ${s.title}`);
+				assert.match(s.title, new RegExp(`^${verb}(?: and smelt| beasts for)? \\d+ `), `${file} ${s.title}`);
 				assert.match(tip, /^tip For .{1,116}$/, `${file} ${s.title}`);
 			} else assert.match(tip, new RegExp(`^tip \\d+ .+? for ${c} \\d+-\\d+: [^.]+\\.`), `${file} ${s.title}`);
 			assert.ok(s.lines.some((l) => /^loop /.test(l) || /^goto /.test(l)), `${file} ${s.title}: its loops, or the one stand it is fished at`);

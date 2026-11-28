@@ -196,3 +196,47 @@ test('a route whose counts the data does not bear out fails the build, naming th
 	wrong.sections[1].teachers.Alliance.push(3355);
 	assert.throws(() => checkRoute(wrong, prof, d), /Saru Steelfury does not serve the Alliance/);
 });
+
+test('count rows use the plural: Empty Vials, Motes of Magic, Bronze Bars; mass nouns, herbs and ore stay', () => {
+	const D = require('../tools/lib/professions/describe');
+	const cases = [
+		[54, 'Empty Vial', false, '54 Empty Vials'],
+		[19, 'Mote of Magic', false, '19 Motes of Magic'],
+		[91, 'Bronze Bar', false, '91 Bronze Bars'],
+		[10, 'Light Hide', false, '10 Light Hides'],
+		[88, 'Heart of Fire', false, '88 Hearts of Fire'],
+		[20, 'Star Ruby', false, '20 Star Rubies'],
+		[1, 'Copper Rod', false, '1 Copper Rod'],
+		[60, 'Linen Cloth', false, '60 Linen Cloth'],
+		[105, 'Ruined Leather Scraps', false, '105 Ruined Leather Scraps'],
+		[28, 'Coarse Thread', false, '28 Coarse Thread'],
+		[50, 'Strange Dust', false, '50 Strange Dust'],
+		[198, 'Rough Stone', false, '198 Rough Stone'],
+		[47, 'Stonescale Eel', false, '47 Stonescale Eel'],
+		[9, 'Silverleaf', true, '9 Silverleaf'],
+		[25, "Khadgar's Whisker", true, "25 Khadgar's Whisker"],
+	];
+	for (const [n, name, mass, want] of cases) assert.equal(D.items(n, name, mass), want);
+	for (const name of ROUTED.filter(exists)) {
+		for (const s of stepsOf(read(name))) assert.doesNotMatch(s.title, /^(Buy|Get) \d+ (Empty Vial|Leaded Vial|Crystal Vial|Mote of Magic|\S+ Bar)$/, `${name}:${s.line} ${s.title}: the count's plural`);
+	}
+});
+
+test('what to keep is in the craft\'s row ("· keep them for the belts"), never a tip; kept crafts finish on their count', () => {
+	for (const name of ROUTED.filter(exists)) {
+		for (const s of stepsOf(read(name))) {
+			assert.doesNotMatch(s.tip || '', /\bkeep\b/i, `${name}:${s.line} ${s.title}: a keep instruction belongs in the row`);
+			if (/ · keep /.test(s.title)) assert.ok(s.goals.some((g) => g.verb === 'craft' && /^\d+ x\d+$/.test(g.rest)), `${name}:${s.line} ${s.title}: a kept craft is done on its count`);
+		}
+	}
+	assert.ok(stepsOf(read('tailoring')).some((s) => s.title === 'Craft 30 Bolts of Linen Cloth · keep them for the belts'));
+});
+
+test('pair gathering rows name what is gathered: the herbs, ore or beasts of the loops', () => {
+	const rows = (name) => stepsOf(read(name)).map((s) => s.title);
+	const herb = rows('herbalism-alchemy').filter((t) => /^Pick .* until Herbalism \d+$/.test(t));
+	assert.ok(herb.length && herb.every((t) => !/^Pick until/.test(t)), 'Herbalism rows name the herbs');
+	const skin = rows('skinning-leatherworking');
+	assert.ok(skin.filter((t) => / until Skinning \d+$/.test(t)).every((t) => /^Skin beasts of level \d+-\d+ until Skinning \d+$/.test(t)), 'Skinning rows give the beasts\' levels');
+	assert.ok(skin.some((t) => /^Skin beasts for \d+ Ruined Leather Scraps$/.test(t)), 'Skin beasts for N Ruined Leather Scraps');
+});

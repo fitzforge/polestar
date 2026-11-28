@@ -36,7 +36,7 @@
 				{ "from": 65, "to": 90, "recipe": 2334, "count": 28, "mats": { "2449": 56, "2447": 28, "3371": 28 }, "note": "No points past 75 until Journeyman is trained." },
 				{ "from": 90, "to": 120, "recipe": 3171, "count": 30, "mats": { "785": 30, "2450": 60, "3371": 30 } },
 				{ "from": 120, "to": 130, "recipe": 3173, "count": 10, "mats": { "785": 10, "3820": 10, "3371": 10 } },
-				{ "from": 130, "to": 150, "recipe": 7837, "count": 20, "mats": { "6359": 40, "3371": 20 }, "keep": "Each craft makes 2 oils. Keep 30: the Elixirs of Fire Power at 150 use them." }
+				{ "from": 130, "to": 150, "recipe": 7837, "count": 20, "mats": { "6359": 40, "3371": 20 }, "keep": "30 for the Elixirs of Fire Power", "note": "Each craft makes 2 oils." }
 			]
 		},
 		{
@@ -67,7 +67,7 @@
 			"route": [
 				{ "from": 225, "to": 235, "recipe": 7259, "count": 26, "mats": { "3357": 26, "3820": 26, "3372": 26 }, "note": "Green for the last 5 points: short of 235? A few more do it." },
 				{ "from": 235, "to": 250, "recipe": 11465, "count": 15, "mats": { "8839": 15, "3358": 15, "8925": 15 } },
-				{ "from": 250, "to": 260, "recipe": 17551, "count": 47, "mats": { "13422": 47, "3372": 47 }, "keep": "Each craft makes 2 oils. Keep all of them: the elixirs at 265 use 88." },
+				{ "from": 250, "to": 260, "recipe": 17551, "count": 47, "mats": { "13422": 47, "3372": 47 }, "keep": "them all for the elixirs at 265", "note": "Each craft makes 2 oils." },
 				{ "from": 260, "to": 265, "recipe": 11465, "count": 10, "mats": { "8839": 10, "3358": 10, "8925": 10 } },
 				{ "from": 265, "to": 300, "recipe": 17554, "count": 44, "mats": { "13423": 88, "8838": 44, "8925": 44 }, "note": "Yellow from 280: short of 300? A few more do it." }
 			]

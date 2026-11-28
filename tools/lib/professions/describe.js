@@ -68,6 +68,15 @@ function crafts(n, name) {
 	return `${n} ${words.join(' ')}`;
 }
 
+// A count of a material as a row says it: "54 Empty Vials", "19 Motes of Magic", "91 Bronze Bars", "10 Light
+// Hides". A mass noun stays as it is: leather, cloth, thread, dye, salt, stone, dust, silk, meat and the like, a
+// fish, and a herb or ore (`mass`: what the data gathers with Herbalism, Mining or Fishing: "9 Silverleaf").
+const MASS = /(Leather|Cloth|Thread|Dye|Salt|Stone|Dust|Silk|Powder|Scraps|Meat|Swiss|Ore|Coal|Flux|Bleach|Vitriol|Spice|Flour|Water|Earth|Fire|Air|Mail|fish|Snapper|Mackerel|Trout|Cod|Yellowtail|Salmon|Eel|Catfish)$/;
+function items(n, name, mass = false) {
+	if (n === 1 || mass || (MASS.test(name) && !/ of /.test(name))) return `${n} ${name}`;
+	return crafts(n, name);
+}
+
 // Humanoids of these levels drop the cloth.
 const CLOTH_LEVELS = {
 	'Linen Cloth': [5, 20],
@@ -235,4 +244,4 @@ function rankTrainers(data, rank, side, prof) {
 	return [...new Set(ids.map((id) => npcPlace(data, id)).filter(Boolean))].sort();
 }
 
-module.exports = { SIDES, money, list, article, crafts, sourceText, townVendors, mainTown, rankTrainers, npcPlace, nodeZones, nodesUp, nodeTable, nodeNames, nodeSkill, CLOTH_LEVELS, HIDE_LEVELS, disenchantLevels, zoneName };
+module.exports = { SIDES, money, list, article, crafts, items, sourceText, townVendors, mainTown, rankTrainers, npcPlace, nodeZones, nodesUp, nodeTable, nodeNames, nodeSkill, CLOTH_LEVELS, HIDE_LEVELS, disenchantLevels, zoneName };
