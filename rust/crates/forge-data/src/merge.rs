@@ -100,8 +100,10 @@ pub struct Ctx<'a> {
 	pub instance_of_area: &'a dyn Fn(f64) -> Option<i64>,
 	/// CMaNGOS quest_template counts: quest -> { kill, object, item: [[id, count]] }.
 	pub quest_counts: Option<&'a V>,
-	/// The sim-v2 (m2a) npc and object rules: npc sides pfQuest's only, objects without mailbox
-	/// sides, no npc flag 64, no service dedupe.
+	/// The sim-v2 (m2a) npc and object rules: npc sides pfQuest's only, an object pfQuest has takes
+	/// no mailbox role or side from QuestieDB (an object only QuestieDB has keeps both: nothing else
+	/// gives it either, and Nearby and the map pins skip a mailbox with no side), no npc flag 64, no
+	/// service dedupe.
 	pub sim: bool,
 	/// One rate table per item (`dropScale`, `dropRatesMixedAvoided`).
 	pub item_rules: bool,
@@ -198,12 +200,15 @@ fn npc_record(r: &Obj, spawns: V, sim: bool) -> Obj {
 	rec
 }
 
-fn object_record(r: &Obj, spawns: V, templates: &IndexMap<i64, f64>, sim: bool) -> Obj {
+/// `questie_mailboxes`: whether a QuestieDB "Mailbox" takes its role and side from QuestieDB: always
+/// in the plain build; in the sim build only for an object pfQuest lacks (#4567: ~90 Forever-added
+/// mailboxes, Rog'mar's among them, had neither and Nearby never found them).
+fn object_record(r: &Obj, spawns: V, templates: &IndexMap<i64, f64>, questie_mailboxes: bool) -> Obj {
 	let rec = Obj::new();
 	rec.set("id", r.get("id"));
 	let name = r.get("name").as_rc_str();
 	rec.set("name", name.clone().map(V::Str).unwrap_or(V::Null));
-	if !sim && name.as_deref() == Some("Mailbox") {
+	if questie_mailboxes && name.as_deref() == Some("Mailbox") {
 		rec.set("roles", strs(&["mailbox"]));
 		let fid = r.get("factionID").num();
 		let enemies = if fid == 0.0 {
@@ -1105,7 +1110,7 @@ pub fn apply_questie(t: &Tables, qz: &Questie, ctx: &Ctx) -> Stats {
 			let merged = if kind == "npc" {
 				merge_npc(pf.as_ref(), npc_record(r, sp.spawns, ctx.sim), ctx, &mut roles_added)
 			} else {
-				merge_object(pf.as_ref(), object_record(r, sp.spawns, &qz.faction_templates, ctx.sim), ctx)
+				merge_object(pf.as_ref(), object_record(r, sp.spawns, &qz.faction_templates, !ctx.sim || pf.is_none()), ctx)
 			};
 			let inst = instances_of(r);
 			if !inst.is_empty() {
