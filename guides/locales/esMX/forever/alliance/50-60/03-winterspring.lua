@@ -242,8 +242,9 @@ return {
 	["North-east from the pylon to {area:543}: {npc:10302} the goblin sits by the water."] = "Al noreste del pilón hasta {area:543}: el goblin {npc:10302} está sentado junto al agua.",
 
 	-- Step 46: Krakle's Thermometer
-	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer
-	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "Cabalga al este hasta {area:537}, súbela y usa {npc:10541} en las grietas de lava cerca de la cima.",
+	-- {area:537} Fire Plume Ridge · {item:12472} Krakle's Thermometer
+	-- was: ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "Cabalga al este hasta {area:537}, súbela y usa {npc:10541} en las grietas de lava cerca de la cima."
+	["Ride east to {area:537}, climb it and use {item:12472} at the lava vents near the top."] = "",
 
 	-- Step 47: Krakle
 	-- {npc:10302} Krakle
@@ -482,6 +483,7 @@ return {
 	-- ["Pick up the supplies around the wagon and take {npc:10301}'s amulet back from the owlbeasts nearby."] = "Recoge los suministros alrededor de la carreta y recupera el amuleto de {npc:10301} de las lechubestias cercanas.",
 	-- ["Pristine Yeti Horns"] = "Cuernos prístinos de yeti ({item:12367})",
 	-- ["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "Puricorazón, Dumah, Puño de Valor y MacDonnell están en el centro del campamento, junto al maestro de vuelo.",
+	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "Cabalga al este hasta {area:537}, súbela y usa {npc:10541} en las grietas de lava cerca de la cima.",
 	-- ["Ride north to {area:2627}. {npc:12384} lives in the ruined hut, and his receipt book lies in the ruined inn nearby."] = "Cabalga al norte hasta {area:2627}. {npc:12384} vive en la choza en ruinas, y su libro de recibos está en la posada en ruinas cercana.",
 	-- ["Ride north up the valley, past {area:2255}, to {area:2253}."] = "Cabalga al norte valle arriba, pasando {area:2255}, hasta {area:2253}.",
 	-- ["Ride north-west back to the village."] = "Cabalga al noroeste de vuelta a la aldea.",

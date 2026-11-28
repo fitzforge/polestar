@@ -159,9 +159,10 @@ return {
 	["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "地精{npc:10302}坐在水晶塔正东的{area:543}。",
 
 	-- Step 32: Krakle's Thermometer
-	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer · {npc:10302} Krakle
+	-- {area:537} Fire Plume Ridge · {item:12472} Krakle's Thermometer · {npc:10302} Krakle
 	-- plural, as words: Living Blazes = {npc:6521} Living Blaze · Scorching Elementals = {npc:6520} Scorching Elemental
-	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}.\nCareful: Living Blazes (54-55) and Scorching Elementals (53-54) burn on the slopes: ride up the path and pull only what stands on it."] = "向东前往{area:537}，爬上山，在山顶附近的熔岩喷口使用{npc:10541}，再向西回去找{npc:10302}。\n小心，有生烈焰（54-55级）和灼热元素（53-54级）在山坡上活动。沿小路骑上去，只引路上的怪。",
+	-- was: ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}.\nCareful: Living Blazes (54-55) and Scorching Elementals (53-54) burn on the slopes: ride up the path and pull only what stands on it."] = "向东前往{area:537}，爬上山，在山顶附近的熔岩喷口使用{npc:10541}，再向西回去找{npc:10302}。\n小心，有生烈焰（54-55级）和灼热元素（53-54级）在山坡上活动。沿小路骑上去，只引路上的怪。"
+	["Ride east to {area:537}, climb it and use {item:12472} at the lava vent near the top, then ride back west to {npc:10302}.\nCareful: Living Blazes (54-55) and Scorching Elementals (53-54) burn on the slopes: ride up the path and pull only what stands on it."] = "",
 
 	-- Step 33: Krakle
 	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
@@ -414,6 +415,7 @@ return {
 	-- ["Pterrordax"] = "翼手龙",
 	-- ["Pterrordax fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for {npc:9998}."] = "翼手龙在环形山东部飞行，从避难所下方的山坡一直分布到南边；它们的翼膜鳞片要交给{npc:9998}。",
 	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}."] = "向东骑往{area:537}，爬上去，在接近山顶的熔岩口使用{npc:10541}，然后向西骑回{npc:10302}那里。",
+	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}.\nCareful: Living Blazes (54-55) and Scorching Elementals (53-54) burn on the slopes: ride up the path and pull only what stands on it."] = "向东前往{area:537}，爬上山，在山顶附近的熔岩喷口使用{npc:10541}，再向西回去找{npc:10302}。\n小心，有生烈焰（54-55级）和灼热元素（53-54级）在山坡上活动。沿小路骑上去，只引路上的怪。",
 	-- ["Ride north along the east side. Bloodpetal Lashers and Threshers fill the jungle."] = "沿东侧向北骑行。血瓣花鞭笞者和血瓣花猛击者占满了丛林。",
 	-- ["Ride north back to {area:541}."] = "向北骑回{area:541}。",
 	-- ["Ride north back to {area:541}: {npc:9117} below ground, {npc:9997} beside the flight master."] = "向北骑回{area:541}：{npc:9117}在地下，{npc:9997}在飞行管理员旁。",

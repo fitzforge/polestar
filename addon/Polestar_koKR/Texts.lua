@@ -1657,7 +1657,6 @@ t.guides["forever/alliance/40-50/05-the-hinterlands"] = (function() return {
 } end)()
 t.guides["forever/alliance/40-50/06-searing-gorge"] = (function() return {
 		["Below ground"] = "지하",
-		["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "{object:149047}을(를) 들고 용광로 가장자리를 따라 남쪽으로 가서, 남서쪽부터 남동쪽까지 돌며 감시용 화로 네 개에 불을 붙이십시오.",
 		["Class trainer"] = "직업 전문가",
 		["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "도리우스는 {area:247} 옆 길가에 서 있습니다. 그를 북동쪽 {area:1959}까지 호위하며 살려 두십시오. 끝나면 그가 길에 남긴 {object:175704}을(를) 읽으십시오.",
 		["Fly to {area:144}"] = "{area:144}(으)로 비행",
@@ -1856,7 +1855,6 @@ t.guides["forever/alliance/50-60/03-winterspring"] = (function() return {
 		["Ride back south-east to the Sanctuary."] = "남동쪽의 성소로 돌아가세요.",
 		["Ride east along the road to {area:2255}."] = "길을 따라 동쪽 {area:2255}(으)로 가세요.",
 		["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "동쪽으로 {area:1943}까지 가세요. 로봇은 고릴라들 사이에 서 있습니다. 그곳의 깊은 동굴에는 들어가지 마세요.",
-		["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "동쪽으로 {area:537}까지 가서 올라간 뒤, 꼭대기 근처 용암 분출구에서 {npc:10541}을(를) 사용하세요.",
 		["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "동쪽을 따라 북쪽의 고릴라 고원으로 가세요. 55레벨 고릴라 {npc:9622}은(는) 가장 깊은 동굴에 있습니다. 먼저 동굴 입구의 고릴라를 정리하세요.",
 		["Ride south-west to {npc:7771}'s camp at the {area:1938}."] = "남서쪽으로 {area:1938}의 {npc:7771} 야영지로 가세요.",
 		["The Gorishi hive"] = "고리쉬 벌집",

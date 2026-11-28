@@ -159,9 +159,10 @@ return {
 	["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "Der Goblin {npc:10302} sitzt am Ort {area:543}, gleich östlich des Pylons.",
 
 	-- Step 32: Krakle's Thermometer
-	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer · {npc:10302} Krakle
+	-- {area:537} Fire Plume Ridge · {item:12472} Krakle's Thermometer · {npc:10302} Krakle
 	-- plural, as words: Living Blazes = {npc:6521} Living Blaze · Scorching Elementals = {npc:6520} Scorching Elemental
-	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}.\nCareful: Living Blazes (54-55) and Scorching Elementals (53-54) burn on the slopes: ride up the path and pull only what stands on it."] = "Reite nach Osten bis {area:537}, steig hinauf und nutze {npc:10541} am Lavaschlot nahe dem Gipfel, dann reite nach Westen zurück zu {npc:10302}.\nVorsicht: Lebende Flammen (54-55) und Versengende Elementare (53-54) brennen an den Hängen: reite den Pfad hoch und zieh nur, was darauf steht.",
+	-- was: ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}.\nCareful: Living Blazes (54-55) and Scorching Elementals (53-54) burn on the slopes: ride up the path and pull only what stands on it."] = "Reite nach Osten bis {area:537}, steig hinauf und nutze {npc:10541} am Lavaschlot nahe dem Gipfel, dann reite nach Westen zurück zu {npc:10302}.\nVorsicht: Lebende Flammen (54-55) und Versengende Elementare (53-54) brennen an den Hängen: reite den Pfad hoch und zieh nur, was darauf steht."
+	["Ride east to {area:537}, climb it and use {item:12472} at the lava vent near the top, then ride back west to {npc:10302}.\nCareful: Living Blazes (54-55) and Scorching Elementals (53-54) burn on the slopes: ride up the path and pull only what stands on it."] = "",
 
 	-- Step 33: Krakle
 	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
@@ -409,6 +410,7 @@ return {
 	-- ["Pterrordax"] = "Pterrordax",
 	-- ["Pterrordax fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for {npc:9998}."] = "Pterrordax fliegen über den Osten des Kraters, von den Hängen unterhalb der Zuflucht nach Süden; ihre Schwimmhautschuppen sind für {npc:9998}.",
 	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}."] = "Reite nach Osten zum Ort {area:537}, steig hinauf und benutze {npc:10541} am Lavaschlot nahe dem Gipfel; reite dann zurück nach Westen zu {npc:10302}.",
+	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}.\nCareful: Living Blazes (54-55) and Scorching Elementals (53-54) burn on the slopes: ride up the path and pull only what stands on it."] = "Reite nach Osten bis {area:537}, steig hinauf und nutze {npc:10541} am Lavaschlot nahe dem Gipfel, dann reite nach Westen zurück zu {npc:10302}.\nVorsicht: Lebende Flammen (54-55) und Versengende Elementare (53-54) brennen an den Hängen: reite den Pfad hoch und zieh nur, was darauf steht.",
 	-- ["Ride north along the east side. Bloodpetal Lashers and Threshers fill the jungle."] = "Reite an der Ostseite nach Norden. Blutblütenpeitscher und -drescher füllen den Dschungel.",
 	-- ["Ride north back to {area:541}."] = "Reite nach Norden zurück nach {area:541}.",
 	-- ["Ride north back to {area:541}: {npc:9117} below ground, {npc:9997} beside the flight master."] = "Reite nach Norden zurück nach {area:541}: {npc:9117} unter der Erde, {npc:9997} neben dem Flugmeister.",

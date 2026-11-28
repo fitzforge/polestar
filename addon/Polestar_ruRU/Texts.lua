@@ -1688,7 +1688,6 @@ t.guides["forever/alliance/40-50/05-the-hinterlands"] = (function() return {
 } end)()
 t.guides["forever/alliance/40-50/06-searing-gorge"] = (function() return {
 		["Below ground"] = "Под землей",
-		["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "Несите предмет {object:149047} на юг вдоль края Котлована и зажгите четыре сторожевые жаровни, с юго-запада по кругу до юго-востока.",
 		["Class trainer"] = "Учитель классовых навыков",
 		["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "Дориус стоит у дороги рядом с местом {area:247}. Сопроводите его на северо-восток ({area:1959}) и сохраните ему жизнь; когда все закончится, прочтите {object:175704}, который он оставит на дороге.",
 		["Fly to {area:144}"] = "Летите сюда: {area:144}",
@@ -1892,7 +1891,6 @@ t.guides["forever/alliance/50-60/03-winterspring"] = (function() return {
 		["Ride back south-east to the Sanctuary."] = "Возвращайтесь на юго-восток в Изумрудное святилище.",
 		["Ride east along the road to {area:2255}."] = "Езжайте на восток по дороге в {area:2255}.",
 		["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "Езжайте на восток: {area:1943}, где робот стоит среди горилл. Не заходите там в глубокую пещеру.",
-		["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "Езжайте на восток к вулкану ({area:537}), поднимитесь на него и используйте {npc:10541} у лавовых отдушин у вершины.",
 		["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "Езжайте на север по восточной стороне к плато горилл. {npc:9622}, горилла 55-го уровня, сидит в самой глубокой пещере: сначала перебейте горилл у входа.",
 		["Ride south-west to {npc:7771}'s camp at the {area:1938}."] = "Езжайте на юго-запад к лагерю ({npc:7771}): {area:1938}.",
 		["The Gorishi hive"] = "Улей Гориши",
