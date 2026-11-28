@@ -395,8 +395,6 @@ step Ayessa Dawnsinger
   accept 93735
   complete 92708 @59.15,79.73         -- talk to Ayessa Dawnsinger
   turnin 92708
-  level 10 only Shaman
-  accept 97243 only Shaman            -- Sessaria Skystride, beside Ayessa: Call of Fire
   accept 93736                        -- Endaria Mistgaze
 
 # ---------------------------------------------------------------- Valanaar
@@ -417,6 +415,12 @@ step Riaani Nightwind
   talk 256083 quest 93737.1 "Listen to Riaani Nightwind"
   level 10 only Warrior
   accept 94003 only Warrior           -- Seena Skybreaker, beside Riaani: The Skybreaker Bulwark
+
+step Sessaria Skystride
+  only Shaman
+  tip Sessaria stands beside Ayessa near the west gate, on your way out to the orchard. Call of Fire starts at Olariaan's Shrine of Flames, just south-east of the orchard.
+  level 10 only Shaman
+  accept 97243 only Shaman            -- Sessaria Skystride: Call of Fire
 
 # ---------------------------------------------------------------- Windfield Orchard
 
@@ -504,56 +508,10 @@ step Ayessa Dawnsinger
   turnin 93738                        -- Ayessa Dawnsinger
   accept 93746
   kill 256247 quest 93746.1
+  collect 277267 quest 97244.1 only Shaman -- Skypriest Faladiel, on the hill south-east of Belathaan, west of the falls above the East Pylon Watchtower
   turnin 93746
   accept 92871
   accept 93740
-
-# ---------------------------------------------------------------- East Pylon Watchtower
-
-step Valennia Stormfist
-  turnin 92871                        -- Upstairs
-  accept 93320
-
-step Lotheluum Starbreeze
-  only Druid
-  tip Lotheluum stands on Valanaar's east side. Urs'endris waits by the falls just north of the East Pylon Watchtower: leave town to the north, climb the ridge east of the road and glide down to him with Walk on Air.
-  accept 94006                        -- Lotheluum Starbreeze
-  turnin 94006                        -- Urs'endris
-  accept 94638
-
-step The East Pylon Watchtower
-  tip Head north-east to the East Pylon Watchtower. The Al'Aketh camp is just west of it, with Commander Belguilos at its north end. Every cultist can drop a windstone charm.
-  turnin 93320                        -- Yorana Windyreed
-  accept 92642
-  accept 92645
-  kill 254596 quest 92642.1 @65.0,66.7
-  kill 270201 quest 92642.2
-  kill 252666 quest 92645.1
-  collect 255658 quest 93740.1
-  collect 277267 quest 97244.1 only Shaman -- Skypriest Faladiel, on the hill west of the falls just north of the watchtower
-  turnin 92642
-  turnin 92645
-  accept 92880
-
-step Back to Valanaar
-  turnin 93740                        -- Ayessa Dawnsinger
-  turnin 92880                        -- Valennia Stormfist, upstairs
-  accept 92881
-  turnin 92881                        -- Talaanis Shadowsong, upstairs
-  accept 92643
-
-# ---------------------------------------------------------------- The turncoat
-
-step The turncoat
-  tip The turncoat's house is in the Gustberry Lowlands north-west of Valanaar, just north of Fendaal Windstone.
-  complete 92643 @56.0,58.8           -- search the dead cultist in the house
-  turnin 92643                        -- Dead Cultist, inside
-  accept 92644
-
-step Ur'endra
-  only Druid
-  tip Ur'endra has her lair in a cave in the bluffs just south of the turncoat's house, where the Shen'dar Highlands meet the Gustberry Lowlands.
-  kill 258443 quest 94638.1
 
 step Zephras Isle
   only Shaman
@@ -581,6 +539,52 @@ step The Eternal Flame
   accept 97257
   complete 97257
   turnin 97257 reward 5176 263412     -- Sessaria Skystride: Searing Totem, your Fire Totem and the Totem of Charged Flames
+
+# ---------------------------------------------------------------- East Pylon Watchtower
+
+step Valennia Stormfist
+  turnin 92871                        -- Upstairs
+  accept 93320
+
+step Lotheluum Starbreeze
+  only Druid
+  tip Lotheluum stands on Valanaar's east side. Urs'endris waits by the falls just north of the East Pylon Watchtower: leave town to the north, climb the ridge east of the road and glide down to him with Walk on Air.
+  accept 94006                        -- Lotheluum Starbreeze
+  turnin 94006                        -- Urs'endris
+  accept 94638
+
+step The East Pylon Watchtower
+  tip Head north-east to the East Pylon Watchtower. The Al'Aketh camp is just west of it, with Commander Belguilos at its north end. Every cultist can drop a windstone charm.
+  turnin 93320                        -- Yorana Windyreed
+  accept 92642
+  accept 92645
+  kill 254596 quest 92642.1 @65.0,66.7
+  kill 270201 quest 92642.2
+  kill 252666 quest 92645.1
+  collect 255658 quest 93740.1
+  turnin 92642
+  turnin 92645
+  accept 92880
+
+step Back to Valanaar
+  turnin 93740                        -- Ayessa Dawnsinger
+  turnin 92880                        -- Valennia Stormfist, upstairs
+  accept 92881
+  turnin 92881                        -- Talaanis Shadowsong, upstairs
+  accept 92643
+
+# ---------------------------------------------------------------- The turncoat
+
+step The turncoat
+  tip The turncoat's house is in the Gustberry Lowlands north-west of Valanaar, just north of Fendaal Windstone.
+  complete 92643 @56.0,58.8           -- search the dead cultist in the house
+  turnin 92643                        -- Dead Cultist, inside
+  accept 92644
+
+step Ur'endra
+  only Druid
+  tip Ur'endra has her lair in a cave in the bluffs just south of the turncoat's house, where the Shen'dar Highlands meet the Gustberry Lowlands.
+  kill 258443 quest 94638.1
 
 step Unfortunate News
   zone Zephras Isle
@@ -802,37 +806,18 @@ step Ansekhwa
   tip While you're here: learn Staves from Ansekhwa (10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most.
   train 11869                         -- Ansekhwa
 
-step Into Mulgore
-  zone Mulgore
-  tip Take Thunder Bluff's west lift down: the road at its foot runs south-east across Mulgore to the Barrens.
-  goto 37.6,33.0 "Into Mulgore"
+step Fly to Orgrimmar
+  zone Thunder Bluff
+  tip Tal, the wind rider master on the central mesa, flies you to Orgrimmar: Skyborne know that flight from the start. The Camp Taurajo and Crossroads flight paths come in the Barrens guide.
+  fly "Orgrimmar"
+  zone Orgrimmar
 
-step Into The Barrens
-  zone The Barrens
-  goto 41.9,58.6 "Into The Barrens"
-
-step Camp Taurajo
-  zone The Barrens
-  tip The road from Mulgore meets the Gold Road at Camp Taurajo: Omusa Thunderhorn, the wind rider master, stands beside Kirge Sternhorn on your way north to the Crossroads.
-  getfp "Camp Taurajo" npc 10378      -- Omusa Thunderhorn
-
-step The Crossroads
-  zone The Barrens
-  goto 52.2,31.0 "The Crossroads"
-
-# ---------------------------------------------------------------- The Crossroads
-
-step The Crossroads
-  zone The Barrens
-  tip Learn the flight path from Devrak on the tower platform. The Crossroads' own quests come after Silverpine Forest, in the Barrens guide.
-  getfp "Crossroads"
-
-# Rezlak camps beside the road north to Orgrimmar that this walk follows anyway: his quests (Winds in
-# the Desert 834, Securing the Lines 835, A Simmering Storm 97281) are one stop and a short loop into
-# Drygulch Ravine. The mobs (9-10) are easy at 15, and 835 and 97281 still pay their full experience.
+# Rezlak camps beside the road south of Orgrimmar's main gate, a short walk from where the flight lands:
+# his quests (Winds in the Desert 834, Securing the Lines 835, A Simmering Storm 97281) are one stop and a
+# short loop into Drygulch Ravine. The mobs (9-10) are easy at 15, and 835 and 97281 still pay their full experience.
 step Rezlak
   zone Durotar
-  tip Rezlak camps beside the road north to Orgrimmar, below Drygulch Ravine. The stolen sacks lie along the road just east of him.
+  tip Leave Orgrimmar by the main gate and follow the road south: Rezlak camps beside it, below Drygulch Ravine. The stolen sacks lie along the road just east of him.
   accept 834                          -- Rezlak
   collect 4918 quest 834.1 @49.1,22.6 map 1411
   turnin 834                          -- Rezlak
@@ -854,5 +839,5 @@ step Rezlak
 
 step To Orgrimmar
   zone Orgrimmar
-  tip From Rezlak's camp, go on to Orgrimmar's main gate, a few hundred yards away. The next guide starts in Orgrimmar: Thrall takes Welcome to Azeroth, and the zeppelin leaves for Tirisfal Glades and Silverpine Forest.
+  tip Back north up the road to Orgrimmar's main gate, a few hundred yards away. The next guide starts in Orgrimmar: Thrall takes Welcome to Azeroth, and the zeppelin leaves for Tirisfal Glades and Silverpine Forest.
   goto 55.6,72.3 "Orgrimmar's main gate"
