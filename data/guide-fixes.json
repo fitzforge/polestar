@@ -19125,6 +19125,130 @@
 				{ "kind": "in-game-check", "ref": "#4435 (foggel, 0.4.3.1): handing in Tabetha's Task in Dustwallow Marsh made Hadoken offer Stinglasher; #4487 (Akuma) and #4491 (ArcticWildWolf): the accept was not offered" }
 			],
 			"issue": 4487
+		},
+		{
+			"id": "riverglades-alliance-wharfmaster-pickups",
+			"faction": "Alliance",
+			"at": {
+				"guide": "forever/alliance/40-50/01b-riverglades",
+				"quest": 95118,
+				"goal": "accept"
+			},
+			"split": {
+				"title": "The north pier",
+				"tip": "Find Wharfmaster Whizzbuzz on the north pier."
+			},
+			"note": "Separate the pier pickups from the inn's bounty board so the group bounty can sit between the two stops.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "AreChen's Riverglades report; Trapclaw (95254) starts at object 628948, and Saltwater Savages (95118) starts at NPC 259961 on the north pier."
+			},
+			"pr": 3645
+		},
+		{
+			"id": "riverglades-horde-wharfmaster-pickups",
+			"faction": "Horde",
+			"at": {
+				"guide": "forever/horde/40-50/01b-riverglades",
+				"quest": 95118,
+				"goal": "accept"
+			},
+			"split": {
+				"title": "The north pier",
+				"tip": "Find Wharfmaster Whizzbuzz on the north pier."
+			},
+			"note": "Separate the pier pickups from the inn's bounty board so the group bounty can sit between the two stops.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "AreChen's Riverglades report; Trapclaw (95254) starts at object 628948, and Saltwater Savages (95118) starts at NPC 259961 on the north pier."
+			},
+			"pr": 3645
+		},
+		{
+			"id": "riverglades-alliance-wanted-board",
+			"faction": "Alliance",
+			"at": {
+				"guide": "forever/alliance/40-50/01b-riverglades",
+				"quest": 95120,
+				"goal": "accept"
+			},
+			"step": {
+				"after": {
+					"quest": 95254,
+					"goal": "accept"
+				}
+			},
+			"note": "Offer the group bounty on the first stop at the board. Players have picked up both bounties at level 36.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "AreChen's Riverglades report; Trapclaw (95254) and Old Rot-Chum (95120) both start at object 628948."
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "The level-36 pickups are documented in the player observations at https://wowamobi.com/quests/95254 and https://wowamobi.com/quests/95120."
+				}
+			],
+			"pr": 3645
+		},
+		{
+			"id": "riverglades-horde-wanted-board",
+			"faction": "Horde",
+			"at": {
+				"guide": "forever/horde/40-50/01b-riverglades",
+				"quest": 95120,
+				"goal": "accept"
+			},
+			"step": {
+				"after": {
+					"quest": 95254,
+					"goal": "accept"
+				}
+			},
+			"note": "Offer the group bounty on the first stop at the board. Players have picked up both bounties at level 36.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "AreChen's Riverglades report; Trapclaw (95254) and Old Rot-Chum (95120) both start at object 628948."
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "The level-36 pickups are documented in the player observations at https://wowamobi.com/quests/95254 and https://wowamobi.com/quests/95120."
+				}
+			],
+			"pr": 3645
+		},
+		{
+			"id": "riverglades-alliance-first-port-tip",
+			"faction": "Alliance",
+			"at": {
+				"guide": "forever/alliance/40-50/01b-riverglades",
+				"quest": 95254,
+				"goal": "accept"
+			},
+			"tip": "East down the road to Powderfuse Port, the goblins' harbour. Friz Frazzlespark keeps a stall at the west end of the docks. Gray Dawnbright, Innkeeper Zizplink and Fimbo Greasemitz are at the inn. Zizplink's drink needs three things the port's traders sell: the chum from Gritta Chumwater, the degreaser and the old poison from Kor'gar and Krikshank, by Friz's stall.",
+			"note": "Keep the first port stop focused on the inn and the market. The separate pier step now locates the wharfmaster.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "AreChen's Riverglades report; Trapclaw (95254) starts at object 628948, and Saltwater Savages (95118) starts at NPC 259961 on the north pier."
+			},
+			"pr": 3645
+		},
+		{
+			"id": "riverglades-horde-first-port-tip",
+			"faction": "Horde",
+			"at": {
+				"guide": "forever/horde/40-50/01b-riverglades",
+				"quest": 95254,
+				"goal": "accept"
+			},
+			"tip": "South-east down out of the hills to Powderfuse Port, the goblins' harbour on the coast. Friz Frazzlespark keeps a stall at the west end of the docks. Fimbo Greasemitz cooks by the inn.",
+			"note": "Keep the first port stop focused on the inn and the market. The separate pier step now locates the wharfmaster.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "AreChen's Riverglades report; Trapclaw (95254) starts at object 628948, and Saltwater Savages (95118) starts at NPC 259961 on the north pier."
+			},
+			"pr": 3645
 		}
 	]
 }

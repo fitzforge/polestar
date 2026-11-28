@@ -8,6 +8,7 @@
 	"schema": 1,
 	"locale": "zhTW",
 	"names": [
+		{"token": "object:628948", "name": "通緝！", "source": "client-wdb", "build": "1.60.1.71037", "sha256": "f982b2a916bbd444668c576d0071ea34545c8feaf6ce9fd71f19522dc25184e6", "ref": 3645},
 		{"token": "npc:46", "name": "魚人強盜", "source": "client-wdb", "build": "1.60.1.70938", "sha256": "0de7675ee3a28cfae942a4197f930c7fd990f2906c5f463ebe7d3a179e6f3a75", "ref": 2963},
 		{"token": "npc:202", "name": "恐怖骸骨", "source": "client-wdb", "build": "1.60.1.70938", "sha256": "0de7675ee3a28cfae942a4197f930c7fd990f2906c5f463ebe7d3a179e6f3a75", "ref": 2963},
 		{"token": "npc:219", "name": "管理者洛馬", "source": "client-learning", "build": "1.60.1.71037", "sha256": "40c48825d53732823c3a018047fd762c8e3cc7b1819573f6f8f55bb9f3d43a7a", "ref": 3474},

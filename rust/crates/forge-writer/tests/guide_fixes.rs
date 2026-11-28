@@ -99,3 +99,54 @@ fn report_2282_does_not_add_the_horde_detour_warning_to_other_routes() {
 	assert_eq!(after, before);
 	assert!(rows.iter().all(|r| r.state == "not for this start"));
 }
+
+#[test]
+fn riverglades_bounties_share_the_first_board_visit_in_both_routes() {
+	let records = document("data/guide-fixes.json");
+	let records = json!({
+		"fixes": records["fixes"].as_array().unwrap().iter()
+			.filter(|r| r["pr"] == 3645)
+			.collect::<Vec<_>>()
+	});
+	let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../..");
+	for (side, faction) in [("alliance", "Alliance"), ("horde", "Horde")] {
+		let file = format!("forever/{side}/40-50/01b-riverglades.guide");
+		let before = std::fs::read_to_string(root.join("forge/seed/guides").join(&file)).unwrap().replace("\r\n", "\n");
+		let mut tree = BTreeMap::from([(file.clone(), before.clone())]);
+		let quests = HashSet::from([95118, 95119, 95120, 95254]);
+		let write = |tree: &mut BTreeMap<String, String>| apply(tree, std::slice::from_ref(&file), &quests, Some(faction), Records { places: None, guide_fixes: Some(&records) }, None);
+		let rows = write(&mut tree);
+		assert_eq!(rows.iter().filter(|r| r.state == "applied" || r.state == "redundant").count(), 3, "{faction}: {rows:?}");
+		let after = tree[&file].clone();
+		let consecutive = |text: &str| {
+			text.lines()
+				.map(str::trim)
+				.filter(|line| forge_guide::parse::VERBS.contains(&line.split_whitespace().next().unwrap_or("")))
+				.skip_while(|line| !line.starts_with("accept 95254 "))
+				.take(4)
+				.map(|line| line.split_whitespace().nth(1).unwrap().parse::<u32>().unwrap())
+				.collect::<Vec<_>>()
+		};
+		assert_eq!(consecutive(&after), [95254, 95120, 95118, 95119], "{faction}");
+		let step_with = |goal: &str| after.split("\nstep ").find(|step| step.lines().any(|line| line.trim_start().starts_with(goal))).unwrap();
+		let port = step_with("accept 95254 ");
+		assert_eq!(port.lines().next(), Some("Powderfuse Port"), "{faction}");
+		assert!(!port.contains("north pier"), "{faction}");
+		let pier = step_with("accept 95118 ");
+		assert_eq!(pier.lines().next(), Some("The north pier"), "{faction}");
+		assert!(pier.contains("\n  tip Find Wharfmaster Whizzbuzz on the north pier."), "{faction}");
+		assert!(pier.contains("\n  accept 95119 "), "{faction}");
+		if faction == "Horde" {
+			let delivery = step_with("turnin 97332 ");
+			assert_eq!(delivery.lines().next(), Some("Wharfmaster Whizzbuzz"));
+			assert!(delivery.contains("\n  when onquest 97332"));
+		}
+		let step = step_with("accept 95120 ");
+		assert!(step.lines().any(|line| line.trim() == "when group 95120"), "{faction}");
+		for line in before.lines().filter(|line| line.contains("95120") && !line.contains("accept 95120")) {
+			assert!(after.lines().any(|actual| actual == line), "{faction}: {line}");
+		}
+		let rows = write(&mut tree);
+		assert_eq!(tree[&file], after, "{faction}: {rows:?}");
+	}
+}
