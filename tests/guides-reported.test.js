@@ -20013,3 +20013,13 @@ test("forever/horde/40-50/02-feralas.guide: Stinglasher's step says to hand in o
 	assert.match(text, /Tabetha's Task/, 'the step names Tabetha\'s Task');
 	assert.match(text, /hand it in to Tabetha in Dustwallow Marsh or abandon it/, 'and what to do with it');
 });
+
+// #4540 (Meta, 0.4.3.1): Bethra'zel's marker stood outside his corner of Dae'gun, at the first of the data's spawn
+// points (57.41,36.26). Players' recordings have 37 of his 38 kills (33 people) at 57.96-59.01, 31.94-33.24, median
+// 58.58,32.30; the step's kill line carries that point.
+test("forever/50-60/mount-hyjal.guide: Meta's report: Bethra'zel's marker is where players kill him (#4540)", { skip }, () => {
+	const list = goals('forever/50-60/mount-hyjal.guide');
+	const { goal } = list[at(list, 'kill 263394 (Bethra\'zel the Feeble)', (g) => g.t === 'kill' && g.npc === 263394)];
+	assert.equal(goal.map, 2482);
+	assert.ok(Math.abs(goal.x - 58.6) < 0.5 && Math.abs(goal.y - 32.3) < 0.5, `Bethra'zel at ${goal.x},${goal.y}`);
+});
