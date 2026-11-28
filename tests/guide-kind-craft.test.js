@@ -6,6 +6,8 @@
 // Tailoring; a train step's own rows; the folded shopping list. A reputation guide shows its standing, the turn-in
 // and More reputation.
 const { test } = require('node:test');
+const fs = require('node:fs');
+const path = require('node:path');
 const assert = require('node:assert/strict');
 const { runAddon } = require('./helpers/lua');
 
@@ -678,7 +680,7 @@ emit({ icon = r.Icon:GetTexture(), tip = hover(r) })`);
 	assert.deepEqual(out.tip, { link: 'item:6218', spell: false, owner: true, shown: true });
 });
 
-test('a learn step wears the spell\'s icon and hovers as its recipe', () => {
+test('a learn step of a recipe that makes no item (an enchant) wears the spell\'s icon and hovers as its recipe', () => {
 	const out = enchant(`
 at(1); GF.Layout(); stub.advance(1)
 local r = rowOf("learn")
@@ -686,6 +688,43 @@ emit({ text = plain(r.Text:GetText()), icon = r.Icon:GetTexture(), tip = hover(r
 	assert.match(out.text, /Enchant Chest - Inferior Stamina/);
 	assert.equal(out.icon, 135914);
 	assert.deepEqual(out.tip, { link: 'enchant:7420', spell: false, owner: true, shown: true });
+});
+
+// A learn step of a recipe that makes an item shows what its craft row shows, and what the client's own window draws:
+// the item's icon and tooltip, never the recipe spell's own (the generic crest of a bolt, a smelt) or a teaching spell's.
+// The goals are the shipped guides' own (`makes` is what the compiler writes from the recipe): the first learn of each
+// profession, Bolt of Silk Cloth first.
+const SHIPPED = fs.readFileSync(path.join(__dirname, '..', 'addon', 'Polestar_Guides', 'Guides.lua'), 'utf8');
+function learnSamples() {
+	const seen = new Map();
+	for (const m of SHIPPED.matchAll(/t = \\?"learn\\?", spell = (\d+), spellName = \\?"([^"\\]*)\\?",(?: npc = \d+, npcName = \\?"[^"\\]*\\?",)?(?: item = \d+, itemName = \\?"[^"\\]*\\?",)? makes = (\d+), skillLine = (\d+)/g)) {
+		if (!seen.has(m[4]) || m[1] === '3839') seen.set(m[4], { spell: Number(m[1]), name: m[2], makes: Number(m[3]), line: Number(m[4]) });
+	}
+	return [...seen.values()];
+}
+
+test('a learn step shows the item its recipe makes, as the craft row does: Bolt of Silk Cloth and a recipe of every profession', () => {
+	const samples = learnSamples();
+	assert.ok(samples.length >= 8, `a sample per profession: ${samples.map((x) => x.line)}`);
+	assert.ok(samples.some((x) => x.spell === 3839 && x.makes === 4305), 'Bolt of Silk Cloth is among them');
+	const steps = samples.map((x) => `{ title = "Learn ${x.name}", section = 1, goals = { { t = "learn", spell = ${x.spell}, spellName = "${x.name}", makes = ${x.makes}, skillLine = ${x.line}, npc = 3606, npcName = "Trainer" } } }`);
+	const guide = `{ id = "test/learns", pack = "test", title = "Tailoring 1-300", minLevel = 5, maxLevel = 60, category = "Professions",
+	sections = { { skill = "Tailoring", skillLine = 197, from = 75, to = 150 } }, steps = { ${steps.join(',\n')} } }`;
+	const out = run(`${ICONS}
+C_Spell.GetSpellTexture = function() return 136235 end
+${samples.map((x) => `w.itemInfo[${x.makes}] = { name = "Made ${x.makes}", icon = ${200000 + x.makes} }`).join('\n')}`, `${ROW_OF}
+local rows = {}
+for n = 1, ${samples.length} do
+	at(n); GF.Layout(); stub.advance(1)
+	local r = rowOf("learn")
+	rows[n] = { text = plain(r.Text:GetText()), icon = r.Icon:GetTexture(), tip = hover(r) }
+end
+emit(rows)`, guide, 'test/learns');
+	samples.forEach((x, i) => {
+		assert.match(out[i].text, new RegExp(`Learn ${x.name}`));
+		assert.equal(out[i].icon, 200000 + x.makes, `${x.name}: the item's icon, not the spell's crest`);
+		assert.deepEqual(out[i].tip, { link: `item:${x.makes}`, spell: false, owner: true, shown: true }, x.name);
+	});
 });
 
 test('a material\'s row (Get N Mote of Magic) wears the item\'s icon and the item tooltip', () => {

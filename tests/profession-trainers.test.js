@@ -92,10 +92,10 @@ function goals() {
 		for (const m of block.matchAll(/t = "train", npc = (\d+), npcName = "[^"]*", skill = "([^"]+)", skillLine = \d+, rank = (\d)/gm)) {
 			train.push({ skill: m[2], rank: Number(m[3]), npcs: [Number(m[1])] });
 		}
-		for (const m of block.matchAll(/t = "learn", spell = (\d+), spellName = "[^"]*", skillLine = (\d+), candidates = (.*)$/gm)) {
+		for (const m of block.matchAll(/t = "learn", spell = (\d+), spellName = "[^"]*",(?: makes = \d+,)? skillLine = (\d+), candidates = (.*)$/gm)) {
 			learn.push({ spell: Number(m[1]), line: Number(m[2]), npcs: npcsOf(m[3], `learn ${m[1]}`) });
 		}
-		for (const m of block.matchAll(/t = "learn", spell = (\d+), spellName = "[^"]*", npc = (\d+), npcName = "[^"]*", skillLine = (\d+)/gm)) {
+		for (const m of block.matchAll(/t = "learn", spell = (\d+), spellName = "[^"]*", npc = (\d+), npcName = "[^"]*",(?: makes = \d+,)? skillLine = (\d+)/gm)) {
 			learn.push({ spell: Number(m[1]), line: Number(m[3]), npcs: [Number(m[2])] });
 		}
 	}

@@ -2182,6 +2182,9 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			goal.spellName = name || undefined;
 			if (found) goal.skillLine = found.profession.id;
 			if (v === 'learn') {
+				// The item the recipe makes: what the client's profession window draws for it (the window's row
+				// shows the item's icon); a recipe that makes none (an enchant) leaves it out.
+				if (r && Number(r.item) > 0) goal.makes = Number(r.item);
 				const recipeItem = g.item !== undefined ? g.item : r && Number(r.recipeItem) > 0 ? Number(r.recipeItem) : undefined;
 				if (recipeItem !== undefined) {
 					goal.item = recipeItem;

@@ -3702,6 +3702,11 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 					goal.set("skillLine", found.get("profession").get("id"));
 				}
 				if v == "learn" {
+					// The item the recipe makes: what the client's profession window draws for it; a recipe that
+					// makes none (an enchant) leaves it out.
+					if rc.truthy() && rc.get("item").num() > 0.0 {
+						goal.set("makes", rc.get("item"));
+					}
 					let recipe_item: V = if !g.get("item").is_undef() {
 						g.get("item")
 					} else if rc.truthy() && rc.get("recipeItem").num() > 0.0 {

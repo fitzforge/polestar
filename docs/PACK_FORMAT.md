@@ -692,7 +692,7 @@ frame; absent: the live frame), `r` (arrival radius in yards), `spots`
 | `task` | `text` (format 5) | — |
 | `note` | `text` | — |
 | `skill` | `skill`, `level` | `skillLine` |
-| `learn` | `spell`, `spellName` | `skillLine`, `npc`/`npcName`, `item`/`itemName`, `candidates` |
+| `learn` | `spell`, `spellName` | `skillLine`, `makes` (the item the recipe makes; the profession window draws its icon), `npc`/`npcName`, `item`/`itemName`, `candidates` |
 | `craft` | `spell`, `spellName` | `item`/`itemName`, `count`, `untilSkill`, `yellow`, `grey`, `skillLine`, `reagents = { { item, itemName, count } }` |
 | `rep` | `faction`, `factionName`, `standing` (1 to 8) | — |
 | `explore` | `map`, `x`, `y` | `text` |
