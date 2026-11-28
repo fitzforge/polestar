@@ -1785,15 +1785,24 @@ GF.Part(function(GF)
 		local E = Engine()
 		local guide = E and E.GetGuide and E.GetGuide()
 		local mark, reason = UI.StepMark(view, guide and guide.steps and view and guide.steps[view.index])
-		person.Name:SetText(UI.GroupName(view, group) .. (mark and (" " .. UI.StepMarkGlyph(mark)) or ""))
+		-- A profession guide's step title carries where its spell is ("Disenchant your green items until 20 ·
+		-- Disenchant: Professions tab (K by default)"): the title keeps the first part, the rest goes on the where line
+		-- under it, as a leveling step's zone, so neither is cut.
+		local name, spellWhere = UI.GroupName(view, group), nil
+		if kind == "here" and E and E.GuideKind and E.GuideKind() == "profession" then
+			local head, rest = name:match("^(.-) \194\183 (.+)$")
+			if head and head ~= "" then name, spellWhere = head, rest end
+		end
+		person.Name:SetText(name .. (mark and (" " .. UI.StepMarkGlyph(mark)) or ""))
 		person.psMark, person.psMarkWhy = mark, reason
 		W.Color(person.Name, kind == "here" and "text" or (kind == "object" and "object" or "npc"))
 		local place = groupPlace(group)
 		local where = place and UI.MapName(place.map) or nil
+		if spellWhere then where = where and (spellWhere .. " \194\183 " .. where) or spellWhere end
 		person.Where:SetText(where or "")
 		person.Where:SetShown(where ~= nil)
 		person.psPlace = place
-		person.psLabel = UI.GroupName(view, group)
+		person.psLabel = name
 		person.psGroup = group
 		-- The arrow on this person marks the header; a field group's goals carry
 		-- their own marks, except the "Go to" the header stands for.
