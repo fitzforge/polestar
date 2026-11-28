@@ -19478,6 +19478,233 @@
 			]
 		},
 		{
+			"id": "the-binding-voidwalker-choker-02-westfall",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1689,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/02-westfall"
+			},
+			"rows": {
+				"before": [
+					"use 6928 quest 1689.1 @39.1,84.4 map 1453 live"
+				]
+			},
+			"note": "The Binding (1689): the voidwalker is called by using the Bloodstone Choker (6928, the quest's source item) at the summoning circle in the Slaughtered Lamb's cellar (Summon Voidwalker, 7728); the step had only its kill. The choker's use is a row before it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 24 people took 1689, 0 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 6928's use is spell 7728 (Summon Voidwalker)"
+				}
+			]
+		},
+		{
+			"id": "the-binding-succubus-heartswood-core-05-arathi-highlands",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1739,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/30-40/05-arathi-highlands"
+			},
+			"rows": {
+				"before": [
+					"use 6913 quest 1739.1 @39.2,84.4 map 1453 live"
+				]
+			},
+			"note": "The Binding (1739): the succubus is called by using the Heartswood Core (6913, the quest's source item) at the summoning circle (8674); the step had only its kill. The core's use is a row before it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 15 people took 1739, 0 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 6913's use is spell 8674 (Summon Succubus)"
+				}
+			]
+		},
+		{
+			"id": "the-binding-voidwalker-choker-01-elwynn-forest",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1689,
+				"goal": "complete",
+				"guide": "forever/alliance/human/01-elwynn-forest"
+			},
+			"rows": {
+				"before": [
+					"use 6928 quest 1689.1 @39.2,84.4 map 1453 live"
+				]
+			},
+			"note": "The Binding (1689): the voidwalker is called by using the Bloodstone Choker (6928, the quest's source item) at the summoning circle in the Slaughtered Lamb's cellar (Summon Voidwalker, 7728); the step had only its kill. The choker's use is a row before it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 24 people took 1689, 0 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 6928's use is spell 7728 (Summon Voidwalker)"
+				}
+			]
+		},
+		{
+			"id": "a-little-help-spraggles-canteen-03-winterspring",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4491,
+				"goal": "complete",
+				"guide": "forever/alliance/50-60/03-winterspring"
+			},
+			"rows": {
+				"before": [
+					"use 11804 quest 4491.1 @51.8,49.9 map 1449"
+				]
+			},
+			"note": "A Little Help From My Friends (4491): Ringo faints on the way and wakes when Spraggle's Canteen (11804, the quest's source item) is used on him (15591); the step had only the walk and the complete. The canteen's use is a row before the complete.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 38 people took 4491, 3 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 11804's use is spell 15591 (Revive Ringo)"
+				}
+			]
+		},
+		{
+			"id": "a-little-help-spraggles-canteen-01-un-goro-crater",
+			"faction": "Horde",
+			"at": {
+				"quest": 4491,
+				"goal": "complete",
+				"guide": "forever/horde/50-60/01-un-goro-crater"
+			},
+			"rows": {
+				"before": [
+					"use 11804 quest 4491.1 @51.8,49.9 map 1449"
+				]
+			},
+			"note": "A Little Help From My Friends (4491): Ringo faints on the way and wakes when Spraggle's Canteen (11804, the quest's source item) is used on him (15591); the step had only the walk and the complete. The canteen's use is a row before the complete.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 38 people took 4491, 3 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 11804's use is spell 15591 (Revive Ringo)"
+				}
+			]
+		},
+		{
+			"id": "a-little-help-spraggles-canteen-06-silithus",
+			"faction": "Horde",
+			"at": {
+				"quest": 4491,
+				"goal": "complete",
+				"guide": "forever/horde/50-60/06-silithus"
+			},
+			"rows": {
+				"before": [
+					"use 11804 quest 4491.1 @51.8,49.9 map 1449"
+				]
+			},
+			"note": "A Little Help From My Friends (4491): Ringo faints on the way and wakes when Spraggle's Canteen (11804, the quest's source item) is used on him (15591); the step had only the walk and the complete. The canteen's use is a row before the complete.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 38 people took 4491, 3 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 11804's use is spell 15591 (Revive Ringo)"
+				}
+			]
+		},
+		{
+			"id": "call-of-earth-earth-sapta-orc-durotar",
+			"faction": "Horde",
+			"at": {
+				"quest": 1517,
+				"goal": "turnin",
+				"guide": "forever/horde/orc/01-durotar"
+			},
+			"rows": {
+				"before": [
+					"use 6635 @44.1,76.4"
+				]
+			},
+			"note": "Call of Earth (1517): the Minor Manifestation of Earth shows only after the Earth Sapta (6635) is drunk at Spirit Rock (8202); the step had only the hand-in. The sapta's use is a row before it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 15 people took 1517, 0 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 6635's use is spell 8202 (Sapta Sight)"
+				}
+			]
+		},
+		{
+			"id": "call-of-earth-earth-sapta-troll-durotar",
+			"faction": "Horde",
+			"at": {
+				"quest": 1517,
+				"goal": "turnin",
+				"guide": "forever/horde/troll/01-durotar"
+			},
+			"rows": {
+				"before": [
+					"use 6635 @44.1,76.4"
+				]
+			},
+			"note": "Call of Earth (1517): the Minor Manifestation of Earth shows only after the Earth Sapta (6635) is drunk at Spirit Rock (8202); the step had only the hand-in. The sapta's use is a row before it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 15 people took 1517, 0 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 6635's use is spell 8202 (Sapta Sight)"
+				}
+			]
+		},
+		{
+			"id": "call-of-earth-earth-sapta-mulgore-01-mulgore",
+			"faction": "Horde",
+			"at": {
+				"quest": 1520,
+				"goal": "turnin",
+				"guide": "forever/horde/tauren/01-mulgore"
+			},
+			"rows": {
+				"before": [
+					"use 6635 @51.9,80.3 map 1412 live"
+				]
+			},
+			"note": "Call of Earth (1520): as 1517, on the mesa east of Camp Narache.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 6 people took 1520, 0 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 6635's use is spell 8202 (Sapta Sight)"
+				}
+			]
+		},
+		{
 			"id": "3574-stv-fever-group-horde-first-visit",
 			"faction": "Horde",
 			"at": {

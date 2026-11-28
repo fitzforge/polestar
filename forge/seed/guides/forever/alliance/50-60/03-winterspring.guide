@@ -332,6 +332,7 @@ step Ringo
 step Escort Ringo
   tip Lead Ringo north to Marshal's Refuge. When he faints, use Spraggle's Canteen on him to wake him.
   goto 43.7,8.3
+  use 11804 quest 4491.1 @51.8,49.9 map 1449
   complete 4491
 
 step Spraggle Frock

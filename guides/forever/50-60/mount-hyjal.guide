@@ -255,6 +255,7 @@ step Felflick
 
 step The bone pile
   tip West to the bone pile by the slime pools: throw the warlocks' bones on it, then hand the quest in at the pile itself. Handing it in wakes the Awakened Fel Ash Slime, an elite (level 58) that hits hard: unless you are grouped for it, hand in and ride clear at once.
+  use 273296 @40.8,80.3
   complete 96435 @40.8,80.3
   turnin 96435                          -- Bone Pile
 
@@ -295,6 +296,7 @@ step The Ashen workstations
   goto 44.3,68.3 "Alchemy Workstation"
   goto 46.6,68.0 "Disease Workstation"
   goto 49.6,69.6 "Vessel Workstation"
+  use 273323 @42.5,73.1
   complete 95316
 
 step The Curious Crow
@@ -687,6 +689,7 @@ step The overlook
   tip West to the overlook above the valley: the veteran's old scabbard lies there. Hand his quest in at the scabbard and take the next from it, then use the scabbard in your bags to call his spirit and listen to his story.
   turnin 92100                          -- Embroidered Scabbard
   accept 96550                          -- Battle Recall
+  use 274795 @8.8,46.5 map 2482 live
   talk 255038                           -- Veteran of the Third War
   turnin 96550
 
@@ -977,6 +980,7 @@ step Bethra'zel
   when onquest 96003
   tip North-east to Bethra'zel. Drain him first: use Elaena's eye on him, and only then fight him. Undrained, he and Mazzogore are level 60 elites. Doomguard Xarkul, an elite (level 61), walks this corner of Dae'gun: keep out of his way.
   tip Careful: Legion Hulks (60, rare elites) stomp through Dae'gun's camps: give them room.
+  use 271879 quest 96003.1 @57.4,36.3 map 2482 live
   kill 263394 quest 96003.1             -- Bethra'zel
 
 step Maerion Thaelemaches

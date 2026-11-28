@@ -18839,6 +18839,14 @@ for (const [guide, item, quest, oi, verb] of [
 	['forever/alliance/dwarf/01-dun-morogh.guide', 17117, 6661, 1, 'use'], // Deeprun Rat Roundup: the flute
 	['forever/reputation/stormwind.guide', 12815, 5097, 1, 'use'], // All Along the Watchtowers: the Beacon Torch at each tower
 	['forever/class/warlock/orb-of-orahil.guide', 12647, 4962, 1, 'use'], // Shard of a Felhound: the Felhas Ruby
+	// The third batch.
+	['forever/class/druid/dungeon-set-2.guide', 21946, 8924, 1, 'use'], // Hunting for Ectoplasm: the distiller among the ghosts
+	['forever/class/warrior/dungeon-set-2.guide', 21946, 8924, 3, 'use'],
+	['forever/alliance/02-westfall.guide', 6928, 1689, 1, 'use'], // The Binding: the Bloodstone Choker at the circle
+	['forever/alliance/30-40/05-arathi-highlands.guide', 6913, 1739, 1, 'use'], // The Binding: the Heartswood Core
+	['forever/class/warlock/incubus-horde.guide', 190187, 65604, 1, 'use'], // The Binding: the Withered Scarf
+	['forever/horde/50-60/06-silithus.guide', 11804, 4491, 1, 'use'], // A Little Help From My Friends: Spraggle's Canteen
+	['forever/50-60/mount-hyjal.guide', 271879, 96003, 1, 'use'], // Drawing Down the Malevolent: the Eye of Endless Influence
 ]) {
 	test(`${guide}: ${verb} ${item} right before the line of quest ${quest}.${oi} (tip-only actions sweep)`, { skip }, () => {
 		const list = goals(guide);

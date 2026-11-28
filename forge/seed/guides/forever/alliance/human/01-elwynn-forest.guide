@@ -625,6 +625,7 @@ step The Binding
   enter "Stormwind City" @69.5,85.5
   turnin 1688                                 -- Gakin the Darkbinder
   accept 1689
+  use 6928 quest 1689.1 @39.2,84.4 map 1453 live
   complete 1689                               -- Subdue the voidwalker
   turnin 1689                                 -- Summon Voidwalker
 

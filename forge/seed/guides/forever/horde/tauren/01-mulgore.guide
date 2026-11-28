@@ -110,6 +110,7 @@ step Call of Earth
   tip Back to Seer Ravenfeather in the camp. The Minor Manifestation of Earth waits on the mesa east of the camp: drink the Earth Sapta there to see it, then take the Rough Quartz back to the Seer.
   turnin 1519                         -- Seer Ravenfeather
   accept 1520
+  use 6635 @51.9,80.3 map 1412 live
   turnin 1520                         -- Minor Manifestation of Earth
   accept 1521
   turnin 1521                         -- Seer Ravenfeather: Stoneskin Totem and your Earth Totem
