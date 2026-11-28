@@ -2214,7 +2214,7 @@
 					92871
 				],
 				"faction": "Horde",
-				"why": "Zephras Isle, Shamans (a player on X, 0.4.3.1, 2026-11-28): Call of Fire is finished from Valanaar right after Belathaan's trip (Olariaan, Kuramaa, Olariaan, the flame to the brazier: 2,591 yd), not from the turncoat's house after the East Pylon (2,719 yd more than the turncoat's round trip): the Searing Totem comes about a level earlier (12.0 instead of 13.0 in the flow audit) for 590 yd less walking."
+				"why": "Zephras Isle, Shamans (a player on X, 0.4.3.1, 2026-11-28): Call of Fire is finished from Valanaar right after Belathaan's trip (Olariaan, Kuramaa, Olariaan, the flame to the brazier: 2,591 yd), not from the turncoat's house after the East Pylon (2,719 yd more than the turncoat's round trip): in the flow audit the Searing Totem comes 26 minutes earlier (level 12.3 instead of 13.0) and the isle's walking is 1.5 km shorter."
 			},
 			{
 				"a": [

@@ -229,8 +229,6 @@ return {
 	-- Step 54: Ayessa Dawnsinger
 	-- {npc:251968} Ayessa Dawnsinger
 	["talk to {npc:251968}"] = "fale com {npc:251968}",
-	-- {npc:252382} Sessaria Skystride · {npc:251968} Ayessa Dawnsinger · {quest:97243} Call of Fire
-	["{npc:252382}, beside {npc:251968}: {quest:97243}"] = "{npc:252382}, ao lado de {npc:251968}: {quest:97243}",
 
 	-- Step 55: Nyalah Brightfire and Alvarion Windfield
 	-- {npc:257006} Nyalah Brightfire · {npc:252448} Alvarion Windfield
@@ -254,11 +252,15 @@ return {
 	-- {npc:252377} Seena Skybreaker · {npc:256083} Riaani Nightwind · {quest:94003} The Skybreaker Bulwark
 	["{npc:252377}, beside {npc:256083}: {quest:94003}"] = "{npc:252377}, ao lado de {npc:256083}: {quest:94003}",
 
-	-- Step 57: Windfield Orchard
+	-- Step 57: Sessaria Skystride
+	-- {npc:252382} Sessaria Skystride · {npc:251968} Ayessa Dawnsinger · {quest:97243} Call of Fire · {npc:268592} Olariaan Swiftburn
+	["{npc:252382} stands beside {npc:251968} near the west gate, on your way out to the orchard. {quest:97243} starts at {npc:268592}'s Shrine of Flames, just south-east of the orchard."] = "",
+
+	-- Step 58: Windfield Orchard
 	-- {area:16663} Windfield Orchard · {area:16638} Valanaar
 	["{area:16663} is west of {area:16638} along the coast road."] = "{area:16663} fica a oeste de {area:16638}, pela estrada costeira.",
 
-	-- Step 58: The orchard
+	-- Step 59: The orchard
 	["The orchard"] = "O pomar",
 	-- plural, as words: Hungry Bandits = {npc:252802} Hungry Bandit
 	["Stormapples and flutterfly dust lie all over the orchard; Hungry Bandits raid it. Galestriders graze in the fields east of it. The broken construct floats at the orchard's north edge."] = "Maçãs-dos-raios e pó de asaleve estão espalhados pelo pomar; Bandidos Famintos o saqueiam. Vagaventos pastam nos campos a leste dele. O constructo quebrado flutua na borda norte do pomar.",
@@ -269,18 +271,18 @@ return {
 	-- {npc:268592} Olariaan Swiftburn
 	["{npc:268592}, at the Shrine of Flames just south-east of the orchard"] = "{npc:268592}, no Shrine of Flames, logo a sudeste do pomar",
 
-	-- Step 60: Gustberry Lowlands: kill these as you meet them
+	-- Step 61: Gustberry Lowlands: kill these as you meet them
 	-- {area:16626} Gustberry Lowlands
 	["{area:16626}: kill these as you meet them"] = "{area:16626}: vá matando estes pelo caminho",
 	-- {area:16663} Windfield Orchard
 	-- plural, as words: Blood-Stained Bandit Masks = {item:253596} Blood-Stained Bandit Mask
 	["The Highwayman Bandits hold the hills north of {area:16663}; they drop the Blood-Stained Bandit Masks."] = "Os Bandoleiros Bandidos tomaram as colinas ao norte de {area:16663}; são eles que deixam cair as Máscaras de Bandido Manchadas de Sangue.",
 
-	-- Step 61: Standing Our Ground
+	-- Step 62: Standing Our Ground
 	-- {npc:252800} Aamelia Windfield
 	["Tell {npc:252800} you're ready"] = "Diga a {npc:252800} que você está pronto",
 
-	-- Step 62: Shen'dar Highlands: kill these as you meet them
+	-- Step 63: Shen'dar Highlands: kill these as you meet them
 	-- {item:260881} Crystallized Lightning · {npc:256083} Riaani Nightwind
 	["The {item:260881} lies in a cave in the hills north-west of {npc:256083}."] = "{item:260881} está numa caverna nas colinas a noroeste de {npc:256083}.",
 	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod
@@ -288,25 +290,25 @@ return {
 	-- {npc:254588} Windsong Crawler
 	["Tame {npc:254588}"] = "Dome {npc:254588}",
 
-	-- Step 63: Enchanted Gyrozephyr
+	-- Step 64: Enchanted Gyrozephyr
 	-- {area:16624} Shen'dar Village · {area:16625} Windsong Lake
 	-- plural, as words: Enchanted Gyrozephyrs = {item:260883} Enchanted Gyrozephyr
 	["The Enchanted Gyrozephyrs lie under water far to the north, east of {area:16624} and south-west of {area:16625}."] = "Os Girozéfiros Encantados estão debaixo d'água, bem ao norte, a leste de {area:16624} e a sudoeste de {area:16625}.",
 	["Underwater"] = "Debaixo d'água",
 
-	-- Step 64: Alvarion Windfield and Riaani Nightwind
+	-- Step 65: Alvarion Windfield and Riaani Nightwind
 	-- {npc:252448} Alvarion Windfield · {npc:256083} Riaani Nightwind
 	["{npc:252448} and {npc:256083}"] = "{npc:252448} e {npc:256083}",
 
-	-- Step 65: Class trainer
+	-- Step 66: Class trainer
 	["Class trainer"] = "Instrutor de classe",
 
-	-- Step 66: Warlock trainer
+	-- Step 67: Warlock trainer
 	["Warlock trainer"] = "Instrutor de bruxo",
 	-- {npc:2127} Rupert Boch · {zone:1420} Tirisfal Glades · {area:16638} Valanaar
 	["{npc:2127} in {zone:1420}; {area:16638} has no warlock trainer"] = "{npc:2127} em {zone:1420}; {area:16638} não tem instrutor de bruxo",
 
-	-- Step 68: Taming the Beast
+	-- Step 69: Taming the Beast
 	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod · {npc:254411} Quel'dora Quickgale · {spell:5149} Beast Training
 	-- plural, as words: Ornery Galestriders = {npc:251707} Ornery Galestrider · Vuldren Alphas = {npc:250874} Vuldren Alpha
 	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches {spell:5149}."] = "{npc:252389} pega de volta o primeiro {item:15908} e entrega mais dois, um de cada vez: Vagaventos Turrões e Vuldrens Alfa andam pelos campos logo ao norte dela. Dome cada um com o seu bastão e devolva o bastão a ela. {npc:254411}, ao lado dela, ensina {spell:5149}.",
@@ -315,26 +317,41 @@ return {
 	-- {npc:250874} Vuldren Alpha
 	["Tame {npc:250874}"] = "Dome {npc:250874}",
 
-	-- Step 69: Ayessa Dawnsinger
+	-- Step 70: Ayessa Dawnsinger
 	-- {npc:256247} Belathaan Brightwish · {area:16638} Valanaar · {area:16629} Shrine of Akir
 	["{npc:256247} waits on the road north of {area:16638}, towards the {area:16629}."] = "{npc:256247} espera na estrada ao norte de {area:16638}, na direção de {area:16629}.",
+	-- {npc:268602} Skypriest Faladiel · {npc:256247} Belathaan Brightwish · {area:17675} East Pylon Watchtower
+	["{npc:268602}, on the hill south-east of {npc:256247}, west of the falls above the {area:17675}"] = "",
 
-	-- Step 70: Valennia Stormfist
+	-- Step 72: Olariaan Swiftburn
+	-- {item:277267} Faladiel's Heart · {npc:268592} Olariaan Swiftburn · {area:16638} Valanaar · {area:16623} Shen'dar Highlands · {npc:268605} Kuramaa
+	-- plural, as words: Windsong Crawlers = {npc:254588} Windsong Crawler
+	["Take {item:277267} to {npc:268592} at the Shrine of Flames, south-west of {area:16638}, then head west into the {area:16623}: {npc:268605}'s home is in the hills south of the Windsong Crawlers' lakes."] = "Leve {item:277267} para {npc:268592} no Shrine of Flames, a sudoeste de {area:16638}, e depois siga para oeste em {area:16623}: a casa de {npc:268605} fica nas colinas ao sul dos lagos dos Rastejantes Cantéolo.",
+
+	-- Step 73: Zephras Isle
+	-- {object:148418} Eternal Flame
+	["The {object:148418}"] = "{object:148418}",
+
+	-- Step 74: The Eternal Flame
+	-- {npc:268592} Olariaan Swiftburn · {npc:268762} Brazier of Offering · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar
+	["Back to {npc:268592}. Wait for him to light the {npc:268762}, then carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638} before the timer runs out."] = "Volte a {npc:268592}. Espere ele acender {npc:268762} e leve a chama direto para {npc:268679} ao lado de {npc:252382} em {area:16638} antes que o tempo acabe.",
+	-- {npc:252382} Sessaria Skystride · {npc:2523} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
+	["{npc:252382}: {npc:2523}, your {item:5176} and the {item:263412}"] = "{npc:252382}: {npc:2523}, o seu {item:5176} e {item:263412}",
+
+	-- Step 75: Valennia Stormfist
 	["Upstairs"] = "No andar de cima",
 
-	-- Step 71: Lotheluum Starbreeze
+	-- Step 76: Lotheluum Starbreeze
 	-- {npc:252359} Lotheluum Starbreeze · {area:16638} Valanaar · {npc:255853} Urs'endris · {area:17675} East Pylon Watchtower · {spell:1259416} Walk on Air
 	["{npc:252359} stands on {area:16638}'s east side. {npc:255853} waits by the falls just north of the {area:17675}: leave town to the north, climb the ridge east of the road and glide down to him with {spell:1259416}."] = "{npc:252359} fica no lado leste de {area:16638}. {npc:255853} espera junto à cachoeira logo ao norte de {area:17675}: saia da cidade pelo norte, suba a crista a leste da estrada e plane até ele com {spell:1259416}.",
 
-	-- Step 72: The East Pylon Watchtower
+	-- Step 77: The East Pylon Watchtower
 	-- {area:17675} East Pylon Watchtower
 	["The {area:17675}"] = "{area:17675}",
 	-- {area:17675} East Pylon Watchtower · {npc:252666} Commander Belguilos
 	["Head north-east to the {area:17675}. The Al'Aketh camp is just west of it, with {npc:252666} at its north end. Every cultist can drop a windstone charm."] = "Siga para nordeste até {area:17675}. O acampamento Al'Aketh fica logo a oeste dela, com {npc:252666} na ponta norte. Qualquer sectário pode deixar cair um amuleto de pedra eólica.",
-	-- {npc:268602} Skypriest Faladiel
-	["{npc:268602}, on the hill west of the falls just north of the watchtower"] = "{npc:268602}, na colina a oeste da cachoeira, logo ao norte da torre de vigia",
 
-	-- Step 74: The turncoat
+	-- Step 79: The turncoat
 	["The turncoat"] = "O traidor",
 	-- {area:16626} Gustberry Lowlands · {area:16638} Valanaar · {npc:273017} Fendaal Windstone
 	["The turncoat's house is in the {area:16626} north-west of {area:16638}, just north of {npc:273017}."] = "A casa do vira-casaca fica em {area:16626}, a noroeste de {area:16638}, logo ao norte de {npc:273017}.",
@@ -342,60 +359,45 @@ return {
 	-- {npc:253372} Dead Cultist
 	["{npc:253372}, inside"] = "{npc:253372}, lá dentro",
 
-	-- Step 75: Ur'endra
+	-- Step 80: Ur'endra
 	-- {npc:258443} Ur'endra · {area:16623} Shen'dar Highlands · {area:16626} Gustberry Lowlands
 	["{npc:258443} has her lair in a cave in the bluffs just south of the turncoat's house, where the {area:16623} meet the {area:16626}."] = "{npc:258443} tem o covil numa caverna nos penhascos logo ao sul da casa do traidor, onde {area:16623} encontra {area:16626}.",
 
-	-- Step 77: Olariaan Swiftburn
-	-- {item:277267} Faladiel's Heart · {npc:268592} Olariaan Swiftburn · {area:16638} Valanaar · {area:16623} Shen'dar Highlands · {npc:268605} Kuramaa
-	-- plural, as words: Windsong Crawlers = {npc:254588} Windsong Crawler
-	["Take {item:277267} to {npc:268592} at the Shrine of Flames, south-west of {area:16638}, then head west into the {area:16623}: {npc:268605}'s home is in the hills south of the Windsong Crawlers' lakes."] = "Leve {item:277267} para {npc:268592} no Shrine of Flames, a sudoeste de {area:16638}, e depois siga para oeste em {area:16623}: a casa de {npc:268605} fica nas colinas ao sul dos lagos dos Rastejantes Cantéolo.",
-
-	-- Step 78: Zephras Isle
-	-- {object:148418} Eternal Flame
-	["The {object:148418}"] = "{object:148418}",
-
-	-- Step 79: The Eternal Flame
-	-- {npc:268592} Olariaan Swiftburn · {npc:268762} Brazier of Offering · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar
-	["Back to {npc:268592}. Wait for him to light the {npc:268762}, then carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638} before the timer runs out."] = "Volte a {npc:268592}. Espere ele acender {npc:268762} e leve a chama direto para {npc:268679} ao lado de {npc:252382} em {area:16638} antes que o tempo acabe.",
-	-- {npc:252382} Sessaria Skystride · {npc:2523} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
-	["{npc:252382}: {npc:2523}, your {item:5176} and the {item:263412}"] = "{npc:252382}: {npc:2523}, o seu {item:5176} e {item:263412}",
-
-	-- Step 80: Unfortunate News
+	-- Step 81: Unfortunate News
 	-- {npc:252476} Talaanis Shadowsong
 	["talk to {npc:252476}"] = "fale com {npc:252476}",
 
-	-- Step 81: Desperate Times
+	-- Step 82: Desperate Times
 	-- {npc:251968} Ayessa Dawnsinger · {npc:252475} Elaadrin Evengale
 	["Valennia asks you to hear out both leaders: {npc:251968} of the Horde and {npc:252475} of the Alliance. {npc:252475}'s name shows red to you, but he talks to you all the same, and the quest needs both."] = "Valennia pede que você ouça os dois líderes: {npc:251968}, da Horda, e {npc:252475}, da Aliança. O nome de {npc:252475} aparece em vermelho para você, mas ele conversa com você mesmo assim, e a missão exige os dois.",
 
-	-- Step 83: Desperate Times
+	-- Step 84: Desperate Times
 	-- {npc:253844} Valennia Stormfist
 	["talk to {npc:253844}"] = "fale com {npc:253844}",
 
-	-- Step 84: Zaal Stormshield
+	-- Step 85: Zaal Stormshield
 	-- {npc:257196} Zaal Stormshield · {item:263993} Skybreaker Bulwark
 	["{npc:257196} holds the {item:263993} on the west side of the shrine."] = "{npc:257196} guarda {item:263993} no lado oeste do santuário.",
 
-	-- Step 85: Strength and Mercy
+	-- Step 86: Strength and Mercy
 	-- {npc:255853} Urs'endris · {area:17675} East Pylon Watchtower · {spell:1259416} Walk on Air
 	["On your way north from Valennia, {npc:255853} waits by the falls north-east of you, just north of the {area:17675}: from the ridge above them, glide down with {spell:1259416}."] = "Subindo para o norte depois de Valennia, {npc:255853} espera junto à cachoeira a nordeste, logo ao norte de {area:17675}: da crista acima dela, plane até lá com {spell:1259416}.",
 
-	-- Step 86: Elegael Thornpaw
+	-- Step 87: Elegael Thornpaw
 	-- {area:16631} Shadowgale Forest · {npc:257944} Elegael Thornpaw
 	["Head north into {area:16631}; {npc:257944} camps at its southern edge."] = "Siga para o norte, entrando em {area:16631}; {npc:257944} acampa na borda sul.",
 
-	-- Step 87: Shadowgale Forest: kill these as you meet them
+	-- Step 88: Shadowgale Forest: kill these as you meet them
 	-- {area:16631} Shadowgale Forest
 	["{area:16631}: kill these as you meet them"] = "{area:16631}: vá matando estes pelo caminho",
 	-- {item:265105} Lady's Tear Moss · {npc:257944} Elegael Thornpaw · {item:265141} Bloody Heirloom
 	["{item:265105} grows around {npc:257944}'s camp and Shriekings fly over it. The Al'Aketh camp east of her holds the {item:265141}."] = "{item:265105} cresce em volta do acampamento de {npc:257944}, e Shriekings voam sobre ele. O acampamento Al'Aketh a leste dela guarda {item:265141}.",
 
-	-- Step 88: Elegael Thornpaw again
+	-- Step 89: Elegael Thornpaw again
 	-- {npc:257944} Elegael Thornpaw
 	["{npc:257944} again"] = "{npc:257944} de novo",
 
-	-- Step 89: The Al'Aketh camp
+	-- Step 90: The Al'Aketh camp
 	["The Al'Aketh camp"] = "O acampamento Al'Aketh",
 	-- {npc:253622} Commander Haalien · {npc:258130} Jorel Windsinger · {npc:258134} Naaleos Leafwhisper · {npc:257944} Elegael Thornpaw · {npc:254151} Vayn Moongaze · {quest:94490} Ripped Missive · {quest:94489} The Wounds of Betrayal
 	["{npc:253622}, {npc:258130} and {npc:258134} are in the cult camp east of {npc:257944}. {npc:254151} stands at its edge. Haalien also drops a {quest:94490}: read it to start the next quest. For {quest:94489}, enter the Nightfang Den, heal 7 injured druids and find {npc:258130}."] = "{npc:253622}, {npc:258130} e {npc:258134} estão no acampamento do culto a leste de {npc:257944}. {npc:254151} fica na borda. Haalien também deixa cair {quest:94490}: leia para iniciar a próxima missão. Para {quest:94489}, entre no Nightfang Den, cure 7 druidas feridos e encontre {npc:258130}.",
@@ -403,30 +405,30 @@ return {
 	-- {npc:258130} Jorel Windsinger
 	["Find {npc:258130}"] = "Encontre {npc:258130}",
 
-	-- Step 90: Elegael Thornpaw, last time
+	-- Step 91: Elegael Thornpaw, last time
 	-- {npc:257944} Elegael Thornpaw
 	["{npc:257944}, last time"] = "{npc:257944}, última vez",
 
-	-- Step 91: The Strange Hermit
+	-- Step 92: The Strange Hermit
 	-- {area:16625} Windsong Lake
 	["The hermit lives at {area:16625}'s west shore."] = "O eremita mora na margem oeste de {area:16625}.",
 	-- {npc:251684} Strange Hermit
 	["talk to {npc:251684}"] = "fale com {npc:251684}",
 
-	-- Step 92: Camping 101: Engineering
+	-- Step 93: Camping 101: Engineering
 	-- {quest:93159} The Strange Hermit · {skill:202} Engineering
 	["{quest:93159} has a Camping 101 for engineers too, and takes it back once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{quest:93159} também tem uma Introdução ao acampamento para engenheiros e a recebe de volta quando sua habilidade em {skill:202} chegar a 20: colete ou produza até lá; o guia continua enquanto isso.",
 
-	-- Step 93: Windsong Lake
+	-- Step 94: Windsong Lake
 	-- {item:257128} Zephyrseed · {npc:254344} Endaria Mistgaze · {quest:93736} Unwelcome Spirits · {area:16625} Windsong Lake · {npc:259013} Resaan Nimbuswalker
 	-- plural, as words: Wind Hollows = {npc:251676} Wind Hollow · Wind Hollow Essences = {item:262357} Wind Hollow Essence
 	["{item:257128} cones grow south of the hermit; the Wind Hollows drift east of the lake and also drop the Wind Hollow Essences for {npc:254344}'s {quest:93736}. The refugees' belongings lie along the north shore of {area:16625}; {npc:259013} is at its north-west end."] = "Os cones de {item:257128} crescem ao sul do eremita; os Abantesmas do Vento vagam a leste do lago e também deixam cair as Essências de Abantesma do Vento para {quest:93736}, de {npc:254344}. Os pertences dos refugiados ficam ao longo da margem norte de {area:16625}; {npc:259013} está na ponta noroeste dela.",
 
-	-- Step 95: Strange Hermit
+	-- Step 96: Strange Hermit
 	-- {npc:251684} Strange Hermit
 	["talk to the {npc:251684}"] = "fale com {npc:251684}",
 
-	-- Step 96: The Shrine of Akir
+	-- Step 97: The Shrine of Akir
 	-- {area:16629} Shrine of Akir
 	["The {area:16629}"] = "{area:16629}",
 	-- {area:16629} Shrine of Akir · {area:16638} Valanaar · {npc:253576} Hyusaa Quickbreeze
@@ -434,31 +436,31 @@ return {
 	-- {npc:253590} Valennia Stormfist
 	["{npc:253590}, upstairs"] = "{npc:253590}, no andar de cima",
 
-	-- Step 97: Portal to Rohashi Spires
+	-- Step 98: Portal to Rohashi Spires
 	-- {area:16630} Rohashi Spires
 	["Portal to {area:16630}"] = "Portal para {area:16630}",
 
-	-- Step 98: Confront Lorthuna
+	-- Step 99: Confront Lorthuna
 	-- {area:16630} Rohashi Spires · {npc:252475} Elaadrin Evengale · {object:617084} Portal to Valanaar (no name in this language: may be words)
 	["Take the Portal to {area:16630} in the shrine up to the heights. Fight east along the ledge to the Peacekeepers at its end, ride the wind current up to the upper terrace and tell {npc:252475} you are ready. Leave the {object:617084} up there alone until Rohash has withdrawn; then it takes you straight back to town."] = "Pegue o Portal para {area:16630} no santuário até as alturas. Lute para leste ao longo da saliência até os Pacificadores no fim dela, suba a corrente de vento até o terraço superior e diga a {npc:252475} que você está pronto. Deixe {object:617084} lá em cima em paz até Rohash se retirar; depois ele leva você direto de volta à cidade.",
 
-	-- Step 99: The Fate of Zephras
+	-- Step 100: The Fate of Zephras
 	-- {npc:254344} Endaria Mistgaze · {npc:251968} Ayessa Dawnsinger
 	["{npc:254344}, beside {npc:251968}"] = "{npc:254344}, ao lado de {npc:251968}",
 
-	-- Step 100: Seena Skybreaker
+	-- Step 101: Seena Skybreaker
 	-- {npc:252377} Seena Skybreaker · {npc:256083} Riaani Nightwind · {area:16638} Valanaar
 	["{npc:252377} stands beside {npc:256083}, just north-west of {area:16638}."] = "{npc:252377} fica ao lado de {npc:256083}, logo a noroeste de {area:16638}.",
 
-	-- Step 101: Valanaar
+	-- Step 102: Valanaar
 	-- {npc:251968} Ayessa Dawnsinger · {area:16638} Valanaar · {zone:1412} Mulgore · {npc:259119} Alaana Stormwalker
 	["{npc:251968} sends you on to Kalimdor. Once you have trained, board the skycutter at the dock on {area:16638}'s south-west edge: it flies to northern {zone:1412}, where {npc:259119} waits."] = "{npc:251968} manda você seguir para Kalimdor. Depois de treinar, embarque no barco celeste no cais da borda sudoeste de {area:16638}: ela voa até o norte de {zone:1412}, onde {npc:259119} espera.",
 
-	-- Step 103: Leave Zephras Isle to Mulgore
+	-- Step 104: Leave Zephras Isle to Mulgore
 	-- {zone:2521} Zephras Isle · {zone:1412} Mulgore
 	["Leave {zone:2521} to {zone:1412}"] = "Saia de {zone:2521} rumo a {zone:1412}",
 
-	-- Step 104: Northern Mulgore
+	-- Step 105: Northern Mulgore
 	-- {zone:1412} Mulgore
 	["Northern {zone:1412}"] = "Norte de {zone:1412}",
 	-- {npc:259119} Alaana Stormwalker
@@ -468,11 +470,11 @@ return {
 	-- {npc:259118} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
 	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:259118}, junto ao pouso: para {npc:3033} em {zone:1456}",
 
-	-- Step 105: Clarice Foster
+	-- Step 106: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
 	["{npc:5543} stands in the {area:2197}, the cave under {area:1640}: go down inside, the arrow cannot tell the floors apart."] = "{npc:5543} fica em {area:2197}, a caverna sob {area:1640}: desça por dentro, a seta não distingue os andares.",
 
-	-- Step 107: Traditions of the Bluff
+	-- Step 108: Traditions of the Bluff
 	-- {npc:269068} Eylah Sunhorn · {npc:3014} Nida Winterhoof · {npc:3012} Nata Dawnstrider · {npc:3005} Mahu · {npc:3027} Naal Mistrunner · {item:278078} Prepared Incense
 	["{npc:269068} wants tauren incense: buy its four parts from {npc:3014} the herbalist, {npc:3012} the enchanting supplier, {npc:3005} the leatherworking supplier and {npc:3027} the cooking supplier, then combine them into {item:278078}."] = "{npc:269068} quer incenso tauren: compre as quatro partes de {npc:3014}, a herborista, {npc:3012}, a fornecedora de encantamento, {npc:3005}, o fornecedor de couraria, e {npc:3027}, o fornecedor de culinária, depois combine-as em {item:278078}.",
 	-- {item:278079} Bundle of Herbs · {npc:3014} Nida Winterhoof
@@ -484,60 +486,48 @@ return {
 	-- {item:278083} Ceremonial Flint and Tinder · {npc:3027} Naal Mistrunner
 	["{item:278083}, from {npc:3027}"] = "{item:278083}, de {npc:3027}",
 
-	-- Step 108: Turak Runetotem
+	-- Step 109: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form · {zone:1413} Barrens
 	-- was: ["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033} treina druidas em {area:1639}. Ele ensina {spell:18960}; as boas-vindas de {npc:11802} esperam sua viagem com {spell:499}, por volta do nível 21 (forever/horde/02-the-barrens)."
 	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21, in the {zone:1413} guide."] = "",
 
-	-- Step 109: Hunter Rise
+	-- Step 110: Hunter Rise
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
 	["Use the {item:278078} at the ceremonial mat and burner on the south-facing cliff of {area:1641}."] = "Use {item:278078} no tapete cerimonial e no incensário do penhasco voltado para o sul em {area:1641}.",
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
 	["Spread the {item:278078} off {area:1641}"] = "Espalhe {item:278078} a partir de {area:1641}",
 
-	-- Step 111: Ansekhwa
+	-- Step 112: Ansekhwa
 	-- {spell:199} Two-Handed Maces · {npc:11869} Ansekhwa
 	["While you're here: learn {spell:199} from {npc:11869} (10 silver); two-handers level a Warrior fastest."] = "Já que está aqui: aprenda {spell:199} com {npc:11869} (10 pratas); arma de duas mãos é o jeito mais rápido de upar Guerreiro.",
 
-	-- Step 112: Ansekhwa
+	-- Step 113: Ansekhwa
 	-- {npc:11869} Ansekhwa
 	["While you're here: learn Staves from {npc:11869} (10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Já que está aqui: aprenda Cajados com {npc:11869} (10 pratas); a arma corpo a corpo do Caçador vale pelos atributos, e as de duas mãos são as que mais trazem.",
 
-	-- Step 113: Into Mulgore
-	-- {zone:1412} Mulgore
-	["Into {zone:1412}"] = "Rumo a {zone:1412}",
-	-- {zone:1456} Thunder Bluff · {zone:1412} Mulgore · {zone:1413} Barrens
-	["Take {zone:1456}'s west lift down: the road at its foot runs south-east across {zone:1412} to the {zone:1413}."] = "Desça pelo elevador oeste de {zone:1456}: a estrada ao pé dele segue para sudeste por {zone:1412} até {zone:1413}.",
+	-- Step 114: Fly to Orgrimmar
+	-- {area:1637} Orgrimmar
+	["Fly to {area:1637}"] = "",
+	-- {npc:2995} Tal · {area:1637} Orgrimmar · {area:378} Camp Taurajo · {zone:1413} Barrens
+	["{npc:2995}, the wind rider master on the central mesa, flies you to {area:1637}: Skyborne know that flight from the start. The {area:378} and Crossroads flight paths come in the {zone:1413} guide."] = "",
 
-	-- Step 114: Into Barrens
-	-- {zone:1413} Barrens
-	["Into {zone:1413}"] = "Rumo a {zone:1413}",
+	-- Step 115: Rezlak
+	-- {zone:1454} Orgrimmar · {npc:3293} Rezlak · {area:370} Drygulch Ravine
+	["Leave {zone:1454} by the main gate and follow the road south: {npc:3293} camps beside it, below {area:370}. The stolen sacks lie along the road just east of him."] = "",
 
-	-- Step 115: Camp Taurajo
-	-- {zone:1412} Mulgore · {area:458} Gold Road · {area:378} Camp Taurajo · {npc:10378} Omusa Thunderhorn · {npc:3418} Kirge Sternhorn
-	["The road from {zone:1412} meets the {area:458} at {area:378}: {npc:10378}, the wind rider master, stands beside {npc:3418} on your way north to the Crossroads."] = "A estrada de {zone:1412} encontra {area:458} em {area:378}: {npc:10378}, o mestre de mantícoras, fica ao lado de {npc:3418}, no seu caminho para o norte até a Encruzilhada.",
-
-	-- Step 117: The Crossroads
-	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} Barrens
-	["Learn the flight path from {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "Aprenda a rota de voo com {npc:3615} na plataforma da torre. As missões próprias de {area:380} vêm depois de {zone:1421}, no guia de {zone:1413}.",
-
-	-- Step 118: Rezlak
-	-- {npc:3293} Rezlak · {zone:1454} Orgrimmar · {area:370} Drygulch Ravine
-	["{npc:3293} camps beside the road north to {zone:1454}, below {area:370}. The stolen sacks lie along the road just east of him."] = "",
-
-	-- Step 119: Drygulch Ravine
+	-- Step 116: Drygulch Ravine
 	-- {area:370} Drygulch Ravine · {npc:3293} Rezlak · {item:277661} Dull Storm Orb · {quest:97281} A Simmering Storm
 	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}, which starts {quest:97281}."] = "",
 
-	-- Step 120: Rezlak
+	-- Step 117: Rezlak
 	-- {npc:3293} Rezlak
 	["Back to {npc:3293} by the road."] = "",
 
-	-- Step 121: To Orgrimmar
+	-- Step 118: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "Até {zone:1454}",
-	-- {npc:3293} Rezlak · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["From {npc:3293}'s camp, go on to {zone:1454}'s main gate, a few hundred yards away. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "",
+	-- {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
+	["Back north up the road to {zone:1454}'s main gate, a few hundred yards away. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength (no name in this language: may be words)
 	["{zone:1454}'s {object:172982}"] = "{object:172982} de {zone:1454}",
 
@@ -555,7 +545,10 @@ return {
 	-- ["Hippogryph nests"] = "Ninhos de hipogrifo",
 	-- ["Horde airship"] = "Dirigível da Horda",
 	-- ["Into {area:17}"] = "Rumo a {area:17}",
+	-- ["Into {zone:1412}"] = "Rumo a {zone:1412}",
+	-- ["Into {zone:1413}"] = "Rumo a {zone:1413}",
 	-- ["Kuramaa"] = "Kuramaa",
+	-- ["Learn the flight path from {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "Aprenda a rota de voo com {npc:3615} na plataforma da torre. As missões próprias de {area:380} vêm depois de {zone:1421}, no guia de {zone:1413}.",
 	-- ["Leave {zone:1456} by a lift and follow the road south past {area:222} and through the eastern pass into the {zone:1413}; from the pass, take the {area:458} north to the {area:380}, the Horde town in the middle of the {zone:1413}."] = "Saia de {zone:1456} por um elevador e siga a estrada para o sul passando por {area:222} e pelo desfiladeiro leste até {zone:1413}; do desfiladeiro, pegue {area:458} para o norte até a {area:380}, a cidade da Horda no meio de {zone:1413}.",
 	-- ["Leaving {area:16635}"] = "Saindo de {area:16635}",
 	-- ["On the way north, back to {npc:255853} by the falls."] = "No caminho para o norte, volte a {npc:255853} junto às cachoeiras.",
@@ -568,6 +561,7 @@ return {
 	-- ["Take the Torch of Dormant Flame to {npc:268592} at the Shrine of Flames, south-west of {area:16638} in the {area:16626}."] = "Leve a Tocha da Chama Latente para {npc:268592} no Shrine of Flames, a sudoeste de {area:16638}, em {area:16626}.",
 	-- ["Take the portal up to the {area:16630} and join {npc:252475} and {npc:251968} against the High Priestess."] = "Pegue o portal até {area:16630} e junte-se a {npc:252475} e {npc:251968} contra a Alta-sacerdotisa.",
 	-- ["Take the road south-east to {area:16638}, the Skyborne town on the south coast. {npc:257006} and {npc:252448} stand at its western edge."] = "Pegue a estrada para sudeste até {area:16638}, a cidade dos Celonatos na costa sul. {npc:257006} e {npc:252448} ficam na borda oeste.",
+	-- ["Take {zone:1456}'s west lift down: the road at its foot runs south-east across {zone:1412} to the {zone:1413}."] = "Desça pelo elevador oeste de {zone:1456}: a estrada ao pé dele segue para sudeste por {zone:1412} até {zone:1413}.",
 	-- ["Talk to {npc:251902}"] = "Fale com {npc:251902}",
 	-- ["Talk to {npc:251968}"] = "Fale com {npc:251968}",
 	-- ["Talk to {npc:252383}"] = "Fale com {npc:252383}",
@@ -586,6 +580,7 @@ return {
 	-- ["The highwaymen hold the hills north-east of the orchard. More {object:616468} lie near the road to {area:16638}."] = "Os bandoleiros ocupam as colinas a nordeste do pomar. Mais {object:616468} ficam perto da estrada para {area:16638}.",
 	-- ["The hippogryph nests are north-west of the tower, west of {quest:92529}; the Matriarch sits at the western end. {item:263493} lies on the ground around them, and the hippogryphs drop the Small Eggs."] = "Os ninhos de hipogrifo ficam a noroeste da torre, a oeste de {quest:92529}; a Matriarca fica no extremo oeste. {item:263493} fica no chão em volta deles, e os hipogrifos deixam cair os Ovos Pequenos.",
 	-- ["The refugees' belongings lie along the north shore of {area:16625}; {npc:259013} is at its north-west end."] = "Os pertences dos refugiados estão ao longo da margem norte de {area:16625}; {npc:259013} fica no extremo noroeste.",
+	-- ["The road from {zone:1412} meets the {area:458} at {area:378}: {npc:10378}, the wind rider master, stands beside {npc:3418} on your way north to the Crossroads."] = "A estrada de {zone:1412} encontra {area:458} em {area:378}: {npc:10378}, o mestre de mantícoras, fica ao lado de {npc:3418}, no seu caminho para o norte até a Encruzilhada.",
 	-- ["The turncoat's house is in the {area:16626} north-west of {area:16638}. {npc:273017} waits nearby; his assassins lurk around the house."] = "A casa do traidor fica em {area:16626}, a noroeste de {area:16638}. {npc:273017} espera por perto; seus assassinos espreitam em volta da casa.",
 	-- ["The watchtower"] = "A torre de vigia",
 	-- ["Walk north to {area:16624}; finish the {item:5469} on the Galestriders along the way if you are short."] = "Ande para o norte até {area:16624}; se faltar {item:5469}, complete nos Vagaventos pelo caminho.",
@@ -611,6 +606,7 @@ return {
 	-- ["{npc:252359} stands on {area:16638}'s east side."] = "{npc:252359} fica no lado leste de {area:16638}.",
 	-- ["{npc:252377} stands in the middle of {area:16638}."] = "{npc:252377} fica no meio de {area:16638}.",
 	-- ["{npc:252382} stands on {area:16638}'s west side."] = "{npc:252382} fica no lado oeste de {area:16638}.",
+	-- ["{npc:252382}, beside {npc:251968}: {quest:97243}"] = "{npc:252382}, ao lado de {npc:251968}: {quest:97243}",
 	-- ["{npc:252389} in {area:16638} hands you a {item:15908} three times: tame a {npc:254588} by the lakes north-west of town, an {npc:251707} in the fields west of town and a {npc:250874} at {area:16663}, returning to her after each. {npc:254411} stands beside her."] = "{npc:252389}, em {area:16638}, entrega a você um {item:15908} três vezes: dome um {npc:254588} junto aos lagos a noroeste da cidade, um {npc:251707} nos campos a oeste da cidade e um {npc:250874} em {area:16663}, voltando a ela após cada um. {npc:254411} fica ao lado dela.",
 	-- ["{npc:253957}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:253957}, junto ao pouso: para {npc:3033} em {zone:1456}",
 	-- ["{npc:255853} waits by the falls just north of the watchtower."] = "{npc:255853} espera junto às cachoeiras logo ao norte da torre de vigia.",
@@ -618,6 +614,7 @@ return {
 	-- ["{npc:259119}: keep it, Thrall in {zone:1454} comes two guides later"] = "{npc:259119}: guarde-a, Thrall em {zone:1454} vem dois guias depois",
 	-- ["{npc:260628}, upstairs"] = "{npc:260628}, no andar de cima",
 	-- ["{npc:263664}'s campfire"] = "A fogueira de {npc:263664}",
+	-- ["{npc:268602}, on the hill west of the falls just north of the watchtower"] = "{npc:268602}, na colina a oeste da cachoeira, logo ao norte da torre de vigia",
 	-- ["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033} treina druidas em {area:1639}. Ele ensina {spell:18960}; as boas-vindas de {npc:11802} esperam sua viagem com {spell:499}, por volta do nível 21 (forever/horde/02-the-barrens).",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}, o mestre de mantícoras",
 }

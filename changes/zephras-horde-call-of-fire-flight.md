@@ -1,7 +1,7 @@
 ---
 section: players
 ---
-- Zephras Isle (Horde): Shamans finish Call of Fire about a level earlier.
+- Zephras Isle (Horde): Shamans finish Call of Fire most of a level earlier.
   Skypriest Faladiel's heart now comes on Belathaan's trip, and the rest of
   the chain (Olariaan, Kuramaa, the Eternal Flame) follows straight from
   Valanaar, before the East Pylon Watchtower, instead of after the turncoat.
