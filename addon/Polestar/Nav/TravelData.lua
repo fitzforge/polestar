@@ -479,6 +479,7 @@ N.RegisterTravelData({
 		{a={"Shrine of Akir",2991,3089.5,584.5,2521,65.56,50.34,"l",16629,844.3},area=16630,b={"Rohashi Spires",2991,3079.8,426.5,2521,68.4,50.6,"l",16630},id="portal-rohashi-spires",name="Rohashi Spires",seconds=5},
 		{a={"Rohashi Spires",2991,2981.6,54.9,2521,75.08,53.25,"l",16630,1181.9},area=16638,b={"Valanaar",2991,2000.7,543.3,2521,66.3,79.7,"l",16638,658.7},id="portal-valanaar",name="Valanaar",seconds=5},
 		{a={"Sanath Lim-yo",1,3648,-4702.7,1447,28.11,50.09,"e",nil,121.1},area=0,b={"Azshara Tower",1,3778,-4612,1447,26.33,46.25,"e",nil,227.3},id="portal-azshara-tower",name="Azshara Tower",npc="Sanath Lim-yo",seconds=5},
+		{a={"Nyrill",1,3777.1,-4619.2,1447,26.47,46.27,"e",nil,227.4},area=0,b={"Sanath Lim-yo's camp",1,3641,-4702,1447,28.1,50.3,"e",nil,120.9},id="portal-azshara-tower-down",name="Sanath Lim-yo's camp",npc="Nyrill",seconds=5},
 	},
 	-- bind location names (as GetBindLocation reports them), AreaTable area (WoW Forever client build 1.60.1.70888), innkeeper NPC, position
 	inns = {

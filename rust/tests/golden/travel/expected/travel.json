@@ -114,7 +114,7 @@
 		"recordedCrossings": 0,
 		"shippedCrossings": 54,
 		"timetables": 15,
-		"portals": 9,
+		"portals": 10,
 		"teleports": 8
 	},
 	"taxi": {
@@ -7380,6 +7380,34 @@
 				"seconds": 5,
 				"npc": "Sanath Lim-yo",
 				"source": "creature 8395 spawn (classic-db) -> spell_target_position 12510"
+			},
+			{
+				"id": "portal-azshara-tower-down",
+				"name": "Sanath Lim-yo's camp",
+				"area": 0,
+				"a": {
+					"name": "Nyrill",
+					"c": 1,
+					"wx": 3777.1,
+					"wy": -4619.2,
+					"map": 1447,
+					"x": 26.47,
+					"y": 46.27,
+					"f": "e"
+				},
+				"b": {
+					"name": "Sanath Lim-yo's camp",
+					"c": 1,
+					"wx": 3641,
+					"wy": -4702,
+					"map": 1447,
+					"x": 28.1,
+					"y": 50.3,
+					"f": "e"
+				},
+				"seconds": 5,
+				"npc": "Nyrill",
+				"source": "creature 8399 spawn (classic-db) -> spell_target_position 12520"
 			}
 		],
 		"teleports": [
