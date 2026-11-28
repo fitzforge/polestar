@@ -5704,39 +5704,89 @@ fn full_addon_qol_loads_with_every_module_and_creates_its_buttons_at_login() {
 }
 
 #[test]
-fn breath_off_by_default_on_it_warns_at_10_and_4_seconds_left_while_breath_runs_down_and_clears_when_the_timer_stops() {
+fn breath_warns_once_at_ten_and_four_seconds_for_each_dive() {
 	let out = run(r#"
-		local ms = 30000
-		GetMirrorTimerProgress = function(t) if t == "BREATH" then return ms end end
 		local flashes = 0
 		FlashClientIcon = function() flashes = flashes + 1 end
-		local function warned() return { sounds = #stub.sounds, flashes = flashes } end
-		stub.fire("MIRROR_TIMER_START", "BREATH", 30000, 30000, -1, false, "Breath")
-		ms = 9000; stub.advance(0.5)
-		local off = warned()
+		local function start(value, scale)
+			stub.fire("MIRROR_TIMER_START", "BREATH", value, 30000, scale, 0, "Breath")
+		end
+		start(3000, -1)
+		emit(#stub.sounds)
 		set("breathWarning", true)
-		ms = 30000
-		stub.fire("MIRROR_TIMER_START", "BREATH", 30000, 30000, -1, false, "Breath")
-		ms = 15000; stub.advance(0.5)
-		local early = warned()
-		ms = 9000; stub.advance(0.5)
-		local ten = warned()
-		ms = 8000; stub.advance(0.5)
-		local once = warned()
-		ms = 3500; stub.advance(0.5)
-		local four = warned()
-		stub.fire("MIRROR_TIMER_STOP", "BREATH")
-		ms = 30000
-		stub.fire("MIRROR_TIMER_START", "BREATH", 9000, 30000, 10, false, "Breath")
-		ms = 9000; stub.advance(0.5)
-		emit({ off = off, early = early, ten = ten, once = once, four = four, refill = warned() })
+		for _, elapsed in ipairs({ false, true }) do
+			local progress = elapsed and 0 or 30000
+			GetMirrorTimerProgress = function(t) if t == "BREATH" then return progress end end
+			local before, beforeFlash = #stub.sounds, flashes
+			local marks = {}
+			local function mark()
+				table.insert(marks, { #stub.sounds - before, flashes - beforeFlash })
+			end
+			local function advance(seconds, left)
+				progress = elapsed and (30000 - left) or left
+				stub.advance(seconds)
+				mark()
+			end
+			start(30000, -1)
+			mark()
+			advance(19.75, 10250)
+			advance(0.51, 9740)
+			advance(5.49, 4250)
+			advance(0.51, 3740)
+			advance(1, 2740)
+			stub.fire("MIRROR_TIMER_STOP", "BREATH")
+			emit(marks)
+		end
 	"#);
-	assert_eq!(out[0]["off"], json!({ "sounds": 0, "flashes": 0 }));
-	assert_eq!(out[0]["early"], json!({ "sounds": 0, "flashes": 0 }));
-	assert_eq!(out[0]["ten"], json!({ "sounds": 1, "flashes": 1 }));
-	assert_eq!(out[0]["once"], json!({ "sounds": 1, "flashes": 1 }), "said once at 10 seconds");
-	assert_eq!(out[0]["four"], json!({ "sounds": 2, "flashes": 2 }));
-	assert_eq!(out[0]["refill"], json!({ "sounds": 2, "flashes": 2 }), "breath filling back up says nothing");
+	assert_eq!(out[0], 0, "off by default");
+	let marks = json!([[0, 0], [0, 0], [1, 1], [1, 1], [2, 2], [2, 2]]);
+	assert_eq!(out[1], marks, "progress counts down");
+	assert_eq!(out[2], marks, "a second dive warns again whatever the progress call reads");
+}
+
+#[test]
+fn breath_warns_at_ten_and_four_seconds_when_the_start_value_exceeds_the_max() {
+	let out = run(r#"
+		set("breathWarning", true)
+		stub.fire("MIRROR_TIMER_START", "BREATH", 70000, 60000, -1, 0, "Breath")
+		for _, seconds in ipairs({ 59.75, 0.5, 5.5, 0.5 }) do
+			stub.advance(seconds)
+			emit(#stub.sounds)
+		end
+	"#);
+	assert_eq!(out, vec![json!(0), json!(1), json!(1), json!(2)]);
+}
+
+#[test]
+fn breath_uses_the_current_value_and_drain_rate_and_waits_while_paused_or_refilling() {
+	let out = run(r#"
+		set("breathWarning", true)
+		local function start(value, scale, paused)
+			stub.fire("MIRROR_TIMER_START", "BREATH", value, 60000, scale, paused, "Breath")
+		end
+		GetMirrorTimerProgress = function() return 0 end
+		start(21500, -2, 1)
+		stub.advance(12)
+		emit(#stub.sounds)
+		stub.fire("MIRROR_TIMER_PAUSE", "BREATH", 0)
+		stub.advance(1.01)
+		emit(#stub.sounds)
+		stub.fire("MIRROR_TIMER_PAUSE", "BREATH", 1)
+		stub.advance(8)
+		emit(#stub.sounds)
+		stub.fire("MIRROR_TIMER_PAUSE", "BREATH", 0)
+		stub.advance(6.25)
+		emit(#stub.sounds)
+		start(3000, 10, 0)
+		stub.advance(4)
+		emit(#stub.sounds)
+		start(10000, -1, false)
+		emit(#stub.sounds)
+		stub.fire("MIRROR_TIMER_STOP", "BREATH")
+		stub.advance(12)
+		emit(#stub.sounds)
+	"#);
+	assert_eq!(out, vec![json!(0), json!(1), json!(1), json!(2), json!(2), json!(3), json!(3)]);
 }
 
 #[test]

@@ -57,7 +57,7 @@ local SPELLS = {
 	{ name = "Fireball", rank = "Rank 2", kind = "available", cost = 100 },
 	{ name = "Frost Armor", rank = "Rank 1", kind = "available", cost = 200 },
 }
-local breath, flashes = 30000, 0
+local flashes = 0
 local ridings = 0
 return {
 	setup = function()
@@ -81,7 +81,6 @@ return {
 			{ id = 34, price = 10, stackCount = 200, maxStack = 200 },
 			{ id = 20, price = 40 },
 		}
-		GetMirrorTimerProgress = function(t) if t == "BREATH" then return breath end end
 		FlashClientIcon = function() flashes = flashes + 1 end
 		Polestar.On("RIDING_DUE", function() ridings = ridings + 1 end)
 	end,
@@ -116,12 +115,10 @@ return {
 			q.level = 20
 			return out
 		end,
-		-- Breath running down to nine seconds: a warning (the client's icon flashes).
+		-- Breath crosses the ten-second mark: the client's icon flashes.
 		["qol.breathWarning"] = function()
 			local before = flashes
-			breath = 30000
-			stub.fire("MIRROR_TIMER_START", "BREATH", 30000, 30000, -1, false, "Breath")
-			breath = 9000
+			stub.fire("MIRROR_TIMER_START", "BREATH", 10200, 30000, -1, false, "Breath")
 			stub.advance(0.5)
 			stub.fire("MIRROR_TIMER_STOP", "BREATH")
 			stub.advance(0.1)
@@ -240,12 +237,10 @@ return {
 			q.level = 20
 			return out
 		end,
-		-- Breath running down to nine seconds: a warning (the client's icon flashes).
+		-- Breath crosses the ten-second mark: the client's icon flashes.
 		["qol.breathWarning"] = function()
 			local before = flashes
-			breath = 30000
-			stub.fire("MIRROR_TIMER_START", "BREATH", 30000, 30000, -1, false, "Breath")
-			breath = 9000
+			stub.fire("MIRROR_TIMER_START", "BREATH", 10200, 30000, -1, false, "Breath")
 			stub.advance(0.5)
 			stub.fire("MIRROR_TIMER_STOP", "BREATH")
 			stub.advance(0.1)

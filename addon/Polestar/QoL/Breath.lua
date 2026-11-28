@@ -4,9 +4,11 @@
 -- again at LAST_AT. Nothing while breath fills back up; the edge goes the
 -- moment the timer stops or turns.
 --
--- Client: MIRROR_TIMER_START(timer, value, maxValue, scale, paused, label) and
--- MIRROR_TIMER_STOP(timer), GetMirrorTimerProgress("BREATH") (milliseconds
--- left), PlaySound(SOUNDKIT.RAID_WARNING), FlashClientIcon.
+-- Client: MIRROR_TIMER_START(timer, value, maxValue, scale, paused, label)
+-- (value and maxValue in milliseconds, scale below 0 while draining),
+-- MIRROR_TIMER_PAUSE(timer, paused), MIRROR_TIMER_STOP(timer),
+-- PLAYER_LEAVING_WORLD, GetTime, PlaySound(SOUNDKIT.RAID_WARNING),
+-- FlashClientIcon. The countdown runs from START's value and scale.
 
 local ADDON, ns = ...
 local QoL = ns.QoL
@@ -19,6 +21,7 @@ local POLL = 0.25
 
 local edge, ticker
 local warned -- the last mark said: WARN_AT or LAST_AT
+local secondsLeft, startedAt
 
 -- A soft red frame round the screen, pulsing; made on first use, on
 -- Polestar's layer (it hides with Polestar).
@@ -67,6 +70,7 @@ local function stop()
 		ticker = nil
 	end
 	warned = nil
+	secondsLeft, startedAt = nil, nil
 	if edge then
 		edge.Pulse:Stop()
 		edge:Hide()
@@ -75,13 +79,12 @@ end
 
 -- Seconds of breath left, or nil when the timer is not running down.
 function Breath.Left()
-	local ms = GetMirrorTimerProgress and GetMirrorTimerProgress("BREATH")
-	return type(ms) == "number" and ms / 1000 or nil
+	if startedAt then return math.max(0, secondsLeft - (GetTime() - startedAt)) end
 end
 
 local function check()
 	local left = Breath.Left()
-	if not left then return stop() end
+	if not left then return end
 	if left <= LAST_AT and warned ~= LAST_AT then
 		warned = LAST_AT
 		alarm()
@@ -91,12 +94,37 @@ local function check()
 	end
 end
 
-local function onStart(_, timer, _, _, scale)
+local function isPaused(paused)
+	return paused == true or (type(paused) == "number" and paused > 0)
+end
+
+local function onStart(_, timer, value, cap, scale, paused)
 	if timer ~= "BREATH" then return end
-	-- Breath filling back up (scale above 0) needs no warning.
-	if type(scale) == "number" and scale >= 0 then return stop() end
+	if type(scale) ~= "number" or scale >= 0 or type(value) ~= "number"
+		or value < 0 then return stop() end
+	secondsLeft = value / 1000 / -scale
+	startedAt = nil
+	-- A fresh dive's worth of breath: the marks can be said again.
+	if warned and secondsLeft > WARN_AT then
+		warned = nil
+		if edge then
+			edge.Pulse:Stop()
+			edge:Hide()
+		end
+	end
+	if not isPaused(paused) then startedAt = GetTime() end
 	if not ticker then ticker = ns.NewTicker(POLL, check) end
 	check()
+end
+
+local function onPause(_, timer, paused)
+	if timer ~= "BREATH" or not secondsLeft then return end
+	if isPaused(paused) then
+		if startedAt then secondsLeft, startedAt = Breath.Left(), nil end
+	elseif not startedAt then
+		startedAt = GetTime()
+		check()
+	end
 end
 
 local function onStop(_, timer)
@@ -104,7 +132,9 @@ local function onStop(_, timer)
 end
 
 QoL.WhileOn({ "breathWarning" }, "MIRROR_TIMER_START", onStart)
+QoL.WhileOn({ "breathWarning" }, "MIRROR_TIMER_PAUSE", onPause)
 QoL.WhileOn({ "breathWarning" }, "MIRROR_TIMER_STOP", onStop)
+QoL.WhileOn({ "breathWarning" }, "PLAYER_LEAVING_WORLD", stop)
 ns.On("SETTING_CHANGED", function(path)
 	if (path == "qol.breathWarning" or path == "qol" or path == "") and not QoL.On("breathWarning") then stop() end
 end)
