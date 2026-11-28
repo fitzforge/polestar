@@ -101,8 +101,8 @@ function respawnIn(prof, map, points) {
 }
 
 // The zone's farming loop for these points and `faction`, for a character of `level` (farm.js), or null.
-function farmIn(ctx, prof, map, points, faction, level) {
-	return farm(ctx, prof, map, points, { faction, respawn: respawnIn(prof, map, points), level });
+function farmIn(ctx, prof, map, points, faction, level, maxLevel = 60) {
+	return farm(ctx, prof, map, points, { faction, respawn: respawnIn(prof, map, points), level, maxLevel });
 }
 
 // The zones that can take a player through the band from its first point, best first by their loop's
@@ -221,23 +221,49 @@ function startParts(prof, points, from, to) {
 
 // The loops of one part of a range for both factions: one per zone and faction, the same loop for
 // both factions once with no faction of its own. Best first for a character at the part's start.
-// -> [{ zone, farm, factions }]
+// A range's first band (scope 'start') adds each starting area's own loop (`starter`): the best one a
+// character of level 1 to STARTER_LEVEL may walk (farm.js `maxLevel`), where the area holds the part's
+// nodes, so a new character always has a loop at their level. -> [{ zone, farm, factions, starter? }]
+const STARTER_LEVEL = 5;
 function partLoops(ctx, prof, picks, part) {
 	const level = skillLevel(part.from);
 	const out = [];
+	const add = (zone, f, faction, starter) => {
+		const key = (l) => l.farm.stops.map((s) => `${s.pt.x},${s.pt.y}`).join(' ');
+		const same = out.find((l) => l.zone === zone && l.farm.level === f.level && key(l) === key({ farm: f }));
+		if (same) {
+			if (!same.factions.includes(faction)) same.factions.push(faction);
+			if (starter) same.starter = true;
+		} else out.push({ zone, farm: f, factions: [faction], ...(starter ? { starter: true } : {}) });
+	};
 	for (const faction of FACTIONS) {
 		for (const zone of picks[faction]) {
 			const pts = partPoints(pointsOf(ctx, prof, zone, part.band.from, part.band.to), part.from, part.to);
 			if (pts.length < 2) continue;
 			const f = farmIn(ctx, prof, zone, pts, faction, level);
-			if (!f) continue;
-			const same = out.find((l) => l.zone === zone && l.farm.level === f.level && l.farm.stops.map((s) => `${s.pt.x},${s.pt.y}`).join(' ') === f.stops.map((s) => `${s.pt.x},${s.pt.y}`).join(' '));
-			if (same) same.factions.push(faction);
-			else out.push({ zone, farm: f, factions: [faction] });
+			if (f) add(zone, f, faction, false);
 		}
 	}
+	for (const s of starterLoops(ctx, prof, part)) add(s.zone, s.farm, s.faction, true);
 	if (!out.length) throw new Error(`${prof.skill} ${part.from}-${part.to}: no loop`);
 	return out.sort((a, b) => rankScore(b.farm, level) - rankScore(a.farm, level) || a.zone - b.zone);
+}
+
+// Each starting area's own loop for a part of a range's first band (partLoops): [{ zone, faction, farm }],
+// and in `gaps` the areas of each faction with none (no nodes of the part there, or none safe by level 5).
+function starterLoops(ctx, prof, part, gaps = null) {
+	if (part.band.scope !== 'start') return [];
+	const out = [];
+	for (const faction of FACTIONS) {
+		for (const g of RACE_GROUPS[faction]) {
+			const zone = g.start[0];
+			const pts = partPoints(pointsOf(ctx, prof, zone, part.band.from, part.band.to), part.from, part.to);
+			const f = pts.length >= 2 ? farmIn(ctx, prof, zone, pts, faction, 1, STARTER_LEVEL) : null;
+			if (f) out.push({ zone, faction, farm: f, key: g.key });
+			else if (gaps) gaps.push({ key: g.key, zone, faction, points: pts.length });
+		}
+	}
+	return out;
 }
 
 // Plan: a list of { kind: 'learn'|'train'|'recipes'|'band', ... } entries in guide order.
@@ -320,12 +346,12 @@ function lapSeconds(prof, f) {
 	return (Math.max(f.lap, f.respawn * RUN) + (prof.stopYards || 0) * f.up) / RUN;
 }
 
-// One farming loop line: `loop <zone> lvl <strongest creature> lap <seconds> gain <points a lap>
-// [only <Faction>] [live] r <yards> at <x,y> …` (docs/GUIDE_FORMAT.md, "Farming loops").
+// One farming loop line: `loop <zone> lvl <the least character level safe on it> lap <seconds> gain <points
+// a lap> [only <Faction>] [live] r <yards> at <x,y> …` (docs/GUIDE_FORMAT.md, "Farming loops").
 function loopLine(ctx, prof, l) {
 	const f = l.farm;
 	const live = f.stops[0].pt.f === 'l';
-	const words = [`  loop ${zoneName(ctx, l.zone)}`, `lvl ${f.level + 1}`, `lap ${Math.round(lapSeconds(prof, f))}`, `gain ${fmt(f.gain)}`];
+	const words = [`  loop ${zoneName(ctx, l.zone)}`, `lvl ${f.level}`, `lap ${Math.round(lapSeconds(prof, f))}`, `gain ${fmt(f.gain)}`];
 	if (l.factions.length === 1) words.push(`only ${l.factions[0]}`);
 	if (live) words.push('live');
 	words.push(`r ${prof.radius || 60}`, 'at', ...f.stops.map((s) => `${fmt(s.pt.x)},${fmt(s.pt.y)}`));
@@ -473,9 +499,10 @@ function listItems(got) {
 
 // Every range's loops as data for the crafting guides' Get it steps (`collect <item> xN` with `loop`
 // lines whose `yield` is that item): [{ item, kind: 'herb'|'ore'|'hide', skill: [from, to], factions,
-// map, lvl, lap, yield, r, live, pts }], one per loop and item that is a twentieth or more of the loop's
-// yield. `lvl`: the strongest creature on the loop; `lap`: seconds a lap takes; `yield`: that item from
-// one lap (every node up on the loop once); `factions`: the sides it is for.
+// map, lvl, lap, yield, r, live, pts, starter }], one per loop and item that is a twentieth or more of the
+// loop's yield. `lvl`: the least character level safe on the loop; `lap`: seconds a lap takes; `yield`: that
+// item from one lap (every node up on the loop once); `factions`: the sides it is for; `starter`: a starting
+// area's own loop (partLoops).
 const KIND = { herbalism: 'herb', mining: 'ore', skinning: 'hide' };
 function gatherLoops(ctx) {
 	const { SPECS } = require('./specs');
@@ -494,12 +521,13 @@ function gatherLoops(ctx) {
 						skill: [e.from, e.to],
 						factions: l.factions,
 						map: l.zone,
-						lvl: l.farm.level + 1,
+						lvl: l.farm.level,
 						lap: Math.round(lapSeconds(prof, l.farm)),
 						yield: Math.round(x.count * 10) / 10,
 						r: prof.radius || 60,
 						live: l.farm.stops[0].pt.f === 'l',
 						pts: l.farm.stops.map((s) => [s.pt.x, s.pt.y]),
+						starter: !!l.starter,
 					});
 				}
 			}
@@ -536,4 +564,4 @@ function buildAll(ctx, notes = []) {
 	return out;
 }
 
-module.exports = { plan, render, buildAll, gatherLoops, zonePicks, partLoops, partPoints, pointsOf, farmIn, rareKinds, startParts, bandYield, coversTop, loopLine, lapSeconds, nodeSummary, OUT_DIR };
+module.exports = { plan, render, buildAll, gatherLoops, zonePicks, partLoops, starterLoops, partPoints, pointsOf, farmIn, rareKinds, startParts, bandYield, coversTop, loopLine, lapSeconds, nodeSummary, STARTER_LEVEL, OUT_DIR };

@@ -2,12 +2,13 @@
 // Farming loops for the Herbalism, Mining and Skinning bands: a short round through the densest ground
 // of a zone that a character of the round's level can work safely, built with loop.js.
 //
-// farm(ctx, prof, map, points, { faction, respawn, level }) -> { stops, lap, level, gain, up, on, score }
-// or null. `level`: the character level the band is planned for (skillLevel).
+// farm(ctx, prof, map, points, { faction, respawn, level, maxLevel }) -> { stops, lap, level, gain, up, on, score }
+// or null. `level`: the character level the band is planned for (skillLevel); `maxLevel`: the most a loop
+// may ask (a starting area's own loop: STARTER_LEVEL, build.js).
 //   points: the band's node or beast points (route points with `w`, `up`, `name`, `req`).
-//   1. Each point asks a character level (loop.js pointLevels: the highest creature within its aggro
-//      ground minus one, so never a mob two or more levels above you; a point by a town of the other
-//      faction is never safe). A beast to skin is a creature of the point itself: its level counts.
+//   1. Each point asks a character level (loop.js pointLevels: no hostile creature that can reach it more
+//      than one level above you, no elite near it; a point by a town of the other faction is never safe).
+//      A beast to skin is a creature of the point itself: its level counts.
 //      A loop asks the highest level along its whole walk (loop.js roundLevel), and one that passes a
 //      town of the other faction is never taken.
 //   2. For each level a point asks (lowest first), the points safe at that level are clustered
@@ -82,16 +83,16 @@ function floorOf(map) {
 
 // Memoised per points array (one per band part, zone and faction).
 const memo = new WeakMap();
-function farm(ctx, prof, map, points, { faction = null, respawn = 300, level: planned = 60 } = {}) {
+function farm(ctx, prof, map, points, { faction = null, respawn = 300, level: planned = 60, maxLevel = 60 } = {}) {
 	if (!points.length) return null;
-	const key = `${map}|${faction}|${respawn}|${planned}`;
+	const key = `${map}|${faction}|${respawn}|${planned}|${maxLevel}`;
 	let byKey = memo.get(points);
 	if (!byKey) memo.set(points, (byKey = new Map()));
 	if (byKey.has(key)) return byKey.get(key);
 	const radius = prof.radius || 60;
 	const opts = { corridor: radius, stopYards: prof.stopYards || 0, respawnYards: respawn * RUN };
 	const levels = pointLevels(ctx, map, points, faction);
-	const asks = [...new Set(levels.filter((l) => l !== null && l <= 60))].sort((a, b) => a - b);
+	const asks = [...new Set(levels.filter((l) => l !== null && l <= maxLevel))].sort((a, b) => a - b);
 	const found = [];
 	for (const level of asks) {
 		const open = points.filter((p, i) => levels[i] !== null && levels[i] <= level);
@@ -103,7 +104,9 @@ function farm(ctx, prof, map, points, { faction = null, respawn = 300, level: pl
 			if (loop.stops.length < 2 || loop.lap > (prof.maxLap || Infinity)) continue;
 			const walk = roundLevel(ctx, map, loop.stops, faction);
 			if (walk === null) continue;
-			found.push({ ...loop, ...worth(loop, open, opts), level: Math.max(level, walk, floorOf(map)), span, respawn });
+			const asked = Math.max(level, walk, floorOf(map));
+			if (asked > maxLevel) continue;
+			found.push({ ...loop, ...worth(loop, open, opts), level: asked, span, respawn });
 		}
 	}
 	const long = found.filter((f) => f.stops.length >= MIN_STOPS);

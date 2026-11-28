@@ -17,12 +17,18 @@
 //
 // hazards(ctx, map, { level, faction, strict }) -> avoid list: every spawn on `map` of a hostile creature more
 // than ABOVE levels above `level` (MOB_YARDS of aggro ground: Polestar's level bar, never a solo player at
-// mobs 2+ levels above), and every spawn of an NPC of the other faction's towns (ENEMY_YARDS). `strict`
-// (the fishing rounds): an elite counts ELITE levels higher, so it is avoided until the player is three
-// levels past it (the danger gate's elite rule), and the other faction's guard posts count as towns.
+// mobs 2+ levels above), every hostile elite (never a solo player's ground at any level), and every spawn of
+// an NPC of the other faction's towns (ENEMY_YARDS). `strict` (the fishing rounds): an elite counts ELITE
+// levels higher where it stands farther off, and the other faction's guard posts count as towns.
 // pointLevels / levelFor: the character level a point (or `need` of them) asks by the same rule.
 // threats(ctx, map, stops, level) -> how many hostile creature spawns stand within MOB_YARDS of a stop and
 // are not grey to a player of `level` (they would fight the player there).
+//
+// The safety rule (levelAt): a place asks the lowest character level at which no hostile creature that can
+// reach it is more than ABOVE levels above the player. Within MOB_YARDS every creature can; out to
+// FAR_YARDS one far above the player still can, as a creature's aggro reach grows a yard for every level it
+// is above the player (AGGRO_YARDS at the player's level): it asks the level that puts the place out of its
+// reach. A hostile elite within MOB_YARDS makes the place unsafe at every level (null).
 
 const { dist } = require('../../route/geo');
 const { planTour, pathLength } = require('../../route/tour');
@@ -30,6 +36,8 @@ const { weightedClusters, allPoints } = require('./route');
 
 const ABOVE = 1;
 const MOB_YARDS = 30;
+const FAR_YARDS = 45;
+const AGGRO_YARDS = 20;
 const ENEMY_YARDS = 150;
 const SIDE = { Alliance: 'A', Horde: 'H' };
 // An elite (Blizzard rank 1) or boss (3) hits like a creature this many levels above its own.
@@ -110,7 +118,7 @@ function mapSpawns(ctx, map, strict = false) {
 			const level = (hi - lo > SCALING ? lo : hi) + (strict && !n.faction && ELITE.has(n.rank) ? ELITE_LEVELS : 0);
 			const pts = allPoints(s);
 			const guard = strict && (n.faction === 'A' || n.faction === 'H') && lo >= GUARD_LEVEL && pts.length >= GUARD_SPAWNS && !(Array.isArray(n.roles) && n.roles.some((r) => SERVICE.has(r)));
-			for (const [x, y] of pts) out.push({ id: n.id, pt: ctx.project.point(map, x, y, s.f), level, faction: n.faction || null, guard });
+			for (const [x, y] of pts) out.push({ id: n.id, pt: ctx.project.point(map, x, y, s.f), level, faction: n.faction || null, guard, elite: !n.faction && ELITE.has(n.rank) });
 		}
 		for (const s of out) {
 			if (s.faction !== 'A' && s.faction !== 'H') continue;
@@ -128,7 +136,7 @@ function hazards(ctx, map, { level = 60, faction = null, strict = false } = {}) 
 	const out = [];
 	for (const s of mapSpawns(ctx, map, strict)) {
 		if (other && s.faction === other && s.town) out.push({ pt: s.pt, yards: ENEMY_YARDS });
-		else if (!s.faction && s.level > level + ABOVE) out.push({ pt: s.pt, yards: MOB_YARDS });
+		else if (!s.faction && (s.level > level + ABOVE || s.elite)) out.push({ pt: s.pt, yards: MOB_YARDS });
 	}
 	return out;
 }
@@ -152,9 +160,9 @@ function spawnGrid(ctx, map, strict = false) {
 	return byMap.get(key);
 }
 
-// The level a place asks (pointLevels) from the map's spawn grid.
+// The level a place asks (pointLevels) from the map's spawn grid (the safety rule above), or null.
 function levelAt(grid, pt, other) {
-	let top = 0;
+	let top = 1;
 	const gx = Math.floor(pt.wx / ENEMY_YARDS);
 	const gy = Math.floor(pt.wy / ENEMY_YARDS);
 	for (let dx = -1; dx <= 1; dx++) {
@@ -162,15 +170,20 @@ function levelAt(grid, pt, other) {
 			for (const s of grid.get(`${pt.c}|${gx + dx}|${gy + dy}`) || []) {
 				const d = dist(s.pt, pt);
 				if (other && s.faction === other && s.town && d < ENEMY_YARDS) return null;
-				if (!s.faction && d < MOB_YARDS && s.level > top) top = s.level;
+				if (s.faction || d >= FAR_YARDS) continue;
+				if (d < MOB_YARDS) {
+					if (s.elite) return null;
+					top = Math.max(top, s.level - ABOVE);
+				} else top = Math.max(top, Math.ceil(s.level + AGGRO_YARDS - d));
 			}
 		}
 	}
-	return Math.max(1, top - ABOVE);
+	return top;
 }
 
-// The level each point asks: the highest hostile creature within MOB_YARDS minus ABOVE (at least 1), or
-// null for a point within ENEMY_YARDS of the other faction (never safe).
+// The level each point asks (levelAt: no hostile creature that can reach it more than ABOVE levels above
+// the player, no elite within MOB_YARDS), or null for a point by an elite or within ENEMY_YARDS of the
+// other faction (never safe).
 function pointLevels(ctx, map, points, faction = null, { strict = false } = {}) {
 	const other = faction ? (SIDE[faction] === 'A' ? 'H' : 'A') : null;
 	const grid = spawnGrid(ctx, map, strict);
@@ -178,7 +191,7 @@ function pointLevels(ctx, map, points, faction = null, { strict = false } = {}) 
 }
 
 // The level a closed round through `stops` asks along its whole walk, sampled every `step` yards
-// (pointLevels' rule), or null when it passes within ENEMY_YARDS of the other faction's town.
+// (pointLevels' rule), or null when it passes an elite or within ENEMY_YARDS of the other faction's town.
 function roundLevel(ctx, map, stops, faction = null, { step = 15, strict = false } = {}) {
 	const other = faction ? (SIDE[faction] === 'A' ? 'H' : 'A') : null;
 	const grid = spawnGrid(ctx, map, strict);
@@ -225,4 +238,4 @@ function threats(ctx, map, stops, level) {
 	return seen.size;
 }
 
-module.exports = { buildLoop, hazards, pointLevels, roundLevel, levelFor, threats, ABOVE, MOB_YARDS, ENEMY_YARDS };
+module.exports = { buildLoop, hazards, pointLevels, roundLevel, levelFor, threats, ABOVE, MOB_YARDS, FAR_YARDS, ENEMY_YARDS };

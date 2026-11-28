@@ -111,6 +111,22 @@ test('farm: a loop through the densest ground a character of the band\'s level c
 	assert.ok(high.on.length >= 30 && high.lap > 0);
 });
 
+test('loop safety: no creature that can reach a place more than a level above you, and no elite near it', () => {
+	const { pointLevels, roundLevel } = require('../tools/lib/professions/gathering/loop');
+	// A level-5 boar at 10,10; a level-30 ogre 35 yards east of 50,50 (aggro reach 20 yards plus one a
+	// level above the player); an elite at 80,80.
+	const ctx = stubCtx([[100, 'Boar', 5, null, 10, 10], [101, 'Ogre', 30, null, 53.5, 50], [102, 'Elite', 3, null, 80, 80]]);
+	ctx.data.npcs[102].rank = 1;
+	const at = (x, y) => ({ pt: ctx.project.point(1, x, y, 'e') });
+	const [boar, ogre, elite, clear] = pointLevels(ctx, 1, [at(11, 10), at(50, 50), at(81, 80), at(30, 30)]);
+	assert.equal(boar, 4, 'a level-5 creature 10 yards off: safe from 4');
+	assert.equal(ogre, 15, 'the level-30 ogre 35 yards off reaches a player below 15');
+	assert.equal(elite, null, 'an elite within 30 yards: never safe');
+	assert.equal(clear, 1);
+	assert.equal(roundLevel(ctx, 1, [at(70, 80), at(90, 80)]), null, 'a walk past the elite is never safe');
+	assert.equal(roundLevel(ctx, 1, [at(20, 20), at(30, 30)]), 1);
+});
+
 test('a zone\'s rare kind (under a twentieth of the nodes) opens no part of a range and is left out of its title', () => {
 	const { rareKinds, startParts } = require('../tools/lib/professions/gathering/build');
 	const pts = [];
@@ -500,28 +516,33 @@ test('the Fishing guide\'s coast spots lie by sea pools, never a lake\'s Sagefis
 	}
 });
 
-// Every Herbalism, Mining and Skinning farming loop (`loop <zone> lvl <n> … at …`) names the strongest
-// creature along its whole walk (`lvl`; loop.js roundLevel: the engine's level rule reads it) and never
-// passes a town of the other faction, for every faction it is for. Catches a hand edit or a generator
-// change that sends a player at creatures 2+ levels above them.
-test('every gathering loop names the strongest creature along its walk and keeps clear of the other faction\'s towns', { skip: hasData ? false : 'data/forever not built' }, () => {
+// Every farming loop of every profession guide (`loop <zone> lvl <n> … at …`) names the least character
+// level safe along its whole walk (`lvl`; loop.js roundLevel: no creature that can reach it more than a level
+// above the player, no elite by it; the engine takes no loop above the player) and never passes a town of the
+// other faction, for every faction it is for. Catches a hand edit or a generator change that sends a player at
+// creatures 2+ levels above them.
+test('every farming loop names the least level safe along its walk and keeps clear of elites and the other faction\'s towns', { skip: hasData ? false : 'data/forever not built' }, () => {
 	const { context, zoneName } = require('../tools/lib/professions/gathering/common');
 	const { roundLevel } = require('../tools/lib/professions/gathering/loop');
 	const ctx = context(DATA);
-	const byName = Object.fromEntries(Object.keys(T.ZONES).map((id) => [zoneName(ctx, Number(id)), Number(id)]));
+	const byName = {};
+	for (const id of Object.keys(ctx.data.zones || {})) byName[zoneName(ctx, Number(id))] = Number(id);
+	for (const id of Object.keys(T.ZONES)) byName[zoneName(ctx, Number(id))] = Number(id);
 	const bad = [];
 	let loops = 0;
-	for (const file of ['herbalism.guide', 'mining.guide', 'skinning.guide']) {
-		for (const line of fs.readFileSync(path.join(ROOT, 'guides', 'forever', 'professions', file), 'utf8').split('\n')) {
-			const m = line.match(/^ {2}loop (.+?) lvl (\d+) .*?(?: only (Alliance|Horde))?( live)? r \d+ at (.+)$/);
+	const dir = path.join(ROOT, 'guides', 'forever', 'professions');
+	for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.guide'))) {
+		for (const line of fs.readFileSync(path.join(dir, file), 'utf8').split('\n')) {
+			const m = line.match(/^ {2}loop (.+?) lvl (\d+) .*?(?: only (\S+))?( live)? r \d+ at (.+)$/);
 			if (!m) continue;
 			loops++;
 			const zone = byName[m[1]];
 			assert.ok(zone, `${file}: unknown zone in ${line}`);
 			const stops = m[5].split(' ').map((p) => ({ pt: ctx.project.point(zone, ...p.split(',').map(Number), m[4] ? 'l' : 'e') }));
-			for (const f of m[3] ? [m[3]] : ['Alliance', 'Horde']) {
+			const sides = ((m[3] || '').match(/\b(Alliance|Horde)\b/g) || []).filter((s, i, a) => a.indexOf(s) === i);
+			for (const f of sides.length ? sides : ['Alliance', 'Horde']) {
 				const need = roundLevel(ctx, zone, stops, f);
-				if (need === null || need + 1 > Number(m[2])) bad.push(`${file} ${m[1]} (${f}): lvl ${m[2]}, the walk has ${need === null ? 'a town of the other faction' : `level ${need + 1}`}`);
+				if (need === null || need > Number(m[2])) bad.push(`${file} ${m[1]} (${f}): lvl ${m[2]}, the walk ${need === null ? 'passes an elite or a town of the other faction' : `asks ${need}`}`);
 			}
 		}
 	}
@@ -529,11 +550,36 @@ test('every gathering loop names the strongest creature along its walk and keeps
 	assert.deepEqual(bad, []);
 });
 
+// Every starting area has its own loop a new character may walk (lvl 5 or less) in the first band of Mining,
+// Herbalism and Skinning, where its nodes or beasts are: a level 3 Tauren gets Red Cloud Mesa's, never a loop
+// asking level 7 or 8 (Fitz's fresh Tauren, 0.4.4).
+test('every starting area has a starter loop of level 5 or less in the first band of each gathering profession', { skip: hasData ? false : 'data/forever not built' }, () => {
+	const { context } = require('../tools/lib/professions/gathering/common');
+	const { plan, STARTER_LEVEL } = require('../tools/lib/professions/gathering/build');
+	const { RACE_GROUPS } = require('../tools/lib/professions/gathering/groups');
+	const { SPECS } = require('../tools/lib/professions/gathering/specs');
+	const ctx = context(DATA);
+	const missing = [];
+	for (const file of ['mining', 'herbalism', 'skinning']) {
+		const prof = SPECS.find((p) => p.file === file);
+		const first = plan(ctx, prof).filter((e) => e.kind === 'band' && e.band.scope === 'start');
+		for (const side of ['Alliance', 'Horde']) {
+			for (const g of RACE_GROUPS[side]) {
+				const has = first.some((e) => e.loops.some((l) => l.starter && l.zone === g.start[0] && l.factions.includes(side) && l.farm.level <= STARTER_LEVEL));
+				if (!has) missing.push(`${prof.skill} ${g.key} (${side})`);
+			}
+		}
+		const tauren = first[0].loops.filter((l) => l.zone === 1412 && l.factions.includes('Horde'));
+		assert.ok(tauren.some((l) => l.starter && l.farm.level <= 3), `${prof.skill}: Mulgore loops ${tauren.map((l) => l.farm.level).join(', ')}`);
+	}
+	assert.deepEqual(missing, []);
+});
+
 test('the gathering loops as data for the crafting guides: one entry per loop and item it gives', { skip: hasData ? false : 'data/forever not built' }, () => {
 	const { gatherLoops } = require('../tools/lib/professions/gathering/build');
 	const { context } = require('../tools/lib/professions/gathering/common');
 	const loops = gatherLoops(context(DATA));
-	const keys = ['item', 'kind', 'skill', 'factions', 'map', 'lvl', 'lap', 'yield', 'r', 'live', 'pts'];
+	const keys = ['item', 'kind', 'skill', 'factions', 'map', 'lvl', 'lap', 'yield', 'r', 'live', 'pts', 'starter'];
 	for (const l of loops) assert.deepEqual(Object.keys(l), keys);
 	assert.deepEqual([...new Set(loops.map((l) => l.kind))].sort(), ['herb', 'hide', 'ore']);
 	// Briarthorn (2450) comes from loops that start at 70 or later (#2892).

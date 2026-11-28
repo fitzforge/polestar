@@ -56,8 +56,9 @@ const SIDES = ['Alliance', 'Horde'];
 // of those the LOOPS best by items a second, one line for a loop both sides share. When those all ask more
 // skill than some loop of the item, the loops of that lowest skill come too, one per zone (Light Leather:
 // the starting zones' Skinning 1 rounds beside the denser rounds of level 17-24), so the step serves a
-// gatherer who starts low. -> { lines, skill } or null: no loop gives it, or no reference data on disk
-// (`data.dir`, draftData) to plan the loops from.
+// gatherer who starts low; and every starting area's own loop of the item comes (gatherLoops `starter`:
+// one a character of level 1 to 5 may walk), so it serves a new character too. -> { lines, skill } or null:
+// no loop gives it, or no reference data on disk (`data.dir`, draftData) to plan the loops from.
 const LOOPS = 4;
 let loopsCache = null;
 function itemLoops(data, item, per = 1) {
@@ -81,6 +82,9 @@ function itemLoops(data, item, per = 1) {
 		const low = Math.min(...own.map((l) => l.skill[0]));
 		if (best.length && Math.min(...best.map((l) => l.skill[0])) > low) {
 			for (const l of own.filter((x) => x.skill[0] === low).sort((a, b) => b.yield / b.lap - a.yield / a.lap || a.map - b.map)) if (!best.some((o) => o.map === l.map)) best.push(l);
+		}
+		for (const l of own.filter((x) => x.starter && x.skill[0] === low)) {
+			if (!best.some((o) => o.map === l.map && o.pts.join(' ') === l.pts.join(' '))) best.push(l);
 		}
 		for (const l of best) {
 			const key = `${l.map}|${l.pts.join(' ')}`;

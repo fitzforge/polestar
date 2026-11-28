@@ -436,11 +436,11 @@ function plan(ctx) {
 
 // --------------------------------------------------------------------- what the pair's steps say
 
-// A farming loop line (docs/GUIDE_FORMAT.md, "Farming loops"): its strongest creature's level (a level
-// above the one its walk asks), a lap's seconds and skill points, who may take it, its stands.
+// A farming loop line (docs/GUIDE_FORMAT.md, "Farming loops"): the least character level safe on it (the
+// level its walk asks), a lap's seconds and skill points, who may take it, its stands.
 function loopLine(ctx, w) {
 	const live = w.stops[0].pt.f === 'l';
-	return [`loop ${zoneName(ctx, w.map)}`, `lvl ${w.level + 1}`, `lap ${w.seconds}`, `gain ${fmt(w.gain)}`, `only ${w.only}`, ...(live ? ['live'] : []), `r ${w.stops.some((s) => s.pool) ? 25 : STAND_R}`, 'at', ...w.stops.map((s) => `${fmt(s.pt.x)},${fmt(s.pt.y)}`)].join(' ');
+	return [`loop ${zoneName(ctx, w.map)}`, `lvl ${w.level}`, `lap ${w.seconds}`, `gain ${fmt(w.gain)}`, `only ${w.only}`, ...(live ? ['live'] : []), `r ${w.stops.some((s) => s.pool) ? 25 : STAND_R}`, 'at', ...w.stops.map((s) => `${fmt(s.pt.x)},${fmt(s.pt.y)}`)].join(' ');
 }
 
 // A rank of Fishing or Cooking as steps ([title, lines]): Journeyman at a trainer, Expert from its book.
