@@ -252,7 +252,6 @@ step Thaurissan and Blackrock Stronghold
   collect 11467 x50 quest 4283.1      -- Blackrock Medallion
 
 step Morgan's Vigil: hand in
-  tip The soft dirt mound is at the top of Dreadmaul Rock.
   turnin 4283
   turnin 3824
   accept 3825                         -- Ogre Head On A Stick = Party, +100

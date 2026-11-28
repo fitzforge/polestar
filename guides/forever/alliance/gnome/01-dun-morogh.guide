@@ -780,7 +780,7 @@ step The Deeprun Tram
 
 step Tram to Stormwind
   zone Ironforge
-  tip Monty is on the Ironforge platform of the Deeprun Tram, and his brother Nipsy is at the Stormwind end. The tram has no map inside, so the city markers show the entrances, not the two brothers.
+  tip Monty is on the Ironforge platform of the Deeprun Tram, and his brother Nipsy is at the Stormwind end. The tram has no map inside, so the city markers show the entrances, not the brothers.
   enter "Deeprun Tram" @78.0,51.4 map 1455
   accept 6661 @78.0,51.4                      -- Monty, on the Ironforge platform
   use 17117 quest 6661.1 @78.0,51.4 map 1455

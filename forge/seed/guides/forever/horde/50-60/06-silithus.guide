@@ -234,7 +234,7 @@ step Torwa Pathfinder
   accept 4289
 
 step Lar'korwi
-  tip Torwa's Pouch holds the meat and the pheromone mixture. Lar'korwi's lair is the bone-strewn valley just south of the pylon, and he is level 56 and hits hard.
+  tip Torwa's Pouch holds the meat and the pheromone mixture. Lar'korwi is level 56 and hits hard.
   use 11568 @79.7,49.8 map 1449
   use 11569 quest 4292.1 @79.7,49.8 map 1449
   use 11570 quest 4292.1 @79.7,49.8 map 1449
@@ -264,7 +264,7 @@ step Ringo
 
 step Escort Ringo
   when onquest 4491
-  tip Ringo faints from time to time during the escort north to Marshal's Refuge, and Spraggle's Canteen wakes him.
+  tip Ringo faints along the way to Marshal's Refuge, and Spraggle's Canteen wakes him.
   goto 43.7,8.3
   use 11804 quest 4491.1 @51.8,49.9 map 1449
   complete 4491

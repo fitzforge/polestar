@@ -40,7 +40,7 @@
 				"objective": 1,
 				"guide": "forever/horde/50-60/02-felwood"
 			},
-			"tip": "The Highborne Treasure Fragments come from the sands just east of the ruins, where Makrinni Burrowers (50-51) dig. The Burrowers and the buried caches there also give fragments.",
+			"tip": "The Makrinni Burrowers (50-51) and the buried caches on these sands also give fragments.",
 			"note": "Horde 50-60 audit (2026-11-23): Long Walks on the Beach provides the Treasure Trowel 3000 and asks to dig the fragments up with it; the step named only the Burrowers and the caches.",
 			"source": [
 				{
@@ -375,7 +375,7 @@
 				"objective": 1,
 				"guide": "forever/horde/50-60/05-eastern-plaguelands"
 			},
-			"tip": "The four braziers are inside Shadow Hold, the cave in the north of Jaedenar. The cave is full of level 53-55 Shadow Council mobs, often in linked groups, and many of them can stun.",
+			"tip": "Shadow Hold is full of level 53-55 Shadow Council mobs, often in linked groups, and many of them can stun. The braziers take Greta's Purified Moonwell Water.",
 			"note": "Horde 50-60 audit (2026-11-23): the tip put the braziers among the camp's buildings and named the Cleansed Water; they are inside Shadow Hold and the quest provides Purified Moonwell Water.",
 			"source": [
 				{
@@ -484,7 +484,7 @@
 				"objective": 1,
 				"guide": "forever/horde/50-60/06-silithus"
 			},
-			"tip": "Torwa's Pouch holds the meat and the pheromone mixture. Lar'korwi's lair is the bone-strewn valley just south of the pylon, and he is level 56 and hits hard.",
+			"tip": "Torwa's Pouch holds the meat and the pheromone mixture. Lar'korwi is level 56 and hits hard.",
 			"note": "Horde 50-60 audit (2026-11-23): the step said to use Torwa's bait; the quest provides Torwa's Pouch, whose meat is placed at the lair and then the mixture used on it.",
 			"source": [
 				{
@@ -4489,7 +4489,7 @@
 				"quest": 30,
 				"goal": "turnin"
 			},
-			"tip": "Cast Teleport: Moonglade. Join the two pendant halves at the Shrine of Remulos, on the north-west shore of the lake, before you see Dendrite Starblaze in Nighthaven. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
+			"tip": "Dendrite Starblaze is upstairs in his building in Nighthaven, and the arrow cannot tell the floors apart.",
 			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added. #1386 moved the hand-in from the Barrens' Cat Form visit to a Tauren Druid step of its own at the end of forever/horde/06-hillsbrad-foothills (the Silverpine half drops only while Trial of the Sea Lion is in the log, so it is opened on the ride to Hillsbrad at 21); that step is Tauren only, so the tip no longer names them.",
 			"source": [
 				{
@@ -21320,7 +21320,7 @@
 				"goal": "turnin",
 				"guide": "forever/alliance/02-westfall"
 			},
-			"tip": "Gakin the Darkbinder is in the cellar of the Slaughtered Lamb, in the Mage Quarter of Stormwind, north along the road from Goldshire. The summoning circle is there too, and it calls a voidwalker.",
+			"tip": "Gakin the Darkbinder is in the cellar of the Slaughtered Lamb, in Stormwind's Mage Quarter.",
 			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, where the seed's step has another title.",
 			"source": [
 				{
@@ -21337,7 +21337,7 @@
 				"goal": "complete",
 				"guide": "forever/alliance/03-darkshore-return"
 			},
-			"tip": "Moonstalker Sires prowl the woods around the glaive. The Twilight Tome is at the bottom of the crater, and for Onu's quest the Phial of Scrying makes the Scrying Bowl there, which takes the turn-in.",
+			"tip": "Moonstalker Sires prowl the woods around the glaive. The Twilight Tome is at the bottom of the crater, and the Phial of Scrying makes the Scrying Bowl that takes Onu's quest.",
 			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over gh036-darkshore-masters-glaive-phial's tip.",
 			"source": [
 				{
@@ -21354,7 +21354,7 @@
 				"quest": 272,
 				"guide": "forever/alliance/03-darkshore-return"
 			},
-			"tip": "The two halves come from Westfall and the north coast of Darkshore, and the Shrine of Remulos is on the north-west shore of the lake. Dendrite Starblaze is upstairs in his building, and the arrow cannot tell the floors apart.",
+			"tip": "Dendrite Starblaze is upstairs in his building, and the arrow cannot tell the floors apart.",
 			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over upstairs-dendrite-starblaze-turnin-272's tip.",
 			"source": [
 				{
@@ -21389,7 +21389,7 @@
 				"quest": 272,
 				"guide": "forever/alliance/06-wetlands"
 			},
-			"tip": "The Shrine of Remulos is on the north-west shore of the lake. Dendrite Starblaze is upstairs in his building in Nighthaven, and the arrow cannot tell the floors apart.",
+			"tip": "Dendrite Starblaze is upstairs in his building in Nighthaven, and the arrow cannot tell the floors apart.",
 			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over upstairs-dendrite-starblaze-turnin-272's tip.",
 			"source": [
 				{
@@ -21425,7 +21425,7 @@
 				"objective": 1,
 				"guide": "forever/alliance/50-60/01-burning-steppes"
 			},
-			"tip": "Spitelash naga guard the Ruins of Eldarath, and Tymor's runes stand among the ruins.",
+			"tip": "Spitelash naga guard the Ruins of Eldarath.",
 			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over azshara-eldarath-runes-before-the-top-up's tip.",
 			"source": [
 				{
@@ -21443,7 +21443,7 @@
 				"objective": 3,
 				"guide": "forever/alliance/50-60/04-western-plaguelands"
 			},
-			"tip": "Terrordale is west through the Plaguewood, and the big termite mounds are on the way. The Frenzied Plaguehounds are level 57-58, so pulling more than one is dangerous.",
+			"tip": "The Frenzied Plaguehounds are level 57-58, so pulling more than one is dangerous.",
 			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over epl-plaguehounds-careful's tip.",
 			"source": [
 				{
@@ -21477,7 +21477,7 @@
 				"goal": "accept",
 				"guide": "forever/alliance/gnome/01-dun-morogh"
 			},
-			"tip": "Monty is on the Ironforge platform of the Deeprun Tram, and his brother Nipsy is at the Stormwind end. The tram has no map inside, so the city markers show the entrances, not the two brothers.",
+			"tip": "Monty is on the Ironforge platform of the Deeprun Tram, and his brother Nipsy is at the Stormwind end. The tram has no map inside, so the city markers show the entrances, not the brothers.",
 			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over a043-deeprun-city-entrances's tip.",
 			"source": [
 				{
@@ -21530,7 +21530,7 @@
 				"objective": 1,
 				"guide": "forever/horde/02-the-barrens"
 			},
-			"tip": "The three nests are together in the Raptor Grounds, south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs one Sunscale Feather, and most Sunscale raptors drop one.",
+			"tip": "Sunscale Scytheclaws guard the three nests. Most Sunscale raptors drop a Sunscale Feather, and each nest takes one.",
 			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over gh036-barrens-scytheclaw-nests-feathers's tip.",
 			"source": [
 				{
@@ -21548,7 +21548,7 @@
 				"objective": 1,
 				"guide": "forever/horde/02-the-barrens"
 			},
-			"tip": "Verog only appears after enough Kolkar centaurs die at the Stagnant Oasis, south-east of the Crossroads. The bubbling fissure is on the oasis' east bank.",
+			"tip": "Verog doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the Stagnant Oasis.",
 			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over 2479-barrens-verog-from-the-kolkar's tip.",
 			"source": [
 				{
@@ -21566,7 +21566,7 @@
 				"objective": 1,
 				"guide": "forever/horde/04-the-barrens"
 			},
-			"tip": "The Silithid Mounds holding the eggs are in the Field of Giants, south of Camp Taurajo on the road to Gann. Silithid Swarmers defend them and release many tiny adds that interrupt spells, and damage shields such as Thorns kill those adds in one hit.",
+			"tip": "Silithid Swarmers defend the mounds and release many tiny adds that interrupt spells, and damage shields such as Thorns kill those adds in one hit.",
 			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over 1175-barrens-silithid-eggs-on-the-road-to-gann's tip.",
 			"source": [
 				{
@@ -21594,23 +21594,6 @@
 			]
 		},
 		{
-			"id": "no-instructions-06-hillsbrad-foothills-trial-of-the-sea-lion",
-			"faction": "Horde",
-			"at": {
-				"quest": 30,
-				"goal": "turnin",
-				"guide": "forever/horde/06-hillsbrad-foothills"
-			},
-			"tip": "The Shrine of Remulos is on the north-west shore of the lake. Dendrite Starblaze is upstairs in his building in Nighthaven, and the arrow cannot tell the floors apart.",
-			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over upstairs-dendrite-starblaze-turnin-30's tip.",
-			"source": [
-				{
-					"kind": "in-game-check",
-					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
-				}
-			]
-		},
-		{
 			"id": "no-instructions-07-ashenvale-gloomrise-kill-these-as-you-meet-them",
 			"faction": "Horde",
 			"at": {
@@ -21619,7 +21602,7 @@
 				"objective": 1,
 				"guide": "forever/horde/07-ashenvale"
 			},
-			"tip": "Spiders overrun the burial ground at Gloomrise, north of the camp, and the Spinners drop the Crystalline Silk. Broodmother Valraxx (level 30, elite) sits at the north end and is meant for a group doing The Broodmother; her Bloody Parchment starts A Darker Truth.",
+			"tip": "Broodmother Valraxx (30, elite) at the north end of Gloomrise is for a group doing The Broodmother, and her Bloody Parchment starts A Darker Truth.",
 			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over 2025-h21-gloomrise-broodmother-elite's tip.",
 			"source": [
 				{
@@ -21636,7 +21619,7 @@
 				"goal": "complete",
 				"guide": "forever/horde/30-40/04-dustwallow-marsh"
 			},
-			"tip": "Each portal releases a Demon Portal Guardian (38-39), and there are six portals. Infernals, Doomguards and Burning Blade Summoners patrol near many portals and may join the fight.",
+			"tip": "The Hand of Iruxos opens the six portals' rings, and each releases a Demon Portal Guardian (38-39). Infernals, Doomguards and Burning Blade Summoners patrol near many portals and can join the fight.",
 			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over horde-3040-portals-of-the-legion-hand's tip.",
 			"source": [
 				{
@@ -21672,7 +21655,7 @@
 				"objective": 1,
 				"guide": "forever/horde/50-60/05-eastern-plaguelands"
 			},
-			"tip": "The book lies in the ruined inn of Terrordale, and the undead in town are level 54-56. Large Termite Mounds stand all over the hills east of Terrordale, but elite level 58 Ziggurat Protectors guard the ziggurats east and north-east of town.",
+			"tip": "The undead in Terrordale are level 54-56, and elite level 58 Ziggurat Protectors guard the ziggurats east and north-east of town.",
 			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, where the seed's step has another title.",
 			"source": [
 				{
@@ -21724,7 +21707,7 @@
 				"goal": "turnin",
 				"guide": "forever/horde/orc/01-durotar"
 			},
-			"tip": "Canaga stands outside the Den, and Spirit Rock is the hill just south of it. The Earth Sapta reveals the Minor Manifestation of Earth.",
+			"tip": "Only the Earth Sapta shows the Minor Manifestation of Earth on Spirit Rock.",
 			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, where the seed's step has another title.",
 			"source": [
 				{
@@ -21741,7 +21724,7 @@
 				"goal": "turnin",
 				"guide": "forever/horde/troll/01-durotar"
 			},
-			"tip": "Canaga stands outside the Den, and Spirit Rock is the hill just south of it. The Earth Sapta reveals the Minor Manifestation of Earth there.",
+			"tip": "Only the Earth Sapta shows the Minor Manifestation of Earth on Spirit Rock.",
 			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, where the seed's step has another title.",
 			"source": [
 				{
@@ -21869,6 +21852,58 @@
 				]
 			},
 			"note": "Set Them Ablaze! (3463): objective 4 ticks when item 10515 is used (Flames of Retribution, 12534); the step had the objective's line only. The use is a row of its own before it, so the quest item button and the step key offer the item.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 3463.1 ticked within 3 s of a cast of 12534 24 times of 45, for 45 people; 3463.2 ticked within 3 s of a cast of 12534 22 times of 45, for 45 people; 3463.3 ticked within 3 s of a cast of 12534 19 times of 45, for 45 people; 3463.4 ticked within 3 s of a cast of 12534 27 times of 45, for 45 people; 46 people took 3463, 1 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 10515's use is spell 12534 (Flames of Retribution)"
+				}
+			]
+		},
+		{
+			"id": "use-row-3463-2-01-un-goro-crater",
+			"faction": "Horde",
+			"at": {
+				"quest": 3463,
+				"goal": "objective",
+				"objective": 2,
+				"guide": "forever/horde/50-60/01-un-goro-crater"
+			},
+			"rows": {
+				"before": [
+					"use 10515 quest 3463.2 @44.0,60.9 map 1427"
+				]
+			},
+			"note": "Set Them Ablaze! (3463): objective 2 ticks when item 10515 is used (Flames of Retribution, 12534); the step had the objective's line only. The use is a row of its own before it, so the quest item button and the step key offer the item.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-27): 3463.1 ticked within 3 s of a cast of 12534 24 times of 45, for 45 people; 3463.2 ticked within 3 s of a cast of 12534 22 times of 45, for 45 people; 3463.3 ticked within 3 s of a cast of 12534 19 times of 45, for 45 people; 3463.4 ticked within 3 s of a cast of 12534 27 times of 45, for 45 people; 46 people took 3463, 1 abandoned it"
+				},
+				{
+					"kind": "client",
+					"ref": "the client's item tables (ItemEffect; 1.60.1.70532): item 10515's use is spell 12534 (Flames of Retribution)"
+				}
+			]
+		},
+		{
+			"id": "use-row-3463-3-01-un-goro-crater",
+			"faction": "Horde",
+			"at": {
+				"quest": 3463,
+				"goal": "objective",
+				"objective": 3,
+				"guide": "forever/horde/50-60/01-un-goro-crater"
+			},
+			"rows": {
+				"before": [
+					"use 10515 quest 3463.3 @50.1,54.8 map 1427"
+				]
+			},
+			"note": "Set Them Ablaze! (3463): objective 3 ticks when item 10515 is used (Flames of Retribution, 12534); the step had the objective's line only. The use is a row of its own before it, so the quest item button and the step key offer the item.",
 			"source": [
 				{
 					"kind": "recording",
@@ -22123,7 +22158,7 @@
 				"objective": 1,
 				"guide": "forever/horde/04-the-barrens"
 			},
-			"tip": "The dwarves' flying machine sits on its platform inside the dig site.",
+			"tip": "The Explosive Stick of Gann destroys the dwarves' flying machine, on its platform inside the dig site.",
 			"note": "The step's goal rows do every action now (the item uses of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over gh036-barrens-gann-explosive-stick's tip.",
 			"source": [
 				{

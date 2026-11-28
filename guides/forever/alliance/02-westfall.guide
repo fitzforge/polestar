@@ -144,7 +144,7 @@ step The Binding
   only Gnome,Warlock
   when onquest 1688,1689
   zone Stormwind City
-  tip Gakin the Darkbinder is in the cellar of the Slaughtered Lamb, in the Mage Quarter of Stormwind, north along the road from Goldshire. The summoning circle is there too, and it calls a voidwalker.
+  tip Gakin the Darkbinder is in the cellar of the Slaughtered Lamb, in Stormwind's Mage Quarter.
   turnin 1688                                 -- Gakin the Darkbinder
   accept 1689
   use 6928 quest 1689.1 @39.1,84.4 map 1453 live
@@ -156,7 +156,7 @@ step The Binding
   when turnedin 1688
   when available 1689
   zone Stormwind City
-  tip Gakin the Darkbinder is in the cellar of the Slaughtered Lamb in the Mage Quarter, and the summoning circle is there too. The Bloodstone Choker summons a voidwalker that has to be defeated.
+  tip Gakin the Darkbinder is in the cellar of the Slaughtered Lamb, in Stormwind's Mage Quarter.
   accept 1689
   use 6928 quest 1689.1 @39.1,84.4 map 1453 live
   kill 5676 quest 1689.1                      -- Summoned Voidwalker: use the Bloodstone Choker at the circle

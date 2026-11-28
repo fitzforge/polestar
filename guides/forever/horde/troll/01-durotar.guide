@@ -159,7 +159,7 @@ step Zureetha Fargaze
 
 step Call of Earth
   only Shaman
-  tip Canaga stands outside the Den, and Spirit Rock is the hill just south of it. The Earth Sapta reveals the Minor Manifestation of Earth there.
+  tip Only the Earth Sapta shows the Minor Manifestation of Earth on Spirit Rock.
   use 6635 @44.1,76.4
   turnin 1517                         -- Minor Manifestation of Earth, on Spirit Rock
   accept 1518

@@ -219,7 +219,7 @@ step Trial of the Sea Lion
   only Tauren,Skyborne,Druid
   zone Moonglade
   when onquest 30
-  tip The Shrine of Remulos is on the north-west shore of the lake. Dendrite Starblaze is upstairs in his building in Nighthaven, and the arrow cannot tell the floors apart.
+  tip Dendrite Starblaze is upstairs in his building in Nighthaven, and the arrow cannot tell the floors apart.
   use 15883 quest 30.1 @36.0,41.4
   collect 15885 quest 30.1              -- Pendant of the Sea Lion: use a half at the Shrine of Remulos
   turnin 30                             -- Dendrite Starblaze

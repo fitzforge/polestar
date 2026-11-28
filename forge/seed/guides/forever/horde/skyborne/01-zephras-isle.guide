@@ -576,7 +576,7 @@ step Zephras Isle
 step The Eternal Flame
   zone Zephras Isle
   only Shaman
-  tip Olariaan lights the Brazier of Offering. The flame is on a timer, and the Brazier of Eternal Flame is beside Sessaria in Valanaar.
+  tip Once taken, the Eternal Flame lasts six minutes, so the walk to the Brazier of Eternal Flame beside Sessaria in Valanaar has no room for detours. If it runs out, the quest can be taken again from Olariaan.
   turnin 97245                        -- Olariaan Swiftburn
   accept 97257
   use 277329 quest 97257.1 @58.4,78.8

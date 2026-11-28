@@ -570,7 +570,7 @@ step Ratchet
 
 # ---------------------------------------------------------------- South-west: the Raptor Grounds, then the beach
 step Raptor nests
-  tip The three nests are together in the Raptor Grounds, south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs one Sunscale Feather, and most Sunscale raptors drop one.
+  tip Sunscale Scytheclaws guard the three nests. Most Sunscale raptors drop a Sunscale Feather, and each nest takes one.
   collect 5165 x3
   use 5165 quest 905.1 @52.6,46.1 map 1413
   interact 6907 quest 905.1
@@ -614,7 +614,7 @@ step The Crossroads
 
 step Dreadmist Peak
   only Tauren,Skyborne,Druid
-  tip Dreadmist Peak is north of the Crossroads, and Tonga Runetotem is in the Crossroads. Hula'mahi beside him sells Earthroot, three at a time until he restocks.
+  tip Hula'mahi beside Tonga Runetotem sells Earthroot, three at a time until he restocks.
   use 15842 quest 6127.1 @48.4,18.9 only Tauren,Skyborne
   collect 15843 quest 6127.1 @48.4,18.9 only Tauren,Skyborne -- Filled Dreadmist Peak Sampler
   turnin 6127 only Tauren,Skyborne -- Tonga Runetotem
@@ -700,7 +700,7 @@ step the Crossroads
 
 step Verog the Dervish
   zone The Barrens
-  tip Verog only appears after enough Kolkar centaurs die at the Stagnant Oasis, south-east of the Crossroads. The bubbling fissure is on the oasis' east bank.
+  tip Verog doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the Stagnant Oasis.
   collect 5023 quest 851.1
   use 5068 quest 877.1 @55.6,42.8
   interact 3737 quest 877.1           -- Underwater

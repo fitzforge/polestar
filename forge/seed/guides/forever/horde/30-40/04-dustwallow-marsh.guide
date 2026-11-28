@@ -296,7 +296,7 @@ step Shadowprey Village
 
 step Portals of the Legion
   zone Desolace
-  tip Each portal releases a Demon Portal Guardian (38-39), and there are six portals. Infernals, Doomguards and Burning Blade Summoners patrol near many portals and may join the fight.
+  tip The Hand of Iruxos opens the six portals' rings, and each releases a Demon Portal Guardian (38-39). Infernals, Doomguards and Burning Blade Summoners patrol near many portals and can join the fight.
   goto 52.0,78.0 "Mannoroc Coven"
   use 14547 quest 5581.1 @52.0,78.0
   complete 5581

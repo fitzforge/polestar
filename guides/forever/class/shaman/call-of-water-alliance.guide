@@ -92,7 +92,7 @@ step Hervdana Saegrund
 
 step The blue waterskin
   zone Ashenvale
-  tip The water comes from the lake around Astranaar in Ashenvale. The boat from Menethil Harbor goes to Auberdine in Darkshore, which is north of Ashenvale.
+  tip The boat from Menethil Harbor goes to Auberdine in Darkshore, north of Ashenvale.
   level 22
   use 265772 quest 94500.1 @34.5,48.0
   collect 265773 quest 94500.1 @34.5,48.0     -- Full Blue Waterskin

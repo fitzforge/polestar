@@ -3056,7 +3056,8 @@ test('Shen\'dralas: Mana Mania\'s tip says the elite comes alone and most player
 });
 // A step shown only while the bags hold an item (`when has I`) stops applying the moment the item is used up, so
 // nothing may follow the goal that uses it up (a `use`, an accept the item starts, a hand-in that takes it) but what
-// that goal hands over (a collect of its reward): the rest of the step would be passed half done.
+// that goal hands over (a collect of its reward): the rest of the step would be passed half done. A goal of the same
+// quest objective as a `use` is no rest: the use is what ticks it (each Farmers' Memento at its grave, What We Lost).
 test('Every guide: a step gated on carrying an item holds no work after the goal that uses the item up (#2561 sweep)', { skip }, () => {
 	const bad = [];
 	for (const guide of allGuides()) {
@@ -3066,7 +3067,9 @@ test('Every guide: a step gated on carrying an item holds no work after the goal
 					|| (g.t === 'turnin' && data.quests[g.quest] && directNeeds(g.quest).has(p.item));
 				const at = st.goals.findIndex(uses);
 				if (at < 0) continue;
-				const after = st.goals.slice(at + 1).filter((g) => !g.optional && g.t !== 'collect' && g.t !== 'note' && !uses(g));
+				const used = st.goals[at];
+				const sameObjective = (g) => used.t === 'use' && used.quest && g.quest === used.quest && g.oi === used.oi;
+				const after = st.goals.slice(at + 1).filter((g) => !g.optional && g.t !== 'collect' && g.t !== 'note' && !uses(g) && !sameObjective(g));
 				if (after.length) bad.push(`${guide} "${st.title}" (has ${p.item}): ${after.map((g) => `${g.t} ${g.quest || g.item || ''}`).join(', ')}`);
 			}
 		}
@@ -9110,10 +9113,10 @@ test('Final route review (Horde 1-30, 0.3.5): Jorn after the eggs, Lydon after H
 	// Ingest 2026-11-08: 8 of 14 players abandoned Egg Hunt, taken at 17 and carried to the eggs at 21. Since the 0.4.0 level
 	// tidy the eggs are on 04-the-barrens' walk south at 25; Korran gives it on 02's last Crossroads stop (the route walks
 	// past him there anyway), so 04's flight from Orgrimmar no longer lands at the Crossroads only for him, and no Crossroads
-	// stop comes between the accept and the eggs.
+	// stop comes between the accept and the eggs (the digging claw's use at the mounds is the eggs' own row).
 	const later = goals('forever/horde/04-the-barrens.guide');
 	const egg = at(barrens, 'accept 868', is('accept', 868));
-	const eggs = at(later, 'collect 5058', (g) => g.t === 'collect' && g.item === 5058);
+	const eggs = at(later, 'the eggs', (g) => (g.t === 'collect' && g.item === 5058) || (g.t === 'use' && g.quest === 868));
 	assert.ok(jorn < egg, 'Egg Hunt on the last Crossroads stop, after the Field of Giants pass');
 	assert.ok(!barrens.slice(egg + 1).some(({ goal }) => goal.quest === 868 || goal.npc === 3338), 'no other Crossroads stop in 02 after the accept');
 	assert.ok(!later.slice(0, eggs).some(({ goal }) => goal.quest === 868 || goal.npc === barrens[egg].goal.npc || goal.npc === 3338), 'no Crossroads stop (Korran, Sergra) in 04 before the eggs');
@@ -16597,8 +16600,12 @@ test(`${DARKSHORE_RETURN}: Trial of the Sea Lion and Aquatic Form on the Cat For
 	const aquatic = at(list, 'Aquatic Form (5061) to Mathrengyl', is('turnin', 5061));
 	const catForm = at(list, 'Cat Form (98397) to Mathrengyl', is('turnin', 98397));
 	assert.ok(sea < aquatic && aquatic < catForm, '272 at Dendrite, then 5061 and Cat Form at Mathrengyl');
-	const when = list[sea].step.when || [];
-	for (const item of [15882, 15883]) assert.ok(when.some((p) => p.k === 'has' && !p.neg && p.item === item), `only with half pendant ${item}`);
+	// The halves are joined in a step of their own (the joining uses them up), and the hand-in waits for the pendant.
+	const join = at(list, 'use 15883 (the halves joined)', (g) => g.t === 'use' && g.item === 15883);
+	assert.ok(join < sea, 'the halves joined before the hand-in');
+	const joinWhen = list[join].step.when || [];
+	for (const item of [15882, 15883]) assert.ok(joinWhen.some((p) => p.k === 'has' && !p.neg && p.item === item), `only with half pendant ${item}`);
+	assert.ok((list[sea].step.when || []).some((p) => p.k === 'has' && !p.neg && p.item === 15885), 'the hand-in only with the Pendant of the Sea Lion');
 	assert.ok(goals(WETLANDS).some(({ goal }) => goal.t === 'turnin' && goal.quest === 272), "06-wetlands keeps its trip for a Druid still on 272");
 });
 
@@ -19171,12 +19178,13 @@ test('forever/alliance/02-westfall.guide: one step at the Harvest Watchers for a
 // #3619 (Yeeshak, Discord, Tauren Druid 51): Tanaris Field Sampling (654) starts from the Model 4711-FTZ Power Source
 // (8524), Slake That Thirst's (379) reward. Another Power Source? (841, Chief Engineer Bilgewhizzle, repeatable) is
 // not a prerequisite but the way to a new source when the first is gone or its two hours ran out, and the step said
-// nothing of it. Its tip names the quest and who gives it.
+// nothing of it. The accept's note names the quest and who gives it (the step's tip until the samples got rows of
+// their own: an instruction is no tip).
 test('forever/horde/40-50/04-tanaris.guide: Tanaris Field Sampling\'s step says how to get another power source (#3619)', { skip }, () => {
 	const list = goals('forever/horde/40-50/04-tanaris.guide');
-	const { step } = list[at(list, 'accept 654', is('accept', 654))];
-	const text = [step.note, step.tip].flat().filter(Boolean).join(' ');
-	assert.match(text, /Another Power Source\?|\{quest:841\}/, 'the tip names Another Power Source?');
+	const { step, goal } = list[at(list, 'accept 654', is('accept', 654))];
+	const text = [step.note, step.tip, goal.note].flat().filter(Boolean).join(' ');
+	assert.match(text, /Another Power Source\?|\{quest:841\}/, 'the step names Another Power Source?');
 	assert.match(text, /Bilgewhizzle|\{npc:7407\}/, 'and who gives it');
 	assert.match(text, /Wastewander Water Pouches|\{item:8483\}/, 'and what it takes');
 });
@@ -19368,12 +19376,13 @@ test('The Monster Surfaces: the head is taken where the Threshadon is called up 
 });
 
 // #3550 (imp): While you're here offered Loose Soil before the player had a Farmers' Memento, which each grave takes.
-// The graves are a step of their own, shown with a Memento in the bags, after the cult step that gathers five.
+// The graves are a step of their own, shown with a Memento in the bags, after the cult step that gathers five. The
+// Memento's own use (Burying) is its row, after the grave's.
 test('forever/alliance/40-50/01b-riverglades.guide: the Loose Soil only with a Farmers\' Memento (#3550)', { skip }, () => {
 	const list = goals('forever/alliance/40-50/01b-riverglades.guide');
 	const soil = list[at(list, 'Loose Soil', (g) => g.t === 'interact' && g.quest === 94829)].step;
 	assert.ok((soil.when || []).some((p) => p.k === 'has' && !p.neg && Number(p.item) === 266148), 'when has 266148');
-	assert.ok(soil.goals.every((g) => g.t === 'interact' || g.t === 'note'), 'the step holds only the graves');
+	assert.ok(soil.goals.every((g) => g.t === 'interact' || g.t === 'note' || (g.t === 'use' && g.item === 266148)), 'the step holds only the graves and the Mementos\' use');
 	assert.ok(at(list, 'Mementos', (g) => g.t === 'collect' && g.item === 266148) < list.findIndex((e) => e.step === soil), 'the Mementos first');
 });
 
@@ -20020,12 +20029,14 @@ test("forever/horde/30-40/04-dustwallow-marsh.guide: EmberVixen's report: Shadow
 
 // #4231 (Pokey, 0.4.3): A Little Slime Goes a Long Way's jars are filled by using the empty jar on an ooze's remains.
 // Jadefire Glen's step said so for the Cursed Oozes; Jaedenar's, where the Tainted Oozes are, only listed the jar
-// (guide-fixes 4231-tainted-ooze-jar-use). Both ooze steps say how to fill their jar.
+// (guide-fixes 4231-tainted-ooze-jar-use). Both ooze steps say how to fill their jar: since the tip-only actions sweep,
+// with the empty jar's use as a row of its own before the filled jar.
 test("forever/alliance/50-60/02-felwood.guide: Pokey's report: both ooze steps say to use the empty jar on the remains (#4231)", { skip }, () => {
 	const list = goals('forever/alliance/50-60/02-felwood.guide');
-	for (const oi of [1, 2]) {
-		const jar = list[at(list, `collect 4512.${oi}`, (g) => g.t === 'collect' && g.quest === 4512 && g.oi === oi)];
-		assert.match(jar.step.note || '', /use (Laris's|the) Empty (Tainted )?Ooze Jar on their remains/, `the jar of objective ${oi}: how to fill it`);
+	for (const [oi, empty] of [[1, 11914], [2, 11948]]) {
+		const at4512 = at(list, `collect 4512.${oi}`, (g) => g.t === 'collect' && g.quest === 4512 && g.oi === oi);
+		const use = list.findIndex(({ goal }) => goal.t === 'use' && goal.item === empty);
+		assert.ok(use >= 0 && use < at4512 && list[use].step === list[at4512].step, `the jar of objective ${oi}: its step uses the empty jar (${empty}) first`);
 	}
 });
 

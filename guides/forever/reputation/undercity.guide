@@ -187,7 +187,7 @@ step Undercity: Harbinger Balthazad
 
 step The Bulwark: Scarlet Diversions
   zone Tirisfal Glades
-  tip The Bulwark is the Forsaken camp on the road from Tirisfal into the Western Plaguelands. High Executor Derrington's chain against the Scourge cauldrons is worth about 820 Undercity reputation. The Scarlet camp's command tent is between Dalson's Tears and Felstone Field.
+  tip The Bulwark is the Forsaken camp on the road from Tirisfal into the Western Plaguelands. High Executor Derrington's chain against the Scourge cauldrons is worth about 820 Undercity reputation.
   turnin 5094                         -- High Executor Derrington
   accept 5096                         -- Scarlet Diversions, +100 (level 53)
   use 12814 quest 5096.1 @40.7,51.9 map 1422
@@ -203,7 +203,7 @@ step The Bulwark: the cauldrons
 
 step Felstone Field and the Andorhal towers
   zone Western Plaguelands
-  tip Cauldron Lord Bilemaw guards the cauldron at Felstone Field. The four Andorhal towers are marked at their doors.
+  tip Cauldron Lord Bilemaw guards the cauldron at Felstone Field.
   level 52
   collect 13194 quest 5229.1          -- Felstone Field Cauldron Key
   turnin 5229                         -- the Scourge Cauldron
@@ -342,7 +342,7 @@ step Sen'jin Village: Gadrin's Parchment
 step Shadra'Alor: Shadra
   when done shadra
   zone The Hinterlands
-  tip Shadra is an elite level 55 spider summoned at the altar of Shadra'Alor, and she always drops her venom.
+  tip Shadra, an elite level 55 spider, always drops her venom.
   level 53
   use 9323 quest 2937.1 @33.8,73.0
   collect 9324 quest 2937.1 @33.8,73.0 -- Shadra's Venom, from Shadra

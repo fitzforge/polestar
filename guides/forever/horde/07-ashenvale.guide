@@ -150,7 +150,7 @@ step Je'neu Sancrea
 step Ruins of Stardust fountain
   zone Ashenvale
   only Shaman
-  tip The fountain is in the middle of the Ruins of Stardust, where Ursangous roams.
+  tip Ursangous roams the Ruins of Stardust.
   use 7767 quest 1534.1 @33.5,67.5 map 1440
   collect 7770 quest 1534.1
 
@@ -316,7 +316,7 @@ step The Earthen Ring
 
 step Gloomrise: kill these as you meet them
   zone Mulgore
-  tip Spiders overrun the burial ground at Gloomrise, north of the camp, and the Spinners drop the Crystalline Silk. Broodmother Valraxx (level 30, elite) sits at the north end and is meant for a group doing The Broodmother; her Bloody Parchment starts A Darker Truth.
+  tip Broodmother Valraxx (30, elite) at the north end of Gloomrise is for a group doing The Broodmother, and her Bloody Parchment starts A Darker Truth.
   collect 273181 quest 96260.1        -- Crystalline Silk, from Gloomrise Spinners
   kill 264083 quest 96259.2
   kill 264079 quest 96259.1

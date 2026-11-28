@@ -65,7 +65,7 @@ step Box of Incendiaries
 step Scarlet forward camp
   when !turnedin 5096
   zone Western Plaguelands
-  tip The Scarlet Crusade's tents are east of the Bulwark, just past Felstone Farm, between Felstone Field and Dalson's Tears. The Scarlets around the tents reach level 54 and the Invokers cast spells.
+  tip The Scarlets around the tents reach level 54, and the Invokers are casters.
   interact 176088
   use 12814 quest 5096.1 @40.7,51.9 map 1422
   use 12807 quest 5096.1 @40.7,51.9 map 1422
@@ -143,7 +143,7 @@ step Ruins of Eldarath
   collect 10694 quest 3568.4 @47.4,46.3 map 1447 -- #4
 
 step Makrinni Burrowers
-  tip The Highborne Treasure Fragments come from the sands just east of the ruins, where Makrinni Burrowers (50-51) dig. The Burrowers and the buried caches there also give fragments.
+  tip The Makrinni Burrowers (50-51) and the buried caches on these sands also give fragments.
   use 246683 quest 91568.1 @53.7,41.4 map 1447
   collect 246684 quest 91568
 

@@ -189,7 +189,7 @@ step Kuramaa
 
 step The Eternal Flame
   only Skyborne
-  tip Olariaan performs a ritual at the Brazier of Offering, and fire spirits light the Eternal Flame. The flame lasts six minutes once taken, and the Brazier of Eternal Flame is beside Sessaria in Valanaar. If the timer runs out, the quest can be abandoned and taken again from Olariaan.
+  tip Once taken, the Eternal Flame lasts six minutes, so the walk to the Brazier of Eternal Flame beside Sessaria in Valanaar has no room for detours. If it runs out, the quest can be taken again from Olariaan.
   turnin 97245                                -- Olariaan Swiftburn
   accept 97257
   goto 51.2,85.9 "Brazier of Offering"

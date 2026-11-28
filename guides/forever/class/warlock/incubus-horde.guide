@@ -116,7 +116,7 @@ step Fallen Sky Lake
 
 step The Binding: incubus (Orgrimmar)
   zone Orgrimmar
-  tip The summoning circle is in Neeru's tent. The incubus is level 20 and not elite, and Gan'rul takes the scarf back afterward.
+  tip The incubus is level 20 and not elite. Gan'rul takes the scarf back afterward.
   turnin 65610                        -- Gan'rul Bloodeye
   accept 65604
   use 190187 quest 65604.1 @49.4,50.0 map 1454

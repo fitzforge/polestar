@@ -143,7 +143,7 @@ step Gakin the Darkbinder
 
 step The Binding
   only Warlock
-  tip Gakin the Darkbinder is in the Slaughtered Lamb's cellar in the Mage Quarter, where the summoning circle is. The incubus from What Is Love? is summoned at the same circle.
+  tip Gakin the Darkbinder is in the cellar of the Slaughtered Lamb, in Stormwind's Mage Quarter.
   accept 1739
   use 6913 quest 1739.1 @39.2,84.4 map 1453 live
   kill 5677 quest 1739.1 @39.2,84.4 live -- Summoned Succubus, at the summoning circle

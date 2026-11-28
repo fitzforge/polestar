@@ -123,7 +123,7 @@ step Grunt Logmar
 
 step Field of Giants
   zone The Barrens
-  tip The Silithid Mounds holding the eggs are in the Field of Giants, south of Camp Taurajo on the road to Gann. Silithid Swarmers defend them and release many tiny adds that interrupt spells, and damage shields such as Thorns kill those adds in one hit.
+  tip Silithid Swarmers defend the mounds and release many tiny adds that interrupt spells, and damage shields such as Thorns kill those adds in one hit.
   use 5059 quest 868.1 @44.9,69.4 map 1413
   collect 5058 quest 868.1
 
@@ -193,7 +193,7 @@ step Gann Stonespire
   accept 849
 
 step The flying machine
-  tip The dwarves' flying machine sits on its platform inside the dig site.
+  tip The Explosive Stick of Gann destroys the dwarves' flying machine, on its platform inside the dig site.
   use 5021 quest 849.1 @47.0,85.6 map 1413
   interact 3644 quest 849.1
 
@@ -350,7 +350,7 @@ step Gerenzo Wrenchwhistle
 step The Flying Machine Airport
   zone Stonetalon Mountains
   when onquest 1086
-  tip The Venture Co. Copter Pad is the platform just south-east of Gerenzo's tower. Zamah takes the fogger back at the next guide's Thunder Bluff stop.
+  tip Zamah takes the fogger back at the next guide's Thunder Bluff stop.
   use 5638 quest 1086.1 @66.4,45.5
   complete 1086 @66.44,45.46          -- Place the Toxic Fogger on the Venture Co. Copter Pad
 

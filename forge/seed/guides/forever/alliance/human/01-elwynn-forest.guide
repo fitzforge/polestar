@@ -622,7 +622,7 @@ step Surena Caledon
 step The Binding
   only Warlock
   zone Stormwind City
-  tip The summoning circle is in the Slaughtered Lamb's cellar, and it calls a voidwalker that has to be defeated.
+  tip Gakin the Darkbinder and the summoning circle are in the cellar of the Slaughtered Lamb, in Stormwind's Mage Quarter.
   enter "Stormwind City" @69.5,85.5
   turnin 1688                                 -- Gakin the Darkbinder
   accept 1689

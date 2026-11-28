@@ -257,7 +257,7 @@ step Krakle
   accept 974
 
 step Krakle's Thermometer
-  tip The lava vent is near the top of Fire Plume Ridge, east of Krakle. Living Blazes (54-55) and Scorching Elementals (53-54) roam the slopes, and the path up has the fewest.
+  tip Living Blazes (54-55) and Scorching Elementals (53-54) roam the slopes of Fire Plume Ridge, and the path up has the fewest.
   use 12472 quest 974.1 @49.7,45.6
   complete 974 @49.7,45.6
 
@@ -272,7 +272,7 @@ step Ringo
   accept 4491
 
 step Escort Ringo
-  tip Marshal's Refuge is to the north. Ringo faints along the way, and Spraggle's Canteen wakes him.
+  tip Ringo faints along the way to Marshal's Refuge, and Spraggle's Canteen wakes him.
   goto 43.7,8.3
   use 11804 quest 4491.1 @51.8,49.9 map 1449
   complete 4491
@@ -372,12 +372,13 @@ step Velarok Windblade
   accept 3463                         -- Squire Maltrake
 
 step Sentry Braziers
-  tip The four Sentry Braziers sit along the southern rim of the Cauldron, from the south-west round to the east.
   use 10515 quest 3463.4 @33.3,54.5 map 1427
   interact 149032 quest 3463.4 @33.3,54.5 map 1427
   use 10515 quest 3463.1 @35.7,60.7 map 1427
   interact 149025 quest 3463.1 @35.7,60.7 map 1427
+  use 10515 quest 3463.2 @44.0,60.9 map 1427
   interact 149030 quest 3463.2 @44.0,60.9 map 1427
+  use 10515 quest 3463.3 @50.1,54.8 map 1427
   interact 149031 quest 3463.3 @50.1,54.8 map 1427
 
 step Squire Maltrake
@@ -520,7 +521,7 @@ step Janice Felstone
   note Keep the parcel: Royal Overseer Bauhaus is in the Undercity.
 
 step Scarlet forward camp
-  tip The Scarlet Crusade's tents are just past Felstone Farm, between Felstone Field and Dalson's Tears, east of the Bulwark along the road. The Scarlets around the tents are up to level 54 and the Invokers are casters.
+  tip The Scarlets around the tents reach level 54, and the Invokers are casters.
   goto 40.7,52.0
   interact 176088
   use 12814 quest 5096.1 @40.7,51.9 map 1422

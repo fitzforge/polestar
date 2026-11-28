@@ -297,7 +297,7 @@ step The red crystal
   accept 4813 only Dwarf,Gnome,Human,Skyborne
 
 step Cliffspring Falls
-  tip Cliffspring Falls is north along the hills, up the Cliffspring River. Two more beached remains lie on the north shore, near the Ruins of Mathystra and north of Bashal'Aran.
+  tip Two more beached remains lie on the north shore, near the Ruins of Mathystra and north of Bashal'Aran.
   use 12350 quest 4762.1 @50.8,25.6 map 1439
   collect 12349 quest 4762                    -- Cliffspring River Sample, at the waterfall
   use 15844 quest 6122.1 @54.9,33.3 map 1439 only NightElf,Skyborne,Druid

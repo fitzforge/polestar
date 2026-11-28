@@ -107,7 +107,7 @@ step Ritual Salve
 
 step Call of Earth
   only Shaman
-  tip Seer Ravenfeather is in the camp, and the Minor Manifestation of Earth is on the mesa east of it. The manifestation can only be seen with the Earth Sapta.
+  tip Only the Earth Sapta shows the Minor Manifestation of Earth, on the mesa east of the camp.
   turnin 1519                         -- Seer Ravenfeather
   accept 1520
   use 6635 @51.9,80.3 map 1412 live
@@ -351,7 +351,7 @@ step Dangers of the Windfury
   collect 4751 quest 743.1            -- Windfury Talon
 
 step Dwarven Digging
-  tip The dwarves of the Bael'dun Digsite carry the Prospector's Picks, and the dwarves' forge is in the digsite.
+  tip The dwarves of the Bael'dun Digsite carry the Prospector's Picks.
   collect 4702 x5
   use 4702 quest 746.1 @33.1,54.8
   collect 4703 quest 746.1            -- Broken Tools, at the digsite forge

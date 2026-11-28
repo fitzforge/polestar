@@ -118,7 +118,7 @@ step Alanndarian Nightsong
 
 step Sickly Deer
   only NightElf,Skyborne,Alliance
-  tip Sickly Deer are level 5 with a green cloud over them, and they roam Darkshore from the Cliffspring River to the Ashenvale border, with many around the Blackwood furbolg camp north-east of Auberdine. If a dose is lost on a deer that does not count, Alanndarian gives a fresh salve when the quest is abandoned and accepted again.
+  tip Sickly Deer (level 5) have a green cloud over them and roam Darkshore from the Cliffspring River to the Ashenvale border, many around the Blackwood furbolg camp. A deer rooted by Entangling Roots and salved before the roots tick counts twice. Alanndarian gives a fresh salve if the quest is abandoned and taken again.
   use 15826 quest 6124.1 @38.6,36.1 map 1439
   kill 12298 quest 6124.1 "Use the Curative Animal Salve on Sickly Deer"
 
@@ -190,7 +190,7 @@ step Tonga Runetotem
 
 step Sickly Gazelles
   only Tauren,Skyborne,Horde
-  tip Sickly Gazelles (level 3) graze on both sides of the road north of the Crossroads up to the Ashenvale border, north-west of the Crossroads and west of Ratchet. For Druids, a gazelle rooted by Entangling Roots and salved before the roots tick counts twice, so five gazelles are enough. Abandoning and retaking the quest from Tonga gives a fresh salve if a dose is lost.
+  tip Sickly Gazelles (level 3) graze along the road north of the Crossroads up to the Ashenvale border and west of Ratchet. A gazelle rooted by Entangling Roots and salved before the roots tick counts twice. Tonga gives a fresh salve if the quest is abandoned and taken again.
   use 15826 quest 6129.1 @54.5,32.1 map 1413
   kill 12296 quest 6129.1 "Use the Curative Animal Salve on Sickly Gazelles"
 

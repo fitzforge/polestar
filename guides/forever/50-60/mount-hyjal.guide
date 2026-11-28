@@ -156,7 +156,7 @@ step Ketharas
   accept 95611                          -- Rites of Respect
 
 step Ketharas's shrine
-  tip The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost.
+  tip The shrine is a pair of standing stones west of the Hermit's Abode.
   use 269998 @66.7,84.3
   complete 95611 @66.7,84.3
 
@@ -165,7 +165,6 @@ step Ketharas
   accept 90487                          -- Ancient Allies
 
 step The ancients' outpost
-  tip The outpost is to the west.
   turnin 90487                          -- Fraxinus
   turnin 91754                          -- Hyacinth
   turnin 91755
@@ -256,7 +255,7 @@ step Felflick
   accept 96435 @49.3,77.1               -- A Fitting End
 
 step The bone pile
-  tip The bone pile is to the west by the slime pools, and the quest is handed in at the pile itself. Handing it in wakes the Awakened Fel Ash Slime, a level 58 elite that hits hard and is dangerous without a group.
+  tip Handing the quest in at the pile wakes the Awakened Fel Ash Slime, a level 58 elite that hits hard.
   use 273296 @40.8,80.3
   complete 96435 @40.8,80.3
   turnin 96435                          -- Bone Pile
@@ -293,7 +292,6 @@ step The Curious Crow
   turnin 96322
 
 step The Ashen workstations
-  tip Four workstations stand in the Ashen camp, running from south to north.
   goto 42.5,73.1 "Slime Workstation"
   goto 44.3,68.3 "Alchemy Workstation"
   goto 46.6,68.0 "Disease Workstation"
@@ -688,7 +686,7 @@ step Head Scratcher
   accept 92446                          -- Zet'gan
 
 step The overlook
-  tip The veteran's old scabbard lies at the overlook above the valley, to the west. The scabbard calls up his spirit, who tells his story.
+  tip The veteran's spirit appears only once the scabbard is used.
   turnin 92100                          -- Embroidered Scabbard
   accept 96550                          -- Battle Recall
   use 274795 @8.8,46.5 map 2482 live
@@ -712,7 +710,6 @@ step Jereman
   accept 96978                          -- Violent Venison
 
 step The falls and the first kitten
-  tip The falls are beside the bridge. Solstice, one of Shalla'kal's kittens, plays just west of the falls.
   use 275991 @41.6,44.6
   complete 96979 @41.6,44.6             -- fill the gourd
   talk 255685 quest 93615.1 @38.5,47.3  -- Solstice
@@ -981,7 +978,7 @@ step Johun "Punchy" Dillas
 
 step Bethra'zel
   when onquest 96003
-  tip Bethra'zel is to the north-east. If he isn't drained first, he and Mazzogore are level 60 elites, and Doomguard Xarkul (level 61 elite) patrols this corner of Dae'gun.
+  tip Bethra'zel and Mazzogore are level 60 elites until Bethra'zel is drained. Doomguard Xarkul, a level 61 elite, patrols this corner of Dae'gun.
   tip Legion Hulks (level 60 rare elites) roam Dae'gun's camps.
   use 271879 quest 96003.1 @57.4,36.3 map 2482 live
   kill 263394 quest 96003.1             -- Bethra'zel

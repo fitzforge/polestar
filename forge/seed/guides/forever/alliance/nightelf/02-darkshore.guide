@@ -86,7 +86,7 @@ step Darkshore Threshers
 # ---------------------------------------------------------------- First loop: south-east and north-east
 
 step Bears and the Blackwood camp
-  tip Rabid Thistle Bears roam the hills south of Auberdine, and the furbolg camp is just east of them. Nothing at the camp needs killing yet.
+  tip Rabid Thistle Bears roam the hills south of Auberdine. Nothing at the furbolg camp needs killing yet.
   use 7586 quest 2118.1 @38.21,52.59 map 1439 era
   complete 2118 @38.21,52.59 map 1439 era -- the Rabid Thistle Bears nearest Tharnariun
   complete 984 @39.9,53.9                     # any of four furbolg camps completes it; this is the one by the bears (#560)

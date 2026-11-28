@@ -240,7 +240,7 @@ step Auberdine: second hand-in
 
 step Auberdine: the seal, the Den Mother and the pelts
   when done dn-auberdine
-  tip The Ancient Moonstone Seal drops from the satyrs of Bashal'Aran, and the flame is there too. The Den Mother lairs north-east of Bashal'Aran, and Moonstalker Sires and Matriarchs roam southern Darkshore.
+  tip The Ancient Moonstone Seal drops from the satyrs of Bashal'Aran. The Den Mother lairs north-east of Bashal'Aran, and Moonstalker Sires and Matriarchs roam southern Darkshore.
   level 19
   collect 5338 quest 956.1            -- Ancient Moonstone Seal
   turnin 956
@@ -347,7 +347,7 @@ step Cenarion Enclave
 step Darnassus: Morrowgrain Research
   when done dn-morrowgrain
   zone Darnassus
-  tip Jenal is beside Fandral in the Cenarion Enclave, and Mathrengyl Bearwalker sells the pouch and seeds. Each casing needs a seed packet and 2 Un'Goro Soil, only about one in three holds Morrowgrain (1 to 5), and the pouch works once every 10 minutes.
+  tip Each casing needs a seed packet and 2 Un'Goro Soil, only about one in three holds Morrowgrain (1 to 5), and the pouch works once every 10 minutes.
   turnin 3781                         -- Mathrengyl Bearwalker
   accept 3785                         -- Morrowgrain Research, +100
   buy 11020 npc 4217                  -- Evergreen Pouch

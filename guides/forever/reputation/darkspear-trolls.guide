@@ -62,7 +62,7 @@ step Valley of Trials (optional hub)
 
 step Boars, weapons and peons
   when done valley
-  tip The training weapons lie on the ground in the Den and among the boars to the north. The Lazy Peons are asleep.
+  tip The training weapons lie on the ground in the Den and among the boars to the north.
   kill 3098 x10 quest 788.1           -- Mottled Boar
   collect 277653 x6 quest 97279.1     -- Abandoned Training Weapon
   use 16114 quest 5441.1 @42.3,73.2 map 1411

@@ -176,7 +176,7 @@ step Velora Nitely
 step Dragonmaw Shinbones
   zone Wetlands
   when onquest 1846
-  tip The Dragonmaw orcs (level 26-30) camp in the middle of the Wetlands, south of Hammerfall over the Thandol Span; Menethil Harbor is Alliance. Shinbones drop only while the quest is in your log, and only about one in four tests sturdy, so 8 can take 30 or more kills. The orcs run for help at 15%: Raiders net, Centurions shield-bash, Shadowwarders cast Shadow Bolt and Bonewarders raise skeletons.
+  tip Shinbones drop only while the quest is in your log, and only about one in four tests sturdy, so 8 can take 30 or more kills. The Dragonmaw (26-30) run for help at 15%: Raiders net, Centurions shield-bash, Shadowwarders cast Shadow Bolt and Bonewarders raise skeletons. Menethil Harbor is Alliance.
   level 29
   collect 7131 "Dragonmaw Shinbone" optional  -- from the Dragonmaw orcs
   use 7131 quest 1846.1 @45.8,45.1 map 1437 optional
