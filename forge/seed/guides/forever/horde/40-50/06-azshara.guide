@@ -345,6 +345,7 @@ step Back to Camp Mojache
 
 step Talo Thornhoof
   when onquest 3062
+  when complete 3062
   turnin 3062
 
 step Fly to Gadgetzan

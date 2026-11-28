@@ -9625,7 +9625,7 @@ do
 				},
 				{
 					title = "{npc:259353}",
-					when = { { k = "onquest", q = { 94679 } } },
+					when = { { k = "onquest", q = { 94679 } }, { k = "complete", q = 94679 } },
 					goals = {
 						{ t = "turnin", quest = 94679, title = "Snargl's Snout", npc = 259353, npcName = "Cedric Dalton", map = 2548, x = 39.47, y = 74.64, z = 48.5 },
 					},
@@ -10310,7 +10310,7 @@ do
 				},
 				{
 					title = "{npc:260080}",
-					when = { { k = "onquest", q = { 95912 } } },
+					when = { { k = "onquest", q = { 95912 } }, { k = "complete", q = 95912 } },
 					goals = {
 						{ t = "turnin", quest = 95912, title = "WANTED: Blademaster Kaijo", npc = 260080, npcName = "Ember Bladewhisper", map = 2548, x = 66.06, y = 79.63, z = 39.8 },
 					},
@@ -10345,7 +10345,7 @@ do
 				},
 				{
 					title = "{npc:259859}",
-					when = { { k = "onquest", q = { 95991 } } },
+					when = { { k = "onquest", q = { 95991 } }, { k = "complete", q = 95991 } },
 					goals = {
 						{ t = "turnin", quest = 95991, title = "WANTED: Ghostmaw", npc = 259859, npcName = "Wheatley", map = 2548, x = 63.52, y = 84.95, z = 37.4 },
 					},
@@ -10368,7 +10368,7 @@ do
 				},
 				{
 					title = "{npc:259352}",
-					when = { { k = "onquest", q = { 95986 } } },
+					when = { { k = "onquest", q = { 95986 } }, { k = "complete", q = 95986 } },
 					goals = {
 						{ t = "turnin", quest = 95986, title = "King of the Wild Plains", npc = 259352, npcName = "Watcher Cornelius", map = 2548, x = 59.43, y = 63.92, z = 32.6 },
 					},
@@ -13068,7 +13068,7 @@ do
 				{
 					title = "{npc:8879}",
 					note = "Archesonus stands beside King Magni in the {object:171709}: the relics you read in the Steppes are his.",
-					when = { { k = "onquest", q = { 3701 } } },
+					when = { { k = "onquest", q = { 3701 } }, { k = "complete", q = 3701 } },
 					goals = {
 						{ t = "turnin", quest = 3701, title = "The Smoldering Ruins of Thaurissan", npc = 8879, npcName = "Royal Historian Archesonus", map = 1455, x = 39, y = 55.44, z = 505.8, spotsPacked = "38.7,55.4,505.8,15,5" },
 					},

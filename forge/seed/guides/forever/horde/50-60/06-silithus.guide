@@ -181,6 +181,7 @@ step Back to Cenarion Hold
 
 step Vish Kozus
   when onquest 8283
+  when complete 8283
   tip Vish Kozus, Captain of the Guard, pays out for Deathclasp's pincer.
   turnin 8283                         -- Vish Kozus
 

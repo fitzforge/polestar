@@ -9160,7 +9160,7 @@ do
 				},
 				{
 					title = "{npc:258031}'s elites",
-					when = { { k = "onquest", q = { 96105 } } },
+					when = { { k = "onquest", q = { 96105 } }, { k = "complete", q = 96105 } },
 					goals = {
 						{ t = "turnin", quest = 96105, title = "King of the Wild Plains", npc = 258031, npcName = "Neza Bloodsnout", map = 2548, x = 60.5, y = 47.8, z = 22.8 },
 					},
@@ -9257,7 +9257,7 @@ do
 				},
 				{
 					title = "{npc:258031}",
-					when = { { k = "onquest", q = { 94533 } } },
+					when = { { k = "onquest", q = { 94533 } }, { k = "complete", q = 94533 } },
 					goals = {
 						{ t = "turnin", quest = 94533, title = "Snargl's Snout", npc = 258031, npcName = "Neza Bloodsnout", map = 2548, x = 60.5, y = 47.8, z = 22.8 },
 					},
@@ -9308,7 +9308,7 @@ do
 				},
 				{
 					title = "{npc:263190}",
-					when = { { k = "onquest", q = { 95992 } } },
+					when = { { k = "onquest", q = { 95992 } }, { k = "complete", q = 95992 } },
 					goals = {
 						{ t = "turnin", quest = 95992, title = "WANTED: Ghostmaw", npc = 263190, npcName = "Tan'jani", map = 2548, x = 58.05, y = 45.27, z = 23.7 },
 					},
@@ -9801,7 +9801,7 @@ do
 				},
 				{
 					title = "{npc:258031}",
-					when = { { k = "onquest", q = { 95882 } } },
+					when = { { k = "onquest", q = { 95882 } }, { k = "complete", q = 95882 } },
 					goals = {
 						{ t = "turnin", quest = 95882, title = "WANTED: Scoutmaster Vargas", npc = 258031, npcName = "Neza Bloodsnout", map = 2548, x = 60.5, y = 47.8, z = 22.8 },
 					},
@@ -12452,7 +12452,7 @@ do
 				},
 				{
 					title = "{npc:7776}",
-					when = { { k = "onquest", q = { 3062 } } },
+					when = { { k = "onquest", q = { 3062 } }, { k = "complete", q = 3062 } },
 					goals = {
 						{ t = "turnin", quest = 3062, title = "Dark Heart", npc = 7776, npcName = "Talo Thornhoof", map = 1444, x = 76.11, y = 43.7, z = 25.6 },
 					},
@@ -15530,7 +15530,7 @@ do
 				{
 					title = "{npc:15182}",
 					note = "{npc:15182}, Captain of the Guard, pays out for {npc:15196}'s pincer.",
-					when = { { k = "onquest", q = { 8283 } } },
+					when = { { k = "onquest", q = { 8283 } }, { k = "complete", q = 8283 } },
 					goals = {
 						{ t = "turnin", quest = 8283, title = "WANTED: Deathclasp, Terror of the Sands", npc = 15182, npcName = "Vish Kozus", map = 1451, x = 50.75, y = 33.65, z = 128.5, f = "e" },
 					},

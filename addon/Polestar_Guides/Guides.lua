@@ -477,7 +477,7 @@ do
 				},
 				{
 					title = "{npc:265586}",
-					when = { { k = "onquest", q = { 91923 } } },
+					when = { { k = "onquest", q = { 91923 } }, { k = "complete", q = 91923 } },
 					goals = {
 						{ t = "turnin", quest = 91923, title = "Celastrus the Bitter", npc = 265586, npcName = "Thylaen", map = 2482, x = 54.73, y = 84.6, spotsPacked = "55.3,84.3,1091.8,21,5" },
 					},
@@ -509,7 +509,7 @@ do
 				},
 				{
 					title = "{npc:248366}",
-					when = { { k = "onquest", q = { 92959 } } },
+					when = { { k = "onquest", q = { 92959 } }, { k = "complete", q = 92959 } },
 					goals = {
 						{ t = "turnin", quest = 92959, title = "The Dying Ancients", npc = 248366, npcName = "Fraxinus", map = 2482, x = 53.59, y = 84.35, z = 1102.5, spotsPacked = "53.5,84.5,1102.5,15,2" },
 					},
@@ -623,7 +623,7 @@ do
 				},
 				{
 					title = "{npc:263757}",
-					when = { { k = "onquest", q = { 96255 } } },
+					when = { { k = "onquest", q = { 96255 } }, { k = "complete", q = 96255 } },
 					goals = {
 						{ t = "turnin", quest = 96255, title = "Amalgamated Marrow", npc = 263757, npcName = "Felflick", map = 2482, x = 49.3, y = 77.1, z = 1122.8, spotsPacked = "49.3,77.1,1122.8,15,1;48.6,73.5,,15,1,1" },
 						{ t = "accept", quest = 96322, title = "A Revenge Now Bitter", npc = 263757, npcName = "Felflick", minLevel = 54, qlvl = 58, pre = { 96255 }, preTitles = { [96255] = "Amalgamated Marrow" }, map = 2482, x = 49.3, y = 77.1, z = 1122.8, spotsPacked = "49.3,77.1,1122.8,15,1;48.6,73.5,,15,1,1", note = "{quest:96322}" },
@@ -1652,7 +1652,7 @@ do
 				{
 					title = "{npc:244511}",
 					only = { factions = { "Horde" } },
-					when = { { k = "onquest", q = { 92446 } } },
+					when = { { k = "onquest", q = { 92446 } }, { k = "complete", q = 92446 } },
 					goals = {
 						{ t = "turnin", quest = 92446, title = "Head Scratcher", npc = 244511, npcName = "Zet'gan", map = 2482, x = 13.89, y = 54.87, z = 1337.1, spotsPacked = "13.9,54.7,1337.1,15,2", note = "{quest:92446}'s claws" },
 					},

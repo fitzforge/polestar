@@ -19125,6 +19125,127 @@
 				{ "kind": "in-game-check", "ref": "#4435 (foggel, 0.4.3.1): handing in Tabetha's Task in Dustwallow Marsh made Hadoken offer Stinglasher; #4487 (Akuma) and #4491 (ArcticWildWolf): the accept was not offered" }
 			],
 			"issue": 4487
+		},
+		{
+			"id": "4583-riverglades-vargas-hand-in-gate",
+			"faction": "Horde",
+			"at": { "quest": 95882, "goal": "turnin", "guide": "forever/horde/40-50/01b-riverglades" },
+			"when": "complete 95882",
+			"note": "#4583: WANTED: Scoutmaster Vargas is a group quest: its work (the elite's eye) is behind `when group 95882`, but Neza Bloodsnout's hand-in step showed whenever the quest was in the log, so a player who took the poster and passed the elite was sent to hand in a quest at 0/1. The step shows only with the eye.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#4583 (king_iix, 0.4.3.1): step Neza Bloodsnout asked for the hand-in with 95882 at 0/1 in the quest log" }
+			],
+			"issue": 4583
+		},
+		{
+			"id": "4583-riverglades-neza-elites-hand-in-gate",
+			"faction": "Horde",
+			"at": { "quest": 96105, "goal": "turnin", "guide": "forever/horde/40-50/01b-riverglades" },
+			"when": "complete 96105",
+			"note": "#4583's sweep: King of the Wild Plains is worked only behind `when group 96105`; its hand-in shows only once the quest is ready, so a player who passed the group work is not sent to hand it in unfinished.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#4583: the same pattern; see 4583-riverglades-vargas-hand-in-gate" }
+			],
+			"issue": 4583
+		},
+		{
+			"id": "4583-riverglades-snargl-horde-hand-in-gate",
+			"faction": "Horde",
+			"at": { "quest": 94533, "goal": "turnin", "guide": "forever/horde/40-50/01b-riverglades" },
+			"when": "complete 94533",
+			"note": "#4583's sweep: Snargl's Snout is worked only behind `when group 94533`; its hand-in shows only once the quest is ready.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#4583: the same pattern; see 4583-riverglades-vargas-hand-in-gate" }
+			],
+			"issue": 4583
+		},
+		{
+			"id": "4583-riverglades-ghostmaw-horde-hand-in-gate",
+			"faction": "Horde",
+			"at": { "quest": 95992, "goal": "turnin", "guide": "forever/horde/40-50/01b-riverglades" },
+			"when": "complete 95992",
+			"note": "#4583's sweep: WANTED: Ghostmaw is worked only behind `when group 95992`; its hand-in shows only once the quest is ready.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#4583: the same pattern; see 4583-riverglades-vargas-hand-in-gate" }
+			],
+			"issue": 4583
+		},
+		{
+			"id": "4583-riverglades-snargl-alliance-hand-in-gate",
+			"faction": "Alliance",
+			"at": { "quest": 94679, "goal": "turnin", "guide": "forever/alliance/40-50/01b-riverglades" },
+			"when": "complete 94679",
+			"note": "#4583's sweep: Snargl's Snout is worked only behind `when group 94679`; its hand-in shows only once the quest is ready.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#4583: the same pattern; see 4583-riverglades-vargas-hand-in-gate" }
+			],
+			"issue": 4583
+		},
+		{
+			"id": "4583-riverglades-kaijo-hand-in-gate",
+			"faction": "Alliance",
+			"at": { "quest": 95912, "goal": "turnin", "guide": "forever/alliance/40-50/01b-riverglades" },
+			"when": "complete 95912",
+			"note": "#4583's sweep: WANTED: Blademaster Kaijo is worked only behind `when group 95912`; its hand-in shows only once the quest is ready.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#4583: the same pattern; see 4583-riverglades-vargas-hand-in-gate" }
+			],
+			"issue": 4583
+		},
+		{
+			"id": "4583-riverglades-ghostmaw-alliance-hand-in-gate",
+			"faction": "Alliance",
+			"at": { "quest": 95991, "goal": "turnin", "guide": "forever/alliance/40-50/01b-riverglades" },
+			"when": "complete 95991",
+			"note": "#4583's sweep: WANTED: Ghostmaw is worked only behind `when group 95991`; its hand-in shows only once the quest is ready.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#4583: the same pattern; see 4583-riverglades-vargas-hand-in-gate" }
+			],
+			"issue": 4583
+		},
+		{
+			"id": "4583-riverglades-wild-plains-alliance-hand-in-gate",
+			"faction": "Alliance",
+			"at": { "quest": 95986, "goal": "turnin", "guide": "forever/alliance/40-50/01b-riverglades" },
+			"when": "complete 95986",
+			"note": "#4583's sweep: King of the Wild Plains is worked only behind `when group 95986`; its hand-in shows only once the quest is ready.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#4583: the same pattern; see 4583-riverglades-vargas-hand-in-gate" }
+			],
+			"issue": 4583
+		},
+		{
+			"id": "4583-azshara-dark-heart-hand-in-gate",
+			"faction": "Horde",
+			"at": { "quest": 3062, "goal": "turnin", "guide": "forever/horde/40-50/06-azshara" },
+			"when": "complete 3062",
+			"note": "#4583's sweep: Dark Heart is worked only behind `when group 3062`; Talo Thornhoof's hand-in shows only once the quest is ready.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#4583: the same pattern; see 4583-riverglades-vargas-hand-in-gate" }
+			],
+			"issue": 4583
+		},
+		{
+			"id": "4583-silithus-deathclasp-hand-in-gate",
+			"faction": "Horde",
+			"at": { "quest": 8283, "goal": "turnin", "guide": "forever/horde/50-60/06-silithus" },
+			"when": "complete 8283",
+			"note": "#4583's sweep: WANTED: Deathclasp, Terror of the Sands is worked only behind `when group 8283`; Vish Kozus's hand-in shows only with the pincer.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#4583: the same pattern; see 4583-riverglades-vargas-hand-in-gate" }
+			],
+			"issue": 4583
+		},
+		{
+			"id": "4583-burning-steppes-thaurissan-hand-in-gate",
+			"faction": "Alliance",
+			"at": { "quest": 3701, "goal": "turnin", "guide": "forever/alliance/50-60/01-burning-steppes" },
+			"when": "complete 3701",
+			"note": "#4583's sweep: The Smoldering Ruins of Thaurissan is worked only behind `when group 3701`; Royal Historian Archesonus's hand-in shows only once the relics are read.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#4583: the same pattern; see 4583-riverglades-vargas-hand-in-gate" }
+			],
+			"issue": 4583
 		}
 	]
 }
