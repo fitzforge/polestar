@@ -374,10 +374,11 @@ end)
 -- Right to left from the menu: Report and Nearby where the player shows
 -- them, Skip (its glyph alone), then the step count.
 local SKIP_W = 7 + 11 + 7
--- The room the row has, shrinking in this order: the title is cut short
--- ("...") down to TITLE_MIN, then the step count loses its arrows, then it
--- shows the number alone, and only then does the title go.
-local TITLE_MIN = 80
+-- The room the row has, shrinking in this order: the step count loses its arrows, then it shows the number alone,
+-- while that keeps the title whole (up to TITLE_WHOLE: "Mining + Blacksmithing 1-300", never "Mining + Blac…");
+-- past that the title is cut short ("...") down to TITLE_MIN with the count as roomy as it can be, and only then
+-- does the title go.
+local TITLE_MIN, TITLE_WHOLE = 80, 200
 local function fitRow(nav, own, prev)
 	local title, steps, count = nav.Title, nav.Steps, nav.Steps.Count
 	local text = count:GetText()
@@ -403,8 +404,14 @@ local function fitRow(nav, own, prev)
 	local mode = 3
 	if full then
 		local need = { fullW + 48, fullW, shortW }
+		local whole = math.max(TITLE_MIN, math.min(TITLE_WHOLE, math.ceil(title:GetUnboundedStringWidth()) + 1))
 		for m = 0, 2 do
-			if room - need[m + 1] >= TITLE_MIN then mode = m break end
+			if room - need[m + 1] >= whole then mode = m break end
+		end
+		if mode == 3 then
+			for m = 0, 2 do
+				if room - need[m + 1] >= TITLE_MIN then mode = m break end
+			end
 		end
 	else
 		mode = 0
