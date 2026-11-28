@@ -513,6 +513,72 @@ fn mailboxes_keep_their_role_and_side_through_pfquest_and_recordings() {
 	assert!(o["805"].get("roles").is_none() && o["805"].get("faction").is_none(), "the exact English name classifies");
 }
 
+// #4567: the release (knowledge-base) build, `sim`, gave a QuestieDB "Mailbox" no role and no side, so
+// the ~90 Forever-added mailboxes pfQuest lacks (Rog'mar's in the Riverglades among them) never reached
+// Nearby's nearest mailbox, which needs both. An object only QuestieDB has keeps role and side; one
+// pfQuest has keeps pfQuest's, as the sim build wants.
+#[test]
+fn a_questiedb_only_mailbox_keeps_its_role_and_side_in_the_sim_build() {
+	use forge_data::merge::{apply_questie, Ctx, Tables, World};
+	use forge_data::questie::{Drops, Dynamic, EraToForever, Info, Questie};
+	use forge_data::spawns::DEFAULTS;
+	use forge_guide::js::{parse_json, stringify, Obj, V};
+	let table = |t: &str| parse_json(t).unwrap().as_obj().unwrap().clone();
+	let info = || Info { title: None, version: None, author: None, build_commit: None, build_time: None };
+	let entities = |t: &str| table(t).entries().into_iter().map(|(k, v)| (k.parse::<i64>().unwrap(), v.as_obj().unwrap().clone())).collect();
+	let spot = |x: f64, y: f64| format!(r#"{{ "12": [[{x}, {y}]] }}"#);
+	let q = Questie {
+		dir: Default::default(),
+		info: info(),
+		flavor: None,
+		contract: None,
+		questie: None,
+		quests: Default::default(),
+		npcs: Default::default(),
+		objects: entities(&format!(
+			r#"{{ "659829": {{ "name": "Mailbox", "factionID": 29, "spawns": {} }}, "659830": {{ "name": "Mailbox", "factionID": 0, "spawns": {} }},
+			"659831": {{ "name": "Mailbox", "factionID": 999, "spawns": {} }}, "659832": {{ "name": "Mailbox", "factionID": 29, "spawns": {} }},
+			"659833": {{ "name": "Crate", "factionID": 29, "spawns": {} }} }}"#,
+			spot(58.7, 45.5),
+			spot(10.0, 10.0),
+			spot(20.0, 20.0),
+			spot(30.0, 30.0),
+			spot(40.0, 40.0)
+		)),
+		items: Default::default(),
+		xp: Default::default(),
+		drops: Drops { web: Default::default(), pserver: Default::default(), corrections: Default::default() },
+		// Template 29 is hostile to the Alliance only (a Horde mailbox, as in the plain build's test).
+		faction_templates: [(29, 2.0)].into_iter().collect(),
+		area_to_ui_map: [(12, 1429.0)].into_iter().collect(),
+		ui_map_to_area: Default::default(),
+		era_to_forever: EraToForever { ui_map_to_area: Default::default() },
+		objective_first: Default::default(),
+		dynamic: Dynamic::default(),
+	};
+	let to_world = |_: i64, _: &str, x: f64, y: f64| Some(World { c: 1.0, wx: x, wy: y });
+	let ctx =
+		|sim: bool| Ctx { area_to_ui_map: &|_| Some(1429), live_maps: &|_| true, spawn_options: DEFAULTS, to_world: &to_world, instance_of_area: &|_| None, quest_counts: None, sim, item_rules: true };
+	let run = |sim: bool| {
+		// 659832 is pfQuest's too: a mailbox of its own side (A), without QuestieDB's.
+		let objects = table(r#"{ "659832": { "id": 659832, "name": "Mailbox", "roles": ["mailbox"], "faction": "A", "spawns": {} } }"#);
+		let (quests, npcs, items) = (Obj::new(), Obj::new(), Obj::new());
+		apply_questie(&Tables { quests: &quests, npcs: &npcs, objects: &objects, items: &items }, &q, &ctx(sim));
+		let js = |v: V| serde_json::from_str::<Value>(&stringify(&v, None)).unwrap_or(Value::Null);
+		let one = |id: &str| json!([js(objects.get(id).get("roles")), js(objects.get(id).get("faction"))]);
+		["659829", "659830", "659831", "659832", "659833"].map(one)
+	};
+	let sim = run(true);
+	assert_eq!(sim[0], json!([["mailbox"], "H"]), "Rog'mar's: QuestieDB only, role and side kept");
+	assert_eq!(sim[1], json!([["mailbox"], "AH"]), "faction 0: both sides");
+	assert_eq!(sim[2], json!([["mailbox"], null]), "an unknown template stays unknown");
+	assert_eq!(sim[3], json!([["mailbox"], "A"]), "an object pfQuest has keeps pfQuest's role and side in the sim build");
+	assert_eq!(sim[4], json!([null, null]), "no other QuestieDB-only object gets a mailbox role");
+	let plain = run(false);
+	assert_eq!(plain[0], sim[0], "the plain build gives the same");
+	assert_eq!(plain[3], json!([["mailbox"], "H"]), "the plain build still takes QuestieDB's side over pfQuest's");
+}
+
 #[test]
 fn services_keep_close_spawns_spirit_guides_and_fill_only_missing_service_sides() {
 	let pts = json!([[30, 40], [30.1, 40.1]]);
