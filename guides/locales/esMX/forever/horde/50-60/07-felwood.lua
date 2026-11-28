@@ -34,7 +34,7 @@ return {
 
 	-- Step 7: Rakaiah
 	-- {npc:11019} Jessir Moonbow · {npc:9518} Rakaiah · {item:13140} Blood Red Key · {area:1763} Jaedenar · {area:1770} Shadow Hold
-	["Only if {npc:11019} sent you after {npc:9518} (the {item:13140}'s chain): on the ride north, turn west into {area:1763} and go into {area:1770}, the cave at the back of the camp. {npc:9518} (56) and the remains of Trey Lightforge are inside: kill her first, then the remains take her quest and give the next, which goes back to {npc:11019} at the end of this guide."] = "",
+	["Only if {npc:11019} sent you after {npc:9518} (the {item:13140}'s chain): on the ride north, turn west into {area:1763} and go into {area:1770}, the cave at the back of the camp. {npc:9518} (56) and the remains of Trey Lightforge are inside: kill her first, then the remains take her quest and give the next, which goes back to {npc:11019} at the end of this guide."] = "Solo si {npc:11019} te mandó tras {npc:9518} (la cadena de la {item:13140}): en la cabalgata al norte, gira al oeste hacia {area:1763} y entra en {area:1770}, la cueva al fondo del campamento. {npc:9518} (56) y los restos de Trey Forjaluz están adentro: mátala primero; luego los restos reciben su misión y dan la siguiente, que vuelve a {npc:11019} al final de esta guía.",
 
 	-- Step 9: Trull Failbane
 	-- {area:1763} Jaedenar · {area:1997} Bloodvenom Post

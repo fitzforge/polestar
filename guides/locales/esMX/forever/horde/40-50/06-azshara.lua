@@ -84,9 +84,9 @@ return {
 
 	-- Step 23: Orgrimmar
 	-- {npc:8659} Jes'rimon · {object:172959} The Drag · {quest:4300} Bone-Bladed Weapons · {zone:1447} Azshara
-	["{npc:8659}, in {object:172959}, upstairs in one of its tallest buildings, has {quest:4300} for later; then your class trainer before you leave for {zone:1447}."] = "",
+	["{npc:8659}, in {object:172959}, upstairs in one of its tallest buildings, has {quest:4300} for later; then your class trainer before you leave for {zone:1447}."] = "{npc:8659}, en {object:172959}, en el piso de arriba de uno de sus edificios más altos, tiene {quest:4300} para más adelante; luego tu instructor de clase antes de salir hacia {zone:1447}.",
 	-- {npc:8659} Jes'rimon · {object:172959} The Drag
-	["{npc:8659}, upstairs in {object:172959}"] = "",
+	["{npc:8659}, upstairs in {object:172959}"] = "{npc:8659}, en el piso de arriba, en {object:172959}",
 
 	-- Step 24: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {object:172957} Valley of Wisdom · {npc:4791} Nazeer Bloodpike · {zone:1445} Dustwallow Marsh

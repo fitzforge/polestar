@@ -345,7 +345,7 @@ return {
 	-- Step 75: Undercity
 	-- {npc:8390} Chemist Cuely · {item:10695} Box of Empty Vials · {zone:1447} Azshara
 	-- plural, as words: Empty Vials = {item:3371} Empty Vial
-	["{npc:8390}, the Apothecarium: a {item:10695} comes with the quest. Keep four bag slots free and open it for Empty Vials Labeled #1 to #4, filled in {zone:1447} later"] = "",
+	["{npc:8390}, the Apothecarium: a {item:10695} comes with the quest. Keep four bag slots free and open it for Empty Vials Labeled #1 to #4, filled in {zone:1447} later"] = "{npc:8390}, en el Apothecarium: una {item:10695} viene con la misión. Deja cuatro espacios libres en las bolsas y ábrela para obtener los Viales vacíos etiquetados como n.º 1 a n.º 4, que se llenan más adelante en {zone:1447}",
 	-- {npc:5204} Apothecary Zinge
 	["{npc:5204}, near Cuely in the Apothecarium"] = "{npc:5204}, cerca de Cuely en el Boticarium",
 

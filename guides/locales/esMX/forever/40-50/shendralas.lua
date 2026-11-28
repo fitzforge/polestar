@@ -119,9 +119,9 @@ return {
 	-- Step 19: The western pylon: repair it
 	["The western pylon: repair it"] = "El pilar occidental: repáralo",
 	-- {item:271882} Pile of Pylon Parts
-	["Pull a single Protector down to the road, then use the {item:271882} on the pylon's west side."] = "",
+	["Pull a single Protector down to the road, then use the {item:271882} on the pylon's west side."] = "Atrae a un solo Protector hasta el camino y luego usa el {item:271882} en el lado oeste del pilar.",
 	-- {item:271882} Pile of Pylon Parts · {spell:1289727} Repair and Recharge Pylon
-	["{item:271882}: {spell:1289727} on the pylon's west side"] = "",
+	["{item:271882}: {spell:1289727} on the pylon's west side"] = "{item:271882}: {spell:1289727} en el lado oeste del pilar",
 
 	-- Step 20: Unstable Mana Rifts: mana for the eastern pylon
 	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift
@@ -136,9 +136,9 @@ return {
 	["{area:16677}: repair the eastern pylon"] = "{area:16677}: repara el pilar oriental",
 	-- {item:271882} Pile of Pylon Parts · {npc:252711} Decrepit Pylon Protector · {npc:253527} Kog'thug the Brave
 	-- was: ["East along the valley road to the eastern pylon and repair it the same way, a {npc:252711} first, coming in from the west: {npc:253527} (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road."] = "Ve al este por el camino del valle hasta el pilar oriental y repáralo igual, primero un {npc:252711}, entrando desde el oeste: {npc:253527} (élite de nivel 43) y sus guardaespaldas ocupan el lado sur del campamento de jabaespines, y un Devoracadáveres (élite de nivel 45) recorre el camino."
-	["East along the valley road to the eastern pylon and repair it the same way with the {item:271882}, coming in from the west and pulling the nearest {npc:252711} away first: {npc:253527} (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road."] = "",
+	["East along the valley road to the eastern pylon and repair it the same way with the {item:271882}, coming in from the west and pulling the nearest {npc:252711} away first: {npc:253527} (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road."] = "Ve al este por el camino del valle hasta el pilar oriental y repáralo igual con el {item:271882}, entrando desde el oeste y alejando primero al {npc:252711} más cercano: {npc:253527} (élite de nivel 43) y sus guardaespaldas ocupan el lado sur del campamento de jabaespines, y un Comecarroña (élite de nivel 45) recorre el camino.",
 	-- {item:271882} Pile of Pylon Parts · {spell:1289727} Repair and Recharge Pylon
-	["{item:271882}: {spell:1289727} on the eastern pylon"] = "",
+	["{item:271882}: {spell:1289727} on the eastern pylon"] = "{item:271882}: {spell:1289727} en el pilar oriental",
 
 	-- Step 22: Evenshade's Overlook
 	-- {npc:253471} Mordent Evenshade · {quest:93016} A Brief History Lesson
