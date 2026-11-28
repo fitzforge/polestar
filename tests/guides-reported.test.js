@@ -20036,3 +20036,19 @@ test("forever/horde/50-60/05-eastern-plaguelands.guide: Scarylucky's report: A F
 	const tip = [shards.step.tip, shards.step.note].flat().filter(Boolean).join(' ');
 	assert.match(tip, /Cenarion Beacon, which Maybess Riverbreeze hands out on request once Cleansing Felwood is done/, tip);
 });
+
+// Follow-up to #3309 (0.4.3): Defenders of Darrowshire's talk line had no place, so on Corin's Crossing's step its
+// arrow took the first spot a spirit was seen at, 57.3,33.7 in the north-east, and said Arrived there. The spirits
+// are freed in Corin's Crossing, among the Gibbering Ghouls (data/places.json darrowshire-spirits-corins-crossing),
+// and the line says where they come from (data/guide-fixes.json darrowshire-spirits-rise-from-kills-note).
+test('#3309 follow-up: Defenders of Darrowshire\'s spirits are freed in Corin\'s Crossing, and the line says they rise from the kills', () => {
+	const read = (file) => JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', file), 'utf8'));
+	const place = read('places.json').places.find((p) => p.quest === 5211 && p.objective === 1);
+	assert.ok(place, 'data/places.json places Defenders of Darrowshire objective 1');
+	assert.equal(place.at.map, 1423, 'in the Eastern Plaguelands');
+	assert.equal(place.at.frame, 'live', 'in the live frame, as the goto of the step (52.3,58.2 live) and the spots of its kill lines');
+	assert.ok(Math.hypot(place.at.x - 52.3, place.at.y - 58.2) < 3, `in Corin's Crossing, by the step's goto (${place.at.x},${place.at.y})`);
+	const fix = read('guide-fixes.json').fixes.find((f) => f.at && f.at.quest === 5211 && f.at.goal === 'objective' && f.at.objective === 1 && f.goalNote);
+	assert.ok(fix, 'data/guide-fixes.json notes the talk line');
+	for (const mob of ['Cannibal Ghoul', 'Gibbering Ghoul', 'Diseased Flayer']) assert.match(fix.goalNote, new RegExp(mob), `the note names the ${mob}`);
+});
