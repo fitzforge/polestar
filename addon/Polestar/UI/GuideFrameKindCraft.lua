@@ -8,7 +8,7 @@
 -- House's "Buy list" at an open Auction House, else "Guide me" too, the arrow to the nearest auctioneer of the
 -- character's side: a longer label cut the way's own words) and
 -- a short line ("Wool Cloth from Blackrock Grunt  ·  about 25 min for the rest", "136 more, about 14s at your last
--- search"). A way that gathers in areas (Mine it, Pick it, Kill and skin it), taken, lists up to three of them under
+-- search"). A way that gathers in areas (Mine it, Gather it, Kill and skin it), taken, lists up to three of them under
 -- it, best first and marked: the area's name, "~12 veins  ·  safe from 8  ·  4 min away" and Guide me (the player's
 -- pick, kept by the Engine); with none safe yet "Safe Copper Ore area from level 6"; with the pick mined out "Try
 -- Bael'dun Digsite next" first. A gathering step that levels the skill ("areas") shows its skill goal's row and the
@@ -549,7 +549,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		if w.way == "vendor" then return w.npc and format(L["Buy it from %s"], hexed("npc", w.npc)) or L["Buy it from a vendor"] end
 		local v = w.verb
 		if v == "mine" then return L["Mine it"] end
-		if v == "herb" then return L["Pick it"] end
+		if v == "herb" then return L["Gather it"] end
 		if v == "skin" then return L["Kill and skin it"] end
 		if v == "fish" then return L["Fish it"] end
 		if v == "disenchant" then return L["Disenchant green armour"] end
@@ -844,7 +844,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	})
 
 	-- A gathering step that levels the skill in areas (KindCraft's `areas`): the skill goal's own row, then the
-	-- gathering way's row ('Mine it', 'Pick it', 'Kill and skin it'; a click leads to the area the arrow takes; the
+	-- gathering way's row ('Mine it', 'Gather it', 'Kill and skin it'; a click leads to the area the arrow takes; the
 	-- areas under it carry the Guide me buttons) and the areas, or from which level one is safe. Compact: the goal's
 	-- row and the arrow's area.
 	GF.RegisterRegion("areas", {

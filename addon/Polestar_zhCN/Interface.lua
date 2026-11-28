@@ -528,7 +528,7 @@
 --   Make it
 --   Mine it
 --   Not learned yet
---   Pick it
+--   Gather it
 --   Pick one way:
 --   Requires Level %d-%d
 --   Shopping list
@@ -5765,7 +5765,7 @@ L["Get %d %s"] = "获取 %d 个%s"
 L["Make it"] = "自己制作"
 L["Mine it"] = "采矿获得"
 L["Not learned yet"] = "尚未学习"
-L["Pick it"] = "采药获得"
+L["Gather it"] = "采集获得"
 L["Pick one way:"] = "选一种方式："
 L["Requires Level %d-%d"] = "需要等级 %d-%d"
 L["Shopping list"] = "采购清单"

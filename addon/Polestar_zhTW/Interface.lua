@@ -628,7 +628,7 @@
 --   Make it
 --   Mine it
 --   Not learned yet
---   Pick it
+--   Gather it
 --   Pick one way:
 --   Requires Level %d-%d
 --   Shopping list
@@ -5865,7 +5865,7 @@ L["Get %d %s"] = "取得 %d 個%s"
 L["Make it"] = "自己製作"
 L["Mine it"] = "採礦獲得"
 L["Not learned yet"] = "尚未學習"
-L["Pick it"] = "採藥獲得"
+L["Gather it"] = "採集獲得"
 L["Pick one way:"] = "選一種方式："
 L["Requires Level %d-%d"] = "需要等級 %d-%d"
 L["Shopping list"] = "採購清單"

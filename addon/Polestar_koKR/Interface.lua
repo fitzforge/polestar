@@ -628,7 +628,7 @@
 --   Make it
 --   Mine it
 --   Not learned yet
---   Pick it
+--   Gather it
 --   Pick one way:
 --   Requires Level %d-%d
 --   Shopping list
@@ -5865,7 +5865,7 @@ L["Get %d %s"] = "%d개의 %s 구하기"
 L["Make it"] = "직접 제작"
 L["Mine it"] = "채광으로 얻기"
 L["Not learned yet"] = "아직 배우지 않음"
-L["Pick it"] = "약초 채집으로 얻기"
+L["Gather it"] = "약초 채집으로 얻기"
 L["Pick one way:"] = "방법 하나를 고르세요:"
 L["Requires Level %d-%d"] = "요구 레벨 %d-%d"
 L["Shopping list"] = "쇼핑 목록"

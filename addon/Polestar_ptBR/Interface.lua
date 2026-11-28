@@ -546,7 +546,7 @@
 --   Make it
 --   Mine it
 --   Not learned yet
---   Pick it
+--   Gather it
 --   Pick one way:
 --   Requires Level %d-%d
 --   Shopping list
@@ -5783,7 +5783,7 @@ L["Get %d %s"] = "Consiga %d %s"
 L["Make it"] = "Fabrique"
 L["Mine it"] = "Minere"
 L["Not learned yet"] = "Ainda não aprendido"
-L["Pick it"] = "Colha"
+L["Gather it"] = "Colete"
 L["Pick one way:"] = "Escolha um jeito:"
 L["Requires Level %d-%d"] = "Requer nível %d-%d"
 L["Shopping list"] = "Lista de compras"

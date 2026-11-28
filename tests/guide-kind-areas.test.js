@@ -1,7 +1,7 @@
 'use strict';
 // Gathering areas in the profession window, on the maps and on the arrow (Polestar 0.4.4; docs/GUIDE_FORMAT.md
 // "Gathering areas"; Core/KindCraft.lua KC.Areas, UI/GuideFrameKindCraft.lua, Nav/Layers.lua, Nav/Arrow.lua). A way
-// that gathers in areas ('Mine it', 'Pick it', 'Kill and skin it') lists up to three, best first and marked, each
+// that gathers in areas ('Mine it', 'Gather it', 'Kill and skin it') lists up to three, best first and marked, each
 // with about how many nodes are up, the level it is safe from, how far it is and Guide me (the player's pick, kept by
 // the Engine); with none safe yet, from which level one is; with the pick mined out, which to try next. The active
 // area is shaded on zone maps only, its node spots dotted on zone maps and the minimap; inside it the arrow says
@@ -157,7 +157,7 @@ emit({ r = r, picks = picks })`);
 	assert.deepEqual(out.picks, [[1, 1, 2]]);
 });
 
-test('herbs and beasts: Pick it with ~N herbs; Kill and skin it with ~N beasts and their levels; the out line per profession', () => {
+test('herbs and beasts: Gather it with ~N herbs; Kill and skin it with ~N beasts and their levels; the out line per profession', () => {
 	const out = run('w.addMap(1411, { name = "Durotar", c = 1, left = -1962.5, right = -7250, top = 1808.333, bottom = -1716.667 })', `local cs = E.GetGuide().steps[1].goals[1].candidates
 cs[1].area, cs[1].map, cs[1].near = "Valley of Trials", 1411, nil
 cs[2].area, cs[2].map, cs[2].near = "Razor Hill", 1411, true
@@ -173,7 +173,7 @@ cs[2].area, cs[2].map, cs[2].near = "Red Cloud Mesa", 1412, nil
 cs[3].area, cs[3].map, cs[3].near = "Bloodhoof Village", 1412, true
 Polestar.Fire("AREA_CHANGED"); stub.advance(0.5); GF.Layout(); stub.advance(0.5)
 emit({ herbs = herbs, skins = rows("areas") })`);
-	assert.equal(out.herbs[1].text, 'Pick it');
+	assert.equal(out.herbs[1].text, 'Gather it');
 	assert.deepEqual([out.herbs[2].text, out.herbs[2].sub], ['Try Valley of Trials next', 'Near Razor Hill, Durotar, is picked clean for now']);
 	assert.deepEqual([out.herbs[3].text, out.herbs[3].sub], ['Valley of Trials', '~14 herbs  ·  2 min away'], 'one area: no Best mark');
 	assert.equal(out.skins[1].text, 'Kill and skin it');
