@@ -2133,6 +2133,11 @@ L["Most of it drops as you level %s"] = "La mayor parte cae mientras subes los n
 L["A long farm: most of it drops as you level"] = "Farmeo largo: la mayor parte cae mientras subes de nivel"
 L["or the Auction House"] = "o la casa de subastas"
 L["or %s"] = "o %s"
+-- L["Safe %s loop from level %d"] = ""
+-- L["%s loop"] = ""
+-- L["Farming loop"] = ""
+-- L["%d min a lap"] = ""
+-- L["about %d laps"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "Ubicación"
