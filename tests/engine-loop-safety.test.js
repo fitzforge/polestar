@@ -38,10 +38,10 @@ w.level = ${level}
 w.moveTo(1412, ${at[0]}, ${at[1]})
 w.zone, w.subzone = "Mulgore", "Red Cloud Mesa"
 `,
-		addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }],
+		addons: ['Polestar'],
 		script: `${TEST_PACK}
 ${TEST_SOURCE}
-${planner ? 'Polestar.Nav = { GetKnownTaxiNodes = function() return {} end, GetTaxiNode = function() return nil end }\nPolestar.Set("nav.travel", true)' : 'Polestar.Set("nav.travel", false)'}
+${planner ? 'Polestar.Set("nav.travel", true)' : 'Polestar.Set("nav.travel", false)'}
 Polestar.RegisterGuide({ id = "test/loops", pack = "test", title = "Mining", category = "Professions", minLevel = 1, maxLevel = 60, steps = {
 	{ title = "Get Copper Ore", goals = { { t = "collect", item = 2770, itemName = "Copper Ore", count = 20, gather = { rank = 1, skill = "Mining", skillLine = 186 }, candidates = { ${cands.join(', ')} } } } },
 	{ goals = { { t = "level", level = 60 } } },
@@ -95,11 +95,19 @@ test('no loop at the character\'s level: no place, and the window says from whic
 	assert.equal(out.after[1].map, 1412);
 });
 
-test('the starter loop until the denser one is safe, then the faster of the two', () => {
-	const out = run([NORTH, STARTER], 2, [3, 8]);
+test('the starter loop until the denser one is safe; the level-up keeps the loop the player is on, off it the faster one', () => {
+	const out = engine([NORTH, STARTER], 2, [45, 76], `
+local first = view()
+w.setLevel(3); stub.advance(0.6)
+local three = view()
+w.setLevel(8); stub.advance(0.6)
+local eight = view()
+w.moveTo(1412, 40, 68); w.setZone("Mulgore", ""); stub.advance(0.6)
+emit({ first = first, three = three, eight = eight, off = view() })`);
 	assert.equal(out.first.safeFrom, 3, 'level 2: the starter loop opens at 3');
-	assert.equal(out.after[0].lap, 5, 'level 3: the starter loop');
-	assert.equal(out.after[1].lap, 9, 'level 8: the denser loop finishes the ore sooner');
+	assert.equal(out.three.lap, 5, 'level 3: the starter loop');
+	assert.equal(out.eight.lap, 5, 'level 8 on the starter loop: it stays');
+	assert.equal(out.off.lap, 9, 'off it, between the two: the denser loop finishes the ore sooner');
 });
 
 test('the arrow leads a short way ahead along the track, in the points\' order, and wraps round the lap', () => {

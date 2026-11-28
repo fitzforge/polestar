@@ -1014,21 +1014,33 @@ end
 -- A goal with candidates must have picked one the character may use: the
 -- player's faction (or both) and, when listed, race and class. NPC candidates
 -- are matched by npc; farm spots (no npc) by the chosen position; a farming
--- loop by any of its stops (the arrow walks them).
+-- loop by any point of its closed track (the arrow leads along it). A loop goal
+-- with no loop safe at the character's level yet has no place (its farm view
+-- says from which level one is): no pick to check.
 local wrongPick = {}
+local function onTrack(c, x, y)
+	local s = Polestar.Guides.CandidateSpots(c) or {}
+	for k = 1, #s do
+		local a, b = s[k], s[k % #s + 1]
+		local dx, dy = b.x - a.x, b.y - a.y
+		local l2 = dx * dx + dy * dy
+		local t = l2 > 0 and ((x - a.x) * dx + (y - a.y) * dy) / l2 or 0
+		if t >= -0.001 and t <= 1.001 and (x - a.x - t * dx) ^ 2 + (y - a.y - t * dy) ^ 2 < 0.01 then return true end
+	end
+	return false
+end
 local function checkPick(i, g, r)
 	if not r.candidates then return end
 	local tag = w.faction == "Horde" and "H" or "A"
 	local function bad(why) wrongPick[#wrongPick + 1] = ("step %d goal %d (%s): %s"):format(i, g.index, r.t, why) end
-	if not (g.npc or g.map) then return bad("no usable candidate for " .. w.faction) end
+	if not (g.npc or g.map) then
+		if type(g.farm) == "table" and g.farm.safeFrom then return end
+		return bad("no usable candidate for " .. w.faction)
+	end
 	local function picked(c)
 		if c.npc then return c.npc == g.npc end
 		if c.map ~= g.map then return false end
-		if c.lap then
-			for _, s in ipairs(Polestar.Guides.CandidateSpots(c) or {}) do
-				if s.x == g.x and s.y == g.y then return true end
-			end
-		end
+		if c.lap then return onTrack(c, g.x, g.y) end
 		return c.x == g.x and c.y == g.y
 	end
 	-- Two loops (one per faction) may share a stop: the pick is right when a usable one holds it.
