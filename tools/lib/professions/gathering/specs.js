@@ -30,13 +30,13 @@ function manualTip(book) {
 	return `The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's Cactus Apple Surprise, A Humble Task, Marla's Last Wish) offers ${book} as a reward: reading it gives 2 skill, up to 15.`;
 }
 
-// Quests in a range's loop zones that need the profession (quests.json
+// Quests in a range's area zones that need the profession (quests.json
 // `skill`), on the range's first step: " Quests in these zones need
 // Skinning: Rough Wolf Pelts (level 7, Helene Peltskinner, Elwynn Forest;
 // Alliance)." Camping 101 has its own tip.
 function skillQuests(ctx, skillLine, e) {
 	if (e.cont) return '';
-	const zones = new Set(e.loops.map((l) => l.zone));
+	const zones = new Set(e.areas.map((l) => l.zone));
 	const seen = new Set();
 	const out = [];
 	for (const q of Object.values(ctx.data.quests || {})) {
@@ -150,14 +150,14 @@ const mining = {
 		const names = new Set(nodes.filter((n) => n.color && n.color !== 'grey').map((n) => n.name));
 		const dark = all.find((r) => r.focus === 'Black Forge');
 		if (names.has('Dark Iron Deposit') && dark) smelt += ` Dark Iron Ore smelts only at the Black Forge in Blackrock Depths (${dark.reagents[0].count} ore a bar).`;
-		return `Walk the loop and mine every ${list(nodes, shortOre)} node on the way until Mining ${e.to}.${smelt}${skillQuests(ctx, 186, e)}`;
+		return `Roam the area and mine every ${list(nodes, shortOre)} node you find until Mining ${e.to}.${smelt}${skillQuests(ctx, 186, e)}`;
 	},
 	header: [
-		'Mining 1-300 for both factions: for each skill band, a loop the arrow walks',
-		'through the densest ground of nodes the skill can mine (expected skill-ups per',
-		'yard of a lap, with the time to mine each node and the nodes\' respawn), at',
-		'the lowest character level that keeps the loop nearly as good: no creature on',
-		'it more than a level above that level, and away from the other faction\'s',
+		'Mining 1-300 for both factions: for each skill band, the areas to roam with',
+		'the most nodes the skill can mine (expected skill-ups per yard of a sweep',
+		'through them, with the time to mine each node and the nodes\' respawn), each',
+		'at the lowest character level safe in it: no creature there more than a level',
+		'above that level, no elite, and away from the other faction\'s',
 		'towns. Nodes are the Forever server\'s own spawns with the chance its spawn',
 		'pools keep each up, and what a node gives comes from players\' recorded',
 		'gathers (tools/lib/professions/gathering/gathering-nodes.json).',
@@ -209,21 +209,21 @@ const herbalism = {
 		if (names.has('Ghost Mushroom')) extra.push('Ghost Mushroom grows in caves and dark hollows: look inside as well.');
 		if (names.has('Purple Lotus')) extra.push('Purple Lotus sometimes gives a Wildvine as well.');
 		if (names.has('Gromsblood')) extra.push('Gromsblood grows near demon and satyr camps: pull carefully.');
-		// A loop without the herb that is orange at the band's start gives fewer points a lap; say which,
-		// so the lower-level zone is a choice (Loch Modan's loop at 125-150 has Bruiseweed, no Kingsblood).
+		// An area without the herb that is orange at the band's start gives fewer points a sweep; say which,
+		// so the lower-level zone is a choice (Loch Modan at 125-150 has Bruiseweed, no Kingsblood).
 		const orange = nodes.filter((n) => n.color === 'orange' && !n.rare && !n.later).map((n) => n.name);
 		for (const herb of orange) {
-			const zones = [...new Set(e.loops.filter((l) => !l.farm.on.some((p) => p.name === herb)).map((l) => zoneName(ctx, l.zone)))];
-			if (zones.length && zones.length < e.loops.length) extra.push(`The ${zones.join(', ')} ${zones.length > 1 ? 'loops have' : 'loop has'} no ${herb}, so fewer points a lap: worth it only when the zone suits your level better.`);
+			const zones = [...new Set(e.areas.filter((l) => !l.area.on.some((p) => p.name === herb)).map((l) => zoneName(ctx, l.zone)))];
+			if (zones.length && zones.length < new Set(e.areas.map((l) => l.zone)).size) extra.push(`The areas in ${zones.join(', ')} have no ${herb}, so fewer points: worth it only when the zone suits your level better.`);
 		}
-		return `Walk the loop and pick every ${list(nodes, (n) => n)} on the way until Herbalism ${e.to}.${extra.length ? ` ${extra.join(' ')}` : ''}${skillQuests(ctx, 182, e)}`;
+		return `Roam the area and pick every ${list(nodes, (n) => n)} you find until Herbalism ${e.to}.${extra.length ? ` ${extra.join(' ')}` : ''}${skillQuests(ctx, 182, e)}`;
 	},
 	header: [
-		'Herbalism 1-300 for both factions: for each skill band, a loop the arrow walks',
-		'through the densest ground of herbs the skill can pick (expected skill-ups per',
-		'yard of a lap, with the time to pick each herb and the herbs\' respawn), at',
-		'the lowest character level that keeps the loop nearly as good: no creature on',
-		'it more than a level above that level, and away from the other faction\'s',
+		'Herbalism 1-300 for both factions: for each skill band, the areas to roam with',
+		'the most herbs the skill can pick (expected skill-ups per yard of a sweep',
+		'through them, with the time to pick each herb and the herbs\' respawn), each',
+		'at the lowest character level safe in it: no creature there more than a level',
+		'above that level, no elite, and away from the other faction\'s',
 		'towns. Herbs are the Forever server\'s own spawns with the chance its spawn',
 		'pools keep each up, and what a herb gives comes from players\' recorded',
 		'gathers (tools/lib/professions/gathering/gathering-nodes.json).',
@@ -240,12 +240,7 @@ const skinning = {
 	levels: '1-60',
 	headerZone: 'Ironforge',
 	tool: { item: 7005, name: 'Skinning Knife', why: 'keep it in your bags, you cannot skin without it.' },
-	radius: 80,
 	minPoints: 4,
-	// The longest lap a round may have, in yards: past it the round never comes back to a beast that
-	// respawned (rounds of 2.4-12 km before: Zephras Isle's Horde round was 12,066 yards; the herb and ore
-	// rounds stay under 1,000).
-	maxLap: 2000,
 	// The world database respawns most skinnable beasts in 300 seconds (the median spawn).
 	respawn: 300,
 	// Yields per skinning by beast level (gathering-nodes.json `skins`).
@@ -281,14 +276,14 @@ const skinning = {
 	partners: ['Leatherworking'],
 	bandTip(nodes, e, ctx) {
 		const names = nodes.filter((n) => n.color && n.color !== 'grey').map((n) => `${n.name} (${n.level}${n.later ? `, needs ${n.req}` : ''})`);
-		return `Walk the loop and kill and skin ${names.join(', ')} until Skinning ${e.to}; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above.${skillQuests(ctx, 393, e)}`;
+		return `Roam the area and kill and skin ${names.join(', ')} until Skinning ${e.to}; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above.${skillQuests(ctx, 393, e)}`;
 	},
 	header: [
-		'Skinning 1-300 for both factions: for each skill band, a loop the arrow walks',
-		'through the densest camps of skinnable beasts of the right level (expected',
-		'skill-ups per yard of a lap, with the time to kill and skin each beast), at the',
-		'lowest character level that keeps the loop nearly as good: no beast or other',
-		'creature on it more than a level above that level, and away from the other',
+		'Skinning 1-300 for both factions: for each skill band, the areas to roam with',
+		'the most skinnable beasts of the right level (expected skill-ups per yard of',
+		'a sweep through them, with the time to kill and skin each beast), each at the',
+		'lowest character level safe in it: no beast or other creature there more than',
+		'a level above that level, no elite, and away from the other',
 		'faction\'s towns. Skill needed: 1 for level 10 and below, (level-10)x10 for',
 		'11-20, level x5 above 20. Beast lists per zone are curated',
 		'(tools/lib/professions/gathering/skinning.js); levels and spawns come from',

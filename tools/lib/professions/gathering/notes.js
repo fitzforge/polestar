@@ -17,7 +17,7 @@ const ERA_NOTE = [
 	'changed a map frame, and a map without an Era frame (Zephras Isle) compiles live.',
 ];
 
-// Mining, Herbalism and Skinning: where their spawns come from, how their loops
+// Mining, Herbalism and Skinning: where their spawns come from, how their areas
 // pick a character level, and what Forever's trainer lists say about rank levels.
 const GATHERING_NOTE = [
 	'Herb and ore spawns come from the Forever TrinityCore world DB (its spawn pools',
@@ -25,8 +25,9 @@ const GATHERING_NOTE = [
 	"trainer learn skills and prices from Forever's sniffed trainer lists; recipes",
 	'and their skill colours from the Forever client tables.',
 	"Zones are ranked for a character of a fifth of the band's skill in levels (at",
-	'least 5; ASSUMED: one levelling with the profession); a loop that asks more',
-	'says so with a `level` goal, and loses half its worth per level it asks above.',
+	'least 5; ASSUMED: one levelling with the profession); an area that asks more',
+	'loses a quarter of its worth per level it asks above. Each area says the',
+	'level it is safe from, and the engine offers none above the character.',
 	"Ranks ask no character level: Forever's sniffed trainer lists carry none for",
 	"Herbalism, Mining or Skinning, and players' recordings show Expert Mining",
 	'trained at 15 and Artisan Skinning at 29.',

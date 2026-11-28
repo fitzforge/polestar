@@ -50,59 +50,50 @@ const RECORDED = require('./recorded-learns.json');
 
 const SIDES = ['Alliance', 'Horde'];
 
-// The gathering guides' farming loops that give `item` (gathering/build.js gatherLoops), as `loop` lines
-// for a Get it step's collect (docs/GUIDE_FORMAT.md, "Farming loops"): `per` of the material from one of
-// the item (a bar from its ore: the bars one ore makes), for each faction the best loop of each zone and
-// of those the LOOPS best by items a second, one line for a loop both sides share. When those all ask more
-// skill than some loop of the item, the loops of that lowest skill come too, one per zone (Light Leather:
-// the starting zones' Skinning 1 rounds beside the denser rounds of level 17-24), so the step serves a
-// gatherer who starts low; and every starting area's own loop of the item comes (gatherLoops `starter`:
-// one a character of level 1 to 5 may walk), so it serves a new character too. -> { lines, skill } or null:
-// no loop gives it, or no reference data on disk (`data.dir`, draftData) to plan the loops from.
-const LOOPS = 4;
-let loopsCache = null;
-function itemLoops(data, item, per = 1) {
+// The gathering guides' areas that give `item` (gathering/build.js gatherAreas), as `area` lines for a Get it
+// step's collect (docs/GUIDE_FORMAT.md, "Gathering areas"): `per` of the material from one of the item (a bar
+// from its ore: the bars one ore makes), for each faction the best area of each zone and of those the AREAS
+// best by items a second, one line for an area both sides share. When those all ask more skill than some area
+// of the item, the areas of that lowest skill come too, one per zone (Light Leather: the starting zones'
+// Skinning 1 areas beside the richer ones of level 17-24), so the step serves a gatherer who starts low; and
+// every starting area's own area of the item comes (`starter`: one a character of level 1 to 5 may roam), so
+// it serves a new character too. -> { lines, skill } or null: no area gives it, or no reference data on disk
+// (`data.dir`, draftData) to plan the areas from.
+const AREAS = 4;
+let areasCache = null;
+function itemAreas(data, item, per = 1) {
 	if (!data.dir) return null;
-	if (!loopsCache || loopsCache.dir !== data.dir) {
-		const { context, zoneName, fmt } = require('./gathering/common');
-		const { gatherLoops, loopOnly } = require('./gathering/build');
+	if (!areasCache || areasCache.dir !== data.dir) {
+		const { context } = require('./gathering/common');
+		const { gatherAreas, areaLine } = require('./gathering/build');
 		const ctx = context(data.dir);
-		loopsCache = { dir: data.dir, all: gatherLoops(ctx), zone: (m) => zoneName(ctx, m), fmt, loopOnly };
+		areasCache = { dir: data.dir, all: gatherAreas(ctx), line: (rec) => areaLine(ctx, rec) };
 	}
-	const { all, zone, fmt, loopOnly } = loopsCache;
+	const { all, line } = areasCache;
 	const mine = all.filter((l) => l.item === item);
+	const rate = (l) => l.rec.value / l.rec.lap;
+	const key = (l) => `${l.rec.map}|${l.rec.name}|${l.rec.near}|${l.rec.lvl}`;
 	const picked = new Map();
 	for (const side of SIDES) {
 		const own = mine.filter((l) => l.factions.includes(side));
 		const best = own
 			.slice()
-			.sort((a, b) => b.yield / b.lap - a.yield / a.lap || a.map - b.map)
-			.filter((l, i, list) => list.findIndex((o) => o.map === l.map) === i)
-			.slice(0, LOOPS);
+			.sort((a, b) => rate(b) - rate(a) || a.rec.map - b.rec.map)
+			.filter((l, i, list) => list.findIndex((o) => o.rec.map === l.rec.map) === i)
+			.slice(0, AREAS);
 		const low = Math.min(...own.map((l) => l.skill[0]));
 		if (best.length && Math.min(...best.map((l) => l.skill[0])) > low) {
-			for (const l of own.filter((x) => x.skill[0] === low).sort((a, b) => b.yield / b.lap - a.yield / a.lap || a.map - b.map)) if (!best.some((o) => o.map === l.map)) best.push(l);
+			for (const l of own.filter((x) => x.skill[0] === low).sort((a, b) => rate(b) - rate(a) || a.rec.map - b.rec.map)) if (!best.some((o) => o.rec.map === l.rec.map)) best.push(l);
 		}
-		for (const l of own.filter((x) => x.starter && x.skill[0] === low)) {
-			if (!best.some((o) => o.map === l.map && o.pts.join(' ') === l.pts.join(' '))) best.push(l);
-		}
+		for (const l of own.filter((x) => x.rec.starter && x.skill[0] === low)) if (!best.some((o) => key(o) === key(l))) best.push(l);
 		for (const l of best) {
-			const key = `${l.map}|${l.pts.join(' ')}`;
-			if (!picked.has(key)) picked.set(key, { l, sides: new Set() });
-			picked.get(key).sides.add(side);
+			if (!picked.has(key(l))) picked.set(key(l), { l, sides: new Set() });
+			picked.get(key(l)).sides.add(side);
 		}
 	}
 	if (!picked.size) return null;
-	const lines = [...picked.values()].map(({ l, sides }) => {
-		const words = [`  loop ${zone(l.map)}`, `lvl ${l.lvl}`, `lap ${l.lap}`, `yield ${fmt(l.yield * per)}`];
-		const only = loopOnly(l.map, [...sides]);
-		if (only) words.push(`only ${only}`);
-		if (l.live) words.push('live');
-		if (l.starter) words.push('starter');
-		if (l.respawn) words.push(`respawn ${l.respawn}`);
-		words.push(`r ${l.r}`, 'at', ...l.pts.map(([x, y]) => `${fmt(x)},${fmt(y)}`));
-		return words.join(' ');
-	});
+	const { areaOnly } = require('./gathering/build');
+	const lines = [...picked.values()].map(({ l, sides }) => line({ ...l.rec, value: l.rec.value * per, only: areaOnly(l.rec.map, [...sides]) }));
 	return { lines, skill: Math.min(...[...picked.values()].map(({ l }) => l.skill[0])) };
 }
 
@@ -1184,8 +1175,8 @@ function draftGuideBare(name, data, opts = {}) {
 				);
 				continue;
 			}
-			// Herbs, ore and skinned leather, and a bar smelted from ore: the farming loops of the Herbalism,
-			// Mining and Skinning guides that give it, the engine picking one where the player is (itemLoops),
+			// Herbs, ore and skinned leather, and a bar smelted from ore: the gathering areas of the Herbalism,
+			// Mining and Skinning guides that give it, the window listing those for the player's level (itemAreas),
 			// each at a level its creatures allow. A gem a vein gives one time in a hundred has none.
 			// A bar that chests or mobs drop too (Silver Bar) stays a bag count, as below.
 			const drops = (((data.items || {})[t.item] || {}).drops) || {};
@@ -1194,7 +1185,7 @@ function draftGuideBare(name, data, opts = {}) {
 			const ore = smelt && smelt.name === 'Mining' ? oreOf(t.item) : null;
 			const smeltRecipe = ore ? mines.find((r) => r.item === t.item && (r.reagents || []).some((g) => g.item === ore)) : null;
 			const orePer = smeltRecipe ? (smeltRecipe.itemCount || 1) / smeltRecipe.reagents.find((g) => g.item === ore).count : 0;
-			// A bar smelted from bars (Bronze from a Copper and a Tin Bar): the loops of the scarcer ore, and
+			// A bar smelted from bars (Bronze from a Copper and a Tin Bar): the areas of the scarcer ore, and
 			// the tip says how much of each ore it takes.
 			const fromBars = [];
 			if (smelt && smelt.name === 'Mining' && !ore) {
@@ -1204,27 +1195,27 @@ function draftGuideBare(name, data, opts = {}) {
 					const br = o && mines.find((r) => r.item === g.item && (r.reagents || []).some((x) => x.item === o));
 					if (!br) continue;
 					const per = ((sr.itemCount || 1) / g.count) * ((br.itemCount || 1) / br.reagents.find((x) => x.item === o).count);
-					const l = itemLoops(data, o, per);
-					if (l) fromBars.push({ ore: o, per, loops: l, rank: Math.max(sr.learnedAt || 1, br.learnedAt || 1) });
+					const l = itemAreas(data, o, per);
+					if (l) fromBars.push({ ore: o, per, areas: l, rank: Math.max(sr.learnedAt || 1, br.learnedAt || 1) });
 				}
 			}
 			const leather = need.every((side) => t.src[side].kind === 'skinning');
-			const viaBar = fromBars.length ? fromBars.sort((a, c) => a.loops.lines.length - c.loops.lines.length || a.ore - c.ore)[0] : null;
-			const loops = need.every((side) => NODE_KINDS.has(t.src[side].kind)) || leather ? itemLoops(data, t.item) : orePer ? itemLoops(data, ore, orePer) : viaBar ? viaBar.loops : null;
-			if (loops) {
+			const viaBar = fromBars.length ? fromBars.sort((a, c) => a.areas.lines.length - c.areas.lines.length || a.ore - c.ore)[0] : null;
+			const areas = need.every((side) => NODE_KINDS.has(t.src[side].kind)) || leather ? itemAreas(data, t.item) : orePer ? itemAreas(data, ore, orePer) : viaBar ? viaBar.areas : null;
+			if (areas) {
 				const skill = leather ? 'Skinning' : need.some((side) => t.src[side].kind === 'herb') ? 'Herbalism' : 'Mining';
-				const facts = ore ? ` Mining ${Math.max(loops.skill, smelt.rank)}` : viaBar ? ` Mining ${Math.max(loops.skill, viaBar.rank)}` : ` ${skill} ${loops.skill}`;
+				const facts = ore ? ` Mining ${Math.max(areas.skill, smelt.rank)}` : viaBar ? ` Mining ${Math.max(areas.skill, viaBar.rank)}` : ` ${skill} ${areas.skill}`;
 				const oreName = (id) => ((data.items || {})[id] || {}).name || matName(id);
 				const about = ore
 					? `Mine ${oreName(ore)} and smelt it at a forge (Mining ${smelt.rank}).`
 					: viaBar
-						? `Smelting makes them from ${D.list(fromBars.map((x) => oreName(x.ore)))} (Mining ${viaBar.rank}): about ${D.list(fromBars.map((x) => `${Math.ceil(t.count / x.per)} ${oreName(x.ore)}`))} for ${t.count}. The loops below are for the ${oreName(viaBar.ore)}; the Mining guide's loops give the rest.`
+						? `Smelting makes them from ${D.list(fromBars.map((x) => oreName(x.ore)))} (Mining ${viaBar.rank}): about ${D.list(fromBars.map((x) => `${Math.ceil(t.count / x.per)} ${oreName(x.ore)}`))} for ${t.count}. The areas below are for the ${oreName(viaBar.ore)}; the Mining guide's areas give the rest.`
 						: `${capital(D.sourceText(data, t.item, mats[t.item], t.src[need[0]], need[0], { market: false }))}.`;
 				getIt(
 					matName(t.item),
 					farmHead,
-					`${about} The arrow takes the ${skill} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left.`,
-					`  collect ${t.item} x${t.count}${mark(facts)}\n${loops.lines.join('\n')}`,
+					`${about} The window lists the ${skill} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them.`,
+					`  collect ${t.item} x${t.count}${mark(facts)}\n${areas.lines.join('\n')}`,
 				);
 				continue;
 			}
@@ -1595,4 +1586,4 @@ function draftData(dataDir) {
 	return data;
 }
 
-module.exports = { draftGuide, draftData, farmSpot, skinSpot, itemLoops, money: D.money, slug };
+module.exports = { draftGuide, draftData, farmSpot, skinSpot, itemAreas, money: D.money, slug };

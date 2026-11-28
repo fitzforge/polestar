@@ -11,7 +11,7 @@
 //   Buy a <tool>                  buy <tool> x1 nearest, where the route says (at the first trainer visit)
 //   Buy N <vendor good>           buy <item> xN nearest: a section's vendor goods at its first need
 //   Get N <material>              the material's ways as choice rows: `collect … gather` with the gathering
-//                                 guides' loops, `collect … nearest` farm spots, `auction`; sized to the
+//                                 guides' areas, `collect … nearest` farm spots, `auction`; sized to the
 //                                 crafts up to the next trainer visit (gets of one material merge across
 //                                 bands that only a recipe visit separates)
 //   Train <Rank> <Profession>     train <Profession> <Rank>; a rank from a book: Buy <book> · <vendor>, Read
@@ -246,7 +246,7 @@ function stationPlaces(focus, prof, route, data) {
 }
 
 function routeGuide(name, data, opts = {}) {
-	const { itemLoops } = require('./guide');
+	const { itemAreas } = require('./guide');
 	const profs = data.professions || {};
 	const prof = Object.values(profs).find((p) => p && String(p.name).toLowerCase() === String(name).toLowerCase());
 	const route = opts.route || loadRoute(prof.name);
@@ -274,25 +274,25 @@ function routeGuide(name, data, opts = {}) {
 	const article = (w) => (/^[aeiou]/i.test(w) ? 'an' : 'a');
 
 	// ---------------------------------------------------------------- material ways
-	// The gathering loops that give `item`: { skill, prof, lines }, or null. A bar Mining smelts takes the loops of
+	// The gathering areas that give `item`: { skill, prof, lines }, or null. A bar Mining smelts takes the areas of
 	// its ore (Bronze Bar: the scarcer of Copper and Tin; Steel Bar: Iron Ore, the Coal bought).
 	// Where an item is gathered: the `gather` of any profession's materials table (an ore is Mining's).
 	const mined = (id) => Object.values(profs).some((p) => (((p.materials || {})[id] || {}).gather || {}).mine);
-	const loopsFor = (item) => {
+	const areasFor = (item) => {
 		const m = mats[item] || {};
 		const it = items[item] || {};
 		const name = m.name || it.name || '';
 		const g = m.gather || it.gather || {};
 		if (g.herb) {
-			const l = itemLoops(data, item);
+			const l = itemAreas(data, item);
 			return l && { ...l, prof: 'Herbalism' };
 		}
 		if (g.mine) {
-			const l = itemLoops(data, item);
+			const l = itemAreas(data, item);
 			return l && { ...l, prof: 'Mining' };
 		}
 		if (/(Leather|Hide|Scale)$/.test(name)) {
-			const l = itemLoops(data, item);
+			const l = itemAreas(data, item);
 			return l && { ...l, prof: 'Skinning' };
 		}
 		const smelt = mines.find((r) => r.item === item);
@@ -308,7 +308,7 @@ function routeGuide(name, data, opts = {}) {
 			const subOre = sub && (sub.reagents || []).find((x) => mined(x.item));
 			if (subOre) tries.push({ ore: subOre.item, per: ((smelt.itemCount || 1) / rg.count) * ((sub.itemCount || 1) / subOre.count), rank: Math.max(smelt.learnedAt || 1, sub.learnedAt || 1) });
 		}
-		const found = tries.map((t) => ({ t, l: itemLoops(data, t.ore, t.per) })).filter((x) => x.l);
+		const found = tries.map((t) => ({ t, l: itemAreas(data, t.ore, t.per) })).filter((x) => x.l);
 		if (!found.length) return null;
 		found.sort((a, b) => a.l.lines.length - b.l.lines.length || a.t.ore - b.t.ore);
 		const { t, l } = found[0];
@@ -320,8 +320,8 @@ function routeGuide(name, data, opts = {}) {
 		const out = [];
 		for (const way of ways) {
 			if (way === 'gather') {
-				const l = loopsFor(item);
-				if (!l) throw new Error(`${P}: no gathering loop gives ${itemName(item)}`);
+				const l = areasFor(item);
+				if (!l) throw new Error(`${P}: no gathering area gives ${itemName(item)}`);
 				out.push(`  collect ${item} x${count} gather ${l.prof} ${l.skill}`, ...l.lines);
 			} else if (way === 'drop') {
 				const f = data.farmable ? data.farmable(item) : null;
@@ -512,7 +512,7 @@ function routeGuide(name, data, opts = {}) {
 			for (const [v, per] of Object.entries((withSmelt && withSmelt.with) || {})) {
 				step('buy', `Buy ${n * per} ${itemName(v)}`, { tip: `Smelting ${itemName(item)} takes ${per} ${itemName(v)} a bar.`, lines: [`  buy ${v} x${n * per} nearest`], also: [`skill Mining ${withSmelt.skill}`] });
 			}
-			const bar = !!(loopsFor(item) || {}).smelt;
+			const bar = !!(areasFor(item) || {}).smelt;
 			const why = forWhat(group, item, bar);
 			const own = spare ? ` ${spare} more come from your own crafts.` : '';
 			step('get', `Get ${n} ${itemName(item)}`, { tip: (why + own).length <= TIP_MAX ? why + own : why, lines: getLines(item, n), extra: { items: [{ item, count: n }], bands: group } });

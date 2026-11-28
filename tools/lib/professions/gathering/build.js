@@ -7,14 +7,15 @@
 //   node tools/polestar.js profession gathering check    # exit 1 when a guide is out of date
 //
 // Herbalism, Mining and Skinning: each skill range is one step whose skill goal
-// carries several farming loops (`loop <zone> …`, docs/GUIDE_FORMAT.md "Farming
-// loops"); the engine picks one where the player is (travel plus the laps left,
-// never creatures 2+ levels above them while another loop is not). The loops
-// offered are the best few of every zone a faction may use (farm.js: densest
-// ground per yard of a lap at a safe level), for a character at the range's
-// start and at its end, plus each race's own zone for the first ranges and the
-// best of each continent. A range splits where a common herb first becomes
-// pickable inside it (#2892). Trainers and the tool vendor are smart targets
+// carries several gathering areas (`area <zone> "<name>" …`, docs/GUIDE_FORMAT.md
+// "Gathering areas"); the engine picks one where the player is (travel plus the
+// time the rest takes there, never creatures 2+ levels above them while another
+// area is not). The areas offered are the best few of every zone a faction may
+// use (areas.js: subzones and stretches of open ground with the most nodes up
+// per yard of a sweep at a safe level), for a character at the range's start
+// and at its end, plus each race's own zone for the first ranges and the best
+// of each continent. A range splits where a common herb first becomes pickable
+// inside it (#2892). Trainers and the tool vendor are smart targets
 // (`train <Profession> <Rank>`, `buy … nearest`): the engine picks the nearest
 // one of the player's faction at runtime.
 
@@ -23,7 +24,7 @@ const path = require('node:path');
 const { ZONES, RANKS, color, bandWeight } = require('./tables');
 const { RACE_GROUPS, REGIONS, SIDE, maxZoneLevel, raceCondition } = require('./groups');
 const N = require('./nodes');
-const { farm, rankScore, skillLevel, RUN } = require('./farm');
+const { areasIn, rankScore, skillLevel, sweepSeconds } = require('./areas');
 const { OUT_DIR, GUIDE_HEADER, FACTIONS, fmt, money, zoneName, rankInfo } = require('./common');
 const { byBanners } = require('../sections');
 
@@ -55,7 +56,7 @@ function coversTop(points, band) {
 	});
 }
 
-// prof.points, one array per zone and band (farm.js memoises loops per points array).
+// prof.points, one array per zone and band (areas.js memoises areas per points array).
 const pointCache = new WeakMap();
 function pointsOf(ctx, prof, map, from, to) {
 	if (!pointCache.has(prof)) pointCache.set(prof, new Map());
@@ -66,8 +67,8 @@ function pointsOf(ctx, prof, map, from, to) {
 }
 
 // The points of a part [at, next) of a range: those its starting skill can gather and that are not grey
-// for it, weighted for the part (#2892, #3355: a loop never leads to nodes or beasts the skill cannot take
-// yet). One array per points array and part, for farm.js's memo.
+// for it, weighted for the part (#2892, #3355: an area never leads to nodes or beasts the skill cannot take
+// yet). One array per points array and part, for areas.js's memo.
 const partCache = new WeakMap();
 function partPoints(points, at, next) {
 	if (!partCache.has(points)) partCache.set(points, new Map());
@@ -100,13 +101,13 @@ function respawnIn(prof, map, points) {
 	return n > 0 ? s / n : 300;
 }
 
-// The zone's farming loop for these points and `faction`, for a character of `level` (farm.js), or null.
-function farmIn(ctx, prof, map, points, faction, level, maxLevel = 60) {
-	return farm(ctx, prof, map, points, { faction, respawn: respawnIn(prof, map, points), level, maxLevel });
+// The zone's gathering areas for these points and `faction` (areas.js), best first, or [].
+function areasFor(ctx, prof, map, points, faction, maxLevel = 60) {
+	return areasIn(ctx, prof, map, points, { faction, respawn: respawnIn(prof, map, points), maxLevel });
 }
 
-// The zones that can take a player through the band from its first point, best first by their loop's
-// worth for a character of `level` (farm.js rankScore): [{ zone, points, farm, score }].
+// The zones that can take a player through the band from its first point, best first by their best area's
+// worth for a character of `level` (areas.js rankScore): [{ zone, points, best, score }].
 function rankIn(ctx, prof, band, zones, faction, level) {
 	const ranked = [];
 	const min = prof.minPoints || 6;
@@ -114,18 +115,19 @@ function rankIn(ctx, prof, band, zones, faction, level) {
 		const points = pointsOf(ctx, prof, id, band.from, band.to);
 		const start = partPoints(points, band.from, band.to);
 		if (start.length < min || !coversTop(start, band)) continue;
-		const f = farmIn(ctx, prof, id, start, faction, level);
-		if (!f) continue;
-		ranked.push({ zone: id, points, farm: f, score: rankScore(f, level) });
+		const list = areasFor(ctx, prof, id, start, faction);
+		if (!list.length) continue;
+		const best = list.reduce((a, b) => (rankScore(b, level) > rankScore(a, level) ? b : a));
+		ranked.push({ zone: id, points, best, score: rankScore(best, level) });
 	}
 	return ranked.sort((a, b) => b.score - a.score || a.zone - b.zone);
 }
 
-// The zones a faction's loops for a band come from: the TOP best for a character at the band's start,
+// The zones a faction's areas for a band come from: the TOP best for a character at the band's start,
 // at its end and past every zone's level (the densest: Winterspring's Thorium and Icecap; the
-// engine skips a loop above the player), each race's own zone for the start and next
+// engine skips an area above the player), each race's own zone for the start and next
 // bands, and on a continent the faction lives on with none of those, its best zone when that is worth
-// WORTH of the best loop at least. [zone id]
+// WORTH of the best area at least. [zone id]
 const TOP = 2;
 const WORTH = 0.25;
 const MAX_LEVEL = 60;
@@ -141,7 +143,7 @@ function zonePicks(ctx, prof, band, faction) {
 	for (const r of [...low.slice(0, TOP), ...high.slice(0, TOP), ...top.slice(0, TOP)]) add(r);
 	if (band.scope === 'start' || band.scope === 'next') for (const g of RACE_GROUPS[faction]) add(low.find((r) => g[band.scope].includes(r.zone)));
 	// The first band also offers each race's next zone (the Barrens, Westfall, Silverpine): a character past the
-	// starting area mines there, never round the starting area's own small loop.
+	// starting area mines there, never in the starting area's own small patch.
 	if (band.scope === 'start') for (const g of RACE_GROUPS[faction]) add(low.find((r) => g.next.includes(r.zone)));
 	for (const g of REGIONS[faction]) {
 		if (keep.some((z) => continentOf(ctx, z) === g.c)) continue;
@@ -205,7 +207,7 @@ function rareKinds(prof, points) {
 }
 
 // A common kind first gathered inside [from, to) splits the range there
-// (#2892): each part's loops take only points its starting skill can gather
+// (#2892): each part's areas take only points its starting skill can gather
 // and that are not grey for it (partPoints). Rare kinds add no split.
 // Skinning keeps its bands: its beasts' levels follow the bands already.
 // -> [{ from, to }]
@@ -222,52 +224,63 @@ function startParts(prof, points, from, to) {
 	return parts;
 }
 
-// The loops of one part of a range for both factions: one per zone and faction, the same loop for
-// both factions once with no faction of its own. Best first for a character at the part's start.
-// A range's first band (scope 'start') adds each starting area's own loop (`starter`): the best one a
-// character of level 1 to STARTER_LEVEL may walk (farm.js `maxLevel`), where the area holds the part's
-// nodes, so a new character always has a loop at their level. Any loop in a starting zone that asks no more
-// than STARTER_LEVEL is a starter loop too: the engine offers starter loops to low levels only (a level 26 in
-// Durotar was sent round the Valley of Trials). -> [{ zone, farm, factions, starter? }]
+// The areas of one part of a range for both factions: per faction and zone its best ZONE_AREAS (and its
+// lowest-level one, so a character new to the zone has one there), the same area for both factions once with
+// no faction of its own. Best first for a character at the part's start. A range's first band (scope 'start')
+// adds each starting area's own areas (`starter`): the best STARTER_AREAS a character of level 1 to
+// STARTER_LEVEL may roam, so a new character always has one at their level. Any area in a starting zone that
+// asks no more than STARTER_LEVEL is a starter area too: the engine offers starter areas to low levels only (a
+// level 26 in Durotar was sent to the Valley of Trials). -> [{ zone, area, factions, starter? }]
 const STARTER_LEVEL = 5;
+const ZONE_AREAS = 3;
+const STARTER_AREAS = 2;
 const START_MAPS = new Set(Object.values(RACE_GROUPS).flatMap((gs) => gs.map((x) => x.start[0])));
-function partLoops(ctx, prof, picks, part) {
+function partAreas(ctx, prof, picks, part) {
 	const level = skillLevel(part.from);
 	const out = [];
-	const add = (zone, f, faction, own) => {
-		const starter = own || (START_MAPS.has(zone) && f.level <= STARTER_LEVEL);
-		const key = (l) => l.farm.stops.map((s) => `${s.pt.x},${s.pt.y}`).join(' ');
-		const same = out.find((l) => l.zone === zone && l.farm.level === f.level && key(l) === key({ farm: f }));
+	const add = (zone, a, faction, own) => {
+		const starter = own || (START_MAPS.has(zone) && a.level <= STARTER_LEVEL);
+		const same = out.find((l) => l.zone === zone && l.area.name === a.name && l.area.near === a.near && l.area.level === a.level && Math.abs(l.area.up - a.up) < 0.05);
 		if (same) {
 			if (!same.factions.includes(faction)) same.factions.push(faction);
 			if (starter) same.starter = true;
-		} else out.push({ zone, farm: f, factions: [faction], ...(starter ? { starter: true } : {}) });
+		} else out.push({ zone, area: a, factions: [faction], ...(starter ? { starter: true } : {}) });
 	};
 	for (const faction of FACTIONS) {
 		for (const zone of picks[faction]) {
 			const pts = partPoints(pointsOf(ctx, prof, zone, part.band.from, part.band.to), part.from, part.to);
 			if (pts.length < 2) continue;
-			const f = farmIn(ctx, prof, zone, pts, faction, level);
-			if (f) add(zone, f, faction, false);
+			for (const a of zoneAreas(areasFor(ctx, prof, zone, pts, faction), level)) add(zone, a, faction, false);
 		}
 	}
-	for (const s of starterLoops(ctx, prof, part)) add(s.zone, s.farm, s.faction, true);
-	if (!out.length) throw new Error(`${prof.skill} ${part.from}-${part.to}: no loop`);
-	return out.sort((a, b) => rankScore(b.farm, level) - rankScore(a.farm, level) || a.zone - b.zone);
+	for (const s of starterAreas(ctx, prof, part)) add(s.zone, s.area, s.faction, true);
+	if (!out.length) throw new Error(`${prof.skill} ${part.from}-${part.to}: no area`);
+	return out.sort((a, b) => rankScore(b.area, level) - rankScore(a.area, level) || a.zone - b.zone || a.area.name.localeCompare(b.area.name));
 }
 
-// Each starting area's own loop for a part of a range's first band (partLoops): [{ zone, faction, farm }],
+// A zone's areas a step offers: its best ZONE_AREAS for a character of `level`, and its lowest-level one.
+function zoneAreas(list, level) {
+	const best = list
+		.slice()
+		.sort((a, b) => rankScore(b, level) - rankScore(a, level))
+		.slice(0, ZONE_AREAS);
+	const low = list.reduce((a, b) => (!a || b.level < a.level || (b.level === a.level && b.score > a.score) ? b : a), null);
+	if (low && !best.includes(low)) best.push(low);
+	return best;
+}
+
+// Each starting area's own areas for a part of a range's first band (partAreas): [{ zone, faction, area }],
 // and in `gaps` the areas of each faction with none (no nodes of the part there, or none safe by level 5).
-function starterLoops(ctx, prof, part, gaps = null) {
+function starterAreas(ctx, prof, part, gaps = null) {
 	if (part.band.scope !== 'start') return [];
 	const out = [];
 	for (const faction of FACTIONS) {
 		for (const g of RACE_GROUPS[faction]) {
 			const zone = g.start[0];
 			const pts = partPoints(pointsOf(ctx, prof, zone, part.band.from, part.band.to), part.from, part.to);
-			const f = pts.length >= 2 ? farmIn(ctx, prof, zone, pts, faction, 1, STARTER_LEVEL) : null;
-			if (f) out.push({ zone, faction, farm: f, key: g.key });
-			else if (gaps) gaps.push({ key: g.key, zone, faction, points: pts.length });
+			const list = pts.length >= 2 ? areasFor(ctx, prof, zone, pts, faction, STARTER_LEVEL).slice(0, STARTER_AREAS) : [];
+			for (const area of list) out.push({ zone, faction, area, key: g.key });
+			if (!list.length && gaps) gaps.push({ key: g.key, zone, faction, points: pts.length });
 		}
 	}
 	return out;
@@ -299,8 +312,8 @@ function plan(ctx, prof) {
 		for (const stop of [...splits.map((r) => r.learnAt), band.to]) {
 			const soon = [...(from === band.from ? skipped : []), ...within.filter((r) => r.learnedAt > from && r.learnedAt < stop)];
 			for (const p of startParts(prof, zonePts.flat(), from, stop)) {
-				const loops = partLoops(ctx, prof, picks, { ...p, band });
-				out.push({ kind: 'band', from: p.from, to: p.to, band, loops, cont: p.from !== from, soon: p.from === from ? soon : [] });
+				const areas = partAreas(ctx, prof, picks, { ...p, band });
+				out.push({ kind: 'band', from: p.from, to: p.to, band, areas, cont: p.from !== from, soon: p.from === from ? soon : [] });
 			}
 			const rank = splits.find((r) => r.learnAt === stop);
 			if (rank) out.push({ kind: 'train', rank, recipes: within.filter((r) => r.learnedAt === stop) });
@@ -316,10 +329,10 @@ function recipeLine(r) {
 	return `${r.name} (${money(r.cost)}; ${col}grey at ${r.grey})`;
 }
 
-// Node kinds on a loop, lowest requirement first, each with its color at the
+// Node kinds in a band's areas, lowest requirement first, each with its color at the
 // band start (or at its own requirement when that is higher: `later`), the
 // nodes of it up at a time (`up`; one per point when unpooled), its expected
-// skill-ups per lap over [from, to) (`gain`) and `rare` when it is under a
+// skill-ups per sweep over [from, to) (`gain`) and `rare` when it is under a
 // twentieth of the nodes listed.
 function nodeSummary(prof, points, from, to = from + 1) {
 	const seen = new Map();
@@ -340,7 +353,7 @@ function nodeSummary(prof, points, from, to = from + 1) {
 }
 
 // About how many nodes a band takes: the skill points over the mean chance of
-// a point per node (color weights) across what the loops hold, to the nearest 10.
+// a point per node (color weights) across what the areas hold, to the nearest 10.
 function nodesNeeded(nodes, from, to) {
 	const up = nodes.reduce((a, s) => a + s.up, 0);
 	const gain = nodes.reduce((a, s) => a + s.gain, 0);
@@ -348,32 +361,60 @@ function nodesNeeded(nodes, from, to) {
 	return Math.max(10, Math.round(((to - from) * up) / gain / 10) * 10);
 }
 
-// The seconds a lap of a loop takes: its walk (never under its nodes' respawn) and the stops.
-function lapSeconds(prof, f) {
-	return (Math.max(f.lap, f.respawn * RUN) + (prof.stopYards || 0) * f.up) / RUN;
-}
-
-// Who may take a loop: its sides, and on Zephras Isle (the Skyborne's starting island, nobody else's) the
+// Who may take an area: its sides, and on Zephras Isle (the Skyborne's starting island, nobody else's) the
 // Skyborne only. -> the `only` condition, or null for anyone.
-function loopOnly(zone, factions) {
+function areaOnly(zone, factions) {
 	if (zone === SKYBORNE_ISLE) return raceCondition(['Skyborne'], factions);
 	return factions.length === 1 ? factions[0] : null;
 }
 const SKYBORNE_ISLE = 2521;
 
-// One farming loop line: `loop <zone> lvl <the least character level safe on it> lap <seconds> gain <points
-// a lap> [only <conditions>] [live] [starter] respawn <seconds> r <yards> at <x,y> …` (docs/GUIDE_FORMAT.md,
-// "Farming loops"): `starter` for a starting area's own loop, `respawn` its nodes' grow-back time.
-function loopLine(ctx, prof, l) {
-	const f = l.farm;
-	const live = f.stops[0].pt.f === 'l';
-	const words = [`  loop ${zoneName(ctx, l.zone)}`, `lvl ${f.level}`, `lap ${Math.round(lapSeconds(prof, f))}`, `gain ${fmt(f.gain)}`];
-	const only = loopOnly(l.zone, l.factions);
-	if (only) words.push(`only ${only}`);
-	if (live) words.push('live');
-	if (l.starter) words.push('starter');
-	words.push(`respawn ${Math.round(f.respawn)}`);
-	words.push(`r ${prof.radius || 60}`, 'at', ...f.stops.map((s) => `${fmt(s.pt.x)},${fmt(s.pt.y)}`));
+// A band's area (partAreas: { zone, area, factions, starter }) as the plain record areaLine writes, with
+// `per`: 'gain' (skill points a sweep) or 'yield' and its `value`.
+function areaRecord(ctx, prof, l, per = 'gain', value = l.area.gain) {
+	const a = l.area;
+	// What its nodes give, most first: the items at least a fifth of a sweep's yield, at most two (the arrow's line
+	// names them: "Roam Red Cloud Mesa for Copper Ore").
+	const sweep = ctx && !prof.skins ? bandYield(ctx, prof, a.on, a.up) : [];
+	const total = sweep.reduce((s, x) => s + x.count, 0);
+	const items = sweep.filter((x) => x.count >= total / 5).slice(0, 2).map((x) => x.item);
+	return {
+		map: l.zone,
+		name: a.name,
+		near: a.near,
+		lvl: a.level,
+		count: a.up,
+		lap: Math.round(sweepSeconds(prof, a)),
+		per,
+		value,
+		levels: a.levels || null,
+		items: items.length ? items : null,
+		only: areaOnly(l.zone, l.factions),
+		live: a.live,
+		starter: !!l.starter,
+		respawn: Math.round(a.respawn),
+		poly: a.poly,
+		dots: a.dots,
+	};
+}
+
+// One gathering area line: `area <zone> "<name>" [near] lvl <the least character level safe in it> count <nodes
+// (beasts) up at once> lap <seconds a sweep of its nodes takes> gain|yield <per sweep> [levels <min>-<max>]
+// [only <conditions>] [live] [starter] respawn <seconds> at <x,y> … dots <x,y> …` (docs/GUIDE_FORMAT.md,
+// "Gathering areas"): `near` for open ground named after the subzone nearest it, `levels` the beasts' levels
+// (Skinning), `starter` for a starting area's own, `at` its outline, `dots` its node spots.
+function areaLine(ctx, rec) {
+	const pt = (p) => `${fmt(p.x)},${fmt(p.y)}`;
+	const words = [`  area ${zoneName(ctx, rec.map)}`, `"${rec.name}"`];
+	if (rec.near) words.push('near');
+	words.push(`lvl ${rec.lvl}`, `count ${Math.max(1, Math.round(rec.count))}`, `lap ${rec.lap}`, `${rec.per} ${fmt(rec.value)}`);
+	if (rec.levels) words.push(`levels ${rec.levels[0]}-${rec.levels[1]}`);
+	if (rec.items) words.push(`items ${rec.items.join(',')}`);
+	if (rec.only) words.push(`only ${rec.only}`);
+	if (rec.live) words.push('live');
+	if (rec.starter) words.push('starter');
+	if (rec.respawn) words.push(`respawn ${rec.respawn}`);
+	words.push('at', ...rec.poly.map(pt), 'dots', ...rec.dots.map(pt));
 	return words.join(' ');
 }
 
@@ -425,7 +466,7 @@ function render(ctx, prof) {
 			for (const r of e.recipes) L.push(`  learn ${r.spell}`);
 		} else {
 			banner(e.band);
-			const on = e.loops.flatMap((l) => l.farm.on);
+			const on = e.areas.flatMap((l) => l.area.on);
 			const nodes = nodeSummary(prof, on, e.from, e.to);
 			L.push('');
 			L.push(`step ${prof.bandTitle(nodes, e)} (${e.from}-${e.to})`);
@@ -440,7 +481,7 @@ function render(ctx, prof) {
 			}
 			for (const r of e.soon || []) tip += ` ${recipeLine(r)} is taught from ${r.learnedAt}: learn it if you pass a ${prof.skill} trainer, it is not worth a trip of its own.`;
 			L.push(`  tip ${tip}`);
-			for (const l of e.loops) L.push(loopLine(ctx, prof, l));
+			for (const l of e.areas) L.push(areaLine(ctx, areaRecord(ctx, prof, l)));
 			L.push(`  skill ${prof.skill} ${e.to}`);
 		}
 	}
@@ -450,7 +491,7 @@ function render(ctx, prof) {
 	return `${byBanners(L.join('\n').replace(/\n+$/, ''), prof.skill)}\n`;
 }
 
-const PICK_TIP = 'The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction\'s towns, and the window names it and its lap.';
+const PICK_TIP = 'The window lists the areas for your level, best first: the arrow leads to the one you pick and rests once you are in it. Each keeps to creatures no more than a level above you and away from the other faction\'s towns.';
 
 // A crafting partner's needs per gathered item, from the crafting guides' Get it steps
 // (guide.js draftGuide `materials`, every rank bracket); a bar counts as the ore it is smelted from
@@ -479,7 +520,7 @@ function partnerNeeds(ctx, prof) {
 	return cache.get(prof.file);
 }
 
-// " For Alchemy: about 75 Mageroyal and 150 Briarthorn in all." for the items a band's loops give that
+// " For Alchemy: about 75 Mageroyal and 150 Briarthorn in all." for the items a band's areas give that
 // a crafting partner needs (from 1 to 300).
 function partnerLine(ctx, prof, got) {
 	let out = '';
@@ -490,8 +531,8 @@ function partnerLine(ctx, prof, got) {
 	return out;
 }
 
-// What `n` gatherings among loop points `on` give: [{ item, name, count }], most first. Each kind (or
-// beast level) is gathered as often as it is up on the loops; a node gives what players' gathers of it
+// What `n` gatherings among area points `on` give: [{ item, name, count }], most first. Each kind (or
+// beast level) is gathered as often as it is up in the areas; a node gives what players' gathers of it
 // gave (nodes.js `yields`, `skins`).
 function bandYield(ctx, prof, on, n) {
 	const T = N.load();
@@ -516,39 +557,24 @@ function listItems(got) {
 	return parts.length > 1 ? `${parts.slice(0, -1).join(', ')} and ${parts[parts.length - 1]}` : parts[0];
 }
 
-// Every range's loops as data for the crafting guides' Get it steps (`collect <item> xN` with `loop`
-// lines whose `yield` is that item): [{ item, kind: 'herb'|'ore'|'hide', skill: [from, to], factions,
-// map, lvl, lap, yield, r, live, pts, starter, respawn }], one per loop and item that is a twentieth or more of the
-// loop's yield. `lvl`: the least character level safe on the loop; `lap`: seconds a lap takes; `yield`: that
-// item from one lap (every node up on the loop once); `factions`: the sides it is for; `starter`: a starting
-// area's own loop (partLoops).
+// Every range's areas as data for the crafting guides' Get it steps (`collect <item> xN` with `area`
+// lines whose `yield` is that item): [{ item, kind: 'herb'|'ore'|'hide', skill: [from, to], factions, rec }],
+// one per area and item that is a twentieth or more of the area's yield. `rec`: the area as areaLine writes
+// it (areaRecord) with `yield`: that item from one sweep (every node up in the area once); `factions`: the
+// sides it is for.
 const KIND = { herbalism: 'herb', mining: 'ore', skinning: 'hide' };
-function gatherLoops(ctx) {
+function gatherAreas(ctx) {
 	const { SPECS } = require('./specs');
 	const out = [];
 	for (const prof of SPECS.filter((p) => KIND[p.file])) {
 		for (const e of plan(ctx, prof)) {
 			if (e.kind !== 'band') continue;
-			for (const l of e.loops) {
-				const lap = bandYield(ctx, prof, l.farm.on, l.farm.up);
-				const all = lap.reduce((s, x) => s + x.count, 0);
-				for (const x of lap) {
+			for (const l of e.areas) {
+				const sweep = bandYield(ctx, prof, l.area.on, l.area.up);
+				const all = sweep.reduce((s, x) => s + x.count, 0);
+				for (const x of sweep) {
 					if (x.count < all / 20) continue;
-					out.push({
-						item: x.item,
-						kind: KIND[prof.file],
-						skill: [e.from, e.to],
-						factions: l.factions,
-						map: l.zone,
-						lvl: l.farm.level,
-						lap: Math.round(lapSeconds(prof, l.farm)),
-						yield: Math.round(x.count * 10) / 10,
-						r: prof.radius || 60,
-						live: l.farm.stops[0].pt.f === 'l',
-						pts: l.farm.stops.map((s) => [s.pt.x, s.pt.y]),
-						starter: !!l.starter,
-						respawn: Math.round(l.farm.respawn),
-					});
+					out.push({ item: x.item, kind: KIND[prof.file], skill: [e.from, e.to], factions: l.factions, rec: areaRecord(ctx, prof, l, 'yield', Math.round(x.count * 10) / 10) });
 				}
 			}
 		}
@@ -558,7 +584,7 @@ function gatherLoops(ctx) {
 
 // Every generated profession guide: { 'mining.guide': text, ... }. A profession with a gathering route file
 // (routes/<file>.json, `"kind": "gathering"`) is written from it (steps.js), and so is a gathering route with
-// no spec (Lockpicking: the route says everything); `notes` collects the route zones that have no safe loop.
+// no spec (Lockpicking: the route says everything); `notes` collects the route zones that have no safe area.
 function buildAll(ctx, notes = []) {
 	const { SPECS } = require('./specs');
 	const { loadRoute } = require('../route');
@@ -587,4 +613,4 @@ function buildAll(ctx, notes = []) {
 	return out;
 }
 
-module.exports = { loopOnly, plan, render, buildAll, gatherLoops, zonePicks, partLoops, starterLoops, partPoints, pointsOf, farmIn, rareKinds, startParts, bandYield, coversTop, loopLine, lapSeconds, nodeSummary, STARTER_LEVEL, OUT_DIR };
+module.exports = { areaOnly, plan, render, buildAll, gatherAreas, zonePicks, partAreas, starterAreas, partPoints, pointsOf, areasFor, rareKinds, startParts, bandYield, coversTop, areaLine, areaRecord, nodeSummary, STARTER_LEVEL, OUT_DIR };

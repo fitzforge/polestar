@@ -29,7 +29,7 @@
 const R = require('./route');
 const W = require('./waters');
 const { buildLoop, hazards, levelFor, roundLevel, threats } = require('./loop');
-const { RUN } = require('./farm');
+const { RUN } = require('./areas');
 const fishing = require('./fishing');
 const { RACE_GROUPS, SIDE, TWO_SIDED, raceCondition } = require('./groups');
 const { ZONES } = require('./tables');

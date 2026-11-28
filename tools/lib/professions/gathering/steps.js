@@ -1,20 +1,20 @@
 'use strict';
 // A gathering profession guide (Mining, Herbalism, Skinning) from its route file, the gathering form
 // (tools/lib/professions/routes/<profession>.json with `"kind": "gathering"`; docs/forge/professions.md,
-// "Gathering route files"). The route says what a first-timer does, in order; the farming loops are the
-// gathering planner's (build.js plan(): the densest safe ground per band), so the paired guides and the
-// crafting guides' Get steps keep the same loops. A route zone the planner did not pick adds its own loop,
-// built the same way (stand safety included), or is reported when no safe loop exists there.
+// "Gathering route files"). The route says what a first-timer does, in order; the gathering areas are the
+// gathering planner's (build.js plan(): the subzones and open ground with the most nodes up per yard at a safe
+// level, per band), so the paired guides and the crafting guides' Get steps keep the same areas. A route zone
+// the planner did not pick adds its own areas, built the same way, or is reported when no safe area exists there.
 //
 // Steps, one action each:
 //   Learn <Profession> / Train <Rank> <Profession>   train <Profession> <Rank>     { "train": "<Rank>" }
 //   Buy a <tool>                     buy <tool> x1 nearest                         { "tool": <item> }
 //   Turn on <tracking>               cast <spell>                                  { "track": <spell>, "name" }
 //   Learn <recipe>                   learn <spell> (the trainer visit's)           { "learn": <spell> }
-//   Get N <ore>                      collect … gather with the band's loops, auction { "get": <item>, "count" }
+//   Get N <ore>                      collect … gather with the band's areas, auction { "get": <item>, "count" }
 //   Go to a forge                    goto … nearest over the forges by trainers     (before a smelt)
 //   Smelt N <bars>                   craft <spell> xN                              { "smelt": <spell>, "count", "to" }
-//   Mine/Pick/Skin … until N         skill <Profession> N on the band's loops      { "gather": N, "zones"?, "mobs"? }
+//   Mine/Pick/Skin … until N         skill <Profession> N in the band's areas      { "gather": N, "zones"?, "mobs"? }
 // Checked when built (the build stops): a rank before its skill or past the cap, a recipe learned before its
 // skill or not learned on the first visit that could teach it, a trainer recipe that gives points left out of
 // a visit, a smelt without its ore in the bags, a gather target that is no band end, a tool vendor who does not
@@ -31,10 +31,12 @@ const listed = (names) => (names.length > 1 ? `${names.slice(0, -1).join(', ')} 
 
 const CAP = { Apprentice: 75, Journeyman: 150, Expert: 225, Artisan: 300 };
 const VERB = { Mining: 'Mine', Herbalism: 'Pick', Skinning: 'Skin' };
-// A get's loops: those that give the item at least this share of their lap's yield.
+// A get's areas: those that give the item at least this share of their sweep's yield.
 const MIN_SHARE = 0.05;
 
-// The header's last paragraph: how a gathering step's loops are chosen (build.js, farm.js).
+// The header's last paragraph: how a gathering step's areas are chosen (build.js, areas.js).
+const AREAS_NOTE = 'Each gathering step offers areas to roam with the most of what the skill can gather (the server\'s own spawns, how often each is up, and what players\' recorded gathers gave): the window lists those for your level, best first, the arrow leads to the one you pick and rests once you are in it, never among creatures two or more levels above you, and away from the other faction\'s towns and guards. Waypoints are Era-frame; a map without one (Zephras Isle) compiles live.';
+// Fishing's: how its rounds of stands are chosen (fish-rounds.js).
 const LOOPS_NOTE = 'Each gathering step offers farming loops through the densest ground of what the skill can gather (the server\'s own spawns, how often each is up, and what players\' recorded gathers gave): the arrow takes the one that gets you there soonest from where you are, never among creatures two or more levels above you, and away from the other faction\'s towns and guards. Waypoints are Era-frame; a map without one (Zephras Isle) compiles live.';
 
 function comment(text) {
@@ -54,10 +56,10 @@ function zoneId(ctx, name) {
 	return Number(id);
 }
 
-// -> { text, notes }: the guide and the route zones without a safe loop (for the build's report).
+// -> { text, notes }: the guide and the route zones without a safe area (for the build's report).
 function renderRoute(ctx, prof, route) {
 	const B = require('./build');
-	const { skillLevel } = require('./farm');
+	const { skillLevel, rankScore } = require('./areas');
 	const { TIP_MAX, IMPERATIVE, stationPlaces } = require('../route');
 	const P = prof.skill;
 	const pq = /\s/.test(P) ? `"${P}"` : P;
@@ -131,30 +133,31 @@ function renderRoute(ctx, prof, route) {
 		if (!stations.has(focus)) stations.set(focus, stationPlaces(focus, pd, route, stationData));
 		return stations.get(focus).map((s) => `  goto ${s.x},${s.y} "${focus}" map ${s.map} ${s.f === 'l' ? 'live ' : ''}nearest${s.side ? ` only ${s.side}` : ''}`);
 	};
-	// The loop lines of a band, with the route's own zones added (each for its side). A zone with its own beasts
-	// (`mobs`: zone -> beast names, Skinning) gets a loop over those beasts in place of the planner's there.
-	const loopsOf = (b, e) => {
-		let loops = b.loops.map((l) => ({ ...l, factions: l.factions.slice() }));
+	// The areas of a band, with the route's own zones added (each for its side). A zone with its own beasts
+	// (`mobs`: zone -> beast names, Skinning) gets areas over those beasts in place of the planner's there.
+	const areasOf = (b, e) => {
+		let areas = b.areas.map((l) => ({ ...l, factions: l.factions.slice() }));
 		for (const side of FACTIONS) {
 			for (const name of ((e && e.zones) || {})[side] || []) {
 				const map = zoneId(ctx, name);
 				const mobs = (e.mobs || {})[name];
 				const raw = mobs ? require('./skinning').SKINNING_POINTS(ctx, map, b.band.from, b.band.to, mobs) : B.pointsOf(ctx, prof, map, b.band.from, b.band.to);
 				const pts = B.partPoints(raw, b.from, b.to);
-				if (!mobs && loops.some((l) => l.zone === map && l.factions.includes(side))) continue;
-				const f = pts.length >= 2 ? B.farmIn(ctx, prof, map, pts, side, skillLevel(b.from)) : null;
-				if (!f) {
-					notes.push(`${P} ${b.from}-${b.to}: ${name} has no safe loop for the ${side}${mobs ? ` on ${mobs.join(', ')}` : ''}`);
+				if (!mobs && areas.some((l) => l.zone === map && l.factions.includes(side))) continue;
+				const list = pts.length >= 2 ? B.areasFor(ctx, prof, map, pts, side) : [];
+				if (!list.length) {
+					notes.push(`${P} ${b.from}-${b.to}: ${name} has no safe area for the ${side}${mobs ? ` on ${mobs.join(', ')}` : ''}`);
 					continue;
 				}
 				if (mobs) {
-					for (const l of loops) if (l.zone === map) l.factions = l.factions.filter((x) => x !== side);
-					loops = loops.filter((l) => l.factions.length);
+					for (const l of areas) if (l.zone === map) l.factions = l.factions.filter((x) => x !== side);
+					areas = areas.filter((l) => l.factions.length);
 				}
-				loops.push({ zone: map, farm: f, factions: [side] });
+				const level = skillLevel(b.from);
+				for (const a of list.slice().sort((x, y) => rankScore(y, level) - rankScore(x, level)).slice(0, 3)) areas.push({ zone: map, area: a, factions: [side] });
 			}
 		}
-		return loops;
+		return areas;
 	};
 	const bandAt = (to, from) => {
 		const b = bands.filter((x) => x.to === to && x.from >= from - 0).pop() || bands.find((x) => x.to === to);
@@ -275,14 +278,14 @@ function renderRoute(ctx, prof, route) {
 				} else if (e.get) {
 					const b = bands.find((x) => x.from <= skill && skill < x.to) || bands[0];
 					const lines = [];
-					for (const l of loopsOf(b, null)) {
-						const lap = B.bandYield(ctx, prof, l.farm.on, l.farm.up);
-						const all = lap.reduce((s, x) => s + x.count, 0);
-						const mine = lap.find((x) => x.item === e.get);
+					for (const l of areasOf(b, null)) {
+						const sweep = B.bandYield(ctx, prof, l.area.on, l.area.up);
+						const all = sweep.reduce((s, x) => s + x.count, 0);
+						const mine = sweep.find((x) => x.item === e.get);
 						if (!mine || mine.count < all * MIN_SHARE) continue;
-						lines.push(B.loopLine(ctx, prof, l).replace(/ gain \S+/, ` yield ${fmt(mine.count)}`));
+						lines.push(B.areaLine(ctx, B.areaRecord(ctx, prof, l, 'yield', mine.count)));
 					}
-					if (!lines.length) errs.push(`no ${P} loop at ${skill} gives ${itemName(e.get)}`);
+					if (!lines.length) errs.push(`no ${P} area at ${skill} gives ${itemName(e.get)}`);
 					stock.set(e.get, (stock.get(e.get) || 0) + e.count);
 					// The guide's own material is gathered, never bought: no Auction House row, so the Materials setting
 					// leaves it gathered and the Shopping list (what a player buys) never lists it.
@@ -341,15 +344,15 @@ function renderRoute(ctx, prof, route) {
 					const b = bandAt(e.gather, skill);
 					if (!b) continue;
 					if (rank && e.gather > CAP[rank]) errs.push(`${e.gather} is past the ${rank} cap (${CAP[rank]})`);
-					const loops = loopsOf(b, e);
-					const nodes = B.nodeSummary(prof, loops.flatMap((l) => l.farm.on), b.from, b.to);
-					// The row names what the loops gather: every kind that still gives points there (rare ones aside), or
-					// for Skinning the levels of the beasts the loops hold.
+					const areas = areasOf(b, e);
+					const nodes = B.nodeSummary(prof, areas.flatMap((l) => l.area.on), b.from, b.to);
+					// The row names what the areas gather: every kind that still gives points there (rare ones aside), or
+					// for Skinning the levels of the beasts the areas hold.
 					const live = nodes.filter((n) => n.color && n.color !== 'grey' && n.gain > 0);
 					const lv = live.map((n) => n.level);
 					const kinds = [...new Set((live.some((n) => !n.rare) ? live.filter((n) => !n.rare) : live).map((n) => ({ req: n.req, name: shortNode(n.name) })).sort((a, b) => a.req - b.req || a.name.localeCompare(b.name)).map((n) => n.name))];
 					const what = e.title || (prof.skins ? `beasts of level ${Math.min(...lv)}-${Math.max(...lv)}` : listed(kinds));
-					step('gather', `${VERB[P]} ${what} until ${e.gather}`, e.tip, [...loops.map((l) => B.loopLine(ctx, prof, l)), `  skill ${pq} ${e.gather}`]);
+					step('gather', `${VERB[P]} ${what} until ${e.gather}`, e.tip, [...areas.map((l) => B.areaLine(ctx, B.areaRecord(ctx, prof, l))), `  skill ${pq} ${e.gather}`]);
 					skill = e.gather;
 				} else if (e.buy) {
 					step('buy', `Buy ${e.count} ${e.plural || itemName(e.buy)}`, e.tip, [`  buy ${e.buy} x${e.count} nearest`]);
@@ -425,7 +428,8 @@ function renderRoute(ctx, prof, route) {
 
 	const L = [header('guide', 'profession gathering build', `tools/lib/professions/routes/${prof.file}.json and data/forever`), `guide forever/professions/${prof.file}`, `title ${route.title || prof.title}`, 'category Professions', ...(route.class ? [`class ${route.class}`] : []), 'coords era', `levels ${route.levels || prof.levels}`, `zone ${route.zone || prof.headerZone}`, ''];
 	for (const para of route.intro || []) L.push(...comment(para), '#');
-	if (VERB[P] || P === 'Fishing') L.push(...comment(LOOPS_NOTE));
+	if (VERB[P]) L.push(...comment(AREAS_NOTE));
+	else if (P === 'Fishing') L.push(...comment(LOOPS_NOTE));
 	return { text: `${[...L, ...out].join('\n').replace(/\n+$/, '')}\n`, notes };
 }
 

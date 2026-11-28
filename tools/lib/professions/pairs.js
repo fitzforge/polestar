@@ -28,7 +28,7 @@
 // carries that `only`, and the route goes on from what all of them leave (the least of each material, the
 // lowest skill). Track bands may be one group's (`who`) or every group's (`shadowed` while a variant runs).
 
-const { draftGuide, draftData, itemLoops } = require('./guide');
+const { draftGuide, draftData, itemAreas } = require('./guide');
 const B = require('./gathering/build');
 const { GUIDE_HEADER, money, fmt, rankInfo } = require('./gathering/common');
 const D = require('./describe');
@@ -67,7 +67,7 @@ function blocks(text) {
 const roundDown = (v) => Math.max(1, Math.floor(v / 5) * 5);
 
 // The gathering side: the gathering guide's plan, each band with its rates (per node gathered: skill
-// points, items) and its loops.
+// points, items) and its areas, each with its `area` line (build.js areaLine) as `line`.
 function gatherTrack(ctx, gprof) {
 	return B.plan(ctx, gprof).map((e) => {
 		if (e.kind !== 'band') return { ...e };
@@ -76,18 +76,19 @@ function gatherTrack(ctx, gprof) {
 		let up = 0;
 		const items = new Map();
 		const perLoop = [];
-		for (const l of e.loops) {
-			const f = l.farm;
-			gain += f.gain / f.up;
-			lap += B.lapSeconds(gprof, f);
-			up += f.up;
-			const y = new Map(B.bandYield(ctx, gprof, f.on, f.up).map((x) => [x.item, x.count]));
+		const loops = e.areas.map((l) => ({ ...l, line: B.areaLine(ctx, B.areaRecord(ctx, gprof, l)) }));
+		for (const l of loops) {
+			const a = l.area;
+			gain += a.gain / a.up;
+			lap += B.areaRecord(ctx, gprof, l).lap;
+			up += a.up;
+			const y = new Map(B.bandYield(ctx, gprof, a.on, a.up).map((x) => [x.item, x.count]));
 			perLoop.push(y);
-			for (const [item, n] of y) items.set(item, (items.get(item) || 0) + n / f.up);
+			for (const [item, n] of y) items.set(item, (items.get(item) || 0) + n / a.up);
 		}
-		const n = e.loops.length;
+		const n = loops.length;
 		for (const [k, v] of items) items.set(k, v / n);
-		return { ...e, rate: { gain: gain / n, items, lap: lap / n, up: up / n }, perLoop };
+		return { ...e, loops, rate: { gain: gain / n, items, lap: lap / n, up: up / n }, perLoop };
 	});
 }
 
@@ -116,6 +117,8 @@ function renderPair(ctx, pair) {
 	const side = pair.side ? pair.side(ctx) : null;
 	const gprof = side ? side.prof : SPECS.find((p) => p.skill === pair.gather);
 	const G = pair.gather;
+	// The gathering side's places: a fishing pair's are loops of stands (pair-fishing.js), the others' areas.
+	const W = G === 'Fishing' ? { one: 'loop', many: 'loops' } : { one: 'area', many: 'areas' };
 	const P = pair.craft;
 	const draft = side ? side.draft : draftGuide(P, data);
 	// A crafting guide built from its route file (route.js) comes as one-action steps (`blocks`): the pair keeps
@@ -248,7 +251,7 @@ function renderPair(ctx, pair) {
 		if (e.to > st.cap && st.pending.some((x) => x.kind === 'train')) trainPending();
 		floorFor(e);
 	};
-	const lineOf = (l) => l.line || B.loopLine(ctx, gprof, l);
+	const lineOf = (l) => l.line;
 	// A side's band of one stand (`solo`: its zone and point) is a place to stand at, not a loop.
 	const loopsGain = (e) => (e.solo ? [`  zone ${e.solo.zone}`, `  goto ${e.solo.at} r 15`] : e.loops.map(lineOf));
 	// The band's loops as `yield` loops for a collect item (its raws: [{ raw, per }]): what one lap gives of it.
@@ -275,8 +278,8 @@ function renderPair(ctx, pair) {
 	};
 	// A skill-only step on band e's loops from skill `from` to `to` (catch-up, the end, or a floor).
 	const skillStep = (e, from, to, tip) => {
-		const title = e.title || gprof.bandTitle(B.nodeSummary(gprof, e.loops.flatMap((l) => l.farm.on), e.from, e.to), e);
-		const short = routed ? (tip.length <= 120 ? tip : `${G} ${to} first: the next loops need it.`) : tip;
+		const title = e.title || gprof.bandTitle(B.nodeSummary(gprof, e.loops.flatMap((l) => l.area.on), e.from, e.to), e);
+		const short = routed ? (tip.length <= 120 ? tip : `${G} ${to} first: the next ${W.many} need it.`) : tip;
 		push([routed ? `step ${pair.verb} until ${G} ${to}` : `step ${G} ${from}-${to}: ${title}`, `  tip ${short}`, ...loopsGain(e), `  skill ${G} ${to}`]);
 		st.floor = Math.max(st.floor, to);
 		st.sinceTrainer = true;
@@ -285,7 +288,7 @@ function renderPair(ctx, pair) {
 	const floorFor = (e) => {
 		if (st.floor >= e.from) return;
 		const prev = [...track.slice(0, st.ptr)].reverse().find((x) => x.kind === 'band' && visible(x));
-		if (prev) skillStep(prev, Math.floor(st.floor), e.from, routed ? `The next loops need ${G} ${e.from}; most players are past it.` : `${G} ${e.from} first: the next loops need it. Most players are past it already from the steps above, and then this step is done.`);
+		if (prev) skillStep(prev, Math.floor(st.floor), e.from, routed ? `The next ${W.many} need ${G} ${e.from}; most players are past it.` : `${G} ${e.from} first: the next ${W.many} need it. Most players are past it already from the steps above, and then this step is done.`);
 		st.floor = Math.max(st.floor, e.from);
 	};
 	// The skill to `to`, band by band on the gathering guide's loops: catch-up or the finish.
@@ -298,12 +301,15 @@ function renderPair(ctx, pair) {
 			const { from } = gatherNodes(e, n);
 			report.catchUp += n;
 			const got = [...e.rate.items].map(([item, per]) => ({ item, n: Math.round((n * per) / 5) * 5 })).filter((x) => x.n >= 5);
-			const yields = got.length ? ` The loop also gives about ${D.list(got.slice(0, 4).map((x) => `${x.n} ${itemName(x.item)}`))}: keep them, the next stretches use them.` : '';
+			const yields = got.length ? ` The ${W.one} also gives about ${D.list(got.slice(0, 4).map((x) => `${x.n} ${itemName(x.item)}`))}: keep them, the next stretches use them.` : '';
 			skillStep(e, Math.floor(from), target, routed ? why(Math.floor(from), target) : `${why(Math.floor(from), target)}${yields} ${pickOf(e)}`);
 			settle();
 		}
 	};
-	const PICK = `The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap.`;
+	const PICK =
+		G === 'Fishing'
+			? `The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap.`
+			: `The window lists the areas for your level, best first: the arrow leads to the one you pick and rests once you are in it; each keeps to creatures no more than a level above you and away from the other faction's towns.`;
 	const pickOf = (e) => (e && e.solo ? `The arrow leads to the stand players fish at in ${e.solo.zone}: stay there while you catch fish.` : PICK);
 	// Where to gather an item: the band the skill is in while its loops give at least half of what the best
 	// band reachable so far gives per node (a trickle of it is no place to farm 240 of it); past that, the
@@ -380,7 +386,7 @@ function renderPair(ctx, pair) {
 			// The band ends first: gather it to its end (skill goal), then on in the next band.
 			const a = Math.floor(st.g);
 			gatherNodes(e, toEnd);
-			skillStep(e, a, e.to, routed ? `This loop gives the ${D.list(here_.map(itemName))} to ${G} ${e.to}; the next one the rest.` : `${pair.verb} from ${G} ${a} to ${e.to} for ${seg.recipe.name}: this loop gives ${D.list(here_.map(itemName))}, and the next one the rest from ${G} ${e.to}. ${pickOf(e)}`);
+			skillStep(e, a, e.to, routed ? `This ${W.one} gives the ${D.list(here_.map(itemName))} to ${G} ${e.to}; the next one the rest.` : `${pair.verb} from ${G} ${a} to ${e.to} for ${seg.recipe.name}: this ${W.one} gives ${D.list(here_.map(itemName))}, and the next one the rest from ${G} ${e.to}. ${pickOf(e)}`);
 			settle();
 		}
 		range = range || [st.g, st.g];
@@ -398,9 +404,9 @@ function renderPair(ctx, pair) {
 		let skillAsk = where ? where.e.from : 1;
 		const solo = where && where.e.solo;
 		if (!loops.length && !solo) {
-			// Nothing gathered for it here (the bags hold it): the gathering guides' best loops for it.
+			// Nothing gathered for it here (the bags hold it): the gathering guides' best areas for it.
 			const raw = main.raws.slice().sort((a, b) => a.per - b.per)[0];
-			const l = itemLoops(data, raw.raw, raw.per);
+			const l = itemAreas(data, raw.raw, raw.per);
 			loops = l ? l.lines : [];
 			skillAsk = l ? l.skill : 1;
 		}
@@ -411,7 +417,7 @@ function renderPair(ctx, pair) {
 		const smeltNames = counts.filter(made).map((c) => `${c.count} ${itemName(c.item)}`);
 		const [g0, g1] = range.map(Math.floor);
 		const rise = g1 > g0 ? ` (${G} ${g0} to ${g1})` : (where && !where.skill) || !toGet.length ? '' : ` (${G} ${g0})`;
-		const lower = where && !where.skill ? ` at the loops of ${G} ${where.e.from}-${where.e.to}, the richest in it (they give no more points)` : '';
+		const lower = where && !where.skill ? ` at the ${W.many} of ${G} ${where.e.from}-${where.e.to}, the richest in it (they give no more points)` : '';
 		const flow = `${toGet.length ? `${pair.verb} ${D.list(toGet.map((x) => `${x.n} ${itemName(x.raw)}`))}${rise}${lower}` : 'Your bags hold it already'}${smeltNames.length ? `, smelt ${D.list(smeltNames)} at a forge` : ''}, then craft ${D.crafts(seg.count, seg.recipe.name)} (${P} ${seg.from} to ${seg.to}).`;
 		const why = `${D.list(counts.map((c) => `${c.count} ${itemName(c.item)}`))} for ${P} ${seg.from}-${seg.to}: ${D.crafts(seg.count90 || seg.count, seg.recipe.name)}${kept.length ? `; from your ${pair.doing} on the way: ${D.list(kept.map((x) => `${x.n} of ${x.of} ${itemName(x.raw)}`))}` : ''}.`;
 		const raws = [...need.keys()].map(itemName);
@@ -435,7 +441,7 @@ function renderPair(ctx, pair) {
 			const lines = [`step ${title}`];
 			const arrow = solo
 				? `The arrow leads to the stand players fish them at in ${solo.zone}: stay there until your bags hold them.`
-				: `The arrow takes the ${G} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left.${side && side.gatherNote ? ` ${side.gatherNote}` : ''}`;
+				: `${G === 'Fishing' ? `The arrow takes the ${G} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left.` : `The window lists the ${G} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them.`}${side && side.gatherNote ? ` ${side.gatherNote}` : ''}`;
 			lines.push(`  tip ${why} ${flow} ${arrow}`);
 			// One stand: the arrow goes there (`goto`) and the fish are a bag count (`anywhere`: the stand is where
 			// they bite, not a spawn of theirs).
@@ -692,11 +698,11 @@ function renderPair(ctx, pair) {
 	const about = side
 		? side.header.flatMap((p, i) => [...(i ? ['#'] : []), ...wrap(p)])
 		: [
-				...wrap(`${G} and ${P} 1-300 together, for both factions: each ${P} stretch starts with a ${G} loop sized to what that stretch needs, which also raises ${G}, and the craft follows with the materials in your bags. Spares carry to the next stretch, and when a stretch needs what ${G} cannot gather yet, ${G} catches up first. ${G} ranks are trained at the ${P} trainer visit when the skill allows. ${G} reaches 300 before the last ${P} stretch.`),
+				...wrap(`${G} and ${P} 1-300 together, for both factions: each ${P} stretch starts with a ${G} step in the areas that give what that stretch needs, which also raises ${G}, and the craft follows with the materials in your bags. Spares carry to the next stretch, and when a stretch needs what ${G} cannot gather yet, ${G} catches up first. ${G} ranks are trained at the ${P} trainer visit when the skill allows. ${G} reaches 300 before the last ${P} stretch.`),
 				'#',
-				...wrap(`The ${G} loops are the ${G} guide's (densest ground at a safe level, picked where you are); the ${P} route, its recipes, trainers, vendor goods and counts the ${P} guide's (enough for 9 players in 10). Anything ${G} does not give is bought or farmed as there (Gather, Buy or Mix).`),
+				...wrap(`The ${G} areas are the ${G} guide's (the most nodes up at a safe level, listed for your level); the ${P} route, its recipes, trainers, vendor goods and counts the ${P} guide's (enough for 9 players in 10). Anything ${G} does not give is bought or farmed as there (Gather, Buy or Mix).`),
 				'#',
-				...wrap(`ASSUMED: how far ${G} rises on a stretch's materials is the ${G} guide's expected skill-ups per node on the band's loops and what players' recorded gathers gave per node, averaged over the band's loops.`),
+				...wrap(`ASSUMED: how far ${G} rises on a stretch's materials is the ${G} guide's expected skill-ups per node in the band's areas and what players' recorded gathers gave per node, averaged over the band's areas.`),
 			];
 	const head = [
 		GUIDE_HEADER,
