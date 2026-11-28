@@ -17879,30 +17879,23 @@ test('#190, #297, #1958, #1808: profession guides craft and learn what Forever\'
 	const leather = goals('forever/professions/leatherworking.guide');
 	assert.ok(!leather.some(({ goal }) => goal.t === 'craft' && goal.item === 4304), 'Thick Leather is never crafted');
 	const enchanting = goals('forever/professions/enchanting.guide');
-	const { goal } = enchanting[at(enchanting, 'learn 13637', (g) => g.t === 'learn' && g.spell === 13637)];
-	assert.deepEqual(goal.candidates.map((c) => c.npc).sort((a, b) => a - b), [11072, 11074], 'Kitta Firewind and Hgarth only');
+	// The learn is a smart target or, since the Expert bracket's visits go to one trainer per side, one pinned
+	// learn per side: either way only Kitta Firewind and Hgarth.
+	const { s } = enchanting[at(enchanting, 'learn 13637', (g) => g.t === 'learn' && g.spell === 13637)];
+	const npcs = enchanting.filter((e) => e.s === s && e.goal.t === 'learn' && e.goal.spell === 13637).flatMap(({ goal }) => (goal.candidates ? goal.candidates.map((c) => c.npc) : [goal.npc]));
+	assert.deepEqual([...new Set(npcs)].sort((a, b) => a - b), [11072, 11074], 'Kitta Firewind and Hgarth only');
 });
 
 // Encrypt512bit (#3140) and Sylliad (#3272): Magnus Frostwake's house in Caer Darrow was empty. He is a ghost: the
 // server gives him the Caer Darrow Ghosts invisibility aura, seen through only with the Spectral Essence on, the reward
-// of a level 55 Scholomance chain. His two plans are optional buys that say so; their learns and the Dense Grinding
-// Stones they take never hold a step, and the skill reaches 285 by any recipe.
-test('#3140, #3272: Blacksmithing: Magnus Frostwake\'s plans are optional and name the Spectral Essence', { skip }, () => {
+// of a level 55 Scholomance chain. Since the 0.4.4 profession fixes the route takes no plans of his at all: Derotain
+// Mudsipper's Imperial Plate plans (Gadgetzan, from Blacksmithing 240) and the Radiant plans from the Auction House
+// take fewer Thorium Bars than his battleaxe, so no step sends a player to look for him.
+test('#3140, #3272: Blacksmithing: no step sends a player to Magnus Frostwake for plans', { skip }, () => {
 	const bs = goals('forever/professions/blacksmithing.guide');
-	for (const item of [12819, 12823]) {
-		const { goal, step } = bs[at(bs, `buy ${item}`, (g) => g.t === 'buy' && g.item === item)];
-		assert.ok(goal.optional, `buy ${item} is optional`);
-		assert.ok(step.goals.every((g) => g.optional || g.t === 'tip' || g.t === 'note'), `nothing on the ${item} step holds it`);
-	}
-	const tips = fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/professions/blacksmithing.guide'), 'utf8').split('\n').filter((l) => /^ {2}tip Plans: (Ornate Thorium Handaxe|Huge Thorium Battleaxe) teaches/.test(l));
-	assert.equal(tips.length, 2);
-	for (const t of tips) assert.match(t, /Magnus is a ghost: you see him only with the Spectral Essence on/);
-	for (const spell of [16969, 16971]) {
-		const { goal, s } = bs[at(bs, `learn ${spell}`, (g) => g.t === 'learn' && g.spell === spell)];
-		assert.ok(goal.optional, `learn ${spell} is optional`);
-		const held = bs.filter((e) => e.s === s && !e.goal.optional && e.goal.t === 'craft' && !e.goal.untilSkill).map(({ goal: g }) => `craft ${g.spell}`);
-		assert.deepEqual(held, [], `only the skill holds the ${spell} step`);
-	}
+	for (const item of [12819, 12823]) assert.ok(!bs.some(({ goal }) => goal.t === 'buy' && goal.item === item), `no buy ${item}`);
+	for (const spell of [16969, 16971]) assert.ok(!bs.some(({ goal }) => (goal.t === 'learn' || goal.t === 'craft') && goal.spell === spell), `no learn or craft ${spell}`);
+	assert.ok(!fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/professions/blacksmithing.guide'), 'utf8').split('\n').some((l) => /^ {2}tip .*Magnus Frostwake/.test(l)), 'no step tip names him');
 });
 
 // #2563 (Kiber_Mazai, 0.4.0): Harlo Barnaby stops offering Fall of Dun Modr (472) once A Grim Task (304) is handed

@@ -30,46 +30,47 @@ zone Azeroth
 # or Goblin (Nixx Sprocketspring, Gadgetzan).
 #
 # Route (crafts are expected counts; yellow and green crafts can take more):
-#     1-35  Rough Blasting Powder, about 46 (known): 1 Rough Stone each
-#    35-57  Handful of Copper Bolts, about 33 (trainer 1s 15c): 1 Copper Bar each
-#    57-75  Copper Tube, about 18 (trainer 1s 50c): 2 Copper Bar and 1 Weak Flux each
-#    75-94  Crafted Heavy Shot, about 15 (trainer 2s 50c): 1 Coarse Blasting Powder and 1 Copper Bar each
+#     1-30  Rough Blasting Powder, about 33 (known): 1 Rough Stone each
+#    30-59  Handful of Copper Bolts, about 50 (trainer 1s 15c): 1 Copper Bar each
+#    59-75  Copper Tube, about 16 (trainer 1s 50c): 2 Copper Bar and 1 Weak Flux each
+#    75-94  Coarse Blasting Powder, about 30 (trainer 2s 50c): 1 Coarse Stone each
 #    94-100 Copper Tube, about 14 (trainer 1s 50c): 2 Copper Bar and 1 Weak Flux each
 #   100-125 Practice Lock, about 31 (trainer): 1 Bronze Bar, 2 Handful of Copper Bolts and 1 Weak Flux each
-#   125-140 Heavy Blasting Powder, about 27 (trainer): 1 Heavy Stone each
-#   140-150 Big Bronze Bomb, about 10 (trainer): 2 Heavy Blasting Powder, 3 Bronze Bar and 1 Silver Contact each
+#   125-144 Heavy Blasting Powder, about 52 (trainer): 1 Heavy Stone each
+#   144-150 Big Bronze Bomb, about 7 (trainer): 2 Heavy Blasting Powder, 3 Bronze Bar and 1 Silver Contact each
 #   150-166 Aquadynamic Fish Attractor, about 31 (trainer): 2 Bronze Bar, 1 Nightcrawlers and 1 Coarse Blasting Powder each
 #   166-175 Bronze Framework, about 19 (trainer): 2 Bronze Bar, 1 Medium Leather and 1 Wool Cloth each
-#   175-191 Solid Blasting Powder, about 31 (trainer): 2 Solid Stone each
-#   191-210 Big Iron Bomb, about 27 (trainer): 3 Iron Bar, 3 Heavy Blasting Powder and 1 Silver Contact each
+#   175-195 Solid Blasting Powder, about 72 (trainer): 2 Solid Stone each
+#   195-210 Big Iron Bomb, about 22 (trainer): 3 Iron Bar, 3 Heavy Blasting Powder and 1 Silver Contact each
 #   210-225 Hi-Impact Mithril Slugs, about 19 (trainer): 1 Mithril Bar and 1 Solid Blasting Powder each
 #   225-245 Hi-Impact Mithril Slugs, about 62 (trainer): 1 Mithril Bar and 1 Solid Blasting Powder each
 #   245-265 Mithril Gyro-Shot, about 28 (trainer): 2 Mithril Bar and 2 Solid Blasting Powder each
 #   265-287 Thorium Widget, about 24 (recipe 1g 20s): 3 Thorium Bar and 1 Runecloth each
 #   287-300 Thorium Tube, about 14 (recipe 1g 60s): 6 Thorium Bar each
 #
-# Shopping per bracket (vendor goods at vendor prices; gathered or dropped materials by count):
-# 1-75: Apprentice 10c, recipes 4s 15c, vendor goods 18s 18c; gather or buy 46 Rough Stone and 75
+# Shopping per bracket (vendor goods at vendor prices; gathered or dropped materials by count, enough for 9 players in 10):
+# 1-75: Apprentice 10c, recipes 4s 15c, vendor goods 16s 18c; gather or buy 36 Rough Stone and 101
 # Copper Bar.
-# 75-150: Journeyman 5s (Classic price), recipes 5s plus unpriced trainer recipes, vendor goods 45s;
-# gather or buy 15 Coarse Stone, 27 Heavy Stone, 72 Copper Bar, 61 Bronze Bar and 2 Silver Bar.
+# 75-150: Journeyman 5s (Classic price), recipes 2s 50c plus unpriced trainer recipes, vendor goods
+# 45s; gather or buy 47 Coarse Stone, 113 Heavy Stone, 62 Copper Bar, 63 Bronze Bar and 3 Silver
+# Bar.
 # 150-225: Expert 50s (Classic price), trainer recipes (prices not in the data), vendor goods 31s;
-# gather or buy 19 Medium Leather, 19 Wool Cloth, 31 Coarse Stone, 74 Heavy Stone, 100 Bronze Bar, 6
-# Silver Bar, 81 Iron Bar, 19 Mithril Bar and 62 Solid Stone.
+# gather or buy 25 Medium Leather, 25 Wool Cloth, 128 Bronze Bar, 6 Silver Bar, 81 Iron Bar, 22
+# Mithril Bar and 390 Solid Stone.
 # 225-300: Artisan 4g 50s (Classic price), recipes 2g 80s plus unpriced trainer recipes; gather or
-# buy 118 Mithril Bar, 212 Solid Stone, 156 Thorium Bar and 24 Runecloth.
+# buy 145 Mithril Bar, 174 Thorium Bar and 26 Runecloth.
 #
 # Data: recipes, colours and reagents from the Forever client's tables; trainer learn skills and
 # prices from Forever's sniffed trainer lists (they reach skill 50-150); vendors, stock and drops
 # from data/forever. Materials are valued at about four times their vendor sell price (cloth and
 # leather by the square root of it, hides four times higher; tools/lib/professions/materials.js) to
 # rank recipes against each other, never as a price forecast.
-# ASSUMED: learn skills of Practice Lock 100, Heavy Blasting Powder 125, Silver Contact 90, Big
-# Bronze Bomb 140, Aquadynamic Fish Attractor 150, Bronze Framework 145, Solid Blasting Powder 175,
-# Big Iron Bomb 190, Hi-Impact Mithril Slugs 210 and Mithril Gyro-Shot 245 (no sniffed Forever list
-# teaches them: Classic's trainer skill moved as far as Forever moved the recipe's colours, which
-# the sniffed lists bear out on 126 of 129 recipes). In-game check: the skill the trainer asks;
-# their prices are not in the data.
+# Learn skills players' recordings bear out (estimated from Classic's lists; the lowest skill
+# players learned each at, never below): Practice Lock 100 (6 players), Heavy Blasting Powder 125 (9
+# players), Silver Contact 90 (10 players), Big Bronze Bomb 140 (7 players), Aquadynamic Fish
+# Attractor 150 (5 players), Bronze Framework 145 (6 players), Solid Blasting Powder 175 (3
+# players), Big Iron Bomb 190 (1 player), Hi-Impact Mithril Slugs 210 (3 players) and Mithril
+# Gyro-Shot 245 (1 player).
 # ASSUMED: rank level gates Journeyman 10, Expert 20 and Artisan 35 (Classic's; Forever's sniffed
 # lists ask level 1 for Apprentice). In-game check: the level each trainer asks.
 # ASSUMED: rank prices Journeyman 5s, Expert 50s and Artisan 4g 50s (Classic's trainer lists and
@@ -80,18 +81,18 @@ zone Azeroth
 section Engineering 1-75
 
 step Learn Engineering
-  tip Apprentice Engineering lets you craft up to 75 for 10c, at any character level. Any Engineering trainer of your faction teaches it; the arrow picks the nearest. Buy a Blacksmith Hammer and pair it with Mining: Rough Stone and Copper Ore are the first parts. 1-75 takes about 4s 15c of recipes and 18s 18c of vendor goods, plus 46 Rough Stone and 75 Copper Bar to gather or buy.
+  tip Apprentice Engineering lets you craft up to 75 for 10c, at any character level. Any Engineering trainer of your faction teaches it; the arrow picks the nearest. Buy a Blacksmith Hammer and pair it with Mining: Rough Stone and Copper Ore are the first parts. 1-75 takes about 4s 15c of recipes and 16s 18c of vendor goods, plus 36 Rough Stone and 101 Copper Bar to gather or buy.
   train Engineering Apprentice
   skill Engineering 1
 
 step Engineering 1-75: vendor goods
-  tip Buy the whole bracket's share in one go: 18 Weak Flux (18s) and Blacksmith Hammer (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction (Stormwind City: Billibub Cogspinner, Edna Mullby and Kaita Deepforge).
-  buy 2880 x18 nearest
+  tip Buy the whole bracket's share in one go: 16 Weak Flux (16s) and Blacksmith Hammer (a tool: one, kept in your bags, 18c); about 16s 18c in all. The arrow picks the nearest seller of your faction (Stormwind City: Billibub Cogspinner, Edna Mullby and Kaita Deepforge).
+  buy 2880 x16 nearest
   buy 5956 nearest -- a tool, keep it in your bags
 
 step Get Rough Stone
-  tip You need 46 Rough Stone for Engineering 1-75: Rough Blasting Powder. Mining: Copper Vein (skill 1) in Dun Morogh (1-10), Elwynn Forest (1-10) and Zephras Isle (1-15). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
-  collect 2835 x46 gather Mining 1
+  tip 36 Rough Stone for Engineering 1-75: 36 Rough Blasting Powder. Mining: Copper Vein (skill 1) in Dun Morogh (1-10), Elwynn Forest (1-10) and Zephras Isle (1-15). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 2835 x36 gather Mining 1
   loop Zephras Isle lvl 5 lap 310 yield 31.5 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
   loop Teldrassil lvl 11 lap 569 yield 45.4 only Alliance r 60 at 56.9,26.3 56.0,25.0 56.2,28.8 51.4,49.1 52.3,51.7 54.5,51.9 52.9,49.3 56.8,31.9 57.7,29.1 58.2,27.2
   loop Dun Morogh lvl 5 lap 333 yield 15.0 only Alliance r 60 at 27.3,80.1 28.7,83.0 30.1,80.5 29.6,75.7 27.1,63.9 26.7,66.0 26.4,67.8 19.7,75.4 22.0,79.3
@@ -99,11 +100,11 @@ step Get Rough Stone
   loop Durotar lvl 8 lap 399 yield 14.4 only Horde r 60 at 45.6,70.8 44.6,69.6 43.0,71.6 40.3,70.7 40.2,68.6 40.0,65.9 41.6,66.2 41.1,61.4 45.4,50.0 48.3,49.2 43.5,61.6 45.8,66.6
   loop Tirisfal Glades lvl 11 lap 379 yield 12.9 only Horde r 60 at 23.8,59.5 24.0,57.9 28.1,47.0 29.7,42.5 30.8,45.5 33.5,52.8 32.2,55.8 33.4,69.7 30.8,72.6 29.3,63.8 25.2,60.2
   loop Mulgore lvl 8 lap 540 yield 9.7 only Horde r 60 at 41.8,79.8 33.5,58.2 31.6,60.9 34.0,66.5 33.2,70.1 34.1,72.7 32.9,76.2 33.7,81.2 34.6,79.8 41.2,82.0 49.0,92.8 49.2,87.7
-  auction 2835 x46
+  auction 2835 x36
 
 step Get Copper Bar
-  tip You need 75 Copper Bar for Engineering 1-75: Handful of Copper Bolts, Arclight Spanner and Copper Tube. Mine Copper Ore and smelt it at a forge (Mining 1). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
-  collect 2840 x75 gather Mining 1
+  tip 101 Copper Bar for Engineering 1-75: 63 Handfuls of Copper Bolts, Arclight Spanner and 16 Copper Tubes. Mine Copper Ore and smelt it at a forge (Mining 1). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 2840 x101 gather Mining 1
   loop Zephras Isle lvl 5 lap 310 yield 36.4 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
   loop Teldrassil lvl 11 lap 569 yield 42.5 only Alliance r 60 at 56.9,26.3 56.0,25.0 56.2,28.8 51.4,49.1 52.3,51.7 54.5,51.9 52.9,49.3 56.8,31.9 57.7,29.1 58.2,27.2
   loop Dun Morogh lvl 5 lap 333 yield 15.8 only Alliance r 60 at 27.3,80.1 28.7,83.0 30.1,80.5 29.6,75.7 27.1,63.9 26.7,66.0 26.4,67.8 19.7,75.4 22.0,79.3
@@ -111,28 +112,28 @@ step Get Copper Bar
   loop Durotar lvl 8 lap 399 yield 15.7 only Horde r 60 at 45.6,70.8 44.6,69.6 43.0,71.6 40.3,70.7 40.2,68.6 40.0,65.9 41.6,66.2 41.1,61.4 45.4,50.0 48.3,49.2 43.5,61.6 45.8,66.6
   loop Tirisfal Glades lvl 11 lap 379 yield 13.8 only Horde r 60 at 23.8,59.5 24.0,57.9 28.1,47.0 29.7,42.5 30.8,45.5 33.5,52.8 32.2,55.8 33.4,69.7 30.8,72.6 29.3,63.8 25.2,60.2
   loop Mulgore lvl 8 lap 540 yield 11.8 only Horde r 60 at 41.8,79.8 33.5,58.2 31.6,60.9 34.0,66.5 33.2,70.1 34.1,72.7 32.9,76.2 33.7,81.2 34.6,79.8 41.2,82.0 49.0,92.8 49.2,87.7
-  auction 2840 x75
+  auction 2840 x101
 
-step Rough Blasting Powder to 35
-  tip Rough Blasting Powder is orange at 1 (yellow 20, green 30, grey 40): about 46 crafts to 35. Each takes 1 Rough Stone. One Rough Stone a craft; Rough Stone comes with the Copper Ore from Copper Veins.
-  craft 3918 until 35
+step Rough Blasting Powder to 30
+  tip Rough Blasting Powder is orange at 1 (yellow 20, green 30, grey 40): about 33 crafts to 30, up to 36 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Rough Stone. One Rough Stone a craft; Rough Stone comes with the Copper Ore from Copper Veins.
+  craft 3918 until 30
 
-step Engineering recipes at 35
+step Engineering recipes at 30
   tip Back to an Engineering trainer: Handful of Copper Bolts (from 30, 1s 15c). Also learn Reagent Bot (1s): Forever's Engineering camp item, placed at a campsite beside a campfire. It takes a Handful of Copper Bolts and a Copper Tube, which you learn at 30 and 50, so it gives no points. The Camping 101: Engineering quest from your starting area's camping guide (after The Great Outdoors) sends you to an engineering trainer who teaches it free.
   learn 3922
   learn 1230656
 
-step Handful of Copper Bolts to 57
-  tip Handful of Copper Bolts is orange at 35 (yellow 45, green 52, grey 60): about 33 crafts to 57. Each takes 1 Copper Bar. One Copper Bar a craft. Keep the bolts: Practice Locks and later gadgets take them. Needs an anvil nearby. Blacksmith Hammer is a tool: keep it in your bags.
-  craft 3922 until 57
+step Handful of Copper Bolts to 59
+  tip Handful of Copper Bolts is orange at 30 (yellow 45, green 52, grey 60): about 50 crafts to 59, up to 63 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Copper Bar. One Copper Bar a craft. Keep the bolts: Practice Locks and later gadgets take them. Needs an anvil nearby. Blacksmith Hammer is a tool: keep it in your bags.
+  craft 3922 until 59
 
-step Engineering recipes at 57
+step Engineering recipes at 59
   tip Back to an Engineering trainer: Arclight Spanner (from 50, 1s 50c) and Copper Tube (from 50, 1s 50c).
   learn 7430
   learn 3924
 
 step Copper Tube to 75
-  tip Copper Tube is orange at 57 (yellow 80, green 95, grey 110): about 18 crafts to 75, a point every craft. Each takes 2 Copper Bar and 1 Weak Flux. Two Copper Bars and a Weak Flux a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. Make the Arclight Spanner now, while it still gives a point: a later recipe needs it in your bags, so keep it there.
+  tip Copper Tube is orange at 59 (yellow 80, green 95, grey 110): about 16 crafts to 75, a point every craft. Each takes 2 Copper Bar and 1 Weak Flux. Two Copper Bars and a Weak Flux a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. Make the Arclight Spanner now, while it still gives a point: a later recipe needs it in your bags, so keep it there.
   craft 7430 x1 -- a tool: keep it in your bags
   craft 3924 until 75
   skill Engineering 75
@@ -141,45 +142,46 @@ step Copper Tube to 75
 section Engineering 75-150
 
 step Journeyman Engineering
-  tip Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs Engineering 50 and character level 10, so you can take it on any visit from 50. Not every Engineering trainer teaches it: Alliance Finbus Geargrind (Duskwood), Lilliam Sparkspindle (Stormwind City) and Trixie Quikswitch (Ironforge); Horde Franklin Lloyd (Undercity). The arrow picks the nearest of your faction. Learn now: Coarse Blasting Powder (from 75, 2s 50c) and Crafted Heavy Shot (from 75, 2s 50c). 75-150 takes about 5s of recipes and 45s of vendor goods, plus 15 Coarse Stone, 27 Heavy Stone, 72 Copper Bar, 61 Bronze Bar and 2 Silver Bar to gather or buy.
+  tip Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs Engineering 50 and character level 10, so you can take it on any visit from 50. Not every Engineering trainer teaches it: Alliance Finbus Geargrind (Duskwood), Lilliam Sparkspindle (Stormwind City) and Trixie Quikswitch (Ironforge); Horde Franklin Lloyd (Undercity). The arrow picks the nearest of your faction. Learn now: Coarse Blasting Powder (from 75, 2s 50c). 75-150 takes about 2s 50c of recipes and 45s of vendor goods, plus 47 Coarse Stone, 113 Heavy Stone, 62 Copper Bar, 63 Bronze Bar and 3 Silver Bar to gather or buy.
   level 10
   train Engineering Journeyman
   learn 3929
-  learn 3930
 
 step Engineering 75-150: vendor goods
   tip Buy the whole bracket's share in one go: 45 Weak Flux (45s); about 45s in all. The arrow picks the nearest seller of your faction (Stormwind City: Billibub Cogspinner, Brooke Stonebraid and Edna Mullby).
   buy 2880 x45 nearest
 
 step Get Coarse Stone
-  tip You need 15 Coarse Stone for Engineering 75-150: Crafted Heavy Shot. Mining: Tin Vein (skill 65) in Ashenvale (18-30), Hillsbrad Foothills (20-30) and Wetlands (20-30). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
-  collect 2836 x15 gather Mining 65
+  tip 47 Coarse Stone for Engineering 75-150: 38 Coarse Blasting Powder and 39 Aquadynamic Fish Attractors (9 of them for 150-225: get them all now). Mining: Tin Vein (skill 65) in Ashenvale (18-30), Hillsbrad Foothills (20-30) and Wetlands (20-30). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 2836 x47 gather Mining 65
   loop Wetlands lvl 29 lap 481 yield 2.4 only Alliance r 60 at 50.6,61.8 48.6,62.3 46.7,62.8 45.8,65.1 45.7,60.3 47.5,60.0 49.1,59.1 50.9,59.2 54.2,58.2 55.9,58.7 53.6,62.4 53.4,66.9
   loop Darkshore lvl 18 lap 405 yield 1.8 only Alliance r 60 at 56.0,34.3 55.7,36.3 54.6,37.0 52.4,36.3 49.1,37.9 47.8,32.8 48.2,29.1 51.3,30.3 51.7,28.1 50.7,26.2 52.1,26.1 53.7,26.0
   loop Westfall lvl 18 lap 394 yield 1.5 only Alliance r 60 at 30.1,47.1 31.4,44.6 34.7,42.9 32.2,40.6 30.7,38.2 29.4,40.9 29.2,50.5 28.9,54.8
   loop Duskwood lvl 30 lap 690 yield 1.4 only Alliance r 60 at 86.2,48.6 79.5,40.5 77.3,38.8 57.7,46.8 30.3,76.7 25.2,80.3 26.7,37.7 58.6,37.7 78.7,29.0 81.2,28.7 85.2,32.5 82.9,35.9
   loop Riverglades lvl 39 lap 313 yield 1.6 only Horde live r 60 at 21.3,68.9 19.9,71.6 16.9,71.3 17.2,68.9 20.4,64.4 22.0,64.7 24.2,63.4 25.3,58.2 29.7,56.3 29.9,61.9 26.4,61.0 26.7,63.9
+  loop Stonetalon Mountains lvl 23 lap 405 yield 1.8 only Horde r 60 at 72.8,60.7 70.9,58.6 68.8,53.3 66.6,59.7 63.2,64.7 63.4,51.6 65.5,50.5 68.3,44.7 72.2,43.7 76.7,52.7 76.7,59.5 72.9,62.9
   loop Ashenvale lvl 24 lap 497 yield 1.9 only Horde r 60 at 40.5,36.4 39.6,33.9 38.1,30.5 33.1,36.0 35.4,37.1 40.5,40.7 45.0,44.3 47.1,45.8 46.3,42.8 43.8,40.8 42.2,37.1 40.2,37.9
   loop Thousand Needles lvl 31 lap 715 yield 2.0 only Horde r 60 at 26.9,53.2 26.3,55.7 11.1,38.5 10.1,36.0 10.9,32.2 23.9,23.4 34.6,26.9 42.6,33.4 44.7,39.2 53.9,45.6 55.6,49.6 35.9,50.7
-  loop Hillsbrad Foothills lvl 22 lap 479 yield 0.9 only Horde r 60 at 62.7,10.8 67.2,4.4 68.0,8.3 64.7,11.5 64.7,15.3 58.0,11.9
-  auction 2836 x15
+  auction 2836 x47
 
 step Get Heavy Stone
-  tip You need 27 Heavy Stone for Engineering 75-150: Heavy Blasting Powder. Mining: Iron Deposit (skill 125) in Arathi Highlands (30-40), Stranglethorn Vale (30-45) and Riverglades (38-47). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
-  collect 2838 x27 gather Mining 125
+  tip 113 Heavy Stone for Engineering 75-150: 70 Heavy Blasting Powder and 27 Big Iron Bombs (43 of them for 150-225: get them all now). Mining: Iron Deposit (skill 125) in Arathi Highlands (30-40), Stranglethorn Vale (30-45) and Riverglades (38-47). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 2838 x113 gather Mining 125
   loop Alterac Mountains lvl 37 lap 631 yield 4.1 only Alliance r 60 at 52.4,46.3 52.9,49.8 37.6,67.0 33.7,55.3 31.8,53.6 33.2,47.2 32.9,39.9 39.5,38.0 40.2,30.7 47.9,33.2 45.2,39.2 49.8,44.0
   loop Thousand Needles lvl 31 lap 624 yield 2.9 only Alliance r 60 at 26.9,53.2 26.3,55.7 16.6,40.9 21.8,41.2 23.7,44.8 26.4,47.0 28.8,49.0 30.1,45.9 33.0,51.2 35.9,50.7 37.0,54.3 34.4,53.4
   loop Badlands lvl 42 lap 637 yield 2.8 only Alliance r 60 at 15.6,35.0 12.1,35.1 14.3,39.8 23.9,66.4 15.1,81.7 20.8,82.2 42.2,79.6 44.3,75.3 45.4,84.6 64.3,70.4 62.4,63.8 34.4,23.3
   loop Wetlands lvl 32 lap 619 yield 2.4 only Alliance r 60 at 69.5,28.9 63.0,25.2 61.5,24.0 53.2,52.1 49.4,52.2 48.6,50.3 41.9,46.2 38.1,45.4 46.7,62.8 50.6,61.9 69.6,33.2 67.9,31.6
+  loop Stranglethorn Vale lvl 35 lap 617 yield 1.7 only Alliance r 60 at 46.2,7.4 30.5,7.6 27.0,10.1 27.4,13.6 25.7,15.4 26.3,18.0 27.6,18.0 30.0,17.7 29.3,15.3 31.3,13.8 29.8,12.1 31.3,9.5
+  loop Duskwood lvl 25 lap 611 yield 0.8 only Alliance r 60 at 86.1,48.7 85.5,54.0 84.1,58.3 82.7,53.0 79.5,40.5 82.9,35.9
   loop Badlands lvl 42 lap 628 yield 3.9 only Horde r 60 at 15.6,34.9 14.8,48.6 15.0,54.5 20.2,63.0 23.7,61.3 34.9,53.0 42.2,78.9 22.6,73.3 18.5,74.8 18.0,70.3 12.9,58.9 10.8,55.3
   loop Thousand Needles lvl 31 lap 715 yield 4.4 only Horde r 60 at 26.9,53.2 26.3,55.7 11.1,38.5 10.1,36.0 10.9,32.2 23.9,23.4 34.6,26.9 42.6,33.4 44.7,39.2 53.9,45.6 55.6,49.6 35.9,50.7
+  loop Riverglades lvl 39 lap 310 yield 1.5 only Horde live r 60 at 69.3,61.7 71.3,60.1 72.6,58.5 69.9,54.1 70.1,48.8 64.2,48.8 64.4,66.6 65.7,71.9 66.7,68.3 67.8,65.1
   loop Alterac Mountains lvl 38 lap 641 yield 2.8 only Horde r 60 at 50.9,44.2 53.2,48.4 54.1,45.6 55.1,40.6 52.7,36.8 48.0,33.1 42.8,34.7 37.9,32.5 35.6,39.7 33.3,43.9 39.5,38.0 45.4,39.8
-  loop Riverglades lvl 38 lap 308 yield 1.3 only Horde live r 60 at 69.3,61.7 71.3,60.1 72.6,58.5 69.9,54.1 64.4,66.6 65.7,71.9 66.7,68.3 67.8,65.1
-  auction 2838 x27
+  auction 2838 x113
 
 step Get Copper Bar
-  tip You need 72 Copper Bar for Engineering 75-150: Crafted Heavy Shot, Copper Tube and Practice Lock. Mine Copper Ore and smelt it at a forge (Mining 1). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
-  collect 2840 x72 gather Mining 1
+  tip 62 Copper Bar for Engineering 75-150: 20 Copper Tubes and 36 Practice Locks. Mine Copper Ore and smelt it at a forge (Mining 1). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 2840 x62 gather Mining 1
   loop Zephras Isle lvl 5 lap 310 yield 36.4 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
   loop Teldrassil lvl 11 lap 569 yield 42.5 only Alliance r 60 at 56.9,26.3 56.0,25.0 56.2,28.8 51.4,49.1 52.3,51.7 54.5,51.9 52.9,49.3 56.8,31.9 57.7,29.1 58.2,27.2
   loop Dun Morogh lvl 5 lap 333 yield 15.8 only Alliance r 60 at 27.3,80.1 28.7,83.0 30.1,80.5 29.6,75.7 27.1,63.9 26.7,66.0 26.4,67.8 19.7,75.4 22.0,79.3
@@ -187,53 +189,52 @@ step Get Copper Bar
   loop Durotar lvl 8 lap 399 yield 15.7 only Horde r 60 at 45.6,70.8 44.6,69.6 43.0,71.6 40.3,70.7 40.2,68.6 40.0,65.9 41.6,66.2 41.1,61.4 45.4,50.0 48.3,49.2 43.5,61.6 45.8,66.6
   loop Tirisfal Glades lvl 11 lap 379 yield 13.8 only Horde r 60 at 23.8,59.5 24.0,57.9 28.1,47.0 29.7,42.5 30.8,45.5 33.5,52.8 32.2,55.8 33.4,69.7 30.8,72.6 29.3,63.8 25.2,60.2
   loop Mulgore lvl 8 lap 540 yield 11.8 only Horde r 60 at 41.8,79.8 33.5,58.2 31.6,60.9 34.0,66.5 33.2,70.1 34.1,72.7 32.9,76.2 33.7,81.2 34.6,79.8 41.2,82.0 49.0,92.8 49.2,87.7
-  auction 2840 x72
+  auction 2840 x62
 
 step Get Bronze Bar
-  tip You need 61 Bronze Bar for Engineering 75-150: Practice Lock and Big Bronze Bomb. Mining: smelt Copper Bar and Tin Bar. Or buy them at the Auction House.
-  collect 2841 x61 anywhere gather Mining 65
-  auction 2841 x61
+  tip 63 Bronze Bar for Engineering 75-150: 36 Practice Locks and 9 Big Bronze Bombs. Mining: smelt Copper Bar and Tin Bar. Or buy them at the Auction House.
+  collect 2841 x63 anywhere gather Mining 65
+  auction 2841 x63
 
 step Get Silver Bar
-  tip You need 2 Silver Bar for Engineering 75-150: Big Bronze Bomb. Mining: smelt Silver Ore. Or buy them at the Auction House.
-  collect 2842 x2 anywhere gather Mining 75
-  auction 2842 x2
+  tip 3 Silver Bar for Engineering 75-150: 9 Big Bronze Bombs. Mining: smelt Silver Ore. Or buy them at the Auction House.
+  collect 2842 x3 anywhere gather Mining 75
+  auction 2842 x3
 
-step Crafted Heavy Shot to 94
-  tip Crafted Heavy Shot is orange at 75 (yellow 85, green 90, grey 95): about 15 crafts to 94. Each takes 1 Coarse Blasting Powder and 1 Copper Bar and makes 200. Make the 15 Coarse Blasting Powder first: it gives points too while not grey. The Coarse Blasting Powder in each gives its own point while it is not grey: two chances a craft. Sell the shot to hunters or a vendor.
-  craft 3929 x15
-  craft 3930 until 94
+step Coarse Blasting Powder to 94
+  tip Coarse Blasting Powder is orange at 75 (yellow 85, green 90, grey 95): about 30 crafts to 94, up to 38 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Coarse Stone. One Coarse Stone a craft (Tin Veins).
+  craft 3929 until 94
 
 step Copper Tube to 100
-  tip Copper Tube is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 Copper Bar and 1 Weak Flux. Two Copper Bars and a Weak Flux a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. If you got here without learning Copper Tube, learn it now: an earlier step teaches it.
+  tip Copper Tube is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100, up to 20 for 9 players in 10 (the gathered materials above count that many). Each takes 2 Copper Bar and 1 Weak Flux. Two Copper Bars and a Weak Flux a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. If you got here without learning Copper Tube, learn it now: an earlier step teaches it.
   learn 3924
   craft 3924 until 100
 
 step Engineering recipes at 100
-  tip Back to an Engineering trainer: Practice Lock (from 100).
+  tip Back to an Engineering trainer: Practice Lock (from 100) and Silver Contact (from 90).
   learn 8334
+  learn 3973
 
 step Practice Lock to 125
-  tip Practice Lock is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 Bronze Bar, 2 Handful of Copper Bolts and 1 Weak Flux. Make the 29 Handful of Copper Bolts first. Use the 33 Handful of Copper Bolts you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby. If you got here without learning Handful of Copper Bolts, learn it now: an earlier step teaches it.
+  tip Practice Lock is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125, up to 36 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Bronze Bar, 2 Handful of Copper Bolts and 1 Weak Flux. Make the 12 Handful of Copper Bolts first. Use the 50 Handful of Copper Bolts you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby. If you got here without learning Handful of Copper Bolts, learn it now: an earlier step teaches it.
   learn 3922
-  craft 3922 x29
+  craft 3922 x12
   craft 8334 until 125
 
 step Engineering recipes at 125
   tip Back to an Engineering trainer: Heavy Blasting Powder (from 125).
   learn 3945
 
-step Heavy Blasting Powder to 140
-  tip Heavy Blasting Powder is yellow at 125 (yellow 125, green 135, grey 145): about 27 crafts to 140. Each takes 1 Heavy Stone. One Heavy Stone a craft (Iron Deposits). Keep some: Iron Grenades take one each.
-  craft 3945 until 140
+step Heavy Blasting Powder to 144
+  tip Heavy Blasting Powder is yellow at 125 (yellow 125, green 135, grey 145): about 52 crafts to 144, up to 70 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Heavy Stone. One Heavy Stone a craft (Iron Deposits). Keep some: Iron Grenades take one each.
+  craft 3945 until 144
 
-step Engineering recipes at 140
-  tip Back to an Engineering trainer: Silver Contact (from 90) and Big Bronze Bomb (from 140).
-  learn 3973
+step Engineering recipes at 144
+  tip Back to an Engineering trainer: Big Bronze Bomb (from 140).
   learn 3950
 
 step Big Bronze Bomb to 150
-  tip Big Bronze Bomb is yellow at 140 (yellow 140, green 165, grey 190): about 10 crafts to 150. Each takes 2 Heavy Blasting Powder, 3 Bronze Bar and 1 Silver Contact and makes 3. Make the 10 Silver Contact (2 crafts) first. Use the 20 Heavy Blasting Powder you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. Needs an anvil nearby. Engineering 150 is a Legacy System milestone.
+  tip Big Bronze Bomb is yellow at 144 (yellow 140, green 165, grey 190): about 7 crafts to 150, up to 9 for 9 players in 10 (the gathered materials above count that many). Each takes 2 Heavy Blasting Powder, 3 Bronze Bar and 1 Silver Contact and makes 3. Make the 10 Silver Contact (2 crafts) first. Use the 14 Heavy Blasting Powder you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. Needs an anvil nearby. Engineering 150 is a Legacy System milestone.
   craft 3973 x2
   craft 3950 until 150
   skill Engineering 150
@@ -242,141 +243,125 @@ step Big Bronze Bomb to 150
 section Engineering 150-225
 
 step Expert Engineering
-  tip Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs Engineering 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance Springspindle Fizzlegear (Ironforge); Horde Roxxik (Orgrimmar). The arrow picks the nearest of your faction. Learn now: Aquadynamic Fish Attractor (from 150) and Bronze Framework (from 145). 150-225 takes about 31s of vendor goods, plus 19 Medium Leather, 19 Wool Cloth, 31 Coarse Stone, 74 Heavy Stone, 100 Bronze Bar, 6 Silver Bar, 81 Iron Bar, 19 Mithril Bar and 62 Solid Stone to gather or buy.
+  tip Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs Engineering 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance Springspindle Fizzlegear (Ironforge); Horde Roxxik (Orgrimmar). This route trains it at Springspindle Fizzlegear (Ironforge) for the Alliance and Roxxik (Orgrimmar) for the Horde, who also teach the recipes of 150-225: one trainer for every visit. Learn now: Aquadynamic Fish Attractor (from 150) and Bronze Framework (from 145). 150-225 takes about 31s of vendor goods, plus 25 Medium Leather, 25 Wool Cloth, 128 Bronze Bar, 6 Silver Bar, 81 Iron Bar, 22 Mithril Bar and 390 Solid Stone to gather or buy.
   level 20
-  train Engineering Expert
-  learn 9271
-  learn 3953
+  train Engineering Expert npc 5174 only Alliance
+  train Engineering Expert npc 11017 only Horde
+  learn 9271 npc 5174 only Alliance
+  learn 9271 npc 11017 only Horde
+  learn 3953 npc 5174 only Alliance
+  learn 3953 npc 11017 only Horde
 
 step Engineering 150-225: vendor goods
   tip Buy the whole bracket's share in one go: 31 Nightcrawlers (31s); about 31s in all. The arrow picks the nearest seller of your faction (Stormwind City: Catherine Leland and Edna Mullby).
   buy 6530 x31 nearest
 
-step Get Medium Leather (Alliance)
-  only Alliance
-  zone Hillsbrad Foothills
-  tip You need 19 Medium Leather for Engineering 150-225: Bronze Framework. Skinning: beasts of level 18-30. Skin Cave Yeti, Elder Gray Bear, Feral Mountain Lion, Gray Bear, Snapjaw, Starving Mountain Lion and Vicious Gray Bear here (level 18-30); the Skinning guide routes this. Or buy them at the Auction House.
-  collect 2319 x19 @41,34.5 era gather Skinning 80
-  auction 2319 x19
-
-step Get Medium Leather (Horde)
-  only Horde
-  zone Ashenvale
-  tip You need 19 Medium Leather for Engineering 150-225: Bronze Framework. Skinning: beasts of level 18-30. Skin Ashenvale Bear, Elder Ashenvale Bear, Elder Shadowhorn Stag, Ghostpaw Runner, Giant Ashenvale Bear and Shadowhorn Stag here (level 18-30); the Skinning guide routes this. Or buy them at the Auction House.
-  collect 2319 x19 @68.7,50.2 era gather Skinning 80
-  auction 2319 x19
+step Get Medium Leather
+  tip 25 Medium Leather for Engineering 150-225: 25 Bronze Frameworks. Skinning: beasts of level 18-30. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 2319 x25 gather Skinning 50
+  loop Stranglethorn Vale lvl 32 lap 1071 yield 39.1 only Alliance r 80 at 41.2,13.0 43.0,13.0 42.2,10.2 41.2,8.1 39.4,7.5 35.9,7.7 31.5,8.7 33.8,10.1 34.5,13.0 37.0,11.0 39.3,11.4 38.8,14.3
+  loop Wetlands lvl 30 lap 943 yield 32.8 only Alliance r 80 at 69.2,31.6 69.3,28.2 65.1,28.7 66.5,30.7 68.3,36.5 71.0,38.9
+  loop Alterac Mountains lvl 36 lap 1843 yield 52.6 only Alliance r 80 at 40.1,90.9 40.5,95.9 36.1,85.1 30.1,87.4 32.3,82.5 30.0,73.6 30.5,62.2 32.9,67.1 35.5,70.5 39.7,70.4 41.7,64.9 44.1,78.4
+  loop Thousand Needles lvl 32 lap 629 yield 16.6 r 80 at 76.1,56.3 76.9,53.4 73.3,56.2 70.8,55.1 74.7,61.6 77.6,59.8
+  loop Redridge Mountains lvl 18 lap 714 yield 2.1 only Alliance r 80 at 15.4,65.1 18.7,71.9 27.7,79.5 31.5,71.2 33.9,61.1 25.4,60.5 18.5,43.6 17.1,52.5
+  loop Stranglethorn Vale lvl 32 lap 1043 yield 37.7 only Horde r 80 at 41.2,13.0 43.0,13.0 42.2,10.2 40.2,8.1 37.3,8.3 35.9,7.7 31.5,8.7 33.8,10.1 34.5,13.0 37.0,11.0 39.3,11.4 38.8,14.3
+  loop Arathi Highlands lvl 33 lap 643 yield 17.3 only Horde r 80 at 65.3,42.3 62.9,45.8 64.0,50.5 67.1,56.3 70.6,51.0 74.0,48.3 69.1,38.5 69.9,31.0 67.2,34.1 65.7,37.2
+  loop Alterac Mountains lvl 31 lap 543 yield 12.4 only Horde r 80 at 80.0,58.9 76.8,63.7 73.5,67.0 84.3,51.6 90.0,46.5
+  loop The Barrens lvl 18 lap 886 yield 6.0 only Horde r 80 at 44.8,14.2 43.5,14.5 44.1,16.2 45.5,16.9 47.0,14.4 46.8,12.8 45.5,15.3
+  loop Silverpine Forest lvl 17 lap 400 yield 1.5 only Horde r 80 at 51.7,77.7 52.5,81.9 55.0,80.3
+  auction 2319 x25
 
 step Get Wool Cloth
-  zone Azeroth
-  tip You need 19 Wool Cloth for Engineering 150-225: Bronze Framework. Humanoids of level 15-30 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Wool Cloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
-  collect 2592 x19 nearest gather levels 15-30
-  auction 2592 x19
-
-step Get Coarse Stone
-  tip You need 31 Coarse Stone for Engineering 150-225: Aquadynamic Fish Attractor. Mining: Tin Vein (skill 65) in Ashenvale (18-30), Hillsbrad Foothills (20-30) and Wetlands (20-30). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
-  collect 2836 x31 gather Mining 65
-  loop Wetlands lvl 29 lap 481 yield 2.4 only Alliance r 60 at 50.6,61.8 48.6,62.3 46.7,62.8 45.8,65.1 45.7,60.3 47.5,60.0 49.1,59.1 50.9,59.2 54.2,58.2 55.9,58.7 53.6,62.4 53.4,66.9
-  loop Darkshore lvl 18 lap 405 yield 1.8 only Alliance r 60 at 56.0,34.3 55.7,36.3 54.6,37.0 52.4,36.3 49.1,37.9 47.8,32.8 48.2,29.1 51.3,30.3 51.7,28.1 50.7,26.2 52.1,26.1 53.7,26.0
-  loop Westfall lvl 18 lap 394 yield 1.5 only Alliance r 60 at 30.1,47.1 31.4,44.6 34.7,42.9 32.2,40.6 30.7,38.2 29.4,40.9 29.2,50.5 28.9,54.8
-  loop Duskwood lvl 30 lap 690 yield 1.4 only Alliance r 60 at 86.2,48.6 79.5,40.5 77.3,38.8 57.7,46.8 30.3,76.7 25.2,80.3 26.7,37.7 58.6,37.7 78.7,29.0 81.2,28.7 85.2,32.5 82.9,35.9
-  loop Riverglades lvl 39 lap 313 yield 1.6 only Horde live r 60 at 21.3,68.9 19.9,71.6 16.9,71.3 17.2,68.9 20.4,64.4 22.0,64.7 24.2,63.4 25.3,58.2 29.7,56.3 29.9,61.9 26.4,61.0 26.7,63.9
-  loop Ashenvale lvl 24 lap 497 yield 1.9 only Horde r 60 at 40.5,36.4 39.6,33.9 38.1,30.5 33.1,36.0 35.4,37.1 40.5,40.7 45.0,44.3 47.1,45.8 46.3,42.8 43.8,40.8 42.2,37.1 40.2,37.9
-  loop Thousand Needles lvl 31 lap 715 yield 2.0 only Horde r 60 at 26.9,53.2 26.3,55.7 11.1,38.5 10.1,36.0 10.9,32.2 23.9,23.4 34.6,26.9 42.6,33.4 44.7,39.2 53.9,45.6 55.6,49.6 35.9,50.7
-  loop Hillsbrad Foothills lvl 22 lap 479 yield 0.9 only Horde r 60 at 62.7,10.8 67.2,4.4 68.0,8.3 64.7,11.5 64.7,15.3 58.0,11.9
-  auction 2836 x31
-
-step Get Heavy Stone
-  tip You need 74 Heavy Stone for Engineering 150-225: Big Iron Bomb. Mining: Iron Deposit (skill 125) in Arathi Highlands (30-40), Stranglethorn Vale (30-45) and Riverglades (38-47). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
-  collect 2838 x74 gather Mining 125
-  loop Alterac Mountains lvl 37 lap 631 yield 4.1 only Alliance r 60 at 52.4,46.3 52.9,49.8 37.6,67.0 33.7,55.3 31.8,53.6 33.2,47.2 32.9,39.9 39.5,38.0 40.2,30.7 47.9,33.2 45.2,39.2 49.8,44.0
-  loop Thousand Needles lvl 31 lap 624 yield 2.9 only Alliance r 60 at 26.9,53.2 26.3,55.7 16.6,40.9 21.8,41.2 23.7,44.8 26.4,47.0 28.8,49.0 30.1,45.9 33.0,51.2 35.9,50.7 37.0,54.3 34.4,53.4
-  loop Badlands lvl 42 lap 637 yield 2.8 only Alliance r 60 at 15.6,35.0 12.1,35.1 14.3,39.8 23.9,66.4 15.1,81.7 20.8,82.2 42.2,79.6 44.3,75.3 45.4,84.6 64.3,70.4 62.4,63.8 34.4,23.3
-  loop Wetlands lvl 32 lap 619 yield 2.4 only Alliance r 60 at 69.5,28.9 63.0,25.2 61.5,24.0 53.2,52.1 49.4,52.2 48.6,50.3 41.9,46.2 38.1,45.4 46.7,62.8 50.6,61.9 69.6,33.2 67.9,31.6
-  loop Badlands lvl 42 lap 628 yield 3.9 only Horde r 60 at 15.6,34.9 14.8,48.6 15.0,54.5 20.2,63.0 23.7,61.3 34.9,53.0 42.2,78.9 22.6,73.3 18.5,74.8 18.0,70.3 12.9,58.9 10.8,55.3
-  loop Thousand Needles lvl 31 lap 715 yield 4.4 only Horde r 60 at 26.9,53.2 26.3,55.7 11.1,38.5 10.1,36.0 10.9,32.2 23.9,23.4 34.6,26.9 42.6,33.4 44.7,39.2 53.9,45.6 55.6,49.6 35.9,50.7
-  loop Alterac Mountains lvl 38 lap 641 yield 2.8 only Horde r 60 at 50.9,44.2 53.2,48.4 54.1,45.6 55.1,40.6 52.7,36.8 48.0,33.1 42.8,34.7 37.9,32.5 35.6,39.7 33.3,43.9 39.5,38.0 45.4,39.8
-  loop Riverglades lvl 38 lap 308 yield 1.3 only Horde live r 60 at 69.3,61.7 71.3,60.1 72.6,58.5 69.9,54.1 64.4,66.6 65.7,71.9 66.7,68.3 67.8,65.1
-  auction 2838 x74
+  tip 25 Wool Cloth for Engineering 150-225: 25 Bronze Frameworks. Humanoids of level 15-30 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Wool Cloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
+  collect 2592 x25 nearest gather levels 15-30
+  auction 2592 x25
 
 step Get Bronze Bar
-  tip You need 100 Bronze Bar for Engineering 150-225: Aquadynamic Fish Attractor and Bronze Framework. Mining: smelt Copper Bar and Tin Bar. Or buy them at the Auction House.
-  collect 2841 x100 anywhere gather Mining 65
-  auction 2841 x100
+  tip 128 Bronze Bar for Engineering 150-225: 39 Aquadynamic Fish Attractors and 25 Bronze Frameworks. Mining: smelt Copper Bar and Tin Bar. Or buy them at the Auction House.
+  collect 2841 x128 anywhere gather Mining 65
+  auction 2841 x128
 
 step Get Silver Bar
-  tip You need 6 Silver Bar for Engineering 150-225: Big Iron Bomb. Mining: smelt Silver Ore. Or buy them at the Auction House.
+  tip 6 Silver Bar for Engineering 150-225: 27 Big Iron Bombs. Mining: smelt Silver Ore. Or buy them at the Auction House.
   collect 2842 x6 anywhere gather Mining 75
   auction 2842 x6
 
 step Get Iron Bar
-  tip You need 81 Iron Bar for Engineering 150-225: Big Iron Bomb. Mine Iron Ore and smelt it at a forge (Mining 125). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 81 Iron Bar for Engineering 150-225: 27 Big Iron Bombs. Mine Iron Ore and smelt it at a forge (Mining 125). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 3575 x81 gather Mining 125
   loop Alterac Mountains lvl 37 lap 631 yield 5.2 only Alliance r 60 at 52.4,46.3 52.9,49.8 37.6,67.0 33.7,55.3 31.8,53.6 33.2,47.2 32.9,39.9 39.5,38.0 40.2,30.7 47.9,33.2 45.2,39.2 49.8,44.0
   loop Thousand Needles lvl 31 lap 624 yield 3.7 only Alliance r 60 at 26.9,53.2 26.3,55.7 16.6,40.9 21.8,41.2 23.7,44.8 26.4,47.0 28.8,49.0 30.1,45.9 33.0,51.2 35.9,50.7 37.0,54.3 34.4,53.4
   loop Badlands lvl 42 lap 637 yield 3.6 only Alliance r 60 at 15.6,35.0 12.1,35.1 14.3,39.8 23.9,66.4 15.1,81.7 20.8,82.2 42.2,79.6 44.3,75.3 45.4,84.6 64.3,70.4 62.4,63.8 34.4,23.3
   loop Wetlands lvl 32 lap 619 yield 3.1 only Alliance r 60 at 69.5,28.9 63.0,25.2 61.5,24.0 53.2,52.1 49.4,52.2 48.6,50.3 41.9,46.2 38.1,45.4 46.7,62.8 50.6,61.9 69.6,33.2 67.9,31.6
+  loop Stranglethorn Vale lvl 35 lap 617 yield 2.2 only Alliance r 60 at 46.2,7.4 30.5,7.6 27.0,10.1 27.4,13.6 25.7,15.4 26.3,18.0 27.6,18.0 30.0,17.7 29.3,15.3 31.3,13.8 29.8,12.1 31.3,9.5
+  loop Duskwood lvl 25 lap 611 yield 1.0 only Alliance r 60 at 86.1,48.7 85.5,54.0 84.1,58.3 82.7,53.0 79.5,40.5 82.9,35.9
   loop Badlands lvl 42 lap 628 yield 5.0 only Horde r 60 at 15.6,34.9 14.8,48.6 15.0,54.5 20.2,63.0 23.7,61.3 34.9,53.0 42.2,78.9 22.6,73.3 18.5,74.8 18.0,70.3 12.9,58.9 10.8,55.3
   loop Thousand Needles lvl 31 lap 715 yield 5.5 only Horde r 60 at 26.9,53.2 26.3,55.7 11.1,38.5 10.1,36.0 10.9,32.2 23.9,23.4 34.6,26.9 42.6,33.4 44.7,39.2 53.9,45.6 55.6,49.6 35.9,50.7
+  loop Riverglades lvl 39 lap 310 yield 2.0 only Horde live r 60 at 69.3,61.7 71.3,60.1 72.6,58.5 69.9,54.1 70.1,48.8 64.2,48.8 64.4,66.6 65.7,71.9 66.7,68.3 67.8,65.1
   loop Alterac Mountains lvl 38 lap 641 yield 3.6 only Horde r 60 at 50.9,44.2 53.2,48.4 54.1,45.6 55.1,40.6 52.7,36.8 48.0,33.1 42.8,34.7 37.9,32.5 35.6,39.7 33.3,43.9 39.5,38.0 45.4,39.8
-  loop Riverglades lvl 38 lap 308 yield 1.6 only Horde live r 60 at 69.3,61.7 71.3,60.1 72.6,58.5 69.9,54.1 64.4,66.6 65.7,71.9 66.7,68.3 67.8,65.1
   auction 3575 x81
 
 step Get Mithril Bar
-  tip You need 19 Mithril Bar for Engineering 150-225: Hi-Impact Mithril Slugs. Mine Mithril Ore and smelt it at a forge (Mining 175). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
-  collect 3860 x19 gather Mining 200
+  tip 22 Mithril Bar for Engineering 150-225: 22 Hi-Impact Mithril Slugs. Mine Mithril Ore and smelt it at a forge (Mining 175). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 3860 x22 gather Mining 175
   loop Badlands lvl 45 lap 633 yield 5.9 r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 42.2,80.0 34.4,23.3 15.6,35.2 12.1,35.1 14.3,39.8 7.6,73.3 6.1,77.3 4.0,80.4
   loop Desolace lvl 43 lap 627 yield 4.7 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
   loop Alterac Mountains lvl 37 lap 628 yield 4.7 only Alliance r 60 at 50.9,44.2 53.6,48.5 37.0,73.7 32.3,65.0 30.8,56.5 33.3,43.9 35.6,39.7 37.9,32.5 42.8,34.7 45.6,40.6 48.1,33.1 52.7,36.8
   loop The Hinterlands lvl 51 lap 718 yield 4.3 r 60 at 54.9,67.3 52.1,65.4 33.7,65.0 37.1,67.5 57.9,84.2 72.6,61.9 65.5,41.2 59.1,41.5 57.0,43.1 66.8,52.4 64.4,64.2 56.6,68.6
+  loop Stonetalon Mountains lvl 28 lap 616 yield 2.3 r 60 at 37.7,69.6 36.4,76.2 33.6,75.7 29.0,73.7 25.9,70.8 26.8,67.0 29.8,66.3 27.1,63.2 30.1,59.8 32.6,58.9 35.9,61.4 34.9,66.7
   loop Alterac Mountains lvl 38 lap 641 yield 4.1 only Horde r 60 at 50.9,44.2 53.2,48.4 54.1,45.6 55.1,40.6 52.7,36.8 48.0,33.1 42.8,34.7 37.9,32.5 35.6,39.7 33.3,43.9 39.5,38.0 45.4,39.8
-  auction 3860 x19
+  auction 3860 x22
 
 step Get Solid Stone
-  tip You need 62 Solid Stone for Engineering 150-225: Solid Blasting Powder. Mining: Mithril Deposit (skill 175) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
-  collect 7912 x62 gather Mining 200
+  tip 390 Solid Stone for Engineering 150-225: 103 Solid Blasting Powder, 79 Hi-Impact Mithril Slugs and 33 Mithril Gyro-Shots (184 of them for 225-300: get them all now). Mining: Mithril Deposit (skill 175) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 7912 x390 gather Mining 175
   loop Badlands lvl 45 lap 633 yield 5.7 r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 42.2,80.0 34.4,23.3 15.6,35.2 12.1,35.1 14.3,39.8 7.6,73.3 6.1,77.3 4.0,80.4
   loop Desolace lvl 43 lap 627 yield 4.5 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
   loop Alterac Mountains lvl 37 lap 628 yield 4.5 only Alliance r 60 at 50.9,44.2 53.6,48.5 37.0,73.7 32.3,65.0 30.8,56.5 33.3,43.9 35.6,39.7 37.9,32.5 42.8,34.7 45.6,40.6 48.1,33.1 52.7,36.8
   loop The Hinterlands lvl 51 lap 718 yield 4.2 r 60 at 54.9,67.3 52.1,65.4 33.7,65.0 37.1,67.5 57.9,84.2 72.6,61.9 65.5,41.2 59.1,41.5 57.0,43.1 66.8,52.4 64.4,64.2 56.6,68.6
+  loop Stonetalon Mountains lvl 28 lap 616 yield 2.3 r 60 at 37.7,69.6 36.4,76.2 33.6,75.7 29.0,73.7 25.9,70.8 26.8,67.0 29.8,66.3 27.1,63.2 30.1,59.8 32.6,58.9 35.9,61.4 34.9,66.7
   loop Alterac Mountains lvl 38 lap 641 yield 4.0 only Horde r 60 at 50.9,44.2 53.2,48.4 54.1,45.6 55.1,40.6 52.7,36.8 48.0,33.1 42.8,34.7 37.9,32.5 35.6,39.7 33.3,43.9 39.5,38.0 45.4,39.8
-  auction 7912 x62
+  auction 7912 x390
 
 step Aquadynamic Fish Attractor to 166
-  tip Aquadynamic Fish Attractor is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 Bronze Bar, 1 Nightcrawlers and 1 Coarse Blasting Powder and makes 3. Make the 31 Coarse Blasting Powder first. Nightcrawlers come from trade and fishing suppliers; the attractors sell to fishermen. If you got here without learning Coarse Blasting Powder, learn it now: an earlier step teaches it.
+  tip Aquadynamic Fish Attractor is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166, up to 39 for 9 players in 10 (the gathered materials above count that many). Each takes 2 Bronze Bar, 1 Nightcrawlers and 1 Coarse Blasting Powder and makes 3. Make the 1 Coarse Blasting Powder first. Use the 30 Coarse Blasting Powder you made earlier; the counts above leave them out. Nightcrawlers come from trade and fishing suppliers; the attractors sell to fishermen. If you got here without learning Coarse Blasting Powder, learn it now: an earlier step teaches it.
   learn 3929
-  craft 3929 x31
+  craft 3929 x1
   craft 9271 until 166
 
 step Bronze Framework to 175
-  tip Bronze Framework is yellow at 166 (yellow 145, green 170, grey 195): about 19 crafts to 175. Each takes 2 Bronze Bar, 1 Medium Leather and 1 Wool Cloth. Bronze Frameworks are parts for later gadgets; the extras sell to vendors.
+  tip Bronze Framework is yellow at 166 (yellow 145, green 170, grey 195): about 19 crafts to 175, up to 25 for 9 players in 10 (the gathered materials above count that many). Each takes 2 Bronze Bar, 1 Medium Leather and 1 Wool Cloth. Bronze Frameworks are parts for later gadgets; the extras sell to vendors.
   craft 3953 until 175
 
 step Engineering recipes at 175
-  tip Back to an Engineering trainer: Solid Blasting Powder (from 175).
-  learn 12585
+  tip Back to Springspindle Fizzlegear (Ironforge) (Alliance) or Roxxik (Orgrimmar) (Horde): Solid Blasting Powder (from 175).
+  learn 12585 npc 5174 only Alliance
+  learn 12585 npc 11017 only Horde
 
-step Solid Blasting Powder to 191
-  tip Solid Blasting Powder is yellow at 175 (yellow 175, green 185, grey 195): about 31 crafts to 191. Each takes 2 Solid Stone. Two Solid Stone a craft (Mithril Deposits). Make plenty: the triggers, slugs and Gyro-Shot all use it.
-  craft 12585 until 191
+step Solid Blasting Powder to 195
+  tip Solid Blasting Powder is yellow at 175 (yellow 175, green 185, grey 195): about 72 crafts to 195, up to 103 for 9 players in 10 (the gathered materials above count that many). Each takes 2 Solid Stone. Two Solid Stone a craft (Mithril Deposits). Make plenty: the triggers, slugs and Gyro-Shot all use it.
+  craft 12585 until 195
 
-step Engineering recipes at 191
-  tip Back to an Engineering trainer: Big Iron Bomb (from 190).
-  learn 3967
+step Engineering recipes at 195
+  tip Back to Springspindle Fizzlegear (Ironforge) (Alliance) or Roxxik (Orgrimmar) (Horde): Big Iron Bomb (from 190).
+  learn 3967 npc 5174 only Alliance
+  learn 3967 npc 11017 only Horde
 
 step Big Iron Bomb to 210
-  tip Big Iron Bomb is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 Iron Bar, 3 Heavy Blasting Powder and 1 Silver Contact and makes 2. Make the 74 Heavy Blasting Powder and 30 Silver Contact (6 crafts) first. Use the 7 Heavy Blasting Powder you made earlier; the counts above leave them out. A Silver Bar makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the Heavy Blasting Powder comes from Heavy Stone. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, Springspindle Fizzlegear (Ironforge), Lilliam Sparkspindle (Stormwind), Graham Van Talen (Undercity) or Tinkerwiz (Ratchet) sends you to Gnomish Engineering (Tinkmaster Overspark, Ironforge, or Oglethorpe Obnoticus, Booty Bay: 6 Mithril Tubes, an Accurate Scope and 2 Advanced Target Dummies) or Goblin Engineering (Nixx Sprocketspring, Gadgetzan: 20 Big Iron Bombs, 20 Solid Dynamite and 5 Explosive Sheep). The Accurate Scope schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby. If you got here without learning Heavy Blasting Powder and Silver Contact, learn them now: an earlier step teaches them.
+  tip Big Iron Bomb is yellow at 195 (yellow 190, green 210, grey 230): about 22 crafts to 210, up to 27 for 9 players in 10 (the gathered materials above count that many). Each takes 3 Iron Bar, 3 Heavy Blasting Powder and 1 Silver Contact and makes 2. Make the 28 Heavy Blasting Powder and 25 Silver Contact (5 crafts) first. Use the 38 Heavy Blasting Powder you made earlier; the counts above leave them out. A Silver Bar makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the Heavy Blasting Powder comes from Heavy Stone. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, Springspindle Fizzlegear (Ironforge), Lilliam Sparkspindle (Stormwind), Graham Van Talen (Undercity) or Tinkerwiz (Ratchet) sends you to Gnomish Engineering (Tinkmaster Overspark, Ironforge, or Oglethorpe Obnoticus, Booty Bay: 6 Mithril Tubes, an Accurate Scope and 2 Advanced Target Dummies) or Goblin Engineering (Nixx Sprocketspring, Gadgetzan: 20 Big Iron Bombs, 20 Solid Dynamite and 5 Explosive Sheep). The Accurate Scope schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby. If you got here without learning Heavy Blasting Powder and Silver Contact, learn them now: an earlier step teaches them.
   learn 3945
   learn 3973
-  craft 3945 x74
-  craft 3973 x6
+  craft 3945 x28
+  craft 3973 x5
   craft 3967 until 210
 
 step Engineering recipes at 210
-  tip Back to an Engineering trainer: Hi-Impact Mithril Slugs (from 210).
-  learn 12596
+  tip Back to Springspindle Fizzlegear (Ironforge) (Alliance) or Roxxik (Orgrimmar) (Horde): Hi-Impact Mithril Slugs (from 210).
+  learn 12596 npc 5174 only Alliance
+  learn 12596 npc 11017 only Horde
 
 step Hi-Impact Mithril Slugs to 225
-  tip Hi-Impact Mithril Slugs is yellow at 210 (yellow 210, green 230, grey 250): about 19 crafts to 225. Each takes 1 Mithril Bar and 1 Solid Blasting Powder and makes 200. Use the 19 Solid Blasting Powder you made earlier; the counts above leave them out. One Mithril Bar and one Solid Blasting Powder a craft; hunters buy the slugs. Needs an anvil nearby. Engineering 225 is a Legacy System milestone.
+  tip Hi-Impact Mithril Slugs is yellow at 210 (yellow 210, green 230, grey 250): about 19 crafts to 225, up to 22 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Mithril Bar and 1 Solid Blasting Powder and makes 200. Use the 19 Solid Blasting Powder you made earlier; the counts above leave them out. One Mithril Bar and one Solid Blasting Powder a craft; hunters buy the slugs. Needs an anvil nearby. Engineering 225 is a Legacy System milestone.
   craft 12596 until 225
   skill Engineering 225
 
@@ -384,78 +369,77 @@ step Hi-Impact Mithril Slugs to 225
 section Engineering 225-300
 
 step Artisan Engineering
-  tip Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs Engineering 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance Buzzek Bracketswing (Tanaris); Horde Buzzek Bracketswing (Tanaris). The arrow picks the nearest of your faction. 225-300 takes about 2g 80s of recipes, plus 118 Mithril Bar, 212 Solid Stone, 156 Thorium Bar and 24 Runecloth to gather or buy.
+  tip Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs Engineering 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance Buzzek Bracketswing (Tanaris); Horde Buzzek Bracketswing (Tanaris). This route trains it at Buzzek Bracketswing (Tanaris) for the Alliance and Buzzek Bracketswing (Tanaris) for the Horde, who also teach the recipes of 225-300: one trainer for every visit. 225-300 takes about 2g 80s of recipes, plus 145 Mithril Bar, 174 Thorium Bar and 26 Runecloth to gather or buy.
   level 35
-  train Engineering Artisan
+  train Engineering Artisan npc 8736 only Alliance
+  train Engineering Artisan npc 8736 only Horde
 
 step Schematic: Thorium Widget
   tip Schematic: Thorium Widget teaches Thorium Widget (Engineering 260) for 1g 20s. Sold by Alliance: Gearcutter Cogspinner (Ironforge), limited stock; Horde: Sovik (Orgrimmar), limited stock. Its sellers keep one or two in stock that come back some time after a sale; the Auction House often has it too.
   buy 16042 nearest
 
 step Schematic: Thorium Tube
-  tip Schematic: Thorium Tube teaches Thorium Tube (Engineering 275) for 1g 60s. Sold by Kor'gar (Riverglades) and Xizzer Fizzbolt (Winterspring), limited stock.
+  tip Schematic: Thorium Tube teaches Thorium Tube (Engineering 275) for 1g 60s. Sold by Alliance: Kor'gar (Riverglades) and Xizzer Fizzbolt (Winterspring), limited stock; Horde: Xizzer Fizzbolt (Winterspring), limited stock.
   buy 16047 nearest
 
 step Get Mithril Bar
-  tip You need 118 Mithril Bar for Engineering 225-300: Hi-Impact Mithril Slugs and Mithril Gyro-Shot. Mine Mithril Ore and smelt it at a forge (Mining 175). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
-  collect 3860 x118 gather Mining 200
+  tip 145 Mithril Bar for Engineering 225-300: 79 Hi-Impact Mithril Slugs and 33 Mithril Gyro-Shots. Mine Mithril Ore and smelt it at a forge (Mining 175). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 3860 x145 gather Mining 175
   loop Badlands lvl 45 lap 633 yield 5.9 r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 42.2,80.0 34.4,23.3 15.6,35.2 12.1,35.1 14.3,39.8 7.6,73.3 6.1,77.3 4.0,80.4
   loop Desolace lvl 43 lap 627 yield 4.7 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
   loop Alterac Mountains lvl 37 lap 628 yield 4.7 only Alliance r 60 at 50.9,44.2 53.6,48.5 37.0,73.7 32.3,65.0 30.8,56.5 33.3,43.9 35.6,39.7 37.9,32.5 42.8,34.7 45.6,40.6 48.1,33.1 52.7,36.8
   loop The Hinterlands lvl 51 lap 718 yield 4.3 r 60 at 54.9,67.3 52.1,65.4 33.7,65.0 37.1,67.5 57.9,84.2 72.6,61.9 65.5,41.2 59.1,41.5 57.0,43.1 66.8,52.4 64.4,64.2 56.6,68.6
+  loop Stonetalon Mountains lvl 28 lap 616 yield 2.3 r 60 at 37.7,69.6 36.4,76.2 33.6,75.7 29.0,73.7 25.9,70.8 26.8,67.0 29.8,66.3 27.1,63.2 30.1,59.8 32.6,58.9 35.9,61.4 34.9,66.7
   loop Alterac Mountains lvl 38 lap 641 yield 4.1 only Horde r 60 at 50.9,44.2 53.2,48.4 54.1,45.6 55.1,40.6 52.7,36.8 48.0,33.1 42.8,34.7 37.9,32.5 35.6,39.7 33.3,43.9 39.5,38.0 45.4,39.8
-  auction 3860 x118
-
-step Get Solid Stone
-  tip You need 212 Solid Stone for Engineering 225-300: Hi-Impact Mithril Slugs and Mithril Gyro-Shot. Mining: Mithril Deposit (skill 175) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
-  collect 7912 x212 gather Mining 200
-  loop Badlands lvl 45 lap 633 yield 5.7 r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 42.2,80.0 34.4,23.3 15.6,35.2 12.1,35.1 14.3,39.8 7.6,73.3 6.1,77.3 4.0,80.4
-  loop Desolace lvl 43 lap 627 yield 4.5 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
-  loop Alterac Mountains lvl 37 lap 628 yield 4.5 only Alliance r 60 at 50.9,44.2 53.6,48.5 37.0,73.7 32.3,65.0 30.8,56.5 33.3,43.9 35.6,39.7 37.9,32.5 42.8,34.7 45.6,40.6 48.1,33.1 52.7,36.8
-  loop The Hinterlands lvl 51 lap 718 yield 4.2 r 60 at 54.9,67.3 52.1,65.4 33.7,65.0 37.1,67.5 57.9,84.2 72.6,61.9 65.5,41.2 59.1,41.5 57.0,43.1 66.8,52.4 64.4,64.2 56.6,68.6
-  loop Alterac Mountains lvl 38 lap 641 yield 4.0 only Horde r 60 at 50.9,44.2 53.2,48.4 54.1,45.6 55.1,40.6 52.7,36.8 48.0,33.1 42.8,34.7 37.9,32.5 35.6,39.7 33.3,43.9 39.5,38.0 45.4,39.8
-  auction 7912 x212
+  auction 3860 x145
 
 step Get Thorium Bar
-  tip You need 156 Thorium Bar for Engineering 225-300: Thorium Widget and Thorium Tube. Mine Thorium Ore and smelt it at a forge (Mining 250). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
-  collect 12359 x156 gather Mining 250
+  tip 174 Thorium Bar for Engineering 225-300: 26 Thorium Widgets and 16 Thorium Tubes. Mine Thorium Ore and smelt it at a forge (Mining 250). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 12359 x174 gather Mining 250
   loop Winterspring lvl 59 lap 705 yield 4.9 only Alliance r 60 at 70.4,40.3 69.1,39.8 56.3,25.6 57.3,32.8 56.0,49.0 55.5,50.7 54.1,50.4 56.0,53.8 57.8,61.1 56.9,50.4 58.4,46.6 69.4,41.9
   loop Un'Goro Crater lvl 56 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
   loop Felwood lvl 54 lap 811 yield 3.5 only Alliance r 60 at 57.6,17.3 59.2,19.4 61.3,21.3 58.7,22.8 43.8,62.1 38.9,55.1 43.2,46.7 43.4,41.2 38.1,32.2 39.8,22.3 46.2,13.5 48.6,23.8
   loop Azshara lvl 55 lap 688 yield 2.5 r 60 at 65.3,78.2 59.8,73.9 58.2,57.8 49.3,67.0 53.1,90.6 67.0,91.8 69.2,94.2 72.1,97.9 77.7,92.8 73.4,86.4 68.9,82.2 64.1,85.9
   loop Winterspring lvl 58 lap 621 yield 4.0 only Horde r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop Burning Steppes lvl 53 lap 615 yield 1.9 only Horde r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
-  auction 12359 x156
+  loop The Hinterlands lvl 51 lap 718 yield 2.2 only Horde r 60 at 54.9,67.3 52.1,65.4 33.7,65.0 37.1,67.5 57.9,84.2 72.6,61.9 65.5,41.2 59.1,41.5 57.0,43.1 66.8,52.4 64.4,64.2 56.6,68.6
+  loop Felwood lvl 52 lap 616 yield 1.8 only Horde r 60 at 36.2,68.9 37.9,68.0 38.3,70.6 40.1,74.1 42.1,78.4 39.7,81.0 42.8,84.1 44.9,85.5 47.3,76.1 45.2,66.6 43.8,62.1 36.6,62.7
+  loop Tanaris lvl 50 lap 965 yield 2.7 only Horde r 60 at 57.2,68.7 56.5,73.2 55.4,73.0 29.7,68.4 29.4,64.8 31.0,63.8 33.4,46.1 35.1,46.8 62.7,48.5 64.4,47.1 65.5,52.3 64.0,53.3
+  auction 12359 x174
 
 step Get Runecloth
-  tip You need 24 Runecloth for Engineering 225-300: Thorium Widget. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Runecloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
-  collect 14047 x24 nearest gather levels 45-60
-  auction 14047 x24
+  tip 26 Runecloth for Engineering 225-300: 26 Thorium Widgets. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Runecloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
+  collect 14047 x26 nearest gather levels 45-60
+  auction 14047 x26
 
 step Hi-Impact Mithril Slugs to 245
-  tip Hi-Impact Mithril Slugs is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 Mithril Bar and 1 Solid Blasting Powder and makes 200. Make the 50 Solid Blasting Powder first. Use the 12 Solid Blasting Powder you made earlier; the counts above leave them out. One Mithril Bar and one Solid Blasting Powder a craft; hunters buy the slugs. Needs an anvil nearby. If you got here without learning Solid Blasting Powder and Hi-Impact Mithril Slugs, learn them now: an earlier step teaches them.
-  learn 12585
-  learn 12596
-  craft 12585 x50
+  tip Hi-Impact Mithril Slugs is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245, up to 79 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Mithril Bar and 1 Solid Blasting Powder and makes 200. Make the 9 Solid Blasting Powder first. Use the 53 Solid Blasting Powder you made earlier; the counts above leave them out. One Mithril Bar and one Solid Blasting Powder a craft; hunters buy the slugs. The slow part: the slugs turn green at 230, so 225-245 takes about 60 crafts for 20 points. Nothing in the data is cheaper here (Mithril Casing takes three times the Mithril; the rest need Truesilver or parts). Needs an anvil nearby. If you got here without learning Solid Blasting Powder and Hi-Impact Mithril Slugs, learn them now: an earlier step teaches them.
+  learn 12585 npc 5174 only Alliance
+  learn 12585 npc 11017 only Horde
+  learn 12596 npc 5174 only Alliance
+  learn 12596 npc 11017 only Horde
+  craft 12585 x9
   craft 12596 until 245
 
 step Engineering recipes at 245
-  tip Back to an Engineering trainer: Mithril Gyro-Shot (from 245).
-  learn 12621
+  tip Back to Buzzek Bracketswing (Tanaris) (Alliance) or Buzzek Bracketswing (Tanaris) (Horde): Mithril Gyro-Shot (from 245).
+  learn 12621 npc 8736 only Alliance
+  learn 12621 npc 8736 only Horde
 
 step Mithril Gyro-Shot to 265
-  tip Mithril Gyro-Shot is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 Mithril Bar and 2 Solid Blasting Powder and makes 200. Make the 56 Solid Blasting Powder first. Two Mithril Bars and two Solid Blasting Powder a craft. Needs an anvil nearby. If you got here without learning Solid Blasting Powder, learn it now: an earlier step teaches it.
-  learn 12585
+  tip Mithril Gyro-Shot is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265, up to 33 for 9 players in 10 (the gathered materials above count that many). Each takes 2 Mithril Bar and 2 Solid Blasting Powder and makes 200. Make the 56 Solid Blasting Powder first. Two Mithril Bars and two Solid Blasting Powder a craft. Needs an anvil nearby. If you got here without learning Solid Blasting Powder, learn it now: an earlier step teaches it.
+  learn 12585 npc 5174 only Alliance
+  learn 12585 npc 11017 only Horde
   craft 12585 x56
   craft 12621 until 265
 
 step Thorium Widget to 287
-  tip Thorium Widget is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287. Each takes 3 Thorium Bar and 1 Runecloth. Three Thorium Bars and a Runecloth a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby.
+  tip Thorium Widget is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287, up to 26 for 9 players in 10 (the gathered materials above count that many). Each takes 3 Thorium Bar and 1 Runecloth. Three Thorium Bars and a Runecloth a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby.
   learn 19791 -- from the recipe in your bags
   craft 19791 until 287
 
 step Thorium Tube to 300
-  tip Thorium Tube is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 Thorium Bar. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. Engineering 300 is a Legacy System milestone.
+  tip Thorium Tube is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300, up to 16 for 9 players in 10 (the gathered materials above count that many). Each takes 6 Thorium Bar. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. Engineering 300 is a Legacy System milestone.
   learn 19795 -- from the recipe in your bags
   craft 19795 until 300
   skill Engineering 300

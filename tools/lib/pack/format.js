@@ -25,7 +25,7 @@ const MATERIALS_FORMAT = 10;
 // Format 11, read by Polestar 0.4.1: a goal's `either` (one of a set in its step). An older Polestar would wait for
 // every goal of the set, so a pack that uses it is written in a format of its own.
 const EITHER_FORMAT = 11;
-const NEEDS = { 1: '0.1.0', 2: '0.2.4', 3: '0.2.5', 4: '0.2.6', 5: '0.3.0', 6: '0.3.0', 7: '0.3.0', 10: '0.4.0', 11: '0.4.1' };
+const NEEDS = { 1: '0.1.0', 2: '0.2.4', 3: '0.2.5', 4: '0.2.6', 5: '0.3.0', 6: '0.3.0', 7: '0.3.0', 10: '0.4.0', 11: '0.4.1', 12: '0.4.4' };
 // Format 11 also: the `buff` goal, a `rep` goal's `points` and the `rep` and `buff` when predicates. An
 // older Polestar refuses the pack as too new instead of refusing each guide with "unknown verb"
 // or "bad when", or counting a `rep` goal done at the start of its standing.
@@ -37,6 +37,9 @@ const DEPOSIT_EQUIP_FORMAT = 11;
 // Format 11 also: an objective goal's `upto` (part of the objective's count). An older Polestar would
 // hold the step until the whole objective is done.
 const UPTO_FORMAT = 11;
+// Format 12, read by Polestar 0.4.4: a `goto` goal with `candidates` (`goto … nearest`: a profession guide's
+// "Go to an anvil"). An older Polestar would wait at a goto with no place of its own.
+const GOTO_NEAREST_FORMAT = 12;
 
 // A step with `label` or `along` (an older Polestar would stop at an along step).
 const usesAlong = (s) => s.label !== undefined || s.along !== undefined;
@@ -67,6 +70,8 @@ const usesMaterials = (g) => (g.steps || []).some((s) => (s.goals || []).some((g
 const usesEither = (g) => (g.steps || []).some((s) => (s.goals || []).some((goal) => goal.either));
 // A goal with `upto` needs format 11 (UPTO_FORMAT).
 const usesUpto = (g) => (g.steps || []).some((s) => (s.goals || []).some((goal) => goal.upto !== undefined));
+// A `goto` goal with candidates needs format 12 (GOTO_NEAREST_FORMAT).
+const usesGotoNearest = (g) => (g.steps || []).some((s) => (s.goals || []).some((goal) => goal.t === 'goto' && Array.isArray(goal.candidates)));
 // A `buff` goal, a `rep` goal with points, or a `rep` or `buff` predicate (on a step, a `skipto`
 // or a `next` option) needs format 11 (BUFF_REP_FORMAT).
 const FORMAT11_WHEN = new Set(['rep', 'buff']);
@@ -97,6 +102,7 @@ const usesDepositEquip = (g) => (g.steps || []).some((s) =>
 // option has `when` (`nextWhen`), else FORMAT. A pack with baked legs is
 // LEGS_FORMAT (project.js buildPackFiles).
 function formatFor(guides) {
+	if ((guides || []).some(usesGotoNearest)) return GOTO_NEAREST_FORMAT;
 	if ((guides || []).some(usesEither)) return EITHER_FORMAT;
 	if ((guides || []).some(usesUpto)) return UPTO_FORMAT;
 	if ((guides || []).some(usesBuffRep)) return BUFF_REP_FORMAT;
@@ -166,4 +172,4 @@ function placeholderLicense(license) {
 	return `Licensed under ${license}: ${LICENSE_PLACEHOLDER}.\n`;
 }
 
-module.exports = { FORMAT, WHEN_FORMAT, MONEY_TASK_FORMAT, LEGS_FORMAT, TAXI_FORMAT, MATERIALS_FORMAT, EITHER_FORMAT, BUFF_REP_FORMAT, DEPOSIT_EQUIP_FORMAT, UPTO_FORMAT, NEEDS, formatFor, PACK_ID_RE, FOLDER_RE, RESERVED_IDS, OWN_EXTRAS, GENERATED_MARKER, LEGACY_GENERATED_MARKER, isGenerated, TOC_MARKER, TOC_TITLE_PREFIX, LEGACY_TOC_TITLE_PREFIX, LICENSE_PLACEHOLDER, ownsGuideId, defaultFolder, placeholderLicense };
+module.exports = { FORMAT, WHEN_FORMAT, MONEY_TASK_FORMAT, LEGS_FORMAT, TAXI_FORMAT, MATERIALS_FORMAT, EITHER_FORMAT, BUFF_REP_FORMAT, DEPOSIT_EQUIP_FORMAT, UPTO_FORMAT, GOTO_NEAREST_FORMAT, NEEDS, formatFor, PACK_ID_RE, FOLDER_RE, RESERVED_IDS, OWN_EXTRAS, GENERATED_MARKER, LEGACY_GENERATED_MARKER, isGenerated, TOC_MARKER, TOC_TITLE_PREFIX, LEGACY_TOC_TITLE_PREFIX, LICENSE_PLACEHOLDER, ownsGuideId, defaultFolder, placeholderLicense };

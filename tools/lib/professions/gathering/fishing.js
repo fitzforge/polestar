@@ -143,8 +143,14 @@ function price(ctx, item) {
 
 // " from skill 50" when the item asks for Fishing skill.
 function fromSkill(ctx, item) {
+	const s = lureSkill(ctx, item);
+	return s > 0 ? ` from skill ${s}` : '';
+}
+
+// The Fishing skill an item asks before it can be used (Bright Baubles: 100), or 0.
+function lureSkill(ctx, item) {
 	const it = codexItem(ctx, item);
-	return it.reqSkill === 356 && it.reqSkillRank > 0 ? ` from skill ${it.reqSkillRank}` : '';
+	return it.reqSkill === 356 && it.reqSkillRank > 0 ? it.reqSkillRank : 0;
 }
 
 function itemName(ctx, id) {
@@ -466,7 +472,7 @@ function render(ctx) {
 		? ` Forever's second camping item, the ${rack.recipe.name} (from skill ${rack.recipe.learnedAt}), is a blueprint that drops from Gelihast in Blackfathom Deeps.`
 		: '';
 	for (const faction of FACTIONS)
-		spotSteps(REGIONS[faction], REGION_SPOTS, faction, expert.minSkill, 225, `Fish the pools here until skill 225, ${about(catches(expert.minSkill, 225))} catches: one in three raises the skill at 125, one in seven by 225, so this is the long stretch.${rackTip}`, 'region');
+		spotSteps(REGIONS[faction], REGION_SPOTS, faction, expert.minSkill, 225, `Fish the pools here until skill 225, ${about(catches(expert.minSkill, 225))} catches: one in three raises the skill at 125, one in seven by 225, so this is the long stretch.${rackTip} This guide keeps to one spot per band; the Fishing + Cooking guide walks loops of the stands players fished most (in more zones, the arrow picking the nearest) and cooks the catch as it goes.`, 'region');
 
 	section('Artisan Fishing: Nat Pagle');
 	pagleSteps(ctx, step);
@@ -485,4 +491,4 @@ function render(ctx) {
 	return `${byBanners(L.join('\n'), 'Fishing')}\n`;
 }
 
-module.exports = { file: 'fishing', skill: 'Fishing', render, PAGLE_FISH, catches, about, note, price, itemName, pagleSteps, POLE, SHINY_BAUBLE, NIGHTCRAWLERS, BRIGHT_BAUBLES, FISH_ATTRACTOR, FISHING_RACK };
+module.exports = { file: 'fishing', skill: 'Fishing', render, PAGLE_FISH, catches, about, note, lureSkill, price, itemName, pagleSteps, POLE, SHINY_BAUBLE, NIGHTCRAWLERS, BRIGHT_BAUBLES, FISH_ATTRACTOR, FISHING_RACK };

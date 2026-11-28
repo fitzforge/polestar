@@ -10,51 +10,53 @@ return {
 	-- {skill:202} Engineering
 	["Learn {skill:202}"] = "学习{skill:202}",
 	-- {skill:202} Engineering · {item:5956} Blacksmith Hammer · {skill:186} Mining · {item:2835} Rough Stone · {item:2770} Copper Ore · {item:2840} Copper Bar
-	["Apprentice {skill:202} lets you craft up to 75 for 10c, at any character level. Any {skill:202} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} and pair it with {skill:186}: {item:2835} and {item:2770} are the first parts. 1-75 takes about 4s 15c of recipes and 18s 18c of vendor goods, plus 46 {item:2835} and 75 {item:2840} to gather or buy."] = "初级 {skill:202} 将制作技能上限提高到75，费用10铜币，无角色等级要求。本阵营任何 {skill:202} 训练师都能教授；箭头会选择最近的一位。购买一把 {item:5956}，并搭配 {skill:186}：最先需要的材料是 {item:2835} 和 {item:2770}。1—75阶段约需购买4银15铜的配方和18银18铜的商人物资，另外还需采集或购买46块 {item:2835} 和75块 {item:2840}。",
+	-- was: ["Apprentice {skill:202} lets you craft up to 75 for 10c, at any character level. Any {skill:202} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} and pair it with {skill:186}: {item:2835} and {item:2770} are the first parts. 1-75 takes about 4s 15c of recipes and 18s 18c of vendor goods, plus 46 {item:2835} and 75 {item:2840} to gather or buy."] = "初级 {skill:202} 将制作技能上限提高到75，费用10铜币，无角色等级要求。本阵营任何 {skill:202} 训练师都能教授；箭头会选择最近的一位。购买一把 {item:5956}，并搭配 {skill:186}：最先需要的材料是 {item:2835} 和 {item:2770}。1—75阶段约需购买4银15铜的配方和18银18铜的商人物资，另外还需采集或购买46块 {item:2835} 和75块 {item:2840}。"
+	["Apprentice {skill:202} lets you craft up to 75 for 10c, at any character level. Any {skill:202} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} and pair it with {skill:186}: {item:2835} and {item:2770} are the first parts. 1-75 takes about 4s 15c of recipes and 16s 18c of vendor goods, plus 36 {item:2835} and 101 {item:2840} to gather or buy."] = "",
 
 	-- Step 2: Engineering 1-75: vendor goods
 	-- {skill:202} Engineering
 	["{skill:202} 1-75: vendor goods"] = "{skill:202} 1–75：商人材料",
 	-- {item:2880} Weak Flux · {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:1286} Edna Mullby · {npc:5512} Kaita Deepforge
-	-- was: ["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "一次买齐这个技能阶段所需的物资：18 个 {item:2880}（18 银币）和 {item:5956}（工具：只要一个，放在背包里保留，18 铜币）；总计约 18 银 18 铜。箭头会选择本阵营最近的商人（{zone:1453}：{npc:5519}、{npc:5514} 和 {npc:1286}）。"
-	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:1286} and {npc:5512})."] = "",
+	["Buy the whole bracket's share in one go: 16 {item:2880} (16s) and {item:5956} (a tool: one, kept in your bags, 18c); about 16s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:1286} and {npc:5512})."] = "",
 	["a tool, keep it in your bags"] = "工具，留在背包里",
 
 	-- Step 3: Get Rough Stone
 	-- {item:2835} Rough Stone
 	["Get {item:2835}"] = "",
 	-- {item:2835} Rough Stone · {skill:202} Engineering · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1426} Dun Morogh · {zone:1429} Elwynn Forest · {zone:2521} Zephras Isle
-	["You need 46 {item:2835} for {skill:202} 1-75: {spell:3918}. {skill:186}: {object:1731} (skill 1) in {zone:1426} (1-10), {zone:1429} (1-10) and {zone:2521} (1-15). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["36 {item:2835} for {skill:202} 1-75: 36 {spell:3918}. {skill:186}: {object:1731} (skill 1) in {zone:1426} (1-10), {zone:1429} (1-10) and {zone:2521} (1-15). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 4: Get Copper Bar
 	-- {item:2840} Copper Bar
 	["Get {item:2840}"] = "",
-	-- {item:2840} Copper Bar · {skill:202} Engineering · {spell:3922} Handful of Copper Bolts · {item:6219} Arclight Spanner · {spell:3924} Copper Tube · {item:2770} Copper Ore · {skill:186} Mining
-	["You need 75 {item:2840} for {skill:202} 1-75: {spell:3922}, {item:6219} and {spell:3924}. Mine {item:2770} and smelt it at a forge ({skill:186} 1). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:2840} Copper Bar · {skill:202} Engineering · {item:6219} Arclight Spanner · {item:2770} Copper Ore · {skill:186} Mining
+	-- plural, as words: Copper Tubes = {spell:3924} Copper Tube
+	["101 {item:2840} for {skill:202} 1-75: 63 Handfuls of Copper Bolts, {item:6219} and 16 Copper Tubes. Mine {item:2770} and smelt it at a forge ({skill:186} 1). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
-	-- Step 5: Rough Blasting Powder to 35
+	-- Step 5: Rough Blasting Powder to 30
 	-- {spell:3918} Rough Blasting Powder
-	["{spell:3918} to 35"] = "制作{spell:3918}，提升至 35",
+	["{spell:3918} to 30"] = "",
 	-- {spell:3918} Rough Blasting Powder · {item:2835} Rough Stone · {item:2770} Copper Ore
 	-- plural, as words: Copper Veins = {object:1731} Copper Vein
-	["{spell:3918} is orange at 1 (yellow 20, green 30, grey 40): about 46 crafts to 35. Each takes 1 {item:2835}. One {item:2835} a craft; {item:2835} comes with the {item:2770} from Copper Veins."] = "{spell:3918}在1时为橙色（20变黄，30变绿，40变灰）：约制作46次可升至35。每次需要1个{item:2835}。每次一个{item:2835}；采铜矿获取{item:2770}时也会得到{item:2835}。",
+	["{spell:3918} is orange at 1 (yellow 20, green 30, grey 40): about 33 crafts to 30, up to 36 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:2835}. One {item:2835} a craft; {item:2835} comes with the {item:2770} from Copper Veins."] = "",
 
-	-- Step 6: Engineering recipes at 35
+	-- Step 6: Engineering recipes at 30
 	-- {skill:202} Engineering
-	["{skill:202} recipes at 35"] = "{skill:202}：技能 35 时学习的配方",
+	["{skill:202} recipes at 30"] = "",
 	-- {skill:202} Engineering · {spell:3922} Handful of Copper Bolts · {spell:1230656} Reagent Bot · {spell:3924} Copper Tube
 	["Back to an {skill:202} trainer: {spell:3922} (from 30, 1s 15c). Also learn {spell:1230656} (1s): Forever's {skill:202} camp item, placed at a campsite beside a campfire. It takes a {spell:3922} and a {spell:3924}, which you learn at 30 and 50, so it gives no points. The Camping 101: {skill:202} quest from your starting area's camping guide (after The Great Outdoors) sends you to an engineering trainer who teaches it free."] = "返回 {skill:202} 训练师处：学习 {spell:3922}（技能 30 起可学，1 银 15 铜）。同时学习 {spell:1230656}（1 银）：这是无限的 {skill:202} 露营物品，可放在营地的营火旁。它需要一个 {spell:3922} 和一个 {spell:3924}，两者分别在技能 30 和 50 时学习，因此制作它不会提升技能。起始地区的露营向导在“广阔天地”之后提供的露营 101: {skill:202} 任务，会让你去找一名工程学训练师，由其免费教授。",
 
-	-- Step 7: Handful of Copper Bolts to 57
+	-- Step 7: Handful of Copper Bolts to 59
 	-- {spell:3922} Handful of Copper Bolts
-	["{spell:3922} to 57"] = "制作{spell:3922}，提升至 57",
+	-- was: ["{spell:3922} to 57"] = "制作{spell:3922}，提升至 57"
+	["{spell:3922} to 59"] = "",
 	-- {spell:3922} Handful of Copper Bolts · {item:2840} Copper Bar · {item:5956} Blacksmith Hammer
 	-- plural, as words: Practice Locks = {item:6712} Practice Lock
-	["{spell:3922} is orange at 35 (yellow 45, green 52, grey 60): about 33 crafts to 57. Each takes 1 {item:2840}. One {item:2840} a craft. Keep the bolts: Practice Locks and later gadgets take them. Needs an anvil nearby. {item:5956} is a tool: keep it in your bags."] = "{spell:3922}在技能35时为橙色（45变黄，52变绿，60变灰）：约制作33次可到57。每次需要1个{item:2840}。也就是每次1个{item:2840}。保留螺栓：练习锁及之后的装置会用到。附近需要有铁砧。{item:5956}是工具：保留在背包中。",
+	["{spell:3922} is orange at 30 (yellow 45, green 52, grey 60): about 50 crafts to 59, up to 63 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:2840}. One {item:2840} a craft. Keep the bolts: Practice Locks and later gadgets take them. Needs an anvil nearby. {item:5956} is a tool: keep it in your bags."] = "",
 
-	-- Step 8: Engineering recipes at 57
+	-- Step 8: Engineering recipes at 59
 	-- {skill:202} Engineering
-	["{skill:202} recipes at 57"] = "{skill:202}：技能 57 时学习的配方",
+	["{skill:202} recipes at 59"] = "",
 	-- {skill:202} Engineering · {spell:7430} Arclight Spanner · {spell:3924} Copper Tube
 	["Back to an {skill:202} trainer: {spell:7430} (from 50, 1s 50c) and {spell:3924} (from 50, 1s 50c)."] = "返回 {skill:202} 训练师处：学习 {spell:7430}（技能 50 起可学，1 银 50 铜）和 {spell:3924}（技能 50 起可学，1 银 50 铜）。",
 
@@ -63,14 +65,16 @@ return {
 	["{spell:3924} to 75"] = "{spell:3924}练到75",
 	-- {spell:3924} Copper Tube · {item:2840} Copper Bar · {item:2880} Weak Flux · {item:6219} Arclight Spanner
 	-- plural, as words: Copper Bars = {item:2840} Copper Bar
-	["{spell:3924} is orange at 57 (yellow 80, green 95, grey 110): about 18 crafts to 75, a point every craft. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. Make the {item:6219} now, while it still gives a point: a later recipe needs it in your bags, so keep it there."] = "{spell:3924} 在技能 57 时为橙色（80 变黄、95 变绿、110 变灰）：约制作 18 次可升到 75，每次制作提升一点。每次需要 2 个 {item:2840} 和 1 个 {item:2880}，即两块铜锭和一个 {item:2880}（锻造和工程学供应商出售）。附近需要有铁砧。趁制作仍能提升技能，现在就制作 {item:6219}：后面的配方需要它在背包里，因此要一直保留。",
+	-- was: ["{spell:3924} is orange at 57 (yellow 80, green 95, grey 110): about 18 crafts to 75, a point every craft. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. Make the {item:6219} now, while it still gives a point: a later recipe needs it in your bags, so keep it there."] = "{spell:3924} 在技能 57 时为橙色（80 变黄、95 变绿、110 变灰）：约制作 18 次可升到 75，每次制作提升一点。每次需要 2 个 {item:2840} 和 1 个 {item:2880}，即两块铜锭和一个 {item:2880}（锻造和工程学供应商出售）。附近需要有铁砧。趁制作仍能提升技能，现在就制作 {item:6219}：后面的配方需要它在背包里，因此要一直保留。"
+	["{spell:3924} is orange at 59 (yellow 80, green 95, grey 110): about 16 crafts to 75, a point every craft. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. Make the {item:6219} now, while it still gives a point: a later recipe needs it in your bags, so keep it there."] = "",
 	["a tool: keep it in your bags"] = "工具：放在背包里",
 
 	-- Step 10: Journeyman Engineering
 	-- {skill:202} Engineering
 	["Journeyman {skill:202}"] = "中级{skill:202}",
-	-- {skill:202} Engineering · {npc:1676} Finbus Geargrind · {zone:1431} Duskwood · {npc:5518} Lilliam Sparkspindle · {zone:1453} Stormwind City · {npc:11029} Trixie Quikswitch · {zone:1455} Ironforge · {npc:11031} Franklin Lloyd · {zone:1458} Undercity · {spell:3929} Coarse Blasting Powder · {spell:3930} Crafted Heavy Shot · {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2840} Copper Bar · {item:2841} Bronze Bar · {item:2842} Silver Bar
-	["Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs {skill:202} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:202} trainer teaches it: Alliance {npc:1676} ({zone:1431}), {npc:5518} ({zone:1453}) and {npc:11029} ({zone:1455}); Horde {npc:11031} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3929} (from 75, 2s 50c) and {spell:3930} (from 75, 2s 50c). 75-150 takes about 5s of recipes and 45s of vendor goods, plus 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842} to gather or buy."] = "中级将技能上限从 75 提高到 150，费用为 5 银币（经典旧世价格；数据中没有无限服的价格）；需要 {skill:202} 50 和角色等级 10，因此达到 50 后，任意一次来访都可学习。并非所有 {skill:202} 训练师都教授：联盟为 {npc:1676}（{zone:1431}）、{npc:5518}（{zone:1453}）和 {npc:11029}（{zone:1455}）；部落为 {npc:11031}（{zone:1458}）。箭头会指向你所属阵营最近的一位。现在学习：{spell:3929}（技能 75 起，2 银币 50 铜币）和 {spell:3930}（技能 75 起，2 银币 50 铜币）。75-150 阶段约需 5 银币的配方和 45 银币的商人材料，另需采集或购买 15 个 {item:2836}、27 个 {item:2838}、72 个 {item:2840}、61 个 {item:2841} 和 2 个 {item:2842}。",
+	-- {skill:202} Engineering · {npc:1676} Finbus Geargrind · {zone:1431} Duskwood · {npc:5518} Lilliam Sparkspindle · {zone:1453} Stormwind City · {npc:11029} Trixie Quikswitch · {zone:1455} Ironforge · {npc:11031} Franklin Lloyd · {zone:1458} Undercity · {spell:3929} Coarse Blasting Powder · {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2840} Copper Bar · {item:2841} Bronze Bar · {item:2842} Silver Bar
+	-- was: ["Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs {skill:202} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:202} trainer teaches it: Alliance {npc:1676} ({zone:1431}), {npc:5518} ({zone:1453}) and {npc:11029} ({zone:1455}); Horde {npc:11031} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3929} (from 75, 2s 50c) and {spell:3930} (from 75, 2s 50c). 75-150 takes about 5s of recipes and 45s of vendor goods, plus 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842} to gather or buy."] = "中级将技能上限从 75 提高到 150，费用为 5 银币（经典旧世价格；数据中没有无限服的价格）；需要 {skill:202} 50 和角色等级 10，因此达到 50 后，任意一次来访都可学习。并非所有 {skill:202} 训练师都教授：联盟为 {npc:1676}（{zone:1431}）、{npc:5518}（{zone:1453}）和 {npc:11029}（{zone:1455}）；部落为 {npc:11031}（{zone:1458}）。箭头会指向你所属阵营最近的一位。现在学习：{spell:3929}（技能 75 起，2 银币 50 铜币）和 {spell:3930}（技能 75 起，2 银币 50 铜币）。75-150 阶段约需 5 银币的配方和 45 银币的商人材料，另需采集或购买 15 个 {item:2836}、27 个 {item:2838}、72 个 {item:2840}、61 个 {item:2841} 和 2 个 {item:2842}。"
+	["Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs {skill:202} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:202} trainer teaches it: Alliance {npc:1676} ({zone:1431}), {npc:5518} ({zone:1453}) and {npc:11029} ({zone:1455}); Horde {npc:11031} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3929} (from 75, 2s 50c). 75-150 takes about 2s 50c of recipes and 45s of vendor goods, plus 47 {item:2836}, 113 {item:2838}, 62 {item:2840}, 63 {item:2841} and 3 {item:2842} to gather or buy."] = "",
 
 	-- Step 11: Engineering 75-150: vendor goods
 	-- {skill:202} Engineering
@@ -81,56 +85,64 @@ return {
 	-- Step 12: Get Coarse Stone
 	-- {item:2836} Coarse Stone
 	["Get {item:2836}"] = "",
-	-- {item:2836} Coarse Stone · {skill:202} Engineering · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills · {zone:1437} Wetlands
-	["You need 15 {item:2836} for {skill:202} 75-150: {spell:3930}. {skill:186}: {object:1732} (skill 65) in {zone:1440} (18-30), {zone:1424} (20-30) and {zone:1437} (20-30). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:2836} Coarse Stone · {skill:202} Engineering · {spell:3929} Coarse Blasting Powder · {skill:186} Mining · {object:1732} Tin Vein · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills · {zone:1437} Wetlands
+	-- plural, as words: Aquadynamic Fish Attractors = {item:6533} Aquadynamic Fish Attractor
+	["47 {item:2836} for {skill:202} 75-150: 38 {spell:3929} and 39 Aquadynamic Fish Attractors (9 of them for 150-225: get them all now). {skill:186}: {object:1732} (skill 65) in {zone:1440} (18-30), {zone:1424} (20-30) and {zone:1437} (20-30). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 13: Get Heavy Stone
 	-- {item:2838} Heavy Stone
 	["Get {item:2838}"] = "",
 	-- {item:2838} Heavy Stone · {skill:202} Engineering · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {zone:2548} Riverglades
-	["You need 27 {item:2838} for {skill:202} 75-150: {spell:3945}. {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:2548} (38-47). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- plural, as words: Big Iron Bombs = {spell:3967} Big Iron Bomb
+	["113 {item:2838} for {skill:202} 75-150: 70 {spell:3945} and 27 Big Iron Bombs (43 of them for 150-225: get them all now). {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:2548} (38-47). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 14: Get Copper Bar
-	-- {item:2840} Copper Bar · {skill:202} Engineering · {spell:3930} Crafted Heavy Shot · {spell:3924} Copper Tube · {item:6712} Practice Lock · {item:2770} Copper Ore · {skill:186} Mining
-	["You need 72 {item:2840} for {skill:202} 75-150: {spell:3930}, {spell:3924} and {item:6712}. Mine {item:2770} and smelt it at a forge ({skill:186} 1). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:2840} Copper Bar · {skill:202} Engineering · {item:2770} Copper Ore · {skill:186} Mining
+	-- plural, as words: Copper Tubes = {spell:3924} Copper Tube · Practice Locks = {item:6712} Practice Lock
+	["62 {item:2840} for {skill:202} 75-150: 20 Copper Tubes and 36 Practice Locks. Mine {item:2770} and smelt it at a forge ({skill:186} 1). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 15: Get Bronze Bar
 	-- {item:2841} Bronze Bar
 	["Get {item:2841}"] = "",
-	-- {item:2841} Bronze Bar · {skill:202} Engineering · {item:6712} Practice Lock · {spell:3950} Big Bronze Bomb · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
-	["You need 61 {item:2841} for {skill:202} 75-150: {item:6712} and {spell:3950}. {skill:186}: smelt {item:2840} and {item:3576}. Or buy them at the Auction House."] = "",
+	-- {item:2841} Bronze Bar · {skill:202} Engineering · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
+	-- plural, as words: Practice Locks = {item:6712} Practice Lock · Big Bronze Bombs = {spell:3950} Big Bronze Bomb
+	["63 {item:2841} for {skill:202} 75-150: 36 Practice Locks and 9 Big Bronze Bombs. {skill:186}: smelt {item:2840} and {item:3576}. Or buy them at the Auction House."] = "",
 
 	-- Step 16: Get Silver Bar
 	-- {item:2842} Silver Bar
 	["Get {item:2842}"] = "",
-	-- {item:2842} Silver Bar · {skill:202} Engineering · {spell:3950} Big Bronze Bomb · {skill:186} Mining · {item:2775} Silver Ore
-	["You need 2 {item:2842} for {skill:202} 75-150: {spell:3950}. {skill:186}: smelt {item:2775}. Or buy them at the Auction House."] = "",
+	-- {item:2842} Silver Bar · {skill:202} Engineering · {skill:186} Mining · {item:2775} Silver Ore
+	-- plural, as words: Big Bronze Bombs = {spell:3950} Big Bronze Bomb
+	["3 {item:2842} for {skill:202} 75-150: 9 Big Bronze Bombs. {skill:186}: smelt {item:2775}. Or buy them at the Auction House."] = "",
 
-	-- Step 17: Crafted Heavy Shot to 94
-	-- {spell:3930} Crafted Heavy Shot
-	["{spell:3930} to 94"] = "制作{spell:3930}，提升至 94",
-	-- {spell:3930} Crafted Heavy Shot · {spell:3929} Coarse Blasting Powder · {item:2840} Copper Bar
-	["{spell:3930} is orange at 75 (yellow 85, green 90, grey 95): about 15 crafts to 94. Each takes 1 {spell:3929} and 1 {item:2840} and makes 200. Make the 15 {spell:3929} first: it gives points too while not grey. The {spell:3929} in each gives its own point while it is not grey: two chances a craft. Sell the shot to hunters or a vendor."] = "{spell:3930} 在技能75时为橙色（85变黄，90变绿，95变灰）：大约制作15次升到94。每次需要1份 {spell:3929} 和1块 {item:2840}，产出200发。先制作15份 {spell:3929}：只要尚未变灰，制作它也能涨点。每次所用的 {spell:3929} 在未变灰时也有自己的涨点机会：相当于每次有两次涨点机会。弹药可卖给猎人或商人。",
+	-- Step 17: Coarse Blasting Powder to 94
+	-- {spell:3929} Coarse Blasting Powder
+	["{spell:3929} to 94"] = "",
+	-- {spell:3929} Coarse Blasting Powder · {item:2836} Coarse Stone
+	-- plural, as words: Tin Veins = {object:1732} Tin Vein
+	["{spell:3929} is orange at 75 (yellow 85, green 90, grey 95): about 30 crafts to 94, up to 38 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:2836}. One {item:2836} a craft (Tin Veins)."] = "",
 
 	-- Step 18: Copper Tube to 100
 	-- {spell:3924} Copper Tube
 	["{spell:3924} to 100"] = "{spell:3924}练到100",
 	-- {spell:3924} Copper Tube · {item:2840} Copper Bar · {item:2880} Weak Flux
 	-- plural, as words: Copper Bars = {item:2840} Copper Bar
-	["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. If you got here without learning {spell:3924}, learn it now: an earlier step teaches it."] = "{spell:3924}在94时为黄色（黄色80，绿色95，灰色110）：大约制作14次到100。每次需要2个{item:2840}和1个{item:2880}。每次两个铜锭和一个{item:2880}（锻造和工程学供应商）。需要附近有铁砧。如果你到这里还没学会{spell:3924}，现在就学：之前的步骤会教。",
+	-- was: ["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. If you got here without learning {spell:3924}, learn it now: an earlier step teaches it."] = "{spell:3924}在94时为黄色（黄色80，绿色95，灰色110）：大约制作14次到100。每次需要2个{item:2840}和1个{item:2880}。每次两个铜锭和一个{item:2880}（锻造和工程学供应商）。需要附近有铁砧。如果你到这里还没学会{spell:3924}，现在就学：之前的步骤会教。"
+	["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100, up to 20 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. If you got here without learning {spell:3924}, learn it now: an earlier step teaches it."] = "",
 
 	-- Step 19: Engineering recipes at 100
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 100"] = "100点的{skill:202}配方",
-	-- {skill:202} Engineering · {spell:8334} Practice Lock
-	["Back to an {skill:202} trainer: {spell:8334} (from 100)."] = "返回{skill:202}训练师处，学习{spell:8334}（技能 100 起可学）。",
+	-- {skill:202} Engineering · {spell:8334} Practice Lock · {spell:3973} Silver Contact
+	["Back to an {skill:202} trainer: {spell:8334} (from 100) and {spell:3973} (from 90)."] = "",
 
 	-- Step 20: Practice Lock to 125
 	-- {item:6712} Practice Lock
 	["{item:6712} to 125"] = "制作{item:6712}，提升至 125",
 	-- {item:6712} Practice Lock · {item:2841} Bronze Bar · {spell:3922} Handful of Copper Bolts · {item:2880} Weak Flux
 	-- plural, as words: Practice Locks = {item:6712} Practice Lock
-	["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby. If you got here without learning {spell:3922}, learn it now: an earlier step teaches it."] = "{item:6712}在100时为橙色（黄色115，绿色122，灰色130）：大约制作31次到125。每次需要1个{item:2841}、2个{spell:3922}和1个{item:2880}。先做29个{spell:3922}。用上你之前做的33个{spell:3922}；上面的数量不包括它们。练习锁可以卖给潜行者，或者自己开。需要附近有铁砧。如果你到这里还没学会{spell:3922}，现在就学：之前的步骤会教。",
+	-- was: ["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby. If you got here without learning {spell:3922}, learn it now: an earlier step teaches it."] = "{item:6712}在100时为橙色（黄色115，绿色122，灰色130）：大约制作31次到125。每次需要1个{item:2841}、2个{spell:3922}和1个{item:2880}。先做29个{spell:3922}。用上你之前做的33个{spell:3922}；上面的数量不包括它们。练习锁可以卖给潜行者，或者自己开。需要附近有铁砧。如果你到这里还没学会{spell:3922}，现在就学：之前的步骤会教。"
+	["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125, up to 36 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 12 {spell:3922} first. Use the 50 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby. If you got here without learning {spell:3922}, learn it now: an earlier step teaches it."] = "",
 
 	-- Step 21: Engineering recipes at 125
 	-- {skill:202} Engineering
@@ -138,30 +150,31 @@ return {
 	-- {skill:202} Engineering · {spell:3945} Heavy Blasting Powder
 	["Back to an {skill:202} trainer: {spell:3945} (from 125)."] = "返回{skill:202}训练师处，学习{spell:3945}（技能 125 起可学）。",
 
-	-- Step 22: Heavy Blasting Powder to 140
+	-- Step 22: Heavy Blasting Powder to 144
 	-- {spell:3945} Heavy Blasting Powder
-	["{spell:3945} to 140"] = "制作{spell:3945}，提升至 140",
+	["{spell:3945} to 144"] = "",
 	-- {spell:3945} Heavy Blasting Powder · {item:2838} Heavy Stone
 	-- plural, as words: Iron Deposits = {object:1735} Iron Deposit · Iron Grenades = {item:4390} Iron Grenade
-	["{spell:3945} is yellow at 125 (yellow 125, green 135, grey 145): about 27 crafts to 140. Each takes 1 {item:2838}. One {item:2838} a craft (Iron Deposits). Keep some: Iron Grenades take one each."] = "{spell:3945} 在技能 125 时为黄色（125 变黄、135 变绿、145 变灰）：约制作 27 次可到 140。每次需要 1 个 {item:2838}。即每次一个 {item:2838}（来自铁矿石）。留下一些：每颗铁皮手雷都要用一个。",
+	["{spell:3945} is yellow at 125 (yellow 125, green 135, grey 145): about 52 crafts to 144, up to 70 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:2838}. One {item:2838} a craft (Iron Deposits). Keep some: Iron Grenades take one each."] = "",
 
-	-- Step 23: Engineering recipes at 140
+	-- Step 23: Engineering recipes at 144
 	-- {skill:202} Engineering
-	["{skill:202} recipes at 140"] = "{skill:202}：技能 140 时学习的配方",
-	-- {skill:202} Engineering · {spell:3973} Silver Contact · {spell:3950} Big Bronze Bomb
-	["Back to an {skill:202} trainer: {spell:3973} (from 90) and {spell:3950} (from 140)."] = "回到{skill:202}训练师处：学习{spell:3973}（90起）和{spell:3950}（140起）。",
+	["{skill:202} recipes at 144"] = "",
+	-- {skill:202} Engineering · {spell:3950} Big Bronze Bomb
+	["Back to an {skill:202} trainer: {spell:3950} (from 140)."] = "",
 
 	-- Step 24: Big Bronze Bomb to 150
 	-- {spell:3950} Big Bronze Bomb
 	["{spell:3950} to 150"] = "{spell:3950}练到150",
 	-- {spell:3950} Big Bronze Bomb · {item:4377} Heavy Blasting Powder · {item:2841} Bronze Bar · {spell:3973} Silver Contact · {skill:202} Engineering
-	["{spell:3950} is yellow at 140 (yellow 140, green 165, grey 190): about 10 crafts to 150. Each takes 2 {item:4377}, 3 {item:2841} and 1 {spell:3973} and makes 3. Make the 10 {spell:3973} (2 crafts) first. Use the 20 {item:4377} you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. Needs an anvil nearby. {skill:202} 150 is a Legacy System milestone."] = "{spell:3950}在技能140时为黄色（140变黄，165变绿，190变灰）：约制作10次可到150。每次需要2个{item:4377}、3个{item:2841}和1个{spell:3973}，产出3个。先制作10个{spell:3973}（制作2次）。用之前做好的20个{item:4377}；上方统计未将其计入。此配方向训练师学习，是数据中度过这段技能点最便宜的方式。附近需要有铁砧。{skill:202}150是传承系统的一个里程碑。",
+	-- was: ["{spell:3950} is yellow at 140 (yellow 140, green 165, grey 190): about 10 crafts to 150. Each takes 2 {item:4377}, 3 {item:2841} and 1 {spell:3973} and makes 3. Make the 10 {spell:3973} (2 crafts) first. Use the 20 {item:4377} you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. Needs an anvil nearby. {skill:202} 150 is a Legacy System milestone."] = "{spell:3950}在技能140时为黄色（140变黄，165变绿，190变灰）：约制作10次可到150。每次需要2个{item:4377}、3个{item:2841}和1个{spell:3973}，产出3个。先制作10个{spell:3973}（制作2次）。用之前做好的20个{item:4377}；上方统计未将其计入。此配方向训练师学习，是数据中度过这段技能点最便宜的方式。附近需要有铁砧。{skill:202}150是传承系统的一个里程碑。"
+	["{spell:3950} is yellow at 144 (yellow 140, green 165, grey 190): about 7 crafts to 150, up to 9 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:4377}, 3 {item:2841} and 1 {spell:3973} and makes 3. Make the 10 {spell:3973} (2 crafts) first. Use the 14 {item:4377} you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. Needs an anvil nearby. {skill:202} 150 is a Legacy System milestone."] = "",
 
 	-- Step 25: Expert Engineering
 	-- {skill:202} Engineering
 	["Expert {skill:202}"] = "高级{skill:202}",
-	-- {skill:202} Engineering · {npc:5174} Springspindle Fizzlegear · {zone:1455} Ironforge · {npc:11017} Roxxik · {zone:1454} Orgrimmar · {spell:9271} Aquadynamic Fish Attractor · {spell:3953} Bronze Framework · {item:2319} Medium Leather · {item:2592} Wool Cloth · {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2841} Bronze Bar · {item:2842} Silver Bar · {item:3575} Iron Bar · {item:3860} Mithril Bar · {item:7912} Solid Stone
-	["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:5174} ({zone:1455}); Horde {npc:11017} ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:9271} (from 150) and {spell:3953} (from 145). 150-225 takes about 31s of vendor goods, plus 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} and 62 {item:7912} to gather or buy."] = "高级将技能上限从 150 提高到 225，费用为 50 银币（经典旧世价格；数据中没有无限服的价格）；需要 {skill:202} 125 和角色等级 20，因此达到 125 后，任意一次来访都可学习。只有少数训练师教授：联盟为 {npc:5174}（{zone:1455}）；部落为 {npc:11017}（{zone:1454}）。箭头会指向你所属阵营最近的一位。现在学习：{spell:9271}（技能 150 起）和 {spell:3953}（技能 145 起）。150-225 阶段约需 31 银币的商人材料，另需采集或购买 19 个 {item:2319}、19 个 {item:2592}、31 个 {item:2836}、74 个 {item:2838}、100 个 {item:2841}、6 个 {item:2842}、81 个 {item:3575}、19 个 {item:3860} 和 62 个 {item:7912}。",
+	-- {skill:202} Engineering · {npc:5174} Springspindle Fizzlegear · {zone:1455} Ironforge · {npc:11017} Roxxik · {zone:1454} Orgrimmar · {spell:9271} Aquadynamic Fish Attractor · {spell:3953} Bronze Framework · {item:2319} Medium Leather · {item:2592} Wool Cloth · {item:2841} Bronze Bar · {item:2842} Silver Bar · {item:3575} Iron Bar · {item:3860} Mithril Bar · {item:7912} Solid Stone
+	["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:5174} ({zone:1455}); Horde {npc:11017} ({zone:1454}). This route trains it at {npc:5174} ({zone:1455}) for the Alliance and {npc:11017} ({zone:1454}) for the Horde, who also teach the recipes of 150-225: one trainer for every visit. Learn now: {spell:9271} (from 150) and {spell:3953} (from 145). 150-225 takes about 31s of vendor goods, plus 25 {item:2319}, 25 {item:2592}, 128 {item:2841}, 6 {item:2842}, 81 {item:3575}, 22 {item:3860} and 390 {item:7912} to gather or buy."] = "",
 
 	-- Step 26: Engineering 150-225: vendor goods
 	-- {skill:202} Engineering
@@ -169,180 +182,174 @@ return {
 	-- {item:6530} Nightcrawlers · {zone:1453} Stormwind City · {npc:5494} Catherine Leland · {npc:1286} Edna Mullby
 	["Buy the whole bracket's share in one go: 31 {item:6530} (31s); about 31s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5494} and {npc:1286})."] = "一次买齐整个阶段的用量：31个{item:6530}（31银）；合计约31银。箭头会选择本阵营最近的商人（{zone:1453}：{npc:5494}和{npc:1286}）。",
 
-	-- Step 27: Get Medium Leather (Alliance)
+	-- Step 27: Get Medium Leather
 	-- {item:2319} Medium Leather
-	-- was: ["{item:2319} (Alliance)"] = "{item:2319}（联盟）"
-	["Get {item:2319} (Alliance)"] = "",
-	-- {item:2319} Medium Leather · {skill:202} Engineering · {spell:3953} Bronze Framework · {skill:393} Skinning · {npc:2248} Cave Yeti · {npc:2356} Elder Gray Bear · {npc:2385} Feral Mountain Lion · {npc:2351} Gray Bear · {npc:2384} Starving Mountain Lion · {npc:2354} Vicious Gray Bear
-	-- was: ["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "为 {spell:3953} 准备19张 {item:2319}：{skill:393}：剥取18-30级野兽。在这里剥取 {npc:2248}、{npc:2356}、{npc:2385}、{npc:2351}、钳嘴龟、{npc:2384} 和 {npc:2354}（18-30级）；{skill:393} 指南提供相应路线。"
-	["You need 19 {item:2319} for {skill:202} 150-225: {spell:3953}. {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this. Or buy them at the Auction House."] = "",
+	["Get {item:2319}"] = "",
+	-- {item:2319} Medium Leather · {skill:202} Engineering · {skill:393} Skinning
+	-- plural, as words: Bronze Frameworks = {spell:3953} Bronze Framework
+	["25 {item:2319} for {skill:202} 150-225: 25 Bronze Frameworks. {skill:393}: beasts of level 18-30. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
-	-- Step 28: Get Medium Leather (Horde)
-	-- {item:2319} Medium Leather
-	-- was: ["{item:2319} (Horde)"] = "{item:2319}（部落）"
-	["Get {item:2319} (Horde)"] = "",
-	-- {item:2319} Medium Leather · {skill:202} Engineering · {spell:3953} Bronze Framework · {skill:393} Skinning · {npc:3809} Ashenvale Bear · {npc:3810} Elder Ashenvale Bear · {npc:3818} Elder Shadowhorn Stag · {npc:3823} Ghostpaw Runner · {npc:3811} Giant Ashenvale Bear · {npc:3817} Shadowhorn Stag
-	-- was: ["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} and {npc:3817} here (level 18-30); the {skill:393} guide routes this."] = "为{spell:3953}准备19个{item:2319}：通过{skill:393}剥取18-30级野兽。在这里剥取{npc:3809}、{npc:3810}、{npc:3818}、{npc:3823}、{npc:3811}和{npc:3817}（18-30级）；{skill:393}指南提供了对应路线。"
-	["You need 19 {item:2319} for {skill:202} 150-225: {spell:3953}. {skill:393}: beasts of level 18-30. Skin {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} and {npc:3817} here (level 18-30); the {skill:393} guide routes this. Or buy them at the Auction House."] = "",
-
-	-- Step 29: Get Wool Cloth
+	-- Step 28: Get Wool Cloth
 	-- {item:2592} Wool Cloth
 	["Get {item:2592}"] = "",
-	-- {item:2592} Wool Cloth · {skill:202} Engineering · {spell:3953} Bronze Framework
-	["You need 19 {item:2592} for {skill:202} 150-225: {spell:3953}. Humanoids of level 15-30 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- {item:2592} Wool Cloth · {skill:202} Engineering
+	-- plural, as words: Bronze Frameworks = {spell:3953} Bronze Framework
+	["25 {item:2592} for {skill:202} 150-225: 25 Bronze Frameworks. Humanoids of level 15-30 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
-	-- Step 30: Get Coarse Stone
-	-- {item:2836} Coarse Stone · {skill:202} Engineering · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills · {zone:1437} Wetlands
-	["You need 31 {item:2836} for {skill:202} 150-225: {item:6533}. {skill:186}: {object:1732} (skill 65) in {zone:1440} (18-30), {zone:1424} (20-30) and {zone:1437} (20-30). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- Step 29: Get Bronze Bar
+	-- {item:2841} Bronze Bar · {skill:202} Engineering · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
+	-- plural, as words: Aquadynamic Fish Attractors = {item:6533} Aquadynamic Fish Attractor · Bronze Frameworks = {spell:3953} Bronze Framework
+	["128 {item:2841} for {skill:202} 150-225: 39 Aquadynamic Fish Attractors and 25 Bronze Frameworks. {skill:186}: smelt {item:2840} and {item:3576}. Or buy them at the Auction House."] = "",
 
-	-- Step 31: Get Heavy Stone
-	-- {item:2838} Heavy Stone · {skill:202} Engineering · {spell:3967} Big Iron Bomb · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {zone:2548} Riverglades
-	["You need 74 {item:2838} for {skill:202} 150-225: {spell:3967}. {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:2548} (38-47). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- Step 30: Get Silver Bar
+	-- {item:2842} Silver Bar · {skill:202} Engineering · {skill:186} Mining · {item:2775} Silver Ore
+	-- plural, as words: Big Iron Bombs = {spell:3967} Big Iron Bomb
+	["6 {item:2842} for {skill:202} 150-225: 27 Big Iron Bombs. {skill:186}: smelt {item:2775}. Or buy them at the Auction House."] = "",
 
-	-- Step 32: Get Bronze Bar
-	-- {item:2841} Bronze Bar · {skill:202} Engineering · {item:6533} Aquadynamic Fish Attractor · {spell:3953} Bronze Framework · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
-	["You need 100 {item:2841} for {skill:202} 150-225: {item:6533} and {spell:3953}. {skill:186}: smelt {item:2840} and {item:3576}. Or buy them at the Auction House."] = "",
-
-	-- Step 33: Get Silver Bar
-	-- {item:2842} Silver Bar · {skill:202} Engineering · {spell:3967} Big Iron Bomb · {skill:186} Mining · {item:2775} Silver Ore
-	["You need 6 {item:2842} for {skill:202} 150-225: {spell:3967}. {skill:186}: smelt {item:2775}. Or buy them at the Auction House."] = "",
-
-	-- Step 34: Get Iron Bar
+	-- Step 31: Get Iron Bar
 	-- {item:3575} Iron Bar
 	["Get {item:3575}"] = "",
-	-- {item:3575} Iron Bar · {skill:202} Engineering · {spell:3967} Big Iron Bomb · {item:2772} Iron Ore · {skill:186} Mining
-	["You need 81 {item:3575} for {skill:202} 150-225: {spell:3967}. Mine {item:2772} and smelt it at a forge ({skill:186} 125). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:3575} Iron Bar · {skill:202} Engineering · {item:2772} Iron Ore · {skill:186} Mining
+	-- plural, as words: Big Iron Bombs = {spell:3967} Big Iron Bomb
+	["81 {item:3575} for {skill:202} 150-225: 27 Big Iron Bombs. Mine {item:2772} and smelt it at a forge ({skill:186} 125). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
-	-- Step 35: Get Mithril Bar
+	-- Step 32: Get Mithril Bar
 	-- {item:3860} Mithril Bar
 	["Get {item:3860}"] = "",
 	-- {item:3860} Mithril Bar · {skill:202} Engineering · {item:10512} Hi-Impact Mithril Slugs · {item:3858} Mithril Ore · {skill:186} Mining
-	["You need 19 {item:3860} for {skill:202} 150-225: {item:10512}. Mine {item:3858} and smelt it at a forge ({skill:186} 175). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["22 {item:3860} for {skill:202} 150-225: 22 {item:10512}. Mine {item:3858} and smelt it at a forge ({skill:186} 175). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
-	-- Step 36: Get Solid Stone
+	-- Step 33: Get Solid Stone
 	-- {item:7912} Solid Stone
 	["Get {item:7912}"] = "",
-	-- {item:7912} Solid Stone · {skill:202} Engineering · {item:10505} Solid Blasting Powder · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["You need 62 {item:7912} for {skill:202} 150-225: {item:10505}. {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:7912} Solid Stone · {skill:202} Engineering · {item:10505} Solid Blasting Powder · {item:10512} Hi-Impact Mithril Slugs · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
+	-- plural, as words: Mithril Gyro-Shots = {item:10513} Mithril Gyro-Shot
+	["390 {item:7912} for {skill:202} 150-225: 103 {item:10505}, 79 {item:10512} and 33 Mithril Gyro-Shots (184 of them for 225-300: get them all now). {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
-	-- Step 37: Aquadynamic Fish Attractor to 166
+	-- Step 34: Aquadynamic Fish Attractor to 166
 	-- {item:6533} Aquadynamic Fish Attractor
 	["{item:6533} to 166"] = "制作{item:6533}，提升至 166",
 	-- {item:6533} Aquadynamic Fish Attractor · {item:2841} Bronze Bar · {item:6530} Nightcrawlers · {spell:3929} Coarse Blasting Powder
-	["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen. If you got here without learning {spell:3929}, learn it now: an earlier step teaches it."] = "{item:6533}在150时为黄色（黄色150，绿色160，灰色170）：大约制作31次到166。每次需要2个{item:2841}、1个{item:6530}和1个{spell:3929}，产出3个。先做31个{spell:3929}。{item:6530}来自商业和钓鱼供应商；诱鱼器可以卖给钓鱼的人。如果你到这里还没学会{spell:3929}，现在就学：之前的步骤会教。",
+	["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166, up to 39 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 1 {spell:3929} first. Use the 30 {spell:3929} you made earlier; the counts above leave them out. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen. If you got here without learning {spell:3929}, learn it now: an earlier step teaches it."] = "",
 
-	-- Step 38: Bronze Framework to 175
+	-- Step 35: Bronze Framework to 175
 	-- {spell:3953} Bronze Framework
 	["{spell:3953} to 175"] = "将{spell:3953}做到 175",
 	-- {spell:3953} Bronze Framework · {item:2841} Bronze Bar · {item:2319} Medium Leather · {item:2592} Wool Cloth
 	-- plural, as words: Bronze Frameworks = {spell:3953} Bronze Framework
-	["{spell:3953} is yellow at 166 (yellow 145, green 170, grey 195): about 19 crafts to 175. Each takes 2 {item:2841}, 1 {item:2319} and 1 {item:2592}. Bronze Frameworks are parts for later gadgets; the extras sell to vendors."] = "{spell:3953}在技能166时为黄色（145变黄，170变绿，195变灰）：约制作19次可到175。每次需要2个{item:2841}、1个{item:2319}和1个{item:2592}。青铜框架是之后装置的零件；多余的可卖给商人。",
+	-- was: ["{spell:3953} is yellow at 166 (yellow 145, green 170, grey 195): about 19 crafts to 175. Each takes 2 {item:2841}, 1 {item:2319} and 1 {item:2592}. Bronze Frameworks are parts for later gadgets; the extras sell to vendors."] = "{spell:3953}在技能166时为黄色（145变黄，170变绿，195变灰）：约制作19次可到175。每次需要2个{item:2841}、1个{item:2319}和1个{item:2592}。青铜框架是之后装置的零件；多余的可卖给商人。"
+	["{spell:3953} is yellow at 166 (yellow 145, green 170, grey 195): about 19 crafts to 175, up to 25 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:2841}, 1 {item:2319} and 1 {item:2592}. Bronze Frameworks are parts for later gadgets; the extras sell to vendors."] = "",
 
-	-- Step 39: Engineering recipes at 175
+	-- Step 36: Engineering recipes at 175
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 175"] = "{skill:202} 175 级配方",
-	-- {skill:202} Engineering · {spell:12585} Solid Blasting Powder
-	["Back to an {skill:202} trainer: {spell:12585} (from 175)."] = "返回{skill:202}训练师处，学习{spell:12585}（技能 175 起可学）。",
+	-- {npc:5174} Springspindle Fizzlegear · {zone:1455} Ironforge · {npc:11017} Roxxik · {zone:1454} Orgrimmar · {spell:12585} Solid Blasting Powder
+	["Back to {npc:5174} ({zone:1455}) (Alliance) or {npc:11017} ({zone:1454}) (Horde): {spell:12585} (from 175)."] = "",
 
-	-- Step 40: Solid Blasting Powder to 191
+	-- Step 37: Solid Blasting Powder to 195
 	-- {item:10505} Solid Blasting Powder
-	["{item:10505} to 191"] = "制作{item:10505}，提升至 191",
+	["{item:10505} to 195"] = "",
 	-- {item:10505} Solid Blasting Powder · {item:7912} Solid Stone
 	-- plural, as words: Mithril Deposits = {object:2040} Mithril Deposit
-	["{item:10505} is yellow at 175 (yellow 175, green 185, grey 195): about 31 crafts to 191. Each takes 2 {item:7912}. Two {item:7912} a craft (Mithril Deposits). Make plenty: the triggers, slugs and Gyro-Shot all use it."] = "{item:10505} 在技能175时为黄色（175变黄，185变绿，195变灰）：大约制作31次升到191。每次需要2块 {item:7912}。每次用两块 {item:7912}（来自秘银矿脉）。多做一些：扳机、弹头和 秘银螺旋弹 都要用到。",
+	["{item:10505} is yellow at 175 (yellow 175, green 185, grey 195): about 72 crafts to 195, up to 103 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:7912}. Two {item:7912} a craft (Mithril Deposits). Make plenty: the triggers, slugs and Gyro-Shot all use it."] = "",
 
-	-- Step 41: Engineering recipes at 191
+	-- Step 38: Engineering recipes at 195
 	-- {skill:202} Engineering
-	["{skill:202} recipes at 191"] = "{skill:202}：技能 191 时学习的配方",
-	-- {skill:202} Engineering · {spell:3967} Big Iron Bomb
-	["Back to an {skill:202} trainer: {spell:3967} (from 190)."] = "返回{skill:202}训练师处，学习{spell:3967}（技能 190 起可学）。",
+	["{skill:202} recipes at 195"] = "",
+	-- {npc:5174} Springspindle Fizzlegear · {zone:1455} Ironforge · {npc:11017} Roxxik · {zone:1454} Orgrimmar · {spell:3967} Big Iron Bomb
+	["Back to {npc:5174} ({zone:1455}) (Alliance) or {npc:11017} ({zone:1454}) (Horde): {spell:3967} (from 190)."] = "",
 
-	-- Step 42: Big Iron Bomb to 210
+	-- Step 39: Big Iron Bomb to 210
 	-- {spell:3967} Big Iron Bomb
 	["{spell:3967} to 210"] = "制作{spell:3967}，提升至 210",
 	-- {spell:3967} Big Iron Bomb · {item:3575} Iron Bar · {spell:3945} Heavy Blasting Powder · {spell:3973} Silver Contact · {item:2842} Silver Bar · {item:2838} Heavy Stone · {npc:5174} Springspindle Fizzlegear · {zone:1455} Ironforge · {npc:5518} Lilliam Sparkspindle · {zone:1453} Stormwind City · {npc:4586} Graham Van Talen · {zone:1458} Undercity · {area:392} Ratchet · {spell:20220} Gnomish Engineering · {npc:7944} Tinkmaster Overspark · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay · {item:4407} Accurate Scope · {npc:8126} Nixx Sprocketspring · {area:976} Gadgetzan · {item:10507} Solid Dynamite · {npc:2675} Explosive Sheep
 	-- plural, as words: Silver Contacts = {spell:3973} Silver Contact · Mithril Tubes = {item:10559} Mithril Tube · Big Iron Bombs = {spell:3967} Big Iron Bomb
-	["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby. If you got here without learning {spell:3945} and {spell:3973}, learn them now: an earlier step teaches them."] = "{spell:3967}在191时为黄色（黄色190，绿色210，灰色230）：大约制作27次到210。每次需要3个{item:3575}、3个{spell:3945}和1个{spell:3973}，产出2个。先做74个{spell:3945}和30个{spell:3973}（6次制作）。用上你之前做的7个{spell:3945}；上面的数量不包括它们。一个{item:2842}可以做五个银触媒（此时已是灰色：不加点，但也不用跑商人）；{spell:3945}来自{item:2838}。每次制作产出两个炸弹。专精（可选）：在200技能和30级角色时，{npc:5174}（{zone:1455}）、{npc:5518}（{zone:1453}）、{npc:4586}（{zone:1458}）或丁克维兹（{area:392}）会把你送到{spell:20220}（{npc:7944}、{zone:1455}，或{npc:7406}、{area:35}：6个秘银管、一个{item:4407}和2个高级假人）或地精工程学（{npc:8126}、{area:976}：20个重磅铁制炸弹、20个{item:10507}和5个{npc:2675}）。{item:4407}的设计图现在拾取后绑定，但任务接受别人做的瞄准镜。会员卡可用14天游戏时间；续期花费2金。只能选一个；到300都不需要，测试版也从未测试过它们（它停在30级）。需要附近有铁砧。如果你到这里还没学会{spell:3945}和{spell:3973}，现在就学：之前的步骤会教。",
+	-- was: ["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby. If you got here without learning {spell:3945} and {spell:3973}, learn them now: an earlier step teaches them."] = "{spell:3967}在191时为黄色（黄色190，绿色210，灰色230）：大约制作27次到210。每次需要3个{item:3575}、3个{spell:3945}和1个{spell:3973}，产出2个。先做74个{spell:3945}和30个{spell:3973}（6次制作）。用上你之前做的7个{spell:3945}；上面的数量不包括它们。一个{item:2842}可以做五个银触媒（此时已是灰色：不加点，但也不用跑商人）；{spell:3945}来自{item:2838}。每次制作产出两个炸弹。专精（可选）：在200技能和30级角色时，{npc:5174}（{zone:1455}）、{npc:5518}（{zone:1453}）、{npc:4586}（{zone:1458}）或丁克维兹（{area:392}）会把你送到{spell:20220}（{npc:7944}、{zone:1455}，或{npc:7406}、{area:35}：6个秘银管、一个{item:4407}和2个高级假人）或地精工程学（{npc:8126}、{area:976}：20个重磅铁制炸弹、20个{item:10507}和5个{npc:2675}）。{item:4407}的设计图现在拾取后绑定，但任务接受别人做的瞄准镜。会员卡可用14天游戏时间；续期花费2金。只能选一个；到300都不需要，测试版也从未测试过它们（它停在30级）。需要附近有铁砧。如果你到这里还没学会{spell:3945}和{spell:3973}，现在就学：之前的步骤会教。"
+	["{spell:3967} is yellow at 195 (yellow 190, green 210, grey 230): about 22 crafts to 210, up to 27 for 9 players in 10 (the gathered materials above count that many). Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 28 {spell:3945} and 25 {spell:3973} (5 crafts) first. Use the 38 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby. If you got here without learning {spell:3945} and {spell:3973}, learn them now: an earlier step teaches them."] = "",
 
-	-- Step 43: Engineering recipes at 210
+	-- Step 40: Engineering recipes at 210
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 210"] = "{skill:202} 210 级配方",
-	-- {skill:202} Engineering · {spell:12596} Hi-Impact Mithril Slugs
-	["Back to an {skill:202} trainer: {spell:12596} (from 210)."] = "返回{skill:202}训练师处，学习{spell:12596}（技能 210 起可学）。",
+	-- {npc:5174} Springspindle Fizzlegear · {zone:1455} Ironforge · {npc:11017} Roxxik · {zone:1454} Orgrimmar · {spell:12596} Hi-Impact Mithril Slugs
+	["Back to {npc:5174} ({zone:1455}) (Alliance) or {npc:11017} ({zone:1454}) (Horde): {spell:12596} (from 210)."] = "",
 
-	-- Step 44: Hi-Impact Mithril Slugs to 225
+	-- Step 41: Hi-Impact Mithril Slugs to 225
 	-- {item:10512} Hi-Impact Mithril Slugs
 	["{item:10512} to 225"] = "将{item:10512}做到 225",
 	-- {item:10512} Hi-Impact Mithril Slugs · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder · {skill:202} Engineering
-	["{item:10512} is yellow at 210 (yellow 210, green 230, grey 250): about 19 crafts to 225. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Use the 19 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. {skill:202} 225 is a Legacy System milestone."] = "{item:10512} 在210点时为黄色（210变黄，230变绿，250变灰）：制作约19次可到225。每次需要1块 {item:3860} 和1份 {item:10505}，产出200发。使用之前做好的19份 {item:10505}；上面的数量未包含它们。每次制作消耗一块 {item:3860} 和一份 {item:10505}；猎人会购买这些弹头。附近需要有铁砧。{skill:202} 达到225是传承系统的一个里程碑。",
+	-- was: ["{item:10512} is yellow at 210 (yellow 210, green 230, grey 250): about 19 crafts to 225. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Use the 19 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. {skill:202} 225 is a Legacy System milestone."] = "{item:10512} 在210点时为黄色（210变黄，230变绿，250变灰）：制作约19次可到225。每次需要1块 {item:3860} 和1份 {item:10505}，产出200发。使用之前做好的19份 {item:10505}；上面的数量未包含它们。每次制作消耗一块 {item:3860} 和一份 {item:10505}；猎人会购买这些弹头。附近需要有铁砧。{skill:202} 达到225是传承系统的一个里程碑。"
+	["{item:10512} is yellow at 210 (yellow 210, green 230, grey 250): about 19 crafts to 225, up to 22 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Use the 19 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. {skill:202} 225 is a Legacy System milestone."] = "",
 
-	-- Step 45: Artisan Engineering
+	-- Step 42: Artisan Engineering
 	-- {skill:202} Engineering
 	["Artisan {skill:202}"] = "专家级{skill:202}",
-	-- {skill:202} Engineering · {npc:8736} Buzzek Bracketswing · {zone:1446} Tanaris · {item:3860} Mithril Bar · {item:7912} Solid Stone · {item:12359} Thorium Bar · {item:14047} Runecloth
-	["Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:8736} ({zone:1446}); Horde {npc:8736} ({zone:1446}). The arrow picks the nearest of your faction. 225-300 takes about 2g 80s of recipes, plus 118 {item:3860}, 212 {item:7912}, 156 {item:12359} and 24 {item:14047} to gather or buy."] = "大师级技能将上限从225提高到300，费用4金币50银币（经典旧世价格；数据中没有无限服的价格）；需要 {skill:202} 200和角色35级，因此达到200后，随时拜访都能学习。只有少数训练师教授：联盟的 {npc:8736}（{zone:1446}）；部落的 {npc:8736}（{zone:1446}）。箭头会选择本阵营最近的一位。225—300阶段约需购买2金币80银币的配方，另外还需采集或购买118块 {item:3860}、212块 {item:7912}、156块 {item:12359} 和24块 {item:14047}。",
+	-- {skill:202} Engineering · {npc:8736} Buzzek Bracketswing · {zone:1446} Tanaris · {item:3860} Mithril Bar · {item:12359} Thorium Bar · {item:14047} Runecloth
+	["Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:8736} ({zone:1446}); Horde {npc:8736} ({zone:1446}). This route trains it at {npc:8736} ({zone:1446}) for the Alliance and {npc:8736} ({zone:1446}) for the Horde, who also teach the recipes of 225-300: one trainer for every visit. 225-300 takes about 2g 80s of recipes, plus 145 {item:3860}, 174 {item:12359} and 26 {item:14047} to gather or buy."] = "",
 
-	-- Step 46: Schematic: Thorium Widget
+	-- Step 43: Schematic: Thorium Widget
 	-- {item:16042} Schematic: Thorium Widget · {item:15994} Thorium Widget · {skill:202} Engineering · {npc:5175} Gearcutter Cogspinner · {zone:1455} Ironforge · {npc:3413} Sovik · {zone:1454} Orgrimmar
 	["{item:16042} teaches {item:15994} ({skill:202} 260) for 1g 20s. Sold by Alliance: {npc:5175} ({zone:1455}), limited stock; Horde: {npc:3413} ({zone:1454}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; the Auction House often has it too."] = "{item:16042} 可教会制作 {item:15994}（{skill:202} 260），售价 1 金 20 银。出售者：联盟 {npc:5175}（{zone:1455}），限量；部落 {npc:3413}（{zone:1454}），限量。商人通常只备一两份，售出一段时间后补货；拍卖行也经常有售。",
 
-	-- Step 47: Schematic: Thorium Tube
+	-- Step 44: Schematic: Thorium Tube
 	-- {item:16047} Schematic: Thorium Tube · {item:16000} Thorium Tube · {skill:202} Engineering · {npc:260565} Kor'gar · {zone:2548} Riverglades · {npc:11185} Xizzer Fizzbolt · {zone:1452} Winterspring
-	["{item:16047} teaches {item:16000} ({skill:202} 275) for 1g 60s. Sold by {npc:260565} ({zone:2548}) and {npc:11185} ({zone:1452}), limited stock."] = "{item:16047}用于学习{item:16000}（需要{skill:202}275），售价1金60银。出售者：{npc:260565}（{zone:2548}）和{npc:11185}（{zone:1452}），限量供应。",
+	-- was: ["{item:16047} teaches {item:16000} ({skill:202} 275) for 1g 60s. Sold by {npc:260565} ({zone:2548}) and {npc:11185} ({zone:1452}), limited stock."] = "{item:16047}用于学习{item:16000}（需要{skill:202}275），售价1金60银。出售者：{npc:260565}（{zone:2548}）和{npc:11185}（{zone:1452}），限量供应。"
+	["{item:16047} teaches {item:16000} ({skill:202} 275) for 1g 60s. Sold by Alliance: {npc:260565} ({zone:2548}) and {npc:11185} ({zone:1452}), limited stock; Horde: {npc:11185} ({zone:1452}), limited stock."] = "",
 
-	-- Step 48: Get Mithril Bar
-	-- {item:3860} Mithril Bar · {skill:202} Engineering · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {item:3858} Mithril Ore · {skill:186} Mining
-	["You need 118 {item:3860} for {skill:202} 225-300: {item:10512} and {item:10513}. Mine {item:3858} and smelt it at a forge ({skill:186} 175). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- Step 45: Get Mithril Bar
+	-- {item:3860} Mithril Bar · {skill:202} Engineering · {item:10512} Hi-Impact Mithril Slugs · {item:3858} Mithril Ore · {skill:186} Mining
+	-- plural, as words: Mithril Gyro-Shots = {item:10513} Mithril Gyro-Shot
+	["145 {item:3860} for {skill:202} 225-300: 79 {item:10512} and 33 Mithril Gyro-Shots. Mine {item:3858} and smelt it at a forge ({skill:186} 175). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
-	-- Step 49: Get Solid Stone
-	-- {item:7912} Solid Stone · {skill:202} Engineering · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["You need 212 {item:7912} for {skill:202} 225-300: {item:10512} and {item:10513}. {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
-
-	-- Step 50: Get Thorium Bar
+	-- Step 46: Get Thorium Bar
 	-- {item:12359} Thorium Bar
 	["Get {item:12359}"] = "",
-	-- {item:12359} Thorium Bar · {skill:202} Engineering · {item:15994} Thorium Widget · {item:16000} Thorium Tube · {item:10620} Thorium Ore · {skill:186} Mining
-	["You need 156 {item:12359} for {skill:202} 225-300: {item:15994} and {item:16000}. Mine {item:10620} and smelt it at a forge ({skill:186} 250). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:12359} Thorium Bar · {skill:202} Engineering · {item:10620} Thorium Ore · {skill:186} Mining
+	-- plural, as words: Thorium Widgets = {item:15994} Thorium Widget · Thorium Tubes = {item:16000} Thorium Tube
+	["174 {item:12359} for {skill:202} 225-300: 26 Thorium Widgets and 16 Thorium Tubes. Mine {item:10620} and smelt it at a forge ({skill:186} 250). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
-	-- Step 51: Get Runecloth
+	-- Step 47: Get Runecloth
 	-- {item:14047} Runecloth
 	["Get {item:14047}"] = "",
-	-- {item:14047} Runecloth · {skill:202} Engineering · {item:15994} Thorium Widget
-	["You need 24 {item:14047} for {skill:202} 225-300: {item:15994}. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- {item:14047} Runecloth · {skill:202} Engineering
+	-- plural, as words: Thorium Widgets = {item:15994} Thorium Widget
+	["26 {item:14047} for {skill:202} 225-300: 26 Thorium Widgets. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
-	-- Step 52: Hi-Impact Mithril Slugs to 245
+	-- Step 48: Hi-Impact Mithril Slugs to 245
 	-- {item:10512} Hi-Impact Mithril Slugs
 	["{item:10512} to 245"] = "将{item:10512}做到 245",
-	-- {item:10512} Hi-Impact Mithril Slugs · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder
-	["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. If you got here without learning {item:10505} and {item:10512}, learn them now: an earlier step teaches them."] = "{item:10512}在225时为黄色（黄色210，绿色230，灰色250）：大约制作62次到245。每次需要1个{item:3860}和1个{item:10505}，产出200个。先做50个{item:10505}。用上你之前做的12个{item:10505}；上面的数量不包括它们。每次一个{item:3860}和一个{item:10505}；猎人会买子弹。需要附近有铁砧。如果你到这里还没学会{item:10505}和{item:10512}，现在就学：之前的步骤会教。",
+	-- {item:10512} Hi-Impact Mithril Slugs · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder · {item:10561} Mithril Casing
+	["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245, up to 79 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 9 {item:10505} first. Use the 53 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. The slow part: the slugs turn green at 230, so 225-245 takes about 60 crafts for 20 points. Nothing in the data is cheaper here ({item:10561} takes three times the Mithril; the rest need Truesilver or parts). Needs an anvil nearby. If you got here without learning {item:10505} and {item:10512}, learn them now: an earlier step teaches them."] = "",
 
-	-- Step 53: Engineering recipes at 245
+	-- Step 49: Engineering recipes at 245
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 245"] = "{skill:202} 245 级配方",
-	-- {skill:202} Engineering · {spell:12621} Mithril Gyro-Shot
-	["Back to an {skill:202} trainer: {spell:12621} (from 245)."] = "返回{skill:202}训练师处，学习{spell:12621}（技能 245 起可学）。",
+	-- {npc:8736} Buzzek Bracketswing · {zone:1446} Tanaris · {spell:12621} Mithril Gyro-Shot
+	["Back to {npc:8736} ({zone:1446}) (Alliance) or {npc:8736} ({zone:1446}) (Horde): {spell:12621} (from 245)."] = "",
 
-	-- Step 54: Mithril Gyro-Shot to 265
+	-- Step 50: Mithril Gyro-Shot to 265
 	-- {item:10513} Mithril Gyro-Shot
 	["{item:10513} to 265"] = "制作{item:10513}，提升至 265",
 	-- {item:10513} Mithril Gyro-Shot · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder
 	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
-	["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby. If you got here without learning {item:10505}, learn it now: an earlier step teaches it."] = "{item:10513}在245时为黄色（黄色245，绿色265，灰色285）：大约制作28次到265。每次需要2个{item:3860}和2个{item:10505}，产出200个。先做56个{item:10505}。每次两个秘银锭和两个{item:10505}。需要附近有铁砧。如果你到这里还没学会{item:10505}，现在就学：之前的步骤会教。",
+	-- was: ["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby. If you got here without learning {item:10505}, learn it now: an earlier step teaches it."] = "{item:10513}在245时为黄色（黄色245，绿色265，灰色285）：大约制作28次到265。每次需要2个{item:3860}和2个{item:10505}，产出200个。先做56个{item:10505}。每次两个秘银锭和两个{item:10505}。需要附近有铁砧。如果你到这里还没学会{item:10505}，现在就学：之前的步骤会教。"
+	["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265, up to 33 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby. If you got here without learning {item:10505}, learn it now: an earlier step teaches it."] = "",
 
-	-- Step 55: Thorium Widget to 287
+	-- Step 51: Thorium Widget to 287
 	-- {item:15994} Thorium Widget
 	["{item:15994} to 287"] = "制作{item:15994}，提升至 287",
 	-- {item:15994} Thorium Widget · {item:12359} Thorium Bar · {item:14047} Runecloth
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["{item:15994} is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287. Each takes 3 {item:12359} and 1 {item:14047}. Three Thorium Bars and a {item:14047} a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby."] = "{item:15994} 在技能 265 时为橙色（280 变黄、290 变绿、300 变灰）：约制作 24 次可升到 287。每次需要 3 个 {item:12359} 和 1 个 {item:14047}，即三块瑟银锭和一个 {item:14047}；这些零件用于后续的瑟银装置。附近需要有铁砧。",
+	-- was: ["{item:15994} is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287. Each takes 3 {item:12359} and 1 {item:14047}. Three Thorium Bars and a {item:14047} a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby."] = "{item:15994} 在技能 265 时为橙色（280 变黄、290 变绿、300 变灰）：约制作 24 次可升到 287。每次需要 3 个 {item:12359} 和 1 个 {item:14047}，即三块瑟银锭和一个 {item:14047}；这些零件用于后续的瑟银装置。附近需要有铁砧。"
+	["{item:15994} is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287, up to 26 for 9 players in 10 (the gathered materials above count that many). Each takes 3 {item:12359} and 1 {item:14047}. Three Thorium Bars and a {item:14047} a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby."] = "",
 	["from the recipe in your bags"] = "使用背包里的配方",
 
-	-- Step 56: Thorium Tube to 300
+	-- Step 52: Thorium Tube to 300
 	-- {item:16000} Thorium Tube
 	["{item:16000} to 300"] = "将{item:16000}做到 300",
 	-- {item:16000} Thorium Tube · {item:12359} Thorium Bar · {skill:202} Engineering
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "{item:16000} 在技能 287 时为橙色（295 变黄、305 变绿、315 变灰）：约制作 14 次可升到 300。每次需要 6 个 {item:12359}。结构图拾取后绑定；每次制作消耗六块瑟银锭。附近需要有铁砧。{skill:202} 达到 300 是传承系统的一个里程碑。",
+	-- was: ["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "{item:16000} 在技能 287 时为橙色（295 变黄、305 变绿、315 变灰）：约制作 14 次可升到 300。每次需要 6 个 {item:12359}。结构图拾取后绑定；每次制作消耗六块瑟银锭。附近需要有铁砧。{skill:202} 达到 300 是传承系统的一个里程碑。"
+	["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300, up to 16 for 9 players in 10 (the gathered materials above count that many). Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["100 {item:2841} for {item:6533} and {spell:3953}: {skill:186}: smelt {item:2840} and {item:3576}."] = "为{item:6533}和{spell:3953}准备100个{item:2841}：{skill:186}：熔炼{item:2840}和{item:3576}。",
@@ -387,9 +394,14 @@ return {
 	-- ["75 {item:2840} for {spell:3922}, {item:6219} and {spell:3924}: {skill:186}: smelt {item:2770}."] = "为{spell:3922}、{item:6219}和{spell:3924}准备75个{item:2840}：{skill:186}：熔炼{item:2770}。",
 	-- ["81 {item:3575} for {spell:3967}: {skill:186}: smelt {item:2772}."] = "为{spell:3967}准备81个{item:3575}：{skill:186}：熔炼{item:2772}。",
 	-- ["Apprentice {skill:202}"] = "初级{skill:202}",
+	-- ["Apprentice {skill:202} lets you craft up to 75 for 10c, at any character level. Any {skill:202} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} and pair it with {skill:186}: {item:2835} and {item:2770} are the first parts. 1-75 takes about 4s 15c of recipes and 18s 18c of vendor goods, plus 46 {item:2835} and 75 {item:2840} to gather or buy."] = "初级 {skill:202} 将制作技能上限提高到75，费用10铜币，无角色等级要求。本阵营任何 {skill:202} 训练师都能教授；箭头会选择最近的一位。购买一把 {item:5956}，并搭配 {skill:186}：最先需要的材料是 {item:2835} 和 {item:2770}。1—75阶段约需购买4银15铜的配方和18银18铜的商人物资，另外还需采集或购买46块 {item:2835} 和75块 {item:2840}。",
 	-- ["Artisan needs character level 35 and {skill:202} 200; it raises the cap to 300. Materials for 225-300 are worth about 67g in all."] = "专家级需要角色等级 35 且{skill:202}达到 200；会将上限提高到 300。225-300 的材料总价约 67 金币。",
+	-- ["Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:8736} ({zone:1446}); Horde {npc:8736} ({zone:1446}). The arrow picks the nearest of your faction. 225-300 takes about 2g 80s of recipes, plus 118 {item:3860}, 212 {item:7912}, 156 {item:12359} and 24 {item:14047} to gather or buy."] = "大师级技能将上限从225提高到300，费用4金币50银币（经典旧世价格；数据中没有无限服的价格）；需要 {skill:202} 200和角色35级，因此达到200后，随时拜访都能学习。只有少数训练师教授：联盟的 {npc:8736}（{zone:1446}）；部落的 {npc:8736}（{zone:1446}）。箭头会选择本阵营最近的一位。225—300阶段约需购买2金币80银币的配方，另外还需采集或购买118块 {item:3860}、212块 {item:7912}、156块 {item:12359} 和24块 {item:14047}。",
+	-- ["Back to an {skill:202} trainer: {spell:12585} (from 175)."] = "返回{skill:202}训练师处，学习{spell:12585}（技能 175 起可学）。",
 	-- ["Back to an {skill:202} trainer: {spell:12585}, {spell:12596} are taught from {skill:202} 210."] = "回到{skill:202}训练师处：{spell:12585}、{spell:12596}在{skill:202} 210 时可学。",
 	-- ["Back to an {skill:202} trainer: {spell:12590} is taught from {skill:202} 175."] = "回到{skill:202}训练师处：{spell:12590}在{skill:202} 175 时可学。",
+	-- ["Back to an {skill:202} trainer: {spell:12596} (from 210)."] = "返回{skill:202}训练师处，学习{spell:12596}（技能 210 起可学）。",
+	-- ["Back to an {skill:202} trainer: {spell:12621} (from 245)."] = "返回{skill:202}训练师处，学习{spell:12621}（技能 245 起可学）。",
 	-- ["Back to an {skill:202} trainer: {spell:12621} is taught from {skill:202} 245."] = "回到{skill:202}训练师处：{spell:12621}在{skill:202} 245 时可学。",
 	-- ["Back to an {skill:202} trainer: {spell:3922} is taught from {skill:202} 45."] = "回到{skill:202}训练师处：{spell:3922}在{skill:202} 45 时可学。",
 	-- ["Back to an {skill:202} trainer: {spell:3923} is taught from {skill:202} 60."] = "回到{skill:202}训练师处：{spell:3923}在{skill:202} 60 时可学。",
@@ -399,11 +411,16 @@ return {
 	-- ["Back to an {skill:202} trainer: {spell:3937} is taught from {skill:202} 105."] = "回到{skill:202}训练师处：{spell:3937}在{skill:202} 105 时可学。",
 	-- ["Back to an {skill:202} trainer: {spell:3942} is taught from {skill:202} 125."] = "回到{skill:202}训练师处：{spell:3942}在{skill:202} 125 时可学。",
 	-- ["Back to an {skill:202} trainer: {spell:3945} is taught from {skill:202} 125."] = "回到{skill:202}训练师处：{spell:3945}在{skill:202} 125 时可学。",
+	-- ["Back to an {skill:202} trainer: {spell:3967} (from 190)."] = "返回{skill:202}训练师处，学习{spell:3967}（技能 190 起可学）。",
+	-- ["Back to an {skill:202} trainer: {spell:3973} (from 90) and {spell:3950} (from 140)."] = "回到{skill:202}训练师处：学习{spell:3973}（90起）和{spell:3950}（140起）。",
+	-- ["Back to an {skill:202} trainer: {spell:8334} (from 100)."] = "返回{skill:202}训练师处，学习{spell:8334}（技能 100 起可学）。",
 	-- ["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "一次买齐这个技能阶段所需的物资：18 个 {item:2880}（18 银币）和 {item:5956}（工具：只要一个，放在背包里保留，18 铜币）；总计约 18 银 18 铜。箭头会选择本阵营最近的商人（{zone:1453}：{npc:5519}、{npc:5514} 和 {npc:1286}）。",
 	-- ["Expert needs character level 20 and {skill:202} 125; it raises the cap to 225. Materials for 150-225 are worth about 15g in all."] = "高级需要角色等级 20 且{skill:202}达到 125；会将上限提高到 225。150-225 的材料总价约 15 金币。",
+	-- ["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:5174} ({zone:1455}); Horde {npc:11017} ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:9271} (from 150) and {spell:3953} (from 145). 150-225 takes about 31s of vendor goods, plus 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} and 62 {item:7912} to gather or buy."] = "高级将技能上限从 150 提高到 225，费用为 50 银币（经典旧世价格；数据中没有无限服的价格）；需要 {skill:202} 125 和角色等级 20，因此达到 125 后，任意一次来访都可学习。只有少数训练师教授：联盟为 {npc:5174}（{zone:1455}）；部落为 {npc:11017}（{zone:1454}）。箭头会指向你所属阵营最近的一位。现在学习：{spell:9271}（技能 150 起）和 {spell:3953}（技能 145 起）。150-225 阶段约需 31 银币的商人材料，另需采集或购买 19 个 {item:2319}、19 个 {item:2592}、31 个 {item:2836}、74 个 {item:2838}、100 个 {item:2841}、6 个 {item:2842}、81 个 {item:3575}、19 个 {item:3860} 和 62 个 {item:7912}。",
 	-- ["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:8736} ({zone:1446}) and {npc:5174} ({zone:1455}); Horde {npc:8736} ({zone:1446}) and Roxxik ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:9271} (from 150) and {spell:3953} (from 145). 150-225 takes about 31s of vendor goods, plus 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} and 62 {item:7912} to gather or buy."] = "高级将技能上限从 150 提高到 225，费用为 50 银币（经典旧世价格；数据中没有无限服的价格）；需要 {skill:202} 125 和角色等级 20，因此达到 125 后，任意一次来访都可学习。只有少数训练师教授：联盟为 {npc:8736}（{zone:1446}）和 {npc:5174}（{zone:1455}）；部落为 {npc:8736}（{zone:1446}）和罗克希克（{zone:1454}）。箭头会指向你所属阵营最近的一位。现在学习：{spell:9271}（技能 150 起）和 {spell:3953}（技能 145 起）。150-225 阶段约需 31 银币的商人材料，另需采集或购买 19 个 {item:2319}、19 个 {item:2592}、31 个 {item:2836}、74 个 {item:2838}、100 个 {item:2841}、6 个 {item:2842}、81 个 {item:3575}、19 个 {item:3860} 和 62 个 {item:7912}。",
 	-- ["Journeyman needs character level 10 and {skill:202} 50; it raises the cap to 150. Materials for 75-150 are worth about 3g 23s in all."] = "中级需要角色等级 10 且{skill:202}达到 50；会将上限提高到 150。75-150 的材料总价约 3 金币 23 银币。",
 	-- ["Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs {skill:202} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:202} trainer teaches it: Alliance {npc:1676} ({zone:1431}), {npc:5518} ({zone:1453}) and {npc:11029} ({zone:1455}); Horde {npc:11031} ({zone:1458}) and {npc:3412} ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:3929} (from 75, 2s 50c) and {spell:3930} (from 75, 2s 50c). 75-150 takes about 5s of recipes and 45s of vendor goods, plus 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842} to gather or buy."] = "中级将技能上限从 75 提高到 150，费用为 5 银币（经典旧世价格；数据中没有无限服的价格）；需要 {skill:202} 50 和角色等级 10，因此达到 50 后，任意一次来访都可学习。并非所有 {skill:202} 训练师都教授：联盟为 {npc:1676}（{zone:1431}）、{npc:5518}（{zone:1453}）和 {npc:11029}（{zone:1455}）；部落为 {npc:11031}（{zone:1458}）和 {npc:3412}（{zone:1454}）。箭头会指向你所属阵营最近的一位。现在学习：{spell:3929}（技能 75 起，2 银币 50 铜币）和 {spell:3930}（技能 75 起，2 银币 50 铜币）。75-150 阶段约需 5 银币的配方和 45 银币的商人材料，另需采集或购买 15 个 {item:2836}、27 个 {item:2838}、72 个 {item:2840}、61 个 {item:2841} 和 2 个 {item:2842}。",
+	-- ["Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs {skill:202} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:202} trainer teaches it: Alliance {npc:1676} ({zone:1431}), {npc:5518} ({zone:1453}) and {npc:11029} ({zone:1455}); Horde {npc:11031} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3929} (from 75, 2s 50c) and {spell:3930} (from 75, 2s 50c). 75-150 takes about 5s of recipes and 45s of vendor goods, plus 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842} to gather or buy."] = "中级将技能上限从 75 提高到 150，费用为 5 银币（经典旧世价格；数据中没有无限服的价格）；需要 {skill:202} 50 和角色等级 10，因此达到 50 后，任意一次来访都可学习。并非所有 {skill:202} 训练师都教授：联盟为 {npc:1676}（{zone:1431}）、{npc:5518}（{zone:1453}）和 {npc:11029}（{zone:1455}）；部落为 {npc:11031}（{zone:1458}）。箭头会指向你所属阵营最近的一位。现在学习：{spell:3929}（技能 75 起，2 银币 50 铜币）和 {spell:3930}（技能 75 起，2 银币 50 铜币）。75-150 阶段约需 5 银币的配方和 45 银币的商人材料，另需采集或购买 15 个 {item:2836}、27 个 {item:2838}、72 个 {item:2840}、61 个 {item:2841} 和 2 个 {item:2842}。",
 	-- ["Kill the mobs that drop it at the farm spot Polestar picks for your level and faction. The Auction House works too."] = "在 Polestar 按你的等级和阵营选出的刷材料地点击杀掉落它的怪物。也可以去拍卖行购买。",
 	-- ["Orange (a point every craft) until 20, yellow until 30, green until 40."] = "20 前为橙色（每次制造都加点），30 前为黄色，40 前为绿色。",
 	-- ["Orange (a point every craft) until 280, yellow until 290, green until 300. Needs an anvil nearby."] = "280 前为橙色（每次制造都加点），290 前为黄色，300 前为绿色。需要在铁砧附近。",
@@ -433,13 +450,21 @@ return {
 	-- ["Yellow until 90, green until 95: not every craft gives a point."] = "90 前为黄色，95 前为绿色：不是每次制造都加点。",
 	-- ["Yellow until 95, green until 110: not every craft gives a point. Needs an anvil nearby."] = "95 前为黄色，110 前为绿色：不是每次制造都加点。需要在铁砧附近。",
 	-- ["{item:10498} to 210"] = "将{item:10498}做到 210",
+	-- ["{item:10505} is yellow at 175 (yellow 175, green 185, grey 195): about 31 crafts to 191. Each takes 2 {item:7912}. Two {item:7912} a craft (Mithril Deposits). Make plenty: the triggers, slugs and Gyro-Shot all use it."] = "{item:10505} 在技能175时为黄色（175变黄，185变绿，195变灰）：大约制作31次升到191。每次需要2块 {item:7912}。每次用两块 {item:7912}（来自秘银矿脉）。多做一些：扳机、弹头和 秘银螺旋弹 都要用到。",
+	-- ["{item:10505} to 191"] = "制作{item:10505}，提升至 191",
+	-- ["{item:10512} is yellow at 210 (yellow 210, green 230, grey 250): about 19 crafts to 225. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Use the 19 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. {skill:202} 225 is a Legacy System milestone."] = "{item:10512} 在210点时为黄色（210变黄，230变绿，250变灰）：制作约19次可到225。每次需要1块 {item:3860} 和1份 {item:10505}，产出200发。使用之前做好的19份 {item:10505}；上面的数量未包含它们。每次制作消耗一块 {item:3860} 和一份 {item:10505}；猎人会购买这些弹头。附近需要有铁砧。{skill:202} 达到225是传承系统的一个里程碑。",
 	-- ["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby."] = "{item:10512} 在225点时为黄色（210变黄，230变绿，250变灰）：制作约62次可到245。每次需要1块 {item:3860} 和1份 {item:10505}，产出200发。先制作50份 {item:10505}。使用之前做好的12份 {item:10505}；上面的数量未包含它们。每次制作消耗一块 {item:3860} 和一份 {item:10505}；猎人会购买这些弹头。附近需要有铁砧。",
+	-- ["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. If you got here without learning {item:10505} and {item:10512}, learn them now: an earlier step teaches them."] = "{item:10512}在225时为黄色（黄色210，绿色230，灰色250）：大约制作62次到245。每次需要1个{item:3860}和1个{item:10505}，产出200个。先做50个{item:10505}。用上你之前做的12个{item:10505}；上面的数量不包括它们。每次一个{item:3860}和一个{item:10505}；猎人会买子弹。需要附近有铁砧。如果你到这里还没学会{item:10505}和{item:10512}，现在就学：之前的步骤会教。",
 	-- ["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby."] = "{item:10513} 在技能 245 时为黄色（245 变黄、265 变绿、285 变灰）：约制作 28 次可到 265。每次需要 2 个 {item:3860} 和 2 个 {item:10505}，产出 200 个。先制作 56 个 {item:10505}。即每次两块秘银锭和两个 {item:10505}。附近需要铁砧。",
+	-- ["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby. If you got here without learning {item:10505}, learn it now: an earlier step teaches it."] = "{item:10513}在245时为黄色（黄色245，绿色265，灰色285）：大约制作28次到265。每次需要2个{item:3860}和2个{item:10505}，产出200个。先做56个{item:10505}。每次两个秘银锭和两个{item:10505}。需要附近有铁砧。如果你到这里还没学会{item:10505}，现在就学：之前的步骤会教。",
 	-- ["{item:10513} to 264"] = "将{item:10513}做到 264",
 	-- ["{item:14047} (Alliance)"] = "{item:14047}（联盟）",
 	-- ["{item:14047} (Horde)"] = "{item:14047}（部落）",
+	-- ["{item:15994} is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287. Each takes 3 {item:12359} and 1 {item:14047}. Three Thorium Bars and a {item:14047} a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby."] = "{item:15994} 在技能 265 时为橙色（280 变黄、290 变绿、300 变灰）：约制作 24 次可升到 287。每次需要 3 个 {item:12359} 和 1 个 {item:14047}，即三块瑟银锭和一个 {item:14047}；这些零件用于后续的瑟银装置。附近需要有铁砧。",
 	-- ["{item:15994} to 288"] = "将{item:15994}做到 288",
+	-- ["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "{item:16000} 在技能 287 时为橙色（295 变黄、305 变绿、315 变灰）：约制作 14 次可升到 300。每次需要 6 个 {item:12359}。结构图拾取后绑定；每次制作消耗六块瑟银锭。附近需要有铁砧。{skill:202} 达到 300 是传承系统的一个里程碑。",
 	-- ["{item:16047} teaches {item:16000} ({skill:202} 275) for 1g 60s. Sold by Alliance: {npc:260565} ({zone:2548}) and {npc:11185} ({zone:1452}), limited stock; Horde: {npc:11185} ({zone:1452}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "{item:16047}用于学习{item:16000}（需要{skill:202}275），售价1金60银。联盟出售者：{npc:260565}（{zone:2548}）和{npc:11185}（{zone:1452}），限量供应；部落出售者：{npc:11185}（{zone:1452}），限量供应。商人库存为1-2份，售出一段时间后才会补货；此图纸拾取绑定，拍卖行买不到。",
+	-- ["{item:16047} teaches {item:16000} ({skill:202} 275) for 1g 60s. Sold by {npc:260565} ({zone:2548}) and {npc:11185} ({zone:1452}), limited stock."] = "{item:16047}用于学习{item:16000}（需要{skill:202}275），售价1金60银。出售者：{npc:260565}（{zone:2548}）和{npc:11185}（{zone:1452}），限量供应。",
 	-- ["{item:2319} (Alliance)"] = "{item:2319}（联盟）",
 	-- ["{item:2319} (Horde)"] = "{item:2319}（部落）",
 	-- ["{item:2592} (Alliance)"] = "{item:2592}（联盟）",
@@ -455,7 +480,9 @@ return {
 	-- ["{item:2838} comes from {object:1735} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:2838}来自{object:1735}（{skill:186}）；这里是数据中最密集的矿点。也可以去拍卖行购买。",
 	-- ["{item:5956}: a tool, keep it in your bags"] = "{item:5956}：工具，放在背包里",
 	-- ["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen."] = "{item:6533} 在技能150时为黄色（150变黄，160变绿，170变灰）：大约制作31次升到166。每次需要2块 {item:2841}、1个 {item:6530} 和1份 {spell:3929}，产出3个。先制作31份 {spell:3929}。{item:6530} 可向商贸或钓鱼供应商购买；制成的诱饵可卖给钓鱼玩家。",
+	-- ["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen. If you got here without learning {spell:3929}, learn it now: an earlier step teaches it."] = "{item:6533}在150时为黄色（黄色150，绿色160，灰色170）：大约制作31次到166。每次需要2个{item:2841}、1个{item:6530}和1个{spell:3929}，产出3个。先做31个{spell:3929}。{item:6530}来自商业和钓鱼供应商；诱鱼器可以卖给钓鱼的人。如果你到这里还没学会{spell:3929}，现在就学：之前的步骤会教。",
 	-- ["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby."] = "{item:6712} 在技能 100 时为橙色（115 变黄、122 变绿、130 变灰）：约制作 31 次可升到 125。每次需要 1 个 {item:2841}、2 个 {spell:3922} 和 1 个 {item:2880}。先制作 29 个 {spell:3922}。同时用上先前制作的 33 个 {spell:3922}；上方材料数量未将它们计入。练习锁可以卖给潜行者，也可以自己打开。附近需要有铁砧。",
+	-- ["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby. If you got here without learning {spell:3922}, learn it now: an earlier step teaches it."] = "{item:6712}在100时为橙色（黄色115，绿色122，灰色130）：大约制作31次到125。每次需要1个{item:2841}、2个{spell:3922}和1个{item:2880}。先做29个{spell:3922}。用上你之前做的33个{spell:3922}；上面的数量不包括它们。练习锁可以卖给潜行者，或者自己开。需要附近有铁砧。如果你到这里还没学会{spell:3922}，现在就学：之前的步骤会教。",
 	-- ["{item:7912} (Alliance)"] = "{item:7912}（联盟）",
 	-- ["{item:7912} (Horde)"] = "{item:7912}（部落）",
 	-- ["{item:7912} comes from {object:2040} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:7912}来自{object:2040}（{skill:186}）；这里是数据中最密集的矿点。也可以去拍卖行购买。",
@@ -478,23 +505,40 @@ return {
 	-- ["{skill:202} materials for 75-150"] = "{skill:202} 75-150 所需材料",
 	-- ["{skill:202} recipes at 111"] = "{skill:202} 111 级配方",
 	-- ["{skill:202} recipes at 139"] = "{skill:202} 139 级配方",
+	-- ["{skill:202} recipes at 140"] = "{skill:202}：技能 140 时学习的配方",
+	-- ["{skill:202} recipes at 191"] = "{skill:202}：技能 191 时学习的配方",
+	-- ["{skill:202} recipes at 35"] = "{skill:202}：技能 35 时学习的配方",
 	-- ["{skill:202} recipes at 45"] = "{skill:202} 45 级配方",
+	-- ["{skill:202} recipes at 57"] = "{skill:202}：技能 57 时学习的配方",
 	-- ["{skill:202} recipes at 60"] = "{skill:202} 60 级配方",
 	-- ["{skill:202} recipes at 80"] = "{skill:202} 80 级配方",
 	-- ["{skill:202} recipes at 85"] = "{skill:202} 85 级配方",
 	-- ["{skill:202} recipes at 95"] = "{skill:202} 95 级配方",
 	-- ["{skill:202} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 62s in all."] = "{skill:202}可以边升级边练。Forever 的传承系统会在制造专业技能达到 150、225 和 300（中级、高级和专家级的上限）时给予奖励，所以每个节点都很重要。1-75 的材料总价约 62 银币。",
+	-- ["{spell:3918} is orange at 1 (yellow 20, green 30, grey 40): about 46 crafts to 35. Each takes 1 {item:2835}. One {item:2835} a craft; {item:2835} comes with the {item:2770} from Copper Veins."] = "{spell:3918}在1时为橙色（20变黄，30变绿，40变灰）：约制作46次可升至35。每次需要1个{item:2835}。每次一个{item:2835}；采铜矿获取{item:2770}时也会得到{item:2835}。",
+	-- ["{spell:3918} to 35"] = "制作{spell:3918}，提升至 35",
 	-- ["{spell:3918} to 37"] = "将{spell:3918}做到 37",
 	-- ["{spell:3920} to 45"] = "将{spell:3920}做到 45",
+	-- ["{spell:3922} is orange at 35 (yellow 45, green 52, grey 60): about 33 crafts to 57. Each takes 1 {item:2840}. One {item:2840} a craft. Keep the bolts: Practice Locks and later gadgets take them. Needs an anvil nearby. {item:5956} is a tool: keep it in your bags."] = "{spell:3922}在技能35时为橙色（45变黄，52变绿，60变灰）：约制作33次可到57。每次需要1个{item:2840}。也就是每次1个{item:2840}。保留螺栓：练习锁及之后的装置会用到。附近需要有铁砧。{item:5956}是工具：保留在背包中。",
+	-- ["{spell:3922} to 57"] = "制作{spell:3922}，提升至 57",
 	-- ["{spell:3922} to 60"] = "将{spell:3922}做到 60",
 	-- ["{spell:3923} to 75"] = "将{spell:3923}做到 75",
 	-- ["{spell:3923} to 80"] = "将{spell:3923}做到 80",
+	-- ["{spell:3924} is orange at 57 (yellow 80, green 95, grey 110): about 18 crafts to 75, a point every craft. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. Make the {item:6219} now, while it still gives a point: a later recipe needs it in your bags, so keep it there."] = "{spell:3924} 在技能 57 时为橙色（80 变黄、95 变绿、110 变灰）：约制作 18 次可升到 75，每次制作提升一点。每次需要 2 个 {item:2840} 和 1 个 {item:2880}，即两块铜锭和一个 {item:2880}（锻造和工程学供应商出售）。附近需要有铁砧。趁制作仍能提升技能，现在就制作 {item:6219}：后面的配方需要它在背包里，因此要一直保留。",
 	-- ["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby."] = "{spell:3924} 在技能 94 时为黄色（80 变黄、95 变绿、110 变灰）：约制作 14 次可到 100。每次需要 2 个 {item:2840} 和 1 个 {item:2880}。即每次两块铜锭和一个 {item:2880}（由锻造和工程学供应商出售）。附近需要铁砧。",
+	-- ["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. If you got here without learning {spell:3924}, learn it now: an earlier step teaches it."] = "{spell:3924}在94时为黄色（黄色80，绿色95，灰色110）：大约制作14次到100。每次需要2个{item:2840}和1个{item:2880}。每次两个铜锭和一个{item:2880}（锻造和工程学供应商）。需要附近有铁砧。如果你到这里还没学会{spell:3924}，现在就学：之前的步骤会教。",
 	-- ["{spell:3924} to 85"] = "将{spell:3924}做到 85",
 	-- ["{spell:3926} to 111"] = "将{spell:3926}做到 111",
 	-- ["{spell:3929} to 95"] = "将{spell:3929}做到 95",
+	-- ["{spell:3930} is orange at 75 (yellow 85, green 90, grey 95): about 15 crafts to 94. Each takes 1 {spell:3929} and 1 {item:2840} and makes 200. Make the 15 {spell:3929} first: it gives points too while not grey. The {spell:3929} in each gives its own point while it is not grey: two chances a craft. Sell the shot to hunters or a vendor."] = "{spell:3930} 在技能75时为橙色（85变黄，90变绿，95变灰）：大约制作15次升到94。每次需要1份 {spell:3929} 和1块 {item:2840}，产出200发。先制作15份 {spell:3929}：只要尚未变灰，制作它也能涨点。每次所用的 {spell:3929} 在未变灰时也有自己的涨点机会：相当于每次有两次涨点机会。弹药可卖给猎人或商人。",
+	-- ["{spell:3930} to 94"] = "制作{spell:3930}，提升至 94",
 	-- ["{spell:3937} to 125"] = "将{spell:3937}做到 125",
 	-- ["{spell:3942} to 150"] = "将{spell:3942}做到 150",
+	-- ["{spell:3945} is yellow at 125 (yellow 125, green 135, grey 145): about 27 crafts to 140. Each takes 1 {item:2838}. One {item:2838} a craft (Iron Deposits). Keep some: Iron Grenades take one each."] = "{spell:3945} 在技能 125 时为黄色（125 变黄、135 变绿、145 变灰）：约制作 27 次可到 140。每次需要 1 个 {item:2838}。即每次一个 {item:2838}（来自铁矿石）。留下一些：每颗铁皮手雷都要用一个。",
 	-- ["{spell:3945} to 139"] = "将{spell:3945}做到 139",
+	-- ["{spell:3945} to 140"] = "制作{spell:3945}，提升至 140",
+	-- ["{spell:3950} is yellow at 140 (yellow 140, green 165, grey 190): about 10 crafts to 150. Each takes 2 {item:4377}, 3 {item:2841} and 1 {spell:3973} and makes 3. Make the 10 {spell:3973} (2 crafts) first. Use the 20 {item:4377} you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. Needs an anvil nearby. {skill:202} 150 is a Legacy System milestone."] = "{spell:3950}在技能140时为黄色（140变黄，165变绿，190变灰）：约制作10次可到150。每次需要2个{item:4377}、3个{item:2841}和1个{spell:3973}，产出3个。先制作10个{spell:3973}（制作2次）。用之前做好的20个{item:4377}；上方统计未将其计入。此配方向训练师学习，是数据中度过这段技能点最便宜的方式。附近需要有铁砧。{skill:202}150是传承系统的一个里程碑。",
+	-- ["{spell:3953} is yellow at 166 (yellow 145, green 170, grey 195): about 19 crafts to 175. Each takes 2 {item:2841}, 1 {item:2319} and 1 {item:2592}. Bronze Frameworks are parts for later gadgets; the extras sell to vendors."] = "{spell:3953}在技能166时为黄色（145变黄，170变绿，195变灰）：约制作19次可到175。每次需要2个{item:2841}、1个{item:2319}和1个{item:2592}。青铜框架是之后装置的零件；多余的可卖给商人。",
 	-- ["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby."] = "{spell:3967} 在技能 191 时为黄色（190 变黄，210 变绿，230 变灰）：约制作 27 次可到 210。每次需要 3 个 {item:3575}、3 个 {spell:3945} 和 1 个 {spell:3973}，产出 2 个。先制作 74 个 {spell:3945} 和 30 个 {spell:3973}（制作 6 次）。用上之前做好的 7 个 {spell:3945}；上述数量未将它们计入。一个 {item:2842} 可制成五个银触媒（此时已变灰，不再加技能点，但也无需再跑商人）；{spell:3945} 用 {item:2838} 制作。每次制作产出两个炸弹。专精（可选）：技能达到 200 且角色等级 30 时，{npc:5174}（{zone:1455}）、{npc:5518}（{zone:1453}）、{npc:4586}（{zone:1458}）或廷克维斯（{area:392}）会指引你学习 {spell:20220}（找 {zone:1455} 的 {npc:7944}，或 {area:35} 的 {npc:7406}：需要 6 个秘银管、一个 {item:4407} 和 2 个高级假人）或地精工程学（找 {area:976} 的 {npc:8126}：需要 20 个大铁炸弹、20 个 {item:10507} 和 5 个 {npc:2675}）。{item:4407} 的设计图现为拾取后绑定，但任务接受他人制作的瞄准镜。会员卡有效期为 14 天游戏时间，续期需 2 金币。只能选择一种专精；冲到 300 都不需要它们，而且测试版从未测试过这两种专精（测试止于 30 级）。附近需要有铁砧。",
+	-- ["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby. If you got here without learning {spell:3945} and {spell:3973}, learn them now: an earlier step teaches them."] = "{spell:3967}在191时为黄色（黄色190，绿色210，灰色230）：大约制作27次到210。每次需要3个{item:3575}、3个{spell:3945}和1个{spell:3973}，产出2个。先做74个{spell:3945}和30个{spell:3973}（6次制作）。用上你之前做的7个{spell:3945}；上面的数量不包括它们。一个{item:2842}可以做五个银触媒（此时已是灰色：不加点，但也不用跑商人）；{spell:3945}来自{item:2838}。每次制作产出两个炸弹。专精（可选）：在200技能和30级角色时，{npc:5174}（{zone:1455}）、{npc:5518}（{zone:1453}）、{npc:4586}（{zone:1458}）或丁克维兹（{area:392}）会把你送到{spell:20220}（{npc:7944}、{zone:1455}，或{npc:7406}、{area:35}：6个秘银管、一个{item:4407}和2个高级假人）或地精工程学（{npc:8126}、{area:976}：20个重磅铁制炸弹、20个{item:10507}和5个{npc:2675}）。{item:4407}的设计图现在拾取后绑定，但任务接受别人做的瞄准镜。会员卡可用14天游戏时间；续期花费2金。只能选一个；到300都不需要，测试版也从未测试过它们（它停在30级）。需要附近有铁砧。如果你到这里还没学会{spell:3945}和{spell:3973}，现在就学：之前的步骤会教。",
 }

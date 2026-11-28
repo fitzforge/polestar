@@ -10,51 +10,53 @@ return {
 	-- {skill:202} Engineering
 	["Learn {skill:202}"] = "Aprende {skill:202}",
 	-- {skill:202} Engineering · {item:5956} Blacksmith Hammer · {skill:186} Mining · {item:2835} Rough Stone · {item:2770} Copper Ore · {item:2840} Copper Bar
-	["Apprentice {skill:202} lets you craft up to 75 for 10c, at any character level. Any {skill:202} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} and pair it with {skill:186}: {item:2835} and {item:2770} are the first parts. 1-75 takes about 4s 15c of recipes and 18s 18c of vendor goods, plus 46 {item:2835} and 75 {item:2840} to gather or buy."] = "Aprendiz de {skill:202} te deja fabricar hasta 75 por 10c, con cualquier nivel de personaje. Cualquier instructor de {skill:202} de tu facción lo enseña; la flecha elige el más cercano. Compra un {item:5956} y combínala con {skill:186}: {item:2835} y {item:2770} son las primeras piezas. De 1 a 75 hacen falta unos 4s 15c en recetas y 18s 18c en artículos de mercader, además de 46 {item:2835} y 75 {item:2840} que recolectar o comprar.",
+	-- was: ["Apprentice {skill:202} lets you craft up to 75 for 10c, at any character level. Any {skill:202} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} and pair it with {skill:186}: {item:2835} and {item:2770} are the first parts. 1-75 takes about 4s 15c of recipes and 18s 18c of vendor goods, plus 46 {item:2835} and 75 {item:2840} to gather or buy."] = "Aprendiz de {skill:202} te deja fabricar hasta 75 por 10c, con cualquier nivel de personaje. Cualquier instructor de {skill:202} de tu facción lo enseña; la flecha elige el más cercano. Compra un {item:5956} y combínala con {skill:186}: {item:2835} y {item:2770} son las primeras piezas. De 1 a 75 hacen falta unos 4s 15c en recetas y 18s 18c en artículos de mercader, además de 46 {item:2835} y 75 {item:2840} que recolectar o comprar."
+	["Apprentice {skill:202} lets you craft up to 75 for 10c, at any character level. Any {skill:202} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} and pair it with {skill:186}: {item:2835} and {item:2770} are the first parts. 1-75 takes about 4s 15c of recipes and 16s 18c of vendor goods, plus 36 {item:2835} and 101 {item:2840} to gather or buy."] = "",
 
 	-- Step 2: Engineering 1-75: vendor goods
 	-- {skill:202} Engineering
 	["{skill:202} 1-75: vendor goods"] = "{skill:202} 1-75: artículos de mercader",
 	-- {item:2880} Weak Flux · {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:1286} Edna Mullby · {npc:5512} Kaita Deepforge
-	-- was: ["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "Compra de una vez todo lo de este tramo: 18 {item:2880} (18s) y {item:5956} (una herramienta: uno, guárdalo en tus bolsas, 18c); unos 18s 18c en total. La flecha elige el vendedor más cercano de tu facción ({zone:1453}: {npc:5519}, {npc:5514} y {npc:1286})."
-	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:1286} and {npc:5512})."] = "",
+	["Buy the whole bracket's share in one go: 16 {item:2880} (16s) and {item:5956} (a tool: one, kept in your bags, 18c); about 16s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:1286} and {npc:5512})."] = "",
 	["a tool, keep it in your bags"] = "una herramienta, guárdala en tus bolsas",
 
 	-- Step 3: Get Rough Stone
 	-- {item:2835} Rough Stone
 	["Get {item:2835}"] = "",
 	-- {item:2835} Rough Stone · {skill:202} Engineering · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1426} Dun Morogh · {zone:1429} Elwynn Forest · {zone:2521} Zephras Isle
-	["You need 46 {item:2835} for {skill:202} 1-75: {spell:3918}. {skill:186}: {object:1731} (skill 1) in {zone:1426} (1-10), {zone:1429} (1-10) and {zone:2521} (1-15). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["36 {item:2835} for {skill:202} 1-75: 36 {spell:3918}. {skill:186}: {object:1731} (skill 1) in {zone:1426} (1-10), {zone:1429} (1-10) and {zone:2521} (1-15). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 4: Get Copper Bar
 	-- {item:2840} Copper Bar
 	["Get {item:2840}"] = "",
-	-- {item:2840} Copper Bar · {skill:202} Engineering · {spell:3922} Handful of Copper Bolts · {item:6219} Arclight Spanner · {spell:3924} Copper Tube · {item:2770} Copper Ore · {skill:186} Mining
-	["You need 75 {item:2840} for {skill:202} 1-75: {spell:3922}, {item:6219} and {spell:3924}. Mine {item:2770} and smelt it at a forge ({skill:186} 1). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:2840} Copper Bar · {skill:202} Engineering · {item:6219} Arclight Spanner · {item:2770} Copper Ore · {skill:186} Mining
+	-- plural, as words: Copper Tubes = {spell:3924} Copper Tube
+	["101 {item:2840} for {skill:202} 1-75: 63 Handfuls of Copper Bolts, {item:6219} and 16 Copper Tubes. Mine {item:2770} and smelt it at a forge ({skill:186} 1). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
-	-- Step 5: Rough Blasting Powder to 35
+	-- Step 5: Rough Blasting Powder to 30
 	-- {spell:3918} Rough Blasting Powder
-	["{spell:3918} to 35"] = "{spell:3918} hasta 35",
+	["{spell:3918} to 30"] = "",
 	-- {spell:3918} Rough Blasting Powder · {item:2835} Rough Stone · {item:2770} Copper Ore
 	-- plural, as words: Copper Veins = {object:1731} Copper Vein
-	["{spell:3918} is orange at 1 (yellow 20, green 30, grey 40): about 46 crafts to 35. Each takes 1 {item:2835}. One {item:2835} a craft; {item:2835} comes with the {item:2770} from Copper Veins."] = "{spell:3918} es naranja a 1 (amarillo 20, verde 30, gris 40): unas 46 fabricaciones hasta 35. Cada una lleva 1 {item:2835}. Una {item:2835} por fabricación; {item:2835} sale con el {item:2770} de las filones de cobre.",
+	["{spell:3918} is orange at 1 (yellow 20, green 30, grey 40): about 33 crafts to 30, up to 36 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:2835}. One {item:2835} a craft; {item:2835} comes with the {item:2770} from Copper Veins."] = "",
 
-	-- Step 6: Engineering recipes at 35
+	-- Step 6: Engineering recipes at 30
 	-- {skill:202} Engineering
-	["{skill:202} recipes at 35"] = "Recetas de {skill:202} a 35",
+	["{skill:202} recipes at 30"] = "",
 	-- {skill:202} Engineering · {spell:3922} Handful of Copper Bolts · {spell:1230656} Reagent Bot · {spell:3924} Copper Tube
 	["Back to an {skill:202} trainer: {spell:3922} (from 30, 1s 15c). Also learn {spell:1230656} (1s): Forever's {skill:202} camp item, placed at a campsite beside a campfire. It takes a {spell:3922} and a {spell:3924}, which you learn at 30 and 50, so it gives no points. The Camping 101: {skill:202} quest from your starting area's camping guide (after The Great Outdoors) sends you to an engineering trainer who teaches it free."] = "Vuelve con un instructor de {skill:202}: {spell:3922} (desde 30, 1s 15c). Aprende también {spell:1230656} (1s): el objeto de campamento de {skill:202} de Forever, que se coloca en un campamento junto a una hoguera. Lleva un {spell:3922} y un {spell:3924}, que aprendes a 30 y 50, así que no da puntos. La misión “Campamento 101: {skill:202}” del guía de campamento de tu zona inicial (después de “Bendita naturaleza”) te envía a un instructor de ingeniería que lo enseña gratis.",
 
-	-- Step 7: Handful of Copper Bolts to 57
+	-- Step 7: Handful of Copper Bolts to 59
 	-- {spell:3922} Handful of Copper Bolts
-	["{spell:3922} to 57"] = "{spell:3922} hasta 57",
+	-- was: ["{spell:3922} to 57"] = "{spell:3922} hasta 57"
+	["{spell:3922} to 59"] = "",
 	-- {spell:3922} Handful of Copper Bolts · {item:2840} Copper Bar · {item:5956} Blacksmith Hammer
 	-- plural, as words: Practice Locks = {item:6712} Practice Lock
-	["{spell:3922} is orange at 35 (yellow 45, green 52, grey 60): about 33 crafts to 57. Each takes 1 {item:2840}. One {item:2840} a craft. Keep the bolts: Practice Locks and later gadgets take them. Needs an anvil nearby. {item:5956} is a tool: keep it in your bags."] = "{spell:3922} es naranja a 35 (amarillo 45, verde 52, gris 60): unas 33 fabricaciones hasta 57. Cada una lleva 1 {item:2840}. Una {item:2840} por fabricación. Guarda los pernos: las cerraduras de práctica y los artilugios posteriores los usan. Requiere un yunque cerca. {item:5956} es una herramienta: guárdalo en tus bolsas.",
+	["{spell:3922} is orange at 30 (yellow 45, green 52, grey 60): about 50 crafts to 59, up to 63 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:2840}. One {item:2840} a craft. Keep the bolts: Practice Locks and later gadgets take them. Needs an anvil nearby. {item:5956} is a tool: keep it in your bags."] = "",
 
-	-- Step 8: Engineering recipes at 57
+	-- Step 8: Engineering recipes at 59
 	-- {skill:202} Engineering
-	["{skill:202} recipes at 57"] = "Recetas de {skill:202} a 57",
+	["{skill:202} recipes at 59"] = "",
 	-- {skill:202} Engineering · {spell:7430} Arclight Spanner · {spell:3924} Copper Tube
 	["Back to an {skill:202} trainer: {spell:7430} (from 50, 1s 50c) and {spell:3924} (from 50, 1s 50c)."] = "Vuelve con un instructor de {skill:202}: {spell:7430} (desde 50, 1s 50c) y {spell:3924} (desde 50, 1s 50c).",
 
@@ -63,14 +65,16 @@ return {
 	["{spell:3924} to 75"] = "{spell:3924} hasta 75",
 	-- {spell:3924} Copper Tube · {item:2840} Copper Bar · {item:2880} Weak Flux · {item:6219} Arclight Spanner
 	-- plural, as words: Copper Bars = {item:2840} Copper Bar
-	["{spell:3924} is orange at 57 (yellow 80, green 95, grey 110): about 18 crafts to 75, a point every craft. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. Make the {item:6219} now, while it still gives a point: a later recipe needs it in your bags, so keep it there."] = "{spell:3924} es naranja a 57 (amarillo 80, verde 95, gris 110): unas 18 fabricaciones hasta 75, un punto por fabricación. Cada una lleva 2 {item:2840} y 1 {item:2880}. Dos lingotes de cobre y un {item:2880} por fabricación (proveedores de herrería e ingeniería). Requiere un yunque cerca. Haz ahora {item:6219}, mientras todavía da un punto: una receta posterior lo necesita en tus bolsas, así que guárdalo ahí.",
+	-- was: ["{spell:3924} is orange at 57 (yellow 80, green 95, grey 110): about 18 crafts to 75, a point every craft. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. Make the {item:6219} now, while it still gives a point: a later recipe needs it in your bags, so keep it there."] = "{spell:3924} es naranja a 57 (amarillo 80, verde 95, gris 110): unas 18 fabricaciones hasta 75, un punto por fabricación. Cada una lleva 2 {item:2840} y 1 {item:2880}. Dos lingotes de cobre y un {item:2880} por fabricación (proveedores de herrería e ingeniería). Requiere un yunque cerca. Haz ahora {item:6219}, mientras todavía da un punto: una receta posterior lo necesita en tus bolsas, así que guárdalo ahí."
+	["{spell:3924} is orange at 59 (yellow 80, green 95, grey 110): about 16 crafts to 75, a point every craft. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. Make the {item:6219} now, while it still gives a point: a later recipe needs it in your bags, so keep it there."] = "",
 	["a tool: keep it in your bags"] = "es una herramienta: guárdala en tus bolsas",
 
 	-- Step 10: Journeyman Engineering
 	-- {skill:202} Engineering
 	["Journeyman {skill:202}"] = "{skill:202} de oficial",
-	-- {skill:202} Engineering · {npc:1676} Finbus Geargrind · {zone:1431} Duskwood · {npc:5518} Lilliam Sparkspindle · {zone:1453} Stormwind City · {npc:11029} Trixie Quikswitch · {zone:1455} Ironforge · {npc:11031} Franklin Lloyd · {zone:1458} Undercity · {spell:3929} Coarse Blasting Powder · {spell:3930} Crafted Heavy Shot · {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2840} Copper Bar · {item:2841} Bronze Bar · {item:2842} Silver Bar
-	["Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs {skill:202} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:202} trainer teaches it: Alliance {npc:1676} ({zone:1431}), {npc:5518} ({zone:1453}) and {npc:11029} ({zone:1455}); Horde {npc:11031} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3929} (from 75, 2s 50c) and {spell:3930} (from 75, 2s 50c). 75-150 takes about 5s of recipes and 45s of vendor goods, plus 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842} to gather or buy."] = "Oficial sube el tope de 75 a 150 por 5s (precio de Classic; el de Forever no está en los datos); requiere {skill:202} 50 y nivel de personaje 10, así que puedes aprenderlo en cualquier visita a partir de 50. No todos los instructores de {skill:202} lo enseñan: Alianza: {npc:1676} ({zone:1431}), {npc:5518} ({zone:1453}) y {npc:11029} ({zone:1455}); Horda: {npc:11031} ({zone:1458}). La flecha elige el más cercano de tu facción. Aprende ahora: {spell:3929} (desde 75, 2s 50c) y {spell:3930} (desde 75, 2s 50c). De 75 a 150 hacen falta unos 5s en recetas y 45s en artículos de mercader, además de 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} y 2 {item:2842} que recolectar o comprar.",
+	-- {skill:202} Engineering · {npc:1676} Finbus Geargrind · {zone:1431} Duskwood · {npc:5518} Lilliam Sparkspindle · {zone:1453} Stormwind City · {npc:11029} Trixie Quikswitch · {zone:1455} Ironforge · {npc:11031} Franklin Lloyd · {zone:1458} Undercity · {spell:3929} Coarse Blasting Powder · {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2840} Copper Bar · {item:2841} Bronze Bar · {item:2842} Silver Bar
+	-- was: ["Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs {skill:202} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:202} trainer teaches it: Alliance {npc:1676} ({zone:1431}), {npc:5518} ({zone:1453}) and {npc:11029} ({zone:1455}); Horde {npc:11031} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3929} (from 75, 2s 50c) and {spell:3930} (from 75, 2s 50c). 75-150 takes about 5s of recipes and 45s of vendor goods, plus 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842} to gather or buy."] = "Oficial sube el tope de 75 a 150 por 5s (precio de Classic; el de Forever no está en los datos); requiere {skill:202} 50 y nivel de personaje 10, así que puedes aprenderlo en cualquier visita a partir de 50. No todos los instructores de {skill:202} lo enseñan: Alianza: {npc:1676} ({zone:1431}), {npc:5518} ({zone:1453}) y {npc:11029} ({zone:1455}); Horda: {npc:11031} ({zone:1458}). La flecha elige el más cercano de tu facción. Aprende ahora: {spell:3929} (desde 75, 2s 50c) y {spell:3930} (desde 75, 2s 50c). De 75 a 150 hacen falta unos 5s en recetas y 45s en artículos de mercader, además de 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} y 2 {item:2842} que recolectar o comprar."
+	["Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs {skill:202} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:202} trainer teaches it: Alliance {npc:1676} ({zone:1431}), {npc:5518} ({zone:1453}) and {npc:11029} ({zone:1455}); Horde {npc:11031} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3929} (from 75, 2s 50c). 75-150 takes about 2s 50c of recipes and 45s of vendor goods, plus 47 {item:2836}, 113 {item:2838}, 62 {item:2840}, 63 {item:2841} and 3 {item:2842} to gather or buy."] = "",
 
 	-- Step 11: Engineering 75-150: vendor goods
 	-- {skill:202} Engineering
@@ -81,56 +85,64 @@ return {
 	-- Step 12: Get Coarse Stone
 	-- {item:2836} Coarse Stone
 	["Get {item:2836}"] = "",
-	-- {item:2836} Coarse Stone · {skill:202} Engineering · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills · {zone:1437} Wetlands
-	["You need 15 {item:2836} for {skill:202} 75-150: {spell:3930}. {skill:186}: {object:1732} (skill 65) in {zone:1440} (18-30), {zone:1424} (20-30) and {zone:1437} (20-30). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:2836} Coarse Stone · {skill:202} Engineering · {spell:3929} Coarse Blasting Powder · {skill:186} Mining · {object:1732} Tin Vein · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills · {zone:1437} Wetlands
+	-- plural, as words: Aquadynamic Fish Attractors = {item:6533} Aquadynamic Fish Attractor
+	["47 {item:2836} for {skill:202} 75-150: 38 {spell:3929} and 39 Aquadynamic Fish Attractors (9 of them for 150-225: get them all now). {skill:186}: {object:1732} (skill 65) in {zone:1440} (18-30), {zone:1424} (20-30) and {zone:1437} (20-30). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 13: Get Heavy Stone
 	-- {item:2838} Heavy Stone
 	["Get {item:2838}"] = "",
 	-- {item:2838} Heavy Stone · {skill:202} Engineering · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {zone:2548} Riverglades
-	["You need 27 {item:2838} for {skill:202} 75-150: {spell:3945}. {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:2548} (38-47). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- plural, as words: Big Iron Bombs = {spell:3967} Big Iron Bomb
+	["113 {item:2838} for {skill:202} 75-150: 70 {spell:3945} and 27 Big Iron Bombs (43 of them for 150-225: get them all now). {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:2548} (38-47). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 14: Get Copper Bar
-	-- {item:2840} Copper Bar · {skill:202} Engineering · {spell:3930} Crafted Heavy Shot · {spell:3924} Copper Tube · {item:6712} Practice Lock · {item:2770} Copper Ore · {skill:186} Mining
-	["You need 72 {item:2840} for {skill:202} 75-150: {spell:3930}, {spell:3924} and {item:6712}. Mine {item:2770} and smelt it at a forge ({skill:186} 1). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:2840} Copper Bar · {skill:202} Engineering · {item:2770} Copper Ore · {skill:186} Mining
+	-- plural, as words: Copper Tubes = {spell:3924} Copper Tube · Practice Locks = {item:6712} Practice Lock
+	["62 {item:2840} for {skill:202} 75-150: 20 Copper Tubes and 36 Practice Locks. Mine {item:2770} and smelt it at a forge ({skill:186} 1). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 15: Get Bronze Bar
 	-- {item:2841} Bronze Bar
 	["Get {item:2841}"] = "",
-	-- {item:2841} Bronze Bar · {skill:202} Engineering · {item:6712} Practice Lock · {spell:3950} Big Bronze Bomb · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
-	["You need 61 {item:2841} for {skill:202} 75-150: {item:6712} and {spell:3950}. {skill:186}: smelt {item:2840} and {item:3576}. Or buy them at the Auction House."] = "",
+	-- {item:2841} Bronze Bar · {skill:202} Engineering · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
+	-- plural, as words: Practice Locks = {item:6712} Practice Lock · Big Bronze Bombs = {spell:3950} Big Bronze Bomb
+	["63 {item:2841} for {skill:202} 75-150: 36 Practice Locks and 9 Big Bronze Bombs. {skill:186}: smelt {item:2840} and {item:3576}. Or buy them at the Auction House."] = "",
 
 	-- Step 16: Get Silver Bar
 	-- {item:2842} Silver Bar
 	["Get {item:2842}"] = "",
-	-- {item:2842} Silver Bar · {skill:202} Engineering · {spell:3950} Big Bronze Bomb · {skill:186} Mining · {item:2775} Silver Ore
-	["You need 2 {item:2842} for {skill:202} 75-150: {spell:3950}. {skill:186}: smelt {item:2775}. Or buy them at the Auction House."] = "",
+	-- {item:2842} Silver Bar · {skill:202} Engineering · {skill:186} Mining · {item:2775} Silver Ore
+	-- plural, as words: Big Bronze Bombs = {spell:3950} Big Bronze Bomb
+	["3 {item:2842} for {skill:202} 75-150: 9 Big Bronze Bombs. {skill:186}: smelt {item:2775}. Or buy them at the Auction House."] = "",
 
-	-- Step 17: Crafted Heavy Shot to 94
-	-- {spell:3930} Crafted Heavy Shot
-	["{spell:3930} to 94"] = "{spell:3930} hasta 94",
-	-- {spell:3930} Crafted Heavy Shot · {spell:3929} Coarse Blasting Powder · {item:2840} Copper Bar
-	["{spell:3930} is orange at 75 (yellow 85, green 90, grey 95): about 15 crafts to 94. Each takes 1 {spell:3929} and 1 {item:2840} and makes 200. Make the 15 {spell:3929} first: it gives points too while not grey. The {spell:3929} in each gives its own point while it is not grey: two chances a craft. Sell the shot to hunters or a vendor."] = "{spell:3930} es naranja a 75 (amarillo 85, verde 90, gris 95): unas 15 fabricaciones hasta 94. Cada una lleva 1 {spell:3929} y 1 {item:2840} y da 200. Haz primero los 15 {spell:3929}: también da puntos mientras no sea gris. El {spell:3929} de cada uno da su propio punto mientras no sea gris: dos oportunidades por fabricación. Vende la munición a los cazadores o a un mercader.",
+	-- Step 17: Coarse Blasting Powder to 94
+	-- {spell:3929} Coarse Blasting Powder
+	["{spell:3929} to 94"] = "",
+	-- {spell:3929} Coarse Blasting Powder · {item:2836} Coarse Stone
+	-- plural, as words: Tin Veins = {object:1732} Tin Vein
+	["{spell:3929} is orange at 75 (yellow 85, green 90, grey 95): about 30 crafts to 94, up to 38 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:2836}. One {item:2836} a craft (Tin Veins)."] = "",
 
 	-- Step 18: Copper Tube to 100
 	-- {spell:3924} Copper Tube
 	["{spell:3924} to 100"] = "{spell:3924} hasta 100",
 	-- {spell:3924} Copper Tube · {item:2840} Copper Bar · {item:2880} Weak Flux
 	-- plural, as words: Copper Bars = {item:2840} Copper Bar
-	["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. If you got here without learning {spell:3924}, learn it now: an earlier step teaches it."] = "{spell:3924} es amarillo en 94 (amarillo 80, verde 95, gris 110): unas 14 fabricaciones hasta 100. Cada una lleva 2 {item:2840} y 1 {item:2880}. Dos lingotes de cobre y un {item:2880} por fabricación (proveedores de herrería e ingeniería). Necesita un yunque cerca. Si llegaste aquí sin aprender {spell:3924}, apréndelo ahora: lo enseña un paso anterior.",
+	-- was: ["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. If you got here without learning {spell:3924}, learn it now: an earlier step teaches it."] = "{spell:3924} es amarillo en 94 (amarillo 80, verde 95, gris 110): unas 14 fabricaciones hasta 100. Cada una lleva 2 {item:2840} y 1 {item:2880}. Dos lingotes de cobre y un {item:2880} por fabricación (proveedores de herrería e ingeniería). Necesita un yunque cerca. Si llegaste aquí sin aprender {spell:3924}, apréndelo ahora: lo enseña un paso anterior."
+	["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100, up to 20 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. If you got here without learning {spell:3924}, learn it now: an earlier step teaches it."] = "",
 
 	-- Step 19: Engineering recipes at 100
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 100"] = "Recetas de {skill:202} a 100",
-	-- {skill:202} Engineering · {spell:8334} Practice Lock
-	["Back to an {skill:202} trainer: {spell:8334} (from 100)."] = "Vuelve a un instructor de {skill:202}: {spell:8334} (desde 100).",
+	-- {skill:202} Engineering · {spell:8334} Practice Lock · {spell:3973} Silver Contact
+	["Back to an {skill:202} trainer: {spell:8334} (from 100) and {spell:3973} (from 90)."] = "",
 
 	-- Step 20: Practice Lock to 125
 	-- {item:6712} Practice Lock
 	["{item:6712} to 125"] = "{item:6712} hasta 125",
 	-- {item:6712} Practice Lock · {item:2841} Bronze Bar · {spell:3922} Handful of Copper Bolts · {item:2880} Weak Flux
 	-- plural, as words: Practice Locks = {item:6712} Practice Lock
-	["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby. If you got here without learning {spell:3922}, learn it now: an earlier step teaches it."] = "{item:6712} es naranja en 100 (amarillo 115, verde 122, gris 130): unas 31 fabricaciones hasta 125. Cada una lleva 1 {item:2841}, 2 {spell:3922} y 1 {item:2880}. Haz primero los 29 {spell:3922}. Usa los 33 {spell:3922} que hiciste antes; las cantidades de arriba no los incluyen. Las cerraduras de prácticas se venden a pícaros, o ábrelas tú. Necesita un yunque cerca. Si llegaste aquí sin aprender {spell:3922}, apréndelo ahora: lo enseña un paso anterior.",
+	-- was: ["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby. If you got here without learning {spell:3922}, learn it now: an earlier step teaches it."] = "{item:6712} es naranja en 100 (amarillo 115, verde 122, gris 130): unas 31 fabricaciones hasta 125. Cada una lleva 1 {item:2841}, 2 {spell:3922} y 1 {item:2880}. Haz primero los 29 {spell:3922}. Usa los 33 {spell:3922} que hiciste antes; las cantidades de arriba no los incluyen. Las cerraduras de prácticas se venden a pícaros, o ábrelas tú. Necesita un yunque cerca. Si llegaste aquí sin aprender {spell:3922}, apréndelo ahora: lo enseña un paso anterior."
+	["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125, up to 36 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 12 {spell:3922} first. Use the 50 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby. If you got here without learning {spell:3922}, learn it now: an earlier step teaches it."] = "",
 
 	-- Step 21: Engineering recipes at 125
 	-- {skill:202} Engineering
@@ -138,30 +150,31 @@ return {
 	-- {skill:202} Engineering · {spell:3945} Heavy Blasting Powder
 	["Back to an {skill:202} trainer: {spell:3945} (from 125)."] = "Vuelve a un instructor de {skill:202}: {spell:3945} (desde 125).",
 
-	-- Step 22: Heavy Blasting Powder to 140
+	-- Step 22: Heavy Blasting Powder to 144
 	-- {spell:3945} Heavy Blasting Powder
-	["{spell:3945} to 140"] = "{spell:3945} hasta 140",
+	["{spell:3945} to 144"] = "",
 	-- {spell:3945} Heavy Blasting Powder · {item:2838} Heavy Stone
 	-- plural, as words: Iron Deposits = {object:1735} Iron Deposit · Iron Grenades = {item:4390} Iron Grenade
-	["{spell:3945} is yellow at 125 (yellow 125, green 135, grey 145): about 27 crafts to 140. Each takes 1 {item:2838}. One {item:2838} a craft (Iron Deposits). Keep some: Iron Grenades take one each."] = "{spell:3945} es amarillo a 125 (amarillo 125, verde 135, gris 145): unas 27 fabricaciones hasta 140. Cada una lleva 1 {item:2838}. Una {item:2838} por fabricación (depósitos de hierro). Guarda algunos: las granadas de hierro llevan uno cada una.",
+	["{spell:3945} is yellow at 125 (yellow 125, green 135, grey 145): about 52 crafts to 144, up to 70 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:2838}. One {item:2838} a craft (Iron Deposits). Keep some: Iron Grenades take one each."] = "",
 
-	-- Step 23: Engineering recipes at 140
+	-- Step 23: Engineering recipes at 144
 	-- {skill:202} Engineering
-	["{skill:202} recipes at 140"] = "Recetas de {skill:202} a 140",
-	-- {skill:202} Engineering · {spell:3973} Silver Contact · {spell:3950} Big Bronze Bomb
-	["Back to an {skill:202} trainer: {spell:3973} (from 90) and {spell:3950} (from 140)."] = "Vuelve a un instructor de {skill:202}: {spell:3973} (desde 90) y {spell:3950} (desde 140).",
+	["{skill:202} recipes at 144"] = "",
+	-- {skill:202} Engineering · {spell:3950} Big Bronze Bomb
+	["Back to an {skill:202} trainer: {spell:3950} (from 140)."] = "",
 
 	-- Step 24: Big Bronze Bomb to 150
 	-- {spell:3950} Big Bronze Bomb
 	["{spell:3950} to 150"] = "{spell:3950} hasta 150",
 	-- {spell:3950} Big Bronze Bomb · {item:4377} Heavy Blasting Powder · {item:2841} Bronze Bar · {spell:3973} Silver Contact · {skill:202} Engineering
-	["{spell:3950} is yellow at 140 (yellow 140, green 165, grey 190): about 10 crafts to 150. Each takes 2 {item:4377}, 3 {item:2841} and 1 {spell:3973} and makes 3. Make the 10 {spell:3973} (2 crafts) first. Use the 20 {item:4377} you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. Needs an anvil nearby. {skill:202} 150 is a Legacy System milestone."] = "{spell:3950} es amarillo a 140 (amarillo 140, verde 165, gris 190): unas 10 fabricaciones hasta 150. Cada una lleva 2 {item:4377}, 3 {item:2841} y 1 {spell:3973} y da 3. Haz primero los 10 {spell:3973} (2 fabricaciones). Usa los 20 {item:4377} que hiciste antes; las cantidades de arriba no los incluyen. Lo enseña el instructor, y según los datos es la forma más barata de conseguir estos puntos. Requiere un yunque cerca. {skill:202} 150 es un hito del Sistema de Legado.",
+	-- was: ["{spell:3950} is yellow at 140 (yellow 140, green 165, grey 190): about 10 crafts to 150. Each takes 2 {item:4377}, 3 {item:2841} and 1 {spell:3973} and makes 3. Make the 10 {spell:3973} (2 crafts) first. Use the 20 {item:4377} you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. Needs an anvil nearby. {skill:202} 150 is a Legacy System milestone."] = "{spell:3950} es amarillo a 140 (amarillo 140, verde 165, gris 190): unas 10 fabricaciones hasta 150. Cada una lleva 2 {item:4377}, 3 {item:2841} y 1 {spell:3973} y da 3. Haz primero los 10 {spell:3973} (2 fabricaciones). Usa los 20 {item:4377} que hiciste antes; las cantidades de arriba no los incluyen. Lo enseña el instructor, y según los datos es la forma más barata de conseguir estos puntos. Requiere un yunque cerca. {skill:202} 150 es un hito del Sistema de Legado."
+	["{spell:3950} is yellow at 144 (yellow 140, green 165, grey 190): about 7 crafts to 150, up to 9 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:4377}, 3 {item:2841} and 1 {spell:3973} and makes 3. Make the 10 {spell:3973} (2 crafts) first. Use the 14 {item:4377} you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. Needs an anvil nearby. {skill:202} 150 is a Legacy System milestone."] = "",
 
 	-- Step 25: Expert Engineering
 	-- {skill:202} Engineering
 	["Expert {skill:202}"] = "{skill:202} de experto",
-	-- {skill:202} Engineering · {npc:5174} Springspindle Fizzlegear · {zone:1455} Ironforge · {npc:11017} Roxxik · {zone:1454} Orgrimmar · {spell:9271} Aquadynamic Fish Attractor · {spell:3953} Bronze Framework · {item:2319} Medium Leather · {item:2592} Wool Cloth · {item:2836} Coarse Stone · {item:2838} Heavy Stone · {item:2841} Bronze Bar · {item:2842} Silver Bar · {item:3575} Iron Bar · {item:3860} Mithril Bar · {item:7912} Solid Stone
-	["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:5174} ({zone:1455}); Horde {npc:11017} ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:9271} (from 150) and {spell:3953} (from 145). 150-225 takes about 31s of vendor goods, plus 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} and 62 {item:7912} to gather or buy."] = "Experto sube el tope de 150 a 225 por 50s (precio de Classic; el de Forever no está en los datos); requiere {skill:202} 125 y nivel de personaje 20, así que puedes aprenderlo en cualquier visita a partir de 125. Solo lo enseñan unos pocos instructores: Alianza: {npc:5174} ({zone:1455}); Horda: {npc:11017} ({zone:1454}). La flecha elige el más cercano de tu facción. Aprende ahora: {spell:9271} (desde 150) y {spell:3953} (desde 145). De 150 a 225 hacen falta unos 31s en artículos de mercader, además de 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} y 62 {item:7912} que recolectar o comprar.",
+	-- {skill:202} Engineering · {npc:5174} Springspindle Fizzlegear · {zone:1455} Ironforge · {npc:11017} Roxxik · {zone:1454} Orgrimmar · {spell:9271} Aquadynamic Fish Attractor · {spell:3953} Bronze Framework · {item:2319} Medium Leather · {item:2592} Wool Cloth · {item:2841} Bronze Bar · {item:2842} Silver Bar · {item:3575} Iron Bar · {item:3860} Mithril Bar · {item:7912} Solid Stone
+	["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:5174} ({zone:1455}); Horde {npc:11017} ({zone:1454}). This route trains it at {npc:5174} ({zone:1455}) for the Alliance and {npc:11017} ({zone:1454}) for the Horde, who also teach the recipes of 150-225: one trainer for every visit. Learn now: {spell:9271} (from 150) and {spell:3953} (from 145). 150-225 takes about 31s of vendor goods, plus 25 {item:2319}, 25 {item:2592}, 128 {item:2841}, 6 {item:2842}, 81 {item:3575}, 22 {item:3860} and 390 {item:7912} to gather or buy."] = "",
 
 	-- Step 26: Engineering 150-225: vendor goods
 	-- {skill:202} Engineering
@@ -169,180 +182,174 @@ return {
 	-- {item:6530} Nightcrawlers · {zone:1453} Stormwind City · {npc:5494} Catherine Leland · {npc:1286} Edna Mullby
 	["Buy the whole bracket's share in one go: 31 {item:6530} (31s); about 31s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5494} and {npc:1286})."] = "Compra de una vez todo lo de este tramo: 31 {item:6530} (31s); unos 31s en total. La flecha elige el vendedor más cercano de tu facción ({zone:1453}: {npc:5494} y {npc:1286}).",
 
-	-- Step 27: Get Medium Leather (Alliance)
+	-- Step 27: Get Medium Leather
 	-- {item:2319} Medium Leather
-	-- was: ["{item:2319} (Alliance)"] = "{item:2319} (Alianza)"
-	["Get {item:2319} (Alliance)"] = "",
-	-- {item:2319} Medium Leather · {skill:202} Engineering · {spell:3953} Bronze Framework · {skill:393} Skinning · {npc:2248} Cave Yeti · {npc:2356} Elder Gray Bear · {npc:2385} Feral Mountain Lion · {npc:2351} Gray Bear · {npc:2384} Starving Mountain Lion · {npc:2354} Vicious Gray Bear
-	-- was: ["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "19 {item:2319} para {spell:3953}: {skill:393}: bestias de nivel 18-30. Despelleja aquí a {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Quijaforte, {npc:2384} y {npc:2354} (nivel 18-30); la guía de {skill:393} traza esta ruta."
-	["You need 19 {item:2319} for {skill:202} 150-225: {spell:3953}. {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this. Or buy them at the Auction House."] = "",
+	["Get {item:2319}"] = "",
+	-- {item:2319} Medium Leather · {skill:202} Engineering · {skill:393} Skinning
+	-- plural, as words: Bronze Frameworks = {spell:3953} Bronze Framework
+	["25 {item:2319} for {skill:202} 150-225: 25 Bronze Frameworks. {skill:393}: beasts of level 18-30. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
-	-- Step 28: Get Medium Leather (Horde)
-	-- {item:2319} Medium Leather
-	-- was: ["{item:2319} (Horde)"] = "{item:2319} (Horda)"
-	["Get {item:2319} (Horde)"] = "",
-	-- {item:2319} Medium Leather · {skill:202} Engineering · {spell:3953} Bronze Framework · {skill:393} Skinning · {npc:3809} Ashenvale Bear · {npc:3810} Elder Ashenvale Bear · {npc:3818} Elder Shadowhorn Stag · {npc:3823} Ghostpaw Runner · {npc:3811} Giant Ashenvale Bear · {npc:3817} Shadowhorn Stag
-	-- was: ["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} and {npc:3817} here (level 18-30); the {skill:393} guide routes this."] = "19 {item:2319} para {spell:3953}: {skill:393}: bestias de nivel 18-30. Despelleja aquí a {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} y {npc:3817} (nivel 18-30); la guía de {skill:393} traza esta ruta."
-	["You need 19 {item:2319} for {skill:202} 150-225: {spell:3953}. {skill:393}: beasts of level 18-30. Skin {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} and {npc:3817} here (level 18-30); the {skill:393} guide routes this. Or buy them at the Auction House."] = "",
-
-	-- Step 29: Get Wool Cloth
+	-- Step 28: Get Wool Cloth
 	-- {item:2592} Wool Cloth
 	["Get {item:2592}"] = "",
-	-- {item:2592} Wool Cloth · {skill:202} Engineering · {spell:3953} Bronze Framework
-	["You need 19 {item:2592} for {skill:202} 150-225: {spell:3953}. Humanoids of level 15-30 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- {item:2592} Wool Cloth · {skill:202} Engineering
+	-- plural, as words: Bronze Frameworks = {spell:3953} Bronze Framework
+	["25 {item:2592} for {skill:202} 150-225: 25 Bronze Frameworks. Humanoids of level 15-30 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
-	-- Step 30: Get Coarse Stone
-	-- {item:2836} Coarse Stone · {skill:202} Engineering · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills · {zone:1437} Wetlands
-	["You need 31 {item:2836} for {skill:202} 150-225: {item:6533}. {skill:186}: {object:1732} (skill 65) in {zone:1440} (18-30), {zone:1424} (20-30) and {zone:1437} (20-30). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- Step 29: Get Bronze Bar
+	-- {item:2841} Bronze Bar · {skill:202} Engineering · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
+	-- plural, as words: Aquadynamic Fish Attractors = {item:6533} Aquadynamic Fish Attractor · Bronze Frameworks = {spell:3953} Bronze Framework
+	["128 {item:2841} for {skill:202} 150-225: 39 Aquadynamic Fish Attractors and 25 Bronze Frameworks. {skill:186}: smelt {item:2840} and {item:3576}. Or buy them at the Auction House."] = "",
 
-	-- Step 31: Get Heavy Stone
-	-- {item:2838} Heavy Stone · {skill:202} Engineering · {spell:3967} Big Iron Bomb · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {zone:2548} Riverglades
-	["You need 74 {item:2838} for {skill:202} 150-225: {spell:3967}. {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:2548} (38-47). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- Step 30: Get Silver Bar
+	-- {item:2842} Silver Bar · {skill:202} Engineering · {skill:186} Mining · {item:2775} Silver Ore
+	-- plural, as words: Big Iron Bombs = {spell:3967} Big Iron Bomb
+	["6 {item:2842} for {skill:202} 150-225: 27 Big Iron Bombs. {skill:186}: smelt {item:2775}. Or buy them at the Auction House."] = "",
 
-	-- Step 32: Get Bronze Bar
-	-- {item:2841} Bronze Bar · {skill:202} Engineering · {item:6533} Aquadynamic Fish Attractor · {spell:3953} Bronze Framework · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
-	["You need 100 {item:2841} for {skill:202} 150-225: {item:6533} and {spell:3953}. {skill:186}: smelt {item:2840} and {item:3576}. Or buy them at the Auction House."] = "",
-
-	-- Step 33: Get Silver Bar
-	-- {item:2842} Silver Bar · {skill:202} Engineering · {spell:3967} Big Iron Bomb · {skill:186} Mining · {item:2775} Silver Ore
-	["You need 6 {item:2842} for {skill:202} 150-225: {spell:3967}. {skill:186}: smelt {item:2775}. Or buy them at the Auction House."] = "",
-
-	-- Step 34: Get Iron Bar
+	-- Step 31: Get Iron Bar
 	-- {item:3575} Iron Bar
 	["Get {item:3575}"] = "",
-	-- {item:3575} Iron Bar · {skill:202} Engineering · {spell:3967} Big Iron Bomb · {item:2772} Iron Ore · {skill:186} Mining
-	["You need 81 {item:3575} for {skill:202} 150-225: {spell:3967}. Mine {item:2772} and smelt it at a forge ({skill:186} 125). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:3575} Iron Bar · {skill:202} Engineering · {item:2772} Iron Ore · {skill:186} Mining
+	-- plural, as words: Big Iron Bombs = {spell:3967} Big Iron Bomb
+	["81 {item:3575} for {skill:202} 150-225: 27 Big Iron Bombs. Mine {item:2772} and smelt it at a forge ({skill:186} 125). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
-	-- Step 35: Get Mithril Bar
+	-- Step 32: Get Mithril Bar
 	-- {item:3860} Mithril Bar
 	["Get {item:3860}"] = "",
 	-- {item:3860} Mithril Bar · {skill:202} Engineering · {item:10512} Hi-Impact Mithril Slugs · {item:3858} Mithril Ore · {skill:186} Mining
-	["You need 19 {item:3860} for {skill:202} 150-225: {item:10512}. Mine {item:3858} and smelt it at a forge ({skill:186} 175). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["22 {item:3860} for {skill:202} 150-225: 22 {item:10512}. Mine {item:3858} and smelt it at a forge ({skill:186} 175). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
-	-- Step 36: Get Solid Stone
+	-- Step 33: Get Solid Stone
 	-- {item:7912} Solid Stone
 	["Get {item:7912}"] = "",
-	-- {item:7912} Solid Stone · {skill:202} Engineering · {item:10505} Solid Blasting Powder · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["You need 62 {item:7912} for {skill:202} 150-225: {item:10505}. {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:7912} Solid Stone · {skill:202} Engineering · {item:10505} Solid Blasting Powder · {item:10512} Hi-Impact Mithril Slugs · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
+	-- plural, as words: Mithril Gyro-Shots = {item:10513} Mithril Gyro-Shot
+	["390 {item:7912} for {skill:202} 150-225: 103 {item:10505}, 79 {item:10512} and 33 Mithril Gyro-Shots (184 of them for 225-300: get them all now). {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
-	-- Step 37: Aquadynamic Fish Attractor to 166
+	-- Step 34: Aquadynamic Fish Attractor to 166
 	-- {item:6533} Aquadynamic Fish Attractor
 	["{item:6533} to 166"] = "{item:6533} hasta 166",
 	-- {item:6533} Aquadynamic Fish Attractor · {item:2841} Bronze Bar · {item:6530} Nightcrawlers · {spell:3929} Coarse Blasting Powder
-	["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen. If you got here without learning {spell:3929}, learn it now: an earlier step teaches it."] = "{item:6533} es amarillo en 150 (amarillo 150, verde 160, gris 170): unas 31 fabricaciones hasta 166. Cada una lleva 2 {item:2841}, 1 {item:6530} y 1 {spell:3929} y da 3. Haz primero los 31 {spell:3929}. {item:6530} lo venden los proveedores de comercio y de pesca; los atrayentes se venden a pescadores. Si llegaste aquí sin aprender {spell:3929}, apréndelo ahora: lo enseña un paso anterior.",
+	["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166, up to 39 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 1 {spell:3929} first. Use the 30 {spell:3929} you made earlier; the counts above leave them out. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen. If you got here without learning {spell:3929}, learn it now: an earlier step teaches it."] = "",
 
-	-- Step 38: Bronze Framework to 175
+	-- Step 35: Bronze Framework to 175
 	-- {spell:3953} Bronze Framework
 	["{spell:3953} to 175"] = "{spell:3953} hasta 175",
 	-- {spell:3953} Bronze Framework · {item:2841} Bronze Bar · {item:2319} Medium Leather · {item:2592} Wool Cloth
 	-- plural, as words: Bronze Frameworks = {spell:3953} Bronze Framework
-	["{spell:3953} is yellow at 166 (yellow 145, green 170, grey 195): about 19 crafts to 175. Each takes 2 {item:2841}, 1 {item:2319} and 1 {item:2592}. Bronze Frameworks are parts for later gadgets; the extras sell to vendors."] = "{spell:3953} es amarillo a 166 (amarillo 145, verde 170, gris 195): unas 19 fabricaciones hasta 175. Cada una lleva 2 {item:2841}, 1 {item:2319} y 1 {item:2592}. Los armazones de bronce son piezas para artilugios posteriores; los que sobren se venden a los mercaderes.",
+	-- was: ["{spell:3953} is yellow at 166 (yellow 145, green 170, grey 195): about 19 crafts to 175. Each takes 2 {item:2841}, 1 {item:2319} and 1 {item:2592}. Bronze Frameworks are parts for later gadgets; the extras sell to vendors."] = "{spell:3953} es amarillo a 166 (amarillo 145, verde 170, gris 195): unas 19 fabricaciones hasta 175. Cada una lleva 2 {item:2841}, 1 {item:2319} y 1 {item:2592}. Los armazones de bronce son piezas para artilugios posteriores; los que sobren se venden a los mercaderes."
+	["{spell:3953} is yellow at 166 (yellow 145, green 170, grey 195): about 19 crafts to 175, up to 25 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:2841}, 1 {item:2319} and 1 {item:2592}. Bronze Frameworks are parts for later gadgets; the extras sell to vendors."] = "",
 
-	-- Step 39: Engineering recipes at 175
+	-- Step 36: Engineering recipes at 175
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 175"] = "Recetas de {skill:202} a 175",
-	-- {skill:202} Engineering · {spell:12585} Solid Blasting Powder
-	["Back to an {skill:202} trainer: {spell:12585} (from 175)."] = "Vuelve a un instructor de {skill:202}: {spell:12585} (desde 175).",
+	-- {npc:5174} Springspindle Fizzlegear · {zone:1455} Ironforge · {npc:11017} Roxxik · {zone:1454} Orgrimmar · {spell:12585} Solid Blasting Powder
+	["Back to {npc:5174} ({zone:1455}) (Alliance) or {npc:11017} ({zone:1454}) (Horde): {spell:12585} (from 175)."] = "",
 
-	-- Step 40: Solid Blasting Powder to 191
+	-- Step 37: Solid Blasting Powder to 195
 	-- {item:10505} Solid Blasting Powder
-	["{item:10505} to 191"] = "{item:10505} hasta 191",
+	["{item:10505} to 195"] = "",
 	-- {item:10505} Solid Blasting Powder · {item:7912} Solid Stone
 	-- plural, as words: Mithril Deposits = {object:2040} Mithril Deposit
-	["{item:10505} is yellow at 175 (yellow 175, green 185, grey 195): about 31 crafts to 191. Each takes 2 {item:7912}. Two {item:7912} a craft (Mithril Deposits). Make plenty: the triggers, slugs and Gyro-Shot all use it."] = "{item:10505} es amarillo a 175 (amarillo 175, verde 185, gris 195): unas 31 fabricaciones hasta 191. Cada una lleva 2 {item:7912}. Dos {item:7912} por fabricación (depósitos de mitril). Haz muchos: los gatillos, las balas y el Giroproyectil lo usan.",
+	["{item:10505} is yellow at 175 (yellow 175, green 185, grey 195): about 72 crafts to 195, up to 103 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:7912}. Two {item:7912} a craft (Mithril Deposits). Make plenty: the triggers, slugs and Gyro-Shot all use it."] = "",
 
-	-- Step 41: Engineering recipes at 191
+	-- Step 38: Engineering recipes at 195
 	-- {skill:202} Engineering
-	["{skill:202} recipes at 191"] = "Recetas de {skill:202} a 191",
-	-- {skill:202} Engineering · {spell:3967} Big Iron Bomb
-	["Back to an {skill:202} trainer: {spell:3967} (from 190)."] = "Vuelve a un instructor de {skill:202}: {spell:3967} (desde 190).",
+	["{skill:202} recipes at 195"] = "",
+	-- {npc:5174} Springspindle Fizzlegear · {zone:1455} Ironforge · {npc:11017} Roxxik · {zone:1454} Orgrimmar · {spell:3967} Big Iron Bomb
+	["Back to {npc:5174} ({zone:1455}) (Alliance) or {npc:11017} ({zone:1454}) (Horde): {spell:3967} (from 190)."] = "",
 
-	-- Step 42: Big Iron Bomb to 210
+	-- Step 39: Big Iron Bomb to 210
 	-- {spell:3967} Big Iron Bomb
 	["{spell:3967} to 210"] = "{spell:3967} hasta 210",
 	-- {spell:3967} Big Iron Bomb · {item:3575} Iron Bar · {spell:3945} Heavy Blasting Powder · {spell:3973} Silver Contact · {item:2842} Silver Bar · {item:2838} Heavy Stone · {npc:5174} Springspindle Fizzlegear · {zone:1455} Ironforge · {npc:5518} Lilliam Sparkspindle · {zone:1453} Stormwind City · {npc:4586} Graham Van Talen · {zone:1458} Undercity · {area:392} Ratchet · {spell:20220} Gnomish Engineering · {npc:7944} Tinkmaster Overspark · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay · {item:4407} Accurate Scope · {npc:8126} Nixx Sprocketspring · {area:976} Gadgetzan · {item:10507} Solid Dynamite · {npc:2675} Explosive Sheep
 	-- plural, as words: Silver Contacts = {spell:3973} Silver Contact · Mithril Tubes = {item:10559} Mithril Tube · Big Iron Bombs = {spell:3967} Big Iron Bomb
-	["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby. If you got here without learning {spell:3945} and {spell:3973}, learn them now: an earlier step teaches them."] = "{spell:3967} es amarillo en 191 (amarillo 190, verde 210, gris 230): unas 27 fabricaciones hasta 210. Cada una lleva 3 {item:3575}, 3 {spell:3945} y 1 {spell:3973} y da 2. Haz primero los 74 {spell:3945} y los 30 {spell:3973} (6 fabricaciones). Usa los 7 {spell:3945} que hiciste antes; las cantidades de arriba no los incluyen. Una {item:2842} da cinco contactos de plata (ya grises: sin puntos, pero tampoco hay que ir a un mercader); {spell:3945} sale de {item:2838}. Cada fabricación da dos bombas. Especialización (opcional): con 200 y nivel de personaje 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) o Tinkerwiz ({area:392}) te mandan a {spell:20220} ({npc:7944}, {zone:1455}, o {npc:7406}, {area:35}: 6 tubos de mitril, un {item:4407} y 2 muñecos-diana avanzados) o a ingeniería goblin ({npc:8126}, {area:976}: 20 bombas de hierro grandes, 20 {item:10507} y 5 {npc:2675}). El esquema del {item:4407} ahora se liga al recogerlo, pero la misión acepta una mira hecha por otro. La tarjeta de socio dura 14 días de juego; renovarla cuesta 2 o. Solo puedes elegir una; ninguna hace falta para 300, y la beta nunca las probó (se detuvo en nivel 30). Necesita un yunque cerca. Si llegaste aquí sin aprender {spell:3945} y {spell:3973}, apréndelos ahora: los enseña un paso anterior.",
+	-- was: ["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby. If you got here without learning {spell:3945} and {spell:3973}, learn them now: an earlier step teaches them."] = "{spell:3967} es amarillo en 191 (amarillo 190, verde 210, gris 230): unas 27 fabricaciones hasta 210. Cada una lleva 3 {item:3575}, 3 {spell:3945} y 1 {spell:3973} y da 2. Haz primero los 74 {spell:3945} y los 30 {spell:3973} (6 fabricaciones). Usa los 7 {spell:3945} que hiciste antes; las cantidades de arriba no los incluyen. Una {item:2842} da cinco contactos de plata (ya grises: sin puntos, pero tampoco hay que ir a un mercader); {spell:3945} sale de {item:2838}. Cada fabricación da dos bombas. Especialización (opcional): con 200 y nivel de personaje 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) o Tinkerwiz ({area:392}) te mandan a {spell:20220} ({npc:7944}, {zone:1455}, o {npc:7406}, {area:35}: 6 tubos de mitril, un {item:4407} y 2 muñecos-diana avanzados) o a ingeniería goblin ({npc:8126}, {area:976}: 20 bombas de hierro grandes, 20 {item:10507} y 5 {npc:2675}). El esquema del {item:4407} ahora se liga al recogerlo, pero la misión acepta una mira hecha por otro. La tarjeta de socio dura 14 días de juego; renovarla cuesta 2 o. Solo puedes elegir una; ninguna hace falta para 300, y la beta nunca las probó (se detuvo en nivel 30). Necesita un yunque cerca. Si llegaste aquí sin aprender {spell:3945} y {spell:3973}, apréndelos ahora: los enseña un paso anterior."
+	["{spell:3967} is yellow at 195 (yellow 190, green 210, grey 230): about 22 crafts to 210, up to 27 for 9 players in 10 (the gathered materials above count that many). Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 28 {spell:3945} and 25 {spell:3973} (5 crafts) first. Use the 38 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby. If you got here without learning {spell:3945} and {spell:3973}, learn them now: an earlier step teaches them."] = "",
 
-	-- Step 43: Engineering recipes at 210
+	-- Step 40: Engineering recipes at 210
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 210"] = "Recetas de {skill:202} a 210",
-	-- {skill:202} Engineering · {spell:12596} Hi-Impact Mithril Slugs
-	["Back to an {skill:202} trainer: {spell:12596} (from 210)."] = "Vuelve a un instructor de {skill:202}: {spell:12596} (desde 210).",
+	-- {npc:5174} Springspindle Fizzlegear · {zone:1455} Ironforge · {npc:11017} Roxxik · {zone:1454} Orgrimmar · {spell:12596} Hi-Impact Mithril Slugs
+	["Back to {npc:5174} ({zone:1455}) (Alliance) or {npc:11017} ({zone:1454}) (Horde): {spell:12596} (from 210)."] = "",
 
-	-- Step 44: Hi-Impact Mithril Slugs to 225
+	-- Step 41: Hi-Impact Mithril Slugs to 225
 	-- {item:10512} Hi-Impact Mithril Slugs
 	["{item:10512} to 225"] = "{item:10512} hasta 225",
 	-- {item:10512} Hi-Impact Mithril Slugs · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder · {skill:202} Engineering
-	["{item:10512} is yellow at 210 (yellow 210, green 230, grey 250): about 19 crafts to 225. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Use the 19 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. {skill:202} 225 is a Legacy System milestone."] = "{item:10512} es amarillo a 210 (amarillo 210, verde 230, gris 250): unas 19 fabricaciones hasta 225. Cada una lleva 1 {item:3860} y 1 {item:10505} y da 200. Usa los 19 {item:10505} que hiciste antes; las cantidades de arriba no los incluyen. Una {item:3860} y un {item:10505} por fabricación; los cazadores compran las balas. Requiere un yunque cerca. {skill:202} 225 es un hito del Sistema de Legado.",
+	-- was: ["{item:10512} is yellow at 210 (yellow 210, green 230, grey 250): about 19 crafts to 225. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Use the 19 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. {skill:202} 225 is a Legacy System milestone."] = "{item:10512} es amarillo a 210 (amarillo 210, verde 230, gris 250): unas 19 fabricaciones hasta 225. Cada una lleva 1 {item:3860} y 1 {item:10505} y da 200. Usa los 19 {item:10505} que hiciste antes; las cantidades de arriba no los incluyen. Una {item:3860} y un {item:10505} por fabricación; los cazadores compran las balas. Requiere un yunque cerca. {skill:202} 225 es un hito del Sistema de Legado."
+	["{item:10512} is yellow at 210 (yellow 210, green 230, grey 250): about 19 crafts to 225, up to 22 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Use the 19 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. {skill:202} 225 is a Legacy System milestone."] = "",
 
-	-- Step 45: Artisan Engineering
+	-- Step 42: Artisan Engineering
 	-- {skill:202} Engineering
 	["Artisan {skill:202}"] = "{skill:202} de artesano",
-	-- {skill:202} Engineering · {npc:8736} Buzzek Bracketswing · {zone:1446} Tanaris · {item:3860} Mithril Bar · {item:7912} Solid Stone · {item:12359} Thorium Bar · {item:14047} Runecloth
-	["Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:8736} ({zone:1446}); Horde {npc:8736} ({zone:1446}). The arrow picks the nearest of your faction. 225-300 takes about 2g 80s of recipes, plus 118 {item:3860}, 212 {item:7912}, 156 {item:12359} and 24 {item:14047} to gather or buy."] = "Artesano sube el límite de 225 a 300 por 4g 50s (precio de Classic; el de Forever no está en los datos); requiere {skill:202} 200 y nivel de personaje 35, así que puedes aprenderlo en cualquier visita a partir de 200. Solo lo enseñan unos pocos instructores: Alianza: {npc:8736} ({zone:1446}); Horda: {npc:8736} ({zone:1446}). La flecha elige el más cercano de tu facción. De 225 a 300 hacen falta unos 2g 80s en recetas, además de 118 {item:3860}, 212 {item:7912}, 156 {item:12359} y 24 {item:14047} que recolectar o comprar.",
+	-- {skill:202} Engineering · {npc:8736} Buzzek Bracketswing · {zone:1446} Tanaris · {item:3860} Mithril Bar · {item:12359} Thorium Bar · {item:14047} Runecloth
+	["Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:8736} ({zone:1446}); Horde {npc:8736} ({zone:1446}). This route trains it at {npc:8736} ({zone:1446}) for the Alliance and {npc:8736} ({zone:1446}) for the Horde, who also teach the recipes of 225-300: one trainer for every visit. 225-300 takes about 2g 80s of recipes, plus 145 {item:3860}, 174 {item:12359} and 26 {item:14047} to gather or buy."] = "",
 
-	-- Step 46: Schematic: Thorium Widget
+	-- Step 43: Schematic: Thorium Widget
 	-- {item:16042} Schematic: Thorium Widget · {item:15994} Thorium Widget · {skill:202} Engineering · {npc:5175} Gearcutter Cogspinner · {zone:1455} Ironforge · {npc:3413} Sovik · {zone:1454} Orgrimmar
 	["{item:16042} teaches {item:15994} ({skill:202} 260) for 1g 20s. Sold by Alliance: {npc:5175} ({zone:1455}), limited stock; Horde: {npc:3413} ({zone:1454}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; the Auction House often has it too."] = "{item:16042} enseña {item:15994} ({skill:202} 260) por 1g 20s. Lo venden: Alianza: {npc:5175} ({zone:1455}), existencias limitadas; Horda: {npc:3413} ({zone:1454}), existencias limitadas. Sus vendedores tienen una o dos en existencia, que se reponen un tiempo después de cada venta; la casa de subastas también suele tenerla.",
 
-	-- Step 47: Schematic: Thorium Tube
+	-- Step 44: Schematic: Thorium Tube
 	-- {item:16047} Schematic: Thorium Tube · {item:16000} Thorium Tube · {skill:202} Engineering · {npc:260565} Kor'gar · {zone:2548} Riverglades · {npc:11185} Xizzer Fizzbolt · {zone:1452} Winterspring
-	["{item:16047} teaches {item:16000} ({skill:202} 275) for 1g 60s. Sold by {npc:260565} ({zone:2548}) and {npc:11185} ({zone:1452}), limited stock."] = "{item:16047} enseña {item:16000} ({skill:202} 275) por 1g 60s. Lo venden {npc:260565} ({zone:2548}) y {npc:11185} ({zone:1452}), con existencias limitadas.",
+	-- was: ["{item:16047} teaches {item:16000} ({skill:202} 275) for 1g 60s. Sold by {npc:260565} ({zone:2548}) and {npc:11185} ({zone:1452}), limited stock."] = "{item:16047} enseña {item:16000} ({skill:202} 275) por 1g 60s. Lo venden {npc:260565} ({zone:2548}) y {npc:11185} ({zone:1452}), con existencias limitadas."
+	["{item:16047} teaches {item:16000} ({skill:202} 275) for 1g 60s. Sold by Alliance: {npc:260565} ({zone:2548}) and {npc:11185} ({zone:1452}), limited stock; Horde: {npc:11185} ({zone:1452}), limited stock."] = "",
 
-	-- Step 48: Get Mithril Bar
-	-- {item:3860} Mithril Bar · {skill:202} Engineering · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {item:3858} Mithril Ore · {skill:186} Mining
-	["You need 118 {item:3860} for {skill:202} 225-300: {item:10512} and {item:10513}. Mine {item:3858} and smelt it at a forge ({skill:186} 175). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- Step 45: Get Mithril Bar
+	-- {item:3860} Mithril Bar · {skill:202} Engineering · {item:10512} Hi-Impact Mithril Slugs · {item:3858} Mithril Ore · {skill:186} Mining
+	-- plural, as words: Mithril Gyro-Shots = {item:10513} Mithril Gyro-Shot
+	["145 {item:3860} for {skill:202} 225-300: 79 {item:10512} and 33 Mithril Gyro-Shots. Mine {item:3858} and smelt it at a forge ({skill:186} 175). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
-	-- Step 49: Get Solid Stone
-	-- {item:7912} Solid Stone · {skill:202} Engineering · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["You need 212 {item:7912} for {skill:202} 225-300: {item:10512} and {item:10513}. {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
-
-	-- Step 50: Get Thorium Bar
+	-- Step 46: Get Thorium Bar
 	-- {item:12359} Thorium Bar
 	["Get {item:12359}"] = "",
-	-- {item:12359} Thorium Bar · {skill:202} Engineering · {item:15994} Thorium Widget · {item:16000} Thorium Tube · {item:10620} Thorium Ore · {skill:186} Mining
-	["You need 156 {item:12359} for {skill:202} 225-300: {item:15994} and {item:16000}. Mine {item:10620} and smelt it at a forge ({skill:186} 250). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:12359} Thorium Bar · {skill:202} Engineering · {item:10620} Thorium Ore · {skill:186} Mining
+	-- plural, as words: Thorium Widgets = {item:15994} Thorium Widget · Thorium Tubes = {item:16000} Thorium Tube
+	["174 {item:12359} for {skill:202} 225-300: 26 Thorium Widgets and 16 Thorium Tubes. Mine {item:10620} and smelt it at a forge ({skill:186} 250). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
-	-- Step 51: Get Runecloth
+	-- Step 47: Get Runecloth
 	-- {item:14047} Runecloth
 	["Get {item:14047}"] = "",
-	-- {item:14047} Runecloth · {skill:202} Engineering · {item:15994} Thorium Widget
-	["You need 24 {item:14047} for {skill:202} 225-300: {item:15994}. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- {item:14047} Runecloth · {skill:202} Engineering
+	-- plural, as words: Thorium Widgets = {item:15994} Thorium Widget
+	["26 {item:14047} for {skill:202} 225-300: 26 Thorium Widgets. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
-	-- Step 52: Hi-Impact Mithril Slugs to 245
+	-- Step 48: Hi-Impact Mithril Slugs to 245
 	-- {item:10512} Hi-Impact Mithril Slugs
 	["{item:10512} to 245"] = "{item:10512} hasta 245",
-	-- {item:10512} Hi-Impact Mithril Slugs · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder
-	["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. If you got here without learning {item:10505} and {item:10512}, learn them now: an earlier step teaches them."] = "{item:10512} es amarillo en 225 (amarillo 210, verde 230, gris 250): unas 62 fabricaciones hasta 245. Cada una lleva 1 {item:3860} y 1 {item:10505} y da 200. Haz primero los 50 {item:10505}. Usa los 12 {item:10505} que hiciste antes; las cantidades de arriba no los incluyen. Un {item:3860} y un {item:10505} por fabricación; los cazadores compran las balas. Necesita un yunque cerca. Si llegaste aquí sin aprender {item:10505} y {item:10512}, apréndelos ahora: los enseña un paso anterior.",
+	-- {item:10512} Hi-Impact Mithril Slugs · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder · {item:10561} Mithril Casing
+	["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245, up to 79 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 9 {item:10505} first. Use the 53 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. The slow part: the slugs turn green at 230, so 225-245 takes about 60 crafts for 20 points. Nothing in the data is cheaper here ({item:10561} takes three times the Mithril; the rest need Truesilver or parts). Needs an anvil nearby. If you got here without learning {item:10505} and {item:10512}, learn them now: an earlier step teaches them."] = "",
 
-	-- Step 53: Engineering recipes at 245
+	-- Step 49: Engineering recipes at 245
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 245"] = "Recetas de {skill:202} a 245",
-	-- {skill:202} Engineering · {spell:12621} Mithril Gyro-Shot
-	["Back to an {skill:202} trainer: {spell:12621} (from 245)."] = "Vuelve a un instructor de {skill:202}: {spell:12621} (desde 245).",
+	-- {npc:8736} Buzzek Bracketswing · {zone:1446} Tanaris · {spell:12621} Mithril Gyro-Shot
+	["Back to {npc:8736} ({zone:1446}) (Alliance) or {npc:8736} ({zone:1446}) (Horde): {spell:12621} (from 245)."] = "",
 
-	-- Step 54: Mithril Gyro-Shot to 265
+	-- Step 50: Mithril Gyro-Shot to 265
 	-- {item:10513} Mithril Gyro-Shot
 	["{item:10513} to 265"] = "{item:10513} hasta 265",
 	-- {item:10513} Mithril Gyro-Shot · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder
 	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
-	["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby. If you got here without learning {item:10505}, learn it now: an earlier step teaches it."] = "{item:10513} es amarillo en 245 (amarillo 245, verde 265, gris 285): unas 28 fabricaciones hasta 265. Cada una lleva 2 {item:3860} y 2 {item:10505} y da 200. Haz primero los 56 {item:10505}. Dos lingotes de mitril y dos {item:10505} por fabricación. Necesita un yunque cerca. Si llegaste aquí sin aprender {item:10505}, apréndelo ahora: lo enseña un paso anterior.",
+	-- was: ["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby. If you got here without learning {item:10505}, learn it now: an earlier step teaches it."] = "{item:10513} es amarillo en 245 (amarillo 245, verde 265, gris 285): unas 28 fabricaciones hasta 265. Cada una lleva 2 {item:3860} y 2 {item:10505} y da 200. Haz primero los 56 {item:10505}. Dos lingotes de mitril y dos {item:10505} por fabricación. Necesita un yunque cerca. Si llegaste aquí sin aprender {item:10505}, apréndelo ahora: lo enseña un paso anterior."
+	["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265, up to 33 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby. If you got here without learning {item:10505}, learn it now: an earlier step teaches it."] = "",
 
-	-- Step 55: Thorium Widget to 287
+	-- Step 51: Thorium Widget to 287
 	-- {item:15994} Thorium Widget
 	["{item:15994} to 287"] = "{item:15994} hasta 287",
 	-- {item:15994} Thorium Widget · {item:12359} Thorium Bar · {item:14047} Runecloth
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["{item:15994} is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287. Each takes 3 {item:12359} and 1 {item:14047}. Three Thorium Bars and a {item:14047} a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby."] = "{item:15994} es naranja a 265 (amarillo 280, verde 290, gris 300): unas 24 fabricaciones hasta 287. Cada una lleva 3 {item:12359} y 1 {item:14047}. Tres lingotes de torio y un {item:14047} por fabricación; los artefactos son piezas para los artilugios de torio posteriores. Requiere un yunque cerca.",
+	-- was: ["{item:15994} is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287. Each takes 3 {item:12359} and 1 {item:14047}. Three Thorium Bars and a {item:14047} a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby."] = "{item:15994} es naranja a 265 (amarillo 280, verde 290, gris 300): unas 24 fabricaciones hasta 287. Cada una lleva 3 {item:12359} y 1 {item:14047}. Tres lingotes de torio y un {item:14047} por fabricación; los artefactos son piezas para los artilugios de torio posteriores. Requiere un yunque cerca."
+	["{item:15994} is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287, up to 26 for 9 players in 10 (the gathered materials above count that many). Each takes 3 {item:12359} and 1 {item:14047}. Three Thorium Bars and a {item:14047} a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby."] = "",
 	["from the recipe in your bags"] = "con la receta de tus bolsas",
 
-	-- Step 56: Thorium Tube to 300
+	-- Step 52: Thorium Tube to 300
 	-- {item:16000} Thorium Tube
 	["{item:16000} to 300"] = "{item:16000} hasta 300",
 	-- {item:16000} Thorium Tube · {item:12359} Thorium Bar · {skill:202} Engineering
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "{item:16000} es naranja a 287 (amarillo 295, verde 305, gris 315): unas 14 fabricaciones hasta 300. Cada una lleva 6 {item:12359}. El esquema se liga al recogerlo; seis lingotes de torio por fabricación. Requiere un yunque cerca. {skill:202} 300 es un hito del Sistema de Legado.",
+	-- was: ["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "{item:16000} es naranja a 287 (amarillo 295, verde 305, gris 315): unas 14 fabricaciones hasta 300. Cada una lleva 6 {item:12359}. El esquema se liga al recogerlo; seis lingotes de torio por fabricación. Requiere un yunque cerca. {skill:202} 300 es un hito del Sistema de Legado."
+	["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300, up to 16 for 9 players in 10 (the gathered materials above count that many). Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["100 {item:2841} for {item:6533} and {spell:3953}: {skill:186}: smelt {item:2840} and {item:3576}."] = "100 {item:2841} para {item:6533} y {spell:3953}: {skill:186}: funde {item:2840} y {item:3576}.",
@@ -384,14 +391,24 @@ return {
 	-- ["75 {item:2840} for {spell:3922}, {item:6219} and {spell:3924}: {skill:186}: smelt {item:2770}."] = "75 {item:2840} para {spell:3922}, {item:6219} y {spell:3924}: {skill:186}: funde {item:2770}.",
 	-- ["81 {item:3575} for {spell:3967}: {skill:186}: smelt {item:2772}."] = "81 {item:3575} para {spell:3967}: {skill:186}: funde {item:2772}.",
 	-- ["Apprentice {skill:202}"] = "{skill:202} de aprendiz",
+	-- ["Apprentice {skill:202} lets you craft up to 75 for 10c, at any character level. Any {skill:202} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} and pair it with {skill:186}: {item:2835} and {item:2770} are the first parts. 1-75 takes about 4s 15c of recipes and 18s 18c of vendor goods, plus 46 {item:2835} and 75 {item:2840} to gather or buy."] = "Aprendiz de {skill:202} te deja fabricar hasta 75 por 10c, con cualquier nivel de personaje. Cualquier instructor de {skill:202} de tu facción lo enseña; la flecha elige el más cercano. Compra un {item:5956} y combínala con {skill:186}: {item:2835} y {item:2770} son las primeras piezas. De 1 a 75 hacen falta unos 4s 15c en recetas y 18s 18c en artículos de mercader, además de 46 {item:2835} y 75 {item:2840} que recolectar o comprar.",
 	-- ["Artisan needs character level 35 and {skill:202} 200; it raises the cap to 300. Materials for 225-300 are worth about 67g in all."] = "Artesano requiere nivel de personaje 35 y {skill:202} 200; sube el tope a 300. Los materiales para 225-300 valen unos 67g en total.",
+	-- ["Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:8736} ({zone:1446}); Horde {npc:8736} ({zone:1446}). The arrow picks the nearest of your faction. 225-300 takes about 2g 80s of recipes, plus 118 {item:3860}, 212 {item:7912}, 156 {item:12359} and 24 {item:14047} to gather or buy."] = "Artesano sube el límite de 225 a 300 por 4g 50s (precio de Classic; el de Forever no está en los datos); requiere {skill:202} 200 y nivel de personaje 35, así que puedes aprenderlo en cualquier visita a partir de 200. Solo lo enseñan unos pocos instructores: Alianza: {npc:8736} ({zone:1446}); Horda: {npc:8736} ({zone:1446}). La flecha elige el más cercano de tu facción. De 225 a 300 hacen falta unos 2g 80s en recetas, además de 118 {item:3860}, 212 {item:7912}, 156 {item:12359} y 24 {item:14047} que recolectar o comprar.",
+	-- ["Back to an {skill:202} trainer: {spell:12585} (from 175)."] = "Vuelve a un instructor de {skill:202}: {spell:12585} (desde 175).",
 	-- ["Back to an {skill:202} trainer: {spell:12590} is taught from {skill:202} 175."] = "Vuelve a un instructor de {skill:202}: {spell:12590} se aprende a partir de {skill:202} 175.",
+	-- ["Back to an {skill:202} trainer: {spell:12596} (from 210)."] = "Vuelve a un instructor de {skill:202}: {spell:12596} (desde 210).",
+	-- ["Back to an {skill:202} trainer: {spell:12621} (from 245)."] = "Vuelve a un instructor de {skill:202}: {spell:12621} (desde 245).",
 	-- ["Back to an {skill:202} trainer: {spell:3922} is taught from {skill:202} 45."] = "Vuelve a un instructor de {skill:202}: {spell:3922} se aprende a partir de {skill:202} 45.",
 	-- ["Back to an {skill:202} trainer: {spell:3926} is taught from {skill:202} 95."] = "Vuelve a un instructor de {skill:202}: {spell:3926} se aprende a partir de {skill:202} 95.",
 	-- ["Back to an {skill:202} trainer: {spell:3942} is taught from {skill:202} 125."] = "Vuelve a un instructor de {skill:202}: {spell:3942} se aprende a partir de {skill:202} 125.",
+	-- ["Back to an {skill:202} trainer: {spell:3967} (from 190)."] = "Vuelve a un instructor de {skill:202}: {spell:3967} (desde 190).",
+	-- ["Back to an {skill:202} trainer: {spell:3973} (from 90) and {spell:3950} (from 140)."] = "Vuelve a un instructor de {skill:202}: {spell:3973} (desde 90) y {spell:3950} (desde 140).",
+	-- ["Back to an {skill:202} trainer: {spell:8334} (from 100)."] = "Vuelve a un instructor de {skill:202}: {spell:8334} (desde 100).",
 	-- ["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "Compra de una vez todo lo de este tramo: 18 {item:2880} (18s) y {item:5956} (una herramienta: uno, guárdalo en tus bolsas, 18c); unos 18s 18c en total. La flecha elige el vendedor más cercano de tu facción ({zone:1453}: {npc:5519}, {npc:5514} y {npc:1286}).",
 	-- ["Expert needs character level 20 and {skill:202} 125; it raises the cap to 225. Materials for 150-225 are worth about 15g in all."] = "Experto requiere nivel de personaje 20 y {skill:202} 125; sube el tope a 225. Los materiales para 150-225 valen unos 15g en total.",
+	-- ["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:5174} ({zone:1455}); Horde {npc:11017} ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:9271} (from 150) and {spell:3953} (from 145). 150-225 takes about 31s of vendor goods, plus 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} and 62 {item:7912} to gather or buy."] = "Experto sube el tope de 150 a 225 por 50s (precio de Classic; el de Forever no está en los datos); requiere {skill:202} 125 y nivel de personaje 20, así que puedes aprenderlo en cualquier visita a partir de 125. Solo lo enseñan unos pocos instructores: Alianza: {npc:5174} ({zone:1455}); Horda: {npc:11017} ({zone:1454}). La flecha elige el más cercano de tu facción. Aprende ahora: {spell:9271} (desde 150) y {spell:3953} (desde 145). De 150 a 225 hacen falta unos 31s en artículos de mercader, además de 19 {item:2319}, 19 {item:2592}, 31 {item:2836}, 74 {item:2838}, 100 {item:2841}, 6 {item:2842}, 81 {item:3575}, 19 {item:3860} y 62 {item:7912} que recolectar o comprar.",
 	-- ["Journeyman needs character level 10 and {skill:202} 50; it raises the cap to 150. Materials for 75-150 are worth about 3g 23s in all."] = "Oficial requiere nivel de personaje 10 y {skill:202} 50; sube el tope a 150. Los materiales para 75-150 valen unos 3g 23s en total.",
+	-- ["Journeyman raises the cap from 75 to 150 for 5s (Classic's price; Forever's is not in the data); it needs {skill:202} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:202} trainer teaches it: Alliance {npc:1676} ({zone:1431}), {npc:5518} ({zone:1453}) and {npc:11029} ({zone:1455}); Horde {npc:11031} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3929} (from 75, 2s 50c) and {spell:3930} (from 75, 2s 50c). 75-150 takes about 5s of recipes and 45s of vendor goods, plus 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} and 2 {item:2842} to gather or buy."] = "Oficial sube el tope de 75 a 150 por 5s (precio de Classic; el de Forever no está en los datos); requiere {skill:202} 50 y nivel de personaje 10, así que puedes aprenderlo en cualquier visita a partir de 50. No todos los instructores de {skill:202} lo enseñan: Alianza: {npc:1676} ({zone:1431}), {npc:5518} ({zone:1453}) y {npc:11029} ({zone:1455}); Horda: {npc:11031} ({zone:1458}). La flecha elige el más cercano de tu facción. Aprende ahora: {spell:3929} (desde 75, 2s 50c) y {spell:3930} (desde 75, 2s 50c). De 75 a 150 hacen falta unos 5s en recetas y 45s en artículos de mercader, además de 15 {item:2836}, 27 {item:2838}, 72 {item:2840}, 61 {item:2841} y 2 {item:2842} que recolectar o comprar.",
 	-- ["Kill the mobs that drop it at the farm spot Polestar picks for your level and faction. The Auction House works too."] = "Mata a los enemigos que lo sueltan en el punto de farmeo que Polestar elige para tu nivel y facción. También puedes comprarlo en la casa de subastas.",
 	-- ["Orange (a point every craft) until 20, yellow until 30, green until 40."] = "Naranja (un punto por cada fabricación) hasta 20, amarillo hasta 30, verde hasta 40.",
 	-- ["Orange (a point every craft) until 280, yellow until 290, green until 300. Needs an anvil nearby."] = "Naranja (un punto por cada fabricación) hasta 280, amarillo hasta 290, verde hasta 300. Necesitas un yunque cerca.",
@@ -421,10 +438,18 @@ return {
 	-- ["Yellow until 90, green until 95: not every craft gives a point."] = "Amarillo hasta 90, verde hasta 95: no todas las fabricaciones dan punto.",
 	-- ["Yellow until 95, green until 110: not every craft gives a point. Needs an anvil nearby."] = "Amarillo hasta 95, verde hasta 110: no todas las fabricaciones dan punto. Necesitas un yunque cerca.",
 	-- ["{item:10498} to 210"] = "{item:10498} hasta 210",
+	-- ["{item:10505} is yellow at 175 (yellow 175, green 185, grey 195): about 31 crafts to 191. Each takes 2 {item:7912}. Two {item:7912} a craft (Mithril Deposits). Make plenty: the triggers, slugs and Gyro-Shot all use it."] = "{item:10505} es amarillo a 175 (amarillo 175, verde 185, gris 195): unas 31 fabricaciones hasta 191. Cada una lleva 2 {item:7912}. Dos {item:7912} por fabricación (depósitos de mitril). Haz muchos: los gatillos, las balas y el Giroproyectil lo usan.",
+	-- ["{item:10505} to 191"] = "{item:10505} hasta 191",
+	-- ["{item:10512} is yellow at 210 (yellow 210, green 230, grey 250): about 19 crafts to 225. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Use the 19 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. {skill:202} 225 is a Legacy System milestone."] = "{item:10512} es amarillo a 210 (amarillo 210, verde 230, gris 250): unas 19 fabricaciones hasta 225. Cada una lleva 1 {item:3860} y 1 {item:10505} y da 200. Usa los 19 {item:10505} que hiciste antes; las cantidades de arriba no los incluyen. Una {item:3860} y un {item:10505} por fabricación; los cazadores compran las balas. Requiere un yunque cerca. {skill:202} 225 es un hito del Sistema de Legado.",
 	-- ["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby."] = "{item:10512} es amarillo a 225 (amarillo 210, verde 230, gris 250): unas 62 fabricaciones hasta 245. Cada una lleva 1 {item:3860} y 1 {item:10505} y da 200. Haz primero los 50 {item:10505}. Usa los 12 {item:10505} que hiciste antes; las cantidades de arriba no los incluyen. Una {item:3860} y un {item:10505} por fabricación; los cazadores compran las balas. Requiere un yunque cerca.",
+	-- ["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. If you got here without learning {item:10505} and {item:10512}, learn them now: an earlier step teaches them."] = "{item:10512} es amarillo en 225 (amarillo 210, verde 230, gris 250): unas 62 fabricaciones hasta 245. Cada una lleva 1 {item:3860} y 1 {item:10505} y da 200. Haz primero los 50 {item:10505}. Usa los 12 {item:10505} que hiciste antes; las cantidades de arriba no los incluyen. Un {item:3860} y un {item:10505} por fabricación; los cazadores compran las balas. Necesita un yunque cerca. Si llegaste aquí sin aprender {item:10505} y {item:10512}, apréndelos ahora: los enseña un paso anterior.",
 	-- ["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby."] = "{item:10513} es amarillo a 245 (amarillo 245, verde 265, gris 285): unas 28 fabricaciones hasta 265. Cada una lleva 2 {item:3860} y 2 {item:10505} y da 200. Haz primero los 56 {item:10505}. Dos lingotes de mitril y dos {item:10505} por fabricación. Requiere un yunque cerca.",
+	-- ["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby. If you got here without learning {item:10505}, learn it now: an earlier step teaches it."] = "{item:10513} es amarillo en 245 (amarillo 245, verde 265, gris 285): unas 28 fabricaciones hasta 265. Cada una lleva 2 {item:3860} y 2 {item:10505} y da 200. Haz primero los 56 {item:10505}. Dos lingotes de mitril y dos {item:10505} por fabricación. Necesita un yunque cerca. Si llegaste aquí sin aprender {item:10505}, apréndelo ahora: lo enseña un paso anterior.",
 	-- ["{item:14047} (Alliance)"] = "{item:14047} (Alianza)",
 	-- ["{item:14047} (Horde)"] = "{item:14047} (Horda)",
+	-- ["{item:15994} is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287. Each takes 3 {item:12359} and 1 {item:14047}. Three Thorium Bars and a {item:14047} a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby."] = "{item:15994} es naranja a 265 (amarillo 280, verde 290, gris 300): unas 24 fabricaciones hasta 287. Cada una lleva 3 {item:12359} y 1 {item:14047}. Tres lingotes de torio y un {item:14047} por fabricación; los artefactos son piezas para los artilugios de torio posteriores. Requiere un yunque cerca.",
+	-- ["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "{item:16000} es naranja a 287 (amarillo 295, verde 305, gris 315): unas 14 fabricaciones hasta 300. Cada una lleva 6 {item:12359}. El esquema se liga al recogerlo; seis lingotes de torio por fabricación. Requiere un yunque cerca. {skill:202} 300 es un hito del Sistema de Legado.",
+	-- ["{item:16047} teaches {item:16000} ({skill:202} 275) for 1g 60s. Sold by {npc:260565} ({zone:2548}) and {npc:11185} ({zone:1452}), limited stock."] = "{item:16047} enseña {item:16000} ({skill:202} 275) por 1g 60s. Lo venden {npc:260565} ({zone:2548}) y {npc:11185} ({zone:1452}), con existencias limitadas.",
 	-- ["{item:2319} (Alliance)"] = "{item:2319} (Alianza)",
 	-- ["{item:2319} (Horde)"] = "{item:2319} (Horda)",
 	-- ["{item:2592} (Alliance)"] = "{item:2592} (Alianza)",
@@ -440,7 +465,9 @@ return {
 	-- ["{item:2838} comes from {object:1735} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:2838} se obtiene de los nodos de {object:1735} ({skill:186}); esta es la zona con más nodos según los datos. También puedes comprarlo en la casa de subastas.",
 	-- ["{item:5956}: a tool, keep it in your bags"] = "{item:5956}: es una herramienta, guárdala en tus bolsas",
 	-- ["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen."] = "{item:6533} es amarillo a 150 (amarillo 150, verde 160, gris 170): unas 31 fabricaciones hasta 166. Cada una lleva 2 {item:2841}, 1 {item:6530} y 1 {spell:3929} y da 3. Haz primero los 31 {spell:3929}. {item:6530} se compra a los proveedores de comercio y de pesca; los atrayentes se venden a los pescadores.",
+	-- ["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen. If you got here without learning {spell:3929}, learn it now: an earlier step teaches it."] = "{item:6533} es amarillo en 150 (amarillo 150, verde 160, gris 170): unas 31 fabricaciones hasta 166. Cada una lleva 2 {item:2841}, 1 {item:6530} y 1 {spell:3929} y da 3. Haz primero los 31 {spell:3929}. {item:6530} lo venden los proveedores de comercio y de pesca; los atrayentes se venden a pescadores. Si llegaste aquí sin aprender {spell:3929}, apréndelo ahora: lo enseña un paso anterior.",
 	-- ["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby."] = "{item:6712} es naranja a 100 (amarillo 115, verde 122, gris 130): unas 31 fabricaciones hasta 125. Cada una lleva 1 {item:2841}, 2 {spell:3922} y 1 {item:2880}. Haz primero los 29 {spell:3922}. Usa los 33 {spell:3922} que hiciste antes; las cantidades de arriba no los incluyen. Las cerraduras de práctica se venden a los pícaros, o ábrelas tú mismo. Requiere un yunque cerca.",
+	-- ["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby. If you got here without learning {spell:3922}, learn it now: an earlier step teaches it."] = "{item:6712} es naranja en 100 (amarillo 115, verde 122, gris 130): unas 31 fabricaciones hasta 125. Cada una lleva 1 {item:2841}, 2 {spell:3922} y 1 {item:2880}. Haz primero los 29 {spell:3922}. Usa los 33 {spell:3922} que hiciste antes; las cantidades de arriba no los incluyen. Las cerraduras de prácticas se venden a pícaros, o ábrelas tú. Necesita un yunque cerca. Si llegaste aquí sin aprender {spell:3922}, apréndelo ahora: lo enseña un paso anterior.",
 	-- ["{item:7912} (Alliance)"] = "{item:7912} (Alianza)",
 	-- ["{item:7912} (Horde)"] = "{item:7912} (Horda)",
 	-- ["{item:7912} comes from {object:2040} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:7912} se obtiene de los nodos de {object:2040} ({skill:186}); esta es la zona con más nodos según los datos. También puedes comprarlo en la casa de subastas.",
@@ -462,15 +489,32 @@ return {
 	-- ["{skill:202} materials for 225-300"] = "Materiales de {skill:202} para 225-300",
 	-- ["{skill:202} materials for 75-150"] = "Materiales de {skill:202} para 75-150",
 	-- ["{skill:202} recipes at 139"] = "Recetas de {skill:202} a 139",
+	-- ["{skill:202} recipes at 140"] = "Recetas de {skill:202} a 140",
+	-- ["{skill:202} recipes at 191"] = "Recetas de {skill:202} a 191",
+	-- ["{skill:202} recipes at 35"] = "Recetas de {skill:202} a 35",
+	-- ["{skill:202} recipes at 57"] = "Recetas de {skill:202} a 57",
 	-- ["{skill:202} recipes at 95"] = "Recetas de {skill:202} a 95",
 	-- ["{skill:202} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 62s in all."] = "{skill:202} se sube a la vez que subes de nivel. El Sistema de legado de Forever recompensa las profesiones de fabricación con 150, 225 y 300 de habilidad (los topes de oficial, experto y artesano), así que cada uno de esos hitos cuenta. Los materiales para 1-75 valen unos 62s en total.",
+	-- ["{spell:3918} is orange at 1 (yellow 20, green 30, grey 40): about 46 crafts to 35. Each takes 1 {item:2835}. One {item:2835} a craft; {item:2835} comes with the {item:2770} from Copper Veins."] = "{spell:3918} es naranja a 1 (amarillo 20, verde 30, gris 40): unas 46 fabricaciones hasta 35. Cada una lleva 1 {item:2835}. Una {item:2835} por fabricación; {item:2835} sale con el {item:2770} de las filones de cobre.",
+	-- ["{spell:3918} to 35"] = "{spell:3918} hasta 35",
 	-- ["{spell:3920} to 45"] = "{spell:3920} hasta 45",
+	-- ["{spell:3922} is orange at 35 (yellow 45, green 52, grey 60): about 33 crafts to 57. Each takes 1 {item:2840}. One {item:2840} a craft. Keep the bolts: Practice Locks and later gadgets take them. Needs an anvil nearby. {item:5956} is a tool: keep it in your bags."] = "{spell:3922} es naranja a 35 (amarillo 45, verde 52, gris 60): unas 33 fabricaciones hasta 57. Cada una lleva 1 {item:2840}. Una {item:2840} por fabricación. Guarda los pernos: las cerraduras de práctica y los artilugios posteriores los usan. Requiere un yunque cerca. {item:5956} es una herramienta: guárdalo en tus bolsas.",
+	-- ["{spell:3922} to 57"] = "{spell:3922} hasta 57",
 	-- ["{spell:3923} to 75"] = "{spell:3923} hasta 75",
 	-- ["{spell:3923} to 80"] = "{spell:3923} hasta 80",
+	-- ["{spell:3924} is orange at 57 (yellow 80, green 95, grey 110): about 18 crafts to 75, a point every craft. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. Make the {item:6219} now, while it still gives a point: a later recipe needs it in your bags, so keep it there."] = "{spell:3924} es naranja a 57 (amarillo 80, verde 95, gris 110): unas 18 fabricaciones hasta 75, un punto por fabricación. Cada una lleva 2 {item:2840} y 1 {item:2880}. Dos lingotes de cobre y un {item:2880} por fabricación (proveedores de herrería e ingeniería). Requiere un yunque cerca. Haz ahora {item:6219}, mientras todavía da un punto: una receta posterior lo necesita en tus bolsas, así que guárdalo ahí.",
 	-- ["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby."] = "{spell:3924} es amarillo a 94 (amarillo 80, verde 95, gris 110): unas 14 fabricaciones hasta 100. Cada una lleva 2 {item:2840} y 1 {item:2880}. Dos lingotes de cobre y un {item:2880} por fabricación (proveedores de herrería e ingeniería). Requiere un yunque cerca.",
+	-- ["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. If you got here without learning {spell:3924}, learn it now: an earlier step teaches it."] = "{spell:3924} es amarillo en 94 (amarillo 80, verde 95, gris 110): unas 14 fabricaciones hasta 100. Cada una lleva 2 {item:2840} y 1 {item:2880}. Dos lingotes de cobre y un {item:2880} por fabricación (proveedores de herrería e ingeniería). Necesita un yunque cerca. Si llegaste aquí sin aprender {spell:3924}, apréndelo ahora: lo enseña un paso anterior.",
 	-- ["{spell:3926} to 111"] = "{spell:3926} hasta 111",
 	-- ["{spell:3929} to 95"] = "{spell:3929} hasta 95",
+	-- ["{spell:3930} is orange at 75 (yellow 85, green 90, grey 95): about 15 crafts to 94. Each takes 1 {spell:3929} and 1 {item:2840} and makes 200. Make the 15 {spell:3929} first: it gives points too while not grey. The {spell:3929} in each gives its own point while it is not grey: two chances a craft. Sell the shot to hunters or a vendor."] = "{spell:3930} es naranja a 75 (amarillo 85, verde 90, gris 95): unas 15 fabricaciones hasta 94. Cada una lleva 1 {spell:3929} y 1 {item:2840} y da 200. Haz primero los 15 {spell:3929}: también da puntos mientras no sea gris. El {spell:3929} de cada uno da su propio punto mientras no sea gris: dos oportunidades por fabricación. Vende la munición a los cazadores o a un mercader.",
+	-- ["{spell:3930} to 94"] = "{spell:3930} hasta 94",
 	-- ["{spell:3937} to 125"] = "{spell:3937} hasta 125",
 	-- ["{spell:3942} to 150"] = "{spell:3942} hasta 150",
+	-- ["{spell:3945} is yellow at 125 (yellow 125, green 135, grey 145): about 27 crafts to 140. Each takes 1 {item:2838}. One {item:2838} a craft (Iron Deposits). Keep some: Iron Grenades take one each."] = "{spell:3945} es amarillo a 125 (amarillo 125, verde 135, gris 145): unas 27 fabricaciones hasta 140. Cada una lleva 1 {item:2838}. Una {item:2838} por fabricación (depósitos de hierro). Guarda algunos: las granadas de hierro llevan uno cada una.",
+	-- ["{spell:3945} to 140"] = "{spell:3945} hasta 140",
+	-- ["{spell:3950} is yellow at 140 (yellow 140, green 165, grey 190): about 10 crafts to 150. Each takes 2 {item:4377}, 3 {item:2841} and 1 {spell:3973} and makes 3. Make the 10 {spell:3973} (2 crafts) first. Use the 20 {item:4377} you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. Needs an anvil nearby. {skill:202} 150 is a Legacy System milestone."] = "{spell:3950} es amarillo a 140 (amarillo 140, verde 165, gris 190): unas 10 fabricaciones hasta 150. Cada una lleva 2 {item:4377}, 3 {item:2841} y 1 {spell:3973} y da 3. Haz primero los 10 {spell:3973} (2 fabricaciones). Usa los 20 {item:4377} que hiciste antes; las cantidades de arriba no los incluyen. Lo enseña el instructor, y según los datos es la forma más barata de conseguir estos puntos. Requiere un yunque cerca. {skill:202} 150 es un hito del Sistema de Legado.",
+	-- ["{spell:3953} is yellow at 166 (yellow 145, green 170, grey 195): about 19 crafts to 175. Each takes 2 {item:2841}, 1 {item:2319} and 1 {item:2592}. Bronze Frameworks are parts for later gadgets; the extras sell to vendors."] = "{spell:3953} es amarillo a 166 (amarillo 145, verde 170, gris 195): unas 19 fabricaciones hasta 175. Cada una lleva 2 {item:2841}, 1 {item:2319} y 1 {item:2592}. Los armazones de bronce son piezas para artilugios posteriores; los que sobren se venden a los mercaderes.",
 	-- ["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby."] = "{spell:3967} es amarillo a 191 (amarillo 190, verde 210, gris 230): unas 27 fabricaciones hasta 210. Cada una lleva 3 {item:3575}, 3 {spell:3945} y 1 {spell:3973} y da 2. Haz primero los 74 {spell:3945} y los 30 {spell:3973} (6 fabricaciones). Usa los 7 {spell:3945} que hiciste antes; las cantidades de arriba no los incluyen. Una {item:2842} da cinco contactos de plata (ya grises: no dan puntos, pero tampoco hace falta ir a un mercader); el {spell:3945} sale de {item:2838}. Cada fabricación da dos bombas. Especialización (opcional): a 200 y nivel de personaje 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) o Tinkerwiz ({area:392}) te envía a {spell:20220} ({npc:7944}, {zone:1455}, o {npc:7406}, {area:35}: 6 tubos de mitril, un {item:4407} y 2 muñecos de tiro avanzados) o a Ingeniería goblin ({npc:8126}, {area:976}: 20 bombas de hierro grandes, 20 {item:10507} y 5 {npc:2675}). El esquema de {item:4407} ahora se liga al recogerlo, pero la misión acepta una mira que haya hecho otro. La tarjeta de socio dura 14 días de juego; renovarla cuesta 2g. Solo puedes elegir una; ninguna hace falta para llegar a 300, y la beta nunca las probó (se detuvo en el nivel 30). Requiere un yunque cerca.",
+	-- ["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby. If you got here without learning {spell:3945} and {spell:3973}, learn them now: an earlier step teaches them."] = "{spell:3967} es amarillo en 191 (amarillo 190, verde 210, gris 230): unas 27 fabricaciones hasta 210. Cada una lleva 3 {item:3575}, 3 {spell:3945} y 1 {spell:3973} y da 2. Haz primero los 74 {spell:3945} y los 30 {spell:3973} (6 fabricaciones). Usa los 7 {spell:3945} que hiciste antes; las cantidades de arriba no los incluyen. Una {item:2842} da cinco contactos de plata (ya grises: sin puntos, pero tampoco hay que ir a un mercader); {spell:3945} sale de {item:2838}. Cada fabricación da dos bombas. Especialización (opcional): con 200 y nivel de personaje 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) o Tinkerwiz ({area:392}) te mandan a {spell:20220} ({npc:7944}, {zone:1455}, o {npc:7406}, {area:35}: 6 tubos de mitril, un {item:4407} y 2 muñecos-diana avanzados) o a ingeniería goblin ({npc:8126}, {area:976}: 20 bombas de hierro grandes, 20 {item:10507} y 5 {npc:2675}). El esquema del {item:4407} ahora se liga al recogerlo, pero la misión acepta una mira hecha por otro. La tarjeta de socio dura 14 días de juego; renovarla cuesta 2 o. Solo puedes elegir una; ninguna hace falta para 300, y la beta nunca las probó (se detuvo en nivel 30). Necesita un yunque cerca. Si llegaste aquí sin aprender {spell:3945} y {spell:3973}, apréndelos ahora: los enseña un paso anterior.",
 }

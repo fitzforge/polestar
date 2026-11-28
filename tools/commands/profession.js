@@ -174,6 +174,27 @@ function writeWaters(ctx, tdb, recordingsDir) {
 	return 0;
 }
 
+// stations.json: the world database's crafting stations (anvils, forges, cooking fires) per spell focus name.
+function runStations(rest) {
+	let values;
+	try {
+		({ values } = parseArgs({ args: rest, options: { data: { type: 'string' }, tdb: { type: 'string' }, focus: { type: 'string' } }, strict: true }));
+	} catch (err) {
+		return fail(err.message);
+	}
+	const S = require('../lib/professions/stations');
+	const tdb = values.tdb ? path.resolve(values.tdb) : path.join(ROOT, 'data', 'local', 'forever-tdb', 'world.sqlite');
+	if (!fs.existsSync(tdb)) return fail(`${path.relative(process.cwd(), tdb)} missing`);
+	const csv = values.focus ? path.resolve(values.focus) : null;
+	if (!csv || !fs.existsSync(csv)) return fail('profession stations needs --focus <SpellFocusObject.csv> (the client table, data/sources/wago/<build>/)');
+	const profs = JSON.parse(fs.readFileSync(path.join(path.resolve(values.data || DATA), 'professions.json'), 'utf8'));
+	const wanted = new Set(Object.values(profs).flatMap((p) => (p.recipes || []).map((r) => r.focus).filter(Boolean)));
+	const stations = S.derive(tdb, S.focusNames(csv), wanted);
+	fs.writeFileSync(S.FILE, S.render(stations));
+	console.error(`wrote ${path.relative(process.cwd(), S.FILE)}: ${Object.entries(stations).map(([k, v]) => `${k} ${v.length}`).join(', ')}`);
+	return 0;
+}
+
 async function run(argv) {
 	const [sub, ...rest] = argv;
 	if (sub === 'build') {
@@ -181,6 +202,7 @@ async function run(argv) {
 		return 2;
 	}
 	if (sub === 'draft') return runDraft(rest);
+	if (sub === 'stations') return runStations(rest);
 	if (sub === 'gathering') return runGathering(rest);
 	return fail(sub ? `unknown subcommand "${sub}"` : 'missing subcommand');
 }

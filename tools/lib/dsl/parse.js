@@ -69,7 +69,8 @@ const MODS = {
 	// `gather [<Profession> <rank>] [levels <min>-<max>]`: this bag count is its item's gather way (a profession
 	// guide's material, which the section's `auction` goal buys instead when the player chooses to buy it).
 	collect: [...COMMON, ...COORDS, 'npc', 'quest', 'count', 'nearest', 'anywhere', 'gather', 'upto'],
-	goto: [...COMMON, 'map', 'r', 'frame'],
+	// `goto x,y "Anvil" nearest`: one of the step's places (2+), the arrow takes the nearest (a station).
+	goto: [...COMMON, 'map', 'r', 'frame', 'nearest'],
 	talk: [...COMMON, ...COORDS, 'gossip', 'quest', 'upto'],
 	interact: [...COMMON, ...COORDS, 'quest', 'upto'],
 	use: [...COMMON, ...COORDS, 'quest', 'upto'],
@@ -84,8 +85,9 @@ const MODS = {
 	train: [...COMMON, ...COORDS, 'npc', 'gossip'],
 	buy: [...COMMON, ...COORDS, 'npc', 'count', 'nearest'],
 	// `auction <item> xN`: buy it at the Auction House (the arrow: the nearest auctioneer of the player's faction);
-	// applies while the player gets the item by buying it (Core/Materials.lua).
-	auction: ['text', 'optional', 'only', 'count'],
+	// applies while the player gets the item by buying it (Core/Materials.lua). `either` with a `task`: plans bought
+	// when the Auction House lists them, or "none listed" ticked.
+	auction: ['text', 'optional', 'only', 'count', 'either'],
 	vendor: [...COMMON, ...COORDS, 'npc', 'gossip'],
 	// `grind <npcId>`: the mob a level is reached on; the arrow leads to its nearest spawn area.
 	level: [...COMMON, 'grind'],
@@ -1109,6 +1111,13 @@ function parseGoal(verb, line, lex, ln, err, warn) {
 			case 'item': {
 				if (!use(word)) return null;
 				if (goal[word] !== undefined) return err(ln, `\`${word}\` already given positionally`), null;
+				// `learn <spell> npc <id>,<id>…`: several trainers, the arrow takes the nearest of them.
+				const list = word === 'npc' && verb === 'learn' && toks[i + 1] && !toks[i + 1].quoted && /^\d+(,\d+)+$/.test(toks[i + 1].text);
+				if (list) {
+					goal.npcs = toks[i + 1].text.split(',').map(Number);
+					i += 2;
+					continue;
+				}
 				const v = intArg(i + 1, `${word} id`);
 				if (v === null) return null;
 				goal[word] = v;

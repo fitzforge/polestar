@@ -82,7 +82,8 @@ pub const MODS: [(&str, &[&str]); 36] = [
 	// `gather [<Profession> <rank>] [levels <min>-<max>]`: this bag count is its item's gather way (a profession
 	// guide's material, which the section's `auction` goal buys instead when the player chooses to buy it).
 	("collect", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "quest", "count", "nearest", "anywhere", "gather", "upto"]),
-	("goto", &["text", "optional", "only", "group", "either", "map", "r", "frame"]),
+	// `goto x,y "Anvil" nearest`: one of the step's places (2+), the arrow takes the nearest (a station).
+	("goto", &["text", "optional", "only", "group", "either", "map", "r", "frame", "nearest"]),
 	("talk", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "gossip", "quest", "upto"]),
 	("interact", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "quest", "upto"]),
 	("use", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "quest", "upto"]),
@@ -97,8 +98,9 @@ pub const MODS: [(&str, &[&str]); 36] = [
 	("train", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "gossip"]),
 	("buy", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "count", "nearest"]),
 	// `auction <item> xN`: buy it at the Auction House (the arrow: the nearest auctioneer of the player's faction);
-	// applies while the player gets the item by buying it (Core/Materials.lua).
-	("auction", &["text", "optional", "only", "count"]),
+	// applies while the player gets the item by buying it (Core/Materials.lua). `either` with a `task`: plans bought
+	// when the Auction House lists them, or "none listed" ticked.
+	("auction", &["text", "optional", "only", "count", "either"]),
 	("vendor", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "gossip"]),
 	// `grind <npcId>`: the mob a level is reached on; the arrow leads to its nearest spawn area.
 	("level", &["text", "optional", "only", "group", "either", "grind"]),
@@ -1518,6 +1520,15 @@ fn parse_goal(verb: &str, line: &[u16], lex: &Lex, ln: f64, cx: &mut Cx) -> Opti
 				use_!(w);
 				if !goal.get(w).is_undef() {
 					fail!(format!("`{w}` already given positionally"));
+				}
+				// `learn <spell> npc <id>,<id>…`: several trainers, the arrow takes the nearest of them.
+				let list =
+					toks.get(i + 1).filter(|t| w == "npc" && verb == "learn" && !t.quoted && t.text.contains(',') && t.text.split(',').all(|p| !p.is_empty() && p.bytes().all(|b| b.is_ascii_digit())));
+				if let Some(t) = list {
+					let ids: Vec<V> = t.text.split(',').map(|p| V::from(p.parse::<f64>().unwrap())).collect();
+					goal.set("npcs", ids);
+					i += 2;
+					continue;
 				}
 				let v = int_arg(i + 1, &format!("{w} id"), cx)?;
 				goal.set(w, v);

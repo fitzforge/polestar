@@ -205,7 +205,7 @@ function draft(name) {
 function getIts(text, material) {
 	return text
 		.split('\n\n')
-		.filter((b) => b.startsWith(`step Get ${material}`))
+		.filter((b) => new RegExp(`^step Get (\\d+ )?${material}(\\n| \\()`).test(b))
 		.map((b) => {
 			const lines = b.split('\n');
 			const val = (k) => (lines.find((l) => l.startsWith(`  ${k} `)) || '').slice(k.length + 3) || null;
@@ -213,25 +213,25 @@ function getIts(text, material) {
 		});
 }
 
-test('Light and Medium Leather: a Get it step per starting area or faction, at beasts of the leather\'s levels, the Auction House last', { skip }, () => {
+// Leather comes from the Skinning guide's loops (0.4.4), as herbs and ore come from theirs: each loop says the
+// level its creatures ask, so the engine never sends a character to beasts 10-20 levels above them (a fixed
+// point did: Medium Leather at Hillsbrad's yetis of level 30-31, Heavy at Alterac's lions of 32-35).
+test('Light and Medium Leather: one Get it step whose Skinning loops each say their level, both sides served at the leather\'s own levels, the Auction House last', { skip }, () => {
 	const text = draft('Leatherworking');
-	const light = getIts(text, 'Light Leather');
-	// Each starting area skins at home: Elwynn Forest for Humans, Teldrassil for Night Elves, Durotar for Orcs and Trolls ...
-	const zones = Object.fromEntries(light.map((g) => [g.only, g.zone]));
-	assert.equal(zones.Human, 'Elwynn Forest');
-	assert.equal(zones.NightElf, 'Teldrassil');
-	assert.equal(zones['Orc,Troll'], 'Durotar');
-	assert.equal(zones.Tauren, 'Mulgore');
-	for (const g of light) {
-		assert.match(g.lines.join('\n'), /Skinning: beasts of level 5-20\./, g.title);
-		assert.match(g.lines.at(-2), /^ {2}collect 2318 x\d+ @[\d.]+,[\d.]+ (era|live) gather Skinning 1$/, g.title);
-		assert.match(g.lines.at(-1), /^ {2}auction 2318 x\d+$/, g.title);
-	}
-	const medium = getIts(text, 'Medium Leather');
-	assert.ok(medium.length >= 2, text.slice(0, 200));
-	for (const g of medium) {
-		assert.match(g.lines.join('\n'), /Skinning: beasts of level 18-30\./, g.title);
-		assert.match(g.lines.at(-1), /^ {2}auction 2319 x\d+$/, g.title);
+	const loopsOf = (g) => g.lines.filter((l) => /^ {2}loop /.test(l)).map((l) => ({ line: l, lvl: Number(/ lvl (\d+) /.exec(l)[1]), only: (/ only (Alliance|Horde) /.exec(l) || [])[1] || null }));
+	for (const [name, item, most] of [
+		['Light Leather', 2318, 24],
+		['Medium Leather', 2319, 36],
+	]) {
+		const [g] = getIts(text, name);
+		assert.ok(g, `${name}: a Get it step`);
+		assert.match(g.lines.join('\n'), new RegExp(`\\n {2}collect ${item} x\\d+ gather Skinning \\d+\\n {2}loop `), name);
+		assert.match(g.lines.at(-1), new RegExp(`^ {2}auction ${item} x\\d+$`), name);
+		const loops = loopsOf(g);
+		assert.ok(loops.length >= 2, `${name}: loops`);
+		for (const l of loops) assert.ok(l.lvl <= most, `${name}: ${l.line.slice(0, 80)}`);
+		// Each side has a loop of level 18 or less: a character of the leather's own levels has somewhere to go.
+		for (const side of ['Alliance', 'Horde']) assert.ok(loops.some((l) => (l.only === null || l.only === side) && l.lvl <= 18), `${name}: a ${side} loop of level 18 or less`);
 	}
 });
 
@@ -241,7 +241,7 @@ test('Iron Bar: one Get it step whose Mining loops give Iron Ore in zones of eac
 	const iron = getIts(draft('Blacksmithing'), 'Iron Bar');
 	assert.ok(iron.length >= 1);
 	for (const g of iron) {
-		assert.match(g.lines.join('\n'), /Mine Iron Ore and smelt it at a forge \(Mining \d+\)/);
+		assert.match(g.lines.join('\n'), /\n {2}tip For \d+ Green Iron Bracers\. No Mining\? The bars, not the ore\./);
 		const at = g.lines.findIndex((l) => l.startsWith('  collect 3575 '));
 		assert.match(g.lines[at], /^ {2}collect 3575 x\d+ gather Mining \d+$/);
 		const loops = g.lines.filter((l) => l.startsWith('  loop '));

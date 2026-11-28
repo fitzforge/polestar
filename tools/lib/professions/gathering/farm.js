@@ -27,6 +27,7 @@
 const { segDist } = require('../../route/geo');
 const { buildLoop, pointLevels, roundLevel } = require('./loop');
 const { weightedClusters } = require('./route');
+const { ZONES } = require('./tables');
 
 // Loop sizes tried: a camp's worth up to most of a zone (sparse veins: a lap shorter than their respawn
 // only waits for them).
@@ -71,6 +72,14 @@ function worth(loop, open, { corridor, stopYards, respawnYards }) {
 	return { gain, up: n, on, score: gain / (walk + stopYards * n) };
 }
 
+// A zone's own level (tables.js ZONES min) is the least a loop there asks: a round whose stops have no
+// hostile creature in aggro range (a friendly town's shore, Revantusk's coast in the Hinterlands, the
+// Riverglades with no world-DB spawns) still walks a character through the zone's creatures on the way
+// in. Without it such loops read "lvl 2" and were offered to characters of 10-20 in zones of 40-50.
+function floorOf(map) {
+	return (ZONES[map] && ZONES[map].min) || 1;
+}
+
 // Memoised per points array (one per band part, zone and faction).
 const memo = new WeakMap();
 function farm(ctx, prof, map, points, { faction = null, respawn = 300, level: planned = 60 } = {}) {
@@ -90,10 +99,11 @@ function farm(ctx, prof, map, points, { faction = null, respawn = 300, level: pl
 		const clusters = weightedClusters(open, radius, ctx.project);
 		for (const span of SPANS) {
 			const loop = buildLoop(open, ctx.project, { radius, span, cover: 1, maxStops: MAX_STOPS, clusters });
-			if (loop.stops.length < 2) continue;
+			// `prof.maxLap` (yards): past it the round never comes back to what respawned (Skinning).
+			if (loop.stops.length < 2 || loop.lap > (prof.maxLap || Infinity)) continue;
 			const walk = roundLevel(ctx, map, loop.stops, faction);
 			if (walk === null) continue;
-			found.push({ ...loop, ...worth(loop, open, opts), level: Math.max(level, walk), span, respawn });
+			found.push({ ...loop, ...worth(loop, open, opts), level: Math.max(level, walk, floorOf(map)), span, respawn });
 		}
 	}
 	const long = found.filter((f) => f.stops.length >= MIN_STOPS);

@@ -132,7 +132,9 @@ function zonePicks(ctx, prof, band, faction) {
 	const keep = [];
 	const add = (r) => r && !keep.includes(r.zone) && keep.push(r.zone);
 	const low = rankIn(ctx, prof, band, zones, faction, skillLevel(band.from));
-	const high = rankIn(ctx, prof, band, zones, faction, skillLevel(band.to));
+	// For a character at the band's end, the zones workable at its end skill (Mining 175-230: the
+	// Hinterlands' Mithril, 17 nodes up at once, opens at 40 where Alterac keeps 5).
+	const high = rankIn(ctx, prof, band, band.zones ? zones : zonesFor(faction, { from: band.to }), faction, skillLevel(band.to));
 	const top = rankIn(ctx, prof, band, band.zones ? zones : zonesFor(faction, { from: 300 }), faction, MAX_LEVEL);
 	for (const r of [...low.slice(0, TOP), ...high.slice(0, TOP), ...top.slice(0, TOP)]) add(r);
 	if (band.scope === 'start' || band.scope === 'next') for (const g of RACE_GROUPS[faction]) add(low.find((r) => g[band.scope].includes(r.zone)));
@@ -379,7 +381,7 @@ function render(ctx, prof) {
 			const on = e.loops.flatMap((l) => l.farm.on);
 			const nodes = nodeSummary(prof, on, e.from, e.to);
 			L.push('');
-			L.push(`step ${prof.bandTitle(nodes, e)} (${e.from}-${e.to})${e.cont ? ' cont.' : ''}`);
+			L.push(`step ${prof.bandTitle(nodes, e)} (${e.from}-${e.to})`);
 			let tip = `${prof.bandTip(nodes, e, ctx)} ${PICK_TIP}`;
 			const need = prof.countNodes ? nodesNeeded(nodes, e.from, e.to) : null;
 			if (need) {

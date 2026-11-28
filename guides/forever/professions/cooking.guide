@@ -170,14 +170,14 @@ step Crab Cake: shopping
 step Get Crawler Meat
   only Human,Skyborne,Alliance
   zone Westfall
-  tip You need 44 Crawler Meat for Crab Cake (90-130). It drops from Sand Crawler (43%) in Westfall. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
-  collect 2674 x44 nearest gather levels 13-18
-  auction 2674 x44
+  tip You need 47 Crawler Meat for Crab Cake (90-130). It drops from Sand Crawler (43%) in Westfall. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
+  collect 2674 x47 nearest gather levels 13-18
+  auction 2674 x47
 
 step Crab Cake (90-130)
   only Human,Skyborne,Alliance
   zone Westfall
-  tip Crab Cake is orange from 90 (yellow at 115, green at 135, grey at 155): about 44 crafts to 130. Cook at any fire: a town hearth or your own Basic Campfire. Any Cooking trainer teaches it from skill 75 for 2s. Crawlers line the whole Westfall coast. Cook it to 130, where Curiously Tasty Omelet takes over.
+  tip Crab Cake is orange from 90 (yellow at 115, green at 135, grey at 155): about 44 crafts to 130, up to 47 for 9 players in 10 (the ingredients to farm count that many). Cook at any fire: a town hearth or your own Basic Campfire. Any Cooking trainer teaches it from skill 75 for 2s. Crawlers line the whole Westfall coast. Cook it to 130, where Curiously Tasty Omelet takes over.
   learn 2544
   craft 2544 until 130
 
@@ -208,14 +208,14 @@ step Dry Pork Ribs: shopping
 step Get Boar Ribs
   only Dwarf,Gnome
   zone Loch Modan
-  tip You need 52 Boar Ribs for Dry Pork Ribs (80-130). It drops from Mangy Mountain Boar (31%) in Loch Modan. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
-  collect 2677 x52 nearest gather levels 10-17
-  auction 2677 x52
+  tip You need 53 Boar Ribs for Dry Pork Ribs (80-130). It drops from Mangy Mountain Boar (31%) in Loch Modan. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
+  collect 2677 x53 nearest gather levels 10-17
+  auction 2677 x53
 
 step Dry Pork Ribs (80-130)
   only Dwarf,Gnome
   zone Loch Modan
-  tip Dry Pork Ribs is orange from 80 (yellow at 120, green at 140, grey at 160): about 52 crafts to 130. Cook at any fire: a town hearth or your own Basic Campfire. Any Cooking trainer teaches it from skill 80 for 1s 50c. Mountain boars roam all of Loch Modan. Cook it to 130, where Curiously Tasty Omelet takes over.
+  tip Dry Pork Ribs is orange from 80 (yellow at 120, green at 140, grey at 160): about 52 crafts to 130, up to 53 for 9 players in 10 (the ingredients to farm count that many). Cook at any fire: a town hearth or your own Basic Campfire. Any Cooking trainer teaches it from skill 80 for 1s 50c. Mountain boars roam all of Loch Modan. Cook it to 130, where Curiously Tasty Omelet takes over.
   learn 2546
   craft 2546 until 130
 
@@ -245,14 +245,14 @@ step Crab Cake: shopping
 step Get Crawler Meat
   only NightElf
   zone Darkshore
-  tip You need 44 Crawler Meat for Crab Cake (90-130). It drops from Spined Crawler (42%), Clattering Crawler (40%) in Darkshore. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
-  collect 2674 x44 nearest gather levels 9-21
-  auction 2674 x44
+  tip You need 47 Crawler Meat for Crab Cake (90-130). It drops from Spined Crawler (42%), Clattering Crawler (40%) in Darkshore. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
+  collect 2674 x47 nearest gather levels 9-21
+  auction 2674 x47
 
 step Crab Cake (90-130)
   only NightElf
   zone Darkshore
-  tip Crab Cake is orange from 90 (yellow at 115, green at 135, grey at 155): about 44 crafts to 130. Cook at any fire: a town hearth or your own Basic Campfire. Any Cooking trainer teaches it from skill 75 for 2s. Crawlers line the whole Darkshore coast. Cook it to 130, where Curiously Tasty Omelet takes over.
+  tip Crab Cake is orange from 90 (yellow at 115, green at 135, grey at 155): about 44 crafts to 130, up to 47 for 9 players in 10 (the ingredients to farm count that many). Cook at any fire: a town hearth or your own Basic Campfire. Any Cooking trainer teaches it from skill 75 for 2s. Crawlers line the whole Darkshore coast. Cook it to 130, where Curiously Tasty Omelet takes over.
   learn 2544
   craft 2544 until 130
 
@@ -265,14 +265,14 @@ step Strider Stew: shopping
 step Get Strider Meat
   only Horde
   zone The Barrens
-  tip You need 52 Strider Meat for Strider Stew (50-100). It drops from Fleeting Plainstrider (32%) in The Barrens. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
-  collect 5469 x52 nearest gather levels 11-17
-  auction 5469 x52
+  tip You need 53 Strider Meat for Strider Stew (50-100). It drops from Fleeting Plainstrider (32%) in The Barrens. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
+  collect 5469 x53 nearest gather levels 11-17
+  auction 5469 x53
 
 step Strider Stew (50-100)
   only Horde
   zone The Barrens
-  tip Strider Stew is orange from 50 (yellow at 90, green at 110, grey at 130): about 52 crafts to 100. Cook at any fire: a town hearth or your own Basic Campfire. Recipe: Strider Stew costs 4s 40c at its vendor; the arrow picks the nearest one of your faction.
+  tip Strider Stew is orange from 50 (yellow at 90, green at 110, grey at 130): about 52 crafts to 100, up to 53 for 9 players in 10 (the ingredients to farm count that many). Cook at any fire: a town hearth or your own Basic Campfire. Recipe: Strider Stew costs 4s 40c at its vendor; the arrow picks the nearest one of your faction.
   learn 6416
   craft 6416 until 100
 
@@ -301,7 +301,7 @@ step Crispy Lizard Tail (100-130)
 section Cooking 130-175
 
 step Expert Cooking
-  tip Expert Cooking raises the cap to 225; it needs skill 125 and character level 20: it is a book, Expert Cookbook (1g); the arrow picks its nearest seller for your faction. Buy it and read it.
+  tip Expert Cooking raises the cap to 225; it needs skill 125 and character level 20: it is a book, Expert Cookbook (1g); the arrow picks its nearest seller for your faction. Buy it and read it. The cookbook's sellers stand above a level-20 character: Shandrina in Ashenvale (creatures of level 18-30) and Wulan in Desolace (30-40). Take the flight path or keep to the road, buy, and leave the same way.
   level 20
   train Cooking Expert "Buy and read Expert Cookbook (Expert Cooking)"
 
@@ -357,13 +357,13 @@ step Roast Raptor: shopping
 
 step Get Raptor Flesh
   zone Arathi Highlands
-  tip You need 52 Raptor Flesh for Roast Raptor (175-225). It drops from Highland Thrasher (38%) in Arathi Highlands. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
-  collect 12184 x52 nearest gather levels 30-37
-  auction 12184 x52
+  tip You need 53 Raptor Flesh for Roast Raptor (175-225). It drops from Highland Thrasher (38%) in Arathi Highlands. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
+  collect 12184 x53 nearest gather levels 30-37
+  auction 12184 x53
 
 step Roast Raptor (175-225)
   zone Arathi Highlands
-  tip Roast Raptor is orange from 175 (yellow at 215, green at 235, grey at 255): about 52 crafts to 225. Cook at any fire: a town hearth or your own Basic Campfire. Recipe: Roast Raptor costs 50s at its vendor; the arrow picks the nearest one of your faction. Arathi Highlands: Hammon Karwn at Refuge Pointe (Alliance) and Keena at Hammerfall (Horde) sell the recipe and Hot Spices beside the raptors. Spider Sausage (any trainer from 200, 40s) is the alternative, but it takes two White Spider Meat a craft and Dustwallow's spiders drop one about two kills in five.
+  tip Roast Raptor is orange from 175 (yellow at 215, green at 235, grey at 255): about 52 crafts to 225, up to 53 for 9 players in 10 (the ingredients to farm count that many). Cook at any fire: a town hearth or your own Basic Campfire. Recipe: Roast Raptor costs 50s at its vendor; the arrow picks the nearest one of your faction. Arathi Highlands: Hammon Karwn at Refuge Pointe (Alliance) and Keena at Hammerfall (Horde) sell the recipe and Hot Spices beside the raptors. Spider Sausage (any trainer from 200, 40s) is the alternative, but it takes two White Spider Meat a craft and Dustwallow's spiders drop one about two kills in five.
   learn 15855
   craft 15855 until 225
 
@@ -416,12 +416,12 @@ step Monster Omelet: shopping
 
 step Get Giant Egg
   zone The Hinterlands
-  tip You need 120 Giant Egg for Monster Omelet (225-300). It drops from Savage Owlbeast (54%) in The Hinterlands. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
-  collect 12207 x120 nearest gather levels 42-47
-  auction 12207 x120
+  tip You need 137 Giant Egg for Monster Omelet (225-300). It drops from Savage Owlbeast (54%) in The Hinterlands. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
+  collect 12207 x137 nearest gather levels 42-47
+  auction 12207 x137
 
 step Monster Omelet (225-300)
   zone The Hinterlands
-  tip Monster Omelet is orange from 225 (yellow at 265, green at 285, grey at 305): about 120 crafts to 300. Cook at any fire: a town hearth or your own Basic Campfire. Recipe: Monster Omelet costs 1g 20s at its vendor; the arrow picks the nearest one of your faction. Monster Omelet is orange to 265 and green from 285, yet it still carries you to 300. Fishers can finish on Nightfin Soup (Gikkix, Steamwheedle Port; yellow to 310) instead; Poached Sunscale Salmon needs an Iron Oven on Forever.
+  tip Monster Omelet is orange from 225 (yellow at 265, green at 285, grey at 305): about 120 crafts to 300, up to 137 for 9 players in 10 (the ingredients to farm count that many). Cook at any fire: a town hearth or your own Basic Campfire. Recipe: Monster Omelet costs 1g 20s at its vendor; the arrow picks the nearest one of your faction. The longest stretch of the guide: about 120 Monster Omelets (up to 137), a Giant Egg and two Soothing Spices each, and the last points green (orange to 265, green from 285); no recipe without fish or an Iron Oven does better. Fishers can finish on Nightfin Soup (Gikkix, Steamwheedle Port; yellow to 310) instead, though Nightfin Snapper bites only in waters that lose fish below 300; Poached Sunscale Salmon needs an Iron Oven on Forever.
   learn 15933
   craft 15933 until 300

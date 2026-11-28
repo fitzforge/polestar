@@ -3223,6 +3223,86 @@
 		},
 		"note": "Mor'zul Bloodbringer: starts with Spackle Thornberry (npc 5520), Martha Strain (npc 5753), Kurgul (npc 5815) and Jubahl Corpseseeker (npc 6382); as its giver the merged data also listed Greshka (npc 12807)."
 	},
+	"7652": {
+		"set": {
+			"skillLevel": 240
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-26; excluded contributors left out): a blacksmith of skill 243, level 60, build 1.60.1.70959, handed in A Blue Light Bargain and saw Derotain Mudsipper offer quests 7653-7659, handed in the belt, bracer, boots and leggings quests and learned Imperial Plate Belt (240) at once, not the bracers (245)"
+		},
+		"note": "A Blue Light Bargain (7652), Derotain Mudsipper's first Blacksmithing quest in Gadgetzan, asks Blacksmithing 240 on Forever, not the 265 the quest data and the world database keep from Classic. Forever moved the Imperial Plate plans 25 points down (the belt's from 265 to 240), and a recorded blacksmith of 243 handed this quest in and was offered all seven plan quests after it. 240 is the lowest skill his plans can be learned at; an in-game check settles whether he asks 240 or a few points more."
+	},
+	"7653": {
+		"set": {
+			"skillLevel": 240
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-26; excluded contributors left out): a blacksmith of skill 243, level 60, build 1.60.1.70959, handed in A Blue Light Bargain and saw Derotain Mudsipper offer quests 7653-7659, handed in the belt, bracer, boots and leggings quests and learned Imperial Plate Belt (240) at once, not the bracers (245)"
+		},
+		"note": "Imperial Plate Belt (7653) from Derotain Mudsipper in Gadgetzan asks Blacksmithing 240 on Forever, not Classic's 265: a recorded blacksmith of 243 was offered it after A Blue Light Bargain (7652). The crafting guide sends smiths to him at 240 for the belt plans and at 245 for the bracers plans."
+	},
+	"7654": {
+		"set": {
+			"skillLevel": 240
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-26; excluded contributors left out): a blacksmith of skill 243, level 60, build 1.60.1.70959, handed in A Blue Light Bargain and saw Derotain Mudsipper offer quests 7653-7659, handed in the belt, bracer, boots and leggings quests and learned Imperial Plate Belt (240) at once, not the bracers (245)"
+		},
+		"note": "Imperial Plate Boots (7654) from Derotain Mudsipper in Gadgetzan asks Blacksmithing 240 on Forever, not Classic's 265: a recorded blacksmith of 243 was offered it after A Blue Light Bargain (7652). The plans it gives are learned at 270."
+	},
+	"7655": {
+		"set": {
+			"skillLevel": 240
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-26; excluded contributors left out): a blacksmith of skill 243, level 60, build 1.60.1.70959, handed in A Blue Light Bargain and saw Derotain Mudsipper offer quests 7653-7659, handed in the belt, bracer, boots and leggings quests and learned Imperial Plate Belt (240) at once, not the bracers (245)"
+		},
+		"note": "Imperial Plate Bracer (7655) from Derotain Mudsipper in Gadgetzan asks Blacksmithing 240 on Forever, not Classic's 265: a recorded blacksmith of 243 was offered it after A Blue Light Bargain (7652). The plans it gives are learned at 245."
+	},
+	"7656": {
+		"set": {
+			"skillLevel": 240
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-26; excluded contributors left out): a blacksmith of skill 243, level 60, build 1.60.1.70959, handed in A Blue Light Bargain and saw Derotain Mudsipper offer quests 7653-7659"
+		},
+		"note": "Imperial Plate Chest (7656) from Derotain Mudsipper in Gadgetzan asks Blacksmithing 240 on Forever, not Classic's 265: a recorded blacksmith of 243 was offered it after A Blue Light Bargain (7652). The plans it gives are learned at 275."
+	},
+	"7657": {
+		"set": {
+			"skillLevel": 240
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-26; excluded contributors left out): a blacksmith of skill 243, level 60, build 1.60.1.70959, handed in A Blue Light Bargain and saw Derotain Mudsipper offer quests 7653-7659"
+		},
+		"note": "Imperial Plate Helm (7657) from Derotain Mudsipper in Gadgetzan asks Blacksmithing 240 on Forever, not Classic's 265: a recorded blacksmith of 243 was offered it after A Blue Light Bargain (7652). The plans it gives are learned at 270."
+	},
+	"7658": {
+		"set": {
+			"skillLevel": 240
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-26; excluded contributors left out): a blacksmith of skill 243, level 60, build 1.60.1.70959, handed in A Blue Light Bargain and saw Derotain Mudsipper offer quests 7653-7659, then handed this one in"
+		},
+		"note": "Imperial Plate Leggings (7658) from Derotain Mudsipper in Gadgetzan asks Blacksmithing 240 on Forever, not Classic's 265: a recorded blacksmith of 243 was offered it and handed it in. The plans it gives are learned at 280."
+	},
+	"7659": {
+		"set": {
+			"skillLevel": 240
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-26; excluded contributors left out): a blacksmith of skill 243, level 60, build 1.60.1.70959, handed in A Blue Light Bargain and saw Derotain Mudsipper offer quests 7653-7659"
+		},
+		"note": "Imperial Plate Shoulders (7659) from Derotain Mudsipper in Gadgetzan asks Blacksmithing 240 on Forever, not Classic's 265: a recorded blacksmith of 243 was offered it after A Blue Light Bargain (7652). The plans it gives are learned at 240."
+	},
 	"7790": {
 		"set": {
 			"objectives": []

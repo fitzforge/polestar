@@ -68,7 +68,9 @@ const CURATED: [Curated; 12] = [
 			&["Miao'zan", "Whuut", "Kray", "Carolai Anise", "Doctor Martin Felben"],
 		)),
 		expert: Some(s(&["Ainethil", "Kylanna Windwhisper"], &["Doctor Herbert Halsey", "Rogvar"])),
-		artisan: Some(s(&["Kylanna Windwhisper"], &["Rogvar"])),
+		// Master Mycologist Shurome (Felwood, Emerald Circle; Forever's, both sides): players' recordings show
+		// her training Artisan Alchemy (two players, the rank raised within two minutes of her trainer window).
+		artisan: Some(s(&["Kylanna Windwhisper", "Master Mycologist Shurome"], &["Rogvar", "Master Mycologist Shurome"])),
 		junior: None,
 		book: None,
 		quest: None,
@@ -141,7 +143,9 @@ const CURATED: [Curated; 12] = [
 		train: s(&["Georgio Bolero", "Sellandus", "Jormund Stonebrow", "Me'lynn", "Grarnik Goodstitch"], &["Magar", "Rhiannon Davis", "Mahani", "Josef Gregorian", "Tepa", "Grarnik Goodstitch"]),
 		// Not Josephine Lister (Undercity): she teaches Shadoweave patterns only, from 210 (#1498).
 		novice: Some(s(&["Eldrin", "Lawrence Schneider", "Uthrar Threx", "Trianna", "Grondal Moonbreeze"], &["Snang", "Victor Ward", "Bowen Brisboise", "Vhan"])),
-		expert: Some(s(&["Georgio Bolero", "Timothy Worthington"], &["Josef Gregorian", "Daryl Stack"])),
+		// Charles Worth (Alterac Mountains; Forever's, Alliance): players' recordings show him training Expert
+		// Tailoring (one player, the rank raised within two minutes of his trainer window).
+		expert: Some(s(&["Georgio Bolero", "Timothy Worthington", "Charles Worth"], &["Josef Gregorian", "Daryl Stack"])),
 		artisan: Some(s(&["Timothy Worthington"], &["Daryl Stack"])),
 		junior: None,
 		book: None,

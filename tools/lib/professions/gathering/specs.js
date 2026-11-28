@@ -210,6 +210,13 @@ const herbalism = {
 		if (names.has('Ghost Mushroom')) extra.push('Ghost Mushroom grows in caves and dark hollows: look inside as well.');
 		if (names.has('Purple Lotus')) extra.push('Purple Lotus sometimes gives a Wildvine as well.');
 		if (names.has('Gromsblood')) extra.push('Gromsblood grows near demon and satyr camps: pull carefully.');
+		// A loop without the herb that is orange at the band's start gives fewer points a lap; say which,
+		// so the lower-level zone is a choice (Loch Modan's loop at 125-150 has Bruiseweed, no Kingsblood).
+		const orange = nodes.filter((n) => n.color === 'orange' && !n.rare && !n.later).map((n) => n.name);
+		for (const herb of orange) {
+			const zones = [...new Set(e.loops.filter((l) => !l.farm.on.some((p) => p.name === herb)).map((l) => zoneName(ctx, l.zone)))];
+			if (zones.length && zones.length < e.loops.length) extra.push(`The ${zones.join(', ')} ${zones.length > 1 ? 'loops have' : 'loop has'} no ${herb}, so fewer points a lap: worth it only when the zone suits your level better.`);
+		}
 		return `Walk the loop and pick every ${list(nodes, (n) => n)} on the way until Herbalism ${e.to}.${extra.length ? ` ${extra.join(' ')}` : ''}${skillQuests(ctx, 182, e)}`;
 	},
 	header: [
@@ -236,6 +243,10 @@ const skinning = {
 	tool: { item: 7005, name: 'Skinning Knife', why: 'keep it in your bags, you cannot skin without it.' },
 	radius: 80,
 	minPoints: 4,
+	// The longest lap a round may have, in yards: past it the round never comes back to a beast that
+	// respawned (rounds of 2.4-12 km before: Zephras Isle's Horde round was 12,066 yards; the herb and ore
+	// rounds stay under 1,000).
+	maxLap: 2000,
 	// The world database respawns most skinnable beasts in 300 seconds (the median spawn).
 	respawn: 300,
 	// Yields per skinning by beast level (gathering-nodes.json `skins`).
