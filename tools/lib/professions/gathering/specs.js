@@ -241,6 +241,8 @@ const skinning = {
 	headerZone: 'Ironforge',
 	tool: { item: 7005, name: 'Skinning Knife', why: 'keep it in your bags, you cannot skin without it.' },
 	minPoints: 4,
+	// Offer a zone's best areas for the levels across a skill band, with every tier of each (build.js zoneAreas).
+	spanLevels: true,
 	// The world database respawns most skinnable beasts in 300 seconds (the median spawn).
 	respawn: 300,
 	// Yields per skinning by beast level (gathering-nodes.json `skins`).
@@ -254,10 +256,14 @@ const skinning = {
 	bands: [
 		{ from: 1, to: 50, scope: 'start' },
 		// Two bands: the character levels between them (beasts of level 15 open at 50, of 17 at 75).
-		{ from: 50, to: 75, scope: 'next' },
-		{ from: 75, to: 100, scope: 'next' },
-		{ from: 100, to: 125, scope: 'region' },
-		{ from: 125, to: 150, scope: 'region' },
+		// `add`: zones the band always offers for a side, the places a character of the band's levels skins besides
+		// the best ones of the planner (map ids: 1411 Durotar, 1412 Mulgore, 1413 The Barrens, 1420 Tirisfal Glades,
+		// 1421 Silverpine Forest, 1424 Hillsbrad Foothills, 1429 Elwynn Forest, 1431 Duskwood, 1432 Loch Modan, 1433
+		// Redridge Mountains, 1436 Westfall, 1437 Wetlands, 1438 Teldrassil, 1439 Darkshore, 1440 Ashenvale).
+		{ from: 50, to: 75, scope: 'next', add: { Horde: [1411, 1420, 1421], Alliance: [1429, 1438, 1439, 1436] } },
+		{ from: 75, to: 100, scope: 'next', add: { Horde: [1413, 1411, 1412, 1421], Alliance: [1432, 1439, 1436, 1433] } },
+		{ from: 100, to: 125, scope: 'region', add: { Horde: [1413, 1421, 1440], Alliance: [1432, 1439, 1433, 1431] } },
+		{ from: 125, to: 150, scope: 'region', add: { Horde: [1413, 1424, 1440], Alliance: [1437, 1424, 1440] } },
 		{ from: 150, to: 175, scope: 'faction' },
 		{ from: 175, to: 200, scope: 'faction' },
 		{ from: 200, to: 225, scope: 'faction' },

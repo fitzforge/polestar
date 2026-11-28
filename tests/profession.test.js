@@ -767,7 +767,7 @@ test('draft: each bracket gets its materials in Get it steps after the vendor go
 	prof.materials[4234] = { name: 'Medium Leather', sell: 25, quality: 1 };
 	const pts = (n, x) => Array.from({ length: n }, (_, i) => [x + (i % 5), 40 + Math.floor(i / 5)]);
 	// The Barrens is in the curated beast lists; its level 20 beasts yield Medium Leather (band 18-30).
-	data.npcs = { 5: { id: 5, name: 'Savannah Patriarch', level: 20, faction: null, spawns: { 1413: { f: 'e', pts: pts(20, 40) } } } };
+	data.npcs = { 3241: { id: 3241, name: 'Savannah Patriarch', level: 20, faction: null, spawns: { 1413: { f: 'e', pts: pts(20, 40) } } } };
 	data.zones = { 1413: { name: 'The Barrens', type: 3 } };
 	data.mapFrames = { era: { 1413: { c: 1 } } };
 	data.items = {};
@@ -793,10 +793,10 @@ test('skinned materials go to beasts of their level band, or to the mobs the dat
 	const data = {
 		// The Barrens (1413) and Elwynn Forest (1429) are in the curated beast lists.
 		npcs: {
-			1: npc(1, 'Savannah Huntress', 12, 1413, 10, 40),
-			2: npc(2, 'Savannah Patriarch', 15, 1413, 5, 60),
-			3: npc(3, 'Young Wolf', 1, 1429, 30, 40),
-			4: npc(4, 'Prowler', 9, 1429, 12, 60),
+			3415: npc(3415, 'Savannah Huntress', 12, 1413, 10, 40),
+			3241: npc(3241, 'Savannah Patriarch', 15, 1413, 5, 60),
+			299: npc(299, 'Young Wolf', 1, 1429, 30, 40),
+			118: npc(118, 'Prowler', 9, 1429, 12, 60),
 		},
 		zones: { 1413: { name: 'The Barrens', type: 3 }, 1429: { name: 'Elwynn Forest', type: 3 } },
 		mapFrames: { era: { 1413: { c: 1 }, 1429: { c: 0 } } },
@@ -810,6 +810,22 @@ test('skinned materials go to beasts of their level band, or to the mobs the dat
 	assert.deepEqual(skinSpot('Light Leather', 'Alliance', 0, data).beasts, ['Prowler']);
 	assert.equal(skinSpot('Rugged Leather', 'Alliance', 0, data), null);
 	assert.equal(skinSpot('Enchanted Leather', 'Alliance', 0, data), null);
+});
+
+test('leather spots skip a creature the world database cannot skin that shares a skinnable one\'s name (#4504, thanks willsarg)', () => {
+	const pts = (n, x) => Array.from({ length: n }, (_, i) => [x + (i % 5), 40 + Math.floor(i / 5)]);
+	const npc = (id, n, x) => ({ id, name: 'Savannah Patriarch', level: 15, faction: null, spawns: { 1413: { f: 'e', pts: pts(n, x) } } });
+	// 3241 is the skinnable Savannah Patriarch; 99999999 shares its name, is not in skinnable.json and has far more spawns.
+	const data = {
+		npcs: { 3241: npc(3241, 5, 10), 99999999: npc(99999999, 40, 80) },
+		zones: { 1413: { name: 'The Barrens', type: 3 } },
+		mapFrames: { era: { 1413: { c: 1 } } },
+		items: {},
+	};
+	const spot = skinSpot('Light Leather', 'Horde', 1, data);
+	assert.equal(spot.map, 1413);
+	assert.ok(spot.x < 30, `the spot is among the skinnable spawns, not the other creature's (x ${spot.x})`);
+	assert.equal(skinSpot('Light Leather', 'Horde', 1, { ...data, npcs: { 99999999: npc(99999999, 40, 80) } }), null);
 });
 
 test('farm spots need real sources (2% or more), including clickable clams; rare drops from common mobs are no spot', () => {

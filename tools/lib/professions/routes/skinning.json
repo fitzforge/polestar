@@ -31,15 +31,6 @@
 							"Elwynn Forest"
 						]
 					},
-					"mobs": {
-						"Durotar": [
-							"Mottled Boar"
-						],
-						"Elwynn Forest": [
-							"Young Wolf",
-							"Timber Wolf"
-						]
-					},
 					"tip": "Loot each beast, then skin it. Starting-area beasts give points all the way to 75."
 				},
 				{ "train": "Journeyman",
@@ -52,15 +43,6 @@
 						],
 						"Alliance": [
 							"Elwynn Forest"
-						]
-					},
-					"mobs": {
-						"Durotar": [
-							"Mottled Boar"
-						],
-						"Elwynn Forest": [
-							"Young Wolf",
-							"Timber Wolf"
 						]
 					}
 				}
@@ -79,18 +61,6 @@
 							"Loch Modan"
 						]
 					},
-					"mobs": {
-						"The Barrens": [
-							"Sunscale Scytheclaw",
-							"Zhevra Charger",
-							"Ornery Plainstrider"
-						],
-						"Loch Modan": [
-							"Elder Mountain Boar",
-							"Black Bear Patriarch",
-							"Loch Crocolisk"
-						]
-					},
 					"tip": "Higher-level beasts become skinnable as the skill rises."
 				},
 				{ "gather": 125,
@@ -100,18 +70,6 @@
 						],
 						"Alliance": [
 							"Loch Modan"
-						]
-					},
-					"mobs": {
-						"The Barrens": [
-							"Sunscale Scytheclaw",
-							"Zhevra Charger",
-							"Ornery Plainstrider"
-						],
-						"Loch Modan": [
-							"Elder Mountain Boar",
-							"Black Bear Patriarch",
-							"Loch Crocolisk"
 						]
 					}
 				},
@@ -125,17 +83,6 @@
 						],
 						"Alliance": [
 							"Wetlands"
-						]
-					},
-					"mobs": {
-						"The Barrens": [
-							"Sunscale Scytheclaw",
-							"Zhevra Charger",
-							"Ornery Plainstrider"
-						],
-						"Wetlands": [
-							"Mottled Scytheclaw",
-							"Mottled Razormaw"
 						]
 					},
 					"tip": "They come back fast."
@@ -157,19 +104,6 @@
 							"Duskwood"
 						]
 					},
-					"mobs": {
-						"Hillsbrad Foothills": [
-							"Vicious Gray Bear",
-							"Starving Mountain Lion",
-							"Cave Yeti",
-							"Ferocious Yeti"
-						],
-						"Duskwood": [
-							"Nightbane Worgen",
-							"Nightbane Shadow Weaver",
-							"Nightbane Dark Runner"
-						]
-					},
 					"tip": "The cave yetis come back fast."
 				},
 				{ "gather": 200,
@@ -181,17 +115,6 @@
 						"Alliance": [
 							"Hillsbrad Foothills",
 							"Duskwood"
-						]
-					},
-					"mobs": {
-						"Hillsbrad Foothills": [
-							"Cave Yeti",
-							"Ferocious Yeti"
-						],
-						"Duskwood": [
-							"Nightbane Worgen",
-							"Nightbane Shadow Weaver",
-							"Nightbane Dark Runner"
 						]
 					}
 				},
@@ -207,17 +130,6 @@
 						"Alliance": [
 							"Hillsbrad Foothills",
 							"Duskwood"
-						]
-					},
-					"mobs": {
-						"Hillsbrad Foothills": [
-							"Cave Yeti",
-							"Ferocious Yeti"
-						],
-						"Duskwood": [
-							"Nightbane Worgen",
-							"Nightbane Shadow Weaver",
-							"Nightbane Dark Runner"
 						]
 					}
 				}
@@ -236,13 +148,6 @@
 							"Feralas"
 						]
 					},
-					"mobs": {
-						"Feralas": [
-							"Feral Scar Yeti",
-							"Enraged Feral Scar",
-							"Hulking Feral Scar"
-						]
-					},
 					"tip": "The cave yetis come back fast."
 				},
 				{ "gather": 275,
@@ -252,13 +157,6 @@
 						],
 						"Alliance": [
 							"Feralas"
-						]
-					},
-					"mobs": {
-						"Feralas": [
-							"Feral Scar Yeti",
-							"Enraged Feral Scar",
-							"Hulking Feral Scar"
 						]
 					}
 				}
@@ -275,14 +173,6 @@
 						],
 						"Alliance": [
 							"Un'Goro Crater"
-						]
-					},
-					"mobs": {
-						"Un'Goro Crater": [
-							"Diemetradon",
-							"Pterrordax",
-							"Elder Diemetradon",
-							"Frenzied Pterrordax"
 						]
 					}
 				}

@@ -41,7 +41,7 @@ const { homeMap } = require('./materials');
 const { ZONES } = require('./gathering/tables');
 const WATERS = require('./gathering/fishing-waters.json');
 const { byBanners } = require('./sections');
-const { BEASTS } = require('./gathering/skinning');
+const { BEASTS, skinnable } = require('./gathering/skinning');
 const { RACE_GROUPS, TWO_SIDED, raceCondition, maxZoneLevel } = require('./gathering/groups');
 const { header } = require('../generated');
 const D = require('./describe');
@@ -392,8 +392,12 @@ function skinSpot(itemName, side, home, data, opts = {}) {
 	const tier = HIDE_TIERS.find((t) => t.re.test(itemName));
 	if (!tier) return null;
 	const frames = (data.mapFrames && data.mapFrames.era) || {};
+	// Only creatures the world database lets a player skin (skinnable.json): another creature may share a skinnable
+	// one's name (#4504).
+	const can = skinnable();
 	const byName = new Map();
 	for (const n of Object.values(data.npcs || {})) {
+		if (!can.has(Number(n.id))) continue;
 		if (!byName.has(n.name)) byName.set(n.name, []);
 		byName.get(n.name).push(n);
 	}
