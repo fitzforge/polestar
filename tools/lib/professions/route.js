@@ -437,8 +437,8 @@ function routeGuide(name, data, opts = {}) {
 		learned.add(r.spell);
 		if (r.recipeItem && !taught(r)) {
 			recipeBuy(r);
-			// A recipe vendors sell: until it is in the bags the learn leads to the nearest seller (#3823).
-			const lines = [`  learn ${r.spell}${(route.recipes || {})[r.recipeItem] ? ' nearest' : ''}`];
+			// Until the recipe is in the bags, the engine leads this learn to a seller of it (#3823).
+			const lines = [`  learn ${r.spell}`];
 			taughtAt.set(r.spell, { sec: sectionNo(), skill: band.make ? skill : band.from, lines });
 			step('learn', `Learn ${r.name}`, { tip: `From the ${itemKind(r.recipeItem)} in your bags.`, lines });
 			return;
