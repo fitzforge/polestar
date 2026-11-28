@@ -29,6 +29,7 @@ step Kobolds on the way
   kill 6 x10 quest 7.1
 
 step Kobold camp
+  keep safety a stop of its own in this test (a step of places only is a via since #4467)
   goto 47.6,35.1 "Kobold camp"
   note Stay on the road past the old watchtower, then follow the stream north to where the kobolds dig for candles.
   note Pull one at a time.
@@ -292,7 +293,7 @@ fn a_compact_window_s_step_browser_grows_to_the_height_cap_at_every_ui_scale() {
 	let mut guide = GUIDE.split("step Deputy Willem").next().unwrap().to_owned();
 	guide.push_str("step Deputy Willem\n  accept 783\n\nstep Marshal McBride\n  turnin 783\n  accept 7\n");
 	for i in 1..=40 {
-		guide.push_str(&format!("\nstep Place {i}\n  goto 47.6,35.1 \"Destination {i}\"\n"));
+		guide.push_str(&format!("\nstep Place {i}\n  keep safety a stop of its own in this test\n  goto 47.6,35.1 \"Destination {i}\"\n"));
 	}
 	let out = run_guide(
 		compile_guide(&guide),
@@ -582,6 +583,7 @@ step Deputy Willem
 step For Mages only
   only Mage
   when level>=50
+  keep safety a stop of its own in this test (a step of places only is a via since #4467)
   goto 47.0,40.0 "Mage trainer"
 
 step Marshal McBride again
@@ -590,6 +592,7 @@ step Marshal McBride again
 
 step Not yet
   when level>=50
+  keep safety a stop of its own in this test
   goto 48.0,42.0 "Northshire Abbey"
 
 step Kobold camp
@@ -597,6 +600,7 @@ step Kobold camp
 
 step Late catch-up
   when !turnedin 783
+  keep safety a stop of its own in this test
   goto 48.0,42.0 "Northshire Abbey"
 
 step Back to the abbey
@@ -604,6 +608,7 @@ step Back to the abbey
 
 step Last catch-up
   when !turnedin 783
+  keep safety a stop of its own in this test
   goto 48.0,42.0 "Northshire Abbey"
 "#;
 
@@ -796,10 +801,12 @@ step Deputy Willem
 
 step Under ten
   when level<10
+  keep safety a stop of its own in this test (a step of places only is a via since #4467)
   goto 48.0,42.0 "Northshire Abbey"
 
 step Ten and up
   when level>=10
+  keep safety a stop of its own in this test
   goto 47.0,40.0 "Northshire Vineyards"
 
 step Marshal McBride
@@ -845,30 +852,37 @@ step Deputy Willem
 
 step At 50
   when level>=50
+  keep safety a stop of its own in this test (a step of places only is a via since #4467)
   goto 48.0,42.0 "Northshire Abbey"
 
 step At 51
   when level>=51
+  keep safety a stop of its own in this test
   goto 48.0,42.0 "Northshire Abbey"
 
 step At 52
   when level>=52
+  keep safety a stop of its own in this test
   goto 48.0,42.0 "Northshire Abbey"
 
 step At 53
   when level>=53
+  keep safety a stop of its own in this test
   goto 48.0,42.0 "Northshire Abbey"
 
 step At 54
   when level>=54
+  keep safety a stop of its own in this test
   goto 48.0,42.0 "Northshire Abbey"
 
 step At 55
   when level>=55
+  keep safety a stop of its own in this test
   goto 48.0,42.0 "Northshire Abbey"
 
 step At 56
   when level>=56
+  keep safety a stop of its own in this test
   goto 48.0,42.0 "Northshire Abbey"
 
 step Marshal McBride

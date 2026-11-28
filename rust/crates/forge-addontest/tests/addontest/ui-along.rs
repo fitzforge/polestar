@@ -28,6 +28,7 @@ step Kobolds on the way
   kill 6 x10 quest 7.1
 
 step Kobold camp
+  keep safety a stop of its own in this test (a step of places only is a via since #4467)
   goto 47.6,35.1 "Kobold camp"
 
 step Back to the abbey
@@ -214,7 +215,7 @@ end
 local guide, me = E.GetGuide(), Polestar.Compat.GetPlayerInfo()
 local druid, along, visible = {{}}, {{}}, 0
 for s, step in ipairs(guide.steps) do
-	local mine = not step.along and G.Matches(step.only, me)
+	local mine = not step.along and not step.via and G.Matches(step.only, me) -- a via step (#4467) is no step of hers either
 	if mine and #step.goals > 0 then
 		mine = false
 		for _, goal in ipairs(step.goals) do if G.Matches(goal.only, me) and goal.t ~= "hearth" then mine = true end end -- a hearth-only step is not hers either
