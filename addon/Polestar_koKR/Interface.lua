@@ -608,6 +608,7 @@
 -- Machine-translated, to be reviewed (the profession and reputation guides' window, 26 Nov 2026): translated by an
 -- AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
 -- keep or fix its line below, and take its key off this list.
+--   Smelt
 --   %d made
 --   %d ready
 --   %s a turn-in
@@ -750,6 +751,7 @@ L["Learn"] = "배우기"
 L["until %s %d"] = "%s %d까지"
 L["until skill %d"] = "숙련도 %d까지"
 L["Craft"] = "제작"
+L["Smelt"] = "제련"
 L["Reach %s with"] = "%s 평판 달성:"
 L["Explore"] = "탐험"
 L["elite"] = "정예"

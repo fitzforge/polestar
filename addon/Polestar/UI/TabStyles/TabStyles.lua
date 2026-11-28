@@ -116,12 +116,15 @@ ns.UI.GuideFrame.Part(function(GF)
 		b:RegisterForClicks("LeftButtonUp", "RightButtonUp", "MiddleButtonUp")
 		if kind == "tab" then
 			b:SetScript("OnClick", GF.TabClick)
+			-- A resting tab's glyph lights a step on hover; a guide's own art comes up to its full colours.
 			b:SetScript("OnEnter", function(self)
-				if not self.psActive then W.Color(self.Icon, "textDim") end
+				if not self.psActive then
+					if self.psArt then self.Icon:SetVertexColor(1, 1, 1, 1) else W.Color(self.Icon, "textDim") end
+				end
 				GF.TabTip(self, style == "edge" and "ANCHOR_TOP" or "ANCHOR_LEFT")
 			end)
 			b:SetScript("OnLeave", function(self)
-				if not self.psActive then W.Color(self.Icon, "textMuted") end
+				if not self.psActive then GF.PaintTabIcon(self.Icon, self, false) end
 				W.HideTooltip(self)
 			end)
 			-- Its parts for a skin's hooks.guideTab, with the style they are drawn in.
@@ -274,14 +277,13 @@ ns.UI.GuideFrame.Part(function(GF)
 		b.Selected:SetShown(active and not painted)
 		b.Ground:SetShown(not active and not painted)
 		b.Bar:SetShown(active)
-		W.Color(b.Icon, active and "accent" or "textMuted")
+		GF.PaintTabIcon(b.Icon, b, active)
 		Theme.SkinHook("guideTab", b, b.psParts, active)
 	end
 
 	local function fillTab(b, i, t, active)
 		b.psIndex = i
 		GF.TabFacts(b, t)
-		b.Icon:SetTexture(Theme.Media(b.psIcon))
 		paintIconTab(b, i == active)
 	end
 
@@ -555,7 +557,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			back = textX
 		else
 			b:SetPoint("LEFT", rel or nav, relPoint or "LEFT", ox - 7, 0)
-			b.Icon:SetTexture(Theme.Media(b.psIcon))
+			GF.PaintTabIcon(b.Icon, b, true)
 			b.Icon:ClearAllPoints()
 			b.Icon:SetPoint("LEFT", b, "LEFT", 7, 0)
 			b.Icon:Show()

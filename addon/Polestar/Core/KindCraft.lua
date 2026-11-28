@@ -284,9 +284,26 @@ M.meter = function(view, kind)
 	return nil
 end
 
+-- A step whose one open goal is its skill ("Mine Chunk of Amber and Copper until 65"): that goal's own row, "Raise
+-- Mining to 65  1/65" with the profession's icon (GF.GoalIcon), as a step with gathering areas draws it in its
+-- "areas" region, which keeps it there. Without it the meter covers the goal and the step shows nothing to do.
+-- -> { skill = the goal's view, goalIndex, step, covers } | nil
+local function skillRow(view)
+	local gi
+	for i, gv in ipairs(view.goals or {}) do
+		if gv.status == "active" or gv.status == "pending" then
+			if gv.t ~= "skill" or gi then return nil end
+			gi = i
+		end
+	end
+	if not gi or (M.areas and M.areas(view, "profession")) then return nil end
+	return { skill = view.goals[gi], goalIndex = gi, step = view.index, covers = { gi } }
+end
+
 -- The craft step's row: its `craft … until` goal ("Craft Woolen Cape until 100"), the recipe's colour now, about how
 -- many crafts the skill still takes and the casts counted. Shown on the step that holds the goal, standing for it
--- and for what is done of the step; the step's other crafts (the bolts first) stay its own rows.
+-- and for what is done of the step; the step's other crafts (the bolts first) stay its own rows. A skill-only step's
+-- skill row (skillRow) takes its place.
 M.stretch = function(view, kind)
 	if kind ~= "profession" then return nil end
 	local b, rank = skill()
@@ -294,7 +311,7 @@ M.stretch = function(view, kind)
 	local learned = rank ~= nil
 	rank = rank or 0
 	local st = KC.Stretch(view and view.index, rank)
-	if not (st and view and st.s == view.index) then return nil end
+	if not (st and view and st.s == view.index) then return view and skillRow(view) or nil end
 	local a = access()
 	local G = a.guide()
 	local goal = st.goal

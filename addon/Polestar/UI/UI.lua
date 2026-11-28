@@ -140,6 +140,54 @@ function UI.GuideLevels(g)
 	return UI.LevelRange(ns.Guides.Levels(g))
 end
 
+-- A guide's level range as its list row and tab show it after the title ("(1-10)"), or nil. A profession guide shows
+-- none: its title carries the skill range ("Mining 1-300"), and the character's levels after it read as a second
+-- skill range; its details keep "Levels 5-60".
+function UI.GuideRange(g)
+	if UI.Category(g) == "Professions" then return nil end
+	return UI.GuideLevels(g)
+end
+
+-- A profession's own icon, the client's art (its Apprentice spell's: Mining's pickaxe, Alchemy's flask), by its
+-- skill line, or nil. Lockpicking's is Pick Lock's.
+UI.PROFESSION_SPELL = {
+	[171] = 2259, [164] = 2018, [333] = 7411, [202] = 4036, [165] = 2108, [197] = 3908, [185] = 2550, [129] = 3273,
+	[186] = 2575, [182] = 2366, [393] = 8613, [356] = 7620, [633] = 1804,
+}
+function UI.ProfessionIcon(line)
+	local spell = UI.PROFESSION_SPELL[line]
+	local C = ns.Compat
+	return spell and C.SpellIcon and C.SpellIcon(spell) or nil
+end
+
+-- A guide's own art in the guide lists and on its tab, or nil (its category's glyph): a profession guide's profession
+-- (its first section's skill line), else the item it is about (`collects`: Camping's Basic Campfire Kit).
+function UI.GuideArt(g)
+	if type(g) ~= "table" or UI.Category(g) ~= "Professions" then return nil end
+	local sec = type(g.sections) == "table" and g.sections[1]
+	local icon = type(sec) == "table" and UI.ProfessionIcon(sec.skillLine)
+	if icon then return icon end
+	local item = type(g.collects) == "table" and g.collects[1]
+	local C = ns.Compat
+	return type(item) == "number" and C.ItemIcon and C.ItemIcon(item) or nil
+end
+
+-- Texture t wears `art` (the client's, in its own colours, the rim cropped) or else glyph `glyph` (a Media/UI name) in
+-- the colour token `token`.
+function UI.SetArtOrGlyph(t, art, glyph, token)
+	local W = ns.Widgets
+	if art then
+		W.Uncolor(t)
+		t:SetTexture(art)
+		t:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+		t:SetVertexColor(1, 1, 1, 1)
+	else
+		t:SetTexture(Theme.Media(glyph))
+		t:SetTexCoord(0, 1, 0, 1)
+		W.Color(t, token)
+	end
+end
+
 -- Player-facing race names for the client's race files: the client's own
 -- name (ChrRaces, through C_CreatureInfo.GetRaceInfo) for the Era races, by
 -- their ChrRaces ID (the file alone is ambiguous: 23, Gilnean, is "Human" too).

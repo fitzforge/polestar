@@ -400,14 +400,16 @@ local function paintResult(r, res, note, width, on)
 	r.psResult = res
 	r.Selected:SetShown(on and true or false)
 	r.Bar:SetShown(on and true or false)
-	local icon = KIND[res.kind] and KIND[res.kind].item and itemIcon(res.id)
+	-- A guide wears its own art (a profession's icon: UI.GuideArt), else its category's glyph (UI.CategoryIcon).
+	local guide = res.kind == "guide" and ns.Guides and ns.Guides.Get and ns.Guides.Get(res.id) or nil
+	local icon = (KIND[res.kind] and KIND[res.kind].item and itemIcon(res.id)) or (guide and UI.GuideArt(guide))
 	if icon then
 		W.Uncolor(r.Icon)
 		r.Icon:SetTexture(icon)
 		r.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
 		r.Icon:SetVertexColor(1, 1, 1, 1)
 	else
-		setGlyph(r.Icon, KIND[res.kind] and KIND[res.kind].icon or "search", on and "accent" or "textDim")
+		setGlyph(r.Icon, guide and UI.CategoryIcon(guide, true) or (KIND[res.kind] and KIND[res.kind].icon) or "search", on and "accent" or "textDim")
 	end
 	r.Title:SetText(localTitle(res.kind, res.id, res.title or tostring(res.id)) .. questMark(res))
 	paintName(r.Title, res.kind, res.quality)
@@ -964,7 +966,7 @@ local function renderDetails(loaded, reason)
 	-- A dungeon with no zone known: its loading screen (Dungeons.Art).
 	local pic = not d.psArt and s.kind == "instance" and ns.Dungeons and ns.Dungeons.Art and ns.Dungeons.Art(s.id)
 	if pic then d.psArt = ZoneArt.Picture(d.Art, pic) end
-	local icon = KIND[s.kind] and KIND[s.kind].item and itemIcon(s.id)
+	local icon = (KIND[s.kind] and KIND[s.kind].item and itemIcon(s.id)) or (g and UI.GuideArt(g))
 	d.Icon:ClearAllPoints()
 	if icon then
 		W.Uncolor(d.Icon)
@@ -974,7 +976,7 @@ local function renderDetails(loaded, reason)
 		d.Icon:SetPoint("TOPLEFT", d.Well, "TOPLEFT", 1, -1)
 		d.Icon:SetPoint("BOTTOMRIGHT", d.Well, "BOTTOMRIGHT", -1, 1)
 	else
-		setGlyph(d.Icon, KIND[s.kind] and KIND[s.kind].icon or "search", "text")
+		setGlyph(d.Icon, g and UI.CategoryIcon(g, true) or (KIND[s.kind] and KIND[s.kind].icon) or "search", "text")
 		d.Icon:SetSize(18, 18)
 		d.Icon:SetPoint("CENTER", d.Well, "CENTER", 0, 0)
 	end

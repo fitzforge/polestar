@@ -560,24 +560,52 @@ GF.Part(function(GF)
 		return nil
 	end
 
-	-- The icon a goal row wears in place of its verb's glyph (the game's own art), or nil for the glyph: the art a
-	-- region gives its row (`art`: a gathering way's profession icon); a craft's or learn step's recipe item, or, with
-	-- none, its recipe's spell; a profession guide's materials (collect, buy, the Auction House) their item. The glyph
-	-- stays only where the client gives nothing.
+	-- A profession guide's stations, by the label its `goto` steps write (in the guide's language too), wear the game's
+	-- own art: the anvil the minimap marks a repairer with, Smelting's flame for a forge, Basic Campfire's fire for a
+	-- cooking fire. -> the art, or nil (the pin stays: a named place).
+	GF.STATION_ART = { { "Anvil", "Interface\\Minimap\\Tracking\\Repair" }, { "Forge", nil, 2656 }, { "Cooking Fire", nil, 818 } }
+	function GF.StationArt(goal)
+		local name = goal and goal.subject
+		if type(name) ~= "string" then return nil end
+		local E, GT, C = Engine(), ns.GuideTexts, ns.Compat
+		local guide = E and E.GetGuide and E.GetGuide()
+		local pack = guide and guide.pack
+		for _, s in ipairs(GF.STATION_ART) do
+			if name == s[1] or (pack and GT and GT.PackText and GT.PackText(pack, s[1]) == name) then
+				return s[2] or (C.SpellIcon and C.SpellIcon(s[3])) or nil
+			end
+		end
+		return nil
+	end
+
+	-- The icon a goal row wears in place of its verb's glyph (the game's own art), or nil for the glyph: a craft's or
+	-- learn step's recipe item, or, with none, its recipe's spell; in a profession guide also its materials (collect,
+	-- buy, the Auction House), the item a use or equip step uses, the spell a cast or buff step casts, the profession's
+	-- own icon on a learn-the-profession and a skill step (a gathering skill's as its way wears it, KC.GatherIcon) and a
+	-- station's art. The glyph stays only where the client gives nothing.
 	function GF.GoalIcon(goal)
 		local C = ns.Compat
 		if not goal then return nil end
+		-- The art a region gives its row (`art`), when it picks its own.
 		if goal.art then return goal.art end
 		local recipe = GF.RecipeSpell(goal)
 		if recipe then
 			local item = GF.RecipeItem(goal)
 			return (item and C.ItemIcon and C.ItemIcon(item)) or (C.SpellIcon and C.SpellIcon(recipe)) or nil
 		end
-		local item = type(goal.item) == "number" and goal.item or nil
-		if item and (goal.t == "collect" or goal.t == "buy" or goal.t == "auction") then
-			local E = Engine()
-			return E and E.GuideKind and E.GuideKind() == "profession" and C.ItemIcon and C.ItemIcon(item) or nil
+		local E = Engine()
+		if not (E and E.GuideKind and E.GuideKind() == "profession") then return nil end
+		local t, item = goal.t, type(goal.item) == "number" and goal.item or nil
+		if item and (t == "collect" or t == "buy" or t == "auction" or t == "use" or t == "equip") then
+			return C.ItemIcon and C.ItemIcon(item) or nil
 		end
+		if (t == "cast" or t == "buff") and type(goal.spell) == "number" then return C.SpellIcon and C.SpellIcon(goal.spell) or nil end
+		if t == "train" or t == "skill" then
+			local KC = ns.KindCraft
+			local gather = t == "skill" and KC and KC.GatherIcon and KC.LineVerb and KC.GatherIcon(KC.LineVerb(goal.skillLine))
+			return gather or UI.ProfessionIcon(goal.skillLine)
+		end
+		if t == "goto" then return GF.StationArt(goal) end
 		return nil
 	end
 
@@ -613,6 +641,10 @@ GF.Part(function(GF)
 		local itemTip = tipItem and W.ItemTip and W.TooltipLines
 		-- A recipe with no item of its own: the recipe's tooltip.
 		local recipe = not itemTip and W.RecipeTip and W.TooltipLines and GF.RecipeSpell(goal) or nil
+		-- A profession guide's cast or buff (Find Minerals, Camp Benefits): the game's tooltip of its spell.
+		local Eng = Engine()
+		local spellTip = not (itemTip or recipe) and (goal.t == "cast" or goal.t == "buff") and type(goal.spell) == "number"
+			and W.SpellTip and W.TooltipLines and Eng and Eng.GuideKind and Eng.GuideKind() == "profession" and goal.spell or nil
 		if goal.item and not itemTip then
 			lines[#lines + 1] = { left = L["Item"], right = "#" .. goal.item }
 		end
@@ -648,7 +680,8 @@ GF.Part(function(GF)
 			local text = UI.GoalProgress(goal)
 			if text then lines[#lines + 1] = { left = L["Progress"], right = text } end
 		end
-		if goal.spell and not recipe then lines[#lines + 1] = { left = L["Spell"], right = "#" .. goal.spell } end
+		-- Its id only where nothing shows the spell itself (the item's or recipe's tooltip of a recipe row, the spell's).
+		if goal.spell and not (recipe or spellTip or GF.RecipeSpell(goal)) then lines[#lines + 1] = { left = L["Spell"], right = "#" .. goal.spell } end
 		if goal.achievement then
 			lines[#lines + 1] = { left = L["Achievement"], right = "#" .. goal.achievement .. (goal.criteria and ("  \194\183  " .. L["criterion"] .. " " .. goal.criteria) or "") }
 		end
@@ -688,6 +721,14 @@ GF.Part(function(GF)
 		end
 		if recipe then
 			W.RecipeTip(row, recipe, function(tip)
+				tip:AddLine(" ")
+				tip:AddLine(goal.text or "", 1, 1, 1, true)
+				W.TooltipLines(tip, lines)
+			end, tooltipAnchor())
+			return
+		end
+		if spellTip then
+			W.SpellTip(row, spellTip, function(tip)
 				tip:AddLine(" ")
 				tip:AddLine(goal.text or "", 1, 1, 1, true)
 				W.TooltipLines(tip, lines)
@@ -2516,6 +2557,12 @@ GF.Part(function(GF)
 			local v = E.GetStepView(s, true)
 			-- An along step never holds the route: "Then:" names the next step that does.
 			if v and v.status ~= "na" and not v.along and not UI.StepHidden(s, E) then
+				-- A profession guide's next step is named by what it does ("Next step: Learn Smelt Tin"), its title
+				-- before the " · " where-part: its trainer's or vendor's name alone says nothing to a first-timer.
+				local title = v.title
+				if type(title) == "string" and title ~= "" and E.GuideKind and E.GuideKind() == "profession" then
+					return title:match("^(.-) \194\183 ") or title, "here", true
+				end
 				local gs, f = UI.StepGroups(v)
 				local g = gs[f or 1] or gs[1]
 				if g then return UI.GroupName(v, g), g.kind, true end
@@ -3236,8 +3283,9 @@ GF.Part(function(GF)
 			-- Read afresh once the line is back on.
 			model.offRoute = nil
 		end
-		-- With the regions standing for every goal, the step's header goes too.
-		if n == 0 and GF.RegionsActive() then person:Hide() end
+		-- With the regions standing for every goal, the step's header goes too; a step none of whose goals a region
+		-- stands for keeps it (every goal left out for this character: its title, never an empty card).
+		if n == 0 and GF.RegionsActive() and GF.RegionsCoverAny() then person:Hide() end
 		for gi, goal in ipairs(view.goals) do model.last[gi] = goal.status end
 		for i = n + 1, #rows do
 			local r = rows[i]

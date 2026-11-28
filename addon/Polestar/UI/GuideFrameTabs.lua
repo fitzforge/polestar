@@ -175,7 +175,8 @@ ns.UI.GuideFrame.Part(function(GF)
 	end
 
 	-- A tab's facts on its button `b`, from the tab `t` (Engine.GetTabs):
-	-- psTitle, psMeta, psExperimental, psRange ("(1-10)" or nil) and psIcon (a media name).
+	-- psTitle, psMeta, psExperimental, psRange ("(1-10)" or nil), psIcon (a media name) and psArt (the guide's own
+	-- art, a profession's icon: UI.GuideArt, or nil).
 	function GF.TabFacts(b, t)
 		b.psTitle = t.title or t.guideId
 		-- The tab's guide as the registry knows it, else as the tab gives it
@@ -184,9 +185,21 @@ ns.UI.GuideFrame.Part(function(GF)
 		local guide = G and G.Get and G.Get(t.guideId) or (t.minLevel and t) or nil
 		b.psMeta = guide and UI.GuideMeta(guide) or nil
 		b.psExperimental = G and G.IsExperimental and G.IsExperimental(guide) or nil
-		local lv = guide and UI.GuideLevels(guide)
+		local lv = guide and UI.GuideRange(guide)
 		b.psRange = lv and ("(" .. lv .. ")") or nil
 		b.psIcon = tabIcon(t, guide)
+		b.psArt = UI.GuideArt(guide)
+	end
+
+	-- A tab's icon (texture t of tab b): its guide's own art in its colours, a resting tab's faded a little; else its
+	-- category's glyph, in the accent on the active tab.
+	function GF.PaintTabIcon(t, b, active)
+		if b.psArt then
+			UI.SetArtOrGlyph(t, b.psArt)
+			t:SetVertexColor(1, 1, 1, active and 1 or 0.6)
+		else
+			UI.SetArtOrGlyph(t, nil, b.psIcon, active and "accent" or "textMuted")
+		end
 	end
 
 	-- The underline style's strip (guideWindow.tabStyle "underline"); the
@@ -224,10 +237,9 @@ ns.UI.GuideFrame.Part(function(GF)
 			b.psTitleW = floor(b.Label:GetStringWidth() + 1)
 			b:SetHeight(tabH)
 			b.Range:SetText(b.psRange or "")
-			b.Icon:SetTexture(Theme.Media(b.psIcon))
 			W.Color(b.Label, b.psActive and "text" or "textMuted")
 			W.Color(b.Range, b.psActive and "textDim" or "textMuted")
-			W.Color(b.Icon, b.psActive and "accent" or "textMuted")
+			GF.PaintTabIcon(b.Icon, b, b.psActive)
 			b.Selected:SetShown(b.psActive and not GF.Transparent())
 			b.Bar:SetShown(b.psActive)
 			GF.PaintTab(b)
@@ -267,7 +279,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		local items, G = {}, ns.Guides
 		for i, t in ipairs(tabs or {}) do
 			local guide = G and G.Get and G.Get(t.guideId) or (t.minLevel and t) or nil
-			local lv = guide and UI.GuideLevels(guide)
+			local lv = guide and UI.GuideRange(guide)
 			local text = (t.title or t.guideId) .. (lv and ("  |c" .. Theme.Hex("textMuted") .. "(" .. lv .. ")|r") or "")
 			items[#items + 1] = { text = text, icon = tabIcon(t, guide), checked = i == active,
 				onClick = function() if E.SelectTab and i ~= active then E.SelectTab(i) end end }

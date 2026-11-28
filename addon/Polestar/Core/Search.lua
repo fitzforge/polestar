@@ -262,7 +262,10 @@ local function guideList()
 			if type(h.zoneName) == "string" then where[#where + 1] = fold(h.zoneName) end
 			if type(zone) == "string" and zone ~= h.zoneName then where[#where + 1] = fold(zone) end
 			if type(h.category) == "string" then where[#where + 1] = fold(h.category) end
-			local sublabel = zone or h.category
+			-- The subtitle's place: the zone where it is a real place (UI.GuidePlace's rule: a leveling guide's, or a
+			-- guide of one faction's), else the category ("Professions · 1-60", never the authoring zone "Azeroth").
+			local cat = type(h.category) == "string" and h.category ~= "" and h.category or "Leveling"
+			local sublabel = (cat == "Leveling" or h.faction) and zone or L[cat]
 			local lo, hi = G.Levels(h)
 			if lo and hi then
 				sublabel = (sublabel and (sublabel .. " \194\183 ") or "") .. lo .. "-" .. hi
